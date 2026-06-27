@@ -32,6 +32,7 @@ Current files:
 | `source-reread-v0.2.md` | source-line map for CCM24, CCM25, and CC20 inputs |
 | `lean-source-interface-map.md` | Lean source-interface obligations and route bridges |
 | `source-interface-discharge-audit.md` | attack plan for removing the source-conditional boundary by discharging CCM24, CCM25, and CC20 contracts |
+| `source-interface-discharge-completion-audit.md` | completion audit for the mathematics-first source-interface proof-package coverage |
 | `lean-segment-build.md` | segmented Lean build and axiom-audit history |
 | `core-defect-gap-ledger.md` | public ledger for the three hard positive-trace-to-Weil steps |
 | `three-battle-workplan.md` | execution checklist for the three proof packages |
