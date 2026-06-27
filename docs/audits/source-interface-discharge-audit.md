@@ -123,16 +123,17 @@ Why this order:
 
 ## Immediate Next Proof Target
 
-The next concrete target should be:
+The current CCM25 restricted-read-off target has two proof packages:
 
 ```text
 CCM25RestrictedReadOffDischarge(lambda, g)
 ```
 
-Proof package:
+Proof packages:
 
 ```text
 docs/proofs/ccm25-restricted-read-off-discharge.md
+docs/proofs/ccm25-finite-prime-support-pairing-discharge.md
 ```
 
 It should prove, in one notation, that for the source-backed fixed-`S` test:
@@ -160,6 +161,150 @@ wrong lambda window
 
 If this target fails, the failure is local and actionable. If it passes, the
 remaining CC20 and CCM24 work can be checked against a fixed normalization spine.
+
+The next concrete CC20 target is:
+
+```text
+CC20TraceLegalityMellinDischarge(g)
+```
+
+Proof package:
+
+```text
+docs/proofs/cc20-trace-legality-mellin-discharge.md
+```
+
+It proves, at source-interface proof-package level, that the route has the
+right order of operations:
+
+```text
+Hilbert-Schmidt gate
+  -> ordinary trace-class positive trace
+  -> legal cyclic trace moves
+  -> CC20 source trace read-off
+  -> Mellin half-density bridge to F_g=g^* * g
+```
+
+This target blocks the most dangerous CC20 failure mode: taking positivity or
+cyclicity before the traced operator has been proved trace-class.
+
+The final CC20 exit target is:
+
+```text
+CC20FiniteVanishingRhExitDischarge
+```
+
+Proof package:
+
+```text
+docs/proofs/cc20-finite-vanishing-rh-exit-discharge.md
+```
+
+It bridges:
+
+```text
+route triple vanishing
+route full Weil positivity
+```
+
+to the source criterion:
+
+```text
+Connes--Consani Proposition C.1 with F={0,1/2,1}
+```
+
+The package also records the sign invariant required at the exit:
+
+```text
+QW(g,g) >= 0
+  is the same statement as
+sum_v W_v(g * bar(g)^sharp) <= 0
+```
+
+after the CC20 and CCM25 sign/read-off discharge packages have fixed the source
+normalization.
+
+The dedicated sign-bridge target is:
+
+```text
+QWToCC20WeilInequalitySignBridge(g)
+```
+
+Proof package:
+
+```text
+docs/proofs/qw-to-cc20-weil-inequality-sign-bridge.md
+```
+
+It proves the exact inequality-direction bridge:
+
+```text
+QW(g,g) = - sum_v W_v(g * bar(g)^sharp)
+```
+
+and therefore:
+
+```text
+QW(g,g) >= 0
+  ->
+sum_v W_v(g * bar(g)^sharp) <= 0.
+```
+
+This target should become Lean-visible before certification. The current
+`fullWeilPositivity : Prop` interface is too weak to rule out a sign-flipped
+final exit by itself.
+
+The source-RH definition bridge target is:
+
+```text
+SourceRHToMathlibRH
+```
+
+Proof package:
+
+```text
+docs/proofs/source-rh-to-mathlib-rh-definition-bridge.md
+```
+
+It decomposes the last naming risk into four bridges:
+
+```text
+source zeta = Mathlib riemannZeta
+source non-trivial zero = Mathlib zero with negative-even exclusion and s != 1
+source critical line = s.re = 1/2
+CC20 source RH -> _root_.RiemannHypothesis
+```
+
+This target should become Lean-visible before certification. A source theorem
+that concludes "RH" is not enough unless the predicate is transported to
+Mathlib's exact definition.
+
+The CCM24 transport target is:
+
+```text
+CCM24SupportWindowTransportDischarge(S,I,lambda,g)
+```
+
+Proof package:
+
+```text
+docs/proofs/ccm24-support-window-transport-discharge.md
+```
+
+It proves, at source-interface proof-package level, that the route uses one
+source-backed CCM24 window through:
+
+```text
+eta_S support transport
+Fourier-support transport
+V_S=M_S U_S canonical coordinate
+bounded comparison with bounded inverse
+theta_S / Sonin fixed-window comparison
+QW_lambda and Cdef exhaustion
+```
+
+This target blocks fixed-`S` drift: the positive trace, restricted Weil form,
+and endpoint-strip exhaustion cannot silently use different cutoff windows.
 
 ## Completion Criteria
 

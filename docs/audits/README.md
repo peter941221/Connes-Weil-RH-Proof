@@ -15,6 +15,12 @@ Current proof packages:
 | `docs/proofs/semilocal-q-compact-form.md` | semilocal compact-form package; proves projection-defect boundary jets are endpoint-strip Cdef at route-evidence level |
 | `docs/proofs/fixed-s-no-defect-compact-form-read-off.md` | source-normalized no-defect read-off package; discharges the remaining Battle 1 rank-repair read-off at source-interface level |
 | `docs/proofs/ccm25-restricted-read-off-discharge.md` | first source-interface discharge package; splits the restricted CCM25 read-off into window, sign, pole, and finite-prime replacement targets |
+| `docs/proofs/ccm25-finite-prime-support-pairing-discharge.md` | finite-prime source-discharge package; splits restricted support coverage from von Mangoldt and prime-power pairing normalization |
+| `docs/proofs/cc20-trace-legality-mellin-discharge.md` | CC20 source-discharge package; separates Hilbert-Schmidt, trace-class, cyclicity, support-square trace, sign, and Mellin half-density gates |
+| `docs/proofs/cc20-finite-vanishing-rh-exit-discharge.md` | CC20 final-exit package; bridges triple vanishing and full Weil positivity to Proposition C.1 with `F={0,1/2,1}` |
+| `docs/proofs/qw-to-cc20-weil-inequality-sign-bridge.md` | final sign-bridge package; proves `QW(g,g) >= 0` feeds Proposition C.1 only through `QW(g,g) = - sum_v W_v(g * bar(g)^sharp)` |
+| `docs/proofs/source-rh-to-mathlib-rh-definition-bridge.md` | final definition-bridge package; maps the CC20 source RH conclusion to Mathlib's `_root_.RiemannHypothesis` |
+| `docs/proofs/ccm24-support-window-transport-discharge.md` | CCM24 source-discharge package; keeps the fixed-S test, support window, Fourier window, comparison map, and Sonin exhaustion in one source-backed model |
 | `docs/proofs/battle-2-fixed-s-support-square-transport-proof-package.md` | Battle 2 proof package; expands the fixed-S support-square transport into projection transport, phase pullback, defect classification, and trace legality |
 | `docs/proofs/battle-3-cdef-exhaustion-proof-package.md` | Battle 3 proof package; defines trace-norm Cdef, compares it with graph/prolate Cdef, and proves fixed-test exhaustion |
 | `docs/proofs/fixed-test-graph-cdef-exhaustion.md` | fixed-test graph exhaustion package; discharges the graph/prolate Cdef exhaustion input for fixed `g` and fixed `S_A` |
