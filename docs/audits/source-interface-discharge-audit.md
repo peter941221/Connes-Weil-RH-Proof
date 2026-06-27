@@ -123,6 +123,23 @@ Why this order:
 
 ## Immediate Next Proof Target
 
+The first source-object replacement gate is:
+
+```text
+SourceTestConvolutionCompatibility(S,I,lambda,g)
+```
+
+Proof package:
+
+```text
+docs/proofs/source-test-convolution-compatibility.md
+```
+
+It proves, at proof-package level, that the CCM24 fixed-`S` support test, the
+CCM25 half-density test, the convolution square `F_g=g^* * g`, and the CC20
+Mellin/Fourier test are one source-backed object. This gate should be discharged
+before replacing the symbolic `TestFunction` and `convolutionStar` fields.
+
 The current CCM25 restricted-read-off target has two proof packages:
 
 ```text

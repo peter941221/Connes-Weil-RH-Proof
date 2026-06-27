@@ -49,8 +49,8 @@ route certificate consumes the bridge, not a bare Prop
 
 | current object | source object required | evidence | bridge theorem required | failure if left symbolic |
 |---|---|---|---|---|
-| `TestFunction := Type` | the common test-function or half-density class used by the CCM24 support window, CCM25 `QW`, and CC20 Mellin/Fourier convention | `ConnesWeilRH/Basic.lean:39`; `weil-compo.tex:2014-2030`; `mc2arXiv.tex:445-470,530-540` | `SourceTestFunctionCompatibility`: one test object maps to the CCM24 semilocal test, CCM25 Weil test, and CC20 Mellin half-density test | the route may identify `g`, `F_g=g^* * g`, and Mellin vanishing for different test spaces |
-| `convolutionStar` | the source convolution/involution product producing `F_g=g^* * g` | `ConnesWeilRH/Basic.lean:45`; `docs/proofs/ccm25-restricted-read-off-discharge.md`; `docs/proofs/cc20-trace-legality-mellin-discharge.md` | `SourceConvolutionSquareReadOff`: the CCM25 test product and CC20 support-square input are the same `F_g` | finite-prime support, Mellin vanishing, and trace read-off can refer to different functions |
+| `TestFunction := Type` | the common test-function or half-density class used by the CCM24 support window, CCM25 `QW`, and CC20 Mellin/Fourier convention | `ConnesWeilRH/Basic.lean:39`; `weil-compo.tex:2014-2030`; `mc2arXiv.tex:445-470,530-540`; `docs/proofs/source-test-convolution-compatibility.md` | `SourceTestFunctionCompatibility`: one test object maps to the CCM24 semilocal test, CCM25 Weil test, and CC20 Mellin half-density test | the route may identify `g`, `F_g=g^* * g`, and Mellin vanishing for different test spaces |
+| `convolutionStar` | the source convolution/involution product producing `F_g=g^* * g` | `ConnesWeilRH/Basic.lean:45`; `docs/proofs/source-test-convolution-compatibility.md`; `docs/proofs/ccm25-restricted-read-off-discharge.md`; `docs/proofs/cc20-trace-legality-mellin-discharge.md` | `SourceConvolutionSquareReadOff`: the CCM25 test product and CC20 support-square input are the same `F_g` | finite-prime support, Mellin vanishing, and trace read-off can refer to different functions |
 
 ## CCM24 Semilocal Objects
 

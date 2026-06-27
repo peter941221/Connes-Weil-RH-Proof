@@ -14,6 +14,7 @@ Current proof packages:
 | `docs/proofs/rank-repair-finite-normal-form.md` | rank-repair normal-form package; identifies the zero-mode rank and routes non-pure terms through endpoint-strip Cdef |
 | `docs/proofs/semilocal-q-compact-form.md` | semilocal compact-form package; proves projection-defect boundary jets are endpoint-strip Cdef at route-evidence level |
 | `docs/proofs/fixed-s-no-defect-compact-form-read-off.md` | source-normalized no-defect read-off package; discharges the remaining Battle 1 rank-repair read-off at source-interface level |
+| `docs/proofs/source-test-convolution-compatibility.md` | common-test proof package; ties the CCM24 fixed-S test, CCM25 `F_g=g^* * g`, and CC20 Mellin half-density test to one source object |
 | `docs/proofs/ccm25-restricted-read-off-discharge.md` | first source-interface discharge package; splits the restricted CCM25 read-off into window, sign, pole, and finite-prime replacement targets |
 | `docs/proofs/ccm25-finite-prime-support-pairing-discharge.md` | finite-prime source-discharge package; splits restricted support coverage from von Mangoldt and prime-power pairing normalization |
 | `docs/proofs/cc20-trace-legality-mellin-discharge.md` | CC20 source-discharge package; separates Hilbert-Schmidt, trace-class, cyclicity, support-square trace, sign, and Mellin half-density gates |
