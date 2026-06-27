@@ -30,9 +30,11 @@ docs/proofs/cc20-trace-object-normalization-discharge.md
 docs/proofs/cc20-rh-exit-object-normalization-discharge.md
 docs/audits/source-object-replacement-consistency-audit.md
 docs/audits/formal-gate-spine-consistency-audit.md
+docs/proofs/source-object-definition-theorem-contract.md
 docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
 docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
 docs/proofs/final-sign-bridge-theorem-contract.md
+docs/proofs/rh-definition-bridge-theorem-contract.md
 ```
 
 The next Lean interface pass should encode the expanded package first, then
@@ -101,6 +103,16 @@ docs/proofs/source-object-derived-compact-records.md
 It gives the proof-package-level specification for the projection theorems that
 the next Lean interface pass should implement.
 
+The source-object definition theorem contract fixes the formal/import targets
+for the package itself:
+
+```text
+docs/proofs/source-object-definition-theorem-contract.md
+```
+
+The next Lean interface pass should encode those targets before it treats the
+compact records as source-backed evidence.
+
 Before editing Lean, use this risk audit:
 
 ```text
@@ -164,7 +176,7 @@ The bundle must expose these compatibility fields.
 | `ccm24Window_controls_cdef` | Cdef exhaustion uses the same fixed window |
 | `finitePrimeSupport_matches_window` | visible prime-power atoms fit the restricted lambda cut |
 | `qW_sign_bridge` | `QW(g,g) = - sum_v W_v(g * bar(g)^sharp)` and `QW(g,g)>=0 -> sum_v W_v(g * bar(g)^sharp)<=0` are derived from the final sign theorem contract |
-| `sourceRH_to_mathlibRH` | CC20 source RH implies Mathlib `_root_.RiemannHypothesis` |
+| `sourceRH_to_mathlibRH` | CC20 source RH implies Mathlib `_root_.RiemannHypothesis` through the RH definition theorem contract |
 
 These fields should be named. A later axiom audit or source-import audit can
 then inspect each bridge directly.
@@ -309,6 +321,15 @@ QW(g,g) >= 0 = CC20 nonpositivity through sign bridge
 CC20 Proposition C.1
 source RH -> Mathlib RH
 ```
+
+The Mathlib RH leg must consume:
+
+```text
+docs/proofs/rh-definition-bridge-theorem-contract.md
+```
+
+before any final route theorem treats a source theorem named `RH` as
+`_root_.RiemannHypothesis`.
 
 ## Module Placement
 

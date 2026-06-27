@@ -49,11 +49,17 @@ The definition spine package records the cross-object version of this path:
 
 ```text
 docs/proofs/source-object-definition-spine-discharge.md
+docs/proofs/source-object-definition-theorem-contract.md
 ```
 
 It requires the common test, CCM24 window, CCM25 Weil objects, CC20 trace
 objects, CC20 finite-vanishing exit, and Mathlib RH bridge to project from one
 source-owned dependency spine.
+
+The theorem contract further splits that source-owned spine into the common
+test and convolution square, one fixed route tuple, one restricted window,
+CCM25 Weil objects, CC20 trace objects, CC20 RH-exit objects, and compact-record
+derivations.
 
 ## Global Test-Function Boundary
 
@@ -197,11 +203,18 @@ The RH definition-bridge spine package strengthens these rows:
 
 ```text
 docs/proofs/rh-definition-bridge-spine-discharge.md
+docs/proofs/rh-definition-bridge-theorem-contract.md
 ```
 
 It keeps the Mathlib zero equation, negative-even exclusion, pole exclusion at
 `s=1`, and critical-line equation as separate theorem targets before the source
 RH conclusion is transported.
+
+The theorem contract further splits the bridge into source zeta equality,
+source-to-Mathlib zero transport, Mathlib-to-source zero transport,
+negative-even exclusion, pole exclusion, source non-trivial-zero construction
+from Mathlib hypotheses, critical-line equivalence, and forward/reverse RH
+transport.
 
 Without these bridges, a theorem can prove "RH" in source notation while the
 Lean target remains unproved.

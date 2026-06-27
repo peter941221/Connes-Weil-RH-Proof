@@ -12,6 +12,7 @@ It governs the pass described in:
 formalization/source-object-interface-plan.md
 formalization/source-object-interface-workplan.md
 docs/proofs/source-object-derived-compact-records.md
+docs/proofs/source-object-definition-theorem-contract.md
 docs/audits/formal-gate-spine-consistency-audit.md
 ```
 
@@ -38,7 +39,7 @@ gaps behind compact Prop fields.
 
 | risk | failure mode | blocking rule | evidence check |
 |---|---|---|---|
-| opaque source package | `SourceObjectPackage` has fields like `allGood : Prop` | every source bridge named in the plan must appear as a named field or theorem | grep for `allGood`, `complete`, `criterion`, `fullWeilPositivity` in new source-object modules |
+| opaque source package | `SourceObjectPackage` has fields like `allGood : Prop` | every source bridge named in the plan and source-object definition theorem contract must appear as a named field or theorem | grep for `allGood`, `complete`, `criterion`, `fullWeilPositivity` in new source-object modules |
 | route-owned source objects | route modules define CCM24/CCM25/CC20 source objects | source objects live under `ConnesWeilRH/Source/` | new files under `ConnesWeilRH/Route/` must not define source-object records |
 | compact records remain primitive | `SemilocalModelSymbols`, `WeilFormSymbols`, `ArchimedeanTraceSymbols`, or `FiniteVanishingCriterionPackage` are still supplied directly | compact records must be derived from expanded packages | look for constructors of compact records outside `ObjectDerivations.lean` and source-interface wiring |
 | test drift | CCM24, CCM25, and CC20 packages each choose their own test type | `CommonTestObject` owns the source test and `F_g` | fields `ccm24Test_eq_commonTest`, `ccm25Test_eq_commonTest`, `cc20TraceTest_eq_commonTest`, and `cc20MellinTest_eq_commonTest` exist |
@@ -50,6 +51,16 @@ gaps behind compact Prop fields.
 | axiom leak | interface pass adds project-local axioms | no new axioms outside source interfaces | rerun `#print axioms ConnesWeilRH.Route.final_connes_weil_rh` |
 
 ## Blocking Rules
+
+The source-object definition theorem contract is the first blocking reference:
+
+```text
+docs/proofs/source-object-definition-theorem-contract.md
+```
+
+It requires `SourceObjectPackage` to expose the common test, fixed tuple,
+restricted window, CCM25 Weil objects, CC20 trace objects, CC20 RH-exit
+objects, and compact-record derivations as named targets.
 
 ### Rule 1. Source Objects Stay In Source Modules
 
@@ -158,6 +169,18 @@ docs/proofs/rh-definition-bridge-spine-discharge.md
 
 It requires source zeta transport, zero transport, negative-even exclusion,
 pole exclusion, and critical-line equivalence as separate theorem targets.
+
+The stronger theorem-contract target is:
+
+```text
+docs/proofs/rh-definition-bridge-theorem-contract.md
+```
+
+It requires source zeta equality with Mathlib `riemannZeta`, source-to-Mathlib
+zero transport, Mathlib-to-source zero transport, negative-even exclusion, pole
+exclusion, construction of the source non-trivial-zero witness from Mathlib
+hypotheses, critical-line equivalence, and source-RH-to-Mathlib-RH transport to
+remain named theorem targets.
 
 ### Rule 4. Pointwise Finite-Prime Data Cannot Be Replaced By Sum Equality
 

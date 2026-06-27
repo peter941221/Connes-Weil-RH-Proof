@@ -157,12 +157,28 @@ Proof package:
 
 ```text
 docs/proofs/source-object-definition-spine-discharge.md
+docs/proofs/source-object-definition-theorem-contract.md
 ```
 
 It ties the common test, CCM24 window, CCM25 Weil objects, CC20 trace objects,
 CC20 finite-vanishing exit, and Mathlib RH target into one source-owned
 dependency spine. The compact source records should later project from this
 spine instead of being supplied as unrelated route-local evidence.
+
+The theorem contract strengthens this into formal/import targets:
+
+```text
+SourceCommonTestAndConvolution
+SourceRouteTupleFixed
+SourceWindowControlsRestrictedRoute
+SourceCCM25WeilObjects
+SourceCC20TraceObjects
+SourceCC20RHExitObjects
+SourceObjectPackageDerivesCompactRecords
+```
+
+These targets block the shortcut of treating compact symbolic records as final
+source evidence.
 
 The first leg of that spine is:
 
@@ -520,6 +536,7 @@ Proof packages:
 
 ```text
 docs/proofs/rh-definition-bridge-spine-discharge.md
+docs/proofs/rh-definition-bridge-theorem-contract.md
 docs/proofs/source-rh-to-mathlib-rh-definition-bridge.md
 ```
 
@@ -533,6 +550,20 @@ source zeta
   -> source critical line
   -> s.re = 1/2
   -> _root_.RiemannHypothesis.
+```
+
+The theorem contract strengthens this into formal/import targets:
+
+```text
+SourceZetaEqualsMathlibZeta
+SourceZeroToMathlibZero
+MathlibZeroToSourceZero
+SourceNontrivialZeroNoNegativeEven
+SourceNontrivialZeroNoPole
+MathlibHypothesesToSourceNontrivialZero
+SourceCriticalLineIffReEqHalf
+SourceRHImpliesMathlibRH
+MathlibRHImpliesSourceRH
 ```
 
 The definition-bridge package decomposes the last naming risk into four

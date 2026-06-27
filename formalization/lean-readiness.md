@@ -366,9 +366,11 @@ replacement batch:
 ```text
 docs/audits/source-object-replacement-consistency-audit.md
 docs/audits/formal-gate-spine-consistency-audit.md
+docs/proofs/source-object-definition-theorem-contract.md
 docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
 docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
 docs/proofs/final-sign-bridge-theorem-contract.md
+docs/proofs/rh-definition-bridge-theorem-contract.md
 ```
 
 The first audit checks four expanded packages:
@@ -390,6 +392,12 @@ final sign bridge
 RH definition bridge
 ```
 
+The source-object definition gate now has a theorem contract that fixes the
+formal/import targets for the common test and convolution square, one fixed
+`(S,I,lambda,g)` tuple, the CCM24 window controlling the restricted route,
+CCM25 Weil objects, CC20 trace objects, CC20 RH-exit objects, and derivations
+of the compact records currently consumed by the route.
+
 The CC20 trace-legality gate now has a theorem contract that fixes the
 formal/import targets for operator identity, Hilbert-Schmidt, trace-class
 square, per-move cyclicity, support-square read-off, no-defect read-off, and
@@ -406,6 +414,13 @@ formal/import targets for common source test, `Psi` sign expansion,
 archimedean sign bridge, finite-prime sign ownership, source pole sign in the
 CC20 local sum, `QW(g,g)=-sum_v W_v(F_g)`, and
 `QW(g,g)>=0 -> sum_v W_v(F_g)<=0`.
+
+The RH definition bridge gate now has a theorem contract that fixes the
+formal/import targets for source zeta equality with Mathlib `riemannZeta`,
+zero transport in both directions needed by the bridge, negative-even
+exclusion, pole exclusion, construction of the source non-trivial-zero witness
+from Mathlib hypotheses, critical-line equivalence, and
+`CC20SourceRH -> _root_.RiemannHypothesis`.
 
 The next Lean step should not add more route scaffolding. It should encode the
 expanded source-object boundary described in:

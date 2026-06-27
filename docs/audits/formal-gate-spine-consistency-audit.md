@@ -26,30 +26,30 @@ theorem or an accepted imported theorem with audited hypotheses.
 
 | gate | spine package | target |
 |---|---|---|
-| source object definitions | `docs/proofs/source-object-definition-spine-discharge.md` | `SourceDefinitionSpine(S,I,lambda,g)` |
+| source object definitions | `docs/proofs/source-object-definition-spine-discharge.md`; `docs/proofs/source-object-definition-theorem-contract.md` | `SourceDefinitionSpine(S,I,lambda,g)`; `SourceDefinitionSpineContract(S,I,lambda,g)` |
 | analytic trace legality | `docs/proofs/cc20-analytic-trace-legality-spine-discharge.md`; `docs/proofs/cc20-analytic-trace-legality-theorem-contract.md` | `CC20AnalyticTraceLegalitySpine(S,I,lambda,g)`; `CC20AnalyticTraceLegalityContract(S,I,lambda,g)` |
 | finite-prime normalization | `docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md`; `docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md` | `CCM25FinitePrimeNormalizationSpine(lambda,g)`; `CCM25FinitePrimeNormalizationContract(lambda,g)` |
 | final sign bridge | `docs/proofs/final-sign-bridge-spine-discharge.md`; `docs/proofs/final-sign-bridge-theorem-contract.md` | `FinalSignBridgeSpine(g)`; `FinalSignBridgeContract(g)` |
-| RH definition bridge | `docs/proofs/rh-definition-bridge-spine-discharge.md` | `RHDefinitionBridgeSpine` |
+| RH definition bridge | `docs/proofs/rh-definition-bridge-spine-discharge.md`; `docs/proofs/rh-definition-bridge-theorem-contract.md` | `RHDefinitionBridgeSpine`; `RHDefinitionBridgeContract` |
 
 ## Dependency Shape
 
 The packages have to compose in this order:
 
 ```text
-SourceDefinitionSpine(S,I,lambda,g)
+SourceDefinitionSpineContract(S,I,lambda,g)
         |
         v
-CC20AnalyticTraceLegalitySpine(S,I,lambda,g)
+CC20AnalyticTraceLegalityContract(S,I,lambda,g)
         |
         v
-CCM25FinitePrimeNormalizationSpine(lambda,g)
+CCM25FinitePrimeNormalizationContract(lambda,g)
         |
         v
-FinalSignBridgeSpine(g)
+FinalSignBridgeContract(g)
         |
         v
-RHDefinitionBridgeSpine
+RHDefinitionBridgeContract
         |
         v
 _root_.RiemannHypothesis
@@ -299,11 +299,11 @@ without collapsing them into opaque fields:
 
 | target | blocked shortcut |
 |---|---|
-| `SourceDefinitionSpine(S,I,lambda,g)` | route-local source objects or a single `objectsCompatible : Prop` |
+| `SourceDefinitionSpineContract(S,I,lambda,g)` | route-local source objects or a single `objectsCompatible : Prop` without the common test, fixed tuple, source window, source-object projections, and compact-record derivations |
 | `CC20AnalyticTraceLegalityContract(S,I,lambda,g)` | `trace_eq_qw : Prop` without operator identity, trace-class square, and per-move cyclicity inputs |
 | `CCM25FinitePrimeNormalizationContract(lambda,g)` | sum-level finite-prime equality without source prime-power indices, lambda cut, pointwise atom normalization, and sign ownership |
 | `FinalSignBridgeContract(g)` | using `QW(g,g) >= 0` as CC20 nonpositivity without common-test equality, source sign expansion, `QW=-sum_v W_v`, and inequality-direction theorem |
-| `RHDefinitionBridgeSpine` | treating source RH as Mathlib RH by name |
+| `RHDefinitionBridgeContract` | treating source RH as Mathlib RH by name without zeta equality, zero transport, exclusions, source non-trivial-zero construction, and critical-line equivalence |
 
 ## Current Judgment
 
@@ -320,6 +320,17 @@ without collapsing them into opaque fields:
 The five formal gates now have one consistency-checked spine target. The next
 phase may encode these gates in Lean or discharge them by accepted imports, but
 it must keep the named bridges visible.
+
+For the source-object definition gate, the stronger theorem contract is:
+
+```text
+docs/proofs/source-object-definition-theorem-contract.md
+```
+
+It fixes the formal/import targets for the common source test and convolution
+square, one fixed `(S,I,lambda,g)` route tuple, the CCM24 window controlling the
+restricted route, CCM25 Weil objects, CC20 trace objects, CC20 RH-exit objects,
+and derivations of the compact records consumed by the current route.
 
 For the analytic trace-legality gate, the stronger theorem contract is:
 
@@ -350,3 +361,14 @@ It fixes the formal/import targets for common source test, `Psi` sign
 expansion, archimedean sign bridge, finite-prime sign ownership, source pole
 sign in the CC20 local sum, `QW(g,g)=-sum_v W_v(F_g)`, and the final
 inequality direction.
+
+For the RH definition bridge gate, the stronger theorem contract is:
+
+```text
+docs/proofs/rh-definition-bridge-theorem-contract.md
+```
+
+It fixes the formal/import targets for source zeta equality with Mathlib
+`riemannZeta`, zero transport, negative-even exclusion, pole exclusion,
+construction of the source non-trivial-zero witness from Mathlib hypotheses,
+critical-line equivalence, and the forward source-RH-to-Mathlib-RH theorem.

@@ -22,6 +22,15 @@ expose before the CC20 source conclusion can count as Mathlib's canonical:
 _root_.RiemannHypothesis.
 ```
 
+The stronger formal/import theorem contract is:
+
+```text
+docs/proofs/rh-definition-bridge-theorem-contract.md
+```
+
+It names the theorem targets that must replace this proof-package spine before
+the RH definition bridge gate can count as discharged.
+
 ## Evidence Boundary
 
 | object | evidence |

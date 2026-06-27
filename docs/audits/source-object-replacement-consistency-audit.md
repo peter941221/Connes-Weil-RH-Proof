@@ -7,6 +7,7 @@ source-owned objects:
 
 ```text
 docs/proofs/source-object-definition-spine-discharge.md
+docs/proofs/source-object-definition-theorem-contract.md
 docs/proofs/ccm25-finite-prime-index-normalization-discharge.md
 docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md
 docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
@@ -17,6 +18,7 @@ docs/proofs/cc20-rh-exit-object-normalization-discharge.md
 docs/proofs/final-sign-bridge-spine-discharge.md
 docs/proofs/final-sign-bridge-theorem-contract.md
 docs/proofs/rh-definition-bridge-spine-discharge.md
+docs/proofs/rh-definition-bridge-theorem-contract.md
 docs/proofs/ccm24-semilocal-object-normalization-discharge.md
 ```
 
@@ -76,10 +78,11 @@ Reason:
 
 | package | primary symbolic record replaced | source-owned outputs | consistency judgment |
 |---|---|---|---|
+| `source-object-definition-spine-discharge.md`; `source-object-definition-theorem-contract.md` | cross-object source package | common test, convolution square, one `(S,I,lambda,g)` tuple, the CCM24 restricted window, CCM25 Weil objects, CC20 trace objects, CC20 RH exit, Mathlib RH bridge, and compact-record derivations | all replacement packages project from one source-owned dependency spine |
 | `ccm24-semilocal-object-normalization-discharge.md` | `SemilocalModelSymbols` | source place set, support window, common test, canonical coordinate, support transport, bounded comparison, Sonin exhaustion | consistent with the fixed-window route and CCM25 restricted read-off |
 | `ccm25-finite-prime-index-normalization-discharge.md`; `ccm25-finite-prime-normalization-spine-discharge.md`; `ccm25-finite-prime-normalization-theorem-contract.md` | finite-prime fields in `WeilFormSymbols` | source prime-power index, visibility in `F_g`, global support, restricted lambda cut, fixed-S visible-prime side condition, von Mangoldt weight, `T(n)` pairing, pointwise term normalization before summation, finite-prime sign ownership | consistent with global `Psi`, restricted `QW_lambda`, and fixed-S visible-prime side condition |
 | `cc20-trace-object-normalization-discharge.md`; `cc20-analytic-trace-legality-spine-discharge.md`; `cc20-analytic-trace-legality-theorem-contract.md` | `ArchimedeanTraceSymbols` | source trace test, operator identity, Hilbert-Schmidt gate, trace-class positive square, per-move cyclicity witnesses, ordinary positive trace, support-square trace after legality, no-defect trace after support square, bounded-comparison trace-ideal transport, Mellin and sign bridges | consistent with Theorem 1 trace order and final sign bridge |
-| `cc20-rh-exit-object-normalization-discharge.md`; `final-sign-bridge-spine-discharge.md`; `final-sign-bridge-theorem-contract.md`; `rh-definition-bridge-spine-discharge.md` | `FiniteVanishingCriterionPackage` | `F={0,1/2,1}`, source finite-set admissibility, Mellin vanishing, CC20 Weil inequality through common-test equality, source `Psi` expansion, named sign equality, inequality-direction theorem, Proposition C.1, Mathlib RH bridge through zeta, zero, exclusion, and line targets | consistent with source-RH-to-Mathlib-RH package |
+| `cc20-rh-exit-object-normalization-discharge.md`; `final-sign-bridge-spine-discharge.md`; `final-sign-bridge-theorem-contract.md`; `rh-definition-bridge-spine-discharge.md`; `rh-definition-bridge-theorem-contract.md` | `FiniteVanishingCriterionPackage` | `F={0,1/2,1}`, source finite-set admissibility, Mellin vanishing, CC20 Weil inequality through common-test equality, source `Psi` expansion, named sign equality, inequality-direction theorem, Proposition C.1, Mathlib RH bridge through zeta, zero, exclusions, source non-trivial-zero construction, critical-line equivalence, and forward source-RH-to-Mathlib-RH target | consistent with source-RH-to-Mathlib-RH package |
 
 ## Cross-Package Invariants
 

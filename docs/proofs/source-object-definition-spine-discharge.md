@@ -14,6 +14,15 @@ The gate is:
 source object definitions
 ```
 
+The stronger formal/import theorem contract is:
+
+```text
+docs/proofs/source-object-definition-theorem-contract.md
+```
+
+It names the theorem targets that must replace this proof-package spine before
+the source-object definition gate can count as discharged.
+
 The package does not define the analytic CCM24, CCM25, or CC20 objects in Lean.
 It records the mathematical spine that a later Lean or source-import pass must
 make explicit before the route can treat source objects as discharged.
