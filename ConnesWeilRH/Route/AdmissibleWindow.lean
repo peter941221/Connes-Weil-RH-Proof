@@ -44,7 +44,28 @@ theorem finite_prime_visibility_statement_of_source_backed
     {inputs : RouteInputs} (g : SourceBackedFixedSTest inputs) :
     WeilFormSymbols.FinitePrimeVisibilityStatement inputs.ccm25.weilSymbols
       g.weilTest g.weilTest :=
-  fun n => inputs.ccm25.finitePrimeNormalization n g.weilTest g.weilTest
+  inputs.ccm25.finitePrimeNormalization g.weilTest g.weilTest
+
+theorem global_prime_index_covers_of_source_backed
+    {inputs : RouteInputs} (g : SourceBackedFixedSTest inputs) :
+    WeilFormSymbols.GlobalPrimeIndexCoverageStatement
+      inputs.ccm25.weilSymbols
+      (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest) :=
+  (finite_prime_visibility_statement_of_source_backed g).1
+
+theorem restricted_prime_index_covers_of_source_backed
+    {inputs : RouteInputs} (g : SourceBackedFixedSTest inputs)
+    {lambda : ℝ} (hlambda : 1 < lambda) :
+    WeilFormSymbols.RestrictedPrimeIndexCoverageStatement
+      inputs.ccm25.weilSymbols lambda
+      (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest) :=
+  (finite_prime_visibility_statement_of_source_backed g).2.1 lambda hlambda
+
+theorem finite_prime_term_normalization_of_source_backed
+    {inputs : RouteInputs} (g : SourceBackedFixedSTest inputs) :
+    WeilFormSymbols.FinitePrimeTermNormalizationStatement
+      inputs.ccm25.weilSymbols g.weilTest g.weilTest :=
+  (finite_prime_visibility_statement_of_source_backed g).2.2
 
 theorem finite_primes_visible_of_source_backed
     {inputs : RouteInputs} (g : SourceBackedFixedSTest inputs) :

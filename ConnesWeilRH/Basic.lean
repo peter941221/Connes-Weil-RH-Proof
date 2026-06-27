@@ -45,6 +45,7 @@ structure WeilFormSymbols where
   convolutionStar : TestFunction → TestFunction → TestFunction
   globalPrimeIndexSet : Finset ℕ
   restrictedPrimeIndexSet : ℝ → Finset ℕ
+  finitePrimeAtomVisible : ℕ → TestFunction → Prop
   finitePrimeTerm : ℕ → TestFunction → ℝ
   archimedeanTerm : TestFunction → ℝ
   poleFunctional : TestFunction → ℝ
@@ -73,16 +74,31 @@ def QWLambdaFormulaStatement (W : WeilFormSymbols) : Prop :=
             ∑ n ∈ W.restrictedPrimeIndexSet lambda,
               W.vonMangoldtWeight n * W.primePowerPairing n f f
 
-def FinitePrimeNormalizationStatement (W : WeilFormSymbols) : Prop :=
-  ∀ n f g,
+def GlobalPrimeIndexCoverageStatement
+    (W : WeilFormSymbols) (F : TestFunction) : Prop :=
+  ∀ n : ℕ, W.finitePrimeAtomVisible n F → n ∈ W.globalPrimeIndexSet
+
+def RestrictedPrimeIndexCoverageStatement
+    (W : WeilFormSymbols) (lambda : ℝ) (F : TestFunction) : Prop :=
+  ∀ n : ℕ,
+    W.finitePrimeAtomVisible n F → n ∈ W.restrictedPrimeIndexSet lambda
+
+def FinitePrimeTermNormalizationStatement
+    (W : WeilFormSymbols) (f g : TestFunction) : Prop :=
+  ∀ n : ℕ,
     W.finitePrimeTerm n (W.convolutionStar f g) =
       W.vonMangoldtWeight n * W.primePowerPairing n f g
 
 def FinitePrimeVisibilityStatement
     (W : WeilFormSymbols) (f g : TestFunction) : Prop :=
-  ∀ n : ℕ,
-    W.finitePrimeTerm n (W.convolutionStar f g) =
-      W.vonMangoldtWeight n * W.primePowerPairing n f g
+  let F := W.convolutionStar f g
+  GlobalPrimeIndexCoverageStatement W F ∧
+    (∀ lambda : ℝ,
+      1 < lambda → RestrictedPrimeIndexCoverageStatement W lambda F) ∧
+      FinitePrimeTermNormalizationStatement W f g
+
+def FinitePrimeNormalizationStatement (W : WeilFormSymbols) : Prop :=
+  ∀ f g : TestFunction, FinitePrimeVisibilityStatement W f g
 
 def PoleNormalizationStatement (W : WeilFormSymbols) : Prop :=
   ∀ f : TestFunction,

@@ -33,7 +33,7 @@ structure SourceBackedFullPositivity
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (L : RouteLedgers) where
   sourceTraceReadOff : SourceTraceReadOffData inputs g
-  sourceBackedLedgers : SourceBackedLedgers inputs L
+  sourceBackedLedgers : SourceBackedLedgers inputs g L
 
 theorem full_weil_positivity_of_fixed_s
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}

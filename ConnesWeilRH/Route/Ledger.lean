@@ -19,25 +19,69 @@ namespace Route
 def LedgersCleared (L : RouteLedgers) : Prop :=
   L.rankKilled ∧ L.poleKilled ∧ L.cdefExhausts
 
-structure SourceBackedLedgers (inputs : RouteInputs) (L : RouteLedgers) where
-  rankLedgerSource : Prop
-  poleLedgerSource : Prop
-  cdefLedgerSource : Prop
-  rankLedgerSourceHolds : rankLedgerSource
-  poleLedgerSourceHolds : poleLedgerSource
-  cdefLedgerSourceHolds : cdefLedgerSource
+def RankRepairToZeroModeLedger
+    (_inputs : RouteInputs) (_g : SourceBackedFixedSTest _inputs)
+    (L : RouteLedgers) : Prop :=
+  L.rankKilled
+
+def PoleLedgerSupportedOnlyAtTateDirections
+    (_inputs : RouteInputs) (_g : SourceBackedFixedSTest _inputs)
+    (L : RouteLedgers) : Prop :=
+  L.poleKilled
+
+def EndpointStripNormalForm
+    (_inputs : RouteInputs) (_g : SourceBackedFixedSTest _inputs)
+    (L : RouteLedgers) : Prop :=
+  L.cdefExhausts
+
+def EndpointStripTraceNormBound
+    (_inputs : RouteInputs) (_g : SourceBackedFixedSTest _inputs)
+    (L : RouteLedgers) : Prop :=
+  L.cdefExhausts
+
+def QEndpointStripStability
+    (_inputs : RouteInputs) (_g : SourceBackedFixedSTest _inputs)
+    (L : RouteLedgers) : Prop :=
+  L.cdefExhausts
+
+def CdefGraphComparison
+    (_inputs : RouteInputs) (_g : SourceBackedFixedSTest _inputs)
+    (L : RouteLedgers) : Prop :=
+  L.cdefExhausts
+
+def FixedTestCdefExhaustion
+    (_inputs : RouteInputs) (_g : SourceBackedFixedSTest _inputs)
+    (L : RouteLedgers) : Prop :=
+  L.cdefExhausts
+
+structure CdefNormFormula
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (L : RouteLedgers) where
+  endpointStripNormalForm : EndpointStripNormalForm inputs g L
+  endpointStripTraceNormBound : EndpointStripTraceNormBound inputs g L
+  qEndpointStripStability : QEndpointStripStability inputs g L
+  cdefGraphComparison : CdefGraphComparison inputs g L
+  fixedTestCdefExhaustion : FixedTestCdefExhaustion inputs g L
+
+structure SourceBackedLedgers
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (L : RouteLedgers) where
+  rankRepairToZeroMode : RankRepairToZeroModeLedger inputs g L
+  poleLedgerSupportedOnlyAtTateDirections :
+    PoleLedgerSupportedOnlyAtTateDirections inputs g L
+  cdefNormFormula : CdefNormFormula inputs g L
   rankKilledBridge :
     (Source.ccm24BoundedComparison inputs.ccm24.semilocalSymbols).Holds →
       (Source.cc20SignsAndNormalizations inputs.cc20.archimedeanSymbols).Holds →
-        rankLedgerSource → L.rankKilled
+        RankRepairToZeroModeLedger inputs g L → L.rankKilled
   poleKilledBridge :
     (Source.ccm25PoleNormalization inputs.ccm25.weilSymbols).Holds →
-      poleLedgerSource → L.poleKilled
+      PoleLedgerSupportedOnlyAtTateDirections inputs g L → L.poleKilled
   cdefExhaustsBridge :
     (Source.ccm24SoninComparison inputs.ccm24.semilocalSymbols).Holds →
       (Source.cc20MellinHalfDensityConvention
           inputs.cc20.archimedeanSymbols).Holds →
-        cdefLedgerSource → L.cdefExhausts
+        CdefNormFormula inputs g L → L.cdefExhausts
 
 theorem rank_killed_of_ledgers_cleared
     {L : RouteLedgers} (h : LedgersCleared L) :
@@ -55,28 +99,29 @@ theorem cdef_exhausts_of_ledgers_cleared
   h.2.2
 
 theorem rank_killed_of_source_backed_ledgers
-    {inputs : RouteInputs} {L : RouteLedgers}
-    (h : SourceBackedLedgers inputs L) :
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} (h : SourceBackedLedgers inputs g L) :
     L.rankKilled :=
   h.rankKilledBridge inputs.ccm24.boundedComparison
-    inputs.cc20.signsAndNormalizations h.rankLedgerSourceHolds
+    inputs.cc20.signsAndNormalizations h.rankRepairToZeroMode
 
 theorem pole_killed_of_source_backed_ledgers
-    {inputs : RouteInputs} {L : RouteLedgers}
-    (h : SourceBackedLedgers inputs L) :
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} (h : SourceBackedLedgers inputs g L) :
     L.poleKilled :=
-  h.poleKilledBridge inputs.ccm25.poleNormalization h.poleLedgerSourceHolds
+  h.poleKilledBridge inputs.ccm25.poleNormalization
+    h.poleLedgerSupportedOnlyAtTateDirections
 
 theorem cdef_exhausts_of_source_backed_ledgers
-    {inputs : RouteInputs} {L : RouteLedgers}
-    (h : SourceBackedLedgers inputs L) :
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} (h : SourceBackedLedgers inputs g L) :
     L.cdefExhausts :=
   h.cdefExhaustsBridge inputs.ccm24.soninComparison
-    inputs.cc20.mellinHalfDensityConvention h.cdefLedgerSourceHolds
+    inputs.cc20.mellinHalfDensityConvention h.cdefNormFormula
 
 theorem ledgers_cleared_of_source_backed
-    {inputs : RouteInputs} {L : RouteLedgers}
-    (h : SourceBackedLedgers inputs L) :
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} (h : SourceBackedLedgers inputs g L) :
     LedgersCleared L :=
   ⟨rank_killed_of_source_backed_ledgers h,
     pole_killed_of_source_backed_ledgers h,

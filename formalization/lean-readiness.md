@@ -357,3 +357,28 @@ The CCM25 finite-prime sums now use explicit symbolic index sets instead of
 uses `WeilFormSymbols.restrictedPrimeIndexSet lambda`. These fields remain
 source-conditional, but they prevent the phase-1 scaffold from silently turning
 finite-prime contributions into an empty sum.
+
+## Source-Interface Discharge Phase
+
+The next phase is not more route scaffolding. The next phase is to remove the
+source-conditional boundary recorded in:
+
+```text
+docs/audits/source-interface-discharge-audit.md
+```
+
+That audit turns each CCM24, CCM25, and CC20 source-interface contract into a
+discharge target with a first failure mode. The recommended first target is:
+
+```text
+CCM25RestrictedReadOffDischarge(lambda, g)
+```
+
+This target should prove, in one notation, the restricted `QW_lambda` read-off
+for the source-backed fixed-`S` test, including the lambda window, finite-prime
+coverage, finite-prime term normalization, pole normalization, and sign
+convention.
+
+This comes before deeper operator formalization because a sign, pole, or
+finite-prime normalization error would invalidate downstream positivity even if
+the trace-class and transport proofs were correct.

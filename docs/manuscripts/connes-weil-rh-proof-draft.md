@@ -1418,6 +1418,163 @@ from internal ledger style to journal style. Those are not new proof ingredients
 visible from the route ledger.
 ```
 
+## Three-Battle Integrated Gate
+
+The fixed-S positive trace can be read as a Weil-form inequality only after
+three proof packages are in place. The manuscript uses the following
+one-notation version of those packages.
+
+```text
+Battle 1:
+  TestAndQuotientCompatibility(S,I,lambda)
+
+Battle 2:
+  FixedSQuantizedSupportSquareTransport(S,I,lambda)
+
+Battle 3:
+  CdefNormFormula(S,I,lambda,J)
+  +
+  FixedTestCdefExhaustion(S_A,I,g,J')
+```
+
+### Battle 1. Test And Quotient Compatibility
+
+Proof packages:
+
+```text
+docs/proofs/battle-1-test-quotient-proof-package.md
+docs/proofs/rank-repair-finite-normal-form.md
+docs/proofs/semilocal-q-compact-form.md
+docs/proofs/fixed-s-no-defect-compact-form-read-off.md
+```
+
+They prove, at route-evidence level, that the test and quotient ledgers have
+only three no-strip evaluation channels:
+
+```text
+hat g(0),
+hat g(+i/2),
+hat g(-i/2).
+```
+
+The rank repair is the zero-mode term:
+
+```text
+Rank_(S,I)(g)=C_(S,I)|hat g(0)|^2
+```
+
+modulo endpoint-strip `Cdef`. The two Tate quotient directions are supported
+on `hat g(+i/2)` and `hat g(-i/2)`. Projection-defect boundary jets are charged
+to endpoint-strip `Cdef`, and the no-defect compact-form read-off is the CCM25
+restricted `QW_lambda` source read-off for `F_g=g^* * g`.
+
+### Battle 2. Fixed-S Support-Square Transport
+
+Proof package:
+
+```text
+docs/proofs/battle-2-fixed-s-support-square-transport-proof-package.md
+```
+
+It expands the fixed-S transport step into five obligations:
+
+```text
+FixedSProjectionTransport(S,lambda),
+FixedSPhasePullback(S,lambda),
+FixedSNoDefectSupportSquareTemplate(S,I,lambda),
+FixedSDefectClassification(S,I,lambda,J),
+TraceClassCyclicSupportSquareIdentity(S,I,lambda).
+```
+
+Their combination gives:
+
+```text
+FixedSQuantizedSupportSquareTransport(S,I,lambda).
+```
+
+The proof first transports the support and Fourier-support projections through
+`V_S=M_S U_S`, pulls back the phase through `u_S=M_S^(-1) I M_S I`, and then
+classifies every leftover term as rank, pole, or endpoint-strip `Cdef`.
+
+### Battle 3. Cdef Norm And Fixed-Test Exhaustion
+
+Proof packages:
+
+```text
+docs/proofs/battle-3-cdef-exhaustion-proof-package.md
+docs/proofs/fixed-test-graph-cdef-exhaustion.md
+```
+
+They define the trace-norm defect by:
+
+```text
+Cdef_(S,I,lambda,J)(g)
+  :=
+sum_(alpha in R_(S,I,lambda,J))
+  || theta(D^r g) X_0 M_b T_a X_1 theta(D^s g)^* ||_1
+
+  +
+sum_(beta in Q R_(S,I,lambda,J))
+  |BoundaryStripTrace_beta(g)|.
+```
+
+Each `BoundaryStripTrace_beta(g)` contains an endpoint-strip factor before
+boundary evaluation. The graph comparison gives:
+
+```text
+Cdef_(S,I,lambda,J)(g)
+  <=
+C'_(S,I,J)(g) Cdef_graph_(S,I,lambda,J')(g).
+```
+
+For fixed `g`, fixed `I`, fixed `S_A`, and fixed graph order, the fixed-test
+graph exhaustion package proves:
+
+```text
+Cdef_graph_(S_A,I,lambda,J')(g) -> 0.
+```
+
+Hence:
+
+```text
+Cdef_(S_A,I,lambda,J)(g) -> 0.
+```
+
+### Integrated Consequence
+
+The three battles give the exact input used by Theorem 2 and Theorem 3:
+
+```text
+PositiveTrace^G_(S,lambda)(g)
+  =
+QW_lambda(g,g)
+  +
+Rank_(S,I)(g)
+  +
+PoleJetExtra_(S,I)(g)
+  +
+R_(S,I,lambda)(g),
+
+|R_(S,I,lambda)(g)|
+  <=
+C_(S,I,J)(g) Cdef_(S,I,lambda,J)(g).
+```
+
+After imposing:
+
+```text
+hat g(0)=hat g(+i/2)=hat g(-i/2)=0,
+```
+
+Battle 1 kills the rank and pole ledgers, Battle 2 supplies the fixed-S
+positive trace identity, and Battle 3 sends the defect to zero in the
+fixed-test limit.
+
+This gate remains source-conditional: CCM24 supplies the fixed-S canonical
+model and transport interfaces, CC20 supplies the archimedean support-square
+and trace-class templates, and CCM25 supplies the `QW` and `QW_lambda`
+normalizations.
+
 ## Completion Audit
 
 This audit treats completion as a set of gates. A gate passes only when the
@@ -1436,6 +1593,9 @@ current draft contains the object and points to the evidence used by the proof.
 | Trace-class and cyclic trace legality is classified | Lemma 2 plus trace-cyclicity domain ledger | pass |
 | PositiveTrace is defined before non-negativity is used | Lemma 2 Hilbert-Schmidt assertion plus Theorem 1 Step 1 | pass |
 | Fixed-S support-square transport is stated | Lemma 3 | pass |
+| Battle 1 test and quotient compatibility is expanded | Three-Battle Integrated Gate, Battle 1 | pass at route-evidence level |
+| Battle 2 fixed-S support-square transport is expanded | Three-Battle Integrated Gate, Battle 2 | pass at route-evidence level |
+| Battle 3 Cdef norm and fixed-test exhaustion are expanded | Three-Battle Integrated Gate, Battle 3 | pass at route-evidence level |
 | Source trace read-off avoids premature replacement | `Source Trace Read-Off And Operator Equality Audit` | pass |
 | Theorem 1 has admissible support and finite-prime conditions | `Admissible Windows For Theorem 1` | pass |
 | Positive trace gives the restricted CCM form | Theorem 1 | pass |
@@ -1447,7 +1607,7 @@ current draft contains the object and points to the evidence used by the proof.
 | Finite set for Proposition C.1 is admissible | Lemma 4a | pass |
 | Connes--Consani RH exit is applied with the correct convention | Theorem 4 | pass |
 | Route theorem closes the implication chain | Route Theorem | pass |
-| Audit material is accessible to referees | Appendices A--D | pass |
+| Audit material is accessible to referees | Three-Battle Integrated Gate; Appendices A--D | pass |
 | Known hostile risks are named and answered | Hostile Audit Ledger | pass |
 | Text hygiene was checked | Final Verification Status plus external command checks recorded in memory | pass |
 

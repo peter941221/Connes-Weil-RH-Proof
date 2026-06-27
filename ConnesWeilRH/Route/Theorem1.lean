@@ -97,6 +97,60 @@ def CCM25WeilFormReadOff
   CCM25FullQWReadOff inputs g ∧
     CCM25RestrictedQWReadOff inputs g lambda
 
+def TestHalfDensityCompatibility
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) : Prop :=
+  (Source.cc20MellinHalfDensityConvention
+      inputs.cc20.archimedeanSymbols).Holds ∧
+    CCM25FullQWReadOff inputs g
+
+def TateDirectionsToPoleLedger
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) : Prop :=
+  CCM25PoleNormalizationReadOff inputs g
+
+def TestAndQuotientCompatibility
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) : Prop :=
+  TestHalfDensityCompatibility inputs g ∧
+    TateDirectionsToPoleLedger inputs g
+
+def FixedSProjectionTransport
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ) : Prop :=
+  WindowSupportContainment inputs g lambda ∧
+    inputs.ccm24.semilocalSymbols.lambdaCompatible g.window lambda
+
+def FixedSPhasePullback
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) : Prop :=
+  inputs.ccm24.semilocalSymbols.boundedComparisonMap g.placeSet ∧
+    inputs.ccm24.semilocalSymbols.boundedComparisonInverse g.placeSet ∧
+      inputs.cc20.archimedeanSymbols.uInfinityNormalized ∧
+        inputs.cc20.archimedeanSymbols.qduNormalized
+
+def FixedSNoDefectSupportSquareTemplate
+    (inputs : RouteInputs)
+    (a : inputs.cc20.archimedeanSymbols.Test) : Prop :=
+  CC20NoDefectSourceReadOff inputs a
+
+def FixedSDefectClassification
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ) : Prop :=
+  FixedSProjectionTransport inputs g lambda ∧
+    FixedSPhasePullback inputs g
+
+def TraceClassCyclicSupportSquareIdentity
+    (inputs : RouteInputs)
+    (a : inputs.cc20.archimedeanSymbols.Test) : Prop :=
+  CC20TraceLegality inputs a
+
+structure FixedSQuantizedSupportSquareTransport
+    (inputs : RouteInputs)
+    (a : inputs.cc20.archimedeanSymbols.Test)
+    (g : SourceBackedFixedSTest inputs) (lambda : ℝ) where
+  projectionTransport : FixedSProjectionTransport inputs g lambda
+  phasePullback : FixedSPhasePullback inputs g
+  noDefectTemplate : FixedSNoDefectSupportSquareTemplate inputs a
+  defectClassification : FixedSDefectClassification inputs g lambda
+  traceLegality : TraceClassCyclicSupportSquareIdentity inputs a
+
 def TraceWeilCompatibility
     (inputs : RouteInputs) (a : inputs.cc20.archimedeanSymbols.Test)
     (g : SourceBackedFixedSTest inputs) (lambda : ℝ) : Prop :=
@@ -139,9 +193,12 @@ def FixedSPositiveTraceReadOff
     ∃ lambda : ℝ,
       ∃ weilIdentification : Prop,
         CC20TraceLegality inputs a ∧
-          CC20NoDefectSourceReadOff inputs a ∧
-            CCM25WeilFormReadOff inputs g lambda ∧ weilIdentification ∧
-              CC20PositiveTraceNonnegative inputs a
+          TestAndQuotientCompatibility inputs g ∧
+            FixedSQuantizedSupportSquareTransport inputs a g lambda ∧
+              CC20NoDefectSourceReadOff inputs a ∧
+                CCM25WeilFormReadOff inputs g lambda ∧
+                  weilIdentification ∧
+                    CC20PositiveTraceNonnegative inputs a
 
 structure SourceTraceReadOffData
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) where
@@ -150,6 +207,9 @@ structure SourceTraceReadOffData
     inputs.cc20.archimedeanSymbols.hilbertSchmidtGate archimedeanTest
   lambda : ℝ
   oneLtLambda : 1 < lambda
+  testAndQuotientCompatibility : TestAndQuotientCompatibility inputs g
+  fixedSSupportSquareTransport :
+    FixedSQuantizedSupportSquareTransport inputs archimedeanTest g lambda
   traceWeilCompatibility :
     Prop
   weilIdentification :
@@ -283,7 +343,8 @@ theorem fixed_s_read_off_of_source_trace_data
   let hweil := ccm25_weil_form_read_off_of_source_trace_data h
   let hcompat := trace_weil_compatibility_of_source_trace_data h
   ⟨h.archimedeanTest, h.lambda, h.weilIdentification,
-    hlegal, htrace.1, hweil,
+    hlegal, h.testAndQuotientCompatibility,
+    h.fixedSSupportSquareTransport, htrace.1, hweil,
     h.weilIdentificationBridge hcompat htrace.2,
     htrace.2⟩
 
