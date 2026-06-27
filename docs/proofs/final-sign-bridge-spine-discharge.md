@@ -18,6 +18,15 @@ The package does not formalize CCM25 or CC20 signs in Lean. It records the
 theorem chain that a later source-import or Lean pass must expose before route
 positivity can feed CC20 Proposition C.1.
 
+The stronger formal/import theorem contract is:
+
+```text
+docs/proofs/final-sign-bridge-theorem-contract.md
+```
+
+It names the theorem targets that must replace this proof-package spine before
+the final sign bridge gate can count as discharged.
+
 ## Evidence Boundary
 
 | object | evidence |

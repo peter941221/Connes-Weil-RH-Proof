@@ -139,6 +139,17 @@ docs/proofs/final-sign-bridge-spine-discharge.md
 It requires `QW(g,g)=-sum_v W_v(F_g)` and the derived inequality direction as
 separate theorem targets.
 
+The stronger theorem-contract target is:
+
+```text
+docs/proofs/final-sign-bridge-theorem-contract.md
+```
+
+It requires common source test, source `Psi` sign expansion, archimedean sign
+bridge, finite-prime sign ownership, source pole sign in the CC20 local sum,
+`QW(g,g)=-sum_v W_v(F_g)`, and
+`QW(g,g)>=0 -> sum_v W_v(F_g)<=0` to remain named theorem targets.
+
 The proof-package target for the RH definition part is:
 
 ```text
@@ -181,6 +192,17 @@ docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md
 It requires pointwise atom normalization before any global or restricted
 finite-prime sum is used.
 
+The stronger theorem-contract target is:
+
+```text
+docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
+```
+
+It requires prime-power factorization, global source support, restricted
+lambda-cut support, visibility before the cut, fixed-S visible-prime
+admissibility, source `Lambda(n)`, source `<g|T(n)g>`, pointwise atom equality,
+and finite-prime sign ownership to remain named theorem targets.
+
 ### Rule 5. Trace Legality Comes Before Trace Read-Off
 
 Allowed chain:
@@ -217,6 +239,17 @@ docs/proofs/cc20-analytic-trace-legality-spine-discharge.md
 
 It requires a per-move cyclicity witness ledger rather than a single
 `cyclicLegal : Prop` permission.
+
+The stronger theorem-contract target is:
+
+```text
+docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
+```
+
+It requires operator identity, Hilbert-Schmidt, trace-class square,
+ordinary-trace equality, per-move cyclicity, support-square read-off,
+no-defect read-off, and bounded-comparison transport to remain named theorem
+targets.
 
 ## Required Grep Gates
 

@@ -27,9 +27,9 @@ theorem or an accepted imported theorem with audited hypotheses.
 | gate | spine package | target |
 |---|---|---|
 | source object definitions | `docs/proofs/source-object-definition-spine-discharge.md` | `SourceDefinitionSpine(S,I,lambda,g)` |
-| analytic trace legality | `docs/proofs/cc20-analytic-trace-legality-spine-discharge.md` | `CC20AnalyticTraceLegalitySpine(S,I,lambda,g)` |
-| finite-prime normalization | `docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md` | `CCM25FinitePrimeNormalizationSpine(lambda,g)` |
-| final sign bridge | `docs/proofs/final-sign-bridge-spine-discharge.md` | `FinalSignBridgeSpine(g)` |
+| analytic trace legality | `docs/proofs/cc20-analytic-trace-legality-spine-discharge.md`; `docs/proofs/cc20-analytic-trace-legality-theorem-contract.md` | `CC20AnalyticTraceLegalitySpine(S,I,lambda,g)`; `CC20AnalyticTraceLegalityContract(S,I,lambda,g)` |
+| finite-prime normalization | `docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md`; `docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md` | `CCM25FinitePrimeNormalizationSpine(lambda,g)`; `CCM25FinitePrimeNormalizationContract(lambda,g)` |
+| final sign bridge | `docs/proofs/final-sign-bridge-spine-discharge.md`; `docs/proofs/final-sign-bridge-theorem-contract.md` | `FinalSignBridgeSpine(g)`; `FinalSignBridgeContract(g)` |
 | RH definition bridge | `docs/proofs/rh-definition-bridge-spine-discharge.md` | `RHDefinitionBridgeSpine` |
 
 ## Dependency Shape
@@ -300,9 +300,9 @@ without collapsing them into opaque fields:
 | target | blocked shortcut |
 |---|---|
 | `SourceDefinitionSpine(S,I,lambda,g)` | route-local source objects or a single `objectsCompatible : Prop` |
-| `CC20AnalyticTraceLegalitySpine(S,I,lambda,g)` | `trace_eq_qw : Prop` without trace-class and cyclicity inputs |
-| `CCM25FinitePrimeNormalizationSpine(lambda,g)` | sum-level finite-prime equality without pointwise atom normalization |
-| `FinalSignBridgeSpine(g)` | using `QW(g,g) >= 0` as CC20 nonpositivity without the sign equality |
+| `CC20AnalyticTraceLegalityContract(S,I,lambda,g)` | `trace_eq_qw : Prop` without operator identity, trace-class square, and per-move cyclicity inputs |
+| `CCM25FinitePrimeNormalizationContract(lambda,g)` | sum-level finite-prime equality without source prime-power indices, lambda cut, pointwise atom normalization, and sign ownership |
+| `FinalSignBridgeContract(g)` | using `QW(g,g) >= 0` as CC20 nonpositivity without common-test equality, source sign expansion, `QW=-sum_v W_v`, and inequality-direction theorem |
 | `RHDefinitionBridgeSpine` | treating source RH as Mathlib RH by name |
 
 ## Current Judgment
@@ -320,3 +320,33 @@ without collapsing them into opaque fields:
 The five formal gates now have one consistency-checked spine target. The next
 phase may encode these gates in Lean or discharge them by accepted imports, but
 it must keep the named bridges visible.
+
+For the analytic trace-legality gate, the stronger theorem contract is:
+
+```text
+docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
+```
+
+It fixes the formal/import targets that must replace the proof-package spine
+before the trace-legality gate can count as discharged.
+
+For the finite-prime normalization gate, the stronger theorem contract is:
+
+```text
+docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
+```
+
+It fixes the formal/import targets for prime-power indices, global support,
+restricted lambda cut, visibility, `Lambda(n)`, `<g|T(n)g>`, pointwise term
+normalization, and finite-prime sign ownership.
+
+For the final sign bridge gate, the stronger theorem contract is:
+
+```text
+docs/proofs/final-sign-bridge-theorem-contract.md
+```
+
+It fixes the formal/import targets for common source test, `Psi` sign
+expansion, archimedean sign bridge, finite-prime sign ownership, source pole
+sign in the CC20 local sum, `QW(g,g)=-sum_v W_v(F_g)`, and the final
+inequality direction.

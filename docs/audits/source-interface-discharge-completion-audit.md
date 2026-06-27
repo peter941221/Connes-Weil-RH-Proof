@@ -102,9 +102,9 @@ The proof-package matrix leaves five formal gates.
 | gate | what must become formal or imported |
 |---|---|
 | source object definitions | CCM24 windows, CCM25 `QW`, CC20 Weil sum, and source zeta objects must become explicit definitions or imported theorem interfaces; see `docs/audits/source-object-definition-ledger.md` and `docs/proofs/source-object-definition-spine-discharge.md` |
-| analytic trace legality | CC20 trace-class and cyclicity theorems must be formalized or imported with exact hypotheses; see `docs/proofs/cc20-analytic-trace-legality-spine-discharge.md` |
-| finite-prime normalization | CCM25 prime-power support, von Mangoldt weights, and pairing formulas must replace symbolic fields; see `docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md` |
-| final sign bridge | Lean must expose `QW(g,g) = - sum_v W_v(g * bar(g)^sharp)` or an equivalent theorem; see `docs/proofs/final-sign-bridge-spine-discharge.md` |
+| analytic trace legality | CC20 trace-class and cyclicity theorems must be formalized or imported with exact hypotheses; see `docs/proofs/cc20-analytic-trace-legality-spine-discharge.md` and the stronger theorem contract `docs/proofs/cc20-analytic-trace-legality-theorem-contract.md` |
+| finite-prime normalization | CCM25 prime-power support, von Mangoldt weights, and pairing formulas must replace symbolic fields; see `docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md` and the stronger theorem contract `docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md` |
+| final sign bridge | Lean must expose `QW(g,g) = - sum_v W_v(g * bar(g)^sharp)` and the inequality-direction theorem; see `docs/proofs/final-sign-bridge-spine-discharge.md` and the stronger theorem contract `docs/proofs/final-sign-bridge-theorem-contract.md` |
 | RH definition bridge | CC20 source RH must be transported to Mathlib's `_root_.RiemannHypothesis` through the same zeta, zero, exclusion, and critical-line definitions; see `docs/proofs/rh-definition-bridge-spine-discharge.md` |
 
 The source-object replacement batch has a separate consistency audit:

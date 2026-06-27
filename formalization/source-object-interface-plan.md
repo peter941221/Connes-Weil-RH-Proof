@@ -30,6 +30,9 @@ docs/proofs/cc20-trace-object-normalization-discharge.md
 docs/proofs/cc20-rh-exit-object-normalization-discharge.md
 docs/audits/source-object-replacement-consistency-audit.md
 docs/audits/formal-gate-spine-consistency-audit.md
+docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
+docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
+docs/proofs/final-sign-bridge-theorem-contract.md
 ```
 
 The next Lean interface pass should encode the expanded package first, then
@@ -160,7 +163,7 @@ The bundle must expose these compatibility fields.
 | `ccm24Window_controls_qwLambda` | restricted `QW_lambda` uses the CCM24 source window |
 | `ccm24Window_controls_cdef` | Cdef exhaustion uses the same fixed window |
 | `finitePrimeSupport_matches_window` | visible prime-power atoms fit the restricted lambda cut |
-| `qW_sign_bridge` | `QW(g,g) = - sum_v W_v(g * bar(g)^sharp)` |
+| `qW_sign_bridge` | `QW(g,g) = - sum_v W_v(g * bar(g)^sharp)` and `QW(g,g)>=0 -> sum_v W_v(g * bar(g)^sharp)<=0` are derived from the final sign theorem contract |
 | `sourceRH_to_mathlibRH` | CC20 source RH implies Mathlib `_root_.RiemannHypothesis` |
 
 These fields should be named. A later axiom audit or source-import audit can
@@ -217,6 +220,27 @@ finitePrimeTerm n F_g = Lambda(n)<g|T(n)g>
 
 for every source prime-power index `n`.
 
+The CCM25 finite-prime normalization theorem contract fixes the formal/import
+targets behind those terms:
+
+```text
+docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
+```
+
+The later Lean interface should derive compact fields such as
+`globalPrimeIndexSet`, `restrictedPrimeIndexSet`, `finitePrimeTerm`,
+`vonMangoldtWeight`, and `primePowerPairing` from that contract rather than
+accepting them as primitive source evidence.
+
+The final sign derivation must consume:
+
+```text
+docs/proofs/final-sign-bridge-theorem-contract.md
+```
+
+before any final-exit package treats route `QW(g,g) >= 0` as the CC20
+nonpositivity hypothesis.
+
 ### ArchimedeanTraceSymbols
 
 Derive:
@@ -247,6 +271,17 @@ Hilbert-Schmidt gate
 ```
 
 as named stages.
+
+The CC20 analytic trace-legality theorem contract fixes the formal/import
+targets behind those stages:
+
+```text
+docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
+```
+
+The later Lean interface should derive compact fields such as `traceClass`,
+`cyclicLegal`, and `positiveTrace` from that contract rather than accepting
+them as primitive source evidence.
 
 ### FiniteVanishingCriterionPackage
 

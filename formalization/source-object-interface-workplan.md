@@ -69,6 +69,9 @@ Read these files first:
 formalization/source-object-interface-plan.md
 formalization/source-object-interface-risk-audit.md
 docs/proofs/source-object-derived-compact-records.md
+docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
+docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
+docs/proofs/final-sign-bridge-theorem-contract.md
 docs/audits/source-object-replacement-consistency-audit.md
 ```
 
@@ -103,9 +106,9 @@ Required fields:
 |---|---|
 | `CommonTestObject` | common test, convolution square `F_g`, and source convolution/involution bridge |
 | `CCM24SemilocalObjectPackage` | place set, support window, source test leg, canonical model, support/Fourier transport, convolution transport, bounded comparison, Sonin exhaustion |
-| `CCM25WeilObjectPackage` | `QW`, `Psi`, `QW_lambda`, source prime-power support, lambda cut, `Lambda(n)`, `<g|T(n)g>`, pointwise finite-prime terms, pole, archimedean sign |
-| `CC20TraceObjectPackage` | trace test, Hilbert-Schmidt gate, trace-class, cyclicity, positive trace, support-square trace, no-defect trace, Mellin bridge, sign bridge |
-| `CC20RHExitObjectPackage` | `F={0,1/2,1}`, finite-set admissibility, triple-vanishing-to-Mellin bridge, CC20 inequality bridge, Proposition C.1, source-RH-to-Mathlib bridge |
+| `CCM25WeilObjectPackage` | `QW`, `Psi`, `QW_lambda`, source prime-power factorization, global support, restricted lambda cut, visibility before the cut, fixed-S visible-prime admissibility, `Lambda(n)`, `<g|T(n)g>`, pointwise finite-prime terms, finite-prime sign ownership, pole, archimedean sign |
+| `CC20TraceObjectPackage` | trace test, operator identity, Hilbert-Schmidt gate, trace-class positive square, per-move cyclicity ledger, ordinary positive trace, support-square trace after legality, no-defect trace after support square, bounded-comparison trace-ideal transport, Mellin bridge, sign bridge |
+| `CC20RHExitObjectPackage` | `F={0,1/2,1}`, finite-set admissibility, triple-vanishing-to-Mellin bridge, final sign contract consumption, CC20 inequality bridge, Proposition C.1, source-RH-to-Mathlib bridge |
 | `SourceObjectPackage` | the five packages plus cross-package compatibility fields |
 
 Blocking rule:

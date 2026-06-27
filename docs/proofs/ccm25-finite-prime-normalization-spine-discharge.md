@@ -19,6 +19,15 @@ and strength of the finite-prime theorem that a later source-import or Lean
 pass must expose before the route can use the finite-prime part of `QW` or
 `QW_lambda`.
 
+The stronger formal/import theorem contract is:
+
+```text
+docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
+```
+
+It names the theorem targets that must replace this proof-package spine before
+the finite-prime normalization gate can count as discharged.
+
 ## Evidence Boundary
 
 | object | evidence |

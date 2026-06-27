@@ -102,21 +102,35 @@ The final sign-bridge spine package strengthens this row:
 
 ```text
 docs/proofs/final-sign-bridge-spine-discharge.md
+docs/proofs/final-sign-bridge-theorem-contract.md
 ```
 
 It requires the source test, `Psi` expansion, archimedean sign bridge,
 finite-prime sign owner, pole sign, sign equality, and inequality-direction
 theorem to remain named before CC20 Proposition C.1 consumes positivity.
 
+The theorem contract further splits those stages into common-test equality,
+source `Psi` sign expansion, `W_R=-W_infty` plus CC20 sign convention,
+finite-prime sign ownership by the formula, source pole sign in the CC20 local
+sum, `QW(g,g)=-sum_v W_v(F_g)`, and
+`QW(g,g)>=0 -> sum_v W_v(F_g)<=0`.
+
 The finite-prime normalization spine package strengthens the finite-prime rows:
 
 ```text
 docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md
+docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
 ```
 
 It requires source prime-power status, visibility in `F_g`, the restricted
 lambda cut, source `Lambda(n)`, source `<g|T(n)g>`, and pointwise term equality
 before any global or restricted finite-prime sum is used.
+
+The theorem contract further splits those stages into prime-power
+factorization, global source support, restricted lambda-cut support,
+visibility before the cut, fixed-S visible-prime admissibility, von Mangoldt
+weight normalization, source pairing normalization, pointwise atom equality,
+and finite-prime sign ownership.
 
 ## CC20 Trace And Exit Objects
 
@@ -135,11 +149,17 @@ The trace-legality spine package strengthens the trace rows:
 
 ```text
 docs/proofs/cc20-analytic-trace-legality-spine-discharge.md
+docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
 ```
 
 It requires Hilbert-Schmidt, trace-class, cyclicity, positive trace,
 support-square trace, and no-defect read-off to appear in that order before
 the CCM25 Weil-form read-off.
+
+The theorem contract further splits those stages into operator identity,
+Hilbert-Schmidt, trace-class square, ordinary-trace equality, per-move
+cyclicity, support-square read-off, no-defect read-off, and bounded-comparison
+trace-ideal transport targets.
 
 ## RH Definition Bridge
 

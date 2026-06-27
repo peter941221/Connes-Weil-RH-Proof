@@ -366,6 +366,9 @@ replacement batch:
 ```text
 docs/audits/source-object-replacement-consistency-audit.md
 docs/audits/formal-gate-spine-consistency-audit.md
+docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
+docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
+docs/proofs/final-sign-bridge-theorem-contract.md
 ```
 
 The first audit checks four expanded packages:
@@ -386,6 +389,23 @@ finite-prime normalization
 final sign bridge
 RH definition bridge
 ```
+
+The CC20 trace-legality gate now has a theorem contract that fixes the
+formal/import targets for operator identity, Hilbert-Schmidt, trace-class
+square, per-move cyclicity, support-square read-off, no-defect read-off, and
+bounded-comparison trace-ideal transport.
+
+The CCM25 finite-prime normalization gate now has a theorem contract that fixes
+the formal/import targets for prime-power indices, global source support,
+restricted lambda-cut support, visibility before the cut, fixed-S visible-prime
+admissibility, von Mangoldt weight, source pairing, pointwise atom equality,
+and finite-prime sign ownership.
+
+The final sign bridge gate now has a theorem contract that fixes the
+formal/import targets for common source test, `Psi` sign expansion,
+archimedean sign bridge, finite-prime sign ownership, source pole sign in the
+CC20 local sum, `QW(g,g)=-sum_v W_v(F_g)`, and
+`QW(g,g)>=0 -> sum_v W_v(F_g)<=0`.
 
 The next Lean step should not add more route scaffolding. It should encode the
 expanded source-object boundary described in:

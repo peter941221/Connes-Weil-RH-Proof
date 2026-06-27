@@ -261,6 +261,7 @@ Proof packages:
 
 ```text
 docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md
+docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
 docs/proofs/ccm25-finite-prime-index-normalization-discharge.md
 ```
 
@@ -274,6 +275,20 @@ source prime-power atom n
   -> source <g|T(n)g>
   -> pointwise term equality
   -> finite-prime sum.
+```
+
+The theorem contract strengthens this into formal/import targets:
+
+```text
+SourcePrimePowerIndexFactorization
+SourceGlobalPrimePowerSupport
+SourceRestrictedPrimePowerSupport
+SourceVisiblePrimePowerBeforeLambdaCut
+FixedSVisiblePrimeSetBeforeLimit
+SourceVonMangoldtWeightNormalization
+SourcePrimePowerPairingNormalization
+SourceFinitePrimeTermPointwiseNormalization
+SourceFinitePrimeFormulaOwnsSign
 ```
 
 The index-normalization package strengthens the finite-prime row from coverage
@@ -312,6 +327,7 @@ Proof packages:
 
 ```text
 docs/proofs/cc20-analytic-trace-legality-spine-discharge.md
+docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
 docs/proofs/cc20-trace-legality-mellin-discharge.md
 ```
 
@@ -325,6 +341,19 @@ operator A tied to (S,I,lambda,g)
   -> support-square trace
   -> no-defect source trace
   -> CCM25 Weil-form read-off.
+```
+
+The theorem contract strengthens this into formal/import targets:
+
+```text
+SourceTraceOperatorIdentity
+SourceHilbertSchmidtForThetaSmoothedOperator
+SourceTraceClassForPositiveSquare
+SourcePositiveTraceEqualsOrdinaryTrace
+SourceCyclicMoveWitnessLedger
+SourceSupportSquareTraceAfterLegality
+SourceNoDefectTraceAfterSupportSquare
+SourceBoundedComparisonTraceIdealTransport
 ```
 
 The Mellin package proves, at source-interface proof-package level, that the
@@ -436,6 +465,7 @@ Proof packages:
 
 ```text
 docs/proofs/final-sign-bridge-spine-discharge.md
+docs/proofs/final-sign-bridge-theorem-contract.md
 docs/proofs/qw-to-cc20-weil-inequality-sign-bridge.md
 ```
 
@@ -448,6 +478,18 @@ QW(g,g)=Psi(F_g)
   -> finite-prime local sign stays positive
   -> QW(g,g)=-sum_v W_v(F_g)
   -> QW(g,g)>=0 implies sum_v W_v(F_g)<=0.
+```
+
+The theorem contract strengthens this into formal/import targets:
+
+```text
+SourceQWUsesCommonTest
+SourcePsiSignExpansion
+SourceArchimedeanSignBridge
+SourceFinitePrimeSignOwnedByFormula
+SourcePoleSignInCC20LocalSum
+SourceQWEqualsNegCC20WeilSum
+SourceQWNonnegativeToCC20Nonpositive
 ```
 
 The sign-bridge package proves the exact inequality-direction bridge:

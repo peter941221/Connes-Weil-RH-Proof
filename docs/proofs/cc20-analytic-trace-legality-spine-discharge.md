@@ -18,6 +18,15 @@ The package does not formalize CC20 operator theory in Lean. It records the
 order in which the later source-import or Lean pass must expose the analytic
 trace theorems before the route can read a positive trace as a Weil form.
 
+The stronger formal/import theorem contract is:
+
+```text
+docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
+```
+
+It names the theorem targets that must replace this proof-package spine before
+the analytic trace-legality gate can count as discharged.
+
 ## Evidence Boundary
 
 | object | evidence |
