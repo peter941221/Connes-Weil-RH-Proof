@@ -164,7 +164,28 @@ This package should be treated as the source-object gate for `qw`, `psi`,
 `archimedeanTerm`, `poleFunctional`, `globalPrimeIndexSet`, and
 `finitePrimeTerm`.
 
-The restricted-read-off target then specializes that global spine:
+The restricted source-object gate is:
+
+```text
+CCM25RestrictedQWLambdaWindowDischarge(lambda,g)
+```
+
+Proof package:
+
+```text
+docs/proofs/ccm25-restricted-qwlambda-window-discharge.md
+```
+
+It specializes the global spine to the `lambda` window:
+
+```text
+QW_lambda(g,g)
+restrictedPrimeIndexSet lambda
+restricted pole pairing
+WindowLambdaCompatibility
+```
+
+The restricted-read-off target then consumes these source objects:
 
 ```text
 CCM25RestrictedReadOffDischarge(lambda, g)

@@ -16,6 +16,7 @@ Current proof packages:
 | `docs/proofs/fixed-s-no-defect-compact-form-read-off.md` | source-normalized no-defect read-off package; discharges the remaining Battle 1 rank-repair read-off at source-interface level |
 | `docs/proofs/source-test-convolution-compatibility.md` | common-test proof package; ties the CCM24 fixed-S test, CCM25 `F_g=g^* * g`, and CC20 Mellin half-density test to one source object |
 | `docs/proofs/ccm25-qw-psi-definition-sign-discharge.md` | CCM25 global definition-sign package; replaces symbolic `QW`, `Psi`, pole, archimedean, and global finite-prime fields with source-object bridge targets |
+| `docs/proofs/ccm25-restricted-qwlambda-window-discharge.md` | CCM25 restricted-window package; ties `QW_lambda`, `restrictedPrimeIndexSet lambda`, restricted pole pairing, and lambda-window support to the global CCM25 spine |
 | `docs/proofs/ccm25-restricted-read-off-discharge.md` | first source-interface discharge package; splits the restricted CCM25 read-off into window, sign, pole, and finite-prime replacement targets |
 | `docs/proofs/ccm25-finite-prime-support-pairing-discharge.md` | finite-prime source-discharge package; splits restricted support coverage from von Mangoldt and prime-power pairing normalization |
 | `docs/proofs/cc20-trace-legality-mellin-discharge.md` | CC20 source-discharge package; separates Hilbert-Schmidt, trace-class, cyclicity, support-square trace, sign, and Mellin half-density gates |
