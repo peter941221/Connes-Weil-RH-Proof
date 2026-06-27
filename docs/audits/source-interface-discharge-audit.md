@@ -59,6 +59,30 @@ building all semilocal analysis at once. The route uses CCM24 mainly to prevent
 fixed-`S` drift: the same source-backed test must carry support, Fourier support,
 window containment, bounded comparison, and Sonin exhaustion.
 
+The CCM24 source-object replacement target is:
+
+```text
+CCM24SemilocalObjectNormalization(S,I,lambda,g)
+```
+
+Proof package:
+
+```text
+docs/proofs/ccm24-semilocal-object-normalization-discharge.md
+```
+
+It expands the compact `SemilocalModelSymbols` fields into:
+
+```text
+source place set S
+  -> source support window I
+  -> common source test g
+  -> canonical coordinate V_S=M_S U_S
+  -> eta/theta support transport
+  -> bounded comparison with inverse
+  -> fixed-window Sonin exhaustion.
+```
+
 ### CCM25
 
 | Lean contract | source lines | what must be proved or imported | first failure mode to attack |
@@ -210,6 +234,30 @@ the restricted pole pairing is the source pole functional
 QW_lambda(g,g) has the exact sign used by the positive-trace inequality
 ```
 
+The finite-prime index-normalization target is:
+
+```text
+CCM25FinitePrimeIndexNormalization(lambda,g)
+```
+
+Proof package:
+
+```text
+docs/proofs/ccm25-finite-prime-index-normalization-discharge.md
+```
+
+It strengthens the finite-prime row from coverage to source-object
+replacement:
+
+```text
+Nat index
+  -> source prime-power index
+  -> lambda cut 1 < n <= lambda^2
+  -> Lambda(n)
+  -> <g|T(n)g>
+  -> finitePrimeTerm n F_g.
+```
+
 This target is the best first strike because it touches the most common failure
 points in RH routes:
 
@@ -250,6 +298,31 @@ Hilbert-Schmidt gate
 This target blocks the most dangerous CC20 failure mode: taking positivity or
 cyclicity before the traced operator has been proved trace-class.
 
+The CC20 trace-object replacement target is:
+
+```text
+CC20TraceObjectNormalization(g)
+```
+
+Proof package:
+
+```text
+docs/proofs/cc20-trace-object-normalization-discharge.md
+```
+
+It turns the symbolic `ArchimedeanTraceSymbols` fields into source-object
+bridge targets:
+
+```text
+CC20 source test
+  -> Hilbert-Schmidt gate
+  -> trace-class and cyclicity
+  -> positive trace Tr(A^*A)
+  -> support-square trace
+  -> source no-defect trace
+  -> Mellin and sign compatibility.
+```
+
 The final CC20 exit target is:
 
 ```text
@@ -273,6 +346,30 @@ to the source criterion:
 
 ```text
 Connes--Consani Proposition C.1 with F={0,1/2,1}
+```
+
+The final-exit source-object replacement target is:
+
+```text
+CC20RHExitObjectNormalization(input)
+```
+
+Proof package:
+
+```text
+docs/proofs/cc20-rh-exit-object-normalization-discharge.md
+```
+
+It expands the compact `FiniteVanishingCriterionPackage` into:
+
+```text
+F={0,1/2,1}
+  -> source finite-set admissibility
+  -> route triple vanishing as CC20 Mellin vanishing on F
+  -> route full positivity as the CC20 Weil inequality
+  -> CC20 Proposition C.1
+  -> source RH
+  -> Mathlib _root_.RiemannHypothesis.
 ```
 
 The package also records the sign invariant required at the exit:
