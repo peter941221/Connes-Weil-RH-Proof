@@ -54,7 +54,7 @@ positive trace window = restricted Weil window = Cdef exhaustion window.
 
 | contract | source lines | proof package | package result | remaining certification work |
 |---|---|---|---|---|
-| `ccm25QWDefinition` | `mc2arXiv.tex:445-470` | `docs/proofs/ccm25-restricted-read-off-discharge.md`; `docs/proofs/qw-to-cc20-weil-inequality-sign-bridge.md` | `QW(f,g)=Psi(f^* * g)` and the global sign spine are separated from route-local notation | formalize or import the exact CCM25 `QW` and `Psi` definitions |
+| `ccm25QWDefinition` | `mc2arXiv.tex:445-470` | `docs/proofs/ccm25-qw-psi-definition-sign-discharge.md`; `docs/proofs/ccm25-restricted-read-off-discharge.md`; `docs/proofs/qw-to-cc20-weil-inequality-sign-bridge.md` | `QW(f,g)=Psi(f^* * g)` and the global sign spine are separated from route-local notation | formalize or import the exact CCM25 `QW` and `Psi` definitions |
 | `ccm25QWLambdaFormula` | `mc2arXiv.tex:530-540` | `docs/proofs/ccm25-restricted-read-off-discharge.md` | restricted `QW_lambda` uses one lambda window, the displayed pole term, and the negative finite-prime sum | formalize or import the restricted quadratic-form theorem |
 | `ccm25FinitePrimeNormalization` | `mc2arXiv.tex:445-470,530-540` | `docs/proofs/ccm25-finite-prime-support-pairing-discharge.md` | coverage, von Mangoldt weight, prime-power pairing, and term normalization are distinct obligations | replace symbolic finite-prime fields with concrete source definitions |
 | `ccm25PoleNormalization` | `mc2arXiv.tex:465-470,533-535` | `docs/proofs/ccm25-restricted-read-off-discharge.md` | the CCM pole functional lives inside `QW_lambda`; route `PoleJetExtra` stays outside until triple vanishing kills it | formalize the pole functional under the route half-density convention |

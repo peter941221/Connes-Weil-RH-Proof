@@ -143,6 +143,30 @@ before replacing the symbolic `TestFunction` and `convolutionStar` fields.
 The current CCM25 restricted-read-off target has two proof packages:
 
 ```text
+CCM25QWPsiDefinitionSignDischarge
+```
+
+Proof package:
+
+```text
+docs/proofs/ccm25-qw-psi-definition-sign-discharge.md
+```
+
+It fixes the global CCM25 spine before restriction:
+
+```text
+QW(f,g)=Psi(f^* * g)
+Psi(F)=W_(0,2)(F)-W_R(F)-sum_p W_p(F)
+W_R=-W_infty
+```
+
+This package should be treated as the source-object gate for `qw`, `psi`,
+`archimedeanTerm`, `poleFunctional`, `globalPrimeIndexSet`, and
+`finitePrimeTerm`.
+
+The restricted-read-off target then specializes that global spine:
+
+```text
 CCM25RestrictedReadOffDischarge(lambda, g)
 ```
 
