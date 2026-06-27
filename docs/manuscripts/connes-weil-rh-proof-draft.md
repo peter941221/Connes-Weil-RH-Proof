@@ -1480,3 +1480,111 @@ formalization remain outside this artifact.
 External public certification requires independent referee review, Lean
 formalization, or journal/Clay acceptance. This draft does not assert any of
 those statuses.
+
+## Appendix E. Lean Formalization Status
+
+The Lean formalization now has a segmented phase-1 target:
+
+```text
+ConnesWeilRH
+```
+
+The target separates source theorem interfaces from the route composition:
+
+```text
+ConnesWeilRH.Source.CCM24
+ConnesWeilRH.Source.CCM25
+ConnesWeilRH.Source.CC20
+  |
+  v
+ConnesWeilRH.Route.*
+  |
+  v
+Mathlib _root_.RiemannHypothesis
+```
+
+The current Lean route skeleton builds with:
+
+```text
+lake build ConnesWeilRH
+```
+
+The current axiom audit for
+`ConnesWeilRH.Route.final_connes_weil_rh` records only Lean/Mathlib foundation
+axioms:
+
+```text
+[propext, Classical.choice, Quot.sound]
+```
+
+The source-interface names and source-line obligations are recorded in:
+
+```text
+docs/audits/lean-source-interface-map.md
+```
+
+The CCM24 semilocal-model, support-transport, bounded-comparison, and
+Sonin-comparison obligations now have symbolic Lean statements over
+`ConnesWeilRH.SemilocalModelSymbols`. The CCM25 `QW`, `QW_lambda`,
+finite-prime, and pole obligations now have symbolic Lean statements over
+`ConnesWeilRH.WeilFormSymbols`. The CC20 archimedean trace, trace-class,
+Mellin, and sign obligations now have symbolic statements over
+`ConnesWeilRH.ArchimedeanTraceSymbols`. The CC20 finite-vanishing RH exit is
+represented by `ConnesWeilRH.FiniteVanishingCriterionPackage`, and the final
+route theorem uses `inputs.cc20.finiteVanishingRhExit.criterion` directly.
+
+A scan of `ConnesWeilRH/Source` now finds no remaining `statement := True`
+source obligations. This removes the buildable placeholder layer, but it does
+not discharge the source-paper analysis.
+
+The final route certificate now carries
+`ConnesWeilRH.Route.SourceBackedFixedSTest`. The route theorem derives
+`AdmissibleForTheorem1` through
+`ConnesWeilRH.Route.admissible_for_theorem1_of_source_backed` instead of taking
+bare route-local admissibility as a certificate field. This records the first
+Lean bridge from the route-level fixed-`S` test back to the CCM24 semilocal
+interface.
+
+Finite-prime visibility now passes through the CCM25 finite-prime normalization
+interface. `finite_prime_visibility_statement_of_source_backed` derives
+`ConnesWeilRH.WeilFormSymbols.FinitePrimeVisibilityStatement` from
+`inputs.ccm25.finitePrimeNormalization`, and
+`finite_primes_visible_of_source_backed` uses the explicit bridge on
+`SourceBackedFixedSTest` to obtain the route predicate
+`test.finitePrimesVisible`.
+
+Full Weil positivity now passes through
+`ConnesWeilRH.Route.SourceBackedFullPositivity`. The bridge uses the CC20
+trace-class template and archimedean trace-square statement, and it uses a
+CCM25 Weil-form read-off bridge fed by `inputs.ccm25.qwDefinition`,
+`inputs.ccm25.qwLambdaFormula`, and `inputs.ccm25.poleNormalization`. The final
+route theorem obtains `FullWeilPositivity` through
+`ConnesWeilRH.Route.full_weil_positivity_of_source_backed`.
+
+The rank, pole, and Cdef ledgers now pass through
+`ConnesWeilRH.Route.SourceBackedLedgers`. The route obtains `LedgersCleared`
+through `ConnesWeilRH.Route.ledgers_cleared_of_source_backed` instead of taking
+a direct final-certificate proof of cleared ledgers.
+
+Triple vanishing now passes through
+`ConnesWeilRH.TripleVanishingSymbols` over the finite type
+`ConnesWeilRH.CriticalVanishingPoint`, whose constructors represent `0`,
+`1/2`, and `1`. The route obtains `test.tripleVanishing` through
+`ConnesWeilRH.Route.triple_vanishing_of_source_backed`.
+
+The fixed-S trace read-off bridge is now split by
+`ConnesWeilRH.Route.SourceTraceReadOffData` into trace legality, no-defect
+source read-off, Weil-form identification, and positive-trace nonnegativity
+stages. `ConnesWeilRH.Route.FixedSPositiveTraceReadOff` is no longer an alias
+for the admissibility predicate. The source-backed positivity path supplies the
+CC20 trace-square result and CCM25 Weil-form read-off result before constructing
+that independent fixed-S positive trace package.
+
+The Lean route now places the CC20 archimedean test object and its
+Hilbert-Schmidt gate inside `SourceTraceReadOffData`. The Theorem 1 segment
+derives trace-class/cyclicity legality and the trace-square read-off from the
+CC20 interface before it builds the fixed-S positive trace package.
+
+This is not yet a full Lean proof of RH. The formalization remains
+source-conditional until the CCM24, CCM25, and CC20 interfaces are discharged by
+formal proofs or replaced by accepted imported theorems.

@@ -1,6 +1,8 @@
 .lake/
 build/
 .codegraph/
+AGENTS.md
+MEMORY.md
 *.olean
 *.ilean
 *.trace
