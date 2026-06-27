@@ -1,0 +1,7 @@
+.lake/
+build/
+.codegraph/
+*.olean
+*.ilean
+*.trace
+*.log
