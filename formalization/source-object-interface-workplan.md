@@ -31,6 +31,18 @@ existing route modules
 The pass should not prove CCM24, CCM25, or CC20 analytic content. It should
 make the existing source assumptions more structured and harder to misuse.
 
+The sign/defect fields must keep Row 3 visible. In particular, do not encode
+source prolate/Sonin control as a single `defectControlled` field. The source
+interface must expose a projection or theorem shaped like:
+
+```text
+CC20PostQRemainderFixedSSoninTransport(S,I,lambda,g,F_g)
+```
+
+before any later field claims projection-defect normal form, rank/pole
+identification, endpoint-strip `Cdef` domination, or no-hidden-positive-defect
+equality.
+
 ## Files To Add Later
 
 | file | purpose |
@@ -70,6 +82,8 @@ formalization/source-object-interface-plan.md
 formalization/source-object-interface-risk-audit.md
 docs/proofs/source-object-derived-compact-records.md
 docs/proofs/source-object-definition-theorem-contract.md
+docs/audits/source-object-theorem-discharge-ledger.md
+docs/proofs/source-common-test-tuple-theorem-contract.md
 docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
 docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
 docs/proofs/final-sign-bridge-theorem-contract.md
@@ -108,8 +122,8 @@ Required fields:
 |---|---|
 | `CommonTestObject` | common test, convolution square `F_g`, and source convolution/involution bridge |
 | `CCM24SemilocalObjectPackage` | place set, support window, source test leg, canonical model, support/Fourier transport, convolution transport, bounded comparison, Sonin exhaustion |
-| `CCM25WeilObjectPackage` | `QW`, `Psi`, `QW_lambda`, source prime-power factorization, global support, restricted lambda cut, visibility before the cut, fixed-S visible-prime admissibility, `Lambda(n)`, `<g|T(n)g>`, pointwise finite-prime terms, finite-prime sign ownership, pole, archimedean sign |
-| `CC20TraceObjectPackage` | trace test, operator identity, Hilbert-Schmidt gate, trace-class positive square, per-move cyclicity ledger, ordinary positive trace, support-square trace after legality, no-defect trace after support square, bounded-comparison trace-ideal transport, Mellin bridge, sign bridge |
+| `CCM25WeilObjectPackage` | `QW`, `Psi`, `QW_lambda`, source restriction bridge, source prime-power factorization, global support, restricted lambda cut, visibility before the cut, fixed-S visible-prime admissibility, `Lambda(n)`, `<g|T(n)g>`, pointwise finite-prime terms, finite-prime sign ownership, pole, archimedean sign |
+| `CC20TraceObjectPackage` | trace test, operator identity, Hilbert-Schmidt gate, trace-class positive square, per-move cyclicity ledger, ordinary positive trace, support-square trace after legality, no-defect trace after support square, CC20 remainder orientation `W_infty=L-D` and `W_infty=S-E`, Sonin/prolate defect discharge rows, bounded-comparison trace-ideal transport, Mellin bridge, sign bridge |
 | `CC20RHExitObjectPackage` | `F={0,1/2,1}`, finite-set admissibility, triple-vanishing-to-Mellin bridge, final sign contract consumption, CC20 inequality bridge, Proposition C.1, RH definition contract consumption, source-RH-to-Mathlib bridge |
 | `SourceObjectPackage` | the five packages plus cross-package compatibility fields |
 

@@ -472,7 +472,7 @@ which sign source theorem contracts the final route consumes.
 
 | question | answer |
 |---|---|
-| Does this contract prove the CCM25-to-CC20 sign theorem? | no |
+| Does this contract prove the CCM25-to-CC20 sign theorem? | at route-evidence level via `docs/proofs/final-sign-bridge-proof-package.md` |
 | Does it specify the theorem shape needed to discharge the final sign gate? | yes |
 | Does it block wrong-test sign transfer? | yes |
 | Does it block finite-prime sign absorption? | yes |
@@ -480,6 +480,5 @@ which sign source theorem contracts the final route consumes.
 | Does it force equality before inequality direction? | yes |
 | Can a later Lean/source-import pass use this as a checklist? | yes |
 
-The final sign gate is now stated as a theorem contract. The next work is to
-commit the three contract batch or continue with the RH definition bridge and
-source-definition contracts before the next signed milestone.
+The final sign gate now has a route-evidence proof package. The next work is
+accepted-source or Lean discharge for the same named theorem targets.

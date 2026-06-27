@@ -30,6 +30,48 @@ CCM24 / CCM25 / CC20 source interfaces
 formal or referee-checked proofs of those exact contracts
 ```
 
+The hard import-legitimacy audit for this layer is:
+
+```text
+docs/audits/source-import-legitimacy-audit.md
+```
+
+It separates source definitions and formula candidates from strategy,
+numerical, or project-package claims. No source-interface row should be treated
+as discharged unless it passes that audit's import checklist.
+
+Two theorem contracts now pin the highest-risk source-import shortcuts:
+
+```text
+docs/proofs/sonin-prolate-defect-cdef-theorem-contract.md
+docs/audits/sonin-prolate-defect-discharge-ledger.md
+docs/proofs/cc20-source-remainder-orientation-theorem-contract.md
+docs/proofs/cc20-post-q-remainder-fixed-s-transport-theorem-contract.md
+docs/proofs/restricted-to-full-qw-exhaustion-theorem-contract.md
+docs/proofs/restricted-to-full-qw-bridge-theorem-contract.md
+```
+
+The first blocks treating the CC20 prolate/Sonin difference as harmless. The
+discharge ledger splits that blocker into source remainder object, `Q` image,
+fixed-S transport, projection-defect normal form, rank/pole identification,
+`Cdef` domination, and no-hidden-defect equality. The fixed-S transport row is
+now named by `CC20PostQRemainderFixedSSoninTransport`, which must be proved or
+imported before Rows 4-6 can classify the source remainder. The second blocks treating
+CCM25 spectral convergence or determinant convergence as the scalar fixed-test
+theorem `QW_lambda(g,g) -> QW(g,g)`. The bridge contract
+then states the exact composition from common-test, window, finite-prime
+support, and CCM25 restriction-definition inputs to eventual scalar equality.
+
+Source-readiness audits now split their status:
+
+```text
+docs/audits/sonin-prolate-defect-source-readiness-audit.md
+  no direct source theorem found
+
+docs/audits/restricted-to-full-qw-source-readiness-audit.md
+  CCM25 restriction-definition path found after the bridge contract
+```
+
 Evidence:
 
 | evidence | current state |
@@ -158,6 +200,8 @@ Proof package:
 ```text
 docs/proofs/source-object-definition-spine-discharge.md
 docs/proofs/source-object-definition-theorem-contract.md
+docs/audits/source-object-theorem-discharge-ledger.md
+docs/proofs/source-common-test-tuple-theorem-contract.md
 ```
 
 It ties the common test, CCM24 window, CCM25 Weil objects, CC20 trace objects,
@@ -179,6 +223,21 @@ SourceObjectPackageDerivesCompactRecords
 
 These targets block the shortcut of treating compact symbolic records as final
 source evidence.
+
+The discharge ledger adds the acceptance rows for those targets. It requires
+proof or import evidence for the common test, fixed tuple, restricted window,
+CCM25 source objects, CC20 trace source objects, CC20 RH-exit objects, and
+compact-record projections before this gate can count as discharged.
+
+Rows 1 and 2 now have a stronger theorem contract:
+
+```text
+docs/proofs/source-common-test-tuple-theorem-contract.md
+```
+
+It fixes the formal/import targets for the common source test, owned
+convolution square, fixed route tuple, and the bridge tying that tuple to the
+common test and window.
 
 The first leg of that spine is:
 

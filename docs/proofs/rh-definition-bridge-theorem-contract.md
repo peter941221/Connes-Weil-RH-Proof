@@ -476,12 +476,12 @@ which RH-definition source contracts the final route consumes.
 |---|---|
 | Does this contract prove RH? | no |
 | Does it specify the theorem shape needed to discharge the RH definition gate? | yes |
+| Does it prove the RH definition bridge at route-evidence level? | yes, via `docs/proofs/rh-definition-bridge-proof-package.md` |
 | Does it target Mathlib's canonical `_root_.RiemannHypothesis`? | yes |
 | Does it expose the Mathlib zero equation? | yes |
 | Does it expose negative-even and pole exclusions separately? | yes |
 | Does it expose critical line as `s.re = 1/2`? | yes |
 | Can a later Lean/source-import pass use this as a checklist? | yes |
 
-The RH definition gate is now stated as a theorem contract. The next work is to
-write the source-definition spine contract or to commit this with that contract
-as the next signed milestone.
+The RH definition gate now has a route-evidence proof package. The next work is
+accepted-source or Lean discharge for the same named theorem targets.

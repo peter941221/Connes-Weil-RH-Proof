@@ -20,6 +20,7 @@ route records can count as source evidence.
 | source-object definition ledger | `docs/audits/source-object-definition-ledger.md` |
 | source-definition spine package | `docs/proofs/source-object-definition-spine-discharge.md` |
 | common test and convolution square | `docs/proofs/source-test-convolution-compatibility.md` |
+| common test and fixed tuple contract | `docs/proofs/source-common-test-tuple-theorem-contract.md` |
 | CCM24 source object package | `docs/proofs/ccm24-semilocal-object-normalization-discharge.md` |
 | CCM25 source object packages | `docs/proofs/ccm25-qw-psi-definition-sign-discharge.md`; `docs/proofs/ccm25-restricted-qwlambda-window-discharge.md`; `docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md` |
 | CC20 trace legality contract | `docs/proofs/cc20-analytic-trace-legality-theorem-contract.md` |
@@ -425,6 +426,7 @@ A source import can discharge this contract only if it supplies these items:
 | tuple | all packages use the same `(S,I,lambda,g)` |
 | window | one CCM24 source window controls support, `QW_lambda`, finite primes, and Cdef |
 | CCM25 objects | QW/Psi/QW_lambda, finite-prime, pole, and sign contracts project from the package |
+| restricted-to-full bridge | eventual scalar `QW_lambda(g,g)=QW(g,g)` projects from the CCM25 restriction definition plus common-test, window, and finite-prime support contracts |
 | CC20 trace objects | trace-legality contract projects from the package |
 | CC20 exit objects | finite set, Mellin vanishing, sign bridge, Proposition C.1, and RH bridge project from the package |
 | compact projections | existing compact route records are derived, not primitive |

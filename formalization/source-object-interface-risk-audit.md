@@ -13,6 +13,8 @@ formalization/source-object-interface-plan.md
 formalization/source-object-interface-workplan.md
 docs/proofs/source-object-derived-compact-records.md
 docs/proofs/source-object-definition-theorem-contract.md
+docs/audits/source-object-theorem-discharge-ledger.md
+docs/proofs/source-common-test-tuple-theorem-contract.md
 docs/audits/formal-gate-spine-consistency-audit.md
 ```
 
@@ -44,6 +46,8 @@ gaps behind compact Prop fields.
 | compact records remain primitive | `SemilocalModelSymbols`, `WeilFormSymbols`, `ArchimedeanTraceSymbols`, or `FiniteVanishingCriterionPackage` are still supplied directly | compact records must be derived from expanded packages | look for constructors of compact records outside `ObjectDerivations.lean` and source-interface wiring |
 | test drift | CCM24, CCM25, and CC20 packages each choose their own test type | `CommonTestObject` owns the source test and `F_g` | fields `ccm24Test_eq_commonTest`, `ccm25Test_eq_commonTest`, `cc20TraceTest_eq_commonTest`, and `cc20MellinTest_eq_commonTest` exist |
 | window drift | `QW_lambda` and Cdef exhaustion use different windows | CCM24 source window controls both | fields `ccm24Window_controls_qwLambda` and `ccm24Window_controls_cdef` exist |
+| sign/defect black box | source prolate/Sonin remainder is hidden behind one opaque `defectControlled : Prop` | expose the seven discharge rows: source remainder object, `Q` image, fixed-S Sonin transport, projection normal form, rank/pole identification, Cdef domination, and no-hidden-defect equality; keep `W_infty=L-D`, `W_infty=S-E`, and Row 3 `CC20PostQRemainderFixedSSoninTransport` visible | row fields or theorem projections matching `sonin-prolate-defect-discharge-ledger.md`, `cc20-source-remainder-orientation-theorem-contract.md`, and `cc20-post-q-remainder-fixed-s-transport-theorem-contract.md` exist |
+| restricted-to-full shortcut | `QW_lambda -> QW` is accepted as a bare limit or by spectral convergence | compose CCM25 restriction definition with common-test, window, and finite-prime support bridges | `RestrictedToFullQWBridgeContract` or equivalent fields exist |
 | finite-prime collapse | finite-prime normalization is only a sum equality | pointwise prime-power term equality must remain visible | theorem for `finitePrimeTerm n F_g = Lambda(n)<g|T(n)g>` exists |
 | trace collapse | positive trace, support-square trace, and no-defect trace are conflated | trace stages remain named | fields for Hilbert-Schmidt, trace-class, cyclicity, positive trace, support-square trace, and no-defect read-off exist |
 | sign collapse | `QW >= 0` is accepted as the CC20 inequality without sign theorem | sign bridge is a named theorem | field `qW_sign_bridge` exists and feeds RH exit |
@@ -56,11 +60,19 @@ The source-object definition theorem contract is the first blocking reference:
 
 ```text
 docs/proofs/source-object-definition-theorem-contract.md
+docs/audits/source-object-theorem-discharge-ledger.md
+docs/proofs/source-common-test-tuple-theorem-contract.md
 ```
 
-It requires `SourceObjectPackage` to expose the common test, fixed tuple,
-restricted window, CCM25 Weil objects, CC20 trace objects, CC20 RH-exit
-objects, and compact-record derivations as named targets.
+The contract requires `SourceObjectPackage` to expose the common test, fixed
+tuple, restricted window, CCM25 Weil objects, CC20 trace objects, CC20 RH-exit
+objects, and compact-record derivations as named targets. The ledger records
+the row-by-row proof or import evidence needed before those targets can count
+as discharged.
+
+The Row 1/2 contract fixes the common-test and tuple names that the interface
+must expose before later source packages may consume `g`, `F_g`, `S`, `I`, or
+`lambda`.
 
 ### Rule 1. Source Objects Stay In Source Modules
 

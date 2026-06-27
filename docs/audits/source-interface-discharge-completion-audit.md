@@ -97,15 +97,17 @@ source RH name drift against Mathlib RH
 
 ## Remaining Formal Gates
 
-The proof-package matrix leaves five formal gates.
+The proof-package matrix leaves remaining formal gates.
 
 | gate | what must become formal or imported |
 |---|---|
-| source object definitions | CCM24 windows, CCM25 `QW`, CC20 Weil sum, and source zeta objects must become explicit definitions or imported theorem interfaces; see `docs/audits/source-object-definition-ledger.md`, `docs/proofs/source-object-definition-spine-discharge.md`, and the stronger theorem contract `docs/proofs/source-object-definition-theorem-contract.md` |
+| source object definitions | CCM24 windows, CCM25 `QW`, CC20 Weil sum, and source zeta objects must become explicit definitions or imported theorem interfaces; see `docs/audits/source-object-definition-ledger.md`, `docs/proofs/source-object-definition-spine-discharge.md`, the stronger theorem contract `docs/proofs/source-object-definition-theorem-contract.md`, the discharge ledger `docs/audits/source-object-theorem-discharge-ledger.md`, and the Row 1/2 contract `docs/proofs/source-common-test-tuple-theorem-contract.md` |
 | analytic trace legality | CC20 trace-class and cyclicity theorems must be formalized or imported with exact hypotheses; see `docs/proofs/cc20-analytic-trace-legality-spine-discharge.md` and the stronger theorem contract `docs/proofs/cc20-analytic-trace-legality-theorem-contract.md` |
 | finite-prime normalization | CCM25 prime-power support, von Mangoldt weights, and pairing formulas must replace symbolic fields; see `docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md` and the stronger theorem contract `docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md` |
-| final sign bridge | Lean must expose `QW(g,g) = - sum_v W_v(g * bar(g)^sharp)` and the inequality-direction theorem; see `docs/proofs/final-sign-bridge-spine-discharge.md` and the stronger theorem contract `docs/proofs/final-sign-bridge-theorem-contract.md` |
-| RH definition bridge | CC20 source RH must be transported to Mathlib's `_root_.RiemannHypothesis` through the same zeta, zero, exclusion, and critical-line definitions; see `docs/proofs/rh-definition-bridge-spine-discharge.md` and the stronger theorem contract `docs/proofs/rh-definition-bridge-theorem-contract.md` |
+| sign/defect read-off | the positive trace must read as `QW_lambda` plus only killed ledgers and endpoint-strip `Cdef`, with no hidden prolate/Sonin defect; see `docs/audits/sign-defect-blocker-audit.md`, `docs/proofs/sonin-prolate-defect-cdef-theorem-contract.md`, `docs/audits/sonin-prolate-defect-discharge-ledger.md`, `docs/proofs/cc20-source-remainder-orientation-theorem-contract.md`, and `docs/proofs/cc20-post-q-remainder-fixed-s-transport-theorem-contract.md` |
+| restricted-to-full exhaustion | scalar fixed-test `QW_lambda(g,g) -> QW(g,g)` should be discharged through the CCM25 restriction definition plus common-test, window, and finite-prime support bridges, not spectral convergence; see `docs/audits/restricted-to-full-qw-source-readiness-audit.md`, `docs/proofs/restricted-to-full-qw-exhaustion-theorem-contract.md`, and `docs/proofs/restricted-to-full-qw-bridge-theorem-contract.md` |
+| final sign bridge | Lean must expose `QW(g,g) = - sum_v W_v(g * bar(g)^sharp)` and the inequality-direction theorem; see `docs/proofs/final-sign-bridge-spine-discharge.md`, `docs/proofs/final-sign-bridge-theorem-contract.md`, and `docs/proofs/final-sign-bridge-proof-package.md` |
+| RH definition bridge | CC20 source RH must be transported to Mathlib's `_root_.RiemannHypothesis` through the same zeta, zero, exclusion, and critical-line definitions; see `docs/proofs/rh-definition-bridge-spine-discharge.md`, `docs/proofs/rh-definition-bridge-theorem-contract.md`, and `docs/proofs/rh-definition-bridge-proof-package.md` |
 
 The source-object replacement batch has a separate consistency audit:
 
@@ -117,7 +119,7 @@ It checks that the CCM24, CCM25, CC20 trace, and CC20 RH-exit replacement
 packages preserve one test object, one lambda window, pointwise finite-prime
 terms, the sign bridge, and the Mathlib RH target.
 
-The five remaining formal gates have a separate spine consistency audit:
+The remaining formal gates have a separate spine consistency audit:
 
 ```text
 docs/audits/formal-gate-spine-consistency-audit.md
@@ -126,6 +128,31 @@ docs/audits/formal-gate-spine-consistency-audit.md
 It checks that the source-definition, trace-legality, finite-prime
 normalization, sign, and RH-definition spines compose as one Lean-facing
 source-discharge target.
+
+Two newer hard-blocker audits now sit in front of any stronger public proof
+claim:
+
+```text
+docs/audits/sign-defect-blocker-audit.md
+docs/audits/source-import-legitimacy-audit.md
+docs/audits/sonin-prolate-defect-source-readiness-audit.md
+docs/audits/restricted-to-full-qw-source-readiness-audit.md
+docs/proofs/sonin-prolate-defect-cdef-theorem-contract.md
+docs/audits/sonin-prolate-defect-discharge-ledger.md
+docs/proofs/cc20-source-remainder-orientation-theorem-contract.md
+docs/proofs/cc20-post-q-remainder-fixed-s-transport-theorem-contract.md
+docs/proofs/restricted-to-full-qw-exhaustion-theorem-contract.md
+docs/proofs/restricted-to-full-qw-bridge-theorem-contract.md
+docs/proofs/final-sign-bridge-proof-package.md
+docs/proofs/rh-definition-bridge-proof-package.md
+docs/proofs/source-conditional-rh-route-closure-proof-package.md
+```
+
+The first audit checks whether the positive trace has been proved to read as
+`QW_lambda` plus only killed ledgers and endpoint-strip `Cdef`. The second
+audit checks whether each CCM24, CCM25, and CC20 source dependency is an actual
+import candidate rather than a strategy, numerical observation, or project-only
+proof package.
 
 These gates are not optional polish. They are the difference between:
 
@@ -147,7 +174,7 @@ proof artifact with audited source discharge.
 | Is every proof package source-line anchored? | yes |
 | Does this prove RH as a formal Lean theorem with discharged source interfaces? | no |
 | Does this remove the broadest mathematical ambiguity in the source-interface layer? | yes |
-| Is the next phase allowed to add Lean scaffolding without further math? | only if it encodes these proof packages and keeps the five formal gates visible |
+| Is the next phase allowed to add Lean scaffolding without further math? | only if it encodes these proof packages and keeps the formal gates visible |
 
 The mathematics-first source-discharge phase has reached package coverage.
 Certification now requires replacing packages by formal theorems or accepted

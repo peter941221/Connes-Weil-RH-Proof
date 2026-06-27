@@ -50,6 +50,8 @@ The definition spine package records the cross-object version of this path:
 ```text
 docs/proofs/source-object-definition-spine-discharge.md
 docs/proofs/source-object-definition-theorem-contract.md
+docs/audits/source-object-theorem-discharge-ledger.md
+docs/proofs/source-common-test-tuple-theorem-contract.md
 ```
 
 It requires the common test, CCM24 window, CCM25 Weil objects, CC20 trace
@@ -60,6 +62,14 @@ The theorem contract further splits that source-owned spine into the common
 test and convolution square, one fixed route tuple, one restricted window,
 CCM25 Weil objects, CC20 trace objects, CC20 RH-exit objects, and compact-record
 derivations.
+
+The theorem-discharge ledger records what proof or import evidence would make
+each of those seven rows acceptable for the source-object definition gate.
+
+Rows 1 and 2 have a dedicated theorem contract. It fixes the formal/import
+targets for the common test, source convolution square, fixed route tuple, and
+the tuple bridge that carries the same `g`, `F_g`, `S`, `I`, and `lambda` into
+later source packages.
 
 ## Global Test-Function Boundary
 
@@ -86,7 +96,7 @@ derivations.
 |---|---|---|---|---|
 | `qw` | CCM25 global Weil quadratic form `QW(f,g)` | `mc2arXiv.tex:445-470`; `ConnesWeilRH/Basic.lean:42,58-60`; `docs/proofs/ccm25-qw-psi-definition-sign-discharge.md` | `SourceQWDefinition` proving `QW(f,g)=Psi(f^* * g)` for the source product | a positive-looking route form may not be the CCM25 Weil form |
 | `psi` | CCM25 distribution `Psi` with pole, archimedean, and finite-prime sign split | `mc2arXiv.tex:445-470`; `ConnesWeilRH/Basic.lean:44,62-66`; `docs/proofs/ccm25-qw-psi-definition-sign-discharge.md` | `SourcePsiSignSplit` | the final inequality direction can flip |
-| `qwLambda` | restricted CCM25 form `QW_lambda` | `mc2arXiv.tex:530-540`; `ConnesWeilRH/Basic.lean:43,68-75`; `docs/proofs/ccm25-restricted-qwlambda-window-discharge.md` | `SourceRestrictedQWLambdaFormula` | the fixed-S positive trace can be read as a different restricted quadratic form |
+| `qwLambda` | restricted CCM25 form `QW_lambda` | `mc2arXiv.tex:530-540`; `ConnesWeilRH/Basic.lean:43,68-75`; `docs/proofs/ccm25-restricted-qwlambda-window-discharge.md`; `docs/proofs/restricted-to-full-qw-bridge-theorem-contract.md` | `SourceRestrictedQWLambdaFormula` plus `RestrictedToFullQWBridgeContract` | the fixed-S positive trace can be read as a different restricted quadratic form or the restricted-to-full step can smuggle in spectral convergence |
 | `globalPrimeIndexSet` | full source prime-power support for the finite-prime part of `Psi` | `mc2arXiv.tex:445-470`; `ConnesWeilRH/Basic.lean:46,78-80`; `docs/proofs/ccm25-qw-psi-definition-sign-discharge.md`; `docs/proofs/ccm25-finite-prime-index-normalization-discharge.md` | `SourceGlobalPrimeIndexCoverage` plus source support characterization | a hidden empty, oversized, or underspecified finite-prime index set can erase or add terms |
 | `restrictedPrimeIndexSet lambda` | restricted prime-power support selected by the CCM25 `lambda` formula and cut by `1 < n <= lambda^2` | `mc2arXiv.tex:530-540`; `ConnesWeilRH/Basic.lean:47,82-84`; `docs/proofs/ccm25-restricted-qwlambda-window-discharge.md`; `docs/proofs/ccm25-finite-prime-index-normalization-discharge.md` | `SourceRestrictedPrimeIndexCoverage` plus `SourceRestrictedPrimePowerSupport` | visible finite-prime atoms of `F_g` may be omitted from `QW_lambda`, or non-source atoms may be added |
 | `finitePrimeAtomVisible` | predicate saying which source prime-power atoms of `F_g` are visible before the `lambda` limit | `docs/proofs/ccm25-finite-prime-support-pairing-discharge.md`; `docs/proofs/ccm25-finite-prime-index-normalization-discharge.md`; manuscript `docs/manuscripts/connes-weil-rh-proof-draft.md:1043-1057,1368-1374` | `SourceVisiblePrimePowerAtom` and `SourcePrimePowerIndex` | the route can choose `S_A` after the limit or allow non-prime-power atoms |

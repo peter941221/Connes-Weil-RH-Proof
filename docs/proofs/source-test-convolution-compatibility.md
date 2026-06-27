@@ -10,6 +10,15 @@ SourceTestFunctionCompatibility
 SourceConvolutionSquareReadOff
 ```
 
+The stronger formal/import theorem contract is:
+
+```text
+docs/proofs/source-common-test-tuple-theorem-contract.md
+```
+
+It names the theorem targets that must replace this proof-package bridge before
+the common-test and fixed-tuple rows can count as discharged.
+
 It does not replace the current Lean type:
 
 ```text

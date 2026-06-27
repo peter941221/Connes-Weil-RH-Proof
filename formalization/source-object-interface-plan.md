@@ -30,9 +30,17 @@ docs/proofs/cc20-trace-object-normalization-discharge.md
 docs/proofs/cc20-rh-exit-object-normalization-discharge.md
 docs/audits/source-object-replacement-consistency-audit.md
 docs/audits/formal-gate-spine-consistency-audit.md
+docs/audits/source-object-theorem-discharge-ledger.md
 docs/proofs/source-object-definition-theorem-contract.md
+docs/proofs/source-common-test-tuple-theorem-contract.md
 docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
 docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
+docs/proofs/sonin-prolate-defect-cdef-theorem-contract.md
+docs/audits/sonin-prolate-defect-discharge-ledger.md
+docs/proofs/cc20-source-remainder-orientation-theorem-contract.md
+docs/proofs/cc20-post-q-remainder-fixed-s-transport-theorem-contract.md
+docs/proofs/restricted-to-full-qw-exhaustion-theorem-contract.md
+docs/proofs/restricted-to-full-qw-bridge-theorem-contract.md
 docs/proofs/final-sign-bridge-theorem-contract.md
 docs/proofs/rh-definition-bridge-theorem-contract.md
 ```
@@ -62,6 +70,7 @@ SourceObjectPackage
   |     |
   |     +-- QW and Psi source definitions
   |     +-- QW_lambda source formula
+  |     +-- restricted-to-full scalar QW bridge and exhaustion
   |     +-- source prime-power index support
   |     +-- Lambda(n) and <g|T(n)g>
   |     +-- pole and sign normalization
@@ -73,6 +82,8 @@ SourceObjectPackage
   |     +-- trace-class and cyclicity template
   |     +-- positive trace Tr(A^*A)
   |     +-- support-square and no-defect trace read-off
+  |     +-- CC20 source remainder orientation W_infty=L-D and W_infty=S-E
+  |     +-- Sonin/prolate defect to endpoint-strip Cdef bridge
   |     +-- Mellin and sign normalizations
   |
   +-- CC20RHExitObjectPackage
@@ -110,8 +121,25 @@ for the package itself:
 docs/proofs/source-object-definition-theorem-contract.md
 ```
 
-The next Lean interface pass should encode those targets before it treats the
-compact records as source-backed evidence.
+The source-object theorem-discharge ledger gives the acceptance rows for those
+targets:
+
+```text
+docs/audits/source-object-theorem-discharge-ledger.md
+```
+
+Rows 1 and 2 have a dedicated theorem contract:
+
+```text
+docs/proofs/source-common-test-tuple-theorem-contract.md
+```
+
+The future `CommonTestObject` and `SourceObjectPackage` records should expose
+the names from that contract rather than replacing them with one broad
+compatibility field.
+
+The next Lean interface pass should encode those targets and keep the discharge
+rows visible before it treats the compact records as source-backed evidence.
 
 Before editing Lean, use this risk audit:
 

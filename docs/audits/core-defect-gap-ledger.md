@@ -11,6 +11,78 @@ fixed-S positive trace route and records their current route-evidence status.
 The three battle packages are now written at route-evidence level and are
 integrated into the manuscript's `Three-Battle Integrated Gate`.
 
+The newer hard-blocker audit is:
+
+```text
+docs/audits/sign-defect-blocker-audit.md
+```
+
+It treats the hostile sign/defect objection as closed only at route-evidence
+level until an accepted import or formal theorem proves that every non-ledger
+Sonin/prolate defect produced by the fixed-S read-off lies in the
+endpoint-strip `Cdef` class and that no hidden positive defect remains.
+
+The theorem contract for that exact target is:
+
+```text
+docs/proofs/sonin-prolate-defect-cdef-theorem-contract.md
+```
+
+The discharge ledger for that contract is:
+
+```text
+docs/audits/sonin-prolate-defect-discharge-ledger.md
+```
+
+It splits the hard blocker into seven rows: source remainder object, source
+remainder after `Q`, fixed-S Sonin transport, projection-defect normal form,
+rank/pole identification, endpoint-strip `Cdef` domination, and the final
+no-hidden-positive-defect equality.
+
+Rows 1 and 2 now have a source-orientation theorem contract:
+
+```text
+docs/proofs/cc20-source-remainder-orientation-theorem-contract.md
+```
+
+That contract fixes the CC20 signs `W_infty=L-D` and `W_infty=S-E`; it does
+not prove the later fixed-S endpoint-strip `Cdef` bridge.
+
+Row 3 now has a fixed-S transport theorem contract:
+
+```text
+docs/proofs/cc20-post-q-remainder-fixed-s-transport-theorem-contract.md
+```
+
+That contract states the next import/proof target:
+`CC20PostQRemainderFixedSSoninTransport(S,I,lambda,g,F_g)`. It only transports
+the CC20 `D circ Q` / `E circ Q` bulk and boundary pieces into the same
+fixed-S CCM24/Sonin/window coordinate. It does not classify them as rank, pole,
+or endpoint-strip `Cdef`; those are later rows.
+
+After the restricted lower bound is obtained, the restricted-to-full step is
+separately guarded by:
+
+```text
+docs/proofs/restricted-to-full-qw-exhaustion-theorem-contract.md
+docs/proofs/restricted-to-full-qw-bridge-theorem-contract.md
+```
+
+Those files require the CCM25 restriction definition to compose with the common
+test, fixed window, and finite-prime support contracts. They explicitly reject
+finite-operator spectral convergence or determinant convergence as a substitute
+for fixed-test scalar equality.
+
+The source-readiness audit for the contract is:
+
+```text
+docs/audits/sonin-prolate-defect-source-readiness-audit.md
+```
+
+It finds relevant CC20 local and CCM24 semilocal ingredients, but no direct
+source theorem proving that the transported prolate/Sonin defect is exactly
+rank, pole, or endpoint-strip `Cdef`.
+
 The imported exploration note `docs/ConnesWeilPositivity.md` contains the right
 local targets for the next attack. It also contains status labels such as
 `paper-closed` and `closed at route-paper level`. Those labels are not proof
@@ -27,6 +99,12 @@ docs/proofs/fixed-s-no-defect-compact-form-read-off.md
 docs/proofs/battle-2-fixed-s-support-square-transport-proof-package.md
 docs/proofs/battle-3-cdef-exhaustion-proof-package.md
 docs/proofs/fixed-test-graph-cdef-exhaustion.md
+docs/proofs/cc20-post-q-remainder-fixed-s-transport-proof-package.md
+docs/proofs/fixed-s-source-remainder-projection-defect-normal-form-proof-package.md
+docs/proofs/source-rank-pole-ledger-identification-proof-package.md
+docs/proofs/source-endpoint-strip-cdef-domination-proof-package.md
+docs/proofs/no-hidden-positive-defect-outside-cdef-proof-package.md
+docs/proofs/restricted-to-full-qw-bridge-proof-package.md
 ```
 
 ```text
@@ -43,6 +121,12 @@ CCM25 QW_lambda read-off
         |
         v
 Cdef exhaustion
+        |
+        v
+no-hidden-positive-defect equality
+        |
+        v
+restricted-to-full QW bridge
         |
         v
 triple-killed Weil positivity

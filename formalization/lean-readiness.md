@@ -366,9 +366,17 @@ replacement batch:
 ```text
 docs/audits/source-object-replacement-consistency-audit.md
 docs/audits/formal-gate-spine-consistency-audit.md
+docs/audits/source-object-theorem-discharge-ledger.md
 docs/proofs/source-object-definition-theorem-contract.md
+docs/proofs/source-common-test-tuple-theorem-contract.md
 docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
 docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md
+docs/proofs/sonin-prolate-defect-cdef-theorem-contract.md
+docs/audits/sonin-prolate-defect-discharge-ledger.md
+docs/proofs/cc20-source-remainder-orientation-theorem-contract.md
+docs/proofs/cc20-post-q-remainder-fixed-s-transport-theorem-contract.md
+docs/proofs/restricted-to-full-qw-exhaustion-theorem-contract.md
+docs/proofs/restricted-to-full-qw-bridge-theorem-contract.md
 docs/proofs/final-sign-bridge-theorem-contract.md
 docs/proofs/rh-definition-bridge-theorem-contract.md
 ```
@@ -382,7 +390,7 @@ CC20 trace objects
 CC20 RH exit objects
 ```
 
-The second audit checks the five remaining formal gates as one ordered spine:
+The second audit checks the remaining formal gates as one ordered spine:
 
 ```text
 source-definition
@@ -427,6 +435,39 @@ expanded source-object boundary described in:
 
 ```text
 formalization/source-object-interface-plan.md
+```
+
+Before treating that next Lean step as proof progress, use the two hard-blocker
+audits as the current mathematical gate:
+
+```text
+docs/audits/sign-defect-blocker-audit.md
+docs/audits/source-import-legitimacy-audit.md
+```
+
+Those audits keep two issues outside the scaffold: uncontrolled Sonin/prolate
+defects, and source claims that are strategy or numerical evidence rather than
+accepted theorem imports.
+
+The two corresponding theorem contracts are:
+
+```text
+docs/proofs/sonin-prolate-defect-cdef-theorem-contract.md
+docs/audits/sonin-prolate-defect-discharge-ledger.md
+docs/proofs/cc20-source-remainder-orientation-theorem-contract.md
+docs/proofs/cc20-post-q-remainder-fixed-s-transport-theorem-contract.md
+docs/proofs/restricted-to-full-qw-exhaustion-theorem-contract.md
+docs/proofs/restricted-to-full-qw-bridge-theorem-contract.md
+```
+
+The source-readiness split is now:
+
+```text
+docs/audits/sonin-prolate-defect-source-readiness-audit.md
+  hard blocker remains open
+
+docs/audits/restricted-to-full-qw-source-readiness-audit.md
+  CCM25 restriction-definition path found after the bridge contract
 ```
 
 The plan keeps the existing compact records:
