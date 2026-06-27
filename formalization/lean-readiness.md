@@ -358,27 +358,57 @@ uses `WeilFormSymbols.restrictedPrimeIndexSet lambda`. These fields remain
 source-conditional, but they prevent the phase-1 scaffold from silently turning
 finite-prime contributions into an empty sum.
 
-## Source-Interface Discharge Phase
+## Source-Object Interface Phase
 
-The next phase is not more route scaffolding. The next phase is to remove the
-source-conditional boundary recorded in:
-
-```text
-docs/audits/source-interface-discharge-audit.md
-```
-
-That audit turns each CCM24, CCM25, and CC20 source-interface contract into a
-discharge target with a first failure mode. The recommended first target is:
+The source-interface discharge proof packages now have a source-object
+replacement batch:
 
 ```text
-CCM25RestrictedReadOffDischarge(lambda, g)
+docs/audits/source-object-replacement-consistency-audit.md
+docs/audits/formal-gate-spine-consistency-audit.md
 ```
 
-This target should prove, in one notation, the restricted `QW_lambda` read-off
-for the source-backed fixed-`S` test, including the lambda window, finite-prime
-coverage, finite-prime term normalization, pole normalization, and sign
-convention.
+The first audit checks four expanded packages:
 
-This comes before deeper operator formalization because a sign, pole, or
-finite-prime normalization error would invalidate downstream positivity even if
-the trace-class and transport proofs were correct.
+```text
+CCM24 semilocal objects
+CCM25 finite-prime indices
+CC20 trace objects
+CC20 RH exit objects
+```
+
+The second audit checks the five remaining formal gates as one ordered spine:
+
+```text
+source-definition
+trace-legality
+finite-prime normalization
+final sign bridge
+RH definition bridge
+```
+
+The next Lean step should not add more route scaffolding. It should encode the
+expanded source-object boundary described in:
+
+```text
+formalization/source-object-interface-plan.md
+```
+
+The plan keeps the existing compact records:
+
+```text
+SemilocalModelSymbols
+WeilFormSymbols
+ArchimedeanTraceSymbols
+FiniteVanishingCriterionPackage
+```
+
+as derived views of an expanded source-object package. This prevents the final
+route from treating compact symbolic fields as source evidence.
+
+This is still not full analytic formalization. The immediate goal is narrower:
+
+```text
+make the source-object dependency graph Lean-visible
+without proving CCM24, CCM25, or CC20 analytic theorems yet.
+```

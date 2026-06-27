@@ -101,11 +101,11 @@ The proof-package matrix leaves five formal gates.
 
 | gate | what must become formal or imported |
 |---|---|
-| source object definitions | CCM24 windows, CCM25 `QW`, CC20 Weil sum, and source zeta objects must become explicit definitions or imported theorem interfaces; see `docs/audits/source-object-definition-ledger.md` |
-| analytic trace legality | CC20 trace-class and cyclicity theorems must be formalized or imported with exact hypotheses |
-| finite-prime normalization | CCM25 prime-power support, von Mangoldt weights, and pairing formulas must replace symbolic fields |
-| final sign bridge | Lean must expose `QW(g,g) = - sum_v W_v(g * bar(g)^sharp)` or an equivalent theorem |
-| RH definition bridge | CC20 source RH must be transported to Mathlib's `_root_.RiemannHypothesis` through the same zeta, zero, exclusion, and critical-line definitions |
+| source object definitions | CCM24 windows, CCM25 `QW`, CC20 Weil sum, and source zeta objects must become explicit definitions or imported theorem interfaces; see `docs/audits/source-object-definition-ledger.md` and `docs/proofs/source-object-definition-spine-discharge.md` |
+| analytic trace legality | CC20 trace-class and cyclicity theorems must be formalized or imported with exact hypotheses; see `docs/proofs/cc20-analytic-trace-legality-spine-discharge.md` |
+| finite-prime normalization | CCM25 prime-power support, von Mangoldt weights, and pairing formulas must replace symbolic fields; see `docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md` |
+| final sign bridge | Lean must expose `QW(g,g) = - sum_v W_v(g * bar(g)^sharp)` or an equivalent theorem; see `docs/proofs/final-sign-bridge-spine-discharge.md` |
+| RH definition bridge | CC20 source RH must be transported to Mathlib's `_root_.RiemannHypothesis` through the same zeta, zero, exclusion, and critical-line definitions; see `docs/proofs/rh-definition-bridge-spine-discharge.md` |
 
 The source-object replacement batch has a separate consistency audit:
 
@@ -116,6 +116,16 @@ docs/audits/source-object-replacement-consistency-audit.md
 It checks that the CCM24, CCM25, CC20 trace, and CC20 RH-exit replacement
 packages preserve one test object, one lambda window, pointwise finite-prime
 terms, the sign bridge, and the Mathlib RH target.
+
+The five remaining formal gates have a separate spine consistency audit:
+
+```text
+docs/audits/formal-gate-spine-consistency-audit.md
+```
+
+It checks that the source-definition, trace-legality, finite-prime
+normalization, sign, and RH-definition spines compose as one Lean-facing
+source-discharge target.
 
 These gates are not optional polish. They are the difference between:
 

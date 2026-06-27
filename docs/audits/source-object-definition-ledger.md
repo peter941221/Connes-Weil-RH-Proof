@@ -45,6 +45,16 @@ bridge theorem with exact hypotheses
 route certificate consumes the bridge, not a bare Prop
 ```
 
+The definition spine package records the cross-object version of this path:
+
+```text
+docs/proofs/source-object-definition-spine-discharge.md
+```
+
+It requires the common test, CCM24 window, CCM25 Weil objects, CC20 trace
+objects, CC20 finite-vanishing exit, and Mathlib RH bridge to project from one
+source-owned dependency spine.
+
 ## Global Test-Function Boundary
 
 | current object | source object required | evidence | bridge theorem required | failure if left symbolic |
@@ -88,6 +98,26 @@ QW(g,g) = - sum_v W_v(g * bar(g)^sharp).
 
 It should not disappear inside `fullWeilPositivity : Prop`.
 
+The final sign-bridge spine package strengthens this row:
+
+```text
+docs/proofs/final-sign-bridge-spine-discharge.md
+```
+
+It requires the source test, `Psi` expansion, archimedean sign bridge,
+finite-prime sign owner, pole sign, sign equality, and inequality-direction
+theorem to remain named before CC20 Proposition C.1 consumes positivity.
+
+The finite-prime normalization spine package strengthens the finite-prime rows:
+
+```text
+docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md
+```
+
+It requires source prime-power status, visibility in `F_g`, the restricted
+lambda cut, source `Lambda(n)`, source `<g|T(n)g>`, and pointwise term equality
+before any global or restricted finite-prime sum is used.
+
 ## CC20 Trace And Exit Objects
 
 | current symbolic field | source object required | source lines | bridge theorem required | failure if left symbolic |
@@ -100,6 +130,16 @@ It should not disappear inside `fullWeilPositivity : Prop`.
 | `uInfinityNormalized`, `qduNormalized`, `archimedeanSignNormalized` | CC20 `u_infty`, `qd u`, and archimedean sign conventions matched to CCM25 sign bridge | `weil-compo.tex:2131-2165`; `ConnesWeilRH/Basic.lean:118-120,139-141`; `docs/proofs/cc20-trace-object-normalization-discharge.md` | `SourceCC20SignNormalizations` | the final sign can be reversed at the CC20 exit |
 | `FiniteVanishingCriterionPackage.finiteSetAdmissible` | Proposition C.1 finite-set side condition, with source `F={0,1/2,1}` containing `{0,1}` and disjoint from non-trivial zeros | `weil-compo.tex:2072-2085`; `ConnesWeilRH/Basic.lean:199-204`; `docs/proofs/cc20-rh-exit-object-normalization-discharge.md` | `SourceFiniteSetAdmissibility` tied to the source zero predicate | the finite-vanishing criterion can be applied with an invalid finite set or the wrong zero predicate |
 | `FiniteVanishingCriterionPackage.criterion` | CC20 finite-vanishing Weil-positivity criterion plus source-RH-to-Mathlib-RH transport | `weil-compo.tex:2072-2085`; `ConnesWeilRH/Source/CC20.lean:45-54`; `docs/proofs/cc20-rh-exit-object-normalization-discharge.md`; `docs/proofs/source-rh-to-mathlib-rh-definition-bridge.md` | `SourceFiniteVanishingCriterionToMathlibRH` through Proposition C.1, sign bridge, Mellin bridge, and Mathlib RH definition bridge | the route may conclude a source-named RH statement without proving Mathlib RH |
+
+The trace-legality spine package strengthens the trace rows:
+
+```text
+docs/proofs/cc20-analytic-trace-legality-spine-discharge.md
+```
+
+It requires Hilbert-Schmidt, trace-class, cyclicity, positive trace,
+support-square trace, and no-defect read-off to appear in that order before
+the CCM25 Weil-form read-off.
 
 ## RH Definition Bridge
 
@@ -133,6 +173,16 @@ The final exit therefore needs three definition bridges:
 | `SourceNontrivialZeroIffMathlibZeroWithExclusions` | source non-trivial zero equals Mathlib zero plus negative-even and pole exclusions |
 | `SourceCriticalLineIffReEqHalf` | source critical line equals `s.re = 1/2` |
 
+The RH definition-bridge spine package strengthens these rows:
+
+```text
+docs/proofs/rh-definition-bridge-spine-discharge.md
+```
+
+It keeps the Mathlib zero equation, negative-even exclusion, pole exclusion at
+`s=1`, and critical-line equation as separate theorem targets before the source
+RH conclusion is transported.
+
 Without these bridges, a theorem can prove "RH" in source notation while the
 Lean target remains unproved.
 
@@ -142,6 +192,9 @@ The next Lean phase should replace symbolic fields in this order, after the
 mathematical packages are kept stable:
 
 ```text
+0. source-definition spine tying the downstream source objects together
+     |
+     v
 1. common test object and convolution square
      |
      v

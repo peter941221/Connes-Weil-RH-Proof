@@ -147,7 +147,24 @@ Why this order:
 
 ## Immediate Next Proof Target
 
-The first source-object replacement gate is:
+The first source-object replacement gate is now the definition spine:
+
+```text
+SourceDefinitionSpine(S,I,lambda,g)
+```
+
+Proof package:
+
+```text
+docs/proofs/source-object-definition-spine-discharge.md
+```
+
+It ties the common test, CCM24 window, CCM25 Weil objects, CC20 trace objects,
+CC20 finite-vanishing exit, and Mathlib RH target into one source-owned
+dependency spine. The compact source records should later project from this
+spine instead of being supplied as unrelated route-local evidence.
+
+The first leg of that spine is:
 
 ```text
 SourceTestConvolutionCompatibility(S,I,lambda,g)
@@ -240,14 +257,27 @@ The finite-prime index-normalization target is:
 CCM25FinitePrimeIndexNormalization(lambda,g)
 ```
 
-Proof package:
+Proof packages:
 
 ```text
+docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md
 docs/proofs/ccm25-finite-prime-index-normalization-discharge.md
 ```
 
-It strengthens the finite-prime row from coverage to source-object
-replacement:
+The finite-prime spine package fixes the certification order:
+
+```text
+source prime-power atom n
+  -> visibility in F_g
+  -> restricted lambda cut 1<n<=lambda^2
+  -> source Lambda(n)
+  -> source <g|T(n)g>
+  -> pointwise term equality
+  -> finite-prime sum.
+```
+
+The index-normalization package strengthens the finite-prime row from coverage
+to source-object replacement:
 
 ```text
 Nat index
@@ -278,14 +308,27 @@ The next concrete CC20 target is:
 CC20TraceLegalityMellinDischarge(g)
 ```
 
-Proof package:
+Proof packages:
 
 ```text
+docs/proofs/cc20-analytic-trace-legality-spine-discharge.md
 docs/proofs/cc20-trace-legality-mellin-discharge.md
 ```
 
-It proves, at source-interface proof-package level, that the route has the
-right order of operations:
+The analytic spine package fixes the order of trace legality:
+
+```text
+operator A tied to (S,I,lambda,g)
+  -> Hilbert-Schmidt witness
+  -> trace-class and per-move cyclicity witnesses
+  -> positive ordinary trace
+  -> support-square trace
+  -> no-defect source trace
+  -> CCM25 Weil-form read-off.
+```
+
+The Mellin package proves, at source-interface proof-package level, that the
+route has the right convention chain:
 
 ```text
 Hilbert-Schmidt gate
@@ -389,13 +432,25 @@ The dedicated sign-bridge target is:
 QWToCC20WeilInequalitySignBridge(g)
 ```
 
-Proof package:
+Proof packages:
 
 ```text
+docs/proofs/final-sign-bridge-spine-discharge.md
 docs/proofs/qw-to-cc20-weil-inequality-sign-bridge.md
 ```
 
-It proves the exact inequality-direction bridge:
+The sign spine package fixes the certification order:
+
+```text
+QW(g,g)=Psi(F_g)
+  -> Psi(F_g)=W_(0,2)-W_R-sum_p W_p
+  -> W_R=-W_infty and CC20 sign compatibility
+  -> finite-prime local sign stays positive
+  -> QW(g,g)=-sum_v W_v(F_g)
+  -> QW(g,g)>=0 implies sum_v W_v(F_g)<=0.
+```
+
+The sign-bridge package proves the exact inequality-direction bridge:
 
 ```text
 QW(g,g) = - sum_v W_v(g * bar(g)^sharp)
@@ -419,13 +474,27 @@ The source-RH definition bridge target is:
 SourceRHToMathlibRH
 ```
 
-Proof package:
+Proof packages:
 
 ```text
+docs/proofs/rh-definition-bridge-spine-discharge.md
 docs/proofs/source-rh-to-mathlib-rh-definition-bridge.md
 ```
 
-It decomposes the last naming risk into four bridges:
+The RH definition spine package fixes the certification order:
+
+```text
+source zeta
+  -> Mathlib riemannZeta
+  -> source zero predicate
+  -> Mathlib zero equation plus negative-even and pole exclusions
+  -> source critical line
+  -> s.re = 1/2
+  -> _root_.RiemannHypothesis.
+```
+
+The definition-bridge package decomposes the last naming risk into four
+bridges:
 
 ```text
 source zeta = Mathlib riemannZeta
@@ -481,3 +550,12 @@ evidence types:
 The objective "thoroughly break through RH" is not achieved until the final row
 of this matrix has formal or externally accepted evidence and the final theorem
 is re-audited against those discharged interfaces.
+
+The current proof-package phase has a formal-gate spine consistency audit:
+
+```text
+docs/audits/formal-gate-spine-consistency-audit.md
+```
+
+Use it as the system-level checklist before any Lean or source-import pass that
+claims to discharge the five remaining gates.

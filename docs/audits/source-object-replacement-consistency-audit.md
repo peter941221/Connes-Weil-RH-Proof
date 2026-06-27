@@ -6,9 +6,14 @@ This audit checks the proof packages that replace symbolic route fields with
 source-owned objects:
 
 ```text
+docs/proofs/source-object-definition-spine-discharge.md
 docs/proofs/ccm25-finite-prime-index-normalization-discharge.md
+docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md
 docs/proofs/cc20-trace-object-normalization-discharge.md
+docs/proofs/cc20-analytic-trace-legality-spine-discharge.md
 docs/proofs/cc20-rh-exit-object-normalization-discharge.md
+docs/proofs/final-sign-bridge-spine-discharge.md
+docs/proofs/rh-definition-bridge-spine-discharge.md
 docs/proofs/ccm24-semilocal-object-normalization-discharge.md
 ```
 
@@ -36,6 +41,9 @@ They are not formal Lean theorems and not accepted imported source theorems.
 The batch should be read in this order:
 
 ```text
+source-definition spine
+        |
+        v
 common source test and convolution square
         |
         v
@@ -58,7 +66,7 @@ Reason:
 | common test | one `g` and `F_g=g^* * g` | every support, finite-prime, Mellin, and trace statement |
 | CCM24 semilocal | fixed `S`, window `I`, `V_S=M_S U_S`, support transport | `QW_lambda`, finite-prime visibility, and Cdef exhaustion |
 | CCM25 finite prime | prime-power indices, `1<n<=lambda^2`, `Lambda(n)`, `<g|T(n)g>` | restricted Weil form and final sign bridge |
-| CC20 trace | trace test, trace-class gate, positive trace, no-defect trace | positive-trace-to-Weil read-off |
+| CC20 trace | trace test, trace-class gate, cyclicity witness ledger, positive trace, no-defect trace | positive-trace-to-Weil read-off |
 | CC20 exit | `F={0,1/2,1}`, Proposition C.1, source RH, Mathlib RH | final theorem target |
 
 ## Package Interface Check
@@ -66,9 +74,9 @@ Reason:
 | package | primary symbolic record replaced | source-owned outputs | consistency judgment |
 |---|---|---|---|
 | `ccm24-semilocal-object-normalization-discharge.md` | `SemilocalModelSymbols` | source place set, support window, common test, canonical coordinate, support transport, bounded comparison, Sonin exhaustion | consistent with the fixed-window route and CCM25 restricted read-off |
-| `ccm25-finite-prime-index-normalization-discharge.md` | finite-prime fields in `WeilFormSymbols` | source prime-power index, global support, restricted lambda cut, von Mangoldt weight, `T(n)` pairing, pointwise term normalization | consistent with global `Psi`, restricted `QW_lambda`, and fixed-S visible-prime side condition |
-| `cc20-trace-object-normalization-discharge.md` | `ArchimedeanTraceSymbols` | source trace test, Hilbert-Schmidt gate, trace-class and cyclicity, positive trace, support-square trace, no-defect trace, Mellin and sign bridges | consistent with Theorem 1 trace order and final sign bridge |
-| `cc20-rh-exit-object-normalization-discharge.md` | `FiniteVanishingCriterionPackage` | `F={0,1/2,1}`, source finite-set admissibility, Mellin vanishing, CC20 Weil inequality, Proposition C.1, Mathlib RH bridge | consistent with source-RH-to-Mathlib-RH package |
+| `ccm25-finite-prime-index-normalization-discharge.md`; `ccm25-finite-prime-normalization-spine-discharge.md` | finite-prime fields in `WeilFormSymbols` | source prime-power index, visibility in `F_g`, global support, restricted lambda cut, von Mangoldt weight, `T(n)` pairing, pointwise term normalization before summation | consistent with global `Psi`, restricted `QW_lambda`, and fixed-S visible-prime side condition |
+| `cc20-trace-object-normalization-discharge.md`; `cc20-analytic-trace-legality-spine-discharge.md` | `ArchimedeanTraceSymbols` | source trace test, Hilbert-Schmidt gate, trace-class and per-move cyclicity witnesses, positive trace, support-square trace, no-defect trace, Mellin and sign bridges | consistent with Theorem 1 trace order and final sign bridge |
+| `cc20-rh-exit-object-normalization-discharge.md`; `final-sign-bridge-spine-discharge.md`; `rh-definition-bridge-spine-discharge.md` | `FiniteVanishingCriterionPackage` | `F={0,1/2,1}`, source finite-set admissibility, Mellin vanishing, CC20 Weil inequality through named sign equality, Proposition C.1, Mathlib RH bridge through zeta, zero, exclusion, and line targets | consistent with source-RH-to-Mathlib-RH package |
 
 ## Cross-Package Invariants
 
@@ -282,6 +290,16 @@ derive these compact records.
 | Do they keep the finite-prime, trace, sign, and RH-exit bridges visible? | yes |
 | Do they prove or import the source theorems? | no |
 | Is this batch ready to become a signed source-object replacement milestone after hygiene checks? | yes |
+
+The five remaining formal gates also have a spine-level consistency audit:
+
+```text
+docs/audits/formal-gate-spine-consistency-audit.md
+```
+
+That audit checks the ordered chain from source-definition spine through trace
+legality, finite-prime normalization, final sign bridge, and the Mathlib RH
+definition bridge.
 
 The next step is either:
 
