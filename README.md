@@ -322,12 +322,48 @@ The project-owned route does not import RH as an assumption. The route imports
 source theorem interfaces and uses them to identify the positive fixed-S trace
 with the CCM Weil form.
 
+Current Lean artifacts:
+
+```text
+docs/audits/source-reread-v0.2.md
+docs/audits/lean-segment-build.md
+docs/audits/lean-source-interface-map.md
+formalization/lean-readiness.md
+ConnesWeilRH.lean
+ConnesWeilRH/
+lakefile.toml
+lean-toolchain
+```
+
+The segmented Connes-Weil scaffold builds as the current route target:
+
+```text
+lake build ConnesWeilRH
+```
+
+The scaffold separates source theorem interfaces from project-owned route
+lemmas and concludes Mathlib's `_root_.RiemannHypothesis` in the final route
+theorem. It remains source-conditional: the CCM24, CCM25, and CC20 source
+interfaces have symbolic Lean statements, but the source-paper analytic proofs
+have not been formalized inside Lean.
+
 ## Repository Layout
 
 ```text
 docs/
+  audits/
+    source-reread-v0.2.md
+    lean-segment-build.md
+    lean-source-interface-map.md
   manuscripts/
     connes-weil-rh-proof-draft.md
+
+ConnesWeilRH/
+  Segmented Lean route scaffold.
+
+formalization/
+  README.md
+  lean-readiness.md
 
 README.md
 ```

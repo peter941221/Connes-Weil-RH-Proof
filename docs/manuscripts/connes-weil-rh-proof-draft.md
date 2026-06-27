@@ -24,7 +24,7 @@ Source ledger:
 | Cdef norm formula | `ConnesWeilPositivity.md:146790-146853` |
 | Fixed-S support-square transport | `ConnesWeilPositivity.md:147084-147196` |
 | Hostile audit verdict | `ConnesWeilPositivity.md:147198-147264` |
-| Current project memory verdict | `MEMORY.md:22073-22095` |
+| Current public completion verdict | `Final Verification Status` below |
 
 Stable citation targets for a public draft:
 
@@ -1554,11 +1554,13 @@ interface. `finite_prime_visibility_statement_of_source_backed` derives
 `test.finitePrimesVisible`.
 
 Full Weil positivity now passes through
-`ConnesWeilRH.Route.SourceBackedFullPositivity`. The bridge uses the CC20
-trace-class template and archimedean trace-square statement, and it uses a
-CCM25 Weil-form read-off bridge fed by `inputs.ccm25.qwDefinition`,
-`inputs.ccm25.qwLambdaFormula`, and `inputs.ccm25.poleNormalization`. The final
-route theorem obtains `FullWeilPositivity` through
+`ConnesWeilRH.Route.SourceBackedFullPositivity`. That structure points to the
+fixed-S trace read-off package and the source-backed ledger package. The bridge
+uses the CC20 trace-class template and archimedean trace-square statement, and
+it uses a CCM25 Weil-form read-off bridge fed by
+`inputs.ccm25.qwDefinition`, `inputs.ccm25.qwLambdaFormula`, and
+`inputs.ccm25.poleNormalization`. The final route theorem obtains
+`FullWeilPositivity` through
 `ConnesWeilRH.Route.full_weil_positivity_of_source_backed`.
 
 The rank, pole, and Cdef ledgers now pass through
@@ -1584,6 +1586,58 @@ The Lean route now places the CC20 archimedean test object and its
 Hilbert-Schmidt gate inside `SourceTraceReadOffData`. The Theorem 1 segment
 derives trace-class/cyclicity legality and the trace-square read-off from the
 CC20 interface before it builds the fixed-S positive trace package.
+
+The CCM25 Weil-form read-off is also inside the fixed-S trace package. Lean now
+uses `ConnesWeilRH.Route.CCM25WeilFormReadOff` for the selected source-backed
+fixed-`S` test and restricted parameter `lambda`. The proof derives this
+read-off from the CCM25 `QW` definition, `QW_lambda` formula, and pole
+normalization interface fields, rather than accepting a free route-local
+read-off proposition.
+
+The restricted parameter now passes through
+`ConnesWeilRH.Route.WindowLambdaCompatibility`. That compatibility combines
+`1 < lambda` with the CCM24 semilocal window attached to the source-backed
+fixed-`S` test, using support transport, convolution-support transport, and
+Sonin exhaustion.
+
+The final identification now passes through
+`ConnesWeilRH.Route.TraceWeilCompatibility`. Lean first combines the CC20
+no-defect trace equality with the CCM25 Weil-form read-off, then derives the
+Weil identification used by `FixedSPositiveTraceReadOff`.
+
+`TraceWeilCompatibility` now names the two read-off equalities used at this
+junction: the CC20 source no-defect trace equals the CCM25 `QW` value, and the
+CC20 support-square trace equals the restricted CCM25 `QW_lambda` value.
+Lean now obtains these equalities through `FullTraceReadOffSource` and
+`RestrictedTraceReadOffSource` bridge fields instead of taking the equalities
+as direct fields on the fixed-S trace package.
+The full bridge consumes the CC20 no-defect trace read-off, and the restricted
+bridge consumes the CCM25 Weil-form read-off. Lean no longer allows arbitrary
+source propositions for these two read-off legs in `SourceTraceReadOffData`.
+The equality targets are named separately as
+`ConnesWeilRH.Route.FullTraceReadOffEquality` and
+`ConnesWeilRH.Route.RestrictedTraceReadOffEquality`.
+The CCM25 leg now splits into `ConnesWeilRH.Route.CCM25FullQWReadOff` and
+`ConnesWeilRH.Route.CCM25RestrictedQWReadOff`, separating the full `QW` read-off
+from the restricted `QW_lambda` read-off.
+The full leg keeps `ConnesWeilRH.Route.CCM25QWDefinitionReadOff` separate from
+`ConnesWeilRH.Route.CCM25PsiSignReadOff`. The restricted leg keeps
+`ConnesWeilRH.Route.WindowLambdaCompatibility`,
+`ConnesWeilRH.Route.CCM25QWLambdaFormulaReadOff`, and
+`ConnesWeilRH.Route.CCM25PoleNormalizationReadOff` separate.
+
+`WindowLambdaCompatibility` now includes
+`ConnesWeilRH.Route.WindowSupportContainment`. This records support in the
+CCM24 source window, Fourier support in the same window, convolution-support
+transport, and `windowContainedInLambda window lambda` before Lean derives the
+final `lambdaCompatible window lambda` conclusion.
+
+The CCM25 symbolic formulas now use explicit finite-prime index sets. The full
+`Psi`/`QW` side uses `ConnesWeilRH.WeilFormSymbols.globalPrimeIndexSet`, and
+the restricted `QW_lambda` side uses
+`ConnesWeilRH.WeilFormSymbols.restrictedPrimeIndexSet lambda`. The Lean
+scaffold therefore does not represent the finite-prime contribution by an empty
+placeholder sum.
 
 This is not yet a full Lean proof of RH. The formalization remains
 source-conditional until the CCM24, CCM25, and CC20 interfaces are discharged by

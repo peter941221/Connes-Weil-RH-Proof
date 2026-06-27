@@ -1,14 +1,35 @@
 # Formalization
 
-This directory is reserved for the Lean 4 formalization phase.
+This directory records the Lean 4 formalization plan and readiness notes.
 
-Do not start broad Lean plumbing here until the manuscript proof chain has a
-stable paper form. When formalization begins, add:
+The active Lake scaffold now lives at the repository root:
 
 ```text
 lakefile.toml
 lean-toolchain
+ConnesWeilRH.lean
 ConnesWeilRH/
 ```
 
-Record every successful build command in the repository root `AGENTS.md`.
+Use the segmented target for current route work:
+
+```text
+lake build ConnesWeilRH
+```
+
+The route scaffold is source-conditional. It names the CCM24, CCM25, and CC20
+source interfaces and checks the route composition, but it does not yet
+formalize the source-paper analytic proofs.
+
+Before changing Lean interfaces, read:
+
+```text
+formalization/lean-readiness.md
+docs/audits/source-reread-v0.2.md
+docs/audits/lean-source-interface-map.md
+docs/audits/lean-segment-build.md
+```
+
+For route edits, build the smallest affected segment first, then run
+`lake build ConnesWeilRH` and record the final axiom audit. Major milestone
+commits should be GPG-signed before they are pushed.
