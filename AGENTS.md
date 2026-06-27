@@ -84,3 +84,12 @@ MEMORY.md
 - The current artifact is not a Clay or journal certificate.
 - Route-search notes belong in the control/archive repository unless they are
   directly needed by the manuscript or formalization.
+- Theorem 1 must only be used on admissible tuples `(S,I,lambda,g)`: the support
+  of `g` must lie in `I subset [lambda^(-1),lambda]`, and `S` must contain every
+  finite prime visible to `F_g=g^* * g`. Otherwise the fixed-S trace cannot be
+  read as the full restricted `QW_lambda` form.
+- The positive trace in Theorem 1 must be trace-class before positivity is used:
+  check the Hilbert-Schmidt assertion for `P_hat P theta_S(g)` first.
+- Commutators with `M_S` are interpreted only after all terms have been moved to
+  the common scattering coordinate. Do not treat `[P,M_S]` as a commutator
+  between two different Hilbert spaces.

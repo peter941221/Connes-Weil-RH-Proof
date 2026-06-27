@@ -221,6 +221,21 @@ D = D_u^2 + D_u
 
 plus the boundary terms described in Connes--Consani Lemmas 5.1 and 5.2.
 
+All commutators with `M_S` below are written in one common scattering
+coordinate. That is, the proof first transports operators to the same
+`L^2(R,ds)` model through `U_S` and the fixed Radon-Nikodym identification
+given by `M_S`. In this common model, `M_S` and `M_S^*` act as multiplication
+operators with bounded inverse on the fixed finite-S graph domain, while
+`P` and `P_hat` are the transported support and Fourier-support projections.
+Thus symbols such as
+
+```text
+[P,M_S], [P_hat,M_S], [P,M_S^*], [P_hat,M_S^*]
+```
+
+mean commutators in this common model, not maps between different Hilbert
+spaces.
+
 For fixed graph order `J`, define `Cdef_(S,I,lambda,J)(g)` as the trace-norm
 sum of endpoint-strip normal-form terms created when the proof transports
 support and Fourier-support projections through `M_S` and `M_S^*`.
@@ -274,6 +289,43 @@ Cdef_graph_(S_A,I,lambda,J')(g) -> 0
 ```
 
 with `g` and `S_A` fixed.
+
+### Admissible Windows For Theorem 1
+
+Theorem 1 is used only for admissible tuples `(S,I,lambda,g)`.
+
+An admissible tuple satisfies:
+
+```text
+S is finite and contains the archimedean place,
+lambda > 1,
+I subset [lambda^(-1),lambda],
+supp(g) subset I.
+```
+
+Let
+
+```text
+F_g = g^* * g.
+```
+
+The finite-prime visibility condition is:
+
+```text
+if F_g(p^m) or F_g(p^(-m)) can be nonzero for some m >= 1,
+then p is in S.
+```
+
+Equivalently, if `supp(F_g) subset exp([-A,A])`, it is enough to take
+
+```text
+S_A={infinity} union {p : log p <= A}.
+```
+
+This condition prevents a fixed-S trace from being read as the full restricted
+Weil form while omitting prime-power atoms visible to `F_g`. In the final
+exhaustion step, `g` is fixed first, then `S_A` is fixed from this support
+condition, and only then does `lambda` tend to infinity.
 
 ## Projection Transport Lemmas
 
@@ -500,6 +552,13 @@ half-density test `g`, the theta-smoothed fixed-S support-square calculation
 uses one trace ideal. In particular:
 
 ```text
+P_hat_(S,G)(lambda) P_(S,G)(lambda) theta_S(g) is Hilbert-Schmidt,
+
+theta_S(g)^*
+  P_(S,G)(lambda) P_hat_(S,G)(lambda) P_(S,G)(lambda)
+  theta_S(g)
+  in L^1,
+
 theta_S(g)_can (1/2)u_S^(-1)d^-u_S theta_S(g)_can^*
   in L^1,
 ```
@@ -580,6 +639,24 @@ rank/pole/Cdef terms.
 
 This proves trace-class and cyclic trace legality for the support-square
 calculation below.
+
+The first two trace-class assertions follow from the same smoothing estimate:
+`theta_S(g)_can` has a Schwartz kernel after the fixed-S canonical transport,
+and left multiplication by the bounded projections `P_(S,G)` and
+`P_hat_(S,G)` preserves Hilbert-Schmidt membership. Hence
+
+```text
+A_(S,lambda,g)=P_hat_(S,G)(lambda) P_(S,G)(lambda) theta_S(g)
+```
+
+is Hilbert-Schmidt, and
+
+```text
+A_(S,lambda,g)^* A_(S,lambda,g)
+```
+
+is trace-class. This gives an ordinary positive trace before any regularized
+source trace is invoked.
 
 Cyclic trace certification used below:
 
@@ -784,6 +861,22 @@ with the rank, pole, and `Cdef` ledgers kept outside the main term.
 This isolates the source read-off from the rank, pole, and `Cdef` ledgers used
 in Theorem 1.
 
+The quotient ledger has no hidden derivative jets. The route records the
+no-strip finite-dimensional part as the following three evaluation channels:
+
+```text
+zero mode:          hat g(0),
+positive Tate jet:  hat g(+i/2),
+negative Tate jet:  hat g(-i/2).
+```
+
+Every other term produced by the source-to-fixed-S transport contains either a
+projection-order commutator, hence belongs to the endpoint-strip `Cdef`
+remainder, or remains inside the no-defect CCM trace already read as
+`QW_lambda`. Thus `Rank_(S,I)(g)` is proportional to `|hat g(0)|^2`, and
+`PoleJetExtra_(S,I)(g)` is supported only on the two Tate evaluations. This is
+the exact statement used by Theorem 2.
+
 Source read-off failure modes and current controls:
 
 | failure mode | control in this draft |
@@ -793,11 +886,20 @@ Source read-off failure modes and current controls:
 | Unsymmetrized `R_Lambda U(h)` is replaced by a positive support square too early | Lemmas A--C and Lemma 3 perform the transport before Theorem 1 reads the main term |
 | A projection defect contributes to the main Weil term | Lemma 1 charges projection-order defects to endpoint-strip `Cdef` |
 | A cyclic move changes the regularized trace | Lemma 2 requires trace-class membership and the Connes--Consani regularized convention before cyclicity |
+| Fixed `S` misses a visible prime-power atom | admissibility requires `S` to contain every finite prime visible to `F_g=g^* * g` |
+| Positive trace is used before it is trace-class | Lemma 2 proves `P_hat P theta_S(g)` is Hilbert-Schmidt before Theorem 1 takes `Tr(A^*A)` |
 
 ## Theorem 1. Fixed-S Source-Normalized Positive Trace
 
-For fixed finite `S`, compact interval `I`, cutoff `lambda>1`, and compactly
-supported half-density test `g`, define
+Let `(S,I,lambda,g)` be an admissible tuple in the sense above. Thus
+
+```text
+I subset [lambda^(-1),lambda],
+supp(g) subset I,
+and S contains every finite prime visible to F_g=g^* * g.
+```
+
+Define
 
 ```text
 PositiveTrace^G_(S,lambda)(g)
@@ -834,8 +936,25 @@ with
   <= C_(S,I,J)(g) Cdef_(S,I,lambda,J)(g).
 ```
 
-Proof. The positivity follows because `P_hat_(S,G)(lambda)` is an orthogonal
-projection in the canonical Hilbert structure:
+Proof. Lemma 2 gives
+
+```text
+A_(S,lambda,g)
+  =
+P_hat_(S,G)(lambda) P_(S,G)(lambda) theta_S(g)
+  in S_2.
+```
+
+Here `S_2` denotes the Hilbert-Schmidt ideal. Therefore
+
+```text
+PositiveTrace^G_(S,lambda)(g)
+  =
+Tr(A_(S,lambda,g)^* A_(S,lambda,g))
+```
+
+is an ordinary trace-class positive trace. In the canonical Hilbert structure,
+`P_hat_(S,G)(lambda)` is an orthogonal projection, so
 
 ```text
 theta_S(g)^* P P_hat P theta_S(g)
@@ -902,14 +1021,49 @@ Sign and normalization audit:
 | route quotient pole ledger | fixed-S source-to-positive-trace matching | outside `QW_lambda` | it records quotient directions before triple vanishing, not a second CCM pole term |
 
 Reading the fixed-S quantized differential trace through this formula gives
-the displayed identity.
+the displayed identity by the following source-normalized equality chain:
+
+```text
+Tr(theta_S(g)^*
+   [-P_(S,G)(1/2)u_S^(-1)d^-u_S P_(S,G)]
+   theta_S(g))
+
+= Trace_source,no-defect(R_lambda U(F_g))
+
+= QW_lambda(g,g).
+```
+
+The first equality is Lemma 3 plus the trace-class/cyclicity ledger of Lemma 2:
+the no-defect quantized differential trace is the source cutoff trace after
+projection-order defects have been charged to `Cdef` and no-strip quotient
+terms have been recorded outside the main term as `Rank` and `PoleJetExtra`.
+The second equality is the CCM25 restricted-form read-off for the test
+`F_g=g^* * g`.
+
+The admissibility condition on `S` is used exactly here. Since `F_g` vanishes on
+all prime powers outside the finite-prime visibility set, the finite-prime sum
+read from the fixed-S source trace agrees with the displayed full
+`QW_lambda(g,g)` sum on the interval `[lambda^(-1),lambda]`. Without this
+condition, Theorem 1 would give only the finite-S restricted trace, not the full
+restricted Weil form.
 
 ### Referee Expansion Of Theorem 1
 
-The proof of Theorem 1 uses the following five local checks.
+The proof of Theorem 1 uses the following local checks.
 
-**Step 1. Positivity.**  In the canonical Hilbert structure,
-`P_hat_(S,G)(lambda)` is an orthogonal projection. Therefore
+**Step 0. Admissible window.**  The theorem is used only when
+`I subset [lambda^(-1),lambda]`, `supp(g) subset I`, and `S` contains every
+finite prime visible to `F_g=g^* * g`. This makes `QW_lambda(g,g)` defined on
+the same support window and prevents missing prime-power terms.
+
+**Step 1. Positive trace-class square.**  Lemma 2 proves
+
+```text
+P_hat_(S,G)(lambda) P_(S,G)(lambda) theta_S(g) in S_2.
+```
+
+Thus the positive trace is an ordinary trace of `A^*A`. In the canonical Hilbert
+structure, `P_hat_(S,G)(lambda)` is an orthogonal projection. Therefore
 
 ```text
 theta_S(g)^* P P_hat P theta_S(g)
@@ -935,7 +1089,9 @@ Tate/pole ledger
 Cdef remainder.
 ```
 
-No Weil-form term is read off before this transport step.
+All commutators with `M_S` and `M_S^*` are taken in the common scattering
+coordinate fixed in the definitions. No Weil-form term is read off before this
+transport step.
 
 **Step 3. Trace legality.**  Lemma 2 and the trace-cyclicity domain ledger
 classify each trace operation:
@@ -985,9 +1141,18 @@ The remainder satisfies the `Cdef` bound by Lemma 1. The rank and pole ledgers
 are kept outside the CCM main term until Theorem 2 imposes the three vanishing
 conditions. This avoids double-counting the CCM pole functional.
 
+The quotient ledger has only the three evaluation channels
+
+```text
+hat g(0), hat g(+i/2), hat g(-i/2).
+```
+
+No derivative jet or extra finite-S residue is allowed in Theorem 2; any such
+term would have to be added to the ledger and killed separately.
+
 ## Theorem 2. Triple-Killed Corrected Trace Inequality
 
-Assume
+For an admissible tuple `(S,I,lambda,g)`, assume
 
 ```text
 hat g(0)=hat g(+i/2)=hat g(-i/2)=0.
@@ -1009,7 +1174,7 @@ give the inequality.
 ## Theorem 3. Fixed-Test Exhaustion
 
 Fix a compactly supported test `g` satisfying the triple vanishing conditions.
-Choose `A` with
+Choose a compact interval `I` containing `supp(g)`, and choose `A` with
 
 ```text
 supp(g^* * g) subset exp([-A,A]),
@@ -1031,8 +1196,9 @@ Proof. If a prime-power atom `p^m` meets the support of `g^* * g`, then
 `log(p^m)<=A`, hence `log p<=A` and `p in S_A`. Prime-power atoms with
 `log(p^m)>A` do not meet the fixed support.
 
-Keep `S_A` fixed and send `lambda -> infinity`. The graph/prolate exhaustion
-gives
+For every sufficiently large `lambda`, the tuple `(S_A,I,lambda,g)` is
+admissible. Keep `g`, `I`, and `S_A` fixed and send `lambda -> infinity`. The
+graph/prolate exhaustion gives
 
 ```text
 Cdef_graph_(S_A,I,lambda,J')(g)->0.
@@ -1155,6 +1321,12 @@ The manuscript never identifies these spaces by notation alone. It moves
 between them only through `U_S`, `M_S`, `V_S=M_S U_S`, the bounded comparison
 map, and the Fourier compatibility stated in Lemmas A--C.
 
+The commutator notation in Lemma 1 uses the common scattering coordinate. After
+transporting all terms to this coordinate, `M_S` is a multiplication operator
+with bounded inverse on the fixed finite-S graph domain. The symbols
+`[P,M_S]`, `[P_hat,M_S]`, `[P,M_S^*]`, and `[P_hat,M_S^*]` are therefore
+ordinary commutators in one operator algebra.
+
 ## Appendix B. Trace-Class And Cyclicity Ledger
 
 The dangerous trace step is the replacement of the positive support-square
@@ -1162,6 +1334,7 @@ trace by the fixed-S quantized differential trace. The proof uses this ledger.
 
 | trace operation | basis | risk controlled |
 |---|---|---|
+| `P_hat P theta_S(g)` is Hilbert-Schmidt | Lemma 2; theta-smoothed Schwartz kernel plus bounded projections | defines `PositiveTrace` as `Tr(A^*A)` before positivity is used |
 | theta-smoothed phase derivative is trace-class | Lemma 2; CC20 `weil-compo.tex:448-464` | avoids cyclicity before trace-class membership |
 | endpoint-strip defects are trace-class | Lemma 1 finite-strip Hilbert-Schmidt factorization | prevents projection defects from entering the main Weil term |
 | `Q` applied to strip defects remains controlled | Lemma 1 `Q` stability statement | prevents new no-strip boundary jets |
@@ -1192,6 +1365,14 @@ Tr_even(u_p^(-1)d u_p)=2 Tr(u_p^(-1)d u_p).
 
 Finite-prime coefficients enter only through the CCM Weil quadratic form.
 
+The fixed finite set `S` is not arbitrary when Theorem 1 is read as the full
+restricted form `QW_lambda`. The admissibility condition requires `S` to contain
+every finite prime visible to `F_g=g^* * g`. If `supp(F_g) subset exp([-A,A])`,
+the manuscript takes `S_A={infinity} union {p : log p <= A}` before the
+`lambda -> infinity` step. This makes the finite-prime part of the fixed-S
+source trace agree with the CCM restricted sum
+`sum_(1<n<=lambda^2) Lambda(n)<g|T(n)g>` for the fixed test.
+
 ## Appendix D. Finite-Set Side Condition
 
 Connes--Consani Proposition C.1 requires a finite set containing `{0,1}` and
@@ -1219,11 +1400,17 @@ finite set satisfies the source criterion used in Theorem 4.
 | Trace-class/cyclicity gap | The draft states it as Lemma 2 | `ConnesWeilPositivity.md:143859-144140` |
 | Fourier-projection notation mismatch | The draft separates range transport from conjugated projection notation and uses unitarity of `F_S` | Lemma B and Definitions |
 | `QW_lambda -> QW` exhaustion gap | The draft splits convergence into finite-prime stabilization, fixed pole evaluations, and source Hilbert cutoff exhaustion | Theorem 3 |
+| Fixed `S` cannot see full finite-prime sum | Theorem 1 now uses admissible tuples; `S_A` is chosen from `supp(F_g)` before `lambda -> infinity` | Admissible Windows; Appendix C |
+| Positive trace used before trace-class proof | Lemma 2 now states `P_hat P theta_S(g)` is Hilbert-Schmidt, so `PositiveTrace=Tr(A^*A)` is defined first | Lemma 2; Appendix B |
+| Commutators between different Hilbert spaces | Definitions now put all `[P,M_S]` terms in one common scattering coordinate | Definitions; Appendix A |
+| Rank/pole ledger hides derivative jets | Source read-off ledger lists exactly `hat g(0)`, `hat g(+i/2)`, and `hat g(-i/2)` as no-strip channels | Source Trace Read-Off; Theorem 1 expansion |
 
 Current hostile-audit verdict:
 
 ```text
-No named route-level mathematical gap remains in this draft.
+No named route-level mathematical gap remains in this draft after adding the
+admissible-window, positive-trace-class, common-coordinate, and quotient-ledger
+conditions to Theorem 1.
 
 External checks required for public circulation are source-citation formatting,
 independent rereading of displayed trace identities, and editorial conversion
@@ -1247,11 +1434,14 @@ current draft contains the object and points to the evidence used by the proof.
 | Fixed-S support and Fourier transport are stated | Lemmas A, B, C | pass |
 | Endpoint-strip defects are trace-ideal controlled | Lemma 1 | pass |
 | Trace-class and cyclic trace legality is classified | Lemma 2 plus trace-cyclicity domain ledger | pass |
+| PositiveTrace is defined before non-negativity is used | Lemma 2 Hilbert-Schmidt assertion plus Theorem 1 Step 1 | pass |
 | Fixed-S support-square transport is stated | Lemma 3 | pass |
 | Source trace read-off avoids premature replacement | `Source Trace Read-Off And Operator Equality Audit` | pass |
+| Theorem 1 has admissible support and finite-prime conditions | `Admissible Windows For Theorem 1` | pass |
 | Positive trace gives the restricted CCM form | Theorem 1 | pass |
 | Theorem 1 can be checked stepwise | `Referee Expansion Of Theorem 1` | pass |
 | Sign and normalization do not hide a finite-prime shortcut | Theorem 1 sign and normalization audit | pass |
+| Fixed-S/full-QW prime visibility is controlled | Admissible window and Appendix C | pass |
 | Rank and pole ledgers vanish under the chosen test class | Theorem 2 | pass |
 | Restricted forms converge to the full Weil form for fixed tests | Theorem 3 | pass |
 | Finite set for Proposition C.1 is admissible | Lemma 4a | pass |

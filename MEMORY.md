@@ -29,3 +29,21 @@
   condition.
 - Kept the boundary explicit: this is not a public proof certificate, journal
   acceptance, Clay acceptance, or Lean formalization.
+
+2026-06-27
+
+- Hardened Theorem 1 against strict referee attacks.
+- Added admissible-window conditions tying `S`, `I`, `lambda`, and `g`
+  together: `supp(g) subset I subset [lambda^(-1),lambda]`, and `S` must
+  contain every finite prime visible to `F_g=g^* * g`.
+- Added the positive-trace-class gate: Lemma 2 now states
+  `P_hat P theta_S(g)` is Hilbert-Schmidt before Theorem 1 uses
+  `Tr(A^*A) >= 0`.
+- Clarified that commutators with `M_S` are taken in one common scattering
+  coordinate, not between different Hilbert spaces.
+- Replaced the compressed "read through CCM" language in Theorem 1 with an
+  explicit no-defect source-trace read-off chain.
+- Added a quotient-ledger check: only `hat g(0)`, `hat g(+i/2)`, and
+  `hat g(-i/2)` occur as no-strip finite-dimensional channels.
+- Updated the hostile audit and completion audit to include these Theorem 1
+  hardening gates.
