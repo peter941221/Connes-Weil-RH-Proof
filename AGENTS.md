@@ -15,7 +15,7 @@ docs/manuscripts/connes-weil-rh-proof-draft.md
 Current status:
 
 ```text
-internal, source-conditional manuscript draft
+v0.1 referee-readable source-conditional manuscript
 ```
 
 This status does not claim journal acceptance, Clay acceptance, or Lean

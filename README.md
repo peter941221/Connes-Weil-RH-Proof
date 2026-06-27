@@ -21,7 +21,7 @@ docs/manuscripts/connes-weil-rh-proof-draft.md
 Current status:
 
 ```text
-internal, source-conditional manuscript draft
+v0.1 referee-readable source-conditional manuscript
 ```
 
 The manuscript states its own boundary. It is not a public proof certificate,

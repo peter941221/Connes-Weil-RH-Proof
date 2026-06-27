@@ -1,11 +1,12 @@
 # Connes-Weil RH Proof Draft
 
-Status: internal submission-grade manuscript draft for hostile audit.
+Status: v0.1 referee-readable source-conditional manuscript.
 
-This file extracts the current Connes-Weil route-paper proof from
-`ConnesWeilPositivity.md` Sections 20.1681--20.1691 and puts it in theorem
-order. It does not claim Clay-level certification, journal acceptance, or Lean
-formalization. It records an internally complete proof draft whose cited source
+This file gives a referee-readable v0.1 version of the Connes-Weil route-paper
+proof. It puts the proof in theorem order, records the source-line audit needed
+to check the imported results, and separates source theorems from project
+lemmas. It does not claim Clay-level certification, journal acceptance, or Lean
+formalization. It records a source-conditional manuscript whose cited source
 theorems, if accepted as stated, imply RH by the route theorem below.
 
 Source ledger:
@@ -68,6 +69,25 @@ Formula dependency map:
 | `W_p(F)=(log p) sum p^(-m/2)(F(p^m)+F(p^(-m)))` | CCM25 equation `bombieriexplicit1bis` | fixes the finite-prime coefficient | finite primes enter as `-sum_p W_p`, not by a local even-trace shortcut |
 | `QW_lambda(g,g)` formula on `[lambda^(-1),lambda]` | CCM25 equation `quadratsemi` | gives the restricted quadratic form used in Theorem 1 | pole term is the displayed `2 Re(hat g(i/2) overline{hat g(-i/2)})` |
 | `<g|T(n)g>=n^(-1/2)((g^* * g)(n)+(g^* * g)(n^(-1)))` | CCM25 equation `quadratsemi1` | gives the prime-power operator pairing | finite-prime sign is inherited from the `-sum` in `QW_lambda` |
+
+Source-line audit for v0.1:
+
+| imported item | arXiv source file and lines | use in this manuscript |
+|---|---|---|
+| CCM24 canonical semilocal transform and introduction theorem | `mainc2m24fine.tex:237-253` | defines `U_S`, `M_S`, `V_S=M_S U_S`, and the Fourier grading becoming reflection |
+| CCM24 support transport for `eta_S` | `mainc2m24fine.tex:761-771` | supports Lemma A and the support/Fourier-support transport in Lemma B |
+| CCM24 canonical fixed-S cyclic pair | `mainc2m24fine.tex:786-804` | supports the fixed-S canonical Hilbert model and the `s -> -s` grading |
+| CCM24 bounded comparison map | `mainc2m24fine.tex:806-823` | supplies boundedness and bounded inverse for the comparison map used in Lemma B |
+| CCM24 dual Fourier compatibility | `mainc2m24fine.tex:983-1003` | supports the Fourier-side intertwining used in Lemma B |
+| CCM24 Sonin-space comparison diagram | `mainc2m24fine.tex:1050-1060` | supports the fixed support-window comparison used in Theorem 3 |
+| CCM25 finite-prime and archimedean terms | `mc2arXiv.tex:445-470` | supplies `W_p`, `W_R=-W_infty`, `QW`, `Psi`, and `W_(0,2)` |
+| CCM25 restricted Weil quadratic form | `mc2arXiv.tex:530-540` | supplies `QW_lambda` and `<g|T(n)g>` in Theorem 1 |
+| CC20 archimedean support-square trace formula | `weil-compo.tex:378-387` | supplies the source trace formula and `traceequa` |
+| CC20 trace-class verification for the archimedean summand | `weil-compo.tex:448-464` | supplies the trace-class argument imported in Lemma 2 |
+| CC20 Fourier/Mellin convention | `weil-compo.tex:2014-2030` | fixes the half-density and Mellin convention used in Theorem 4 |
+| CC20 quantized calculus trace-class lemma | `weil-compo.tex:2106-2121` | supplies the trace ideal template used in Lemma 2 |
+| CC20 signs and normalizations appendix | `weil-compo.tex:2131-2165` | fixes `u_infty`, `qd u`, and the sign of the archimedean trace |
+| CC20 finite-vanishing positivity criterion | `weil-compo.tex:2072-2085` | supplies Proposition C.1, the final RH exit |
 
 References used in this draft:
 
@@ -884,6 +904,87 @@ Sign and normalization audit:
 Reading the fixed-S quantized differential trace through this formula gives
 the displayed identity.
 
+### Referee Expansion Of Theorem 1
+
+The proof of Theorem 1 uses the following five local checks.
+
+**Step 1. Positivity.**  In the canonical Hilbert structure,
+`P_hat_(S,G)(lambda)` is an orthogonal projection. Therefore
+
+```text
+theta_S(g)^* P P_hat P theta_S(g)
+  =
+(P_hat P theta_S(g))^* (P_hat P theta_S(g)).
+```
+
+The trace of this positive trace-class operator is non-negative.
+
+**Step 2. Support-square transport.**  Lemmas A--C identify the fixed-S support
+and Fourier-support projections with the transported archimedean support
+projections. Lemma 3 then gives
+
+```text
+support-square trace
+  =
+fixed-S quantized differential trace
+  +
+rank ledger
+  +
+Tate/pole ledger
+  +
+Cdef remainder.
+```
+
+No Weil-form term is read off before this transport step.
+
+**Step 3. Trace legality.**  Lemma 2 and the trace-cyclicity domain ledger
+classify each trace operation:
+
+```text
+ordinary L^1 trace:
+  theta-smoothed phase derivative and endpoint-strip defects;
+
+regularized source convention:
+  archimedean no-defect summand from CC20;
+
+no cyclic move after extraction:
+  no-strip rank and pole jets.
+```
+
+This blocks the main cyclicity failure mode: a fixed-S defect cannot be moved
+by regularized cyclicity unless it has first been put in the ordinary trace
+ideal or recorded as a ledger term.
+
+**Step 4. CCM read-off.**  The remaining no-defect quantized differential trace
+is read through CCM25, not through a new finite-prime trace computation:
+
+```text
+QW(f,g)=Psi(f^* * g),
+Psi(F)=W_(0,2)(F)-W_R(F)-sum_p W_p(F),
+W_R=-W_infty.
+```
+
+Hence the no-defect main term has the sign pattern
+
+```text
+W_(0,2) + W_infty - sum_p W_p.
+```
+
+The restricted form is the displayed `QW_lambda` formula from
+`mc2arXiv.tex:530-540`.
+
+**Step 5. Ledger collection.**  The terms outside `QW_lambda` are exactly:
+
+```text
+Rank_(S,I)(g),
+PoleJetExtra_(S,I)(g),
+R_(S,I,lambda)(g).
+```
+
+The remainder satisfies the `Cdef` bound by Lemma 1. The rank and pole ledgers
+are kept outside the CCM main term until Theorem 2 imposes the three vanishing
+conditions. This avoids double-counting the CCM pole functional.
+
 ## Theorem 2. Triple-Killed Corrected Trace Inequality
 
 Assume
@@ -1038,6 +1139,72 @@ rank, pole, and `Cdef` terms. Theorem 2 kills the rank and pole ledgers under
 the three finite vanishing conditions. Theorem 3 removes the `Cdef` term by
 fixed-test exhaustion. Theorem 4 applies Connes--Consani Proposition C.1.
 
+## Appendix A. Operator And Domain Conventions
+
+The proof uses four Hilbert-space coordinates. The table records where each
+object lives and which source fixes it.
+
+| object | coordinate | source | manuscript use |
+|---|---|---|---|
+| `L^2(X_S)^(K_S)` | semilocal source space | CCM24 `mainc2m24fine.tex:237-253` | initial support projections |
+| `L^2(R_+^*,d^*u)` | multiplicative group coordinate | CCM24 `mainc2m24fine.tex:237-253` | support-window comparison |
+| `L^2(R,dm_S)` | canonical fixed-S spectral coordinate | CCM24 `mainc2m24fine.tex:786-804` | positivity and orthogonal projections |
+| `L^2([lambda^(-1),lambda],d^*u)` | restricted CCM quadratic-form coordinate | CCM25 `mc2arXiv.tex:530-540` | `QW_lambda` read-off |
+
+The manuscript never identifies these spaces by notation alone. It moves
+between them only through `U_S`, `M_S`, `V_S=M_S U_S`, the bounded comparison
+map, and the Fourier compatibility stated in Lemmas A--C.
+
+## Appendix B. Trace-Class And Cyclicity Ledger
+
+The dangerous trace step is the replacement of the positive support-square
+trace by the fixed-S quantized differential trace. The proof uses this ledger.
+
+| trace operation | basis | risk controlled |
+|---|---|---|
+| theta-smoothed phase derivative is trace-class | Lemma 2; CC20 `weil-compo.tex:448-464` | avoids cyclicity before trace-class membership |
+| endpoint-strip defects are trace-class | Lemma 1 finite-strip Hilbert-Schmidt factorization | prevents projection defects from entering the main Weil term |
+| `Q` applied to strip defects remains controlled | Lemma 1 `Q` stability statement | prevents new no-strip boundary jets |
+| archimedean no-defect summand uses source convention | CC20 `weil-compo.tex:378-387`, `448-464` | avoids inventing a new regularized trace |
+| no-strip rank/pole jets are extracted, not cycled | Lemma 2 domain ledger | prevents regularized cyclicity on unclassified terms |
+
+Thus every cyclic trace move used by Theorem 1 either takes place in the
+ordinary trace ideal or remains inside the Connes--Consani source convention.
+
+## Appendix C. Source Normalization And Sign Audit
+
+Theorem 1 imports the finite-prime and archimedean signs from CCM25.
+
+| term | source | sign in the manuscript |
+|---|---|---|
+| `W_R=-W_infty` | `mc2arXiv.tex:445-470` | converts `-W_R` into `+W_infty` |
+| `Psi=W_(0,2)-W_R-sum_p W_p` | `mc2arXiv.tex:465-467` | fixes `W_(0,2)+W_infty-sum_p W_p` |
+| `W_p` | `mc2arXiv.tex:445-447` | finite primes appear with the negative sign in `Psi` |
+| `QW_lambda` | `mc2arXiv.tex:530-540` | restricted form contains `-sum Lambda(n)<g|T(n)g>` |
+| CCM pole functional | `mc2arXiv.tex:469-470`, `530-540` | appears inside `QW_lambda` |
+| route pole ledger | Lemma 3 and Theorem 1 | remains outside `QW_lambda` until Theorem 2 kills it |
+
+The manuscript does not use the false shortcut
+
+```text
+Tr_even(u_p^(-1)d u_p)=2 Tr(u_p^(-1)d u_p).
+```
+
+Finite-prime coefficients enter only through the CCM Weil quadratic form.
+
+## Appendix D. Finite-Set Side Condition
+
+Connes--Consani Proposition C.1 requires a finite set containing `{0,1}` and
+disjoint from the non-trivial zero set. The manuscript uses
+
+```text
+F={0,1/2,1}.
+```
+
+The points `0` and `1` are excluded by the non-trivial-zero convention. Lemma
+4a proves `zeta(1/2) != 0` through the Dirichlet eta relation. Therefore this
+finite set satisfies the source criterion used in Theorem 4.
+
 ## Hostile Audit Ledger
 
 | risk | current answer | evidence |
@@ -1074,6 +1241,7 @@ current draft contains the object and points to the evidence used by the proof.
 | Manuscript has a declared status and boundary | status line; opening paragraph; final public-certification note | pass as internal manuscript draft, not Clay/journal/Lean certification |
 | Public source targets are named | stable citation table; reference table with arXiv URLs | pass |
 | Source formula dependencies are mapped | `Formula dependency map` | pass |
+| Source-line audit is present | `Source-line audit for v0.1` | pass |
 | Proof order is explicit | `Proof Spine` | pass |
 | Definitions fix operators and ledgers | `Definitions` block | pass |
 | Fixed-S support and Fourier transport are stated | Lemmas A, B, C | pass |
@@ -1082,19 +1250,22 @@ current draft contains the object and points to the evidence used by the proof.
 | Fixed-S support-square transport is stated | Lemma 3 | pass |
 | Source trace read-off avoids premature replacement | `Source Trace Read-Off And Operator Equality Audit` | pass |
 | Positive trace gives the restricted CCM form | Theorem 1 | pass |
+| Theorem 1 can be checked stepwise | `Referee Expansion Of Theorem 1` | pass |
 | Sign and normalization do not hide a finite-prime shortcut | Theorem 1 sign and normalization audit | pass |
 | Rank and pole ledgers vanish under the chosen test class | Theorem 2 | pass |
 | Restricted forms converge to the full Weil form for fixed tests | Theorem 3 | pass |
 | Finite set for Proposition C.1 is admissible | Lemma 4a | pass |
 | Connes--Consani RH exit is applied with the correct convention | Theorem 4 | pass |
 | Route theorem closes the implication chain | Route Theorem | pass |
+| Audit material is accessible to referees | Appendices A--D | pass |
 | Known hostile risks are named and answered | Hostile Audit Ledger | pass |
 | Text hygiene was checked | Final Verification Status plus external command checks recorded in memory | pass |
 
 Current completion verdict:
 
 ```text
-The draft is complete as an internal, source-conditional manuscript draft.
+The draft is complete as a v0.1 referee-readable, source-conditional
+manuscript.
 No obvious route-level weak point remains visible in the current manuscript.
 The result is not a public proof certificate: independent referee review,
 source-line rereading, journal acceptance, Clay acceptance, and Lean
@@ -1108,9 +1279,11 @@ formalization remain outside this artifact.
 | Body prose avoids local extraction paths | pass | no local extraction paths remain in the draft body |
 | Stable source targets are listed | pass | `Stable citation targets for a public draft` table |
 | Source reread results are recorded | pass | `Source reread certificate` table |
+| Source-line audit is recorded | pass | `Source-line audit for v0.1` table |
 | Cyclic trace moves are numbered | pass | `(C1)`--`(C5)` in Lemma 2 |
 | Eta side condition is stated inside the proof | pass | Lemma 4a |
 | Hostile audit found no named route-level mathematical gap | pass | Hostile Audit Ledger and verdict |
+| Referee appendices are included | pass | Appendices A--D |
 | Completion gates are audited | pass | Completion Audit |
 | External public certification | not claimed | Clay-level, journal-level, and Lean-certified claims are outside this draft |
 
