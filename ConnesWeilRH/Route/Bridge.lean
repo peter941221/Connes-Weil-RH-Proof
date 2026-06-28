@@ -765,6 +765,26 @@ def SourcePoleSignInCC20LocalSum
         inputs.ccm25.weilSymbols g.weilTest lambda) : Prop :=
   SourceQWUsesCommonTest inputs g lambda F_g pkg
 
+theorem source_psi_sign_expansion_of_common_test
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : SourceQWUsesCommonTest inputs g lambda F_g pkg) :
+    SourcePsiSignExpansion inputs g lambda F_g pkg :=
+  h
+
+theorem source_pole_sign_in_cc20_local_sum_of_common_test
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : SourceQWUsesCommonTest inputs g lambda F_g pkg) :
+    SourcePoleSignInCC20LocalSum inputs g lambda F_g pkg :=
+  h
+
 def SourceQWEqualsNegCC20WeilSum
     (inputs : RouteInputs) (a : inputs.cc20.archimedeanSymbols.Test)
     (g : SourceBackedFixedSTest inputs)
@@ -787,6 +807,36 @@ def SourceQWNonnegativeToCC20Nonpositive
         inputs.ccm25.weilSymbols g.weilTest lambda) : Prop :=
   SourceQWEqualsNegCC20WeilSum inputs a g lambda F_g pkg
 
+theorem source_qw_equals_neg_cc20_weil_sum_of_common_test
+    {inputs : RouteInputs}
+    {a : inputs.cc20.archimedeanSymbols.Test}
+    {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (hcommon : SourceQWUsesCommonTest inputs g lambda F_g pkg)
+    (hsign : SourceArchimedeanSignBridge inputs a g) :
+    SourceQWEqualsNegCC20WeilSum inputs a g lambda F_g pkg :=
+  ⟨hcommon,
+    source_psi_sign_expansion_of_common_test hcommon,
+    hsign,
+    source_finite_prime_sign_owned_by_common_test hcommon,
+    source_pole_sign_in_cc20_local_sum_of_common_test hcommon⟩
+
+theorem source_qw_nonnegative_to_cc20_nonpositive_of_common_test
+    {inputs : RouteInputs}
+    {a : inputs.cc20.archimedeanSymbols.Test}
+    {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (hcommon : SourceQWUsesCommonTest inputs g lambda F_g pkg)
+    (hsign : SourceArchimedeanSignBridge inputs a g) :
+    SourceQWNonnegativeToCC20Nonpositive inputs a g lambda F_g pkg :=
+  source_qw_equals_neg_cc20_weil_sum_of_common_test hcommon hsign
+
 structure FinalSignBridgeData
     (inputs : RouteInputs) (a : inputs.cc20.archimedeanSymbols.Test)
     (g : SourceBackedFixedSTest inputs)
@@ -799,6 +849,20 @@ structure FinalSignBridgeData
   sourceArchimedeanSignBridge :
     SourceArchimedeanSignBridge inputs a g
 
+def final_sign_bridge_data_of_common_test
+    {inputs : RouteInputs}
+    {a : inputs.cc20.archimedeanSymbols.Test}
+    {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (hcommon : SourceQWUsesCommonTest inputs g lambda F_g pkg)
+    (hsign : SourceArchimedeanSignBridge inputs a g) :
+    FinalSignBridgeData inputs a g lambda F_g pkg where
+  sourceQWUsesCommonTest := hcommon
+  sourceArchimedeanSignBridge := hsign
+
 def FinalSignBridgeContract
     (inputs : RouteInputs) (a : inputs.cc20.archimedeanSymbols.Test)
     (g : SourceBackedFixedSTest inputs)
@@ -807,6 +871,19 @@ def FinalSignBridgeContract
       Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
         inputs.ccm25.weilSymbols g.weilTest lambda) : Prop :=
   ∃ _row : FinalSignBridgeData inputs a g lambda F_g pkg, True
+
+theorem final_sign_bridge_contract_of_common_test
+    {inputs : RouteInputs}
+    {a : inputs.cc20.archimedeanSymbols.Test}
+    {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (hcommon : SourceQWUsesCommonTest inputs g lambda F_g pkg)
+    (hsign : SourceArchimedeanSignBridge inputs a g) :
+    FinalSignBridgeContract inputs a g lambda F_g pkg :=
+  ⟨final_sign_bridge_data_of_common_test hcommon hsign, True.intro⟩
 
 structure RouteBridgeCertificate
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -928,12 +1005,9 @@ theorem final_sign_bridge_of_contract
         inputs.ccm25.weilSymbols g.weilTest lambda}
     (h : FinalSignBridgeContract inputs a g lambda F_g pkg) :
     SourceQWEqualsNegCC20WeilSum inputs a g lambda F_g pkg :=
-  ⟨h.choose.sourceQWUsesCommonTest,
-    h.choose.sourceQWUsesCommonTest,
-    h.choose.sourceArchimedeanSignBridge,
-    source_finite_prime_sign_owned_by_common_test
-      h.choose.sourceQWUsesCommonTest,
-    h.choose.sourceQWUsesCommonTest⟩
+  source_qw_equals_neg_cc20_weil_sum_of_common_test
+    h.choose.sourceQWUsesCommonTest
+    h.choose.sourceArchimedeanSignBridge
 
 theorem final_sign_nonnegative_to_nonpositive_of_contract
     {inputs : RouteInputs}

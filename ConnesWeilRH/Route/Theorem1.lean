@@ -191,6 +191,47 @@ def TraceWeilCompatibility
     (g : SourceBackedFixedSTest inputs) (lambda : ℝ) : Prop :=
   ∃ _row : TraceWeilCompatibilityData inputs a g lambda, True
 
+def full_trace_read_off_source_of_parts
+    {inputs : RouteInputs}
+    {a : inputs.cc20.archimedeanSymbols.Test}
+    {g : SourceBackedFixedSTest inputs}
+    (hnoDefect : CC20NoDefectSourceReadOff inputs a)
+    (hfull : CCM25FullQWReadOff inputs g)
+    (heq : FullTraceReadOffEquality inputs a g) :
+    FullTraceReadOffSource inputs a g :=
+  ⟨hnoDefect, hfull, heq⟩
+
+def restricted_trace_read_off_source_of_parts
+    {inputs : RouteInputs}
+    {a : inputs.cc20.archimedeanSymbols.Test}
+    {g : SourceBackedFixedSTest inputs} {lambda : ℝ}
+    (hrestricted : CCM25RestrictedQWReadOff inputs g lambda)
+    (heq : RestrictedTraceReadOffEquality inputs a g lambda) :
+    RestrictedTraceReadOffSource inputs a g lambda :=
+  ⟨hrestricted, heq⟩
+
+def trace_weil_compatibility_data_of_sources
+    {inputs : RouteInputs}
+    {a : inputs.cc20.archimedeanSymbols.Test}
+    {g : SourceBackedFixedSTest inputs} {lambda : ℝ}
+    (hfull : FullTraceReadOffSource inputs a g)
+    (hrestricted : RestrictedTraceReadOffSource inputs a g lambda) :
+    TraceWeilCompatibilityData inputs a g lambda where
+  fullTraceReadOffEquality := hfull.2.2
+  restrictedTraceReadOffEquality := hrestricted.2
+  fullTraceSource := hfull
+  restrictedTraceSource := hrestricted
+
+theorem trace_weil_compatibility_of_sources
+    {inputs : RouteInputs}
+    {a : inputs.cc20.archimedeanSymbols.Test}
+    {g : SourceBackedFixedSTest inputs} {lambda : ℝ}
+    (hfull : FullTraceReadOffSource inputs a g)
+    (hrestricted : RestrictedTraceReadOffSource inputs a g lambda) :
+    TraceWeilCompatibility inputs a g lambda :=
+  ⟨trace_weil_compatibility_data_of_sources
+    hfull hrestricted, True.intro⟩
+
 def FixedSPositiveTraceReadOff
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) : Prop :=
   ∃ a : inputs.cc20.archimedeanSymbols.Test,
@@ -373,29 +414,43 @@ theorem ccm25_restricted_qw_read_off_of_source_trace_data
     ⟨h.oneLtLambda, window_support_containment_of_source_backed g h.oneLtLambda,
       lambda_compatible_of_source_backed g h.oneLtLambda⟩
 
+theorem full_trace_read_off_source_of_bridge
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    (h : SourceTraceReadOffData inputs g)
+    (hnoDefect : CC20NoDefectSourceReadOff inputs h.archimedeanTest)
+    (hfull : CCM25FullQWReadOff inputs g) :
+    FullTraceReadOffSource inputs h.archimedeanTest g :=
+  h.fullTraceReadOffBridge hnoDefect hfull
+
+theorem restricted_trace_read_off_source_of_bridge
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    (h : SourceTraceReadOffData inputs g)
+    (hrestricted : CCM25RestrictedQWReadOff inputs g h.lambda) :
+    RestrictedTraceReadOffSource inputs h.archimedeanTest g h.lambda :=
+  h.restrictedTraceReadOffBridge hrestricted
+
 theorem full_trace_read_off_of_source_trace_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     (h : SourceTraceReadOffData inputs g) :
     FullTraceReadOffSource inputs h.archimedeanTest g :=
   let htrace := cc20_trace_square_of_source_trace_data h
   let hfull := ccm25_full_qw_read_off_of_source_trace_data h
-  h.fullTraceReadOffBridge htrace.1 hfull
+  full_trace_read_off_source_of_bridge h htrace.1 hfull
 
 theorem restricted_trace_read_off_of_source_trace_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     (h : SourceTraceReadOffData inputs g) :
     RestrictedTraceReadOffSource inputs h.archimedeanTest g h.lambda :=
-  h.restrictedTraceReadOffBridge
+  restricted_trace_read_off_source_of_bridge h
     (ccm25_restricted_qw_read_off_of_source_trace_data h)
 
 theorem trace_weil_compatibility_of_source_trace_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     (h : SourceTraceReadOffData inputs g) :
     TraceWeilCompatibility inputs h.archimedeanTest g h.lambda :=
-  ⟨⟨(full_trace_read_off_of_source_trace_data h).2.2,
-    (restricted_trace_read_off_of_source_trace_data h).2,
-    full_trace_read_off_of_source_trace_data h,
-    restricted_trace_read_off_of_source_trace_data h⟩, True.intro⟩
+  trace_weil_compatibility_of_sources
+    (full_trace_read_off_of_source_trace_data h)
+    (restricted_trace_read_off_of_source_trace_data h)
 
 theorem fixed_s_read_off_of_source_trace_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
