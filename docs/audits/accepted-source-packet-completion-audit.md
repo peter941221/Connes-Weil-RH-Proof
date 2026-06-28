@@ -36,17 +36,23 @@ docs/audits/accepted-source-review-dossier.md
 
 They define the accepted-source verdict process and track packet decisions.
 
-The first theorem-decision records are:
+The theorem-decision records are:
 
 ```text
 docs/audits/ccm24-source-interface-referee-decision-record.md
 docs/audits/ccm25-source-interface-referee-decision-record.md
 docs/audits/cc20-trace-source-interface-referee-decision-record.md
 docs/audits/s2-b1-trace-scale-referee-decision-record.md
+docs/audits/sign-defect-referee-decision-record.md
+docs/audits/restricted-to-full-referee-decision-record.md
+docs/audits/final-sign-referee-decision-record.md
+docs/audits/cc20-exit-referee-decision-record.md
+docs/audits/rh-definition-referee-decision-record.md
 ```
 
 These records do not accept the rows. They state the exact theorem bundle,
-evidence, required checks, and rejection names for the first decisions.
+evidence, required checks, and rejection names for each accepted-source
+decision.
 
 ## Packet Coverage Matrix
 
@@ -56,11 +62,11 @@ evidence, required checks, and rejection names for the first decisions.
 | CCM25 `QW`, `Psi`, `QW_lambda`, finite-prime atoms, pole normalization, no-spectral boundary | `docs/audits/ccm25-source-interface-accepted-source-packet.md` | decision record opened; external acceptance open |
 | CC20 trace legality, support-square trace, cyclicity, Mellin convention, local signs | `docs/audits/cc20-trace-source-interface-accepted-source-packet.md` | decision record opened; external acceptance open |
 | S2-B1 trace-scale no-missing-bulk theorem | `docs/audits/trace-scale-source-term-ledger.md` | decision record opened; external acceptance open |
-| Rows 1-7 sign/defect classification | `docs/audits/sign-defect-accepted-source-packet.md` | packet written; external acceptance open |
-| restricted-to-full `QW_lambda(g,g)=QW(g,g)` | `docs/audits/restricted-to-full-accepted-source-packet.md` | packet written; external acceptance open |
-| final sign `QW(g,g)=-sum_v W_v(F_g)` | `docs/audits/final-sign-accepted-source-packet.md` | packet written; external acceptance open |
-| CC20 finite-vanishing Proposition C.1 exit | `docs/audits/cc20-exit-accepted-source-packet.md` | packet written; external acceptance open |
-| source RH to standard RH definition bridge | `docs/audits/rh-definition-accepted-source-packet.md` | packet written; external acceptance open |
+| Rows 1-7 sign/defect classification | `docs/audits/sign-defect-accepted-source-packet.md` | decision record opened; external acceptance open |
+| restricted-to-full `QW_lambda(g,g)=QW(g,g)` | `docs/audits/restricted-to-full-accepted-source-packet.md` | decision record opened; external acceptance open |
+| final sign `QW(g,g)=-sum_v W_v(F_g)` | `docs/audits/final-sign-accepted-source-packet.md` | decision record opened; external acceptance open |
+| CC20 finite-vanishing Proposition C.1 exit | `docs/audits/cc20-exit-accepted-source-packet.md` | decision record opened; external acceptance open |
+| source RH to standard RH definition bridge | `docs/audits/rh-definition-accepted-source-packet.md` | decision record opened; external acceptance open |
 
 ## End-To-End Review Order
 
@@ -121,6 +127,7 @@ route notation match without object bridge
 | Does every source-facing row now have an accepted-source review packet? | yes |
 | Does every packet now have a status-board row? | yes |
 | Do the base source-interface rows have theorem-decision records? | yes |
+| Do all nine packets have theorem-decision records? | yes |
 | Has any row become accepted-source by this audit? | no |
 | Is the route still source-conditional? | yes |
 | Did this pass touch Lean? | no |

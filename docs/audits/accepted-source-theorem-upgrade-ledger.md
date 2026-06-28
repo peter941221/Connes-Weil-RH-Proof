@@ -143,6 +143,8 @@ Two additional packets now cover the next source-certification gates:
 ```text
 docs/audits/sign-defect-accepted-source-packet.md
 docs/audits/restricted-to-full-accepted-source-packet.md
+docs/audits/sign-defect-referee-decision-record.md
+docs/audits/restricted-to-full-referee-decision-record.md
 ```
 
 The sign/defect packet asks a referee to accept Rows 1-7 as one source-owned
@@ -163,6 +165,9 @@ Three packets now cover the final source-certification gates:
 docs/audits/final-sign-accepted-source-packet.md
 docs/audits/cc20-exit-accepted-source-packet.md
 docs/audits/rh-definition-accepted-source-packet.md
+docs/audits/final-sign-referee-decision-record.md
+docs/audits/cc20-exit-referee-decision-record.md
+docs/audits/rh-definition-referee-decision-record.md
 ```
 
 The final sign packet asks a referee to accept
@@ -217,6 +222,7 @@ for each critical row.
 | Did this ledger upgrade any row to accepted-source theorem status? | no |
 | Did it identify exact theorem candidates for accepted-source review? | yes |
 | Do the base source-interface rows now have theorem-decision records? | yes |
+| Do all nine accepted-source packets now have theorem-decision records? | yes |
 | Is S2-B1 the first critical candidate? | yes |
 | Are accepted-source packets complete for all source-facing rows? | yes |
 | Do Rows 3-7 and restricted-to-full now have review packets? | yes |

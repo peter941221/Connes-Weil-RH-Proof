@@ -28,12 +28,18 @@ docs/audits/accepted-source-certification-status-board.md
 docs/audits/accepted-source-packet-completion-audit.md
 ```
 
-The first source-interface theorem decision records are:
+The theorem-decision records are:
 
 ```text
 docs/audits/ccm24-source-interface-referee-decision-record.md
 docs/audits/ccm25-source-interface-referee-decision-record.md
 docs/audits/cc20-trace-source-interface-referee-decision-record.md
+docs/audits/s2-b1-trace-scale-referee-decision-record.md
+docs/audits/sign-defect-referee-decision-record.md
+docs/audits/restricted-to-full-referee-decision-record.md
+docs/audits/final-sign-referee-decision-record.md
+docs/audits/cc20-exit-referee-decision-record.md
+docs/audits/rh-definition-referee-decision-record.md
 ```
 
 Use this packet order:
@@ -115,6 +121,20 @@ Those records decide whether the fixed-S CCM24 model, the CCM25 Weil objects,
 and the CC20 trace front end can be treated as accepted-source theorem inputs.
 They are pending external decision.
 
+The downstream rows also have decision records:
+
+```text
+docs/audits/sign-defect-referee-decision-record.md
+docs/audits/restricted-to-full-referee-decision-record.md
+docs/audits/final-sign-referee-decision-record.md
+docs/audits/cc20-exit-referee-decision-record.md
+docs/audits/rh-definition-referee-decision-record.md
+```
+
+Those records decide the Rows 1-7 sign/defect theorem, fixed-test
+restricted-to-full scalar equality, final sign equality, CC20 exit, and RH
+definition bridge. They are also pending external decision.
+
 ## Current Judgment
 
 | question | answer |
@@ -122,6 +142,7 @@ They are pending external decision.
 | Does this dossier accept any packet? | no |
 | Does it make the accepted-source review executable? | yes |
 | Have the source-interface rows been promoted to accepted-source theorem status? | no |
+| Do all nine packets have theorem-decision records? | yes |
 | Has any packet received an accepted-source verdict? | no |
 | Did this pass touch Lean? | no |
 

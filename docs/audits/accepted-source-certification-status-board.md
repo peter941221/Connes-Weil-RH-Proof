@@ -45,11 +45,11 @@ decisions.
 | 2 | `docs/audits/ccm25-source-interface-accepted-source-packet.md` | CCM25 `QW`, `Psi`, `QW_lambda`, finite-prime atoms, pole normalization, no-spectral boundary | decision record opened | complete `docs/audits/ccm25-source-interface-referee-decision-record.md` by external decision or theorem |
 | 3 | `docs/audits/cc20-trace-source-interface-accepted-source-packet.md` | CC20 trace legality, support-square trace, cyclicity, Mellin convention, local signs | decision record opened | complete `docs/audits/cc20-trace-source-interface-referee-decision-record.md` by external decision or theorem |
 | 4 | `docs/audits/trace-scale-source-term-ledger.md` | S2-B1 trace-scale no-missing-bulk theorem | decision record opened | complete `docs/audits/s2-b1-trace-scale-referee-decision-record.md` after rows 1-3 or with the same reviewer |
-| 5 | `docs/audits/sign-defect-accepted-source-packet.md` | Rows 1-7 sign/defect classification | packet written | send after CCM24 and CC20 trace packets |
-| 6 | `docs/audits/restricted-to-full-accepted-source-packet.md` | fixed-test `QW_lambda(g,g)=QW(g,g)` | packet written | send after CCM25 packet |
-| 7 | `docs/audits/final-sign-accepted-source-packet.md` | `QW(g,g)=-sum_v W_v(F_g)` and inequality direction | packet written | send after CCM25 and CC20 sign checks |
-| 8 | `docs/audits/cc20-exit-accepted-source-packet.md` | CC20 Proposition C.1 finite-vanishing exit | packet written | send after final sign packet |
-| 9 | `docs/audits/rh-definition-accepted-source-packet.md` | source RH to standard RH definition bridge | packet written | send to source/Lean definition reviewer |
+| 5 | `docs/audits/sign-defect-accepted-source-packet.md` | Rows 1-7 sign/defect classification | decision record opened | complete `docs/audits/sign-defect-referee-decision-record.md` after CCM24 and CC20 trace decisions |
+| 6 | `docs/audits/restricted-to-full-accepted-source-packet.md` | fixed-test `QW_lambda(g,g)=QW(g,g)` | decision record opened | complete `docs/audits/restricted-to-full-referee-decision-record.md` after CCM25 decision |
+| 7 | `docs/audits/final-sign-accepted-source-packet.md` | `QW(g,g)=-sum_v W_v(F_g)` and inequality direction | decision record opened | complete `docs/audits/final-sign-referee-decision-record.md` after CCM25 and CC20 sign checks |
+| 8 | `docs/audits/cc20-exit-accepted-source-packet.md` | CC20 Proposition C.1 finite-vanishing exit | decision record opened | complete `docs/audits/cc20-exit-referee-decision-record.md` after final sign decision |
+| 9 | `docs/audits/rh-definition-accepted-source-packet.md` | source RH to standard RH definition bridge | decision record opened | complete `docs/audits/rh-definition-referee-decision-record.md` by external definition review or Lean theorem |
 
 ## Promotion Rule
 
@@ -94,6 +94,7 @@ RHDefinitionDrift
 |---|---|
 | Does every packet have a tracking row? | yes |
 | Do the base source-interface rows have theorem-decision records? | yes |
+| Do all nine packets have theorem-decision records? | yes |
 | Has any packet received an accepted-source decision? | no |
 | Can README claim accepted-source certification now? | no |
 | Did this pass touch Lean? | no |

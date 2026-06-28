@@ -131,17 +131,32 @@ The first S2-B1 theorem decision record is
 The sign/defect accepted-source packet is
 `docs/audits/sign-defect-accepted-source-packet.md`.
 
+The sign/defect theorem decision record is
+`docs/audits/sign-defect-referee-decision-record.md`.
+
 The restricted-to-full accepted-source packet is
 `docs/audits/restricted-to-full-accepted-source-packet.md`.
+
+The restricted-to-full theorem decision record is
+`docs/audits/restricted-to-full-referee-decision-record.md`.
 
 The final sign accepted-source packet is
 `docs/audits/final-sign-accepted-source-packet.md`.
 
+The final sign theorem decision record is
+`docs/audits/final-sign-referee-decision-record.md`.
+
 The CC20 exit accepted-source packet is
 `docs/audits/cc20-exit-accepted-source-packet.md`.
 
+The CC20 exit theorem decision record is
+`docs/audits/cc20-exit-referee-decision-record.md`.
+
 The RH definition accepted-source packet is
 `docs/audits/rh-definition-accepted-source-packet.md`.
+
+The RH definition theorem decision record is
+`docs/audits/rh-definition-referee-decision-record.md`.
 
 The local pre-Lean completion gate is
 `docs/audits/pre-lean-completion-audit.md`.
@@ -229,21 +244,24 @@ docs/audits/accepted-source-review-dossier.md
 
 They define the allowed verdicts and track each packet from "packet written" to
 "accepted-source". The current board has theorem-decision records opened for
-the three base source-interface rows and S2-B1, with no accepted decisions
-recorded.
+all nine accepted-source packets, with no accepted decisions recorded.
 
-The first theorem-decision records are:
+The theorem-decision records are:
 
 ```text
 docs/audits/ccm24-source-interface-referee-decision-record.md
 docs/audits/ccm25-source-interface-referee-decision-record.md
 docs/audits/cc20-trace-source-interface-referee-decision-record.md
 docs/audits/s2-b1-trace-scale-referee-decision-record.md
+docs/audits/sign-defect-referee-decision-record.md
+docs/audits/restricted-to-full-referee-decision-record.md
+docs/audits/final-sign-referee-decision-record.md
+docs/audits/cc20-exit-referee-decision-record.md
+docs/audits/rh-definition-referee-decision-record.md
 ```
 
-These records upgrade the source-interface rows from broad packets to explicit
-accepted-source theorem candidates under review. They still have pending
-verdicts.
+These records upgrade the accepted-source packets from broad review files to
+explicit theorem candidates under review. They still have pending verdicts.
 
 The three base source-interface packets are:
 
@@ -272,6 +290,8 @@ The next two certification packets are:
 ```text
 docs/audits/sign-defect-accepted-source-packet.md
 docs/audits/restricted-to-full-accepted-source-packet.md
+docs/audits/sign-defect-referee-decision-record.md
+docs/audits/restricted-to-full-referee-decision-record.md
 ```
 
 The first packet asks a referee to accept the Rows 1-7 sign/defect chain as a
@@ -285,6 +305,9 @@ The final-exit packets are:
 docs/audits/final-sign-accepted-source-packet.md
 docs/audits/cc20-exit-accepted-source-packet.md
 docs/audits/rh-definition-accepted-source-packet.md
+docs/audits/final-sign-referee-decision-record.md
+docs/audits/cc20-exit-referee-decision-record.md
+docs/audits/rh-definition-referee-decision-record.md
 ```
 
 They cover the sign equality `QW(g,g)=-sum_v W_v(F_g)`, the CC20
@@ -805,10 +828,15 @@ docs/
     trace-scale-source-term-ledger.md
     s2-b1-trace-scale-referee-decision-record.md
     sign-defect-accepted-source-packet.md
+    sign-defect-referee-decision-record.md
     restricted-to-full-accepted-source-packet.md
+    restricted-to-full-referee-decision-record.md
     final-sign-accepted-source-packet.md
+    final-sign-referee-decision-record.md
     cc20-exit-accepted-source-packet.md
+    cc20-exit-referee-decision-record.md
     rh-definition-accepted-source-packet.md
+    rh-definition-referee-decision-record.md
     source-reread-v0.2.md
     trace-scale-compatibility-audit.md
     trace-scale-compatibility-discharge-attempt.md
