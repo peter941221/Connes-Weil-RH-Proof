@@ -233,6 +233,61 @@ def PackageFinitePrimeSupportStabilization
           Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
             pkg
 
+def PackageExactFinitePrimeSupportAtLambda
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ)
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) : Prop :=
+  let _packageWitness := pkg
+  Nonempty
+    (Source.CCM25Concrete.FinitePrimeExact.ExactSupportAtLambda
+      inputs.ccm25.weilSymbols g.weilTest g.weilTest lambda)
+
+noncomputable def package_exact_finite_prime_support_at_lambda
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) :
+    Source.CCM25Concrete.FinitePrimeExact.ExactSupportAtLambda
+      inputs.ccm25.weilSymbols g.weilTest g.weilTest lambda :=
+  Source.CCM25Concrete.FinitePrimeCertificate.exact_support_of_arithmetic_certificate
+    (Source.CCM25Concrete.Package.formula_components
+      pkg).restricted.finitePrimeSumReadOff.certificate
+
+theorem package_exact_finite_prime_support_at_lambda_holds
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda} :
+    PackageExactFinitePrimeSupportAtLambda inputs g lambda pkg :=
+  ⟨package_exact_finite_prime_support_at_lambda pkg⟩
+
+noncomputable def exact_support_of_package_exact_support
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : PackageExactFinitePrimeSupportAtLambda inputs g lambda pkg) :
+    Source.CCM25Concrete.FinitePrimeExact.ExactSupportAtLambda
+      inputs.ccm25.weilSymbols g.weilTest g.weilTest lambda :=
+  h.some
+
+theorem visibility_at_lambda_of_package_exact_support
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : PackageExactFinitePrimeSupportAtLambda inputs g lambda pkg) :
+    Source.CCM25Concrete.FinitePrimeExact.FinitePrimeVisibilityAtLambdaStatement
+      inputs.ccm25.weilSymbols g.weilTest g.weilTest lambda :=
+  Source.CCM25Concrete.FinitePrimeExact.visibility_at_lambda_of_exact_support
+    (exact_support_of_package_exact_support h)
+
 theorem package_finite_prime_support_stabilization
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ}
@@ -241,9 +296,7 @@ theorem package_finite_prime_support_stabilization
         inputs.ccm25.weilSymbols g.weilTest lambda} :
     PackageFinitePrimeSupportStabilization inputs g lambda pkg := by
   dsimp [PackageFinitePrimeSupportStabilization]
-  let cert :=
-    (Source.CCM25Concrete.Package.formula_components
-      pkg).restricted.finitePrimeSumReadOff.certificate
+  let exactSupport := package_exact_finite_prime_support_at_lambda pkg
   constructor
   · intro n hn
     exact ⟨
@@ -262,7 +315,7 @@ theorem package_finite_prime_support_stabilization
         pkg hn⟩
   constructor
   · intro n hn
-    exact cert.support.visibleAtomsInLambdaCut n hn
+    exact exactSupport.visibleAtomsInLambdaCut n hn
   constructor
   · exact
       Source.CCM25Concrete.Package.global_finite_prime_sum_of_package_components
@@ -431,6 +484,8 @@ structure SourceQWLambdaRestrictionRows
     SourceFullQWDefinitionReadOff inputs g lambda pkg
   finitePrimeStabilization :
     RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg
+  exactFinitePrimeSupport :
+    PackageExactFinitePrimeSupportAtLambda inputs g lambda pkg
   archimedeanPoleStability :
     SourceArchimedeanPoleStabilityForRestriction inputs g lambda pkg
 
@@ -457,6 +512,8 @@ theorem source_qw_lambda_restriction_rows_of_common_tuple
   fullDefinition :=
     source_full_qw_definition_read_off_of_common_tuple hcommon
   finitePrimeStabilization := hstabilization
+  exactFinitePrimeSupport :=
+    package_exact_finite_prime_support_at_lambda_holds
   archimedeanPoleStability :=
     source_archimedean_pole_stability_of_common_tuple hcommon
 
@@ -502,6 +559,16 @@ theorem finite_prime_stabilization_of_qw_lambda_restriction
     (h : SourceQWLambdaIsRestrictionOfQW inputs g lambda pkg) :
     RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg :=
   h.choose.finitePrimeStabilization
+
+theorem exact_finite_prime_support_of_qw_lambda_restriction
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : SourceQWLambdaIsRestrictionOfQW inputs g lambda pkg) :
+    PackageExactFinitePrimeSupportAtLambda inputs g lambda pkg :=
+  h.choose.exactFinitePrimeSupport
 
 theorem archimedean_pole_stability_of_qw_lambda_restriction
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
