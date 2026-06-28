@@ -42,6 +42,8 @@ target that remains open.
 | `ConnesWeilRH.Source.CCM25Concrete.Restricted` | only `QW_lambda` and pole normalization | no |
 | `ConnesWeilRH.Source.CCM25Concrete.FinitePrime` | finite-prime coverage and exact-support targets | no |
 | `ConnesWeilRH.Source.CCM25Concrete.FinitePrimeExact` | fixed-`lambda` exact-support certificate implies fixed-window coverage | no |
+| `ConnesWeilRH.Source.CCM25Concrete.PrimePowerSupport` | source prime-power support record with the concrete lambda cut `1 < n` and `(n : Real) <= lambda^2` | no |
+| `ConnesWeilRH.Source.CCM25Concrete.PrimePowerTerm` | pointwise local atom normalization before any finite-prime sum | no |
 
 ## Logic Gap Made Visible
 
@@ -119,3 +121,40 @@ forall lambda, restricted coverage at lambda
 ```
 
 until the lambda quantifier and support containment are proved separately.
+
+## Prime-Power Support Record
+
+`ConnesWeilRH.Source.CCM25Concrete.PrimePowerSupport` makes the next target
+more concrete by naming:
+
+```text
+sourcePrimePowerIndex n
+sourceAtomVisible n F_g
+SourceLambdaCut(lambda,n) := 1 < n and (n : Real) <= lambda^2
+```
+
+and proving:
+
+```text
+SourcePrimePowerSupportAtLambda(W,f,g,lambda)
+  -> ExactSupportAtLambda(W,f,g,lambda)
+  -> fixed-lambda finite-prime visibility
+```
+
+This still does not prove the source support theorem from CCM25. It prevents
+the next pass from using arbitrary predicates in place of the source
+prime-power support and numeric lambda cut.
+
+## Pointwise Term Guard
+
+`ConnesWeilRH.Source.CCM25Concrete.PrimePowerTerm` isolates the local finite
+prime atom at one index:
+
+```text
+finitePrimeTerm n F_g = Lambda(n) * primePowerPairing n g g
+```
+
+The module deliberately keeps the negative sign out of the local atom. The sign
+belongs to the surrounding `Psi` or `QW_lambda` formula. This blocks a common
+failure mode where the sign is absorbed locally and then subtracted again in
+the finite-prime sum.
