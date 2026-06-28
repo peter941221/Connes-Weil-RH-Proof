@@ -22,11 +22,15 @@ namespace PrimePowerTerm
 
 structure SourceFinitePrimeAtomData
     (W : WeilFormSymbols) (f g : TestFunction) (n : ℕ) where
-  sourcePrimePowerIndex : Prop
+  sourcePrimePowerIndex : PrimePowerArithmetic.SourcePrimePowerIndex n
   sourceAtomVisible :
     W.finitePrimeAtomVisible n (W.convolutionStar f g)
   sourceVonMangoldtWeight : ℝ
+  sourcePairing :
+    PrimePowerPairing.SourcePrimePowerPairingData W f g n
   sourcePrimePowerPairing : ℝ
+  sourcePrimePowerPairing_eq_sourcePairing :
+    sourcePrimePowerPairing = sourcePairing.model.sourceTPairing
   weightReadOff :
     W.vonMangoldtWeight n = sourceVonMangoldtWeight
   pairingReadOff :
@@ -37,7 +41,7 @@ structure SourceFinitePrimeAtomData
 
 structure SourcePrimePowerTermAtIndex
     (W : WeilFormSymbols) (f g : TestFunction) (n : ℕ) where
-  sourcePrimePowerIndex : Prop
+  sourcePrimePowerIndex : PrimePowerArithmetic.SourcePrimePowerIndex n
   sourceAtomVisible :
     W.finitePrimeAtomVisible n (W.convolutionStar f g)
   normalized :
@@ -59,11 +63,18 @@ noncomputable def source_atom_data_of_arithmetic_data
       PrimePowerArithmetic.SourceFinitePrimeArithmeticData W f g n) :
     SourceFinitePrimeAtomData W f g n where
   sourcePrimePowerIndex :=
-    PrimePowerArithmetic.SourcePrimePowerIndex n
+    h.sourcePrimePowerIndex
   sourceAtomVisible := h.sourceAtomVisible
   sourceVonMangoldtWeight :=
     PrimePowerArithmetic.SourceVonMangoldtWeight n
+  sourcePairing := h.sourcePairing
   sourcePrimePowerPairing := h.sourcePrimePowerPairing
+  sourcePrimePowerPairing_eq_sourcePairing := by
+    calc
+      h.sourcePrimePowerPairing = W.primePowerPairing n f g :=
+        h.pairingReadOff.symm
+      _ = h.sourcePairing.model.sourceTPairing :=
+        h.sourcePairing.pairingReadOff
   weightReadOff := h.weightReadOff
   pairingReadOff := h.pairingReadOff
   termReadOff := h.termReadOff
@@ -74,11 +85,68 @@ theorem source_weight_read_off
     W.vonMangoldtWeight n = h.sourceVonMangoldtWeight :=
   h.weightReadOff
 
+theorem source_prime_power_index_of_atom_data
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeAtomData W f g n) :
+    PrimePowerArithmetic.SourcePrimePowerIndex n :=
+  h.sourcePrimePowerIndex
+
+theorem source_prime_power_index_one_lt_of_atom_data
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeAtomData W f g n) :
+    1 < n :=
+  PrimePowerArithmetic.source_prime_power_index_one_lt
+    (source_prime_power_index_of_atom_data h)
+
+theorem source_prime_power_index_of_term_at_index
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourcePrimePowerTermAtIndex W f g n) :
+    PrimePowerArithmetic.SourcePrimePowerIndex n :=
+  h.sourcePrimePowerIndex
+
+theorem source_prime_power_index_one_lt_of_term_at_index
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourcePrimePowerTermAtIndex W f g n) :
+    1 < n :=
+  PrimePowerArithmetic.source_prime_power_index_one_lt
+    (source_prime_power_index_of_term_at_index h)
+
 theorem source_pairing_read_off
     {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
     (h : SourceFinitePrimeAtomData W f g n) :
     W.primePowerPairing n f g = h.sourcePrimePowerPairing :=
   h.pairingReadOff
+
+def source_pairing_data_of_atom_data
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeAtomData W f g n) :
+    PrimePowerPairing.SourcePrimePowerPairingData W f g n :=
+  h.sourcePairing
+
+theorem source_prime_power_pairing_eq_source_pairing
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeAtomData W f g n) :
+    h.sourcePrimePowerPairing = h.sourcePairing.model.sourceTPairing :=
+  h.sourcePrimePowerPairing_eq_sourcePairing
+
+theorem source_pairing_read_off_from_pairing_data
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeAtomData W f g n) :
+    W.primePowerPairing n f g =
+      h.sourcePairing.model.sourceTPairing := by
+  rw [h.pairingReadOff, h.sourcePrimePowerPairing_eq_sourcePairing]
+
+theorem source_pairing_formula_source_evaluator
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeAtomData W f g n) :
+    W.primePowerPairing n f g =
+      (1 / Real.sqrt (n : ℝ)) *
+        (h.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
+            (W.convolutionStar f g) (n : ℝ) +
+          h.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
+            (W.convolutionStar f g) ((n : ℝ)⁻¹)) :=
+  PrimePowerPairing.source_prime_power_pairing_formula_source_evaluator
+    h.sourcePairing
 
 theorem source_finite_prime_term_read_off
     {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
