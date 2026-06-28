@@ -253,8 +253,42 @@ noncomputable def package_exact_finite_prime_support_at_lambda
     Source.CCM25Concrete.FinitePrimeExact.ExactSupportAtLambda
       inputs.ccm25.weilSymbols g.weilTest g.weilTest lambda :=
   Source.CCM25Concrete.FinitePrimeCertificate.exact_support_of_arithmetic_certificate
-    (Source.CCM25Concrete.Package.formula_components
-      pkg).restricted.finitePrimeSumReadOff.certificate
+    (Source.CCM25Concrete.Package.formula_components pkg).commonCertificate
+
+theorem package_exact_support_uses_common_certificate
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) :
+    package_exact_finite_prime_support_at_lambda pkg =
+      Source.CCM25Concrete.FinitePrimeCertificate.exact_support_of_arithmetic_certificate
+        (Source.CCM25Concrete.Package.formula_components pkg).commonCertificate :=
+  rfl
+
+theorem package_exact_support_source_test_eq_package_source_test
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) :
+    (package_exact_finite_prime_support_at_lambda pkg).sourceAtomVisible =
+      (Source.CCM25Concrete.Package.source_test_of_package pkg).sourceAtomVisible := by
+  funext n
+  dsimp [package_exact_finite_prime_support_at_lambda]
+  dsimp [
+    Source.CCM25Concrete.FinitePrimeCertificate.exact_support_of_arithmetic_certificate,
+    Source.CCM25Concrete.FinitePrimeCertificate.exact_support_of_certificate,
+    Source.CCM25Concrete.FinitePrimeCertificate.certificate_of_arithmetic_certificate,
+    Source.CCM25Concrete.FinitePrimeCertificate.certificate_of_atom_certificate,
+    Source.CCM25Concrete.FinitePrimeCertificate.atom_certificate_of_arithmetic_certificate,
+    Source.CCM25Concrete.FinitePrimeCertificate.source_prime_power_support_of_certificate,
+    Source.CCM25Concrete.PrimePowerSupport.exact_support_of_source_prime_power_support,
+    Source.CCM25Concrete.PrimePowerSupport.source_prime_power_support_of_skeleton,
+    Source.CCM25Concrete.PrimePowerSupport.support_skeleton_of_arithmetic_support_skeleton]
+  rw [
+    Source.CCM25Concrete.Package.common_certificate_source_test_of_package
+      pkg]
 
 theorem package_exact_finite_prime_support_at_lambda_holds
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}

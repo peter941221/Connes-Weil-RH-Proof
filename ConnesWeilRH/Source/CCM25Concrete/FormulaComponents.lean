@@ -23,21 +23,40 @@ namespace FormulaComponents
 
 structure ConcreteCCM25FormulaComponents
     (W : WeilFormSymbols) (f : TestFunction) (lambda : ℝ) where
+  sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f f
+  commonCertificate :
+    FinitePrimeCertificate.FixedLambdaFinitePrimeArithmeticCertificate
+      W f f lambda
+  commonCertificateSourceTest :
+    commonCertificate.support.sourceTest = sourceTest
   global :
     GlobalComponent.GlobalQWPsiFormulaComponent W f f lambda
   restricted :
     RestrictedComponent.RestrictedQWLambdaFormulaComponent W f lambda
+  globalCertificate_eq_common :
+    global.finitePrimeSumReadOff.certificate = commonCertificate
+  restrictedCertificate_eq_common :
+    restricted.finitePrimeSumReadOff.certificate = commonCertificate
 
 def formula_components_of_arithmetic_rows
     {W : WeilFormSymbols} (h : Interface.ConcreteCCM25ArithmeticRows W)
     (f : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :
     ConcreteCCM25FormulaComponents W f lambda where
+  sourceTest :=
+    Interface.source_test_of_arithmetic_rows h f f
+  commonCertificate :=
+    (h.finitePrimeArithmeticCertificates f f).certificate lambda hlambda
+  commonCertificateSourceTest :=
+    Interface.arithmetic_certificate_source_test_of_arithmetic_rows
+      h f f lambda hlambda
   global :=
     GlobalComponent.global_qw_psi_formula_component_of_arithmetic_rows
       h f f lambda hlambda
   restricted :=
     RestrictedComponent.restricted_qw_lambda_formula_component_of_arithmetic_rows
       h f lambda hlambda
+  globalCertificate_eq_common := rfl
+  restrictedCertificate_eq_common := rfl
 
 def global_component_of_formula_components
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -50,6 +69,54 @@ def restricted_component_of_formula_components
     (h : ConcreteCCM25FormulaComponents W f lambda) :
     RestrictedComponent.RestrictedQWLambdaFormulaComponent W f lambda :=
   h.restricted
+
+theorem global_restricted_certificate_eq_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    h.global.finitePrimeSumReadOff.certificate =
+      h.restricted.finitePrimeSumReadOff.certificate :=
+  h.globalCertificate_eq_common.trans h.restrictedCertificate_eq_common.symm
+
+theorem global_restricted_atoms_eq_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    h.global.finitePrimeSumReadOff.certificate.atoms =
+      h.restricted.finitePrimeSumReadOff.certificate.atoms := by
+  rw [global_restricted_certificate_eq_of_formula_components h]
+
+theorem global_certificate_eq_common_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    h.global.finitePrimeSumReadOff.certificate = h.commonCertificate :=
+  h.globalCertificate_eq_common
+
+theorem restricted_certificate_eq_common_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    h.restricted.finitePrimeSumReadOff.certificate = h.commonCertificate :=
+  h.restrictedCertificate_eq_common
+
+theorem common_certificate_source_test_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    h.commonCertificate.support.sourceTest = h.sourceTest :=
+  h.commonCertificateSourceTest
+
+theorem global_certificate_source_test_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    h.global.finitePrimeSumReadOff.certificate.support.sourceTest =
+      h.sourceTest := by
+  rw [global_certificate_eq_common_of_formula_components h]
+  exact common_certificate_source_test_of_formula_components h
+
+theorem restricted_certificate_source_test_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    h.restricted.finitePrimeSumReadOff.certificate.support.sourceTest =
+      h.sourceTest := by
+  rw [restricted_certificate_eq_common_of_formula_components h]
+  exact common_certificate_source_test_of_formula_components h
 
 theorem qw_definition_of_formula_components
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
