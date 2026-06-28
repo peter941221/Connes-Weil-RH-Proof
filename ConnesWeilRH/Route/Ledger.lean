@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: ConnesWeilRH contributors
 -/
 
-import ConnesWeilRH.Route.AdmissibleWindow
+import ConnesWeilRH.Route.SignDefect
 
 /-!
 # Ledger predicates
@@ -66,22 +66,8 @@ structure CdefNormFormula
 structure SourceBackedLedgers
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (L : RouteLedgers) where
-  rankRepairToZeroMode : RankRepairToZeroModeLedger inputs g L
-  poleLedgerSupportedOnlyAtTateDirections :
-    PoleLedgerSupportedOnlyAtTateDirections inputs g L
-  cdefNormFormula : CdefNormFormula inputs g L
-  rankKilledBridge :
-    (Source.ccm24BoundedComparison inputs.ccm24.semilocalSymbols).Holds →
-      (Source.cc20SignsAndNormalizations inputs.cc20.archimedeanSymbols).Holds →
-        RankRepairToZeroModeLedger inputs g L → L.rankKilled
-  poleKilledBridge :
-    (Source.ccm25PoleNormalization inputs.ccm25.weilSymbols).Holds →
-      PoleLedgerSupportedOnlyAtTateDirections inputs g L → L.poleKilled
-  cdefExhaustsBridge :
-    (Source.ccm24SoninComparison inputs.ccm24.semilocalSymbols).Holds →
-      (Source.cc20MellinHalfDensityConvention
-          inputs.cc20.archimedeanSymbols).Holds →
-        CdefNormFormula inputs g L → L.cdefExhausts
+  signDefectClassification :
+    ∃ lambda : ℝ, SourceSignDefectClassification inputs g lambda L
 
 theorem rank_killed_of_ledgers_cleared
     {L : RouteLedgers} (h : LedgersCleared L) :
@@ -102,22 +88,22 @@ theorem rank_killed_of_source_backed_ledgers
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers} (h : SourceBackedLedgers inputs g L) :
     L.rankKilled :=
-  h.rankKilledBridge inputs.ccm24.boundedComparison
-    inputs.cc20.signsAndNormalizations h.rankRepairToZeroMode
+  let hsign := h.signDefectClassification.choose_spec
+  rank_killed_of_sign_defect_classification hsign
 
 theorem pole_killed_of_source_backed_ledgers
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers} (h : SourceBackedLedgers inputs g L) :
     L.poleKilled :=
-  h.poleKilledBridge inputs.ccm25.poleNormalization
-    h.poleLedgerSupportedOnlyAtTateDirections
+  let hsign := h.signDefectClassification.choose_spec
+  pole_killed_of_sign_defect_classification hsign
 
 theorem cdef_exhausts_of_source_backed_ledgers
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers} (h : SourceBackedLedgers inputs g L) :
     L.cdefExhausts :=
-  h.cdefExhaustsBridge inputs.ccm24.soninComparison
-    inputs.cc20.mellinHalfDensityConvention h.cdefNormFormula
+  let hsign := h.signDefectClassification.choose_spec
+  cdef_exhausts_of_sign_defect_classification hsign
 
 theorem ledgers_cleared_of_source_backed
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}

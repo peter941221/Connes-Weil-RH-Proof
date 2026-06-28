@@ -5,6 +5,8 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Source.CCM25Concrete.FinitePrimeExact
+import ConnesWeilRH.Source.CCM25Concrete.PrimePowerArithmetic
+import ConnesWeilRH.Source.CCM25Concrete.PrimePowerTest
 
 /-!
 # CCM25 source prime-power support record
@@ -52,6 +54,52 @@ structure SourcePrimePowerSupportSkeletonAtLambda
     ∀ n : ℕ,
       W.finitePrimeAtomVisible n (W.convolutionStar f g) →
         SourceLambdaCut lambda n
+
+structure SourcePrimePowerArithmeticSupportSkeletonAtLambda
+    (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ) where
+  oneLtLambda : 1 < lambda
+  sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g
+  visibleIff :
+    ∀ n : ℕ,
+      W.finitePrimeAtomVisible n (W.convolutionStar f g) ↔
+        PrimePowerArithmetic.SourcePrimePowerIndex n ∧
+          sourceTest.sourceAtomVisible n
+  globalExact :
+    ∀ n : ℕ,
+      n ∈ W.globalPrimeIndexSet ↔
+        PrimePowerArithmetic.SourcePrimePowerIndex n ∧
+          sourceTest.sourceAtomVisible n
+  restrictedExact :
+    ∀ n : ℕ,
+      n ∈ W.restrictedPrimeIndexSet lambda ↔
+        PrimePowerArithmetic.SourcePrimePowerIndex n ∧
+          sourceTest.sourceAtomVisible n ∧
+            SourceLambdaCut lambda n
+  visibleAtomsInLambdaCut :
+    ∀ n : ℕ,
+      W.finitePrimeAtomVisible n (W.convolutionStar f g) →
+        SourceLambdaCut lambda n
+
+def support_skeleton_of_arithmetic_support_skeleton
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h :
+      SourcePrimePowerArithmeticSupportSkeletonAtLambda W f g lambda) :
+    SourcePrimePowerSupportSkeletonAtLambda W f g lambda where
+  oneLtLambda := h.oneLtLambda
+  sourcePrimePowerIndex := PrimePowerArithmetic.SourcePrimePowerIndex
+  sourceAtomVisible := fun n _ => h.sourceTest.sourceAtomVisible n
+  visibleIff := h.visibleIff
+  globalExact := h.globalExact
+  restrictedExact := h.restrictedExact
+  visibleAtomsInLambdaCut := h.visibleAtomsInLambdaCut
+
+theorem support_skeleton_index_of_arithmetic_support_skeleton
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h :
+      SourcePrimePowerArithmeticSupportSkeletonAtLambda W f g lambda) :
+    (support_skeleton_of_arithmetic_support_skeleton h).sourcePrimePowerIndex =
+      PrimePowerArithmetic.SourcePrimePowerIndex :=
+  rfl
 
 structure SourcePrimePowerSupportAtLambda
     (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ) where

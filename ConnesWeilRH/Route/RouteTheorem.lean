@@ -5,6 +5,7 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Route.Exhaustion
+import ConnesWeilRH.Route.Bridge
 
 /-!
 # Route theorem skeleton
@@ -20,13 +21,15 @@ namespace Route
 structure RouteCertificate (inputs : RouteInputs) where
   sourceBackedTest : SourceBackedFixedSTest inputs
   ledgers : RouteLedgers
-  positivity :
-    SourceBackedFullPositivity inputs sourceBackedTest ledgers
+  bridge : RouteBridgeCertificate inputs sourceBackedTest ledgers
 
 theorem final_connes_weil_rh
     {inputs : RouteInputs} (cert : RouteCertificate inputs) :
     _root_.RiemannHypothesis := by
-  let hfull := full_weil_positivity_of_source_backed cert.positivity
+  let hfull := full_weil_positivity_of_source_backed
+    (source_backed_full_positivity_of_route_bridge_certificate cert.bridge)
+  let _ := restricted_to_full_qw_bridge_of_route_bridge_certificate cert.bridge
+  let _ := final_sign_bridge_of_route_bridge_certificate cert.bridge
   exact inputs.cc20.finiteVanishingRhExit.criterion
     (toWeilPositivityInput inputs cert.sourceBackedTest cert.ledgers)
     (triple_vanishing_of_source_backed cert.sourceBackedTest)

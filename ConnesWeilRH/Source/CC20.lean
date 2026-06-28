@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: ConnesWeilRH contributors
 -/
 
-import ConnesWeilRH.Basic
+import ConnesWeilRH.Source.CC20RHExit
 
 /-!
 # CC20 source interface
@@ -47,8 +47,9 @@ def cc20FiniteVanishingRhExit : SourceObligation where
   sourceFile := "weil-compo.tex"
   lineRange := "2072-2085"
   manuscriptRole :=
-    "finite-vanishing Weil positivity criterion implying RH"
-  statement := Nonempty FiniteVanishingCriterionPackage
+    "finite-vanishing Weil positivity criterion implying source RH"
+  statement :=
+    ∃ B : RHDefinitionBridge, Nonempty (SourceFiniteVanishingCriterionPackage B)
 
 def cc20SignsAndNormalizations : SourceObligation where
   sourceKey := "CC20"
@@ -65,14 +66,25 @@ structure CC20Interface where
   traceClassTemplate : (cc20TraceClassTemplate archimedeanSymbols).Holds
   mellinHalfDensityConvention :
     (cc20MellinHalfDensityConvention archimedeanSymbols).Holds
-  finiteVanishingRhExit : FiniteVanishingCriterionPackage
+  rhDefinitionBridge : RHDefinitionBridge
+  sourceFiniteVanishingRhExit :
+    SourceFiniteVanishingCriterionPackage rhDefinitionBridge
   signsAndNormalizations :
     (cc20SignsAndNormalizations archimedeanSymbols).Holds
+
+namespace CC20Interface
+
+def finiteVanishingRhExit (cc20 : CC20Interface) :
+    FiniteVanishingCriterionPackage :=
+  SourceFiniteVanishingCriterionPackage.toFiniteVanishingCriterionPackage
+    cc20.sourceFiniteVanishingRhExit
+
+end CC20Interface
 
 theorem finite_vanishing_rh_exit_holds
     (cc20 : CC20Interface) :
     cc20FiniteVanishingRhExit.Holds :=
-  ⟨cc20.finiteVanishingRhExit⟩
+  ⟨cc20.rhDefinitionBridge, ⟨cc20.sourceFiniteVanishingRhExit⟩⟩
 
 end Source
 end ConnesWeilRH

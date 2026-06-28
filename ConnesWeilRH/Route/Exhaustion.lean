@@ -35,14 +35,14 @@ structure SourceBackedFullPositivity
   sourceTraceReadOff : SourceTraceReadOffData inputs g
   sourceBackedLedgers : SourceBackedLedgers inputs g L
 
-theorem full_weil_positivity_of_fixed_s
+theorem full_weil_positivity_of_source_backed_fixed_s
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers}
     (htrace : FixedSPositiveTraceReadOff inputs g)
     (hvanish : g.test.tripleVanishing)
-    (hledger : LedgersCleared L) :
+    (hledger : SourceBackedLedgers inputs g L) :
     FullWeilPositivity inputs g L :=
-  ⟨htrace, hvanish, hledger⟩
+  ⟨htrace, hvanish, ledgers_cleared_of_source_backed hledger⟩
 
 theorem cc20_trace_square_of_source_backed
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -70,10 +70,10 @@ theorem full_weil_positivity_of_source_backed
     {L : RouteLedgers}
     (h : SourceBackedFullPositivity inputs g L) :
     FullWeilPositivity inputs g L :=
-  full_weil_positivity_of_fixed_s
+  full_weil_positivity_of_source_backed_fixed_s
     (fixed_s_read_off_of_source_backed_full_positivity h)
     (triple_vanishing_of_source_backed g)
-    (ledgers_cleared_of_source_backed h.sourceBackedLedgers)
+    h.sourceBackedLedgers
 
 theorem full_weil_positivity_input_holds
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
