@@ -18,6 +18,11 @@ Lean proof status: open
 public proof status: source-conditional
 ```
 
+Here `closed` means every row needed by the route has a named local
+proof-package or audit artifact. It does not mean that an outside referee has
+accepted the analytic row, that a source paper contains the exact imported
+theorem, or that Lean has checked the row.
+
 The repository does not claim journal acceptance, Clay acceptance, community
 acceptance, or completed Lean verification. It gives a route whose outside
 analytic inputs stay visible.
@@ -50,10 +55,20 @@ The hard mathematical questions for reviewers are narrow:
 2. Does the project correctly identify every positive-trace defect as either a
    killed rank/pole ledger or endpoint-strip Cdef, with no hidden fourth
    positive defect?
+
+3. Does the fixed-test choice of S(g) return the same global QW(g,g) and the
+   same CC20 Weil sum needed by Proposition C.1?
+
+4. Do the CCM25 finite-prime atoms, weights, pairings, and signs match the
+   source formula pointwise before any sum is formed?
+
+5. Does the final sign bridge give
+   QW(g,g) = - sum_v W_v(F_g), with the same F_g used in the trace read-off?
 ```
 
-If both answers are yes, the route has a credible source-conditional path. If
-either answer is no, the route fails at the positive-trace-to-Weil read-off.
+If questions 1 and 2 fail, the route fails at the positive-trace-to-Weil
+read-off. If questions 3 through 5 fail, the route may still have a fixed-S
+calculation, but it cannot feed CC20 Proposition C.1.
 
 ## Primary Sources
 
@@ -87,6 +102,40 @@ Reviewers should separate four levels of evidence.
 
 The current repository reaches the second class for the full route. It does not
 reach the third or fourth class for any source-interface row.
+
+## Self-Review After The First External Opinion
+
+The first external opinion identified four attack points. The repository now
+answers each at route-evidence level, with explicit failure conditions.
+
+| item | local answer | strongest remaining attack |
+|---|---|---|
+| B1 trace-scale compatibility | `PositiveTrace`, support-square trace, no-defect source trace, and `QW_lambda` are tied to one finite-lambda scalar; no untracked bulk term is allowed outside rank, pole, or endpoint-strip `Cdef`. | A referee can find a source-owned bulk or finite-part term not present in the named ledgers or `Cdef`. |
+| B2 Sonin-projection repair | The route rejects replacing `Tr(A^*A)` by `Tr(S_lambda theta_S(F_g))`; any future replacement must prove a new trace-scale theorem and a nontrivial limit. | Someone can prove a normalized Sonin-projection scalar with positivity, same-scale read-off, and nonzero fixed-test limit. |
+| B3 semilocal fourth defect | The Rows 1-7 ledger gives every possible cross-term a slot: source post-`Q`, fixed-S transport, rank, pole, or endpoint-strip `Cdef`. | A reviewer can exhibit a source term produced by fixed-S transport that is neither no-strip rank/pole nor endpoint-strip `Cdef`. |
+| B4 dynamic `S(g)` | The route uses `S(g)` only as a fixed-test witness; after restricted-to-full, the output is global `QW(g,g)` and then the CC20 global Weil sum for the same `F_g`. | CC20 Proposition C.1 or another route step can be shown to require constants uniform in `g`, or the bridge can be shown to retain an `S`-dependent scalar. |
+
+The project should not hide those attacks behind the phrase
+`source-conditional`. A source-conditional route still needs exact imported
+statements. If an imported statement is weaker than the row above, the route
+stops at that row.
+
+## Falsification Tests For Reviewers
+
+A reviewer can reject the route by finding one of these concrete failures:
+
+| test | failure mechanism | file to inspect first |
+|---|---|---|
+| ordinary trace scale | `Tr(A^*A)` contains a lambda-growing bulk term not included in rank, pole, or endpoint-strip `Cdef` | `docs/proofs/trace-scale-compatibility-proof-package.md` |
+| source convention conversion | the no-defect source trace uses a finite-part convention that loses positive-trace nonnegativity | `docs/proofs/trace-scale-compatibility-theorem-contract.md` |
+| hidden fourth defect | fixed-S semilocal transport creates a cross-term outside the Rows 1-7 classification | `docs/audits/semilocal-fourth-defect-ledger.md` |
+| finite-prime support | a visible prime-power atom of `F_g` is omitted, duplicated, or assigned the wrong `Lambda(n)<g|T(n)g>` term | `docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md` |
+| dynamic `S(g)` | the fixed-S read-off returns an `S`-local scalar rather than global `QW(g,g)` | `docs/audits/s-local-global-quantifier-audit.md` |
+| final sign | `QW(g,g)` equals the CC20 Weil sum with the opposite sign or for a different test object | `docs/proofs/final-sign-bridge-proof-package.md` |
+| RH definition bridge | the CC20 source zero predicate does not match Mathlib's `riemannZeta s = 0`, trivial-zero exclusion, pole exclusion, and `s.re=1/2` target | `docs/proofs/rh-definition-bridge-proof-package.md` |
+
+A reviewer should reject the route if one test fails with a source-backed
+counterexample.
 
 ## Proof Spine
 
