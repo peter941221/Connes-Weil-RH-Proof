@@ -618,6 +618,77 @@ def RestrictedToFullQWLambdaThreshold
     (F_g : TestFunction) : Prop :=
   ∃ _threshold : RestrictedToFullQWLargeLambdaThreshold inputs g F_g, True
 
+structure RestrictedToFullCurrentThresholdData
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ) (F_g : TestFunction)
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) where
+  largeLambdaThreshold :
+    RestrictedToFullQWLargeLambdaThreshold inputs g F_g
+  currentAboveThreshold :
+    largeLambdaThreshold.lambda0 ≤ lambda
+  commonTuple :
+    SourceCommonTestTupleContract inputs g lambda F_g pkg
+  fixedTestSupport :
+    FixedTestSupportThresholdAtLarge inputs g lambda
+  primePowerAtomStabilization :
+    PrimePowerAtomStabilizationAtLarge inputs g lambda pkg
+  finitePrimeStabilization :
+    RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg
+
+def current_threshold_data_of_large_lambda_threshold
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (threshold : RestrictedToFullQWLargeLambdaThreshold inputs g F_g)
+    (habove : threshold.lambda0 ≤ lambda)
+    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg) :
+    RestrictedToFullCurrentThresholdData inputs g lambda F_g pkg where
+  largeLambdaThreshold := threshold
+  currentAboveThreshold := habove
+  commonTuple := hcommon
+  fixedTestSupport := threshold.supportThresholdAtLarge lambda habove
+  primePowerAtomStabilization :=
+    threshold.primePowerAtomStabilizationAtLarge
+      lambda habove pkg hcommon
+  finitePrimeStabilization :=
+    ⟨threshold.supportThresholdAtLarge lambda habove,
+      threshold.primePowerAtomStabilizationAtLarge
+        lambda habove pkg hcommon⟩
+
+theorem fixed_test_support_of_current_threshold_data
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : RestrictedToFullCurrentThresholdData inputs g lambda F_g pkg) :
+    FixedTestSupportThresholdAtLarge inputs g lambda :=
+  h.fixedTestSupport
+
+theorem prime_power_atom_stabilization_of_current_threshold_data
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : RestrictedToFullCurrentThresholdData inputs g lambda F_g pkg) :
+    PrimePowerAtomStabilizationAtLarge inputs g lambda pkg :=
+  h.primePowerAtomStabilization
+
+theorem finite_prime_stabilization_of_current_threshold_data
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : RestrictedToFullCurrentThresholdData inputs g lambda F_g pkg) :
+    RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg :=
+  h.finitePrimeStabilization
+
 structure RestrictedToFullQWScalarRestrictionData
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (lambda : ℝ) (F_g : TestFunction)
@@ -762,6 +833,8 @@ structure RestrictedToFullQWBridgeData
     RestrictedToFullQWLargeLambdaThreshold inputs g F_g
   currentAboveThreshold :
     largeLambdaThreshold.lambda0 ≤ lambda
+  currentThresholdData :
+    RestrictedToFullCurrentThresholdData inputs g lambda F_g pkg
   scalarRestrictionEquality :
     RestrictedToFullQWScalarRestrictionEquality inputs g lambda F_g pkg
   exactFinitePrimeSupport :
@@ -783,17 +856,18 @@ def restricted_to_full_bridge_data_of_common_tuple
     RestrictedToFullQWBridgeData inputs g lambda F_g L pkg where
   largeLambdaThreshold := threshold
   currentAboveThreshold := habove
+  currentThresholdData :=
+    current_threshold_data_of_large_lambda_threshold
+      threshold habove hcommon
   scalarRestrictionEquality :=
     restricted_to_full_scalar_restriction_of_common_tuple hcommon
-      ⟨threshold.supportThresholdAtLarge lambda habove,
-        threshold.primePowerAtomStabilizationAtLarge
-          lambda habove pkg hcommon⟩
+      (current_threshold_data_of_large_lambda_threshold
+        threshold habove hcommon).finitePrimeStabilization
   exactFinitePrimeSupport :=
     exact_finite_prime_support_of_scalar_restriction
       (restricted_to_full_scalar_restriction_of_common_tuple hcommon
-        ⟨threshold.supportThresholdAtLarge lambda habove,
-          threshold.primePowerAtomStabilizationAtLarge
-            lambda habove pkg hcommon⟩)
+        (current_threshold_data_of_large_lambda_threshold
+          threshold habove hcommon).finitePrimeStabilization)
   lowerBoundEvidence := hevidence
 
 def RestrictedToFullQWBridgeContract
@@ -1093,8 +1167,7 @@ theorem fixed_test_support_threshold_of_large_lambda_threshold
         inputs.ccm25.weilSymbols g.weilTest lambda}
     (h : RestrictedToFullQWBridgeContract inputs g lambda F_g L pkg) :
     FixedTestSupportThresholdAtLarge inputs g lambda :=
-  h.choose.largeLambdaThreshold.supportThresholdAtLarge lambda
-    h.choose.currentAboveThreshold
+  h.choose.currentThresholdData.fixedTestSupport
 
 theorem prime_power_atom_stabilization_of_large_lambda_threshold
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -1103,10 +1176,8 @@ theorem prime_power_atom_stabilization_of_large_lambda_threshold
       Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
         inputs.ccm25.weilSymbols g.weilTest lambda}
     (h : RestrictedToFullQWBridgeContract inputs g lambda F_g L pkg) :
-  PrimePowerAtomStabilizationAtLarge inputs g lambda pkg :=
-  h.choose.largeLambdaThreshold.primePowerAtomStabilizationAtLarge lambda
-    h.choose.currentAboveThreshold pkg
-    (common_tuple_of_scalar_restriction h.choose.scalarRestrictionEquality)
+    PrimePowerAtomStabilizationAtLarge inputs g lambda pkg :=
+  h.choose.currentThresholdData.primePowerAtomStabilization
 
 theorem finite_prime_stabilization_at_large_of_threshold
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -1116,8 +1187,7 @@ theorem finite_prime_stabilization_at_large_of_threshold
         inputs.ccm25.weilSymbols g.weilTest lambda}
     (h : RestrictedToFullQWBridgeContract inputs g lambda F_g L pkg) :
     FinitePrimeStabilizationAtLarge inputs g lambda pkg :=
-  ⟨fixed_test_support_threshold_of_large_lambda_threshold h,
-    prime_power_atom_stabilization_of_large_lambda_threshold h⟩
+  h.choose.currentThresholdData.finitePrimeStabilization
 
 theorem finite_prime_stabilization_of_large_lambda_threshold
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
