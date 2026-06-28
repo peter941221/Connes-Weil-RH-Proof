@@ -120,6 +120,28 @@ theorem arithmetic_global_index_source_data_of_certificate
       h.support.sourceTest.sourceAtomVisible n :=
   (h.support.globalExact n).1 hn
 
+theorem arithmetic_global_index_prime_power_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    PrimePowerArithmetic.SourcePrimePowerIndex n :=
+  (arithmetic_global_index_source_data_of_certificate h hn).1
+
+theorem arithmetic_global_index_visible_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    h.support.sourceTest.sourceAtomVisible n :=
+  (arithmetic_global_index_source_data_of_certificate h hn).2
+
+theorem arithmetic_global_index_one_lt_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    1 < n :=
+  PrimePowerArithmetic.source_prime_power_index_one_lt
+    (arithmetic_global_index_prime_power_of_certificate h hn)
+
 theorem arithmetic_restricted_index_source_data_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
@@ -135,6 +157,36 @@ theorem arithmetic_restricted_index_lambda_cut_of_certificate
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     PrimePowerSupport.SourceLambdaCut lambda n :=
   (arithmetic_restricted_index_source_data_of_certificate h hn).2.2
+
+theorem arithmetic_restricted_index_prime_power_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    PrimePowerArithmetic.SourcePrimePowerIndex n :=
+  (arithmetic_restricted_index_source_data_of_certificate h hn).1
+
+theorem arithmetic_restricted_index_visible_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    h.support.sourceTest.sourceAtomVisible n :=
+  (arithmetic_restricted_index_source_data_of_certificate h hn).2.1
+
+theorem arithmetic_restricted_index_one_lt_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    1 < n :=
+  PrimePowerSupport.source_lambda_cut_one_lt
+    (arithmetic_restricted_index_lambda_cut_of_certificate h hn)
+
+theorem arithmetic_restricted_index_le_lambda_sq_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    (n : ℝ) ≤ lambda ^ 2 :=
+  PrimePowerSupport.source_lambda_cut_le_lambda_sq
+    (arithmetic_restricted_index_lambda_cut_of_certificate h hn)
 
 theorem arithmetic_atom_formula_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}

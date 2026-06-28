@@ -98,13 +98,24 @@ theorem qw_lambda_formula_of_package_components
   FormulaComponents.qw_lambda_formula_of_formula_components
     (formula_components h)
 
+noncomputable def source_global_finite_prime_evaluator_sum
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) : ℝ :=
+  PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum W f f
+    (formula_components h).global.finitePrimeSumReadOff.certificate.atoms
+
+noncomputable def source_restricted_finite_prime_evaluator_sum
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) : ℝ :=
+  PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum W f f lambda
+    (formula_components h).restricted.finitePrimeSumReadOff.certificate.atoms
+
 theorem global_finite_prime_sum_of_package_components
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda) :
     (∑ n ∈ W.globalPrimeIndexSet,
       W.finitePrimeTerm n (W.convolutionStar f f)) =
-      PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
-        W f f (formula_components h).global.finitePrimeSumReadOff.certificate.atoms :=
+      source_global_finite_prime_evaluator_sum h :=
   FormulaComponents.global_finite_prime_sum_of_formula_components
     (formula_components h)
 
@@ -113,11 +124,79 @@ theorem restricted_finite_prime_sum_of_package_components
     (h : ConcreteCCM25ArithmeticPackage W f lambda) :
     (∑ n ∈ W.restrictedPrimeIndexSet lambda,
       W.finitePrimeTerm n (W.convolutionStar f f)) =
-      PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
-        W f f lambda
-        (formula_components h).restricted.finitePrimeSumReadOff.certificate.atoms :=
+      source_restricted_finite_prime_evaluator_sum h :=
   FormulaComponents.restricted_finite_prime_sum_of_formula_components
     (formula_components h)
+
+def source_test_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    PrimePowerTest.SourceTestEvaluationInterface W f f :=
+  Interface.source_test_of_arithmetic_rows h.rows f f
+
+theorem global_index_prime_power_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    PrimePowerArithmetic.SourcePrimePowerIndex n :=
+  Interface.arithmetic_global_index_prime_power_of_arithmetic_rows
+    h.rows f f lambda h.oneLtLambda hn
+
+theorem global_index_visible_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    (source_test_of_package h).sourceAtomVisible n :=
+  Interface.arithmetic_global_index_visible_of_arithmetic_rows
+    h.rows f f lambda h.oneLtLambda hn
+
+theorem global_index_one_lt_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    1 < n :=
+  Interface.arithmetic_global_index_one_lt_of_arithmetic_rows
+    h.rows f f lambda h.oneLtLambda hn
+
+theorem restricted_index_prime_power_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    PrimePowerArithmetic.SourcePrimePowerIndex n :=
+  Interface.arithmetic_restricted_index_prime_power_of_arithmetic_rows
+    h.rows f f lambda h.oneLtLambda hn
+
+theorem restricted_index_visible_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    (source_test_of_package h).sourceAtomVisible n :=
+  Interface.arithmetic_restricted_index_visible_of_arithmetic_rows
+    h.rows f f lambda h.oneLtLambda hn
+
+theorem restricted_index_lambda_cut_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    PrimePowerSupport.SourceLambdaCut lambda n :=
+  Interface.arithmetic_restricted_index_lambda_cut_of_arithmetic_rows
+    h.rows f f lambda h.oneLtLambda hn
+
+theorem restricted_index_one_lt_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    1 < n :=
+  Interface.arithmetic_restricted_index_one_lt_of_arithmetic_rows
+    h.rows f f lambda h.oneLtLambda hn
+
+theorem restricted_index_le_lambda_sq_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    (n : ℝ) ≤ lambda ^ 2 :=
+  Interface.arithmetic_restricted_index_le_lambda_sq_of_arithmetic_rows
+    h.rows f f lambda h.oneLtLambda hn
 
 end Package
 end CCM25Concrete

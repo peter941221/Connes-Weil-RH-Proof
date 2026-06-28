@@ -44,16 +44,12 @@ def PackageBackedCCM25WeilFormReadOff
             W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) ∧
             (∑ n ∈ W.globalPrimeIndexSet,
               W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
-              Source.CCM25Concrete.PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
-                W g.weilTest g.weilTest
-                (Source.CCM25Concrete.Package.formula_components
-                  pkg).global.finitePrimeSumReadOff.certificate.atoms ∧
+              Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+                pkg ∧
             (∑ n ∈ W.restrictedPrimeIndexSet lambda,
               W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
-              Source.CCM25Concrete.PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
-                W g.weilTest g.weilTest lambda
-                (Source.CCM25Concrete.Package.formula_components
-                  pkg).restricted.finitePrimeSumReadOff.certificate.atoms
+              Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+                pkg
 
 theorem package_backed_ccm25_weil_form_read_off
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -202,16 +198,12 @@ def SourceFinitePrimeSignOwnedByPackage
     WeilFormSymbols.FinitePrimeNormalizationStatement W ∧
       (∑ n ∈ W.globalPrimeIndexSet,
         W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
-        Source.CCM25Concrete.PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
-          W g.weilTest g.weilTest
-          (Source.CCM25Concrete.Package.formula_components
-            pkg).global.finitePrimeSumReadOff.certificate.atoms ∧
+        Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+          pkg ∧
       (∑ n ∈ W.restrictedPrimeIndexSet lambda,
         W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
-        Source.CCM25Concrete.PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
-          W g.weilTest g.weilTest lambda
-          (Source.CCM25Concrete.Package.formula_components
-            pkg).restricted.finitePrimeSumReadOff.certificate.atoms
+        Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+          pkg
 
 def PackageFinitePrimeSupportStabilization
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -220,29 +212,27 @@ def PackageFinitePrimeSupportStabilization
       Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
         inputs.ccm25.weilSymbols g.weilTest lambda) : Prop :=
   let W := inputs.ccm25.weilSymbols
-  let cert :=
-    (Source.CCM25Concrete.Package.formula_components
-      pkg).restricted.finitePrimeSumReadOff.certificate
+  let sourceTest := Source.CCM25Concrete.Package.source_test_of_package pkg
   (∀ n : ℕ,
     n ∈ W.globalPrimeIndexSet →
       Source.CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex n ∧
-        cert.support.sourceTest.sourceAtomVisible n) ∧
+        sourceTest.sourceAtomVisible n) ∧
     (∀ n : ℕ,
       n ∈ W.restrictedPrimeIndexSet lambda →
         Source.CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex n ∧
-          cert.support.sourceTest.sourceAtomVisible n ∧
+          sourceTest.sourceAtomVisible n ∧
             Source.CCM25Concrete.PrimePowerSupport.SourceLambdaCut lambda n) ∧
       (∀ n : ℕ,
         W.finitePrimeAtomVisible n (W.convolutionStar g.weilTest g.weilTest) →
           Source.CCM25Concrete.PrimePowerSupport.SourceLambdaCut lambda n) ∧
         (∑ n ∈ W.globalPrimeIndexSet,
           W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
-          Source.CCM25Concrete.PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
-            W g.weilTest g.weilTest cert.atoms ∧
+          Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+            pkg ∧
         (∑ n ∈ W.restrictedPrimeIndexSet lambda,
           W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
-          Source.CCM25Concrete.PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
-            W g.weilTest g.weilTest lambda cert.atoms
+          Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+            pkg
 
 theorem package_finite_prime_support_stabilization
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -257,14 +247,20 @@ theorem package_finite_prime_support_stabilization
       pkg).restricted.finitePrimeSumReadOff.certificate
   constructor
   · intro n hn
-    exact
-      FinitePrimeCertificate.arithmetic_global_index_source_data_of_certificate
-        cert hn
+    exact ⟨
+      Source.CCM25Concrete.Package.global_index_prime_power_of_package
+        pkg hn,
+      Source.CCM25Concrete.Package.global_index_visible_of_package
+        pkg hn⟩
   constructor
   · intro n hn
-    exact
-      FinitePrimeCertificate.arithmetic_restricted_index_source_data_of_certificate
-        cert hn
+    exact ⟨
+      Source.CCM25Concrete.Package.restricted_index_prime_power_of_package
+        pkg hn,
+      Source.CCM25Concrete.Package.restricted_index_visible_of_package
+        pkg hn,
+      Source.CCM25Concrete.Package.restricted_index_lambda_cut_of_package
+        pkg hn⟩
   constructor
   · intro n hn
     exact cert.support.visibleAtomsInLambdaCut n hn

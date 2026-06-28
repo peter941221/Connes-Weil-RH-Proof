@@ -29,6 +29,18 @@ namespace PrimePowerSupport
 def SourceLambdaCut (lambda : ℝ) (n : ℕ) : Prop :=
   1 < n ∧ (n : ℝ) ≤ lambda ^ 2
 
+theorem source_lambda_cut_one_lt
+    {lambda : ℝ} {n : ℕ}
+    (h : SourceLambdaCut lambda n) :
+    1 < n :=
+  h.1
+
+theorem source_lambda_cut_le_lambda_sq
+    {lambda : ℝ} {n : ℕ}
+    (h : SourceLambdaCut lambda n) :
+    (n : ℝ) ≤ lambda ^ 2 :=
+  h.2
+
 structure SourcePrimePowerSupportSkeletonAtLambda
     (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ) where
   oneLtLambda : 1 < lambda

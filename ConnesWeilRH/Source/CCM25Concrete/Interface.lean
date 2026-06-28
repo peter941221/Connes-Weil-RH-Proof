@@ -175,6 +175,84 @@ theorem arithmetic_restricted_sum_formula_of_arithmetic_rows
   FinitePrimeCertificate.arithmetic_restricted_sum_formula_of_certificate
     ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
 
+theorem arithmetic_global_index_prime_power_of_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    PrimePowerArithmetic.SourcePrimePowerIndex n :=
+  FinitePrimeCertificate.arithmetic_global_index_prime_power_of_certificate
+    ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
+    hn
+
+theorem arithmetic_global_index_visible_of_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    (source_test_of_arithmetic_rows h f g).sourceAtomVisible n := by
+  have hvisible :=
+    FinitePrimeCertificate.arithmetic_global_index_visible_of_certificate
+      ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
+      hn
+  simpa [arithmetic_certificate_source_test_of_arithmetic_rows
+    h f g lambda hlambda] using hvisible
+
+theorem arithmetic_global_index_one_lt_of_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    1 < n :=
+  FinitePrimeCertificate.arithmetic_global_index_one_lt_of_certificate
+    ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
+    hn
+
+theorem arithmetic_restricted_index_prime_power_of_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    PrimePowerArithmetic.SourcePrimePowerIndex n :=
+  FinitePrimeCertificate.arithmetic_restricted_index_prime_power_of_certificate
+    ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
+    hn
+
+theorem arithmetic_restricted_index_visible_of_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    (source_test_of_arithmetic_rows h f g).sourceAtomVisible n := by
+  have hvisible :=
+    FinitePrimeCertificate.arithmetic_restricted_index_visible_of_certificate
+      ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
+      hn
+  simpa [arithmetic_certificate_source_test_of_arithmetic_rows
+    h f g lambda hlambda] using hvisible
+
+theorem arithmetic_restricted_index_lambda_cut_of_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    PrimePowerSupport.SourceLambdaCut lambda n :=
+  FinitePrimeCertificate.arithmetic_restricted_index_lambda_cut_of_certificate
+    ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
+    hn
+
+theorem arithmetic_restricted_index_one_lt_of_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    1 < n :=
+  FinitePrimeCertificate.arithmetic_restricted_index_one_lt_of_certificate
+    ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
+    hn
+
+theorem arithmetic_restricted_index_le_lambda_sq_of_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    (n : ℝ) ≤ lambda ^ 2 :=
+  FinitePrimeCertificate.arithmetic_restricted_index_le_lambda_sq_of_certificate
+    ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
+    hn
+
 theorem qw_definition_of_concrete_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25Rows W) :
     WeilFormSymbols.QWDefinitionStatement W :=
