@@ -101,17 +101,32 @@ The accepted-source referee decision form is
 The accepted-source certification status board is
 `docs/audits/accepted-source-certification-status-board.md`.
 
+The accepted-source review dossier is
+`docs/audits/accepted-source-review-dossier.md`.
+
 The CCM24 source-interface accepted-source packet is
 `docs/audits/ccm24-source-interface-accepted-source-packet.md`.
+
+The CCM24 source-interface theorem decision record is
+`docs/audits/ccm24-source-interface-referee-decision-record.md`.
 
 The CCM25 source-interface accepted-source packet is
 `docs/audits/ccm25-source-interface-accepted-source-packet.md`.
 
+The CCM25 source-interface theorem decision record is
+`docs/audits/ccm25-source-interface-referee-decision-record.md`.
+
 The CC20 trace source-interface accepted-source packet is
 `docs/audits/cc20-trace-source-interface-accepted-source-packet.md`.
 
+The CC20 trace source-interface theorem decision record is
+`docs/audits/cc20-trace-source-interface-referee-decision-record.md`.
+
 The first S2-B1 source-term certification packet is
 `docs/audits/trace-scale-source-term-ledger.md`.
+
+The first S2-B1 theorem decision record is
+`docs/audits/s2-b1-trace-scale-referee-decision-record.md`.
 
 The sign/defect accepted-source packet is
 `docs/audits/sign-defect-accepted-source-packet.md`.
@@ -209,11 +224,26 @@ The review control files are:
 ```text
 docs/audits/accepted-source-referee-decision-form.md
 docs/audits/accepted-source-certification-status-board.md
+docs/audits/accepted-source-review-dossier.md
 ```
 
 They define the allowed verdicts and track each packet from "packet written" to
-"accepted-source". The current board has all packets written and no accepted
-decisions recorded.
+"accepted-source". The current board has theorem-decision records opened for
+the three base source-interface rows and S2-B1, with no accepted decisions
+recorded.
+
+The first theorem-decision records are:
+
+```text
+docs/audits/ccm24-source-interface-referee-decision-record.md
+docs/audits/ccm25-source-interface-referee-decision-record.md
+docs/audits/cc20-trace-source-interface-referee-decision-record.md
+docs/audits/s2-b1-trace-scale-referee-decision-record.md
+```
+
+These records upgrade the source-interface rows from broad packets to explicit
+accepted-source theorem candidates under review. They still have pending
+verdicts.
 
 The three base source-interface packets are:
 
@@ -764,11 +794,16 @@ docs/
     accepted-source-packet-completion-audit.md
     accepted-source-referee-decision-form.md
     accepted-source-certification-status-board.md
+    accepted-source-review-dossier.md
     ccm24-source-interface-accepted-source-packet.md
+    ccm24-source-interface-referee-decision-record.md
     ccm25-source-interface-accepted-source-packet.md
+    ccm25-source-interface-referee-decision-record.md
     cc20-trace-source-interface-accepted-source-packet.md
+    cc20-trace-source-interface-referee-decision-record.md
     second-external-opinion-audit.md
     trace-scale-source-term-ledger.md
+    s2-b1-trace-scale-referee-decision-record.md
     sign-defect-accepted-source-packet.md
     restricted-to-full-accepted-source-packet.md
     final-sign-accepted-source-packet.md

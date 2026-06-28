@@ -101,6 +101,14 @@ docs/audits/trace-scale-source-term-ledger.md
 That file is the first accepted-source packet for B1. It records each possible
 source term and where the route claims it lands.
 
+The theorem-decision record for S2-B1 is:
+
+```text
+docs/audits/s2-b1-trace-scale-referee-decision-record.md
+```
+
+It is pending external decision.
+
 ## Base Source-Interface Packets
 
 Three packets cover the base source interfaces consumed by the later packets:
@@ -115,6 +123,18 @@ They cover the fixed-S model, CCM25 Weil-form objects, and CC20 trace
 front end. Without these three packets, later S2-B1, sign/defect,
 restricted-to-full, final sign, and CC20 exit packets have no certified object
 base.
+
+The corresponding theorem-decision records are:
+
+```text
+docs/audits/ccm24-source-interface-referee-decision-record.md
+docs/audits/ccm25-source-interface-referee-decision-record.md
+docs/audits/cc20-trace-source-interface-referee-decision-record.md
+```
+
+They are the first attempted upgrade from broad packet status to
+accepted-source theorem review. All three remain pending until a reviewer,
+accepted proof, or Lean theorem fills the decision block.
 
 ## Next Critical Packets
 
@@ -196,6 +216,7 @@ for each critical row.
 |---|---|
 | Did this ledger upgrade any row to accepted-source theorem status? | no |
 | Did it identify exact theorem candidates for accepted-source review? | yes |
+| Do the base source-interface rows now have theorem-decision records? | yes |
 | Is S2-B1 the first critical candidate? | yes |
 | Are accepted-source packets complete for all source-facing rows? | yes |
 | Do Rows 3-7 and restricted-to-full now have review packets? | yes |

@@ -107,10 +107,15 @@ Current files:
 | `accepted-source-packet-completion-audit.md` | completion audit for accepted-source packet coverage; records that every source-facing row has a packet while external certification remains open |
 | `accepted-source-referee-decision-form.md` | reusable decision form for external referee, independent proof, or Lean theorem review of one accepted-source packet |
 | `accepted-source-certification-status-board.md` | status board tracking each accepted-source packet from packet-written state to accepted-source decision |
+| `accepted-source-review-dossier.md` | ordered review dossier for external accepted-source theorem decisions |
 | `ccm24-source-interface-accepted-source-packet.md` | CCM24 source-interface accepted-source packet; states checks for fixed-S model, support/window, bounded comparison, Sonin comparison, and no automatic post-`Q` transport |
+| `ccm24-source-interface-referee-decision-record.md` | CCM24 source-interface theorem-decision record; keeps the fixed-S model, window, bounded comparison, Sonin comparison, and no-automatic-post-`Q` transport verdict pending |
 | `ccm25-source-interface-accepted-source-packet.md` | CCM25 source-interface accepted-source packet; states checks for `QW`, `Psi`, `QW_lambda`, finite-prime atoms, pole normalization, and no-spectral boundary |
+| `ccm25-source-interface-referee-decision-record.md` | CCM25 source-interface theorem-decision record; keeps `QW`, `Psi`, `QW_lambda`, finite-prime, pole, and no-spectral verdicts pending |
 | `cc20-trace-source-interface-accepted-source-packet.md` | CC20 trace source-interface accepted-source packet; states checks for support-square trace, trace-class legality, cyclicity, Mellin convention, and local signs |
+| `cc20-trace-source-interface-referee-decision-record.md` | CC20 trace source-interface theorem-decision record; keeps trace legality, cyclicity, support-square, Mellin, and sign verdicts pending |
 | `trace-scale-source-term-ledger.md` | first S2-B1 accepted-source packet; maps possible positive-trace source terms to `QW_lambda`, rank, pole, or endpoint-strip `Cdef` and names the untracked-bulk obstruction |
+| `s2-b1-trace-scale-referee-decision-record.md` | S2-B1 theorem-decision record; keeps the no-missing-bulk positive-trace read-off verdict pending |
 | `sign-defect-accepted-source-packet.md` | Rows 1-7 accepted-source packet; states referee checks for CC20 post-`Q` source remainder, fixed-S transport, rank/pole identification, endpoint-strip `Cdef`, and no-hidden-defect equality |
 | `restricted-to-full-accepted-source-packet.md` | fixed-test restricted-to-full accepted-source packet; states the `QW_lambda(g,g)=QW(g,g)` review target from CCM25 restriction-definition without spectral convergence |
 | `final-sign-accepted-source-packet.md` | final sign accepted-source packet; states referee checks for `QW(g,g)=-sum_v W_v(F_g)` and the inequality direction |

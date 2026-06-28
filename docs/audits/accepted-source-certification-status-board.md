@@ -30,6 +30,7 @@ decisions.
 | status | meaning |
 |---|---|
 | packet written | referee packet exists and can be reviewed |
+| decision record opened | packet has a theorem-decision record, but no verdict |
 | in review | a reviewer has the packet |
 | accepted after correction | reviewer accepted after listed correction; correction not yet verified |
 | accepted-source | reviewer or Lean proof accepted the exact row |
@@ -40,10 +41,10 @@ decisions.
 
 | order | packet | row group | current status | next action |
 |---:|---|---|---|---|
-| 1 | `docs/audits/ccm24-source-interface-accepted-source-packet.md` | CCM24 fixed-S model, support/window, bounded comparison, Sonin comparison | packet written | send for external decision |
-| 2 | `docs/audits/ccm25-source-interface-accepted-source-packet.md` | CCM25 `QW`, `Psi`, `QW_lambda`, finite-prime atoms, pole normalization, no-spectral boundary | packet written | send for external decision |
-| 3 | `docs/audits/cc20-trace-source-interface-accepted-source-packet.md` | CC20 trace legality, support-square trace, cyclicity, Mellin convention, local signs | packet written | send for external decision |
-| 4 | `docs/audits/trace-scale-source-term-ledger.md` | S2-B1 trace-scale no-missing-bulk theorem | packet written | send after rows 1-3 or to same reviewer |
+| 1 | `docs/audits/ccm24-source-interface-accepted-source-packet.md` | CCM24 fixed-S model, support/window, bounded comparison, Sonin comparison | decision record opened | complete `docs/audits/ccm24-source-interface-referee-decision-record.md` by external decision or theorem |
+| 2 | `docs/audits/ccm25-source-interface-accepted-source-packet.md` | CCM25 `QW`, `Psi`, `QW_lambda`, finite-prime atoms, pole normalization, no-spectral boundary | decision record opened | complete `docs/audits/ccm25-source-interface-referee-decision-record.md` by external decision or theorem |
+| 3 | `docs/audits/cc20-trace-source-interface-accepted-source-packet.md` | CC20 trace legality, support-square trace, cyclicity, Mellin convention, local signs | decision record opened | complete `docs/audits/cc20-trace-source-interface-referee-decision-record.md` by external decision or theorem |
+| 4 | `docs/audits/trace-scale-source-term-ledger.md` | S2-B1 trace-scale no-missing-bulk theorem | decision record opened | complete `docs/audits/s2-b1-trace-scale-referee-decision-record.md` after rows 1-3 or with the same reviewer |
 | 5 | `docs/audits/sign-defect-accepted-source-packet.md` | Rows 1-7 sign/defect classification | packet written | send after CCM24 and CC20 trace packets |
 | 6 | `docs/audits/restricted-to-full-accepted-source-packet.md` | fixed-test `QW_lambda(g,g)=QW(g,g)` | packet written | send after CCM25 packet |
 | 7 | `docs/audits/final-sign-accepted-source-packet.md` | `QW(g,g)=-sum_v W_v(F_g)` and inequality direction | packet written | send after CCM25 and CC20 sign checks |
@@ -92,6 +93,7 @@ RHDefinitionDrift
 | question | answer |
 |---|---|
 | Does every packet have a tracking row? | yes |
+| Do the base source-interface rows have theorem-decision records? | yes |
 | Has any packet received an accepted-source decision? | no |
 | Can README claim accepted-source certification now? | no |
 | Did this pass touch Lean? | no |

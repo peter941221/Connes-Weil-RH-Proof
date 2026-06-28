@@ -31,18 +31,31 @@ The review control files are:
 ```text
 docs/audits/accepted-source-referee-decision-form.md
 docs/audits/accepted-source-certification-status-board.md
+docs/audits/accepted-source-review-dossier.md
 ```
 
 They define the accepted-source verdict process and track packet decisions.
+
+The first theorem-decision records are:
+
+```text
+docs/audits/ccm24-source-interface-referee-decision-record.md
+docs/audits/ccm25-source-interface-referee-decision-record.md
+docs/audits/cc20-trace-source-interface-referee-decision-record.md
+docs/audits/s2-b1-trace-scale-referee-decision-record.md
+```
+
+These records do not accept the rows. They state the exact theorem bundle,
+evidence, required checks, and rejection names for the first decisions.
 
 ## Packet Coverage Matrix
 
 | row group | packet | certification status |
 |---|---|---|
-| CCM24 fixed-S model, support/window, bounded comparison, Sonin comparison | `docs/audits/ccm24-source-interface-accepted-source-packet.md` | packet written; external acceptance open |
-| CCM25 `QW`, `Psi`, `QW_lambda`, finite-prime atoms, pole normalization, no-spectral boundary | `docs/audits/ccm25-source-interface-accepted-source-packet.md` | packet written; external acceptance open |
-| CC20 trace legality, support-square trace, cyclicity, Mellin convention, local signs | `docs/audits/cc20-trace-source-interface-accepted-source-packet.md` | packet written; external acceptance open |
-| S2-B1 trace-scale no-missing-bulk theorem | `docs/audits/trace-scale-source-term-ledger.md` | packet written; external acceptance open |
+| CCM24 fixed-S model, support/window, bounded comparison, Sonin comparison | `docs/audits/ccm24-source-interface-accepted-source-packet.md` | decision record opened; external acceptance open |
+| CCM25 `QW`, `Psi`, `QW_lambda`, finite-prime atoms, pole normalization, no-spectral boundary | `docs/audits/ccm25-source-interface-accepted-source-packet.md` | decision record opened; external acceptance open |
+| CC20 trace legality, support-square trace, cyclicity, Mellin convention, local signs | `docs/audits/cc20-trace-source-interface-accepted-source-packet.md` | decision record opened; external acceptance open |
+| S2-B1 trace-scale no-missing-bulk theorem | `docs/audits/trace-scale-source-term-ledger.md` | decision record opened; external acceptance open |
 | Rows 1-7 sign/defect classification | `docs/audits/sign-defect-accepted-source-packet.md` | packet written; external acceptance open |
 | restricted-to-full `QW_lambda(g,g)=QW(g,g)` | `docs/audits/restricted-to-full-accepted-source-packet.md` | packet written; external acceptance open |
 | final sign `QW(g,g)=-sum_v W_v(F_g)` | `docs/audits/final-sign-accepted-source-packet.md` | packet written; external acceptance open |
@@ -107,6 +120,7 @@ route notation match without object bridge
 |---|---|
 | Does every source-facing row now have an accepted-source review packet? | yes |
 | Does every packet now have a status-board row? | yes |
+| Do the base source-interface rows have theorem-decision records? | yes |
 | Has any row become accepted-source by this audit? | no |
 | Is the route still source-conditional? | yes |
 | Did this pass touch Lean? | no |
