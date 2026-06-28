@@ -163,6 +163,74 @@ noncomputable def source_restricted_finite_prime_evaluator_sum
   PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum W f f lambda
     (formula_components h).restricted.finitePrimeSumReadOff.certificate.atoms
 
+noncomputable def source_common_global_finite_prime_evaluator_sum
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) : ℝ :=
+  PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum W f f
+    (formula_components h).commonCertificate.atoms
+
+noncomputable def source_common_restricted_finite_prime_evaluator_sum
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) : ℝ :=
+  PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum W f f lambda
+    (formula_components h).commonCertificate.atoms
+
+theorem source_global_sum_eq_common_atoms_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    source_global_finite_prime_evaluator_sum h =
+      source_common_global_finite_prime_evaluator_sum h := by
+  dsimp [source_global_finite_prime_evaluator_sum,
+    source_common_global_finite_prime_evaluator_sum]
+  rw [FormulaComponents.global_certificate_eq_common_of_formula_components
+    (formula_components h)]
+
+theorem source_restricted_sum_eq_common_atoms_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    source_restricted_finite_prime_evaluator_sum h =
+      source_common_restricted_finite_prime_evaluator_sum h := by
+  dsimp [source_restricted_finite_prime_evaluator_sum,
+    source_common_restricted_finite_prime_evaluator_sum]
+  rw [FormulaComponents.restricted_certificate_eq_common_of_formula_components
+    (formula_components h)]
+
+theorem psi_source_evaluator_common_atoms_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    W.psi (W.convolutionStar f f) =
+      W.poleFunctional (W.convolutionStar f f) -
+        W.archimedeanTerm (W.convolutionStar f f) -
+          source_common_global_finite_prime_evaluator_sum h := by
+  rw [psi_source_evaluator_of_package_components h]
+  dsimp [source_common_global_finite_prime_evaluator_sum]
+  rw [FormulaComponents.global_certificate_eq_common_of_formula_components
+    (formula_components h)]
+
+theorem qw_source_evaluator_common_atoms_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    W.qw f f =
+      W.poleFunctional (W.convolutionStar f f) -
+        W.archimedeanTerm (W.convolutionStar f f) -
+          source_common_global_finite_prime_evaluator_sum h := by
+  rw [qw_source_evaluator_of_package_components h]
+  dsimp [source_common_global_finite_prime_evaluator_sum]
+  rw [FormulaComponents.global_certificate_eq_common_of_formula_components
+    (formula_components h)]
+
+theorem qw_lambda_formula_source_evaluator_common_atoms_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    W.qwLambda lambda f f =
+      W.archimedeanTerm (W.convolutionStar f f) +
+        W.polePairing f -
+          source_common_restricted_finite_prime_evaluator_sum h := by
+  rw [qw_lambda_formula_source_evaluator_of_package_components h]
+  dsimp [source_common_restricted_finite_prime_evaluator_sum]
+  rw [FormulaComponents.restricted_certificate_eq_common_of_formula_components
+    (formula_components h)]
+
 theorem source_global_sum_uses_restricted_atoms_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda) :
@@ -190,6 +258,15 @@ theorem global_finite_prime_sum_of_package_components
   FormulaComponents.global_finite_prime_sum_of_formula_components
     (formula_components h)
 
+theorem global_finite_prime_sum_common_atoms_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.finitePrimeTerm n (W.convolutionStar f f)) =
+      source_common_global_finite_prime_evaluator_sum h := by
+  rw [global_finite_prime_sum_of_package_components h,
+    source_global_sum_eq_common_atoms_of_package h]
+
 theorem global_von_mangoldt_pairing_sum_of_package_components
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda) :
@@ -199,6 +276,15 @@ theorem global_von_mangoldt_pairing_sum_of_package_components
   FormulaComponents.global_von_mangoldt_pairing_sum_of_formula_components
     (formula_components h)
 
+theorem global_von_mangoldt_pairing_sum_common_atoms_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.vonMangoldtWeight n * W.primePowerPairing n f f) =
+      source_common_global_finite_prime_evaluator_sum h := by
+  rw [global_von_mangoldt_pairing_sum_of_package_components h,
+    source_global_sum_eq_common_atoms_of_package h]
+
 theorem restricted_finite_prime_sum_of_package_components
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda) :
@@ -207,6 +293,15 @@ theorem restricted_finite_prime_sum_of_package_components
       source_restricted_finite_prime_evaluator_sum h :=
   FormulaComponents.restricted_finite_prime_sum_of_formula_components
     (formula_components h)
+
+theorem restricted_finite_prime_sum_common_atoms_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.finitePrimeTerm n (W.convolutionStar f f)) =
+      source_common_restricted_finite_prime_evaluator_sum h := by
+  rw [restricted_finite_prime_sum_of_package_components h,
+    source_restricted_sum_eq_common_atoms_of_package h]
 
 theorem restricted_index_set_eq_global_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -236,6 +331,15 @@ theorem restricted_von_mangoldt_pairing_sum_of_package_components
       source_restricted_finite_prime_evaluator_sum h :=
   FormulaComponents.restricted_von_mangoldt_pairing_sum_of_formula_components
     (formula_components h)
+
+theorem restricted_von_mangoldt_pairing_sum_common_atoms_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.vonMangoldtWeight n * W.primePowerPairing n f f) =
+      source_common_restricted_finite_prime_evaluator_sum h := by
+  rw [restricted_von_mangoldt_pairing_sum_of_package_components h,
+    source_restricted_sum_eq_common_atoms_of_package h]
 
 def source_test_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -363,6 +467,39 @@ theorem global_index_one_lt_of_package
   PrimePowerArithmetic.source_prime_power_index_one_lt
     (global_index_prime_power_of_package h hn)
 
+theorem global_index_weight_read_off_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (_hn : n ∈ W.globalPrimeIndexSet) :
+    W.vonMangoldtWeight n =
+      PrimePowerArithmetic.SourceVonMangoldtWeight n :=
+  PrimePowerArithmetic.source_weight_read_off
+    ((formula_components h).commonCertificate.atoms.atIndex n)
+
+theorem global_index_pairing_formula_source_evaluator_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (_hn : n ∈ W.globalPrimeIndexSet) :
+    let atom := (formula_components h).commonCertificate.atoms.atIndex n
+    W.primePowerPairing n f f =
+      (1 / Real.sqrt (n : ℝ)) *
+        (atom.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
+            (W.convolutionStar f f) (n : ℝ) +
+          atom.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
+              (W.convolutionStar f f) ((n : ℝ)⁻¹)) :=
+  PrimePowerArithmetic.source_pairing_formula_source_evaluator
+    ((formula_components h).commonCertificate.atoms.atIndex n)
+
+theorem global_index_finite_prime_term_formula_source_evaluator_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (_hn : n ∈ W.globalPrimeIndexSet) :
+    W.finitePrimeTerm n (W.convolutionStar f f) =
+      PrimePowerArithmetic.SourceFinitePrimeEvaluatorAtom W f f n
+        ((formula_components h).commonCertificate.atoms.atIndex n) :=
+  PrimePowerArithmetic.source_finite_prime_term_formula_source_evaluator
+    ((formula_components h).commonCertificate.atoms.atIndex n)
+
 theorem restricted_index_prime_power_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
@@ -399,6 +536,39 @@ theorem restricted_index_le_lambda_sq_of_package
     (n : ℝ) ≤ lambda ^ 2 :=
   PrimePowerSupport.source_lambda_cut_le_lambda_sq
     (restricted_index_lambda_cut_of_package h hn)
+
+theorem restricted_index_weight_read_off_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (_hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    W.vonMangoldtWeight n =
+      PrimePowerArithmetic.SourceVonMangoldtWeight n :=
+  PrimePowerArithmetic.source_weight_read_off
+    ((formula_components h).commonCertificate.atoms.atIndex n)
+
+theorem restricted_index_pairing_formula_source_evaluator_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (_hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    let atom := (formula_components h).commonCertificate.atoms.atIndex n
+    W.primePowerPairing n f f =
+      (1 / Real.sqrt (n : ℝ)) *
+        (atom.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
+            (W.convolutionStar f f) (n : ℝ) +
+          atom.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
+              (W.convolutionStar f f) ((n : ℝ)⁻¹)) :=
+  PrimePowerArithmetic.source_pairing_formula_source_evaluator
+    ((formula_components h).commonCertificate.atoms.atIndex n)
+
+theorem restricted_index_finite_prime_term_formula_source_evaluator_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (_hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    W.finitePrimeTerm n (W.convolutionStar f f) =
+      PrimePowerArithmetic.SourceFinitePrimeEvaluatorAtom W f f n
+        ((formula_components h).commonCertificate.atoms.atIndex n) :=
+  PrimePowerArithmetic.source_finite_prime_term_formula_source_evaluator
+    ((formula_components h).commonCertificate.atoms.atIndex n)
 
 end Package
 end CCM25Concrete
