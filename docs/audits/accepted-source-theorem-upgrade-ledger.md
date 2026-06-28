@@ -187,11 +187,13 @@ The packet completion audit is:
 
 ```text
 docs/audits/accepted-source-packet-completion-audit.md
+docs/audits/accepted-source-decision-evidence-matrix.md
 ```
 
 It records that every source-facing row now has an accepted-source review
-packet. It also records that no row is accepted-source until external review,
-accepted proof, or Lean theorem discharge accepts the exact packet row.
+packet and a decision-evidence row. It also records that no row is
+accepted-source until external review, accepted proof, or Lean theorem
+discharge accepts the exact packet row.
 
 ## What Counts As Progress
 
@@ -225,6 +227,7 @@ for each critical row.
 | Do all nine accepted-source packets now have theorem-decision records? | yes |
 | Is S2-B1 the first critical candidate? | yes |
 | Are accepted-source packets complete for all source-facing rows? | yes |
+| Does the evidence matrix cover all nine accepted-source decisions? | yes |
 | Do Rows 3-7 and restricted-to-full now have review packets? | yes |
 | Do final sign, CC20 exit, and RH definition now have review packets? | yes |
 | Did this pass touch Lean? | no |

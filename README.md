@@ -104,6 +104,9 @@ The accepted-source certification status board is
 The accepted-source review dossier is
 `docs/audits/accepted-source-review-dossier.md`.
 
+The accepted-source decision evidence matrix is
+`docs/audits/accepted-source-decision-evidence-matrix.md`.
+
 The CCM24 source-interface accepted-source packet is
 `docs/audits/ccm24-source-interface-accepted-source-packet.md`.
 
@@ -240,11 +243,16 @@ The review control files are:
 docs/audits/accepted-source-referee-decision-form.md
 docs/audits/accepted-source-certification-status-board.md
 docs/audits/accepted-source-review-dossier.md
+docs/audits/accepted-source-decision-evidence-matrix.md
 ```
 
 They define the allowed verdicts and track each packet from "packet written" to
 "accepted-source". The current board has theorem-decision records opened for
 all nine accepted-source packets, with no accepted decisions recorded.
+
+The evidence matrix records, for every row, the decision record, source
+anchors, project evidence, minimum acceptance evidence, named rejection, and
+route consequence if rejected.
 
 The theorem-decision records are:
 
@@ -818,6 +826,7 @@ docs/
     accepted-source-referee-decision-form.md
     accepted-source-certification-status-board.md
     accepted-source-review-dossier.md
+    accepted-source-decision-evidence-matrix.md
     ccm24-source-interface-accepted-source-packet.md
     ccm24-source-interface-referee-decision-record.md
     ccm25-source-interface-accepted-source-packet.md

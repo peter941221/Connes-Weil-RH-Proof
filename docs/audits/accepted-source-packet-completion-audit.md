@@ -32,6 +32,7 @@ The review control files are:
 docs/audits/accepted-source-referee-decision-form.md
 docs/audits/accepted-source-certification-status-board.md
 docs/audits/accepted-source-review-dossier.md
+docs/audits/accepted-source-decision-evidence-matrix.md
 ```
 
 They define the accepted-source verdict process and track packet decisions.
@@ -128,6 +129,7 @@ route notation match without object bridge
 | Does every packet now have a status-board row? | yes |
 | Do the base source-interface rows have theorem-decision records? | yes |
 | Do all nine packets have theorem-decision records? | yes |
+| Does every packet have a decision-evidence matrix row? | yes |
 | Has any row become accepted-source by this audit? | no |
 | Is the route still source-conditional? | yes |
 | Did this pass touch Lean? | no |

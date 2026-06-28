@@ -108,6 +108,7 @@ Current files:
 | `accepted-source-referee-decision-form.md` | reusable decision form for external referee, independent proof, or Lean theorem review of one accepted-source packet |
 | `accepted-source-certification-status-board.md` | status board tracking each accepted-source packet from packet-written state to accepted-source decision |
 | `accepted-source-review-dossier.md` | ordered review dossier for external accepted-source theorem decisions |
+| `accepted-source-decision-evidence-matrix.md` | nine-row evidence matrix listing each decision record, source anchors, project evidence, acceptance evidence, rejection names, and route consequence |
 | `ccm24-source-interface-accepted-source-packet.md` | CCM24 source-interface accepted-source packet; states checks for fixed-S model, support/window, bounded comparison, Sonin comparison, and no automatic post-`Q` transport |
 | `ccm24-source-interface-referee-decision-record.md` | CCM24 source-interface theorem-decision record; keeps the fixed-S model, window, bounded comparison, Sonin comparison, and no-automatic-post-`Q` transport verdict pending |
 | `ccm25-source-interface-accepted-source-packet.md` | CCM25 source-interface accepted-source packet; states checks for `QW`, `Psi`, `QW_lambda`, finite-prime atoms, pole normalization, and no-spectral boundary |

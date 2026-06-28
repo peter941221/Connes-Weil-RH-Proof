@@ -14,6 +14,12 @@ Lean status: not touched
 
 This board tracks accepted-source decisions for every source-facing packet.
 
+The decision evidence matrix is:
+
+```text
+docs/audits/accepted-source-decision-evidence-matrix.md
+```
+
 It separates three states:
 
 ```text
@@ -95,6 +101,7 @@ RHDefinitionDrift
 | Does every packet have a tracking row? | yes |
 | Do the base source-interface rows have theorem-decision records? | yes |
 | Do all nine packets have theorem-decision records? | yes |
+| Does every packet have a row in the evidence matrix? | yes |
 | Has any packet received an accepted-source decision? | no |
 | Can README claim accepted-source certification now? | no |
 | Did this pass touch Lean? | no |

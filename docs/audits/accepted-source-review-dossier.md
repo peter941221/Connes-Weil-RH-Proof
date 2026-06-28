@@ -26,6 +26,7 @@ Use these control files:
 docs/audits/accepted-source-referee-decision-form.md
 docs/audits/accepted-source-certification-status-board.md
 docs/audits/accepted-source-packet-completion-audit.md
+docs/audits/accepted-source-decision-evidence-matrix.md
 ```
 
 The theorem-decision records are:
