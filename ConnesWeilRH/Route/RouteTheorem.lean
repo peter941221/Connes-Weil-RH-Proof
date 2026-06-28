@@ -23,6 +23,188 @@ structure RouteCertificate (inputs : RouteInputs) where
   ledgers : RouteLedgers
   bridge : RouteBridgeCertificate inputs sourceBackedTest ledgers
 
+structure RouteBackedCC20NonpositivityInputData
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (L : RouteLedgers) (bridge : RouteBridgeCertificate inputs g L)
+    (input : WeilPositivityInput) where
+  inputIsRouteInput : input = toWeilPositivityInput inputs g L
+  sourceBackedFullPositivity : SourceBackedFullPositivity inputs g L
+  finalSignBridge :
+    FinalSignBridgeContract inputs bridge.sourceTraceReadOff.archimedeanTest g
+      bridge.sourceTraceReadOff.lambda
+      (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
+      bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  finalSignNonpositive :
+    SourceQWNonnegativeToCC20Nonpositive inputs
+      bridge.sourceTraceReadOff.archimedeanTest g
+      bridge.sourceTraceReadOff.lambda
+      (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
+      bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  fullPositivityMatchesNonpositivity : input.fullWeilPositivity
+
+structure RouteBackedCC20TripleVanishingInputData
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (L : RouteLedgers) (input : WeilPositivityInput) where
+  inputIsRouteInput : input = toWeilPositivityInput inputs g L
+  tripleVanishingSymbols : TripleVanishingSymbols
+  symbolsAreSourceBacked : tripleVanishingSymbols = g.tripleVanishingSymbols
+  sourceTripleVanishing :
+    TripleVanishingSymbols.TripleVanishingStatement tripleVanishingSymbols
+  routeTripleVanishing : g.test.tripleVanishing
+  tripleVanishingMatchesMellin : input.tripleVanishing
+
+structure RouteBackedCC20ExitInputData
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (L : RouteLedgers) (bridge : RouteBridgeCertificate inputs g L) where
+  input : WeilPositivityInput
+  inputIsRouteInput : input = toWeilPositivityInput inputs g L
+  sourceBackedFullPositivity : SourceBackedFullPositivity inputs g L
+  nonpositivityInput :
+    RouteBackedCC20NonpositivityInputData inputs g L bridge input
+  tripleVanishingInput :
+    RouteBackedCC20TripleVanishingInputData inputs g L input
+  finalSignBridge :
+    FinalSignBridgeContract inputs bridge.sourceTraceReadOff.archimedeanTest g
+      bridge.sourceTraceReadOff.lambda
+      (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
+      bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  finalSignNonpositive :
+    SourceQWNonnegativeToCC20Nonpositive inputs
+      bridge.sourceTraceReadOff.archimedeanTest g
+      bridge.sourceTraceReadOff.lambda
+      (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
+      bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  tripleVanishing : input.tripleVanishing
+  fullWeilPositivity : input.fullWeilPositivity
+  propositionC1InputData :
+    Source.CC20PropositionC1InputData
+      inputs.cc20.cc20RHExitObjectPackage.finiteVanishingSet input
+
+def route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers}
+    (bridge : RouteBridgeCertificate inputs g L) :
+    RouteBackedCC20NonpositivityInputData inputs g L bridge
+      (toWeilPositivityInput inputs g L) where
+  inputIsRouteInput := rfl
+  sourceBackedFullPositivity :=
+    source_backed_full_positivity_of_route_bridge_certificate bridge
+  finalSignBridge :=
+    final_sign_bridge_of_route_bridge_certificate bridge
+  finalSignNonpositive :=
+    final_sign_nonnegative_to_nonpositive_of_contract
+      (final_sign_bridge_of_route_bridge_certificate bridge)
+  fullPositivityMatchesNonpositivity :=
+    full_weil_positivity_input_holds
+      (full_weil_positivity_of_source_backed
+        (source_backed_full_positivity_of_route_bridge_certificate bridge))
+
+def route_backed_cc20_triple_vanishing_input_data_of_source_backed
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} :
+    RouteBackedCC20TripleVanishingInputData inputs g L
+      (toWeilPositivityInput inputs g L) where
+  inputIsRouteInput := rfl
+  tripleVanishingSymbols := g.tripleVanishingSymbols
+  symbolsAreSourceBacked := rfl
+  sourceTripleVanishing := g.tripleVanishingSourceHolds
+  routeTripleVanishing := triple_vanishing_of_source_backed g
+  tripleVanishingMatchesMellin :=
+    triple_vanishing_input_holds
+      (triple_vanishing_of_source_backed g)
+
+def route_backed_cc20_exit_input_data_of_route_bridge_certificate
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers}
+    (bridge : RouteBridgeCertificate inputs g L) :
+    RouteBackedCC20ExitInputData inputs g L bridge where
+  input := toWeilPositivityInput inputs g L
+  inputIsRouteInput := rfl
+  sourceBackedFullPositivity :=
+    source_backed_full_positivity_of_route_bridge_certificate bridge
+  nonpositivityInput :=
+    route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
+      bridge
+  tripleVanishingInput :=
+    route_backed_cc20_triple_vanishing_input_data_of_source_backed
+  finalSignBridge :=
+    (route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
+      bridge).finalSignBridge
+  finalSignNonpositive :=
+    (route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
+      bridge).finalSignNonpositive
+  tripleVanishing :=
+    (route_backed_cc20_triple_vanishing_input_data_of_source_backed
+      : RouteBackedCC20TripleVanishingInputData inputs g L
+          (toWeilPositivityInput inputs g L)).tripleVanishingMatchesMellin
+  fullWeilPositivity :=
+    (route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
+      bridge).fullPositivityMatchesNonpositivity
+  propositionC1InputData :=
+    Source.cc20_proposition_c1_input_data
+      inputs.cc20.cc20RHExitObjectPackage.finiteSetAdmissible
+      ((route_backed_cc20_triple_vanishing_input_data_of_source_backed
+        : RouteBackedCC20TripleVanishingInputData inputs g L
+            (toWeilPositivityInput inputs g L)).tripleVanishingMatchesMellin)
+      ((route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
+        bridge).fullPositivityMatchesNonpositivity)
+
+def nonpositivity_input_of_route_backed_cc20_exit_input_data
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} {bridge : RouteBridgeCertificate inputs g L}
+    (h : RouteBackedCC20ExitInputData inputs g L bridge) :
+    RouteBackedCC20NonpositivityInputData inputs g L bridge h.input :=
+  h.nonpositivityInput
+
+theorem final_sign_nonpositive_of_route_backed_cc20_exit_input_data
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} {bridge : RouteBridgeCertificate inputs g L}
+    (h : RouteBackedCC20ExitInputData inputs g L bridge) :
+    SourceQWNonnegativeToCC20Nonpositive inputs
+      bridge.sourceTraceReadOff.archimedeanTest g
+      bridge.sourceTraceReadOff.lambda
+      (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
+      bridge.sourceTraceReadOff.ccm25ArithmeticPackage :=
+  h.nonpositivityInput.finalSignNonpositive
+
+theorem route_triple_vanishing_of_route_backed_cc20_exit_input_data
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} {bridge : RouteBridgeCertificate inputs g L}
+    (h : RouteBackedCC20ExitInputData inputs g L bridge) :
+    TripleVanishingSymbols.TripleVanishingStatement
+      h.tripleVanishingInput.tripleVanishingSymbols :=
+  h.tripleVanishingInput.sourceTripleVanishing
+
+theorem c1_triple_vanishing_row_of_route_backed_cc20_exit_input_data
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} {bridge : RouteBridgeCertificate inputs g L}
+    (h : RouteBackedCC20ExitInputData inputs g L bridge) :
+    h.input.tripleVanishing :=
+  Source.triple_vanishing_of_c1_input_data h.propositionC1InputData
+
+theorem c1_triple_vanishing_row_uses_route_triple_input
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} {bridge : RouteBridgeCertificate inputs g L}
+    (h : RouteBackedCC20ExitInputData inputs g L bridge) :
+    Source.triple_vanishing_of_c1_input_data h.propositionC1InputData =
+      h.tripleVanishingInput.tripleVanishingMatchesMellin := by
+  rfl
+
+theorem c1_full_positivity_row_of_route_backed_cc20_exit_input_data
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} {bridge : RouteBridgeCertificate inputs g L}
+    (h : RouteBackedCC20ExitInputData inputs g L bridge) :
+    h.input.fullWeilPositivity :=
+  Source.full_positivity_of_c1_input_data h.propositionC1InputData
+
+theorem c1_full_positivity_row_uses_route_nonpositivity_input
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} {bridge : RouteBridgeCertificate inputs g L}
+    (h : RouteBackedCC20ExitInputData inputs g L bridge) :
+    Source.full_positivity_of_c1_input_data h.propositionC1InputData =
+      h.nonpositivityInput.fullPositivityMatchesNonpositivity := by
+  rfl
+
 def route_certificate_of_sign_defect_classification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers}
@@ -49,12 +231,14 @@ def route_certificate_of_sign_defect_classification
 theorem cc20_source_rh_of_route_certificate
     {inputs : RouteInputs} (cert : RouteCertificate inputs) :
     inputs.cc20.rhDefinitionBridge.SourceRH := by
-  let hfull := full_weil_positivity_of_source_backed
-    (source_backed_full_positivity_of_route_bridge_certificate cert.bridge)
+  let exitInput : RouteBackedCC20ExitInputData inputs
+      cert.sourceBackedTest cert.ledgers cert.bridge :=
+    route_backed_cc20_exit_input_data_of_route_bridge_certificate
+      cert.bridge
   exact Source.CC20Interface.finite_vanishing_source_rh inputs.cc20
-    (toWeilPositivityInput inputs cert.sourceBackedTest cert.ledgers)
-    (triple_vanishing_of_source_backed cert.sourceBackedTest)
-    hfull
+    exitInput.input
+    exitInput.tripleVanishing
+    exitInput.fullWeilPositivity
 
 theorem final_connes_weil_rh
     {inputs : RouteInputs} (cert : RouteCertificate inputs) :
