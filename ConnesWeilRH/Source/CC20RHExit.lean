@@ -31,7 +31,92 @@ structure SourceFiniteVanishingCriterionPackage
         input.fullWeilPositivity →
           B.SourceRH
 
+def cc20TripleFiniteVanishingSet : Finset CriticalVanishingPoint :=
+  {CriticalVanishingPoint.zero,
+    CriticalVanishingPoint.half,
+    CriticalVanishingPoint.one}
+
+def RouteFiniteVanishingSetIsCC20Triple
+    (F : Finset CriticalVanishingPoint) : Prop :=
+  F = cc20TripleFiniteVanishingSet
+
+def SourceFiniteSetAdmissibility
+    (F : Finset CriticalVanishingPoint) : Prop :=
+  CriticalVanishingPoint.zero ∈ F ∧
+    CriticalVanishingPoint.half ∈ F ∧
+      CriticalVanishingPoint.one ∈ F ∧
+        RouteFiniteVanishingSetIsCC20Triple F
+
+theorem cc20_triple_finite_set_is_triple :
+    RouteFiniteVanishingSetIsCC20Triple cc20TripleFiniteVanishingSet := by
+  rfl
+
+theorem cc20_triple_finite_set_admissibility :
+    SourceFiniteSetAdmissibility cc20TripleFiniteVanishingSet := by
+  simp [SourceFiniteSetAdmissibility, RouteFiniteVanishingSetIsCC20Triple,
+    cc20TripleFiniteVanishingSet]
+
+def RouteTripleVanishingMatchesCC20Mellin
+    (_F : Finset CriticalVanishingPoint) (input : WeilPositivityInput) : Prop :=
+  input.tripleVanishing
+
+def RouteFullPositivityMatchesCC20Nonpositivity
+    (input : WeilPositivityInput) : Prop :=
+  input.fullWeilPositivity
+
+def CC20PropositionC1SourceCriterion
+    (B : RHDefinitionBridge) (F : Finset CriticalVanishingPoint)
+    (input : WeilPositivityInput) : Prop :=
+  RouteFiniteVanishingSetIsCC20Triple F →
+    RouteTripleVanishingMatchesCC20Mellin F input →
+      RouteFullPositivityMatchesCC20Nonpositivity input →
+        B.SourceRH
+
+structure CC20RHExitObjectPackage
+    (B : RHDefinitionBridge) where
+  finiteVanishingSet : Finset CriticalVanishingPoint
+  finiteSetAdmissible : SourceFiniteSetAdmissibility finiteVanishingSet
+  propositionC1SourceCriterion :
+    ∀ input : WeilPositivityInput,
+      CC20PropositionC1SourceCriterion B finiteVanishingSet input
+
+theorem zero_mem_of_source_finite_set_admissibility
+    {F : Finset CriticalVanishingPoint}
+    (h : SourceFiniteSetAdmissibility F) :
+    CriticalVanishingPoint.zero ∈ F :=
+  h.1
+
+theorem half_mem_of_source_finite_set_admissibility
+    {F : Finset CriticalVanishingPoint}
+    (h : SourceFiniteSetAdmissibility F) :
+    CriticalVanishingPoint.half ∈ F :=
+  h.2.1
+
+theorem one_mem_of_source_finite_set_admissibility
+    {F : Finset CriticalVanishingPoint}
+    (h : SourceFiniteSetAdmissibility F) :
+    CriticalVanishingPoint.one ∈ F :=
+  h.2.2.1
+
+theorem finite_set_is_triple_of_source_finite_set_admissibility
+    {F : Finset CriticalVanishingPoint}
+    (h : SourceFiniteSetAdmissibility F) :
+    RouteFiniteVanishingSetIsCC20Triple F :=
+  h.2.2.2
+
 namespace SourceFiniteVanishingCriterionPackage
+
+def ofCC20RHExitObjectPackage
+    {B : RHDefinitionBridge}
+    (h : CC20RHExitObjectPackage B) :
+    SourceFiniteVanishingCriterionPackage B where
+  finiteSetAdmissible := SourceFiniteSetAdmissibility h.finiteVanishingSet
+  sourceCriterion := by
+    intro input htriple hpositive
+    exact h.propositionC1SourceCriterion input
+      (finite_set_is_triple_of_source_finite_set_admissibility
+        h.finiteSetAdmissible)
+      htriple hpositive
 
 def toFiniteVanishingCriterionPackage
     {B : RHDefinitionBridge}

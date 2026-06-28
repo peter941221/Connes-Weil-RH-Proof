@@ -900,6 +900,29 @@ structure RouteBridgeCertificate
       (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
       sourceTraceReadOff.ccm25ArithmeticPackage
 
+def route_bridge_certificate_of_sign_defect_classification
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers}
+    (sourceTraceReadOff : SourceTraceReadOffData inputs g)
+    (signDefectClassification :
+      SourceSignDefectClassification inputs g sourceTraceReadOff.lambda L)
+    (restrictedToFullQWBridge :
+      RestrictedToFullQWBridgeContract inputs g sourceTraceReadOff.lambda
+        (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
+        L sourceTraceReadOff.ccm25ArithmeticPackage)
+    (finalSignBridge :
+      FinalSignBridgeContract inputs sourceTraceReadOff.archimedeanTest g
+        sourceTraceReadOff.lambda
+        (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
+        sourceTraceReadOff.ccm25ArithmeticPackage) :
+    RouteBridgeCertificate inputs g L where
+  sourceTraceReadOff := sourceTraceReadOff
+  sourceBackedLedgers :=
+    source_backed_ledgers_of_sign_defect_classification
+      signDefectClassification
+  restrictedToFullQWBridge := restrictedToFullQWBridge
+  finalSignBridge := finalSignBridge
+
 theorem restricted_to_full_qw_lambda_threshold_of_contract
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {F_g : TestFunction} {L : RouteLedgers}

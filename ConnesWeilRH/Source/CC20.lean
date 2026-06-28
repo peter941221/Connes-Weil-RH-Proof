@@ -67,17 +67,22 @@ structure CC20Interface where
   mellinHalfDensityConvention :
     (cc20MellinHalfDensityConvention archimedeanSymbols).Holds
   rhDefinitionBridge : RHDefinitionBridge
-  sourceFiniteVanishingRhExit :
-    SourceFiniteVanishingCriterionPackage rhDefinitionBridge
+  cc20RHExitObjectPackage :
+    CC20RHExitObjectPackage rhDefinitionBridge
   signsAndNormalizations :
     (cc20SignsAndNormalizations archimedeanSymbols).Holds
 
 namespace CC20Interface
 
+def sourceFiniteVanishingRhExit (cc20 : CC20Interface) :
+    SourceFiniteVanishingCriterionPackage cc20.rhDefinitionBridge :=
+  SourceFiniteVanishingCriterionPackage.ofCC20RHExitObjectPackage
+    cc20.cc20RHExitObjectPackage
+
 def finiteVanishingRhExit (cc20 : CC20Interface) :
     FiniteVanishingCriterionPackage :=
   SourceFiniteVanishingCriterionPackage.toFiniteVanishingCriterionPackage
-    cc20.sourceFiniteVanishingRhExit
+    (sourceFiniteVanishingRhExit cc20)
 
 theorem finite_vanishing_source_rh
     (cc20 : CC20Interface)
@@ -86,7 +91,7 @@ theorem finite_vanishing_source_rh
     (hpositive : input.fullWeilPositivity) :
     cc20.rhDefinitionBridge.SourceRH :=
   SourceFiniteVanishingCriterionPackage.criterion_source_output
-    cc20.sourceFiniteVanishingRhExit input htriple hpositive
+    (sourceFiniteVanishingRhExit cc20) input htriple hpositive
 
 theorem finite_vanishing_mathlib_rh_point
     (cc20 : CC20Interface)
@@ -99,7 +104,7 @@ theorem finite_vanishing_mathlib_rh_point
     (hpole : s ≠ 1) :
     s.re = 1 / 2 :=
   SourceFiniteVanishingCriterionPackage.criterion_mathlib_rh_point
-    cc20.sourceFiniteVanishingRhExit input htriple hpositive
+    (sourceFiniteVanishingRhExit cc20) input htriple hpositive
     s hzero hnotNegEven hpole
 
 theorem finite_vanishing_mathlib_rh
@@ -117,7 +122,7 @@ end CC20Interface
 theorem finite_vanishing_rh_exit_holds
     (cc20 : CC20Interface) :
     cc20FiniteVanishingRhExit.Holds :=
-  ⟨cc20.rhDefinitionBridge, ⟨cc20.sourceFiniteVanishingRhExit⟩⟩
+  ⟨cc20.rhDefinitionBridge, ⟨CC20Interface.sourceFiniteVanishingRhExit cc20⟩⟩
 
 end Source
 end ConnesWeilRH

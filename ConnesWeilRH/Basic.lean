@@ -188,6 +188,7 @@ inductive CriticalVanishingPoint where
   | zero
   | half
   | one
+  deriving DecidableEq
 
 structure TripleVanishingSymbols where
   vanishesAt : CriticalVanishingPoint → Prop
