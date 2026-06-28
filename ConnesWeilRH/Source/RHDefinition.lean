@@ -53,20 +53,61 @@ def MathlibCriticalLine (s : ℂ) : Prop :=
 def SourceRH (B : RHDefinitionBridge) : Prop :=
   ∀ s : ℂ, B.sourceNontrivialZero s → B.sourceCriticalLine s
 
+theorem source_zeta_zero_iff_mathlib
+    (B : RHDefinitionBridge) (s : ℂ) :
+    B.sourceZeta s = 0 ↔ riemannZeta s = 0 := by
+  rw [B.sourceZeta_eq_mathlib s]
+
+theorem mathlib_zeta_zero_of_source_nontrivial_zero
+    (B : RHDefinitionBridge) (s : ℂ)
+    (h : B.sourceNontrivialZero s) :
+    riemannZeta s = 0 :=
+  (source_zeta_zero_iff_mathlib B s).1
+    (B.sourceNontrivialZero_to_sourceZetaZero s h)
+
+theorem mathlib_no_negative_even_of_source_nontrivial_zero
+    (B : RHDefinitionBridge) (s : ℂ)
+    (h : B.sourceNontrivialZero s) :
+    ¬∃ n : ℕ, s = -2 * (n + 1) :=
+  B.sourceNontrivialZero_no_negative_even s h
+
+theorem mathlib_no_pole_of_source_nontrivial_zero
+    (B : RHDefinitionBridge) (s : ℂ)
+    (h : B.sourceNontrivialZero s) :
+    s ≠ 1 :=
+  B.sourceNontrivialZero_no_pole s h
+
+theorem mathlib_nontrivial_zero_of_components
+    (s : ℂ)
+    (hzero : riemannZeta s = 0)
+    (hnotNegEven : ¬∃ n : ℕ, s = -2 * (n + 1))
+    (hpole : s ≠ 1) :
+    MathlibNontrivialZero s :=
+  ⟨hzero, hnotNegEven, hpole⟩
+
 theorem source_nontrivial_zero_to_mathlib
     (B : RHDefinitionBridge) (s : ℂ)
     (h : B.sourceNontrivialZero s) :
-    MathlibNontrivialZero s := by
-  refine ⟨?_, B.sourceNontrivialZero_no_negative_even s h,
-    B.sourceNontrivialZero_no_pole s h⟩
-  rw [← B.sourceZeta_eq_mathlib s]
-  exact B.sourceNontrivialZero_to_sourceZetaZero s h
+    MathlibNontrivialZero s :=
+  mathlib_nontrivial_zero_of_components s
+    (mathlib_zeta_zero_of_source_nontrivial_zero B s h)
+    (mathlib_no_negative_even_of_source_nontrivial_zero B s h)
+    (mathlib_no_pole_of_source_nontrivial_zero B s h)
 
 theorem mathlib_nontrivial_zero_to_source
     (B : RHDefinitionBridge) (s : ℂ)
     (h : MathlibNontrivialZero s) :
     B.sourceNontrivialZero s :=
   B.mathlibNontrivialZero_to_source s h.1 h.2.1 h.2.2
+
+theorem source_nontrivial_zero_of_mathlib_components
+    (B : RHDefinitionBridge) (s : ℂ)
+    (hzero : riemannZeta s = 0)
+    (hnotNegEven : ¬∃ n : ℕ, s = -2 * (n + 1))
+    (hpole : s ≠ 1) :
+    B.sourceNontrivialZero s :=
+  mathlib_nontrivial_zero_to_source B s
+    (mathlib_nontrivial_zero_of_components s hzero hnotNegEven hpole)
 
 theorem source_nontrivial_zero_iff_mathlib
     (B : RHDefinitionBridge) (s : ℂ) :
@@ -79,23 +120,45 @@ theorem source_critical_line_iff_mathlib
     B.sourceCriticalLine s ↔ MathlibCriticalLine s :=
   ⟨B.sourceCriticalLine_to_mathlib s, B.mathlibCriticalLine_to_source s⟩
 
+theorem mathlib_critical_line_of_source_critical_line
+    (B : RHDefinitionBridge) (s : ℂ)
+    (h : B.sourceCriticalLine s) :
+    MathlibCriticalLine s :=
+  (source_critical_line_iff_mathlib B s).1 h
+
+theorem source_critical_line_of_mathlib_critical_line
+    (B : RHDefinitionBridge) (s : ℂ)
+    (h : MathlibCriticalLine s) :
+    B.sourceCriticalLine s :=
+  (source_critical_line_iff_mathlib B s).2 h
+
+theorem mathlib_rh_point_of_source_rh
+    (B : RHDefinitionBridge) (hRH : B.SourceRH)
+    (s : ℂ)
+    (hzero : riemannZeta s = 0)
+    (hnotNegEven : ¬∃ n : ℕ, s = -2 * (n + 1))
+    (hpole : s ≠ 1) :
+    s.re = 1 / 2 :=
+  mathlib_critical_line_of_source_critical_line B s
+    (hRH s
+      (source_nontrivial_zero_of_mathlib_components
+        B s hzero hnotNegEven hpole))
+
 theorem source_rh_to_mathlib_rh
     (B : RHDefinitionBridge) (hRH : B.SourceRH) :
     _root_.RiemannHypothesis := by
   intro s hzero hnotNegEven hpole
-  exact B.sourceCriticalLine_to_mathlib s
-    (hRH s (B.mathlibNontrivialZero_to_source s hzero hnotNegEven hpole))
+  exact mathlib_rh_point_of_source_rh B hRH s hzero hnotNegEven hpole
 
 theorem mathlib_rh_to_source_rh
     (B : RHDefinitionBridge) (hRH : _root_.RiemannHypothesis) :
     B.SourceRH := by
   intro s hsource
-  apply B.mathlibCriticalLine_to_source
-  apply hRH s
-  · rw [← B.sourceZeta_eq_mathlib s]
-    exact B.sourceNontrivialZero_to_sourceZetaZero s hsource
-  · exact B.sourceNontrivialZero_no_negative_even s hsource
-  · exact B.sourceNontrivialZero_no_pole s hsource
+  exact source_critical_line_of_mathlib_critical_line B s
+    (hRH s
+      (mathlib_zeta_zero_of_source_nontrivial_zero B s hsource)
+      (mathlib_no_negative_even_of_source_nontrivial_zero B s hsource)
+      (mathlib_no_pole_of_source_nontrivial_zero B s hsource))
 
 theorem source_rh_iff_mathlib
     (B : RHDefinitionBridge) :
@@ -139,10 +202,63 @@ theorem standard_source_nontrivial_zero_iff_mathlib
     standard.sourceNontrivialZero s ↔ MathlibNontrivialZero s :=
   source_nontrivial_zero_iff_mathlib standard s
 
+theorem standard_source_zeta_zero_iff_mathlib
+    (s : ℂ) :
+    standard.sourceZeta s = 0 ↔ riemannZeta s = 0 :=
+  source_zeta_zero_iff_mathlib standard s
+
+theorem standard_mathlib_zeta_zero_of_source_nontrivial_zero
+    (s : ℂ)
+    (h : standard.sourceNontrivialZero s) :
+    riemannZeta s = 0 :=
+  mathlib_zeta_zero_of_source_nontrivial_zero standard s h
+
+theorem standard_mathlib_no_negative_even_of_source_nontrivial_zero
+    (s : ℂ)
+    (h : standard.sourceNontrivialZero s) :
+    ¬∃ n : ℕ, s = -2 * (n + 1) :=
+  mathlib_no_negative_even_of_source_nontrivial_zero standard s h
+
+theorem standard_mathlib_no_pole_of_source_nontrivial_zero
+    (s : ℂ)
+    (h : standard.sourceNontrivialZero s) :
+    s ≠ 1 :=
+  mathlib_no_pole_of_source_nontrivial_zero standard s h
+
+theorem standard_source_nontrivial_zero_of_mathlib_components
+    (s : ℂ)
+    (hzero : riemannZeta s = 0)
+    (hnotNegEven : ¬∃ n : ℕ, s = -2 * (n + 1))
+    (hpole : s ≠ 1) :
+    standard.sourceNontrivialZero s :=
+  source_nontrivial_zero_of_mathlib_components
+    standard s hzero hnotNegEven hpole
+
 theorem standard_source_critical_line_iff_mathlib
     (s : ℂ) :
     standard.sourceCriticalLine s ↔ MathlibCriticalLine s :=
   source_critical_line_iff_mathlib standard s
+
+theorem standard_mathlib_critical_line_of_source_critical_line
+    (s : ℂ)
+    (h : standard.sourceCriticalLine s) :
+    MathlibCriticalLine s :=
+  mathlib_critical_line_of_source_critical_line standard s h
+
+theorem standard_source_critical_line_of_mathlib_critical_line
+    (s : ℂ)
+    (h : MathlibCriticalLine s) :
+    standard.sourceCriticalLine s :=
+  source_critical_line_of_mathlib_critical_line standard s h
+
+theorem standard_mathlib_rh_point_of_source_rh
+    (hRH : standard.SourceRH)
+    (s : ℂ)
+    (hzero : riemannZeta s = 0)
+    (hnotNegEven : ¬∃ n : ℕ, s = -2 * (n + 1))
+    (hpole : s ≠ 1) :
+    s.re = 1 / 2 :=
+  mathlib_rh_point_of_source_rh standard hRH s hzero hnotNegEven hpole
 
 end RHDefinitionBridge
 end Source

@@ -30,7 +30,7 @@ theorem final_connes_weil_rh
     (source_backed_full_positivity_of_route_bridge_certificate cert.bridge)
   let _ := restricted_to_full_qw_bridge_of_route_bridge_certificate cert.bridge
   let _ := final_sign_bridge_of_route_bridge_certificate cert.bridge
-  exact inputs.cc20.finiteVanishingRhExit.criterion
+  exact Source.CC20Interface.finite_vanishing_mathlib_rh inputs.cc20
     (toWeilPositivityInput inputs cert.sourceBackedTest cert.ledgers)
     (triple_vanishing_of_source_backed cert.sourceBackedTest)
     hfull

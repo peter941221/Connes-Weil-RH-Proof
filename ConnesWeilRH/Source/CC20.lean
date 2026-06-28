@@ -79,6 +79,39 @@ def finiteVanishingRhExit (cc20 : CC20Interface) :
   SourceFiniteVanishingCriterionPackage.toFiniteVanishingCriterionPackage
     cc20.sourceFiniteVanishingRhExit
 
+theorem finite_vanishing_source_rh
+    (cc20 : CC20Interface)
+    (input : WeilPositivityInput)
+    (htriple : input.tripleVanishing)
+    (hpositive : input.fullWeilPositivity) :
+    cc20.rhDefinitionBridge.SourceRH :=
+  SourceFiniteVanishingCriterionPackage.criterion_source_output
+    cc20.sourceFiniteVanishingRhExit input htriple hpositive
+
+theorem finite_vanishing_mathlib_rh_point
+    (cc20 : CC20Interface)
+    (input : WeilPositivityInput)
+    (htriple : input.tripleVanishing)
+    (hpositive : input.fullWeilPositivity)
+    (s : ℂ)
+    (hzero : riemannZeta s = 0)
+    (hnotNegEven : ¬∃ n : ℕ, s = -2 * (n + 1))
+    (hpole : s ≠ 1) :
+    s.re = 1 / 2 :=
+  SourceFiniteVanishingCriterionPackage.criterion_mathlib_rh_point
+    cc20.sourceFiniteVanishingRhExit input htriple hpositive
+    s hzero hnotNegEven hpole
+
+theorem finite_vanishing_mathlib_rh
+    (cc20 : CC20Interface)
+    (input : WeilPositivityInput)
+    (htriple : input.tripleVanishing)
+    (hpositive : input.fullWeilPositivity) :
+    _root_.RiemannHypothesis := by
+  intro s hzero hnotNegEven hpole
+  exact finite_vanishing_mathlib_rh_point
+    cc20 input htriple hpositive s hzero hnotNegEven hpole
+
 end CC20Interface
 
 theorem finite_vanishing_rh_exit_holds

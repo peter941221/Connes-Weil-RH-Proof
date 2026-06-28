@@ -63,15 +63,31 @@ theorem criterion_source_output
     B.SourceRH :=
   h.sourceCriterion input htriple hpositive
 
+theorem criterion_mathlib_rh_point
+    {B : RHDefinitionBridge}
+    (h : SourceFiniteVanishingCriterionPackage B)
+    (input : WeilPositivityInput)
+    (htriple : input.tripleVanishing)
+    (hpositive : input.fullWeilPositivity)
+    (s : ℂ)
+    (hzero : riemannZeta s = 0)
+    (hnotNegEven : ¬∃ n : ℕ, s = -2 * (n + 1))
+    (hpole : s ≠ 1) :
+    s.re = 1 / 2 :=
+  RHDefinitionBridge.mathlib_rh_point_of_source_rh B
+    (criterion_source_output h input htriple hpositive)
+    s hzero hnotNegEven hpole
+
 theorem criterion_to_mathlib_rh
     {B : RHDefinitionBridge}
     (h : SourceFiniteVanishingCriterionPackage B)
     (input : WeilPositivityInput)
     (htriple : input.tripleVanishing)
     (hpositive : input.fullWeilPositivity) :
-    _root_.RiemannHypothesis :=
-  RHDefinitionBridge.source_rh_to_mathlib_rh B
-    (criterion_source_output h input htriple hpositive)
+    _root_.RiemannHypothesis := by
+  intro s hzero hnotNegEven hpole
+  exact criterion_mathlib_rh_point h input htriple hpositive
+    s hzero hnotNegEven hpole
 
 theorem standard_criterion_to_mathlib_rh
     (h : SourceFiniteVanishingCriterionPackage RHDefinitionBridge.standard)
@@ -80,6 +96,19 @@ theorem standard_criterion_to_mathlib_rh
     (hpositive : input.fullWeilPositivity) :
     _root_.RiemannHypothesis :=
   criterion_to_mathlib_rh h input htriple hpositive
+
+theorem standard_criterion_mathlib_rh_point
+    (h : SourceFiniteVanishingCriterionPackage RHDefinitionBridge.standard)
+    (input : WeilPositivityInput)
+    (htriple : input.tripleVanishing)
+    (hpositive : input.fullWeilPositivity)
+    (s : ℂ)
+    (hzero : riemannZeta s = 0)
+    (hnotNegEven : ¬∃ n : ℕ, s = -2 * (n + 1))
+    (hpole : s ≠ 1) :
+    s.re = 1 / 2 :=
+  criterion_mathlib_rh_point h input htriple hpositive
+    s hzero hnotNegEven hpole
 
 theorem standard_criterion_output_iff_mathlib
     (_h : SourceFiniteVanishingCriterionPackage RHDefinitionBridge.standard) :
