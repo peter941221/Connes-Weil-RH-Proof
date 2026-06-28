@@ -98,6 +98,7 @@ theorem finite_vanishing_source_rh_of_c1_input_data
     (input : WeilPositivityInput)
     (hdata :
       CC20PropositionC1InputData
+        cc20.rhDefinitionBridge
         (sourceFiniteVanishingRhExit cc20).finiteVanishingSet input) :
     cc20.rhDefinitionBridge.SourceRH :=
   SourceFiniteVanishingCriterionPackage.criterion_source_output_of_c1_input_data
@@ -108,6 +109,7 @@ theorem finite_vanishing_mathlib_rh_point_of_c1_input_data
     (input : WeilPositivityInput)
     (hdata :
       CC20PropositionC1InputData
+        cc20.rhDefinitionBridge
         (sourceFiniteVanishingRhExit cc20).finiteVanishingSet input)
     (s : ℂ)
     (hzero : riemannZeta s = 0)
@@ -137,6 +139,7 @@ theorem finite_vanishing_mathlib_rh_statement_of_c1_input_data
     (input : WeilPositivityInput)
     (hdata :
       CC20PropositionC1InputData
+        cc20.rhDefinitionBridge
         (sourceFiniteVanishingRhExit cc20).finiteVanishingSet input) :
     RHDefinitionBridge.MathlibRHStatement :=
   SourceFiniteVanishingCriterionPackage.criterion_mathlib_rh_statement_of_c1_input_data
@@ -156,6 +159,7 @@ theorem finite_vanishing_mathlib_rh_of_c1_input_data
     (input : WeilPositivityInput)
     (hdata :
       CC20PropositionC1InputData
+        cc20.rhDefinitionBridge
         (sourceFiniteVanishingRhExit cc20).finiteVanishingSet input) :
     _root_.RiemannHypothesis :=
   SourceFiniteVanishingCriterionPackage.criterion_to_mathlib_rh_of_c1_input_data

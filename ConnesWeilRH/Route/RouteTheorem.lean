@@ -78,6 +78,7 @@ structure RouteBackedCC20ExitInputData
   fullWeilPositivity : input.fullWeilPositivity
   propositionC1InputData :
     Source.CC20PropositionC1InputData
+      inputs.cc20.rhDefinitionBridge
       inputs.cc20.cc20RHExitObjectPackage.finiteVanishingSet input
 
 def route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
@@ -143,6 +144,7 @@ def route_backed_cc20_exit_input_data_of_route_bridge_certificate
   propositionC1InputData :=
     Source.cc20_proposition_c1_input_data
       inputs.cc20.cc20RHExitObjectPackage.finiteSetAdmissible
+      inputs.cc20.cc20RHExitObjectPackage.finiteSetDisjointFromNontrivialZeros
       ((route_backed_cc20_triple_vanishing_input_data_of_source_backed
         : RouteBackedCC20TripleVanishingInputData inputs g L
             (toWeilPositivityInput inputs g L)).tripleVanishingMatchesMellin)
@@ -181,6 +183,45 @@ theorem c1_triple_vanishing_row_of_route_backed_cc20_exit_input_data
     (h : RouteBackedCC20ExitInputData inputs g L bridge) :
     h.input.tripleVanishing :=
   Source.triple_vanishing_of_c1_input_data h.propositionC1InputData
+
+theorem c1_finite_set_disjoint_row_of_route_backed_cc20_exit_input_data
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} {bridge : RouteBridgeCertificate inputs g L}
+    (h : RouteBackedCC20ExitInputData inputs g L bridge) :
+    Source.SourceFiniteSetDisjointFromNontrivialZeros
+      inputs.cc20.rhDefinitionBridge
+      inputs.cc20.cc20RHExitObjectPackage.finiteVanishingSet :=
+  Source.finite_set_disjoint_of_c1_input_data h.propositionC1InputData
+
+theorem c1_zero_not_source_nontrivial_zero_of_route_backed_cc20_exit_input_data
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} {bridge : RouteBridgeCertificate inputs g L}
+    (h : RouteBackedCC20ExitInputData inputs g L bridge) :
+    ¬inputs.cc20.rhDefinitionBridge.sourceNontrivialZero
+      (Source.criticalVanishingPointValue CriticalVanishingPoint.zero) :=
+  Source.zero_not_source_nontrivial_zero_of_c1_input_data
+    inputs.cc20.cc20RHExitObjectPackage.finiteSetAdmissible
+    h.propositionC1InputData
+
+theorem c1_half_not_source_nontrivial_zero_of_route_backed_cc20_exit_input_data
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} {bridge : RouteBridgeCertificate inputs g L}
+    (h : RouteBackedCC20ExitInputData inputs g L bridge) :
+    ¬inputs.cc20.rhDefinitionBridge.sourceNontrivialZero
+      (Source.criticalVanishingPointValue CriticalVanishingPoint.half) :=
+  Source.half_not_source_nontrivial_zero_of_c1_input_data
+    inputs.cc20.cc20RHExitObjectPackage.finiteSetAdmissible
+    h.propositionC1InputData
+
+theorem c1_one_not_source_nontrivial_zero_of_route_backed_cc20_exit_input_data
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {L : RouteLedgers} {bridge : RouteBridgeCertificate inputs g L}
+    (h : RouteBackedCC20ExitInputData inputs g L bridge) :
+    ¬inputs.cc20.rhDefinitionBridge.sourceNontrivialZero
+      (Source.criticalVanishingPointValue CriticalVanishingPoint.one) :=
+  Source.one_not_source_nontrivial_zero_of_c1_input_data
+    inputs.cc20.cc20RHExitObjectPackage.finiteSetAdmissible
+    h.propositionC1InputData
 
 theorem c1_triple_vanishing_row_uses_route_triple_input
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
