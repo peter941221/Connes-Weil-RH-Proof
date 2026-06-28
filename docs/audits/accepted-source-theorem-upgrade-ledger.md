@@ -48,6 +48,7 @@ Current batch status:
 ```text
 source anchors: present for the main rows
 theorem candidates: strengthened by this ledger
+accepted-source packets: complete for all source-facing rows
 accepted-source theorem rows: none yet
 Lean theorem rows: none yet
 ```
@@ -100,6 +101,21 @@ docs/audits/trace-scale-source-term-ledger.md
 That file is the first accepted-source packet for B1. It records each possible
 source term and where the route claims it lands.
 
+## Base Source-Interface Packets
+
+Three packets cover the base source interfaces consumed by the later packets:
+
+```text
+docs/audits/ccm24-source-interface-accepted-source-packet.md
+docs/audits/ccm25-source-interface-accepted-source-packet.md
+docs/audits/cc20-trace-source-interface-accepted-source-packet.md
+```
+
+They cover the fixed-S model, CCM25 Weil-form objects, and CC20 trace
+front end. Without these three packets, later S2-B1, sign/defect,
+restricted-to-full, final sign, and CC20 exit packets have no certified object
+base.
+
 ## Next Critical Packets
 
 Two additional packets now cover the next source-certification gates:
@@ -140,6 +156,18 @@ The RH definition packet asks a referee or later Lean proof to identify the
 CC20 source RH conclusion with the standard zeta-zero predicate, including
 zeta equality, non-trivial-zero exclusions, the pole at `1`, and `s.re=1/2`.
 
+## Packet Completion Audit
+
+The packet completion audit is:
+
+```text
+docs/audits/accepted-source-packet-completion-audit.md
+```
+
+It records that every source-facing row now has an accepted-source review
+packet. It also records that no row is accepted-source until external review,
+accepted proof, or Lean theorem discharge accepts the exact packet row.
+
 ## What Counts As Progress
 
 For each row, progress means replacing a broad statement like:
@@ -169,6 +197,7 @@ for each critical row.
 | Did this ledger upgrade any row to accepted-source theorem status? | no |
 | Did it identify exact theorem candidates for accepted-source review? | yes |
 | Is S2-B1 the first critical candidate? | yes |
+| Are accepted-source packets complete for all source-facing rows? | yes |
 | Do Rows 3-7 and restricted-to-full now have review packets? | yes |
 | Do final sign, CC20 exit, and RH definition now have review packets? | yes |
 | Did this pass touch Lean? | no |

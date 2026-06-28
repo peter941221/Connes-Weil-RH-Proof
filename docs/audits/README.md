@@ -104,6 +104,10 @@ Current files:
 | `sign-defect-blocker-audit.md` | hard-blocker audit for the positive-trace-to-Weil sign, defect, and `Cdef` discharge gate |
 | `source-import-legitimacy-audit.md` | hard-blocker audit classifying CCM24, CCM25, and CC20 inputs as import candidates, project packages, or non-importable claims |
 | `accepted-source-theorem-upgrade-ledger.md` | row-level accepted-source upgrade ledger; states theorem candidates, source anchors, current evidence, and blockers for CCM24, CCM25, CC20, sign/defect, restricted-to-full, final sign, and RH definition rows |
+| `accepted-source-packet-completion-audit.md` | completion audit for accepted-source packet coverage; records that every source-facing row has a packet while external certification remains open |
+| `ccm24-source-interface-accepted-source-packet.md` | CCM24 source-interface accepted-source packet; states checks for fixed-S model, support/window, bounded comparison, Sonin comparison, and no automatic post-`Q` transport |
+| `ccm25-source-interface-accepted-source-packet.md` | CCM25 source-interface accepted-source packet; states checks for `QW`, `Psi`, `QW_lambda`, finite-prime atoms, pole normalization, and no-spectral boundary |
+| `cc20-trace-source-interface-accepted-source-packet.md` | CC20 trace source-interface accepted-source packet; states checks for support-square trace, trace-class legality, cyclicity, Mellin convention, and local signs |
 | `trace-scale-source-term-ledger.md` | first S2-B1 accepted-source packet; maps possible positive-trace source terms to `QW_lambda`, rank, pole, or endpoint-strip `Cdef` and names the untracked-bulk obstruction |
 | `sign-defect-accepted-source-packet.md` | Rows 1-7 accepted-source packet; states referee checks for CC20 post-`Q` source remainder, fixed-S transport, rank/pole identification, endpoint-strip `Cdef`, and no-hidden-defect equality |
 | `restricted-to-full-accepted-source-packet.md` | fixed-test restricted-to-full accepted-source packet; states the `QW_lambda(g,g)=QW(g,g)` review target from CCM25 restriction-definition without spectral convergence |

@@ -92,6 +92,18 @@ The second external-opinion audit is
 The accepted-source theorem upgrade ledger is
 `docs/audits/accepted-source-theorem-upgrade-ledger.md`.
 
+The accepted-source packet completion audit is
+`docs/audits/accepted-source-packet-completion-audit.md`.
+
+The CCM24 source-interface accepted-source packet is
+`docs/audits/ccm24-source-interface-accepted-source-packet.md`.
+
+The CCM25 source-interface accepted-source packet is
+`docs/audits/ccm25-source-interface-accepted-source-packet.md`.
+
+The CC20 trace source-interface accepted-source packet is
+`docs/audits/cc20-trace-source-interface-accepted-source-packet.md`.
+
 The first S2-B1 source-term certification packet is
 `docs/audits/trace-scale-source-term-ledger.md`.
 
@@ -175,6 +187,27 @@ docs/audits/accepted-source-theorem-upgrade-ledger.md
 
 It does not mark any row accepted-source. It states exact theorem candidates,
 source anchors, current evidence, and blockers for external review.
+
+The packet completion audit is:
+
+```text
+docs/audits/accepted-source-packet-completion-audit.md
+```
+
+It records that every source-facing row now has a review packet. It also records
+that no row has yet become accepted-source by external referee, accepted proof,
+or Lean theorem.
+
+The three base source-interface packets are:
+
+```text
+docs/audits/ccm24-source-interface-accepted-source-packet.md
+docs/audits/ccm25-source-interface-accepted-source-packet.md
+docs/audits/cc20-trace-source-interface-accepted-source-packet.md
+```
+
+They cover the fixed-S model, CCM25 Weil objects, and CC20 trace legality
+front end consumed by the later packets.
 
 The first certification packet attacks S2-B1:
 
@@ -711,6 +744,10 @@ docs/
     pre-lean-completion-audit.md
     accepted-source-certification-audit.md
     accepted-source-theorem-upgrade-ledger.md
+    accepted-source-packet-completion-audit.md
+    ccm24-source-interface-accepted-source-packet.md
+    ccm25-source-interface-accepted-source-packet.md
+    cc20-trace-source-interface-accepted-source-packet.md
     second-external-opinion-audit.md
     trace-scale-source-term-ledger.md
     sign-defect-accepted-source-packet.md
