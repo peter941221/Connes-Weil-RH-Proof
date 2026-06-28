@@ -6,6 +6,7 @@ Target contract:
 
 ```text
 docs/proofs/sonin-prolate-defect-cdef-theorem-contract.md
+docs/proofs/cc20-source-remainder-rows1-2-referee-discharge.md
 docs/proofs/cc20-post-q-remainder-fixed-s-transport-theorem-contract.md
 docs/audits/cc20-post-q-remainder-term-map.md
 docs/audits/ccm24-fixed-s-post-q-transport-obstruction-audit.md
@@ -16,6 +17,7 @@ docs/proofs/cc20-post-q-series-tail-bounded-comparison-theorem-contract.md
 docs/proofs/source-endpoint-strip-cdef-domination-theorem-contract.md
 docs/proofs/no-hidden-positive-defect-outside-cdef-theorem-contract.md
 docs/proofs/no-hidden-positive-defect-outside-cdef-proof-package.md
+docs/proofs/sonin-prolate-defect-referee-discharge.md
 ```
 
 This audit asks whether CC20, CCM24, or CCM25 already supplies an importable
@@ -152,6 +154,7 @@ rank + pole + endpoint-strip Cdef
 | transport of the CC20 post-`Q` items through fixed finite `S` | not found as a source theorem | hard blocker |
 | identification of CC20 prolate remainder with route endpoint-strip `Cdef` | not found as a source theorem | hard blocker |
 | exclusion of a fourth defect class | not found as a source theorem | hard blocker |
+| Rows 1-7 project proof packages | written in repository proof packages | project proof-package level only |
 
 ## Required New Bridge
 
@@ -191,6 +194,6 @@ The source-import status is:
 
 ```text
 source ingredients located;
-route-evidence bridge written;
+Rows 1-7 project proof packages written;
 direct accepted source theorem still absent.
 ```

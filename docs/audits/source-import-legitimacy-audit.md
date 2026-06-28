@@ -17,6 +17,7 @@ does not prove legitimacy by itself.
 | `docs/audits/source-reread-v0.2.md:29-52` | maps manuscript dependencies to CCM24, CCM25, and CC20 source lines |
 | `docs/audits/source-interface-discharge-completion-audit.md:14-21` | says every row has a proof package, but no row is discharged by Lean theorem or accepted import |
 | `docs/audits/source-interface-discharge-completion-audit.md:146-154` | confirms proof-package coverage does not prove RH |
+| `docs/audits/accepted-source-certification-audit.md` | external-review checklist for upgrading proof-package rows to accepted-source or Lean theorem strength |
 | `docs/proofs/ccm25-restricted-read-off-discharge.md:11-25` | says restricted CCM25 read-off remains an imported contract until formal or accepted discharge |
 | `docs/proofs/ccm25-restricted-read-off-discharge.md:475-488` | marks formal/accepted source discharge as open |
 | `docs/proofs/battle-3-cdef-exhaustion-proof-package.md:11-18` | says Battle 3 proves no new CCM or CC20 source theorem |
@@ -26,6 +27,7 @@ does not prove legitimacy by itself.
 | `docs/proofs/sonin-prolate-defect-cdef-theorem-contract.md` | formal/import target separating source prolate/Sonin control from project `Cdef` naming |
 | `docs/audits/sonin-prolate-defect-discharge-ledger.md` | row-by-row acceptance criteria for discharging the source prolate/Sonin remainder bridge |
 | `docs/proofs/cc20-source-remainder-orientation-theorem-contract.md` | source-orientation contract for the CC20 `D` and `E` remainders before fixed-S transport |
+| `docs/proofs/cc20-source-remainder-rows1-2-referee-discharge.md` | referee-facing project proof package for Rows 1-2; still not an accepted source import |
 | `docs/proofs/cc20-post-q-remainder-fixed-s-transport-theorem-contract.md` | Row 3 fixed-S transport target for the CC20 post-`Q` source remainder, before projection-defect or `Cdef` classification |
 | `docs/audits/cc20-post-q-remainder-term-map.md` | item-level map of the CC20 post-`Q` `epsilon` formula; source evidence for Row 3 subtargets, not a discharge theorem |
 | `docs/audits/ccm24-fixed-s-post-q-transport-obstruction-audit.md` | CCM24 fast-pass audit separating importable model/window/Sonin comparison from non-importable derivative, boundary, and tail transport shortcuts |
@@ -50,6 +52,7 @@ does not prove legitimacy by itself.
 | `docs/proofs/source-endpoint-strip-cdef-domination-proof-package.md` | Row 6 route-evidence proof package; still not a source import or sign/defect discharge |
 | `docs/proofs/no-hidden-positive-defect-outside-cdef-theorem-contract.md` | Row 7 project-proof contract; not a source import |
 | `docs/proofs/no-hidden-positive-defect-outside-cdef-proof-package.md` | Row 7 route-evidence proof package; closes sign/defect only at project level |
+| `docs/proofs/sonin-prolate-defect-referee-discharge.md` | referee-facing project proof package composing Rows 3-7; still not an accepted source import |
 | `docs/audits/restricted-to-full-qw-source-readiness-audit.md` | finds a CCM25 restriction-definition path for fixed-test `QW_lambda=QW` after bridges |
 | `docs/audits/sonin-prolate-defect-source-readiness-audit.md` | finds no direct source theorem for the fixed-S prolate/Sonin-to-`Cdef` bridge |
 | arXiv:2511.22755 abstract | frames CCM25 as a strategy and numerical investigation; spectral convergence remains a proof target |
@@ -141,8 +144,9 @@ exact read-off equality.
 
 Row 7 remains in the same category. The project now has a route-evidence
 package proving the exact positive-trace read-off equality and excluding a
-hidden fourth defect, but this is still project proof evidence until
-formalized or externally certified.
+hidden fourth defect. The referee-facing sign/defect package composes Rows 3
+through 7 into one project proof chain, but this is still project proof
+evidence until formalized or externally certified.
 
 ## CCM25 Imports
 
@@ -284,9 +288,11 @@ final sign bridge, and the RH definition bridge:
 docs/proofs/sonin-prolate-defect-cdef-theorem-contract.md
 docs/audits/sonin-prolate-defect-discharge-ledger.md
 docs/proofs/cc20-source-remainder-orientation-theorem-contract.md
+docs/proofs/cc20-source-remainder-rows1-2-referee-discharge.md
 docs/proofs/cc20-post-q-remainder-fixed-s-transport-theorem-contract.md
 docs/proofs/source-endpoint-strip-cdef-domination-theorem-contract.md
 docs/proofs/no-hidden-positive-defect-outside-cdef-theorem-contract.md
+docs/proofs/sonin-prolate-defect-referee-discharge.md
 docs/proofs/restricted-to-full-qw-exhaustion-theorem-contract.md
 docs/proofs/restricted-to-full-qw-bridge-theorem-contract.md
 docs/proofs/restricted-to-full-qw-bridge-proof-package.md
@@ -295,6 +301,7 @@ docs/proofs/final-sign-bridge-proof-package.md
 docs/proofs/rh-definition-bridge-theorem-contract.md
 docs/proofs/rh-definition-bridge-proof-package.md
 docs/proofs/source-conditional-rh-route-closure-proof-package.md
+docs/audits/accepted-source-certification-audit.md
 ```
 
 The route-level composition is now written, but source-import legitimacy still

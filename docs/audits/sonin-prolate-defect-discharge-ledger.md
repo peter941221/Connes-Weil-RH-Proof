@@ -46,6 +46,7 @@ accepted-source and Lean discharge not yet supplied.
 | endpoint-strip `Cdef` norm and exhaustion | `docs/proofs/battle-3-cdef-exhaustion-proof-package.md`; `docs/proofs/fixed-test-graph-cdef-exhaustion.md` | route-evidence only |
 | projection-defect `Q` stability | `docs/proofs/semilocal-q-compact-form.md` | route-evidence only |
 | CC20 source remainder orientation | `docs/proofs/cc20-source-remainder-orientation-theorem-contract.md` | theorem contract added |
+| CC20 source remainder Rows 1-2 referee discharge | `docs/proofs/cc20-source-remainder-rows1-2-referee-discharge.md` | Rows 1-2 closed at project proof-package level only |
 | CC20 post-`Q` fixed-S transport | `docs/proofs/cc20-post-q-remainder-fixed-s-transport-theorem-contract.md` | Row 3 theorem contract added |
 | CC20 post-`Q` item map | `docs/audits/cc20-post-q-remainder-term-map.md` | Row 3 term map added |
 | CCM24 post-`Q` transport obstruction | `docs/audits/ccm24-fixed-s-post-q-transport-obstruction-audit.md` | Row 3 split into derivative/domain, boundary, and tail subcontracts |
@@ -143,7 +144,8 @@ SoninTrace is positive, therefore W_infty is positive.
 Current status:
 
 ```text
-source orientation contract added; exact object bridge not discharged.
+closed at project proof-package level;
+accepted-source certification still open.
 ```
 
 ## Row 2. Q Image Of The Source Remainder
@@ -186,7 +188,8 @@ without a displayed theorem for the `Q` image.
 Current status:
 
 ```text
-source post-Q orientation contract added; source-to-route Q image not discharged.
+closed at project proof-package level;
+accepted-source certification still open.
 ```
 
 ## Row 3. Fixed-S Sonin Transport
@@ -500,22 +503,22 @@ The fastest honest attack order is:
 7. Row 7: no hidden positive defect
 ```
 
-Rows 3 through 7 now have route-evidence packages. The remaining risk is
-certification strength: Rows 1 and 2 still enter as source-orientation
-contracts, Row 3 is project evidence rather than accepted import, and Row 7
-has not been formalized. If a later source import or Lean proof identifies an
-extra source remainder term, the branch fails or needs a new defect class.
+Rows 1 through 7 now have project proof packages. The remaining risk is
+certification strength: Rows 1 and 2 still need accepted source review of the
+CC20 formulas, Row 3 is project evidence rather than accepted import, and Row
+7 has not been formalized. If a later source import or Lean proof identifies
+an extra source remainder term, the branch fails or needs a new defect class.
 
 ## Current Judgment
 
 | question | answer |
 |---|---|
-| Does this ledger prove the sign/defect bridge at route-evidence level? | yes |
+| Does this ledger prove the sign/defect bridge at project proof-package level? | yes |
 | Does this ledger prove the sign/defect bridge at accepted-source or Lean level? | no |
 | Does it identify the exact rows needed to prove it? | yes |
-| Which rows are source-risk rows? | Rows 1, 2, and 3; Rows 1 and 2 have a source-orientation contract, and Row 3 has a route-evidence fixed-S transport package but no accepted proof/import discharge |
-| Which rows have route-evidence packages? | Rows 3, 4, 5, 6, and 7 |
-| Which row decides the hostile objection? | Row 7, now closed at route-evidence level only |
+| Which rows are source-risk rows? | Rows 1, 2, and 3; Rows 1 and 2 have a project proof package but still need accepted source review, and Row 3 has a route-evidence fixed-S transport package but no accepted proof/import discharge |
+| Which rows have project proof packages? | Rows 1, 2, 3, 4, 5, 6, and 7 |
+| Which row decides the hostile objection? | Row 7, now closed at project proof-package level only |
 | Can the route treat `SoninProlateDefectEqualsEndpointStripCdef` as accepted-source or Lean discharged? | no |
 
 The next mathematical pass should attack the post-Row-7 gates:

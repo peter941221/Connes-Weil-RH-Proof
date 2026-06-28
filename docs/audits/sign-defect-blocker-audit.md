@@ -31,9 +31,9 @@ is not part of the endpoint-strip `Cdef` theorem, the route fails at this gate.
 
 | evidence | role |
 |---|---|
-| `README.md:69-70` | public spine states `Positive trace = QW_lambda plus ledgers and Cdef` |
-| `README.md:160-172` | displayed read-off equality and `Cdef` bound |
-| `README.md:243-259` | derives `QW(g,g) >= 0` from `QW_lambda >= -Cdef` and exhaustion |
+| `README.md:84-89` | public spine states positive trace as `QW_lambda` plus rank, pole, and `Cdef` terms |
+| `README.md:174-193` | displayed read-off equality and `Cdef` bound |
+| `README.md:232-250` | derives `QW(g,g) >= 0` from `QW_lambda >= -Cdef` and exhaustion |
 | `docs/audits/core-defect-gap-ledger.md:170-213` | Battle 2 rejection criterion for unsupported fixed-S transport |
 | `docs/proofs/battle-2-fixed-s-support-square-transport-proof-package.md:225-271` | classifies leftovers as rank, pole, or endpoint-strip `Cdef` |
 | `docs/proofs/battle-3-cdef-exhaustion-proof-package.md:267-341` | proves fixed-test `Cdef` exhaustion at route-evidence level |
@@ -41,6 +41,7 @@ is not part of the endpoint-strip `Cdef` theorem, the route fails at this gate.
 | `docs/proofs/sonin-prolate-defect-cdef-theorem-contract.md` | formal/import target for identifying source prolate/Sonin defects with endpoint-strip `Cdef` |
 | `docs/audits/sonin-prolate-defect-discharge-ledger.md` | row-by-row discharge ledger for proving the source prolate/Sonin remainder is exactly rank, pole, or endpoint-strip `Cdef` |
 | `docs/proofs/cc20-source-remainder-orientation-theorem-contract.md` | Row 1/2 source-orientation contract fixing `W_infty=L-D`, `W_infty=S-E`, and the post-`Q` remainder target |
+| `docs/proofs/cc20-source-remainder-rows1-2-referee-discharge.md` | referee-facing project proof package for Rows 1-2; fixes the CC20 source obstruction, `Q` image, bulk term, boundary terms, and series tail |
 | `docs/proofs/cc20-post-q-remainder-fixed-s-transport-theorem-contract.md` | Row 3 theorem contract for transporting the CC20 post-`Q` remainder into the same fixed-S CCM24/Sonin/window coordinate before projection-defect classification |
 | `docs/audits/cc20-post-q-remainder-term-map.md` | item-level Row 3 map splitting the CC20 `Q epsilon` formula into bulk, boundary, and series-tail transport targets |
 | `docs/audits/ccm24-fixed-s-post-q-transport-obstruction-audit.md` | CCM24 fast-pass audit showing the fixed-S Sonin model helps Row 3 but does not transport post-`Q` derivative, boundary, or tail structure automatically |
@@ -65,6 +66,7 @@ is not part of the endpoint-strip `Cdef` theorem, the route fails at this gate.
 | `docs/proofs/source-endpoint-strip-cdef-domination-proof-package.md` | Row 6 route-evidence proof package; proves endpoint-strip `Cdef` domination and fixed-test exhaustion at project level, but does not prove Row 7 no-hidden-defect equality |
 | `docs/proofs/no-hidden-positive-defect-outside-cdef-theorem-contract.md` | Row 7 project-proof contract; states the exact positive-trace read-off equality excluding a fourth positive defect |
 | `docs/proofs/no-hidden-positive-defect-outside-cdef-proof-package.md` | Row 7 route-evidence proof package; proves no-hidden-positive-defect equality at project level, but not accepted source-import or Lean status |
+| `docs/proofs/sonin-prolate-defect-referee-discharge.md` | referee-facing project proof package composing Rows 3-7 into one sign/defect proof chain after the Rows 1-2 source-entry package |
 | `docs/proofs/restricted-to-full-qw-exhaustion-theorem-contract.md` | formal/import target for scalar fixed-test `QW_lambda -> QW` exhaustion |
 | `docs/proofs/restricted-to-full-qw-bridge-theorem-contract.md` | formal/import target composing common-test, window, finite-prime support, and CCM25 restriction definition into eventual `QW_lambda=QW` |
 | `docs/proofs/restricted-to-full-qw-bridge-proof-package.md` | route-evidence package for eventual scalar `QW_lambda(g,g)=QW(g,g)` without spectral convergence |
@@ -328,13 +330,15 @@ docs/audits/restricted-to-full-qw-source-readiness-audit.md
 The sign/defect criticism was the real hard blocker for the route-level
 positive-trace step.
 
-The repository now has a route-evidence repair package for that step. It has
-not discharged the repair at accepted-source or Lean-theorem strength.
+The repository now has referee-facing project proof packages for that step.
+The Rows 1-2 package fixes the CC20 source obstruction and post-`Q` image. The
+Rows 3-7 package transports and classifies that object. The accepted-source
+certification remains open.
 
 The current honest status is:
 
 ```text
-source-conditional route evidence with route-level sign/defect closure;
+source-conditional project proof packages with route-level sign/defect closure;
 accepted-source and Lean discharge still open.
 ```
 

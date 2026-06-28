@@ -33,6 +33,7 @@ Current proof packages:
 | `docs/proofs/cc20-analytic-trace-legality-spine-discharge.md` | CC20 analytic trace-legality spine package; fixes the order from operator identity through Hilbert-Schmidt, trace-class, cyclicity, positive trace, support-square trace, no-defect trace, and Weil read-off |
 | `docs/proofs/cc20-analytic-trace-legality-theorem-contract.md` | CC20 trace-legality theorem contract; states the formal/import targets for operator identity, Hilbert-Schmidt, trace-class square, cyclicity ledger, support-square read-off, no-defect read-off, and bounded-comparison transport |
 | `docs/proofs/cc20-source-remainder-orientation-theorem-contract.md` | CC20 source-remainder orientation contract; fixes `W_infty=L-D`, `W_infty=S-E`, and the post-`Q` remainder target before fixed-S transport |
+| `docs/proofs/cc20-source-remainder-rows1-2-referee-discharge.md` | Rows 1-2 referee-facing source-entry package; fixes the CC20 source obstruction, `Q` image, bulk term, boundary terms, and series tail handed to Row 3 |
 | `docs/proofs/cc20-post-q-remainder-fixed-s-transport-theorem-contract.md` | Row 3 sign/defect contract; states the formal/import target that transports the CC20 `D circ Q` / `E circ Q` bulk and boundary pieces into the same fixed-S CCM24/Sonin/window coordinate before any `Cdef` claim |
 | `docs/proofs/cc20-post-q-derivative-domain-compatibility-theorem-contract.md` | first Row 3 subcontract; states the derivative/domain bridge needed before the CC20 post-`Q` bulk term may enter fixed-S projection-defect classification |
 | `docs/proofs/fixed-s-post-q-bulk-graph-transfer-theorem-contract.md` | project-proof target for the first Row 3 subcontract; aims to prove fixed-S graph-domain transport and source-bulk equality for the CC20 post-`Q` bulk term |
@@ -52,6 +53,7 @@ Current proof packages:
 | `docs/proofs/source-endpoint-strip-cdef-domination-proof-package.md` | Row 6 proof package; matches endpoint-strip source-remainder terms to route `Cdef` summands and fixed-test exhaustion at route-evidence level only |
 | `docs/proofs/no-hidden-positive-defect-outside-cdef-theorem-contract.md` | Row 7 theorem contract; states the exact positive-trace read-off equality excluding a hidden fourth positive defect |
 | `docs/proofs/no-hidden-positive-defect-outside-cdef-proof-package.md` | Row 7 proof package; closes the hidden-defect equality at route-evidence level only |
+| `docs/proofs/sonin-prolate-defect-referee-discharge.md` | referee-facing sign/defect discharge package; composes Rows 3-7 into one project proof chain after the Rows 1-2 source-entry package |
 | `docs/proofs/cc20-finite-vanishing-rh-exit-discharge.md` | CC20 final-exit package; bridges triple vanishing and full Weil positivity to Proposition C.1 with `F={0,1/2,1}` |
 | `docs/proofs/cc20-rh-exit-object-normalization-discharge.md` | CC20 RH-exit object package; expands `FiniteVanishingCriterionPackage` into finite-set, Mellin-vanishing, Weil-inequality, Proposition C.1, and Mathlib-RH bridge targets |
 | `docs/proofs/qw-to-cc20-weil-inequality-sign-bridge.md` | final sign-bridge package; proves `QW(g,g) >= 0` feeds Proposition C.1 only through `QW(g,g) = - sum_v W_v(g * bar(g)^sharp)` |
@@ -79,6 +81,7 @@ Current files:
 | `lean-source-interface-map.md` | Lean source-interface obligations and route bridges |
 | `source-interface-discharge-audit.md` | attack plan for removing the source-conditional boundary by discharging CCM24, CCM25, and CC20 contracts |
 | `source-interface-discharge-completion-audit.md` | completion audit for the mathematics-first source-interface proof-package coverage |
+| `accepted-source-certification-audit.md` | external-review checklist for upgrading the proof-package matrix to accepted-source or Lean theorem strength |
 | `source-object-definition-ledger.md` | definition-discharge ledger for replacing symbolic CCM24, CCM25, CC20, and RH-exit objects with concrete definitions or imported theorem interfaces |
 | `source-object-theorem-discharge-ledger.md` | theorem-discharge ledger for the source-object definition gate; states row-by-row acceptance evidence for `SourceDefinitionSpineContract` |
 | `source-object-replacement-consistency-audit.md` | consistency audit for the source-object replacement batch before commit or Lean interface work |
