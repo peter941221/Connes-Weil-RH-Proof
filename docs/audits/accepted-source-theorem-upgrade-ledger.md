@@ -100,6 +100,25 @@ docs/audits/trace-scale-source-term-ledger.md
 That file is the first accepted-source packet for B1. It records each possible
 source term and where the route claims it lands.
 
+## Next Critical Packets
+
+Two additional packets now cover the next source-certification gates:
+
+```text
+docs/audits/sign-defect-accepted-source-packet.md
+docs/audits/restricted-to-full-accepted-source-packet.md
+```
+
+The sign/defect packet asks a referee to accept Rows 1-7 as one source-owned
+classification theorem: CC20 post-`Q` remainder, fixed-S transport, no-strip
+rank/pole identification, endpoint-strip `Cdef` domination, and no hidden
+positive defect.
+
+The restricted-to-full packet asks a referee to accept the fixed-test scalar
+identity `QW_lambda(g,g)=QW(g,g)` from the CCM25 restriction definition, support
+containment, and finite-prime support stabilization. It excludes spectral
+convergence, determinant convergence, and even-sector spectral assumptions.
+
 ## What Counts As Progress
 
 For each row, progress means replacing a broad statement like:
@@ -129,6 +148,7 @@ for each critical row.
 | Did this ledger upgrade any row to accepted-source theorem status? | no |
 | Did it identify exact theorem candidates for accepted-source review? | yes |
 | Is S2-B1 the first critical candidate? | yes |
+| Do Rows 3-7 and restricted-to-full now have review packets? | yes |
 | Did this pass touch Lean? | no |
 
 The route remains source-conditional. The certification work has now shifted

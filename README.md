@@ -95,6 +95,12 @@ The accepted-source theorem upgrade ledger is
 The first S2-B1 source-term certification packet is
 `docs/audits/trace-scale-source-term-ledger.md`.
 
+The sign/defect accepted-source packet is
+`docs/audits/sign-defect-accepted-source-packet.md`.
+
+The restricted-to-full accepted-source packet is
+`docs/audits/restricted-to-full-accepted-source-packet.md`.
+
 The local pre-Lean completion gate is
 `docs/audits/pre-lean-completion-audit.md`.
 
@@ -171,6 +177,18 @@ That packet asks a referee to classify each source-owned scalar in the
 positive-trace read-off as `QW_lambda`, rank, pole, or endpoint-strip `Cdef`.
 If a source-owned scalar remains outside those classes, it becomes a new
 `BulkScaleTerm` obstruction and the route stops at the positive-trace read-off.
+
+The next two certification packets are:
+
+```text
+docs/audits/sign-defect-accepted-source-packet.md
+docs/audits/restricted-to-full-accepted-source-packet.md
+```
+
+The first packet asks a referee to accept the Rows 1-7 sign/defect chain as a
+single source-owned classification theorem. The second packet asks a referee to
+accept `QW_lambda(g,g)=QW(g,g)` from the CCM25 restriction definition and
+fixed-test support, with no spectral convergence input.
 
 ## Falsification Tests For Reviewers
 
@@ -674,6 +692,8 @@ docs/
     accepted-source-theorem-upgrade-ledger.md
     second-external-opinion-audit.md
     trace-scale-source-term-ledger.md
+    sign-defect-accepted-source-packet.md
+    restricted-to-full-accepted-source-packet.md
     source-reread-v0.2.md
     trace-scale-compatibility-audit.md
     trace-scale-compatibility-discharge-attempt.md

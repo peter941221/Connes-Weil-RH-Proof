@@ -48,6 +48,8 @@ journal proof, Clay proof, or completed Lean proof.
 | `docs/proofs/source-conditional-rh-route-closure-proof-package.md:333-350` | records the full route composition as closed at route-evidence level, with source-import, Lean, and external certification open |
 | `docs/audits/accepted-source-theorem-upgrade-ledger.md` | states row-level accepted-source theorem candidates, source anchors, current evidence, and upgrade blockers |
 | `docs/audits/trace-scale-source-term-ledger.md` | starts the first S2-B1 accepted-source packet by mapping possible trace-scale source terms to `QW_lambda`, rank, pole, or endpoint-strip `Cdef` |
+| `docs/audits/sign-defect-accepted-source-packet.md` | starts the Rows 1-7 sign/defect accepted-source packet, from CC20 post-`Q` source remainder through fixed-S transport and no-hidden-defect equality |
+| `docs/audits/restricted-to-full-accepted-source-packet.md` | starts the restricted-to-full accepted-source packet for fixed-test `QW_lambda(g,g)=QW(g,g)` without spectral convergence |
 
 ## Acceptance Classes
 
@@ -74,6 +76,8 @@ task is to upgrade specific rows to the third class or mark them for Lean.
 | final sign bridge | `final-sign-bridge-proof-package.md:18-35`; `final-sign-bridge-proof-package.md:340-350` | Does `QW(g,g) = - sum_v W_v(F_g)` hold with the displayed signs, so that `QW(g,g) >= 0` becomes the CC20 nonpositivity hypothesis? |
 | CC20 finite-vanishing exit and RH definition bridge | `rh-definition-bridge-proof-package.md:19-36`; `rh-definition-bridge-proof-package.md:305-314` | Does the CC20 source RH conclusion transport to Mathlib's `_root_.RiemannHypothesis` with the same zeta function, zero predicate, exclusions, and critical-line equation? |
 | S2-B1 trace-scale source-term ledger | `trace-scale-source-term-ledger.md` | Does every source-owned scalar in the positive-trace read-off land in `QW_lambda`, rank, pole, or endpoint-strip `Cdef`, with no untracked divergent bulk or hidden finite-part subtraction? |
+| sign/defect accepted-source packet | `sign-defect-accepted-source-packet.md` | Does a referee accept the Rows 1-7 source-owned classification theorem, including fixed-S transport, rank/pole identification, endpoint-strip `Cdef`, and no hidden positive defect? |
+| restricted-to-full accepted-source packet | `restricted-to-full-accepted-source-packet.md` | Does a referee accept eventual fixed-test scalar equality from CCM25 restriction-definition, support containment, and finite-prime stabilization, with no spectral input? |
 
 ## Non-Importable Shortcuts
 
