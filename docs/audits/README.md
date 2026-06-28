@@ -23,6 +23,7 @@ Current proof packages:
 | `docs/proofs/ccm25-finite-prime-index-normalization-discharge.md` | CCM25 finite-prime index package; replaces bare `Nat` coverage with source prime-power indices, lambda cuts, von Mangoldt weights, and `T(n)` pairings |
 | `docs/proofs/ccm25-finite-prime-normalization-spine-discharge.md` | CCM25 finite-prime normalization spine package; requires source prime-power indices, visibility, lambda cut, `Lambda(n)`, `<g|T(n)g>`, and pointwise term equality before finite-prime sums |
 | `docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md` | CCM25 finite-prime theorem contract; states the formal/import targets for prime-power factorization, global support, restricted lambda cut, visibility, von Mangoldt weight, source pairing, pointwise atoms, and sign ownership |
+| `docs/proofs/ccm25-concrete-normalization-spine.md` | first Lean-facing CCM25 normalization spine; splits the current CCM25 interface into row-level theorem names and exposes the remaining exact-support gap, now guarded by a fixed-`lambda` exact-support module |
 | `docs/proofs/restricted-to-full-qw-exhaustion-theorem-contract.md` | restricted-to-full theorem contract; states the scalar fixed-test `QW_lambda(g,g) -> QW(g,g)` target without importing CCM25 spectral convergence |
 | `docs/proofs/restricted-to-full-qw-bridge-theorem-contract.md` | restricted-to-full bridge contract; composes the CCM25 restriction definition with common-test, window, and finite-prime support contracts to target eventual scalar equality |
 | `docs/proofs/restricted-to-full-qw-bridge-proof-package.md` | restricted-to-full bridge proof package; proves fixed-test eventual identity `QW_lambda(g,g)=QW(g,g)` at route-evidence level only |
@@ -109,6 +110,7 @@ Current files:
 | `accepted-source-certification-status-board.md` | status board tracking each accepted-source packet from packet-written state to accepted-source decision |
 | `accepted-source-review-dossier.md` | ordered review dossier for external accepted-source theorem decisions |
 | `accepted-source-decision-evidence-matrix.md` | nine-row evidence matrix listing each decision record, source anchors, project evidence, acceptance evidence, rejection names, and route consequence |
+| `ccm25-concrete-normalization-axiom-audit.md` | first Lean audit for the CCM25 concrete-normalization split; records WSL build results, axiom output, and the remaining exact finite-prime support gap |
 | `ccm24-source-interface-accepted-source-packet.md` | CCM24 source-interface accepted-source packet; states checks for fixed-S model, support/window, bounded comparison, Sonin comparison, and no automatic post-`Q` transport |
 | `ccm24-source-interface-referee-decision-record.md` | CCM24 source-interface theorem-decision record; keeps the fixed-S model, window, bounded comparison, Sonin comparison, and no-automatic-post-`Q` transport verdict pending |
 | `ccm25-source-interface-accepted-source-packet.md` | CCM25 source-interface accepted-source packet; states checks for `QW`, `Psi`, `QW_lambda`, finite-prime atoms, pole normalization, and no-spectral boundary |
