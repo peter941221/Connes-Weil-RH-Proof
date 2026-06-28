@@ -145,6 +145,25 @@ theorem arithmetic_atom_pairing_evaluation_source_test_of_arithmetic_rows
   FinitePrimeInterface.certificate_atom_pairing_evaluation_source_test_of_source_test_certificates
     (h.finitePrimeArithmeticCertificates f g) lambda hlambda n
 
+theorem arithmetic_atom_visible_in_source_test_of_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
+    (n : ℕ) :
+    (source_test_of_arithmetic_rows h f g).sourceAtomVisible n :=
+  FinitePrimeInterface.certificate_atom_visible_in_source_test_of_source_test_certificates
+    (h.finitePrimeArithmeticCertificates f g) lambda hlambda n
+
+theorem arithmetic_atom_visible_in_pairing_source_test_of_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
+    (n : ℕ) :
+    let atom :=
+      ((h.finitePrimeArithmeticCertificates f g).certificate
+        lambda hlambda).atoms.atIndex n
+    atom.sourcePairing.model.sourceEvaluation.sourceTest.sourceAtomVisible n :=
+  FinitePrimeInterface.certificate_atom_visible_in_pairing_source_test_of_source_test_certificates
+    (h.finitePrimeArithmeticCertificates f g) lambda hlambda n
+
 theorem finite_prime_visibility_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) :
@@ -163,6 +182,17 @@ theorem arithmetic_global_sum_formula_of_arithmetic_rows
   FinitePrimeCertificate.arithmetic_global_sum_formula_of_certificate
     ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
 
+theorem arithmetic_global_von_mangoldt_pairing_sum_formula_of_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.vonMangoldtWeight n * W.primePowerPairing n f g) =
+      PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum W f g
+        ((h.finitePrimeArithmeticCertificates f g).certificate
+          lambda hlambda).atoms :=
+  FinitePrimeCertificate.arithmetic_global_von_mangoldt_pairing_sum_formula_of_certificate
+    ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
+
 theorem arithmetic_restricted_sum_formula_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :
@@ -173,6 +203,17 @@ theorem arithmetic_restricted_sum_formula_of_arithmetic_rows
         ((h.finitePrimeArithmeticCertificates f g).certificate
           lambda hlambda).atoms :=
   FinitePrimeCertificate.arithmetic_restricted_sum_formula_of_certificate
+    ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
+
+theorem arithmetic_restricted_von_mangoldt_pairing_sum_formula_of_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.vonMangoldtWeight n * W.primePowerPairing n f g) =
+      PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum W f g lambda
+        ((h.finitePrimeArithmeticCertificates f g).certificate
+          lambda hlambda).atoms :=
+  FinitePrimeCertificate.arithmetic_restricted_von_mangoldt_pairing_sum_formula_of_certificate
     ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
 
 theorem arithmetic_global_index_prime_power_of_arithmetic_rows

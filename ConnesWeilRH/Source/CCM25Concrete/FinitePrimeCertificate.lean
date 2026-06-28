@@ -112,6 +112,22 @@ theorem arithmetic_atom_pairing_evaluation_source_test_of_certificate
   PrimePowerArithmetic.source_pairing_evaluation_uses_normalization_source_test
     h.atomsUseSupportSourceTest n
 
+theorem arithmetic_atom_visible_in_support_source_test_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
+    (n : ℕ) :
+    h.support.sourceTest.sourceAtomVisible n :=
+  PrimePowerArithmetic.source_atom_visible_uses_normalization_source_test
+    h.atomsUseSupportSourceTest n
+
+theorem arithmetic_atom_visible_in_pairing_source_test_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
+    (n : ℕ) :
+    (h.atoms.atIndex n).sourcePairing.model.sourceEvaluation.sourceTest.sourceAtomVisible n :=
+  PrimePowerArithmetic.source_atom_visible_in_pairing_source_test
+    (h.atoms.atIndex n)
+
 theorem arithmetic_global_index_source_data_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
@@ -228,6 +244,20 @@ theorem arithmetic_finite_prime_sum_formula_of_certificate
     intro n hn
     exact arithmetic_atom_formula_of_certificate h n)
 
+theorem arithmetic_von_mangoldt_pairing_sum_formula_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
+    (indexSet : Finset ℕ) :
+    (∑ n ∈ indexSet, W.vonMangoldtWeight n * W.primePowerPairing n f g) =
+      PrimePowerArithmetic.SourceFinitePrimeEvaluatorSum
+        W f g indexSet h.atoms := by
+  dsimp [PrimePowerArithmetic.SourceFinitePrimeEvaluatorSum]
+  exact Finset.sum_congr rfl (by
+    intro n hn
+    exact
+      PrimePowerArithmetic.source_von_mangoldt_pairing_product_formula_source_evaluator
+        (h.atoms.atIndex n))
+
 theorem arithmetic_global_sum_formula_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda) :
@@ -239,6 +269,17 @@ theorem arithmetic_global_sum_formula_of_certificate
   exact arithmetic_finite_prime_sum_formula_of_certificate
     h W.globalPrimeIndexSet
 
+theorem arithmetic_global_von_mangoldt_pairing_sum_formula_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda) :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.vonMangoldtWeight n * W.primePowerPairing n f g) =
+      PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
+        W f g h.atoms := by
+  dsimp [PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum]
+  exact arithmetic_von_mangoldt_pairing_sum_formula_of_certificate
+    h W.globalPrimeIndexSet
+
 theorem arithmetic_restricted_sum_formula_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda) :
@@ -248,6 +289,17 @@ theorem arithmetic_restricted_sum_formula_of_certificate
         W f g lambda h.atoms := by
   dsimp [PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum]
   exact arithmetic_finite_prime_sum_formula_of_certificate
+    h (W.restrictedPrimeIndexSet lambda)
+
+theorem arithmetic_restricted_von_mangoldt_pairing_sum_formula_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda) :
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.vonMangoldtWeight n * W.primePowerPairing n f g) =
+      PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
+        W f g lambda h.atoms := by
+  dsimp [PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum]
+  exact arithmetic_von_mangoldt_pairing_sum_formula_of_certificate
     h (W.restrictedPrimeIndexSet lambda)
 
 def source_prime_power_support_of_certificate

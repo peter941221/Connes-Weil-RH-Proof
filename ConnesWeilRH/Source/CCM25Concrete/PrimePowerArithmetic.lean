@@ -173,6 +173,20 @@ theorem source_pairing_evaluation_source_test_read_off
     h.sourcePairing.model.sourceEvaluation.sourceTest = h.sourceTest :=
   h.pairingSourceTestReadOff
 
+theorem source_atom_visible_in_source_test
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeArithmeticData W f g n) :
+    h.sourceTest.sourceAtomVisible n :=
+  (PrimePowerTest.route_visibility_iff_source_visibility h.sourceTest n).1
+    h.sourceAtomVisible
+
+theorem source_atom_visible_in_pairing_source_test
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeArithmeticData W f g n) :
+    h.sourcePairing.model.sourceEvaluation.sourceTest.sourceAtomVisible n := by
+  rw [h.pairingSourceTestReadOff]
+  exact source_atom_visible_in_source_test h
+
 theorem source_pairing_evaluation_uses_normalization_source_test
     {W : WeilFormSymbols} {f g : TestFunction}
     {h : SourceFinitePrimeArithmeticNormalization W f g}
@@ -182,6 +196,15 @@ theorem source_pairing_evaluation_uses_normalization_source_test
       sourceTest := by
   rw [source_pairing_evaluation_source_test_read_off (h.atIndex n),
     huses n]
+
+theorem source_atom_visible_uses_normalization_source_test
+    {W : WeilFormSymbols} {f g : TestFunction}
+    {h : SourceFinitePrimeArithmeticNormalization W f g}
+    {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
+    (huses : UsesSourceTest h sourceTest) (n : ℕ) :
+    sourceTest.sourceAtomVisible n := by
+  have hvisible := source_atom_visible_in_source_test (h.atIndex n)
+  simpa [huses n] using hvisible
 
 theorem source_pairing_formula
     {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
@@ -250,6 +273,16 @@ theorem source_finite_prime_term_formula_source_evaluator
   rw [h.termReadOff]
   congr 1
   rw [← h.pairingReadOff]
+  exact source_pairing_formula_source_evaluator h
+
+theorem source_von_mangoldt_pairing_product_formula_source_evaluator
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeArithmeticData W f g n) :
+    W.vonMangoldtWeight n * W.primePowerPairing n f g =
+      SourceFinitePrimeEvaluatorAtom W f g n h := by
+  dsimp [SourceFinitePrimeEvaluatorAtom]
+  rw [h.weightReadOff]
+  congr 1
   exact source_pairing_formula_source_evaluator h
 
 end PrimePowerArithmetic

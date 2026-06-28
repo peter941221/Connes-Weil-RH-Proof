@@ -148,6 +148,20 @@ theorem source_pairing_formula_source_evaluator
   PrimePowerPairing.source_prime_power_pairing_formula_source_evaluator
     h.sourcePairing
 
+theorem source_atom_visible_in_pairing_source_test
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeAtomData W f g n) :
+    h.sourcePairing.model.sourceEvaluation.sourceTest.sourceAtomVisible n :=
+  (PrimePowerEvaluation.source_test_visibility_iff_route_visibility
+    h.sourcePairing.model.sourceEvaluation).1 h.sourceAtomVisible
+
+theorem source_atom_visible_in_pairing_source_test_of_arithmetic_data
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : PrimePowerArithmetic.SourceFinitePrimeArithmeticData W f g n) :
+    (let atom := source_atom_data_of_arithmetic_data h;
+      atom.sourcePairing.model.sourceEvaluation.sourceTest.sourceAtomVisible n) :=
+  PrimePowerArithmetic.source_atom_visible_in_pairing_source_test h
+
 theorem source_finite_prime_term_read_off
     {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
     (h : SourceFinitePrimeAtomData W f g n) :

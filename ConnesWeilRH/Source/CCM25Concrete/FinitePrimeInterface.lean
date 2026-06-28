@@ -192,6 +192,25 @@ theorem certificate_atom_pairing_evaluation_source_test_of_source_test_certifica
     FinitePrimeCertificate.arithmetic_atom_pairing_evaluation_source_test_of_certificate,
     h.certificateSourceTest lambda hlambda]
 
+theorem certificate_atom_visible_in_source_test_of_source_test_certificates
+    {W : WeilFormSymbols} {f g : TestFunction}
+    (h : FixedLambdaArithmeticSourceTestCertificatesForTest W f g)
+    (lambda : ℝ) (hlambda : 1 < lambda) (n : ℕ) :
+    h.sourceTest.sourceAtomVisible n := by
+  have hvisible :=
+    FinitePrimeCertificate.arithmetic_atom_visible_in_support_source_test_of_certificate
+      (h.certificate lambda hlambda) n
+  simpa [h.certificateSourceTest lambda hlambda] using hvisible
+
+theorem certificate_atom_visible_in_pairing_source_test_of_source_test_certificates
+    {W : WeilFormSymbols} {f g : TestFunction}
+    (h : FixedLambdaArithmeticSourceTestCertificatesForTest W f g)
+    (lambda : ℝ) (hlambda : 1 < lambda) (n : ℕ) :
+    let atom := (h.certificate lambda hlambda).atoms.atIndex n
+    atom.sourcePairing.model.sourceEvaluation.sourceTest.sourceAtomVisible n :=
+  FinitePrimeCertificate.arithmetic_atom_visible_in_pairing_source_test_of_certificate
+    (h.certificate lambda hlambda) n
+
 theorem finite_prime_visibility_of_fixed_lambda_certificates
     {W : WeilFormSymbols} {f g : TestFunction}
     (h : FixedLambdaCertificatesForTest W f g) :
