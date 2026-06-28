@@ -119,6 +119,27 @@ identity `QW_lambda(g,g)=QW(g,g)` from the CCM25 restriction definition, support
 containment, and finite-prime support stabilization. It excludes spectral
 convergence, determinant convergence, and even-sector spectral assumptions.
 
+## Final-Exit Packets
+
+Three packets now cover the final source-certification gates:
+
+```text
+docs/audits/final-sign-accepted-source-packet.md
+docs/audits/cc20-exit-accepted-source-packet.md
+docs/audits/rh-definition-accepted-source-packet.md
+```
+
+The final sign packet asks a referee to accept
+`QW(g,g)=-sum_v W_v(F_g)` and the inequality direction.
+
+The CC20 exit packet asks a referee to accept the use of Proposition C.1 with
+`F={0,1/2,1}`, route triple vanishing, the CC20 sign inequality, and the source
+RH conclusion.
+
+The RH definition packet asks a referee or later Lean proof to identify the
+CC20 source RH conclusion with the standard zeta-zero predicate, including
+zeta equality, non-trivial-zero exclusions, the pole at `1`, and `s.re=1/2`.
+
 ## What Counts As Progress
 
 For each row, progress means replacing a broad statement like:
@@ -149,6 +170,7 @@ for each critical row.
 | Did it identify exact theorem candidates for accepted-source review? | yes |
 | Is S2-B1 the first critical candidate? | yes |
 | Do Rows 3-7 and restricted-to-full now have review packets? | yes |
+| Do final sign, CC20 exit, and RH definition now have review packets? | yes |
 | Did this pass touch Lean? | no |
 
 The route remains source-conditional. The certification work has now shifted

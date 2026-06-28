@@ -107,6 +107,9 @@ Current files:
 | `trace-scale-source-term-ledger.md` | first S2-B1 accepted-source packet; maps possible positive-trace source terms to `QW_lambda`, rank, pole, or endpoint-strip `Cdef` and names the untracked-bulk obstruction |
 | `sign-defect-accepted-source-packet.md` | Rows 1-7 accepted-source packet; states referee checks for CC20 post-`Q` source remainder, fixed-S transport, rank/pole identification, endpoint-strip `Cdef`, and no-hidden-defect equality |
 | `restricted-to-full-accepted-source-packet.md` | fixed-test restricted-to-full accepted-source packet; states the `QW_lambda(g,g)=QW(g,g)` review target from CCM25 restriction-definition without spectral convergence |
+| `final-sign-accepted-source-packet.md` | final sign accepted-source packet; states referee checks for `QW(g,g)=-sum_v W_v(F_g)` and the inequality direction |
+| `cc20-exit-accepted-source-packet.md` | CC20 finite-vanishing exit accepted-source packet; states referee checks for Proposition C.1, `F={0,1/2,1}`, route vanishing, and the sign inequality |
+| `rh-definition-accepted-source-packet.md` | RH definition accepted-source packet; states checks for zeta equality, non-trivial-zero exclusions, pole exclusion, critical line, and standard RH predicate |
 | `sonin-prolate-defect-source-readiness-audit.md` | source-readiness audit showing the prolate/Sonin-to-`Cdef` bridge remains a hard blocker |
 | `sonin-prolate-defect-discharge-ledger.md` | row-by-row discharge ledger for the sign/defect bridge, from CC20 source remainder object through fixed-S transport, rank/pole/Cdef classification, and no-hidden-defect equality |
 | `restricted-to-full-qw-source-readiness-audit.md` | source-readiness audit showing fixed-test `QW_lambda=QW` has a CCM25 restriction-definition path after the bridge contract is discharged |

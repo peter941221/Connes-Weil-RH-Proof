@@ -101,6 +101,15 @@ The sign/defect accepted-source packet is
 The restricted-to-full accepted-source packet is
 `docs/audits/restricted-to-full-accepted-source-packet.md`.
 
+The final sign accepted-source packet is
+`docs/audits/final-sign-accepted-source-packet.md`.
+
+The CC20 exit accepted-source packet is
+`docs/audits/cc20-exit-accepted-source-packet.md`.
+
+The RH definition accepted-source packet is
+`docs/audits/rh-definition-accepted-source-packet.md`.
+
 The local pre-Lean completion gate is
 `docs/audits/pre-lean-completion-audit.md`.
 
@@ -189,6 +198,18 @@ The first packet asks a referee to accept the Rows 1-7 sign/defect chain as a
 single source-owned classification theorem. The second packet asks a referee to
 accept `QW_lambda(g,g)=QW(g,g)` from the CCM25 restriction definition and
 fixed-test support, with no spectral convergence input.
+
+The final-exit packets are:
+
+```text
+docs/audits/final-sign-accepted-source-packet.md
+docs/audits/cc20-exit-accepted-source-packet.md
+docs/audits/rh-definition-accepted-source-packet.md
+```
+
+They cover the sign equality `QW(g,g)=-sum_v W_v(F_g)`, the CC20
+finite-vanishing exit, and the transport from the CC20 source RH conclusion to
+the standard RH predicate.
 
 ## Falsification Tests For Reviewers
 
@@ -694,6 +715,9 @@ docs/
     trace-scale-source-term-ledger.md
     sign-defect-accepted-source-packet.md
     restricted-to-full-accepted-source-packet.md
+    final-sign-accepted-source-packet.md
+    cc20-exit-accepted-source-packet.md
+    rh-definition-accepted-source-packet.md
     source-reread-v0.2.md
     trace-scale-compatibility-audit.md
     trace-scale-compatibility-discharge-attempt.md

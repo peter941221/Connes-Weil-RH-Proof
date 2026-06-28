@@ -50,6 +50,9 @@ journal proof, Clay proof, or completed Lean proof.
 | `docs/audits/trace-scale-source-term-ledger.md` | starts the first S2-B1 accepted-source packet by mapping possible trace-scale source terms to `QW_lambda`, rank, pole, or endpoint-strip `Cdef` |
 | `docs/audits/sign-defect-accepted-source-packet.md` | starts the Rows 1-7 sign/defect accepted-source packet, from CC20 post-`Q` source remainder through fixed-S transport and no-hidden-defect equality |
 | `docs/audits/restricted-to-full-accepted-source-packet.md` | starts the restricted-to-full accepted-source packet for fixed-test `QW_lambda(g,g)=QW(g,g)` without spectral convergence |
+| `docs/audits/final-sign-accepted-source-packet.md` | starts the final sign accepted-source packet for `QW(g,g)=-sum_v W_v(F_g)` and the inequality direction |
+| `docs/audits/cc20-exit-accepted-source-packet.md` | starts the CC20 finite-vanishing exit packet for Proposition C.1, `F={0,1/2,1}`, and route vanishing translation |
+| `docs/audits/rh-definition-accepted-source-packet.md` | starts the RH definition packet for transporting CC20 source RH to the standard zeta-zero predicate |
 
 ## Acceptance Classes
 
@@ -78,6 +81,9 @@ task is to upgrade specific rows to the third class or mark them for Lean.
 | S2-B1 trace-scale source-term ledger | `trace-scale-source-term-ledger.md` | Does every source-owned scalar in the positive-trace read-off land in `QW_lambda`, rank, pole, or endpoint-strip `Cdef`, with no untracked divergent bulk or hidden finite-part subtraction? |
 | sign/defect accepted-source packet | `sign-defect-accepted-source-packet.md` | Does a referee accept the Rows 1-7 source-owned classification theorem, including fixed-S transport, rank/pole identification, endpoint-strip `Cdef`, and no hidden positive defect? |
 | restricted-to-full accepted-source packet | `restricted-to-full-accepted-source-packet.md` | Does a referee accept eventual fixed-test scalar equality from CCM25 restriction-definition, support containment, and finite-prime stabilization, with no spectral input? |
+| final sign accepted-source packet | `final-sign-accepted-source-packet.md` | Does a referee accept `QW(g,g)=-sum_v W_v(F_g)` and `QW(g,g)>=0 -> sum_v W_v(F_g)<=0` for the same `F_g`? |
+| CC20 exit accepted-source packet | `cc20-exit-accepted-source-packet.md` | Does a referee accept Proposition C.1 with `F={0,1/2,1}`, route vanishing translation, and the CC20 sign inequality? |
+| RH definition accepted-source packet | `rh-definition-accepted-source-packet.md` | Does a referee or Lean proof accept the zeta, zero-set, exclusion, pole, and critical-line bridges to the standard RH predicate? |
 
 ## Non-Importable Shortcuts
 
