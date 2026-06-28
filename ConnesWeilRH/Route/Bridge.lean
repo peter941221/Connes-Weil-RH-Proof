@@ -600,6 +600,17 @@ def RestrictedFinitePrimeSupportStabilizes
         inputs.ccm25.weilSymbols g.weilTest lambda) : Prop :=
   FinitePrimeStabilizationAtLarge inputs g lambda pkg
 
+def SourceFinitePrimeEvaluatorSumsMatchForRestriction
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ)
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) : Prop :=
+  Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+    pkg =
+    Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+      pkg
+
 def SourceArchimedeanPoleStabilityForRestriction
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (lambda : ℝ)
@@ -639,6 +650,38 @@ theorem source_archimedean_pole_stability_of_common_tuple
     SourceArchimedeanPoleStabilityForRestriction inputs g lambda pkg :=
   ⟨ccm25_pole_normalization_read_off_of_package pkg, h.2.1⟩
 
+theorem pole_normalization_of_archimedean_pole_stability
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : SourceArchimedeanPoleStabilityForRestriction inputs g lambda pkg) :
+    CCM25PoleNormalizationReadOff inputs g :=
+  h.1
+
+theorem package_read_off_of_archimedean_pole_stability
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : SourceArchimedeanPoleStabilityForRestriction inputs g lambda pkg) :
+    PackageBackedCCM25WeilFormReadOff inputs g lambda pkg :=
+  h.2
+
+theorem pole_pairing_eq_pole_functional_of_archimedean_pole_stability
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : SourceArchimedeanPoleStabilityForRestriction inputs g lambda pkg) :
+    let W := inputs.ccm25.weilSymbols
+    W.polePairing g.weilTest =
+      W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) :=
+  pole_normalization_of_archimedean_pole_stability h
+
 structure SourceQWLambdaRestrictionRows
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (lambda : ℝ)
@@ -651,6 +694,8 @@ structure SourceQWLambdaRestrictionRows
     SourceFullQWDefinitionReadOff inputs g lambda pkg
   finitePrimeStabilization :
     RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg
+  finitePrimeEvaluatorSumsMatch :
+    SourceFinitePrimeEvaluatorSumsMatchForRestriction inputs g lambda pkg
   exactFinitePrimeSupport :
     PackageExactFinitePrimeSupportAtLambda inputs g lambda pkg
   archimedeanPoleStability :
@@ -679,6 +724,9 @@ theorem source_qw_lambda_restriction_rows_of_common_tuple
   fullDefinition :=
     source_full_qw_definition_read_off_of_common_tuple hcommon
   finitePrimeStabilization := hstabilization
+  finitePrimeEvaluatorSumsMatch :=
+    Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum_eq_global
+      pkg
   exactFinitePrimeSupport :=
     package_exact_finite_prime_support_at_lambda_holds
   archimedeanPoleStability :=
@@ -727,6 +775,16 @@ theorem finite_prime_stabilization_of_qw_lambda_restriction
     RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg :=
   h.choose.finitePrimeStabilization
 
+theorem finite_prime_evaluator_sums_match_of_qw_lambda_restriction
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : SourceQWLambdaIsRestrictionOfQW inputs g lambda pkg) :
+    SourceFinitePrimeEvaluatorSumsMatchForRestriction inputs g lambda pkg :=
+  h.choose.finitePrimeEvaluatorSumsMatch
+
 theorem exact_finite_prime_support_of_qw_lambda_restriction
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ}
@@ -767,7 +825,9 @@ def RestrictedToFullNoSpectralConvergenceImport
     SourceWindowControlsRestrictedRoute inputs g lambda ∧
       SourceQWLambdaIsRestrictionOfQW inputs g lambda pkg ∧
         RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg ∧
-          SourceArchimedeanPoleStabilityForRestriction inputs g lambda pkg
+          SourceFinitePrimeEvaluatorSumsMatchForRestriction
+            inputs g lambda pkg ∧
+            SourceArchimedeanPoleStabilityForRestriction inputs g lambda pkg
 
 structure RestrictedToFullQWScalarRestrictionWitness
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -783,6 +843,8 @@ structure RestrictedToFullQWScalarRestrictionWitness
     SourceQWLambdaIsRestrictionOfQW inputs g lambda pkg
   finitePrimeSupportStabilizes :
     RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg
+  finitePrimeEvaluatorSumsMatch :
+    SourceFinitePrimeEvaluatorSumsMatchForRestriction inputs g lambda pkg
   exactFinitePrimeSupport :
     PackageExactFinitePrimeSupportAtLambda inputs g lambda pkg
   archimedeanPoleStability :
@@ -806,6 +868,46 @@ theorem no_spectral_convergence_import_of_scalar_witness
     RestrictedToFullNoSpectralConvergenceImport
       inputs g lambda F_g pkg :=
   h.noSpectralConvergenceImport
+
+theorem finite_prime_evaluator_sums_match_of_scalar_witness
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullQWScalarRestrictionWitness
+        inputs g lambda F_g pkg) :
+    SourceFinitePrimeEvaluatorSumsMatchForRestriction
+      inputs g lambda pkg :=
+  h.finitePrimeEvaluatorSumsMatch
+
+theorem archimedean_pole_stability_of_scalar_witness
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullQWScalarRestrictionWitness
+        inputs g lambda F_g pkg) :
+    SourceArchimedeanPoleStabilityForRestriction inputs g lambda pkg :=
+  h.archimedeanPoleStability
+
+theorem pole_pairing_eq_pole_functional_of_scalar_witness
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullQWScalarRestrictionWitness
+        inputs g lambda F_g pkg) :
+    let W := inputs.ccm25.weilSymbols
+    W.polePairing g.weilTest =
+      W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) :=
+  pole_pairing_eq_pole_functional_of_archimedean_pole_stability
+    (archimedean_pole_stability_of_scalar_witness h)
 
 theorem scalar_equality_of_scalar_witness
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -1060,6 +1162,48 @@ theorem no_spectral_convergence_import_of_scalar_restriction
     RestrictedToFullNoSpectralConvergenceImport
       inputs g lambda F_g pkg :=
   no_spectral_convergence_import_of_scalar_witness
+    (scalar_witness_of_scalar_restriction h)
+
+theorem finite_prime_evaluator_sums_match_of_scalar_restriction
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullQWScalarRestrictionEquality
+        inputs g lambda F_g pkg) :
+    SourceFinitePrimeEvaluatorSumsMatchForRestriction
+      inputs g lambda pkg :=
+  finite_prime_evaluator_sums_match_of_scalar_witness
+    (scalar_witness_of_scalar_restriction h)
+
+theorem archimedean_pole_stability_of_scalar_restriction
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullQWScalarRestrictionEquality
+        inputs g lambda F_g pkg) :
+    SourceArchimedeanPoleStabilityForRestriction inputs g lambda pkg :=
+  archimedean_pole_stability_of_scalar_witness
+    (scalar_witness_of_scalar_restriction h)
+
+theorem pole_pairing_eq_pole_functional_of_scalar_restriction
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullQWScalarRestrictionEquality
+        inputs g lambda F_g pkg) :
+    let W := inputs.ccm25.weilSymbols
+    W.polePairing g.weilTest =
+      W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) :=
+  pole_pairing_eq_pole_functional_of_scalar_witness
     (scalar_witness_of_scalar_restriction h)
 
 def RestrictedToFullQWLowerBoundEvidence
