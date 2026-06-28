@@ -107,6 +107,15 @@ theorem finite_vanishing_mathlib_rh_point
     (sourceFiniteVanishingRhExit cc20) input htriple hpositive
     s hzero hnotNegEven hpole
 
+theorem finite_vanishing_mathlib_rh_statement
+    (cc20 : CC20Interface)
+    (input : WeilPositivityInput)
+    (htriple : input.tripleVanishing)
+    (hpositive : input.fullWeilPositivity) :
+    RHDefinitionBridge.MathlibRHStatement :=
+  SourceFiniteVanishingCriterionPackage.criterion_mathlib_rh_statement
+    (sourceFiniteVanishingRhExit cc20) input htriple hpositive
+
 theorem finite_vanishing_mathlib_rh
     (cc20 : CC20Interface)
     (input : WeilPositivityInput)

@@ -49,6 +49,9 @@ def MathlibNontrivialZero (s : ℂ) : Prop :=
 def MathlibCriticalLine (s : ℂ) : Prop :=
   s.re = 1 / 2
 
+def MathlibRHStatement : Prop :=
+  ∀ s : ℂ, MathlibNontrivialZero s → MathlibCriticalLine s
+
 /-- The source-side RH statement represented by a bridge. -/
 def SourceRH (B : RHDefinitionBridge) : Prop :=
   ∀ s : ℂ, B.sourceNontrivialZero s → B.sourceCriticalLine s
@@ -132,6 +135,47 @@ theorem source_critical_line_of_mathlib_critical_line
     B.sourceCriticalLine s :=
   (source_critical_line_iff_mathlib B s).2 h
 
+theorem source_rh_point_iff_mathlib_rh_point
+    (B : RHDefinitionBridge) (s : ℂ) :
+    (B.sourceNontrivialZero s → B.sourceCriticalLine s) ↔
+      (MathlibNontrivialZero s → MathlibCriticalLine s) := by
+  constructor
+  · intro h hzero
+    exact mathlib_critical_line_of_source_critical_line B s
+      (h (mathlib_nontrivial_zero_to_source B s hzero))
+  · intro h hsource
+    exact source_critical_line_of_mathlib_critical_line B s
+      (h (source_nontrivial_zero_to_mathlib B s hsource))
+
+theorem mathlib_rh_statement_iff_mathlib :
+    MathlibRHStatement ↔ _root_.RiemannHypothesis := by
+  constructor
+  · intro h s hzero hnotNegEven hpole
+    exact h s
+      (mathlib_nontrivial_zero_of_components s hzero hnotNegEven hpole)
+  · intro h s hzero
+    exact h s hzero.1 hzero.2.1 hzero.2.2
+
+theorem source_rh_to_mathlib_rh_statement
+    (B : RHDefinitionBridge) (hRH : B.SourceRH) :
+    MathlibRHStatement := by
+  intro s hzero
+  exact mathlib_critical_line_of_source_critical_line B s
+    (hRH s (mathlib_nontrivial_zero_to_source B s hzero))
+
+theorem mathlib_rh_statement_to_source_rh
+    (B : RHDefinitionBridge) (hRH : MathlibRHStatement) :
+    B.SourceRH := by
+  intro s hsource
+  exact source_critical_line_of_mathlib_critical_line B s
+    (hRH s (source_nontrivial_zero_to_mathlib B s hsource))
+
+theorem source_rh_iff_mathlib_rh_statement
+    (B : RHDefinitionBridge) :
+    B.SourceRH ↔ MathlibRHStatement :=
+  ⟨source_rh_to_mathlib_rh_statement B,
+    mathlib_rh_statement_to_source_rh B⟩
+
 theorem mathlib_rh_point_of_source_rh
     (B : RHDefinitionBridge) (hRH : B.SourceRH)
     (s : ℂ)
@@ -146,19 +190,15 @@ theorem mathlib_rh_point_of_source_rh
 
 theorem source_rh_to_mathlib_rh
     (B : RHDefinitionBridge) (hRH : B.SourceRH) :
-    _root_.RiemannHypothesis := by
-  intro s hzero hnotNegEven hpole
-  exact mathlib_rh_point_of_source_rh B hRH s hzero hnotNegEven hpole
+    _root_.RiemannHypothesis :=
+  mathlib_rh_statement_iff_mathlib.1
+    (source_rh_to_mathlib_rh_statement B hRH)
 
 theorem mathlib_rh_to_source_rh
     (B : RHDefinitionBridge) (hRH : _root_.RiemannHypothesis) :
-    B.SourceRH := by
-  intro s hsource
-  exact source_critical_line_of_mathlib_critical_line B s
-    (hRH s
-      (mathlib_zeta_zero_of_source_nontrivial_zero B s hsource)
-      (mathlib_no_negative_even_of_source_nontrivial_zero B s hsource)
-      (mathlib_no_pole_of_source_nontrivial_zero B s hsource))
+    B.SourceRH :=
+  mathlib_rh_statement_to_source_rh B
+    (mathlib_rh_statement_iff_mathlib.2 hRH)
 
 theorem source_rh_iff_mathlib
     (B : RHDefinitionBridge) :
@@ -196,6 +236,29 @@ noncomputable def standard : RHDefinitionBridge where
 theorem standard_source_rh_iff_mathlib :
     standard.SourceRH ↔ _root_.RiemannHypothesis :=
   source_rh_iff_mathlib standard
+
+theorem standard_source_rh_iff_mathlib_rh_statement :
+    standard.SourceRH ↔ MathlibRHStatement :=
+  source_rh_iff_mathlib_rh_statement standard
+
+theorem standard_source_rh_eq_mathlib_rh_statement :
+    standard.SourceRH = MathlibRHStatement := by
+  rfl
+
+theorem standard_source_zeta_eq_mathlib
+    (s : ℂ) :
+    standard.sourceZeta s = riemannZeta s := by
+  rfl
+
+theorem standard_source_nontrivial_zero_eq_mathlib
+    (s : ℂ) :
+    standard.sourceNontrivialZero s = MathlibNontrivialZero s := by
+  rfl
+
+theorem standard_source_critical_line_eq_mathlib
+    (s : ℂ) :
+    standard.sourceCriticalLine s = MathlibCriticalLine s := by
+  rfl
 
 theorem standard_source_nontrivial_zero_iff_mathlib
     (s : ℂ) :

@@ -64,13 +64,19 @@ def RouteFullPositivityMatchesCC20Nonpositivity
     (input : WeilPositivityInput) : Prop :=
   input.fullWeilPositivity
 
+structure CC20PropositionC1InputData
+    (F : Finset CriticalVanishingPoint)
+    (input : WeilPositivityInput) where
+  finiteSetIsTriple : RouteFiniteVanishingSetIsCC20Triple F
+  tripleVanishingMatchesMellin :
+    RouteTripleVanishingMatchesCC20Mellin F input
+  fullPositivityMatchesNonpositivity :
+    RouteFullPositivityMatchesCC20Nonpositivity input
+
 def CC20PropositionC1SourceCriterion
     (B : RHDefinitionBridge) (F : Finset CriticalVanishingPoint)
     (input : WeilPositivityInput) : Prop :=
-  RouteFiniteVanishingSetIsCC20Triple F →
-    RouteTripleVanishingMatchesCC20Mellin F input →
-      RouteFullPositivityMatchesCC20Nonpositivity input →
-        B.SourceRH
+  CC20PropositionC1InputData F input → B.SourceRH
 
 structure CC20RHExitObjectPackage
     (B : RHDefinitionBridge) where
@@ -104,6 +110,39 @@ theorem finite_set_is_triple_of_source_finite_set_admissibility
     RouteFiniteVanishingSetIsCC20Triple F :=
   h.2.2.2
 
+def cc20_proposition_c1_input_data
+    {F : Finset CriticalVanishingPoint}
+    {input : WeilPositivityInput}
+    (hfinite : SourceFiniteSetAdmissibility F)
+    (htriple : input.tripleVanishing)
+    (hpositive : input.fullWeilPositivity) :
+    CC20PropositionC1InputData F input where
+  finiteSetIsTriple :=
+    finite_set_is_triple_of_source_finite_set_admissibility hfinite
+  tripleVanishingMatchesMellin := htriple
+  fullPositivityMatchesNonpositivity := hpositive
+
+theorem triple_vanishing_of_c1_input_data
+    {F : Finset CriticalVanishingPoint}
+    {input : WeilPositivityInput}
+    (h : CC20PropositionC1InputData F input) :
+    input.tripleVanishing :=
+  h.tripleVanishingMatchesMellin
+
+theorem full_positivity_of_c1_input_data
+    {F : Finset CriticalVanishingPoint}
+    {input : WeilPositivityInput}
+    (h : CC20PropositionC1InputData F input) :
+    input.fullWeilPositivity :=
+  h.fullPositivityMatchesNonpositivity
+
+theorem finite_set_is_triple_of_c1_input_data
+    {F : Finset CriticalVanishingPoint}
+    {input : WeilPositivityInput}
+    (h : CC20PropositionC1InputData F input) :
+    RouteFiniteVanishingSetIsCC20Triple F :=
+  h.finiteSetIsTriple
+
 namespace SourceFiniteVanishingCriterionPackage
 
 def ofCC20RHExitObjectPackage
@@ -114,9 +153,8 @@ def ofCC20RHExitObjectPackage
   sourceCriterion := by
     intro input htriple hpositive
     exact h.propositionC1SourceCriterion input
-      (finite_set_is_triple_of_source_finite_set_admissibility
-        h.finiteSetAdmissible)
-      htriple hpositive
+      (cc20_proposition_c1_input_data
+        h.finiteSetAdmissible htriple hpositive)
 
 def toFiniteVanishingCriterionPackage
     {B : RHDefinitionBridge}
@@ -163,16 +201,25 @@ theorem criterion_mathlib_rh_point
     (criterion_source_output h input htriple hpositive)
     s hzero hnotNegEven hpole
 
+theorem criterion_mathlib_rh_statement
+    {B : RHDefinitionBridge}
+    (h : SourceFiniteVanishingCriterionPackage B)
+    (input : WeilPositivityInput)
+    (htriple : input.tripleVanishing)
+    (hpositive : input.fullWeilPositivity) :
+    RHDefinitionBridge.MathlibRHStatement :=
+  RHDefinitionBridge.source_rh_to_mathlib_rh_statement B
+    (criterion_source_output h input htriple hpositive)
+
 theorem criterion_to_mathlib_rh
     {B : RHDefinitionBridge}
     (h : SourceFiniteVanishingCriterionPackage B)
     (input : WeilPositivityInput)
     (htriple : input.tripleVanishing)
     (hpositive : input.fullWeilPositivity) :
-    _root_.RiemannHypothesis := by
-  intro s hzero hnotNegEven hpole
-  exact criterion_mathlib_rh_point h input htriple hpositive
-    s hzero hnotNegEven hpole
+    _root_.RiemannHypothesis :=
+  RHDefinitionBridge.mathlib_rh_statement_iff_mathlib.1
+    (criterion_mathlib_rh_statement h input htriple hpositive)
 
 theorem standard_criterion_to_mathlib_rh
     (h : SourceFiniteVanishingCriterionPackage RHDefinitionBridge.standard)
@@ -181,6 +228,14 @@ theorem standard_criterion_to_mathlib_rh
     (hpositive : input.fullWeilPositivity) :
     _root_.RiemannHypothesis :=
   criterion_to_mathlib_rh h input htriple hpositive
+
+theorem standard_criterion_mathlib_rh_statement
+    (h : SourceFiniteVanishingCriterionPackage RHDefinitionBridge.standard)
+    (input : WeilPositivityInput)
+    (htriple : input.tripleVanishing)
+    (hpositive : input.fullWeilPositivity) :
+    RHDefinitionBridge.MathlibRHStatement :=
+  criterion_mathlib_rh_statement h input htriple hpositive
 
 theorem standard_criterion_mathlib_rh_point
     (h : SourceFiniteVanishingCriterionPackage RHDefinitionBridge.standard)
