@@ -260,6 +260,32 @@ theorem finite_prime_normalization_of_source_test_certificates
   finite_prime_normalization_of_arithmetic_certificates
     (fixed_lambda_arithmetic_certificates_for_all_of_source_test_certificates h)
 
+theorem finite_prime_visibility_of_common_source_test_certificates
+    {W : WeilFormSymbols} {f g : TestFunction}
+    (h : FixedLambdaArithmeticSourceTestCertificatesForTest W f g) :
+    WeilFormSymbols.FinitePrimeVisibilityStatement W f g := by
+  let hbase := h.certificate 2 (by norm_num : (1 : ℝ) < 2)
+  refine ⟨?_, ?_, ?_⟩
+  · intro n hn
+    exact FinitePrimeCertificate.global_exact_of_certificate
+      (FinitePrimeCertificate.certificate_of_arithmetic_certificate hbase) n |>.2
+      ((FinitePrimeCertificate.visible_iff_of_certificate
+        (FinitePrimeCertificate.certificate_of_arithmetic_certificate hbase)
+        n).1 hn)
+  · intro lambda hlambda
+    let hcert := h.certificate lambda hlambda
+    exact (FinitePrimeCertificate.visibility_at_lambda_of_certificate
+      (FinitePrimeCertificate.certificate_of_arithmetic_certificate hcert)).2.1
+  · exact FinitePrimeCertificate.arithmetic_term_normalization_of_certificate
+      hbase
+
+theorem finite_prime_normalization_of_common_source_test_certificates
+    {W : WeilFormSymbols}
+    (h : FixedLambdaArithmeticSourceTestCertificatesForAllTests W) :
+    WeilFormSymbols.FinitePrimeNormalizationStatement W := by
+  intro f g
+  exact finite_prime_visibility_of_common_source_test_certificates (h f g)
+
 end FinitePrimeInterface
 end CCM25Concrete
 end Source

@@ -63,6 +63,7 @@ theorem source_von_mangoldt_weight_prime
 
 structure SourceFinitePrimeArithmeticData
     (W : WeilFormSymbols) (f g : TestFunction) (n : ℕ) where
+  sourcePrimePowerIndex : SourcePrimePowerIndex n
   sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g
   sourceAtomVisible :
     W.finitePrimeAtomVisible n (W.convolutionStar f g)
@@ -91,6 +92,7 @@ noncomputable def SourceFinitePrimeEvaluatorAtom
 
 def source_arithmetic_data_of_pairing_data
     {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (sourcePrimePowerIndex : SourcePrimePowerIndex n)
     (sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g)
     (visible :
       W.finitePrimeAtomVisible n (W.convolutionStar f g))
@@ -104,6 +106,7 @@ def source_arithmetic_data_of_pairing_data
       W.finitePrimeTerm n (W.convolutionStar f g) =
         SourceVonMangoldtWeight n * pairing.model.sourceTPairing) :
     SourceFinitePrimeArithmeticData W f g n where
+  sourcePrimePowerIndex := sourcePrimePowerIndex
   sourceTest := sourceTest
   sourceAtomVisible := visible
   sourcePairing := pairing
@@ -144,6 +147,19 @@ theorem source_weight_read_off
     (h : SourceFinitePrimeArithmeticData W f g n) :
     W.vonMangoldtWeight n = SourceVonMangoldtWeight n :=
   h.weightReadOff
+
+theorem source_prime_power_index_of_arithmetic_data
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeArithmeticData W f g n) :
+    SourcePrimePowerIndex n :=
+  h.sourcePrimePowerIndex
+
+theorem source_prime_power_index_one_lt_of_arithmetic_data
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeArithmeticData W f g n) :
+    1 < n :=
+  source_prime_power_index_one_lt
+    (source_prime_power_index_of_arithmetic_data h)
 
 theorem source_pairing_read_off
     {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}

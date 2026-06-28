@@ -149,7 +149,7 @@ theorem finite_prime_visibility_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) :
     WeilFormSymbols.FinitePrimeVisibilityStatement W f g :=
-  FinitePrimeInterface.finite_prime_visibility_of_source_test_certificates
+  FinitePrimeInterface.finite_prime_visibility_of_common_source_test_certificates
     (h.finitePrimeArithmeticCertificates f g)
 
 theorem arithmetic_global_sum_formula_of_arithmetic_rows
