@@ -38,6 +38,7 @@ silently closing it.
 | `ConnesWeilRH.Source.CCM25Concrete.FinitePrimeExact` | fixed-`lambda` exact-support certificate implies fixed-window coverage | pass |
 | `ConnesWeilRH.Source.CCM25Concrete.PrimePowerSupport` | source prime-power record with concrete lambda cut implies fixed-window exact support | pass |
 | `ConnesWeilRH.Source.CCM25Concrete.PrimePowerTerm` | pointwise local atom normalization implies finite-prime term normalization | pass |
+| `ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate` | fixed-`lambda` support skeleton plus pointwise terms imply fixed-window visibility | pass |
 | `ConnesWeilRH.Source.CCM25Concrete` | aggregate module | pass |
 | `ConnesWeilRH` | project target with the new aggregate import | pass |
 
@@ -53,6 +54,7 @@ lake build ConnesWeilRH.Source.CCM25Concrete.FinitePrime
 lake build ConnesWeilRH.Source.CCM25Concrete.FinitePrimeExact
 lake build ConnesWeilRH.Source.CCM25Concrete.PrimePowerSupport
 lake build ConnesWeilRH.Source.CCM25Concrete.PrimePowerTerm
+lake build ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate
 lake build ConnesWeilRH.Source.CCM25Concrete
 lake build ConnesWeilRH
 ```
@@ -72,9 +74,13 @@ Axiom audit commands:
 #print axioms ConnesWeilRH.Source.CCM25Concrete.FinitePrimeExact.restricted_coverage_of_exact_support
 #print axioms ConnesWeilRH.Source.CCM25Concrete.FinitePrimeExact.term_normalization_of_exact_support
 #print axioms ConnesWeilRH.Source.CCM25Concrete.FinitePrimeExact.visibility_at_lambda_of_exact_support
+#print axioms ConnesWeilRH.Source.CCM25Concrete.PrimePowerSupport.source_prime_power_support_of_skeleton
 #print axioms ConnesWeilRH.Source.CCM25Concrete.PrimePowerSupport.exact_support_of_source_prime_power_support
 #print axioms ConnesWeilRH.Source.CCM25Concrete.PrimePowerSupport.visibility_at_lambda_of_source_prime_power_support
 #print axioms ConnesWeilRH.Source.CCM25Concrete.PrimePowerTerm.finite_prime_term_normalization_of_source_terms
+#print axioms ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate.source_prime_power_support_of_certificate
+#print axioms ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate.exact_support_of_certificate
+#print axioms ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate.visibility_at_lambda_of_certificate
 ```
 
 All printed theorem rows depend only on:
@@ -132,8 +138,9 @@ that object the next source-facing theorem target.
 The source prime-power support module makes the next target more concrete:
 
 ```text
-SourcePrimePowerSupportAtLambda(W,f,g,lambda)
-  -> ExactSupportAtLambda(W,f,g,lambda)
+SourcePrimePowerSupportSkeletonAtLambda(W,f,g,lambda)
+  + FinitePrimeTermNormalizationStatement(W,f,g)
+  -> SourcePrimePowerSupportAtLambda(W,f,g,lambda)
 ```
 
 It introduces the fixed-cutoff predicate:
@@ -144,6 +151,9 @@ SourceLambdaCut(lambda,n) := 1 < n and (n : Real) <= lambda^2
 
 This prevents a later proof from using an arbitrary cutoff predicate while
 claiming to model the CCM25 restricted finite-prime support.
+
+The skeleton deliberately excludes pointwise term normalization. Support
+correctness and coefficient correctness are separate obligations.
 
 ## Pointwise Term Step
 
@@ -186,19 +196,33 @@ Classical.choice
 Quot.sound
 ```
 
+## Combined Certificate Step
+
+The fixed-lambda certificate module combines support and coefficients:
+
+```text
+SourcePrimePowerSupportSkeletonAtLambda(W,f,g,lambda)
+SourcePrimePowerTermNormalization(W,f,g)
+  -> SourcePrimePowerSupportAtLambda(W,f,g,lambda)
+  -> ExactSupportAtLambda(W,f,g,lambda)
+  -> FinitePrimeVisibilityAtLambdaStatement(W,f,g,lambda)
+```
+
 The module was checked in a WSL ext4 verification copy with:
 
 ```text
-lake build ConnesWeilRH.Source.CCM25Concrete.PrimePowerSupport
+lake build ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate
 lake build ConnesWeilRH.Source.CCM25Concrete
 lake build ConnesWeilRH
 ```
 
-The two prime-power support rows:
+The new rows:
 
 ```text
-exact_support_of_source_prime_power_support
-visibility_at_lambda_of_source_prime_power_support
+source_prime_power_support_of_skeleton
+source_prime_power_support_of_certificate
+exact_support_of_certificate
+visibility_at_lambda_of_certificate
 ```
 
 also printed only:
@@ -208,3 +232,7 @@ propext
 Classical.choice
 Quot.sound
 ```
+
+This step still does not prove the CCM25 source formulas. It proves only that
+the two source-facing obligations, once supplied, are sufficient for fixed
+`lambda` finite-prime visibility.

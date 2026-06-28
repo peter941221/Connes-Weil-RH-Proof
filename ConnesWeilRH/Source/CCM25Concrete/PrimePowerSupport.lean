@@ -27,6 +27,32 @@ namespace PrimePowerSupport
 def SourceLambdaCut (lambda : ℝ) (n : ℕ) : Prop :=
   1 < n ∧ (n : ℝ) ≤ lambda ^ 2
 
+structure SourcePrimePowerSupportSkeletonAtLambda
+    (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ) where
+  oneLtLambda : 1 < lambda
+  sourcePrimePowerIndex : ℕ → Prop
+  sourceAtomVisible : ℕ → TestFunction → Prop
+  visibleIff :
+    ∀ n : ℕ,
+      W.finitePrimeAtomVisible n (W.convolutionStar f g) ↔
+        sourcePrimePowerIndex n ∧
+          sourceAtomVisible n (W.convolutionStar f g)
+  globalExact :
+    ∀ n : ℕ,
+      n ∈ W.globalPrimeIndexSet ↔
+        sourcePrimePowerIndex n ∧
+          sourceAtomVisible n (W.convolutionStar f g)
+  restrictedExact :
+    ∀ n : ℕ,
+      n ∈ W.restrictedPrimeIndexSet lambda ↔
+        sourcePrimePowerIndex n ∧
+          sourceAtomVisible n (W.convolutionStar f g) ∧
+            SourceLambdaCut lambda n
+  visibleAtomsInLambdaCut :
+    ∀ n : ℕ,
+      W.finitePrimeAtomVisible n (W.convolutionStar f g) →
+        SourceLambdaCut lambda n
+
 structure SourcePrimePowerSupportAtLambda
     (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ) where
   oneLtLambda : 1 < lambda
@@ -54,6 +80,20 @@ structure SourcePrimePowerSupportAtLambda
         SourceLambdaCut lambda n
   termNormalization :
     WeilFormSymbols.FinitePrimeTermNormalizationStatement W f g
+
+def source_prime_power_support_of_skeleton
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (hS : SourcePrimePowerSupportSkeletonAtLambda W f g lambda)
+    (hT : WeilFormSymbols.FinitePrimeTermNormalizationStatement W f g) :
+    SourcePrimePowerSupportAtLambda W f g lambda where
+  oneLtLambda := hS.oneLtLambda
+  sourcePrimePowerIndex := hS.sourcePrimePowerIndex
+  sourceAtomVisible := hS.sourceAtomVisible
+  visibleIff := hS.visibleIff
+  globalExact := hS.globalExact
+  restrictedExact := hS.restrictedExact
+  visibleAtomsInLambdaCut := hS.visibleAtomsInLambdaCut
+  termNormalization := hT
 
 def exact_support_of_source_prime_power_support
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}

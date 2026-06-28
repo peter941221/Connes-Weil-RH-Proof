@@ -44,6 +44,7 @@ target that remains open.
 | `ConnesWeilRH.Source.CCM25Concrete.FinitePrimeExact` | fixed-`lambda` exact-support certificate implies fixed-window coverage | no |
 | `ConnesWeilRH.Source.CCM25Concrete.PrimePowerSupport` | source prime-power support record with the concrete lambda cut `1 < n` and `(n : Real) <= lambda^2` | no |
 | `ConnesWeilRH.Source.CCM25Concrete.PrimePowerTerm` | pointwise local atom normalization before any finite-prime sum | no |
+| `ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate` | combines fixed-`lambda` support skeleton with pointwise term normalization | no |
 
 ## Logic Gap Made Visible
 
@@ -145,6 +146,16 @@ This still does not prove the source support theorem from CCM25. It prevents
 the next pass from using arbitrary predicates in place of the source
 prime-power support and numeric lambda cut.
 
+The module now separates the non-term support data as:
+
+```text
+SourcePrimePowerSupportSkeletonAtLambda(W,f,g,lambda)
+```
+
+This skeleton deliberately has no pointwise coefficient theorem. It prevents a
+future proof from treating correct support as if it also proved the local
+finite-prime atom normalization.
+
 ## Pointwise Term Guard
 
 `ConnesWeilRH.Source.CCM25Concrete.PrimePowerTerm` isolates the local finite
@@ -158,3 +169,26 @@ The module deliberately keeps the negative sign out of the local atom. The sign
 belongs to the surrounding `Psi` or `QW_lambda` formula. This blocks a common
 failure mode where the sign is absorbed locally and then subtracted again in
 the finite-prime sum.
+
+## Combined Fixed-Lambda Certificate
+
+`ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate` combines the two
+obligations in the safe order:
+
+```text
+SourcePrimePowerSupportSkeletonAtLambda(W,f,g,lambda)
+SourcePrimePowerTermNormalization(W,f,g)
+  -> SourcePrimePowerSupportAtLambda(W,f,g,lambda)
+  -> ExactSupportAtLambda(W,f,g,lambda)
+  -> FinitePrimeVisibilityAtLambdaStatement(W,f,g,lambda)
+```
+
+This is still only a fixed-`lambda` certificate. It does not prove the broad
+current source interface:
+
+```text
+forall lambda, restricted finite-prime visibility at lambda
+```
+
+That broader quantifier still requires a separate support-containment and
+fixed-test lambda-choice argument.
