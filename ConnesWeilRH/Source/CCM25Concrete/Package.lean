@@ -208,6 +208,13 @@ theorem restricted_finite_prime_sum_of_package_components
   FormulaComponents.restricted_finite_prime_sum_of_formula_components
     (formula_components h)
 
+theorem restricted_index_set_eq_global_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    W.restrictedPrimeIndexSet lambda = W.globalPrimeIndexSet :=
+  FinitePrimeCertificate.restricted_index_set_eq_global_of_arithmetic_certificate
+    (formula_components h).commonCertificate
+
 theorem restricted_von_mangoldt_pairing_sum_of_package_components
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda) :

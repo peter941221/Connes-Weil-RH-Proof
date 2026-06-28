@@ -86,6 +86,22 @@ theorem visibility_at_lambda_of_exact_support
     restricted_coverage_of_exact_support h,
     term_normalization_of_exact_support h⟩
 
+theorem restricted_index_set_eq_global_of_exact_support
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : ExactSupportAtLambda W f g lambda) :
+    W.restrictedPrimeIndexSet lambda = W.globalPrimeIndexSet := by
+  apply Finset.ext
+  intro n
+  constructor
+  · intro hn
+    let hsource := (h.restrictedExact n).1 hn
+    exact (h.globalExact n).2 ⟨hsource.1, hsource.2.1⟩
+  · intro hn
+    let hsource := (h.globalExact n).1 hn
+    let hvisible := (h.sourceVisibleIff n).2 hsource
+    exact (h.restrictedExact n).2
+      ⟨hsource.1, hsource.2, h.visibleAtomsInLambdaCut n hvisible⟩
+
 end FinitePrimeExact
 end CCM25Concrete
 end Source

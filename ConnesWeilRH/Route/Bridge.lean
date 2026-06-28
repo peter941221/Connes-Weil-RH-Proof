@@ -118,6 +118,18 @@ theorem package_backed_restricted_finite_prime_sum
         pkg :=
   h.2.2.2.2.2.2.1
 
+theorem package_backed_restricted_index_set_eq_global
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (_h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    let W := inputs.ccm25.weilSymbols
+    W.restrictedPrimeIndexSet lambda = W.globalPrimeIndexSet :=
+  Source.CCM25Concrete.Package.restricted_index_set_eq_global_of_package
+    pkg
+
 theorem package_backed_psi_source_evaluator
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ}
@@ -318,6 +330,7 @@ def PackageFinitePrimeSupportStabilization
       (∀ n : ℕ,
         W.finitePrimeAtomVisible n (W.convolutionStar g.weilTest g.weilTest) →
           Source.CCM25Concrete.PrimePowerSupport.SourceLambdaCut lambda n) ∧
+        W.restrictedPrimeIndexSet lambda = W.globalPrimeIndexSet ∧
         (∑ n ∈ W.globalPrimeIndexSet,
           W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
           Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
@@ -444,6 +457,10 @@ theorem package_finite_prime_support_stabilization
   constructor
   · intro n hn
     exact exactSupport.visibleAtomsInLambdaCut n hn
+  constructor
+  · exact
+      Source.CCM25Concrete.Package.restricted_index_set_eq_global_of_package
+        pkg
   constructor
   · exact
       Source.CCM25Concrete.Package.global_finite_prime_sum_of_package_components
@@ -718,6 +735,69 @@ theorem package_read_off_of_qw_lambda_restriction
     PackageBackedCCM25WeilFormReadOff inputs g lambda pkg :=
   h.choose.restrictedDefinition.2
 
+def RestrictedToFullNoSpectralConvergenceImport
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ) (F_g : TestFunction)
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) : Prop :=
+  SourceCommonTestTupleContract inputs g lambda F_g pkg ∧
+    SourceWindowControlsRestrictedRoute inputs g lambda ∧
+      SourceQWLambdaIsRestrictionOfQW inputs g lambda pkg ∧
+        RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg ∧
+          SourceArchimedeanPoleStabilityForRestriction inputs g lambda pkg
+
+structure RestrictedToFullQWScalarRestrictionWitness
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ) (F_g : TestFunction)
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) where
+  commonTuple :
+    SourceCommonTestTupleContract inputs g lambda F_g pkg
+  sourceWindowControlsRestrictedRoute :
+    SourceWindowControlsRestrictedRoute inputs g lambda
+  restrictedFormIsRestriction :
+    SourceQWLambdaIsRestrictionOfQW inputs g lambda pkg
+  finitePrimeSupportStabilizes :
+    RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg
+  exactFinitePrimeSupport :
+    PackageExactFinitePrimeSupportAtLambda inputs g lambda pkg
+  archimedeanPoleStability :
+    SourceArchimedeanPoleStabilityForRestriction inputs g lambda pkg
+  noSpectralConvergenceImport :
+    RestrictedToFullNoSpectralConvergenceImport
+      inputs g lambda F_g pkg
+  scalarEquality :
+    inputs.ccm25.weilSymbols.qwLambda lambda g.weilTest g.weilTest =
+      inputs.ccm25.weilSymbols.qw g.weilTest g.weilTest
+
+theorem no_spectral_convergence_import_of_scalar_witness
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullQWScalarRestrictionWitness
+        inputs g lambda F_g pkg) :
+    RestrictedToFullNoSpectralConvergenceImport
+      inputs g lambda F_g pkg :=
+  h.noSpectralConvergenceImport
+
+theorem scalar_equality_of_scalar_witness
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullQWScalarRestrictionWitness
+        inputs g lambda F_g pkg) :
+    inputs.ccm25.weilSymbols.qwLambda lambda g.weilTest g.weilTest =
+      inputs.ccm25.weilSymbols.qw g.weilTest g.weilTest :=
+  h.scalarEquality
+
 structure RestrictedToFullQWLargeLambdaThreshold
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (F_g : TestFunction) where
@@ -740,6 +820,15 @@ structure RestrictedToFullQWLargeLambdaThreshold
             inputs.ccm25.weilSymbols g.weilTest lambda,
           SourceCommonTestTupleContract inputs g lambda F_g pkg →
             PrimePowerAtomStabilizationAtLarge inputs g lambda pkg
+  scalarRestrictionAtLarge :
+    ∀ lambda : ℝ,
+      lambda0 ≤ lambda →
+        ∀ pkg :
+          Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+            inputs.ccm25.weilSymbols g.weilTest lambda,
+          SourceCommonTestTupleContract inputs g lambda F_g pkg →
+            RestrictedToFullQWScalarRestrictionWitness
+              inputs g lambda F_g pkg
 
 def RestrictedToFullQWLambdaThreshold
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -829,6 +918,12 @@ structure RestrictedToFullQWScalarRestrictionData
     SourceQWLambdaIsRestrictionOfQW inputs g lambda pkg
   exactFinitePrimeSupport :
     PackageExactFinitePrimeSupportAtLambda inputs g lambda pkg
+  scalarRestrictionWitness :
+    RestrictedToFullQWScalarRestrictionWitness
+      inputs g lambda F_g pkg
+  scalarEquality :
+    inputs.ccm25.weilSymbols.qwLambda lambda g.weilTest g.weilTest =
+      inputs.ccm25.weilSymbols.qw g.weilTest g.weilTest
 
 def RestrictedToFullQWScalarRestrictionEquality
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -845,17 +940,15 @@ theorem restricted_to_full_scalar_restriction_data_of_common_tuple
     {pkg :
       Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
         inputs.ccm25.weilSymbols g.weilTest lambda}
-    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg)
-    (hstabilization :
-      RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg) :
+    (hwitness :
+      RestrictedToFullQWScalarRestrictionWitness
+        inputs g lambda F_g pkg) :
     RestrictedToFullQWScalarRestrictionData inputs g lambda F_g pkg where
-  commonTuple := hcommon
-  restrictionRows :=
-    source_qw_lambda_is_restriction_of_common_tuple hcommon hstabilization
-  exactFinitePrimeSupport :=
-    exact_finite_prime_support_of_qw_lambda_restriction
-      (source_qw_lambda_is_restriction_of_common_tuple
-        hcommon hstabilization)
+  commonTuple := hwitness.commonTuple
+  restrictionRows := hwitness.restrictedFormIsRestriction
+  exactFinitePrimeSupport := hwitness.exactFinitePrimeSupport
+  scalarRestrictionWitness := hwitness
+  scalarEquality := hwitness.scalarEquality
 
 theorem restricted_to_full_scalar_restriction_of_common_tuple
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -863,13 +956,13 @@ theorem restricted_to_full_scalar_restriction_of_common_tuple
     {pkg :
       Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
         inputs.ccm25.weilSymbols g.weilTest lambda}
-    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg)
-    (hstabilization :
-      RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg) :
+    (hwitness :
+      RestrictedToFullQWScalarRestrictionWitness
+        inputs g lambda F_g pkg) :
     RestrictedToFullQWScalarRestrictionEquality
       inputs g lambda F_g pkg :=
   ⟨restricted_to_full_scalar_restriction_data_of_common_tuple
-    hcommon hstabilization, True.intro⟩
+    hwitness, True.intro⟩
 
 theorem restriction_rows_of_scalar_restriction
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -907,6 +1000,46 @@ theorem exact_finite_prime_support_of_scalar_restriction
     PackageExactFinitePrimeSupportAtLambda inputs g lambda pkg :=
   h.choose.exactFinitePrimeSupport
 
+theorem scalar_equality_of_scalar_restriction
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullQWScalarRestrictionEquality
+        inputs g lambda F_g pkg) :
+    inputs.ccm25.weilSymbols.qwLambda lambda g.weilTest g.weilTest =
+      inputs.ccm25.weilSymbols.qw g.weilTest g.weilTest :=
+  h.choose.scalarEquality
+
+theorem scalar_witness_of_scalar_restriction
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullQWScalarRestrictionEquality
+        inputs g lambda F_g pkg) :
+    RestrictedToFullQWScalarRestrictionWitness
+      inputs g lambda F_g pkg :=
+  h.choose.scalarRestrictionWitness
+
+theorem no_spectral_convergence_import_of_scalar_restriction
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullQWScalarRestrictionEquality
+        inputs g lambda F_g pkg) :
+    RestrictedToFullNoSpectralConvergenceImport
+      inputs g lambda F_g pkg :=
+  no_spectral_convergence_import_of_scalar_witness
+    (scalar_witness_of_scalar_restriction h)
+
 def RestrictedToFullQWLowerBoundEvidence
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (lambda : ℝ) (L : RouteLedgers) : Prop :=
@@ -940,15 +1073,15 @@ theorem restricted_to_full_lower_bound_transfer_of_common_tuple
     {pkg :
       Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
         inputs.ccm25.weilSymbols g.weilTest lambda}
-    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg)
-    (hstabilization :
-      RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg)
+    (hwitness :
+      RestrictedToFullQWScalarRestrictionWitness
+        inputs g lambda F_g pkg)
     (hevidence :
       RestrictedToFullQWLowerBoundEvidence inputs g lambda L) :
     RestrictedToFullQWLowerBoundTransfer inputs g lambda F_g L pkg :=
   restricted_to_full_lower_bound_transfer_of_parts
     (restricted_to_full_scalar_restriction_of_common_tuple
-      hcommon hstabilization)
+      hwitness)
     hevidence
 
 structure RestrictedToFullQWBridgeData
@@ -963,6 +1096,8 @@ structure RestrictedToFullQWBridgeData
     largeLambdaThreshold.lambda0 ≤ lambda
   currentThresholdData :
     RestrictedToFullCurrentThresholdData inputs g lambda F_g pkg
+  scalarRestrictionWitness :
+    RestrictedToFullQWScalarRestrictionWitness inputs g lambda F_g pkg
   scalarRestrictionEquality :
     RestrictedToFullQWScalarRestrictionEquality inputs g lambda F_g pkg
   exactFinitePrimeSupport :
@@ -987,15 +1122,15 @@ def restricted_to_full_bridge_data_of_common_tuple
   currentThresholdData :=
     current_threshold_data_of_large_lambda_threshold
       threshold habove hcommon
+  scalarRestrictionWitness :=
+    threshold.scalarRestrictionAtLarge lambda habove pkg hcommon
   scalarRestrictionEquality :=
-    restricted_to_full_scalar_restriction_of_common_tuple hcommon
-      (current_threshold_data_of_large_lambda_threshold
-        threshold habove hcommon).finitePrimeStabilization
+    restricted_to_full_scalar_restriction_of_common_tuple
+      (threshold.scalarRestrictionAtLarge lambda habove pkg hcommon)
   exactFinitePrimeSupport :=
     exact_finite_prime_support_of_scalar_restriction
-      (restricted_to_full_scalar_restriction_of_common_tuple hcommon
-        (current_threshold_data_of_large_lambda_threshold
-          threshold habove hcommon).finitePrimeStabilization)
+      (restricted_to_full_scalar_restriction_of_common_tuple
+        (threshold.scalarRestrictionAtLarge lambda habove pkg hcommon))
   lowerBoundEvidence := hevidence
 
 def RestrictedToFullQWBridgeContract

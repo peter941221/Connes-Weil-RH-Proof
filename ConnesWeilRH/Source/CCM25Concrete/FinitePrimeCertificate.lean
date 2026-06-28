@@ -397,6 +397,20 @@ theorem visibility_at_lambda_of_certificate
   FinitePrimeExact.visibility_at_lambda_of_exact_support
     (exact_support_of_certificate h)
 
+theorem restricted_index_set_eq_global_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeCertificate W f g lambda) :
+    W.restrictedPrimeIndexSet lambda = W.globalPrimeIndexSet :=
+  FinitePrimeExact.restricted_index_set_eq_global_of_exact_support
+    (exact_support_of_certificate h)
+
+theorem restricted_index_set_eq_global_of_arithmetic_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda) :
+    W.restrictedPrimeIndexSet lambda = W.globalPrimeIndexSet :=
+  FinitePrimeExact.restricted_index_set_eq_global_of_exact_support
+    (exact_support_of_arithmetic_certificate h)
+
 end FinitePrimeCertificate
 end CCM25Concrete
 end Source
