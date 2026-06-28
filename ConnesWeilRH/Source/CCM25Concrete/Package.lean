@@ -215,6 +215,19 @@ theorem restricted_index_set_eq_global_of_package
   FinitePrimeCertificate.restricted_index_set_eq_global_of_arithmetic_certificate
     (formula_components h).commonCertificate
 
+theorem source_restricted_finite_prime_evaluator_sum_eq_global
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    source_restricted_finite_prime_evaluator_sum h =
+      source_global_finite_prime_evaluator_sum h := by
+  rw [source_restricted_sum_uses_global_atoms_of_package h,
+    source_global_sum_uses_restricted_atoms_of_package h]
+  dsimp [
+    PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum,
+    PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum]
+  rw [restricted_index_set_eq_global_of_package h]
+  rw [global_restricted_atoms_eq_of_package h]
+
 theorem restricted_von_mangoldt_pairing_sum_of_package_components
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda) :
