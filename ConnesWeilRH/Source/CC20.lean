@@ -93,6 +93,16 @@ theorem finite_vanishing_source_rh
   SourceFiniteVanishingCriterionPackage.criterion_source_output
     (sourceFiniteVanishingRhExit cc20) input htriple hpositive
 
+theorem finite_vanishing_source_rh_of_c1_input_data
+    (cc20 : CC20Interface)
+    (input : WeilPositivityInput)
+    (hdata :
+      CC20PropositionC1InputData
+        (sourceFiniteVanishingRhExit cc20).finiteVanishingSet input) :
+    cc20.rhDefinitionBridge.SourceRH :=
+  SourceFiniteVanishingCriterionPackage.criterion_source_output_of_c1_input_data
+    (sourceFiniteVanishingRhExit cc20) input hdata
+
 theorem finite_vanishing_mathlib_rh_point
     (cc20 : CC20Interface)
     (input : WeilPositivityInput)

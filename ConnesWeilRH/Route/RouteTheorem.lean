@@ -235,10 +235,10 @@ theorem cc20_source_rh_of_route_certificate
       cert.sourceBackedTest cert.ledgers cert.bridge :=
     route_backed_cc20_exit_input_data_of_route_bridge_certificate
       cert.bridge
-  exact Source.CC20Interface.finite_vanishing_source_rh inputs.cc20
+  exact Source.CC20Interface.finite_vanishing_source_rh_of_c1_input_data
+    inputs.cc20
     exitInput.input
-    exitInput.tripleVanishing
-    exitInput.fullWeilPositivity
+    exitInput.propositionC1InputData
 
 theorem final_connes_weil_rh
     {inputs : RouteInputs} (cert : RouteCertificate inputs) :
