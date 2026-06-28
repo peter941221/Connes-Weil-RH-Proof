@@ -26,6 +26,15 @@ and remaining certification status.
 The route remains source-conditional until an external referee, accepted proof,
 or Lean theorem accepts the packet rows.
 
+The review control files are:
+
+```text
+docs/audits/accepted-source-referee-decision-form.md
+docs/audits/accepted-source-certification-status-board.md
+```
+
+They define the accepted-source verdict process and track packet decisions.
+
 ## Packet Coverage Matrix
 
 | row group | packet | certification status |
@@ -85,6 +94,7 @@ route notation match without object bridge
 | blocker | affected packets |
 |---|---|
 | no external referee acceptance yet | all packets |
+| no accepted-source decision form has been completed yet | all packets |
 | S2-B1 divergent bulk must be ruled out term by term | trace-scale source-term ledger |
 | fixed-S transport and endpoint-strip `Cdef` classification need external acceptance | sign/defect packet |
 | finite-prime support stabilization must be accepted for the same fixed test | CCM25 packet and restricted-to-full packet |
@@ -96,6 +106,7 @@ route notation match without object bridge
 | question | answer |
 |---|---|
 | Does every source-facing row now have an accepted-source review packet? | yes |
+| Does every packet now have a status-board row? | yes |
 | Has any row become accepted-source by this audit? | no |
 | Is the route still source-conditional? | yes |
 | Did this pass touch Lean? | no |

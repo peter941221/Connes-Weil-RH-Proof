@@ -105,6 +105,8 @@ Current files:
 | `source-import-legitimacy-audit.md` | hard-blocker audit classifying CCM24, CCM25, and CC20 inputs as import candidates, project packages, or non-importable claims |
 | `accepted-source-theorem-upgrade-ledger.md` | row-level accepted-source upgrade ledger; states theorem candidates, source anchors, current evidence, and blockers for CCM24, CCM25, CC20, sign/defect, restricted-to-full, final sign, and RH definition rows |
 | `accepted-source-packet-completion-audit.md` | completion audit for accepted-source packet coverage; records that every source-facing row has a packet while external certification remains open |
+| `accepted-source-referee-decision-form.md` | reusable decision form for external referee, independent proof, or Lean theorem review of one accepted-source packet |
+| `accepted-source-certification-status-board.md` | status board tracking each accepted-source packet from packet-written state to accepted-source decision |
 | `ccm24-source-interface-accepted-source-packet.md` | CCM24 source-interface accepted-source packet; states checks for fixed-S model, support/window, bounded comparison, Sonin comparison, and no automatic post-`Q` transport |
 | `ccm25-source-interface-accepted-source-packet.md` | CCM25 source-interface accepted-source packet; states checks for `QW`, `Psi`, `QW_lambda`, finite-prime atoms, pole normalization, and no-spectral boundary |
 | `cc20-trace-source-interface-accepted-source-packet.md` | CC20 trace source-interface accepted-source packet; states checks for support-square trace, trace-class legality, cyclicity, Mellin convention, and local signs |

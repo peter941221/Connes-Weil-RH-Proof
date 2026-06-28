@@ -95,6 +95,12 @@ The accepted-source theorem upgrade ledger is
 The accepted-source packet completion audit is
 `docs/audits/accepted-source-packet-completion-audit.md`.
 
+The accepted-source referee decision form is
+`docs/audits/accepted-source-referee-decision-form.md`.
+
+The accepted-source certification status board is
+`docs/audits/accepted-source-certification-status-board.md`.
+
 The CCM24 source-interface accepted-source packet is
 `docs/audits/ccm24-source-interface-accepted-source-packet.md`.
 
@@ -197,6 +203,17 @@ docs/audits/accepted-source-packet-completion-audit.md
 It records that every source-facing row now has a review packet. It also records
 that no row has yet become accepted-source by external referee, accepted proof,
 or Lean theorem.
+
+The review control files are:
+
+```text
+docs/audits/accepted-source-referee-decision-form.md
+docs/audits/accepted-source-certification-status-board.md
+```
+
+They define the allowed verdicts and track each packet from "packet written" to
+"accepted-source". The current board has all packets written and no accepted
+decisions recorded.
 
 The three base source-interface packets are:
 
@@ -745,6 +762,8 @@ docs/
     accepted-source-certification-audit.md
     accepted-source-theorem-upgrade-ledger.md
     accepted-source-packet-completion-audit.md
+    accepted-source-referee-decision-form.md
+    accepted-source-certification-status-board.md
     ccm24-source-interface-accepted-source-packet.md
     ccm25-source-interface-accepted-source-packet.md
     cc20-trace-source-interface-accepted-source-packet.md
