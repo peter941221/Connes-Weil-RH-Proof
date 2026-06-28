@@ -269,6 +269,38 @@ theorem criterion_source_output_uses_c1_input_data
           h.finiteSetAdmissibleData htriple hpositive) := by
   rfl
 
+theorem criterion_mathlib_rh_point_of_c1_input_data
+    {B : RHDefinitionBridge}
+    (h : SourceFiniteVanishingCriterionPackage B)
+    (input : WeilPositivityInput)
+    (hdata : CC20PropositionC1InputData h.finiteVanishingSet input)
+    (s : ℂ)
+    (hzero : riemannZeta s = 0)
+    (hnotNegEven : ¬∃ n : ℕ, s = -2 * (n + 1))
+    (hpole : s ≠ 1) :
+    s.re = 1 / 2 :=
+  RHDefinitionBridge.mathlib_rh_point_of_source_rh B
+    (criterion_source_output_of_c1_input_data h input hdata)
+    s hzero hnotNegEven hpole
+
+theorem criterion_mathlib_rh_statement_of_c1_input_data
+    {B : RHDefinitionBridge}
+    (h : SourceFiniteVanishingCriterionPackage B)
+    (input : WeilPositivityInput)
+    (hdata : CC20PropositionC1InputData h.finiteVanishingSet input) :
+    RHDefinitionBridge.MathlibRHStatement :=
+  RHDefinitionBridge.source_rh_to_mathlib_rh_statement B
+    (criterion_source_output_of_c1_input_data h input hdata)
+
+theorem criterion_to_mathlib_rh_of_c1_input_data
+    {B : RHDefinitionBridge}
+    (h : SourceFiniteVanishingCriterionPackage B)
+    (input : WeilPositivityInput)
+    (hdata : CC20PropositionC1InputData h.finiteVanishingSet input) :
+    _root_.RiemannHypothesis :=
+  RHDefinitionBridge.mathlib_rh_statement_iff_mathlib.1
+    (criterion_mathlib_rh_statement_of_c1_input_data h input hdata)
+
 theorem criterion_mathlib_rh_point
     {B : RHDefinitionBridge}
     (h : SourceFiniteVanishingCriterionPackage B)
@@ -280,8 +312,9 @@ theorem criterion_mathlib_rh_point
     (hnotNegEven : ¬∃ n : ℕ, s = -2 * (n + 1))
     (hpole : s ≠ 1) :
     s.re = 1 / 2 :=
-  RHDefinitionBridge.mathlib_rh_point_of_source_rh B
-    (criterion_source_output h input htriple hpositive)
+  criterion_mathlib_rh_point_of_c1_input_data h input
+    (cc20_proposition_c1_input_data
+      h.finiteSetAdmissibleData htriple hpositive)
     s hzero hnotNegEven hpole
 
 theorem criterion_mathlib_rh_statement
@@ -291,8 +324,9 @@ theorem criterion_mathlib_rh_statement
     (htriple : input.tripleVanishing)
     (hpositive : input.fullWeilPositivity) :
     RHDefinitionBridge.MathlibRHStatement :=
-  RHDefinitionBridge.source_rh_to_mathlib_rh_statement B
-    (criterion_source_output h input htriple hpositive)
+  criterion_mathlib_rh_statement_of_c1_input_data h input
+    (cc20_proposition_c1_input_data
+      h.finiteSetAdmissibleData htriple hpositive)
 
 theorem criterion_to_mathlib_rh
     {B : RHDefinitionBridge}
@@ -301,8 +335,9 @@ theorem criterion_to_mathlib_rh
     (htriple : input.tripleVanishing)
     (hpositive : input.fullWeilPositivity) :
     _root_.RiemannHypothesis :=
-  RHDefinitionBridge.mathlib_rh_statement_iff_mathlib.1
-    (criterion_mathlib_rh_statement h input htriple hpositive)
+  criterion_to_mathlib_rh_of_c1_input_data h input
+    (cc20_proposition_c1_input_data
+      h.finiteSetAdmissibleData htriple hpositive)
 
 theorem standard_criterion_to_mathlib_rh
     (h : SourceFiniteVanishingCriterionPackage RHDefinitionBridge.standard)

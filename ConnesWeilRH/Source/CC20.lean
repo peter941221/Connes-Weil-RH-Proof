@@ -103,6 +103,21 @@ theorem finite_vanishing_source_rh_of_c1_input_data
   SourceFiniteVanishingCriterionPackage.criterion_source_output_of_c1_input_data
     (sourceFiniteVanishingRhExit cc20) input hdata
 
+theorem finite_vanishing_mathlib_rh_point_of_c1_input_data
+    (cc20 : CC20Interface)
+    (input : WeilPositivityInput)
+    (hdata :
+      CC20PropositionC1InputData
+        (sourceFiniteVanishingRhExit cc20).finiteVanishingSet input)
+    (s : ℂ)
+    (hzero : riemannZeta s = 0)
+    (hnotNegEven : ¬∃ n : ℕ, s = -2 * (n + 1))
+    (hpole : s ≠ 1) :
+    s.re = 1 / 2 :=
+  SourceFiniteVanishingCriterionPackage.criterion_mathlib_rh_point_of_c1_input_data
+    (sourceFiniteVanishingRhExit cc20) input hdata
+    s hzero hnotNegEven hpole
+
 theorem finite_vanishing_mathlib_rh_point
     (cc20 : CC20Interface)
     (input : WeilPositivityInput)
@@ -117,6 +132,16 @@ theorem finite_vanishing_mathlib_rh_point
     (sourceFiniteVanishingRhExit cc20) input htriple hpositive
     s hzero hnotNegEven hpole
 
+theorem finite_vanishing_mathlib_rh_statement_of_c1_input_data
+    (cc20 : CC20Interface)
+    (input : WeilPositivityInput)
+    (hdata :
+      CC20PropositionC1InputData
+        (sourceFiniteVanishingRhExit cc20).finiteVanishingSet input) :
+    RHDefinitionBridge.MathlibRHStatement :=
+  SourceFiniteVanishingCriterionPackage.criterion_mathlib_rh_statement_of_c1_input_data
+    (sourceFiniteVanishingRhExit cc20) input hdata
+
 theorem finite_vanishing_mathlib_rh_statement
     (cc20 : CC20Interface)
     (input : WeilPositivityInput)
@@ -126,15 +151,24 @@ theorem finite_vanishing_mathlib_rh_statement
   SourceFiniteVanishingCriterionPackage.criterion_mathlib_rh_statement
     (sourceFiniteVanishingRhExit cc20) input htriple hpositive
 
+theorem finite_vanishing_mathlib_rh_of_c1_input_data
+    (cc20 : CC20Interface)
+    (input : WeilPositivityInput)
+    (hdata :
+      CC20PropositionC1InputData
+        (sourceFiniteVanishingRhExit cc20).finiteVanishingSet input) :
+    _root_.RiemannHypothesis :=
+  SourceFiniteVanishingCriterionPackage.criterion_to_mathlib_rh_of_c1_input_data
+    (sourceFiniteVanishingRhExit cc20) input hdata
+
 theorem finite_vanishing_mathlib_rh
     (cc20 : CC20Interface)
     (input : WeilPositivityInput)
     (htriple : input.tripleVanishing)
     (hpositive : input.fullWeilPositivity) :
-    _root_.RiemannHypothesis := by
-  intro s hzero hnotNegEven hpole
-  exact finite_vanishing_mathlib_rh_point
-    cc20 input htriple hpositive s hzero hnotNegEven hpole
+    _root_.RiemannHypothesis :=
+  SourceFiniteVanishingCriterionPackage.criterion_to_mathlib_rh
+    (sourceFiniteVanishingRhExit cc20) input htriple hpositive
 
 end CC20Interface
 
