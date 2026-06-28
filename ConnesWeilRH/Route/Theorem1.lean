@@ -265,6 +265,76 @@ theorem ccm25_pole_normalization_read_off
     CCM25PoleNormalizationReadOff inputs g :=
   inputs.ccm25.poleNormalization g.weilTest
 
+theorem ccm25_qw_definition_read_off_of_package
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) :
+    CCM25QWDefinitionReadOff inputs g :=
+  Source.CCM25Concrete.Package.qw_definition_of_package_components pkg
+
+theorem ccm25_psi_sign_read_off_of_package
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) :
+    CCM25PsiSignReadOff inputs g :=
+  Source.CCM25Concrete.Package.psi_sign_of_package_components pkg
+
+theorem ccm25_full_qw_read_off_of_package
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) :
+    CCM25FullQWReadOff inputs g :=
+  ⟨ccm25_qw_definition_read_off_of_package pkg,
+    ccm25_psi_sign_read_off_of_package pkg⟩
+
+theorem ccm25_qw_lambda_formula_read_off_of_package
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) :
+    CCM25QWLambdaFormulaReadOff inputs g lambda :=
+  Source.CCM25Concrete.Package.qw_lambda_formula_of_package_components pkg
+
+theorem ccm25_pole_normalization_read_off_of_package
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) :
+    CCM25PoleNormalizationReadOff inputs g :=
+  Source.CCM25Concrete.Package.pole_normalization_of_package_interface
+    pkg g.weilTest
+
+theorem ccm25_restricted_qw_read_off_of_package
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda)
+    (hwindow : WindowLambdaCompatibility inputs g lambda) :
+    CCM25RestrictedQWReadOff inputs g lambda :=
+  ⟨hwindow,
+    ccm25_qw_lambda_formula_read_off_of_package pkg,
+    ccm25_pole_normalization_read_off_of_package pkg⟩
+
+theorem ccm25_weil_form_read_off_of_package
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda)
+    (hwindow : WindowLambdaCompatibility inputs g lambda) :
+    CCM25WeilFormReadOff inputs g lambda :=
+  ⟨ccm25_full_qw_read_off_of_package pkg,
+    ccm25_restricted_qw_read_off_of_package pkg hwindow⟩
+
 theorem ccm25_restricted_qw_read_off
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} (hlambda : 1 < lambda) :
@@ -285,37 +355,23 @@ theorem ccm25_weil_form_read_off_of_source_trace_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     (h : SourceTraceReadOffData inputs g) :
     CCM25WeilFormReadOff inputs g h.lambda :=
-  ⟨⟨
-      Source.CCM25Concrete.Package.qw_definition_of_package_components
-        h.ccm25ArithmeticPackage,
-      Source.CCM25Concrete.Package.psi_sign_of_package_components
-        h.ccm25ArithmeticPackage⟩,
-    ⟨⟨h.oneLtLambda, window_support_containment_of_source_backed g h.oneLtLambda,
-        lambda_compatible_of_source_backed g h.oneLtLambda⟩,
-      Source.CCM25Concrete.Package.qw_lambda_formula_of_package_components
-        h.ccm25ArithmeticPackage,
-      Source.CCM25Concrete.Package.pole_normalization_of_package_interface
-        h.ccm25ArithmeticPackage g.weilTest⟩⟩
+  ccm25_weil_form_read_off_of_package h.ccm25ArithmeticPackage
+    ⟨h.oneLtLambda, window_support_containment_of_source_backed g h.oneLtLambda,
+      lambda_compatible_of_source_backed g h.oneLtLambda⟩
 
 theorem ccm25_full_qw_read_off_of_source_trace_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     (h : SourceTraceReadOffData inputs g) :
     CCM25FullQWReadOff inputs g :=
-  ⟨Source.CCM25Concrete.Package.qw_definition_of_package_components
-      h.ccm25ArithmeticPackage,
-    Source.CCM25Concrete.Package.psi_sign_of_package_components
-      h.ccm25ArithmeticPackage⟩
+  ccm25_full_qw_read_off_of_package h.ccm25ArithmeticPackage
 
 theorem ccm25_restricted_qw_read_off_of_source_trace_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     (h : SourceTraceReadOffData inputs g) :
     CCM25RestrictedQWReadOff inputs g h.lambda :=
-  ⟨⟨h.oneLtLambda, window_support_containment_of_source_backed g h.oneLtLambda,
-      lambda_compatible_of_source_backed g h.oneLtLambda⟩,
-    Source.CCM25Concrete.Package.qw_lambda_formula_of_package_components
-      h.ccm25ArithmeticPackage,
-    Source.CCM25Concrete.Package.pole_normalization_of_package_interface
-      h.ccm25ArithmeticPackage g.weilTest⟩
+  ccm25_restricted_qw_read_off_of_package h.ccm25ArithmeticPackage
+    ⟨h.oneLtLambda, window_support_containment_of_source_backed g h.oneLtLambda,
+      lambda_compatible_of_source_backed g h.oneLtLambda⟩
 
 theorem full_trace_read_off_of_source_trace_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
