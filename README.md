@@ -41,16 +41,19 @@ QW_lambda(g,g) = QW(g,g)
 
 for the same fixed source test once the support lies in the restricted interval.
 
-The hard mathematical question for reviewers is narrow:
+The hard mathematical questions for reviewers are narrow:
 
 ```text
-Does the project correctly identify every positive-trace defect as either a
-killed rank/pole ledger or endpoint-strip Cdef, with no hidden fourth positive
-defect?
+1. Does the ordinary positive trace have the same scalar normalization and
+   lambda-scale as the CCM QW_lambda read-off plus named ledgers and Cdef?
+
+2. Does the project correctly identify every positive-trace defect as either a
+   killed rank/pole ledger or endpoint-strip Cdef, with no hidden fourth
+   positive defect?
 ```
 
-If yes, the route has a credible source-conditional path. If no, the route
-fails at the positive-trace-to-Weil read-off.
+If both answers are yes, the route has a credible source-conditional path. If
+either answer is no, the route fails at the positive-trace-to-Weil read-off.
 
 ## Primary Sources
 
@@ -503,6 +506,7 @@ External review should return a row-by-row verdict.
 
 | row | reviewer question | local status |
 |---|---|---|
+| Trace-scale compatibility | Does the ordinary positive trace have the same scalar normalization and lambda-asymptotic scale as `QW_lambda + ledgers + Cdef`, with no missing divergent bulk or hidden finite-part subtraction? | open blocker audit |
 | CCM24 fixed-S model | Do the CCM24 source hypotheses give the exact `V_S`, support window, Fourier window, bounded comparison, and Sonin comparison used here? | proof-package coverage |
 | CCM25 Weil objects | Do `QW`, `Psi`, `QW_lambda`, pole terms, finite-prime terms, and signs match the route test object? | proof-package coverage |
 | CC20 trace legality | Do Hilbert-Schmidt, trace-class, cyclicity, Mellin, and sign conventions apply to this transported source object? | proof-package coverage |
@@ -552,6 +556,7 @@ docs/
     pre-lean-completion-audit.md
     accepted-source-certification-audit.md
     source-reread-v0.2.md
+    trace-scale-compatibility-audit.md
     source-import-legitimacy-audit.md
     sign-defect-blocker-audit.md
   manuscripts/
