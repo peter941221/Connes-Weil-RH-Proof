@@ -86,6 +86,9 @@ The source-import legitimacy audit is
 The accepted-source review checklist is
 `docs/audits/accepted-source-certification-audit.md`.
 
+The second external-opinion audit is
+`docs/audits/second-external-opinion-audit.md`.
+
 The local pre-Lean completion gate is
 `docs/audits/pre-lean-completion-audit.md`.
 
@@ -120,6 +123,24 @@ The project should not hide those attacks behind the phrase
 statements. If an imported statement is weaker than the row above, the route
 stops at that row.
 
+## Self-Review After The Second External Opinion
+
+The second external opinion sharpened the same attack surface. It added a
+stronger divergent-bulk model and two spectral-route cautions.
+
+| item | local answer | strongest remaining attack |
+|---|---|---|
+| S2-B1 divergent bulk | The route keeps the B1 no-missing-bulk row as source-critical: `PositiveTrace = QW_lambda + Rank + Pole + CdefRemainder` must hold at one finite-lambda scale. | A referee can locate a source-owned `BulkScaleTerm ~ C log(lambda) ||g||^2` outside `QW_lambda`, rank, pole, and `Cdef`. |
+| S2-B2 spectral pollution | The route does not use finite-dimensional spectral positivity to pass from `QW_lambda` to `QW`; it uses a fixed-test restriction-definition bridge. | A reviewer can point to a route step that imports spectral convergence, determinant convergence, or eigenvalue convergence. |
+| S2-B3 even-sector assumption | The even-sector minimum-eigenvector claim belongs to the CCM25 spectral program and is not an accepted input here. | An accepted-source row can be shown to depend on that even-sector conjecture. |
+| S2-B4 semilocal `S(g)` non-uniformity | The route uses `S(g)` as a fixed-test witness and returns the global scalar `QW(g,g)` for the same `F_g`. | A reviewer can show that CC20 or another route step needs constants uniform in `g`, or that the final scalar remains `S`-local. |
+
+The second-opinion audit is:
+
+```text
+docs/audits/second-external-opinion-audit.md
+```
+
 ## Falsification Tests For Reviewers
 
 A reviewer can reject the route by finding one of these concrete failures:
@@ -128,6 +149,8 @@ A reviewer can reject the route by finding one of these concrete failures:
 |---|---|---|
 | ordinary trace scale | `Tr(A^*A)` contains a lambda-growing bulk term not included in rank, pole, or endpoint-strip `Cdef` | `docs/proofs/trace-scale-compatibility-proof-package.md` |
 | source convention conversion | the no-defect source trace uses a finite-part convention that loses positive-trace nonnegativity | `docs/proofs/trace-scale-compatibility-theorem-contract.md` |
+| spectral shortcut import | `QW_lambda -> QW` uses finite-operator spectra instead of the CCM25 restriction definition plus fixed-test support | `docs/audits/restricted-to-full-qw-source-readiness-audit.md` |
+| even-sector assumption import | a route source row relies on the even-sector minimum-eigenvector conjecture | `docs/audits/source-import-legitimacy-audit.md` |
 | hidden fourth defect | fixed-S semilocal transport creates a cross-term outside the Rows 1-7 classification | `docs/audits/semilocal-fourth-defect-ledger.md` |
 | finite-prime support | a visible prime-power atom of `F_g` is omitted, duplicated, or assigned the wrong `Lambda(n)<g|T(n)g>` term | `docs/proofs/ccm25-finite-prime-normalization-theorem-contract.md` |
 | dynamic `S(g)` | the fixed-S read-off returns an `S`-local scalar rather than global `QW(g,g)` | `docs/audits/s-local-global-quantifier-audit.md` |
@@ -617,6 +640,7 @@ docs/
   audits/
     pre-lean-completion-audit.md
     accepted-source-certification-audit.md
+    second-external-opinion-audit.md
     source-reread-v0.2.md
     trace-scale-compatibility-audit.md
     trace-scale-compatibility-discharge-attempt.md
