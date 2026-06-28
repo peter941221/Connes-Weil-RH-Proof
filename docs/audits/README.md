@@ -78,6 +78,7 @@ Current files:
 | file | role |
 |---|---|
 | `source-reread-v0.2.md` | source-line map for CCM24, CCM25, and CC20 inputs |
+| `pre-lean-completion-audit.md` | local non-Lean completion gate; records that the proof-package matrix is complete while accepted-source, external, and Lean certification remain open |
 | `lean-source-interface-map.md` | Lean source-interface obligations and route bridges |
 | `source-interface-discharge-audit.md` | attack plan for removing the source-conditional boundary by discharging CCM24, CCM25, and CC20 contracts |
 | `source-interface-discharge-completion-audit.md` | completion audit for the mathematics-first source-interface proof-package coverage |
