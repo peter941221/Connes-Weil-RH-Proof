@@ -103,6 +103,8 @@ Current files:
 | `cc20-post-q-series-tail-source-decision-audit.md` | source-import decision audit for `PostQSeriesTailBoundedComparison`; classifies the third Row 3 subcontract as project-proof-required rather than source-import-discharged |
 | `sign-defect-blocker-audit.md` | hard-blocker audit for the positive-trace-to-Weil sign, defect, and `Cdef` discharge gate |
 | `source-import-legitimacy-audit.md` | hard-blocker audit classifying CCM24, CCM25, and CC20 inputs as import candidates, project packages, or non-importable claims |
+| `accepted-source-theorem-upgrade-ledger.md` | row-level accepted-source upgrade ledger; states theorem candidates, source anchors, current evidence, and blockers for CCM24, CCM25, CC20, sign/defect, restricted-to-full, final sign, and RH definition rows |
+| `trace-scale-source-term-ledger.md` | first S2-B1 accepted-source packet; maps possible positive-trace source terms to `QW_lambda`, rank, pole, or endpoint-strip `Cdef` and names the untracked-bulk obstruction |
 | `sonin-prolate-defect-source-readiness-audit.md` | source-readiness audit showing the prolate/Sonin-to-`Cdef` bridge remains a hard blocker |
 | `sonin-prolate-defect-discharge-ledger.md` | row-by-row discharge ledger for the sign/defect bridge, from CC20 source remainder object through fixed-S transport, rank/pole/Cdef classification, and no-hidden-defect equality |
 | `restricted-to-full-qw-source-readiness-audit.md` | source-readiness audit showing fixed-test `QW_lambda=QW` has a CCM25 restriction-definition path after the bridge contract is discharged |

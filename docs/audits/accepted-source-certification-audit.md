@@ -46,6 +46,8 @@ journal proof, Clay proof, or completed Lean proof.
 | `docs/proofs/final-sign-bridge-proof-package.md:21-35` | records the final CCM25-to-CC20 sign bridge as route-evidence only |
 | `docs/proofs/rh-definition-bridge-proof-package.md:22-36` | records the RH definition bridge as route-evidence only |
 | `docs/proofs/source-conditional-rh-route-closure-proof-package.md:333-350` | records the full route composition as closed at route-evidence level, with source-import, Lean, and external certification open |
+| `docs/audits/accepted-source-theorem-upgrade-ledger.md` | states row-level accepted-source theorem candidates, source anchors, current evidence, and upgrade blockers |
+| `docs/audits/trace-scale-source-term-ledger.md` | starts the first S2-B1 accepted-source packet by mapping possible trace-scale source terms to `QW_lambda`, rank, pole, or endpoint-strip `Cdef` |
 
 ## Acceptance Classes
 
@@ -71,6 +73,7 @@ task is to upgrade specific rows to the third class or mark them for Lean.
 | restricted-to-full `QW_lambda=QW` | `restricted-to-full-qw-source-readiness-audit.md:18-21`; `restricted-to-full-qw-source-readiness-audit.md:140-173` | Does the fixed-test bridge follow from the CCM25 restriction definition plus common-test, window, and finite-prime support stabilization, without spectral convergence? |
 | final sign bridge | `final-sign-bridge-proof-package.md:18-35`; `final-sign-bridge-proof-package.md:340-350` | Does `QW(g,g) = - sum_v W_v(F_g)` hold with the displayed signs, so that `QW(g,g) >= 0` becomes the CC20 nonpositivity hypothesis? |
 | CC20 finite-vanishing exit and RH definition bridge | `rh-definition-bridge-proof-package.md:19-36`; `rh-definition-bridge-proof-package.md:305-314` | Does the CC20 source RH conclusion transport to Mathlib's `_root_.RiemannHypothesis` with the same zeta function, zero predicate, exclusions, and critical-line equation? |
+| S2-B1 trace-scale source-term ledger | `trace-scale-source-term-ledger.md` | Does every source-owned scalar in the positive-trace read-off land in `QW_lambda`, rank, pole, or endpoint-strip `Cdef`, with no untracked divergent bulk or hidden finite-part subtraction? |
 
 ## Non-Importable Shortcuts
 

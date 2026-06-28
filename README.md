@@ -89,6 +89,12 @@ The accepted-source review checklist is
 The second external-opinion audit is
 `docs/audits/second-external-opinion-audit.md`.
 
+The accepted-source theorem upgrade ledger is
+`docs/audits/accepted-source-theorem-upgrade-ledger.md`.
+
+The first S2-B1 source-term certification packet is
+`docs/audits/trace-scale-source-term-ledger.md`.
+
 The local pre-Lean completion gate is
 `docs/audits/pre-lean-completion-audit.md`.
 
@@ -140,6 +146,31 @@ The second-opinion audit is:
 ```text
 docs/audits/second-external-opinion-audit.md
 ```
+
+## Accepted-Source Upgrade Work
+
+The next phase is not more route packaging. It is accepted-source theorem
+review.
+
+The row-level ledger is:
+
+```text
+docs/audits/accepted-source-theorem-upgrade-ledger.md
+```
+
+It does not mark any row accepted-source. It states exact theorem candidates,
+source anchors, current evidence, and blockers for external review.
+
+The first certification packet attacks S2-B1:
+
+```text
+docs/audits/trace-scale-source-term-ledger.md
+```
+
+That packet asks a referee to classify each source-owned scalar in the
+positive-trace read-off as `QW_lambda`, rank, pole, or endpoint-strip `Cdef`.
+If a source-owned scalar remains outside those classes, it becomes a new
+`BulkScaleTerm` obstruction and the route stops at the positive-trace read-off.
 
 ## Falsification Tests For Reviewers
 
@@ -640,7 +671,9 @@ docs/
   audits/
     pre-lean-completion-audit.md
     accepted-source-certification-audit.md
+    accepted-source-theorem-upgrade-ledger.md
     second-external-opinion-audit.md
+    trace-scale-source-term-ledger.md
     source-reread-v0.2.md
     trace-scale-compatibility-audit.md
     trace-scale-compatibility-discharge-attempt.md
