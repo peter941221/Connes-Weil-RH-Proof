@@ -32,6 +32,8 @@ Current proof packages:
 | `docs/proofs/cc20-trace-object-normalization-discharge.md` | CC20 trace-object package; replaces symbolic trace fields with source test, trace-ideal, positive trace, no-defect trace, Mellin, and sign bridge targets |
 | `docs/proofs/cc20-analytic-trace-legality-spine-discharge.md` | CC20 analytic trace-legality spine package; fixes the order from operator identity through Hilbert-Schmidt, trace-class, cyclicity, positive trace, support-square trace, no-defect trace, and Weil read-off |
 | `docs/proofs/cc20-analytic-trace-legality-theorem-contract.md` | CC20 trace-legality theorem contract; states the formal/import targets for operator identity, Hilbert-Schmidt, trace-class square, cyclicity ledger, support-square read-off, no-defect read-off, and bounded-comparison transport |
+| `docs/proofs/trace-scale-compatibility-theorem-contract.md` | B1 theorem contract; states same-scalar, same-cutoff, source-convention ledger, no-missing-bulk, and lambda-limit compatibility targets before positive trace can feed `QW_lambda` |
+| `docs/proofs/trace-scale-compatibility-proof-package.md` | B1 route-evidence proof package; closes trace-scale compatibility at project proof-package level while leaving accepted-source, external referee, and Lean certification open |
 | `docs/proofs/cc20-source-remainder-orientation-theorem-contract.md` | CC20 source-remainder orientation contract; fixes `W_infty=L-D`, `W_infty=S-E`, and the post-`Q` remainder target before fixed-S transport |
 | `docs/proofs/cc20-source-remainder-rows1-2-referee-discharge.md` | Rows 1-2 referee-facing source-entry package; fixes the CC20 source obstruction, `Q` image, bulk term, boundary terms, and series tail handed to Row 3 |
 | `docs/proofs/cc20-post-q-remainder-fixed-s-transport-theorem-contract.md` | Row 3 sign/defect contract; states the formal/import target that transports the CC20 `D circ Q` / `E circ Q` bulk and boundary pieces into the same fixed-S CCM24/Sonin/window coordinate before any `Cdef` claim |
@@ -79,7 +81,11 @@ Current files:
 |---|---|
 | `source-reread-v0.2.md` | source-line map for CCM24, CCM25, and CC20 inputs |
 | `pre-lean-completion-audit.md` | local non-Lean completion gate; records that the proof-package matrix is complete while accepted-source, external, and Lean certification remain open |
-| `trace-scale-compatibility-audit.md` | first external-review blocker audit; records that ordinary positive trace, support-square trace, no-defect source trace, and `QW_lambda` still need an explicit same-scale compatibility theorem |
+| `trace-scale-compatibility-audit.md` | first external-review blocker audit; records B1 trace-scale compatibility and points to the route-evidence proof package |
+| `trace-scale-compatibility-discharge-attempt.md` | B1 discharge attempt; records the initial gap and the later project proof-package closure of ordinary-to-source convention ledger and no-missing-bulk theorem |
+| `sonin-projection-repair-rejection-audit.md` | B2 audit; rejects replacing the current positive trace by a Sonin-projection trace unless a new same-scale compatibility theorem is proved |
+| `semilocal-fourth-defect-ledger.md` | B3 ledger; classifies possible semilocal cross-term hiding places through Rows 1-7 and closes the fourth-defect risk at project proof-package level |
+| `s-local-global-quantifier-audit.md` | B4 audit; checks that dynamic `S(g)` is only a fixed-test witness and that the route returns global `QW(g,g)` and the CC20 forall-g Weil inequality |
 | `lean-source-interface-map.md` | Lean source-interface obligations and route bridges |
 | `source-interface-discharge-audit.md` | attack plan for removing the source-conditional boundary by discharging CCM24, CCM25, and CC20 contracts |
 | `source-interface-discharge-completion-audit.md` | completion audit for the mathematics-first source-interface proof-package coverage |

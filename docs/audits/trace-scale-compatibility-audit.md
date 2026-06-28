@@ -5,7 +5,7 @@ Date: 2026-06-28
 Status:
 
 ```text
-blocker: open
+B1 project proof-package coverage: closed
 Lean status: not started
 public proof status: not upgraded
 ```
@@ -36,7 +36,8 @@ the same scale.
 
 ## Current Judgment
 
-The current repository does not yet discharge trace-scale compatibility.
+The current repository now discharges trace-scale compatibility at project
+proof-package level.
 
 The route has documents for trace legality and for the positive-trace read-off.
 Those documents name the right chain:
@@ -58,9 +59,10 @@ ordinary positive trace grows with lambda
 finite-part or no-defect read-off stays bounded after ledger killing
 ```
 
-The audit does not prove that this mismatch occurs. It records that the current
-proof packages have not ruled it out with an accepted source theorem, a
-referee-certified argument, or a Lean theorem.
+The proof package does not give accepted-source, referee, or Lean
+certification. It records a route-evidence answer: within the current fixed-S
+calculus, every term outside `QW_lambda` is named as rank, pole, or
+endpoint-strip `Cdef`.
 
 ## Evidence From The Repository
 
@@ -141,6 +143,24 @@ The theorem must also record one of the following lambda-scale outcomes:
 Without one of these outcomes, the route cannot use nonnegativity of
 `PositiveTrace` to conclude `QW(g,g) >= 0`.
 
+The theorem target is now stated in:
+
+```text
+docs/proofs/trace-scale-compatibility-theorem-contract.md
+```
+
+The project proof package is:
+
+```text
+docs/proofs/trace-scale-compatibility-proof-package.md
+```
+
+The first discharge attempt is recorded in:
+
+```text
+docs/audits/trace-scale-compatibility-discharge-attempt.md
+```
+
 ## Next Attack
 
 The next mathematical step should be narrow:
@@ -158,7 +178,5 @@ no-defect source trace convention
 CCM25 QW_lambda scalar read-off
 ```
 
-The next pass should add a theorem contract first, then try to discharge the
-contract from the existing trace-legality and sign/defect packages. If the
-contract cannot be discharged, the route should keep B1 marked as an open
-external obstruction before working on the semilocal fourth-defect issue.
+The next pass should attack B2, the Sonin-projection repair direction, then B3,
+the semilocal fourth-defect issue.

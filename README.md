@@ -187,6 +187,12 @@ S contains every finite prime visible to F_g.
 This keeps the positive trace, the restricted Weil form, and the endpoint-strip
 exhaustion on the same test object.
 
+The finite set `S` may depend on the fixed test `g`. The route uses it only as
+an auxiliary witness for that fixed test. After the restricted-to-full bridge,
+the output is the global scalar `QW(g,g)`, and the final sign bridge gives the
+CC20 global Weil sum for the same `F_g`. The route does not use a uniform
+finite `S` or constants uniform over all tests.
+
 Relevant files:
 
 ```text
@@ -194,6 +200,7 @@ docs/proofs/source-test-convolution-compatibility.md
 docs/proofs/source-object-definition-spine-discharge.md
 docs/proofs/source-common-test-tuple-theorem-contract.md
 docs/audits/source-object-theorem-discharge-ledger.md
+docs/audits/s-local-global-quantifier-audit.md
 ```
 
 ## Step 1: Fixed-S Model
@@ -267,6 +274,8 @@ Relevant files:
 docs/proofs/cc20-trace-legality-mellin-discharge.md
 docs/proofs/cc20-analytic-trace-legality-spine-discharge.md
 docs/proofs/cc20-analytic-trace-legality-theorem-contract.md
+docs/proofs/trace-scale-compatibility-theorem-contract.md
+docs/proofs/trace-scale-compatibility-proof-package.md
 ```
 
 ## Step 3: Positive Trace Read-Off
@@ -496,6 +505,7 @@ These claims must not enter the route as accepted theorem inputs.
 |---|---|
 | CCM25 finite-operator spectral convergence to zeta zeros | fixed-test scalar `QW_lambda(g,g)=QW(g,g)` through the CCM25 restriction definition |
 | determinant convergence toward Xi | not used in the route theorem |
+| replacing the positive trace by `S_lambda theta_S(g)` | rejected repair path unless a new trace-scale compatibility theorem proves positivity, same-scale read-off, and nontrivial limit |
 | automatic harmless Sonin/prolate defect | Rows 1-7 sign/defect proof chain |
 | automatic CCM24 transport for post-`Q` derivative, boundary, and tail terms | Row 3 split into bulk graph transfer, boundary functional transfer, and series-tail bounded comparison |
 | source-paper statement ending in "RH" equals Mathlib RH by name | RH definition bridge through zeta equality, zero transport, exclusions, and `s.re=1/2` |
@@ -506,7 +516,10 @@ External review should return a row-by-row verdict.
 
 | row | reviewer question | local status |
 |---|---|---|
-| Trace-scale compatibility | Does the ordinary positive trace have the same scalar normalization and lambda-asymptotic scale as `QW_lambda + ledgers + Cdef`, with no missing divergent bulk or hidden finite-part subtraction? | open blocker audit |
+| Trace-scale compatibility | Does the ordinary positive trace have the same scalar normalization and lambda-asymptotic scale as `QW_lambda + ledgers + Cdef`, with no missing divergent bulk or hidden finite-part subtraction? | project proof-package coverage |
+| Sonin-projection repair path | Does the route avoid replacing the positive trace by a trivializing Sonin-projection scalar? | rejected repair path |
+| Semilocal fourth-defect ledger | Does the route classify possible semilocal cross-terms as source post-`Q`, fixed-S transport, rank, pole, or endpoint-strip `Cdef` terms? | project proof-package coverage |
+| S-local to global quantifier | Does the proof return a global `QW(g,g)` and CC20 Weil inequality for arbitrary `g` even though the auxiliary finite set `S(g)` depends on the fixed test? | route-evidence bridge |
 | CCM24 fixed-S model | Do the CCM24 source hypotheses give the exact `V_S`, support window, Fourier window, bounded comparison, and Sonin comparison used here? | proof-package coverage |
 | CCM25 Weil objects | Do `QW`, `Psi`, `QW_lambda`, pole terms, finite-prime terms, and signs match the route test object? | proof-package coverage |
 | CC20 trace legality | Do Hilbert-Schmidt, trace-class, cyclicity, Mellin, and sign conventions apply to this transported source object? | proof-package coverage |
@@ -557,6 +570,10 @@ docs/
     accepted-source-certification-audit.md
     source-reread-v0.2.md
     trace-scale-compatibility-audit.md
+    trace-scale-compatibility-discharge-attempt.md
+    sonin-projection-repair-rejection-audit.md
+    semilocal-fourth-defect-ledger.md
+    s-local-global-quantifier-audit.md
     source-import-legitimacy-audit.md
     sign-defect-blocker-audit.md
   manuscripts/
