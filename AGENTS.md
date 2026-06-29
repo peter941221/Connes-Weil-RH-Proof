@@ -705,6 +705,13 @@ drift, hidden axioms, or toy-route leakage.
   normalized seed. The next target is a source comparison theorem or named
   equality fields proving the existing package's trace functions and gates
   match the normalized seed definitions.
+- Goal 4J now has the existing-package comparison interface
+  `CC20TracePackageNormalizedSeedComparison`. It compares an arbitrary existing
+  `CC20TraceObjectPackage` with a normalized-seed-constructed package through
+  named equality fields for support-square trace, source no-defect trace,
+  positive trace, and Hilbert-Schmidt gate. This still does not prove those
+  equalities. The first proof target is `supportSquareTrace_eq` for a concrete
+  existing CC20 package.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport

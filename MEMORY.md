@@ -1,5 +1,29 @@
 2026-06-29
 
+- Continued Goal 4J by adding an existing-package comparison interface.
+- Updated `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.
+- Added `normalizedSeedTraceObjectArchimedeanSymbols` to avoid fragile
+  projection chains when comparing a normalized-seed-constructed package with
+  an existing package.
+- Added `CC20TracePackageNormalizedSeedComparison`, a data-bearing record that
+  compares an arbitrary existing `CC20TraceObjectPackage` against a
+  normalized-seed-constructed package.
+- The comparison record currently names fields for support-square trace, source
+  no-defect trace, positive trace, and Hilbert-Schmidt gate equality.
+- Added projections:
+  `CC20TracePackageNormalizedSeedComparison.constructedIdentification`,
+  `constructed_support_square_trace_identification`, and
+  `existing_support_square_trace_identification`.
+- Updated the ignored local plan and root `AGENTS.md` with the boundary:
+  this records the comparison fields but does not prove them from source
+  definitions. The first concrete proof target is `supportSquareTrace_eq` for an
+  actual existing CC20 package.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.CC20Concrete.TraceScale
+  ConnesWeilRH.Source.CC20Concrete ConnesWeilRH`.
+
+2026-06-29
+
 - Continued Goal 4J by adding a source-backed normalized CC20 trace package
   constructor.
 - Updated `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.

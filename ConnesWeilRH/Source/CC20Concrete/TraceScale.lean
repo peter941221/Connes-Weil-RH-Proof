@@ -781,6 +781,81 @@ theorem normalized_seed_trace_object_support_square_identification
   CC20TracePackageNormalizedSeedIdentification.supportSquareTrace_eq
     (normalizedSeedIdentificationForTraceObjectPackage A remainders)
 
+def normalizedSeedTraceObjectArchimedeanSymbols
+    (A : NormalizedLegalSquareTraceScaleSymbols)
+    (remainders : CC20TracePackageRemainderData A) :
+    ArchimedeanTraceSymbols :=
+  (normalizedSeedTraceObjectPackage A remainders).archimedeanSymbols
+
+/--
+Comparison data from an existing CC20 trace package to a package built from the
+normalized trace-scale seed.
+
+This is the bridge target for existing source packages: each equality can be
+proved independently before claiming the package is represented by the
+normalized seed.
+-/
+structure CC20TracePackageNormalizedSeedComparison
+    (pkg : SourceObject.CC20TraceObjectPackage) where
+  normalizedSeed : NormalizedLegalSquareTraceScaleSymbols
+  remainders : CC20TracePackageRemainderData normalizedSeed
+  test_eq :
+    HEq (normalizedSeedTraceObjectPackage normalizedSeed remainders)
+      pkg
+  supportSquareTrace_eq :
+    HEq
+      (ArchimedeanTraceSymbols.supportSquareTrace
+        (normalizedSeedTraceObjectArchimedeanSymbols normalizedSeed remainders))
+      pkg.archimedeanSymbols.supportSquareTrace
+  sourceNoDefectTrace_eq :
+    HEq
+      (ArchimedeanTraceSymbols.sourceNoDefectTrace
+        (normalizedSeedTraceObjectArchimedeanSymbols normalizedSeed remainders))
+      pkg.archimedeanSymbols.sourceNoDefectTrace
+  positiveTrace_eq :
+    HEq
+      (ArchimedeanTraceSymbols.positiveTrace
+        (normalizedSeedTraceObjectArchimedeanSymbols normalizedSeed remainders))
+      pkg.archimedeanSymbols.positiveTrace
+  hilbertSchmidtGate_eq :
+    HEq
+      (ArchimedeanTraceSymbols.hilbertSchmidtGate
+        (normalizedSeedTraceObjectArchimedeanSymbols normalizedSeed remainders))
+      pkg.archimedeanSymbols.hilbertSchmidtGate
+
+namespace CC20TracePackageNormalizedSeedComparison
+
+def constructedIdentification
+    {pkg : SourceObject.CC20TraceObjectPackage}
+    (h : CC20TracePackageNormalizedSeedComparison pkg) :
+    CC20TracePackageNormalizedSeedIdentification
+      (normalizedSeedTraceObjectPackage h.normalizedSeed h.remainders) :=
+  normalizedSeedIdentificationForTraceObjectPackage
+    h.normalizedSeed h.remainders
+
+theorem constructed_support_square_trace_identification
+    {pkg : SourceObject.CC20TraceObjectPackage}
+    (h : CC20TracePackageNormalizedSeedComparison pkg) :
+    HEq
+      (normalizedSeedSupportSquareTrace h.normalizedSeed)
+      (ArchimedeanTraceSymbols.supportSquareTrace
+        (normalizedSeedTraceObjectArchimedeanSymbols
+          h.normalizedSeed h.remainders)) :=
+  normalized_seed_trace_object_support_square_identification
+    h.normalizedSeed h.remainders
+
+theorem existing_support_square_trace_identification
+    {pkg : SourceObject.CC20TraceObjectPackage}
+    (h : CC20TracePackageNormalizedSeedComparison pkg) :
+    HEq
+      (ArchimedeanTraceSymbols.supportSquareTrace
+        (normalizedSeedTraceObjectArchimedeanSymbols
+          h.normalizedSeed h.remainders))
+      pkg.archimedeanSymbols.supportSquareTrace :=
+  h.supportSquareTrace_eq
+
+end CC20TracePackageNormalizedSeedComparison
+
 end TraceScale
 end CC20Concrete
 end Source
