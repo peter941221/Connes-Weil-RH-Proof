@@ -712,6 +712,13 @@ drift, hidden axioms, or toy-route leakage.
   positive trace, and Hilbert-Schmidt gate. This still does not prove those
   equalities. The first proof target is `supportSquareTrace_eq` for a concrete
   existing CC20 package.
+- Goal 4J comparison-surface staging is complete for the current trace-scale
+  fields: `forNormalizedSeedTraceObjectPackage` fills the comparison by
+  reflexivity for normalized-seed-constructed packages, and named projections
+  now exist for support-square trace, source no-defect trace, positive trace,
+  and Hilbert-Schmidt gate. This still does not prove comparison for an
+  existing manuscript/source package. The next target remains proving
+  `supportSquareTrace_eq` for an existing `CC20TraceObjectPackage`.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport
