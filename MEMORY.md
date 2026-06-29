@@ -1,5 +1,29 @@
 2026-06-30
 
+- Continued Goal 4J by narrowing the normalized restricted trace equality
+  dependency in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- Added `TraceFrontEndData.NormalizedSupportSquareQWLambdaSourceComparison`.
+  This target asks for the CC20 support-square trace to match the concrete
+  CCM25 package evaluator expression attached to the same normalized
+  `SourceTraceReadOffData`.
+- Added
+  `TraceFrontEndData.normalized_restricted_trace_equality_of_source_comparison`,
+  which derives `RestrictedTraceReadOffEquality` from that comparison and
+  `Source.CCM25Concrete.Package.qw_lambda_formula_source_evaluator_of_package_components`.
+- Added `TraceFrontEndData.normalizedRestrictedTraceSourceOfSourceComparison`
+  plus projection checks preserving the package-backed restricted `QW_lambda`
+  read-off and direct equality.
+- Boundary preserved: this does not prove the CC20 support-square trace formula
+  or RH. It replaces the broad `restrictedTraceReadOffBridge.build` dependency
+  with a narrower source-comparison theorem target.
+- Verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`.
+- Axiom audit for the new declarations reported only `[propext,
+  Classical.choice, Quot.sound]`.
+
+2026-06-30
+
 - Continued Goal 4J by adding a normalized restricted equality contract in
   `ConnesWeilRH/Route/TraceFrontEnd.lean`.
 - Added `TraceFrontEndData.NormalizedRestrictedTraceEqualityContract` and
