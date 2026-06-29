@@ -583,6 +583,107 @@ def no_defect_qw_lambda_theorem_data_of_cc20
   noDefectSourceMatchesQWLambdaHolds :=
     h.noDefectSourceMatchesQWLambdaHolds
 
+def no_defect_qw_lambda_theorem_data_of_source_trace_square
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {traceData : TraceFrontEndData pkg fixedFront}
+    (noDefectSourceMatchesQWLambda : Prop)
+    (noDefectSourceMatchesQWLambdaHolds : noDefectSourceMatchesQWLambda) :
+    NoDefectQWLambdaTheoremData pkg fixedFront traceData.lambda
+      traceData.ccm25ArithmeticPackage where
+  supportSquareMatchesNoDefectSource :=
+    CC20NoDefectSourceReadOff
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (traceData.toSourceTraceReadOffData pkg fixedFront).archimedeanTest
+  noDefectSourceMatchesQWLambda := noDefectSourceMatchesQWLambda
+  supportSquareMatchesNoDefectSourceHolds :=
+    (cc20_trace_square_of_source_trace_data
+      (traceData.toSourceTraceReadOffData pkg fixedFront)).noDefectSourceReadOff
+  noDefectSourceMatchesQWLambdaHolds := noDefectSourceMatchesQWLambdaHolds
+
+theorem support_square_no_defect_source_interface_holds
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {traceData : TraceFrontEndData pkg fixedFront}
+    {noDefectSourceMatchesQWLambda : Prop}
+    (noDefectSourceMatchesQWLambdaHolds : noDefectSourceMatchesQWLambda) :
+    (no_defect_qw_lambda_theorem_data_of_source_trace_square
+      (pkg := pkg) (fixedFront := fixedFront) (traceData := traceData)
+      noDefectSourceMatchesQWLambda
+      noDefectSourceMatchesQWLambdaHolds).supportSquareMatchesNoDefectSource :=
+  (no_defect_qw_lambda_theorem_data_of_source_trace_square
+    (pkg := pkg) (fixedFront := fixedFront) (traceData := traceData)
+    noDefectSourceMatchesQWLambda
+    noDefectSourceMatchesQWLambdaHolds).supportSquareMatchesNoDefectSourceHolds
+
+theorem no_defect_qw_lambda_source_trace_square_keeps_qw_lambda_obligation
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {traceData : TraceFrontEndData pkg fixedFront}
+    {noDefectSourceMatchesQWLambda : Prop}
+    (noDefectSourceMatchesQWLambdaHolds : noDefectSourceMatchesQWLambda) :
+    (no_defect_qw_lambda_theorem_data_of_source_trace_square
+      (pkg := pkg) (fixedFront := fixedFront) (traceData := traceData)
+      noDefectSourceMatchesQWLambda
+      noDefectSourceMatchesQWLambdaHolds).noDefectSourceMatchesQWLambda =
+      noDefectSourceMatchesQWLambda :=
+  rfl
+
+def cc20_no_defect_qw_lambda_theorem_data_of_source_interface
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    (traceData : SourceTraceReadOffData inputs g) :
+    CC20NoDefectQWLambdaTheoremData inputs g traceData where
+  traceSquareReadOff := cc20_trace_square_of_source_trace_data traceData
+  restrictedTraceReadOffSource :=
+    restricted_trace_read_off_of_source_trace_data traceData
+  supportSquareMatchesNoDefectSource :=
+    CC20NoDefectSourceReadOff inputs traceData.archimedeanTest
+  noDefectSourceMatchesQWLambda :=
+    inputs.cc20.archimedeanSymbols.sourceNoDefectTrace
+        traceData.archimedeanTest =
+      inputs.ccm25.weilSymbols.qwLambda traceData.lambda g.weilTest
+        g.weilTest
+  supportSquareMatchesNoDefectSourceHolds :=
+    (cc20_trace_square_of_source_trace_data traceData).noDefectSourceReadOff
+  noDefectSourceMatchesQWLambdaHolds :=
+    (cc20_trace_square_of_source_trace_data
+      traceData).noDefectSourceReadOff.symm.trans
+      (restricted_trace_read_off_of_source_trace_data
+        traceData).restrictedTraceReadOffEquality
+  traceSquareMatchesData := rfl
+
+def no_defect_qw_lambda_theorem_data_of_source_interface
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {traceData : TraceFrontEndData pkg fixedFront} :
+    NoDefectQWLambdaTheoremData pkg fixedFront traceData.lambda
+      traceData.ccm25ArithmeticPackage :=
+  no_defect_qw_lambda_theorem_data_of_cc20
+    (cc20_no_defect_qw_lambda_theorem_data_of_source_interface
+      (traceData.toSourceTraceReadOffData pkg fixedFront))
+
+theorem support_square_no_defect_source_interface_full_holds
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {traceData : TraceFrontEndData pkg fixedFront} :
+    (no_defect_qw_lambda_theorem_data_of_source_interface
+      (pkg := pkg) (fixedFront := fixedFront)
+      (traceData := traceData)).supportSquareMatchesNoDefectSource :=
+  (no_defect_qw_lambda_theorem_data_of_source_interface
+    (pkg := pkg) (fixedFront := fixedFront)
+    (traceData := traceData)).supportSquareMatchesNoDefectSourceHolds
+
+theorem no_defect_qw_lambda_source_interface_holds
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {traceData : TraceFrontEndData pkg fixedFront} :
+    (no_defect_qw_lambda_theorem_data_of_source_interface
+      (pkg := pkg) (fixedFront := fixedFront)
+      (traceData := traceData)).noDefectSourceMatchesQWLambda :=
+  (no_defect_qw_lambda_theorem_data_of_source_interface
+    (pkg := pkg) (fixedFront := fixedFront)
+    (traceData := traceData)).noDefectSourceMatchesQWLambdaHolds
+
 theorem no_defect_qw_lambda_constructor_uses_support_square_statement
     {pkg : Source.SourceObject.SourceObjectPackage}
     {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}

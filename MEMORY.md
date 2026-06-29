@@ -1,5 +1,39 @@
 2026-06-29
 
+- Completed Goals 4H and 4I as source-interface scalar replacements.
+- First committed and pushed the previous Goal 4D-G milestone:
+  `56532c6728b54139e240df30332789b6011dfdda`
+  (`Name CC20 ordinary trace support-square row`), with a good local GPG
+  signature and matching `origin/main`.
+- Updated `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- Added `no_defect_qw_lambda_theorem_data_of_source_trace_square`, which fills
+  the support-square trace equals source no-defect trace leg from
+  `cc20_trace_square_of_source_trace_data`.
+- Added read-offs:
+  `support_square_no_defect_source_interface_holds` and
+  `no_defect_qw_lambda_source_trace_square_keeps_qw_lambda_obligation`.
+- Added `cc20_no_defect_qw_lambda_theorem_data_of_source_interface`, which
+  composes the CC20 no-defect read-off with
+  `restricted_trace_read_off_of_source_trace_data` to prove source no-defect
+  trace equals restricted `QW_lambda`.
+- Added package-facing read-offs:
+  `no_defect_qw_lambda_theorem_data_of_source_interface`,
+  `support_square_no_defect_source_interface_full_holds`, and
+  `no_defect_qw_lambda_source_interface_holds`.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` and root
+  `AGENTS.md` to mark Goals 4H/4I complete only at source-interface route
+  composition level.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH`.
+- Boundary preserved: Goals 4H/4I remove free theorem-data fields for the
+  S2-B1 scalar path, but they still depend on source-interface rows. The next
+  proof-bearing targets are replacing `CC20TraceModel.ordinaryTraceSupportSquare`,
+  the CC20 trace-square row, and the restricted trace read-off row with
+  concrete Lean definition theorems or accepted Lean imports.
+
+2026-06-29
+
 - Completed Goal 4G at the named source-interface row level.
 - Inspected `ArchimedeanTraceSymbols`, `CC20TraceObjectPackage`,
   `SourceObjectPackage.provesTraceSquareStatement`, and the CC20 compact

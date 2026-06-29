@@ -633,6 +633,17 @@ drift, hidden axioms, or toy-route leakage.
   source row. Do not revert this to `sourceOrdinaryPositiveTrace : Prop`.
   This row is still source-conditional until filled from concrete CC20
   definitions or an accepted Lean import.
+- Goals 4H and 4I are complete as source-interface scalar replacements:
+  `no_defect_qw_lambda_theorem_data_of_source_trace_square` fills the
+  support-square trace equals source no-defect trace leg from
+  `cc20_trace_square_of_source_trace_data`, and
+  `no_defect_qw_lambda_theorem_data_of_source_interface` composes that leg with
+  `restricted_trace_read_off_of_source_trace_data` to obtain source no-defect
+  trace equals restricted `QW_lambda`. This is still source-conditional route
+  composition, not analytic discharge. The next proof-bearing targets are to
+  replace `CC20TraceModel.ordinaryTraceSupportSquare`, the CC20 trace-square
+  source row, and the restricted trace read-off row with theorems from concrete
+  CC20/CCM25 definitions or accepted Lean imports.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport
