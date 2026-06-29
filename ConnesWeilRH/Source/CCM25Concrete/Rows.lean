@@ -241,12 +241,15 @@ theorem arithmetic_global_index_source_data_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
-    PrimePowerArithmetic.SourcePrimePowerIndex n ∧
-      (source_test_of_arithmetic_rows h f g).sourceAtomVisible n :=
-  ⟨arithmetic_global_index_prime_power_of_arithmetic_rows
-      h f g lambda hlambda hn,
+    PrimePowerSupport.SourceGlobalIndexData
+      PrimePowerArithmetic.SourcePrimePowerIndex
+      (source_test_of_arithmetic_rows h f g).sourceAtomVisible n where
+  primePowerIndex :=
+    arithmetic_global_index_prime_power_of_arithmetic_rows
+      h f g lambda hlambda hn
+  atomVisible :=
     arithmetic_global_index_visible_of_arithmetic_rows
-      h f g lambda hlambda hn⟩
+      h f g lambda hlambda hn
 
 theorem arithmetic_global_index_one_lt_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
@@ -291,15 +294,18 @@ theorem arithmetic_restricted_index_source_data_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
-    PrimePowerArithmetic.SourcePrimePowerIndex n ∧
-      (source_test_of_arithmetic_rows h f g).sourceAtomVisible n ∧
-        PrimePowerSupport.SourceLambdaCut lambda n :=
-  ⟨arithmetic_restricted_index_prime_power_of_arithmetic_rows
-      h f g lambda hlambda hn,
+    PrimePowerSupport.SourceRestrictedIndexData
+      PrimePowerArithmetic.SourcePrimePowerIndex
+      (source_test_of_arithmetic_rows h f g).sourceAtomVisible lambda n where
+  primePowerIndex :=
+    arithmetic_restricted_index_prime_power_of_arithmetic_rows
+      h f g lambda hlambda hn
+  atomVisible :=
     arithmetic_restricted_index_visible_of_arithmetic_rows
-      h f g lambda hlambda hn,
+      h f g lambda hlambda hn
+  lambdaCut :=
     arithmetic_restricted_index_lambda_cut_of_arithmetic_rows
-      h f g lambda hlambda hn⟩
+      h f g lambda hlambda hn
 
 theorem arithmetic_restricted_index_one_lt_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)

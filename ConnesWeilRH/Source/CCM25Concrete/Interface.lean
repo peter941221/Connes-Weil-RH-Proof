@@ -276,7 +276,8 @@ theorem arithmetic_global_index_source_data_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
-    PrimePowerArithmetic.SourcePrimePowerIndex n ∧
+    PrimePowerSupport.SourceGlobalIndexData
+      PrimePowerArithmetic.SourcePrimePowerIndex
       (source_test_of_arithmetic_rows h f g).sourceAtomVisible n :=
   Rows.arithmetic_global_index_source_data_of_arithmetic_rows
     h f g lambda hlambda hn
@@ -323,9 +324,9 @@ theorem arithmetic_restricted_index_source_data_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
-    PrimePowerArithmetic.SourcePrimePowerIndex n ∧
-      (source_test_of_arithmetic_rows h f g).sourceAtomVisible n ∧
-        PrimePowerSupport.SourceLambdaCut lambda n :=
+    PrimePowerSupport.SourceRestrictedIndexData
+      PrimePowerArithmetic.SourcePrimePowerIndex
+      (source_test_of_arithmetic_rows h f g).sourceAtomVisible lambda n :=
   Rows.arithmetic_restricted_index_source_data_of_arithmetic_rows
     h f g lambda hlambda hn
 

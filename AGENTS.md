@@ -186,6 +186,14 @@ drift, hidden axioms, or toy-route leakage.
   normalization. A fixed-`lambda` support skeleton must be paired with a
   pointwise term-normalization theorem before deriving `ExactSupportAtLambda`
   or finite-prime visibility.
+- CCM25 finite-prime support witness data should pass through the named
+  records `SourceVisibleAtomData`, `SourceGlobalIndexData`, and
+  `SourceRestrictedIndexData` from
+  `PrimePowerSupport.lean`. Rows, interfaces, packages, and route bridges
+  should not re-expose this evidence as anonymous
+  `SourcePrimePowerIndex n ∧ atomVisible n` or
+  `SourcePrimePowerIndex n ∧ atomVisible n ∧ SourceLambdaCut lambda n`
+  tuples.
 - CCM25 exact finite-prime support should first be proved at a fixed
   `lambda`. Do not promote fixed-cutoff support coverage to
   `forall lambda` until the lambda quantifier, source support containment, and

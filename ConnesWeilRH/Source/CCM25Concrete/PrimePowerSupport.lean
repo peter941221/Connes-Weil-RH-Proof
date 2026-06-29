@@ -41,6 +41,25 @@ theorem source_lambda_cut_le_lambda_sq
     (n : ℝ) ≤ lambda ^ 2 :=
   h.2
 
+structure SourceGlobalIndexData
+    (sourcePrimePowerIndex : ℕ → Prop)
+    (sourceAtomVisible : ℕ → Prop) (n : ℕ) where
+  primePowerIndex : sourcePrimePowerIndex n
+  atomVisible : sourceAtomVisible n
+
+structure SourceVisibleAtomData
+    (sourcePrimePowerIndex : ℕ → Prop)
+    (sourceAtomVisible : ℕ → Prop) (n : ℕ) where
+  primePowerIndex : sourcePrimePowerIndex n
+  atomVisible : sourceAtomVisible n
+
+structure SourceRestrictedIndexData
+    (sourcePrimePowerIndex : ℕ → Prop)
+    (sourceAtomVisible : ℕ → Prop) (lambda : ℝ) (n : ℕ) where
+  primePowerIndex : sourcePrimePowerIndex n
+  atomVisible : sourceAtomVisible n
+  lambdaCut : SourceLambdaCut lambda n
+
 structure SourcePrimePowerSupportSkeletonAtLambda
     (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ) where
   oneLtLambda : 1 < lambda
@@ -49,19 +68,18 @@ structure SourcePrimePowerSupportSkeletonAtLambda
   visibleIff :
     ∀ n : ℕ,
       W.finitePrimeAtomVisible n (W.convolutionStar f g) ↔
-        sourcePrimePowerIndex n ∧
-          sourceAtomVisible n (W.convolutionStar f g)
+        SourceVisibleAtomData sourcePrimePowerIndex
+          (fun n => sourceAtomVisible n (W.convolutionStar f g)) n
   globalExact :
     ∀ n : ℕ,
       n ∈ W.globalPrimeIndexSet ↔
-        sourcePrimePowerIndex n ∧
-          sourceAtomVisible n (W.convolutionStar f g)
+        SourceGlobalIndexData sourcePrimePowerIndex
+          (fun n => sourceAtomVisible n (W.convolutionStar f g)) n
   restrictedExact :
     ∀ n : ℕ,
       n ∈ W.restrictedPrimeIndexSet lambda ↔
-        sourcePrimePowerIndex n ∧
-          sourceAtomVisible n (W.convolutionStar f g) ∧
-            SourceLambdaCut lambda n
+        SourceRestrictedIndexData sourcePrimePowerIndex
+          (fun n => sourceAtomVisible n (W.convolutionStar f g)) lambda n
   visibleAtomsInLambdaCut :
     ∀ n : ℕ,
       W.finitePrimeAtomVisible n (W.convolutionStar f g) →
@@ -74,19 +92,18 @@ structure SourcePrimePowerArithmeticSupportSkeletonAtLambda
   visibleIff :
     ∀ n : ℕ,
       W.finitePrimeAtomVisible n (W.convolutionStar f g) ↔
-        PrimePowerArithmetic.SourcePrimePowerIndex n ∧
+        SourceVisibleAtomData PrimePowerArithmetic.SourcePrimePowerIndex
           sourceTest.sourceAtomVisible n
   globalExact :
     ∀ n : ℕ,
       n ∈ W.globalPrimeIndexSet ↔
-        PrimePowerArithmetic.SourcePrimePowerIndex n ∧
+        SourceGlobalIndexData PrimePowerArithmetic.SourcePrimePowerIndex
           sourceTest.sourceAtomVisible n
   restrictedExact :
     ∀ n : ℕ,
       n ∈ W.restrictedPrimeIndexSet lambda ↔
-        PrimePowerArithmetic.SourcePrimePowerIndex n ∧
-          sourceTest.sourceAtomVisible n ∧
-            SourceLambdaCut lambda n
+        SourceRestrictedIndexData PrimePowerArithmetic.SourcePrimePowerIndex
+          sourceTest.sourceAtomVisible lambda n
   visibleAtomsInLambdaCut :
     ∀ n : ℕ,
       W.finitePrimeAtomVisible n (W.convolutionStar f g) →
@@ -121,19 +138,18 @@ structure SourcePrimePowerSupportAtLambda
   visibleIff :
     ∀ n : ℕ,
       W.finitePrimeAtomVisible n (W.convolutionStar f g) ↔
-        sourcePrimePowerIndex n ∧
-          sourceAtomVisible n (W.convolutionStar f g)
+        SourceVisibleAtomData sourcePrimePowerIndex
+          (fun n => sourceAtomVisible n (W.convolutionStar f g)) n
   globalExact :
     ∀ n : ℕ,
       n ∈ W.globalPrimeIndexSet ↔
-        sourcePrimePowerIndex n ∧
-          sourceAtomVisible n (W.convolutionStar f g)
+        SourceGlobalIndexData sourcePrimePowerIndex
+          (fun n => sourceAtomVisible n (W.convolutionStar f g)) n
   restrictedExact :
     ∀ n : ℕ,
       n ∈ W.restrictedPrimeIndexSet lambda ↔
-        sourcePrimePowerIndex n ∧
-          sourceAtomVisible n (W.convolutionStar f g) ∧
-            SourceLambdaCut lambda n
+        SourceRestrictedIndexData sourcePrimePowerIndex
+          (fun n => sourceAtomVisible n (W.convolutionStar f g)) lambda n
   visibleAtomsInLambdaCut :
     ∀ n : ℕ,
       W.finitePrimeAtomVisible n (W.convolutionStar f g) →
@@ -163,9 +179,37 @@ def exact_support_of_source_prime_power_support
   sourcePrimePowerIndex := h.sourcePrimePowerIndex
   sourceAtomVisible := fun n => h.sourceAtomVisible n (W.convolutionStar f g)
   sourceInLambdaCut := SourceLambdaCut lambda
-  sourceVisibleIff := h.visibleIff
-  globalExact := h.globalExact
-  restrictedExact := h.restrictedExact
+  sourceVisibleIff := by
+    intro n
+    constructor
+    · intro hn
+      let hdata := (h.visibleIff n).1 hn
+      exact ⟨hdata.primePowerIndex, hdata.atomVisible⟩
+    · intro hn
+      exact (h.visibleIff n).2
+        { primePowerIndex := hn.1
+          atomVisible := hn.2 }
+  globalExact := by
+    intro n
+    constructor
+    · intro hn
+      let hdata := (h.globalExact n).1 hn
+      exact ⟨hdata.primePowerIndex, hdata.atomVisible⟩
+    · intro hn
+      exact (h.globalExact n).2
+        { primePowerIndex := hn.1
+          atomVisible := hn.2 }
+  restrictedExact := by
+    intro n
+    constructor
+    · intro hn
+      let hdata := (h.restrictedExact n).1 hn
+      exact ⟨hdata.primePowerIndex, hdata.atomVisible, hdata.lambdaCut⟩
+    · intro hn
+      exact (h.restrictedExact n).2
+        { primePowerIndex := hn.1
+          atomVisible := hn.2.1
+          lambdaCut := hn.2.2 }
   visibleAtomsInLambdaCut := h.visibleAtomsInLambdaCut
   termNormalization := h.termNormalization
 

@@ -218,10 +218,12 @@ theorem finite_prime_visibility_of_fixed_lambda_certificates
       restrictedPrimeIndexCoverage := ?_
       finitePrimeTermNormalization := ?_ }
   · intro n hn
+    let hvisible :=
+      (FinitePrimeCertificate.visible_iff_of_certificate hcert n).1 hn
     exact FinitePrimeCertificate.global_exact_of_certificate
       hcert n |>.2
-      ((FinitePrimeCertificate.visible_iff_of_certificate
-        hcert n).1 hn)
+      { primePowerIndex := hvisible.primePowerIndex
+        atomVisible := hvisible.atomVisible }
   · intro lambda hlambda
     let hcertLambda := h lambda hlambda
     exact (FinitePrimeCertificate.visibility_at_lambda_of_certificate
@@ -288,11 +290,14 @@ theorem finite_prime_visibility_of_common_source_test_certificates
       restrictedPrimeIndexCoverage := ?_
       finitePrimeTermNormalization := ?_ }
   · intro n hn
+    let hvisible :=
+      (FinitePrimeCertificate.visible_iff_of_certificate
+        (FinitePrimeCertificate.certificate_of_arithmetic_certificate hbase)
+        n).1 hn
     exact FinitePrimeCertificate.global_exact_of_certificate
       (FinitePrimeCertificate.certificate_of_arithmetic_certificate hbase) n |>.2
-      ((FinitePrimeCertificate.visible_iff_of_certificate
-        (FinitePrimeCertificate.certificate_of_arithmetic_certificate hbase)
-        n).1 hn)
+      { primePowerIndex := hvisible.primePowerIndex
+        atomVisible := hvisible.atomVisible }
   · intro lambda hlambda
     let hcert := h.certificate lambda hlambda
     exact (FinitePrimeCertificate.visibility_at_lambda_of_certificate

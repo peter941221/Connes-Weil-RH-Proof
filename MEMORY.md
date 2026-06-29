@@ -1,5 +1,44 @@
 2026-06-29
 
+- Hardened the CCM25 finite-prime support witness path.
+- Added named support witness records in
+  `ConnesWeilRH/Source/CCM25Concrete/PrimePowerSupport.lean`:
+  `SourceVisibleAtomData`, `SourceGlobalIndexData`, and
+  `SourceRestrictedIndexData`, exposing `primePowerIndex`, `atomVisible`,
+  and, on the restricted record, `lambdaCut`.
+- Propagated the records through the prime-power support skeleton/support
+  layer, while keeping the lower `FinitePrimeExact` boundary as explicit
+  conjunctions to avoid a module import cycle.
+- Propagated these records through the CCM25 concrete layers:
+  `FinitePrimeCertificate.lean`, `FinitePrimeInterface.lean`, `Rows.lean`,
+  `Interface.lean`, and `Package.lean`.
+- Updated `ConnesWeilRH/Route/Bridge.lean` so
+  `PackageFinitePrimeSupportStabilization.globalIndexSourceData` and
+  `restrictedIndexSourceData` expose named support witnesses instead of
+  anonymous `A ∧ B` / `A ∧ B ∧ C` tuples.
+- WSL ext4 verification passed:
+  `lake build ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate`,
+  `lake build ConnesWeilRH.Source.CCM25Concrete.Rows
+  ConnesWeilRH.Source.CCM25Concrete.Interface
+  ConnesWeilRH.Source.CCM25Concrete.Package`,
+  `lake build ConnesWeilRH.Route.Bridge
+  ConnesWeilRH.Route.RouteTheorem`, and `lake build ConnesWeilRH`.
+- Axiom audit for the support-to-exact-support conversion, the new
+  certificate/package/route support-witness theorems, and
+  `ConnesWeilRH.Route.final_connes_weil_rh` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Weak loophole scan found no `sorry`, `admit`, `axiom`, `constant`,
+  `opaque`, `unsafe`, `Nonempty`, `.choose`, `choose_spec`, or
+  `exists ... True`. Remaining finite-prime conjunction hits are in the
+  lower `FinitePrimeExact` exact-support mathematical boundary and one
+  package theorem exposing that boundary, not in the support skeleton,
+  certificate, package, or route support-witness exits.
+- Logic boundary preserved: this hardens CCM25 finite-prime support plumbing,
+  but it does not discharge the analytic CC20 trace-to-`QW_lambda`,
+  sign/defect, or accepted-source obligations.
+
+2026-06-29
+
 - Hardened the CCM25 finite-prime visibility interface.
 - `WeilFormSymbols.FinitePrimeVisibilityStatement` is now a named structure
   with `globalPrimeIndexCoverage`, `restrictedPrimeIndexCoverage`, and

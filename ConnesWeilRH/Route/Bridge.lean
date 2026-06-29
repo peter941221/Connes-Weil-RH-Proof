@@ -490,16 +490,17 @@ structure PackageFinitePrimeSupportStabilization
   globalIndexSourceData :
     ∀ n : ℕ,
       n ∈ inputs.ccm25.weilSymbols.globalPrimeIndexSet →
-        Source.CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex n ∧
+        Source.CCM25Concrete.PrimePowerSupport.SourceGlobalIndexData
+          Source.CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex
           (Source.CCM25Concrete.Package.source_test_of_package
             pkg).sourceAtomVisible n
   restrictedIndexSourceData :
     ∀ n : ℕ,
       n ∈ inputs.ccm25.weilSymbols.restrictedPrimeIndexSet lambda →
-        Source.CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex n ∧
+        Source.CCM25Concrete.PrimePowerSupport.SourceRestrictedIndexData
+          Source.CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex
           (Source.CCM25Concrete.Package.source_test_of_package
-            pkg).sourceAtomVisible n ∧
-            Source.CCM25Concrete.PrimePowerSupport.SourceLambdaCut lambda n
+            pkg).sourceAtomVisible lambda n
   visibleAtomsInLambdaCut :
     ∀ n : ℕ,
       inputs.ccm25.weilSymbols.finitePrimeAtomVisible n
@@ -629,20 +630,14 @@ theorem package_finite_prime_support_stabilization
   exact
   { globalIndexSourceData := by
       intro n hn
-      exact ⟨
-      Source.CCM25Concrete.Package.global_index_prime_power_of_package
+      exact
+      Source.CCM25Concrete.Package.common_certificate_global_index_source_data_of_package
         pkg hn,
-      Source.CCM25Concrete.Package.global_index_visible_of_package
-        pkg hn⟩
     restrictedIndexSourceData := by
       intro n hn
-      exact ⟨
-      Source.CCM25Concrete.Package.restricted_index_prime_power_of_package
+      exact
+      Source.CCM25Concrete.Package.common_certificate_restricted_index_source_data_of_package
         pkg hn,
-      Source.CCM25Concrete.Package.restricted_index_visible_of_package
-        pkg hn,
-      Source.CCM25Concrete.Package.restricted_index_lambda_cut_of_package
-        pkg hn⟩
     visibleAtomsInLambdaCut := by
       intro n hn
       exact exactSupport.visibleAtomsInLambdaCut n hn
@@ -673,7 +668,8 @@ theorem global_index_source_data_of_package_stabilization
         inputs.ccm25.weilSymbols g.weilTest lambda}
     (h : PackageFinitePrimeSupportStabilization inputs g lambda pkg)
     {n : ℕ} (hn : n ∈ inputs.ccm25.weilSymbols.globalPrimeIndexSet) :
-    Source.CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex n ∧
+    Source.CCM25Concrete.PrimePowerSupport.SourceGlobalIndexData
+      Source.CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex
       (Source.CCM25Concrete.Package.source_test_of_package
         pkg).sourceAtomVisible n :=
   h.globalIndexSourceData n hn
@@ -687,10 +683,10 @@ theorem restricted_index_source_data_of_package_stabilization
     (h : PackageFinitePrimeSupportStabilization inputs g lambda pkg)
     {n : ℕ}
     (hn : n ∈ inputs.ccm25.weilSymbols.restrictedPrimeIndexSet lambda) :
-    Source.CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex n ∧
+    Source.CCM25Concrete.PrimePowerSupport.SourceRestrictedIndexData
+      Source.CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex
       (Source.CCM25Concrete.Package.source_test_of_package
-        pkg).sourceAtomVisible n ∧
-        Source.CCM25Concrete.PrimePowerSupport.SourceLambdaCut lambda n :=
+        pkg).sourceAtomVisible lambda n :=
   h.restrictedIndexSourceData n hn
 
 theorem visible_atom_lambda_cut_of_package_stabilization

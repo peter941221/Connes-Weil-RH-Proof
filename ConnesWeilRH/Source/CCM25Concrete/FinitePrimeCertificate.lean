@@ -132,23 +132,27 @@ theorem arithmetic_global_index_source_data_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
-    PrimePowerArithmetic.SourcePrimePowerIndex n ∧
-      h.support.sourceTest.sourceAtomVisible n :=
-  (h.support.globalExact n).1 hn
+    PrimePowerSupport.SourceGlobalIndexData
+      PrimePowerArithmetic.SourcePrimePowerIndex
+      h.support.sourceTest.sourceAtomVisible n := by
+  let hdata := (h.support.globalExact n).1 hn
+  exact
+    { primePowerIndex := hdata.primePowerIndex
+      atomVisible := hdata.atomVisible }
 
 theorem arithmetic_global_index_prime_power_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
     PrimePowerArithmetic.SourcePrimePowerIndex n :=
-  (arithmetic_global_index_source_data_of_certificate h hn).1
+  (arithmetic_global_index_source_data_of_certificate h hn).primePowerIndex
 
 theorem arithmetic_global_index_visible_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
     h.support.sourceTest.sourceAtomVisible n :=
-  (arithmetic_global_index_source_data_of_certificate h hn).2
+  (arithmetic_global_index_source_data_of_certificate h hn).atomVisible
 
 theorem arithmetic_global_index_one_lt_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
@@ -162,31 +166,35 @@ theorem arithmetic_restricted_index_source_data_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
-    PrimePowerArithmetic.SourcePrimePowerIndex n ∧
-      h.support.sourceTest.sourceAtomVisible n ∧
-        PrimePowerSupport.SourceLambdaCut lambda n :=
-  (h.support.restrictedExact n).1 hn
+    PrimePowerSupport.SourceRestrictedIndexData
+      PrimePowerArithmetic.SourcePrimePowerIndex
+      h.support.sourceTest.sourceAtomVisible lambda n := by
+  let hdata := (h.support.restrictedExact n).1 hn
+  exact
+    { primePowerIndex := hdata.primePowerIndex
+      atomVisible := hdata.atomVisible
+      lambdaCut := hdata.lambdaCut }
 
 theorem arithmetic_restricted_index_lambda_cut_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     PrimePowerSupport.SourceLambdaCut lambda n :=
-  (arithmetic_restricted_index_source_data_of_certificate h hn).2.2
+  (arithmetic_restricted_index_source_data_of_certificate h hn).lambdaCut
 
 theorem arithmetic_restricted_index_prime_power_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     PrimePowerArithmetic.SourcePrimePowerIndex n :=
-  (arithmetic_restricted_index_source_data_of_certificate h hn).1
+  (arithmetic_restricted_index_source_data_of_certificate h hn).primePowerIndex
 
 theorem arithmetic_restricted_index_visible_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     h.support.sourceTest.sourceAtomVisible n :=
-  (arithmetic_restricted_index_source_data_of_certificate h hn).2.1
+  (arithmetic_restricted_index_source_data_of_certificate h hn).atomVisible
 
 theorem arithmetic_restricted_index_one_lt_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
@@ -358,14 +366,15 @@ structure FixedLambdaFinitePrimeConcreteObject
   globalIndexData :
     ∀ {n : ℕ},
       n ∈ W.globalPrimeIndexSet →
-        PrimePowerArithmetic.SourcePrimePowerIndex n ∧
+        PrimePowerSupport.SourceGlobalIndexData
+          PrimePowerArithmetic.SourcePrimePowerIndex
           sourceTest.sourceAtomVisible n
   restrictedIndexData :
     ∀ {n : ℕ},
       n ∈ W.restrictedPrimeIndexSet lambda →
-        PrimePowerArithmetic.SourcePrimePowerIndex n ∧
-          sourceTest.sourceAtomVisible n ∧
-            PrimePowerSupport.SourceLambdaCut lambda n
+        PrimePowerSupport.SourceRestrictedIndexData
+          PrimePowerArithmetic.SourcePrimePowerIndex
+          sourceTest.sourceAtomVisible lambda n
   weightReadOff :
     ∀ n : ℕ,
       W.vonMangoldtWeight n =
@@ -448,35 +457,35 @@ theorem concrete_object_global_index_prime_power
     (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
     PrimePowerArithmetic.SourcePrimePowerIndex n :=
-  (h.globalIndexData hn).1
+  (h.globalIndexData hn).primePowerIndex
 
 theorem concrete_object_global_index_visible
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
     h.sourceTest.sourceAtomVisible n :=
-  (h.globalIndexData hn).2
+  (h.globalIndexData hn).atomVisible
 
 theorem concrete_object_restricted_index_prime_power
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     PrimePowerArithmetic.SourcePrimePowerIndex n :=
-  (h.restrictedIndexData hn).1
+  (h.restrictedIndexData hn).primePowerIndex
 
 theorem concrete_object_restricted_index_visible
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     h.sourceTest.sourceAtomVisible n :=
-  (h.restrictedIndexData hn).2.1
+  (h.restrictedIndexData hn).atomVisible
 
 theorem concrete_object_restricted_index_lambda_cut
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     PrimePowerSupport.SourceLambdaCut lambda n :=
-  (h.restrictedIndexData hn).2.2
+  (h.restrictedIndexData hn).lambdaCut
 
 theorem one_lt_lambda_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
@@ -489,8 +498,8 @@ theorem visible_iff_of_certificate
     (h : FixedLambdaFinitePrimeCertificate W f g lambda) :
     ∀ n : ℕ,
       W.finitePrimeAtomVisible n (W.convolutionStar f g) ↔
-        h.support.sourcePrimePowerIndex n ∧
-          h.support.sourceAtomVisible n (W.convolutionStar f g) :=
+        PrimePowerSupport.SourceVisibleAtomData h.support.sourcePrimePowerIndex
+          (fun n => h.support.sourceAtomVisible n (W.convolutionStar f g)) n :=
   h.support.visibleIff
 
 theorem global_exact_of_certificate
@@ -498,8 +507,8 @@ theorem global_exact_of_certificate
     (h : FixedLambdaFinitePrimeCertificate W f g lambda) :
     ∀ n : ℕ,
       n ∈ W.globalPrimeIndexSet ↔
-        h.support.sourcePrimePowerIndex n ∧
-          h.support.sourceAtomVisible n (W.convolutionStar f g) :=
+        PrimePowerSupport.SourceGlobalIndexData h.support.sourcePrimePowerIndex
+          (fun n => h.support.sourceAtomVisible n (W.convolutionStar f g)) n :=
   h.support.globalExact
 
 theorem restricted_exact_of_certificate
@@ -507,9 +516,9 @@ theorem restricted_exact_of_certificate
     (h : FixedLambdaFinitePrimeCertificate W f g lambda) :
     ∀ n : ℕ,
       n ∈ W.restrictedPrimeIndexSet lambda ↔
-        h.support.sourcePrimePowerIndex n ∧
-          h.support.sourceAtomVisible n (W.convolutionStar f g) ∧
-            PrimePowerSupport.SourceLambdaCut lambda n :=
+        PrimePowerSupport.SourceRestrictedIndexData h.support.sourcePrimePowerIndex
+          (fun n => h.support.sourceAtomVisible n (W.convolutionStar f g))
+          lambda n :=
   h.support.restrictedExact
 
 theorem visible_atoms_in_lambda_cut_of_certificate
