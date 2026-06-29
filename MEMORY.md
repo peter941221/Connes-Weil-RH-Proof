@@ -1,3 +1,28 @@
+2026-06-30
+
+- Continued Goal 4J by tying the support-square comparison witness to the
+  expanded source-object row package used by the route.
+- Updated `ConnesWeilRH/Source/ObjectExpandedRows.lean`.
+- Imported `ConnesWeilRH.Source.CC20Concrete.TraceScale` and added
+  `SourceObjectExpandedRows.cc20SupportSquareComparison :
+  CC20TracePackageSupportSquareComparison cc20Trace`.
+- Added row-level read-offs:
+  `SourceObjectExpandedRows.cc20_support_square_comparison` and
+  `SourceObjectExpandedRows.cc20_support_square_existing_identification`.
+- Added package-of-data read-offs:
+  `SourceObjectPackageOfData.cc20_support_square_comparison` and
+  `SourceObjectPackageOfData.cc20_support_square_existing_identification`,
+  showing the same witness reaches the `cc20Trace` field of
+  `sourceObjectPackageOfData`.
+- Boundary preserved: this prevents support-square witness drift between
+  expanded rows and the route package path. It still does not prove the
+  witness from analytic CC20 trace definitions.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.ObjectExpandedRows`, followed by
+  `lake build ConnesWeilRH.Route.FixedTestFrontEnd
+  ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`.
+
 2026-06-29
 
 - Continued Goal 4J by splitting the first existing-package comparison target

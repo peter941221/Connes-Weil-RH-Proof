@@ -6,6 +6,7 @@ Authors: ConnesWeilRH contributors
 
 import ConnesWeilRH.Source.Objects
 import ConnesWeilRH.Source.ObjectTheoremBasePackage
+import ConnesWeilRH.Source.CC20Concrete.TraceScale
 
 /-!
 # Source-object expanded row staging
@@ -121,6 +122,8 @@ structure SourceObjectExpandedRows
     (common : SourceObjectCommonData base) where
   ccm24 : SourceObject.CCM24SemilocalObjectPackage
   cc20Trace : SourceObject.CC20TraceObjectPackage
+  cc20SupportSquareComparison :
+    CC20Concrete.TraceScale.CC20TracePackageSupportSquareComparison cc20Trace
 
 namespace SourceObjectExpandedRows
 
@@ -162,6 +165,26 @@ theorem finite_prime_normalization
     WeilFormSymbols.FinitePrimeNormalizationStatement
       (ccm25 _rows).weilSymbols :=
   common.finite_prime_normalization
+
+def cc20_support_square_comparison
+    {base : SourceObjectTheoremBasePackage}
+    {common : SourceObjectCommonData base}
+    (rows : SourceObjectExpandedRows base common) :
+    CC20Concrete.TraceScale.CC20TracePackageSupportSquareComparison
+      rows.cc20Trace :=
+  rows.cc20SupportSquareComparison
+
+theorem cc20_support_square_existing_identification
+    {base : SourceObjectTheoremBasePackage}
+    {common : SourceObjectCommonData base}
+    (rows : SourceObjectExpandedRows base common) :
+    HEq
+      (ArchimedeanTraceSymbols.supportSquareTrace
+        (CC20Concrete.TraceScale.normalizedSeedTraceObjectArchimedeanSymbols
+          rows.cc20SupportSquareComparison.normalizedSeed
+          rows.cc20SupportSquareComparison.remainders))
+      rows.cc20Trace.archimedeanSymbols.supportSquareTrace :=
+  rows.cc20SupportSquareComparison.supportSquareTrace_eq
 
 def toPartialQWFinitePrime
     {base : SourceObjectTheoremBasePackage}
@@ -300,6 +323,33 @@ theorem finite_prime_normalization
     WeilFormSymbols.FinitePrimeNormalizationStatement
       (sourceObjectPackageOfData base common rows rhExit bridges).ccm25.weilSymbols :=
   SourceObjectExpandedRows.finite_prime_normalization rows
+
+def cc20_support_square_comparison
+    {base : SourceObjectTheoremBasePackage}
+    {common : SourceObjectCommonData base}
+    {rows : SourceObjectExpandedRows base common}
+    {rhExit : SourceObject.CC20RHExitObjectPackage}
+    (bridges : SourceObjectCrossObjectBridges base common rows rhExit) :
+    CC20Concrete.TraceScale.CC20TracePackageSupportSquareComparison
+      (sourceObjectPackageOfData base common rows rhExit bridges).cc20Trace :=
+  rows.cc20SupportSquareComparison
+
+theorem cc20_support_square_existing_identification
+    {base : SourceObjectTheoremBasePackage}
+    {common : SourceObjectCommonData base}
+    {rows : SourceObjectExpandedRows base common}
+    {rhExit : SourceObject.CC20RHExitObjectPackage}
+    (bridges : SourceObjectCrossObjectBridges base common rows rhExit) :
+    HEq
+      (ArchimedeanTraceSymbols.supportSquareTrace
+        (CC20Concrete.TraceScale.normalizedSeedTraceObjectArchimedeanSymbols
+          rows.cc20SupportSquareComparison.normalizedSeed
+          rows.cc20SupportSquareComparison.remainders))
+      (ArchimedeanTraceSymbols.supportSquareTrace
+        (SourceObject.CC20TraceObjectPackage.archimedeanSymbols
+          (SourceObject.SourceObjectPackage.cc20Trace
+            (sourceObjectPackageOfData base common rows rhExit bridges)))) :=
+  SourceObjectExpandedRows.cc20_support_square_existing_identification rows
 
 theorem rh_definition_bridge_eq_base
     {base : SourceObjectTheoremBasePackage}

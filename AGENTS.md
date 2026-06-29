@@ -727,6 +727,12 @@ drift, hidden axioms, or toy-route leakage.
   comparison should be built through
   `CC20TracePackageNormalizedSeedComparison.ofSupportSquareComparison` only
   after those remaining comparison fields are supplied.
+- `SourceObjectExpandedRows` must carry the
+  `CC20TracePackageSupportSquareComparison` for its exact `cc20Trace` field.
+  The package-of-data route then exposes this same witness through
+  `SourceObjectPackageOfData.cc20_support_square_comparison`. Do not let Goal
+  4J prove a support-square comparison for a detached CC20 package that is not
+  the one consumed by `sourceObjectPackageOfData`.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport
