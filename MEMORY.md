@@ -1,5 +1,31 @@
 2026-06-29
 
+- Continued Goal 4J by adding a concrete trace-class/cyclicity legal-gate seed.
+- Updated `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.
+- Added `CC20Concrete.TraceScale.LegalSquareTraceScaleSymbols`, where
+  `hilbertSchmidtGate g := traceClass g ∧ cyclicLegal g`.
+- Added `LegalSquareTraceScaleSymbols.trace_class_template_statement`, proving
+  the trace-class/cyclicity template by projecting the legal-gate pair.
+- Added `LegalSquareTraceScaleSymbols.trace_square_statement`, reusing the
+  square-form positivity seed.
+- Added `legalSquareTraceScaleToCC20TraceModel`, which constructs a
+  `CC20TraceModel` without taking positive-trace nonnegativity or
+  trace-class/cyclicity as inputs.
+- Added read-offs:
+  `legal_square_trace_scale_to_cc20_trace_model_trace_square`,
+  `legal_square_trace_scale_to_cc20_trace_model_trace_class_template`, and
+  `legal_square_trace_scale_to_cc20_trace_model_ordinary_trace_support_square`.
+- Updated the ignored local plan and root `AGENTS.md` with the boundary:
+  this proves the template only for the concrete legal-gate seed. It does not
+  prove that the actual CC20 Hilbert-Schmidt gate is this legal gate, and it
+  does not discharge Mellin convention, signs/normalizations, or source
+  identification of the CC20 operator trace.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.CC20Concrete.TraceScale
+  ConnesWeilRH.Source.CC20Concrete ConnesWeilRH`.
+
+2026-06-29
+
 - Continued Goal 4J by adding a square-form positive-trace seed.
 - Updated `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.
 - Added `CC20Concrete.TraceScale.SquareTraceScaleSymbols`, where

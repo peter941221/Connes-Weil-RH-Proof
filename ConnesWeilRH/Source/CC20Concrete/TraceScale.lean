@@ -189,6 +189,68 @@ theorem trace_square_statement
 
 end SquareTraceScaleSymbols
 
+/--
+Square-form trace-scale data whose Hilbert-Schmidt gate is definitionally the
+trace-class/cyclicity pair.
+
+This removes the trace-class/cyclicity template input for this concrete seed.
+-/
+structure LegalSquareTraceScaleSymbols where
+  Test : Type
+  traceAmplitude : Test → ℝ
+  traceClass : Test → Prop
+  cyclicLegal : Test → Prop
+  mellinHalfDensityMatched : Prop
+  uInfinityNormalized : Prop
+  qduNormalized : Prop
+  archimedeanSignNormalized : Prop
+
+namespace LegalSquareTraceScaleSymbols
+
+def hilbertSchmidtGate (A : LegalSquareTraceScaleSymbols) : A.Test → Prop :=
+  fun g => A.traceClass g ∧ A.cyclicLegal g
+
+def toSquareTraceScaleSymbols
+    (A : LegalSquareTraceScaleSymbols) : SquareTraceScaleSymbols where
+  Test := A.Test
+  traceAmplitude := A.traceAmplitude
+  traceClass := A.traceClass
+  cyclicLegal := A.cyclicLegal
+  hilbertSchmidtGate := A.hilbertSchmidtGate
+  mellinHalfDensityMatched := A.mellinHalfDensityMatched
+  uInfinityNormalized := A.uInfinityNormalized
+  qduNormalized := A.qduNormalized
+  archimedeanSignNormalized := A.archimedeanSignNormalized
+
+theorem trace_class_template_statement
+    (A : LegalSquareTraceScaleSymbols) :
+    ConcreteTraceScaleSymbols.TraceClassTemplateStatement
+      A.toSquareTraceScaleSymbols.toConcreteTraceScaleSymbols := by
+  intro g hgate
+  exact hgate
+
+theorem positive_trace_nonnegative_statement
+    (A : LegalSquareTraceScaleSymbols) :
+    ConcreteTraceScaleSymbols.PositiveTraceNonnegativeStatement
+      A.toSquareTraceScaleSymbols.toConcreteTraceScaleSymbols :=
+  A.toSquareTraceScaleSymbols.positive_trace_nonnegative_statement
+
+theorem trace_square_statement
+    (A : LegalSquareTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.TraceSquareStatement
+      (ConcreteTraceScaleSymbols.toArchimedeanTraceSymbols
+        A.toSquareTraceScaleSymbols.toConcreteTraceScaleSymbols) :=
+  A.toSquareTraceScaleSymbols.trace_square_statement
+
+theorem ordinary_trace_support_square_statement
+    (A : LegalSquareTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      (ConcreteTraceScaleSymbols.toArchimedeanTraceSymbols
+        A.toSquareTraceScaleSymbols.toConcreteTraceScaleSymbols) :=
+  A.toSquareTraceScaleSymbols.ordinary_trace_support_square_statement
+
+end LegalSquareTraceScaleSymbols
+
 /-- Constructor for a CC20 trace model from concrete trace-scale data. -/
 def toCC20TraceModel
     (A : ConcreteTraceScaleSymbols)
@@ -271,6 +333,54 @@ theorem square_trace_scale_to_cc20_trace_model_ordinary_trace_support_square
     ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
       (squareTraceScaleToCC20TraceModel
         A htrace hmellin hsigns).archimedeanSymbols :=
+  A.ordinary_trace_support_square_statement
+
+/--
+Constructor for a CC20 trace model from square-form data whose Hilbert-Schmidt
+gate is definitionally the trace-class/cyclicity pair.
+
+Compared with `squareTraceScaleToCC20TraceModel`, this version no longer asks
+for the trace-class/cyclicity template.
+-/
+def legalSquareTraceScaleToCC20TraceModel
+    (A : LegalSquareTraceScaleSymbols)
+    (hmellin : A.mellinHalfDensityMatched)
+    (hsigns :
+      A.uInfinityNormalized ∧ A.qduNormalized ∧
+        A.archimedeanSignNormalized) :
+    CC20TraceModel :=
+  squareTraceScaleToCC20TraceModel A.toSquareTraceScaleSymbols
+    A.trace_class_template_statement hmellin hsigns
+
+theorem legal_square_trace_scale_to_cc20_trace_model_trace_square
+    (A : LegalSquareTraceScaleSymbols)
+    (hmellin : A.mellinHalfDensityMatched)
+    (hsigns :
+      A.uInfinityNormalized ∧ A.qduNormalized ∧
+        A.archimedeanSignNormalized) :
+    ArchimedeanTraceSymbols.TraceSquareStatement
+      (legalSquareTraceScaleToCC20TraceModel A hmellin hsigns).archimedeanSymbols :=
+  A.trace_square_statement
+
+theorem legal_square_trace_scale_to_cc20_trace_model_trace_class_template
+    (A : LegalSquareTraceScaleSymbols)
+    (hmellin : A.mellinHalfDensityMatched)
+    (hsigns :
+      A.uInfinityNormalized ∧ A.qduNormalized ∧
+        A.archimedeanSignNormalized) :
+    ArchimedeanTraceSymbols.TraceClassTemplateStatement
+      (legalSquareTraceScaleToCC20TraceModel A hmellin hsigns).archimedeanSymbols :=
+  A.toSquareTraceScaleSymbols.toConcreteTraceScaleSymbols
+    |>.trace_class_template_statement A.trace_class_template_statement
+
+theorem legal_square_trace_scale_to_cc20_trace_model_ordinary_trace_support_square
+    (A : LegalSquareTraceScaleSymbols)
+    (hmellin : A.mellinHalfDensityMatched)
+    (hsigns :
+      A.uInfinityNormalized ∧ A.qduNormalized ∧
+        A.archimedeanSignNormalized) :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      (legalSquareTraceScaleToCC20TraceModel A hmellin hsigns).archimedeanSymbols :=
   A.ordinary_trace_support_square_statement
 
 end TraceScale

@@ -666,6 +666,16 @@ drift, hidden axioms, or toy-route leakage.
   CC20 target is either a trace-class/cyclicity theorem for a named
   Hilbert-Schmidt gate or a source-identification theorem for the CC20 operator
   trace value.
+- Goal 4J now has a concrete legal-gate seed:
+  `CC20Concrete.TraceScale.LegalSquareTraceScaleSymbols` defines
+  `hilbertSchmidtGate g := traceClass g ∧ cyclicLegal g`, so
+  `trace_class_template_statement` proves the trace-class/cyclicity template by
+  projection. `legalSquareTraceScaleToCC20TraceModel` removes both the
+  positive-trace nonnegativity input and the trace-class/cyclicity input for
+  this seed. Do not treat this as the analytic CC20 Hilbert-Schmidt theorem.
+  The remaining CC20 concrete targets are a source-identification theorem tying
+  the actual CC20 operator trace/gate to this concrete seed, plus Mellin
+  half-density and sign/normalization proofs.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport
