@@ -742,6 +742,15 @@ drift, hidden axioms, or toy-route leakage.
   not from a generic `CC20TraceModel.ordinaryTraceSupportSquare` field, but it
   still does not identify an arbitrary manuscript/source CC20 package with the
   normalized seed.
+- The normalized source-object package also exposes
+  `SourceObjectPackageOfData.normalized_cc20_trace_package_support_square_no_defect`,
+  and the normalized trace front end consumes it through
+  `TraceFrontEndData.noDefectQWLambdaTheoremDataOfNormalizedPackageSupportSquare`.
+  Use this as the preferred support-square/no-defect leg for normalized
+  packages. The remaining S2-B1 scalar target is the CC20-to-CCM25 bridge
+  `sourceNoDefectTrace(traceData.archimedeanTest) = QW_lambda(lambda,g,g)`;
+  that bridge must preserve the same normalized package, fixed test, trace
+  data, `traceData.lambda`, CCM25 arithmetic package, and common Weil test.
 - `SourceObjectExpandedRows.ofNormalizedCC20Trace` constructs expanded rows
   from `normalizedSeedTraceObjectPackage` and fills
   `cc20SupportSquareComparison` by reflexivity. Treat this as the supported

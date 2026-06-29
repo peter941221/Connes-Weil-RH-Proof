@@ -1004,6 +1004,140 @@ theorem normalized_package_ordinary_trace_support_square_holds
     base common ccm24 normalizedSeed remainders rhExit bridges
     fixedData traceData).ordinaryTraceMatchesSupportSquareHolds
 
+def noDefectQWLambdaTheoremDataOfNormalizedPackageSupportSquare
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData))
+    (noDefectSourceMatchesQWLambda : Prop)
+    (noDefectSourceMatchesQWLambdaHolds :
+      noDefectSourceMatchesQWLambda) :
+    NoDefectQWLambdaTheoremData
+      (Source.sourceObjectPackageOfNormalizedCC20Trace
+        base common ccm24 normalizedSeed remainders rhExit bridges)
+      (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData)
+      traceData.lambda traceData.ccm25ArithmeticPackage where
+  supportSquareMatchesNoDefectSource :=
+    let sourceTrace :=
+      toSourceTraceReadOffDataOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges
+        fixedData traceData
+    let inputs :=
+      RouteInputs.ofExpandedSourcePackage
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+    inputs.cc20.archimedeanSymbols.supportSquareTrace
+        sourceTrace.archimedeanTest =
+      inputs.cc20.archimedeanSymbols.sourceNoDefectTrace
+        sourceTrace.archimedeanTest
+  noDefectSourceMatchesQWLambda := noDefectSourceMatchesQWLambda
+  supportSquareMatchesNoDefectSourceHolds :=
+    let sourceTrace :=
+      toSourceTraceReadOffDataOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges
+        fixedData traceData
+    let legality := cc20_trace_legality_of_source_trace_data sourceTrace
+    Source.SourceObjectPackageOfData.normalized_cc20_trace_package_support_square_no_defect
+      base common ccm24 normalizedSeed remainders rhExit bridges
+      sourceTrace.archimedeanTest legality.traceClass legality.cyclicLegal
+  noDefectSourceMatchesQWLambdaHolds := noDefectSourceMatchesQWLambdaHolds
+
+theorem normalized_package_support_square_no_defect_holds
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData))
+    {noDefectSourceMatchesQWLambda : Prop}
+    (noDefectSourceMatchesQWLambdaHolds :
+      noDefectSourceMatchesQWLambda) :
+    (noDefectQWLambdaTheoremDataOfNormalizedPackageSupportSquare
+      base common ccm24 normalizedSeed remainders rhExit bridges
+      fixedData traceData noDefectSourceMatchesQWLambda
+      noDefectSourceMatchesQWLambdaHolds).supportSquareMatchesNoDefectSource :=
+  (noDefectQWLambdaTheoremDataOfNormalizedPackageSupportSquare
+    base common ccm24 normalizedSeed remainders rhExit bridges
+    fixedData traceData noDefectSourceMatchesQWLambda
+    noDefectSourceMatchesQWLambdaHolds).supportSquareMatchesNoDefectSourceHolds
+
+theorem normalized_package_no_defect_qw_lambda_obligation_preserved
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData))
+    {noDefectSourceMatchesQWLambda : Prop}
+    (noDefectSourceMatchesQWLambdaHolds :
+      noDefectSourceMatchesQWLambda) :
+    (noDefectQWLambdaTheoremDataOfNormalizedPackageSupportSquare
+      base common ccm24 normalizedSeed remainders rhExit bridges
+      fixedData traceData noDefectSourceMatchesQWLambda
+      noDefectSourceMatchesQWLambdaHolds).noDefectSourceMatchesQWLambda =
+      noDefectSourceMatchesQWLambda := by
+  rfl
+
 theorem normalized_package_source_trace_archimedean_test
     (base : Source.SourceObjectTheoremBasePackage)
     (common : Source.SourceObjectCommonData base)

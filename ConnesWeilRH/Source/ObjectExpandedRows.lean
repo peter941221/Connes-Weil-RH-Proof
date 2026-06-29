@@ -413,6 +413,23 @@ def normalized_seed_ordinary_trace_support_square_statement
         normalizedSeed).archimedeanSymbols :=
   normalizedSeed.ordinary_trace_support_square_statement
 
+def normalized_seed_support_square_no_defect_statement
+    (normalizedSeed :
+      CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols) :
+    ∀ g :
+      (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+        normalizedSeed).archimedeanSymbols.Test,
+      (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+        normalizedSeed).archimedeanSymbols.traceClass g →
+      (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+        normalizedSeed).archimedeanSymbols.cyclicLegal g →
+      (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+        normalizedSeed).archimedeanSymbols.supportSquareTrace g =
+        (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+          normalizedSeed).archimedeanSymbols.sourceNoDefectTrace g :=
+  CC20Concrete.TraceScale.ConcreteTraceScaleSymbols.support_square_no_defect_statement
+    (CC20Concrete.TraceScale.normalizedSeedConcreteSymbols normalizedSeed)
+
 theorem normalized_cc20_trace_package_ordinary_trace_support_square
     (base : SourceObjectTheoremBasePackage)
     (common : SourceObjectCommonData base)
@@ -432,6 +449,28 @@ theorem normalized_cc20_trace_package_ordinary_trace_support_square
         (sourceObjectPackageOfNormalizedCC20Trace
           base common ccm24 normalizedSeed remainders rhExit bridges)) :=
   normalized_seed_ordinary_trace_support_square_statement normalizedSeed
+
+theorem normalized_cc20_trace_package_support_square_no_defect
+    (base : SourceObjectTheoremBasePackage)
+    (common : SourceObjectCommonData base)
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData normalizedSeed)
+    (rhExit : SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      SourceObjectCrossObjectBridges base common
+        (SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit) :
+    let A :=
+      SourceObject.SourceObjectPackage.toArchimedeanTraceSymbols
+        (sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+    ∀ g : A.Test, A.traceClass g → A.cyclicLegal g →
+      A.supportSquareTrace g = A.sourceNoDefectTrace g :=
+  normalized_seed_support_square_no_defect_statement normalizedSeed
 
 def normalized_cc20_trace_package_support_square_comparison
     (base : SourceObjectTheoremBasePackage)

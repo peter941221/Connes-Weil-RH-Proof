@@ -9496,3 +9496,30 @@
   leg from the existing concrete seed, but it still does not prove that an
   arbitrary manuscript/source `CC20TraceObjectPackage` is normalized and still
   does not prove RH unconditionally.
+
+2026-06-30
+
+- Continued Goal 4J by exposing the normalized package support-square/no-defect
+  scalar leg.
+- Added
+  `SourceObjectPackageOfData.normalized_seed_support_square_no_defect_statement`
+  and
+  `SourceObjectPackageOfData.normalized_cc20_trace_package_support_square_no_defect`
+  in `ConnesWeilRH/Source/ObjectExpandedRows.lean`.
+- Added
+  `TraceFrontEndData.noDefectQWLambdaTheoremDataOfNormalizedPackageSupportSquare`,
+  `TraceFrontEndData.normalized_package_support_square_no_defect_holds`, and
+  `TraceFrontEndData.normalized_package_no_defect_qw_lambda_obligation_preserved`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- This fills the support-square trace equals source no-defect trace leg for
+  normalized packages from `NormalizedLegalSquareTraceScaleSymbols`, while
+  preserving `sourceNoDefectTrace = QW_lambda` as an explicit remaining
+  obligation.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` to set the next
+  target as the normalized CC20-to-CCM25 no-defect/`QW_lambda` bridge.
+- WSL ext4 verification passed after syncing the Windows source files:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`.
+- Boundary preserved: this proves the second S2-B1 scalar leg for normalized
+  packages only. It does not prove the no-defect/`QW_lambda` bridge,
+  restricted-to-full equality, final sign bridge, or RH.
