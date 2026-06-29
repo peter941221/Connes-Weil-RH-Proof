@@ -127,6 +127,65 @@ structure SourceObjectExpandedRows
 
 namespace SourceObjectExpandedRows
 
+open CC20Concrete.TraceScale
+
+abbrev CC20SupportSquareComparison :=
+  CC20Concrete.TraceScale.CC20TracePackageSupportSquareComparison
+
+def normalizedCC20SupportSquareComparison
+    (normalizedSeed :
+      CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData normalizedSeed) :
+    CC20SupportSquareComparison
+      (CC20Concrete.TraceScale.normalizedSeedTraceObjectPackage
+        normalizedSeed remainders) :=
+  CC20TracePackageSupportSquareComparison.forNormalizedSeedTraceObjectPackage
+    normalizedSeed remainders
+
+def ofNormalizedCC20Trace
+    {base : SourceObjectTheoremBasePackage}
+    {common : SourceObjectCommonData base}
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData normalizedSeed) :
+    SourceObjectExpandedRows base common where
+  ccm24 := ccm24
+  cc20Trace :=
+    CC20Concrete.TraceScale.normalizedSeedTraceObjectPackage
+      normalizedSeed remainders
+  cc20SupportSquareComparison :=
+    normalizedCC20SupportSquareComparison normalizedSeed remainders
+
+theorem of_normalized_cc20_trace_cc20_trace_eq
+    {base : SourceObjectTheoremBasePackage}
+    {common : SourceObjectCommonData base}
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData normalizedSeed) :
+    (ofNormalizedCC20Trace (base := base) (common := common)
+      ccm24 normalizedSeed remainders).cc20Trace =
+      CC20Concrete.TraceScale.normalizedSeedTraceObjectPackage
+        normalizedSeed remainders :=
+  rfl
+
+theorem of_normalized_cc20_trace_support_square_comparison
+    {base : SourceObjectTheoremBasePackage}
+    {common : SourceObjectCommonData base}
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData normalizedSeed) :
+    (ofNormalizedCC20Trace (base := base) (common := common)
+      ccm24 normalizedSeed remainders).cc20SupportSquareComparison =
+      normalizedCC20SupportSquareComparison normalizedSeed remainders :=
+  rfl
+
 def ccm25
     {base : SourceObjectTheoremBasePackage}
     {common : SourceObjectCommonData base}

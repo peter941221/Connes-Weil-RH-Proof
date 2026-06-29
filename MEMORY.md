@@ -1,5 +1,30 @@
 2026-06-30
 
+- Continued Goal 4J by adding a normalized-seed constructor for expanded source
+  rows.
+- Updated `ConnesWeilRH/Source/ObjectExpandedRows.lean`.
+- Added `SourceObjectExpandedRows.normalizedCC20SupportSquareComparison`,
+  which packages the reflexive support-square comparison for
+  `normalizedSeedTraceObjectPackage`.
+- Added `SourceObjectExpandedRows.ofNormalizedCC20Trace`, which builds
+  `SourceObjectExpandedRows` from a CCM24 row, a normalized CC20 trace seed,
+  and CC20 trace remainder data, with `cc20Trace` set to
+  `normalizedSeedTraceObjectPackage` and `cc20SupportSquareComparison` filled
+  by construction.
+- Added read-offs
+  `of_normalized_cc20_trace_cc20_trace_eq` and
+  `of_normalized_cc20_trace_support_square_comparison`.
+- Boundary preserved: this proves the support-square witness for
+  normalized-seed-constructed expanded rows. It does not identify an arbitrary
+  manuscript/source `CC20TraceObjectPackage` with that normalized constructor.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.ObjectExpandedRows`, followed by
+  `lake build ConnesWeilRH.Route.FixedTestFrontEnd
+  ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`.
+
+2026-06-30
+
 - Continued Goal 4J by tying the support-square comparison witness to the
   expanded source-object row package used by the route.
 - Updated `ConnesWeilRH/Source/ObjectExpandedRows.lean`.
