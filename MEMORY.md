@@ -9523,3 +9523,27 @@
 - Boundary preserved: this proves the second S2-B1 scalar leg for normalized
   packages only. It does not prove the no-defect/`QW_lambda` bridge,
   restricted-to-full equality, final sign bridge, or RH.
+
+2026-06-30
+
+- Continued Goal 4J by routing the normalized no-defect/`QW_lambda` leg without
+  a free equality proposition.
+- Added `TraceFrontEndData.noDefectQWLambdaTheoremDataOfNormalizedPackage`,
+  `TraceFrontEndData.normalized_package_no_defect_qw_lambda_holds`, and
+  `TraceFrontEndData.normalized_package_no_defect_qw_lambda_support_square_holds`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- The new constructor composes the normalized support-square/no-defect theorem
+  with `restricted_trace_read_off_of_source_trace_data sourceTrace`, preserving
+  the same normalized package, fixed test, `traceData`, `traceData.lambda`, and
+  common Weil test.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` to set the next
+  target as a normalized restricted trace read-off constructor from package-backed
+  CCM25 `QW_lambda` formula data.
+- WSL ext4 verification passed after syncing the Windows source file:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`.
+- Boundary preserved: this removes the loose no-defect/`QW_lambda` Prop from the
+  normalized route constructor, but it still depends on the existing restricted
+  trace read-off source interface. It is not a concrete CCM25 analytic discharge
+  and does not prove RH.

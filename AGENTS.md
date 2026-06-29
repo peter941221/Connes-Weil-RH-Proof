@@ -751,6 +751,15 @@ drift, hidden axioms, or toy-route leakage.
   `sourceNoDefectTrace(traceData.archimedeanTest) = QW_lambda(lambda,g,g)`;
   that bridge must preserve the same normalized package, fixed test, trace
   data, `traceData.lambda`, CCM25 arithmetic package, and common Weil test.
+- The normalized trace front end now has
+  `TraceFrontEndData.noDefectQWLambdaTheoremDataOfNormalizedPackage`, which
+  composes the normalized support-square/no-defect theorem with
+  `restricted_trace_read_off_of_source_trace_data`. Prefer this no-free-prop
+  constructor over supplying an arbitrary `noDefectSourceMatchesQWLambda : Prop`
+  for normalized packages. The next discharge target is the restricted trace
+  read-off source itself: derive `restrictedTraceReadOffEquality` from
+  package-backed CCM25 `QW_lambda` formula data for the same normalized package,
+  fixed test, `traceData.lambda`, and common Weil test.
 - `SourceObjectExpandedRows.ofNormalizedCC20Trace` constructs expanded rows
   from `normalizedSeedTraceObjectPackage` and fills
   `cc20SupportSquareComparison` by reflexivity. Treat this as the supported
