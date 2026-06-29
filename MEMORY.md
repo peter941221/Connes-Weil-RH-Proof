@@ -1,5 +1,32 @@
 2026-06-29
 
+- Started Goal 4J with a concrete CC20 trace-scale seed.
+- Added `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.
+- Added `ConnesWeilRH/Source/CC20Concrete.lean` and imported it from
+  `ConnesWeilRH.lean`.
+- Introduced `CC20Concrete.TraceScale.ConcreteTraceScaleSymbols`, where
+  `sourceNoDefectTrace` and `positiveTrace` are definitionally the same scalar
+  family as `supportSquareTrace`.
+- Proved concrete scalar read-offs:
+  `ConcreteTraceScaleSymbols.ordinary_trace_support_square_statement` and
+  `ConcreteTraceScaleSymbols.support_square_no_defect_statement`.
+- Added `ConcreteTraceScaleSymbols.trace_square_statement_of_nonnegative`,
+  which derives the full CC20 trace-square statement only after an explicit
+  positive-trace nonnegativity input.
+- Added `toCC20TraceModel`,
+  `to_cc20_trace_model_ordinary_trace_support_square`, and
+  `to_cc20_trace_model_trace_square` so the existing `CC20TraceModel` path can
+  be filled from concrete trace-scale definitions for these scalar rows.
+- Updated the ignored local plan and root `AGENTS.md` to record the boundary:
+  this is a concrete definition seed, not full CC20 archimedean operator
+  discharge. Positive-trace nonnegativity, trace-class/cyclicity, Mellin
+  convention, and signs/normalizations remain explicit inputs.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.CC20Concrete.TraceScale
+  ConnesWeilRH.Source.CC20Concrete ConnesWeilRH`.
+
+2026-06-29
+
 - Completed Goals 4H and 4I as source-interface scalar replacements.
 - First committed and pushed the previous Goal 4D-G milestone:
   `56532c6728b54139e240df30332789b6011dfdda`

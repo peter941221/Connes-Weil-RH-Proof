@@ -644,6 +644,17 @@ drift, hidden axioms, or toy-route leakage.
   replace `CC20TraceModel.ordinaryTraceSupportSquare`, the CC20 trace-square
   source row, and the restricted trace read-off row with theorems from concrete
   CC20/CCM25 definitions or accepted Lean imports.
+- Goal 4J now has a concrete CC20 trace-scale seed:
+  `CC20Concrete.TraceScale.ConcreteTraceScaleSymbols` defines
+  `sourceNoDefectTrace := supportSquareTrace` and
+  `positiveTrace := supportSquareTrace`, so
+  `ordinary_trace_support_square_statement` and
+  `support_square_no_defect_statement` are proved by unfolding definitions.
+  Treat `toCC20TraceModel` as a staging constructor only: it still requires
+  explicit proofs for positive-trace nonnegativity, trace-class/cyclicity,
+  Mellin half-density convention, and signs/normalizations. The next CC20
+  concrete target is to prove one of those inputs from concrete operator/test
+  definitions, not to hide it in another model field.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport
