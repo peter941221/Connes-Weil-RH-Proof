@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: ConnesWeilRH contributors
 -/
 
+import ConnesWeilRH.Source.CCM25Concrete.CommonSourceTest
 import ConnesWeilRH.Source.CCM25Concrete.Rows
 import ConnesWeilRH.Source.CC20RHExit
 
@@ -22,15 +23,71 @@ namespace Source
 namespace SourceObject
 
 structure CommonTestObject (W : WeilFormSymbols) where
+  concreteCommonTest : CCM25Concrete.CommonSourceTest.ConcreteCommonSourceTest W
   sourceTest : TestFunction
+  sourceTestReadOff : sourceTest = concreteCommonTest.sourceTest
   sourceConvolutionSquare : TestFunction
+  sourceConvolutionSquareConcreteReadOff :
+    sourceConvolutionSquare = concreteCommonTest.sourceConvolutionSquare
   ccm25SourceTest :
     CCM25Concrete.PrimePowerTest.SourceTestEvaluationInterface
       W sourceTest sourceTest
+  ccm25SourceTestConcreteReadOff :
+    ccm25SourceTest =
+      (sourceTestReadOff ▸ sourceTestReadOff ▸
+        concreteCommonTest.toSourceTestEvaluationInterface)
   sourceConvolutionSquareReadOff :
     sourceConvolutionSquare = W.convolutionStar sourceTest sourceTest
   ccm25SourceTestSquareReadOff :
     ccm25SourceTest.sourceConvolutionSquare = sourceConvolutionSquare
+
+namespace CommonTestObject
+
+def ofConcrete
+    {W : WeilFormSymbols}
+    (common : CCM25Concrete.CommonSourceTest.ConcreteCommonSourceTest W) :
+    CommonTestObject W where
+  concreteCommonTest := common
+  sourceTest := common.sourceTest
+  sourceTestReadOff := rfl
+  sourceConvolutionSquare := common.sourceConvolutionSquare
+  sourceConvolutionSquareConcreteReadOff := rfl
+  ccm25SourceTest := common.toSourceTestEvaluationInterface
+  ccm25SourceTestConcreteReadOff := rfl
+  sourceConvolutionSquareReadOff := common.source_convolution_square_read_off
+  ccm25SourceTestSquareReadOff := common.evaluator_square_eq_concrete_square
+
+def concreteSourceAtomVisible
+    {W : WeilFormSymbols} (common : CommonTestObject W) (n : ℕ) : Prop :=
+  common.concreteCommonTest.sourceAtomVisible n
+
+theorem source_test_eq_concrete
+    {W : WeilFormSymbols} (common : CommonTestObject W) :
+    common.sourceTest = common.concreteCommonTest.sourceTest :=
+  common.sourceTestReadOff
+
+theorem source_square_eq_concrete
+    {W : WeilFormSymbols} (common : CommonTestObject W) :
+    common.sourceConvolutionSquare =
+      common.concreteCommonTest.sourceConvolutionSquare :=
+  common.sourceConvolutionSquareConcreteReadOff
+
+theorem ccm25_source_test_eq_concrete
+    {W : WeilFormSymbols} (common : CommonTestObject W) :
+    common.ccm25SourceTest =
+      (common.sourceTestReadOff ▸ common.sourceTestReadOff ▸
+        common.concreteCommonTest.toSourceTestEvaluationInterface) :=
+  common.ccm25SourceTestConcreteReadOff
+
+theorem route_visibility_iff_concrete_visibility
+    {W : WeilFormSymbols} (common : CommonTestObject W) (n : ℕ) :
+    W.finitePrimeAtomVisible n
+        (W.convolutionStar common.sourceTest common.sourceTest) ↔
+      common.concreteSourceAtomVisible n := by
+  rw [common.sourceTestReadOff]
+  exact common.concreteCommonTest.route_visibility_iff_source_visibility n
+
+end CommonTestObject
 
 structure CommonTestInvolutionBridge (W : WeilFormSymbols)
     (commonTest : CommonTestObject W) where

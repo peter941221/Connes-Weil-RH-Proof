@@ -1,7 +1,7 @@
 .lake/
 build/
 .codegraph/
-外部意见/
+external-opinions/
 AGENTS.md
 MEMORY.md
 *.olean

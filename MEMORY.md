@@ -1,6 +1,103 @@
 2026-06-29
 
-- Sliced Goal 0 in `外部意见/003-unconditional-rh-completion-plan.md` into
+- Finished Goal 2B concrete consumption.
+- Updated `ConnesWeilRH/Source/Objects.lean` so `CommonTestObject` now owns
+  `concreteCommonTest : CCM25Concrete.CommonSourceTest.ConcreteCommonSourceTest W`.
+- Added concrete read-off fields to `CommonTestObject`:
+  `sourceTestReadOff`,
+  `sourceConvolutionSquareConcreteReadOff`, and
+  `ccm25SourceTestConcreteReadOff`.
+- Added `CommonTestObject.ofConcrete` to build a common-test object directly
+  from `ConcreteCommonSourceTest`.
+- Added helper projections:
+  `CommonTestObject.source_test_eq_concrete`,
+  `CommonTestObject.source_square_eq_concrete`,
+  `CommonTestObject.ccm25_source_test_eq_concrete`, and
+  `CommonTestObject.route_visibility_iff_concrete_visibility`.
+- Updated `external-opinions/003-unconditional-rh-completion-plan.md` to mark
+  Goal 2B complete at the concrete-consumption layer and to set Goal 0C as the
+  next finite-prime slice.
+- WSL ext4 verification passed after syncing from Windows source:
+  `lake build ConnesWeilRH.Source.Objects`,
+  `lake build ConnesWeilRH.Source.ObjectDerivations`,
+  `lake build ConnesWeilRH.Route.RouteTheorem`, and
+  `lake build ConnesWeilRH`.
+- Boundary preserved: Goal 2B now blocks the main common-test bypass, but the
+  arithmetic rows still have their own source-test bridge to
+  `source_test_of_arithmetic_rows`; Goal 0C must next force prime-power
+  evaluation objects through the concrete square and points.
+
+2026-06-29
+
+- Renamed ignored local folder `external-opinions/` from its previous
+  non-English name and updated `.gitignore` plus path references in project
+  memory. No non-English folder names remain under the project root.
+- Implemented Goal 0B in
+  `ConnesWeilRH/Source/CCM25Concrete/CommonSourceTest.lean`.
+- Added the concrete source visibility predicate
+  `sourceAtomVisibleOfConcreteTest W g n`, defined as CCM25 finite-prime
+  visibility at the concrete Goal 0A square.
+- Added Goal 0B read-offs:
+  `route_visibility_iff_concrete_source_visibility`,
+  `concrete_source_visibility_read_off`,
+  `ConcreteCommonSourceTest.source_atom_visible_read_off`, and
+  `concrete_evaluator_visibility_uses_concrete_predicate`.
+- Updated `external-opinions/003-unconditional-rh-completion-plan.md` to mark
+  Goal 0B done and list the implemented declarations.
+- Re-examined the plan after Goal 0B. Current judgment: the plan can lead to
+  unconditional proof only if each staging layer is forced to consume concrete
+  Goal 0 data. Goal 0A/0B remove a common-test visibility drift channel, but
+  they do not discharge a red analytic row by themselves.
+- Updated the plan's work order: the best next step is Goal 2B consumption of
+  `ConcreteCommonSourceTest` and `concreteSourceTestEvaluationInterface`,
+  before adding more isolated Goal 0 slices.
+- Boundary preserved: Goal 0B removes one free source-visibility predicate for
+  the common test, but it still does not migrate
+  `PrimePowerSupport.SourcePrimePowerArithmeticSupportSkeletonAtLambda` or
+  replace a `CCM25SourceModel` finite-prime law-field projection.
+
+2026-06-29
+
+- Implemented Goal 0A after committing and pushing the previous working tree.
+- Pushed signed commit `25418e5` (`Stage unconditional RH source objects`) to
+  `origin/main`; local signature verification reported a good signature from
+  Peter's configured key.
+- Added `ConnesWeilRH/Source/CCM25Concrete/CommonSourceTest.lean`.
+- The new module defines the concrete CCM25 common source square and source
+  test object:
+  `concreteSourceConvolutionSquare`,
+  `ConcreteCommonSourceTest`,
+  `concreteCommonSourceTest`, and
+  `concreteSourceTestEvaluationInterface`.
+- Proved the Goal 0A read-offs:
+  `concrete_source_convolution_square_read_off`,
+  `ConcreteCommonSourceTest.source_convolution_square_read_off`,
+  `ConcreteCommonSourceTest.route_visibility_iff_source_visibility`,
+  `ConcreteCommonSourceTest.evaluator_square_eq_concrete_square`,
+  `concrete_source_test_evaluator_square_read_off`, and
+  `concrete_route_visibility_iff_source_visibility`.
+- Wired the module into `ConnesWeilRH/Source/CCM25Concrete.lean`.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` to mark Goal 0A done and
+  list the implemented objects/read-offs.
+- WSL verification used the reset ext4 mirror at the pushed commit plus only
+  the Goal 0A changes. Builds passed:
+  `lake build ConnesWeilRH.Source.CCM25Concrete.CommonSourceTest`,
+  `lake build ConnesWeilRH.Source.CCM25Concrete`, and
+  `lake build ConnesWeilRH`.
+- Axiom audit for all new Goal 0A read-offs reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Weak-placeholder scan over the new Goal 0A files found no `sorry`, `admit`,
+  `axiom`, `constant`, `opaque`, `unsafe`, `Nonempty`, `.choose`,
+  `choose_spec`, or `exists ... True`.
+- Boundary preserved: Goal 0A fixes the common test/square by definition and
+  provides concrete read-offs, but it does not yet implement Goal 0B
+  fixed-source visibility migration, Goal 0C evaluation migration, or replace a
+  `CCM25SourceModel` law-field projection.
+
+2026-06-29
+
+- Sliced Goal 0 in `external-opinions/003-unconditional-rh-completion-plan.md` into
   implementable proof-bearing steps.
 - Goal 0A now targets a concrete CCM25 common source test and convolution
   square, with a square read-off theorem proved by unfolding definitions rather
@@ -21,7 +118,7 @@
 
 2026-06-29
 
-- Revised `外部意见/003-unconditional-rh-completion-plan.md` after auditing the
+- Revised `external-opinions/003-unconditional-rh-completion-plan.md` after auditing the
   current Goal 1B source-model layer.
 - Added Goal 0 as the correctness gate before any source-model theorem-base
   projection can count as unconditional analytic discharge.
@@ -57,7 +154,7 @@
   and compact interface projections.
 - Updated `ConnesWeilRH.lean` to import
   `ConnesWeilRH.Source.ObjectTheoremBasePackage`.
-- Updated `外部意见/003-unconditional-rh-completion-plan.md` to mark Goal 2A
+- Updated `external-opinions/003-unconditional-rh-completion-plan.md` to mark Goal 2A
   done and Goal 2B as the next source-object staging target.
 - WSL ext4 verification passed after syncing from the Windows source of truth:
   `lake build ConnesWeilRH.Source.ObjectTheoremBasePackage` and
@@ -75,7 +172,7 @@
 
 2026-06-29
 
-- Rewrote Goal 2 details in `外部意见/003-unconditional-rh-completion-plan.md`
+- Rewrote Goal 2 details in `external-opinions/003-unconditional-rh-completion-plan.md`
   after reviewing the full Goal 1-6 dependency chain.
 - Correction: Goal 2 cannot jump straight from Goal 1B to a no-argument
   `SourceObjectPackage`, because `SourceObjectPackage` still owns common-test
@@ -1569,7 +1666,7 @@
   `git diff --check README.md` reported only the existing LF-to-CRLF warning.
 
 - Revised the Zulip plain-text draft style in
-  `外部意见/zulip-connes-weil-rh-feedback-post-plain.txt`.
+  `external-opinions/zulip-connes-weil-rh-feedback-post-plain.txt`.
 - Clarified the notation `I` on first use as the support window/interval used
   to localize the fixed test, while preserving the route notation
   `(S,I,lambda,J)`.
@@ -1577,7 +1674,7 @@
   draft reads more like a Zulip discussion post and less like a paper fragment.
 - Kept the draft plain text with no Markdown code fences or bullet syntax.
 
-- Reworked `外部意见/zulip-connes-weil-rh-feedback-post-plain.txt` from a
+- Reworked `external-opinions/zulip-connes-weil-rh-feedback-post-plain.txt` from a
   Lean-heavy status note into a mathematics-first Zulip draft for `#maths`.
 - The revised draft now leads with the proof route:
   `F_g = g^* * g`, finite-lambda positive trace, trace read-off into
@@ -1630,11 +1727,11 @@
   replacing the current fixed-test scalar bridge with spectral, determinant, or
   numerical eigenvalue convergence imports.
 
-- Created a timestamped workspace cryptographic archive under `外部意见/`.
+- Created a timestamped workspace cryptographic archive under `external-opinions/`.
 - Final files:
-  `外部意见/connes-weil-rh-workspace-20260629-063945.zip`,
-  `外部意见/connes-weil-rh-workspace-20260629-063945.manifest.sha256.txt`,
-  and `外部意见/connes-weil-rh-workspace-20260629-063945.zip.sha256.txt`.
+  `external-opinions/connes-weil-rh-workspace-20260629-063945.zip`,
+  `external-opinions/connes-weil-rh-workspace-20260629-063945.manifest.sha256.txt`,
+  and `external-opinions/connes-weil-rh-workspace-20260629-063945.zip.sha256.txt`.
 - The archive was created at local time `2026-06-29T06:39:45+08:00`.
   ZIP SHA256:
   `f49fa3ab7f38bd870b0f1fb1d7e690eb2f43a125390bff876274048c212073c0`.
@@ -1677,7 +1774,7 @@
   source-package-owned once that balance is supplied.
 
 - Added a plain-text Zulip discussion draft under
-  `外部意见/zulip-connes-weil-rh-feedback-post-plain.txt`.
+  `external-opinions/zulip-connes-weil-rh-feedback-post-plain.txt`.
 - The draft is intentionally not a proof announcement. It states that the
   current Lean theorem is still certificate-conditional, shows the real
   `RouteCertificate`, `ExpandedSourceRouteCertificateFrontEnd`, and
@@ -5215,7 +5312,7 @@
 2026-06-28
 
 - Added local second external-opinion record:
-  `外部意见/002-divergent-bulk-spectral-and-semilocal-review.md`.
+  `external-opinions/002-divergent-bulk-spectral-and-semilocal-review.md`.
 - Added public audit `docs/audits/second-external-opinion-audit.md`.
 - The audit maps the second opinion into four public review rows:
   S2-B1 divergent bulk / trace-scale incompatibility, S2-B2 spectral
@@ -5272,7 +5369,7 @@
   repair rejection, B3 semilocal fourth-defect ledger, and B4 dynamic `S(g)`
   quantifier audit.
 - Staged hygiene passed before commit: no `AGENTS.md`, `MEMORY.md`,
-  `外部意见/`, private workflow files, private paths, or Lean files were
+  `external-opinions/`, private workflow files, private paths, or Lean files were
   staged.
 - Local GPG verification passed with EDDSA key
   `828A1CFCEC8286BD8D671DF6F84F18CD20BE8255`.
@@ -5387,8 +5484,8 @@
 
 2026-06-28
 
-- Added local ignored directory `外部意见/`.
-- Added `外部意见/001-trace-scale-and-defect-review.md` as the first external
+- Added local ignored directory `external-opinions/`.
+- Added `external-opinions/001-trace-scale-and-defect-review.md` as the first external
   opinion record.
 - The note records four blockers from the latest external critique:
   trace-scale compatibility, Sonin-projection trivialization as a blocked
@@ -5397,7 +5494,7 @@
 - The planned attack order is now: B1 trace-scale compatibility first, then
   B3 no-fourth-defect term ledger, then B4 `S(g)` quantifier/global-object
   audit, then final sign and external accepted-source review.
-- Updated `.gitignore` so `外部意见/` stays local and is not published.
+- Updated `.gitignore` so `external-opinions/` stays local and is not published.
 - No Lean files were edited and no Lean build was run.
 
 2026-06-28
@@ -8443,7 +8540,7 @@
 
 2026-06-29
 
-- Created `外部意见/003-unconditional-rh-completion-plan.md`.
+- Created `external-opinions/003-unconditional-rh-completion-plan.md`.
 - The plan records the updated constraint that no external reviewer path is
   available, so accepted-source packets are now only Lean theorem
   specifications.
@@ -8457,7 +8554,7 @@
 
 2026-06-29
 
-- Reviewed and corrected `外部意见/003-unconditional-rh-completion-plan.md`.
+- Reviewed and corrected `external-opinions/003-unconditional-rh-completion-plan.md`.
 - Fixed the plan's Lean verification criteria: theorem statement checks are now
   separated from `#print axioms`, because axiom audit reports dependencies and
   does not by itself prove that `RouteCertificate` or `SourceObjectPackage`
