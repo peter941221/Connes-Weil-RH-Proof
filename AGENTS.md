@@ -559,9 +559,28 @@ drift, hidden axioms, or toy-route leakage.
   to use the same concrete common source test and proves concrete-visible atoms
   have the `SourceLambdaCut lambda n`. Do not redo Goal 0D as a generic
   support predicate over an unrelated source-test interface. The next Goal 0
-  proof-bearing slice is Goal 0E: replace one `CCM25SourceModel` law-field
-  projection, preferably finite-prime normalization, with a theorem assembled
-  from Goal 0A-0D concrete data.
+  proof-bearing slice, Goal 0E, is complete at the finite-prime normalization
+  theorem-base replacement layer:
+  `ccm25_finite_prime_normalization_of_concrete_arithmetic_rows`,
+  `CCM25TheoremBaseFinitePrime`, and
+  `CCM25TheoremBasePartialQWFinitePrime` route finite-prime normalization
+  through concrete arithmetic rows instead of
+  `CCM25SourceModel.finitePrimeNormalization` law-field projection. Do not
+  describe this as full CCM25 discharge: `QW`, `Psi`, `QW_lambda`, and pole
+  normalization still need concrete definitions or accepted Lean theorem
+  inputs. Goal 2C is complete for the CCM25 concrete-consumption slice:
+  `SourceObjectCommonData` and `SourceObjectExpandedRows` force the expanded
+  CCM25 object row to consume the same concrete arithmetic rows, common source
+  test equality, and Goal 0E finite-prime theorem path. Do not describe this as
+  constructed CCM24/CC20 analytic object witnesses. Goal 2D is complete as an
+  explicit data-driven constructor:
+  `SourceObjectCrossObjectBridges` and `sourceObjectPackageOfData` construct
+  `SourceObjectPackage` from the staged base, common data, expanded rows, RH
+  exit data, and named bridge fields. Do not describe this as a no-assumption
+  source-object proof: the bridge data and CCM24/CC20 analytic witnesses remain
+  explicit inputs. The next proof-bearing slice is Goal 3: build the fixed-test
+  front end from `sourceObjectPackageOfData` while preserving the same common
+  test, CCM25 arithmetic rows, and cross-object bridge fields.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport

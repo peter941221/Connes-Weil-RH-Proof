@@ -21,6 +21,7 @@ import ConnesWeilRH.Source.CCM25TheoremBase
 import ConnesWeilRH.Source.CC20TheoremBase
 import ConnesWeilRH.Source.TheoremBase
 import ConnesWeilRH.Source.ObjectTheoremBasePackage
+import ConnesWeilRH.Source.ObjectExpandedRows
 import ConnesWeilRH.Route.Definitions
 import ConnesWeilRH.Route.AdmissibleWindow
 import ConnesWeilRH.Route.SignDefect

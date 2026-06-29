@@ -1,5 +1,122 @@
 2026-06-29
 
+- Completed Goal 2D as an explicit data-driven `SourceObjectPackage`
+  constructor.
+- Extended `ConnesWeilRH/Source/ObjectExpandedRows.lean`.
+- Added `SourceObjectCrossObjectBridges`, which carries the remaining
+  cross-object bridge data needed by `SourceObjectPackage`: RH-definition
+  bridge equality to the base package, common-test involution, CCM24 common-test
+  bridge, CC20 common-test bridge, convolution-square/F_g bridge, window
+  controls, finite-prime support/window matching, and final sign bridge.
+- Added read-offs:
+  `SourceObjectCrossObjectBridges.ccm25_source_test_eq_arithmetic_rows` and
+  `SourceObjectCrossObjectBridges.rh_definition_bridge_eq_base`.
+- Added `sourceObjectPackageOfData`, constructing
+  `SourceObject.SourceObjectPackage` from `SourceObjectTheoremBasePackage`,
+  `SourceObjectCommonData`, `SourceObjectExpandedRows`, an expanded
+  `SourceObject.CC20RHExitObjectPackage`, and
+  `SourceObjectCrossObjectBridges`.
+- Added package-constructor read-offs:
+  `SourceObjectPackageOfData.ccm25_eq_rows`,
+  `SourceObjectPackageOfData.commonTest_eq_common`,
+  `SourceObjectPackageOfData.ccm25_source_test_eq_arithmetic_rows`,
+  `SourceObjectPackageOfData.finite_prime_normalization`, and
+  `SourceObjectPackageOfData.rh_definition_bridge_eq_base`.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` and root
+  `AGENTS.md` to mark Goal 2D complete and set Goal 3 fixed-test front-end
+  construction as the next proof-bearing slice.
+- WSL ext4 verification passed after syncing touched files from the Windows
+  source of truth:
+  `lake build ConnesWeilRH.Source.ObjectExpandedRows` and
+  `lake build ConnesWeilRH`.
+- Axiom audit for `sourceObjectPackageOfData`, the package-constructor
+  read-offs, and the new cross-object bridge read-off reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Boundary preserved: Goal 2D constructs `SourceObjectPackage` from explicit
+  data, but it does not construct the bridge data without assumptions, does not
+  prove CCM24/CC20 analytic object witnesses from first principles, does not
+  construct a route front end or `RouteCertificate`, and does not prove RH
+  unconditionally.
+
+2026-06-29
+
+- Completed Goal 2C for the CCM25 concrete-consumption slice.
+- Added `ConnesWeilRH/Source/ObjectExpandedRows.lean` and imported it from
+  `ConnesWeilRH.lean`.
+- Added `SourceObjectCommonData`, which carries a `CommonTestObject`, concrete
+  CCM25 arithmetic rows, and the equality tying the common CCM25 source test to
+  `CCM25Concrete.Rows.source_test_of_arithmetic_rows`.
+- Added `SourceObjectCommonData.toCCM25WeilObjectPackage`,
+  `finite_prime_normalization`, `toFinitePrimeTheoremBase`,
+  `toPartialQWFinitePrime`, and
+  `toCCM25TheoremBaseWithConcreteFinitePrime`; these make the expanded CCM25
+  row consume Goal 0E finite-prime normalization through concrete arithmetic
+  rows.
+- Added `SourceObjectExpandedRows`, with CCM24 and CC20 trace rows kept as
+  explicit inputs and the CCM25 row computed from `SourceObjectCommonData`
+  rather than accepted as an independent field.
+- Added read-offs:
+  `SourceObjectExpandedRows.ccm25_source_test_eq_arithmetic_rows`,
+  `SourceObjectExpandedRows.finite_prime_normalization`, and
+  `SourceObjectExpandedRows.toPartialQWFinitePrime`.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` and root
+  `AGENTS.md` to mark the Goal 2C CCM25 slice complete and set Goal 2D as the
+  next proof-bearing target.
+- WSL ext4 verification passed after syncing touched files from the Windows
+  source of truth:
+  `lake build ConnesWeilRH.Source.ObjectExpandedRows` and
+  `lake build ConnesWeilRH`.
+- Axiom audit for the new Goal 2C read-offs and constructors reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Weak-placeholder scan over the touched Goal 2C/0E Lean files found no
+  `sorry`, `admit`, `axiom`, `constant`, `opaque`, `unsafe`, `Nonempty`,
+  `.choose`, `choose_spec`, or `exists ... True` shells.
+- Boundary preserved: Goal 2C now blocks the CCM25 expanded-row drift channel,
+  but it does not construct CCM24/CC20 analytic object witnesses, build
+  `SourceObjectPackage`, construct a `RouteCertificate`, or prove RH
+  unconditionally. The next slice is Goal 2D cross-object bridge data plus an
+  explicit `SourceObjectPackage` constructor.
+
+2026-06-29
+
+- Completed Goal 0E finite-prime theorem-base replacement.
+- Updated `ConnesWeilRH/Source/CCM25TheoremBase.lean`.
+- Added the direct concrete theorem:
+  `ccm25_finite_prime_normalization_of_concrete_arithmetic_rows`.
+- Added `CCM25TheoremBaseFinitePrime` and
+  `CCM25TheoremBaseFinitePrime.ofArithmeticRows` so finite-prime
+  normalization can be staged as its own theorem-base slice from concrete
+  arithmetic rows.
+- Added `CCM25TheoremBasePartialQWFinitePrime` and
+  `ofSourceModelAndArithmeticRows`; this keeps the current QW field on the
+  source-model staging path while routing finite-prime normalization through
+  concrete arithmetic rows.
+- Added `CCM25TheoremBase.dischargedWithConcreteFinitePrime`, a mixed
+  constructor that replaces only the finite-prime normalization field with the
+  concrete theorem path and leaves `Psi`, `QW_lambda`, and pole normalization
+  on their current source-model staging path.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` and root
+  `AGENTS.md` to mark Goal 0E complete and set Goal 2C concrete expanded-row
+  consumption as the next proof-bearing slice.
+- WSL ext4 verification passed after syncing the touched Lean file from the
+  Windows source of truth:
+  `lake build ConnesWeilRH.Source.CCM25TheoremBase ConnesWeilRH`.
+- Axiom audit for
+  `ccm25_finite_prime_normalization_of_concrete_arithmetic_rows`,
+  `CCM25TheoremBaseFinitePrime.finite_prime_normalization_of_arithmetic_rows`,
+  `CCM25TheoremBasePartialQWFinitePrime.ofSourceModelAndArithmeticRows`, and
+  `CCM25TheoremBase.dischargedWithConcreteFinitePrime` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Boundary preserved: Goal 0E does not prove full CCM25, build
+  `SourceObjectPackage`, construct a `RouteCertificate`, or prove RH
+  unconditionally. It removes one avoidable law-field projection for
+  finite-prime normalization.
+
+2026-06-29
+
 - Completed Goal 0D concrete fixed-lambda support.
 - Added `ConcreteCommonFixedLambdaPrimePowerSupport` in
   `ConnesWeilRH/Source/CCM25Concrete/PrimePowerSupport.lean`.
