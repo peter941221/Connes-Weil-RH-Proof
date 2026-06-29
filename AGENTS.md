@@ -760,6 +760,17 @@ drift, hidden axioms, or toy-route leakage.
   read-off source itself: derive `restrictedTraceReadOffEquality` from
   package-backed CCM25 `QW_lambda` formula data for the same normalized package,
   fixed test, `traceData.lambda`, and common Weil test.
+- The normalized trace front end now also has
+  `TraceFrontEndData.restrictedTraceReadOffSourceOfNormalizedPackage`, which
+  builds `RestrictedTraceReadOffSource` using the normalized trace data's
+  `ccm25ArithmeticPackage` and proves
+  `normalized_package_restricted_trace_preserves_package_qw`. Prefer this
+  normalized package-backed restricted read-off over the generic
+  `restricted_trace_read_off_of_source_trace_data` helper in normalized
+  constructors. The remaining discharge target is the equality field inside
+  `RestrictedTraceReadOffBridgeContract.build`; do not remove or bypass it until
+  a source-backed normalized constructor proves the equality from CC20
+  support-square normalization and CCM25 `QW_lambda` formula data.
 - `SourceObjectExpandedRows.ofNormalizedCC20Trace` constructs expanded rows
   from `normalizedSeedTraceObjectPackage` and fills
   `cc20SupportSquareComparison` by reflexivity. Treat this as the supported

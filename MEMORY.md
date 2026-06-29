@@ -9547,3 +9547,30 @@
   normalized route constructor, but it still depends on the existing restricted
   trace read-off source interface. It is not a concrete CCM25 analytic discharge
   and does not prove RH.
+
+2026-06-30
+
+- Continued Goal 4J by tightening provenance for the normalized restricted trace
+  read-off.
+- Added `TraceFrontEndData.restrictedTraceReadOffSourceOfNormalizedPackage`,
+  `TraceFrontEndData.normalized_package_restricted_trace_preserves_package_qw`,
+  and `TraceFrontEndData.normalized_package_restricted_trace_read_off_equality`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- Updated `TraceFrontEndData.noDefectQWLambdaTheoremDataOfNormalizedPackage` to
+  consume `restrictedTraceReadOffSourceOfNormalizedPackage` instead of the
+  generic `restricted_trace_read_off_of_source_trace_data` helper.
+- This makes the normalized path visibly build restricted QW evidence from
+  `sourceTrace.ccm25ArithmeticPackage` and
+  `window_lambda_compatibility_of_source_backed sourceTrace.oneLtLambda`, then
+  proves the restricted trace bridge preserves that package-backed evidence.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` to set the next
+  target as replacing the normalized `RestrictedTraceReadOffBridgeContract.build`
+  equality with a source-backed theorem.
+- WSL ext4 verification passed after syncing the Windows source file:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`.
+- Boundary preserved: restricted QW formula evidence is package-backed on the
+  normalized path, but the restricted trace equality still comes from
+  `sourceTrace.restrictedTraceReadOffBridge`. This is not a concrete analytic
+  discharge and does not prove RH.
