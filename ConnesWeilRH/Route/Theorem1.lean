@@ -40,12 +40,22 @@ structure CC20TraceSquareReadOff
   noDefectSourceReadOff : CC20NoDefectSourceReadOff inputs a
   positiveTraceNonnegative : CC20PositiveTraceNonnegative inputs a
 
-def WindowLambdaCompatibility
+structure WindowLambdaCompatibility
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
-    (lambda : ℝ) : Prop :=
-  1 < lambda ∧
-    WindowSupportContainment inputs g lambda ∧
-      inputs.ccm24.semilocalSymbols.lambdaCompatible g.window lambda
+    (lambda : ℝ) where
+  oneLtLambda : 1 < lambda
+  windowSupportContainment : WindowSupportContainment inputs g lambda
+  lambdaCompatible :
+    inputs.ccm24.semilocalSymbols.lambdaCompatible g.window lambda
+
+theorem window_lambda_compatibility_of_source_backed
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} (hlambda : 1 < lambda) :
+    WindowLambdaCompatibility inputs g lambda where
+  oneLtLambda := hlambda
+  windowSupportContainment :=
+    window_support_containment_of_source_backed g hlambda
+  lambdaCompatible := lambda_compatible_of_source_backed g hlambda
 
 def CCM25QWDefinitionReadOff
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) : Prop :=
@@ -62,10 +72,10 @@ def CCM25PsiSignReadOff
         ∑ n ∈ W.globalPrimeIndexSet,
           W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)
 
-def CCM25FullQWReadOff
-    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) : Prop :=
-  CCM25QWDefinitionReadOff inputs g ∧
-    CCM25PsiSignReadOff inputs g
+structure CCM25FullQWReadOff
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) where
+  qwDefinitionReadOff : CCM25QWDefinitionReadOff inputs g
+  psiSignReadOff : CCM25PsiSignReadOff inputs g
 
 def CCM25QWLambdaFormulaReadOff
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -85,57 +95,61 @@ def CCM25PoleNormalizationReadOff
   W.polePairing g.weilTest =
     W.poleFunctional (W.convolutionStar g.weilTest g.weilTest)
 
-def CCM25RestrictedQWReadOff
+structure CCM25RestrictedQWReadOff
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
-    (lambda : ℝ) : Prop :=
-  WindowLambdaCompatibility inputs g lambda ∧
-    CCM25QWLambdaFormulaReadOff inputs g lambda ∧
-      CCM25PoleNormalizationReadOff inputs g
+    (lambda : ℝ) where
+  windowLambdaCompatibility : WindowLambdaCompatibility inputs g lambda
+  qwLambdaFormulaReadOff : CCM25QWLambdaFormulaReadOff inputs g lambda
+  poleNormalizationReadOff : CCM25PoleNormalizationReadOff inputs g
 
-def CCM25WeilFormReadOff
+structure CCM25WeilFormReadOff
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
-    (lambda : ℝ) : Prop :=
-  CCM25FullQWReadOff inputs g ∧
-    CCM25RestrictedQWReadOff inputs g lambda
+    (lambda : ℝ) where
+  fullQWReadOff : CCM25FullQWReadOff inputs g
+  restrictedQWReadOff : CCM25RestrictedQWReadOff inputs g lambda
 
-def TestHalfDensityCompatibility
-    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) : Prop :=
-  (Source.cc20MellinHalfDensityConvention
-      inputs.cc20.archimedeanSymbols).Holds ∧
-    CCM25FullQWReadOff inputs g
+structure TestHalfDensityCompatibility
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) where
+  mellinHalfDensityConvention :
+    (Source.cc20MellinHalfDensityConvention
+        inputs.cc20.archimedeanSymbols).Holds
+  ccm25FullQWReadOff : CCM25FullQWReadOff inputs g
 
-def TateDirectionsToPoleLedger
-    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) : Prop :=
-  CCM25PoleNormalizationReadOff inputs g
+structure TateDirectionsToPoleLedger
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) where
+  poleNormalizationReadOff : CCM25PoleNormalizationReadOff inputs g
 
-def TestAndQuotientCompatibility
-    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) : Prop :=
-  TestHalfDensityCompatibility inputs g ∧
-    TateDirectionsToPoleLedger inputs g
+structure TestAndQuotientCompatibility
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) where
+  testHalfDensityCompatibility : TestHalfDensityCompatibility inputs g
+  tateDirectionsToPoleLedger : TateDirectionsToPoleLedger inputs g
 
-def FixedSProjectionTransport
+structure FixedSProjectionTransport
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
-    (lambda : ℝ) : Prop :=
-  WindowSupportContainment inputs g lambda ∧
+    (lambda : ℝ) where
+  windowSupportContainment : WindowSupportContainment inputs g lambda
+  lambdaCompatible :
     inputs.ccm24.semilocalSymbols.lambdaCompatible g.window lambda
 
-def FixedSPhasePullback
-    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) : Prop :=
-  inputs.ccm24.semilocalSymbols.boundedComparisonMap g.placeSet ∧
-    inputs.ccm24.semilocalSymbols.boundedComparisonInverse g.placeSet ∧
-      inputs.cc20.archimedeanSymbols.uInfinityNormalized ∧
-        inputs.cc20.archimedeanSymbols.qduNormalized
+structure FixedSPhasePullback
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) where
+  boundedComparisonMap :
+    inputs.ccm24.semilocalSymbols.boundedComparisonMap g.placeSet
+  boundedComparisonInverse :
+    inputs.ccm24.semilocalSymbols.boundedComparisonInverse g.placeSet
+  uInfinityNormalized : inputs.cc20.archimedeanSymbols.uInfinityNormalized
+  qduNormalized : inputs.cc20.archimedeanSymbols.qduNormalized
 
 def FixedSNoDefectSupportSquareTemplate
     (inputs : RouteInputs)
     (a : inputs.cc20.archimedeanSymbols.Test) : Prop :=
   CC20NoDefectSourceReadOff inputs a
 
-def FixedSDefectClassification
+structure FixedSDefectClassification
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
-    (lambda : ℝ) : Prop :=
-  FixedSProjectionTransport inputs g lambda ∧
-    FixedSPhasePullback inputs g
+    (lambda : ℝ) where
+  projectionTransport : FixedSProjectionTransport inputs g lambda
+  phasePullback : FixedSPhasePullback inputs g
 
 def TraceClassCyclicSupportSquareIdentity
     (inputs : RouteInputs)
@@ -393,7 +407,20 @@ theorem ccm25_psi_sign_read_off
 theorem ccm25_full_qw_read_off
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs} :
     CCM25FullQWReadOff inputs g :=
-  ⟨ccm25_qw_definition_read_off, ccm25_psi_sign_read_off⟩
+  { qwDefinitionReadOff := ccm25_qw_definition_read_off
+    psiSignReadOff := ccm25_psi_sign_read_off }
+
+theorem ccm25_qw_definition_read_off_of_ccm25_full_qw
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    (h : CCM25FullQWReadOff inputs g) :
+    CCM25QWDefinitionReadOff inputs g :=
+  h.qwDefinitionReadOff
+
+theorem ccm25_psi_sign_read_off_of_ccm25_full_qw
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    (h : CCM25FullQWReadOff inputs g) :
+    CCM25PsiSignReadOff inputs g :=
+  h.psiSignReadOff
 
 theorem ccm25_qw_lambda_formula_read_off
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -405,6 +432,57 @@ theorem ccm25_pole_normalization_read_off
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs} :
     CCM25PoleNormalizationReadOff inputs g :=
   inputs.ccm25.poleNormalization g.weilTest
+
+theorem mellin_half_density_convention_of_test_half_density_compatibility
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    (h : TestHalfDensityCompatibility inputs g) :
+    (Source.cc20MellinHalfDensityConvention
+        inputs.cc20.archimedeanSymbols).Holds :=
+  h.mellinHalfDensityConvention
+
+theorem ccm25_full_qw_read_off_of_test_half_density_compatibility
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    (h : TestHalfDensityCompatibility inputs g) :
+    CCM25FullQWReadOff inputs g :=
+  h.ccm25FullQWReadOff
+
+theorem test_half_density_compatibility_of_source_backed
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs} :
+    TestHalfDensityCompatibility inputs g where
+  mellinHalfDensityConvention :=
+    inputs.cc20.mellinHalfDensityConvention
+  ccm25FullQWReadOff := ccm25_full_qw_read_off
+
+theorem pole_normalization_read_off_of_tate_directions_to_pole_ledger
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    (h : TateDirectionsToPoleLedger inputs g) :
+    CCM25PoleNormalizationReadOff inputs g :=
+  h.poleNormalizationReadOff
+
+theorem tate_directions_to_pole_ledger_of_source_backed
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs} :
+    TateDirectionsToPoleLedger inputs g where
+  poleNormalizationReadOff := ccm25_pole_normalization_read_off
+
+theorem test_half_density_compatibility_of_test_and_quotient_compatibility
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    (h : TestAndQuotientCompatibility inputs g) :
+    TestHalfDensityCompatibility inputs g :=
+  h.testHalfDensityCompatibility
+
+theorem tate_directions_to_pole_ledger_of_test_and_quotient_compatibility
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    (h : TestAndQuotientCompatibility inputs g) :
+    TateDirectionsToPoleLedger inputs g :=
+  h.tateDirectionsToPoleLedger
+
+theorem test_and_quotient_compatibility_of_source_backed
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs} :
+    TestAndQuotientCompatibility inputs g where
+  testHalfDensityCompatibility :=
+    test_half_density_compatibility_of_source_backed
+  tateDirectionsToPoleLedger :=
+    tate_directions_to_pole_ledger_of_source_backed
 
 theorem ccm25_qw_definition_read_off_of_package
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -431,8 +509,20 @@ theorem ccm25_full_qw_read_off_of_package
       Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
         inputs.ccm25.weilSymbols g.weilTest lambda) :
     CCM25FullQWReadOff inputs g :=
-  ⟨ccm25_qw_definition_read_off_of_package pkg,
-    ccm25_psi_sign_read_off_of_package pkg⟩
+  { qwDefinitionReadOff := ccm25_qw_definition_read_off_of_package pkg
+    psiSignReadOff := ccm25_psi_sign_read_off_of_package pkg }
+
+theorem qw_definition_read_off_of_ccm25_full_qw
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    (h : CCM25FullQWReadOff inputs g) :
+    CCM25QWDefinitionReadOff inputs g :=
+  h.qwDefinitionReadOff
+
+theorem psi_sign_read_off_of_ccm25_full_qw
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    (h : CCM25FullQWReadOff inputs g) :
+    CCM25PsiSignReadOff inputs g :=
+  h.psiSignReadOff
 
 theorem ccm25_qw_lambda_formula_read_off_of_package
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -461,9 +551,32 @@ theorem ccm25_restricted_qw_read_off_of_package
         inputs.ccm25.weilSymbols g.weilTest lambda)
     (hwindow : WindowLambdaCompatibility inputs g lambda) :
     CCM25RestrictedQWReadOff inputs g lambda :=
-  ⟨hwindow,
-    ccm25_qw_lambda_formula_read_off_of_package pkg,
-    ccm25_pole_normalization_read_off_of_package pkg⟩
+  { windowLambdaCompatibility := hwindow
+    qwLambdaFormulaReadOff :=
+      ccm25_qw_lambda_formula_read_off_of_package pkg
+    poleNormalizationReadOff :=
+      ccm25_pole_normalization_read_off_of_package pkg }
+
+theorem window_lambda_compatibility_of_ccm25_restricted_qw
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (h : CCM25RestrictedQWReadOff inputs g lambda) :
+    WindowLambdaCompatibility inputs g lambda :=
+  h.windowLambdaCompatibility
+
+theorem qw_lambda_formula_read_off_of_ccm25_restricted_qw
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (h : CCM25RestrictedQWReadOff inputs g lambda) :
+    CCM25QWLambdaFormulaReadOff inputs g lambda :=
+  h.qwLambdaFormulaReadOff
+
+theorem pole_normalization_read_off_of_ccm25_restricted_qw
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (h : CCM25RestrictedQWReadOff inputs g lambda) :
+    CCM25PoleNormalizationReadOff inputs g :=
+  h.poleNormalizationReadOff
 
 theorem ccm25_weil_form_read_off_of_package
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -473,32 +586,32 @@ theorem ccm25_weil_form_read_off_of_package
         inputs.ccm25.weilSymbols g.weilTest lambda)
     (hwindow : WindowLambdaCompatibility inputs g lambda) :
     CCM25WeilFormReadOff inputs g lambda :=
-  ⟨ccm25_full_qw_read_off_of_package pkg,
-    ccm25_restricted_qw_read_off_of_package pkg hwindow⟩
+  { fullQWReadOff := ccm25_full_qw_read_off_of_package pkg
+    restrictedQWReadOff :=
+      ccm25_restricted_qw_read_off_of_package pkg hwindow }
 
 theorem ccm25_restricted_qw_read_off
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} (hlambda : 1 < lambda) :
     CCM25RestrictedQWReadOff inputs g lambda :=
-  ⟨⟨hlambda, window_support_containment_of_source_backed g hlambda,
-      lambda_compatible_of_source_backed g hlambda⟩,
-    ccm25_qw_lambda_formula_read_off hlambda,
-    ccm25_pole_normalization_read_off⟩
+  { windowLambdaCompatibility :=
+      window_lambda_compatibility_of_source_backed hlambda
+    qwLambdaFormulaReadOff := ccm25_qw_lambda_formula_read_off hlambda
+    poleNormalizationReadOff := ccm25_pole_normalization_read_off }
 
 theorem ccm25_weil_form_read_off
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} (hlambda : 1 < lambda) :
     CCM25WeilFormReadOff inputs g lambda :=
-  ⟨ccm25_full_qw_read_off,
-    ccm25_restricted_qw_read_off hlambda⟩
+  { fullQWReadOff := ccm25_full_qw_read_off
+    restrictedQWReadOff := ccm25_restricted_qw_read_off hlambda }
 
 theorem ccm25_weil_form_read_off_of_source_trace_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     (h : SourceTraceReadOffData inputs g) :
     CCM25WeilFormReadOff inputs g h.lambda :=
   ccm25_weil_form_read_off_of_package h.ccm25ArithmeticPackage
-    ⟨h.oneLtLambda, window_support_containment_of_source_backed g h.oneLtLambda,
-      lambda_compatible_of_source_backed g h.oneLtLambda⟩
+    (window_lambda_compatibility_of_source_backed h.oneLtLambda)
 
 theorem ccm25_full_qw_read_off_of_source_trace_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -511,8 +624,7 @@ theorem ccm25_restricted_qw_read_off_of_source_trace_data
     (h : SourceTraceReadOffData inputs g) :
     CCM25RestrictedQWReadOff inputs g h.lambda :=
   ccm25_restricted_qw_read_off_of_package h.ccm25ArithmeticPackage
-    ⟨h.oneLtLambda, window_support_containment_of_source_backed g h.oneLtLambda,
-      lambda_compatible_of_source_backed g h.oneLtLambda⟩
+    (window_lambda_compatibility_of_source_backed h.oneLtLambda)
 
 theorem full_trace_read_off_source_of_bridge
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
