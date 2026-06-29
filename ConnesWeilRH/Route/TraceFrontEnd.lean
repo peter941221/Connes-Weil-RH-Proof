@@ -1272,6 +1272,137 @@ theorem normalized_package_restricted_trace_read_off_equality
     base common ccm24 normalizedSeed remainders rhExit bridges
     fixedData traceData).restrictedTraceReadOffEquality
 
+structure NormalizedRestrictedTraceEqualityContract
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)) where
+  sourceTrace :
+    SourceTraceReadOffData
+      (RouteInputs.ofExpandedSourcePackage
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+      (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData)
+  sourceTrace_eq_normalized :
+    sourceTrace =
+      toSourceTraceReadOffDataOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges
+        fixedData traceData
+  packageRestrictedQW :
+    CCM25RestrictedQWReadOff
+      (RouteInputs.ofExpandedSourcePackage
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+      (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData)
+      sourceTrace.lambda
+  packageRestrictedQW_eq :
+    packageRestrictedQW =
+      ccm25_restricted_qw_read_off_of_package
+        sourceTrace.ccm25ArithmeticPackage
+        (window_lambda_compatibility_of_source_backed sourceTrace.oneLtLambda)
+  restrictedSource :
+    RestrictedTraceReadOffSource
+      (RouteInputs.ofExpandedSourcePackage
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+      sourceTrace.archimedeanTest
+      (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData)
+      sourceTrace.lambda
+  restrictedSource_eq_bridge :
+    restrictedSource =
+      sourceTrace.restrictedTraceReadOffBridge.build packageRestrictedQW
+  restrictedTraceReadOffEquality :
+    RestrictedTraceReadOffEquality
+      (RouteInputs.ofExpandedSourcePackage
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+      sourceTrace.archimedeanTest
+      (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData)
+      sourceTrace.lambda
+  restrictedTraceReadOffEquality_eq_bridge :
+    restrictedTraceReadOffEquality =
+      restrictedSource.restrictedTraceReadOffEquality
+
+def normalizedRestrictedTraceEqualityContractOfPackageBridge
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)) :
+    NormalizedRestrictedTraceEqualityContract
+      base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+      traceData where
+  sourceTrace :=
+    toSourceTraceReadOffDataOfNormalizedPackage
+      base common ccm24 normalizedSeed remainders rhExit bridges
+      fixedData traceData
+  sourceTrace_eq_normalized := rfl
+  packageRestrictedQW :=
+    ccm25_restricted_qw_read_off_of_package
+      (toSourceTraceReadOffDataOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges
+        fixedData traceData).ccm25ArithmeticPackage
+      (window_lambda_compatibility_of_source_backed
+        (toSourceTraceReadOffDataOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData traceData).oneLtLambda)
+  packageRestrictedQW_eq := rfl
+  restrictedSource :=
+    restrictedTraceReadOffSourceOfNormalizedPackage
+      base common ccm24 normalizedSeed remainders rhExit bridges
+      fixedData traceData
+  restrictedSource_eq_bridge := rfl
+  restrictedTraceReadOffEquality :=
+    (restrictedTraceReadOffSourceOfNormalizedPackage
+      base common ccm24 normalizedSeed remainders rhExit bridges
+      fixedData traceData).restrictedTraceReadOffEquality
+  restrictedTraceReadOffEquality_eq_bridge := rfl
+
 def noDefectQWLambdaTheoremDataOfNormalizedPackage
     (base : Source.SourceObjectTheoremBasePackage)
     (common : Source.SourceObjectCommonData base)

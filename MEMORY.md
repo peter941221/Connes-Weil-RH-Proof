@@ -1,5 +1,23 @@
 2026-06-30
 
+- Continued Goal 4J by adding a normalized restricted equality contract in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- Added `TraceFrontEndData.NormalizedRestrictedTraceEqualityContract` and
+  `TraceFrontEndData.normalizedRestrictedTraceEqualityContractOfPackageBridge`.
+- The contract ties together the normalized source trace, package-backed
+  restricted `QW_lambda` read-off, bridge-built restricted source, and
+  `RestrictedTraceReadOffEquality`.
+- Boundary preserved: this is an assumption-boundary ledger, not analytic
+  discharge. It records that the restricted trace equality still comes from
+  `sourceTrace.restrictedTraceReadOffBridge`.
+- Important Lean detail: the restricted contract must use `sourceTrace.lambda`,
+  not `traceData.lambda`, because `ccm25_restricted_qw_read_off_of_package`
+  is built from the normalized `SourceTraceReadOffData`.
+- WSL ext4 narrow verification passed after syncing from the Windows source of
+  truth: `lake build ConnesWeilRH.Route.TraceFrontEnd`.
+
+2026-06-30
+
 - Continued Goal 4J by adding route-facing fixed-test wrappers for the
   normalized CC20 source-object package path.
 - Updated `ConnesWeilRH/Route/FixedTestFrontEnd.lean`.

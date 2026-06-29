@@ -300,6 +300,10 @@ drift, hidden axioms, or toy-route leakage.
   through `WindowLambdaCompatibility`, combining `1 < lambda` with the CCM24
   semilocal window compatibility for the source-backed fixed-`S` test. Do not
   treat `lambda` as a route-local free parameter.
+- Normalized restricted trace equality contracts should use the `lambda` from
+  the normalized `SourceTraceReadOffData`, not an adjacent route wrapper field,
+  because package-backed `CCM25RestrictedQWReadOff` is constructed from that
+  normalized source trace package.
 - `WindowLambdaCompatibility` should expose the containment chain through
   `WindowSupportContainment`: source support in the CCM24 window, Fourier
   support in the same window, convolution-support transport, and
