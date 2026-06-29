@@ -1,5 +1,603 @@
 2026-06-29
 
+- Sliced Goal 0 in `外部意见/003-unconditional-rh-completion-plan.md` into
+  implementable proof-bearing steps.
+- Goal 0A now targets a concrete CCM25 common source test and convolution
+  square, with a square read-off theorem proved by unfolding definitions rather
+  than projecting an arbitrary interface field.
+- Goal 0B targets a concrete source visibility predicate attached to the same
+  square.
+- Goal 0C targets prime-power evaluation points and values tied to the same
+  concrete square and the points `n` and `n^-1`.
+- Goal 0D targets fixed-lambda support using the concrete visibility predicate.
+- Goal 0E targets replacement of one `CCM25SourceModel` law-field projection,
+  preferably finite-prime normalization, with a theorem from Goal 0A-0D data.
+- Updated the work order: implement Goal 0A first, make Goal 2B consume it,
+  then proceed through concrete visibility, evaluation points, support, and
+  theorem-base replacement.
+- Updated `AGENTS.md` with the sliced Goal 0 rule.
+- Boundary preserved: this was a planning/documentation change only; no Lean
+  code changed in this pass.
+
+2026-06-29
+
+- Revised `外部意见/003-unconditional-rh-completion-plan.md` after auditing the
+  current Goal 1B source-model layer.
+- Added Goal 0 as the correctness gate before any source-model theorem-base
+  projection can count as unconditional analytic discharge.
+- Corrected Goal 1B wording: the current CCM24/CCM25/CC20 theorem-base fields
+  are projected from explicit source-model assumptions, not yet proved from
+  concrete analytic source definitions.
+- Updated the completion gates and work order so the next first action is a
+  Goal 0 seed before more source-object staging is treated as proof progress.
+- Chosen first Goal 0 seed: CCM25 common source test and finite-prime evaluation
+  object, because it feeds Goal 2B common-test data and later fixed-test
+  restricted-to-full support equality.
+- Updated `AGENTS.md` with the rule that `CCM24SourceModel`,
+  `CCM25SourceModel`, and `CC20TraceModel` law fields remain assumptions until
+  filled by theorems proved from concrete Goal 0 definitions.
+- Boundary preserved: no Lean code changed in this pass, and no conditional
+  source-model projection was promoted to unconditional proof.
+
+2026-06-29
+
+- Completed Goal 2A.
+- Added `ConnesWeilRH/Source/ObjectTheoremBasePackage.lean`.
+- The new `SourceObjectTheoremBasePackage` stages the Goal 1B source models
+  before the full source-object layer:
+  `ccm24Model : CCM24SourceModel`,
+  `ccm25Model : CCM25SourceModel`, `cc20TraceModel : CC20TraceModel`,
+  `rhDefinitionBridge : RHDefinitionBridge`, and
+  `cc20RHExitObjectPackage : CC20RHExitObjectPackage rhDefinitionBridge`.
+- Added projections:
+  `SourceObjectTheoremBasePackage.toCCM24TheoremBase`,
+  `SourceObjectTheoremBasePackage.toCCM25TheoremBase`,
+  `SourceObjectTheoremBasePackage.toCC20TheoremBase`,
+  `SourceObjectTheoremBasePackage.toSourceTheoremBase`,
+  and compact interface projections.
+- Updated `ConnesWeilRH.lean` to import
+  `ConnesWeilRH.Source.ObjectTheoremBasePackage`.
+- Updated `外部意见/003-unconditional-rh-completion-plan.md` to mark Goal 2A
+  done and Goal 2B as the next source-object staging target.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.ObjectTheoremBasePackage` and
+  `lake build ConnesWeilRH`.
+- Axiom audit for `toCCM24TheoremBase`, `toCCM25TheoremBase`,
+  `toCC20TheoremBase`, `toSourceTheoremBase`, and the compact interface
+  projections reports only `[propext, Classical.choice, Quot.sound]`.
+- Weak-loophole scan over `ConnesWeilRH/**/*.lean` found no `sorry`, `admit`,
+  declaration-level `axiom`, `constant`, `opaque`, `unsafe`, `Nonempty`,
+  `.choose`, `choose_spec`, or `exists ... True`.
+- `git diff --check` passed; Git only reported CRLF normalization warnings.
+- Boundary preserved: Goal 2A does not build `SourceObjectPackage`,
+  `CommonTestObject`, route front ends, `RouteCertificate`, or
+  `unconditional_rh`.
+
+2026-06-29
+
+- Rewrote Goal 2 details in `外部意见/003-unconditional-rh-completion-plan.md`
+  after reviewing the full Goal 1-6 dependency chain.
+- Correction: Goal 2 cannot jump straight from Goal 1B to a no-argument
+  `SourceObjectPackage`, because `SourceObjectPackage` still owns common-test
+  data, expanded object witnesses, cross-object bridges, and the expanded
+  `SourceObject.CC20RHExitObjectPackage`.
+- Split Goal 2 into staged targets:
+  `SourceObjectTheoremBasePackage`, common-test data, expanded object rows, and
+  the final `SourceObjectPackage` constructor.
+- Recorded the naming boundary between compact
+  `Source.CC20RHExitObjectPackage B` and expanded
+  `Source.SourceObject.CC20RHExitObjectPackage`; Goal 2 must bridge these
+  layers instead of treating them as the same object.
+- Boundary preserved: this was a planning/documentation correction only. No
+  Lean code changed in this pass.
+
+2026-06-29
+
+- Completed Goal 1B at the theorem-base/source-model layer.
+- Added `ConnesWeilRH/Source/CCM24SourceModel.lean` with
+  `CCM24SourceModel` and source projection theorems:
+  `ccm24_source_canonical_semilocal_model`,
+  `ccm24_source_support_transport`,
+  `ccm24_source_bounded_comparison`, and
+  `ccm24_source_sonin_comparison`.
+- Extended `ConnesWeilRH/Source/CCM25SourceModel.lean` so
+  `CCM25SourceModel` carries explicit laws for all theorem-base fields:
+  `qw_eq_psi_convolution`, `psi_sign_formula`, `qw_lambda_formula`,
+  `global_prime_index_coverage`, `restricted_prime_index_coverage`,
+  `finite_prime_term_normalization`, and `pole_normalization`.
+- Added CCM25 source projection theorems:
+  `ccm25_source_qw_definition`, `ccm25_source_psi_sign`,
+  `ccm25_source_qw_lambda_formula`,
+  `ccm25_source_finite_prime_normalization`, and
+  `ccm25_source_pole_normalization`.
+- Added `ConnesWeilRH/Source/CC20TraceModel.lean` with `CC20TraceModel` and
+  trace source projection theorems:
+  `cc20_source_archimedean_trace_square`,
+  `cc20_source_trace_class_template`,
+  `cc20_source_mellin_half_density_convention`, and
+  `cc20_source_signs_and_normalizations`.
+- Added theorem-base constructors:
+  `CCM24TheoremBase.discharged`,
+  `CCM25TheoremBase.discharged`,
+  `CC20TheoremBase.dischargedTraceBase`, and
+  `SourceTheoremBase.dischargedTraceBase`.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.CCM24SourceModel`,
+  `lake build ConnesWeilRH.Source.CCM25SourceModel`,
+  `lake build ConnesWeilRH.Source.CC20TraceModel`,
+  `lake build ConnesWeilRH.Source.CCM24TheoremBase`,
+  `lake build ConnesWeilRH.Source.CCM25TheoremBase`,
+  `lake build ConnesWeilRH.Source.CC20TheoremBase`,
+  `lake build ConnesWeilRH.Source.TheoremBase`, and
+  `lake build ConnesWeilRH`.
+- Axiom audit:
+  CCM24 source projection theorems and `CCM24TheoremBase.discharged` report no
+  axioms; CCM25 source projection theorems, `CCM25TheoremBase.discharged`,
+  CC20 source projection theorems, `CC20TheoremBase.dischargedTraceBase`, and
+  `SourceTheoremBase.dischargedTraceBase` report only
+  `[propext, Classical.choice, Quot.sound]`.
+- Weak-loophole scan over `ConnesWeilRH/**/*.lean` found no `sorry`, `admit`,
+  declaration-level `axiom`, `constant`, `opaque`, `unsafe`, `Nonempty`,
+  `.choose`, `choose_spec`, or `exists ... True`.
+- `git diff --check` passed; Git only reported CRLF normalization warnings.
+- Boundary preserved: this still does not build `SourceObjectPackage`,
+  `RouteCertificate`, `SourceTheoremBase.discharged`, `unconditional_rh`, or
+  the CC20 finite-vanishing RH exit. `SourceTheoremBase.dischargedTraceBase`
+  still takes `CC20RHExitObjectPackage` as explicit Goal 5 data.
+
+2026-06-29
+
+- Corrected Goal 1B back to the approved QW-only slice after detecting an
+  over-broad source-model discharge attempt.
+- Removed the unapproved complete constructors
+  `CCM25TheoremBase.discharged`,
+  `CC20TheoremBase.dischargedTraceBase`, and
+  `SourceTheoremBase.dischargedTraceBase`.
+- Removed the unapproved CCM24 and CC20 source-model files from the active
+  Lean import chain. CCM24 and CC20 remain at theorem-base target status only.
+- Kept the approved CCM25 source slice:
+  `ConnesWeilRH/Source/CCM25SourceModel.lean` defines
+  `CCM25SourceModel` with explicit `qw`, `psi`, `convolutionStar`, and the law
+  `qw_eq_psi_convolution`.
+- `ConnesWeilRH.Source.ccm25_source_qw_definition` proves
+  `WeilFormSymbols.QWDefinitionStatement M.toWeilFormSymbols` by projecting
+  that source-model law.
+- `ConnesWeilRH.Source.CCM25TheoremBasePartialQW.ofSourceModel` remains the
+  only Goal 1B constructor. It is intentionally partial; `psiSign`,
+  `qwLambdaFormula`, `finitePrimeNormalization`, and `poleNormalization`
+  remain open.
+- Updated the accepted-source status board and CCM24/CCM25/CC20 decision
+  records so they no longer claim rows 1-3 are fully field-discharged.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.CCM25SourceModel`,
+  `lake build ConnesWeilRH.Source.CCM25TheoremBase`, and
+  `lake build ConnesWeilRH`.
+- Axiom audit:
+  `ConnesWeilRH.Source.ccm25_source_qw_definition` and
+  `ConnesWeilRH.Source.CCM25TheoremBasePartialQW.ofSourceModel` report only
+  `[propext, Classical.choice, Quot.sound]`.
+- Weak-loophole scan over `ConnesWeilRH/**/*.lean` found no `sorry`, `admit`,
+  declaration-level `axiom`, `constant`, `opaque`, `unsafe`, `Nonempty`,
+  `.choose`, `choose_spec`, or `exists ... True`.
+- `git diff --check` passed; Git only reported CRLF normalization warnings.
+- Boundary preserved: no `SourceObjectPackage`, `RouteCertificate`,
+  `CCM25TheoremBase.discharged`, `SourceTheoremBase.discharged`, or
+  `unconditional_rh` exists for this slice.
+
+2026-06-29
+
+- Started corrected Goal 1B field-by-field discharge without creating a fake
+  global `SourceTheoremBase.discharged`.
+- Added `ConnesWeilRH/Source/CCM25SourceModel.lean`.
+- The new source model keeps the remaining CCM25 Weil-form data explicit and
+  stores the source law `qw_eq_psi_convolution`, so the first source row field
+  is discharged from model data rather than by `SourceObligation.Holds`,
+  reviewer decision text, or a toy zero model.
+- Proved `ConnesWeilRH.Source.ccm25_source_qw_definition`:
+  `WeilFormSymbols.QWDefinitionStatement M.toWeilFormSymbols`.
+- Added `CCM25TheoremBasePartialQW` and
+  `CCM25TheoremBasePartialQW.ofSourceModel` in
+  `ConnesWeilRH/Source/CCM25TheoremBase.lean`. This is intentionally partial:
+  `psiSign`, `qwLambdaFormula`, `finitePrimeNormalization`, and
+  `poleNormalization` remain open.
+- Updated `ConnesWeilRH.lean` to import `ConnesWeilRH.Source.CCM25SourceModel`.
+- Updated `docs/audits/ccm25-source-interface-referee-decision-record.md` to
+  mark only the `QW(g,g)=Psi(F_g)` field as Lean discharged from
+  `CCM25SourceModel`; the overall CCM25 source row remains not accepted-source
+  and not fully discharged.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.CCM25SourceModel`,
+  `lake build ConnesWeilRH.Source.CCM25TheoremBase`, and
+  `lake build ConnesWeilRH`.
+- Axiom audit:
+  `ConnesWeilRH.Source.ccm25_source_qw_definition` and
+  `ConnesWeilRH.Source.CCM25TheoremBasePartialQW.ofSourceModel` report only
+  `[propext, Classical.choice, Quot.sound]`.
+- Weak-loophole scan over `ConnesWeilRH/**/*.lean` found no `sorry`, `admit`,
+  declaration-level `axiom`, `constant`, `opaque`, `unsafe`, `Nonempty`,
+  `.choose`, `choose_spec`, or `exists ... True`.
+- Boundary preserved: this does not build `CCM25TheoremBase.discharged`,
+  `SourceTheoremBase.discharged`, `SourceObjectPackage`, `RouteCertificate`,
+  or `unconditional_rh`.
+
+2026-06-29
+
+- Implemented Goal 1's Lean theorem-base target layer without claiming source
+  row discharge.
+- Added `ConnesWeilRH/Source/CCM24TheoremBase.lean`,
+  `ConnesWeilRH/Source/CCM25TheoremBase.lean`,
+  `ConnesWeilRH/Source/CC20TheoremBase.lean`, and
+  `ConnesWeilRH/Source/TheoremBase.lean`.
+- Each base record carries the row's compact-interface fields and exposes a
+  `.toInterface` constructor into `CCM24Interface`, `CCM25Interface`, or
+  `CC20Interface`; the combined `SourceTheoremBase` exposes projection
+  constructors for all three.
+- Important correction during implementation: do not use toy `True`, empty
+  finite-prime, or zero-symbol models to fill theorem-base fields. The final
+  implementation keeps the records as theorem targets; the analytic source
+  fields still must be proved from concrete source definitions before any row
+  is discharged.
+- Added explicit negative boundary props for the two base-row shortcuts:
+  `CCM24AutomaticPostQTransportImported := False` with
+  `ccm24_no_automatic_post_q_transport`, and
+  `CCM25SpectralShortcutImported := False` with
+  `ccm25_no_spectral_shortcut_import`.
+- Updated the accepted-source status board and the first three decision
+  records to mark rows 1-3 as `Lean theorem-base target implemented`, not
+  accepted-source and not discharged.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.CCM24TheoremBase`,
+  `lake build ConnesWeilRH.Source.CCM25TheoremBase`,
+  `lake build ConnesWeilRH.Source.CC20TheoremBase`,
+  `lake build ConnesWeilRH.Source.TheoremBase`, and
+  `lake build ConnesWeilRH`.
+- Axiom audit:
+  `CCM24TheoremBase.toInterface` has no axioms;
+  `CCM25TheoremBase.toInterface`, `CC20TheoremBase.toInterface`, and the three
+  `SourceTheoremBase` projections report only
+  `[propext, Classical.choice, Quot.sound]`;
+  the two negative-boundary theorems have no axioms.
+- Weak-loophole scan over `ConnesWeilRH/**/*.lean` found no `sorry`, `admit`,
+  declaration-level `axiom`, `constant`, `opaque`, `unsafe`, `Nonempty`,
+  `.choose`, `choose_spec`, or `exists ... True`.
+- Boundary preserved: this opens the Lean theorem-base target layer for Goal 1.
+  It does not build `SourceObjectPackage`, a route front end,
+  `RouteCertificate`, `unconditional_rh`, or a source-row analytic proof.
+
+2026-06-29
+
+- Continued common-test unconditionalization by replacing another bare CCM25
+  compatibility `Prop` with data-bearing equality.
+- Added `ccm25SourceTest` to `CommonTestObject` in
+  `ConnesWeilRH/Source/Objects.lean`, with type
+  `CCM25Concrete.PrimePowerTest.SourceTestEvaluationInterface W sourceTest
+  sourceTest`.
+- Added `ccm25SourceTestSquareReadOff`, tying the evaluator interface's
+  convolution square to `commonTest.sourceConvolutionSquare`.
+- Changed `SourceObjectPackage.ccm25Test_eq_commonTest` from a bare `Prop` to
+  the equality between `commonTest.ccm25SourceTest` and
+  `CCM25Concrete.Rows.source_test_of_arithmetic_rows
+  ccm25.concreteArithmeticRows commonTest.sourceTest commonTest.sourceTest`.
+- Added source projection helpers in
+  `ConnesWeilRH/Source/ObjectDerivations.lean`:
+  `toCCM25CommonSourceTest`,
+  `common_convolution_square_eq_ccm25_source_test_square`, and
+  `common_ccm25_source_test_eq_arithmetic_rows`.
+- Added route-facing projections in `ConnesWeilRH/Route/RouteTheorem.lean`:
+  `expanded_source_common_test_eq_ccm25_arithmetic_source_test` and
+  `expanded_source_common_square_eq_ccm25_source_test_square`.
+- Updated `docs/audits/unconditional-rh-gap-ledger.md` and `AGENTS.md` to
+  record that the CCM25 common-test bridge must stay tied to arithmetic rows by
+  equality, not a bare `Prop`.
+- WSL ext4 verification passed after syncing `Objects.lean`,
+  `ObjectDerivations.lean`, and `RouteTheorem.lean`:
+  `lake build ConnesWeilRH`.
+- Axiom audit for
+  `ConnesWeilRH.Source.SourceObject.SourceObjectPackage.common_ccm25_source_test_eq_arithmetic_rows`,
+  `ConnesWeilRH.Route.expanded_source_common_test_eq_ccm25_arithmetic_source_test`,
+  `ConnesWeilRH.Route.expanded_source_common_square_eq_ccm25_source_test_square`,
+  and `ConnesWeilRH.Route.final_connes_weil_rh` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Strict weak-loophole scan over Windows found no Lean declarations or witness
+  shells matching `sorry`, `admit`, declaration-level `axiom`, `constant`,
+  `opaque`, `unsafe`, `Nonempty`, `.choose`, `choose_spec`, or
+  `exists ... True`.
+- Boundary preserved: this removes the CCM25 common-test evaluator drift
+  channel but does not prove RH unconditionally or discharge the analytic red
+  rows.
+
+2026-06-29
+
+- Continued the unconditionalization attack slice by hardening the common-test
+  convolution square.
+- Changed `CommonTestObject` in `ConnesWeilRH/Source/Objects.lean` to depend on
+  the CCM25 `WeilFormSymbols` and changed `sourceConvolutionSquareReadOff` from
+  a bare `Prop` to the concrete equality
+  `sourceConvolutionSquare = W.convolutionStar sourceTest sourceTest`.
+- Updated `SourceObjectPackage.commonTest` so it is a
+  `CommonTestObject ccm25.weilSymbols`, binding the common test square to the
+  same CCM25 symbols used by the route.
+- Updated `ConnesWeilRH/Route/RouteTheorem.lean` so
+  `ExpandedSourceRouteCertificateFrontEnd.commonTuple` is stored at
+  `pkg.commonTest.sourceConvolutionSquare`; added
+  `expanded_source_package_convolution_square_read_off`,
+  `expanded_source_convolution_square_compatibility`,
+  `expanded_source_route_common_tuple_on_route_square`,
+  `expanded_source_route_common_test_on_route_square`, and
+  `expanded_source_restricted_to_full_bridge_on_route_square`.
+- The route certificate constructor now transports restricted-to-full and
+  final-sign uses from the source square to the route square through the
+  concrete source-square equality, rather than taking both directly at the
+  route-square expression.
+- Updated `docs/audits/unconditional-rh-gap-ledger.md` and `AGENTS.md` with the
+  new rule that common-test convolution-square data must remain a concrete
+  equality against the CCM25 Weil symbols.
+- WSL ext4 verification passed after syncing `Objects.lean` and
+  `RouteTheorem.lean`: `lake build ConnesWeilRH.Route.RouteTheorem` and
+  `lake build ConnesWeilRH`.
+- Axiom audit for
+  `ConnesWeilRH.Route.expanded_source_package_convolution_square_read_off`,
+  `ConnesWeilRH.Route.expanded_source_convolution_square_compatibility`,
+  `ConnesWeilRH.Route.expanded_source_route_common_tuple_on_route_square`,
+  `ConnesWeilRH.Route.expanded_source_restricted_to_full_bridge_on_route_square`,
+  `ConnesWeilRH.Route.expanded_source_route_final_sign_bridge`, and
+  `ConnesWeilRH.Route.final_connes_weil_rh` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Strict weak-loophole scan over Windows found no Lean declarations or witness
+  shells matching `sorry`, `admit`, declaration-level `axiom`, `constant`,
+  `opaque`, `unsafe`, `Nonempty`, `.choose`, `choose_spec`, or
+  `exists ... True`.
+- Boundary preserved: this removes one common-test drift channel but does not
+  prove RH unconditionally or discharge the CCM24/CCM25/CC20 analytic red rows.
+
+2026-06-29
+
+- Shifted the active route strategy from additional interface polish to
+  unconditionalization: the next work should remove or prove inputs to
+  `final_connes_weil_rh`, not merely make already-visible assumptions prettier.
+- Added `docs/audits/unconditional-rh-gap-ledger.md`.
+- The new ledger starts from the current Lean boundary
+  `RouteCertificate inputs -> _root_.RiemannHypothesis` and maps the missing
+  unconditional chain:
+  concrete source definitions / accepted imports / Lean analytic proofs ->
+  `SourceObjectPackage` -> `ExpandedSourceFixedSTestFrontEnd` ->
+  `ExpandedSourceTraceReadOffFrontEnd` ->
+  `ExpandedSourceRouteCertificateFrontEnd` -> `RouteCertificate` -> RH.
+- Classified top-level blockers as Green/Yellow/Red and identified the first
+  attack slice as common-test/convolution compatibility, fixed tuple equality,
+  CCM25 fixed-lambda finite-prime support and term normalization, then
+  fixed-test restricted-to-full scalar equality.
+- Linked the ledger from `docs/audits/README.md` and the root `README.md`.
+- Started the first ledger attack slice in Lean by changing
+  `ExpandedSourceRouteCertificateFrontEnd` in
+  `ConnesWeilRH/Route/RouteTheorem.lean` to store the shared
+  `SourceCommonTestTupleContract` and only the `SourceArchimedeanSignBridge`.
+- Added `expanded_source_route_common_test` and
+  `expanded_source_route_final_sign_bridge`, so the final-sign bridge is now
+  derived from the same common tuple used by the restricted-to-full path rather
+  than being supplied as a separate route-front field.
+- WSL ext4 verification passed after syncing `RouteTheorem.lean`:
+  `lake build ConnesWeilRH.Route.RouteTheorem` and `lake build ConnesWeilRH`.
+- Axiom audit for
+  `ConnesWeilRH.Route.expanded_source_route_common_test`,
+  `ConnesWeilRH.Route.expanded_source_route_final_sign_bridge`,
+  `ConnesWeilRH.Route.route_certificate_of_expanded_source_package`, and
+  `ConnesWeilRH.Route.final_connes_weil_rh` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Strict weak-loophole scan over Windows found no Lean declarations or witness
+  shells matching `sorry`, `admit`, declaration-level `axiom`, `constant`,
+  `opaque`, `unsafe`, `Nonempty`, `.choose`, `choose_spec`, or
+  `exists ... True`.
+- Boundary preserved: this is a planning/audit artifact for removing the
+  certificate/source-object inputs plus a small common-test drift guard. It
+  does not prove RH unconditionally and does not discharge CCM24/CCM25/CC20
+  analytic rows.
+
+2026-06-29
+
+- Migrated the common-atom restricted-to-full archimedean balance to scoped
+  finite-prime evaluator sums.
+- Changed `SourceCommonAtomArchimedeanContributionMatchesForRestriction` in
+  `ConnesWeilRH/Route/Bridge.lean` so its stored balance uses
+  `source_common_restricted_finite_prime_evaluator_scoped_sum` and
+  `source_common_global_finite_prime_evaluator_scoped_sum`.
+- Added
+  `SourceCommonAtomFullArchimedeanContributionMatchesForRestriction` as the
+  explicit compatibility shape for the old common full-sum balance.
+- Added `source_common_atom_full_archimedean_contribution_matches_of_package`
+  to derive the old common full-sum balance from common-scoped stored evidence
+  through the package old/scoped bridges.
+- Updated `source_common_atom_archimedean_contribution_matches_of_package` so
+  it returns common-scoped balance as the main route-facing evidence while
+  deriving the old package theorem only as an intermediate compatibility step.
+- WSL ext4 verification passed after syncing the current Windows dirty Lean
+  files: `lake build ConnesWeilRH.Route.Bridge` and
+  `lake build ConnesWeilRH`.
+- Axiom audit for
+  `ConnesWeilRH.Route.source_common_atom_full_archimedean_contribution_matches_of_package`,
+  `ConnesWeilRH.Route.source_common_atom_archimedean_contribution_matches_of_package`,
+  `ConnesWeilRH.Route.common_atom_archimedean_contribution_of_qw_lambda_restriction`,
+  and `ConnesWeilRH.Route.final_connes_weil_rh` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Strict weak-loophole scans over Windows and WSL found no Lean declarations
+  or witness shells matching `sorry`, `admit`, declaration-level `axiom`,
+  `constant`, `opaque`, `unsafe`, `Nonempty`, `.choose`, `choose_spec`, or
+  `exists ... True`.
+- Logic boundary preserved: common-atom balance is now scoped-first, but the
+  route remains source-conditional and does not discharge the analytic
+  CCM24/CCM25/CC20 source interfaces or prove RH unconditionally.
+
+2026-06-29
+
+- Migrated the restricted-to-full archimedean balance record itself to scoped
+  finite-prime evaluator sums.
+- Changed `SourceArchimedeanContributionMatchesForRestriction` in
+  `ConnesWeilRH/Route/Bridge.lean` so its stored
+  `archimedeanContributionMatches` field is the scoped balance using
+  `source_restricted_finite_prime_evaluator_scoped_sum` and
+  `source_global_finite_prime_evaluator_scoped_sum`.
+- Added `source_full_archimedean_contribution_matches_of_package` as the
+  explicit old/full-sum compatibility projection from the scoped stored
+  evidence through the package old/scoped bridges.
+- Updated old full-sum APIs such as
+  `archimedean_contribution_equality_of_qw_lambda_restriction`,
+  `source_common_atom_archimedean_contribution_matches_of_package`, and the
+  legacy scalar-equality helpers to derive their old balance from the scoped
+  record instead of reading old balance as stored evidence.
+- Added scoped projection helpers
+  `scoped_archimedean_contribution_equality_of_qw_lambda_restriction`,
+  `scoped_archimedean_contribution_matches_of_scalar_witness`, and
+  `scoped_archimedean_contribution_matches_of_scalar_restriction`.
+- WSL ext4 verification passed after syncing the current Windows dirty Lean
+  files: `lake build ConnesWeilRH.Route.Bridge` and
+  `lake build ConnesWeilRH`.
+- Axiom audit for
+  `ConnesWeilRH.Route.source_full_archimedean_contribution_matches_of_package`,
+  `ConnesWeilRH.Route.scoped_archimedean_contribution_matches_of_scalar_witness`,
+  `ConnesWeilRH.Route.scoped_archimedean_contribution_matches_of_scalar_restriction`,
+  `ConnesWeilRH.Route.scalar_equality_from_scoped_witness_components`, and
+  `ConnesWeilRH.Route.final_connes_weil_rh` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Strict weak-loophole scans over Windows and WSL found no Lean declarations
+  or witness shells matching `sorry`, `admit`, declaration-level `axiom`,
+  `constant`, `opaque`, `unsafe`, `Nonempty`, `.choose`, `choose_spec`, or
+  `exists ... True`.
+- Logic boundary preserved: the route now stores the restricted-to-full
+  archimedean balance in scoped finite-prime form, but the proof remains
+  source-conditional and does not discharge the analytic CCM24/CCM25/CC20
+  source interfaces or prove RH unconditionally.
+
+2026-06-29
+
+- Hardened the route-facing CCM25 scoped finite-prime read-off path.
+- Added scoped finite-prime sum and scoped source-evaluator fields to
+  `PackageBackedCCM25WeilFormReadOff` in
+  `ConnesWeilRH/Route/Bridge.lean`, so route consumers can inspect scoped
+  `Psi`, `QW`, and `QW_lambda` read-offs directly instead of only seeing them
+  at the package/component layer.
+- Added package-level old/scoped compatibility bridges in
+  `ConnesWeilRH/Source/CCM25Concrete/Package.lean`:
+  `source_common_global_scoped_sum_eq_common_global_sum_of_package`,
+  `source_common_restricted_scoped_sum_eq_common_restricted_sum_of_package`,
+  `source_global_scoped_sum_eq_global_sum_of_package`, and
+  `source_restricted_scoped_sum_eq_restricted_sum_of_package`.
+- Added `SourceScopedArchimedeanContributionMatchesForRestriction` and proved
+  it from the existing archimedean balance through the old/scoped package
+  bridges.
+- Changed `scalar_equality_of_scalar_witness` to use
+  `scalar_equality_from_scoped_witness_components`, whose equality chain reads
+  `QW_lambda` and `QW` through scoped finite-prime evaluator sums.
+- WSL ext4 verification passed after syncing the current Windows dirty Lean
+  files:
+  `lake build ConnesWeilRH.Source.CCM25Concrete.Package
+  ConnesWeilRH.Route.Bridge` and `lake build ConnesWeilRH`.
+- Axiom audit for
+  `ConnesWeilRH.Route.scalar_equality_from_scoped_witness_components`,
+  `ConnesWeilRH.Route.scalar_equality_of_scalar_witness`, and
+  `ConnesWeilRH.Route.final_connes_weil_rh` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Strict weak-loophole scans over Windows and WSL found no Lean declarations
+  or witness shells matching `sorry`, `admit`, declaration-level `axiom`,
+  `constant`, `opaque`, `unsafe`, `Nonempty`, `.choose`, `choose_spec`, or
+  `exists ... True`.
+- Logic boundary preserved: this makes restricted-to-full scalar equality use
+  the scoped finite-prime read-off chain, but it remains source-conditional
+  Lean interface hardening. It does not discharge the analytic CCM24/CCM25/CC20
+  source interfaces or prove RH unconditionally.
+
+2026-06-29
+
+- Propagated CCM25 support-scoped finite-prime evaluator sums into the formula
+  component layer.
+- Added scoped finite-prime sum fields to
+  `GlobalComponent.GlobalFinitePrimeSumReadOff` and
+  `RestrictedComponent.RestrictedFinitePrimeSumReadOff`, alongside the existing
+  compatibility fields for the older full arithmetic-normalization sums.
+- Added global scoped read-off theorems:
+  `global_finite_prime_scoped_sum_of_component`,
+  `global_von_mangoldt_pairing_scoped_sum_of_component`,
+  `psi_scoped_source_evaluator_of_component`, and
+  `qw_scoped_source_evaluator_of_component`.
+- Added restricted scoped read-off theorems:
+  `restricted_finite_prime_scoped_sum_of_component`,
+  `restricted_von_mangoldt_pairing_scoped_sum_of_component`, and
+  `qw_lambda_formula_scoped_source_evaluator_of_component`.
+- Exposed the same scoped read-offs through
+  `ConnesWeilRH/Source/CCM25Concrete/FormulaComponents.lean` with
+  `psi_scoped_source_evaluator_of_formula_components`,
+  `qw_scoped_source_evaluator_of_formula_components`,
+  `qw_lambda_formula_scoped_source_evaluator_of_formula_components`, and the
+  global/restricted scoped sum projection theorems.
+- Added package-level scoped finite-prime evaluator sums and bridges in
+  `ConnesWeilRH/Source/CCM25Concrete/Package.lean`, including
+  `source_global_finite_prime_evaluator_scoped_sum`,
+  `source_restricted_finite_prime_evaluator_scoped_sum`,
+  `source_common_global_finite_prime_evaluator_scoped_sum`,
+  `source_common_restricted_finite_prime_evaluator_scoped_sum`, and the
+  corresponding scoped bridge theorems.
+- Propagated the scoped package read-offs into `ConnesWeilRH/Route/Bridge.lean`
+  through the package stabilization and finite-prime sign-owned route records.
+- WSL ext4 verification passed:
+  `lake build ConnesWeilRH.Source.CCM25Concrete.Package` and
+  `lake build ConnesWeilRH.Route.Bridge`.
+- WSL ext4 verification passed:
+  `lake build ConnesWeilRH.Source.CCM25Concrete.GlobalComponent
+  ConnesWeilRH.Source.CCM25Concrete.RestrictedComponent
+  ConnesWeilRH.Source.CCM25Concrete.FormulaComponents
+  ConnesWeilRH.Source.CCM25Concrete.Package ConnesWeilRH.Route.Bridge
+  ConnesWeilRH`.
+- Axiom audit for the new scoped global/restricted component theorems,
+  formula-component scoped `QW`/`QW_lambda` theorems, and
+  `ConnesWeilRH.Route.final_connes_weil_rh` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Weak loophole scan found no `sorry`, `admit`, `axiom`, `constant`,
+  `opaque`, `unsafe`, `Nonempty`, `.choose`, `choose_spec`, or
+  `exists ... True`.
+- Logic boundary preserved: global `QW/Psi` and restricted `QW_lambda` can now
+  be read against support-scoped finite-prime evaluator sums at the component
+  layer, but package and route consumers still need migration before the old
+  full `forall n` arithmetic-normalization dependency is retired.
+
+2026-06-29
+
+- Began hardening CCM25 finite-prime arithmetic away from impossible
+  all-natural-number atom assumptions.
+- Added `SourceFinitePrimeArithmeticDataOnIndexSet` in
+  `ConnesWeilRH/Source/CCM25Concrete/PrimePowerArithmetic.lean`, with
+  `atIndex` requiring a membership proof `n in indexSet` before supplying
+  `SourceFinitePrimeArithmeticData W f g n`.
+- Added scoped evaluator sums:
+  `SourceFinitePrimeEvaluatorSumOnIndexSet`,
+  `SourceGlobalFinitePrimeEvaluatorSumOnIndexSet`, and
+  `SourceRestrictedFinitePrimeEvaluatorSumOnIndexSet`.
+- Proved compatibility with the older global normalization interface through
+  `source_finite_prime_evaluator_sum_on_index_set_of_global`,
+  `source_global_finite_prime_evaluator_sum_on_index_set_of_global`, and
+  `source_restricted_finite_prime_evaluator_sum_on_index_set_of_global`.
+- Added certificate-level scoped projections in
+  `ConnesWeilRH/Source/CCM25Concrete/FinitePrimeCertificate.lean`:
+  `arithmetic_data_on_global_index_set_of_certificate`,
+  `arithmetic_data_on_restricted_index_set_of_certificate`,
+  `arithmetic_global_scoped_sum_eq_global_sum_of_certificate`, and
+  `arithmetic_restricted_scoped_sum_eq_restricted_sum_of_certificate`.
+- WSL ext4 verification passed:
+  `lake build ConnesWeilRH.Source.CCM25Concrete.PrimePowerArithmetic` and
+  `lake build ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate
+  ConnesWeilRH.Source.CCM25Concrete.Package ConnesWeilRH.Route.Bridge
+  ConnesWeilRH`.
+- Axiom audit for the scoped evaluator compatibility theorems, certificate
+  scoped-sum theorems, and `ConnesWeilRH.Route.final_connes_weil_rh` reported
+  only `[propext, Classical.choice, Quot.sound]`.
+- Weak loophole scan found no `sorry`, `admit`, `axiom`, `constant`,
+  `opaque`, `unsafe`, `Nonempty`, `.choose`, `choose_spec`, or
+  `exists ... True`.
+- Logic boundary preserved: this introduces the correct support-scoped target
+  shape for finite-prime arithmetic but does not yet migrate all CCM25 rows,
+  packages, and route consumers away from the older full
+  `forall n` arithmetic-normalization interface.
+
+2026-06-29
+
 - Hardened the `CC20FiniteVanishingRhExit` route-input path.
 - Added `CC20PropositionC1RouteInputData` in
   `ConnesWeilRH/Source/CC20RHExit.lean` to wrap the constructed
@@ -7842,3 +8440,35 @@
 - Logic boundary preserved: these are interface hardening changes only. The CC20
   trace/sign-defect bridge and the analytic source-discharge steps remain the
   real hard part.
+
+2026-06-29
+
+- Created `外部意见/003-unconditional-rh-completion-plan.md`.
+- The plan records the updated constraint that no external reviewer path is
+  available, so accepted-source packets are now only Lean theorem
+  specifications.
+- It reframes the remaining route from source-conditional evidence to a
+  Lean-only completion path: prove CCM24/CCM25/CC20 source rows in Lean, build
+  `SourceObjectPackage`, construct the fixed-S/trace/route front ends without
+  assumptions, construct `RouteCertificate`, and finish with an unconditional
+  `_root_.RiemannHypothesis` theorem plus clean axiom audit.
+- Boundary preserved: no row was marked accepted-source, and the repository
+  still does not prove RH unconditionally.
+
+2026-06-29
+
+- Reviewed and corrected `外部意见/003-unconditional-rh-completion-plan.md`.
+- Fixed the plan's Lean verification criteria: theorem statement checks are now
+  separated from `#print axioms`, because axiom audit reports dependencies and
+  does not by itself prove that `RouteCertificate` or `SourceObjectPackage`
+  disappeared from the theorem statement.
+- Kept the nine accepted-source rows as audit/tracking rows instead of allowing
+  deletion; Lean-only completion must mark them discharged by theorem and axiom
+  audit.
+- Removed the suggestion to add failing theorem stubs to imported Lean modules;
+  unproved targets must stay as document contracts or non-imported scratch notes,
+  not `axiom`, `constant`, `opaque`, `sorry`, or `admit`.
+- Clarified the actual Lean package path
+  `Source.SourceObject.SourceObjectPackage` and recorded that its current
+  `Prop` fields must be filled by named theorems rather than renamed
+  assumptions.

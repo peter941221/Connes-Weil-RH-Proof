@@ -29,6 +29,66 @@ def toWeilFormSymbols
     (pkg : SourceObjectPackage) : WeilFormSymbols :=
   pkg.ccm25.weilSymbols
 
+def toCCM25CommonSourceTest
+    (pkg : SourceObjectPackage) :
+    CCM25Concrete.PrimePowerTest.SourceTestEvaluationInterface
+      pkg.toWeilFormSymbols pkg.commonTest.sourceTest
+      pkg.commonTest.sourceTest :=
+  pkg.commonTest.ccm25SourceTest
+
+theorem common_convolution_square_eq_ccm25_source_test_square
+    (pkg : SourceObjectPackage) :
+    pkg.commonTest.sourceConvolutionSquare =
+      (toCCM25CommonSourceTest pkg).sourceConvolutionSquare := by
+  exact pkg.commonTest.ccm25SourceTestSquareReadOff.symm
+
+theorem common_ccm25_source_test_eq_arithmetic_rows
+    (pkg : SourceObjectPackage) :
+    toCCM25CommonSourceTest pkg =
+      CCM25Concrete.Rows.source_test_of_arithmetic_rows
+        pkg.ccm25.concreteArithmeticRows
+        pkg.commonTest.sourceTest pkg.commonTest.sourceTest :=
+  pkg.ccm25Test_eq_commonTest
+
+def commonTestInvolutionBridge
+    (pkg : SourceObjectPackage) :
+    CommonTestInvolutionBridge pkg.toWeilFormSymbols pkg.commonTest :=
+  pkg.commonTestInvolution
+
+def ccm24CommonTestBridge
+    (pkg : SourceObjectPackage) :
+    CCM24CommonTestBridge pkg.toWeilFormSymbols pkg.commonTest pkg.ccm24 :=
+  pkg.ccm24Test_eq_commonTest
+
+def cc20CommonTestBridge
+    (pkg : SourceObjectPackage) :
+    CC20CommonTestBridge pkg.toWeilFormSymbols pkg.commonTest pkg.cc20Trace :=
+  pkg.cc20TraceTest_eq_commonTest
+
+theorem ccm24_common_support_window
+    (pkg : SourceObjectPackage) :
+    pkg.ccm24.semilocalSymbols.supportInWindow
+      pkg.ccm24.sourceTestLeg pkg.ccm24.sourceSupportWindow :=
+  (ccm24CommonTestBridge pkg).supportWindowOwnsCommonTest
+
+theorem ccm24_common_fourier_window
+    (pkg : SourceObjectPackage) :
+    pkg.ccm24.semilocalSymbols.fourierSupportInWindow
+      pkg.ccm24.sourceTestLeg pkg.ccm24.sourceSupportWindow :=
+  (ccm24CommonTestBridge pkg).fourierWindowOwnsCommonTest
+
+theorem ccm24_common_convolution_support_transported
+    (pkg : SourceObjectPackage) :
+    pkg.ccm24.semilocalSymbols.convolutionSupportTransported
+      pkg.ccm24.sourceTestLeg pkg.ccm24.sourceSupportWindow :=
+  (ccm24CommonTestBridge pkg).convolutionSupportTransported
+
+theorem cc20_common_mellin_half_density
+    (pkg : SourceObjectPackage) :
+    ArchimedeanTraceSymbols.MellinHalfDensityConventionStatement
+      pkg.cc20Trace.archimedeanSymbols :=
+  (cc20CommonTestBridge pkg).halfDensityMatchesCommonTest
+
 def toArchimedeanTraceSymbols
     (pkg : SourceObjectPackage) : ArchimedeanTraceSymbols :=
   pkg.cc20Trace.archimedeanSymbols

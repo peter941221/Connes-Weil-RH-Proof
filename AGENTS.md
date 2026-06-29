@@ -1,5 +1,8 @@
 # AGENTS.md
 
+
+- MUST output all in English unless the user inputs Chinese directly.
+- do not use Codegraph MCP in this project.
 ## [1] Project Overview
 
 This repository is the dedicated working area for the Connes-Weil RH proof
@@ -197,6 +200,36 @@ drift, hidden axioms, or toy-route leakage.
   normalization. A fixed-`lambda` support skeleton must be paired with a
   pointwise term-normalization theorem before deriving `ExactSupportAtLambda`
   or finite-prime visibility.
+- CCM25 finite-prime arithmetic should move toward support-scoped data such as
+  `SourceFinitePrimeArithmeticDataOnIndexSet`, not stronger full
+  `forall n` atom assumptions. A record containing
+  `SourcePrimePowerIndex n` for every natural number is too strong to be a
+  final source interface; keep compatibility theorems only as migration
+  bridges until downstream rows/packages are scoped to concrete index sets.
+- CCM25 global/restricted formula components should expose and prefer scoped
+  finite-prime evaluator read-offs, e.g.
+  `psi_scoped_source_evaluator_of_formula_components`,
+  `qw_scoped_source_evaluator_of_formula_components`, and
+  `qw_lambda_formula_scoped_source_evaluator_of_formula_components`, before
+  package and route layers consume finite-prime sums.
+- Route-facing CCM25 read-off records should expose scoped finite-prime sums
+  directly. In particular, `PackageBackedCCM25WeilFormReadOff` should keep
+  scoped `Psi`, `QW`, and `QW_lambda` source-evaluator read-offs, and
+  restricted-to-full scalar equality should use the scoped read-off chain as
+  the main path. Full `forall n` evaluator sums may remain only as explicit
+  compatibility bridges until all downstream rows are scoped.
+- Restricted-to-full archimedean balance should be stored in scoped
+  finite-prime form. `SourceArchimedeanContributionMatchesForRestriction`
+  should expose the scoped restricted/global evaluator sums as its primary
+  field; old full-sum balance statements should be projection/compatibility
+  theorems derived from old/scoped package bridges, not the stored evidence.
+- Common-atom archimedean balance should also be scoped first.
+  `SourceCommonAtomArchimedeanContributionMatchesForRestriction` should use
+  `source_common_restricted_finite_prime_evaluator_scoped_sum` and
+  `source_common_global_finite_prime_evaluator_scoped_sum` as its stored
+  balance. The old common full-sum balance belongs only in an explicit
+  compatibility theorem such as
+  `SourceCommonAtomFullArchimedeanContributionMatchesForRestriction`.
 - CCM25 finite-prime support witness data should pass through the named
   records `SourceVisibleAtomData`, `SourceGlobalIndexData`, and
   `SourceRestrictedIndexData` from
@@ -436,6 +469,12 @@ drift, hidden axioms, or toy-route leakage.
   record and ties its fields together. For CC20 finite-vanishing, keep
   `CC20FiniteVanishingRhExitData` and `CC20FiniteVanishingRhExitStatement`
   instead of reverting to `exists B, Nonempty package`.
+- Goal 1 theorem-base records such as `CCM24TheoremBase`,
+  `CCM25TheoremBase`, and `CC20TheoremBase` are target/interface records, not
+  analytic discharges by themselves. Do not fill them with toy `True`, empty
+  finite-prime, or zero-symbol models and call the source row proved. A row is
+  discharged only when those fields are proved from concrete source
+  definitions or already audited Lean theorem dependencies.
 - Legacy compatibility wrappers should also carry explicit data records when
   they are kept. In particular,
   `LegacySourceFinitePrimeSignOwnedByFormula` must keep the concrete package
@@ -488,6 +527,35 @@ drift, hidden axioms, or toy-route leakage.
   and CC20 source theorems as stated.
 - The current artifact is not a Lean proof.
 - The current artifact is not a Clay or journal certificate.
+- Unconditionalization work must remove or prove the inputs to
+  `final_connes_weil_rh`, especially `RouteCertificate`,
+  `SourceObjectPackage`, and the expanded source front-end records. Do not
+  count proof-package coverage, clean route-composition axiom output, or
+  interface reshaping as an unconditional RH proof.
+- Source-model theorem-base staging is not analytic discharge by itself. A
+  law stored as a field on `CCM24SourceModel`, `CCM25SourceModel`, or
+  `CC20TraceModel` remains an assumption until a concrete Goal 0 source
+  definition layer proves that law and uses the theorem to fill the field.
+- The next unconditionalization correctness gate is Goal 0: define concrete
+  analytic source objects and prove at least one source law from those
+  definitions. The first recommended seed is the CCM25 common source test and
+  finite-prime evaluation object, because it feeds Goal 2B common-test staging
+  and later restricted-to-full support equality.
+- Slice Goal 0 into implementable proof-bearing steps. Start with Goal 0A:
+  define a concrete CCM25 common source test and convolution square, prove the
+  square read-off by unfolding definitions, and make Goal 2B's
+  `CommonTestObject` consume that concrete object. Then proceed to concrete
+  visibility, prime-power evaluation points, fixed-lambda support, and finally
+  replacement of one `CCM25SourceModel` law-field projection by a theorem from
+  those concrete slices.
+- Common-test data must keep the convolution square as a concrete equality
+  against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
+  should store common-tuple evidence at the source square and transport
+  restricted-to-full/final-sign route-square uses through that equality.
+- The CCM25 common-test bridge must keep the
+  `PrimePowerTest.SourceTestEvaluationInterface` tied by equality to
+  `CCM25Concrete.Rows.source_test_of_arithmetic_rows` for the same common
+  source test. Do not reintroduce a bare `ccm25Test_eq_commonTest : Prop`.
 - Route-search notes belong in the control/archive repository unless they are
   directly needed by the manuscript or formalization.
 - Theorem 1 must only be used on admissible tuples `(S,I,lambda,g)`: the support

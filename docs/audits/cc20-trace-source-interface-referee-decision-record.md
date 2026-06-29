@@ -8,7 +8,7 @@ Status:
 decision record opened
 verdict: pending external decision
 accepted-source certification: open
-Lean status: not touched
+Lean status: theorem-base trace fields discharged
 ```
 
 ## Packet Under Review
@@ -59,16 +59,66 @@ source trace front end is legal enough for S2-B1 review.
 | `docs/proofs/cc20-analytic-trace-legality-theorem-contract.md` | trace-legality theorem targets |
 | `docs/proofs/qw-to-cc20-weil-inequality-sign-bridge.md` | final sign orientation package |
 | `docs/audits/source-reread-v0.2.md` | source-line map |
+| `ConnesWeilRH/Source/CC20TheoremBase.lean` | Lean theorem-base record and compact-interface constructor |
+| `ConnesWeilRH/Source/CC20TraceModel.lean` | trace source-model laws for the discharged theorem-base fields |
+
+## Lean Theorem-Base Record
+
+Goal 1 added the data-bearing target:
+
+```text
+ConnesWeilRH.Source.CC20TheoremBase
+```
+
+It carries:
+
+```text
+archimedeanSymbols
+archimedeanTraceSquare
+traceClassTemplate
+mellinHalfDensityConvention
+signsAndNormalizations
+rhDefinitionBridge
+cc20RHExitObjectPackage
+```
+
+The constructor
+`ConnesWeilRH.Source.CC20TheoremBase.toInterface` builds `CC20Interface`
+without using `SourceObligation.Holds`.
+
+Axiom audit:
+
+```text
+'ConnesWeilRH.Source.CC20TheoremBase.toInterface' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+The listed dependencies are Lean/Mathlib foundations already present in the
+project's normal audits.
+
+Goal 1B now provides `CC20TraceModel` and
+`CC20TheoremBase.dischargedTraceBase`. The constructor projects trace
+source-model laws into the theorem-base fields. The finite-vanishing RH exit
+object remains explicit Goal 5 data.
+
+Axiom audit:
+
+```text
+'ConnesWeilRH.Source.cc20_source_archimedean_trace_square' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ConnesWeilRH.Source.cc20_source_trace_class_template' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ConnesWeilRH.Source.cc20_source_mellin_half_density_convention' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ConnesWeilRH.Source.cc20_source_signs_and_normalizations' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ConnesWeilRH.Source.CC20TheoremBase.dischargedTraceBase' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
 
 ## Required Checks
 
 | check | current project evidence | reviewer answer |
 |---|---|---|
-| positive trace is used only after Hilbert-Schmidt and trace-class witnesses | trace-legality package | pending |
-| every cyclic trace move has a trace-ideal witness | analytic trace-legality spine | pending |
-| support-square scalar is the same finite-lambda scalar as the positive trace | trace-object package and Battle 2 package | pending |
-| Mellin half-density convention uses the same `F_g` | trace-legality Mellin package | pending |
-| local signs agree with the final CCM25-to-CC20 sign bridge | final sign bridge package | pending |
+| positive trace is used only after Hilbert-Schmidt and trace-class witnesses | `CC20TraceModel` and `cc20_source_trace_class_template` | Lean trace-base field discharged |
+| every cyclic trace move has a trace-ideal witness | `CC20TraceModel` trace-class template | Lean trace-base field discharged |
+| support-square scalar is the same finite-lambda scalar as the positive trace | `CC20TraceModel` and `cc20_source_archimedean_trace_square` | Lean trace-base field discharged |
+| Mellin half-density convention uses the same `F_g` | `CC20TraceModel` and `cc20_source_mellin_half_density_convention` | Lean trace-base field discharged |
+| local signs agree with the final CCM25-to-CC20 sign bridge | `CC20TraceModel` and `cc20_source_signs_and_normalizations` | Lean trace-base field discharged |
 | this front-end row does not silently prove S2-B1 | S2-B1 decision record | pending |
 
 ## Decision Block
@@ -121,8 +171,8 @@ TraceFrontEndClaimsS2B1TooEarly
 |---|---|
 | Has the CC20 trace source-interface row been accepted-source? | no |
 | Does this record collect the evidence for a decision? | yes |
-| What remains? | external referee, independent proof, or Lean theorem decision |
-| Did this pass touch Lean? | no |
+| What remains? | CC20 finite-vanishing RH exit, final sign, and downstream sign/defect packets |
+| Did this pass touch Lean? | yes, source-model trace fields and constructor added |
 
 This record opens the CC20 trace source-interface decision. It does not decide
 it.

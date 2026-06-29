@@ -55,11 +55,23 @@ structure PackageBackedCCM25WeilFormReadOff
       W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
       Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
         pkg
+  globalFinitePrimeScopedSumReadOff :
+    let W := inputs.ccm25.weilSymbols
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
+      Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+        pkg
   restrictedFinitePrimeSumReadOff :
     let W := inputs.ccm25.weilSymbols
     (∑ n ∈ W.restrictedPrimeIndexSet lambda,
       W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
       Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+        pkg
+  restrictedFinitePrimeScopedSumReadOff :
+    let W := inputs.ccm25.weilSymbols
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
+      Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
         pkg
   psiSourceEvaluatorReadOff :
     let W := inputs.ccm25.weilSymbols
@@ -68,6 +80,13 @@ structure PackageBackedCCM25WeilFormReadOff
         W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
           Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
             pkg
+  psiScopedSourceEvaluatorReadOff :
+    let W := inputs.ccm25.weilSymbols
+    W.psi (W.convolutionStar g.weilTest g.weilTest) =
+      W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
+        W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
+          Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+            pkg
   qwSourceEvaluatorReadOff :
     let W := inputs.ccm25.weilSymbols
     W.qw g.weilTest g.weilTest =
@@ -75,12 +94,26 @@ structure PackageBackedCCM25WeilFormReadOff
         W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
           Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
             pkg
+  qwScopedSourceEvaluatorReadOff :
+    let W := inputs.ccm25.weilSymbols
+    W.qw g.weilTest g.weilTest =
+      W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
+        W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
+          Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+            pkg
   qwLambdaSourceEvaluatorReadOff :
     let W := inputs.ccm25.weilSymbols
     W.qwLambda lambda g.weilTest g.weilTest =
       W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) +
         W.polePairing g.weilTest -
           Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+            pkg
+  qwLambdaScopedSourceEvaluatorReadOff :
+    let W := inputs.ccm25.weilSymbols
+    W.qwLambda lambda g.weilTest g.weilTest =
+      W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) +
+        W.polePairing g.weilTest -
+          Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
             pkg
 
 theorem package_backed_ccm25_weil_form_read_off
@@ -99,17 +132,32 @@ theorem package_backed_ccm25_weil_form_read_off
     globalFinitePrimeSumReadOff :=
       Source.CCM25Concrete.Package.global_finite_prime_sum_of_package_components
         pkg
+    globalFinitePrimeScopedSumReadOff :=
+      Source.CCM25Concrete.Package.global_finite_prime_scoped_sum_of_package_components
+        pkg
     restrictedFinitePrimeSumReadOff :=
       Source.CCM25Concrete.Package.restricted_finite_prime_sum_of_package_components
+        pkg
+    restrictedFinitePrimeScopedSumReadOff :=
+      Source.CCM25Concrete.Package.restricted_finite_prime_scoped_sum_of_package_components
         pkg
     psiSourceEvaluatorReadOff :=
       Source.CCM25Concrete.Package.psi_source_evaluator_of_package_components
         pkg
+    psiScopedSourceEvaluatorReadOff :=
+      Source.CCM25Concrete.Package.psi_scoped_source_evaluator_of_package_components
+        pkg
     qwSourceEvaluatorReadOff :=
       Source.CCM25Concrete.Package.qw_source_evaluator_of_package_components
         pkg
+    qwScopedSourceEvaluatorReadOff :=
+      Source.CCM25Concrete.Package.qw_scoped_source_evaluator_of_package_components
+        pkg
     qwLambdaSourceEvaluatorReadOff :=
       Source.CCM25Concrete.Package.qw_lambda_formula_source_evaluator_of_package_components
+        pkg
+    qwLambdaScopedSourceEvaluatorReadOff :=
+      Source.CCM25Concrete.Package.qw_lambda_formula_scoped_source_evaluator_of_package_components
         pkg }
 
 theorem package_backed_global_finite_prime_sum
@@ -140,6 +188,34 @@ theorem package_backed_restricted_finite_prime_sum
         pkg :=
   h.restrictedFinitePrimeSumReadOff
 
+theorem package_backed_global_finite_prime_scoped_sum
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    let W := inputs.ccm25.weilSymbols
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
+      Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+        pkg :=
+  h.globalFinitePrimeScopedSumReadOff
+
+theorem package_backed_restricted_finite_prime_scoped_sum
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    let W := inputs.ccm25.weilSymbols
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
+      Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
+        pkg :=
+  h.restrictedFinitePrimeScopedSumReadOff
+
 theorem package_backed_restricted_index_set_eq_global
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ}
@@ -164,6 +240,48 @@ theorem package_backed_source_restricted_sum_eq_global
       Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
         pkg :=
   Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum_eq_global
+    pkg
+
+theorem package_backed_source_restricted_scoped_sum_eq_global
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (_h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
+      pkg =
+      Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+        pkg :=
+  Source.CCM25Concrete.Package.source_restricted_scoped_sum_eq_global_of_package
+    pkg
+
+theorem package_backed_source_global_scoped_sum_eq_global_sum
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (_h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+      pkg =
+      Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+        pkg :=
+  Source.CCM25Concrete.Package.source_global_scoped_sum_eq_global_sum_of_package
+    pkg
+
+theorem package_backed_source_restricted_scoped_sum_eq_restricted_sum
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (_h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
+      pkg =
+      Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+        pkg :=
+  Source.CCM25Concrete.Package.source_restricted_scoped_sum_eq_restricted_sum_of_package
     pkg
 
 theorem package_backed_source_global_sum_eq_common_atoms
@@ -194,6 +312,34 @@ theorem package_backed_source_restricted_sum_eq_common_atoms
   Source.CCM25Concrete.Package.source_restricted_sum_eq_common_atoms_of_package
     pkg
 
+theorem package_backed_source_global_scoped_sum_eq_common_atoms
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (_h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+      pkg =
+      Source.CCM25Concrete.Package.source_common_global_finite_prime_evaluator_scoped_sum
+        pkg :=
+  Source.CCM25Concrete.Package.source_global_scoped_sum_eq_common_scoped_atoms_of_package
+    pkg
+
+theorem package_backed_source_restricted_scoped_sum_eq_common_atoms
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (_h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
+      pkg =
+      Source.CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_scoped_sum
+        pkg :=
+  Source.CCM25Concrete.Package.source_restricted_scoped_sum_eq_common_scoped_atoms_of_package
+    pkg
+
 theorem package_backed_source_common_restricted_sum_eq_common_global
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ}
@@ -209,6 +355,21 @@ theorem package_backed_source_common_restricted_sum_eq_common_global
     Source.CCM25Concrete.Package.source_common_restricted_sum_eq_common_global_of_package
       pkg
 
+theorem package_backed_source_common_restricted_scoped_sum_eq_common_global
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (_h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    Source.CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_scoped_sum
+      pkg =
+      Source.CCM25Concrete.Package.source_common_global_finite_prime_evaluator_scoped_sum
+        pkg := by
+  exact
+    Source.CCM25Concrete.Package.source_common_restricted_scoped_sum_eq_common_global_of_package
+      pkg
+
 theorem package_backed_psi_source_evaluator
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ}
@@ -221,8 +382,23 @@ theorem package_backed_psi_source_evaluator
       W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
         W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
           Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
-            pkg :=
+        pkg :=
   h.psiSourceEvaluatorReadOff
+
+theorem package_backed_psi_scoped_source_evaluator
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    let W := inputs.ccm25.weilSymbols
+    W.psi (W.convolutionStar g.weilTest g.weilTest) =
+      W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
+        W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
+          Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+            pkg :=
+  h.psiScopedSourceEvaluatorReadOff
 
 theorem package_backed_psi_source_evaluator_common_atoms
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -240,6 +416,22 @@ theorem package_backed_psi_source_evaluator_common_atoms
   Source.CCM25Concrete.Package.psi_source_evaluator_common_atoms_of_package
     pkg
 
+theorem package_backed_psi_scoped_source_evaluator_common_atoms
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (_h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    let W := inputs.ccm25.weilSymbols
+    W.psi (W.convolutionStar g.weilTest g.weilTest) =
+      W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
+        W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
+          Source.CCM25Concrete.Package.source_common_global_finite_prime_evaluator_scoped_sum
+            pkg :=
+  Source.CCM25Concrete.Package.psi_scoped_source_evaluator_common_atoms_of_package
+    pkg
+
 theorem package_backed_qw_source_evaluator
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ}
@@ -252,8 +444,23 @@ theorem package_backed_qw_source_evaluator
       W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
         W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
           Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
-            pkg :=
+        pkg :=
   h.qwSourceEvaluatorReadOff
+
+theorem package_backed_qw_scoped_source_evaluator
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    let W := inputs.ccm25.weilSymbols
+    W.qw g.weilTest g.weilTest =
+      W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
+        W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
+          Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+            pkg :=
+  h.qwScopedSourceEvaluatorReadOff
 
 theorem package_backed_qw_source_evaluator_common_atoms
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -271,6 +478,22 @@ theorem package_backed_qw_source_evaluator_common_atoms
   Source.CCM25Concrete.Package.qw_source_evaluator_common_atoms_of_package
     pkg
 
+theorem package_backed_qw_scoped_source_evaluator_common_atoms
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (_h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    let W := inputs.ccm25.weilSymbols
+    W.qw g.weilTest g.weilTest =
+      W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
+        W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
+          Source.CCM25Concrete.Package.source_common_global_finite_prime_evaluator_scoped_sum
+            pkg :=
+  Source.CCM25Concrete.Package.qw_scoped_source_evaluator_common_atoms_of_package
+    pkg
+
 theorem package_backed_qw_lambda_source_evaluator
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ}
@@ -283,8 +506,23 @@ theorem package_backed_qw_lambda_source_evaluator
       W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) +
         W.polePairing g.weilTest -
           Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
-            pkg :=
+        pkg :=
   h.qwLambdaSourceEvaluatorReadOff
+
+theorem package_backed_qw_lambda_scoped_source_evaluator
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    let W := inputs.ccm25.weilSymbols
+    W.qwLambda lambda g.weilTest g.weilTest =
+      W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) +
+        W.polePairing g.weilTest -
+          Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
+            pkg :=
+  h.qwLambdaScopedSourceEvaluatorReadOff
 
 theorem package_backed_qw_lambda_source_evaluator_common_atoms
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -300,6 +538,22 @@ theorem package_backed_qw_lambda_source_evaluator_common_atoms
           Source.CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_sum
             pkg :=
   Source.CCM25Concrete.Package.qw_lambda_formula_source_evaluator_common_atoms_of_package
+    pkg
+
+theorem package_backed_qw_lambda_scoped_source_evaluator_common_atoms
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (_h : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg) :
+    let W := inputs.ccm25.weilSymbols
+    W.qwLambda lambda g.weilTest g.weilTest =
+      W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) +
+        W.polePairing g.weilTest -
+          Source.CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_scoped_sum
+            pkg :=
+  Source.CCM25Concrete.Package.qw_lambda_formula_scoped_source_evaluator_common_atoms_of_package
     pkg
 
 structure SourceConvolutionSquareCompatibility
@@ -460,11 +714,23 @@ structure SourceFinitePrimeSignOwnedByPackage
     (∑ n ∈ W.globalPrimeIndexSet,
       W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
       Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum pkg
+  globalFinitePrimeScopedSumReadOff :
+    let W := inputs.ccm25.weilSymbols
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
+      Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+        pkg
   restrictedFinitePrimeSumReadOff :
     let W := inputs.ccm25.weilSymbols
     (∑ n ∈ W.restrictedPrimeIndexSet lambda,
       W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
       Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+        pkg
+  restrictedFinitePrimeScopedSumReadOff :
+    let W := inputs.ccm25.weilSymbols
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.finitePrimeTerm n (W.convolutionStar g.weilTest g.weilTest)) =
+      Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
         pkg
   globalVonMangoldtPairingSumReadOff :
     let W := inputs.ccm25.weilSymbols
@@ -473,12 +739,26 @@ structure SourceFinitePrimeSignOwnedByPackage
         W.primePowerPairing n g.weilTest g.weilTest) =
       Source.CCM25Concrete.Package.source_common_global_finite_prime_evaluator_sum
         pkg
+  globalVonMangoldtPairingScopedSumReadOff :
+    let W := inputs.ccm25.weilSymbols
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.vonMangoldtWeight n *
+        W.primePowerPairing n g.weilTest g.weilTest) =
+      Source.CCM25Concrete.Package.source_common_global_finite_prime_evaluator_scoped_sum
+        pkg
   restrictedVonMangoldtPairingSumReadOff :
     let W := inputs.ccm25.weilSymbols
     (∑ n ∈ W.restrictedPrimeIndexSet lambda,
       W.vonMangoldtWeight n *
         W.primePowerPairing n g.weilTest g.weilTest) =
       Source.CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_sum
+        pkg
+  restrictedVonMangoldtPairingScopedSumReadOff :
+    let W := inputs.ccm25.weilSymbols
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.vonMangoldtWeight n *
+        W.primePowerPairing n g.weilTest g.weilTest) =
+      Source.CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_scoped_sum
         pkg
 
 structure PackageFinitePrimeSupportStabilization
@@ -515,12 +795,24 @@ structure PackageFinitePrimeSupportStabilization
       pkg =
       Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
         pkg
+  sourceRestrictedScopedSum_eq_global :
+    Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
+      pkg =
+      Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+        pkg
   globalFinitePrimeSumReadOff :
     (∑ n ∈ inputs.ccm25.weilSymbols.globalPrimeIndexSet,
       inputs.ccm25.weilSymbols.finitePrimeTerm n
         (inputs.ccm25.weilSymbols.convolutionStar
           g.weilTest g.weilTest)) =
       Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+        pkg
+  globalFinitePrimeScopedSumReadOff :
+    (∑ n ∈ inputs.ccm25.weilSymbols.globalPrimeIndexSet,
+      inputs.ccm25.weilSymbols.finitePrimeTerm n
+        (inputs.ccm25.weilSymbols.convolutionStar
+          g.weilTest g.weilTest)) =
+      Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
         pkg
   restrictedFinitePrimeSumReadOff :
     (∑ n ∈ inputs.ccm25.weilSymbols.restrictedPrimeIndexSet lambda,
@@ -529,6 +821,13 @@ structure PackageFinitePrimeSupportStabilization
           g.weilTest g.weilTest)) =
       Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
         pkg
+  restrictedFinitePrimeScopedSumReadOff :
+    (∑ n ∈ inputs.ccm25.weilSymbols.restrictedPrimeIndexSet lambda,
+      inputs.ccm25.weilSymbols.finitePrimeTerm n
+        (inputs.ccm25.weilSymbols.convolutionStar
+          g.weilTest g.weilTest)) =
+      Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
+        pkg
   globalVonMangoldtPairingSumReadOff :
     (∑ n ∈ inputs.ccm25.weilSymbols.globalPrimeIndexSet,
       inputs.ccm25.weilSymbols.vonMangoldtWeight n *
@@ -536,12 +835,26 @@ structure PackageFinitePrimeSupportStabilization
           n g.weilTest g.weilTest) =
       Source.CCM25Concrete.Package.source_common_global_finite_prime_evaluator_sum
         pkg
+  globalVonMangoldtPairingScopedSumReadOff :
+    (∑ n ∈ inputs.ccm25.weilSymbols.globalPrimeIndexSet,
+      inputs.ccm25.weilSymbols.vonMangoldtWeight n *
+        inputs.ccm25.weilSymbols.primePowerPairing
+          n g.weilTest g.weilTest) =
+      Source.CCM25Concrete.Package.source_common_global_finite_prime_evaluator_scoped_sum
+        pkg
   restrictedVonMangoldtPairingSumReadOff :
     (∑ n ∈ inputs.ccm25.weilSymbols.restrictedPrimeIndexSet lambda,
       inputs.ccm25.weilSymbols.vonMangoldtWeight n *
         inputs.ccm25.weilSymbols.primePowerPairing
           n g.weilTest g.weilTest) =
       Source.CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_sum
+        pkg
+  restrictedVonMangoldtPairingScopedSumReadOff :
+    (∑ n ∈ inputs.ccm25.weilSymbols.restrictedPrimeIndexSet lambda,
+      inputs.ccm25.weilSymbols.vonMangoldtWeight n *
+        inputs.ccm25.weilSymbols.primePowerPairing
+          n g.weilTest g.weilTest) =
+      Source.CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_scoped_sum
         pkg
 
 abbrev PackageExactFinitePrimeSupportAtLambda
@@ -627,6 +940,9 @@ theorem package_finite_prime_support_stabilization
         inputs.ccm25.weilSymbols g.weilTest lambda} :
     PackageFinitePrimeSupportStabilization inputs g lambda pkg := by
   let exactSupport := package_exact_finite_prime_support_at_lambda pkg
+  let hrestrictedScopedPairing :=
+    Source.CCM25Concrete.Package.restricted_von_mangoldt_pairing_scoped_sum_common_atoms_of_package
+      pkg
   exact
   { globalIndexSourceData := by
       intro n hn
@@ -647,18 +963,32 @@ theorem package_finite_prime_support_stabilization
     sourceRestrictedSum_eq_global :=
       Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum_eq_global
         pkg
+    sourceRestrictedScopedSum_eq_global :=
+      Source.CCM25Concrete.Package.source_restricted_scoped_sum_eq_global_of_package
+        pkg
     globalFinitePrimeSumReadOff :=
       Source.CCM25Concrete.Package.global_finite_prime_sum_of_package_components
+        pkg
+    globalFinitePrimeScopedSumReadOff :=
+      Source.CCM25Concrete.Package.global_finite_prime_scoped_sum_common_atoms_of_package
         pkg
     restrictedFinitePrimeSumReadOff :=
       Source.CCM25Concrete.Package.restricted_finite_prime_sum_of_package_components
         pkg
+    restrictedFinitePrimeScopedSumReadOff :=
+      Source.CCM25Concrete.Package.restricted_finite_prime_scoped_sum_common_atoms_of_package
+        pkg
     globalVonMangoldtPairingSumReadOff :=
       Source.CCM25Concrete.Package.finite_prime_concrete_object_global_pairing_sum_read_off
         pkg
+    globalVonMangoldtPairingScopedSumReadOff :=
+      Source.CCM25Concrete.Package.global_von_mangoldt_pairing_scoped_sum_common_atoms_of_package
+        pkg
     restrictedVonMangoldtPairingSumReadOff :=
       Source.CCM25Concrete.Package.finite_prime_concrete_object_restricted_pairing_sum_read_off
-        pkg }
+        pkg
+    restrictedVonMangoldtPairingScopedSumReadOff :=
+      hrestrictedScopedPairing }
 
 theorem global_index_source_data_of_package_stabilization
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -886,6 +1216,16 @@ structure SourceFinitePrimeEvaluatorSumsMatchForRestriction
       pkg =
       Source.CCM25Concrete.Package.source_common_global_finite_prime_evaluator_sum
         pkg
+  restrictedScopedEvaluatorSum_eq_global :
+    Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
+      pkg =
+      Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+        pkg
+  restrictedCommonScopedEvaluatorSum_eq_global :
+    Source.CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_scoped_sum
+      pkg =
+      Source.CCM25Concrete.Package.source_common_global_finite_prime_evaluator_scoped_sum
+        pkg
 
 structure SourceArchimedeanPoleStabilityForRestriction
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -895,6 +1235,22 @@ structure SourceArchimedeanPoleStabilityForRestriction
         inputs.ccm25.weilSymbols g.weilTest lambda) where
   poleNormalizationReadOff : CCM25PoleNormalizationReadOff inputs g
   packageReadOff : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg
+
+def SourceScopedArchimedeanContributionMatchesForRestriction
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ)
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) : Prop :=
+  let W := inputs.ccm25.weilSymbols
+  W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) +
+      W.polePairing g.weilTest -
+        Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
+          pkg =
+    W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
+      W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
+        Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+          pkg
 
 structure SourceArchimedeanContributionMatchesForRestriction
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -906,14 +1262,30 @@ structure SourceArchimedeanContributionMatchesForRestriction
     let W := inputs.ccm25.weilSymbols
     W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) +
         W.polePairing g.weilTest -
-          Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+          Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
             pkg =
       W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
         W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
-          Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+          Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
             pkg
 
 def SourceCommonAtomArchimedeanContributionMatchesForRestriction
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ)
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) : Prop :=
+  let W := inputs.ccm25.weilSymbols
+  W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) +
+      W.polePairing g.weilTest -
+        Source.CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_scoped_sum
+          pkg =
+    W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
+      W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
+        Source.CCM25Concrete.Package.source_common_global_finite_prime_evaluator_scoped_sum
+          pkg
+
+def SourceCommonAtomFullArchimedeanContributionMatchesForRestriction
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (lambda : ℝ)
     (pkg :
@@ -929,6 +1301,52 @@ def SourceCommonAtomArchimedeanContributionMatchesForRestriction
         Source.CCM25Concrete.Package.source_common_global_finite_prime_evaluator_sum
           pkg
 
+theorem source_full_archimedean_contribution_matches_of_package
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (_hread : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg)
+    (h :
+      SourceArchimedeanContributionMatchesForRestriction
+        inputs g lambda pkg) :
+    let W := inputs.ccm25.weilSymbols
+    W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) +
+        W.polePairing g.weilTest -
+          Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+            pkg =
+      W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
+        W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
+          Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+            pkg := by
+  rw [← Source.CCM25Concrete.Package.source_restricted_scoped_sum_eq_restricted_sum_of_package
+    pkg]
+  rw [← Source.CCM25Concrete.Package.source_global_scoped_sum_eq_global_sum_of_package
+    pkg]
+  exact h.archimedeanContributionMatches
+
+theorem source_common_atom_full_archimedean_contribution_matches_of_package
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : SourceCommonAtomArchimedeanContributionMatchesForRestriction
+        inputs g lambda pkg) :
+    SourceCommonAtomFullArchimedeanContributionMatchesForRestriction
+      inputs g lambda pkg := by
+  dsimp [SourceCommonAtomArchimedeanContributionMatchesForRestriction,
+    SourceCommonAtomFullArchimedeanContributionMatchesForRestriction] at h ⊢
+  let hrestricted :=
+    Package.source_common_restricted_scoped_sum_eq_common_restricted_sum_of_package
+      pkg
+  let hglobal :=
+    Package.source_common_global_scoped_sum_eq_common_global_sum_of_package pkg
+  rw [← hrestricted]
+  rw [← hglobal]
+  exact h
+
 theorem source_common_atom_archimedean_contribution_matches_of_package
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ}
@@ -941,9 +1359,35 @@ theorem source_common_atom_archimedean_contribution_matches_of_package
         inputs g lambda pkg) :
     SourceCommonAtomArchimedeanContributionMatchesForRestriction
       inputs g lambda pkg := by
-  exact
+  have hcommonFull :
+      SourceCommonAtomFullArchimedeanContributionMatchesForRestriction
+        inputs g lambda pkg :=
     Source.CCM25Concrete.Package.common_atom_archimedean_contribution_matches_of_package
-      pkg h.archimedeanContributionMatches
+      pkg (source_full_archimedean_contribution_matches_of_package _hread h)
+  dsimp [SourceCommonAtomArchimedeanContributionMatchesForRestriction,
+    SourceCommonAtomFullArchimedeanContributionMatchesForRestriction] at hcommonFull ⊢
+  let hrestricted :=
+    Package.source_common_restricted_scoped_sum_eq_common_restricted_sum_of_package
+      pkg
+  let hglobal :=
+    Package.source_common_global_scoped_sum_eq_common_global_sum_of_package pkg
+  rw [hrestricted]
+  rw [hglobal]
+  exact hcommonFull
+
+theorem source_scoped_archimedean_contribution_matches_of_package
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (_hread : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg)
+    (h :
+      SourceArchimedeanContributionMatchesForRestriction
+        inputs g lambda pkg) :
+    SourceScopedArchimedeanContributionMatchesForRestriction
+      inputs g lambda pkg := by
+  exact h.archimedeanContributionMatches
 
 theorem source_restricted_qw_lambda_definition_read_off_of_common_tuple
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -1064,6 +1508,12 @@ noncomputable def source_qw_lambda_restriction_rows_of_common_tuple
           pkg
       restrictedCommonEvaluatorSum_eq_global :=
         Source.CCM25Concrete.Package.source_common_restricted_sum_eq_common_global_of_package
+          pkg
+      restrictedScopedEvaluatorSum_eq_global :=
+        Source.CCM25Concrete.Package.source_restricted_scoped_sum_eq_global_of_package
+          pkg
+      restrictedCommonScopedEvaluatorSum_eq_global :=
+        Source.CCM25Concrete.Package.source_common_restricted_scoped_sum_eq_common_global_of_package
           pkg }
   exactFinitePrimeSupport :=
     package_exact_finite_prime_support_at_lambda_holds
@@ -1239,6 +1689,20 @@ theorem archimedean_contribution_equality_of_qw_lambda_restriction
         W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
           Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
             pkg :=
+  source_full_archimedean_contribution_matches_of_package
+    (package_read_off_of_archimedean_pole_stability
+      h.archimedeanPoleStability)
+    h.archimedeanContributionMatches
+
+theorem scoped_archimedean_contribution_equality_of_qw_lambda_restriction
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : SourceQWLambdaIsRestrictionOfQW inputs g lambda pkg) :
+    SourceScopedArchimedeanContributionMatchesForRestriction
+      inputs g lambda pkg :=
   h.archimedeanContributionMatches.archimedeanContributionMatches
 
 theorem common_atom_archimedean_contribution_of_qw_lambda_restriction
@@ -1362,6 +1826,19 @@ theorem archimedean_contribution_matches_of_scalar_witness
     SourceArchimedeanContributionMatchesForRestriction inputs g lambda pkg :=
   h.archimedeanContributionMatches
 
+theorem scoped_archimedean_contribution_matches_of_scalar_witness
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullQWScalarRestrictionWitness
+        inputs g lambda F_g pkg) :
+    SourceScopedArchimedeanContributionMatchesForRestriction
+      inputs g lambda pkg :=
+  h.archimedeanContributionMatches.archimedeanContributionMatches
+
 theorem pole_pairing_eq_pole_functional_of_scalar_witness
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {F_g : TestFunction}
@@ -1391,6 +1868,19 @@ theorem scalar_equality_from_witness_components
   let W := inputs.ccm25.weilSymbols
   have harch :=
     archimedean_contribution_matches_of_scalar_witness h
+  let hread :=
+    package_read_off_of_archimedean_pole_stability
+      (archimedean_pole_stability_of_scalar_witness h)
+  have harchFull :
+      W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) +
+          W.polePairing g.weilTest -
+            Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+              pkg =
+        W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
+          W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
+            Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+              pkg :=
+    source_full_archimedean_contribution_matches_of_package hread harch
   calc
     W.qwLambda lambda g.weilTest g.weilTest =
         W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) +
@@ -1404,7 +1894,7 @@ theorem scalar_equality_from_witness_components
           W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
             Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
               pkg :=
-        harch.archimedeanContributionMatches
+        harchFull
     _ = W.qw g.weilTest g.weilTest :=
         (package_backed_qw_source_evaluator
           (package_read_off_of_archimedean_pole_stability
@@ -1423,9 +1913,45 @@ theorem scalar_equality_from_common_atom_witness_components
       inputs.ccm25.weilSymbols.qw g.weilTest g.weilTest := by
   have harch :=
     archimedean_contribution_matches_of_scalar_witness h
+  let hread :=
+    package_read_off_of_archimedean_pole_stability
+      (archimedean_pole_stability_of_scalar_witness h)
   exact
     Source.CCM25Concrete.Package.qw_lambda_eq_qw_of_archimedean_contribution
-      pkg harch.archimedeanContributionMatches
+      pkg (source_full_archimedean_contribution_matches_of_package hread harch)
+
+theorem scalar_equality_from_scoped_witness_components
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullQWScalarRestrictionWitness
+        inputs g lambda F_g pkg) :
+    inputs.ccm25.weilSymbols.qwLambda lambda g.weilTest g.weilTest =
+      inputs.ccm25.weilSymbols.qw g.weilTest g.weilTest := by
+  let W := inputs.ccm25.weilSymbols
+  let hread :=
+    package_read_off_of_archimedean_pole_stability
+      (archimedean_pole_stability_of_scalar_witness h)
+  have harchScoped :
+      SourceScopedArchimedeanContributionMatchesForRestriction
+        inputs g lambda pkg :=
+    scoped_archimedean_contribution_matches_of_scalar_witness h
+  calc
+    W.qwLambda lambda g.weilTest g.weilTest =
+        W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) +
+          W.polePairing g.weilTest -
+            Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
+              pkg := package_backed_qw_lambda_scoped_source_evaluator hread
+    _ =
+        W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
+          W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
+            Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+              pkg := harchScoped
+    _ = W.qw g.weilTest g.weilTest :=
+        (package_backed_qw_scoped_source_evaluator hread).symm
 
 theorem scalar_equality_of_scalar_witness
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -1438,7 +1964,7 @@ theorem scalar_equality_of_scalar_witness
         inputs g lambda F_g pkg) :
     inputs.ccm25.weilSymbols.qwLambda lambda g.weilTest g.weilTest =
       inputs.ccm25.weilSymbols.qw g.weilTest g.weilTest :=
-  scalar_equality_from_common_atom_witness_components h
+  scalar_equality_from_scoped_witness_components h
 
 structure RestrictedToFullQWLargeLambdaThreshold
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -1720,6 +2246,20 @@ theorem archimedean_contribution_matches_of_scalar_restriction
         inputs g lambda F_g pkg) :
     SourceArchimedeanContributionMatchesForRestriction inputs g lambda pkg :=
   archimedean_contribution_matches_of_scalar_witness
+    (scalar_witness_of_scalar_restriction h)
+
+theorem scoped_archimedean_contribution_matches_of_scalar_restriction
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullQWScalarRestrictionEquality
+        inputs g lambda F_g pkg) :
+    SourceScopedArchimedeanContributionMatchesForRestriction
+      inputs g lambda pkg :=
+  scoped_archimedean_contribution_matches_of_scalar_witness
     (scalar_witness_of_scalar_restriction h)
 
 theorem pole_pairing_eq_pole_functional_of_scalar_restriction
@@ -2030,6 +2570,9 @@ noncomputable def source_finite_prime_sign_owned_by_common_test
     (h : SourceQWUsesCommonTest inputs g lambda F_g pkg) :
     SourceFinitePrimeSignOwnedByPackage inputs g lambda pkg := by
   let hread := source_qw_package_read_off_of_common_test h
+  let hrestrictedScopedPairing :=
+    Source.CCM25Concrete.Package.restricted_von_mangoldt_pairing_scoped_sum_common_atoms_of_package
+      pkg
   exact
     { windowLambdaCompatibility := hread.windowLambdaCompatibility
       finitePrimeConcreteObject :=
@@ -2040,14 +2583,25 @@ noncomputable def source_finite_prime_sign_owned_by_common_test
           pkg
       globalFinitePrimeSumReadOff :=
         package_backed_global_finite_prime_sum hread
+      globalFinitePrimeScopedSumReadOff :=
+        Source.CCM25Concrete.Package.global_finite_prime_scoped_sum_common_atoms_of_package
+          pkg
       restrictedFinitePrimeSumReadOff :=
         package_backed_restricted_finite_prime_sum hread
+      restrictedFinitePrimeScopedSumReadOff :=
+        Source.CCM25Concrete.Package.restricted_finite_prime_scoped_sum_common_atoms_of_package
+          pkg
       globalVonMangoldtPairingSumReadOff :=
         Source.CCM25Concrete.Package.finite_prime_concrete_object_global_pairing_sum_read_off
           pkg
+      globalVonMangoldtPairingScopedSumReadOff :=
+        Source.CCM25Concrete.Package.global_von_mangoldt_pairing_scoped_sum_common_atoms_of_package
+          pkg
       restrictedVonMangoldtPairingSumReadOff :=
         Source.CCM25Concrete.Package.finite_prime_concrete_object_restricted_pairing_sum_read_off
-          pkg }
+          pkg
+      restrictedVonMangoldtPairingScopedSumReadOff :=
+        hrestrictedScopedPairing }
 
 def SourcePsiSignExpansion
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)

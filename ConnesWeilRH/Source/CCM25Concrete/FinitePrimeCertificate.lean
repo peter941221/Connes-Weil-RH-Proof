@@ -240,6 +240,39 @@ theorem arithmetic_atom_formula_of_restricted_index_certificate
         (h.atoms.atIndex n) :=
   arithmetic_atom_formula_of_certificate h n
 
+def arithmetic_data_on_global_index_set_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda) :
+    PrimePowerArithmetic.SourceGlobalFinitePrimeArithmeticData W f g where
+  atIndex := fun n _ => h.atoms.atIndex n
+
+def arithmetic_data_on_restricted_index_set_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda) :
+    PrimePowerArithmetic.SourceRestrictedFinitePrimeArithmeticData
+      W f g lambda where
+  atIndex := fun n _ => h.atoms.atIndex n
+
+theorem arithmetic_global_scoped_sum_eq_global_sum_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda) :
+    PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSumOnIndexSet
+        W f g (arithmetic_data_on_global_index_set_of_certificate h) =
+      PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum W f g h.atoms :=
+  PrimePowerArithmetic.source_global_finite_prime_evaluator_sum_on_index_set_of_global
+    h.atoms
+
+theorem arithmetic_restricted_scoped_sum_eq_restricted_sum_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda) :
+    PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSumOnIndexSet
+        W f g lambda
+        (arithmetic_data_on_restricted_index_set_of_certificate h) =
+      PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
+        W f g lambda h.atoms :=
+  PrimePowerArithmetic.source_restricted_finite_prime_evaluator_sum_on_index_set_of_global
+    h.atoms
+
 theorem arithmetic_finite_prime_sum_formula_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)

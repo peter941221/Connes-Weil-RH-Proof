@@ -109,6 +109,7 @@ Important source and certification files:
 docs/audits/source-reread-v0.2.md
 docs/audits/source-import-legitimacy-audit.md
 docs/audits/source-interface-discharge-completion-audit.md
+docs/audits/unconditional-rh-gap-ledger.md
 docs/audits/pre-lean-completion-audit.md
 docs/audits/accepted-source-certification-audit.md
 docs/audits/accepted-source-theorem-upgrade-ledger.md

@@ -21,11 +21,21 @@ namespace ConnesWeilRH
 namespace Source
 namespace SourceObject
 
-structure CommonTestObject where
+structure CommonTestObject (W : WeilFormSymbols) where
   sourceTest : TestFunction
   sourceConvolutionSquare : TestFunction
-  sourceConvolutionSquareReadOff : Prop
-  sourceInvolutionBridge : Prop
+  ccm25SourceTest :
+    CCM25Concrete.PrimePowerTest.SourceTestEvaluationInterface
+      W sourceTest sourceTest
+  sourceConvolutionSquareReadOff :
+    sourceConvolutionSquare = W.convolutionStar sourceTest sourceTest
+  ccm25SourceTestSquareReadOff :
+    ccm25SourceTest.sourceConvolutionSquare = sourceConvolutionSquare
+
+structure CommonTestInvolutionBridge (W : WeilFormSymbols)
+    (commonTest : CommonTestObject W) where
+  sourceInvolutionCompatible : Prop
+  convolutionSquareUsesInvolution : Prop
 
 structure CCM24SemilocalObjectPackage where
   semilocalSymbols : SemilocalModelSymbols
@@ -70,6 +80,22 @@ structure CCM24SemilocalObjectPackage where
     SemilocalModelSymbols.BoundedComparisonStatement semilocalSymbols
   sourceFixedWindowSoninExhaustion :
     SemilocalModelSymbols.SoninComparisonStatement semilocalSymbols
+
+structure CCM24CommonTestBridge
+    (W : WeilFormSymbols) (commonTest : CommonTestObject W)
+    (ccm24 : CCM24SemilocalObjectPackage)
+    where
+  sourceTestCompatibility : Prop
+  semilocalLegIsCommonTest : Prop
+  supportWindowOwnsCommonTest :
+    ccm24.semilocalSymbols.supportInWindow
+      ccm24.sourceTestLeg ccm24.sourceSupportWindow
+  fourierWindowOwnsCommonTest :
+    ccm24.semilocalSymbols.fourierSupportInWindow
+      ccm24.sourceTestLeg ccm24.sourceSupportWindow
+  convolutionSupportTransported :
+    ccm24.semilocalSymbols.convolutionSupportTransported
+      ccm24.sourceTestLeg ccm24.sourceSupportWindow
 
 structure CCM25WeilObjectPackage where
   weilSymbols : WeilFormSymbols
@@ -117,6 +143,17 @@ structure CC20TraceObjectPackage where
     ArchimedeanTraceSymbols.SignsAndNormalizationsStatement
       archimedeanSymbols
 
+structure CC20CommonTestBridge
+    (W : WeilFormSymbols) (commonTest : CommonTestObject W)
+    (cc20Trace : CC20TraceObjectPackage)
+    where
+  sourceTraceTestCompatibility : Prop
+  traceLegIsCommonTest : Prop
+  mellinLegIsCommonTest : Prop
+  halfDensityMatchesCommonTest :
+    ArchimedeanTraceSymbols.MellinHalfDensityConventionStatement
+      cc20Trace.archimedeanSymbols
+
 structure CC20RHExitObjectPackage where
   rhDefinitionBridge : RHDefinitionBridge
   sourceFiniteVanishingCriterionPackage :
@@ -141,15 +178,21 @@ structure CC20RHExitObjectPackage where
   rhDefinitionContractConsumption : Prop
 
 structure SourceObjectPackage where
-  commonTest : CommonTestObject
   ccm24 : CCM24SemilocalObjectPackage
   ccm25 : CCM25WeilObjectPackage
+  commonTest : CommonTestObject ccm25.weilSymbols
   cc20Trace : CC20TraceObjectPackage
   cc20RHExit : CC20RHExitObjectPackage
-  ccm24Test_eq_commonTest : Prop
-  ccm25Test_eq_commonTest : Prop
-  cc20TraceTest_eq_commonTest : Prop
-  cc20MellinTest_eq_commonTest : Prop
+  commonTestInvolution :
+    CommonTestInvolutionBridge ccm25.weilSymbols commonTest
+  ccm24Test_eq_commonTest :
+    CCM24CommonTestBridge ccm25.weilSymbols commonTest ccm24
+  ccm25Test_eq_commonTest :
+    commonTest.ccm25SourceTest =
+      CCM25Concrete.Rows.source_test_of_arithmetic_rows
+        ccm25.concreteArithmeticRows commonTest.sourceTest commonTest.sourceTest
+  cc20TraceTest_eq_commonTest :
+    CC20CommonTestBridge ccm25.weilSymbols commonTest cc20Trace
   convolutionSquare_eq_Fg : Prop
   ccm24Window_controls_qwLambda : Prop
   ccm24Window_controls_cdef : Prop

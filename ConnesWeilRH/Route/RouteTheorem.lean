@@ -86,6 +86,13 @@ structure ExpandedSourceRouteCertificateFrontEnd
     (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
     (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront) where
   ledgers : RouteLedgers
+  commonTuple :
+    SourceCommonTestTupleContract
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+      traceFront.lambda
+      pkg.commonTest.sourceConvolutionSquare
+      traceFront.ccm25ArithmeticPackage
   signDefectClassification :
     SourceSignDefectClassification
       (RouteInputs.ofExpandedSourcePackage pkg)
@@ -96,11 +103,165 @@ structure ExpandedSourceRouteCertificateFrontEnd
       (RouteInputs.ofExpandedSourcePackage pkg)
       (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
       traceFront.lambda
+      pkg.commonTest.sourceConvolutionSquare
+      ledgers traceFront.ccm25ArithmeticPackage
+  sourceArchimedeanSignBridge :
+    SourceArchimedeanSignBridge
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      pkg.cc20Trace.sourceTraceTest
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+
+theorem expanded_source_package_convolution_square_read_off
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg) :
+    pkg.commonTest.sourceConvolutionSquare =
+      (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols.convolutionStar
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest := by
+  exact pkg.commonTest.sourceConvolutionSquareReadOff
+
+theorem expanded_source_common_test_eq_ccm25_arithmetic_source_test
+    (pkg : Source.SourceObject.SourceObjectPackage) :
+    Source.SourceObject.SourceObjectPackage.toCCM25CommonSourceTest pkg =
+      Source.CCM25Concrete.Rows.source_test_of_arithmetic_rows
+        pkg.ccm25.concreteArithmeticRows
+        pkg.commonTest.sourceTest pkg.commonTest.sourceTest :=
+  Source.SourceObject.SourceObjectPackage.common_ccm25_source_test_eq_arithmetic_rows
+    pkg
+
+theorem expanded_source_common_square_eq_ccm25_source_test_square
+    (pkg : Source.SourceObject.SourceObjectPackage) :
+    pkg.commonTest.sourceConvolutionSquare =
+      (Source.SourceObject.SourceObjectPackage.toCCM25CommonSourceTest
+        pkg).sourceConvolutionSquare :=
+  Source.SourceObject.SourceObjectPackage.common_convolution_square_eq_ccm25_source_test_square
+    pkg
+
+def expanded_source_common_test_involution_bridge
+    (pkg : Source.SourceObject.SourceObjectPackage) :
+    Source.SourceObject.CommonTestInvolutionBridge
+      (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+      pkg.commonTest :=
+  Source.SourceObject.SourceObjectPackage.commonTestInvolutionBridge pkg
+
+def expanded_source_ccm24_common_test_bridge
+    (pkg : Source.SourceObject.SourceObjectPackage) :
+    Source.SourceObject.CCM24CommonTestBridge
+      (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+      pkg.commonTest pkg.ccm24 :=
+  Source.SourceObject.SourceObjectPackage.ccm24CommonTestBridge pkg
+
+def expanded_source_cc20_common_test_bridge
+    (pkg : Source.SourceObject.SourceObjectPackage) :
+    Source.SourceObject.CC20CommonTestBridge
+      (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+      pkg.commonTest pkg.cc20Trace :=
+  Source.SourceObject.SourceObjectPackage.cc20CommonTestBridge pkg
+
+theorem expanded_source_ccm24_common_support_window
+    (pkg : Source.SourceObject.SourceObjectPackage) :
+    pkg.ccm24.semilocalSymbols.supportInWindow
+      pkg.ccm24.sourceTestLeg pkg.ccm24.sourceSupportWindow :=
+  Source.SourceObject.SourceObjectPackage.ccm24_common_support_window pkg
+
+theorem expanded_source_ccm24_common_convolution_support
+    (pkg : Source.SourceObject.SourceObjectPackage) :
+    pkg.ccm24.semilocalSymbols.convolutionSupportTransported
+      pkg.ccm24.sourceTestLeg pkg.ccm24.sourceSupportWindow :=
+  Source.SourceObject.SourceObjectPackage.ccm24_common_convolution_support_transported
+    pkg
+
+theorem expanded_source_cc20_common_mellin_half_density
+    (pkg : Source.SourceObject.SourceObjectPackage) :
+    ArchimedeanTraceSymbols.MellinHalfDensityConventionStatement
+      pkg.cc20Trace.archimedeanSymbols :=
+  Source.SourceObject.SourceObjectPackage.cc20_common_mellin_half_density pkg
+
+def expanded_source_convolution_square_compatibility
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront) :
+    SourceConvolutionSquareCompatibility
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+      traceFront.lambda
+      pkg.commonTest.sourceConvolutionSquare
+      traceFront.ccm25ArithmeticPackage :=
+  source_convolution_square_compatibility_of_package
+    (expanded_source_package_convolution_square_read_off pkg fixedFront)
+
+def expanded_source_route_common_test
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront)
+    (routeFront :
+      ExpandedSourceRouteCertificateFrontEnd pkg fixedFront traceFront) :
+    SourceQWUsesCommonTest
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+      traceFront.lambda
+      pkg.commonTest.sourceConvolutionSquare
+      traceFront.ccm25ArithmeticPackage :=
+  source_qw_uses_common_test_of_common_tuple routeFront.commonTuple
+
+def expanded_source_route_common_tuple_on_route_square
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront)
+    (routeFront :
+      ExpandedSourceRouteCertificateFrontEnd pkg fixedFront traceFront) :
+    SourceCommonTestTupleContract
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+      traceFront.lambda
       ((RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols.convolutionStar
         (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest
         (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest)
-      ledgers traceFront.ccm25ArithmeticPackage
-  finalSignBridge :
+      traceFront.ccm25ArithmeticPackage := by
+  rw [← expanded_source_package_convolution_square_read_off pkg fixedFront]
+  exact routeFront.commonTuple
+
+def expanded_source_route_common_test_on_route_square
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront)
+    (routeFront :
+      ExpandedSourceRouteCertificateFrontEnd pkg fixedFront traceFront) :
+    SourceQWUsesCommonTest
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+      traceFront.lambda
+      ((RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols.convolutionStar
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest)
+      traceFront.ccm25ArithmeticPackage :=
+  source_qw_uses_common_test_of_common_tuple
+    (expanded_source_route_common_tuple_on_route_square
+      pkg fixedFront traceFront routeFront)
+
+def expanded_source_restricted_to_full_bridge_on_route_square
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront)
+    (routeFront :
+      ExpandedSourceRouteCertificateFrontEnd pkg fixedFront traceFront) :
+    RestrictedToFullQWBridgeContract
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+      traceFront.lambda
+      ((RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols.convolutionStar
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest)
+      routeFront.ledgers traceFront.ccm25ArithmeticPackage := by
+  rw [← expanded_source_package_convolution_square_read_off pkg fixedFront]
+  exact routeFront.restrictedToFullQWBridge
+
+def expanded_source_route_final_sign_bridge
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront)
+    (routeFront :
+      ExpandedSourceRouteCertificateFrontEnd pkg fixedFront traceFront) :
     FinalSignBridgeContract
       (RouteInputs.ofExpandedSourcePackage pkg)
       pkg.cc20Trace.sourceTraceTest
@@ -109,7 +270,11 @@ structure ExpandedSourceRouteCertificateFrontEnd
       ((RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols.convolutionStar
         (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest
         (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest)
-      traceFront.ccm25ArithmeticPackage
+      traceFront.ccm25ArithmeticPackage :=
+  final_sign_bridge_data_of_common_test
+    (expanded_source_route_common_test_on_route_square
+      pkg fixedFront traceFront routeFront)
+    routeFront.sourceArchimedeanSignBridge
 
 noncomputable def route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -311,8 +476,9 @@ def route_certificate_of_expanded_source_package
   route_certificate_of_sign_defect_classification
     (SourceTraceReadOffData.ofExpandedSourcePackage pkg fixedFront traceFront)
     routeFront.signDefectClassification
-    routeFront.restrictedToFullQWBridge
-    routeFront.finalSignBridge
+    (expanded_source_restricted_to_full_bridge_on_route_square
+      pkg fixedFront traceFront routeFront)
+    (expanded_source_route_final_sign_bridge pkg fixedFront traceFront routeFront)
 
 theorem route_certificate_ledgers_of_expanded_source_package
     (pkg : Source.SourceObject.SourceObjectPackage)

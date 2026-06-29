@@ -29,6 +29,12 @@ structure GlobalFinitePrimeSumReadOff
       W f g lambda
   concreteObject_certificate_eq :
     concreteObject.certificate = certificate
+  scopedArithmeticData :
+    PrimePowerArithmetic.SourceGlobalFinitePrimeArithmeticData W f g
+  scopedArithmeticData_eq_certificate :
+    scopedArithmeticData =
+      FinitePrimeCertificate.arithmetic_data_on_global_index_set_of_certificate
+        certificate
   finitePrimeSumReadOff :
     (∑ n ∈ W.globalPrimeIndexSet,
       W.finitePrimeTerm n (W.convolutionStar f g)) =
@@ -39,6 +45,16 @@ structure GlobalFinitePrimeSumReadOff
       W.vonMangoldtWeight n * W.primePowerPairing n f g) =
       PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
         W f g certificate.atoms
+  finitePrimeScopedSumReadOff :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.finitePrimeTerm n (W.convolutionStar f g)) =
+      PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSumOnIndexSet
+        W f g scopedArithmeticData
+  vonMangoldtPairingScopedSumReadOff :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.vonMangoldtWeight n * W.primePowerPairing n f g) =
+      PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSumOnIndexSet
+        W f g scopedArithmeticData
 
 structure GlobalQWPsiFormulaComponent
     (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ) where
@@ -65,12 +81,30 @@ noncomputable def global_finite_prime_sum_read_off_of_arithmetic_rows
     (h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda
   concreteObject_certificate_eq :=
     Interface.fixed_lambda_concrete_object_certificate_eq h f g lambda hlambda
+  scopedArithmeticData :=
+    FinitePrimeCertificate.arithmetic_data_on_global_index_set_of_certificate
+      ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
+  scopedArithmeticData_eq_certificate := rfl
   finitePrimeSumReadOff :=
     Interface.arithmetic_global_sum_formula_of_arithmetic_rows
       h f g lambda hlambda
   vonMangoldtPairingSumReadOff :=
     Interface.arithmetic_global_von_mangoldt_pairing_sum_formula_of_arithmetic_rows
       h f g lambda hlambda
+  finitePrimeScopedSumReadOff := by
+    rw [Interface.arithmetic_global_sum_formula_of_arithmetic_rows
+      h f g lambda hlambda]
+    exact
+      (FinitePrimeCertificate.arithmetic_global_scoped_sum_eq_global_sum_of_certificate
+        ((h.finitePrimeArithmeticCertificates f g).certificate
+          lambda hlambda)).symm
+  vonMangoldtPairingScopedSumReadOff := by
+    rw [Interface.arithmetic_global_von_mangoldt_pairing_sum_formula_of_arithmetic_rows
+      h f g lambda hlambda]
+    exact
+      (FinitePrimeCertificate.arithmetic_global_scoped_sum_eq_global_sum_of_certificate
+        ((h.finitePrimeArithmeticCertificates f g).certificate
+          lambda hlambda)).symm
 
 noncomputable def global_qw_psi_formula_component_of_arithmetic_rows
     {W : WeilFormSymbols} (h : Interface.ConcreteCCM25ArithmeticRows W)
@@ -124,6 +158,15 @@ theorem global_finite_prime_sum_of_component
         W f g h.finitePrimeSumReadOff.certificate.atoms :=
   h.finitePrimeSumReadOff.finitePrimeSumReadOff
 
+theorem global_finite_prime_scoped_sum_of_component
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : GlobalQWPsiFormulaComponent W f g lambda) :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.finitePrimeTerm n (W.convolutionStar f g)) =
+      PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSumOnIndexSet
+        W f g h.finitePrimeSumReadOff.scopedArithmeticData :=
+  h.finitePrimeSumReadOff.finitePrimeScopedSumReadOff
+
 theorem global_finite_prime_sum_from_concrete_object
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : GlobalQWPsiFormulaComponent W f g lambda) :
@@ -143,6 +186,15 @@ theorem global_von_mangoldt_pairing_sum_of_component
       PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
         W f g h.finitePrimeSumReadOff.certificate.atoms :=
   h.finitePrimeSumReadOff.vonMangoldtPairingSumReadOff
+
+theorem global_von_mangoldt_pairing_scoped_sum_of_component
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : GlobalQWPsiFormulaComponent W f g lambda) :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.vonMangoldtWeight n * W.primePowerPairing n f g) =
+      PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSumOnIndexSet
+        W f g h.finitePrimeSumReadOff.scopedArithmeticData :=
+  h.finitePrimeSumReadOff.vonMangoldtPairingScopedSumReadOff
 
 theorem global_von_mangoldt_pairing_sum_from_concrete_object
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
@@ -165,6 +217,16 @@ theorem psi_source_evaluator_of_component
             W f g h.finitePrimeSumReadOff.certificate.atoms := by
   rw [h.psiSign, global_finite_prime_sum_of_component h]
 
+theorem psi_scoped_source_evaluator_of_component
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : GlobalQWPsiFormulaComponent W f g lambda) :
+    W.psi (W.convolutionStar f g) =
+      W.poleFunctional (W.convolutionStar f g) -
+        W.archimedeanTerm (W.convolutionStar f g) -
+          PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSumOnIndexSet
+            W f g h.finitePrimeSumReadOff.scopedArithmeticData := by
+  rw [h.psiSign, global_finite_prime_scoped_sum_of_component h]
+
 theorem qw_source_evaluator_of_component
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : GlobalQWPsiFormulaComponent W f g lambda) :
@@ -174,6 +236,16 @@ theorem qw_source_evaluator_of_component
           PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
             W f g h.finitePrimeSumReadOff.certificate.atoms := by
   rw [h.qwDefinition, psi_source_evaluator_of_component h]
+
+theorem qw_scoped_source_evaluator_of_component
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : GlobalQWPsiFormulaComponent W f g lambda) :
+    W.qw f g =
+      W.poleFunctional (W.convolutionStar f g) -
+        W.archimedeanTerm (W.convolutionStar f g) -
+          PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSumOnIndexSet
+            W f g h.finitePrimeSumReadOff.scopedArithmeticData := by
+  rw [h.qwDefinition, psi_scoped_source_evaluator_of_component h]
 
 end GlobalComponent
 end CCM25Concrete

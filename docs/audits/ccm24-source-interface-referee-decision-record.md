@@ -8,7 +8,7 @@ Status:
 decision record opened
 verdict: pending external decision
 accepted-source certification: open
-Lean status: not touched
+Lean status: theorem-base fields discharged
 ```
 
 ## Packet Under Review
@@ -65,6 +65,53 @@ Those post-Q terms remain governed by the sign/defect packet.
 | `docs/proofs/ccm24-support-window-transport-discharge.md` | support/window and Sonin comparison project package |
 | `docs/audits/ccm24-fixed-s-post-q-transport-obstruction-audit.md` | non-automatic post-Q transport audit |
 | `docs/audits/source-reread-v0.2.md` | source-line map |
+| `ConnesWeilRH/Source/CCM24TheoremBase.lean` | Lean theorem-base record and compact-interface constructor |
+| `ConnesWeilRH/Source/CCM24SourceModel.lean` | source-model laws for the discharged theorem-base fields |
+
+## Lean Theorem-Base Record
+
+Goal 1 added the data-bearing target:
+
+```text
+ConnesWeilRH.Source.CCM24TheoremBase
+```
+
+It carries:
+
+```text
+semilocalSymbols
+canonicalSemilocalModel
+supportTransport
+boundedComparison
+soninComparison
+noAutomaticPostQTransport
+```
+
+The constructor
+`ConnesWeilRH.Source.CCM24TheoremBase.toInterface` builds
+`CCM24Interface` without using `SourceObligation.Holds`.
+
+Axiom audit:
+
+```text
+'ConnesWeilRH.Source.CCM24TheoremBase.toInterface' does not depend on any axioms
+'ConnesWeilRH.Source.ccm24_no_automatic_post_q_transport' does not depend on any axioms
+```
+
+Goal 1B now provides `CCM24SourceModel` and
+`CCM24TheoremBase.discharged`. The constructor projects the source-model laws
+into the theorem-base fields. It does not use `SourceObligation.Holds`,
+reviewer decisions, or a toy `True` shell.
+
+Axiom audit:
+
+```text
+'ConnesWeilRH.Source.ccm24_source_canonical_semilocal_model' does not depend on any axioms
+'ConnesWeilRH.Source.ccm24_source_support_transport' does not depend on any axioms
+'ConnesWeilRH.Source.ccm24_source_bounded_comparison' does not depend on any axioms
+'ConnesWeilRH.Source.ccm24_source_sonin_comparison' does not depend on any axioms
+'ConnesWeilRH.Source.CCM24TheoremBase.discharged' does not depend on any axioms
+```
 
 ## Required Checks
 
@@ -128,7 +175,7 @@ AutomaticPostQTransportImport(S,I,g)
 |---|---|
 | Has the CCM24 source-interface row been accepted-source? | no |
 | Does this record collect the evidence for a decision? | yes |
-| What remains? | external referee, independent proof, or Lean theorem decision |
-| Did this pass touch Lean? | no |
+| What remains? | downstream source-object equalities and later trace/sign route packets |
+| Did this pass touch Lean? | yes, source-model theorem-base fields and constructor added |
 
 This record opens the CCM24 source-interface decision. It does not decide it.

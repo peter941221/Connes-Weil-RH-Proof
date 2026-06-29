@@ -29,6 +29,13 @@ structure RestrictedFinitePrimeSumReadOff
       W f g lambda
   concreteObject_certificate_eq :
     concreteObject.certificate = certificate
+  scopedArithmeticData :
+    PrimePowerArithmetic.SourceRestrictedFinitePrimeArithmeticData
+      W f g lambda
+  scopedArithmeticData_eq_certificate :
+    scopedArithmeticData =
+      FinitePrimeCertificate.arithmetic_data_on_restricted_index_set_of_certificate
+        certificate
   finitePrimeSumReadOff :
     (∑ n ∈ W.restrictedPrimeIndexSet lambda,
       W.finitePrimeTerm n (W.convolutionStar f g)) =
@@ -39,6 +46,16 @@ structure RestrictedFinitePrimeSumReadOff
       W.vonMangoldtWeight n * W.primePowerPairing n f g) =
       PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
         W f g lambda certificate.atoms
+  finitePrimeScopedSumReadOff :
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.finitePrimeTerm n (W.convolutionStar f g)) =
+      PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSumOnIndexSet
+        W f g lambda scopedArithmeticData
+  vonMangoldtPairingScopedSumReadOff :
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.vonMangoldtWeight n * W.primePowerPairing n f g) =
+      PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSumOnIndexSet
+        W f g lambda scopedArithmeticData
 
 structure RestrictedQWLambdaFormulaComponent
     (W : WeilFormSymbols) (f : TestFunction) (lambda : ℝ) where
@@ -63,12 +80,30 @@ noncomputable def restricted_finite_prime_sum_read_off_of_arithmetic_rows
     (h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda
   concreteObject_certificate_eq :=
     Interface.fixed_lambda_concrete_object_certificate_eq h f g lambda hlambda
+  scopedArithmeticData :=
+    FinitePrimeCertificate.arithmetic_data_on_restricted_index_set_of_certificate
+      ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
+  scopedArithmeticData_eq_certificate := rfl
   finitePrimeSumReadOff :=
     Interface.arithmetic_restricted_sum_formula_of_arithmetic_rows
       h f g lambda hlambda
   vonMangoldtPairingSumReadOff :=
     Interface.arithmetic_restricted_von_mangoldt_pairing_sum_formula_of_arithmetic_rows
       h f g lambda hlambda
+  finitePrimeScopedSumReadOff := by
+    rw [Interface.arithmetic_restricted_sum_formula_of_arithmetic_rows
+      h f g lambda hlambda]
+    exact
+      (FinitePrimeCertificate.arithmetic_restricted_scoped_sum_eq_restricted_sum_of_certificate
+        ((h.finitePrimeArithmeticCertificates f g).certificate
+          lambda hlambda)).symm
+  vonMangoldtPairingScopedSumReadOff := by
+    rw [Interface.arithmetic_restricted_von_mangoldt_pairing_sum_formula_of_arithmetic_rows
+      h f g lambda hlambda]
+    exact
+      (FinitePrimeCertificate.arithmetic_restricted_scoped_sum_eq_restricted_sum_of_certificate
+        ((h.finitePrimeArithmeticCertificates f g).certificate
+          lambda hlambda)).symm
 
 noncomputable def restricted_qw_lambda_formula_component_of_arithmetic_rows
     {W : WeilFormSymbols} (h : Interface.ConcreteCCM25ArithmeticRows W)
@@ -114,6 +149,15 @@ theorem restricted_finite_prime_sum_of_component
         W f f lambda h.finitePrimeSumReadOff.certificate.atoms :=
   h.finitePrimeSumReadOff.finitePrimeSumReadOff
 
+theorem restricted_finite_prime_scoped_sum_of_component
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : RestrictedQWLambdaFormulaComponent W f lambda) :
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.finitePrimeTerm n (W.convolutionStar f f)) =
+      PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSumOnIndexSet
+        W f f lambda h.finitePrimeSumReadOff.scopedArithmeticData :=
+  h.finitePrimeSumReadOff.finitePrimeScopedSumReadOff
+
 theorem restricted_finite_prime_sum_from_concrete_object
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : RestrictedQWLambdaFormulaComponent W f lambda) :
@@ -134,6 +178,15 @@ theorem restricted_von_mangoldt_pairing_sum_of_component
       PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
         W f f lambda h.finitePrimeSumReadOff.certificate.atoms :=
   h.finitePrimeSumReadOff.vonMangoldtPairingSumReadOff
+
+theorem restricted_von_mangoldt_pairing_scoped_sum_of_component
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : RestrictedQWLambdaFormulaComponent W f lambda) :
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.vonMangoldtWeight n * W.primePowerPairing n f f) =
+      PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSumOnIndexSet
+        W f f lambda h.finitePrimeSumReadOff.scopedArithmeticData :=
+  h.finitePrimeSumReadOff.vonMangoldtPairingScopedSumReadOff
 
 theorem restricted_von_mangoldt_pairing_sum_from_concrete_object
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -157,6 +210,17 @@ theorem qw_lambda_formula_source_evaluator_of_component
             W f f lambda h.finitePrimeSumReadOff.certificate.atoms := by
   rw [h.qwLambdaFormula,
     restricted_von_mangoldt_pairing_sum_of_component h]
+
+theorem qw_lambda_formula_scoped_source_evaluator_of_component
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : RestrictedQWLambdaFormulaComponent W f lambda) :
+    W.qwLambda lambda f f =
+      W.archimedeanTerm (W.convolutionStar f f) +
+        W.polePairing f -
+          PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSumOnIndexSet
+            W f f lambda h.finitePrimeSumReadOff.scopedArithmeticData := by
+  rw [h.qwLambdaFormula,
+    restricted_von_mangoldt_pairing_scoped_sum_of_component h]
 
 end RestrictedComponent
 end CCM25Concrete

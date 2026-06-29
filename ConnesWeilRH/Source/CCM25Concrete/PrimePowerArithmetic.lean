@@ -136,10 +136,39 @@ structure SourceFinitePrimeArithmeticNormalization
     (W : WeilFormSymbols) (f g : TestFunction) where
   atIndex : ∀ n : ℕ, SourceFinitePrimeArithmeticData W f g n
 
+structure SourceFinitePrimeArithmeticDataOnIndexSet
+    (W : WeilFormSymbols) (f g : TestFunction) (indexSet : Finset ℕ) where
+  atIndex :
+    ∀ n : ℕ, n ∈ indexSet → SourceFinitePrimeArithmeticData W f g n
+
 noncomputable def SourceFinitePrimeEvaluatorSum
     (W : WeilFormSymbols) (f g : TestFunction) (indexSet : Finset ℕ)
     (h : SourceFinitePrimeArithmeticNormalization W f g) : ℝ :=
   ∑ n ∈ indexSet, SourceFinitePrimeEvaluatorAtom W f g n (h.atIndex n)
+
+noncomputable def SourceFinitePrimeEvaluatorSumOnIndexSet
+    (W : WeilFormSymbols) (f g : TestFunction) (indexSet : Finset ℕ)
+    (h : SourceFinitePrimeArithmeticDataOnIndexSet W f g indexSet) : ℝ :=
+  ∑ n ∈ indexSet,
+    if hn : n ∈ indexSet then
+      SourceFinitePrimeEvaluatorAtom W f g n (h.atIndex n hn)
+    else 0
+
+def SourceFinitePrimeArithmeticDataOnIndexSet.ofGlobalNormalization
+    {W : WeilFormSymbols} {f g : TestFunction} {indexSet : Finset ℕ}
+    (h : SourceFinitePrimeArithmeticNormalization W f g) :
+    SourceFinitePrimeArithmeticDataOnIndexSet W f g indexSet where
+  atIndex := fun n _ => h.atIndex n
+
+theorem source_finite_prime_evaluator_sum_on_index_set_of_global
+    {W : WeilFormSymbols} {f g : TestFunction} {indexSet : Finset ℕ}
+    (h : SourceFinitePrimeArithmeticNormalization W f g) :
+    SourceFinitePrimeEvaluatorSumOnIndexSet W f g indexSet
+        (SourceFinitePrimeArithmeticDataOnIndexSet.ofGlobalNormalization h) =
+      SourceFinitePrimeEvaluatorSum W f g indexSet h := by
+  simp [SourceFinitePrimeEvaluatorSumOnIndexSet,
+    SourceFinitePrimeArithmeticDataOnIndexSet.ofGlobalNormalization,
+    SourceFinitePrimeEvaluatorSum]
 
 noncomputable def SourceGlobalFinitePrimeEvaluatorSum
     (W : WeilFormSymbols) (f g : TestFunction)
@@ -150,6 +179,42 @@ noncomputable def SourceRestrictedFinitePrimeEvaluatorSum
     (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ)
     (h : SourceFinitePrimeArithmeticNormalization W f g) : ℝ :=
   SourceFinitePrimeEvaluatorSum W f g (W.restrictedPrimeIndexSet lambda) h
+
+abbrev SourceGlobalFinitePrimeArithmeticData
+    (W : WeilFormSymbols) (f g : TestFunction) :=
+  SourceFinitePrimeArithmeticDataOnIndexSet W f g W.globalPrimeIndexSet
+
+abbrev SourceRestrictedFinitePrimeArithmeticData
+    (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ) :=
+  SourceFinitePrimeArithmeticDataOnIndexSet W f g
+    (W.restrictedPrimeIndexSet lambda)
+
+noncomputable def SourceGlobalFinitePrimeEvaluatorSumOnIndexSet
+    (W : WeilFormSymbols) (f g : TestFunction)
+    (h : SourceGlobalFinitePrimeArithmeticData W f g) : ℝ :=
+  SourceFinitePrimeEvaluatorSumOnIndexSet W f g W.globalPrimeIndexSet h
+
+noncomputable def SourceRestrictedFinitePrimeEvaluatorSumOnIndexSet
+    (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ)
+    (h : SourceRestrictedFinitePrimeArithmeticData W f g lambda) : ℝ :=
+  SourceFinitePrimeEvaluatorSumOnIndexSet W f g
+    (W.restrictedPrimeIndexSet lambda) h
+
+theorem source_global_finite_prime_evaluator_sum_on_index_set_of_global
+    {W : WeilFormSymbols} {f g : TestFunction}
+    (h : SourceFinitePrimeArithmeticNormalization W f g) :
+    SourceGlobalFinitePrimeEvaluatorSumOnIndexSet W f g
+        (SourceFinitePrimeArithmeticDataOnIndexSet.ofGlobalNormalization h) =
+      SourceGlobalFinitePrimeEvaluatorSum W f g h :=
+  source_finite_prime_evaluator_sum_on_index_set_of_global h
+
+theorem source_restricted_finite_prime_evaluator_sum_on_index_set_of_global
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : SourceFinitePrimeArithmeticNormalization W f g) :
+    SourceRestrictedFinitePrimeEvaluatorSumOnIndexSet W f g lambda
+        (SourceFinitePrimeArithmeticDataOnIndexSet.ofGlobalNormalization h) =
+      SourceRestrictedFinitePrimeEvaluatorSum W f g lambda h :=
+  source_finite_prime_evaluator_sum_on_index_set_of_global h
 
 structure SourceGlobalFinitePrimeSumFormulaData
     (W : WeilFormSymbols) (f g : TestFunction)

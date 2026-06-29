@@ -91,6 +91,7 @@ Current files:
 | `lean-source-interface-map.md` | Lean source-interface obligations and route bridges |
 | `source-interface-discharge-audit.md` | attack plan for removing the source-conditional boundary by discharging CCM24, CCM25, and CC20 contracts |
 | `source-interface-discharge-completion-audit.md` | completion audit for the mathematics-first source-interface proof-package coverage |
+| `unconditional-rh-gap-ledger.md` | reverse ledger from `final_connes_weil_rh` to the remaining certificate, source-object, and analytic assumptions blocking an unconditional theorem |
 | `accepted-source-certification-audit.md` | external-review checklist for upgrading the proof-package matrix to accepted-source or Lean theorem strength |
 | `source-object-definition-ledger.md` | definition-discharge ledger for replacing symbolic CCM24, CCM25, CC20, and RH-exit objects with concrete definitions or imported theorem interfaces |
 | `source-object-theorem-discharge-ledger.md` | theorem-discharge ledger for the source-object definition gate; states row-by-row acceptance evidence for `SourceDefinitionSpineContract` |
