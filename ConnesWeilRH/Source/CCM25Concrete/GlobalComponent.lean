@@ -131,7 +131,9 @@ theorem global_finite_prime_sum_from_concrete_object
       W.finitePrimeTerm n (W.convolutionStar f g)) =
       PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
         W f g (global_concrete_object_of_component h).certificate.atoms := by
-  exact (global_concrete_object_of_component h).globalFinitePrimeTermSumReadOff
+  exact
+    FinitePrimeCertificate.concrete_object_global_finite_prime_term_sum_read_off
+      (global_concrete_object_of_component h)
 
 theorem global_von_mangoldt_pairing_sum_of_component
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
@@ -149,7 +151,9 @@ theorem global_von_mangoldt_pairing_sum_from_concrete_object
       W.vonMangoldtWeight n * W.primePowerPairing n f g) =
       PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
         W f g (global_concrete_object_of_component h).certificate.atoms := by
-  exact (global_concrete_object_of_component h).globalVonMangoldtPairingSumReadOff
+  exact
+    FinitePrimeCertificate.concrete_object_global_von_mangoldt_pairing_sum_read_off
+      (global_concrete_object_of_component h)
 
 theorem psi_source_evaluator_of_component
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}

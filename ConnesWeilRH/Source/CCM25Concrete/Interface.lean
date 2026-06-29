@@ -173,11 +173,12 @@ theorem fixed_lambda_concrete_object_certificate_eq
 theorem concrete_object_source_weight_read_off_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
-    (n : ℕ) :
+  (n : ℕ) :
     W.vonMangoldtWeight n =
       PrimePowerArithmetic.SourceVonMangoldtWeight n :=
-  (fixed_lambda_concrete_object_of_arithmetic_rows
-    h f g lambda hlambda).weightReadOff n
+  FinitePrimeCertificate.concrete_object_weight_read_off
+    (fixed_lambda_concrete_object_of_arithmetic_rows
+      h f g lambda hlambda) n
 
 theorem concrete_object_pairing_formula_source_evaluator_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
@@ -191,8 +192,9 @@ theorem concrete_object_pairing_formula_source_evaluator_of_arithmetic_rows
             (W.convolutionStar f g) (n : ℝ) +
           (obj.atomData n).sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
             (W.convolutionStar f g) ((n : ℝ)⁻¹)) :=
-  (fixed_lambda_concrete_object_of_arithmetic_rows
-    h f g lambda hlambda).pairingFormulaSourceEvaluator n
+  FinitePrimeCertificate.concrete_object_pairing_formula_source_evaluator
+    (fixed_lambda_concrete_object_of_arithmetic_rows
+      h f g lambda hlambda) n
 
 theorem concrete_object_finite_prime_term_formula_source_evaluator_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
@@ -203,8 +205,9 @@ theorem concrete_object_finite_prime_term_formula_source_evaluator_of_arithmetic
     W.finitePrimeTerm n (W.convolutionStar f g) =
       PrimePowerArithmetic.SourceFinitePrimeEvaluatorAtom W f g n
         (obj.atomData n) :=
-  (fixed_lambda_concrete_object_of_arithmetic_rows
-    h f g lambda hlambda).termFormulaSourceEvaluator n
+  FinitePrimeCertificate.concrete_object_term_formula_source_evaluator
+    (fixed_lambda_concrete_object_of_arithmetic_rows
+      h f g lambda hlambda) n
 
 theorem arithmetic_global_sum_formula_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)

@@ -123,7 +123,8 @@ theorem restricted_finite_prime_sum_from_concrete_object
         W f f lambda
           (restricted_concrete_object_of_component h).certificate.atoms := by
   exact
-    (restricted_concrete_object_of_component h).restrictedFinitePrimeTermSumReadOff
+    FinitePrimeCertificate.concrete_object_restricted_finite_prime_term_sum_read_off
+      (restricted_concrete_object_of_component h)
 
 theorem restricted_von_mangoldt_pairing_sum_of_component
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -143,7 +144,8 @@ theorem restricted_von_mangoldt_pairing_sum_from_concrete_object
         W f f lambda
           (restricted_concrete_object_of_component h).certificate.atoms := by
   exact
-    (restricted_concrete_object_of_component h).restrictedVonMangoldtPairingSumReadOff
+    FinitePrimeCertificate.concrete_object_restricted_von_mangoldt_pairing_sum_read_off
+      (restricted_concrete_object_of_component h)
 
 theorem qw_lambda_formula_source_evaluator_of_component
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}

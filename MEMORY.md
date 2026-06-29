@@ -1,5 +1,97 @@
 2026-06-29
 
+- Hardened the CCM25 global/restricted formula component object identity.
+- Added `commonConcreteObject` to
+  `ConcreteCCM25FormulaComponents` in
+  `ConnesWeilRH/Source/CCM25Concrete/FormulaComponents.lean`.
+- Added explicit equality fields proving the global component concrete object
+  and the restricted component concrete object are the same common concrete
+  object, not merely objects with equal certificates.
+- Exposed package-level projections:
+  `common_concrete_object_of_package`,
+  `global_concrete_object_eq_common_of_package`,
+  `restricted_concrete_object_eq_common_of_package`, and
+  `global_restricted_concrete_object_eq_of_package`.
+- WSL ext4 verification passed:
+  `lake build ConnesWeilRH.Source.CCM25Concrete.FormulaComponents`,
+  `lake build ConnesWeilRH.Source.CCM25Concrete.Package
+  ConnesWeilRH.Route.Bridge ConnesWeilRH`, and `lake build ConnesWeilRH`.
+- Axiom audit for the common concrete object projections and
+  `ConnesWeilRH.Route.final_connes_weil_rh` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Logic boundary preserved: this closes another CCM25 finite-prime
+  normalization drift surface, but does not discharge CC20 trace read-off,
+  final sign, restricted-to-full, or sign/defect analytically.
+
+2026-06-29
+
+- Hardened the CCM25 finite-prime sum formula witness path.
+- Added `SourceGlobalFinitePrimeSumFormulaData` and
+  `SourceRestrictedFinitePrimeSumFormulaData` in
+  `ConnesWeilRH/Source/CCM25Concrete/PrimePowerArithmetic.lean` to bind each
+  finite-prime term sum read-off to its matching Von Mangoldt pairing sum
+  read-off for the same arithmetic normalization object.
+- Replaced the four separate sum fields on
+  `FixedLambdaFinitePrimeConcreteObject` with `globalSumFormulaData` and
+  `restrictedSumFormulaData`, then exposed theorem-level projections for the
+  four read-offs.
+- Updated global/restricted components and package projections to consume the
+  concrete-object sum projection theorems rather than reaching into
+  independent concrete-object sum fields.
+- WSL ext4 verification passed:
+  `lake build ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate
+  ConnesWeilRH.Source.CCM25Concrete.GlobalComponent
+  ConnesWeilRH.Source.CCM25Concrete.RestrictedComponent
+  ConnesWeilRH.Source.CCM25Concrete.Package` and
+  `lake build ConnesWeilRH`.
+- Axiom audit for the new global/restricted sum formula data constructors,
+  concrete-object sum projections, component/package pairing-sum projections,
+  and `ConnesWeilRH.Route.final_connes_weil_rh` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Weak loophole scan found no `sorry`, `admit`, `axiom`, `constant`,
+  `opaque`, `unsafe`, `Nonempty`, `.choose`, `choose_spec`, or
+  `exists ... True`.
+- Logic boundary preserved: this binds finite-prime evaluator sums to one
+  arithmetic normalization object, but it does not prove CC20 trace read-off,
+  restricted-to-full, final sign, or sign/defect analytically.
+
+2026-06-29
+
+- Hardened the CCM25 local finite-prime formula witness path.
+- Added `SourceFinitePrimeLocalFormulaData` in
+  `ConnesWeilRH/Source/CCM25Concrete/PrimePowerArithmetic.lean` to bind the
+  same local atom data to its Von Mangoldt weight read-off, prime-power
+  pairing source-evaluator formula, and finite-prime term
+  source-evaluator formula.
+- Replaced the three separate formula fields on
+  `FixedLambdaFinitePrimeConcreteObject` with one `localFormulaData` field,
+  then exposed the old theorem-level projections through
+  `concrete_object_weight_read_off`,
+  `concrete_object_pairing_formula_source_evaluator`, and
+  `concrete_object_term_formula_source_evaluator`.
+- Updated the CCM25 interface, package, and route bridge layers to consume
+  the concrete-object projection theorems rather than reaching directly into
+  three independent formula fields.
+- WSL ext4 verification passed:
+  `lake build ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate
+  ConnesWeilRH.Source.CCM25Concrete.Interface
+  ConnesWeilRH.Source.CCM25Concrete.Package
+  ConnesWeilRH.Route.Bridge` and `lake build ConnesWeilRH`.
+- Axiom audit for the new local formula constructor/projections, the
+  concrete-object formula projections, the package/route pairing projection,
+  and `ConnesWeilRH.Route.final_connes_weil_rh` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Weak loophole scan found no `sorry`, `admit`, `axiom`, `constant`,
+  `opaque`, `unsafe`, `Nonempty`, `.choose`, `choose_spec`, or
+  `exists ... True`. Remaining `.weightReadOff` / formula-field hits are now
+  inside the local formula/atom-data definitions and their projection
+  theorems, not in package or route consumers.
+- Logic boundary preserved: this ties CCM25 local finite-prime arithmetic
+  formulas to one atom witness, but it still does not construct the analytic
+  CC20 trace-to-`QW_lambda` or sign/defect proof.
+
+2026-06-29
+
 - Hardened the CCM25 finite-prime support witness path.
 - Added named support witness records in
   `ConnesWeilRH/Source/CCM25Concrete/PrimePowerSupport.lean`:

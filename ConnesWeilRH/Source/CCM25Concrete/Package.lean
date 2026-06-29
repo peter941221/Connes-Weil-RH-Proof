@@ -89,6 +89,50 @@ theorem global_restricted_concrete_object_certificate_eq_of_package
   FormulaComponents.global_restricted_concrete_object_certificate_eq_of_formula_components
     (formula_components h)
 
+noncomputable def common_concrete_object_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    FinitePrimeCertificate.FixedLambdaFinitePrimeConcreteObject
+      W f f lambda :=
+  FormulaComponents.common_concrete_object_of_formula_components
+    (formula_components h)
+
+theorem common_concrete_object_certificate_eq_common_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    (common_concrete_object_of_package h).certificate =
+      (formula_components h).commonCertificate :=
+  FormulaComponents.common_concrete_object_certificate_eq_common_of_formula_components
+    (formula_components h)
+
+theorem global_concrete_object_eq_common_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    GlobalComponent.global_concrete_object_of_component
+        (formula_components h).global =
+      common_concrete_object_of_package h :=
+  FormulaComponents.global_concrete_object_eq_common_of_formula_components
+    (formula_components h)
+
+theorem restricted_concrete_object_eq_common_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    RestrictedComponent.restricted_concrete_object_of_component
+        (formula_components h).restricted =
+      common_concrete_object_of_package h :=
+  FormulaComponents.restricted_concrete_object_eq_common_of_formula_components
+    (formula_components h)
+
+theorem global_restricted_concrete_object_eq_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda) :
+    GlobalComponent.global_concrete_object_of_component
+        (formula_components h).global =
+      RestrictedComponent.restricted_concrete_object_of_component
+        (formula_components h).restricted :=
+  FormulaComponents.global_restricted_concrete_object_eq_of_formula_components
+    (formula_components h)
+
 theorem finite_prime_normalization_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda) :
@@ -438,7 +482,8 @@ theorem finite_prime_concrete_object_weight_read_off
     (n : ℕ) :
     W.vonMangoldtWeight n =
       PrimePowerArithmetic.SourceVonMangoldtWeight n :=
-  (finite_prime_concrete_object_of_package h).weightReadOff n
+  FinitePrimeCertificate.concrete_object_weight_read_off
+    (finite_prime_concrete_object_of_package h) n
 
 theorem finite_prime_concrete_object_pairing_formula_source_evaluator
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -451,7 +496,8 @@ theorem finite_prime_concrete_object_pairing_formula_source_evaluator
             (W.convolutionStar f f) (n : ℝ) +
           (obj.atomData n).sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
             (W.convolutionStar f f) ((n : ℝ)⁻¹)) :=
-  (finite_prime_concrete_object_of_package h).pairingFormulaSourceEvaluator n
+  FinitePrimeCertificate.concrete_object_pairing_formula_source_evaluator
+    (finite_prime_concrete_object_of_package h) n
 
 theorem finite_prime_concrete_object_term_formula_source_evaluator
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -461,7 +507,8 @@ theorem finite_prime_concrete_object_term_formula_source_evaluator
     W.finitePrimeTerm n (W.convolutionStar f f) =
       PrimePowerArithmetic.SourceFinitePrimeEvaluatorAtom W f f n
         (obj.atomData n) :=
-  (finite_prime_concrete_object_of_package h).termFormulaSourceEvaluator n
+  FinitePrimeCertificate.concrete_object_term_formula_source_evaluator
+    (finite_prime_concrete_object_of_package h) n
 
 theorem finite_prime_concrete_object_global_sum_read_off
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -471,7 +518,8 @@ theorem finite_prime_concrete_object_global_sum_read_off
       source_common_global_finite_prime_evaluator_sum h := by
   dsimp [source_common_global_finite_prime_evaluator_sum]
   exact
-    (finite_prime_concrete_object_of_package h).globalFinitePrimeTermSumReadOff
+    FinitePrimeCertificate.concrete_object_global_finite_prime_term_sum_read_off
+      (finite_prime_concrete_object_of_package h)
 
 theorem finite_prime_concrete_object_restricted_sum_read_off
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -481,7 +529,8 @@ theorem finite_prime_concrete_object_restricted_sum_read_off
       source_common_restricted_finite_prime_evaluator_sum h := by
   dsimp [source_common_restricted_finite_prime_evaluator_sum]
   exact
-    (finite_prime_concrete_object_of_package h).restrictedFinitePrimeTermSumReadOff
+    FinitePrimeCertificate.concrete_object_restricted_finite_prime_term_sum_read_off
+      (finite_prime_concrete_object_of_package h)
 
 theorem finite_prime_concrete_object_global_pairing_sum_read_off
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -491,7 +540,8 @@ theorem finite_prime_concrete_object_global_pairing_sum_read_off
       source_common_global_finite_prime_evaluator_sum h := by
   dsimp [source_common_global_finite_prime_evaluator_sum]
   exact
-    (finite_prime_concrete_object_of_package h).globalVonMangoldtPairingSumReadOff
+    FinitePrimeCertificate.concrete_object_global_von_mangoldt_pairing_sum_read_off
+      (finite_prime_concrete_object_of_package h)
 
 theorem finite_prime_concrete_object_restricted_pairing_sum_read_off
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -501,7 +551,8 @@ theorem finite_prime_concrete_object_restricted_pairing_sum_read_off
       source_common_restricted_finite_prime_evaluator_sum h := by
   dsimp [source_common_restricted_finite_prime_evaluator_sum]
   exact
-    (finite_prime_concrete_object_of_package h).restrictedVonMangoldtPairingSumReadOff
+    FinitePrimeCertificate.concrete_object_restricted_von_mangoldt_pairing_sum_read_off
+      (finite_prime_concrete_object_of_package h)
 
 theorem exact_support_uses_common_certificate_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}

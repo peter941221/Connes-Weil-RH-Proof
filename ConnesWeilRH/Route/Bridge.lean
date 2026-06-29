@@ -2407,7 +2407,8 @@ theorem finite_prime_concrete_object_weight_of_sign_owned_package
     (n : ℕ) :
     inputs.ccm25.weilSymbols.vonMangoldtWeight n =
       Source.CCM25Concrete.PrimePowerArithmetic.SourceVonMangoldtWeight n :=
-  h.finitePrimeConcreteObject.weightReadOff n
+  Source.CCM25Concrete.FinitePrimeCertificate.concrete_object_weight_read_off
+    h.finitePrimeConcreteObject n
 
 theorem finite_prime_concrete_object_term_of_sign_owned_package
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -2422,7 +2423,8 @@ theorem finite_prime_concrete_object_term_of_sign_owned_package
       Source.CCM25Concrete.PrimePowerArithmetic.SourceFinitePrimeEvaluatorAtom
         W g.weilTest g.weilTest n
           (h.finitePrimeConcreteObject.atomData n) :=
-  h.finitePrimeConcreteObject.termFormulaSourceEvaluator n
+  Source.CCM25Concrete.FinitePrimeCertificate.concrete_object_term_formula_source_evaluator
+    h.finitePrimeConcreteObject n
 
 theorem finite_prime_concrete_object_pairing_of_sign_owned_package
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -2440,7 +2442,8 @@ theorem finite_prime_concrete_object_pairing_of_sign_owned_package
             (W.convolutionStar g.weilTest g.weilTest) (n : ℝ) +
           atom.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
             (W.convolutionStar g.weilTest g.weilTest) ((n : ℝ)⁻¹)) :=
-  h.finitePrimeConcreteObject.pairingFormulaSourceEvaluator n
+  Source.CCM25Concrete.FinitePrimeCertificate.concrete_object_pairing_formula_source_evaluator
+    h.finitePrimeConcreteObject n
 
 theorem finite_prime_concrete_object_global_pairing_sum_of_sign_owned_package
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}

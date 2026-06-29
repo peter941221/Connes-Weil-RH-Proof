@@ -90,6 +90,22 @@ noncomputable def SourceFinitePrimeEvaluatorAtom
         h.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
           (W.convolutionStar f g) ((n : ℝ)⁻¹)))
 
+structure SourceFinitePrimeLocalFormulaData
+    (W : WeilFormSymbols) (f g : TestFunction) (n : ℕ)
+    (h : SourceFinitePrimeArithmeticData W f g n) where
+  weightReadOff :
+    W.vonMangoldtWeight n = SourceVonMangoldtWeight n
+  pairingFormulaSourceEvaluator :
+    W.primePowerPairing n f g =
+      (1 / Real.sqrt (n : ℝ)) *
+        (h.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
+            (W.convolutionStar f g) (n : ℝ) +
+          h.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
+            (W.convolutionStar f g) ((n : ℝ)⁻¹))
+  termFormulaSourceEvaluator :
+    W.finitePrimeTerm n (W.convolutionStar f g) =
+      SourceFinitePrimeEvaluatorAtom W f g n h
+
 def source_arithmetic_data_of_pairing_data
     {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
     (sourcePrimePowerIndex : SourcePrimePowerIndex n)
@@ -134,6 +150,30 @@ noncomputable def SourceRestrictedFinitePrimeEvaluatorSum
     (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ)
     (h : SourceFinitePrimeArithmeticNormalization W f g) : ℝ :=
   SourceFinitePrimeEvaluatorSum W f g (W.restrictedPrimeIndexSet lambda) h
+
+structure SourceGlobalFinitePrimeSumFormulaData
+    (W : WeilFormSymbols) (f g : TestFunction)
+    (h : SourceFinitePrimeArithmeticNormalization W f g) where
+  finitePrimeTermSumReadOff :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.finitePrimeTerm n (W.convolutionStar f g)) =
+      SourceGlobalFinitePrimeEvaluatorSum W f g h
+  vonMangoldtPairingSumReadOff :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.vonMangoldtWeight n * W.primePowerPairing n f g) =
+      SourceGlobalFinitePrimeEvaluatorSum W f g h
+
+structure SourceRestrictedFinitePrimeSumFormulaData
+    (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ)
+    (h : SourceFinitePrimeArithmeticNormalization W f g) where
+  finitePrimeTermSumReadOff :
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.finitePrimeTerm n (W.convolutionStar f g)) =
+      SourceRestrictedFinitePrimeEvaluatorSum W f g lambda h
+  vonMangoldtPairingSumReadOff :
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.vonMangoldtWeight n * W.primePowerPairing n f g) =
+      SourceRestrictedFinitePrimeEvaluatorSum W f g lambda h
 
 def UsesSourceTest
     {W : WeilFormSymbols} {f g : TestFunction}
@@ -284,6 +324,42 @@ theorem source_von_mangoldt_pairing_product_formula_source_evaluator
   rw [h.weightReadOff]
   congr 1
   exact source_pairing_formula_source_evaluator h
+
+theorem source_finite_prime_local_formula_data
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeArithmeticData W f g n) :
+    SourceFinitePrimeLocalFormulaData W f g n h where
+  weightReadOff := source_weight_read_off h
+  pairingFormulaSourceEvaluator := source_pairing_formula_source_evaluator h
+  termFormulaSourceEvaluator :=
+    source_finite_prime_term_formula_source_evaluator h
+
+theorem source_local_formula_weight_read_off
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    {h : SourceFinitePrimeArithmeticData W f g n}
+    (formula : SourceFinitePrimeLocalFormulaData W f g n h) :
+    W.vonMangoldtWeight n = SourceVonMangoldtWeight n :=
+  formula.weightReadOff
+
+theorem source_local_formula_pairing_formula_source_evaluator
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    {h : SourceFinitePrimeArithmeticData W f g n}
+    (formula : SourceFinitePrimeLocalFormulaData W f g n h) :
+    W.primePowerPairing n f g =
+      (1 / Real.sqrt (n : ℝ)) *
+        (h.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
+            (W.convolutionStar f g) (n : ℝ) +
+          h.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
+            (W.convolutionStar f g) ((n : ℝ)⁻¹)) :=
+  formula.pairingFormulaSourceEvaluator
+
+theorem source_local_formula_term_formula_source_evaluator
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    {h : SourceFinitePrimeArithmeticData W f g n}
+    (formula : SourceFinitePrimeLocalFormulaData W f g n h) :
+    W.finitePrimeTerm n (W.convolutionStar f g) =
+      SourceFinitePrimeEvaluatorAtom W f g n h :=
+  formula.termFormulaSourceEvaluator
 
 end PrimePowerArithmetic
 end CCM25Concrete

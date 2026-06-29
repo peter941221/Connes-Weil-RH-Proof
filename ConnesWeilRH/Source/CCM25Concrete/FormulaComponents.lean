@@ -27,8 +27,13 @@ structure ConcreteCCM25FormulaComponents
   commonCertificate :
     FinitePrimeCertificate.FixedLambdaFinitePrimeArithmeticCertificate
       W f f lambda
+  commonConcreteObject :
+    FinitePrimeCertificate.FixedLambdaFinitePrimeConcreteObject
+      W f f lambda
   commonCertificateSourceTest :
     commonCertificate.support.sourceTest = sourceTest
+  commonConcreteObject_certificate_eq :
+    commonConcreteObject.certificate = commonCertificate
   global :
     GlobalComponent.GlobalQWPsiFormulaComponent W f f lambda
   restricted :
@@ -37,6 +42,12 @@ structure ConcreteCCM25FormulaComponents
     global.finitePrimeSumReadOff.certificate = commonCertificate
   restrictedCertificate_eq_common :
     restricted.finitePrimeSumReadOff.certificate = commonCertificate
+  globalConcreteObject_eq_common :
+    GlobalComponent.global_concrete_object_of_component global =
+      commonConcreteObject
+  restrictedConcreteObject_eq_common :
+    RestrictedComponent.restricted_concrete_object_of_component restricted =
+      commonConcreteObject
 
 noncomputable def formula_components_of_arithmetic_rows
     {W : WeilFormSymbols} (h : Interface.ConcreteCCM25ArithmeticRows W)
@@ -46,9 +57,14 @@ noncomputable def formula_components_of_arithmetic_rows
     Interface.source_test_of_arithmetic_rows h f f
   commonCertificate :=
     (h.finitePrimeArithmeticCertificates f f).certificate lambda hlambda
+  commonConcreteObject :=
+    Interface.fixed_lambda_concrete_object_of_arithmetic_rows
+      h f f lambda hlambda
   commonCertificateSourceTest :=
     Interface.arithmetic_certificate_source_test_of_arithmetic_rows
       h f f lambda hlambda
+  commonConcreteObject_certificate_eq :=
+    Interface.fixed_lambda_concrete_object_certificate_eq h f f lambda hlambda
   global :=
     GlobalComponent.global_qw_psi_formula_component_of_arithmetic_rows
       h f f lambda hlambda
@@ -57,6 +73,8 @@ noncomputable def formula_components_of_arithmetic_rows
       h f lambda hlambda
   globalCertificate_eq_common := rfl
   restrictedCertificate_eq_common := rfl
+  globalConcreteObject_eq_common := rfl
+  restrictedConcreteObject_eq_common := rfl
 
 def global_component_of_formula_components
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -113,6 +131,34 @@ theorem restricted_concrete_object_certificate_eq_common_of_formula_components
   (RestrictedComponent.restricted_concrete_object_certificate_eq
     h.restricted).trans h.restrictedCertificate_eq_common
 
+noncomputable def common_concrete_object_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    FinitePrimeCertificate.FixedLambdaFinitePrimeConcreteObject
+      W f f lambda :=
+  h.commonConcreteObject
+
+theorem common_concrete_object_certificate_eq_common_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    (common_concrete_object_of_formula_components h).certificate =
+      h.commonCertificate :=
+  h.commonConcreteObject_certificate_eq
+
+theorem global_concrete_object_eq_common_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    GlobalComponent.global_concrete_object_of_component h.global =
+      common_concrete_object_of_formula_components h :=
+  h.globalConcreteObject_eq_common
+
+theorem restricted_concrete_object_eq_common_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    RestrictedComponent.restricted_concrete_object_of_component h.restricted =
+      common_concrete_object_of_formula_components h :=
+  h.restrictedConcreteObject_eq_common
+
 theorem global_restricted_concrete_object_certificate_eq_of_formula_components
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25FormulaComponents W f lambda) :
@@ -121,6 +167,15 @@ theorem global_restricted_concrete_object_certificate_eq_of_formula_components
         h.restricted).certificate :=
   (global_concrete_object_certificate_eq_common_of_formula_components h).trans
     (restricted_concrete_object_certificate_eq_common_of_formula_components h).symm
+
+theorem global_restricted_concrete_object_eq_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    GlobalComponent.global_concrete_object_of_component h.global =
+      RestrictedComponent.restricted_concrete_object_of_component
+        h.restricted :=
+  (global_concrete_object_eq_common_of_formula_components h).trans
+    (restricted_concrete_object_eq_common_of_formula_components h).symm
 
 theorem common_certificate_source_test_of_formula_components
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}

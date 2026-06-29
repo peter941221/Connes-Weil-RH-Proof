@@ -194,6 +194,20 @@ drift, hidden axioms, or toy-route leakage.
   `SourcePrimePowerIndex n ∧ atomVisible n` or
   `SourcePrimePowerIndex n ∧ atomVisible n ∧ SourceLambdaCut lambda n`
   tuples.
+- CCM25 local finite-prime formula data should pass through
+  `SourceFinitePrimeLocalFormulaData`. Do not let package or route layers
+  consume independent fields for Von Mangoldt weight read-off, prime-power
+  pairing source-evaluator formula, and finite-prime term formula when those
+  fields are meant to come from the same local atom.
+- CCM25 finite-prime sum read-offs should pass through
+  `SourceGlobalFinitePrimeSumFormulaData` and
+  `SourceRestrictedFinitePrimeSumFormulaData`. Do not expose separate concrete
+  object fields for finite-prime term sums and Von Mangoldt pairing sums when
+  both are meant to come from the same arithmetic normalization object.
+- CCM25 formula components should expose global/restricted concrete-object
+  equality through a common concrete object. Certificate equality alone is not
+  enough to rule out drift in exact support, local formula data, or sum formula
+  data attached to the concrete object.
 - CCM25 exact finite-prime support should first be proved at a fixed
   `lambda`. Do not promote fixed-cutoff support coverage to
   `forall lambda` until the lambda quantifier, source support containment, and
