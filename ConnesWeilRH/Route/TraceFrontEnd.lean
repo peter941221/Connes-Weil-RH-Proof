@@ -917,6 +917,93 @@ def toSourceTraceReadOffDataOfNormalizedPackage
     (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
       base common ccm24 normalizedSeed remainders rhExit bridges fixedData)
 
+def ordinaryTraceSupportSquareTheoremDataOfNormalizedPackage
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)) :
+    OrdinaryTraceSupportSquareTheoremData
+      (Source.sourceObjectPackageOfNormalizedCC20Trace
+        base common ccm24 normalizedSeed remainders rhExit bridges)
+      (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData)
+      traceData.lambda traceData.ccm25ArithmeticPackage where
+  ordinaryTraceMatchesSupportSquare :=
+    let pkg :=
+      Source.sourceObjectPackageOfNormalizedCC20Trace
+        base common ccm24 normalizedSeed remainders rhExit bridges
+    let fixedFront :=
+      FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+    let sourceTrace := traceData.toSourceTraceReadOffData pkg fixedFront
+    let inputs := RouteInputs.ofExpandedSourcePackage pkg
+    inputs.cc20.archimedeanSymbols.positiveTrace sourceTrace.archimedeanTest =
+      inputs.cc20.archimedeanSymbols.supportSquareTrace
+        sourceTrace.archimedeanTest
+  ordinaryTraceMatchesSupportSquareHolds :=
+    let sourceTrace :=
+      toSourceTraceReadOffDataOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges
+        fixedData traceData
+    let legality := cc20_trace_legality_of_source_trace_data sourceTrace
+    Source.SourceObjectPackageOfData.normalized_cc20_trace_package_ordinary_trace_support_square
+      base common ccm24 normalizedSeed remainders rhExit bridges
+      sourceTrace.archimedeanTest legality.traceClass legality.cyclicLegal
+
+theorem normalized_package_ordinary_trace_support_square_holds
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)) :
+    (ordinaryTraceSupportSquareTheoremDataOfNormalizedPackage
+      base common ccm24 normalizedSeed remainders rhExit bridges
+      fixedData traceData).ordinaryTraceMatchesSupportSquare :=
+  (ordinaryTraceSupportSquareTheoremDataOfNormalizedPackage
+    base common ccm24 normalizedSeed remainders rhExit bridges
+    fixedData traceData).ordinaryTraceMatchesSupportSquareHolds
+
 theorem normalized_package_source_trace_archimedean_test
     (base : Source.SourceObjectTheoremBasePackage)
     (common : Source.SourceObjectCommonData base)

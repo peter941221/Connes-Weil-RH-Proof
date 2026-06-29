@@ -733,6 +733,15 @@ drift, hidden axioms, or toy-route leakage.
   `SourceObjectPackageOfData.cc20_support_square_comparison`. Do not let Goal
   4J prove a support-square comparison for a detached CC20 package that is not
   the one consumed by `sourceObjectPackageOfData`.
+- The normalized source-object package now exposes
+  `SourceObjectPackageOfData.normalized_cc20_trace_package_ordinary_trace_support_square`,
+  and the normalized trace front end consumes it through
+  `TraceFrontEndData.ordinaryTraceSupportSquareTheoremDataOfNormalizedPackage`.
+  Treat this as the preferred ordinary-positive-trace/support-square path for
+  normalized packages. It proves the leg from `NormalizedLegalSquareTraceScaleSymbols`,
+  not from a generic `CC20TraceModel.ordinaryTraceSupportSquare` field, but it
+  still does not identify an arbitrary manuscript/source CC20 package with the
+  normalized seed.
 - `SourceObjectExpandedRows.ofNormalizedCC20Trace` constructs expanded rows
   from `normalizedSeedTraceObjectPackage` and fills
   `cc20SupportSquareComparison` by reflexivity. Treat this as the supported

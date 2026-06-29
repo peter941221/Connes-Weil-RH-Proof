@@ -9467,3 +9467,32 @@
   `(sourceObjectPackage...).cc20Trace.sourceTraceTest`.
 - Boundary preserved: this is route-front-end normalization plumbing, not an
   analytic source-law discharge and not an unconditional RH proof.
+
+2026-06-30
+
+- Continued Goal 4J by exposing the ordinary-positive-trace/support-square
+  theorem at the normalized source-object package boundary.
+- Added
+  `SourceObjectPackageOfData.normalized_seed_ordinary_trace_support_square_statement`
+  and
+  `SourceObjectPackageOfData.normalized_cc20_trace_package_ordinary_trace_support_square`
+  in `ConnesWeilRH/Source/ObjectExpandedRows.lean`.
+- Added
+  `TraceFrontEndData.ordinaryTraceSupportSquareTheoremDataOfNormalizedPackage`
+  and `TraceFrontEndData.normalized_package_ordinary_trace_support_square_holds`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- This routes the normalized package's ordinary/support-square theorem through
+  the concrete `NormalizedLegalSquareTraceScaleSymbols` seed instead of the
+  generic `CC20TraceModel.ordinaryTraceSupportSquare` field.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` to mark the
+  normalized trace-front-end wrapper done and set the next target as concrete
+  source-law replacement rather than another wrapper layer.
+- WSL ext4 verification passed after syncing the Windows source files:
+  `lake build ConnesWeilRH.Source.ObjectExpandedRows`,
+  `lake build ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`.
+- Boundary preserved: this proves the normalized-package ordinary/support-square
+  leg from the existing concrete seed, but it still does not prove that an
+  arbitrary manuscript/source `CC20TraceObjectPackage` is normalized and still
+  does not prove RH unconditionally.
