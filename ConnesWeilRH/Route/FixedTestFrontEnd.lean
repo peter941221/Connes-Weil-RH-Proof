@@ -263,6 +263,138 @@ theorem package_data_admissible_for_theorem1
   source_backed_admissible_for_theorem1_of_obligation_data
     (Source.sourceObjectPackageOfData base common rows rhExit bridges) data
 
+def toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (data :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)) :
+    ExpandedSourceFixedSTestFrontEnd
+      (Source.sourceObjectPackageOfNormalizedCC20Trace
+        base common ccm24 normalizedSeed remainders rhExit bridges) :=
+  data.toExpandedSourceFixedSTestFrontEnd
+    (Source.sourceObjectPackageOfNormalizedCC20Trace
+      base common ccm24 normalizedSeed remainders rhExit bridges)
+
+def sourceBackedFixedSTestOfNormalizedPackage
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (data :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)) :
+    SourceBackedFixedSTest
+      (RouteInputs.ofExpandedSourcePackage
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)) :=
+  SourceBackedFixedSTest.ofExpandedSourcePackage
+    (Source.sourceObjectPackageOfNormalizedCC20Trace
+      base common ccm24 normalizedSeed remainders rhExit bridges)
+    (toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+      base common ccm24 normalizedSeed remainders rhExit bridges data)
+
+theorem normalized_package_source_backed_weil_test_eq_common
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (data :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)) :
+    SourceBackedFixedSTest.weilTest
+      (sourceBackedFixedSTestOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges data) =
+      common.commonTest.sourceTest :=
+  rfl
+
+theorem normalized_package_source_backed_window_eq_source_window
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (data :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)) :
+    SourceBackedFixedSTest.window
+      (sourceBackedFixedSTestOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges data) =
+      ccm24.sourceSupportWindow :=
+  rfl
+
+theorem normalized_package_admissible_for_theorem1
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (data :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)) :
+    AdmissibleForTheorem1
+      (SourceBackedFixedSTest.test
+        (sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges data)) :=
+  source_backed_admissible_for_theorem1_of_obligation_data
+    (Source.sourceObjectPackageOfNormalizedCC20Trace
+      base common ccm24 normalizedSeed remainders rhExit bridges) data
+
 end FixedSTestObligationData
 
 end Route

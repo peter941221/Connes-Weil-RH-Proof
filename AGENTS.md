@@ -745,6 +745,12 @@ drift, hidden axioms, or toy-route leakage.
   consumes the normalized CC20 trace package and its support-square witness by
   construction. This is a package-boundary constructor, not an analytic proof
   that the manuscript/source CC20 package is normalized.
+- Normalized route-facing fixed-test work should pass through
+  `FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage`
+  and `sourceBackedFixedSTestOfNormalizedPackage`, so the fixed-test front end
+  consumes `sourceObjectPackageOfNormalizedCC20Trace` directly. Do not rebuild
+  the generic `sourceObjectPackageOfData` path by hand for this normalized CC20
+  trace route.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport

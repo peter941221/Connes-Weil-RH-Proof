@@ -1,5 +1,27 @@
 2026-06-30
 
+- Continued Goal 4J by adding route-facing fixed-test wrappers for the
+  normalized CC20 source-object package path.
+- Updated `ConnesWeilRH/Route/FixedTestFrontEnd.lean`.
+- Added
+  `FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage`,
+  which builds `ExpandedSourceFixedSTestFrontEnd` for
+  `sourceObjectPackageOfNormalizedCC20Trace`.
+- Added `FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage`
+  plus read-offs:
+  `normalized_package_source_backed_weil_test_eq_common`,
+  `normalized_package_source_backed_window_eq_source_window`, and
+  `normalized_package_admissible_for_theorem1`.
+- Boundary preserved: the normalized CC20 package path now reaches the fixed-S
+  front end consumed by route code. This still depends on fixed-test obligation
+  data and does not prove the remaining analytic CC20 identification rows.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Route.FixedTestFrontEnd`, followed by
+  `lake build ConnesWeilRH.Route.TraceFrontEnd
+  ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`.
+
+2026-06-30
+
 - Continued Goal 4J by adding a normalized CC20 trace constructor at the
   `SourceObjectPackage` boundary.
 - Updated `ConnesWeilRH/Source/ObjectExpandedRows.lean`.
