@@ -1,5 +1,30 @@
 2026-06-29
 
+- Continued Goal 4J by splitting the first existing-package comparison target
+  out of the full normalized-seed comparison surface.
+- Updated `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.
+- Added `CC20TracePackageSupportSquareComparison`, a data-bearing witness for
+  only the support-square trace comparison between an existing
+  `SourceObject.CC20TraceObjectPackage` and a normalized-seed-constructed
+  package.
+- Added the reflexive constructor
+  `CC20TracePackageSupportSquareComparison.forNormalizedSeedTraceObjectPackage`
+  and support-square projections for the constructed and existing package legs.
+- Added
+  `CC20TracePackageNormalizedSeedComparison.supportSquareComparison` and
+  `CC20TracePackageNormalizedSeedComparison.ofSupportSquareComparison`, so the
+  full comparison can consume the support-square proof only when the remaining
+  no-defect trace, positive trace, and Hilbert-Schmidt gate comparisons are
+  supplied separately.
+- Boundary preserved: this is a narrower implementable target for the first
+  real source comparison field. It does not prove that an existing
+  manuscript/source CC20 package matches the normalized seed.
+- WSL ext4 narrow verification passed after syncing from the Windows source of
+  truth:
+  `lake build ConnesWeilRH.Source.CC20Concrete.TraceScale`.
+
+2026-06-29
+
 - Continued Goal 4J by completing the current trace-scale comparison surface.
 - Updated `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.
 - Added

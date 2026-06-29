@@ -719,6 +719,14 @@ drift, hidden axioms, or toy-route leakage.
   and Hilbert-Schmidt gate. This still does not prove comparison for an
   existing manuscript/source package. The next target remains proving
   `supportSquareTrace_eq` for an existing `CC20TraceObjectPackage`.
+- Goal 4J now has the narrower
+  `CC20TracePackageSupportSquareComparison` witness. Use it for the first
+  existing-package support-square proof target instead of forcing the full
+  `CC20TracePackageNormalizedSeedComparison` before the no-defect trace,
+  positive trace, and Hilbert-Schmidt gate comparisons are proved. The full
+  comparison should be built through
+  `CC20TracePackageNormalizedSeedComparison.ofSupportSquareComparison` only
+  after those remaining comparison fields are supplied.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport
