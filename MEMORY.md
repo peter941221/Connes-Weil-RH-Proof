@@ -1,5 +1,86 @@
 2026-06-29
 
+- Completed Goal 0D concrete fixed-lambda support.
+- Added `ConcreteCommonFixedLambdaPrimePowerSupport` in
+  `ConnesWeilRH/Source/CCM25Concrete/PrimePowerSupport.lean`.
+- The new Goal 0D support record wraps the existing
+  `SourcePrimePowerArithmeticSupportSkeletonAtLambda` but forces its
+  `sourceTest` to equal the same `CommonSourceTest.ConcreteCommonSourceTest`
+  evaluator from Goal 0A/0B.
+- Added read-offs tying fixed-lambda support to the concrete common visibility
+  predicate:
+  `source_test_eq_common`,
+  `support_visibility_iff_common_visibility`,
+  `route_visibility_iff_common_visible_atom_data`,
+  `global_exact_common_visible_atom_data`,
+  `restricted_exact_common_visible_atom_data`,
+  `concrete_visible_atom_has_lambda_cut`,
+  `concrete_visible_atom_one_lt`, and
+  `concrete_visible_atom_le_lambda_sq`.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` to mark Goal 0D
+  done and set Goal 0E as the next finite-prime source-definition slice.
+- WSL ext4 verification passed after syncing from Windows source:
+  `lake build ConnesWeilRH.Source.CCM25Concrete.PrimePowerSupport`,
+  `lake build ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate
+  ConnesWeilRH.Source.CCM25Concrete ConnesWeilRH`.
+- Axiom audit for the new Goal 0D read-offs reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Weak-placeholder scan over the touched Goal 0C/0D Lean files found no
+  `sorry`, `admit`, `axiom`, `constant`, `opaque`, `unsafe`, `Nonempty`,
+  `.choose`, `choose_spec`, or `exists ... True` shells.
+- Boundary preserved: Goal 0D closes the main fixed-lambda support drift
+  channel, but it does not yet replace
+  `CCM25SourceModel.finitePrimeNormalization`, discharge a red analytic row, or
+  prove unconditional RH. The next proof-bearing slice is Goal 0E.
+
+2026-06-29
+
+- Completed Goal 0C concrete common prime-power evaluation.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` so Goal 0C now
+  targets concrete-common evaluation consumption rather than duplicating the
+  existing generic source-point layer.
+- Added `ConcreteCommonPrimePowerEvaluation` in
+  `ConnesWeilRH/Source/CCM25Concrete/PrimePowerEvaluation.lean`.
+- The new Goal 0C evaluation record ties the generic
+  `SourceConvolutionEvaluationModel` to the same
+  `CommonSourceTest.ConcreteCommonSourceTest` from Goal 0A/0B, including the
+  same source-test evaluator, same concrete source square, and the source
+  points `n` and `n^-1`.
+- Added read-offs:
+  `ConcreteCommonPrimePowerEvaluation.source_test_read_off`,
+  `source_evaluator_test_read_off`,
+  `model_evaluator_test_read_off`,
+  `source_convolution_square_eq_common_square`,
+  `forward_value_at_concrete_square`,
+  `inverse_value_at_concrete_square`,
+  `source_visibility_iff_concrete_visibility`, and
+  `source_visibility_iff_common_visibility`.
+- Added `ConcreteCommonPrimePowerPairingData` in
+  `ConnesWeilRH/Source/CCM25Concrete/PrimePowerPairing.lean`.
+- The new Goal 0C pairing data forces the pairing model's `sourceEvaluation`
+  leg to equal the concrete-common evaluation model, then proves the concrete
+  common source-evaluator formula
+  `concrete_common_prime_power_pairing_formula_source_evaluator`.
+- WSL ext4 verification passed after syncing from Windows source:
+  `lake build ConnesWeilRH.Source.CCM25Concrete.PrimePowerEvaluation`,
+  `lake build ConnesWeilRH.Source.CCM25Concrete.PrimePowerPairing`,
+  `lake build ConnesWeilRH.Source.CCM25Concrete`, and
+  `lake build ConnesWeilRH`.
+- Axiom audit for the new Goal 0C read-offs and pairing formula reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Weak-placeholder scan over the touched Goal 0C Lean files found no `sorry`,
+  `admit`, `axiom`, `constant`, `opaque`, `unsafe`, `Nonempty`, `.choose`,
+  `choose_spec`, or `exists ... True` shells.
+- Boundary preserved: Goal 0C closes the main prime-power evaluation drift
+  channel, but it does not yet prove fixed-lambda support, replace
+  `CCM25SourceModel.finitePrimeNormalization`, discharge a red analytic row, or
+  prove unconditional RH. The next source-definition slice is Goal 0D:
+  fixed-lambda support using the concrete common visibility predicate.
+
+2026-06-29
+
 - Finished Goal 2B concrete consumption.
 - Updated `ConnesWeilRH/Source/Objects.lean` so `CommonTestObject` now owns
   `concreteCommonTest : CCM25Concrete.CommonSourceTest.ConcreteCommonSourceTest W`.

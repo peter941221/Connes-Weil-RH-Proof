@@ -57,6 +57,82 @@ structure SourcePrimePowerPairingData
   pairingReadOff :
     W.primePowerPairing n f g = model.sourceTPairing
 
+/--
+Goal 0C concrete-common pairing data.
+
+The underlying pairing model is still the existing source pairing model, but
+its evaluation leg is required to be the concrete-common evaluation attached to
+the same `ConcreteCommonSourceTest`.
+-/
+structure ConcreteCommonPrimePowerPairingData
+    (W : WeilFormSymbols)
+    (common : CommonSourceTest.ConcreteCommonSourceTest W) (n : ℕ) where
+  concreteEvaluation :
+    PrimePowerEvaluation.ConcreteCommonPrimePowerEvaluation W common n
+  model : SourcePrimePowerPairingModel W common.sourceTest common.sourceTest n
+  modelEvaluationReadOff :
+    model.sourceEvaluation = concreteEvaluation.model
+  pairingReadOff :
+    W.primePowerPairing n common.sourceTest common.sourceTest =
+      model.sourceTPairing
+
+namespace ConcreteCommonPrimePowerPairingData
+
+def toSourcePrimePowerPairingData
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W} {n : ℕ}
+    (h : ConcreteCommonPrimePowerPairingData W common n) :
+    SourcePrimePowerPairingData W common.sourceTest common.sourceTest n where
+  model := h.model
+  pairingReadOff := h.pairingReadOff
+
+theorem source_evaluation_eq_concrete
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W} {n : ℕ}
+    (h : ConcreteCommonPrimePowerPairingData W common n) :
+    h.model.sourceEvaluation = h.concreteEvaluation.model :=
+  h.modelEvaluationReadOff
+
+theorem source_evaluator_test_eq_common
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W} {n : ℕ}
+    (h : ConcreteCommonPrimePowerPairingData W common n) :
+    h.model.sourceEvaluation.sourceEvaluator.sourceTest =
+      common.toSourceTestEvaluationInterface := by
+  rw [h.modelEvaluationReadOff]
+  exact h.concreteEvaluation.model_evaluator_test_read_off
+
+theorem source_evaluation_square_eq_common_square
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W} {n : ℕ}
+    (h : ConcreteCommonPrimePowerPairingData W common n) :
+    h.model.sourceEvaluation.sourceConvolutionSquare =
+      common.sourceConvolutionSquare := by
+  rw [h.modelEvaluationReadOff]
+  exact h.concreteEvaluation.source_convolution_square_eq_common_square
+
+theorem source_forward_value_at_concrete_square
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W} {n : ℕ}
+    (h : ConcreteCommonPrimePowerPairingData W common n) :
+    h.model.sourceEvaluation.forwardValue =
+      h.concreteEvaluation.sourceEvaluator.valueAt
+        common.sourceConvolutionSquare (n : ℝ) := by
+  rw [h.modelEvaluationReadOff]
+  exact h.concreteEvaluation.forward_value_at_concrete_square
+
+theorem source_inverse_value_at_concrete_square
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W} {n : ℕ}
+    (h : ConcreteCommonPrimePowerPairingData W common n) :
+    h.model.sourceEvaluation.inverseValue =
+      h.concreteEvaluation.sourceEvaluator.valueAt
+        common.sourceConvolutionSquare ((n : ℝ)⁻¹) := by
+  rw [h.modelEvaluationReadOff]
+  exact h.concreteEvaluation.inverse_value_at_concrete_square
+
+end ConcreteCommonPrimePowerPairingData
+
 theorem source_t_pairing_formula
     {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
     (h : SourcePrimePowerPairingData W f g n) :
@@ -146,6 +222,30 @@ theorem source_prime_power_pairing_formula_source_evaluator
       h.model.sourceEvaluation,
     PrimePowerEvaluation.source_inverse_value_at_source_points
       h.model.sourceEvaluation]
+
+theorem concrete_common_prime_power_pairing_formula_source_evaluator
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W} {n : ℕ}
+    (h : ConcreteCommonPrimePowerPairingData W common n) :
+    W.primePowerPairing n common.sourceTest common.sourceTest =
+      (1 / Real.sqrt (n : ℝ)) *
+        (h.concreteEvaluation.sourceEvaluator.valueAt
+            common.sourceConvolutionSquare (n : ℝ) +
+          h.concreteEvaluation.sourceEvaluator.valueAt
+            common.sourceConvolutionSquare ((n : ℝ)⁻¹)) := by
+  rw [source_prime_power_pairing_formula_source_evaluations
+      h.toSourcePrimePowerPairingData]
+  change
+    (1 / Real.sqrt (n : ℝ)) *
+        (h.model.sourceEvaluation.forwardValue +
+          h.model.sourceEvaluation.inverseValue) =
+      (1 / Real.sqrt (n : ℝ)) *
+        (h.concreteEvaluation.sourceEvaluator.valueAt
+            common.sourceConvolutionSquare (n : ℝ) +
+          h.concreteEvaluation.sourceEvaluator.valueAt
+            common.sourceConvolutionSquare ((n : ℝ)⁻¹))
+  rw [h.source_forward_value_at_concrete_square,
+    h.source_inverse_value_at_concrete_square]
 
 end PrimePowerPairing
 end CCM25Concrete

@@ -548,6 +548,20 @@ drift, hidden axioms, or toy-route leakage.
   visibility, prime-power evaluation points, fixed-lambda support, and finally
   replacement of one `CCM25SourceModel` law-field projection by a theorem from
   those concrete slices.
+- Goal 0C is complete at the concrete-common evaluation bridge layer:
+  `ConcreteCommonPrimePowerEvaluation` and
+  `ConcreteCommonPrimePowerPairingData` force the prime-power evaluator and
+  pairing path to use the same `ConcreteCommonSourceTest`, concrete source
+  square, and points `n` / `n^-1`. Do not redo Goal 0C as another generic
+  source-point layer.
+- Goal 0D is complete at the concrete fixed-lambda support bridge layer:
+  `ConcreteCommonFixedLambdaPrimePowerSupport` forces fixed-lambda support data
+  to use the same concrete common source test and proves concrete-visible atoms
+  have the `SourceLambdaCut lambda n`. Do not redo Goal 0D as a generic
+  support predicate over an unrelated source-test interface. The next Goal 0
+  proof-bearing slice is Goal 0E: replace one `CCM25SourceModel` law-field
+  projection, preferably finite-prime normalization, with a theorem assembled
+  from Goal 0A-0D concrete data.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport

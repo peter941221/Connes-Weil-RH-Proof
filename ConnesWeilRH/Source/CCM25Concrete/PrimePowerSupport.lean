@@ -5,6 +5,7 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Source.CCM25Concrete.FinitePrimeExact
+import ConnesWeilRH.Source.CCM25Concrete.CommonSourceTest
 import ConnesWeilRH.Source.CCM25Concrete.PrimePowerArithmetic
 import ConnesWeilRH.Source.CCM25Concrete.PrimePowerTest
 
@@ -129,6 +130,158 @@ theorem support_skeleton_index_of_arithmetic_support_skeleton
     (support_skeleton_of_arithmetic_support_skeleton h).sourcePrimePowerIndex =
       PrimePowerArithmetic.SourcePrimePowerIndex :=
   rfl
+
+/--
+Goal 0D concrete fixed-lambda support data.
+
+This keeps the existing fixed-lambda arithmetic support skeleton, but forces
+its source-test interface to be the concrete common source test from Goal
+0A/0B.  Thus the lambda cut is attached to the concrete common visibility
+predicate instead of an unrelated `sourceAtomVisible` field.
+-/
+structure ConcreteCommonFixedLambdaPrimePowerSupport
+    (W : WeilFormSymbols)
+    (common : CommonSourceTest.ConcreteCommonSourceTest W)
+    (lambda : ℝ) where
+  support :
+    SourcePrimePowerArithmeticSupportSkeletonAtLambda
+      W common.sourceTest common.sourceTest lambda
+  sourceTestReadOff :
+    support.sourceTest = common.toSourceTestEvaluationInterface
+
+namespace ConcreteCommonFixedLambdaPrimePowerSupport
+
+theorem one_lt_lambda
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (h : ConcreteCommonFixedLambdaPrimePowerSupport W common lambda) :
+    1 < lambda :=
+  h.support.oneLtLambda
+
+theorem source_test_eq_common
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (h : ConcreteCommonFixedLambdaPrimePowerSupport W common lambda) :
+    h.support.sourceTest = common.toSourceTestEvaluationInterface :=
+  h.sourceTestReadOff
+
+theorem support_visibility_iff_common_visibility
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (h : ConcreteCommonFixedLambdaPrimePowerSupport W common lambda)
+    (n : ℕ) :
+    h.support.sourceTest.sourceAtomVisible n ↔ common.sourceAtomVisible n := by
+  rw [h.sourceTestReadOff]
+  rfl
+
+theorem route_visibility_iff_common_visible_atom_data
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (h : ConcreteCommonFixedLambdaPrimePowerSupport W common lambda)
+    (n : ℕ) :
+    W.finitePrimeAtomVisible n
+        (W.convolutionStar common.sourceTest common.sourceTest) ↔
+      SourceVisibleAtomData PrimePowerArithmetic.SourcePrimePowerIndex
+        common.sourceAtomVisible n := by
+  rw [h.support.visibleIff n]
+  constructor
+  · intro hdata
+    exact
+      { primePowerIndex := hdata.primePowerIndex
+        atomVisible :=
+          (h.support_visibility_iff_common_visibility n).1 hdata.atomVisible }
+  · intro hdata
+    exact
+      { primePowerIndex := hdata.primePowerIndex
+        atomVisible :=
+          (h.support_visibility_iff_common_visibility n).2 hdata.atomVisible }
+
+theorem global_exact_common_visible_atom_data
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (h : ConcreteCommonFixedLambdaPrimePowerSupport W common lambda)
+    (n : ℕ) :
+    n ∈ W.globalPrimeIndexSet ↔
+      SourceGlobalIndexData PrimePowerArithmetic.SourcePrimePowerIndex
+        common.sourceAtomVisible n := by
+  rw [h.support.globalExact n]
+  constructor
+  · intro hdata
+    exact
+      { primePowerIndex := hdata.primePowerIndex
+        atomVisible :=
+          (h.support_visibility_iff_common_visibility n).1 hdata.atomVisible }
+  · intro hdata
+    exact
+      { primePowerIndex := hdata.primePowerIndex
+        atomVisible :=
+          (h.support_visibility_iff_common_visibility n).2 hdata.atomVisible }
+
+theorem restricted_exact_common_visible_atom_data
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (h : ConcreteCommonFixedLambdaPrimePowerSupport W common lambda)
+    (n : ℕ) :
+    n ∈ W.restrictedPrimeIndexSet lambda ↔
+      SourceRestrictedIndexData PrimePowerArithmetic.SourcePrimePowerIndex
+        common.sourceAtomVisible lambda n := by
+  rw [h.support.restrictedExact n]
+  constructor
+  · intro hdata
+    exact
+      { primePowerIndex := hdata.primePowerIndex
+        atomVisible :=
+          (h.support_visibility_iff_common_visibility n).1 hdata.atomVisible
+        lambdaCut := hdata.lambdaCut }
+  · intro hdata
+    exact
+      { primePowerIndex := hdata.primePowerIndex
+        atomVisible :=
+          (h.support_visibility_iff_common_visibility n).2 hdata.atomVisible
+        lambdaCut := hdata.lambdaCut }
+
+theorem concrete_visible_atom_has_lambda_cut
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (h : ConcreteCommonFixedLambdaPrimePowerSupport W common lambda)
+    {n : ℕ}
+    (hn : common.sourceAtomVisible n) :
+    SourceLambdaCut lambda n := by
+  have hroute :
+      W.finitePrimeAtomVisible n
+        (W.convolutionStar common.sourceTest common.sourceTest) := by
+    exact (common.route_visibility_iff_source_visibility n).2 hn
+  exact h.support.visibleAtomsInLambdaCut n hroute
+
+theorem concrete_visible_atom_one_lt
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (h : ConcreteCommonFixedLambdaPrimePowerSupport W common lambda)
+    {n : ℕ}
+    (hn : common.sourceAtomVisible n) :
+    1 < n :=
+  source_lambda_cut_one_lt (h.concrete_visible_atom_has_lambda_cut hn)
+
+theorem concrete_visible_atom_le_lambda_sq
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (h : ConcreteCommonFixedLambdaPrimePowerSupport W common lambda)
+    {n : ℕ}
+    (hn : common.sourceAtomVisible n) :
+    (n : ℝ) ≤ lambda ^ 2 :=
+  source_lambda_cut_le_lambda_sq
+    (h.concrete_visible_atom_has_lambda_cut hn)
+
+end ConcreteCommonFixedLambdaPrimePowerSupport
 
 structure SourcePrimePowerSupportAtLambda
     (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ) where
