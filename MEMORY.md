@@ -1,5 +1,33 @@
 2026-06-29
 
+- Hardened the CCM25 finite-prime visibility interface.
+- `WeilFormSymbols.FinitePrimeVisibilityStatement` is now a named structure
+  with `globalPrimeIndexCoverage`, `restrictedPrimeIndexCoverage`, and
+  `finitePrimeTermNormalization`, instead of an anonymous nested conjunction.
+- Updated `ConnesWeilRH/Route/AdmissibleWindow.lean` and
+  `ConnesWeilRH/Source/ObjectDerivations.lean` to consume named fields rather
+  than `.1`, `.2.1`, or `.2.2` at the finite-prime interface boundary.
+- Updated the fixed-lambda certificate constructors in
+  `ConnesWeilRH/Source/CCM25Concrete/FinitePrimeInterface.lean` to build the
+  new named visibility structure explicitly.
+- Also tightened `SourceFiniteVanishingCriterionPackage` by removing the
+  redundant bare `finiteSetAdmissible : Prop` field; it now keeps only the
+  actual `SourceFiniteSetAdmissibility` witness.
+- WSL ext4 verification passed:
+  `lake build ConnesWeilRH.Source.CCM25Concrete.FinitePrimeInterface
+  ConnesWeilRH.Route.AdmissibleWindow
+  ConnesWeilRH.Source.ObjectDerivations
+  ConnesWeilRH.Source.CC20` and `lake build ConnesWeilRH`.
+- Axiom audit for the finite-prime visibility constructor, source-backed
+  finite-prime term normalization, source-object pointwise term proof, and
+  `ConnesWeilRH.Route.final_connes_weil_rh` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Logic boundary preserved: this removes another CCM25 tuple-shaped proof
+  shell, but it does not prove the analytic CC20 trace-to-`QW_lambda` or
+  sign/defect bridge unconditionally.
+
+2026-06-29
+
 - Hardened the CCM25 full/restricted QW read-off interfaces in
   `ConnesWeilRH/Route/Theorem1.lean`.
 - `CCM25FullQWReadOff` is now a named structure with

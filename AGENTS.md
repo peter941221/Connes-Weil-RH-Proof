@@ -565,3 +565,7 @@ drift, hidden axioms, or toy-route leakage.
   fields. When extending the concrete rows or route read-off layers, consume
   the named fields directly; do not rebuild the old pair-shaped proof object or
   reintroduce `.1/.2` projections at the interface boundary.
+- `WeilFormSymbols.FinitePrimeVisibilityStatement` is a named structure with
+  `globalPrimeIndexCoverage`, `restrictedPrimeIndexCoverage`, and
+  `finitePrimeTermNormalization`. Do not reintroduce the old nested
+  conjunction shape or consume this interface with `.1/.2.1/.2.2` projections.

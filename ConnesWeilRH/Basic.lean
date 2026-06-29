@@ -89,13 +89,17 @@ def FinitePrimeTermNormalizationStatement
     W.finitePrimeTerm n (W.convolutionStar f g) =
       W.vonMangoldtWeight n * W.primePowerPairing n f g
 
-def FinitePrimeVisibilityStatement
-    (W : WeilFormSymbols) (f g : TestFunction) : Prop :=
-  let F := W.convolutionStar f g
-  GlobalPrimeIndexCoverageStatement W F ∧
-    (∀ lambda : ℝ,
-      1 < lambda → RestrictedPrimeIndexCoverageStatement W lambda F) ∧
-      FinitePrimeTermNormalizationStatement W f g
+structure FinitePrimeVisibilityStatement
+    (W : WeilFormSymbols) (f g : TestFunction) where
+  globalPrimeIndexCoverage :
+    GlobalPrimeIndexCoverageStatement W (W.convolutionStar f g)
+  restrictedPrimeIndexCoverage :
+    ∀ lambda : ℝ,
+      1 < lambda →
+        RestrictedPrimeIndexCoverageStatement W lambda
+          (W.convolutionStar f g)
+  finitePrimeTermNormalization :
+    FinitePrimeTermNormalizationStatement W f g
 
 def FinitePrimeNormalizationStatement (W : WeilFormSymbols) : Prop :=
   ∀ f g : TestFunction, FinitePrimeVisibilityStatement W f g

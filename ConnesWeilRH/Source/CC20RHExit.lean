@@ -239,7 +239,6 @@ definition bridge.
 -/
 structure SourceFiniteVanishingCriterionPackage
     (B : RHDefinitionBridge) where
-  finiteSetAdmissible : Prop
   finiteVanishingSet : Finset CriticalVanishingPoint
   finiteSetAdmissibleData : SourceFiniteSetAdmissibility finiteVanishingSet
   finiteSetDisjointFromNontrivialZeros :
@@ -255,7 +254,6 @@ def ofCC20RHExitObjectPackage
     {B : RHDefinitionBridge}
     (h : CC20RHExitObjectPackage B) :
     SourceFiniteVanishingCriterionPackage B where
-  finiteSetAdmissible := SourceFiniteSetAdmissibility h.finiteVanishingSet
   finiteVanishingSet := h.finiteVanishingSet
   finiteSetAdmissibleData := h.finiteSetAdmissible
   finiteSetDisjointFromNontrivialZeros :=

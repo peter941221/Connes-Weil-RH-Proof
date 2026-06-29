@@ -213,7 +213,10 @@ theorem finite_prime_visibility_of_fixed_lambda_certificates
     (h : FixedLambdaCertificatesForTest W f g) :
     WeilFormSymbols.FinitePrimeVisibilityStatement W f g := by
   let hcert := h 2 (by norm_num : (1 : ℝ) < 2)
-  refine ⟨?_, ?_, ?_⟩
+  refine
+    { globalPrimeIndexCoverage := ?_
+      restrictedPrimeIndexCoverage := ?_
+      finitePrimeTermNormalization := ?_ }
   · intro n hn
     exact FinitePrimeCertificate.global_exact_of_certificate
       hcert n |>.2
@@ -280,7 +283,10 @@ theorem finite_prime_visibility_of_common_source_test_certificates
     (h : FixedLambdaArithmeticSourceTestCertificatesForTest W f g) :
     WeilFormSymbols.FinitePrimeVisibilityStatement W f g := by
   let hbase := h.certificate 2 (by norm_num : (1 : ℝ) < 2)
-  refine ⟨?_, ?_, ?_⟩
+  refine
+    { globalPrimeIndexCoverage := ?_
+      restrictedPrimeIndexCoverage := ?_
+      finitePrimeTermNormalization := ?_ }
   · intro n hn
     exact FinitePrimeCertificate.global_exact_of_certificate
       (FinitePrimeCertificate.certificate_of_arithmetic_certificate hbase) n |>.2

@@ -98,7 +98,7 @@ theorem provesFinitePrimePointwiseTermStatement
         pkg.toWeilFormSymbols f g :=
   fun f g =>
     (CCM25Concrete.Rows.finite_prime_normalization_of_arithmetic_rows
-      pkg.ccm25.concreteArithmeticRows f g).2.2
+      pkg.ccm25.concreteArithmeticRows f g).finitePrimeTermNormalization
 
 theorem provesPoleNormalizationStatement
     (pkg : SourceObjectPackage) :
