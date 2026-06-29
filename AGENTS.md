@@ -695,6 +695,16 @@ drift, hidden axioms, or toy-route leakage.
   source identification. The next target is to prove at least one of those
   identification fields from concrete CC20 definitions or replace a component
   with a source-backed constructor where the equality is definitional.
+- Goal 4J now has a source-backed normalized package constructor:
+  `normalizedSeedTraceObjectPackage` builds a real
+  `SourceObject.CC20TraceObjectPackage` from a
+  `NormalizedLegalSquareTraceScaleSymbols` plus `CC20TracePackageRemainderData`,
+  and `normalizedSeedIdentificationForTraceObjectPackage` fills the
+  identification interface by reflexivity for that constructed package. This
+  does not identify the existing manuscript/source CC20 package with the
+  normalized seed. The next target is a source comparison theorem or named
+  equality fields proving the existing package's trace functions and gates
+  match the normalized seed definitions.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport

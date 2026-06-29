@@ -1,5 +1,36 @@
 2026-06-29
 
+- Continued Goal 4J by adding a source-backed normalized CC20 trace package
+  constructor.
+- Updated `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.
+- Added `CC20TracePackageRemainderData` to isolate the CC20 trace package
+  fields not supplied by the normalized trace-scale seed: trace-test
+  compatibility, operator identity, global Hilbert-Schmidt gate evidence,
+  per-move cyclicity ledger, no-defect read-off marker, remainder orientation,
+  post-`Q` transport, projection-defect normal form, rank/pole ledger
+  identification, endpoint-strip `Cdef` domination, no-hidden-positive-defect,
+  and trace-ideal transport.
+- Added `normalizedSeedTraceObjectPackage`, which builds a real
+  `SourceObject.CC20TraceObjectPackage` from
+  `NormalizedLegalSquareTraceScaleSymbols` plus `CC20TracePackageRemainderData`.
+- Added `normalizedSeedIdentificationForTraceObjectPackage`, filling the
+  source-identification interface by reflexivity for packages constructed from
+  the normalized seed.
+- Added `normalized_seed_trace_object_support_square_identification` as a
+  concrete read-off of the reflexive support-square trace identification.
+- Updated the ignored local plan and root `AGENTS.md` with the boundary:
+  this proves identification for normalized-seed-constructed packages only. It
+  does not prove that an existing manuscript/source CC20 package is such a
+  package.
+- Next target recorded: prove a source comparison theorem, or named equality
+  fields, showing the existing CC20 package's trace functions and gates match
+  the normalized seed definitions.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.CC20Concrete.TraceScale
+  ConnesWeilRH.Source.CC20Concrete ConnesWeilRH`.
+
+2026-06-29
+
 - Continued Goal 4J by adding the source-identification interface from a real
   `CC20TraceObjectPackage` to the normalized concrete trace-scale seed.
 - Updated `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.

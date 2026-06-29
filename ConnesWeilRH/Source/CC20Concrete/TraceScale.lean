@@ -666,6 +666,121 @@ theorem hilbert_schmidt_gate_identification
 
 end CC20TracePackageNormalizedSeedIdentification
 
+/--
+CC20 trace-package fields not supplied by the normalized trace-scale seed.
+
+These are still source obligations outside the trace-scale normalization slice.
+-/
+structure CC20TracePackageRemainderData
+    (A : NormalizedLegalSquareTraceScaleSymbols) where
+  sourceTraceTest :
+    (normalizedLegalSquareTraceScaleToCC20TraceModel A).archimedeanSymbols.Test
+  sourceCC20TraceTestCompatibility : Prop
+  sourceOperatorIdentity : Prop
+  sourceHilbertSchmidtGate :
+    ∀ g : (normalizedLegalSquareTraceScaleToCC20TraceModel A).archimedeanSymbols.Test,
+      ArchimedeanTraceSymbols.hilbertSchmidtGate
+        (normalizedLegalSquareTraceScaleToCC20TraceModel A).archimedeanSymbols
+        g
+  sourcePerMoveCyclicityLedger : Prop
+  sourceNoDefectTraceReadOff : Prop
+  sourceRemainderOrientationWInftyEqLMinusD : Prop
+  sourceRemainderOrientationWInftyEqSMinusE : Prop
+  sourceRemainderObject : Prop
+  sourceRemainderAfterQ : Prop
+  cc20PostQRemainderFixedSSoninTransport : Prop
+  sourceProjectionDefectNormalForm : Prop
+  sourceRankPoleLedgerIdentification : Prop
+  sourceEndpointStripRemainderCdefDomination : Prop
+  noHiddenPositiveDefectOutsideCdef : Prop
+  sourceBoundedComparisonTraceIdealTransport : Prop
+
+/--
+Build a `CC20TraceObjectPackage` from the normalized seed.
+
+The trace-scale, legality, Mellin, and sign-normalization rows are supplied by
+the normalized seed.  The sign/defect and remainder rows remain explicit data.
+-/
+def normalizedSeedTraceObjectPackage
+    (A : NormalizedLegalSquareTraceScaleSymbols)
+    (remainders : CC20TracePackageRemainderData A) :
+    SourceObject.CC20TraceObjectPackage where
+  archimedeanSymbols :=
+    (normalizedLegalSquareTraceScaleToCC20TraceModel A).archimedeanSymbols
+  sourceTraceTest := remainders.sourceTraceTest
+  sourceCC20TraceTestCompatibility :=
+    remainders.sourceCC20TraceTestCompatibility
+  sourceOperatorIdentity := remainders.sourceOperatorIdentity
+  sourceHilbertSchmidtGate := remainders.sourceHilbertSchmidtGate
+  sourceTraceClassCyclicityTemplate :=
+    normalized_legal_square_trace_scale_to_cc20_trace_model_trace_class_template
+      A
+  sourcePerMoveCyclicityLedger := remainders.sourcePerMoveCyclicityLedger
+  sourceOrdinaryTraceSupportSquare :=
+    normalized_legal_square_trace_scale_to_cc20_trace_model_ordinary_trace_support_square
+      A
+  sourceSupportSquareTraceReadOff := by
+    intro g htrace hcyclic
+    exact
+      (normalized_legal_square_trace_scale_to_cc20_trace_model_trace_square
+        A g htrace hcyclic).1
+  sourceNoDefectTraceReadOff := remainders.sourceNoDefectTraceReadOff
+  sourcePositiveTraceNonnegative := by
+    intro g htrace hcyclic
+    exact
+      (normalized_legal_square_trace_scale_to_cc20_trace_model_trace_square
+        A g htrace hcyclic).2
+  sourceRemainderOrientationWInftyEqLMinusD :=
+    remainders.sourceRemainderOrientationWInftyEqLMinusD
+  sourceRemainderOrientationWInftyEqSMinusE :=
+    remainders.sourceRemainderOrientationWInftyEqSMinusE
+  sourceRemainderObject := remainders.sourceRemainderObject
+  sourceRemainderAfterQ := remainders.sourceRemainderAfterQ
+  cc20PostQRemainderFixedSSoninTransport :=
+    remainders.cc20PostQRemainderFixedSSoninTransport
+  sourceProjectionDefectNormalForm :=
+    remainders.sourceProjectionDefectNormalForm
+  sourceRankPoleLedgerIdentification :=
+    remainders.sourceRankPoleLedgerIdentification
+  sourceEndpointStripRemainderCdefDomination :=
+    remainders.sourceEndpointStripRemainderCdefDomination
+  noHiddenPositiveDefectOutsideCdef :=
+    remainders.noHiddenPositiveDefectOutsideCdef
+  sourceBoundedComparisonTraceIdealTransport :=
+    remainders.sourceBoundedComparisonTraceIdealTransport
+  sourceMellinHalfDensityCompatibility :=
+    normalized_legal_square_trace_scale_to_cc20_trace_model_mellin A
+  sourceCC20SignNormalizations :=
+    normalized_legal_square_trace_scale_to_cc20_trace_model_signs A
+
+def normalizedSeedIdentificationForTraceObjectPackage
+    (A : NormalizedLegalSquareTraceScaleSymbols)
+    (remainders : CC20TracePackageRemainderData A) :
+    CC20TracePackageNormalizedSeedIdentification
+      (normalizedSeedTraceObjectPackage A remainders) where
+  normalizedSeed := A
+  test_eq := rfl
+  supportSquareTrace_eq := HEq.rfl
+  sourceNoDefectTrace_eq := HEq.rfl
+  positiveTrace_eq := HEq.rfl
+  traceClass_eq := HEq.rfl
+  cyclicLegal_eq := HEq.rfl
+  hilbertSchmidtGate_eq := HEq.rfl
+  mellinHalfDensityMatched_eq := HEq.rfl
+  uInfinityNormalized_eq := HEq.rfl
+  qduNormalized_eq := HEq.rfl
+  archimedeanSignNormalized_eq := HEq.rfl
+
+theorem normalized_seed_trace_object_support_square_identification
+    (A : NormalizedLegalSquareTraceScaleSymbols)
+    (remainders : CC20TracePackageRemainderData A) :
+    HEq
+      (normalizedSeedSupportSquareTrace A)
+      (ArchimedeanTraceSymbols.supportSquareTrace
+        (normalizedSeedTraceObjectPackage A remainders).archimedeanSymbols) :=
+  CC20TracePackageNormalizedSeedIdentification.supportSquareTrace_eq
+    (normalizedSeedIdentificationForTraceObjectPackage A remainders)
+
 end TraceScale
 end CC20Concrete
 end Source
