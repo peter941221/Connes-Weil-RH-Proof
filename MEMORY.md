@@ -1,5 +1,175 @@
 2026-06-29
 
+- Completed Goal 4C as a structured S2-B1 trace-scale obligation layer.
+- Updated `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- Added `TraceScaleNoMissingBulkData`, which names the ordinary trace to
+  support-square scalar, support-square to no-defect source scalar, no-defect to
+  `QW_lambda` scalar, rank/pole/`Cdef` ownership, and no-extra-bulk obligations.
+- Replaced the loose `s2b1NoMissingBulkTarget : Prop` marker on
+  `TraceFrontEndData` with a data-bearing `traceScaleNoMissingBulk` field tied
+  to the same package, fixed-test front end, `lambda`, and CCM25 arithmetic
+  package.
+- Added Goal 4C read-offs:
+  `trace_scale_no_missing_bulk`,
+  `trace_scale_no_missing_bulk_ordinary_trace`,
+  `trace_scale_no_missing_bulk_support_square`,
+  `trace_scale_no_missing_bulk_no_defect_qw_lambda`,
+  `trace_scale_no_missing_bulk_rank_pole_cdef`,
+  `trace_scale_no_missing_bulk_no_extra_bulk`, and
+  `trace_scale_no_missing_bulk_no_extra_bulk_holds`.
+- Updated `ConnesWeilRH/Route/RouteTheorem.lean`.
+- Added `TraceScaleRouteFrontEndData`, which makes the next route-front-end
+  staging consume the same `TraceScaleNoMissingBulkData` as the trace front end
+  before producing `ExpandedSourceRouteCertificateFrontEnd`.
+- Added route-front-end read-offs:
+  `toExpandedSourceRouteCertificateFrontEnd`,
+  `route_front_trace_scale_matches_trace_data`,
+  `route_front_no_extra_bulk`,
+  `route_front_trace_scale_owns_sign_defect`,
+  `route_front_ledgers`, and
+  `route_front_sign_defect_classification`.
+- Updated `external-opinions/003-unconditional-rh-completion-plan.md` and root
+  `AGENTS.md` to mark Goal 4C complete and set Goal 4D as the next target:
+  make sign/defect front-end construction consume `TraceScaleRouteFrontEndData`,
+  then replace S2-B1 fields with proved Lean theorem constructors one scalar
+  class at a time.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`.
+- Axiom audit for the Goal 4C read-offs and route-front staging constructor
+  reported only `[propext, Classical.choice, Quot.sound]`.
+- Weak-placeholder scan over the touched Goal 4C Lean files found no `sorry`,
+  `admit`, `axiom`, `constant`, `opaque`, `unsafe`, `Nonempty`, `.choose`,
+  `choose_spec`, or `exists row, True` shells. The only match for `axiom` was
+  the word `axioms` in the `RouteTheorem.lean` module comment.
+- Boundary preserved: Goal 4C is structured obligation/read-off staging only.
+  It does not prove the S2-B1 analytic scalar equalities, sign/defect,
+  restricted-to-full, route certificate closure, or unconditional RH.
+
+2026-06-29
+
+- Completed Goal 4A/B trace-front-end data construction and trace tuple
+  read-offs.
+- Added `ConnesWeilRH/Route/TraceFrontEnd.lean` and imported it from
+  `ConnesWeilRH.lean`.
+- Added `TraceFrontEndData`, which carries the fixed `lambda`, CCM25 concrete
+  arithmetic package, `TestAndQuotientCompatibility`,
+  `FixedSQuantizedSupportSquareTransport`, full trace read-off bridge,
+  restricted trace read-off bridge, and an explicit `s2b1NoMissingBulkTarget`
+  field.
+- Added `TraceFrontEndData.toExpandedSourceTraceReadOffFrontEnd` and
+  `TraceFrontEndData.toSourceTraceReadOffData`.
+- Added generic trace-front-end read-offs:
+  `trace_front_lambda`, `trace_front_arithmetic_package`,
+  `source_trace_archimedean_test`, `source_trace_lambda`,
+  `source_trace_arithmetic_package`,
+  `source_trace_test_and_quotient_compatibility`,
+  `source_trace_support_square_transport`,
+  `source_trace_full_trace_bridge`,
+  `source_trace_restricted_trace_bridge`, and
+  `source_trace_weil_test_eq_fixed_front`.
+- Added package-data specializations:
+  `toExpandedSourceTraceReadOffFrontEndOfPackageData`,
+  `toSourceTraceReadOffDataOfPackageData`,
+  `package_data_source_trace_archimedean_test`,
+  `package_data_source_trace_lambda`,
+  `package_data_source_trace_arithmetic_package`, and
+  `package_data_source_trace_weil_test_eq_common`.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` and root
+  `AGENTS.md` to mark Goal 4A/B complete and set Goal 4C as the next
+  proof-bearing slice: name S2-B1 no-missing-bulk as an explicit trace-scale
+  obligation separate from trace legality and positive trace nonnegativity.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd` and
+  `lake build ConnesWeilRH`.
+- Axiom audit for the Goal 4A/B constructor and read-offs reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Boundary preserved: Goal 4A/B constructs and checks trace-front-end data
+  flow, but it does not prove trace legality, support-square transport,
+  full/restricted trace read-off, S2-B1 no-bulk, sign/defect,
+  restricted-to-full, route certificate, or unconditional RH.
+
+2026-06-29
+
+- Completed Goal 3B/C/D fixed-test front-end staging and made the route ready
+  for the trace-front-end stage.
+- Added `ConnesWeilRH/Route/FixedTestFrontEnd.lean` and imported it from
+  `ConnesWeilRH.lean`.
+- Added `FixedSTestObligationData`, which carries named fixed-test obligations
+  plus tuple-consistency read-offs for the package common test, CCM24 source
+  leg, CCM24 support window, and CCM25 symbols.
+- Added Goal 3B constructors/read-offs:
+  `FixedSTestObligationData.toFixedSTestFrontEndData`,
+  `FixedSTestObligationData.toExpandedSourceFixedSTestFrontEnd`,
+  `source_backed_weil_test_eq_common_test`,
+  `source_backed_semilocal_test_eq_source_leg`,
+  `source_backed_window_eq_source_window`, and
+  `source_backed_ccm25_symbols_eq_package`.
+- Added Goal 3C finite-prime visibility bridge:
+  `finite_prime_visibility_statement_of_concrete_arithmetic_rows` and
+  `finite_primes_visible_of_concrete_arithmetic_rows`, deriving visibility from
+  the concrete CCM25 arithmetic rows attached to `pkg.commonTest.sourceTest`.
+- Added Goal 3D triple-vanishing and package-data readiness read-offs:
+  `triple_vanishing_of_obligation_data`,
+  `admissible_for_theorem1_of_obligation_data`,
+  `source_backed_triple_vanishing_of_obligation_data`,
+  `source_backed_admissible_for_theorem1_of_obligation_data`,
+  `toExpandedSourceFixedSTestFrontEndOfPackageData`,
+  `package_data_source_backed_weil_test_eq_common`,
+  `package_data_source_backed_window_eq_source_window`,
+  `package_data_finite_prime_visibility_statement`, and
+  `package_data_admissible_for_theorem1`.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` and root
+  `AGENTS.md` to mark Goal 3B/C/D complete and set Goal 4A trace-front-end data
+  construction as the next proof-bearing slice.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Route.FixedTestFrontEnd` and
+  `lake build ConnesWeilRH`.
+- Axiom audit for the Goal 3B/C/D constructors and read-offs reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Boundary preserved: Goal 3 now prevents fixed-test tuple drift and derives
+  fixed-test finite-prime visibility from concrete CCM25 arithmetic rows, but
+  it does not prove trace legality, support-square transport, S2-B1 no-bulk,
+  sign/defect, restricted-to-full, route certificate, or unconditional RH.
+
+2026-06-29
+
+- Completed Goal 3A fixed-test front-end data construction.
+- Updated `ConnesWeilRH/Route/Definitions.lean`.
+- Added `FixedSTestFrontEndData`, which carries the explicit fixed-test
+  obligations needed to construct `ExpandedSourceFixedSTestFrontEnd`:
+  admissible window evidence, triple-vanishing bridge/source evidence, and the
+  finite-prime visibility bridge pinned to `pkg.commonTest.sourceTest`.
+- Added `FixedSTestFrontEndData.toExpandedSourceFixedSTestFrontEnd` and
+  read-offs:
+  `test_of_expanded_source_fixed_test_front_end`,
+  `triple_vanishing_symbols_of_expanded_source_fixed_test_front_end`, and
+  `finite_prime_visibility_bridge_of_expanded_source_fixed_test_front_end`.
+- Added downstream `SourceBackedFixedSTest` read-offs for Goal 3A:
+  `weil_test_of_fixed_test_front_end_data`,
+  `semilocal_window_of_fixed_test_front_end_data`, and
+  `finite_prime_visibility_bridge_of_fixed_test_front_end_data`.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` and root
+  `AGENTS.md` to mark Goal 3A complete and set Goal 3B as the next
+  proof-bearing slice: admissibility and tuple-consistency read-offs from the
+  constructed source-object package and explicit fixed-test obligation data.
+- Windows-side `lake` is not available, so verification ran from the WSL ext4
+  mirror after syncing `ConnesWeilRH/Route/Definitions.lean` from the Windows
+  source of truth.
+- WSL ext4 verification passed:
+  `lake build ConnesWeilRH.Route.Definitions` and
+  `lake build ConnesWeilRH`.
+- Axiom audit for the Goal 3A constructor/read-offs reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Boundary preserved: Goal 3A is a constructor/read-off slice. It does not
+  prove the admissible window, triple vanishing, finite-prime visibility,
+  trace front end, route certificate, or unconditional RH.
+
+2026-06-29
+
 - Completed Goal 2D as an explicit data-driven `SourceObjectPackage`
   constructor.
 - Extended `ConnesWeilRH/Source/ObjectExpandedRows.lean`.

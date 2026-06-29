@@ -60,6 +60,66 @@ structure ExpandedSourceFixedSTestFrontEnd
         pkg.commonTest.sourceTest pkg.commonTest.sourceTest →
       test.finitePrimesVisible
 
+/--
+Goal 3A data for constructing the fixed-`S` test front end from an expanded
+source package.
+
+This record does not prove admissibility, triple vanishing, or finite-prime
+visibility by itself.  It keeps those fixed-test obligations explicit while
+pinning their CCM25 visibility statement to the package's common source test.
+-/
+structure FixedSTestFrontEndData
+    (pkg : Source.SourceObject.SourceObjectPackage) where
+  test : FixedSTest
+  tripleVanishingSymbols : TripleVanishingSymbols
+  admissibleWindow : test.admissibleWindow
+  tripleVanishingBridge :
+    TripleVanishingSymbols.TripleVanishingStatement
+        tripleVanishingSymbols →
+      test.tripleVanishing
+  tripleVanishingSourceHolds :
+    TripleVanishingSymbols.TripleVanishingStatement tripleVanishingSymbols
+  finitePrimeVisibilityBridge :
+    WeilFormSymbols.FinitePrimeVisibilityStatement
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest pkg.commonTest.sourceTest →
+      test.finitePrimesVisible
+
+namespace FixedSTestFrontEndData
+
+def toExpandedSourceFixedSTestFrontEnd
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (data : FixedSTestFrontEndData pkg) :
+    ExpandedSourceFixedSTestFrontEnd pkg where
+  test := data.test
+  tripleVanishingSymbols := data.tripleVanishingSymbols
+  admissibleWindow := data.admissibleWindow
+  tripleVanishingBridge := data.tripleVanishingBridge
+  tripleVanishingSourceHolds := data.tripleVanishingSourceHolds
+  finitePrimeVisibilityBridge := data.finitePrimeVisibilityBridge
+
+theorem test_of_expanded_source_fixed_test_front_end
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (data : FixedSTestFrontEndData pkg) :
+    (toExpandedSourceFixedSTestFrontEnd pkg data).test = data.test :=
+  rfl
+
+theorem triple_vanishing_symbols_of_expanded_source_fixed_test_front_end
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (data : FixedSTestFrontEndData pkg) :
+    (toExpandedSourceFixedSTestFrontEnd pkg data).tripleVanishingSymbols =
+      data.tripleVanishingSymbols :=
+  rfl
+
+theorem finite_prime_visibility_bridge_of_expanded_source_fixed_test_front_end
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (data : FixedSTestFrontEndData pkg) :
+    (toExpandedSourceFixedSTestFrontEnd pkg data).finitePrimeVisibilityBridge =
+      data.finitePrimeVisibilityBridge :=
+  rfl
+
+end FixedSTestFrontEndData
+
 structure SourceBackedFixedSTest (inputs : RouteInputs) where
   test : FixedSTest
   placeSet : inputs.ccm24.semilocalSymbols.PlaceSet
@@ -141,6 +201,33 @@ theorem semilocal_window_of_expanded_source_package
     (front : ExpandedSourceFixedSTestFrontEnd pkg) :
     (ofExpandedSourcePackage pkg front).window =
       pkg.ccm24.sourceSupportWindow :=
+  rfl
+
+theorem weil_test_of_fixed_test_front_end_data
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (data : FixedSTestFrontEndData pkg) :
+    (ofExpandedSourcePackage pkg
+      (FixedSTestFrontEndData.toExpandedSourceFixedSTestFrontEnd
+        pkg data)).weilTest =
+      pkg.commonTest.sourceTest :=
+  rfl
+
+theorem semilocal_window_of_fixed_test_front_end_data
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (data : FixedSTestFrontEndData pkg) :
+    (ofExpandedSourcePackage pkg
+      (FixedSTestFrontEndData.toExpandedSourceFixedSTestFrontEnd
+        pkg data)).window =
+      pkg.ccm24.sourceSupportWindow :=
+  rfl
+
+theorem finite_prime_visibility_bridge_of_fixed_test_front_end_data
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (data : FixedSTestFrontEndData pkg) :
+    (ofExpandedSourcePackage pkg
+      (FixedSTestFrontEndData.toExpandedSourceFixedSTestFrontEnd
+        pkg data)).finitePrimeVisibilityBridge =
+      data.finitePrimeVisibilityBridge :=
   rfl
 
 end SourceBackedFixedSTest

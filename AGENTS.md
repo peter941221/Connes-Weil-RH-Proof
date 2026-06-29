@@ -578,9 +578,40 @@ drift, hidden axioms, or toy-route leakage.
   `SourceObjectPackage` from the staged base, common data, expanded rows, RH
   exit data, and named bridge fields. Do not describe this as a no-assumption
   source-object proof: the bridge data and CCM24/CC20 analytic witnesses remain
-  explicit inputs. The next proof-bearing slice is Goal 3: build the fixed-test
-  front end from `sourceObjectPackageOfData` while preserving the same common
-  test, CCM25 arithmetic rows, and cross-object bridge fields.
+  explicit inputs. Goal 3A is complete at the fixed-test front-end constructor
+  layer: `FixedSTestFrontEndData` and
+  `FixedSTestFrontEndData.toExpandedSourceFixedSTestFrontEnd` build
+  `ExpandedSourceFixedSTestFrontEnd` from explicit fixed-test obligations, and
+  the read-offs preserve `pkg.commonTest.sourceTest`,
+  `pkg.ccm24.sourceSupportWindow`, and the finite-prime visibility bridge.
+  Do not describe this as proving admissibility, triple vanishing, or
+  finite-prime visibility. Goal 3B/C/D are complete in
+  `ConnesWeilRH/Route/FixedTestFrontEnd.lean`: `FixedSTestObligationData`
+  turns named fixed-test obligations into the fixed-test front end, derives
+  finite-prime visibility from concrete CCM25 arithmetic rows for
+  `pkg.commonTest.sourceTest`, connects source triple-vanishing symbols to the
+  route test, and specializes the read-offs to `sourceObjectPackageOfData`.
+  Do not describe this as proving trace legality, support-square transport,
+  sign/defect, restricted-to-full, route certificate, or unconditional RH. The
+  next proof-bearing slice is Goal 4A: trace-front-end data construction from
+  the exact Goal 2D package and Goal 3 fixed-test front end while keeping
+  trace/read-off bridge obligations explicit. Goal 4A/B are complete in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean`: `TraceFrontEndData` constructs
+  `ExpandedSourceTraceReadOffFrontEnd` and `SourceTraceReadOffData` from the
+  exact package/fixed-test tuple, preserves the CC20 trace test, lambda, CCM25
+  arithmetic package, test-and-quotient compatibility, support-square
+  transport, and full/restricted trace bridges, and specializes these read-offs
+  to `sourceObjectPackageOfData`. Goal 4C is complete as a structured
+  trace-scale obligation layer: `TraceScaleNoMissingBulkData` names the ordinary
+  trace/support-square/no-defect/`QW_lambda` scalar path, rank/pole/`Cdef`
+  ownership, and no-extra-bulk evidence, while `TraceScaleRouteFrontEndData`
+  forces route-front-end staging to carry that same evidence before producing
+  an `ExpandedSourceRouteCertificateFrontEnd`. Do not describe this as proving
+  the S2-B1 analytic scalar equalities, sign/defect, restricted-to-full, route
+  certificate, or unconditional RH. The next proof-bearing slice is Goal 4D:
+  make sign/defect front-end construction consume `TraceScaleRouteFrontEndData`
+  and then replace the S2-B1 fields with proved Lean theorem constructors one
+  scalar class at a time.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport

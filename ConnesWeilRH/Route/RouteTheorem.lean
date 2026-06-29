@@ -6,6 +6,7 @@ Authors: ConnesWeilRH contributors
 
 import ConnesWeilRH.Route.Exhaustion
 import ConnesWeilRH.Route.Bridge
+import ConnesWeilRH.Route.TraceFrontEnd
 
 /-!
 # Route theorem skeleton
@@ -110,6 +111,109 @@ structure ExpandedSourceRouteCertificateFrontEnd
       (RouteInputs.ofExpandedSourcePackage pkg)
       pkg.cc20Trace.sourceTraceTest
       (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+
+/--
+Goal 4D staging data for a route front end whose sign/defect evidence is tied
+to the Goal 4C trace-scale no-missing-bulk ledger.
+-/
+structure TraceScaleRouteFrontEndData
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceData : TraceFrontEndData pkg fixedFront) where
+  ledgers : RouteLedgers
+  traceScaleNoMissingBulk :
+    TraceScaleNoMissingBulkData pkg fixedFront traceData.lambda
+      traceData.ccm25ArithmeticPackage
+  traceScaleMatchesTraceData :
+    traceScaleNoMissingBulk = traceData.traceScaleNoMissingBulk
+  commonTuple :
+    SourceCommonTestTupleContract
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+      traceData.lambda
+      pkg.commonTest.sourceConvolutionSquare
+      traceData.ccm25ArithmeticPackage
+  signDefectClassification :
+    SourceSignDefectClassification
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+      traceData.lambda ledgers
+  traceScaleOwnsSignDefectRemainder :
+    traceScaleNoMissingBulk.rankPoleCdefOwnEveryRemainder
+      ledgers signDefectClassification
+  restrictedToFullQWBridge :
+    RestrictedToFullQWBridgeContract
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+      traceData.lambda
+      pkg.commonTest.sourceConvolutionSquare
+      ledgers traceData.ccm25ArithmeticPackage
+  sourceArchimedeanSignBridge :
+    SourceArchimedeanSignBridge
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      pkg.cc20Trace.sourceTraceTest
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+
+namespace TraceScaleRouteFrontEndData
+
+def toExpandedSourceRouteCertificateFrontEnd
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceData : TraceFrontEndData pkg fixedFront)
+    (routeData : TraceScaleRouteFrontEndData pkg fixedFront traceData) :
+    ExpandedSourceRouteCertificateFrontEnd pkg fixedFront
+      (traceData.toExpandedSourceTraceReadOffFrontEnd pkg fixedFront) where
+  ledgers := routeData.ledgers
+  commonTuple := routeData.commonTuple
+  signDefectClassification := routeData.signDefectClassification
+  restrictedToFullQWBridge := routeData.restrictedToFullQWBridge
+  sourceArchimedeanSignBridge := routeData.sourceArchimedeanSignBridge
+
+theorem route_front_trace_scale_matches_trace_data
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceData : TraceFrontEndData pkg fixedFront)
+    (routeData : TraceScaleRouteFrontEndData pkg fixedFront traceData) :
+    routeData.traceScaleNoMissingBulk = traceData.traceScaleNoMissingBulk :=
+  routeData.traceScaleMatchesTraceData
+
+theorem route_front_no_extra_bulk
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceData : TraceFrontEndData pkg fixedFront)
+    (routeData : TraceScaleRouteFrontEndData pkg fixedFront traceData) :
+    routeData.traceScaleNoMissingBulk.noExtraBulkScaleTerm :=
+  routeData.traceScaleNoMissingBulk.noExtraBulkScaleTermHolds
+
+theorem route_front_trace_scale_owns_sign_defect
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceData : TraceFrontEndData pkg fixedFront)
+    (routeData : TraceScaleRouteFrontEndData pkg fixedFront traceData) :
+    routeData.traceScaleNoMissingBulk.rankPoleCdefOwnEveryRemainder
+      routeData.ledgers routeData.signDefectClassification :=
+  routeData.traceScaleOwnsSignDefectRemainder
+
+theorem route_front_ledgers
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceData : TraceFrontEndData pkg fixedFront)
+    (routeData : TraceScaleRouteFrontEndData pkg fixedFront traceData) :
+    (routeData.toExpandedSourceRouteCertificateFrontEnd
+      pkg fixedFront traceData).ledgers = routeData.ledgers :=
+  rfl
+
+theorem route_front_sign_defect_classification
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceData : TraceFrontEndData pkg fixedFront)
+    (routeData : TraceScaleRouteFrontEndData pkg fixedFront traceData) :
+    (routeData.toExpandedSourceRouteCertificateFrontEnd
+      pkg fixedFront traceData).signDefectClassification =
+      routeData.signDefectClassification :=
+  rfl
+
+end TraceScaleRouteFrontEndData
 
 theorem expanded_source_package_convolution_square_read_off
     (pkg : Source.SourceObject.SourceObjectPackage)
