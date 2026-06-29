@@ -1,5 +1,28 @@
 2026-06-29
 
+- Continued Goal 4J by adding a square-form positive-trace seed.
+- Updated `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.
+- Added `CC20Concrete.TraceScale.SquareTraceScaleSymbols`, where
+  `supportSquareTrace g := traceAmplitude g ^ 2`.
+- Added `SquareTraceScaleSymbols.positive_trace_nonnegative_statement`, proving
+  the positive-trace nonnegativity row by `sq_nonneg` for the square-form seed.
+- Added `SquareTraceScaleSymbols.trace_square_statement`, combining the
+  existing scalar read-off with the square-form nonnegativity theorem.
+- Added `squareTraceScaleToCC20TraceModel`, which constructs a `CC20TraceModel`
+  from square-form data without taking positive-trace nonnegativity as an input.
+- Added read-offs:
+  `square_trace_scale_to_cc20_trace_model_trace_square` and
+  `square_trace_scale_to_cc20_trace_model_ordinary_trace_support_square`.
+- Updated the ignored local plan and root `AGENTS.md` with the boundary:
+  this proves nonnegativity only for the square-form concrete seed. It still
+  does not prove trace-class/cyclicity, Mellin convention, signs/normalizations,
+  or source identification of the actual CC20 operator trace with this scalar.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.CC20Concrete.TraceScale
+  ConnesWeilRH.Source.CC20Concrete ConnesWeilRH`.
+
+2026-06-29
+
 - Started Goal 4J with a concrete CC20 trace-scale seed.
 - Added `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.
 - Added `ConnesWeilRH/Source/CC20Concrete.lean` and imported it from

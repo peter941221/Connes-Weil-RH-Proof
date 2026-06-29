@@ -129,6 +129,66 @@ theorem signs_and_normalizations_statement
 
 end ConcreteTraceScaleSymbols
 
+/--
+Concrete trace-scale data whose support-square trace is a literal square.
+
+This is the first CC20 concrete positivity seed: positive-trace nonnegativity
+comes from `sq_nonneg`, not from a `CC20TraceModel` field.
+-/
+structure SquareTraceScaleSymbols where
+  Test : Type
+  traceAmplitude : Test → ℝ
+  traceClass : Test → Prop
+  cyclicLegal : Test → Prop
+  hilbertSchmidtGate : Test → Prop
+  mellinHalfDensityMatched : Prop
+  uInfinityNormalized : Prop
+  qduNormalized : Prop
+  archimedeanSignNormalized : Prop
+
+namespace SquareTraceScaleSymbols
+
+def supportSquareTrace (A : SquareTraceScaleSymbols) : A.Test → ℝ :=
+  fun g => A.traceAmplitude g ^ 2
+
+def toConcreteTraceScaleSymbols
+    (A : SquareTraceScaleSymbols) : ConcreteTraceScaleSymbols where
+  Test := A.Test
+  supportSquareTrace := A.supportSquareTrace
+  traceClass := A.traceClass
+  cyclicLegal := A.cyclicLegal
+  hilbertSchmidtGate := A.hilbertSchmidtGate
+  mellinHalfDensityMatched := A.mellinHalfDensityMatched
+  uInfinityNormalized := A.uInfinityNormalized
+  qduNormalized := A.qduNormalized
+  archimedeanSignNormalized := A.archimedeanSignNormalized
+
+theorem support_square_trace_read_off
+    (A : SquareTraceScaleSymbols) (g : A.Test) :
+    A.supportSquareTrace g = A.traceAmplitude g ^ 2 :=
+  rfl
+
+theorem positive_trace_nonnegative_statement
+    (A : SquareTraceScaleSymbols) :
+    A.toConcreteTraceScaleSymbols.PositiveTraceNonnegativeStatement := by
+  intro g _htrace _hcyclic
+  exact sq_nonneg (A.traceAmplitude g)
+
+theorem ordinary_trace_support_square_statement
+    (A : SquareTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      A.toConcreteTraceScaleSymbols.toArchimedeanTraceSymbols :=
+  A.toConcreteTraceScaleSymbols.ordinary_trace_support_square_statement
+
+theorem trace_square_statement
+    (A : SquareTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.TraceSquareStatement
+      A.toConcreteTraceScaleSymbols.toArchimedeanTraceSymbols :=
+  A.toConcreteTraceScaleSymbols.trace_square_statement_of_nonnegative
+    A.positive_trace_nonnegative_statement
+
+end SquareTraceScaleSymbols
+
 /-- Constructor for a CC20 trace model from concrete trace-scale data. -/
 def toCC20TraceModel
     (A : ConcreteTraceScaleSymbols)
@@ -170,6 +230,48 @@ theorem to_cc20_trace_model_trace_square
     ArchimedeanTraceSymbols.TraceSquareStatement
       (toCC20TraceModel A hpos htrace hmellin hsigns).archimedeanSymbols :=
   A.trace_square_statement_of_nonnegative hpos
+
+/--
+Constructor for a CC20 trace model from square-form trace-scale data.
+
+Compared with `toCC20TraceModel`, this version no longer asks for
+positive-trace nonnegativity: it proves that row from the square-form
+definition of the support-square trace.
+-/
+def squareTraceScaleToCC20TraceModel
+    (A : SquareTraceScaleSymbols)
+    (htrace : A.toConcreteTraceScaleSymbols.TraceClassTemplateStatement)
+    (hmellin : A.mellinHalfDensityMatched)
+    (hsigns :
+      A.uInfinityNormalized ∧ A.qduNormalized ∧
+        A.archimedeanSignNormalized) :
+    CC20TraceModel :=
+  toCC20TraceModel A.toConcreteTraceScaleSymbols
+    A.positive_trace_nonnegative_statement htrace hmellin hsigns
+
+theorem square_trace_scale_to_cc20_trace_model_trace_square
+    (A : SquareTraceScaleSymbols)
+    (htrace : A.toConcreteTraceScaleSymbols.TraceClassTemplateStatement)
+    (hmellin : A.mellinHalfDensityMatched)
+    (hsigns :
+      A.uInfinityNormalized ∧ A.qduNormalized ∧
+        A.archimedeanSignNormalized) :
+    ArchimedeanTraceSymbols.TraceSquareStatement
+      (squareTraceScaleToCC20TraceModel
+        A htrace hmellin hsigns).archimedeanSymbols :=
+  A.trace_square_statement
+
+theorem square_trace_scale_to_cc20_trace_model_ordinary_trace_support_square
+    (A : SquareTraceScaleSymbols)
+    (htrace : A.toConcreteTraceScaleSymbols.TraceClassTemplateStatement)
+    (hmellin : A.mellinHalfDensityMatched)
+    (hsigns :
+      A.uInfinityNormalized ∧ A.qduNormalized ∧
+        A.archimedeanSignNormalized) :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      (squareTraceScaleToCC20TraceModel
+        A htrace hmellin hsigns).archimedeanSymbols :=
+  A.ordinary_trace_support_square_statement
 
 end TraceScale
 end CC20Concrete

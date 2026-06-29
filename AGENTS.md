@@ -655,6 +655,17 @@ drift, hidden axioms, or toy-route leakage.
   Mellin half-density convention, and signs/normalizations. The next CC20
   concrete target is to prove one of those inputs from concrete operator/test
   definitions, not to hide it in another model field.
+- Goal 4J now also has a square-form positivity seed:
+  `CC20Concrete.TraceScale.SquareTraceScaleSymbols` defines
+  `supportSquareTrace g := traceAmplitude g ^ 2`, and
+  `positive_trace_nonnegative_statement` proves nonnegativity by `sq_nonneg`.
+  `squareTraceScaleToCC20TraceModel` removes the positive-trace nonnegativity
+  input for this concrete seed only. It still requires trace-class/cyclicity,
+  Mellin convention, and sign/normalization inputs, and it does not identify
+  the actual CC20 operator trace with the square-form scalar. The next concrete
+  CC20 target is either a trace-class/cyclicity theorem for a named
+  Hilbert-Schmidt gate or a source-identification theorem for the CC20 operator
+  trace value.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport
