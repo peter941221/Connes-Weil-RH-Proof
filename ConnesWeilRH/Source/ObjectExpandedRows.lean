@@ -341,7 +341,90 @@ def sourceObjectPackageOfData
   finitePrimeSupport_matches_window := bridges.finitePrimeSupport_matches_window
   qW_sign_bridge := bridges.qW_sign_bridge
 
+def sourceObjectPackageOfNormalizedCC20Trace
+    (base : SourceObjectTheoremBasePackage)
+    (common : SourceObjectCommonData base)
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData normalizedSeed)
+    (rhExit : SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      SourceObjectCrossObjectBridges base common
+        (SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit) :
+    SourceObject.SourceObjectPackage :=
+  sourceObjectPackageOfData base common
+    (SourceObjectExpandedRows.ofNormalizedCC20Trace
+      ccm24 normalizedSeed remainders)
+    rhExit bridges
+
 namespace SourceObjectPackageOfData
+
+theorem normalized_cc20_trace_package_eq_data_constructor
+    (base : SourceObjectTheoremBasePackage)
+    (common : SourceObjectCommonData base)
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData normalizedSeed)
+    (rhExit : SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      SourceObjectCrossObjectBridges base common
+        (SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit) :
+    sourceObjectPackageOfNormalizedCC20Trace
+      base common ccm24 normalizedSeed remainders rhExit bridges =
+      sourceObjectPackageOfData base common
+        (SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit bridges :=
+  rfl
+
+theorem normalized_cc20_trace_package_cc20_trace_eq
+    (base : SourceObjectTheoremBasePackage)
+    (common : SourceObjectCommonData base)
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData normalizedSeed)
+    (rhExit : SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      SourceObjectCrossObjectBridges base common
+        (SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit) :
+    (sourceObjectPackageOfNormalizedCC20Trace
+      base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace =
+      CC20Concrete.TraceScale.normalizedSeedTraceObjectPackage
+        normalizedSeed remainders :=
+  rfl
+
+def normalized_cc20_trace_package_support_square_comparison
+    (base : SourceObjectTheoremBasePackage)
+    (common : SourceObjectCommonData base)
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData normalizedSeed)
+    (rhExit : SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      SourceObjectCrossObjectBridges base common
+        (SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit) :
+    CC20Concrete.TraceScale.CC20TracePackageSupportSquareComparison
+      (sourceObjectPackageOfNormalizedCC20Trace
+        base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace :=
+  SourceObjectExpandedRows.cc20SupportSquareComparison
+    (SourceObjectExpandedRows.ofNormalizedCC20Trace
+      (base := base) (common := common) ccm24 normalizedSeed remainders)
 
 theorem ccm25_eq_rows
     {base : SourceObjectTheoremBasePackage}

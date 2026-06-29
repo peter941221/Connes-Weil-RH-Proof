@@ -739,6 +739,12 @@ drift, hidden axioms, or toy-route leakage.
   normalized-seed route into expanded rows, not as proof that an arbitrary
   manuscript/source `CC20TraceObjectPackage` is normalized. That identification
   still needs source-backed comparison data.
+- `sourceObjectPackageOfNormalizedCC20Trace` composes
+  `SourceObjectExpandedRows.ofNormalizedCC20Trace` with
+  `sourceObjectPackageOfData`, so the route-facing `SourceObjectPackage`
+  consumes the normalized CC20 trace package and its support-square witness by
+  construction. This is a package-boundary constructor, not an analytic proof
+  that the manuscript/source CC20 package is normalized.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport

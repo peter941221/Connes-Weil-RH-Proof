@@ -1,5 +1,26 @@
 2026-06-30
 
+- Continued Goal 4J by adding a normalized CC20 trace constructor at the
+  `SourceObjectPackage` boundary.
+- Updated `ConnesWeilRH/Source/ObjectExpandedRows.lean`.
+- Added `sourceObjectPackageOfNormalizedCC20Trace`, which composes
+  `SourceObjectExpandedRows.ofNormalizedCC20Trace` with
+  `sourceObjectPackageOfData`.
+- Added package-boundary read-offs:
+  `SourceObjectPackageOfData.normalized_cc20_trace_package_eq_data_constructor`,
+  `SourceObjectPackageOfData.normalized_cc20_trace_package_cc20_trace_eq`, and
+  `SourceObjectPackageOfData.normalized_cc20_trace_package_support_square_comparison`.
+- Boundary preserved: the route-facing package can now consume the normalized
+  CC20 trace package and its support-square witness by construction. This does
+  not prove that an arbitrary manuscript/source CC20 package is normalized.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.ObjectExpandedRows`, followed by
+  `lake build ConnesWeilRH.Route.FixedTestFrontEnd
+  ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`.
+
+2026-06-30
+
 - Continued Goal 4J by adding a normalized-seed constructor for expanded source
   rows.
 - Updated `ConnesWeilRH/Source/ObjectExpandedRows.lean`.
