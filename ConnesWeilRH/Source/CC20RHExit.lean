@@ -74,6 +74,18 @@ structure CC20PropositionC1InputData
     RouteTripleVanishingMatchesCC20Mellin F input
   fullWeilPositivity : input.fullWeilPositivity
 
+structure CC20PropositionC1RouteInputData
+    (B : RHDefinitionBridge)
+    (F : Finset CriticalVanishingPoint)
+    (input : WeilPositivityInput)
+    (htriple : input.tripleVanishing)
+    (hpositive : input.fullWeilPositivity) where
+  c1InputData : CC20PropositionC1InputData B F input
+  tripleVanishing_eq_input :
+    c1InputData.tripleVanishingMatchesMellin = htriple
+  fullWeilPositivity_eq_input :
+    c1InputData.fullWeilPositivity = hpositive
+
 def CC20PropositionC1SourceCriterion
     (B : RHDefinitionBridge) (F : Finset CriticalVanishingPoint)
     (input : WeilPositivityInput) : Prop :=
@@ -160,12 +172,45 @@ def cc20_proposition_c1_input_data
     (hdisjoint : SourceFiniteSetDisjointFromNontrivialZeros B F)
     (htriple : input.tripleVanishing)
     (hpositive : input.fullWeilPositivity) :
-    CC20PropositionC1InputData B F input where
-  finiteSetIsTriple :=
-    finite_set_is_triple_of_source_finite_set_admissibility hfinite
-  finiteSetDisjointFromNontrivialZeros := hdisjoint
-  tripleVanishingMatchesMellin := htriple
-  fullWeilPositivity := hpositive
+    CC20PropositionC1RouteInputData B F input htriple hpositive where
+  c1InputData :=
+    { finiteSetIsTriple :=
+        finite_set_is_triple_of_source_finite_set_admissibility hfinite
+      finiteSetDisjointFromNontrivialZeros := hdisjoint
+      tripleVanishingMatchesMellin := htriple
+      fullWeilPositivity := hpositive }
+  tripleVanishing_eq_input := rfl
+  fullWeilPositivity_eq_input := rfl
+
+def c1_input_data_of_route_input_data
+    {B : RHDefinitionBridge}
+    {F : Finset CriticalVanishingPoint}
+    {input : WeilPositivityInput}
+    {htriple : input.tripleVanishing}
+    {hpositive : input.fullWeilPositivity}
+    (h : CC20PropositionC1RouteInputData B F input htriple hpositive) :
+    CC20PropositionC1InputData B F input :=
+  h.c1InputData
+
+theorem c1_route_input_preserves_triple_vanishing
+    {B : RHDefinitionBridge}
+    {F : Finset CriticalVanishingPoint}
+    {input : WeilPositivityInput}
+    {htriple : input.tripleVanishing}
+    {hpositive : input.fullWeilPositivity}
+    (h : CC20PropositionC1RouteInputData B F input htriple hpositive) :
+    h.c1InputData.tripleVanishingMatchesMellin = htriple :=
+  h.tripleVanishing_eq_input
+
+theorem c1_route_input_preserves_full_positivity
+    {B : RHDefinitionBridge}
+    {F : Finset CriticalVanishingPoint}
+    {input : WeilPositivityInput}
+    {htriple : input.tripleVanishing}
+    {hpositive : input.fullWeilPositivity}
+    (h : CC20PropositionC1RouteInputData B F input htriple hpositive) :
+    h.c1InputData.fullWeilPositivity = hpositive :=
+  h.fullWeilPositivity_eq_input
 
 theorem triple_vanishing_of_c1_input_data
     {B : RHDefinitionBridge}
@@ -272,7 +317,7 @@ def sourceCriterion
   h.sourceCriterionData input
     (cc20_proposition_c1_input_data
       h.finiteSetAdmissibleData
-      h.finiteSetDisjointFromNontrivialZeros htriple hpositive)
+      h.finiteSetDisjointFromNontrivialZeros htriple hpositive).c1InputData
 
 theorem source_criterion_data_output
     {B : RHDefinitionBridge}
@@ -293,7 +338,8 @@ theorem source_criterion_uses_c1_input_data
       h.sourceCriterionData input
         (cc20_proposition_c1_input_data
           h.finiteSetAdmissibleData
-          h.finiteSetDisjointFromNontrivialZeros htriple hpositive) := by
+          h.finiteSetDisjointFromNontrivialZeros
+          htriple hpositive).c1InputData := by
   rfl
 
 theorem finite_set_admissible_of_source_package
@@ -406,7 +452,8 @@ theorem criterion_source_output_uses_c1_input_data
       criterion_source_output_of_c1_input_data h input
         (cc20_proposition_c1_input_data
           h.finiteSetAdmissibleData
-          h.finiteSetDisjointFromNontrivialZeros htriple hpositive) := by
+          h.finiteSetDisjointFromNontrivialZeros
+          htriple hpositive).c1InputData := by
   rfl
 
 theorem criterion_mathlib_rh_point_of_c1_input_data
@@ -458,7 +505,7 @@ theorem criterion_mathlib_rh_point
   criterion_mathlib_rh_point_of_c1_input_data h input
     (cc20_proposition_c1_input_data
       h.finiteSetAdmissibleData
-      h.finiteSetDisjointFromNontrivialZeros htriple hpositive)
+      h.finiteSetDisjointFromNontrivialZeros htriple hpositive).c1InputData
     s hzero hnotNegEven hpole
 
 theorem criterion_mathlib_rh_statement
@@ -471,7 +518,7 @@ theorem criterion_mathlib_rh_statement
   criterion_mathlib_rh_statement_of_c1_input_data h input
     (cc20_proposition_c1_input_data
       h.finiteSetAdmissibleData
-      h.finiteSetDisjointFromNontrivialZeros htriple hpositive)
+      h.finiteSetDisjointFromNontrivialZeros htriple hpositive).c1InputData
 
 theorem criterion_to_mathlib_rh
     {B : RHDefinitionBridge}
@@ -483,7 +530,7 @@ theorem criterion_to_mathlib_rh
   criterion_to_mathlib_rh_of_c1_input_data h input
     (cc20_proposition_c1_input_data
       h.finiteSetAdmissibleData
-      h.finiteSetDisjointFromNontrivialZeros htriple hpositive)
+      h.finiteSetDisjointFromNontrivialZeros htriple hpositive).c1InputData
 
 theorem standard_criterion_to_mathlib_rh
     (h : SourceFiniteVanishingCriterionPackage RHDefinitionBridge.standard)

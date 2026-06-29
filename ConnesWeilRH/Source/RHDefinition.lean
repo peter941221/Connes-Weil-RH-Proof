@@ -43,8 +43,10 @@ structure RHDefinitionBridge where
 
 namespace RHDefinitionBridge
 
-def MathlibNontrivialZero (s : ℂ) : Prop :=
-  riemannZeta s = 0 ∧ (¬∃ n : ℕ, s = -2 * (n + 1)) ∧ s ≠ 1
+structure MathlibNontrivialZero (s : ℂ) : Prop where
+  zeta_zero : riemannZeta s = 0
+  not_negative_even : ¬∃ n : ℕ, s = -2 * (n + 1)
+  not_pole : s ≠ 1
 
 def SourceZetaZero (B : RHDefinitionBridge) (s : ℂ) : Prop :=
   B.sourceZeta s = 0
@@ -109,22 +111,24 @@ theorem mathlib_nontrivial_zero_of_components
     (hnotNegEven : ¬∃ n : ℕ, s = -2 * (n + 1))
     (hpole : s ≠ 1) :
     MathlibNontrivialZero s :=
-  ⟨hzero, hnotNegEven, hpole⟩
+  { zeta_zero := hzero
+    not_negative_even := hnotNegEven
+    not_pole := hpole }
 
 theorem mathlib_nontrivial_zero_zeta_zero
     {s : ℂ} (h : MathlibNontrivialZero s) :
     riemannZeta s = 0 :=
-  h.1
+  h.zeta_zero
 
 theorem mathlib_nontrivial_zero_not_negative_even
     {s : ℂ} (h : MathlibNontrivialZero s) :
     ¬∃ n : ℕ, s = -2 * (n + 1) :=
-  h.2.1
+  h.not_negative_even
 
 theorem mathlib_nontrivial_zero_not_pole
     {s : ℂ} (h : MathlibNontrivialZero s) :
     s ≠ 1 :=
-  h.2.2
+  h.not_pole
 
 theorem source_nontrivial_zero_to_mathlib
     (B : RHDefinitionBridge) (s : ℂ)
@@ -214,7 +218,21 @@ theorem mathlib_rh_statement_iff_mathlib :
     exact h s
       (mathlib_nontrivial_zero_of_components s hzero hnotNegEven hpole)
   · intro h s hzero
-    exact h s hzero.1 hzero.2.1 hzero.2.2
+    exact h s hzero.zeta_zero hzero.not_negative_even hzero.not_pole
+
+theorem mathlib_rh_statement_iff_mathlib_components :
+    MathlibRHStatement ↔
+      (∀ s : ℂ,
+        riemannZeta s = 0 →
+          (¬∃ n : ℕ, s = -2 * (n + 1)) →
+            s ≠ 1 →
+              s.re = 1 / 2) := by
+  constructor
+  · intro h s hzero hnotNegEven hpole
+    exact h s
+      (mathlib_nontrivial_zero_of_components s hzero hnotNegEven hpole)
+  · intro h s hzero
+    exact h s hzero.zeta_zero hzero.not_negative_even hzero.not_pole
 
 theorem source_rh_to_mathlib_rh_statement
     (B : RHDefinitionBridge) (hRH : B.SourceRH) :
@@ -349,23 +367,26 @@ end ContractNames
 noncomputable def standard : RHDefinitionBridge where
   sourceZeta := riemannZeta
   sourceNontrivialZero :=
-    fun s => riemannZeta s = 0 ∧ (¬∃ n : ℕ, s = -2 * (n + 1)) ∧ s ≠ 1
+    fun s => MathlibNontrivialZero s
   sourceCriticalLine := fun s => s.re = 1 / 2
   sourceZeta_eq_mathlib := by
     intro s
     rfl
   sourceNontrivialZero_to_sourceZetaZero := by
     intro s hs
-    exact hs.1
+    exact hs.zeta_zero
   sourceNontrivialZero_no_negative_even := by
     intro s hs
-    exact hs.2.1
+    exact hs.not_negative_even
   sourceNontrivialZero_no_pole := by
     intro s hs
-    exact hs.2.2
+    exact hs.not_pole
   mathlibNontrivialZero_to_source := by
     intro s hzero hnotNegEven hpole
-    exact ⟨hzero, hnotNegEven, hpole⟩
+    exact
+      { zeta_zero := hzero
+        not_negative_even := hnotNegEven
+        not_pole := hpole }
   sourceCriticalLine_to_mathlib := by
     intro s hs
     exact hs

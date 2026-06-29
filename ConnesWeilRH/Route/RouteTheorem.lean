@@ -172,14 +172,16 @@ noncomputable def route_backed_cc20_exit_input_data_of_route_bridge_certificate
     (route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
       bridge).fullWeilPositivity
   propositionC1InputData :=
-    Source.cc20_proposition_c1_input_data
-      inputs.cc20.cc20RHExitObjectPackage.finiteSetAdmissible
-      inputs.cc20.cc20RHExitObjectPackage.finiteSetDisjointFromNontrivialZeros
-      ((route_backed_cc20_triple_vanishing_input_data_of_source_backed
-        : RouteBackedCC20TripleVanishingInputData inputs g L
-            (toWeilPositivityInput inputs g L)).tripleVanishingMatchesMellin)
-      ((route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
-        bridge).fullWeilPositivity)
+    let hroute :=
+      Source.cc20_proposition_c1_input_data
+        inputs.cc20.cc20RHExitObjectPackage.finiteSetAdmissible
+        inputs.cc20.cc20RHExitObjectPackage.finiteSetDisjointFromNontrivialZeros
+        ((route_backed_cc20_triple_vanishing_input_data_of_source_backed
+          : RouteBackedCC20TripleVanishingInputData inputs g L
+              (toWeilPositivityInput inputs g L)).tripleVanishingMatchesMellin)
+        ((route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
+          bridge).fullWeilPositivity)
+    hroute.c1InputData
 
 def nonpositivity_input_of_route_backed_cc20_exit_input_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}

@@ -1,5 +1,128 @@
 2026-06-29
 
+- Hardened the `CC20FiniteVanishingRhExit` route-input path.
+- Added `CC20PropositionC1RouteInputData` in
+  `ConnesWeilRH/Source/CC20RHExit.lean` to wrap the constructed
+  `CC20PropositionC1InputData` together with preservation fields proving that
+  `tripleVanishingMatchesMellin` is the supplied route triple-vanishing input
+  and `fullWeilPositivity` is the supplied route full-positivity input.
+- Changed `cc20_proposition_c1_input_data` to return the new route-input
+  wrapper, and updated source/package/route consumers to use `.c1InputData`
+  when the downstream criterion needs the original C.1 input structure.
+- Updated `ConnesWeilRH/Route/RouteTheorem.lean` so
+  `route_backed_cc20_exit_input_data_of_route_bridge_certificate` explicitly
+  builds the route-input wrapper before projecting the C.1 input data.
+- WSL ext4 verification passed:
+  `lake build ConnesWeilRH.Source.CC20RHExit ConnesWeilRH.Source.CC20
+  ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`, followed by
+  `lake build ConnesWeilRH.Route.RouteTheorem ConnesWeilRH` after the
+  route-side projection fix.
+- Axiom audit for the new C.1 route-input preservation theorems, source
+  criterion factorization, CC20 interface finite-vanishing exits, route-backed
+  C.1 input construction, and `ConnesWeilRH.Route.final_connes_weil_rh`
+  reported only `[propext, Classical.choice, Quot.sound]`.
+- Weak loophole scan found no `sorry`, `admit`, `axiom`, `constant`,
+  `opaque`, `unsafe`, `Nonempty`, `.choose`, `choose_spec`, or
+  `exists ... True`.
+- Logic boundary preserved: this prevents C.1 input data from drifting away
+  from the supplied route triple-vanishing and full-positivity evidence, but it
+  does not prove the analytic Mellin bridge, final sign bridge, Proposition
+  C.1, or RH unconditionally.
+
+2026-06-29
+
+- Hardened `RHDefinitionBridge` against Mathlib non-trivial-zero component
+  drift.
+- Changed `RHDefinitionBridge.MathlibNontrivialZero` in
+  `ConnesWeilRH/Source/RHDefinition.lean` from an anonymous nested
+  conjunction to a named `Prop` structure with fields `zeta_zero`,
+  `not_negative_even`, and `not_pole`.
+- Updated the component constructor/projections, `mathlib_rh_statement_iff_mathlib`,
+  and the `standard` bridge to consume named fields instead of tuple
+  projections `.1`, `.2.1`, and `.2.2`.
+- Added `mathlib_rh_statement_iff_mathlib_components`, so the intermediate
+  `MathlibRHStatement` is directly shown equivalent to Mathlib's component
+  shape before converting to `_root_.RiemannHypothesis`.
+- WSL ext4 verification passed:
+  `lake build ConnesWeilRH.Source.RHDefinition` and
+  `lake build ConnesWeilRH.Source.CC20 ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`.
+- Axiom audit printed Mathlib's current `_root_.RiemannHypothesis` definition
+  as `forall s, riemannZeta s = 0 -> not negative-even -> s != 1 ->
+  s.re = 1 / 2`, and the audited RH bridge/CC20 exit/final route theorems
+  reported only `[propext, Classical.choice, Quot.sound]`.
+- Weak loophole scan found no `sorry`, `admit`, `axiom`, `constant`,
+  `opaque`, `unsafe`, `Nonempty`, `.choose`, `choose_spec`, or
+  `exists ... True`.
+- Logic boundary preserved: this confirms the bridge continues to target
+  Mathlib's exact zeta-zero, negative-even exclusion, pole exclusion, and
+  critical-line statement, but it does not prove the CC20 source RH predicate
+  or RH unconditionally.
+
+2026-06-29
+
+- Hardened the CC20 trace read-off bridge contract in Lean.
+- Added `FullTraceReadOffBridgeContract` and
+  `RestrictedTraceReadOffBridgeContract` in
+  `ConnesWeilRH/Route/Theorem1.lean`.
+- Replaced bare `fullTraceReadOffBridge` and
+  `restrictedTraceReadOffBridge` functions on `SourceTraceReadOffData` and
+  `ExpandedSourceTraceReadOffFrontEnd` with contract structures that include
+  preservation proofs for the input no-defect, full-`QW`, and restricted-`QW`
+  evidence.
+- Added projection theorems:
+  `full_trace_read_off_bridge_preserves_no_defect`,
+  `full_trace_read_off_bridge_preserves_full_qw`, and
+  `restricted_trace_read_off_bridge_preserves_restricted_qw`.
+- Updated bridge consumers to call `.build`, so the bridge can no longer
+  silently return a read-off source whose named evidence fields drift from the
+  supplied inputs.
+- WSL ext4 verification passed:
+  `lake build ConnesWeilRH.Route.Theorem1` and
+  `lake build ConnesWeilRH.Route.Bridge ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`.
+- Axiom audit for the new preservation theorems, bridge exits,
+  `trace_weil_compatibility_of_source_trace_data`,
+  `fixed_s_read_off_of_source_trace_data`, and
+  `ConnesWeilRH.Route.final_connes_weil_rh` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Weak loophole scan found no `sorry`, `admit`, `axiom`, `constant`,
+  `opaque`, `unsafe`, `Nonempty`, `.choose`, `choose_spec`, or
+  `exists ... True`.
+- Logic boundary preserved: this removes a route-level evidence-drift surface
+  in the CC20 trace-to-`QW_lambda` path, but it does not prove the analytic
+  trace read-off, sign/defect bridge, restricted-to-full bridge, final sign
+  bridge, or RH unconditionally.
+
+2026-06-29
+
+- Began hardening the CC20 trace-to-read-off entry path in Lean.
+- Added named route wrappers in `ConnesWeilRH/Route/Theorem1.lean`:
+  `CC20TraceLegalityTemplateOutput` for the trace-class/cyclicity output of
+  the CC20 trace-class template, and
+  `CC20ArchimedeanTraceSquareOutput` for the no-defect/positive-trace output
+  of the CC20 archimedean trace-square theorem.
+- Replaced downstream `.1` / `.2` consumption in
+  `cc20_trace_legality_of_source_trace_data`,
+  `cc20_trace_square_of_source_trace_data`, and
+  `SourceTraceReadOffData.ofExpandedSourcePackage` with named wrapper
+  projections. The only remaining tuple unpacking is now localized inside the
+  two wrapper constructors.
+- WSL ext4 verification passed:
+  `lake build ConnesWeilRH.Route.Theorem1`,
+  `lake build ConnesWeilRH.Route.Bridge ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`, and `lake build ConnesWeilRH`.
+- Axiom audit for the two wrappers, trace legality/read-off projections,
+  `fixed_s_read_off_of_source_trace_data`, and
+  `ConnesWeilRH.Route.final_connes_weil_rh` reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Logic boundary preserved: this makes the trace-class/cyclicity and
+  no-defect/positive-trace route evidence more inspectable, but it does not
+  prove the analytic CC20 trace-to-`QW_lambda`, cyclicity theorem, or
+  sign/defect bridge unconditionally.
+
+2026-06-29
+
 - Hardened the CCM25 global/restricted formula component object identity.
 - Added `commonConcreteObject` to
   `ConcreteCCM25FormulaComponents` in

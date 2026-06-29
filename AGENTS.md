@@ -131,6 +131,11 @@ drift, hidden axioms, or toy-route leakage.
   expose the same zeta function, non-trivial-zero predicate, negative-even
   trivial-zero exclusion, `s != 1` exclusion, and critical-line equation
   `s.re = 1/2`.
+- In `RHDefinitionBridge`, Mathlib non-trivial-zero evidence should remain the
+  named `MathlibNontrivialZero` structure with `zeta_zero`,
+  `not_negative_even`, and `not_pole` fields. Do not re-collapse this bridge
+  to an anonymous nested conjunction whose `.1` / `.2.1` / `.2.2` projections
+  can obscure component order.
 - Project-local RH names may exist only as abbreviations or bridge predicates
   with proved equivalence to `_root_.RiemannHypothesis`.
 - Every project-defined analytic object used in the final route must have a
@@ -159,6 +164,12 @@ drift, hidden axioms, or toy-route leakage.
 - `SourceTraceReadOffData` should own the CC20 archimedean test object and the
   Hilbert-Schmidt gate used to derive trace-class/cyclicity legality. Do not
   move that gate back into a downstream positivity certificate.
+- CC20 trace read-off bridges in `SourceTraceReadOffData` should pass through
+  `FullTraceReadOffBridgeContract` and
+  `RestrictedTraceReadOffBridgeContract`. Do not reintroduce bare
+  `fullTraceReadOffBridge` or `restrictedTraceReadOffBridge` function fields
+  that can return read-off source evidence disconnected from the supplied
+  no-defect, full-`QW`, or restricted-`QW` inputs.
 - CCM25 Weil-form read-off should pass through `CCM25WeilFormReadOff` derived
   from `inputs.ccm25.qwDefinition`, `inputs.ccm25.qwLambdaFormula`, and
   `inputs.ccm25.poleNormalization`. Do not reintroduce a loose
@@ -208,6 +219,12 @@ drift, hidden axioms, or toy-route leakage.
   equality through a common concrete object. Certificate equality alone is not
   enough to rule out drift in exact support, local formula data, or sum formula
   data attached to the concrete object.
+- CC20 trace-class/cyclicity and archimedean trace-square outputs should be
+  unpacked through named route wrappers such as
+  `CC20TraceLegalityTemplateOutput` and
+  `CC20ArchimedeanTraceSquareOutput`. Keep anonymous `.1` / `.2` projections
+  localized at the source-interface unpacking boundary, not in downstream
+  trace-to-read-off code.
 - CCM25 exact finite-prime support should first be proved at a fixed
   `lambda`. Do not promote fixed-cutoff support coverage to
   `forall lambda` until the lambda quantifier, source support containment, and
@@ -539,6 +556,11 @@ drift, hidden axioms, or toy-route leakage.
   already allows an extra finite vanishing set `F` containing `{0,1}` and
   disjoint from non-trivial zeros; the route uses `F={0,1/2,1}` and must prove
   the Mellin/half-density translation to that exact set.
+- CC20 Proposition C.1 route input should pass through
+  `CC20PropositionC1RouteInputData` before projecting
+  `CC20PropositionC1InputData`. Do not construct C.1 input data in a way that
+  can drift from the supplied route triple-vanishing or full-positivity
+  evidence.
 - Do not treat a source-paper statement ending in "RH" as identical to Mathlib
   RH by name alone. The final bridge must unpack CC20's non-trivial zero set
   against Mathlib's `riemannZeta s = 0`, `not exists n, s = -2*(n+1)`, and
