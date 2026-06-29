@@ -21,9 +21,14 @@ namespace GlobalComponent
 
 structure GlobalFinitePrimeSumReadOff
     (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ) where
+  concreteObject :
+    FinitePrimeCertificate.FixedLambdaFinitePrimeConcreteObject
+      W f g lambda
   certificate :
     FinitePrimeCertificate.FixedLambdaFinitePrimeArithmeticCertificate
       W f g lambda
+  concreteObject_certificate_eq :
+    concreteObject.certificate = certificate
   finitePrimeSumReadOff :
     (∑ n ∈ W.globalPrimeIndexSet,
       W.finitePrimeTerm n (W.convolutionStar f g)) =
@@ -49,12 +54,17 @@ structure GlobalQWPsiFormulaComponent
   finitePrimeSumReadOff :
     GlobalFinitePrimeSumReadOff W f g lambda
 
-def global_finite_prime_sum_read_off_of_arithmetic_rows
+noncomputable def global_finite_prime_sum_read_off_of_arithmetic_rows
     {W : WeilFormSymbols} (h : Interface.ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :
     GlobalFinitePrimeSumReadOff W f g lambda where
+  concreteObject :=
+    Interface.fixed_lambda_concrete_object_of_arithmetic_rows
+      h f g lambda hlambda
   certificate :=
     (h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda
+  concreteObject_certificate_eq :=
+    Interface.fixed_lambda_concrete_object_certificate_eq h f g lambda hlambda
   finitePrimeSumReadOff :=
     Interface.arithmetic_global_sum_formula_of_arithmetic_rows
       h f g lambda hlambda
@@ -62,7 +72,7 @@ def global_finite_prime_sum_read_off_of_arithmetic_rows
     Interface.arithmetic_global_von_mangoldt_pairing_sum_formula_of_arithmetic_rows
       h f g lambda hlambda
 
-def global_qw_psi_formula_component_of_arithmetic_rows
+noncomputable def global_qw_psi_formula_component_of_arithmetic_rows
     {W : WeilFormSymbols} (h : Interface.ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :
     GlobalQWPsiFormulaComponent W f g lambda where
@@ -91,6 +101,20 @@ theorem psi_sign_of_component
             W.finitePrimeTerm n (W.convolutionStar f g) :=
   h.psiSign
 
+def global_concrete_object_of_component
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : GlobalQWPsiFormulaComponent W f g lambda) :
+    FinitePrimeCertificate.FixedLambdaFinitePrimeConcreteObject
+      W f g lambda :=
+  h.finitePrimeSumReadOff.concreteObject
+
+theorem global_concrete_object_certificate_eq
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : GlobalQWPsiFormulaComponent W f g lambda) :
+    (global_concrete_object_of_component h).certificate =
+      h.finitePrimeSumReadOff.certificate :=
+  h.finitePrimeSumReadOff.concreteObject_certificate_eq
+
 theorem global_finite_prime_sum_of_component
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : GlobalQWPsiFormulaComponent W f g lambda) :
@@ -100,6 +124,15 @@ theorem global_finite_prime_sum_of_component
         W f g h.finitePrimeSumReadOff.certificate.atoms :=
   h.finitePrimeSumReadOff.finitePrimeSumReadOff
 
+theorem global_finite_prime_sum_from_concrete_object
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : GlobalQWPsiFormulaComponent W f g lambda) :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.finitePrimeTerm n (W.convolutionStar f g)) =
+      PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
+        W f g (global_concrete_object_of_component h).certificate.atoms := by
+  exact (global_concrete_object_of_component h).globalFinitePrimeTermSumReadOff
+
 theorem global_von_mangoldt_pairing_sum_of_component
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : GlobalQWPsiFormulaComponent W f g lambda) :
@@ -108,6 +141,15 @@ theorem global_von_mangoldt_pairing_sum_of_component
       PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
         W f g h.finitePrimeSumReadOff.certificate.atoms :=
   h.finitePrimeSumReadOff.vonMangoldtPairingSumReadOff
+
+theorem global_von_mangoldt_pairing_sum_from_concrete_object
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : GlobalQWPsiFormulaComponent W f g lambda) :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.vonMangoldtWeight n * W.primePowerPairing n f g) =
+      PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
+        W f g (global_concrete_object_of_component h).certificate.atoms := by
+  exact (global_concrete_object_of_component h).globalVonMangoldtPairingSumReadOff
 
 theorem psi_source_evaluator_of_component
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}

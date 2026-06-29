@@ -156,6 +156,21 @@ theorem finite_prime_visibility_of_arithmetic_rows
   FinitePrimeInterface.finite_prime_visibility_of_common_source_test_certificates
     (h.finitePrimeArithmeticCertificates f g)
 
+noncomputable def fixed_lambda_concrete_object_of_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :
+    FinitePrimeCertificate.FixedLambdaFinitePrimeConcreteObject
+      W f g lambda :=
+  FinitePrimeCertificate.concrete_object_of_arithmetic_certificate
+    ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
+
+theorem fixed_lambda_concrete_object_certificate_eq
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :
+    (fixed_lambda_concrete_object_of_arithmetic_rows h f g lambda hlambda).certificate =
+      (h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda :=
+  rfl
+
 theorem arithmetic_global_sum_formula_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :

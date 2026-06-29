@@ -342,6 +342,142 @@ noncomputable def exact_support_of_arithmetic_certificate
     FinitePrimeExact.ExactSupportAtLambda W f g lambda :=
   exact_support_of_certificate (certificate_of_arithmetic_certificate h)
 
+structure FixedLambdaFinitePrimeConcreteObject
+    (W : WeilFormSymbols) (f g : TestFunction) (lambda : ℝ) where
+  certificate : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda
+  exactSupport : FinitePrimeExact.ExactSupportAtLambda W f g lambda
+  sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g
+  sourceTest_eq_support :
+    sourceTest = certificate.support.sourceTest
+  atomsUseSourceTest :
+    PrimePowerArithmetic.UsesSourceTest certificate.atoms sourceTest
+  atomData :
+    ∀ n : ℕ, PrimePowerArithmetic.SourceFinitePrimeArithmeticData W f g n
+  atomData_eq_certificate :
+    ∀ n : ℕ, atomData n = certificate.atoms.atIndex n
+  globalIndexData :
+    ∀ {n : ℕ},
+      n ∈ W.globalPrimeIndexSet →
+        PrimePowerArithmetic.SourcePrimePowerIndex n ∧
+          sourceTest.sourceAtomVisible n
+  restrictedIndexData :
+    ∀ {n : ℕ},
+      n ∈ W.restrictedPrimeIndexSet lambda →
+        PrimePowerArithmetic.SourcePrimePowerIndex n ∧
+          sourceTest.sourceAtomVisible n ∧
+            PrimePowerSupport.SourceLambdaCut lambda n
+  weightReadOff :
+    ∀ n : ℕ,
+      W.vonMangoldtWeight n =
+        PrimePowerArithmetic.SourceVonMangoldtWeight n
+  pairingFormulaSourceEvaluator :
+    ∀ n : ℕ,
+      W.primePowerPairing n f g =
+        (1 / Real.sqrt (n : ℝ)) *
+          ((atomData n).sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
+              (W.convolutionStar f g) (n : ℝ) +
+            (atomData n).sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
+              (W.convolutionStar f g) ((n : ℝ)⁻¹))
+  termFormulaSourceEvaluator :
+    ∀ n : ℕ,
+      W.finitePrimeTerm n (W.convolutionStar f g) =
+        PrimePowerArithmetic.SourceFinitePrimeEvaluatorAtom W f g n
+          (atomData n)
+  globalFinitePrimeTermSumReadOff :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.finitePrimeTerm n (W.convolutionStar f g)) =
+      PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
+        W f g certificate.atoms
+  globalVonMangoldtPairingSumReadOff :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.vonMangoldtWeight n * W.primePowerPairing n f g) =
+      PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
+        W f g certificate.atoms
+  restrictedFinitePrimeTermSumReadOff :
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.finitePrimeTerm n (W.convolutionStar f g)) =
+      PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
+        W f g lambda certificate.atoms
+  restrictedVonMangoldtPairingSumReadOff :
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.vonMangoldtWeight n * W.primePowerPairing n f g) =
+      PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
+        W f g lambda certificate.atoms
+
+noncomputable def concrete_object_of_arithmetic_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda) :
+    FixedLambdaFinitePrimeConcreteObject W f g lambda where
+  certificate := h
+  exactSupport := exact_support_of_arithmetic_certificate h
+  sourceTest := h.support.sourceTest
+  sourceTest_eq_support := rfl
+  atomsUseSourceTest := arithmetic_atoms_use_support_source_test h
+  atomData := h.atoms.atIndex
+  atomData_eq_certificate := fun _ => rfl
+  globalIndexData := by
+    intro n hn
+    exact arithmetic_global_index_source_data_of_certificate h hn
+  restrictedIndexData := by
+    intro n hn
+    exact arithmetic_restricted_index_source_data_of_certificate h hn
+  weightReadOff := fun n =>
+    PrimePowerArithmetic.source_weight_read_off (h.atoms.atIndex n)
+  pairingFormulaSourceEvaluator := fun n =>
+    PrimePowerArithmetic.source_pairing_formula_source_evaluator
+      (h.atoms.atIndex n)
+  termFormulaSourceEvaluator := fun n =>
+    arithmetic_atom_formula_of_certificate h n
+  globalFinitePrimeTermSumReadOff :=
+    arithmetic_global_sum_formula_of_certificate h
+  globalVonMangoldtPairingSumReadOff :=
+    arithmetic_global_von_mangoldt_pairing_sum_formula_of_certificate h
+  restrictedFinitePrimeTermSumReadOff :=
+    arithmetic_restricted_sum_formula_of_certificate h
+  restrictedVonMangoldtPairingSumReadOff :=
+    arithmetic_restricted_von_mangoldt_pairing_sum_formula_of_certificate h
+
+theorem concrete_object_source_test_eq_support
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeConcreteObject W f g lambda) :
+    h.sourceTest = h.certificate.support.sourceTest :=
+  h.sourceTest_eq_support
+
+theorem concrete_object_global_index_prime_power
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    PrimePowerArithmetic.SourcePrimePowerIndex n :=
+  (h.globalIndexData hn).1
+
+theorem concrete_object_global_index_visible
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    h.sourceTest.sourceAtomVisible n :=
+  (h.globalIndexData hn).2
+
+theorem concrete_object_restricted_index_prime_power
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    PrimePowerArithmetic.SourcePrimePowerIndex n :=
+  (h.restrictedIndexData hn).1
+
+theorem concrete_object_restricted_index_visible
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    h.sourceTest.sourceAtomVisible n :=
+  (h.restrictedIndexData hn).2.1
+
+theorem concrete_object_restricted_index_lambda_cut
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    PrimePowerSupport.SourceLambdaCut lambda n :=
+  (h.restrictedIndexData hn).2.2
+
 theorem one_lt_lambda_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeCertificate W f g lambda) :

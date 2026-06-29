@@ -44,9 +44,10 @@ def SourceFiniteSetDisjointFromNontrivialZeros
   ∀ p : CriticalVanishingPoint,
     p ∈ F → ¬B.sourceNontrivialZero (criticalVanishingPointValue p)
 
-def SourceFiniteSetAdmissibilityForBridge
-    (B : RHDefinitionBridge) (F : Finset CriticalVanishingPoint) : Prop :=
-  SourceFiniteSetAdmissibility F ∧
+structure SourceFiniteSetAdmissibilityForBridge
+    (B : RHDefinitionBridge) (F : Finset CriticalVanishingPoint) : Prop where
+  finiteSetAdmissible : SourceFiniteSetAdmissibility F
+  finiteSetDisjointFromNontrivialZeros :
     SourceFiniteSetDisjointFromNontrivialZeros B F
 
 theorem cc20_triple_finite_set_is_triple :
@@ -116,13 +117,13 @@ theorem finite_set_admissibility_of_bridge_admissibility
     {B : RHDefinitionBridge} {F : Finset CriticalVanishingPoint}
     (h : SourceFiniteSetAdmissibilityForBridge B F) :
     SourceFiniteSetAdmissibility F :=
-  h.1
+  h.finiteSetAdmissible
 
 theorem finite_set_disjoint_of_bridge_admissibility
     {B : RHDefinitionBridge} {F : Finset CriticalVanishingPoint}
     (h : SourceFiniteSetAdmissibilityForBridge B F) :
     SourceFiniteSetDisjointFromNontrivialZeros B F :=
-  h.2
+  h.finiteSetDisjointFromNontrivialZeros
 
 theorem zero_not_source_nontrivial_zero_of_disjoint
     {B : RHDefinitionBridge} {F : Finset CriticalVanishingPoint}

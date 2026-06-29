@@ -52,11 +52,53 @@ structure CC20FiniteVanishingRhExitData where
       SourceFiniteVanishingCriterionPackage.toCC20RHExitObjectPackage
         sourceFiniteVanishingCriterionPackage
 
+structure CC20FiniteVanishingRhExitWitness where
+  data : CC20FiniteVanishingRhExitData
+  objectPackage_eq_sourcePackageConversion :
+    data.cc20RHExitObjectPackage =
+      SourceFiniteVanishingCriterionPackage.toCC20RHExitObjectPackage
+        data.sourceFiniteVanishingCriterionPackage
+
 def CC20FiniteVanishingRhExitStatement : Prop :=
   ∃ data : CC20FiniteVanishingRhExitData,
     data.cc20RHExitObjectPackage =
       SourceFiniteVanishingCriterionPackage.toCC20RHExitObjectPackage
         data.sourceFiniteVanishingCriterionPackage
+
+def CC20FiniteVanishingRhExitWitness.ofSourcePackage
+    {B : RHDefinitionBridge}
+    (sourcePackage : SourceFiniteVanishingCriterionPackage B) :
+    CC20FiniteVanishingRhExitWitness where
+  data :=
+    { rhDefinitionBridge := B
+      sourceFiniteVanishingCriterionPackage := sourcePackage
+      cc20RHExitObjectPackage :=
+        SourceFiniteVanishingCriterionPackage.toCC20RHExitObjectPackage
+          sourcePackage }
+  objectPackage_eq_sourcePackageConversion := rfl
+
+theorem cc20_finite_vanishing_exit_witness_statement
+    (witness : CC20FiniteVanishingRhExitWitness) :
+    CC20FiniteVanishingRhExitStatement :=
+  ⟨witness.data, witness.objectPackage_eq_sourcePackageConversion⟩
+
+def cc20_finite_vanishing_exit_data_source_package
+    (witness : CC20FiniteVanishingRhExitWitness) :
+    SourceFiniteVanishingCriterionPackage
+      witness.data.rhDefinitionBridge :=
+  witness.data.sourceFiniteVanishingCriterionPackage
+
+def cc20_finite_vanishing_exit_data_object_package
+    (witness : CC20FiniteVanishingRhExitWitness) :
+    CC20RHExitObjectPackage witness.data.rhDefinitionBridge :=
+  witness.data.cc20RHExitObjectPackage
+
+theorem cc20_finite_vanishing_exit_object_package_eq_source_conversion
+    (witness : CC20FiniteVanishingRhExitWitness) :
+    witness.data.cc20RHExitObjectPackage =
+      SourceFiniteVanishingCriterionPackage.toCC20RHExitObjectPackage
+        witness.data.sourceFiniteVanishingCriterionPackage :=
+  witness.objectPackage_eq_sourcePackageConversion
 
 def cc20FiniteVanishingRhExit : SourceObligation where
   sourceKey := "CC20"
@@ -281,13 +323,13 @@ end CC20Interface
 theorem finite_vanishing_rh_exit_holds
     (cc20 : CC20Interface) :
     cc20FiniteVanishingRhExit.Holds :=
-  ⟨{ rhDefinitionBridge := cc20.rhDefinitionBridge
-      ,
-      sourceFiniteVanishingCriterionPackage :=
-        CC20Interface.sourceFiniteVanishingRhExit cc20
-      ,
-      cc20RHExitObjectPackage := cc20.cc20RHExitObjectPackage },
-    rfl⟩
+  cc20_finite_vanishing_exit_witness_statement
+    { data :=
+        { rhDefinitionBridge := cc20.rhDefinitionBridge
+          sourceFiniteVanishingCriterionPackage :=
+            CC20Interface.sourceFiniteVanishingRhExit cc20
+          cc20RHExitObjectPackage := cc20.cc20RHExitObjectPackage }
+      objectPackage_eq_sourcePackageConversion := rfl }
 
 end Source
 end ConnesWeilRH

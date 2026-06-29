@@ -38,7 +38,7 @@ structure ConcreteCCM25FormulaComponents
   restrictedCertificate_eq_common :
     restricted.finitePrimeSumReadOff.certificate = commonCertificate
 
-def formula_components_of_arithmetic_rows
+noncomputable def formula_components_of_arithmetic_rows
     {W : WeilFormSymbols} (h : Interface.ConcreteCCM25ArithmeticRows W)
     (f : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :
     ConcreteCCM25FormulaComponents W f lambda where
@@ -95,6 +95,32 @@ theorem restricted_certificate_eq_common_of_formula_components
     (h : ConcreteCCM25FormulaComponents W f lambda) :
     h.restricted.finitePrimeSumReadOff.certificate = h.commonCertificate :=
   h.restrictedCertificate_eq_common
+
+theorem global_concrete_object_certificate_eq_common_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    (GlobalComponent.global_concrete_object_of_component h.global).certificate =
+      h.commonCertificate :=
+  (GlobalComponent.global_concrete_object_certificate_eq h.global).trans
+    h.globalCertificate_eq_common
+
+theorem restricted_concrete_object_certificate_eq_common_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    (RestrictedComponent.restricted_concrete_object_of_component
+      h.restricted).certificate =
+      h.commonCertificate :=
+  (RestrictedComponent.restricted_concrete_object_certificate_eq
+    h.restricted).trans h.restrictedCertificate_eq_common
+
+theorem global_restricted_concrete_object_certificate_eq_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    (GlobalComponent.global_concrete_object_of_component h.global).certificate =
+      (RestrictedComponent.restricted_concrete_object_of_component
+        h.restricted).certificate :=
+  (global_concrete_object_certificate_eq_common_of_formula_components h).trans
+    (restricted_concrete_object_certificate_eq_common_of_formula_components h).symm
 
 theorem common_certificate_source_test_of_formula_components
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -210,6 +236,53 @@ theorem restricted_von_mangoldt_pairing_sum_of_formula_components
       PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
         W f f lambda h.restricted.finitePrimeSumReadOff.certificate.atoms :=
   RestrictedComponent.restricted_von_mangoldt_pairing_sum_of_component
+    h.restricted
+
+theorem global_finite_prime_sum_from_concrete_object_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.finitePrimeTerm n (W.convolutionStar f f)) =
+      PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
+        W f f
+          (GlobalComponent.global_concrete_object_of_component
+            h.global).certificate.atoms :=
+  GlobalComponent.global_finite_prime_sum_from_concrete_object h.global
+
+theorem global_von_mangoldt_pairing_sum_from_concrete_object_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    (∑ n ∈ W.globalPrimeIndexSet,
+      W.vonMangoldtWeight n * W.primePowerPairing n f f) =
+      PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
+        W f f
+          (GlobalComponent.global_concrete_object_of_component
+            h.global).certificate.atoms :=
+  GlobalComponent.global_von_mangoldt_pairing_sum_from_concrete_object
+    h.global
+
+theorem restricted_finite_prime_sum_from_concrete_object_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.finitePrimeTerm n (W.convolutionStar f f)) =
+      PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
+        W f f lambda
+          (RestrictedComponent.restricted_concrete_object_of_component
+            h.restricted).certificate.atoms :=
+  RestrictedComponent.restricted_finite_prime_sum_from_concrete_object
+    h.restricted
+
+theorem restricted_von_mangoldt_pairing_sum_from_concrete_object_of_formula_components
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25FormulaComponents W f lambda) :
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.vonMangoldtWeight n * W.primePowerPairing n f f) =
+      PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
+        W f f lambda
+          (RestrictedComponent.restricted_concrete_object_of_component
+            h.restricted).certificate.atoms :=
+  RestrictedComponent.restricted_von_mangoldt_pairing_sum_from_concrete_object
     h.restricted
 
 end FormulaComponents

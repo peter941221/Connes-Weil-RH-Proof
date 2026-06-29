@@ -396,12 +396,12 @@ theorem cc20_trace_square_of_source_trace_data
 theorem ccm25_qw_definition_read_off
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs} :
     CCM25QWDefinitionReadOff inputs g :=
-  inputs.ccm25.qwDefinition.1 g.weilTest g.weilTest
+  inputs.ccm25.qwDefinition g.weilTest g.weilTest
 
 theorem ccm25_psi_sign_read_off
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs} :
     CCM25PsiSignReadOff inputs g :=
-  inputs.ccm25.qwDefinition.2
+  inputs.ccm25.psiSign
     (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
 
 theorem ccm25_full_qw_read_off

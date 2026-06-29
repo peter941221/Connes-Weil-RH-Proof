@@ -111,7 +111,7 @@ structure ExpandedSourceRouteCertificateFrontEnd
         (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest)
       traceFront.ccm25ArithmeticPackage
 
-def route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
+noncomputable def route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers}
     (bridge : RouteBridgeCertificate inputs g L) :
@@ -144,7 +144,7 @@ def route_backed_cc20_triple_vanishing_input_data_of_source_backed
     triple_vanishing_input_holds
       (triple_vanishing_of_source_backed g)
 
-def route_backed_cc20_exit_input_data_of_route_bridge_certificate
+noncomputable def route_backed_cc20_exit_input_data_of_route_bridge_certificate
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers}
     (bridge : RouteBridgeCertificate inputs g L) :
@@ -188,7 +188,7 @@ def nonpositivity_input_of_route_backed_cc20_exit_input_data
     RouteBackedCC20NonpositivityInputData inputs g L bridge h.input :=
   h.nonpositivityInput
 
-theorem final_sign_nonpositive_of_route_backed_cc20_exit_input_data
+def final_sign_nonpositive_of_route_backed_cc20_exit_input_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers} {bridge : RouteBridgeCertificate inputs g L}
     (h : RouteBackedCC20ExitInputData inputs g L bridge) :

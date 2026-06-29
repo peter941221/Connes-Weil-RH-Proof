@@ -54,7 +54,8 @@ def ccm25PoleNormalization : SourceObligation where
 
 structure CCM25Interface where
   weilSymbols : WeilFormSymbols
-  qwDefinition : (ccm25QWDefinition weilSymbols).Holds
+  qwDefinition : WeilFormSymbols.QWDefinitionStatement weilSymbols
+  psiSign : WeilFormSymbols.PsiSignStatement weilSymbols
   qwLambdaFormula : (ccm25QWLambdaFormula weilSymbols).Holds
   finitePrimeNormalization : (ccm25FinitePrimeNormalization weilSymbols).Holds
   poleNormalization : (ccm25PoleNormalization weilSymbols).Holds
@@ -64,9 +65,8 @@ namespace CCM25Interface
 def ofSourceObjectPackage
     (pkg : SourceObject.SourceObjectPackage) : CCM25Interface where
   weilSymbols := pkg.toWeilFormSymbols
-  qwDefinition :=
-    ⟨SourceObject.SourceObjectPackage.provesQWDefinitionStatement pkg,
-      SourceObject.SourceObjectPackage.provesPsiSignStatement pkg⟩
+  qwDefinition := SourceObject.SourceObjectPackage.provesQWDefinitionStatement pkg
+  psiSign := SourceObject.SourceObjectPackage.provesPsiSignStatement pkg
   qwLambdaFormula :=
     SourceObject.SourceObjectPackage.provesQWLambdaFormulaStatement pkg
   finitePrimeNormalization :=

@@ -188,6 +188,25 @@ theorem source_rh_point_iff_mathlib_rh_point
     exact source_critical_line_of_mathlib_critical_line B s
       (h (source_nontrivial_zero_to_mathlib B s hsource))
 
+theorem source_rh_point_iff_mathlib_components
+    (B : RHDefinitionBridge) (s : ℂ) :
+    (B.sourceNontrivialZero s → B.sourceCriticalLine s) ↔
+      (riemannZeta s = 0 →
+        (¬∃ n : ℕ, s = -2 * (n + 1)) →
+          s ≠ 1 →
+            s.re = 1 / 2) := by
+  constructor
+  · intro h hzero hnotNegEven hpole
+    exact mathlib_critical_line_of_source_critical_line B s
+      (h (source_nontrivial_zero_of_mathlib_components
+        B s hzero hnotNegEven hpole))
+  · intro h hsource
+    exact source_critical_line_of_mathlib_critical_line B s
+      (h
+        (mathlib_zeta_zero_of_source_nontrivial_zero B s hsource)
+        (mathlib_no_negative_even_of_source_nontrivial_zero B s hsource)
+        (mathlib_no_pole_of_source_nontrivial_zero B s hsource))
+
 theorem mathlib_rh_statement_iff_mathlib :
     MathlibRHStatement ↔ _root_.RiemannHypothesis := by
   constructor
@@ -216,6 +235,20 @@ theorem source_rh_iff_mathlib_rh_statement
     B.SourceRH ↔ MathlibRHStatement :=
   ⟨source_rh_to_mathlib_rh_statement B,
     mathlib_rh_statement_to_source_rh B⟩
+
+theorem source_rh_iff_mathlib_components
+    (B : RHDefinitionBridge) :
+    B.SourceRH ↔
+      (∀ s : ℂ,
+        riemannZeta s = 0 →
+          (¬∃ n : ℕ, s = -2 * (n + 1)) →
+            s ≠ 1 →
+              s.re = 1 / 2) := by
+  constructor
+  · intro hRH s
+    exact (source_rh_point_iff_mathlib_components B s).1 (hRH s)
+  · intro hRH s
+    exact (source_rh_point_iff_mathlib_components B s).2 (hRH s)
 
 theorem mathlib_rh_point_of_source_rh
     (B : RHDefinitionBridge) (hRH : B.SourceRH)
