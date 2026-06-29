@@ -5,6 +5,8 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Basic
+import ConnesWeilRH.Source.Objects
+import ConnesWeilRH.Source.ObjectDerivations
 import ConnesWeilRH.Source.RHDefinition
 import ConnesWeilRH.Source.CC20RHExit
 import ConnesWeilRH.Source.CCM24

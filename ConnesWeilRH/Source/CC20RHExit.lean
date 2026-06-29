@@ -32,12 +32,12 @@ def RouteFiniteVanishingSetIsCC20Triple
     (F : Finset CriticalVanishingPoint) : Prop :=
   F = cc20TripleFiniteVanishingSet
 
-def SourceFiniteSetAdmissibility
-    (F : Finset CriticalVanishingPoint) : Prop :=
-  CriticalVanishingPoint.zero ∈ F ∧
-    CriticalVanishingPoint.half ∈ F ∧
-      CriticalVanishingPoint.one ∈ F ∧
-        RouteFiniteVanishingSetIsCC20Triple F
+structure SourceFiniteSetAdmissibility
+    (F : Finset CriticalVanishingPoint) : Prop where
+  zeroMem : CriticalVanishingPoint.zero ∈ F
+  halfMem : CriticalVanishingPoint.half ∈ F
+  oneMem : CriticalVanishingPoint.one ∈ F
+  finiteSetIsTriple : RouteFiniteVanishingSetIsCC20Triple F
 
 def SourceFiniteSetDisjointFromNontrivialZeros
     (B : RHDefinitionBridge) (F : Finset CriticalVanishingPoint) : Prop :=
@@ -55,16 +55,12 @@ theorem cc20_triple_finite_set_is_triple :
 
 theorem cc20_triple_finite_set_admissibility :
     SourceFiniteSetAdmissibility cc20TripleFiniteVanishingSet := by
-  simp [SourceFiniteSetAdmissibility, RouteFiniteVanishingSetIsCC20Triple,
-    cc20TripleFiniteVanishingSet]
+  constructor <;>
+    simp [RouteFiniteVanishingSetIsCC20Triple, cc20TripleFiniteVanishingSet]
 
 def RouteTripleVanishingMatchesCC20Mellin
     (_F : Finset CriticalVanishingPoint) (input : WeilPositivityInput) : Prop :=
   input.tripleVanishing
-
-def RouteFullPositivityMatchesCC20Nonpositivity
-    (input : WeilPositivityInput) : Prop :=
-  input.fullWeilPositivity
 
 structure CC20PropositionC1InputData
     (B : RHDefinitionBridge)
@@ -75,8 +71,7 @@ structure CC20PropositionC1InputData
     SourceFiniteSetDisjointFromNontrivialZeros B F
   tripleVanishingMatchesMellin :
     RouteTripleVanishingMatchesCC20Mellin F input
-  fullPositivityMatchesNonpositivity :
-    RouteFullPositivityMatchesCC20Nonpositivity input
+  fullWeilPositivity : input.fullWeilPositivity
 
 def CC20PropositionC1SourceCriterion
     (B : RHDefinitionBridge) (F : Finset CriticalVanishingPoint)
@@ -97,25 +92,25 @@ theorem zero_mem_of_source_finite_set_admissibility
     {F : Finset CriticalVanishingPoint}
     (h : SourceFiniteSetAdmissibility F) :
     CriticalVanishingPoint.zero ∈ F :=
-  h.1
+  h.zeroMem
 
 theorem half_mem_of_source_finite_set_admissibility
     {F : Finset CriticalVanishingPoint}
     (h : SourceFiniteSetAdmissibility F) :
     CriticalVanishingPoint.half ∈ F :=
-  h.2.1
+  h.halfMem
 
 theorem one_mem_of_source_finite_set_admissibility
     {F : Finset CriticalVanishingPoint}
     (h : SourceFiniteSetAdmissibility F) :
     CriticalVanishingPoint.one ∈ F :=
-  h.2.2.1
+  h.oneMem
 
 theorem finite_set_is_triple_of_source_finite_set_admissibility
     {F : Finset CriticalVanishingPoint}
     (h : SourceFiniteSetAdmissibility F) :
     RouteFiniteVanishingSetIsCC20Triple F :=
-  h.2.2.2
+  h.finiteSetIsTriple
 
 theorem finite_set_admissibility_of_bridge_admissibility
     {B : RHDefinitionBridge} {F : Finset CriticalVanishingPoint}
@@ -169,7 +164,7 @@ def cc20_proposition_c1_input_data
     finite_set_is_triple_of_source_finite_set_admissibility hfinite
   finiteSetDisjointFromNontrivialZeros := hdisjoint
   tripleVanishingMatchesMellin := htriple
-  fullPositivityMatchesNonpositivity := hpositive
+  fullWeilPositivity := hpositive
 
 theorem triple_vanishing_of_c1_input_data
     {B : RHDefinitionBridge}
@@ -179,13 +174,13 @@ theorem triple_vanishing_of_c1_input_data
     input.tripleVanishing :=
   h.tripleVanishingMatchesMellin
 
-theorem full_positivity_of_c1_input_data
+def full_positivity_of_c1_input_data
     {B : RHDefinitionBridge}
     {F : Finset CriticalVanishingPoint}
     {input : WeilPositivityInput}
     (h : CC20PropositionC1InputData B F input) :
     input.fullWeilPositivity :=
-  h.fullPositivityMatchesNonpositivity
+  h.fullWeilPositivity
 
 theorem finite_set_is_triple_of_c1_input_data
     {B : RHDefinitionBridge}
@@ -524,6 +519,18 @@ theorem standard_criterion_output_iff_mathlib
     (_h : SourceFiniteVanishingCriterionPackage RHDefinitionBridge.standard) :
     RHDefinitionBridge.standard.SourceRH ↔ _root_.RiemannHypothesis :=
   RHDefinitionBridge.standard_source_rh_iff_mathlib
+
+def toCC20RHExitObjectPackage
+    {B : RHDefinitionBridge}
+    (h : SourceFiniteVanishingCriterionPackage B) :
+    CC20RHExitObjectPackage B where
+  finiteVanishingSet := h.finiteVanishingSet
+  finiteSetAdmissible := h.finiteSetAdmissibleData
+  finiteSetDisjointFromNontrivialZeros :=
+    h.finiteSetDisjointFromNontrivialZeros
+  propositionC1SourceCriterion := by
+    intro input hdata
+    exact h.sourceCriterionData input hdata
 
 end SourceFiniteVanishingCriterionPackage
 end Source

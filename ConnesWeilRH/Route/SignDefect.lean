@@ -107,12 +107,12 @@ def projection_defect_normal_form_data_of_parts
   noStripProjectionSplit := hnoStrip
   endpointStripNormalForm := hendpoint
 
-def FixedSProjectionDefectNormalFormForSourceRemainder
+abbrev FixedSProjectionDefectNormalFormForSourceRemainder
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
-    (lambda : ℝ) : Prop :=
-  ∃ _row4 : ProjectionDefectNormalFormData inputs g lambda, True
+    (lambda : ℝ) :=
+  ProjectionDefectNormalFormData inputs g lambda
 
-theorem fixed_s_projection_defect_normal_form_of_parts
+def fixed_s_projection_defect_normal_form_of_parts
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ}
     (hownership :
@@ -122,8 +122,8 @@ theorem fixed_s_projection_defect_normal_form_of_parts
     (hendpoint :
       SourceProjectionOrderEndpointStripNormalForm inputs g lambda) :
     FixedSProjectionDefectNormalFormForSourceRemainder inputs g lambda :=
-  ⟨projection_defect_normal_form_data_of_parts
-    hownership hnoStrip hendpoint, True.intro⟩
+  projection_defect_normal_form_data_of_parts
+    hownership hnoStrip hendpoint
 
 def SourceNoStripChannelsForTransportedRemainder
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -179,13 +179,12 @@ def rank_pole_ledger_identification_data_of_parts
   rankKilled := hrank
   poleKilled := hpole
 
-def SourceRankPoleLedgerIdentification
+abbrev SourceRankPoleLedgerIdentification
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
-    (L : RouteLedgers) : Prop :=
-  ∃ lambda : ℝ,
-    ∃ _row5 : RankPoleLedgerIdentificationData inputs g lambda L, True
+    (lambda : ℝ) (L : RouteLedgers) :=
+  RankPoleLedgerIdentificationData inputs g lambda L
 
-theorem source_rank_pole_ledger_identification_of_parts
+def source_rank_pole_ledger_identification_of_parts
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (hnoStrip :
@@ -194,10 +193,9 @@ theorem source_rank_pole_ledger_identification_of_parts
       SourceNoExtraNoStripChannel inputs g lambda)
     (hrank : L.rankKilled)
     (hpole : L.poleKilled) :
-    SourceRankPoleLedgerIdentification inputs g L :=
-  ⟨lambda,
-    ⟨rank_pole_ledger_identification_data_of_parts
-      hnoStrip hnoExtra hrank hpole, True.intro⟩⟩
+    SourceRankPoleLedgerIdentification inputs g lambda L :=
+  rank_pole_ledger_identification_data_of_parts
+    hnoStrip hnoExtra hrank hpole
 
 def SourceEndpointStripTermsCdefIndexed
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -254,12 +252,12 @@ def endpoint_strip_cdef_domination_data_of_parts
   row5RankPoleRemovalInput := hrankPole
   cdefExhausts := hcdef
 
-def SourceEndpointStripRemainderCdefDomination
+abbrev SourceEndpointStripRemainderCdefDomination
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
-    (lambda : ℝ) (L : RouteLedgers) : Prop :=
-  ∃ _row6 : EndpointStripCdefDominationData inputs g lambda L, True
+    (lambda : ℝ) (L : RouteLedgers) :=
+  EndpointStripCdefDominationData inputs g lambda L
 
-theorem source_endpoint_strip_remainder_cdef_domination_of_parts
+def source_endpoint_strip_remainder_cdef_domination_of_parts
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (hendpoint :
@@ -270,8 +268,8 @@ theorem source_endpoint_strip_remainder_cdef_domination_of_parts
       SourceRankPoleLedgerVanishingGate inputs g lambda L)
     (hcdef : L.cdefExhausts) :
     SourceEndpointStripRemainderCdefDomination inputs g lambda L :=
-  ⟨endpoint_strip_cdef_domination_data_of_parts
-    hendpoint hwindow htail hrankPole hcdef, True.intro⟩
+  endpoint_strip_cdef_domination_data_of_parts
+    hendpoint hwindow htail hrankPole hcdef
 
 def SourcePositiveTraceRemainderOwnership
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -280,21 +278,25 @@ def SourcePositiveTraceRemainderOwnership
     CC20SourceRemainderAfterQ inputs g ∧
       CC20PostQRemainderFixedSSoninTransport inputs g lambda
 
-def TransportedSourceRemainderPartition
+structure TransportedSourceRemainderPartition
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
-    (lambda : ℝ) (L : RouteLedgers) : Prop :=
-  SourceRankPoleLedgerIdentification inputs g L ∧
+    (lambda : ℝ) (L : RouteLedgers) where
+  rankPoleLedgerIdentification :
+    SourceRankPoleLedgerIdentification inputs g lambda L
+  endpointStripCdefDomination :
     SourceEndpointStripRemainderCdefDomination inputs g lambda L
 
-def EndpointStripRemainderBoundForRow7
+abbrev EndpointStripRemainderBoundForRow7
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
-    (lambda : ℝ) (L : RouteLedgers) : Prop :=
+    (lambda : ℝ) (L : RouteLedgers) :=
   SourceEndpointStripRemainderCdefDomination inputs g lambda L
 
-def PositiveTraceToRestrictedLowerBound
+structure PositiveTraceToRestrictedLowerBound
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
-    (lambda : ℝ) (L : RouteLedgers) : Prop :=
-  SourceRankPoleLedgerIdentification inputs g L ∧
+    (lambda : ℝ) (L : RouteLedgers) where
+  rankPoleLedgerIdentification :
+    SourceRankPoleLedgerIdentification inputs g lambda L
+  endpointStripCdefDomination :
     SourceEndpointStripRemainderCdefDomination inputs g lambda L
 
 structure NoHiddenPositiveDefectOutsideCdefData
@@ -303,7 +305,7 @@ structure NoHiddenPositiveDefectOutsideCdefData
   sourcePositiveTraceRemainderOwnership :
     SourcePositiveTraceRemainderOwnership inputs g lambda
   rankPoleLedgerIdentification :
-    SourceRankPoleLedgerIdentification inputs g L
+    SourceRankPoleLedgerIdentification inputs g lambda L
   endpointStripCdefDomination :
     SourceEndpointStripRemainderCdefDomination inputs g lambda L
 
@@ -312,7 +314,7 @@ def no_hidden_positive_defect_data_of_parts
     {lambda : ℝ} {L : RouteLedgers}
     (hownership :
       SourcePositiveTraceRemainderOwnership inputs g lambda)
-    (hrankPole : SourceRankPoleLedgerIdentification inputs g L)
+    (hrankPole : SourceRankPoleLedgerIdentification inputs g lambda L)
     (hcdef :
       SourceEndpointStripRemainderCdefDomination inputs g lambda L) :
     NoHiddenPositiveDefectOutsideCdefData inputs g lambda L where
@@ -320,22 +322,22 @@ def no_hidden_positive_defect_data_of_parts
   rankPoleLedgerIdentification := hrankPole
   endpointStripCdefDomination := hcdef
 
-def NoHiddenPositiveDefectOutsideCdef
+abbrev NoHiddenPositiveDefectOutsideCdef
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
-    (lambda : ℝ) (L : RouteLedgers) : Prop :=
-  ∃ _row7 : NoHiddenPositiveDefectOutsideCdefData inputs g lambda L, True
+    (lambda : ℝ) (L : RouteLedgers) :=
+  NoHiddenPositiveDefectOutsideCdefData inputs g lambda L
 
-theorem no_hidden_positive_defect_outside_cdef_of_parts
+def no_hidden_positive_defect_outside_cdef_of_parts
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (hownership :
       SourcePositiveTraceRemainderOwnership inputs g lambda)
-    (hrankPole : SourceRankPoleLedgerIdentification inputs g L)
+    (hrankPole : SourceRankPoleLedgerIdentification inputs g lambda L)
     (hcdef :
       SourceEndpointStripRemainderCdefDomination inputs g lambda L) :
     NoHiddenPositiveDefectOutsideCdef inputs g lambda L :=
-  ⟨no_hidden_positive_defect_data_of_parts
-    hownership hrankPole hcdef, True.intro⟩
+  no_hidden_positive_defect_data_of_parts
+    hownership hrankPole hcdef
 
 structure SourceSignDefectClassification
   (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -368,21 +370,21 @@ theorem source_orientation_of_sign_defect_classification
     {lambda : ℝ} {L : RouteLedgers}
     (h : SourceSignDefectClassification inputs g lambda L) :
     CC20SourceRemainderOrientation inputs g :=
-  h.noHiddenPositiveDefect.choose.sourcePositiveTraceRemainderOwnership.1
+  h.noHiddenPositiveDefect.sourcePositiveTraceRemainderOwnership.1
 
 theorem source_remainder_after_q_of_sign_defect_classification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (h : SourceSignDefectClassification inputs g lambda L) :
     CC20SourceRemainderAfterQ inputs g :=
-  h.noHiddenPositiveDefect.choose.sourcePositiveTraceRemainderOwnership.2.1
+  h.noHiddenPositiveDefect.sourcePositiveTraceRemainderOwnership.2.1
 
 theorem post_q_fixed_s_transport_of_sign_defect_classification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (h : SourceSignDefectClassification inputs g lambda L) :
     CC20PostQRemainderFixedSSoninTransport inputs g lambda :=
-  h.noHiddenPositiveDefect.choose.sourcePositiveTraceRemainderOwnership.2.2
+  h.noHiddenPositiveDefect.sourcePositiveTraceRemainderOwnership.2.2
 
 theorem post_q_derivative_domain_of_sign_defect_classification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -410,113 +412,100 @@ theorem row4_ownership_of_normal_form
     {lambda : ℝ}
     (h : FixedSProjectionDefectNormalFormForSourceRemainder inputs g lambda) :
     SourceRemainderOwnershipForProjectionDefectRow inputs g lambda :=
-  h.choose.sourceRemainderOwnership
+  h.sourceRemainderOwnership
 
 theorem row4_no_strip_split_of_normal_form
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ}
     (h : FixedSProjectionDefectNormalFormForSourceRemainder inputs g lambda) :
     SourceRemainderNoStripProjectionSplit inputs g lambda :=
-  h.choose.noStripProjectionSplit
+  h.noStripProjectionSplit
 
 theorem row4_endpoint_strip_of_normal_form
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ}
     (h : FixedSProjectionDefectNormalFormForSourceRemainder inputs g lambda) :
     SourceProjectionOrderEndpointStripNormalForm inputs g lambda :=
-  h.choose.endpointStripNormalForm
+  h.endpointStripNormalForm
 
 theorem row4_classification_output_of_normal_form
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ}
     (h : FixedSProjectionDefectNormalFormForSourceRemainder inputs g lambda) :
     SourceRemainderRow4ClassificationOutput inputs g lambda :=
-  ⟨h.choose.noStripProjectionSplit, h.choose.endpointStripNormalForm⟩
+  ⟨h.noStripProjectionSplit, h.endpointStripNormalForm⟩
 
 theorem row4_no_strip_split_of_sign_defect_classification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (h : SourceSignDefectClassification inputs g lambda L) :
     SourceRemainderNoStripProjectionSplit inputs g lambda :=
-  by
-    let row6 :=
-      h.noHiddenPositiveDefect.choose.endpointStripCdefDomination.choose
-    exact row6.row4EndpointStripInput.1
+  h.noHiddenPositiveDefect.endpointStripCdefDomination.row4EndpointStripInput.1
 
 theorem row4_endpoint_strip_of_sign_defect_classification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (h : SourceSignDefectClassification inputs g lambda L) :
     SourceProjectionOrderEndpointStripNormalForm inputs g lambda :=
-  by
-    let row6 :=
-      h.noHiddenPositiveDefect.choose.endpointStripCdefDomination.choose
-    exact row6.row4EndpointStripInput
+  h.noHiddenPositiveDefect.endpointStripCdefDomination.row4EndpointStripInput
 
 theorem row5_no_strip_channels_of_rank_pole_identification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
-    {L : RouteLedgers}
-    (h : SourceRankPoleLedgerIdentification inputs g L) :
-    ∃ lambda : ℝ, SourceNoStripChannelsForTransportedRemainder inputs g lambda :=
-  ⟨h.choose, h.choose_spec.choose.row4NoStripInput⟩
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceRankPoleLedgerIdentification inputs g lambda L) :
+    SourceNoStripChannelsForTransportedRemainder inputs g lambda :=
+  h.row4NoStripInput
 
 theorem row5_rank_identification_of_rank_pole_identification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
-    {L : RouteLedgers}
-    (h : SourceRankPoleLedgerIdentification inputs g L) :
-    ∃ lambda : ℝ, SourceRankLedgerIdentification inputs g lambda L :=
-  ⟨h.choose,
-    ⟨h.choose_spec.choose.row4NoStripInput,
-      h.choose_spec.choose.rankKilled⟩⟩
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceRankPoleLedgerIdentification inputs g lambda L) :
+    SourceRankLedgerIdentification inputs g lambda L :=
+  ⟨h.row4NoStripInput, h.rankKilled⟩
 
 theorem row5_pole_identification_of_rank_pole_identification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
-    {L : RouteLedgers}
-    (h : SourceRankPoleLedgerIdentification inputs g L) :
-    ∃ lambda : ℝ, SourcePoleLedgerIdentification inputs g lambda L :=
-  ⟨h.choose,
-    ⟨h.choose_spec.choose.row4NoStripInput,
-      h.choose_spec.choose.poleKilled⟩⟩
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceRankPoleLedgerIdentification inputs g lambda L) :
+    SourcePoleLedgerIdentification inputs g lambda L :=
+  ⟨h.row4NoStripInput, h.poleKilled⟩
 
 theorem row5_rank_ledger_of_rank_pole_identification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
-    {L : RouteLedgers}
-    (h : SourceRankPoleLedgerIdentification inputs g L) :
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceRankPoleLedgerIdentification inputs g lambda L) :
     L.rankKilled :=
-  h.choose_spec.choose.rankKilled
+  h.rankKilled
 
 theorem row5_pole_ledger_of_rank_pole_identification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
-    {L : RouteLedgers}
-    (h : SourceRankPoleLedgerIdentification inputs g L) :
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceRankPoleLedgerIdentification inputs g lambda L) :
     L.poleKilled :=
-  h.choose_spec.choose.poleKilled
+  h.poleKilled
 
 theorem row5_no_extra_no_strip_of_rank_pole_identification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
-    {L : RouteLedgers}
-    (h : SourceRankPoleLedgerIdentification inputs g L) :
-    ∃ lambda : ℝ, SourceNoExtraNoStripChannel inputs g lambda :=
-  ⟨h.choose, h.choose_spec.choose.noExtraNoStripChannel⟩
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceRankPoleLedgerIdentification inputs g lambda L) :
+    SourceNoExtraNoStripChannel inputs g lambda :=
+  h.noExtraNoStripChannel
 
 theorem row5_ledger_vanishing_gate_of_rank_pole_identification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
-    {L : RouteLedgers}
-    (h : SourceRankPoleLedgerIdentification inputs g L) :
-    ∃ lambda : ℝ, SourceRankPoleLedgerVanishingGate inputs g lambda L :=
-  ⟨h.choose,
-    ⟨⟨h.choose_spec.choose.row4NoStripInput,
-        h.choose_spec.choose.rankKilled⟩,
-      ⟨⟨h.choose_spec.choose.row4NoStripInput,
-          h.choose_spec.choose.poleKilled⟩,
-        h.choose_spec.choose.noExtraNoStripChannel⟩⟩⟩
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceRankPoleLedgerIdentification inputs g lambda L) :
+    SourceRankPoleLedgerVanishingGate inputs g lambda L :=
+  ⟨⟨h.row4NoStripInput, h.rankKilled⟩,
+    ⟨⟨h.row4NoStripInput, h.poleKilled⟩,
+      h.noExtraNoStripChannel⟩⟩
 
 theorem row6_endpoint_terms_indexed_of_cdef_domination
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (h : SourceEndpointStripRemainderCdefDomination inputs g lambda L) :
     SourceEndpointStripTermsCdefIndexed inputs g lambda :=
-  ⟨h.choose.row4EndpointStripInput, h.choose.windowSupportContainment⟩
+  ⟨h.row4EndpointStripInput, h.windowSupportContainment⟩
 
 theorem row6_trace_norm_domination_of_cdef_domination
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -524,7 +513,7 @@ theorem row6_trace_norm_domination_of_cdef_domination
     (h : SourceEndpointStripRemainderCdefDomination inputs g lambda L) :
     SourceEndpointStripTraceNormDomination inputs g lambda :=
   ⟨row6_endpoint_terms_indexed_of_cdef_domination h,
-    h.choose.postQSeriesTailBoundedComparison⟩
+    h.postQSeriesTailBoundedComparison⟩
 
 theorem row6_remainder_bound_of_cdef_domination
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -532,7 +521,7 @@ theorem row6_remainder_bound_of_cdef_domination
     (h : SourceEndpointStripRemainderCdefDomination inputs g lambda L) :
     SourceEndpointStripRemainderCdefBound inputs g lambda L :=
   ⟨row6_trace_norm_domination_of_cdef_domination h,
-    h.choose.row5RankPoleRemovalInput⟩
+    h.row5RankPoleRemovalInput⟩
 
 theorem row6_fixed_test_cdef_exhaustion_of_cdef_domination
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -540,59 +529,59 @@ theorem row6_fixed_test_cdef_exhaustion_of_cdef_domination
     (h : SourceEndpointStripRemainderCdefDomination inputs g lambda L) :
     SourceEndpointStripFixedTestCdefExhaustion inputs g lambda L :=
   ⟨row6_remainder_bound_of_cdef_domination h,
-    h.choose.windowSupportContainment,
-    h.choose.cdefExhausts⟩
+    h.windowSupportContainment,
+    h.cdefExhausts⟩
 
 theorem row6_cdef_exhausts_of_cdef_domination
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (h : SourceEndpointStripRemainderCdefDomination inputs g lambda L) :
     L.cdefExhausts :=
-  h.choose.cdefExhausts
+  h.cdefExhausts
 
 theorem row7_source_positive_trace_ownership_of_no_hidden_positive_defect
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (h : NoHiddenPositiveDefectOutsideCdef inputs g lambda L) :
     SourcePositiveTraceRemainderOwnership inputs g lambda :=
-  h.choose.sourcePositiveTraceRemainderOwnership
+  h.sourcePositiveTraceRemainderOwnership
 
 theorem row7_transported_partition_of_no_hidden_positive_defect
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (h : NoHiddenPositiveDefectOutsideCdef inputs g lambda L) :
     TransportedSourceRemainderPartition inputs g lambda L :=
-  ⟨h.choose.rankPoleLedgerIdentification,
-    h.choose.endpointStripCdefDomination⟩
+  { rankPoleLedgerIdentification := h.rankPoleLedgerIdentification
+    endpointStripCdefDomination := h.endpointStripCdefDomination }
 
 theorem row7_endpoint_strip_bound_of_no_hidden_positive_defect
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (h : NoHiddenPositiveDefectOutsideCdef inputs g lambda L) :
     EndpointStripRemainderBoundForRow7 inputs g lambda L :=
-  h.choose.endpointStripCdefDomination
+  h.endpointStripCdefDomination
 
 theorem row7_positive_trace_to_lower_bound_of_no_hidden_positive_defect
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (h : NoHiddenPositiveDefectOutsideCdef inputs g lambda L) :
     PositiveTraceToRestrictedLowerBound inputs g lambda L :=
-  ⟨h.choose.rankPoleLedgerIdentification,
-    h.choose.endpointStripCdefDomination⟩
+  { rankPoleLedgerIdentification := h.rankPoleLedgerIdentification
+    endpointStripCdefDomination := h.endpointStripCdefDomination }
 
 theorem row7_rank_pole_identification_of_no_hidden_positive_defect
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (h : NoHiddenPositiveDefectOutsideCdef inputs g lambda L) :
-    SourceRankPoleLedgerIdentification inputs g L :=
-  h.choose.rankPoleLedgerIdentification
+    SourceRankPoleLedgerIdentification inputs g lambda L :=
+  h.rankPoleLedgerIdentification
 
 theorem row7_endpoint_strip_cdef_domination_of_no_hidden_positive_defect
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (h : NoHiddenPositiveDefectOutsideCdef inputs g lambda L) :
     SourceEndpointStripRemainderCdefDomination inputs g lambda L :=
-  h.choose.endpointStripCdefDomination
+  h.endpointStripCdefDomination
 
 theorem row7_source_positive_trace_ownership_of_sign_defect_classification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -622,7 +611,7 @@ theorem row7_rank_pole_identification_of_sign_defect_classification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {L : RouteLedgers}
     (h : SourceSignDefectClassification inputs g lambda L) :
-    SourceRankPoleLedgerIdentification inputs g L :=
+    SourceRankPoleLedgerIdentification inputs g lambda L :=
   row7_rank_pole_identification_of_no_hidden_positive_defect
     h.noHiddenPositiveDefect
 

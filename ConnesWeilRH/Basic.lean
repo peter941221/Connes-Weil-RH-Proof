@@ -202,7 +202,7 @@ end TripleVanishingSymbols
 
 structure WeilPositivityInput where
   tripleVanishing : Prop
-  fullWeilPositivity : Prop
+  fullWeilPositivity : Sort 1
 
 structure FiniteVanishingCriterionPackage where
   finiteSetAdmissible : Prop

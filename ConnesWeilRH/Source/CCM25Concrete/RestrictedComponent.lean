@@ -65,7 +65,8 @@ def restricted_qw_lambda_formula_component_of_arithmetic_rows
     (f : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :
     RestrictedQWLambdaFormulaComponent W f lambda where
   oneLtLambda := hlambda
-  qwLambdaFormula := h.qwLambdaFormula lambda hlambda f
+  qwLambdaFormula :=
+    Interface.qw_lambda_formula_of_arithmetic_rows h lambda hlambda f
   finitePrimeSumReadOff :=
     restricted_finite_prime_sum_read_off_of_arithmetic_rows
       h f f lambda hlambda

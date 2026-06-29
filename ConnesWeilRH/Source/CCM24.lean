@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: ConnesWeilRH contributors
 -/
 
-import ConnesWeilRH.Basic
+import ConnesWeilRH.Source.ObjectDerivations
 
 /-!
 # CCM24 source interface
@@ -57,6 +57,22 @@ structure CCM24Interface where
   supportTransport : (ccm24SupportTransport semilocalSymbols).Holds
   boundedComparison : (ccm24BoundedComparison semilocalSymbols).Holds
   soninComparison : (ccm24SoninComparison semilocalSymbols).Holds
+
+namespace CCM24Interface
+
+def ofSourceObjectPackage
+    (pkg : SourceObject.SourceObjectPackage) : CCM24Interface where
+  semilocalSymbols := pkg.toSemilocalModelSymbols
+  canonicalSemilocalModel :=
+    SourceObject.SourceObjectPackage.provesCanonicalSemilocalModelStatement pkg
+  supportTransport :=
+    SourceObject.SourceObjectPackage.provesSupportTransportStatement pkg
+  boundedComparison :=
+    SourceObject.SourceObjectPackage.provesBoundedComparisonStatement pkg
+  soninComparison :=
+    SourceObject.SourceObjectPackage.provesSoninComparisonStatement pkg
+
+end CCM24Interface
 
 end Source
 end ConnesWeilRH

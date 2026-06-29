@@ -16,11 +16,12 @@ positivity input required by the CC20 exit criterion.
 namespace ConnesWeilRH
 namespace Route
 
-def FullWeilPositivity
+structure FullWeilPositivity
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
-    (L : RouteLedgers) : Prop :=
-  FixedSPositiveTraceReadOff inputs g ∧
-    g.test.tripleVanishing ∧ LedgersCleared L
+    (L : RouteLedgers) where
+  fixedSPositiveTraceReadOff : FixedSPositiveTraceReadOff inputs g
+  tripleVanishing : g.test.tripleVanishing
+  ledgersCleared : LedgersCleared L
 
 def toWeilPositivityInput
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -35,14 +36,16 @@ structure SourceBackedFullPositivity
   sourceTraceReadOff : SourceTraceReadOffData inputs g
   sourceBackedLedgers : SourceBackedLedgers inputs g L
 
-theorem full_weil_positivity_of_source_backed_fixed_s
+def full_weil_positivity_of_source_backed_fixed_s
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers}
     (htrace : FixedSPositiveTraceReadOff inputs g)
     (hvanish : g.test.tripleVanishing)
     (hledger : SourceBackedLedgers inputs g L) :
     FullWeilPositivity inputs g L :=
-  ⟨htrace, hvanish, ledgers_cleared_of_source_backed hledger⟩
+  { fixedSPositiveTraceReadOff := htrace
+    tripleVanishing := hvanish
+    ledgersCleared := ledgers_cleared_of_source_backed hledger }
 
 theorem cc20_trace_square_of_source_backed
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -58,14 +61,14 @@ theorem ccm25_weil_form_read_off_of_source_backed
     CCM25WeilFormReadOff inputs g h.sourceTraceReadOff.lambda :=
   ccm25_weil_form_read_off_of_source_trace_data h.sourceTraceReadOff
 
-theorem fixed_s_read_off_of_source_backed_full_positivity
+def fixed_s_read_off_of_source_backed_full_positivity
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers}
     (h : SourceBackedFullPositivity inputs g L) :
     FixedSPositiveTraceReadOff inputs g :=
   fixed_s_read_off_of_source_trace_data h.sourceTraceReadOff
 
-theorem full_weil_positivity_of_source_backed
+def full_weil_positivity_of_source_backed
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers}
     (h : SourceBackedFullPositivity inputs g L) :
@@ -75,7 +78,7 @@ theorem full_weil_positivity_of_source_backed
     (triple_vanishing_of_source_backed g)
     h.sourceBackedLedgers
 
-theorem full_weil_positivity_input_holds
+def full_weil_positivity_input_holds
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers}
     (h : FullWeilPositivity inputs g L) :

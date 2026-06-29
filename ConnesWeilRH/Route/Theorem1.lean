@@ -17,11 +17,11 @@ source-normalized positive trace theorem.
 namespace ConnesWeilRH
 namespace Route
 
-def CC20TraceLegality
+structure CC20TraceLegality
     (inputs : RouteInputs)
-    (a : inputs.cc20.archimedeanSymbols.Test) : Prop :=
-  inputs.cc20.archimedeanSymbols.traceClass a ∧
-    inputs.cc20.archimedeanSymbols.cyclicLegal a
+    (a : inputs.cc20.archimedeanSymbols.Test) where
+  traceClass : inputs.cc20.archimedeanSymbols.traceClass a
+  cyclicLegal : inputs.cc20.archimedeanSymbols.cyclicLegal a
 
 def CC20NoDefectSourceReadOff
     (inputs : RouteInputs)
@@ -34,11 +34,11 @@ def CC20PositiveTraceNonnegative
     (a : inputs.cc20.archimedeanSymbols.Test) : Prop :=
   0 ≤ inputs.cc20.archimedeanSymbols.positiveTrace a
 
-def CC20TraceSquareReadOff
+structure CC20TraceSquareReadOff
     (inputs : RouteInputs)
-    (a : inputs.cc20.archimedeanSymbols.Test) : Prop :=
-  CC20NoDefectSourceReadOff inputs a ∧
-    CC20PositiveTraceNonnegative inputs a
+    (a : inputs.cc20.archimedeanSymbols.Test) where
+  noDefectSourceReadOff : CC20NoDefectSourceReadOff inputs a
+  positiveTraceNonnegative : CC20PositiveTraceNonnegative inputs a
 
 def WindowLambdaCompatibility
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -164,17 +164,18 @@ def RestrictedTraceReadOffEquality
   inputs.cc20.archimedeanSymbols.supportSquareTrace a =
     inputs.ccm25.weilSymbols.qwLambda lambda g.weilTest g.weilTest
 
-def FullTraceReadOffSource
+structure FullTraceReadOffSource
     (inputs : RouteInputs) (a : inputs.cc20.archimedeanSymbols.Test)
-    (g : SourceBackedFixedSTest inputs) : Prop :=
-  CC20NoDefectSourceReadOff inputs a ∧
-    CCM25FullQWReadOff inputs g ∧
-    FullTraceReadOffEquality inputs a g
+    (g : SourceBackedFixedSTest inputs) where
+  noDefectSourceReadOff : CC20NoDefectSourceReadOff inputs a
+  ccm25FullQWReadOff : CCM25FullQWReadOff inputs g
+  fullTraceReadOffEquality : FullTraceReadOffEquality inputs a g
 
-def RestrictedTraceReadOffSource
+structure RestrictedTraceReadOffSource
     (inputs : RouteInputs) (a : inputs.cc20.archimedeanSymbols.Test)
-    (g : SourceBackedFixedSTest inputs) (lambda : ℝ) : Prop :=
-  CCM25RestrictedQWReadOff inputs g lambda ∧
+    (g : SourceBackedFixedSTest inputs) (lambda : ℝ) where
+  ccm25RestrictedQWReadOff : CCM25RestrictedQWReadOff inputs g lambda
+  restrictedTraceReadOffEquality :
     RestrictedTraceReadOffEquality inputs a g lambda
 
 structure TraceWeilCompatibilityData
@@ -186,10 +187,10 @@ structure TraceWeilCompatibilityData
   fullTraceSource : FullTraceReadOffSource inputs a g
   restrictedTraceSource : RestrictedTraceReadOffSource inputs a g lambda
 
-def TraceWeilCompatibility
+abbrev TraceWeilCompatibility
     (inputs : RouteInputs) (a : inputs.cc20.archimedeanSymbols.Test)
-    (g : SourceBackedFixedSTest inputs) (lambda : ℝ) : Prop :=
-  ∃ _row : TraceWeilCompatibilityData inputs a g lambda, True
+    (g : SourceBackedFixedSTest inputs) (lambda : ℝ) :=
+  TraceWeilCompatibilityData inputs a g lambda
 
 def full_trace_read_off_source_of_parts
     {inputs : RouteInputs}
@@ -199,7 +200,9 @@ def full_trace_read_off_source_of_parts
     (hfull : CCM25FullQWReadOff inputs g)
     (heq : FullTraceReadOffEquality inputs a g) :
     FullTraceReadOffSource inputs a g :=
-  ⟨hnoDefect, hfull, heq⟩
+  { noDefectSourceReadOff := hnoDefect
+    ccm25FullQWReadOff := hfull
+    fullTraceReadOffEquality := heq }
 
 def restricted_trace_read_off_source_of_parts
     {inputs : RouteInputs}
@@ -208,7 +211,8 @@ def restricted_trace_read_off_source_of_parts
     (hrestricted : CCM25RestrictedQWReadOff inputs g lambda)
     (heq : RestrictedTraceReadOffEquality inputs a g lambda) :
     RestrictedTraceReadOffSource inputs a g lambda :=
-  ⟨hrestricted, heq⟩
+  { ccm25RestrictedQWReadOff := hrestricted
+    restrictedTraceReadOffEquality := heq }
 
 def trace_weil_compatibility_data_of_sources
     {inputs : RouteInputs}
@@ -217,31 +221,33 @@ def trace_weil_compatibility_data_of_sources
     (hfull : FullTraceReadOffSource inputs a g)
     (hrestricted : RestrictedTraceReadOffSource inputs a g lambda) :
     TraceWeilCompatibilityData inputs a g lambda where
-  fullTraceReadOffEquality := hfull.2.2
-  restrictedTraceReadOffEquality := hrestricted.2
+  fullTraceReadOffEquality := hfull.fullTraceReadOffEquality
+  restrictedTraceReadOffEquality := hrestricted.restrictedTraceReadOffEquality
   fullTraceSource := hfull
   restrictedTraceSource := hrestricted
 
-theorem trace_weil_compatibility_of_sources
+def trace_weil_compatibility_of_sources
     {inputs : RouteInputs}
     {a : inputs.cc20.archimedeanSymbols.Test}
     {g : SourceBackedFixedSTest inputs} {lambda : ℝ}
     (hfull : FullTraceReadOffSource inputs a g)
     (hrestricted : RestrictedTraceReadOffSource inputs a g lambda) :
     TraceWeilCompatibility inputs a g lambda :=
-  ⟨trace_weil_compatibility_data_of_sources
-    hfull hrestricted, True.intro⟩
+  trace_weil_compatibility_data_of_sources
+    hfull hrestricted
 
-def FixedSPositiveTraceReadOff
-    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) : Prop :=
-  ∃ a : inputs.cc20.archimedeanSymbols.Test,
-    ∃ lambda : ℝ,
-      CC20TraceLegality inputs a ∧
-        TestAndQuotientCompatibility inputs g ∧
-          FixedSQuantizedSupportSquareTransport inputs a g lambda ∧
-            CC20NoDefectSourceReadOff inputs a ∧
-              CCM25WeilFormReadOff inputs g lambda ∧
-                CC20PositiveTraceNonnegative inputs a
+structure FixedSPositiveTraceReadOff
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) where
+  archimedeanTest : inputs.cc20.archimedeanSymbols.Test
+  lambda : ℝ
+  traceLegality : CC20TraceLegality inputs archimedeanTest
+  testAndQuotientCompatibility : TestAndQuotientCompatibility inputs g
+  fixedSSupportSquareTransport :
+    FixedSQuantizedSupportSquareTransport inputs archimedeanTest g lambda
+  noDefectSourceReadOff : CC20NoDefectSourceReadOff inputs archimedeanTest
+  ccm25WeilFormReadOff : CCM25WeilFormReadOff inputs g lambda
+  positiveTraceNonnegative :
+    CC20PositiveTraceNonnegative inputs archimedeanTest
 
 structure SourceTraceReadOffData
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs) where
@@ -266,18 +272,112 @@ structure SourceTraceReadOffData
   positiveTraceNonnegative :
     CC20PositiveTraceNonnegative inputs archimedeanTest
 
+structure ExpandedSourceTraceReadOffFrontEnd
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg) where
+  lambda : ℝ
+  oneLtLambda : 1 < lambda
+  ccm25ArithmeticPackage :
+    Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+      (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+      pkg.commonTest.sourceTest lambda
+  testAndQuotientCompatibility :
+    TestAndQuotientCompatibility
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+  fixedSSupportSquareTransport :
+    FixedSQuantizedSupportSquareTransport
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      pkg.cc20Trace.sourceTraceTest
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+      lambda
+  fullTraceReadOffBridge :
+    CC20NoDefectSourceReadOff
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        pkg.cc20Trace.sourceTraceTest →
+      CCM25FullQWReadOff
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront) →
+      FullTraceReadOffSource
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        pkg.cc20Trace.sourceTraceTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+  restrictedTraceReadOffBridge :
+    CCM25RestrictedQWReadOff
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+        lambda →
+      RestrictedTraceReadOffSource
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        pkg.cc20Trace.sourceTraceTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+        lambda
+
+namespace SourceTraceReadOffData
+
+def ofExpandedSourcePackage
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront) :
+    SourceTraceReadOffData
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront) where
+  archimedeanTest := pkg.cc20Trace.sourceTraceTest
+  hilbertSchmidtGate :=
+    pkg.cc20Trace.sourceHilbertSchmidtGate pkg.cc20Trace.sourceTraceTest
+  lambda := traceFront.lambda
+  oneLtLambda := traceFront.oneLtLambda
+  ccm25ArithmeticPackage := traceFront.ccm25ArithmeticPackage
+  testAndQuotientCompatibility := traceFront.testAndQuotientCompatibility
+  fixedSSupportSquareTransport := traceFront.fixedSSupportSquareTransport
+  fullTraceReadOffBridge := traceFront.fullTraceReadOffBridge
+  restrictedTraceReadOffBridge := traceFront.restrictedTraceReadOffBridge
+  positiveTraceNonnegative := by
+    let inputs := RouteInputs.ofExpandedSourcePackage pkg
+    let hgate :=
+      pkg.cc20Trace.sourceHilbertSchmidtGate pkg.cc20Trace.sourceTraceTest
+    let hlegal := inputs.cc20.traceClassTemplate
+      pkg.cc20Trace.sourceTraceTest hgate
+    exact pkg.cc20Trace.sourcePositiveTraceNonnegative
+      pkg.cc20Trace.sourceTraceTest hlegal.1 hlegal.2
+
+theorem archimedean_test_of_expanded_source_package
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront) :
+    (ofExpandedSourcePackage pkg fixedFront traceFront).archimedeanTest =
+      pkg.cc20Trace.sourceTraceTest :=
+  rfl
+
+theorem lambda_of_expanded_source_package
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront) :
+    (ofExpandedSourcePackage pkg fixedFront traceFront).lambda =
+      traceFront.lambda :=
+  rfl
+
+end SourceTraceReadOffData
+
 theorem cc20_trace_legality_of_source_trace_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     (h : SourceTraceReadOffData inputs g) :
     CC20TraceLegality inputs h.archimedeanTest :=
-  inputs.cc20.traceClassTemplate h.archimedeanTest h.hilbertSchmidtGate
+  let hlegal :=
+    inputs.cc20.traceClassTemplate h.archimedeanTest h.hilbertSchmidtGate
+  { traceClass := hlegal.1
+    cyclicLegal := hlegal.2 }
 
 theorem cc20_trace_square_of_source_trace_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     (h : SourceTraceReadOffData inputs g) :
     CC20TraceSquareReadOff inputs h.archimedeanTest :=
   let hlegal := cc20_trace_legality_of_source_trace_data h
-  inputs.cc20.archimedeanTraceSquare h.archimedeanTest hlegal.1 hlegal.2
+  let htrace :=
+    inputs.cc20.archimedeanTraceSquare h.archimedeanTest
+      hlegal.traceClass hlegal.cyclicLegal
+  { noDefectSourceReadOff := htrace.1
+    positiveTraceNonnegative := htrace.2 }
 
 theorem ccm25_qw_definition_read_off
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs} :
@@ -435,7 +535,8 @@ theorem full_trace_read_off_of_source_trace_data
     FullTraceReadOffSource inputs h.archimedeanTest g :=
   let htrace := cc20_trace_square_of_source_trace_data h
   let hfull := ccm25_full_qw_read_off_of_source_trace_data h
-  full_trace_read_off_source_of_bridge h htrace.1 hfull
+  full_trace_read_off_source_of_bridge h
+    htrace.noDefectSourceReadOff hfull
 
 theorem restricted_trace_read_off_of_source_trace_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -452,19 +553,23 @@ theorem trace_weil_compatibility_of_source_trace_data
     (full_trace_read_off_of_source_trace_data h)
     (restricted_trace_read_off_of_source_trace_data h)
 
-theorem fixed_s_read_off_of_source_trace_data
+def fixed_s_read_off_of_source_trace_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     (h : SourceTraceReadOffData inputs g) :
     FixedSPositiveTraceReadOff inputs g :=
   let hlegal := cc20_trace_legality_of_source_trace_data h
   let htrace := cc20_trace_square_of_source_trace_data h
   let hweil := ccm25_weil_form_read_off_of_source_trace_data h
-  ⟨h.archimedeanTest, h.lambda,
-    hlegal, h.testAndQuotientCompatibility,
-    h.fixedSSupportSquareTransport, htrace.1, hweil,
-    h.positiveTraceNonnegative⟩
+  { archimedeanTest := h.archimedeanTest
+    lambda := h.lambda
+    traceLegality := hlegal
+    testAndQuotientCompatibility := h.testAndQuotientCompatibility
+    fixedSSupportSquareTransport := h.fixedSSupportSquareTransport
+    noDefectSourceReadOff := htrace.noDefectSourceReadOff
+    ccm25WeilFormReadOff := hweil
+    positiveTraceNonnegative := h.positiveTraceNonnegative }
 
-theorem theorem1_read_off
+def theorem1_read_off
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     (h : SourceTraceReadOffData inputs g) :
     FixedSPositiveTraceReadOff inputs g :=

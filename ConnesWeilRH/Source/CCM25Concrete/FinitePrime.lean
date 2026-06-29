@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: ConnesWeilRH contributors
 -/
 
-import ConnesWeilRH.Source.CCM25
+import ConnesWeilRH.Basic
 
 /-!
 # CCM25 finite-prime spine
@@ -35,33 +35,6 @@ def FinitePrimeExactSupportStatement
   GlobalPrimeSupportExactStatement W F ∧
     ∀ lambda : ℝ,
       1 < lambda → RestrictedPrimeSupportExactStatement W lambda F
-
-theorem global_prime_index_coverage_statement
-    (ccm25 : CCM25Interface) (f g : TestFunction) :
-    WeilFormSymbols.GlobalPrimeIndexCoverageStatement
-      ccm25.weilSymbols
-      (ccm25.weilSymbols.convolutionStar f g) :=
-  (ccm25.finitePrimeNormalization f g).1
-
-theorem restricted_prime_index_coverage_statement
-    (ccm25 : CCM25Interface) (f g : TestFunction)
-    {lambda : ℝ} (hlambda : 1 < lambda) :
-    WeilFormSymbols.RestrictedPrimeIndexCoverageStatement
-      ccm25.weilSymbols lambda
-      (ccm25.weilSymbols.convolutionStar f g) :=
-  (ccm25.finitePrimeNormalization f g).2.1 lambda hlambda
-
-theorem finite_prime_term_normalization_statement
-    (ccm25 : CCM25Interface) (f g : TestFunction) :
-    WeilFormSymbols.FinitePrimeTermNormalizationStatement
-      ccm25.weilSymbols f g :=
-  (ccm25.finitePrimeNormalization f g).2.2
-
-theorem finite_prime_visibility_statement
-    (ccm25 : CCM25Interface) (f g : TestFunction) :
-    WeilFormSymbols.FinitePrimeVisibilityStatement
-      ccm25.weilSymbols f g :=
-  ccm25.finitePrimeNormalization f g
 
 end FinitePrime
 end CCM25Concrete

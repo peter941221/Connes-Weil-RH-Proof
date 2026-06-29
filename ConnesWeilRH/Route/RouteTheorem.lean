@@ -40,7 +40,7 @@ structure RouteBackedCC20NonpositivityInputData
       bridge.sourceTraceReadOff.lambda
       (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
       bridge.sourceTraceReadOff.ccm25ArithmeticPackage
-  fullPositivityMatchesNonpositivity : input.fullWeilPositivity
+  fullWeilPositivity : input.fullWeilPositivity
 
 structure RouteBackedCC20TripleVanishingInputData
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -81,6 +81,36 @@ structure RouteBackedCC20ExitInputData
       inputs.cc20.rhDefinitionBridge
       inputs.cc20.cc20RHExitObjectPackage.finiteVanishingSet input
 
+structure ExpandedSourceRouteCertificateFrontEnd
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront) where
+  ledgers : RouteLedgers
+  signDefectClassification :
+    SourceSignDefectClassification
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+      traceFront.lambda ledgers
+  restrictedToFullQWBridge :
+    RestrictedToFullQWBridgeContract
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+      traceFront.lambda
+      ((RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols.convolutionStar
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest)
+      ledgers traceFront.ccm25ArithmeticPackage
+  finalSignBridge :
+    FinalSignBridgeContract
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      pkg.cc20Trace.sourceTraceTest
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+      traceFront.lambda
+      ((RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols.convolutionStar
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest)
+      traceFront.ccm25ArithmeticPackage
+
 def route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers}
@@ -95,7 +125,7 @@ def route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
   finalSignNonpositive :=
     final_sign_nonnegative_to_nonpositive_of_contract
       (final_sign_bridge_of_route_bridge_certificate bridge)
-  fullPositivityMatchesNonpositivity :=
+  fullWeilPositivity :=
     full_weil_positivity_input_holds
       (full_weil_positivity_of_source_backed
         (source_backed_full_positivity_of_route_bridge_certificate bridge))
@@ -140,7 +170,7 @@ def route_backed_cc20_exit_input_data_of_route_bridge_certificate
           (toWeilPositivityInput inputs g L)).tripleVanishingMatchesMellin
   fullWeilPositivity :=
     (route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
-      bridge).fullPositivityMatchesNonpositivity
+      bridge).fullWeilPositivity
   propositionC1InputData :=
     Source.cc20_proposition_c1_input_data
       inputs.cc20.cc20RHExitObjectPackage.finiteSetAdmissible
@@ -149,7 +179,7 @@ def route_backed_cc20_exit_input_data_of_route_bridge_certificate
         : RouteBackedCC20TripleVanishingInputData inputs g L
             (toWeilPositivityInput inputs g L)).tripleVanishingMatchesMellin)
       ((route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
-        bridge).fullPositivityMatchesNonpositivity)
+        bridge).fullWeilPositivity)
 
 def nonpositivity_input_of_route_backed_cc20_exit_input_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -231,7 +261,7 @@ theorem c1_triple_vanishing_row_uses_route_triple_input
       h.tripleVanishingInput.tripleVanishingMatchesMellin := by
   rfl
 
-theorem c1_full_positivity_row_of_route_backed_cc20_exit_input_data
+def c1_full_positivity_row_of_route_backed_cc20_exit_input_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers} {bridge : RouteBridgeCertificate inputs g L}
     (h : RouteBackedCC20ExitInputData inputs g L bridge) :
@@ -242,8 +272,8 @@ theorem c1_full_positivity_row_uses_route_nonpositivity_input
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers} {bridge : RouteBridgeCertificate inputs g L}
     (h : RouteBackedCC20ExitInputData inputs g L bridge) :
-    Source.full_positivity_of_c1_input_data h.propositionC1InputData =
-      h.nonpositivityInput.fullPositivityMatchesNonpositivity := by
+  Source.full_positivity_of_c1_input_data h.propositionC1InputData =
+      c1_full_positivity_row_of_route_backed_cc20_exit_input_data h := by
   rfl
 
 def route_certificate_of_sign_defect_classification
@@ -268,6 +298,41 @@ def route_certificate_of_sign_defect_classification
     route_bridge_certificate_of_sign_defect_classification
       sourceTraceReadOff signDefectClassification
       restrictedToFullQWBridge finalSignBridge
+
+def route_certificate_of_expanded_source_package
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront)
+    (routeFront :
+      ExpandedSourceRouteCertificateFrontEnd pkg fixedFront traceFront) :
+    RouteCertificate (RouteInputs.ofExpandedSourcePackage pkg) :=
+  route_certificate_of_sign_defect_classification
+    (SourceTraceReadOffData.ofExpandedSourcePackage pkg fixedFront traceFront)
+    routeFront.signDefectClassification
+    routeFront.restrictedToFullQWBridge
+    routeFront.finalSignBridge
+
+theorem route_certificate_ledgers_of_expanded_source_package
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront)
+    (routeFront :
+      ExpandedSourceRouteCertificateFrontEnd pkg fixedFront traceFront) :
+    (route_certificate_of_expanded_source_package
+      pkg fixedFront traceFront routeFront).ledgers =
+      routeFront.ledgers := by
+  rfl
+
+theorem route_certificate_source_trace_lambda_of_expanded_source_package
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront)
+    (routeFront :
+      ExpandedSourceRouteCertificateFrontEnd pkg fixedFront traceFront) :
+    (route_certificate_of_expanded_source_package
+      pkg fixedFront traceFront routeFront).bridge.sourceTraceReadOff.lambda =
+      traceFront.lambda := by
+  rfl
 
 theorem cc20_source_rh_of_route_certificate
     {inputs : RouteInputs} (cert : RouteCertificate inputs) :

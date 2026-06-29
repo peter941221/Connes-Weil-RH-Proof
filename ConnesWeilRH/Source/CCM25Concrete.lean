@@ -16,6 +16,7 @@ import ConnesWeilRH.Source.CCM25Concrete.PrimePowerSupport
 import ConnesWeilRH.Source.CCM25Concrete.PrimePowerTerm
 import ConnesWeilRH.Source.CCM25Concrete.FinitePrimeCertificate
 import ConnesWeilRH.Source.CCM25Concrete.FinitePrimeInterface
+import ConnesWeilRH.Source.CCM25Concrete.Rows
 import ConnesWeilRH.Source.CCM25Concrete.Interface
 import ConnesWeilRH.Source.CCM25Concrete.GlobalComponent
 import ConnesWeilRH.Source.CCM25Concrete.RestrictedComponent

@@ -5,6 +5,7 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Source.CC20RHExit
+import ConnesWeilRH.Source.ObjectDerivations
 
 /-!
 # CC20 source interface
@@ -42,14 +43,28 @@ def cc20MellinHalfDensityConvention : SourceObligation where
     "Mellin/Fourier half-density convention used in the RH exit"
   statement := ArchimedeanTraceSymbols.MellinHalfDensityConventionStatement A
 
+structure CC20FiniteVanishingRhExitData where
+  rhDefinitionBridge : RHDefinitionBridge
+  sourceFiniteVanishingCriterionPackage :
+    SourceFiniteVanishingCriterionPackage rhDefinitionBridge
+  cc20RHExitObjectPackage :
+    CC20RHExitObjectPackage rhDefinitionBridge :=
+      SourceFiniteVanishingCriterionPackage.toCC20RHExitObjectPackage
+        sourceFiniteVanishingCriterionPackage
+
+def CC20FiniteVanishingRhExitStatement : Prop :=
+  ∃ data : CC20FiniteVanishingRhExitData,
+    data.cc20RHExitObjectPackage =
+      SourceFiniteVanishingCriterionPackage.toCC20RHExitObjectPackage
+        data.sourceFiniteVanishingCriterionPackage
+
 def cc20FiniteVanishingRhExit : SourceObligation where
   sourceKey := "CC20"
   sourceFile := "weil-compo.tex"
   lineRange := "2072-2085"
   manuscriptRole :=
     "finite-vanishing Weil positivity criterion implying source RH"
-  statement :=
-    ∃ B : RHDefinitionBridge, Nonempty (SourceFiniteVanishingCriterionPackage B)
+  statement := CC20FiniteVanishingRhExitStatement
 
 def cc20SignsAndNormalizations : SourceObligation where
   sourceKey := "CC20"
@@ -72,7 +87,94 @@ structure CC20Interface where
   signsAndNormalizations :
     (cc20SignsAndNormalizations archimedeanSymbols).Holds
 
+namespace SourceObjectBackedCC20Interface
+
+structure Data where
+  sourceObjectPackage : SourceObject.SourceObjectPackage
+
+def archimedeanSymbols (h : Data) : ArchimedeanTraceSymbols :=
+  h.sourceObjectPackage.toArchimedeanTraceSymbols
+
+def finiteVanishingRhExit (h : Data) :
+    FiniteVanishingCriterionPackage :=
+  h.sourceObjectPackage.toFiniteVanishingCriterionPackage
+
+theorem archimedean_trace_square
+    (h : Data) :
+    (cc20ArchimedeanTraceSquare (archimedeanSymbols h)).Holds :=
+  SourceObject.SourceObjectPackage.provesTraceSquareStatement
+    h.sourceObjectPackage
+
+theorem trace_class_template
+    (h : Data) :
+    (cc20TraceClassTemplate (archimedeanSymbols h)).Holds :=
+  SourceObject.SourceObjectPackage.provesTraceClassTemplateStatement
+    h.sourceObjectPackage
+
+theorem mellin_half_density_convention
+    (h : Data) :
+    (cc20MellinHalfDensityConvention (archimedeanSymbols h)).Holds :=
+  SourceObject.SourceObjectPackage.provesMellinHalfDensityConventionStatement
+    h.sourceObjectPackage
+
+theorem signs_and_normalizations
+    (h : Data) :
+    (cc20SignsAndNormalizations (archimedeanSymbols h)).Holds :=
+  SourceObject.SourceObjectPackage.provesSignsAndNormalizationsStatement
+    h.sourceObjectPackage
+
+theorem finite_set_admissible
+    (h : Data) :
+    (finiteVanishingRhExit h).finiteSetAdmissible :=
+  SourceObject.SourceObjectPackage.provesFiniteSetAdmissible
+    h.sourceObjectPackage
+
+theorem finite_vanishing_rh
+    (h : Data)
+    (input : WeilPositivityInput)
+    (htriple : input.tripleVanishing)
+    (hpositive : input.fullWeilPositivity) :
+    RH :=
+  SourceObject.SourceObjectPackage.provesFiniteVanishingCriterion
+    h.sourceObjectPackage input htriple hpositive
+
+theorem finite_vanishing_rh_factors_through_source_rh
+    (h : Data)
+    (input : WeilPositivityInput)
+    (htriple : input.tripleVanishing)
+    (hpositive : input.fullWeilPositivity) :
+    (finiteVanishingRhExit h).criterion input htriple hpositive =
+      RHDefinitionBridge.source_rh_to_mathlib_rh
+        h.sourceObjectPackage.cc20RHExit.rhDefinitionBridge
+        (h.sourceObjectPackage.cc20RHExit.sourceCC20PropositionC1 input
+          (h.sourceObjectPackage.cc20RHExit.tripleVanishingToMellinBridge
+            input htriple)
+          (h.sourceObjectPackage.cc20RHExit.qW_sign_bridge input
+            (h.sourceObjectPackage.cc20RHExit.routeFullPositivityToQWNonnegative
+              input hpositive))) :=
+  SourceObject.SourceObjectPackage.finiteVanishingCriterion_factors_through_source_rh
+    h.sourceObjectPackage input htriple hpositive
+
+end SourceObjectBackedCC20Interface
+
 namespace CC20Interface
+
+def ofSourceObjectPackage
+    (pkg : SourceObject.SourceObjectPackage) : CC20Interface where
+  archimedeanSymbols := pkg.toArchimedeanTraceSymbols
+  archimedeanTraceSquare :=
+    SourceObject.SourceObjectPackage.provesTraceSquareStatement pkg
+  traceClassTemplate :=
+    SourceObject.SourceObjectPackage.provesTraceClassTemplateStatement pkg
+  mellinHalfDensityConvention :=
+    SourceObject.SourceObjectPackage.provesMellinHalfDensityConventionStatement
+      pkg
+  rhDefinitionBridge := pkg.cc20RHExit.rhDefinitionBridge
+  cc20RHExitObjectPackage :=
+    SourceFiniteVanishingCriterionPackage.toCC20RHExitObjectPackage
+      pkg.cc20RHExit.sourceFiniteVanishingCriterionPackage
+  signsAndNormalizations :=
+    SourceObject.SourceObjectPackage.provesSignsAndNormalizationsStatement pkg
 
 def sourceFiniteVanishingRhExit (cc20 : CC20Interface) :
     SourceFiniteVanishingCriterionPackage cc20.rhDefinitionBridge :=
@@ -179,7 +281,13 @@ end CC20Interface
 theorem finite_vanishing_rh_exit_holds
     (cc20 : CC20Interface) :
     cc20FiniteVanishingRhExit.Holds :=
-  ⟨cc20.rhDefinitionBridge, ⟨CC20Interface.sourceFiniteVanishingRhExit cc20⟩⟩
+  ⟨{ rhDefinitionBridge := cc20.rhDefinitionBridge
+      ,
+      sourceFiniteVanishingCriterionPackage :=
+        CC20Interface.sourceFiniteVanishingRhExit cc20
+      ,
+      cc20RHExitObjectPackage := cc20.cc20RHExitObjectPackage },
+    rfl⟩
 
 end Source
 end ConnesWeilRH

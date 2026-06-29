@@ -4,44 +4,51 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: ConnesWeilRH contributors
 -/
 
-import ConnesWeilRH.Source.CCM25Concrete.Global
-import ConnesWeilRH.Source.CCM25Concrete.Restricted
-import ConnesWeilRH.Source.CCM25Concrete.Rows
+import ConnesWeilRH.Source.CCM25Concrete.FinitePrimeInterface
 
 /-!
-# Constructing the CCM25 source interface from concrete rows
+# Concrete CCM25 arithmetic rows
 
-This module is a constructor layer for `CCM25Interface`.  It does not prove the
-analytic CCM25 rows; it states the exact concrete rows that are sufficient to
-build the interface consumed by the route.
+This module contains the concrete CCM25 row data below the compact
+`CCM25Interface` layer.  It deliberately does not import `ConnesWeilRH.Source.CCM25`;
+the compact interface is assembled later, after these rows have been named.
 -/
 
 namespace ConnesWeilRH
 namespace Source
 namespace CCM25Concrete
-namespace Interface
+namespace Rows
 
-abbrev ConcreteCCM25Rows (W : WeilFormSymbols) :=
-  Rows.ConcreteCCM25Rows W
+structure ConcreteGlobalQWPsiRows (W : WeilFormSymbols) where
+  qwDefinition : WeilFormSymbols.QWDefinitionStatement W
+  psiSign : WeilFormSymbols.PsiSignStatement W
 
-abbrev ConcreteCCM25AtomRows (W : WeilFormSymbols) :=
-  Rows.ConcreteCCM25AtomRows W
+structure ConcreteRestrictedQWLambdaRows (W : WeilFormSymbols) where
+  qwLambdaFormula : WeilFormSymbols.QWLambdaFormulaStatement W
 
-abbrev ConcreteCCM25ArithmeticRows (W : WeilFormSymbols) :=
-  Rows.ConcreteCCM25ArithmeticRows W
+structure ConcretePoleNormalizationRows (W : WeilFormSymbols) where
+  poleNormalization : WeilFormSymbols.PoleNormalizationStatement W
 
-def ccm25_interface_of_concrete_rows
-    {W : WeilFormSymbols} (h : ConcreteCCM25Rows W) :
-    CCM25Interface where
-  weilSymbols := W
-  qwDefinition :=
-    ⟨Rows.qw_definition_of_concrete_rows h,
-      Rows.psi_sign_of_concrete_rows h⟩
-  qwLambdaFormula := Rows.qw_lambda_formula_of_concrete_rows h
-  finitePrimeNormalization :=
-    FinitePrimeInterface.finite_prime_normalization_of_fixed_lambda_certificates
-      h.finitePrimeCertificates
-  poleNormalization := Rows.pole_normalization_of_concrete_rows h
+structure ConcreteCCM25Rows (W : WeilFormSymbols) where
+  globalRows : ConcreteGlobalQWPsiRows W
+  restrictedRows : ConcreteRestrictedQWLambdaRows W
+  finitePrimeCertificates :
+    FinitePrimeInterface.FixedLambdaCertificatesForAllTests W
+  poleRows : ConcretePoleNormalizationRows W
+
+structure ConcreteCCM25AtomRows (W : WeilFormSymbols) where
+  globalRows : ConcreteGlobalQWPsiRows W
+  restrictedRows : ConcreteRestrictedQWLambdaRows W
+  finitePrimeAtomCertificates :
+    FinitePrimeInterface.FixedLambdaAtomCertificatesForAllTests W
+  poleRows : ConcretePoleNormalizationRows W
+
+structure ConcreteCCM25ArithmeticRows (W : WeilFormSymbols) where
+  globalRows : ConcreteGlobalQWPsiRows W
+  restrictedRows : ConcreteRestrictedQWLambdaRows W
+  finitePrimeArithmeticCertificates :
+    FinitePrimeInterface.FixedLambdaArithmeticSourceTestCertificatesForAllTests W
+  poleRows : ConcretePoleNormalizationRows W
 
 def concrete_rows_of_atom_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25AtomRows W) :
@@ -68,30 +75,23 @@ noncomputable def concrete_rows_of_arithmetic_rows
     ConcreteCCM25Rows W :=
   concrete_rows_of_atom_rows (atom_rows_of_arithmetic_rows h)
 
-def ccm25_interface_of_atom_rows
-    {W : WeilFormSymbols} (h : ConcreteCCM25AtomRows W) :
-    CCM25Interface :=
-  ccm25_interface_of_concrete_rows (concrete_rows_of_atom_rows h)
-
-noncomputable def ccm25_interface_of_arithmetic_rows
-    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W) :
-    CCM25Interface :=
-  ccm25_interface_of_atom_rows (atom_rows_of_arithmetic_rows h)
-
 theorem finite_prime_normalization_of_concrete_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25Rows W) :
     WeilFormSymbols.FinitePrimeNormalizationStatement W :=
-  (ccm25_interface_of_concrete_rows h).finitePrimeNormalization
+  FinitePrimeInterface.finite_prime_normalization_of_fixed_lambda_certificates
+    h.finitePrimeCertificates
 
 theorem finite_prime_normalization_of_atom_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25AtomRows W) :
     WeilFormSymbols.FinitePrimeNormalizationStatement W :=
-  (ccm25_interface_of_atom_rows h).finitePrimeNormalization
+  FinitePrimeInterface.finite_prime_normalization_of_atom_certificates
+    h.finitePrimeAtomCertificates
 
 theorem finite_prime_normalization_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W) :
     WeilFormSymbols.FinitePrimeNormalizationStatement W :=
-  (ccm25_interface_of_arithmetic_rows h).finitePrimeNormalization
+  FinitePrimeInterface.finite_prime_normalization_of_source_test_certificates
+    h.finitePrimeArithmeticCertificates
 
 def source_test_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
@@ -228,16 +228,19 @@ theorem arithmetic_global_index_source_data_of_arithmetic_rows
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
     PrimePowerArithmetic.SourcePrimePowerIndex n ∧
       (source_test_of_arithmetic_rows h f g).sourceAtomVisible n :=
-  Rows.arithmetic_global_index_source_data_of_arithmetic_rows
-    h f g lambda hlambda hn
+  ⟨arithmetic_global_index_prime_power_of_arithmetic_rows
+      h f g lambda hlambda hn,
+    arithmetic_global_index_visible_of_arithmetic_rows
+      h f g lambda hlambda hn⟩
 
 theorem arithmetic_global_index_one_lt_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
     1 < n :=
-  Rows.arithmetic_global_index_one_lt_of_arithmetic_rows
-    h f g lambda hlambda hn
+  PrimePowerArithmetic.source_prime_power_index_one_lt
+    (arithmetic_global_index_prime_power_of_arithmetic_rows
+      h f g lambda hlambda hn)
 
 theorem arithmetic_restricted_index_prime_power_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
@@ -276,16 +279,21 @@ theorem arithmetic_restricted_index_source_data_of_arithmetic_rows
     PrimePowerArithmetic.SourcePrimePowerIndex n ∧
       (source_test_of_arithmetic_rows h f g).sourceAtomVisible n ∧
         PrimePowerSupport.SourceLambdaCut lambda n :=
-  Rows.arithmetic_restricted_index_source_data_of_arithmetic_rows
-    h f g lambda hlambda hn
+  ⟨arithmetic_restricted_index_prime_power_of_arithmetic_rows
+      h f g lambda hlambda hn,
+    arithmetic_restricted_index_visible_of_arithmetic_rows
+      h f g lambda hlambda hn,
+    arithmetic_restricted_index_lambda_cut_of_arithmetic_rows
+      h f g lambda hlambda hn⟩
 
 theorem arithmetic_restricted_index_one_lt_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     1 < n :=
-  Rows.arithmetic_restricted_index_one_lt_of_arithmetic_rows
-    h f g lambda hlambda hn
+  PrimePowerSupport.source_lambda_cut_one_lt
+    (arithmetic_restricted_index_lambda_cut_of_arithmetic_rows
+      h f g lambda hlambda hn)
 
 theorem arithmetic_restricted_index_le_lambda_sq_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
@@ -302,8 +310,9 @@ theorem arithmetic_source_weight_read_off_of_arithmetic_rows
     (n : ℕ) :
     W.vonMangoldtWeight n =
       PrimePowerArithmetic.SourceVonMangoldtWeight n :=
-  Rows.arithmetic_source_weight_read_off_of_arithmetic_rows
-    h f g lambda hlambda n
+  PrimePowerArithmetic.source_weight_read_off
+    (((h.finitePrimeArithmeticCertificates f g).certificate
+      lambda hlambda).atoms.atIndex n)
 
 theorem arithmetic_source_pairing_formula_source_evaluator_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
@@ -318,8 +327,9 @@ theorem arithmetic_source_pairing_formula_source_evaluator_of_arithmetic_rows
             (W.convolutionStar f g) (n : ℝ) +
           atom.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
               (W.convolutionStar f g) ((n : ℝ)⁻¹)) :=
-  Rows.arithmetic_source_pairing_formula_source_evaluator_of_arithmetic_rows
-    h f g lambda hlambda n
+  PrimePowerArithmetic.source_pairing_formula_source_evaluator
+    (((h.finitePrimeArithmeticCertificates f g).certificate
+      lambda hlambda).atoms.atIndex n)
 
 theorem arithmetic_finite_prime_term_formula_source_evaluator_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
@@ -329,70 +339,71 @@ theorem arithmetic_finite_prime_term_formula_source_evaluator_of_arithmetic_rows
       PrimePowerArithmetic.SourceFinitePrimeEvaluatorAtom W f g n
         (((h.finitePrimeArithmeticCertificates f g).certificate
           lambda hlambda).atoms.atIndex n) :=
-  Rows.arithmetic_finite_prime_term_formula_source_evaluator_of_arithmetic_rows
-    h f g lambda hlambda n
+  PrimePowerArithmetic.source_finite_prime_term_formula_source_evaluator
+    (((h.finitePrimeArithmeticCertificates f g).certificate
+      lambda hlambda).atoms.atIndex n)
 
 theorem qw_definition_of_concrete_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25Rows W) :
     WeilFormSymbols.QWDefinitionStatement W :=
-  (ccm25_interface_of_concrete_rows h).qwDefinition.1
+  h.globalRows.qwDefinition
 
 theorem psi_sign_of_concrete_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25Rows W) :
     WeilFormSymbols.PsiSignStatement W :=
-  (ccm25_interface_of_concrete_rows h).qwDefinition.2
+  h.globalRows.psiSign
 
 theorem qw_lambda_formula_of_concrete_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25Rows W) :
     WeilFormSymbols.QWLambdaFormulaStatement W :=
-  (ccm25_interface_of_concrete_rows h).qwLambdaFormula
+  h.restrictedRows.qwLambdaFormula
 
 theorem pole_normalization_of_concrete_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25Rows W) :
     WeilFormSymbols.PoleNormalizationStatement W :=
-  (ccm25_interface_of_concrete_rows h).poleNormalization
+  h.poleRows.poleNormalization
 
 theorem qw_definition_of_atom_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25AtomRows W) :
     WeilFormSymbols.QWDefinitionStatement W :=
-  (ccm25_interface_of_atom_rows h).qwDefinition.1
+  h.globalRows.qwDefinition
 
 theorem psi_sign_of_atom_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25AtomRows W) :
     WeilFormSymbols.PsiSignStatement W :=
-  (ccm25_interface_of_atom_rows h).qwDefinition.2
+  h.globalRows.psiSign
 
 theorem qw_lambda_formula_of_atom_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25AtomRows W) :
     WeilFormSymbols.QWLambdaFormulaStatement W :=
-  (ccm25_interface_of_atom_rows h).qwLambdaFormula
+  h.restrictedRows.qwLambdaFormula
 
 theorem pole_normalization_of_atom_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25AtomRows W) :
     WeilFormSymbols.PoleNormalizationStatement W :=
-  (ccm25_interface_of_atom_rows h).poleNormalization
+  h.poleRows.poleNormalization
 
 theorem qw_definition_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W) :
     WeilFormSymbols.QWDefinitionStatement W :=
-  (ccm25_interface_of_arithmetic_rows h).qwDefinition.1
+  h.globalRows.qwDefinition
 
 theorem psi_sign_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W) :
     WeilFormSymbols.PsiSignStatement W :=
-  (ccm25_interface_of_arithmetic_rows h).qwDefinition.2
+  h.globalRows.psiSign
 
 theorem qw_lambda_formula_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W) :
     WeilFormSymbols.QWLambdaFormulaStatement W :=
-  (ccm25_interface_of_arithmetic_rows h).qwLambdaFormula
+  h.restrictedRows.qwLambdaFormula
 
 theorem pole_normalization_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W) :
     WeilFormSymbols.PoleNormalizationStatement W :=
-  (ccm25_interface_of_arithmetic_rows h).poleNormalization
+  h.poleRows.poleNormalization
 
-end Interface
+end Rows
 end CCM25Concrete
 end Source
 end ConnesWeilRH

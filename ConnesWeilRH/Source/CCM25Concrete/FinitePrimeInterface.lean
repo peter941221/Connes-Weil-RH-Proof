@@ -21,38 +21,35 @@ namespace CCM25Concrete
 namespace FinitePrimeInterface
 
 def FixedLambdaCertificatesForTest
-    (W : WeilFormSymbols) (f g : TestFunction) : Prop :=
+    (W : WeilFormSymbols) (f g : TestFunction) : Type 1 :=
   ∀ lambda : ℝ,
     1 < lambda →
-      Nonempty
-        (FinitePrimeCertificate.FixedLambdaFinitePrimeCertificate W f g lambda)
+      FinitePrimeCertificate.FixedLambdaFinitePrimeCertificate W f g lambda
 
 def FixedLambdaCertificatesForAllTests
-    (W : WeilFormSymbols) : Prop :=
+    (W : WeilFormSymbols) : Type 1 :=
   ∀ f g : TestFunction, FixedLambdaCertificatesForTest W f g
 
 def FixedLambdaAtomCertificatesForTest
-    (W : WeilFormSymbols) (f g : TestFunction) : Prop :=
+    (W : WeilFormSymbols) (f g : TestFunction) : Type 1 :=
   ∀ lambda : ℝ,
     1 < lambda →
-      Nonempty
-        (FinitePrimeCertificate.FixedLambdaFinitePrimeAtomCertificate
-          W f g lambda)
+      FinitePrimeCertificate.FixedLambdaFinitePrimeAtomCertificate
+        W f g lambda
 
 def FixedLambdaAtomCertificatesForAllTests
-    (W : WeilFormSymbols) : Prop :=
+    (W : WeilFormSymbols) : Type 1 :=
   ∀ f g : TestFunction, FixedLambdaAtomCertificatesForTest W f g
 
 def FixedLambdaArithmeticCertificatesForTest
-    (W : WeilFormSymbols) (f g : TestFunction) : Prop :=
+    (W : WeilFormSymbols) (f g : TestFunction) : Type 1 :=
   ∀ lambda : ℝ,
     1 < lambda →
-      Nonempty
-        (FinitePrimeCertificate.FixedLambdaFinitePrimeArithmeticCertificate
-          W f g lambda)
+      FinitePrimeCertificate.FixedLambdaFinitePrimeArithmeticCertificate
+        W f g lambda
 
 def FixedLambdaArithmeticCertificatesForAllTests
-    (W : WeilFormSymbols) : Prop :=
+    (W : WeilFormSymbols) : Type 1 :=
   ∀ f g : TestFunction, FixedLambdaArithmeticCertificatesForTest W f g
 
 structure FixedLambdaArithmeticSourceTestCertificatesForTest
@@ -72,58 +69,58 @@ def FixedLambdaArithmeticSourceTestCertificatesForAllTests
   ∀ f g : TestFunction,
     FixedLambdaArithmeticSourceTestCertificatesForTest W f g
 
-theorem fixed_lambda_certificates_of_atom_certificates
+def fixed_lambda_certificates_of_atom_certificates
     {W : WeilFormSymbols} {f g : TestFunction}
     (h : FixedLambdaAtomCertificatesForTest W f g) :
     FixedLambdaCertificatesForTest W f g := by
   intro lambda hlambda
-  exact ⟨FinitePrimeCertificate.certificate_of_atom_certificate
-    (Classical.choice (h lambda hlambda))⟩
+  exact FinitePrimeCertificate.certificate_of_atom_certificate
+    (h lambda hlambda)
 
-theorem fixed_lambda_certificates_for_all_of_atom_certificates
+def fixed_lambda_certificates_for_all_of_atom_certificates
     {W : WeilFormSymbols}
     (h : FixedLambdaAtomCertificatesForAllTests W) :
     FixedLambdaCertificatesForAllTests W := by
   intro f g
   exact fixed_lambda_certificates_of_atom_certificates (h f g)
 
-theorem fixed_lambda_atom_certificates_of_arithmetic_certificates
+noncomputable def fixed_lambda_atom_certificates_of_arithmetic_certificates
     {W : WeilFormSymbols} {f g : TestFunction}
     (h : FixedLambdaArithmeticCertificatesForTest W f g) :
     FixedLambdaAtomCertificatesForTest W f g := by
   intro lambda hlambda
-  exact ⟨FinitePrimeCertificate.atom_certificate_of_arithmetic_certificate
-    (Classical.choice (h lambda hlambda))⟩
+  exact FinitePrimeCertificate.atom_certificate_of_arithmetic_certificate
+    (h lambda hlambda)
 
-theorem fixed_lambda_atom_certificates_for_all_of_arithmetic_certificates
+noncomputable def fixed_lambda_atom_certificates_for_all_of_arithmetic_certificates
     {W : WeilFormSymbols}
     (h : FixedLambdaArithmeticCertificatesForAllTests W) :
     FixedLambdaAtomCertificatesForAllTests W := by
   intro f g
   exact fixed_lambda_atom_certificates_of_arithmetic_certificates (h f g)
 
-theorem fixed_lambda_certificates_of_arithmetic_certificates
+noncomputable def fixed_lambda_certificates_of_arithmetic_certificates
     {W : WeilFormSymbols} {f g : TestFunction}
     (h : FixedLambdaArithmeticCertificatesForTest W f g) :
     FixedLambdaCertificatesForTest W f g :=
   fixed_lambda_certificates_of_atom_certificates
     (fixed_lambda_atom_certificates_of_arithmetic_certificates h)
 
-theorem fixed_lambda_certificates_for_all_of_arithmetic_certificates
+noncomputable def fixed_lambda_certificates_for_all_of_arithmetic_certificates
     {W : WeilFormSymbols}
     (h : FixedLambdaArithmeticCertificatesForAllTests W) :
     FixedLambdaCertificatesForAllTests W :=
   fixed_lambda_certificates_for_all_of_atom_certificates
     (fixed_lambda_atom_certificates_for_all_of_arithmetic_certificates h)
 
-theorem fixed_lambda_arithmetic_certificates_of_source_test_certificates
+def fixed_lambda_arithmetic_certificates_of_source_test_certificates
     {W : WeilFormSymbols} {f g : TestFunction}
     (h : FixedLambdaArithmeticSourceTestCertificatesForTest W f g) :
     FixedLambdaArithmeticCertificatesForTest W f g := by
   intro lambda hlambda
-  exact ⟨h.certificate lambda hlambda⟩
+  exact h.certificate lambda hlambda
 
-theorem fixed_lambda_arithmetic_certificates_for_all_of_source_test_certificates
+def fixed_lambda_arithmetic_certificates_for_all_of_source_test_certificates
     {W : WeilFormSymbols}
     (h : FixedLambdaArithmeticSourceTestCertificatesForAllTests W) :
     FixedLambdaArithmeticCertificatesForAllTests W := by
@@ -131,28 +128,28 @@ theorem fixed_lambda_arithmetic_certificates_for_all_of_source_test_certificates
   exact fixed_lambda_arithmetic_certificates_of_source_test_certificates
     (h f g)
 
-theorem fixed_lambda_atom_certificates_of_source_test_certificates
+noncomputable def fixed_lambda_atom_certificates_of_source_test_certificates
     {W : WeilFormSymbols} {f g : TestFunction}
     (h : FixedLambdaArithmeticSourceTestCertificatesForTest W f g) :
     FixedLambdaAtomCertificatesForTest W f g :=
   fixed_lambda_atom_certificates_of_arithmetic_certificates
     (fixed_lambda_arithmetic_certificates_of_source_test_certificates h)
 
-theorem fixed_lambda_atom_certificates_for_all_of_source_test_certificates
+noncomputable def fixed_lambda_atom_certificates_for_all_of_source_test_certificates
     {W : WeilFormSymbols}
     (h : FixedLambdaArithmeticSourceTestCertificatesForAllTests W) :
     FixedLambdaAtomCertificatesForAllTests W :=
   fixed_lambda_atom_certificates_for_all_of_arithmetic_certificates
     (fixed_lambda_arithmetic_certificates_for_all_of_source_test_certificates h)
 
-theorem fixed_lambda_certificates_of_source_test_certificates
+noncomputable def fixed_lambda_certificates_of_source_test_certificates
     {W : WeilFormSymbols} {f g : TestFunction}
     (h : FixedLambdaArithmeticSourceTestCertificatesForTest W f g) :
     FixedLambdaCertificatesForTest W f g :=
   fixed_lambda_certificates_of_arithmetic_certificates
     (fixed_lambda_arithmetic_certificates_of_source_test_certificates h)
 
-theorem fixed_lambda_certificates_for_all_of_source_test_certificates
+noncomputable def fixed_lambda_certificates_for_all_of_source_test_certificates
     {W : WeilFormSymbols}
     (h : FixedLambdaArithmeticSourceTestCertificatesForAllTests W) :
     FixedLambdaCertificatesForAllTests W :=
@@ -215,8 +212,7 @@ theorem finite_prime_visibility_of_fixed_lambda_certificates
     {W : WeilFormSymbols} {f g : TestFunction}
     (h : FixedLambdaCertificatesForTest W f g) :
     WeilFormSymbols.FinitePrimeVisibilityStatement W f g := by
-  let hcert :=
-    Classical.choice (h 2 (by norm_num : (1 : ℝ) < 2))
+  let hcert := h 2 (by norm_num : (1 : ℝ) < 2)
   refine ⟨?_, ?_, ?_⟩
   · intro n hn
     exact FinitePrimeCertificate.global_exact_of_certificate
@@ -224,7 +220,7 @@ theorem finite_prime_visibility_of_fixed_lambda_certificates
       ((FinitePrimeCertificate.visible_iff_of_certificate
         hcert n).1 hn)
   · intro lambda hlambda
-    let hcertLambda := Classical.choice (h lambda hlambda)
+    let hcertLambda := h lambda hlambda
     exact (FinitePrimeCertificate.visibility_at_lambda_of_certificate
       hcertLambda).2.1
   · exact FinitePrimeCertificate.term_normalization_of_certificate

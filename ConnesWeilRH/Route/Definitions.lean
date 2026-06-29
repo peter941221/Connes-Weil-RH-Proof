@@ -33,6 +33,33 @@ structure RouteInputs where
   ccm25 : Source.CCM25Interface
   cc20 : Source.CC20Interface
 
+namespace RouteInputs
+
+def ofExpandedSourcePackage
+    (pkg : Source.SourceObject.SourceObjectPackage) : RouteInputs where
+  ccm24 := Source.CCM24Interface.ofSourceObjectPackage pkg
+  ccm25 := Source.CCM25Interface.ofSourceObjectPackage pkg
+  cc20 := Source.CC20Interface.ofSourceObjectPackage pkg
+
+end RouteInputs
+
+structure ExpandedSourceFixedSTestFrontEnd
+    (pkg : Source.SourceObject.SourceObjectPackage) where
+  test : FixedSTest
+  tripleVanishingSymbols : TripleVanishingSymbols
+  admissibleWindow : test.admissibleWindow
+  tripleVanishingBridge :
+    TripleVanishingSymbols.TripleVanishingStatement
+        tripleVanishingSymbols →
+      test.tripleVanishing
+  tripleVanishingSourceHolds :
+    TripleVanishingSymbols.TripleVanishingStatement tripleVanishingSymbols
+  finitePrimeVisibilityBridge :
+    WeilFormSymbols.FinitePrimeVisibilityStatement
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest pkg.commonTest.sourceTest →
+      test.finitePrimesVisible
+
 structure SourceBackedFixedSTest (inputs : RouteInputs) where
   test : FixedSTest
   placeSet : inputs.ccm24.semilocalSymbols.PlaceSet
@@ -78,6 +105,45 @@ structure SourceBackedFixedSTest (inputs : RouteInputs) where
     WeilFormSymbols.FinitePrimeVisibilityStatement inputs.ccm25.weilSymbols
         weilTest weilTest →
       test.finitePrimesVisible
+
+namespace SourceBackedFixedSTest
+
+def ofExpandedSourcePackage
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (front : ExpandedSourceFixedSTestFrontEnd pkg) :
+    SourceBackedFixedSTest (RouteInputs.ofExpandedSourcePackage pkg) where
+  test := front.test
+  placeSet := pkg.ccm24.sourcePlaceSet
+  window := pkg.ccm24.sourceSupportWindow
+  semilocalTest := pkg.ccm24.sourceTestLeg
+  weilTest := pkg.commonTest.sourceTest
+  tripleVanishingSymbols := front.tripleVanishingSymbols
+  canonicalModel := pkg.ccm24.sourceCanonicalModelData
+  supportInWindow := pkg.ccm24.sourceSupportInWindowData
+  fourierSupportInWindow := pkg.ccm24.sourceFourierSupportInWindowData
+  soninSpaceComparison := pkg.ccm24.sourceSoninSpaceComparisonData
+  windowContainedInLambda := pkg.ccm24.sourceWindowContainedInLambdaData
+  lambdaCompatibilityBridge := pkg.ccm24.sourceLambdaCompatibilityBridge
+  admissibleWindow := front.admissibleWindow
+  tripleVanishingBridge := front.tripleVanishingBridge
+  tripleVanishingSourceHolds := front.tripleVanishingSourceHolds
+  finitePrimeVisibilityBridge := front.finitePrimeVisibilityBridge
+
+theorem weil_test_of_expanded_source_package
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (front : ExpandedSourceFixedSTestFrontEnd pkg) :
+    (ofExpandedSourcePackage pkg front).weilTest =
+      pkg.commonTest.sourceTest :=
+  rfl
+
+theorem semilocal_window_of_expanded_source_package
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (front : ExpandedSourceFixedSTestFrontEnd pkg) :
+    (ofExpandedSourcePackage pkg front).window =
+      pkg.ccm24.sourceSupportWindow :=
+  rfl
+
+end SourceBackedFixedSTest
 
 end Route
 end ConnesWeilRH

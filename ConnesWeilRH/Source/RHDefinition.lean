@@ -111,6 +111,21 @@ theorem mathlib_nontrivial_zero_of_components
     MathlibNontrivialZero s :=
   ⟨hzero, hnotNegEven, hpole⟩
 
+theorem mathlib_nontrivial_zero_zeta_zero
+    {s : ℂ} (h : MathlibNontrivialZero s) :
+    riemannZeta s = 0 :=
+  h.1
+
+theorem mathlib_nontrivial_zero_not_negative_even
+    {s : ℂ} (h : MathlibNontrivialZero s) :
+    ¬∃ n : ℕ, s = -2 * (n + 1) :=
+  h.2.1
+
+theorem mathlib_nontrivial_zero_not_pole
+    {s : ℂ} (h : MathlibNontrivialZero s) :
+    s ≠ 1 :=
+  h.2.2
+
 theorem source_nontrivial_zero_to_mathlib
     (B : RHDefinitionBridge) (s : ℂ)
     (h : B.sourceNontrivialZero s) :
@@ -124,7 +139,10 @@ theorem mathlib_nontrivial_zero_to_source
     (B : RHDefinitionBridge) (s : ℂ)
     (h : MathlibNontrivialZero s) :
     B.sourceNontrivialZero s :=
-  B.mathlibNontrivialZero_to_source s h.1 h.2.1 h.2.2
+  B.mathlibNontrivialZero_to_source s
+    (mathlib_nontrivial_zero_zeta_zero h)
+    (mathlib_nontrivial_zero_not_negative_even h)
+    (mathlib_nontrivial_zero_not_pole h)
 
 theorem source_nontrivial_zero_of_mathlib_components
     (B : RHDefinitionBridge) (s : ℂ)

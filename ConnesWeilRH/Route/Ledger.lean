@@ -16,8 +16,10 @@ exhausted before the RH exit step.
 namespace ConnesWeilRH
 namespace Route
 
-def LedgersCleared (L : RouteLedgers) : Prop :=
-  L.rankKilled ∧ L.poleKilled ∧ L.cdefExhausts
+structure LedgersCleared (L : RouteLedgers) : Prop where
+  rankKilled : L.rankKilled
+  poleKilled : L.poleKilled
+  cdefExhausts : L.cdefExhausts
 
 def RankRepairToZeroModeLedger
     (_inputs : RouteInputs) (_g : SourceBackedFixedSTest _inputs)
@@ -66,8 +68,9 @@ structure CdefNormFormula
 structure SourceBackedLedgers
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (L : RouteLedgers) where
+  lambda : ℝ
   signDefectClassification :
-    ∃ lambda : ℝ, SourceSignDefectClassification inputs g lambda L
+    SourceSignDefectClassification inputs g lambda L
 
 def cdef_norm_formula_of_cdef_exhausts
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -92,43 +95,41 @@ def source_backed_ledgers_of_sign_defect_classification
     {lambda : ℝ} {L : RouteLedgers}
     (h : SourceSignDefectClassification inputs g lambda L) :
     SourceBackedLedgers inputs g L where
-  signDefectClassification := ⟨lambda, h⟩
+  lambda := lambda
+  signDefectClassification := h
 
 theorem rank_killed_of_ledgers_cleared
     {L : RouteLedgers} (h : LedgersCleared L) :
     L.rankKilled :=
-  h.1
+  h.rankKilled
 
 theorem pole_killed_of_ledgers_cleared
     {L : RouteLedgers} (h : LedgersCleared L) :
     L.poleKilled :=
-  h.2.1
+  h.poleKilled
 
 theorem cdef_exhausts_of_ledgers_cleared
     {L : RouteLedgers} (h : LedgersCleared L) :
     L.cdefExhausts :=
-  h.2.2
+  h.cdefExhausts
 
 theorem rank_killed_of_source_backed_ledgers
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers} (h : SourceBackedLedgers inputs g L) :
     L.rankKilled :=
-  let hsign := h.signDefectClassification.choose_spec
-  rank_killed_of_sign_defect_classification hsign
+  rank_killed_of_sign_defect_classification h.signDefectClassification
 
 theorem pole_killed_of_source_backed_ledgers
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers} (h : SourceBackedLedgers inputs g L) :
     L.poleKilled :=
-  let hsign := h.signDefectClassification.choose_spec
-  pole_killed_of_sign_defect_classification hsign
+  pole_killed_of_sign_defect_classification h.signDefectClassification
 
 theorem cdef_exhausts_of_source_backed_ledgers
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers} (h : SourceBackedLedgers inputs g L) :
     L.cdefExhausts :=
-  let hsign := h.signDefectClassification.choose_spec
-  cdef_exhausts_of_sign_defect_classification hsign
+  cdef_exhausts_of_sign_defect_classification h.signDefectClassification
 
 theorem cdef_norm_formula_of_source_backed_ledgers
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -141,9 +142,9 @@ theorem ledgers_cleared_of_source_backed
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers} (h : SourceBackedLedgers inputs g L) :
     LedgersCleared L :=
-  ⟨rank_killed_of_source_backed_ledgers h,
-    pole_killed_of_source_backed_ledgers h,
-    cdef_exhausts_of_source_backed_ledgers h⟩
+  { rankKilled := rank_killed_of_source_backed_ledgers h
+    poleKilled := pole_killed_of_source_backed_ledgers h
+    cdefExhausts := cdef_exhausts_of_source_backed_ledgers h }
 
 theorem ledgers_cleared_of_source_sign_defect_classification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}

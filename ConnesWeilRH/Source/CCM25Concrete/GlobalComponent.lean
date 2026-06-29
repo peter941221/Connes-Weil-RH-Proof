@@ -67,8 +67,10 @@ def global_qw_psi_formula_component_of_arithmetic_rows
     (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :
     GlobalQWPsiFormulaComponent W f g lambda where
   oneLtLambda := hlambda
-  qwDefinition := h.qwDefinition f g
-  psiSign := h.psiSign (W.convolutionStar f g)
+  qwDefinition :=
+    Interface.qw_definition_of_arithmetic_rows h f g
+  psiSign :=
+    Interface.psi_sign_of_arithmetic_rows h (W.convolutionStar f g)
   finitePrimeSumReadOff :=
     global_finite_prime_sum_read_off_of_arithmetic_rows
       h f g lambda hlambda

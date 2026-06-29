@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: ConnesWeilRH contributors
 -/
 
-import ConnesWeilRH.Basic
+import ConnesWeilRH.Source.ObjectDerivations
 
 /-!
 # CCM25 source interface
@@ -58,6 +58,30 @@ structure CCM25Interface where
   qwLambdaFormula : (ccm25QWLambdaFormula weilSymbols).Holds
   finitePrimeNormalization : (ccm25FinitePrimeNormalization weilSymbols).Holds
   poleNormalization : (ccm25PoleNormalization weilSymbols).Holds
+
+namespace CCM25Interface
+
+def ofSourceObjectPackage
+    (pkg : SourceObject.SourceObjectPackage) : CCM25Interface where
+  weilSymbols := pkg.toWeilFormSymbols
+  qwDefinition :=
+    ⟨SourceObject.SourceObjectPackage.provesQWDefinitionStatement pkg,
+      SourceObject.SourceObjectPackage.provesPsiSignStatement pkg⟩
+  qwLambdaFormula :=
+    SourceObject.SourceObjectPackage.provesQWLambdaFormulaStatement pkg
+  finitePrimeNormalization :=
+    SourceObject.SourceObjectPackage.provesFinitePrimeNormalizationStatement pkg
+  poleNormalization :=
+    SourceObject.SourceObjectPackage.provesPoleNormalizationStatement pkg
+
+theorem finite_prime_pointwise_term_of_source_object_package
+    (pkg : SourceObject.SourceObjectPackage) :
+    ∀ f g : TestFunction,
+      WeilFormSymbols.FinitePrimeTermNormalizationStatement
+        (ofSourceObjectPackage pkg).weilSymbols f g :=
+  SourceObject.SourceObjectPackage.provesFinitePrimePointwiseTermStatement pkg
+
+end CCM25Interface
 
 end Source
 end ConnesWeilRH
