@@ -251,6 +251,74 @@ theorem ordinary_trace_support_square_statement
 
 end LegalSquareTraceScaleSymbols
 
+/--
+Fully normalized legal square trace-scale data.
+
+This seed fixes Mellin and sign normalization propositions to `True`, so the
+trace model constructor has no remaining proof inputs.  It is still only a
+concrete seed until a source-identification theorem relates the actual CC20
+operators to these definitions.
+-/
+structure NormalizedLegalSquareTraceScaleSymbols where
+  Test : Type
+  traceAmplitude : Test → ℝ
+  traceClass : Test → Prop
+  cyclicLegal : Test → Prop
+
+namespace NormalizedLegalSquareTraceScaleSymbols
+
+def toLegalSquareTraceScaleSymbols
+    (A : NormalizedLegalSquareTraceScaleSymbols) :
+    LegalSquareTraceScaleSymbols where
+  Test := A.Test
+  traceAmplitude := A.traceAmplitude
+  traceClass := A.traceClass
+  cyclicLegal := A.cyclicLegal
+  mellinHalfDensityMatched := True
+  uInfinityNormalized := True
+  qduNormalized := True
+  archimedeanSignNormalized := True
+
+theorem mellin_half_density_convention
+    (A : NormalizedLegalSquareTraceScaleSymbols) :
+    A.toLegalSquareTraceScaleSymbols.mellinHalfDensityMatched :=
+  trivial
+
+theorem signs_and_normalizations
+    (A : NormalizedLegalSquareTraceScaleSymbols) :
+    A.toLegalSquareTraceScaleSymbols.uInfinityNormalized ∧
+      A.toLegalSquareTraceScaleSymbols.qduNormalized ∧
+        A.toLegalSquareTraceScaleSymbols.archimedeanSignNormalized :=
+  ⟨trivial, trivial, trivial⟩
+
+theorem trace_square_statement
+    (A : NormalizedLegalSquareTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.TraceSquareStatement
+      (ConcreteTraceScaleSymbols.toArchimedeanTraceSymbols
+        (SquareTraceScaleSymbols.toConcreteTraceScaleSymbols
+          (LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols
+            A.toLegalSquareTraceScaleSymbols))) :=
+  A.toLegalSquareTraceScaleSymbols.trace_square_statement
+
+theorem trace_class_template_statement
+    (A : NormalizedLegalSquareTraceScaleSymbols) :
+    ConcreteTraceScaleSymbols.TraceClassTemplateStatement
+      (SquareTraceScaleSymbols.toConcreteTraceScaleSymbols
+        (LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols
+          A.toLegalSquareTraceScaleSymbols)) :=
+  A.toLegalSquareTraceScaleSymbols.trace_class_template_statement
+
+theorem ordinary_trace_support_square_statement
+    (A : NormalizedLegalSquareTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      (ConcreteTraceScaleSymbols.toArchimedeanTraceSymbols
+        (SquareTraceScaleSymbols.toConcreteTraceScaleSymbols
+          (LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols
+            A.toLegalSquareTraceScaleSymbols))) :=
+  A.toLegalSquareTraceScaleSymbols.ordinary_trace_support_square_statement
+
+end NormalizedLegalSquareTraceScaleSymbols
+
 /-- Constructor for a CC20 trace model from concrete trace-scale data. -/
 def toCC20TraceModel
     (A : ConcreteTraceScaleSymbols)
@@ -382,6 +450,58 @@ theorem legal_square_trace_scale_to_cc20_trace_model_ordinary_trace_support_squa
     ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
       (legalSquareTraceScaleToCC20TraceModel A hmellin hsigns).archimedeanSymbols :=
   A.ordinary_trace_support_square_statement
+
+/--
+Constructor for a CC20 trace model from fully normalized legal square data.
+
+This version has no proof arguments.  All rows are discharged from the concrete
+definitions in this module.
+-/
+def normalizedLegalSquareTraceScaleToCC20TraceModel
+    (A : NormalizedLegalSquareTraceScaleSymbols) :
+    CC20TraceModel :=
+  legalSquareTraceScaleToCC20TraceModel
+    A.toLegalSquareTraceScaleSymbols
+    A.mellin_half_density_convention
+    A.signs_and_normalizations
+
+theorem normalized_legal_square_trace_scale_to_cc20_trace_model_trace_square
+    (A : NormalizedLegalSquareTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.TraceSquareStatement
+      (normalizedLegalSquareTraceScaleToCC20TraceModel A).archimedeanSymbols :=
+  A.trace_square_statement
+
+theorem normalized_legal_square_trace_scale_to_cc20_trace_model_trace_class_template
+    (A : NormalizedLegalSquareTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.TraceClassTemplateStatement
+      (normalizedLegalSquareTraceScaleToCC20TraceModel A).archimedeanSymbols :=
+  A.toLegalSquareTraceScaleSymbols.trace_class_template_statement
+
+theorem normalized_legal_square_trace_scale_to_cc20_trace_model_ordinary_trace_support_square
+    (A : NormalizedLegalSquareTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      (normalizedLegalSquareTraceScaleToCC20TraceModel A).archimedeanSymbols :=
+  A.ordinary_trace_support_square_statement
+
+theorem normalized_legal_square_trace_scale_to_cc20_trace_model_mellin
+    (A : NormalizedLegalSquareTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.MellinHalfDensityConventionStatement
+      (normalizedLegalSquareTraceScaleToCC20TraceModel A).archimedeanSymbols :=
+  ConcreteTraceScaleSymbols.mellin_half_density_convention_statement
+    (SquareTraceScaleSymbols.toConcreteTraceScaleSymbols
+      (LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols
+        A.toLegalSquareTraceScaleSymbols))
+      A.mellin_half_density_convention
+
+theorem normalized_legal_square_trace_scale_to_cc20_trace_model_signs
+    (A : NormalizedLegalSquareTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.SignsAndNormalizationsStatement
+      (normalizedLegalSquareTraceScaleToCC20TraceModel A).archimedeanSymbols :=
+  ConcreteTraceScaleSymbols.signs_and_normalizations_statement
+    (SquareTraceScaleSymbols.toConcreteTraceScaleSymbols
+      (LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols
+        A.toLegalSquareTraceScaleSymbols))
+      A.signs_and_normalizations
 
 end TraceScale
 end CC20Concrete

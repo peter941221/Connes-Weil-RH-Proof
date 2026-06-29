@@ -1,5 +1,37 @@
 2026-06-29
 
+- Continued Goal 4J by adding a normalized no-proof-input CC20 trace-model
+  seed.
+- Updated `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.
+- Added `CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols`, which
+  fixes `mellinHalfDensityMatched`, `uInfinityNormalized`, `qduNormalized`, and
+  `archimedeanSignNormalized` to `True`.
+- Added
+  `NormalizedLegalSquareTraceScaleSymbols.mellin_half_density_convention` and
+  `NormalizedLegalSquareTraceScaleSymbols.signs_and_normalizations`.
+- Added `normalizedLegalSquareTraceScaleToCC20TraceModel`, a constructor that
+  builds a `CC20TraceModel` from the normalized concrete seed with no proof
+  arguments.
+- Added read-offs:
+  `normalized_legal_square_trace_scale_to_cc20_trace_model_trace_square`,
+  `normalized_legal_square_trace_scale_to_cc20_trace_model_trace_class_template`,
+  `normalized_legal_square_trace_scale_to_cc20_trace_model_ordinary_trace_support_square`,
+  `normalized_legal_square_trace_scale_to_cc20_trace_model_mellin`, and
+  `normalized_legal_square_trace_scale_to_cc20_trace_model_signs`.
+- Updated the ignored local plan and root `AGENTS.md` with the boundary:
+  this discharges the CC20 trace-model rows only for the normalized seed. It
+  does not identify the actual CC20 source operators or conventions with that
+  seed.
+- Next target recorded: add a source-identification interface from the real
+  `CC20TraceObjectPackage` to `NormalizedLegalSquareTraceScaleSymbols`, with
+  named equalities for support-square trace, no-defect trace, positive trace,
+  Hilbert-Schmidt gate, Mellin convention, and sign normalization.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.CC20Concrete.TraceScale
+  ConnesWeilRH.Source.CC20Concrete ConnesWeilRH`.
+
+2026-06-29
+
 - Continued Goal 4J by adding a concrete trace-class/cyclicity legal-gate seed.
 - Updated `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.
 - Added `CC20Concrete.TraceScale.LegalSquareTraceScaleSymbols`, where

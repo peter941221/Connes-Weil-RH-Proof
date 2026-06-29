@@ -676,6 +676,16 @@ drift, hidden axioms, or toy-route leakage.
   The remaining CC20 concrete targets are a source-identification theorem tying
   the actual CC20 operator trace/gate to this concrete seed, plus Mellin
   half-density and sign/normalization proofs.
+- Goal 4J now has a normalized no-proof-input CC20 trace-model seed:
+  `NormalizedLegalSquareTraceScaleSymbols` fixes the Mellin and sign
+  normalization propositions to `True`, and
+  `normalizedLegalSquareTraceScaleToCC20TraceModel` builds a `CC20TraceModel`
+  without external proof arguments for the normalized seed. Do not treat this
+  as a model of the actual CC20 operators. The next useful target is a
+  source-identification interface from the real `CC20TraceObjectPackage` to
+  `NormalizedLegalSquareTraceScaleSymbols`, with named equalities for
+  support-square trace, no-defect trace, positive trace, Hilbert-Schmidt gate,
+  Mellin convention, and sign normalization.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport
