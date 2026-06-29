@@ -9440,3 +9440,30 @@
   `Source.SourceObject.SourceObjectPackage` and recorded that its current
   `Prop` fields must be filled by named theorems rather than renamed
   assumptions.
+
+2026-06-30
+
+- Added the normalized fixed-test-to-trace route wrapper in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- The new declarations are
+  `toExpandedSourceTraceReadOffFrontEndOfNormalizedPackage`,
+  `toSourceTraceReadOffDataOfNormalizedPackage`,
+  `normalized_package_source_trace_archimedean_test`,
+  `normalized_package_source_trace_lambda`,
+  `normalized_package_source_trace_arithmetic_package`, and
+  `normalized_package_source_trace_weil_test_eq_common`.
+- This completes the Goal 4D/E/F route-front-end plumbing at the normalized
+  package layer: fixed-test data built from the normalized CC20 trace package
+  now feeds trace read-off data while preserving the archimedean test, fixed
+  lambda, CCM25 arithmetic package, and common Weil test identity.
+- WSL ext4 verification passed after syncing the Windows source file:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd` and
+  `lake build ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`.
+- Important syntax pitfall: avoid splitting a chained field projection after a
+  parenthesized expression as
+  `(sourceObjectPackage...).cc20Trace` followed by `.sourceTraceTest` on the
+  next line; Lean can parse it as an attempted function application. Keep the
+  projection as
+  `(sourceObjectPackage...).cc20Trace.sourceTraceTest`.
+- Boundary preserved: this is route-front-end normalization plumbing, not an
+  analytic source-law discharge and not an unconditional RH proof.
