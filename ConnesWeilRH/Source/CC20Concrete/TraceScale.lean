@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: ConnesWeilRH contributors
 -/
 
+import ConnesWeilRH.Source.Objects
 import ConnesWeilRH.Source.CC20TraceModel
 
 /-!
@@ -502,6 +503,168 @@ theorem normalized_legal_square_trace_scale_to_cc20_trace_model_signs
       (LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols
         A.toLegalSquareTraceScaleSymbols))
       A.signs_and_normalizations
+
+def normalizedSeedConcreteSymbols
+    (A : NormalizedLegalSquareTraceScaleSymbols) : ConcreteTraceScaleSymbols :=
+  SquareTraceScaleSymbols.toConcreteTraceScaleSymbols
+    (LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols
+      A.toLegalSquareTraceScaleSymbols)
+
+def normalizedSeedSupportSquareTrace
+    (A : NormalizedLegalSquareTraceScaleSymbols) : A.Test → ℝ :=
+  (normalizedSeedConcreteSymbols A).supportSquareTrace
+
+def normalizedSeedSourceNoDefectTrace
+    (A : NormalizedLegalSquareTraceScaleSymbols) : A.Test → ℝ :=
+  (normalizedSeedConcreteSymbols A).sourceNoDefectTrace
+
+def normalizedSeedPositiveTrace
+    (A : NormalizedLegalSquareTraceScaleSymbols) : A.Test → ℝ :=
+  (normalizedSeedConcreteSymbols A).positiveTrace
+
+def normalizedSeedTraceClass
+    (A : NormalizedLegalSquareTraceScaleSymbols) : A.Test → Prop :=
+  (LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols
+    A.toLegalSquareTraceScaleSymbols).traceClass
+
+def normalizedSeedCyclicLegal
+    (A : NormalizedLegalSquareTraceScaleSymbols) : A.Test → Prop :=
+  (LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols
+    A.toLegalSquareTraceScaleSymbols).cyclicLegal
+
+def normalizedSeedHilbertSchmidtGate
+    (A : NormalizedLegalSquareTraceScaleSymbols) : A.Test → Prop :=
+  (LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols
+    A.toLegalSquareTraceScaleSymbols).hilbertSchmidtGate
+
+/--
+Source-identification data connecting an actual CC20 trace object package to
+the normalized concrete trace-scale seed.
+
+This record is intentionally data-bearing.  It names each equality needed
+before the normalized seed can replace the source-package trace rows.
+-/
+structure CC20TracePackageNormalizedSeedIdentification
+    (pkg : SourceObject.CC20TraceObjectPackage) where
+  normalizedSeed : NormalizedLegalSquareTraceScaleSymbols
+  test_eq :
+    normalizedSeed.Test = pkg.archimedeanSymbols.Test
+  supportSquareTrace_eq :
+    HEq (normalizedSeedSupportSquareTrace normalizedSeed)
+      pkg.archimedeanSymbols.supportSquareTrace
+  sourceNoDefectTrace_eq :
+    HEq (normalizedSeedSourceNoDefectTrace normalizedSeed)
+      pkg.archimedeanSymbols.sourceNoDefectTrace
+  positiveTrace_eq :
+    HEq (normalizedSeedPositiveTrace normalizedSeed)
+      pkg.archimedeanSymbols.positiveTrace
+  traceClass_eq :
+    HEq (normalizedSeedTraceClass normalizedSeed)
+      pkg.archimedeanSymbols.traceClass
+  cyclicLegal_eq :
+    HEq (normalizedSeedCyclicLegal normalizedSeed)
+      pkg.archimedeanSymbols.cyclicLegal
+  hilbertSchmidtGate_eq :
+    HEq (normalizedSeedHilbertSchmidtGate normalizedSeed)
+      pkg.archimedeanSymbols.hilbertSchmidtGate
+  mellinHalfDensityMatched_eq :
+    HEq
+      normalizedSeed.toLegalSquareTraceScaleSymbols.mellinHalfDensityMatched
+      pkg.archimedeanSymbols.mellinHalfDensityMatched
+  uInfinityNormalized_eq :
+    HEq
+      normalizedSeed.toLegalSquareTraceScaleSymbols.uInfinityNormalized
+      pkg.archimedeanSymbols.uInfinityNormalized
+  qduNormalized_eq :
+    HEq
+      normalizedSeed.toLegalSquareTraceScaleSymbols.qduNormalized
+      pkg.archimedeanSymbols.qduNormalized
+  archimedeanSignNormalized_eq :
+    HEq
+      normalizedSeed.toLegalSquareTraceScaleSymbols.archimedeanSignNormalized
+      pkg.archimedeanSymbols.archimedeanSignNormalized
+
+namespace CC20TracePackageNormalizedSeedIdentification
+
+theorem normalized_seed_trace_square
+    {pkg : SourceObject.CC20TraceObjectPackage}
+    (h : CC20TracePackageNormalizedSeedIdentification pkg) :
+    ArchimedeanTraceSymbols.TraceSquareStatement
+      (normalizedLegalSquareTraceScaleToCC20TraceModel
+        h.normalizedSeed).archimedeanSymbols :=
+  normalized_legal_square_trace_scale_to_cc20_trace_model_trace_square
+    h.normalizedSeed
+
+theorem normalized_seed_trace_class_template
+    {pkg : SourceObject.CC20TraceObjectPackage}
+    (h : CC20TracePackageNormalizedSeedIdentification pkg) :
+    ArchimedeanTraceSymbols.TraceClassTemplateStatement
+      (normalizedLegalSquareTraceScaleToCC20TraceModel
+        h.normalizedSeed).archimedeanSymbols :=
+  normalized_legal_square_trace_scale_to_cc20_trace_model_trace_class_template
+    h.normalizedSeed
+
+theorem normalized_seed_ordinary_trace_support_square
+    {pkg : SourceObject.CC20TraceObjectPackage}
+    (h : CC20TracePackageNormalizedSeedIdentification pkg) :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      (normalizedLegalSquareTraceScaleToCC20TraceModel
+        h.normalizedSeed).archimedeanSymbols :=
+  normalized_legal_square_trace_scale_to_cc20_trace_model_ordinary_trace_support_square
+    h.normalizedSeed
+
+def toCC20TraceModel
+    {pkg : SourceObject.CC20TraceObjectPackage}
+    (h : CC20TracePackageNormalizedSeedIdentification pkg) :
+    CC20TraceModel :=
+  normalizedLegalSquareTraceScaleToCC20TraceModel h.normalizedSeed
+
+theorem to_cc20_trace_model_trace_square
+    {pkg : SourceObject.CC20TraceObjectPackage}
+    (h : CC20TracePackageNormalizedSeedIdentification pkg) :
+    ArchimedeanTraceSymbols.TraceSquareStatement
+      (h.toCC20TraceModel).archimedeanSymbols :=
+  h.normalized_seed_trace_square
+
+theorem to_cc20_trace_model_trace_class_template
+    {pkg : SourceObject.CC20TraceObjectPackage}
+    (h : CC20TracePackageNormalizedSeedIdentification pkg) :
+    ArchimedeanTraceSymbols.TraceClassTemplateStatement
+      (h.toCC20TraceModel).archimedeanSymbols :=
+  h.normalized_seed_trace_class_template
+
+theorem to_cc20_trace_model_ordinary_trace_support_square
+    {pkg : SourceObject.CC20TraceObjectPackage}
+    (h : CC20TracePackageNormalizedSeedIdentification pkg) :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      (h.toCC20TraceModel).archimedeanSymbols :=
+  h.normalized_seed_ordinary_trace_support_square
+
+theorem support_square_trace_identification
+    {pkg : SourceObject.CC20TraceObjectPackage}
+    (h : CC20TracePackageNormalizedSeedIdentification pkg) :
+    HEq
+      (normalizedSeedSupportSquareTrace h.normalizedSeed)
+      pkg.archimedeanSymbols.supportSquareTrace :=
+  h.supportSquareTrace_eq
+
+theorem positive_trace_identification
+    {pkg : SourceObject.CC20TraceObjectPackage}
+    (h : CC20TracePackageNormalizedSeedIdentification pkg) :
+    HEq
+      (normalizedSeedPositiveTrace h.normalizedSeed)
+      pkg.archimedeanSymbols.positiveTrace :=
+  h.positiveTrace_eq
+
+theorem hilbert_schmidt_gate_identification
+    {pkg : SourceObject.CC20TraceObjectPackage}
+    (h : CC20TracePackageNormalizedSeedIdentification pkg) :
+    HEq
+      (normalizedSeedHilbertSchmidtGate h.normalizedSeed)
+      pkg.archimedeanSymbols.hilbertSchmidtGate :=
+  h.hilbertSchmidtGate_eq
+
+end CC20TracePackageNormalizedSeedIdentification
 
 end TraceScale
 end CC20Concrete

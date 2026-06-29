@@ -686,6 +686,15 @@ drift, hidden axioms, or toy-route leakage.
   `NormalizedLegalSquareTraceScaleSymbols`, with named equalities for
   support-square trace, no-defect trace, positive trace, Hilbert-Schmidt gate,
   Mellin convention, and sign normalization.
+- Goal 4J now has the data-bearing source-identification interface
+  `CC20TracePackageNormalizedSeedIdentification`. It connects a real
+  `CC20TraceObjectPackage` to a `NormalizedLegalSquareTraceScaleSymbols` seed
+  through named `HEq` fields for the test type, trace scalar functions,
+  trace-class/cyclicity predicates, Hilbert-Schmidt gate, Mellin convention,
+  and sign normalizations. Do not describe this interface as proving CC20
+  source identification. The next target is to prove at least one of those
+  identification fields from concrete CC20 definitions or replace a component
+  with a source-backed constructor where the equality is definitional.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport

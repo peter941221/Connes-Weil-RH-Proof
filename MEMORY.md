@@ -1,5 +1,37 @@
 2026-06-29
 
+- Continued Goal 4J by adding the source-identification interface from a real
+  `CC20TraceObjectPackage` to the normalized concrete trace-scale seed.
+- Updated `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.
+- Added helper projections:
+  `normalizedSeedConcreteSymbols`, `normalizedSeedSupportSquareTrace`,
+  `normalizedSeedSourceNoDefectTrace`, `normalizedSeedPositiveTrace`,
+  `normalizedSeedTraceClass`, `normalizedSeedCyclicLegal`, and
+  `normalizedSeedHilbertSchmidtGate`.
+- Added `CC20TracePackageNormalizedSeedIdentification`, a data-bearing record
+  with named `HEq` fields for the test type, support-square trace, source
+  no-defect trace, positive trace, trace-class predicate, cyclicity predicate,
+  Hilbert-Schmidt gate, Mellin convention, and sign normalization fields.
+- Added constructor/read-off projections:
+  `CC20TracePackageNormalizedSeedIdentification.toCC20TraceModel`,
+  `to_cc20_trace_model_trace_square`,
+  `to_cc20_trace_model_trace_class_template`,
+  `to_cc20_trace_model_ordinary_trace_support_square`,
+  `support_square_trace_identification`,
+  `positive_trace_identification`, and
+  `hilbert_schmidt_gate_identification`.
+- Updated the ignored local plan and root `AGENTS.md` with the boundary:
+  this interface records the source-identification equalities. It does not
+  prove them from CC20 definitions.
+- Next target recorded: prove at least one identification field from concrete
+  CC20 definitions, or replace a component with a source-backed constructor
+  where the equality is definitional.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.CC20Concrete.TraceScale
+  ConnesWeilRH.Source.CC20Concrete ConnesWeilRH`.
+
+2026-06-29
+
 - Continued Goal 4J by adding a normalized no-proof-input CC20 trace-model
   seed.
 - Updated `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.
