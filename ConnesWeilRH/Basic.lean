@@ -132,6 +132,12 @@ def TraceSquareStatement (A : ArchimedeanTraceSymbols) : Prop :=
         A.supportSquareTrace g = A.sourceNoDefectTrace g ∧
           0 ≤ A.positiveTrace g
 
+def OrdinaryTraceSupportSquareStatement (A : ArchimedeanTraceSymbols) : Prop :=
+  ∀ g : A.Test,
+    A.traceClass g →
+      A.cyclicLegal g →
+        A.positiveTrace g = A.supportSquareTrace g
+
 def TraceClassTemplateStatement (A : ArchimedeanTraceSymbols) : Prop :=
   ∀ g : A.Test,
     A.hilbertSchmidtGate g → A.traceClass g ∧ A.cyclicLegal g

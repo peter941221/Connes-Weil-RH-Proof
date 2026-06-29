@@ -175,6 +175,12 @@ theorem provesTraceSquareStatement
     ⟨pkg.cc20Trace.sourceSupportSquareTraceReadOff g htrace hcyclic,
       pkg.cc20Trace.sourcePositiveTraceNonnegative g htrace hcyclic⟩
 
+theorem provesOrdinaryTraceSupportSquareStatement
+    (pkg : SourceObjectPackage) :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      pkg.toArchimedeanTraceSymbols :=
+  pkg.cc20Trace.sourceOrdinaryTraceSupportSquare
+
 theorem provesTraceClassTemplateStatement
     (pkg : SourceObjectPackage) :
     ArchimedeanTraceSymbols.TraceClassTemplateStatement

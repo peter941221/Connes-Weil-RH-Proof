@@ -608,10 +608,31 @@ drift, hidden axioms, or toy-route leakage.
   forces route-front-end staging to carry that same evidence before producing
   an `ExpandedSourceRouteCertificateFrontEnd`. Do not describe this as proving
   the S2-B1 analytic scalar equalities, sign/defect, restricted-to-full, route
-  certificate, or unconditional RH. The next proof-bearing slice is Goal 4D:
-  make sign/defect front-end construction consume `TraceScaleRouteFrontEndData`
-  and then replace the S2-B1 fields with proved Lean theorem constructors one
-  scalar class at a time.
+  certificate, or unconditional RH. Goals 4D/E/F are complete as constructor
+  staging: `route_certificate_of_trace_scale_data` and package-data helpers make
+  route-certificate construction pass through `TraceScaleRouteFrontEndData`,
+  while `OrdinaryTraceSupportSquareTheoremData` and
+  `NoDefectQWLambdaTheoremData` split the S2-B1 scalar path into ordinary-trace
+  to support-square, support-square to no-defect source, and no-defect to
+  `QW_lambda` theorem legs. Do not describe these constructors as proving the
+  analytic scalar equalities. The next proof-bearing slice is to replace one of
+  those theorem-data fields with a theorem from CC20/CCM25 source definitions or
+  accepted Lean imports, starting with the ordinary positive trace equals
+  support-square trace leg. The source-shaped records
+  `CC20OrdinaryTraceSupportSquareTheoremData` and
+  `CC20NoDefectQWLambdaTheoremData` are now the immediate replacement targets:
+  do not bypass them with generic propositions, and do not claim S2-B1 is proved
+  until those records are filled by the exact CC20/CCM25 theorem path rather
+  than by assumption fields.
+- Goal 4G is complete at the named source-interface level:
+  `ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement`,
+  `CC20TraceObjectPackage.sourceOrdinaryTraceSupportSquare`,
+  `cc20OrdinaryTraceSupportSquare`, `CC20Interface.ordinaryTraceSupportSquare`,
+  and `ordinary_trace_support_square_theorem_data_of_source_interface` now make
+  the ordinary positive trace to support-square scalar equality an explicit CC20
+  source row. Do not revert this to `sourceOrdinaryPositiveTrace : Prop`.
+  This row is still source-conditional until filled from concrete CC20
+  definitions or an accepted Lean import.
 - Common-test data must keep the convolution square as a concrete equality
   against the CCM25 Weil symbols, not as a bare `Prop`. The expanded route
   should store common-tuple evidence at the source square and transport

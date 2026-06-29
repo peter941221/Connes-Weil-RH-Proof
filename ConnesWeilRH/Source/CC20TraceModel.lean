@@ -24,6 +24,9 @@ structure CC20TraceModel where
     ArchimedeanTraceSymbols.TraceSquareStatement archimedeanSymbols
   traceClassTemplate :
     ArchimedeanTraceSymbols.TraceClassTemplateStatement archimedeanSymbols
+  ordinaryTraceSupportSquare :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      archimedeanSymbols
   mellinHalfDensityConvention :
     ArchimedeanTraceSymbols.MellinHalfDensityConventionStatement
       archimedeanSymbols
@@ -41,6 +44,12 @@ theorem cc20_source_trace_class_template
     ArchimedeanTraceSymbols.TraceClassTemplateStatement
       M.archimedeanSymbols :=
   M.traceClassTemplate
+
+theorem cc20_source_ordinary_trace_support_square
+    (M : CC20TraceModel) :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      M.archimedeanSymbols :=
+  M.ordinaryTraceSupportSquare
 
 theorem cc20_source_mellin_half_density_convention
     (M : CC20TraceModel) :

@@ -170,7 +170,9 @@ structure CC20TraceObjectPackage where
   sourceTraceClassCyclicityTemplate :
     ArchimedeanTraceSymbols.TraceClassTemplateStatement archimedeanSymbols
   sourcePerMoveCyclicityLedger : Prop
-  sourceOrdinaryPositiveTrace : Prop
+  sourceOrdinaryTraceSupportSquare :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      archimedeanSymbols
   sourceSupportSquareTraceReadOff :
     ∀ g : archimedeanSymbols.Test,
       archimedeanSymbols.traceClass g →

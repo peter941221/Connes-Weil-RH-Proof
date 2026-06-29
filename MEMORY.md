@@ -1,5 +1,137 @@
 2026-06-29
 
+- Completed Goal 4G at the named source-interface row level.
+- Inspected `ArchimedeanTraceSymbols`, `CC20TraceObjectPackage`,
+  `SourceObjectPackage.provesTraceSquareStatement`, and the CC20 compact
+  interface path.
+- Updated `ConnesWeilRH/Basic.lean`.
+- Added `ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement`, stating
+  `positiveTrace g = supportSquareTrace g` under the same trace-class and
+  cyclicity hypotheses used by the route.
+- Updated `ConnesWeilRH/Source/Objects.lean`.
+- Replaced the loose `sourceOrdinaryPositiveTrace : Prop` field on
+  `CC20TraceObjectPackage` with data-bearing
+  `sourceOrdinaryTraceSupportSquare :
+  ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+  archimedeanSymbols`.
+- Updated `ConnesWeilRH/Source/ObjectDerivations.lean` with
+  `SourceObjectPackage.provesOrdinaryTraceSupportSquareStatement`.
+- Updated `ConnesWeilRH/Source/CC20.lean` with the source obligation
+  `cc20OrdinaryTraceSupportSquare`, the compact interface field
+  `CC20Interface.ordinaryTraceSupportSquare`, the source-object-backed theorem
+  `SourceObjectBackedCC20Interface.ordinary_trace_support_square`, and the
+  `CC20Interface.ofSourceObjectPackage` projection.
+- Updated `ConnesWeilRH/Source/CC20TraceModel.lean` and
+  `ConnesWeilRH/Source/CC20TheoremBase.lean` so the theorem-base path carries
+  the ordinary/support-square row explicitly.
+- Updated `ConnesWeilRH/Route/TraceFrontEnd.lean` with
+  `ordinary_trace_support_square_theorem_data_of_source_interface` and
+  `ordinary_trace_support_square_source_interface_holds`, so Goal 4E can be
+  filled from the compact CC20 source interface instead of a generic Prop.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` and root
+  `AGENTS.md` to mark Goal 4G complete at source-interface level and set Goal
+  4H/4I/4J as the next targets.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Source.CC20TraceModel
+  ConnesWeilRH.Source.CC20TheoremBase ConnesWeilRH.Source.CC20
+  ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH`.
+- Boundary preserved: Goal 4G removes the generic ordinary-trace Prop gap, but
+  it is still source-conditional. The new row must later be filled from concrete
+  CC20 definitions or an accepted Lean import before it counts as analytic
+  discharge.
+
+2026-06-29
+
+- Continued the S2-B1 theorem replacement path after Goals 4D/E/F.
+- Inspected the CC20 trace interface in `ConnesWeilRH/Route/Theorem1.lean` and
+  `ConnesWeilRH/Source/Objects.lean`.
+- Current evidence: `CC20TraceObjectPackage.sourceSupportSquareTraceReadOff`
+  proves support-square trace equals source no-defect trace under trace-class
+  and cyclicity evidence, and `sourcePositiveTraceNonnegative` proves positivity,
+  but there is not yet a Lean theorem field proving ordinary positive trace is
+  the same finite-lambda scalar as support-square trace.
+- Updated `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- Added `CC20OrdinaryTraceSupportSquareTheoremData`, tying the missing ordinary
+  trace to support-square trace theorem to the exact `SourceTraceReadOffData`,
+  `CC20TraceLegality`, and `CC20TraceSquareReadOff` used by the route.
+- Added `ordinary_trace_support_square_theorem_data_of_cc20` plus read-offs:
+  `ordinary_trace_support_square_constructor_uses_cc20_statement` and
+  `ordinary_trace_support_square_constructor_holds`.
+- Added `CC20NoDefectQWLambdaTheoremData`, tying the support-square/no-defect
+  and no-defect/`QW_lambda` theorem legs to the exact trace-square read-off and
+  restricted trace read-off source used by the route.
+- Added `no_defect_qw_lambda_theorem_data_of_cc20` plus read-offs:
+  `no_defect_qw_lambda_constructor_uses_support_square_statement` and
+  `no_defect_qw_lambda_constructor_uses_qw_lambda_statement`.
+- Updated the ignored local plan
+  `external-opinions/003-unconditional-rh-completion-plan.md` and root
+  `AGENTS.md` to set the next target as Goal 4G: prove or import the exact
+  ordinary-positive-trace equals support-square-trace theorem for the same
+  `SourceTraceReadOffData`.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH`.
+- Axiom audit for the new source-shaped Goal 4G interface constructors reported
+  only `[propext, Classical.choice, Quot.sound]`.
+- Weak-placeholder scan over the touched route Lean files found no `sorry`,
+  `admit`, `axiom`, `constant`, `opaque`, `unsafe`, `Nonempty`, `.choose`,
+  `choose_spec`, or `exists row, True` shells. The only match for `axiom` was
+  the word `axioms` in the `RouteTheorem.lean` module comment.
+- Boundary preserved: this is still theorem-interface replacement, not analytic
+  discharge. The ordinary/support-square equality remains an explicit theorem
+  obligation until filled from concrete CC20 definitions or accepted Lean import.
+
+2026-06-29
+
+- Completed Goals 4D/E/F as constructor/read-off staging for the S2-B1
+  trace-scale path.
+- Updated `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- Added `OrdinaryTraceSupportSquareTheoremData`, which isolates the first S2-B1
+  scalar leg: ordinary positive trace equals support-square trace.
+- Added `NoDefectQWLambdaTheoremData`, which isolates the next two S2-B1 scalar
+  legs: support-square trace equals no-defect source trace, and no-defect source
+  trace equals `QW_lambda`.
+- Added `trace_scale_no_missing_bulk_of_scalar_theorem_data` plus read-offs:
+  `ordinary_trace_matches_support_square_of_scalar_theorem_data`,
+  `ordinary_trace_support_square_theorem_holds`,
+  `support_square_matches_no_defect_of_scalar_theorem_data`,
+  `no_defect_matches_qw_lambda_of_scalar_theorem_data`,
+  `support_square_no_defect_theorem_holds`, and
+  `no_defect_qw_lambda_theorem_holds`.
+- Updated `ConnesWeilRH/Route/RouteTheorem.lean`.
+- Added `TraceScaleRouteFrontEndData.ofTraceData`, which builds the Goal 4D
+  route-front-end data from a `TraceFrontEndData` object, route ledgers,
+  common-tuple evidence, sign/defect classification, trace-scale ownership of
+  the sign/defect remainder, restricted-to-full evidence, and final sign bridge
+  source evidence.
+- Added route/certificate constructors:
+  `route_front_end_of_trace_scale_data`,
+  `route_certificate_of_trace_scale_data`,
+  `route_front_end_of_package_data`, and
+  `route_certificate_of_package_data`.
+- Added route/certificate read-offs:
+  `of_trace_data_trace_scale_matches_trace_data`,
+  `route_certificate_of_trace_scale_data_ledgers`, and
+  `route_certificate_of_trace_scale_data_source_backed_test`.
+- Updated root `AGENTS.md` to mark Goals 4D/E/F complete as staging and to set
+  the next proof-bearing slice: replace one theorem-data field with an actual
+  Lean theorem from CC20/CCM25 source definitions or accepted Lean imports,
+  starting with ordinary positive trace equals support-square trace.
+- WSL ext4 verification passed after syncing from the Windows source of truth:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`.
+- Axiom audit for the Goal 4D/E/F constructors and read-offs reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Weak-placeholder scan over the touched Goal 4D/E/F Lean files found no
+  `sorry`, `admit`, `axiom`, `constant`, `opaque`, `unsafe`, `Nonempty`,
+  `.choose`, `choose_spec`, or `exists row, True` shells. The only match for
+  `axiom` was the word `axioms` in the `RouteTheorem.lean` module comment.
+- Boundary preserved: Goals 4D/E/F do not prove the S2-B1 analytic scalar
+  equalities. They split and route the obligations so later theorem replacement
+  cannot skip ordinary trace/support-square/no-defect/`QW_lambda` compatibility.
+
+2026-06-29
+
 - Completed Goal 4C as a structured S2-B1 trace-scale obligation layer.
 - Updated `ConnesWeilRH/Route/TraceFrontEnd.lean`.
 - Added `TraceScaleNoMissingBulkData`, which names the ordinary trace to

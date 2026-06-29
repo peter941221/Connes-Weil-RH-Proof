@@ -156,6 +156,48 @@ structure TraceScaleRouteFrontEndData
 
 namespace TraceScaleRouteFrontEndData
 
+def ofTraceData
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceData : TraceFrontEndData pkg fixedFront)
+    (ledgers : RouteLedgers)
+    (commonTuple :
+      SourceCommonTestTupleContract
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+        traceData.lambda
+        pkg.commonTest.sourceConvolutionSquare
+        traceData.ccm25ArithmeticPackage)
+    (signDefectClassification :
+      SourceSignDefectClassification
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+        traceData.lambda ledgers)
+    (traceScaleOwnsSignDefectRemainder :
+      traceData.traceScaleNoMissingBulk.rankPoleCdefOwnEveryRemainder
+        ledgers signDefectClassification)
+    (restrictedToFullQWBridge :
+      RestrictedToFullQWBridgeContract
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+        traceData.lambda
+        pkg.commonTest.sourceConvolutionSquare
+        ledgers traceData.ccm25ArithmeticPackage)
+    (sourceArchimedeanSignBridge :
+      SourceArchimedeanSignBridge
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        pkg.cc20Trace.sourceTraceTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)) :
+    TraceScaleRouteFrontEndData pkg fixedFront traceData where
+  ledgers := ledgers
+  traceScaleNoMissingBulk := traceData.traceScaleNoMissingBulk
+  traceScaleMatchesTraceData := rfl
+  commonTuple := commonTuple
+  signDefectClassification := signDefectClassification
+  traceScaleOwnsSignDefectRemainder := traceScaleOwnsSignDefectRemainder
+  restrictedToFullQWBridge := restrictedToFullQWBridge
+  sourceArchimedeanSignBridge := sourceArchimedeanSignBridge
+
 def toExpandedSourceRouteCertificateFrontEnd
     (pkg : Source.SourceObject.SourceObjectPackage)
     (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
@@ -176,6 +218,44 @@ theorem route_front_trace_scale_matches_trace_data
     (routeData : TraceScaleRouteFrontEndData pkg fixedFront traceData) :
     routeData.traceScaleNoMissingBulk = traceData.traceScaleNoMissingBulk :=
   routeData.traceScaleMatchesTraceData
+
+theorem of_trace_data_trace_scale_matches_trace_data
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceData : TraceFrontEndData pkg fixedFront)
+    (ledgers : RouteLedgers)
+    (commonTuple :
+      SourceCommonTestTupleContract
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+        traceData.lambda
+        pkg.commonTest.sourceConvolutionSquare
+        traceData.ccm25ArithmeticPackage)
+    (signDefectClassification :
+      SourceSignDefectClassification
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+        traceData.lambda ledgers)
+    (traceScaleOwnsSignDefectRemainder :
+      traceData.traceScaleNoMissingBulk.rankPoleCdefOwnEveryRemainder
+        ledgers signDefectClassification)
+    (restrictedToFullQWBridge :
+      RestrictedToFullQWBridgeContract
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+        traceData.lambda
+        pkg.commonTest.sourceConvolutionSquare
+        ledgers traceData.ccm25ArithmeticPackage)
+    (sourceArchimedeanSignBridge :
+      SourceArchimedeanSignBridge
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        pkg.cc20Trace.sourceTraceTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)) :
+    (ofTraceData pkg fixedFront traceData ledgers commonTuple
+      signDefectClassification traceScaleOwnsSignDefectRemainder
+      restrictedToFullQWBridge sourceArchimedeanSignBridge).traceScaleNoMissingBulk =
+      traceData.traceScaleNoMissingBulk :=
+  rfl
 
 theorem route_front_no_extra_bulk
     (pkg : Source.SourceObject.SourceObjectPackage)
@@ -583,6 +663,106 @@ def route_certificate_of_expanded_source_package
     (expanded_source_restricted_to_full_bridge_on_route_square
       pkg fixedFront traceFront routeFront)
     (expanded_source_route_final_sign_bridge pkg fixedFront traceFront routeFront)
+
+def route_front_end_of_trace_scale_data
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceData : TraceFrontEndData pkg fixedFront)
+    (routeData : TraceScaleRouteFrontEndData pkg fixedFront traceData) :
+    ExpandedSourceRouteCertificateFrontEnd pkg fixedFront
+      (traceData.toExpandedSourceTraceReadOffFrontEnd pkg fixedFront) :=
+  routeData.toExpandedSourceRouteCertificateFrontEnd pkg fixedFront traceData
+
+def route_certificate_of_trace_scale_data
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceData : TraceFrontEndData pkg fixedFront)
+    (routeData : TraceScaleRouteFrontEndData pkg fixedFront traceData) :
+    RouteCertificate (RouteInputs.ofExpandedSourcePackage pkg) :=
+  route_certificate_of_expanded_source_package
+    pkg fixedFront
+    (traceData.toExpandedSourceTraceReadOffFrontEnd pkg fixedFront)
+    (route_front_end_of_trace_scale_data pkg fixedFront traceData routeData)
+
+theorem route_certificate_of_trace_scale_data_ledgers
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceData : TraceFrontEndData pkg fixedFront)
+    (routeData : TraceScaleRouteFrontEndData pkg fixedFront traceData) :
+    (route_certificate_of_trace_scale_data pkg fixedFront traceData routeData).ledgers =
+      routeData.ledgers :=
+  rfl
+
+theorem route_certificate_of_trace_scale_data_source_backed_test
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceData : TraceFrontEndData pkg fixedFront)
+    (routeData : TraceScaleRouteFrontEndData pkg fixedFront traceData) :
+    (route_certificate_of_trace_scale_data
+      pkg fixedFront traceData routeData).sourceBackedTest =
+      SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront :=
+  rfl
+
+def route_front_end_of_package_data
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (rows : Source.SourceObjectExpandedRows base common)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges : Source.SourceObjectCrossObjectBridges base common rows rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfData base common rows rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfData base common rows rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfPackageData
+          base common rows rhExit bridges fixedData))
+    (routeData :
+      TraceScaleRouteFrontEndData
+        (Source.sourceObjectPackageOfData base common rows rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfPackageData
+          base common rows rhExit bridges fixedData)
+        traceData) :
+    ExpandedSourceRouteCertificateFrontEnd
+      (Source.sourceObjectPackageOfData base common rows rhExit bridges)
+      (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfPackageData
+        base common rows rhExit bridges fixedData)
+      (TraceFrontEndData.toExpandedSourceTraceReadOffFrontEndOfPackageData
+        base common rows rhExit bridges fixedData traceData) :=
+  route_front_end_of_trace_scale_data
+    (Source.sourceObjectPackageOfData base common rows rhExit bridges)
+    (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfPackageData
+      base common rows rhExit bridges fixedData)
+    traceData routeData
+
+def route_certificate_of_package_data
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (rows : Source.SourceObjectExpandedRows base common)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges : Source.SourceObjectCrossObjectBridges base common rows rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfData base common rows rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfData base common rows rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfPackageData
+          base common rows rhExit bridges fixedData))
+    (routeData :
+      TraceScaleRouteFrontEndData
+        (Source.sourceObjectPackageOfData base common rows rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfPackageData
+          base common rows rhExit bridges fixedData)
+        traceData) :
+    RouteCertificate
+      (RouteInputs.ofExpandedSourcePackage
+        (Source.sourceObjectPackageOfData base common rows rhExit bridges)) :=
+  route_certificate_of_trace_scale_data
+    (Source.sourceObjectPackageOfData base common rows rhExit bridges)
+    (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfPackageData
+      base common rows rhExit bridges fixedData)
+    traceData routeData
 
 theorem route_certificate_ledgers_of_expanded_source_package
     (pkg : Source.SourceObject.SourceObjectPackage)

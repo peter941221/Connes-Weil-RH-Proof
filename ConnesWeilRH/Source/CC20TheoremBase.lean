@@ -26,6 +26,9 @@ structure CC20TheoremBase where
     ArchimedeanTraceSymbols.TraceSquareStatement archimedeanSymbols
   traceClassTemplate :
     ArchimedeanTraceSymbols.TraceClassTemplateStatement archimedeanSymbols
+  ordinaryTraceSupportSquare :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      archimedeanSymbols
   mellinHalfDensityConvention :
     ArchimedeanTraceSymbols.MellinHalfDensityConventionStatement
       archimedeanSymbols
@@ -45,6 +48,8 @@ def dischargedTraceBase
   archimedeanSymbols := M.archimedeanSymbols
   archimedeanTraceSquare := cc20_source_archimedean_trace_square M
   traceClassTemplate := cc20_source_trace_class_template M
+  ordinaryTraceSupportSquare :=
+    cc20_source_ordinary_trace_support_square M
   mellinHalfDensityConvention :=
     cc20_source_mellin_half_density_convention M
   signsAndNormalizations := cc20_source_signs_and_normalizations M
@@ -55,6 +60,7 @@ def toInterface (h : CC20TheoremBase) : CC20Interface where
   archimedeanSymbols := h.archimedeanSymbols
   archimedeanTraceSquare := h.archimedeanTraceSquare
   traceClassTemplate := h.traceClassTemplate
+  ordinaryTraceSupportSquare := h.ordinaryTraceSupportSquare
   mellinHalfDensityConvention := h.mellinHalfDensityConvention
   rhDefinitionBridge := h.rhDefinitionBridge
   cc20RHExitObjectPackage := h.cc20RHExitObjectPackage

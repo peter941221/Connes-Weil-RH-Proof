@@ -35,6 +35,14 @@ def cc20TraceClassTemplate : SourceObligation where
     "trace-class verification and quantized-calculus trace ideal template"
   statement := ArchimedeanTraceSymbols.TraceClassTemplateStatement A
 
+def cc20OrdinaryTraceSupportSquare : SourceObligation where
+  sourceKey := "CC20"
+  sourceFile := "weil-compo.tex"
+  lineRange := "378-387, 448-464, 2106-2121"
+  manuscriptRole :=
+    "ordinary positive trace and support-square trace are the same finite-lambda scalar"
+  statement := ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement A
+
 def cc20MellinHalfDensityConvention : SourceObligation where
   sourceKey := "CC20"
   sourceFile := "weil-compo.tex"
@@ -121,6 +129,8 @@ structure CC20Interface where
   archimedeanTraceSquare :
     (cc20ArchimedeanTraceSquare archimedeanSymbols).Holds
   traceClassTemplate : (cc20TraceClassTemplate archimedeanSymbols).Holds
+  ordinaryTraceSupportSquare :
+    (cc20OrdinaryTraceSupportSquare archimedeanSymbols).Holds
   mellinHalfDensityConvention :
     (cc20MellinHalfDensityConvention archimedeanSymbols).Holds
   rhDefinitionBridge : RHDefinitionBridge
@@ -151,6 +161,12 @@ theorem trace_class_template
     (h : Data) :
     (cc20TraceClassTemplate (archimedeanSymbols h)).Holds :=
   SourceObject.SourceObjectPackage.provesTraceClassTemplateStatement
+    h.sourceObjectPackage
+
+theorem ordinary_trace_support_square
+    (h : Data) :
+    (cc20OrdinaryTraceSupportSquare (archimedeanSymbols h)).Holds :=
+  SourceObject.SourceObjectPackage.provesOrdinaryTraceSupportSquareStatement
     h.sourceObjectPackage
 
 theorem mellin_half_density_convention
@@ -208,6 +224,9 @@ def ofSourceObjectPackage
     SourceObject.SourceObjectPackage.provesTraceSquareStatement pkg
   traceClassTemplate :=
     SourceObject.SourceObjectPackage.provesTraceClassTemplateStatement pkg
+  ordinaryTraceSupportSquare :=
+    SourceObject.SourceObjectPackage.provesOrdinaryTraceSupportSquareStatement
+      pkg
   mellinHalfDensityConvention :=
     SourceObject.SourceObjectPackage.provesMellinHalfDensityConventionStatement
       pkg
