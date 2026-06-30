@@ -131,6 +131,83 @@ theorem signs_and_normalizations_statement
 end ConcreteTraceScaleSymbols
 
 /--
+Concrete trace-scale data whose support-square/no-defect/positive trace is a
+specified nonnegative scalar family.
+
+This is the scalar-normalized CC20 seed needed when the downstream CCM25
+restricted normal form is the primary scalar.  Unlike
+`SquareTraceScaleSymbols`, positivity is supplied as a theorem about that
+scalar family rather than by choosing an amplitude whose square is the scalar.
+-/
+structure ScalarTraceScaleSymbols where
+  Test : Type
+  scalarTrace : Test → ℝ
+  scalarTrace_nonnegative : ∀ g : Test, 0 ≤ scalarTrace g
+  traceClass : Test → Prop
+  cyclicLegal : Test → Prop
+  hilbertSchmidtGate : Test → Prop
+  mellinHalfDensityMatched : Prop
+  uInfinityNormalized : Prop
+  qduNormalized : Prop
+  archimedeanSignNormalized : Prop
+
+namespace ScalarTraceScaleSymbols
+
+def toConcreteTraceScaleSymbols
+    (A : ScalarTraceScaleSymbols) : ConcreteTraceScaleSymbols where
+  Test := A.Test
+  supportSquareTrace := A.scalarTrace
+  traceClass := A.traceClass
+  cyclicLegal := A.cyclicLegal
+  hilbertSchmidtGate := A.hilbertSchmidtGate
+  mellinHalfDensityMatched := A.mellinHalfDensityMatched
+  uInfinityNormalized := A.uInfinityNormalized
+  qduNormalized := A.qduNormalized
+  archimedeanSignNormalized := A.archimedeanSignNormalized
+
+theorem support_square_trace_read_off
+    (A : ScalarTraceScaleSymbols) (g : A.Test) :
+    A.toConcreteTraceScaleSymbols.supportSquareTrace g =
+      A.scalarTrace g :=
+  rfl
+
+theorem source_no_defect_trace_read_off
+    (A : ScalarTraceScaleSymbols) (g : A.Test) :
+    A.toConcreteTraceScaleSymbols.sourceNoDefectTrace g =
+      A.scalarTrace g :=
+  rfl
+
+theorem positive_trace_nonnegative_statement
+    (A : ScalarTraceScaleSymbols) :
+    A.toConcreteTraceScaleSymbols.PositiveTraceNonnegativeStatement := by
+  intro g _htrace _hcyclic
+  exact A.scalarTrace_nonnegative g
+
+theorem ordinary_trace_support_square_statement
+    (A : ScalarTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      A.toConcreteTraceScaleSymbols.toArchimedeanTraceSymbols :=
+  A.toConcreteTraceScaleSymbols.ordinary_trace_support_square_statement
+
+theorem support_square_no_defect_statement
+    (A : ScalarTraceScaleSymbols) :
+    ∀ g : A.toConcreteTraceScaleSymbols.toArchimedeanTraceSymbols.Test,
+      A.toConcreteTraceScaleSymbols.toArchimedeanTraceSymbols.traceClass g →
+        A.toConcreteTraceScaleSymbols.toArchimedeanTraceSymbols.cyclicLegal g →
+          A.toConcreteTraceScaleSymbols.toArchimedeanTraceSymbols.supportSquareTrace g =
+            A.toConcreteTraceScaleSymbols.toArchimedeanTraceSymbols.sourceNoDefectTrace g :=
+  A.toConcreteTraceScaleSymbols.support_square_no_defect_statement
+
+theorem trace_square_statement
+    (A : ScalarTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.TraceSquareStatement
+      A.toConcreteTraceScaleSymbols.toArchimedeanTraceSymbols :=
+  A.toConcreteTraceScaleSymbols.trace_square_statement_of_nonnegative
+    A.positive_trace_nonnegative_statement
+
+end ScalarTraceScaleSymbols
+
+/--
 Concrete trace-scale data whose support-square trace is a literal square.
 
 This is the first CC20 concrete positivity seed: positive-trace nonnegativity
@@ -318,7 +395,123 @@ theorem ordinary_trace_support_square_statement
             A.toLegalSquareTraceScaleSymbols))) :=
   A.toLegalSquareTraceScaleSymbols.ordinary_trace_support_square_statement
 
+theorem source_no_defect_trace_eq_trace_amplitude_sq
+    (A : NormalizedLegalSquareTraceScaleSymbols) (g : A.Test) :
+    (ConcreteTraceScaleSymbols.toArchimedeanTraceSymbols
+      (SquareTraceScaleSymbols.toConcreteTraceScaleSymbols
+        (LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols
+          A.toLegalSquareTraceScaleSymbols))).sourceNoDefectTrace g =
+      A.traceAmplitude g ^ 2 :=
+  rfl
+
+theorem support_square_trace_eq_trace_amplitude_sq
+    (A : NormalizedLegalSquareTraceScaleSymbols) (g : A.Test) :
+    (ConcreteTraceScaleSymbols.toArchimedeanTraceSymbols
+      (SquareTraceScaleSymbols.toConcreteTraceScaleSymbols
+        (LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols
+          A.toLegalSquareTraceScaleSymbols))).supportSquareTrace g =
+      A.traceAmplitude g ^ 2 :=
+  rfl
+
 end NormalizedLegalSquareTraceScaleSymbols
+
+/--
+Fully normalized scalar trace-scale data.
+
+The CC20 trace symbols compute directly to `scalarTrace`.  This seed is useful
+when another concrete source layer, such as the fixed-`lambda` CCM25 restricted
+formula, already supplies the scalar and a nonnegativity theorem.
+-/
+structure NormalizedScalarTraceScaleSymbols where
+  Test : Type
+  scalarTrace : Test → ℝ
+  scalarTrace_nonnegative : ∀ g : Test, 0 ≤ scalarTrace g
+  traceClass : Test → Prop
+  cyclicLegal : Test → Prop
+
+namespace NormalizedScalarTraceScaleSymbols
+
+def hilbertSchmidtGate (A : NormalizedScalarTraceScaleSymbols) :
+    A.Test → Prop :=
+  fun g => A.traceClass g ∧ A.cyclicLegal g
+
+def toScalarTraceScaleSymbols
+    (A : NormalizedScalarTraceScaleSymbols) :
+    ScalarTraceScaleSymbols where
+  Test := A.Test
+  scalarTrace := A.scalarTrace
+  scalarTrace_nonnegative := A.scalarTrace_nonnegative
+  traceClass := A.traceClass
+  cyclicLegal := A.cyclicLegal
+  hilbertSchmidtGate := A.hilbertSchmidtGate
+  mellinHalfDensityMatched := True
+  uInfinityNormalized := True
+  qduNormalized := True
+  archimedeanSignNormalized := True
+
+def toConcreteTraceScaleSymbols
+    (A : NormalizedScalarTraceScaleSymbols) :
+    ConcreteTraceScaleSymbols :=
+  A.toScalarTraceScaleSymbols.toConcreteTraceScaleSymbols
+
+def toArchimedeanTraceSymbols
+    (A : NormalizedScalarTraceScaleSymbols) :
+    ArchimedeanTraceSymbols :=
+  A.toConcreteTraceScaleSymbols.toArchimedeanTraceSymbols
+
+theorem trace_class_template_statement
+    (A : NormalizedScalarTraceScaleSymbols) :
+    ConcreteTraceScaleSymbols.TraceClassTemplateStatement
+      A.toConcreteTraceScaleSymbols := by
+  intro g hgate
+  exact hgate
+
+theorem mellin_half_density_convention
+    (A : NormalizedScalarTraceScaleSymbols) :
+    A.toConcreteTraceScaleSymbols.mellinHalfDensityMatched :=
+  trivial
+
+theorem signs_and_normalizations
+    (A : NormalizedScalarTraceScaleSymbols) :
+    A.toConcreteTraceScaleSymbols.uInfinityNormalized ∧
+      A.toConcreteTraceScaleSymbols.qduNormalized ∧
+        A.toConcreteTraceScaleSymbols.archimedeanSignNormalized :=
+  ⟨trivial, trivial, trivial⟩
+
+theorem trace_square_statement
+    (A : NormalizedScalarTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.TraceSquareStatement
+      A.toArchimedeanTraceSymbols :=
+  A.toScalarTraceScaleSymbols.trace_square_statement
+
+theorem ordinary_trace_support_square_statement
+    (A : NormalizedScalarTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      A.toArchimedeanTraceSymbols :=
+  A.toScalarTraceScaleSymbols.ordinary_trace_support_square_statement
+
+theorem support_square_no_defect_statement
+    (A : NormalizedScalarTraceScaleSymbols) :
+    ∀ g : A.toArchimedeanTraceSymbols.Test,
+      A.toArchimedeanTraceSymbols.traceClass g →
+        A.toArchimedeanTraceSymbols.cyclicLegal g →
+          A.toArchimedeanTraceSymbols.supportSquareTrace g =
+            A.toArchimedeanTraceSymbols.sourceNoDefectTrace g :=
+  A.toScalarTraceScaleSymbols.support_square_no_defect_statement
+
+theorem source_no_defect_trace_eq_scalar
+    (A : NormalizedScalarTraceScaleSymbols) (g : A.Test) :
+    A.toArchimedeanTraceSymbols.sourceNoDefectTrace g =
+      A.scalarTrace g :=
+  rfl
+
+theorem support_square_trace_eq_scalar
+    (A : NormalizedScalarTraceScaleSymbols) (g : A.Test) :
+    A.toArchimedeanTraceSymbols.supportSquareTrace g =
+      A.scalarTrace g :=
+  rfl
+
+end NormalizedScalarTraceScaleSymbols
 
 /-- Constructor for a CC20 trace model from concrete trace-scale data. -/
 def toCC20TraceModel
@@ -504,6 +697,47 @@ theorem normalized_legal_square_trace_scale_to_cc20_trace_model_signs
         A.toLegalSquareTraceScaleSymbols))
       A.signs_and_normalizations
 
+def normalizedScalarTraceScaleToCC20TraceModel
+    (A : NormalizedScalarTraceScaleSymbols) :
+    CC20TraceModel :=
+  toCC20TraceModel A.toConcreteTraceScaleSymbols
+    A.toScalarTraceScaleSymbols.positive_trace_nonnegative_statement
+    A.trace_class_template_statement
+    A.mellin_half_density_convention
+    A.signs_and_normalizations
+
+theorem normalized_scalar_trace_scale_to_cc20_trace_model_trace_square
+    (A : NormalizedScalarTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.TraceSquareStatement
+      (normalizedScalarTraceScaleToCC20TraceModel A).archimedeanSymbols :=
+  A.trace_square_statement
+
+theorem normalized_scalar_trace_scale_to_cc20_trace_model_trace_class_template
+    (A : NormalizedScalarTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.TraceClassTemplateStatement
+      (normalizedScalarTraceScaleToCC20TraceModel A).archimedeanSymbols :=
+  A.trace_class_template_statement
+
+theorem normalized_scalar_trace_scale_to_cc20_trace_model_ordinary_trace_support_square
+    (A : NormalizedScalarTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      (normalizedScalarTraceScaleToCC20TraceModel A).archimedeanSymbols :=
+  A.ordinary_trace_support_square_statement
+
+theorem normalized_scalar_trace_scale_to_cc20_trace_model_mellin
+    (A : NormalizedScalarTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.MellinHalfDensityConventionStatement
+      (normalizedScalarTraceScaleToCC20TraceModel A).archimedeanSymbols :=
+  ConcreteTraceScaleSymbols.mellin_half_density_convention_statement
+    A.toConcreteTraceScaleSymbols A.mellin_half_density_convention
+
+theorem normalized_scalar_trace_scale_to_cc20_trace_model_signs
+    (A : NormalizedScalarTraceScaleSymbols) :
+    ArchimedeanTraceSymbols.SignsAndNormalizationsStatement
+      (normalizedScalarTraceScaleToCC20TraceModel A).archimedeanSymbols :=
+  ConcreteTraceScaleSymbols.signs_and_normalizations_statement
+    A.toConcreteTraceScaleSymbols A.signs_and_normalizations
+
 def normalizedSeedConcreteSymbols
     (A : NormalizedLegalSquareTraceScaleSymbols) : ConcreteTraceScaleSymbols :=
   SquareTraceScaleSymbols.toConcreteTraceScaleSymbols
@@ -536,6 +770,49 @@ def normalizedSeedHilbertSchmidtGate
     (A : NormalizedLegalSquareTraceScaleSymbols) : A.Test → Prop :=
   (LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols
     A.toLegalSquareTraceScaleSymbols).hilbertSchmidtGate
+
+noncomputable def normalizedScalarAsLegalSquareSeed
+    (A : NormalizedScalarTraceScaleSymbols) :
+    NormalizedLegalSquareTraceScaleSymbols where
+  Test := A.Test
+  traceAmplitude := fun g => Real.sqrt (A.scalarTrace g)
+  traceClass := A.traceClass
+  cyclicLegal := A.cyclicLegal
+
+noncomputable def normalizedScalarAsLegalSquareArchimedeanSymbols
+    (A : NormalizedScalarTraceScaleSymbols) :
+    ArchimedeanTraceSymbols :=
+  ConcreteTraceScaleSymbols.toArchimedeanTraceSymbols
+    (SquareTraceScaleSymbols.toConcreteTraceScaleSymbols
+      (LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols
+        (normalizedScalarAsLegalSquareSeed A).toLegalSquareTraceScaleSymbols))
+
+theorem normalized_scalar_as_legal_square_seed_source_no_defect_eq_scalar
+    (A : NormalizedScalarTraceScaleSymbols) (g : A.Test) :
+    (normalizedScalarAsLegalSquareArchimedeanSymbols A).sourceNoDefectTrace g =
+      A.scalarTrace g := by
+  simpa [normalizedScalarAsLegalSquareArchimedeanSymbols,
+    normalizedScalarAsLegalSquareSeed,
+    NormalizedLegalSquareTraceScaleSymbols.toLegalSquareTraceScaleSymbols,
+    LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols,
+    SquareTraceScaleSymbols.toConcreteTraceScaleSymbols,
+    ConcreteTraceScaleSymbols.toArchimedeanTraceSymbols,
+    ConcreteTraceScaleSymbols.sourceNoDefectTrace,
+    SquareTraceScaleSymbols.supportSquareTrace] using
+      Real.sq_sqrt (A.scalarTrace_nonnegative g)
+
+theorem normalized_scalar_as_legal_square_seed_support_square_eq_scalar
+    (A : NormalizedScalarTraceScaleSymbols) (g : A.Test) :
+    (normalizedScalarAsLegalSquareArchimedeanSymbols A).supportSquareTrace g =
+      A.scalarTrace g := by
+  simpa [normalizedScalarAsLegalSquareArchimedeanSymbols,
+    normalizedScalarAsLegalSquareSeed,
+    NormalizedLegalSquareTraceScaleSymbols.toLegalSquareTraceScaleSymbols,
+    LegalSquareTraceScaleSymbols.toSquareTraceScaleSymbols,
+    SquareTraceScaleSymbols.toConcreteTraceScaleSymbols,
+    ConcreteTraceScaleSymbols.toArchimedeanTraceSymbols,
+    SquareTraceScaleSymbols.supportSquareTrace] using
+      Real.sq_sqrt (A.scalarTrace_nonnegative g)
 
 /--
 Source-identification data connecting an actual CC20 trace object package to
@@ -753,6 +1030,81 @@ def normalizedSeedTraceObjectPackage
   sourceCC20SignNormalizations :=
     normalized_legal_square_trace_scale_to_cc20_trace_model_signs A
 
+def normalizedScalarTraceObjectPackage
+    (A : NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20TracePackageRemainderData
+        (normalizedScalarAsLegalSquareSeed A)) :
+    SourceObject.CC20TraceObjectPackage where
+  archimedeanSymbols :=
+    (normalizedScalarTraceScaleToCC20TraceModel A).archimedeanSymbols
+  sourceTraceTest := remainders.sourceTraceTest
+  sourceCC20TraceTestCompatibility :=
+    remainders.sourceCC20TraceTestCompatibility
+  sourceOperatorIdentity := remainders.sourceOperatorIdentity
+  sourceHilbertSchmidtGate := remainders.sourceHilbertSchmidtGate
+  sourceTraceClassCyclicityTemplate :=
+    normalized_scalar_trace_scale_to_cc20_trace_model_trace_class_template A
+  sourcePerMoveCyclicityLedger := remainders.sourcePerMoveCyclicityLedger
+  sourceOrdinaryTraceSupportSquare :=
+    normalized_scalar_trace_scale_to_cc20_trace_model_ordinary_trace_support_square
+      A
+  sourceSupportSquareTraceReadOff := by
+    intro g htrace hcyclic
+    exact
+      (normalized_scalar_trace_scale_to_cc20_trace_model_trace_square
+        A g htrace hcyclic).1
+  sourceNoDefectTraceReadOff := remainders.sourceNoDefectTraceReadOff
+  sourcePositiveTraceNonnegative := by
+    intro g htrace hcyclic
+    exact
+      (normalized_scalar_trace_scale_to_cc20_trace_model_trace_square
+        A g htrace hcyclic).2
+  sourceRemainderOrientationWInftyEqLMinusD :=
+    remainders.sourceRemainderOrientationWInftyEqLMinusD
+  sourceRemainderOrientationWInftyEqSMinusE :=
+    remainders.sourceRemainderOrientationWInftyEqSMinusE
+  sourceRemainderObject := remainders.sourceRemainderObject
+  sourceRemainderAfterQ := remainders.sourceRemainderAfterQ
+  cc20PostQRemainderFixedSSoninTransport :=
+    remainders.cc20PostQRemainderFixedSSoninTransport
+  sourceProjectionDefectNormalForm :=
+    remainders.sourceProjectionDefectNormalForm
+  sourceRankPoleLedgerIdentification :=
+    remainders.sourceRankPoleLedgerIdentification
+  sourceEndpointStripRemainderCdefDomination :=
+    remainders.sourceEndpointStripRemainderCdefDomination
+  noHiddenPositiveDefectOutsideCdef :=
+    remainders.noHiddenPositiveDefectOutsideCdef
+  sourceBoundedComparisonTraceIdealTransport :=
+    remainders.sourceBoundedComparisonTraceIdealTransport
+  sourceMellinHalfDensityCompatibility :=
+    normalized_scalar_trace_scale_to_cc20_trace_model_mellin A
+  sourceCC20SignNormalizations :=
+    normalized_scalar_trace_scale_to_cc20_trace_model_signs A
+
+theorem normalized_scalar_trace_object_source_no_defect_eq_scalar
+    (A : NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20TracePackageRemainderData
+        (normalizedScalarAsLegalSquareSeed A))
+    (g : A.Test) :
+    (normalizedScalarTraceObjectPackage A remainders).archimedeanSymbols.sourceNoDefectTrace
+        g =
+      A.scalarTrace g :=
+  rfl
+
+theorem normalized_scalar_trace_object_support_square_eq_scalar
+    (A : NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20TracePackageRemainderData
+        (normalizedScalarAsLegalSquareSeed A))
+    (g : A.Test) :
+    (normalizedScalarTraceObjectPackage A remainders).archimedeanSymbols.supportSquareTrace
+        g =
+      A.scalarTrace g :=
+  rfl
+
 def normalizedSeedIdentificationForTraceObjectPackage
     (A : NormalizedLegalSquareTraceScaleSymbols)
     (remainders : CC20TracePackageRemainderData A) :
@@ -848,6 +1200,43 @@ theorem normalized_package_support_square_trace_identification
   (forNormalizedSeedTraceObjectPackage A remainders).supportSquareTrace_eq
 
 end CC20TracePackageSupportSquareComparison
+
+/--
+Narrow support-square comparison for scalar-normalized CC20 packages.
+
+This is separate from `CC20TracePackageSupportSquareComparison` because the
+square-form seed has `supportSquareTrace = traceAmplitude ^ 2`, while the
+scalar seed has `supportSquareTrace = scalarTrace` directly.
+-/
+structure CC20TracePackageScalarSupportSquareComparison
+    (pkg : SourceObject.CC20TraceObjectPackage) where
+  scalarSeed : NormalizedScalarTraceScaleSymbols
+  remainders :
+    CC20TracePackageRemainderData (normalizedScalarAsLegalSquareSeed scalarSeed)
+  supportSquareTrace_eq :
+    HEq scalarSeed.toArchimedeanTraceSymbols.supportSquareTrace
+      pkg.archimedeanSymbols.supportSquareTrace
+
+namespace CC20TracePackageScalarSupportSquareComparison
+
+def forNormalizedScalarTraceObjectPackage
+    (A : NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20TracePackageRemainderData (normalizedScalarAsLegalSquareSeed A)) :
+    CC20TracePackageScalarSupportSquareComparison
+      (normalizedScalarTraceObjectPackage A remainders) where
+  scalarSeed := A
+  remainders := remainders
+  supportSquareTrace_eq := HEq.rfl
+
+theorem existing_support_square_trace_identification
+    {pkg : SourceObject.CC20TraceObjectPackage}
+    (h : CC20TracePackageScalarSupportSquareComparison pkg) :
+    HEq h.scalarSeed.toArchimedeanTraceSymbols.supportSquareTrace
+      pkg.archimedeanSymbols.supportSquareTrace :=
+  h.supportSquareTrace_eq
+
+end CC20TracePackageScalarSupportSquareComparison
 
 /--
 Comparison data from an existing CC20 trace package to a package built from the

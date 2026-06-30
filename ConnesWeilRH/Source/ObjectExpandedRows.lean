@@ -132,6 +132,9 @@ open CC20Concrete.TraceScale
 abbrev CC20SupportSquareComparison :=
   CC20Concrete.TraceScale.CC20TracePackageSupportSquareComparison
 
+abbrev CC20ScalarSupportSquareComparison :=
+  CC20Concrete.TraceScale.CC20TracePackageScalarSupportSquareComparison
+
 def normalizedCC20SupportSquareComparison
     (normalizedSeed :
       CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
@@ -142,6 +145,39 @@ def normalizedCC20SupportSquareComparison
         normalizedSeed remainders) :=
   CC20TracePackageSupportSquareComparison.forNormalizedSeedTraceObjectPackage
     normalizedSeed remainders
+
+noncomputable def normalizedScalarCC20SupportSquareComparison
+    (scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed)) :
+    CC20SupportSquareComparison
+      (CC20Concrete.TraceScale.normalizedScalarTraceObjectPackage
+        scalarSeed remainders) where
+  normalizedSeed :=
+    CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed scalarSeed
+  remainders := remainders
+  supportSquareTrace_eq := by
+    apply heq_of_eq
+    funext g
+    exact
+      CC20Concrete.TraceScale.normalized_scalar_as_legal_square_seed_support_square_eq_scalar
+        scalarSeed g
+
+noncomputable def normalizedScalarCC20ScalarSupportSquareComparison
+    (scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed)) :
+    CC20ScalarSupportSquareComparison
+      (CC20Concrete.TraceScale.normalizedScalarTraceObjectPackage
+        scalarSeed remainders) :=
+  CC20Concrete.TraceScale.CC20TracePackageScalarSupportSquareComparison.forNormalizedScalarTraceObjectPackage
+    scalarSeed remainders
 
 def ofNormalizedCC20Trace
     {base : SourceObjectTheoremBasePackage}
@@ -159,6 +195,24 @@ def ofNormalizedCC20Trace
   cc20SupportSquareComparison :=
     normalizedCC20SupportSquareComparison normalizedSeed remainders
 
+noncomputable def ofNormalizedScalarCC20Trace
+    {base : SourceObjectTheoremBasePackage}
+    {common : SourceObjectCommonData base}
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed)) :
+    SourceObjectExpandedRows base common where
+  ccm24 := ccm24
+  cc20Trace :=
+    CC20Concrete.TraceScale.normalizedScalarTraceObjectPackage
+      scalarSeed remainders
+  cc20SupportSquareComparison :=
+    normalizedScalarCC20SupportSquareComparison scalarSeed remainders
+
 theorem of_normalized_cc20_trace_cc20_trace_eq
     {base : SourceObjectTheoremBasePackage}
     {common : SourceObjectCommonData base}
@@ -173,6 +227,22 @@ theorem of_normalized_cc20_trace_cc20_trace_eq
         normalizedSeed remainders :=
   rfl
 
+theorem of_normalized_scalar_cc20_trace_cc20_trace_eq
+    {base : SourceObjectTheoremBasePackage}
+    {common : SourceObjectCommonData base}
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed)) :
+    (ofNormalizedScalarCC20Trace (base := base) (common := common)
+      ccm24 scalarSeed remainders).cc20Trace =
+      CC20Concrete.TraceScale.normalizedScalarTraceObjectPackage
+        scalarSeed remainders :=
+  rfl
+
 theorem of_normalized_cc20_trace_support_square_comparison
     {base : SourceObjectTheoremBasePackage}
     {common : SourceObjectCommonData base}
@@ -184,6 +254,21 @@ theorem of_normalized_cc20_trace_support_square_comparison
     (ofNormalizedCC20Trace (base := base) (common := common)
       ccm24 normalizedSeed remainders).cc20SupportSquareComparison =
       normalizedCC20SupportSquareComparison normalizedSeed remainders :=
+  rfl
+
+theorem of_normalized_scalar_cc20_trace_support_square_comparison
+    {base : SourceObjectTheoremBasePackage}
+    {common : SourceObjectCommonData base}
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed)) :
+    (ofNormalizedScalarCC20Trace (base := base) (common := common)
+      ccm24 scalarSeed remainders).cc20SupportSquareComparison =
+      normalizedScalarCC20SupportSquareComparison scalarSeed remainders :=
   rfl
 
 def ccm25
@@ -361,6 +446,28 @@ def sourceObjectPackageOfNormalizedCC20Trace
       ccm24 normalizedSeed remainders)
     rhExit bridges
 
+noncomputable def sourceObjectPackageOfNormalizedScalarCC20Trace
+    (base : SourceObjectTheoremBasePackage)
+    (common : SourceObjectCommonData base)
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed))
+    (rhExit : SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      SourceObjectCrossObjectBridges base common
+        (SourceObjectExpandedRows.ofNormalizedScalarCC20Trace
+          ccm24 scalarSeed remainders)
+        rhExit) :
+    SourceObject.SourceObjectPackage :=
+  sourceObjectPackageOfData base common
+    (SourceObjectExpandedRows.ofNormalizedScalarCC20Trace
+      ccm24 scalarSeed remainders)
+    rhExit bridges
+
 namespace SourceObjectPackageOfData
 
 theorem normalized_cc20_trace_package_eq_data_constructor
@@ -403,6 +510,28 @@ theorem normalized_cc20_trace_package_cc20_trace_eq
       base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace =
       CC20Concrete.TraceScale.normalizedSeedTraceObjectPackage
         normalizedSeed remainders :=
+  rfl
+
+theorem normalized_scalar_cc20_trace_package_cc20_trace_eq
+    (base : SourceObjectTheoremBasePackage)
+    (common : SourceObjectCommonData base)
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed))
+    (rhExit : SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      SourceObjectCrossObjectBridges base common
+        (SourceObjectExpandedRows.ofNormalizedScalarCC20Trace
+          ccm24 scalarSeed remainders)
+        rhExit) :
+    (sourceObjectPackageOfNormalizedScalarCC20Trace
+      base common ccm24 scalarSeed remainders rhExit bridges).cc20Trace =
+      CC20Concrete.TraceScale.normalizedScalarTraceObjectPackage
+        scalarSeed remainders :=
   rfl
 
 def normalized_seed_ordinary_trace_support_square_statement
@@ -472,6 +601,81 @@ theorem normalized_cc20_trace_package_support_square_no_defect
       A.supportSquareTrace g = A.sourceNoDefectTrace g :=
   normalized_seed_support_square_no_defect_statement normalizedSeed
 
+theorem normalized_scalar_cc20_trace_package_source_no_defect_eq_scalar
+    (base : SourceObjectTheoremBasePackage)
+    (common : SourceObjectCommonData base)
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed))
+    (rhExit : SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      SourceObjectCrossObjectBridges base common
+        (SourceObjectExpandedRows.ofNormalizedScalarCC20Trace
+          ccm24 scalarSeed remainders)
+        rhExit)
+    (g : scalarSeed.Test) :
+    let pkg :=
+      sourceObjectPackageOfNormalizedScalarCC20Trace
+        base common ccm24 scalarSeed remainders rhExit bridges
+    pkg.cc20Trace.archimedeanSymbols.sourceNoDefectTrace g =
+      scalarSeed.scalarTrace g := by
+  intro pkg
+  rfl
+
+theorem normalized_scalar_cc20_trace_package_support_square_eq_scalar
+    (base : SourceObjectTheoremBasePackage)
+    (common : SourceObjectCommonData base)
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed))
+    (rhExit : SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      SourceObjectCrossObjectBridges base common
+        (SourceObjectExpandedRows.ofNormalizedScalarCC20Trace
+          ccm24 scalarSeed remainders)
+        rhExit)
+    (g : scalarSeed.Test) :
+    let pkg :=
+      sourceObjectPackageOfNormalizedScalarCC20Trace
+        base common ccm24 scalarSeed remainders rhExit bridges
+    pkg.cc20Trace.archimedeanSymbols.supportSquareTrace g =
+      scalarSeed.scalarTrace g := by
+  intro pkg
+  rfl
+
+theorem normalized_scalar_cc20_trace_package_support_square_no_defect
+    (base : SourceObjectTheoremBasePackage)
+    (common : SourceObjectCommonData base)
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed))
+    (rhExit : SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      SourceObjectCrossObjectBridges base common
+        (SourceObjectExpandedRows.ofNormalizedScalarCC20Trace
+          ccm24 scalarSeed remainders)
+        rhExit) :
+    let A :=
+      SourceObject.SourceObjectPackage.toArchimedeanTraceSymbols
+        (sourceObjectPackageOfNormalizedScalarCC20Trace
+          base common ccm24 scalarSeed remainders rhExit bridges)
+    ∀ g : A.Test, A.traceClass g → A.cyclicLegal g →
+      A.supportSquareTrace g = A.sourceNoDefectTrace g := by
+  intro A g _htrace _hcyclic
+  rfl
+
 def normalized_cc20_trace_package_support_square_comparison
     (base : SourceObjectTheoremBasePackage)
     (common : SourceObjectCommonData base)
@@ -492,6 +696,51 @@ def normalized_cc20_trace_package_support_square_comparison
   SourceObjectExpandedRows.cc20SupportSquareComparison
     (SourceObjectExpandedRows.ofNormalizedCC20Trace
       (base := base) (common := common) ccm24 normalizedSeed remainders)
+
+noncomputable def normalized_scalar_cc20_trace_package_support_square_comparison
+    (base : SourceObjectTheoremBasePackage)
+    (common : SourceObjectCommonData base)
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed))
+    (rhExit : SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      SourceObjectCrossObjectBridges base common
+        (SourceObjectExpandedRows.ofNormalizedScalarCC20Trace
+          ccm24 scalarSeed remainders)
+        rhExit) :
+    CC20Concrete.TraceScale.CC20TracePackageSupportSquareComparison
+      (sourceObjectPackageOfNormalizedScalarCC20Trace
+        base common ccm24 scalarSeed remainders rhExit bridges).cc20Trace :=
+  SourceObjectExpandedRows.cc20SupportSquareComparison
+    (SourceObjectExpandedRows.ofNormalizedScalarCC20Trace
+      (base := base) (common := common) ccm24 scalarSeed remainders)
+
+noncomputable def normalized_scalar_cc20_trace_package_scalar_support_square_comparison
+    (base : SourceObjectTheoremBasePackage)
+    (common : SourceObjectCommonData base)
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed))
+    (rhExit : SourceObject.CC20RHExitObjectPackage)
+    (_bridges :
+      SourceObjectCrossObjectBridges base common
+        (SourceObjectExpandedRows.ofNormalizedScalarCC20Trace
+          ccm24 scalarSeed remainders)
+        rhExit) :
+    CC20Concrete.TraceScale.CC20TracePackageScalarSupportSquareComparison
+      (sourceObjectPackageOfNormalizedScalarCC20Trace
+        base common ccm24 scalarSeed remainders rhExit _bridges).cc20Trace :=
+  SourceObjectExpandedRows.normalizedScalarCC20ScalarSupportSquareComparison
+    scalarSeed remainders
 
 theorem ccm25_eq_rows
     {base : SourceObjectTheoremBasePackage}

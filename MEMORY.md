@@ -1,5 +1,360 @@
 2026-06-30
 
+- Sharpened the next hard step for the normalized scalar full-trace bridge.
+- Added `TraceFrontEndData.NormalizedScalarFullTraceArchimedeanPoleBalance`,
+  `normalizedScalarFullTraceArchimedeanFinitePrimeBalance`, and
+  `normalizedScalarFullTraceArchimedeanBalanceOfPoleBalance` in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- The finite-prime half of the full trace balance is now theorem-backed from
+  `Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum_eq_global`.
+  The remaining open input is the independent archimedean/pole identity:
+  `archimedeanTerm(F_g) + polePairing(g) =
+  poleFunctional(F_g) - archimedeanTerm(F_g)`.
+- This improves item 1 from a monolithic balance assumption to a smaller
+  explicit pole/archimedean contract. It does not prove restricted-to-full,
+  final sign, sign/defect, or unconditional RH.
+- Verification passed in the WSL ext4 mirror:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`.
+
+2026-06-30
+
+- Continued the top-down skeleton fill by completing three scalar-lane muscles
+  in Lean.
+- Added
+  `TraceFrontEndData.normalized_scalar_trace_front_trace_amplitude_square_eq_original_normal_form`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`. For the scalar-built package,
+  the CC20 trace amplitude is `sqrt` of the original restricted normal form,
+  so its square equals the original CCM25 restricted scalar using the already
+  proved nonnegativity of that normal form.
+- Added
+  `TraceFrontEndData.normalizedScalarRestrictedTraceReadOffBridgeFromOriginalCCM25`.
+  This builds the scalar package's restricted trace read-off bridge directly
+  from the scalar support-square read-off and the original CCM25
+  `QW_lambda` normal-form theorem. It avoids the previous circular dependency
+  where the scalar trace front end needed a restricted bridge field before the
+  bridge could be constructed.
+- Updated `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` so the scalar lane now
+  fills, without new active assumptions: scalar test/quotient compatibility,
+  fixed-S support-square transport, restricted trace read-off bridge, scalar
+  trace front data, and the scalar trace-amplitude-square equality checkpoint.
+- Current skeleton status:
+  scalar lane now has theorem-backed test/quotient, fixed-S transport,
+  restricted trace read-off, and amplitude-square-to-normal-form. Remaining
+  hard blockers are the square-package generic amplitude contract, scalar/full
+  trace bridge via `NormalizedScalarFullTraceArchimedeanBalance`, no-extra-bulk
+  contract, common tuple, restricted-to-full, sign/defect, final sign, CC20
+  exit, and RH definition bridge.
+- Verification passed in the WSL ext4 mirror:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`,
+  `lake env lean ConnesWeilRH/Dev/UnconditionalSkeleton.lean`,
+  and `lake build ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`.
+  Placeholder scan reports only intentional `sorry`s in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`. Axiom audit for the two new
+  active route declarations reports only
+  `[propext, Classical.choice, Quot.sound]`.
+
+2026-06-30
+
+- Filled the next scalar-built-path muscle in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- Added
+  `TraceFrontEndData.normalized_restricted_scalar_normal_form_nonnegative`,
+  proving `0 <= NormalizedRestrictedScalarNormalForm` from existing active
+  route evidence: positive trace nonnegativity, ordinary trace/support-square
+  equality, support-square/no-defect equality, and the normalized
+  no-defect-to-normal-form theorem.
+- Added
+  `TraceFrontEndData.normalizedRestrictedScalarTraceSeedOfTraceData`, which
+  builds the scalar CC20 seed without a caller-supplied nonnegativity proof.
+- Updated
+  `TraceFrontEndData.normalized_restricted_scalar_package_source_no_defect_eq_normal_form`
+  so the scalar package path uses the derived nonnegativity automatically.
+- Current skeleton status:
+  the scalar package path now has automatic nonnegativity and proves by
+  construction that its CC20 no-defect scalar equals the CCM25 restricted
+  normal form. The previous blocker "prove nonnegativity of the normal form"
+  is closed for the current source-conditional route evidence. Remaining hard
+  blockers are now: construct the scalar package early enough to replace the
+  existing square-normalized package in the route, then discharge the
+  restricted trace bridge from concrete CC20/CCM25 definitions rather than
+  route read-off evidence. After that, the major open muscles remain
+  restricted-to-full, final sign, sign/defect, CC20 exit, and RH-definition
+  skeleton fields.
+- Verification passed in the WSL ext4 mirror:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH` and
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`. Expected dev skeleton
+  `sorry` warnings remain. Axiom audit for the new nonnegativity/automatic
+  scalar-seed declarations reports only
+  `[propext, Classical.choice, Quot.sound]`.
+
+2026-06-30
+
+- Continued the hard-muscle pass by adding a scalar-normalized CC20 package
+  route around the existing square-amplitude package.
+- Added scalar-normalized source package constructors in
+  `ConnesWeilRH/Source/ObjectExpandedRows.lean`:
+  `SourceObjectExpandedRows.ofNormalizedScalarCC20Trace`,
+  `sourceObjectPackageOfNormalizedScalarCC20Trace`, scalar support-square
+  comparison wrappers, and read-off theorems proving the scalar package's
+  `sourceNoDefectTrace` and `supportSquareTrace` compute to
+  `NormalizedScalarTraceScaleSymbols.scalarTrace`.
+- Added scalar normalized fixed-test wrappers in
+  `ConnesWeilRH/Route/FixedTestFrontEnd.lean`:
+  `toExpandedSourceFixedSTestFrontEndOfNormalizedScalarPackage`,
+  `sourceBackedFixedSTestOfNormalizedScalarPackage`, and read-offs for common
+  test, source window, and admissibility.
+- Added scalar normalized trace-front wrappers in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean`:
+  `toExpandedSourceTraceReadOffFrontEndOfNormalizedScalarPackage`,
+  `toSourceTraceReadOffDataOfNormalizedScalarPackage`,
+  `normalized_scalar_package_source_trace_source_no_defect_eq_scalar`, and
+  `normalized_scalar_package_source_trace_support_square_eq_scalar`.
+- Added
+  `TraceFrontEndData.normalized_restricted_scalar_package_source_no_defect_eq_normal_form`.
+  This theorem proves that if the scalar package is built from
+  `normalizedRestrictedScalarTraceSeed`, then the route-facing CC20 no-defect
+  trace equals `NormalizedRestrictedScalarNormalForm` by construction. This is
+  a real muscle for the scalar-built path, not an unconditional RH proof.
+- Current skeleton status:
+  source/route wrappers now support both square-normalized and
+  scalar-normalized CC20 packages. The scalar path removes the arbitrary
+  amplitude-square mismatch once a scalar package is chosen. Remaining hard
+  blockers are: prove nonnegativity of the CCM25 normal form for the real
+  fixed test, construct the scalar package early enough to replace the old
+  square-normalized package in the route, discharge the restricted trace
+  bridge from concrete CC20/CCM25 definitions, and then continue with
+  restricted-to-full, final sign, sign/defect, CC20 exit, and RH-definition
+  skeleton fields.
+- Verification passed in the WSL ext4 mirror:
+  `lake build ConnesWeilRH.Source.ObjectExpandedRows
+  ConnesWeilRH.Route.FixedTestFrontEnd ConnesWeilRH.Route.TraceFrontEnd
+  ConnesWeilRH.Route.RouteTheorem ConnesWeilRH.Dev.UnconditionalSkeleton
+  ConnesWeilRH`. Expected dev skeleton `sorry` warnings remain. Axiom audit
+  for the new scalar package/front-end/read-off declarations reports only
+  `[propext, Classical.choice, Quot.sound]`.
+
+2026-06-30
+
+- Verified the current skeleton-plus-first-muscle state after correcting a stale
+  route comment in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- Current Lean shape:
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` contains the quarantined
+  top-down skeleton with intentional `sorry`s for theorem-backed source
+  package, fixed front end, trace front end, route ledgers, common tuple,
+  restricted-to-full, archimedean/final sign, sign-defect classification,
+  full positivity, route certificate, CC20 exit, RH definition bridge, and
+  `unconditional_rh_skeleton`.
+- Active item 3 route muscle is filled in
+  `TraceFrontEndData.normalized_source_no_defect_reduces_to_package_formula`
+  and `normalized_source_no_defect_reduces_to_normal_form`, and
+  `restrictedTraceReadOffSourceOfNormalizedPackage` now uses that item 3 path
+  rather than `NormalizedSupportSquareQWLambdaSourceComparison`.
+- Boundary: item 3 is still not an analytic source discharge because the proof
+  factors through the existing restricted trace read-off bridge. The next hard
+  muscle is to replace that bridge with concrete CC20/CCM25 source-definition
+  proof, or to complete the scalar-built package path by proving nonnegativity
+  and package-order compatibility for the CCM25 normal form.
+- Verification passed in the WSL ext4 mirror:
+  `lake build ConnesWeilRH.Source.CC20Concrete.TraceScale
+  ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH.Dev.UnconditionalSkeleton`, then `lake build ConnesWeilRH`.
+  Placeholder scan now reports only the intentional dev skeleton `sorry`s.
+  Axiom audit for the filled item 3 route declarations reports only
+  `[propext, Classical.choice, Quot.sound]`.
+
+2026-06-30
+
+- Completed the requested first hard-muscle pass after the skeleton.
+- Added scalar-to-square CC20 trace support in
+  `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`:
+  `normalizedScalarAsLegalSquareSeed` now uses
+  `traceAmplitude := sqrt (scalarTrace g)`, and the new theorems
+  `normalized_scalar_as_legal_square_seed_source_no_defect_eq_scalar` and
+  `normalized_scalar_as_legal_square_seed_support_square_eq_scalar` recover the
+  scalar by `Real.sq_sqrt` from `scalarTrace_nonnegative`.
+- Filled the active route `sorry` in
+  `TraceFrontEndData.normalized_source_no_defect_reduces_to_package_formula`.
+  The proof composes normalized support-square/no-defect, the existing
+  restricted trace read-off bridge, and
+  `qw_lambda_formula_source_evaluator_of_package_components`.
+- Added the route-level scalar-builder target
+  `normalizedRestrictedScalarTraceSeed` and its read-off theorem
+  `normalized_restricted_scalar_seed_source_no_defect_eq_normal_form`. This
+  exposes the next hard theorem as nonnegativity of the CCM25 normal form before
+  a scalar-built CC20 package can replace the bridge-backed path.
+- Current status: active `ConnesWeilRH.Route.TraceFrontEnd` has no `sorry`;
+  remaining `sorry`s are quarantined in `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+  The mathematical hard blocker is no longer a Lean syntax hole; it is proving
+  either nonnegativity of the CCM25 normal form for the scalar-built path, or
+  directly proving the arbitrary square-form trace amplitude equals the CCM25
+  normal form from source definitions.
+- Verification passed in WSL ext4:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`. A preceding full build also
+  passed for `ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH ConnesWeilRH.Dev.UnconditionalSkeleton`, with expected dev
+  skeleton `sorry` warnings only.
+
+2026-06-30
+
+- Completed the top-down development skeleton for the unconditional checklist.
+- Updated `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` so the quarantined dev
+  module now includes the real route-facing chain through
+  `ExpandedSourceRouteCertificateFrontEnd`, `route_certificate_of_expanded_source_package`,
+  `RouteCertificate`, and `unconditional_rh_skeleton`.
+- The skeleton intentionally remains outside the `ConnesWeilRH.lean` import
+  chain and still uses `sorry`; it is a wiring target, not an unconditional RH
+  proof.
+- Reduced active item 3 from two route `sorry`s to one: proved
+  `normalized_source_no_defect_reduces_to_normal_form` from
+  `normalized_source_no_defect_reduces_to_package_formula` by unfolding
+  `NormalizedRestrictedScalarNormalForm`.
+- The hardest current Lean blocker is now the single active route theorem
+  `TraceFrontEndData.normalized_source_no_defect_reduces_to_package_formula`.
+  Evidence: `NormalizedLegalSquareTraceScaleSymbols` defines CC20 no-defect
+  trace as `traceAmplitude g ^ 2`, while the CCM25 normal form is
+  `archimedeanTerm(convolutionStar g g) + polePairing g -
+  source_restricted_finite_prime_evaluator_sum package`; no existing
+  definition or theorem connects the arbitrary `traceAmplitude` seed to the
+  CCM25 arithmetic package value.
+- WSL ext4 verification passed after syncing edited files:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH.Dev.UnconditionalSkeleton`. Expected `sorry` warnings remain in
+  the dev skeleton and the one active route scalar bridge.
+
+2026-06-30
+
+- Attempted to complete Phase 0 and Phase 1 from
+  `external-opinions/003-unconditional-rh-completion-plan.md`.
+- Phase 0 is complete: `final_connes_weil_rh` remains conditional on
+  `RouteCertificate`, and no no-argument `unconditional_rh` theorem was added.
+- Added
+  `NormalizedLegalSquareTraceScaleSymbols.source_no_defect_trace_eq_trace_amplitude_sq`
+  in `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`.
+- Phase 1 is not complete under the strict Lean rule. The new local theorem
+  shows the normalized CC20 no-defect scalar reduces to
+  `traceAmplitude g ^ 2`, while `NormalizedRestrictedScalarNormalForm` is the
+  CCM25 archimedean-plus-pole-minus-restricted-finite-prime expression. No
+  current theorem ties these two expressions without consuming
+  `NormalizedSupportSquareQWLambdaSourceComparison`.
+- Updated `external-opinions/003-unconditional-rh-completion-plan.md` and
+  `docs/audits/unconditional-rh-gap-ledger.md` with the sharper Phase 1 blocker:
+  prove `traceAmplitude(g)^2 = NormalizedRestrictedScalarNormalForm(...)` from
+  concrete compatibility data or import a clean theorem.
+- Verification passed in the WSL ext4 mirror:
+  `lake build ConnesWeilRH.Source.CC20Concrete.TraceScale
+  ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`. The Lean placeholder scan over `ConnesWeilRH/**/*.lean`
+  reported no matches. Axiom audit for the new Phase 1 declarations reported
+  only `[propext, Classical.choice, Quot.sound]`.
+
+2026-06-30
+
+- Rewrote `external-opinions/003-unconditional-rh-completion-plan.md` after
+  review.
+- Review finding: the old Goal 0-11 order was useful as a gap map but unsafe as
+  an implementation backlog because it put route wiring before missing analytic
+  theorem payload.
+- New plan order is now dependency-first: preserve the conditional route,
+  prove the first hard scalar bridge, build concrete analytic definitions,
+  replace source-model fields, replace cross-object bridge props, replace
+  route-local front ends, prove restricted-to-full/final-sign/sign-defect
+  bridges, prove the CC20 exit, then add `unconditional_rh`.
+- Immediate next task is now Phase 1:
+  prove `sourceNoDefectTrace = NormalizedRestrictedScalarNormalForm` without
+  taking `NormalizedSupportSquareQWLambdaSourceComparison` as input, or start
+  the concrete CC20 trace scalar definition slice.
+
+2026-06-30
+
+- Updated `external-opinions/003-unconditional-rh-completion-plan.md` after the
+  Goal 5A/5B implementation.
+- Added a section explaining the only two valid strict-Lean paths to an
+  unconditional theorem: self-contained analytic formalization or clean theorem
+  package imports.
+- Marked Goal 5A and Goal 5B Green with Lean declaration anchors, and marked
+  Goal 5C Red because the current CC20-to-normal-form theorem still consumes
+  `NormalizedSupportSquareQWLambdaSourceComparison`.
+- Replaced the stale immediate task with the real next gate:
+  prove `sourceNoDefectTrace = NormalizedRestrictedScalarNormalForm` without
+  taking comparison evidence as input, or start a concrete CC20 trace-definition
+  module.
+
+2026-06-30
+
+- Continued Goal 5 by adding the shared normalized restricted scalar normal
+  form in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- Added `TraceFrontEndData.NormalizedRestrictedScalarNormalForm`,
+  `normalized_qw_lambda_reduces_to_normal_form`, and
+  `normalized_support_square_comparison_reduces_to_normal_form`.
+- Added the comparison-backed CC20 side theorem
+  `normalized_source_no_defect_reduces_to_normal_form_of_comparison` and
+  `noDefectQWLambdaTheoremDataOfNormalizedPackageFromComparison`.
+- Boundary preserved: the CC20 reduction to the normal form is proved only from
+  `NormalizedSupportSquareQWLambdaSourceComparison`; the comparison itself
+  remains the missing analytic/source theorem. No unconditional RH theorem was
+  added.
+- Verification passed after syncing the Windows source file to the WSL ext4
+  mirror: `lake build ConnesWeilRH.Route.TraceFrontEnd`, then
+  `lake build ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`. Axiom audit for
+  the new declarations reported only `[propext, Classical.choice, Quot.sound]`.
+
+2026-06-30
+
+- Reviewed and corrected `external-opinions/003-unconditional-rh-completion-plan.md`.
+- Goal 5 now explicitly separates the available normalized
+  support-square/no-defect leg and the available CCM25 package formula leg from
+  the still-missing middle scalar bridge
+  `sourceNoDefectTrace(sourceTrace.archimedeanTest) =
+  QW_lambda(traceData.lambda,g,g)`.
+- Added the rule that a Goal 5 constructor for
+  `TraceFrontEndData.NormalizedSupportSquareQWLambdaSourceComparison` must use
+  a named theorem for that middle bridge, must not call
+  `restrictedTraceReadOffBridge.build`, and must not take the bridge as a free
+  `Prop` field.
+- Clarified that Goal 5 is not an analytic discharge while it still consumes
+  `FixedSTestObligationData`; Goal 4 remains responsible for replacing the
+  broad fixed-test obligation input.
+- Updated stale evidence anchors in
+  `docs/audits/unconditional-rh-gap-ledger.md` for
+  `final_connes_weil_rh`, `RouteCertificate`, and
+  `route_certificate_of_expanded_source_package`.
+
+2026-06-30
+
+- Revised `external-opinions/003-unconditional-rh-completion-plan.md` after
+  code review to make Goals 1-11 field-accurate against the current Lean files.
+- Added acceptance criteria for every goal and clarified the real Goal 6
+  blocker: `noDefectQWLambdaTheoremDataOfNormalizedPackage` still routes
+  through `restrictedTraceReadOffSourceOfNormalizedPackage`, which calls
+  `restrictedTraceReadOffBridge.build`.
+- Expanded the plan's Goal 3 and Goal 10 to distinguish route-facing
+  `SourceObject.CC20RHExitObjectPackage` fields from the source-level
+  finite-vanishing `CC20RHExitObjectPackage`.
+
+2026-06-30
+
+- Expanded `external-opinions/003-unconditional-rh-completion-plan.md` into a
+  numbered local roadmap with Goals 1-11.
+- The immediate target is Goal 5:
+  `TraceFrontEndData.NormalizedSupportSquareQWLambdaSourceComparison`, with
+  Goal 6 reserved for replacing broad trace read-off bridges after that
+  comparison constructor exists.
+
+2026-06-30
+
+- Cleaned `external-opinions/003-unconditional-rh-completion-plan.md` into a
+  direct local unconditional-close roadmap.
+- The plan now treats completed Goal 0/2/3/4 work as staging and provenance
+  tightening, not analytic discharge.
+- Immediate target recorded: fill
+  `TraceFrontEndData.NormalizedSupportSquareQWLambdaSourceComparison` for the
+  normalized package path without using `restrictedTraceReadOffBridge.build`.
+- Directional gates preserved: normalized trace comparison, restricted-to-full,
+  final sign, sign/defect route front end, CC20 finite-vanishing exit, RH
+  definition bridge, and final no-argument `_root_.RiemannHypothesis` theorem.
+
+2026-06-30
+
 - Continued Goal 4J by narrowing the normalized restricted trace equality
   dependency in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
 - Added `TraceFrontEndData.NormalizedSupportSquareQWLambdaSourceComparison`.
@@ -9592,6 +9947,28 @@
 
 2026-06-30
 
+- Rewrote `external-opinions/003-unconditional-rh-completion-plan.md` into an
+  implementable assumption-removal roadmap.
+- Added an Evidence Scale: Green means local theorem/definition exists, Yellow
+  means exact theorem target plus definitions exist, Orange means a shared
+  normal form or concrete definition is missing, Red means a real analytic
+  theorem is missing.
+- Reframed Goal 5 as the immediate executable slice:
+  first define `NormalizedRestrictedScalarNormalForm`, then prove the CCM25
+  `QW_lambda` side reduces to it, then classify the CC20 no-defect side as
+  Orange/Red unless a definitional, comparison, or imported theorem path exists.
+- Important boundary: a bridge such as
+  `sourceNoDefectTrace(sourceTrace.archimedeanTest) =
+  QW_lambda(traceData.lambda,g,g)` is not implementable by adding another
+  record field. It needs shared concrete definitions, a shared normal form, or
+  a clean imported theorem.
+- Verification for the roadmap-only edit passed:
+  `git diff --check`, the roadmap anchor search, and the Lean placeholder search
+  over `ConnesWeilRH/**/*.lean`. Claim-language matches were only in the
+  forbidden-status section and the check command itself.
+
+2026-06-30
+
 - Continued Goal 4J by tightening provenance for the normalized restricted trace
   read-off.
 - Added `TraceFrontEndData.restrictedTraceReadOffSourceOfNormalizedPackage`,
@@ -9616,3 +9993,528 @@
   normalized path, but the restricted trace equality still comes from
   `sourceTrace.restrictedTraceReadOffBridge`. This is not a concrete analytic
   discharge and does not prove RH.
+
+2026-06-30
+
+- Started the requested "Phase 2, then back to Phase 1" implementation path.
+- Added a concrete CC20 scalar trace layer in
+  `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`:
+  `ScalarTraceScaleSymbols`, `NormalizedScalarTraceScaleSymbols`,
+  `normalizedScalarTraceScaleToCC20TraceModel`,
+  `normalizedScalarTraceObjectPackage`,
+  `normalized_scalar_trace_object_source_no_defect_eq_scalar`, and
+  `normalized_scalar_trace_object_support_square_eq_scalar`.
+- The new scalar seed proves by definition that CC20 support-square and
+  no-defect traces equal a supplied scalar family, with positivity supplied by
+  a theorem `scalarTrace_nonnegative`.
+- WSL ext4 verification passed after syncing the Windows source file:
+  `lake build ConnesWeilRH.Source.CC20Concrete.TraceScale
+  ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`.
+- Placeholder scan over `ConnesWeilRH/**/*.lean` found no `sorry`, `admit`,
+  `axiom`, `constant`, `opaque`, or `unsafe`.
+- Axiom audit for the new scalar declarations reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Phase 1 is still not complete for the existing normalized route. The reason
+  is construction order, not syntax: the source CC20 package is built before
+  `TraceFrontEndData.lambda` and `traceData.ccm25ArithmeticPackage`, while
+  `NormalizedRestrictedScalarNormalForm` depends on those downstream values.
+  Closing Phase 1 now requires either a scalar-normalized package/front-end path
+  that makes the fixed-lambda CCM25 scalar available before CC20 package
+  construction, or a concrete/imported theorem proving the old amplitude-square
+  seed equals the CCM25 restricted normal form. A free equality field remains
+  rejected.
+
+2026-06-30
+
+- Rewrote `external-opinions/003-unconditional-rh-completion-plan.md` from a
+  linear phase plan into a numbered dependency checklist.
+- The new checklist has 15 stable route-facing labels: endpoint honesty,
+  concrete source objects, first scalar bridge, source-model law replacement,
+  cross-object bridge props, theorem-backed source package, fixed front end,
+  trace front end, restricted-to-full, final sign, sign/defect ledgers, full
+  Weil positivity, CC20 finite-vanishing/RH bridge, internal route certificate,
+  and final `unconditional_rh`.
+- Added a skeleton policy: temporary `sorry` is allowed only as development
+  scaffolding; final certification still requires the placeholder scan,
+  `lake build ConnesWeilRH`, and `#print axioms unconditional_rh`.
+- The plan now states the fastest known path: skeleton the route-facing theorem
+  targets, close the no-comparison scalar bridge first, then replace restricted
+  trace read-off, prove exact finite-prime support/restricted-to-full, close
+  final sign and sign/defect, and only then add `unconditional_rh`.
+- Roadmap verification passed: `git diff --check` on the plan file and anchor
+  searches for status/checklist/final-target terms. Claim-language matches were
+  only in the forbidden-status section.
+
+2026-06-30
+
+- Added development skeletons for the unconditional checklist.
+- In the active route path, added item 3 skeleton theorems in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean`:
+  `normalized_source_no_defect_reduces_to_package_formula` and
+  `normalized_source_no_defect_reduces_to_normal_form`.
+- Updated `restrictedTraceReadOffSourceOfNormalizedPackage` so the normalized
+  restricted trace read-off now compiles through the item 3 skeleton plus
+  `qw_lambda_formula_source_evaluator_of_package_components`, instead of
+  using `sourceTrace.restrictedTraceReadOffBridge.build`.
+- Added quarantined development module
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` with skeleton declarations for
+  source package, fixed front end, trace front end, restricted-to-full, final
+  sign, sign/defect, full positivity, CC20 exit, and internal route
+  certificate.
+- WSL ext4 verification passed after syncing edited files:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH` and `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+- This is now intentionally a skeleton state. The placeholder scan reports the
+  new `sorry`s in `TraceFrontEnd.lean` and `Dev/UnconditionalSkeleton.lean`;
+  those must be removed before any final certification or `unconditional_rh`
+  claim.
+
+2026-06-30
+
+- Filled three active-route muscles behind the unconditional RH skeleton,
+  hardest local pieces first, without adding new active-route `sorry`s.
+- Muscle 1: added pointwise scalar route-test evidence in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean`:
+  `normalized_restricted_scalar_seed_support_square_eq_normal_form`,
+  `normalized_restricted_scalar_seed_positive_trace_eq_normal_form`,
+  `normalized_restricted_scalar_seed_source_no_defect_eq_qw_lambda`,
+  `normalized_restricted_scalar_seed_support_square_eq_qw_lambda`,
+  `normalized_restricted_scalar_seed_positive_trace_eq_qw_lambda`,
+  `normalized_restricted_scalar_seed_route_hilbert_schmidt`,
+  `normalized_restricted_scalar_seed_route_positive_trace_nonnegative`, and
+  `normalizedRestrictedScalarRouteTestCertificate`.
+- This proves the scalar seed built from
+  `NormalizedRestrictedScalarNormalForm` matches `QW_lambda` at the exact route
+  test for no-defect, support-square, and positive trace, and inherits the
+  pointwise Hilbert-Schmidt gate from `SourceTraceReadOffData`.
+- Muscle 2: added comparison-backed no-missing-bulk construction in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean`:
+  `traceScaleNoMissingBulkOfNormalizedPackageFromComparison`,
+  `trace_scale_no_missing_bulk_comparison_no_defect_qw_lambda_holds`, and
+  `trace_scale_no_missing_bulk_comparison_support_square_holds`.
+- This shows that once
+  `NormalizedSupportSquareQWLambdaSourceComparison` is proved, the normalized
+  trace-scale no-missing-bulk data follows without using the broad generic
+  restricted trace read-off bridge. Rank/pole/Cdef ownership and no-extra-bulk
+  remain explicit inputs.
+- Muscle 3: added
+  `trace_scale_route_front_end_of_normalized_comparison` in
+  `ConnesWeilRH/Route/RouteTheorem.lean`. It builds
+  `TraceScaleRouteFrontEndData` from the comparison-backed trace-scale data,
+  provided `traceData.traceScaleNoMissingBulk` is explicitly identified with
+  that comparison-backed data.
+- Verification passed in the WSL ext4 mirror after syncing Windows files:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`,
+  `lake build ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`, and axiom audits
+  for the new declarations. The axiom output was only
+  `[propext, Classical.choice, Quot.sound]`.
+- Placeholder scan now reports `sorry` only in the quarantined development
+  module `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+- Remaining hard blocker: prove/import the actual analytic
+  `NormalizedSupportSquareQWLambdaSourceComparison`, then prove the
+  trace-scale data equality
+  `traceData.traceScaleNoMissingBulk =
+  traceScaleNoMissingBulkOfNormalizedPackageFromComparison ...`. Full scalar
+  package replacement is still blocked by the global
+  `CC20TracePackageRemainderData.sourceHilbertSchmidtGate : forall g, ...`.
+- Lean parser pitfall: do not split a field projection after a parenthesized
+  expression as `(pkg).commonTest` newline `.sourceConvolutionSquare`; Lean can
+  parse the second line as an argument. Use the explicit accessor
+  `Source.SourceObject.CommonTestObject.sourceConvolutionSquare (pkg).commonTest`.
+
+2026-06-30
+
+- Filled another route muscle by making the current normalized
+  support-square/`QW_lambda` comparison path explicit.
+- Added
+  `TraceFrontEndData.normalizedSupportSquareQWLambdaSourceComparisonOfPackageBridge`
+  and `TraceFrontEndData.normalized_support_square_qw_lambda_package_bridge_holds`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- Added `trace_scale_route_front_end_of_normalized_package_bridge` in
+  `ConnesWeilRH/Route/RouteTheorem.lean`.
+- This creates a visible distinction between the current bridge-backed
+  comparison and the future analytic/theorem-backed comparison. The current
+  constructor still depends on `restricted_trace_read_off_of_source_trace_data`,
+  so it is wiring progress, not source-law discharge.
+- Verification passed in the WSL ext4 mirror:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd
+  ConnesWeilRH.Route.RouteTheorem` and `lake build ConnesWeilRH`.
+- Axiom audit for the new declarations reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Placeholder scan still reports `sorry` only in the quarantined development
+  skeleton `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+
+2026-06-30
+
+- Filled the next hard comparison muscle by factoring
+  `NormalizedSupportSquareQWLambdaSourceComparison` through explicit scalar
+  normal forms.
+- Added `TraceFrontEndData.NormalizedCC20SupportSquareNormalForm` and
+  `TraceFrontEndData.normalized_support_square_reduces_to_cc20_normal_form`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`. This proves the CC20
+  support-square trace side reduces by definition to the normalized
+  trace-scale support-square scalar at the selected source trace test.
+- Added `TraceFrontEndData.NormalizedSupportSquareScalarNormalFormContract`
+  and
+  `TraceFrontEndData.normalizedSupportSquareQWLambdaSourceComparisonOfScalarNormalForms`.
+  The hard comparison can now be built from one visible scalar equality:
+  `NormalizedCC20SupportSquareNormalForm =
+  NormalizedRestrictedScalarNormalForm`.
+- Updated the quarantined
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` normalized lane so
+  `normalizedComparisonFromTheorems` is constructed from the scalar normal-form
+  contract. The remaining skeleton `sorry` now names the exact scalar equality
+  rather than the broader support-square/`QW_lambda` bridge.
+- Boundary preserved: this does not prove the scalar equality itself, does not
+  discharge no-extra-bulk, restricted-to-full `QW`, source sign/defect,
+  source-law fields, or the no-argument `unconditional_rh`.
+- WSL ext4 verification passed after syncing Windows files:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`,
+  `lake build ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`,
+  `lake env lean ConnesWeilRH/Dev/UnconditionalSkeleton.lean`,
+  placeholder scan, `git diff --check`, and axiom audit for the new
+  declarations.
+- Axiom audits for the new declarations reported only
+  `[propext, Classical.choice, Quot.sound]`.
+
+2026-06-30
+
+- Filled the next scalar-normal-form muscle on the normalized
+  support-square/`QW_lambda` comparison path.
+- Added
+  `Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols.support_square_trace_eq_trace_amplitude_sq`
+  in `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`, proving the normalized
+  legal-square support-square trace is definitionally `traceAmplitude g ^ 2`.
+- Added route-facing normal-form helpers in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean`:
+  `normalized_seed_support_square_eq_trace_amplitude_sq`,
+  `NormalizedCC20TraceAmplitudeSquareNormalForm`,
+  `normalized_cc20_support_square_normal_form_eq_trace_amplitude_square`,
+  `NormalizedTraceAmplitudeSquareScalarContract`, and
+  `normalizedSupportSquareScalarNormalFormContractOfTraceAmplitudeSquare`.
+- Updated `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` so the normalized lane
+  now asks first for `NormalizedTraceAmplitudeSquareScalarContract`, then
+  derives `NormalizedSupportSquareScalarNormalFormContract` and
+  `NormalizedSupportSquareQWLambdaSourceComparison`.
+- Boundary preserved: the remaining scalar equality is now sharper:
+  `(normalizedSeed.traceAmplitude sourceTrace.archimedeanTest)^2 =
+  NormalizedRestrictedScalarNormalForm`. This equality is still open and must
+  be proved from the actual fixed-`S`, CCM25 restricted formula, and
+  source-test synchronization data; it has not been hidden or replaced by
+  `True`.
+- WSL ext4 verification passed after syncing Windows files:
+  `lake build ConnesWeilRH.Source.CC20Concrete.TraceScale
+  ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`, `lake env lean ConnesWeilRH/Dev/UnconditionalSkeleton.lean`,
+  placeholder scan, `git diff --check`, and axiom audit for the new
+  declarations.
+- Axiom audits for the new declarations reported only
+  `[propext, Classical.choice, Quot.sound]`.
+
+2026-06-30
+
+- Filled three more Lean route muscles behind the top-down unconditional RH
+  skeleton, with hardest local wiring first.
+- Added `TraceFrontEndData.TraceScaleNoExtraBulkContract` in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean`. The contract exposes universal
+  rank/pole/`Cdef` ownership for every sign-defect classification at the fixed
+  package/front/cutoff, plus a named `noExtraBulkScaleTerm` proposition and its
+  proof. The analytic no-extra-bulk theorem is still open; it is now visible as
+  a contract input rather than hidden as `True`.
+- Added
+  `TraceFrontEndData.withTraceScaleNoMissingBulkOfNormalizedComparisonFromContract`
+  and
+  `TraceFrontEndData.normalized_comparison_trace_scale_contract_replacement_owns_sign_defect`.
+  This gives the normalized comparison replacement path a stricter variant that
+  stores the no-extra-bulk obligation from `TraceScaleNoExtraBulkContract`.
+- Added
+  `trace_scale_route_front_end_of_normalized_comparison_contract_replacement`,
+  `route_certificate_of_normalized_comparison_contract_replacement`, and
+  `final_rh_of_normalized_comparison_contract_replacement` in
+  `ConnesWeilRH/Route/RouteTheorem.lean`.
+- Tightened the quarantined skeleton
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` with a normalized
+  contract-backed lane. The skeleton now distinguishes the data-bearing
+  `TraceFrontEndData` from its erased `ExpandedSourceTraceReadOffFrontEnd`
+  projection and typechecks with expected `sorry`s.
+- Boundary preserved: this is not an unconditional RH proof. Remaining hard
+  inputs include theorem-backed source packages, fixed/trace data,
+  `NormalizedSupportSquareQWLambdaSourceComparison`, `TraceScaleNoExtraBulk`
+  analytic discharge, restricted-to-full `QW`, source sign/defect
+  classification, final sign bridge, and source-law discharge.
+- WSL ext4 verification passed after syncing Windows files:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`, `lake env lean ConnesWeilRH/Dev/UnconditionalSkeleton.lean`,
+  `git diff --check`, and axiom audit for the new declarations.
+- Axiom audits for the new declarations reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Placeholder scan still reports `sorry` only in the quarantined development
+  skeleton `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+
+2026-06-30
+
+- Filled the scalar trace-scale sign/defect ownership muscle.
+- Added trace-scale-facing ownership wrappers in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean`:
+  `TraceScaleRankPoleCdefOwnership`,
+  `trace_scale_rank_pole_cdef_ownership_of_sign_defect_classification`,
+  `trace_scale_rank_pole_identification_of_ownership`,
+  `trace_scale_cdef_domination_of_ownership`,
+  `trace_scale_ledgers_cleared_of_ownership`,
+  `trace_scale_owns_sign_defect_remainder`, and
+  `trace_scale_owns_sign_defect_remainder_holds`.
+- Added
+  `TraceFrontEndData.traceScaleNoMissingBulkOfNormalizedScalarTraceFrontFromSignDefect`,
+  which constructs scalar no-missing-bulk data using theorem-backed scalar
+  equalities plus named ownership derived from the supplied
+  `SourceSignDefectClassification`.
+- Added
+  `TraceFrontEndData.normalized_scalar_trace_scale_owns_sign_defect`, proving
+  the constructed scalar no-missing-bulk data owns the exact sign/defect
+  classification supplied to the route.
+- Boundary preserved: `noExtraBulkScaleTerm` and `noExtraBulkScaleTermHolds`
+  remain explicit inputs. This step names and derives rank/pole/Cdef ownership
+  from sign/defect classification; it does not prove the standalone
+  no-extra-bulk analytic row or discharge sign/defect classification itself.
+- Verification passed in the WSL ext4 mirror:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`,
+  `lake build ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`,
+  `git diff --check`, placeholder scan, and axiom audits for the new
+  declarations.
+- Axiom audits for the new declarations reported only
+  `[propext, Classical.choice, Quot.sound]`.
+
+2026-06-30
+
+- Filled three more Lean muscles behind the normalized scalar route path.
+- Added package-backed quotient/test constructors in
+  `ConnesWeilRH/Route/Theorem1.lean`:
+  `test_half_density_compatibility_of_package`,
+  `tate_directions_to_pole_ledger_of_package`, and
+  `test_and_quotient_compatibility_of_package`.
+- Added source-backed fixed-S transport constructors in
+  `ConnesWeilRH/Route/Theorem1.lean`:
+  `fixed_s_projection_transport_of_source_backed`,
+  `fixed_s_phase_pullback_of_source_backed`,
+  `fixed_s_defect_classification_of_source_backed`, and
+  `fixed_s_quantized_support_square_transport_of_parts`.
+- Added scalar normalized-package specializations in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean`:
+  `normalizedScalarTestAndQuotientCompatibilityFromOriginalCCM25`,
+  `normalizedScalarFixedSNoDefectSupportSquareTemplate`,
+  `normalizedScalarTraceClassCyclicSupportSquareIdentity`, and
+  `normalizedScalarFixedSSupportSquareTransportFromOriginalCCM25`.
+- The scalar trace-front path no longer needs free inputs for
+  `TestAndQuotientCompatibility` or `FixedSQuantizedSupportSquareTransport`;
+  these are now built from the synchronized CCM25 package, source-backed
+  CCM24/window rows, CC20 sign normalizations, and scalar CC20 trace-package
+  read-offs.
+- Boundary preserved: this does not prove
+  `NormalizedScalarFullTraceArchimedeanBalance`, theorem-backed
+  `NormalizedSupportSquareQWLambdaSourceComparison`, trace-scale
+  no-missing-bulk data, restricted-to-full `QW`, final sign bridge,
+  sign/defect classification, source-law discharge, or no-argument
+  `unconditional_rh`.
+- WSL ext4 verification passed after syncing Windows files:
+  `lake build ConnesWeilRH.Route.Theorem1`,
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`, and
+  `lake build ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`.
+- Axiom audits for the new declarations reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Placeholder scan still reports `sorry` only in the quarantined development
+  skeleton `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+
+2026-06-30
+
+- Filled the scalar trace-scale no-missing-bulk equality muscle.
+- Added `TraceFrontEndData.SOData.normalized_scalar_source_no_defect_eq_scalar`
+  as a short local alias for the long source-package scalar no-defect theorem.
+- Added
+  `TraceFrontEndData.ordinaryTraceSupportSquareTheoremDataOfNormalizedScalarTraceFront`
+  and
+  `TraceFrontEndData.noDefectQWLambdaTheoremDataOfNormalizedScalarTraceFront`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- Added
+  `TraceFrontEndData.traceScaleNoMissingBulkOfNormalizedScalarTraceFront`,
+  which constructs scalar `TraceScaleNoMissingBulkData` from theorem-backed
+  ordinary/support/no-defect/`QW_lambda` scalar equalities.
+- Boundary preserved: the constructor still takes
+  `rankPoleCdefOwnEveryRemainder`, `noExtraBulkScaleTerm`, and
+  `noExtraBulkScaleTermHolds` explicitly. It also requires
+  `scalarTraceData.lambda = traceData.lambda`, because the normalized
+  `QW_lambda` normal-form theorem is tied to the original package cutoff.
+- Verification passed in the WSL ext4 mirror:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`,
+  `lake build ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`,
+  `git diff --check`, and axiom audits for the new declarations.
+- Axiom audits for the new declarations reported only
+  `[propext, Classical.choice, Quot.sound]`.
+- Placeholder scan still reports `sorry` only in the quarantined development
+  skeleton `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+
+2026-06-30
+
+- Filled the scalar full trace read-off bridge muscle while keeping
+  restricted-to-full content visible.
+- Added `TraceFrontEndData.NormalizedScalarFullTraceArchimedeanBalance`,
+  `TraceFrontEndData.normalized_scalar_trace_front_full_trace_equality_from_balance`,
+  and
+  `TraceFrontEndData.normalizedScalarTraceFrontFullTraceReadOffBridgeFromBalance`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- The equality theorem proves scalar `sourceNoDefectTrace = QW` by composing:
+  scalar no-defect equals the normalized restricted scalar normal form;
+  the original package `QW_lambda` reduces to that normal form; and the explicit
+  balance input proves the original package `QW_lambda = QW` through
+  `Source.CCM25Concrete.Package.qw_lambda_eq_qw_of_archimedean_contribution`.
+- The bridge constructor packages this as a `FullTraceReadOffBridgeContract`
+  and preserves the supplied no-defect and full-`QW` read-off inputs.
+- Boundary preserved: the new `NormalizedScalarFullTraceArchimedeanBalance`
+  proposition is still an open mathematical input. This is the restricted/full
+  archimedean-global finite-prime balance, not a proved theorem.
+- WSL ext4 verification passed after syncing Windows files:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`,
+  `lake build ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`, and axiom audit
+  for the new declarations. Axiom output was only
+  `[propext, Classical.choice, Quot.sound]`.
+- Placeholder scan still reports `sorry` only in the quarantined development
+  skeleton `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+
+2026-06-30
+
+- Filled the scalar restricted trace read-off bridge muscle.
+- Added
+  `TraceFrontEndData.normalized_scalar_trace_front_restricted_trace_equality_from_original`
+  and
+  `TraceFrontEndData.normalizedScalarTraceFrontRestrictedTraceReadOffBridgeFromOriginal`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- The equality theorem proves the scalar package's support-square trace equals
+  the synchronized scalar package `QW_lambda` at the scalar route test. The
+  proof uses the scalar package's definitional support-square read-off and the
+  original normalized package's `QW_lambda -> NormalizedRestrictedScalarNormalForm`
+  theorem.
+- The bridge constructor packages that equality as a
+  `RestrictedTraceReadOffBridgeContract` and preserves the supplied
+  package-backed `CCM25RestrictedQWReadOff`.
+- Boundary preserved: this closes the scalar restricted bridge, but the scalar
+  trace-front constructor still needs scalar-specific full trace bridge,
+  test/quotient compatibility, fixed-S support-square transport, and
+  no-missing-bulk data before it can replace the old normalized trace front end
+  in the route.
+- WSL ext4 verification passed after syncing Windows files:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`,
+  `lake build ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`, and axiom audit
+  for the new declarations. Axiom output was only
+  `[propext, Classical.choice, Quot.sound]`.
+- Placeholder scan still reports `sorry` only in the quarantined development
+  skeleton `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+
+2026-06-30
+
+- Filled the scalar trace-front synchronization muscle.
+- Added
+  `TraceFrontEndData.traceFrontEndDataOfNormalizedScalarPackageFromOriginalCCM25`
+  and `TraceFrontEndData.normalized_scalar_trace_front_from_original_lambda`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- The constructor builds `TraceFrontEndData` for the scalar-built source package
+  while reusing the original normalized package's `lambda`,
+  `oneLtLambda`, and `ccm25ArithmeticPackage`. Scalar-specific
+  `TestAndQuotientCompatibility`, fixed-S support-square transport,
+  full/restricted trace bridges, and trace-scale no-missing-bulk data remain
+  explicit inputs because they mention the scalar package's CC20 trace object.
+- This closes the construction-order gap for the CCM25 side of the scalar
+  package path, but it does not yet discharge the scalar package's CC20-facing
+  front-end obligations.
+- WSL ext4 verification passed after syncing Windows files:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`,
+  `lake build ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`, and axiom audit
+  for the new declarations. Axiom output was only
+  `[propext, Classical.choice, Quot.sound]`.
+- Placeholder scan still reports `sorry` only in the quarantined development
+  skeleton `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+
+2026-06-30
+
+- Filled another scalarization muscle behind the hard
+  `NormalizedSupportSquareQWLambdaSourceComparison` target.
+- Added
+  `TraceFrontEndData.normalized_restricted_scalar_package_support_square_eq_original_qw_lambda_formula`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- This theorem proves that the scalar-built CC20 package's support-square trace
+  equals the original normalized package's CCM25 restricted `QW_lambda` formula
+  when the scalar seed is defined from that original trace data's
+  `NormalizedRestrictedScalarNormalForm`.
+- Boundary preserved: the theorem deliberately targets the original CCM25
+  formula, not the scalar package's own `ccm25ArithmeticPackage`. Promoting this
+  to a full scalar-package comparison still requires synchronized scalar
+  fixed-front/trace-front data, including same cutoff/lambda and arithmetic
+  package transport.
+- WSL ext4 verification passed after syncing Windows files:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`,
+  `lake build ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`, and axiom audit
+  for the new theorem. Axiom output was only
+  `[propext, Classical.choice, Quot.sound]`.
+- Placeholder scan still reports `sorry` only in the quarantined development
+  skeleton `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+- Next hard proof target remains the theorem-backed replacement for
+  `normalizedSupportSquareQWLambdaSourceComparisonOfPackageBridge`: prove the
+  support-square/`QW_lambda` comparison from concrete CC20/CCM25 definitions or
+  a clean imported theorem package, then use it in
+  `trace_scale_route_front_end_of_normalized_comparison`.
+
+2026-06-30
+
+- Filled the normalized route-certificate and endpoint wiring muscle.
+- Added `route_certificate_of_normalized_comparison` and
+  `route_certificate_of_normalized_package_bridge` in
+  `ConnesWeilRH/Route/RouteTheorem.lean`.
+- Added endpoint wrappers `final_rh_of_normalized_comparison` and
+  `final_rh_of_normalized_package_bridge`, both concluding
+  `_root_.RiemannHypothesis` from their explicit normalized-route inputs.
+- These are conditional endpoint wrappers, not an unconditional RH proof. They
+  still require source package data, fixed/trace front-end data, trace-scale
+  equality, sign/defect classification, restricted-to-full, common tuple, and
+  final sign bridge inputs.
+- Moved `cc20_source_rh_of_route_certificate` and `final_connes_weil_rh`
+  before the normalized endpoint wrappers so Lean can use them without forward
+  references.
+- Verification passed in the WSL ext4 mirror: `lake build
+  ConnesWeilRH.Route.RouteTheorem`, `lake build ConnesWeilRH`, and axiom audit
+  for the new route-certificate/endpoint wrappers. Axiom output was only
+  `[propext, Classical.choice, Quot.sound]`.
+- Placeholder scan still reports `sorry` only in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+
+2026-06-30
+
+- Filled the next three Lean route muscles behind the normalized unconditional
+  skeleton, hardest local plumbing first.
+- Added
+  `TraceFrontEndData.withTraceScaleNoMissingBulkOfNormalizedComparison`,
+  `TraceFrontEndData.normalized_comparison_trace_scale_replacement_matches_generated`,
+  and
+  `TraceFrontEndData.normalized_comparison_trace_scale_replacement_owns_sign_defect`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`.
+- This creates a copied `TraceFrontEndData` whose trace/read-off fields are
+  unchanged but whose stored `traceScaleNoMissingBulk` is definitionally the
+  comparison-backed no-missing-bulk ledger. The previous caller-supplied
+  equality to that generated ledger is no longer needed on this replacement
+  path.
+- Added
+  `trace_scale_route_front_end_of_normalized_comparison_replacement` and
+  `route_certificate_of_normalized_comparison_replacement` in
+  `ConnesWeilRH/Route/RouteTheorem.lean`.
+- Added endpoint wrapper `final_rh_of_normalized_comparison_replacement`,
+  concluding `_root_.RiemannHypothesis` from the explicit normalized inputs
+  after the replacement trace-front-end step.
+- Boundary preserved: this is still conditional route plumbing. It does not
+  prove the hard analytic
+  `NormalizedSupportSquareQWLambdaSourceComparison`, does not prove
+  restricted-to-full, and does not close the final sign/defect bridge.
+- WSL ext4 verification passed after syncing Windows files:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`,
+  `lake build ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`, and axiom audit
+  for the new declarations. Axiom output was only
+  `[propext, Classical.choice, Quot.sound]`.
+- Placeholder scan still reports `sorry` only in the quarantined development
+  skeleton `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.

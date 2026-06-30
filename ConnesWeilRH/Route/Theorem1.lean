@@ -211,6 +211,30 @@ def cc20_archimedean_trace_square_output
     noDefect_eq_traceSquare := rfl
     positiveTrace_eq_traceSquare := rfl }
 
+theorem fixed_s_projection_transport_of_source_backed
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} (hlambda : 1 < lambda) :
+    FixedSProjectionTransport inputs g lambda where
+  windowSupportContainment :=
+    window_support_containment_of_source_backed g hlambda
+  lambdaCompatible := lambda_compatible_of_source_backed g hlambda
+
+theorem fixed_s_phase_pullback_of_source_backed
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs} :
+    FixedSPhasePullback inputs g where
+  boundedComparisonMap := (bounded_comparison_of_source_backed g).1
+  boundedComparisonInverse := (bounded_comparison_of_source_backed g).2
+  uInfinityNormalized := inputs.cc20.signsAndNormalizations.1
+  qduNormalized := inputs.cc20.signsAndNormalizations.2.1
+
+theorem fixed_s_defect_classification_of_source_backed
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} (hlambda : 1 < lambda) :
+    FixedSDefectClassification inputs g lambda where
+  projectionTransport :=
+    fixed_s_projection_transport_of_source_backed hlambda
+  phasePullback := fixed_s_phase_pullback_of_source_backed
+
 structure FixedSQuantizedSupportSquareTransport
     (inputs : RouteInputs)
     (a : inputs.cc20.archimedeanSymbols.Test)
@@ -220,6 +244,22 @@ structure FixedSQuantizedSupportSquareTransport
   noDefectTemplate : FixedSNoDefectSupportSquareTemplate inputs a
   defectClassification : FixedSDefectClassification inputs g lambda
   traceLegality : TraceClassCyclicSupportSquareIdentity inputs a
+
+theorem fixed_s_quantized_support_square_transport_of_parts
+    {inputs : RouteInputs}
+    {a : inputs.cc20.archimedeanSymbols.Test}
+    {g : SourceBackedFixedSTest inputs} {lambda : ℝ}
+    (hlambda : 1 < lambda)
+    (hnoDefect : FixedSNoDefectSupportSquareTemplate inputs a)
+    (htrace : TraceClassCyclicSupportSquareIdentity inputs a) :
+    FixedSQuantizedSupportSquareTransport inputs a g lambda where
+  projectionTransport :=
+    fixed_s_projection_transport_of_source_backed hlambda
+  phasePullback := fixed_s_phase_pullback_of_source_backed
+  noDefectTemplate := hnoDefect
+  defectClassification :=
+    fixed_s_defect_classification_of_source_backed hlambda
+  traceLegality := htrace
 
 def FullTraceReadOffEquality
     (inputs : RouteInputs) (a : inputs.cc20.archimedeanSymbols.Test)
@@ -634,6 +674,38 @@ theorem ccm25_pole_normalization_read_off_of_package
     CCM25PoleNormalizationReadOff inputs g :=
   Source.CCM25Concrete.Package.pole_normalization_of_package_interface
     pkg g.weilTest
+
+theorem test_half_density_compatibility_of_package
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) :
+    TestHalfDensityCompatibility inputs g where
+  mellinHalfDensityConvention :=
+    inputs.cc20.mellinHalfDensityConvention
+  ccm25FullQWReadOff := ccm25_full_qw_read_off_of_package pkg
+
+theorem tate_directions_to_pole_ledger_of_package
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) :
+    TateDirectionsToPoleLedger inputs g where
+  poleNormalizationReadOff := ccm25_pole_normalization_read_off_of_package pkg
+
+theorem test_and_quotient_compatibility_of_package
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) :
+    TestAndQuotientCompatibility inputs g where
+  testHalfDensityCompatibility :=
+    test_half_density_compatibility_of_package pkg
+  tateDirectionsToPoleLedger :=
+    tate_directions_to_pole_ledger_of_package pkg
 
 theorem ccm25_restricted_qw_read_off_of_package
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}

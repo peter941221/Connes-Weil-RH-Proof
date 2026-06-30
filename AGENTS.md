@@ -755,13 +755,16 @@ drift, hidden axioms, or toy-route leakage.
   `sourceNoDefectTrace(traceData.archimedeanTest) = QW_lambda(lambda,g,g)`;
   that bridge must preserve the same normalized package, fixed test, trace
   data, `traceData.lambda`, CCM25 arithmetic package, and common Weil test.
+  A constructor for `NormalizedSupportSquareQWLambdaSourceComparison` must use
+  a named theorem for this middle scalar bridge; do not hide the equality as a
+  free `Prop` field or inside a constructor body.
 - The normalized trace front end now has
   `TraceFrontEndData.noDefectQWLambdaTheoremDataOfNormalizedPackage`, which
-  composes the normalized support-square/no-defect theorem with
-  `restricted_trace_read_off_of_source_trace_data`. Prefer this no-free-prop
-  constructor over supplying an arbitrary `noDefectSourceMatchesQWLambda : Prop`
-  for normalized packages. The next discharge target is the restricted trace
-  read-off source itself: derive `restrictedTraceReadOffEquality` from
+  now consumes `restrictedTraceReadOffSourceOfNormalizedPackage`. Prefer this
+  no-free-prop constructor over supplying an arbitrary
+  `noDefectSourceMatchesQWLambda : Prop` for normalized packages. The next
+  discharge target is replacing the restricted trace equality supplied by
+  `restrictedTraceReadOffBridge.build` with a named source theorem from
   package-backed CCM25 `QW_lambda` formula data for the same normalized package,
   fixed test, `traceData.lambda`, and common Weil test.
 - The normalized trace front end now also has
@@ -926,3 +929,13 @@ drift, hidden axioms, or toy-route leakage.
   `globalPrimeIndexCoverage`, `restrictedPrimeIndexCoverage`, and
   `finitePrimeTermNormalization`. Do not reintroduce the old nested
   conjunction shape or consume this interface with `.1/.2.1/.2.2` projections.
+- For unconditionalization roadmap work, every claimed bridge removal must name
+  the current holder, the replacement theorem, both sides' concrete definitions,
+  the shared normal form, the downstream constructor that will consume the
+  theorem, and the build/audit command. If the shared normal form or concrete
+  definitions are missing, classify the row as Orange/Red instead of adding a
+  new free `Prop` field.
+- `SourceObject.CC20TraceObjectPackage` has no `sourceTraceLegality` field.
+  Derive trace legality from `sourceHilbertSchmidtGate sourceTraceTest` and
+  `sourceTraceClassCyclicityTemplate sourceTraceTest ...`; do not add a new
+  legality field or project one that does not exist.

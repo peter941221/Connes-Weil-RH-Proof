@@ -35,10 +35,10 @@ Evidence:
 
 | object | evidence |
 |---|---|
-| final theorem consumes a certificate | `ConnesWeilRH/Route/RouteTheorem.lean:351-358` |
-| certificate fields | `ConnesWeilRH/Route/RouteTheorem.lean:21-24` |
+| final theorem consumes a certificate | `ConnesWeilRH/Route/RouteTheorem.lean:801-808` |
+| certificate fields | `ConnesWeilRH/Route/RouteTheorem.lean:22-25` |
 | route inputs are CCM24/CCM25/CC20 interfaces | `ConnesWeilRH/Route/Definitions.lean:31-34` |
-| expanded source package constructor still requires front-end evidence | `ConnesWeilRH/Route/RouteTheorem.lean:304-315` |
+| expanded source package constructor still requires front-end evidence | `ConnesWeilRH/Route/RouteTheorem.lean:653-665` |
 | route bridge certificate fields | `ConnesWeilRH/Route/Bridge.lean:2767-2780` |
 
 So the current proof graph is:
@@ -103,6 +103,83 @@ formalized or imported.
 | Build `ExpandedSourceTraceReadOffFrontEnd` | `ConnesWeilRH/Route/Theorem1.lean` source-package front-end constructors | Red | it supplies the fixed trace read-off data, lambda, and CCM25 arithmetic package used by the bridge | derive only after common-test and CCM25 fixed-lambda arithmetic are concrete |
 | Build `ExpandedSourceRouteCertificateFrontEnd` | `ConnesWeilRH/Route/RouteTheorem.lean:84-112` | Red | it supplies sign/defect classification, restricted-to-full scalar equality, and final sign bridge | attack after source-object/common-test and trace read-off are stable |
 | Remove `RouteCertificate` parameter from final theorem | `ConnesWeilRH/Route/RouteTheorem.lean:351-358` | Red | this is the final step; removing it before the above constructors are proved would be a false unconditional claim | only add an unconditional theorem after the constructors exist and pass axiom audit |
+
+## Phase 0/1 Update, 2026-06-30
+
+Phase 0 is complete: the conditional theorem boundary is preserved. The final
+route theorem remains
+`final_connes_weil_rh {inputs : RouteInputs} (cert : RouteCertificate inputs)`,
+and no imported no-argument `unconditional_rh` theorem has been added.
+
+Phase 1 is not complete. The current Green pieces are:
+
+| row | evidence |
+|---|---|
+| shared normalized restricted scalar normal form | `ConnesWeilRH/Route/TraceFrontEnd.lean:1412` |
+| CCM25 `QW_lambda` reduces to that normal form | `ConnesWeilRH/Route/TraceFrontEnd.lean:1455` |
+| CC20 normalized seed source no-defect trace reduces locally to `traceAmplitude g ^ 2` | `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean:321` |
+
+The remaining Phase 1 blocker is now exact:
+
+```text
+traceAmplitude(g)^2
+  =
+NormalizedRestrictedScalarNormalForm(...)
+```
+
+No current Lean definition or theorem ties the CC20 trace amplitude to the
+CCM25 restricted scalar normal form without consuming
+`NormalizedSupportSquareQWLambdaSourceComparison`. Do not continue route wiring
+as if Phase 1 were discharged; start the concrete CC20 trace scalar
+compatibility slice or import a clean theorem for this equality.
+
+## Phase 2 Scalar Slice Update, 2026-06-30
+
+Result: partial Phase 2 progress, not an unconditional RH proof.
+
+| item | evidence |
+|---|---|
+| concrete scalar CC20 trace seed | `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`, `ScalarTraceScaleSymbols` |
+| normalized scalar CC20 trace seed | `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean`, `NormalizedScalarTraceScaleSymbols` |
+| scalar no-defect read-off | `NormalizedScalarTraceScaleSymbols.source_no_defect_trace_eq_scalar` |
+| scalar trace-object package constructor | `normalizedScalarTraceObjectPackage` |
+| package scalar read-off | `normalized_scalar_trace_object_source_no_defect_eq_scalar` |
+
+What this proves:
+
+```text
+sourceNoDefectTrace(g) = scalarTrace(g)
+supportSquareTrace(g) = scalarTrace(g)
+0 <= positiveTrace(g)
+```
+
+for the scalar-normalized CC20 seed, with positivity supplied by the theorem
+`scalarTrace_nonnegative`.
+
+Why Phase 1 is still not Green:
+
+```text
+CC20 source package
+    |
+    v
+fixedData + traceData
+    |
+    v
+NormalizedRestrictedScalarNormalForm(lambda, ccm25ArithmeticPackage)
+```
+
+The existing source package is constructed before the downstream
+`TraceFrontEndData.lambda` and `traceData.ccm25ArithmeticPackage` values exist.
+Therefore the current normalized package path cannot definitionally set its
+CC20 scalar to `NormalizedRestrictedScalarNormalForm`.
+
+Remaining acceptable routes:
+
+| route | status |
+|---|---|
+| add a scalar-normalized package/front-end path where the fixed-lambda CCM25 scalar is available before CC20 package construction | open |
+| prove the old amplitude-square seed equals the CCM25 restricted normal form from concrete definitions or an imported theorem package | open |
+| add a free equality field | rejected |
 
 ## Source-Object Field Gaps
 
@@ -180,6 +257,32 @@ Immediate Green/Yellow candidates:
 | turn common-test equality `Prop` fields into named bridge records | Yellow | `ConnesWeilRH/Source/Objects.lean:149-153` and `docs/proofs/source-common-test-tuple-theorem-contract.md` |
 | remove old full-`forall n` finite-prime compatibility uses from route-facing CCM25 read-offs | Yellow | `ConnesWeilRH/Source/CCM25Concrete/*` and `ConnesWeilRH/Route/Bridge.lean` recent scoped-sum path |
 | prove more package projections from scoped fixed-lambda certificates | Yellow | `ConnesWeilRH/Source/CCM25Concrete/Package.lean` |
+
+Progress note, 2026-06-30:
+
+```text
+The fixed-lambda CCM25 package already proves the finite-prime part of the
+restricted-to-full comparison:
+
+  source_restricted_finite_prime_evaluator_sum =
+  source_global_finite_prime_evaluator_sum.
+
+The remaining scalar full-trace balance is not only this finite-prime equality.
+It also needs the archimedean/pole identity
+
+  archimedeanTerm(F_g) + polePairing(g)
+    =
+  poleFunctional(F_g) - archimedeanTerm(F_g).
+```
+
+Evidence:
+
+| item | evidence |
+|---|---|
+| finite-prime restricted/global equality | `ConnesWeilRH/Source/CCM25Concrete/Package.lean:849` |
+| route theorem exposing the finite-prime half | `ConnesWeilRH/Route/TraceFrontEnd.lean`, `normalizedScalarFullTraceArchimedeanFinitePrimeBalance` |
+| remaining archimedean/pole contract | `ConnesWeilRH/Route/TraceFrontEnd.lean`, `NormalizedScalarFullTraceArchimedeanPoleBalance` |
+| full balance from pole balance plus finite-prime equality | `ConnesWeilRH/Route/TraceFrontEnd.lean`, `normalizedScalarFullTraceArchimedeanBalanceOfPoleBalance` |
 
 Progress note, 2026-06-29:
 
