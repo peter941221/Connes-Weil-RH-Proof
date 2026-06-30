@@ -17,7 +17,9 @@ local pre-Lean proof-package matrix: complete
 accepted-source certification: open
 external referee certification: open
 Lean route theorem: certificate-conditional
-Lean source-object interface hardening: active
+Lean source-object interface hardening: active, with S2-B1 scalar target named
+S2-B1 matched-seed scalar package: closed conditionally
+actual-source S2-B1 scalar identification: open
 unconditional Lean RH theorem: open
 public proof status: source-conditional
 ```
@@ -54,9 +56,33 @@ It does not yet prove:
 theorem final_rh : _root_.RiemannHypothesis
 ```
 
-The current Lean work is replacing broad certificate fields by source-object
-backed constructions and package-owned projections. The remaining hard route
-inputs are still explicit.
+The current Lean work has replaced several broad certificate fields by
+source-object backed constructions and package-owned projections. The remaining
+hard route inputs are still explicit. The first active target is now the
+actual-source S2-B1 scalar identification:
+
+```text
+NormalizedSeedQWLambdaScalarIdentification
+```
+
+A stronger theorem,
+
+```text
+NormalizedSeedRestrictedEvaluatorScalarIdentification
+```
+
+would prove the evaluator-level identity
+
+```text
+traceAmplitude^2
+  =
+archimedeanTerm(convolutionStar g g)
+  + polePairing g
+  - restricted finite-prime evaluator
+```
+
+and then project to the package-free `QW_lambda` target through
+`normalizedSeedQWLambdaScalarIdentificationOfRestrictedEvaluator`.
 
 ## Short Verdict
 
@@ -93,6 +119,30 @@ The route fails if any one of the following checks fails:
 
 5. The CC20 source RH conclusion does not transport to Mathlib's
    _root_.RiemannHypothesis.
+```
+
+The current fastest path is:
+
+```text
+1. Prove NormalizedSeedQWLambdaScalarIdentification, or the stronger
+   NormalizedSeedRestrictedEvaluatorScalarIdentification.
+
+2. Close the remaining S2-B1 fixed-tuple rows:
+   rank/zero-mode,
+   no-strip rank/pole,
+   endpoint-strip Cdef,
+   no-extra-bulk,
+   no-hidden finite-part subtraction.
+
+3. Build the normalized source package and front ends from theorem-backed
+   source data.
+
+4. Prove route ledger clearing and the sign/defect package.
+
+5. Prove the restricted-to-full threshold package for the same fixed test,
+   cutoff, and arithmetic package.
+
+6. Discharge the CC20 C.1 exit and the RH-definition bridge.
 ```
 
 ## Primary Sources
@@ -227,7 +277,9 @@ lakefile.toml
 lean-toolchain
 ```
 
-The current source-object layer reaches the route-certificate boundary.
+The current source-object layer reaches the route-certificate boundary, but it
+still depends on theorem-backed source rows before it can build an internal
+`RouteCertificate`.
 
 The following constructors and records are now part of the interface-hardening
 path:
@@ -255,6 +307,41 @@ The trace front end still carries the full and restricted trace-to-QW read-off
 bridges as explicit inputs. These are not yet Lean proofs from analytic first
 principles.
 
+The latest S2-B1 work split the first fixed-tuple row into a closed matched
+seed path and an open actual-source path:
+
+```text
+matched seed path:
+  traceAmplitude := sqrt(CCM25 restricted evaluator)
+        |
+        v
+  supportSquareTrace = QW_lambda
+
+actual source path:
+  source CC20 trace object
+        |
+        v
+  supportSquareTrace = QW_lambda
+        |
+        v
+  still needs NormalizedSeedQWLambdaScalarIdentification
+```
+
+Lean now has:
+
+```text
+NormalizedSeedQWLambdaScalarIdentification
+NormalizedSeedRestrictedEvaluatorScalarIdentification
+normalizedSeedQWLambdaScalarIdentificationOfRestrictedEvaluator
+normalizedSeedMatchedRestrictedEvaluatorScalarIdentification
+normalizedSeedMatchedQWLambdaScalarIdentification
+normalizedSeedFixedTupleTheoremDataOfQWLambdaScalarIdentification
+matchedSeedFixedTupleTheoremDataOfRemainingRows
+```
+
+The matched-seed constructors are useful proof plumbing. They do not identify
+the matched seed with the source CC20 trace object used by the route.
+
 Recent Lean hardening moved several authority points into source-owned package
 layers:
 
@@ -264,6 +351,8 @@ layers:
 | CC20 finite-vanishing package | the compact criterion projects from the source-owned finite-vanishing package | does not prove Proposition C.1 from first principles |
 | CCM25 finite-prime support | fixed-lambda exact support projects from the CCM25 concrete arithmetic package | does not prove the CCM25 analytic source formula |
 | CCM25 common atoms | global and restricted finite-prime evaluator sums share the same common atoms | does not construct the analytic evaluator |
+| S2-B1 matched seed | matched seed support-square/`QW_lambda` read-off is packaged as theorem data under evaluator nonnegativity | does not prove the actual source trace seed has that amplitude |
+| S2-B1 actual source seed | `NormalizedSeedQWLambdaScalarIdentification` is the package-free target, with a stronger evaluator-level route through `NormalizedSeedRestrictedEvaluatorScalarIdentification` | still needs theorem evidence for the source CC20 trace object |
 | fixed-test scalar read-off | package-owned theorems express `QW_lambda = QW` from common-atom read-offs and archimedean/pole balance | does not prove the analytic archimedean/pole balance |
 | restricted-to-full guard | `RestrictedToFullAllowedInputRows` lists the allowed evidence and excludes spectral, determinant, and numerical eigenvalue imports | does not prove restricted-to-full analytically |
 
@@ -294,6 +383,32 @@ source-package fields.
 The positive trace, support-square trace, CC20 no-defect trace, and CCM25
 restricted form must represent the same finite-lambda scalar.
 
+The first S2-B1 fixed-tuple row has now been narrowed to the package-free
+actual-source scalar target:
+
+```text
+NormalizedSeedQWLambdaScalarIdentification
+```
+
+This target states the support-square read-off for the normalized source seed
+equals the same fixed-tuple `QW_lambda` scalar. The stronger available target is:
+
+```text
+NormalizedSeedRestrictedEvaluatorScalarIdentification
+```
+
+It proves:
+
+```text
+traceAmplitude^2
+  =
+archimedeanTerm(convolutionStar g g)
+  + polePairing g
+  - restricted finite-prime evaluator
+```
+
+and projects to the package-free target.
+
 The route must rule out a missing source-owned term such as:
 
 ```text
@@ -309,9 +424,23 @@ PoleJetExtra
 endpoint-strip Cdef
 ```
 
+After the scalar row, the remaining S2-B1 fixed-tuple rows are:
+
+```text
+S2B1FixedTupleRankZeroModeRow
+S2B1FixedTupleNoStripRankPoleRow
+S2B1FixedTupleEndpointStripCdefRow
+S2B1FixedTupleNoExtraBulkRow
+S2B1FixedTupleNoHiddenFinitePartSubtractionRow
+```
+
+The route should prove these rows for the actual source tuple before promoting
+to a stronger all-test or all-`lambda` package.
+
 Relevant files:
 
 ```text
+ConnesWeilRH/Source/S2B1TraceScale.lean
 docs/audits/trace-scale-compatibility-audit.md
 docs/audits/trace-scale-compatibility-discharge-attempt.md
 docs/audits/trace-scale-source-term-ledger.md
