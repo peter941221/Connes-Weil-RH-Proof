@@ -1826,6 +1826,86 @@ theorem archimedean_contribution_matches_of_scalar_witness
     SourceArchimedeanContributionMatchesForRestriction inputs g lambda pkg :=
   h.archimedeanContributionMatches
 
+noncomputable def restricted_to_full_no_spectral_convergence_import_of_parts
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (hwindow : SourceWindowControlsRestrictedRoute inputs g lambda)
+    (hstabilization :
+      RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg)
+    (harch :
+      SourceArchimedeanContributionMatchesForRestriction
+        inputs g lambda pkg) :
+    RestrictedToFullNoSpectralConvergenceImport
+      inputs g lambda F_g pkg where
+  commonTuple := hcommon
+  sourceWindowControlsRestrictedRoute := hwindow
+  restrictedFormIsRestriction :=
+    source_qw_lambda_is_restriction_of_common_tuple
+      hcommon hstabilization harch
+  finitePrimeSupportStabilizes := hstabilization
+  finitePrimeEvaluatorSumsMatch :=
+    (source_qw_lambda_is_restriction_of_common_tuple
+      hcommon hstabilization harch).finitePrimeEvaluatorSumsMatch
+  archimedeanPoleStability :=
+    source_archimedean_pole_stability_of_common_tuple hcommon
+  archimedeanContributionMatches := harch
+
+noncomputable def restricted_to_full_scalar_restriction_witness_of_parts
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (hwindow : SourceWindowControlsRestrictedRoute inputs g lambda)
+    (hstabilization :
+      RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg)
+    (harch :
+      SourceArchimedeanContributionMatchesForRestriction
+        inputs g lambda pkg) :
+    RestrictedToFullQWScalarRestrictionWitness
+      inputs g lambda F_g pkg where
+  commonTuple := hcommon
+  sourceWindowControlsRestrictedRoute := hwindow
+  restrictedFormIsRestriction :=
+    source_qw_lambda_is_restriction_of_common_tuple
+      hcommon hstabilization harch
+  finitePrimeSupportStabilizes := hstabilization
+  finitePrimeEvaluatorSumsMatch :=
+    (source_qw_lambda_is_restriction_of_common_tuple
+      hcommon hstabilization harch).finitePrimeEvaluatorSumsMatch
+  exactFinitePrimeSupport := package_exact_finite_prime_support_at_lambda_holds
+  archimedeanPoleStability :=
+    source_archimedean_pole_stability_of_common_tuple hcommon
+  archimedeanContributionMatches := harch
+  noSpectralConvergenceImport :=
+    restricted_to_full_no_spectral_convergence_import_of_parts
+      hcommon hwindow hstabilization harch
+
+noncomputable def restricted_to_full_scalar_restriction_witness_of_common_tuple
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (hstabilization :
+      RestrictedFinitePrimeSupportStabilizes inputs g lambda pkg)
+    (harch :
+      SourceArchimedeanContributionMatchesForRestriction
+        inputs g lambda pkg) :
+    RestrictedToFullQWScalarRestrictionWitness
+      inputs g lambda F_g pkg :=
+  restricted_to_full_scalar_restriction_witness_of_parts
+    hcommon
+    (source_window_controls_restricted_route_of_window_lambda
+      hcommon.windowLambdaCompatibility)
+    hstabilization harch
+
 theorem scoped_archimedean_contribution_matches_of_scalar_witness
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {F_g : TestFunction}
@@ -1998,6 +2078,55 @@ structure RestrictedToFullQWLargeLambdaThreshold
             RestrictedToFullQWScalarRestrictionWitness
               inputs g lambda F_g pkg
 
+noncomputable def restricted_to_full_large_lambda_threshold_of_archimedean_balance
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {F_g : TestFunction}
+    (lambda0 : ℝ)
+    (hlambda0 : 1 < lambda0)
+    (thresholdPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda0)
+    (thresholdTuple :
+      SourceCommonTestTupleContract
+        inputs g lambda0 F_g thresholdPackage)
+    (supportThresholdAtLarge :
+      ∀ lambda : ℝ,
+        lambda0 ≤ lambda →
+          FixedTestSupportThresholdAtLarge inputs g lambda)
+    (primePowerAtomStabilizationAtLarge :
+      ∀ lambda : ℝ,
+        lambda0 ≤ lambda →
+          ∀ pkg :
+            Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+              inputs.ccm25.weilSymbols g.weilTest lambda,
+            SourceCommonTestTupleContract inputs g lambda F_g pkg →
+              PrimePowerAtomStabilizationAtLarge inputs g lambda pkg)
+    (archimedeanContributionAtLarge :
+      ∀ lambda : ℝ,
+        lambda0 ≤ lambda →
+          ∀ pkg :
+            Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+              inputs.ccm25.weilSymbols g.weilTest lambda,
+            SourceCommonTestTupleContract inputs g lambda F_g pkg →
+              SourceArchimedeanContributionMatchesForRestriction
+                inputs g lambda pkg) :
+    RestrictedToFullQWLargeLambdaThreshold inputs g F_g where
+  lambda0 := lambda0
+  oneLtLambda0 := hlambda0
+  thresholdPackage := thresholdPackage
+  thresholdTuple := thresholdTuple
+  supportThresholdAtLarge := supportThresholdAtLarge
+  primePowerAtomStabilizationAtLarge := primePowerAtomStabilizationAtLarge
+  scalarRestrictionAtLarge := by
+    intro lambda habove pkg hcommon
+    exact
+      restricted_to_full_scalar_restriction_witness_of_common_tuple
+        hcommon
+        { fixedTestSupport := supportThresholdAtLarge lambda habove
+          primePowerAtomStabilization :=
+            primePowerAtomStabilizationAtLarge lambda habove pkg hcommon }
+        (archimedeanContributionAtLarge lambda habove pkg hcommon)
+
 abbrev RestrictedToFullQWLambdaThreshold
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (F_g : TestFunction) :=
@@ -2044,6 +2173,47 @@ def current_threshold_data_of_large_lambda_threshold
       primePowerAtomStabilization :=
         threshold.primePowerAtomStabilizationAtLarge
           lambda habove pkg hcommon }
+
+theorem current_one_lt_lambda_of_large_lambda_threshold
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    (threshold : RestrictedToFullQWLargeLambdaThreshold inputs g F_g)
+    (habove : threshold.lambda0 ≤ lambda) :
+    1 < lambda :=
+  lt_of_lt_of_le threshold.oneLtLambda0 habove
+
+noncomputable def current_threshold_data_of_common_tuple
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (threshold : RestrictedToFullQWLargeLambdaThreshold inputs g F_g)
+    (habove : threshold.lambda0 ≤ lambda)
+    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg) :
+    RestrictedToFullCurrentThresholdData inputs g lambda F_g pkg :=
+  current_threshold_data_of_large_lambda_threshold
+    threshold habove hcommon
+
+noncomputable def scalar_restriction_witness_of_large_lambda_threshold
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (threshold : RestrictedToFullQWLargeLambdaThreshold inputs g F_g)
+    (habove : threshold.lambda0 ≤ lambda)
+    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (harch :
+      SourceArchimedeanContributionMatchesForRestriction
+        inputs g lambda pkg) :
+    RestrictedToFullQWScalarRestrictionWitness
+      inputs g lambda F_g pkg :=
+  restricted_to_full_scalar_restriction_witness_of_common_tuple
+    hcommon
+    (current_threshold_data_of_large_lambda_threshold
+      threshold habove hcommon).finitePrimeStabilization
+    harch
 
 theorem fixed_test_support_of_current_threshold_data
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -2648,6 +2818,15 @@ structure SourceArchimedeanSignBridge
     (Source.cc20MellinHalfDensityConvention
       inputs.cc20.archimedeanSymbols).Holds
 
+def source_archimedean_sign_bridge_of_source_trace_read_off
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    (h : SourceTraceReadOffData inputs g) :
+    SourceArchimedeanSignBridge inputs h.archimedeanTest g where
+  traceLegality := cc20_trace_legality_of_source_trace_data h
+  positiveTraceNonnegative := h.positiveTraceNonnegative
+  signsAndNormalizations := inputs.cc20.signsAndNormalizations
+  mellinHalfDensityConvention := inputs.cc20.mellinHalfDensityConvention
+
 structure LegacySourceFinitePrimeSignOwnedByFormula
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (lambda : ℝ) where
@@ -3008,6 +3187,20 @@ def final_sign_bridge_contract_of_common_tuple
   final_sign_bridge_contract_of_common_test
     (source_qw_uses_common_test_of_common_tuple hcommon)
     hsign
+
+def final_sign_bridge_contract_of_common_tuple_and_source_trace
+    {inputs : RouteInputs}
+    {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (htrace : SourceTraceReadOffData inputs g)
+    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg) :
+    FinalSignBridgeContract inputs htrace.archimedeanTest g lambda F_g pkg :=
+  final_sign_bridge_contract_of_common_tuple
+    hcommon
+    (source_archimedean_sign_bridge_of_source_trace_read_off htrace)
 
 noncomputable def final_sign_nonnegative_to_nonpositive_of_common_tuple
     {inputs : RouteInputs}

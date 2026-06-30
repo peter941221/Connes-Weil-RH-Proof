@@ -518,6 +518,18 @@ def normalizedNoExtraBulkContractFromTheorems :
 def normalizedRouteLedgersFromTheorems : RouteLedgers := by
   sorry
 
+theorem normalizedRankLedgerKilledFromTheorems :
+    normalizedRouteLedgersFromTheorems.rankKilled := by
+  sorry
+
+theorem normalizedPoleLedgerKilledFromTheorems :
+    normalizedRouteLedgersFromTheorems.poleKilled := by
+  sorry
+
+theorem normalizedCdefExhaustsFromTheorems :
+    normalizedRouteLedgersFromTheorems.cdefExhausts := by
+  sorry
+
 def normalizedCommonTupleFromTheorems :
     SourceCommonTestTupleContract
       (RouteInputs.ofExpandedSourcePackage
@@ -530,8 +542,32 @@ def normalizedCommonTupleFromTheorems :
       normalizedTraceFrontEndFromTheorems.ccm25ArithmeticPackage := by
   sorry
 
-theorem normalizedSignDefectClassificationFromTheorems :
-    SourceSignDefectClassification
+def normalizedRestrictedToFullCurrentThresholdFromTheorems :
+    RestrictedToFullCurrentThresholdData
+      (RouteInputs.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems
+        normalizedFixedFrontEndFromTheorems)
+      normalizedTraceFrontEndFromTheorems.lambda
+      normalizedSourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare
+      normalizedTraceFrontEndFromTheorems.ccm25ArithmeticPackage := by
+  sorry
+
+def normalizedRestrictedToFullScalarWitnessFromTheorems :
+    RestrictedToFullQWScalarRestrictionWitness
+      (RouteInputs.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems
+        normalizedFixedFrontEndFromTheorems)
+      normalizedTraceFrontEndFromTheorems.lambda
+      normalizedSourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare
+      normalizedTraceFrontEndFromTheorems.ccm25ArithmeticPackage := by
+  sorry
+
+def normalizedRestrictedToFullLowerBoundEvidenceFromTheorems :
+    RestrictedToFullQWLowerBoundEvidence
       (RouteInputs.ofExpandedSourcePackage
         normalizedSourceObjectPackageFromTheorems)
       (SourceBackedFixedSTest.ofExpandedSourcePackage
@@ -540,6 +576,21 @@ theorem normalizedSignDefectClassificationFromTheorems :
       normalizedTraceFrontEndFromTheorems.lambda
       normalizedRouteLedgersFromTheorems := by
   sorry
+
+theorem normalizedSignDefectClassificationFromTheorems :
+    SourceSignDefectClassification
+      (RouteInputs.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems
+        normalizedFixedFrontEndFromTheorems)
+      normalizedTraceFrontEndFromTheorems.lambda
+      normalizedRouteLedgersFromTheorems :=
+  source_sign_defect_classification_of_source_backed_ledgers
+    normalizedTraceFrontEndFromTheorems.oneLtLambda
+    normalizedRankLedgerKilledFromTheorems
+    normalizedPoleLedgerKilledFromTheorems
+    normalizedCdefExhaustsFromTheorems
 
 def normalizedRestrictedToFullQWFromTheorems :
     RestrictedToFullQWBridgeContract
@@ -551,8 +602,11 @@ def normalizedRestrictedToFullQWFromTheorems :
       normalizedTraceFrontEndFromTheorems.lambda
       normalizedSourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare
       normalizedRouteLedgersFromTheorems
-      normalizedTraceFrontEndFromTheorems.ccm25ArithmeticPackage := by
-  sorry
+      normalizedTraceFrontEndFromTheorems.ccm25ArithmeticPackage :=
+  restricted_to_full_bridge_contract_of_current_threshold_data
+    normalizedRestrictedToFullCurrentThresholdFromTheorems
+    normalizedRestrictedToFullScalarWitnessFromTheorems
+    normalizedRestrictedToFullLowerBoundEvidenceFromTheorems
 
 theorem normalizedSourceArchimedeanSignBridgeFromTheorems :
     SourceArchimedeanSignBridge
@@ -561,8 +615,12 @@ theorem normalizedSourceArchimedeanSignBridgeFromTheorems :
       normalizedSourceObjectPackageFromTheorems.cc20Trace.sourceTraceTest
       (SourceBackedFixedSTest.ofExpandedSourcePackage
         normalizedSourceObjectPackageFromTheorems
-        normalizedFixedFrontEndFromTheorems) := by
-  sorry
+        normalizedFixedFrontEndFromTheorems) :=
+  source_archimedean_sign_bridge_of_source_trace_read_off
+    (SourceTraceReadOffData.ofExpandedSourcePackage
+      normalizedSourceObjectPackageFromTheorems
+      normalizedFixedFrontEndFromTheorems
+      normalizedTraceFrontEndFromTheorems)
 
 def normalizedRouteCertificateFromTheorems :
     RouteCertificate

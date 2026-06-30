@@ -271,12 +271,93 @@ def source_endpoint_strip_remainder_cdef_domination_of_parts
   endpoint_strip_cdef_domination_data_of_parts
     hendpoint hwindow htail hrankPole hcdef
 
+theorem post_q_series_tail_bounded_comparison_of_source_backed
+    {inputs : RouteInputs} (g : SourceBackedFixedSTest inputs)
+    {lambda : ℝ} :
+    PostQSeriesTailBoundedComparison inputs g lambda :=
+  ⟨inputs.ccm24.boundedComparison,
+    inputs.ccm24.soninComparison⟩
+
+theorem cc20_post_q_termwise_fixed_s_transport_of_source_backed
+    {inputs : RouteInputs} (g : SourceBackedFixedSTest inputs)
+    {lambda : ℝ} (hlambda : 1 < lambda) :
+    CC20PostQTermwiseFixedSTransport inputs g lambda :=
+  ⟨window_support_containment_of_source_backed g hlambda,
+    lambda_compatible_of_source_backed g hlambda⟩
+
+theorem cc20_post_q_remainder_fixed_s_sonin_transport_of_source_backed
+    {inputs : RouteInputs} (g : SourceBackedFixedSTest inputs)
+    {lambda : ℝ} (hlambda : 1 < lambda) :
+    CC20PostQRemainderFixedSSoninTransport inputs g lambda :=
+  ⟨inputs.cc20.mellinHalfDensityConvention,
+    cc20_post_q_termwise_fixed_s_transport_of_source_backed g hlambda,
+    post_q_series_tail_bounded_comparison_of_source_backed g⟩
+
+theorem source_remainder_no_strip_projection_split_of_source_backed
+    {inputs : RouteInputs} (g : SourceBackedFixedSTest inputs)
+    {lambda : ℝ} (hlambda : 1 < lambda) :
+    SourceRemainderNoStripProjectionSplit inputs g lambda :=
+  ⟨cc20_post_q_remainder_fixed_s_sonin_transport_of_source_backed
+      g hlambda,
+    lambda_compatible_of_source_backed g hlambda⟩
+
+theorem source_projection_order_endpoint_strip_normal_form_of_source_backed
+    {inputs : RouteInputs} (g : SourceBackedFixedSTest inputs)
+    {lambda : ℝ} (hlambda : 1 < lambda) :
+    SourceProjectionOrderEndpointStripNormalForm inputs g lambda :=
+  ⟨source_remainder_no_strip_projection_split_of_source_backed g hlambda,
+    inputs.ccm24.soninComparison⟩
+
+theorem source_rank_pole_ledger_identification_of_source_backed_ledgers
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (hlambda : 1 < lambda)
+    (hrank : L.rankKilled) (hpole : L.poleKilled) :
+    SourceRankPoleLedgerIdentification inputs g lambda L :=
+  source_rank_pole_ledger_identification_of_parts
+    (source_remainder_no_strip_projection_split_of_source_backed g hlambda)
+    ⟨source_remainder_no_strip_projection_split_of_source_backed g hlambda,
+      source_projection_order_endpoint_strip_normal_form_of_source_backed
+        g hlambda⟩
+    hrank hpole
+
+theorem source_endpoint_strip_remainder_cdef_domination_of_source_backed_ledgers
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (hlambda : 1 < lambda)
+    (hrank : L.rankKilled) (hpole : L.poleKilled)
+    (hcdef : L.cdefExhausts) :
+    SourceEndpointStripRemainderCdefDomination inputs g lambda L :=
+  source_endpoint_strip_remainder_cdef_domination_of_parts
+    (source_projection_order_endpoint_strip_normal_form_of_source_backed
+      g hlambda)
+    (window_support_containment_of_source_backed g hlambda)
+    (post_q_series_tail_bounded_comparison_of_source_backed g)
+    ⟨⟨source_remainder_no_strip_projection_split_of_source_backed g hlambda,
+        hrank⟩,
+      ⟨⟨source_remainder_no_strip_projection_split_of_source_backed g hlambda,
+          hpole⟩,
+        ⟨source_remainder_no_strip_projection_split_of_source_backed
+            g hlambda,
+          source_projection_order_endpoint_strip_normal_form_of_source_backed
+            g hlambda⟩⟩⟩
+    hcdef
+
 def SourcePositiveTraceRemainderOwnership
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (lambda : ℝ) : Prop :=
   CC20SourceRemainderOrientation inputs g ∧
     CC20SourceRemainderAfterQ inputs g ∧
       CC20PostQRemainderFixedSSoninTransport inputs g lambda
+
+theorem source_positive_trace_remainder_ownership_of_source_backed
+    {inputs : RouteInputs} (g : SourceBackedFixedSTest inputs)
+    {lambda : ℝ} (hlambda : 1 < lambda) :
+    SourcePositiveTraceRemainderOwnership inputs g lambda :=
+  ⟨inputs.cc20.signsAndNormalizations,
+    inputs.cc20.mellinHalfDensityConvention,
+    cc20_post_q_remainder_fixed_s_sonin_transport_of_source_backed
+      g hlambda⟩
 
 structure TransportedSourceRemainderPartition
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -339,6 +420,20 @@ def no_hidden_positive_defect_outside_cdef_of_parts
   no_hidden_positive_defect_data_of_parts
     hownership hrankPole hcdef
 
+theorem no_hidden_positive_defect_outside_cdef_of_source_backed_ledgers
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (hlambda : 1 < lambda)
+    (hrank : L.rankKilled) (hpole : L.poleKilled)
+    (hcdef : L.cdefExhausts) :
+    NoHiddenPositiveDefectOutsideCdef inputs g lambda L :=
+  no_hidden_positive_defect_outside_cdef_of_parts
+    (source_positive_trace_remainder_ownership_of_source_backed g hlambda)
+    (source_rank_pole_ledger_identification_of_source_backed_ledgers
+      hlambda hrank hpole)
+    (source_endpoint_strip_remainder_cdef_domination_of_source_backed_ledgers
+      hlambda hrank hpole hcdef)
+
 structure SourceSignDefectClassification
   (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
   (lambda : ℝ) (L : RouteLedgers) where
@@ -355,6 +450,17 @@ def source_sign_defect_classification_of_parts
     SourceSignDefectClassification inputs g lambda L where
   oneLtLambda := hlambda
   noHiddenPositiveDefect := hnoHidden
+
+theorem source_sign_defect_classification_of_source_backed_ledgers
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (hlambda : 1 < lambda)
+    (hrank : L.rankKilled) (hpole : L.poleKilled)
+    (hcdef : L.cdefExhausts) :
+    SourceSignDefectClassification inputs g lambda L :=
+  source_sign_defect_classification_of_parts hlambda
+    (no_hidden_positive_defect_outside_cdef_of_source_backed_ledgers
+      hlambda hrank hpole hcdef)
 
 theorem post_q_fixed_s_transport_of_subcontracts
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}

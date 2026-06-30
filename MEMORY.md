@@ -1,5 +1,111 @@
 2026-06-30
 
+- Advanced the three remaining-dangerous-input cuts without claiming
+  unconditional RH.
+- Cut 1 audit result: the original normalized package
+  `NormalizedSupportSquareQWLambdaSourceComparison` still cannot be proved from
+  current definitions alone. The only theorem-backed scalar equality currently
+  available is the scalar-built package path, where the scalar seed is defined
+  from `NormalizedRestrictedScalarNormalForm` and the square is proved by
+  `Real.sq_sqrt`. I did not replace the original package comparison with an
+  invalid proof.
+- Cut 2: added
+  `TraceFrontEndData.normalizedScalarTraceFrontFullTraceReadOffBridgeFromPoleBalance`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`. This narrows the scalar full trace
+  bridge input from the broad
+  `NormalizedScalarFullTraceArchimedeanBalance` to the exact remaining
+  `NormalizedScalarFullTraceArchimedeanPoleBalance`; the finite-prime half is
+  supplied by
+  `Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum_eq_global`
+  through `normalizedScalarFullTraceArchimedeanBalanceOfPoleBalance`.
+- Cut 3: tightened the normalized development skeleton in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`. The normalized
+  sign/defect classification now uses
+  `source_sign_defect_classification_of_source_backed_ledgers` from explicit
+  ledger-clearing targets; normalized restricted-to-full now uses
+  `restricted_to_full_bridge_contract_of_current_threshold_data` from named
+  current-threshold, scalar-witness, and lower-bound evidence targets; the
+  normalized archimedean sign bridge now comes from
+  `source_archimedean_sign_bridge_of_source_trace_read_off`.
+- Boundary preserved: the dev skeleton still has `sorry`s and remains outside
+  the active import chain. The remaining real inputs are now more precisely
+  named: source object/front-end construction, scalar full-trace pole balance,
+  scalar no-missing-bulk/no-extra-bulk, route ledgers and ledger clearing,
+  common tuple, restricted-to-full threshold/scalar/lower-bound evidence, and
+  the original normalized support-square/`QW_lambda` comparison if the route
+  stays on the original package path.
+- Verification passed in the WSL ext4 mirror:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd`,
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`, and
+  `lake build ConnesWeilRH.Route.Bridge ConnesWeilRH.Route.SignDefect
+  ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`.
+- Placeholder scan still reports `sorry` only in the quarantined development
+  skeleton `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+
+2026-06-30
+
+- Advanced Step 2 and Step 3 of the remaining dangerous inputs.
+- Step 2: added source-backed sign/defect row constructors in
+  `ConnesWeilRH/Route/SignDefect.lean`:
+  post-`Q` fixed-S transport from source-backed window data, row-4 no-strip
+  and endpoint-strip normal form from source-backed data, rank/pole ledger
+  identification from explicit ledger clearing, endpoint-strip `Cdef`
+  domination from explicit ledger clearing, Row 7 no-hidden-positive-defect
+  construction, and `SourceSignDefectClassification` construction from
+  `1 < lambda`, `L.rankKilled`, `L.poleKilled`, and `L.cdefExhausts`.
+- Step 3: added final archimedean sign constructors in
+  `ConnesWeilRH/Route/Bridge.lean`:
+  `source_archimedean_sign_bridge_of_source_trace_read_off` and
+  `final_sign_bridge_contract_of_common_tuple_and_source_trace`.
+- Result: the route no longer needs a hand-filled
+  `NoHiddenPositiveDefectOutsideCdef` black box when the source-backed
+  fixed-S data and ledger-clearing fields are available, and it no longer
+  needs a hand-filled archimedean sign bridge when `SourceTraceReadOffData`
+  is available. The final sign bridge now pulls trace legality, positive trace
+  nonnegativity, CC20 signs/normalizations, and Mellin half-density convention
+  from the existing trace/source interfaces.
+- Boundary: the remaining true mathematical obligations are now concentrated
+  in explicit ledger-clearing fields (`rankKilled`, `poleKilled`,
+  `cdefExhausts`), the trace/source object fields, and the source-interface
+  CC20/CCM24 theorem assumptions. This is not an unconditional external
+  source certification or journal/Clay proof.
+- Verification passed in the WSL ext4 mirror:
+  `lake build ConnesWeilRH.Route.SignDefect ConnesWeilRH.Route.Bridge
+  ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`.
+
+2026-06-30
+
+- Advanced Step 1 of the remaining dangerous inputs:
+  large-lambda/current-cutoff and scalar restriction witness.
+- Added constructors in `ConnesWeilRH/Route/Bridge.lean`:
+  `restricted_to_full_no_spectral_convergence_import_of_parts`,
+  `restricted_to_full_scalar_restriction_witness_of_parts`,
+  `restricted_to_full_scalar_restriction_witness_of_common_tuple`,
+  `current_one_lt_lambda_of_large_lambda_threshold`,
+  `current_threshold_data_of_common_tuple`,
+  `scalar_restriction_witness_of_large_lambda_threshold`, and
+  `restricted_to_full_large_lambda_threshold_of_archimedean_balance`.
+- Result: callers no longer need to hand-fill the full
+  `RestrictedToFullQWScalarRestrictionWitness` or its no-spectral-convergence
+  guard. Given a common tuple, finite-prime stabilization, and the
+  archimedean contribution balance, Lean now constructs the scalar witness,
+  exact support, finite-prime sum matches, `QW_lambda = QW`, and the
+  restricted-to-full witness chain.
+- Result for the threshold layer: a `RestrictedToFullQWLargeLambdaThreshold`
+  can now be built from a concrete `lambda0`, `1 < lambda0`, a threshold
+  package/tuple, support threshold at large lambda, prime-power stabilization
+  at large lambda, and archimedean contribution balance at large lambda.
+  The current `1 < lambda` follows by `lt_of_lt_of_le`.
+- Boundary: this does not yet prove the analytic archimedean contribution
+  balance or the existence of the threshold package/tuple from source
+  definitions. It removes the unsafe broad scalar-witness input and leaves the
+  true mathematical obligations named and smaller.
+- Verification passed in the WSL ext4 mirror:
+  `lake build ConnesWeilRH.Route.Bridge ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH`.
+
+2026-06-30
+
 - Added active route bridge reducers for the four dangerous remaining lanes.
 - In `ConnesWeilRH/Route/Bridge.lean`, added:
   `restricted_to_full_bridge_contract_of_current_threshold_data`,

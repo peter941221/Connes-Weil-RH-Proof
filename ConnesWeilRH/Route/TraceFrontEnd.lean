@@ -4950,6 +4950,107 @@ def normalizedScalarTraceFrontFullTraceReadOffBridgeFromBalance
         intro hnoDefect hfull
         rfl }
 
+def normalizedScalarTraceFrontFullTraceReadOffBridgeFromPoleBalance
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData))
+    (scalarRemainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (Source.CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          (normalizedRestrictedScalarTraceSeedOfTraceData
+            base common ccm24 normalizedSeed remainders rhExit bridges
+            fixedData traceData)))
+    (scalarRhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (scalarBridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedScalarCC20Trace
+          ccm24
+          (normalizedRestrictedScalarTraceSeedOfTraceData
+            base common ccm24 normalizedSeed remainders rhExit bridges
+            fixedData traceData)
+          scalarRemainders)
+        scalarRhExit)
+    (scalarFixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedScalarCC20Trace
+          base common ccm24
+          (normalizedRestrictedScalarTraceSeedOfTraceData
+            base common ccm24 normalizedSeed remainders rhExit bridges
+            fixedData traceData)
+          scalarRemainders scalarRhExit scalarBridges))
+    (scalarTestAndQuotientCompatibility)
+    (scalarFixedSSupportSquareTransport)
+    (scalarFullTraceReadOffBridge)
+    (scalarRestrictedTraceReadOffBridge)
+    (scalarTraceScaleNoMissingBulk)
+    (hpole :
+      NormalizedScalarFullTraceArchimedeanPoleBalance
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+        traceData) :
+    let scalarTraceData :=
+      traceFrontEndDataOfNormalizedScalarPackageFromOriginalCCM25
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+        traceData scalarRemainders scalarRhExit scalarBridges scalarFixedData
+        scalarTestAndQuotientCompatibility scalarFixedSSupportSquareTransport
+        scalarFullTraceReadOffBridge scalarRestrictedTraceReadOffBridge
+        scalarTraceScaleNoMissingBulk
+    let scalarSourceTrace :=
+      toSourceTraceReadOffDataOfNormalizedScalarPackage
+        base common ccm24
+        (normalizedRestrictedScalarTraceSeedOfTraceData
+          base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+          traceData)
+        scalarRemainders scalarRhExit scalarBridges scalarFixedData
+        scalarTraceData
+    let scalarInputs :=
+      RouteInputs.ofExpandedSourcePackage
+        (Source.sourceObjectPackageOfNormalizedScalarCC20Trace
+          base common ccm24
+          (normalizedRestrictedScalarTraceSeedOfTraceData
+            base common ccm24 normalizedSeed remainders rhExit bridges
+            fixedData traceData)
+          scalarRemainders scalarRhExit scalarBridges)
+    let scalarG :=
+      FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedScalarPackage
+        base common ccm24
+        (normalizedRestrictedScalarTraceSeedOfTraceData
+          base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+          traceData)
+        scalarRemainders scalarRhExit scalarBridges scalarFixedData
+    FullTraceReadOffBridgeContract scalarInputs
+      scalarSourceTrace.archimedeanTest scalarG :=
+  normalizedScalarTraceFrontFullTraceReadOffBridgeFromBalance
+    base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+    traceData scalarRemainders scalarRhExit scalarBridges scalarFixedData
+    scalarTestAndQuotientCompatibility scalarFixedSSupportSquareTransport
+    scalarFullTraceReadOffBridge scalarRestrictedTraceReadOffBridge
+    scalarTraceScaleNoMissingBulk
+    (normalizedScalarFullTraceArchimedeanBalanceOfPoleBalance
+      base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+      traceData hpole)
+
 /--
 Pointwise support-square read-off for the scalar seed built from the normalized
 restricted CCM25 normal form.
