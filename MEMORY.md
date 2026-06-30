@@ -1,5 +1,609 @@
 2026-06-30
 
+- Landed the Lean-local part of the normalized amplitude-square scalar proof
+  package.
+- Added
+  `TraceFrontEndData.normalizedTraceAmplitudeSquareScalarContractOfSupportSquareScalarNormalForm`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`. It proves
+  `NormalizedTraceAmplitudeSquareScalarContract` from
+  `NormalizedSupportSquareScalarNormalFormContract` by reversing the existing
+  normalized support-square/trace-amplitude equality.
+- Rewired `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` so
+  `normalizedTraceAmplitudeSquareScalarInputFromTheorems` is no longer a direct
+  `sorry`. The remaining skeleton input is the narrower
+  `normalizedSupportSquareScalarNormalFormInputFromTheorems`, which states the
+  same-scalar support-square-to-restricted-normal-form read-off.
+- Boundary preserved: this does not prove the CC20/CCM25 same-scalar read-off
+  itself, accepted-source status, or unconditional RH. It removes the local
+  algebraic part of the blocker and leaves the real source/import theorem
+  visible.
+- WSL verification passed after syncing from the Windows worktree:
+  `lake build ConnesWeilRH.Route.TraceFrontEnd` and
+  `lake env lean ConnesWeilRH/Dev/UnconditionalSkeleton.lean`. The dev skeleton
+  still has expected `sorry` warnings only; active route build passed.
+
+2026-06-30
+
+- Started the math attack for
+  `normalizedTraceAmplitudeSquareScalarInputFromTheorems`.
+- Added `docs/proofs/normalized-trace-amplitude-square-scalar-proof-package.md`.
+  It proves the route-evidence chain
+  `traceAmplitude(a)^2 = supportSquareTrace(a) =
+  NoDefectSourceTrace(S,I,lambda,g) = QW_lambda(g,g) =
+  NormalizedRestrictedScalarNormalForm(...)`.
+- Updated `docs/audits/unconditional-rh-gap-ledger.md` and
+  `external-opinions/003-unconditional-rh-completion-plan.md` so Phase 1 now
+  distinguishes three states: route-evidence proof package exists, the Lean
+  input `normalizedTraceAmplitudeSquareScalarInputFromTheorems` is still open,
+  and accepted-source certification remains open.
+- Added the durable project rule to `AGENTS.md`: do not prove
+  `NormalizedTraceAmplitudeSquareScalarContract` by consuming
+  `NormalizedSupportSquareQWLambdaSourceComparison`, because that would make
+  the scalar bridge circular. The required input is the same-scalar theorem
+  `supportSquareTrace_normalizedSeed(a) = QW_lambda(g,g)` for the exact
+  `traceData` cutoff and CCM25 arithmetic package.
+
+2026-06-30
+
+- Tightened `NormalizedScalarTraceScaleInputData` in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+- Removed the package-level `sorry`: the package is now constructed from a
+  scalar no-extra-bulk contract plus the named
+  `normalizedTraceAmplitudeSquareScalarInputFromTheorems` input.
+- Added route helpers so downstream fields are proved instead of stored as
+  repeated package assumptions:
+  `normalizedScalarTraceFrontFullTraceReadOffBridgeFromRestrictedToFullContract`
+  in `ConnesWeilRH/Route/RouteTheorem.lean` derives the scalar full-trace
+  read-off bridge from the normalized restricted-to-full bridge, and
+  `traceScaleNoMissingBulkOfNormalizedScalarPackageFromOriginalCCM25` in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean` derives scalar
+  `TraceScaleNoMissingBulkData` from the scalar no-extra-bulk contract plus
+  source-backed scalar trace equalities.
+- Boundary preserved: the remaining scalar trace-scale theorem input is the
+  original normalized
+  `NormalizedTraceAmplitudeSquareScalarContract`, now exposed as
+  `normalizedTraceAmplitudeSquareScalarInputFromTheorems`. It was not hidden
+  inside the package, and this still does not prove unconditional RH.
+- Verification passed after syncing to the WSL ext4 mirror:
+  `lake build ConnesWeilRH.Route.RouteTheorem` and
+  `lake env lean ConnesWeilRH/Dev/UnconditionalSkeleton.lean`. Active route
+  modules remain free of `sorry`; remaining placeholders are in the quarantined
+  dev skeleton.
+
+2026-06-30
+
+- Tightened the requested 1/2/3 blocker lanes in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` without claiming analytic
+  discharge.
+- Added `RouteLedgerClearingInputData` and
+  `NormalizedRouteLedgerClearingInputData`; route ledgers, `rankKilled`,
+  `poleKilled`, `cdefExhausts`, `LedgersCleared`,
+  `SourceSignDefectClassification`, and `SourceBackedLedgers` now project from
+  one clearing package in each skeleton lane.
+- Added `RestrictedToFullThresholdInputData` and
+  `NormalizedRestrictedToFullThresholdInputData`; large-lambda threshold,
+  current-above-threshold proof, current-cutoff binding, and the
+  restricted-to-full bridge now flow through one threshold package in each
+  skeleton lane.
+- Added `NormalizedScalarTraceScaleInputData`; the scalar full-trace bridge,
+  `TraceScaleNoMissingBulkData`, and
+  `NormalizedTraceAmplitudeSquareScalarContract` now project from one scalar
+  trace-scale package.
+- Updated `external-opinions/003-unconditional-rh-completion-plan.md` to state
+  the new clean dependency boundary: the remaining mathematical targets are the
+  three packages themselves, not multiple repeated downstream placeholders.
+- Boundary preserved: this does not prove S2-B1 no-missing-bulk, ledger
+  clearing, restricted-to-full threshold evidence, or unconditional RH. It
+  removes duplicated skeleton assumptions and definition-drift points.
+- Verification passed after syncing the changed Lean file into the WSL ext4
+  mirror: `lake env lean ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+  Placeholder scan reports 24 `sorry`s, all in the quarantined development
+  skeleton.
+
+2026-06-30
+
+- Closed another Block 1 normalized CCM25 dependency bucket by merging the
+  restricted `QW_lambda` formula row and pole-normalization row.
+- Added `RestrictedQWLambdaPoleRows` and
+  `normalizedRestrictedQWLambdaPoleRowsFromTheorems` in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+- `normalizedQWLambdaFormulaFromTheorems` now projects from the restricted
+  row, and `normalizedPoleNormalizationFromTheorems` now projects from the pole
+  row of the same object.
+- Boundary preserved: the restricted/pole row object is still a theorem input.
+  This step prevents restricted-formula/pole-row drift; it does not prove the
+  CCM25 restricted formula or pole-normalization theorem.
+- WSL ext4 verification passed after syncing the changed Lean file:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Closed another Block 1 normalized CCM25 dependency bucket by merging the
+  global `QW` definition row and global `Psi` sign row.
+- Added `normalizedGlobalQWPsiRowsFromTheorems` in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+- `normalizedQWDefinitionFromTheorems` and
+  `normalizedPsiSignFromTheorems` now project from that single global row
+  object instead of carrying separate `sorry`s.
+- Boundary preserved: the global row object is still a theorem input. This step
+  prevents QW/Psi global-row drift; it does not prove the CCM25 global formula
+  or sign theorem.
+- WSL ext4 verification passed after syncing the changed Lean file:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Closed another Block 1 normalized finite-prime dependency bucket by merging
+  the common test-function seed into the finite-prime source object.
+- Added `CommonFinitePrimeArithmeticSourceData` in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+- `normalizedCommonTestFunctionFromTheorems` now projects from
+  `normalizedCommonFinitePrimeArithmeticSourceDataFromTheorems`; it is no
+  longer an independent `sorry`.
+- `normalizedConcreteCommonTestFromTheorems` remains definitionally built by
+  `concreteCommonSourceTest` from that projected common test function, and the
+  finite-prime arithmetic data is attached to the same concrete common test.
+- Boundary preserved: the unified common finite-prime source object is still a
+  theorem input. This step removes common-test/finite-prime source drift; it
+  does not prove the CCM25 finite-prime arithmetic theorem.
+- WSL ext4 verification passed after syncing the changed Lean file:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Closed another Block 1 normalized finite-prime dependency bucket by unifying
+  selector data with fixed-lambda certificate data.
+- Added `FinitePrimeArithmeticSourceData` in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+- `normalizedFinitePrimeSourceTestSelectorDataFromTheorems` now projects from
+  `normalizedFinitePrimeArithmeticSourceDataFromTheorems.selector`; it is no
+  longer an independent `sorry`.
+- `normalizedFixedLambdaArithmeticCertificateDataFromTheorems` now projects
+  from the same unified object's `certificateData`; the source-test used by
+  each fixed-lambda certificate is therefore definitionally tied to the
+  selector.
+- Boundary preserved: the unified object is still a theorem input. This step
+  narrows the remaining obligation by preventing selector/certificate drift; it
+  does not prove the CCM25 finite-prime arithmetic theorem.
+- WSL ext4 verification passed after syncing the changed Lean file:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Closed another Block 1 normalized finite-prime dependency bucket.
+- Added `FinitePrimeSourceTestSelectorData` in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+- `normalizedFinitePrimeSourceTestFromTheorems` now projects from
+  `normalizedFinitePrimeSourceTestSelectorDataFromTheorems.sourceTest`.
+- `normalizedFinitePrimeSourceTestCommonPairFromTheorems` no longer has its
+  own `sorry`; it projects from the same selector data's
+  `commonPairSourceTest` field.
+- Boundary preserved: this does not solve arbitrary equality on
+  `TestFunction := Type`; it records the common `(g,g)` read-off as part of
+  the selector data. The remaining selector input is narrower and auditable.
+- WSL ext4 verification passed after syncing the changed Lean file:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Closed one more Block 1 normalized finite-prime dependency bucket.
+- Added `FixedLambdaArithmeticCertificateSourceTestData` in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+- `normalizedFixedLambdaArithmeticCertificatesFromTheorems` is now assembled
+  from `normalizedFixedLambdaArithmeticCertificateDataFromTheorems`; the
+  fixed-lambda certificate's stored support source test is definitionally the
+  selected `normalizedFinitePrimeSourceTestFromTheorems f g`.
+- As a result,
+  `normalizedFixedLambdaArithmeticCertificateSourceTestFromTheorems` no longer
+  has its own `sorry`; it closes by `rfl`.
+- Boundary preserved: this does not prove the finite-prime arithmetic theorem.
+  The remaining input is the narrower data package containing support exactness,
+  lambda-cut visibility, arithmetic atoms, and `atomsUseSourceTest`.
+- WSL ext4 verification passed after syncing the changed Lean file:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+- The build still reports `sorry` only in the quarantined development
+  skeleton, plus the pre-existing long-line warning in
+  `ConnesWeilRH/Source/ObjectExpandedRows.lean:573`.
+
+2026-06-30
+
+- Eliminated another Block 1 normalized-lane dependency bucket:
+  `normalizedCommonPairSourceTestFromTheorems` is no longer a direct `sorry`.
+- Added the lower-level theorem input
+  `normalizedFinitePrimeSourceTestCommonPairFromTheorems`, stating that the
+  finite-prime source-test selector specializes to
+  `normalizedConcreteCommonTestFromTheorems.toSourceTestEvaluationInterface`
+  at the common `(g,g)` pair.
+- Rewired `normalizedCommonPairSourceTestFromTheorems` to follow directly from
+  that selector-specialization theorem. The route-facing `(g,g)` arithmetic
+  certificate source-test equality is now a reducer, not an independent
+  dependency bucket.
+- Boundary preserved: the selector-specialization theorem remains a proof input
+  because `TestFunction := Type` prevents a safe generic decidable-equality
+  branch over arbitrary tests.
+- Verification passed in the WSL mirror:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Eliminated another Block 1 normalized-lane dependency bucket:
+  `normalizedConcretePoleNormalizationRowsFromTheorems` is no longer a direct
+  `ConcretePoleNormalizationRows := sorry` record input.
+- Rewired `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` so the pole
+  normalization row is assembled from the single theorem input
+  `normalizedPoleNormalizationFromTheorems`.
+- Boundary preserved: this does not prove the CCM25 pole-normalization theorem.
+  It removes the opaque pole-row package and exposes the exact remaining pole
+  proof atom.
+- Verification passed in the WSL mirror:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Eliminated another Block 1 normalized-lane dependency bucket:
+  `normalizedConcreteRestrictedQWLambdaRowsFromTheorems` is no longer a direct
+  `ConcreteRestrictedQWLambdaRows := sorry` record input.
+- Rewired `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` so the restricted
+  CCM25 row is assembled from the single theorem input
+  `normalizedQWLambdaFormulaFromTheorems`.
+- Boundary preserved: this does not prove the restricted `QW_lambda` formula.
+  It removes the opaque restricted-row package and exposes the exact remaining
+  restricted CCM25 proof atom.
+- Verification passed in the WSL mirror:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Eliminated another Block 1 normalized-lane dependency bucket:
+  `normalizedConcreteGlobalQWPsiRowsFromTheorems` is no longer a direct
+  `ConcreteGlobalQWPsiRows := sorry` record input.
+- Rewired `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` so the global CCM25
+  row is assembled from `normalizedQWDefinitionFromTheorems` and
+  `normalizedPsiSignFromTheorems`.
+- Boundary preserved: this does not prove the global `QW` definition or `Psi`
+  sign theorem. It removes the opaque global-row package and exposes the two
+  remaining global CCM25 proof atoms.
+- Verification passed in the WSL mirror:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Eliminated another Block 1 normalized-lane dependency bucket:
+  `normalizedFinitePrimeArithmeticCertificatesFromTheorems` is no longer a
+  direct `FixedLambdaArithmeticSourceTestCertificatesForAllTests := sorry`
+  bundle input.
+- Rewired `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` so the all-test
+  source-test certificate bundle is assembled from three explicit inputs:
+  `normalizedFinitePrimeSourceTestFromTheorems`,
+  `normalizedFixedLambdaArithmeticCertificatesFromTheorems`, and
+  `normalizedFixedLambdaArithmeticCertificateSourceTestFromTheorems`.
+- Boundary preserved: this does not prove the fixed-lambda arithmetic
+  certificates or their support/source-test read-off. It removes the opaque
+  all-test bundle and exposes the remaining finite-prime certificate proof
+  atoms.
+- Verification passed in the WSL mirror:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Eliminated another Block 1 normalized-lane dependency bucket:
+  `normalizedConcreteArithmeticRowsFromTheorems` is no longer a direct
+  `ConcreteCCM25ArithmeticRows := sorry` record input.
+- Rewired `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` so
+  `normalizedConcreteArithmeticRowsFromTheorems` is assembled from four
+  explicit fields: `normalizedConcreteGlobalQWPsiRowsFromTheorems`,
+  `normalizedConcreteRestrictedQWLambdaRowsFromTheorems`,
+  `normalizedFinitePrimeArithmeticCertificatesFromTheorems`, and
+  `normalizedConcretePoleNormalizationRowsFromTheorems`.
+- Boundary preserved: this does not prove the CCM25 global, restricted,
+  finite-prime, or pole rows. It removes the opaque arithmetic-row package
+  input and exposes the four remaining CCM25 arithmetic proof atoms.
+- Verification passed in the WSL mirror:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Eliminated another Block 1 normalized-lane dependency bucket:
+  `normalizedConcreteCommonTestFromTheorems` is no longer a direct
+  `ConcreteCommonSourceTest := sorry` record input.
+- Rewired `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` so the remaining input
+  is the lower-level `normalizedCommonTestFunctionFromTheorems : TestFunction`,
+  and `normalizedConcreteCommonTestFromTheorems` is definitionally built by
+  `Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest`.
+- Boundary preserved: the actual common test function is still a proof/data
+  input. The eliminated dependency is the unnecessary record-level common-test
+  assumption; `ConcreteCommonSourceTest` has only the `sourceTest` field.
+- Verification passed in the WSL mirror:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Eliminated another Block 1 normalized-lane dependency bucket:
+  `normalizedArithmeticRowsUseConcreteCommonTestFromTheorems` is no longer a
+  standalone route-facing equality between `source_test_of_arithmetic_rows` and
+  the concrete common-test interface.
+- Added `SourceObjectConcreteCommonData.ofCommonPairSourceTest` in
+  `ConnesWeilRH/Source/ObjectExpandedRows.lean`. It derives the same-source-test
+  equality by unfolding `CCM25Concrete.Rows.source_test_of_arithmetic_rows` to
+  the `(g,g)` arithmetic certificate's `.sourceTest`.
+- Rewired `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` so
+  `normalizedConcreteCommonFromTheorems` now consumes
+  `normalizedCommonPairSourceTestFromTheorems`, the local `(g,g)` certificate
+  source-test read-off, through `ofCommonPairSourceTest`.
+- Boundary preserved: the CCM25 arithmetic rows and the `(g,g)` certificate
+  source-test read-off remain proof inputs. The route-facing same-source-test
+  equality is now a reducer, not an independent dependency bucket.
+- Verification passed in the WSL mirror:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Eliminated another Block 1 normalized-lane dependency bucket:
+  `normalizedConcreteCommonFromTheorems` is no longer a direct
+  `SourceObjectConcreteCommonData := sorry`.
+- Added `SourceObjectConcreteCommonData.ofSameSourceTest` in
+  `ConnesWeilRH/Source/ObjectExpandedRows.lean`. The constructor builds the
+  concrete common-data record from the concrete common source test, concrete
+  CCM25 arithmetic rows, and the exact same-source-test equality at `(g,g)`.
+- Rewired `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` so
+  `normalizedConcreteCommonFromTheorems` is assembled from three narrower
+  inputs: `normalizedConcreteCommonTestFromTheorems`,
+  `normalizedConcreteArithmeticRowsFromTheorems`, and
+  `normalizedArithmeticRowsUseConcreteCommonTestFromTheorems`.
+- Boundary preserved: this still does not prove the CCM25 arithmetic rows or
+  the same-source-test equality. It removes the opaque record-level dependency
+  and exposes the exact remaining Block 1 proof atoms.
+- Verification passed in the WSL mirror:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Eliminated one Block 1 normalized-lane dependency bucket:
+  `normalizedCommonFromTheorems` is no longer a direct broad
+  `SourceObjectCommonData := sorry` in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+- Added `normalizedConcreteCommonFromTheorems :
+  Source.SourceObjectConcreteCommonData normalizedBaseFromTheorems` and made
+  `normalizedCommonFromTheorems` project through
+  `normalizedConcreteCommonFromTheorems.toSourceObjectCommonData`.
+- Boundary preserved: this does not prove the large CCM24/CCM25/CC20 source
+  theorem packages. It narrows the normalized Block 1 input from the wide
+  common-data record to the concrete CCM25 common finite-prime seed.
+- Updated `external-opinions/003-unconditional-rh-completion-plan.md` so the
+  Block 1 table reflects that normalized common-data is now reduced to
+  concrete common data.
+- Verification passed in the WSL mirror:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Eliminated another dependency bucket in the restricted-to-full lane:
+  lower-bound evidence is no longer a standalone input to the development
+  skeleton's current-cutoff binding.
+- Added `restricted_to_full_current_cutoff_binding_of_sign_defect` in
+  `ConnesWeilRH/Route/Bridge.lean`. The constructor builds
+  `RestrictedToFullCurrentCutoffBinding` from the threshold package,
+  current-above-threshold proof, common tuple, and
+  `SourceSignDefectClassification`, deriving
+  `RestrictedToFullQWLowerBoundEvidence` through
+  `row7_endpoint_strip_cdef_domination_of_sign_defect_classification`.
+- Removed the generic and normalized standalone lower-bound declarations from
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`; both current-cutoff binding
+  constructors now consume sign/defect classification directly.
+- Updated the roadmap so Block 5 no longer lists lower-bound evidence as a
+  remaining restricted-to-full target. The remaining Block 5 targets are now
+  the large-lambda threshold package and current-above-threshold proof; the
+  scalar witness is supplied by the threshold package.
+- Verification passed in the WSL mirror:
+  `lake build ConnesWeilRH.Route.Bridge
+  ConnesWeilRH.Dev.UnconditionalSkeleton`.
+
+2026-06-30
+
+- Eliminated one dependency bucket in the development skeleton: the common
+  tuple is no longer an independent `sorry` in either the generic or normalized
+  lane.
+- Replaced `commonTupleFromTheorems` and
+  `normalizedCommonTupleFromTheorems` in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` with
+  `source_common_test_tuple_contract_of_package`, using
+  `window_lambda_compatibility_of_source_backed` from the trace front-end
+  `oneLtLambda` evidence and
+  `expanded_source_package_convolution_square_read_off` for the exact
+  `F_g = g * g` read-off.
+- Dependency status after this cut: common tuple is a reducer, not a standalone
+  source theorem bucket. The remaining restricted-to-full bucket is now the
+  large-lambda threshold package, current-above-threshold proof, threshold
+  scalar witness, and lower-bound evidence.
+- Verification passed in the WSL mirror:
+  `lake build ConnesWeilRH.Dev.UnconditionalSkeleton`. The remaining `sorry`s
+  are the expected source package/front-end, ledger, threshold, lower-bound,
+  CC20/RH-exit, and normalized scalar skeleton inputs.
+
+2026-06-30
+
+- Advanced Block 1 until the next step would require broad source-theorem
+  imports instead of local concrete read-offs.
+- Added `SourceObjectConcreteCommonData` and its theorem-backed bridge layer in
+  `ConnesWeilRH/Source/ObjectExpandedRows.lean`. This gives Block 1 a narrow
+  CCM25 concrete common-test seed below `SourceObjectCommonData`, tying the
+  arithmetic rows at `(g,g)` to
+  `ConcreteCommonSourceTest.toSourceTestEvaluationInterface` without
+  constructing a full `SourceObjectPackage`.
+- The new bridge exposes fixed-lambda arithmetic certificate/source-test
+  equality, atom source-test equality, pairing-evaluation source-test equality,
+  and concrete common visibility. It also constructs
+  `commonArithmeticCertificate` and
+  `commonFinitePrimeConcreteObject`, then proves that the concrete object uses
+  the same common source-test interface.
+- The concrete finite-prime object now projects global/restricted index data
+  using `data.concreteCommonTest.sourceAtomVisible`, proves the restricted
+  index set equals the global index set at the fixed lambda, and exposes
+  global/restricted finite-prime term and Von Mangoldt pairing sum read-offs.
+  This is a real Block 1 formalization milestone for the CCM25 concrete common
+  finite-prime seed, not a full source-package discharge.
+- Stop boundary: continuing Block 1 past this point would require theorem
+  evidence for the full `SourceObjectPackage`, CCM24 fixed-S/window transport,
+  CC20 trace legality/no-defect read-off, CC20 RH exit, or cross-object bridges.
+  Do not paper over those with new broad assumptions.
+- Updated `external-opinions/003-unconditional-rh-completion-plan.md` to mark
+  the CCM25 concrete common finite-prime seed as Green/Yellow while keeping
+  the broader source package/front-end blocker Orange.
+
+2026-06-30
+
+- Closed three additional route-engineering milestones without claiming
+  analytic discharge.
+- Milestone 1, no-extra-bulk wrapper: added
+  `TraceFrontEndData.no_extra_bulk_source_term_data_of_trace_scale_no_missing_bulk`
+  and `TraceFrontEndData.no_extra_bulk_contract_of_trace_scale_no_missing_bulk`
+  in `ConnesWeilRH/Route/TraceFrontEnd.lean`. Once
+  `TraceScaleNoMissingBulkData` is theorem-backed, Lean now reconstructs the
+  named no-extra-bulk source-term data and contract directly from it. This
+  removes the separate normalized dev-skeleton `sorry` for
+  `normalizedNoExtraBulkSourceTermsFromTheorems`; it does not prove the
+  analytic `noExtraBulkScaleTerm` itself.
+- Milestone 2, ledger/sign-defect wrapper: added
+  `source_sign_defect_classification_of_ledgers_cleared` and
+  `source_backed_ledgers_of_ledgers_cleared` in
+  `ConnesWeilRH/Route/Ledger.lean`. The generic and normalized skeleton lanes
+  now build sign/defect classification and source-backed ledgers from one
+  `LedgersCleared` contract instead of re-consuming the three ledger facts at
+  each downstream boundary.
+- Milestone 3, final normalized current-cutoff entry: added
+  `route_certificate_of_normalized_comparison_current_cutoff_binding` and
+  `final_rh_of_normalized_comparison_current_cutoff_binding` in
+  `ConnesWeilRH/Route/RouteTheorem.lean`. The normalized route certificate and
+  RH skeleton now consume `RestrictedToFullCurrentCutoffBinding` directly and
+  derive `RestrictedToFullQWBridgeContract` internally, so the final assembly
+  layer no longer needs the bare restricted-to-full bridge when the stronger
+  binding is available.
+- Updated the ignored local roadmap
+  `external-opinions/003-unconditional-rh-completion-plan.md` to reflect these
+  three milestones. Remaining blockers are still mathematical/source evidence:
+  source package/front ends, trace-scale no-missing-bulk, ledger clearing,
+  current-cutoff/restricted-to-full evidence, and final RH exit/certification.
+- Verification passed after syncing touched Lean files into the WSL ext4
+  mirror: `lake build ConnesWeilRH.Route.TraceFrontEnd
+  ConnesWeilRH.Route.Ledger ConnesWeilRH.Route.RouteTheorem
+  ConnesWeilRH.Dev.UnconditionalSkeleton`. Placeholder scan still reports
+  `sorry` only in the quarantined development skeleton.
+
+2026-06-30
+
+- Closed one route-skeleton milestone for restricted-to-full in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`. The dev lane now exposes a
+  named `restrictedToFullQWBridgeOfCurrentCutoffBindingFromTheorems`
+  constructor and routes `restrictedToFullQWFromTheorems` through the
+  current-cutoff binding chain instead of a bare bridge placeholder. The
+  underlying math is still the existing route theorem chain in
+  `ConnesWeilRH/Route/Bridge.lean`; this is a verified skeleton/interface
+  milestone, not an analytic source discharge.
+- Attempted to upgrade `TraceScaleNoExtraBulkData` into a theorem-backed source
+  term closure, but the current route code still treats its key fields as
+  `Prop`/`Holds` data, so that lane remains an interface contract rather than a
+  theorem-closed blocker.
+
+- Advanced the development skeleton by replacing the old generic route black
+  boxes with ledger/cutoff-driven constructors in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`. The skeleton now routes
+  `signDefectClassification`, `restrictedToFullQWFromTheorems`, and
+  `sourceArchimedeanSignBridgeFromTheorems` through the existing
+  source-backed ledger and current-cutoff constructors instead of leaving them
+  as plain `sorry` shells.
+- Also tightened the normalized contract path in the same skeleton by turning
+  `normalizedNoExtraBulkContractFromTheorems`, `normalizedLedgersClearedFromTheorems`,
+  `normalizedSourceBackedLedgersFromTheorems`,
+  `normalizedSignDefectClassificationFromTheorems`, and
+  `normalizedRestrictedToFullCurrentCutoffBindingFromTheorems` into explicit
+  constructor chains.
+- Verification note: Windows PowerShell does not have `lake` on PATH here, so
+  Lean checks must run through the WSL mirror. The first pass failed only on
+  missing `noncomputable` markers for downstream defs; after marking
+  `expandedSourceRouteCertificateFrontEndFromTheorems` and
+  `routeCertificateFromTheorems` as `noncomputable`, the WSL Lean check on
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` passed with the remaining
+  expected `sorry` warnings only.
+
+2026-06-30
+
+- Advanced the next three route cuts without claiming analytic discharge.
+- Cut 1, no-extra-bulk: added
+  `TraceFrontEndData.TraceScaleNoExtraBulkSourceTermData` in
+  `ConnesWeilRH/Route/TraceFrontEnd.lean`. The S2-B1 no-extra-bulk input is now
+  split into named checks for positive-trace decomposition into
+  `QW_lambda/rank/pole/Cdef`, no external `BulkScaleTerm`, and no hidden
+  finite-part subtraction. `no_extra_bulk_contract_of_source_term_data`
+  converts this source-term data into the existing
+  `TraceScaleNoExtraBulkContract`.
+- Cut 2, ledgers: added `ledgers_cleared_of_parts` and
+  `source_backed_ledgers_of_parts` in `ConnesWeilRH/Route/Ledger.lean`. The
+  normalized dev skeleton now turns explicit `rankKilled`, `poleKilled`, and
+  `cdefExhausts` evidence into `LedgersCleared`, `SourceBackedLedgers`, and
+  then `SourceSignDefectClassification`.
+- Cut 3, restricted-to-full: added `RestrictedToFullCurrentCutoffBinding` and
+  constructors in `ConnesWeilRH/Route/Bridge.lean`. The normalized dev
+  skeleton now builds restricted-to-full through one current-cutoff binding
+  carrying the same typed common tuple, threshold data, scalar witness, and
+  lower-bound evidence, then consumes
+  `restricted_to_full_bridge_contract_of_current_cutoff_binding`.
+- Updated the ignored local roadmap
+  `external-opinions/003-unconditional-rh-completion-plan.md` to reflect these
+  narrower targets. Status remains Red/Orange for the analytic rows: the new
+  source-term data, ledger facts, large-lambda threshold, current-above-threshold
+  proof, and common tuple still need theorem-grade evidence.
+- Verification passed after syncing the touched Windows files into the WSL ext4
+  mirror: `lake build ConnesWeilRH.Route.TraceFrontEnd
+  ConnesWeilRH.Route.Ledger ConnesWeilRH.Route.Bridge
+  ConnesWeilRH.Route.RouteTheorem` and
+  `lake env lean ConnesWeilRH/Dev/UnconditionalSkeleton.lean`. The dev skeleton
+  still reports only its intentional `sorry` warnings. `git diff --check`
+  passed in the Windows worktree.
+
+2026-06-30
+
+- Completed Blocker 2 as an independent route input: scalar full-trace
+  pole/archimedean balance now reduces to existing restricted-to-full evidence
+  instead of remaining a separate broad assumption.
+- Added two active route theorems in `ConnesWeilRH/Route/RouteTheorem.lean`:
+  `normalizedScalarFullTraceArchimedeanPoleBalanceOfQWLambdaRestriction` and
+  `normalizedScalarFullTraceArchimedeanPoleBalanceOfRestrictedToFullContract`.
+- Updated
+  `normalizedScalarFullTraceArchimedeanBalanceOfRestrictedToFullContract` so it
+  goes through the new pole-balance reducer and then
+  `TraceFrontEndData.normalizedScalarFullTraceArchimedeanBalanceOfPoleBalance`.
+- Boundary preserved: this does not prove restricted-to-full itself. It proves
+  that once the same `SourceQWLambdaIsRestrictionOfQW` /
+  `RestrictedToFullQWBridgeContract` evidence is available, the scalar
+  pole/archimedean balance is no longer a separate input.
+- Updated the ignored local roadmap
+  `external-opinions/003-unconditional-rh-completion-plan.md` to mark Blocker 2
+  as Green relative to restricted-to-full evidence.
+- Verification passed in a fresh WSL ext4 copy synced from the Windows
+  worktree: `lake build ConnesWeilRH.Route.RouteTheorem`. Axiom audits for the
+  three affected route theorems reported only
+  `[propext, Classical.choice, Quot.sound]`.
+
+2026-06-30
+
+- Rewrote the ignored local roadmap
+  `external-opinions/003-unconditional-rh-completion-plan.md` to match the
+  current Lean state after the normalized contract-backed route work.
+- Replaced the stale 15-item checklist and outdated line references with a
+  current six-blocker plan: source package/front ends, scalar full-trace pole
+  balance, no-extra-bulk/no-missing-bulk, ledger clearing and sign/defect,
+  common tuple plus restricted-to-full threshold evidence, and final
+  certificate/RH exit.
+- Boundary preserved: the roadmap still says the repository does not prove
+  `_root_.RiemannHypothesis` unconditionally. The edited file remains under
+  ignored `external-opinions/`; no Lean code changed.
+- Verification passed: `git diff --check` and roadmap anchor search for
+  `Current Blockers`, `Fastest Execution Path`, `unconditional_rh`,
+  `RouteCertificate`, `TraceScaleNoExtraBulkContract`, and
+  `NormalizedScalarFullTraceArchimedeanPoleBalance`.
+
+2026-06-30
+
 - Advanced the three remaining-dangerous-input cuts without claiming
   unconditional RH.
 - Cut 1 audit result: the original normalized package

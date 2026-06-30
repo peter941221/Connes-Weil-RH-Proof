@@ -1,7 +1,6 @@
 # AGENTS.md
 
 
-- MUST output all in English unless the user inputs Chinese directly.
 - do not use Codegraph MCP in this project.
 ## [1] Project Overview
 
@@ -52,6 +51,8 @@ lake env lean /tmp/connes_axiom_audit.lean
 Use `lake build ConnesWeilRH` for current route work. Do not use bare
 `lake build` unless intentionally auditing the legacy copied
 `RiemannHypothesis` target.
+Windows PowerShell on this workstation does not currently expose `lake` on
+PATH. Lean verification must run through the WSL mirror.
 
 For narrow Lean work, build the smallest segment that contains the change:
 
@@ -113,6 +114,10 @@ drift, hidden axioms, or toy-route leakage.
 - Current proof priority: finish the mathematical source-discharge proof
   packages before further Lean work. Do not add more Lean scaffolding or Lean
   interface refinements until Peter explicitly reopens the Lean phase.
+- When a downstream dev-skeleton definition depends on a noncomputable
+  constructor from the active route modules, mark the skeleton definition
+  `noncomputable` instead of treating the compiler error as a mathematical
+  blocker.
 - The final CC20 finite-vanishing RH exit must keep the sign bridge visible:
   route `QW(g,g) >= 0` may feed Connes--Consani Proposition C.1 only after the
   source normalization proves `QW(g,g) = - sum_v W_v(g * bar(g)^sharp)`, so
@@ -552,6 +557,13 @@ drift, hidden axioms, or toy-route leakage.
   visibility, prime-power evaluation points, fixed-lambda support, and finally
   replacement of one `CCM25SourceModel` law-field projection by a theorem from
   those concrete slices.
+- When formalizing the CCM25 common-test path, avoid arbitrary dependent
+  rewrites over `CommonTestObject` unless strictly necessary. Prefer
+  `SourceObject.CommonTestObject.ofConcrete` and
+  `SourceObjectConcreteCommonData`, where the source test, convolution square,
+  fixed-lambda arithmetic certificate, concrete finite-prime object, and
+  global/restricted index data stay definitionally tied to
+  `ConcreteCommonSourceTest.toSourceTestEvaluationInterface`.
 - Goal 0C is complete at the concrete-common evaluation bridge layer:
   `ConcreteCommonPrimePowerEvaluation` and
   `ConcreteCommonPrimePowerPairingData` force the prime-power evaluator and
@@ -778,6 +790,15 @@ drift, hidden axioms, or toy-route leakage.
   `RestrictedTraceReadOffBridgeContract.build`; do not remove or bypass it until
   a source-backed normalized constructor proves the equality from CC20
   support-square normalization and CCM25 `QW_lambda` formula data.
+- The normalized amplitude-square scalar contract must be proved before, and
+  independently of, `NormalizedSupportSquareQWLambdaSourceComparison`.
+  The allowed proof direction is:
+  `supportSquareTrace = traceAmplitude^2`,
+  `supportSquareTrace = QW_lambda(g,g)`, and
+  `QW_lambda(g,g) = NormalizedRestrictedScalarNormalForm`. Do not consume
+  `NormalizedSupportSquareQWLambdaSourceComparison` to prove
+  `NormalizedTraceAmplitudeSquareScalarContract`; that would make the scalar
+  bridge circular.
 - `SourceObjectExpandedRows.ofNormalizedCC20Trace` constructs expanded rows
   from `normalizedSeedTraceObjectPackage` and fills
   `cc20SupportSquareComparison` by reflexivity. Treat this as the supported

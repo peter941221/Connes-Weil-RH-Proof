@@ -2493,6 +2493,60 @@ def restricted_to_full_lower_bound_transfer_of_common_tuple
       hwitness)
     hevidence
 
+structure RestrictedToFullCurrentCutoffBinding
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ) (F_g : TestFunction) (L : RouteLedgers)
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) where
+  commonTuple :
+    SourceCommonTestTupleContract inputs g lambda F_g pkg
+  currentThresholdData :
+    RestrictedToFullCurrentThresholdData inputs g lambda F_g pkg
+  scalarRestrictionWitness :
+    RestrictedToFullQWScalarRestrictionWitness inputs g lambda F_g pkg
+  lowerBoundEvidence :
+    RestrictedToFullQWLowerBoundEvidence inputs g lambda L
+  currentUsesCommonTuple : currentThresholdData.commonTuple = commonTuple
+  witnessUsesCommonTuple : scalarRestrictionWitness.commonTuple = commonTuple
+
+noncomputable def restricted_to_full_current_cutoff_binding_of_common_tuple
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction} {L : RouteLedgers}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (threshold : RestrictedToFullQWLargeLambdaThreshold inputs g F_g)
+    (habove : threshold.lambda0 ≤ lambda)
+    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (hevidence :
+      RestrictedToFullQWLowerBoundEvidence inputs g lambda L) :
+    RestrictedToFullCurrentCutoffBinding inputs g lambda F_g L pkg where
+  commonTuple := hcommon
+  currentThresholdData :=
+    current_threshold_data_of_large_lambda_threshold
+      threshold habove hcommon
+  scalarRestrictionWitness :=
+    threshold.scalarRestrictionAtLarge lambda habove pkg hcommon
+  lowerBoundEvidence := hevidence
+  currentUsesCommonTuple := Subsingleton.elim _ _
+  witnessUsesCommonTuple := Subsingleton.elim _ _
+
+noncomputable def restricted_to_full_current_cutoff_binding_of_sign_defect
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction} {L : RouteLedgers}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (threshold : RestrictedToFullQWLargeLambdaThreshold inputs g F_g)
+    (habove : threshold.lambda0 ≤ lambda)
+    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (hsign : SourceSignDefectClassification inputs g lambda L) :
+    RestrictedToFullCurrentCutoffBinding inputs g lambda F_g L pkg :=
+  restricted_to_full_current_cutoff_binding_of_common_tuple
+    threshold habove hcommon
+    (row7_endpoint_strip_cdef_domination_of_sign_defect_classification hsign)
+
 structure RestrictedToFullQWBridgeData
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (lambda : ℝ) (F_g : TestFunction) (L : RouteLedgers)
@@ -2642,6 +2696,34 @@ def restricted_to_full_bridge_contract_of_current_threshold_data
     exact_finite_prime_support_of_scalar_restriction
       (restricted_to_full_scalar_restriction_of_common_tuple hwitness)
   lowerBoundEvidence := hevidence
+
+def restricted_to_full_bridge_contract_of_current_cutoff_binding
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction} {L : RouteLedgers}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h :
+      RestrictedToFullCurrentCutoffBinding inputs g lambda F_g L pkg) :
+    RestrictedToFullQWBridgeContract inputs g lambda F_g L pkg :=
+  restricted_to_full_bridge_contract_of_current_threshold_data
+    h.currentThresholdData h.scalarRestrictionWitness h.lowerBoundEvidence
+
+noncomputable def restricted_to_full_bridge_contract_of_common_tuple_binding
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction} {L : RouteLedgers}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (threshold : RestrictedToFullQWLargeLambdaThreshold inputs g F_g)
+    (habove : threshold.lambda0 ≤ lambda)
+    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (hevidence :
+      RestrictedToFullQWLowerBoundEvidence inputs g lambda L) :
+    RestrictedToFullQWBridgeContract inputs g lambda F_g L pkg :=
+  restricted_to_full_bridge_contract_of_current_cutoff_binding
+    (restricted_to_full_current_cutoff_binding_of_common_tuple
+      threshold habove hcommon hevidence)
 
 def restricted_to_full_allowed_input_rows_of_contract
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}

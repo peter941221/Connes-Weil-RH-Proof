@@ -39,6 +39,400 @@ structure SourceObjectCommonData
       CCM25Concrete.Rows.source_test_of_arithmetic_rows
         concreteArithmeticRows commonTest.sourceTest commonTest.sourceTest
 
+/--
+Concrete common-test data for Goal 2C.
+
+This is the narrow Block 1 seed below `SourceObjectCommonData`: it fixes the
+common source test first, then requires the CCM25 arithmetic rows to expose the
+same source-test interface at the pair `(g,g)`.  It avoids constructing a full
+`SourceObjectPackage`, whose CCM24/CC20/RH-exit fields remain separate
+analytic obligations.
+-/
+structure SourceObjectConcreteCommonData
+    (base : SourceObjectTheoremBasePackage) where
+  concreteCommonTest :
+    CCM25Concrete.CommonSourceTest.ConcreteCommonSourceTest
+      base.ccm25Model.toWeilFormSymbols
+  concreteArithmeticRows :
+    CCM25Concrete.Interface.ConcreteCCM25ArithmeticRows
+      base.ccm25Model.toWeilFormSymbols
+  arithmeticRowsUseConcreteCommonTest :
+    CCM25Concrete.Rows.source_test_of_arithmetic_rows
+        concreteArithmeticRows concreteCommonTest.sourceTest
+        concreteCommonTest.sourceTest =
+      concreteCommonTest.toSourceTestEvaluationInterface
+
+namespace SourceObjectConcreteCommonData
+
+def ofSameSourceTest
+    {base : SourceObjectTheoremBasePackage}
+    (common :
+      CCM25Concrete.CommonSourceTest.ConcreteCommonSourceTest
+        base.ccm25Model.toWeilFormSymbols)
+    (rows :
+      CCM25Concrete.Interface.ConcreteCCM25ArithmeticRows
+        base.ccm25Model.toWeilFormSymbols)
+    (sameSourceTest :
+      CCM25Concrete.Rows.source_test_of_arithmetic_rows
+          rows common.sourceTest common.sourceTest =
+        common.toSourceTestEvaluationInterface) :
+    SourceObjectConcreteCommonData base where
+  concreteCommonTest := common
+  concreteArithmeticRows := rows
+  arithmeticRowsUseConcreteCommonTest := sameSourceTest
+
+def ofCommonPairSourceTest
+    {base : SourceObjectTheoremBasePackage}
+    (common :
+      CCM25Concrete.CommonSourceTest.ConcreteCommonSourceTest
+        base.ccm25Model.toWeilFormSymbols)
+    (rows :
+      CCM25Concrete.Interface.ConcreteCCM25ArithmeticRows
+        base.ccm25Model.toWeilFormSymbols)
+    (commonPairSourceTest :
+      (rows.finitePrimeArithmeticCertificates
+          common.sourceTest common.sourceTest).sourceTest =
+        common.toSourceTestEvaluationInterface) :
+    SourceObjectConcreteCommonData base :=
+  ofSameSourceTest common rows (by
+    simpa [CCM25Concrete.Rows.source_test_of_arithmetic_rows]
+      using commonPairSourceTest)
+
+def commonTest
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base) :
+    SourceObject.CommonTestObject base.ccm25Model.toWeilFormSymbols :=
+  SourceObject.CommonTestObject.ofConcrete data.concreteCommonTest
+
+def toSourceObjectCommonData
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base) :
+    SourceObjectCommonData base where
+  commonTest := data.commonTest
+  concreteArithmeticRows := data.concreteArithmeticRows
+  ccm25Test_eq_commonTest := data.arithmeticRowsUseConcreteCommonTest.symm
+
+theorem common_test_eq_of_concrete
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base) :
+    (data.toSourceObjectCommonData).commonTest =
+      SourceObject.CommonTestObject.ofConcrete data.concreteCommonTest :=
+  rfl
+
+theorem source_test_eq_concrete
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base) :
+    (data.toSourceObjectCommonData).commonTest.sourceTest =
+      data.concreteCommonTest.sourceTest :=
+  rfl
+
+theorem source_convolution_square_eq_concrete
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base) :
+    (data.toSourceObjectCommonData).commonTest.sourceConvolutionSquare =
+      data.concreteCommonTest.sourceConvolutionSquare :=
+  rfl
+
+theorem ccm25_source_test_eq_concrete
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base) :
+    (data.toSourceObjectCommonData).commonTest.ccm25SourceTest =
+      data.concreteCommonTest.toSourceTestEvaluationInterface :=
+  rfl
+
+theorem arithmetic_rows_source_test_eq_concrete
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base) :
+    CCM25Concrete.Rows.source_test_of_arithmetic_rows
+        data.concreteArithmeticRows data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest =
+      data.concreteCommonTest.toSourceTestEvaluationInterface :=
+  data.arithmeticRowsUseConcreteCommonTest
+
+theorem common_certificate_source_test_eq_concrete
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    ((data.concreteArithmeticRows.finitePrimeArithmeticCertificates
+        data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest).certificate
+        lambda hlambda).support.sourceTest =
+      data.concreteCommonTest.toSourceTestEvaluationInterface := by
+  calc
+    (((data.concreteArithmeticRows.finitePrimeArithmeticCertificates
+        data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest).certificate
+        lambda hlambda).support.sourceTest)
+        =
+      CCM25Concrete.Rows.source_test_of_arithmetic_rows
+        data.concreteArithmeticRows data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest :=
+        CCM25Concrete.Rows.arithmetic_certificate_source_test_of_arithmetic_rows
+          data.concreteArithmeticRows data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest lambda hlambda
+    _ = data.concreteCommonTest.toSourceTestEvaluationInterface :=
+        data.arithmeticRowsUseConcreteCommonTest
+
+theorem common_atom_source_test_eq_concrete
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) (n : ℕ) :
+    (((data.concreteArithmeticRows.finitePrimeArithmeticCertificates
+        data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest).certificate
+        lambda hlambda).atoms.atIndex n).sourceTest =
+      data.concreteCommonTest.toSourceTestEvaluationInterface := by
+  calc
+    ((((data.concreteArithmeticRows.finitePrimeArithmeticCertificates
+        data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest).certificate
+        lambda hlambda).atoms.atIndex n).sourceTest)
+        =
+      CCM25Concrete.Rows.source_test_of_arithmetic_rows
+        data.concreteArithmeticRows data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest :=
+        CCM25Concrete.Rows.arithmetic_atom_source_test_of_arithmetic_rows
+          data.concreteArithmeticRows data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest lambda hlambda n
+    _ = data.concreteCommonTest.toSourceTestEvaluationInterface :=
+        data.arithmeticRowsUseConcreteCommonTest
+
+theorem common_atom_pairing_evaluation_source_test_eq_concrete
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) (n : ℕ) :
+    let atom :=
+      ((data.concreteArithmeticRows.finitePrimeArithmeticCertificates
+        data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest).certificate
+        lambda hlambda).atoms.atIndex n
+    atom.sourcePairing.model.sourceEvaluation.sourceTest =
+      data.concreteCommonTest.toSourceTestEvaluationInterface := by
+  dsimp
+  calc
+    ((((data.concreteArithmeticRows.finitePrimeArithmeticCertificates
+        data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest).certificate
+        lambda hlambda).atoms.atIndex n).sourcePairing.model.sourceEvaluation.sourceTest)
+        =
+      CCM25Concrete.Rows.source_test_of_arithmetic_rows
+        data.concreteArithmeticRows data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest :=
+        CCM25Concrete.Rows.arithmetic_atom_pairing_evaluation_source_test_of_arithmetic_rows
+          data.concreteArithmeticRows data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest lambda hlambda n
+    _ = data.concreteCommonTest.toSourceTestEvaluationInterface :=
+        data.arithmeticRowsUseConcreteCommonTest
+
+theorem common_atom_visible_in_concrete_source_test
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) (n : ℕ) :
+    data.concreteCommonTest.sourceAtomVisible n := by
+  have hvisible :
+      (CCM25Concrete.Rows.source_test_of_arithmetic_rows
+        data.concreteArithmeticRows data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest).sourceAtomVisible n :=
+    CCM25Concrete.Rows.arithmetic_atom_visible_in_source_test_of_arithmetic_rows
+      data.concreteArithmeticRows data.concreteCommonTest.sourceTest
+      data.concreteCommonTest.sourceTest lambda hlambda n
+  simpa [data.arithmeticRowsUseConcreteCommonTest] using hvisible
+
+def commonArithmeticCertificate
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    CCM25Concrete.FinitePrimeCertificate.FixedLambdaFinitePrimeArithmeticCertificate
+      base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
+      data.concreteCommonTest.sourceTest lambda :=
+  (data.concreteArithmeticRows.finitePrimeArithmeticCertificates
+    data.concreteCommonTest.sourceTest
+    data.concreteCommonTest.sourceTest).certificate lambda hlambda
+
+noncomputable def commonFinitePrimeConcreteObject
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    CCM25Concrete.FinitePrimeCertificate.FixedLambdaFinitePrimeConcreteObject
+      base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
+      data.concreteCommonTest.sourceTest lambda :=
+  CCM25Concrete.Rows.fixed_lambda_concrete_object_of_arithmetic_rows
+    data.concreteArithmeticRows data.concreteCommonTest.sourceTest
+    data.concreteCommonTest.sourceTest lambda hlambda
+
+theorem common_finite_prime_concrete_object_certificate_eq
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    (data.commonFinitePrimeConcreteObject lambda hlambda).certificate =
+      data.commonArithmeticCertificate lambda hlambda :=
+  rfl
+
+theorem common_finite_prime_concrete_object_source_test_eq_concrete
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    (data.commonFinitePrimeConcreteObject lambda hlambda).sourceTest =
+      data.concreteCommonTest.toSourceTestEvaluationInterface := by
+  calc
+    (data.commonFinitePrimeConcreteObject lambda hlambda).sourceTest =
+        (data.commonArithmeticCertificate lambda hlambda).support.sourceTest :=
+      rfl
+    _ = data.concreteCommonTest.toSourceTestEvaluationInterface :=
+      data.common_certificate_source_test_eq_concrete lambda hlambda
+
+theorem common_finite_prime_concrete_object_global_visible
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ}
+    (hn : n ∈ base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet) :
+    data.concreteCommonTest.sourceAtomVisible n := by
+  have hvisible :
+      (data.commonFinitePrimeConcreteObject
+        lambda hlambda).sourceTest.sourceAtomVisible n :=
+    CCM25Concrete.FinitePrimeCertificate.concrete_object_global_index_visible
+      (data.commonFinitePrimeConcreteObject lambda hlambda) hn
+  simpa [data.common_finite_prime_concrete_object_source_test_eq_concrete
+    lambda hlambda] using hvisible
+
+theorem common_finite_prime_concrete_object_global_index_data
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ}
+    (hn : n ∈ base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet) :
+    CCM25Concrete.PrimePowerSupport.SourceGlobalIndexData
+      CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex
+      data.concreteCommonTest.sourceAtomVisible n where
+  primePowerIndex :=
+    CCM25Concrete.FinitePrimeCertificate.concrete_object_global_index_prime_power
+      (data.commonFinitePrimeConcreteObject lambda hlambda) hn
+  atomVisible :=
+    data.common_finite_prime_concrete_object_global_visible
+      lambda hlambda hn
+
+theorem common_finite_prime_concrete_object_restricted_visible
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ}
+    (hn : n ∈ base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet
+      lambda) :
+    data.concreteCommonTest.sourceAtomVisible n := by
+  have hvisible :
+      (data.commonFinitePrimeConcreteObject
+        lambda hlambda).sourceTest.sourceAtomVisible n :=
+    CCM25Concrete.FinitePrimeCertificate.concrete_object_restricted_index_visible
+      (data.commonFinitePrimeConcreteObject lambda hlambda) hn
+  simpa [data.common_finite_prime_concrete_object_source_test_eq_concrete
+    lambda hlambda] using hvisible
+
+theorem common_finite_prime_concrete_object_restricted_index_data
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ}
+    (hn : n ∈ base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet
+      lambda) :
+    CCM25Concrete.PrimePowerSupport.SourceRestrictedIndexData
+      CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex
+      data.concreteCommonTest.sourceAtomVisible lambda n where
+  primePowerIndex :=
+    CCM25Concrete.FinitePrimeCertificate.concrete_object_restricted_index_prime_power
+      (data.commonFinitePrimeConcreteObject lambda hlambda) hn
+  atomVisible :=
+    data.common_finite_prime_concrete_object_restricted_visible
+      lambda hlambda hn
+  lambdaCut :=
+    CCM25Concrete.FinitePrimeCertificate.concrete_object_restricted_index_lambda_cut
+      (data.commonFinitePrimeConcreteObject lambda hlambda) hn
+
+theorem common_restricted_index_set_eq_global
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet lambda =
+      base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet :=
+  CCM25Concrete.FinitePrimeCertificate.restricted_index_set_eq_global_of_arithmetic_certificate
+    (data.commonArithmeticCertificate lambda hlambda)
+
+theorem common_global_finite_prime_term_sum_read_off
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    (∑ n ∈ base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet,
+      base.ccm25Model.toWeilFormSymbols.finitePrimeTerm n
+        (base.ccm25Model.toWeilFormSymbols.convolutionStar
+          data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest)) =
+      CCM25Concrete.PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
+        base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest
+        (data.commonArithmeticCertificate lambda hlambda).atoms :=
+  CCM25Concrete.FinitePrimeCertificate.concrete_object_global_finite_prime_term_sum_read_off
+    (data.commonFinitePrimeConcreteObject lambda hlambda)
+
+theorem common_global_von_mangoldt_pairing_sum_read_off
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    (∑ n ∈ base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet,
+      base.ccm25Model.toWeilFormSymbols.vonMangoldtWeight n *
+        base.ccm25Model.toWeilFormSymbols.primePowerPairing n
+          data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest) =
+      CCM25Concrete.PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
+        base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest
+        (data.commonArithmeticCertificate lambda hlambda).atoms :=
+  CCM25Concrete.FinitePrimeCertificate.concrete_object_global_von_mangoldt_pairing_sum_read_off
+    (data.commonFinitePrimeConcreteObject lambda hlambda)
+
+theorem common_restricted_finite_prime_term_sum_read_off
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    (∑ n ∈ base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet lambda,
+      base.ccm25Model.toWeilFormSymbols.finitePrimeTerm n
+        (base.ccm25Model.toWeilFormSymbols.convolutionStar
+          data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest)) =
+      CCM25Concrete.PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
+        base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest lambda
+        (data.commonArithmeticCertificate lambda hlambda).atoms :=
+  CCM25Concrete.FinitePrimeCertificate.concrete_object_restricted_finite_prime_term_sum_read_off
+    (data.commonFinitePrimeConcreteObject lambda hlambda)
+
+theorem common_restricted_von_mangoldt_pairing_sum_read_off
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    (∑ n ∈ base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet lambda,
+      base.ccm25Model.toWeilFormSymbols.vonMangoldtWeight n *
+        base.ccm25Model.toWeilFormSymbols.primePowerPairing n
+          data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest) =
+      CCM25Concrete.PrimePowerArithmetic.SourceRestrictedFinitePrimeEvaluatorSum
+        base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest lambda
+        (data.commonArithmeticCertificate lambda hlambda).atoms :=
+  CCM25Concrete.FinitePrimeCertificate.concrete_object_restricted_von_mangoldt_pairing_sum_read_off
+    (data.commonFinitePrimeConcreteObject lambda hlambda)
+
+theorem ccm25_source_test_eq_arithmetic_rows
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base) :
+    (data.toSourceObjectCommonData).commonTest.ccm25SourceTest =
+      CCM25Concrete.Rows.source_test_of_arithmetic_rows
+        (data.toSourceObjectCommonData).concreteArithmeticRows
+        (data.toSourceObjectCommonData).commonTest.sourceTest
+        (data.toSourceObjectCommonData).commonTest.sourceTest :=
+  (data.toSourceObjectCommonData).ccm25Test_eq_commonTest
+
+end SourceObjectConcreteCommonData
+
 namespace SourceObjectCommonData
 
 def toCCM25WeilObjectPackage

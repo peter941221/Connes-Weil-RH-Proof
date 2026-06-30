@@ -111,15 +111,39 @@ route theorem remains
 `final_connes_weil_rh {inputs : RouteInputs} (cert : RouteCertificate inputs)`,
 and no imported no-argument `unconditional_rh` theorem has been added.
 
-Phase 1 is not complete. The current Green pieces are:
+Phase 1 is not complete at Lean or accepted-source level. The mathematical
+route now has a proof-package target:
+
+```text
+docs/proofs/normalized-trace-amplitude-square-scalar-proof-package.md
+```
+
+That package gives the route-evidence chain:
+
+```text
+traceAmplitude(a)^2
+        =
+supportSquareTrace(a)
+        =
+NoDefectSourceTrace(S,I,lambda,g)
+        =
+QW_lambda(g,g)
+        =
+NormalizedRestrictedScalarNormalForm(...)
+```
+
+The current Lean-backed pieces are:
 
 | row | evidence |
 |---|---|
-| shared normalized restricted scalar normal form | `ConnesWeilRH/Route/TraceFrontEnd.lean:1412` |
-| CCM25 `QW_lambda` reduces to that normal form | `ConnesWeilRH/Route/TraceFrontEnd.lean:1455` |
+| CC20 support-square trace is the normalized trace-amplitude square | `ConnesWeilRH/Route/TraceFrontEnd.lean:2200` |
+| shared normalized restricted scalar normal form | `ConnesWeilRH/Route/TraceFrontEnd.lean:2247` |
+| skeleton contract target | `ConnesWeilRH/Route/TraceFrontEnd.lean:2324` |
+| support-square scalar contract implies amplitude-square scalar contract | `ConnesWeilRH/Route/TraceFrontEnd.lean:2396` |
+| CCM25 `QW_lambda` reduces to that normal form | `ConnesWeilRH/Route/TraceFrontEnd.lean:2453` |
 | CC20 normalized seed source no-defect trace reduces locally to `traceAmplitude g ^ 2` | `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean:321` |
 
-The remaining Phase 1 blocker is now exact:
+The remaining Phase 1 Lean blocker is now exact:
 
 ```text
 traceAmplitude(g)^2
@@ -127,11 +151,27 @@ traceAmplitude(g)^2
 NormalizedRestrictedScalarNormalForm(...)
 ```
 
-No current Lean definition or theorem ties the CC20 trace amplitude to the
-CCM25 restricted scalar normal form without consuming
-`NormalizedSupportSquareQWLambdaSourceComparison`. Do not continue route wiring
-as if Phase 1 were discharged; start the concrete CC20 trace scalar
-compatibility slice or import a clean theorem for this equality.
+The open skeleton input has been narrowed to:
+
+```text
+ConnesWeilRH/Dev/UnconditionalSkeleton.lean:882
+normalizedSupportSquareScalarNormalFormInputFromTheorems
+```
+
+`normalizedTraceAmplitudeSquareScalarInputFromTheorems` is now a reducer that
+uses `normalizedTraceAmplitudeSquareScalarContractOfSupportSquareScalarNormalForm`.
+
+To close the narrowed input in Lean, add a source theorem or proof-package
+interface proving the same-scalar support-square read-off:
+
+```text
+supportSquareTrace_normalizedSeed(a) = QW_lambda(g,g)
+```
+
+for the same `a`, `g`, `lambda`, and CCM25 arithmetic package carried by
+`traceData`. Do not consume `NormalizedSupportSquareQWLambdaSourceComparison`
+to prove this row; that comparison is downstream of the scalar bridge and
+would make the proof circular.
 
 ## Phase 2 Scalar Slice Update, 2026-06-30
 
@@ -171,14 +211,17 @@ NormalizedRestrictedScalarNormalForm(lambda, ccm25ArithmeticPackage)
 The existing source package is constructed before the downstream
 `TraceFrontEndData.lambda` and `traceData.ccm25ArithmeticPackage` values exist.
 Therefore the current normalized package path cannot definitionally set its
-CC20 scalar to `NormalizedRestrictedScalarNormalForm`.
+CC20 scalar to `NormalizedRestrictedScalarNormalForm`. The new proof package
+selects the other route: prove the old amplitude-square seed equals the CCM25
+restricted normal form through the support-square/no-defect/`QW_lambda`
+read-off chain.
 
 Remaining acceptable routes:
 
 | route | status |
 |---|---|
-| add a scalar-normalized package/front-end path where the fixed-lambda CCM25 scalar is available before CC20 package construction | open |
-| prove the old amplitude-square seed equals the CCM25 restricted normal form from concrete definitions or an imported theorem package | open |
+| formalize/import the proof-package chain for the old amplitude-square seed | current target |
+| add a scalar-normalized package/front-end path where the fixed-lambda CCM25 scalar is available before CC20 package construction | fallback |
 | add a free equality field | rejected |
 
 ## Source-Object Field Gaps

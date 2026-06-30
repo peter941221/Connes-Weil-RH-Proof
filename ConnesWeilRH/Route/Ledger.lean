@@ -21,6 +21,15 @@ structure LedgersCleared (L : RouteLedgers) : Prop where
   poleKilled : L.poleKilled
   cdefExhausts : L.cdefExhausts
 
+def ledgers_cleared_of_parts
+    {L : RouteLedgers}
+    (hrank : L.rankKilled) (hpole : L.poleKilled)
+    (hcdef : L.cdefExhausts) :
+    LedgersCleared L where
+  rankKilled := hrank
+  poleKilled := hpole
+  cdefExhausts := hcdef
+
 def RankRepairToZeroModeLedger
     (_inputs : RouteInputs) (_g : SourceBackedFixedSTest _inputs)
     (L : RouteLedgers) : Prop :=
@@ -98,6 +107,33 @@ def source_backed_ledgers_of_sign_defect_classification
   lambda := lambda
   signDefectClassification := h
 
+def source_backed_ledgers_of_parts
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (hlambda : 1 < lambda)
+    (hrank : L.rankKilled) (hpole : L.poleKilled)
+    (hcdef : L.cdefExhausts) :
+    SourceBackedLedgers inputs g L :=
+  source_backed_ledgers_of_sign_defect_classification
+    (source_sign_defect_classification_of_source_backed_ledgers
+      hlambda hrank hpole hcdef)
+
+theorem source_sign_defect_classification_of_ledgers_cleared
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (hlambda : 1 < lambda) (h : LedgersCleared L) :
+    SourceSignDefectClassification inputs g lambda L :=
+  source_sign_defect_classification_of_source_backed_ledgers
+    hlambda h.rankKilled h.poleKilled h.cdefExhausts
+
+def source_backed_ledgers_of_ledgers_cleared
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (hlambda : 1 < lambda) (h : LedgersCleared L) :
+    SourceBackedLedgers inputs g L :=
+  source_backed_ledgers_of_sign_defect_classification
+    (source_sign_defect_classification_of_ledgers_cleared hlambda h)
+
 theorem rank_killed_of_ledgers_cleared
     {L : RouteLedgers} (h : LedgersCleared L) :
     L.rankKilled :=
@@ -145,6 +181,13 @@ theorem ledgers_cleared_of_source_backed
   { rankKilled := rank_killed_of_source_backed_ledgers h
     poleKilled := pole_killed_of_source_backed_ledgers h
     cdefExhausts := cdef_exhausts_of_source_backed_ledgers h }
+
+theorem ledgers_cleared_of_source_backed_parts
+    {L : RouteLedgers}
+    (hrank : L.rankKilled) (hpole : L.poleKilled)
+    (hcdef : L.cdefExhausts) :
+    LedgersCleared L :=
+  ledgers_cleared_of_parts hrank hpole hcdef
 
 theorem ledgers_cleared_of_source_sign_defect_classification
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
