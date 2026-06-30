@@ -2448,6 +2448,31 @@ def restricted_to_full_bridge_contract_of_common_tuple
   restricted_to_full_bridge_data_of_common_tuple
     threshold habove hcommon hevidence
 
+def restricted_to_full_bridge_contract_of_current_threshold_data
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction} {L : RouteLedgers}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (hcurrent :
+      RestrictedToFullCurrentThresholdData inputs g lambda F_g pkg)
+    (hwitness :
+      RestrictedToFullQWScalarRestrictionWitness
+        inputs g lambda F_g pkg)
+    (hevidence :
+      RestrictedToFullQWLowerBoundEvidence inputs g lambda L) :
+    RestrictedToFullQWBridgeContract inputs g lambda F_g L pkg where
+  largeLambdaThreshold := hcurrent.largeLambdaThreshold
+  currentAboveThreshold := hcurrent.currentAboveThreshold
+  currentThresholdData := hcurrent
+  scalarRestrictionWitness := hwitness
+  scalarRestrictionEquality :=
+    restricted_to_full_scalar_restriction_of_common_tuple hwitness
+  exactFinitePrimeSupport :=
+    exact_finite_prime_support_of_scalar_restriction
+      (restricted_to_full_scalar_restriction_of_common_tuple hwitness)
+  lowerBoundEvidence := hevidence
+
 def restricted_to_full_allowed_input_rows_of_contract
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {F_g : TestFunction} {L : RouteLedgers}
@@ -2892,6 +2917,45 @@ theorem lower_bound_evidence_of_restricted_to_full_contract
     RestrictedToFullQWLowerBoundEvidence inputs g lambda L :=
   h.lowerBoundEvidence
 
+def source_qw_lambda_restriction_of_restricted_to_full_contract
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction} {L : RouteLedgers}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : RestrictedToFullQWBridgeContract inputs g lambda F_g L pkg) :
+    SourceQWLambdaIsRestrictionOfQW inputs g lambda pkg :=
+  h.scalarRestrictionWitness.restrictedFormIsRestriction
+
+theorem source_qw_lambda_eq_qw_of_restricted_to_full_contract
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction} {L : RouteLedgers}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : RestrictedToFullQWBridgeContract inputs g lambda F_g L pkg) :
+    inputs.ccm25.weilSymbols.qwLambda lambda g.weilTest g.weilTest =
+      inputs.ccm25.weilSymbols.qw g.weilTest g.weilTest :=
+  scalar_equality_of_scalar_restriction
+    (scalar_restriction_equality_of_restricted_to_full_contract h)
+
+theorem archimedean_contribution_matches_of_restricted_to_full_contract
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction} {L : RouteLedgers}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (h : RestrictedToFullQWBridgeContract inputs g lambda F_g L pkg) :
+    SourceArchimedeanContributionMatchesForRestriction inputs g lambda pkg :=
+  h.scalarRestrictionWitness.archimedeanContributionMatches
+
+theorem lower_bound_evidence_of_sign_defect_classification
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceSignDefectClassification inputs g lambda L) :
+    RestrictedToFullQWLowerBoundEvidence inputs g lambda L :=
+  row7_endpoint_strip_cdef_domination_of_sign_defect_classification h
+
 def lower_bound_transfer_of_restricted_to_full_contract
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {F_g : TestFunction} {L : RouteLedgers}
@@ -2929,6 +2993,35 @@ noncomputable def final_sign_nonnegative_to_nonpositive_of_contract
     (h : FinalSignBridgeContract inputs a g lambda F_g pkg) :
     SourceQWNonnegativeToCC20Nonpositive inputs a g lambda F_g pkg :=
   final_sign_bridge_of_contract h
+
+def final_sign_bridge_contract_of_common_tuple
+    {inputs : RouteInputs}
+    {a : inputs.cc20.archimedeanSymbols.Test}
+    {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (hsign : SourceArchimedeanSignBridge inputs a g) :
+    FinalSignBridgeContract inputs a g lambda F_g pkg :=
+  final_sign_bridge_contract_of_common_test
+    (source_qw_uses_common_test_of_common_tuple hcommon)
+    hsign
+
+noncomputable def final_sign_nonnegative_to_nonpositive_of_common_tuple
+    {inputs : RouteInputs}
+    {a : inputs.cc20.archimedeanSymbols.Test}
+    {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (hsign : SourceArchimedeanSignBridge inputs a g) :
+    SourceQWNonnegativeToCC20Nonpositive inputs a g lambda F_g pkg :=
+  final_sign_nonnegative_to_nonpositive_of_contract
+    (final_sign_bridge_contract_of_common_tuple hcommon hsign)
 
 theorem finite_prime_normalization_of_sign_owned_package
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}

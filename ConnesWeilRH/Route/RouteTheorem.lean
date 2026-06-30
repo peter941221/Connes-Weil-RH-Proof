@@ -112,6 +112,107 @@ structure ExpandedSourceRouteCertificateFrontEnd
       pkg.cc20Trace.sourceTraceTest
       (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
 
+theorem normalizedScalarFullTraceArchimedeanBalanceOfQWLambdaRestriction
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData))
+    (hrestriction :
+      let originalSourceTrace :=
+        TraceFrontEndData.toSourceTraceReadOffDataOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+          traceData
+      let originalInputs :=
+        RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges)
+      let originalG :=
+        FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+      SourceQWLambdaIsRestrictionOfQW originalInputs originalG
+        originalSourceTrace.lambda originalSourceTrace.ccm25ArithmeticPackage) :
+    TraceFrontEndData.NormalizedScalarFullTraceArchimedeanBalance
+      base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+      traceData := by
+  dsimp [TraceFrontEndData.NormalizedScalarFullTraceArchimedeanBalance] at *
+  exact archimedean_contribution_equality_of_qw_lambda_restriction
+    hrestriction
+
+theorem normalizedScalarFullTraceArchimedeanBalanceOfRestrictedToFullContract
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData))
+    (L : RouteLedgers)
+    (hbridge :
+      let originalSourceTrace :=
+        TraceFrontEndData.toSourceTraceReadOffDataOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+          traceData
+      let originalInputs :=
+        RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges)
+      let originalG :=
+        FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+      RestrictedToFullQWBridgeContract originalInputs originalG
+        originalSourceTrace.lambda
+        (originalInputs.ccm25.weilSymbols.convolutionStar
+          originalG.weilTest originalG.weilTest)
+        L originalSourceTrace.ccm25ArithmeticPackage) :
+    TraceFrontEndData.NormalizedScalarFullTraceArchimedeanBalance
+      base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+      traceData := by
+  apply
+    normalizedScalarFullTraceArchimedeanBalanceOfQWLambdaRestriction
+      base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+      traceData
+  dsimp at hbridge ⊢
+  exact source_qw_lambda_restriction_of_restricted_to_full_contract hbridge
+
 /--
 Goal 4D staging data for a route front end whose sign/defect evidence is tied
 to the Goal 4C trace-scale no-missing-bulk ledger.

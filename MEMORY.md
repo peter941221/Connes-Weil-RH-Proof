@@ -1,5 +1,37 @@
 2026-06-30
 
+- Added active route bridge reducers for the four dangerous remaining lanes.
+- In `ConnesWeilRH/Route/Bridge.lean`, added:
+  `restricted_to_full_bridge_contract_of_current_threshold_data`,
+  `source_qw_lambda_restriction_of_restricted_to_full_contract`,
+  `source_qw_lambda_eq_qw_of_restricted_to_full_contract`,
+  `archimedean_contribution_matches_of_restricted_to_full_contract`,
+  `lower_bound_evidence_of_sign_defect_classification`,
+  `final_sign_bridge_contract_of_common_tuple`, and
+  `final_sign_nonnegative_to_nonpositive_of_common_tuple`.
+- In `ConnesWeilRH/Route/RouteTheorem.lean`, added:
+  `normalizedScalarFullTraceArchimedeanBalanceOfQWLambdaRestriction` and
+  `normalizedScalarFullTraceArchimedeanBalanceOfRestrictedToFullContract`.
+- Current chain picture after this pass:
+  full trace balance can now be reduced from the same
+  `SourceQWLambdaIsRestrictionOfQW` rows used by restricted-to-full;
+  restricted-to-full contracts expose the exact `QW_lambda = QW` equality and
+  the source restriction rows; sign/defect classification exposes the
+  lower-bound evidence needed by restricted-to-full; final sign can be built
+  from the common tuple plus the archimedean sign bridge.
+- Boundary: this is real active Lean wiring, not analytic source discharge.
+  The hard source inputs still remain: the large-lambda threshold/current
+  cutoff evidence, scalar restriction witness, no-hidden-positive-defect row
+  package, and archimedean sign normalization bridge. No new axioms, `sorry`s,
+  or toy `True` fields were added.
+- Verification passed in the WSL ext4 mirror:
+  `lake build ConnesWeilRH.Route.Bridge ConnesWeilRH.Route.TraceFrontEnd
+  ConnesWeilRH.Route.RouteTheorem ConnesWeilRH`.
+  Placeholder scan reports only existing intentional `sorry`s in
+  `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`.
+
+2026-06-30
+
 - Sharpened the next hard step for the normalized scalar full-trace bridge.
 - Added `TraceFrontEndData.NormalizedScalarFullTraceArchimedeanPoleBalance`,
   `normalizedScalarFullTraceArchimedeanFinitePrimeBalance`, and
