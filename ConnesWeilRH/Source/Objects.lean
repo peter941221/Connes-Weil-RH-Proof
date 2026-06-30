@@ -193,6 +193,24 @@ structure CC20TraceObjectPackage where
   sourceProjectionDefectNormalForm : Prop
   sourceRankPoleLedgerIdentification : Prop
   sourceEndpointStripRemainderCdefDomination : Prop
+  noBulkScaleTermOutsideLedger : Prop
+  noHiddenFinitePartSubtraction : Prop
+  noBulkScaleTermOutsideLedgerHolds : noBulkScaleTermOutsideLedger
+  noHiddenFinitePartSubtractionHolds : noHiddenFinitePartSubtraction
+  noBulkScaleTermOutsideLedgerAt :
+    ℝ → archimedeanSymbols.Test → TestFunction → Prop
+  noHiddenFinitePartSubtractionAt :
+    ℝ → archimedeanSymbols.Test → TestFunction → Prop
+  noBulkScaleTermOutsideLedgerAtHolds :
+    ∀ lambda : ℝ, 1 < lambda →
+      ∀ archimedeanTest : archimedeanSymbols.Test,
+      ∀ weilTest : TestFunction,
+        noBulkScaleTermOutsideLedgerAt lambda archimedeanTest weilTest
+  noHiddenFinitePartSubtractionAtHolds :
+    ∀ lambda : ℝ, 1 < lambda →
+      ∀ archimedeanTest : archimedeanSymbols.Test,
+      ∀ weilTest : TestFunction,
+        noHiddenFinitePartSubtractionAt lambda archimedeanTest weilTest
   noHiddenPositiveDefectOutsideCdef : Prop
   sourceBoundedComparisonTraceIdealTransport : Prop
   sourceMellinHalfDensityCompatibility :

@@ -43,6 +43,32 @@ def cc20OrdinaryTraceSupportSquare : SourceObligation where
     "ordinary positive trace and support-square trace are the same finite-lambda scalar"
   statement := ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement A
 
+structure CC20CCMTraceScaleNoBulkWitness
+    (A : ArchimedeanTraceSymbols) (W : WeilFormSymbols)
+    (lambda : ℝ) (archimedeanTest : A.Test) (weilTest : TestFunction) where
+  noBulkScaleTermOutsideLedger : Prop
+  noHiddenFinitePartSubtraction : Prop
+  noBulkScaleTermOutsideLedgerHolds : noBulkScaleTermOutsideLedger
+  noHiddenFinitePartSubtractionHolds : noHiddenFinitePartSubtraction
+
+def CC20CCMTraceScaleNoBulkStatement
+    (A : ArchimedeanTraceSymbols) (W : WeilFormSymbols) : Prop :=
+  ∀ lambda : ℝ, 1 < lambda →
+    ∀ archimedeanTest : A.Test,
+      ∀ weilTest : TestFunction,
+        Nonempty
+          (CC20CCMTraceScaleNoBulkWitness A W lambda archimedeanTest weilTest)
+
+def cc20CcmTraceScaleNoBulk
+    (A : ArchimedeanTraceSymbols) (W : WeilFormSymbols) :
+    SourceObligation where
+  sourceKey := "CC20+CCM25"
+  sourceFile := "trace-scale-source-term-ledger.md"
+  lineRange := "theorem-candidate"
+  manuscriptRole :=
+    "S2-B1 no extra bulk scale term and no hidden finite-part subtraction"
+  statement := CC20CCMTraceScaleNoBulkStatement A W
+
 def cc20MellinHalfDensityConvention : SourceObligation where
   sourceKey := "CC20"
   sourceFile := "weil-compo.tex"

@@ -63,8 +63,10 @@ archimedeanTerm(F_g)
 | Lean contract target | `ConnesWeilRH/Route/TraceFrontEnd.lean:2324`, `NormalizedTraceAmplitudeSquareScalarContract` |
 | support-square scalar contract implies the amplitude-square scalar contract | `ConnesWeilRH/Route/TraceFrontEnd.lean:2396`, `normalizedTraceAmplitudeSquareScalarContractOfSupportSquareScalarNormalForm` |
 | CCM25 `QW_lambda(g,g)` reduces to that normal form | `ConnesWeilRH/Route/TraceFrontEnd.lean:2453`, `normalized_qw_lambda_reduces_to_normal_form` |
-| skeleton input still open | `ConnesWeilRH/Dev/UnconditionalSkeleton.lean:882`, `normalizedSupportSquareScalarNormalFormInputFromTheorems` |
-| amplitude skeleton reducer | `ConnesWeilRH/Dev/UnconditionalSkeleton.lean:891`, `normalizedTraceAmplitudeSquareScalarInputFromTheorems` |
+| narrowed same-scalar read-off contract | `ConnesWeilRH/Route/TraceFrontEnd.lean:2540`, `NormalizedSupportSquareQWLambdaScalarReadOff` |
+| same-scalar read-off implies support-square scalar normal form | `ConnesWeilRH/Route/TraceFrontEnd.lean:2583`, `normalizedSupportSquareScalarNormalFormContractOfQWLambdaReadOff` |
+| skeleton input still open | `ConnesWeilRH/Dev/UnconditionalSkeleton.lean:898`, `normalizedSupportSquareQWLambdaScalarReadOffFromTheorems` |
+| normal-form and amplitude skeleton reducers | `ConnesWeilRH/Dev/UnconditionalSkeleton.lean:908`, `normalizedSupportSquareScalarNormalFormInputFromTheorems`; `ConnesWeilRH/Dev/UnconditionalSkeleton.lean:923`, `normalizedTraceAmplitudeSquareScalarInputFromTheorems` |
 | the support-square/no-defect/QW_lambda scalar chain is exactly the B1 trace-scale target | `docs/proofs/trace-scale-compatibility-proof-package.md`, Lemmas 2-4 |
 | the no-defect compact-form read-off uses the same test and cutoff | `docs/proofs/fixed-s-no-defect-compact-form-read-off.md`, Lemmas 1-4 |
 | manuscript source read-off displays the restricted `QW_lambda` scalar | `docs/manuscripts/connes-weil-rh-proof-draft.md:988-1033` |
@@ -175,13 +177,18 @@ with the same `a`, `g`, `lambda`, and CCM25 arithmetic package as
 Current Lean status:
 
 ```text
+normalizedSupportSquareQWLambdaScalarReadOffFromTheorems
+        |
+        v
 normalizedSupportSquareScalarNormalFormInputFromTheorems
         |
         v
 normalizedTraceAmplitudeSquareScalarInputFromTheorems
 ```
 
-The second arrow is now implemented by
+The first arrow is implemented by
+`normalizedSupportSquareScalarNormalFormContractOfQWLambdaReadOff`. The second
+arrow is implemented by
 `normalizedTraceAmplitudeSquareScalarContractOfSupportSquareScalarNormalForm`.
 The first line is still the mathematical source/import row.
 

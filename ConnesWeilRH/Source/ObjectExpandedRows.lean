@@ -61,6 +61,14 @@ structure SourceObjectConcreteCommonData
         concreteArithmeticRows concreteCommonTest.sourceTest
         concreteCommonTest.sourceTest =
       concreteCommonTest.toSourceTestEvaluationInterface
+  scopedArchimedeanContributionBalance :
+    ∀ lambda : ℝ,
+      ∀ pkg : CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        base.ccm25Model.toWeilFormSymbols concreteCommonTest.sourceTest
+        lambda,
+        CCM25Concrete.FinitePrimeSourceData.ScopedArchimedeanContributionBalance
+          base.ccm25Model.toWeilFormSymbols concreteCommonTest.sourceTest
+          lambda pkg
 
 namespace SourceObjectConcreteCommonData
 
@@ -75,11 +83,19 @@ def ofSameSourceTest
     (sameSourceTest :
       CCM25Concrete.Rows.source_test_of_arithmetic_rows
           rows common.sourceTest common.sourceTest =
-        common.toSourceTestEvaluationInterface) :
+        common.toSourceTestEvaluationInterface)
+    (scopedArchimedeanContributionBalance :
+      ∀ lambda : ℝ,
+        ∀ pkg : CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+          base.ccm25Model.toWeilFormSymbols common.sourceTest lambda,
+          CCM25Concrete.FinitePrimeSourceData.ScopedArchimedeanContributionBalance
+            base.ccm25Model.toWeilFormSymbols common.sourceTest lambda pkg) :
     SourceObjectConcreteCommonData base where
   concreteCommonTest := common
   concreteArithmeticRows := rows
   arithmeticRowsUseConcreteCommonTest := sameSourceTest
+  scopedArchimedeanContributionBalance :=
+    scopedArchimedeanContributionBalance
 
 def ofCommonPairSourceTest
     {base : SourceObjectTheoremBasePackage}
@@ -92,11 +108,18 @@ def ofCommonPairSourceTest
     (commonPairSourceTest :
       (rows.finitePrimeArithmeticCertificates
           common.sourceTest common.sourceTest).sourceTest =
-        common.toSourceTestEvaluationInterface) :
+        common.toSourceTestEvaluationInterface)
+    (scopedArchimedeanContributionBalance :
+      ∀ lambda : ℝ,
+        ∀ pkg : CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+          base.ccm25Model.toWeilFormSymbols common.sourceTest lambda,
+          CCM25Concrete.FinitePrimeSourceData.ScopedArchimedeanContributionBalance
+            base.ccm25Model.toWeilFormSymbols common.sourceTest lambda pkg) :
     SourceObjectConcreteCommonData base :=
   ofSameSourceTest common rows (by
     simpa [CCM25Concrete.Rows.source_test_of_arithmetic_rows]
       using commonPairSourceTest)
+    scopedArchimedeanContributionBalance
 
 def commonTest
     {base : SourceObjectTheoremBasePackage}
@@ -431,6 +454,36 @@ theorem ccm25_source_test_eq_arithmetic_rows
         (data.toSourceObjectCommonData).commonTest.sourceTest :=
   (data.toSourceObjectCommonData).ccm25Test_eq_commonTest
 
+def commonFinitePrimeArithmeticSourceData
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base) :
+    CCM25Concrete.FinitePrimeSourceData.CommonFinitePrimeArithmeticSourceData
+      base.ccm25Model.toWeilFormSymbols :=
+  CCM25Concrete.FinitePrimeSourceData.commonFinitePrimeArithmeticSourceDataOfArithmeticRows
+    data.concreteCommonTest.sourceTest
+    data.concreteArithmeticRows
+    data.arithmeticRowsUseConcreteCommonTest
+    data.scopedArchimedeanContributionBalance
+
+theorem common_finite_prime_source_test_pair_eq_concrete
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base) :
+    (data.commonFinitePrimeArithmeticSourceData.finitePrimeData.selector.sourceTest
+        data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest) =
+      data.concreteCommonTest.toSourceTestEvaluationInterface :=
+  CCM25Concrete.FinitePrimeSourceData.commonPairSourceTest
+    data.commonFinitePrimeArithmeticSourceData
+
+theorem common_finite_prime_normalization
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base) :
+    WeilFormSymbols.FinitePrimeNormalizationStatement
+      base.ccm25Model.toWeilFormSymbols :=
+  CCM25Concrete.FinitePrimeInterface.finite_prime_normalization_of_source_test_certificates
+    (CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+      data.commonFinitePrimeArithmeticSourceData)
+
 end SourceObjectConcreteCommonData
 
 namespace SourceObjectCommonData
@@ -570,8 +623,8 @@ noncomputable def normalizedScalarCC20ScalarSupportSquareComparison
     CC20ScalarSupportSquareComparison
       (CC20Concrete.TraceScale.normalizedScalarTraceObjectPackage
         scalarSeed remainders) :=
-  CC20Concrete.TraceScale.CC20TracePackageScalarSupportSquareComparison.forNormalizedScalarTraceObjectPackage
-    scalarSeed remainders
+  open CC20Concrete.TraceScale.CC20TracePackageScalarSupportSquareComparison in
+    forNormalizedScalarTraceObjectPackage scalarSeed remainders
 
 def ofNormalizedCC20Trace
     {base : SourceObjectTheoremBasePackage}
@@ -861,6 +914,126 @@ noncomputable def sourceObjectPackageOfNormalizedScalarCC20Trace
     (SourceObjectExpandedRows.ofNormalizedScalarCC20Trace
       ccm24 scalarSeed remainders)
     rhExit bridges
+
+/--
+Source-object input for the normalized CC20 trace package.
+
+This is the boundary where the compact theorem-base package becomes a full
+source-object package: the CCM24 object, RH-exit object, and cross-object
+bridges must be supplied together for the same normalized seed and remainder
+data.
+-/
+structure NormalizedCC20SourceObjectLayerInput
+    (base : SourceObjectTheoremBasePackage)
+    (common : SourceObjectCommonData base)
+    (normalizedSeed :
+      CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed) where
+  ccm24 : SourceObject.CCM24SemilocalObjectPackage
+  rhExit : SourceObject.CC20RHExitObjectPackage
+  bridges :
+    SourceObjectCrossObjectBridges base common
+      (SourceObjectExpandedRows.ofNormalizedCC20Trace
+        ccm24 normalizedSeed remainders)
+      rhExit
+
+namespace NormalizedCC20SourceObjectLayerInput
+
+def rows
+    {base : SourceObjectTheoremBasePackage}
+    {common : SourceObjectCommonData base}
+    {normalizedSeed :
+      CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols}
+    {remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed}
+    (input :
+      NormalizedCC20SourceObjectLayerInput
+        base common normalizedSeed remainders) :
+    SourceObjectExpandedRows base common :=
+  SourceObjectExpandedRows.ofNormalizedCC20Trace
+    input.ccm24 normalizedSeed remainders
+
+def package
+    {base : SourceObjectTheoremBasePackage}
+    {common : SourceObjectCommonData base}
+    {normalizedSeed :
+      CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols}
+    {remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed}
+    (input :
+      NormalizedCC20SourceObjectLayerInput
+        base common normalizedSeed remainders) :
+    SourceObject.SourceObjectPackage :=
+  sourceObjectPackageOfNormalizedCC20Trace
+    base common input.ccm24 normalizedSeed remainders input.rhExit
+    input.bridges
+
+end NormalizedCC20SourceObjectLayerInput
+
+/--
+Source-object input for the scalar normalized CC20 trace package.
+
+The scalar package reuses the same base/common/CCM24 objects but has its own
+scalar CC20 trace object, RH-exit object, and bridge package.
+-/
+structure NormalizedScalarSourceObjectLayerInput
+    (base : SourceObjectTheoremBasePackage)
+    (common : SourceObjectCommonData base)
+    (ccm24 : SourceObject.CCM24SemilocalObjectPackage)
+    (scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed)) where
+  rhExit : SourceObject.CC20RHExitObjectPackage
+  bridges :
+    SourceObjectCrossObjectBridges base common
+      (SourceObjectExpandedRows.ofNormalizedScalarCC20Trace
+        ccm24 scalarSeed remainders)
+      rhExit
+
+namespace NormalizedScalarSourceObjectLayerInput
+
+noncomputable def rows
+    {base : SourceObjectTheoremBasePackage}
+    {common : SourceObjectCommonData base}
+    {ccm24 : SourceObject.CCM24SemilocalObjectPackage}
+    {scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols}
+    {remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed)}
+    (_input :
+      NormalizedScalarSourceObjectLayerInput
+        base common ccm24 scalarSeed remainders) :
+    SourceObjectExpandedRows base common :=
+  SourceObjectExpandedRows.ofNormalizedScalarCC20Trace
+    ccm24 scalarSeed remainders
+
+noncomputable def package
+    {base : SourceObjectTheoremBasePackage}
+    {common : SourceObjectCommonData base}
+    {ccm24 : SourceObject.CCM24SemilocalObjectPackage}
+    {scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols}
+    {remainders :
+      CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed)}
+    (input :
+      NormalizedScalarSourceObjectLayerInput
+        base common ccm24 scalarSeed remainders) :
+    SourceObject.SourceObjectPackage :=
+  sourceObjectPackageOfNormalizedScalarCC20Trace
+    base common ccm24 scalarSeed remainders input.rhExit input.bridges
+
+end NormalizedScalarSourceObjectLayerInput
 
 namespace SourceObjectPackageOfData
 

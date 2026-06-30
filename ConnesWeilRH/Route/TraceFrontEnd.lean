@@ -413,6 +413,48 @@ def toSourceTraceReadOffData
   SourceTraceReadOffData.ofExpandedSourcePackage pkg fixedFront
     (data.toExpandedSourceTraceReadOffFrontEnd pkg fixedFront)
 
+def sourceTraceReadOffDataOfTraceFrontParts
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (lambda : ℝ)
+    (oneLtLambda : 1 < lambda)
+    (ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda)
+    (testAndQuotientCompatibility :
+      TestAndQuotientCompatibility
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront))
+    (fixedSSupportSquareTransport :
+      FixedSQuantizedSupportSquareTransport
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        pkg.cc20Trace.sourceTraceTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+        lambda)
+    (fullTraceReadOffBridge :
+      FullTraceReadOffBridgeContract
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        pkg.cc20Trace.sourceTraceTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront))
+    (restrictedTraceReadOffBridge :
+      RestrictedTraceReadOffBridgeContract
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        pkg.cc20Trace.sourceTraceTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+        lambda) :
+    SourceTraceReadOffData
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront) :=
+  SourceTraceReadOffData.ofExpandedSourcePackage pkg fixedFront
+    { lambda := lambda
+      oneLtLambda := oneLtLambda
+      ccm25ArithmeticPackage := ccm25ArithmeticPackage
+      testAndQuotientCompatibility := testAndQuotientCompatibility
+      fixedSSupportSquareTransport := fixedSSupportSquareTransport
+      fullTraceReadOffBridge := fullTraceReadOffBridge
+      restrictedTraceReadOffBridge := restrictedTraceReadOffBridge }
+
 theorem trace_front_lambda
     (pkg : Source.SourceObject.SourceObjectPackage)
     (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
@@ -544,6 +586,27 @@ theorem trace_scale_no_missing_bulk_no_extra_bulk_holds
     (trace_scale_no_missing_bulk pkg fixedFront data).noExtraBulkScaleTerm :=
   data.traceScaleNoMissingBulk.noExtraBulkScaleTermHolds
 
+theorem trace_scale_no_missing_bulk_compact_statement_holds
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (data :
+      TraceScaleNoMissingBulkData pkg fixedFront lambda
+        ccm25ArithmeticPackage) :
+    data.ordinaryTraceMatchesSupportSquare ∧
+      data.supportSquareMatchesNoDefectSource ∧
+        data.noDefectSourceMatchesQWLambda ∧
+          data.noExtraBulkScaleTerm := by
+  exact
+    ⟨data.ordinaryTraceMatchesSupportSquareHolds,
+      data.supportSquareMatchesNoDefectSourceHolds,
+      data.noDefectSourceMatchesQWLambdaHolds,
+      data.noExtraBulkScaleTermHolds⟩
+
 def TraceScaleRankPoleCdefOwnership
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (lambda : ℝ) (L : RouteLedgers) : Prop :=
@@ -562,6 +625,126 @@ theorem trace_scale_rank_pole_identification_of_ownership
     (h : TraceScaleRankPoleCdefOwnership inputs g lambda L) :
     SourceRankPoleLedgerIdentification inputs g lambda L :=
   row7_rank_pole_identification_of_no_hidden_positive_defect h
+
+def S2B1RankZeroModeChannelClassified
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ) (L : RouteLedgers) : Prop :=
+  SourceRankLedgerIdentification inputs g lambda L
+
+theorem rankZeroModeChannelClassifiedAtHolds_of_rank_pole_identification
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceRankPoleLedgerIdentification inputs g lambda L) :
+    S2B1RankZeroModeChannelClassified inputs g lambda L :=
+  row5_rank_identification_of_rank_pole_identification h
+
+theorem rankZeroModeChannelClassifiedAtHolds_of_sign_defect_classification
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceSignDefectClassification inputs g lambda L) :
+    S2B1RankZeroModeChannelClassified inputs g lambda L :=
+  rankZeroModeChannelClassifiedAtHolds_of_rank_pole_identification
+    (row7_rank_pole_identification_of_sign_defect_classification h)
+
+def S2B1NoStripRankPoleClassified
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ) (L : RouteLedgers) : Prop :=
+  SourceRankPoleLedgerVanishingGate inputs g lambda L
+
+theorem noStripPostQRemainderRankPoleClassifiedAtHolds_of_rank_pole_identification
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceRankPoleLedgerIdentification inputs g lambda L) :
+    S2B1NoStripRankPoleClassified inputs g lambda L :=
+  row5_ledger_vanishing_gate_of_rank_pole_identification h
+
+theorem noStripPostQRemainderRankPoleClassifiedAtHolds_of_sign_defect_classification
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceSignDefectClassification inputs g lambda L) :
+    S2B1NoStripRankPoleClassified inputs g lambda L :=
+  noStripPostQRemainderRankPoleClassifiedAtHolds_of_rank_pole_identification
+    (row7_rank_pole_identification_of_sign_defect_classification h)
+
+def S2B1EndpointStripBulkClassifiedIntoCdef
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ) : Prop :=
+  SourceEndpointStripTermsCdefIndexed inputs g lambda
+
+def S2B1EndpointStripBoundaryTermsClassified
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ) : Prop :=
+  SourceEndpointStripTraceNormDomination inputs g lambda
+
+def S2B1SourceSeriesTailClassifiedIntoCdef
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ) (L : RouteLedgers) : Prop :=
+  SourceEndpointStripRemainderCdefBound inputs g lambda L
+
+def S2B1CdefExhaustionOwnsEndpointStrip
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ) (L : RouteLedgers) : Prop :=
+  SourceEndpointStripFixedTestCdefExhaustion inputs g lambda L
+
+theorem endpointStripBulkClassifiedIntoCdefAtHolds_of_cdef_domination
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceEndpointStripRemainderCdefDomination inputs g lambda L) :
+    S2B1EndpointStripBulkClassifiedIntoCdef inputs g lambda :=
+  row6_endpoint_terms_indexed_of_cdef_domination h
+
+theorem endpointStripBoundaryTermsClassifiedAtHolds_of_cdef_domination
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceEndpointStripRemainderCdefDomination inputs g lambda L) :
+    S2B1EndpointStripBoundaryTermsClassified inputs g lambda :=
+  row6_trace_norm_domination_of_cdef_domination h
+
+theorem sourceSeriesTailClassifiedIntoCdefAtHolds_of_cdef_domination
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceEndpointStripRemainderCdefDomination inputs g lambda L) :
+    S2B1SourceSeriesTailClassifiedIntoCdef inputs g lambda L :=
+  row6_remainder_bound_of_cdef_domination h
+
+theorem cdefExhaustionOwnsEndpointStripAtHolds_of_cdef_domination
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceEndpointStripRemainderCdefDomination inputs g lambda L) :
+    S2B1CdefExhaustionOwnsEndpointStrip inputs g lambda L :=
+  row6_fixed_test_cdef_exhaustion_of_cdef_domination h
+
+theorem endpointStripBulkClassifiedIntoCdefAtHolds_of_sign_defect_classification
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceSignDefectClassification inputs g lambda L) :
+    S2B1EndpointStripBulkClassifiedIntoCdef inputs g lambda :=
+  endpointStripBulkClassifiedIntoCdefAtHolds_of_cdef_domination
+    (row7_endpoint_strip_cdef_domination_of_sign_defect_classification h)
+
+theorem endpointStripBoundaryTermsClassifiedAtHolds_of_sign_defect_classification
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceSignDefectClassification inputs g lambda L) :
+    S2B1EndpointStripBoundaryTermsClassified inputs g lambda :=
+  endpointStripBoundaryTermsClassifiedAtHolds_of_cdef_domination
+    (row7_endpoint_strip_cdef_domination_of_sign_defect_classification h)
+
+theorem sourceSeriesTailClassifiedIntoCdefAtHolds_of_sign_defect_classification
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceSignDefectClassification inputs g lambda L) :
+    S2B1SourceSeriesTailClassifiedIntoCdef inputs g lambda L :=
+  sourceSeriesTailClassifiedIntoCdefAtHolds_of_cdef_domination
+    (row7_endpoint_strip_cdef_domination_of_sign_defect_classification h)
+
+theorem cdefExhaustionOwnsEndpointStripAtHolds_of_sign_defect_classification
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {L : RouteLedgers}
+    (h : SourceSignDefectClassification inputs g lambda L) :
+    S2B1CdefExhaustionOwnsEndpointStrip inputs g lambda L :=
+  cdefExhaustionOwnsEndpointStripAtHolds_of_cdef_domination
+    (row7_endpoint_strip_cdef_domination_of_sign_defect_classification h)
 
 theorem trace_scale_cdef_domination_of_ownership
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -667,6 +850,11 @@ structure TraceScaleNoExtraBulkContract
           (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
           lambda L,
         trace_scale_owns_sign_defect_remainder signDefectClassification
+  sourceTerms :
+    TraceScaleNoExtraBulkSourceTermData pkg fixedFront lambda
+      ccm25ArithmeticPackage
+  sourceTermStatementHolds :
+    TraceScaleNoExtraBulkSourceTermStatement sourceTerms
   noExtraBulkScaleTerm : Prop
   noExtraBulkScaleTermHolds : noExtraBulkScaleTerm
 
@@ -684,8 +872,22 @@ def no_extra_bulk_contract_of_parts
   traceScaleOwnership := by
     intro L signDefectClassification
     exact trace_scale_owns_sign_defect_remainder_holds signDefectClassification
+  sourceTerms :=
+    { positiveTraceDecomposesIntoQWLambdaRankPoleCdef :=
+        noExtraBulkScaleTerm
+      noBulkScaleTermOutsideLedger := noExtraBulkScaleTerm
+      noHiddenFinitePartSubtraction := noExtraBulkScaleTerm
+      positiveTraceDecomposesIntoQWLambdaRankPoleCdefHolds :=
+        noExtraBulkScaleTermHolds
+      noBulkScaleTermOutsideLedgerHolds := noExtraBulkScaleTermHolds
+      noHiddenFinitePartSubtractionHolds := noExtraBulkScaleTermHolds }
+  sourceTermStatementHolds :=
+    ⟨noExtraBulkScaleTermHolds,
+      noExtraBulkScaleTermHolds,
+      noExtraBulkScaleTermHolds⟩
   noExtraBulkScaleTerm := noExtraBulkScaleTerm
-  noExtraBulkScaleTermHolds := noExtraBulkScaleTermHolds
+  noExtraBulkScaleTermHolds :=
+    noExtraBulkScaleTermHolds
 
 def no_extra_bulk_contract_of_source_term_data
     {pkg : Source.SourceObject.SourceObjectPackage}
@@ -699,10 +901,16 @@ def no_extra_bulk_contract_of_source_term_data
       TraceScaleNoExtraBulkSourceTermData pkg fixedFront lambda
         ccm25ArithmeticPackage) :
     TraceScaleNoExtraBulkContract pkg fixedFront lambda
-      ccm25ArithmeticPackage :=
-  no_extra_bulk_contract_of_parts
-    (TraceScaleNoExtraBulkSourceTermStatement h)
-    (trace_scale_no_extra_bulk_source_term_statement_holds h)
+      ccm25ArithmeticPackage where
+  traceScaleOwnership := by
+    intro L signDefectClassification
+    exact trace_scale_owns_sign_defect_remainder_holds signDefectClassification
+  sourceTerms := h
+  sourceTermStatementHolds :=
+    trace_scale_no_extra_bulk_source_term_statement_holds h
+  noExtraBulkScaleTerm := TraceScaleNoExtraBulkSourceTermStatement h
+  noExtraBulkScaleTermHolds :=
+    trace_scale_no_extra_bulk_source_term_statement_holds h
 
 def no_extra_bulk_source_term_data_of_trace_scale_no_missing_bulk
     {pkg : Source.SourceObject.SourceObjectPackage}
@@ -729,6 +937,53 @@ def no_extra_bulk_source_term_data_of_trace_scale_no_missing_bulk
       data.noDefectSourceMatchesQWLambdaHolds⟩
   noBulkScaleTermOutsideLedgerHolds := data.noExtraBulkScaleTermHolds
   noHiddenFinitePartSubtractionHolds := data.noExtraBulkScaleTermHolds
+
+def no_extra_bulk_source_term_data_of_support_square_qw_lambda
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (ordinary :
+      OrdinaryTraceSupportSquareTheoremData pkg fixedFront lambda
+        ccm25ArithmeticPackage)
+    (supportSquareEqualsQWLambda : Prop)
+    (supportSquareEqualsQWLambdaHolds : supportSquareEqualsQWLambda)
+    (noBulkScaleTermOutsideLedger : Prop)
+    (noHiddenFinitePartSubtraction : Prop)
+    (noBulkScaleTermOutsideLedgerHolds : noBulkScaleTermOutsideLedger)
+    (noHiddenFinitePartSubtractionHolds :
+      noHiddenFinitePartSubtraction) :
+    TraceScaleNoExtraBulkSourceTermData pkg fixedFront lambda
+      ccm25ArithmeticPackage where
+  positiveTraceDecomposesIntoQWLambdaRankPoleCdef :=
+    ordinary.ordinaryTraceMatchesSupportSquare ∧
+      supportSquareEqualsQWLambda
+  noBulkScaleTermOutsideLedger := noBulkScaleTermOutsideLedger
+  noHiddenFinitePartSubtraction := noHiddenFinitePartSubtraction
+  positiveTraceDecomposesIntoQWLambdaRankPoleCdefHolds :=
+    ⟨ordinary.ordinaryTraceMatchesSupportSquareHolds,
+      supportSquareEqualsQWLambdaHolds⟩
+  noBulkScaleTermOutsideLedgerHolds := noBulkScaleTermOutsideLedgerHolds
+  noHiddenFinitePartSubtractionHolds := noHiddenFinitePartSubtractionHolds
+
+theorem trace_scale_no_missing_bulk_source_term_statement_holds
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (data :
+      TraceScaleNoMissingBulkData pkg fixedFront lambda
+        ccm25ArithmeticPackage) :
+    TraceScaleNoExtraBulkSourceTermStatement
+      (no_extra_bulk_source_term_data_of_trace_scale_no_missing_bulk data) :=
+  trace_scale_no_extra_bulk_source_term_statement_holds
+    (no_extra_bulk_source_term_data_of_trace_scale_no_missing_bulk data)
 
 def no_extra_bulk_contract_of_trace_scale_no_missing_bulk
     {pkg : Source.SourceObject.SourceObjectPackage}
@@ -780,6 +1035,130 @@ theorem no_extra_bulk_contract_holds
     h.noExtraBulkScaleTerm :=
   h.noExtraBulkScaleTermHolds
 
+theorem no_extra_bulk_contract_source_term_statement_holds
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (h :
+      TraceScaleNoExtraBulkContract pkg fixedFront lambda
+        ccm25ArithmeticPackage) :
+    TraceScaleNoExtraBulkSourceTermStatement h.sourceTerms :=
+  h.sourceTermStatementHolds
+
+theorem no_extra_bulk_contract_no_bulk_holds
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (h :
+      TraceScaleNoExtraBulkContract pkg fixedFront lambda
+        ccm25ArithmeticPackage) :
+    h.sourceTerms.noBulkScaleTermOutsideLedger :=
+  (no_extra_bulk_contract_source_term_statement_holds h).2.1
+
+theorem no_extra_bulk_contract_no_hidden_finite_part_holds
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (h :
+      TraceScaleNoExtraBulkContract pkg fixedFront lambda
+        ccm25ArithmeticPackage) :
+    h.sourceTerms.noHiddenFinitePartSubtraction :=
+  (no_extra_bulk_contract_source_term_statement_holds h).2.2
+
+def S2B1NoExtraBulkScaleTermExcluded
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (sourceTerms :
+      TraceScaleNoExtraBulkSourceTermData pkg fixedFront lambda
+        ccm25ArithmeticPackage) : Prop :=
+  sourceTerms.noBulkScaleTermOutsideLedger
+
+theorem noExtraBulkScaleTermExcludedHolds_of_source_terms
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (sourceTerms :
+      TraceScaleNoExtraBulkSourceTermData pkg fixedFront lambda
+        ccm25ArithmeticPackage) :
+    S2B1NoExtraBulkScaleTermExcluded sourceTerms :=
+  sourceTerms.noBulkScaleTermOutsideLedgerHolds
+
+theorem noExtraBulkScaleTermExcludedHolds_of_contract
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (h :
+      TraceScaleNoExtraBulkContract pkg fixedFront lambda
+        ccm25ArithmeticPackage) :
+    S2B1NoExtraBulkScaleTermExcluded h.sourceTerms :=
+  no_extra_bulk_contract_no_bulk_holds h
+
+def S2B1NoHiddenFinitePartSubtractionExcluded
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (sourceTerms :
+      TraceScaleNoExtraBulkSourceTermData pkg fixedFront lambda
+        ccm25ArithmeticPackage) : Prop :=
+  sourceTerms.noHiddenFinitePartSubtraction
+
+theorem noHiddenFinitePartSubtractionExcludedHolds_of_source_terms
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (sourceTerms :
+      TraceScaleNoExtraBulkSourceTermData pkg fixedFront lambda
+        ccm25ArithmeticPackage) :
+    S2B1NoHiddenFinitePartSubtractionExcluded sourceTerms :=
+  sourceTerms.noHiddenFinitePartSubtractionHolds
+
+theorem noHiddenFinitePartSubtractionExcludedHolds_of_contract
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (h :
+      TraceScaleNoExtraBulkContract pkg fixedFront lambda
+        ccm25ArithmeticPackage) :
+    S2B1NoHiddenFinitePartSubtractionExcluded h.sourceTerms :=
+  no_extra_bulk_contract_no_hidden_finite_part_holds h
+
 theorem source_trace_weil_test_eq_fixed_front
     (pkg : Source.SourceObject.SourceObjectPackage)
     (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
@@ -822,6 +1201,31 @@ def ordinary_trace_support_square_theorem_data_of_source_interface
         (traceData.toSourceTraceReadOffData pkg fixedFront)).traceClass
       (cc20_trace_legality_of_source_trace_data
         (traceData.toSourceTraceReadOffData pkg fixedFront)).cyclicLegal
+
+def ordinary_trace_support_square_theorem_data_of_trace_front_parts
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (sourceTrace :
+      SourceTraceReadOffData
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)) :
+    OrdinaryTraceSupportSquareTheoremData pkg fixedFront lambda
+      ccm25ArithmeticPackage where
+  ordinaryTraceMatchesSupportSquare :=
+    (RouteInputs.ofExpandedSourcePackage pkg).cc20.archimedeanSymbols.positiveTrace
+      sourceTrace.archimedeanTest =
+    (RouteInputs.ofExpandedSourcePackage pkg).cc20.archimedeanSymbols.supportSquareTrace
+      sourceTrace.archimedeanTest
+  ordinaryTraceMatchesSupportSquareHolds :=
+    (RouteInputs.ofExpandedSourcePackage pkg).cc20.ordinaryTraceSupportSquare
+      sourceTrace.archimedeanTest
+      (cc20_trace_legality_of_source_trace_data sourceTrace).traceClass
+      (cc20_trace_legality_of_source_trace_data sourceTrace).cyclicLegal
 
 theorem ordinary_trace_support_square_source_interface_holds
     {pkg : Source.SourceObject.SourceObjectPackage}
@@ -955,6 +1359,44 @@ def no_defect_qw_lambda_theorem_data_of_source_interface
   no_defect_qw_lambda_theorem_data_of_cc20
     (cc20_no_defect_qw_lambda_theorem_data_of_source_interface
       (traceData.toSourceTraceReadOffData pkg fixedFront))
+
+def no_defect_qw_lambda_theorem_data_of_trace_front_parts
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (sourceTrace :
+      SourceTraceReadOffData
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront))
+    (sourceTrace_lambda : sourceTrace.lambda = lambda)
+    (sourceTrace_ccm25ArithmeticPackage :
+      HEq sourceTrace.ccm25ArithmeticPackage ccm25ArithmeticPackage) :
+    NoDefectQWLambdaTheoremData pkg fixedFront lambda
+      ccm25ArithmeticPackage where
+  supportSquareMatchesNoDefectSource :=
+    CC20NoDefectSourceReadOff
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      sourceTrace.archimedeanTest
+  noDefectSourceMatchesQWLambda :=
+    (RouteInputs.ofExpandedSourcePackage pkg).cc20.archimedeanSymbols.sourceNoDefectTrace
+        sourceTrace.archimedeanTest =
+      (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols.qwLambda
+        lambda (SourceBackedFixedSTest.ofExpandedSourcePackage
+          pkg fixedFront).weilTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest
+  supportSquareMatchesNoDefectSourceHolds :=
+    (cc20_trace_square_of_source_trace_data sourceTrace).noDefectSourceReadOff
+  noDefectSourceMatchesQWLambdaHolds := by
+    subst sourceTrace_lambda
+    exact
+      (cc20_trace_square_of_source_trace_data
+        sourceTrace).noDefectSourceReadOff.symm.trans
+        (restricted_trace_read_off_of_source_trace_data
+          sourceTrace).restrictedTraceReadOffEquality
 
 theorem support_square_no_defect_source_interface_full_holds
     {pkg : Source.SourceObject.SourceObjectPackage}
@@ -2488,6 +2930,46 @@ def normalizedSupportSquareQWLambdaSourceComparisonOfScalarNormalForms
               sourceTrace.ccm25ArithmeticPackage := by
           dsimp [NormalizedRestrictedScalarNormalForm]
 
+def normalizedSupportSquareQWLambdaSourceComparisonOfTraceAmplitudeSquare
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData))
+    (h :
+      NormalizedTraceAmplitudeSquareScalarContract
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+        traceData) :
+    NormalizedSupportSquareQWLambdaSourceComparison
+      base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+      traceData :=
+  normalizedSupportSquareQWLambdaSourceComparisonOfScalarNormalForms
+    base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+    traceData
+    (normalizedSupportSquareScalarNormalFormContractOfTraceAmplitudeSquare
+      base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+      traceData h)
+
 theorem normalized_qw_lambda_reduces_to_normal_form
     (base : Source.SourceObjectTheoremBasePackage)
     (common : Source.SourceObjectCommonData base)
@@ -2536,6 +3018,177 @@ theorem normalized_qw_lambda_reduces_to_normal_form
       (toSourceTraceReadOffDataOfNormalizedPackage
         base common ccm24 normalizedSeed remainders rhExit bridges
         fixedData traceData).ccm25ArithmeticPackage
+
+structure NormalizedSupportSquareQWLambdaScalarReadOff
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)) where
+  supportSquareEqualsQWLambda :
+    let sourceTrace :=
+      toSourceTraceReadOffDataOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges
+        fixedData traceData
+    let inputs :=
+      RouteInputs.ofExpandedSourcePackage
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+    let g :=
+      FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+    inputs.cc20.archimedeanSymbols.supportSquareTrace
+        sourceTrace.archimedeanTest =
+      inputs.ccm25.weilSymbols.qwLambda sourceTrace.lambda g.weilTest
+        g.weilTest
+
+structure SourceTraceSupportSquareQWLambdaReadOff
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (sourceTrace :
+      SourceTraceReadOffData
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)) where
+  supportSquareEqualsQWLambda : Prop
+  supportSquareEqualsQWLambdaHolds :
+    (RouteInputs.ofExpandedSourcePackage pkg).cc20.archimedeanSymbols.supportSquareTrace
+        sourceTrace.archimedeanTest =
+      (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols.qwLambda
+        lambda (SourceBackedFixedSTest.ofExpandedSourcePackage
+          pkg fixedFront).weilTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest
+
+def source_trace_support_square_qw_lambda_read_off_of_parts
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    {fixedFront : ExpandedSourceFixedSTestFrontEnd pkg}
+    {lambda : ℝ}
+    {ccm25ArithmeticPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols
+        pkg.commonTest.sourceTest lambda}
+    (sourceTrace :
+      SourceTraceReadOffData
+        (RouteInputs.ofExpandedSourcePackage pkg)
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront))
+    (sourceTrace_lambda : sourceTrace.lambda = lambda) :
+    SourceTraceSupportSquareQWLambdaReadOff
+      (pkg := pkg) (fixedFront := fixedFront)
+      (lambda := lambda)
+      (ccm25ArithmeticPackage := ccm25ArithmeticPackage)
+      sourceTrace where
+  supportSquareEqualsQWLambda :=
+    (RouteInputs.ofExpandedSourcePackage pkg).cc20.archimedeanSymbols.supportSquareTrace
+        sourceTrace.archimedeanTest =
+      (RouteInputs.ofExpandedSourcePackage pkg).ccm25.weilSymbols.qwLambda
+        lambda (SourceBackedFixedSTest.ofExpandedSourcePackage
+          pkg fixedFront).weilTest
+        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest
+  supportSquareEqualsQWLambdaHolds := by
+    subst sourceTrace_lambda
+    exact
+      (restricted_trace_read_off_of_source_trace_data
+        sourceTrace).restrictedTraceReadOffEquality
+
+def normalizedSupportSquareScalarNormalFormContractOfQWLambdaReadOff
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData))
+    (readOff :
+      NormalizedSupportSquareQWLambdaScalarReadOff
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+        traceData) :
+    NormalizedSupportSquareScalarNormalFormContract
+      base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+      traceData where
+  cc20SupportSquareEqualsRestrictedScalar := by
+    calc
+      NormalizedCC20SupportSquareNormalForm
+          base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+          traceData =
+        (let sourceTrace :=
+          toSourceTraceReadOffDataOfNormalizedPackage
+            base common ccm24 normalizedSeed remainders rhExit bridges
+            fixedData traceData
+         let inputs :=
+          RouteInputs.ofExpandedSourcePackage
+            (Source.sourceObjectPackageOfNormalizedCC20Trace
+              base common ccm24 normalizedSeed remainders rhExit bridges)
+         inputs.cc20.archimedeanSymbols.supportSquareTrace
+          sourceTrace.archimedeanTest) := by
+          exact
+            (normalized_support_square_reduces_to_cc20_normal_form
+              base common ccm24 normalizedSeed remainders rhExit bridges
+              fixedData traceData).symm
+      _ =
+        (let sourceTrace :=
+          toSourceTraceReadOffDataOfNormalizedPackage
+            base common ccm24 normalizedSeed remainders rhExit bridges
+            fixedData traceData
+         let inputs :=
+          RouteInputs.ofExpandedSourcePackage
+            (Source.sourceObjectPackageOfNormalizedCC20Trace
+              base common ccm24 normalizedSeed remainders rhExit bridges)
+         let g :=
+          FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+            base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+         inputs.ccm25.weilSymbols.qwLambda sourceTrace.lambda g.weilTest
+          g.weilTest) := by
+          exact readOff.supportSquareEqualsQWLambda
+      _ =
+        NormalizedRestrictedScalarNormalForm
+          base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+          traceData := by
+          exact
+            normalized_qw_lambda_reduces_to_normal_form
+              base common ccm24 normalizedSeed remainders rhExit bridges
+              fixedData traceData
 
 /--
 Route-level scalar seed whose trace scalar is the CCM25 restricted normal form.
@@ -4329,8 +4982,8 @@ noncomputable def traceScaleNoMissingBulkOfNormalizedScalarTraceFrontFromContrac
     traceData scalarRemainders scalarRhExit scalarBridges scalarFixedData
     scalarTraceData scalarTraceData_lambda
     (fun _L h => trace_scale_owns_sign_defect_remainder h)
-    noExtraBulk.noExtraBulkScaleTerm
-    noExtraBulk.noExtraBulkScaleTermHolds
+    (TraceScaleNoExtraBulkSourceTermStatement noExtraBulk.sourceTerms)
+    noExtraBulk.sourceTermStatementHolds
 
 theorem normalized_scalar_trace_front_restricted_trace_equality_from_original
     (base : Source.SourceObjectTheoremBasePackage)
@@ -4863,8 +5516,8 @@ noncomputable def traceScaleNoMissingBulkOfNormalizedScalarPackageFromOriginalCC
             scalarInputs.ccm25.weilSymbols.qwLambda traceData.lambda
               scalarG.weilTest scalarG.weilTest := rfl }
     (fun _L h => trace_scale_owns_sign_defect_remainder h)
-    noExtraBulk.noExtraBulkScaleTerm
-    noExtraBulk.noExtraBulkScaleTermHolds
+    (TraceScaleNoExtraBulkSourceTermStatement noExtraBulk.sourceTerms)
+    noExtraBulk.sourceTermStatementHolds
 
 def NormalizedScalarFullTraceArchimedeanBalance
     (base : Source.SourceObjectTheoremBasePackage)
@@ -6764,8 +7417,8 @@ def withTraceScaleNoMissingBulkOfNormalizedComparisonFromContract
       base common ccm24 normalizedSeed remainders rhExit bridges fixedData
       traceData comparison
       (fun _L h => trace_scale_owns_sign_defect_remainder h)
-      noExtraBulk.noExtraBulkScaleTerm
-      noExtraBulk.noExtraBulkScaleTermHolds
+      (TraceScaleNoExtraBulkSourceTermStatement noExtraBulk.sourceTerms)
+      noExtraBulk.sourceTermStatementHolds
 
 theorem normalized_comparison_trace_scale_contract_replacement_owns_sign_defect
     (base : Source.SourceObjectTheoremBasePackage)
@@ -6887,6 +7540,152 @@ def noDefectQWLambdaTheoremDataOfNormalizedPackage
     supportSquareMatchesNoDefectSourceHolds := supportSquareNoDefect
     noDefectSourceMatchesQWLambdaHolds := supportSquareNoDefect.symm.trans
       restricted }
+
+def normalizedSupportSquareQWLambdaScalarReadOffOfNoDefect
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)) :
+    NormalizedSupportSquareQWLambdaScalarReadOff
+      base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+      traceData where
+  supportSquareEqualsQWLambda := by
+    let h :=
+      noDefectQWLambdaTheoremDataOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges
+        fixedData traceData
+    exact h.supportSquareMatchesNoDefectSourceHolds.trans
+      h.noDefectSourceMatchesQWLambdaHolds
+
+theorem supportSquareMainTermEqualsQWLambdaAtHolds_of_restricted_trace_read_off
+    {inputs : RouteInputs}
+    {a : inputs.cc20.archimedeanSymbols.Test}
+    {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    (h : RestrictedTraceReadOffEquality inputs a g lambda) :
+    Source.S2B1TraceScaleTermLedgerRows.supportSquareMainTermEqualsQWLambdaAt
+      (A := inputs.cc20.archimedeanSymbols)
+      (W := inputs.ccm25.weilSymbols)
+      lambda a g.weilTest :=
+  h
+
+theorem normalized_supportSquareMainTermEqualsQWLambdaAtHolds
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)) :
+    let sourceTrace :=
+      toSourceTraceReadOffDataOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges
+        fixedData traceData
+    let inputs :=
+      RouteInputs.ofExpandedSourcePackage
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+    let g :=
+      FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+    Source.S2B1TraceScaleTermLedgerRows.supportSquareMainTermEqualsQWLambdaAt
+      (A := inputs.cc20.archimedeanSymbols)
+      (W := inputs.ccm25.weilSymbols)
+      sourceTrace.lambda sourceTrace.archimedeanTest g.weilTest := by
+  exact
+    supportSquareMainTermEqualsQWLambdaAtHolds_of_restricted_trace_read_off
+      ((restrictedTraceReadOffSourceOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges
+        fixedData traceData).restrictedTraceReadOffEquality)
+
+def normalizedSupportSquareQWLambdaScalarReadOffOfTheoremBaseRows
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData))
+    (hseed :
+      normalizedSeed = base.s2b1NormalizedSeed) :
+    NormalizedSupportSquareQWLambdaScalarReadOff
+      base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+      traceData where
+  supportSquareEqualsQWLambda := by
+    subst hseed
+    let sourceTrace :=
+      toSourceTraceReadOffDataOfNormalizedPackage
+        base common ccm24 base.s2b1NormalizedSeed remainders rhExit bridges
+        fixedData traceData
+    let inputs :=
+      RouteInputs.ofExpandedSourcePackage
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 base.s2b1NormalizedSeed remainders rhExit bridges)
+    let g :=
+      FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+        base common ccm24 base.s2b1NormalizedSeed remainders rhExit bridges
+        fixedData
+    exact
+      (base.s2b1NormalizedSeedSupportSquareQWLambdaReadOffSourceData
+        sourceTrace.lambda traceData.oneLtLambda sourceTrace.archimedeanTest
+        g.weilTest).toRow.supportSquareMainTermEqualsQWLambda
 
 theorem normalized_package_no_defect_qw_lambda_holds
     (base : Source.SourceObjectTheoremBasePackage)

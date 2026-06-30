@@ -1264,10 +1264,36 @@ structure SourceArchimedeanContributionMatchesForRestriction
         W.polePairing g.weilTest -
           Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
             pkg =
-      W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
-        W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
-          Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
-            pkg
+        W.poleFunctional (W.convolutionStar g.weilTest g.weilTest) -
+          W.archimedeanTerm (W.convolutionStar g.weilTest g.weilTest) -
+            Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+              pkg
+
+/--
+The source-facing archimedean balance row stored at scoped finite-prime
+support.  The full wrapper `SourceArchimedeanContributionMatchesForRestriction`
+is reconstructed from this row, so downstream restricted-to-full code cannot
+hide the finite-prime scoped equality inside a broader package field.
+-/
+structure SourceArchimedeanContributionBalanceRows
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda : ℝ)
+    (pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda) where
+  scopedBalance :
+    SourceScopedArchimedeanContributionMatchesForRestriction
+      inputs g lambda pkg
+
+def source_archimedean_contribution_matches_of_balance_rows
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (rows : SourceArchimedeanContributionBalanceRows inputs g lambda pkg) :
+    SourceArchimedeanContributionMatchesForRestriction inputs g lambda pkg where
+  archimedeanContributionMatches := rows.scopedBalance
 
 def SourceCommonAtomArchimedeanContributionMatchesForRestriction
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -2078,6 +2104,41 @@ structure RestrictedToFullQWLargeLambdaThreshold
             RestrictedToFullQWScalarRestrictionWitness
               inputs g lambda F_g pkg
 
+/--
+Large-lambda restricted-to-full source rows before scalar restriction is
+assembled.
+
+These are the three upstream rows needed by
+`restricted_to_full_large_lambda_threshold_of_archimedean_balance`: fixed-test
+support containment, prime-power stabilization, and the archimedean
+contribution balance.  The final scalar restriction witness is derived from
+these rows rather than assumed directly.
+-/
+structure RestrictedToFullAsymptoticRows
+    (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
+    (lambda0 : ℝ) (F_g : TestFunction) where
+  supportThresholdAtLarge :
+    ∀ lambda : ℝ,
+      lambda0 ≤ lambda →
+        FixedTestSupportThresholdAtLarge inputs g lambda
+  primePowerAtomStabilizationAtLarge :
+    ∀ lambda : ℝ,
+      lambda0 ≤ lambda →
+        ∀ pkg :
+          Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+            inputs.ccm25.weilSymbols g.weilTest lambda,
+          SourceCommonTestTupleContract inputs g lambda F_g pkg →
+            PrimePowerAtomStabilizationAtLarge inputs g lambda pkg
+  archimedeanContributionAtLarge :
+    ∀ lambda : ℝ,
+      lambda0 ≤ lambda →
+        ∀ pkg :
+          Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+            inputs.ccm25.weilSymbols g.weilTest lambda,
+          SourceCommonTestTupleContract inputs g lambda F_g pkg →
+            SourceArchimedeanContributionMatchesForRestriction
+              inputs g lambda pkg
+
 noncomputable def restricted_to_full_large_lambda_threshold_of_archimedean_balance
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {F_g : TestFunction}
@@ -2126,6 +2187,24 @@ noncomputable def restricted_to_full_large_lambda_threshold_of_archimedean_balan
           primePowerAtomStabilization :=
             primePowerAtomStabilizationAtLarge lambda habove pkg hcommon }
         (archimedeanContributionAtLarge lambda habove pkg hcommon)
+
+noncomputable def restricted_to_full_large_lambda_threshold_of_asymptotic_rows
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda0 : ℝ} {F_g : TestFunction}
+    (hlambda0 : 1 < lambda0)
+    (thresholdPackage :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda0)
+    (thresholdTuple :
+      SourceCommonTestTupleContract
+        inputs g lambda0 F_g thresholdPackage)
+    (rows : RestrictedToFullAsymptoticRows inputs g lambda0 F_g) :
+    RestrictedToFullQWLargeLambdaThreshold inputs g F_g :=
+  restricted_to_full_large_lambda_threshold_of_archimedean_balance
+    lambda0 hlambda0 thresholdPackage thresholdTuple
+    rows.supportThresholdAtLarge
+    rows.primePowerAtomStabilizationAtLarge
+    rows.archimedeanContributionAtLarge
 
 abbrev RestrictedToFullQWLambdaThreshold
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
@@ -2879,6 +2958,20 @@ noncomputable def source_finite_prime_sign_owned_by_common_test
           pkg
       restrictedVonMangoldtPairingScopedSumReadOff :=
         hrestrictedScopedPairing }
+
+noncomputable def prime_power_atom_stabilization_of_common_tuple
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (hcommon : SourceCommonTestTupleContract inputs g lambda F_g pkg) :
+    PrimePowerAtomStabilizationAtLarge inputs g lambda pkg where
+  finitePrimeSignOwned :=
+    source_finite_prime_sign_owned_by_common_test
+      (source_qw_uses_common_test_of_common_tuple hcommon)
+  supportStabilization :=
+    package_finite_prime_support_stabilization
 
 def SourcePsiSignExpansion
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)

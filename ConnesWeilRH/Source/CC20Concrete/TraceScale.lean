@@ -969,6 +969,30 @@ structure CC20TracePackageRemainderData
   sourceProjectionDefectNormalForm : Prop
   sourceRankPoleLedgerIdentification : Prop
   sourceEndpointStripRemainderCdefDomination : Prop
+  noBulkScaleTermOutsideLedger : Prop
+  noHiddenFinitePartSubtraction : Prop
+  noBulkScaleTermOutsideLedgerHolds : noBulkScaleTermOutsideLedger
+  noHiddenFinitePartSubtractionHolds : noHiddenFinitePartSubtraction
+  noBulkScaleTermOutsideLedgerAt :
+    ℝ →
+      (normalizedLegalSquareTraceScaleToCC20TraceModel A).archimedeanSymbols.Test →
+        TestFunction → Prop
+  noHiddenFinitePartSubtractionAt :
+    ℝ →
+      (normalizedLegalSquareTraceScaleToCC20TraceModel A).archimedeanSymbols.Test →
+        TestFunction → Prop
+  noBulkScaleTermOutsideLedgerAtHolds :
+    ∀ lambda : ℝ, 1 < lambda →
+      ∀ archimedeanTest :
+        (normalizedLegalSquareTraceScaleToCC20TraceModel A).archimedeanSymbols.Test,
+        ∀ weilTest : TestFunction,
+          noBulkScaleTermOutsideLedgerAt lambda archimedeanTest weilTest
+  noHiddenFinitePartSubtractionAtHolds :
+    ∀ lambda : ℝ, 1 < lambda →
+      ∀ archimedeanTest :
+        (normalizedLegalSquareTraceScaleToCC20TraceModel A).archimedeanSymbols.Test,
+        ∀ weilTest : TestFunction,
+          noHiddenFinitePartSubtractionAt lambda archimedeanTest weilTest
   noHiddenPositiveDefectOutsideCdef : Prop
   sourceBoundedComparisonTraceIdealTransport : Prop
 
@@ -1021,6 +1045,20 @@ def normalizedSeedTraceObjectPackage
     remainders.sourceRankPoleLedgerIdentification
   sourceEndpointStripRemainderCdefDomination :=
     remainders.sourceEndpointStripRemainderCdefDomination
+  noBulkScaleTermOutsideLedger := remainders.noBulkScaleTermOutsideLedger
+  noHiddenFinitePartSubtraction := remainders.noHiddenFinitePartSubtraction
+  noBulkScaleTermOutsideLedgerHolds :=
+    remainders.noBulkScaleTermOutsideLedgerHolds
+  noHiddenFinitePartSubtractionHolds :=
+    remainders.noHiddenFinitePartSubtractionHolds
+  noBulkScaleTermOutsideLedgerAt :=
+    remainders.noBulkScaleTermOutsideLedgerAt
+  noHiddenFinitePartSubtractionAt :=
+    remainders.noHiddenFinitePartSubtractionAt
+  noBulkScaleTermOutsideLedgerAtHolds :=
+    remainders.noBulkScaleTermOutsideLedgerAtHolds
+  noHiddenFinitePartSubtractionAtHolds :=
+    remainders.noHiddenFinitePartSubtractionAtHolds
   noHiddenPositiveDefectOutsideCdef :=
     remainders.noHiddenPositiveDefectOutsideCdef
   sourceBoundedComparisonTraceIdealTransport :=
@@ -1074,6 +1112,20 @@ def normalizedScalarTraceObjectPackage
     remainders.sourceRankPoleLedgerIdentification
   sourceEndpointStripRemainderCdefDomination :=
     remainders.sourceEndpointStripRemainderCdefDomination
+  noBulkScaleTermOutsideLedger := remainders.noBulkScaleTermOutsideLedger
+  noHiddenFinitePartSubtraction := remainders.noHiddenFinitePartSubtraction
+  noBulkScaleTermOutsideLedgerHolds :=
+    remainders.noBulkScaleTermOutsideLedgerHolds
+  noHiddenFinitePartSubtractionHolds :=
+    remainders.noHiddenFinitePartSubtractionHolds
+  noBulkScaleTermOutsideLedgerAt :=
+    remainders.noBulkScaleTermOutsideLedgerAt
+  noHiddenFinitePartSubtractionAt :=
+    remainders.noHiddenFinitePartSubtractionAt
+  noBulkScaleTermOutsideLedgerAtHolds :=
+    remainders.noBulkScaleTermOutsideLedgerAtHolds
+  noHiddenFinitePartSubtractionAtHolds :=
+    remainders.noHiddenFinitePartSubtractionAtHolds
   noHiddenPositiveDefectOutsideCdef :=
     remainders.noHiddenPositiveDefectOutsideCdef
   sourceBoundedComparisonTraceIdealTransport :=
@@ -1104,6 +1156,52 @@ theorem normalized_scalar_trace_object_support_square_eq_scalar
         g =
       A.scalarTrace g :=
   rfl
+
+theorem normalized_seed_trace_object_support_square_eq_trace_amplitude_sq
+    (A : NormalizedLegalSquareTraceScaleSymbols)
+    (remainders : CC20TracePackageRemainderData A)
+    (g : A.Test) :
+    (normalizedSeedTraceObjectPackage A remainders).archimedeanSymbols.supportSquareTrace
+        g =
+      A.traceAmplitude g ^ 2 :=
+  rfl
+
+theorem normalized_seed_trace_object_source_no_defect_eq_trace_amplitude_sq
+    (A : NormalizedLegalSquareTraceScaleSymbols)
+    (remainders : CC20TracePackageRemainderData A)
+    (g : A.Test) :
+    (normalizedSeedTraceObjectPackage A remainders).archimedeanSymbols.sourceNoDefectTrace
+        g =
+      A.traceAmplitude g ^ 2 :=
+  rfl
+
+theorem normalized_seed_trace_object_positive_trace_eq_trace_amplitude_sq
+    (A : NormalizedLegalSquareTraceScaleSymbols)
+    (remainders : CC20TracePackageRemainderData A)
+    (g : A.Test) :
+    (normalizedSeedTraceObjectPackage A remainders).archimedeanSymbols.positiveTrace
+        g =
+      A.traceAmplitude g ^ 2 :=
+  rfl
+
+theorem normalized_seed_trace_object_hilbert_schmidt_gate_iff
+    (A : NormalizedLegalSquareTraceScaleSymbols)
+    (remainders : CC20TracePackageRemainderData A)
+    (g : A.Test) :
+    (normalizedSeedTraceObjectPackage A remainders).archimedeanSymbols.hilbertSchmidtGate
+        g ↔
+      A.traceClass g ∧ A.cyclicLegal g :=
+  Iff.rfl
+
+theorem normalized_seed_trace_object_positive_trace_nonnegative
+    (A : NormalizedLegalSquareTraceScaleSymbols)
+    (remainders : CC20TracePackageRemainderData A)
+    (g : A.Test) :
+    0 ≤
+      (normalizedSeedTraceObjectPackage A remainders).archimedeanSymbols.positiveTrace
+        g := by
+  rw [normalized_seed_trace_object_positive_trace_eq_trace_amplitude_sq]
+  exact sq_nonneg (A.traceAmplitude g)
 
 def normalizedSeedIdentificationForTraceObjectPackage
     (A : NormalizedLegalSquareTraceScaleSymbols)

@@ -141,6 +141,8 @@ The current Lean-backed pieces are:
 | skeleton contract target | `ConnesWeilRH/Route/TraceFrontEnd.lean:2324` |
 | support-square scalar contract implies amplitude-square scalar contract | `ConnesWeilRH/Route/TraceFrontEnd.lean:2396` |
 | CCM25 `QW_lambda` reduces to that normal form | `ConnesWeilRH/Route/TraceFrontEnd.lean:2453` |
+| same-scalar read-off is now the narrowed Lean input | `ConnesWeilRH/Route/TraceFrontEnd.lean:2540`, `NormalizedSupportSquareQWLambdaScalarReadOff` |
+| read-off implies support-square scalar normal-form contract | `ConnesWeilRH/Route/TraceFrontEnd.lean:2583`, `normalizedSupportSquareScalarNormalFormContractOfQWLambdaReadOff` |
 | CC20 normalized seed source no-defect trace reduces locally to `traceAmplitude g ^ 2` | `ConnesWeilRH/Source/CC20Concrete/TraceScale.lean:321` |
 
 The remaining Phase 1 Lean blocker is now exact:
@@ -151,15 +153,16 @@ traceAmplitude(g)^2
 NormalizedRestrictedScalarNormalForm(...)
 ```
 
-The open skeleton input has been narrowed to:
+The open skeleton input has been narrowed again to the same-scalar read-off:
 
 ```text
-ConnesWeilRH/Dev/UnconditionalSkeleton.lean:882
-normalizedSupportSquareScalarNormalFormInputFromTheorems
+ConnesWeilRH/Dev/UnconditionalSkeleton.lean:898
+normalizedSupportSquareQWLambdaScalarReadOffFromTheorems
 ```
 
-`normalizedTraceAmplitudeSquareScalarInputFromTheorems` is now a reducer that
-uses `normalizedTraceAmplitudeSquareScalarContractOfSupportSquareScalarNormalForm`.
+`normalizedSupportSquareScalarNormalFormInputFromTheorems` and
+`normalizedTraceAmplitudeSquareScalarInputFromTheorems` are now reducers built
+from this read-off.
 
 To close the narrowed input in Lean, add a source theorem or proof-package
 interface proving the same-scalar support-square read-off:
@@ -172,6 +175,18 @@ for the same `a`, `g`, `lambda`, and CCM25 arithmetic package carried by
 `traceData`. Do not consume `NormalizedSupportSquareQWLambdaSourceComparison`
 to prove this row; that comparison is downstream of the scalar bridge and
 would make the proof circular.
+
+The top-level source package skeleton has also been split:
+
+```text
+ConnesWeilRH/Dev/UnconditionalSkeleton.lean:26
+SourceObjectPackageInputData
+```
+
+`sourceObjectPackageFromTheorems` now uses
+`Source.sourceObjectPackageOfData` instead of being a direct broad `sorry`.
+This removes one black-box package assumption, but the data fields inside
+`SourceObjectPackageInputData` still need source theorem evidence.
 
 ## Phase 2 Scalar Slice Update, 2026-06-30
 
