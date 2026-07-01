@@ -157,56 +157,50 @@ def normalizedCoreCCM25SourceModelFromTheorems :
         f g).finitePrimeTermNormalization
   pole_normalization := normalizedCoreCCM25PoleNormalizationFromTheorems
 
-def normalizedCoreCC20ArchimedeanTraceSymbolsFromTheorems :
-    ArchimedeanTraceSymbols := by
-  sorry
-
-theorem normalizedCoreCC20ArchimedeanTraceSquareFromTheorems :
-    ArchimedeanTraceSymbols.TraceSquareStatement
-      normalizedCoreCC20ArchimedeanTraceSymbolsFromTheorems := by
-  sorry
-
-theorem normalizedCoreCC20TraceClassTemplateFromTheorems :
-    ArchimedeanTraceSymbols.TraceClassTemplateStatement
-      normalizedCoreCC20ArchimedeanTraceSymbolsFromTheorems := by
-  sorry
-
-theorem normalizedCoreCC20OrdinaryTraceSupportSquareFromTheorems :
-    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
-      normalizedCoreCC20ArchimedeanTraceSymbolsFromTheorems := by
-  sorry
-
-theorem normalizedCoreCC20MellinHalfDensityConventionFromTheorems :
-    ArchimedeanTraceSymbols.MellinHalfDensityConventionStatement
-      normalizedCoreCC20ArchimedeanTraceSymbolsFromTheorems := by
-  sorry
-
-theorem normalizedCoreCC20SignsAndNormalizationsFromTheorems :
-    ArchimedeanTraceSymbols.SignsAndNormalizationsStatement
-      normalizedCoreCC20ArchimedeanTraceSymbolsFromTheorems := by
-  sorry
-
-def normalizedCoreCC20TraceModelFromTheorems :
-    Source.CC20TraceModel where
-  archimedeanSymbols := normalizedCoreCC20ArchimedeanTraceSymbolsFromTheorems
-  archimedeanTraceSquare :=
-    normalizedCoreCC20ArchimedeanTraceSquareFromTheorems
-  traceClassTemplate := normalizedCoreCC20TraceClassTemplateFromTheorems
-  ordinaryTraceSupportSquare :=
-    normalizedCoreCC20OrdinaryTraceSupportSquareFromTheorems
-  mellinHalfDensityConvention :=
-    normalizedCoreCC20MellinHalfDensityConventionFromTheorems
-  signsAndNormalizations := normalizedCoreCC20SignsAndNormalizationsFromTheorems
-
 def normalizedCoreS2B1NormalizedSeedFromTheorems :
     Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols := by
   sorry
+
+def normalizedCoreCC20TraceModelFromTheorems :
+    Source.CC20TraceModel :=
+  Source.CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+    normalizedCoreS2B1NormalizedSeedFromTheorems
 
 theorem normalizedCoreS2B1NormalizedSeedArchimedeanSymbolsEqFromTheorems :
     (Source.CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
       normalizedCoreS2B1NormalizedSeedFromTheorems).archimedeanSymbols =
       normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols := by
-  sorry
+  rfl
+
+theorem normalizedCoreCC20ArchimedeanTraceSquareFromTheorems :
+    ArchimedeanTraceSymbols.TraceSquareStatement
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols :=
+  Source.CC20Concrete.TraceScale.normalized_legal_square_trace_scale_to_cc20_trace_model_trace_square
+    normalizedCoreS2B1NormalizedSeedFromTheorems
+
+theorem normalizedCoreCC20TraceClassTemplateFromTheorems :
+    ArchimedeanTraceSymbols.TraceClassTemplateStatement
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols :=
+  Source.CC20Concrete.TraceScale.normalized_legal_square_trace_scale_to_cc20_trace_model_trace_class_template
+    normalizedCoreS2B1NormalizedSeedFromTheorems
+
+theorem normalizedCoreCC20OrdinaryTraceSupportSquareFromTheorems :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols :=
+  Source.CC20Concrete.TraceScale.normalized_legal_square_trace_scale_to_cc20_trace_model_ordinary_trace_support_square
+    normalizedCoreS2B1NormalizedSeedFromTheorems
+
+theorem normalizedCoreCC20MellinHalfDensityConventionFromTheorems :
+    ArchimedeanTraceSymbols.MellinHalfDensityConventionStatement
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols :=
+  Source.CC20Concrete.TraceScale.normalized_legal_square_trace_scale_to_cc20_trace_model_mellin
+    normalizedCoreS2B1NormalizedSeedFromTheorems
+
+theorem normalizedCoreCC20SignsAndNormalizationsFromTheorems :
+    ArchimedeanTraceSymbols.SignsAndNormalizationsStatement
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols :=
+  Source.CC20Concrete.TraceScale.normalized_legal_square_trace_scale_to_cc20_trace_model_signs
+    normalizedCoreS2B1NormalizedSeedFromTheorems
 
 def normalizedCoreS2B1RemainderRowsOutsideNoBulkFromTheorems :
     Source.S2B1NormalizedCC20RemainderRowsOutsideNoBulk
