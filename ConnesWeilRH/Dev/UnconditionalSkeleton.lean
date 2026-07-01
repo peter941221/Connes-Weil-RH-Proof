@@ -23,284 +23,22 @@ namespace UnconditionalSkeleton
 
 open Route
 
-/-- Checklist item 6 skeleton. -/
-structure SourceObjectPackageInputData where
-  base : Source.SourceObjectTheoremBasePackage
-  common : Source.SourceObjectCommonData base
-  rows : Source.SourceObjectExpandedRows base common
-  rhExit : Source.SourceObject.CC20RHExitObjectPackage
-  bridges : Source.SourceObjectCrossObjectBridges base common rows rhExit
-
-def sourceObjectPackageInputDataFromTheorems :
-    SourceObjectPackageInputData := by
-  sorry
-
-def sourceObjectPackageFromTheorems :
-    Source.SourceObject.SourceObjectPackage :=
-  Source.sourceObjectPackageOfData
-    sourceObjectPackageInputDataFromTheorems.base
-    sourceObjectPackageInputDataFromTheorems.common
-    sourceObjectPackageInputDataFromTheorems.rows
-    sourceObjectPackageInputDataFromTheorems.rhExit
-    sourceObjectPackageInputDataFromTheorems.bridges
-
-/-- Checklist item 7 skeleton. -/
-def fixedFrontEndFromTheorems :
-    ExpandedSourceFixedSTestFrontEnd sourceObjectPackageFromTheorems := by
-  sorry
-
-/-- Checklist item 8 skeleton. -/
-def traceFrontEndFromTheorems :
-    ExpandedSourceTraceReadOffFrontEnd
-      sourceObjectPackageFromTheorems fixedFrontEndFromTheorems := by
-  sorry
-
 structure RouteLedgerClearingInputData where
   ledgers : RouteLedgers
   cleared : LedgersCleared ledgers
 
-/-- Route ledger evidence used by the development skeletons. -/
-def routeLedgerClearingInputDataFromTheorems :
-    RouteLedgerClearingInputData := by
-  sorry
-
-/-- Route ledgers used by the development skeletons. -/
-def routeLedgersFromTheorems : RouteLedgers :=
-  routeLedgerClearingInputDataFromTheorems.ledgers
-
-theorem rankLedgerKilledFromTheorems :
-    routeLedgersFromTheorems.rankKilled :=
-  routeLedgerClearingInputDataFromTheorems.cleared.rankKilled
-
-theorem poleLedgerKilledFromTheorems :
-    routeLedgersFromTheorems.poleKilled :=
-  routeLedgerClearingInputDataFromTheorems.cleared.poleKilled
-
-theorem cdefExhaustsFromTheorems :
-    routeLedgersFromTheorems.cdefExhausts :=
-  routeLedgerClearingInputDataFromTheorems.cleared.cdefExhausts
-
-def ledgersClearedFromTheorems :
-    LedgersCleared routeLedgersFromTheorems :=
-  routeLedgerClearingInputDataFromTheorems.cleared
-
-/-- Checklist item 11/12 skeleton input for route-front construction. -/
-theorem signDefectClassificationFromTheorems :
-    SourceSignDefectClassification
-      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
-      (SourceBackedFixedSTest.ofExpandedSourcePackage
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
-      traceFrontEndFromTheorems.lambda routeLedgersFromTheorems :=
-  source_sign_defect_classification_of_ledgers_cleared
-    traceFrontEndFromTheorems.oneLtLambda
-    ledgersClearedFromTheorems
-
-/-- Checklist item 10 common-test skeleton used by restricted-to-full and sign. -/
-def commonTupleFromTheorems :
-    SourceCommonTestTupleContract
-      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
-      (SourceBackedFixedSTest.ofExpandedSourcePackage
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
-      traceFrontEndFromTheorems.lambda
-      sourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare
-      traceFrontEndFromTheorems.ccm25ArithmeticPackage := by
-  exact
-    source_common_test_tuple_contract_of_package
-      (window_lambda_compatibility_of_source_backed
-        traceFrontEndFromTheorems.oneLtLambda)
-      (expanded_source_package_convolution_square_read_off
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
-
-/-- Checklist item 9 skeleton. -/
-structure RestrictedToFullThresholdInputData where
+structure RestrictedToFullThresholdInputData
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixed : SourceBackedFixedSTest (RouteInputs.ofExpandedSourcePackage pkg))
+    (lambda : ℝ)
+    (convolutionSquare : TestFunction) where
   threshold :
     RestrictedToFullQWLargeLambdaThreshold
-      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
-      (SourceBackedFixedSTest.ofExpandedSourcePackage
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
-      sourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      fixed
+      convolutionSquare
   currentAboveThreshold :
-    threshold.lambda0 ≤ traceFrontEndFromTheorems.lambda
-
-def restrictedToFullThresholdInputDataFromTheorems :
-    RestrictedToFullThresholdInputData := by
-  sorry
-
-def restrictedToFullLargeLambdaThresholdFromTheorems :
-    RestrictedToFullQWLargeLambdaThreshold
-      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
-      (SourceBackedFixedSTest.ofExpandedSourcePackage
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
-      sourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare :=
-  restrictedToFullThresholdInputDataFromTheorems.threshold
-
-theorem restrictedToFullCurrentAboveThresholdFromTheorems :
-    restrictedToFullLargeLambdaThresholdFromTheorems.lambda0 ≤
-      traceFrontEndFromTheorems.lambda :=
-  restrictedToFullThresholdInputDataFromTheorems.currentAboveThreshold
-
-noncomputable def restrictedToFullCurrentCutoffBindingFromTheorems :
-    RestrictedToFullCurrentCutoffBinding
-      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
-      (SourceBackedFixedSTest.ofExpandedSourcePackage
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
-      traceFrontEndFromTheorems.lambda
-      sourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare
-      routeLedgersFromTheorems
-      traceFrontEndFromTheorems.ccm25ArithmeticPackage :=
-  restricted_to_full_current_cutoff_binding_of_sign_defect
-    restrictedToFullLargeLambdaThresholdFromTheorems
-    restrictedToFullCurrentAboveThresholdFromTheorems
-    commonTupleFromTheorems
-    signDefectClassificationFromTheorems
-
-noncomputable def restrictedToFullQWBridgeOfCurrentCutoffBindingFromTheorems :
-    RestrictedToFullQWBridgeContract
-      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
-      (SourceBackedFixedSTest.ofExpandedSourcePackage
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
-      traceFrontEndFromTheorems.lambda
-      sourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare
-      routeLedgersFromTheorems
-      traceFrontEndFromTheorems.ccm25ArithmeticPackage :=
-  restricted_to_full_bridge_contract_of_current_cutoff_binding
-    restrictedToFullCurrentCutoffBindingFromTheorems
-
-noncomputable def restrictedToFullQWFromTheorems :
-    RestrictedToFullQWBridgeContract
-      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
-      (SourceBackedFixedSTest.ofExpandedSourcePackage
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
-      traceFrontEndFromTheorems.lambda
-      sourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare
-      routeLedgersFromTheorems
-      traceFrontEndFromTheorems.ccm25ArithmeticPackage :=
-  restrictedToFullQWBridgeOfCurrentCutoffBindingFromTheorems
-
-/-- Checklist item 10 archimedean sign leg skeleton. -/
-theorem sourceArchimedeanSignBridgeFromTheorems :
-    SourceArchimedeanSignBridge
-      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
-      sourceObjectPackageFromTheorems.cc20Trace.sourceTraceTest
-      (SourceBackedFixedSTest.ofExpandedSourcePackage
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems) :=
-  source_archimedean_sign_bridge_of_source_trace_read_off
-    (SourceTraceReadOffData.ofExpandedSourcePackage
-      sourceObjectPackageFromTheorems fixedFrontEndFromTheorems
-      traceFrontEndFromTheorems)
-
-/-- Checklist item 10 final sign contract skeleton. -/
-def finalSignBridgeFromTheorems :
-    FinalSignBridgeContract
-      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
-      (SourceTraceReadOffData.ofExpandedSourcePackage
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems
-        traceFrontEndFromTheorems).archimedeanTest
-      (SourceBackedFixedSTest.ofExpandedSourcePackage
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
-      traceFrontEndFromTheorems.lambda
-      ((RouteInputs.ofExpandedSourcePackage
-          sourceObjectPackageFromTheorems).ccm25.weilSymbols.convolutionStar
-        (SourceBackedFixedSTest.ofExpandedSourcePackage
-          sourceObjectPackageFromTheorems fixedFrontEndFromTheorems).weilTest
-        (SourceBackedFixedSTest.ofExpandedSourcePackage
-          sourceObjectPackageFromTheorems fixedFrontEndFromTheorems).weilTest)
-      traceFrontEndFromTheorems.ccm25ArithmeticPackage :=
-  final_sign_bridge_contract_of_common_test
-    (source_qw_uses_common_test_of_common_tuple
-      (by
-        rw [← expanded_source_package_convolution_square_read_off
-          sourceObjectPackageFromTheorems fixedFrontEndFromTheorems]
-        exact commonTupleFromTheorems))
-    sourceArchimedeanSignBridgeFromTheorems
-
-/-- Checklist item 10 sign-direction skeleton. -/
-noncomputable def finalSignNonpositiveFromTheorems :
-    SourceQWNonnegativeToCC20Nonpositive
-      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
-      (SourceTraceReadOffData.ofExpandedSourcePackage
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems
-        traceFrontEndFromTheorems).archimedeanTest
-      (SourceBackedFixedSTest.ofExpandedSourcePackage
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
-      traceFrontEndFromTheorems.lambda
-      ((RouteInputs.ofExpandedSourcePackage
-          sourceObjectPackageFromTheorems).ccm25.weilSymbols.convolutionStar
-        (SourceBackedFixedSTest.ofExpandedSourcePackage
-          sourceObjectPackageFromTheorems fixedFrontEndFromTheorems).weilTest
-        (SourceBackedFixedSTest.ofExpandedSourcePackage
-          sourceObjectPackageFromTheorems fixedFrontEndFromTheorems).weilTest)
-      traceFrontEndFromTheorems.ccm25ArithmeticPackage :=
-  final_sign_nonnegative_to_nonpositive_of_contract finalSignBridgeFromTheorems
-
-/-- Checklist item 11 source-backed ledger skeleton. -/
-def sourceBackedLedgersFromTheorems :
-    SourceBackedLedgers
-      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
-      (SourceBackedFixedSTest.ofExpandedSourcePackage
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
-      routeLedgersFromTheorems :=
-  source_backed_ledgers_of_ledgers_cleared
-    traceFrontEndFromTheorems.oneLtLambda
-    ledgersClearedFromTheorems
-
-/-- Checklist item 12 skeleton. -/
-def fullWeilPositivityFromTheorems :
-    SourceBackedFullPositivity
-      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
-      (SourceBackedFixedSTest.ofExpandedSourcePackage
-        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
-      routeLedgersFromTheorems where
-  sourceTraceReadOff :=
-    SourceTraceReadOffData.ofExpandedSourcePackage
-      sourceObjectPackageFromTheorems fixedFrontEndFromTheorems
-      traceFrontEndFromTheorems
-  sourceBackedLedgers := sourceBackedLedgersFromTheorems
-
-/-- Checklist item 14 skeleton in the expanded-source-front-end shape. -/
-noncomputable def expandedSourceRouteCertificateFrontEndFromTheorems :
-    ExpandedSourceRouteCertificateFrontEnd
-      sourceObjectPackageFromTheorems fixedFrontEndFromTheorems
-      traceFrontEndFromTheorems where
-  ledgers := routeLedgersFromTheorems
-  commonTuple := commonTupleFromTheorems
-  signDefectClassification := signDefectClassificationFromTheorems
-  restrictedToFullQWBridge := restrictedToFullQWFromTheorems
-  sourceArchimedeanSignBridge := sourceArchimedeanSignBridgeFromTheorems
-
-/-- Checklist item 14 skeleton. -/
-noncomputable def routeCertificateFromTheorems :
-    RouteCertificate
-      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems) :=
-  route_certificate_of_expanded_source_package
-    sourceObjectPackageFromTheorems
-    fixedFrontEndFromTheorems
-    traceFrontEndFromTheorems
-    expandedSourceRouteCertificateFrontEndFromTheorems
-
-/-- Checklist item 13 skeleton. -/
-theorem cc20FiniteVanishingExitFromTheorems :
-    (RouteInputs.ofExpandedSourcePackage
-      sourceObjectPackageFromTheorems).cc20.rhDefinitionBridge.SourceRH :=
-  cc20_source_rh_of_route_certificate routeCertificateFromTheorems
-
-/-- Checklist item 13 RH-definition bridge skeleton to Mathlib's statement. -/
-theorem rhDefinitionBridgeToMathlibFromTheorems :
-    _root_.RiemannHypothesis :=
-  Source.RHDefinitionBridge.source_rh_to_mathlib_rh
-    (RouteInputs.ofExpandedSourcePackage
-      sourceObjectPackageFromTheorems).cc20.rhDefinitionBridge
-    cc20FiniteVanishingExitFromTheorems
-
-/--
-Checklist item 15 skeleton.
-
-This declaration intentionally lives only in the development namespace. It is a
-top-down wiring target, not a completed RH proof while upstream declarations in
-this module or active route modules still contain `sorry`.
--/
-theorem unconditional_rh_skeleton : _root_.RiemannHypothesis := by
-  exact final_connes_weil_rh routeCertificateFromTheorems
+    threshold.lambda0 ≤ lambda
 
 /-
 Normalized contract-backed lane.
@@ -4282,6 +4020,126 @@ def mathlib_rh_of_normalized_no_argument_route_certificate_package
     (pkg : NormalizedNoArgumentRouteCertificatePackage) :
     _root_.RiemannHypothesis :=
   pkg.mathlibRH
+
+/-- Checklist item 6 compatibility outlet backed by the normalized lane. -/
+abbrev sourceObjectPackageFromTheorems :
+    Source.SourceObject.SourceObjectPackage :=
+  normalizedSourceObjectPackageFromTheorems
+
+/-- Checklist item 7 compatibility outlet backed by the normalized lane. -/
+abbrev fixedFrontEndFromTheorems :
+    ExpandedSourceFixedSTestFrontEnd sourceObjectPackageFromTheorems :=
+  normalizedFixedFrontEndFromTheorems
+
+/-- Checklist item 8 compatibility outlet backed by the normalized lane. -/
+abbrev traceFrontEndFromTheorems :
+    ExpandedSourceTraceReadOffFrontEnd
+      sourceObjectPackageFromTheorems fixedFrontEndFromTheorems :=
+  normalizedTraceFrontEndFromTheorems
+
+def routeLedgerClearingInputDataFromTheorems :
+    RouteLedgerClearingInputData where
+  ledgers := normalizedRouteLedgersFromTheorems
+  cleared := normalizedLedgersClearedFromTheorems
+
+def routeLedgersFromTheorems : RouteLedgers :=
+  routeLedgerClearingInputDataFromTheorems.ledgers
+
+theorem rankLedgerKilledFromTheorems :
+    routeLedgersFromTheorems.rankKilled :=
+  routeLedgerClearingInputDataFromTheorems.cleared.rankKilled
+
+theorem poleLedgerKilledFromTheorems :
+    routeLedgersFromTheorems.poleKilled :=
+  routeLedgerClearingInputDataFromTheorems.cleared.poleKilled
+
+theorem cdefExhaustsFromTheorems :
+    routeLedgersFromTheorems.cdefExhausts :=
+  routeLedgerClearingInputDataFromTheorems.cleared.cdefExhausts
+
+def ledgersClearedFromTheorems :
+    LedgersCleared routeLedgersFromTheorems :=
+  routeLedgerClearingInputDataFromTheorems.cleared
+
+theorem signDefectClassificationFromTheorems :
+    SourceSignDefectClassification
+      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
+      traceFrontEndFromTheorems.lambda routeLedgersFromTheorems :=
+  normalizedSignDefectClassificationFromTheorems
+
+def commonTupleFromTheorems :
+    SourceCommonTestTupleContract
+      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
+      traceFrontEndFromTheorems.lambda
+      sourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare
+      traceFrontEndFromTheorems.ccm25ArithmeticPackage :=
+  normalizedCommonTupleFromTheorems
+
+noncomputable def restrictedToFullThresholdInputDataFromTheorems :
+    RestrictedToFullThresholdInputData
+      sourceObjectPackageFromTheorems
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
+      traceFrontEndFromTheorems.lambda
+      sourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare where
+  threshold := normalizedRestrictedToFullLargeLambdaThresholdFromTheorems
+  currentAboveThreshold := normalizedRestrictedToFullCurrentAboveThresholdFromTheorems
+
+noncomputable def restrictedToFullLargeLambdaThresholdFromTheorems :
+    RestrictedToFullQWLargeLambdaThreshold
+      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
+      sourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare :=
+  restrictedToFullThresholdInputDataFromTheorems.threshold
+
+theorem restrictedToFullCurrentAboveThresholdFromTheorems :
+    restrictedToFullLargeLambdaThresholdFromTheorems.lambda0 ≤
+      traceFrontEndFromTheorems.lambda :=
+  restrictedToFullThresholdInputDataFromTheorems.currentAboveThreshold
+
+noncomputable def restrictedToFullQWFromTheorems :
+    RestrictedToFullQWBridgeContract
+      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems)
+      traceFrontEndFromTheorems.lambda
+      sourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare
+      routeLedgersFromTheorems
+      traceFrontEndFromTheorems.ccm25ArithmeticPackage :=
+  normalizedRestrictedToFullQWFromTheorems
+
+theorem sourceArchimedeanSignBridgeFromTheorems :
+    SourceArchimedeanSignBridge
+      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems)
+      sourceObjectPackageFromTheorems.cc20Trace.sourceTraceTest
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        sourceObjectPackageFromTheorems fixedFrontEndFromTheorems) :=
+  normalizedSourceArchimedeanSignBridgeFromTheorems
+
+noncomputable def routeCertificateFromTheorems :
+    RouteCertificate
+      (RouteInputs.ofExpandedSourcePackage sourceObjectPackageFromTheorems) :=
+  normalizedRouteCertificateFromTheorems
+
+theorem cc20FiniteVanishingExitFromTheorems :
+    (RouteInputs.ofExpandedSourcePackage
+      sourceObjectPackageFromTheorems).cc20.rhDefinitionBridge.SourceRH :=
+  cc20_source_rh_of_route_certificate routeCertificateFromTheorems
+
+theorem rhDefinitionBridgeToMathlibFromTheorems :
+    _root_.RiemannHypothesis :=
+  Source.RHDefinitionBridge.source_rh_to_mathlib_rh
+    (RouteInputs.ofExpandedSourcePackage
+      sourceObjectPackageFromTheorems).cc20.rhDefinitionBridge
+    cc20FiniteVanishingExitFromTheorems
+
+theorem unconditional_rh_skeleton : _root_.RiemannHypothesis := by
+  exact final_connes_weil_rh routeCertificateFromTheorems
 
 theorem unconditional_rh_contract_skeleton : _root_.RiemannHypothesis := by
   exact mathlib_rh_of_normalized_no_argument_route_certificate_package
