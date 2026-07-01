@@ -41,10 +41,76 @@ structure RestrictedToFullThresholdInputData
   currentAboveThreshold :
     threshold.lambda0 ≤ lambda
 
+/- Shared source test algebra for the three core source models. -/
+noncomputable def normalizedCoreSourceTestAlgebraFromTheorems :
+    Source.AnalyticCore.SourceTestAlgebra := by
+  sorry
+
+/- Shared source evaluation data for Mellin, pole, and trace read-off rows. -/
+noncomputable def normalizedCoreSourceEvaluationDataFromTheorems :
+    Source.AnalyticCore.SourceEvaluationData
+      normalizedCoreSourceTestAlgebraFromTheorems := by
+  sorry
+
+/- Shared CCM24 support/window data over the common source test algebra. -/
+noncomputable def normalizedCoreSourceSupportWindowDataFromTheorems :
+    Source.AnalyticCore.SourceSupportWindowData
+      normalizedCoreSourceTestAlgebraFromTheorems := by
+  sorry
+
+/- Shared CCM25 Weil-form data over the common source test algebra. -/
+noncomputable def normalizedCoreSourceWeilFormDataFromTheorems :
+    Source.AnalyticCore.SourceWeilFormData
+      normalizedCoreSourceTestAlgebraFromTheorems := by
+  sorry
+
+/- Shared CC20 trace-scale data over the common source test algebra. -/
+noncomputable def normalizedCoreSourceTraceScaleDataFromTheorems :
+    Source.AnalyticCore.SourceTraceScaleData
+      normalizedCoreSourceTestAlgebraFromTheorems := by
+  sorry
+
+/- Consistency of the CCM25 Weil-form evaluation with the shared evaluation. -/
+theorem normalizedCoreSourceWeilFormUsesEvaluationFromTheorems :
+    normalizedCoreSourceWeilFormDataFromTheorems.evaluation =
+      normalizedCoreSourceEvaluationDataFromTheorems := by
+  sorry
+
 /- Shared source analytic core for the three core source models. -/
 noncomputable def normalizedCoreSourceAnalyticCoreFromTheorems :
-    Source.AnalyticCore.SourceAnalyticCore := by
-  sorry
+    Source.AnalyticCore.SourceAnalyticCore where
+  testAlgebra := normalizedCoreSourceTestAlgebraFromTheorems
+  evaluation := normalizedCoreSourceEvaluationDataFromTheorems
+  supportWindow := normalizedCoreSourceSupportWindowDataFromTheorems
+  weilForm := normalizedCoreSourceWeilFormDataFromTheorems
+  traceScale := normalizedCoreSourceTraceScaleDataFromTheorems
+  weilForm_uses_evaluation :=
+    normalizedCoreSourceWeilFormUsesEvaluationFromTheorems
+
+theorem normalizedCoreSourceAnalyticCore_testAlgebra :
+    normalizedCoreSourceAnalyticCoreFromTheorems.testAlgebra =
+      normalizedCoreSourceTestAlgebraFromTheorems := by
+  rfl
+
+theorem normalizedCoreSourceAnalyticCore_evaluation :
+    normalizedCoreSourceAnalyticCoreFromTheorems.evaluation =
+      normalizedCoreSourceEvaluationDataFromTheorems := by
+  rfl
+
+theorem normalizedCoreSourceAnalyticCore_supportWindow :
+    normalizedCoreSourceAnalyticCoreFromTheorems.supportWindow =
+      normalizedCoreSourceSupportWindowDataFromTheorems := by
+  rfl
+
+theorem normalizedCoreSourceAnalyticCore_weilForm :
+    normalizedCoreSourceAnalyticCoreFromTheorems.weilForm =
+      normalizedCoreSourceWeilFormDataFromTheorems := by
+  rfl
+
+theorem normalizedCoreSourceAnalyticCore_traceScale :
+    normalizedCoreSourceAnalyticCoreFromTheorems.traceScale =
+      normalizedCoreSourceTraceScaleDataFromTheorems := by
+  rfl
 
 /- CCM24 semilocal rows over the shared source analytic core. -/
 def normalizedCoreCCM24SemilocalRowsFromTheorems :
