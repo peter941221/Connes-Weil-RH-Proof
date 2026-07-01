@@ -41,10 +41,45 @@ structure RestrictedToFullThresholdInputData
   currentAboveThreshold :
     threshold.lambda0 ≤ lambda
 
+/- Shared source analytic core for the three core source models. -/
+noncomputable def normalizedCoreSourceAnalyticCoreFromTheorems :
+    Source.AnalyticCore.SourceAnalyticCore := by
+  sorry
+
+/- CCM24 semilocal rows over the shared source analytic core. -/
+def normalizedCoreCCM24SemilocalRowsFromTheorems :
+    Source.AnalyticCore.SourceSemilocalRows
+      normalizedCoreSourceAnalyticCoreFromTheorems.supportWindow := by
+  sorry
+
+/- CCM25 finite-prime arithmetic rows over the shared source analytic core. -/
+noncomputable def normalizedCoreCCM25FinitePrimeArithmeticCertificatesFromTheorems :
+    Source.CCM25Concrete.FinitePrimeInterface.FixedLambdaArithmeticSourceTestCertificatesForAllTests
+      normalizedCoreSourceAnalyticCoreFromTheorems.toWeilFormSymbols := by
+  sorry
+
 /- Shared source-input boundary for the three core source models. -/
 noncomputable def normalizedCoreSourceModelConstructorInputFromTheorems :
-    Source.AnalyticCore.SourceModelConstructorInput := by
-  sorry
+    Source.AnalyticCore.SourceModelConstructorInput where
+  core := normalizedCoreSourceAnalyticCoreFromTheorems
+  semilocalRows := normalizedCoreCCM24SemilocalRowsFromTheorems
+  finitePrimeArithmeticCertificates :=
+    normalizedCoreCCM25FinitePrimeArithmeticCertificatesFromTheorems
+
+theorem normalizedCoreSourceModelConstructorInput_core :
+    normalizedCoreSourceModelConstructorInputFromTheorems.core =
+      normalizedCoreSourceAnalyticCoreFromTheorems := by
+  rfl
+
+theorem normalizedCoreSourceModelConstructorInput_semilocalRows :
+    normalizedCoreSourceModelConstructorInputFromTheorems.semilocalRows =
+      normalizedCoreCCM24SemilocalRowsFromTheorems := by
+  rfl
+
+theorem normalizedCoreSourceModelConstructorInput_finitePrimeArithmetic :
+    normalizedCoreSourceModelConstructorInputFromTheorems.finitePrimeArithmeticCertificates =
+      normalizedCoreCCM25FinitePrimeArithmeticCertificatesFromTheorems := by
+  rfl
 
 /- Source-input boundary for the CCM24 core source model. -/
 noncomputable def normalizedCoreCCM24SemilocalObjectInputFromTheorems :
