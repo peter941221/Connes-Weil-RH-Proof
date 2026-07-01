@@ -413,6 +413,86 @@ def toSourceTraceReadOffData
   SourceTraceReadOffData.ofExpandedSourcePackage pkg fixedFront
     (data.toExpandedSourceTraceReadOffFrontEnd pkg fixedFront)
 
+/--
+Goal 3/4 front-end closure package.
+
+The package keeps one expanded source package tied to one fixed-test front end,
+one trace front end, the derived source-backed fixed test, and the derived
+source trace read-off data.  The equality fields prevent downstream code from
+substituting a nearby trace front end or source trace package that was not
+generated from the same `TraceFrontEndData`.
+-/
+structure SourceFixedTraceFrontEndPackage
+    (pkg : Source.SourceObject.SourceObjectPackage) where
+  fixedFront : ExpandedSourceFixedSTestFrontEnd pkg
+  traceData : TraceFrontEndData pkg fixedFront
+  traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront
+  traceFront_eq :
+    traceFront =
+      traceData.toExpandedSourceTraceReadOffFrontEnd pkg fixedFront
+  sourceBackedFixedTest :
+    SourceBackedFixedSTest (RouteInputs.ofExpandedSourcePackage pkg)
+  sourceBackedFixedTest_eq :
+    sourceBackedFixedTest =
+      SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront
+  sourceTraceReadOffData :
+    SourceTraceReadOffData
+      (RouteInputs.ofExpandedSourcePackage pkg)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
+  sourceTraceReadOffData_eq :
+    sourceTraceReadOffData =
+      traceData.toSourceTraceReadOffData pkg fixedFront
+
+/--
+Build the closed source/fixed/trace front-end package from the fixed front end
+and its trace-front-end data.
+-/
+def source_fixed_trace_front_end_package_of_trace_data
+    (pkg : Source.SourceObject.SourceObjectPackage)
+    (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
+    (traceData : TraceFrontEndData pkg fixedFront) :
+    SourceFixedTraceFrontEndPackage pkg where
+  fixedFront := fixedFront
+  traceData := traceData
+  traceFront := traceData.toExpandedSourceTraceReadOffFrontEnd pkg fixedFront
+  traceFront_eq := rfl
+  sourceBackedFixedTest :=
+    SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront
+  sourceBackedFixedTest_eq := rfl
+  sourceTraceReadOffData := traceData.toSourceTraceReadOffData pkg fixedFront
+  sourceTraceReadOffData_eq := rfl
+
+theorem trace_front_of_source_fixed_trace_front_end_package
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    (frontPackage : SourceFixedTraceFrontEndPackage pkg) :
+    frontPackage.traceFront =
+      frontPackage.traceData.toExpandedSourceTraceReadOffFrontEnd
+        pkg frontPackage.fixedFront :=
+  frontPackage.traceFront_eq
+
+theorem source_backed_fixed_test_of_source_fixed_trace_front_end_package
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    (frontPackage : SourceFixedTraceFrontEndPackage pkg) :
+    frontPackage.sourceBackedFixedTest =
+      SourceBackedFixedSTest.ofExpandedSourcePackage
+        pkg frontPackage.fixedFront :=
+  frontPackage.sourceBackedFixedTest_eq
+
+theorem source_trace_read_off_of_source_fixed_trace_front_end_package
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    (frontPackage : SourceFixedTraceFrontEndPackage pkg) :
+    frontPackage.sourceTraceReadOffData =
+      frontPackage.traceData.toSourceTraceReadOffData
+        pkg frontPackage.fixedFront :=
+  frontPackage.sourceTraceReadOffData_eq
+
+theorem lambda_of_source_fixed_trace_front_end_package
+    {pkg : Source.SourceObject.SourceObjectPackage}
+    (frontPackage : SourceFixedTraceFrontEndPackage pkg) :
+    frontPackage.traceFront.lambda = frontPackage.traceData.lambda := by
+  rw [frontPackage.traceFront_eq]
+  rfl
+
 def sourceTraceReadOffDataOfTraceFrontParts
     (pkg : Source.SourceObject.SourceObjectPackage)
     (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)

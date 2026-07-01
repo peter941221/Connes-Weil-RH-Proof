@@ -69,6 +69,74 @@ structure S2B1NormalizedCC20RemainderRowsOutsideNoBulk
     sourceBoundedComparisonTraceIdealTransport
 
 /--
+Source-owned scalar data for the finite-part normal form of one S2-B1 fixed
+tuple.
+
+This is the object-level anchor below `S2B1FinitePartScalarInterface`.  It
+names the three source scalars before they are projected into the theorem-facing
+interface.  It intentionally records scalars only; the equalities proving the
+normal form remain separate rows.
+-/
+structure S2B1FinitePartSourceScalarData
+    (_A : ArchimedeanTraceSymbols) (_W : WeilFormSymbols)
+    (_lambda : ℝ) (_archimedeanTest : _A.Test) (_weilTest : TestFunction) where
+  sourceActualFinitePart : ℝ
+  sourceNormalizedFinitePart : ℝ
+  sourceSubtractedFinitePartTerm : ℝ
+
+/--
+Named scalar interface for the finite-part normal form of one S2-B1 fixed
+tuple.
+
+These fields deliberately do not identify the finite-part scalars with the
+support-square trace, no-defect trace, or `QW_lambda`.  That bridge needs a
+separate source theorem.  This interface only prevents the no-hidden
+finite-part row from being proved against anonymous real numbers.
+-/
+structure S2B1FinitePartScalarInterface
+    (_A : ArchimedeanTraceSymbols) (_W : WeilFormSymbols)
+    (_lambda : ℝ) (_archimedeanTest : _A.Test) (_weilTest : TestFunction) where
+  actualFinitePartScalar : ℝ
+  normalizedFinitePartScalar : ℝ
+  subtractedFinitePartScalar : ℝ
+
+namespace S2B1FinitePartScalarInterface
+
+def finitePartNormalizationFixedStatement
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    {lambda : ℝ} {archimedeanTest : A.Test} {weilTest : TestFunction}
+    (scalars :
+      S2B1FinitePartScalarInterface
+        A W lambda archimedeanTest weilTest) : Prop :=
+  scalars.actualFinitePartScalar = scalars.normalizedFinitePartScalar
+
+def noSubtractedFinitePartTermStatement
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    {lambda : ℝ} {archimedeanTest : A.Test} {weilTest : TestFunction}
+    (scalars :
+      S2B1FinitePartScalarInterface
+        A W lambda archimedeanTest weilTest) : Prop :=
+  scalars.subtractedFinitePartScalar = 0
+
+end S2B1FinitePartScalarInterface
+
+namespace S2B1FinitePartSourceScalarData
+
+def toScalarInterface
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    {lambda : ℝ} {archimedeanTest : A.Test} {weilTest : TestFunction}
+    (data :
+      S2B1FinitePartSourceScalarData
+        A W lambda archimedeanTest weilTest) :
+    S2B1FinitePartScalarInterface
+      A W lambda archimedeanTest weilTest where
+  actualFinitePartScalar := data.sourceActualFinitePart
+  normalizedFinitePartScalar := data.sourceNormalizedFinitePart
+  subtractedFinitePartScalar := data.sourceSubtractedFinitePartTerm
+
+end S2B1FinitePartSourceScalarData
+
+/--
 Scalar CC20 trace-package remainder rows outside the scalar seed.
 
 The scalar seed fixes the scalar trace family and its nonnegativity, but it
@@ -232,6 +300,69 @@ def toWitness
 
 end S2B1TraceScaleNoBulkRows
 
+namespace S2B1NormalizedCC20RemainderRowsOutsideNoBulk
+
+def toRemainderData
+    {seed : CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols}
+    {W : WeilFormSymbols}
+    (rows : S2B1NormalizedCC20RemainderRowsOutsideNoBulk seed)
+    (noBulkRows :
+      S2B1TraceScaleNoBulkRows
+        (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+          seed).archimedeanSymbols W)
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    (archimedeanTest :
+      (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+        seed).archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    CC20Concrete.TraceScale.CC20TracePackageRemainderData seed where
+  sourceTraceTest := rows.sourceTraceTest
+  sourceCC20TraceTestCompatibility :=
+    rows.sourceCC20TraceTestCompatibility
+  sourceOperatorIdentity := rows.sourceOperatorIdentity
+  sourceHilbertSchmidtGate := rows.sourceHilbertSchmidtGate
+  sourcePerMoveCyclicityLedger := rows.sourcePerMoveCyclicityLedger
+  sourceNoDefectTraceReadOff := rows.sourceNoDefectTraceReadOff
+  sourceRemainderOrientationWInftyEqLMinusD :=
+    rows.sourceRemainderOrientationWInftyEqLMinusD
+  sourceRemainderOrientationWInftyEqSMinusE :=
+    rows.sourceRemainderOrientationWInftyEqSMinusE
+  sourceRemainderObject := rows.sourceRemainderObject
+  sourceRemainderAfterQ := rows.sourceRemainderAfterQ
+  cc20PostQRemainderFixedSSoninTransport :=
+    rows.cc20PostQRemainderFixedSSoninTransport
+  sourceProjectionDefectNormalForm :=
+    rows.sourceProjectionDefectNormalForm
+  sourceRankPoleLedgerIdentification :=
+    rows.sourceRankPoleLedgerIdentification
+  sourceEndpointStripRemainderCdefDomination :=
+    rows.sourceEndpointStripRemainderCdefDomination
+  noBulkScaleTermOutsideLedger :=
+    (noBulkRows.toWitness lambda hlambda archimedeanTest
+      weilTest).noBulkScaleTermOutsideLedger
+  noHiddenFinitePartSubtraction :=
+    (noBulkRows.toWitness lambda hlambda archimedeanTest
+      weilTest).noHiddenFinitePartSubtraction
+  noBulkScaleTermOutsideLedgerHolds :=
+    (noBulkRows.toWitness lambda hlambda archimedeanTest
+      weilTest).noBulkScaleTermOutsideLedgerHolds
+  noHiddenFinitePartSubtractionHolds :=
+    (noBulkRows.toWitness lambda hlambda archimedeanTest
+      weilTest).noHiddenFinitePartSubtractionHolds
+  noBulkScaleTermOutsideLedgerAt := noBulkRows.noBulkScaleTermOutsideLedgerAt
+  noHiddenFinitePartSubtractionAt :=
+    noBulkRows.noHiddenFinitePartSubtractionAt
+  noBulkScaleTermOutsideLedgerAtHolds :=
+    noBulkRows.noBulkScaleTermOutsideLedgerAtHolds
+  noHiddenFinitePartSubtractionAtHolds :=
+    noBulkRows.noHiddenFinitePartSubtractionAtHolds
+  noHiddenPositiveDefectOutsideCdef :=
+    rows.noHiddenPositiveDefectOutsideCdef
+  sourceBoundedComparisonTraceIdealTransport :=
+    rows.sourceBoundedComparisonTraceIdealTransport
+
+end S2B1NormalizedCC20RemainderRowsOutsideNoBulk
+
 /--
 Term-ledger rows for the S2-B1 trace-scale no-bulk theorem.
 
@@ -256,8 +387,12 @@ structure S2B1TraceScaleTermLedgerRows
     ℝ → A.Test → TestFunction → Prop
   noExtraBulkScaleTermAt :
     ℝ → A.Test → TestFunction → Prop
-  noHiddenFinitePartSubtractionAt :
-    ℝ → A.Test → TestFunction → Prop
+  finitePartSourceScalarDataAt :
+    ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+      ∀ archimedeanTest : A.Test,
+      ∀ weilTest : TestFunction,
+        S2B1FinitePartSourceScalarData
+          A W lambda archimedeanTest weilTest
   supportSquareMainTermEqualsQWLambdaAtHolds :
     ∀ lambda : ℝ, 1 < lambda →
       ∀ archimedeanTest : A.Test,
@@ -299,11 +434,18 @@ structure S2B1TraceScaleTermLedgerRows
       ∀ archimedeanTest : A.Test,
       ∀ weilTest : TestFunction,
         noExtraBulkScaleTermAt lambda archimedeanTest weilTest
-  noHiddenFinitePartSubtractionAtHolds :
-    ∀ lambda : ℝ, 1 < lambda →
+  finitePartNormalizationFixedAtHolds :
+    ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
       ∀ archimedeanTest : A.Test,
       ∀ weilTest : TestFunction,
-        noHiddenFinitePartSubtractionAt lambda archimedeanTest weilTest
+        ((finitePartSourceScalarDataAt lambda hlambda archimedeanTest
+          weilTest).toScalarInterface).finitePartNormalizationFixedStatement
+  noSubtractedFinitePartTermAtHolds :
+    ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+      ∀ archimedeanTest : A.Test,
+      ∀ weilTest : TestFunction,
+        ((finitePartSourceScalarDataAt lambda hlambda archimedeanTest
+          weilTest).toScalarInterface).noSubtractedFinitePartTermStatement
 
 structure S2B1TraceScaleAnalyticExclusionPackage
     (A : ArchimedeanTraceSymbols) (W : WeilFormSymbols) where
@@ -362,13 +504,24 @@ structure S2B1TraceScaleAnalyticExclusionPackage
       ∀ archimedeanTest : A.Test,
       ∀ weilTest : TestFunction,
         noExtraBulkScaleTermExcludedAt lambda archimedeanTest weilTest
-  noHiddenFinitePartSubtractionExcludedAt :
-    ℝ → A.Test → TestFunction → Prop
-  noHiddenFinitePartSubtractionExcludedAtHolds :
-    ∀ lambda : ℝ, 1 < lambda →
+  finitePartSourceScalarDataAt :
+    ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
       ∀ archimedeanTest : A.Test,
       ∀ weilTest : TestFunction,
-        noHiddenFinitePartSubtractionExcludedAt lambda archimedeanTest weilTest
+        S2B1FinitePartSourceScalarData
+          A W lambda archimedeanTest weilTest
+  finitePartNormalizationFixedAtHolds :
+    ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+      ∀ archimedeanTest : A.Test,
+      ∀ weilTest : TestFunction,
+        ((finitePartSourceScalarDataAt lambda hlambda archimedeanTest
+          weilTest).toScalarInterface).finitePartNormalizationFixedStatement
+  noSubtractedFinitePartTermAtHolds :
+    ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+      ∀ archimedeanTest : A.Test,
+      ∀ weilTest : TestFunction,
+        ((finitePartSourceScalarDataAt lambda hlambda archimedeanTest
+          weilTest).toScalarInterface).noSubtractedFinitePartTermStatement
 
 /-- Fixed-tuple support-square read-off row:
 the CC20 support-square trace is the CCM25 restricted `QW_lambda` value for the
@@ -817,6 +970,192 @@ def toRow
 end S2B1FixedTupleNoHiddenFinitePartSubtractionConstructorInput
 
 /--
+Finite-part scalar normal form for one S2-B1 fixed tuple.
+
+The route needs this layer before the no-hidden finite-part row can become a
+real theorem target.  The scalar interface names the quantities that a source
+proof or later concrete Lean model must identify:
+
+* the finite part actually read from the trace side;
+* the normalized finite part allowed by the source convention;
+* the extra finite-part term that would have been subtracted if a hidden
+  correction survived.
+-/
+structure S2B1FinitePartNormalFormData
+    (A : ArchimedeanTraceSymbols) (W : WeilFormSymbols)
+    (lambda : ℝ) (archimedeanTest : A.Test) (weilTest : TestFunction) where
+  scalars :
+    S2B1FinitePartScalarInterface
+      A W lambda archimedeanTest weilTest
+
+namespace S2B1FinitePartNormalFormData
+
+def actualFinitePart
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    {lambda : ℝ} {archimedeanTest : A.Test} {weilTest : TestFunction}
+    (data :
+      S2B1FinitePartNormalFormData
+        A W lambda archimedeanTest weilTest) : ℝ :=
+  data.scalars.actualFinitePartScalar
+
+def normalizedFinitePart
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    {lambda : ℝ} {archimedeanTest : A.Test} {weilTest : TestFunction}
+    (data :
+      S2B1FinitePartNormalFormData
+        A W lambda archimedeanTest weilTest) : ℝ :=
+  data.scalars.normalizedFinitePartScalar
+
+def subtractedFinitePartTerm
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    {lambda : ℝ} {archimedeanTest : A.Test} {weilTest : TestFunction}
+    (data :
+      S2B1FinitePartNormalFormData
+        A W lambda archimedeanTest weilTest) : ℝ :=
+  data.scalars.subtractedFinitePartScalar
+
+def finitePartNormalizationFixedStatement
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    {lambda : ℝ} {archimedeanTest : A.Test} {weilTest : TestFunction}
+    (data :
+      S2B1FinitePartNormalFormData
+        A W lambda archimedeanTest weilTest) : Prop :=
+  data.scalars.finitePartNormalizationFixedStatement
+
+def noSubtractedFinitePartTermStatement
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    {lambda : ℝ} {archimedeanTest : A.Test} {weilTest : TestFunction}
+    (data :
+      S2B1FinitePartNormalFormData
+        A W lambda archimedeanTest weilTest) : Prop :=
+  data.scalars.noSubtractedFinitePartTermStatement
+
+end S2B1FinitePartNormalFormData
+
+/--
+Proof rows for the finite-part normal form.
+
+This is the first theorem-grade target below the no-hidden finite-part
+constructor input.  It names both equalities against concrete scalar slots, so
+future proof work can unfold definitions instead of proving an arbitrary
+`Prop`.
+-/
+structure S2B1FinitePartNormalFormRows
+    (A : ArchimedeanTraceSymbols) (W : WeilFormSymbols)
+    (lambda : ℝ) (archimedeanTest : A.Test) (weilTest : TestFunction) where
+  data :
+    S2B1FinitePartNormalFormData
+      A W lambda archimedeanTest weilTest
+  finitePartNormalizationFixedHolds :
+    data.finitePartNormalizationFixedStatement
+  noSubtractedFinitePartTermHolds :
+    data.noSubtractedFinitePartTermStatement
+
+/--
+Source normal-form certificate for the finite-part leg.
+
+This is the source-facing object that owns the two finite-part mathematical
+equalities for one fixed tuple.  It keeps the scalar data and the proofs
+together, so downstream code cannot combine scalars from one source object with
+normal-form proofs from another.
+-/
+structure S2B1FinitePartSourceNormalFormData
+    (A : ArchimedeanTraceSymbols) (W : WeilFormSymbols)
+    (lambda : ℝ) (archimedeanTest : A.Test) (weilTest : TestFunction) where
+  sourceScalars :
+    S2B1FinitePartSourceScalarData
+      A W lambda archimedeanTest weilTest
+  finitePartNormalizationFixedHolds :
+    sourceScalars.toScalarInterface.finitePartNormalizationFixedStatement
+  noSubtractedFinitePartTermHolds :
+    sourceScalars.toScalarInterface.noSubtractedFinitePartTermStatement
+
+namespace S2B1FinitePartSourceNormalFormData
+
+def toRows
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    {lambda : ℝ} {archimedeanTest : A.Test} {weilTest : TestFunction}
+    (data :
+      S2B1FinitePartSourceNormalFormData
+        A W lambda archimedeanTest weilTest) :
+    S2B1FinitePartNormalFormRows
+      A W lambda archimedeanTest weilTest where
+  data := { scalars := data.sourceScalars.toScalarInterface }
+  finitePartNormalizationFixedHolds :=
+    data.finitePartNormalizationFixedHolds
+  noSubtractedFinitePartTermHolds :=
+    data.noSubtractedFinitePartTermHolds
+
+end S2B1FinitePartSourceNormalFormData
+
+/-- Source-facing theorem rows for the no-hidden finite-part subtraction leg. -/
+structure S2B1NoHiddenFinitePartSubtractionConstructorRows
+    (A : ArchimedeanTraceSymbols) (W : WeilFormSymbols)
+    (lambda : ℝ) (archimedeanTest : A.Test) (weilTest : TestFunction) where
+  finitePartNormalizationFixed : Prop
+  noSubtractedFinitePartTerm : Prop
+  finitePartNormalizationFixedHolds :
+    finitePartNormalizationFixed
+  noSubtractedFinitePartTermHolds :
+    noSubtractedFinitePartTerm
+
+namespace S2B1NoHiddenFinitePartSubtractionConstructorRows
+
+def toConstructorInput
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    {lambda : ℝ} {archimedeanTest : A.Test} {weilTest : TestFunction}
+    (rows :
+      S2B1NoHiddenFinitePartSubtractionConstructorRows
+        A W lambda archimedeanTest weilTest) :
+    S2B1FixedTupleNoHiddenFinitePartSubtractionConstructorInput
+      A W lambda archimedeanTest weilTest where
+  finitePartNormalizationFixed := rows.finitePartNormalizationFixed
+  noSubtractedFinitePartTerm := rows.noSubtractedFinitePartTerm
+  finitePartNormalizationFixedHolds :=
+    rows.finitePartNormalizationFixedHolds
+  noSubtractedFinitePartTermHolds :=
+    rows.noSubtractedFinitePartTermHolds
+
+end S2B1NoHiddenFinitePartSubtractionConstructorRows
+
+namespace S2B1FinitePartNormalFormRows
+
+def ofSourceScalarData
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    {lambda : ℝ} {archimedeanTest : A.Test} {weilTest : TestFunction}
+    (sourceScalars :
+      S2B1FinitePartSourceScalarData
+        A W lambda archimedeanTest weilTest)
+    (finitePartNormalizationFixedHolds :
+      sourceScalars.toScalarInterface.finitePartNormalizationFixedStatement)
+    (noSubtractedFinitePartTermHolds :
+      sourceScalars.toScalarInterface.noSubtractedFinitePartTermStatement) :
+    S2B1FinitePartNormalFormRows
+      A W lambda archimedeanTest weilTest where
+  data := { scalars := sourceScalars.toScalarInterface }
+  finitePartNormalizationFixedHolds := finitePartNormalizationFixedHolds
+  noSubtractedFinitePartTermHolds := noSubtractedFinitePartTermHolds
+
+def toNoHiddenFinitePartRows
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    {lambda : ℝ} {archimedeanTest : A.Test} {weilTest : TestFunction}
+    (rows :
+      S2B1FinitePartNormalFormRows
+        A W lambda archimedeanTest weilTest) :
+    S2B1NoHiddenFinitePartSubtractionConstructorRows
+      A W lambda archimedeanTest weilTest where
+  finitePartNormalizationFixed :=
+    rows.data.finitePartNormalizationFixedStatement
+  noSubtractedFinitePartTerm :=
+    rows.data.noSubtractedFinitePartTermStatement
+  finitePartNormalizationFixedHolds :=
+    rows.finitePartNormalizationFixedHolds
+  noSubtractedFinitePartTermHolds :=
+    rows.noSubtractedFinitePartTermHolds
+
+end S2B1FinitePartNormalFormRows
+
+/--
 Fixed-tuple S2-B1 trace-scale exclusion data.
 
 The source proof packages state S2-B1 for one route tuple
@@ -869,8 +1208,8 @@ def toTermLedgerRows
     pkg.cdefExhaustionOwnsEndpointStripAt
   noExtraBulkScaleTermAt :=
     pkg.noExtraBulkScaleTermExcludedAt
-  noHiddenFinitePartSubtractionAt :=
-    pkg.noHiddenFinitePartSubtractionExcludedAt
+  finitePartSourceScalarDataAt :=
+    pkg.finitePartSourceScalarDataAt
   supportSquareMainTermEqualsQWLambdaAtHolds :=
     pkg.supportSquareMainTermEqualsQWLambdaAtHolds
   rankZeroModeChannelClassifiedAtHolds :=
@@ -887,8 +1226,10 @@ def toTermLedgerRows
     pkg.cdefExhaustionOwnsEndpointStripAtHolds
   noExtraBulkScaleTermAtHolds :=
     pkg.noExtraBulkScaleTermExcludedAtHolds
-  noHiddenFinitePartSubtractionAtHolds :=
-    pkg.noHiddenFinitePartSubtractionExcludedAtHolds
+  finitePartNormalizationFixedAtHolds :=
+    pkg.finitePartNormalizationFixedAtHolds
+  noSubtractedFinitePartTermAtHolds :=
+    pkg.noSubtractedFinitePartTermAtHolds
 
 end S2B1TraceScaleAnalyticExclusionPackage
 
@@ -1021,7 +1362,11 @@ def noHiddenFinitePartSubtractionStatementAt
     restrictedCCM25CutoffMatchesTraceAt
       (W := W) lambda archimedeanTest weilTest ∧
     poleSeparatedNoDoubleCountingAt (W := W) lambda archimedeanTest weilTest ∧
-    rows.noHiddenFinitePartSubtractionAt lambda archimedeanTest weilTest
+    ∃ hlambda : 1 < lambda,
+      ((rows.finitePartSourceScalarDataAt lambda hlambda archimedeanTest
+        weilTest).toScalarInterface).finitePartNormalizationFixedStatement ∧
+      ((rows.finitePartSourceScalarDataAt lambda hlambda archimedeanTest
+        weilTest).toScalarInterface).noSubtractedFinitePartTermStatement
 
 def toNoBulkRows
     {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
@@ -1075,8 +1420,11 @@ def toNoBulkRows
           lambda hlambda archimedeanTest weilTest,
         poleSeparatedNoDoubleCountingAtHolds poleNormalization
           lambda hlambda archimedeanTest weilTest,
-        rows.noHiddenFinitePartSubtractionAtHolds
-          lambda hlambda archimedeanTest weilTest⟩
+        ⟨hlambda,
+          rows.finitePartNormalizationFixedAtHolds
+            lambda hlambda archimedeanTest weilTest,
+          rows.noSubtractedFinitePartTermAtHolds
+            lambda hlambda archimedeanTest weilTest⟩⟩
 
 end S2B1TraceScaleTermLedgerRows
 
@@ -1368,10 +1716,15 @@ def ofGlobalPackage
           lambda hlambda archimedeanTest weilTest }
   noHiddenFinitePartSubtractionRow :=
     { noHiddenFinitePartSubtractionExcluded :=
-        pkg.noHiddenFinitePartSubtractionExcludedAt lambda archimedeanTest weilTest
+        ((pkg.finitePartSourceScalarDataAt lambda hlambda archimedeanTest
+          weilTest).toScalarInterface).finitePartNormalizationFixedStatement ∧
+          ((pkg.finitePartSourceScalarDataAt lambda hlambda archimedeanTest
+            weilTest).toScalarInterface).noSubtractedFinitePartTermStatement
       noHiddenFinitePartSubtractionExcludedHolds :=
-        pkg.noHiddenFinitePartSubtractionExcludedAtHolds
-          lambda hlambda archimedeanTest weilTest }
+        ⟨pkg.finitePartNormalizationFixedAtHolds
+            lambda hlambda archimedeanTest weilTest,
+          pkg.noSubtractedFinitePartTermAtHolds
+            lambda hlambda archimedeanTest weilTest⟩ }
 
 end S2B1TraceScaleFixedTupleAnalyticExclusionPackage
 
@@ -1416,11 +1769,11 @@ structure S2B1TraceScaleAnalyticExclusionConstructorInput
       ∀ weilTest : TestFunction,
         S2B1FixedTupleNoExtraBulkConstructorInput
           A W lambda archimedeanTest weilTest
-  noHiddenFinitePartSubtractionConstructorInput :
+  finitePartSourceNormalFormData :
     ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
       ∀ archimedeanTest : A.Test,
       ∀ weilTest : TestFunction,
-        S2B1FixedTupleNoHiddenFinitePartSubtractionConstructorInput
+        S2B1FinitePartSourceNormalFormData
           A W lambda archimedeanTest weilTest
 
 namespace S2B1TraceScaleAnalyticExclusionConstructorInput
@@ -1449,8 +1802,40 @@ def fixedTuple
     (data.noExtraBulkConstructorInput
       lambda hlambda archimedeanTest weilTest).toRow
   noHiddenFinitePartSubtractionRow :=
-    (data.noHiddenFinitePartSubtractionConstructorInput
-      lambda hlambda archimedeanTest weilTest).toRow
+    let normalForm :=
+      data.finitePartSourceNormalFormData
+        lambda hlambda archimedeanTest weilTest
+    normalForm.toRows.toNoHiddenFinitePartRows.toConstructorInput.toRow
+
+def noBulkWitness
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    (data : S2B1TraceScaleAnalyticExclusionConstructorInput A W)
+    (ordinary :
+      ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement A)
+    (traceSquare :
+      ArchimedeanTraceSymbols.TraceSquareStatement A)
+    (qwLambdaFormula : WeilFormSymbols.QWLambdaFormulaStatement W)
+    (poleNormalization : WeilFormSymbols.PoleNormalizationStatement W)
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    (archimedeanTest : A.Test) (weilTest : TestFunction) :
+    CC20CCMTraceScaleNoBulkWitness A W lambda archimedeanTest weilTest :=
+  (data.fixedTuple lambda hlambda archimedeanTest weilTest).toWitness
+    ordinary traceSquare qwLambdaFormula poleNormalization
+
+theorem noBulkStatement
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    (data : S2B1TraceScaleAnalyticExclusionConstructorInput A W)
+    (ordinary :
+      ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement A)
+    (traceSquare :
+      ArchimedeanTraceSymbols.TraceSquareStatement A)
+    (qwLambdaFormula : WeilFormSymbols.QWLambdaFormulaStatement W)
+    (poleNormalization : WeilFormSymbols.PoleNormalizationStatement W) :
+    CC20CCMTraceScaleNoBulkStatement A W := by
+  intro lambda hlambda archimedeanTest weilTest
+  exact
+    ⟨data.noBulkWitness ordinary traceSquare qwLambdaFormula
+      poleNormalization lambda hlambda archimedeanTest weilTest⟩
 
 def toPackage
     {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
@@ -1531,16 +1916,20 @@ def toPackage
     let row := data.fixedTuple lambda hlambda archimedeanTest weilTest
     exact
       ⟨hlambda, row.noExtraBulkScaleTermExcludedHolds⟩
-  noHiddenFinitePartSubtractionExcludedAt :=
-    fun lambda archimedeanTest weilTest =>
-      ∃ hlambda : 1 < lambda,
-        let row := data.fixedTuple lambda hlambda archimedeanTest weilTest
-        row.noHiddenFinitePartSubtractionExcluded
-  noHiddenFinitePartSubtractionExcludedAtHolds := by
+  finitePartSourceScalarDataAt :=
+    fun lambda hlambda archimedeanTest weilTest =>
+      (data.finitePartSourceNormalFormData
+        lambda hlambda archimedeanTest weilTest).sourceScalars
+  finitePartNormalizationFixedAtHolds := by
     intro lambda hlambda archimedeanTest weilTest
-    let row := data.fixedTuple lambda hlambda archimedeanTest weilTest
     exact
-      ⟨hlambda, row.noHiddenFinitePartSubtractionExcludedHolds⟩
+      (data.finitePartSourceNormalFormData
+        lambda hlambda archimedeanTest weilTest).finitePartNormalizationFixedHolds
+  noSubtractedFinitePartTermAtHolds := by
+    intro lambda hlambda archimedeanTest weilTest
+    exact
+      (data.finitePartSourceNormalFormData
+        lambda hlambda archimedeanTest weilTest).noSubtractedFinitePartTermHolds
 
 end S2B1TraceScaleAnalyticExclusionConstructorInput
 
@@ -1766,6 +2155,21 @@ structure NormalizedSourceObjectTheoremBaseInput where
     ∀ scalarSeed :
       CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols,
       NormalizedScalarCC20RemainderRows scalarSeed
+  scalarFinitePartSourceNormalFormData :
+    ∀ scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols,
+      ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+        ∀ archimedeanTest :
+          (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+            (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+              scalarSeed)).archimedeanSymbols.Test,
+        ∀ weilTest : TestFunction,
+          S2B1FinitePartSourceNormalFormData
+            (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+              (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+                scalarSeed)).archimedeanSymbols
+            base.ccm25Model.toWeilFormSymbols
+            lambda archimedeanTest weilTest
   scalarCommonTestBridgeRows :
     ∀ (commonTest :
         SourceObject.CommonTestObject base.ccm25Model.toWeilFormSymbols)
@@ -1906,6 +2310,21 @@ structure NormalizedSourceObjectScalarRowsData
     ∀ scalarSeed :
       CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols,
       NormalizedScalarCC20RemainderRows scalarSeed
+  scalarFinitePartSourceNormalFormData :
+    ∀ scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols,
+      ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+        ∀ archimedeanTest :
+          (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+            (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+              scalarSeed)).archimedeanSymbols.Test,
+        ∀ weilTest : TestFunction,
+          S2B1FinitePartSourceNormalFormData
+            (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+              (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+                scalarSeed)).archimedeanSymbols
+            core.base.ccm25Model.toWeilFormSymbols
+            lambda archimedeanTest weilTest
   scalarCommonTestBridgeRows :
     ∀ (commonTest :
         SourceObject.CommonTestObject core.base.ccm25Model.toWeilFormSymbols)
@@ -1927,6 +2346,21 @@ structure NormalizedSourceObjectScalarRowsConstructorInput
     ∀ scalarSeed :
       CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols,
       NormalizedScalarCC20RemainderRows scalarSeed
+  scalarFinitePartSourceNormalFormData :
+    ∀ scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols,
+      ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+        ∀ archimedeanTest :
+          (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+            (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+              scalarSeed)).archimedeanSymbols.Test,
+        ∀ weilTest : TestFunction,
+          S2B1FinitePartSourceNormalFormData
+            (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+              (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+                scalarSeed)).archimedeanSymbols
+            core.base.ccm25Model.toWeilFormSymbols
+            lambda archimedeanTest weilTest
   scalarCommonTestBridgeRows :
     ∀ (commonTest :
         SourceObject.CommonTestObject core.base.ccm25Model.toWeilFormSymbols)
@@ -1942,6 +2376,8 @@ def toScalarRowsData
     (data : NormalizedSourceObjectScalarRowsConstructorInput core) :
     NormalizedSourceObjectScalarRowsData core where
   scalarRemainderRows := data.scalarRemainderRows
+  scalarFinitePartSourceNormalFormData :=
+    data.scalarFinitePartSourceNormalFormData
   scalarCommonTestBridgeRows := data.scalarCommonTestBridgeRows
 
 end NormalizedSourceObjectScalarRowsConstructorInput
@@ -1999,6 +2435,8 @@ def toInput
   commonTestBridgeRows := data.bridgeReadOff.commonTestBridgeRows
   traceReadOffEqualityRows := data.bridgeReadOff.traceReadOffEqualityRows
   scalarRemainderRows := data.scalarRows.scalarRemainderRows
+  scalarFinitePartSourceNormalFormData :=
+    data.scalarRows.scalarFinitePartSourceNormalFormData
   scalarCommonTestBridgeRows := data.scalarRows.scalarCommonTestBridgeRows
   routeLedgerRows := data.ledgerRows.routeLedgerRows
 
@@ -2086,6 +2524,25 @@ def scalarCC20RemainderRows
       CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols) :
     NormalizedScalarCC20RemainderRows scalarSeed :=
   input.scalarRemainderRows scalarSeed
+
+def scalarFinitePartSourceNormalFormDataAt
+    (input : NormalizedSourceObjectTheoremBaseInput)
+    (scalarSeed :
+      CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols)
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    (archimedeanTest :
+      (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed)).archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    S2B1FinitePartSourceNormalFormData
+      (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+        (CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          scalarSeed)).archimedeanSymbols
+      input.base.ccm25Model.toWeilFormSymbols
+      lambda archimedeanTest weilTest :=
+  input.scalarFinitePartSourceNormalFormData
+    scalarSeed lambda hlambda archimedeanTest weilTest
 
 def scalarCC20RemainderData
     (input : NormalizedSourceObjectTheoremBaseInput)
@@ -2222,6 +2679,18 @@ def s2b1NoExtraBulkConstructorInput
     pkg.s2b1TraceScaleAnalyticExclusionConstructorInput
     lambda hlambda archimedeanTest weilTest
 
+def s2b1FinitePartSourceNormalFormData
+    (pkg : SourceObjectTheoremBasePackage)
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    (archimedeanTest : pkg.toArchimedeanTraceSymbols.Test)
+    (weilTest : TestFunction) :
+    S2B1FinitePartSourceNormalFormData
+      pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
+      lambda archimedeanTest weilTest :=
+  S2B1TraceScaleAnalyticExclusionConstructorInput.finitePartSourceNormalFormData
+    pkg.s2b1TraceScaleAnalyticExclusionConstructorInput
+    lambda hlambda archimedeanTest weilTest
+
 def s2b1NoHiddenFinitePartSubtractionConstructorInput
     (pkg : SourceObjectTheoremBasePackage)
     (lambda : ℝ) (hlambda : 1 < lambda)
@@ -2230,9 +2699,8 @@ def s2b1NoHiddenFinitePartSubtractionConstructorInput
     S2B1FixedTupleNoHiddenFinitePartSubtractionConstructorInput
       pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
       lambda archimedeanTest weilTest :=
-  S2B1TraceScaleAnalyticExclusionConstructorInput.noHiddenFinitePartSubtractionConstructorInput
-    pkg.s2b1TraceScaleAnalyticExclusionConstructorInput
-    lambda hlambda archimedeanTest weilTest
+  (pkg.s2b1FinitePartSourceNormalFormData
+    lambda hlambda archimedeanTest weilTest).toRows.toNoHiddenFinitePartRows.toConstructorInput
 
 def s2b1TraceScaleTermLedgerRows
     (pkg : SourceObjectTheoremBasePackage) :
@@ -2608,6 +3076,75 @@ def s2b1NormalizedSeedFixedTupleAnalyticExclusion
   noHiddenFinitePartSubtractionRow :=
     pkg.s2b1NormalizedSeedNoHiddenFinitePartSubtractionRow
       lambda hlambda archimedeanTest weilTest
+
+open CC20Concrete.TraceScale in
+def s2b1NormalizedSeedOrdinaryTraceSupportSquareStatement
+    (pkg : SourceObjectTheoremBasePackage) :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+        pkg.s2b1NormalizedSeed).archimedeanSymbols :=
+  normalized_legal_square_trace_scale_to_cc20_trace_model_ordinary_trace_support_square
+    pkg.s2b1NormalizedSeed
+
+open CC20Concrete.TraceScale in
+def s2b1NormalizedSeedTraceSquareStatement
+    (pkg : SourceObjectTheoremBasePackage) :
+    ArchimedeanTraceSymbols.TraceSquareStatement
+      (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+        pkg.s2b1NormalizedSeed).archimedeanSymbols :=
+  normalized_legal_square_trace_scale_to_cc20_trace_model_trace_square
+    pkg.s2b1NormalizedSeed
+
+def s2b1NormalizedSeedTraceScaleNoBulkRows
+    (pkg : SourceObjectTheoremBasePackage) :
+    S2B1TraceScaleNoBulkRows
+      (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+        pkg.s2b1NormalizedSeed).archimedeanSymbols
+      pkg.toWeilFormSymbols where
+  noBulkScaleTermOutsideLedgerAt :=
+    fun lambda archimedeanTest weilTest =>
+      ∀ hlambda : 1 < lambda,
+        (pkg.s2b1NormalizedSeedFixedTupleAnalyticExclusion
+          lambda hlambda archimedeanTest
+          weilTest).toWitness
+            (pkg.s2b1NormalizedSeedOrdinaryTraceSupportSquareStatement)
+            (pkg.s2b1NormalizedSeedTraceSquareStatement)
+            (ccm25_source_qw_lambda_formula pkg.ccm25Model)
+            (ccm25_source_pole_normalization pkg.ccm25Model)
+            |>.noBulkScaleTermOutsideLedger
+  noHiddenFinitePartSubtractionAt :=
+    fun lambda archimedeanTest weilTest =>
+      ∀ hlambda : 1 < lambda,
+        (pkg.s2b1NormalizedSeedFixedTupleAnalyticExclusion
+          lambda hlambda archimedeanTest
+          weilTest).toWitness
+            (pkg.s2b1NormalizedSeedOrdinaryTraceSupportSquareStatement)
+            (pkg.s2b1NormalizedSeedTraceSquareStatement)
+            (ccm25_source_qw_lambda_formula pkg.ccm25Model)
+            (ccm25_source_pole_normalization pkg.ccm25Model)
+            |>.noHiddenFinitePartSubtraction
+  noBulkScaleTermOutsideLedgerAtHolds := by
+    intro lambda hlambda archimedeanTest weilTest hcurrent
+    exact
+      (pkg.s2b1NormalizedSeedFixedTupleAnalyticExclusion
+        lambda hcurrent archimedeanTest
+        weilTest).toWitness
+          (pkg.s2b1NormalizedSeedOrdinaryTraceSupportSquareStatement)
+          (pkg.s2b1NormalizedSeedTraceSquareStatement)
+          (ccm25_source_qw_lambda_formula pkg.ccm25Model)
+          (ccm25_source_pole_normalization pkg.ccm25Model)
+          |>.noBulkScaleTermOutsideLedgerHolds
+  noHiddenFinitePartSubtractionAtHolds := by
+    intro lambda hlambda archimedeanTest weilTest hcurrent
+    exact
+      (pkg.s2b1NormalizedSeedFixedTupleAnalyticExclusion
+        lambda hcurrent archimedeanTest
+        weilTest).toWitness
+          (pkg.s2b1NormalizedSeedOrdinaryTraceSupportSquareStatement)
+          (pkg.s2b1NormalizedSeedTraceSquareStatement)
+          (ccm25_source_qw_lambda_formula pkg.ccm25Model)
+          (ccm25_source_pole_normalization pkg.ccm25Model)
+          |>.noHiddenFinitePartSubtractionHolds
 
 theorem toSourceTheoremBase_ccm24_eq
     (pkg : SourceObjectTheoremBasePackage) :

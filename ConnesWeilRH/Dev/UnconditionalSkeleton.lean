@@ -311,6 +311,8 @@ trace-scale ledger is backed by a named no-extra-bulk contract rather than the
 older compatibility path that used `True`.
 -/
 
+noncomputable section NormalizedContractBackedLane
+
 def normalizedCoreCCM24SourceModelFromTheorems :
     Source.CCM24SourceModel := by
   sorry
@@ -477,6 +479,57 @@ def normalizedCoreS2B1SupportSquareQWLambdaRowFromTheorems :
     (normalizedCoreS2B1SupportSquareQWLambdaRowInputFromTheorems
       lambda hlambda archimedeanTest weilTest).toRow
 
+structure NormalizedCoreS2B1RemainingConstructorInputs where
+  rankZeroModeConstructorInput :
+    ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+      ∀ archimedeanTest :
+        normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test,
+      ∀ weilTest : TestFunction,
+        Source.S2B1FixedTupleRankZeroModeConstructorInput
+          normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+          normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+          lambda archimedeanTest weilTest
+  noStripRankPoleConstructorInput :
+    ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+      ∀ archimedeanTest :
+        normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test,
+      ∀ weilTest : TestFunction,
+        Source.S2B1FixedTupleNoStripRankPoleConstructorInput
+          normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+          normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+          lambda archimedeanTest weilTest
+  endpointStripCdefConstructorInput :
+    ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+      ∀ archimedeanTest :
+        normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test,
+      ∀ weilTest : TestFunction,
+        Source.S2B1FixedTupleEndpointStripCdefConstructorInput
+          normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+          normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+          lambda archimedeanTest weilTest
+  noExtraBulkConstructorInput :
+    ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+      ∀ archimedeanTest :
+        normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test,
+      ∀ weilTest : TestFunction,
+        Source.S2B1FixedTupleNoExtraBulkConstructorInput
+          normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+          normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+          lambda archimedeanTest weilTest
+  finitePartSourceNormalFormData :
+    ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+      ∀ archimedeanTest :
+        normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test,
+      ∀ weilTest : TestFunction,
+        Source.S2B1FinitePartSourceNormalFormData
+          normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+          normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+          lambda archimedeanTest weilTest
+
+def normalizedCoreS2B1RemainingConstructorInputsFromTheorems :
+    NormalizedCoreS2B1RemainingConstructorInputs := by
+  sorry
+
 def normalizedCoreS2B1RankZeroModeConstructorInputFromTheorems
     (lambda : ℝ) (_hlambda : 1 < lambda)
     (archimedeanTest :
@@ -485,8 +538,171 @@ def normalizedCoreS2B1RankZeroModeConstructorInputFromTheorems
     Source.S2B1FixedTupleRankZeroModeConstructorInput
       normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
       normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
-      lambda archimedeanTest weilTest := by
-  sorry
+      lambda archimedeanTest weilTest :=
+  normalizedCoreS2B1RemainingConstructorInputsFromTheorems.rankZeroModeConstructorInput
+    lambda _hlambda archimedeanTest weilTest
+
+def normalizedCoreS2B1NoStripRankPoleConstructorInputFromTheorems
+    (lambda : ℝ) (_hlambda : 1 < lambda)
+    (archimedeanTest :
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    Source.S2B1FixedTupleNoStripRankPoleConstructorInput
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+      lambda archimedeanTest weilTest :=
+  normalizedCoreS2B1RemainingConstructorInputsFromTheorems.noStripRankPoleConstructorInput
+    lambda _hlambda archimedeanTest weilTest
+
+def normalizedCoreS2B1EndpointStripCdefConstructorInputFromTheorems
+    (lambda : ℝ) (_hlambda : 1 < lambda)
+    (archimedeanTest :
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    Source.S2B1FixedTupleEndpointStripCdefConstructorInput
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+      lambda archimedeanTest weilTest :=
+  normalizedCoreS2B1RemainingConstructorInputsFromTheorems.endpointStripCdefConstructorInput
+    lambda _hlambda archimedeanTest weilTest
+
+def normalizedCoreS2B1NoExtraBulkConstructorInputFromTheorems
+    (lambda : ℝ) (_hlambda : 1 < lambda)
+    (archimedeanTest :
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    Source.S2B1FixedTupleNoExtraBulkConstructorInput
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+      lambda archimedeanTest weilTest :=
+  normalizedCoreS2B1RemainingConstructorInputsFromTheorems.noExtraBulkConstructorInput
+    lambda _hlambda archimedeanTest weilTest
+
+def normalizedCoreS2B1FinitePartSourceNormalFormDataFromTheorems
+    (lambda : ℝ) (_hlambda : 1 < lambda)
+    (archimedeanTest :
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    Source.S2B1FinitePartSourceNormalFormData
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+      lambda archimedeanTest weilTest :=
+  normalizedCoreS2B1RemainingConstructorInputsFromTheorems.finitePartSourceNormalFormData
+    lambda _hlambda archimedeanTest weilTest
+
+def normalizedCoreS2B1FinitePartSourceScalarDataFromTheorems
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    (archimedeanTest :
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    Source.S2B1FinitePartSourceScalarData
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+      lambda archimedeanTest weilTest :=
+  (normalizedCoreS2B1FinitePartSourceNormalFormDataFromTheorems
+    lambda hlambda archimedeanTest weilTest).sourceScalars
+
+def normalizedCoreS2B1FinitePartScalarInterfaceFromTheorems
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    (archimedeanTest :
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    Source.S2B1FinitePartScalarInterface
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+      lambda archimedeanTest weilTest :=
+  (normalizedCoreS2B1FinitePartSourceScalarDataFromTheorems
+    lambda hlambda archimedeanTest weilTest).toScalarInterface
+
+theorem normalizedCoreS2B1FinitePartNormalizationFixedHoldsFromTheorems
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    (archimedeanTest :
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    Source.S2B1FinitePartScalarInterface.finitePartNormalizationFixedStatement
+      (normalizedCoreS2B1FinitePartScalarInterfaceFromTheorems
+        lambda hlambda archimedeanTest weilTest) := by
+  exact
+    (normalizedCoreS2B1FinitePartSourceNormalFormDataFromTheorems
+      lambda hlambda archimedeanTest weilTest).finitePartNormalizationFixedHolds
+
+theorem normalizedCoreS2B1NoSubtractedFinitePartTermHoldsFromTheorems
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    (archimedeanTest :
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    Source.S2B1FinitePartScalarInterface.noSubtractedFinitePartTermStatement
+      (normalizedCoreS2B1FinitePartScalarInterfaceFromTheorems
+        lambda hlambda archimedeanTest weilTest) := by
+  exact
+    (normalizedCoreS2B1FinitePartSourceNormalFormDataFromTheorems
+      lambda hlambda archimedeanTest weilTest).noSubtractedFinitePartTermHolds
+
+def normalizedCoreS2B1FinitePartNormalFormRowsFromTheorems
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    (archimedeanTest :
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    Source.S2B1FinitePartNormalFormRows
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+      lambda archimedeanTest weilTest :=
+  (normalizedCoreS2B1FinitePartSourceNormalFormDataFromTheorems
+    lambda hlambda archimedeanTest weilTest).toRows
+
+def normalizedCoreS2B1NoHiddenFinitePartSubtractionRowsFromTheorems
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    (archimedeanTest :
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    Source.S2B1NoHiddenFinitePartSubtractionConstructorRows
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+      lambda archimedeanTest weilTest :=
+  (normalizedCoreS2B1FinitePartNormalFormRowsFromTheorems
+    lambda hlambda archimedeanTest weilTest).toNoHiddenFinitePartRows
+
+def normalizedCoreS2B1NoHiddenFinitePartSubtractionConstructorInputFromTheorems
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    (archimedeanTest :
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    Source.S2B1FixedTupleNoHiddenFinitePartSubtractionConstructorInput
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+      lambda archimedeanTest weilTest :=
+  (normalizedCoreS2B1NoHiddenFinitePartSubtractionRowsFromTheorems
+    lambda hlambda archimedeanTest weilTest).toConstructorInput
+
+def normalizedCoreS2B1RemainingConstructorInputPackageFromTheorems :
+    ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+      ∀ archimedeanTest :
+        normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test,
+      ∀ weilTest : TestFunction,
+        Source.S2B1FixedTupleRemainingConstructorInputPackage
+          normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+          normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
+          lambda archimedeanTest weilTest :=
+  fun lambda hlambda archimedeanTest weilTest =>
+    Source.S2B1FixedTupleRemainingConstructorInputPackage.ofFinitePartNormalForm
+      (normalizedCoreS2B1RankZeroModeConstructorInputFromTheorems
+        lambda hlambda archimedeanTest weilTest)
+      (normalizedCoreS2B1NoStripRankPoleConstructorInputFromTheorems
+        lambda hlambda archimedeanTest weilTest)
+      (normalizedCoreS2B1EndpointStripCdefConstructorInputFromTheorems
+        lambda hlambda archimedeanTest weilTest)
+      (normalizedCoreS2B1NoExtraBulkConstructorInputFromTheorems
+        lambda hlambda archimedeanTest weilTest)
+      (normalizedCoreS2B1FinitePartSourceNormalFormDataFromTheorems
+        lambda hlambda archimedeanTest weilTest)
+
+def normalizedCoreS2B1TraceScaleTheoremDataInputFromTheorems :
+    Source.S2B1TraceScaleTheoremData
+      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
+      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols :=
+  Source.S2B1TraceScaleTheoremData.ofSupportSquareAndRemainingConstructorInputs
+    normalizedCoreS2B1SupportSquareQWLambdaReadOffSourceDataFromTheorems
+    normalizedCoreS2B1RemainingConstructorInputPackageFromTheorems
 
 def normalizedCoreS2B1RankZeroModeRowFromTheorems :
     ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
@@ -501,17 +717,6 @@ def normalizedCoreS2B1RankZeroModeRowFromTheorems :
     (normalizedCoreS2B1RankZeroModeConstructorInputFromTheorems
       lambda _hlambda archimedeanTest weilTest).toRow
 
-def normalizedCoreS2B1NoStripRankPoleConstructorInputFromTheorems
-    (lambda : ℝ) (_hlambda : 1 < lambda)
-    (archimedeanTest :
-      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
-    (weilTest : TestFunction) :
-    Source.S2B1FixedTupleNoStripRankPoleConstructorInput
-      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
-      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
-      lambda archimedeanTest weilTest := by
-  sorry
-
 def normalizedCoreS2B1NoStripRankPoleRowFromTheorems :
     ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
       ∀ archimedeanTest :
@@ -524,17 +729,6 @@ def normalizedCoreS2B1NoStripRankPoleRowFromTheorems :
   fun lambda _hlambda archimedeanTest weilTest =>
     (normalizedCoreS2B1NoStripRankPoleConstructorInputFromTheorems
       lambda _hlambda archimedeanTest weilTest).toRow
-
-def normalizedCoreS2B1EndpointStripCdefConstructorInputFromTheorems
-    (lambda : ℝ) (_hlambda : 1 < lambda)
-    (archimedeanTest :
-      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
-    (weilTest : TestFunction) :
-    Source.S2B1FixedTupleEndpointStripCdefConstructorInput
-      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
-      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
-      lambda archimedeanTest weilTest := by
-  sorry
 
 def normalizedCoreS2B1EndpointStripCdefRowFromTheorems :
     ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
@@ -549,17 +743,6 @@ def normalizedCoreS2B1EndpointStripCdefRowFromTheorems :
     (normalizedCoreS2B1EndpointStripCdefConstructorInputFromTheorems
       lambda _hlambda archimedeanTest weilTest).toRow
 
-def normalizedCoreS2B1NoExtraBulkConstructorInputFromTheorems
-    (lambda : ℝ) (_hlambda : 1 < lambda)
-    (archimedeanTest :
-      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
-    (weilTest : TestFunction) :
-    Source.S2B1FixedTupleNoExtraBulkConstructorInput
-      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
-      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
-      lambda archimedeanTest weilTest := by
-  sorry
-
 def normalizedCoreS2B1NoExtraBulkRowFromTheorems :
     ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
       ∀ archimedeanTest :
@@ -572,17 +755,6 @@ def normalizedCoreS2B1NoExtraBulkRowFromTheorems :
   fun lambda _hlambda archimedeanTest weilTest =>
     (normalizedCoreS2B1NoExtraBulkConstructorInputFromTheorems
       lambda _hlambda archimedeanTest weilTest).toRow
-
-def normalizedCoreS2B1NoHiddenFinitePartSubtractionConstructorInputFromTheorems
-    (lambda : ℝ) (_hlambda : 1 < lambda)
-    (archimedeanTest :
-      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols.Test)
-    (weilTest : TestFunction) :
-    Source.S2B1FixedTupleNoHiddenFinitePartSubtractionConstructorInput
-      normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
-      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols
-      lambda archimedeanTest weilTest := by
-  sorry
 
 def normalizedCoreS2B1NoHiddenFinitePartSubtractionRowFromTheorems :
     ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
@@ -600,26 +772,8 @@ def normalizedCoreS2B1NoHiddenFinitePartSubtractionRowFromTheorems :
 def normalizedCoreS2B1TraceScaleTheoremDataFromTheorems :
     Source.S2B1TraceScaleTheoremData
       normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols
-      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols where
-  fixedTuple := fun lambda hlambda archimedeanTest weilTest =>
-    { supportSquareQWLambdaReadOff :=
-        normalizedCoreS2B1SupportSquareQWLambdaReadOffSourceDataFromTheorems
-          lambda hlambda archimedeanTest weilTest
-      rankZeroMode :=
-        normalizedCoreS2B1RankZeroModeConstructorInputFromTheorems
-          lambda hlambda archimedeanTest weilTest
-      noStripRankPole :=
-        normalizedCoreS2B1NoStripRankPoleConstructorInputFromTheorems
-          lambda hlambda archimedeanTest weilTest
-      endpointStripCdef :=
-        normalizedCoreS2B1EndpointStripCdefConstructorInputFromTheorems
-          lambda hlambda archimedeanTest weilTest
-      noExtraBulk :=
-        normalizedCoreS2B1NoExtraBulkConstructorInputFromTheorems
-          lambda hlambda archimedeanTest weilTest
-      noHiddenFinitePartSubtraction :=
-        normalizedCoreS2B1NoHiddenFinitePartSubtractionConstructorInputFromTheorems
-          lambda hlambda archimedeanTest weilTest }
+      normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols :=
+  normalizedCoreS2B1TraceScaleTheoremDataInputFromTheorems
 
 def normalizedCoreS2B1TraceScaleAnalyticExclusionConstructorInputFromTheorems :
     Source.S2B1TraceScaleAnalyticExclusionConstructorInput
@@ -634,11 +788,11 @@ def normalizedCoreS2B1TraceScaleAnalyticExclusionsFromTheorems :
       normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols :=
   normalizedCoreS2B1TraceScaleAnalyticExclusionConstructorInputFromTheorems.toPackage
 
-def normalizedCoreRHDefinitionBridgeFromTheorems :
-    Source.RHDefinitionBridge := by
-  sorry
+noncomputable def normalizedCoreRHDefinitionBridgeFromTheorems :
+    Source.RHDefinitionBridge :=
+  Source.RHDefinitionBridge.standard
 
-def normalizedCoreCC20RHExitObjectPackageFromTheorems :
+noncomputable def normalizedCoreCC20RHExitObjectPackageFromTheorems :
     Source.CC20RHExitObjectPackage
       normalizedCoreRHDefinitionBridgeFromTheorems := by
   sorry
@@ -702,6 +856,16 @@ def normalizedSourceObjectObjectDataFromTheorems :
       normalizedSourceObjectCoreTheoremBaseDataFromTheorems :=
   normalizedSourceObjectObjectConstructorInputFromTheorems.toObjectData
 
+structure NormalizedSourceObjectBridgeReadOffRowsInput where
+  rows :
+    Source.NormalizedSourceObjectBridgeReadOffConstructorInput
+      normalizedSourceObjectCoreTheoremBaseDataFromTheorems
+      normalizedSourceObjectObjectDataFromTheorems
+
+def normalizedSourceObjectBridgeReadOffRowsInputFromTheorems :
+    NormalizedSourceObjectBridgeReadOffRowsInput := by
+  sorry
+
 def normalizedSourceObjectCommonTestBridgeRowsProviderFromTheorems :
     ∀ commonTest :
       Source.SourceObject.CommonTestObject
@@ -710,8 +874,8 @@ def normalizedSourceObjectCommonTestBridgeRowsProviderFromTheorems :
       Source.NormalizedSourceObjectCommonTestBridgeRows
         normalizedSourceObjectCoreTheoremBaseDataFromTheorems.base commonTest
         normalizedSourceObjectObjectDataFromTheorems.ccm24Object
-        cc20Trace := by
-  sorry
+        cc20Trace :=
+  normalizedSourceObjectBridgeReadOffRowsInputFromTheorems.rows.commonTestBridgeRows
 
 def normalizedSourceTraceReadOffEqualityRowsProviderFromTheorems :
     ∀ (commonTest :
@@ -721,17 +885,14 @@ def normalizedSourceTraceReadOffEqualityRowsProviderFromTheorems :
       (lambda : ℝ),
       Source.NormalizedSourceTraceReadOffEqualityRows
         normalizedSourceObjectCoreTheoremBaseDataFromTheorems.base commonTest
-        cc20Trace lambda := by
-  sorry
+        cc20Trace lambda :=
+  normalizedSourceObjectBridgeReadOffRowsInputFromTheorems.rows.traceReadOffEqualityRows
 
 def normalizedSourceObjectBridgeReadOffConstructorInputFromTheorems :
     Source.NormalizedSourceObjectBridgeReadOffConstructorInput
       normalizedSourceObjectCoreTheoremBaseDataFromTheorems
-      normalizedSourceObjectObjectDataFromTheorems where
-  commonTestBridgeRows :=
-    normalizedSourceObjectCommonTestBridgeRowsProviderFromTheorems
-  traceReadOffEqualityRows :=
-    normalizedSourceTraceReadOffEqualityRowsProviderFromTheorems
+      normalizedSourceObjectObjectDataFromTheorems :=
+  normalizedSourceObjectBridgeReadOffRowsInputFromTheorems.rows
 
 def normalizedSourceObjectBridgeReadOffDataFromTheorems :
     Source.NormalizedSourceObjectBridgeReadOffData
@@ -743,6 +904,23 @@ def normalizedSourceObjectScalarRemainderRowsProviderFromTheorems :
     ∀ scalarSeed :
       Source.CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols,
       Source.NormalizedScalarCC20RemainderRows scalarSeed := by
+  sorry
+
+def normalizedSourceObjectScalarFinitePartSourceNormalFormDataFromTheorems :
+    ∀ scalarSeed :
+      Source.CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols,
+      ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+        ∀ archimedeanTest :
+          (Source.CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+            (Source.CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+              scalarSeed)).archimedeanSymbols.Test,
+        ∀ weilTest : TestFunction,
+          Source.S2B1FinitePartSourceNormalFormData
+            (Source.CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+              (Source.CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+                scalarSeed)).archimedeanSymbols
+            normalizedSourceObjectCoreTheoremBaseDataFromTheorems.base.ccm25Model.toWeilFormSymbols
+            lambda archimedeanTest weilTest := by
   sorry
 
 def normalizedSourceObjectScalarCommonTestBridgeRowsProviderFromTheorems :
@@ -763,6 +941,8 @@ def normalizedSourceObjectScalarRowsConstructorInputFromTheorems :
       normalizedSourceObjectCoreTheoremBaseDataFromTheorems where
   scalarRemainderRows :=
     normalizedSourceObjectScalarRemainderRowsProviderFromTheorems
+  scalarFinitePartSourceNormalFormData :=
+    normalizedSourceObjectScalarFinitePartSourceNormalFormDataFromTheorems
   scalarCommonTestBridgeRows :=
     normalizedSourceObjectScalarCommonTestBridgeRowsProviderFromTheorems
 
@@ -771,26 +951,38 @@ def normalizedSourceObjectScalarRowsDataFromTheorems :
       normalizedSourceObjectCoreTheoremBaseDataFromTheorems :=
   normalizedSourceObjectScalarRowsConstructorInputFromTheorems.toScalarRowsData
 
-def normalizedSourceObjectRankLedgerKilledFromTheorems : Prop := by
-  sorry
+def normalizedSourceObjectRankLedgerKilledFromTheorems : Prop :=
+  Source.S2B1NormalizedCC20RemainderRowsOutsideNoBulk.sourceRankPoleLedgerIdentification
+    (Source.SourceObjectTheoremBasePackage.s2b1RemainderRowsOutsideNoBulk
+      normalizedSourceObjectCoreTheoremBaseDataFromTheorems.base)
 
-def normalizedSourceObjectPoleLedgerKilledFromTheorems : Prop := by
-  sorry
+def normalizedSourceObjectPoleLedgerKilledFromTheorems : Prop :=
+  Source.S2B1NormalizedCC20RemainderRowsOutsideNoBulk.sourceRankPoleLedgerIdentification
+    (Source.SourceObjectTheoremBasePackage.s2b1RemainderRowsOutsideNoBulk
+      normalizedSourceObjectCoreTheoremBaseDataFromTheorems.base)
 
-def normalizedSourceObjectCdefExhaustsFromTheorems : Prop := by
-  sorry
+def normalizedSourceObjectCdefExhaustsFromTheorems : Prop :=
+  Source.S2B1NormalizedCC20RemainderRowsOutsideNoBulk.sourceEndpointStripRemainderCdefDomination
+    (Source.SourceObjectTheoremBasePackage.s2b1RemainderRowsOutsideNoBulk
+      normalizedSourceObjectCoreTheoremBaseDataFromTheorems.base)
 
 theorem normalizedSourceObjectRankLedgerKilledHoldsFromTheorems :
-    normalizedSourceObjectRankLedgerKilledFromTheorems := by
-  sorry
+    normalizedSourceObjectRankLedgerKilledFromTheorems :=
+  Source.S2B1NormalizedCC20RemainderRowsOutsideNoBulk.sourceRankPoleLedgerIdentificationHolds
+    (Source.SourceObjectTheoremBasePackage.s2b1RemainderRowsOutsideNoBulk
+      normalizedSourceObjectCoreTheoremBaseDataFromTheorems.base)
 
 theorem normalizedSourceObjectPoleLedgerKilledHoldsFromTheorems :
-    normalizedSourceObjectPoleLedgerKilledFromTheorems := by
-  sorry
+    normalizedSourceObjectPoleLedgerKilledFromTheorems :=
+  Source.S2B1NormalizedCC20RemainderRowsOutsideNoBulk.sourceRankPoleLedgerIdentificationHolds
+    (Source.SourceObjectTheoremBasePackage.s2b1RemainderRowsOutsideNoBulk
+      normalizedSourceObjectCoreTheoremBaseDataFromTheorems.base)
 
 theorem normalizedSourceObjectCdefExhaustsHoldsFromTheorems :
-    normalizedSourceObjectCdefExhaustsFromTheorems := by
-  sorry
+    normalizedSourceObjectCdefExhaustsFromTheorems :=
+  Source.S2B1NormalizedCC20RemainderRowsOutsideNoBulk.sourceEndpointStripRemainderCdefDominationHolds
+    (Source.SourceObjectTheoremBasePackage.s2b1RemainderRowsOutsideNoBulk
+      normalizedSourceObjectCoreTheoremBaseDataFromTheorems.base)
 
 def normalizedSourceObjectLedgerRowsConstructorInputFromTheorems :
     Source.NormalizedSourceObjectLedgerRowsConstructorInput where
@@ -1327,81 +1519,27 @@ def normalizedS2B1FixedTupleAnalyticExclusionFromTheorems
 
 def normalizedRemaindersFromTheorems :
     Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
-      normalizedSeedFromTheorems where
-  sourceTraceTest :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceTraceTest
-  sourceCC20TraceTestCompatibility :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceCC20TraceTestCompatibility
-  sourceOperatorIdentity :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceOperatorIdentity
-  sourceHilbertSchmidtGate :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceHilbertSchmidtGate
-  sourcePerMoveCyclicityLedger :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourcePerMoveCyclicityLedger
-  sourceNoDefectTraceReadOff :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceNoDefectTraceReadOff
-  sourceRemainderOrientationWInftyEqLMinusD :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceRemainderOrientationWInftyEqLMinusD
-  sourceRemainderOrientationWInftyEqSMinusE :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceRemainderOrientationWInftyEqSMinusE
-  sourceRemainderObject :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceRemainderObject
-  sourceRemainderAfterQ :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceRemainderAfterQ
-  cc20PostQRemainderFixedSSoninTransport :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.cc20PostQRemainderFixedSSoninTransport
-  sourceProjectionDefectNormalForm :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceProjectionDefectNormalForm
-  sourceRankPoleLedgerIdentification :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceRankPoleLedgerIdentification
-  sourceEndpointStripRemainderCdefDomination :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceEndpointStripRemainderCdefDomination
-  noBulkScaleTermOutsideLedger :=
-    (normalizedS2B1NoBulkRowsFromTheorems.witness 2
-      (by norm_num)
-      normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceTraceTest
-      normalizedCommonFromTheorems.commonTest.sourceTest).noBulkScaleTermOutsideLedger
-  noHiddenFinitePartSubtraction :=
-    (normalizedS2B1NoBulkRowsFromTheorems.witness 2
-      (by norm_num)
-      normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceTraceTest
-      normalizedCommonFromTheorems.commonTest.sourceTest).noHiddenFinitePartSubtraction
-  noBulkScaleTermOutsideLedgerHolds :=
-    (normalizedS2B1NoBulkRowsFromTheorems.witness 2
-      (by norm_num)
-      normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceTraceTest
-      normalizedCommonFromTheorems.commonTest.sourceTest).noBulkScaleTermOutsideLedgerHolds
-  noHiddenFinitePartSubtractionHolds :=
-    (normalizedS2B1NoBulkRowsFromTheorems.witness 2
-      (by norm_num)
-      normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceTraceTest
-      normalizedCommonFromTheorems.commonTest.sourceTest).noHiddenFinitePartSubtractionHolds
-  noBulkScaleTermOutsideLedgerAt :=
-    fun lambda archimedeanTest weilTest =>
-      ∀ hlambda : 1 < lambda,
-        (normalizedS2B1NoBulkRowsFromTheorems.witness lambda
-          hlambda archimedeanTest weilTest).noBulkScaleTermOutsideLedger
-  noHiddenFinitePartSubtractionAt :=
-    fun lambda archimedeanTest weilTest =>
-      ∀ hlambda : 1 < lambda,
-        (normalizedS2B1NoBulkRowsFromTheorems.witness lambda
-          hlambda archimedeanTest weilTest).noHiddenFinitePartSubtraction
-  noBulkScaleTermOutsideLedgerAtHolds :=
-    by
-      intro lambda _hlambda archimedeanTest weilTest hcurrent
-      exact
-        (normalizedS2B1NoBulkRowsFromTheorems.witness
-          lambda hcurrent archimedeanTest weilTest).noBulkScaleTermOutsideLedgerHolds
-  noHiddenFinitePartSubtractionAtHolds :=
-    by
-      intro lambda _hlambda archimedeanTest weilTest hcurrent
-      exact
-        (normalizedS2B1NoBulkRowsFromTheorems.witness
-          lambda hcurrent archimedeanTest weilTest).noHiddenFinitePartSubtractionHolds
-  noHiddenPositiveDefectOutsideCdef :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.noHiddenPositiveDefectOutsideCdef
-  sourceBoundedComparisonTraceIdealTransport :=
-    normalizedCC20RemainderRowsOutsideS2B1FromTheorems.sourceBoundedComparisonTraceIdealTransport
+      normalizedSeedFromTheorems :=
+  normalizedBaseFromTheorems.s2b1RemainderRowsOutsideNoBulk.toRemainderData
+    normalizedBaseFromTheorems.s2b1NormalizedSeedTraceScaleNoBulkRows
+    2 (by norm_num)
+    normalizedBaseFromTheorems.s2b1RemainderRowsOutsideNoBulk.sourceTraceTest
+    normalizedCommonFromTheorems.commonTest.sourceTest
+
+def normalizedActualScalarIdentificationFromTheoremBasePackage
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    (archimedeanTest :
+      (Source.CC20Concrete.TraceScale.normalizedSeedTraceObjectPackage
+        normalizedSeedFromTheorems normalizedRemaindersFromTheorems).archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    Source.NormalizedSeedQWLambdaScalarIdentification
+      normalizedSeedFromTheorems
+      normalizedBaseFromTheorems.ccm25Model.toWeilFormSymbols
+      normalizedRemaindersFromTheorems
+      lambda archimedeanTest weilTest :=
+  Source.normalizedSeedQWLambdaScalarIdentificationOfTheoremBasePackage
+    normalizedBaseFromTheorems lambda hlambda normalizedRemaindersFromTheorems
+    archimedeanTest weilTest
 
 structure NormalizedSourceObjectCCM24Input where
   ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage
@@ -1636,11 +1774,8 @@ structure NormalizedFixedSTestTripleVanishingInput where
     TripleVanishingSymbols.TripleVanishingStatement tripleVanishingSymbols
 
 def normalizedFixedSTestTripleVanishingInputFromTheorems :
-    NormalizedFixedSTestTripleVanishingInput where
-  tripleVanishingSymbols :=
-    fixedFrontEndFromTheorems.tripleVanishingSymbols
-  tripleVanishingSourceHolds :=
-    fixedFrontEndFromTheorems.tripleVanishingSourceHolds
+    NormalizedFixedSTestTripleVanishingInput := by
+  sorry
 
 structure NormalizedFixedSTestSourceInput where
   admissibleWindow : Prop
@@ -1706,8 +1841,8 @@ structure NormalizedTraceLambdaInput where
 
 def normalizedTraceLambdaInputFromTheorems :
     NormalizedTraceLambdaInput where
-  lambda := traceFrontEndFromTheorems.lambda
-  oneLtLambda := traceFrontEndFromTheorems.oneLtLambda
+  lambda := 2
+  oneLtLambda := by norm_num
 
 def normalizedTraceCCM25ArithmeticPackageFromTheorems :
     Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
@@ -2013,7 +2148,33 @@ def normalizedTraceFixedTupleSupportSquareQWLambdaRowFromTheorems :
       (SourceBackedFixedSTest.ofExpandedSourcePackage
         normalizedSourceObjectPackageFromTheorems
         normalizedFixedFrontEndFromTheorems).weilTest :=
-  normalizedS2B1FixedTupleSupportSquareQWLambdaRowFromTheorems
+  (Source.normalizedSeedSupportSquareQWLambdaReadOffOfQWLambdaScalarIdentification
+    normalizedSeedFromTheorems
+    normalizedBaseFromTheorems.ccm25Model.toWeilFormSymbols
+    normalizedRemaindersFromTheorems
+    normalizedTraceLambdaInputFromTheorems.lambda
+    normalizedTraceSourceReadOffDataFromParts.archimedeanTest
+    (SourceBackedFixedSTest.ofExpandedSourcePackage
+      normalizedSourceObjectPackageFromTheorems
+      normalizedFixedFrontEndFromTheorems).weilTest
+    (normalizedActualScalarIdentificationFromTheoremBasePackage
+      normalizedTraceLambdaInputFromTheorems.lambda
+      normalizedTraceLambdaInputFromTheorems.oneLtLambda
+      normalizedTraceSourceReadOffDataFromParts.archimedeanTest
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems
+        normalizedFixedFrontEndFromTheorems).weilTest)).toRow
+
+def normalizedTraceFixedTupleRankZeroModeConstructorInputFromTheorems :
+    Source.S2B1FixedTupleRankZeroModeConstructorInput
+      normalizedSourceObjectPackageFromTheorems.cc20Trace.archimedeanSymbols
+      normalizedSourceObjectPackageFromTheorems.ccm25.weilSymbols
+      normalizedTraceLambdaInputFromTheorems.lambda
+      normalizedTraceSourceReadOffDataFromParts.archimedeanTest
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems
+        normalizedFixedFrontEndFromTheorems).weilTest :=
+  normalizedBaseFromTheorems.s2b1NormalizedSeedRankZeroModeConstructorInput
     normalizedTraceLambdaInputFromTheorems.lambda
     normalizedTraceLambdaInputFromTheorems.oneLtLambda
     normalizedTraceSourceReadOffDataFromParts.archimedeanTest
@@ -2030,7 +2191,18 @@ def normalizedTraceFixedTupleRankZeroModeRowFromTheorems :
       (SourceBackedFixedSTest.ofExpandedSourcePackage
         normalizedSourceObjectPackageFromTheorems
         normalizedFixedFrontEndFromTheorems).weilTest :=
-  normalizedBaseFromTheorems.s2b1NormalizedSeedRankZeroModeRow
+  normalizedTraceFixedTupleRankZeroModeConstructorInputFromTheorems.toRow
+
+def normalizedTraceFixedTupleNoStripRankPoleConstructorInputFromTheorems :
+    Source.S2B1FixedTupleNoStripRankPoleConstructorInput
+      normalizedSourceObjectPackageFromTheorems.cc20Trace.archimedeanSymbols
+      normalizedSourceObjectPackageFromTheorems.ccm25.weilSymbols
+      normalizedTraceLambdaInputFromTheorems.lambda
+      normalizedTraceSourceReadOffDataFromParts.archimedeanTest
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems
+        normalizedFixedFrontEndFromTheorems).weilTest :=
+  normalizedBaseFromTheorems.s2b1NormalizedSeedNoStripRankPoleConstructorInput
     normalizedTraceLambdaInputFromTheorems.lambda
     normalizedTraceLambdaInputFromTheorems.oneLtLambda
     normalizedTraceSourceReadOffDataFromParts.archimedeanTest
@@ -2047,7 +2219,18 @@ def normalizedTraceFixedTupleNoStripRankPoleRowFromTheorems :
       (SourceBackedFixedSTest.ofExpandedSourcePackage
         normalizedSourceObjectPackageFromTheorems
         normalizedFixedFrontEndFromTheorems).weilTest :=
-  normalizedBaseFromTheorems.s2b1NormalizedSeedNoStripRankPoleRow
+  normalizedTraceFixedTupleNoStripRankPoleConstructorInputFromTheorems.toRow
+
+def normalizedTraceFixedTupleEndpointStripCdefConstructorInputFromTheorems :
+    Source.S2B1FixedTupleEndpointStripCdefConstructorInput
+      normalizedSourceObjectPackageFromTheorems.cc20Trace.archimedeanSymbols
+      normalizedSourceObjectPackageFromTheorems.ccm25.weilSymbols
+      normalizedTraceLambdaInputFromTheorems.lambda
+      normalizedTraceSourceReadOffDataFromParts.archimedeanTest
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems
+        normalizedFixedFrontEndFromTheorems).weilTest :=
+  normalizedBaseFromTheorems.s2b1NormalizedSeedEndpointStripCdefConstructorInput
     normalizedTraceLambdaInputFromTheorems.lambda
     normalizedTraceLambdaInputFromTheorems.oneLtLambda
     normalizedTraceSourceReadOffDataFromParts.archimedeanTest
@@ -2064,7 +2247,18 @@ def normalizedTraceFixedTupleEndpointStripCdefRowFromTheorems :
       (SourceBackedFixedSTest.ofExpandedSourcePackage
         normalizedSourceObjectPackageFromTheorems
         normalizedFixedFrontEndFromTheorems).weilTest :=
-  normalizedBaseFromTheorems.s2b1NormalizedSeedEndpointStripCdefRow
+  normalizedTraceFixedTupleEndpointStripCdefConstructorInputFromTheorems.toRow
+
+def normalizedTraceFixedTupleNoExtraBulkConstructorInputFromTheorems :
+    Source.S2B1FixedTupleNoExtraBulkConstructorInput
+      normalizedSourceObjectPackageFromTheorems.cc20Trace.archimedeanSymbols
+      normalizedSourceObjectPackageFromTheorems.ccm25.weilSymbols
+      normalizedTraceLambdaInputFromTheorems.lambda
+      normalizedTraceSourceReadOffDataFromParts.archimedeanTest
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems
+        normalizedFixedFrontEndFromTheorems).weilTest :=
+  normalizedBaseFromTheorems.s2b1NormalizedSeedNoExtraBulkConstructorInput
     normalizedTraceLambdaInputFromTheorems.lambda
     normalizedTraceLambdaInputFromTheorems.oneLtLambda
     normalizedTraceSourceReadOffDataFromParts.archimedeanTest
@@ -2081,7 +2275,18 @@ def normalizedTraceFixedTupleNoExtraBulkRowFromTheorems :
       (SourceBackedFixedSTest.ofExpandedSourcePackage
         normalizedSourceObjectPackageFromTheorems
         normalizedFixedFrontEndFromTheorems).weilTest :=
-  normalizedBaseFromTheorems.s2b1NormalizedSeedNoExtraBulkRow
+  normalizedTraceFixedTupleNoExtraBulkConstructorInputFromTheorems.toRow
+
+def normalizedTraceFixedTupleNoHiddenFinitePartSubtractionConstructorInputFromTheorems :
+    Source.S2B1FixedTupleNoHiddenFinitePartSubtractionConstructorInput
+      normalizedSourceObjectPackageFromTheorems.cc20Trace.archimedeanSymbols
+      normalizedSourceObjectPackageFromTheorems.ccm25.weilSymbols
+      normalizedTraceLambdaInputFromTheorems.lambda
+      normalizedTraceSourceReadOffDataFromParts.archimedeanTest
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems
+        normalizedFixedFrontEndFromTheorems).weilTest :=
+  normalizedBaseFromTheorems.s2b1NormalizedSeedNoHiddenFinitePartSubtractionConstructorInput
     normalizedTraceLambdaInputFromTheorems.lambda
     normalizedTraceLambdaInputFromTheorems.oneLtLambda
     normalizedTraceSourceReadOffDataFromParts.archimedeanTest
@@ -2098,16 +2303,10 @@ def normalizedTraceFixedTupleNoHiddenFinitePartSubtractionRowFromTheorems :
       (SourceBackedFixedSTest.ofExpandedSourcePackage
         normalizedSourceObjectPackageFromTheorems
         normalizedFixedFrontEndFromTheorems).weilTest :=
-  normalizedBaseFromTheorems.s2b1NormalizedSeedNoHiddenFinitePartSubtractionRow
-    normalizedTraceLambdaInputFromTheorems.lambda
-    normalizedTraceLambdaInputFromTheorems.oneLtLambda
-    normalizedTraceSourceReadOffDataFromParts.archimedeanTest
-    (SourceBackedFixedSTest.ofExpandedSourcePackage
-      normalizedSourceObjectPackageFromTheorems
-      normalizedFixedFrontEndFromTheorems).weilTest
+  normalizedTraceFixedTupleNoHiddenFinitePartSubtractionConstructorInputFromTheorems.toRow
 
-def normalizedTraceFixedTupleAnalyticExclusionFromTheorems :
-    Source.S2B1TraceScaleFixedTupleAnalyticExclusionPackage
+def normalizedTraceFixedTupleRemainingRowsPackageFromTheorems :
+    Source.S2B1FixedTupleRemainingRowsPackage
       normalizedSourceObjectPackageFromTheorems.cc20Trace.archimedeanSymbols
       normalizedSourceObjectPackageFromTheorems.ccm25.weilSymbols
       normalizedTraceLambdaInputFromTheorems.lambda
@@ -2115,9 +2314,6 @@ def normalizedTraceFixedTupleAnalyticExclusionFromTheorems :
       (SourceBackedFixedSTest.ofExpandedSourcePackage
         normalizedSourceObjectPackageFromTheorems
         normalizedFixedFrontEndFromTheorems).weilTest where
-  oneLtLambda := normalizedTraceLambdaInputFromTheorems.oneLtLambda
-  supportSquareQWLambdaRow :=
-    normalizedTraceFixedTupleSupportSquareQWLambdaRowFromTheorems
   rankZeroModeRow :=
     normalizedTraceFixedTupleRankZeroModeRowFromTheorems
   noStripRankPoleRow :=
@@ -2128,6 +2324,20 @@ def normalizedTraceFixedTupleAnalyticExclusionFromTheorems :
     normalizedTraceFixedTupleNoExtraBulkRowFromTheorems
   noHiddenFinitePartSubtractionRow :=
     normalizedTraceFixedTupleNoHiddenFinitePartSubtractionRowFromTheorems
+
+def normalizedTraceFixedTupleAnalyticExclusionFromTheorems :
+    Source.S2B1TraceScaleFixedTupleAnalyticExclusionPackage
+      normalizedSourceObjectPackageFromTheorems.cc20Trace.archimedeanSymbols
+      normalizedSourceObjectPackageFromTheorems.ccm25.weilSymbols
+      normalizedTraceLambdaInputFromTheorems.lambda
+      normalizedTraceSourceReadOffDataFromParts.archimedeanTest
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems
+        normalizedFixedFrontEndFromTheorems).weilTest :=
+  Source.S2B1FixedTupleRemainingRowsPackage.toAnalyticExclusionPackage
+    normalizedTraceFixedTupleRemainingRowsPackageFromTheorems
+    normalizedTraceLambdaInputFromTheorems.oneLtLambda
+    normalizedTraceFixedTupleSupportSquareQWLambdaRowFromTheorems
 
 def normalizedTraceNoBulkSourceWitnessFromParts :
     Source.CC20CCMTraceScaleNoBulkWitness
@@ -2165,21 +2375,21 @@ def normalizedTracePositiveTraceDecompositionInputFromTheorems :
           (SourceBackedFixedSTest.ofExpandedSourcePackage
             normalizedSourceObjectPackageFromTheorems
             normalizedFixedFrontEndFromTheorems).weilTest ∧
-      normalizedTraceFixedTupleRankZeroModeRowFromTheorems.rankZeroModeChannelClassified ∧
-      normalizedTraceFixedTupleNoStripRankPoleRowFromTheorems.noStripPostQRemainderRankPoleClassified ∧
-      normalizedTraceFixedTupleEndpointStripCdefRowFromTheorems.endpointStripBulkClassifiedIntoCdef ∧
-      normalizedTraceFixedTupleEndpointStripCdefRowFromTheorems.endpointStripBoundaryTermsClassified ∧
-      normalizedTraceFixedTupleEndpointStripCdefRowFromTheorems.sourceSeriesTailClassifiedIntoCdef ∧
-      normalizedTraceFixedTupleEndpointStripCdefRowFromTheorems.cdefExhaustionOwnsEndpointStrip
+      normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.rankZeroModeRow.rankZeroModeChannelClassified ∧
+      normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.noStripRankPoleRow.noStripPostQRemainderRankPoleClassified ∧
+      normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.endpointStripCdefRow.endpointStripBulkClassifiedIntoCdef ∧
+      normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.endpointStripCdefRow.endpointStripBoundaryTermsClassified ∧
+      normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.endpointStripCdefRow.sourceSeriesTailClassifiedIntoCdef ∧
+      normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.endpointStripCdefRow.cdefExhaustionOwnsEndpointStrip
   positiveTraceDecomposesIntoQWLambdaRankPoleCdefHolds :=
     ⟨normalizedTraceOrdinarySupportSquareInputFromTheorems.ordinary.ordinaryTraceMatchesSupportSquareHolds,
       normalizedTraceFixedTupleSupportSquareQWLambdaRowFromTheorems.supportSquareMainTermEqualsQWLambda,
-      normalizedTraceFixedTupleRankZeroModeRowFromTheorems.rankZeroModeChannelClassifiedHolds,
-      normalizedTraceFixedTupleNoStripRankPoleRowFromTheorems.noStripPostQRemainderRankPoleClassifiedHolds,
-      normalizedTraceFixedTupleEndpointStripCdefRowFromTheorems.endpointStripBulkClassifiedIntoCdefHolds,
-      normalizedTraceFixedTupleEndpointStripCdefRowFromTheorems.endpointStripBoundaryTermsClassifiedHolds,
-      normalizedTraceFixedTupleEndpointStripCdefRowFromTheorems.sourceSeriesTailClassifiedIntoCdefHolds,
-      normalizedTraceFixedTupleEndpointStripCdefRowFromTheorems.cdefExhaustionOwnsEndpointStripHolds⟩
+      normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.rankZeroModeRow.rankZeroModeChannelClassifiedHolds,
+      normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.noStripRankPoleRow.noStripPostQRemainderRankPoleClassifiedHolds,
+      normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.endpointStripCdefRow.endpointStripBulkClassifiedIntoCdefHolds,
+      normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.endpointStripCdefRow.endpointStripBoundaryTermsClassifiedHolds,
+      normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.endpointStripCdefRow.sourceSeriesTailClassifiedIntoCdefHolds,
+      normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.endpointStripCdefRow.cdefExhaustionOwnsEndpointStripHolds⟩
 
 structure NormalizedTraceNoExtraBulkTermInput where
   noBulkScaleTermOutsideLedger : Prop
@@ -2188,9 +2398,9 @@ structure NormalizedTraceNoExtraBulkTermInput where
 def normalizedTraceNoExtraBulkTermInputFromTheorems :
     NormalizedTraceNoExtraBulkTermInput where
   noBulkScaleTermOutsideLedger :=
-    normalizedTraceFixedTupleNoExtraBulkRowFromTheorems.noExtraBulkScaleTermExcluded
+    normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.noExtraBulkRow.noExtraBulkScaleTermExcluded
   noBulkScaleTermOutsideLedgerHolds :=
-    normalizedTraceFixedTupleNoExtraBulkRowFromTheorems.noExtraBulkScaleTermExcludedHolds
+    normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.noExtraBulkRow.noExtraBulkScaleTermExcludedHolds
 
 structure NormalizedTraceNoHiddenFinitePartInput where
   noHiddenFinitePartSubtraction : Prop
@@ -2199,9 +2409,9 @@ structure NormalizedTraceNoHiddenFinitePartInput where
 def normalizedTraceNoHiddenFinitePartInputFromTheorems :
     NormalizedTraceNoHiddenFinitePartInput where
   noHiddenFinitePartSubtraction :=
-    normalizedTraceFixedTupleNoHiddenFinitePartSubtractionRowFromTheorems.noHiddenFinitePartSubtractionExcluded
+    normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.noHiddenFinitePartSubtractionRow.noHiddenFinitePartSubtractionExcluded
   noHiddenFinitePartSubtractionHolds :=
-    normalizedTraceFixedTupleNoHiddenFinitePartSubtractionRowFromTheorems.noHiddenFinitePartSubtractionExcludedHolds
+    normalizedTraceFixedTupleRemainingRowsPackageFromTheorems.noHiddenFinitePartSubtractionRow.noHiddenFinitePartSubtractionExcludedHolds
 
 structure NormalizedTraceNoExtraBulkScaleTermInput where
   noExtraBulkScaleTerm : Prop
@@ -2279,13 +2489,24 @@ def normalizedTraceDataFromTheorems :
     traceScaleNoMissingBulk :=
       normalizedTraceScaleNoMissingBulkDataFromTheorems }
 
+def normalizedFrontEndPackageFromTheorems :
+    TraceFrontEndData.SourceFixedTraceFrontEndPackage
+      normalizedSourceObjectPackageFromTheorems :=
+  TraceFrontEndData.source_fixed_trace_front_end_package_of_trace_data
+    normalizedSourceObjectPackageFromTheorems
+    normalizedFixedFrontEndFromTheorems
+    normalizedTraceDataFromTheorems
+
+theorem normalizedFrontEndPackageSourceTraceReadOffData_eq :
+    normalizedFrontEndPackageFromTheorems.sourceTraceReadOffData =
+      normalizedTraceSourceReadOffDataFromParts :=
+  rfl
+
 abbrev normalizedTraceFrontEndFromTheorems :
     ExpandedSourceTraceReadOffFrontEnd
       normalizedSourceObjectPackageFromTheorems
       normalizedFixedFrontEndFromTheorems :=
-  normalizedTraceDataFromTheorems.toExpandedSourceTraceReadOffFrontEnd
-    normalizedSourceObjectPackageFromTheorems
-    normalizedFixedFrontEndFromTheorems
+  normalizedFrontEndPackageFromTheorems.traceFront
 
 noncomputable abbrev normalizedScalarSeedFromTheorems :
     Source.CC20Concrete.TraceScale.NormalizedScalarTraceScaleSymbols :=
@@ -2306,6 +2527,23 @@ noncomputable def normalizedScalarCC20RemainderRowsInputFromTheorems :
   rows :=
     normalizedSourceObjectTheoremBaseInputFromTheorems.scalarCC20RemainderRows
       normalizedScalarSeedFromTheorems
+
+noncomputable def normalizedScalarFinitePartSourceNormalFormDataFromTheorems
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    (archimedeanTest :
+      (Source.CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+        (Source.CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          normalizedScalarSeedFromTheorems)).archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    Source.S2B1FinitePartSourceNormalFormData
+      (Source.CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+        (Source.CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
+          normalizedScalarSeedFromTheorems)).archimedeanSymbols
+      normalizedBaseFromTheorems.ccm25Model.toWeilFormSymbols
+      lambda archimedeanTest weilTest :=
+  Source.NormalizedSourceObjectTheoremBaseInput.scalarFinitePartSourceNormalFormDataAt
+    normalizedSourceObjectTheoremBaseInputFromTheorems
+    normalizedScalarSeedFromTheorems lambda hlambda archimedeanTest weilTest
 
 structure NormalizedScalarTraceLegalityRemainderInput where
   sourceTraceTest :
@@ -2545,11 +2783,29 @@ noncomputable def normalizedScalarNoBulkStaticRowsInputFromTheorems :
   noBulkScaleTermOutsideLedger :=
     normalizedScalarCC20RemainderRowsInputFromTheorems.rows.noBulkScaleTermOutsideLedger
   noHiddenFinitePartSubtraction :=
-    normalizedScalarCC20RemainderRowsInputFromTheorems.rows.noHiddenFinitePartSubtraction
+    ∃ hlambda : 1 < (2 : ℝ),
+      Source.S2B1FinitePartScalarInterface.finitePartNormalizationFixedStatement
+        ((normalizedScalarFinitePartSourceNormalFormDataFromTheorems
+          2 hlambda
+          normalizedScalarCC20RemainderRowsInputFromTheorems.rows.sourceTraceTest
+          normalizedCommonFromTheorems.commonTest.sourceTest).sourceScalars.toScalarInterface) ∧
+      Source.S2B1FinitePartScalarInterface.noSubtractedFinitePartTermStatement
+        ((normalizedScalarFinitePartSourceNormalFormDataFromTheorems
+          2 hlambda
+          normalizedScalarCC20RemainderRowsInputFromTheorems.rows.sourceTraceTest
+          normalizedCommonFromTheorems.commonTest.sourceTest).sourceScalars.toScalarInterface)
   noBulkScaleTermOutsideLedgerHolds :=
     normalizedScalarCC20RemainderRowsInputFromTheorems.rows.noBulkScaleTermOutsideLedgerHolds
   noHiddenFinitePartSubtractionHolds :=
-    normalizedScalarCC20RemainderRowsInputFromTheorems.rows.noHiddenFinitePartSubtractionHolds
+    ⟨by norm_num,
+      (normalizedScalarFinitePartSourceNormalFormDataFromTheorems
+        2 (by norm_num)
+        normalizedScalarCC20RemainderRowsInputFromTheorems.rows.sourceTraceTest
+        normalizedCommonFromTheorems.commonTest.sourceTest).finitePartNormalizationFixedHolds,
+      (normalizedScalarFinitePartSourceNormalFormDataFromTheorems
+        2 (by norm_num)
+        normalizedScalarCC20RemainderRowsInputFromTheorems.rows.sourceTraceTest
+        normalizedCommonFromTheorems.commonTest.sourceTest).noSubtractedFinitePartTermHolds⟩
 
 structure NormalizedScalarNoBulkSameCutoffRowsInput where
   noBulkScaleTermOutsideLedgerAt :
@@ -2586,11 +2842,25 @@ noncomputable def normalizedScalarNoBulkSameCutoffRowsInputFromTheorems :
   noBulkScaleTermOutsideLedgerAt :=
     normalizedScalarCC20RemainderRowsInputFromTheorems.rows.noBulkScaleTermOutsideLedgerAt
   noHiddenFinitePartSubtractionAt :=
-    normalizedScalarCC20RemainderRowsInputFromTheorems.rows.noHiddenFinitePartSubtractionAt
+    fun lambda archimedeanTest weilTest =>
+      ∃ hlambda : 1 < lambda,
+        Source.S2B1FinitePartScalarInterface.finitePartNormalizationFixedStatement
+          ((normalizedScalarFinitePartSourceNormalFormDataFromTheorems
+            lambda hlambda archimedeanTest weilTest).sourceScalars.toScalarInterface) ∧
+        Source.S2B1FinitePartScalarInterface.noSubtractedFinitePartTermStatement
+          ((normalizedScalarFinitePartSourceNormalFormDataFromTheorems
+            lambda hlambda archimedeanTest weilTest).sourceScalars.toScalarInterface)
   noBulkScaleTermOutsideLedgerAtHolds :=
     normalizedScalarCC20RemainderRowsInputFromTheorems.rows.noBulkScaleTermOutsideLedgerAtHolds
   noHiddenFinitePartSubtractionAtHolds :=
-    normalizedScalarCC20RemainderRowsInputFromTheorems.rows.noHiddenFinitePartSubtractionAtHolds
+    by
+      intro lambda hlambda archimedeanTest weilTest
+      exact
+        ⟨hlambda,
+          (normalizedScalarFinitePartSourceNormalFormDataFromTheorems
+            lambda hlambda archimedeanTest weilTest).finitePartNormalizationFixedHolds,
+          (normalizedScalarFinitePartSourceNormalFormDataFromTheorems
+            lambda hlambda archimedeanTest weilTest).noSubtractedFinitePartTermHolds⟩
 
 noncomputable def normalizedScalarNoBulkRemainderInputFromTheorems :
     NormalizedScalarNoBulkRemainderInput where
@@ -2934,9 +3204,9 @@ structure NormalizedScalarFixedSTestTripleVanishingInput where
 def normalizedScalarFixedSTestTripleVanishingInputFromTheorems :
     NormalizedScalarFixedSTestTripleVanishingInput where
   tripleVanishingSymbols :=
-    normalizedFixedFrontEndFromTheorems.tripleVanishingSymbols
+    normalizedFixedSTestTripleVanishingInputFromTheorems.tripleVanishingSymbols
   tripleVanishingSourceHolds :=
-    normalizedFixedFrontEndFromTheorems.tripleVanishingSourceHolds
+    normalizedFixedSTestTripleVanishingInputFromTheorems.tripleVanishingSourceHolds
 
 structure NormalizedScalarFixedSTestSourceInput where
   admissibleWindow : Prop
@@ -3262,10 +3532,6 @@ noncomputable def normalizedNoExtraBulkInputDataFromTheorems :
       normalizedScalarNoExtraBulkTransportDataFromTheorems
   scalarContractMatchesTransport := rfl
 
-structure NormalizedRouteLedgerClearingInputData where
-  ledgers : RouteLedgers
-  cleared : LedgersCleared ledgers
-
 structure NormalizedRouteLedgerRowsInput where
   rows : Source.NormalizedRouteLedgerRows
 
@@ -3306,28 +3572,36 @@ def normalizedRouteLedgersClearedInputFromTheorems :
   cdefExhausts := normalizedRouteLedgerSourceInputFromTheorems.cdefExhaustsHolds
 
 def normalizedRouteLedgerClearingInputDataFromTheorems :
-    NormalizedRouteLedgerClearingInputData where
-  ledgers := normalizedRouteLedgerInputFromTheorems
-  cleared := normalizedRouteLedgersClearedInputFromTheorems
+    LedgerSignDefectPackage
+      (RouteInputs.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems
+        normalizedFixedFrontEndFromTheorems)
+      normalizedTraceFrontEndFromTheorems.lambda :=
+  ledger_sign_defect_package_of_ledgers_cleared
+    normalizedRouteLedgerInputFromTheorems
+    normalizedTraceFrontEndFromTheorems.oneLtLambda
+    normalizedRouteLedgersClearedInputFromTheorems
 
 def normalizedRouteLedgersFromTheorems : RouteLedgers :=
   normalizedRouteLedgerClearingInputDataFromTheorems.ledgers
 
 theorem normalizedRankLedgerKilledFromTheorems :
     normalizedRouteLedgersFromTheorems.rankKilled :=
-  normalizedRouteLedgerClearingInputDataFromTheorems.cleared.rankKilled
+  normalizedRouteLedgerClearingInputDataFromTheorems.ledgersCleared.rankKilled
 
 theorem normalizedPoleLedgerKilledFromTheorems :
     normalizedRouteLedgersFromTheorems.poleKilled :=
-  normalizedRouteLedgerClearingInputDataFromTheorems.cleared.poleKilled
+  normalizedRouteLedgerClearingInputDataFromTheorems.ledgersCleared.poleKilled
 
 theorem normalizedCdefExhaustsFromTheorems :
     normalizedRouteLedgersFromTheorems.cdefExhausts :=
-  normalizedRouteLedgerClearingInputDataFromTheorems.cleared.cdefExhausts
+  normalizedRouteLedgerClearingInputDataFromTheorems.ledgersCleared.cdefExhausts
 
 def normalizedLedgersClearedFromTheorems :
     LedgersCleared normalizedRouteLedgersFromTheorems :=
-  normalizedRouteLedgerClearingInputDataFromTheorems.cleared
+  normalizedRouteLedgerClearingInputDataFromTheorems.ledgersCleared
 
 def normalizedSourceBackedLedgersFromTheorems :
     SourceBackedLedgers
@@ -3337,9 +3611,7 @@ def normalizedSourceBackedLedgersFromTheorems :
         normalizedSourceObjectPackageFromTheorems
         normalizedFixedFrontEndFromTheorems)
       normalizedRouteLedgersFromTheorems :=
-  source_backed_ledgers_of_ledgers_cleared
-    normalizedTraceFrontEndFromTheorems.oneLtLambda
-    normalizedLedgersClearedFromTheorems
+  normalizedRouteLedgerClearingInputDataFromTheorems.sourceBackedLedgers
 
 theorem normalizedSignDefectClassificationFromTheorems :
     SourceSignDefectClassification
@@ -3350,9 +3622,7 @@ theorem normalizedSignDefectClassificationFromTheorems :
         normalizedFixedFrontEndFromTheorems)
       normalizedTraceFrontEndFromTheorems.lambda
       normalizedRouteLedgersFromTheorems :=
-  source_sign_defect_classification_of_ledgers_cleared
-    normalizedTraceFrontEndFromTheorems.oneLtLambda
-    normalizedLedgersClearedFromTheorems
+  normalizedRouteLedgerClearingInputDataFromTheorems.signDefectClassification
 
 def normalizedS2B1RankZeroModeChannelClassifiedFromTheorems : Prop :=
   TraceFrontEndData.S2B1RankZeroModeChannelClassified
@@ -3447,18 +3717,6 @@ def normalizedCommonTupleFromTheorems :
       (expanded_source_package_convolution_square_read_off
         normalizedSourceObjectPackageFromTheorems
         normalizedFixedFrontEndFromTheorems)
-
-structure NormalizedRestrictedToFullThresholdInputData where
-  threshold :
-    RestrictedToFullQWLargeLambdaThreshold
-      (RouteInputs.ofExpandedSourcePackage
-        normalizedSourceObjectPackageFromTheorems)
-      (SourceBackedFixedSTest.ofExpandedSourcePackage
-        normalizedSourceObjectPackageFromTheorems
-        normalizedFixedFrontEndFromTheorems)
-      normalizedSourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare
-  currentAboveThreshold :
-    threshold.lambda0 ≤ normalizedTraceFrontEndFromTheorems.lambda
 
 structure NormalizedRestrictedToFullThresholdPackageInput where
   threshold :
@@ -3677,12 +3935,22 @@ noncomputable def normalizedRestrictedToFullThresholdSourceInputFromTheorems :
   currentAboveThreshold :=
     normalizedRestrictedToFullCurrentCutoffInputFromTheorems.currentAboveThreshold
 
-noncomputable def normalizedRestrictedToFullThresholdInputDataFromTheorems :
-    NormalizedRestrictedToFullThresholdInputData where
-  threshold :=
+noncomputable def normalizedRestrictedToFullThresholdBridgePackageFromTheorems :
+    RestrictedToFullThresholdBridgePackage
+      (RouteInputs.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems)
+      (SourceBackedFixedSTest.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems
+        normalizedFixedFrontEndFromTheorems)
+      normalizedTraceFrontEndFromTheorems.lambda
+      normalizedSourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare
+      normalizedRouteLedgersFromTheorems
+      normalizedTraceFrontEndFromTheorems.ccm25ArithmeticPackage :=
+  restricted_to_full_threshold_bridge_package_of_sign_defect
     normalizedRestrictedToFullThresholdSourceInputFromTheorems.threshold
-  currentAboveThreshold :=
     normalizedRestrictedToFullThresholdSourceInputFromTheorems.currentAboveThreshold
+    normalizedCommonTupleFromTheorems
+    normalizedSignDefectClassificationFromTheorems
 
 noncomputable def normalizedRestrictedToFullLargeLambdaThresholdFromTheorems :
     RestrictedToFullQWLargeLambdaThreshold
@@ -3692,12 +3960,14 @@ noncomputable def normalizedRestrictedToFullLargeLambdaThresholdFromTheorems :
         normalizedSourceObjectPackageFromTheorems
         normalizedFixedFrontEndFromTheorems)
       normalizedSourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare :=
-  normalizedRestrictedToFullThresholdInputDataFromTheorems.threshold
+  large_lambda_threshold_of_restricted_to_full_threshold_package
+    normalizedRestrictedToFullThresholdBridgePackageFromTheorems
 
 theorem normalizedRestrictedToFullCurrentAboveThresholdFromTheorems :
     normalizedRestrictedToFullLargeLambdaThresholdFromTheorems.lambda0 ≤
       normalizedTraceFrontEndFromTheorems.lambda :=
-  normalizedRestrictedToFullThresholdInputDataFromTheorems.currentAboveThreshold
+  current_above_threshold_of_restricted_to_full_threshold_package
+    normalizedRestrictedToFullThresholdBridgePackageFromTheorems
 
 noncomputable def normalizedRestrictedToFullCurrentCutoffBindingFromTheorems :
     RestrictedToFullCurrentCutoffBinding
@@ -3710,14 +3980,7 @@ noncomputable def normalizedRestrictedToFullCurrentCutoffBindingFromTheorems :
       normalizedSourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare
       normalizedRouteLedgersFromTheorems
       normalizedTraceFrontEndFromTheorems.ccm25ArithmeticPackage :=
-  normalized_restricted_to_full_current_cutoff_binding_of_asymptotic_rows
-    normalizedBaseFromTheorems normalizedCommonFromTheorems
-    normalizedCCM24FromTheorems normalizedSeedFromTheorems
-    normalizedRemaindersFromTheorems normalizedRhExitFromTheorems
-    normalizedBridgesFromTheorems normalizedFixedDataFromTheorems
-    normalizedTraceDataFromTheorems normalizedRouteLedgersFromTheorems
-    normalizedRestrictedToFullAsymptoticRowsInputFromTheorems
-    normalizedSignDefectClassificationFromTheorems
+  normalizedRestrictedToFullThresholdBridgePackageFromTheorems.currentCutoff
 
 noncomputable def normalizedRestrictedToFullQWFromTheorems :
     RestrictedToFullQWBridgeContract
@@ -3730,8 +3993,8 @@ noncomputable def normalizedRestrictedToFullQWFromTheorems :
       normalizedSourceObjectPackageFromTheorems.commonTest.sourceConvolutionSquare
       normalizedRouteLedgersFromTheorems
       normalizedTraceFrontEndFromTheorems.ccm25ArithmeticPackage :=
-  restricted_to_full_bridge_contract_of_current_cutoff_binding
-    normalizedRestrictedToFullCurrentCutoffBindingFromTheorems
+  restricted_to_full_bridge_contract_of_threshold_package
+    normalizedRestrictedToFullThresholdBridgePackageFromTheorems
 
 structure NormalizedScalarTraceScaleInputData where
   noExtraBulk :
@@ -3874,16 +4137,34 @@ noncomputable def normalizedScalarTraceDataFromTheorems :
     normalizedScalarRestrictedTraceReadOffBridgeFromTheorems
     normalizedScalarTraceScaleNoMissingBulkFromTheorems
 
-theorem normalizedScalarTraceAmplitudeSquareFromTheorems :
-    let scalarSourceTrace :=
+noncomputable def normalizedScalarFrontEndPackageFromTheorems :
+    TraceFrontEndData.SourceFixedTraceFrontEndPackage
+      normalizedScalarSourceObjectPackageFromTheorems :=
+  TraceFrontEndData.source_fixed_trace_front_end_package_of_trace_data
+    normalizedScalarSourceObjectPackageFromTheorems
+    normalizedScalarFixedFrontEndFromTheorems
+    normalizedScalarTraceDataFromTheorems
+
+theorem normalizedScalarFrontEndPackageSourceTraceReadOffData_eq :
+    normalizedScalarFrontEndPackageFromTheorems.sourceTraceReadOffData =
       TraceFrontEndData.toSourceTraceReadOffDataOfNormalizedScalarPackage
         normalizedBaseFromTheorems normalizedCommonFromTheorems
         normalizedCCM24FromTheorems normalizedScalarSeedFromTheorems
         normalizedScalarRemaindersFromTheorems
-        normalizedScalarRhExitFromTheorems
-        normalizedScalarBridgesFromTheorems
+        normalizedScalarRhExitFromTheorems normalizedScalarBridgesFromTheorems
         normalizedScalarFixedDataFromTheorems
-        normalizedScalarTraceDataFromTheorems
+        normalizedScalarTraceDataFromTheorems :=
+  rfl
+
+noncomputable abbrev normalizedScalarTraceFrontEndFromTheorems :
+    ExpandedSourceTraceReadOffFrontEnd
+      normalizedScalarSourceObjectPackageFromTheorems
+      normalizedScalarFixedFrontEndFromTheorems :=
+  normalizedScalarFrontEndPackageFromTheorems.traceFront
+
+theorem normalizedScalarTraceAmplitudeSquareFromTheorems :
+    let scalarSourceTrace :=
+      normalizedScalarFrontEndPackageFromTheorems.sourceTraceReadOffData
     (Source.CC20Concrete.TraceScale.normalizedScalarAsLegalSquareSeed
         normalizedScalarSeedFromTheorems).traceAmplitude
         scalarSourceTrace.archimedeanTest ^ 2 =
@@ -3955,40 +4236,58 @@ theorem normalizedSourceArchimedeanSignBridgeFromTheorems :
         normalizedSourceObjectPackageFromTheorems
         normalizedFixedFrontEndFromTheorems) :=
   source_archimedean_sign_bridge_of_source_trace_read_off
-    (SourceTraceReadOffData.ofExpandedSourcePackage
-      normalizedSourceObjectPackageFromTheorems
-      normalizedFixedFrontEndFromTheorems
-      normalizedTraceFrontEndFromTheorems)
+    normalizedFrontEndPackageFromTheorems.sourceTraceReadOffData
 
 noncomputable def normalizedRouteCertificateFromTheorems :
     RouteCertificate
       (RouteInputs.ofExpandedSourcePackage
         normalizedSourceObjectPackageFromTheorems) :=
-  route_certificate_of_normalized_comparison_current_cutoff_binding
+  route_certificate_of_normalized_comparison_ledger_restricted_package
     normalizedBaseFromTheorems normalizedCommonFromTheorems
     normalizedCCM24FromTheorems normalizedSeedFromTheorems
     normalizedRemaindersFromTheorems normalizedRhExitFromTheorems
     normalizedBridgesFromTheorems normalizedFixedDataFromTheorems
     normalizedTraceDataFromTheorems normalizedComparisonFromTheorems
     normalizedNoExtraBulkContractFromTheorems
-    normalizedRouteLedgersFromTheorems
-    normalizedSignDefectClassificationFromTheorems
-    normalizedRestrictedToFullCurrentCutoffBindingFromTheorems
+    normalizedRouteLedgerClearingInputDataFromTheorems
+    normalizedRestrictedToFullThresholdBridgePackageFromTheorems
     normalizedSourceArchimedeanSignBridgeFromTheorems
 
+noncomputable def normalizedFinalExitPackageFromTheorems :
+    RouteFinalExitPackage
+      (RouteInputs.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems) :=
+  route_final_exit_package_of_certificate
+    normalizedRouteCertificateFromTheorems
+
+structure NormalizedNoArgumentRouteCertificatePackage where
+  routeCertificate :
+    RouteCertificate
+      (RouteInputs.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems)
+  finalExitPackage :
+    RouteFinalExitPackage
+      (RouteInputs.ofExpandedSourcePackage
+        normalizedSourceObjectPackageFromTheorems)
+  mathlibRH : _root_.RiemannHypothesis
+
+noncomputable def normalizedNoArgumentRouteCertificatePackageFromTheorems :
+    NormalizedNoArgumentRouteCertificatePackage where
+  routeCertificate := normalizedRouteCertificateFromTheorems
+  finalExitPackage := normalizedFinalExitPackageFromTheorems
+  mathlibRH := mathlib_rh_of_route_final_exit_package
+    normalizedFinalExitPackageFromTheorems
+
+def mathlib_rh_of_normalized_no_argument_route_certificate_package
+    (pkg : NormalizedNoArgumentRouteCertificatePackage) :
+    _root_.RiemannHypothesis :=
+  pkg.mathlibRH
+
 theorem unconditional_rh_contract_skeleton : _root_.RiemannHypothesis := by
-  exact
-    final_rh_of_normalized_comparison_current_cutoff_binding
-      normalizedBaseFromTheorems normalizedCommonFromTheorems
-      normalizedCCM24FromTheorems normalizedSeedFromTheorems
-      normalizedRemaindersFromTheorems normalizedRhExitFromTheorems
-      normalizedBridgesFromTheorems normalizedFixedDataFromTheorems
-      normalizedTraceDataFromTheorems normalizedComparisonFromTheorems
-      normalizedNoExtraBulkContractFromTheorems
-      normalizedRouteLedgersFromTheorems
-      normalizedSignDefectClassificationFromTheorems
-      normalizedRestrictedToFullCurrentCutoffBindingFromTheorems
-      normalizedSourceArchimedeanSignBridgeFromTheorems
+  exact mathlib_rh_of_normalized_no_argument_route_certificate_package
+    normalizedNoArgumentRouteCertificatePackageFromTheorems
+
+end NormalizedContractBackedLane
 
 end UnconditionalSkeleton
 end Dev
