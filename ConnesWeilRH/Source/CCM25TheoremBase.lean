@@ -5,8 +5,10 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Source.CCM25
+import ConnesWeilRH.Source.AnalyticCore
 import ConnesWeilRH.Source.CCM25Concrete.Interface
 import ConnesWeilRH.Source.CCM25SourceModel
+import ConnesWeilRH.Source.Objects
 
 /-!
 # CCM25 Lean theorem base
@@ -27,6 +29,118 @@ theorem ccm25_no_spectral_shortcut_import :
   intro h
   exact h
 
+/--
+Constructor-facing CCM25 source arithmetic data.
+
+This is the non-circular source boundary for a future CCM25 formal/import pass:
+it stores the source-facing Weil symbols together with the four concrete row
+families that are exactly needed to build `ConcreteCCM25ArithmeticRows`.  It
+does not depend on `SourceObjectPackage`, route certificates, ledgers, or any
+downstream RH endpoint.
+-/
+structure CCM25SourceArithmeticConstructorInput where
+  weilSymbols : WeilFormSymbols
+  globalRows : CCM25Concrete.Rows.ConcreteGlobalQWPsiRows weilSymbols
+  restrictedRows : CCM25Concrete.Rows.ConcreteRestrictedQWLambdaRows weilSymbols
+  finitePrimeArithmeticCertificates :
+    CCM25Concrete.FinitePrimeInterface.FixedLambdaArithmeticSourceTestCertificatesForAllTests
+      weilSymbols
+  poleRows : CCM25Concrete.Rows.ConcretePoleNormalizationRows weilSymbols
+
+namespace CCM25SourceArithmeticConstructorInput
+
+def toConcreteArithmeticRows
+    (input : CCM25SourceArithmeticConstructorInput) :
+    CCM25Concrete.Rows.ConcreteCCM25ArithmeticRows input.weilSymbols where
+  globalRows := input.globalRows
+  restrictedRows := input.restrictedRows
+  finitePrimeArithmeticCertificates :=
+    input.finitePrimeArithmeticCertificates
+  poleRows := input.poleRows
+
+def toCCM25WeilObjectPackage
+    (input : CCM25SourceArithmeticConstructorInput) :
+    SourceObject.CCM25WeilObjectPackage where
+  weilSymbols := input.weilSymbols
+  concreteArithmeticRows := input.toConcreteArithmeticRows
+
+noncomputable def toCCM25SourceModel
+    (input : CCM25SourceArithmeticConstructorInput) :
+    CCM25SourceModel :=
+  ccm25_source_model_of_arithmetic_rows input.toConcreteArithmeticRows
+
+@[simp]
+theorem toCCM25WeilObjectPackage_symbols
+    (input : CCM25SourceArithmeticConstructorInput) :
+    input.toCCM25WeilObjectPackage.weilSymbols = input.weilSymbols :=
+  rfl
+
+@[simp]
+theorem toCCM25WeilObjectPackage_rows
+    (input : CCM25SourceArithmeticConstructorInput) :
+    input.toCCM25WeilObjectPackage.concreteArithmeticRows =
+      input.toConcreteArithmeticRows :=
+  rfl
+
+@[simp]
+theorem toCCM25SourceModel_toWeilFormSymbols
+    (input : CCM25SourceArithmeticConstructorInput) :
+    input.toCCM25SourceModel.toWeilFormSymbols = input.weilSymbols := by
+  simp [toCCM25SourceModel, toConcreteArithmeticRows,
+    ccm25_source_model_of_arithmetic_rows_to_weil_form_symbols]
+
+theorem qw_definition
+    (input : CCM25SourceArithmeticConstructorInput) :
+    WeilFormSymbols.QWDefinitionStatement input.weilSymbols :=
+  CCM25Concrete.Rows.qw_definition_of_arithmetic_rows
+    input.toConcreteArithmeticRows
+
+theorem psi_sign
+    (input : CCM25SourceArithmeticConstructorInput) :
+    WeilFormSymbols.PsiSignStatement input.weilSymbols :=
+  CCM25Concrete.Rows.psi_sign_of_arithmetic_rows
+    input.toConcreteArithmeticRows
+
+theorem qw_lambda_formula
+    (input : CCM25SourceArithmeticConstructorInput) :
+    WeilFormSymbols.QWLambdaFormulaStatement input.weilSymbols :=
+  CCM25Concrete.Rows.qw_lambda_formula_of_arithmetic_rows
+    input.toConcreteArithmeticRows
+
+theorem finite_prime_normalization
+    (input : CCM25SourceArithmeticConstructorInput) :
+    WeilFormSymbols.FinitePrimeNormalizationStatement input.weilSymbols :=
+  CCM25Concrete.Rows.finite_prime_normalization_of_arithmetic_rows
+    input.toConcreteArithmeticRows
+
+theorem pole_normalization
+    (input : CCM25SourceArithmeticConstructorInput) :
+    WeilFormSymbols.PoleNormalizationStatement input.weilSymbols :=
+  CCM25Concrete.Rows.pole_normalization_of_arithmetic_rows
+    input.toConcreteArithmeticRows
+
+end CCM25SourceArithmeticConstructorInput
+
+namespace AnalyticCore
+
+noncomputable def SourceWeilFormData.toCCM25SourceArithmeticConstructorInput
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A)
+    (finitePrimeArithmeticCertificates :
+      CCM25Concrete.FinitePrimeInterface.FixedLambdaArithmeticSourceTestCertificatesForAllTests
+        W.toWeilFormSymbols) :
+    CCM25SourceArithmeticConstructorInput where
+  weilSymbols := W.toWeilFormSymbols
+  globalRows :=
+    { qwDefinition := W.qw_definition_statement
+      psiSign := W.psi_sign_statement }
+  restrictedRows :=
+    { qwLambdaFormula := W.qw_lambda_formula_statement }
+  finitePrimeArithmeticCertificates := finitePrimeArithmeticCertificates
+  poleRows :=
+    { poleNormalization := W.pole_normalization_statement }
+
+end AnalyticCore
+
 /-- Data-bearing Lean theorem base for the CCM25 source-interface row. -/
 structure CCM25TheoremBase where
   weilSymbols : WeilFormSymbols
@@ -39,6 +153,17 @@ structure CCM25TheoremBase where
   noSpectralShortcutImport : ¬ CCM25SpectralShortcutImported
 
 namespace CCM25TheoremBase
+
+noncomputable def ofSourceArithmeticConstructorInput
+    (input : CCM25SourceArithmeticConstructorInput) :
+    CCM25TheoremBase where
+  weilSymbols := input.weilSymbols
+  qwDefinition := input.qw_definition
+  psiSign := input.psi_sign
+  qwLambdaFormula := input.qw_lambda_formula
+  finitePrimeNormalization := input.finite_prime_normalization
+  poleNormalization := input.pole_normalization
+  noSpectralShortcutImport := ccm25_no_spectral_shortcut_import
 
 def discharged (M : CCM25SourceModel) : CCM25TheoremBase where
   weilSymbols := M.toWeilFormSymbols

@@ -1068,6 +1068,14 @@ def normalizedSeedTraceObjectPackage
   sourceCC20SignNormalizations :=
     normalized_legal_square_trace_scale_to_cc20_trace_model_signs A
 
+theorem cc20_trace_model_of_normalized_seed_trace_object
+    (A : NormalizedLegalSquareTraceScaleSymbols)
+    (remainders : CC20TracePackageRemainderData A) :
+    cc20_trace_model_of_trace_object
+        (normalizedSeedTraceObjectPackage A remainders) =
+      normalizedLegalSquareTraceScaleToCC20TraceModel A := by
+  rfl
+
 def normalizedScalarTraceObjectPackage
     (A : NormalizedScalarTraceScaleSymbols)
     (remainders :
@@ -1134,6 +1142,16 @@ def normalizedScalarTraceObjectPackage
     normalized_scalar_trace_scale_to_cc20_trace_model_mellin A
   sourceCC20SignNormalizations :=
     normalized_scalar_trace_scale_to_cc20_trace_model_signs A
+
+theorem cc20_trace_model_of_normalized_scalar_trace_object
+    (A : NormalizedScalarTraceScaleSymbols)
+    (remainders :
+      CC20TracePackageRemainderData
+        (normalizedScalarAsLegalSquareSeed A)) :
+    cc20_trace_model_of_trace_object
+        (normalizedScalarTraceObjectPackage A remainders) =
+      normalizedScalarTraceScaleToCC20TraceModel A := by
+  rfl
 
 theorem normalized_scalar_trace_object_source_no_defect_eq_scalar
     (A : NormalizedScalarTraceScaleSymbols)

@@ -236,5 +236,54 @@ noncomputable def ccm25_source_model_of_arithmetic_rows
   pole_normalization :=
     CCM25Concrete.Rows.pole_normalization_of_arithmetic_rows rows
 
+@[simp]
+theorem ccm25_source_model_of_arithmetic_rows_to_weil_form_symbols
+    {W : WeilFormSymbols}
+    (rows : CCM25Concrete.Rows.ConcreteCCM25ArithmeticRows W) :
+    (ccm25_source_model_of_arithmetic_rows rows).toWeilFormSymbols = W := by
+  cases W
+  rfl
+
+theorem ccm25_source_model_of_arithmetic_rows_qw_definition
+    {W : WeilFormSymbols}
+    (rows : CCM25Concrete.Rows.ConcreteCCM25ArithmeticRows W) :
+    ccm25_source_qw_definition
+      (ccm25_source_model_of_arithmetic_rows rows) =
+      CCM25Concrete.Rows.qw_definition_of_arithmetic_rows rows := by
+  rfl
+
+theorem ccm25_source_model_of_arithmetic_rows_psi_sign
+    {W : WeilFormSymbols}
+    (rows : CCM25Concrete.Rows.ConcreteCCM25ArithmeticRows W) :
+    ccm25_source_psi_sign
+      (ccm25_source_model_of_arithmetic_rows rows) =
+      CCM25Concrete.Rows.psi_sign_of_arithmetic_rows rows := by
+  rfl
+
+theorem ccm25_source_model_of_arithmetic_rows_qw_lambda
+    {W : WeilFormSymbols}
+    (rows : CCM25Concrete.Rows.ConcreteCCM25ArithmeticRows W) :
+    ccm25_source_qw_lambda_formula
+      (ccm25_source_model_of_arithmetic_rows rows) =
+      CCM25Concrete.Rows.qw_lambda_formula_of_arithmetic_rows rows := by
+  rfl
+
+theorem ccm25_source_model_of_arithmetic_rows_finite_prime
+    {W : WeilFormSymbols}
+    (rows : CCM25Concrete.Rows.ConcreteCCM25ArithmeticRows W) :
+    ccm25_source_finite_prime_normalization
+      (ccm25_source_model_of_arithmetic_rows rows) =
+      CCM25Concrete.Rows.finite_prime_normalization_of_arithmetic_rows rows := by
+  funext f g
+  rfl
+
+theorem ccm25_source_model_of_arithmetic_rows_pole
+    {W : WeilFormSymbols}
+    (rows : CCM25Concrete.Rows.ConcreteCCM25ArithmeticRows W) :
+    ccm25_source_pole_normalization
+      (ccm25_source_model_of_arithmetic_rows rows) =
+      CCM25Concrete.Rows.pole_normalization_of_arithmetic_rows rows := by
+  rfl
+
 end Source
 end ConnesWeilRH

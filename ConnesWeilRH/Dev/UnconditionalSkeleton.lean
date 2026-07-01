@@ -40,6 +40,21 @@ structure RestrictedToFullThresholdInputData
   currentAboveThreshold :
     threshold.lambda0 ≤ lambda
 
+/- Source-input boundary for the CCM24 core source model. -/
+def normalizedCoreCCM24SemilocalObjectInputFromTheorems :
+    Source.SourceObject.CCM24SemilocalObjectPackage := by
+  sorry
+
+/- Source-input boundary for the CCM25 core source model. -/
+def normalizedCoreCCM25WeilObjectInputFromTheorems :
+    Source.SourceObject.CCM25WeilObjectPackage := by
+  sorry
+
+/- Source-input boundary for the CC20 normalized trace-scale seed. -/
+def normalizedCoreS2B1NormalizedSeedInputFromTheorems :
+    Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols := by
+  sorry
+
 /-
 Normalized contract-backed lane.
 
@@ -51,115 +66,163 @@ older compatibility path that used `True`.
 
 noncomputable section NormalizedContractBackedLane
 
+def normalizedCoreCCM24SemilocalObjectFromTheorems :
+    Source.SourceObject.CCM24SemilocalObjectPackage :=
+  normalizedCoreCCM24SemilocalObjectInputFromTheorems
+
+def normalizedCoreCCM25WeilObjectFromTheorems :
+    Source.SourceObject.CCM25WeilObjectPackage :=
+  normalizedCoreCCM25WeilObjectInputFromTheorems
+
 def normalizedCoreCCM24SemilocalSymbolsFromTheorems :
-    SemilocalModelSymbols := by
-  sorry
+    SemilocalModelSymbols :=
+  normalizedCoreCCM24SemilocalObjectFromTheorems.semilocalSymbols
 
 theorem normalizedCoreCCM24CanonicalSemilocalModelFromTheorems :
-    SemilocalModelSymbols.CanonicalSemilocalModelStatement
-      normalizedCoreCCM24SemilocalSymbolsFromTheorems := by
-  sorry
+    (Source.ccm24CanonicalSemilocalModel
+      normalizedCoreCCM24SemilocalSymbolsFromTheorems).Holds :=
+  normalizedCoreCCM24SemilocalObjectFromTheorems.sourceCanonicalSemilocalModel
 
 theorem normalizedCoreCCM24SupportTransportFromTheorems :
-    SemilocalModelSymbols.SupportTransportStatement
-      normalizedCoreCCM24SemilocalSymbolsFromTheorems := by
-  sorry
+    (Source.ccm24SupportTransport
+      normalizedCoreCCM24SemilocalSymbolsFromTheorems).Holds :=
+  normalizedCoreCCM24SemilocalObjectFromTheorems.sourceSupportAndFourierSupportTransport
 
 theorem normalizedCoreCCM24BoundedComparisonFromTheorems :
-    SemilocalModelSymbols.BoundedComparisonStatement
-      normalizedCoreCCM24SemilocalSymbolsFromTheorems := by
-  sorry
+    (Source.ccm24BoundedComparison
+      normalizedCoreCCM24SemilocalSymbolsFromTheorems).Holds :=
+  normalizedCoreCCM24SemilocalObjectFromTheorems.sourceBoundedComparisonTraceClassTransport
 
 theorem normalizedCoreCCM24SoninComparisonFromTheorems :
-    SemilocalModelSymbols.SoninComparisonStatement
-      normalizedCoreCCM24SemilocalSymbolsFromTheorems := by
-  sorry
+    (Source.ccm24SoninComparison
+      normalizedCoreCCM24SemilocalSymbolsFromTheorems).Holds :=
+  normalizedCoreCCM24SemilocalObjectFromTheorems.sourceFixedWindowSoninExhaustion
 
 def normalizedCoreCCM24SourceModelFromTheorems :
-    Source.CCM24SourceModel where
-  semilocalSymbols := normalizedCoreCCM24SemilocalSymbolsFromTheorems
-  canonicalSemilocalModel :=
-    normalizedCoreCCM24CanonicalSemilocalModelFromTheorems
-  supportTransport := normalizedCoreCCM24SupportTransportFromTheorems
-  boundedComparison := normalizedCoreCCM24BoundedComparisonFromTheorems
-  soninComparison := normalizedCoreCCM24SoninComparisonFromTheorems
+    Source.CCM24SourceModel :=
+  Source.ccm24_source_model_of_semilocal_object
+    normalizedCoreCCM24SemilocalObjectFromTheorems
+
+@[simp]
+theorem normalizedCoreCCM24SourceModel_semilocalSymbols :
+    normalizedCoreCCM24SourceModelFromTheorems.semilocalSymbols =
+      normalizedCoreCCM24SemilocalSymbolsFromTheorems := by
+  rfl
+
+theorem normalizedCoreCCM24SourceModel_canonical :
+    normalizedCoreCCM24SourceModelFromTheorems.canonicalSemilocalModel =
+      normalizedCoreCCM24CanonicalSemilocalModelFromTheorems := by
+  exact proof_irrel _ _
+
+theorem normalizedCoreCCM24SourceModel_support :
+    normalizedCoreCCM24SourceModelFromTheorems.supportTransport =
+      normalizedCoreCCM24SupportTransportFromTheorems := by
+  exact proof_irrel _ _
+
+theorem normalizedCoreCCM24SourceModel_bounded :
+    normalizedCoreCCM24SourceModelFromTheorems.boundedComparison =
+      normalizedCoreCCM24BoundedComparisonFromTheorems := by
+  exact proof_irrel _ _
+
+theorem normalizedCoreCCM24SourceModel_sonin :
+    normalizedCoreCCM24SourceModelFromTheorems.soninComparison =
+      normalizedCoreCCM24SoninComparisonFromTheorems := by
+  exact proof_irrel _ _
 
 def normalizedCoreCCM25WeilFormSymbolsFromTheorems :
-    WeilFormSymbols := by
-  sorry
+    WeilFormSymbols :=
+  normalizedCoreCCM25WeilObjectFromTheorems.weilSymbols
+
+def normalizedCoreCCM25ConcreteArithmeticRowsFromTheorems :
+    Source.CCM25Concrete.Rows.ConcreteCCM25ArithmeticRows
+      normalizedCoreCCM25WeilFormSymbolsFromTheorems :=
+  normalizedCoreCCM25WeilObjectFromTheorems.concreteArithmeticRows
 
 theorem normalizedCoreCCM25QWDefinitionFromTheorems :
     WeilFormSymbols.QWDefinitionStatement
-      normalizedCoreCCM25WeilFormSymbolsFromTheorems := by
-  sorry
+      normalizedCoreCCM25WeilFormSymbolsFromTheorems :=
+  Source.CCM25Concrete.Rows.qw_definition_of_arithmetic_rows
+    normalizedCoreCCM25ConcreteArithmeticRowsFromTheorems
 
 theorem normalizedCoreCCM25PsiSignFromTheorems :
     WeilFormSymbols.PsiSignStatement
-      normalizedCoreCCM25WeilFormSymbolsFromTheorems := by
-  sorry
+      normalizedCoreCCM25WeilFormSymbolsFromTheorems :=
+  Source.CCM25Concrete.Rows.psi_sign_of_arithmetic_rows
+    normalizedCoreCCM25ConcreteArithmeticRowsFromTheorems
+
+theorem normalizedCoreCCM25QWDefinitionSourceObligationFromTheorems :
+    (Source.ccm25QWDefinition
+      normalizedCoreCCM25WeilFormSymbolsFromTheorems).Holds := by
+  exact
+    ⟨normalizedCoreCCM25QWDefinitionFromTheorems,
+      normalizedCoreCCM25PsiSignFromTheorems⟩
 
 theorem normalizedCoreCCM25QWLambdaFormulaFromTheorems :
-    WeilFormSymbols.QWLambdaFormulaStatement
-      normalizedCoreCCM25WeilFormSymbolsFromTheorems := by
-  sorry
+    (Source.ccm25QWLambdaFormula
+      normalizedCoreCCM25WeilFormSymbolsFromTheorems).Holds :=
+  Source.CCM25Concrete.Rows.qw_lambda_formula_of_arithmetic_rows
+    normalizedCoreCCM25ConcreteArithmeticRowsFromTheorems
 
 theorem normalizedCoreCCM25FinitePrimeNormalizationFromTheorems :
-    WeilFormSymbols.FinitePrimeNormalizationStatement
-      normalizedCoreCCM25WeilFormSymbolsFromTheorems := by
-  sorry
+    (Source.ccm25FinitePrimeNormalization
+      normalizedCoreCCM25WeilFormSymbolsFromTheorems).Holds :=
+  Source.CCM25Concrete.Rows.finite_prime_normalization_of_arithmetic_rows
+    normalizedCoreCCM25ConcreteArithmeticRowsFromTheorems
 
 theorem normalizedCoreCCM25PoleNormalizationFromTheorems :
-    WeilFormSymbols.PoleNormalizationStatement
-      normalizedCoreCCM25WeilFormSymbolsFromTheorems := by
-  sorry
+    (Source.ccm25PoleNormalization
+      normalizedCoreCCM25WeilFormSymbolsFromTheorems).Holds :=
+  Source.CCM25Concrete.Rows.pole_normalization_of_arithmetic_rows
+    normalizedCoreCCM25ConcreteArithmeticRowsFromTheorems
 
 def normalizedCoreCCM25SourceModelFromTheorems :
-    Source.CCM25SourceModel where
-  qw := normalizedCoreCCM25WeilFormSymbolsFromTheorems.qw
-  convolutionStar := normalizedCoreCCM25WeilFormSymbolsFromTheorems.convolutionStar
-  psi := normalizedCoreCCM25WeilFormSymbolsFromTheorems.psi
-  qwLambda := normalizedCoreCCM25WeilFormSymbolsFromTheorems.qwLambda
-  globalPrimeIndexSet :=
-    normalizedCoreCCM25WeilFormSymbolsFromTheorems.globalPrimeIndexSet
-  restrictedPrimeIndexSet :=
-    normalizedCoreCCM25WeilFormSymbolsFromTheorems.restrictedPrimeIndexSet
-  finitePrimeAtomVisible :=
-    normalizedCoreCCM25WeilFormSymbolsFromTheorems.finitePrimeAtomVisible
-  finitePrimeTerm :=
-    normalizedCoreCCM25WeilFormSymbolsFromTheorems.finitePrimeTerm
-  archimedeanTerm :=
-    normalizedCoreCCM25WeilFormSymbolsFromTheorems.archimedeanTerm
-  poleFunctional :=
-    normalizedCoreCCM25WeilFormSymbolsFromTheorems.poleFunctional
-  polePairing := normalizedCoreCCM25WeilFormSymbolsFromTheorems.polePairing
-  primePowerPairing :=
-    normalizedCoreCCM25WeilFormSymbolsFromTheorems.primePowerPairing
-  vonMangoldtWeight :=
-    normalizedCoreCCM25WeilFormSymbolsFromTheorems.vonMangoldtWeight
-  qw_eq_psi_convolution :=
-    normalizedCoreCCM25QWDefinitionFromTheorems
-  psi_sign_formula := normalizedCoreCCM25PsiSignFromTheorems
-  qw_lambda_formula := normalizedCoreCCM25QWLambdaFormulaFromTheorems
-  global_prime_index_coverage := by
-    intro f g
-    exact
-      (normalizedCoreCCM25FinitePrimeNormalizationFromTheorems
-        f g).globalPrimeIndexCoverage
-  restricted_prime_index_coverage := by
-    intro f g lambda hlambda
-    exact
-      (normalizedCoreCCM25FinitePrimeNormalizationFromTheorems
-        f g).restrictedPrimeIndexCoverage lambda hlambda
-  finite_prime_term_normalization := by
-    intro f g
-    exact
-      (normalizedCoreCCM25FinitePrimeNormalizationFromTheorems
-        f g).finitePrimeTermNormalization
-  pole_normalization := normalizedCoreCCM25PoleNormalizationFromTheorems
+    Source.CCM25SourceModel :=
+  Source.ccm25_source_model_of_arithmetic_rows
+    normalizedCoreCCM25ConcreteArithmeticRowsFromTheorems
+
+@[simp]
+theorem normalizedCoreCCM25SourceModel_toWeilFormSymbols :
+    normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols =
+      normalizedCoreCCM25WeilFormSymbolsFromTheorems := by
+  simpa [normalizedCoreCCM25SourceModelFromTheorems,
+    normalizedCoreCCM25WeilFormSymbolsFromTheorems,
+    normalizedCoreCCM25ConcreteArithmeticRowsFromTheorems] using
+      Source.ccm25_source_model_of_arithmetic_rows_to_weil_form_symbols
+        normalizedCoreCCM25ConcreteArithmeticRowsFromTheorems
+
+theorem normalizedCoreCCM25SourceModel_qwDefinition :
+    Source.ccm25_source_qw_definition
+        normalizedCoreCCM25SourceModelFromTheorems =
+      normalizedCoreCCM25QWDefinitionFromTheorems := by
+  exact proof_irrel _ _
+
+theorem normalizedCoreCCM25SourceModel_psiSign :
+    Source.ccm25_source_psi_sign
+        normalizedCoreCCM25SourceModelFromTheorems =
+      normalizedCoreCCM25PsiSignFromTheorems := by
+  exact proof_irrel _ _
+
+theorem normalizedCoreCCM25SourceModel_qwLambda :
+    Source.ccm25_source_qw_lambda_formula
+        normalizedCoreCCM25SourceModelFromTheorems =
+      normalizedCoreCCM25QWLambdaFormulaFromTheorems := by
+  exact proof_irrel _ _
+
+theorem normalizedCoreCCM25SourceModel_finitePrime :
+    Source.ccm25_source_finite_prime_normalization
+        normalizedCoreCCM25SourceModelFromTheorems =
+      normalizedCoreCCM25FinitePrimeNormalizationFromTheorems := by
+  exact proof_irrel _ _
+
+theorem normalizedCoreCCM25SourceModel_pole :
+    Source.ccm25_source_pole_normalization
+        normalizedCoreCCM25SourceModelFromTheorems =
+      normalizedCoreCCM25PoleNormalizationFromTheorems := by
+  exact proof_irrel _ _
 
 def normalizedCoreS2B1NormalizedSeedFromTheorems :
-    Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols := by
-  sorry
+    Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols :=
+  normalizedCoreS2B1NormalizedSeedInputFromTheorems
 
 def normalizedCoreCC20TraceModelFromTheorems :
     Source.CC20TraceModel :=
@@ -170,6 +233,12 @@ theorem normalizedCoreS2B1NormalizedSeedArchimedeanSymbolsEqFromTheorems :
     (Source.CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
       normalizedCoreS2B1NormalizedSeedFromTheorems).archimedeanSymbols =
       normalizedCoreCC20TraceModelFromTheorems.archimedeanSymbols := by
+  rfl
+
+theorem normalizedCoreCC20TraceModel_eq_normalizedSeed :
+    normalizedCoreCC20TraceModelFromTheorems =
+      Source.CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+        normalizedCoreS2B1NormalizedSeedFromTheorems := by
   rfl
 
 theorem normalizedCoreCC20ArchimedeanTraceSquareFromTheorems :

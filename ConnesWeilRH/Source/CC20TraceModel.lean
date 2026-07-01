@@ -77,5 +77,36 @@ def cc20_trace_model_of_trace_object
   mellinHalfDensityConvention := pkg.sourceMellinHalfDensityCompatibility
   signsAndNormalizations := pkg.sourceCC20SignNormalizations
 
+@[simp]
+theorem cc20_trace_model_of_trace_object_symbols
+    (pkg : SourceObject.CC20TraceObjectPackage) :
+    (cc20_trace_model_of_trace_object pkg).archimedeanSymbols =
+      pkg.archimedeanSymbols :=
+  rfl
+
+theorem cc20_trace_model_of_trace_object_trace_class
+    (pkg : SourceObject.CC20TraceObjectPackage) :
+    (cc20_trace_model_of_trace_object pkg).traceClassTemplate =
+      pkg.sourceTraceClassCyclicityTemplate :=
+  rfl
+
+theorem cc20_trace_model_of_trace_object_ordinary_trace
+    (pkg : SourceObject.CC20TraceObjectPackage) :
+    (cc20_trace_model_of_trace_object pkg).ordinaryTraceSupportSquare =
+      pkg.sourceOrdinaryTraceSupportSquare :=
+  rfl
+
+theorem cc20_trace_model_of_trace_object_mellin
+    (pkg : SourceObject.CC20TraceObjectPackage) :
+    (cc20_trace_model_of_trace_object pkg).mellinHalfDensityConvention =
+      pkg.sourceMellinHalfDensityCompatibility :=
+  rfl
+
+theorem cc20_trace_model_of_trace_object_signs
+    (pkg : SourceObject.CC20TraceObjectPackage) :
+    (cc20_trace_model_of_trace_object pkg).signsAndNormalizations =
+      pkg.sourceCC20SignNormalizations :=
+  rfl
+
 end Source
 end ConnesWeilRH

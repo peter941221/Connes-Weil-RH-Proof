@@ -5,6 +5,7 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Basic
+import ConnesWeilRH.Source.AnalyticCore
 import ConnesWeilRH.Source.Objects
 import ConnesWeilRH.Source.ObjectDerivations
 import ConnesWeilRH.Source.RHDefinition

@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: ConnesWeilRH contributors
 -/
 
+import ConnesWeilRH.Source.AnalyticCore
 import ConnesWeilRH.Source.Objects
 
 /-!
@@ -17,6 +18,39 @@ source laws needed by the theorem-base record. It does not import
 
 namespace ConnesWeilRH
 namespace Source
+
+namespace AnalyticCore
+
+def SourceSupportWindowData.toCCM24SemilocalObjectPackage
+    {A : SourceTestAlgebra}
+    (S : SourceSupportWindowData A)
+    (rows : SourceSemilocalRows S) :
+    SourceObject.CCM24SemilocalObjectPackage where
+  semilocalSymbols := S.toSemilocalModelSymbols
+  sourcePlaceSet := S.sourcePlaceSet
+  sourceSupportWindow := S.sourceSupportWindow
+  sourceTestLeg := S.sourceTest
+  sourceCCM24TestCompatibility := rows.sourceCCM24TestCompatibility
+  sourceCanonicalModelData := rows.sourceCanonicalModelData
+  sourceSupportInWindowData := rows.sourceSupportInWindowData
+  sourceFourierSupportInWindowData := rows.sourceFourierSupportInWindowData
+  sourceSoninSpaceComparisonData := rows.sourceSoninSpaceComparisonData
+  sourceWindowContainedInLambdaData :=
+    rows.sourceWindowContainedInLambdaData
+  sourceLambdaCompatibilityBridge :=
+    rows.sourceLambdaCompatibilityBridge
+  sourceCanonicalSemilocalModel := rows.sourceCanonicalSemilocalModel
+  sourceSupportAndFourierSupportTransport :=
+    rows.sourceSupportAndFourierSupportTransport
+  sourceConvolutionSupportTransport :=
+    rows.sourceConvolutionSupportTransport
+  sourceWindowLambdaCompatibility := rows.sourceWindowLambdaCompatibility
+  sourceBoundedComparisonTraceClassTransport :=
+    rows.sourceBoundedComparisonTraceClassTransport
+  sourceFixedWindowSoninExhaustion :=
+    rows.sourceFixedWindowSoninExhaustion
+
+end AnalyticCore
 
 /-- Source-facing CCM24 data for the fixed-`S` semilocal theorem base. -/
 structure CCM24SourceModel where
@@ -59,6 +93,37 @@ def ccm24_source_model_of_semilocal_object
   supportTransport := pkg.sourceSupportAndFourierSupportTransport
   boundedComparison := pkg.sourceBoundedComparisonTraceClassTransport
   soninComparison := pkg.sourceFixedWindowSoninExhaustion
+
+@[simp]
+theorem ccm24_source_model_of_semilocal_object_symbols
+    (pkg : SourceObject.CCM24SemilocalObjectPackage) :
+    (ccm24_source_model_of_semilocal_object pkg).semilocalSymbols =
+      pkg.semilocalSymbols :=
+  rfl
+
+theorem ccm24_source_model_of_semilocal_object_canonical
+    (pkg : SourceObject.CCM24SemilocalObjectPackage) :
+    (ccm24_source_model_of_semilocal_object pkg).canonicalSemilocalModel =
+      pkg.sourceCanonicalSemilocalModel :=
+  rfl
+
+theorem ccm24_source_model_of_semilocal_object_support
+    (pkg : SourceObject.CCM24SemilocalObjectPackage) :
+    (ccm24_source_model_of_semilocal_object pkg).supportTransport =
+      pkg.sourceSupportAndFourierSupportTransport :=
+  rfl
+
+theorem ccm24_source_model_of_semilocal_object_bounded
+    (pkg : SourceObject.CCM24SemilocalObjectPackage) :
+    (ccm24_source_model_of_semilocal_object pkg).boundedComparison =
+      pkg.sourceBoundedComparisonTraceClassTransport :=
+  rfl
+
+theorem ccm24_source_model_of_semilocal_object_sonin
+    (pkg : SourceObject.CCM24SemilocalObjectPackage) :
+    (ccm24_source_model_of_semilocal_object pkg).soninComparison =
+      pkg.sourceFixedWindowSoninExhaustion :=
+  rfl
 
 end Source
 end ConnesWeilRH
