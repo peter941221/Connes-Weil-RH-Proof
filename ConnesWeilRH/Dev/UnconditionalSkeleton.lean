@@ -49,21 +49,21 @@ noncomputable def normalizedCoreSourceModelConstructorInputFromTheorems :
 /- Source-input boundary for the CCM24 core source model. -/
 noncomputable def normalizedCoreCCM24SemilocalObjectInputFromTheorems :
     Source.SourceObject.CCM24SemilocalObjectPackage :=
-  normalizedCoreSourceModelConstructorInputFromTheorems
-    |>.toCCM24SemilocalObjectPackage
+  Source.AnalyticCore.SourceModelConstructorInput.toCCM24SemilocalObjectPackage
+    normalizedCoreSourceModelConstructorInputFromTheorems
 
 /- Source-input boundary for the CCM25 core source model. -/
 noncomputable
 def normalizedCoreCCM25WeilObjectInputFromTheorems :
     Source.SourceObject.CCM25WeilObjectPackage :=
-  normalizedCoreSourceModelConstructorInputFromTheorems
-    |>.toCCM25WeilObjectPackage
+  Source.AnalyticCore.SourceModelConstructorInput.toCCM25WeilObjectPackage
+    normalizedCoreSourceModelConstructorInputFromTheorems
 
 /- Source-input boundary for the CC20 normalized trace-scale seed. -/
 noncomputable def normalizedCoreS2B1NormalizedSeedInputFromTheorems :
     Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols :=
-  normalizedCoreSourceModelConstructorInputFromTheorems
-    |>.toNormalizedLegalSquareTraceScaleSymbols
+  Source.AnalyticCore.SourceModelConstructorInput.toNormalizedLegalSquareTraceScaleSymbols
+    normalizedCoreSourceModelConstructorInputFromTheorems
 
 /-
 Normalized contract-backed lane.
@@ -78,11 +78,18 @@ noncomputable section NormalizedContractBackedLane
 
 def normalizedCoreCCM24SemilocalObjectFromTheorems :
     Source.SourceObject.CCM24SemilocalObjectPackage :=
-  normalizedCoreCCM24SemilocalObjectInputFromTheorems
+  Source.AnalyticCore.SourceModelConstructorInput.toCCM24SemilocalObjectPackage
+    normalizedCoreSourceModelConstructorInputFromTheorems
+
+noncomputable def normalizedCoreCCM25ArithmeticConstructorInputFromTheorems :
+    Source.CCM25SourceArithmeticConstructorInput :=
+  Source.AnalyticCore.SourceModelConstructorInput.toCCM25ArithmeticConstructorInput
+    normalizedCoreSourceModelConstructorInputFromTheorems
 
 def normalizedCoreCCM25WeilObjectFromTheorems :
     Source.SourceObject.CCM25WeilObjectPackage :=
-  normalizedCoreCCM25WeilObjectInputFromTheorems
+  Source.CCM25SourceArithmeticConstructorInput.toCCM25WeilObjectPackage
+    normalizedCoreCCM25ArithmeticConstructorInputFromTheorems
 
 def normalizedCoreCCM24SemilocalSymbolsFromTheorems :
     SemilocalModelSymbols :=
@@ -110,8 +117,14 @@ theorem normalizedCoreCCM24SoninComparisonFromTheorems :
 
 def normalizedCoreCCM24SourceModelFromTheorems :
     Source.CCM24SourceModel :=
-  Source.ccm24_source_model_of_semilocal_object
-    normalizedCoreCCM24SemilocalObjectFromTheorems
+  Source.AnalyticCore.SourceModelConstructorInput.toCCM24SourceModel
+    normalizedCoreSourceModelConstructorInputFromTheorems
+
+theorem normalizedCoreCCM24SourceModel_eq_sharedConstructor :
+    normalizedCoreCCM24SourceModelFromTheorems =
+      Source.AnalyticCore.SourceModelConstructorInput.toCCM24SourceModel
+        normalizedCoreSourceModelConstructorInputFromTheorems := by
+  rfl
 
 @[simp]
 theorem normalizedCoreCCM24SourceModel_semilocalSymbols :
@@ -146,7 +159,8 @@ def normalizedCoreCCM25WeilFormSymbolsFromTheorems :
 def normalizedCoreCCM25ConcreteArithmeticRowsFromTheorems :
     Source.CCM25Concrete.Rows.ConcreteCCM25ArithmeticRows
       normalizedCoreCCM25WeilFormSymbolsFromTheorems :=
-  normalizedCoreCCM25WeilObjectFromTheorems.concreteArithmeticRows
+  Source.CCM25SourceArithmeticConstructorInput.toConcreteArithmeticRows
+    normalizedCoreCCM25ArithmeticConstructorInputFromTheorems
 
 theorem normalizedCoreCCM25QWDefinitionFromTheorems :
     WeilFormSymbols.QWDefinitionStatement
@@ -187,18 +201,20 @@ theorem normalizedCoreCCM25PoleNormalizationFromTheorems :
 
 def normalizedCoreCCM25SourceModelFromTheorems :
     Source.CCM25SourceModel :=
-  Source.ccm25_source_model_of_arithmetic_rows
-    normalizedCoreCCM25ConcreteArithmeticRowsFromTheorems
+  Source.AnalyticCore.SourceModelConstructorInput.toCCM25SourceModel
+    normalizedCoreSourceModelConstructorInputFromTheorems
+
+theorem normalizedCoreCCM25SourceModel_eq_sharedConstructor :
+    normalizedCoreCCM25SourceModelFromTheorems =
+      Source.AnalyticCore.SourceModelConstructorInput.toCCM25SourceModel
+        normalizedCoreSourceModelConstructorInputFromTheorems := by
+  rfl
 
 @[simp]
 theorem normalizedCoreCCM25SourceModel_toWeilFormSymbols :
     normalizedCoreCCM25SourceModelFromTheorems.toWeilFormSymbols =
       normalizedCoreCCM25WeilFormSymbolsFromTheorems := by
-  simpa [normalizedCoreCCM25SourceModelFromTheorems,
-    normalizedCoreCCM25WeilFormSymbolsFromTheorems,
-    normalizedCoreCCM25ConcreteArithmeticRowsFromTheorems] using
-      Source.ccm25_source_model_of_arithmetic_rows_to_weil_form_symbols
-        normalizedCoreCCM25ConcreteArithmeticRowsFromTheorems
+  rfl
 
 theorem normalizedCoreCCM25SourceModel_qwDefinition :
     Source.ccm25_source_qw_definition
@@ -232,12 +248,19 @@ theorem normalizedCoreCCM25SourceModel_pole :
 
 def normalizedCoreS2B1NormalizedSeedFromTheorems :
     Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols :=
-  normalizedCoreS2B1NormalizedSeedInputFromTheorems
+  Source.AnalyticCore.SourceModelConstructorInput.toNormalizedLegalSquareTraceScaleSymbols
+    normalizedCoreSourceModelConstructorInputFromTheorems
 
 def normalizedCoreCC20TraceModelFromTheorems :
     Source.CC20TraceModel :=
-  Source.CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
-    normalizedCoreS2B1NormalizedSeedFromTheorems
+  Source.AnalyticCore.SourceModelConstructorInput.toCC20TraceModel
+    normalizedCoreSourceModelConstructorInputFromTheorems
+
+theorem normalizedCoreCC20TraceModel_eq_sharedConstructor :
+    normalizedCoreCC20TraceModelFromTheorems =
+      Source.AnalyticCore.SourceModelConstructorInput.toCC20TraceModel
+        normalizedCoreSourceModelConstructorInputFromTheorems := by
+  rfl
 
 theorem normalizedCoreS2B1NormalizedSeedArchimedeanSymbolsEqFromTheorems :
     (Source.CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
