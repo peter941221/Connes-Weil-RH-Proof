@@ -51,17 +51,152 @@ older compatibility path that used `True`.
 
 noncomputable section NormalizedContractBackedLane
 
+def normalizedCoreCCM24SemilocalSymbolsFromTheorems :
+    SemilocalModelSymbols := by
+  sorry
+
+theorem normalizedCoreCCM24CanonicalSemilocalModelFromTheorems :
+    SemilocalModelSymbols.CanonicalSemilocalModelStatement
+      normalizedCoreCCM24SemilocalSymbolsFromTheorems := by
+  sorry
+
+theorem normalizedCoreCCM24SupportTransportFromTheorems :
+    SemilocalModelSymbols.SupportTransportStatement
+      normalizedCoreCCM24SemilocalSymbolsFromTheorems := by
+  sorry
+
+theorem normalizedCoreCCM24BoundedComparisonFromTheorems :
+    SemilocalModelSymbols.BoundedComparisonStatement
+      normalizedCoreCCM24SemilocalSymbolsFromTheorems := by
+  sorry
+
+theorem normalizedCoreCCM24SoninComparisonFromTheorems :
+    SemilocalModelSymbols.SoninComparisonStatement
+      normalizedCoreCCM24SemilocalSymbolsFromTheorems := by
+  sorry
+
 def normalizedCoreCCM24SourceModelFromTheorems :
-    Source.CCM24SourceModel := by
+    Source.CCM24SourceModel where
+  semilocalSymbols := normalizedCoreCCM24SemilocalSymbolsFromTheorems
+  canonicalSemilocalModel :=
+    normalizedCoreCCM24CanonicalSemilocalModelFromTheorems
+  supportTransport := normalizedCoreCCM24SupportTransportFromTheorems
+  boundedComparison := normalizedCoreCCM24BoundedComparisonFromTheorems
+  soninComparison := normalizedCoreCCM24SoninComparisonFromTheorems
+
+def normalizedCoreCCM25WeilFormSymbolsFromTheorems :
+    WeilFormSymbols := by
+  sorry
+
+theorem normalizedCoreCCM25QWDefinitionFromTheorems :
+    WeilFormSymbols.QWDefinitionStatement
+      normalizedCoreCCM25WeilFormSymbolsFromTheorems := by
+  sorry
+
+theorem normalizedCoreCCM25PsiSignFromTheorems :
+    WeilFormSymbols.PsiSignStatement
+      normalizedCoreCCM25WeilFormSymbolsFromTheorems := by
+  sorry
+
+theorem normalizedCoreCCM25QWLambdaFormulaFromTheorems :
+    WeilFormSymbols.QWLambdaFormulaStatement
+      normalizedCoreCCM25WeilFormSymbolsFromTheorems := by
+  sorry
+
+theorem normalizedCoreCCM25FinitePrimeNormalizationFromTheorems :
+    WeilFormSymbols.FinitePrimeNormalizationStatement
+      normalizedCoreCCM25WeilFormSymbolsFromTheorems := by
+  sorry
+
+theorem normalizedCoreCCM25PoleNormalizationFromTheorems :
+    WeilFormSymbols.PoleNormalizationStatement
+      normalizedCoreCCM25WeilFormSymbolsFromTheorems := by
   sorry
 
 def normalizedCoreCCM25SourceModelFromTheorems :
-    Source.CCM25SourceModel := by
+    Source.CCM25SourceModel where
+  qw := normalizedCoreCCM25WeilFormSymbolsFromTheorems.qw
+  convolutionStar := normalizedCoreCCM25WeilFormSymbolsFromTheorems.convolutionStar
+  psi := normalizedCoreCCM25WeilFormSymbolsFromTheorems.psi
+  qwLambda := normalizedCoreCCM25WeilFormSymbolsFromTheorems.qwLambda
+  globalPrimeIndexSet :=
+    normalizedCoreCCM25WeilFormSymbolsFromTheorems.globalPrimeIndexSet
+  restrictedPrimeIndexSet :=
+    normalizedCoreCCM25WeilFormSymbolsFromTheorems.restrictedPrimeIndexSet
+  finitePrimeAtomVisible :=
+    normalizedCoreCCM25WeilFormSymbolsFromTheorems.finitePrimeAtomVisible
+  finitePrimeTerm :=
+    normalizedCoreCCM25WeilFormSymbolsFromTheorems.finitePrimeTerm
+  archimedeanTerm :=
+    normalizedCoreCCM25WeilFormSymbolsFromTheorems.archimedeanTerm
+  poleFunctional :=
+    normalizedCoreCCM25WeilFormSymbolsFromTheorems.poleFunctional
+  polePairing := normalizedCoreCCM25WeilFormSymbolsFromTheorems.polePairing
+  primePowerPairing :=
+    normalizedCoreCCM25WeilFormSymbolsFromTheorems.primePowerPairing
+  vonMangoldtWeight :=
+    normalizedCoreCCM25WeilFormSymbolsFromTheorems.vonMangoldtWeight
+  qw_eq_psi_convolution :=
+    normalizedCoreCCM25QWDefinitionFromTheorems
+  psi_sign_formula := normalizedCoreCCM25PsiSignFromTheorems
+  qw_lambda_formula := normalizedCoreCCM25QWLambdaFormulaFromTheorems
+  global_prime_index_coverage := by
+    intro f g
+    exact
+      (normalizedCoreCCM25FinitePrimeNormalizationFromTheorems
+        f g).globalPrimeIndexCoverage
+  restricted_prime_index_coverage := by
+    intro f g lambda hlambda
+    exact
+      (normalizedCoreCCM25FinitePrimeNormalizationFromTheorems
+        f g).restrictedPrimeIndexCoverage lambda hlambda
+  finite_prime_term_normalization := by
+    intro f g
+    exact
+      (normalizedCoreCCM25FinitePrimeNormalizationFromTheorems
+        f g).finitePrimeTermNormalization
+  pole_normalization := normalizedCoreCCM25PoleNormalizationFromTheorems
+
+def normalizedCoreCC20ArchimedeanTraceSymbolsFromTheorems :
+    ArchimedeanTraceSymbols := by
+  sorry
+
+theorem normalizedCoreCC20ArchimedeanTraceSquareFromTheorems :
+    ArchimedeanTraceSymbols.TraceSquareStatement
+      normalizedCoreCC20ArchimedeanTraceSymbolsFromTheorems := by
+  sorry
+
+theorem normalizedCoreCC20TraceClassTemplateFromTheorems :
+    ArchimedeanTraceSymbols.TraceClassTemplateStatement
+      normalizedCoreCC20ArchimedeanTraceSymbolsFromTheorems := by
+  sorry
+
+theorem normalizedCoreCC20OrdinaryTraceSupportSquareFromTheorems :
+    ArchimedeanTraceSymbols.OrdinaryTraceSupportSquareStatement
+      normalizedCoreCC20ArchimedeanTraceSymbolsFromTheorems := by
+  sorry
+
+theorem normalizedCoreCC20MellinHalfDensityConventionFromTheorems :
+    ArchimedeanTraceSymbols.MellinHalfDensityConventionStatement
+      normalizedCoreCC20ArchimedeanTraceSymbolsFromTheorems := by
+  sorry
+
+theorem normalizedCoreCC20SignsAndNormalizationsFromTheorems :
+    ArchimedeanTraceSymbols.SignsAndNormalizationsStatement
+      normalizedCoreCC20ArchimedeanTraceSymbolsFromTheorems := by
   sorry
 
 def normalizedCoreCC20TraceModelFromTheorems :
-    Source.CC20TraceModel := by
-  sorry
+    Source.CC20TraceModel where
+  archimedeanSymbols := normalizedCoreCC20ArchimedeanTraceSymbolsFromTheorems
+  archimedeanTraceSquare :=
+    normalizedCoreCC20ArchimedeanTraceSquareFromTheorems
+  traceClassTemplate := normalizedCoreCC20TraceClassTemplateFromTheorems
+  ordinaryTraceSupportSquare :=
+    normalizedCoreCC20OrdinaryTraceSupportSquareFromTheorems
+  mellinHalfDensityConvention :=
+    normalizedCoreCC20MellinHalfDensityConventionFromTheorems
+  signsAndNormalizations := normalizedCoreCC20SignsAndNormalizationsFromTheorems
 
 def normalizedCoreS2B1NormalizedSeedFromTheorems :
     Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols := by
