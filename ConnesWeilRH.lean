@@ -18,6 +18,7 @@ import ConnesWeilRH.Source.CCM25Concrete
 import ConnesWeilRH.Source.CC20Concrete
 import ConnesWeilRH.Source.CC20
 import ConnesWeilRH.Source.CC20TraceModel
+import ConnesWeilRH.Source.AnalyticSourceModel
 import ConnesWeilRH.Source.CCM24TheoremBase
 import ConnesWeilRH.Source.CCM25TheoremBase
 import ConnesWeilRH.Source.CC20TheoremBase

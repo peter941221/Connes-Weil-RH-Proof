@@ -5,6 +5,7 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Route.RouteTheorem
+import ConnesWeilRH.Source.AnalyticSourceModel
 import ConnesWeilRH.Source.S2B1TraceScale
 
 /-!
@@ -40,20 +41,29 @@ structure RestrictedToFullThresholdInputData
   currentAboveThreshold :
     threshold.lambda0 ≤ lambda
 
-/- Source-input boundary for the CCM24 core source model. -/
-def normalizedCoreCCM24SemilocalObjectInputFromTheorems :
-    Source.SourceObject.CCM24SemilocalObjectPackage := by
+/- Shared source-input boundary for the three core source models. -/
+noncomputable def normalizedCoreSourceModelConstructorInputFromTheorems :
+    Source.AnalyticCore.SourceModelConstructorInput := by
   sorry
+
+/- Source-input boundary for the CCM24 core source model. -/
+noncomputable def normalizedCoreCCM24SemilocalObjectInputFromTheorems :
+    Source.SourceObject.CCM24SemilocalObjectPackage :=
+  normalizedCoreSourceModelConstructorInputFromTheorems
+    |>.toCCM24SemilocalObjectPackage
 
 /- Source-input boundary for the CCM25 core source model. -/
+noncomputable
 def normalizedCoreCCM25WeilObjectInputFromTheorems :
-    Source.SourceObject.CCM25WeilObjectPackage := by
-  sorry
+    Source.SourceObject.CCM25WeilObjectPackage :=
+  normalizedCoreSourceModelConstructorInputFromTheorems
+    |>.toCCM25WeilObjectPackage
 
 /- Source-input boundary for the CC20 normalized trace-scale seed. -/
-def normalizedCoreS2B1NormalizedSeedInputFromTheorems :
-    Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols := by
-  sorry
+noncomputable def normalizedCoreS2B1NormalizedSeedInputFromTheorems :
+    Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols :=
+  normalizedCoreSourceModelConstructorInputFromTheorems
+    |>.toNormalizedLegalSquareTraceScaleSymbols
 
 /-
 Normalized contract-backed lane.
