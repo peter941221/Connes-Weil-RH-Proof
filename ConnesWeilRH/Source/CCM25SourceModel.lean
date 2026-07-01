@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: ConnesWeilRH contributors
 -/
 
-import ConnesWeilRH.Basic
+import ConnesWeilRH.Source.CCM25Concrete.Rows
 
 /-!
 # CCM25 source model
@@ -194,6 +194,47 @@ theorem ccm25_source_pole_normalization
     WeilFormSymbols.PoleNormalizationStatement M.toWeilFormSymbols := by
   intro f
   exact M.pole_normalization f
+
+noncomputable def ccm25_source_model_of_arithmetic_rows
+    {W : WeilFormSymbols}
+    (rows : CCM25Concrete.Rows.ConcreteCCM25ArithmeticRows W) :
+    CCM25SourceModel where
+  qw := W.qw
+  convolutionStar := W.convolutionStar
+  psi := W.psi
+  qwLambda := W.qwLambda
+  globalPrimeIndexSet := W.globalPrimeIndexSet
+  restrictedPrimeIndexSet := W.restrictedPrimeIndexSet
+  finitePrimeAtomVisible := W.finitePrimeAtomVisible
+  finitePrimeTerm := W.finitePrimeTerm
+  archimedeanTerm := W.archimedeanTerm
+  poleFunctional := W.poleFunctional
+  polePairing := W.polePairing
+  primePowerPairing := W.primePowerPairing
+  vonMangoldtWeight := W.vonMangoldtWeight
+  qw_eq_psi_convolution :=
+    CCM25Concrete.Rows.qw_definition_of_arithmetic_rows rows
+  psi_sign_formula :=
+    CCM25Concrete.Rows.psi_sign_of_arithmetic_rows rows
+  qw_lambda_formula :=
+    CCM25Concrete.Rows.qw_lambda_formula_of_arithmetic_rows rows
+  global_prime_index_coverage := by
+    intro f g
+    exact
+      (CCM25Concrete.Rows.finite_prime_normalization_of_arithmetic_rows
+        rows f g).globalPrimeIndexCoverage
+  restricted_prime_index_coverage := by
+    intro f g lambda hlambda
+    exact
+      (CCM25Concrete.Rows.finite_prime_normalization_of_arithmetic_rows
+        rows f g).restrictedPrimeIndexCoverage lambda hlambda
+  finite_prime_term_normalization := by
+    intro f g
+    exact
+      (CCM25Concrete.Rows.finite_prime_normalization_of_arithmetic_rows
+        rows f g).finitePrimeTermNormalization
+  pole_normalization :=
+    CCM25Concrete.Rows.pole_normalization_of_arithmetic_rows rows
 
 end Source
 end ConnesWeilRH

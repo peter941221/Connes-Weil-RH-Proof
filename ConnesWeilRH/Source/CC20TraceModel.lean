@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: ConnesWeilRH contributors
 -/
 
-import ConnesWeilRH.Basic
+import ConnesWeilRH.Source.ObjectDerivations
 
 /-!
 # CC20 trace source model
@@ -62,6 +62,20 @@ theorem cc20_source_signs_and_normalizations
     ArchimedeanTraceSymbols.SignsAndNormalizationsStatement
       M.archimedeanSymbols :=
   M.signsAndNormalizations
+
+def cc20_trace_model_of_trace_object
+    (pkg : SourceObject.CC20TraceObjectPackage) :
+    CC20TraceModel where
+  archimedeanSymbols := pkg.archimedeanSymbols
+  archimedeanTraceSquare := by
+    intro g htrace hcyclic
+    exact
+      ⟨pkg.sourceSupportSquareTraceReadOff g htrace hcyclic,
+        pkg.sourcePositiveTraceNonnegative g htrace hcyclic⟩
+  traceClassTemplate := pkg.sourceTraceClassCyclicityTemplate
+  ordinaryTraceSupportSquare := pkg.sourceOrdinaryTraceSupportSquare
+  mellinHalfDensityConvention := pkg.sourceMellinHalfDensityCompatibility
+  signsAndNormalizations := pkg.sourceCC20SignNormalizations
 
 end Source
 end ConnesWeilRH

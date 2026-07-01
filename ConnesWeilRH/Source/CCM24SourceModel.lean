@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: ConnesWeilRH contributors
 -/
 
-import ConnesWeilRH.Basic
+import ConnesWeilRH.Source.Objects
 
 /-!
 # CCM24 source model
@@ -50,6 +50,15 @@ theorem ccm24_source_sonin_comparison
     (M : CCM24SourceModel) :
     SemilocalModelSymbols.SoninComparisonStatement M.semilocalSymbols :=
   M.soninComparison
+
+def ccm24_source_model_of_semilocal_object
+    (pkg : SourceObject.CCM24SemilocalObjectPackage) :
+    CCM24SourceModel where
+  semilocalSymbols := pkg.semilocalSymbols
+  canonicalSemilocalModel := pkg.sourceCanonicalSemilocalModel
+  supportTransport := pkg.sourceSupportAndFourierSupportTransport
+  boundedComparison := pkg.sourceBoundedComparisonTraceClassTransport
+  soninComparison := pkg.sourceFixedWindowSoninExhaustion
 
 end Source
 end ConnesWeilRH
