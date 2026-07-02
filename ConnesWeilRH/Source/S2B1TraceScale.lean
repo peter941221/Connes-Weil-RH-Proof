@@ -103,7 +103,7 @@ def noHiddenFinitePartSubtractionRow
     (data : S2B1FixedTupleTheoremData A W lambda archimedeanTest weilTest) :
     S2B1FixedTupleNoHiddenFinitePartSubtractionRow
       A W lambda archimedeanTest weilTest :=
-  data.finitePartNormalForm.toRows.toNoHiddenFinitePartRows.toConstructorInput.toRow
+  data.finitePartNormalForm.toNoHiddenFinitePartRow
 
 def toPackage
     {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
@@ -319,7 +319,7 @@ def toRowsPackage
   endpointStripCdefRow := remaining.endpointStripCdef.toRow
   noExtraBulkRow := remaining.noExtraBulk.toRow
   noHiddenFinitePartSubtractionRow :=
-    remaining.finitePartNormalForm.toRows.toNoHiddenFinitePartRows.toConstructorInput.toRow
+    remaining.finitePartNormalForm.toNoHiddenFinitePartRow
 
 end S2B1FixedTupleRemainingConstructorInputPackage
 

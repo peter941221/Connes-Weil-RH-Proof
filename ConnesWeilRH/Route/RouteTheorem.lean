@@ -1902,19 +1902,6 @@ noncomputable def route_certificate_of_normalized_comparison_replacement
           base common ccm24 normalizedSeed remainders rhExit bridges
           fixedData)
         traceData.lambda ledgers)
-    (commonTuple :
-      SourceCommonTestTupleContract
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)
-        traceData.lambda
-        (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        traceData.ccm25ArithmeticPackage)
     (currentThresholdData :
       RestrictedToFullCurrentThresholdData
         (RouteInputs.ofExpandedSourcePackage
@@ -1928,28 +1915,43 @@ noncomputable def route_certificate_of_normalized_comparison_replacement
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
         traceData.ccm25ArithmeticPackage)
-    (scalarRestrictionWitness :
-      RestrictedToFullQWScalarRestrictionWitness
+    (endpointStripInput :
+      SourceProjectionOrderEndpointStripNormalForm
         (RouteInputs.ofExpandedSourcePackage
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges))
         (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
           base common ccm24 normalizedSeed remainders rhExit bridges
           fixedData)
-        traceData.lambda
-        (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        traceData.ccm25ArithmeticPackage)
-    (lowerBoundEvidence :
-      RestrictedToFullQWLowerBoundEvidence
+        traceData.lambda)
+    (windowSupportContainment :
+      WindowSupportContainment
         (RouteInputs.ofExpandedSourcePackage
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges))
         (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
           base common ccm24 normalizedSeed remainders rhExit bridges
           fixedData)
-        traceData.lambda ledgers) :
+        traceData.lambda)
+    (postQSeriesTailBoundedComparison :
+      PostQSeriesTailBoundedComparison
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda)
+    (rankPoleVanishing :
+      SourceRankPoleLedgerVanishingGate
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda ledgers)
+    (cdefExhausts : ledgers.cdefExhausts) :
     RouteCertificate
       (RouteInputs.ofExpandedSourcePackage
         (Source.sourceObjectPackageOfNormalizedCC20Trace
@@ -1966,10 +1968,17 @@ noncomputable def route_certificate_of_normalized_comparison_replacement
     normalizedTraceData
     (trace_scale_route_front_end_of_normalized_comparison_replacement
       base common ccm24 normalizedSeed remainders rhExit bridges fixedData
-      traceData comparison ledgers commonTuple
+      traceData comparison ledgers currentThresholdData.commonTuple
       signDefectClassification
       (restricted_to_full_bridge_contract_of_current_threshold_data
-        currentThresholdData scalarRestrictionWitness lowerBoundEvidence))
+        currentThresholdData
+        (currentThresholdData.largeLambdaThreshold.scalarRestrictionAtLarge
+          traceData.lambda currentThresholdData.currentAboveThreshold
+          traceData.ccm25ArithmeticPackage currentThresholdData.commonTuple)
+        (source_endpoint_strip_remainder_cdef_domination_of_parts
+          endpointStripInput windowSupportContainment
+          postQSeriesTailBoundedComparison rankPoleVanishing
+          cdefExhausts)))
 
 def trace_scale_route_front_end_of_normalized_comparison_contract_replacement
     (base : Source.SourceObjectTheoremBasePackage)
@@ -2841,8 +2850,8 @@ theorem final_rh_of_normalized_comparison_replacement
           base common ccm24 normalizedSeed remainders rhExit bridges
           fixedData)
         traceData.lambda ledgers)
-    (currentCutoff :
-      RestrictedToFullCurrentCutoffBinding
+    (currentThresholdData :
+      RestrictedToFullCurrentThresholdData
         (RouteInputs.ofExpandedSourcePackage
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges))
@@ -2853,17 +2862,52 @@ theorem final_rh_of_normalized_comparison_replacement
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage) :
+        traceData.ccm25ArithmeticPackage)
+    (endpointStripInput :
+      SourceProjectionOrderEndpointStripNormalForm
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda)
+    (windowSupportContainment :
+      WindowSupportContainment
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda)
+    (postQSeriesTailBoundedComparison :
+      PostQSeriesTailBoundedComparison
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda)
+    (rankPoleVanishing :
+      SourceRankPoleLedgerVanishingGate
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda ledgers)
+    (cdefExhausts : ledgers.cdefExhausts) :
     _root_.RiemannHypothesis := by
   exact
     final_connes_weil_rh
       (route_certificate_of_normalized_comparison_replacement
         base common ccm24 normalizedSeed remainders rhExit bridges fixedData
         traceData comparison ledgers signDefectClassification
-        currentCutoff.commonTuple
-        currentCutoff.currentThresholdData
-        currentCutoff.scalarRestrictionWitness
-        currentCutoff.lowerBoundEvidence)
+        currentThresholdData endpointStripInput windowSupportContainment
+        postQSeriesTailBoundedComparison rankPoleVanishing cdefExhausts)
 
 theorem final_rh_of_normalized_comparison_contract_replacement
     (base : Source.SourceObjectTheoremBasePackage)

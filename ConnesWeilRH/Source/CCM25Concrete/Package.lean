@@ -757,15 +757,13 @@ theorem finite_prime_concrete_object_pairing_formula_source_evaluator
   FinitePrimeCertificate.concrete_object_pairing_formula_source_evaluator
     (finite_prime_concrete_object_of_package h) n
 
-theorem finite_prime_concrete_object_term_formula_source_evaluator
+theorem finite_prime_concrete_object_term_formula_mathlib_pairing
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     (n : ℕ) :
-    let obj := finite_prime_concrete_object_of_package h
     W.finitePrimeTerm n (W.convolutionStar f f) =
-      PrimePowerArithmetic.SourceFinitePrimeEvaluatorAtom W f f n
-        (obj.atomData n) :=
-  FinitePrimeCertificate.concrete_object_term_formula_source_evaluator
+      ArithmeticFunction.vonMangoldt n * W.primePowerPairing n f f :=
+  FinitePrimeCertificate.concrete_object_term_formula_mathlib_pairing
     (finite_prime_concrete_object_of_package h) n
 
 theorem finite_prime_concrete_object_global_sum_read_off
@@ -950,6 +948,23 @@ theorem finite_prime_concrete_object_global_index_source_data
   simpa [finite_prime_concrete_object_source_test_eq_package_source_test h]
     using hdata
 
+theorem finite_prime_concrete_object_global_index_route_visible
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    W.finitePrimeAtomVisible n (W.convolutionStar f f) := by
+  have hvisible :
+      (finite_prime_concrete_object_of_package h).sourceTest.sourceAtomVisible
+        n :=
+    FinitePrimeCertificate.concrete_object_global_index_visible
+      (finite_prime_concrete_object_of_package h) hn
+  have hsource :
+      (source_test_of_package h).sourceAtomVisible n := by
+    simpa [finite_prime_concrete_object_source_test_eq_package_source_test h]
+      using hvisible
+  exact (PrimePowerTest.route_visibility_iff_source_visibility
+    (source_test_of_package h) n).2 hsource
+
 theorem finite_prime_concrete_object_restricted_index_source_data
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
@@ -961,6 +976,81 @@ theorem finite_prime_concrete_object_restricted_index_source_data
     (finite_prime_concrete_object_of_package h).restrictedIndexData hn
   simpa [finite_prime_concrete_object_source_test_eq_package_source_test h]
     using hdata
+
+theorem finite_prime_concrete_object_restricted_index_route_visible
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    W.finitePrimeAtomVisible n (W.convolutionStar f f) := by
+  have hvisible :
+      (finite_prime_concrete_object_of_package h).sourceTest.sourceAtomVisible
+        n :=
+    FinitePrimeCertificate.concrete_object_restricted_index_visible
+      (finite_prime_concrete_object_of_package h) hn
+  have hsource :
+      (source_test_of_package h).sourceAtomVisible n := by
+    simpa [finite_prime_concrete_object_source_test_eq_package_source_test h]
+      using hvisible
+  exact (PrimePowerTest.route_visibility_iff_source_visibility
+    (source_test_of_package h) n).2 hsource
+
+theorem common_certificate_route_visible_atom_data_of_package
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ}
+    (hvisible :
+      W.finitePrimeAtomVisible n (W.convolutionStar f f)) :
+    PrimePowerSupport.SourceVisibleAtomData
+      IsPrimePow
+      (fun n => W.finitePrimeAtomVisible n (W.convolutionStar f f)) n := by
+  let hcert := (formula_components h).commonCertificate
+  let hsource :=
+    (FinitePrimeCertificate.visible_iff_of_certificate
+      (FinitePrimeCertificate.certificate_of_arithmetic_certificate hcert) n).1
+      hvisible
+  have hprime : PrimePowerArithmetic.SourcePrimePowerIndex n := by
+    simpa [
+      FinitePrimeCertificate.certificate_of_arithmetic_certificate,
+      FinitePrimeCertificate.atom_certificate_of_arithmetic_certificate,
+      PrimePowerSupport.support_skeleton_of_arithmetic_support_skeleton]
+      using hsource.primePowerIndex
+  exact
+    { primePowerIndex :=
+        PrimePowerArithmetic.source_prime_power_index_iff_mathlib.1
+          hprime
+      atomVisible := hvisible }
+
+theorem finite_prime_concrete_object_global_index_route_data
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    PrimePowerSupport.SourceGlobalIndexData
+      IsPrimePow
+      (fun n => W.finitePrimeAtomVisible n (W.convolutionStar f f)) n where
+  primePowerIndex :=
+    (common_certificate_route_visible_atom_data_of_package h
+      (finite_prime_concrete_object_global_index_route_visible h hn)).primePowerIndex
+  atomVisible :=
+    (common_certificate_route_visible_atom_data_of_package h
+      (finite_prime_concrete_object_global_index_route_visible h hn)).atomVisible
+
+theorem finite_prime_concrete_object_restricted_index_route_data
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    PrimePowerSupport.SourceRestrictedIndexData
+      IsPrimePow
+      (fun n => W.finitePrimeAtomVisible n (W.convolutionStar f f))
+      lambda n where
+  primePowerIndex :=
+    (common_certificate_route_visible_atom_data_of_package h
+      (finite_prime_concrete_object_restricted_index_route_visible h hn)).primePowerIndex
+  atomVisible :=
+    (common_certificate_route_visible_atom_data_of_package h
+      (finite_prime_concrete_object_restricted_index_route_visible h hn)).atomVisible
+  lambdaCut :=
+    FinitePrimeCertificate.concrete_object_restricted_index_lambda_cut
+      (finite_prime_concrete_object_of_package h) hn
 
 theorem exact_support_source_test_eq_package_source_test
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -1015,15 +1105,14 @@ theorem common_certificate_global_index_prime_power_of_package
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
     IsPrimePow n :=
-  PrimePowerArithmetic.source_prime_power_index_iff_mathlib.1
-    (common_certificate_global_index_source_data_of_package h hn).primePowerIndex
+  (finite_prime_concrete_object_global_index_route_data h hn).primePowerIndex
 
 theorem common_certificate_global_index_visible_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
-    (source_test_of_package h).sourceAtomVisible n :=
-  (common_certificate_global_index_source_data_of_package h hn).atomVisible
+    W.finitePrimeAtomVisible n (W.convolutionStar f f) :=
+  (finite_prime_concrete_object_global_index_route_data h hn).atomVisible
 
 theorem common_certificate_restricted_index_source_data_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -1039,22 +1128,21 @@ theorem common_certificate_restricted_index_prime_power_of_package
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     IsPrimePow n :=
-  PrimePowerArithmetic.source_prime_power_index_iff_mathlib.1
-    (common_certificate_restricted_index_source_data_of_package h hn).primePowerIndex
+  (finite_prime_concrete_object_restricted_index_route_data h hn).primePowerIndex
 
 theorem common_certificate_restricted_index_visible_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
-    (source_test_of_package h).sourceAtomVisible n :=
-  (common_certificate_restricted_index_source_data_of_package h hn).atomVisible
+    W.finitePrimeAtomVisible n (W.convolutionStar f f) :=
+  (finite_prime_concrete_object_restricted_index_route_data h hn).atomVisible
 
 theorem common_certificate_restricted_index_lambda_cut_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     PrimePowerSupport.SourceLambdaCut lambda n :=
-  (common_certificate_restricted_index_source_data_of_package h hn).lambdaCut
+  (finite_prime_concrete_object_restricted_index_route_data h hn).lambdaCut
 
 theorem global_index_prime_power_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -1067,7 +1155,7 @@ theorem global_index_visible_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
-    (source_test_of_package h).sourceAtomVisible n :=
+    W.finitePrimeAtomVisible n (W.convolutionStar f f) :=
   common_certificate_global_index_visible_of_package h hn
 
 theorem global_index_one_lt_of_package
@@ -1075,8 +1163,7 @@ theorem global_index_one_lt_of_package
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
     1 < n :=
-  PrimePowerArithmetic.source_prime_power_index_one_lt
-    (common_certificate_global_index_source_data_of_package h hn).primePowerIndex
+  IsPrimePow.one_lt (global_index_prime_power_of_package h hn)
 
 theorem global_index_weight_read_off_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -1119,7 +1206,7 @@ theorem restricted_index_visible_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
-    (source_test_of_package h).sourceAtomVisible n :=
+    W.finitePrimeAtomVisible n (W.convolutionStar f f) :=
   common_certificate_restricted_index_visible_of_package h hn
 
 theorem restricted_index_lambda_cut_of_package

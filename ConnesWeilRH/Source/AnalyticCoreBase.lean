@@ -91,6 +91,57 @@ structure SourceEvaluationData (A : SourceTestAlgebra) where
     ∀ g : A.Test,
       polePairing g = poleFunctional (A.convolutionSquare g)
 
+/-- Point/window incidence coordinate for the CCM24 source-window carrier. -/
+structure SourceWindowMembershipCoordinate (SupportPoint Window : Type) where
+  pointInBaseWindow : SupportPoint → Window → Prop
+
+namespace SourceWindowMembershipCoordinate
+
+def baseCarrier
+    {SupportPoint Window : Type}
+    (C : SourceWindowMembershipCoordinate SupportPoint Window)
+    (I : Window) : Set SupportPoint :=
+  {x | C.pointInBaseWindow x I}
+
+end SourceWindowMembershipCoordinate
+
+/-- Logarithmic scale coordinate for CCM24 source support points. -/
+structure SourceSupportLogScaleCoordinate (SupportPoint : Type) where
+  logScale : SupportPoint → ℝ
+
+namespace SourceSupportLogScaleCoordinate
+
+noncomputable def scale
+    {SupportPoint : Type}
+    (C : SourceSupportLogScaleCoordinate SupportPoint)
+    (x : SupportPoint) : ℝ :=
+  Real.exp (C.logScale x)
+
+end SourceSupportLogScaleCoordinate
+
+/-- CCM24 source-window coordinate object for support points. -/
+structure SourceWindowCoordinate (SupportPoint Window : Type) where
+  windowMembershipCoordinate :
+    SourceWindowMembershipCoordinate SupportPoint Window
+  supportLogScaleCoordinate :
+    SourceSupportLogScaleCoordinate SupportPoint
+
+namespace SourceWindowCoordinate
+
+def baseCarrier
+    {SupportPoint Window : Type}
+    (C : SourceWindowCoordinate SupportPoint Window)
+    (I : Window) : Set SupportPoint :=
+  C.windowMembershipCoordinate.baseCarrier I
+
+noncomputable def scale
+    {SupportPoint Window : Type}
+    (C : SourceWindowCoordinate SupportPoint Window)
+    (x : SupportPoint) : ℝ :=
+  C.supportLogScaleCoordinate.scale x
+
+end SourceWindowCoordinate
+
 /-- CCM24-facing support/window data for the shared source tests. -/
 structure SourceSupportWindowData (A : SourceTestAlgebra) where
   PlaceSet : Type
@@ -101,8 +152,7 @@ structure SourceSupportWindowData (A : SourceTestAlgebra) where
   SupportPoint : Type
   supportCarrier : A.Test → Set SupportPoint
   fourierSupportCarrier : A.Test → Set SupportPoint
-  windowBaseCarrier : Window → Set SupportPoint
-  supportScale : SupportPoint → ℝ
+  sourceWindowCoordinate : SourceWindowCoordinate SupportPoint Window
   canonicalHilbertModel : PlaceSet → Prop
   scalingActionImplemented : PlaceSet → Prop
   fourierGradingCompatible : PlaceSet → Prop
@@ -110,6 +160,16 @@ structure SourceSupportWindowData (A : SourceTestAlgebra) where
   boundedComparisonInverse : PlaceSet → Prop
 
 namespace SourceSupportWindowData
+
+def windowBaseCarrier
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (I : S.Window) : Set S.SupportPoint :=
+  S.sourceWindowCoordinate.baseCarrier I
+
+noncomputable def supportScale
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (x : S.SupportPoint) : ℝ :=
+  S.sourceWindowCoordinate.scale x
 
 def windowCarrier
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)

@@ -574,6 +574,15 @@ theorem concrete_object_term_formula_source_evaluator
         (h.atomData n) :=
   (h.localFormulaData n).termFormulaSourceEvaluator
 
+theorem concrete_object_term_formula_mathlib_pairing
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
+    (n : ℕ) :
+    W.finitePrimeTerm n (W.convolutionStar f g) =
+      ArithmeticFunction.vonMangoldt n * W.primePowerPairing n f g :=
+  PrimePowerArithmetic.source_finite_prime_term_formula_mathlib_pairing
+    (h.atomData n)
+
 theorem concrete_object_global_finite_prime_term_sum_read_off
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeConcreteObject W f g lambda) :

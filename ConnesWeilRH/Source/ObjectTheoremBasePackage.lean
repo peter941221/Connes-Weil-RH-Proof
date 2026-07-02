@@ -1198,11 +1198,38 @@ def toRows
         A W lambda archimedeanTest weilTest) :
     S2B1FinitePartNormalFormRows
       A W lambda archimedeanTest weilTest where
-  data := { scalars := data.toNoSubtractedTermSourceRow.sourceScalars.toScalarInterface }
+  data := { scalars := data.sourceScalars.toScalarInterface }
   finitePartNormalizationFixedHolds :=
-    data.toNoSubtractedTermSourceRow.normalization_holds
+    data.finitePartNormalizationFixedHolds
   noSubtractedFinitePartTermHolds :=
-    data.toNoSubtractedTermSourceRow.statement_holds
+    data.noSubtractedFinitePartTermHolds
+
+def toNoHiddenFinitePartConstructorInput
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    {lambda : ℝ} {archimedeanTest : A.Test} {weilTest : TestFunction}
+    (data :
+      S2B1FinitePartSourceNormalFormData
+        A W lambda archimedeanTest weilTest) :
+    S2B1FixedTupleNoHiddenFinitePartSubtractionConstructorInput
+      A W lambda archimedeanTest weilTest where
+  finitePartNormalizationFixed :=
+    data.sourceScalars.toScalarInterface.finitePartNormalizationFixedStatement
+  noSubtractedFinitePartTerm :=
+    data.sourceScalars.toScalarInterface.noSubtractedFinitePartTermStatement
+  finitePartNormalizationFixedHolds :=
+    data.finitePartNormalizationFixedHolds
+  noSubtractedFinitePartTermHolds :=
+    data.noSubtractedFinitePartTermHolds
+
+def toNoHiddenFinitePartRow
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    {lambda : ℝ} {archimedeanTest : A.Test} {weilTest : TestFunction}
+    (data :
+      S2B1FinitePartSourceNormalFormData
+        A W lambda archimedeanTest weilTest) :
+    S2B1FixedTupleNoHiddenFinitePartSubtractionRow
+      A W lambda archimedeanTest weilTest :=
+  data.toNoHiddenFinitePartConstructorInput.toRow
 
 end S2B1FinitePartSourceNormalFormData
 
@@ -1963,7 +1990,7 @@ def fixedTuple
     let normalForm :=
       data.finitePartSourceNormalFormData
         lambda hlambda archimedeanTest weilTest
-    normalForm.toRows.toNoHiddenFinitePartRows.toConstructorInput.toRow
+    normalForm.toNoHiddenFinitePartRow
 
 def toTermLedgerRows
     {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
@@ -2006,8 +2033,8 @@ def toTermLedgerRows
         row.noExtraBulkScaleTermExcluded
   finitePartSourceScalarDataAt :=
     fun lambda hlambda archimedeanTest weilTest =>
-      ((data.finitePartSourceNormalFormData
-        lambda hlambda archimedeanTest weilTest).toNoSubtractedTermSourceRow).sourceScalars
+      (data.finitePartSourceNormalFormData
+        lambda hlambda archimedeanTest weilTest).sourceScalars
   supportSquareMainTermEqualsQWLambdaAtHolds := by
     intro lambda hlambda archimedeanTest weilTest
     let row := data.fixedTuple lambda hlambda archimedeanTest weilTest
@@ -2043,13 +2070,13 @@ def toTermLedgerRows
   finitePartNormalizationFixedAtHolds := by
     intro lambda hlambda archimedeanTest weilTest
     exact
-      ((data.finitePartSourceNormalFormData
-        lambda hlambda archimedeanTest weilTest).toNoSubtractedTermSourceRow).normalization_holds
+      (data.finitePartSourceNormalFormData
+        lambda hlambda archimedeanTest weilTest).finitePartNormalizationFixedHolds
   noSubtractedFinitePartTermAtHolds := by
     intro lambda hlambda archimedeanTest weilTest
     exact
-      ((data.finitePartSourceNormalFormData
-        lambda hlambda archimedeanTest weilTest).toNoSubtractedTermSourceRow).statement_holds
+      (data.finitePartSourceNormalFormData
+        lambda hlambda archimedeanTest weilTest).noSubtractedFinitePartTermHolds
 
 def noBulkWitness
     {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
@@ -2175,18 +2202,18 @@ def toPackage
       ⟨hlambda, row.noExtraBulkScaleTermExcludedHolds⟩
   finitePartSourceScalarDataAt :=
     fun lambda hlambda archimedeanTest weilTest =>
-      ((data.finitePartSourceNormalFormData
-        lambda hlambda archimedeanTest weilTest).toNoSubtractedTermSourceRow).sourceScalars
+      (data.finitePartSourceNormalFormData
+        lambda hlambda archimedeanTest weilTest).sourceScalars
   finitePartNormalizationFixedAtHolds := by
     intro lambda hlambda archimedeanTest weilTest
     exact
-      ((data.finitePartSourceNormalFormData
-        lambda hlambda archimedeanTest weilTest).toNoSubtractedTermSourceRow).normalization_holds
+      (data.finitePartSourceNormalFormData
+        lambda hlambda archimedeanTest weilTest).finitePartNormalizationFixedHolds
   noSubtractedFinitePartTermAtHolds := by
     intro lambda hlambda archimedeanTest weilTest
     exact
-      ((data.finitePartSourceNormalFormData
-        lambda hlambda archimedeanTest weilTest).toNoSubtractedTermSourceRow).statement_holds
+      (data.finitePartSourceNormalFormData
+        lambda hlambda archimedeanTest weilTest).noSubtractedFinitePartTermHolds
 
 end S2B1TraceScaleAnalyticExclusionConstructorInput
 
@@ -2967,7 +2994,7 @@ def s2b1NoHiddenFinitePartSubtractionConstructorInput
       pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
       lambda archimedeanTest weilTest :=
   (pkg.s2b1FinitePartSourceNormalFormData
-    lambda hlambda archimedeanTest weilTest).toRows.toNoHiddenFinitePartRows.toConstructorInput
+    lambda hlambda archimedeanTest weilTest).toNoHiddenFinitePartConstructorInput
 
 def s2b1TraceScaleTermLedgerRows
     (pkg : SourceObjectTheoremBasePackage) :
