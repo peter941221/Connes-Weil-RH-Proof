@@ -490,16 +490,16 @@ theorem concrete_object_global_index_prime_power
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
-    PrimePowerArithmetic.SourcePrimePowerIndex n :=
-  (h.globalIndexData hn).primePowerIndex
+    IsPrimePow n :=
+  PrimePowerArithmetic.source_prime_power_index_iff_mathlib.1
+    (h.globalIndexData hn).primePowerIndex
 
 theorem concrete_object_global_index_isPrimePow
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
     IsPrimePow n :=
-  PrimePowerArithmetic.source_prime_power_index_iff_mathlib.1
-    (concrete_object_global_index_prime_power h hn)
+  concrete_object_global_index_prime_power h hn
 
 theorem concrete_object_global_index_visible
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
@@ -512,16 +512,16 @@ theorem concrete_object_restricted_index_prime_power
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
-    PrimePowerArithmetic.SourcePrimePowerIndex n :=
-  (h.restrictedIndexData hn).primePowerIndex
+    IsPrimePow n :=
+  PrimePowerArithmetic.source_prime_power_index_iff_mathlib.1
+    (h.restrictedIndexData hn).primePowerIndex
 
 theorem concrete_object_restricted_index_isPrimePow
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     IsPrimePow n :=
-  PrimePowerArithmetic.source_prime_power_index_iff_mathlib.1
-    (concrete_object_restricted_index_prime_power h hn)
+  concrete_object_restricted_index_prime_power h hn
 
 theorem concrete_object_restricted_index_visible
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}

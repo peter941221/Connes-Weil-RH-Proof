@@ -10192,10 +10192,23 @@ structure SourceSoninComparisonCore
     (I : S.Window) where
   sourceWindowSupport :
     SourceWindowSupportNormalForm S I
-  sourceSupportTransported :
-    S.supportTransported S.sourceTest I
-  sourceConvolutionSupportTransported :
-    S.convolutionSupportTransported S.sourceTest I
+
+namespace SourceSoninComparisonCore
+
+theorem sourceSupportTransported
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window} (C : SourceSoninComparisonCore S I) :
+    S.supportTransported S.sourceTest I :=
+  S.supportTransported_of_supportInWindow C.sourceWindowSupport.sourceSupportInWindow
+
+theorem sourceConvolutionSupportTransported
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window} (C : SourceSoninComparisonCore S I) :
+    S.convolutionSupportTransported S.sourceTest I :=
+  S.convolutionSupportTransported_of_fourierSupportInWindow
+    C.sourceWindowSupport.sourceFourierSupportInWindow
+
+end SourceSoninComparisonCore
 
 structure SourceFixedWindowExhaustionCore
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)

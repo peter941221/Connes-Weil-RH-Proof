@@ -72,38 +72,35 @@ structure RestrictedQWLambdaFormulaComponent
 noncomputable def restricted_finite_prime_sum_read_off_of_arithmetic_rows
     {W : WeilFormSymbols} (h : Interface.ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda) :
-    RestrictedFinitePrimeSumReadOff W f g lambda where
-  concreteObject :=
-    Interface.fixed_lambda_concrete_object_of_arithmetic_rows
-      h f g lambda hlambda
-  certificate :=
-    (h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda
-  concreteObject_certificate_eq :=
-    Interface.fixed_lambda_concrete_object_certificate_eq h f g lambda hlambda
-  scopedArithmeticData :=
-    FinitePrimeCertificate.arithmetic_data_on_restricted_index_set_of_certificate
-      ((h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda)
-  scopedArithmeticData_eq_certificate := rfl
-  finitePrimeSumReadOff :=
-    Interface.arithmetic_restricted_sum_formula_of_arithmetic_rows
-      h f g lambda hlambda
-  vonMangoldtPairingSumReadOff :=
-    Interface.arithmetic_restricted_von_mangoldt_pairing_sum_formula_of_arithmetic_rows
-      h f g lambda hlambda
-  finitePrimeScopedSumReadOff := by
-    rw [Interface.arithmetic_restricted_sum_formula_of_arithmetic_rows
-      h f g lambda hlambda]
-    exact
-      (FinitePrimeCertificate.arithmetic_restricted_scoped_sum_eq_restricted_sum_of_certificate
-        ((h.finitePrimeArithmeticCertificates f g).certificate
-          lambda hlambda)).symm
-  vonMangoldtPairingScopedSumReadOff := by
-    rw [Interface.arithmetic_restricted_von_mangoldt_pairing_sum_formula_of_arithmetic_rows
-      h f g lambda hlambda]
-    exact
-      (FinitePrimeCertificate.arithmetic_restricted_scoped_sum_eq_restricted_sum_of_certificate
-        ((h.finitePrimeArithmeticCertificates f g).certificate
-          lambda hlambda)).symm
+    RestrictedFinitePrimeSumReadOff W f g lambda :=
+  let cert := (h.finitePrimeArithmeticCertificates f g).certificate lambda hlambda
+  { concreteObject :=
+      FinitePrimeCertificate.concrete_object_of_arithmetic_certificate cert
+    certificate := cert
+    concreteObject_certificate_eq := rfl
+    scopedArithmeticData :=
+      FinitePrimeCertificate.arithmetic_data_on_restricted_index_set_of_certificate
+        cert
+    scopedArithmeticData_eq_certificate := rfl
+    finitePrimeSumReadOff :=
+      FinitePrimeCertificate.arithmetic_restricted_sum_formula_of_certificate
+        cert
+    vonMangoldtPairingSumReadOff :=
+      FinitePrimeCertificate.arithmetic_restricted_von_mangoldt_pairing_sum_formula_of_certificate
+        cert
+    finitePrimeScopedSumReadOff := by
+      rw [FinitePrimeCertificate.arithmetic_restricted_sum_formula_of_certificate
+        cert]
+      exact
+        (FinitePrimeCertificate.arithmetic_restricted_scoped_sum_eq_restricted_sum_of_certificate
+          cert).symm
+    vonMangoldtPairingScopedSumReadOff := by
+      rw [
+        FinitePrimeCertificate.arithmetic_restricted_von_mangoldt_pairing_sum_formula_of_certificate
+          cert]
+      exact
+        (FinitePrimeCertificate.arithmetic_restricted_scoped_sum_eq_restricted_sum_of_certificate
+          cert).symm }
 
 noncomputable def restricted_qw_lambda_formula_component_of_arithmetic_rows
     {W : WeilFormSymbols} (h : Interface.ConcreteCCM25ArithmeticRows W)

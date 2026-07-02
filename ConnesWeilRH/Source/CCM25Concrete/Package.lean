@@ -730,9 +730,8 @@ theorem finite_prime_concrete_object_weight_read_off
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     (n : ℕ) :
-    W.vonMangoldtWeight n =
-      PrimePowerArithmetic.SourceVonMangoldtWeight n :=
-  FinitePrimeCertificate.concrete_object_weight_read_off
+    W.vonMangoldtWeight n = ArithmeticFunction.vonMangoldt n :=
+  FinitePrimeCertificate.concrete_object_weight_eq_mathlib
     (finite_prime_concrete_object_of_package h) n
 
 theorem finite_prime_concrete_object_weight_eq_mathlib
@@ -740,8 +739,7 @@ theorem finite_prime_concrete_object_weight_eq_mathlib
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     (n : ℕ) :
     W.vonMangoldtWeight n = ArithmeticFunction.vonMangoldt n :=
-  FinitePrimeCertificate.concrete_object_weight_eq_mathlib
-    (finite_prime_concrete_object_of_package h) n
+  finite_prime_concrete_object_weight_read_off h n
 
 theorem finite_prime_concrete_object_pairing_formula_source_evaluator
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}

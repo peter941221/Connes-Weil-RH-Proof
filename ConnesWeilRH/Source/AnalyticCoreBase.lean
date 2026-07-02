@@ -93,15 +93,47 @@ structure SourceEvaluationData (A : SourceTestAlgebra) where
 
 /-- Point/window incidence coordinate for the CCM24 source-window carrier. -/
 structure SourceWindowMembershipCoordinate (SupportPoint Window : Type) where
-  pointInBaseWindow : SupportPoint → Window → Prop
+  pointCoordinate : SupportPoint → Window → ℝ
+  lowerEndpoint : Window → ℝ
+  upperEndpoint : Window → ℝ
 
 namespace SourceWindowMembershipCoordinate
+
+/-- The lower closed-window incidence relation behind the base carrier. -/
+def pointInClosedWindow
+    {SupportPoint Window : Type}
+    (C : SourceWindowMembershipCoordinate SupportPoint Window)
+    (x : SupportPoint) (I : Window) : Prop :=
+  C.lowerEndpoint I ≤ C.pointCoordinate x I ∧
+    C.pointCoordinate x I ≤ C.upperEndpoint I
+
+def pointInBaseWindow
+    {SupportPoint Window : Type}
+    (C : SourceWindowMembershipCoordinate SupportPoint Window)
+    (x : SupportPoint) (I : Window) : Prop :=
+  C.pointInClosedWindow x I
+
+theorem pointInBaseWindow_iff
+    {SupportPoint Window : Type}
+    (C : SourceWindowMembershipCoordinate SupportPoint Window)
+    (x : SupportPoint) (I : Window) :
+    C.pointInBaseWindow x I ↔
+      C.lowerEndpoint I ≤ C.pointCoordinate x I ∧
+        C.pointCoordinate x I ≤ C.upperEndpoint I :=
+  Iff.rfl
 
 def baseCarrier
     {SupportPoint Window : Type}
     (C : SourceWindowMembershipCoordinate SupportPoint Window)
     (I : Window) : Set SupportPoint :=
   {x | C.pointInBaseWindow x I}
+
+theorem mem_baseCarrier_iff
+    {SupportPoint Window : Type}
+    (C : SourceWindowMembershipCoordinate SupportPoint Window)
+    (x : SupportPoint) (I : Window) :
+    x ∈ C.baseCarrier I ↔ C.pointInBaseWindow x I :=
+  Iff.rfl
 
 end SourceWindowMembershipCoordinate
 
