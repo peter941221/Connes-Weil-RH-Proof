@@ -10116,10 +10116,12 @@ structure SourceFixedWindowExhaustionCore
     (I : S.Window) (hSonin : SourceSoninComparisonCore S I) where
   sourceCanonicalModel :
     S.canonicalHilbertModel S.sourcePlaceSet
-  sourceBoundedComparisonMap :
-    S.boundedComparisonMap S.sourcePlaceSet
-  sourceBoundedComparisonInverse :
-    S.boundedComparisonInverse S.sourcePlaceSet
+  sourceBoundedComparisonMapData :
+    ∀ V : S.PlaceSet,
+      S.canonicalHilbertModel V → S.boundedComparisonMap V
+  sourceBoundedComparisonInverseData :
+    ∀ V : S.PlaceSet,
+      S.canonicalHilbertModel V → S.boundedComparisonInverse V
 
 def soninSpaceComparison
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
@@ -10207,12 +10209,6 @@ structure SourceSemilocalRows
   sourceLambdaWindowContainmentData :
     SourceSupportWindowData.SourceLambdaWindowContainmentData
       S S.sourceSupportWindow
-  sourceBoundedComparisonMapData :
-    ∀ V : S.PlaceSet,
-      S.canonicalHilbertModel V → S.boundedComparisonMap V
-  sourceBoundedComparisonInverseData :
-    ∀ V : S.PlaceSet,
-      S.canonicalHilbertModel V → S.boundedComparisonInverse V
   sourceFixedWindowSoninExhaustionNormalForm :
     ∀ I : S.Window,
       SourceFixedWindowSoninExhaustionNormalForm S I
@@ -10307,9 +10303,12 @@ theorem sourceBoundedComparisonTraceClassTransport
     SemilocalModelSymbols.BoundedComparisonStatement
       S.toSemilocalModelSymbols := by
   intro V hCanonical
+  let fixedWindowCore :=
+    (rows.sourceFixedWindowSoninExhaustionNormalForm
+      S.sourceSupportWindow).fixedWindowExhaustionCore
   exact
-    ⟨rows.sourceBoundedComparisonMapData V hCanonical,
-      rows.sourceBoundedComparisonInverseData V hCanonical⟩
+    ⟨fixedWindowCore.sourceBoundedComparisonMapData V hCanonical,
+      fixedWindowCore.sourceBoundedComparisonInverseData V hCanonical⟩
 
 theorem sourceFixedWindowSoninExhaustion
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
