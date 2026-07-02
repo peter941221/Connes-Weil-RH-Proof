@@ -46,17 +46,202 @@ noncomputable def normalizedCoreSourceTestAlgebraFromTheorems :
     Source.AnalyticCore.SourceTestAlgebra := by
   sorry
 
+/- Shared source evaluation functions for Mellin, pole, and trace read-off rows. -/
+noncomputable def normalizedCoreSourceValueAtFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test → ℝ → ℝ := by
+  sorry
+
+noncomputable def normalizedCoreSourceMellinAtFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test → ℂ → ℂ := by
+  sorry
+
+noncomputable def normalizedCoreSourcePoleFunctionalFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test → ℝ := by
+  sorry
+
+noncomputable def normalizedCoreSourcePolePairingFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test → ℝ := by
+  sorry
+
+/- Shared source evaluation laws for Mellin and pole pairings. -/
+theorem normalizedCoreSourcePoleFunctionalEqMellinFromTheorems :
+    ∀ F : normalizedCoreSourceTestAlgebraFromTheorems.Test,
+      normalizedCoreSourcePoleFunctionalFromTheorems F =
+        (normalizedCoreSourceMellinAtFromTheorems F (Complex.I / 2)).re +
+          (normalizedCoreSourceMellinAtFromTheorems F (-Complex.I / 2)).re := by
+  sorry
+
+theorem normalizedCoreSourcePolePairingEqFunctionalSquareFromTheorems :
+    ∀ g : normalizedCoreSourceTestAlgebraFromTheorems.Test,
+      normalizedCoreSourcePolePairingFromTheorems g =
+        normalizedCoreSourcePoleFunctionalFromTheorems
+          (normalizedCoreSourceTestAlgebraFromTheorems.convolutionSquare g) := by
+  sorry
+
 /- Shared source evaluation data for Mellin, pole, and trace read-off rows. -/
 noncomputable def normalizedCoreSourceEvaluationDataFromTheorems :
     Source.AnalyticCore.SourceEvaluationData
-      normalizedCoreSourceTestAlgebraFromTheorems := by
+      normalizedCoreSourceTestAlgebraFromTheorems where
+  valueAt := normalizedCoreSourceValueAtFromTheorems
+  mellinAt := normalizedCoreSourceMellinAtFromTheorems
+  poleFunctional := normalizedCoreSourcePoleFunctionalFromTheorems
+  polePairing := normalizedCoreSourcePolePairingFromTheorems
+  poleFunctional_eq_mellin :=
+    normalizedCoreSourcePoleFunctionalEqMellinFromTheorems
+  polePairing_eq_functional_square :=
+    normalizedCoreSourcePolePairingEqFunctionalSquareFromTheorems
+
+theorem normalizedCoreSourceEvaluationData_valueAt :
+    normalizedCoreSourceEvaluationDataFromTheorems.valueAt =
+      normalizedCoreSourceValueAtFromTheorems := by
+  rfl
+
+theorem normalizedCoreSourceEvaluationData_mellinAt :
+    normalizedCoreSourceEvaluationDataFromTheorems.mellinAt =
+      normalizedCoreSourceMellinAtFromTheorems := by
+  rfl
+
+theorem normalizedCoreSourceEvaluationData_poleFunctional :
+    normalizedCoreSourceEvaluationDataFromTheorems.poleFunctional =
+      normalizedCoreSourcePoleFunctionalFromTheorems := by
+  rfl
+
+theorem normalizedCoreSourceEvaluationData_polePairing :
+    normalizedCoreSourceEvaluationDataFromTheorems.polePairing =
+      normalizedCoreSourcePolePairingFromTheorems := by
+  rfl
+
+/- Shared CCM24 support/window primitives over the common source test algebra. -/
+def normalizedCoreSourcePlaceSetFromTheorems :
+    Type := by
+  sorry
+
+def normalizedCoreSourceWindowFromTheorems :
+    Type := by
+  sorry
+
+noncomputable def normalizedCoreSourcePlaceSetWitnessFromTheorems :
+    normalizedCoreSourcePlaceSetFromTheorems := by
+  sorry
+
+noncomputable def normalizedCoreSourceWindowWitnessFromTheorems :
+    normalizedCoreSourceWindowFromTheorems := by
+  sorry
+
+noncomputable def normalizedCoreSourceSupportTestFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test := by
+  sorry
+
+def normalizedCoreSourceCanonicalHilbertModelFromTheorems :
+    normalizedCoreSourcePlaceSetFromTheorems → Prop := by
+  sorry
+
+def normalizedCoreSourceScalingActionImplementedFromTheorems :
+    normalizedCoreSourcePlaceSetFromTheorems → Prop := by
+  sorry
+
+def normalizedCoreSourceFourierGradingCompatibleFromTheorems :
+    normalizedCoreSourcePlaceSetFromTheorems → Prop := by
+  sorry
+
+def normalizedCoreSourceSupportInWindowFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test →
+      normalizedCoreSourceWindowFromTheorems → Prop := by
+  sorry
+
+def normalizedCoreSourceFourierSupportInWindowFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test →
+      normalizedCoreSourceWindowFromTheorems → Prop := by
+  sorry
+
+def normalizedCoreSourceSupportTransportedFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test →
+      normalizedCoreSourceWindowFromTheorems → Prop := by
+  sorry
+
+def normalizedCoreSourceConvolutionSupportTransportedFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test →
+      normalizedCoreSourceWindowFromTheorems → Prop := by
+  sorry
+
+def normalizedCoreSourceWindowContainedInLambdaFromTheorems :
+    normalizedCoreSourceWindowFromTheorems → ℝ → Prop := by
+  sorry
+
+def normalizedCoreSourceLambdaCompatibleFromTheorems :
+    normalizedCoreSourceWindowFromTheorems → ℝ → Prop := by
+  sorry
+
+def normalizedCoreSourceBoundedComparisonMapFromTheorems :
+    normalizedCoreSourcePlaceSetFromTheorems → Prop := by
+  sorry
+
+def normalizedCoreSourceBoundedComparisonInverseFromTheorems :
+    normalizedCoreSourcePlaceSetFromTheorems → Prop := by
+  sorry
+
+def normalizedCoreSourceSoninSpaceComparisonFromTheorems :
+    normalizedCoreSourceWindowFromTheorems → Prop := by
+  sorry
+
+def normalizedCoreSourceFixedWindowExhaustionCompatibleFromTheorems :
+    normalizedCoreSourceWindowFromTheorems → Prop := by
+  sorry
+
+theorem normalizedCoreSourceWindowContainedInLambdaFromTheorems_isolated :
+    ∀ lambda : ℝ, 1 < lambda →
+      normalizedCoreSourceWindowContainedInLambdaFromTheorems
+        normalizedCoreSourceWindowWitnessFromTheorems lambda := by
+  sorry
+
+theorem normalizedCoreSourceLambdaCompatibleFromTheorems_isolated :
+    ∀ lambda : ℝ,
+      normalizedCoreSourceSupportInWindowFromTheorems
+        normalizedCoreSourceSupportTestFromTheorems
+        normalizedCoreSourceWindowWitnessFromTheorems →
+      normalizedCoreSourceFourierSupportInWindowFromTheorems
+        normalizedCoreSourceSupportTestFromTheorems
+        normalizedCoreSourceWindowWitnessFromTheorems →
+      normalizedCoreSourceSupportTransportedFromTheorems
+        normalizedCoreSourceSupportTestFromTheorems
+        normalizedCoreSourceWindowWitnessFromTheorems →
+      normalizedCoreSourceConvolutionSupportTransportedFromTheorems
+        normalizedCoreSourceSupportTestFromTheorems
+        normalizedCoreSourceWindowWitnessFromTheorems →
+      normalizedCoreSourceFixedWindowExhaustionCompatibleFromTheorems
+        normalizedCoreSourceWindowWitnessFromTheorems →
+      normalizedCoreSourceWindowContainedInLambdaFromTheorems
+        normalizedCoreSourceWindowWitnessFromTheorems lambda →
+      normalizedCoreSourceLambdaCompatibleFromTheorems
+        normalizedCoreSourceWindowWitnessFromTheorems lambda := by
   sorry
 
 /- Shared CCM24 support/window data over the common source test algebra. -/
 noncomputable def normalizedCoreSourceSupportWindowDataFromTheorems :
     Source.AnalyticCore.SourceSupportWindowData
-      normalizedCoreSourceTestAlgebraFromTheorems := by
-  sorry
+      normalizedCoreSourceTestAlgebraFromTheorems where
+  PlaceSet := normalizedCoreSourcePlaceSetFromTheorems
+  Window := normalizedCoreSourceWindowFromTheorems
+  sourcePlaceSet := normalizedCoreSourcePlaceSetWitnessFromTheorems
+  sourceSupportWindow := normalizedCoreSourceWindowWitnessFromTheorems
+  sourceTest := normalizedCoreSourceSupportTestFromTheorems
+  canonicalHilbertModel := normalizedCoreSourceCanonicalHilbertModelFromTheorems
+  scalingActionImplemented := normalizedCoreSourceScalingActionImplementedFromTheorems
+  fourierGradingCompatible := normalizedCoreSourceFourierGradingCompatibleFromTheorems
+  supportInWindow := normalizedCoreSourceSupportInWindowFromTheorems
+  fourierSupportInWindow := normalizedCoreSourceFourierSupportInWindowFromTheorems
+  supportTransported := normalizedCoreSourceSupportTransportedFromTheorems
+  convolutionSupportTransported :=
+    normalizedCoreSourceConvolutionSupportTransportedFromTheorems
+  windowContainedInLambda :=
+    normalizedCoreSourceWindowContainedInLambdaFromTheorems
+  lambdaCompatible := normalizedCoreSourceLambdaCompatibleFromTheorems
+  boundedComparisonMap := normalizedCoreSourceBoundedComparisonMapFromTheorems
+  boundedComparisonInverse :=
+    normalizedCoreSourceBoundedComparisonInverseFromTheorems
+  soninSpaceComparison := normalizedCoreSourceSoninSpaceComparisonFromTheorems
+  fixedWindowExhaustionCompatible :=
+    normalizedCoreSourceFixedWindowExhaustionCompatibleFromTheorems
 
 /- Shared CCM25 Weil-form data over the common source test algebra. -/
 noncomputable def normalizedCoreSourceWeilFormDataFromTheorems :
@@ -64,11 +249,99 @@ noncomputable def normalizedCoreSourceWeilFormDataFromTheorems :
       normalizedCoreSourceTestAlgebraFromTheorems := by
   sorry
 
+/- Shared CC20 trace-scale scalar functions over the common source test algebra. -/
+noncomputable def normalizedCoreTraceAmplitudeFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test → ℝ := by
+  sorry
+
+def normalizedCoreTraceClassFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test → Prop := by
+  sorry
+
+def normalizedCoreCyclicLegalFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test → Prop := by
+  sorry
+
+def normalizedCoreHilbertSchmidtGateFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test → Prop := by
+  sorry
+
+noncomputable def normalizedCoreSupportSquareTraceFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test → ℝ := by
+  sorry
+
+noncomputable def normalizedCoreSourceNoDefectTraceFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test → ℝ := by
+  sorry
+
+noncomputable def normalizedCorePositiveTraceFromTheorems :
+    normalizedCoreSourceTestAlgebraFromTheorems.Test → ℝ := by
+  sorry
+
+/- Shared CC20 trace-scale laws over the common source test algebra. -/
+theorem normalizedCoreSupportSquareTraceEqAmplitudeSqFromTheorems :
+    ∀ g : normalizedCoreSourceTestAlgebraFromTheorems.Test,
+      normalizedCoreSupportSquareTraceFromTheorems g =
+        normalizedCoreTraceAmplitudeFromTheorems g ^ 2 := by
+  sorry
+
+theorem normalizedCorePositiveTraceEqSupportSquareFromTheorems :
+    ∀ g : normalizedCoreSourceTestAlgebraFromTheorems.Test,
+      normalizedCorePositiveTraceFromTheorems g =
+        normalizedCoreSupportSquareTraceFromTheorems g := by
+  sorry
+
+theorem normalizedCoreTraceClassOfHilbertSchmidtFromTheorems :
+    ∀ g : normalizedCoreSourceTestAlgebraFromTheorems.Test,
+      normalizedCoreHilbertSchmidtGateFromTheorems g →
+        normalizedCoreTraceClassFromTheorems g := by
+  sorry
+
+theorem normalizedCoreCyclicLegalOfHilbertSchmidtFromTheorems :
+    ∀ g : normalizedCoreSourceTestAlgebraFromTheorems.Test,
+      normalizedCoreHilbertSchmidtGateFromTheorems g →
+        normalizedCoreCyclicLegalFromTheorems g := by
+  sorry
+
 /- Shared CC20 trace-scale data over the common source test algebra. -/
 noncomputable def normalizedCoreSourceTraceScaleDataFromTheorems :
     Source.AnalyticCore.SourceTraceScaleData
-      normalizedCoreSourceTestAlgebraFromTheorems := by
-  sorry
+      normalizedCoreSourceTestAlgebraFromTheorems where
+  traceAmplitude := normalizedCoreTraceAmplitudeFromTheorems
+  traceClass := normalizedCoreTraceClassFromTheorems
+  cyclicLegal := normalizedCoreCyclicLegalFromTheorems
+  hilbertSchmidtGate := normalizedCoreHilbertSchmidtGateFromTheorems
+  supportSquareTrace := normalizedCoreSupportSquareTraceFromTheorems
+  sourceNoDefectTrace := normalizedCoreSourceNoDefectTraceFromTheorems
+  positiveTrace := normalizedCorePositiveTraceFromTheorems
+  supportSquareTrace_eq_amplitude_sq :=
+    normalizedCoreSupportSquareTraceEqAmplitudeSqFromTheorems
+  positiveTrace_eq_supportSquare :=
+    normalizedCorePositiveTraceEqSupportSquareFromTheorems
+  traceClass_of_hilbertSchmidt :=
+    normalizedCoreTraceClassOfHilbertSchmidtFromTheorems
+  cyclicLegal_of_hilbertSchmidt :=
+    normalizedCoreCyclicLegalOfHilbertSchmidtFromTheorems
+
+theorem normalizedCoreSourceTraceScaleData_traceAmplitude :
+    normalizedCoreSourceTraceScaleDataFromTheorems.traceAmplitude =
+      normalizedCoreTraceAmplitudeFromTheorems := by
+  rfl
+
+theorem normalizedCoreSourceTraceScaleData_supportSquareTrace :
+    normalizedCoreSourceTraceScaleDataFromTheorems.supportSquareTrace =
+      normalizedCoreSupportSquareTraceFromTheorems := by
+  rfl
+
+theorem normalizedCoreSourceTraceScaleData_sourceNoDefectTrace :
+    normalizedCoreSourceTraceScaleDataFromTheorems.sourceNoDefectTrace =
+      normalizedCoreSourceNoDefectTraceFromTheorems := by
+  rfl
+
+theorem normalizedCoreSourceTraceScaleData_positiveTrace :
+    normalizedCoreSourceTraceScaleDataFromTheorems.positiveTrace =
+      normalizedCorePositiveTraceFromTheorems := by
+  rfl
 
 /- Consistency of the CCM25 Weil-form evaluation with the shared evaluation. -/
 theorem normalizedCoreSourceWeilFormUsesEvaluationFromTheorems :

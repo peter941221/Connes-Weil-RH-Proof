@@ -305,6 +305,14 @@ theorem finite_prime_visibility_of_common_source_test_certificates
   · exact FinitePrimeCertificate.arithmetic_term_normalization_of_certificate
       hbase
 
+theorem finite_prime_term_normalization_of_common_source_test_certificates
+    {W : WeilFormSymbols} {f g : TestFunction}
+    (h : FixedLambdaArithmeticSourceTestCertificatesForTest W f g) :
+    WeilFormSymbols.FinitePrimeTermNormalizationStatement W f g := by
+  let hbase := h.certificate 2 (by norm_num : (1 : ℝ) < 2)
+  exact FinitePrimeCertificate.arithmetic_term_normalization_of_certificate
+    hbase
+
 theorem finite_prime_normalization_of_common_source_test_certificates
     {W : WeilFormSymbols}
     (h : FixedLambdaArithmeticSourceTestCertificatesForAllTests W) :

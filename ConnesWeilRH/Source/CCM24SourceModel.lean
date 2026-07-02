@@ -32,9 +32,9 @@ def SourceSupportWindowData.toCCM24SemilocalObjectPackage
   sourceTestLeg := S.sourceTest
   sourceCCM24TestCompatibility := rows.sourceCCM24TestCompatibility
   sourceCanonicalModelData := rows.sourceCanonicalModelData
-  sourceSupportInWindowData := rows.sourceSupportInWindowData
-  sourceFourierSupportInWindowData := rows.sourceFourierSupportInWindowData
-  sourceSoninSpaceComparisonData := rows.sourceSoninSpaceComparisonData
+  sourceSupportInWindowData := rows.sourceSupportInWindow
+  sourceFourierSupportInWindowData := rows.sourceFourierSupportInWindow
+  sourceSoninSpaceComparisonData := rows.sourceSoninSpaceComparison
   sourceWindowContainedInLambdaData :=
     rows.sourceWindowContainedInLambdaData
   sourceLambdaCompatibilityBridge :=
@@ -44,7 +44,8 @@ def SourceSupportWindowData.toCCM24SemilocalObjectPackage
     rows.sourceSupportAndFourierSupportTransport
   sourceConvolutionSupportTransport :=
     rows.sourceConvolutionSupportTransport
-  sourceWindowLambdaCompatibility := rows.sourceWindowLambdaCompatibility
+  sourceWindowLambdaCompatibility :=
+    rows.sourceWindowLambdaCompatibility
   sourceBoundedComparisonTraceClassTransport :=
     rows.sourceBoundedComparisonTraceClassTransport
   sourceFixedWindowSoninExhaustion :=

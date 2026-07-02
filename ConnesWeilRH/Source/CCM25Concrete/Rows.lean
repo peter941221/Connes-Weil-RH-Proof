@@ -93,6 +93,13 @@ theorem finite_prime_normalization_of_arithmetic_rows
   FinitePrimeInterface.finite_prime_normalization_of_source_test_certificates
     h.finitePrimeArithmeticCertificates
 
+theorem finite_prime_term_normalization_of_arithmetic_rows
+    {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
+    (f g : TestFunction) :
+    WeilFormSymbols.FinitePrimeTermNormalizationStatement W f g :=
+  FinitePrimeInterface.finite_prime_term_normalization_of_common_source_test_certificates
+    (h.finitePrimeArithmeticCertificates f g)
+
 def source_test_of_arithmetic_rows
     {W : WeilFormSymbols} (h : ConcreteCCM25ArithmeticRows W)
     (f g : TestFunction) :

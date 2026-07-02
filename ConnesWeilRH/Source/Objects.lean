@@ -131,8 +131,13 @@ structure CCM24SemilocalObjectPackage where
     SemilocalModelSymbols.CanonicalSemilocalModelStatement semilocalSymbols
   sourceSupportAndFourierSupportTransport :
     SemilocalModelSymbols.SupportTransportStatement semilocalSymbols
-  sourceConvolutionSupportTransport : Prop
-  sourceWindowLambdaCompatibility : Prop
+  sourceConvolutionSupportTransport :
+    semilocalSymbols.convolutionSupportTransported
+      sourceTestLeg sourceSupportWindow
+  sourceWindowLambdaCompatibility :
+    ∀ lambda : ℝ,
+      1 < lambda →
+        semilocalSymbols.lambdaCompatible sourceSupportWindow lambda
   sourceBoundedComparisonTraceClassTransport :
     SemilocalModelSymbols.BoundedComparisonStatement semilocalSymbols
   sourceFixedWindowSoninExhaustion :

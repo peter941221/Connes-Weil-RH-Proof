@@ -165,6 +165,9 @@ structure SourceBackedFixedSTest (inputs : RouteInputs) where
     WeilFormSymbols.FinitePrimeVisibilityStatement inputs.ccm25.weilSymbols
         weilTest weilTest →
       test.finitePrimesVisible
+  finitePrimeTermNormalization :
+    WeilFormSymbols.FinitePrimeTermNormalizationStatement
+      inputs.ccm25.weilSymbols weilTest weilTest
 
 namespace SourceBackedFixedSTest
 
@@ -188,6 +191,9 @@ def ofExpandedSourcePackage
   tripleVanishingBridge := front.tripleVanishingBridge
   tripleVanishingSourceHolds := front.tripleVanishingSourceHolds
   finitePrimeVisibilityBridge := front.finitePrimeVisibilityBridge
+  finitePrimeTermNormalization :=
+    Source.CCM25Interface.finite_prime_pointwise_term_of_source_object_package
+      pkg pkg.commonTest.sourceTest pkg.commonTest.sourceTest
 
 theorem weil_test_of_expanded_source_package
     (pkg : Source.SourceObject.SourceObjectPackage)

@@ -38,6 +38,9 @@ structure SourceObjectCommonData
     commonTest.ccm25SourceTest =
       CCM25Concrete.Rows.source_test_of_arithmetic_rows
         concreteArithmeticRows commonTest.sourceTest commonTest.sourceTest
+  finitePrimeNormalization :
+    WeilFormSymbols.FinitePrimeNormalizationStatement
+      base.ccm25Model.toWeilFormSymbols
 
 /--
 Concrete common-test data for Goal 2C.
@@ -134,6 +137,14 @@ def toSourceObjectCommonData
   commonTest := data.commonTest
   concreteArithmeticRows := data.concreteArithmeticRows
   ccm25Test_eq_commonTest := data.arithmeticRowsUseConcreteCommonTest.symm
+  finitePrimeNormalization :=
+    CCM25Concrete.FinitePrimeInterface.finite_prime_normalization_of_source_test_certificates
+      (CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+        (CCM25Concrete.FinitePrimeSourceData.commonFinitePrimeArithmeticSourceDataOfArithmeticRows
+          data.concreteCommonTest.sourceTest
+          data.concreteArithmeticRows
+          data.arithmeticRowsUseConcreteCommonTest
+          data.scopedArchimedeanContributionBalance))
 
 theorem common_test_eq_of_concrete
     {base : SourceObjectTheoremBasePackage}
@@ -380,6 +391,17 @@ theorem common_restricted_index_set_eq_global
   CCM25Concrete.FinitePrimeCertificate.restricted_index_set_eq_global_of_arithmetic_certificate
     (data.commonArithmeticCertificate lambda hlambda)
 
+theorem common_finite_prime_visibility_at_lambda
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    CCM25Concrete.FinitePrimeExact.FinitePrimeVisibilityAtLambdaStatement
+      base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
+      data.concreteCommonTest.sourceTest lambda :=
+  CCM25Concrete.FinitePrimeExact.visibility_at_lambda_of_exact_support
+    (CCM25Concrete.FinitePrimeCertificate.exact_support_of_arithmetic_certificate
+      (data.commonArithmeticCertificate lambda hlambda))
+
 theorem common_global_finite_prime_term_sum_read_off
     {base : SourceObjectTheoremBasePackage}
     (data : SourceObjectConcreteCommonData base)
@@ -484,6 +506,23 @@ theorem common_finite_prime_normalization
     (CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
       data.commonFinitePrimeArithmeticSourceData)
 
+theorem common_finite_prime_term_normalization
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base) :
+    WeilFormSymbols.FinitePrimeTermNormalizationStatement
+      base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
+      data.concreteCommonTest.sourceTest :=
+  (data.common_finite_prime_normalization
+    data.concreteCommonTest.sourceTest
+    data.concreteCommonTest.sourceTest).finitePrimeTermNormalization
+
+theorem common_data_finite_prime_normalization_eq_concrete
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base) :
+    (data.toSourceObjectCommonData).finitePrimeNormalization =
+      data.common_finite_prime_normalization :=
+  rfl
+
 end SourceObjectConcreteCommonData
 
 namespace SourceObjectCommonData
@@ -509,8 +548,16 @@ theorem finite_prime_normalization
     (common : SourceObjectCommonData base) :
     WeilFormSymbols.FinitePrimeNormalizationStatement
       base.ccm25Model.toWeilFormSymbols :=
-  ccm25_finite_prime_normalization_of_concrete_arithmetic_rows
-    common.concreteArithmeticRows
+  common.finitePrimeNormalization
+
+theorem finite_prime_term_normalization
+    {base : SourceObjectTheoremBasePackage}
+    (common : SourceObjectCommonData base) :
+    WeilFormSymbols.FinitePrimeTermNormalizationStatement
+      base.ccm25Model.toWeilFormSymbols common.commonTest.sourceTest
+      common.commonTest.sourceTest :=
+  (common.finite_prime_normalization common.commonTest.sourceTest
+    common.commonTest.sourceTest).finitePrimeTermNormalization
 
 def toFinitePrimeTheoremBase
     {base : SourceObjectTheoremBasePackage}

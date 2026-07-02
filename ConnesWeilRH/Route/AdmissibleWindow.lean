@@ -66,7 +66,7 @@ theorem finite_prime_term_normalization_of_source_backed
     {inputs : RouteInputs} (g : SourceBackedFixedSTest inputs) :
   WeilFormSymbols.FinitePrimeTermNormalizationStatement
       inputs.ccm25.weilSymbols g.weilTest g.weilTest :=
-  (finite_prime_visibility_statement_of_source_backed g).finitePrimeTermNormalization
+  g.finitePrimeTermNormalization
 
 theorem finite_primes_visible_of_source_backed
     {inputs : RouteInputs} (g : SourceBackedFixedSTest inputs) :
