@@ -102,7 +102,7 @@ structure SourceSupportWindowData (A : SourceTestAlgebra) where
   supportCarrier : A.Test → Set SupportPoint
   fourierSupportCarrier : A.Test → Set SupportPoint
   windowCarrier : Window → Set SupportPoint
-  lambdaCarrier : ℝ → Set SupportPoint
+  supportScale : SupportPoint → ℝ
   canonicalHilbertModel : PlaceSet → Prop
   scalingActionImplemented : PlaceSet → Prop
   fourierGradingCompatible : PlaceSet → Prop
@@ -130,6 +130,16 @@ def convolutionSupportTransported
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
     (f : A.Test) (I : S.Window) : Prop :=
   S.fourierSupportInWindow f I
+
+def pointInLambdaCutoff
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (x : S.SupportPoint) (lambda : ℝ) : Prop :=
+  lambda⁻¹ ≤ S.supportScale x ∧ S.supportScale x ≤ lambda
+
+def lambdaCarrier
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (lambda : ℝ) : Set S.SupportPoint :=
+  {x | S.pointInLambdaCutoff x lambda}
 
 def windowContainedInLambda
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
@@ -244,11 +254,22 @@ end SourceSupportWindowContainmentData
 structure SourceLambdaWindowContainmentData
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
     (I : S.Window) where
-  windowCarrier_subset_lambdaCarrier :
+  windowPoint_mem_lambdaCutoff :
     ∀ lambda : ℝ,
-      1 < lambda → S.windowCarrier I ⊆ S.lambdaCarrier lambda
+      1 < lambda →
+        ∀ x : S.SupportPoint,
+          x ∈ S.windowCarrier I → S.pointInLambdaCutoff x lambda
 
 namespace SourceLambdaWindowContainmentData
+
+theorem windowCarrier_subset_lambdaCarrier
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window}
+    (D : SourceLambdaWindowContainmentData S I) :
+    ∀ lambda : ℝ,
+      1 < lambda → S.windowCarrier I ⊆ S.lambdaCarrier lambda := by
+  intro lambda hlambda x hx
+  exact D.windowPoint_mem_lambdaCutoff lambda hlambda x hx
 
 theorem windowContainedInLambda
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
