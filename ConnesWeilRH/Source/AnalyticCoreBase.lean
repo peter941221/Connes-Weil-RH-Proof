@@ -101,7 +101,7 @@ structure SourceSupportWindowData (A : SourceTestAlgebra) where
   SupportPoint : Type
   supportCarrier : A.Test → Set SupportPoint
   fourierSupportCarrier : A.Test → Set SupportPoint
-  windowCarrier : Window → Set SupportPoint
+  windowBaseCarrier : Window → Set SupportPoint
   supportScale : SupportPoint → ℝ
   canonicalHilbertModel : PlaceSet → Prop
   scalingActionImplemented : PlaceSet → Prop
@@ -110,6 +110,11 @@ structure SourceSupportWindowData (A : SourceTestAlgebra) where
   boundedComparisonInverse : PlaceSet → Prop
 
 namespace SourceSupportWindowData
+
+def windowCarrier
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (I : S.Window) : Set S.SupportPoint :=
+  {x | x ∈ S.windowBaseCarrier I ∧ S.supportScale x = 1}
 
 def supportInWindow
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
@@ -251,16 +256,77 @@ theorem supportSetContainedInWindow
 
 end SourceSupportWindowContainmentData
 
-structure SourceLambdaWindowContainmentData
+structure SourceWindowScaleBoundNormalForm
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
     (I : S.Window) where
-  windowPoint_mem_lambdaCutoff :
+
+namespace SourceWindowScaleBoundNormalForm
+
+theorem windowPoint_supportScale_eq_one
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window}
+    (_D : SourceWindowScaleBoundNormalForm S I) :
+    ∀ x : S.SupportPoint,
+      x ∈ S.windowCarrier I → S.supportScale x = 1 := by
+  intro _x hx
+  exact hx.2
+
+theorem windowPoint_supportScale_lowerBound
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window}
+    (D : SourceWindowScaleBoundNormalForm S I) :
     ∀ lambda : ℝ,
       1 < lambda →
         ∀ x : S.SupportPoint,
-          x ∈ S.windowCarrier I → S.pointInLambdaCutoff x lambda
+          x ∈ S.windowCarrier I → lambda⁻¹ ≤ S.supportScale x := by
+  intro lambda hlambda x hx
+  rw [D.windowPoint_supportScale_eq_one x hx]
+  exact inv_le_one_of_one_le₀ hlambda.le
+
+theorem windowPoint_supportScale_upperBound
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window}
+    (D : SourceWindowScaleBoundNormalForm S I) :
+    ∀ lambda : ℝ,
+      1 < lambda →
+        ∀ x : S.SupportPoint,
+          x ∈ S.windowCarrier I → S.supportScale x ≤ lambda := by
+  intro lambda hlambda x hx
+  rw [D.windowPoint_supportScale_eq_one x hx]
+  exact hlambda.le
+
+theorem windowPoint_mem_lambdaCutoff
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window}
+    (D : SourceWindowScaleBoundNormalForm S I) :
+    ∀ lambda : ℝ,
+      1 < lambda →
+        ∀ x : S.SupportPoint,
+          x ∈ S.windowCarrier I → S.pointInLambdaCutoff x lambda := by
+  intro lambda hlambda x hx
+  exact
+    ⟨D.windowPoint_supportScale_lowerBound lambda hlambda x hx,
+      D.windowPoint_supportScale_upperBound lambda hlambda x hx⟩
+
+end SourceWindowScaleBoundNormalForm
+
+structure SourceLambdaWindowContainmentData
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (I : S.Window) where
+  sourceWindowScaleBoundNormalForm :
+    SourceWindowScaleBoundNormalForm S I
 
 namespace SourceLambdaWindowContainmentData
+
+theorem windowPoint_mem_lambdaCutoff
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window}
+    (D : SourceLambdaWindowContainmentData S I) :
+    ∀ lambda : ℝ,
+      1 < lambda →
+        ∀ x : S.SupportPoint,
+          x ∈ S.windowCarrier I → S.pointInLambdaCutoff x lambda := by
+  exact D.sourceWindowScaleBoundNormalForm.windowPoint_mem_lambdaCutoff
 
 theorem windowCarrier_subset_lambdaCarrier
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}

@@ -658,6 +658,21 @@ theorem source_common_test_tuple_contract_of_package
     packageReadOff := package_backed_ccm25_weil_form_read_off hwindow
     squareCompatibility := source_convolution_square_compatibility_of_package hF }
 
+theorem source_common_test_tuple_contract_of_parts
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (windowLambdaCompatibility : WindowLambdaCompatibility inputs g lambda)
+    (packageReadOff : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg)
+    (squareCompatibility :
+      SourceConvolutionSquareCompatibility inputs g lambda F_g pkg) :
+    SourceCommonTestTupleContract inputs g lambda F_g pkg :=
+  { windowLambdaCompatibility := windowLambdaCompatibility
+    packageReadOff := packageReadOff
+    squareCompatibility := squareCompatibility }
+
 theorem source_convolution_square_of_common_tuple
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {F_g : TestFunction}
@@ -3000,12 +3015,14 @@ theorem source_qw_uses_common_test_of_parts
     {pkg :
       Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
         inputs.ccm25.weilSymbols g.weilTest lambda}
-    (commonTestTuple : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (windowLambdaCompatibility : WindowLambdaCompatibility inputs g lambda)
     (packageReadOff : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg)
     (squareCompatibility :
       SourceConvolutionSquareCompatibility inputs g lambda F_g pkg) :
     SourceQWUsesCommonTest inputs g lambda F_g pkg :=
-  { commonTestTuple := commonTestTuple
+  { commonTestTuple :=
+      source_common_test_tuple_contract_of_parts
+        windowLambdaCompatibility packageReadOff squareCompatibility
     packageReadOff := packageReadOff
     squareCompatibility := squareCompatibility }
 
@@ -3106,8 +3123,7 @@ def SourcePsiSignExpansion
 structure SourceArchimedeanSignBridge
     (inputs : RouteInputs) (a : inputs.cc20.archimedeanSymbols.Test)
     (_g : SourceBackedFixedSTest inputs) where
-  traceLegality : CC20TraceLegality inputs a
-  positiveTraceNonnegative : CC20PositiveTraceNonnegative inputs a
+  hilbertSchmidtGate : inputs.cc20.archimedeanSymbols.hilbertSchmidtGate a
   signsAndNormalizations :
     (Source.cc20SignsAndNormalizations
       inputs.cc20.archimedeanSymbols).Holds
@@ -3119,8 +3135,7 @@ def source_archimedean_sign_bridge_of_source_trace_read_off
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     (h : SourceTraceReadOffData inputs g) :
     SourceArchimedeanSignBridge inputs h.archimedeanTest g where
-  traceLegality := cc20_trace_legality_of_source_trace_data h
-  positiveTraceNonnegative := h.positiveTraceNonnegative
+  hilbertSchmidtGate := h.hilbertSchmidtGate
   signsAndNormalizations := inputs.cc20.signsAndNormalizations
   mellinHalfDensityConvention := inputs.cc20.mellinHalfDensityConvention
 
@@ -3200,12 +3215,12 @@ noncomputable def source_qw_equals_neg_cc20_weil_sum_of_common_test_parts
     {pkg :
       Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
         inputs.ccm25.weilSymbols g.weilTest lambda}
-    (commonTestTuple : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (windowLambdaCompatibility : WindowLambdaCompatibility inputs g lambda)
     (packageReadOff : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg)
     (squareCompatibility :
       SourceConvolutionSquareCompatibility inputs g lambda F_g pkg)
-    (traceLegality : CC20TraceLegality inputs a)
-    (positiveTraceNonnegative : CC20PositiveTraceNonnegative inputs a)
+    (hilbertSchmidtGate :
+      inputs.cc20.archimedeanSymbols.hilbertSchmidtGate a)
     (signsAndNormalizations :
       (Source.cc20SignsAndNormalizations
         inputs.cc20.archimedeanSymbols).Holds)
@@ -3215,11 +3230,15 @@ noncomputable def source_qw_equals_neg_cc20_weil_sum_of_common_test_parts
     SourceQWEqualsNegCC20WeilSum inputs a g lambda F_g pkg :=
   let hcommon :=
     source_qw_uses_common_test_of_parts
-      commonTestTuple packageReadOff squareCompatibility
+      windowLambdaCompatibility packageReadOff squareCompatibility
+  let traceLegality :=
+    (cc20_trace_legality_template_output hilbertSchmidtGate).traceLegality
+  let traceSquare :=
+    cc20_archimedean_trace_square_output traceLegality
   { sourceQWUsesCommonTest := hcommon
     sourcePsiSignExpansion := source_psi_sign_expansion_of_common_test hcommon
     traceLegality := traceLegality
-    positiveTraceNonnegative := positiveTraceNonnegative
+    positiveTraceNonnegative := traceSquare.positiveTraceNonnegative
     signsAndNormalizations := signsAndNormalizations
     mellinHalfDensityConvention := mellinHalfDensityConvention
     sourceFinitePrimeSignOwnedByPackage :=
@@ -3235,12 +3254,12 @@ noncomputable def source_qw_nonnegative_to_cc20_nonpositive_of_common_test_parts
     {pkg :
       Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
         inputs.ccm25.weilSymbols g.weilTest lambda}
-    (commonTestTuple : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (windowLambdaCompatibility : WindowLambdaCompatibility inputs g lambda)
     (packageReadOff : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg)
     (squareCompatibility :
       SourceConvolutionSquareCompatibility inputs g lambda F_g pkg)
-    (traceLegality : CC20TraceLegality inputs a)
-    (positiveTraceNonnegative : CC20PositiveTraceNonnegative inputs a)
+    (hilbertSchmidtGate :
+      inputs.cc20.archimedeanSymbols.hilbertSchmidtGate a)
     (signsAndNormalizations :
       (Source.cc20SignsAndNormalizations
         inputs.cc20.archimedeanSymbols).Holds)
@@ -3249,11 +3268,10 @@ noncomputable def source_qw_nonnegative_to_cc20_nonpositive_of_common_test_parts
         inputs.cc20.archimedeanSymbols).Holds) :
     SourceQWNonnegativeToCC20Nonpositive inputs a g lambda F_g pkg :=
   source_qw_equals_neg_cc20_weil_sum_of_common_test_parts
-    commonTestTuple
+    windowLambdaCompatibility
     packageReadOff
     squareCompatibility
-    traceLegality
-    positiveTraceNonnegative
+    hilbertSchmidtGate
     signsAndNormalizations
     mellinHalfDensityConvention
 
@@ -3499,11 +3517,10 @@ noncomputable def final_sign_bridge_of_contract
     (h : FinalSignBridgeContract inputs a g lambda F_g pkg) :
     SourceQWEqualsNegCC20WeilSum inputs a g lambda F_g pkg :=
   source_qw_equals_neg_cc20_weil_sum_of_common_test_parts
-    h.sourceQWUsesCommonTest.commonTestTuple
+    h.sourceQWUsesCommonTest.commonTestTuple.windowLambdaCompatibility
     h.sourceQWUsesCommonTest.packageReadOff
     h.sourceQWUsesCommonTest.squareCompatibility
-    h.sourceArchimedeanSignBridge.traceLegality
-    h.sourceArchimedeanSignBridge.positiveTraceNonnegative
+    h.sourceArchimedeanSignBridge.hilbertSchmidtGate
     h.sourceArchimedeanSignBridge.signsAndNormalizations
     h.sourceArchimedeanSignBridge.mellinHalfDensityConvention
 

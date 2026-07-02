@@ -200,14 +200,16 @@ theorem common_certificate_source_test_eq_concrete
         data.concreteCommonTest.sourceTest).certificate
         lambda hlambda).support.sourceTest)
         =
-      CCM25Concrete.Rows.source_test_of_arithmetic_rows
-        data.concreteArithmeticRows data.concreteCommonTest.sourceTest
-        data.concreteCommonTest.sourceTest :=
-        CCM25Concrete.Rows.arithmetic_certificate_source_test_of_arithmetic_rows
-          data.concreteArithmeticRows data.concreteCommonTest.sourceTest
-          data.concreteCommonTest.sourceTest lambda hlambda
+      (data.concreteArithmeticRows.finitePrimeArithmeticCertificates
+        data.concreteCommonTest.sourceTest
+        data.concreteCommonTest.sourceTest).sourceTest :=
+        (data.concreteArithmeticRows.finitePrimeArithmeticCertificates
+          data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest).certificateSourceTest lambda hlambda
     _ = data.concreteCommonTest.toSourceTestEvaluationInterface :=
-        data.arithmeticRowsUseConcreteCommonTest
+        by
+          simpa [CCM25Concrete.Rows.source_test_of_arithmetic_rows]
+            using data.arithmeticRowsUseConcreteCommonTest
 
 theorem common_atom_source_test_eq_concrete
     {base : SourceObjectTheoremBasePackage}
@@ -218,20 +220,17 @@ theorem common_atom_source_test_eq_concrete
         data.concreteCommonTest.sourceTest).certificate
         lambda hlambda).atoms.atIndex n).sourceTest =
       data.concreteCommonTest.toSourceTestEvaluationInterface := by
+  let hcert :=
+    (data.concreteArithmeticRows.finitePrimeArithmeticCertificates
+      data.concreteCommonTest.sourceTest
+      data.concreteCommonTest.sourceTest).certificate lambda hlambda
   calc
-    ((((data.concreteArithmeticRows.finitePrimeArithmeticCertificates
-        data.concreteCommonTest.sourceTest
-        data.concreteCommonTest.sourceTest).certificate
-        lambda hlambda).atoms.atIndex n).sourceTest)
-        =
-      CCM25Concrete.Rows.source_test_of_arithmetic_rows
-        data.concreteArithmeticRows data.concreteCommonTest.sourceTest
-        data.concreteCommonTest.sourceTest :=
-        CCM25Concrete.Rows.arithmetic_atom_source_test_of_arithmetic_rows
-          data.concreteArithmeticRows data.concreteCommonTest.sourceTest
-          data.concreteCommonTest.sourceTest lambda hlambda n
+    (hcert.atoms.atIndex n).sourceTest = hcert.support.sourceTest :=
+        hcert.atomsUseSupportSourceTest n
     _ = data.concreteCommonTest.toSourceTestEvaluationInterface :=
-        data.arithmeticRowsUseConcreteCommonTest
+        by
+          simpa [hcert]
+            using data.common_certificate_source_test_eq_concrete lambda hlambda
 
 theorem common_atom_pairing_evaluation_source_test_eq_concrete
     {base : SourceObjectTheoremBasePackage}
@@ -245,34 +244,35 @@ theorem common_atom_pairing_evaluation_source_test_eq_concrete
     atom.sourcePairing.model.sourceEvaluation.sourceTest =
       data.concreteCommonTest.toSourceTestEvaluationInterface := by
   dsimp
+  let hcert :=
+    (data.concreteArithmeticRows.finitePrimeArithmeticCertificates
+      data.concreteCommonTest.sourceTest
+      data.concreteCommonTest.sourceTest).certificate lambda hlambda
   calc
-    ((((data.concreteArithmeticRows.finitePrimeArithmeticCertificates
-        data.concreteCommonTest.sourceTest
-        data.concreteCommonTest.sourceTest).certificate
-        lambda hlambda).atoms.atIndex n).sourcePairing.model.sourceEvaluation.sourceTest)
-        =
-      CCM25Concrete.Rows.source_test_of_arithmetic_rows
-        data.concreteArithmeticRows data.concreteCommonTest.sourceTest
-        data.concreteCommonTest.sourceTest :=
-        CCM25Concrete.Rows.arithmetic_atom_pairing_evaluation_source_test_of_arithmetic_rows
-          data.concreteArithmeticRows data.concreteCommonTest.sourceTest
-          data.concreteCommonTest.sourceTest lambda hlambda n
+    (hcert.atoms.atIndex n).sourcePairing.model.sourceEvaluation.sourceTest =
+      hcert.support.sourceTest :=
+        PrimePowerArithmetic.source_pairing_evaluation_uses_normalization_source_test
+          hcert.atomsUseSupportSourceTest n
     _ = data.concreteCommonTest.toSourceTestEvaluationInterface :=
-        data.arithmeticRowsUseConcreteCommonTest
+        by
+          simpa [hcert]
+            using data.common_certificate_source_test_eq_concrete lambda hlambda
 
 theorem common_atom_visible_in_concrete_source_test
     {base : SourceObjectTheoremBasePackage}
     (data : SourceObjectConcreteCommonData base)
     (lambda : ℝ) (hlambda : 1 < lambda) (n : ℕ) :
     data.concreteCommonTest.sourceAtomVisible n := by
+  let hcert :=
+    (data.concreteArithmeticRows.finitePrimeArithmeticCertificates
+      data.concreteCommonTest.sourceTest
+      data.concreteCommonTest.sourceTest).certificate lambda hlambda
   have hvisible :
-      (CCM25Concrete.Rows.source_test_of_arithmetic_rows
-        data.concreteArithmeticRows data.concreteCommonTest.sourceTest
-        data.concreteCommonTest.sourceTest).sourceAtomVisible n :=
-    CCM25Concrete.Rows.arithmetic_atom_visible_in_source_test_of_arithmetic_rows
-      data.concreteArithmeticRows data.concreteCommonTest.sourceTest
-      data.concreteCommonTest.sourceTest lambda hlambda n
-  simpa [data.arithmeticRowsUseConcreteCommonTest] using hvisible
+      hcert.support.sourceTest.sourceAtomVisible n :=
+    PrimePowerArithmetic.source_atom_visible_uses_normalization_source_test
+      hcert.atomsUseSupportSourceTest n
+  simpa [hcert, data.common_certificate_source_test_eq_concrete lambda hlambda]
+    using hvisible
 
 def commonArithmeticCertificate
     {base : SourceObjectTheoremBasePackage}
@@ -302,9 +302,8 @@ noncomputable def commonFinitePrimeConcreteObject
     CCM25Concrete.FinitePrimeCertificate.FixedLambdaFinitePrimeConcreteObject
       base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
       data.concreteCommonTest.sourceTest lambda :=
-  CCM25Concrete.Rows.fixed_lambda_concrete_object_of_arithmetic_rows
-    data.concreteArithmeticRows data.concreteCommonTest.sourceTest
-    data.concreteCommonTest.sourceTest lambda hlambda
+  CCM25Concrete.FinitePrimeCertificate.concrete_object_of_arithmetic_certificate
+    (data.commonArithmeticCertificate lambda hlambda)
 
 theorem common_finite_prime_concrete_object_certificate_eq
     {base : SourceObjectTheoremBasePackage}
@@ -333,14 +332,57 @@ theorem common_finite_prime_concrete_object_global_visible
     (lambda : ℝ) (hlambda : 1 < lambda)
     {n : ℕ}
     (hn : n ∈ base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet) :
-    data.concreteCommonTest.sourceAtomVisible n := by
+    base.ccm25Model.toWeilFormSymbols.finitePrimeAtomVisible n
+      (base.ccm25Model.toWeilFormSymbols.convolutionStar
+        data.concreteCommonTest.sourceTest data.concreteCommonTest.sourceTest) := by
   have hvisible :
       (data.commonFinitePrimeConcreteObject
         lambda hlambda).sourceTest.sourceAtomVisible n :=
     CCM25Concrete.FinitePrimeCertificate.concrete_object_global_index_visible
       (data.commonFinitePrimeConcreteObject lambda hlambda) hn
-  simpa [data.common_finite_prime_concrete_object_source_test_eq_concrete
-    lambda hlambda] using hvisible
+  have hcommon : data.concreteCommonTest.sourceAtomVisible n := by
+    simpa [data.common_finite_prime_concrete_object_source_test_eq_concrete
+      lambda hlambda] using hvisible
+  exact (data.concreteCommonTest.route_visibility_iff_source_visibility n).2 hcommon
+
+theorem common_route_visible_atom_data
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ}
+    (hvisible :
+      base.ccm25Model.toWeilFormSymbols.finitePrimeAtomVisible n
+        (base.ccm25Model.toWeilFormSymbols.convolutionStar
+          data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest)) :
+    CCM25Concrete.PrimePowerSupport.SourceVisibleAtomData
+      IsPrimePow
+      (fun n =>
+        base.ccm25Model.toWeilFormSymbols.finitePrimeAtomVisible n
+          (base.ccm25Model.toWeilFormSymbols.convolutionStar
+            data.concreteCommonTest.sourceTest
+            data.concreteCommonTest.sourceTest)) n := by
+  let hcert := data.commonArithmeticCertificate lambda hlambda
+  let hsource :=
+    (CCM25Concrete.FinitePrimeCertificate.visible_iff_of_certificate
+      (CCM25Concrete.FinitePrimeCertificate.certificate_of_arithmetic_certificate
+        hcert) n).1 hvisible
+  have hroute :
+      base.ccm25Model.toWeilFormSymbols.finitePrimeAtomVisible n
+        (base.ccm25Model.toWeilFormSymbols.convolutionStar
+          data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest) := hvisible
+  have hprime : CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex n := by
+    simpa [
+      CCM25Concrete.FinitePrimeCertificate.certificate_of_arithmetic_certificate,
+      CCM25Concrete.FinitePrimeCertificate.atom_certificate_of_arithmetic_certificate,
+      CCM25Concrete.PrimePowerSupport.support_skeleton_of_arithmetic_support_skeleton]
+      using hsource.primePowerIndex
+  exact
+    { primePowerIndex :=
+        CCM25Concrete.PrimePowerArithmetic.source_prime_power_index_iff_mathlib.1
+          hprime
+      atomVisible := hroute }
 
 theorem common_finite_prime_concrete_object_global_index_data
     {base : SourceObjectTheoremBasePackage}
@@ -349,14 +391,20 @@ theorem common_finite_prime_concrete_object_global_index_data
     {n : ℕ}
     (hn : n ∈ base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet) :
     CCM25Concrete.PrimePowerSupport.SourceGlobalIndexData
-      CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex
-      data.concreteCommonTest.sourceAtomVisible n where
+      IsPrimePow
+      (fun n =>
+        base.ccm25Model.toWeilFormSymbols.finitePrimeAtomVisible n
+          (base.ccm25Model.toWeilFormSymbols.convolutionStar
+            data.concreteCommonTest.sourceTest
+            data.concreteCommonTest.sourceTest)) n where
   primePowerIndex :=
-    CCM25Concrete.FinitePrimeCertificate.concrete_object_global_index_isPrimePow
-      (data.commonFinitePrimeConcreteObject lambda hlambda) hn
+    (data.common_route_visible_atom_data lambda hlambda
+      (data.common_finite_prime_concrete_object_global_visible
+        lambda hlambda hn)).primePowerIndex
   atomVisible :=
-    data.common_finite_prime_concrete_object_global_visible
-      lambda hlambda hn
+    (data.common_route_visible_atom_data lambda hlambda
+      (data.common_finite_prime_concrete_object_global_visible
+        lambda hlambda hn)).atomVisible
 
 theorem common_finite_prime_concrete_object_restricted_visible
     {base : SourceObjectTheoremBasePackage}
@@ -365,14 +413,18 @@ theorem common_finite_prime_concrete_object_restricted_visible
     {n : ℕ}
     (hn : n ∈ base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet
       lambda) :
-    data.concreteCommonTest.sourceAtomVisible n := by
+    base.ccm25Model.toWeilFormSymbols.finitePrimeAtomVisible n
+      (base.ccm25Model.toWeilFormSymbols.convolutionStar
+        data.concreteCommonTest.sourceTest data.concreteCommonTest.sourceTest) := by
   have hvisible :
       (data.commonFinitePrimeConcreteObject
         lambda hlambda).sourceTest.sourceAtomVisible n :=
     CCM25Concrete.FinitePrimeCertificate.concrete_object_restricted_index_visible
       (data.commonFinitePrimeConcreteObject lambda hlambda) hn
-  simpa [data.common_finite_prime_concrete_object_source_test_eq_concrete
-    lambda hlambda] using hvisible
+  have hcommon : data.concreteCommonTest.sourceAtomVisible n := by
+    simpa [data.common_finite_prime_concrete_object_source_test_eq_concrete
+      lambda hlambda] using hvisible
+  exact (data.concreteCommonTest.route_visibility_iff_source_visibility n).2 hcommon
 
 theorem common_finite_prime_concrete_object_restricted_index_data
     {base : SourceObjectTheoremBasePackage}
@@ -382,17 +434,47 @@ theorem common_finite_prime_concrete_object_restricted_index_data
     (hn : n ∈ base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet
       lambda) :
     CCM25Concrete.PrimePowerSupport.SourceRestrictedIndexData
-      CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex
-      data.concreteCommonTest.sourceAtomVisible lambda n where
+      IsPrimePow
+      (fun n =>
+        base.ccm25Model.toWeilFormSymbols.finitePrimeAtomVisible n
+          (base.ccm25Model.toWeilFormSymbols.convolutionStar
+            data.concreteCommonTest.sourceTest
+            data.concreteCommonTest.sourceTest)) lambda n where
   primePowerIndex :=
-    CCM25Concrete.FinitePrimeCertificate.concrete_object_restricted_index_isPrimePow
-      (data.commonFinitePrimeConcreteObject lambda hlambda) hn
+    (data.common_route_visible_atom_data lambda hlambda
+      (data.common_finite_prime_concrete_object_restricted_visible
+        lambda hlambda hn)).primePowerIndex
   atomVisible :=
-    data.common_finite_prime_concrete_object_restricted_visible
-      lambda hlambda hn
+    (data.common_route_visible_atom_data lambda hlambda
+      (data.common_finite_prime_concrete_object_restricted_visible
+        lambda hlambda hn)).atomVisible
   lambdaCut :=
     CCM25Concrete.FinitePrimeCertificate.concrete_object_restricted_index_lambda_cut
       (data.commonFinitePrimeConcreteObject lambda hlambda) hn
+
+theorem common_finite_prime_concrete_object_restricted_index_one_lt
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ}
+    (hn : n ∈ base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet
+      lambda) :
+    1 < n :=
+  CCM25Concrete.PrimePowerSupport.source_lambda_cut_one_lt
+    (data.common_finite_prime_concrete_object_restricted_index_data
+      lambda hlambda hn).lambdaCut
+
+theorem common_finite_prime_concrete_object_restricted_index_le_lambda_sq
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    {n : ℕ}
+    (hn : n ∈ base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet
+      lambda) :
+    (n : ℝ) ≤ lambda ^ 2 :=
+  CCM25Concrete.PrimePowerSupport.source_lambda_cut_le_lambda_sq
+    (data.common_finite_prime_concrete_object_restricted_index_data
+      lambda hlambda hn).lambdaCut
 
 theorem common_restricted_index_set_eq_global
     {base : SourceObjectTheoremBasePackage}
