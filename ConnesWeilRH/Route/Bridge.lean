@@ -2994,6 +2994,21 @@ theorem source_qw_uses_common_test_of_common_tuple
     packageReadOff := h.packageReadOff
     squareCompatibility := h.squareCompatibility }
 
+theorem source_qw_uses_common_test_of_parts
+    {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
+    {lambda : ℝ} {F_g : TestFunction}
+    {pkg :
+      Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+        inputs.ccm25.weilSymbols g.weilTest lambda}
+    (commonTestTuple : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (packageReadOff : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg)
+    (squareCompatibility :
+      SourceConvolutionSquareCompatibility inputs g lambda F_g pkg) :
+    SourceQWUsesCommonTest inputs g lambda F_g pkg :=
+  { commonTestTuple := commonTestTuple
+    packageReadOff := packageReadOff
+    squareCompatibility := squareCompatibility }
+
 theorem source_qw_common_tuple_of_common_test
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {lambda : ℝ} {F_g : TestFunction}
@@ -3155,7 +3170,14 @@ structure SourceQWEqualsNegCC20WeilSum
         inputs.ccm25.weilSymbols g.weilTest lambda) where
   sourceQWUsesCommonTest : SourceQWUsesCommonTest inputs g lambda F_g pkg
   sourcePsiSignExpansion : SourcePsiSignExpansion inputs g lambda F_g pkg
-  sourceArchimedeanSignBridge : SourceArchimedeanSignBridge inputs a g
+  traceLegality : CC20TraceLegality inputs a
+  positiveTraceNonnegative : CC20PositiveTraceNonnegative inputs a
+  signsAndNormalizations :
+    (Source.cc20SignsAndNormalizations
+      inputs.cc20.archimedeanSymbols).Holds
+  mellinHalfDensityConvention :
+    (Source.cc20MellinHalfDensityConvention
+      inputs.cc20.archimedeanSymbols).Holds
   sourceFinitePrimeSignOwnedByPackage :
     SourceFinitePrimeSignOwnedByPackage inputs g lambda pkg
   sourcePoleSignInCC20LocalSum :
@@ -3170,7 +3192,7 @@ abbrev SourceQWNonnegativeToCC20Nonpositive
         inputs.ccm25.weilSymbols g.weilTest lambda) :=
   SourceQWEqualsNegCC20WeilSum inputs a g lambda F_g pkg
 
-noncomputable def source_qw_equals_neg_cc20_weil_sum_of_common_test
+noncomputable def source_qw_equals_neg_cc20_weil_sum_of_common_test_parts
     {inputs : RouteInputs}
     {a : inputs.cc20.archimedeanSymbols.Test}
     {g : SourceBackedFixedSTest inputs}
@@ -3178,18 +3200,34 @@ noncomputable def source_qw_equals_neg_cc20_weil_sum_of_common_test
     {pkg :
       Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
         inputs.ccm25.weilSymbols g.weilTest lambda}
-    (hcommon : SourceQWUsesCommonTest inputs g lambda F_g pkg)
-    (hsign : SourceArchimedeanSignBridge inputs a g) :
+    (commonTestTuple : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (packageReadOff : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg)
+    (squareCompatibility :
+      SourceConvolutionSquareCompatibility inputs g lambda F_g pkg)
+    (traceLegality : CC20TraceLegality inputs a)
+    (positiveTraceNonnegative : CC20PositiveTraceNonnegative inputs a)
+    (signsAndNormalizations :
+      (Source.cc20SignsAndNormalizations
+        inputs.cc20.archimedeanSymbols).Holds)
+    (mellinHalfDensityConvention :
+      (Source.cc20MellinHalfDensityConvention
+        inputs.cc20.archimedeanSymbols).Holds) :
     SourceQWEqualsNegCC20WeilSum inputs a g lambda F_g pkg :=
+  let hcommon :=
+    source_qw_uses_common_test_of_parts
+      commonTestTuple packageReadOff squareCompatibility
   { sourceQWUsesCommonTest := hcommon
     sourcePsiSignExpansion := source_psi_sign_expansion_of_common_test hcommon
-    sourceArchimedeanSignBridge := hsign
+    traceLegality := traceLegality
+    positiveTraceNonnegative := positiveTraceNonnegative
+    signsAndNormalizations := signsAndNormalizations
+    mellinHalfDensityConvention := mellinHalfDensityConvention
     sourceFinitePrimeSignOwnedByPackage :=
       source_finite_prime_sign_owned_by_common_test hcommon
     sourcePoleSignInCC20LocalSum :=
       source_pole_sign_in_cc20_local_sum_of_common_test hcommon }
 
-noncomputable def source_qw_nonnegative_to_cc20_nonpositive_of_common_test
+noncomputable def source_qw_nonnegative_to_cc20_nonpositive_of_common_test_parts
     {inputs : RouteInputs}
     {a : inputs.cc20.archimedeanSymbols.Test}
     {g : SourceBackedFixedSTest inputs}
@@ -3197,10 +3235,27 @@ noncomputable def source_qw_nonnegative_to_cc20_nonpositive_of_common_test
     {pkg :
       Source.CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
         inputs.ccm25.weilSymbols g.weilTest lambda}
-    (hcommon : SourceQWUsesCommonTest inputs g lambda F_g pkg)
-    (hsign : SourceArchimedeanSignBridge inputs a g) :
+    (commonTestTuple : SourceCommonTestTupleContract inputs g lambda F_g pkg)
+    (packageReadOff : PackageBackedCCM25WeilFormReadOff inputs g lambda pkg)
+    (squareCompatibility :
+      SourceConvolutionSquareCompatibility inputs g lambda F_g pkg)
+    (traceLegality : CC20TraceLegality inputs a)
+    (positiveTraceNonnegative : CC20PositiveTraceNonnegative inputs a)
+    (signsAndNormalizations :
+      (Source.cc20SignsAndNormalizations
+        inputs.cc20.archimedeanSymbols).Holds)
+    (mellinHalfDensityConvention :
+      (Source.cc20MellinHalfDensityConvention
+        inputs.cc20.archimedeanSymbols).Holds) :
     SourceQWNonnegativeToCC20Nonpositive inputs a g lambda F_g pkg :=
-  source_qw_equals_neg_cc20_weil_sum_of_common_test hcommon hsign
+  source_qw_equals_neg_cc20_weil_sum_of_common_test_parts
+    commonTestTuple
+    packageReadOff
+    squareCompatibility
+    traceLegality
+    positiveTraceNonnegative
+    signsAndNormalizations
+    mellinHalfDensityConvention
 
 structure FinalSignBridgeData
     (inputs : RouteInputs) (a : inputs.cc20.archimedeanSymbols.Test)
@@ -3254,13 +3309,15 @@ structure RouteBridgeCertificate
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (L : RouteLedgers) where
   sourceTraceReadOff : SourceTraceReadOffData inputs g
-  sourceBackedLedgers : SourceBackedLedgers inputs g L
+  ledgerPackage :
+    LedgerSignDefectPackage inputs g sourceTraceReadOff.lambda
+  ledgerPackageLedgers : ledgerPackage.ledgers = L
   restrictedToFullQWBridge :
     RestrictedToFullQWBridgeContract inputs g sourceTraceReadOff.lambda
       (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
       L sourceTraceReadOff.ccm25ArithmeticPackage
-  finalSignBridge :
-    FinalSignBridgeContract inputs sourceTraceReadOff.archimedeanTest g
+  finalSignNonpositive :
+    SourceQWNonnegativeToCC20Nonpositive inputs sourceTraceReadOff.archimedeanTest g
       sourceTraceReadOff.lambda
       (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
       sourceTraceReadOff.ccm25ArithmeticPackage
@@ -3275,18 +3332,20 @@ def route_bridge_certificate_of_sign_defect_classification
       RestrictedToFullQWBridgeContract inputs g sourceTraceReadOff.lambda
         (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
         L sourceTraceReadOff.ccm25ArithmeticPackage)
-    (finalSignBridge :
-      FinalSignBridgeContract inputs sourceTraceReadOff.archimedeanTest g
+    (finalSignNonpositive :
+      SourceQWNonnegativeToCC20Nonpositive inputs sourceTraceReadOff.archimedeanTest g
         sourceTraceReadOff.lambda
         (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
         sourceTraceReadOff.ccm25ArithmeticPackage) :
     RouteBridgeCertificate inputs g L where
   sourceTraceReadOff := sourceTraceReadOff
-  sourceBackedLedgers :=
-    source_backed_ledgers_of_sign_defect_classification
-      signDefectClassification
+  ledgerPackage :=
+    ledger_sign_defect_package_of_source_backed_ledgers
+      (source_backed_ledgers_of_sign_defect_classification
+        signDefectClassification)
+  ledgerPackageLedgers := rfl
   restrictedToFullQWBridge := restrictedToFullQWBridge
-  finalSignBridge := finalSignBridge
+  finalSignNonpositive := finalSignNonpositive
 
 def restricted_to_full_qw_lambda_threshold_of_contract
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -3439,9 +3498,14 @@ noncomputable def final_sign_bridge_of_contract
         inputs.ccm25.weilSymbols g.weilTest lambda}
     (h : FinalSignBridgeContract inputs a g lambda F_g pkg) :
     SourceQWEqualsNegCC20WeilSum inputs a g lambda F_g pkg :=
-  source_qw_equals_neg_cc20_weil_sum_of_common_test
-    h.sourceQWUsesCommonTest
-    h.sourceArchimedeanSignBridge
+  source_qw_equals_neg_cc20_weil_sum_of_common_test_parts
+    h.sourceQWUsesCommonTest.commonTestTuple
+    h.sourceQWUsesCommonTest.packageReadOff
+    h.sourceQWUsesCommonTest.squareCompatibility
+    h.sourceArchimedeanSignBridge.traceLegality
+    h.sourceArchimedeanSignBridge.positiveTraceNonnegative
+    h.sourceArchimedeanSignBridge.signsAndNormalizations
+    h.sourceArchimedeanSignBridge.mellinHalfDensityConvention
 
 noncomputable def final_sign_nonnegative_to_nonpositive_of_contract
     {inputs : RouteInputs}
@@ -3613,22 +3677,22 @@ def restricted_to_full_qw_bridge_of_route_bridge_certificate
       L h.sourceTraceReadOff.ccm25ArithmeticPackage :=
   h.restrictedToFullQWBridge
 
-def final_sign_bridge_of_route_bridge_certificate
+def final_sign_nonpositive_of_route_bridge_certificate
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers}
     (h : RouteBridgeCertificate inputs g L) :
-    FinalSignBridgeContract inputs h.sourceTraceReadOff.archimedeanTest g
+    SourceQWNonnegativeToCC20Nonpositive inputs h.sourceTraceReadOff.archimedeanTest g
       h.sourceTraceReadOff.lambda
       (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
       h.sourceTraceReadOff.ccm25ArithmeticPackage :=
-  h.finalSignBridge
+  h.finalSignNonpositive
 
 def source_backed_full_positivity_of_route_bridge_certificate
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
     {L : RouteLedgers}
     (h : RouteBridgeCertificate inputs g L) :
     SourceBackedFullPositivity inputs g L :=
-  ⟨h.sourceTraceReadOff, h.sourceBackedLedgers⟩
+  ⟨h.sourceTraceReadOff, h.ledgerPackage, h.ledgerPackageLedgers⟩
 
 end Route
 end ConnesWeilRH

@@ -29,8 +29,9 @@ structure SourceSupportWindowPointContainmentCoreData
   supportWindowPoint : supportWindowSet
   supportWindowPoint_mem :
     supportWindowMembership supportWindowPoint
-  supportWindowPointContainedInWindow :
-    S.supportInWindow f I
+  supportWindowContainment :
+    SourceSupportWindowContainmentData
+      S f I supportWindowSet supportWindowMembership
 
 namespace SourceSupportWindowPointContainmentCoreData
 
@@ -44,8 +45,10 @@ theorem supportWindowPointMembershipWitnessesSupportInWindow
         S f I supportWindowSet supportWindowMembership) :
     supportWindowMembership D.supportWindowPoint →
       S.supportInWindow f I := by
-  intro _hWindow
-  exact D.supportWindowPointContainedInWindow
+  intro hWindow
+  exact
+    D.supportWindowContainment.supportSetContainedInWindow
+      D.supportWindowPoint hWindow
 
 end SourceSupportWindowPointContainmentCoreData
 

@@ -98,17 +98,170 @@ structure SourceSupportWindowData (A : SourceTestAlgebra) where
   sourcePlaceSet : PlaceSet
   sourceSupportWindow : Window
   sourceTest : A.Test
+  SupportPoint : Type
+  supportCarrier : A.Test → Set SupportPoint
+  fourierSupportCarrier : A.Test → Set SupportPoint
+  windowCarrier : Window → Set SupportPoint
+  lambdaCarrier : ℝ → Set SupportPoint
   canonicalHilbertModel : PlaceSet → Prop
   scalingActionImplemented : PlaceSet → Prop
   fourierGradingCompatible : PlaceSet → Prop
-  supportInWindow : A.Test → Window → Prop
-  fourierSupportInWindow : A.Test → Window → Prop
-  supportTransported : A.Test → Window → Prop
-  convolutionSupportTransported : A.Test → Window → Prop
-  windowContainedInLambda : Window → ℝ → Prop
-  lambdaCompatible : Window → ℝ → Prop
   boundedComparisonMap : PlaceSet → Prop
   boundedComparisonInverse : PlaceSet → Prop
+
+namespace SourceSupportWindowData
+
+def supportInWindow
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (f : A.Test) (I : S.Window) : Prop :=
+  S.supportCarrier f ⊆ S.windowCarrier I
+
+def fourierSupportInWindow
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (f : A.Test) (I : S.Window) : Prop :=
+  S.fourierSupportCarrier f ⊆ S.windowCarrier I
+
+def supportTransported
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (f : A.Test) (I : S.Window) : Prop :=
+  S.supportInWindow f I
+
+def convolutionSupportTransported
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (f : A.Test) (I : S.Window) : Prop :=
+  S.fourierSupportInWindow f I
+
+def windowContainedInLambda
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (I : S.Window) (lambda : ℝ) : Prop :=
+  S.windowCarrier I ⊆ S.lambdaCarrier lambda
+
+def lambdaCompatible
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (I : S.Window) (lambda : ℝ) : Prop :=
+  S.windowContainedInLambda I lambda
+
+theorem supportTransported_of_supportInWindow
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {f : A.Test} {I : S.Window} :
+    S.supportInWindow f I → S.supportTransported f I := by
+  intro hSupport
+  exact hSupport
+
+theorem convolutionSupportTransported_of_fourierSupportInWindow
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {f : A.Test} {I : S.Window} :
+    S.fourierSupportInWindow f I →
+      S.convolutionSupportTransported f I := by
+  intro hFourier
+  exact hFourier
+
+theorem lambdaCompatible_of_windowContainedInLambda
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window} {lambda : ℝ} :
+    S.windowContainedInLambda I lambda → S.lambdaCompatible I lambda := by
+  intro hWindow
+  exact hWindow
+
+structure SourceSupportWindowContainmentData
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (f : A.Test) (I : S.Window)
+    (supportSet : Type) (supportMembership : supportSet → Prop) where
+  supportWindowSet : Type
+  supportWindowMembership : supportWindowSet → Prop
+  supportToWindow : supportSet → supportWindowSet
+  supportImage_mem_window :
+    ∀ point : supportSet,
+      supportMembership point →
+        supportWindowMembership (supportToWindow point)
+  carrierToSupport :
+    ∀ x : S.SupportPoint,
+      x ∈ S.supportCarrier f → supportSet
+  carrierToSupport_mem :
+    ∀ x : S.SupportPoint,
+      ∀ hx : x ∈ S.supportCarrier f,
+        supportMembership (carrierToSupport x hx)
+  windowPoint : supportWindowSet → S.SupportPoint
+  windowPoint_mem_window :
+    ∀ point : supportWindowSet,
+      supportWindowMembership point →
+        windowPoint point ∈ S.windowCarrier I
+  supportToWindow_realizes_carrier :
+    ∀ x : S.SupportPoint,
+      ∀ hx : x ∈ S.supportCarrier f,
+        windowPoint
+          (supportToWindow (carrierToSupport x hx)) = x
+
+namespace SourceSupportWindowContainmentData
+
+theorem supportCarrier_subset_windowCarrier
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {f : A.Test} {I : S.Window}
+    {supportSet : Type} {supportMembership : supportSet → Prop}
+    (D :
+      SourceSupportWindowContainmentData
+        S f I supportSet supportMembership) :
+    S.supportCarrier f ⊆ S.windowCarrier I := by
+  intro x hx
+  rw [← D.supportToWindow_realizes_carrier x hx]
+  exact
+    D.windowPoint_mem_window
+      (D.supportToWindow (D.carrierToSupport x hx))
+      (D.supportImage_mem_window
+        (D.carrierToSupport x hx)
+        (D.carrierToSupport_mem x hx))
+
+theorem supportWindowMembershipRealizesSupportInWindow
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {f : A.Test} {I : S.Window}
+    {supportSet : Type} {supportMembership : supportSet → Prop}
+    (D :
+      SourceSupportWindowContainmentData
+        S f I supportSet supportMembership) :
+    ∀ point : supportSet,
+      supportMembership point →
+        D.supportWindowMembership (D.supportToWindow point) →
+          S.supportInWindow f I := by
+  intro _point _hSupport _hWindow
+  exact D.supportCarrier_subset_windowCarrier
+
+theorem supportSetContainedInWindow
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {f : A.Test} {I : S.Window}
+    {supportSet : Type} {supportMembership : supportSet → Prop}
+    (D :
+      SourceSupportWindowContainmentData
+        S f I supportSet supportMembership) :
+    ∀ point : supportSet,
+      supportMembership point → S.supportInWindow f I := by
+  intro point hpoint
+  exact
+    D.supportWindowMembershipRealizesSupportInWindow
+      point hpoint (D.supportImage_mem_window point hpoint)
+
+end SourceSupportWindowContainmentData
+
+structure SourceLambdaWindowContainmentData
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (I : S.Window) where
+  windowCarrier_subset_lambdaCarrier :
+    ∀ lambda : ℝ,
+      1 < lambda → S.windowCarrier I ⊆ S.lambdaCarrier lambda
+
+namespace SourceLambdaWindowContainmentData
+
+theorem windowContainedInLambda
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window}
+    (D : SourceLambdaWindowContainmentData S I) :
+    ∀ lambda : ℝ,
+      1 < lambda → S.windowContainedInLambda I lambda := by
+  intro lambda hlambda
+  exact D.windowCarrier_subset_lambdaCarrier lambda hlambda
+
+end SourceLambdaWindowContainmentData
+
+end SourceSupportWindowData
 
 end AnalyticCore
 end Source

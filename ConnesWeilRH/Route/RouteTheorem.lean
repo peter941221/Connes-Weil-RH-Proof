@@ -32,11 +32,6 @@ structure RouteBackedCC20NonpositivityInputData
     (input : WeilPositivityInput) where
   inputIsRouteInput : input = toWeilPositivityInput inputs g L
   sourceBackedFullPositivity : SourceBackedFullPositivity inputs g L
-  finalSignBridge :
-    FinalSignBridgeContract inputs bridge.sourceTraceReadOff.archimedeanTest g
-      bridge.sourceTraceReadOff.lambda
-      (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
-      bridge.sourceTraceReadOff.ccm25ArithmeticPackage
   finalSignNonpositive :
     SourceQWNonnegativeToCC20Nonpositive inputs
       bridge.sourceTraceReadOff.archimedeanTest g
@@ -66,11 +61,6 @@ structure RouteBackedCC20ExitInputData
     RouteBackedCC20NonpositivityInputData inputs g L bridge input
   tripleVanishingInput :
     RouteBackedCC20TripleVanishingInputData inputs g L input
-  finalSignBridge :
-    FinalSignBridgeContract inputs bridge.sourceTraceReadOff.archimedeanTest g
-      bridge.sourceTraceReadOff.lambda
-      (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
-      bridge.sourceTraceReadOff.ccm25ArithmeticPackage
   finalSignNonpositive :
     SourceQWNonnegativeToCC20Nonpositive inputs
       bridge.sourceTraceReadOff.archimedeanTest g
@@ -108,11 +98,6 @@ structure ExpandedSourceRouteCertificateFrontEnd
       traceFront.lambda
       pkg.commonTest.sourceConvolutionSquare
       ledgers traceFront.ccm25ArithmeticPackage
-  sourceArchimedeanSignBridge :
-    SourceArchimedeanSignBridge
-      (RouteInputs.ofExpandedSourcePackage pkg)
-      pkg.cc20Trace.sourceTraceTest
-      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
 
 theorem normalizedScalarFullTraceArchimedeanBalanceOfQWLambdaRestriction
     (base : Source.SourceObjectTheoremBasePackage)
@@ -536,11 +521,6 @@ structure TraceScaleRouteFrontEndData
       traceData.lambda
       pkg.commonTest.sourceConvolutionSquare
       ledgers traceData.ccm25ArithmeticPackage
-  sourceArchimedeanSignBridge :
-    SourceArchimedeanSignBridge
-      (RouteInputs.ofExpandedSourcePackage pkg)
-      pkg.cc20Trace.sourceTraceTest
-      (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
 
 namespace TraceScaleRouteFrontEndData
 
@@ -570,12 +550,7 @@ def ofTraceData
         (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
         traceData.lambda
         pkg.commonTest.sourceConvolutionSquare
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage pkg)
-        pkg.cc20Trace.sourceTraceTest
-        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)) :
+        ledgers traceData.ccm25ArithmeticPackage) :
     TraceScaleRouteFrontEndData pkg fixedFront traceData where
   ledgers := ledgers
   traceScaleNoMissingBulk := traceData.traceScaleNoMissingBulk
@@ -584,7 +559,6 @@ def ofTraceData
   signDefectClassification := signDefectClassification
   traceScaleOwnsSignDefectRemainder := traceScaleOwnsSignDefectRemainder
   restrictedToFullQWBridge := restrictedToFullQWBridge
-  sourceArchimedeanSignBridge := sourceArchimedeanSignBridge
 
 def toExpandedSourceRouteCertificateFrontEnd
     (pkg : Source.SourceObject.SourceObjectPackage)
@@ -597,7 +571,6 @@ def toExpandedSourceRouteCertificateFrontEnd
   commonTuple := routeData.commonTuple
   signDefectClassification := routeData.signDefectClassification
   restrictedToFullQWBridge := routeData.restrictedToFullQWBridge
-  sourceArchimedeanSignBridge := routeData.sourceArchimedeanSignBridge
 
 theorem route_front_trace_scale_matches_trace_data
     (pkg : Source.SourceObject.SourceObjectPackage)
@@ -633,15 +606,10 @@ theorem of_trace_data_trace_scale_matches_trace_data
         (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
         traceData.lambda
         pkg.commonTest.sourceConvolutionSquare
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage pkg)
-        pkg.cc20Trace.sourceTraceTest
-        (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)) :
+        ledgers traceData.ccm25ArithmeticPackage) :
     (ofTraceData pkg fixedFront traceData ledgers commonTuple
       signDefectClassification traceScaleOwnsSignDefectRemainder
-      restrictedToFullQWBridge sourceArchimedeanSignBridge).traceScaleNoMissingBulk =
+      restrictedToFullQWBridge).traceScaleNoMissingBulk =
       traceData.traceScaleNoMissingBulk :=
   rfl
 
@@ -936,15 +904,81 @@ noncomputable def normalized_restricted_to_full_current_cutoff_binding_of_asympt
       NormalizedRestrictedToFullAsymptoticRowsProvider
         base common ccm24 normalizedSeed remainders rhExit bridges fixedData
         traceData)
-    (signDefectClassification :
-      SourceSignDefectClassification
+    (mellinHalfDensityConvention :
+      (Source.cc20MellinHalfDensityConvention
+        (Source.CC20Interface.archimedeanSymbols
+          (RouteInputs.ofExpandedSourcePackage
+            (Source.sourceObjectPackageOfNormalizedCC20Trace
+              base common ccm24 normalizedSeed remainders rhExit bridges)).cc20)).Holds)
+    (supportInWindow :
+      SemilocalModelSymbols.supportInWindow
+        (Source.CCM24Interface.semilocalSymbols
         (RouteInputs.ofExpandedSourcePackage
           (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
+            base common ccm24 normalizedSeed remainders rhExit bridges)).ccm24)
         (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
           base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)
-        traceData.lambda ledgers) :
+          fixedData).semilocalTest
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData).window)
+    (fourierSupportInWindow :
+      SemilocalModelSymbols.fourierSupportInWindow
+        (Source.CCM24Interface.semilocalSymbols
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges)).ccm24)
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData).semilocalTest
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData).window)
+    (convolutionSupportTransported :
+      SemilocalModelSymbols.convolutionSupportTransported
+        (Source.CCM24Interface.semilocalSymbols
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges)).ccm24)
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData).semilocalTest
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData).window)
+    (windowContainedInLambda :
+      SemilocalModelSymbols.windowContainedInLambda
+        (Source.CCM24Interface.semilocalSymbols
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges)).ccm24)
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData).window traceData.lambda)
+    (lambdaCompatible :
+      SemilocalModelSymbols.lambdaCompatible
+        (Source.CCM24Interface.semilocalSymbols
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges)).ccm24)
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData).window traceData.lambda)
+    (boundedComparison :
+      (Source.ccm24BoundedComparison
+        (Source.CCM24Interface.semilocalSymbols
+          (RouteInputs.ofExpandedSourcePackage
+            (Source.sourceObjectPackageOfNormalizedCC20Trace
+              base common ccm24 normalizedSeed remainders rhExit bridges)).ccm24)).Holds)
+    (soninComparison :
+      (Source.ccm24SoninComparison
+        (Source.CCM24Interface.semilocalSymbols
+          (RouteInputs.ofExpandedSourcePackage
+            (Source.sourceObjectPackageOfNormalizedCC20Trace
+              base common ccm24 normalizedSeed remainders rhExit bridges)).ccm24)).Holds)
+    (rankKilled : ledgers.rankKilled)
+    (poleKilled : ledgers.poleKilled)
+    (cdefExhausts : ledgers.cdefExhausts) :
     RestrictedToFullCurrentCutoffBinding
       (RouteInputs.ofExpandedSourcePackage
         (Source.sourceObjectPackageOfNormalizedCC20Trace
@@ -957,7 +991,81 @@ noncomputable def normalized_restricted_to_full_current_cutoff_binding_of_asympt
         (Source.sourceObjectPackageOfNormalizedCC20Trace
           base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
       ledgers traceData.ccm25ArithmeticPackage :=
-  restricted_to_full_current_cutoff_binding_of_sign_defect
+  let windowSupportContainment :
+      WindowSupportContainment
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda :=
+    ⟨supportInWindow, fourierSupportInWindow,
+      convolutionSupportTransported, windowContainedInLambda⟩
+  let postQSeriesTailBoundedComparison :
+      PostQSeriesTailBoundedComparison
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda :=
+    ⟨boundedComparison, soninComparison⟩
+  let sourceRemainderNoStripProjectionSplit :
+      SourceRemainderNoStripProjectionSplit
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda :=
+    ⟨⟨mellinHalfDensityConvention,
+        ⟨windowSupportContainment, lambdaCompatible⟩,
+        postQSeriesTailBoundedComparison⟩,
+      lambdaCompatible⟩
+  let row4EndpointStripInput :
+      SourceProjectionOrderEndpointStripNormalForm
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda :=
+    ⟨sourceRemainderNoStripProjectionSplit, soninComparison⟩
+  let rankLedgerIdentification :
+      SourceRankLedgerIdentification
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda ledgers :=
+    ⟨sourceRemainderNoStripProjectionSplit, rankKilled⟩
+  let poleLedgerIdentification :
+      SourcePoleLedgerIdentification
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda ledgers :=
+    ⟨sourceRemainderNoStripProjectionSplit, poleKilled⟩
+  let noExtraNoStripChannel :
+      SourceNoExtraNoStripChannel
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda :=
+    ⟨sourceRemainderNoStripProjectionSplit, row4EndpointStripInput⟩
+  restricted_to_full_current_cutoff_binding_of_common_tuple
     (normalized_restricted_to_full_threshold_of_asymptotic_rows
       base common ccm24 normalizedSeed remainders rhExit bridges fixedData
       traceData provider)
@@ -970,7 +1078,12 @@ noncomputable def normalized_restricted_to_full_current_cutoff_binding_of_asympt
         (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
           base common ccm24 normalizedSeed remainders rhExit bridges
           fixedData)))
-    signDefectClassification
+    (source_endpoint_strip_remainder_cdef_domination_of_parts
+      row4EndpointStripInput windowSupportContainment
+      postQSeriesTailBoundedComparison
+      ⟨rankLedgerIdentification, poleLedgerIdentification,
+        noExtraNoStripChannel⟩
+      cdefExhausts)
 
 theorem expanded_source_common_test_eq_ccm25_arithmetic_source_test
     (pkg : Source.SourceObject.SourceObjectPackage) :
@@ -1108,13 +1221,13 @@ def expanded_source_restricted_to_full_bridge_on_route_square
   rw [← expanded_source_package_convolution_square_read_off pkg fixedFront]
   exact routeFront.restrictedToFullQWBridge
 
-def expanded_source_route_final_sign_bridge
+noncomputable def expanded_source_route_final_sign_nonpositive
     (pkg : Source.SourceObject.SourceObjectPackage)
     (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
     (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront)
     (routeFront :
       ExpandedSourceRouteCertificateFrontEnd pkg fixedFront traceFront) :
-    FinalSignBridgeContract
+    SourceQWNonnegativeToCC20Nonpositive
       (RouteInputs.ofExpandedSourcePackage pkg)
       pkg.cc20Trace.sourceTraceTest
       (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront)
@@ -1123,10 +1236,20 @@ def expanded_source_route_final_sign_bridge
         (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest
         (SourceBackedFixedSTest.ofExpandedSourcePackage pkg fixedFront).weilTest)
       traceFront.ccm25ArithmeticPackage :=
-  final_sign_bridge_data_of_common_test
-    (expanded_source_route_common_test_on_route_square
-      pkg fixedFront traceFront routeFront)
-    routeFront.sourceArchimedeanSignBridge
+  by
+    let sourceTrace :=
+      SourceTraceReadOffData.ofExpandedSourcePackage pkg fixedFront traceFront
+    let commonTuple :=
+      expanded_source_route_common_tuple_on_route_square
+        pkg fixedFront traceFront routeFront
+    exact source_qw_nonnegative_to_cc20_nonpositive_of_common_test_parts
+      commonTuple
+      commonTuple.packageReadOff
+      commonTuple.squareCompatibility
+      (cc20_trace_legality_of_source_trace_data sourceTrace)
+      sourceTrace.positiveTraceNonnegative
+      (RouteInputs.ofExpandedSourcePackage pkg).cc20.signsAndNormalizations
+      (RouteInputs.ofExpandedSourcePackage pkg).cc20.mellinHalfDensityConvention
 
 noncomputable def route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -1137,11 +1260,8 @@ noncomputable def route_backed_cc20_nonpositivity_input_data_of_route_bridge_cer
   inputIsRouteInput := rfl
   sourceBackedFullPositivity :=
     source_backed_full_positivity_of_route_bridge_certificate bridge
-  finalSignBridge :=
-    final_sign_bridge_of_route_bridge_certificate bridge
   finalSignNonpositive :=
-    final_sign_nonnegative_to_nonpositive_of_contract
-      (final_sign_bridge_of_route_bridge_certificate bridge)
+    final_sign_nonpositive_of_route_bridge_certificate bridge
   fullWeilPositivity :=
     full_weil_positivity_input_holds
       (full_weil_positivity_of_source_backed
@@ -1175,9 +1295,6 @@ noncomputable def route_backed_cc20_exit_input_data_of_route_bridge_certificate
       bridge
   tripleVanishingInput :=
     route_backed_cc20_triple_vanishing_input_data_of_source_backed
-  finalSignBridge :=
-    (route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
-      bridge).finalSignBridge
   finalSignNonpositive :=
     (route_backed_cc20_nonpositivity_input_data_of_route_bridge_certificate
       bridge).finalSignNonpositive
@@ -1374,8 +1491,8 @@ def route_certificate_of_sign_defect_classification
       RestrictedToFullQWBridgeContract inputs g sourceTraceReadOff.lambda
         (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
         L sourceTraceReadOff.ccm25ArithmeticPackage)
-    (finalSignBridge :
-      FinalSignBridgeContract inputs sourceTraceReadOff.archimedeanTest g
+    (finalSignNonpositive :
+      SourceQWNonnegativeToCC20Nonpositive inputs sourceTraceReadOff.archimedeanTest g
         sourceTraceReadOff.lambda
         (inputs.ccm25.weilSymbols.convolutionStar g.weilTest g.weilTest)
         sourceTraceReadOff.ccm25ArithmeticPackage) :
@@ -1385,9 +1502,9 @@ def route_certificate_of_sign_defect_classification
   bridge :=
     route_bridge_certificate_of_sign_defect_classification
       sourceTraceReadOff signDefectClassification
-      restrictedToFullQWBridge finalSignBridge
+      restrictedToFullQWBridge finalSignNonpositive
 
-def route_certificate_of_expanded_source_package
+noncomputable def route_certificate_of_expanded_source_package
     (pkg : Source.SourceObject.SourceObjectPackage)
     (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
     (traceFront : ExpandedSourceTraceReadOffFrontEnd pkg fixedFront)
@@ -1399,7 +1516,7 @@ def route_certificate_of_expanded_source_package
     routeFront.signDefectClassification
     (expanded_source_restricted_to_full_bridge_on_route_square
       pkg fixedFront traceFront routeFront)
-    (expanded_source_route_final_sign_bridge pkg fixedFront traceFront routeFront)
+    (expanded_source_route_final_sign_nonpositive pkg fixedFront traceFront routeFront)
 
 def route_front_end_of_trace_scale_data
     (pkg : Source.SourceObject.SourceObjectPackage)
@@ -1410,7 +1527,7 @@ def route_front_end_of_trace_scale_data
       (traceData.toExpandedSourceTraceReadOffFrontEnd pkg fixedFront) :=
   routeData.toExpandedSourceRouteCertificateFrontEnd pkg fixedFront traceData
 
-def route_certificate_of_trace_scale_data
+noncomputable def route_certificate_of_trace_scale_data
     (pkg : Source.SourceObject.SourceObjectPackage)
     (fixedFront : ExpandedSourceFixedSTestFrontEnd pkg)
     (traceData : TraceFrontEndData pkg fixedFront)
@@ -1516,17 +1633,7 @@ def trace_scale_route_front_end_of_normalized_comparison
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgers traceData.ccm25ArithmeticPackage) :
     TraceScaleRouteFrontEndData
       (Source.sourceObjectPackageOfNormalizedCC20Trace
         base common ccm24 normalizedSeed remainders rhExit bridges)
@@ -1542,7 +1649,7 @@ def trace_scale_route_front_end_of_normalized_comparison
     (by
       rw [traceScaleMatchesComparison]
       exact traceScaleOwnsSignDefectRemainder)
-    restrictedToFullQWBridge sourceArchimedeanSignBridge
+    restrictedToFullQWBridge
 
 def trace_scale_route_front_end_of_normalized_package_bridge
     (base : Source.SourceObjectTheoremBasePackage)
@@ -1570,7 +1677,15 @@ def trace_scale_route_front_end_of_normalized_package_bridge
         (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
           base common ccm24 normalizedSeed remainders rhExit bridges
           fixedData))
-    (ledgers : RouteLedgers)
+    (ledgerPackage :
+      LedgerSignDefectPackage
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda)
     (commonTuple :
       SourceCommonTestTupleContract
         (RouteInputs.ofExpandedSourcePackage
@@ -1584,15 +1699,6 @@ def trace_scale_route_front_end_of_normalized_package_bridge
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
         traceData.ccm25ArithmeticPackage)
-    (signDefectClassification :
-      SourceSignDefectClassification
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)
-        traceData.lambda ledgers)
     (traceScaleMatchesBridge :
       traceData.traceScaleNoMissingBulk =
         TraceFrontEndData.traceScaleNoMissingBulkOfNormalizedPackageFromComparison
@@ -1628,7 +1734,7 @@ def trace_scale_route_front_end_of_normalized_package_bridge
               fixedData)
             traceData.lambda L)
         True trivial).rankPoleCdefOwnEveryRemainder
-        ledgers signDefectClassification)
+        ledgerPackage.ledgers ledgerPackage.signDefectClassification)
     (restrictedToFullQWBridge :
       RestrictedToFullQWBridgeContract
         (RouteInputs.ofExpandedSourcePackage
@@ -1641,17 +1747,7 @@ def trace_scale_route_front_end_of_normalized_package_bridge
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgerPackage.ledgers traceData.ccm25ArithmeticPackage) :
     TraceScaleRouteFrontEndData
       (Source.sourceObjectPackageOfNormalizedCC20Trace
         base common ccm24 normalizedSeed remainders rhExit bridges)
@@ -1664,9 +1760,9 @@ def trace_scale_route_front_end_of_normalized_package_bridge
     (TraceFrontEndData.normalizedSupportSquareQWLambdaSourceComparisonOfPackageBridge
       base common ccm24 normalizedSeed remainders rhExit bridges fixedData
       traceData)
-    ledgers commonTuple signDefectClassification traceScaleMatchesBridge
-    traceScaleOwnsSignDefectRemainder restrictedToFullQWBridge
-    sourceArchimedeanSignBridge
+    ledgerPackage.ledgers commonTuple ledgerPackage.signDefectClassification
+    traceScaleMatchesBridge traceScaleOwnsSignDefectRemainder
+    restrictedToFullQWBridge
 
 /--
 Route front-end constructor that first replaces the stored trace-scale ledger
@@ -1743,17 +1839,7 @@ def trace_scale_route_front_end_of_normalized_comparison_replacement
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgers traceData.ccm25ArithmeticPackage) :
     TraceScaleRouteFrontEndData
       (Source.sourceObjectPackageOfNormalizedCC20Trace
         base common ccm24 normalizedSeed remainders rhExit bridges)
@@ -1775,9 +1861,9 @@ def trace_scale_route_front_end_of_normalized_comparison_replacement
     (TraceFrontEndData.normalized_comparison_trace_scale_replacement_owns_sign_defect
       base common ccm24 normalizedSeed remainders rhExit bridges fixedData
       traceData comparison ledgers signDefectClassification)
-    restrictedToFullQWBridge sourceArchimedeanSignBridge
+    restrictedToFullQWBridge
 
-def route_certificate_of_normalized_comparison_replacement
+noncomputable def route_certificate_of_normalized_comparison_replacement
     (base : Source.SourceObjectTheoremBasePackage)
     (common : Source.SourceObjectCommonData base)
     (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
@@ -1842,17 +1928,7 @@ def route_certificate_of_normalized_comparison_replacement
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgers traceData.ccm25ArithmeticPackage) :
     RouteCertificate
       (RouteInputs.ofExpandedSourcePackage
         (Source.sourceObjectPackageOfNormalizedCC20Trace
@@ -1870,7 +1946,7 @@ def route_certificate_of_normalized_comparison_replacement
     (trace_scale_route_front_end_of_normalized_comparison_replacement
       base common ccm24 normalizedSeed remainders rhExit bridges fixedData
       traceData comparison ledgers commonTuple signDefectClassification
-      restrictedToFullQWBridge sourceArchimedeanSignBridge)
+      restrictedToFullQWBridge)
 
 def trace_scale_route_front_end_of_normalized_comparison_contract_replacement
     (base : Source.SourceObjectTheoremBasePackage)
@@ -1944,17 +2020,7 @@ def trace_scale_route_front_end_of_normalized_comparison_contract_replacement
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgers traceData.ccm25ArithmeticPackage) :
     TraceScaleRouteFrontEndData
       (Source.sourceObjectPackageOfNormalizedCC20Trace
         base common ccm24 normalizedSeed remainders rhExit bridges)
@@ -1977,9 +2043,9 @@ def trace_scale_route_front_end_of_normalized_comparison_contract_replacement
       (TraceFrontEndData.normalized_comparison_trace_scale_contract_replacement_owns_sign_defect
         base common ccm24 normalizedSeed remainders rhExit bridges fixedData
         traceData comparison noExtraBulk ledgers signDefectClassification)
-      restrictedToFullQWBridge sourceArchimedeanSignBridge
+      restrictedToFullQWBridge
 
-def route_certificate_of_normalized_comparison_contract_replacement
+noncomputable def route_certificate_of_normalized_comparison_contract_replacement
     (base : Source.SourceObjectTheoremBasePackage)
     (common : Source.SourceObjectCommonData base)
     (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
@@ -2051,17 +2117,7 @@ def route_certificate_of_normalized_comparison_contract_replacement
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgers traceData.ccm25ArithmeticPackage) :
     RouteCertificate
       (RouteInputs.ofExpandedSourcePackage
         (Source.sourceObjectPackageOfNormalizedCC20Trace
@@ -2080,8 +2136,7 @@ def route_certificate_of_normalized_comparison_contract_replacement
       (trace_scale_route_front_end_of_normalized_comparison_contract_replacement
         base common ccm24 normalizedSeed remainders rhExit bridges fixedData
         traceData comparison noExtraBulk ledgers commonTuple
-        signDefectClassification restrictedToFullQWBridge
-        sourceArchimedeanSignBridge)
+        signDefectClassification restrictedToFullQWBridge)
 
 noncomputable def route_certificate_of_normalized_comparison_current_cutoff_binding
     (base : Source.SourceObjectTheoremBasePackage)
@@ -2120,16 +2175,15 @@ noncomputable def route_certificate_of_normalized_comparison_current_cutoff_bind
         (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
           base common ccm24 normalizedSeed remainders rhExit bridges fixedData)
         traceData.lambda traceData.ccm25ArithmeticPackage)
-    (ledgers : RouteLedgers)
-    (signDefectClassification :
-      SourceSignDefectClassification
+    (ledgerPackage :
+      LedgerSignDefectPackage
         (RouteInputs.ofExpandedSourcePackage
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges))
         (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
           base common ccm24 normalizedSeed remainders rhExit bridges
           fixedData)
-        traceData.lambda ledgers)
+        traceData.lambda)
     (currentCutoff :
       RestrictedToFullCurrentCutoffBinding
         (RouteInputs.ofExpandedSourcePackage
@@ -2142,28 +2196,17 @@ noncomputable def route_certificate_of_normalized_comparison_current_cutoff_bind
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgerPackage.ledgers traceData.ccm25ArithmeticPackage) :
     RouteCertificate
       (RouteInputs.ofExpandedSourcePackage
         (Source.sourceObjectPackageOfNormalizedCC20Trace
           base common ccm24 normalizedSeed remainders rhExit bridges)) :=
   route_certificate_of_normalized_comparison_contract_replacement
     base common ccm24 normalizedSeed remainders rhExit bridges fixedData
-    traceData comparison noExtraBulk ledgers currentCutoff.commonTuple
-    signDefectClassification
+    traceData comparison noExtraBulk ledgerPackage.ledgers
+    currentCutoff.commonTuple ledgerPackage.signDefectClassification
     (restricted_to_full_bridge_contract_of_current_cutoff_binding
       currentCutoff)
-    sourceArchimedeanSignBridge
 
 noncomputable def route_certificate_of_normalized_comparison_ledger_package_current_cutoff
     (base : Source.SourceObjectTheoremBasePackage)
@@ -2223,26 +2266,14 @@ noncomputable def route_certificate_of_normalized_comparison_ledger_package_curr
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgerPackage.ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgerPackage.ledgers traceData.ccm25ArithmeticPackage) :
     RouteCertificate
       (RouteInputs.ofExpandedSourcePackage
         (Source.sourceObjectPackageOfNormalizedCC20Trace
           base common ccm24 normalizedSeed remainders rhExit bridges)) :=
   route_certificate_of_normalized_comparison_current_cutoff_binding
     base common ccm24 normalizedSeed remainders rhExit bridges fixedData
-    traceData comparison noExtraBulk ledgerPackage.ledgers
-    ledgerPackage.signDefectClassification currentCutoff
-    sourceArchimedeanSignBridge
+    traceData comparison noExtraBulk ledgerPackage currentCutoff
 
 noncomputable def route_certificate_of_normalized_comparison_ledger_restricted_package
     (base : Source.SourceObjectTheoremBasePackage)
@@ -2302,17 +2333,7 @@ noncomputable def route_certificate_of_normalized_comparison_ledger_restricted_p
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgerPackage.ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgerPackage.ledgers traceData.ccm25ArithmeticPackage) :
     RouteCertificate
       (RouteInputs.ofExpandedSourcePackage
         (Source.sourceObjectPackageOfNormalizedCC20Trace
@@ -2320,9 +2341,9 @@ noncomputable def route_certificate_of_normalized_comparison_ledger_restricted_p
   route_certificate_of_normalized_comparison_ledger_package_current_cutoff
     base common ccm24 normalizedSeed remainders rhExit bridges fixedData
     traceData comparison noExtraBulk ledgerPackage
-    restrictedToFullPackage.currentCutoff sourceArchimedeanSignBridge
+    restrictedToFullPackage.currentCutoff
 
-def route_certificate_of_normalized_comparison
+noncomputable def route_certificate_of_normalized_comparison
     (base : Source.SourceObjectTheoremBasePackage)
     (common : Source.SourceObjectCommonData base)
     (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
@@ -2417,17 +2438,7 @@ def route_certificate_of_normalized_comparison
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgers traceData.ccm25ArithmeticPackage) :
     RouteCertificate
       (RouteInputs.ofExpandedSourcePackage
         (Source.sourceObjectPackageOfNormalizedCC20Trace
@@ -2442,9 +2453,9 @@ def route_certificate_of_normalized_comparison
       base common ccm24 normalizedSeed remainders rhExit bridges fixedData
       traceData comparison ledgers commonTuple signDefectClassification
       traceScaleMatchesComparison traceScaleOwnsSignDefectRemainder
-      restrictedToFullQWBridge sourceArchimedeanSignBridge)
+      restrictedToFullQWBridge)
 
-def route_certificate_of_normalized_package_bridge
+noncomputable def route_certificate_of_normalized_package_bridge
     (base : Source.SourceObjectTheoremBasePackage)
     (common : Source.SourceObjectCommonData base)
     (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
@@ -2470,7 +2481,15 @@ def route_certificate_of_normalized_package_bridge
         (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
           base common ccm24 normalizedSeed remainders rhExit bridges
           fixedData))
-    (ledgers : RouteLedgers)
+    (ledgerPackage :
+      LedgerSignDefectPackage
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda)
     (commonTuple :
       SourceCommonTestTupleContract
         (RouteInputs.ofExpandedSourcePackage
@@ -2484,15 +2503,6 @@ def route_certificate_of_normalized_package_bridge
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
         traceData.ccm25ArithmeticPackage)
-    (signDefectClassification :
-      SourceSignDefectClassification
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)
-        traceData.lambda ledgers)
     (traceScaleMatchesBridge :
       traceData.traceScaleNoMissingBulk =
         TraceFrontEndData.traceScaleNoMissingBulkOfNormalizedPackageFromComparison
@@ -2528,7 +2538,7 @@ def route_certificate_of_normalized_package_bridge
               fixedData)
             traceData.lambda L)
         True trivial).rankPoleCdefOwnEveryRemainder
-        ledgers signDefectClassification)
+        ledgerPackage.ledgers ledgerPackage.signDefectClassification)
     (restrictedToFullQWBridge :
       RestrictedToFullQWBridgeContract
         (RouteInputs.ofExpandedSourcePackage
@@ -2541,17 +2551,7 @@ def route_certificate_of_normalized_package_bridge
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgerPackage.ledgers traceData.ccm25ArithmeticPackage) :
     RouteCertificate
       (RouteInputs.ofExpandedSourcePackage
         (Source.sourceObjectPackageOfNormalizedCC20Trace
@@ -2564,9 +2564,8 @@ def route_certificate_of_normalized_package_bridge
     traceData
     (trace_scale_route_front_end_of_normalized_package_bridge
       base common ccm24 normalizedSeed remainders rhExit bridges fixedData
-      traceData ledgers commonTuple signDefectClassification
-      traceScaleMatchesBridge traceScaleOwnsSignDefectRemainder
-      restrictedToFullQWBridge sourceArchimedeanSignBridge)
+      traceData ledgerPackage commonTuple traceScaleMatchesBridge
+      traceScaleOwnsSignDefectRemainder restrictedToFullQWBridge)
 
 theorem cc20_source_rh_of_route_certificate
     {inputs : RouteInputs} (cert : RouteCertificate inputs) :
@@ -2578,7 +2577,7 @@ theorem final_connes_weil_rh
     {inputs : RouteInputs} (cert : RouteCertificate inputs) :
     _root_.RiemannHypothesis := by
   let _ := restricted_to_full_qw_bridge_of_route_bridge_certificate cert.bridge
-  let _ := final_sign_bridge_of_route_bridge_certificate cert.bridge
+  let _ := final_sign_nonpositive_of_route_bridge_certificate cert.bridge
   exact mathlib_rh_of_route_final_exit_package
     (route_final_exit_package_of_certificate cert)
 
@@ -2677,17 +2676,7 @@ theorem final_rh_of_normalized_comparison
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgers traceData.ccm25ArithmeticPackage) :
     _root_.RiemannHypothesis := by
   exact
     final_connes_weil_rh
@@ -2695,7 +2684,7 @@ theorem final_rh_of_normalized_comparison
         base common ccm24 normalizedSeed remainders rhExit bridges fixedData
         traceData comparison ledgers commonTuple signDefectClassification
         traceScaleMatchesComparison traceScaleOwnsSignDefectRemainder
-        restrictedToFullQWBridge sourceArchimedeanSignBridge)
+        restrictedToFullQWBridge)
 
 theorem final_rh_of_normalized_package_bridge
     (base : Source.SourceObjectTheoremBasePackage)
@@ -2723,7 +2712,15 @@ theorem final_rh_of_normalized_package_bridge
         (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
           base common ccm24 normalizedSeed remainders rhExit bridges
           fixedData))
-    (ledgers : RouteLedgers)
+    (ledgerPackage :
+      LedgerSignDefectPackage
+        (RouteInputs.ofExpandedSourcePackage
+          (Source.sourceObjectPackageOfNormalizedCC20Trace
+            base common ccm24 normalizedSeed remainders rhExit bridges))
+        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)
+        traceData.lambda)
     (commonTuple :
       SourceCommonTestTupleContract
         (RouteInputs.ofExpandedSourcePackage
@@ -2737,15 +2734,6 @@ theorem final_rh_of_normalized_package_bridge
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
         traceData.ccm25ArithmeticPackage)
-    (signDefectClassification :
-      SourceSignDefectClassification
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)
-        traceData.lambda ledgers)
     (traceScaleMatchesBridge :
       traceData.traceScaleNoMissingBulk =
         TraceFrontEndData.traceScaleNoMissingBulkOfNormalizedPackageFromComparison
@@ -2781,7 +2769,7 @@ theorem final_rh_of_normalized_package_bridge
               fixedData)
             traceData.lambda L)
         True trivial).rankPoleCdefOwnEveryRemainder
-        ledgers signDefectClassification)
+        ledgerPackage.ledgers ledgerPackage.signDefectClassification)
     (restrictedToFullQWBridge :
       RestrictedToFullQWBridgeContract
         (RouteInputs.ofExpandedSourcePackage
@@ -2794,25 +2782,14 @@ theorem final_rh_of_normalized_package_bridge
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgerPackage.ledgers traceData.ccm25ArithmeticPackage) :
     _root_.RiemannHypothesis := by
   exact
     final_connes_weil_rh
       (route_certificate_of_normalized_package_bridge
         base common ccm24 normalizedSeed remainders rhExit bridges fixedData
-        traceData ledgers commonTuple signDefectClassification
-        traceScaleMatchesBridge traceScaleOwnsSignDefectRemainder
-        restrictedToFullQWBridge sourceArchimedeanSignBridge)
+        traceData ledgerPackage commonTuple traceScaleMatchesBridge
+        traceScaleOwnsSignDefectRemainder restrictedToFullQWBridge)
 
 theorem final_rh_of_normalized_comparison_replacement
     (base : Source.SourceObjectTheoremBasePackage)
@@ -2879,24 +2856,14 @@ theorem final_rh_of_normalized_comparison_replacement
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgers traceData.ccm25ArithmeticPackage) :
     _root_.RiemannHypothesis := by
   exact
     final_connes_weil_rh
       (route_certificate_of_normalized_comparison_replacement
         base common ccm24 normalizedSeed remainders rhExit bridges fixedData
         traceData comparison ledgers commonTuple signDefectClassification
-        restrictedToFullQWBridge sourceArchimedeanSignBridge)
+        restrictedToFullQWBridge)
 
 theorem final_rh_of_normalized_comparison_contract_replacement
     (base : Source.SourceObjectTheoremBasePackage)
@@ -2970,25 +2937,14 @@ theorem final_rh_of_normalized_comparison_contract_replacement
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgers traceData.ccm25ArithmeticPackage) :
     _root_.RiemannHypothesis := by
   exact
     final_connes_weil_rh
       (route_certificate_of_normalized_comparison_contract_replacement
         base common ccm24 normalizedSeed remainders rhExit bridges fixedData
         traceData comparison noExtraBulk ledgers commonTuple
-        signDefectClassification restrictedToFullQWBridge
-        sourceArchimedeanSignBridge)
+        signDefectClassification restrictedToFullQWBridge)
 
 theorem final_rh_of_normalized_comparison_current_cutoff_binding
     (base : Source.SourceObjectTheoremBasePackage)
@@ -3027,16 +2983,15 @@ theorem final_rh_of_normalized_comparison_current_cutoff_binding
         (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
           base common ccm24 normalizedSeed remainders rhExit bridges fixedData)
         traceData.lambda traceData.ccm25ArithmeticPackage)
-    (ledgers : RouteLedgers)
-    (signDefectClassification :
-      SourceSignDefectClassification
+    (ledgerPackage :
+      LedgerSignDefectPackage
         (RouteInputs.ofExpandedSourcePackage
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges))
         (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
           base common ccm24 normalizedSeed remainders rhExit bridges
           fixedData)
-        traceData.lambda ledgers)
+        traceData.lambda)
     (currentCutoff :
       RestrictedToFullCurrentCutoffBinding
         (RouteInputs.ofExpandedSourcePackage
@@ -3049,24 +3004,13 @@ theorem final_rh_of_normalized_comparison_current_cutoff_binding
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgerPackage.ledgers traceData.ccm25ArithmeticPackage) :
     _root_.RiemannHypothesis := by
   exact
     final_connes_weil_rh
       (route_certificate_of_normalized_comparison_current_cutoff_binding
         base common ccm24 normalizedSeed remainders rhExit bridges fixedData
-        traceData comparison noExtraBulk ledgers signDefectClassification
-        currentCutoff sourceArchimedeanSignBridge)
+        traceData comparison noExtraBulk ledgerPackage currentCutoff)
 
 theorem final_rh_of_normalized_comparison_ledger_package_current_cutoff
     (base : Source.SourceObjectTheoremBasePackage)
@@ -3126,24 +3070,13 @@ theorem final_rh_of_normalized_comparison_ledger_package_current_cutoff
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgerPackage.ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgerPackage.ledgers traceData.ccm25ArithmeticPackage) :
     _root_.RiemannHypothesis := by
   exact
     final_connes_weil_rh
       (route_certificate_of_normalized_comparison_ledger_package_current_cutoff
         base common ccm24 normalizedSeed remainders rhExit bridges fixedData
-        traceData comparison noExtraBulk ledgerPackage currentCutoff
-        sourceArchimedeanSignBridge)
+        traceData comparison noExtraBulk ledgerPackage currentCutoff)
 
 theorem final_rh_of_normalized_comparison_ledger_restricted_package
     (base : Source.SourceObjectTheoremBasePackage)
@@ -3203,24 +3136,13 @@ theorem final_rh_of_normalized_comparison_ledger_restricted_package
         (Source.SourceObject.CommonTestObject.sourceConvolutionSquare
           (Source.sourceObjectPackageOfNormalizedCC20Trace
             base common ccm24 normalizedSeed remainders rhExit bridges).commonTest)
-        ledgerPackage.ledgers traceData.ccm25ArithmeticPackage)
-    (sourceArchimedeanSignBridge :
-      SourceArchimedeanSignBridge
-        (RouteInputs.ofExpandedSourcePackage
-          (Source.sourceObjectPackageOfNormalizedCC20Trace
-            base common ccm24 normalizedSeed remainders rhExit bridges))
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 normalizedSeed remainders rhExit bridges).cc20Trace.sourceTraceTest
-        (FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-          base common ccm24 normalizedSeed remainders rhExit bridges
-          fixedData)) :
+        ledgerPackage.ledgers traceData.ccm25ArithmeticPackage) :
     _root_.RiemannHypothesis := by
   exact
     final_connes_weil_rh
       (route_certificate_of_normalized_comparison_ledger_restricted_package
         base common ccm24 normalizedSeed remainders rhExit bridges fixedData
-        traceData comparison noExtraBulk ledgerPackage restrictedToFullPackage
-        sourceArchimedeanSignBridge)
+        traceData comparison noExtraBulk ledgerPackage restrictedToFullPackage)
 
 theorem route_certificate_of_trace_scale_data_ledgers
     (pkg : Source.SourceObject.SourceObjectPackage)
@@ -3273,7 +3195,7 @@ def route_front_end_of_package_data
       base common rows rhExit bridges fixedData)
     traceData routeData
 
-def route_certificate_of_package_data
+noncomputable def route_certificate_of_package_data
     (base : Source.SourceObjectTheoremBasePackage)
     (common : Source.SourceObjectCommonData base)
     (rows : Source.SourceObjectExpandedRows base common)

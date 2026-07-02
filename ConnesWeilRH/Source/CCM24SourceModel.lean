@@ -36,9 +36,11 @@ def SourceSupportWindowData.toCCM24SemilocalObjectPackage
   sourceFourierSupportInWindowData := rows.sourceFourierSupportInWindow
   sourceSoninSpaceComparisonData := rows.sourceSoninSpaceComparison
   sourceWindowContainedInLambdaData :=
-    rows.sourceWindowContainedInLambdaData
+    SourceSemilocalRows.sourceWindowContainedInLambdaData rows
   sourceLambdaCompatibilityBridge :=
-    rows.sourceLambdaCompatibilityBridge
+    fun lambda _hSupport _hFourier _hTransport _hConv _hFixed hWindow =>
+      S.lambdaCompatible_of_windowContainedInLambda
+        (I := S.sourceSupportWindow) (lambda := lambda) hWindow
   sourceCanonicalSemilocalModel := rows.sourceCanonicalSemilocalModel
   sourceSupportAndFourierSupportTransport :=
     rows.sourceSupportAndFourierSupportTransport

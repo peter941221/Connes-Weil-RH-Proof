@@ -75,6 +75,8 @@ structure SourceObjectConcreteCommonData
 
 namespace SourceObjectConcreteCommonData
 
+open CCM25Concrete
+
 def ofSameSourceTest
     {base : SourceObjectTheoremBasePackage}
     (common :
@@ -283,6 +285,16 @@ def commonArithmeticCertificate
     data.concreteCommonTest.sourceTest
     data.concreteCommonTest.sourceTest).certificate lambda hlambda
 
+noncomputable def commonArithmeticPackage
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
+      base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
+      lambda where
+  rows := data.concreteArithmeticRows
+  oneLtLambda := hlambda
+
 noncomputable def commonFinitePrimeConcreteObject
     {base : SourceObjectTheoremBasePackage}
     (data : SourceObjectConcreteCommonData base)
@@ -340,7 +352,7 @@ theorem common_finite_prime_concrete_object_global_index_data
       CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex
       data.concreteCommonTest.sourceAtomVisible n where
   primePowerIndex :=
-    CCM25Concrete.FinitePrimeCertificate.concrete_object_global_index_prime_power
+    CCM25Concrete.FinitePrimeCertificate.concrete_object_global_index_isPrimePow
       (data.commonFinitePrimeConcreteObject lambda hlambda) hn
   atomVisible :=
     data.common_finite_prime_concrete_object_global_visible
@@ -373,7 +385,7 @@ theorem common_finite_prime_concrete_object_restricted_index_data
       CCM25Concrete.PrimePowerArithmetic.SourcePrimePowerIndex
       data.concreteCommonTest.sourceAtomVisible lambda n where
   primePowerIndex :=
-    CCM25Concrete.FinitePrimeCertificate.concrete_object_restricted_index_prime_power
+    CCM25Concrete.FinitePrimeCertificate.concrete_object_restricted_index_isPrimePow
       (data.commonFinitePrimeConcreteObject lambda hlambda) hn
   atomVisible :=
     data.common_finite_prime_concrete_object_restricted_visible
@@ -411,12 +423,31 @@ theorem common_global_finite_prime_term_sum_read_off
         (base.ccm25Model.toWeilFormSymbols.convolutionStar
           data.concreteCommonTest.sourceTest
           data.concreteCommonTest.sourceTest)) =
-      CCM25Concrete.PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
+      CCM25Concrete.PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSumOnIndexSet
         base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
         data.concreteCommonTest.sourceTest
-        (data.commonArithmeticCertificate lambda hlambda).atoms :=
-  CCM25Concrete.FinitePrimeCertificate.concrete_object_global_finite_prime_term_sum_read_off
-    (data.commonFinitePrimeConcreteObject lambda hlambda)
+        (CCM25Concrete.FinitePrimeCertificate.arithmetic_data_on_global_index_set_of_certificate
+          (data.commonArithmeticCertificate lambda hlambda)) := by
+  calc
+    (∑ n ∈ base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet,
+      base.ccm25Model.toWeilFormSymbols.finitePrimeTerm n
+        (base.ccm25Model.toWeilFormSymbols.convolutionStar
+          data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest)) =
+        CCM25Concrete.PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
+          base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest
+          (data.commonArithmeticCertificate lambda hlambda).atoms :=
+      CCM25Concrete.FinitePrimeCertificate.concrete_object_global_finite_prime_term_sum_read_off
+        (data.commonFinitePrimeConcreteObject lambda hlambda)
+    _ =
+        CCM25Concrete.PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSumOnIndexSet
+          base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest
+          (CCM25Concrete.FinitePrimeCertificate.arithmetic_data_on_global_index_set_of_certificate
+            (data.commonArithmeticCertificate lambda hlambda)) :=
+      (PrimePowerArithmetic.source_global_finite_prime_evaluator_sum_on_index_set_of_global
+        (data.commonArithmeticCertificate lambda hlambda).atoms).symm
 
 theorem common_global_von_mangoldt_pairing_sum_read_off
     {base : SourceObjectTheoremBasePackage}
@@ -427,12 +458,71 @@ theorem common_global_von_mangoldt_pairing_sum_read_off
         base.ccm25Model.toWeilFormSymbols.primePowerPairing n
           data.concreteCommonTest.sourceTest
           data.concreteCommonTest.sourceTest) =
-      CCM25Concrete.PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
+      CCM25Concrete.PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSumOnIndexSet
         base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
         data.concreteCommonTest.sourceTest
-        (data.commonArithmeticCertificate lambda hlambda).atoms :=
-  CCM25Concrete.FinitePrimeCertificate.concrete_object_global_von_mangoldt_pairing_sum_read_off
-    (data.commonFinitePrimeConcreteObject lambda hlambda)
+        (CCM25Concrete.FinitePrimeCertificate.arithmetic_data_on_global_index_set_of_certificate
+          (data.commonArithmeticCertificate lambda hlambda)) := by
+  calc
+    (∑ n ∈ base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet,
+      base.ccm25Model.toWeilFormSymbols.vonMangoldtWeight n *
+        base.ccm25Model.toWeilFormSymbols.primePowerPairing n
+          data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest) =
+        CCM25Concrete.PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSum
+          base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest
+          (data.commonArithmeticCertificate lambda hlambda).atoms :=
+      CCM25Concrete.FinitePrimeCertificate.concrete_object_global_von_mangoldt_pairing_sum_read_off
+        (data.commonFinitePrimeConcreteObject lambda hlambda)
+    _ =
+        CCM25Concrete.PrimePowerArithmetic.SourceGlobalFinitePrimeEvaluatorSumOnIndexSet
+          base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest
+          (CCM25Concrete.FinitePrimeCertificate.arithmetic_data_on_global_index_set_of_certificate
+            (data.commonArithmeticCertificate lambda hlambda)) :=
+      (PrimePowerArithmetic.source_global_finite_prime_evaluator_sum_on_index_set_of_global
+        (data.commonArithmeticCertificate lambda hlambda).atoms).symm
+
+theorem common_psi_scoped_source_evaluator_read_off
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    base.ccm25Model.toWeilFormSymbols.psi
+        (base.ccm25Model.toWeilFormSymbols.convolutionStar
+          data.concreteCommonTest.sourceTest
+          data.concreteCommonTest.sourceTest) =
+      base.ccm25Model.toWeilFormSymbols.poleFunctional
+          (base.ccm25Model.toWeilFormSymbols.convolutionStar
+            data.concreteCommonTest.sourceTest
+            data.concreteCommonTest.sourceTest) -
+        base.ccm25Model.toWeilFormSymbols.archimedeanTerm
+          (base.ccm25Model.toWeilFormSymbols.convolutionStar
+            data.concreteCommonTest.sourceTest
+            data.concreteCommonTest.sourceTest) -
+          CCM25Concrete.Package.source_common_global_finite_prime_evaluator_scoped_sum
+            (data.commonArithmeticPackage lambda hlambda) :=
+  CCM25Concrete.Package.psi_scoped_source_evaluator_common_atoms_of_package
+    (data.commonArithmeticPackage lambda hlambda)
+
+theorem common_qw_scoped_source_evaluator_read_off
+    {base : SourceObjectTheoremBasePackage}
+    (data : SourceObjectConcreteCommonData base)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    base.ccm25Model.toWeilFormSymbols.qw
+        data.concreteCommonTest.sourceTest data.concreteCommonTest.sourceTest =
+      base.ccm25Model.toWeilFormSymbols.poleFunctional
+          (base.ccm25Model.toWeilFormSymbols.convolutionStar
+            data.concreteCommonTest.sourceTest
+            data.concreteCommonTest.sourceTest) -
+        base.ccm25Model.toWeilFormSymbols.archimedeanTerm
+          (base.ccm25Model.toWeilFormSymbols.convolutionStar
+            data.concreteCommonTest.sourceTest
+            data.concreteCommonTest.sourceTest) -
+          CCM25Concrete.Package.source_common_global_finite_prime_evaluator_scoped_sum
+            (data.commonArithmeticPackage lambda hlambda) :=
+  CCM25Concrete.Package.qw_scoped_source_evaluator_common_atoms_of_package
+    (data.commonArithmeticPackage lambda hlambda)
 
 theorem common_restricted_finite_prime_term_sum_read_off
     {base : SourceObjectTheoremBasePackage}
@@ -573,7 +663,7 @@ def toPartialQWFinitePrime
     CCM25TheoremBasePartialQWFinitePrime where
   sourceModel := base.ccm25Model
   concreteArithmeticRows := common.concreteArithmeticRows
-  qwDefinition := ccm25_source_qw_definition base.ccm25Model
+  qwDefinition := base.toCCM25TheoremBase.qwDefinition
   finitePrimeNormalization := common.finite_prime_normalization
 
 def toCCM25TheoremBaseWithConcreteFinitePrime
@@ -581,11 +671,11 @@ def toCCM25TheoremBaseWithConcreteFinitePrime
     (common : SourceObjectCommonData base) :
     CCM25TheoremBase where
   weilSymbols := base.ccm25Model.toWeilFormSymbols
-  qwDefinition := ccm25_source_qw_definition base.ccm25Model
-  psiSign := ccm25_source_psi_sign base.ccm25Model
-  qwLambdaFormula := ccm25_source_qw_lambda_formula base.ccm25Model
+  qwDefinition := base.toCCM25TheoremBase.qwDefinition
+  psiSign := base.toCCM25TheoremBase.psiSign
+  qwLambdaFormula := base.toCCM25TheoremBase.qwLambdaFormula
   finitePrimeNormalization := common.finite_prime_normalization
-  poleNormalization := ccm25_source_pole_normalization base.ccm25Model
+  poleNormalization := base.toCCM25TheoremBase.poleNormalization
   noSpectralShortcutImport := ccm25_no_spectral_shortcut_import
 
 theorem toCCM25WeilObjectPackage_rows_eq

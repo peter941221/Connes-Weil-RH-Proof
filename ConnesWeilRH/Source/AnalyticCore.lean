@@ -9997,40 +9997,6 @@ theorem windowMembershipRealizesFourierSupportInWindow
 
 end SourceFourierSupportWindowRealizationData
 
-structure SourceSupportWindowContainmentData
-    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
-    (f : A.Test) (I : S.Window)
-    (supportSet : Type) (supportMembership : supportSet → Prop) where
-  supportWindowSet : Type
-  supportWindowMembership : supportWindowSet → Prop
-  supportToWindow : supportSet → supportWindowSet
-  supportImage_mem_window :
-    ∀ point : supportSet,
-      supportMembership point →
-        supportWindowMembership (supportToWindow point)
-  supportWindowRealization :
-    SourceSupportWindowRealizationData
-      S f I supportSet supportMembership supportWindowSet
-      supportWindowMembership supportToWindow
-
-namespace SourceSupportWindowContainmentData
-
-theorem supportSetContainedInWindow
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {f : A.Test} {I : S.Window}
-    {supportSet : Type} {supportMembership : supportSet → Prop}
-    (D :
-      SourceSupportWindowContainmentData
-        S f I supportSet supportMembership) :
-    ∀ point : supportSet,
-      supportMembership point → S.supportInWindow f I := by
-  intro point hpoint
-  exact
-    D.supportWindowRealization.windowMembershipRealizesSupportInWindow
-      point hpoint (D.supportImage_mem_window point hpoint)
-
-end SourceSupportWindowContainmentData
-
 structure SourceFourierSupportWindowContainmentData
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
     (f : A.Test) (I : S.Window)
@@ -10308,30 +10274,9 @@ structure SourceSemilocalRows
   sourceFourierGradingData :
     ∀ V : S.PlaceSet,
       S.canonicalHilbertModel V → S.fourierGradingCompatible V
-  sourceWindowContainedInLambdaData :
-    ∀ lambda : ℝ,
-      1 < lambda → S.windowContainedInLambda S.sourceSupportWindow lambda
-  sourceLambdaCompatibilityBridge :
-    ∀ lambda : ℝ,
-      S.supportInWindow S.sourceTest S.sourceSupportWindow →
-        S.fourierSupportInWindow S.sourceTest S.sourceSupportWindow →
-          S.supportTransported S.sourceTest S.sourceSupportWindow →
-            S.convolutionSupportTransported S.sourceTest S.sourceSupportWindow →
-              S.fixedWindowExhaustionCompatible S.sourceSupportWindow →
-                S.windowContainedInLambda S.sourceSupportWindow lambda →
-                  S.lambdaCompatible S.sourceSupportWindow lambda
-  sourceSupportTransportData :
-    ∀ f : A.Test,
-      ∀ I : S.Window,
-        S.supportInWindow f I →
-          S.fourierSupportInWindow f I →
-            S.supportTransported f I
-  sourceConvolutionSupportTransportData :
-    ∀ f : A.Test,
-      ∀ I : S.Window,
-        S.supportInWindow f I →
-          S.fourierSupportInWindow f I →
-            S.convolutionSupportTransported f I
+  sourceLambdaWindowContainmentData :
+    SourceSupportWindowData.SourceLambdaWindowContainmentData
+      S S.sourceSupportWindow
   sourceBoundedComparisonMapData :
     ∀ V : S.PlaceSet,
       S.canonicalHilbertModel V → S.boundedComparisonMap V
@@ -10376,13 +10321,13 @@ theorem sourceFourierSupportInWindow
 
 theorem sourceSupportAndFourierSupportTransport
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    (rows : SourceSemilocalRows S) :
+    (_rows : SourceSemilocalRows S) :
     SemilocalModelSymbols.SupportTransportStatement
       S.toSemilocalModelSymbols := by
   intro f I hSupport hFourier
   exact
-    ⟨rows.sourceSupportTransportData f I hSupport hFourier,
-      rows.sourceConvolutionSupportTransportData f I hSupport hFourier⟩
+    ⟨S.supportTransported_of_supportInWindow hSupport,
+      S.convolutionSupportTransported_of_fourierSupportInWindow hFourier⟩
 
 theorem sourceConvolutionSupportTransport
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
@@ -10403,34 +10348,20 @@ theorem sourceSoninSpaceComparison
       S.sourceSupportWindow
   exact ⟨normalForm.soninComparisonCore⟩
 
+theorem sourceWindowContainedInLambdaData
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    (rows : SourceSemilocalRows S) :
+    ∀ lambda : ℝ,
+      1 < lambda → S.windowContainedInLambda S.sourceSupportWindow lambda := by
+  exact rows.sourceLambdaWindowContainmentData.windowContainedInLambda
+
 theorem sourceWindowLambdaCompatibility
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
     (rows : SourceSemilocalRows S) :
     SourceWindowLambdaCompatibilityStatement S := by
   intro lambda hlambda
-  have hTransport :
-      S.supportTransported S.sourceTest S.sourceSupportWindow ∧
-        S.convolutionSupportTransported S.sourceTest
-          S.sourceSupportWindow :=
-    rows.sourceSupportAndFourierSupportTransport
-      S.sourceTest S.sourceSupportWindow
-      rows.sourceSupportInWindow
-      rows.sourceFourierSupportInWindow
-  have hFixedWindow :
-      S.fixedWindowExhaustionCompatible S.sourceSupportWindow :=
-    let normalForm :=
-      rows.sourceFixedWindowSoninExhaustionNormalForm
-        S.sourceSupportWindow
-    ⟨normalForm.soninComparisonCore,
-      ⟨normalForm.fixedWindowExhaustionCore⟩⟩
   exact
-    rows.sourceLambdaCompatibilityBridge
-      lambda
-      rows.sourceSupportInWindow
-      rows.sourceFourierSupportInWindow
-      hTransport.1
-      hTransport.2
-      hFixedWindow
+    S.lambdaCompatible_of_windowContainedInLambda
       (rows.sourceWindowContainedInLambdaData lambda hlambda)
 
 theorem sourceBoundedComparisonTraceClassTransport

@@ -735,6 +735,14 @@ theorem finite_prime_concrete_object_weight_read_off
   FinitePrimeCertificate.concrete_object_weight_read_off
     (finite_prime_concrete_object_of_package h) n
 
+theorem finite_prime_concrete_object_weight_eq_mathlib
+    {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
+    (h : ConcreteCCM25ArithmeticPackage W f lambda)
+    (n : ℕ) :
+    W.vonMangoldtWeight n = ArithmeticFunction.vonMangoldt n :=
+  FinitePrimeCertificate.concrete_object_weight_eq_mathlib
+    (finite_prime_concrete_object_of_package h) n
+
 theorem finite_prime_concrete_object_pairing_formula_source_evaluator
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
@@ -1000,16 +1008,15 @@ theorem common_certificate_global_index_source_data_of_package
     PrimePowerSupport.SourceGlobalIndexData
       PrimePowerArithmetic.SourcePrimePowerIndex
       (source_test_of_package h).sourceAtomVisible n := by
-  exact
-    Interface.arithmetic_global_index_source_data_of_arithmetic_rows
-      h.rows f f lambda h.oneLtLambda hn
+  exact finite_prime_concrete_object_global_index_source_data h hn
 
 theorem common_certificate_global_index_prime_power_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
-    PrimePowerArithmetic.SourcePrimePowerIndex n :=
-  (common_certificate_global_index_source_data_of_package h hn).primePowerIndex
+    IsPrimePow n :=
+  PrimePowerArithmetic.source_prime_power_index_iff_mathlib.1
+    (common_certificate_global_index_source_data_of_package h hn).primePowerIndex
 
 theorem common_certificate_global_index_visible_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -1025,16 +1032,15 @@ theorem common_certificate_restricted_index_source_data_of_package
     PrimePowerSupport.SourceRestrictedIndexData
       PrimePowerArithmetic.SourcePrimePowerIndex
       (source_test_of_package h).sourceAtomVisible lambda n := by
-  exact
-    Interface.arithmetic_restricted_index_source_data_of_arithmetic_rows
-      h.rows f f lambda h.oneLtLambda hn
+  exact finite_prime_concrete_object_restricted_index_source_data h hn
 
 theorem common_certificate_restricted_index_prime_power_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
-    PrimePowerArithmetic.SourcePrimePowerIndex n :=
-  (common_certificate_restricted_index_source_data_of_package h hn).primePowerIndex
+    IsPrimePow n :=
+  PrimePowerArithmetic.source_prime_power_index_iff_mathlib.1
+    (common_certificate_restricted_index_source_data_of_package h hn).primePowerIndex
 
 theorem common_certificate_restricted_index_visible_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -1054,7 +1060,7 @@ theorem global_index_prime_power_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
-    PrimePowerArithmetic.SourcePrimePowerIndex n :=
+    IsPrimePow n :=
   common_certificate_global_index_prime_power_of_package h hn
 
 theorem global_index_visible_of_package
@@ -1069,17 +1075,15 @@ theorem global_index_one_lt_of_package
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
     1 < n :=
-  Interface.arithmetic_global_index_one_lt_of_arithmetic_rows
-    h.rows f f lambda h.oneLtLambda hn
+  PrimePowerArithmetic.source_prime_power_index_one_lt
+    (common_certificate_global_index_source_data_of_package h hn).primePowerIndex
 
 theorem global_index_weight_read_off_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (_hn : n ∈ W.globalPrimeIndexSet) :
-    W.vonMangoldtWeight n =
-      PrimePowerArithmetic.SourceVonMangoldtWeight n :=
-  Interface.arithmetic_source_weight_read_off_of_arithmetic_rows
-    h.rows f f lambda h.oneLtLambda n
+    W.vonMangoldtWeight n = ArithmeticFunction.vonMangoldt n :=
+  finite_prime_concrete_object_weight_eq_mathlib h n
 
 theorem global_index_pairing_formula_source_evaluator_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -1092,24 +1096,23 @@ theorem global_index_pairing_formula_source_evaluator_of_package
             (W.convolutionStar f f) (n : ℝ) +
           atom.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
               (W.convolutionStar f f) ((n : ℝ)⁻¹)) :=
-  Interface.arithmetic_source_pairing_formula_source_evaluator_of_arithmetic_rows
-    h.rows f f lambda h.oneLtLambda n
+  PrimePowerPairing.source_prime_power_pairing_formula_source_evaluator
+    ((formula_components h).commonCertificate.atoms.atIndex n).sourcePairing
 
 theorem global_index_finite_prime_term_formula_source_evaluator_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (_hn : n ∈ W.globalPrimeIndexSet) :
     W.finitePrimeTerm n (W.convolutionStar f f) =
-      PrimePowerArithmetic.SourceFinitePrimeEvaluatorAtom W f f n
-        ((formula_components h).commonCertificate.atoms.atIndex n) :=
-  Interface.arithmetic_finite_prime_term_formula_source_evaluator_of_arithmetic_rows
-    h.rows f f lambda h.oneLtLambda n
+      ArithmeticFunction.vonMangoldt n * W.primePowerPairing n f f :=
+  PrimePowerArithmetic.source_finite_prime_term_formula_mathlib_pairing
+    ((formula_components h).commonCertificate.atoms.atIndex n)
 
 theorem restricted_index_prime_power_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
-    PrimePowerArithmetic.SourcePrimePowerIndex n :=
+    IsPrimePow n :=
   common_certificate_restricted_index_prime_power_of_package h hn
 
 theorem restricted_index_visible_of_package
@@ -1131,8 +1134,8 @@ theorem restricted_index_one_lt_of_package
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     1 < n :=
-  Interface.arithmetic_restricted_index_one_lt_of_arithmetic_rows
-    h.rows f f lambda h.oneLtLambda hn
+  PrimePowerSupport.source_lambda_cut_one_lt
+    (restricted_index_lambda_cut_of_package h hn)
 
 theorem restricted_index_le_lambda_sq_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -1146,10 +1149,8 @@ theorem restricted_index_weight_read_off_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (_hn : n ∈ W.restrictedPrimeIndexSet lambda) :
-    W.vonMangoldtWeight n =
-      PrimePowerArithmetic.SourceVonMangoldtWeight n :=
-  Interface.arithmetic_source_weight_read_off_of_arithmetic_rows
-    h.rows f f lambda h.oneLtLambda n
+    W.vonMangoldtWeight n = ArithmeticFunction.vonMangoldt n :=
+  finite_prime_concrete_object_weight_eq_mathlib h n
 
 theorem restricted_index_pairing_formula_source_evaluator_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
@@ -1162,18 +1163,17 @@ theorem restricted_index_pairing_formula_source_evaluator_of_package
             (W.convolutionStar f f) (n : ℝ) +
           atom.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
               (W.convolutionStar f f) ((n : ℝ)⁻¹)) :=
-  Interface.arithmetic_source_pairing_formula_source_evaluator_of_arithmetic_rows
-    h.rows f f lambda h.oneLtLambda n
+  PrimePowerPairing.source_prime_power_pairing_formula_source_evaluator
+    ((formula_components h).commonCertificate.atoms.atIndex n).sourcePairing
 
 theorem restricted_index_finite_prime_term_formula_source_evaluator_of_package
     {W : WeilFormSymbols} {f : TestFunction} {lambda : ℝ}
     (h : ConcreteCCM25ArithmeticPackage W f lambda)
     {n : ℕ} (_hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     W.finitePrimeTerm n (W.convolutionStar f f) =
-      PrimePowerArithmetic.SourceFinitePrimeEvaluatorAtom W f f n
-        ((formula_components h).commonCertificate.atoms.atIndex n) :=
-  Interface.arithmetic_finite_prime_term_formula_source_evaluator_of_arithmetic_rows
-    h.rows f f lambda h.oneLtLambda n
+      ArithmeticFunction.vonMangoldt n * W.primePowerPairing n f f :=
+  PrimePowerArithmetic.source_finite_prime_term_formula_mathlib_pairing
+    ((formula_components h).commonCertificate.atoms.atIndex n)
 
 end Package
 end CCM25Concrete

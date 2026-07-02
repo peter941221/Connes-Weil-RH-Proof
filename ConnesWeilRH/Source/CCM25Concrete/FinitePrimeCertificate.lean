@@ -147,6 +147,14 @@ theorem arithmetic_global_index_prime_power_of_certificate
     PrimePowerArithmetic.SourcePrimePowerIndex n :=
   (arithmetic_global_index_source_data_of_certificate h hn).primePowerIndex
 
+theorem arithmetic_global_index_isPrimePow_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    IsPrimePow n :=
+  PrimePowerArithmetic.source_prime_power_index_iff_mathlib.1
+    (arithmetic_global_index_prime_power_of_certificate h hn)
+
 theorem arithmetic_global_index_visible_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
@@ -188,6 +196,14 @@ theorem arithmetic_restricted_index_prime_power_of_certificate
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     PrimePowerArithmetic.SourcePrimePowerIndex n :=
   (arithmetic_restricted_index_source_data_of_certificate h hn).primePowerIndex
+
+theorem arithmetic_restricted_index_isPrimePow_of_certificate
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeArithmeticCertificate W f g lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    IsPrimePow n :=
+  PrimePowerArithmetic.source_prime_power_index_iff_mathlib.1
+    (arithmetic_restricted_index_prime_power_of_certificate h hn)
 
 theorem arithmetic_restricted_index_visible_of_certificate
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
@@ -477,6 +493,14 @@ theorem concrete_object_global_index_prime_power
     PrimePowerArithmetic.SourcePrimePowerIndex n :=
   (h.globalIndexData hn).primePowerIndex
 
+theorem concrete_object_global_index_isPrimePow
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
+    {n : ℕ} (hn : n ∈ W.globalPrimeIndexSet) :
+    IsPrimePow n :=
+  PrimePowerArithmetic.source_prime_power_index_iff_mathlib.1
+    (concrete_object_global_index_prime_power h hn)
+
 theorem concrete_object_global_index_visible
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
@@ -490,6 +514,14 @@ theorem concrete_object_restricted_index_prime_power
     {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
     PrimePowerArithmetic.SourcePrimePowerIndex n :=
   (h.restrictedIndexData hn).primePowerIndex
+
+theorem concrete_object_restricted_index_isPrimePow
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
+    {n : ℕ} (hn : n ∈ W.restrictedPrimeIndexSet lambda) :
+    IsPrimePow n :=
+  PrimePowerArithmetic.source_prime_power_index_iff_mathlib.1
+    (concrete_object_restricted_index_prime_power h hn)
 
 theorem concrete_object_restricted_index_visible
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
@@ -512,6 +544,14 @@ theorem concrete_object_weight_read_off
     W.vonMangoldtWeight n =
       PrimePowerArithmetic.SourceVonMangoldtWeight n :=
   (h.localFormulaData n).weightReadOff
+
+theorem concrete_object_weight_eq_mathlib
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (h : FixedLambdaFinitePrimeConcreteObject W f g lambda)
+    (n : ℕ) :
+    W.vonMangoldtWeight n = ArithmeticFunction.vonMangoldt n := by
+  rw [concrete_object_weight_read_off h n,
+    PrimePowerArithmetic.source_von_mangoldt_weight_eq_mathlib]
 
 theorem concrete_object_pairing_formula_source_evaluator
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}

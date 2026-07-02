@@ -507,9 +507,9 @@ theorem normalized_seed_ccm25_qw_lambda_source_evaluator_read_off
     W.qwLambda lambda weilTest weilTest =
       W.archimedeanTerm (W.convolutionStar weilTest weilTest) +
         W.polePairing weilTest -
-          CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_sum
+          CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_scoped_sum
             ccm25 :=
-  CCM25Concrete.Package.qw_lambda_formula_source_evaluator_common_atoms_of_package
+  CCM25Concrete.Package.qw_lambda_formula_scoped_source_evaluator_common_atoms_of_package
     ccm25
 
 noncomputable def normalizedSeedCCM25RestrictedEvaluatorScalar
@@ -519,7 +519,7 @@ noncomputable def normalizedSeedCCM25RestrictedEvaluatorScalar
         W weilTest lambda) : ℝ :=
   W.archimedeanTerm (W.convolutionStar weilTest weilTest) +
     W.polePairing weilTest -
-      CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_sum
+      CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_scoped_sum
         ccm25
 
 noncomputable def normalizedSeedMatchedToCCM25Evaluator
@@ -591,7 +591,7 @@ def normalizedSeedSupportSquareQWLambdaReadOffFromCCM25EvaluatorIdentity
       normalizedSeedSupportSquareReadOffSourceScalar A g =
         W.archimedeanTerm (W.convolutionStar weilTest weilTest) +
           W.polePairing weilTest -
-            CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_sum
+            CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_scoped_sum
               ccm25) :
     S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData
       (CC20Concrete.TraceScale.normalizedSeedTraceObjectPackage

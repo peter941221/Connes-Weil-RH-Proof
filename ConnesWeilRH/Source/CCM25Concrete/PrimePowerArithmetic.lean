@@ -90,6 +90,23 @@ noncomputable def SourceFinitePrimeEvaluatorAtom
         h.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
           (W.convolutionStar f g) ((n : ℝ)⁻¹)))
 
+noncomputable def MathlibFinitePrimeEvaluatorAtom
+    (W : WeilFormSymbols) (f g : TestFunction) (n : ℕ)
+    (h : SourceFinitePrimeArithmeticData W f g n) : ℝ :=
+  ArithmeticFunction.vonMangoldt n *
+    ((1 / Real.sqrt (n : ℝ)) *
+      (h.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
+          (W.convolutionStar f g) (n : ℝ) +
+        h.sourcePairing.model.sourceEvaluation.sourceEvaluator.valueAt
+          (W.convolutionStar f g) ((n : ℝ)⁻¹)))
+
+theorem source_finite_prime_evaluator_atom_eq_mathlib
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeArithmeticData W f g n) :
+    SourceFinitePrimeEvaluatorAtom W f g n h =
+      MathlibFinitePrimeEvaluatorAtom W f g n h :=
+  rfl
+
 structure SourceFinitePrimeLocalFormulaData
     (W : WeilFormSymbols) (f g : TestFunction) (n : ℕ)
     (h : SourceFinitePrimeArithmeticData W f g n) where
@@ -379,6 +396,23 @@ theorem source_finite_prime_term_formula_source_evaluator
   congr 1
   rw [← h.pairingReadOff]
   exact source_pairing_formula_source_evaluator h
+
+theorem source_finite_prime_term_formula_mathlib_source_evaluator
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeArithmeticData W f g n) :
+    W.finitePrimeTerm n (W.convolutionStar f g) =
+      MathlibFinitePrimeEvaluatorAtom W f g n h := by
+  rw [source_finite_prime_term_formula_source_evaluator h,
+    source_finite_prime_evaluator_atom_eq_mathlib h]
+
+theorem source_finite_prime_term_formula_mathlib_pairing
+    {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}
+    (h : SourceFinitePrimeArithmeticData W f g n) :
+    W.finitePrimeTerm n (W.convolutionStar f g) =
+      ArithmeticFunction.vonMangoldt n * W.primePowerPairing n f g := by
+  rw [h.termReadOff,
+    source_von_mangoldt_weight_eq_mathlib,
+    h.pairingReadOff]
 
 theorem source_von_mangoldt_pairing_product_formula_source_evaluator
     {W : WeilFormSymbols} {f g : TestFunction} {n : ℕ}

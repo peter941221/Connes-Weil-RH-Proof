@@ -34,7 +34,8 @@ structure SourceBackedFullPositivity
     (inputs : RouteInputs) (g : SourceBackedFixedSTest inputs)
     (L : RouteLedgers) where
   sourceTraceReadOff : SourceTraceReadOffData inputs g
-  sourceBackedLedgers : SourceBackedLedgers inputs g L
+  ledgerPackage : LedgerSignDefectPackage inputs g sourceTraceReadOff.lambda
+  ledgerPackageLedgers : ledgerPackage.ledgers = L
 
 def full_weil_positivity_of_source_backed_fixed_s
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
@@ -73,10 +74,11 @@ def full_weil_positivity_of_source_backed
     {L : RouteLedgers}
     (h : SourceBackedFullPositivity inputs g L) :
     FullWeilPositivity inputs g L :=
-  full_weil_positivity_of_source_backed_fixed_s
-    (fixed_s_read_off_of_source_backed_full_positivity h)
-    (triple_vanishing_of_source_backed g)
-    h.sourceBackedLedgers
+  { fixedSPositiveTraceReadOff :=
+      fixed_s_read_off_of_source_backed_full_positivity h
+    tripleVanishing := triple_vanishing_of_source_backed g
+    ledgersCleared := by
+      simpa [h.ledgerPackageLedgers] using h.ledgerPackage.ledgersCleared }
 
 def full_weil_positivity_input_holds
     {inputs : RouteInputs} {g : SourceBackedFixedSTest inputs}
