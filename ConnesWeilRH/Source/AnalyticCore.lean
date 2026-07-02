@@ -9828,10 +9828,26 @@ structure SourceSupportWindowRealizationData
         ∀ hWindow :
           supportWindowMembership (supportToWindow point),
           realizationWitness point hSupport hWindow
-  realizationCertificate :
-    SourceSupportWindowRealizationCertificate
+  supportWindowSourceObject :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          realizationWitness point hSupport hWindow → Type
+  sourceObjectFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            supportWindowSourceObject
+              point hSupport hWindow hRealization
+  sourceObjectRealizationData :
+    SourceSupportWindowSourceObjectRealizationData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
+      supportWindowSourceObject
 
 namespace SourceSupportWindowRealizationData
 
@@ -9852,13 +9868,15 @@ theorem windowMembershipRealizesSupportInWindow
           S.supportInWindow f I := by
   intro point hSupport hWindow
   exact
-    D.realizationCertificate.realizationImpliesSupportInWindow
+    D.sourceObjectRealizationData.sourceObjectRealizesSupportInWindow
       point hSupport hWindow
       (D.realizationWitnessFor point hSupport hWindow)
+      (D.sourceObjectFor point hSupport hWindow
+        (D.realizationWitnessFor point hSupport hWindow))
 
 end SourceSupportWindowRealizationData
 
-structure SourceFourierSupportWindowRealizationCertificate
+structure SourceFourierSupportWindowRealizationData
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
     (f : A.Test) (I : S.Window)
     (fourierSupportSet : Type)
@@ -9867,12 +9885,19 @@ structure SourceFourierSupportWindowRealizationCertificate
     (fourierSupportWindowMembership :
       fourierSupportWindowSet → Prop)
     (fourierSupportToWindow :
-      fourierSupportSet → fourierSupportWindowSet)
-    (realizationWitness :
-      ∀ point : fourierSupportSet,
-        fourierSupportMembership point →
+      fourierSupportSet → fourierSupportWindowSet) where
+  realizationWitness :
+    ∀ point : fourierSupportSet,
+      fourierSupportMembership point →
+        fourierSupportWindowMembership
+          (fourierSupportToWindow point) → Type
+  realizationWitnessFor :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
           fourierSupportWindowMembership
-            (fourierSupportToWindow point) → Type) where
+            (fourierSupportToWindow point),
+          realizationWitness point hSupport hWindow
   fourierSupportWindowSourceObject :
     ∀ point : fourierSupportSet,
       ∀ hSupport : fourierSupportMembership point,
@@ -9902,71 +9927,6 @@ structure SourceFourierSupportWindowRealizationCertificate
               point hSupport hWindow hRealization →
               S.fourierSupportInWindow f I
 
-namespace SourceFourierSupportWindowRealizationCertificate
-
-theorem realizationImpliesFourierSupportInWindow
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {f : A.Test} {I : S.Window}
-    {fourierSupportSet : Type}
-    {fourierSupportMembership : fourierSupportSet → Prop}
-    {fourierSupportWindowSet : Type}
-    {fourierSupportWindowMembership :
-      fourierSupportWindowSet → Prop}
-    {fourierSupportToWindow :
-      fourierSupportSet → fourierSupportWindowSet}
-    {realizationWitness :
-      ∀ point : fourierSupportSet,
-        fourierSupportMembership point →
-          fourierSupportWindowMembership
-            (fourierSupportToWindow point) → Type}
-    (C :
-      SourceFourierSupportWindowRealizationCertificate
-        S f I fourierSupportSet fourierSupportMembership
-        fourierSupportWindowSet fourierSupportWindowMembership
-        fourierSupportToWindow realizationWitness) :
-    ∀ point : fourierSupportSet,
-      ∀ hSupport : fourierSupportMembership point,
-        ∀ hWindow :
-          fourierSupportWindowMembership
-            (fourierSupportToWindow point),
-            realizationWitness point hSupport hWindow →
-              S.fourierSupportInWindow f I := by
-  intro point hSupport hWindow hRealization
-  exact
-    C.sourceObjectRealizesFourierSupportInWindow
-      point hSupport hWindow hRealization
-      (C.sourceObjectFor point hSupport hWindow hRealization)
-
-end SourceFourierSupportWindowRealizationCertificate
-
-structure SourceFourierSupportWindowRealizationData
-    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
-    (f : A.Test) (I : S.Window)
-    (fourierSupportSet : Type)
-    (fourierSupportMembership : fourierSupportSet → Prop)
-    (fourierSupportWindowSet : Type)
-    (fourierSupportWindowMembership :
-      fourierSupportWindowSet → Prop)
-    (fourierSupportToWindow :
-      fourierSupportSet → fourierSupportWindowSet) where
-  realizationWitness :
-    ∀ point : fourierSupportSet,
-      fourierSupportMembership point →
-        fourierSupportWindowMembership
-          (fourierSupportToWindow point) → Type
-  realizationWitnessFor :
-    ∀ point : fourierSupportSet,
-      ∀ hSupport : fourierSupportMembership point,
-        ∀ hWindow :
-          fourierSupportWindowMembership
-            (fourierSupportToWindow point),
-          realizationWitness point hSupport hWindow
-  realizationCertificate :
-    SourceFourierSupportWindowRealizationCertificate
-      S f I fourierSupportSet fourierSupportMembership
-      fourierSupportWindowSet fourierSupportWindowMembership
-      fourierSupportToWindow realizationWitness
-
 namespace SourceFourierSupportWindowRealizationData
 
 theorem windowMembershipRealizesFourierSupportInWindow
@@ -9990,62 +9950,19 @@ theorem windowMembershipRealizesFourierSupportInWindow
           (fourierSupportToWindow point) →
           S.fourierSupportInWindow f I := by
   intro point hSupport hWindow
+  let hRealization := D.realizationWitnessFor point hSupport hWindow
   exact
-    D.realizationCertificate.realizationImpliesFourierSupportInWindow
-      point hSupport hWindow
-      (D.realizationWitnessFor point hSupport hWindow)
+    D.sourceObjectRealizesFourierSupportInWindow
+      point hSupport hWindow hRealization
+      (D.sourceObjectFor point hSupport hWindow hRealization)
 
 end SourceFourierSupportWindowRealizationData
-
-structure SourceFourierSupportWindowContainmentData
-    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
-    (f : A.Test) (I : S.Window)
-    (fourierSupportSet : Type)
-    (fourierSupportMembership : fourierSupportSet → Prop) where
-  fourierSupportWindowSet : Type
-  fourierSupportWindowMembership : fourierSupportWindowSet → Prop
-  fourierSupportToWindow :
-    fourierSupportSet → fourierSupportWindowSet
-  fourierSupportImage_mem_window :
-    ∀ point : fourierSupportSet,
-      fourierSupportMembership point →
-        fourierSupportWindowMembership
-          (fourierSupportToWindow point)
-  fourierSupportWindowRealization :
-    SourceFourierSupportWindowRealizationData
-      S f I fourierSupportSet fourierSupportMembership
-      fourierSupportWindowSet fourierSupportWindowMembership
-      fourierSupportToWindow
-
-namespace SourceFourierSupportWindowContainmentData
-
-theorem fourierSupportSetContainedInWindow
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {f : A.Test} {I : S.Window}
-    {fourierSupportSet : Type}
-    {fourierSupportMembership : fourierSupportSet → Prop}
-    (D :
-      SourceFourierSupportWindowContainmentData
-        S f I fourierSupportSet fourierSupportMembership) :
-    ∀ point : fourierSupportSet,
-      fourierSupportMembership point →
-        S.fourierSupportInWindow f I := by
-  intro point hpoint
-  exact
-    D.fourierSupportWindowRealization.windowMembershipRealizesFourierSupportInWindow
-      point hpoint
-      (D.fourierSupportImage_mem_window point hpoint)
-
-end SourceFourierSupportWindowContainmentData
 
 structure SourceSupportSetMembershipData
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
     (f : A.Test) (I : S.Window) where
   supportSet : Type
-  supportPoint : supportSet
   supportMembership : supportSet → Prop
-  supportPoint_mem :
-    supportMembership supportPoint
   supportWindowContainment :
     SourceSupportWindowContainmentData
       S f I supportSet supportMembership
@@ -10057,8 +9974,7 @@ theorem supportInWindow
     {f : A.Test} {I : S.Window}
     (D : SourceSupportSetMembershipData S f I) :
     S.supportInWindow f I :=
-  D.supportWindowContainment.supportSetContainedInWindow
-    D.supportPoint D.supportPoint_mem
+  D.supportWindowContainment.supportCarrier_subset_windowCarrier
 
 end SourceSupportSetMembershipData
 
@@ -10066,88 +9982,72 @@ structure SourceFourierSupportSetMembershipData
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
     (f : A.Test) (I : S.Window) where
   fourierSupportSet : Type
-  fourierSupportPoint : fourierSupportSet
   fourierSupportMembership : fourierSupportSet → Prop
-  fourierSupportPoint_mem :
-    fourierSupportMembership fourierSupportPoint
-  fourierSupportWindowContainment :
-    SourceFourierSupportWindowContainmentData
+  fourierSupportWindowSet : Type
+  fourierSupportWindowMembership :
+    fourierSupportWindowSet → Prop
+  fourierSupportToWindow :
+    fourierSupportSet → fourierSupportWindowSet
+  fourierSupportImage_mem_window :
+    ∀ point : fourierSupportSet,
+      fourierSupportMembership point →
+        fourierSupportWindowMembership
+          (fourierSupportToWindow point)
+  carrierToFourierSupport :
+    ∀ x : S.SupportPoint,
+      x ∈ S.fourierSupportCarrier f → fourierSupportSet
+  carrierToFourierSupport_mem :
+    ∀ x : S.SupportPoint,
+      ∀ hx : x ∈ S.fourierSupportCarrier f,
+        fourierSupportMembership (carrierToFourierSupport x hx)
+  fourierWindowPoint : fourierSupportWindowSet → S.SupportPoint
+  fourierWindowPoint_mem_window :
+    ∀ point : fourierSupportWindowSet,
+      fourierSupportWindowMembership point →
+        fourierWindowPoint point ∈ S.windowCarrier I
+  fourierSupportToWindow_realizes_carrier :
+    ∀ x : S.SupportPoint,
+      ∀ hx : x ∈ S.fourierSupportCarrier f,
+        fourierWindowPoint
+          (fourierSupportToWindow (carrierToFourierSupport x hx)) = x
+  fourierSupportWindowRealization :
+    SourceFourierSupportWindowRealizationData
       S f I fourierSupportSet fourierSupportMembership
+      fourierSupportWindowSet fourierSupportWindowMembership
+      fourierSupportToWindow
 
 namespace SourceFourierSupportSetMembershipData
+
+theorem fourierSupportCarrier_subset_windowCarrier
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {f : A.Test} {I : S.Window}
+    (D : SourceFourierSupportSetMembershipData S f I) :
+    S.fourierSupportCarrier f ⊆ S.windowCarrier I := by
+  intro x hx
+  rw [← D.fourierSupportToWindow_realizes_carrier x hx]
+  exact
+    D.fourierWindowPoint_mem_window
+      (D.fourierSupportToWindow (D.carrierToFourierSupport x hx))
+      (D.fourierSupportImage_mem_window
+        (D.carrierToFourierSupport x hx)
+        (D.carrierToFourierSupport_mem x hx))
 
 theorem fourierSupportInWindow
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
     {f : A.Test} {I : S.Window}
     (D : SourceFourierSupportSetMembershipData S f I) :
     S.fourierSupportInWindow f I :=
-  D.fourierSupportWindowContainment.fourierSupportSetContainedInWindow
-    D.fourierSupportPoint D.fourierSupportPoint_mem
+  D.fourierSupportCarrier_subset_windowCarrier
 
 end SourceFourierSupportSetMembershipData
-
-structure SourceSupportMembershipModel
-    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
-    (I : S.Window) where
-  supportAtom : Type
-  atomTest : supportAtom → A.Test
-  atomWindow : supportAtom → S.Window
-  sourceAtom : supportAtom
-  sourceAtomTest_eq :
-    atomTest sourceAtom = S.sourceTest
-  sourceAtomWindow_eq :
-    atomWindow sourceAtom = I
-  atomSupportMembership :
-    ∀ atom : supportAtom,
-      SourceSupportSetMembershipData S (atomTest atom) (atomWindow atom)
-
-namespace SourceSupportMembershipModel
-
-theorem sourceSupportInWindow
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {I : S.Window} (M : SourceSupportMembershipModel S I) :
-    S.supportInWindow S.sourceTest I := by
-  simpa [M.sourceAtomTest_eq, M.sourceAtomWindow_eq]
-    using (M.atomSupportMembership M.sourceAtom).supportInWindow
-
-end SourceSupportMembershipModel
-
-structure SourceFourierSupportMembershipModel
-    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
-    (I : S.Window) where
-  fourierSupportAtom : Type
-  atomTest : fourierSupportAtom → A.Test
-  atomWindow : fourierSupportAtom → S.Window
-  sourceAtom : fourierSupportAtom
-  sourceAtomTest_eq :
-    atomTest sourceAtom = S.sourceTest
-  sourceAtomWindow_eq :
-    atomWindow sourceAtom = I
-  atomFourierSupportMembership :
-    ∀ atom : fourierSupportAtom,
-      SourceFourierSupportSetMembershipData
-        S (atomTest atom) (atomWindow atom)
-
-namespace SourceFourierSupportMembershipModel
-
-theorem sourceFourierSupportInWindow
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {I : S.Window} (M : SourceFourierSupportMembershipModel S I) :
-    S.fourierSupportInWindow S.sourceTest I := by
-  simpa [M.sourceAtomTest_eq, M.sourceAtomWindow_eq]
-    using
-      (M.atomFourierSupportMembership
-        M.sourceAtom).fourierSupportInWindow
-
-end SourceFourierSupportMembershipModel
 
 structure SourceWindowSupportGeometry
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
     (I : S.Window) where
   sourceSupportMembership :
-    SourceSupportMembershipModel S I
+    SourceSupportSetMembershipData S S.sourceTest I
   sourceFourierSupportMembership :
-    SourceFourierSupportMembershipModel S I
+    SourceFourierSupportSetMembershipData S S.sourceTest I
 
 namespace SourceWindowSupportGeometry
 
@@ -10155,13 +10055,13 @@ theorem sourceSupportInWindow
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
     {I : S.Window} (G : SourceWindowSupportGeometry S I) :
     S.supportInWindow S.sourceTest I :=
-  G.sourceSupportMembership.sourceSupportInWindow
+  G.sourceSupportMembership.supportInWindow
 
 theorem sourceFourierSupportInWindow
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
     {I : S.Window} (G : SourceWindowSupportGeometry S I) :
     S.fourierSupportInWindow S.sourceTest I :=
-  G.sourceFourierSupportMembership.sourceFourierSupportInWindow
+  G.sourceFourierSupportMembership.fourierSupportInWindow
 
 end SourceWindowSupportGeometry
 
@@ -10190,8 +10090,8 @@ end SourceWindowSupportNormalForm
 structure SourceSoninComparisonCore
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
     (I : S.Window) where
-  sourceWindowSupport :
-    SourceWindowSupportNormalForm S I
+  sourceWindowSupportGeometry :
+    SourceWindowSupportGeometry S I
 
 namespace SourceSoninComparisonCore
 
@@ -10199,14 +10099,15 @@ theorem sourceSupportTransported
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
     {I : S.Window} (C : SourceSoninComparisonCore S I) :
     S.supportTransported S.sourceTest I :=
-  S.supportTransported_of_supportInWindow C.sourceWindowSupport.sourceSupportInWindow
+  S.supportTransported_of_supportInWindow
+    C.sourceWindowSupportGeometry.sourceSupportInWindow
 
 theorem sourceConvolutionSupportTransported
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
     {I : S.Window} (C : SourceSoninComparisonCore S I) :
     S.convolutionSupportTransported S.sourceTest I :=
   S.convolutionSupportTransported_of_fourierSupportInWindow
-    C.sourceWindowSupport.sourceFourierSupportInWindow
+    C.sourceWindowSupportGeometry.sourceFourierSupportInWindow
 
 end SourceSoninComparisonCore
 
@@ -10269,18 +10170,34 @@ def SourceSoninWindow
 structure SourceFixedWindowSoninExhaustionNormalForm
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
     (I : S.Window) where
-  soninComparisonCore :
-    SourceSupportWindowData.SourceSoninComparisonCore S I
+  sourceWindowSupportGeometry :
+    SourceSupportWindowData.SourceWindowSupportGeometry S I
   fixedWindowExhaustionCore :
     SourceSupportWindowData.SourceFixedWindowExhaustionCore
-      S I soninComparisonCore
+      S I
+        ({ sourceWindowSupportGeometry := sourceWindowSupportGeometry } :
+          SourceSupportWindowData.SourceSoninComparisonCore S I)
+
+namespace SourceFixedWindowSoninExhaustionNormalForm
+
+def soninComparisonCore
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window} (N : SourceFixedWindowSoninExhaustionNormalForm S I) :
+    SourceSupportWindowData.SourceSoninComparisonCore S I where
+  sourceWindowSupportGeometry := N.sourceWindowSupportGeometry
+
+theorem fixedWindowExhaustionCompatible
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window} (N : SourceFixedWindowSoninExhaustionNormalForm S I) :
+    S.fixedWindowExhaustionCompatible I :=
+  ⟨N.soninComparisonCore, ⟨N.fixedWindowExhaustionCore⟩⟩
+
+end SourceFixedWindowSoninExhaustionNormalForm
 
 /-- CCM24 semilocal rows over the shared source support/window object. -/
 structure SourceSemilocalRows
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A) where
   sourceCCM24TestCompatibility : Prop
-  sourceCanonicalModelData :
-    S.canonicalHilbertModel S.sourcePlaceSet
   sourceScalingActionData :
     ∀ V : S.PlaceSet,
       S.canonicalHilbertModel V → S.scalingActionImplemented V
@@ -10302,6 +10219,15 @@ structure SourceSemilocalRows
 
 namespace SourceSemilocalRows
 
+theorem sourceCanonicalModelData
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    (rows : SourceSemilocalRows S) :
+    S.canonicalHilbertModel S.sourcePlaceSet := by
+  exact
+    (rows.sourceFixedWindowSoninExhaustionNormalForm
+      S.sourceSupportWindow).fixedWindowExhaustionCore
+        |>.sourceCanonicalModel
+
 theorem sourceCanonicalSemilocalModel
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
     (rows : SourceSemilocalRows S) :
@@ -10318,8 +10244,7 @@ theorem sourceSupportInWindow
     S.supportInWindow S.sourceTest S.sourceSupportWindow := by
   exact
     (rows.sourceFixedWindowSoninExhaustionNormalForm
-      S.sourceSupportWindow).soninComparisonCore
-        |>.sourceWindowSupport
+      S.sourceSupportWindow).sourceWindowSupportGeometry
         |>.sourceSupportInWindow
 
 theorem sourceFourierSupportInWindow
@@ -10328,8 +10253,7 @@ theorem sourceFourierSupportInWindow
     S.fourierSupportInWindow S.sourceTest S.sourceSupportWindow := by
   exact
     (rows.sourceFixedWindowSoninExhaustionNormalForm
-      S.sourceSupportWindow).soninComparisonCore
-        |>.sourceWindowSupport
+      S.sourceSupportWindow).sourceWindowSupportGeometry
         |>.sourceFourierSupportInWindow
 
 theorem sourceSupportAndFourierSupportTransport
@@ -10395,9 +10319,7 @@ theorem sourceFixedWindowSoninExhaustion
   intro I hSonin
   let normalForm :=
     rows.sourceFixedWindowSoninExhaustionNormalForm I
-  exact
-    ⟨normalForm.soninComparisonCore,
-      ⟨normalForm.fixedWindowExhaustionCore⟩⟩
+  exact normalForm.fixedWindowExhaustionCompatible
 
 end SourceSemilocalRows
 

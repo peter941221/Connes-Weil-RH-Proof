@@ -281,13 +281,9 @@ structure SourceSupportWindowContainmentData
     ∀ point : supportSet,
       supportMembership point →
         supportWindowMembership (supportToWindow point)
-  carrierToSupport :
-    ∀ x : S.SupportPoint,
-      x ∈ S.supportCarrier f → supportSet
-  carrierToSupport_mem :
-    ∀ x : S.SupportPoint,
-      ∀ hx : x ∈ S.supportCarrier f,
-        supportMembership (carrierToSupport x hx)
+  carrierSupportSubtype :
+    {x : S.SupportPoint // x ∈ S.supportCarrier f} →
+      {point : supportSet // supportMembership point}
   windowPoint : supportWindowSet → S.SupportPoint
   windowPoint_mem_window :
     ∀ point : supportWindowSet,
@@ -297,7 +293,8 @@ structure SourceSupportWindowContainmentData
     ∀ x : S.SupportPoint,
       ∀ hx : x ∈ S.supportCarrier f,
         windowPoint
-          (supportToWindow (carrierToSupport x hx)) = x
+          (supportToWindow
+            ((carrierSupportSubtype ⟨x, hx⟩).1)) = x
 
 namespace SourceSupportWindowContainmentData
 
@@ -308,15 +305,16 @@ theorem supportCarrier_subset_windowCarrier
     (D :
       SourceSupportWindowContainmentData
         S f I supportSet supportMembership) :
-    S.supportCarrier f ⊆ S.windowCarrier I := by
+  S.supportCarrier f ⊆ S.windowCarrier I := by
   intro x hx
+  let carrier : {x : S.SupportPoint // x ∈ S.supportCarrier f} := ⟨x, hx⟩
   rw [← D.supportToWindow_realizes_carrier x hx]
   exact
     D.windowPoint_mem_window
-      (D.supportToWindow (D.carrierToSupport x hx))
+      (D.supportToWindow ((D.carrierSupportSubtype carrier).1))
       (D.supportImage_mem_window
-        (D.carrierToSupport x hx)
-        (D.carrierToSupport_mem x hx))
+        ((D.carrierSupportSubtype carrier).1)
+        ((D.carrierSupportSubtype carrier).2))
 
 theorem supportWindowMembershipRealizesSupportInWindow
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
