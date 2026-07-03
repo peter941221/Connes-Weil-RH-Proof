@@ -270,226 +270,56 @@ theorem lambdaCompatible_of_windowContainedInLambda
   intro hWindow
   exact hWindow
 
-structure SourceSupportWindowContainmentData
-    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
-    (f : A.Test) (I : S.Window)
-    (supportSet : Type) (supportMembership : supportSet → Prop) where
-  supportWindowSet : Type
-  supportWindowMembership : supportWindowSet → Prop
-  supportSubtypeToWindow :
-    {point : supportSet // supportMembership point} →
-      {point : supportWindowSet // supportWindowMembership point}
-  carrierSupportSubtype :
-    {x : S.SupportPoint // x ∈ S.supportCarrier f} →
-      {point : supportSet // supportMembership point}
-  windowPointSubtype :
-    {point : supportWindowSet // supportWindowMembership point} →
-      {x : S.SupportPoint // x ∈ S.windowCarrier I}
-  supportWindowRealizesCarrierSubtype :
-    ∀ carrier : {x : S.SupportPoint // x ∈ S.supportCarrier f},
-        (windowPointSubtype
-          (supportSubtypeToWindow
-            (carrierSupportSubtype carrier))).1 = carrier.1
-
-namespace SourceSupportWindowContainmentData
-
-def supportToWindow
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {f : A.Test} {I : S.Window}
-    {supportSet : Type} {supportMembership : supportSet → Prop}
-    (D :
-      SourceSupportWindowContainmentData
-        S f I supportSet supportMembership)
-    (point : {point : supportSet // supportMembership point}) :
-    D.supportWindowSet :=
-  (D.supportSubtypeToWindow point).1
-
-theorem supportImage_mem_window
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {f : A.Test} {I : S.Window}
-    {supportSet : Type} {supportMembership : supportSet → Prop}
-    (D :
-      SourceSupportWindowContainmentData
-        S f I supportSet supportMembership)
-    (point : {point : supportSet // supportMembership point}) :
-    D.supportWindowMembership (D.supportToWindow point) :=
-  (D.supportSubtypeToWindow point).2
-
-def windowPoint
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {f : A.Test} {I : S.Window}
-    {supportSet : Type} {supportMembership : supportSet → Prop}
-    (D :
-      SourceSupportWindowContainmentData
-        S f I supportSet supportMembership)
-    (point : {point : D.supportWindowSet // D.supportWindowMembership point}) :
-    S.SupportPoint :=
-  (D.windowPointSubtype point).1
-
-theorem windowPoint_mem_window
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {f : A.Test} {I : S.Window}
-    {supportSet : Type} {supportMembership : supportSet → Prop}
-    (D :
-      SourceSupportWindowContainmentData
-        S f I supportSet supportMembership)
-    (point : {point : D.supportWindowSet // D.supportWindowMembership point}) :
-    D.windowPoint point ∈ S.windowCarrier I :=
-  (D.windowPointSubtype point).2
-
-theorem supportToWindow_realizes_carrier
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {f : A.Test} {I : S.Window}
-    {supportSet : Type} {supportMembership : supportSet → Prop}
-    (D :
-      SourceSupportWindowContainmentData
-        S f I supportSet supportMembership) :
-    ∀ x : S.SupportPoint,
-      ∀ hx : x ∈ S.supportCarrier f,
-        (D.windowPointSubtype
-          (D.supportSubtypeToWindow
-            (D.carrierSupportSubtype ⟨x, hx⟩))).1 = x := by
-  intro x hx
-  exact D.supportWindowRealizesCarrierSubtype ⟨x, hx⟩
-
-theorem supportCarrier_subset_windowCarrier
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {f : A.Test} {I : S.Window}
-    {supportSet : Type} {supportMembership : supportSet → Prop}
-    (D :
-      SourceSupportWindowContainmentData
-        S f I supportSet supportMembership) :
-  S.supportCarrier f ⊆ S.windowCarrier I := by
-  intro x hx
-  let carrier : {x : S.SupportPoint // x ∈ S.supportCarrier f} := ⟨x, hx⟩
-  let supportPoint := D.carrierSupportSubtype carrier
-  change carrier.1 ∈ S.windowCarrier I
-  rw [← D.supportWindowRealizesCarrierSubtype carrier]
-  exact
-    D.windowPoint_mem_window
-      (D.supportSubtypeToWindow supportPoint)
-
-theorem supportWindowMembershipRealizesSupportInWindow
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {f : A.Test} {I : S.Window}
-    {supportSet : Type} {supportMembership : supportSet → Prop}
-    (D :
-      SourceSupportWindowContainmentData
-        S f I supportSet supportMembership) :
-    ∀ point : supportSet,
-      ∀ hpoint : supportMembership point,
-        D.supportWindowMembership (D.supportToWindow ⟨point, hpoint⟩) →
-          S.supportInWindow f I := by
-  intro _point _hSupport _hWindow
-  exact D.supportCarrier_subset_windowCarrier
-
-theorem supportSetContainedInWindow
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {f : A.Test} {I : S.Window}
-    {supportSet : Type} {supportMembership : supportSet → Prop}
-    (D :
-      SourceSupportWindowContainmentData
-        S f I supportSet supportMembership) :
-    ∀ point : supportSet,
-      supportMembership point → S.supportInWindow f I := by
-  intro point hpoint
-  exact
-    D.supportWindowMembershipRealizesSupportInWindow
-      point hpoint (D.supportImage_mem_window ⟨point, hpoint⟩)
-
-end SourceSupportWindowContainmentData
-
-structure SourceWindowScaleBoundNormalForm
-    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
-    (I : S.Window) where
-
-namespace SourceWindowScaleBoundNormalForm
-
 theorem windowPoint_supportScale_eq_one
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
     {I : S.Window}
-    (_D : SourceWindowScaleBoundNormalForm S I) :
-    ∀ x : S.SupportPoint,
-      x ∈ S.windowCarrier I → S.supportScale x = 1 := by
-  intro _x hx
+    {x : S.SupportPoint}
+    (hx : x ∈ S.windowCarrier I) :
+    S.supportScale x = 1 := by
   exact hx.2
 
 theorem windowPoint_supportScale_lowerBound
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {I : S.Window}
-    (D : SourceWindowScaleBoundNormalForm S I) :
-    ∀ lambda : ℝ,
-      1 < lambda →
-        ∀ x : S.SupportPoint,
-          x ∈ S.windowCarrier I → lambda⁻¹ ≤ S.supportScale x := by
-  intro lambda hlambda x hx
-  rw [D.windowPoint_supportScale_eq_one x hx]
+    {I : S.Window} {lambda : ℝ}
+    (hlambda : 1 < lambda) {x : S.SupportPoint}
+    (hx : x ∈ S.windowCarrier I) :
+    lambda⁻¹ ≤ S.supportScale x := by
+  rw [windowPoint_supportScale_eq_one hx]
   exact inv_le_one_of_one_le₀ hlambda.le
 
 theorem windowPoint_supportScale_upperBound
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {I : S.Window}
-    (D : SourceWindowScaleBoundNormalForm S I) :
-    ∀ lambda : ℝ,
-      1 < lambda →
-        ∀ x : S.SupportPoint,
-          x ∈ S.windowCarrier I → S.supportScale x ≤ lambda := by
-  intro lambda hlambda x hx
-  rw [D.windowPoint_supportScale_eq_one x hx]
+    {I : S.Window} {lambda : ℝ}
+    (hlambda : 1 < lambda) {x : S.SupportPoint}
+    (hx : x ∈ S.windowCarrier I) :
+    S.supportScale x ≤ lambda := by
+  rw [windowPoint_supportScale_eq_one hx]
   exact hlambda.le
 
 theorem windowPoint_mem_lambdaCutoff
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {I : S.Window}
-    (D : SourceWindowScaleBoundNormalForm S I) :
-    ∀ lambda : ℝ,
-      1 < lambda →
-        ∀ x : S.SupportPoint,
-          x ∈ S.windowCarrier I → S.pointInLambdaCutoff x lambda := by
-  intro lambda hlambda x hx
+    {I : S.Window} {lambda : ℝ}
+    (hlambda : 1 < lambda) {x : S.SupportPoint}
+    (hx : x ∈ S.windowCarrier I) :
+    S.pointInLambdaCutoff x lambda := by
   exact
-    ⟨D.windowPoint_supportScale_lowerBound lambda hlambda x hx,
-      D.windowPoint_supportScale_upperBound lambda hlambda x hx⟩
-
-end SourceWindowScaleBoundNormalForm
-
-structure SourceLambdaWindowContainmentData
-    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
-    (I : S.Window) where
-  sourceWindowScaleBoundNormalForm :
-    SourceWindowScaleBoundNormalForm S I
-
-namespace SourceLambdaWindowContainmentData
-
-theorem windowPoint_mem_lambdaCutoff
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {I : S.Window}
-    (D : SourceLambdaWindowContainmentData S I) :
-    ∀ lambda : ℝ,
-      1 < lambda →
-        ∀ x : S.SupportPoint,
-          x ∈ S.windowCarrier I → S.pointInLambdaCutoff x lambda := by
-  exact D.sourceWindowScaleBoundNormalForm.windowPoint_mem_lambdaCutoff
+    ⟨windowPoint_supportScale_lowerBound hlambda hx,
+      windowPoint_supportScale_upperBound hlambda hx⟩
 
 theorem windowCarrier_subset_lambdaCarrier
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {I : S.Window}
-    (D : SourceLambdaWindowContainmentData S I) :
-    ∀ lambda : ℝ,
-      1 < lambda → S.windowCarrier I ⊆ S.lambdaCarrier lambda := by
-  intro lambda hlambda x hx
-  exact D.windowPoint_mem_lambdaCutoff lambda hlambda x hx
+    {I : S.Window} {lambda : ℝ}
+    (hlambda : 1 < lambda) :
+    S.windowCarrier I ⊆ S.lambdaCarrier lambda := by
+  intro x hx
+  exact windowPoint_mem_lambdaCutoff hlambda hx
 
-theorem windowContainedInLambda
+theorem windowContainedInLambda_of_one_lt
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {I : S.Window}
-    (D : SourceLambdaWindowContainmentData S I) :
-    ∀ lambda : ℝ,
-      1 < lambda → S.windowContainedInLambda I lambda := by
-  intro lambda hlambda
-  exact D.windowCarrier_subset_lambdaCarrier lambda hlambda
-
-end SourceLambdaWindowContainmentData
+    {I : S.Window} {lambda : ℝ}
+    (hlambda : 1 < lambda) :
+    S.windowContainedInLambda I lambda :=
+  windowCarrier_subset_lambdaCarrier hlambda
 
 end SourceSupportWindowData
 
