@@ -1,6 +1,6 @@
 # Connes-Weil RH Proof
 
-Version 0.2.2.
+Version 0.2.3.
 
 This repository records a source-conditional Connes-Weil route to Mathlib's
 canonical Riemann Hypothesis statement.
@@ -81,21 +81,21 @@ Repository evidence:
 
 Fix a compactly supported half-density test g on R_+^*. Let:
 
-```text
+```math
 F_g = g^* * g
 ```
 
 Choose a finite set of places S containing infinity. For a fixed support bound
 A, assume:
 
-```text
-supp(F_g) subset exp([-A, A])
+```math
+\mathrm{supp}(F_g) \subset \exp([-A, A])
 ```
 
 The route takes:
 
-```text
-S_A = {infinity} union {p : log p <= A}
+```math
+S_A = \{\infty\} \cup \{p : \log p \le A\}
 ```
 
 This choice prevents a fixed-S trace from omitting a finite-prime atom visible
@@ -103,9 +103,9 @@ to F_g.
 
 Choose lambda > 1 and a support window I:
 
-```text
-I subset [lambda^(-1), lambda]
-supp(g) subset I
+```math
+I \subset [\lambda^{-1}, \lambda]
+\mathrm{supp}(g) \subset I
 ```
 
 Assume these source inputs and project lemmas:
@@ -131,45 +131,45 @@ Mathlib _root_.RiemannHypothesis
 
 CCM24 supplies:
 
-```text
+```math
 V_S = M_S U_S
 ```
 
 Let H_S be the fixed-S Hilbert space. Let P_S(lambda) be the source support
 projection. The canonical support projection is:
 
-```text
-P_(S,G)(lambda) = V_S P_S(lambda) V_S^(-1)
+```math
+P_{S,G}(\lambda) = V_S P_S(\lambda) V_S^{-1}
 ```
 
 Let F_S be the fixed-S Fourier symmetry. The Fourier-side support projection is:
 
-```text
-P_hat_(S,G)(lambda)
-  = F_S^(-1) P_(S,G)(lambda) F_S
+```math
+\widehat P_{S,G}(\lambda)
+  = F_S^{-1} P_{S,G}(\lambda) F_S
 ```
 
 The CCM24 comparison map identifies the semilocal and archimedean support
 ranges:
 
-```text
-Ran P_S(lambda)
+```math
+\mathrm{Ran}\,P_S(\lambda)
   =
-S Ran P_R(lambda)
+S\,\mathrm{Ran}\,P_{\mathbb R}(\lambda)
 ```
 
 The CCM24 Fourier compatibility gives:
 
-```text
-F_S S = S F_R
+```math
+F_S S = S F_{\mathbb R}
 ```
 
 Therefore:
 
-```text
-Ran P_hat_S(lambda)
+```math
+\mathrm{Ran}\,\widehat P_S(\lambda)
   =
-S Ran P_hat_R(lambda)
+S\,\mathrm{Ran}\,\widehat P_{\mathbb R}(\lambda)
 ```
 
 This keeps the same g, F_g, S, I, and lambda through the trace read-off,
@@ -181,20 +181,20 @@ RH exit.
 Let theta_S(g) be the bounded test operator attached to g in the fixed-S model.
 Define:
 
-```text
-A_(S,lambda)(g)
+```math
+A_{S,\lambda}(g)
   =
-P_hat_(S,G)(lambda) P_(S,G)(lambda) theta_S(g)
+\widehat P_{S,G}(\lambda) P_{S,G}(\lambda) \theta_S(g)
 ```
 
 The CC20 trace-class input and the project trace-class wrappers prove that
 A_(S,lambda)(g) is Hilbert-Schmidt. Hence:
 
-```text
-Pos_(S,lambda)(g)
+```math
+\mathrm{Pos}_{S,\lambda}(g)
   =
-Tr(A_(S,lambda)(g)^* A_(S,lambda)(g))
-  >= 0
+\mathrm{Tr}(A_{S,\lambda}(g)^* A_{S,\lambda}(g))
+  \ge 0
 ```
 
 The proof uses positivity only after the trace is defined.
@@ -203,13 +203,13 @@ The proof uses positivity only after the trace is defined.
 
 The source read-off has the form:
 
-```text
-Pos_(S,lambda)(g)
+```math
+\mathrm{Pos}_{S,\lambda}(g)
   =
-QW_lambda(g,g)
-  + Rank_(S,I)(g)
-  + PoleJetExtra_(S,I)(g)
-  + R_(S,I,lambda,J)(g)
+QW_\lambda(g,g)
+  + \mathrm{Rank}_{S,I}(g)
+  + \mathrm{PoleJetExtra}_{S,I}(g)
+  + R_{S,I,\lambda,J}(g)
 ```
 
 | term | meaning |
@@ -221,16 +221,16 @@ QW_lambda(g,g)
 
 The CCM25 restricted scalar uses the same square:
 
-```text
+```math
 F_g = g^* * g
 ```
 
 and the same prime-power pairing:
 
-```text
-<g, T(n) g>
+```math
+\langle g, T(n) g\rangle
   =
-n^(-1/2) (F_g(n) + F_g(n^(-1)))
+n^{-1/2} (F_g(n) + F_g(n^{-1}))
 ```
 
 The finite-prime sign comes from the CCM25 formula for QW_lambda. The route
@@ -240,65 +240,65 @@ does not add a separate finite-prime sign convention.
 
 Restrict to tests satisfying:
 
-```text
-g_hat(0) = g_hat(i/2) = g_hat(-i/2) = 0
+```math
+\widehat g(0) = \widehat g(i/2) = \widehat g(-i/2) = 0
 ```
 
 The rank ledger is supported on g_hat(0). The pole ledger is supported on
 g_hat(i/2) and g_hat(-i/2). Hence:
 
-```text
-Rank_(S,I)(g) = 0
-PoleJetExtra_(S,I)(g) = 0
+```math
+\mathrm{Rank}_{S,I}(g) = 0
+\mathrm{PoleJetExtra}_{S,I}(g) = 0
 ```
 
 The read-off becomes:
 
-```text
-Pos_(S,lambda)(g)
+```math
+\mathrm{Pos}_{S,\lambda}(g)
   =
-QW_lambda(g,g)
-  + R_(S,I,lambda,J)(g)
+QW_\lambda(g,g)
+  + R_{S,I,\lambda,J}(g)
 ```
 
 Since Pos_(S,lambda)(g) >= 0:
 
-```text
-QW_lambda(g,g) >= -R_(S,I,lambda,J)(g)
+```math
+QW_\lambda(g,g) \ge -R_{S,I,\lambda,J}(g)
 ```
 
 ### 5. Bound and remove the endpoint-strip defect
 
 The defect package proves:
 
-```text
-abs(R_(S,I,lambda,J)(g))
-  <=
-C_(S,I,J)(g) Cdef_(S,I,lambda,J)(g)
+```math
+\left|R_{S,I,\lambda,J}(g)\right|
+  \le
+C_{S,I,J}(g) Cdef_{S,I,\lambda,J}(g)
 ```
 
 The endpoint-strip norm is:
 
-```text
-Cdef_(S,I,lambda,J)(g)
+```math
+Cdef_{S,I,\lambda,J}(g)
   =
-sum_alpha || theta(D^r g) X_0 M_b T_a X_1 theta(D^s g)^* ||_1
+\sum_\alpha \| \theta(D^r g) X_0 M_b T_a X_1 \theta(D^s g)^* \|_1
   +
-sum_beta abs(BoundaryStripTrace_beta(g))
+\sum_\beta |\mathrm{BoundaryStripTrace}_\beta(g)|
 ```
 
 Each summand contains an endpoint-strip factor. The fixed-test exhaustion
 package gives:
 
-```text
-Cdef_(S_A,I,lambda,J)(g) -> 0
-as lambda -> infinity
+```math
+Cdef_{S_A,I,\lambda,J}(g) \to 0
+\qquad \lambda \to \infty
 ```
 
 Therefore:
 
-```text
-liminf_(lambda -> infinity) QW_lambda(g,g) >= 0
+```math
+\liminf_{\lambda \to \infty} QW_\lambda(g,g) \ge 0
 ```
 
 ### 6. Pass from the restricted Weil form to the full Weil form
@@ -306,14 +306,14 @@ liminf_(lambda -> infinity) QW_lambda(g,g) >= 0
 The restricted-to-full bridge proves that, for this fixed test and fixed
 finite-prime visibility set S_A:
 
-```text
-QW_lambda(g,g) -> QW(g,g)
+```math
+QW_\lambda(g,g) \to QW(g,g)
 ```
 
 Combining this with the previous inequality gives:
 
-```text
-QW(g,g) >= 0
+```math
+QW(g,g) \ge 0
 ```
 
 The bridge uses fixed-test support, prime-power atom stabilization,
@@ -326,18 +326,18 @@ minimum-eigenvector assumption.
 
 The final sign bridge proves:
 
-```text
+```math
 QW(g,g)
   =
--sum_v W_v(F_g)
+-\sum_v W_v(F_g)
 ```
 
 Therefore:
 
-```text
-QW(g,g) >= 0
-  =>
-sum_v W_v(F_g) <= 0
+```math
+QW(g,g) \ge 0
+  \Longrightarrow
+\sum_v W_v(F_g) \le 0
 ```
 
 This is the inequality direction used by the CC20 finite-vanishing criterion.
@@ -348,18 +348,18 @@ CC20 applies the Weil inequality to tests whose Mellin transform vanishes on a
 finite set containing 0 and 1 and disjoint from the non-trivial zero set. The
 route uses:
 
-```text
-F = {0, 1/2, 1}
+```math
+F = \{0, 1/2, 1\}
 ```
 
 The triple vanishing condition matches this set under the CC20 convention:
 
-```text
+```math
 s = 1/2 - i t
 
-t = 0    -> s = 1/2
-t = i/2  -> s = 1
-t = -i/2 -> s = 0
+t = 0    \mapsto s = 1/2
+t = i/2  \mapsto s = 1
+t = -i/2 \mapsto s = 0
 ```
 
 The side condition that 1/2 is not a non-trivial zero is handled in the
@@ -496,11 +496,11 @@ formalization/
   Lean readiness and interface planning notes.
 ```
 
-## Version 0.2.2 Scope
+## Version 0.2.3 Scope
 
-Version 0.2.2 removes GitHub-fragile inline and display math from README prose.
-The page uses plain Markdown and ASCII formula blocks so the GitHub repository
-front page renders cleanly.
+Version 0.2.3 keeps prose free of inline dollar math and uses fenced `math`
+blocks for standalone formulas. This keeps the GitHub front page readable while
+allowing formula blocks to render as LaTeX.
 
 This release does not change the proof status from conditional to
 unconditional.
