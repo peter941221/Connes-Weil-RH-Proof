@@ -99,7 +99,6 @@ structure CCM24SemilocalObjectPackage where
   sourcePlaceSet : semilocalSymbols.PlaceSet
   sourceSupportWindow : semilocalSymbols.Window
   sourceTestLeg : semilocalSymbols.Test
-  sourceCCM24TestCompatibility : Prop
   sourceCanonicalModelData :
     semilocalSymbols.canonicalHilbertModel sourcePlaceSet
   sourceSupportInWindowData :
@@ -149,15 +148,6 @@ structure CCM24CommonTestBridge
     where
   sourceTestCompatibility : Prop
   semilocalLegIsCommonTest : Prop
-  supportWindowOwnsCommonTest :
-    ccm24.semilocalSymbols.supportInWindow
-      ccm24.sourceTestLeg ccm24.sourceSupportWindow
-  fourierWindowOwnsCommonTest :
-    ccm24.semilocalSymbols.fourierSupportInWindow
-      ccm24.sourceTestLeg ccm24.sourceSupportWindow
-  convolutionSupportTransported :
-    ccm24.semilocalSymbols.convolutionSupportTransported
-      ccm24.sourceTestLeg ccm24.sourceSupportWindow
 
 structure CCM25WeilObjectPackage where
   weilSymbols : WeilFormSymbols

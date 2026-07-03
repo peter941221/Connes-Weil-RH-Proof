@@ -30,8 +30,8 @@ structure SourceSupportWindowSupportWindowMembershipCoreData
     (f : A.Test) (I : S.Window)
     (supportWindowSet : Type)
     (supportWindowMembership : supportWindowSet → Prop) where
-  supportWindowPointMembershipCore :
-    SourceSupportWindowSupportWindowPointMembershipCoreData
+  supportWindowPointContainmentCore :
+    SourceSupportWindowPointContainmentCoreData
       S f I supportWindowSet supportWindowMembership
 
 namespace SourceSupportWindowSupportWindowMembershipCoreData
@@ -52,8 +52,9 @@ theorem supportWindowMembershipRealizesSupportInWindow
           S.supportInWindow f I := by
   intro point _hSupport hWindow
   exact
-    D.supportWindowPointMembershipCore
-      |>.supportWindowPointRealizesSupportInWindow
+    D.supportWindowPointContainmentCore
+      |>.supportWindowPointMembershipWitnessesSupportInWindow
+        D.supportWindowPointContainmentCore.supportWindowPoint_mem
 
 end SourceSupportWindowSupportWindowMembershipCoreData
 
@@ -641,14 +642,9 @@ structure SourceSupportWindowSupportMembershipSourceNormalFormCoreData
                           point hSupport hWindow hRealization hSource
                           hMembership hProof hEvidence hConcrete hFinal →
                           Type
-  supportMembershipConcreteSourceCore :
-    SourceSupportWindowSupportMembershipConcreteSourceCoreData
-      S f I supportSet supportMembership supportWindowSet
-      supportWindowMembership supportToWindow realizationWitness
-      supportWindowSourceObject sourceMembershipWitness
-      supportMembershipProofObject supportMembershipEvidenceObject
-      supportMembershipConcreteObject supportMembershipFinalObject
-      supportMembershipSourceNormalForm supportMembershipConcreteSourceData
+  supportWindowMembershipCore :
+    SourceSupportWindowSupportWindowMembershipCoreData
+      S f I supportWindowSet supportWindowMembership
 
 namespace SourceSupportWindowSupportMembershipSourceNormalFormCoreData
 
@@ -813,12 +809,8 @@ theorem supportMembershipFinalRealizesSupportInWindow
   intro point hSupport hWindow hRealization hSource hMembership hProof
     hEvidence hConcrete hFinal
   exact
-    D.supportMembershipConcreteSourceCore.supportMembershipSourceNormalFormRealizesSupportInWindow
-      point hSupport hWindow hRealization hSource hMembership hProof hEvidence
-      hConcrete hFinal
-      (D.supportMembershipSourceNormalFormFor
-        point hSupport hWindow hRealization hSource hMembership hProof
-        hEvidence hConcrete hFinal)
+    D.supportWindowMembershipCore.supportWindowMembershipRealizesSupportInWindow
+      point hSupport hWindow
 
 end SourceSupportWindowSupportMembershipSourceNormalFormCoreData
 
@@ -1240,13 +1232,68 @@ structure SourceSupportWindowSupportMembershipConcreteCoreData
                     supportMembershipConcreteObject
                       point hSupport hWindow hRealization hSource
                       hMembership hProof hEvidence → Type
-  supportMembershipFinalCore :
-    SourceSupportWindowSupportMembershipFinalCoreData
+  supportMembershipFinalFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  ∀ hEvidence :
+                    supportMembershipEvidenceObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof,
+                    ∀ hConcrete :
+                      supportMembershipConcreteObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence,
+                      supportMembershipFinalObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence hConcrete
+  supportMembershipSourceNormalForm :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  ∀ hEvidence :
+                    supportMembershipEvidenceObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof,
+                    ∀ hConcrete :
+                      supportMembershipConcreteObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence,
+                      supportMembershipFinalObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence hConcrete → Type
+  supportMembershipSourceNormalFormCore :
+    SourceSupportWindowSupportMembershipSourceNormalFormCoreData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
       supportWindowSourceObject sourceMembershipWitness
       supportMembershipProofObject supportMembershipEvidenceObject
       supportMembershipConcreteObject supportMembershipFinalObject
+      supportMembershipSourceNormalForm
 
 namespace SourceSupportWindowSupportMembershipConcreteCoreData
 
@@ -1350,12 +1397,16 @@ theorem supportMembershipEvidenceRealizesSupportInWindow
                     hMembership hProof →
                     S.supportInWindow f I := by
   intro point hSupport hWindow hRealization hSource hMembership hProof hEvidence
-  exact
-    D.supportMembershipFinalCore.supportMembershipConcreteRealizesSupportInWindow
+  let hConcrete :=
+    D.supportMembershipConcreteFor
       point hSupport hWindow hRealization hSource hMembership hProof hEvidence
-      (D.supportMembershipConcreteFor
+  exact
+    D.supportMembershipSourceNormalFormCore.supportMembershipFinalRealizesSupportInWindow
+      point hSupport hWindow hRealization hSource hMembership hProof hEvidence
+      hConcrete
+      (D.supportMembershipFinalFor
         point hSupport hWindow hRealization hSource hMembership hProof
-        hEvidence)
+        hEvidence hConcrete)
 
 end SourceSupportWindowSupportMembershipConcreteCoreData
 
@@ -1451,13 +1502,114 @@ structure SourceSupportWindowSupportMembershipEvidenceCoreData
                   supportMembershipEvidenceObject
                     point hSupport hWindow hRealization hSource
                     hMembership hProof → Type
-  supportMembershipConcreteCore :
-    SourceSupportWindowSupportMembershipConcreteCoreData
+  supportMembershipConcreteFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  ∀ hEvidence :
+                    supportMembershipEvidenceObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof,
+                    supportMembershipConcreteObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof hEvidence
+  supportMembershipFinalObject :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  ∀ hEvidence :
+                    supportMembershipEvidenceObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof,
+                    supportMembershipConcreteObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof hEvidence → Type
+  supportMembershipFinalFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  ∀ hEvidence :
+                    supportMembershipEvidenceObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof,
+                    ∀ hConcrete :
+                      supportMembershipConcreteObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence,
+                      supportMembershipFinalObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence hConcrete
+  supportMembershipSourceNormalForm :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  ∀ hEvidence :
+                    supportMembershipEvidenceObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof,
+                    ∀ hConcrete :
+                      supportMembershipConcreteObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence,
+                      supportMembershipFinalObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence hConcrete → Type
+  supportMembershipSourceNormalFormCore :
+    SourceSupportWindowSupportMembershipSourceNormalFormCoreData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
       supportWindowSourceObject sourceMembershipWitness
       supportMembershipProofObject supportMembershipEvidenceObject
-      supportMembershipConcreteObject
+      supportMembershipConcreteObject supportMembershipFinalObject
+      supportMembershipSourceNormalForm
 
 namespace SourceSupportWindowSupportMembershipEvidenceCoreData
 
@@ -1537,11 +1689,21 @@ theorem supportMembershipProofRealizesSupportInWindow
                   point hSupport hWindow hRealization hSource hMembership →
                   S.supportInWindow f I := by
   intro point hSupport hWindow hRealization hSource hMembership hProof
-  exact
-    D.supportMembershipConcreteCore.supportMembershipEvidenceRealizesSupportInWindow
+  let hEvidence :=
+    D.supportMembershipEvidenceFor
       point hSupport hWindow hRealization hSource hMembership hProof
-      (D.supportMembershipEvidenceFor
-        point hSupport hWindow hRealization hSource hMembership hProof)
+  let hConcrete :=
+    D.supportMembershipConcreteFor
+      point hSupport hWindow hRealization hSource hMembership hProof
+      hEvidence
+  let hFinal :=
+    D.supportMembershipFinalFor
+      point hSupport hWindow hRealization hSource hMembership hProof
+      hEvidence hConcrete
+  exact
+    D.supportMembershipSourceNormalFormCore.supportMembershipFinalRealizesSupportInWindow
+      point hSupport hWindow hRealization hSource hMembership hProof
+      hEvidence hConcrete hFinal
 
 end SourceSupportWindowSupportMembershipEvidenceCoreData
 
@@ -1614,12 +1776,152 @@ structure SourceSupportWindowSupportMembershipProofCoreData
                 supportMembershipProofObject
                   point hSupport hWindow hRealization hSource hMembership →
                   Type
-  supportMembershipEvidenceCore :
-    SourceSupportWindowSupportMembershipEvidenceCoreData
+  supportMembershipEvidenceFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  supportMembershipEvidenceObject
+                    point hSupport hWindow hRealization hSource
+                    hMembership hProof
+  supportMembershipConcreteObject :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  supportMembershipEvidenceObject
+                    point hSupport hWindow hRealization hSource
+                    hMembership hProof → Type
+  supportMembershipConcreteFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  ∀ hEvidence :
+                    supportMembershipEvidenceObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof,
+                    supportMembershipConcreteObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof hEvidence
+  supportMembershipFinalObject :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  ∀ hEvidence :
+                    supportMembershipEvidenceObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof,
+                    supportMembershipConcreteObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof hEvidence → Type
+  supportMembershipFinalFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  ∀ hEvidence :
+                    supportMembershipEvidenceObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof,
+                    ∀ hConcrete :
+                      supportMembershipConcreteObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence,
+                      supportMembershipFinalObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence hConcrete
+  supportMembershipSourceNormalForm :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  ∀ hEvidence :
+                    supportMembershipEvidenceObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof,
+                    ∀ hConcrete :
+                      supportMembershipConcreteObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence,
+                      supportMembershipFinalObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence hConcrete → Type
+  supportMembershipSourceNormalFormCore :
+    SourceSupportWindowSupportMembershipSourceNormalFormCoreData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
       supportWindowSourceObject sourceMembershipWitness
       supportMembershipProofObject supportMembershipEvidenceObject
+      supportMembershipConcreteObject supportMembershipFinalObject
+      supportMembershipSourceNormalForm
 
 namespace SourceSupportWindowSupportMembershipProofCoreData
 
@@ -1680,11 +1982,24 @@ theorem sourceMembershipRealizesSupportInWindow
                 point hSupport hWindow hRealization hSource →
                 S.supportInWindow f I := by
   intro point hSupport hWindow hRealization hSource hMembership
-  exact
-    D.supportMembershipEvidenceCore.supportMembershipProofRealizesSupportInWindow
+  let hProof :=
+    D.supportMembershipProofFor
       point hSupport hWindow hRealization hSource hMembership
-      (D.supportMembershipProofFor
-        point hSupport hWindow hRealization hSource hMembership)
+  let hEvidence :=
+    D.supportMembershipEvidenceFor
+      point hSupport hWindow hRealization hSource hMembership hProof
+  let hConcrete :=
+    D.supportMembershipConcreteFor
+      point hSupport hWindow hRealization hSource hMembership hProof
+      hEvidence
+  let hFinal :=
+    D.supportMembershipFinalFor
+      point hSupport hWindow hRealization hSource hMembership hProof
+      hEvidence hConcrete
+  exact
+    D.supportMembershipSourceNormalFormCore.supportMembershipFinalRealizesSupportInWindow
+      point hSupport hWindow hRealization hSource hMembership hProof
+      hEvidence hConcrete hFinal
 
 end SourceSupportWindowSupportMembershipProofCoreData
 
@@ -1827,11 +2142,34 @@ structure SourceSupportWindowSourceObjectCoreData
           ∀ hRealization :
             realizationWitness point hSupport hWindow,
             supportWindowSourceObject point hSupport hWindow hRealization
-  sourceMembershipCore :
-    SourceSupportWindowSourceMembershipCoreData
+  sourceMembershipWitnessFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject point hSupport hWindow hRealization,
+              sourceMembershipWitness point hSupport hWindow hRealization
+                hSource
+  supportMembershipProofObject :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject point hSupport hWindow hRealization,
+              sourceMembershipWitness point hSupport hWindow hRealization
+                hSource → Type
+  supportMembershipProofCore :
+    SourceSupportWindowSupportMembershipProofCoreData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
       supportWindowSourceObject sourceMembershipWitness
+      supportMembershipProofObject
 
 namespace SourceSupportWindowSourceObjectCoreData
 
@@ -1864,10 +2202,12 @@ theorem realizationImpliesSupportInWindow
             realizationWitness point hSupport hWindow →
               S.supportInWindow f I := by
   intro point hSupport hWindow hRealization
+  let hSource := D.sourceObjectFor point hSupport hWindow hRealization
   exact
-    D.sourceMembershipCore.sourceObjectRealizesSupportInWindow
-      point hSupport hWindow hRealization
-      (D.sourceObjectFor point hSupport hWindow hRealization)
+    D.supportMembershipProofCore.sourceMembershipRealizesSupportInWindow
+      point hSupport hWindow hRealization hSource
+      (D.sourceMembershipWitnessFor
+        point hSupport hWindow hRealization hSource)
 
 end SourceSupportWindowSourceObjectCoreData
 
@@ -1888,11 +2228,51 @@ structure SourceSupportWindowRealizationCoreData
         ∀ hWindow :
           supportWindowMembership (supportToWindow point),
             realizationWitness point hSupport hWindow → Type
-  sourceObjectCore :
-    SourceSupportWindowSourceObjectCoreData
+  sourceMembershipWitness :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            supportWindowSourceObject
+              point hSupport hWindow hRealization → Type
+  sourceObjectFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            supportWindowSourceObject point hSupport hWindow hRealization
+  sourceMembershipWitnessFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject point hSupport hWindow hRealization,
+              sourceMembershipWitness point hSupport hWindow hRealization
+                hSource
+  supportMembershipProofObject :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject point hSupport hWindow hRealization,
+              sourceMembershipWitness point hSupport hWindow hRealization
+                hSource → Type
+  supportMembershipProofCore :
+    SourceSupportWindowSupportMembershipProofCoreData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
-      supportWindowSourceObject
+      supportWindowSourceObject sourceMembershipWitness
+      supportMembershipProofObject
 
 namespace SourceSupportWindowRealizationCoreData
 
@@ -1916,8 +2296,14 @@ theorem supportInWindow
         ∀ hWindow :
           supportWindowMembership (supportToWindow point),
             realizationWitness point hSupport hWindow →
-              S.supportInWindow f I :=
-  D.sourceObjectCore.realizationImpliesSupportInWindow
+              S.supportInWindow f I := by
+  intro point hSupport hWindow hRealization
+  let hSource := D.sourceObjectFor point hSupport hWindow hRealization
+  exact
+    D.supportMembershipProofCore.sourceMembershipRealizesSupportInWindow
+      point hSupport hWindow hRealization hSource
+      (D.sourceMembershipWitnessFor
+        point hSupport hWindow hRealization hSource)
 
 end SourceSupportWindowRealizationCoreData
 
@@ -3195,8 +3581,8 @@ structure SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportWitnes
                             point hSupport hWindow hRealization hSource
                             hMembership hProof hEvidence hConcrete hFinal →
                             Type) where
-  supportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessWitnessWitnessWitnessWitnessWitnessData :
-    SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessWitnessWitnessWitnessWitnessWitnessData
+  supportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessWitnessWitnessWitnessWitnessWitnessWitnessData :
+    SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessWitnessWitnessWitnessWitnessWitnessWitnessData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
       supportWindowSourceObject sourceMembershipWitness
@@ -3408,7 +3794,7 @@ theorem supportMembershipConcreteSourceDataRealizesSupportInWindow
   intro point hSupport hWindow hRealization hSource hMembership hProof
     hEvidence hConcrete hFinal hNormal hConcreteSource
   exact
-    D.supportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessWitnessWitnessWitnessWitnessWitnessData
+    D.supportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessWitnessWitnessWitnessWitnessWitnessWitnessData
       |>.supportMembershipConcreteSourceDataRealizesSupportInWindow
         point hSupport hWindow hRealization hSource hMembership hProof
         hEvidence hConcrete hFinal hNormal hConcreteSource
@@ -3945,8 +4331,8 @@ structure SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportWitnes
                             point hSupport hWindow hRealization hSource
                             hMembership hProof hEvidence hConcrete hFinal →
                             Type) where
-  supportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessWitnessWitnessWitnessData :
-    SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessWitnessWitnessWitnessData
+  supportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessWitnessWitnessWitnessWitnessData :
+    SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessWitnessWitnessWitnessWitnessData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
       supportWindowSourceObject sourceMembershipWitness
@@ -4158,7 +4544,7 @@ theorem supportMembershipConcreteSourceDataRealizesSupportInWindow
   intro point hSupport hWindow hRealization hSource hMembership hProof
     hEvidence hConcrete hFinal hNormal hConcreteSource
   exact
-    D.supportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessWitnessWitnessWitnessData
+    D.supportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessWitnessWitnessWitnessWitnessData
       |>.supportMembershipConcreteSourceDataRealizesSupportInWindow
         point hSupport hWindow hRealization hSource hMembership hProof
         hEvidence hConcrete hFinal hNormal hConcreteSource
@@ -5444,8 +5830,8 @@ structure SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportWitnes
                             point hSupport hWindow hRealization hSource
                             hMembership hProof hEvidence hConcrete hFinal →
                             Type) where
-  supportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofData :
-    SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofData
+  supportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessData :
+    SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
       supportWindowSourceObject sourceMembershipWitness
@@ -5656,7 +6042,7 @@ theorem supportMembershipConcreteSourceDataRealizesSupportInWindow
   intro point hSupport hWindow hRealization hSource hMembership hProof
     hEvidence hConcrete hFinal hNormal hConcreteSource
   exact
-    D.supportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofData
+    D.supportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateProofWitnessData
       |>.supportMembershipConcreteSourceDataRealizesSupportInWindow
         point hSupport hWindow hRealization hSource hMembership hProof
         hEvidence hConcrete hFinal hNormal hConcreteSource
@@ -6192,8 +6578,8 @@ structure SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportWitnes
                             point hSupport hWindow hRealization hSource
                             hMembership hProof hEvidence hConcrete hFinal →
                             Type) where
-  supportMembershipConcreteSourceWitnessSupportWitnessEvidenceData :
-    SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportWitnessEvidenceData
+  supportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateData :
+    SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
       supportWindowSourceObject sourceMembershipWitness
@@ -6402,7 +6788,7 @@ theorem supportMembershipConcreteSourceDataRealizesSupportInWindow
                             hNormal →
                             S.supportInWindow f I := by
   exact
-    D.supportMembershipConcreteSourceWitnessSupportWitnessEvidenceData
+    D.supportMembershipConcreteSourceWitnessSupportWitnessEvidenceCertificateData
       |>.supportMembershipConcreteSourceDataRealizesSupportInWindow
 end SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportWitnessData
 
@@ -7674,8 +8060,8 @@ structure SourceSupportWindowSupportMembershipConcreteSourceWitnessRealizationDa
                             point hSupport hWindow hRealization hSource
                             hMembership hProof hEvidence hConcrete hFinal →
                             Type) where
-  supportMembershipConcreteSourceWitnessSupportRealizationData :
-    SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportRealizationData
+  supportMembershipConcreteSourceWitnessSupportProofData :
+    SourceSupportWindowSupportMembershipConcreteSourceWitnessSupportProofData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
       supportWindowSourceObject sourceMembershipWitness
@@ -7887,7 +8273,7 @@ theorem supportMembershipConcreteSourceDataRealizesSupportInWindow
   intro point hSupport hWindow hRealization hSource hMembership hProof
     hEvidence hConcrete hFinal hNormal hConcreteSource
   exact
-    D.supportMembershipConcreteSourceWitnessSupportRealizationData
+    D.supportMembershipConcreteSourceWitnessSupportProofData
       |>.supportMembershipConcreteSourceDataRealizesSupportInWindow
       point hSupport hWindow hRealization hSource hMembership hProof
       hEvidence hConcrete hFinal hNormal hConcreteSource
@@ -8460,8 +8846,8 @@ structure SourceSupportWindowSupportMembershipSourceNormalFormRealizationData
                             point hSupport hWindow hRealization hSource
                             hMembership hProof hEvidence hConcrete hFinal
                             hNormal
-  supportMembershipConcreteSourceDataRealizationData :
-    SourceSupportWindowSupportMembershipConcreteSourceDataRealizationData
+  supportMembershipConcreteSourceWitnessRealizationData :
+    SourceSupportWindowSupportMembershipConcreteSourceWitnessRealizationData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
       supportWindowSourceObject sourceMembershipWitness
@@ -8636,7 +9022,7 @@ theorem supportMembershipSourceNormalFormRealizesSupportInWindow
   intro point hSupport hWindow hRealization hSource hMembership hProof
     hEvidence hConcrete hFinal hNormal
   exact
-    D.supportMembershipConcreteSourceDataRealizationData
+    D.supportMembershipConcreteSourceWitnessRealizationData
       |>.supportMembershipConcreteSourceDataRealizesSupportInWindow
       point hSupport hWindow hRealization hSource hMembership hProof
       hEvidence hConcrete hFinal hNormal
@@ -9077,13 +9463,72 @@ structure SourceSupportWindowSupportMembershipConcreteRealizationData
                       supportMembershipFinalObject
                         point hSupport hWindow hRealization hSource
                         hMembership hProof hEvidence hConcrete
-  supportMembershipFinalRealizationData :
-    SourceSupportWindowSupportMembershipFinalRealizationData
+  supportMembershipSourceNormalForm :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  ∀ hEvidence :
+                    supportMembershipEvidenceObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof,
+                    ∀ hConcrete :
+                      supportMembershipConcreteObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence,
+                      supportMembershipFinalObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence hConcrete → Type
+  supportMembershipSourceNormalFormFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  ∀ hEvidence :
+                    supportMembershipEvidenceObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof,
+                    ∀ hConcrete :
+                      supportMembershipConcreteObject
+                        point hSupport hWindow hRealization hSource
+                        hMembership hProof hEvidence,
+                      ∀ hFinal :
+                        supportMembershipFinalObject
+                          point hSupport hWindow hRealization hSource
+                          hMembership hProof hEvidence hConcrete,
+                        supportMembershipSourceNormalForm
+                          point hSupport hWindow hRealization hSource
+                          hMembership hProof hEvidence hConcrete hFinal
+  supportMembershipSourceNormalFormRealizationData :
+    SourceSupportWindowSupportMembershipSourceNormalFormRealizationData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
       supportWindowSourceObject sourceMembershipWitness
       supportMembershipProofObject supportMembershipEvidenceObject
       supportMembershipConcreteObject supportMembershipFinalObject
+      supportMembershipSourceNormalForm
 
 namespace SourceSupportWindowSupportMembershipConcreteRealizationData
 
@@ -9192,13 +9637,18 @@ theorem supportMembershipConcreteRealizesSupportInWindow
                       S.supportInWindow f I := by
   intro point hSupport hWindow hRealization hSource hMembership hProof
     hEvidence hConcrete
-  exact
-    D.supportMembershipFinalRealizationData.supportMembershipFinalRealizesSupportInWindow
+  let hFinal :=
+    D.supportMembershipFinalFor
       point hSupport hWindow hRealization hSource hMembership hProof
       hEvidence hConcrete
-      (D.supportMembershipFinalFor
+  exact
+    D.supportMembershipSourceNormalFormRealizationData
+      |>.supportMembershipSourceNormalFormRealizesSupportInWindow
+      point hSupport hWindow hRealization hSource hMembership hProof
+      hEvidence hConcrete hFinal
+      (D.supportMembershipSourceNormalFormFor
         point hSupport hWindow hRealization hSource hMembership hProof
-        hEvidence hConcrete)
+        hEvidence hConcrete hFinal)
 
 end SourceSupportWindowSupportMembershipConcreteRealizationData
 
@@ -9471,12 +9921,55 @@ structure SourceSupportWindowSupportMembershipProofRealizationData
                   supportMembershipEvidenceObject
                     point hSupport hWindow hRealization hSource
                     hMembership hProof
-  supportMembershipEvidenceRealizationData :
-    SourceSupportWindowSupportMembershipEvidenceRealizationData
+  supportMembershipConcreteObject :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  supportMembershipEvidenceObject
+                    point hSupport hWindow hRealization hSource
+                    hMembership hProof → Type
+  supportMembershipConcreteFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  ∀ hEvidence :
+                    supportMembershipEvidenceObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof,
+                    supportMembershipConcreteObject
+                      point hSupport hWindow hRealization hSource
+                      hMembership hProof hEvidence
+  supportMembershipConcreteRealizationData :
+    SourceSupportWindowSupportMembershipConcreteRealizationData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
       supportWindowSourceObject sourceMembershipWitness
       supportMembershipProofObject supportMembershipEvidenceObject
+      supportMembershipConcreteObject
 
 namespace SourceSupportWindowSupportMembershipProofRealizationData
 
@@ -9536,15 +10029,20 @@ theorem supportMembershipProofRealizesSupportInWindow
               ∀ hMembership :
                 sourceMembershipWitness
                   point hSupport hWindow hRealization hSource,
-                supportMembershipProofObject
-                  point hSupport hWindow hRealization hSource hMembership →
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership →
                   S.supportInWindow f I := by
   intro point hSupport hWindow hRealization hSource hMembership hProof
-  exact
-    D.supportMembershipEvidenceRealizationData.supportMembershipEvidenceRealizesSupportInWindow
+  let hEvidence :=
+    D.supportMembershipEvidenceFor
       point hSupport hWindow hRealization hSource hMembership hProof
-      (D.supportMembershipEvidenceFor
-        point hSupport hWindow hRealization hSource hMembership hProof)
+  exact
+    D.supportMembershipConcreteRealizationData.supportMembershipConcreteRealizesSupportInWindow
+      point hSupport hWindow hRealization hSource hMembership hProof
+      hEvidence
+      (D.supportMembershipConcreteFor
+        point hSupport hWindow hRealization hSource hMembership hProof
+        hEvidence)
 
 end SourceSupportWindowSupportMembershipProofRealizationData
 
@@ -9601,12 +10099,47 @@ structure SourceSupportWindowSourceMembershipRealizationData
                   point hSupport hWindow hRealization hSource,
                 supportMembershipProofObject
                   point hSupport hWindow hRealization hSource hMembership
-  supportMembershipProofRealizationData :
-    SourceSupportWindowSupportMembershipProofRealizationData
+  supportMembershipEvidenceObject :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                supportMembershipProofObject
+                  point hSupport hWindow hRealization hSource hMembership →
+                  Type
+  supportMembershipEvidenceFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  supportMembershipProofObject
+                    point hSupport hWindow hRealization hSource hMembership,
+                  supportMembershipEvidenceObject
+                    point hSupport hWindow hRealization hSource
+                    hMembership hProof
+  supportMembershipEvidenceRealizationData :
+    SourceSupportWindowSupportMembershipEvidenceRealizationData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
       supportWindowSourceObject sourceMembershipWitness
-      supportMembershipProofObject
+      supportMembershipProofObject supportMembershipEvidenceObject
 
 namespace SourceSupportWindowSourceMembershipRealizationData
 
@@ -9654,11 +10187,14 @@ theorem sourceMembershipRealizesSupportInWindow
                 point hSupport hWindow hRealization hSource →
                 S.supportInWindow f I := by
   intro point hSupport hWindow hRealization hSource hMembership
-  exact
-    D.supportMembershipProofRealizationData.supportMembershipProofRealizesSupportInWindow
+  let hProof :=
+    D.supportMembershipProofFor
       point hSupport hWindow hRealization hSource hMembership
-      (D.supportMembershipProofFor
-        point hSupport hWindow hRealization hSource hMembership)
+  exact
+    D.supportMembershipEvidenceRealizationData.supportMembershipEvidenceRealizesSupportInWindow
+      point hSupport hWindow hRealization hSource hMembership hProof
+      (D.supportMembershipEvidenceFor
+        point hSupport hWindow hRealization hSource hMembership hProof)
 
 end SourceSupportWindowSourceMembershipRealizationData
 
@@ -9700,11 +10236,39 @@ structure SourceSupportWindowSourceObjectRealizationData
                 point hSupport hWindow hRealization,
               sourceMembershipWitness
                 point hSupport hWindow hRealization hSource
-  sourceMembershipRealizationData :
-    SourceSupportWindowSourceMembershipRealizationData
+  supportMembershipProofObject :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              sourceMembershipWitness
+                point hSupport hWindow hRealization hSource → Type
+  supportMembershipProofFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                supportMembershipProofObject
+                  point hSupport hWindow hRealization hSource hMembership
+  supportMembershipProofRealizationData :
+    SourceSupportWindowSupportMembershipProofRealizationData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
       supportWindowSourceObject sourceMembershipWitness
+      supportMembershipProofObject
 
 namespace SourceSupportWindowSourceObjectRealizationData
 
@@ -9740,11 +10304,15 @@ theorem sourceObjectRealizesSupportInWindow
               point hSupport hWindow hRealization →
               S.supportInWindow f I := by
   intro point hSupport hWindow hRealization hSource
-  exact
-    D.sourceMembershipRealizationData.sourceMembershipRealizesSupportInWindow
+  let hMembership :=
+    D.sourceMembershipWitnessFor
       point hSupport hWindow hRealization hSource
-      (D.sourceMembershipWitnessFor
-        point hSupport hWindow hRealization hSource)
+  exact
+    D.supportMembershipProofRealizationData.supportMembershipProofRealizesSupportInWindow
+      point hSupport hWindow hRealization hSource
+      hMembership
+      (D.supportMembershipProofFor
+        point hSupport hWindow hRealization hSource hMembership)
 
 end SourceSupportWindowSourceObjectRealizationData
 
@@ -9774,11 +10342,60 @@ structure SourceSupportWindowRealizationCertificate
             realizationWitness point hSupport hWindow,
             supportWindowSourceObject
               point hSupport hWindow hRealization
-  sourceObjectRealizationData :
-    SourceSupportWindowSourceObjectRealizationData
+  sourceMembershipWitness :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            supportWindowSourceObject
+              point hSupport hWindow hRealization → Type
+  sourceMembershipWitnessFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              sourceMembershipWitness
+                point hSupport hWindow hRealization hSource
+  supportMembershipProofObject :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              sourceMembershipWitness
+                point hSupport hWindow hRealization hSource → Type
+  supportMembershipProofFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                supportMembershipProofObject
+                  point hSupport hWindow hRealization hSource hMembership
+  supportMembershipProofRealizationData :
+    SourceSupportWindowSupportMembershipProofRealizationData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
-      supportWindowSourceObject
+      supportWindowSourceObject sourceMembershipWitness
+      supportMembershipProofObject
 
 namespace SourceSupportWindowRealizationCertificate
 
@@ -9804,10 +10421,16 @@ theorem realizationImpliesSupportInWindow
             realizationWitness point hSupport hWindow →
               S.supportInWindow f I := by
   intro point hSupport hWindow hRealization
+  let hSource :=
+    C.sourceObjectFor point hSupport hWindow hRealization
+  let hMembership :=
+    C.sourceMembershipWitnessFor
+      point hSupport hWindow hRealization hSource
   exact
-    C.sourceObjectRealizationData.sourceObjectRealizesSupportInWindow
-      point hSupport hWindow hRealization
-      (C.sourceObjectFor point hSupport hWindow hRealization)
+    C.supportMembershipProofRealizationData.supportMembershipProofRealizesSupportInWindow
+      point hSupport hWindow hRealization hSource hMembership
+      (C.supportMembershipProofFor
+        point hSupport hWindow hRealization hSource hMembership)
 
 end SourceSupportWindowRealizationCertificate
 
@@ -9843,11 +10466,60 @@ structure SourceSupportWindowRealizationData
             realizationWitness point hSupport hWindow,
             supportWindowSourceObject
               point hSupport hWindow hRealization
-  sourceObjectRealizationData :
-    SourceSupportWindowSourceObjectRealizationData
+  sourceMembershipWitness :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            supportWindowSourceObject
+              point hSupport hWindow hRealization → Type
+  sourceMembershipWitnessFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              sourceMembershipWitness
+                point hSupport hWindow hRealization hSource
+  supportMembershipProofObject :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              sourceMembershipWitness
+                point hSupport hWindow hRealization hSource → Type
+  supportMembershipProofFor :
+    ∀ point : supportSet,
+      ∀ hSupport : supportMembership point,
+        ∀ hWindow :
+          supportWindowMembership (supportToWindow point),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              supportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                supportMembershipProofObject
+                  point hSupport hWindow hRealization hSource hMembership
+  supportMembershipProofRealizationData :
+    SourceSupportWindowSupportMembershipProofRealizationData
       S f I supportSet supportMembership supportWindowSet
       supportWindowMembership supportToWindow realizationWitness
-      supportWindowSourceObject
+      supportWindowSourceObject sourceMembershipWitness
+      supportMembershipProofObject
 
 namespace SourceSupportWindowRealizationData
 
@@ -9867,14 +10539,554 @@ theorem windowMembershipRealizesSupportInWindow
         supportWindowMembership (supportToWindow point) →
           S.supportInWindow f I := by
   intro point hSupport hWindow
+  let hRealization := D.realizationWitnessFor point hSupport hWindow
+  let hSource :=
+    D.sourceObjectFor point hSupport hWindow hRealization
+  let hMembership :=
+    D.sourceMembershipWitnessFor
+      point hSupport hWindow hRealization hSource
   exact
-    D.sourceObjectRealizationData.sourceObjectRealizesSupportInWindow
-      point hSupport hWindow
-      (D.realizationWitnessFor point hSupport hWindow)
-      (D.sourceObjectFor point hSupport hWindow
-        (D.realizationWitnessFor point hSupport hWindow))
+    D.supportMembershipProofRealizationData.supportMembershipProofRealizesSupportInWindow
+      point hSupport hWindow hRealization hSource hMembership
+      (D.supportMembershipProofFor
+        point hSupport hWindow hRealization hSource hMembership)
 
 end SourceSupportWindowRealizationData
+
+structure SourceFourierSupportWindowSourceEvidenceRealizationData
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (f : A.Test) (I : S.Window)
+    (fourierSupportSet : Type)
+    (fourierSupportMembership : fourierSupportSet → Prop)
+    (fourierSupportWindowSet : Type)
+    (fourierSupportWindowMembership :
+      fourierSupportWindowSet → Prop)
+    (fourierSupportSubtypeToWindow :
+      {point : fourierSupportSet // fourierSupportMembership point} →
+        {point : fourierSupportWindowSet //
+          fourierSupportWindowMembership point})
+    (realizationWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1) → Type)
+    (fourierSupportWindowSourceObject :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            realizationWitness point hSupport hWindow → Type)
+    (sourceMembershipWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            ∀ hRealization :
+              realizationWitness point hSupport hWindow,
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization → Type)
+    (sourceProofWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            ∀ hRealization :
+              realizationWitness point hSupport hWindow,
+              ∀ hSource :
+                fourierSupportWindowSourceObject
+                  point hSupport hWindow hRealization,
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource → Type)
+    (sourceEvidenceWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            ∀ hRealization :
+              realizationWitness point hSupport hWindow,
+              ∀ hSource :
+                fourierSupportWindowSourceObject
+                  point hSupport hWindow hRealization,
+                ∀ hMembership :
+                  sourceMembershipWitness
+                    point hSupport hWindow hRealization hSource,
+                  sourceProofWitness
+                    point hSupport hWindow hRealization hSource hMembership →
+                    Type) where
+  sourceEvidenceRealizesFourierSupportInWindow :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+              ∀ hProof :
+                sourceProofWitness
+                  point hSupport hWindow hRealization hSource hMembership,
+                sourceEvidenceWitness
+                  point hSupport hWindow hRealization hSource
+                  hMembership hProof →
+                  S.fourierSupportInWindow f I
+
+structure SourceFourierSupportWindowSourceProofRealizationData
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (f : A.Test) (I : S.Window)
+    (fourierSupportSet : Type)
+    (fourierSupportMembership : fourierSupportSet → Prop)
+    (fourierSupportWindowSet : Type)
+    (fourierSupportWindowMembership :
+      fourierSupportWindowSet → Prop)
+    (fourierSupportSubtypeToWindow :
+      {point : fourierSupportSet // fourierSupportMembership point} →
+        {point : fourierSupportWindowSet //
+          fourierSupportWindowMembership point})
+    (realizationWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1) → Type)
+    (fourierSupportWindowSourceObject :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            realizationWitness point hSupport hWindow → Type)
+    (sourceMembershipWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            ∀ hRealization :
+              realizationWitness point hSupport hWindow,
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization → Type)
+    (sourceProofWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            ∀ hRealization :
+              realizationWitness point hSupport hWindow,
+              ∀ hSource :
+                fourierSupportWindowSourceObject
+                  point hSupport hWindow hRealization,
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource → Type) where
+  sourceEvidenceWitness :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                sourceProofWitness
+                  point hSupport hWindow hRealization hSource hMembership →
+                  Type
+  sourceEvidenceWitnessFor :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                ∀ hProof :
+                  sourceProofWitness
+                    point hSupport hWindow hRealization hSource hMembership,
+                  sourceEvidenceWitness
+                    point hSupport hWindow hRealization hSource
+                    hMembership hProof
+  sourceEvidenceRealizationData :
+    SourceFourierSupportWindowSourceEvidenceRealizationData
+      S f I fourierSupportSet fourierSupportMembership
+      fourierSupportWindowSet fourierSupportWindowMembership
+      fourierSupportSubtypeToWindow realizationWitness
+      fourierSupportWindowSourceObject sourceMembershipWitness
+      sourceProofWitness sourceEvidenceWitness
+
+namespace SourceFourierSupportWindowSourceProofRealizationData
+
+theorem sourceProofRealizesFourierSupportInWindow
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {f : A.Test} {I : S.Window}
+    {fourierSupportSet : Type}
+    {fourierSupportMembership : fourierSupportSet → Prop}
+    {fourierSupportWindowSet : Type}
+    {fourierSupportWindowMembership :
+      fourierSupportWindowSet → Prop}
+    {fourierSupportSubtypeToWindow :
+      {point : fourierSupportSet // fourierSupportMembership point} →
+        {point : fourierSupportWindowSet //
+          fourierSupportWindowMembership point}}
+    {realizationWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1) → Type}
+    {fourierSupportWindowSourceObject :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            realizationWitness point hSupport hWindow → Type}
+    {sourceMembershipWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            ∀ hRealization :
+              realizationWitness point hSupport hWindow,
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization → Type}
+    {sourceProofWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            ∀ hRealization :
+              realizationWitness point hSupport hWindow,
+              ∀ hSource :
+                fourierSupportWindowSourceObject
+                  point hSupport hWindow hRealization,
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource → Type}
+    (D :
+      SourceFourierSupportWindowSourceProofRealizationData
+        S f I fourierSupportSet fourierSupportMembership
+        fourierSupportWindowSet fourierSupportWindowMembership
+        fourierSupportSubtypeToWindow realizationWitness
+        fourierSupportWindowSourceObject sourceMembershipWitness
+        sourceProofWitness) :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                sourceProofWitness
+                  point hSupport hWindow hRealization hSource hMembership →
+                  S.fourierSupportInWindow f I := by
+  intro point hSupport hWindow hRealization hSource hMembership hProof
+  exact
+    D.sourceEvidenceRealizationData
+      |>.sourceEvidenceRealizesFourierSupportInWindow
+      point hSupport hWindow hRealization hSource hMembership hProof
+      (D.sourceEvidenceWitnessFor
+        point hSupport hWindow hRealization hSource hMembership hProof)
+
+end SourceFourierSupportWindowSourceProofRealizationData
+
+structure SourceFourierSupportWindowSourceMembershipRealizationData
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (f : A.Test) (I : S.Window)
+    (fourierSupportSet : Type)
+    (fourierSupportMembership : fourierSupportSet → Prop)
+    (fourierSupportWindowSet : Type)
+    (fourierSupportWindowMembership :
+      fourierSupportWindowSet → Prop)
+    (fourierSupportSubtypeToWindow :
+      {point : fourierSupportSet // fourierSupportMembership point} →
+        {point : fourierSupportWindowSet //
+          fourierSupportWindowMembership point})
+    (realizationWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1) → Type)
+    (fourierSupportWindowSourceObject :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            realizationWitness point hSupport hWindow → Type)
+    (sourceMembershipWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            ∀ hRealization :
+              realizationWitness point hSupport hWindow,
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization → Type) where
+  sourceProofWitness :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization,
+              sourceMembershipWitness
+                point hSupport hWindow hRealization hSource → Type
+  sourceProofWitnessFor :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                sourceProofWitness
+                  point hSupport hWindow hRealization hSource hMembership
+  sourceProofRealizationData :
+    SourceFourierSupportWindowSourceProofRealizationData
+      S f I fourierSupportSet fourierSupportMembership
+      fourierSupportWindowSet fourierSupportWindowMembership
+      fourierSupportSubtypeToWindow realizationWitness
+      fourierSupportWindowSourceObject sourceMembershipWitness
+      sourceProofWitness
+
+namespace SourceFourierSupportWindowSourceMembershipRealizationData
+
+theorem sourceMembershipRealizesFourierSupportInWindow
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {f : A.Test} {I : S.Window}
+    {fourierSupportSet : Type}
+    {fourierSupportMembership : fourierSupportSet → Prop}
+    {fourierSupportWindowSet : Type}
+    {fourierSupportWindowMembership :
+      fourierSupportWindowSet → Prop}
+    {fourierSupportSubtypeToWindow :
+      {point : fourierSupportSet // fourierSupportMembership point} →
+        {point : fourierSupportWindowSet //
+          fourierSupportWindowMembership point}}
+    {realizationWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1) → Type}
+    {fourierSupportWindowSourceObject :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            realizationWitness point hSupport hWindow → Type}
+    {sourceMembershipWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            ∀ hRealization :
+              realizationWitness point hSupport hWindow,
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization → Type}
+    (D :
+      SourceFourierSupportWindowSourceMembershipRealizationData
+        S f I fourierSupportSet fourierSupportMembership
+        fourierSupportWindowSet fourierSupportWindowMembership
+        fourierSupportSubtypeToWindow realizationWitness
+        fourierSupportWindowSourceObject sourceMembershipWitness) :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization,
+              sourceMembershipWitness
+                point hSupport hWindow hRealization hSource →
+                S.fourierSupportInWindow f I := by
+  intro point hSupport hWindow hRealization hSource hMembership
+  exact
+    D.sourceProofRealizationData
+      |>.sourceProofRealizesFourierSupportInWindow
+      point hSupport hWindow hRealization hSource hMembership
+      (D.sourceProofWitnessFor
+        point hSupport hWindow hRealization hSource hMembership)
+
+end SourceFourierSupportWindowSourceMembershipRealizationData
+
+structure SourceFourierSupportWindowSourceObjectRealizationData
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
+    (f : A.Test) (I : S.Window)
+    (fourierSupportSet : Type)
+    (fourierSupportMembership : fourierSupportSet → Prop)
+    (fourierSupportWindowSet : Type)
+    (fourierSupportWindowMembership :
+      fourierSupportWindowSet → Prop)
+    (fourierSupportSubtypeToWindow :
+      {point : fourierSupportSet // fourierSupportMembership point} →
+        {point : fourierSupportWindowSet //
+          fourierSupportWindowMembership point})
+    (realizationWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1) → Type)
+    (fourierSupportWindowSourceObject :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            realizationWitness point hSupport hWindow → Type) where
+  sourceMembershipWitness :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            fourierSupportWindowSourceObject
+              point hSupport hWindow hRealization → Type
+  sourceMembershipWitnessFor :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization,
+              sourceMembershipWitness
+                point hSupport hWindow hRealization hSource
+  sourceProofWitness :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization,
+              sourceMembershipWitness
+                point hSupport hWindow hRealization hSource → Type
+  sourceProofWitnessFor :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                sourceProofWitness
+                  point hSupport hWindow hRealization hSource hMembership
+  sourceProofRealizationData :
+    SourceFourierSupportWindowSourceProofRealizationData
+      S f I fourierSupportSet fourierSupportMembership
+      fourierSupportWindowSet fourierSupportWindowMembership
+      fourierSupportSubtypeToWindow realizationWitness
+      fourierSupportWindowSourceObject sourceMembershipWitness
+      sourceProofWitness
+
+namespace SourceFourierSupportWindowSourceObjectRealizationData
+
+theorem sourceObjectRealizesFourierSupportInWindow
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {f : A.Test} {I : S.Window}
+    {fourierSupportSet : Type}
+    {fourierSupportMembership : fourierSupportSet → Prop}
+    {fourierSupportWindowSet : Type}
+    {fourierSupportWindowMembership :
+      fourierSupportWindowSet → Prop}
+    {fourierSupportSubtypeToWindow :
+      {point : fourierSupportSet // fourierSupportMembership point} →
+        {point : fourierSupportWindowSet //
+          fourierSupportWindowMembership point}}
+    {realizationWitness :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1) → Type}
+    {fourierSupportWindowSourceObject :
+      ∀ point : fourierSupportSet,
+        ∀ hSupport : fourierSupportMembership point,
+          ∀ hWindow :
+            fourierSupportWindowMembership
+              ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+            realizationWitness point hSupport hWindow → Type}
+    (D :
+      SourceFourierSupportWindowSourceObjectRealizationData
+        S f I fourierSupportSet fourierSupportMembership
+        fourierSupportWindowSet fourierSupportWindowMembership
+        fourierSupportSubtypeToWindow realizationWitness
+        fourierSupportWindowSourceObject) :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            fourierSupportWindowSourceObject
+              point hSupport hWindow hRealization →
+              S.fourierSupportInWindow f I := by
+  intro point hSupport hWindow hRealization hSource
+  let hMembership :=
+    D.sourceMembershipWitnessFor
+      point hSupport hWindow hRealization hSource
+  exact
+    D.sourceProofRealizationData.sourceProofRealizesFourierSupportInWindow
+      point hSupport hWindow hRealization hSource
+      hMembership
+      (D.sourceProofWitnessFor
+        point hSupport hWindow hRealization hSource hMembership)
+
+end SourceFourierSupportWindowSourceObjectRealizationData
 
 structure SourceFourierSupportWindowRealizationData
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
@@ -9884,48 +11096,45 @@ structure SourceFourierSupportWindowRealizationData
     (fourierSupportWindowSet : Type)
     (fourierSupportWindowMembership :
       fourierSupportWindowSet → Prop)
-    (fourierSupportToWindow :
-      fourierSupportSet → fourierSupportWindowSet) where
+    (fourierSupportSubtypeToWindow :
+      {point : fourierSupportSet // fourierSupportMembership point} →
+        {point : fourierSupportWindowSet //
+          fourierSupportWindowMembership point}) where
   realizationWitness :
     ∀ point : fourierSupportSet,
-      fourierSupportMembership point →
+      ∀ hSupport : fourierSupportMembership point,
         fourierSupportWindowMembership
-          (fourierSupportToWindow point) → Type
+          ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1) → Type
   realizationWitnessFor :
     ∀ point : fourierSupportSet,
       ∀ hSupport : fourierSupportMembership point,
         ∀ hWindow :
           fourierSupportWindowMembership
-            (fourierSupportToWindow point),
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
           realizationWitness point hSupport hWindow
   fourierSupportWindowSourceObject :
     ∀ point : fourierSupportSet,
       ∀ hSupport : fourierSupportMembership point,
         ∀ hWindow :
           fourierSupportWindowMembership
-            (fourierSupportToWindow point),
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
           realizationWitness point hSupport hWindow → Type
   sourceObjectFor :
     ∀ point : fourierSupportSet,
       ∀ hSupport : fourierSupportMembership point,
         ∀ hWindow :
           fourierSupportWindowMembership
-            (fourierSupportToWindow point),
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
           ∀ hRealization :
             realizationWitness point hSupport hWindow,
             fourierSupportWindowSourceObject
               point hSupport hWindow hRealization
-  sourceObjectRealizesFourierSupportInWindow :
-    ∀ point : fourierSupportSet,
-      ∀ hSupport : fourierSupportMembership point,
-        ∀ hWindow :
-          fourierSupportWindowMembership
-            (fourierSupportToWindow point),
-          ∀ hRealization :
-            realizationWitness point hSupport hWindow,
-            fourierSupportWindowSourceObject
-              point hSupport hWindow hRealization →
-              S.fourierSupportInWindow f I
+  sourceObjectRealizationData :
+    SourceFourierSupportWindowSourceObjectRealizationData
+      S f I fourierSupportSet fourierSupportMembership
+      fourierSupportWindowSet fourierSupportWindowMembership
+      fourierSupportSubtypeToWindow realizationWitness
+      fourierSupportWindowSourceObject
 
 namespace SourceFourierSupportWindowRealizationData
 
@@ -9937,22 +11146,27 @@ theorem windowMembershipRealizesFourierSupportInWindow
     {fourierSupportWindowSet : Type}
     {fourierSupportWindowMembership :
       fourierSupportWindowSet → Prop}
-    {fourierSupportToWindow :
-      fourierSupportSet → fourierSupportWindowSet}
+    {fourierSupportSubtypeToWindow :
+      {point : fourierSupportSet // fourierSupportMembership point} →
+        {point : fourierSupportWindowSet //
+          fourierSupportWindowMembership point}}
     (D :
       SourceFourierSupportWindowRealizationData
         S f I fourierSupportSet fourierSupportMembership
         fourierSupportWindowSet fourierSupportWindowMembership
-        fourierSupportToWindow) :
+        fourierSupportSubtypeToWindow) :
     ∀ point : fourierSupportSet,
       fourierSupportMembership point →
-        fourierSupportWindowMembership
-          (fourierSupportToWindow point) →
-          S.fourierSupportInWindow f I := by
-  intro point hSupport hWindow
+        S.fourierSupportInWindow f I := by
+  intro point hSupport
+  let hWindow :=
+    (fourierSupportSubtypeToWindow
+      (⟨point, hSupport⟩ :
+        {point : fourierSupportSet //
+          fourierSupportMembership point})).2
   let hRealization := D.realizationWitnessFor point hSupport hWindow
   exact
-    D.sourceObjectRealizesFourierSupportInWindow
+    D.sourceObjectRealizationData.sourceObjectRealizesFourierSupportInWindow
       point hSupport hWindow hRealization
       (D.sourceObjectFor point hSupport hWindow hRealization)
 
@@ -9986,35 +11200,27 @@ structure SourceFourierSupportSetMembershipData
   fourierSupportWindowSet : Type
   fourierSupportWindowMembership :
     fourierSupportWindowSet → Prop
-  fourierSupportToWindow :
-    fourierSupportSet → fourierSupportWindowSet
-  fourierSupportImage_mem_window :
-    ∀ point : fourierSupportSet,
-      fourierSupportMembership point →
-        fourierSupportWindowMembership
-          (fourierSupportToWindow point)
-  carrierToFourierSupport :
-    ∀ x : S.SupportPoint,
-      x ∈ S.fourierSupportCarrier f → fourierSupportSet
-  carrierToFourierSupport_mem :
-    ∀ x : S.SupportPoint,
-      ∀ hx : x ∈ S.fourierSupportCarrier f,
-        fourierSupportMembership (carrierToFourierSupport x hx)
-  fourierWindowPoint : fourierSupportWindowSet → S.SupportPoint
-  fourierWindowPoint_mem_window :
-    ∀ point : fourierSupportWindowSet,
-      fourierSupportWindowMembership point →
-        fourierWindowPoint point ∈ S.windowCarrier I
-  fourierSupportToWindow_realizes_carrier :
+  fourierSupportSubtypeToWindow :
+    {point : fourierSupportSet // fourierSupportMembership point} →
+      {point : fourierSupportWindowSet //
+        fourierSupportWindowMembership point}
+  carrierFourierSupportSubtype :
+    {x : S.SupportPoint // x ∈ S.fourierSupportCarrier f} →
+      {point : fourierSupportSet // fourierSupportMembership point}
+  fourierWindowPointSubtype :
+    {point : fourierSupportWindowSet // fourierSupportWindowMembership point} →
+      {x : S.SupportPoint // x ∈ S.windowCarrier I}
+  fourierSupportSubtypeToWindow_realizes_carrier :
     ∀ x : S.SupportPoint,
       ∀ hx : x ∈ S.fourierSupportCarrier f,
-        fourierWindowPoint
-          (fourierSupportToWindow (carrierToFourierSupport x hx)) = x
+        (fourierWindowPointSubtype
+          (fourierSupportSubtypeToWindow
+            (carrierFourierSupportSubtype ⟨x, hx⟩))).1 = x
   fourierSupportWindowRealization :
     SourceFourierSupportWindowRealizationData
       S f I fourierSupportSet fourierSupportMembership
       fourierSupportWindowSet fourierSupportWindowMembership
-      fourierSupportToWindow
+      fourierSupportSubtypeToWindow
 
 namespace SourceFourierSupportSetMembershipData
 
@@ -10024,13 +11230,12 @@ theorem fourierSupportCarrier_subset_windowCarrier
     (D : SourceFourierSupportSetMembershipData S f I) :
     S.fourierSupportCarrier f ⊆ S.windowCarrier I := by
   intro x hx
-  rw [← D.fourierSupportToWindow_realizes_carrier x hx]
+  let carrier : {x : S.SupportPoint // x ∈ S.fourierSupportCarrier f} := ⟨x, hx⟩
+  let fourierPoint := D.carrierFourierSupportSubtype carrier
+  rw [← D.fourierSupportSubtypeToWindow_realizes_carrier x hx]
   exact
-    D.fourierWindowPoint_mem_window
-      (D.fourierSupportToWindow (D.carrierToFourierSupport x hx))
-      (D.fourierSupportImage_mem_window
-        (D.carrierToFourierSupport x hx)
-        (D.carrierToFourierSupport_mem x hx))
+    (D.fourierWindowPointSubtype
+      (D.fourierSupportSubtypeToWindow fourierPoint)).2
 
 theorem fourierSupportInWindow
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
@@ -10044,24 +11249,91 @@ end SourceFourierSupportSetMembershipData
 structure SourceWindowSupportGeometry
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
     (I : S.Window) where
-  sourceSupportMembership :
-    SourceSupportSetMembershipData S S.sourceTest I
-  sourceFourierSupportMembership :
-    SourceFourierSupportSetMembershipData S S.sourceTest I
+  sourceSupportSet : Type
+  sourceSupportMembership : sourceSupportSet → Prop
+  sourceSupportWindowContainment :
+    SourceSupportWindowContainmentData
+      S S.sourceTest I sourceSupportSet sourceSupportMembership
+  sourceFourierSupportSet : Type
+  sourceFourierSupportMembershipPredicate :
+    sourceFourierSupportSet → Prop
+  sourceFourierSupportWindowSet : Type
+  sourceFourierSupportWindowMembership :
+    sourceFourierSupportWindowSet → Prop
+  sourceFourierSupportSubtypeToWindow :
+    {point : sourceFourierSupportSet //
+      sourceFourierSupportMembershipPredicate point} →
+      {point : sourceFourierSupportWindowSet //
+        sourceFourierSupportWindowMembership point}
+  sourceCarrierFourierSupportSubtype :
+    {x : S.SupportPoint // x ∈ S.fourierSupportCarrier S.sourceTest} →
+      {point : sourceFourierSupportSet //
+        sourceFourierSupportMembershipPredicate point}
+  sourceFourierWindowPointSubtype :
+    {point : sourceFourierSupportWindowSet //
+      sourceFourierSupportWindowMembership point} →
+      {x : S.SupportPoint // x ∈ S.windowCarrier I}
+  sourceFourierSupportSubtypeToWindow_realizes_carrier :
+    ∀ x : S.SupportPoint,
+      ∀ hx : x ∈ S.fourierSupportCarrier S.sourceTest,
+        (sourceFourierWindowPointSubtype
+          (sourceFourierSupportSubtypeToWindow
+            (sourceCarrierFourierSupportSubtype ⟨x, hx⟩))).1 = x
+  sourceFourierSupportWindowRealization :
+    SourceFourierSupportWindowRealizationData
+      S S.sourceTest I sourceFourierSupportSet
+      sourceFourierSupportMembershipPredicate
+      sourceFourierSupportWindowSet
+      sourceFourierSupportWindowMembership
+      sourceFourierSupportSubtypeToWindow
 
 namespace SourceWindowSupportGeometry
+
+def sourceFourierSupportMembership
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window} (G : SourceWindowSupportGeometry S I) :
+    SourceFourierSupportSetMembershipData S S.sourceTest I where
+  fourierSupportSet := G.sourceFourierSupportSet
+  fourierSupportMembership :=
+    G.sourceFourierSupportMembershipPredicate
+  fourierSupportWindowSet := G.sourceFourierSupportWindowSet
+  fourierSupportWindowMembership :=
+    G.sourceFourierSupportWindowMembership
+  fourierSupportSubtypeToWindow :=
+    G.sourceFourierSupportSubtypeToWindow
+  carrierFourierSupportSubtype :=
+    G.sourceCarrierFourierSupportSubtype
+  fourierWindowPointSubtype :=
+    G.sourceFourierWindowPointSubtype
+  fourierSupportSubtypeToWindow_realizes_carrier :=
+    G.sourceFourierSupportSubtypeToWindow_realizes_carrier
+  fourierSupportWindowRealization :=
+    G.sourceFourierSupportWindowRealization
 
 theorem sourceSupportInWindow
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
     {I : S.Window} (G : SourceWindowSupportGeometry S I) :
     S.supportInWindow S.sourceTest I :=
-  G.sourceSupportMembership.supportInWindow
+  G.sourceSupportWindowContainment.supportCarrier_subset_windowCarrier
+
+theorem sourceFourierSupportCarrier_subset_windowCarrier
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window} (G : SourceWindowSupportGeometry S I) :
+    S.fourierSupportCarrier S.sourceTest ⊆ S.windowCarrier I := by
+  intro x hx
+  let carrier : {x : S.SupportPoint //
+      x ∈ S.fourierSupportCarrier S.sourceTest} := ⟨x, hx⟩
+  let fourierPoint := G.sourceCarrierFourierSupportSubtype carrier
+  rw [← G.sourceFourierSupportSubtypeToWindow_realizes_carrier x hx]
+  exact
+    (G.sourceFourierWindowPointSubtype
+      (G.sourceFourierSupportSubtypeToWindow fourierPoint)).2
 
 theorem sourceFourierSupportInWindow
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
     {I : S.Window} (G : SourceWindowSupportGeometry S I) :
     S.fourierSupportInWindow S.sourceTest I :=
-  G.sourceFourierSupportMembership.fourierSupportInWindow
+  G.sourceFourierSupportCarrier_subset_windowCarrier
 
 end SourceWindowSupportGeometry
 
@@ -10090,8 +11362,13 @@ end SourceWindowSupportNormalForm
 structure SourceSoninComparisonCore
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
     (I : S.Window) where
-  sourceWindowSupportGeometry :
-    SourceWindowSupportGeometry S I
+  sourceSupportSet : Type
+  sourceSupportMembership : sourceSupportSet → Prop
+  sourceSupportWindowContainment :
+    SourceSupportWindowContainmentData
+      S S.sourceTest I sourceSupportSet sourceSupportMembership
+  sourceFourierSupportMembership :
+    SourceFourierSupportSetMembershipData S S.sourceTest I
 
 namespace SourceSoninComparisonCore
 
@@ -10100,14 +11377,14 @@ theorem sourceSupportTransported
     {I : S.Window} (C : SourceSoninComparisonCore S I) :
     S.supportTransported S.sourceTest I :=
   S.supportTransported_of_supportInWindow
-    C.sourceWindowSupportGeometry.sourceSupportInWindow
+    C.sourceSupportWindowContainment.supportCarrier_subset_windowCarrier
 
 theorem sourceConvolutionSupportTransported
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
     {I : S.Window} (C : SourceSoninComparisonCore S I) :
     S.convolutionSupportTransported S.sourceTest I :=
   S.convolutionSupportTransported_of_fourierSupportInWindow
-    C.sourceWindowSupportGeometry.sourceFourierSupportInWindow
+    C.sourceFourierSupportMembership.fourierSupportInWindow
 
 end SourceSoninComparisonCore
 
@@ -10116,6 +11393,12 @@ structure SourceFixedWindowExhaustionCore
     (I : S.Window) (hSonin : SourceSoninComparisonCore S I) where
   sourceCanonicalModel :
     S.canonicalHilbertModel S.sourcePlaceSet
+  sourceScalingActionData :
+    ∀ V : S.PlaceSet,
+      S.canonicalHilbertModel V → S.scalingActionImplemented V
+  sourceFourierGradingData :
+    ∀ V : S.PlaceSet,
+      S.canonicalHilbertModel V → S.fourierGradingCompatible V
   sourceBoundedComparisonMapData :
     ∀ V : S.PlaceSet,
       S.canonicalHilbertModel V → S.boundedComparisonMap V
@@ -10172,40 +11455,148 @@ def SourceSoninWindow
 structure SourceFixedWindowSoninExhaustionNormalForm
     {A : SourceTestAlgebra} (S : SourceSupportWindowData A)
     (I : S.Window) where
-  sourceWindowSupportGeometry :
-    SourceSupportWindowData.SourceWindowSupportGeometry S I
-  fixedWindowExhaustionCore :
-    SourceSupportWindowData.SourceFixedWindowExhaustionCore
-      S I
-        ({ sourceWindowSupportGeometry := sourceWindowSupportGeometry } :
-          SourceSupportWindowData.SourceSoninComparisonCore S I)
-
-namespace SourceFixedWindowSoninExhaustionNormalForm
-
-def soninComparisonCore
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {I : S.Window} (N : SourceFixedWindowSoninExhaustionNormalForm S I) :
-    SourceSupportWindowData.SourceSoninComparisonCore S I where
-  sourceWindowSupportGeometry := N.sourceWindowSupportGeometry
-
-theorem fixedWindowExhaustionCompatible
-    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
-    {I : S.Window} (N : SourceFixedWindowSoninExhaustionNormalForm S I) :
-    S.fixedWindowExhaustionCompatible I :=
-  ⟨N.soninComparisonCore, ⟨N.fixedWindowExhaustionCore⟩⟩
-
-end SourceFixedWindowSoninExhaustionNormalForm
-
-/-- CCM24 semilocal rows over the shared source support/window object. -/
-structure SourceSemilocalRows
-    {A : SourceTestAlgebra} (S : SourceSupportWindowData A) where
-  sourceCCM24TestCompatibility : Prop
+  sourceSupportSet : Type
+  sourceSupportMembership : sourceSupportSet → Prop
+  sourceSupportWindowContainment :
+    SourceSupportWindowData.SourceSupportWindowContainmentData
+      S S.sourceTest I sourceSupportSet sourceSupportMembership
+  sourceFourierSupportSet : Type
+  sourceFourierSupportMembershipPredicate :
+    sourceFourierSupportSet → Prop
+  sourceFourierSupportWindowSet : Type
+  sourceFourierSupportWindowMembership :
+    sourceFourierSupportWindowSet → Prop
+  sourceFourierSupportSubtypeToWindow :
+    {point : sourceFourierSupportSet //
+      sourceFourierSupportMembershipPredicate point} →
+      {point : sourceFourierSupportWindowSet //
+        sourceFourierSupportWindowMembership point}
+  sourceCarrierFourierSupportSubtype :
+    {x : S.SupportPoint // x ∈ S.fourierSupportCarrier S.sourceTest} →
+      {point : sourceFourierSupportSet //
+        sourceFourierSupportMembershipPredicate point}
+  sourceFourierWindowPointSubtype :
+    {point : sourceFourierSupportWindowSet //
+      sourceFourierSupportWindowMembership point} →
+      {x : S.SupportPoint // x ∈ S.windowCarrier I}
+  sourceFourierSupportSubtypeToWindow_realizes_carrier :
+    ∀ x : S.SupportPoint,
+      ∀ hx : x ∈ S.fourierSupportCarrier S.sourceTest,
+        (sourceFourierWindowPointSubtype
+          (sourceFourierSupportSubtypeToWindow
+            (sourceCarrierFourierSupportSubtype ⟨x, hx⟩))).1 = x
+  sourceFourierSupportWindowRealization :
+    SourceSupportWindowData.SourceFourierSupportWindowRealizationData
+      S S.sourceTest I sourceFourierSupportSet
+      sourceFourierSupportMembershipPredicate
+      sourceFourierSupportWindowSet
+      sourceFourierSupportWindowMembership
+      sourceFourierSupportSubtypeToWindow
+  sourceCanonicalModel :
+    S.canonicalHilbertModel S.sourcePlaceSet
   sourceScalingActionData :
     ∀ V : S.PlaceSet,
       S.canonicalHilbertModel V → S.scalingActionImplemented V
   sourceFourierGradingData :
     ∀ V : S.PlaceSet,
       S.canonicalHilbertModel V → S.fourierGradingCompatible V
+  sourceBoundedComparisonMapData :
+    ∀ V : S.PlaceSet,
+      S.canonicalHilbertModel V → S.boundedComparisonMap V
+  sourceBoundedComparisonInverseData :
+    ∀ V : S.PlaceSet,
+      S.canonicalHilbertModel V → S.boundedComparisonInverse V
+
+namespace SourceFixedWindowSoninExhaustionNormalForm
+
+def sourceFourierSupportMembership
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window} (N : SourceFixedWindowSoninExhaustionNormalForm S I) :
+    SourceSupportWindowData.SourceFourierSupportSetMembershipData
+      S S.sourceTest I where
+  fourierSupportSet := N.sourceFourierSupportSet
+  fourierSupportMembership :=
+    N.sourceFourierSupportMembershipPredicate
+  fourierSupportWindowSet := N.sourceFourierSupportWindowSet
+  fourierSupportWindowMembership :=
+    N.sourceFourierSupportWindowMembership
+  fourierSupportSubtypeToWindow :=
+    N.sourceFourierSupportSubtypeToWindow
+  carrierFourierSupportSubtype :=
+    N.sourceCarrierFourierSupportSubtype
+  fourierWindowPointSubtype :=
+    N.sourceFourierWindowPointSubtype
+  fourierSupportSubtypeToWindow_realizes_carrier :=
+    N.sourceFourierSupportSubtypeToWindow_realizes_carrier
+  fourierSupportWindowRealization :=
+    N.sourceFourierSupportWindowRealization
+
+theorem sourceFourierSupportCarrier_subset_windowCarrier
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window} (N : SourceFixedWindowSoninExhaustionNormalForm S I) :
+    S.fourierSupportCarrier S.sourceTest ⊆ S.windowCarrier I := by
+  intro x hx
+  let carrier : {x : S.SupportPoint //
+      x ∈ S.fourierSupportCarrier S.sourceTest} := ⟨x, hx⟩
+  let fourierPoint := N.sourceCarrierFourierSupportSubtype carrier
+  rw [← N.sourceFourierSupportSubtypeToWindow_realizes_carrier x hx]
+  exact
+    (N.sourceFourierWindowPointSubtype
+      (N.sourceFourierSupportSubtypeToWindow fourierPoint)).2
+
+def sourceWindowSupportGeometry
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window} (N : SourceFixedWindowSoninExhaustionNormalForm S I) :
+    SourceSupportWindowData.SourceWindowSupportGeometry S I where
+  sourceSupportSet := N.sourceSupportSet
+  sourceSupportMembership := N.sourceSupportMembership
+  sourceSupportWindowContainment := N.sourceSupportWindowContainment
+  sourceFourierSupportSet := N.sourceFourierSupportSet
+  sourceFourierSupportMembershipPredicate :=
+    N.sourceFourierSupportMembershipPredicate
+  sourceFourierSupportWindowSet := N.sourceFourierSupportWindowSet
+  sourceFourierSupportWindowMembership :=
+    N.sourceFourierSupportWindowMembership
+  sourceFourierSupportSubtypeToWindow :=
+    N.sourceFourierSupportSubtypeToWindow
+  sourceCarrierFourierSupportSubtype :=
+    N.sourceCarrierFourierSupportSubtype
+  sourceFourierWindowPointSubtype :=
+    N.sourceFourierWindowPointSubtype
+  sourceFourierSupportSubtypeToWindow_realizes_carrier :=
+    N.sourceFourierSupportSubtypeToWindow_realizes_carrier
+  sourceFourierSupportWindowRealization :=
+    N.sourceFourierSupportWindowRealization
+
+theorem fixedWindowExhaustionCompatible
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window} (N : SourceFixedWindowSoninExhaustionNormalForm S I) :
+    S.fixedWindowExhaustionCompatible I :=
+  ⟨{ sourceSupportSet := N.sourceSupportSet,
+     sourceSupportMembership := N.sourceSupportMembership,
+     sourceSupportWindowContainment := N.sourceSupportWindowContainment,
+     sourceFourierSupportMembership := N.sourceFourierSupportMembership },
+    ⟨{ sourceCanonicalModel := N.sourceCanonicalModel,
+       sourceScalingActionData := N.sourceScalingActionData,
+       sourceFourierGradingData := N.sourceFourierGradingData,
+       sourceBoundedComparisonMapData := N.sourceBoundedComparisonMapData,
+       sourceBoundedComparisonInverseData :=
+         N.sourceBoundedComparisonInverseData }⟩⟩
+
+theorem soninSpaceComparison
+    {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
+    {I : S.Window} (N : SourceFixedWindowSoninExhaustionNormalForm S I) :
+    S.soninSpaceComparison I :=
+  ⟨{ sourceSupportSet := N.sourceSupportSet,
+     sourceSupportMembership := N.sourceSupportMembership,
+     sourceSupportWindowContainment := N.sourceSupportWindowContainment,
+     sourceFourierSupportMembership := N.sourceFourierSupportMembership }⟩
+
+end SourceFixedWindowSoninExhaustionNormalForm
+
+/-- CCM24 semilocal rows over the shared source support/window object. -/
+structure SourceSemilocalRows
+    {A : SourceTestAlgebra} (S : SourceSupportWindowData A) where
   sourceLambdaWindowContainmentData :
     SourceSupportWindowData.SourceLambdaWindowContainmentData
       S S.sourceSupportWindow
@@ -10221,8 +11612,7 @@ theorem sourceCanonicalModelData
     S.canonicalHilbertModel S.sourcePlaceSet := by
   exact
     (rows.sourceFixedWindowSoninExhaustionNormalForm
-      S.sourceSupportWindow).fixedWindowExhaustionCore
-        |>.sourceCanonicalModel
+      S.sourceSupportWindow).sourceCanonicalModel
 
 theorem sourceCanonicalSemilocalModel
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
@@ -10230,9 +11620,12 @@ theorem sourceCanonicalSemilocalModel
     SemilocalModelSymbols.CanonicalSemilocalModelStatement
       S.toSemilocalModelSymbols := by
   intro V hCanonical
+  let normalForm :=
+    rows.sourceFixedWindowSoninExhaustionNormalForm
+      S.sourceSupportWindow
   exact
-    ⟨rows.sourceScalingActionData V hCanonical,
-      rows.sourceFourierGradingData V hCanonical⟩
+    ⟨normalForm.sourceScalingActionData V hCanonical,
+      normalForm.sourceFourierGradingData V hCanonical⟩
 
 theorem sourceSupportInWindow
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
@@ -10240,8 +11633,8 @@ theorem sourceSupportInWindow
     S.supportInWindow S.sourceTest S.sourceSupportWindow := by
   exact
     (rows.sourceFixedWindowSoninExhaustionNormalForm
-      S.sourceSupportWindow).sourceWindowSupportGeometry
-        |>.sourceSupportInWindow
+      S.sourceSupportWindow).sourceSupportWindowContainment
+        |>.supportCarrier_subset_windowCarrier
 
 theorem sourceFourierSupportInWindow
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
@@ -10249,8 +11642,7 @@ theorem sourceFourierSupportInWindow
     S.fourierSupportInWindow S.sourceTest S.sourceSupportWindow := by
   exact
     (rows.sourceFixedWindowSoninExhaustionNormalForm
-      S.sourceSupportWindow).sourceWindowSupportGeometry
-        |>.sourceFourierSupportInWindow
+      S.sourceSupportWindow).sourceFourierSupportCarrier_subset_windowCarrier
 
 theorem sourceSupportAndFourierSupportTransport
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
@@ -10279,7 +11671,7 @@ theorem sourceSoninSpaceComparison
   let normalForm :=
     rows.sourceFixedWindowSoninExhaustionNormalForm
       S.sourceSupportWindow
-  exact ⟨normalForm.soninComparisonCore⟩
+  exact normalForm.soninSpaceComparison
 
 theorem sourceWindowContainedInLambdaData
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}
@@ -10303,12 +11695,12 @@ theorem sourceBoundedComparisonTraceClassTransport
     SemilocalModelSymbols.BoundedComparisonStatement
       S.toSemilocalModelSymbols := by
   intro V hCanonical
-  let fixedWindowCore :=
-    (rows.sourceFixedWindowSoninExhaustionNormalForm
-      S.sourceSupportWindow).fixedWindowExhaustionCore
+  let normalForm :=
+    rows.sourceFixedWindowSoninExhaustionNormalForm
+      S.sourceSupportWindow
   exact
-    ⟨fixedWindowCore.sourceBoundedComparisonMapData V hCanonical,
-      fixedWindowCore.sourceBoundedComparisonInverseData V hCanonical⟩
+    ⟨normalForm.sourceBoundedComparisonMapData V hCanonical,
+      normalForm.sourceBoundedComparisonInverseData V hCanonical⟩
 
 theorem sourceFixedWindowSoninExhaustion
     {A : SourceTestAlgebra} {S : SourceSupportWindowData A}

@@ -30,7 +30,6 @@ def SourceSupportWindowData.toCCM24SemilocalObjectPackage
   sourcePlaceSet := S.sourcePlaceSet
   sourceSupportWindow := S.sourceSupportWindow
   sourceTestLeg := S.sourceTest
-  sourceCCM24TestCompatibility := rows.sourceCCM24TestCompatibility
   sourceCanonicalModelData := rows.sourceCanonicalModelData
   sourceSupportInWindowData := rows.sourceSupportInWindow
   sourceFourierSupportInWindowData := rows.sourceFourierSupportInWindow

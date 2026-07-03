@@ -69,19 +69,23 @@ theorem ccm24_common_support_window
     (pkg : SourceObjectPackage) :
     pkg.ccm24.semilocalSymbols.supportInWindow
       pkg.ccm24.sourceTestLeg pkg.ccm24.sourceSupportWindow :=
-  (ccm24CommonTestBridge pkg).supportWindowOwnsCommonTest
+  pkg.ccm24.sourceSupportInWindowData
 
 theorem ccm24_common_fourier_window
     (pkg : SourceObjectPackage) :
     pkg.ccm24.semilocalSymbols.fourierSupportInWindow
       pkg.ccm24.sourceTestLeg pkg.ccm24.sourceSupportWindow :=
-  (ccm24CommonTestBridge pkg).fourierWindowOwnsCommonTest
+  pkg.ccm24.sourceFourierSupportInWindowData
 
 theorem ccm24_common_convolution_support_transported
     (pkg : SourceObjectPackage) :
     pkg.ccm24.semilocalSymbols.convolutionSupportTransported
       pkg.ccm24.sourceTestLeg pkg.ccm24.sourceSupportWindow :=
-  (ccm24CommonTestBridge pkg).convolutionSupportTransported
+  (pkg.ccm24.sourceSupportAndFourierSupportTransport
+    pkg.ccm24.sourceTestLeg
+    pkg.ccm24.sourceSupportWindow
+    pkg.ccm24.sourceSupportInWindowData
+    pkg.ccm24.sourceFourierSupportInWindowData).2
 
 theorem cc20_common_mellin_half_density
     (pkg : SourceObjectPackage) :
