@@ -98,7 +98,7 @@ Choose a finite set of places $S$ containing $\infty$. For a fixed support
 bound $A$ with
 
 $$
-\operatorname{supp}(F_g)\subset \exp([-A,A]),
+\mathrm{supp}(F_g)\subset \exp([-A,A]),
 $$
 
 the route takes
@@ -115,7 +115,7 @@ Let $\lambda>1$ and choose a support window
 $$
 I\subset [\lambda^{-1},\lambda],
 \qquad
-\operatorname{supp}(g)\subset I.
+\mathrm{supp}(g)\subset I.
 $$
 
 Assume the source inputs and project lemmas listed below.
@@ -188,9 +188,9 @@ The CCM24 comparison map identifies the semilocal support range with the
 archimedean support range:
 
 $$
-\operatorname{Ran}P_S(\lambda)
+\mathrm{Ran}\,P_S(\lambda)
   =
-S\operatorname{Ran}P_{\mathbb R}(\lambda).
+S\,\mathrm{Ran}\,P_{\mathbb R}(\lambda).
 $$
 
 The CCM24 Fourier compatibility gives
@@ -202,9 +202,9 @@ $$
 and therefore
 
 $$
-\operatorname{Ran}\widehat P_S(\lambda)
+\mathrm{Ran}\,\widehat P_S(\lambda)
   =
-S\operatorname{Ran}\widehat P_{\mathbb R}(\lambda).
+S\,\mathrm{Ran}\,\widehat P_{\mathbb R}(\lambda).
 $$
 
 This step fixes the object discipline. The same $g$, $F_g$, $S$, $I$, and
@@ -224,9 +224,9 @@ The CC20 trace-class input and the project trace-class wrappers prove that
 $A_{S,\lambda}(g)$ is Hilbert--Schmidt. Hence
 
 $$
-\operatorname{Pos}_{S,\lambda}(g)
+\mathrm{Pos}_{S,\lambda}(g)
   :=
-\operatorname{Tr}\bigl(A_{S,\lambda}(g)^\ast A_{S,\lambda}(g)\bigr)
+\mathrm{Tr}\bigl(A_{S,\lambda}(g)^\ast A_{S,\lambda}(g)\bigr)
 \ge 0.
 $$
 
@@ -239,13 +239,13 @@ to the trace ideal.
 The source read-off has the form
 
 $$
-\operatorname{Pos}_{S,\lambda}(g)
+\mathrm{Pos}_{S,\lambda}(g)
   =
 QW_\lambda(g,g)
   +
-\operatorname{Rank}_{S,I}(g)
+\mathrm{Rank}_{S,I}(g)
   +
-\operatorname{PoleJetExtra}_{S,I}(g)
+\mathrm{PoleJetExtra}_{S,I}(g)
   +
 R_{S,I,\lambda,J}(g).
 $$
@@ -255,8 +255,8 @@ The terms have separate jobs.
 | term | meaning |
 |---|---|
 | $QW_\lambda(g,g)$ | the CCM25 restricted Weil scalar for the same test $g$ |
-| $\operatorname{Rank}_{S,I}(g)$ | the zero-mode ledger |
-| $\operatorname{PoleJetExtra}_{S,I}(g)$ | the two pole-evaluation ledgers |
+| $\mathrm{Rank}_{S,I}(g)$ | the zero-mode ledger |
+| $\mathrm{PoleJetExtra}_{S,I}(g)$ | the two pole-evaluation ledgers |
 | $R_{S,I,\lambda,J}(g)$ | endpoint-strip and projection-defect remainder |
 
 The CCM25 restricted scalar uses the same square
@@ -288,22 +288,22 @@ The rank ledger is supported on $\widehat g(0)$, and the pole ledger is
 supported on $\widehat g(i/2)$ and $\widehat g(-i/2)$. Thus
 
 $$
-\operatorname{Rank}_{S,I}(g)=0,
+\mathrm{Rank}_{S,I}(g)=0,
 \qquad
-\operatorname{PoleJetExtra}_{S,I}(g)=0.
+\mathrm{PoleJetExtra}_{S,I}(g)=0.
 $$
 
 The read-off becomes
 
 $$
-\operatorname{Pos}_{S,\lambda}(g)
+\mathrm{Pos}_{S,\lambda}(g)
   =
 QW_\lambda(g,g)
   +
 R_{S,I,\lambda,J}(g).
 $$
 
-Since $\operatorname{Pos}_{S,\lambda}(g)\ge 0$,
+Since $\mathrm{Pos}_{S,\lambda}(g)\ge 0$,
 
 $$
 QW_\lambda(g,g)\ge -R_{S,I,\lambda,J}(g).
@@ -330,7 +330,7 @@ Cdef_{S,I,\lambda,J}(g)
 \right\|_1
   +
 \sum_{\beta\in Q\mathcal R_{S,I,\lambda,J}}
-\left|\operatorname{BoundaryStripTrace}_\beta(g)\right|.
+\left|\mathrm{BoundaryStripTrace}_\beta(g)\right|.
 $$
 
 Each summand contains an endpoint-strip factor. The fixed-test graph/prolate
