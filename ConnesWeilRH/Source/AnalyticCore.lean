@@ -10723,13 +10723,27 @@ structure SourceFourierSupportWindowSourceProofRealizationData
                   sourceEvidenceWitness
                     point hSupport hWindow hRealization hSource
                     hMembership hProof
-  sourceEvidenceRealizationData :
-    SourceFourierSupportWindowSourceEvidenceRealizationData
-      S f I fourierSupportSet fourierSupportMembership
-      fourierSupportWindowSet fourierSupportWindowMembership
-      fourierSupportSubtypeToWindow realizationWitness
-      fourierSupportWindowSourceObject sourceMembershipWitness
-      sourceProofWitness sourceEvidenceWitness
+  sourceEvidenceRealizesFourierSupportInWindow :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+              ∀ hProof :
+                sourceProofWitness
+                  point hSupport hWindow hRealization hSource hMembership,
+                sourceEvidenceWitness
+                  point hSupport hWindow hRealization hSource
+                  hMembership hProof →
+                  S.fourierSupportInWindow f I
 
 namespace SourceFourierSupportWindowSourceProofRealizationData
 
@@ -10805,8 +10819,7 @@ theorem sourceProofRealizesFourierSupportInWindow
                   S.fourierSupportInWindow f I := by
   intro point hSupport hWindow hRealization hSource hMembership hProof
   exact
-    D.sourceEvidenceRealizationData
-      |>.sourceEvidenceRealizesFourierSupportInWindow
+    D.sourceEvidenceRealizesFourierSupportInWindow
       point hSupport hWindow hRealization hSource hMembership hProof
       (D.sourceEvidenceWitnessFor
         point hSupport hWindow hRealization hSource hMembership hProof)
@@ -10876,13 +10889,23 @@ structure SourceFourierSupportWindowSourceMembershipRealizationData
                   point hSupport hWindow hRealization hSource,
                 sourceProofWitness
                   point hSupport hWindow hRealization hSource hMembership
-  sourceProofRealizationData :
-    SourceFourierSupportWindowSourceProofRealizationData
-      S f I fourierSupportSet fourierSupportMembership
-      fourierSupportWindowSet fourierSupportWindowMembership
-      fourierSupportSubtypeToWindow realizationWitness
-      fourierSupportWindowSourceObject sourceMembershipWitness
-      sourceProofWitness
+  sourceProofRealizesFourierSupportInWindow :
+    ∀ point : fourierSupportSet,
+      ∀ hSupport : fourierSupportMembership point,
+        ∀ hWindow :
+          fourierSupportWindowMembership
+            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
+          ∀ hRealization :
+            realizationWitness point hSupport hWindow,
+            ∀ hSource :
+              fourierSupportWindowSourceObject
+                point hSupport hWindow hRealization,
+              ∀ hMembership :
+                sourceMembershipWitness
+                  point hSupport hWindow hRealization hSource,
+                sourceProofWitness
+                  point hSupport hWindow hRealization hSource hMembership →
+                  S.fourierSupportInWindow f I
 
 namespace SourceFourierSupportWindowSourceMembershipRealizationData
 
@@ -10941,8 +10964,7 @@ theorem sourceMembershipRealizesFourierSupportInWindow
                 S.fourierSupportInWindow f I := by
   intro point hSupport hWindow hRealization hSource hMembership
   exact
-    D.sourceProofRealizationData
-      |>.sourceProofRealizesFourierSupportInWindow
+    D.sourceProofRealizesFourierSupportInWindow
       point hSupport hWindow hRealization hSource hMembership
       (D.sourceProofWitnessFor
         point hSupport hWindow hRealization hSource hMembership)
@@ -10996,42 +11018,12 @@ structure SourceFourierSupportWindowSourceObjectRealizationData
                 point hSupport hWindow hRealization,
               sourceMembershipWitness
                 point hSupport hWindow hRealization hSource
-  sourceProofWitness :
-    ∀ point : fourierSupportSet,
-      ∀ hSupport : fourierSupportMembership point,
-        ∀ hWindow :
-          fourierSupportWindowMembership
-            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
-          ∀ hRealization :
-            realizationWitness point hSupport hWindow,
-            ∀ hSource :
-              fourierSupportWindowSourceObject
-                point hSupport hWindow hRealization,
-              sourceMembershipWitness
-                point hSupport hWindow hRealization hSource → Type
-  sourceProofWitnessFor :
-    ∀ point : fourierSupportSet,
-      ∀ hSupport : fourierSupportMembership point,
-        ∀ hWindow :
-          fourierSupportWindowMembership
-            ((fourierSupportSubtypeToWindow ⟨point, hSupport⟩).1),
-          ∀ hRealization :
-            realizationWitness point hSupport hWindow,
-            ∀ hSource :
-              fourierSupportWindowSourceObject
-                point hSupport hWindow hRealization,
-              ∀ hMembership :
-                sourceMembershipWitness
-                  point hSupport hWindow hRealization hSource,
-                sourceProofWitness
-                  point hSupport hWindow hRealization hSource hMembership
-  sourceProofRealizationData :
-    SourceFourierSupportWindowSourceProofRealizationData
+  sourceMembershipRealizationData :
+    SourceFourierSupportWindowSourceMembershipRealizationData
       S f I fourierSupportSet fourierSupportMembership
       fourierSupportWindowSet fourierSupportWindowMembership
       fourierSupportSubtypeToWindow realizationWitness
       fourierSupportWindowSourceObject sourceMembershipWitness
-      sourceProofWitness
 
 namespace SourceFourierSupportWindowSourceObjectRealizationData
 
@@ -11080,11 +11072,9 @@ theorem sourceObjectRealizesFourierSupportInWindow
     D.sourceMembershipWitnessFor
       point hSupport hWindow hRealization hSource
   exact
-    D.sourceProofRealizationData.sourceProofRealizesFourierSupportInWindow
+    D.sourceMembershipRealizationData.sourceMembershipRealizesFourierSupportInWindow
       point hSupport hWindow hRealization hSource
       hMembership
-      (D.sourceProofWitnessFor
-        point hSupport hWindow hRealization hSource hMembership)
 
 end SourceFourierSupportWindowSourceObjectRealizationData
 
