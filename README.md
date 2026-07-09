@@ -481,6 +481,32 @@ Route A: restricted-test CC20 sufficiency
     +-- no selected one-test inequality masquerading as C_route sufficiency
 ```
 
+Current Route A Lean boundary:
+
+```text
+TraceTransportScopedFormulaCalibration
+|
++-- exact square pole-pairing transport
++-- support-square trace = no-defect source trace
++-- no-defect source trace = scoped restricted archimedean formula
++-- finite-prime index-difference / archimedean balance
++-- non-pole finite-prime mass vanishing
+|
+v
+SquareRestrictedWeilCriterion
+|
++-- detector coverage for off-line Yoshida detectors
+|
+v
+SourceRH
+```
+
+The detector-only versions of the transport rows are rejected as lower
+producers. Lean proves that both transport detector-coverage sockets are
+equivalent to the no-off-line source-zero statement once Yoshida detector
+existence is available. The same guard now covers the detector-only atomic and
+scoped-formula B2 split.
+
 A source-zero contract can replace it only if it stays below RH:
 
 ```text
