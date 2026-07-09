@@ -1,0 +1,11 @@
+.lake/
+build/
+.codegraph/
+external-opinions/
+plan/
+AGENTS.md
+MEMORY.md
+*.olean
+*.ilean
+*.trace
+*.log
