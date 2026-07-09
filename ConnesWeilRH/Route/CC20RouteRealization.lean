@@ -8666,6 +8666,92 @@ structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackage
           r).toNormalization
         ((w.concreteCanonicalOwner.owner.canonicalAtoms w.lambda w.oneLtLambda).atoms.toNormalization)
 
+/- Concrete coverage supplies canonical atoms through route-facing visible
+arithmetic data.  This is intentionally stronger than an `HEq` between owner
+visible-data proofs: the atoms are structure-valued data, so the route API must
+carry the same-object transport explicitly. -/
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    where
+  canonicalAtoms :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))) r)
+
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateDataTransportRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage)
+    where
+  certificateData :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+      let f := r.sourceBackedTest.weilTest
+      let lambda := r.bridge.sourceTraceReadOff.lambda
+      HEq
+        (data.finitePrimeData.certificateData f f lambda
+          r.bridge.sourceTraceReadOff.oneLtLambda)
+        (Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+          ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierSupportCalibration_of_sourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+              (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+                hcoverage))) r)
+          ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+              (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+                hcoverage))) r)
+          (atomRows.canonicalAtoms r))
+
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateAtomsTransportRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage)
+    where
+  certificateAtoms :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect
+        r).toNormalization =
+        (atomRows.canonicalAtoms r).atoms.toNormalization
+
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceDataCertificateCanonicalRowsTransport
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    where
+  ownerAlignmentRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+        hcoverage
+  canonicalAtomTransportRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage
+  certificateDataTransportRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateDataTransportRows
+        canonicalAtomTransportRows
+  certificateAtomsTransportRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateAtomsTransportRows
+        canonicalAtomTransportRows
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows_of_concreteCanonicalRoutePackageCoverage_transport
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (transport :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceDataCertificateCanonicalRowsTransport
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          hcoverage)) :=
+  { canonicalAtoms := transport.canonicalAtomTransportRows.canonicalAtoms
+    certificateData := transport.certificateDataTransportRows.certificateData
+    certificateAtoms := transport.certificateAtomsTransportRows.certificateAtoms }
+
 noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceAtomsOfCanonicalSourceDataCertificate
     (hweil :
       NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
