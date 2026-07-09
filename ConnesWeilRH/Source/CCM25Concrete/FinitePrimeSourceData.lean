@@ -221,6 +221,46 @@ def sourceVisibleArithmeticData
     PrimePowerArithmetic.SourceFinitePrimeArithmeticData W f g n :=
   data.visibleArithmeticData.atVisibleIndex n hn
 
+/-- The certificate atom normalization agrees with the visible arithmetic data
+on every source-visible atom.  This is not supplied by the basic certificate
+record: `atoms` and `visibleArithmeticData` are independent fields unless a
+stronger constructor or row supplies this read-off. -/
+def DirectAtomVisibleReadOff
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
+    (data :
+      FixedLambdaArithmeticCertificateSourceTestData
+        W f g lambda sourceTest) :
+    Prop :=
+  ∀ (n : ℕ) (hn : sourceTest.sourceAtomVisible n),
+    (data.atoms.atIndex n).data =
+      data.visibleArithmeticData.atVisibleIndex n hn
+
+/-- Function-level form of `DirectAtomVisibleReadOff`.  This is the sharper
+same-certificate API boundary: the visible slice of the atom normalization is
+the visible arithmetic function. -/
+def DirectAtomVisibleFunctionReadOff
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
+    (data :
+      FixedLambdaArithmeticCertificateSourceTestData
+        W f g lambda sourceTest) :
+    Prop :=
+  (fun n hn => (data.atoms.atIndex n).data) =
+    (fun n hn => data.visibleArithmeticData.atVisibleIndex n hn)
+
+theorem DirectAtomVisibleReadOff_of_functionReadOff
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
+    {data :
+      FixedLambdaArithmeticCertificateSourceTestData
+        W f g lambda sourceTest}
+    (h :
+      DirectAtomVisibleFunctionReadOff data) :
+    DirectAtomVisibleReadOff data := by
+  intro n hn
+  exact congrFun (congrFun h n) hn
+
 theorem globalExact
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
@@ -349,6 +389,29 @@ def ofArithmeticSupportSkeleton
   visibleArithmeticData := support.visibleArithmeticData
   atoms := atoms
 
+@[simp] theorem ofArithmeticSupportSkeleton_visibleArithmeticData
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (support :
+      PrimePowerSupport.SourcePrimePowerArithmeticSupportSkeletonAtLambda
+        W f g lambda)
+    (atoms :
+      PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest
+        W f g support.sourceTest) :
+    (ofArithmeticSupportSkeleton support atoms).visibleArithmeticData =
+      support.visibleArithmeticData :=
+  rfl
+
+@[simp] theorem ofArithmeticSupportSkeleton_atoms
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (support :
+      PrimePowerSupport.SourcePrimePowerArithmeticSupportSkeletonAtLambda
+        W f g lambda)
+    (atoms :
+      PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest
+        W f g support.sourceTest) :
+    (ofArithmeticSupportSkeleton support atoms).atoms = atoms :=
+  rfl
+
 noncomputable def ofConcreteObject
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     (object :
@@ -376,6 +439,32 @@ noncomputable def ofConcreteObject
   visibleArithmeticData := object.visibleArithmeticData
   atoms := object.certificate.atomsWithSourceTest
 
+@[simp] theorem ofConcreteObject_visibleArithmeticData
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (object :
+      FinitePrimeCertificate.FixedLambdaFinitePrimeConcreteObject
+        W f g lambda) :
+    (ofConcreteObject object).visibleArithmeticData =
+      object.visibleArithmeticData :=
+  rfl
+
+@[simp] theorem ofConcreteObject_atoms
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (object :
+      FinitePrimeCertificate.FixedLambdaFinitePrimeConcreteObject
+        W f g lambda) :
+    (ofConcreteObject object).atoms = object.certificate.atomsWithSourceTest :=
+  rfl
+
+theorem directAtomVisibleFunctionReadOff_ofConcreteObject
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (object :
+      FinitePrimeCertificate.FixedLambdaFinitePrimeConcreteObject
+        W f g lambda) :
+    DirectAtomVisibleFunctionReadOff (ofConcreteObject object) := by
+  funext n hn
+  rfl
+
 theorem toCertificate_support_sourceTest
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
@@ -399,6 +488,25 @@ def fixedLambdaArithmeticCertificateSourceTestDataOfCertificate
     cert.support
     cert.atomsWithSourceTest
 
+@[simp] theorem fixedLambdaArithmeticCertificateSourceTestDataOfCertificate_visibleArithmeticData
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (cert :
+      FinitePrimeCertificate.FixedLambdaFinitePrimeArithmeticCertificate
+        W f g lambda) :
+    (fixedLambdaArithmeticCertificateSourceTestDataOfCertificate
+      cert).visibleArithmeticData =
+      cert.support.visibleArithmeticData :=
+  rfl
+
+@[simp] theorem fixedLambdaArithmeticCertificateSourceTestDataOfCertificate_atoms
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    (cert :
+      FinitePrimeCertificate.FixedLambdaFinitePrimeArithmeticCertificate
+        W f g lambda) :
+    (fixedLambdaArithmeticCertificateSourceTestDataOfCertificate cert).atoms =
+      cert.atomsWithSourceTest :=
+  rfl
+
 /-- Exact finite-prime arithmetic data for all test pairs over one common test. -/
 structure FinitePrimeArithmeticSourceData
     (W : WeilFormSymbols)
@@ -409,6 +517,62 @@ structure FinitePrimeArithmeticSourceData
       1 < lambda →
       FixedLambdaArithmeticCertificateSourceTestData
         W f g lambda (selector.sourceTest f g)
+
+namespace FinitePrimeArithmeticSourceData
+
+/-- Source-data-level version of direct atom/visible read-off.  It is the
+route-independent bottom below route-specific source-test casts. -/
+def CertificateDirectAtomVisibleReadOff
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    (data : FinitePrimeArithmeticSourceData W common) :
+    Prop :=
+  ∀ (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda),
+    FixedLambdaArithmeticCertificateSourceTestData.DirectAtomVisibleReadOff
+      (data.certificateData f g lambda hlambda)
+
+/-- Function-level source-data row below
+`CertificateDirectAtomVisibleReadOff`. -/
+def CertificateDirectAtomVisibleFunctionReadOff
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    (data : FinitePrimeArithmeticSourceData W common) :
+    Prop :=
+  ∀ (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda),
+    FixedLambdaArithmeticCertificateSourceTestData.DirectAtomVisibleFunctionReadOff
+      (data.certificateData f g lambda hlambda)
+
+/-- Constructor-provenance row below the atom/visible function read-off: each
+fixed-lambda certificate is the source-data form of a concrete finite-prime
+object.  Heterogeneous equality is used because the source-test index of the
+concrete object may be definitionally presented differently from the selector
+source-test stored in the source-data owner. -/
+def CertificateConcreteObjectDataReadOff
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    (data : FinitePrimeArithmeticSourceData W common) :
+    Prop :=
+  ∀ (f g : TestFunction) (lambda : ℝ) (hlambda : 1 < lambda),
+    ∃ object :
+        FinitePrimeCertificate.FixedLambdaFinitePrimeConcreteObject
+          W f g lambda,
+      HEq
+        (FixedLambdaArithmeticCertificateSourceTestData.ofConcreteObject
+          object)
+        (data.certificateData f g lambda hlambda)
+
+theorem CertificateDirectAtomVisibleReadOff_of_functionReadOff
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {data : FinitePrimeArithmeticSourceData W common}
+    (h : CertificateDirectAtomVisibleFunctionReadOff data) :
+    CertificateDirectAtomVisibleReadOff data := by
+  intro f g lambda hlambda
+  exact
+    FixedLambdaArithmeticCertificateSourceTestData.DirectAtomVisibleReadOff_of_functionReadOff
+      (h f g lambda hlambda)
+
+end FinitePrimeArithmeticSourceData
 
 def finitePrimeArithmeticSourceDataOfSourceTestCertificates
     {W : WeilFormSymbols}

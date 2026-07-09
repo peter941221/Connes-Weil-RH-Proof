@@ -7,6 +7,7 @@ Authors: ConnesWeilRH contributors
 import ConnesWeilRH.Source.CCM25Concrete.FinitePrimeSourceData
 import ConnesWeilRH.Source.CCM25Concrete.PrimePowerArithmeticBridge
 import ConnesWeilRH.Source.AnalyticCore
+import ConnesWeilRH.Source.CC20ConcreteTestSpace
 
 /-!
 # Analytic bridge for CCM25 finite-prime source data
@@ -299,6 +300,39 @@ theorem termReadOff
   rw [AnalyticCore.SourceWeilFormData.toWeilFormSymbols_finitePrimeTerm_convolutionStar,
     data.weightReadOff n hn, data.pairingReadOff n hn]
 
+noncomputable def toSupportData
+    {A : AnalyticCore.SourceTestAlgebra}
+    {W : AnalyticCore.SourceWeilFormData A}
+    {common :
+      CommonSourceTest.ConcreteCommonSourceTest W.toWeilFormSymbols}
+    {lambda : ℝ}
+    (data :
+      FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda) :
+    FixedLambdaCommonFinitePrimeSupportData W.toWeilFormSymbols common lambda where
+  globalIndexData := fun n hn => (data.globalExact n).1 hn
+  routeVisibleGlobalIndex := by
+    intro n hvisible
+    have hsourceVisible :
+        common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
+      (common.route_visibility_iff_source_visibility n).1 hvisible
+    exact
+      (data.globalExact n).2
+        { primePowerIndex :=
+            data.mathlibSourcePrimePowerIndex n hsourceVisible
+          atomVisible := hsourceVisible }
+  restrictedIndexData := fun n hn => (data.restrictedExact n).1 hn
+  routeVisibleRestrictedIndex := by
+    intro n hvisible hOne hCutoff
+    have hsourceVisible :
+        common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
+      (common.route_visibility_iff_source_visibility n).1 hvisible
+    exact
+      (data.restrictedExact n).2
+        { primePowerIndex :=
+            data.mathlibSourcePrimePowerIndex n hsourceVisible
+          atomVisible := hsourceVisible
+          lambdaCut := ⟨hOne, hCutoff⟩ }
+
 noncomputable def toSourceEvaluationVisibleArithmeticData
     {A : AnalyticCore.SourceTestAlgebra}
     {W : AnalyticCore.SourceWeilFormData A}
@@ -365,6 +399,125 @@ noncomputable def ofSourceEvaluationVisibleData
   visibleArithmeticData := visibleData.visibleArithmeticData
   atoms := atoms
 
+@[simp] theorem ofSourceEvaluationVisibleData_visibleArithmeticData
+    {A : AnalyticCore.SourceTestAlgebra}
+    {E : AnalyticCore.SourceEvaluationData A}
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (supportData :
+      FixedLambdaCommonFinitePrimeSupportData W common lambda)
+    (visibleData :
+      FixedLambdaSourceEvaluationVisibleArithmeticData E W common lambda)
+    (atoms :
+      PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest
+        W common.sourceTest common.sourceTest
+        common.toSourceTestEvaluationInterface) :
+    (ofSourceEvaluationVisibleData supportData visibleData atoms).visibleArithmeticData =
+      visibleData.visibleArithmeticData :=
+  rfl
+
+@[simp] theorem ofSourceEvaluationVisibleData_atoms
+    {A : AnalyticCore.SourceTestAlgebra}
+    {E : AnalyticCore.SourceEvaluationData A}
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (supportData :
+      FixedLambdaCommonFinitePrimeSupportData W common lambda)
+    (visibleData :
+      FixedLambdaSourceEvaluationVisibleArithmeticData E W common lambda)
+    (atoms :
+      PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest
+        W common.sourceTest common.sourceTest
+        common.toSourceTestEvaluationInterface) :
+    (ofSourceEvaluationVisibleData supportData visibleData atoms).atoms = atoms :=
+  rfl
+
+structure FixedLambdaSourceEvaluationCanonicalAtomNormalization
+    {A : AnalyticCore.SourceTestAlgebra}
+    {E : AnalyticCore.SourceEvaluationData A}
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (visibleData :
+      FixedLambdaSourceEvaluationVisibleArithmeticData E W common lambda) where
+  atoms :
+    PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest
+      W common.sourceTest common.sourceTest
+      common.toSourceTestEvaluationInterface
+  visibleReadOff :
+    (fun n hn => (atoms.atIndex n).data) =
+      (fun n hn => visibleData.visibleArithmeticData.atVisibleIndex n hn)
+
+noncomputable def ofSourceEvaluationVisibleCanonicalData
+    {A : AnalyticCore.SourceTestAlgebra}
+    {E : AnalyticCore.SourceEvaluationData A}
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (supportData :
+      FixedLambdaCommonFinitePrimeSupportData W common lambda)
+    (visibleData :
+      FixedLambdaSourceEvaluationVisibleArithmeticData E W common lambda)
+    (canonicalAtoms :
+      FixedLambdaSourceEvaluationCanonicalAtomNormalization visibleData) :
+    FixedLambdaArithmeticCertificateSourceTestData
+      W common.sourceTest common.sourceTest lambda
+      common.toSourceTestEvaluationInterface :=
+  ofSourceEvaluationVisibleData supportData visibleData canonicalAtoms.atoms
+
+@[simp] theorem ofSourceEvaluationVisibleCanonicalData_visibleArithmeticData
+    {A : AnalyticCore.SourceTestAlgebra}
+    {E : AnalyticCore.SourceEvaluationData A}
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (supportData :
+      FixedLambdaCommonFinitePrimeSupportData W common lambda)
+    (visibleData :
+      FixedLambdaSourceEvaluationVisibleArithmeticData E W common lambda)
+    (canonicalAtoms :
+      FixedLambdaSourceEvaluationCanonicalAtomNormalization visibleData) :
+    (ofSourceEvaluationVisibleCanonicalData supportData visibleData
+        canonicalAtoms).visibleArithmeticData =
+      visibleData.visibleArithmeticData :=
+  rfl
+
+@[simp] theorem ofSourceEvaluationVisibleCanonicalData_atoms
+    {A : AnalyticCore.SourceTestAlgebra}
+    {E : AnalyticCore.SourceEvaluationData A}
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (supportData :
+      FixedLambdaCommonFinitePrimeSupportData W common lambda)
+    (visibleData :
+      FixedLambdaSourceEvaluationVisibleArithmeticData E W common lambda)
+    (canonicalAtoms :
+      FixedLambdaSourceEvaluationCanonicalAtomNormalization visibleData) :
+    (ofSourceEvaluationVisibleCanonicalData supportData visibleData
+        canonicalAtoms).atoms =
+      canonicalAtoms.atoms :=
+  rfl
+
+theorem ofSourceEvaluationVisibleCanonicalData_directAtomVisibleFunctionReadOff
+    {A : AnalyticCore.SourceTestAlgebra}
+    {E : AnalyticCore.SourceEvaluationData A}
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (supportData :
+      FixedLambdaCommonFinitePrimeSupportData W common lambda)
+    (visibleData :
+      FixedLambdaSourceEvaluationVisibleArithmeticData E W common lambda)
+    (canonicalAtoms :
+      FixedLambdaSourceEvaluationCanonicalAtomNormalization visibleData) :
+    FixedLambdaArithmeticCertificateSourceTestData.DirectAtomVisibleFunctionReadOff
+      (ofSourceEvaluationVisibleCanonicalData supportData visibleData
+        canonicalAtoms) :=
+  canonicalAtoms.visibleReadOff
+
 @[simp] theorem ofSourceEvaluationVisibleData_sourceVisibleArithmeticData
     {A : AnalyticCore.SourceTestAlgebra}
     {E : AnalyticCore.SourceEvaluationData A}
@@ -407,6 +560,114 @@ noncomputable def ofSourceWeilFormVisibleData
       common.toSourceTestEvaluationInterface :=
   ofSourceEvaluationVisibleData supportData
     visibleData.toSourceEvaluationVisibleArithmeticData atoms
+
+@[simp] theorem ofSourceWeilFormVisibleData_visibleArithmeticData
+    {A : AnalyticCore.SourceTestAlgebra}
+    {W : AnalyticCore.SourceWeilFormData A}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W.toWeilFormSymbols}
+    {lambda : ℝ}
+    (supportData :
+      FixedLambdaCommonFinitePrimeSupportData W.toWeilFormSymbols common lambda)
+    (visibleData :
+      FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda)
+    (atoms :
+      PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest
+        W.toWeilFormSymbols common.sourceTest common.sourceTest
+        common.toSourceTestEvaluationInterface) :
+    (ofSourceWeilFormVisibleData supportData visibleData atoms).visibleArithmeticData =
+      visibleData.toSourceEvaluationVisibleArithmeticData.visibleArithmeticData :=
+  rfl
+
+@[simp] theorem ofSourceWeilFormVisibleData_atoms
+    {A : AnalyticCore.SourceTestAlgebra}
+    {W : AnalyticCore.SourceWeilFormData A}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W.toWeilFormSymbols}
+    {lambda : ℝ}
+    (supportData :
+      FixedLambdaCommonFinitePrimeSupportData W.toWeilFormSymbols common lambda)
+    (visibleData :
+      FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda)
+    (atoms :
+      PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest
+        W.toWeilFormSymbols common.sourceTest common.sourceTest
+        common.toSourceTestEvaluationInterface) :
+    (ofSourceWeilFormVisibleData supportData visibleData atoms).atoms = atoms :=
+  rfl
+
+abbrev FixedLambdaSourceWeilFormCanonicalAtomNormalization
+    {A : AnalyticCore.SourceTestAlgebra}
+    {W : AnalyticCore.SourceWeilFormData A}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W.toWeilFormSymbols}
+    {lambda : ℝ}
+    (visibleData :
+      FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda) :=
+  FixedLambdaSourceEvaluationCanonicalAtomNormalization
+    visibleData.toSourceEvaluationVisibleArithmeticData
+
+noncomputable def ofSourceWeilFormVisibleCanonicalData
+    {A : AnalyticCore.SourceTestAlgebra}
+    {W : AnalyticCore.SourceWeilFormData A}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W.toWeilFormSymbols}
+    {lambda : ℝ}
+    (supportData :
+      FixedLambdaCommonFinitePrimeSupportData W.toWeilFormSymbols common lambda)
+    (visibleData :
+      FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda)
+    (canonicalAtoms :
+      FixedLambdaSourceWeilFormCanonicalAtomNormalization visibleData) :
+    FixedLambdaArithmeticCertificateSourceTestData
+      W.toWeilFormSymbols common.sourceTest common.sourceTest lambda
+      common.toSourceTestEvaluationInterface :=
+  ofSourceEvaluationVisibleCanonicalData supportData
+    visibleData.toSourceEvaluationVisibleArithmeticData canonicalAtoms
+
+@[simp] theorem ofSourceWeilFormVisibleCanonicalData_visibleArithmeticData
+    {A : AnalyticCore.SourceTestAlgebra}
+    {W : AnalyticCore.SourceWeilFormData A}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W.toWeilFormSymbols}
+    {lambda : ℝ}
+    (supportData :
+      FixedLambdaCommonFinitePrimeSupportData W.toWeilFormSymbols common lambda)
+    (visibleData :
+      FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda)
+    (canonicalAtoms :
+      FixedLambdaSourceWeilFormCanonicalAtomNormalization visibleData) :
+    (ofSourceWeilFormVisibleCanonicalData supportData visibleData
+        canonicalAtoms).visibleArithmeticData =
+      visibleData.toSourceEvaluationVisibleArithmeticData.visibleArithmeticData :=
+  rfl
+
+@[simp] theorem ofSourceWeilFormVisibleCanonicalData_atoms
+    {A : AnalyticCore.SourceTestAlgebra}
+    {W : AnalyticCore.SourceWeilFormData A}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W.toWeilFormSymbols}
+    {lambda : ℝ}
+    (supportData :
+      FixedLambdaCommonFinitePrimeSupportData W.toWeilFormSymbols common lambda)
+    (visibleData :
+      FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda)
+    (canonicalAtoms :
+      FixedLambdaSourceWeilFormCanonicalAtomNormalization visibleData) :
+    (ofSourceWeilFormVisibleCanonicalData supportData visibleData
+        canonicalAtoms).atoms =
+      canonicalAtoms.atoms :=
+  rfl
+
+theorem ofSourceWeilFormVisibleCanonicalData_directAtomVisibleFunctionReadOff
+    {A : AnalyticCore.SourceTestAlgebra}
+    {W : AnalyticCore.SourceWeilFormData A}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W.toWeilFormSymbols}
+    {lambda : ℝ}
+    (supportData :
+      FixedLambdaCommonFinitePrimeSupportData W.toWeilFormSymbols common lambda)
+    (visibleData :
+      FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda)
+    (canonicalAtoms :
+      FixedLambdaSourceWeilFormCanonicalAtomNormalization visibleData) :
+    FixedLambdaArithmeticCertificateSourceTestData.DirectAtomVisibleFunctionReadOff
+      (ofSourceWeilFormVisibleCanonicalData supportData visibleData
+        canonicalAtoms) :=
+  canonicalAtoms.visibleReadOff
 
 @[simp] theorem ofSourceWeilFormVisibleData_sourceVisibleArithmeticData
     {A : AnalyticCore.SourceTestAlgebra}
@@ -456,6 +717,724 @@ theorem ofSourceWeilFormVisibleData_sourceVisibleArithmeticData_mathlibIndex
   rfl
 
 end FixedLambdaArithmeticCertificateSourceTestData
+
+/-- Data-bearing source owner for route-common finite-prime certificates.
+
+This wrapper does not claim that every `(f,g)` certificate in the underlying
+source-data owner is canonical.  It records the sharper provenance needed by
+the square route: for the selected common test, each fixed-lambda certificate
+is generated from same-symbol source-Weil-form visible data and a full
+canonical atom normalization. -/
+structure CanonicalSourceWeilFormSourceDataOwner
+    (W : WeilFormSymbols) (commonTestFunction : TestFunction) where
+  sourceDataOwner : CommonFinitePrimeArithmeticSourceData W
+  sourceDataOwner_commonTestFunction :
+    sourceDataOwner.commonTestFunction = commonTestFunction
+  A : AnalyticCore.SourceTestAlgebra
+  sourceWeilForm : AnalyticCore.SourceWeilFormData A
+  sameSymbols : W = sourceWeilForm.toWeilFormSymbols
+  supportData :
+    ∀ lambda : ℝ, 1 < lambda →
+      FixedLambdaCommonFinitePrimeSupportData W
+        (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+        lambda
+  visibleData :
+    ∀ lambda : ℝ, 1 < lambda →
+      FixedLambdaSourceEvaluationVisibleArithmeticData
+        sourceWeilForm.evaluation W
+        (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+        lambda
+  canonicalAtoms :
+    ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+      FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+        (visibleData lambda hlambda)
+  certificateData :
+    ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+      HEq
+        (sourceDataOwner.finitePrimeData.certificateData
+          commonTestFunction commonTestFunction lambda hlambda)
+        (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+          (supportData lambda hlambda)
+          (visibleData lambda hlambda)
+          (canonicalAtoms lambda hlambda))
+
+namespace CanonicalSourceWeilFormSourceDataOwner
+
+noncomputable def ofSourceWeilFormVisibleCanonicalData
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    {A : AnalyticCore.SourceTestAlgebra}
+    (sourceWeilForm : AnalyticCore.SourceWeilFormData A)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda))) :
+    CanonicalSourceWeilFormSourceDataOwner W commonTestFunction where
+  sourceDataOwner := sourceDataOwner
+  sourceDataOwner_commonTestFunction := sourceDataOwner_commonTestFunction
+  A := A
+  sourceWeilForm := sourceWeilForm
+  sameSymbols := sameSymbols
+  supportData := supportData
+  visibleData := visibleData
+  canonicalAtoms := canonicalAtoms
+  certificateData := certificateData
+
+@[simp] theorem ofSourceWeilFormVisibleCanonicalData_sourceWeilForm
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    {A : AnalyticCore.SourceTestAlgebra}
+    (sourceWeilForm : AnalyticCore.SourceWeilFormData A)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda))) :
+    (ofSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      sameSymbols supportData visibleData canonicalAtoms certificateData).sourceWeilForm =
+      sourceWeilForm :=
+  rfl
+
+@[simp] theorem ofSourceWeilFormVisibleCanonicalData_sameSymbols
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    {A : AnalyticCore.SourceTestAlgebra}
+    (sourceWeilForm : AnalyticCore.SourceWeilFormData A)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda))) :
+    (ofSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      sameSymbols supportData visibleData canonicalAtoms certificateData).sameSymbols =
+      sameSymbols :=
+  rfl
+
+@[simp] theorem ofSourceWeilFormVisibleCanonicalData_supportData
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    {A : AnalyticCore.SourceTestAlgebra}
+    (sourceWeilForm : AnalyticCore.SourceWeilFormData A)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda)))
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    (ofSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      sameSymbols supportData visibleData canonicalAtoms certificateData).supportData
+        lambda hlambda =
+      supportData lambda hlambda :=
+  rfl
+
+@[simp] theorem ofSourceWeilFormVisibleCanonicalData_visibleData
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    {A : AnalyticCore.SourceTestAlgebra}
+    (sourceWeilForm : AnalyticCore.SourceWeilFormData A)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda)))
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    (ofSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      sameSymbols supportData visibleData canonicalAtoms certificateData).visibleData
+        lambda hlambda =
+      visibleData lambda hlambda :=
+  rfl
+
+theorem certificateData_eq
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (owner : CanonicalSourceWeilFormSourceDataOwner W commonTestFunction)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    HEq
+      (owner.sourceDataOwner.finitePrimeData.certificateData
+        commonTestFunction commonTestFunction lambda hlambda)
+      (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+        (owner.supportData lambda hlambda)
+        (owner.visibleData lambda hlambda)
+        (owner.canonicalAtoms lambda hlambda)) :=
+  owner.certificateData lambda hlambda
+
+theorem canonicalAtoms_visibleReadOff
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (owner : CanonicalSourceWeilFormSourceDataOwner W commonTestFunction)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    (fun n hn => ((owner.canonicalAtoms lambda hlambda).atoms.atIndex n).data) =
+      (fun n hn =>
+        (owner.visibleData lambda hlambda).visibleArithmeticData.atVisibleIndex
+          n hn) :=
+  (owner.canonicalAtoms lambda hlambda).visibleReadOff
+
+end CanonicalSourceWeilFormSourceDataOwner
+
+/-- Concrete source-Weil-form provenance for the canonical finite-prime
+source-data owner.  This is the source-layer owner required by the normalized
+CC20 square route's B1 transport: the owner-selected source-Weil-form symbols
+must have a representative over the normalized concrete CC20 source algebra,
+and that representative must use the normalized concrete source-evaluation
+object. -/
+structure ConcreteCanonicalSourceWeilFormSourceDataOwner
+    (W : WeilFormSymbols) (commonTestFunction : TestFunction) where
+  owner : CanonicalSourceWeilFormSourceDataOwner W commonTestFunction
+  concreteSourceWeilForm :
+    AnalyticCore.SourceWeilFormData normalizedCC20ConcreteTestAlgebra
+  owner_algebra_eq :
+    owner.A = normalizedCC20ConcreteTestAlgebra
+  owner_sourceWeilForm_heq :
+    HEq owner.sourceWeilForm concreteSourceWeilForm
+  owner_sourceWeilForm_eq :
+    cast (by rw [owner_algebra_eq]) owner.sourceWeilForm =
+      concreteSourceWeilForm
+  owner_sourceWeilForm_evaluation_heq :
+    HEq owner.sourceWeilForm.evaluation concreteSourceWeilForm.evaluation
+  owner_sourceWeilForm_evaluation_eq :
+    cast (by rw [owner_algebra_eq]) owner.sourceWeilForm.evaluation =
+      concreteSourceWeilForm.evaluation
+  concreteEvaluation_eq :
+    concreteSourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData
+  owner_sourceWeilForm_symbols_eq :
+    owner.sourceWeilForm.toWeilFormSymbols =
+      concreteSourceWeilForm.toWeilFormSymbols
+
+namespace ConcreteCanonicalSourceWeilFormSourceDataOwner
+
+noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    (sourceWeilForm :
+      AnalyticCore.SourceWeilFormData normalizedCC20ConcreteTestAlgebra)
+    (concreteEvaluation_eq :
+      sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda))) :
+    ConcreteCanonicalSourceWeilFormSourceDataOwner W commonTestFunction where
+  owner :=
+    CanonicalSourceWeilFormSourceDataOwner.ofSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      sameSymbols supportData visibleData canonicalAtoms certificateData
+  concreteSourceWeilForm := sourceWeilForm
+  owner_algebra_eq := rfl
+  owner_sourceWeilForm_heq := HEq.rfl
+  owner_sourceWeilForm_eq := rfl
+  owner_sourceWeilForm_evaluation_heq := HEq.rfl
+  owner_sourceWeilForm_evaluation_eq := rfl
+  concreteEvaluation_eq := concreteEvaluation_eq
+  owner_sourceWeilForm_symbols_eq := rfl
+
+@[simp] theorem ofConcreteSourceWeilFormVisibleCanonicalData_owner
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    (sourceWeilForm :
+      AnalyticCore.SourceWeilFormData normalizedCC20ConcreteTestAlgebra)
+    (concreteEvaluation_eq :
+      sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda))) :
+    (ofConcreteSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      certificateData).owner =
+      CanonicalSourceWeilFormSourceDataOwner.ofSourceWeilFormVisibleCanonicalData
+        sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+        sameSymbols supportData visibleData canonicalAtoms certificateData :=
+  rfl
+
+@[simp] theorem ofConcreteSourceWeilFormVisibleCanonicalData_concreteSourceWeilForm
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    (sourceWeilForm :
+      AnalyticCore.SourceWeilFormData normalizedCC20ConcreteTestAlgebra)
+    (concreteEvaluation_eq :
+      sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda))) :
+    (ofConcreteSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      certificateData).concreteSourceWeilForm =
+      sourceWeilForm :=
+  rfl
+
+@[simp] theorem ofConcreteSourceWeilFormVisibleCanonicalData_owner_algebra_eq
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    (sourceWeilForm :
+      AnalyticCore.SourceWeilFormData normalizedCC20ConcreteTestAlgebra)
+    (concreteEvaluation_eq :
+      sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda))) :
+    (ofConcreteSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      certificateData).owner_algebra_eq =
+      rfl :=
+  rfl
+
+@[simp] theorem ofConcreteSourceWeilFormVisibleCanonicalData_owner_sourceWeilForm_heq
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    (sourceWeilForm :
+      AnalyticCore.SourceWeilFormData normalizedCC20ConcreteTestAlgebra)
+    (concreteEvaluation_eq :
+      sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda))) :
+    (ofConcreteSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      certificateData).owner_sourceWeilForm_heq =
+      HEq.rfl :=
+  rfl
+
+@[simp] theorem ofConcreteSourceWeilFormVisibleCanonicalData_owner_sourceWeilForm_eq
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    (sourceWeilForm :
+      AnalyticCore.SourceWeilFormData normalizedCC20ConcreteTestAlgebra)
+    (concreteEvaluation_eq :
+      sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda))) :
+    (ofConcreteSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      certificateData).owner_sourceWeilForm_eq =
+      rfl :=
+  rfl
+
+@[simp] theorem ofConcreteSourceWeilFormVisibleCanonicalData_owner_sourceWeilForm_evaluation_heq
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    (sourceWeilForm :
+      AnalyticCore.SourceWeilFormData normalizedCC20ConcreteTestAlgebra)
+    (concreteEvaluation_eq :
+      sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda))) :
+    (ofConcreteSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      certificateData).owner_sourceWeilForm_evaluation_heq =
+      HEq.rfl :=
+  rfl
+
+@[simp] theorem ofConcreteSourceWeilFormVisibleCanonicalData_owner_sourceWeilForm_evaluation_eq
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    (sourceWeilForm :
+      AnalyticCore.SourceWeilFormData normalizedCC20ConcreteTestAlgebra)
+    (concreteEvaluation_eq :
+      sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda))) :
+    (ofConcreteSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      certificateData).owner_sourceWeilForm_evaluation_eq =
+      rfl :=
+  rfl
+
+@[simp] theorem ofConcreteSourceWeilFormVisibleCanonicalData_concreteEvaluation_eq
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    (sourceWeilForm :
+      AnalyticCore.SourceWeilFormData normalizedCC20ConcreteTestAlgebra)
+    (concreteEvaluation_eq :
+      sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda))) :
+    (ofConcreteSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      certificateData).concreteEvaluation_eq =
+      concreteEvaluation_eq :=
+  rfl
+
+@[simp] theorem ofConcreteSourceWeilFormVisibleCanonicalData_symbols_eq
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    (sourceWeilForm :
+      AnalyticCore.SourceWeilFormData normalizedCC20ConcreteTestAlgebra)
+    (concreteEvaluation_eq :
+      sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda))) :
+    (ofConcreteSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      certificateData).owner_sourceWeilForm_symbols_eq =
+      rfl :=
+  rfl
+
+end ConcreteCanonicalSourceWeilFormSourceDataOwner
 
 end FinitePrimeSourceData
 end CCM25Concrete

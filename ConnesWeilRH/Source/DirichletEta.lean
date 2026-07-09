@@ -1589,25 +1589,28 @@ theorem etaPairTermComplex_tsum_eq_dirichletEtaAnalytic_on_re_pos :
     (by norm_num : (2 : ℂ) ∈ {z : ℂ | 0 < z.re})
     hfreqEq
 
+theorem dirichletEtaAnalytic_ofReal_eq_orderedEtaValue_of_pos
+    {sigma : ℝ} (hsigma : 0 < sigma) :
+    dirichletEtaAnalytic (sigma : ℂ) = (orderedEtaValue sigma : ℂ) := by
+  have hpair :
+      (∑' n : ℕ, etaPairTermComplex (sigma : ℂ) n) =
+        dirichletEtaAnalytic (sigma : ℂ) :=
+    etaPairTermComplex_tsum_eq_dirichletEtaAnalytic_on_re_pos
+      (by simpa using hsigma)
+  have hordered :
+      (∑' n : ℕ, etaPairTermComplex ((sigma : ℝ) : ℂ) n) =
+        (orderedEtaValue sigma : ℂ) :=
+    etaPairTermComplex_tsum_ofReal_eq_orderedEtaValue hsigma
+  exact hpair.symm.trans (by simpa using hordered)
+
 theorem dirichletEtaAnalytic_half_eq_ordered :
     dirichletEtaAnalytic (1 / 2 : ℂ) =
       (dirichletEtaRealHalfOrdered : ℂ) := by
-  have hpair :
-      (∑' n : ℕ, etaPairTermComplex (1 / 2 : ℂ) n) =
-        dirichletEtaAnalytic (1 / 2 : ℂ) :=
-    etaPairTermComplex_tsum_eq_dirichletEtaAnalytic_on_re_pos
-      (by norm_num : (1 / 2 : ℂ) ∈ {z : ℂ | 0 < z.re})
-  have hordered :
-      (∑' n : ℕ, etaPairTermComplex ((1 / 2 : ℝ) : ℂ) n) =
-        (dirichletEtaRealHalfOrdered : ℂ) := by
-    rw [etaPairTermComplex_tsum_ofReal_eq_orderedEtaValue
-      (by norm_num : 0 < (1 / 2 : ℝ))]
-    rw [orderedEtaValue_half_eq_dirichletEtaRealHalfOrdered]
-  have horderedC :
-      (∑' n : ℕ, etaPairTermComplex (1 / 2 : ℂ) n) =
-        (dirichletEtaRealHalfOrdered : ℂ) := by
-    simpa using hordered
-  exact hpair.symm.trans horderedC
+  have h :=
+    dirichletEtaAnalytic_ofReal_eq_orderedEtaValue_of_pos
+      (sigma := (1 / 2 : ℝ)) (by norm_num : 0 < (1 / 2 : ℝ))
+  rw [orderedEtaValue_half_eq_dirichletEtaRealHalfOrdered] at h
+  simpa using h
 
 theorem tendsto_etaSigmaPowerSeries_nhdsWithin_lt
     {sigma : ℝ} (hsigma : 0 < sigma) :
@@ -1723,6 +1726,50 @@ theorem cosZeta_half_period_eq_neg_dirichletEtaRealHalfOrdered_of_full_lseries_a
       -(dirichletEtaRealHalfOrdered : ℂ) :=
   tendsto_nhds_unique hfull
     tendsto_lseries_cosZeta_half_period_powerSeries_nhdsWithin_lt_ordered
+
+theorem cosZeta_half_period_eq_neg_dirichletEtaRealHalfOrdered :
+    HurwitzZeta.cosZeta
+        (ZMod.toAddCircle (1 : ZMod 2))
+        (1 / 2 : ℂ) =
+      -(dirichletEtaRealHalfOrdered : ℂ) := by
+  have h :
+      -HurwitzZeta.cosZeta
+          (ZMod.toAddCircle (1 : ZMod 2))
+          (1 / 2 : ℂ) =
+        (dirichletEtaRealHalfOrdered : ℂ) := by
+    have heta := dirichletEtaAnalytic_half_eq_ordered
+    rw [dirichletEtaAnalytic_half_eq_neg_cosZeta_half] at heta
+    exact heta
+  have hneg := congrArg Neg.neg h
+  simpa using hneg
+
+theorem tendsto_lseries_cosZeta_half_period_powerSeries_nhdsWithin_lt_cosZeta :
+    Tendsto
+      (fun x : ℝ =>
+        ∑' m : ℕ,
+          LSeries.term
+            (fun k : ℕ =>
+              ((Real.cos (2 * Real.pi * (1 / 2 : ℝ) * (k : ℝ)) : ℝ) : ℂ))
+            (1 / 2 : ℂ) m * (x : ℂ) ^ m)
+      (𝓝[<] (1 : ℝ))
+      (𝓝
+        (HurwitzZeta.cosZeta
+          (ZMod.toAddCircle (1 : ZMod 2))
+          (1 / 2 : ℂ))) := by
+  simpa [← cosZeta_half_period_eq_neg_dirichletEtaRealHalfOrdered] using
+    tendsto_lseries_cosZeta_half_period_powerSeries_nhdsWithin_lt_ordered
+
+theorem tendsto_neg_cosZeta_half_period_abel_etaHalfPowerSeries :
+    Tendsto
+      (fun x : ℝ =>
+        ((∑' n : ℕ, ((-1 : ℝ) ^ n * etaHalfTerm n) * x ^ n : ℝ) : ℂ))
+      (𝓝[<] (1 : ℝ))
+      (𝓝
+        (-HurwitzZeta.cosZeta
+          (ZMod.toAddCircle (1 : ZMod 2))
+          (1 / 2 : ℂ))) :=
+  tendsto_neg_cosZeta_half_period_abel_etaHalfPowerSeries_of_full_lseries_term_abel
+    tendsto_lseries_cosZeta_half_period_powerSeries_nhdsWithin_lt_cosZeta
 
 theorem dirichletEtaAnalytic_half_eq_ordered_of_neg_expZeta_half_period_abel_limit
     (habel :

@@ -74,6 +74,31 @@ theorem not_normalizedCC20FiniteVanishingRows_fullWeilPositivity :
       False :=
   not_normalizedCC20FiniteVanishingWeilCriterionInput_fullWeilPositivity
 
+/-- The two rows used by the finite-vanishing CC20 exit spelling.
+
+This is a rejection boundary, not a producer API: the `fullWeilPositivity`
+field is known to be false for the selected finite-vanishing criterion input. -/
+def NormalizedCC20FiniteVanishingRows : Prop :=
+  normalizedCC20FiniteVanishingWeilCriterionInput.tripleVanishing ∧
+    Nonempty normalizedCC20FiniteVanishingWeilCriterionInput.fullWeilPositivity
+
+theorem not_normalizedCC20FiniteVanishingRows :
+    ¬ NormalizedCC20FiniteVanishingRows := by
+  intro hrows
+  rcases hrows.2 with ⟨hcriterion⟩
+  exact
+    not_normalizedCC20FiniteVanishingWeilCriterionInput_fullWeilPositivity
+      hcriterion
+
+theorem normalizedCC20FiniteVanishingRows_false_of_components
+    (_hvanish :
+      normalizedCC20FiniteVanishingWeilCriterionInput.tripleVanishing)
+    (hcriterion :
+      normalizedCC20FiniteVanishingWeilCriterionInput.fullWeilPositivity) :
+    False :=
+  not_normalizedCC20FiniteVanishingWeilCriterionInput_fullWeilPositivity
+    hcriterion
+
 theorem normalizedCC20RouteInputRealizesFiniteVanishingCriterion :
     CC20RouteInputRealizesFiniteVanishingCriterion
       normalizedCC20TestSpace
@@ -116,6 +141,23 @@ theorem normalizedCC20_source_rh_of_finite_vanishing_criterion
     hdisjoint
     hexists
     hcriterion
+
+/-- For the standard RH bridge, the no-off-line source-zero row is exactly
+`SourceRH` with the critical-line predicate unfolded to `re = 1 / 2`. -/
+theorem normalizedCC20_no_offline_source_zero_iff_standardSourceRH :
+    (∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2) ↔
+      RHDefinitionBridge.standard.SourceRH := by
+  constructor
+  · intro h rho hrho
+    exact
+      RHDefinitionBridge.standard.mathlibCriticalLine_to_source
+        rho (h (rho := rho) hrho)
+  · intro h rho hrho
+    exact
+      RHDefinitionBridge.standard.sourceCriticalLine_to_mathlib
+        rho (h rho hrho)
 
 structure NormalizedRouteBackedYoshidaSignData (rho : ℂ) where
   detector :
@@ -453,6 +495,201 @@ noncomputable def sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare
       sourceDataOwner
       (normalizedCC20TestSpace.starConvolution detector.test)
 
+noncomputable def sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquareCanonical
+    {rho : ℂ} {inputs : RouteInputs}
+    (base : SourceBackedFixedSTest inputs)
+    (detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test)))
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorSquareFixedSTestRows detector) :
+    SourceBackedFixedSTest inputs :=
+  sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare
+    base canonicalOwner.sourceDataOwner detector rows
+
+@[simp] theorem sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquareCanonical_sourceDataOwner
+    {rho : ℂ} {inputs : RouteInputs}
+    (base : SourceBackedFixedSTest inputs)
+    (detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test)))
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorSquareFixedSTestRows detector) :
+    (sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquareCanonical
+      base detector canonicalOwner rows).finitePrimeSourceDataOwner =
+      canonicalOwner.sourceDataOwner :=
+  rfl
+
+noncomputable def sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquareCanonical_sourceWeilFormCarrier
+    {rho : ℂ} {inputs : RouteInputs}
+    (base : SourceBackedFixedSTest inputs)
+    (detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test)))
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorSquareFixedSTestRows detector) :
+    let test :=
+      sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquareCanonical
+        base detector canonicalOwner rows
+    Σ A : Source.AnalyticCore.SourceTestAlgebra,
+      { sourceWeilForm : Source.AnalyticCore.SourceWeilFormData A //
+        inputs.ccm25.weilSymbols = sourceWeilForm.toWeilFormSymbols } := by
+  exact
+    ⟨canonicalOwner.A,
+      ⟨canonicalOwner.sourceWeilForm, canonicalOwner.sameSymbols⟩⟩
+
+theorem sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquareCanonical_certificateData_eq
+    {rho : ℂ} {inputs : RouteInputs}
+    (base : SourceBackedFixedSTest inputs)
+    (detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test)))
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorSquareFixedSTestRows detector)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    let test :=
+      sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquareCanonical
+        base detector canonicalOwner rows
+    HEq
+      (test.finitePrimeSourceDataOwner.finitePrimeData.certificateData
+        test.weilTest test.weilTest lambda hlambda)
+      (Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+        (canonicalOwner.supportData lambda hlambda)
+        (canonicalOwner.visibleData lambda hlambda)
+        (canonicalOwner.canonicalAtoms lambda hlambda)) := by
+  simpa [
+    sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquareCanonical,
+    sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare] using
+    Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner.certificateData_eq
+      canonicalOwner lambda hlambda
+
+theorem sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquareCanonical_certificateDataCanonicalRow
+    {rho : ℂ} {inputs : RouteInputs}
+    (base : SourceBackedFixedSTest inputs)
+    (detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test)))
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorSquareFixedSTestRows detector)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    let test :=
+      sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquareCanonical
+        base detector canonicalOwner rows
+    ∃ canonicalAtoms :
+        Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (canonicalOwner.visibleData lambda hlambda),
+      HEq
+        (test.finitePrimeSourceDataOwner.finitePrimeData.certificateData
+          test.weilTest test.weilTest lambda hlambda)
+        (Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+          (canonicalOwner.supportData lambda hlambda)
+          (canonicalOwner.visibleData lambda hlambda)
+          canonicalAtoms) := by
+  exact
+    ⟨canonicalOwner.canonicalAtoms lambda hlambda,
+      sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquareCanonical_certificateData_eq
+        base detector canonicalOwner rows lambda hlambda⟩
+
+theorem sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare_commonTestRow_iff_inputOwner
+    {rho : ℂ} {inputs : RouteInputs}
+    (base : SourceBackedFixedSTest inputs)
+    (sourceDataOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CommonFinitePrimeArithmeticSourceData
+        inputs.ccm25.weilSymbols)
+    (detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho)
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorSquareFixedSTestRows detector) :
+    let test :=
+      sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare
+        base sourceDataOwner detector rows
+    test.finitePrimeSourceDataOwner.commonTestFunction = test.weilTest ↔
+      sourceDataOwner.commonTestFunction =
+        normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test) := by
+  rfl
+
+theorem sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare_certificateDataCanonicalRow_iff_inputOwner
+    {rho : ℂ} {inputs : RouteInputs}
+    (base : SourceBackedFixedSTest inputs)
+    (sourceDataOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CommonFinitePrimeArithmeticSourceData
+        inputs.ccm25.weilSymbols)
+    (detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho)
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorSquareFixedSTestRows detector)
+    {A : Source.AnalyticCore.SourceTestAlgebra}
+    (E : Source.AnalyticCore.SourceEvaluationData A)
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    (supportData :
+      Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaCommonFinitePrimeSupportData
+        inputs.ccm25.weilSymbols
+        (Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest
+          inputs.ccm25.weilSymbols
+          (normalizedCC20TestSpace.toRouteTest
+            (normalizedCC20TestSpace.starConvolution detector.test)))
+        lambda)
+    (visibleData :
+      Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceEvaluationVisibleArithmeticData
+        E inputs.ccm25.weilSymbols
+        (Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest
+          inputs.ccm25.weilSymbols
+          (normalizedCC20TestSpace.toRouteTest
+            (normalizedCC20TestSpace.starConvolution detector.test)))
+        lambda) :
+    let test :=
+      sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare
+        base sourceDataOwner detector rows
+    (∃ canonicalAtoms :
+        Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          visibleData,
+      HEq
+        (test.finitePrimeSourceDataOwner.finitePrimeData.certificateData
+          test.weilTest test.weilTest lambda hlambda)
+        (Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+          supportData visibleData canonicalAtoms)) ↔
+      (∃ canonicalAtoms :
+          Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+            visibleData,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            (normalizedCC20TestSpace.toRouteTest
+              (normalizedCC20TestSpace.starConvolution detector.test))
+            (normalizedCC20TestSpace.toRouteTest
+              (normalizedCC20TestSpace.starConvolution detector.test))
+            lambda hlambda)
+          (Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            supportData visibleData canonicalAtoms)) := by
+  rfl
+
 structure NormalizedRouteBackedYoshidaDetectorRouteRealization
     {rho : ℂ}
     (detector :
@@ -770,6 +1007,318 @@ noncomputable def normalizedRouteBackedYoshidaDetectorArchimedeanTraceRealizatio
       oneLtLambda := oneLtLambda }
   routeBackedLocalSumReadOff := readOff.routeBackedLocalSumReadOff
 
+theorem normalizedRouteBackedYoshidaDetectorArchimedeanTraceRealization_sourceDataOwner_eq_input
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    {inputs : RouteInputs}
+    (baseSourceBackedTest : SourceBackedFixedSTest inputs)
+    (finitePrimeSourceDataOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CommonFinitePrimeArithmeticSourceData
+        inputs.ccm25.weilSymbols)
+    (lambda : ℝ) (oneLtLambda : 1 < lambda)
+    (rows :
+      Source.CCM25Concrete.Interface.ConcreteCCM25ArithmeticRows
+        inputs.ccm25.weilSymbols)
+    (readOff :
+      NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+        detector inputs) :
+    let realization :=
+      normalizedRouteBackedYoshidaDetectorArchimedeanTraceRealization_of_readOff
+        baseSourceBackedTest finitePrimeSourceDataOwner lambda oneLtLambda rows
+        readOff
+    realization.finitePrimeSourceDataOwner = finitePrimeSourceDataOwner := by
+  rfl
+
+theorem normalizedRouteBackedYoshidaDetectorArchimedeanTraceRealization_packageCertificateFamily_eq_inputRows
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    {inputs : RouteInputs}
+    (baseSourceBackedTest : SourceBackedFixedSTest inputs)
+    (finitePrimeSourceDataOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CommonFinitePrimeArithmeticSourceData
+        inputs.ccm25.weilSymbols)
+    (lambda : ℝ) (oneLtLambda : 1 < lambda)
+    (rows :
+      Source.CCM25Concrete.Interface.ConcreteCCM25ArithmeticRows
+        inputs.ccm25.weilSymbols)
+    (readOff :
+      NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+        detector inputs) :
+    let realization :=
+      normalizedRouteBackedYoshidaDetectorArchimedeanTraceRealization_of_readOff
+        baseSourceBackedTest finitePrimeSourceDataOwner lambda oneLtLambda rows
+        readOff
+    realization.ccm25ArithmeticPackage.rows.finitePrimeArithmeticCertificates =
+      rows.finitePrimeArithmeticCertificates := by
+  rfl
+
+theorem normalizedRouteBackedYoshidaDetectorArchimedeanTraceRealization_commonTestRow_iff_inputOwner
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    {inputs : RouteInputs}
+    (baseSourceBackedTest : SourceBackedFixedSTest inputs)
+    (finitePrimeSourceDataOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CommonFinitePrimeArithmeticSourceData
+        inputs.ccm25.weilSymbols)
+    (lambda : ℝ) (oneLtLambda : 1 < lambda)
+    (rows :
+      Source.CCM25Concrete.Interface.ConcreteCCM25ArithmeticRows
+        inputs.ccm25.weilSymbols)
+    (readOff :
+      NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+        detector inputs) :
+    let realization :=
+      normalizedRouteBackedYoshidaDetectorArchimedeanTraceRealization_of_readOff
+        baseSourceBackedTest finitePrimeSourceDataOwner lambda oneLtLambda rows
+        readOff
+    realization.finitePrimeSourceDataOwner.commonTestFunction =
+        normalizedCC20TestSpace.toRouteTest detector.test ↔
+      finitePrimeSourceDataOwner.commonTestFunction =
+        normalizedCC20TestSpace.toRouteTest detector.test := by
+  rfl
+
+theorem normalizedRouteBackedYoshidaDetectorArchimedeanTraceRealization_certificateFamilyRow_iff_inputRows
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    {inputs : RouteInputs}
+    (baseSourceBackedTest : SourceBackedFixedSTest inputs)
+    (finitePrimeSourceDataOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CommonFinitePrimeArithmeticSourceData
+        inputs.ccm25.weilSymbols)
+    (lambda : ℝ) (oneLtLambda : 1 < lambda)
+    (rows :
+      Source.CCM25Concrete.Interface.ConcreteCCM25ArithmeticRows
+        inputs.ccm25.weilSymbols)
+    (readOff :
+      NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+        detector inputs) :
+    let realization :=
+      normalizedRouteBackedYoshidaDetectorArchimedeanTraceRealization_of_readOff
+        baseSourceBackedTest finitePrimeSourceDataOwner lambda oneLtLambda rows
+        readOff
+    realization.ccm25ArithmeticPackage.rows.finitePrimeArithmeticCertificates =
+        Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+          realization.finitePrimeSourceDataOwner ↔
+      rows.finitePrimeArithmeticCertificates =
+        Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+          finitePrimeSourceDataOwner := by
+  rfl
+
+theorem normalizedRouteBackedYoshidaDetectorArchimedeanTraceRealization_packageSourceDataRows_iff_inputs
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    {inputs : RouteInputs}
+    (baseSourceBackedTest : SourceBackedFixedSTest inputs)
+    (finitePrimeSourceDataOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CommonFinitePrimeArithmeticSourceData
+        inputs.ccm25.weilSymbols)
+    (lambda : ℝ) (oneLtLambda : 1 < lambda)
+    (rows :
+      Source.CCM25Concrete.Interface.ConcreteCCM25ArithmeticRows
+        inputs.ccm25.weilSymbols)
+    (readOff :
+      NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+        detector inputs) :
+    let realization :=
+      normalizedRouteBackedYoshidaDetectorArchimedeanTraceRealization_of_readOff
+        baseSourceBackedTest finitePrimeSourceDataOwner lambda oneLtLambda rows
+        readOff
+    (realization.finitePrimeSourceDataOwner.commonTestFunction =
+          normalizedCC20TestSpace.toRouteTest detector.test ∧
+        realization.ccm25ArithmeticPackage.rows.finitePrimeArithmeticCertificates =
+          Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+            realization.finitePrimeSourceDataOwner) ↔
+      (finitePrimeSourceDataOwner.commonTestFunction =
+          normalizedCC20TestSpace.toRouteTest detector.test ∧
+        rows.finitePrimeArithmeticCertificates =
+          Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+            finitePrimeSourceDataOwner) := by
+  rfl
+
+/-- Arithmetic package rows whose finite-prime certificate family is generated
+from the same canonical source-data owner used by the square route test.  The
+other arithmetic rows remain explicit inputs; only the finite-prime
+source-data provenance is locked here. -/
+structure NormalizedRouteBackedYoshidaDetectorCanonicalSquareArithmeticRows
+    {rho : ℂ} {inputs : RouteInputs}
+    (detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test))) where
+  rows :
+    Source.CCM25Concrete.Interface.ConcreteCCM25ArithmeticRows
+      inputs.ccm25.weilSymbols
+  finitePrimeArithmeticCertificates_eq :
+    rows.finitePrimeArithmeticCertificates =
+      Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+        canonicalOwner.sourceDataOwner
+
+noncomputable def normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    {inputs : RouteInputs}
+    (baseSourceBackedTest : SourceBackedFixedSTest inputs)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test)))
+    (lambda : ℝ) (oneLtLambda : 1 < lambda)
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorCanonicalSquareArithmeticRows
+        detector canonicalOwner)
+    (readOff :
+      NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+        detector inputs) :
+    NormalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization
+      detector where
+  inputs := inputs
+  baseSourceBackedTest := baseSourceBackedTest
+  finitePrimeSourceDataOwner := canonicalOwner.sourceDataOwner
+  archimedeanTest := readOff.archimedeanTest
+  hilbertSchmidtGate := readOff.hilbertSchmidtGate
+  lambda := lambda
+  oneLtLambda := oneLtLambda
+  ccm25ArithmeticPackage :=
+    { rows := rows.rows
+      oneLtLambda := oneLtLambda }
+  routeBackedLocalSumReadOff := readOff.routeBackedLocalSumReadOff
+
+theorem normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_canonical_sourceDataOwner_eq
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    {inputs : RouteInputs}
+    (baseSourceBackedTest : SourceBackedFixedSTest inputs)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test)))
+    (lambda : ℝ) (oneLtLambda : 1 < lambda)
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorCanonicalSquareArithmeticRows
+        detector canonicalOwner)
+    (readOff :
+      NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+        detector inputs) :
+    let realization :=
+      normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff
+        baseSourceBackedTest canonicalOwner lambda oneLtLambda rows readOff
+    realization.finitePrimeSourceDataOwner = canonicalOwner.sourceDataOwner := by
+  rfl
+
+theorem normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_canonical_commonTestRow
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    {inputs : RouteInputs}
+    (baseSourceBackedTest : SourceBackedFixedSTest inputs)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test)))
+    (lambda : ℝ) (oneLtLambda : 1 < lambda)
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorCanonicalSquareArithmeticRows
+        detector canonicalOwner)
+    (readOff :
+      NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+        detector inputs) :
+    let realization :=
+      normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff
+        baseSourceBackedTest canonicalOwner lambda oneLtLambda rows readOff
+    realization.finitePrimeSourceDataOwner.commonTestFunction =
+      normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution detector.test) := by
+  simpa [
+    normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff] using
+    canonicalOwner.sourceDataOwner_commonTestFunction
+
+theorem normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_canonical_packageCertificateFamily
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    {inputs : RouteInputs}
+    (baseSourceBackedTest : SourceBackedFixedSTest inputs)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test)))
+    (lambda : ℝ) (oneLtLambda : 1 < lambda)
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorCanonicalSquareArithmeticRows
+        detector canonicalOwner)
+    (readOff :
+      NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+        detector inputs) :
+    let realization :=
+      normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff
+        baseSourceBackedTest canonicalOwner lambda oneLtLambda rows readOff
+    realization.ccm25ArithmeticPackage.rows.finitePrimeArithmeticCertificates =
+      Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+        realization.finitePrimeSourceDataOwner := by
+  simpa [
+    normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff] using
+    rows.finitePrimeArithmeticCertificates_eq
+
+theorem normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_canonical_packageSourceDataRows
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    {inputs : RouteInputs}
+    (baseSourceBackedTest : SourceBackedFixedSTest inputs)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test)))
+    (lambda : ℝ) (oneLtLambda : 1 < lambda)
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorCanonicalSquareArithmeticRows
+        detector canonicalOwner)
+    (readOff :
+      NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+        detector inputs) :
+    let realization :=
+      normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff
+        baseSourceBackedTest canonicalOwner lambda oneLtLambda rows readOff
+    realization.finitePrimeSourceDataOwner.commonTestFunction =
+          normalizedCC20TestSpace.toRouteTest
+            (normalizedCC20TestSpace.starConvolution detector.test) ∧
+        realization.ccm25ArithmeticPackage.rows.finitePrimeArithmeticCertificates =
+          Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+            realization.finitePrimeSourceDataOwner := by
+  constructor
+  · exact
+      normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_canonical_commonTestRow
+        baseSourceBackedTest canonicalOwner lambda oneLtLambda rows readOff
+  · exact
+      normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_canonical_packageCertificateFamily
+        baseSourceBackedTest canonicalOwner lambda oneLtLambda rows readOff
+
 noncomputable def normalizedRouteBackedYoshidaDetectorRouteTraceData_of_archimedean
     {rho : ℂ}
     {detector :
@@ -1031,6 +1580,63 @@ def NormalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealizer :
       Nonempty
         (NormalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization
           detector)
+
+/-- Data-bearing canonical square archimedean trace realization inputs.  This
+records enough constructor provenance to rebuild the square route carrier by
+the canonical source-data route-package constructor, instead of accepting an
+arbitrary square route realization. -/
+structure NormalizedRouteBackedYoshidaDetectorCanonicalSquareArchimedeanTraceRealizationData
+    {rho : ℂ}
+    (detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho) where
+  inputs : RouteInputs
+  baseSourceBackedTest : SourceBackedFixedSTest inputs
+  canonicalOwner :
+    Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+      inputs.ccm25.weilSymbols
+      (normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution detector.test))
+  lambda : ℝ
+  oneLtLambda : 1 < lambda
+  rows :
+    NormalizedRouteBackedYoshidaDetectorCanonicalSquareArithmeticRows
+      detector canonicalOwner
+  readOff :
+    NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff detector inputs
+
+def NormalizedRouteBackedYoshidaDetectorCanonicalSquareArchimedeanTraceRealizer :
+    Prop :=
+  ∀ {rho : ℂ}
+    (detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho),
+      Nonempty
+        (NormalizedRouteBackedYoshidaDetectorCanonicalSquareArchimedeanTraceRealizationData
+          detector)
+
+noncomputable def NormalizedRouteBackedYoshidaDetectorCanonicalSquareArchimedeanTraceRealizationData.toSquareArchimedeanTraceRealization
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    (data :
+      NormalizedRouteBackedYoshidaDetectorCanonicalSquareArchimedeanTraceRealizationData
+        detector) :
+    NormalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization
+      detector :=
+  normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff
+    data.baseSourceBackedTest data.canonicalOwner data.lambda data.oneLtLambda
+    data.rows data.readOff
+
+theorem normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealizer_of_canonicalSquareArchimedeanTraceRealizer
+    (hrealizer :
+      NormalizedRouteBackedYoshidaDetectorCanonicalSquareArchimedeanTraceRealizer) :
+    NormalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealizer := by
+  intro rho detector
+  rcases hrealizer detector with ⟨data⟩
+  exact
+    ⟨data.toSquareArchimedeanTraceRealization⟩
 
 def NormalizedRouteBackedYoshidaSignFamily : Prop :=
   ∀ {rho : ℂ},
@@ -1744,6 +2350,33 @@ theorem normalizedRouteBackedSourceZeroYoshidaDetectorSquareRouteRealizer_iff_no
         hexists
   · exact
       normalizedRouteBackedSourceZeroYoshidaDetectorSquareRouteRealizer_of_no_offline_source_zero
+
+theorem normalizedRouteBackedSourceZeroYoshidaDetectorSquareRouteRealizer_of_yoshida_square_route_realizer
+    (hrealizer :
+      NormalizedRouteBackedYoshidaDetectorSquareRouteRealizer) :
+    NormalizedRouteBackedSourceZeroYoshidaDetectorSquareRouteRealizer := by
+  intro rho _hrho _hoff detector
+  exact hrealizer detector
+
+theorem normalizedCC20_no_offline_source_zero_of_yoshida_square_route_realizer
+    (hrealizer :
+      NormalizedRouteBackedYoshidaDetectorSquareRouteRealizer) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 :=
+  normalizedCC20_no_offline_source_zero_of_squareRouteRealizer
+    Source.CC20YoshidaInterpolationNode.normalizedCC20YoshidaDetectorExists
+    (normalizedRouteBackedSourceZeroYoshidaDetectorSquareRouteRealizer_of_yoshida_square_route_realizer
+      hrealizer)
+
+theorem normalizedCC20_source_rh_of_yoshida_square_route_realizer
+    (hrealizer :
+      NormalizedRouteBackedYoshidaDetectorSquareRouteRealizer) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_yoshida_square_route_realizer
+      hrealizer hrho
 
 noncomputable def normalizedRouteBackedYoshidaDetectorSignWitness_of_route_realization
     {rho : ℂ}
@@ -2526,6 +3159,101 @@ noncomputable def normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_squar
     exitInputData :=
       route_backed_cc20_exit_input_data_of_route_bridge_certificate
         bridge }
+
+noncomputable def normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    {inputs : RouteInputs}
+    (baseSourceBackedTest : SourceBackedFixedSTest inputs)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test)))
+    (lambda : ℝ) (oneLtLambda : 1 < lambda)
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorCanonicalSquareArithmeticRows
+        detector canonicalOwner)
+    (readOff :
+      NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+        detector inputs) :
+    NormalizedRouteBackedCC20SquareRestrictedTest :=
+  normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization
+    (normalizedRouteBackedYoshidaDetectorSquareRouteRealization_of_trace_realization
+      (normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean
+        (normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff
+          baseSourceBackedTest canonicalOwner lambda oneLtLambda rows readOff)))
+
+theorem normalizedRouteBackedCC20SquareRestrictedTest_canonical_packageSourceDataRows
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    {inputs : RouteInputs}
+    (baseSourceBackedTest : SourceBackedFixedSTest inputs)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test)))
+    (lambda : ℝ) (oneLtLambda : 1 < lambda)
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorCanonicalSquareArithmeticRows
+        detector canonicalOwner)
+    (readOff :
+      NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+        detector inputs) :
+    let r :=
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+        baseSourceBackedTest canonicalOwner lambda oneLtLambda rows readOff
+    r.sourceBackedTest.finitePrimeSourceDataOwner.commonTestFunction =
+          r.sourceBackedTest.weilTest ∧
+        r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage.rows.finitePrimeArithmeticCertificates =
+          Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+            r.sourceBackedTest.finitePrimeSourceDataOwner := by
+  constructor
+  · simpa [
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization,
+      normalizedRouteBackedYoshidaDetectorSquareRouteRealization_of_trace_realization,
+      normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean,
+      normalizedRouteBackedYoshidaDetectorSquareRouteTraceData_of_archimedean,
+      normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff,
+      sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare] using
+      canonicalOwner.sourceDataOwner_commonTestFunction
+  · simpa [
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization,
+      normalizedRouteBackedYoshidaDetectorSquareRouteRealization_of_trace_realization,
+      normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean,
+      normalizedRouteBackedYoshidaDetectorSquareRouteTraceData_of_archimedean,
+      normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff,
+      sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare] using
+      rows.finitePrimeArithmeticCertificates_eq
+
+theorem normalizedRouteBackedCC20SquareRestrictedTest_packageSourceDataRows_iff_yoshida_square_route_realization
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    (realization :
+      NormalizedRouteBackedYoshidaDetectorSquareRouteRealization detector) :
+    let r :=
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization
+        realization
+    (r.sourceBackedTest.finitePrimeSourceDataOwner.commonTestFunction =
+          r.sourceBackedTest.weilTest ∧
+        r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage.rows.finitePrimeArithmeticCertificates =
+          Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+            r.sourceBackedTest.finitePrimeSourceDataOwner) ↔
+      realization.sourceBackedTest.finitePrimeSourceDataOwner.commonTestFunction =
+          realization.sourceBackedTest.weilTest ∧
+        realization.sourceTraceReadOff.ccm25ArithmeticPackage.rows.finitePrimeArithmeticCertificates =
+          Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+            realization.sourceBackedTest.finitePrimeSourceDataOwner := by
+  rfl
 
 /-- Route A target: the route proves the CC20 nonpositive inequality for every
 test in the restricted route-backed universe. -/
@@ -6374,6 +7102,124 @@ def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarr
       { sourceWeilForm : Source.AnalyticCore.SourceWeilFormData A //
         r.inputs.ccm25.weilSymbols = sourceWeilForm.toWeilFormSymbols }
 
+/-- Stronger B1 carrier provenance: the selected source-Weil-form is not only
+same-symbol with the route, but is carried by the normalized CC20 concrete test
+algebra and normalized concrete evaluation object.  This is the missing
+source/concrete identity below the square route's pole-pairing transport. -/
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    { sourceWeilForm :
+        Source.AnalyticCore.SourceWeilFormData normalizedCC20ConcreteTestAlgebra //
+      sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData ∧
+        r.inputs.ccm25.weilSymbols = sourceWeilForm.toWeilFormSymbols }
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+    (hconcrete :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration := by
+  intro r
+  let witness := hconcrete r
+  exact
+    ⟨normalizedCC20ConcreteTestAlgebra,
+      ⟨witness.1, witness.2.2⟩⟩
+
+/-- B1 compatibility below the square route's stored-test pole-pairing
+transport.  A same-symbol source-Weil-form carrier identifies the route
+`WeilFormSymbols.polePairing` with the carrier's source-evaluation
+`polePairing`; this row is the remaining comparison with the normalized CC20
+concrete pole-pairing at the stored route test. -/
+def NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormRoutePolePairingCompatibility
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    let witness := hsource r
+    let A := witness.1
+    let sourceWeilForm := witness.2.1
+    normalizedCC20ConcreteEvaluationData.polePairing
+        (normalizedCC20ConcreteTestAlgebra.legacy.decode
+          r.sourceBackedTest.weilTest) =
+      sourceWeilForm.evaluation.polePairing
+        (A.legacy.decode r.sourceBackedTest.weilTest)
+
+theorem normalizedRouteBackedCC20SquareRestrictedSourceWeilFormRoutePolePairingCompatibility_of_concreteSourceWeilFormCarrier
+    (hconcrete :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormRoutePolePairingCompatibility
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        hconcrete) := by
+  intro r
+  let witness := hconcrete r
+  have heval :
+      witness.1.evaluation = normalizedCC20ConcreteEvaluationData :=
+    witness.2.1
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormRoutePolePairingCompatibility,
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier,
+    witness] using
+    congrArg
+      (fun E =>
+        E.polePairing
+          (normalizedCC20ConcreteTestAlgebra.legacy.decode
+            r.sourceBackedTest.weilTest))
+      heval.symm
+
+theorem normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_sourceWeilFormRoutePolePairingCompatibility
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hcompat :
+      NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormRoutePolePairingCompatibility
+        hsource) :
+    NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration := by
+  intro r
+  let witness := hsource r
+  let A := witness.1
+  let sourceWeilForm := witness.2.1
+  have hsame :
+      r.inputs.ccm25.weilSymbols = sourceWeilForm.toWeilFormSymbols :=
+    witness.2.2
+  have hcompatAt :
+      normalizedCC20ConcreteEvaluationData.polePairing
+          (normalizedCC20ConcreteTestAlgebra.legacy.decode
+            r.sourceBackedTest.weilTest) =
+        sourceWeilForm.evaluation.polePairing
+          (A.legacy.decode r.sourceBackedTest.weilTest) := by
+    simpa [NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormRoutePolePairingCompatibility,
+      witness, A, sourceWeilForm] using hcompat r
+  dsimp [NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransport]
+  rw [hsame]
+  simpa [Source.AnalyticCore.SourceWeilFormData.toWeilFormSymbols,
+    sourceWeilForm, A] using hcompatAt
+
+theorem normalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration_of_sourceWeilFormRoutePolePairingCompatibility
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hcompat :
+      NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormRoutePolePairingCompatibility
+        hsource) :
+    NormalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration_of_routePolePairingTransportCalibration
+    (normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_sourceWeilFormRoutePolePairingCompatibility
+      hsource hcompat)
+
+theorem normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_concreteSourceWeilFormCarrier
+    (hconcrete :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_sourceWeilFormRoutePolePairingCompatibility
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+      hconcrete)
+    (normalizedRouteBackedCC20SquareRestrictedSourceWeilFormRoutePolePairingCompatibility_of_concreteSourceWeilFormCarrier
+      hconcrete)
+
+theorem normalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration_of_concreteSourceWeilFormCarrier
+    (hconcrete :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration_of_routePolePairingTransportCalibration
+    (normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_concreteSourceWeilFormCarrier
+      hconcrete)
+
 def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataArithmeticCarrierCalibration_of_sourceWeilFormCarrier
     (hsource :
       NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
@@ -6431,34 +7277,7 @@ def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDa
       Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceWeilFormVisibleArithmeticData
         sourceWeilForm common lambda :=
     { oneLtLambda := r.bridge.sourceTraceReadOff.oneLtLambda }
-  refine
-    { globalIndexData := ?_
-      routeVisibleGlobalIndex := ?_
-      restrictedIndexData := ?_
-      routeVisibleRestrictedIndex := ?_ }
-  · intro n hn
-    exact (visibleData.globalExact n).1 hn
-  · intro n hvisible
-    have hsourceVisible :
-        common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
-      (common.route_visibility_iff_source_visibility n).1 hvisible
-    exact
-      (visibleData.globalExact n).2
-        { primePowerIndex :=
-            visibleData.mathlibSourcePrimePowerIndex n hsourceVisible
-          atomVisible := hsourceVisible }
-  · intro n hn
-    exact (visibleData.restrictedExact n).1 hn
-  · intro n hvisible hOne hCutoff
-    have hsourceVisible :
-        common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
-      (common.route_visibility_iff_source_visibility n).1 hvisible
-    exact
-      (visibleData.restrictedExact n).2
-        { primePowerIndex :=
-            visibleData.mathlibSourcePrimePowerIndex n hsourceVisible
-          atomVisible := hsourceVisible
-          lambdaCut := ⟨hOne, hCutoff⟩ }
+  exact visibleData.toSupportData
 
 def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
     (hsource :
@@ -6794,6 +7613,1338 @@ structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFo
       (Source.CCM25Concrete.Package.formula_components
         pkg).commonCertificate.atomsWithSourceTest.toNormalization =
         (sourceAtoms.atomsWithSourceTest r).toNormalization
+
+/- Package source-test read-off below the source-test-bound atom package row.
+The common certificate source test is supplied by the package API; this leaf
+only asks that the package-selected source test is the concrete common source
+test used by the square route carrier. -/
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceTestReadOffCalibration
+    (_hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    let W := r.inputs.ccm25.weilSymbols
+    let f := r.sourceBackedTest.weilTest
+    let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+    let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+    Source.CCM25Concrete.Package.source_test_of_package pkg =
+      common.toSourceTestEvaluationInterface
+
+/- Package source-test read-off lowered to the finite-prime source-data family
+owned by the route source-backed test.  This is stronger than asking for a
+package wrapper equality: it says the package certificate family is the one
+generated from the same common source-data owner, and that the owner's common
+test is the route test used by the square carrier. -/
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration
+    (_hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+    let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+    data.commonTestFunction = r.sourceBackedTest.weilTest ∧
+      pkg.rows.finitePrimeArithmeticCertificates =
+        Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+          data
+
+/- Common-test component of package source-data rows. -/
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+    (_hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    r.sourceBackedTest.finitePrimeSourceDataOwner.commonTestFunction =
+      r.sourceBackedTest.weilTest
+
+/- Certificate-family component of package source-data rows. -/
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+    (_hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+    let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+    pkg.rows.finitePrimeArithmeticCertificates =
+      Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+        data
+
+/-- Source-data-owner level B1 provenance for a canonical source-Weil-form
+owner: its selected source-Weil-form symbols have a representative over the
+normalized CC20 concrete algebra whose evaluation object is the normalized
+concrete evaluation.  This is intentionally data-bearing; it does not inspect
+route certificate atoms or rebuild a representative from an external choice. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCanonicalOwnerConcreteSourceWeilFormProvenance
+    {W : WeilFormSymbols} {f : TestFunction}
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        W f) where
+  concreteSourceWeilForm :
+      Source.AnalyticCore.SourceWeilFormData normalizedCC20ConcreteTestAlgebra
+  evaluation_eq :
+    concreteSourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData
+  symbols_eq :
+    canonicalOwner.sourceWeilForm.toWeilFormSymbols =
+      concreteSourceWeilForm.toWeilFormSymbols
+
+def NormalizedRouteBackedCC20SquareRestrictedCanonicalOwnerConcreteSourceWeilFormProvenance_of_sourceConcreteOwner
+    {W : WeilFormSymbols} {f : TestFunction}
+    (concreteOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.ConcreteCanonicalSourceWeilFormSourceDataOwner
+        W f) :
+    NormalizedRouteBackedCC20SquareRestrictedCanonicalOwnerConcreteSourceWeilFormProvenance
+      concreteOwner.owner where
+  concreteSourceWeilForm := concreteOwner.concreteSourceWeilForm
+  evaluation_eq := concreteOwner.concreteEvaluation_eq
+  symbols_eq := concreteOwner.owner_sourceWeilForm_symbols_eq
+
+/-- Data-bearing provenance that a square restricted route carrier was produced
+by the canonical source-data route-package constructor. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageWitness
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) where
+  rho : ℂ
+  detector :
+    YoshidaDetector
+      normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho
+  inputs : RouteInputs
+  baseSourceBackedTest : SourceBackedFixedSTest inputs
+  canonicalOwner :
+    Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+      inputs.ccm25.weilSymbols
+      (normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution detector.test))
+  lambda : ℝ
+  oneLtLambda : 1 < lambda
+  rows :
+    NormalizedRouteBackedYoshidaDetectorCanonicalSquareArithmeticRows
+      detector canonicalOwner
+  readOff :
+    NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+      detector inputs
+  route_eq :
+    r =
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+        baseSourceBackedTest canonicalOwner lambda oneLtLambda rows readOff
+
+/-- Data-bearing provenance that a square restricted route carrier was produced
+by the concrete canonical source-data route-package constructor.  This is the
+B1-strengthened version of `CanonicalRoutePackageWitness`: the source-data
+owner itself carries the normalized concrete source-Weil-form representative
+needed for pole-pairing transport. -/
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) where
+  rho : ℂ
+  detector :
+    YoshidaDetector
+      normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho
+  inputs : RouteInputs
+  baseSourceBackedTest : SourceBackedFixedSTest inputs
+  concreteCanonicalOwner :
+    Source.CCM25Concrete.FinitePrimeSourceData.ConcreteCanonicalSourceWeilFormSourceDataOwner
+      inputs.ccm25.weilSymbols
+      (normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution detector.test))
+  lambda : ℝ
+  oneLtLambda : 1 < lambda
+  rows :
+    NormalizedRouteBackedYoshidaDetectorCanonicalSquareArithmeticRows
+      detector concreteCanonicalOwner.owner
+  readOff :
+    NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+      detector inputs
+  route_eq :
+    r =
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+        baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+        rows readOff
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness.toCanonicalRoutePackageWitness
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+        r) :
+    NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageWitness r where
+  rho := w.rho
+  detector := w.detector
+  inputs := w.inputs
+  baseSourceBackedTest := w.baseSourceBackedTest
+  canonicalOwner := w.concreteCanonicalOwner.owner
+  lambda := w.lambda
+  oneLtLambda := w.oneLtLambda
+  rows := w.rows
+  readOff := w.readOff
+  route_eq := w.route_eq
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness.concreteOwnerProvenance
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+        r) :
+    NormalizedRouteBackedCC20SquareRestrictedCanonicalOwnerConcreteSourceWeilFormProvenance
+      w.concreteCanonicalOwner.owner :=
+  NormalizedRouteBackedCC20SquareRestrictedCanonicalOwnerConcreteSourceWeilFormProvenance_of_sourceConcreteOwner
+    w.concreteCanonicalOwner
+
+theorem NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness.inputs_eq
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+        r) :
+    r.inputs = w.inputs := by
+  simpa [normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean] using
+    congrArg
+      (fun r : NormalizedRouteBackedCC20SquareRestrictedTest => r.inputs)
+      w.route_eq
+
+theorem NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness.weilSymbols_eq
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+        r) :
+    r.inputs.ccm25.weilSymbols = w.inputs.ccm25.weilSymbols := by
+  simpa [w.inputs_eq]
+
+theorem NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness.weilTest_eq
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+        r) :
+    r.sourceBackedTest.weilTest =
+      normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution w.detector.test) := by
+  simpa [
+    normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+    normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff,
+    sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquareCanonical,
+    sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare] using
+    congrArg
+      (fun r : NormalizedRouteBackedCC20SquareRestrictedTest =>
+        r.sourceBackedTest.weilTest)
+      w.route_eq
+
+theorem NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness.lambda_eq
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+        r) :
+    r.bridge.sourceTraceReadOff.lambda = w.lambda := by
+  simpa [normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean] using
+    congrArg
+      (fun r : NormalizedRouteBackedCC20SquareRestrictedTest =>
+        r.bridge.sourceTraceReadOff.lambda)
+      w.route_eq
+
+/-- Global route-universe provenance: every square restricted carrier consumed
+by the route was generated by the canonical finite-prime route-package
+constructor. -/
+def NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    Nonempty
+      (NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageWitness r)
+
+/-- Route-universe B1 provenance below canonical route-package coverage.  Every
+canonical witness used for a square restricted carrier must carry a concrete
+source-Weil-form provenance row at its source-data owner. -/
+def NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageConcreteSourceWeilFormRows :
+    Type 1 :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    ∀ w : NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageWitness r,
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalOwnerConcreteSourceWeilFormProvenance
+        w.canonicalOwner
+
+/-- Data-bearing route-universe provenance: every square restricted carrier is
+generated by a concrete canonical source-data route-package witness.  This
+keeps the selected witness available, avoiding the old `Nonempty`/choice
+boundary that can forget concrete source-Weil-form provenance. -/
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage :
+    Type 1 :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r
+
+def NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage_of_concreteCanonicalRoutePackageCoverage
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage := by
+  intro r
+  exact
+    ⟨(hcoverage r).toCanonicalRoutePackageWitness⟩
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration := by
+  intro r
+  let w := hcoverage r
+  let concreteOwner := w.concreteCanonicalOwner
+  refine
+    ⟨concreteOwner.concreteSourceWeilForm, ?_⟩
+  constructor
+  · exact concreteOwner.concreteEvaluation_eq
+  · have hrouteSymbols :
+        r.inputs.ccm25.weilSymbols = w.inputs.ccm25.weilSymbols := by
+      simpa [normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean] using
+        congrArg
+          (fun r : NormalizedRouteBackedCC20SquareRestrictedTest =>
+            r.inputs.ccm25.weilSymbols)
+          w.route_eq
+    exact hrouteSymbols.trans
+      (concreteOwner.owner.sameSymbols.trans
+        concreteOwner.owner_sourceWeilForm_symbols_eq)
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration := by
+  intro r
+  let w := Classical.choice (hcoverage r)
+  rw [w.route_eq]
+  exact
+    ⟨w.canonicalOwner.A,
+      ⟨w.canonicalOwner.sourceWeilForm, w.canonicalOwner.sameSymbols⟩⟩
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage_concreteSourceWeilFormRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage)
+    (hconcreteRows :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageConcreteSourceWeilFormRows) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration := by
+  intro r
+  let w := Classical.choice (hcoverage r)
+  let provenance := hconcreteRows r w
+  refine
+    ⟨provenance.concreteSourceWeilForm, ?_⟩
+  constructor
+  · exact provenance.evaluation_eq
+  · have hrouteSymbols :
+        r.inputs.ccm25.weilSymbols = w.inputs.ccm25.weilSymbols := by
+      simpa [normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean] using
+        congrArg
+          (fun r : NormalizedRouteBackedCC20SquareRestrictedTest =>
+            r.inputs.ccm25.weilSymbols)
+          w.route_eq
+    exact hrouteSymbols.trans
+      (w.canonicalOwner.sameSymbols.trans provenance.symbols_eq)
+
+/-- Canonical route-package coverage supplies the same-symbol source-Weil-form
+carrier, but B1 still needs the explicit source/concrete pole-pairing
+compatibility row. -/
+theorem normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_canonicalRoutePackageCoverage_sourceWeilFormRoutePolePairingCompatibility
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage)
+    (hcompat :
+      NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormRoutePolePairingCompatibility
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage
+          hcoverage)) :
+    NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_sourceWeilFormRoutePolePairingCompatibility
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage
+      hcoverage)
+    hcompat
+
+/-- Canonical coverage plus the missing B1 compatibility is enough for the
+square-carrier B1 transport; canonical finite-prime provenance alone is not
+used as a proof of this compatibility. -/
+theorem normalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration_of_canonicalRoutePackageCoverage_sourceWeilFormRoutePolePairingCompatibility
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage)
+    (hcompat :
+      NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormRoutePolePairingCompatibility
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage
+          hcoverage)) :
+    NormalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration_of_routePolePairingTransportCalibration
+    (normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_canonicalRoutePackageCoverage_sourceWeilFormRoutePolePairingCompatibility
+      hcoverage hcompat)
+
+theorem normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_canonicalRoutePackageCoverage_concreteSourceWeilFormRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage)
+    (hconcreteRows :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageConcreteSourceWeilFormRows) :
+    NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_concreteSourceWeilFormCarrier
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage_concreteSourceWeilFormRows
+      hcoverage hconcreteRows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration_of_canonicalRoutePackageCoverage_concreteSourceWeilFormRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage)
+    (hconcreteRows :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageConcreteSourceWeilFormRows) :
+    NormalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration_of_routePolePairingTransportCalibration
+    (normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_canonicalRoutePackageCoverage_concreteSourceWeilFormRows
+      hcoverage hconcreteRows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_concreteCanonicalRoutePackageCoverage
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_concreteSourceWeilFormCarrier
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+      hcoverage)
+
+theorem normalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration_of_concreteCanonicalRoutePackageCoverage
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration_of_routePolePairingTransportCalibration
+    (normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_concreteCanonicalRoutePackageCoverage
+      hcoverage)
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageWitness.packageSourceDataRows
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageWitness r) :
+    r.sourceBackedTest.finitePrimeSourceDataOwner.commonTestFunction =
+          r.sourceBackedTest.weilTest ∧
+        r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage.rows.finitePrimeArithmeticCertificates =
+          Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+            r.sourceBackedTest.finitePrimeSourceDataOwner := by
+  have hrows :=
+    normalizedRouteBackedCC20SquareRestrictedTest_canonical_packageSourceDataRows
+      w.baseSourceBackedTest w.canonicalOwner w.lambda w.oneLtLambda
+      w.rows w.readOff
+  rw [w.route_eq]
+  exact hrows
+
+theorem NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness.packageSourceDataRows
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness r) :
+    r.sourceBackedTest.finitePrimeSourceDataOwner.commonTestFunction =
+          r.sourceBackedTest.weilTest ∧
+        r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage.rows.finitePrimeArithmeticCertificates =
+          Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+            r.sourceBackedTest.finitePrimeSourceDataOwner := by
+  have hrows :=
+    normalizedRouteBackedCC20SquareRestrictedTest_canonical_packageSourceDataRows
+      w.baseSourceBackedTest w.concreteCanonicalOwner.owner w.lambda
+      w.oneLtLambda w.rows w.readOff
+  rw [w.route_eq]
+  exact hrows
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration_of_canonicalRoutePackageCoverage
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+      hweil := by
+  intro r
+  rcases hcoverage r with ⟨w⟩
+  exact w.packageSourceDataRows.1
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration_of_canonicalRoutePackageCoverage
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+      hweil := by
+  intro r
+  rcases hcoverage r with ⟨w⟩
+  exact w.packageSourceDataRows.2
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration_of_concreteCanonicalRoutePackageCoverage
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+      hweil := by
+  intro r
+  exact (hcoverage r).packageSourceDataRows.1
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration_of_concreteCanonicalRoutePackageCoverage
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+      hweil := by
+  intro r
+  exact (hcoverage r).packageSourceDataRows.2
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration_of_splitRows
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hcommon :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+        hweil)
+    (hcerts :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration
+      hweil := by
+  intro r
+  constructor
+  · simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration] using
+      hcommon r
+  · simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration] using
+      hcerts r
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration_iff_commonTest_certificateFamily
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration
+        hweil ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+          hweil ∧
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+          hweil := by
+  constructor
+  · intro hsourceData
+    constructor
+    · intro r
+      exact (hsourceData r).1
+    · intro r
+      exact (hsourceData r).2
+  · intro hsplit
+    exact
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration_of_splitRows
+        hweil hsplit.1 hsplit.2
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceTestReadOffCalibration_of_packageSourceDataRows
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hsourceData :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceTestReadOffCalibration
+      hweil := by
+  intro r
+  let W := r.inputs.ccm25.weilSymbols
+  let f := r.sourceBackedTest.weilTest
+  let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+  have hrows := hsourceData r
+  have htest : data.commonTestFunction = f := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration,
+      data, pkg, f] using hrows.1
+  have hcerts :
+      pkg.rows.finitePrimeArithmeticCertificates =
+        Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+          data := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration,
+      data, pkg, f] using hrows.2
+  have hpair :
+      data.finitePrimeData.selector.sourceTest f f =
+        common.toSourceTestEvaluationInterface := by
+    simpa [common] using
+      htest ▸
+        (Source.CCM25Concrete.FinitePrimeSourceData.commonPairSourceTest
+          data)
+  calc
+    Source.CCM25Concrete.Package.source_test_of_package pkg =
+        (pkg.rows.finitePrimeArithmeticCertificates f f).sourceTest := by
+          rfl
+    _ =
+        ((Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+            data) f f).sourceTest := by
+          rw [hcerts]
+    _ = data.finitePrimeData.selector.sourceTest f f := by
+          rfl
+    _ = common.toSourceTestEvaluationInterface := hpair
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceTestReadOffCalibration_of_splitPackageSourceDataRows
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hcommon :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+        hweil)
+    (hcerts :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceTestReadOffCalibration
+      hweil :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceTestReadOffCalibration_of_packageSourceDataRows
+    hweil
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration_of_splitRows
+      hweil hcommon hcerts)
+
+/- Package atom read-off below the source-test-bound atom package row after the
+source-test equality has been split out.  This keeps the atom object equality
+separate from the package source-test selection. -/
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomsWithSourceTestReadOffCalibration
+    (_hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (sourceAtoms :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomForSourceTestNormalizationCalibration
+        _hweil) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+    (Source.CCM25Concrete.Package.formula_components
+      pkg).commonCertificate.atomsWithSourceTest.toNormalization =
+      (sourceAtoms.atomsWithSourceTest r).toNormalization
+
+/- Source-data atom read-off for the source-Weil-form visible atom owner.
+This lowers package atom equality to the same certificate family used by
+`PackageSourceDataRows`: the visible atom owner must be the normalization read
+from the route source-data certificate at the current cutoff. -/
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration
+    (_hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (sourceAtoms :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomForSourceTestNormalizationCalibration
+        _hweil) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+    let f := r.sourceBackedTest.weilTest
+    let lambda := r.bridge.sourceTraceReadOff.lambda
+    (((Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+        data) f f).certificate lambda r.bridge.sourceTraceReadOff.oneLtLambda).atomsWithSourceTest.toNormalization =
+      (sourceAtoms.atomsWithSourceTest r).toNormalization
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) :=
+  let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  (((Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+      data) f f).certificate lambda
+      r.bridge.sourceTraceReadOff.oneLtLambda).atomsWithSourceTest
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) :=
+  let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  (data.finitePrimeData.certificateData f f lambda
+    r.bridge.sourceTraceReadOff.oneLtLambda).atoms
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms_toNormalization
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) :
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms
+        r).toNormalization =
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect
+        r).toNormalization := by
+  rfl
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+    (_hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+    let f := r.sourceBackedTest.weilTest
+    let lambda := r.bridge.sourceTraceReadOff.lambda
+    let cert :=
+      (((Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+        data) f f).certificate lambda r.bridge.sourceTraceReadOff.oneLtLambda)
+    let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest
+      r.inputs.ccm25.weilSymbols f
+    cert.support.sourceTest = common.toSourceTestEvaluationInterface
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hcommon :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+      hweil := by
+  intro r
+  let W := r.inputs.ccm25.weilSymbols
+  let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+  have htest : data.commonTestFunction = f := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration,
+      data, f] using hcommon r
+  have hpair :
+      data.finitePrimeData.selector.sourceTest f f =
+        common.toSourceTestEvaluationInterface := by
+    simpa [common] using
+      htest ▸
+        (Source.CCM25Concrete.FinitePrimeSourceData.commonPairSourceTest
+          data)
+  calc
+    ((((Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+        data) f f).certificate lambda r.bridge.sourceTraceReadOff.oneLtLambda).support.sourceTest) =
+        data.finitePrimeData.selector.sourceTest f f := by
+          rfl
+    _ = common.toSourceTestEvaluationInterface := hpair
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsCommon
+    {hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration}
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        hweil)
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) :
+    Source.CCM25Concrete.PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest
+      r.inputs.ccm25.weilSymbols
+      r.sourceBackedTest.weilTest
+      r.sourceBackedTest.weilTest
+      (Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest
+        r.inputs.ccm25.weilSymbols
+        r.sourceBackedTest.weilTest).toSourceTestEvaluationInterface := by
+  let atoms :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms
+      r
+  let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  let cert :=
+    (((Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+      data) f f).certificate lambda r.bridge.sourceTraceReadOff.oneLtLambda)
+  let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest
+    r.inputs.ccm25.weilSymbols f
+  have hsource :
+      cert.support.sourceTest =
+        common.toSourceTestEvaluationInterface := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff,
+      data, f, lambda, cert, common] using hsourceTest r
+  exact
+    Source.CCM25Concrete.PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest.ofNormalization
+      atoms.toNormalization
+      (by
+        intro n
+        exact
+          (Source.CCM25Concrete.PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest.toNormalization_uses_sourceTest
+            atoms n).trans hsource)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        hweil) :
+    Prop :=
+  ∀ (r : NormalizedRouteBackedCC20SquareRestrictedTest) (n : ℕ),
+    ∀ hsource :
+      (Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest
+        r.inputs.ccm25.weilSymbols
+        r.sourceBackedTest.weilTest).toSourceTestEvaluationInterface.sourceAtomVisible n,
+      ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsCommon
+        hsourceTest r).atIndex n).data =
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+          hweil) r).visibleArithmeticData.atVisibleIndex n hsource
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_selector
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        hweil)
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) :
+    let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+    let f := r.sourceBackedTest.weilTest
+    data.finitePrimeData.selector.sourceTest f f =
+      (Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest
+        r.inputs.ccm25.weilSymbols f).toSourceTestEvaluationInterface := by
+  let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest
+    r.inputs.ccm25.weilSymbols f
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff,
+    data, f, lambda, common] using hsourceTest r
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomVisibleReadOff
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        hweil) :
+    Prop :=
+  ∀ (r : NormalizedRouteBackedCC20SquareRestrictedTest) (n : ℕ),
+    ∀ hsource :
+      (Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest
+        r.inputs.ccm25.weilSymbols
+        r.sourceBackedTest.weilTest).toSourceTestEvaluationInterface.sourceAtomVisible n,
+      let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+      let f := r.sourceBackedTest.weilTest
+      let lambda := r.bridge.sourceTraceReadOff.lambda
+      let hselector :=
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_selector
+          hweil hsourceTest r
+      ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsCommon
+        hsourceTest r).atIndex n).data =
+        (data.finitePrimeData.certificateData f f lambda
+          r.bridge.sourceTraceReadOff.oneLtLambda).visibleArithmeticData.atVisibleIndex
+          n (hselector ▸ hsource)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleReadOff
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        hweil) :
+    Prop :=
+  ∀ (r : NormalizedRouteBackedCC20SquareRestrictedTest) (n : ℕ),
+    ∀ hsource :
+      (Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest
+        r.inputs.ccm25.weilSymbols
+        r.sourceBackedTest.weilTest).toSourceTestEvaluationInterface.sourceAtomVisible n,
+      let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+      let f := r.sourceBackedTest.weilTest
+      let lambda := r.bridge.sourceTraceReadOff.lambda
+      let certData :=
+        data.finitePrimeData.certificateData f f lambda
+          r.bridge.sourceTraceReadOff.oneLtLambda
+      let hselector :=
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_selector
+          hweil hsourceTest r
+      (certData.atoms.atIndex n).data =
+        certData.visibleArithmeticData.atVisibleIndex n (hselector ▸ hsource)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleSourceReadOff
+    (_hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    Source.CCM25Concrete.FinitePrimeSourceData.FinitePrimeArithmeticSourceData.CertificateDirectAtomVisibleReadOff
+      r.sourceBackedTest.finitePrimeSourceDataOwner.finitePrimeData
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleFunctionReadOff
+    (_hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    Source.CCM25Concrete.FinitePrimeSourceData.FinitePrimeArithmeticSourceData.CertificateDirectAtomVisibleFunctionReadOff
+      r.sourceBackedTest.finitePrimeSourceDataOwner.finitePrimeData
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleSourceReadOff_of_functionReadOff
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hfunction :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleFunctionReadOff
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleSourceReadOff
+      hweil := by
+  intro r
+  exact
+    Source.CCM25Concrete.FinitePrimeSourceData.FinitePrimeArithmeticSourceData.CertificateDirectAtomVisibleReadOff_of_functionReadOff
+      (hfunction r)
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleReadOff_of_sourceReadOff
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        hweil)
+    (hsourceRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleSourceReadOff
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleReadOff
+      hweil hsourceTest := by
+  intro r n hsource
+  let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  let certData :=
+    data.finitePrimeData.certificateData f f lambda
+      r.bridge.sourceTraceReadOff.oneLtLambda
+  let hselector :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_selector
+      hweil hsourceTest r
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleReadOff,
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleSourceReadOff,
+    Source.CCM25Concrete.FinitePrimeSourceData.FinitePrimeArithmeticSourceData.CertificateDirectAtomVisibleReadOff,
+    Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.DirectAtomVisibleReadOff,
+    data, f, lambda, certData, hselector] using
+    hsourceRows r f f lambda r.bridge.sourceTraceReadOff.oneLtLambda n
+      (hselector ▸ hsource)
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomVisibleReadOff_iff_direct
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomVisibleReadOff
+        hweil hsourceTest ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleReadOff
+        hweil hsourceTest := by
+  constructor
+  · intro h r n hsource
+    let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+    let f := r.sourceBackedTest.weilTest
+    let lambda := r.bridge.sourceTraceReadOff.lambda
+    let certData :=
+      data.finitePrimeData.certificateData f f lambda
+        r.bridge.sourceTraceReadOff.oneLtLambda
+    have hwrap :
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsCommon
+          hsourceTest r).atIndex n).data =
+          (certData.atoms.atIndex n).data := by
+      unfold NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsCommon
+      dsimp [NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms,
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect,
+        Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests,
+        Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticCertificatesForAllTests,
+        Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.toCertificate,
+        Source.CCM25Concrete.PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest.ofNormalization,
+        Source.CCM25Concrete.PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest.toNormalization,
+        Source.CCM25Concrete.PrimePowerArithmetic.SourceFinitePrimeArithmeticDataForSourceTest.ofArithmeticData,
+        data, f, lambda, certData]
+    exact hwrap.symm.trans (h r n hsource)
+  · intro h r n hsource
+    let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+    let f := r.sourceBackedTest.weilTest
+    let lambda := r.bridge.sourceTraceReadOff.lambda
+    let certData :=
+      data.finitePrimeData.certificateData f f lambda
+        r.bridge.sourceTraceReadOff.oneLtLambda
+    have hwrap :
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsCommon
+          hsourceTest r).atIndex n).data =
+          (certData.atoms.atIndex n).data := by
+      unfold NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsCommon
+      dsimp [NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms,
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect,
+        Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests,
+        Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticCertificatesForAllTests,
+        Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.toCertificate,
+        Source.CCM25Concrete.PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest.ofNormalization,
+        Source.CCM25Concrete.PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest.toNormalization,
+        Source.CCM25Concrete.PrimePowerArithmetic.SourceFinitePrimeArithmeticDataForSourceTest.ofArithmeticData,
+        data, f, lambda, certData]
+    exact hwrap.trans (h r n hsource)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticReadOff
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        hweil) :
+    Prop :=
+  ∀ (r : NormalizedRouteBackedCC20SquareRestrictedTest) (n : ℕ),
+    ∀ hsource :
+      (Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest
+        r.inputs.ccm25.weilSymbols
+        r.sourceBackedTest.weilTest).toSourceTestEvaluationInterface.sourceAtomVisible n,
+      let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+      let f := r.sourceBackedTest.weilTest
+      let lambda := r.bridge.sourceTraceReadOff.lambda
+      let hselector :=
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_selector
+          hweil hsourceTest r
+      (data.finitePrimeData.certificateData f f lambda
+        r.bridge.sourceTraceReadOff.oneLtLambda).visibleArithmeticData.atVisibleIndex
+          n (hselector ▸ hsource) =
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+          hweil) r).visibleArithmeticData.atVisibleIndex n hsource
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticDataReadOff
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        hweil) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+    let f := r.sourceBackedTest.weilTest
+    let lambda := r.bridge.sourceTraceReadOff.lambda
+    let hselector :=
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_selector
+        hweil hsourceTest r
+    (fun n hsource =>
+      (data.finitePrimeData.certificateData f f lambda
+        r.bridge.sourceTraceReadOff.oneLtLambda).visibleArithmeticData.atVisibleIndex
+          n (hselector ▸ hsource)) =
+      (fun n hsource =>
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+          hweil) r).visibleArithmeticData.atVisibleIndex n hsource)
+
+/-- Data-bearing canonical certificate row at the route boundary.  This is
+scoped to the actual square-route common pair; it does not claim that the whole
+`(f,g)` source-data certificate family was generated by the canonical
+constructor. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    where
+  canonicalAtoms :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+          hweil) r)
+  certificateData :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+      let f := r.sourceBackedTest.weilTest
+      let lambda := r.bridge.sourceTraceReadOff.lambda
+      HEq
+        (data.finitePrimeData.certificateData f f lambda
+          r.bridge.sourceTraceReadOff.oneLtLambda)
+        (Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+          ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierSupportCalibration_of_sourceWeilFormCarrier
+            hweil) r)
+          ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+            hweil) r)
+          (canonicalAtoms r))
+  certificateAtoms :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect
+        r).toNormalization =
+        (canonicalAtoms r).atoms.toNormalization
+
+/-- Missing owner-to-route alignment under canonical route-package coverage.
+
+Canonical route-package coverage selects, for each consumed carrier, a canonical
+source-data owner.  The route-facing canonical certificate row, however, is
+stated over support and visible arithmetic rows rebuilt from the
+coverage-generated carrier.  This guard is the precise data-bearing provenance
+needed to identify those rebuilt rows with the fields stored in the selected
+canonical owner. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverageOwnerAlignmentRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage)
+    where
+  supportData :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := Classical.choice (hcoverage r)
+      HEq
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierSupportCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage
+            hcoverage)) r)
+        (w.canonicalOwner.supportData w.lambda w.oneLtLambda)
+  visibleData :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := Classical.choice (hcoverage r)
+      HEq
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage
+            hcoverage)) r)
+        (w.canonicalOwner.visibleData w.lambda w.oneLtLambda)
+  certificateAtoms :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := Classical.choice (hcoverage r)
+      HEq
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect
+          r).toNormalization
+        ((w.canonicalOwner.canonicalAtoms w.lambda w.oneLtLambda).atoms.toNormalization)
+
+/-- Concrete-coverage owner-to-route alignment for the route-facing canonical
+certificate row.  Unlike the older canonical coverage alignment row, this
+uses the concrete coverage witness directly and does not pass through
+`Classical.choice` over `Nonempty`. -/
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    where
+  supportData :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := hcoverage r
+      HEq
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierSupportCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))) r)
+        (w.concreteCanonicalOwner.owner.supportData w.lambda w.oneLtLambda)
+  visibleData :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := hcoverage r
+      HEq
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))) r)
+        (w.concreteCanonicalOwner.owner.visibleData w.lambda w.oneLtLambda)
+  certificateAtoms :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := hcoverage r
+      HEq
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect
+          r).toNormalization
+        ((w.concreteCanonicalOwner.owner.canonicalAtoms w.lambda w.oneLtLambda).atoms.toNormalization)
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceAtomsOfCanonicalSourceDataCertificate
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (canonicalRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomForSourceTestNormalizationCalibration
+      hweil where
+  atomsWithSourceTest := fun r => (canonicalRows.canonicalAtoms r).atoms
+  visibleReadOff := by
+    intro r n hsource
+    exact congrFun (congrFun (canonicalRows.canonicalAtoms r).visibleReadOff n) hsource
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration_of_canonicalSourceDataCertificate
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (canonicalRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration
+      hweil
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceAtomsOfCanonicalSourceDataCertificate
+        hweil canonicalRows) := by
+  intro r
+  let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  let certData :=
+    data.finitePrimeData.certificateData f f lambda
+      r.bridge.sourceTraceReadOff.oneLtLambda
+  let canonicalAtoms := canonicalRows.canonicalAtoms r
+  change certData.atoms.toNormalization = canonicalAtoms.atoms.toNormalization
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect,
+    data, f, lambda, certData, canonicalAtoms] using
+    canonicalRows.certificateAtoms r
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticReadOff_of_visibleArithmeticDataReadOff
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        hweil)
+    (hvisibleData :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticDataReadOff
+        hweil hsourceTest) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticReadOff
+      hweil hsourceTest := by
+  intro r n hsource
+  let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  let certData :=
+    data.finitePrimeData.certificateData f f lambda
+      r.bridge.sourceTraceReadOff.oneLtLambda
+  have hfun := hvisibleData r
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticReadOff,
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticDataReadOff,
+    data, f, lambda, certData] using
+    congrFun (congrFun hfun n) hsource
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff_of_atomVisible_visibleArithmetic
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        hweil)
+    (hatomVisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomVisibleReadOff
+        hweil hsourceTest)
+    (hvisibleArithmetic :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticReadOff
+        hweil hsourceTest) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+      hweil hsourceTest := by
+  intro r n hsource
+  exact (hatomVisible r n hsource).trans (hvisibleArithmetic r n hsource)
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceAtomsOfSourceDataCertificate
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        hweil)
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        hweil hsourceTest) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomForSourceTestNormalizationCalibration
+      hweil where
+  atomsWithSourceTest := fun r =>
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsCommon
+      hsourceTest r
+  visibleReadOff := by
+    intro r n hsource
+    exact hvisible r n hsource
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration_of_toNormalization_eq
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (sourceAtoms :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomForSourceTestNormalizationCalibration
+        hweil)
+    (hatoms :
+      ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms
+          r).toNormalization =
+          (sourceAtoms.atomsWithSourceTest r).toNormalization) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration
+      hweil sourceAtoms := by
+  intro r
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration,
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms] using
+    hatoms r
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration_of_sourceDataCertificateVisibleReadOff
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        hweil)
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        hweil hsourceTest) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration
+      hweil
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceAtomsOfSourceDataCertificate
+        hweil hsourceTest hvisible) := by
+  refine
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration_of_toNormalization_eq
+      hweil
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceAtomsOfSourceDataCertificate
+        hweil hsourceTest hvisible)
+      ?_
+  intro r
+  unfold NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceAtomsOfSourceDataCertificate
+  dsimp
+  unfold NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsCommon
+  dsimp
+  rfl
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceAtoms_forced_eq_sourceDataCertificateAtoms
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (sourceAtoms :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomForSourceTestNormalizationCalibration
+        hweil)
+    (hsourceAtoms :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration
+        hweil sourceAtoms)
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) :
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect
+      r).toNormalization =
+      (sourceAtoms.atomsWithSourceTest r).toNormalization := by
+  let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  calc
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect
+        r).toNormalization =
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms
+          r).toNormalization := by
+          simpa [data, f, lambda] using
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms_toNormalization
+              r).symm
+    _ = (sourceAtoms.atomsWithSourceTest r).toNormalization := by
+          simpa [
+            NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration,
+            data, f, lambda] using hsourceAtoms r
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomsWithSourceTestReadOffCalibration_of_packageSourceDataRows
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (sourceAtoms :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomForSourceTestNormalizationCalibration
+        hweil)
+    (hsourceData :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration
+        hweil)
+    (hsourceAtoms :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration
+        hweil sourceAtoms) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomsWithSourceTestReadOffCalibration
+      hweil sourceAtoms := by
+  intro r
+  let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  have hrows := hsourceData r
+  have hcerts :
+      pkg.rows.finitePrimeArithmeticCertificates =
+        Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+          data := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration,
+      data, pkg, f] using hrows.2
+  have hatoms :
+      (((Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+          data) f f).certificate lambda r.bridge.sourceTraceReadOff.oneLtLambda).atomsWithSourceTest.toNormalization =
+        (sourceAtoms.atomsWithSourceTest r).toNormalization := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration,
+      data, f, lambda] using hsourceAtoms r
+  calc
+    (Source.CCM25Concrete.Package.formula_components
+      pkg).commonCertificate.atomsWithSourceTest.toNormalization =
+        ((pkg.rows.finitePrimeArithmeticCertificates f f).certificate
+          lambda r.bridge.sourceTraceReadOff.oneLtLambda).atomsWithSourceTest.toNormalization := by
+          rfl
+    _ =
+        (((Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+          data) f f).certificate lambda r.bridge.sourceTraceReadOff.oneLtLambda).atomsWithSourceTest.toNormalization := by
+          rw [hcerts]
+    _ = (sourceAtoms.atomsWithSourceTest r).toNormalization := hatoms
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomsWithSourceTestReadOffCalibration_of_splitPackageSourceDataRows
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (sourceAtoms :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomForSourceTestNormalizationCalibration
+        hweil)
+    (hcommon :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+        hweil)
+    (hcerts :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+        hweil)
+    (hsourceAtoms :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration
+        hweil sourceAtoms) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomsWithSourceTestReadOffCalibration
+      hweil sourceAtoms :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomsWithSourceTestReadOffCalibration_of_packageSourceDataRows
+    hweil sourceAtoms
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration_of_splitRows
+      hweil hcommon hcerts)
+    hsourceAtoms
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomForSourceTestNormalizationCalibration_of_packageSourceRows
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (sourceAtoms :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomForSourceTestNormalizationCalibration
+        hweil)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceTestReadOffCalibration
+        hweil)
+    (hatoms :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomsWithSourceTestReadOffCalibration
+        hweil sourceAtoms) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomForSourceTestNormalizationCalibration
+      hweil sourceAtoms where
+  sourceTestReadOff := by
+    intro r
+    let W := r.inputs.ccm25.weilSymbols
+    let f := r.sourceBackedTest.weilTest
+    let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+    let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+    have hcert :
+        (Source.CCM25Concrete.Package.formula_components
+          pkg).commonCertificate.support.sourceTest =
+          Source.CCM25Concrete.Package.source_test_of_package pkg :=
+      Source.CCM25Concrete.Package.common_certificate_source_test_of_package
+        pkg
+    have hpkg :
+        Source.CCM25Concrete.Package.source_test_of_package pkg =
+          common.toSourceTestEvaluationInterface := by
+      simpa [
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceTestReadOffCalibration,
+        W, f, pkg, common] using hsourceTest r
+    exact hcert.trans hpkg
+  atomsWithSourceTestReadOff := by
+    intro r
+    let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomsWithSourceTestReadOffCalibration,
+      pkg] using hatoms r
 
 def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomNormalizationCalibration_of_forSourceTest
     (hweil :
@@ -7199,6 +9350,221 @@ structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFo
     NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration
       hweil
 
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormRestrictedQWPoleCollapse
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) : Prop :=
+  let witness := hweil r
+  let sourceWeilForm := witness.2.1
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  W.qwLambda lambda f f = W.polePairing f
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) : Prop :=
+  let witness := hweil r
+  let sourceWeilForm := witness.2.1
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f := r.sourceBackedTest.weilTest
+  W.psi (W.convolutionStar f f) = W.poleFunctional (W.convolutionStar f f)
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedTermMassCalibration_iff_restrictedQWPoleCollapse
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) :
+    (let witness := hweil r
+     let sourceWeilForm := witness.2.1
+     let W := sourceWeilForm.toWeilFormSymbols
+     let f := r.sourceBackedTest.weilTest
+     let lambda := r.bridge.sourceTraceReadOff.lambda
+     (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+        W.finitePrimeTerm n (W.convolutionStar f f)) =
+      W.archimedeanTerm (W.convolutionStar f f)) ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormRestrictedQWPoleCollapse
+        hweil r := by
+  let witness := hweil r
+  let sourceWeilForm := witness.2.1
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  let C := W.convolutionStar f f
+  let A := W.archimedeanTerm C
+  let P := W.polePairing f
+  let R :=
+    ∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+      W.finitePrimeTerm n C
+  let Runfiltered :=
+    ∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.vonMangoldtWeight n * W.primePowerPairing n f f
+  let Q := W.qwLambda lambda f f
+  have hfilter :
+      (W.restrictedPrimeIndexSet lambda).filter IsPrimePow =
+        W.restrictedPrimeIndexSet lambda := by
+    apply Finset.filter_eq_self.2
+    intro n hn
+    exact
+      ((sourceWeilForm.toWeilFormSymbols_restrictedPrimeIndex_exact
+        lambda C n).1 hn).1
+  have hsum : Runfiltered = R := by
+    calc
+      Runfiltered =
+          ∑ n ∈ W.restrictedPrimeIndexSet lambda,
+            W.finitePrimeTerm n C := by
+        refine Finset.sum_congr rfl ?_
+        intro n _hn
+        exact
+          (sourceWeilForm.toWeilFormSymbols_finitePrimeTerm_convolutionStar
+            f f n).symm
+      _ = R := by
+        simp [R, hfilter]
+  have hformula : Q = A + P - R := by
+    have hformula0 :
+        Q = A + P - Runfiltered := by
+      simpa [W, f, lambda, C, A, P, Runfiltered, Q] using
+        Source.AnalyticCore.SourceWeilFormData.qw_lambda_formula_statement
+          sourceWeilForm lambda r.bridge.sourceTraceReadOff.oneLtLambda f
+    rw [hformula0, hsum]
+  constructor
+  · intro hmass
+    have hR : R = A := by
+      simpa [
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedTermMassCalibration,
+        witness, sourceWeilForm, W, f, lambda, C, A, R] using hmass
+    have hQ : Q = P := by
+      rw [hformula, hR]
+      ring
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormRestrictedQWPoleCollapse,
+      witness, sourceWeilForm, W, f, lambda, Q, P] using hQ
+  · intro hcollapse
+    have hQ : Q = P := by
+      simpa [
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormRestrictedQWPoleCollapse,
+        witness, sourceWeilForm, W, f, lambda, Q, P] using hcollapse
+    have hR : R = A := by
+      linarith
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedTermMassCalibration,
+      witness, sourceWeilForm, W, f, lambda, C, A, R] using hR
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration_iff_globalPsiPoleCollapse
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) :
+    (let witness := hweil r
+     let sourceWeilForm := witness.2.1
+     let W := sourceWeilForm.toWeilFormSymbols
+     let f := r.sourceBackedTest.weilTest
+     (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+        W.finitePrimeTerm n (W.convolutionStar f f)) =
+      -W.archimedeanTerm (W.convolutionStar f f)) ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse
+        hweil r := by
+  let witness := hweil r
+  let sourceWeilForm := witness.2.1
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f := r.sourceBackedTest.weilTest
+  let C := W.convolutionStar f f
+  let A := W.archimedeanTerm C
+  let P := W.poleFunctional C
+  let G :=
+    ∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+      W.finitePrimeTerm n C
+  let Psi := W.psi C
+  have hfilter :
+      W.globalPrimeIndexSet.filter IsPrimePow = W.globalPrimeIndexSet := by
+    apply Finset.filter_eq_self.2
+    intro n hn
+    exact
+      ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact
+        C n).1 hn).1
+  have hsum :
+      (∑ n ∈ W.globalPrimeIndexSet, W.finitePrimeTerm n C) = G := by
+    simp [G, hfilter]
+  have hformula : Psi = P - A - G := by
+    have hformula0 :
+        Psi = P - A -
+          ∑ n ∈ W.globalPrimeIndexSet, W.finitePrimeTerm n C := by
+      simpa [W, f, C, A, P, Psi] using
+        Source.AnalyticCore.SourceWeilFormData.psi_sign_statement
+          sourceWeilForm C
+    rw [hformula0, hsum]
+  constructor
+  · intro hmass
+    have hG : G = -A := by
+      simpa [
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration,
+        witness, sourceWeilForm, W, f, C, A, G] using hmass
+    have hPsi : Psi = P := by
+      rw [hformula, hG]
+      ring
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse,
+      witness, sourceWeilForm, W, f, C, P, Psi] using hPsi
+  · intro hcollapse
+    have hPsi : Psi = P := by
+      simpa [
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse,
+        witness, sourceWeilForm, W, f, C, P, Psi] using hcollapse
+    have hG : G = -A := by
+      linarith
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration,
+      witness, sourceWeilForm, W, f, C, A, G] using hG
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormRestrictedQWPoleCollapse_iff_routeRestrictedQWPoleCollapse
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormRestrictedQWPoleCollapse
+        hweil r ↔
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapse r := by
+  let witness := hweil r
+  let sourceWeilForm := witness.2.1
+  let hsymbols := witness.2.2
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  constructor
+  · intro hcollapse
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormRestrictedQWPoleCollapse,
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapse,
+      witness, sourceWeilForm, hsymbols, W, f, lambda] using hcollapse
+  · intro hcollapse
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormRestrictedQWPoleCollapse,
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapse,
+      witness, sourceWeilForm, hsymbols, W, f, lambda] using hcollapse
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse_iff_routePsiPoleCollapse
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse
+        hweil r ↔
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapse r := by
+  let witness := hweil r
+  let sourceWeilForm := witness.2.1
+  let hsymbols := witness.2.2
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f := r.sourceBackedTest.weilTest
+  let C := W.convolutionStar f f
+  constructor
+  · intro hcollapse
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse,
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapse,
+      witness, sourceWeilForm, hsymbols, W, f, C] using hcollapse
+  · intro hcollapse
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse,
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapse,
+      witness, sourceWeilForm, hsymbols, W, f, C] using hcollapse
+
 theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectMassRowsCalibration_of_directTermMassRowsCalibration
     (hweil :
       NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
@@ -7435,6 +9801,602 @@ structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFo
   termMassRows :
     NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
       carrier
+
+/-- Lower source-test-bound direct term package owner with package source-test
+selection split from package atom-object read-off. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration
+    where
+  carrier :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration
+  sourceAtoms :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomForSourceTestNormalizationCalibration
+      carrier
+  packageSourceTestReadOff :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceTestReadOffCalibration
+      carrier
+  packageAtomsWithSourceTestReadOff :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomsWithSourceTestReadOffCalibration
+      carrier sourceAtoms
+  termMassRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      carrier
+
+/- Lower source-data version of the source-test-bound direct term package
+owner.  It replaces the package source-test equality field with the rows-level
+claim that the package finite-prime certificate family is generated by the
+route source-data owner. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration
+    where
+  carrier :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration
+  sourceAtoms :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomForSourceTestNormalizationCalibration
+      carrier
+  packageSourceDataRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration
+      carrier
+  packageAtomsWithSourceTestReadOff :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomsWithSourceTestReadOffCalibration
+      carrier sourceAtoms
+  termMassRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      carrier
+
+/- Lower source-data atom version of the source-test-bound direct term package
+owner.  The package atom-object read-off is generated from the same source-data
+certificate family as the package source-test read-off, so the route boundary
+does not need an independent package atom equality. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration
+    where
+  carrier :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration
+  sourceAtoms :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomForSourceTestNormalizationCalibration
+      carrier
+  packageSourceDataRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration
+      carrier
+  visibleAtomSourceDataRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration
+      carrier sourceAtoms
+  termMassRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      carrier
+
+/- Lower split-source-data version of the source-test-bound direct term package
+owner.  The package source-data row is split into its two actual audit targets:
+common-test selection and certificate-family selection. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration
+    where
+  carrier :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration
+  sourceAtoms :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomForSourceTestNormalizationCalibration
+      carrier
+  packageSourceDataCommonTestRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+      carrier
+  packageSourceDataCertificateFamilyRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+      carrier
+  visibleAtomSourceDataRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration
+      carrier sourceAtoms
+  termMassRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      carrier
+
+/- Lower split-source-data owner with the visible atom row generated from the
+source-data certificate itself.  This removes the independent `sourceAtoms`
+choice from the route boundary; the two remaining visible leaves say that the
+certificate atoms agree with the certificate visible arithmetic, and that this
+visible arithmetic agrees with the source-Weil-form visible arithmetic. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCertificateRowsCalibration
+    where
+  carrier :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration
+  packageSourceDataCommonTestRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+      carrier
+  packageSourceDataCertificateFamilyRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+      carrier
+  sourceDataCertificateAtomVisibleRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomVisibleReadOff
+      carrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        carrier packageSourceDataCommonTestRows)
+  sourceDataCertificateVisibleArithmeticRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticReadOff
+      carrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        carrier packageSourceDataCommonTestRows)
+  termMassRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      carrier
+
+/- Same lower owner with the certificate atom-visible row stated directly on
+`certificateData.atoms`, rather than through the route-facing
+`SourceDataCertificateAtomsCommon` wrapper. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateRowsCalibration
+    where
+  carrier :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration
+  packageSourceDataCommonTestRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+      carrier
+  packageSourceDataCertificateFamilyRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+      carrier
+  sourceDataCertificateDirectAtomVisibleRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleReadOff
+      carrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        carrier packageSourceDataCommonTestRows)
+  sourceDataCertificateVisibleArithmeticRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticReadOff
+      carrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        carrier packageSourceDataCommonTestRows)
+  termMassRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      carrier
+
+/-- Same lower owner as `...DirectCertificateRowsCalibration`, but the visible
+arithmetic row is stated as equality of the whole visible arithmetic data
+object.  This prevents route consumers from hiding an object-selection problem
+behind pointwise `atVisibleIndex` equalities. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateDataRowsCalibration
+    where
+  carrier :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration
+  packageSourceDataCommonTestRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+      carrier
+  packageSourceDataCertificateFamilyRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+      carrier
+  sourceDataCertificateDirectAtomVisibleRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleReadOff
+      carrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        carrier packageSourceDataCommonTestRows)
+  sourceDataCertificateVisibleArithmeticDataRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticDataReadOff
+      carrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        carrier packageSourceDataCommonTestRows)
+  termMassRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      carrier
+
+/-- Lower owner whose atom/visible certificate row is stated at the source-data
+owner level, before route-specific source-test casts. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataSourceCertificateDataRowsCalibration
+    where
+  carrier :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration
+  packageSourceDataCommonTestRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+      carrier
+  packageSourceDataCertificateFamilyRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+      carrier
+  sourceDataCertificateDirectAtomVisibleSourceRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleSourceReadOff
+      carrier
+  sourceDataCertificateVisibleArithmeticDataRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticDataReadOff
+      carrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        carrier packageSourceDataCommonTestRows)
+  termMassRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      carrier
+
+/-- Lower owner whose atom/visible source-data row is stated as whole visible
+function equality. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataFunctionCertificateDataRowsCalibration
+    where
+  carrier :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration
+  packageSourceDataCommonTestRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+      carrier
+  packageSourceDataCertificateFamilyRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+      carrier
+  sourceDataCertificateDirectAtomVisibleFunctionRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleFunctionReadOff
+      carrier
+  sourceDataCertificateVisibleArithmeticDataRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticDataReadOff
+      carrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        carrier packageSourceDataCommonTestRows)
+  termMassRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      carrier
+
+/-- Canonical source-data certificate owner.  This is the preferred 10A-B
+route boundary: the actual route certificate is generated by the canonical
+source-evaluation visible-data constructor for the same source-Weil-form
+carrier. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration
+    where
+  carrier :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration
+  packageSourceDataCommonTestRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+      carrier
+  packageSourceDataCertificateFamilyRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+      carrier
+  sourceDataCertificateCanonicalRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+      carrier
+  termMassRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      carrier
+
+/-- Canonical source-data certificate owner with the package-source rows
+lowered to route-universe provenance: every consumed square restricted carrier
+must be generated by the canonical finite-prime route-package constructor. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration
+    where
+  carrier :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration
+  routePackageCoverage :
+    NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage
+  sourceDataCertificateCanonicalRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+      carrier
+  termMassRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      carrier
+
+/-- Canonical route-package owner with the source-Weil-form carrier generated
+from the same route-package coverage.  This is sharper than
+`...CanonicalRoutePackageRowsCalibration`: the caller can no longer mix an
+independent carrier choice with the canonical route-package coverage row. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration
+    where
+  routePackageCoverage :
+    NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage
+  sourceDataCertificateCanonicalRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage
+        routePackageCoverage)
+  termMassRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage
+        routePackageCoverage)
+
+/-- Concrete canonical route-package owner with the source-Weil-form carrier
+generated from the same concrete route-package coverage.  This keeps the
+selected concrete source-data owner available for B1 while carrying the same
+finite-prime canonical certificate and direct term-mass payload. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration
+    where
+  routePackageCoverage :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage
+  sourceDataCertificateCanonicalRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          routePackageCoverage))
+  termMassRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          routePackageCoverage))
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration_of_coverageRows
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration where
+  carrier :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage
+      rows.routePackageCoverage
+  routePackageCoverage := rows.routePackageCoverage
+  sourceDataCertificateCanonicalRows := rows.sourceDataCertificateCanonicalRows
+  termMassRows := rows.termMassRows
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration_of_concreteCoverageRows
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration where
+  carrier :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+        rows.routePackageCoverage)
+  routePackageCoverage :=
+    NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage_of_concreteCanonicalRoutePackageCoverage
+      rows.routePackageCoverage
+  sourceDataCertificateCanonicalRows := rows.sourceDataCertificateCanonicalRows
+  termMassRows := rows.termMassRows
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration_of_canonicalRoutePackageRows
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration where
+  carrier := rows.carrier
+  packageSourceDataCommonTestRows :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration_of_canonicalRoutePackageCoverage
+      rows.carrier rows.routePackageCoverage
+  packageSourceDataCertificateFamilyRows :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration_of_canonicalRoutePackageCoverage
+      rows.carrier rows.routePackageCoverage
+  sourceDataCertificateCanonicalRows :=
+    rows.sourceDataCertificateCanonicalRows
+  termMassRows := rows.termMassRows
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration_of_concreteCoverageRows
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration where
+  carrier :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+        rows.routePackageCoverage)
+  packageSourceDataCommonTestRows :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration_of_concreteCanonicalRoutePackageCoverage
+      _
+      rows.routePackageCoverage
+  packageSourceDataCertificateFamilyRows :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration_of_concreteCanonicalRoutePackageCoverage
+      _
+      rows.routePackageCoverage
+  sourceDataCertificateCanonicalRows :=
+    rows.sourceDataCertificateCanonicalRows
+  termMassRows := rows.termMassRows
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_of_canonicalCertificateRows
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration where
+  carrier := rows.carrier
+  sourceAtoms :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceAtomsOfCanonicalSourceDataCertificate
+      rows.carrier rows.sourceDataCertificateCanonicalRows
+  packageSourceDataCommonTestRows := rows.packageSourceDataCommonTestRows
+  packageSourceDataCertificateFamilyRows :=
+    rows.packageSourceDataCertificateFamilyRows
+  visibleAtomSourceDataRows :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration_of_canonicalSourceDataCertificate
+      rows.carrier rows.sourceDataCertificateCanonicalRows
+  termMassRows := rows.termMassRows
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataSourceCertificateDataRowsCalibration_of_functionCertificateDataRows
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataFunctionCertificateDataRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataSourceCertificateDataRowsCalibration where
+  carrier := rows.carrier
+  packageSourceDataCommonTestRows := rows.packageSourceDataCommonTestRows
+  packageSourceDataCertificateFamilyRows :=
+    rows.packageSourceDataCertificateFamilyRows
+  sourceDataCertificateDirectAtomVisibleSourceRows :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleSourceReadOff_of_functionReadOff
+      rows.carrier rows.sourceDataCertificateDirectAtomVisibleFunctionRows
+  sourceDataCertificateVisibleArithmeticDataRows :=
+    rows.sourceDataCertificateVisibleArithmeticDataRows
+  termMassRows := rows.termMassRows
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateDataRowsCalibration_of_sourceCertificateDataRows
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataSourceCertificateDataRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateDataRowsCalibration where
+  carrier := rows.carrier
+  packageSourceDataCommonTestRows := rows.packageSourceDataCommonTestRows
+  packageSourceDataCertificateFamilyRows :=
+    rows.packageSourceDataCertificateFamilyRows
+  sourceDataCertificateDirectAtomVisibleRows :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleReadOff_of_sourceReadOff
+      rows.carrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        rows.carrier rows.packageSourceDataCommonTestRows)
+      rows.sourceDataCertificateDirectAtomVisibleSourceRows
+  sourceDataCertificateVisibleArithmeticDataRows :=
+    rows.sourceDataCertificateVisibleArithmeticDataRows
+  termMassRows := rows.termMassRows
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateRowsCalibration_of_directCertificateDataRows
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateDataRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateRowsCalibration where
+  carrier := rows.carrier
+  packageSourceDataCommonTestRows := rows.packageSourceDataCommonTestRows
+  packageSourceDataCertificateFamilyRows :=
+    rows.packageSourceDataCertificateFamilyRows
+  sourceDataCertificateDirectAtomVisibleRows :=
+    rows.sourceDataCertificateDirectAtomVisibleRows
+  sourceDataCertificateVisibleArithmeticRows :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticReadOff_of_visibleArithmeticDataReadOff
+      rows.carrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        rows.carrier rows.packageSourceDataCommonTestRows)
+      rows.sourceDataCertificateVisibleArithmeticDataRows
+  termMassRows := rows.termMassRows
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCertificateRowsCalibration_of_directCertificateRows
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCertificateRowsCalibration where
+  carrier := rows.carrier
+  packageSourceDataCommonTestRows := rows.packageSourceDataCommonTestRows
+  packageSourceDataCertificateFamilyRows :=
+    rows.packageSourceDataCertificateFamilyRows
+  sourceDataCertificateAtomVisibleRows :=
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomVisibleReadOff_iff_direct
+      rows.carrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        rows.carrier rows.packageSourceDataCommonTestRows)).mpr
+      rows.sourceDataCertificateDirectAtomVisibleRows
+  sourceDataCertificateVisibleArithmeticRows :=
+    rows.sourceDataCertificateVisibleArithmeticRows
+  termMassRows := rows.termMassRows
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_of_splitSourceDataCertificateRows
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCertificateRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration where
+  carrier := rows.carrier
+  sourceAtoms :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceAtomsOfSourceDataCertificate
+      rows.carrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        rows.carrier rows.packageSourceDataCommonTestRows)
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff_of_atomVisible_visibleArithmetic
+        rows.carrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+          rows.carrier rows.packageSourceDataCommonTestRows)
+        rows.sourceDataCertificateAtomVisibleRows
+        rows.sourceDataCertificateVisibleArithmeticRows)
+  packageSourceDataCommonTestRows := rows.packageSourceDataCommonTestRows
+  packageSourceDataCertificateFamilyRows := rows.packageSourceDataCertificateFamilyRows
+  visibleAtomSourceDataRows :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration_of_sourceDataCertificateVisibleReadOff
+      rows.carrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        rows.carrier rows.packageSourceDataCommonTestRows)
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff_of_atomVisible_visibleArithmetic
+        rows.carrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+          rows.carrier rows.packageSourceDataCommonTestRows)
+        rows.sourceDataCertificateAtomVisibleRows
+        rows.sourceDataCertificateVisibleArithmeticRows)
+  termMassRows := rows.termMassRows
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_of_splitSourceDataDirectCertificateRows
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_of_splitSourceDataCertificateRows
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCertificateRowsCalibration_of_directCertificateRows
+      rows)
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_of_splitSourceDataDirectCertificateDataRows
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateDataRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_of_splitSourceDataDirectCertificateRows
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateRowsCalibration_of_directCertificateDataRows
+      rows)
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_of_splitSourceDataSourceCertificateDataRows
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataSourceCertificateDataRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_of_splitSourceDataDirectCertificateDataRows
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateDataRowsCalibration_of_sourceCertificateDataRows
+      rows)
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_of_splitSourceDataFunctionCertificateDataRows
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataFunctionCertificateDataRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_of_splitSourceDataSourceCertificateDataRows
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataSourceCertificateDataRowsCalibration_of_functionCertificateDataRows
+      rows)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration_of_packageSourceRowsCalibration
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration where
+  carrier := rows.carrier
+  sourceAtoms := rows.sourceAtoms
+  packageAtoms :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomForSourceTestNormalizationCalibration_of_packageSourceRows
+      rows.carrier rows.sourceAtoms rows.packageSourceTestReadOff
+      rows.packageAtomsWithSourceTestReadOff
+  termMassRows := rows.termMassRows
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration_of_packageSourceDataRowsCalibration
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration where
+  carrier := rows.carrier
+  sourceAtoms := rows.sourceAtoms
+  packageSourceTestReadOff :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceTestReadOffCalibration_of_packageSourceDataRows
+      rows.carrier rows.packageSourceDataRows
+  packageAtomsWithSourceTestReadOff := rows.packageAtomsWithSourceTestReadOff
+  termMassRows := rows.termMassRows
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration_of_packageSourceDataRowsCalibration
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration_of_packageSourceRowsCalibration
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration_of_packageSourceDataRowsCalibration
+      rows)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration_of_packageSourceDataAtomRowsCalibration
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration where
+  carrier := rows.carrier
+  sourceAtoms := rows.sourceAtoms
+  packageSourceDataRows := rows.packageSourceDataRows
+  packageAtomsWithSourceTestReadOff :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageAtomsWithSourceTestReadOffCalibration_of_packageSourceDataRows
+      rows.carrier rows.sourceAtoms rows.packageSourceDataRows
+      rows.visibleAtomSourceDataRows
+  termMassRows := rows.termMassRows
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration_of_packageSourceDataAtomRowsCalibration
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration_of_packageSourceDataRowsCalibration
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration_of_packageSourceDataAtomRowsCalibration
+      rows)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration_of_packageSourceDataAtomRowsCalibration
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration_of_packageSourceDataRowsCalibration
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration_of_packageSourceDataAtomRowsCalibration
+      rows)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration_of_splitSourceDataAtomRowsCalibration
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration where
+  carrier := rows.carrier
+  sourceAtoms := rows.sourceAtoms
+  packageSourceDataRows :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataRowsCalibration_of_splitRows
+      rows.carrier
+      rows.packageSourceDataCommonTestRows
+      rows.packageSourceDataCertificateFamilyRows
+  visibleAtomSourceDataRows := rows.visibleAtomSourceDataRows
+  termMassRows := rows.termMassRows
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration_of_splitSourceDataAtomRowsCalibration
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration_of_packageSourceDataAtomRowsCalibration
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration_of_splitSourceDataAtomRowsCalibration
+      rows)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration_of_splitSourceDataAtomRowsCalibration
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration_of_packageSourceDataAtomRowsCalibration
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration_of_splitSourceDataAtomRowsCalibration
+      rows)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration_of_splitSourceDataAtomRowsCalibration
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration_of_packageSourceDataAtomRowsCalibration
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration_of_splitSourceDataAtomRowsCalibration
+      rows)
 
 def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermAtomNormalizationPackageRowsCalibration_of_forSourceTestAtomPackageRowsCalibration
     (rows :
@@ -8066,8 +11028,8 @@ def NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCa
     NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration := by
   intro r
   exact
-    (normalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellation_iff_globalMassCancellation
-      (r := r)).mp
+      (normalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellation_iff_globalMassCancellation
+        (r := r)).mp
       (hcalibration r)
 
 def NormalizedRouteBackedCC20SquareRestrictedNonPoleMassVanishesCalibration_of_globalFinitePrimeArchimedeanCancellationCalibration
@@ -8084,11 +11046,484 @@ def NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration :
   ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
     NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapse r
 
+def NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration_of_psiPoleCollapseCalibration
+    (hcalibration :
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration := by
+  intro r
+  exact
+    (normalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellation_iff_psiPoleCollapse
+      (r := r)).mpr
+      (hcalibration r)
+
 /-- Whole-carrier B3c bottom in global-QW / pole-functional form. -/
 def NormalizedRouteBackedCC20SquareRestrictedGlobalQWPoleCollapseCalibration :
     Prop :=
   ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
     NormalizedRouteBackedCC20SquareRestrictedGlobalQWPoleCollapse r
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+        hweil ↔
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+        NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration := by
+  constructor
+  · intro rows
+    constructor
+    · intro r
+      exact
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormRestrictedQWPoleCollapse_iff_routeRestrictedQWPoleCollapse
+          hweil r).mp
+          ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedTermMassCalibration_iff_restrictedQWPoleCollapse
+            hweil r).mp (rows.restrictedMass r))
+    · intro r
+      exact
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse_iff_routePsiPoleCollapse
+          hweil r).mp
+          ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration_iff_globalPsiPoleCollapse
+            hweil r).mp (rows.globalMass r))
+  · intro hcalibrations
+    refine
+      { restrictedMass := ?_
+        globalMass := ?_ }
+    · intro r
+      exact
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedTermMassCalibration_iff_restrictedQWPoleCollapse
+          hweil r).mpr
+          ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormRestrictedQWPoleCollapse_iff_routeRestrictedQWPoleCollapse
+            hweil r).mpr (hcalibrations.1 r))
+    · intro r
+      exact
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration_iff_globalPsiPoleCollapse
+          hweil r).mpr
+          ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse_iff_routePsiPoleCollapse
+            hweil r).mpr (hcalibrations.2 r))
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSplitSourceDataAtomRowsComponents :
+    Prop :=
+  ∃ carrier :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration,
+    ∃ sourceAtoms :
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomForSourceTestNormalizationCalibration
+          carrier,
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+          carrier ∧
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+          carrier ∧
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration
+          carrier sourceAtoms ∧
+        NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+        NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_iff_components
+    :
+    Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSplitSourceDataAtomRowsComponents := by
+  constructor
+  · rintro ⟨rows⟩
+    refine
+      ⟨rows.carrier, rows.sourceAtoms, rows.packageSourceDataCommonTestRows,
+        rows.packageSourceDataCertificateFamilyRows,
+        rows.visibleAtomSourceDataRows, ?_, ?_⟩
+    · exact
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          rows.carrier).mp rows.termMassRows).1
+    · exact
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          rows.carrier).mp rows.termMassRows).2
+  · rintro ⟨carrier, sourceAtoms, hcommon, hcerts, hvisible, hrestricted, hpsi⟩
+    refine ⟨?_⟩
+    refine
+      { carrier := carrier
+        sourceAtoms := sourceAtoms
+        packageSourceDataCommonTestRows := hcommon
+        packageSourceDataCertificateFamilyRows := hcerts
+        visibleAtomSourceDataRows := hvisible
+        termMassRows := ?_ }
+    exact
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+        carrier).mpr ⟨hrestricted, hpsi⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSplitSourceDataDirectCertificateRowsComponents :
+    Prop :=
+  ∃ carrier :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration,
+    ∃ hcommon :
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+          carrier,
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+          carrier ∧
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleReadOff
+          carrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+            carrier hcommon) ∧
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticReadOff
+          carrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+            carrier hcommon) ∧
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateRowsCalibration_iff_components
+    :
+    Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateRowsCalibration ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSplitSourceDataDirectCertificateRowsComponents := by
+  constructor
+  · rintro ⟨rows⟩
+    refine
+      ⟨rows.carrier, rows.packageSourceDataCommonTestRows,
+        rows.packageSourceDataCertificateFamilyRows,
+        rows.sourceDataCertificateDirectAtomVisibleRows,
+        rows.sourceDataCertificateVisibleArithmeticRows, ?_, ?_⟩
+    · exact
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          rows.carrier).mp rows.termMassRows).1
+    · exact
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          rows.carrier).mp rows.termMassRows).2
+  · rintro ⟨carrier, hcommon, hcerts, hatomVisible, hvisibleArithmetic,
+      hrestricted, hpsi⟩
+    refine ⟨?_⟩
+    refine
+      { carrier := carrier
+        packageSourceDataCommonTestRows := hcommon
+        packageSourceDataCertificateFamilyRows := hcerts
+        sourceDataCertificateDirectAtomVisibleRows := hatomVisible
+        sourceDataCertificateVisibleArithmeticRows := hvisibleArithmetic
+        termMassRows := ?_ }
+    exact
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+        carrier).mpr ⟨hrestricted, hpsi⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSplitSourceDataDirectCertificateDataRowsComponents :
+    Prop :=
+  ∃ carrier :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration,
+    ∃ hcommon :
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+          carrier,
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+          carrier ∧
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleReadOff
+          carrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+            carrier hcommon) ∧
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticDataReadOff
+          carrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+            carrier hcommon) ∧
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateDataRowsCalibration_iff_components
+    :
+    Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataDirectCertificateDataRowsCalibration ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSplitSourceDataDirectCertificateDataRowsComponents := by
+  constructor
+  · rintro ⟨rows⟩
+    refine
+      ⟨rows.carrier, rows.packageSourceDataCommonTestRows,
+        rows.packageSourceDataCertificateFamilyRows,
+        rows.sourceDataCertificateDirectAtomVisibleRows,
+        rows.sourceDataCertificateVisibleArithmeticDataRows, ?_, ?_⟩
+    · exact
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          rows.carrier).mp rows.termMassRows).1
+    · exact
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          rows.carrier).mp rows.termMassRows).2
+  · rintro ⟨carrier, hcommon, hcerts, hatomVisible, hvisibleData,
+      hrestricted, hpsi⟩
+    refine ⟨?_⟩
+    refine
+      { carrier := carrier
+        packageSourceDataCommonTestRows := hcommon
+        packageSourceDataCertificateFamilyRows := hcerts
+        sourceDataCertificateDirectAtomVisibleRows := hatomVisible
+        sourceDataCertificateVisibleArithmeticDataRows := hvisibleData
+        termMassRows := ?_ }
+    exact
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+        carrier).mpr ⟨hrestricted, hpsi⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSplitSourceDataSourceCertificateDataRowsComponents :
+    Prop :=
+  ∃ carrier :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration,
+    ∃ hcommon :
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+          carrier,
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+          carrier ∧
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleSourceReadOff
+          carrier ∧
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticDataReadOff
+          carrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+            carrier hcommon) ∧
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataSourceCertificateDataRowsCalibration_iff_components
+    :
+    Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataSourceCertificateDataRowsCalibration ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSplitSourceDataSourceCertificateDataRowsComponents := by
+  constructor
+  · rintro ⟨rows⟩
+    refine
+      ⟨rows.carrier, rows.packageSourceDataCommonTestRows,
+        rows.packageSourceDataCertificateFamilyRows,
+        rows.sourceDataCertificateDirectAtomVisibleSourceRows,
+        rows.sourceDataCertificateVisibleArithmeticDataRows, ?_, ?_⟩
+    · exact
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          rows.carrier).mp rows.termMassRows).1
+    · exact
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          rows.carrier).mp rows.termMassRows).2
+  · rintro ⟨carrier, hcommon, hcerts, hatomVisibleSource,
+      hvisibleData, hrestricted, hpsi⟩
+    refine ⟨?_⟩
+    refine
+      { carrier := carrier
+        packageSourceDataCommonTestRows := hcommon
+        packageSourceDataCertificateFamilyRows := hcerts
+        sourceDataCertificateDirectAtomVisibleSourceRows :=
+          hatomVisibleSource
+        sourceDataCertificateVisibleArithmeticDataRows := hvisibleData
+        termMassRows := ?_ }
+    exact
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          carrier).mpr ⟨hrestricted, hpsi⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSplitSourceDataFunctionCertificateDataRowsComponents :
+    Prop :=
+  ∃ carrier :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration,
+    ∃ hcommon :
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+          carrier,
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+          carrier ∧
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateDirectAtomVisibleFunctionReadOff
+          carrier ∧
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleArithmeticDataReadOff
+          carrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+            carrier hcommon) ∧
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataFunctionCertificateDataRowsCalibration_iff_components
+    :
+    Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataFunctionCertificateDataRowsCalibration ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSplitSourceDataFunctionCertificateDataRowsComponents := by
+  constructor
+  · rintro ⟨rows⟩
+    refine
+      ⟨rows.carrier, rows.packageSourceDataCommonTestRows,
+        rows.packageSourceDataCertificateFamilyRows,
+        rows.sourceDataCertificateDirectAtomVisibleFunctionRows,
+        rows.sourceDataCertificateVisibleArithmeticDataRows, ?_, ?_⟩
+    · exact
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          rows.carrier).mp rows.termMassRows).1
+    · exact
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          rows.carrier).mp rows.termMassRows).2
+  · rintro ⟨carrier, hcommon, hcerts, hatomVisibleFunction,
+      hvisibleData, hrestricted, hpsi⟩
+    refine ⟨?_⟩
+    refine
+      { carrier := carrier
+        packageSourceDataCommonTestRows := hcommon
+        packageSourceDataCertificateFamilyRows := hcerts
+        sourceDataCertificateDirectAtomVisibleFunctionRows :=
+          hatomVisibleFunction
+        sourceDataCertificateVisibleArithmeticDataRows := hvisibleData
+        termMassRows := ?_ }
+    exact
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+        carrier).mpr ⟨hrestricted, hpsi⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSplitSourceDataCanonicalCertificateRowsComponents :
+    Prop :=
+  ∃ carrier :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration,
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration
+        carrier ∧
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCertificateFamilyRowsCalibration
+        carrier ∧
+      ∃ canonicalRows :
+          NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+            carrier,
+        NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+          NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration_iff_components
+    :
+    Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSplitSourceDataCanonicalCertificateRowsComponents := by
+  constructor
+  · rintro ⟨rows⟩
+    refine
+      ⟨rows.carrier, rows.packageSourceDataCommonTestRows,
+        rows.packageSourceDataCertificateFamilyRows,
+        rows.sourceDataCertificateCanonicalRows, ?_, ?_⟩
+    · exact
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          rows.carrier).mp rows.termMassRows).1
+    · exact
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          rows.carrier).mp rows.termMassRows).2
+  · rintro ⟨carrier, hcommon, hcerts, hcanonical, hrestricted, hpsi⟩
+    refine ⟨?_⟩
+    refine
+      { carrier := carrier
+        packageSourceDataCommonTestRows := hcommon
+        packageSourceDataCertificateFamilyRows := hcerts
+        sourceDataCertificateCanonicalRows := hcanonical
+        termMassRows := ?_ }
+    exact
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+        carrier).mpr ⟨hrestricted, hpsi⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageRowsComponents :
+    Prop :=
+  ∃ carrier :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration,
+    NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage ∧
+      ∃ canonicalRows :
+          NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+            carrier,
+        NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+          NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents :
+    Prop :=
+  ∃ hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage,
+    ∃ canonicalRows :
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage
+            hcoverage),
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+        NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents :
+    Prop :=
+  ∃ hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage,
+    ∃ canonicalRows :
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage)),
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+        NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents :
+    Prop :=
+  ∃ hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage,
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+        hcoverage ∧
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+        NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration_iff_components
+    :
+    Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageRowsComponents := by
+  constructor
+  · rintro ⟨rows⟩
+    refine
+      ⟨rows.carrier, rows.routePackageCoverage,
+        rows.sourceDataCertificateCanonicalRows, ?_, ?_⟩
+    · exact
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          rows.carrier).mp rows.termMassRows).1
+    · exact
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          rows.carrier).mp rows.termMassRows).2
+  · rintro ⟨carrier, hcoverage, hcanonical, hrestricted, hpsi⟩
+    refine ⟨?_⟩
+    refine
+      { carrier := carrier
+        routePackageCoverage := hcoverage
+        sourceDataCertificateCanonicalRows := hcanonical
+        termMassRows := ?_ }
+    exact
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+        carrier).mpr ⟨hrestricted, hpsi⟩
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration_iff_components
+    :
+    Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents := by
+  constructor
+  · rintro ⟨rows⟩
+    have hpoles :=
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage
+          rows.routePackageCoverage)).mp rows.termMassRows
+    exact
+      ⟨rows.routePackageCoverage, rows.sourceDataCertificateCanonicalRows,
+        hpoles.1, hpoles.2⟩
+  · rintro ⟨hcoverage, hcanonical, hrestricted, hpsi⟩
+    exact
+      ⟨{ routePackageCoverage := hcoverage
+         sourceDataCertificateCanonicalRows := hcanonical
+         termMassRows :=
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage
+              hcoverage)).mpr ⟨hrestricted, hpsi⟩ }⟩
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration_iff_components
+    :
+    Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents := by
+  constructor
+  · rintro ⟨rows⟩
+    have hpoles :=
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            rows.routePackageCoverage))).mp rows.termMassRows
+    exact
+      ⟨rows.routePackageCoverage, rows.sourceDataCertificateCanonicalRows,
+        hpoles.1, hpoles.2⟩
+  · rintro ⟨hcoverage, hcanonical, hrestricted, hpsi⟩
+    exact
+      ⟨{ routePackageCoverage := hcoverage
+         sourceDataCertificateCanonicalRows := hcanonical
+         termMassRows :=
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+              (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+                hcoverage))).mpr ⟨hrestricted, hpsi⟩ }⟩
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration_of_coverageRows_nonempty
+    :
+    Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration →
+      Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration := by
+  rintro ⟨rows⟩
+  exact
+    ⟨NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration_of_coverageRows
+      rows⟩
 
 /-- Exact-transport whole-carrier API with B2 split into support/no-defect and
 no-defect/`QW_lambda` rows. -/
@@ -10155,6 +13590,348 @@ theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalib
     (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermAtomNormalizationPackageRowsCalibration_of_forSourceTestAtomPackageRowsCalibration
       rows)
 
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration_of_packageSourceRowsCalibration
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration_of_packageSourceRowsCalibration
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration_of_packageSourceRowsCalibration
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration_of_packageSourceDataRowsCalibration
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration_of_packageSourceDataRowsCalibration
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration_of_packageSourceDataRowsCalibration
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration_of_packageSourceDataAtomRowsCalibration
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration_of_packageSourceDataAtomRowsCalibration
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration_of_packageSourceDataAtomRowsCalibration
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration_of_splitSourceDataAtomRowsCalibration
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration_of_splitSourceDataAtomRowsCalibration
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration_of_splitSourceDataAtomRowsCalibration
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_of_canonicalCertificateRows
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_of_canonicalCertificateRows
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_of_canonicalCertificateRows
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration_of_canonicalRoutePackageRows
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration_of_canonicalRoutePackageRows
+      rows)
+
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibrations
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupportTrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration :=
+  normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibrations
+    hpole hsource hsupportTrace hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration_of_canonicalRoutePackageRows
+      rows)
+
 theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceEvaluationDataLowerRowsCalibrations
     (hpole :
       NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
@@ -10672,6 +14449,49 @@ theorem normalizedRouteBackedCC20SquareRestrictedLocalSumReadOff_of_yoshida_squa
     normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization]
     using realization.routeBackedLocalSumReadOff
 
+theorem normalizedRouteBackedCC20SquareRestrictedTest_canonical_localSumReadOff
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    {inputs : RouteInputs}
+    (baseSourceBackedTest : SourceBackedFixedSTest inputs)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test)))
+    (lambda : ℝ) (oneLtLambda : 1 < lambda)
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorCanonicalSquareArithmeticRows
+        detector canonicalOwner)
+    (readOff :
+      NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+        detector inputs) :
+    let r :=
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+        baseSourceBackedTest canonicalOwner lambda oneLtLambda rows readOff
+    NormalizedRouteBackedCC20SquareRestrictedLocalSumReadOff r := by
+  simpa [normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean]
+    using
+      normalizedRouteBackedCC20SquareRestrictedLocalSumReadOff_of_yoshida_square_route_realization
+        (normalizedRouteBackedYoshidaDetectorSquareRouteRealization_of_trace_realization
+          (normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean
+            (normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff
+              baseSourceBackedTest canonicalOwner lambda oneLtLambda rows readOff)))
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageWitness.localSumReadOff
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageWitness r) :
+    NormalizedRouteBackedCC20SquareRestrictedLocalSumReadOff r := by
+  have hlocal :=
+    normalizedRouteBackedCC20SquareRestrictedTest_canonical_localSumReadOff
+      w.baseSourceBackedTest w.canonicalOwner w.lambda w.oneLtLambda
+      w.rows w.readOff
+  rw [w.route_eq]
+  exact hlocal
+
 /-- Coverage target for the square-backed restricted carrier.  The route
 witness may represent the square test, but the projected public CC20 test must
 remain the Yoshida detector test. -/
@@ -10684,6 +14504,23 @@ def NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage : Prop :=
             normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho) →
           ∃ r : NormalizedRouteBackedCC20SquareRestrictedTest,
             r.test = detector.test
+
+/-- Detector-level canonical route-package coverage.  This is weaker than the
+global route-universe coverage: it only says the carrier selected for each
+Yoshida detector is canonical-generated. -/
+def NormalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage :
+    Prop :=
+  ∀ {rho : ℂ},
+    RHDefinitionBridge.standard.sourceNontrivialZero rho →
+      rho.re ≠ 1 / 2 →
+        (detector :
+          YoshidaDetector
+            normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho) →
+          ∃ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+            r.test = detector.test ∧
+              Nonempty
+                (NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageWitness
+                  r)
 
 /-- Square detector coverage strengthened with the local-sum read-off.  This is
 diagnostic only: once 05C supplies Yoshida detectors, this target is already
@@ -11006,6 +14843,59 @@ theorem normalizedRouteBackedCC20SquareRestrictedDetectorCoverage_of_yoshida_squ
     ⟨normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization
       realization, rfl⟩
 
+theorem normalizedRouteBackedCC20SquareRestrictedDetectorCoverage_of_detectorCanonicalRoutePackageCoverage
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage := by
+  intro rho hrho hoff detector
+  rcases hcoverage hrho hoff detector with ⟨r, hmatch⟩
+  exact ⟨r, hmatch.1⟩
+
+theorem normalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage_of_canonicalRoutePackageCoverage_detectorCoverage
+    (hcanonical :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage)
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage := by
+  intro rho hrho hoff detector
+  rcases hcoverage hrho hoff detector with ⟨r, hr⟩
+  exact ⟨r, hr, hcanonical r⟩
+
+theorem normalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage_iff_detectorCoverage_of_canonicalRoutePackageCoverage
+    (hcanonical :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage ↔
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage := by
+  constructor
+  · exact
+      normalizedRouteBackedCC20SquareRestrictedDetectorCoverage_of_detectorCanonicalRoutePackageCoverage
+  · exact
+      normalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage_of_canonicalRoutePackageCoverage_detectorCoverage
+        hcanonical
+
+theorem normalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage_of_canonicalSquareArchimedeanTraceRealizer
+    (hrealizer :
+      NormalizedRouteBackedYoshidaDetectorCanonicalSquareArchimedeanTraceRealizer) :
+    NormalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage := by
+  intro rho _hrho _hoff detector
+  rcases hrealizer detector with ⟨data⟩
+  let r :=
+    normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+      data.baseSourceBackedTest data.canonicalOwner data.lambda
+      data.oneLtLambda data.rows data.readOff
+  refine ⟨r, rfl, ?_⟩
+  exact
+    ⟨{ rho := rho
+       detector := detector
+       inputs := data.inputs
+       baseSourceBackedTest := data.baseSourceBackedTest
+       canonicalOwner := data.canonicalOwner
+       lambda := data.lambda
+       oneLtLambda := data.oneLtLambda
+       rows := data.rows
+       readOff := data.readOff
+       route_eq := rfl }⟩
+
 theorem normalizedRouteBackedCC20SquareRestrictedDetectorCoverage_of_yoshida_square_trace_realizer
     (hrealizer : NormalizedRouteBackedYoshidaDetectorSquareTraceRealizer) :
     NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage :=
@@ -11046,6 +14936,16 @@ theorem normalizedRouteBackedCC20SquareRestrictedDetectorReadOffCoverage_of_yosh
   normalizedRouteBackedCC20SquareRestrictedDetectorReadOffCoverage_of_yoshida_square_trace_realizer
     (normalizedRouteBackedYoshidaDetectorSquareTraceRealizer_of_archimedean_trace_realizer
       hrealizer)
+
+theorem normalizedRouteBackedCC20SquareRestrictedDetectorReadOffCoverage_of_detectorCanonicalRoutePackageCoverage
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedDetectorReadOffCoverage := by
+  intro rho hrho hoff detector
+  rcases hcoverage hrho hoff detector with ⟨r, hmatch⟩
+  have hr := hmatch.1
+  rcases hmatch.2 with ⟨w⟩
+  exact ⟨r, hr, w.localSumReadOff⟩
 
 theorem normalizedRouteBackedCC20SquareRestrictedDetectorReadOffCoverage_of_qwPoleCalibrationCoverage
     (hcoverage :
@@ -11318,6 +15218,53 @@ theorem normalizedRouteBackedCC20SquareRestrictedDetectorTraceFrontComparisonQWP
          traceFrontComparisonRows := traceRows
          finitePrimeIndexDifference := hindex
          globalQWPoleCollapse := hqwPole }⟩⟩
+
+theorem normalizedRouteBackedCC20SquareRestrictedDetectorTraceFrontComparisonSplitPsiPoleCoverage_of_detectorCoverage_routeFrontPsiPoleCalibrations
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hpsiPole :
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedDetectorTraceFrontComparisonSplitPsiPoleCoverage := by
+  intro rho hrho hoff detector
+  rcases hcoverage hrho hoff detector with ⟨r, hr⟩
+  exact
+    ⟨r, hr,
+      NormalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration_of_routePolePairingTransportCalibration
+        hpole r,
+      htrace r,
+      hindex r,
+      hpsiPole r⟩
+
+theorem normalizedRouteBackedCC20SquareRestrictedDetectorTraceFrontComparisonQWPoleCalibrationCoverage_of_detectorCoverage_sourceAlignmentRestrictedQWPoleGlobalMassCalibrations
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hrestricted :
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration)
+    (hglobalMass :
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedDetectorTraceFrontComparisonQWPoleCalibrationCoverage := by
+  intro rho hrho hoff detector
+  rcases hcoverage hrho hoff detector with ⟨r, hr⟩
+  exact
+    ⟨r, hr,
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentRestrictedQWPoleGlobalMassCalibrations
+        hpole hsource hsupport hqw hrestricted hglobalMass) r⟩
 
 theorem normalizedRouteBackedCC20SquareRestrictedDetectorReadOffCoverage_of_traceTransportPsiPoleCalibrationCoverage
     (hcoverage :
@@ -13217,6 +17164,795 @@ theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSource
         hpole hsource hsupport hqw hfinitePrime))
     hcoverage
 
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsNonPoleMassCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonNonPoleMassCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsPsiPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonPsiPoleCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsQWPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonQWPoleCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsNonPoleMassCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonNonPoleMassCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsPsiPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonPsiPoleCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsQWPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonQWPoleCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsNonPoleMassCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonNonPoleMassCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsPsiPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonPsiPoleCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsQWPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonQWPoleCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSourceDataAtomRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsNonPoleMassCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonNonPoleMassCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsPsiPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonPsiPoleCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsQWPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonQWPoleCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsNonPoleMassCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonNonPoleMassCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsPsiPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonPsiPoleCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsQWPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonQWPoleCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsNonPoleMassCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonNonPoleMassCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonNonPoleMassCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsPsiPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonPsiPoleCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonPsiPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsQWPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_route_criterion
+    hexists
+    (normalizedRouteBackedCC20SquareRestrictedWeilCriterion_of_traceFrontComparisonQWPoleCalibration
+      (normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleCalibration_of_sourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibrations
+        hpole hsource hsupport hqw hfinitePrime))
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsNonPoleMassCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsNonPoleMassCalibrations
+    hexists hpole hsource hsupport hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration_of_coverageRows
+      hfinitePrime)
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsPsiPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsPsiPoleCalibrations
+    hexists hpole hsource hsupport hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration_of_coverageRows
+      hfinitePrime)
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsQWPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsQWPoleCalibrations
+    hexists hpole hsource hsupport hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration_of_coverageRows
+      hfinitePrime)
+    hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsNonPoleMassCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH := by
+  rcases
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration_iff_components).mpr
+      hfinitePrime with
+    ⟨rows⟩
+  exact
+    normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsNonPoleMassCalibrations
+      hexists hpole hsource hsupport hqw rows hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsPsiPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH := by
+  rcases
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration_iff_components).mpr
+      hfinitePrime with
+    ⟨rows⟩
+  exact
+    normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsPsiPoleCalibrations
+      hexists hpole hsource hsupport hqw rows hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsQWPoleCalibrations
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH := by
+  rcases
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration_iff_components).mpr
+      hfinitePrime with
+    ⟨rows⟩
+  exact
+    normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsQWPoleCalibrations
+      hexists hpole hsource hsupport hqw rows hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsNonPoleMassCalibrations_unconditionalDetector
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsNonPoleMassCalibrations
+    Source.CC20YoshidaInterpolationNode.normalizedCC20YoshidaDetectorExists
+    hpole hsource hsupport hqw hfinitePrime hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsPsiPoleCalibrations_unconditionalDetector
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsPsiPoleCalibrations
+    Source.CC20YoshidaInterpolationNode.normalizedCC20YoshidaDetectorExists
+    hpole hsource hsupport hqw hfinitePrime hcoverage
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsQWPoleCalibrations_unconditionalDetector
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents)
+    (hcoverage : NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsQWPoleCalibrations
+    Source.CC20YoshidaInterpolationNode.normalizedCC20YoshidaDetectorExists
+    hpole hsource hsupport hqw hfinitePrime hcoverage
+
+/-- Positive SourceRH front for the canonical route-package lane.  The detector
+coverage leaf is generated from the square route realizer; the remaining
+finite-prime payload is exactly the coverage-generated canonical component
+package. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverageRowsSourceRHFront
+    where
+  routeRealizer :
+    NormalizedRouteBackedYoshidaDetectorSquareRouteRealizer
+  routePolePairingTransport :
+    NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration
+  traceFrontSourceRows :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration
+  traceFrontSupportSquareAlignment :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+      traceFrontSourceRows
+  traceFrontQWLambdaAlignment :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+      traceFrontSourceRows
+  finitePrimeRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents
+
+theorem normalizedCC20_source_rh_of_square_restricted_canonicalRoutePackageCoverageRowsSourceRHFront_nonPoleMass
+    (front :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverageRowsSourceRHFront) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsNonPoleMassCalibrations_unconditionalDetector
+    front.routePolePairingTransport
+    front.traceFrontSourceRows
+    front.traceFrontSupportSquareAlignment
+    front.traceFrontQWLambdaAlignment
+    front.finitePrimeRows
+    (normalizedRouteBackedCC20SquareRestrictedDetectorCoverage_of_yoshida_square_route_realizer
+      front.routeRealizer)
+
+theorem normalizedCC20_source_rh_of_square_restricted_canonicalRoutePackageCoverageRowsSourceRHFront_psiPole
+    (front :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverageRowsSourceRHFront) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsPsiPoleCalibrations_unconditionalDetector
+    front.routePolePairingTransport
+    front.traceFrontSourceRows
+    front.traceFrontSupportSquareAlignment
+    front.traceFrontQWLambdaAlignment
+    front.finitePrimeRows
+    (normalizedRouteBackedCC20SquareRestrictedDetectorCoverage_of_yoshida_square_route_realizer
+      front.routeRealizer)
+
+theorem normalizedCC20_source_rh_of_square_restricted_canonicalRoutePackageCoverageRowsSourceRHFront_qwPole
+    (front :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverageRowsSourceRHFront) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsQWPoleCalibrations_unconditionalDetector
+    front.routePolePairingTransport
+    front.traceFrontSourceRows
+    front.traceFrontSupportSquareAlignment
+    front.traceFrontQWLambdaAlignment
+    front.finitePrimeRows
+    (normalizedRouteBackedCC20SquareRestrictedDetectorCoverage_of_yoshida_square_route_realizer
+      front.routeRealizer)
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsNonPoleMassCalibrations_squareRouteRealizer
+    (hrealizer :
+      NormalizedRouteBackedYoshidaDetectorSquareRouteRealizer)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_canonicalRoutePackageCoverageRowsSourceRHFront_nonPoleMass
+    { routeRealizer := hrealizer
+      routePolePairingTransport := hpole
+      traceFrontSourceRows := hsource
+      traceFrontSupportSquareAlignment := hsupport
+      traceFrontQWLambdaAlignment := hqw
+      finitePrimeRows := hfinitePrime }
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsPsiPoleCalibrations_squareRouteRealizer
+    (hrealizer :
+      NormalizedRouteBackedYoshidaDetectorSquareRouteRealizer)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_canonicalRoutePackageCoverageRowsSourceRHFront_psiPole
+    { routeRealizer := hrealizer
+      routePolePairingTransport := hpole
+      traceFrontSourceRows := hsource
+      traceFrontSupportSquareAlignment := hsupport
+      traceFrontQWLambdaAlignment := hqw
+      finitePrimeRows := hfinitePrime }
+
+theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceWeilFormCanonicalRoutePackageCoverageRowsComponentsQWPoleCalibrations_squareRouteRealizer
+    (hrealizer :
+      NormalizedRouteBackedYoshidaDetectorSquareRouteRealizer)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hfinitePrime :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_square_restricted_canonicalRoutePackageCoverageRowsSourceRHFront_qwPole
+    { routeRealizer := hrealizer
+      routePolePairingTransport := hpole
+      traceFrontSourceRows := hsource
+      traceFrontSupportSquareAlignment := hsupport
+      traceFrontQWLambdaAlignment := hqw
+      finitePrimeRows := hfinitePrime }
+
 theorem normalizedCC20_source_rh_of_square_restricted_traceFrontComparisonSourceAlignmentSourceEvaluationDataLowerRowsNonPoleMassCalibrations
     (hexists :
       CC20YoshidaDetectorExists
@@ -13377,6 +18113,28 @@ theorem normalizedRouteBackedCC20SquareRestrictedDetectorReadOffCoverage_iff_no_
         hexists hcoverage
     intro rho hrho
     simpa [RHDefinitionBridge.standard] using hsource rho hrho
+  · intro hNoOff rho hrho hoff _detector
+    exact False.elim (hoff (hNoOff hrho))
+
+/-- Detector-scoped canonical route-package provenance is still not a lower
+producer.  The canonical witness carries the route local-sum read-off, so over
+the Yoshida detector family this coverage is already equivalent to excluding
+off-line source zeros. -/
+theorem normalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage_iff_no_offline_source_zero
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet) :
+    NormalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage ↔
+      ∀ {rho : ℂ},
+        RHDefinitionBridge.standard.sourceNontrivialZero rho →
+          rho.re = 1 / 2 := by
+  constructor
+  · intro hcoverage
+    exact
+      (normalizedRouteBackedCC20SquareRestrictedDetectorReadOffCoverage_iff_no_offline_source_zero
+        hexists).mp
+        (normalizedRouteBackedCC20SquareRestrictedDetectorReadOffCoverage_of_detectorCanonicalRoutePackageCoverage
+          hcoverage)
   · intro hNoOff rho hrho hoff _detector
     exact False.elim (hoff (hNoOff hrho))
 
@@ -13686,6 +18444,226 @@ theorem normalizedRouteBackedCC20SquareRestrictedDetectorTraceFrontComparisonSpl
   · intro hNoOff rho hrho hoff _detector
     exact False.elim (hoff (hNoOff hrho))
 
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontPsiPoleCalibrations
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hpsiPole :
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 :=
+  (normalizedRouteBackedCC20SquareRestrictedDetectorTraceFrontComparisonSplitPsiPoleCoverage_iff_no_offline_source_zero
+    Source.CC20YoshidaInterpolationNode.normalizedCC20YoshidaDetectorExists).mp
+    (normalizedRouteBackedCC20SquareRestrictedDetectorTraceFrontComparisonSplitPsiPoleCoverage_of_detectorCoverage_routeFrontPsiPoleCalibrations
+      hcoverage hpole htrace hindex hpsiPole)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_routeFrontPsiPoleCalibrations
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hpsiPole :
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontPsiPoleCalibrations
+      hcoverage hpole htrace hindex hpsiPole hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontCanonicalRoutePackageCoverageRowsComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 := by
+  rcases hcomponents with ⟨_hcanonicalCoverage, _hcanonicalRows, _hrestricted, hpsi⟩
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontPsiPoleCalibrations
+      hcoverage hpole htrace hindex hpsi
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_routeFrontCanonicalRoutePackageCoverageRowsComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontCanonicalRoutePackageCoverageRowsComponents
+      hcoverage hpole htrace hindex hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontCanonicalRoutePackageCoverageRowsComponents_concreteSourceWeilFormRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hconcreteRows :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageConcreteSourceWeilFormRows)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 := by
+  rcases hcomponents with ⟨hcanonicalCoverage, hcanonicalRows, hrestricted, hpsi⟩
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontCanonicalRoutePackageCoverageRowsComponents
+      hcoverage
+      (normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_canonicalRoutePackageCoverage_concreteSourceWeilFormRows
+        hcanonicalCoverage hconcreteRows)
+      htrace hindex
+      ⟨hcanonicalCoverage, hcanonicalRows, hrestricted, hpsi⟩
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_routeFrontCanonicalRoutePackageCoverageRowsComponents_concreteSourceWeilFormRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hconcreteRows :
+      NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageConcreteSourceWeilFormRows)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontCanonicalRoutePackageCoverageRowsComponents_concreteSourceWeilFormRows
+      hcoverage hconcreteRows htrace hindex hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRowsComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 := by
+  rcases hcomponents with ⟨hcanonicalCoverage, _hcanonicalRows, _hrestricted, hpsi⟩
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontPsiPoleCalibrations
+      hcoverage
+      (normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcanonicalCoverage)
+      htrace hindex hpsi
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRowsComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRowsComponents
+      hcoverage htrace hindex hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 := by
+  rcases hcomponents with ⟨hcanonicalCoverage, _halignment, _hrestricted, hpsi⟩
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontPsiPoleCalibrations
+      hcoverage
+      (normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcanonicalCoverage)
+      htrace hindex hpsi
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents
+      hcoverage htrace hindex hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRowsCalibration
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hrows :
+      Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 := by
+  have hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents :=
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration_iff_components).mp
+      hrows
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRowsComponents
+      hcoverage htrace hindex hcomponents hrho
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRowsCalibration
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hrows :
+      Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRowsCalibration
+      hcoverage htrace hindex hrows hrho
+
 /-- The split trace-front detector target with B3c in global-QW form is also
 RH-level. -/
 theorem normalizedRouteBackedCC20SquareRestrictedDetectorTraceFrontComparisonSplitQWPoleCoverage_iff_no_offline_source_zero
@@ -13705,6 +18683,286 @@ theorem normalizedRouteBackedCC20SquareRestrictedDetectorTraceFrontComparisonSpl
           hcoverage)
   · intro hNoOff rho hrho hoff _detector
     exact False.elim (hoff (hNoOff hrho))
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPoleGlobalMassCalibrations
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hrestricted :
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration)
+    (hglobalMass :
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 :=
+  (normalizedRouteBackedCC20SquareRestrictedDetectorTraceFrontComparisonQWPoleCalibrationCoverage_iff_no_offline_source_zero
+    Source.CC20YoshidaInterpolationNode.normalizedCC20YoshidaDetectorExists).mp
+    (normalizedRouteBackedCC20SquareRestrictedDetectorTraceFrontComparisonQWPoleCalibrationCoverage_of_detectorCoverage_sourceAlignmentRestrictedQWPoleGlobalMassCalibrations
+      hcoverage hpole hsource hsupport hqw hrestricted hglobalMass)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPoleGlobalMassCalibrations
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hrestricted :
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration)
+    (hglobalMass :
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPoleGlobalMassCalibrations
+      hcoverage hpole hsource hsupport hqw hrestricted hglobalMass hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentCanonicalRoutePackageCoverageRowsComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 := by
+  rcases hcomponents with ⟨_hcanonicalCoverage, _hcanonicalRows, hrestricted, hpsi⟩
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPoleGlobalMassCalibrations
+      hcoverage hpole hsource hsupport hqw hrestricted
+      (NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration_of_psiPoleCollapseCalibration
+        hpsi)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentCanonicalRoutePackageCoverageRowsComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentCanonicalRoutePackageCoverageRowsComponents
+      hcoverage hpole hsource hsupport hqw hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRowsComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 := by
+  rcases hcomponents with ⟨hcanonicalCoverage, _hcanonicalRows, hrestricted, hpsi⟩
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPoleGlobalMassCalibrations
+      hcoverage
+      (normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcanonicalCoverage)
+      hsource hsupport hqw hrestricted
+      (NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration_of_psiPoleCollapseCalibration
+        hpsi)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRowsComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRowsComponents
+      hcoverage hsource hsupport hqw hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 := by
+  rcases hcomponents with ⟨hcanonicalCoverage, _halignment, hrestricted, hpsi⟩
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPoleGlobalMassCalibrations
+      hcoverage
+      (normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcanonicalCoverage)
+      hsource hsupport hqw hrestricted
+      (NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration_of_psiPoleCollapseCalibration
+        hpsi)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents
+      hcoverage hsource hsupport hqw hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRowsCalibration
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hrows :
+      Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 := by
+  have hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents :=
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration_iff_components).mp
+      hrows
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRowsComponents
+      hcoverage hsource hsupport hqw hcomponents hrho
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRowsCalibration
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hrows :
+      Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRowsCalibration
+      hcoverage hsource hsupport hqw hrows hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentCanonicalRoutePackageCoverageRowsCalibration
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hrows :
+      Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 := by
+  have hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCanonicalRoutePackageCoverageRowsComponents :=
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration_iff_components).mp
+      hrows
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentCanonicalRoutePackageCoverageRowsComponents
+      hcoverage hpole hsource hsupport hqw hcomponents hrho
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentCanonicalRoutePackageCoverageRowsCalibration
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hrows :
+      Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentCanonicalRoutePackageCoverageRowsCalibration
+      hcoverage hpole hsource hsupport hqw hrows hrho
 
 /-- Splitting B2 into atomic trace-scale rows does not make detector-only
 coverage a lower producer. -/
@@ -13945,6 +19203,97 @@ def NormalizedRouteBackedCC20RestrictedTraceCalibration : Prop :=
   ∀ r : NormalizedRouteBackedCC20RestrictedTest,
     NormalizedRouteBackedCC20RestrictedTraceCalibrationRows r
 
+/-- Whole-carrier version of the support-square trace calibration rows. -/
+def NormalizedRouteBackedCC20RestrictedSupportSquareCalibration : Prop :=
+  ∀ r : NormalizedRouteBackedCC20RestrictedTest,
+    NormalizedRouteBackedCC20RestrictedSupportSquareCalibrationRows r
+
+/-- Whole-carrier version of the balanced finite-prime trace calibration rows. -/
+def NormalizedRouteBackedCC20RestrictedBalancedCalibration : Prop :=
+  ∀ r : NormalizedRouteBackedCC20RestrictedTest,
+    NormalizedRouteBackedCC20RestrictedBalancedCalibrationRows r
+
+/-- Whole-carrier version of the balanced rows stated with the native route
+trace-read-off equality. -/
+def NormalizedRouteBackedCC20RestrictedTraceReadOffBalancedCalibration :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20RestrictedTest,
+    NormalizedRouteBackedCC20RestrictedTraceReadOffBalancedCalibrationRows r
+
+theorem normalizedRouteBackedCC20RestrictedTraceCalibration_of_supportSquareCalibration
+    (hcalibration :
+      NormalizedRouteBackedCC20RestrictedSupportSquareCalibration) :
+    NormalizedRouteBackedCC20RestrictedTraceCalibration := by
+  intro r
+  exact
+    NormalizedRouteBackedCC20RestrictedTraceCalibrationRows.ofSupportSquareRows
+      (hcalibration r)
+
+theorem normalizedRouteBackedCC20RestrictedSupportSquareCalibration_of_balancedCalibration
+    (hcalibration :
+      NormalizedRouteBackedCC20RestrictedBalancedCalibration) :
+    NormalizedRouteBackedCC20RestrictedSupportSquareCalibration := by
+  intro r
+  exact
+    NormalizedRouteBackedCC20RestrictedSupportSquareCalibrationRows.ofBalancedRows
+      (hcalibration r)
+
+theorem normalizedRouteBackedCC20RestrictedTraceCalibration_of_balancedCalibration
+    (hcalibration :
+      NormalizedRouteBackedCC20RestrictedBalancedCalibration) :
+    NormalizedRouteBackedCC20RestrictedTraceCalibration :=
+  normalizedRouteBackedCC20RestrictedTraceCalibration_of_supportSquareCalibration
+    (normalizedRouteBackedCC20RestrictedSupportSquareCalibration_of_balancedCalibration
+      hcalibration)
+
+theorem normalizedRouteBackedCC20RestrictedBalancedCalibration_of_traceReadOffBalancedCalibration
+    (hcalibration :
+      NormalizedRouteBackedCC20RestrictedTraceReadOffBalancedCalibration) :
+    NormalizedRouteBackedCC20RestrictedBalancedCalibration := by
+  intro r
+  exact
+    NormalizedRouteBackedCC20RestrictedBalancedCalibrationRows.ofTraceReadOffBalancedRows
+      (hcalibration r)
+
+theorem normalizedRouteBackedCC20RestrictedTraceCalibration_of_traceReadOffBalancedCalibration
+    (hcalibration :
+      NormalizedRouteBackedCC20RestrictedTraceReadOffBalancedCalibration) :
+    NormalizedRouteBackedCC20RestrictedTraceCalibration :=
+  normalizedRouteBackedCC20RestrictedTraceCalibration_of_balancedCalibration
+    (normalizedRouteBackedCC20RestrictedBalancedCalibration_of_traceReadOffBalancedCalibration
+      hcalibration)
+
+/-- Whole-carrier version of the ordinary concrete pole-pairing owner for the
+raw restricted carrier.  This is intentionally separated from trace
+calibration: on the raw carrier it supplies only the single stored route test,
+not the CC20 square used by the local-sum exit. -/
+def NormalizedRouteBackedCC20RestrictedConcretePolePairingOwnerCalibration :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20RestrictedTest,
+    NormalizedRouteBackedCC20RestrictedConcretePolePairingOwner r
+
+/-- Whole-carrier square-lift bottom for the raw restricted carrier.  If the
+raw carrier tries to use the ordinary concrete pole-pairing owner, trace
+calibration already contains this extra equality. -/
+def NormalizedRouteBackedCC20RestrictedPolePairingSquareLiftCalibration :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20RestrictedTest,
+    NormalizedRouteBackedCC20RestrictedPolePairingSquareLift r
+
+/-- Guard for the raw restricted carrier: trace calibration plus the ordinary
+concrete owner is not just a harmless transport API.  It forces the square-lift
+row `polePairing(square test) = polePairing(test)` for every raw restricted
+carrier. -/
+theorem normalizedRouteBackedCC20RestrictedPolePairingSquareLiftCalibration_of_traceCalibration_concreteOwnerCalibration
+    (htrace : NormalizedRouteBackedCC20RestrictedTraceCalibration)
+    (howner :
+      NormalizedRouteBackedCC20RestrictedConcretePolePairingOwnerCalibration) :
+    NormalizedRouteBackedCC20RestrictedPolePairingSquareLiftCalibration := by
+  intro r
+  exact
+    normalizedRouteBackedCC20RestrictedPolePairingSquareLift_of_traceCalibrationRows_concreteOwner
+      (htrace r) (howner r)
+
 /-- The calibrated-row hard leaf implies the restricted Weil criterion. -/
 theorem normalizedRouteBackedCC20RestrictedWeilCriterion_of_traceCalibration
     (hcalibration : NormalizedRouteBackedCC20RestrictedTraceCalibration) :
@@ -14097,6 +19446,73 @@ theorem normalizedCC20_source_rh_of_restricted_route_criterion
             (normalizedCC20TestSpace.starConvolution detector.test) :=
       detector.weilSumPositiveIfOffLine hrho hline
     exact False.elim ((not_lt_of_ge hnonpos) hpos)
+
+/-- Route-front guard for the raw restricted trace-calibration outlet.  In the
+presence of detector coverage, whole-carrier trace calibration is already a
+no-off-line source-zero theorem. -/
+theorem normalizedCC20_no_offline_source_zero_of_restricted_detectorCoverage_traceCalibration
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hcoverage : NormalizedRouteBackedCC20RestrictedDetectorCoverage)
+    (htrace : NormalizedRouteBackedCC20RestrictedTraceCalibration) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 := by
+  intro rho hrho
+  exact
+    normalizedCC20_source_rh_of_restricted_route_criterion
+      hexists
+      (normalizedRouteBackedCC20RestrictedWeilCriterion_of_traceCalibration
+        htrace)
+      hcoverage
+      rho hrho
+
+/-- Same guard stated as the standard source-RH target. -/
+theorem normalizedCC20_source_rh_of_restricted_detectorCoverage_traceCalibration
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hcoverage : NormalizedRouteBackedCC20RestrictedDetectorCoverage)
+    (htrace : NormalizedRouteBackedCC20RestrictedTraceCalibration) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_restricted_detectorCoverage_traceCalibration
+      hexists hcoverage htrace hrho
+
+/-- Lower route-front guard: the native trace-read-off balanced restricted
+calibration is also already a no-off-line source-zero theorem once detector
+coverage is present. -/
+theorem normalizedCC20_no_offline_source_zero_of_restricted_detectorCoverage_traceReadOffBalancedCalibration
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hcoverage : NormalizedRouteBackedCC20RestrictedDetectorCoverage)
+    (hcalibration :
+      NormalizedRouteBackedCC20RestrictedTraceReadOffBalancedCalibration) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 := by
+  exact
+    normalizedCC20_no_offline_source_zero_of_restricted_detectorCoverage_traceCalibration
+      hexists hcoverage
+      (normalizedRouteBackedCC20RestrictedTraceCalibration_of_traceReadOffBalancedCalibration
+        hcalibration)
+
+/-- Same lower guard stated as the standard source-RH target. -/
+theorem normalizedCC20_source_rh_of_restricted_detectorCoverage_traceReadOffBalancedCalibration
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hcoverage : NormalizedRouteBackedCC20RestrictedDetectorCoverage)
+    (hcalibration :
+      NormalizedRouteBackedCC20RestrictedTraceReadOffBalancedCalibration) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_restricted_detectorCoverage_traceReadOffBalancedCalibration
+      hexists hcoverage hcalibration hrho
 
 /-- Detector read-off coverage is enough to run the CC20 contradiction.
 
@@ -14430,6 +19846,88 @@ theorem normalizedRouteBackedSourceZeroConcreteYoshidaMomentDataContradictionRea
   · exact
       normalizedRouteBackedSourceZeroConcreteYoshidaMomentDataContradictionRealizer_of_no_offline_source_zero
 
+/-- Detector-test source-zero nonpositivity is exactly `SourceRH`, assuming the
+Yoshida detector existence theorem.  It is a rejection guard for treating this
+source-zero API as a lower producer. -/
+theorem normalizedRouteBackedSourceZeroYoshidaDetectorNonpositiveRealizer_iff_standardSourceRH
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet) :
+    NormalizedRouteBackedSourceZeroYoshidaDetectorNonpositiveRealizer ↔
+      RHDefinitionBridge.standard.SourceRH :=
+  (normalizedRouteBackedSourceZeroYoshidaDetectorNonpositiveRealizer_iff_no_offline_source_zero
+    hexists).trans
+    normalizedCC20_no_offline_source_zero_iff_standardSourceRH
+
+/-- Detector-test pole-pairing nonnegativity is also RH-level once Yoshida
+detectors exist. -/
+theorem normalizedRouteBackedSourceZeroYoshidaDetectorPolePairingNonnegativeRealizer_iff_standardSourceRH
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet) :
+    NormalizedRouteBackedSourceZeroYoshidaDetectorPolePairingNonnegativeRealizer ↔
+      RHDefinitionBridge.standard.SourceRH :=
+  (normalizedRouteBackedSourceZeroYoshidaDetectorPolePairingNonnegativeRealizer_iff_no_offline_source_zero
+    hexists).trans
+    normalizedCC20_no_offline_source_zero_iff_standardSourceRH
+
+/-- Detector-test half-density nonnegativity is RH-level once Yoshida detectors
+exist. -/
+theorem normalizedRouteBackedSourceZeroYoshidaDetectorHalfDensityNonnegativeRealizer_iff_standardSourceRH
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet) :
+    NormalizedRouteBackedSourceZeroYoshidaDetectorHalfDensityNonnegativeRealizer ↔
+      RHDefinitionBridge.standard.SourceRH :=
+  (normalizedRouteBackedSourceZeroYoshidaDetectorHalfDensityNonnegativeRealizer_iff_no_offline_source_zero
+    hexists).trans
+    normalizedCC20_no_offline_source_zero_iff_standardSourceRH
+
+/-- Concrete Yoshida-moment pole-pairing nonnegativity is RH-level when the
+moment-data existence row is available. -/
+theorem normalizedRouteBackedSourceZeroConcreteYoshidaMomentDataPolePairingNonnegativeRealizer_iff_standardSourceRH
+    (hmoment :
+      ∀ {rho : ℂ},
+        RHDefinitionBridge.standard.sourceNontrivialZero rho →
+          rho.re ≠ 1 / 2 →
+            ∃ g : normalizedCC20ConcreteTestAlgebra.Test,
+              CC20YoshidaInterpolationNode.ConcreteYoshidaMomentData rho g) :
+    NormalizedRouteBackedSourceZeroConcreteYoshidaMomentDataPolePairingNonnegativeRealizer ↔
+      RHDefinitionBridge.standard.SourceRH :=
+  (normalizedRouteBackedSourceZeroConcreteYoshidaMomentDataPolePairingNonnegativeRealizer_iff_no_offline_source_zero
+    hmoment).trans
+    normalizedCC20_no_offline_source_zero_iff_standardSourceRH
+
+/-- Concrete Yoshida-moment half-density nonnegativity is RH-level when the
+moment-data existence row is available. -/
+theorem normalizedRouteBackedSourceZeroConcreteYoshidaMomentDataHalfDensityNonnegativeRealizer_iff_standardSourceRH
+    (hmoment :
+      ∀ {rho : ℂ},
+        RHDefinitionBridge.standard.sourceNontrivialZero rho →
+          rho.re ≠ 1 / 2 →
+            ∃ g : normalizedCC20ConcreteTestAlgebra.Test,
+              CC20YoshidaInterpolationNode.ConcreteYoshidaMomentData rho g) :
+    NormalizedRouteBackedSourceZeroConcreteYoshidaMomentDataHalfDensityNonnegativeRealizer ↔
+      RHDefinitionBridge.standard.SourceRH :=
+  (normalizedRouteBackedSourceZeroConcreteYoshidaMomentDataHalfDensityNonnegativeRealizer_iff_no_offline_source_zero
+    hmoment).trans
+    normalizedCC20_no_offline_source_zero_iff_standardSourceRH
+
+/-- A concrete Yoshida-moment contradiction realizer is not a lower source-zero
+exclusion API.  With moment-data existence available, it is exactly `SourceRH`. -/
+theorem normalizedRouteBackedSourceZeroConcreteYoshidaMomentDataContradictionRealizer_iff_standardSourceRH
+    (hmoment :
+      ∀ {rho : ℂ},
+        RHDefinitionBridge.standard.sourceNontrivialZero rho →
+          rho.re ≠ 1 / 2 →
+            ∃ g : normalizedCC20ConcreteTestAlgebra.Test,
+              CC20YoshidaInterpolationNode.ConcreteYoshidaMomentData rho g) :
+    NormalizedRouteBackedSourceZeroConcreteYoshidaMomentDataContradictionRealizer ↔
+      RHDefinitionBridge.standard.SourceRH :=
+  (normalizedRouteBackedSourceZeroConcreteYoshidaMomentDataContradictionRealizer_iff_no_offline_source_zero
+    hmoment).trans
+    normalizedCC20_no_offline_source_zero_iff_standardSourceRH
+
 theorem normalizedCC20_source_rh_of_finite_vanishing_rows
     (hexists :
       CC20YoshidaDetectorExists
@@ -14446,6 +19944,25 @@ theorem normalizedCC20_source_rh_of_finite_vanishing_rows
     hexists
     hdisjoint
     hcriterion.down
+
+theorem normalizedCC20_finite_vanishing_rows_false
+    (_hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (_hdisjoint :
+      SourceFiniteSetDisjointFromNontrivialZeros
+        RHDefinitionBridge.standard cc20TripleFiniteVanishingSet)
+    (hvanish :
+      normalizedCC20FiniteVanishingWeilCriterionInput.tripleVanishing)
+    (hcriterion :
+      normalizedCC20FiniteVanishingWeilCriterionInput.fullWeilPositivity) :
+    False :=
+  normalizedCC20FiniteVanishingRows_false_of_components hvanish hcriterion
+
+theorem normalizedCC20_finite_vanishing_rows_package_false
+    (hrows : NormalizedCC20FiniteVanishingRows) :
+    False :=
+  not_normalizedCC20FiniteVanishingRows hrows
 
 end Route
 end ConnesWeilRH
