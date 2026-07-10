@@ -26,9 +26,31 @@ open scoped Topology
 open CC20YoshidaInterpolationNode
 open CC20YoshidaInterpolationNode.CC20YoshidaExpandedMomentNode
 
+/-- The global source index set for a future spectral-side explicit formula. -/
+def sourceNontrivialZeroSet : Set ℂ :=
+  {z : ℂ | RHDefinitionBridge.standard.sourceNontrivialZero z}
+
+theorem sourceNontrivialZeroSet_subset_riemannZetaZeros :
+    sourceNontrivialZeroSet ⊆ riemannZetaZeros := by
+  intro z hz
+  exact
+    RHDefinitionBridge.standard_mathlib_zeta_zero_of_source_nontrivial_zero
+      z hz
+
+/-- The spectral index set is countable because it is a discrete subset of the
+second-countable complex plane. -/
+theorem sourceNontrivialZeroSet_countable :
+    sourceNontrivialZeroSet.Countable := by
+  have hLindelof : IsLindelof sourceNontrivialZeroSet :=
+    isLindelof_iff_lindelofSpace.mpr inferInstance
+  have hDiscrete : IsDiscrete sourceNontrivialZeroSet :=
+    isDiscrete_riemannZetaZeros.mono
+      sourceNontrivialZeroSet_subset_riemannZetaZeros
+  exact IsLindelof.countable_of_isDiscrete hLindelof hDiscrete
+
 def sourceNontrivialZerosInClosedBall (rho : ℂ) (R : ℝ) : Set ℂ :=
   Metric.closedBall rho R ∩
-    {z : ℂ | RHDefinitionBridge.standard.sourceNontrivialZero z}
+    sourceNontrivialZeroSet
 
 theorem sourceNontrivialZerosInClosedBall_finite (rho : ℂ) (R : ℝ) :
     (sourceNontrivialZerosInClosedBall rho R).Finite := by
@@ -37,8 +59,7 @@ theorem sourceNontrivialZerosInClosedBall_finite (rho : ℂ) (R : ℝ) :
   apply (hcompact.inter_riemannZetaZeros_finite).subset
   intro z hz
   exact ⟨hz.1,
-    RHDefinitionBridge.standard_mathlib_zeta_zero_of_source_nontrivial_zero
-      z hz.2⟩
+    sourceNontrivialZeroSet_subset_riemannZetaZeros hz.2⟩
 
 noncomputable def sourceNontrivialZerosInClosedBallFinset
     (rho : ℂ) (R : ℝ) : Finset ℂ :=

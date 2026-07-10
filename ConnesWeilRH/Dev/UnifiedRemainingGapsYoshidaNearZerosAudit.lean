@@ -17,6 +17,7 @@ namespace UnifiedRemainingGapsYoshidaNearZerosAudit
 open Source.CC20YoshidaNearZeros
 
 #check @sourceNontrivialZerosInClosedBall_finite
+#check @sourceNontrivialZeroSet_countable
 #check @mem_sourceNontrivialZerosInClosedBallFinset
 #check @finiteWeightedMellinKernel_log_window_independence
 #check @exists_windowed_test_with_finite_kernel_integral_ne_zero
@@ -25,10 +26,12 @@ open Source.CC20YoshidaNearZeros
 #check @fixed_window_nearby_zero_mellin_surjective
 
 #print sourceNontrivialZerosInClosedBall_finite
+#print sourceNontrivialZeroSet_countable
 #print fixed_window_finite_mellin_surjective
 #print fixed_window_nearby_zero_mellin_surjective
 
 #print axioms sourceNontrivialZerosInClosedBall_finite
+#print axioms sourceNontrivialZeroSet_countable
 #print axioms finiteWeightedMellinKernel_log_window_independence
 #print axioms exists_windowed_test_with_finite_kernel_integral_ne_zero
 #print axioms windowedFiniteMellinVector_span_top
