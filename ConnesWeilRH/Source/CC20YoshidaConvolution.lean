@@ -211,6 +211,61 @@ theorem laplaceAt_convolutionIterate
       rw [convolutionIterate_succ, laplaceAt_convolution, ih]
       exact (pow_succ _ (n + 1)).symm
 
+/-- A uniform strict contraction on a set becomes an arbitrarily small
+uniform bound after enough genuine convolution factors. -/
+theorem exists_convolutionIterate_laplaceAt_norm_le_of_uniform_contraction
+    (f : CompactLogTest) (U : Set ℂ) (q epsilon : ℝ)
+    (hq_nonneg : 0 ≤ q) (hq_lt_one : q < 1) (hepsilon : 0 < epsilon)
+    (hcontraction : ∀ s ∈ U, ‖laplaceAt f s‖ ≤ q) :
+    ∃ n : ℕ, ∀ s ∈ U,
+      ‖laplaceAt (convolutionIterate f n) s‖ ≤ epsilon := by
+  obtain ⟨n, hn⟩ := exists_pow_lt_of_lt_one hepsilon hq_lt_one
+  refine ⟨n, ?_⟩
+  intro s hs
+  rw [laplaceAt_convolutionIterate, norm_pow]
+  calc
+    ‖laplaceAt f s‖ ^ (n + 1) ≤ q ^ (n + 1) := by
+      gcongr
+      exact hcontraction s hs
+    _ ≤ q ^ n :=
+      pow_le_pow_of_le_one hq_nonneg hq_lt_one.le (Nat.le_succ n)
+    _ ≤ epsilon := hn.le
+
+/-- A bounded finite correction factor preserves the convolution-power tail
+estimate after increasing the convolution count. -/
+theorem exists_convolutionIterate_convolution_laplaceAt_norm_le
+    (f correction : CompactLogTest) (U : Set ℂ) (q B epsilon : ℝ)
+    (hq_nonneg : 0 ≤ q) (hq_lt_one : q < 1) (hB_nonneg : 0 ≤ B)
+    (hepsilon : 0 < epsilon)
+    (hcontraction : ∀ s ∈ U, ‖laplaceAt f s‖ ≤ q)
+    (hcorrection : ∀ s ∈ U, ‖laplaceAt correction s‖ ≤ B) :
+    ∃ n : ℕ, ∀ s ∈ U,
+      ‖laplaceAt ((convolutionIterate f n).convolution correction) s‖ ≤ epsilon := by
+  obtain ⟨n, hn⟩ :=
+    exists_pow_lt_of_lt_one (by positivity : 0 < epsilon / (B + 1)) hq_lt_one
+  refine ⟨n, ?_⟩
+  intro s hs
+  rw [laplaceAt_convolution, laplaceAt_convolutionIterate, norm_mul, norm_pow]
+  apply le_of_lt
+  calc
+    ‖laplaceAt f s‖ ^ (n + 1) * ‖laplaceAt correction s‖ ≤ q ^ (n + 1) * B := by
+      gcongr
+      exact hcontraction s hs
+      exact hcorrection s hs
+    _ ≤ q ^ n * B := by
+      apply mul_le_mul_of_nonneg_right _ hB_nonneg
+      simpa [Nat.succ_eq_add_one] using
+        pow_le_pow_of_le_one hq_nonneg hq_lt_one.le (Nat.le_succ n)
+    _ < epsilon := by
+      calc
+        q ^ n * B ≤ q ^ n * (B + 1) := by
+          gcongr
+          linarith
+        _ < (epsilon / (B + 1)) * (B + 1) :=
+          mul_lt_mul_of_pos_right hn (by linarith)
+        _ = epsilon := by
+          field_simp
+
 theorem convolutionIterate_support_subset_Ioo
     (f : CompactLogTest) {lower upper : ℝ}
     (hsupport : Function.support f.test ⊆ Set.Ioo lower upper)
@@ -224,6 +279,22 @@ theorem convolutionIterate_support_subset_Ioo
       have hadd := convolution_support_subset_add_Ioo
         (convolutionIterate f n) f ih hsupport
       convert hadd using 1 <;> norm_num <;> ring_nf
+
+/-- The support budget for one finite correction factor adds its log-window to
+the `(n + 1)` copies consumed by the convolution power. -/
+theorem convolutionIterate_convolution_support_subset_Ioo
+    (f correction : CompactLogTest) {lower upper correctionLower correctionUpper : ℝ}
+    (hsupport : Function.support f.test ⊆ Set.Ioo lower upper)
+    (hcorrection : Function.support correction.test ⊆
+      Set.Ioo correctionLower correctionUpper)
+    (n : ℕ) :
+    Function.support ((convolutionIterate f n).convolution correction).test ⊆
+      Set.Ioo ((n + 1 : ℕ) * lower + correctionLower)
+        ((n + 1 : ℕ) * upper + correctionUpper) := by
+  exact convolution_support_subset_add_Ioo
+    (convolutionIterate f n) correction
+    (convolutionIterate_support_subset_Ioo f hsupport n)
+    hcorrection
 
 end CompactLogTest
 end CC20YoshidaConvolution
