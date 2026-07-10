@@ -19,6 +19,7 @@ open Source.CC20YoshidaConvolution.CompactLogTest
 #check @convolution_support_subset_add_Ioo
 #check @laplaceAt_compactLogTestOfWindow_eq_mellin
 #check @exists_uniform_laplaceAt_vertical_quadratic_decay
+#check @exists_uniform_laplaceAt_vertical_half_contraction
 #check @laplaceAt_convolution
 #check @laplaceAt_convolutionIterate
 #check @exists_convolutionIterate_laplaceAt_norm_le_of_uniform_contraction
@@ -28,6 +29,7 @@ open Source.CC20YoshidaConvolution.CompactLogTest
 
 #print laplaceAt_compactLogTestOfWindow_eq_mellin
 #print exists_uniform_laplaceAt_vertical_quadratic_decay
+#print exists_uniform_laplaceAt_vertical_half_contraction
 #print laplaceAt_convolution
 #print laplaceAt_convolutionIterate
 #print exists_convolutionIterate_laplaceAt_norm_le_of_uniform_contraction
@@ -38,6 +40,7 @@ open Source.CC20YoshidaConvolution.CompactLogTest
 #print axioms convolution_support_subset_add_Ioo
 #print axioms laplaceAt_compactLogTestOfWindow_eq_mellin
 #print axioms exists_uniform_laplaceAt_vertical_quadratic_decay
+#print axioms exists_uniform_laplaceAt_vertical_half_contraction
 #print axioms laplaceAt_convolution
 #print axioms laplaceAt_convolutionIterate
 #print axioms exists_convolutionIterate_laplaceAt_norm_le_of_uniform_contraction

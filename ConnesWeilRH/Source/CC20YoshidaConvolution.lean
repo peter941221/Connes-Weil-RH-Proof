@@ -123,6 +123,57 @@ theorem exists_uniform_laplaceAt_vertical_quadratic_decay
   rw [laplaceAt_compactLogTestOfWindow_eq_mellin]
   exact hbound sigma hsigma t
 
+/-- The uniform quadratic strip bound gives a strict uniform contraction away
+from a finite vertical region. -/
+theorem exists_uniform_laplaceAt_vertical_half_contraction
+    (g : normalizedCC20ConcreteTestAlgebra.Test)
+    {a b : ℝ} (ha : 0 < a) (hb : 0 < b)
+    (hsupport : Function.support
+        (fun x : ℝ =>
+          normalizedCC20ConcreteTestAlgebra.legacy.encode g x) ⊆
+      Set.Ioo a b) :
+    ∃ T : ℝ, 0 ≤ T ∧
+      ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ, T ≤ |t| →
+        ‖laplaceAt (compactLogTestOfWindow g ha hb hsupport)
+          ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ 1 / 2 := by
+  obtain ⟨C, hC, hbound⟩ :=
+    exists_uniform_laplaceAt_vertical_quadratic_decay g ha hb hsupport
+  refine ⟨2 * Real.pi * Real.sqrt (2 * C + 1), by positivity, ?_⟩
+  intro sigma hsigma t hT
+  have hpi : 0 < 2 * Real.pi := by positivity
+  have hroot : 0 ≤ Real.sqrt (2 * C + 1) := Real.sqrt_nonneg _
+  have hroot_sq : Real.sqrt (2 * C + 1) ^ 2 = 2 * C + 1 := by
+    rw [Real.sq_sqrt]
+    linarith
+  have hquotient : Real.sqrt (2 * C + 1) ≤ |t| / (2 * Real.pi) :=
+    (le_div_iff₀ hpi).2 (by simpa [mul_comm] using hT)
+  have hfrequency : 2 * C + 1 ≤ ‖t / (2 * Real.pi)‖ ^ 2 := by
+    rw [Real.norm_eq_abs, abs_div, abs_of_nonneg hpi.le]
+    rw [← hroot_sq]
+    exact (sq_le_sq₀ hroot (by positivity)).2 hquotient
+  have hdecay := hbound sigma hsigma t
+  by_contra hnot
+  have hstrict : 1 / 2 <
+      ‖laplaceAt (compactLogTestOfWindow g ha hb hsupport)
+        ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ :=
+    lt_of_not_ge hnot
+  have hfrequency_pos : 0 < ‖t / (2 * Real.pi)‖ ^ 2 := by
+    linarith
+  have hproduct :
+      (2 * C + 1) * (1 / 2 : ℝ) <
+        ‖t / (2 * Real.pi)‖ ^ 2 *
+          ‖laplaceAt (compactLogTestOfWindow g ha hb hsupport)
+            ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ := by
+    calc
+      (2 * C + 1) * (1 / 2 : ℝ) ≤
+          ‖t / (2 * Real.pi)‖ ^ 2 * (1 / 2 : ℝ) :=
+        mul_le_mul_of_nonneg_right hfrequency (by norm_num)
+      _ < ‖t / (2 * Real.pi)‖ ^ 2 *
+          ‖laplaceAt (compactLogTestOfWindow g ha hb hsupport)
+            ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ :=
+        mul_lt_mul_of_pos_left hstrict hfrequency_pos
+  linarith
+
 theorem convolution_support_subset_add_Ioo
     (f g : CompactLogTest) {fLower fUpper gLower gUpper : ℝ}
     (hf : Function.support f.test ⊆ Set.Ioo fLower fUpper)
@@ -250,8 +301,8 @@ theorem exists_convolutionIterate_convolution_laplaceAt_norm_le
   calc
     ‖laplaceAt f s‖ ^ (n + 1) * ‖laplaceAt correction s‖ ≤ q ^ (n + 1) * B := by
       gcongr
-      exact hcontraction s hs
-      exact hcorrection s hs
+      · exact hcontraction s hs
+      · exact hcorrection s hs
     _ ≤ q ^ n * B := by
       apply mul_le_mul_of_nonneg_right _ hB_nonneg
       simpa [Nat.succ_eq_add_one] using
