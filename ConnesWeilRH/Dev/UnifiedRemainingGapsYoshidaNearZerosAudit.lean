@@ -18,6 +18,8 @@ open Source.CC20YoshidaNearZeros
 
 #check @sourceNontrivialZerosInClosedBall_finite
 #check @sourceNontrivialZeroSet_countable
+#check @sourceNontrivialZero_re_lt_one
+#check @sourceNontrivialZero_zero_lt_re_or_eq_neg_nat
 #check @summable_of_dyadic_shell_card_bound
 #check @sourceNontrivialZeroDyadicShell_partition
 #check @sourceNontrivialZeroDyadicShell_finite
@@ -31,6 +33,7 @@ open Source.CC20YoshidaNearZeros
 
 #print sourceNontrivialZerosInClosedBall_finite
 #print sourceNontrivialZeroSet_countable
+#print sourceNontrivialZero_zero_lt_re_or_eq_neg_nat
 #print summable_of_dyadic_shell_card_bound
 #print sourceNontrivialZero_summable_of_dyadic_bounds
 #print fixed_window_finite_mellin_surjective
@@ -38,6 +41,8 @@ open Source.CC20YoshidaNearZeros
 
 #print axioms sourceNontrivialZerosInClosedBall_finite
 #print axioms sourceNontrivialZeroSet_countable
+#print axioms sourceNontrivialZero_re_lt_one
+#print axioms sourceNontrivialZero_zero_lt_re_or_eq_neg_nat
 #print axioms summable_of_dyadic_shell_card_bound
 #print axioms sourceNontrivialZeroDyadicShell_partition
 #print axioms sourceNontrivialZeroDyadicShell_finite

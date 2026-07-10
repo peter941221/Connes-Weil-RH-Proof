@@ -38,6 +38,30 @@ theorem sourceNontrivialZeroSet_subset_riemannZetaZeros :
     RHDefinitionBridge.standard_mathlib_zeta_zero_of_source_nontrivial_zero
       z hz
 
+theorem sourceNontrivialZero_re_lt_one
+    {z : ℂ} (hz : RHDefinitionBridge.standard.sourceNontrivialZero z) :
+    z.re < 1 := by
+  apply lt_of_not_ge
+  intro hre
+  exact (riemannZeta_ne_zero_of_one_le_re hre) hz.zeta_zero
+
+/-- Away from the explicit negative integers, the functional equation and the
+zero-free right half-plane put every source nontrivial zero in `0 < re z`. -/
+theorem sourceNontrivialZero_zero_lt_re_or_eq_neg_nat
+    {z : ℂ} (hz : RHDefinitionBridge.standard.sourceNontrivialZero z) :
+    0 < z.re ∨ ∃ n : Nat, z = -n := by
+  by_cases hneg : ∃ n : Nat, z = -n
+  · exact Or.inr hneg
+  · left
+    apply lt_of_not_ge
+    intro hre
+    have honeSubRe : 1 <= (1 - z).re := by
+      change 1 <= 1 - z.re
+      linarith
+    have honeSubZero : riemannZeta (1 - z) = 0 := by
+      rw [riemannZeta_one_sub (not_exists.mp hneg) hz.not_pole, hz.zeta_zero, mul_zero]
+    exact (riemannZeta_ne_zero_of_one_le_re honeSubRe) honeSubZero
+
 /-- The spectral index set is countable because it is a discrete subset of the
 second-countable complex plane. -/
 theorem sourceNontrivialZeroSet_countable :
