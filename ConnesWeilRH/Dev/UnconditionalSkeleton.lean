@@ -11,6 +11,7 @@ import ConnesWeilRH.Source.AnalyticSourceModel
 import ConnesWeilRH.Source.CC20YoshidaConstruction
 import ConnesWeilRH.Source.ZetaHalfNonvanishing
 import ConnesWeilRH.Source.S2B1TraceScale
+import ConnesWeilRH.Dev.CCM25SourceDataGuards
 
 /-!
 # Development skeleton for the unconditional RH checklist
@@ -141,6 +142,19 @@ noncomputable def normalizedCoreSourceWeilFormDataFromTheorems :
     Source.AnalyticCore.SourceWeilFormData
       normalizedCoreSourceTestAlgebraFromTheorems :=
   normalizedCoreSourceWeilFormDataRoot
+
+/--
+The current concrete source API cannot own finite-prime Weil data: its global
+support carrier requires every indexed atom to be nonzero for every test,
+including the zero test. A compact smooth test nonzero at `2` makes the
+resulting contradiction explicit at the first prime.
+-/
+theorem not_nonempty_normalizedCoreSourceWeilFormData :
+    ¬ Nonempty
+      (Source.AnalyticCore.SourceWeilFormData
+        normalizedCoreSourceTestAlgebraFromTheorems) := by
+  simpa [normalizedCoreSourceTestAlgebraFromTheorems] using
+    CCM25SourceDataGuards.not_nonempty_concreteSourceWeilFormData
 
 /- Shared CC20 trace-scale scalar functions over the common source test algebra. -/
 noncomputable def normalizedCoreTraceAmplitudeFromTheorems :

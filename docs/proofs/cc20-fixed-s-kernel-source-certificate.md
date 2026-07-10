@@ -5,11 +5,22 @@ Date: 2026-07-10
 Decision:
 
 ```text
-kernel formula and estimate: Fork B
-archimedean-to-fixed-S projection transport: Fork F
-Phase 0A kernel gate: failed
-Phase 0B authorization: denied
+Hilbert-Schmidt estimate: pass by direct fixed-S commutator construction
+L2 kernel: pass as the kernel of the constructed Hilbert-Schmidt operator
+archimedean-to-fixed-S eta transport: unnecessary
+pointwise closed-form kernel gate: withdrawn as stronger than required
 ```
+
+Superseding proof:
+
+```text
+docs/proofs/cc20-012-mathematical-verdict.md, Sections 2-3
+```
+
+The earlier audit below remains as evidence that the cited papers do not print
+the requested pointwise quotient-kernel majorant. The direct proof works in the
+unitary `K_S`-invariant scattering coordinate and constructs the `L2` kernel
+from two explicit Hilbert-Schmidt commutators. It does not use `eta_S`.
 
 ## Target
 
@@ -261,15 +272,13 @@ The source package provides neither `certifiedFixedSKernelFormula` nor
 ## Verdict
 
 ```text
-unsupported row: literal fixed-S K_A function kernel
-unsupported row: square-integrable majorant
-unsupported row: orthogonal-projection and kernel-measure transport
-Lean API bottom: SourceCC20FixedSQuotientMeasureCoordinate
-analytic bottom: SourceCC20FixedSKernelEstimate
-transport bottom: SourceCC20FixedSEulerKernelTransport
-decision: Fork B with Fork F as the transport sub-bottom
+old literal pointwise formula row: unnecessary
+correct coordinate: K_S-invariant log/scattering L2 coordinate
+correct estimate: weighted L2 norms of two Schwartz commutator kernels
+correct kernel object: measurable L2 equivalence class
+decision: analytic kernel gate passes
 ```
 
-Plan 012 forbids replacing these rows with an arbitrary operator, kernel,
-majorant, or `Prop`. Phase 0B and all later implementation phases therefore
-remain unauthorized.
+Plan 012 remains closed to Lean implementation because the separate exact
+no-defect target is false. See the mathematical verdict and the corrected
+remainder certificate.

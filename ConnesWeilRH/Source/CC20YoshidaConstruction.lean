@@ -247,6 +247,18 @@ structure PositiveIntervalCompactTest where
         normalizedCC20ConcreteTestAlgebra.legacy.encode test x) ⊆
       Set.Icc lower upper
 
+def PositiveIntervalCompactTest.IsSupportedIn
+    (p : PositiveIntervalCompactTest) (a b : ℝ) : Prop :=
+  Function.support
+      (fun x : ℝ =>
+        normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x) ⊆
+    Set.Ioo a b
+
+/-- A positive-interval test carrying evidence that its actual function stays
+inside one fixed route window. -/
+abbrev WindowedPositiveIntervalCompactTest (a b : ℝ) :=
+  {p : PositiveIntervalCompactTest // p.IsSupportedIn a b}
+
 noncomputable def expandedMellinVector
     (rho : ℂ) (p : PositiveIntervalCompactTest) :
     CC20YoshidaExpandedMomentNode → ℂ :=
@@ -257,12 +269,23 @@ noncomputable def imageMellinVector
     NodeValueImage rho → ℂ :=
   fun z => normalizedCC20TestSpace.mellinAt p.test z.1
 
+noncomputable def windowedImageMellinVector
+    (rho : ℂ) (a b : ℝ)
+    (p : WindowedPositiveIntervalCompactTest a b) :
+    NodeValueImage rho → ℂ :=
+  imageMellinVector rho p.1
+
 noncomputable def positiveIntervalCompactTestCombination
     (c : PositiveIntervalCompactTest →₀ ℂ) :
     normalizedCC20ConcreteTestAlgebra.Test :=
   normalizedCC20ConcreteTestAlgebra.legacy.decode
     (c.sum fun p a =>
       a • normalizedCC20ConcreteTestAlgebra.legacy.encode p.test)
+
+noncomputable def windowedPositiveIntervalCompactTestCombination
+    {a b : ℝ} (c : WindowedPositiveIntervalCompactTest a b →₀ ℂ) :
+    normalizedCC20ConcreteTestAlgebra.Test :=
+  positiveIntervalCompactTestCombination (c.mapDomain Subtype.val)
 
 theorem positiveIntervalCompactTestCombination_compactSupportSmooth
     (c : PositiveIntervalCompactTest →₀ ℂ) :
@@ -299,6 +322,45 @@ theorem positiveIntervalCompactTestCombination_compactSupportSmooth
     simp [summand, Finset.sum_apply, SchwartzMap.smul_apply]
   rw [hfun]
   exact hcompact
+
+theorem windowedPositiveIntervalCompactTestCombination_compactSupportSmooth
+    {a b : ℝ} (c : WindowedPositiveIntervalCompactTest a b →₀ ℂ) :
+    normalizedCC20TestSpace.compactSupportSmooth
+      (windowedPositiveIntervalCompactTestCombination c) := by
+  exact
+    positiveIntervalCompactTestCombination_compactSupportSmooth
+      (c.mapDomain Subtype.val)
+
+theorem windowedPositiveIntervalCompactTestCombination_support_subset
+    {a b : ℝ} (c : WindowedPositiveIntervalCompactTest a b →₀ ℂ) :
+    Function.support
+        (fun x : ℝ =>
+          normalizedCC20ConcreteTestAlgebra.legacy.encode
+            (windowedPositiveIntervalCompactTestCombination c) x) ⊆
+      Set.Ioo a b := by
+  classical
+  intro x hx
+  rw [Function.mem_support] at hx
+  by_contra hxwindow
+  apply hx
+  unfold windowedPositiveIntervalCompactTestCombination
+  unfold positiveIntervalCompactTestCombination
+  simp only [AnalyticCore.LegacyTestEquiv.encode_decode_apply]
+  rw [Finsupp.sum_mapDomain_index_inj Subtype.val_injective]
+  rw [Finsupp.sum]
+  simp only [SchwartzMap.sum_apply]
+  apply Finset.sum_eq_zero
+  intro p hp
+  have hpnot :
+      x ∉ Function.support
+        (fun y : ℝ =>
+          normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test y) := by
+    intro hpsupport
+    exact hxwindow (p.2 hpsupport)
+  have hpzero :
+      normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test x = 0 :=
+    not_not.mp hpnot
+  simp [SchwartzMap.smul_apply, hpzero]
 
 theorem positiveIntervalCompactTestCombination_support_subset
     (c : PositiveIntervalCompactTest →₀ ℂ) :
@@ -530,6 +592,23 @@ theorem imageMellinVector_positiveIntervalCompactTestCombination
   rw [imageMellinVector, normalizedCC20TestSpace_mellinAt_eq,
     normalizedCC20ConcreteEvaluationData_mellinAt_eq_mellin]
 
+theorem windowedImageMellinVector_combination
+    (rho : ℂ) {a b : ℝ}
+    (c : WindowedPositiveIntervalCompactTest a b →₀ ℂ)
+    (z : NodeValueImage rho) :
+    normalizedCC20TestSpace.mellinAt
+        (windowedPositiveIntervalCompactTestCombination c) z.1 =
+      c.sum fun p coefficient =>
+        coefficient * windowedImageMellinVector rho a b p z := by
+  rw [windowedPositiveIntervalCompactTestCombination,
+    imageMellinVector_positiveIntervalCompactTestCombination]
+  simpa [windowedImageMellinVector] using
+    (Finsupp.sum_mapDomain_index_inj
+      (s := c)
+      (h := fun p coefficient =>
+        coefficient * imageMellinVector rho p z)
+      Subtype.val_injective)
+
 noncomputable def weightedMellinKernel
     (rho : ℂ) (coeff : NodeValueImage rho → ℂ) (t : ℝ) : ℂ :=
   ∑ z : NodeValueImage rho, coeff z * (t : ℂ) ^ (z.1 - 1)
@@ -591,6 +670,30 @@ theorem expMomentSum_eq_zero_of_weightedMellinKernel_exp_eq_zero
         convert (hasDerivAt_const (x := u) (c := (0 : ℂ))) using 1
         ext x
         exact ih x
+      exact hderiv.unique hconst
+
+/-- Vanishing on one open log-window is enough to kill every exponential
+moment on that window.  The derivative recurrence avoids appealing to a
+separate analytic-continuation interface. -/
+theorem expMomentSum_eq_zero_of_weightedMellinKernel_exp_eq_zero_on_Ioo
+    {rho : ℂ} (coeff : NodeValueImage rho → ℂ) {a b : ℝ}
+    (hzero : ∀ u ∈ Set.Ioo a b,
+      weightedMellinKernel rho coeff (Real.exp u) = 0) :
+    ∀ n : ℕ, ∀ u ∈ Set.Ioo a b, expMomentSum coeff n u = 0 := by
+  intro n
+  induction n with
+  | zero =>
+      intro u hu
+      rw [← weightedMellinKernel_exp_eq_expMomentSum_zero rho coeff u]
+      exact hzero u hu
+  | succ n ih =>
+      intro u hu
+      have hderiv := hasDerivAt_expMomentSum coeff n u
+      have hconst :
+          HasDerivAt (fun x : ℝ => expMomentSum coeff n x) 0 u := by
+        apply (hasDerivAt_const (x := u) (c := (0 : ℂ))).congr_of_eventuallyEq
+        filter_upwards [Ioo_mem_nhds hu.1 hu.2] with x hx
+        exact ih x hx
       exact hderiv.unique hconst
 
 theorem expMomentSum_zero_at_zero_eq_power_sum
@@ -801,6 +904,22 @@ def WeightedMellinKernelPositivePointSeparation (rho : ℂ) : Prop :=
     coeff ≠ 0 →
       ∃ t : ℝ, 0 < t ∧ weightedMellinKernel rho coeff t ≠ 0
 
+/-- Point separation inside one predetermined interval of the log
+coordinate. -/
+def WeightedMellinKernelLogWindowPointSeparation
+    (rho : ℂ) (a b : ℝ) : Prop :=
+  ∀ coeff : NodeValueImage rho → ℂ,
+    coeff ≠ 0 →
+      ∃ u ∈ Set.Ioo a b,
+        weightedMellinKernel rho coeff (Real.exp u) ≠ 0
+
+/-- Point separation inside one predetermined positive interval. -/
+def WeightedMellinKernelWindowPointSeparation
+    (rho : ℂ) (a b : ℝ) : Prop :=
+  ∀ coeff : NodeValueImage rho → ℂ,
+    coeff ≠ 0 →
+      ∃ t ∈ Set.Ioo a b, weightedMellinKernel rho coeff t ≠ 0
+
 def WeightedMellinKernelPositiveLineIndependence (rho : ℂ) : Prop :=
   ∀ coeff : NodeValueImage rho → ℂ,
     (∀ t : ℝ, 0 < t → weightedMellinKernel rho coeff t = 0) →
@@ -809,6 +928,15 @@ def WeightedMellinKernelPositiveLineIndependence (rho : ℂ) : Prop :=
 def WeightedMellinKernelLogLineIndependence (rho : ℂ) : Prop :=
   ∀ coeff : NodeValueImage rho → ℂ,
     (∀ u : ℝ, weightedMellinKernel rho coeff (Real.exp u) = 0) →
+      coeff = 0
+
+/-- Independence restricted to a predetermined open interval in the log
+coordinate. -/
+def WeightedMellinKernelLogWindowIndependence
+    (rho : ℂ) (a b : ℝ) : Prop :=
+  ∀ coeff : NodeValueImage rho → ℂ,
+    (∀ u ∈ Set.Ioo a b,
+      weightedMellinKernel rho coeff (Real.exp u) = 0) →
       coeff = 0
 
 theorem weighted_mellin_kernel_log_line_independence
@@ -824,6 +952,53 @@ theorem weighted_mellin_kernel_log_line_independence
     have h :=
       expMomentSum_eq_zero_of_weightedMellinKernel_exp_eq_zero
         coeff hzero n 0
+    rwa [expMomentSum_zero_at_zero_eq_power_sum] at h
+  have hinj :
+      Function.Injective
+        (fun i : Fin (Fintype.card α) => (e i).1 - 1) := by
+    intro i j hij
+    apply e.injective
+    apply Subtype.ext
+    have h := congrArg (fun w : ℂ => w + 1) hij
+    simpa [sub_eq_add_neg, add_assoc] using h
+  let v : Fin (Fintype.card α) → ℂ := fun i => coeff (e i)
+  have hvzero : v = 0 := by
+    apply Matrix.eq_zero_of_forall_pow_sum_mul_pow_eq_zero
+      (f := fun i : Fin (Fintype.card α) => (e i).1 - 1)
+      (v := v) hinj
+    intro n
+    have hn := hmom (n : ℕ)
+    change
+      (∑ j : Fin (Fintype.card α),
+        v j * ((e j).1 - 1) ^ (n : ℕ)) = 0
+    rw [show
+      (∑ j : Fin (Fintype.card α),
+        v j * ((e j).1 - 1) ^ (n : ℕ)) =
+          ∑ z : α, coeff z * (z.1 - 1) ^ (n : ℕ) by
+        dsimp [v]
+        exact Equiv.sum_comp e
+          (fun z : α => coeff z * (z.1 - 1) ^ (n : ℕ))]
+    exact hn
+  funext z
+  obtain ⟨i, rfl⟩ := e.surjective z
+  exact congrFun hvzero i
+
+/-- A log-window containing zero already separates the finite Mellin node
+family.  All power moments are read off at zero and the existing Vandermonde
+argument then recovers every coefficient. -/
+theorem weighted_mellin_kernel_log_window_independence
+    {rho : ℂ} {a b : ℝ} (ha : a < 0) (hb : 0 < b) :
+    WeightedMellinKernelLogWindowIndependence rho a b := by
+  intro coeff hzero
+  classical
+  let α := NodeValueImage rho
+  let e : Fin (Fintype.card α) ≃ α := (Fintype.equivFin α).symm
+  have hmom : ∀ n : ℕ,
+      (∑ z : α, coeff z * (z.1 - 1) ^ n) = 0 := by
+    intro n
+    have h :=
+      expMomentSum_eq_zero_of_weightedMellinKernel_exp_eq_zero_on_Ioo
+        coeff hzero n 0 ⟨ha, hb⟩
     rwa [expMomentSum_zero_at_zero_eq_power_sum] at h
   have hinj :
       Function.Injective
@@ -876,6 +1051,25 @@ def WeightedMellinKernelStrictPhaseBumpDetection (rho : ℂ) : Prop :=
                   normalizedCC20ConcreteTestAlgebra.legacy.encode
                     p.test x)).re
 
+/-- Strict bump detection while keeping the bump inside one predetermined
+positive interval. -/
+def WeightedMellinKernelWindowStrictPhaseBumpDetection
+    (rho : ℂ) (a b : ℝ) : Prop :=
+  ∀ (coeff : NodeValueImage rho → ℂ) (t : ℝ),
+    t ∈ Set.Ioo a b →
+      weightedMellinKernel rho coeff t ≠ 0 →
+        ∃ (p : PositiveIntervalCompactTest) (phase : ℂ),
+          Function.support
+              (fun x : ℝ =>
+                normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x) ⊆
+            Set.Ioo a b ∧
+          0 <
+            (phase *
+              (∫ x : ℝ in Set.Ioi 0,
+                weightedMellinKernel rho coeff x *
+                  normalizedCC20ConcreteTestAlgebra.legacy.encode
+                    p.test x)).re
+
 theorem weightedMellinKernel_positive_line_independence_of_log_line_independence
     {rho : ℂ}
     (hlog : WeightedMellinKernelLogLineIndependence rho) :
@@ -903,6 +1097,40 @@ theorem weightedMellinKernel_positive_point_separation_of_log_line_independence
     (weightedMellinKernel_positive_line_independence_of_log_line_independence
       hlog)
 
+theorem weightedMellinKernel_log_window_point_separation_of_independence
+    {rho : ℂ} {a b : ℝ}
+    (hind : WeightedMellinKernelLogWindowIndependence rho a b) :
+    WeightedMellinKernelLogWindowPointSeparation rho a b := by
+  intro coeff hcoeff
+  by_contra hnone
+  apply hcoeff
+  apply hind
+  intro u hu
+  by_contra hne
+  exact hnone ⟨u, hu, hne⟩
+
+/-- Every positive window containing `1` separates the finite Mellin node
+family. -/
+theorem weightedMellinKernel_window_point_separation
+    {rho : ℂ} {a b : ℝ}
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b) :
+    WeightedMellinKernelWindowPointSeparation rho a b := by
+  have hlog_a : Real.log a < 0 := by
+    rw [Real.log_lt_iff_lt_exp ha, Real.exp_zero]
+    exact ha_one
+  have hlog_b : 0 < Real.log b := Real.log_pos hone_b
+  have hsep :
+      WeightedMellinKernelLogWindowPointSeparation
+        rho (Real.log a) (Real.log b) :=
+    weightedMellinKernel_log_window_point_separation_of_independence
+      (weighted_mellin_kernel_log_window_independence hlog_a hlog_b)
+  intro coeff hcoeff
+  rcases hsep coeff hcoeff with ⟨u, hu, hne⟩
+  refine ⟨Real.exp u, ?_, hne⟩
+  constructor
+  · exact (Real.log_lt_iff_lt_exp ha).mp hu.1
+  · exact (Real.lt_log_iff_exp_lt (lt_trans zero_lt_one hone_b)).mp hu.2
+
 theorem weightedMellinKernel_bump_separation_of_strict_phase_detection
     {rho : ℂ}
     (hphase : WeightedMellinKernelStrictPhaseBumpDetection rho) :
@@ -914,12 +1142,26 @@ theorem weightedMellinKernel_bump_separation_of_strict_phase_detection
   rw [hintegral] at hpos
   simp at hpos
 
-theorem weightedMellinKernel_strict_phase_bump_detection
-    {rho : ℂ} :
-    WeightedMellinKernelStrictPhaseBumpDetection rho := by
-  intro coeff t ht hne
-  rcases weightedMellinKernel_phase_re_positive_interval rho coeff ht hne with
-    ⟨a, b, ha, hat, htb, hphase_pos⟩
+theorem weightedMellinKernel_strict_phase_bump_detection_of_interval
+    {rho : ℂ} (coeff : NodeValueImage rho → ℂ) {a b t : ℝ}
+    (ha : 0 < a) (hat : a < t) (htb : t < b)
+    (hne : weightedMellinKernel rho coeff t ≠ 0)
+    (hphase_pos :
+      ∀ x ∈ Set.Ioo a b,
+        0 <
+          ((star (weightedMellinKernel rho coeff t)) *
+            weightedMellinKernel rho coeff x).re) :
+    ∃ (p : PositiveIntervalCompactTest) (phase : ℂ),
+      Function.support
+          (fun x : ℝ =>
+            normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x) ⊆
+        Set.Ioo a b ∧
+      0 <
+        (phase *
+          (∫ x : ℝ in Set.Ioi 0,
+            weightedMellinKernel rho coeff x *
+              normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x)).re := by
+  have ht : 0 < t := ha.trans hat
   rcases exists_positive_interval_compact_test_real_bump hat htb ha with
     ⟨p, hsuppIoo, hnonneg, him, htone⟩
   let phase : ℂ := star (weightedMellinKernel rho coeff t)
@@ -928,7 +1170,7 @@ theorem weightedMellinKernel_strict_phase_bump_detection
       (phase *
         (weightedMellinKernel rho coeff x *
           normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x)).re
-  refine ⟨p, phase, ?_⟩
+  refine ⟨p, phase, hsuppIoo, ?_⟩
   rw [weightedMellinKernel_phase_integral_re_eq]
   have hnonneg_ae :
       0 ≤ᵐ[volume.restrict (Set.Ioi 0)] realIntegrand := by
@@ -1030,6 +1272,56 @@ theorem weightedMellinKernel_strict_phase_bump_detection
     (integral_pos_iff_support_of_nonneg_ae hnonneg_ae hint).2 hsupport_pos
   simpa [realIntegrand] using hpos
 
+theorem weightedMellinKernel_strict_phase_bump_detection
+    {rho : ℂ} :
+    WeightedMellinKernelStrictPhaseBumpDetection rho := by
+  intro coeff t ht hne
+  rcases weightedMellinKernel_phase_re_positive_interval rho coeff ht hne with
+    ⟨a, b, ha, hat, htb, hphase_pos⟩
+  rcases weightedMellinKernel_strict_phase_bump_detection_of_interval
+      coeff ha hat htb hne hphase_pos with
+    ⟨p, phase, _hsupp, hpos⟩
+  exact ⟨p, phase, hpos⟩
+
+/-- The local phase-positive interval can be intersected with any fixed
+positive window containing the detected point, so the resulting bump never
+leaves that window. -/
+theorem weightedMellinKernel_window_strict_phase_bump_detection
+    {rho : ℂ} {a b : ℝ} (ha : 0 < a) :
+    WeightedMellinKernelWindowStrictPhaseBumpDetection rho a b := by
+  intro coeff t ht hne
+  have htpos : 0 < t := ha.trans ht.1
+  rcases weightedMellinKernel_phase_re_positive_interval
+      rho coeff htpos hne with
+    ⟨localA, localB, hlocalA_pos, hlocalA_t, ht_localB, hphase_pos⟩
+  let clippedA : ℝ := max localA a
+  let clippedB : ℝ := min localB b
+  have hclippedA_pos : 0 < clippedA := by
+    exact lt_max_of_lt_right ha
+  have hclippedA_t : clippedA < t := by
+    exact max_lt hlocalA_t ht.1
+  have ht_clippedB : t < clippedB := by
+    exact lt_min ht_localB ht.2
+  have hphase_clipped :
+      ∀ x ∈ Set.Ioo clippedA clippedB,
+        0 <
+          ((star (weightedMellinKernel rho coeff t)) *
+            weightedMellinKernel rho coeff x).re := by
+    intro x hx
+    apply hphase_pos x
+    exact
+      ⟨lt_of_le_of_lt (le_max_left localA a) hx.1,
+        lt_of_lt_of_le hx.2 (min_le_left localB b)⟩
+  rcases weightedMellinKernel_strict_phase_bump_detection_of_interval
+      coeff hclippedA_pos hclippedA_t ht_clippedB hne hphase_clipped with
+    ⟨p, phase, hsupp, hpos⟩
+  refine ⟨p, phase, ?_, hpos⟩
+  intro x hx
+  have hxclipped := hsupp hx
+  exact
+    ⟨lt_of_le_of_lt (le_max_right localA a) hxclipped.1,
+      lt_of_lt_of_le hxclipped.2 (min_le_right localB b)⟩
+
 theorem image_weighted_mellin_sum_eq_kernel_integral
     (rho : ℂ)
     (p : PositiveIntervalCompactTest)
@@ -1120,6 +1412,30 @@ theorem image_weighted_mellin_detection_of_kernel_point_and_bump_separation
   intro coeff hcoeff
   rcases hpoint coeff hcoeff with ⟨t, htpos, htne⟩
   exact hbump coeff t htpos htne
+
+theorem image_weighted_mellin_detection_on_window
+    {rho : ℂ} {a b : ℝ}
+    (hpoint : WeightedMellinKernelWindowPointSeparation rho a b)
+    (hbump : WeightedMellinKernelWindowStrictPhaseBumpDetection rho a b) :
+    ∀ coeff : NodeValueImage rho → ℂ,
+      coeff ≠ 0 →
+        ∃ p : PositiveIntervalCompactTest,
+          p.IsSupportedIn a b ∧
+          (∑ z : NodeValueImage rho,
+            imageMellinVector rho p z * coeff z) ≠ 0 := by
+  intro coeff hcoeff
+  rcases hpoint coeff hcoeff with ⟨t, ht, htne⟩
+  rcases hbump coeff t ht htne with ⟨p, phase, hsupp, hpos⟩
+  have hintegral :
+      (∫ x : ℝ in Set.Ioi 0,
+        weightedMellinKernel rho coeff x *
+          normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x) ≠ 0 := by
+    intro hzero
+    rw [hzero] at hpos
+    simp at hpos
+  refine ⟨p, hsupp, ?_⟩
+  rw [image_weighted_mellin_sum_eq_kernel_integral]
+  exact hintegral
 
 theorem expandedMellinVector_span_top_of_linear_dual_separation
     {rho : ℂ}
@@ -1452,6 +1768,109 @@ theorem positive_interval_node_value_image_mellin_surjective_of_weighted_detecti
   exact
     positive_interval_node_value_image_mellin_surjective_of_linear_dual_separation
       (image_linear_dual_separation_of_weighted_mellin_detection hdetect)
+
+theorem windowed_image_linear_dual_separation_of_weighted_mellin_detection
+    {rho : ℂ} {a b : ℝ}
+    (hdetect :
+      ∀ coeff : NodeValueImage rho → ℂ,
+        coeff ≠ 0 →
+          ∃ p : PositiveIntervalCompactTest,
+            p.IsSupportedIn a b ∧
+            (∑ z : NodeValueImage rho,
+              imageMellinVector rho p z * coeff z) ≠ 0) :
+    ∀ L : (NodeValueImage rho → ℂ) →ₗ[ℂ] ℂ,
+      L ≠ 0 →
+        ∃ p : WindowedPositiveIntervalCompactTest a b,
+          L (windowedImageMellinVector rho a b p) ≠ 0 := by
+  intro L hL
+  rcases hdetect (imageLinearFunctionalCoordinates L)
+      (imageLinearFunctionalCoordinates_ne_zero hL) with
+    ⟨p, hsupp, hp⟩
+  let windowed : WindowedPositiveIntervalCompactTest a b := ⟨p, hsupp⟩
+  refine ⟨windowed, ?_⟩
+  change L (imageMellinVector rho p) ≠ 0
+  rw [imageLinearFunctional_apply_eq_sum_coordinates]
+  exact hp
+
+theorem windowedImageMellinVector_span_top_of_linear_dual_separation
+    {rho : ℂ} {a b : ℝ}
+    (hsep :
+      ∀ L : (NodeValueImage rho → ℂ) →ₗ[ℂ] ℂ,
+        L ≠ 0 →
+          ∃ p : WindowedPositiveIntervalCompactTest a b,
+            L (windowedImageMellinVector rho a b p) ≠ 0) :
+    Submodule.span ℂ
+        (Set.range (windowedImageMellinVector rho a b)) = ⊤ := by
+  classical
+  by_contra htop
+  let P : Submodule ℂ (NodeValueImage rho → ℂ) :=
+    Submodule.span ℂ (Set.range (windowedImageMellinVector rho a b))
+  have hproper : P < ⊤ := by
+    exact (show P ≠ ⊤ from htop).lt_top
+  rcases Submodule.exists_le_ker_of_lt_top P hproper with
+    ⟨L, hL_ne, hP_le_ker⟩
+  rcases hsep L hL_ne with ⟨p, hp⟩
+  have hp_mem : windowedImageMellinVector rho a b p ∈ P :=
+    Submodule.subset_span (Set.mem_range_self p)
+  exact hp (hP_le_ker hp_mem)
+
+theorem windowed_node_value_image_mellin_surjective_of_span_top
+    {rho : ℂ} {a b : ℝ}
+    (hspan :
+      Submodule.span ℂ
+          (Set.range (windowedImageMellinVector rho a b)) = ⊤) :
+    ∀ y : NodeValueImage rho → ℂ,
+      ∃ g,
+        normalizedCC20TestSpace.compactSupportSmooth g ∧
+        Function.support
+            (fun x : ℝ =>
+              normalizedCC20ConcreteTestAlgebra.legacy.encode g x) ⊆
+          Set.Ioo a b ∧
+        ∀ z : NodeValueImage rho,
+          normalizedCC20TestSpace.mellinAt g z.1 = y z := by
+  intro y
+  have hy_mem :
+      y ∈ Submodule.span ℂ
+        (Set.range (windowedImageMellinVector rho a b)) := by
+    rw [hspan]
+    exact Submodule.mem_top
+  rcases Finsupp.mem_span_range_iff_exists_finsupp.mp hy_mem with
+    ⟨c, hc⟩
+  let g : normalizedCC20ConcreteTestAlgebra.Test :=
+    windowedPositiveIntervalCompactTestCombination c
+  refine ⟨g, ?_, ?_, ?_⟩
+  · exact windowedPositiveIntervalCompactTestCombination_compactSupportSmooth c
+  · exact windowedPositiveIntervalCompactTestCombination_support_subset c
+  · intro z
+    rw [windowedImageMellinVector_combination]
+    have hpoint := congr_fun hc z
+    simpa [Finsupp.sum, Pi.smul_apply, smul_eq_mul] using hpoint
+
+/-- Full finite Mellin interpolation inside any predetermined positive window
+containing `1`. -/
+theorem fixed_window_node_value_image_mellin_surjective
+    {rho : ℂ} {a b : ℝ}
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b) :
+    ∀ y : NodeValueImage rho → ℂ,
+      ∃ g,
+        normalizedCC20TestSpace.compactSupportSmooth g ∧
+        Function.support
+            (fun x : ℝ =>
+              normalizedCC20ConcreteTestAlgebra.legacy.encode g x) ⊆
+          Set.Ioo a b ∧
+        ∀ z : NodeValueImage rho,
+          normalizedCC20TestSpace.mellinAt g z.1 = y z := by
+  have hdetect :=
+    image_weighted_mellin_detection_on_window
+      (weightedMellinKernel_window_point_separation
+        (rho := rho) ha ha_one hone_b)
+      (weightedMellinKernel_window_strict_phase_bump_detection
+        (rho := rho) ha)
+  exact
+    windowed_node_value_image_mellin_surjective_of_span_top
+      (windowedImageMellinVector_span_top_of_linear_dual_separation
+        (windowed_image_linear_dual_separation_of_weighted_mellin_detection
+          hdetect))
 
 noncomputable def expandedFiniteLinearCombination
     (coeff : CC20YoshidaExpandedMomentNode → ℂ)

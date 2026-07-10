@@ -6,10 +6,22 @@ Decision:
 
 ```text
 archimedean remainder source: present
-fixed-S remainder transport: Fork H
-Phase 0A remainder gate: failed
+fixed-S remainder object: derivable in the unitary scattering coordinate
+remainder vanishes under the route's three conditions: false
+exact no-defect read-off: rejected
 Phase 5 authorization: denied
 ```
+
+Superseding proof and counterexample:
+
+```text
+docs/proofs/cc20-012-mathematical-verdict.md, Sections 4-6
+```
+
+The direct construction replaces the proposed `eta_S` transport. It defines
+the fixed-S remainder from `u_S` and the support projection in one Hilbert
+space. The archimedean specialization proves that this remainder does not
+vanish on the full triple-vanishing test class.
 
 ## Target
 
@@ -176,11 +188,13 @@ excluding an additional semilocal defect after transport.
 strongest archimedean theorem: CC20 local trace remainder and post-Q expansion
 source space: L2(R_+^*) / the single archimedean Sonin model
 target space: L2(X_S)^(K_S) with fixed-S orthogonal cutoffs
-first failed transport: derivative/domain and orthogonal-projection transport
-remaining failed rows: boundary, tail, Cdef domination, no-hidden-defect
-decision: Fork H
+direct fixed-S definition: available through the unitary scattering phase u_S
+counterexample: D o Q is -2 Id plus a compact Hilbert-Schmidt operator
+triple-vanishing restriction: still contains a nonzero remainder
+decision: reject the exact no-defect target
 ```
 
-Plan 012 forbids adding free remainder scalars or stored conclusion fields.
 Phase 5, support-square/no-defect read-off, package rewiring, and both Dev-root
-removals cannot proceed from the available source data.
+removals cannot proceed with the current consumer. A corrected consumer must
+retain the source remainder or consume a proved finite-codimension conditioning
+theorem.

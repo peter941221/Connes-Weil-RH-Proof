@@ -5,4 +5,6 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Source.CC20Concrete.TraceScale
+import ConnesWeilRH.Source.CC20Concrete.PositiveTrace
+import ConnesWeilRH.Source.CC20Concrete.CompactBadSpace
 import ConnesWeilRH.Source.CC20ConcreteTestSpace

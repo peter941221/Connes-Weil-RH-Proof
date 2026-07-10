@@ -20195,6 +20195,35 @@ theorem normalizedCC20_source_rh_of_square_restricted_detectorCriterionCoverage
       detector.weilSumPositiveIfOffLine hrho hline
     exact False.elim ((not_lt_of_ge hnonpos) hpos)
 
+/-- Once Yoshida detectors exist, detector-selected local criterion coverage
+is exactly the standard source RH statement. The reverse direction is vacuous:
+an off-line source zero contradicts `SourceRH` before a route witness is used.
+-/
+theorem normalizedRouteBackedCC20SquareRestrictedDetectorCriterionCoverage_iff_standardSourceRH
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet) :
+    NormalizedRouteBackedCC20SquareRestrictedDetectorCriterionCoverage ↔
+      RHDefinitionBridge.standard.SourceRH := by
+  constructor
+  · exact normalizedCC20_source_rh_of_square_restricted_detectorCriterionCoverage
+      hexists
+  · intro hRH rho hrho hoff _detector
+    exfalso
+    apply hoff
+    simpa [RHDefinitionBridge.standard] using hRH rho hrho
+
+/-- Mathlib-facing rejection guard for detector-selected criterion coverage. -/
+theorem normalizedRouteBackedCC20SquareRestrictedDetectorCriterionCoverage_iff_mathlibRH
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet) :
+    NormalizedRouteBackedCC20SquareRestrictedDetectorCriterionCoverage ↔
+      _root_.RiemannHypothesis :=
+  (normalizedRouteBackedCC20SquareRestrictedDetectorCriterionCoverage_iff_standardSourceRH
+    hexists).trans
+    RHDefinitionBridge.standard_source_rh_iff_mathlib
+
 theorem normalizedRouteBackedCC20SquareRestrictedLocalWeilCriterion_of_traceFrontComparisonQWPoleRows
     {r : NormalizedRouteBackedCC20SquareRestrictedTest}
     (rows :
