@@ -15,6 +15,9 @@ import ConnesWeilRH.Source.CC20TestSpace
 import ConnesWeilRH.Source.CC20YoshidaCriterion
 import ConnesWeilRH.Source.CC20YoshidaMellin
 import ConnesWeilRH.Source.CC20YoshidaConstruction
+import ConnesWeilRH.Source.CC20YoshidaTail
+import ConnesWeilRH.Source.CC20YoshidaNearZeros
+import ConnesWeilRH.Source.CC20YoshidaConvolution
 import ConnesWeilRH.Source.CC20PropositionC1
 import ConnesWeilRH.Source.CCM24
 import ConnesWeilRH.Source.CCM24SourceModel

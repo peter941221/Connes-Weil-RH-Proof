@@ -160,6 +160,33 @@ theorem normalizedCC20TestSpace_starConvolution_vanishesOn
   rw [hg]
   norm_num
 
+/-- The multiplicativity law that a genuine convolution model must satisfy
+under Mellin evaluation.  This contract is intentionally stated separately
+from the current concrete operations so that toy carrier implementations can
+be rejected before they reach the RH criterion. -/
+def NormalizedCC20MellinConvolutionLaw : Prop :=
+  ∀ f g : normalizedCC20ConcreteTestAlgebra.Test, ∀ s : ℂ,
+    normalizedCC20ConcreteEvaluationData.mellinAt
+        (normalizedCC20ConcreteTestAlgebra.convolutionStar f g) s =
+      normalizedCC20ConcreteEvaluationData.mellinAt f s *
+        normalizedCC20ConcreteEvaluationData.mellinAt g s
+
+/-- Exact semantic exposure of the current weak CC20 model. -/
+theorem normalizedCC20TestSpace_is_additive_pole_model :
+    (∀ g : normalizedCC20ConcreteTestAlgebra.Test,
+      normalizedCC20ConcreteTestAlgebra.legacy.encode
+          (normalizedCC20TestSpace.starConvolution g) =
+        normalizedCC20ConcreteTestAlgebra.legacy.encode g +
+          normalizedCC20ConcreteTestAlgebra.legacy.encode g) ∧
+    (∀ g : normalizedCC20ConcreteTestAlgebra.Test,
+      normalizedCC20TestSpace.weilLocalSum g =
+        -normalizedCC20ConcreteEvaluationData.polePairing g) := by
+  constructor
+  · intro g
+    rfl
+  · intro g
+    rfl
+
 def NormalizedCC20PolePairingNonnegativeOnFiniteVanishing : Prop :=
   ∀ g : normalizedCC20TestSpace.Test,
     normalizedCC20TestSpace.compactSupportSmooth g →

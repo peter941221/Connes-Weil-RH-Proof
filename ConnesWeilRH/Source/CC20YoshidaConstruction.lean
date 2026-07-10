@@ -2721,6 +2721,40 @@ theorem normalizedCC20YoshidaDetectorExists :
       (fun {_rho} _hrho _hoff =>
         CC20YoshidaExpandedMomentNode.weighted_mellin_kernel_log_line_independence)
 
+/-- The current additive `starConvolution` cannot be the source convolution:
+finite-window Mellin interpolation supplies a test with Mellin value one,
+while the concrete operation doubles that value instead of squaring it. -/
+theorem not_normalizedCC20MellinConvolutionLaw :
+    ¬ NormalizedCC20MellinConvolutionLaw := by
+  intro hLaw
+  unfold NormalizedCC20MellinConvolutionLaw at hLaw
+  let rho : ℂ := 0
+  let z : NodeValueImage rho :=
+    ⟨CC20YoshidaExpandedMomentNode.nodeValue rho
+        CC20YoshidaExpandedMomentNode.zero,
+      by simp [expandedNodeValueFinset]⟩
+  rcases fixed_window_node_value_image_mellin_surjective
+      (rho := rho) (a := (3 : ℝ) / 4) (b := (5 : ℝ) / 4)
+      (by norm_num) (by norm_num) (by norm_num)
+      (fun _ => (1 : ℂ)) with
+    ⟨g, _hcompact, _hsupport, hvalue⟩
+  have hg :
+      normalizedCC20ConcreteEvaluationData.mellinAt g z.1 = 1 := by
+    simpa [normalizedCC20TestSpace_mellinAt_eq] using hvalue z
+  have hdouble :
+      normalizedCC20ConcreteEvaluationData.mellinAt
+          (normalizedCC20ConcreteTestAlgebra.convolutionStar g g) z.1 = 2 := by
+    rw [← normalizedCC20ConcreteTestAlgebra.convolutionSquare_eq,
+      normalizedCC20ConcreteEvaluationData_mellinAt_convolutionSquare, hg]
+    norm_num
+  have hsquare :
+      normalizedCC20ConcreteEvaluationData.mellinAt
+          (normalizedCC20ConcreteTestAlgebra.convolutionStar g g) z.1 = 1 := by
+    rw [hLaw g g z.1, hg]
+    norm_num
+  have htwo_eq_one : (2 : ℂ) = 1 := hdouble.symm.trans hsquare
+  norm_num at htwo_eq_one
+
 end CC20YoshidaInterpolationNode
 end Source
 end ConnesWeilRH
