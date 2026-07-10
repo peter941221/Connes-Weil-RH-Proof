@@ -23,6 +23,21 @@ namespace Source
 namespace CCM25Concrete
 namespace FinitePrimeSourceData
 
+namespace FixedLambdaCommonFinitePrimeSupportData
+
+theorem heq_of_same_type
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (data data' : FixedLambdaCommonFinitePrimeSupportData W common lambda) :
+    HEq data data' := by
+  apply heq_of_eq
+  cases data
+  cases data'
+  congr <;> apply proof_irrel
+
+end FixedLambdaCommonFinitePrimeSupportData
+
 structure FixedLambdaSourceEvaluationVisibleArithmeticData
     {A : AnalyticCore.SourceTestAlgebra}
     (E : AnalyticCore.SourceEvaluationData A)
@@ -66,6 +81,36 @@ structure FixedLambdaSourceEvaluationVisibleArithmeticData
 
 namespace FixedLambdaSourceEvaluationVisibleArithmeticData
 
+theorem heq_of_same_type
+    {A : AnalyticCore.SourceTestAlgebra}
+    {E : AnalyticCore.SourceEvaluationData A}
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (data data' :
+      FixedLambdaSourceEvaluationVisibleArithmeticData E W common lambda) :
+    HEq data data' := by
+  apply heq_of_eq
+  cases data
+  cases data'
+  congr <;> apply proof_irrel
+
+theorem heq_of_evaluation_cast_eq
+    {A A' : AnalyticCore.SourceTestAlgebra}
+    {E : AnalyticCore.SourceEvaluationData A}
+    {E' : AnalyticCore.SourceEvaluationData A'}
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (hA : A = A')
+    (hE : cast (by rw [hA]) E = E')
+    (data : FixedLambdaSourceEvaluationVisibleArithmeticData E W common lambda)
+    (data' : FixedLambdaSourceEvaluationVisibleArithmeticData E' W common lambda) :
+    HEq data data' := by
+  cases hA
+  cases hE
+  exact heq_of_same_type data data'
+
 noncomputable def visibleArithmeticData
     {A : AnalyticCore.SourceTestAlgebra}
     {E : AnalyticCore.SourceEvaluationData A}
@@ -96,6 +141,28 @@ noncomputable def visibleArithmeticData
         E common n (data.sourcePrimePowerIndex n hn) (data.visible n hn)
         (data.pairingReadOff n hn) (data.weightReadOff n hn)
         (data.termReadOff n hn) :=
+  rfl
+
+theorem visibleArithmeticData_atVisibleIndex_eq_of_evaluation_cast_eq
+    {A A' : AnalyticCore.SourceTestAlgebra}
+    {E : AnalyticCore.SourceEvaluationData A}
+    {E' : AnalyticCore.SourceEvaluationData A'}
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (hA : A = A')
+    (hE : cast (by rw [hA]) E = E')
+    (data : FixedLambdaSourceEvaluationVisibleArithmeticData E W common lambda)
+    (data' : FixedLambdaSourceEvaluationVisibleArithmeticData E' W common lambda)
+    (n : ℕ)
+    (hn : common.toSourceTestEvaluationInterface.sourceAtomVisible n) :
+    data.visibleArithmeticData.atVisibleIndex n hn =
+      data'.visibleArithmeticData.atVisibleIndex n hn := by
+  cases hA
+  cases hE
+  have hdata : data = data' := by
+    exact eq_of_heq (heq_of_same_type data data')
+  cases hdata
   rfl
 
 theorem pairing_formula
@@ -363,6 +430,20 @@ noncomputable def toSourceEvaluationVisibleArithmeticData
       data.weightReadOff n hn :=
   rfl
 
+theorem heq_of_same_type
+    {A : AnalyticCore.SourceTestAlgebra}
+    {W : AnalyticCore.SourceWeilFormData A}
+    {common :
+      CommonSourceTest.ConcreteCommonSourceTest W.toWeilFormSymbols}
+    {lambda : ℝ}
+    (data data' :
+      FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda) :
+    HEq data data' := by
+  apply heq_of_eq
+  cases data
+  cases data'
+  congr <;> apply proof_irrel
+
 end FixedLambdaSourceWeilFormVisibleArithmeticData
 
 namespace FixedLambdaArithmeticCertificateSourceTestData
@@ -497,8 +578,24 @@ noncomputable def ofSourceEvaluationVisibleCanonicalData
     (canonicalAtoms :
       FixedLambdaSourceEvaluationCanonicalAtomNormalization visibleData) :
     (ofSourceEvaluationVisibleCanonicalData supportData visibleData
-        canonicalAtoms).atoms =
+      canonicalAtoms).atoms =
       canonicalAtoms.atoms :=
+  rfl
+
+theorem atoms_toNormalization_heq_of_heq_sourceTest_eq
+    {W : WeilFormSymbols}
+    {f g : TestFunction}
+    {lambda : ℝ}
+    {sourceTest sourceTest' : PrimePowerTest.SourceTestEvaluationInterface W f g}
+    (hsource : sourceTest = sourceTest')
+    {data : FixedLambdaArithmeticCertificateSourceTestData
+      W f g lambda sourceTest}
+    {data' : FixedLambdaArithmeticCertificateSourceTestData
+      W f g lambda sourceTest'}
+    (h : HEq data data') :
+    HEq data.atoms.toNormalization data'.atoms.toNormalization := by
+  cases hsource
+  cases h
   rfl
 
 theorem ofSourceEvaluationVisibleCanonicalData_directAtomVisibleFunctionReadOff
@@ -517,6 +614,105 @@ theorem ofSourceEvaluationVisibleCanonicalData_directAtomVisibleFunctionReadOff
       (ofSourceEvaluationVisibleCanonicalData supportData visibleData
         canonicalAtoms) :=
   canonicalAtoms.visibleReadOff
+
+theorem canonicalNormalization_heq_of_evaluation_cast_eq_atoms
+    {A A' : AnalyticCore.SourceTestAlgebra}
+    {E : AnalyticCore.SourceEvaluationData A}
+    {E' : AnalyticCore.SourceEvaluationData A'}
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    {visibleData : FixedLambdaSourceEvaluationVisibleArithmeticData E W common lambda}
+    {visibleData' : FixedLambdaSourceEvaluationVisibleArithmeticData E' W common lambda}
+    (hA : A = A')
+    (hE : cast (by rw [hA]) E = E')
+    (canonicalAtoms :
+      FixedLambdaSourceEvaluationCanonicalAtomNormalization visibleData)
+    (canonicalAtoms' :
+      FixedLambdaSourceEvaluationCanonicalAtomNormalization visibleData')
+    (hatoms : HEq canonicalAtoms.atoms canonicalAtoms'.atoms) :
+    HEq canonicalAtoms canonicalAtoms' := by
+  cases hA
+  cases hE
+  have hvisible : visibleData = visibleData' := by
+    exact eq_of_heq
+      (FixedLambdaSourceEvaluationVisibleArithmeticData.heq_of_same_type
+        visibleData visibleData')
+  cases hvisible
+  cases canonicalAtoms with
+  | mk atoms readOff =>
+  cases canonicalAtoms' with
+  | mk atoms' readOff' =>
+  dsimp at hatoms ⊢
+  have hatomsEq : atoms = atoms' := eq_of_heq hatoms
+  cases hatomsEq
+  rfl
+
+theorem canonicalNormalization_atoms_heq_of_heq
+    {A A' : AnalyticCore.SourceTestAlgebra}
+    {E : AnalyticCore.SourceEvaluationData A}
+    {E' : AnalyticCore.SourceEvaluationData A'}
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    {visibleData : FixedLambdaSourceEvaluationVisibleArithmeticData E W common lambda}
+    {visibleData' : FixedLambdaSourceEvaluationVisibleArithmeticData E' W common lambda}
+    (hA : A = A')
+    (hE : cast (by rw [hA]) E = E')
+    (canonicalAtoms :
+      FixedLambdaSourceEvaluationCanonicalAtomNormalization visibleData)
+    (canonicalAtoms' :
+      FixedLambdaSourceEvaluationCanonicalAtomNormalization visibleData')
+    (hcanon : HEq canonicalAtoms canonicalAtoms') :
+    HEq canonicalAtoms.atoms canonicalAtoms'.atoms := by
+  cases hA
+  cases hE
+  have hvisible : visibleData = visibleData' := by
+    exact eq_of_heq
+      (FixedLambdaSourceEvaluationVisibleArithmeticData.heq_of_same_type
+        visibleData visibleData')
+  cases hvisible
+  have hcanonEq : canonicalAtoms = canonicalAtoms' := eq_of_heq hcanon
+  cases hcanonEq
+  rfl
+
+theorem ofSourceEvaluationVisibleCanonicalData_heq_of_evaluation_cast_eq
+    {A A' : AnalyticCore.SourceTestAlgebra}
+    {E : AnalyticCore.SourceEvaluationData A}
+    {E' : AnalyticCore.SourceEvaluationData A'}
+    {W : WeilFormSymbols}
+    {common : CommonSourceTest.ConcreteCommonSourceTest W}
+    {lambda : ℝ}
+    (hA : A = A')
+    (hE : cast (by rw [hA]) E = E')
+    (supportData supportData' :
+      FixedLambdaCommonFinitePrimeSupportData W common lambda)
+    (visibleData : FixedLambdaSourceEvaluationVisibleArithmeticData E W common lambda)
+    (visibleData' : FixedLambdaSourceEvaluationVisibleArithmeticData E' W common lambda)
+    (canonicalAtoms :
+      FixedLambdaSourceEvaluationCanonicalAtomNormalization visibleData)
+    (canonicalAtoms' :
+      FixedLambdaSourceEvaluationCanonicalAtomNormalization visibleData')
+    (hsupport : HEq supportData supportData')
+    (hatoms : HEq canonicalAtoms.atoms canonicalAtoms'.atoms) :
+    HEq
+      (ofSourceEvaluationVisibleCanonicalData supportData visibleData canonicalAtoms)
+      (ofSourceEvaluationVisibleCanonicalData supportData' visibleData' canonicalAtoms') := by
+  cases hA
+  cases hE
+  have hsupportEq : supportData = supportData' := eq_of_heq hsupport
+  cases hsupportEq
+  have hvisible : visibleData = visibleData' := by
+    exact eq_of_heq
+      (FixedLambdaSourceEvaluationVisibleArithmeticData.heq_of_same_type
+        visibleData visibleData')
+  cases hvisible
+  have hatomsObj : canonicalAtoms = canonicalAtoms' := by
+    exact eq_of_heq
+      (canonicalNormalization_heq_of_evaluation_cast_eq_atoms
+        rfl rfl canonicalAtoms canonicalAtoms' hatoms)
+  cases hatomsObj
+  rfl
 
 @[simp] theorem ofSourceEvaluationVisibleData_sourceVisibleArithmeticData
     {A : AnalyticCore.SourceTestAlgebra}
@@ -959,6 +1155,46 @@ noncomputable def ofSourceWeilFormVisibleCanonicalData
       visibleData lambda hlambda :=
   rfl
 
+@[simp] theorem ofSourceWeilFormVisibleCanonicalData_canonicalAtoms
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    {A : AnalyticCore.SourceTestAlgebra}
+    (sourceWeilForm : AnalyticCore.SourceWeilFormData A)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda)))
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    (ofSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      sameSymbols supportData visibleData canonicalAtoms certificateData).canonicalAtoms
+        lambda hlambda =
+      canonicalAtoms lambda hlambda :=
+  rfl
+
 theorem certificateData_eq
     {W : WeilFormSymbols} {commonTestFunction : TestFunction}
     (owner : CanonicalSourceWeilFormSourceDataOwner W commonTestFunction)
@@ -981,6 +1217,117 @@ theorem canonicalAtoms_visibleReadOff
         (owner.visibleData lambda hlambda).visibleArithmeticData.atVisibleIndex
           n hn) :=
   (owner.canonicalAtoms lambda hlambda).visibleReadOff
+
+theorem certificateAtoms_toNormalization_heq
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (owner : CanonicalSourceWeilFormSourceDataOwner W commonTestFunction)
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    HEq
+      (owner.sourceDataOwner.finitePrimeData.certificateData
+        commonTestFunction commonTestFunction lambda hlambda).atoms.toNormalization
+      ((owner.canonicalAtoms lambda hlambda).atoms.toNormalization) := by
+  rcases owner with
+    ⟨sourceDataOwner, sourceDataOwner_commonTestFunction, A, sourceWeilForm,
+      sameSymbols, supportData, visibleData, canonicalAtoms, certificateData⟩
+  cases sourceDataOwner_commonTestFunction
+  exact
+    FixedLambdaArithmeticCertificateSourceTestData.atoms_toNormalization_heq_of_heq_sourceTest_eq
+      (commonPairSourceTest sourceDataOwner)
+      (certificateData lambda hlambda)
+
+/-- Constructor-projection rows for the support and visible arithmetic objects
+stored by a canonical source-Weil-form source-data owner.
+
+The row records the stronger fact that both objects are projections of the same
+`FixedLambdaSourceWeilFormVisibleArithmeticData` seed.  This is the source-side
+shape needed by the route package: support and visible arithmetic should not be
+transported as unrelated `HEq` leaves. -/
+structure VisibleArithmeticOwnerRows
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (owner : CanonicalSourceWeilFormSourceDataOwner W commonTestFunction)
+    where
+  visibleSeed :
+    ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+      FixedLambdaSourceWeilFormVisibleArithmeticData
+        owner.sourceWeilForm
+        (owner.sameSymbols ▸
+          CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+        lambda
+  supportData_eq :
+    ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+      HEq
+        (owner.supportData lambda hlambda)
+        ((visibleSeed lambda hlambda).toSupportData)
+  visibleData_eq :
+    ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+      HEq
+        (owner.visibleData lambda hlambda)
+        ((visibleSeed lambda hlambda).toSourceEvaluationVisibleArithmeticData)
+
+abbrev CanonicalSourceWeilFormVisibleArithmeticOwnerRows
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (owner : CanonicalSourceWeilFormSourceDataOwner W commonTestFunction) :=
+  VisibleArithmeticOwnerRows owner
+
+theorem visibleArithmeticOwnerRows
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (owner : CanonicalSourceWeilFormSourceDataOwner W commonTestFunction) :
+    CanonicalSourceWeilFormVisibleArithmeticOwnerRows owner := by
+  rcases owner with
+    ⟨sourceDataOwner, sourceDataOwner_commonTestFunction, A, sourceWeilForm,
+      sameSymbols, supportData, visibleData, canonicalAtoms, certificateData⟩
+  cases sameSymbols
+  exact
+    { visibleSeed := by
+        intro lambda hlambda
+        exact { oneLtLambda := hlambda }
+      supportData_eq := by
+        intro lambda hlambda
+        apply FixedLambdaCommonFinitePrimeSupportData.heq_of_same_type
+      visibleData_eq := by
+        intro lambda hlambda
+        apply FixedLambdaSourceEvaluationVisibleArithmeticData.heq_of_same_type }
+
+theorem visibleArithmeticOwnerRows_of_sourceWeilFormVisibleCanonicalData
+    {W : WeilFormSymbols} {commonTestFunction : TestFunction}
+    (sourceDataOwner : CommonFinitePrimeArithmeticSourceData W)
+    (sourceDataOwner_commonTestFunction :
+      sourceDataOwner.commonTestFunction = commonTestFunction)
+    {A : AnalyticCore.SourceTestAlgebra}
+    (sourceWeilForm : AnalyticCore.SourceWeilFormData A)
+    (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (supportData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaCommonFinitePrimeSupportData W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (visibleData :
+      ∀ lambda : ℝ, 1 < lambda →
+        FixedLambdaSourceEvaluationVisibleArithmeticData
+          sourceWeilForm.evaluation W
+          (CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+          lambda)
+    (canonicalAtoms :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        FixedLambdaArithmeticCertificateSourceTestData.FixedLambdaSourceEvaluationCanonicalAtomNormalization
+          (visibleData lambda hlambda))
+    (certificateData :
+      ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
+        HEq
+          (sourceDataOwner.finitePrimeData.certificateData
+            commonTestFunction commonTestFunction lambda hlambda)
+          (FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+            (supportData lambda hlambda)
+            (visibleData lambda hlambda)
+            (canonicalAtoms lambda hlambda))) :
+    CanonicalSourceWeilFormVisibleArithmeticOwnerRows
+      (ofSourceWeilFormVisibleCanonicalData
+        sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+        sameSymbols supportData visibleData canonicalAtoms certificateData) :=
+  visibleArithmeticOwnerRows
+    (ofSourceWeilFormVisibleCanonicalData
+      sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
+      sameSymbols supportData visibleData canonicalAtoms certificateData)
 
 end CanonicalSourceWeilFormSourceDataOwner
 

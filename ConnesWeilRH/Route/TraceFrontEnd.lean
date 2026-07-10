@@ -2542,7 +2542,55 @@ theorem normalized_source_no_defect_reduces_to_scoped_restricted_archimedean_for
       Source.CCM25Concrete.Package.qwLambda_eq_scopedRestrictedArchimedeanFormula_of_package
         sourceTrace.ccm25ArithmeticPackage
 
-theorem normalized_source_no_defect_scoped_formula_of_theorem_base_rows
+def normalizedSeedQWLambdaScalarIdentificationOfNormalizedPackageTraceData
+    (base : Source.SourceObjectTheoremBasePackage)
+    (common : Source.SourceObjectCommonData base)
+    (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
+    (normalizedSeed :
+      Source.CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (remainders :
+      Source.CC20Concrete.TraceScale.CC20TracePackageRemainderData
+        normalizedSeed)
+    (rhExit : Source.SourceObject.CC20RHExitObjectPackage)
+    (bridges :
+      Source.SourceObjectCrossObjectBridges base common
+        (Source.SourceObjectExpandedRows.ofNormalizedCC20Trace
+          ccm24 normalizedSeed remainders)
+        rhExit)
+    (fixedData :
+      FixedSTestObligationData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges))
+    (traceData :
+      TraceFrontEndData
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+        (FixedSTestObligationData.toExpandedSourceFixedSTestFrontEndOfNormalizedPackage
+          base common ccm24 normalizedSeed remainders rhExit bridges
+          fixedData)) :
+    let sourceTrace :=
+      toSourceTraceReadOffDataOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges
+        fixedData traceData
+    let inputs :=
+      RouteInputs.ofExpandedSourcePackage
+        (Source.sourceObjectPackageOfNormalizedCC20Trace
+          base common ccm24 normalizedSeed remainders rhExit bridges)
+    let g :=
+      FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+    Source.NormalizedSeedQWLambdaScalarIdentification
+      normalizedSeed inputs.ccm25.weilSymbols remainders sourceTrace.lambda
+      sourceTrace.archimedeanTest g.weilTest := by
+  intro sourceTrace inputs g
+  refine { traceAmplitudeSquare_eq_qwLambda := ?_ }
+  exact
+    (Source.normalized_seed_cc20_support_square_trace_read_off
+      normalizedSeed remainders sourceTrace.archimedeanTest).symm.trans
+      (restricted_trace_read_off_of_source_trace_data
+        sourceTrace).restrictedTraceReadOffEquality
+
+theorem normalized_source_no_defect_scoped_formula_of_normalized_package_trace_data
     (base : Source.SourceObjectTheoremBasePackage)
     (common : Source.SourceObjectCommonData base)
     (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
@@ -2585,15 +2633,14 @@ theorem normalized_source_no_defect_scoped_formula_of_theorem_base_rows
       Source.CCM25Concrete.Package.ScopedRestrictedArchimedeanFormula
         inputs.ccm25.weilSymbols g.weilTest sourceTrace.lambda
         sourceTrace.ccm25ArithmeticPackage := by
-  subst hseed
   intro sourceTrace inputs g
   exact
     Source.normalized_seed_source_no_defect_trace_eq_scopedRestrictedArchimedeanFormula
-      base.s2b1NormalizedSeed inputs.ccm25.weilSymbols remainders
+      normalizedSeed inputs.ccm25.weilSymbols remainders
       sourceTrace.archimedeanTest g.weilTest sourceTrace.ccm25ArithmeticPackage
-      (Source.normalizedSeedQWLambdaScalarIdentificationOfTheoremBasePackage
-        base sourceTrace.lambda sourceTrace.oneLtLambda remainders
-        sourceTrace.archimedeanTest g.weilTest)
+      (normalizedSeedQWLambdaScalarIdentificationOfNormalizedPackageTraceData
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+        traceData)
 
 def restrictedTraceReadOffSourceOfNormalizedPackage
     (base : Source.SourceObjectTheoremBasePackage)
@@ -3088,13 +3135,12 @@ def normalizedSupportSquareScopedQWLambdaSourceComparisonOfPackageBridge
               sourceTrace.ccm25ArithmeticPackage
 
 /--
-Theorem-base-row constructor for the scoped support-square comparison.
+Source-side scoped comparison built from the normalized package trace data.
 
-This is the source-side route into the scoped comparison surface: it uses the
-actual S2-B1 normalized seed rows from `SourceObjectTheoremBasePackage` instead
-of the route restricted-trace read-off bridge.
+The scalar equality is read from the same `SourceTraceReadOffData` object as
+the selected route tuple; it is not an unconditional theorem-base row.
 -/
-def normalizedSupportSquareScopedQWLambdaSourceComparisonOfTheoremBaseRows
+def normalizedSupportSquareScopedQWLambdaSourceComparisonOfNormalizedPackageTraceData
     (base : Source.SourceObjectTheoremBasePackage)
     (common : Source.SourceObjectCommonData base)
     (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
@@ -3143,7 +3189,7 @@ def normalizedSupportSquareScopedQWLambdaSourceComparisonOfTheoremBaseRows
           inputs.ccm25.weilSymbols g.weilTest sourceTrace.lambda
           sourceTrace.ccm25ArithmeticPackage := by
           exact
-            normalized_source_no_defect_scoped_formula_of_theorem_base_rows
+            normalized_source_no_defect_scoped_formula_of_normalized_package_trace_data
               base common ccm24 base.s2b1NormalizedSeed remainders rhExit
               bridges fixedData traceData rfl
 
@@ -8820,7 +8866,7 @@ theorem normalized_source_no_defect_reduces_to_scoped_normal_form_of_comparison
         base common ccm24 normalizedSeed remainders rhExit bridges fixedData
         traceData comparison)
 
-theorem normalized_source_no_defect_reduces_to_scoped_normal_form_of_theorem_base_rows
+theorem normalized_source_no_defect_reduces_to_scoped_normal_form_of_normalized_package_trace_data
     (base : Source.SourceObjectTheoremBasePackage)
     (common : Source.SourceObjectCommonData base)
     (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
@@ -8864,11 +8910,11 @@ theorem normalized_source_no_defect_reduces_to_scoped_normal_form_of_theorem_bas
     normalized_source_no_defect_reduces_to_scoped_normal_form_of_scoped_comparison
       base common ccm24 normalizedSeed remainders rhExit bridges fixedData
       traceData
-      (normalizedSupportSquareScopedQWLambdaSourceComparisonOfTheoremBaseRows
+      (normalizedSupportSquareScopedQWLambdaSourceComparisonOfNormalizedPackageTraceData
         base common ccm24 normalizedSeed remainders rhExit bridges fixedData
         traceData hseed)
 
-theorem normalized_source_no_defect_reduces_to_support_boundary_normal_form_of_theorem_base_rows
+theorem normalized_source_no_defect_reduces_to_support_boundary_normal_form_of_normalized_package_trace_data
     (base : Source.SourceObjectTheoremBasePackage)
     (data : Source.SourceObjectConcreteCommonData base)
     (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
@@ -8921,11 +8967,11 @@ theorem normalized_source_no_defect_reduces_to_support_boundary_normal_form_of_t
     Source.normalized_seed_source_no_defect_trace_eq_source_scoped_restricted_formula_of_support_boundary_rows
       base.s2b1NormalizedSeed data remainders sourceTrace.lambda
       sourceTrace.oneLtLambda sourceTrace.archimedeanTest boundary
-      (Source.normalizedSeedQWLambdaScalarIdentificationOfTheoremBasePackage
-        base sourceTrace.lambda sourceTrace.oneLtLambda remainders
-        sourceTrace.archimedeanTest data.concreteCommonTest.sourceTest)
+      (normalizedSeedQWLambdaScalarIdentificationOfNormalizedPackageTraceData
+        base data.toSourceObjectCommonData ccm24 base.s2b1NormalizedSeed
+        remainders rhExit bridges fixedData traceData)
 
-theorem normalized_source_no_defect_reduces_to_certificate_boundary_normal_form_of_theorem_base_rows
+theorem normalized_source_no_defect_reduces_to_certificate_boundary_normal_form_of_normalized_package_trace_data
     (base : Source.SourceObjectTheoremBasePackage)
     (data : Source.SourceObjectConcreteCommonData base)
     (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
@@ -8978,11 +9024,11 @@ theorem normalized_source_no_defect_reduces_to_certificate_boundary_normal_form_
     Source.normalized_seed_source_no_defect_trace_eq_source_scoped_restricted_formula_of_certificate_boundary_rows
       base.s2b1NormalizedSeed data remainders sourceTrace.lambda
       sourceTrace.oneLtLambda sourceTrace.archimedeanTest boundary
-      (Source.normalizedSeedQWLambdaScalarIdentificationOfTheoremBasePackage
-        base sourceTrace.lambda sourceTrace.oneLtLambda remainders
-        sourceTrace.archimedeanTest data.concreteCommonTest.sourceTest)
+      (normalizedSeedQWLambdaScalarIdentificationOfNormalizedPackageTraceData
+        base data.toSourceObjectCommonData ccm24 base.s2b1NormalizedSeed
+        remainders rhExit bridges fixedData traceData)
 
-theorem normalized_source_no_defect_reduces_to_boundary_normal_form_of_theorem_base_rows
+theorem normalized_source_no_defect_reduces_to_boundary_normal_form_of_normalized_package_trace_data
     (base : Source.SourceObjectTheoremBasePackage)
     (data : Source.SourceObjectConcreteCommonData base)
     (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
@@ -9034,7 +9080,7 @@ theorem normalized_source_no_defect_reduces_to_boundary_normal_form_of_theorem_b
     NormalizedRestrictedSupportBoundaryScalarNormalForm,
     Source.SourceObjectConcreteCommonData.SourceEvaluationVisibleFinitePrimeSupportBoundary.ofFinitePrimeBoundary,
     Source.SourceObjectConcreteCommonData.SourceEvaluationVisibleFinitePrimeBoundary.toSupportBoundary] using
-    normalized_source_no_defect_reduces_to_support_boundary_normal_form_of_theorem_base_rows
+    normalized_source_no_defect_reduces_to_support_boundary_normal_form_of_normalized_package_trace_data
       base data ccm24 base.s2b1NormalizedSeed remainders rhExit bridges
       fixedData traceData boundary.toSupportBoundary rfl
 
@@ -9257,7 +9303,7 @@ def noDefectQWLambdaTheoremDataOfNormalizedPackageFromSupportBoundaryRows
           NormalizedRestrictedSupportBoundaryScalarNormalForm
             base data ccm24 base.s2b1NormalizedSeed remainders rhExit
             bridges fixedData traceData boundary :=
-            normalized_source_no_defect_reduces_to_support_boundary_normal_form_of_theorem_base_rows
+            normalized_source_no_defect_reduces_to_support_boundary_normal_form_of_normalized_package_trace_data
               base data ccm24 base.s2b1NormalizedSeed remainders rhExit
               bridges fixedData traceData boundary rfl
         _ = inputs.ccm25.weilSymbols.qwLambda traceData.lambda g.weilTest
@@ -9345,7 +9391,7 @@ def noDefectQWLambdaTheoremDataOfNormalizedPackageFromCertificateBoundaryRows
           NormalizedRestrictedCertificateBoundaryScalarNormalForm
             base data ccm24 base.s2b1NormalizedSeed remainders rhExit
             bridges fixedData traceData boundary :=
-            normalized_source_no_defect_reduces_to_certificate_boundary_normal_form_of_theorem_base_rows
+            normalized_source_no_defect_reduces_to_certificate_boundary_normal_form_of_normalized_package_trace_data
               base data ccm24 base.s2b1NormalizedSeed remainders rhExit
               bridges fixedData traceData boundary rfl
         _ = inputs.ccm25.weilSymbols.qwLambda traceData.lambda g.weilTest
@@ -10632,7 +10678,7 @@ theorem normalized_supportSquareMainTermEqualsQWLambdaAtHolds
         base common ccm24 normalizedSeed remainders rhExit bridges
         fixedData traceData).restrictedTraceReadOffEquality)
 
-def normalizedSupportSquareQWLambdaScalarReadOffOfTheoremBaseRows
+def normalizedSupportSquareQWLambdaScalarReadOffOfNormalizedPackageTraceData
     (base : Source.SourceObjectTheoremBasePackage)
     (common : Source.SourceObjectCommonData base)
     (ccm24 : Source.SourceObject.CCM24SemilocalObjectPackage)
@@ -10664,23 +10710,10 @@ def normalizedSupportSquareQWLambdaScalarReadOffOfTheoremBaseRows
       base common ccm24 normalizedSeed remainders rhExit bridges fixedData
       traceData where
   supportSquareEqualsQWLambda := by
-    subst hseed
-    let sourceTrace :=
-      toSourceTraceReadOffDataOfNormalizedPackage
-        base common ccm24 base.s2b1NormalizedSeed remainders rhExit bridges
-        fixedData traceData
-    let inputs :=
-      RouteInputs.ofExpandedSourcePackage
-        (Source.sourceObjectPackageOfNormalizedCC20Trace
-          base common ccm24 base.s2b1NormalizedSeed remainders rhExit bridges)
-    let g :=
-      FixedSTestObligationData.sourceBackedFixedSTestOfNormalizedPackage
-        base common ccm24 base.s2b1NormalizedSeed remainders rhExit bridges
-        fixedData
     exact
-      (base.s2b1NormalizedSeedSupportSquareQWLambdaReadOffSourceData
-        sourceTrace.lambda traceData.oneLtLambda sourceTrace.archimedeanTest
-        g.weilTest).toRow.supportSquareMainTermEqualsQWLambda
+      normalized_supportSquareMainTermEqualsQWLambdaAtHolds
+        base common ccm24 normalizedSeed remainders rhExit bridges fixedData
+        traceData
 
 theorem normalized_package_no_defect_qw_lambda_holds
     (base : Source.SourceObjectTheoremBasePackage)

@@ -2117,15 +2117,44 @@ def ofGlobalPackage
 
 end S2B1TraceScaleFixedTupleAnalyticExclusionPackage
 
-/--
-Constructor-facing S2-B1 analytic exclusion input.
+/-- The non-scalar S2-B1 rows that remain valid after the universal
+support-square/`QW_lambda` family is removed. -/
+structure S2B1TraceScaleRemainingConstructorInput
+    (A : ArchimedeanTraceSymbols) (W : WeilFormSymbols) where
+  rankZeroModeConstructorInput :
+    ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+      ∀ archimedeanTest : A.Test,
+      ∀ weilTest : TestFunction,
+        S2B1FixedTupleRankZeroModeConstructorInput
+          A W lambda archimedeanTest weilTest
+  noStripRankPoleConstructorInput :
+    ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+      ∀ archimedeanTest : A.Test,
+      ∀ weilTest : TestFunction,
+        S2B1FixedTupleNoStripRankPoleConstructorInput
+          A W lambda archimedeanTest weilTest
+  endpointStripCdefConstructorInput :
+    ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+      ∀ archimedeanTest : A.Test,
+      ∀ weilTest : TestFunction,
+        S2B1FixedTupleEndpointStripCdefConstructorInput
+          A W lambda archimedeanTest weilTest
+  noExtraBulkConstructorInput :
+    ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+      ∀ archimedeanTest : A.Test,
+      ∀ weilTest : TestFunction,
+        S2B1FixedTupleNoExtraBulkConstructorInput
+          A W lambda archimedeanTest weilTest
+  finitePartSourceNormalFormData :
+    ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+      ∀ archimedeanTest : A.Test,
+      ∀ weilTest : TestFunction,
+        S2B1FinitePartSourceNormalFormData
+          A W lambda archimedeanTest weilTest
 
-The real S2-B1 review surface is the fixed tuple package: support-square
-read-off, rank/zero-mode, no-strip rank/pole, endpoint-strip `Cdef`,
-no-extra-bulk, and no-hidden finite-part subtraction.  The global
-`S2B1TraceScaleAnalyticExclusionPackage` is reconstructed from these
-fixed-tuple rows.
--/
+/-- Compatibility input for callers that still supply the rejected universal
+scalar family together with the remaining S2-B1 rows. Production theorem-base
+packages store only `S2B1TraceScaleRemainingConstructorInput`. -/
 structure S2B1TraceScaleAnalyticExclusionConstructorInput
     (A : ArchimedeanTraceSymbols) (W : WeilFormSymbols) where
   supportSquareQWLambdaReadOffSourceData :
@@ -2165,7 +2194,39 @@ structure S2B1TraceScaleAnalyticExclusionConstructorInput
         S2B1FinitePartSourceNormalFormData
           A W lambda archimedeanTest weilTest
 
+namespace S2B1TraceScaleRemainingConstructorInput
+
+def withSupportSquareQWLambdaReadOff
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    (data : S2B1TraceScaleRemainingConstructorInput A W)
+    (supportSquareQWLambdaReadOffSourceData :
+      ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+        ∀ archimedeanTest : A.Test,
+        ∀ weilTest : TestFunction,
+          S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData
+            A W lambda archimedeanTest weilTest) :
+    S2B1TraceScaleAnalyticExclusionConstructorInput A W where
+  supportSquareQWLambdaReadOffSourceData :=
+    supportSquareQWLambdaReadOffSourceData
+  rankZeroModeConstructorInput := data.rankZeroModeConstructorInput
+  noStripRankPoleConstructorInput := data.noStripRankPoleConstructorInput
+  endpointStripCdefConstructorInput := data.endpointStripCdefConstructorInput
+  noExtraBulkConstructorInput := data.noExtraBulkConstructorInput
+  finitePartSourceNormalFormData := data.finitePartSourceNormalFormData
+
+end S2B1TraceScaleRemainingConstructorInput
+
 namespace S2B1TraceScaleAnalyticExclusionConstructorInput
+
+def toRemainingConstructorInput
+    {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
+    (data : S2B1TraceScaleAnalyticExclusionConstructorInput A W) :
+    S2B1TraceScaleRemainingConstructorInput A W where
+  rankZeroModeConstructorInput := data.rankZeroModeConstructorInput
+  noStripRankPoleConstructorInput := data.noStripRankPoleConstructorInput
+  endpointStripCdefConstructorInput := data.endpointStripCdefConstructorInput
+  noExtraBulkConstructorInput := data.noExtraBulkConstructorInput
+  finitePartSourceNormalFormData := data.finitePartSourceNormalFormData
 
 def fixedTuple
     {A : ArchimedeanTraceSymbols} {W : WeilFormSymbols}
@@ -2527,8 +2588,8 @@ structure SourceObjectTheoremBasePackage where
       cc20TraceModel.archimedeanSymbols
   s2b1RemainderRowsOutsideNoBulk :
     S2B1NormalizedCC20RemainderRowsOutsideNoBulk s2b1NormalizedSeed
-  s2b1TraceScaleAnalyticExclusionConstructorInput :
-    S2B1TraceScaleAnalyticExclusionConstructorInput
+  s2b1TraceScaleRemainingConstructorInput :
+    S2B1TraceScaleRemainingConstructorInput
       cc20TraceModel.archimedeanSymbols ccm25Model.toWeilFormSymbols
   rhDefinitionBridge : RHDefinitionBridge
   cc20RHExitObjectPackage :
@@ -2553,8 +2614,8 @@ structure SourceObjectTheoremBaseConstructorInput where
       cc20TraceModel.archimedeanSymbols
   s2b1RemainderRowsOutsideNoBulk :
     S2B1NormalizedCC20RemainderRowsOutsideNoBulk s2b1NormalizedSeed
-  s2b1TraceScaleAnalyticExclusionConstructorInput :
-    S2B1TraceScaleAnalyticExclusionConstructorInput
+  s2b1TraceScaleRemainingConstructorInput :
+    S2B1TraceScaleRemainingConstructorInput
       cc20TraceModel.archimedeanSymbols ccm25Model.toWeilFormSymbols
   rhDefinitionBridge : RHDefinitionBridge
   cc20RHExitObjectPackage :
@@ -2573,8 +2634,8 @@ def toPackage
     data.s2b1NormalizedSeedArchimedeanSymbolsEq
   s2b1RemainderRowsOutsideNoBulk :=
     data.s2b1RemainderRowsOutsideNoBulk
-  s2b1TraceScaleAnalyticExclusionConstructorInput :=
-    data.s2b1TraceScaleAnalyticExclusionConstructorInput
+  s2b1TraceScaleRemainingConstructorInput :=
+    data.s2b1TraceScaleRemainingConstructorInput
   rhDefinitionBridge := data.rhDefinitionBridge
   cc20RHExitObjectPackage := data.cc20RHExitObjectPackage
 
@@ -3167,21 +3228,32 @@ def s2b1CCM25PoleNormalization
 
 def s2b1TraceScaleAnalyticExclusions
     (pkg : SourceObjectTheoremBasePackage) :
+    (supportSquareQWLambdaReadOffSourceData :
+      ∀ lambda : ℝ, ∀ _hlambda : 1 < lambda,
+        ∀ archimedeanTest : pkg.toArchimedeanTraceSymbols.Test,
+        ∀ weilTest : TestFunction,
+          S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData
+            pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
+            lambda archimedeanTest weilTest) →
     S2B1TraceScaleAnalyticExclusionPackage
       pkg.cc20TraceModel.archimedeanSymbols pkg.ccm25Model.toWeilFormSymbols :=
-  pkg.s2b1TraceScaleAnalyticExclusionConstructorInput.toPackage
+  fun support =>
+    (pkg.s2b1TraceScaleRemainingConstructorInput.withSupportSquareQWLambdaReadOff
+      support).toPackage
 
 def s2b1SupportSquareQWLambdaReadOffSourceData
     (pkg : SourceObjectTheoremBasePackage)
     (lambda : ℝ) (hlambda : 1 < lambda)
     (archimedeanTest : pkg.toArchimedeanTraceSymbols.Test)
-    (weilTest : TestFunction) :
+    (weilTest : TestFunction)
+    (support :
+      S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData
+        pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
+        lambda archimedeanTest weilTest) :
     S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData
       pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
       lambda archimedeanTest weilTest :=
-  S2B1TraceScaleAnalyticExclusionConstructorInput.supportSquareQWLambdaReadOffSourceData
-    pkg.s2b1TraceScaleAnalyticExclusionConstructorInput
-    lambda hlambda archimedeanTest weilTest
+  support
 
 def s2b1RankZeroModeConstructorInput
     (pkg : SourceObjectTheoremBasePackage)
@@ -3191,8 +3263,8 @@ def s2b1RankZeroModeConstructorInput
     S2B1FixedTupleRankZeroModeConstructorInput
       pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
       lambda archimedeanTest weilTest :=
-  S2B1TraceScaleAnalyticExclusionConstructorInput.rankZeroModeConstructorInput
-    pkg.s2b1TraceScaleAnalyticExclusionConstructorInput
+  S2B1TraceScaleRemainingConstructorInput.rankZeroModeConstructorInput
+    pkg.s2b1TraceScaleRemainingConstructorInput
     lambda hlambda archimedeanTest weilTest
 
 def s2b1NoStripRankPoleConstructorInput
@@ -3203,8 +3275,8 @@ def s2b1NoStripRankPoleConstructorInput
     S2B1FixedTupleNoStripRankPoleConstructorInput
       pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
       lambda archimedeanTest weilTest :=
-  S2B1TraceScaleAnalyticExclusionConstructorInput.noStripRankPoleConstructorInput
-    pkg.s2b1TraceScaleAnalyticExclusionConstructorInput
+  S2B1TraceScaleRemainingConstructorInput.noStripRankPoleConstructorInput
+    pkg.s2b1TraceScaleRemainingConstructorInput
     lambda hlambda archimedeanTest weilTest
 
 def s2b1EndpointStripCdefConstructorInput
@@ -3215,8 +3287,8 @@ def s2b1EndpointStripCdefConstructorInput
     S2B1FixedTupleEndpointStripCdefConstructorInput
       pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
       lambda archimedeanTest weilTest :=
-  S2B1TraceScaleAnalyticExclusionConstructorInput.endpointStripCdefConstructorInput
-    pkg.s2b1TraceScaleAnalyticExclusionConstructorInput
+  S2B1TraceScaleRemainingConstructorInput.endpointStripCdefConstructorInput
+    pkg.s2b1TraceScaleRemainingConstructorInput
     lambda hlambda archimedeanTest weilTest
 
 def s2b1NoExtraBulkConstructorInput
@@ -3227,8 +3299,8 @@ def s2b1NoExtraBulkConstructorInput
     S2B1FixedTupleNoExtraBulkConstructorInput
       pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
       lambda archimedeanTest weilTest :=
-  S2B1TraceScaleAnalyticExclusionConstructorInput.noExtraBulkConstructorInput
-    pkg.s2b1TraceScaleAnalyticExclusionConstructorInput
+  S2B1TraceScaleRemainingConstructorInput.noExtraBulkConstructorInput
+    pkg.s2b1TraceScaleRemainingConstructorInput
     lambda hlambda archimedeanTest weilTest
 
 def s2b1FinitePartSourceNormalFormData
@@ -3239,8 +3311,8 @@ def s2b1FinitePartSourceNormalFormData
     S2B1FinitePartSourceNormalFormData
       pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
       lambda archimedeanTest weilTest :=
-  S2B1TraceScaleAnalyticExclusionConstructorInput.finitePartSourceNormalFormData
-    pkg.s2b1TraceScaleAnalyticExclusionConstructorInput
+  S2B1TraceScaleRemainingConstructorInput.finitePartSourceNormalFormData
+    pkg.s2b1TraceScaleRemainingConstructorInput
     lambda hlambda archimedeanTest weilTest
 
 def s2b1NoHiddenFinitePartSubtractionConstructorInput
@@ -3253,33 +3325,6 @@ def s2b1NoHiddenFinitePartSubtractionConstructorInput
       lambda archimedeanTest weilTest :=
   (pkg.s2b1FinitePartSourceNormalFormData
     lambda hlambda archimedeanTest weilTest).toNoHiddenFinitePartConstructorInput
-
-def s2b1TraceScaleTermLedgerRows
-    (pkg : SourceObjectTheoremBasePackage) :
-    S2B1TraceScaleTermLedgerRows
-      pkg.cc20TraceModel.archimedeanSymbols
-      pkg.ccm25Model.toWeilFormSymbols :=
-  pkg.s2b1TraceScaleAnalyticExclusionConstructorInput.toTermLedgerRows
-
-def s2b1TraceScaleNoBulkRows
-    (pkg : SourceObjectTheoremBasePackage) :
-    S2B1TraceScaleNoBulkRows
-      pkg.cc20TraceModel.archimedeanSymbols pkg.ccm25Model.toWeilFormSymbols :=
-  pkg.s2b1TraceScaleAnalyticExclusionConstructorInput.toNoBulkRows
-    pkg.cc20TraceModel.ordinaryTraceSupportSquare
-    pkg.cc20TraceModel.archimedeanTraceSquare
-    pkg.s2b1CCM25QWLambdaFormula
-    pkg.s2b1CCM25PoleNormalization
-
-def s2b1TraceScaleNoBulkStatement
-    (pkg : SourceObjectTheoremBasePackage) :
-    CC20CCMTraceScaleNoBulkStatement
-      pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols :=
-  pkg.s2b1TraceScaleAnalyticExclusionConstructorInput.noBulkStatement
-    pkg.cc20TraceModel.ordinaryTraceSupportSquare
-    pkg.cc20TraceModel.archimedeanTraceSquare
-    pkg.s2b1CCM25QWLambdaFormula
-    pkg.s2b1CCM25PoleNormalization
 
 def s2b1NormalizedSeedBaseArchimedeanTest
     (pkg : SourceObjectTheoremBasePackage)
@@ -3298,18 +3343,17 @@ def s2b1NormalizedSeedSupportSquareQWLambdaReadOffSourceData
     (archimedeanTest :
       (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
         pkg.s2b1NormalizedSeed).archimedeanSymbols.Test)
-    (weilTest : TestFunction) :
+    (weilTest : TestFunction)
+    (support :
+      S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData
+        (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+          pkg.s2b1NormalizedSeed).archimedeanSymbols
+        pkg.toWeilFormSymbols lambda archimedeanTest weilTest) :
     S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData
       (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
         pkg.s2b1NormalizedSeed).archimedeanSymbols
       pkg.toWeilFormSymbols lambda archimedeanTest weilTest :=
-  S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData.transportArchimedean
-    pkg.s2b1NormalizedSeedArchimedeanSymbolsEq.symm
-    archimedeanTest
-    (pkg.s2b1SupportSquareQWLambdaReadOffSourceData
-      lambda hlambda
-      (pkg.s2b1NormalizedSeedBaseArchimedeanTest archimedeanTest)
-      weilTest)
+  support
 
 def s2b1NormalizedSeedSupportSquareQWLambdaRow
     (pkg : SourceObjectTheoremBasePackage)
@@ -3317,14 +3361,19 @@ def s2b1NormalizedSeedSupportSquareQWLambdaRow
     (archimedeanTest :
       (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
         pkg.s2b1NormalizedSeed).archimedeanSymbols.Test)
-    (weilTest : TestFunction) :
+    (weilTest : TestFunction)
+    (support :
+      S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData
+        (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+          pkg.s2b1NormalizedSeed).archimedeanSymbols
+        pkg.toWeilFormSymbols lambda archimedeanTest weilTest) :
     S2B1FixedTupleSupportSquareQWLambdaRow
       (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
         pkg.s2b1NormalizedSeed).archimedeanSymbols
       pkg.toWeilFormSymbols lambda archimedeanTest weilTest :=
   let support :=
     pkg.s2b1NormalizedSeedSupportSquareQWLambdaReadOffSourceData
-      lambda hlambda archimedeanTest weilTest
+      lambda hlambda archimedeanTest weilTest support
   { supportSquareMainTermEqualsQWLambda :=
       support.cc20SupportSquareTraceReadOff.trans
         support.ccm25QWLambdaSourceReadOff }
@@ -3335,13 +3384,18 @@ theorem s2b1NormalizedSeedSupportSquareMainTermEqualsQWLambda
     (archimedeanTest :
       (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
         pkg.s2b1NormalizedSeed).archimedeanSymbols.Test)
-    (weilTest : TestFunction) :
+    (weilTest : TestFunction)
+    (support :
+      S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData
+        (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+          pkg.s2b1NormalizedSeed).archimedeanSymbols
+        pkg.toWeilFormSymbols lambda archimedeanTest weilTest) :
     (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
       pkg.s2b1NormalizedSeed).archimedeanSymbols.supportSquareTrace
         archimedeanTest =
       pkg.ccm25Model.toWeilFormSymbols.qwLambda lambda weilTest weilTest :=
   (pkg.s2b1NormalizedSeedSupportSquareQWLambdaRow
-    lambda hlambda archimedeanTest weilTest).supportSquareMainTermEqualsQWLambda
+    lambda hlambda archimedeanTest weilTest support).supportSquareMainTermEqualsQWLambda
 
 def s2b1NormalizedSeedRankZeroModeConstructorInput
     (pkg : SourceObjectTheoremBasePackage)
@@ -3554,13 +3608,17 @@ def s2b1FixedTupleAnalyticExclusion
     (pkg : SourceObjectTheoremBasePackage)
     (lambda : ℝ) (hlambda : 1 < lambda)
     (archimedeanTest : pkg.toArchimedeanTraceSymbols.Test)
-    (weilTest : TestFunction) :
+    (weilTest : TestFunction)
+    (support :
+      S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData
+        pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
+        lambda archimedeanTest weilTest) :
     S2B1TraceScaleFixedTupleAnalyticExclusionPackage
       pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
       lambda archimedeanTest weilTest :=
   let support :=
     pkg.s2b1SupportSquareQWLambdaReadOffSourceData
-      lambda hlambda archimedeanTest weilTest
+      lambda hlambda archimedeanTest weilTest support
   { oneLtLambda := hlambda
     supportSquareQWLambdaRow :=
       { supportSquareMainTermEqualsQWLambda :=
@@ -3582,12 +3640,16 @@ def s2b1FixedTupleNoBulkWitness
     (pkg : SourceObjectTheoremBasePackage)
     (lambda : ℝ) (hlambda : 1 < lambda)
     (archimedeanTest : pkg.toArchimedeanTraceSymbols.Test)
-    (weilTest : TestFunction) :
+    (weilTest : TestFunction)
+    (support :
+      S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData
+        pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
+        lambda archimedeanTest weilTest) :
     CC20CCMTraceScaleNoBulkWitness
       pkg.toArchimedeanTraceSymbols pkg.toWeilFormSymbols
       lambda archimedeanTest weilTest :=
   (pkg.s2b1FixedTupleAnalyticExclusion
-      lambda hlambda archimedeanTest weilTest).toWitness
+      lambda hlambda archimedeanTest weilTest support).toWitness
     pkg.cc20TraceModel.ordinaryTraceSupportSquare
     pkg.cc20TraceModel.archimedeanTraceSquare
     pkg.s2b1CCM25QWLambdaFormula
@@ -3726,7 +3788,12 @@ def s2b1NormalizedSeedFixedTupleAnalyticExclusion
     (archimedeanTest :
       (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
         pkg.s2b1NormalizedSeed).archimedeanSymbols.Test)
-    (weilTest : TestFunction) :
+    (weilTest : TestFunction)
+    (support :
+      S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData
+        (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+          pkg.s2b1NormalizedSeed).archimedeanSymbols
+        pkg.toWeilFormSymbols lambda archimedeanTest weilTest) :
     S2B1TraceScaleFixedTupleAnalyticExclusionPackage
       (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
         pkg.s2b1NormalizedSeed).archimedeanSymbols
@@ -3734,7 +3801,7 @@ def s2b1NormalizedSeedFixedTupleAnalyticExclusion
   oneLtLambda := hlambda
   supportSquareQWLambdaRow :=
     pkg.s2b1NormalizedSeedSupportSquareQWLambdaRow
-      lambda hlambda archimedeanTest weilTest
+      lambda hlambda archimedeanTest weilTest support
   rankZeroModeRow :=
     pkg.s2b1NormalizedSeedRankZeroModeRow
       lambda hlambda archimedeanTest weilTest
@@ -3779,6 +3846,11 @@ theorem s2b1NormalizedSeedSourceNoDefectScopedRestrictedFormula
     (ccm25Pkg :
       CCM25Concrete.Package.ConcreteCCM25ArithmeticPackage
         pkg.toWeilFormSymbols weilTest lambda)
+    (support :
+      S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData
+        (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
+          pkg.s2b1NormalizedSeed).archimedeanSymbols
+        pkg.toWeilFormSymbols lambda archimedeanTest weilTest)
     (htrace :
       (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
         pkg.s2b1NormalizedSeed).archimedeanSymbols.traceClass
@@ -3800,7 +3872,7 @@ theorem s2b1NormalizedSeedSourceNoDefectScopedRestrictedFormula
         (pkg.s2b1NormalizedSeedTraceSquareStatement)
         lambda hlambda archimedeanTest weilTest)
       (pkg.s2b1NormalizedSeedSupportSquareMainTermEqualsQWLambda
-        lambda hlambda archimedeanTest weilTest)
+        lambda hlambda archimedeanTest weilTest support)
       htrace hcyclic)
 
 theorem s2b1NormalizedSeedRestrictedCutoffScopedFormula
@@ -3820,57 +3892,6 @@ theorem s2b1NormalizedSeedRestrictedCutoffScopedFormula
       (W := pkg.toWeilFormSymbols)
       lambda archimedeanTest weilTest ccm25Pkg :=
   S2B1TraceScaleTermLedgerRows.restrictedCCM25CutoffMatchesScopedFormulaAtHolds ccm25Pkg
-
-def s2b1NormalizedSeedTraceScaleNoBulkRows
-    (pkg : SourceObjectTheoremBasePackage) :
-    S2B1TraceScaleNoBulkRows
-      (CC20Concrete.TraceScale.normalizedLegalSquareTraceScaleToCC20TraceModel
-        pkg.s2b1NormalizedSeed).archimedeanSymbols
-      pkg.toWeilFormSymbols where
-  noBulkScaleTermOutsideLedgerAt :=
-    fun lambda archimedeanTest weilTest =>
-      ∀ hlambda : 1 < lambda,
-        (pkg.s2b1NormalizedSeedFixedTupleAnalyticExclusion
-          lambda hlambda archimedeanTest
-          weilTest).toWitness
-            (pkg.s2b1NormalizedSeedOrdinaryTraceSupportSquareStatement)
-            (pkg.s2b1NormalizedSeedTraceSquareStatement)
-            pkg.s2b1CCM25QWLambdaFormula
-            pkg.s2b1CCM25PoleNormalization
-            |>.noBulkScaleTermOutsideLedger
-  noHiddenFinitePartSubtractionAt :=
-    fun lambda archimedeanTest weilTest =>
-      ∀ hlambda : 1 < lambda,
-        (pkg.s2b1NormalizedSeedFixedTupleAnalyticExclusion
-          lambda hlambda archimedeanTest
-          weilTest).toWitness
-            (pkg.s2b1NormalizedSeedOrdinaryTraceSupportSquareStatement)
-            (pkg.s2b1NormalizedSeedTraceSquareStatement)
-            pkg.s2b1CCM25QWLambdaFormula
-            pkg.s2b1CCM25PoleNormalization
-            |>.noHiddenFinitePartSubtraction
-  noBulkScaleTermOutsideLedgerAtHolds := by
-    intro lambda hlambda archimedeanTest weilTest hcurrent
-    exact
-      (pkg.s2b1NormalizedSeedFixedTupleAnalyticExclusion
-        lambda hcurrent archimedeanTest
-        weilTest).toWitness
-          (pkg.s2b1NormalizedSeedOrdinaryTraceSupportSquareStatement)
-          (pkg.s2b1NormalizedSeedTraceSquareStatement)
-          pkg.s2b1CCM25QWLambdaFormula
-          pkg.s2b1CCM25PoleNormalization
-          |>.noBulkScaleTermOutsideLedgerHolds
-  noHiddenFinitePartSubtractionAtHolds := by
-    intro lambda hlambda archimedeanTest weilTest hcurrent
-    exact
-      (pkg.s2b1NormalizedSeedFixedTupleAnalyticExclusion
-        lambda hcurrent archimedeanTest
-        weilTest).toWitness
-          (pkg.s2b1NormalizedSeedOrdinaryTraceSupportSquareStatement)
-          (pkg.s2b1NormalizedSeedTraceSquareStatement)
-          pkg.s2b1CCM25QWLambdaFormula
-          pkg.s2b1CCM25PoleNormalization
-          |>.noHiddenFinitePartSubtractionHolds
 
 theorem toSourceTheoremBase_ccm24_eq
     (pkg : SourceObjectTheoremBasePackage) :

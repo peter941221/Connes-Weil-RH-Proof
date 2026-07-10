@@ -275,6 +275,19 @@ def ofArithmeticData
   data := data
   sourceTestReadOff := sourceTestReadOff
 
+theorem ext_data
+    {W : WeilFormSymbols} {f g : TestFunction}
+    {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
+    {n : ℕ}
+    {a b : SourceFinitePrimeArithmeticDataForSourceTest W f g sourceTest n}
+    (h : a.data = b.data) : a = b := by
+  cases a with
+  | mk adata areadOff =>
+  cases b with
+  | mk bdata breadOff =>
+  cases h
+  congr
+
 end SourceFinitePrimeArithmeticDataForSourceTest
 
 structure SourceFinitePrimeArithmeticNormalizationForSourceTest
@@ -303,6 +316,19 @@ def ofNormalization
   atIndex := fun n =>
     SourceFinitePrimeArithmeticDataForSourceTest.ofArithmeticData
       (h.atIndex n) (hUse n)
+
+theorem ext_atIndex
+    {W : WeilFormSymbols} {f g : TestFunction}
+    {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
+    {a b : SourceFinitePrimeArithmeticNormalizationForSourceTest W f g sourceTest}
+    (h : ∀ n : ℕ, a.atIndex n = b.atIndex n) : a = b := by
+  cases a with
+  | mk aAt =>
+  cases b with
+  | mk bAt =>
+  congr
+  funext n
+  exact h n
 
 theorem toNormalization_uses_sourceTest
     {W : WeilFormSymbols} {f g : TestFunction}

@@ -970,28 +970,6 @@ def normalizedSeedQWLambdaScalarIdentificationOfRestrictedEvaluator
     exact normalized_seed_ccm25_qw_lambda_source_evaluator_read_off
       weilTest ccm25
 
-def normalizedSeedQWLambdaScalarIdentificationOfTheoremBasePackage
-    (pkg : SourceObjectTheoremBasePackage)
-    (lambda : ℝ) (hlambda : 1 < lambda)
-    (remainders :
-      CC20Concrete.TraceScale.CC20TracePackageRemainderData
-        pkg.s2b1NormalizedSeed)
-    (g :
-      (CC20Concrete.TraceScale.normalizedSeedTraceObjectPackage
-        pkg.s2b1NormalizedSeed remainders).archimedeanSymbols.Test)
-    (weilTest : TestFunction) :
-    NormalizedSeedQWLambdaScalarIdentification
-      pkg.s2b1NormalizedSeed pkg.toWeilFormSymbols remainders
-      lambda g weilTest where
-  traceAmplitudeSquare_eq_qwLambda := by
-    change pkg.s2b1NormalizedSeed.traceAmplitude g ^ 2 =
-      pkg.toWeilFormSymbols.qwLambda lambda weilTest weilTest
-    exact
-      (normalized_seed_cc20_support_square_trace_read_off
-        pkg.s2b1NormalizedSeed remainders g).symm.trans
-        (pkg.s2b1NormalizedSeedSupportSquareMainTermEqualsQWLambda
-          lambda hlambda g weilTest)
-
 def normalizedSeedSupportSquareQWLambdaReadOffOfQWLambdaScalarIdentification
     (A : CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
     (W : WeilFormSymbols)
@@ -1011,6 +989,35 @@ def normalizedSeedSupportSquareQWLambdaReadOffOfQWLambdaScalarIdentification
   normalizedSeedSupportSquareQWLambdaReadOffFromCCM25Scalar
     A W remainders lambda g weilTest
     identification.traceAmplitudeSquare_eq_qwLambda
+
+theorem normalizedSeedQWLambdaScalarIdentification_nonempty_iff_supportSquareQWLambdaReadOffSourceData
+    (A : CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
+    (W : WeilFormSymbols)
+    (remainders : CC20Concrete.TraceScale.CC20TracePackageRemainderData A)
+    (lambda : ℝ)
+    (g :
+      (CC20Concrete.TraceScale.normalizedSeedTraceObjectPackage
+        A remainders).archimedeanSymbols.Test)
+    (weilTest : TestFunction) :
+    Nonempty
+        (NormalizedSeedQWLambdaScalarIdentification
+          A W remainders lambda g weilTest) ↔
+      Nonempty
+        (S2B1FixedTupleSupportSquareQWLambdaReadOffSourceData
+          (CC20Concrete.TraceScale.normalizedSeedTraceObjectPackage
+            A remainders).archimedeanSymbols
+          W lambda g weilTest) := by
+  constructor
+  · rintro ⟨identification⟩
+    exact
+      ⟨normalizedSeedSupportSquareQWLambdaReadOffOfQWLambdaScalarIdentification
+        A W remainders lambda g weilTest identification⟩
+  · rintro ⟨readOff⟩
+    refine ⟨{ traceAmplitudeSquare_eq_qwLambda := ?_ }⟩
+    exact
+      (normalized_seed_cc20_support_square_trace_read_off A remainders g).symm.trans
+        (readOff.cc20SupportSquareTraceReadOff.trans
+          readOff.ccm25QWLambdaSourceReadOff)
 
 def normalizedSeedSupportSquareQWLambdaReadOffOfScalarIdentification
     (A : CC20Concrete.TraceScale.NormalizedLegalSquareTraceScaleSymbols)
@@ -1529,26 +1536,6 @@ theorem normalized_seed_source_no_defect_trace_eq_global_formula_of_common_data
     A W remainders g data.commonTestFunction ccm25 identification
       (common_data_scoped_archimedean_contribution_balance
         data lambda ccm25)
-
-theorem normalized_seed_source_no_defect_trace_eq_qwLambda_of_theorem_base_package
-    (pkg : SourceObjectTheoremBasePackage)
-    (lambda : ℝ) (hlambda : 1 < lambda)
-    (remainders :
-      CC20Concrete.TraceScale.CC20TracePackageRemainderData
-        pkg.s2b1NormalizedSeed)
-    (g :
-      (CC20Concrete.TraceScale.normalizedSeedTraceObjectPackage
-        pkg.s2b1NormalizedSeed remainders).archimedeanSymbols.Test)
-    (weilTest : TestFunction) :
-    (CC20Concrete.TraceScale.normalizedSeedTraceObjectPackage
-      pkg.s2b1NormalizedSeed remainders).archimedeanSymbols.sourceNoDefectTrace
-        g =
-      pkg.toWeilFormSymbols.qwLambda lambda weilTest weilTest :=
-  normalized_seed_source_no_defect_trace_eq_qwLambda_of_qwLambda_scalar_identification
-    pkg.s2b1NormalizedSeed pkg.toWeilFormSymbols remainders lambda g
-      weilTest
-      (normalizedSeedQWLambdaScalarIdentificationOfTheoremBasePackage
-        pkg lambda hlambda remainders g weilTest)
 
 /--
 Actual normalized-seed fixed-tuple theorem data from the scalar identification

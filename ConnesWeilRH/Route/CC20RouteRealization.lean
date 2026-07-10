@@ -9,6 +9,7 @@ import ConnesWeilRH.Source.CC20ConcreteTestSpace
 import ConnesWeilRH.Source.CC20PropositionC1
 import ConnesWeilRH.Source.CC20YoshidaConstruction
 import ConnesWeilRH.Source.CCM25Concrete.FinitePrimeInterface
+import ConnesWeilRH.Source.CCM25Concrete.FinitePrimeSourceDataBridge
 
 /-!
 # CC20 route realization for the concrete finite-vanishing input
@@ -2351,6 +2352,21 @@ theorem normalizedRouteBackedSourceZeroYoshidaDetectorSquareRouteRealizer_iff_no
   · exact
       normalizedRouteBackedSourceZeroYoshidaDetectorSquareRouteRealizer_of_no_offline_source_zero
 
+theorem normalizedRouteBackedSourceZeroYoshidaDetectorSquareRouteRealizer_iff_standardSourceRH
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet) :
+    NormalizedRouteBackedSourceZeroYoshidaDetectorSquareRouteRealizer ↔
+      RHDefinitionBridge.standard.SourceRH :=
+  (normalizedRouteBackedSourceZeroYoshidaDetectorSquareRouteRealizer_iff_no_offline_source_zero
+    hexists).trans
+    (by
+      constructor
+      · intro hNoOff rho hrho
+        simpa [RHDefinitionBridge.standard] using hNoOff hrho
+      · intro hsource rho hrho
+        simpa [RHDefinitionBridge.standard] using hsource rho hrho)
+
 theorem normalizedRouteBackedSourceZeroYoshidaDetectorSquareRouteRealizer_of_yoshida_square_route_realizer
     (hrealizer :
       NormalizedRouteBackedYoshidaDetectorSquareRouteRealizer) :
@@ -2377,6 +2393,12 @@ theorem normalizedCC20_source_rh_of_yoshida_square_route_realizer
   exact
     normalizedCC20_no_offline_source_zero_of_yoshida_square_route_realizer
       hrealizer hrho
+
+theorem normalizedRouteBackedYoshidaDetectorSquareRouteRealizer_implies_standardSourceRH
+    (hrealizer :
+      NormalizedRouteBackedYoshidaDetectorSquareRouteRealizer) :
+    RHDefinitionBridge.standard.SourceRH :=
+  normalizedCC20_source_rh_of_yoshida_square_route_realizer hrealizer
 
 noncomputable def normalizedRouteBackedYoshidaDetectorSignWitness_of_route_realization
     {rho : ℂ}
@@ -3185,6 +3207,46 @@ noncomputable def normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canon
       (normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean
         (normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff
           baseSourceBackedTest canonicalOwner lambda oneLtLambda rows readOff)))
+
+theorem normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean_certificateData_eq
+    {rho : ℂ}
+    {detector :
+      YoshidaDetector
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho}
+    {inputs : RouteInputs}
+    (baseSourceBackedTest : SourceBackedFixedSTest inputs)
+    (canonicalOwner :
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner
+        inputs.ccm25.weilSymbols
+        (normalizedCC20TestSpace.toRouteTest
+          (normalizedCC20TestSpace.starConvolution detector.test)))
+    (lambda : ℝ) (oneLtLambda : 1 < lambda)
+    (rows :
+      NormalizedRouteBackedYoshidaDetectorCanonicalSquareArithmeticRows
+        detector canonicalOwner)
+    (readOff :
+      NormalizedRouteBackedYoshidaDetectorArchimedeanReadOff
+        detector inputs) :
+    let r :=
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+        baseSourceBackedTest canonicalOwner lambda oneLtLambda rows readOff
+    HEq
+      (r.sourceBackedTest.finitePrimeSourceDataOwner.finitePrimeData.certificateData
+        r.sourceBackedTest.weilTest r.sourceBackedTest.weilTest
+        r.bridge.sourceTraceReadOff.lambda
+        r.bridge.sourceTraceReadOff.oneLtLambda)
+      (Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+        (canonicalOwner.supportData lambda oneLtLambda)
+        (canonicalOwner.visibleData lambda oneLtLambda)
+        (canonicalOwner.canonicalAtoms lambda oneLtLambda)) := by
+  simpa [
+    normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+    normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization,
+    normalizedRouteBackedYoshidaDetectorSquareRouteRealization_of_trace_realization,
+    normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean,
+    normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff] using
+    Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner.certificateData_eq
+      canonicalOwner lambda oneLtLambda
 
 theorem normalizedRouteBackedCC20SquareRestrictedTest_canonical_packageSourceDataRows
     {rho : ℂ}
@@ -4283,6 +4345,17 @@ theorem normalizedRouteBackedCC20SquareRestrictedSupportSquareQWLambda_of_traceR
   simpa [NormalizedRouteBackedCC20SquareRestrictedTraceReadOffEquality,
     NormalizedRouteBackedCC20SquareRestrictedSupportSquareQWLambda,
     RestrictedTraceReadOffEquality] using hrow
+
+theorem normalizedRouteBackedCC20SquareRestrictedSupportSquareQWLambda_of_traceFrontComparisonSplitB2Rows
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSplitB2Rows
+        r) :
+    NormalizedRouteBackedCC20SquareRestrictedSupportSquareQWLambda r :=
+  normalizedRouteBackedCC20SquareRestrictedSupportSquareQWLambda_of_traceReadOffEquality
+    (normalizedRouteBackedCC20SquareRestrictedTraceReadOffEquality_of_traceFrontComparisonRows
+      (NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonRows.ofSplitB2Rows
+        rows))
 
 theorem normalizedRouteBackedCC20SquareRestrictedPositiveTraceQWLambda_of_supportSquareQWLambda
     {r : NormalizedRouteBackedCC20SquareRestrictedTest}
@@ -6114,6 +6187,29 @@ structure NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleRow
   globalQWPoleCollapse :
     NormalizedRouteBackedCC20SquareRestrictedGlobalQWPoleCollapse r
 
+theorem normalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleRows_nonempty_iff_components
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest} :
+    Nonempty
+        (NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleRows
+          r) ↔
+      NormalizedRouteBackedCC20SquareRestrictedPolePairingTransport r ∧
+        Nonempty
+          (NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonRows r) ∧
+        NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceArchimedeanBalance
+          r ∧
+        NormalizedRouteBackedCC20SquareRestrictedGlobalQWPoleCollapse r := by
+  constructor
+  · rintro ⟨rows⟩
+    exact
+      ⟨rows.polePairingTransport, ⟨rows.traceFrontComparisonRows⟩,
+        rows.finitePrimeIndexDifference, rows.globalQWPoleCollapse⟩
+  · rintro ⟨htransport, ⟨htrace⟩, hfinitePrime, hqwPole⟩
+    exact
+      ⟨{ polePairingTransport := htransport
+         traceFrontComparisonRows := htrace
+         finitePrimeIndexDifference := hfinitePrime
+         globalQWPoleCollapse := hqwPole }⟩
+
 /-- Exact-transport version of the atomized square scalar rows.  This keeps B1
 at the exact same-test transport level while splitting B2 into support/no-defect
 and no-defect/`QW_lambda` rows. -/
@@ -6840,6 +6936,58 @@ def NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration_o
        supportSquareAlignment := hsupport r
        qwLambdaAlignment := hqw r }⟩
 
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration_of_b2Calibration
+    (hcalibration :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration where
+  sourceRows := fun r => (Classical.choice (hcalibration r)).sourceRows
+
+theorem NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration_of_b2Calibration
+    (hcalibration :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+      (NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration_of_b2Calibration
+        hcalibration) := by
+  intro r
+  exact (Classical.choice (hcalibration r)).supportSquareAlignment
+
+theorem NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration_of_b2Calibration
+    (hcalibration :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration) :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+      (NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration_of_b2Calibration
+        hcalibration) := by
+  intro r
+  exact (Classical.choice (hcalibration r)).qwLambdaAlignment
+
+/-- The split trace-front source/alignment rows are exactly the B2 trace-front
+calibration packaged with a chosen source owner.  They are useful for auditing
+same-carrier provenance, but they are not lower roots than B2 itself. -/
+theorem NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration_iff_exists_sourceAlignmentCalibrations :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration ↔
+      ∃ hsource :
+        NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration,
+        NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+          hsource ∧
+        NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+          hsource := by
+  constructor
+  · intro hcalibration
+    refine
+      ⟨NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration_of_b2Calibration
+          hcalibration,
+        ?_, ?_⟩
+    · exact
+        NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration_of_b2Calibration
+          hcalibration
+    · exact
+        NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration_of_b2Calibration
+          hcalibration
+  · rintro ⟨hsource, hsupport, hqw⟩
+    exact
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration_of_sourceAlignmentCalibrations
+        hsource hsupport hqw
+
 /-- Compatibility producer from the older bundled trace-front comparison row
 package to the split B2 boundary. -/
 def NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration_of_traceFrontComparisonRowsCalibration
@@ -6854,6 +7002,24 @@ def NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration_o
   exact
     ⟨NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSplitB2Rows.ofTraceFrontComparisonRows
       rows⟩
+
+/-- The older bundled trace-front row package is exactly the split B2
+calibration.  Replacing the selected B2 root by this package is only a spelling
+change, not a lower producer. -/
+theorem NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration_iff_traceFrontComparisonRowsCalibration :
+    NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration ↔
+      (∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+        Nonempty
+          (NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonRows
+            r)) := by
+  constructor
+  · intro hcalibration r
+    rcases hcalibration r with ⟨rows⟩
+    exact
+      ⟨NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonRows.ofSplitB2Rows
+        rows⟩
+  · exact
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration_of_traceFrontComparisonRowsCalibration
 
 noncomputable def NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration_of_traceFrontComparisonRowsCalibration
     (hcalibration :
@@ -6971,6 +7137,56 @@ def NormalizedRouteBackedCC20SquareRestrictedFinitePrimeArchimedeanCancellationC
     (normalizedRouteBackedCC20SquareRestrictedFinitePrimeArchimedeanCancellation_iff_restrictedQWPoleCollapse
       (r := r)).mpr
       (hcalibration r)
+
+theorem normalizedRouteBackedCC20SquareRestrictedScopedFinitePrimeArchimedeanBalance_of_restrictedQWPole_psiPole
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (hrestricted :
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapse r)
+    (hpsi :
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapse r) :
+    NormalizedRouteBackedCC20SquareRestrictedScopedFinitePrimeArchimedeanBalance
+      r := by
+  let W := r.inputs.ccm25.weilSymbols
+  let f := r.sourceBackedTest.weilTest
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let A := W.archimedeanTerm (W.convolutionStar f f)
+  let R := Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+    pkg
+  let G := Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+    pkg
+  let Rs :=
+    Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
+      pkg
+  let Gs :=
+    Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+      pkg
+  have hRs : Rs = R := by
+    simpa [Rs, R] using
+      Source.CCM25Concrete.Package.source_restricted_scoped_sum_eq_restricted_sum_of_package
+        pkg
+  have hGs : Gs = G := by
+    simpa [Gs, G] using
+      Source.CCM25Concrete.Package.source_global_scoped_sum_eq_global_sum_of_package
+        pkg
+  have hR : R = A := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeArchimedeanCancellation,
+      W, f, pkg, A, R] using
+      (normalizedRouteBackedCC20SquareRestrictedFinitePrimeArchimedeanCancellation_iff_restrictedQWPoleCollapse
+        (r := r)).mpr hrestricted
+  have hG : G = -A := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellation,
+      W, f, pkg, A, G] using
+      (normalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellation_iff_psiPoleCollapse
+        (r := r)).mpr hpsi
+  have hbalance : Rs - Gs = 2 * A := by
+    rw [hRs, hGs, hR, hG]
+    ring
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedScopedFinitePrimeArchimedeanBalance,
+    SourceScopedFinitePrimeArchimedeanBalance, W, f, pkg, A, Rs, Gs]
+    using hbalance
 
 def NormalizedRouteBackedCC20SquareRestrictedFinitePrimeOutsideGlobalMassCalibration_of_restrictedSubsetOutsideMassCalibration
     (hcalibration :
@@ -8027,6 +8243,45 @@ theorem normalizedRouteBackedCC20SquareRestrictedPolePairingTransportCalibration
     (normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_concreteCanonicalRoutePackageCoverage
       hcoverage)
 
+theorem normalizedRouteBackedCC20SquareRestrictedPolePairingTransport_of_concreteCanonicalRoutePackageWitness
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+        r) :
+    NormalizedRouteBackedCC20SquareRestrictedPolePairingTransport r := by
+  let concreteOwner := w.concreteCanonicalOwner
+  let sourceWeilForm := concreteOwner.concreteSourceWeilForm
+  have heval :
+      sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData :=
+    concreteOwner.concreteEvaluation_eq
+  have hsame :
+      r.inputs.ccm25.weilSymbols = sourceWeilForm.toWeilFormSymbols := by
+    have hrouteSymbols :
+        r.inputs.ccm25.weilSymbols = w.inputs.ccm25.weilSymbols := by
+      simpa [normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean] using
+        congrArg
+          (fun r : NormalizedRouteBackedCC20SquareRestrictedTest =>
+            r.inputs.ccm25.weilSymbols)
+          w.route_eq
+    exact hrouteSymbols.trans
+      (concreteOwner.owner.sameSymbols.trans
+        concreteOwner.owner_sourceWeilForm_symbols_eq)
+  have hroute :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransport r := by
+    dsimp [NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransport]
+    rw [hsame]
+    simpa [Source.AnalyticCore.SourceWeilFormData.toWeilFormSymbols,
+      sourceWeilForm, normalizedCC20ConcreteTestAlgebra] using
+      congrArg
+        (fun E =>
+          E.polePairing
+            (normalizedCC20ConcreteTestAlgebra.legacy.decode
+              r.sourceBackedTest.weilTest))
+        heval.symm
+  exact
+    normalizedRouteBackedCC20SquareRestrictedPolePairingTransport_of_routePolePairingTransport
+      hroute
+
 theorem NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageWitness.packageSourceDataRows
     {r : NormalizedRouteBackedCC20SquareRestrictedTest}
     (w :
@@ -8770,6 +9025,769 @@ structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackage
                 hcoverage))) r)
           (atomRows.canonicalAtoms r))
 
+/- Whole-object transport rows below `OwnerCanonicalDataTransportRows`.
+The atom row is intentionally the full canonical atom object, not only
+`.atoms.toNormalization`; otherwise it cannot rebuild the whole canonicalData
+object. -/
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataObjectTransportRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage)
+    where
+  supportData :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := hcoverage r
+      HEq
+        (w.concreteCanonicalOwner.owner.supportData w.lambda w.oneLtLambda)
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierSupportCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))) r)
+  visibleData :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := hcoverage r
+      HEq
+        (w.concreteCanonicalOwner.owner.visibleData w.lambda w.oneLtLambda)
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))) r)
+  canonicalAtoms :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := hcoverage r
+      HEq
+        (w.concreteCanonicalOwner.owner.canonicalAtoms w.lambda w.oneLtLambda)
+        (atomRows.canonicalAtoms r)
+
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    where
+  supportData :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := hcoverage r
+      HEq
+        (w.concreteCanonicalOwner.owner.supportData w.lambda w.oneLtLambda)
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierSupportCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))) r)
+  visibleData :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := hcoverage r
+      HEq
+        (w.concreteCanonicalOwner.owner.visibleData w.lambda w.oneLtLambda)
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))) r)
+
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportObjectTransportRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    where
+  supportData :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := hcoverage r
+      HEq
+        (w.concreteCanonicalOwner.owner.supportData w.lambda w.oneLtLambda)
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierSupportCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))) r)
+
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerVisibleObjectTransportRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    where
+  visibleData :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := hcoverage r
+      HEq
+        (w.concreteCanonicalOwner.owner.visibleData w.lambda w.oneLtLambda)
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))) r)
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceOwnerVisibleArithmeticRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner.CanonicalSourceWeilFormVisibleArithmeticOwnerRows
+      (hcoverage r).concreteCanonicalOwner.owner
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceOwnerVisibleArithmeticRows_of_concreteCanonicalRoutePackageCoverage
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceOwnerVisibleArithmeticRows
+      hcoverage := by
+  intro r
+  exact
+    Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner.visibleArithmeticOwnerRows
+      (hcoverage r).concreteCanonicalOwner.owner
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows_of_support_visible
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (supportRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportObjectTransportRows
+        hcoverage)
+    (visibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerVisibleObjectTransportRows
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+      hcoverage where
+  supportData := supportRows.supportData
+  visibleData := visibleRows.visibleData
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows_of_sourceOwnerVisibleArithmeticRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (sourceRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceOwnerVisibleArithmeticRows
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+      hcoverage where
+  supportData := by
+    intro r
+    let w := hcoverage r
+    have hw : hcoverage r = w := rfl
+    rcases w with
+      ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+        lambda, oneLtLambda, rows, readOff, route_eq⟩
+    cases route_eq
+    let r0 :=
+      (normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+        baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+        rows readOff)
+    have hcoverage_r0 :
+        hcoverage r0 =
+          { rho := rho
+            detector := detector
+            inputs := inputs
+            baseSourceBackedTest := baseSourceBackedTest
+            concreteCanonicalOwner := concreteCanonicalOwner
+            lambda := lambda
+            oneLtLambda := oneLtLambda
+            rows := rows
+            readOff := readOff
+            route_eq := rfl } := by
+      simpa [r0] using hw
+    have hsupport :
+        HEq
+          (concreteCanonicalOwner.owner.supportData lambda oneLtLambda)
+          ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierSupportCalibration_of_sourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+              (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+                hcoverage))) r0) :=
+      Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaCommonFinitePrimeSupportData.heq_of_same_type
+        (concreteCanonicalOwner.owner.supportData lambda oneLtLambda)
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierSupportCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))) r0)
+    rw [hcoverage_r0]
+    exact hsupport
+  visibleData := by
+    intro r
+    let w := hcoverage r
+    have hw : hcoverage r = w := rfl
+    rcases w with
+      ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+        lambda, oneLtLambda, rows, readOff, route_eq⟩
+    cases route_eq
+    let r0 :=
+      (normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+        baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+        rows readOff)
+    have hcoverage_r0 :
+        hcoverage r0 =
+          { rho := rho
+            detector := detector
+            inputs := inputs
+            baseSourceBackedTest := baseSourceBackedTest
+            concreteCanonicalOwner := concreteCanonicalOwner
+            lambda := lambda
+            oneLtLambda := oneLtLambda
+            rows := rows
+            readOff := readOff
+            route_eq := rfl } := by
+      simpa [r0] using hw
+    have hvisible :
+        HEq
+          (concreteCanonicalOwner.owner.visibleData lambda oneLtLambda)
+          ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+              (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+                hcoverage))) r0) :=
+      Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceEvaluationVisibleArithmeticData.heq_of_evaluation_cast_eq
+        concreteCanonicalOwner.owner_algebra_eq
+        concreteCanonicalOwner.owner_sourceWeilForm_evaluation_eq
+        (concreteCanonicalOwner.owner.visibleData lambda oneLtLambda)
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))) r0)
+    rw [hcoverage_r0]
+    exact hvisible
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportObjectTransportRows_of_supportVisibleRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportObjectTransportRows
+      hcoverage where
+  supportData := supportVisibleRows.supportData
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportObjectTransportRows_of_sourceOwnerVisibleArithmeticRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (sourceRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceOwnerVisibleArithmeticRows
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportObjectTransportRows
+      hcoverage :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportObjectTransportRows_of_supportVisibleRows
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows_of_sourceOwnerVisibleArithmeticRows
+      hcoverage sourceRows)
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerVisibleObjectTransportRows_of_supportVisibleRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerVisibleObjectTransportRows
+      hcoverage where
+  visibleData := supportVisibleRows.visibleData
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerVisibleObjectTransportRows_of_sourceOwnerVisibleArithmeticRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (sourceRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceOwnerVisibleArithmeticRows
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerVisibleObjectTransportRows
+      hcoverage :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerVisibleObjectTransportRows_of_supportVisibleRows
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows_of_sourceOwnerVisibleArithmeticRows
+      hcoverage sourceRows)
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows_of_ownerAlignmentRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (ownerRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+      hcoverage where
+  supportData := fun r => (ownerRows.supportData r).symm
+  visibleData := fun r => (ownerRows.visibleData r).symm
+
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCertificateAtomNormalizationRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    where
+  certificateAtoms :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := hcoverage r
+      HEq
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect
+          r).toNormalization
+        ((w.concreteCanonicalOwner.owner.canonicalAtoms w.lambda w.oneLtLambda).atoms.toNormalization)
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCertificateAtomNormalizationRows_of_ownerAlignmentRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (ownerRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCertificateAtomNormalizationRows
+      hcoverage where
+  certificateAtoms := ownerRows.certificateAtoms
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCertificateAtomNormalizationRows_of_coverage
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCertificateAtomNormalizationRows
+      hcoverage where
+  certificateAtoms := by
+    intro r
+    let w := hcoverage r
+    have hw : hcoverage r = w := rfl
+    rcases w with
+      ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+        lambda, oneLtLambda, rows, readOff, route_eq⟩
+    cases route_eq
+    let r0 :=
+      (normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+        baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+        rows readOff)
+    have hcoverage_r0 :
+        hcoverage r0 =
+          { rho := rho
+            detector := detector
+            inputs := inputs
+            baseSourceBackedTest := baseSourceBackedTest
+            concreteCanonicalOwner := concreteCanonicalOwner
+            lambda := lambda
+            oneLtLambda := oneLtLambda
+            rows := rows
+            readOff := readOff
+            route_eq := rfl } := by
+      simpa [r0] using hw
+    have hatoms :=
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner.certificateAtoms_toNormalization_heq
+        concreteCanonicalOwner.owner lambda oneLtLambda
+    rw [hcoverage_r0]
+    simpa [
+      r0,
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization,
+      normalizedRouteBackedYoshidaDetectorSquareRouteRealization_of_trace_realization,
+      normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean,
+      normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff,
+      sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare,
+      normalizedCC20TestSpace_toRouteTest_eq,
+      normalizedCC20TestSpace_starConvolution_eq] using hatoms
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows_of_supportVisible_atomNormalizationRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage)
+    (atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCertificateAtomNormalizationRows
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+      hcoverage where
+  supportData := fun r => (supportVisibleRows.supportData r).symm
+  visibleData := fun r => (supportVisibleRows.visibleData r).symm
+  certificateAtoms := atomRows.certificateAtoms
+
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomObjectTransportRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage)
+    where
+  canonicalAtoms :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := hcoverage r
+      HEq
+        (w.concreteCanonicalOwner.owner.canonicalAtoms w.lambda w.oneLtLambda)
+        (atomRows.canonicalAtoms r)
+
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomDataTransportRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage)
+    where
+  atoms :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let w := hcoverage r
+      HEq
+        (w.concreteCanonicalOwner.owner.canonicalAtoms w.lambda w.oneLtLambda).atoms
+        (atomRows.canonicalAtoms r).atoms
+
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomPointwiseTransportRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage)
+    where
+  atIndex :
+    ∀ (r : NormalizedRouteBackedCC20SquareRestrictedTest) (n : ℕ),
+      let w := hcoverage r
+      HEq
+        ((w.concreteCanonicalOwner.owner.canonicalAtoms w.lambda w.oneLtLambda).atoms.atIndex n)
+        ((atomRows.canonicalAtoms r).atoms.atIndex n)
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        hsourceTest) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+      hcoverage where
+  canonicalAtoms := fun r =>
+    { atoms :=
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsCommon
+          hsourceTest r
+      visibleReadOff := by
+        funext n hsource
+        exact hvisible r n hsource }
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomDataTransportRows_of_pointwiseTransportRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    {atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage}
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage)
+    (pointwiseRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomPointwiseTransportRows
+        atomRows) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomDataTransportRows
+      atomRows where
+  atoms := by
+    intro r
+    let w := hcoverage r
+    have hw : hcoverage r = w := rfl
+    rcases w with
+      ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+        lambda, oneLtLambda, rows, readOff, route_eq⟩
+    cases route_eq
+    let r0 :=
+      (normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+        baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+        rows readOff)
+    have hcoverage_r0 :
+        hcoverage r0 =
+          { rho := rho
+            detector := detector
+            inputs := inputs
+            baseSourceBackedTest := baseSourceBackedTest
+            concreteCanonicalOwner := concreteCanonicalOwner
+            lambda := lambda
+            oneLtLambda := oneLtLambda
+            rows := rows
+            readOff := readOff
+            route_eq := rfl } := by
+      simpa [r0] using hw
+    rw [hcoverage_r0]
+    apply heq_of_eq
+    apply Source.CCM25Concrete.PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest.ext_atIndex
+    intro n
+    have hpoint := pointwiseRows.atIndex r0 n
+    rw [hcoverage_r0] at hpoint
+    exact eq_of_heq hpoint
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomPointwiseTransportRows_of_ownerAlignmentRows_sourceDataCertificateVisibleReadOff
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (ownerRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+        hcoverage)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        hsourceTest) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomPointwiseTransportRows
+      (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+        hcoverage hsourceTest hvisible) where
+  atIndex := by
+    intro r n
+    let w := hcoverage r
+    have hw : hcoverage r = w := rfl
+    rcases w with
+      ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+        lambda, oneLtLambda, rows, readOff, route_eq⟩
+    cases route_eq
+    let r0 :=
+      (normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+        baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+        rows readOff)
+    have hcoverage_r0 :
+        hcoverage r0 =
+          { rho := rho
+            detector := detector
+            inputs := inputs
+            baseSourceBackedTest := baseSourceBackedTest
+            concreteCanonicalOwner := concreteCanonicalOwner
+            lambda := lambda
+            oneLtLambda := oneLtLambda
+            rows := rows
+            readOff := readOff
+            route_eq := rfl } := by
+      simpa [r0] using hw
+    have hnorm := ownerRows.certificateAtoms r0
+    rw [hcoverage_r0] at hnorm
+    rw [hcoverage_r0]
+    have hnormEq :
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect
+          r0).toNormalization =
+        ((concreteCanonicalOwner.owner.canonicalAtoms lambda oneLtLambda).atoms.toNormalization) := by
+      exact eq_of_heq hnorm
+    have hnormEqCommon :
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms
+          r0).toNormalization =
+        ((concreteCanonicalOwner.owner.canonicalAtoms lambda oneLtLambda).atoms.toNormalization) := by
+      exact
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms_toNormalization
+          r0).trans hnormEq
+    apply heq_of_eq
+    change ((concreteCanonicalOwner.owner.canonicalAtoms lambda oneLtLambda).atoms.atIndex n) = _
+    unfold NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+    unfold NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsCommon
+    apply Source.CCM25Concrete.PrimePowerArithmetic.SourceFinitePrimeArithmeticDataForSourceTest.ext_data
+    change ((concreteCanonicalOwner.owner.canonicalAtoms lambda oneLtLambda).atoms.toNormalization.atIndex n) =
+      ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms r0).toNormalization.atIndex n)
+    exact (congrArg (fun x => x.atIndex n) hnormEqCommon).symm
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff_of_concreteCanonicalRoutePackageCoverage_ownerAlignmentRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (ownerRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          hcoverage))
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration_of_concreteCanonicalRoutePackageCoverage
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))
+           hcoverage)) := by
+  intro r n hsource
+  let hweil :=
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcoverage))
+  let hsourceTest :=
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+      hweil
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration_of_concreteCanonicalRoutePackageCoverage
+        hweil hcoverage))
+  let w := hcoverage r
+  have hw : hcoverage r = w := rfl
+  rcases w with
+    ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+      lambda, oneLtLambda, rows, readOff, route_eq⟩
+  cases route_eq
+  let r0 :=
+    (normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+      baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+      rows readOff)
+  have hcoverage_r0 :
+      hcoverage r0 =
+        { rho := rho
+          detector := detector
+          inputs := inputs
+          baseSourceBackedTest := baseSourceBackedTest
+          concreteCanonicalOwner := concreteCanonicalOwner
+          lambda := lambda
+          oneLtLambda := oneLtLambda
+          rows := rows
+          readOff := readOff
+          route_eq := rfl } := by
+    simpa [r0] using hw
+  have hnorm := ownerRows.certificateAtoms r0
+  rw [hcoverage_r0] at hnorm
+  have hnormEq :
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect
+        r0).toNormalization =
+      ((concreteCanonicalOwner.owner.canonicalAtoms lambda oneLtLambda).atoms.toNormalization) := by
+    exact eq_of_heq hnorm
+  have hnormEqCommon :
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms
+        r0).toNormalization =
+      ((concreteCanonicalOwner.owner.canonicalAtoms lambda oneLtLambda).atoms.toNormalization) := by
+    exact
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms_toNormalization
+        r0).trans hnormEq
+  have hdataOwner :
+      ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsCommon
+        hsourceTest r0).atIndex n).data =
+        ((concreteCanonicalOwner.owner.canonicalAtoms lambda oneLtLambda).atoms.atIndex n).data := by
+    unfold NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsCommon
+    change ((Source.CCM25Concrete.PrimePowerArithmetic.SourceFinitePrimeArithmeticNormalizationForSourceTest.ofNormalization
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms r0).toNormalization _).atIndex n).data = _
+    change ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms r0).toNormalization.atIndex n) =
+      ((concreteCanonicalOwner.owner.canonicalAtoms lambda oneLtLambda).atoms.toNormalization.atIndex n)
+    exact congrArg (fun x => x.atIndex n) hnormEqCommon
+  have hownerVisible :=
+    Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner.canonicalAtoms_visibleReadOff
+      concreteCanonicalOwner.owner lambda oneLtLambda
+  have hownerData :
+      ((concreteCanonicalOwner.owner.canonicalAtoms lambda oneLtLambda).atoms.atIndex n).data =
+        (concreteCanonicalOwner.owner.visibleData lambda oneLtLambda).visibleArithmeticData.atVisibleIndex n hsource := by
+    exact congrFun (congrFun hownerVisible n) hsource
+  have hrouteVisible :
+      (concreteCanonicalOwner.owner.visibleData lambda oneLtLambda).visibleArithmeticData.atVisibleIndex n hsource =
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+          hweil) r0).visibleArithmeticData.atVisibleIndex n hsource :=
+    Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceEvaluationVisibleArithmeticData.visibleArithmeticData_atVisibleIndex_eq_of_evaluation_cast_eq
+      concreteCanonicalOwner.owner_algebra_eq
+      concreteCanonicalOwner.owner_sourceWeilForm_evaluation_eq
+      (concreteCanonicalOwner.owner.visibleData lambda oneLtLambda)
+      ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+        hweil) r0)
+      n hsource
+  exact hdataOwner.trans (hownerData.trans hrouteVisible)
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomObjectTransportRows_of_supportVisible_atomDataRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    {atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage}
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage)
+    (atomDataRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomDataTransportRows
+        atomRows) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomObjectTransportRows
+      atomRows where
+  canonicalAtoms := by
+    intro r
+    let w := hcoverage r
+    have hw : hcoverage r = w := rfl
+    rcases w with
+      ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+        lambda, oneLtLambda, rows, readOff, route_eq⟩
+    cases route_eq
+    let r0 :=
+      (normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+        baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+        rows readOff)
+    have hcoverage_r0 :
+        hcoverage r0 =
+          { rho := rho
+            detector := detector
+            inputs := inputs
+            baseSourceBackedTest := baseSourceBackedTest
+            concreteCanonicalOwner := concreteCanonicalOwner
+            lambda := lambda
+            oneLtLambda := oneLtLambda
+            rows := rows
+            readOff := readOff
+            route_eq := rfl } := by
+      simpa [r0] using hw
+    have hatoms := atomDataRows.atoms r0
+    rw [hcoverage_r0] at hatoms
+    rw [hcoverage_r0]
+    exact
+      Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.canonicalNormalization_heq_of_evaluation_cast_eq_atoms
+        concreteCanonicalOwner.owner_algebra_eq
+        concreteCanonicalOwner.owner_sourceWeilForm_evaluation_eq
+        (concreteCanonicalOwner.owner.canonicalAtoms lambda oneLtLambda)
+        (atomRows.canonicalAtoms r0)
+        hatoms
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataObjectTransportRows_of_supportVisible_atomObjectRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    {atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage}
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage)
+    (atomObjectRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomObjectTransportRows
+        atomRows) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataObjectTransportRows
+      atomRows where
+  supportData := supportVisibleRows.supportData
+  visibleData := supportVisibleRows.visibleData
+  canonicalAtoms := atomObjectRows.canonicalAtoms
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataTransportRows_of_objectTransportRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    {atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage}
+    (objectRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataObjectTransportRows
+        atomRows) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataTransportRows
+      atomRows where
+  canonicalData := by
+    intro r
+    let w := hcoverage r
+    have hw : hcoverage r = w := rfl
+    rcases w with
+      ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+        lambda, oneLtLambda, rows, readOff, route_eq⟩
+    cases route_eq
+    let r0 :=
+      (normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+        baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+        rows readOff)
+    have hcoverage_r0 :
+        hcoverage r0 =
+          { rho := rho
+            detector := detector
+            inputs := inputs
+            baseSourceBackedTest := baseSourceBackedTest
+            concreteCanonicalOwner := concreteCanonicalOwner
+            lambda := lambda
+            oneLtLambda := oneLtLambda
+            rows := rows
+            readOff := readOff
+            route_eq := rfl } := by
+      simpa [r0] using hw
+    have hsupport := objectRows.supportData r0
+    have hcanon := objectRows.canonicalAtoms r0
+    rw [hcoverage_r0] at hsupport hcanon
+    have hatoms :
+        HEq
+          (concreteCanonicalOwner.owner.canonicalAtoms lambda oneLtLambda).atoms
+          (atomRows.canonicalAtoms r0).atoms :=
+      Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.canonicalNormalization_atoms_heq_of_heq
+        concreteCanonicalOwner.owner_algebra_eq
+        concreteCanonicalOwner.owner_sourceWeilForm_evaluation_eq
+        (concreteCanonicalOwner.owner.canonicalAtoms lambda oneLtLambda)
+        (atomRows.canonicalAtoms r0)
+        hcanon
+    rw [hcoverage_r0]
+    exact
+      Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData_heq_of_evaluation_cast_eq
+        concreteCanonicalOwner.owner_algebra_eq
+        concreteCanonicalOwner.owner_sourceWeilForm_evaluation_eq
+        (concreteCanonicalOwner.owner.supportData lambda oneLtLambda)
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierSupportCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))) r0)
+        (concreteCanonicalOwner.owner.visibleData lambda oneLtLambda)
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))) r0)
+        (concreteCanonicalOwner.owner.canonicalAtoms lambda oneLtLambda)
+        (atomRows.canonicalAtoms r0)
+        hsupport
+        hatoms
+
 structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateDataTransportRows
     {hcoverage :
       NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
@@ -8796,6 +9814,187 @@ structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackage
                 hcoverage))) r)
           (atomRows.canonicalAtoms r))
 
+/- Route-facing whole-certificate transport.  This is the active positive
+bottom: the route source-data certificate itself must be the canonical
+certificate object built from route support data, route visible arithmetic
+data, and route-facing canonical atoms. -/
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataTransportRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage)
+    where
+  routeCertificateData :
+    ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+      let data := r.sourceBackedTest.finitePrimeSourceDataOwner
+      let f := r.sourceBackedTest.weilTest
+      let lambda := r.bridge.sourceTraceReadOff.lambda
+      HEq
+        (data.finitePrimeData.certificateData f f lambda
+          r.bridge.sourceTraceReadOff.oneLtLambda)
+        (Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaArithmeticCertificateSourceTestData.ofSourceEvaluationVisibleCanonicalData
+          ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierSupportCalibration_of_sourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+              (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+                hcoverage))) r)
+          ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+              (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+                hcoverage))) r)
+          (atomRows.canonicalAtoms r))
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateDataTransportRows_of_routeCertificateData
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    {atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage}
+    (routeRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataTransportRows
+        atomRows) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateDataTransportRows
+      atomRows where
+  certificateData := routeRows.routeCertificateData
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataTransportRows_of_sourceDataCertificateCanonicalRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (canonicalRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataTransportRows
+      { canonicalAtoms := canonicalRows.canonicalAtoms } where
+  routeCertificateData := canonicalRows.certificateData
+
+/- Lower constructor boundary for route-facing certificateData transport.
+The source certificate row identifies the route source-data certificate with
+the selected canonical owner certificate.  The canonical-data transport row is
+the whole-record provenance identifying that owner-built canonical certificate
+with the route-support/route-visible/route-atom certificate object. -/
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage)
+    where
+  certificateSourceTransportRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateSourceTransportRows
+        hcoverage
+  ownerCanonicalDataTransportRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataTransportRows
+        atomRows
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows_of_ownerCanonicalDataTransportRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    {atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage}
+    (ownerRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataTransportRows
+        atomRows) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows
+      atomRows where
+  certificateSourceTransportRows :=
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateSourceTransportRows_of_coverage
+      hcoverage
+  ownerCanonicalDataTransportRows := ownerRows
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows_of_objectTransportRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    {atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage}
+    (objectRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataObjectTransportRows
+        atomRows) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows
+      atomRows :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows_of_ownerCanonicalDataTransportRows
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataTransportRows_of_objectTransportRows
+      objectRows)
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows_of_supportVisible_atomObjectRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    {atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage}
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage)
+    (atomObjectRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomObjectTransportRows
+        atomRows) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows
+      atomRows :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows_of_objectTransportRows
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataObjectTransportRows_of_supportVisible_atomObjectRows
+      supportVisibleRows atomObjectRows)
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows_of_supportVisible_atomDataRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    {atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage}
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage)
+    (atomDataRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomDataTransportRows
+        atomRows) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows
+      atomRows :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows_of_supportVisible_atomObjectRows
+    supportVisibleRows
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomObjectTransportRows_of_supportVisible_atomDataRows
+      supportVisibleRows atomDataRows)
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows_of_supportVisible_atomPointwiseRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    {atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage}
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage)
+    (pointwiseRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomPointwiseTransportRows
+        atomRows) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows
+      atomRows :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows_of_supportVisible_atomDataRows
+    supportVisibleRows
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomDataTransportRows_of_pointwiseTransportRows
+      supportVisibleRows pointwiseRows)
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataTransportRows_of_constructorRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    {atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage}
+    (constructorRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows
+        atomRows) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataTransportRows
+      atomRows where
+  routeCertificateData := by
+    intro r
+    let w := hcoverage r
+    exact
+      (constructorRows.certificateSourceTransportRows.certificateDataSource r).trans
+        ((Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner.certificateData_eq
+          w.concreteCanonicalOwner.owner w.lambda w.oneLtLambda).trans
+          (constructorRows.ownerCanonicalDataTransportRows.canonicalData r))
+
 def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateDataTransportRows_of_source_ownerCanonicalData
     {hcoverage :
       NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
@@ -8818,6 +10017,48 @@ def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCovera
         ((Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner.certificateData_eq
           w.concreteCanonicalOwner.owner w.lambda w.oneLtLambda).trans
           (ownerDataRows.canonicalData r))
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataTransportRows_of_source_certificateData
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    {atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage}
+    (sourceRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateSourceTransportRows
+        hcoverage)
+    (certificateDataRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateDataTransportRows
+        atomRows) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataTransportRows
+      atomRows where
+  canonicalData := by
+    intro r
+    let w := hcoverage r
+    exact
+      ((Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner.certificateData_eq
+        w.concreteCanonicalOwner.owner w.lambda w.oneLtLambda).symm.trans
+        ((sourceRows.certificateDataSource r).symm.trans
+          (certificateDataRows.certificateData r)))
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataTransportRows_of_source_routeCertificateData
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    {atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage}
+    (sourceRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateSourceTransportRows
+        hcoverage)
+    (routeRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataTransportRows
+        atomRows) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataTransportRows
+      atomRows :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataTransportRows_of_source_certificateData
+    sourceRows
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateDataTransportRows_of_routeCertificateData
+      routeRows)
 
 structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateAtomsTransportRows
     {hcoverage :
@@ -8851,6 +10092,197 @@ structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackage
   certificateAtomsTransportRows :
       NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateAtomsTransportRows
         canonicalAtomTransportRows
+
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteDataCertificateCanonicalRowsTransport
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    where
+  ownerAlignmentRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+        hcoverage
+  canonicalAtomTransportRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage
+  certificateSourceTransportRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateSourceTransportRows
+        hcoverage
+  routeCertificateDataTransportRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataTransportRows
+        canonicalAtomTransportRows
+  certificateAtomsTransportRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateAtomsTransportRows
+        canonicalAtomTransportRows
+
+/- Route-facing transport for the source-data canonical certificate row.  This
+is intentionally smaller than `...RouteDataCertificateCanonicalRowsTransport`:
+it does not carry owner support/visible/atom alignment rows, because the route
+consumer below only needs the route-visible certificate row itself. -/
+structure NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    where
+  canonicalAtomTransportRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage
+  routeCertificateDataTransportRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataTransportRows
+        canonicalAtomTransportRows
+  certificateAtomsTransportRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateAtomsTransportRows
+        canonicalAtomTransportRows
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    Prop :=
+  ∃ atomRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows
+        hcoverage,
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataTransportRows
+        atomRows ∧
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateAtomsTransportRows
+        atomRows
+
+theorem NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_iff_components
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    Nonempty
+        (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport
+          hcoverage) ↔
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents
+        hcoverage := by
+  constructor
+  · rintro ⟨transport⟩
+    exact
+      ⟨transport.canonicalAtomTransportRows,
+        transport.routeCertificateDataTransportRows,
+        transport.certificateAtomsTransportRows⟩
+  · rintro ⟨atomRows, routeRows, atomTransportRows⟩
+    exact
+      ⟨{ canonicalAtomTransportRows := atomRows
+         routeCertificateDataTransportRows := routeRows
+         certificateAtomsTransportRows := atomTransportRows }⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_of_routeDataTransport
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (transport :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteDataCertificateCanonicalRowsTransport
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport
+      hcoverage where
+  canonicalAtomTransportRows := transport.canonicalAtomTransportRows
+  routeCertificateDataTransportRows := transport.routeCertificateDataTransportRows
+  certificateAtomsTransportRows := transport.certificateAtomsTransportRows
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteDataCertificateCanonicalRowsTransport_of_routeFacing_ownerAlignment
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (ownerAlignmentRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+        hcoverage)
+    (transport :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteDataCertificateCanonicalRowsTransport
+      hcoverage where
+  ownerAlignmentRows := ownerAlignmentRows
+  canonicalAtomTransportRows := transport.canonicalAtomTransportRows
+  certificateSourceTransportRows :=
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateSourceTransportRows_of_coverage
+      hcoverage
+  routeCertificateDataTransportRows := transport.routeCertificateDataTransportRows
+  certificateAtomsTransportRows := transport.certificateAtomsTransportRows
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceDataCertificateCanonicalRowsTransport_of_routeDataTransport
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (transport :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteDataCertificateCanonicalRowsTransport
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceDataCertificateCanonicalRowsTransport
+      hcoverage where
+  ownerAlignmentRows := transport.ownerAlignmentRows
+  canonicalAtomTransportRows := transport.canonicalAtomTransportRows
+  certificateSourceTransportRows := transport.certificateSourceTransportRows
+  ownerCanonicalDataTransportRows :=
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalDataTransportRows_of_source_routeCertificateData
+      transport.certificateSourceTransportRows
+      transport.routeCertificateDataTransportRows
+  certificateAtomsTransportRows := transport.certificateAtomsTransportRows
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows_of_concreteCanonicalRoutePackageCoverage_routeDataTransport
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (transport :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteDataCertificateCanonicalRowsTransport
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          hcoverage)) :=
+  { canonicalAtoms := transport.canonicalAtomTransportRows.canonicalAtoms
+    certificateData :=
+      transport.routeCertificateDataTransportRows.routeCertificateData
+    certificateAtoms := transport.certificateAtomsTransportRows.certificateAtoms }
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows_of_concreteCanonicalRoutePackageCoverage_routeFacingTransport
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (transport :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport
+        hcoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          hcoverage)) :=
+  { canonicalAtoms := transport.canonicalAtomTransportRows.canonicalAtoms
+    certificateData :=
+      transport.routeCertificateDataTransportRows.routeCertificateData
+    certificateAtoms := transport.certificateAtomsTransportRows.certificateAtoms }
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteDataCertificateCanonicalRowsTransport_of_sourceDataCertificateCanonicalRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (ownerAlignmentRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+        hcoverage)
+    (canonicalRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteDataCertificateCanonicalRowsTransport
+      hcoverage where
+  ownerAlignmentRows := ownerAlignmentRows
+  canonicalAtomTransportRows :=
+    { canonicalAtoms := canonicalRows.canonicalAtoms }
+  certificateSourceTransportRows :=
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateSourceTransportRows_of_coverage
+      hcoverage
+  routeCertificateDataTransportRows :=
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataTransportRows_of_sourceDataCertificateCanonicalRows
+      canonicalRows
+  certificateAtomsTransportRows :=
+    { certificateAtoms := canonicalRows.certificateAtoms }
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_of_sourceDataCertificateCanonicalRows
+    {hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage}
+    (canonicalRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport
+      hcoverage where
+  canonicalAtomTransportRows :=
+    { canonicalAtoms := canonicalRows.canonicalAtoms }
+  routeCertificateDataTransportRows :=
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataTransportRows_of_sourceDataCertificateCanonicalRows
+      canonicalRows
+  certificateAtomsTransportRows :=
+    { certificateAtoms := canonicalRows.certificateAtoms }
 
 def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows_of_concreteCanonicalRoutePackageCoverage_transport
     {hcoverage :
@@ -8965,6 +10397,315 @@ noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSour
   visibleReadOff := by
     intro r n hsource
     exact hvisible r n hsource
+
+theorem NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateAtomsTransportRows_of_sourceDataCertificateVisibleReadOff
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        hsourceTest) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateAtomsTransportRows
+      (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+        hcoverage hsourceTest hvisible) where
+  certificateAtoms := by
+    intro r
+    calc
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtomsDirect
+          r).toNormalization =
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms
+            r).toNormalization := by
+            exact
+              (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateAtoms_toNormalization
+                r).symm
+      _ =
+          ((NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+            hcoverage hsourceTest hvisible).canonicalAtoms r).atoms.toNormalization := by
+            rfl
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents_of_sourceDataCertificateVisibleReadOff_constructorRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        hsourceTest)
+    (constructorRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows
+        (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+          hcoverage hsourceTest hvisible)) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents
+      hcoverage :=
+  ⟨NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+      hcoverage hsourceTest hvisible,
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataTransportRows_of_constructorRows
+      constructorRows,
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateAtomsTransportRows_of_sourceDataCertificateVisibleReadOff
+      hcoverage hsourceTest hvisible⟩
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_of_sourceDataCertificateVisibleReadOff_constructorRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        hsourceTest)
+    (constructorRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows
+        (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+          hcoverage hsourceTest hvisible)) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport
+      hcoverage where
+  canonicalAtomTransportRows :=
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+      hcoverage hsourceTest hvisible
+  routeCertificateDataTransportRows :=
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataTransportRows_of_constructorRows
+      constructorRows
+  certificateAtomsTransportRows :=
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCertificateAtomsTransportRows_of_sourceDataCertificateVisibleReadOff
+      hcoverage hsourceTest hvisible
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents_of_sourceDataCertificateVisibleReadOff_supportVisible_atomObjectRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        hsourceTest)
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage)
+    (atomObjectRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomObjectTransportRows
+        (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+          hcoverage hsourceTest hvisible)) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents
+      hcoverage :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents_of_sourceDataCertificateVisibleReadOff_constructorRows
+    hcoverage hsourceTest hvisible
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows_of_supportVisible_atomObjectRows
+      supportVisibleRows atomObjectRows)
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_of_sourceDataCertificateVisibleReadOff_supportVisible_atomObjectRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        hsourceTest)
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage)
+    (atomObjectRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomObjectTransportRows
+        (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+          hcoverage hsourceTest hvisible)) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport
+      hcoverage :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_of_sourceDataCertificateVisibleReadOff_constructorRows
+    hcoverage hsourceTest hvisible
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteCertificateDataCanonicalConstructorRows_of_supportVisible_atomObjectRows
+      supportVisibleRows atomObjectRows)
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents_of_sourceDataCertificateVisibleReadOff_supportVisible_atomDataRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        hsourceTest)
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage)
+    (atomDataRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomDataTransportRows
+        (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+          hcoverage hsourceTest hvisible)) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents
+      hcoverage :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents_of_sourceDataCertificateVisibleReadOff_supportVisible_atomObjectRows
+    hcoverage hsourceTest hvisible supportVisibleRows
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomObjectTransportRows_of_supportVisible_atomDataRows
+      supportVisibleRows atomDataRows)
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_of_sourceDataCertificateVisibleReadOff_supportVisible_atomDataRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        hsourceTest)
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage)
+    (atomDataRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomDataTransportRows
+        (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+          hcoverage hsourceTest hvisible)) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport
+      hcoverage :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_of_sourceDataCertificateVisibleReadOff_supportVisible_atomObjectRows
+    hcoverage hsourceTest hvisible supportVisibleRows
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomObjectTransportRows_of_supportVisible_atomDataRows
+      supportVisibleRows atomDataRows)
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents_of_sourceDataCertificateVisibleReadOff_supportVisible_atomPointwiseRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        hsourceTest)
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage)
+    (pointwiseRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomPointwiseTransportRows
+        (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+          hcoverage hsourceTest hvisible)) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents
+      hcoverage :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents_of_sourceDataCertificateVisibleReadOff_supportVisible_atomDataRows
+    hcoverage hsourceTest hvisible supportVisibleRows
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomDataTransportRows_of_pointwiseTransportRows
+      supportVisibleRows pointwiseRows)
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_of_sourceDataCertificateVisibleReadOff_supportVisible_atomPointwiseRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        hsourceTest)
+    (supportVisibleRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage)
+    (pointwiseRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomPointwiseTransportRows
+        (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageCanonicalAtomTransportRows_of_sourceDataCertificateVisibleReadOff
+          hcoverage hsourceTest hvisible)) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport
+      hcoverage :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_of_sourceDataCertificateVisibleReadOff_supportVisible_atomDataRows
+    hcoverage hsourceTest hvisible supportVisibleRows
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomDataTransportRows_of_pointwiseTransportRows
+      supportVisibleRows pointwiseRows)
+
+def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents_of_sourceDataCertificateVisibleReadOff_ownerAlignmentRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (ownerRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+        hcoverage)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        hsourceTest) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents
+      hcoverage :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsComponents_of_sourceDataCertificateVisibleReadOff_supportVisible_atomPointwiseRows
+    hcoverage hsourceTest hvisible
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows_of_ownerAlignmentRows
+      ownerRows)
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomPointwiseTransportRows_of_ownerAlignmentRows_sourceDataCertificateVisibleReadOff
+      hcoverage ownerRows hsourceTest hvisible)
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_of_sourceDataCertificateVisibleReadOff_ownerAlignmentRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (ownerRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+        hcoverage)
+    (hsourceTest :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        hsourceTest) :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport
+      hcoverage :=
+  NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_of_sourceDataCertificateVisibleReadOff_supportVisible_atomPointwiseRows
+    hcoverage hsourceTest hvisible
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows_of_ownerAlignmentRows
+      ownerRows)
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCanonicalAtomPointwiseTransportRows_of_ownerAlignmentRows_sourceDataCertificateVisibleReadOff
+      hcoverage ownerRows hsourceTest hvisible)
 
 theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormVisibleAtomSourceDataRowsCalibration_of_toNormalization_eq
     (hweil :
@@ -9507,6 +11248,209 @@ structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFo
     NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalMassCalibration
       hweil
 
+/-- Restricted finite-prime mass row before the prime-power filter is inserted.
+This matches the source/package sum API; the route-filtered row is recovered
+from source-Weil-form exact support. -/
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedUnfilteredTermMassCalibration
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    let witness := hweil r
+    let sourceWeilForm := witness.2.1
+    let W := sourceWeilForm.toWeilFormSymbols
+    let f := r.sourceBackedTest.weilTest
+    let lambda := r.bridge.sourceTraceReadOff.lambda
+    (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+        W.finitePrimeTerm n (W.convolutionStar f f)) =
+      W.archimedeanTerm (W.convolutionStar f f)
+
+/-- Global finite-prime mass row before the prime-power filter is inserted. -/
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    let witness := hweil r
+    let sourceWeilForm := witness.2.1
+    let W := sourceWeilForm.toWeilFormSymbols
+    let f := r.sourceBackedTest.weilTest
+    (∑ n ∈ W.globalPrimeIndexSet,
+        W.finitePrimeTerm n (W.convolutionStar f f)) =
+      -W.archimedeanTerm (W.convolutionStar f f)
+
+/-- Restricted finite-prime mass row stated at the route package evaluator
+boundary.  This keeps the mass value tied to the actual
+`ccm25ArithmeticPackage` transported by the square route. -/
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageRestrictedEvaluatorMassCalibration
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    let witness := hweil r
+    let sourceWeilForm := witness.2.1
+    let W := sourceWeilForm.toWeilFormSymbols
+    let f := r.sourceBackedTest.weilTest
+    let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+    Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+        pkg =
+      W.archimedeanTerm (W.convolutionStar f f)
+
+/-- Global finite-prime mass row stated at the route package evaluator
+boundary. -/
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    Prop :=
+  ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+    let witness := hweil r
+    let sourceWeilForm := witness.2.1
+    let W := sourceWeilForm.toWeilFormSymbols
+    let f := r.sourceBackedTest.weilTest
+    let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+    Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+        pkg =
+      -W.archimedeanTerm (W.convolutionStar f f)
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedUnfilteredTermMassCalibration_of_packageRestrictedEvaluatorMass
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageRestrictedEvaluatorMassCalibration
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedUnfilteredTermMassCalibration
+      hweil := by
+  intro r
+  let witness := hweil r
+  let sourceWeilForm := witness.2.1
+  let hsymbols := witness.2.2
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let C := W.convolutionStar f f
+  have hsum :
+      (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+          W.finitePrimeTerm n C) =
+        Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+          pkg := by
+    simpa [W, f, lambda, C, hsymbols] using
+      Source.CCM25Concrete.Package.restricted_finite_prime_sum_of_package_components
+        pkg
+  exact
+    hsum.trans
+      (by
+        simpa [
+          NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageRestrictedEvaluatorMassCalibration,
+          witness, sourceWeilForm, W, f, pkg, C] using hmass r)
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_of_packageGlobalEvaluatorMass
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration
+      hweil := by
+  intro r
+  let witness := hweil r
+  let sourceWeilForm := witness.2.1
+  let hsymbols := witness.2.2
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f := r.sourceBackedTest.weilTest
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let C := W.convolutionStar f f
+  have hsum :
+      (∑ n ∈ W.globalPrimeIndexSet,
+          W.finitePrimeTerm n C) =
+        Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+          pkg := by
+    simpa [W, f, C, hsymbols] using
+      Source.CCM25Concrete.Package.global_finite_prime_sum_of_package_components
+        pkg
+  exact
+    hsum.trans
+      (by
+        simpa [
+          NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration,
+          witness, sourceWeilForm, W, f, pkg, C] using hmass r)
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageRestrictedEvaluatorMassCalibration_of_concreteCanonicalRoutePackageCoverage_indexDifference_packageGlobalEvaluatorMass
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (globalMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageRestrictedEvaluatorMassCalibration
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          hcoverage)) := by
+  intro r
+  let hweil :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcoverage)
+  let witness := hweil r
+  let sourceWeilForm := witness.2.1
+  let hsymbols := witness.2.2
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f := r.sourceBackedTest.weilTest
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let C := W.convolutionStar f f
+  have hglobalRoute :
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellation
+        r := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellation,
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration,
+      hweil, witness, sourceWeilForm, W, f, pkg, C, hsymbols] using
+      globalMass r
+  have hrestrictedRoute :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeArchimedeanCancellation
+        r :=
+    normalizedRouteBackedCC20SquareRestrictedFinitePrimeArchimedeanCancellation_of_scopedBalance_globalCancellation
+      (normalizedRouteBackedCC20SquareRestrictedScopedFinitePrimeArchimedeanBalance_of_indexDifference
+        (hindex r))
+      hglobalRoute
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedFinitePrimeArchimedeanCancellation,
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageRestrictedEvaluatorMassCalibration,
+    hweil, witness, sourceWeilForm, W, f, pkg, C, hsymbols] using
+    hrestrictedRoute
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration_of_concreteCanonicalRoutePackageCoverage_globalFinitePrimeArchimedeanCancellation
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hglobal :
+      ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+        NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellation
+          r) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          hcoverage)) := by
+  intro r
+  let hweil :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcoverage)
+  let witness := hweil r
+  let sourceWeilForm := witness.2.1
+  let hsymbols := witness.2.2
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f := r.sourceBackedTest.weilTest
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let C := W.convolutionStar f f
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellation,
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration,
+    hweil, witness, sourceWeilForm, W, f, pkg, C, hsymbols] using
+    hglobal r
+
 /-- Restricted finite-prime mass row stated through the source-Weil-form
 finite-prime term itself.  This is lower than the E-written direct row: the
 legacy source-evaluation sum is recovered by `termReadOff`. -/
@@ -9539,6 +11483,149 @@ def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDire
         W.finitePrimeTerm n (W.convolutionStar f f)) =
       -W.archimedeanTerm (W.convolutionStar f f)
 
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedTermMassCalibration_of_unfiltered
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedUnfilteredTermMassCalibration
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedTermMassCalibration
+      hweil := by
+  intro r
+  let witness := hweil r
+  let sourceWeilForm := witness.2.1
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f := r.sourceBackedTest.weilTest
+  let lambda := r.bridge.sourceTraceReadOff.lambda
+  let C := W.convolutionStar f f
+  have hfilter :
+      (W.restrictedPrimeIndexSet lambda).filter IsPrimePow =
+        W.restrictedPrimeIndexSet lambda := by
+    apply Finset.filter_eq_self.2
+    intro n hn
+    exact
+      ((sourceWeilForm.toWeilFormSymbols_restrictedPrimeIndex_exact
+        lambda C n).1 hn).1
+  calc
+    (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+        W.finitePrimeTerm n C) =
+        ∑ n ∈ W.restrictedPrimeIndexSet lambda,
+          W.finitePrimeTerm n C := by
+          rw [hfilter]
+    _ = W.archimedeanTerm C := by
+      simpa [
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedUnfilteredTermMassCalibration,
+        witness, sourceWeilForm, W, f, lambda, C] using hmass r
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration_of_unfiltered
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration
+      hweil := by
+  intro r
+  let witness := hweil r
+  let sourceWeilForm := witness.2.1
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f := r.sourceBackedTest.weilTest
+  let C := W.convolutionStar f f
+  have hfilter :
+      W.globalPrimeIndexSet.filter IsPrimePow =
+        W.globalPrimeIndexSet := by
+    apply Finset.filter_eq_self.2
+    intro n hn
+    exact
+      ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact
+        C n).1 hn).1
+  calc
+    (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+        W.finitePrimeTerm n C) =
+        ∑ n ∈ W.globalPrimeIndexSet,
+          W.finitePrimeTerm n C := by
+          rw [hfilter]
+    _ = -W.archimedeanTerm C := by
+      simpa [
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration,
+        witness, sourceWeilForm, W, f, C] using hmass r
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration_of_concreteCanonicalRoutePackageCoverage_directGlobalTermMass
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (globalMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          hcoverage)) := by
+  intro r
+  let hweil :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcoverage)
+  let witness := hweil r
+  let sourceWeilForm := witness.2.1
+  let hsymbols := witness.2.2
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f := r.sourceBackedTest.weilTest
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let C := W.convolutionStar f f
+  have hfilter :
+      W.globalPrimeIndexSet.filter IsPrimePow =
+        W.globalPrimeIndexSet := by
+    apply Finset.filter_eq_self.2
+    intro n hn
+    exact
+      ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact
+        C n).1 hn).1
+  have hterm :
+      (∑ n ∈ W.globalPrimeIndexSet,
+          W.finitePrimeTerm n C) =
+        -W.archimedeanTerm C := by
+    rw [← hfilter]
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration,
+      hweil, witness, sourceWeilForm, W, f, C] using
+      globalMass r
+  have hsum :
+      (∑ n ∈ W.globalPrimeIndexSet,
+          W.finitePrimeTerm n C) =
+        Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+          pkg := by
+    simpa [W, f, C, hsymbols] using
+      Source.CCM25Concrete.Package.global_finite_prime_sum_of_package_components
+        pkg
+  exact
+    hsum.symm.trans
+      (by
+        simpa [
+          NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration,
+          hweil, witness, sourceWeilForm, W, f, pkg, C] using hterm)
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration_of_concreteCanonicalRoutePackageCoverage_directGlobalUnfilteredTermMass
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (globalMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          hcoverage)) :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration_of_concreteCanonicalRoutePackageCoverage_directGlobalTermMass
+    hcoverage
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration_of_unfiltered
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          hcoverage))
+      globalMass)
+
 /-- Same-carrier finite-prime term owner.  The two mass rows are now expressed
 directly in the source-Weil-form finite-prime term API, not in the legacy
 source-evaluation API. -/
@@ -9552,6 +11639,38 @@ structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFo
   globalMass :
     NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration
       hweil
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_of_restricted_global
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (restrictedMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedTermMassCalibration
+        hweil)
+    (globalMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      hweil where
+  restrictedMass := restrictedMass
+  globalMass := globalMass
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_of_unfiltered_restricted_global
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (restrictedMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedUnfilteredTermMassCalibration
+        hweil)
+    (globalMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      hweil where
+  restrictedMass :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedTermMassCalibration_of_unfiltered
+      hweil restrictedMass
+  globalMass :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration_of_unfiltered
+      hweil globalMass
 
 def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormRestrictedQWPoleCollapse
     (hweil :
@@ -9715,7 +11834,58 @@ theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
     have hG : G = -A := by
       linarith
     simpa [
-      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration,
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration,
+        witness, sourceWeilForm, W, f, C, A, G] using hG
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_iff_globalPsiPoleCollapse
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) :
+    (let witness := hweil r
+     let sourceWeilForm := witness.2.1
+     let W := sourceWeilForm.toWeilFormSymbols
+     let f := r.sourceBackedTest.weilTest
+     (∑ n ∈ W.globalPrimeIndexSet,
+        W.finitePrimeTerm n (W.convolutionStar f f)) =
+      -W.archimedeanTerm (W.convolutionStar f f)) ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse
+        hweil r := by
+  let witness := hweil r
+  let sourceWeilForm := witness.2.1
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f := r.sourceBackedTest.weilTest
+  let C := W.convolutionStar f f
+  let A := W.archimedeanTerm C
+  let P := W.poleFunctional C
+  let G :=
+    ∑ n ∈ W.globalPrimeIndexSet,
+      W.finitePrimeTerm n C
+  let Psi := W.psi C
+  have hformula : Psi = P - A - G := by
+    simpa [W, f, C, A, P, G, Psi] using
+      Source.AnalyticCore.SourceWeilFormData.psi_sign_statement
+        sourceWeilForm C
+  constructor
+  · intro hmass
+    have hG : G = -A := by
+      simpa [
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration,
+        witness, sourceWeilForm, W, f, C, A, G] using hmass
+    have hPsi : Psi = P := by
+      rw [hformula, hG]
+      ring
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse,
+      witness, sourceWeilForm, W, f, C, P, Psi] using hPsi
+  · intro hcollapse
+    have hPsi : Psi = P := by
+      simpa [
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse,
+        witness, sourceWeilForm, W, f, C, P, Psi] using hcollapse
+    have hG : G = -A := by
+      linarith
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration,
       witness, sourceWeilForm, W, f, C, A, G] using hG
 
 theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormRestrictedQWPoleCollapse_iff_routeRestrictedQWPoleCollapse
@@ -10294,6 +12464,145 @@ structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFo
         (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
           routePackageCoverage))
 
+/-- Concrete canonical route-package owner with the finite-prime canonical
+certificate payload stated directly at the route-facing transport boundary.
+This is equivalent to the older `...CoverageRowsCalibration`, but exposes the
+three audited certificate rows instead of hiding them behind
+`SourceDataCertificateCanonicalRows`. -/
+structure NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration
+    where
+  routePackageCoverage :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage
+  routeFacingCertificateCanonicalRows :
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport
+      routePackageCoverage
+  termMassRows :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          routePackageCoverage))
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_rowsCalibration
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration where
+  routePackageCoverage := rows.routePackageCoverage
+  routeFacingCertificateCanonicalRows :=
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_of_sourceDataCertificateCanonicalRows
+      rows.sourceDataCertificateCanonicalRows
+  termMassRows := rows.termMassRows
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_sourceDataCertificateVisibleReadOff_ownerAlignmentRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (ownerRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+        hcoverage)
+    (hvisible :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration_of_concreteCanonicalRoutePackageCoverage
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+              (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+                hcoverage))
+            hcoverage)))
+    (termMassRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration where
+  routePackageCoverage := hcoverage
+  routeFacingCertificateCanonicalRows :=
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_of_sourceDataCertificateVisibleReadOff_ownerAlignmentRows
+      hcoverage ownerRows
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateSourceTestReadOff_of_commonTestRows
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageSourceDataCommonTestRowsCalibration_of_concreteCanonicalRoutePackageCoverage
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))
+          hcoverage))
+      hvisible
+  termMassRows := termMassRows
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_ownerAlignmentRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (ownerRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows
+        hcoverage)
+    (termMassRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_sourceDataCertificateVisibleReadOff_ownerAlignmentRows
+    hcoverage ownerRows
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateVisibleReadOff_of_concreteCanonicalRoutePackageCoverage_ownerAlignmentRows
+      hcoverage ownerRows)
+    termMassRows
+
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_concreteCanonicalRoutePackageCoverage_directTermMassRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (termMassRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration := by
+  let sourceRows :=
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceOwnerVisibleArithmeticRows_of_concreteCanonicalRoutePackageCoverage
+      hcoverage
+  let supportVisibleRows :=
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows_of_sourceOwnerVisibleArithmeticRows
+      hcoverage sourceRows
+  let atomRows :=
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCertificateAtomNormalizationRows_of_coverage
+      hcoverage
+  exact
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_ownerAlignmentRows
+      hcoverage
+      (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows_of_supportVisible_atomNormalizationRows
+        supportVisibleRows atomRows)
+      termMassRows
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration_of_routeFacingRowsCalibration
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration where
+  routePackageCoverage := rows.routePackageCoverage
+  sourceDataCertificateCanonicalRows :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows_of_concreteCanonicalRoutePackageCoverage_routeFacingTransport
+      rows.routeFacingCertificateCanonicalRows
+  termMassRows := rows.termMassRows
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_iff_rowsCalibration
+    :
+    Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration ↔
+      Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration := by
+  constructor
+  · rintro ⟨rows⟩
+    exact
+      ⟨NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration_of_routeFacingRowsCalibration
+        rows⟩
+  · rintro ⟨rows⟩
+    exact
+      ⟨NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_rowsCalibration
+        rows⟩
+
 noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration_of_coverageRows
     (rows :
       NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageCoverageRowsCalibration) :
@@ -10624,6 +12933,17 @@ def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDire
       rows.carrier rows.sourceAtoms rows.packageAtomNormalization
   termMassRows := rows.termMassRows
 
+noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermPackageRowsCalibration_of_concreteCanonicalRoutePackageCoverageRowsCalibration
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermPackageRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermPackageRowsCalibration_of_directTermAtomNormalizationPackageRowsCalibration
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermAtomNormalizationPackageRowsCalibration_of_forSourceTestAtomPackageRowsCalibration
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageRowsCalibration_of_splitSourceDataAtomRowsCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataAtomRowsCalibration_of_canonicalCertificateRows
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageSplitSourceDataCanonicalCertificateRowsCalibration_of_concreteCoverageRows
+            rows))))
+
 def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectPackageRowsCalibration_of_directTermPackageRowsCalibration
     (rows :
       NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermPackageRowsCalibration) :
@@ -10755,6 +13075,1429 @@ def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDa
   NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataRowsCalibration_of_lowerRowsCalibration
     (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataLowerRowsCalibration_of_sourceWeilFormRowsCalibration
       rows)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormLocalDirectRows
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) : Prop :=
+  ∃ A : Source.AnalyticCore.SourceTestAlgebra,
+    ∃ sourceWeilForm : Source.AnalyticCore.SourceWeilFormData A,
+      r.inputs.ccm25.weilSymbols = sourceWeilForm.toWeilFormSymbols ∧
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataArithmeticRows
+          sourceWeilForm.evaluation r ∧
+          NormalizedRouteBackedCC20SquareRestrictedCommonRestrictedFinitePrimeSourceEvaluationDataArchimedeanMass
+            sourceWeilForm.evaluation r ∧
+            NormalizedRouteBackedCC20SquareRestrictedCommonGlobalFinitePrimeSourceEvaluationDataMassCancellation
+              sourceWeilForm.evaluation r
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataArithmeticSumRows_of_sourceWeilFormLocalDirectRows
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormLocalDirectRows
+        (r := r)) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataArithmeticSumRows
+      r := by
+  rcases rows with
+    ⟨A, sourceWeilForm, _hsymbols, harithmetic, hrestricted, hglobal⟩
+  exact
+    ⟨A, sourceWeilForm.evaluation, harithmetic,
+      { scopedBalance :=
+          normalizedRouteBackedCC20SquareRestrictedCommonScopedFinitePrimeSourceEvaluationDataBalance_of_restrictedMass_globalMass
+            hrestricted hglobal
+        globalMass := hglobal }⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormLocalPackageRows
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest) : Prop :=
+  ∃ A : Source.AnalyticCore.SourceTestAlgebra,
+    ∃ sourceWeilForm : Source.AnalyticCore.SourceWeilFormData A,
+      ∃ supportData :
+        let W := r.inputs.ccm25.weilSymbols
+        let f := r.sourceBackedTest.weilTest
+        let lambda := r.bridge.sourceTraceReadOff.lambda
+        let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+        Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaCommonFinitePrimeSupportData
+          W common lambda,
+        ∃ visibleData :
+          let W := r.inputs.ccm25.weilSymbols
+          let f := r.sourceBackedTest.weilTest
+          let lambda := r.bridge.sourceTraceReadOff.lambda
+          let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+          Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceEvaluationVisibleArithmeticData
+            sourceWeilForm.evaluation W common lambda,
+          r.inputs.ccm25.weilSymbols = sourceWeilForm.toWeilFormSymbols ∧
+            (let W := r.inputs.ccm25.weilSymbols
+             let f := r.sourceBackedTest.weilTest
+             let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+             let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+             ∀ n (hsource : common.toSourceTestEvaluationInterface.sourceAtomVisible n),
+              ((Source.CCM25Concrete.Package.formula_components
+                  pkg).commonCertificate.atoms.atIndex n) =
+                visibleData.visibleArithmeticData.atVisibleIndex n hsource) ∧
+              NormalizedRouteBackedCC20SquareRestrictedCommonRestrictedFinitePrimeSourceEvaluationDataArchimedeanMass
+                sourceWeilForm.evaluation r ∧
+                NormalizedRouteBackedCC20SquareRestrictedCommonGlobalFinitePrimeSourceEvaluationDataMassCancellation
+                  sourceWeilForm.evaluation r
+
+/-
+The concrete-canonical-witness transport experiment below is intentionally
+demoted from the compiled route API.  Its declarations form a closed,
+unconsumed branch, and the attempted proofs rewrite `sameSymbols` through
+certificate data whose types depend on the entire canonical owner.  Equality
+of the projected `WeilFormSymbols` records is not a valid transport principle
+for those dependent certificate objects.  A future version must expose an
+owner-level transport theorem in `FinitePrimeSourceDataBridge` before this
+branch can become production code.
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageAtomReadOffRows
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  let visibleData :=
+      w.concreteCanonicalOwner.owner.visibleData w.lambda w.oneLtLambda
+  let W := w.inputs.ccm25.weilSymbols
+  let f :=
+      normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution w.detector.test)
+  let route :=
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+        w.baseSourceBackedTest w.concreteCanonicalOwner.owner w.lambda
+        w.oneLtLambda w.rows w.readOff
+  let pkg := route.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+  ∀ n (hsource : common.toSourceTestEvaluationInterface.sourceAtomVisible n),
+    ((Source.CCM25Concrete.Package.formula_components
+        pkg).commonCertificate.atoms.atIndex n) =
+      visibleData.visibleArithmeticData.atVisibleIndex n hsource
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageCanonicalAtomProjectionRows
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  let canonicalAtoms :=
+      w.concreteCanonicalOwner.owner.canonicalAtoms w.lambda w.oneLtLambda
+  let W := w.inputs.ccm25.weilSymbols
+  let f :=
+      normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution w.detector.test)
+  let route :=
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+        w.baseSourceBackedTest w.concreteCanonicalOwner.owner w.lambda
+        w.oneLtLambda w.rows w.readOff
+  let pkg := route.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+  ∀ n (_hsource : common.toSourceTestEvaluationInterface.sourceAtomVisible n),
+    HEq
+      ((Source.CCM25Concrete.Package.formula_components
+        pkg).commonCertificate.atoms.atIndex n)
+      (canonicalAtoms.atoms.toNormalization.atIndex n)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageCanonicalAtomObjectRows
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  let canonicalAtoms :=
+      w.concreteCanonicalOwner.owner.canonicalAtoms w.lambda w.oneLtLambda
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  HEq
+    (Source.CCM25Concrete.Package.formula_components
+      pkg).commonCertificate.atoms
+    canonicalAtoms.atoms.toNormalization
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageCanonicalAtomObjectRows_of_witness
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageCanonicalAtomObjectRows
+      w := by
+  rcases w with
+    ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+      lambda, oneLtLambda, squareRows, readOff, route_eq⟩
+  cases route_eq
+  let r0 :=
+    normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+      baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+      squareRows readOff
+  let pkg := r0.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let f := r0.sourceBackedTest.weilTest
+  let data := concreteCanonicalOwner.owner.sourceDataOwner
+  let canonicalAtoms := concreteCanonicalOwner.owner.canonicalAtoms lambda oneLtLambda
+  have hrows :
+      r0.sourceBackedTest.finitePrimeSourceDataOwner.commonTestFunction =
+            r0.sourceBackedTest.weilTest ∧
+          r0.bridge.sourceTraceReadOff.ccm25ArithmeticPackage.rows.finitePrimeArithmeticCertificates =
+            Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+              r0.sourceBackedTest.finitePrimeSourceDataOwner := by
+    simpa [r0] using
+      normalizedRouteBackedCC20SquareRestrictedTest_canonical_packageSourceDataRows
+        baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+        squareRows readOff
+  have hcerts :
+      pkg.rows.finitePrimeArithmeticCertificates =
+        Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+          data := by
+    simpa [
+      pkg, data, r0,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization,
+      normalizedRouteBackedYoshidaDetectorSquareRouteRealization_of_trace_realization,
+      normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean,
+      normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff,
+      sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare] using hrows.2
+  have hpkgAtoms :
+      (Source.CCM25Concrete.Package.formula_components
+        pkg).commonCertificate.atoms =
+        (data.finitePrimeData.certificateData
+          f f lambda oneLtLambda).atoms.toNormalization := by
+    calc
+      (Source.CCM25Concrete.Package.formula_components
+        pkg).commonCertificate.atoms =
+          ((pkg.rows.finitePrimeArithmeticCertificates f f).certificate
+            lambda oneLtLambda).atoms := by
+            rfl
+      _ =
+          (((Source.CCM25Concrete.FinitePrimeSourceData.fixedLambdaArithmeticSourceTestCertificatesForAllTests
+            data) f f).certificate lambda oneLtLambda).atoms := by
+            exact congrArg
+              (fun certificates =>
+                ((certificates f f).certificate lambda oneLtLambda).atoms)
+              hcerts
+      _ =
+          (data.finitePrimeData.certificateData
+            f f lambda oneLtLambda).atoms.toNormalization := by
+            rfl
+  have hownerAtoms :
+      HEq
+        (data.finitePrimeData.certificateData
+          f f lambda oneLtLambda).atoms.toNormalization
+        canonicalAtoms.atoms.toNormalization := by
+    simpa [
+      data, f, canonicalAtoms, r0,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization,
+      normalizedRouteBackedYoshidaDetectorSquareRouteRealization_of_trace_realization,
+      normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean,
+      normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff,
+      sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare] using
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner.certificateAtoms_toNormalization_heq
+        concreteCanonicalOwner.owner lambda oneLtLambda
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageCanonicalAtomObjectRows,
+    pkg, canonicalAtoms] using
+    (heq_of_eq hpkgAtoms).trans hownerAtoms
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageCanonicalAtomProjectionRows_of_objectRows
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageCanonicalAtomObjectRows
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageCanonicalAtomProjectionRows
+      w := by
+  dsimp [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageCanonicalAtomObjectRows] at rows
+  dsimp [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageCanonicalAtomProjectionRows]
+  intro n _hsource
+  cases rows
+  rfl
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageAtomReadOffRows_of_canonicalAtomProjectionRows
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageCanonicalAtomProjectionRows
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageAtomReadOffRows
+      w := by
+  intro n hsource
+  let owner := w.concreteCanonicalOwner.owner
+  let canonicalAtoms := owner.canonicalAtoms w.lambda w.oneLtLambda
+  let route :=
+    normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+      w.baseSourceBackedTest owner w.lambda w.oneLtLambda w.rows w.readOff
+  have hprojection :
+      ((Source.CCM25Concrete.Package.formula_components
+          route.bridge.sourceTraceReadOff.ccm25ArithmeticPackage).commonCertificate.atoms.atIndex n) =
+        (canonicalAtoms.atoms.atIndex n).data := by
+    exact eq_of_heq
+      (by
+        simpa [
+          NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageCanonicalAtomProjectionRows,
+          owner, canonicalAtoms, route] using rows n hsource)
+  have hvisible :
+      (canonicalAtoms.atoms.atIndex n).data =
+        (owner.visibleData w.lambda w.oneLtLambda).visibleArithmeticData.atVisibleIndex
+          n hsource := by
+    have hread :=
+      Source.CCM25Concrete.FinitePrimeSourceData.CanonicalSourceWeilFormSourceDataOwner.canonicalAtoms_visibleReadOff
+        owner w.lambda w.oneLtLambda
+    exact congrFun (congrFun hread n) hsource
+  exact hprojection.trans hvisible
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedMassRow
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonRestrictedFinitePrimeSourceEvaluationDataArchimedeanMass
+    w.concreteCanonicalOwner.owner.sourceWeilForm.evaluation r
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalMassRow
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonGlobalFinitePrimeSourceEvaluationDataMassCancellation
+    w.concreteCanonicalOwner.owner.sourceWeilForm.evaluation r
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  let sourceWeilForm := w.concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+      normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution w.detector.test)
+  let lambda := w.lambda
+  (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+      W.finitePrimeTerm n (W.convolutionStar f f)) =
+    W.archimedeanTerm (W.convolutionStar f f)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  let sourceWeilForm := w.concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+      normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution w.detector.test)
+  (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+      W.finitePrimeTerm n (W.convolutionStar f f)) =
+    -W.archimedeanTerm (W.convolutionStar f f)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedUnfilteredTermMassRow
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  let sourceWeilForm := w.concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+      normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution w.detector.test)
+  let lambda := w.lambda
+  (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.finitePrimeTerm n (W.convolutionStar f f)) =
+    W.archimedeanTerm (W.convolutionStar f f)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalUnfilteredTermMassRow
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  let sourceWeilForm := w.concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+      normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution w.detector.test)
+  (∑ n ∈ W.globalPrimeIndexSet,
+      W.finitePrimeTerm n (W.convolutionStar f f)) =
+    -W.archimedeanTerm (W.convolutionStar f f)
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow_of_unfiltered
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedUnfilteredTermMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow
+      w := by
+  let sourceWeilForm := w.concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution w.detector.test)
+  let lambda := w.lambda
+  let C := W.convolutionStar f f
+  have hfilter :
+      (W.restrictedPrimeIndexSet lambda).filter IsPrimePow =
+        W.restrictedPrimeIndexSet lambda := by
+    apply Finset.filter_eq_self.2
+    intro n hn
+    exact
+      ((sourceWeilForm.toWeilFormSymbols_restrictedPrimeIndex_exact
+        lambda C n).1 hn).1
+  calc
+    (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+        W.finitePrimeTerm n C) =
+        ∑ n ∈ W.restrictedPrimeIndexSet lambda,
+          W.finitePrimeTerm n C := by
+          rw [hfilter]
+    _ = W.archimedeanTerm C := by
+      simpa [
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedUnfilteredTermMassRow,
+        sourceWeilForm, W, f, lambda, C] using hmass
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow_of_unfiltered
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalUnfilteredTermMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow
+      w := by
+  let sourceWeilForm := w.concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution w.detector.test)
+  let C := W.convolutionStar f f
+  have hfilter :
+      W.globalPrimeIndexSet.filter IsPrimePow =
+        W.globalPrimeIndexSet := by
+    apply Finset.filter_eq_self.2
+    intro n hn
+    exact
+      ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact
+        C n).1 hn).1
+  calc
+    (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+        W.finitePrimeTerm n C) =
+        ∑ n ∈ W.globalPrimeIndexSet,
+          W.finitePrimeTerm n C := by
+          rw [hfilter]
+    _ = -W.archimedeanTerm C := by
+      simpa [
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalUnfilteredTermMassRow,
+        sourceWeilForm, W, f, C] using hmass
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageRestrictedEvaluatorMassRow
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  let sourceWeilForm := w.concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+      normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution w.detector.test)
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+      pkg =
+    W.archimedeanTerm (W.convolutionStar f f)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageGlobalEvaluatorMassRow
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  let sourceWeilForm := w.concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+      normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution w.detector.test)
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+      pkg =
+    -W.archimedeanTerm (W.convolutionStar f f)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessCommonRestrictedEvaluatorMassRow
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  let sourceWeilForm := w.concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+      normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution w.detector.test)
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  Source.CCM25Concrete.Package.source_common_restricted_finite_prime_evaluator_sum
+      pkg =
+    W.archimedeanTerm (W.convolutionStar f f)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessCommonGlobalEvaluatorMassRow
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  let sourceWeilForm := w.concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+      normalizedCC20TestSpace.toRouteTest
+        (normalizedCC20TestSpace.starConvolution w.detector.test)
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  Source.CCM25Concrete.Package.source_common_global_finite_prime_evaluator_sum
+      pkg =
+    -W.archimedeanTerm (W.convolutionStar f f)
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageRestrictedEvaluatorMassRow_of_common
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessCommonRestrictedEvaluatorMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageRestrictedEvaluatorMassRow
+      w := by
+  let sourceWeilForm := w.concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution w.detector.test)
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let C := W.convolutionStar f f
+  exact
+    (Source.CCM25Concrete.Package.source_restricted_sum_eq_common_atoms_of_package
+      pkg).trans
+      (by
+        simpa [
+          NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessCommonRestrictedEvaluatorMassRow,
+          NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageRestrictedEvaluatorMassRow,
+          sourceWeilForm, W, f, pkg, C] using hmass)
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageGlobalEvaluatorMassRow_of_common
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessCommonGlobalEvaluatorMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageGlobalEvaluatorMassRow
+      w := by
+  let sourceWeilForm := w.concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution w.detector.test)
+  let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let C := W.convolutionStar f f
+  exact
+    (Source.CCM25Concrete.Package.source_global_sum_eq_common_atoms_of_package
+      pkg).trans
+      (by
+        simpa [
+          NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessCommonGlobalEvaluatorMassRow,
+          NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageGlobalEvaluatorMassRow,
+          sourceWeilForm, W, f, pkg, C] using hmass)
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow_of_packageEvaluator
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageRestrictedEvaluatorMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow
+      w := by
+  rcases w with
+    ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+      lambda, oneLtLambda, squareRows, readOff, route_eq⟩
+  cases route_eq
+  let sourceWeilForm := concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution detector.test)
+  let pkg :=
+    (normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+      baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+      squareRows readOff).bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let C := W.convolutionStar f f
+  have hfilter :
+      (W.restrictedPrimeIndexSet lambda).filter IsPrimePow =
+        W.restrictedPrimeIndexSet lambda := by
+    apply Finset.filter_eq_self.2
+    intro n hn
+    exact
+      ((sourceWeilForm.toWeilFormSymbols_restrictedPrimeIndex_exact
+        lambda C n).1 hn).1
+  have hsum :
+      (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+          W.finitePrimeTerm n C) =
+        Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+          pkg := by
+    have hsum0 :=
+      Source.CCM25Concrete.Package.restricted_finite_prime_sum_of_package_components
+        pkg
+    rw [concreteCanonicalOwner.owner.sameSymbols] at hsum0
+    simpa [W, f, C, pkg] using hsum0
+  calc
+    (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+        W.finitePrimeTerm n (W.convolutionStar f f)) =
+        ∑ n ∈ W.restrictedPrimeIndexSet lambda,
+          W.finitePrimeTerm n C := by
+          rw [hfilter]
+    _ = Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+          pkg := hsum
+    _ = W.archimedeanTerm C := by
+      simpa [
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageRestrictedEvaluatorMassRow,
+        normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+        sourceWeilForm, W, f, pkg, C] using hmass
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow_of_packageEvaluator
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageGlobalEvaluatorMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow
+      w := by
+  rcases w with
+    ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+      lambda, oneLtLambda, squareRows, readOff, route_eq⟩
+  cases route_eq
+  let sourceWeilForm := concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution detector.test)
+  let pkg :=
+    (normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+      baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+      squareRows readOff).bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let C := W.convolutionStar f f
+  have hfilter :
+      W.globalPrimeIndexSet.filter IsPrimePow =
+        W.globalPrimeIndexSet := by
+    apply Finset.filter_eq_self.2
+    intro n hn
+    exact
+      ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact
+        C n).1 hn).1
+  have hsum :
+      (∑ n ∈ W.globalPrimeIndexSet,
+          W.finitePrimeTerm n C) =
+        Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+          pkg := by
+    have hsum0 :=
+      Source.CCM25Concrete.Package.global_finite_prime_sum_of_package_components
+        pkg
+    rw [concreteCanonicalOwner.owner.sameSymbols] at hsum0
+    simpa [W, f, C, pkg] using hsum0
+  calc
+    (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+        W.finitePrimeTerm n (W.convolutionStar f f)) =
+        ∑ n ∈ W.globalPrimeIndexSet,
+          W.finitePrimeTerm n C := by
+          rw [hfilter]
+    _ = Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+          pkg := hsum
+    _ = -W.archimedeanTerm C := by
+      simpa [
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageGlobalEvaluatorMassRow,
+        normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+        sourceWeilForm, W, f, pkg, C] using hmass
+
+theorem normalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapse_of_concreteCanonicalWitnessRestrictedTermMass
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hterm :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapse r := by
+  rcases w with
+    ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+      lambda, oneLtLambda, squareRows, readOff, route_eq⟩
+  cases route_eq
+  let sourceWeilForm := concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution detector.test)
+  let C := W.convolutionStar f f
+  let A := W.archimedeanTerm C
+  let P := W.polePairing f
+  let R :=
+    ∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+      W.finitePrimeTerm n C
+  let Runfiltered :=
+    ∑ n ∈ W.restrictedPrimeIndexSet lambda,
+      W.vonMangoldtWeight n * W.primePowerPairing n f f
+  let Q := W.qwLambda lambda f f
+  have hfilter :
+      (W.restrictedPrimeIndexSet lambda).filter IsPrimePow =
+        W.restrictedPrimeIndexSet lambda := by
+    apply Finset.filter_eq_self.2
+    intro n hn
+    exact
+      ((sourceWeilForm.toWeilFormSymbols_restrictedPrimeIndex_exact
+        lambda C n).1 hn).1
+  have hsum : Runfiltered = R := by
+    calc
+      Runfiltered =
+          ∑ n ∈ W.restrictedPrimeIndexSet lambda,
+            W.finitePrimeTerm n C := by
+        refine Finset.sum_congr rfl ?_
+        intro n _hn
+        exact
+          (sourceWeilForm.toWeilFormSymbols_finitePrimeTerm_convolutionStar
+            f f n).symm
+      _ = R := by
+        simp [R, hfilter]
+  have hformula : Q = A + P - R := by
+    have hformula0 :
+        Q = A + P - Runfiltered := by
+      simpa [W, f, C, A, P, Runfiltered, Q] using
+        Source.AnalyticCore.SourceWeilFormData.qw_lambda_formula_statement
+          sourceWeilForm lambda oneLtLambda f
+    rw [hformula0, hsum]
+  have hR : R = A := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow,
+      sourceWeilForm, W, f, C, A, R] using hterm
+  have hQ : Q = P := by
+    rw [hformula, hR]
+    ring
+  rw [concreteCanonicalOwner.owner.sameSymbols]
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapse,
+    normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+    sourceWeilForm, W, f,
+    Q, P] using hQ
+
+theorem normalizedRouteBackedCC20SquareRestrictedPsiPoleCollapse_of_concreteCanonicalWitnessGlobalTermMass
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hterm :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapse r := by
+  rcases w with
+    ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+      lambda, oneLtLambda, squareRows, readOff, route_eq⟩
+  cases route_eq
+  let sourceWeilForm := concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution detector.test)
+  let C := W.convolutionStar f f
+  let A := W.archimedeanTerm C
+  let P := W.poleFunctional C
+  let G :=
+    ∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+      W.finitePrimeTerm n C
+  let Psi := W.psi C
+  have hfilter :
+      W.globalPrimeIndexSet.filter IsPrimePow =
+        W.globalPrimeIndexSet := by
+    apply Finset.filter_eq_self.2
+    intro n hn
+    exact
+      ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact
+        C n).1 hn).1
+  have hsum :
+      (∑ n ∈ W.globalPrimeIndexSet, W.finitePrimeTerm n C) = G := by
+    simp [G, hfilter]
+  have hformula : Psi = P - A - G := by
+    have hformula0 :
+        Psi = P - A -
+          ∑ n ∈ W.globalPrimeIndexSet, W.finitePrimeTerm n C := by
+      simpa [W, f, C, A, P, Psi] using
+        Source.AnalyticCore.SourceWeilFormData.psi_sign_statement
+          sourceWeilForm C
+    rw [hformula0, hsum]
+  have hG : G = -A := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow,
+      sourceWeilForm, W, f, C, A, G] using hterm
+  have hPsi : Psi = P := by
+    rw [hformula, hG]
+    ring
+  rw [concreteCanonicalOwner.owner.sameSymbols]
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapse,
+    normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+    sourceWeilForm, W, f, C, P,
+    Psi] using hPsi
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalUnfilteredTermMassRow_of_psiPoleCollapse
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hpsi :
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapse r) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalUnfilteredTermMassRow
+      w := by
+  rcases w with
+    ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+      lambda, oneLtLambda, squareRows, readOff, route_eq⟩
+  cases route_eq
+  let sourceWeilForm := concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution detector.test)
+  let C := W.convolutionStar f f
+  let A := W.archimedeanTerm C
+  let P := W.poleFunctional C
+  let G := ∑ n ∈ W.globalPrimeIndexSet, W.finitePrimeTerm n C
+  let Psi := W.psi C
+  have hformula : Psi = P - A - G := by
+    simpa [W, f, C, A, P, G, Psi] using
+      Source.AnalyticCore.SourceWeilFormData.psi_sign_statement
+        sourceWeilForm C
+  have hpsi' := hpsi
+  rw [concreteCanonicalOwner.owner.sameSymbols] at hpsi'
+  have hPsi : Psi = P := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapse,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+      sourceWeilForm, W, f, C, P,
+      Psi] using hpsi'
+  have hG : G = -A := by
+    linarith
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalUnfilteredTermMassRow,
+    sourceWeilForm, W, f, C, A, G] using hG
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedUnfilteredTermMassRow_of_scoped_psiPole
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hscoped :
+      NormalizedRouteBackedCC20SquareRestrictedScopedFinitePrimeArchimedeanBalance
+        r)
+    (hpsi :
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapse r) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedUnfilteredTermMassRow
+      w := by
+  rcases w with
+    ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+      lambda, oneLtLambda, squareRows, readOff, route_eq⟩
+  cases route_eq
+  let sourceWeilForm := concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution detector.test)
+  let pkg :=
+    (normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+      baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+      squareRows readOff).bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+  let C := W.convolutionStar f f
+  let A := W.archimedeanTerm C
+  let R := Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_sum
+    pkg
+  let G := Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_sum
+    pkg
+  let Rs :=
+    Source.CCM25Concrete.Package.source_restricted_finite_prime_evaluator_scoped_sum
+      pkg
+  let Gs :=
+    Source.CCM25Concrete.Package.source_global_finite_prime_evaluator_scoped_sum
+      pkg
+  have hRs : Rs = R := by
+    simpa [Rs, R] using
+      Source.CCM25Concrete.Package.source_restricted_scoped_sum_eq_restricted_sum_of_package
+        pkg
+  have hGs : Gs = G := by
+    simpa [Gs, G] using
+      Source.CCM25Concrete.Package.source_global_scoped_sum_eq_global_sum_of_package
+        pkg
+  have hscoped' := hscoped
+  rw [concreteCanonicalOwner.owner.sameSymbols] at hscoped'
+  have hbalance : Rs - Gs = 2 * A := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedScopedFinitePrimeArchimedeanBalance,
+      SourceScopedFinitePrimeArchimedeanBalance,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+      W, f, pkg, C, A, Rs, Gs]
+      using hscoped'
+  have hglobalRoute :=
+    (normalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellation_iff_psiPoleCollapse
+      (r :=
+        normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean
+          baseSourceBackedTest concreteCanonicalOwner.owner lambda oneLtLambda
+          squareRows readOff)).mpr hpsi
+  rw [concreteCanonicalOwner.owner.sameSymbols] at hglobalRoute
+  have hG : G = -A := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellation,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+      W, f, pkg, C, A, G] using hglobalRoute
+  have hR : R = A := by
+    have hbalanceFull : R - G = 2 * A := by
+      simpa [hRs, hGs] using hbalance
+    linarith
+  have hsum :
+      (∑ n ∈ W.restrictedPrimeIndexSet lambda,
+          W.finitePrimeTerm n C) = R := by
+    have hsum0 :=
+      Source.CCM25Concrete.Package.restricted_finite_prime_sum_of_package_components
+        pkg
+    rw [concreteCanonicalOwner.owner.sameSymbols] at hsum0
+    simpa [W, f, C, pkg, R] using hsum0
+  exact
+    hsum.trans
+      (by
+        simpa [
+          NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedUnfilteredTermMassRow,
+          sourceWeilForm, W, f, C, A] using hR)
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedMassRow_of_termMass
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hterm :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedMassRow
+      w := by
+  rcases w with
+    ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+      lambda, oneLtLambda, squareRows, readOff, route_eq⟩
+  cases route_eq
+  let sourceWeilForm := concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution detector.test)
+  let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+  let visibleData :
+      Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceWeilFormVisibleArithmeticData
+        sourceWeilForm common lambda :=
+    { oneLtLambda := oneLtLambda }
+  have hterm' :
+      (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+          W.finitePrimeTerm n (W.convolutionStar f f)) =
+        W.archimedeanTerm (W.convolutionStar f f) := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow,
+      sourceWeilForm, W, f] using hterm
+  have hcalc :
+      (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+          if hn : n ∈ W.restrictedPrimeIndexSet lambda then
+            ArithmeticFunction.vonMangoldt n *
+              ((1 / Real.sqrt (n : ℝ)) *
+                (sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) (n : ℝ) +
+                  sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) ((n : ℝ)⁻¹)))
+          else
+            0) =
+        W.archimedeanTerm (W.convolutionStar f f) := by
+    calc
+      (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+          if hn : n ∈ W.restrictedPrimeIndexSet lambda then
+            ArithmeticFunction.vonMangoldt n *
+              ((1 / Real.sqrt (n : ℝ)) *
+                (sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) (n : ℝ) +
+                  sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) ((n : ℝ)⁻¹)))
+          else
+            0)
+          =
+        (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+            W.finitePrimeTerm n (W.convolutionStar f f)) := by
+          refine Finset.sum_congr rfl ?_
+          intro n hnfilter
+          have hnindex : n ∈ W.restrictedPrimeIndexSet lambda :=
+            (Finset.mem_filter.mp hnfilter).1
+          have hsource :
+              common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
+            (visibleData.restrictedExact n).1 hnindex |>.atomVisible
+          have hread :=
+            Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceWeilFormVisibleArithmeticData.termReadOff
+              visibleData n hsource
+          simpa only [
+            common,
+            hnindex,
+            Source.CCM25Concrete.CommonSourceTest.concrete_common_source_test_source_read_off,
+            Source.CCM25Concrete.PrimePowerEvaluation.source_forward_point_eq_nat_cast,
+            Source.CCM25Concrete.PrimePowerEvaluation.source_inverse_point_eq_inv_nat_cast,
+            common.source_convolution_square_read_off]
+            using hread.symm
+      _ = W.archimedeanTerm (W.convolutionStar f f) := hterm'
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedMassRow,
+    NormalizedRouteBackedCC20SquareRestrictedCommonRestrictedFinitePrimeSourceEvaluationDataArchimedeanMass,
+    normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+    normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization,
+    normalizedRouteBackedYoshidaDetectorSquareRouteRealization_of_trace_realization,
+    normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean,
+    normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff,
+    concreteCanonicalOwner.owner.sameSymbols, sourceWeilForm, W, f] using hcalc
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalMassRow_of_termMass
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hterm :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalMassRow
+      w := by
+  rcases w with
+    ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+      lambda, oneLtLambda, squareRows, readOff, route_eq⟩
+  cases route_eq
+  let sourceWeilForm := concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution detector.test)
+  let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+  let visibleData :
+      Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceWeilFormVisibleArithmeticData
+        sourceWeilForm common lambda :=
+    { oneLtLambda := oneLtLambda }
+  have hterm' :
+      (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+          W.finitePrimeTerm n (W.convolutionStar f f)) =
+        -W.archimedeanTerm (W.convolutionStar f f) := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow,
+      sourceWeilForm, W, f] using hterm
+  have hcalc :
+      (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+          if hn : n ∈ W.globalPrimeIndexSet then
+            ArithmeticFunction.vonMangoldt n *
+              ((1 / Real.sqrt (n : ℝ)) *
+                (sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) (n : ℝ) +
+                  sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) ((n : ℝ)⁻¹)))
+          else
+            0) =
+        -W.archimedeanTerm (W.convolutionStar f f) := by
+    calc
+      (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+          if hn : n ∈ W.globalPrimeIndexSet then
+            ArithmeticFunction.vonMangoldt n *
+              ((1 / Real.sqrt (n : ℝ)) *
+                (sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) (n : ℝ) +
+                  sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) ((n : ℝ)⁻¹)))
+          else
+            0)
+          =
+        (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+            W.finitePrimeTerm n (W.convolutionStar f f)) := by
+          refine Finset.sum_congr rfl ?_
+          intro n hnfilter
+          have hnindex : n ∈ W.globalPrimeIndexSet :=
+            (Finset.mem_filter.mp hnfilter).1
+          have hsource :
+              common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
+            (visibleData.globalExact n).1 hnindex |>.atomVisible
+          have hread :=
+            Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceWeilFormVisibleArithmeticData.termReadOff
+              visibleData n hsource
+          simpa only [
+            common,
+            hnindex,
+            Source.CCM25Concrete.CommonSourceTest.concrete_common_source_test_source_read_off,
+            Source.CCM25Concrete.PrimePowerEvaluation.source_forward_point_eq_nat_cast,
+            Source.CCM25Concrete.PrimePowerEvaluation.source_inverse_point_eq_inv_nat_cast,
+            common.source_convolution_square_read_off]
+            using hread.symm
+      _ = -W.archimedeanTerm (W.convolutionStar f f) := hterm'
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalMassRow,
+    NormalizedRouteBackedCC20SquareRestrictedCommonGlobalFinitePrimeSourceEvaluationDataMassCancellation,
+    normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+    normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization,
+    normalizedRouteBackedYoshidaDetectorSquareRouteRealization_of_trace_realization,
+    normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean,
+    normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff,
+    concreteCanonicalOwner.owner.sameSymbols, sourceWeilForm, W, f] using hcalc
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow_of_mass
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow
+      w := by
+  rcases w with
+    ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+      lambda, oneLtLambda, squareRows, readOff, route_eq⟩
+  cases route_eq
+  let sourceWeilForm := concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution detector.test)
+  let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+  let visibleData :
+      Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceWeilFormVisibleArithmeticData
+        sourceWeilForm common lambda :=
+    { oneLtLambda := oneLtLambda }
+  have hmass' :
+      (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+          if hn : n ∈ W.restrictedPrimeIndexSet lambda then
+            ArithmeticFunction.vonMangoldt n *
+              ((1 / Real.sqrt (n : ℝ)) *
+                (sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) (n : ℝ) +
+                  sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) ((n : ℝ)⁻¹)))
+          else
+            0) =
+        W.archimedeanTerm (W.convolutionStar f f) := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedMassRow,
+      NormalizedRouteBackedCC20SquareRestrictedCommonRestrictedFinitePrimeSourceEvaluationDataArchimedeanMass,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization,
+      normalizedRouteBackedYoshidaDetectorSquareRouteRealization_of_trace_realization,
+      normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean,
+      normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff,
+      concreteCanonicalOwner.owner.sameSymbols, sourceWeilForm, W, f] using hmass
+  have hcalc :
+      (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+          W.finitePrimeTerm n (W.convolutionStar f f)) =
+        W.archimedeanTerm (W.convolutionStar f f) := by
+    calc
+      (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+          W.finitePrimeTerm n (W.convolutionStar f f)) =
+        (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
+          if hn : n ∈ W.restrictedPrimeIndexSet lambda then
+            ArithmeticFunction.vonMangoldt n *
+              ((1 / Real.sqrt (n : ℝ)) *
+                (sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) (n : ℝ) +
+                  sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) ((n : ℝ)⁻¹)))
+          else
+            0) := by
+          refine Finset.sum_congr rfl ?_
+          intro n hnfilter
+          have hnindex : n ∈ W.restrictedPrimeIndexSet lambda :=
+            (Finset.mem_filter.mp hnfilter).1
+          have hsource :
+              common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
+            (visibleData.restrictedExact n).1 hnindex |>.atomVisible
+          have hread :=
+            Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceWeilFormVisibleArithmeticData.termReadOff
+              visibleData n hsource
+          simpa only [
+            common,
+            hnindex,
+            Source.CCM25Concrete.CommonSourceTest.concrete_common_source_test_source_read_off,
+            Source.CCM25Concrete.PrimePowerEvaluation.source_forward_point_eq_nat_cast,
+            Source.CCM25Concrete.PrimePowerEvaluation.source_inverse_point_eq_inv_nat_cast,
+            common.source_convolution_square_read_off]
+            using hread
+      _ = W.archimedeanTerm (W.convolutionStar f f) := hmass'
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow,
+    sourceWeilForm, W, f] using hcalc
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow_of_mass
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow
+      w := by
+  rcases w with
+    ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+      lambda, oneLtLambda, squareRows, readOff, route_eq⟩
+  cases route_eq
+  let sourceWeilForm := concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution detector.test)
+  let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+  let visibleData :
+      Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceWeilFormVisibleArithmeticData
+        sourceWeilForm common lambda :=
+    { oneLtLambda := oneLtLambda }
+  have hmass' :
+      (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+          if hn : n ∈ W.globalPrimeIndexSet then
+            ArithmeticFunction.vonMangoldt n *
+              ((1 / Real.sqrt (n : ℝ)) *
+                (sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) (n : ℝ) +
+                  sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) ((n : ℝ)⁻¹)))
+          else
+            0) =
+        -W.archimedeanTerm (W.convolutionStar f f) := by
+    simpa [
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalMassRow,
+      NormalizedRouteBackedCC20SquareRestrictedCommonGlobalFinitePrimeSourceEvaluationDataMassCancellation,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization,
+      normalizedRouteBackedYoshidaDetectorSquareRouteRealization_of_trace_realization,
+      normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean,
+      normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff,
+      concreteCanonicalOwner.owner.sameSymbols, sourceWeilForm, W, f] using hmass
+  have hcalc :
+      (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+          W.finitePrimeTerm n (W.convolutionStar f f)) =
+        -W.archimedeanTerm (W.convolutionStar f f) := by
+    calc
+      (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+          W.finitePrimeTerm n (W.convolutionStar f f)) =
+        (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
+          if hn : n ∈ W.globalPrimeIndexSet then
+            ArithmeticFunction.vonMangoldt n *
+              ((1 / Real.sqrt (n : ℝ)) *
+                (sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) (n : ℝ) +
+                  sourceWeilForm.evaluation.legacyValueAt (W.convolutionStar f f) ((n : ℝ)⁻¹)))
+          else
+            0) := by
+          refine Finset.sum_congr rfl ?_
+          intro n hnfilter
+          have hnindex : n ∈ W.globalPrimeIndexSet :=
+            (Finset.mem_filter.mp hnfilter).1
+          have hsource :
+              common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
+            (visibleData.globalExact n).1 hnindex |>.atomVisible
+          have hread :=
+            Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceWeilFormVisibleArithmeticData.termReadOff
+              visibleData n hsource
+          simpa only [
+            common,
+            hnindex,
+            Source.CCM25Concrete.CommonSourceTest.concrete_common_source_test_source_read_off,
+            Source.CCM25Concrete.PrimePowerEvaluation.source_forward_point_eq_nat_cast,
+            Source.CCM25Concrete.PrimePowerEvaluation.source_inverse_point_eq_inv_nat_cast,
+            common.source_convolution_square_read_off]
+            using hread
+      _ = -W.archimedeanTerm (W.convolutionStar f f) := hmass'
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow,
+    sourceWeilForm, W, f] using hcalc
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedUnfilteredTermMassRow_of_termMass
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedUnfilteredTermMassRow
+      w := by
+  let sourceWeilForm := w.concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution w.detector.test)
+  let lambda := w.lambda
+  let C := W.convolutionStar f f
+  have hfilter :
+      (W.restrictedPrimeIndexSet lambda).filter IsPrimePow =
+        W.restrictedPrimeIndexSet lambda := by
+    apply Finset.filter_eq_self.2
+    intro n hn
+    exact
+      ((sourceWeilForm.toWeilFormSymbols_restrictedPrimeIndex_exact
+        lambda C n).1 hn).1
+  rw [hfilter] at hmass
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow,
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedUnfilteredTermMassRow,
+    sourceWeilForm, W, f, lambda, C] using hmass
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalUnfilteredTermMassRow_of_termMass
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalUnfilteredTermMassRow
+      w := by
+  let sourceWeilForm := w.concreteCanonicalOwner.owner.sourceWeilForm
+  let W := sourceWeilForm.toWeilFormSymbols
+  let f :=
+    normalizedCC20TestSpace.toRouteTest
+      (normalizedCC20TestSpace.starConvolution w.detector.test)
+  let C := W.convolutionStar f f
+  have hfilter :
+      W.globalPrimeIndexSet.filter IsPrimePow = W.globalPrimeIndexSet := by
+    apply Finset.filter_eq_self.2
+    intro n hn
+    exact
+      ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact C n).1 hn).1
+  rw [hfilter] at hmass
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow,
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalUnfilteredTermMassRow,
+    sourceWeilForm, W, f, C] using hmass
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedMassRow_iff_termMassRow
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedMassRow
+        w ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow
+        w :=
+  ⟨normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow_of_mass
+      w,
+    normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedMassRow_of_termMass
+      w⟩
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalMassRow_iff_termMassRow
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalMassRow
+        w ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow
+        w :=
+  ⟨normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow_of_mass
+      w,
+    normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalMassRow_of_termMass
+      w⟩
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow_iff_unfiltered
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow
+        w ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedUnfilteredTermMassRow
+        w :=
+  ⟨normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedUnfilteredTermMassRow_of_termMass
+      w,
+    normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow_of_unfiltered
+      w⟩
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow_iff_unfiltered
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow
+        w ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalUnfilteredTermMassRow
+        w :=
+  ⟨normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalUnfilteredTermMassRow_of_termMass
+      w,
+    normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow_of_unfiltered
+      w⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessLocalMassRows
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedMassRow
+      w ∧
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalMassRow
+      w
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessLocalMassRows_of_restricted_global
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    {w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r}
+    (hrestricted :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedMassRow
+        w)
+    (hglobal :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalMassRow
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessLocalMassRows
+      w :=
+  ⟨hrestricted, hglobal⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessLocalPackageRows
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r) : Prop :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageAtomReadOffRows
+      w ∧
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessLocalMassRows
+      w
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessLocalPackageRows_of_atom_mass
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    {w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r}
+    (hatom :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageAtomReadOffRows
+        w)
+    (hmass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessLocalMassRows
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessLocalPackageRows
+      w :=
+  ⟨hatom, hmass⟩
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormLocalPackageRows_of_concreteCanonicalWitnessLocalPackageRows
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (w : NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageWitness
+      r)
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessLocalPackageRows
+        w) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormLocalPackageRows
+      r := by
+  have hpackageAtomReadOff := rows.1
+  have hrestricted := rows.2.1
+  have hglobal := rows.2.2
+  rcases w with
+    ⟨rho, detector, inputs, baseSourceBackedTest, concreteCanonicalOwner,
+      lambda, oneLtLambda, squareRows, readOff, route_eq⟩
+  cases route_eq
+  refine
+    ⟨concreteCanonicalOwner.owner.A,
+      concreteCanonicalOwner.owner.sourceWeilForm,
+      concreteCanonicalOwner.owner.supportData lambda oneLtLambda,
+      concreteCanonicalOwner.owner.visibleData lambda oneLtLambda, ?_⟩
+  refine ⟨?_, ?_⟩
+  · simpa [
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+      normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization,
+      normalizedRouteBackedYoshidaDetectorSquareRouteRealization_of_trace_realization,
+      normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean,
+      normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff] using
+      concreteCanonicalOwner.owner.sameSymbols
+  refine ⟨?_, hrestricted, hglobal⟩
+  simpa [
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessPackageAtomReadOffRows,
+    normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+    normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_square_route_realization,
+    normalizedRouteBackedYoshidaDetectorSquareRouteRealization_of_trace_realization,
+    normalizedRouteBackedYoshidaDetectorSquareTraceRealization_of_archimedean,
+    normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff] using
+    hpackageAtomReadOff
+
+theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormLocalDirectRows_of_localPackageRows
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormLocalPackageRows
+        (r := r)) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormLocalDirectRows
+      (r := r) := by
+  rcases rows with ⟨A, sourceWeilForm, supportData, visibleData, hmatch⟩
+  have hsymbols := hmatch.1
+  have hpackageAtomReadOff := hmatch.2.1
+  have hrestricted := hmatch.2.2.1
+  have hglobal := hmatch.2.2.2
+  refine ⟨A, sourceWeilForm, ?_⟩
+  refine ⟨hsymbols, ?_, hrestricted, hglobal⟩
+  refine
+    { supportData := supportData
+      visibleData := visibleData
+      restrictedAtomReadOff := ?_
+      globalAtomReadOff := ?_ }
+  · intro n hn
+    let W := r.inputs.ccm25.weilSymbols
+    let f := r.sourceBackedTest.weilTest
+    let lambda := r.bridge.sourceTraceReadOff.lambda
+    let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+    let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+    let hsource :
+        common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
+      (supportData.restrictedExact n).1 hn |>.atomVisible
+    simpa [
+      Source.CCM25Concrete.FinitePrimeCertificate.arithmetic_data_on_restricted_index_set_of_certificate,
+      W, f, lambda, pkg, common, hsource] using
+      hpackageAtomReadOff n hsource
+  · intro n hn
+    let W := r.inputs.ccm25.weilSymbols
+    let f := r.sourceBackedTest.weilTest
+    let pkg := r.bridge.sourceTraceReadOff.ccm25ArithmeticPackage
+    let common := Source.CCM25Concrete.CommonSourceTest.concreteCommonSourceTest W f
+    let hsource :
+        common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
+      (supportData.globalExact n).1 hn |>.atomVisible
+    simpa [
+      Source.CCM25Concrete.FinitePrimeCertificate.arithmetic_data_on_global_index_set_of_certificate,
+      W, f, pkg, common, hsource] using
+      hpackageAtomReadOff n hsource
+
+-/
 
 def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataArithmeticSumRowsCalibration_of_sourceWeilFormDirectRowsCalibration
     (rows :
@@ -11038,6 +14781,25 @@ def NormalizedRouteBackedCC20SquareRestrictedScopedFinitePrimeArchimedeanBalance
     NormalizedRouteBackedCC20SquareRestrictedScopedFinitePrimeArchimedeanBalance
       r
 
+/-- The whole-carrier finite-prime index-difference calibration is exactly the
+same B3a balance as the package-scoped finite-prime archimedean calibration,
+after package read-off.  This is a spelling guard: the index-difference row is
+not a lower producer than the scoped B3a balance. -/
+theorem NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration_iff_scopedFinitePrimeArchimedeanBalanceCalibration :
+    NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration ↔
+      NormalizedRouteBackedCC20SquareRestrictedScopedFinitePrimeArchimedeanBalanceCalibration := by
+  constructor
+  · intro hcalibration r
+    exact
+      (normalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceArchimedeanBalance_iff_scopedBalance
+        (r := r)).mp
+        (hcalibration r)
+  · intro hcalibration r
+    exact
+      (normalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceArchimedeanBalance_iff_scopedBalance
+        (r := r)).mpr
+        (hcalibration r)
+
 /-- Common-atom calibration for the square route's finite-prime balance. -/
 def NormalizedRouteBackedCC20SquareRestrictedCommonScopedFinitePrimeArchimedeanBalanceCalibration :
     Prop :=
@@ -11235,6 +14997,16 @@ def NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCa
         (r := r)).mp
       (hcalibration r)
 
+def NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellationCalibration_of_globalFinitePrimeMassCancellationCalibration
+    (hcalibration :
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellationCalibration := by
+  intro r
+  exact
+      (normalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellation_iff_globalMassCancellation
+        (r := r)).mpr
+      (hcalibration r)
+
 def NormalizedRouteBackedCC20SquareRestrictedNonPoleMassVanishesCalibration_of_globalFinitePrimeArchimedeanCancellationCalibration
     (hcalibration :
       NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellationCalibration) :
@@ -11249,6 +15021,34 @@ def NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration :
   ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
     NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapse r
 
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_iff_routePsiPoleCollapseCalibration
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration
+        hweil ↔
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration := by
+  constructor
+  · intro hmass r
+    exact
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse_iff_routePsiPoleCollapse
+        hweil r).mp
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_iff_globalPsiPoleCollapse
+          hweil r).mp
+          (by
+            simpa [
+              NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration]
+              using hmass r))
+  · intro hpsi r
+    exact
+      (by
+        simpa [
+          NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration]
+          using
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_iff_globalPsiPoleCollapse
+              hweil r).mpr
+              ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse_iff_routePsiPoleCollapse
+                hweil r).mpr (hpsi r)))
+
 def NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration_of_psiPoleCollapseCalibration
     (hcalibration :
       NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration) :
@@ -11258,6 +15058,148 @@ def NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCa
     (normalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellation_iff_psiPoleCollapse
       (r := r)).mpr
       (hcalibration r)
+
+def NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration_of_globalFinitePrimeMassCancellationCalibration
+    (hcalibration :
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration := by
+  intro r
+  exact
+    (normalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellation_iff_psiPoleCollapse
+      (r := r)).mp
+      (hcalibration r)
+
+/-- The filtered direct source-Weil-form global finite-prime term-mass row is
+also exactly the route `psi = pole` collapse.  This is the filtered analogue
+of the unfiltered direct-global guard, and prevents treating the filtered
+direct term spelling as a lower finite-prime producer. -/
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration_iff_routePsiPoleCollapseCalibration
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration
+        hweil ↔
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration := by
+  constructor
+  · intro hmass r
+    exact
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse_iff_routePsiPoleCollapse
+        hweil r).mp
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration_iff_globalPsiPoleCollapse
+          hweil r).mp
+          (by
+            simpa [
+              NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration]
+              using hmass r))
+  · intro hpsi r
+    exact
+      (by
+        simpa [
+          NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration]
+          using
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration_iff_globalPsiPoleCollapse
+              hweil r).mpr
+              ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse_iff_routePsiPoleCollapse
+                hweil r).mpr (hpsi r)))
+
+/-- Filtered and unfiltered direct global term-mass calibrations are the same
+route `psi = pole` row.  Switching between these two finite-prime spellings is
+therefore not a lower producer. -/
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_iff_directGlobalTermMassCalibration
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration
+        hweil ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration
+        hweil :=
+  (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_iff_routePsiPoleCollapseCalibration
+    hweil).trans
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration_iff_routePsiPoleCollapseCalibration
+      hweil).symm
+
+/-- Under the concrete canonical route-package owner, the package evaluator
+global finite-prime mass row is still exactly the route `psi = pole` collapse.
+This guards against treating the package-evaluator spelling as a lower
+finite-prime producer than the already rejected direct global unfiltered mass
+root. -/
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration_iff_routePsiPoleCollapseCalibration_of_concreteCanonicalRoutePackageCoverage
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)) ↔
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration := by
+  let hweil :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcoverage)
+  constructor
+  · intro hmass
+    exact
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_iff_routePsiPoleCollapseCalibration
+        hweil).mp
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_of_packageGlobalEvaluatorMass
+          hweil hmass)
+  · intro hpsi
+    exact
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration_of_concreteCanonicalRoutePackageCoverage_globalFinitePrimeArchimedeanCancellation
+        hcoverage
+        (NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellationCalibration_of_globalFinitePrimeMassCancellationCalibration
+          (NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration_of_psiPoleCollapseCalibration
+            hpsi))
+
+/-- Under the same concrete canonical route-package owner, replacing the
+selected direct global unfiltered term-mass root by the route-symbol global
+finite-prime archimedean cancellation is only a spelling change. -/
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_iff_globalFinitePrimeArchimedeanCancellationCalibration_of_concreteCanonicalRoutePackageCoverage
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)) ↔
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellationCalibration := by
+  let hweil :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcoverage)
+  constructor
+  · intro hmass
+    exact
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellationCalibration_of_globalFinitePrimeMassCancellationCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration_of_psiPoleCollapseCalibration
+          ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_iff_routePsiPoleCollapseCalibration
+            hweil).mp hmass))
+  · intro hglobal
+    exact
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_of_packageGlobalEvaluatorMass
+        hweil
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration_of_concreteCanonicalRoutePackageCoverage_globalFinitePrimeArchimedeanCancellation
+          hcoverage hglobal)
+
+/-- Under concrete canonical route-package coverage, the package-free global
+finite-prime mass cancellation is also just the selected direct global
+unfiltered term-mass row in route-symbol form. -/
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_iff_globalFinitePrimeMassCancellationCalibration_of_concreteCanonicalRoutePackageCoverage
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)) ↔
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration := by
+  constructor
+  · intro hmass
+    exact
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration_of_globalFinitePrimeArchimedeanCancellationCalibration
+        ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_iff_globalFinitePrimeArchimedeanCancellationCalibration_of_concreteCanonicalRoutePackageCoverage
+          hcoverage).mp hmass)
+  · intro hglobal
+    exact
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_iff_globalFinitePrimeArchimedeanCancellationCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcoverage).mpr
+        (NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellationCalibration_of_globalFinitePrimeMassCancellationCalibration
+          hglobal)
 
 /-- Whole-carrier B3c bottom in global-QW / pole-functional form. -/
 def NormalizedRouteBackedCC20SquareRestrictedGlobalQWPoleCollapseCalibration :
@@ -11303,6 +15245,119 @@ theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
           hweil r).mpr
           ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormGlobalPsiPoleCollapse_iff_routePsiPoleCollapse
             hweil r).mpr (hcalibrations.2 r))
+
+def NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration_of_directTermMassRows
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (termMassRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration := by
+  have hpoles :=
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+      hweil).mp termMassRows
+  exact
+    NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration_of_restrictedQWPole_globalMassCalibrations
+      hpoles.1
+      (NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration_of_psiPoleCollapseCalibration
+        hpoles.2)
+
+def NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration_of_concreteCanonicalRoutePackageCoverage_directTermMassRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (termMassRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration_of_directTermMassRows
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcoverage))
+    termMassRows
+
+def NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration_of_unfilteredDirectTermMassRows
+    (hweil :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration)
+    (restrictedMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedUnfilteredTermMassCalibration
+        hweil)
+    (globalMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration
+        hweil) :
+    NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration_of_directTermMassRows
+    hweil
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_of_unfiltered_restricted_global
+      hweil restrictedMass globalMass)
+
+def NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration_of_concreteCanonicalRoutePackageCoverage_unfilteredDirectTermMassRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (restrictedMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedUnfilteredTermMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (globalMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration_of_unfilteredDirectTermMassRows
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcoverage))
+    restrictedMass
+    globalMass
+
+/-- Under concrete canonical route-package coverage, the current selected final
+route split
+`FinitePrimeIndexDifference + DirectGlobalUnfilteredTermMass` is exactly the
+same finite-prime payload as `DirectTermMassRows`.  The split is useful for
+route plumbing, but it is not a lower producer than the direct term-mass owner
+it reconstructs. -/
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_indexDifference_directGlobalUnfilteredTermMass_of_concreteCanonicalRoutePackageCoverage
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    let hweil :=
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          hcoverage)
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+        hweil ↔
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration ∧
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration
+          hweil := by
+  let hweil :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcoverage)
+  constructor
+  · intro rows
+    constructor
+    · exact
+        NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration_of_concreteCanonicalRoutePackageCoverage_directTermMassRows
+          hcoverage rows
+    · exact
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_iff_directGlobalTermMassCalibration
+          hweil).mpr
+          rows.globalMass
+  · rintro ⟨hindex, hglobal⟩
+    exact
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_of_unfiltered_restricted_global
+        hweil
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedUnfilteredTermMassCalibration_of_packageRestrictedEvaluatorMass
+          hweil
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageRestrictedEvaluatorMassCalibration_of_concreteCanonicalRoutePackageCoverage_indexDifference_packageGlobalEvaluatorMass
+            hcoverage
+            hindex
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration_of_concreteCanonicalRoutePackageCoverage_directGlobalUnfilteredTermMass
+              hcoverage
+              hglobal)))
+        hglobal
 
 def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSplitSourceDataAtomRowsComponents :
     Prop :=
@@ -11643,6 +15698,48 @@ def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConc
       NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
         NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
 
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteDataTransportComponents :
+    Prop :=
+  ∃ hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage,
+    ∃ _htransport :
+        NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteDataCertificateCanonicalRowsTransport
+          hcoverage,
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+        NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents :
+    Prop :=
+  ∃ hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage,
+    ∃ _htransport :
+        NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport
+          hcoverage,
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+        NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageTransportComponents_of_routeDataTransportComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteDataTransportComponents) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageTransportComponents := by
+  rcases hcomponents with ⟨hcoverage, htransport, hrestricted, hpsi⟩
+  exact
+    ⟨hcoverage,
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceDataCertificateCanonicalRowsTransport_of_routeDataTransport
+        htransport,
+      hrestricted, hpsi⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents_of_routeDataTransportComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteDataTransportComponents) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents := by
+  rcases hcomponents with ⟨hcoverage, htransport, hrestricted, hpsi⟩
+  exact
+    ⟨hcoverage,
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageRouteFacingCertificateCanonicalRowsTransport_of_routeDataTransport
+        htransport,
+      hrestricted, hpsi⟩
+
 def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents_of_transportComponents
     (hcomponents :
       NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageTransportComponents) :
@@ -11654,6 +15751,28 @@ def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConc
         htransport,
       hrestricted, hpsi⟩
 
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents_of_routeDataTransportComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteDataTransportComponents) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents := by
+  rcases hcomponents with ⟨hcoverage, htransport, hrestricted, hpsi⟩
+  exact
+    ⟨hcoverage,
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows_of_concreteCanonicalRoutePackageCoverage_routeDataTransport
+        htransport,
+      hrestricted, hpsi⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents_of_routeFacingTransportComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents := by
+  rcases hcomponents with ⟨hcoverage, htransport, hrestricted, hpsi⟩
+  exact
+    ⟨hcoverage,
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormSourceDataCertificateCanonicalRows_of_concreteCanonicalRoutePackageCoverage_routeFacingTransport
+        htransport,
+      hrestricted, hpsi⟩
+
 def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents :
     Prop :=
   ∃ hcoverage :
@@ -11662,6 +15781,362 @@ def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConc
         hcoverage ∧
       NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
         NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitOwnerAlignmentComponents :
+    Prop :=
+  ∃ hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage,
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage ∧
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCertificateAtomNormalizationRows
+        hcoverage ∧
+        NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+          NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents :
+    Prop :=
+  ∃ hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage,
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows
+        hcoverage ∧
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+        NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :
+    Prop :=
+  ∃ hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage,
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportObjectTransportRows
+        hcoverage ∧
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerVisibleObjectTransportRows
+        hcoverage ∧
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration ∧
+        NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents_of_splitOwnerAlignmentComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitOwnerAlignmentComponents) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents := by
+  rcases hcomponents with ⟨hcoverage, supportVisibleRows, atomRows, hrestricted, hpsi⟩
+  exact
+    ⟨hcoverage,
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerAlignmentRows_of_supportVisible_atomNormalizationRows
+        supportVisibleRows atomRows,
+      hrestricted, hpsi⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitOwnerAlignmentComponents_of_supportVisibleOwnerComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitOwnerAlignmentComponents := by
+  rcases hcomponents with ⟨hcoverage, supportVisibleRows, hrestricted, hpsi⟩
+  exact
+    ⟨hcoverage, supportVisibleRows,
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerCertificateAtomNormalizationRows_of_coverage
+        hcoverage,
+      hrestricted, hpsi⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents_of_supportVisibleOwnerComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents_of_splitOwnerAlignmentComponents
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitOwnerAlignmentComponents_of_supportVisibleOwnerComponents
+      hcomponents)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents_of_splitSupportVisibleOwnerComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents := by
+  rcases hcomponents with ⟨hcoverage, supportRows, visibleRows, hrestricted, hpsi⟩
+  exact
+    ⟨hcoverage,
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportVisibleObjectTransportRows_of_support_visible
+        supportRows visibleRows,
+      hrestricted, hpsi⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_sourceOwnerVisibleArithmeticRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (sourceRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceOwnerVisibleArithmeticRows
+        hcoverage)
+    (hrestricted :
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration)
+    (hpsi :
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :=
+  ⟨hcoverage,
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerSupportObjectTransportRows_of_sourceOwnerVisibleArithmeticRows
+      hcoverage sourceRows,
+    NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageOwnerVisibleObjectTransportRows_of_sourceOwnerVisibleArithmeticRows
+      hcoverage sourceRows,
+    hrestricted, hpsi⟩
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_sourceOwnerVisibleArithmeticRows_directTermMassRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (sourceRows :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceOwnerVisibleArithmeticRows
+        hcoverage)
+    (termMassRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents := by
+  have hpoles :=
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          hcoverage))).mp termMassRows
+  exact
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_sourceOwnerVisibleArithmeticRows
+      hcoverage sourceRows hpoles.1 hpoles.2
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_directTermMassRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (termMassRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_sourceOwnerVisibleArithmeticRows_directTermMassRows
+    hcoverage
+    (NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverageSourceOwnerVisibleArithmeticRows_of_concreteCanonicalRoutePackageCoverage
+      hcoverage)
+    termMassRows
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_restrictedGlobalTermMassRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (restrictedMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedTermMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (globalMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_directTermMassRows
+    hcoverage
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_of_restricted_global
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          hcoverage))
+      restrictedMass
+      globalMass)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_unfilteredRestrictedGlobalTermMassRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (restrictedMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedUnfilteredTermMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (globalMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_directTermMassRows
+    hcoverage
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_of_unfiltered_restricted_global
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+          hcoverage))
+      restrictedMass
+      globalMass)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_packageEvaluatorMassRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (restrictedMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageRestrictedEvaluatorMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage)))
+    (globalMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents := by
+  let hweil :=
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+        hcoverage)
+  exact
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_unfilteredRestrictedGlobalTermMassRows
+      hcoverage
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRestrictedUnfilteredTermMassCalibration_of_packageRestrictedEvaluatorMass
+        hweil restrictedMass)
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration_of_packageGlobalEvaluatorMass
+        hweil globalMass)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_packageGlobalEvaluatorMass
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (globalMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_packageEvaluatorMassRows
+    hcoverage
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageRestrictedEvaluatorMassCalibration_of_concreteCanonicalRoutePackageCoverage_indexDifference_packageGlobalEvaluatorMass
+      hcoverage hindex globalMass)
+    globalMass
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_globalFinitePrimeArchimedeanCancellation
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hglobal :
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellationCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_packageGlobalEvaluatorMass
+    hcoverage
+    hindex
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration_of_concreteCanonicalRoutePackageCoverage_globalFinitePrimeArchimedeanCancellation
+      hcoverage hglobal)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_globalFinitePrimeMassCancellation
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hglobal :
+      NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_globalFinitePrimeArchimedeanCancellation
+    hcoverage
+    hindex
+    (NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellationCalibration_of_globalFinitePrimeMassCancellationCalibration
+      hglobal)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_commonGlobalEvaluatorValueMass
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hglobal :
+      NormalizedRouteBackedCC20SquareRestrictedCommonGlobalFinitePrimeEvaluatorValueMassCancellationCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_globalFinitePrimeMassCancellation
+    hcoverage
+    hindex
+    (NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration_of_evaluatorValueMassCalibration
+      hglobal)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_sourceEvaluationDataRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hsourceRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_commonGlobalEvaluatorValueMass
+    hcoverage
+    hindex
+    (NormalizedRouteBackedCC20SquareRestrictedCommonGlobalFinitePrimeEvaluatorValueMassCancellationCalibration_of_sourceEvaluationDataRowsCalibration
+      hsourceRows)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_sourceWeilFormDirectRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hdirectRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_sourceEvaluationDataRows
+    hcoverage
+    hindex
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataRowsCalibration_of_sourceWeilFormDirectRowsCalibration
+      hdirectRows)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_sourceWeilFormDirectPackageRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hdirectRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectPackageRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_sourceWeilFormDirectRows
+    hcoverage
+    hindex
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectRowsCalibration_of_directArithmeticRowsCalibration
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectArithmeticRowsCalibration_of_directPackageRowsCalibration
+        hdirectRows))
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_sourceWeilFormDirectTermPackageRows
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hdirectRows :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermPackageRowsCalibration) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_sourceWeilFormDirectPackageRows
+    hcoverage
+    hindex
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectPackageRowsCalibration_of_directTermPackageRowsCalibration
+      hdirectRows)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_directGlobalTermMass
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (globalMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalTermMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_packageGlobalEvaluatorMass
+    hcoverage
+    hindex
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration_of_concreteCanonicalRoutePackageCoverage_directGlobalTermMass
+      hcoverage globalMass)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_directGlobalUnfilteredTermMass
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (globalMass :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectGlobalUnfilteredTermMassCalibration
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents_of_concreteCanonicalRoutePackageCoverage_indexDifference_packageGlobalEvaluatorMass
+    hcoverage
+    hindex
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormPackageGlobalEvaluatorMassCalibration_of_concreteCanonicalRoutePackageCoverage_directGlobalUnfilteredTermMass
+      hcoverage globalMass)
+
+def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents_of_splitSupportVisibleOwnerComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents_of_supportVisibleOwnerComponents
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents_of_splitSupportVisibleOwnerComponents
+      hcomponents)
 
 theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration_iff_components
     :
@@ -11734,9 +16209,107 @@ theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
          sourceDataCertificateCanonicalRows := hcanonical
          termMassRows :=
           (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
-            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
-              (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
-                hcoverage))).mpr ⟨hrestricted, hpsi⟩ }⟩
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))).mpr ⟨hrestricted, hpsi⟩ }⟩
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_iff_components
+    :
+    Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration ↔
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents := by
+  constructor
+  · rintro ⟨rows⟩
+    have hpoles :=
+      (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            rows.routePackageCoverage))).mp rows.termMassRows
+    exact
+      ⟨rows.routePackageCoverage, rows.routeFacingCertificateCanonicalRows,
+        hpoles.1, hpoles.2⟩
+  · rintro ⟨hcoverage, htransport, hrestricted, hpsi⟩
+    exact
+      ⟨{ routePackageCoverage := hcoverage
+         routeFacingCertificateCanonicalRows := htransport
+         termMassRows :=
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+            (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+              hcoverage))).mpr ⟨hrestricted, hpsi⟩ }⟩
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_ownerAlignmentComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents) :
+    Nonempty
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration := by
+  rcases hcomponents with ⟨hcoverage, ownerRows, hrestricted, hpsi⟩
+  exact
+    ⟨NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_ownerAlignmentRows
+      hcoverage ownerRows
+      ((NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermMassRowsCalibration_iff_routePoleCollapseCalibrations
+        (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
+          (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_concreteCanonicalRoutePackageCoverage
+            hcoverage))).mpr ⟨hrestricted, hpsi⟩)⟩
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents_of_ownerAlignmentComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents :=
+  (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_iff_components).mp
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_ownerAlignmentComponents
+      hcomponents)
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_splitOwnerAlignmentComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitOwnerAlignmentComponents) :
+    Nonempty
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_ownerAlignmentComponents
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents_of_splitOwnerAlignmentComponents
+      hcomponents)
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_supportVisibleOwnerComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents) :
+    Nonempty
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_splitOwnerAlignmentComponents
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitOwnerAlignmentComponents_of_supportVisibleOwnerComponents
+      hcomponents)
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_splitSupportVisibleOwnerComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents) :
+    Nonempty
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_of_supportVisibleOwnerComponents
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents_of_splitSupportVisibleOwnerComponents
+      hcomponents)
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents_of_splitOwnerAlignmentComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitOwnerAlignmentComponents) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents_of_ownerAlignmentComponents
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents_of_splitOwnerAlignmentComponents
+      hcomponents)
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents_of_supportVisibleOwnerComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents_of_splitOwnerAlignmentComponents
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitOwnerAlignmentComponents_of_supportVisibleOwnerComponents
+      hcomponents)
+
+theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents_of_splitSupportVisibleOwnerComponents
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents) :
+    NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents :=
+  NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents_of_supportVisibleOwnerComponents
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents_of_splitSupportVisibleOwnerComponents
+      hcomponents)
 
 theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageCanonicalRoutePackageRowsCalibration_of_coverageRows_nonempty
     :
@@ -14729,6 +19302,24 @@ def NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage : Prop :=
           ∃ r : NormalizedRouteBackedCC20SquareRestrictedTest,
             r.test = detector.test
 
+/-- Detector-selected square coverage carrying only the local route criterion
+needed by the CC20 exit.  Unlike `NormalizedRouteBackedCC20SquareRestrictedWeilCriterion`,
+this does not require a global `∀ r` criterion over the whole square-route
+universe. -/
+def NormalizedRouteBackedCC20SquareRestrictedDetectorCriterionCoverage : Prop :=
+  ∀ {rho : ℂ},
+    RHDefinitionBridge.standard.sourceNontrivialZero rho →
+      rho.re ≠ 1 / 2 →
+        (detector :
+          YoshidaDetector
+            normalizedCC20TestSpace cc20TripleFiniteVanishingSet rho) →
+          ∃ r : NormalizedRouteBackedCC20SquareRestrictedTest,
+            r.test = detector.test ∧
+              (normalizedCC20TestSpace.compactSupportSmooth r.test →
+                CC20VanishesOn
+                    normalizedCC20TestSpace cc20TripleFiniteVanishingSet r.test →
+                  CC20WeilNonpositive normalizedCC20TestSpace r.test)
+
 /-- Detector-level canonical route-package coverage.  This is weaker than the
 global route-universe coverage: it only says the carrier selected for each
 Yoshida detector is canonical-generated. -/
@@ -15096,6 +19687,15 @@ theorem normalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCo
   · exact
       normalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage_of_canonicalRoutePackageCoverage_detectorCoverage
         hcanonical
+
+theorem normalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage_iff_detectorCoverage_of_concreteCanonicalRoutePackageCoverage
+    (hconcrete :
+      NormalizedRouteBackedCC20SquareRestrictedConcreteCanonicalRoutePackageCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage ↔
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage :=
+  normalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage_iff_detectorCoverage_of_canonicalRoutePackageCoverage
+    (NormalizedRouteBackedCC20SquareRestrictedCanonicalRoutePackageCoverage_of_concreteCanonicalRoutePackageCoverage
+      hconcrete)
 
 theorem normalizedRouteBackedCC20SquareRestrictedDetectorCanonicalRoutePackageCoverage_of_canonicalSquareArchimedeanTraceRealizer
     (hrealizer :
@@ -15565,6 +20165,78 @@ theorem normalizedCC20_source_rh_of_square_restricted_route_criterion
             (normalizedCC20TestSpace.starConvolution detector.test) :=
       detector.weilSumPositiveIfOffLine hrho hline
     exact False.elim ((not_lt_of_ge hnonpos) hpos)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCriterionCoverage
+    (hexists :
+      CC20YoshidaDetectorExists
+        normalizedCC20TestSpace cc20TripleFiniteVanishingSet)
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCriterionCoverage) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  by_cases hline : rho.re = 1 / 2
+  · simpa [RHDefinitionBridge.standard] using hline
+  · rcases hexists hrho hline with ⟨detector⟩
+    rcases hcoverage hrho hline detector with ⟨r, hr, hcriterion⟩
+    have hnonposR :
+        CC20WeilNonpositive normalizedCC20TestSpace r.test :=
+      hcriterion
+        (by simpa [hr] using detector.compactSupportSmooth)
+        (by
+          intro p hp
+          simpa [hr] using detector.vanishesOnF p hp)
+    have hnonpos :
+        CC20WeilNonpositive normalizedCC20TestSpace detector.test := by
+      simpa [hr] using hnonposR
+    have hpos :
+        0 <
+          normalizedCC20TestSpace.weilLocalSum
+            (normalizedCC20TestSpace.starConvolution detector.test) :=
+      detector.weilSumPositiveIfOffLine hrho hline
+    exact False.elim ((not_lt_of_ge hnonpos) hpos)
+
+theorem normalizedRouteBackedCC20SquareRestrictedLocalWeilCriterion_of_traceFrontComparisonQWPoleRows
+    {r : NormalizedRouteBackedCC20SquareRestrictedTest}
+    (rows :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonQWPoleRows r) :
+    normalizedCC20TestSpace.compactSupportSmooth r.test →
+      CC20VanishesOn
+          normalizedCC20TestSpace cc20TripleFiniteVanishingSet r.test →
+        CC20WeilNonpositive normalizedCC20TestSpace r.test := by
+  intro _hcompact _hvanish
+  unfold CC20WeilNonpositive
+  let traceReadOffEquality :=
+    normalizedRouteBackedCC20SquareRestrictedTraceReadOffEquality_of_traceFrontComparisonRows
+      rows.traceFrontComparisonRows
+  let positiveTraceQWLambda :=
+    normalizedRouteBackedCC20SquareRestrictedPositiveTraceQWLambda_of_traceReadOffEquality
+      traceReadOffEquality
+  let scopedBalance :=
+    (normalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceArchimedeanBalance_iff_scopedBalance
+      (r := r)).mp rows.finitePrimeIndexDifference
+  let globalCancellation :=
+    (normalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeArchimedeanCancellation_iff_qwPoleCollapse
+      (r := r)).mpr rows.globalQWPoleCollapse
+  let finitePrimeCancellation :=
+    normalizedRouteBackedCC20SquareRestrictedFinitePrimeArchimedeanCancellation_of_scopedBalance_globalCancellation
+      scopedBalance globalCancellation
+  rw [normalizedRouteBackedCC20SquareRestrictedLocalSumReadOff_of_traceCalibrationRows
+    { polePairingTransport := rows.polePairingTransport
+      positiveTraceQWLambda := positiveTraceQWLambda
+      finitePrimeArchimedeanCancellation := finitePrimeCancellation }]
+  exact neg_nonpos.mpr r.bridge.finalSignNonpositive.positiveTraceNonnegative
+
+theorem NormalizedRouteBackedCC20SquareRestrictedDetectorCriterionCoverage_of_traceFrontComparisonQWPoleCalibrationCoverage
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorTraceFrontComparisonQWPoleCalibrationCoverage) :
+    NormalizedRouteBackedCC20SquareRestrictedDetectorCriterionCoverage := by
+  intro rho hrho hoff detector
+  rcases hcoverage hrho hoff detector with ⟨r, hr, hrows⟩
+  rcases hrows with ⟨rows⟩
+  exact
+    ⟨r, hr,
+      normalizedRouteBackedCC20SquareRestrictedLocalWeilCriterion_of_traceFrontComparisonQWPoleRows
+        rows⟩
 
 /-- Route A square exit using the bottom B3c API.  The scalar side is now a
 whole-carrier non-pole-mass trace calibration; detector coverage remains a
@@ -18847,6 +23519,108 @@ theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_routeFron
     normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageTransportComponents
       hcoverage htrace hindex hcomponents hrho
 
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRouteDataTransportComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteDataTransportComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 :=
+  normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRowsComponents
+    hcoverage htrace hindex
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents_of_routeDataTransportComponents
+      hcomponents)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRouteDataTransportComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteDataTransportComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRouteDataTransportComponents
+      hcoverage htrace hindex hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 :=
+  normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRowsComponents
+    hcoverage htrace hindex
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents_of_routeFacingTransportComponents
+      hcomponents)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents
+      hcoverage htrace hindex hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hrows :
+      Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 := by
+  have hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents :=
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_iff_components).mp
+      hrows
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents
+      hcoverage htrace hindex hcomponents hrho
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hrows :
+      Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration
+      hcoverage htrace hindex hrows hrho
+
 theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents
     (hcoverage :
       NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
@@ -18880,6 +23654,70 @@ theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_routeFron
   intro rho hrho
   exact
     normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents
+      hcoverage htrace hindex hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 :=
+  normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents
+    hcoverage htrace hindex
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents_of_supportVisibleOwnerComponents
+      hcomponents)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents
+      hcoverage htrace hindex hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 :=
+  normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents
+    hcoverage htrace hindex
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents_of_splitSupportVisibleOwnerComponents
+      hcomponents)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (htrace :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonB2Calibration)
+    (hindex :
+      NormalizedRouteBackedCC20SquareRestrictedFinitePrimeIndexDifferenceCalibration)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents
       hcoverage htrace hindex hcomponents hrho
 
 theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_routeFrontConcreteCanonicalRoutePackageCoverageRowsCalibration
@@ -18988,6 +23826,58 @@ theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAli
     normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPoleGlobalMassCalibrations
       hcoverage hpole hsource hsupport hqw hrestricted hglobalMass hrho
 
+/-- The source-alignment package with both pole-collapse leaves is already an
+RH-level route-front input: `PsiPoleCollapseCalibration` supplies the global
+finite-prime mass row, so adding it to restricted QW collapse closes the
+detector trace-front QW-pole coverage target. -/
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPolePsiPoleCalibrations
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hrestricted :
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration)
+    (hpsi :
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 :=
+  normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPoleGlobalMassCalibrations
+    hcoverage hpole hsource hsupport hqw hrestricted
+    (NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration_of_psiPoleCollapseCalibration
+      hpsi)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPolePsiPoleCalibrations
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hpole :
+      NormalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hrestricted :
+      NormalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapseCalibration)
+    (hpsi :
+      NormalizedRouteBackedCC20SquareRestrictedPsiPoleCollapseCalibration) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPolePsiPoleCalibrations
+      hcoverage hpole hsource hsupport hqw hrestricted hpsi hrho
+
 theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentCanonicalRoutePackageCoverageRowsComponents
     (hcoverage :
       NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
@@ -19008,10 +23898,8 @@ theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCover
         rho.re = 1 / 2 := by
   rcases hcomponents with ⟨_hcanonicalCoverage, _hcanonicalRows, hrestricted, hpsi⟩
   exact
-    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPoleGlobalMassCalibrations
-      hcoverage hpole hsource hsupport hqw hrestricted
-      (NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration_of_psiPoleCollapseCalibration
-        hpsi)
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPolePsiPoleCalibrations
+      hcoverage hpole hsource hsupport hqw hrestricted hpsi
 
 theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentCanonicalRoutePackageCoverageRowsComponents
     (hcoverage :
@@ -19052,13 +23940,11 @@ theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCover
         rho.re = 1 / 2 := by
   rcases hcomponents with ⟨hcanonicalCoverage, _hcanonicalRows, hrestricted, hpsi⟩
   exact
-    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPoleGlobalMassCalibrations
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPolePsiPoleCalibrations
       hcoverage
       (normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_concreteCanonicalRoutePackageCoverage
         hcanonicalCoverage)
-      hsource hsupport hqw hrestricted
-      (NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration_of_psiPoleCollapseCalibration
-        hpsi)
+      hsource hsupport hqw hrestricted hpsi
 
 theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRowsComponents
     (hcoverage :
@@ -19119,6 +24005,132 @@ theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAli
     normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageTransportComponents
       hcoverage hsource hsupport hqw hcomponents hrho
 
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRouteDataTransportComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteDataTransportComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 :=
+  normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRowsComponents
+    hcoverage hsource hsupport hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents_of_routeDataTransportComponents
+      hcomponents)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRouteDataTransportComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteDataTransportComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRouteDataTransportComponents
+      hcoverage hsource hsupport hqw hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 :=
+  normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRowsComponents
+    hcoverage hsource hsupport hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRowsComponents_of_routeFacingTransportComponents
+      hcomponents)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents
+      hcoverage hsource hsupport hqw hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hrows :
+      Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 := by
+  have hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents :=
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration_iff_components).mp
+      hrows
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRouteFacingTransportComponents
+      hcoverage hsource hsupport hqw hcomponents hrho
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hrows :
+      Nonempty
+        NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormDirectTermForSourceTestAtomPackageConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRouteFacingRowsCalibration
+      hcoverage hsource hsupport hqw hrows hrho
+
 theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents
     (hcoverage :
       NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
@@ -19137,13 +24149,11 @@ theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCover
         rho.re = 1 / 2 := by
   rcases hcomponents with ⟨hcanonicalCoverage, _halignment, hrestricted, hpsi⟩
   exact
-    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPoleGlobalMassCalibrations
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentRestrictedQWPolePsiPoleCalibrations
       hcoverage
       (normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibration_of_concreteCanonicalRoutePackageCoverage
         hcanonicalCoverage)
-      hsource hsupport hqw hrestricted
-      (NormalizedRouteBackedCC20SquareRestrictedGlobalFinitePrimeMassCancellationCalibration_of_psiPoleCollapseCalibration
-        hpsi)
+      hsource hsupport hqw hrestricted hpsi
 
 theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents
     (hcoverage :
@@ -19162,6 +24172,86 @@ theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAli
   intro rho hrho
   exact
     normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents
+      hcoverage hsource hsupport hqw hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 :=
+  normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents
+    hcoverage hsource hsupport hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageOwnerAlignmentComponents_of_supportVisibleOwnerComponents
+      hcomponents)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents
+      hcoverage hsource hsupport hqw hcomponents hrho
+
+theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents) :
+    ∀ {rho : ℂ},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho →
+        rho.re = 1 / 2 :=
+  normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents
+    hcoverage hsource hsupport hqw
+    (NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSupportVisibleOwnerComponents_of_splitSupportVisibleOwnerComponents
+      hcomponents)
+
+theorem normalizedCC20_source_rh_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents
+    (hcoverage :
+      NormalizedRouteBackedCC20SquareRestrictedDetectorCoverage)
+    (hsource :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontComparisonSourceRowsCalibration)
+    (hsupport :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontSupportSquareAlignmentCalibration
+        hsource)
+    (hqw :
+      NormalizedRouteBackedCC20SquareRestrictedTraceFrontQWLambdaAlignmentCalibration
+        hsource)
+    (hcomponents :
+      NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  exact
+    normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageSplitSupportVisibleOwnerComponents
       hcoverage hsource hsupport hqw hcomponents hrho
 
 theorem normalizedCC20_no_offline_source_zero_of_square_restricted_detectorCoverage_sourceAlignmentConcreteCanonicalRoutePackageCoverageRowsCalibration
