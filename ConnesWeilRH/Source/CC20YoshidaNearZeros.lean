@@ -6,6 +6,7 @@ Authors: ConnesWeilRH contributors
 
 import ConnesWeilRH.Source.CC20YoshidaConstruction
 import Mathlib.NumberTheory.LSeries.ZetaZeros
+import Mathlib.Topology.Algebra.InfiniteSum.Real
 
 /-!
 # Finite nearby zeta zeros and finite Mellin interpolation
@@ -48,6 +49,83 @@ theorem sourceNontrivialZeroSet_countable :
       sourceNontrivialZeroSet_subset_riemannZetaZeros
   exact IsLindelof.countable_of_isDiscrete hLindelof hDiscrete
 
+/-- An `O(R log R)` dyadic shell-count bound turns quadratic pointwise decay
+into absolute summability. The shell partition and its cardinality estimate
+are the only inputs that a future zeta-zero counting theorem must provide. -/
+theorem summable_of_dyadic_shell_card_bound
+    {alpha : Type*} (f : alpha -> Real) (shell : Nat -> Set alpha)
+    (hf : forall x, 0 <= f x)
+    (hpartition : forall x, ExistsUnique (fun n => x ∈ shell n))
+    (hfinite : forall n, (shell n).Finite)
+    {K B : Real} (hB : 0 <= B)
+    (hcard : forall n, ((shell n).ncard : Real) <=
+      K * ((n + 1 : Nat) : Real) * (2 : Real) ^ n)
+    (hpoint : forall n (x : shell n),
+      f x <= B / ((2 : Real) ^ n) ^ 2) :
+    Summable f := by
+  rw [summable_partition hf hpartition]
+  constructor
+  · intro n
+    letI := (hfinite n).fintype
+    exact (hasSum_fintype (fun x : shell n => f x)).summable
+  · have hlinearGeometric : Summable (fun n : Nat =>
+        ((n + 1 : Nat) : Real) * ((1 : Real) / 2) ^ n) := by
+      have hn : Summable (fun n : Nat =>
+          (n : Real) * ((1 : Real) / 2) ^ n) := by
+        simpa using summable_pow_mul_geometric_of_norm_lt_one (R := Real) 1
+          (show ‖(1 : Real) / 2‖ < 1 by norm_num)
+      convert hn.add summable_geometric_two using 1
+      ext n
+      push_cast
+      ring
+    refine Summable.of_nonneg_of_le (fun n => tsum_nonneg fun x => hf x) ?_
+      (hlinearGeometric.mul_left (K * B))
+    intro n
+    letI := (hfinite n).fintype
+    rw [tsum_fintype]
+    calc
+      (∑ x : shell n, f x) <=
+          ∑ _x : shell n, B / ((2 : Real) ^ n) ^ 2 := by
+            exact Finset.sum_le_sum fun x _hx => hpoint n x
+      _ = ((shell n).ncard : Real) *
+          (B / ((2 : Real) ^ n) ^ 2) := by
+            simp [Set.ncard, nsmul_eq_mul]
+      _ <= (K * ((n + 1 : Nat) : Real) * (2 : Real) ^ n) *
+          (B / ((2 : Real) ^ n) ^ 2) := by
+            exact mul_le_mul_of_nonneg_right (hcard n) (div_nonneg hB (sq_nonneg _))
+      _ = K * B * (((n + 1 : Nat) : Real) * ((1 : Real) / 2) ^ n) := by
+            field_simp
+            calc
+              K * B = K * B * ((2 : Real) * ((1 : Real) / 2)) ^ n := by
+                norm_num
+              _ = K * (2 : Real) ^ n * B * ((1 : Real) / 2) ^ n := by
+                rw [mul_pow]
+                ring
+
+theorem exists_lt_two_pow_succ (r : Real) :
+    ∃ n : Nat, r < (2 : Real) ^ (n + 1) := by
+  have heventually :=
+    (tendsto_pow_atTop_atTop_of_one_lt (show (1 : Real) < 2 by norm_num)).eventually_gt_atTop r
+  rcases (eventually_atTop.1 heventually) with ⟨N, hN⟩
+  exact ⟨N, hN (N + 1) (Nat.le_succ N)⟩
+
+/-- The least dyadic radius `2^(n+1)` strictly larger than `r`. -/
+noncomputable def dyadicShellIndex (r : Real) : Nat :=
+  Nat.find (exists_lt_two_pow_succ r)
+
+theorem lt_two_pow_succ_dyadicShellIndex (r : Real) :
+    r < (2 : Real) ^ (dyadicShellIndex r + 1) :=
+  Nat.find_spec (exists_lt_two_pow_succ r)
+
+theorem pow_succ_le_of_dyadicShellIndex_eq_succ
+    {r : Real} {n : Nat} (hindex : dyadicShellIndex r = n + 1) :
+    (2 : Real) ^ (n + 1) <= r := by
+  apply le_of_not_gt
+  intro hr
+  have hminimal := Nat.find_min' (exists_lt_two_pow_succ r) hr
+  rw [← dyadicShellIndex, hindex] at hminimal
+  omega
+
 def sourceNontrivialZerosInClosedBall (rho : ℂ) (R : ℝ) : Set ℂ :=
   Metric.closedBall rho R ∩
     sourceNontrivialZeroSet
@@ -60,6 +138,53 @@ theorem sourceNontrivialZerosInClosedBall_finite (rho : ℂ) (R : ℝ) :
   intro z hz
   exact ⟨hz.1,
     sourceNontrivialZeroSet_subset_riemannZetaZeros hz.2⟩
+
+/-- Source nontrivial zeros grouped by their least strict dyadic radius around
+`rho`. The zero-th shell contains the radius-two closed neighborhood. -/
+noncomputable def sourceNontrivialZeroDyadicShell
+    (rho : ℂ) (n : Nat) : Set sourceNontrivialZeroSet :=
+  {z | dyadicShellIndex (dist z.1 rho) = n}
+
+theorem sourceNontrivialZeroDyadicShell_partition (rho : ℂ) :
+    forall z : sourceNontrivialZeroSet,
+      ExistsUnique (fun n => z ∈ sourceNontrivialZeroDyadicShell rho n) := by
+  intro z
+  refine ⟨dyadicShellIndex (dist z.1 rho), ?_, ?_⟩
+  · rfl
+  · intro n hn
+    exact hn.symm
+
+theorem sourceNontrivialZeroDyadicShell_finite (rho : ℂ) (n : Nat) :
+    (sourceNontrivialZeroDyadicShell rho n).Finite := by
+  let e : sourceNontrivialZeroSet ↪ ℂ := Function.Embedding.subtype _
+  have hpreimage :
+      (e ⁻¹' sourceNontrivialZerosInClosedBall rho ((2 : Real) ^ (n + 1))).Finite :=
+    Set.Finite.preimage_embedding e
+      (sourceNontrivialZerosInClosedBall_finite rho ((2 : Real) ^ (n + 1)))
+  apply hpreimage.subset
+  intro z hz
+  change dyadicShellIndex (dist z.1 rho) = n at hz
+  change z.1 ∈ sourceNontrivialZerosInClosedBall rho ((2 : Real) ^ (n + 1))
+  refine ⟨?_, z.2⟩
+  rw [Metric.mem_closedBall]
+  rw [← hz] at *
+  exact (lt_two_pow_succ_dyadicShellIndex (dist z.1 rho)).le
+
+/-- For source nontrivial zeros, an `O(R log R)` dyadic counting estimate and a
+quadratic dyadic majorant are sufficient for spectral absolute summability. -/
+theorem sourceNontrivialZero_summable_of_dyadic_bounds
+    (rho : ℂ) (f : sourceNontrivialZeroSet -> Real)
+    (hf : forall z, 0 <= f z) {K B : Real} (hB : 0 <= B)
+    (hcard : forall n,
+      ((sourceNontrivialZeroDyadicShell rho n).ncard : Real) <=
+        K * ((n + 1 : Nat) : Real) * (2 : Real) ^ n)
+    (hpoint : forall n (z : sourceNontrivialZeroDyadicShell rho n),
+      f z <= B / ((2 : Real) ^ n) ^ 2) :
+    Summable f :=
+  summable_of_dyadic_shell_card_bound f
+    (sourceNontrivialZeroDyadicShell rho) hf
+    (sourceNontrivialZeroDyadicShell_partition rho)
+    (sourceNontrivialZeroDyadicShell_finite rho) hB hcard hpoint
 
 noncomputable def sourceNontrivialZerosInClosedBallFinset
     (rho : ℂ) (R : ℝ) : Finset ℂ :=
