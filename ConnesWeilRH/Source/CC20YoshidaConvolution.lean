@@ -5,7 +5,9 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Source.CC20YoshidaNearZeros
+import ConnesWeilRH.Source.CC20YoshidaTail
 import ConnesWeilRH.Source.CCM25Concrete.CompactLogConvolution
+import ConnesWeilRH.Source.CCM25Concrete.SelectedYoshidaBridge
 
 /-!
 # Genuine convolution for the source Yoshida construction
@@ -21,7 +23,9 @@ namespace CC20YoshidaConvolution
 
 open MeasureTheory
 open CCM25Concrete.CompactLogConvolution
+open CCM25Concrete.SelectedYoshidaBridge
 open scoped ContDiff
+open scoped FourierTransform
 
 namespace CompactLogTest
 
@@ -49,6 +53,75 @@ noncomputable def exponentialWeight (f : CompactLogTest) (s : ℂ) :
 /-- Bilateral Laplace evaluation of a compact log test. -/
 noncomputable def laplaceAt (f : CompactLogTest) (s : ℂ) : ℂ :=
   ∫ x : ℝ, (exponentialWeight f s).test x
+
+/-- The selected positive-variable Mellin transform is the bilateral Laplace
+transform of its compact log pullback. -/
+theorem laplaceAt_compactLogTestOfWindow_eq_mellin
+    (g : normalizedCC20ConcreteTestAlgebra.Test)
+    {a b : ℝ} (ha : 0 < a) (hb : 0 < b)
+    (hsupport : Function.support
+        (fun x : ℝ =>
+          normalizedCC20ConcreteTestAlgebra.legacy.encode g x) ⊆
+      Set.Ioo a b)
+    (s : ℂ) :
+    laplaceAt (compactLogTestOfWindow g ha hb hsupport) s =
+      mellin
+        (fun x : ℝ =>
+          normalizedCC20ConcreteTestAlgebra.legacy.encode g x) s := by
+  rw [mellin_eq_fourier, Real.fourier_eq']
+  unfold laplaceAt
+  simp only [exponentialWeight_apply, compactLogTestOfWindow_apply]
+  rw [← integral_neg_eq_self
+    (fun u : ℝ =>
+      Complex.exp (s * (u : ℂ)) *
+        normalizedCC20ConcreteTestAlgebra.legacy.encode g (Real.exp u))
+    volume]
+  apply integral_congr_ae
+  filter_upwards with u
+  simp only [Complex.ofReal_neg, mul_neg, smul_eq_mul, Complex.real_smul]
+  rw [Real.inner_apply, ← mul_assoc]
+  change
+    Complex.exp (-(s * (u : ℂ))) *
+        normalizedCC20ConcreteTestAlgebra.legacy.encode g (Real.exp (-u)) =
+      (Complex.exp
+          (((-2 * Real.pi *
+              (u * (s.im / (2 * Real.pi))) : ℝ) : ℂ) * Complex.I) *
+        (Real.exp (-s.re * u) : ℂ)) *
+          normalizedCC20ConcreteTestAlgebra.legacy.encode g (Real.exp (-u))
+  congr 1
+  rw [Complex.ofReal_exp]
+  rw [← Complex.exp_add]
+  congr 1
+  have hphase :
+      -2 * Real.pi * (u * (s.im / (2 * Real.pi))) = -(u * s.im) := by
+    field_simp [Real.pi_ne_zero]
+  rw [hphase]
+  apply Complex.ext <;>
+    simp <;>
+    ring
+
+/-- The Mellin strip estimate is the same uniform quadratic estimate for the
+bilateral Laplace transform of the compact log pullback. -/
+theorem exists_uniform_laplaceAt_vertical_quadratic_decay
+    (g : normalizedCC20ConcreteTestAlgebra.Test)
+    {a b : ℝ} (ha : 0 < a) (hb : 0 < b)
+    (hsupport : Function.support
+        (fun x : ℝ =>
+          normalizedCC20ConcreteTestAlgebra.legacy.encode g x) ⊆
+      Set.Ioo a b) :
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+        ‖t / (2 * Real.pi)‖ ^ 2 *
+            ‖laplaceAt (compactLogTestOfWindow g ha hb hsupport)
+              ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C := by
+  obtain ⟨C, hC, hbound⟩ :=
+    CC20YoshidaTail.exists_uniform_mellin_vertical_quadratic_decay
+      (normalizedCC20ConcreteTestAlgebra.legacy.encode g)
+      ha hb hsupport
+  refine ⟨C, hC, ?_⟩
+  intro sigma hsigma t
+  rw [laplaceAt_compactLogTestOfWindow_eq_mellin]
+  exact hbound sigma hsigma t
 
 theorem convolution_support_subset_add_Ioo
     (f g : CompactLogTest) {fLower fUpper gLower gUpper : ℝ}

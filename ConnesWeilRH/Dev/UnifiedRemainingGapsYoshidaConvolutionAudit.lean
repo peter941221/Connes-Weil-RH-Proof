@@ -17,15 +17,21 @@ namespace UnifiedRemainingGapsYoshidaConvolutionAudit
 open Source.CC20YoshidaConvolution.CompactLogTest
 
 #check @convolution_support_subset_add_Ioo
+#check @laplaceAt_compactLogTestOfWindow_eq_mellin
+#check @exists_uniform_laplaceAt_vertical_quadratic_decay
 #check @laplaceAt_convolution
 #check @laplaceAt_convolutionIterate
 #check @convolutionIterate_support_subset_Ioo
 
+#print laplaceAt_compactLogTestOfWindow_eq_mellin
+#print exists_uniform_laplaceAt_vertical_quadratic_decay
 #print laplaceAt_convolution
 #print laplaceAt_convolutionIterate
 #print convolutionIterate_support_subset_Ioo
 
 #print axioms convolution_support_subset_add_Ioo
+#print axioms laplaceAt_compactLogTestOfWindow_eq_mellin
+#print axioms exists_uniform_laplaceAt_vertical_quadratic_decay
 #print axioms laplaceAt_convolution
 #print axioms laplaceAt_convolutionIterate
 #print axioms convolutionIterate_support_subset_Ioo
