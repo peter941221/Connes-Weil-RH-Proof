@@ -152,6 +152,11 @@ closed ball centered at `2`, and its cardinality is connected directly to the
 Jensen sphere-bound theorem. The remaining growth proof can therefore be
 stated entirely in terms of `completedRiemannXi`.
 
+Choosing the outer radius `2*(T+2)` fixes the Jensen denominator at `log 2`.
+The compiled consumer turns `norm(xi z) <= exp(G(T))` on that circle into
+`N-bar(T) <= (G(T)-log(norm(xi 2)))/log 2`. The remaining count problem is one
+explicit xi log-growth estimate.
+
 ## Route Consequence
 
 M5A remains useful for its narrow-window finite-node interpolation and

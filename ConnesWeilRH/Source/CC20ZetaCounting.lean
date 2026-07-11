@@ -212,6 +212,33 @@ theorem sourceNontrivialZerosInSymmetricHeight_ncard_le_of_xi_sphere_bound
         (by simpa [abs_of_pos hTtwo] using hR)
         hM completedRiemannXi_two_ne_zero hsphere
 
+/-- Exponential xi growth on the circle of twice the counting radius gives a
+source zero-count bound with the fixed Jensen denominator `log 2`. -/
+theorem sourceNontrivialZerosInSymmetricHeight_ncard_le_of_xi_exp_sphere_bound
+    {T G : ℝ} (hT : -2 < T) (hG : 0 ≤ G)
+    (hsphere : ∀ z ∈ Metric.sphere (2 : ℂ) (2 * (T + 2)),
+      ‖completedRiemannXi z‖ ≤ Real.exp G) :
+    ((sourceNontrivialZerosInSymmetricHeight T).ncard : ℝ) ≤
+      (G - Real.log ‖completedRiemannXi 2‖) / Real.log 2 := by
+  have hTtwo : 0 < T + 2 := by linarith
+  have hRadius : 0 < 2 * (T + 2) := mul_pos (by norm_num) hTtwo
+  have hJensen :=
+    sourceNontrivialZerosInSymmetricHeight_ncard_le_of_xi_sphere_bound
+      hT (R := 2 * (T + 2)) (M := Real.exp G)
+      (by rw [abs_of_pos hRadius]; linarith)
+      (by simpa using Real.one_le_exp hG)
+      (by simpa [abs_of_pos hRadius] using hsphere)
+  have hxiNorm : ‖completedRiemannXi 2‖ ≠ 0 :=
+    norm_ne_zero_iff.mpr completedRiemannXi_two_ne_zero
+  calc
+    ((sourceNontrivialZerosInSymmetricHeight T).ncard : ℝ) ≤
+        Real.log (Real.exp G / ‖completedRiemannXi 2‖) /
+          Real.log (2 * (T + 2) / (T + 2)) := hJensen
+    _ = (G - Real.log ‖completedRiemannXi 2‖) / Real.log 2 := by
+      rw [Real.log_div (Real.exp_ne_zero G) hxiNorm, Real.log_exp]
+      congr 2
+      field_simp
+
 end CC20ZetaCounting
 end Source
 end ConnesWeilRH
