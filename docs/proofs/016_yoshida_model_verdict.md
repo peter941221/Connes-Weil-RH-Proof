@@ -110,9 +110,47 @@ https://projecteuclid.org/ebooks/advanced-studies-in-pure-mathematics/Zeta-Funct
 
 `CC20YoshidaConvolution.lean` now proves this transform product law and its
 finite convolution-power form for the genuine compact log convolution. It also
-proves that support endpoints add under convolution. The final construction
-must shrink the factor windows as `N` grows; otherwise the convolution power
-leaves the M5A support window and restores finite-prime terms.
+defines the normalized compression `r^-1 f(x/r)`, proves its transform law
+`Phi(s) -> Phi(r s)`, and proves that choosing `r=1/(N+1)` keeps the support of
+`N+1` convolution copies inside the original base window. A second theorem
+adds the finite correction factor and checks its residual support against a
+prescribed outer window. The correction producer now realizes arbitrary finite
+Laplace-node values in any residual window around zero and retains a uniform
+quadratic strip-decay constant for the same correction. The remaining
+construction must turn these ingredients into a same-index bound over every
+far source zero and then prove the spectral explicit formula and strict sign.
+
+The strip part of that same-index bound is now proved. After normalized
+rescaling, the base contraction contributes `(1/2)^(N+1)` and the same finite
+correction contributes its quadratic-decay constant. A closed-strip geometry
+lemma gives the distance-weighted estimate around the selected zero, and an
+epsilon theorem chooses enough convolution copies to make it arbitrarily
+small. `sourceNontrivialZero_zero_lt_re` and
+`sourceNontrivialZero_re_lt_one` now prove that every source spectral index is
+inside the open critical strip; the apparent negative-integer branch is empty.
+The strip zero-counting theorem, spectral explicit formula, and strict source
+sign remain open.
+
+The counting interface now matches the primary source. Hasanalizade--Shen--Wong
+(arXiv:2107.06506, p. 3) defines the symmetric count `N-bar(T)` using
+`0 < Re rho < 1` and `|Im rho| <= T`. Lean proves that every arbitrary-center
+dyadic shell lies in the corresponding symmetric height window with threshold
+`|Im rho| + 2^(n+1)`, and the spectral summability consumer accepts a dyadic
+bound for this count directly. The Riemann--von Mangoldt estimate itself remains
+unformalized; no counting theorem is stored as a field or axiom.
+
+The consumer now accepts the standard global shape
+`N-bar(T) <= A*T*log(T) + C*T` and derives its arbitrary-center dyadic constant
+internally. An axiom-clean Jensen layer constructs the entire xi, proves every
+source nontrivial zero contributes to its finite-order divisor, and bounds the
+distinct-zero cardinality by Mathlib's Jensen divisor sum. The sole remaining
+analytic counting input is a circle norm-growth estimate for this xi strong
+enough to yield the global linear-log count.
+
+The symmetric source height window is now proved to lie in the radius `T+2`
+closed ball centered at `2`, and its cardinality is connected directly to the
+Jensen sphere-bound theorem. The remaining growth proof can therefore be
+stated entirely in terms of `completedRiemannXi`.
 
 ## Route Consequence
 

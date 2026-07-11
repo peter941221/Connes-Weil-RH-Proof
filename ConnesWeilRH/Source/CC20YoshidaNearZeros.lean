@@ -62,6 +62,93 @@ theorem sourceNontrivialZero_zero_lt_re_or_eq_neg_nat
       rw [riemannZeta_one_sub (not_exists.mp hneg) hz.not_pole, hz.zeta_zero, mul_zero]
     exact (riemannZeta_ne_zero_of_one_le_re honeSubRe) honeSubZero
 
+/-- Zeta has no zero at a negative odd integer. This is the missing half of
+the trivial-zero classification needed to keep the source spectral index in
+the open critical strip. -/
+theorem riemannZeta_neg_two_mul_nat_add_one_ne_zero (k : ℕ) :
+    riemannZeta (-(2 * k + 1 : ℕ)) ≠ 0 := by
+  let s : ℂ := (2 * (k + 1 : ℕ) : ℕ)
+  have hsRe : 1 ≤ s.re := by
+    dsimp [s]
+    push_cast
+    have hkNonneg : 0 ≤ (k : ℝ) := Nat.cast_nonneg k
+    linarith
+  have hsGamma : Complex.Gamma s ≠ 0 := by
+    apply Complex.Gamma_ne_zero_of_re_pos
+    dsimp [s]
+    push_cast
+    positivity
+  have hsBase : (2 * (Real.pi : ℂ)) ≠ 0 := by
+    exact mul_ne_zero two_ne_zero (Complex.ofReal_ne_zero.mpr Real.pi_ne_zero)
+  have hsPower : (2 * (Real.pi : ℂ)) ^ (-s) ≠ 0 := by
+    exact (Complex.cpow_ne_zero_iff).2 (Or.inl hsBase)
+  have hsCos : Complex.cos ((Real.pi : ℂ) * s / 2) ≠ 0 := by
+    have harg : (Real.pi : ℂ) * s / 2 =
+        (((k + 1 : ℕ) : ℝ) * Real.pi : ℝ) := by
+      dsimp [s]
+      push_cast
+      ring
+    rw [harg, ← Complex.ofReal_cos, Real.cos_nat_mul_pi]
+    simp
+  have hsNoNeg (n : ℕ) : s ≠ -n := by
+    intro h
+    have hre := congrArg Complex.re h
+    dsimp [s] at hre
+    push_cast at hre
+    have hkPos : 0 < (k : ℝ) + 1 := by positivity
+    have hnNonneg : 0 ≤ (n : ℝ) := Nat.cast_nonneg n
+    linarith
+  have hsNeOne : s ≠ 1 := by
+    intro h
+    have hre := congrArg Complex.re h
+    dsimp [s] at hre
+    push_cast at hre
+    have hkPos : 0 < (k : ℝ) + 1 := by positivity
+    linarith
+  have hfe := riemannZeta_one_sub (s := s) hsNoNeg hsNeOne
+  have hrhs :
+      2 * (2 * (Real.pi : ℂ)) ^ (-s) * Complex.Gamma s *
+          Complex.cos ((Real.pi : ℂ) * s / 2) * riemannZeta s ≠ 0 := by
+    exact mul_ne_zero
+      (mul_ne_zero
+        (mul_ne_zero (mul_ne_zero two_ne_zero hsPower) hsGamma) hsCos)
+      (riemannZeta_ne_zero_of_one_le_re hsRe)
+  have honeSub : (1 : ℂ) - s = -(2 * k + 1 : ℕ) := by
+    dsimp [s]
+    push_cast
+    ring
+  rw [honeSub] at hfe
+  rw [hfe]
+  exact hrhs
+
+/-- A source nontrivial zero cannot be any negative natural number: even
+positive indices are precisely the excluded trivial zeros, odd indices are
+nonzeros, and `zeta(0) = -1/2`. -/
+theorem sourceNontrivialZero_not_eq_neg_nat
+    {z : ℂ} (hz : RHDefinitionBridge.standard.sourceNontrivialZero z) :
+    ¬∃ n : ℕ, z = -n := by
+  rintro ⟨n, rfl⟩
+  rcases Nat.even_or_odd' n with ⟨k, hk | hk⟩
+  · subst n
+    rcases k with _ | k
+    · have hzeta := hz.zeta_zero
+      norm_num [riemannZeta_zero] at hzeta
+    · apply hz.not_negative_even
+      exact ⟨k, by push_cast; ring⟩
+  · subst n
+    exact riemannZeta_neg_two_mul_nat_add_one_ne_zero k hz.zeta_zero
+
+/-- Every source nontrivial zero lies strictly to the right of the imaginary
+axis. Together with `sourceNontrivialZero_re_lt_one`, this places the spectral
+index in the open critical strip and removes the spurious negative-integer
+branch. -/
+theorem sourceNontrivialZero_zero_lt_re
+    {z : ℂ} (hz : RHDefinitionBridge.standard.sourceNontrivialZero z) :
+    0 < z.re := by
+  rcases sourceNontrivialZero_zero_lt_re_or_eq_neg_nat hz with hpos | hneg
+  · exact hpos
+  · exact False.elim (sourceNontrivialZero_not_eq_neg_nat hz hneg)
+
 /-- The spectral index set is countable because it is a discrete subset of the
 second-countable complex plane. -/
 theorem sourceNontrivialZeroSet_countable :
@@ -194,6 +281,65 @@ theorem sourceNontrivialZeroDyadicShell_finite (rho : ℂ) (n : Nat) :
   rw [← hz] at *
   exact (lt_two_pow_succ_dyadicShellIndex (dist z.1 rho)).le
 
+/-- The symmetric-height source zero set matching the `N-bar(T)` counting
+function in Hasanalizade--Shen--Wong. -/
+def sourceNontrivialZerosInSymmetricHeight (T : ℝ) :
+    Set sourceNontrivialZeroSet :=
+  {z | |z.1.im| ≤ T}
+
+theorem sourceNontrivialZerosInSymmetricHeight_finite (T : ℝ) :
+    (sourceNontrivialZerosInSymmetricHeight T).Finite := by
+  let e : sourceNontrivialZeroSet ↪ ℂ := Function.Embedding.subtype _
+  have hpreimage :
+      (e ⁻¹' sourceNontrivialZerosInClosedBall 0 (1 + T)).Finite :=
+    Set.Finite.preimage_embedding e
+      (sourceNontrivialZerosInClosedBall_finite 0 (1 + T))
+  apply hpreimage.subset
+  intro z hz
+  change |z.1.im| ≤ T at hz
+  change z.1 ∈ sourceNontrivialZerosInClosedBall 0 (1 + T)
+  refine ⟨?_, z.2⟩
+  rw [Metric.mem_closedBall, dist_zero_right]
+  apply le_of_lt
+  calc
+    ‖z.1‖ ≤ |z.1.re| + |z.1.im| := Complex.norm_le_abs_re_add_abs_im z.1
+    _ < 1 + |z.1.im| := by
+      rw [abs_of_pos (sourceNontrivialZero_zero_lt_re z.2)]
+      linarith [sourceNontrivialZero_re_lt_one z.2]
+    _ ≤ 1 + T := by linarith
+
+/-- A shell around an arbitrary selected zero lies in the symmetric-height
+window obtained by adding the shell radius to the center height. -/
+theorem sourceNontrivialZeroDyadicShell_subset_symmetricHeight
+    (rho : ℂ) (n : Nat) :
+    sourceNontrivialZeroDyadicShell rho n ⊆
+      sourceNontrivialZerosInSymmetricHeight
+        (|rho.im| + (2 : ℝ) ^ (n + 1)) := by
+  intro z hz
+  change dyadicShellIndex (dist z.1 rho) = n at hz
+  change |z.1.im| ≤ |rho.im| + (2 : ℝ) ^ (n + 1)
+  have hdist : dist z.1 rho ≤ (2 : ℝ) ^ (n + 1) := by
+    rw [← hz]
+    exact (lt_two_pow_succ_dyadicShellIndex (dist z.1 rho)).le
+  calc
+    |z.1.im| = |(z.1 - rho).im + rho.im| := by
+      congr 1
+      simp
+    _ ≤ |(z.1 - rho).im| + |rho.im| := abs_add_le _ _
+    _ ≤ ‖z.1 - rho‖ + |rho.im| := by
+      linarith [Complex.abs_im_le_norm (z.1 - rho)]
+    _ = |rho.im| + dist z.1 rho := by rw [dist_eq_norm]; ring
+    _ ≤ |rho.im| + (2 : ℝ) ^ (n + 1) := by linarith
+
+theorem sourceNontrivialZeroDyadicShell_ncard_le_symmetricHeight
+    (rho : ℂ) (n : Nat) :
+    (sourceNontrivialZeroDyadicShell rho n).ncard ≤
+      (sourceNontrivialZerosInSymmetricHeight
+        (|rho.im| + (2 : ℝ) ^ (n + 1))).ncard :=
+  Set.ncard_le_ncard
+    (sourceNontrivialZeroDyadicShell_subset_symmetricHeight rho n)
+    (sourceNontrivialZerosInSymmetricHeight_finite _)
+
 /-- For source nontrivial zeros, an `O(R log R)` dyadic counting estimate and a
 quadratic dyadic majorant are sufficient for spectral absolute summability. -/
 theorem sourceNontrivialZero_summable_of_dyadic_bounds
@@ -209,6 +355,119 @@ theorem sourceNontrivialZero_summable_of_dyadic_bounds
     (sourceNontrivialZeroDyadicShell rho) hf
     (sourceNontrivialZeroDyadicShell_partition rho)
     (sourceNontrivialZeroDyadicShell_finite rho) hB hcard hpoint
+
+/-- The summability consumer stated directly with the symmetric zero-counting
+function used by the source Riemann--von Mangoldt estimate. -/
+theorem sourceNontrivialZero_summable_of_symmetricHeight_dyadic_bounds
+    (rho : ℂ) (f : sourceNontrivialZeroSet -> Real)
+    (hf : forall z, 0 <= f z) {K B : Real} (hB : 0 <= B)
+    (hcount : forall n,
+      ((sourceNontrivialZerosInSymmetricHeight
+        (|rho.im| + (2 : Real) ^ (n + 1))).ncard : Real) <=
+          K * ((n + 1 : Nat) : Real) * (2 : Real) ^ n)
+    (hpoint : forall n (z : sourceNontrivialZeroDyadicShell rho n),
+      f z <= B / ((2 : Real) ^ n) ^ 2) :
+    Summable f := by
+  apply sourceNontrivialZero_summable_of_dyadic_bounds rho f hf hB
+  · intro n
+    calc
+      ((sourceNontrivialZeroDyadicShell rho n).ncard : Real) ≤
+          ((sourceNontrivialZerosInSymmetricHeight
+            (|rho.im| + (2 : Real) ^ (n + 1))).ncard : Real) := by
+              exact_mod_cast
+                sourceNontrivialZeroDyadicShell_ncard_le_symmetricHeight rho n
+      _ ≤ K * ((n + 1 : Nat) : Real) * (2 : Real) ^ n := hcount n
+  · exact hpoint
+
+/-- A global `A * T * log T + C * T` bound for the symmetric source zero count
+implies the dyadic estimate required by the spectral summability consumer. -/
+theorem sourceNontrivialZerosInSymmetricHeight_dyadic_bound_of_linear_log_bound
+    (rho : ℂ) {A C : ℝ} (hA : 0 ≤ A) (hC : 0 ≤ C)
+    (hcount : ∀ T : ℝ, 1 ≤ T →
+      ((sourceNontrivialZerosInSymmetricHeight T).ncard : ℝ) ≤
+        A * T * Real.log T + C * T) :
+    ∀ n : Nat,
+      ((sourceNontrivialZerosInSymmetricHeight
+        (|rho.im| + (2 : ℝ) ^ (n + 1))).ncard : ℝ) ≤
+          ((|rho.im| + 2) *
+              (A * (Real.log (|rho.im| + 2) + Real.log 2) + C)) *
+            ((n + 1 : Nat) : ℝ) * (2 : ℝ) ^ n := by
+  intro n
+  let H : ℝ := |rho.im|
+  let T : ℝ := H + (2 : ℝ) ^ (n + 1)
+  have hH : 0 ≤ H := abs_nonneg _
+  have hpowOne : 1 ≤ (2 : ℝ) ^ n := one_le_pow₀ (by norm_num)
+  have hTOne : 1 ≤ T := by
+    dsimp [T]
+    have hpowTwo : (2 : ℝ) ≤ (2 : ℝ) ^ (n + 1) := by
+      rw [pow_succ]
+      nlinarith
+    linarith
+  have hHtwoPos : 0 < H + 2 := by linarith
+  have hTPos : 0 < T := lt_of_lt_of_le zero_lt_one hTOne
+  have hTUpper : T ≤ (H + 2) * (2 : ℝ) ^ n := by
+    dsimp [T]
+    rw [pow_succ]
+    nlinarith
+  have hlogUpper : Real.log T ≤
+      (n + 1 : ℝ) * (Real.log (H + 2) + Real.log 2) := by
+    calc
+      Real.log T ≤ Real.log ((H + 2) * (2 : ℝ) ^ n) :=
+        Real.log_le_log hTPos hTUpper
+      _ = Real.log (H + 2) + (n : ℝ) * Real.log 2 := by
+        rw [Real.log_mul hHtwoPos.ne' (pow_ne_zero _ (by norm_num)), Real.log_pow]
+      _ ≤ (n + 1 : ℝ) * (Real.log (H + 2) + Real.log 2) := by
+        have hlogH : 0 ≤ Real.log (H + 2) := Real.log_nonneg (by linarith)
+        have hlogTwo : 0 ≤ Real.log 2 := Real.log_nonneg (by norm_num)
+        nlinarith
+  have hlogNonneg : 0 ≤ Real.log T := Real.log_nonneg hTOne
+  have hlinearLog :
+      A * T * Real.log T + C * T ≤
+        ((H + 2) *
+            (A * (Real.log (H + 2) + Real.log 2) + C)) *
+          ((n + 1 : Nat) : ℝ) * (2 : ℝ) ^ n := by
+    have hnOne : (1 : ℝ) ≤ (n + 1 : Nat) := by exact_mod_cast Nat.succ_le_succ (Nat.zero_le n)
+    have hlogFactor : 0 ≤ Real.log (H + 2) + Real.log 2 := by
+      exact add_nonneg (Real.log_nonneg (by linarith)) (Real.log_nonneg (by norm_num))
+    calc
+      A * T * Real.log T + C * T ≤
+          A * ((H + 2) * (2 : ℝ) ^ n) *
+              ((n + 1 : ℝ) * (Real.log (H + 2) + Real.log 2)) +
+            C * ((H + 2) * (2 : ℝ) ^ n) := by
+              gcongr
+      _ = ((H + 2) *
+            (A * (Real.log (H + 2) + Real.log 2) + C)) *
+          ((n + 1 : Nat) : ℝ) * (2 : ℝ) ^ n -
+          C * (H + 2) * ((n : ℝ) * (2 : ℝ) ^ n) := by
+            push_cast
+            ring
+      _ ≤ ((H + 2) *
+            (A * (Real.log (H + 2) + Real.log 2) + C)) *
+          ((n + 1 : Nat) : ℝ) * (2 : ℝ) ^ n := by
+            have : 0 ≤ C * (H + 2) * ((n : ℝ) * (2 : ℝ) ^ n) := by positivity
+            linarith
+  change ((sourceNontrivialZerosInSymmetricHeight T).ncard : ℝ) ≤ _
+  change _ ≤ ((H + 2) *
+      (A * (Real.log (H + 2) + Real.log 2) + C)) *
+    ((n + 1 : Nat) : ℝ) * (2 : ℝ) ^ n
+  exact (hcount T hTOne).trans hlinearLog
+
+/-- The spectral summability theorem with the source counting input reduced to
+one standard global Riemann--von Mangoldt growth inequality. -/
+theorem sourceNontrivialZero_summable_of_linear_log_count_bound
+    (rho : ℂ) (f : sourceNontrivialZeroSet -> Real)
+    (hf : forall z, 0 <= f z) {A C B : Real}
+    (hA : 0 ≤ A) (hC : 0 ≤ C) (hB : 0 ≤ B)
+    (hcount : ∀ T : ℝ, 1 ≤ T →
+      ((sourceNontrivialZerosInSymmetricHeight T).ncard : ℝ) ≤
+        A * T * Real.log T + C * T)
+    (hpoint : forall n (z : sourceNontrivialZeroDyadicShell rho n),
+      f z <= B / ((2 : Real) ^ n) ^ 2) :
+    Summable f :=
+  sourceNontrivialZero_summable_of_symmetricHeight_dyadic_bounds rho f hf hB
+    (sourceNontrivialZerosInSymmetricHeight_dyadic_bound_of_linear_log_bound
+      rho hA hC hcount)
+    hpoint
 
 noncomputable def sourceNontrivialZerosInClosedBallFinset
     (rho : ℂ) (R : ℝ) : Finset ℂ :=
