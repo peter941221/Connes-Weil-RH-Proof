@@ -6,6 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 import ConnesWeilRH.Source.CC20Concrete.RegularKernelL2Prelude
 import ConnesWeilRH.Source.CC20Concrete.RegularKernelL2Symmetry
 import Mathlib.Analysis.InnerProductSpace.l2Space
+import Mathlib.MeasureTheory.Integral.DominatedConvergence
 import Mathlib.Topology.CompactOpen
 
 namespace ConnesWeilRH
@@ -167,6 +168,22 @@ theorem integrable_cc20CompactKernelSectionToLp_norm_sq :
     (hc.continuousOn.integrableOn_compact
       (μ := cc20CompactMeasure) isCompact_univ).integrable
 
+theorem norm_cc20CompactKernelSectionToLp_sq
+    (x : CC20CompactInterval) :
+    ‖cc20CompactKernelSectionToLp x‖ ^ 2 =
+      ∫ y, ‖cc20CompactRegularKernel (x, y)‖ ^ 2
+        ∂cc20CompactMeasure := by
+  rw [cc20CompactKernelSectionToLp, norm_toLp_continuous_sq]
+  rfl
+
+theorem cc20CompactKernelSection_energy_eq_product_kernel_energy :
+    (∫ x, ‖cc20CompactKernelSectionToLp x‖ ^ 2
+        ∂cc20CompactMeasure) =
+      ∫ p, ‖cc20CompactRegularKernel p‖ ^ 2
+        ∂(cc20CompactMeasure.prod cc20CompactMeasure) := by
+  simp_rw [norm_cc20CompactKernelSectionToLp_sq]
+  exact cc20CompactRegularKernel_norm_sq_fubini
+
 theorem cc20CompactL2Operator_finite_basis_sum_le_kernel_energy
     {ι : Type*} (basis : HilbertBasis ι ℝ (Lp ℝ 2 cc20CompactMeasure))
     (s : Finset ι) :
@@ -209,6 +226,91 @@ theorem cc20CompactL2Operator_basis_normSq_summable
     (fun i => sq_nonneg _) ?_
   intro s
   exact cc20CompactL2Operator_finite_basis_sum_le_kernel_energy basis s
+
+theorem cc20CompactL2Operator_basis_normSq_tsum_le_product_kernel_energy
+    {ι : Type*} (basis : HilbertBasis ι ℝ (Lp ℝ 2 cc20CompactMeasure)) :
+    (∑' i, ‖cc20CompactL2Operator (basis i)‖ ^ 2) ≤
+      ∫ p, ‖cc20CompactRegularKernel p‖ ^ 2
+        ∂(cc20CompactMeasure.prod cc20CompactMeasure) := by
+  calc
+    (∑' i, ‖cc20CompactL2Operator (basis i)‖ ^ 2) ≤
+        ∫ x, ‖cc20CompactKernelSectionToLp x‖ ^ 2
+          ∂cc20CompactMeasure := by
+      exact Real.tsum_le_of_sum_le (fun i => sq_nonneg _)
+        (cc20CompactL2Operator_finite_basis_sum_le_kernel_energy basis)
+    _ = ∫ p, ‖cc20CompactRegularKernel p‖ ^ 2
+          ∂(cc20CompactMeasure.prod cc20CompactMeasure) :=
+      cc20CompactKernelSection_energy_eq_product_kernel_energy
+
+theorem cc20CompactL2Operator_basis_normSq_eq_product_kernel_energy
+    {ι : Type*} [Countable ι]
+    (basis : HilbertBasis ι ℝ (Lp ℝ 2 cc20CompactMeasure)) :
+    (∑' i, ‖cc20CompactL2Operator (basis i)‖ ^ 2) =
+      ∫ p, ‖cc20CompactRegularKernel p‖ ^ 2
+        ∂(cc20CompactMeasure.prod cc20CompactMeasure) := by
+  have hcoeff (i : ι) :
+      ‖cc20CompactL2Operator (basis i)‖ ^ 2 =
+        ∫ x, ‖cc20CompactKernelCoefficient (basis i) x‖ ^ 2
+          ∂cc20CompactMeasure := by
+    rw [cc20CompactL2Operator_eq_kernelCoefficient,
+      norm_toLp_continuous_sq]
+  have hint (i : ι) : Integrable
+      (fun x => ‖cc20CompactKernelCoefficient (basis i) x‖ ^ 2)
+        cc20CompactMeasure := by
+    have hc : Continuous
+        (fun x => ‖cc20CompactKernelCoefficient (basis i) x‖ ^ 2) :=
+      (cc20CompactKernelCoefficient (basis i)).continuous.norm.pow 2
+    simpa only [Measure.restrict_univ] using
+      (hc.continuousOn.integrableOn_compact
+        (μ := cc20CompactMeasure) isCompact_univ).integrable
+  have hsum_integrals : Summable (fun i =>
+      ∫ x, ‖cc20CompactKernelCoefficient (basis i) x‖ ^ 2
+        ∂cc20CompactMeasure) := by
+    convert cc20CompactL2Operator_basis_normSq_summable basis using 1
+    funext i
+    exact (hcoeff i).symm
+  have hsum_integral_norm : Summable (fun i =>
+      ∫ x, ‖‖cc20CompactKernelCoefficient (basis i) x‖ ^ 2‖
+        ∂cc20CompactMeasure) := by
+    convert hsum_integrals using 1
+    funext i
+    apply integral_congr_ae
+    filter_upwards with x
+    rw [Real.norm_of_nonneg (sq_nonneg _)]
+  have hpoint (x : CC20CompactInterval) :
+      (∑' i, ‖cc20CompactKernelCoefficient (basis i) x‖ ^ 2) =
+        ‖cc20CompactKernelSectionToLp x‖ ^ 2 := by
+    calc
+      (∑' i, ‖cc20CompactKernelCoefficient (basis i) x‖ ^ 2) =
+          ∑' i, (inner ℝ (cc20CompactKernelSectionToLp x) (basis i)) *
+            (inner ℝ (basis i) (cc20CompactKernelSectionToLp x)) := by
+        apply tsum_congr
+        intro i
+        simp [cc20CompactKernelCoefficient, pow_two, Real.norm_eq_abs,
+          real_inner_comm]
+      _ = inner ℝ (cc20CompactKernelSectionToLp x)
+          (cc20CompactKernelSectionToLp x) :=
+        basis.tsum_inner_mul_inner _ _
+      _ = ‖cc20CompactKernelSectionToLp x‖ ^ 2 :=
+        real_inner_self_eq_norm_sq _
+  calc
+    (∑' i, ‖cc20CompactL2Operator (basis i)‖ ^ 2) =
+        ∑' i, ∫ x, ‖cc20CompactKernelCoefficient (basis i) x‖ ^ 2
+          ∂cc20CompactMeasure := by
+      apply tsum_congr
+      intro i
+      exact hcoeff i
+    _ = ∫ x, ∑' i, ‖cc20CompactKernelCoefficient (basis i) x‖ ^ 2
+          ∂cc20CompactMeasure := by
+      exact integral_tsum_of_summable_integral_norm hint hsum_integral_norm
+    _ = ∫ x, ‖cc20CompactKernelSectionToLp x‖ ^ 2
+          ∂cc20CompactMeasure := by
+      apply integral_congr_ae
+      filter_upwards with x
+      exact hpoint x
+    _ = ∫ p, ‖cc20CompactRegularKernel p‖ ^ 2
+          ∂(cc20CompactMeasure.prod cc20CompactMeasure) :=
+      cc20CompactKernelSection_energy_eq_product_kernel_energy
 
 end CC20Concrete
 end Source

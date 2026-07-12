@@ -2805,3 +2805,14 @@ project's positive-trace interface is complex, so a legal complex same-kernel
 operator or complexification remains necessary; the exact product-kernel
 Parseval equality and CC20 `K_I` action identity also remain open. See proof
 157.
+
+2026-07-12 real Hilbert--Schmidt Parseval identity: the section energy is now
+proved equal to the squared regular-kernel integral on the exact product
+measure. For arbitrary real Hilbert bases, the operator `tsum` is bounded by
+that product energy. For every countably indexed real Hilbert basis,
+`cc20CompactL2Operator_basis_normSq_eq_product_kernel_energy` proves the exact
+identity `sum_i ||T e_i||^2 = integral ||K||^2`. The proof uses the full-`L2`
+kernel coefficient representation, pointwise Hilbert-basis Parseval, the
+already proved summability to justify integral/`tsum` exchange, and Fubini.
+No RH or Weil-positivity premise enters. A complex same-kernel operator and the
+source CC20 `K_I` action/read-off remain open. See proof 158.
