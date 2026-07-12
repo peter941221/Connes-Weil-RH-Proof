@@ -73,7 +73,7 @@ theorem rightCoefficient_kernelRestriction_eq_setIntegral
 theorem rightCoefficient_kernelRestriction_eq_fullIntegral
     (g : CompactLogConvolution.CompactLogTest)
     (u : SchwartzMap ℝ ℂ) (a c b : ℝ)
-    (hu : Function.support u ⊆ Set.Icc (a - b) (c + b))
+    (hg : Function.support g.test ⊆ Set.Icc a c)
     (s : SourceInterval b) :
     ContinuousKernelHilbertSchmidt.coefficient
         (volume : Measure (KernelInterval a c b))
@@ -88,15 +88,18 @@ theorem rightCoefficient_kernelRestriction_eq_fullIntegral
   filter_upwards with t
   by_cases ht : t ∈ Set.Icc (a - b) (c + b)
   · rw [Set.indicator_of_mem ht]
-  · have hut : u t = 0 := by
+  · have hgt : g.test (t - s.1) = 0 := by
       by_contra hne
-      exact ht (hu (by simpa [Function.mem_support] using hne))
-    simp [Set.indicator, ht, hut]
+      have hmem := hg (by simpa [Function.mem_support] using hne)
+      have hb : 0 ≤ b := le_trans s.2.1 s.2.2
+      exact ht ⟨by linarith [hmem.1, s.2.1],
+        by linarith [hmem.2, s.2.2]⟩
+    simp [Set.indicator, ht, hgt]
 
 theorem rightCoefficient_kernelRestriction_eq_schwartzConvolution
     (g : CompactLogConvolution.CompactLogTest)
     (u : SchwartzMap ℝ ℂ) (a c b : ℝ)
-    (hu : Function.support u ⊆ Set.Icc (a - b) (c + b))
+    (hg : Function.support g.test ⊆ Set.Icc a c)
     (s : SourceInterval b) :
     ContinuousKernelHilbertSchmidt.coefficient
         (volume : Measure (KernelInterval a c b))
@@ -106,7 +109,7 @@ theorem rightCoefficient_kernelRestriction_eq_schwartzConvolution
           (kernelRestriction u a c b)) s =
       SchwartzMap.convolution (ContinuousLinearMap.mul ℂ ℂ)
         u g.involution.test s.1 := by
-  rw [rightCoefficient_kernelRestriction_eq_fullIntegral g u a c b hu s]
+  rw [rightCoefficient_kernelRestriction_eq_fullIntegral g u a c b hg s]
   let B := ContinuousLinearMap.mul ℂ ℂ
   calc
     (∫ t : ℝ, u t * star (g.test (t - s.1))) =
@@ -152,7 +155,7 @@ theorem schwartzConvolution_mul_real_comm
 theorem rightCoefficient_kernelRestriction_eq_globalConvolutionCore
     (g : CompactLogConvolution.CompactLogTest)
     (u : SchwartzMap ℝ ℂ) (a c b : ℝ)
-    (hu : Function.support u ⊆ Set.Icc (a - b) (c + b))
+    (hg : Function.support g.test ⊆ Set.Icc a c)
     (s : SourceInterval b) :
     ContinuousKernelHilbertSchmidt.coefficient
         (volume : Measure (KernelInterval a c b))
@@ -163,7 +166,7 @@ theorem rightCoefficient_kernelRestriction_eq_globalConvolutionCore
       SchwartzMap.convolution (ContinuousLinearMap.mul ℝ ℂ)
         g.involution.test u s.1 := by
   rw [rightCoefficient_kernelRestriction_eq_schwartzConvolution
-    g u a c b hu s]
+    g u a c b hg s]
   rw [← schwartzConvolution_mul_real_eq_complex]
   exact congrArg (fun f : SchwartzMap ℝ ℂ => f s.1)
     (schwartzConvolution_mul_real_comm u g.involution.test)
@@ -171,7 +174,7 @@ theorem rightCoefficient_kernelRestriction_eq_globalConvolutionCore
 theorem rightCoefficient_kernelRestriction_eq_sourceRestriction
     (g : CompactLogConvolution.CompactLogTest)
     (u : SchwartzMap ℝ ℂ) (a c b : ℝ)
-    (hu : Function.support u ⊆ Set.Icc (a - b) (c + b)) :
+    (hg : Function.support g.test ⊆ Set.Icc a c) :
     ContinuousKernelHilbertSchmidt.coefficient
         (volume : Measure (KernelInterval a c b))
         (rightKernel g.test g.test.continuous a c b)
@@ -183,12 +186,12 @@ theorem rightCoefficient_kernelRestriction_eq_sourceRestriction
           g.involution.test u) b := by
   ext s
   exact rightCoefficient_kernelRestriction_eq_globalConvolutionCore
-    g u a c b hu s
+    g u a c b hg s
 
 theorem rightOperator_kernelRestriction_eq_sourceConvolutionToLp
     (g : CompactLogConvolution.CompactLogTest)
     (u : SchwartzMap ℝ ℂ) (a c b : ℝ)
-    (hu : Function.support u ⊆ Set.Icc (a - b) (c + b)) :
+    (hg : Function.support g.test ⊆ Set.Icc a c) :
     ContinuousKernelHilbertSchmidt.operator
         (volume : Measure (KernelInterval a c b))
         (volume : Measure (SourceInterval b))
@@ -201,7 +204,7 @@ theorem rightOperator_kernelRestriction_eq_sourceConvolutionToLp
           (SchwartzMap.convolution (ContinuousLinearMap.mul ℝ ℂ)
             g.involution.test u) b) := by
   rw [ContinuousKernelHilbertSchmidt.operator_apply]
-  rw [rightCoefficient_kernelRestriction_eq_sourceRestriction g u a c b hu]
+  rw [rightCoefficient_kernelRestriction_eq_sourceRestriction g u a c b hg]
 
 theorem leftCoefficient_kernelRestriction_eq_setIntegral
     (g : CompactLogConvolution.CompactLogTest)
@@ -234,7 +237,7 @@ theorem leftCoefficient_kernelRestriction_eq_setIntegral
 theorem leftCoefficient_kernelRestriction_eq_fullIntegral
     (g : CompactLogConvolution.CompactLogTest)
     (u : SchwartzMap ℝ ℂ) (a c b : ℝ)
-    (hu : Function.support u ⊆ Set.Icc (a - b) (c + b))
+    (hg : Function.support g.test ⊆ Set.Icc a c)
     (s : SourceInterval b) :
     ContinuousKernelHilbertSchmidt.coefficient
         (volume : Measure (KernelInterval a c b))
@@ -249,15 +252,18 @@ theorem leftCoefficient_kernelRestriction_eq_fullIntegral
   filter_upwards with t
   by_cases ht : t ∈ Set.Icc (a - b) (c + b)
   · rw [Set.indicator_of_mem ht]
-  · have hut : u t = 0 := by
+  · have hgt : g.test (t - s.1 + b) = 0 := by
       by_contra hne
-      exact ht (hu (by simpa [Function.mem_support] using hne))
-    simp [Set.indicator, ht, hut]
+      have hmem := hg (by simpa [Function.mem_support] using hne)
+      have hb : 0 ≤ b := le_trans s.2.1 s.2.2
+      exact ht ⟨by linarith [hmem.1, s.2.1],
+        by linarith [hmem.2, s.2.2]⟩
+    simp [Set.indicator, ht, hgt]
 
 theorem leftCoefficient_kernelRestriction_eq_globalConvolutionCore
     (g : CompactLogConvolution.CompactLogTest)
     (u : SchwartzMap ℝ ℂ) (a c b : ℝ)
-    (hu : Function.support u ⊆ Set.Icc (a - b) (c + b))
+    (hg : Function.support g.test ⊆ Set.Icc a c)
     (s : SourceInterval b) :
     ContinuousKernelHilbertSchmidt.coefficient
         (volume : Measure (KernelInterval a c b))
@@ -267,7 +273,7 @@ theorem leftCoefficient_kernelRestriction_eq_globalConvolutionCore
           (kernelRestriction u a c b)) s =
       SchwartzMap.convolution (ContinuousLinearMap.mul ℝ ℂ)
         g.involution.test u (s.1 - b) := by
-  rw [leftCoefficient_kernelRestriction_eq_fullIntegral g u a c b hu s]
+  rw [leftCoefficient_kernelRestriction_eq_fullIntegral g u a c b hg s]
   have hcomplex :
       (∫ t : ℝ, u t * star (g.test (t - s.1 + b))) =
         SchwartzMap.convolution (ContinuousLinearMap.mul ℂ ℂ)
@@ -293,7 +299,7 @@ theorem leftCoefficient_kernelRestriction_eq_globalConvolutionCore
 theorem leftCoefficient_kernelRestriction_eq_shiftedSourceRestriction
     (g : CompactLogConvolution.CompactLogTest)
     (u : SchwartzMap ℝ ℂ) (a c b : ℝ)
-    (hu : Function.support u ⊆ Set.Icc (a - b) (c + b)) :
+    (hg : Function.support g.test ⊆ Set.Icc a c) :
     ContinuousKernelHilbertSchmidt.coefficient
         (volume : Measure (KernelInterval a c b))
         (leftKernel g.test g.test.continuous a c b)
@@ -305,12 +311,12 @@ theorem leftCoefficient_kernelRestriction_eq_shiftedSourceRestriction
           g.involution.test u) b := by
   ext s
   exact leftCoefficient_kernelRestriction_eq_globalConvolutionCore
-    g u a c b hu s
+    g u a c b hg s
 
 theorem leftOperator_kernelRestriction_eq_shiftedSourceConvolutionToLp
     (g : CompactLogConvolution.CompactLogTest)
     (u : SchwartzMap ℝ ℂ) (a c b : ℝ)
-    (hu : Function.support u ⊆ Set.Icc (a - b) (c + b)) :
+    (hg : Function.support g.test ⊆ Set.Icc a c) :
     ContinuousKernelHilbertSchmidt.operator
         (volume : Measure (KernelInterval a c b))
         (volume : Measure (SourceInterval b))
@@ -324,7 +330,7 @@ theorem leftOperator_kernelRestriction_eq_shiftedSourceConvolutionToLp
             g.involution.test u) b) := by
   rw [ContinuousKernelHilbertSchmidt.operator_apply]
   rw [leftCoefficient_kernelRestriction_eq_shiftedSourceRestriction
-    g u a c b hu]
+    g u a c b hg]
 
 end SelectedCrossingOperatorBridge
 end CCM25Concrete

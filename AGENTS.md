@@ -1689,3 +1689,8 @@ kernel is the source restriction of `C_(g*)`, and the left kernel is the same
 convolution evaluated at `s-b`. Preserve this common involution owner. Do not
 replace the trace by the single-vector correlation `<h,J_b h>`; that object
 can vanish for positive-support tests and is not `Tr(C_h† C_h J_b)`.
+
+For the dense-core bridge, never impose support on the variable Schwartz input
+`u`. The fixed kernel support alone forces the coefficient integrands into
+`KernelInterval a c b`; retaining this sharper quantifier is what permits a
+global Schwartz-density argument for the complete L2 extension.

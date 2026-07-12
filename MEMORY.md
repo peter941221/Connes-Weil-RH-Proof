@@ -3372,3 +3372,13 @@ The remaining bottom is to extend the dense-core operator equality to the
 complete finite L2 carrier and identify `pairData.traceProduct` with the
 restricted whole-line convolution/crossing composition before using the
 existing finite-prime trace read-off.
+
+The dense-core bridge was immediately strengthened: its only support premise
+is now the genuine fixed-kernel condition
+`support g.test ⊆ Icc a c`; there is no support premise on the arbitrary
+Schwartz input `u`. The kernel factor itself forces both left and right
+integrands to vanish outside `KernelInterval a c b`. This makes the core range
+compatible with Mathlib's global `SchwartzMap.denseRange_toLpCLM` and removes
+the unnecessary problem of extending finite-window continuous inputs to
+compactly supported Schwartz functions. The focused CCM25 build passes
+`2989/2989` with the same three standard axioms.
