@@ -2565,3 +2565,12 @@ one: approximately `0.581` at `lambda=2`, `1.706` at `lambda=3`, `3.734` at
 an analytic no-go because the true mixed autocorrelation Gram may lower the
 bound. Do not add a Lean owner without a uniform estimate or an exact mixed-Gram
 bound. See proof 135 and `docs/proofs/135_visible_boundary_absorption_probe.py`.
+
+2026-07-12 actual mixed-Gram adversarial screen: the exact Gram
+`min(log p,log q)F_h(log p-log q)` can lose its shared discount for real compact
+oscillatory factors. With `h=bump_lambda*cos(kx)`, the `{2,3}` cost at
+`lambda=1.4` rises from `0.741` at `k=0` to `1.253` at `k=5` and `1.453` at
+`k=10`; at `lambda=3`, eight visible primes give costs near `4.9`. This is
+still a numerical screen until finite pole-node constraints are imposed, but
+it blocks any unconditional mixed-Gram discount argument. See proof 136 and
+`docs/proofs/136_actual_mixed_gram_probe.py`.

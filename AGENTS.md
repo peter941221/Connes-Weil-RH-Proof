@@ -1113,6 +1113,11 @@ its simple local graph-norm bound exceeds one near `lambda=3` and grows with
 the window. Treat this as a numerical screen until an analytic mixed-Gram
 estimate is proved; no Lean owner is authorized from the scan alone.
 
+Proof 136 adds an adversarial gate: real compact oscillatory factors can make
+the actual mixed-prime Gram nearly diagonal, pushing the Schur cost above one
+even for `{2,3}`. Treat mixed-autocorrelation discounts as untrusted until the
+same test also satisfies all pole-node constraints.
+
 The radial log-Euler derivative gives a sharp diagnostic positive multiplier:
 its Fourier coefficients are the exact `p^-m/2` Weil channels, but positivity
 requires the scalar compensation `2 log(p)/(sqrt(p)+1)` per prime. Rational
