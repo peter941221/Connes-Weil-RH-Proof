@@ -1657,3 +1657,15 @@ Do not claim “proved RH” from a successful build. The final claim requires p
 016 Phase 8 to show that `#print axioms unconditional_rh_skeleton` contains no
 project roots and no `sorryAx`, followed by the full repository verification
 gate.
+
+## 16. Recent Reusable Lessons
+
+The whole-line Schwartz convolution owner lives in
+`ConnesWeilRH/Source/CC20Concrete/GlobalLogConvolution.lean` and is defined by
+the Plancherel multiplier extension. Mathlib's explicit
+`Lp.fourierTransformₗᵢ` and the Fourier typeclass notation `𝓕`/`𝓕⁻` are
+definitionally aligned but are not reliably matched by broad `rw` or `simp`.
+Use small local bridge lemmas (`hinv`, `hfourier`) and explicit pointwise
+`change` statements. The import-facing audit is
+`ConnesWeilRH/Dev/GlobalLogConvolutionAudit.lean`; the accepted WSL build was
+`lake build ConnesWeilRH.Source.CC20Concrete ConnesWeilRH.Dev.GlobalLogConvolution`.

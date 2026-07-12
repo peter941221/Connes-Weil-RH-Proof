@@ -3321,3 +3321,15 @@ of `A* B` absolutely summable by Cauchy--Schwarz and the arithmetic-geometric
 mean bound. The Schwartz translation-section operator and the
 basis-trace/kernel-diagonal integral remain open, as do finite-S positivity and
 RH. See proof 191.
+
+2026-07-13 global Schwartz convolution extension: `GlobalLogConvolution.lean`
+defines the bounded whole-line L2 operator by Plancherel,
+`F.symm ( (Fourier h) * F u )`, and proves the same-object Schwartz identity
+`cc20GlobalLogConvolution_toLp`. The proof uses explicit local bridges from
+the Fourier typeclass notation to `Lp.fourierTransformₗᵢ`; broad `simp` and
+direct `rw` do not match these representations and can time out. The aggregate
+build passes `3519/3519`; `GlobalLogConvolutionAudit.lean` reports only
+`propext`, `Classical.choice`, and `Quot.sound` for all six declarations.
+This is the bounded convolution layer only: operator composition with the
+global crossing, basis trace/diagonal identity, finite-S sign gate, and RH
+remain open. This is the next convolution milestone after proof 193.
