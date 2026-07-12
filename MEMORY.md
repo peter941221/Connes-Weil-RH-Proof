@@ -3333,3 +3333,15 @@ build passes `3519/3519`; `GlobalLogConvolutionAudit.lean` reports only
 This is the bounded convolution layer only: operator composition with the
 global crossing, basis trace/diagonal identity, finite-S sign gate, and RH
 remain open. This is the next convolution milestone after proof 193.
+
+2026-07-13 common convolution/crossing operator: `GlobalConvolutionCrossing.lean`
+now defines the same-carrier bounded composition
+`cc20GlobalConvolutionPositive = C_h† C_h` and
+`cc20GlobalConvolutionCrossing = C_h† C_h J_b`. The axiom-clean identity
+`cc20GlobalConvolutionPositive_inner_re_eq_norm_sq` proves
+`Re <u, C_h† C_h u> = ||C_h u||²`, with the corresponding nonnegativity
+theorem. The retained-cache aggregate build passes `3520/3520`, and
+`GlobalConvolutionCrossingAudit.lean` reports only `propext`,
+`Classical.choice`, and `Quot.sound`. This is the operator ownership and
+positivity layer only; the continuous-kernel representation, basis trace /
+diagonal identity, finite-S read-off, sign gate, and RH remain open.

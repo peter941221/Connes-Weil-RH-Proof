@@ -1669,3 +1669,11 @@ Use small local bridge lemmas (`hinv`, `hfourier`) and explicit pointwise
 `change` statements. The import-facing audit is
 `ConnesWeilRH/Dev/GlobalLogConvolutionAudit.lean`; the accepted WSL build was
 `lake build ConnesWeilRH.Source.CC20Concrete ConnesWeilRH.Dev.GlobalLogConvolution`.
+
+The common whole-line composition is in
+`ConnesWeilRH/Source/CC20Concrete/GlobalConvolutionCrossing.lean`:
+`C_h† C_h` is the positive convolution owner and `C_h† C_h J_b` is the
+crossing owner. Keep this composition separate from the compact kernel
+`pairData` until a same-object continuous-kernel representation is proved.
+The accepted focused build is
+`lake build ConnesWeilRH.Source.CC20Concrete ConnesWeilRH.Dev.GlobalConvolutionCrossingAudit`.
