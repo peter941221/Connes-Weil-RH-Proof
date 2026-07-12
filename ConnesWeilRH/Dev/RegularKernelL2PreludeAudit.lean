@@ -1,0 +1,18 @@
+import ConnesWeilRH.Source.CC20Concrete.RegularKernelL2Prelude
+
+open ConnesWeilRH Source ConnesWeilRH.Source.CC20Concrete
+
+#check cc20CompactKernelSection_memLp
+#check cc20CompactContinuousFunction_memLp
+#check cc20CompactKernelSection_norm_bound
+#check cc20SqrtIMap_subtype_val
+#check cc20CompactRegularKernel_swap
+#check cc20CompactRegularKernel_memLp_two
+#check integrable_cc20CompactRegularKernel_norm_sq
+#check cc20CompactRegularKernel_norm_sq_fubini
+#print axioms cc20CompactKernelSection_memLp
+#print axioms cc20CompactKernelSection_norm_bound
+#print axioms cc20CompactRegularKernel_swap
+#print axioms cc20CompactRegularKernel_memLp_two
+#print axioms integrable_cc20CompactRegularKernel_norm_sq
+#print axioms cc20CompactRegularKernel_norm_sq_fubini

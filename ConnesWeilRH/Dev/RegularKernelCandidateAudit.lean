@@ -1,0 +1,35 @@
+/- Audit for the explicit but non-owner CC20 regular scalar candidate. -/
+
+import ConnesWeilRH.Source.CC20Concrete.RegularKernelCandidate
+
+open ConnesWeilRH.Source.CC20Concrete
+
+#check cc20DeltaRegular
+#check continuous_cc20DeltaRegular
+#check cc20DeltaRegularDerivative
+#check cc20DeltaRegularSecondDerivative
+#check cc20QDeltaRegularCandidate
+#check cc20QDeltaRegularContinuousCandidate
+#check cc20QDeltaRegularContinuousCandidate_one
+#check tendsto_cc20QDeltaRegularCandidate_one_right
+#check continuousAt_cc20QDeltaRegularContinuousCandidate_one
+#check continuous_siQuotientDerivativeProfile
+#check multiplicativeQ
+#check hasDerivAt_cc20DeltaRegular
+#check deriv_cc20DeltaRegular_of_one_lt
+#check hasDerivAt_inv_sqrt
+#check hasDerivAt_siQuotientDerivativeProfile_comp
+#check hasDerivAt_cc20DeltaBranchSum
+#check hasDerivAt_cc20DeltaBranchSumDerivative
+#check hasDerivAt_deriv_cc20DeltaRegular
+#check secondDeriv_cc20DeltaRegular_of_one_lt
+#check multiplicativeQ_cc20DeltaRegular_of_one_lt
+#print axioms continuous_cc20DeltaRegular
+#print axioms hasDerivAt_cc20DeltaRegular
+#print axioms deriv_cc20DeltaRegular_of_one_lt
+#print axioms hasDerivAt_inv_sqrt
+#print axioms hasDerivAt_siQuotientDerivativeProfile_comp
+#print axioms secondDeriv_cc20DeltaRegular_of_one_lt
+#print axioms multiplicativeQ_cc20DeltaRegular_of_one_lt
+#print axioms cc20QDeltaRegularContinuousCandidate_one
+#print axioms tendsto_cc20QDeltaRegularCandidate_one_right

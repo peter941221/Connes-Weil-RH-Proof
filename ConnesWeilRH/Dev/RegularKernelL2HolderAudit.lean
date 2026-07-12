@@ -1,0 +1,18 @@
+import ConnesWeilRH.Source.CC20Concrete.RegularKernelL2Holder
+
+open ConnesWeilRH Source ConnesWeilRH.Source.CC20Concrete
+
+#check norm_cc20CompactMeasureOperator_le_holder
+#check cc20Compact_l2Factor_eq_lpNorm
+#check norm_cc20Compact_toLp_eq_lpNorm
+#check norm_cc20CompactMeasureOperator_le_kernelFactor_mul_toLp
+#check cc20CompactMeasureContinuousLinearMap
+#check cc20CompactMeasureToLpLinearMap
+#check cc20CompactL2Operator
+#check cc20CompactL2Operator_agrees_on_continuous
+
+#print axioms norm_cc20CompactMeasureOperator_le_holder
+#print axioms norm_cc20CompactMeasureOperator_le_kernelFactor_mul_toLp
+#print axioms cc20CompactMeasureToLpLinearMap
+#print axioms cc20CompactL2Operator
+#print axioms cc20CompactL2Operator_agrees_on_continuous

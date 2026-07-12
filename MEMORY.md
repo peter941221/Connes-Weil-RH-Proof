@@ -2599,3 +2599,196 @@ import-facing Dev audit pass in an isolated WSL2 ext4 snapshot, with only
 `propext`, `Classical.choice`, and `Quot.sound`. The remaining concrete producer
 is the CC20 containment of the control space in the span of the three
 evaluation kernels. See proof 138.
+
+2026-07-12 sine-integral regular-kernel foundation: Mathlib's `Real.sinc` and
+interval-integral FTC support an axiom-clean `sineIntegral` object. A second
+object, `sineIntegralQuotient x = integral_{0..1} sinc(x*t)`, gives a continuous
+extension of `Si(x)/x` without hiding a removable singularity. The source and
+import-facing audit pass in the isolated WSL2 ext4 snapshot with only
+`propext`, `Classical.choice`, and `Quot.sound`. This does not yet prove the
+explicit `Q`-regular kernel, its Hilbert-Schmidt bound, or the CC20
+evaluation-span containment. The nonzero quotient identity is now proved by
+interval-integral change of variables, and `deriv_sineIntegral` now gives the
+FTC derivative `Real.sinc`. The nonzero quotient derivative is also now proved
+by local equality and the quotient rule. See proof 139.
+
+2026-07-12 second differential layer: `hasDerivAt_sinc_of_ne_zero` and
+`hasDerivAt_deriv_sineIntegralQuotient` are now proved for nonzero points.
+The second derivative uses the FTC derivative of `sineIntegral`, the quotient
+rule, and the derivative of `x^2`; its audit remains standard Mathlib axioms.
+This still does not give the full second derivative of `cc20DeltaRegular` or a
+`K_I` kernel action identity. See proof 141.
+
+2026-07-12 CC20 delta regular profile candidate: `cc20DeltaRegular` now uses
+the continuous `Si(x)/x` extension to define the ordinary pre-Q scaling
+profile and proves it continuous in Lean. This is intentionally separate from
+the route API. Applying `Q`, proving a measurable square-integrable kernel, and
+proving its action identity remain open. The same module now proves the full
+pre-Q derivative on `1 < rho` by chain and product rules. The WSL2 import audit
+is axiom-clean. An explicit non-diagonal algebraic `cc20QDeltaRegularCandidate`
+is now recorded from the first and second profile derivatives; its equality to
+the differential operator and its kernel action remain open. See proof 140.
+
+The first-order portion is also exposed as
+`deriv_cc20DeltaRegular_of_one_lt`, proving the explicit derivative profile is
+Lean's actual `deriv` on `1 < rho`.
+
+`hasDerivAt_inv_sqrt` now proves the positive-domain derivative
+`(1/sqrt rho)'=-1/(2*rho*sqrt rho)`, leaving only the composite quotient
+second-derivative transport and final product-rule assembly for the full
+`cc20DeltaRegular` second derivative.
+
+`hasDerivAt_siQuotientDerivativeProfile_comp` now supplies the reusable
+second-order chain rule for any differentiable inner function whose value is
+nonzero, so both CC20 affine branches share one audited proof.
+
+2026-07-12 Q-delta differential identity: the branch-sum first and second
+derivatives, full `cc20DeltaRegular` second derivative, and
+`multiplicativeQ_cc20DeltaRegular_of_one_lt` are now proved in Lean. Thus the
+explicit `cc20QDeltaRegularCandidate` is the actual multiplicative-coordinate
+`Q(delta)` on `rho > 1`, not merely a symbolic formula. This remains a
+one-variable non-diagonal scalar result; measurability, square-integrability,
+the diagonal Dirac split, and the CC20 two-variable kernel action are open.
+See proof 142.
+
+2026-07-12 two-variable regular kernel: `ratioRadius=max(u/v,v/u)` is now
+defined on positive coordinates and proved continuous, symmetric, at least
+one, and equal to one exactly on the diagonal. `cc20RegularKernel` uses the
+source-backed finite diagonal value and the proved non-diagonal Q-delta
+formula; it is measurable and symmetric with explicit diagonal/off-diagonal
+read-offs. A global Haar-plane Hilbert-Schmidt claim is false because the
+ratio-only kernel is invariant under common scaling. The correct next domain
+is CC20's fixed `sqrt(I) x sqrt(I)`, with `I` contained in `(1/2,2)`. The
+diagonal limit and compact-domain square-integrability proofs remain open.
+See proof 143.
+
+2026-07-12 diagonal series check: symbolic expansion of the explicit
+non-diagonal Q-delta formula at `rho=1+e` is
+`8*pi^2/9 + Si(4*pi)/(4*pi) - 1/2 + (4*pi^2-1)e + O(e^2)`, matching the
+source-backed diagonal extension exactly. This is only a calculation guide;
+the Lean finite-order Taylor/limit proof is still missing. See proof 144.
+
+The first zero-order regularity layer is now proved: positive and negative
+`sinc` slope bounds imply `hasDerivAt_sinc_zero` with derivative zero. The
+remaining diagonal limit still needs higher-order quotient data.
+
+2026-07-12 diagonal limit closed axiom-clean: two L'Hopital reductions prove
+`hasDerivAt_deriv_sinc_zero` with value `-1/3`, then the corresponding
+integral-average profile has second derivative `-1/9` at zero. The explicit
+second-derivative profile is algebraically decomposed on the punctured
+neighborhood as `sinc'(x)/x - 2*(sin x - Si(x))/x^3`, yielding its limit
+`-1/9`. `sineIntegralQuotientSecondDerivativeExtension` fills the removable
+point and is continuous. The continuous Q-delta candidate now evaluates at
+`rho=1` to exactly `8*pi^2/9 + Si(4*pi)/(4*pi) - 1/2`; the original candidate
+has a proved right-hand limit to that value. On the actual positive-coordinate
+domain, `ratioRadius >= 1`, so the scalar extension is continuous on `Ici 1`
+and `cc20RegularKernel` is continuous at every diagonal point. Import-facing
+WSL audits remain limited to `propext`, `Classical.choice`, and `Quot.sound`.
+This still does not prove square-integrability, the CC20 kernel action, the
+`K_I` trace read-off, or RH.
+
+2026-07-12 compact rectangle L2 gate: fixed the concrete interval
+`cc20SqrtI = [1/2,2]` in positive coordinates (corresponding to
+`I=[1/4,4]`) and its product rectangle. `continuousOn_cc20RegularKernel_sqrtIRectangle`
+uses the already proved scalar `Ici 1` continuity and `ratioRadius >= 1`.
+The interval is represented by `x |-> <max x (1/2), positivity>`. Since the
+open positive subtype has no canonical `volume` MeasureSpace, the honest L2
+statement is made in the real coordinates carrying standard product volume:
+`integrableOn_cc20RegularKernelReal_sq_sqrtIRectangle`. This is the analytic L2
+gate for the same ordinary regular kernel, not yet the kernel-action identity
+or the source trace owner.
+
+2026-07-12 same-object L2 owner: `RegularKernelL2Data` binds the real
+coordinate kernel, compact domain, kernel/domain equalities, and the proved
+square-integrability field in one structure. Its finite square-integral theorem
+is audited without storing an operator action or Hilbert--Schmidt conclusion.
+This is an owner boundary for the next operator construction, not an RH route
+consumer.
+
+2026-07-12 integral-average zero regularity: `sinc_diff_bound_unit` gives the
+uniform bound `|sinc x - 1| <= x^2/4` on `|x| <= 1`. Integrating this bound over
+`t in [0,1]` proves `sineIntegralQuotient_sub_one_bound`; the interval-integral
+subtraction must be supplied explicitly with `intervalIntegral.integral_sub`
+and `volume` annotations. The resulting squeeze proof establishes
+`hasDerivAt_sineIntegralQuotient_zero : HasDerivAt sineIntegralQuotient 0 0`.
+The WSL2 import audit reports only `propext`, `Classical.choice`, and
+`Quot.sound`. This is still only scalar diagonal-limit groundwork; no `K_I`
+operator, two-variable action identity, or unconditional RH proof exists.
+2026-07-12 compact-interval operator: `continuousAt_cc20RegularKernel` and
+`continuous_cc20RegularKernel` lift the ordinary ratio kernel from the compact
+rectangle to the full positive-coordinate plane. The real-coordinate kernel
+is continuous after the `max(x,1/2)` positivity map. A fixed interval operator
+`cc20RegularKernelIntervalOperator` is defined by integrating the same kernel
+over `[1/2,2]`; parametric interval-integral continuity proves continuous
+outputs for continuous inputs. `cc20RegularKernelContinuousLinearMap` packages
+the operator on `ContinuousMap ℝ ℝ`, with audited additivity and scalar
+homogeneity. The construction remains below the CC20 source action: it does
+not prove an `L2` extension, Hilbert--Schmidt estimate, `K_I` identity, trace
+read-off, or RH. See proof 148.
+
+2026-07-12 compact operator norm bound: the interval `[1/2,2]` is now a
+compact subtype, the same ordinary kernel is packaged as a compact-domain
+`ContinuousMap`, and its integral action on continuous functions satisfies
+the explicit supremum-norm estimate `||T f|| <= (3/2)||K||||f||`.
+`cc20CompactContinuousLinearOperator` is therefore a genuine
+`ContinuousLinearMap`. The clamp used to totalize the real-variable integrand
+is proved equal to the original variable on the integration interval. This
+still does not establish an `L2` bound, Hilbert--Schmidt extension, CC20 `K_I`
+action identity, trace read-off, or RH. See proof 149.
+
+2026-07-12 compact interval measure: `cc20CompactMeasure` is the explicit
+subtype measure `Measure.comap Subtype.val volume` on `[1/2,2]`. Lean proves
+its total mass is exactly `ENNReal.ofReal (3/2)` and registers it as a finite
+measure. This is the measure parameter for the forthcoming `ContinuousMap.toLp`
+and `L2` estimate; it does not yet provide that estimate or an RH consequence.
+See proof 150.
+
+2026-07-12 L2 kernel-section prelude: every fixed-output section
+`y |-> cc20RegularKernelReal(x,y)` and every continuous compact-interval input
+is now proved `MemLp ... 2 cc20CompactMeasure`. The section's continuous
+supremum norm is bounded by the same compact two-variable kernel norm. These
+are the exact premises for the pending Holder/Cauchy--Schwarz operator bound;
+the full `L2 -> L2` extension and RH remain open. See proof 151.
+
+2026-07-12 L2 Holder layer: on `cc20CompactMeasure`, the same kernel section
+and continuous input satisfy a formal pointwise Holder estimate. The square
+root input factor is identified with `lpNorm f 2` and with the norm of
+`ContinuousMap.toLp 2 cc20CompactMeasure ℝ f`. The output integral is proved
+continuous in its compact output coordinate, additive, and homogeneous, and
+`cc20CompactMeasureToLpLinearMap` maps continuous inputs into `Lp ℝ 2`.
+The remaining bottom is the global output `L2` norm estimate needed by
+`LinearMap.extendOfNorm`; no full `L2` extension, CC20 action identity, or RH
+result exists yet. See proof 152.
+
+2026-07-12 L2 extension closed: the pointwise Holder bound was made uniform
+using the compact kernel supremum and the two square-root interval-mass
+factors, giving a global `L2` norm estimate. `ContinuousMap.toLp_denseRange`
+and `LinearMap.extendOfNorm` now construct the genuine same-kernel operator
+`cc20CompactL2Operator : Lp ℝ 2 cc20CompactMeasure →L[ℝ] Lp ℝ 2
+cc20CompactMeasure`, with an audited agreement theorem on every continuous
+input. This is an analytic operator owner only; the CC20 source action,
+Hilbert--Schmidt trace read-off, arithmetic terms, and RH remain open. See
+proof 153.
+
+2026-07-12 compact-kernel symmetry: the compact real-coordinate kernel on
+`[1/2,2] × [1/2,2]` is now proved symmetric by explicit transport through the
+positivity clamp and the positive-coordinate ratio-kernel symmetry theorem.
+This is only the kernel symmetry prerequisite for a possible self-adjointness
+proof; it does not identify the operator with CC20 `K_I` or provide a trace
+read-off. See proof 154.
+
+2026-07-12 L2 symmetry closed: the bilinear kernel is integrable on the
+compact product, and `integral_integral_swap` proves the continuous-input
+double-integral symmetry. `ContinuousMap.inner_toLp` transfers this to the
+dense L2 subspace, and `DenseRange.induction_on₂` extends it to all inputs:
+`inner ℝ (cc20CompactL2Operator u) v = inner ℝ u
+(cc20CompactL2Operator v)`. This is an axiom-clean symmetric operator owner,
+but not yet a Hilbert--Schmidt trace owner or CC20 `K_I` source action. See
+proof 155.
+
+2026-07-12 same-measure kernel L2 gate: `cc20CompactRegularKernel` is now
+proved `MemLp ... 2` on the exact product measure
+`cc20CompactMeasure.prod cc20CompactMeasure`, its squared norm is integrable,
+and Fubini identifies the product square integral with the iterated section
+integral. This removes the measure mismatch before Hilbert--Schmidt Parseval;
+the remaining bottom is `sum_i ||T e_i||^2 = integral |K|^2`. See proof 156.

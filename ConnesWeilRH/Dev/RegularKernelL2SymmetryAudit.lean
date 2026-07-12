@@ -1,0 +1,12 @@
+import ConnesWeilRH.Source.CC20Concrete.RegularKernelL2Symmetry
+
+open ConnesWeilRH Source ConnesWeilRH.Source.CC20Concrete
+
+#check integrable_cc20CompactKernel_bilinear
+#check cc20CompactMeasure_inner_symmetry_continuous
+#check cc20CompactL2Operator_inner_symmetry_continuous
+#check cc20CompactL2Operator_inner_symmetry
+
+#print axioms integrable_cc20CompactKernel_bilinear
+#print axioms cc20CompactMeasure_inner_symmetry_continuous
+#print axioms cc20CompactL2Operator_inner_symmetry

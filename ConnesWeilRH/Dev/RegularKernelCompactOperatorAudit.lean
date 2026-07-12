@@ -1,0 +1,16 @@
+import ConnesWeilRH.Source.CC20Concrete.RegularKernelCompactOperator
+
+open ConnesWeilRH Source ConnesWeilRH.Source.CC20Concrete
+
+#check @continuous_cc20CompactIntervalOperator
+#check @cc20CompactContinuousLinearMap
+#check @norm_cc20CompactContinuousOperator_le
+#check @cc20CompactContinuousLinearOperator
+
+#print continuous_cc20CompactIntervalOperator
+#print norm_cc20CompactContinuousOperator_le
+#print cc20CompactContinuousLinearOperator
+
+#print axioms continuous_cc20CompactIntervalOperator
+#print axioms norm_cc20CompactContinuousOperator_le
+#print axioms cc20CompactContinuousLinearOperator

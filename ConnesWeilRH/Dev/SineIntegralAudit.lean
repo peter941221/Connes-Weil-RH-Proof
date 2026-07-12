@@ -1,0 +1,53 @@
+/-
+Audit for the elementary analytic object used by the regular CC20 kernel.
+-/
+
+import ConnesWeilRH.Source.CC20Concrete.SineIntegral
+
+open ConnesWeilRH Source
+open ConnesWeilRH.Source.CC20Concrete
+
+#check sineIntegral
+#check continuous_sineIntegral
+#check deriv_sineIntegral
+#check sineIntegral_intervalIntegral
+#check sineIntegralQuotient
+#check continuous_sineIntegralQuotient
+#check sineIntegralQuotient_eq_div
+#check deriv_sineIntegralQuotient
+#check hasDerivAt_sineIntegralQuotient
+#check hasDerivAt_sinc_of_ne_zero
+#check sineIntegralQuotientSecondDerivativeProfile
+#check sinc_slope_bound_pos
+#check sinc_slope_bound_neg
+#check sinc_diff_bound_unit
+#check sineIntegralQuotient_sub_one_bound
+#check hasDerivAt_sineIntegralQuotient_zero
+#check deriv_sinc_zero
+#check hasDerivAt_deriv_sinc_zero
+#check hasDerivAt_siQuotientDerivativeProfile_zero
+#check hasDerivAt_deriv_sineIntegralQuotient_zero
+#check tendsto_sineIntegralQuotientSecondDerivativeProfile_zero
+#check sineIntegralQuotientSecondDerivativeExtension
+#check continuous_sineIntegralQuotientSecondDerivativeExtension
+#check hasDerivAt_sinc_zero
+#check hasDerivAt_deriv_sineIntegralQuotient
+
+#print axioms continuous_sineIntegral
+#print axioms deriv_sineIntegral
+#print axioms sineIntegral_intervalIntegral
+#print axioms continuous_sineIntegralQuotient
+#print axioms sineIntegralQuotient_eq_div
+#print axioms deriv_sineIntegralQuotient
+#print axioms hasDerivAt_sineIntegralQuotient
+#print axioms hasDerivAt_sinc_of_ne_zero
+#print axioms hasDerivAt_deriv_sineIntegralQuotient
+#print axioms hasDerivAt_sinc_zero
+#print axioms sinc_diff_bound_unit
+#print axioms sineIntegralQuotient_sub_one_bound
+#print axioms hasDerivAt_sineIntegralQuotient_zero
+#print axioms hasDerivAt_deriv_sinc_zero
+#print axioms hasDerivAt_siQuotientDerivativeProfile_zero
+#print axioms hasDerivAt_deriv_sineIntegralQuotient_zero
+#print axioms tendsto_sineIntegralQuotientSecondDerivativeProfile_zero
+#print axioms continuous_sineIntegralQuotientSecondDerivativeExtension

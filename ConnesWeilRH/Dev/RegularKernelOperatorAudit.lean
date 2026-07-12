@@ -1,0 +1,15 @@
+import ConnesWeilRH.Source.CC20Concrete.RegularKernelOperator
+
+open ConnesWeilRH Source ConnesWeilRH.Source.CC20Concrete
+
+#check continuous_cc20SqrtIMap
+#check continuous_cc20RegularKernelReal
+#check continuous_cc20RegularKernelIntervalOperator
+#check cc20RegularKernelContinuousOperator_add
+#check cc20RegularKernelContinuousOperator_smul
+#check cc20RegularKernelContinuousLinearMap
+
+#print axioms continuous_cc20RegularKernelIntervalOperator
+#print axioms cc20RegularKernelContinuousOperator_add
+#print axioms cc20RegularKernelContinuousOperator_smul
+#print axioms cc20RegularKernelContinuousLinearMap

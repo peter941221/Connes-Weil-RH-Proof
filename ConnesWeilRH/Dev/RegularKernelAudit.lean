@@ -1,0 +1,35 @@
+/- Import-facing audit for the two-variable ordinary regular kernel. -/
+
+import ConnesWeilRH.Source.CC20Concrete.RegularKernel
+
+open ConnesWeilRH.Source.CC20Concrete
+
+#check ratioRadius
+#check one_le_ratioRadius
+#check ratioRadius_eq_one_iff
+#check cc20RegularKernel
+#check cc20QDeltaDiagonalValue
+#check cc20QDeltaRegularExtension
+#check cc20RegularKernel_diagonal
+#check cc20RegularKernel_off_diagonal
+#check measurable_cc20RegularKernel
+#check cc20RegularKernel_swap
+#check continuousWithinAt_cc20QDeltaRegularExtension_Ici
+#check continuousAt_cc20RegularKernel_diagonal
+#check cc20SqrtI
+#check cc20SqrtIRectangle
+#check continuousOn_cc20RegularKernel_sqrtIRectangle
+#check cc20RegularKernelReal
+#check cc20RealSqrtIRectangle
+#check continuousOn_cc20RegularKernelReal_sqrtIRectangle
+#check integrableOn_cc20RegularKernelReal_sq_sqrtIRectangle
+
+#print axioms one_le_ratioRadius
+#print axioms ratioRadius_eq_one_iff
+#print axioms measurable_cc20RegularKernel
+#print axioms cc20RegularKernel_swap
+#print axioms continuousWithinAt_cc20QDeltaRegularExtension_Ici
+#print axioms continuousAt_cc20RegularKernel_diagonal
+#print axioms continuousOn_cc20RegularKernel_sqrtIRectangle
+#print axioms continuousOn_cc20RegularKernelReal_sqrtIRectangle
+#print axioms integrableOn_cc20RegularKernelReal_sq_sqrtIRectangle
