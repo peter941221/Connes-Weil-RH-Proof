@@ -39,6 +39,15 @@ focused axiom audit:
 ## 2. Current Proof State
 
 The repository does not yet prove RH unconditionally.
+
+Current crossing-layer milestone: `ContinuousKernelHilbertSchmidt` provides
+an axiom-clean generic continuous-kernel `A†B` trace theorem, and
+`SelectedCrossingKernel.pairData_trace_eq_restricted_crossing_integral`
+specializes it to both corrected `P_- U_b P_+` crossing orientations on
+compact intervals without caller-supplied integrability hypotheses. Do not
+describe this as the finite-prime trace identity: support reduction to the
+same selected convolution square and the finite-prime read-off are still
+open.
 `unconditional_rh_skeleton` depends on six project roots:
 
 ```text
@@ -670,7 +679,7 @@ class `-2 Id+compact`; never infer `norm(K)<2` or triple-vanishing control from
 compactness alone.
 
 The single half-line crossing is no longer an open coefficient heuristic. If
-`J_b=(I-P)U_(-b)P` and `C_h` is convolution, then
+`J_b=(I-P)U_bP` and `C_h` is convolution, then
 `Tr(C_h* C_h J_b)=b(h* * h)(b)`. With `b=m log(p)` and logarithmic-flow
 coefficient `p^(-m/2)/m`, this is exactly the finite-prime Weil coefficient
 `p^(-m/2)log(p)` on the same square. Assign this noncompact single-crossing
@@ -685,6 +694,14 @@ that integral with an operator trace. The remaining producer must construct
 the actual half-line crossing operator, prove trace-class legality after the
 same test smoothing, and derive the basis trace equality; do not treat the
 diagonal integral definition as that missing trace theorem.
+
+The project translation API uses `U_b u(t)=u(t+b)`. Therefore the implemented
+positive-length crossing is `(I-P)U_bP`, which transports `[0,b)` to
+`[-b,0)` for `b>0`. Do not restore `(I-P)U_(-b)P`: under this convention it is
+zero for every nonnegative `b`. The first rank-one smoothing has ordinary
+trace `<h,J_b k>` and cannot be identified with `b(F(b)+F(-b))`. The latter
+requires the genuine convolution-smoothed operator `C_h* C_h J_b` and the
+two-Hilbert-Schmidt product trace theorem; see proof 191.
 
 The project sign is fixed: the metric first variation is the negative of the
 crossing pair, and CCM25 has `QW=archimedean+pole-sum_p W_p`. Thus the local

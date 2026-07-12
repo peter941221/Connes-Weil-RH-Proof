@@ -82,7 +82,7 @@ a.e. statement.
 The bounded operator
 
 ```text
-cc20SingleCrossingOperator b = (I-P_+) U_(-b) P_+
+cc20SingleCrossingOperator b = (I-P_+) U_b P_+
 ```
 
 is defined as a composition of continuous linear maps. The theorem
@@ -91,6 +91,12 @@ contains no stored crossing scalar, trace value, or trace-class certificate.
 The theorem `cc20NegativeHalfLineProjection_coeFn` additionally identifies
 `I-P_+` almost everywhere with the `Iio 0` indicator, making the intended
 positive-to-negative half-line geometry explicit at the function level.
+
+The sign of the translation is forced by the convention
+`U_b u(t)=u(t+b)`: for `b>0`, `U_b` transports the source interval `[0,b)`
+into the output interval `[-b,0)`. The earlier `U_(-b)` draft sampled the
+positive projection only at negative points and therefore gave the zero
+crossing for every nonnegative `b`; it cannot model `b=m*log(p)`.
 
 ## Boundary
 

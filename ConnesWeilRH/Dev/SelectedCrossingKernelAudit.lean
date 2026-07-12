@@ -1,0 +1,11 @@
+import ConnesWeilRH.Source.CCM25Concrete.SelectedCrossingKernel
+
+open ConnesWeilRH Source
+open ConnesWeilRH.Source.CCM25Concrete
+
+#check @SelectedCrossingKernel.pairData_trace_eq_restricted_crossing_integral
+#print SelectedCrossingKernel.pairData_trace_eq_restricted_crossing_integral
+#print axioms SelectedCrossingKernel.pairData_trace_eq_restricted_crossing_integral
+
+#check @ConnesWeilRH.Source.CC20Concrete.ContinuousKernelHilbertSchmidt.pairData_trace_eq_kernel_inner
+#print axioms ConnesWeilRH.Source.CC20Concrete.ContinuousKernelHilbertSchmidt.pairData_trace_eq_kernel_inner

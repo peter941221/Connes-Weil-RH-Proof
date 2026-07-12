@@ -59,6 +59,18 @@ theorem cc20SmoothedCrossing_basis_normSq_summable
     ring
   simpa only [hnorm] using hBessel.mul_left (‖cc20SingleCrossingOperator b k‖ ^ 2)
 
+/-- The ordinary trace of the first-stage rank-one smoothing is its rank-one
+pairing. This is not the convolution-square diagonal scalar. -/
+theorem cc20SmoothedCrossing_ordinaryTraceAlong
+    (b : ℝ) (k h : cc20GlobalLogCrossingL2)
+    {ι : Type*}
+    (basis : HilbertBasis ι ℂ cc20GlobalLogCrossingL2) :
+    PositiveTrace.ordinaryTraceAlong basis (cc20SmoothedCrossing b k h) =
+      ⟪h, cc20SingleCrossingOperator b k⟫_ℂ := by
+  rw [PositiveTrace.ordinaryTraceAlong]
+  simp_rw [cc20SmoothedCrossing_apply, inner_smul_right]
+  exact basis.tsum_inner_mul_inner h (cc20SingleCrossingOperator b k)
+
 noncomputable def cc20SmoothedCrossingBasisHilbertSchmidtData
     (b : ℝ) (k h : cc20GlobalLogCrossingL2)
     {ι : Type*}
@@ -102,6 +114,16 @@ theorem cc20SourceTestSmoothedCrossing_eq_rankOne
         (cc20SingleCrossingOperator b (cc20LogPullbackLp p))
         (cc20LogPullbackLp p) := by
   exact cc20SmoothedCrossing_eq_rankOne b _ _
+
+theorem cc20SourceTestSmoothedCrossing_ordinaryTraceAlong
+    (p : CC20YoshidaInterpolationNode.CC20YoshidaExpandedMomentNode.PositiveIntervalCompactTest)
+    (b : ℝ) {ι : Type*}
+    (basis : HilbertBasis ι ℂ cc20GlobalLogCrossingL2) :
+    PositiveTrace.ordinaryTraceAlong basis
+        (cc20SourceTestSmoothedCrossing p b) =
+      ⟪cc20LogPullbackLp p,
+        cc20SingleCrossingOperator b (cc20LogPullbackLp p)⟫_ℂ := by
+  exact cc20SmoothedCrossing_ordinaryTraceAlong b _ _ basis
 
 theorem cc20SourceTestSmoothedCrossing_positiveComposition_traceClass
     (p : CC20YoshidaInterpolationNode.CC20YoshidaExpandedMomentNode.PositiveIntervalCompactTest)

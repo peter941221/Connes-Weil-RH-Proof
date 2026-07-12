@@ -104,6 +104,64 @@ theorem ordinaryTrace_positiveComposition_re_nonnegative
   simpa using data.hsNormSq_nonnegative
 
 end BasisHilbertSchmidtData
+
+/-- Two Hilbert-Schmidt operators with a common source basis. Their target
+space may differ from the source, as required by crossing factorizations. -/
+structure BasisHilbertSchmidtPairData
+    {G : Type*} [NormedAddCommGroup G] [InnerProductSpace ℂ G]
+    (basis : HilbertBasis ι ℂ H) where
+  left : H →L[ℂ] G
+  right : H →L[ℂ] G
+  left_summable_normSq : Summable fun i => ‖left (basis i)‖ ^ 2
+  right_summable_normSq : Summable fun i => ‖right (basis i)‖ ^ 2
+
+namespace BasisHilbertSchmidtPairData
+
+variable {G : Type*} [NormedAddCommGroup G] [InnerProductSpace ℂ G]
+  [CompleteSpace G]
+
+noncomputable def traceProduct
+    {basis : HilbertBasis ι ℂ H}
+    (data : BasisHilbertSchmidtPairData (G := G) basis) : H →L[ℂ] H :=
+  data.left† ∘L data.right
+
+theorem traceProduct_diagonal
+    {basis : HilbertBasis ι ℂ H}
+    (data : BasisHilbertSchmidtPairData (G := G) basis) (i : ι) :
+    ⟪basis i, data.traceProduct (basis i)⟫_ℂ =
+      ⟪data.left (basis i), data.right (basis i)⟫_ℂ := by
+  rw [traceProduct, ContinuousLinearMap.coe_comp', Function.comp_apply,
+    ContinuousLinearMap.adjoint_inner_right]
+
+theorem summable_traceProduct_diagonal
+    {basis : HilbertBasis ι ℂ H}
+    (data : BasisHilbertSchmidtPairData (G := G) basis) :
+    Summable fun i => ⟪basis i, data.traceProduct (basis i)⟫_ℂ := by
+  rw [show (fun i => ⟪basis i, data.traceProduct (basis i)⟫_ℂ) =
+      (fun i => ⟪data.left (basis i), data.right (basis i)⟫_ℂ) by
+    funext i
+    exact data.traceProduct_diagonal i]
+  apply Summable.of_norm_bounded
+    ((data.left_summable_normSq.add data.right_summable_normSq).mul_left
+      (1 / 2 : ℝ))
+  intro i
+  have hinner := norm_inner_le_norm (𝕜 := ℂ)
+    (data.left (basis i)) (data.right (basis i))
+  have hsq :
+      ‖data.left (basis i)‖ * ‖data.right (basis i)‖ ≤
+        (1 / 2 : ℝ) *
+          (‖data.left (basis i)‖ ^ 2 + ‖data.right (basis i)‖ ^ 2) := by
+    nlinarith [sq_nonneg
+      (‖data.left (basis i)‖ - ‖data.right (basis i)‖)]
+  exact hinner.trans hsq
+
+theorem traceProduct_isTraceClassAlong
+    {basis : HilbertBasis ι ℂ H}
+    (data : BasisHilbertSchmidtPairData (G := G) basis) :
+    IsTraceClassAlong basis data.traceProduct :=
+  data.summable_traceProduct_diagonal
+
+end BasisHilbertSchmidtPairData
 end PositiveTrace
 end CC20Concrete
 end Source

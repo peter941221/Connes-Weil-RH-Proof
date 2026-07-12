@@ -197,14 +197,14 @@ theorem cc20NegativeHalfLineProjection_coeFn
 noncomputable def cc20SingleCrossingOperator (b : ℝ) :
     cc20GlobalLogCrossingL2 →L[ℂ] cc20GlobalLogCrossingL2 :=
   cc20NegativeHalfLineProjection.comp
-    ((cc20GlobalLogTranslation (-b)).toContinuousLinearMap.comp
+    ((cc20GlobalLogTranslation b).toContinuousLinearMap.comp
       cc20PositiveHalfLineProjection)
 
 theorem cc20SingleCrossingOperator_apply
     (b : ℝ) (u : cc20GlobalLogCrossingL2) :
     cc20SingleCrossingOperator b u =
       cc20NegativeHalfLineProjection
-        (cc20GlobalLogTranslation (-b)
+        (cc20GlobalLogTranslation b
           (cc20PositiveHalfLineProjection u)) := by
   rfl
 

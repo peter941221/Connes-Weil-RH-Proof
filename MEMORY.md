@@ -12,6 +12,19 @@ a reusable failure mode.
 Result: the repository does not contain an unconditional proof of the Riemann
 Hypothesis.
 
+The corrected global-log crossing phase now has a generic continuous-kernel
+Hilbert-Schmidt owner in
+`ConnesWeilRH.Source.CC20Concrete.ContinuousKernelHilbertSchmidt`. Its
+`pairData_trace_eq_kernel_inner` theorem proves the `A†B` basis trace equals
+the paired section integral, with coefficient integrability and absolute
+diagonal summability discharged from continuity on compact finite-measure
+spaces. `SelectedCrossingKernel` specializes this to the two crossing
+orientations on compact source/kernel intervals; its public trace theorem has
+no caller-supplied analytic side conditions and the focused audit uses only
+`propext`, `Classical.choice`, and `Quot.sound`. This is only the operator and
+restricted-integral layer: support reduction to the selected convolution
+square, finite-prime read-off, sign gate, and the RH consumer remain unproved.
+
 Plan 016 Contract M0 is complete at the trace-class interface. The proved
 source-normalized identity is
 
@@ -1681,7 +1694,7 @@ reopen the restricted-test RH exit. See
 `docs/proofs/037_metric_sonin_ideal_closure.md`.
 
 The single-crossing finite-prime read-off is now exact. For the half-line
-crossing `J_b=(I-P)U_-b P` and test convolution `C_h`, diagonal kernel
+crossing `J_b=(I-P)U_b P` and test convolution `C_h`, diagonal kernel
 intersection gives `Tr(C_h* C_h J_b)=b(h* * h)(b)`. Taking
 `b=m log(p)` and multiplying by the metric logarithmic-flow coefficient
 `p^(-m/2)/m` yields the exact Weil atom
@@ -3253,7 +3266,7 @@ measure-preserving right-addition map. It proves the a.e. formula
 back through the measure-preserving translation. These are only the bounded
 half-line projection and unitary translation inputs. The bounded operator
 `cc20SingleCrossingOperator b` is now the literal composition
-`(I-P_+) U_(-b) P_+`; it stores no scalar read-off and claims no operator
+`(I-P_+) U_b P_+`; it stores no scalar read-off and claims no operator
 ideal. No trace-class theorem, trace cyclicity, basis-trace/diagonal-integral
 identity, or RH consumer has been constructed. See proof 189.
 `cc20NegativeHalfLineProjection_coeFn` additionally identifies `I-P_+`
@@ -3262,7 +3275,7 @@ explicit at the function level.
 
 2026-07-13 rank-one smoothed crossing trace-class producer:
 `GlobalLogCrossingTraceClass.lean` now composes the genuine global crossing
-`(I-P_+) U_(-b) P_+` with a rank-one smoothing. The exact identity reduces the
+`(I-P_+) U_b P_+` with a rank-one smoothing. The exact identity reduces the
 composition to `rankOne (crossing k) h`; Hilbert-basis Bessel summability then
 constructs `PositiveTrace.BasisHilbertSchmidtData`, proves the positive
 composition trace-class along every Hilbert basis, and proves its ordinary
@@ -3274,3 +3287,19 @@ import audit are axiom-clean under `propext`, `Classical.choice`, and
 `Quot.sound`. This closes the first minimal trace-class producer only: the full
 Schwartz convolution crossing, basis-trace/diagonal-integral identity,
 finite-prime read-off, finite-S sign gate, and RH remain open. See proof 190.
+
+2026-07-13 single-crossing trace-identity verdict: the translation convention
+is `U_b u(t)=u(t+b)`, so the positive-length crossing must be
+`(I-P_+)U_bP_+`. The earlier `U_(-b)` draft is zero for every `b>=0` and cannot
+model `b=m*log(p)`; `cc20SingleCrossingOperator` now uses the forced `U_b`
+direction. The rank-one smoothing also cannot supply the selected diagonal
+trace: `cc20SmoothedCrossing_ordinaryTraceAlong` proves for every Hilbert basis
+that its trace is exactly `<h,J_b k>`, not `b(F(b)+F(-b))`. The latter belongs
+to the distinct convolution-smoothed operator `C_h* C_h J_b`. The direct
+rank-one-to-prime-read-off continuation is therefore rejected.
+`PositiveTrace.BasisHilbertSchmidtPairData` supplies the correct next bottom:
+from independently square-summable `A` and `B`, it proves the diagonal series
+of `A* B` absolutely summable by Cauchy--Schwarz and the arithmetic-geometric
+mean bound. The Schwartz translation-section operator and the
+basis-trace/kernel-diagonal integral remain open, as do finite-S positivity and
+RH. See proof 191.
