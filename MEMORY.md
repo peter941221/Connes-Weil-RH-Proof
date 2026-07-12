@@ -2792,3 +2792,16 @@ proved `MemLp ... 2` on the exact product measure
 and Fubini identifies the product square integral with the iterated section
 integral. This removes the measure mismatch before Hilbert--Schmidt Parseval;
 the remaining bottom is `sum_i ||T e_i||^2 = integral |K|^2`. See proof 156.
+
+2026-07-12 real Hilbert--Schmidt summability: the compact operator now has the
+full-`L2` kernel coefficient representation
+`cc20CompactL2Operator u = toLp (x |-> inner u K_x)`. For every real Hilbert
+basis, finite sums of `||T e_i||^2` are bounded by the integral of the squared
+`L2` norms of the same kernel sections. Pointwise Bessel inequality and
+`summable_of_sum_le` therefore prove
+`cc20CompactL2Operator_basis_normSq_summable`. This closes genuine real
+Hilbert--Schmidt summability without an RH or Weil-positivity premise. The
+project's positive-trace interface is complex, so a legal complex same-kernel
+operator or complexification remains necessary; the exact product-kernel
+Parseval equality and CC20 `K_I` action identity also remain open. See proof
+157.

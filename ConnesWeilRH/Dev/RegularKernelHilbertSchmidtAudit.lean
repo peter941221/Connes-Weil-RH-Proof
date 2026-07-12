@@ -1,0 +1,17 @@
+import ConnesWeilRH.Source.CC20Concrete.RegularKernelHilbertSchmidt
+
+#check @ConnesWeilRH.Source.CC20Concrete.cc20CompactKernelSectionToLp
+#check @ConnesWeilRH.Source.CC20Concrete.continuous_cc20CompactKernelSectionToLp
+#check @ConnesWeilRH.Source.CC20Concrete.cc20CompactKernelCoefficient
+#check @ConnesWeilRH.Source.CC20Concrete.cc20CompactKernelCoefficientContinuousLinearMap
+#check @ConnesWeilRH.Source.CC20Concrete.cc20CompactKernelCoefficientToLpOperator_eq
+#check @ConnesWeilRH.Source.CC20Concrete.cc20CompactL2Operator_eq_kernelCoefficient
+#check @ConnesWeilRH.Source.CC20Concrete.cc20CompactL2Operator_finite_basis_sum_le_kernel_energy
+#check @ConnesWeilRH.Source.CC20Concrete.cc20CompactL2Operator_basis_normSq_summable
+
+#print ConnesWeilRH.Source.CC20Concrete.cc20CompactKernelCoefficientToLpOperator_eq
+#print axioms ConnesWeilRH.Source.CC20Concrete.cc20CompactKernelCoefficientToLpOperator_eq
+#print axioms ConnesWeilRH.Source.CC20Concrete.cc20CompactL2Operator_eq_kernelCoefficient
+#print ConnesWeilRH.Source.CC20Concrete.cc20CompactL2Operator_basis_normSq_summable
+#print axioms ConnesWeilRH.Source.CC20Concrete.cc20CompactL2Operator_finite_basis_sum_le_kernel_energy
+#print axioms ConnesWeilRH.Source.CC20Concrete.cc20CompactL2Operator_basis_normSq_summable
