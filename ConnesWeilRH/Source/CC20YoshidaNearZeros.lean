@@ -213,6 +213,52 @@ theorem summable_of_dyadic_shell_card_bound
                 rw [mul_pow]
                 ring
 
+/-- A geometric shell-count bound with ratio strictly below `4` turns
+quadratic dyadic pointwise decay into absolute summability. This is the actual
+growth threshold needed by the spectral tail; the `O(R log R)` specialization
+above is stronger than necessary. -/
+theorem summable_of_geometric_shell_card_bound
+    {alpha : Type*} (f : alpha -> Real) (shell : Nat -> Set alpha)
+    (hf : forall x, 0 <= f x)
+    (hpartition : forall x, ExistsUnique (fun n => x ∈ shell n))
+    (hfinite : forall n, (shell n).Finite)
+    {K B q : Real} (hB : 0 <= B) (hq : 0 <= q) (hq4 : q < 4)
+    (hcard : forall n, ((shell n).ncard : Real) <= K * q ^ n)
+    (hpoint : forall n (x : shell n),
+      f x <= B / ((2 : Real) ^ n) ^ 2) :
+    Summable f := by
+  rw [summable_partition hf hpartition]
+  constructor
+  · intro n
+    letI := (hfinite n).fintype
+    exact (hasSum_fintype (fun x : shell n => f x)).summable
+  · have hratioNonneg : 0 <= q / 4 := div_nonneg hq (by norm_num)
+    have hratioLt : q / 4 < 1 := (div_lt_one (by norm_num : (0 : Real) < 4)).mpr hq4
+    have hgeometric : Summable (fun n : Nat => (q / 4) ^ n) :=
+      summable_geometric_of_lt_one hratioNonneg hratioLt
+    refine Summable.of_nonneg_of_le (fun n => tsum_nonneg fun x => hf x) ?_
+      (hgeometric.mul_left (K * B))
+    intro n
+    letI := (hfinite n).fintype
+    rw [tsum_fintype]
+    calc
+      (∑ x : shell n, f x) <=
+          ∑ _x : shell n, B / ((2 : Real) ^ n) ^ 2 := by
+            exact Finset.sum_le_sum fun x _hx => hpoint n x
+      _ = ((shell n).ncard : Real) *
+          (B / ((2 : Real) ^ n) ^ 2) := by
+            simp [Set.ncard, nsmul_eq_mul]
+      _ <= (K * q ^ n) * (B / ((2 : Real) ^ n) ^ 2) := by
+            exact mul_le_mul_of_nonneg_right (hcard n) (div_nonneg hB (sq_nonneg _))
+      _ = K * B * (q / 4) ^ n := by
+            rw [div_pow]
+            norm_num [pow_two, mul_pow]
+            have hfour : (2 : Real) ^ n * (2 : Real) ^ n = 4 ^ n := by
+              rw [← mul_pow]
+              norm_num
+            rw [hfour]
+            ring
+
 theorem exists_lt_two_pow_succ (r : Real) :
     ∃ n : Nat, r < (2 : Real) ^ (n + 1) := by
   have heventually :=
@@ -355,6 +401,47 @@ theorem sourceNontrivialZero_summable_of_dyadic_bounds
     (sourceNontrivialZeroDyadicShell rho) hf
     (sourceNontrivialZeroDyadicShell_partition rho)
     (sourceNontrivialZeroDyadicShell_finite rho) hB hcard hpoint
+
+/-- The source-zero specialization of the sharp geometric threshold. Any
+dyadic shell growth ratio below `4` is compatible with quadratic spectral
+decay. -/
+theorem sourceNontrivialZero_summable_of_geometric_dyadic_bounds
+    (rho : ℂ) (f : sourceNontrivialZeroSet -> Real)
+    (hf : forall z, 0 <= f z) {K B q : Real}
+    (hB : 0 <= B) (hq : 0 <= q) (hq4 : q < 4)
+    (hcard : forall n,
+      ((sourceNontrivialZeroDyadicShell rho n).ncard : Real) <= K * q ^ n)
+    (hpoint : forall n (z : sourceNontrivialZeroDyadicShell rho n),
+      f z <= B / ((2 : Real) ^ n) ^ 2) :
+    Summable f :=
+  summable_of_geometric_shell_card_bound f
+    (sourceNontrivialZeroDyadicShell rho) hf
+    (sourceNontrivialZeroDyadicShell_partition rho)
+    (sourceNontrivialZeroDyadicShell_finite rho) hB hq hq4 hcard hpoint
+
+/-- The sharp geometric consumer stated with the symmetric-height counting
+function used by the Jensen reduction. -/
+theorem sourceNontrivialZero_summable_of_symmetricHeight_geometric_bounds
+    (rho : ℂ) (f : sourceNontrivialZeroSet -> Real)
+    (hf : forall z, 0 <= f z) {K B q : Real}
+    (hB : 0 <= B) (hq : 0 <= q) (hq4 : q < 4)
+    (hcount : forall n,
+      ((sourceNontrivialZerosInSymmetricHeight
+        (|rho.im| + (2 : Real) ^ (n + 1))).ncard : Real) <= K * q ^ n)
+    (hpoint : forall n (z : sourceNontrivialZeroDyadicShell rho n),
+      f z <= B / ((2 : Real) ^ n) ^ 2) :
+    Summable f := by
+  apply sourceNontrivialZero_summable_of_geometric_dyadic_bounds
+    rho f hf hB hq hq4
+  · intro n
+    calc
+      ((sourceNontrivialZeroDyadicShell rho n).ncard : Real) <=
+          ((sourceNontrivialZerosInSymmetricHeight
+            (|rho.im| + (2 : Real) ^ (n + 1))).ncard : Real) := by
+              exact_mod_cast
+                sourceNontrivialZeroDyadicShell_ncard_le_symmetricHeight rho n
+      _ <= K * q ^ n := hcount n
+  · exact hpoint
 
 /-- The summability consumer stated directly with the symmetric zero-counting
 function used by the source Riemann--von Mangoldt estimate. -/

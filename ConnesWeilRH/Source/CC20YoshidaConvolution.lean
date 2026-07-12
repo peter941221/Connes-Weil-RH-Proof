@@ -536,6 +536,23 @@ theorem laplaceAt_convolutionIterate_rescale_inv_natCast_convolution
   rw [laplaceAt_convolution,
     laplaceAt_convolutionIterate_rescale_inv_natCast]
 
+/-- Interpolating the correction to value one at `rho` does not make the
+assembled Yoshida product detect `rho`. If the rescaled base factor vanishes
+there, the complete product still vanishes. This is the rejection guard for
+treating correction-node interpolation as assembled-test interpolation. -/
+theorem laplaceAt_convolutionIterate_rescale_inv_natCast_convolution_eq_zero_of_base
+    (f correction : CompactLogTest) (rho : ℂ) (n : ℕ)
+    (hbase :
+      laplaceAt f (((((n + 1 : ℕ) : ℝ)⁻¹ : ℝ) : ℂ) * rho) = 0)
+    (hcorrection : laplaceAt correction rho = 1) :
+    laplaceAt
+        ((convolutionIterate
+          (rescale f (((n + 1 : ℕ) : ℝ)⁻¹) (by positivity)) n).convolution
+            correction) rho = 0 := by
+  rw [laplaceAt_convolutionIterate_rescale_inv_natCast_convolution,
+    hbase, hcorrection]
+  simp
+
 /-- A contraction for the base factor and quadratic decay for the finite
 correction give a quadratic far-vertical bound for the assembled Yoshida
 product. Rescaling enlarges the height threshold by exactly `n + 1`. -/
@@ -881,6 +898,27 @@ theorem convolutionIterate_rescale_inv_natCast_convolution_support_subset_of_bud
       f correction hsupport hcorrection n hx
   exact ⟨lt_of_le_of_lt hlower hbounds.1,
     lt_of_lt_of_le hbounds.2 hupper⟩
+
+/-- Splitting any prescribed log-support window equally between the normalized
+base power and the finite correction keeps the assembled Yoshida test in that
+same outer window. In particular, increasing the convolution count creates no
+minimum support width. -/
+theorem convolutionIterate_rescale_inv_natCast_convolution_support_subset_half_budget
+    (f correction : CompactLogTest) {outerLower outerUpper : ℝ}
+    (hsupport : Function.support f.test ⊆
+      Set.Ioo (outerLower / 2) (outerUpper / 2))
+    (hcorrection : Function.support correction.test ⊆
+      Set.Ioo (outerLower / 2) (outerUpper / 2))
+    (n : ℕ) :
+    Function.support
+        ((convolutionIterate
+          (rescale f (((n + 1 : ℕ) : ℝ)⁻¹) (by positivity)) n).convolution
+            correction).test ⊆
+      Set.Ioo outerLower outerUpper := by
+  apply convolutionIterate_rescale_inv_natCast_convolution_support_subset_of_budget
+    f correction hsupport hcorrection
+  · convert le_rfl using 1 <;> ring
+  · convert le_rfl using 1 <;> ring
 
 /-- The support budget for one finite correction factor adds its log-window to
 the `(n + 1)` copies consumed by the convolution power. -/

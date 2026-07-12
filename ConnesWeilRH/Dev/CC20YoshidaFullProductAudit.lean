@@ -1,0 +1,58 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: ConnesWeilRH contributors
+-/
+
+import ConnesWeilRH.Source.CC20YoshidaFullProduct
+
+/-!
+# Full-product Yoshida interpolation audit
+
+The audit fixes the boundary between proved finite interpolation and the still
+open base-nonvanishing and simultaneous all-zero-tail obligations.
+-/
+
+namespace ConnesWeilRH
+namespace Dev
+namespace CC20YoshidaFullProductAudit
+
+open Source.CC20YoshidaConvolution.CompactLogTest
+
+#check @fullProductBaseFactor
+#check @fullProductScale
+#check @fullProductScaledNodes
+#check @hermitianNodeClosure
+#check @laplaceAt_involution
+#check @convolutionSquare_support_subset_symmetric
+#check @fullProductBaseFactor_convolutionSquare
+#check @fullProductScale_mul_ne_neg_star_of_re_nonneg_pos
+#check @laplaceAt_convolutionIterate_rescale_inv_natCast_convolution_eq_fullProduct
+#check @laplaceAt_convolutionSquare_convolutionIterate_rescale_inv_natCast
+#check @exists_residualWindow_base_fullProduct_normalized_with_quadratic_decay
+#check @exists_convolutionSquare_base_fullProduct_normalized
+#check @exists_convolutionSquare_base_fullProduct_indicator
+#check @exists_convolutionSquare_base_fullProduct_indicator_of_re_nonnegative
+#check @exists_sourceZero_nearby_convolutionSquare_indicator
+#check @exists_residualWindow_correction_full_product_interpolation
+
+#print axioms fullProductBaseFactor
+#print axioms fullProductScale
+#print axioms fullProductScaledNodes
+#print axioms hermitianNodeClosure
+#print axioms laplaceAt_involution
+#print axioms convolutionSquare_support_subset_symmetric
+#print axioms fullProductBaseFactor_convolutionSquare
+#print axioms fullProductScale_mul_ne_neg_star_of_re_nonneg_pos
+#print axioms laplaceAt_convolutionIterate_rescale_inv_natCast_convolution_eq_fullProduct
+#print axioms laplaceAt_convolutionSquare_convolutionIterate_rescale_inv_natCast
+#print axioms exists_residualWindow_base_fullProduct_normalized_with_quadratic_decay
+#print axioms exists_convolutionSquare_base_fullProduct_normalized
+#print axioms exists_convolutionSquare_base_fullProduct_indicator
+#print axioms exists_convolutionSquare_base_fullProduct_indicator_of_re_nonnegative
+#print axioms exists_sourceZero_nearby_convolutionSquare_indicator
+#print axioms exists_residualWindow_correction_full_product_interpolation
+
+end CC20YoshidaFullProductAudit
+end Dev
+end ConnesWeilRH

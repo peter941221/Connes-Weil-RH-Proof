@@ -6,6 +6,7 @@ Authors: ConnesWeilRH contributors
 
 import Mathlib.Analysis.InnerProductSpace.Orthogonal
 import Mathlib.Analysis.Normed.Operator.Compact.Basic
+import Mathlib.Analysis.Normed.Operator.Compact.FiniteDimension
 import Mathlib.LinearAlgebra.FiniteDimensional.Defs
 
 /-!
@@ -26,6 +27,20 @@ open scoped InnerProductSpace
 
 variable {H : Type*}
 variable [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+
+/-- A compact operator cannot equal a nonzero scalar multiple of the identity
+on an infinite-dimensional space. This is the compactness guard used to reject
+an identically vanishing `-2 Id + K` remainder on the zero-integral subspace. -/
+theorem not_compact_eq_smul_id
+    (operator : H → H) (hcompact : IsCompactOperator operator)
+    (scalar : ℂ) (hscalar : scalar ≠ 0)
+    (hinfinite : ¬ FiniteDimensional ℂ H) :
+    operator ≠ scalar • (id : H → H) := by
+  intro heq
+  have hscaled : IsCompactOperator ((scalar⁻¹ : ℂ) • operator) :=
+    hcompact.smul (scalar⁻¹ : ℂ)
+  rw [heq, smul_smul, inv_mul_cancel₀ hscalar, one_smul] at hscaled
+  exact hinfinite (FiniteDimensional.of_isCompactOperator_id hscaled)
 
 /-- A compact remainder has only finitely many conditioning directions above
 any positive quadratic threshold. -/

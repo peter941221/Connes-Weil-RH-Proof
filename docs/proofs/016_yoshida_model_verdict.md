@@ -136,16 +136,17 @@ The counting interface now matches the primary source. Hasanalizade--Shen--Wong
 `0 < Re rho < 1` and `|Im rho| <= T`. Lean proves that every arbitrary-center
 dyadic shell lies in the corresponding symmetric height window with threshold
 `|Im rho| + 2^(n+1)`, and the spectral summability consumer accepts a dyadic
-bound for this count directly. The Riemann--von Mangoldt estimate itself remains
-unformalized; no counting theorem is stored as a field or axiom.
+bound for this count directly. The Riemann--von Mangoldt estimate remains an
+unformalized sufficient route, not a necessary premise; no counting theorem is
+stored as a field or axiom.
 
-The consumer now accepts the standard global shape
-`N-bar(T) <= A*T*log(T) + C*T` and derives its arbitrary-center dyadic constant
-internally. An axiom-clean Jensen layer constructs the entire xi, proves every
-source nontrivial zero contributes to its finite-order divisor, and bounds the
-distinct-zero cardinality by Mathlib's Jensen divisor sum. The sole remaining
-analytic counting input is a circle norm-growth estimate for this xi strong
-enough to yield the global linear-log count.
+The consumer still accepts the standard global shape
+`N-bar(T) <= A*T*log(T) + C*T`, but that is no longer treated as necessary.
+The sharp axiom-clean consumer accepts any shell bound `K*q^n` with
+`0 <= q < 4`: quadratic pointwise decay makes the shell totals geometric with
+ratio `q/4`. The Jensen layer constructs the entire xi, proves every source
+nontrivial zero contributes to its finite-order divisor, and bounds the
+distinct-zero cardinality by Mathlib's Jensen divisor sum.
 
 The symmetric source height window is now proved to lie in the radius `T+2`
 closed ball centered at `2`, and its cardinality is connected directly to the
@@ -153,18 +154,103 @@ Jensen sphere-bound theorem. The remaining growth proof can therefore be
 stated entirely in terms of `completedRiemannXi`.
 
 Choosing the outer radius `2*(T+2)` fixes the Jensen denominator at `log 2`.
-The compiled consumer turns `norm(xi z) <= exp(G(T))` on that circle into
-`N-bar(T) <= (G(T)-log(norm(xi 2)))/log 2`. The remaining count problem is one
-explicit xi log-growth estimate.
+The compiled consumer now carries a geometric sequence of such circle bounds
+directly through Jensen to spectral summability. Xi's functional equation also
+folds the estimate to `Re z >= 1/2`, with an additive radius cost of at most
+one. The remaining count problem is one explicit subquadratic xi log-growth
+estimate; a full Riemann--von Mangoldt asymptotic is sufficient but unnecessary.
+
+The final compiled interface requires this majorant only on right-half-plane
+balls. At level `n` the domain is `Re w >= 1/2` and
+`norm(w) <= 2*(|Im rho| + 2^(n+1) + 2) + 3`. The functional equation and the
+triangle inequality transport every Jensen-circle point into this ball, so no
+separate left-half-plane or circle-parametrization estimate remains.
+
+The xi producer is now connected to Mathlib's modified theta kernel. The
+pole-removed completed zeta is exactly half the Mellin transform of
+`(hurwitzEvenFEPair 0).f_modif`, and its norm is bounded by the corresponding
+real Mellin moment at `Re s`. The kernel functional equation sends the small
+interval to the same exponentially decaying theta tail above one. The only
+remaining counting analysis is a quantitative growth bound for that real
+moment; no complex Gamma/Stirling API is assumed.
+
+The theta tail is now quantitative rather than asymptotic. For
+`C_theta = 2/(1-exp(-pi))`, the kernel is bounded by
+`C_theta*exp(-pi*t)` above one and by
+`t^(-1/2)*C_theta*exp(-pi/t)` below one. These are direct consequences of
+Mathlib's Jacobi-theta series estimate and the kernel functional equation.
+
+The large-branch integral is now quantitative as well. For every natural
+`n`, Lean proves
+
+```text
+integral_0_infinity t^n exp(-pi*t) dt
+  = pi^(-(n+1)) * n!
+  <= n^n.
+```
+
+The equality is Mathlib's real Gamma integral specialized at `n+1`; the
+inequality uses `pi >= 2` and `n! <= n^n`. This supplies the required
+`n*log n` logarithmic scale. What remains is the measure-theoretic split of the
+kernel moment at one, the `t -> 1/t` transport for the small branch, and the
+rounding of a general real Mellin parameter to an integer before connecting
+the estimate to the compiled dyadic `q < 4` consumer.
+
+## Final Route Verdict
+
+The fixed-window 016 route is rejected as an executable proof route.
+
+The current assembly has two independent producer failures.
+
+First, interpolation belongs to the correction factor, not to the assembled
+test. The compiled product law is
+
+```text
+Phi_assembled(rho)
+  = Phi_base(rho/(n+1))^(n+1) * Phi_correction(rho).
+```
+
+Even when `Phi_correction(rho)=1`, the assembled value is zero whenever the
+rescaled base value is zero. The axiom-clean rejection guard
+`laplaceAt_convolutionIterate_rescale_inv_natCast_convolution_eq_zero_of_base`
+formalizes this failure. No current theorem proves the required base factor is
+nonzero or normalizes the full product to one at `rho`.
+
+Second, the nearby/far split has an unclosed quantifier cycle:
+
+```text
+choose nearby radius R
+  -> build a correction and obtain its decay constant C
+  -> choose convolution count n from C
+  -> far-tail estimate starts only above (n+1)*T.
+```
+
+Covering all zeros requires the original nearby radius to dominate the later
+threshold, but no theorem proves `R >= (n+1)*T`, no uniform bound controls how
+the correction constants grow with `R`, and no fixed-point argument supplies a
+single successful choice. Consequently the existing near interpolation and far
+estimate do not combine into the Appendix C test.
+
+The narrow-support `qeasy` subroute does not repair these failures. Support can
+be made arbitrarily narrow, but Corollary 3.8 only supplies a local remainder
+sign after a valid positive-definite test exists. It does not construct the
+missing global detector or close the radius/count cycle. Asking for the final
+strict detector sign without these producers reaches the existing RH-level
+criterion guards rather than a lower theorem.
+
+This verdict rejects the current construction, not every conceivable
+Connes--Weil strategy. Reopening requires a genuinely new theorem constructing
+one compact test with full-product normalization at `rho` and a simultaneous
+global all-other-zero bound, without consuming SourceRH, detector coverage, or
+an equivalent no-off-line-zero premise.
 
 ## Route Consequence
 
 M5A remains useful for its narrow-window finite-node interpolation and
 finite-prime vanishing. It no longer qualifies as a detector producer.
 
-M5B now requires a genuine multiplicative convolution, a source zero-sum
-functional, and the Appendix C all-other-zero estimate. M5C adds the finite
-bad-space conditions after M3A constructs the archimedean operator owner.
+M5B is rejected in its current assembled form. M5C, M6, route rewiring, and root
+retirement are inactive because they have no valid detector input.
 
 ## Verification
 
