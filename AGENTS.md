@@ -1108,6 +1108,11 @@ diagonalizes it. For `{2,3,5}` the resulting cost is already
 `sum 1/(p log p)>1`. Do not use the ideal `min(log p,log q)` matrix as source
 data or promote proof 133 to a route owner.
 
+The support-aware refinement in proof 135 counts only `m log(p)<=lambda`, but
+its simple local graph-norm bound exceeds one near `lambda=3` and grows with
+the window. Treat this as a numerical screen until an analytic mixed-Gram
+estimate is proved; no Lean owner is authorized from the scan alone.
+
 The radial log-Euler derivative gives a sharp diagnostic positive multiplier:
 its Fourier coefficients are the exact `p^-m/2` Weil channels, but positivity
 requires the scalar compensation `2 log(p)/(sqrt(p)+1)` per prime. Rational

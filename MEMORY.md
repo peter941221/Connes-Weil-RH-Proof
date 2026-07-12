@@ -2556,3 +2556,12 @@ pole constraints. The Schur cost then becomes
 `sum_{p in {2,3,5}} 1/(p log p)=1.149027...>1`. Thus proof 133's bounded
 `0.846` cost is only an ideal model and cannot be used for a same-square owner.
 See proof 134.
+
+2026-07-12 support-aware boundary screen: restricting the defect to visible
+prime powers `m log(p)<=lambda` removes the artificial cofinal fixed-test
+divergence, but the local graph-norm generalized eigenvalue still grows past
+one: approximately `0.581` at `lambda=2`, `1.706` at `lambda=3`, `3.734` at
+`lambda=4`, and `22.03` at `lambda=7`. This is numerical screening rather than
+an analytic no-go because the true mixed autocorrelation Gram may lower the
+bound. Do not add a Lean owner without a uniform estimate or an exact mixed-Gram
+bound. See proof 135 and `docs/proofs/135_visible_boundary_absorption_probe.py`.
