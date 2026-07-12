@@ -52,6 +52,15 @@ this compact kernel factorization to the named whole-line
 `C_h* C_h J_b`/semilocal metric variation, followed by multi-prime assembly
 and the sign gate. Do not claim those later bridges from the coefficient
 identity alone.
+
+The whole-line crossing geometry is now also explicit:
+`cc20SingleCrossingOperator_coeFn` gives the nested positive/negative
+half-line indicator, and
+`cc20SingleCrossingOperator_coeFn_eq_Icc_indicator` reduces it for `b >= 0`
+to the translated input on exactly `Icc (-b) 0` (up to a null endpoint).
+This validates the compact source interval used by `SelectedCrossingKernel`.
+It is a function-level restriction theorem only; it does not identify the
+compact `A†B` factorization with a whole-line convolution operator.
 `unconditional_rh_skeleton` depends on six project roots:
 
 ```text

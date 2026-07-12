@@ -33,6 +33,16 @@ same-object identification of this compact kernel factorization with the
 named whole-line `C_h* C_h J_b`/semilocal metric variation, then multi-prime
 assembly, the sign gate, and the RH consumer.
 
+The whole-line crossing geometry has since been strengthened in
+`GlobalLogCrossing`: `cc20SingleCrossingOperator_coeFn` unfolds the two
+half-line indicators, and
+`cc20SingleCrossingOperator_coeFn_eq_Icc_indicator` proves that for `b >= 0`
+the operator is, almost everywhere, the translated input restricted to
+`Icc (-b) 0`. This is the exact length-`b` boundary interval used in the
+compact crossing kernels. The remaining bridge is specifically the smoothed
+operator identity (`C_h* C_h J_b` versus the compact `A†B` factorization), not
+the raw crossing geometry.
+
 Plan 016 Contract M0 is complete at the trace-class interface. The proved
 source-normalized identity is
 

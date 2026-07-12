@@ -100,4 +100,7 @@ finite-prime value. It does not yet prove that this operator is equal, after
 extension/compression, to the whole-line object customarily written
 `C_h^* C_h J_b`, nor that the sum over Euler parameters is the first variation
 of the semilocal positive metric. Those are the next same-object obligations;
-the finite-prime coefficient itself is no longer the bottom.
+the finite-prime coefficient itself is no longer the bottom. The geometric
+restriction part is now proved separately in
+`docs/proofs/193_global_crossing_icc_restriction.md`: the whole-line crossing
+is almost everywhere supported on the exact interval `Icc (-b,0)`.

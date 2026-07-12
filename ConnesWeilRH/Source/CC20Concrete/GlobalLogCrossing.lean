@@ -208,6 +208,58 @@ theorem cc20SingleCrossingOperator_apply
           (cc20PositiveHalfLineProjection u)) := by
   rfl
 
+theorem cc20SingleCrossingOperator_coeFn
+    (b : ℝ) (u : cc20GlobalLogCrossingL2) :
+    (cc20SingleCrossingOperator b u : ℝ → ℂ) =ᵐ[volume]
+      (Set.Iio 0).indicator (fun t =>
+        (Set.Ici 0).indicator (fun x => u x) (t + b)) := by
+  rw [cc20SingleCrossingOperator_apply]
+  have hneg := cc20NegativeHalfLineProjection_coeFn
+    (cc20GlobalLogTranslation b
+      (cc20PositiveHalfLineProjection u))
+  have htrans := cc20GlobalLogTranslation_coeFn b
+    (cc20PositiveHalfLineProjection u)
+  have hpos := cc20PositiveHalfLineProjection_coeFn u
+  have hpos_shift :=
+    (measurePreserving_add_right volume b).quasiMeasurePreserving.ae_eq hpos
+  filter_upwards [hneg, htrans, hpos_shift] with t hnegAt htransAt hposAt
+  rw [hnegAt]
+  by_cases ht : t ∈ Set.Iio 0
+  · simp only [Set.indicator_of_mem ht]
+    rw [htransAt]
+    simpa only [Function.comp_apply] using hposAt
+  · simp only [Set.indicator, ht, if_false]
+
+theorem cc20SingleCrossingOperator_coeFn_eq_Icc_indicator
+    (b : ℝ) (hb : 0 ≤ b) (u : cc20GlobalLogCrossingL2) :
+    (cc20SingleCrossingOperator b u : ℝ → ℂ) =ᵐ[volume]
+      (Set.Icc (-b) 0).indicator (fun t => u (t + b)) := by
+  have hcross := cc20SingleCrossingOperator_coeFn b u
+  filter_upwards [hcross, MeasureTheory.volume.ae_ne (0 : ℝ)] with t ht hzero
+  by_cases hIcc : t ∈ Set.Icc (-b) 0
+  · have htneg : t ∈ Set.Iio 0 := by
+      exact lt_of_le_of_ne hIcc.2 hzero
+    have htlow : -b ≤ t := hIcc.1
+    have htpos : t + b ∈ Set.Ici 0 := by
+      change 0 ≤ t + b
+      linarith
+    simp only [Set.indicator_of_mem hIcc]
+    rw [ht]
+    simp only [Set.indicator_of_mem htneg, Set.indicator_of_mem htpos]
+  · simp only [Set.indicator, hIcc, if_false]
+    by_cases htneg : t ∈ Set.Iio 0
+    · have htlt : t < -b := by
+        by_contra hnot
+        have htge : -b ≤ t := le_of_not_gt hnot
+        exact hIcc ⟨htge, le_of_lt htneg⟩
+      have htpos : t + b ∉ Set.Ici 0 := by
+        simp only [Set.mem_Ici, not_le]
+        linarith
+      rw [ht]
+      simp only [Set.indicator, htneg, htpos, if_true, if_false]
+    · rw [ht]
+      simp only [Set.indicator, htneg, if_false]
+
 end CC20Concrete
 end Source
 end ConnesWeilRH

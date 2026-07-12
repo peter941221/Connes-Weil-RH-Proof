@@ -1,4 +1,5 @@
 import ConnesWeilRH.Source.CCM25Concrete.SelectedCrossingKernel
+import ConnesWeilRH.Source.CC20Concrete.GlobalLogCrossing
 
 open ConnesWeilRH Source
 open ConnesWeilRH.Source.CCM25Concrete
@@ -22,3 +23,8 @@ open ConnesWeilRH.Source.CCM25Concrete
 
 #check @SelectedCrossingKernel.positiveInterval_eulerLog_weighted_pair_traces_eq_finitePrimeTerm_pow
 #print axioms SelectedCrossingKernel.positiveInterval_eulerLog_weighted_pair_traces_eq_finitePrimeTerm_pow
+
+#check @ConnesWeilRH.Source.CC20Concrete.cc20SingleCrossingOperator_coeFn
+#check @ConnesWeilRH.Source.CC20Concrete.cc20SingleCrossingOperator_coeFn_eq_Icc_indicator
+#print axioms ConnesWeilRH.Source.CC20Concrete.cc20SingleCrossingOperator_coeFn
+#print axioms ConnesWeilRH.Source.CC20Concrete.cc20SingleCrossingOperator_coeFn_eq_Icc_indicator
