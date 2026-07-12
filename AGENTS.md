@@ -1365,6 +1365,14 @@ transport. Plan 016 no longer treats them as independent execution gates:
 Contract M2 owns the valid kernel theorem, while Contracts M0 and M3 own the
 nonzero remainder. Do not reopen the old Phase 0B route.
 
+CC20 Theorem `thmqkey1` acts on `L2(sqrt I, d*rho)`, where
+`d*rho = d rho / rho`. The first compact real/complex operator chain uses
+ordinary Lebesgue measure `d rho`; its Hilbert--Schmidt and positive-trace
+proofs do not identify it with source `K_I`. Use `cc20CompactHaarMeasure` and
+prove the Haar-space operator theorem, or prove an explicit weighted unitary
+conjugation, before making that identification. The diagonal `-2 Dirac_0`
+remains a separate `-2 Id` term and is never part of the ordinary kernel.
+
 CC20 Corollary `qeasy` is a local remainder-sign tool, not a detector theorem.
 Its printed corollary statement is broader than its proof: the proof uses
 positive-definiteness via `|f(x)| <= f(0)`. Any `qeasy` route must prove that

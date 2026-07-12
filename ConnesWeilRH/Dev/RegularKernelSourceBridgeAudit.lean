@@ -1,0 +1,24 @@
+/- Import-facing audit for the CC20 source-kernel and Haar-measure bridge. -/
+
+import ConnesWeilRH.Source.CC20Concrete.RegularKernelSourceBridge
+
+open ConnesWeilRH Source CC20Concrete
+
+#check @cc20CompactHaarMeasure_univ_lt_top
+#check @integral_cc20CompactHaarMeasure_eq_smul
+#check @cc20SourceRegularKernel_eq_cc20RegularKernel
+#check @cc20SourceRegularKernel_of_fst_lt_snd
+#check @cc20SourceRegularKernel_of_snd_lt_fst
+#check @cc20CompactSourceHaarAction_eq_weighted
+
+#print cc20CompactHaarMeasure_univ_lt_top
+#print cc20SourceRegularKernel_eq_cc20RegularKernel
+#print cc20SourceRegularKernel_of_fst_lt_snd
+#print cc20CompactSourceHaarAction_eq_weighted
+
+#print axioms cc20CompactHaarMeasure_univ_lt_top
+#print axioms integral_cc20CompactHaarMeasure_eq_smul
+#print axioms cc20SourceRegularKernel_eq_cc20RegularKernel
+#print axioms cc20SourceRegularKernel_of_fst_lt_snd
+#print axioms cc20SourceRegularKernel_of_snd_lt_fst
+#print axioms cc20CompactSourceHaarAction_eq_weighted

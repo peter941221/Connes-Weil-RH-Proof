@@ -2830,3 +2830,18 @@ summability on every complex Hilbert basis, and
 an ordinary trace with nonnegative real part. This closes complex
 Hilbert--Schmidt/positive-trace legality for the regular kernel, but not the
 source CC20 `K_I` action, Dirac split, trace read-off, or RH. See proof 159.
+
+2026-07-12 source-kernel Haar bridge: direct inspection of the primary arXiv
+source `weil-compo.tex:571-575,765-808` confirms that the Lean scalar
+`cc20DeltaRegular` is the source delta formula and that the ordinary source
+kernel is the two-branch `Q delta(max(u/v,v/u))` regular part. Lean now proves
+`cc20SourceRegularKernel_eq_cc20RegularKernel` and both strict non-diagonal
+branches from `multiplicativeQ_cc20DeltaRegular_of_one_lt`. The same audit also
+found and repaired an ownership mismatch: CC20 uses `L2(sqrt I,d*rho)` with
+`d*rho=d rho/rho`, while the existing real/complex positive-trace chain uses
+Lebesgue `d rho`. `cc20CompactHaarMeasure` now has exact density `1/rho`, is
+finite, and its integrals expand to weighted Lebesgue integrals. The source
+Haar action is defined on continuous complex inputs and audited with only
+`propext`, `Classical.choice`, and `Quot.sound`. A complex Haar-`L2` extension,
+Hilbert--Schmidt proof, separate `-2 Id` quadratic-form read-off, and RH remain
+open. See proof 160.
