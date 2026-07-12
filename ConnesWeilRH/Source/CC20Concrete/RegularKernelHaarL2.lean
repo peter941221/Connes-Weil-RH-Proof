@@ -149,6 +149,93 @@ theorem cc20CompactHaarComplexKernelCoefficient_continuous_input
   simp [cc20CompactSourceHaarAction, cc20CompactComplexKernelSection,
     cc20CompactComplexRegularKernel, mul_comm]
 
+theorem norm_cc20CompactHaarComplex_toLp_continuous_sq
+    (f : ContinuousMap CC20CompactInterval ℂ) :
+    ‖ContinuousMap.toLp 2 cc20CompactHaarMeasure ℂ f‖ ^ 2 =
+      ∫ x, ‖f x‖ ^ 2 ∂cc20CompactHaarMeasure := by
+  rw [norm_cc20CompactHaarComplex_toLp_eq_lpNorm,
+    ← cc20CompactHaarComplex_l2Factor_eq_lpNorm]
+  simp_rw [Real.rpow_two]
+  have hnonneg : 0 ≤ ∫ x, ‖f x‖ ^ 2 ∂cc20CompactHaarMeasure := by
+    exact integral_nonneg fun _ => sq_nonneg _
+  rw [← Real.sqrt_eq_rpow]
+  simpa only [] using Real.sq_sqrt hnonneg
+
+theorem integrable_cc20CompactHaarComplexKernelSectionToLp_norm_sq :
+    Integrable (fun x : CC20CompactInterval =>
+      ‖cc20CompactHaarComplexKernelSectionToLp x‖ ^ 2)
+        cc20CompactHaarMeasure := by
+  have hc : Continuous (fun x : CC20CompactInterval =>
+      ‖cc20CompactHaarComplexKernelSectionToLp x‖ ^ 2) :=
+    continuous_cc20CompactHaarComplexKernelSectionToLp.norm.pow 2
+  simpa only [Measure.restrict_univ] using
+    (hc.continuousOn.integrableOn_compact
+      (μ := cc20CompactHaarMeasure) isCompact_univ).integrable
+
+theorem cc20CompactHaarComplexL2Operator_finite_basis_sum_le_kernel_energy
+    {ι : Type*}
+    (basis : HilbertBasis ι ℂ (Lp ℂ 2 cc20CompactHaarMeasure))
+    (s : Finset ι) :
+    ∑ i ∈ s, ‖cc20CompactHaarComplexL2Operator (basis i)‖ ^ 2 ≤
+      ∫ x, ‖cc20CompactHaarComplexKernelSectionToLp x‖ ^ 2
+        ∂cc20CompactHaarMeasure := by
+  have hcoeff (i : ι) :
+      ‖cc20CompactHaarComplexL2Operator (basis i)‖ ^ 2 =
+        ∫ x, ‖cc20CompactHaarComplexKernelCoefficient (basis i) x‖ ^ 2
+          ∂cc20CompactHaarMeasure := by
+    rw [cc20CompactHaarComplexL2Operator_apply,
+      norm_cc20CompactHaarComplex_toLp_continuous_sq]
+  have hint (i : ι) : Integrable
+      (fun x => ‖cc20CompactHaarComplexKernelCoefficient (basis i) x‖ ^ 2)
+        cc20CompactHaarMeasure := by
+    have hc : Continuous
+        (fun x => ‖cc20CompactHaarComplexKernelCoefficient (basis i) x‖ ^ 2) :=
+      (cc20CompactHaarComplexKernelCoefficient (basis i)).continuous.norm.pow 2
+    simpa only [Measure.restrict_univ] using
+      (hc.continuousOn.integrableOn_compact
+        (μ := cc20CompactHaarMeasure) isCompact_univ).integrable
+  simp_rw [hcoeff]
+  have hsum : ∫ x, ∑ i ∈ s,
+      ‖cc20CompactHaarComplexKernelCoefficient (basis i) x‖ ^ 2
+        ∂cc20CompactHaarMeasure =
+      ∑ i ∈ s, ∫ x,
+        ‖cc20CompactHaarComplexKernelCoefficient (basis i) x‖ ^ 2
+          ∂cc20CompactHaarMeasure :=
+    integral_finsetSum s (fun i hi => hint i)
+  rw [← hsum]
+  apply integral_mono_ae
+  · exact integrable_finsetSum s (fun i hi => hint i)
+  · exact integrable_cc20CompactHaarComplexKernelSectionToLp_norm_sq
+  · filter_upwards with x
+    simpa only [cc20CompactHaarComplexKernelCoefficient, norm_inner_symm] using
+      basis.orthonormal.sum_inner_products_le
+        (cc20CompactHaarComplexKernelSectionToLp x)
+
+theorem cc20CompactHaarComplexL2Operator_basis_normSq_summable
+    {ι : Type*}
+    (basis : HilbertBasis ι ℂ (Lp ℂ 2 cc20CompactHaarMeasure)) :
+    Summable (fun i => ‖cc20CompactHaarComplexL2Operator (basis i)‖ ^ 2) := by
+  refine summable_of_sum_le
+    (c := ∫ x, ‖cc20CompactHaarComplexKernelSectionToLp x‖ ^ 2
+      ∂cc20CompactHaarMeasure) (fun i => sq_nonneg _) ?_
+  intro s
+  exact cc20CompactHaarComplexL2Operator_finite_basis_sum_le_kernel_energy basis s
+
+noncomputable def cc20CompactHaarComplexBasisHilbertSchmidtData
+    {ι : Type*}
+    (basis : HilbertBasis ι ℂ (Lp ℂ 2 cc20CompactHaarMeasure)) :
+    PositiveTrace.BasisHilbertSchmidtData basis where
+  operator := cc20CompactHaarComplexL2Operator
+  summable_normSq := cc20CompactHaarComplexL2Operator_basis_normSq_summable basis
+
+theorem cc20CompactHaarComplexPositiveTrace_re_nonnegative
+    {ι : Type*}
+    (basis : HilbertBasis ι ℂ (Lp ℂ 2 cc20CompactHaarMeasure)) :
+    0 ≤ (PositiveTrace.ordinaryTraceAlong basis
+      (cc20CompactHaarComplexBasisHilbertSchmidtData basis).positiveComposition).re :=
+  PositiveTrace.BasisHilbertSchmidtData.ordinaryTrace_positiveComposition_re_nonnegative
+    (cc20CompactHaarComplexBasisHilbertSchmidtData basis)
+
 end CC20Concrete
 end Source
 end ConnesWeilRH

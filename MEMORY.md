@@ -2856,3 +2856,421 @@ continuous-input coefficient with the source Haar action exactly. The import
 audit passes with only `propext`, `Classical.choice`, and `Quot.sound`. This
 does not yet prove Haar-product square integrability, Hilbert--Schmidt
 summability, the `-2 Id + K_I` distributional split, trace read-off, or RH.
+
+2026-07-12 Haar Hilbert--Schmidt layer closed: `RegularKernelHaarL2.lean` now
+proves `cc20CompactHaarComplexL2Operator_basis_normSq_summable`, packages the
+operator as `cc20CompactHaarComplexBasisHilbertSchmidtData`, and proves
+`cc20CompactHaarComplexPositiveTrace_re_nonnegative`. The proof uses the exact
+source measure `d rho/rho`, compact-domain continuity, finite-basis Bessel
+bounds, and `summable_of_sum_le`; it introduces no RH or Weil-positivity
+premise. The import-facing WSL2 audit passes with only `propext`,
+`Classical.choice`, and `Quot.sound`. The remaining bottom is the independent
+diagonal `-2 Dirac_0`/`-2 Id` distributional split and same-test CC20 trace
+read-off. See proof 161.
+
+2026-07-12 Haar kernel symmetry closed: `RegularKernelHaarSymmetry.lean`
+proves `cc20CompactHaarComplexL2Operator_inner_symmetry` on the exact source
+space. The proof uses compact Haar-product integrability, the real symmetric
+regular kernel, Fubini, and dense extension from continuous inputs. This is the
+correct self-adjointness layer for the source `K_I` candidate, but it still
+omits the diagonal Dirac term, the `-2 Id + K_I` quadratic-form identity, and
+the same-test arithmetic trace read-off. See proof 162.
+
+2026-07-12 regular Haar kernel compactness closed: `RegularKernelHaarCompact.lean`
+constructs the bounded-continuous coefficient image of the Haar-L2 unit ball,
+proves pointwise boundedness and equicontinuity from the same continuous kernel
+sections, applies Arzela--Ascoli, and transports the compact image through
+`BoundedContinuousFunction.toLp`. The axiom-clean theorem
+`isCompactOperator_cc20CompactHaarComplexL2Operator` now directly supplies the
+`CompactBadSpace` consumer. The instantiated theorem
+`exists_finiteDimensional_cc20HaarRegularRemainder_nonpositive` proves that
+`K_I - 2 Id` is nonpositive outside one finite-dimensional control space.
+WSL2 build and import audit pass with only
+`propext`, `Classical.choice`, and `Quot.sound`. This closes compactness of the
+ordinary `K_I` regular part, not the diagonal `-2 Dirac_0`/`-2 Id` split or the
+same-test Weil read-off. See proof 163.
+
+2026-07-12 Haar/global Mellin mismatch formalized: the new module
+`HaarMellinMismatch.lean` constructs a compactly supported test in `(3,4)`
+whose restriction to the source Haar interval `[1/2,2]` is zero but whose
+global Mellin value at `s=1` is nonzero. It also proves that no linear
+functional on the current Haar restriction can recover that global Mellin
+value for every source test. The witness uses the existing positive bump
+producer and a direct positivity-of-integral argument, with no RH or
+Weil-positivity premise. Therefore the current Haar `L2` operator cannot be
+connected to the route's global three-point Mellin vanishing by merely adding
+three Riesz vectors. A valid next producer must add a global Hilbert-space
+transform, a same-object global trace operator, or an explicit outside-window
+transport/correction. The `CC20Concrete` build and focused audit pass with only
+`propext`, `Classical.choice`, and `Quot.sound`. See proof 164.
+
+2026-07-12 parameterized-window carrier layer: `WindowContainment.lean` now
+proves that every `PositiveIntervalCompactTest` has some `lambda > 1` whose
+finite multiplicative window `[1/lambda, lambda]` contains its support. This
+uses the test's genuine positive lower endpoint and compact support bounds; it
+does not assume scale invariance of the Weil form. The `CC20Concrete` import
+build and focused `WindowContainmentAudit` pass with only `propext`,
+`Classical.choice`, and `Quot.sound`. The remaining owner is a genuine
+parameterized Haar operator family plus common-domain `lambda` exhaustion and
+trace read-off. See proof 165.
+
+2026-07-12 parameterized Haar measure family: `ParameterizedHaarMeasure.lean`
+defines the exact source measure `d rho/rho` on `[1/lambda,lambda]` for every
+`lambda > 1`. Lean proves the base interval volume, the density bound by
+`lambda`, finiteness of the weighted measure, and the exact weighted-integral
+expansion. Combined with proof 165, every positive compact source test now
+lands in a finite interval carrying the correct source measure. The
+`CC20Concrete` build and focused audit pass with only `propext`,
+`Classical.choice`, and `Quot.sound`. A parameterized regular-kernel `L2`
+operator, compatibility under increasing `lambda`, and the common-domain trace
+limit remain open. See proof 166.
+
+2026-07-12 parameterized Haar-L2 positive trace: `ParameterizedHaarL2.lean`
+now constructs the same ordinary CC20 regular-kernel operator on
+`Lp C 2 (d rho/rho)` over every window `[1/lambda,lambda]`, identifies its
+continuous-input action with the explicit Haar integral, proves basiswise
+Hilbert--Schmidt summability, and packages its positive composition with
+nonnegative ordinary-trace real part. Window points are transported directly
+to `PositiveCoordinate` and then into `cc20RegularKernel`; the fixed-window
+`cc20RegularKernelReal` clamp is absent. The umbrella build and import-facing
+audit pass using the retained WSL2 Lake cache; focused axioms are only
+`propext`, `Classical.choice`, and `Quot.sound`. This is finite-window operator
+legality, not the cross-window exhaustion, diagonal `-2 Dirac_0`/`-2 Id`
+identity, same-test CC20 trace read-off, or RH. See proof 167.
+
+2026-07-12 parameterized Haar symmetry and compactness:
+`ParameterizedHaarSymmetry.lean` and `ParameterizedHaarCompact.lean` prove that
+the genuine positive-coordinate regular-kernel operator on every exact window
+Haar space is
+symmetric and compact. For each `lambda > 1`, Lean now produces a
+finite-dimensional control space outside which `K_lambda - 2 Id` has
+nonpositive real quadratic form. The umbrella build and import-facing audit
+pass with only `propext`, `Classical.choice`, and `Quot.sound`. The control
+space depends on the window; no common-domain exhaustion, uniform three-point
+bad-space identification, diagonal distributional identity, CC20 trace
+read-off, or RH follows. See proof 168.
+
+2026-07-12 common log-Haar carrier and exact measure transport:
+`GlobalLogHaar.lean` places every finite logarithmic cutoff on the single
+Hilbert space `Lp C 2 volume`, proves that its `L-infinity` indicator multiplier
+has the intended almost-everywhere representative and is idempotent, and pulls
+each positive compact source test back by `rho=exp(t)` into this global `L2`.
+`HaarLogTransport.lean` proves the actual same-function identity between the
+finite-window `d rho/rho` integral and the Lebesgue integral over
+`[-log lambda,log lambda]`; the proof expands the subtype density and performs
+the interval substitution rather than storing the change of variables. The
+umbrella build and import audit pass with only `propext`, `Classical.choice`,
+and `Quot.sound`. This removes the cross-window carrier mismatch, but the
+regular-kernel action has not yet been transported to the global carrier and
+common-domain exhaustion, uniform three-point control, the diagonal
+distributional identity, same-test trace read-off, and RH remain open. See
+proof 169.
+
+2026-07-12 global logarithmic regular-kernel action transport:
+`GlobalLogKernel.lean` defines one continuous global kernel in log coordinates
+by evaluating the genuine positive-coordinate `cc20RegularKernel` at
+`(exp t, exp s)`. For every finite window, Lean proves that the parameterized
+window kernel is the same kernel at `(log rho, log eta)`, and that the source
+Haar action on the restricted continuous input equals the corresponding
+Lebesgue interval action after `rho=exp(s)`. Lean also proves the exact
+convolution-coordinate identity `K(t,s)=k(t-s)`, simultaneous translation
+invariance, kernel symmetry, profile evenness `k(-r)=k(r)`, and the exact
+formula `k(r)=QDeltaRegularExtension(exp(|r|))`, together with the exact
+truncated-convolution expression for every window action. Therefore the
+correct whole-line object is a convolution operator,
+with finite-window objects represented as `P_lambda K P_lambda`; whole-line
+Hilbert--Schmidt status must not be inferred from finite-window compactness.
+The import-facing audit passes
+with only `propext`, `Classical.choice`, and `Quot.sound`; no RH or Weil
+positivity premise is present. This is a continuous-input transport identity,
+not yet a global `Lp` operator, common-domain exhaustion, uniform
+three-point bad-space bound, diagonal `-2 Dirac_0 -> -2 Id` identity, or
+same-test CC20 trace read-off. RH remains unproved. See proof 170.
+
+2026-07-12 Q-delta branch-derivative reduction: the intended global log kernel
+is a convolution profile `k(r)=QDeltaRegularExtension(exp(|r|))`, but the CC20
+sine-integral formula has oscillatory large-rho terms. Do not assume ordinary
+`L1` decay from finite-window Hilbert--Schmidt compactness. Lean now proves the
+exact algebraic reduction, for `rho > 0`,
+`QDeltaRegularCandidate rho = -4*rho*sqrt rho*DeltaBranchSumDerivative rho -
+2*rho^2*sqrt rho*DeltaBranchSumSecondDerivative rho`; the half-density term is
+cancelled by `-(rho*d/drho)^2+1/4`. The theorem is axiom-clean under the usual
+`propext`, `Classical.choice`, and `Quot.sound` set. The next owner must be a
+source-backed oscillatory Fourier multiplier or quantized-calculus operator;
+`cc20GlobalLogComplexRegularProfile_eq_branch_derivatives` transports the same
+formula to every nonzero log coordinate,
+followed by `P_lambda K P_lambda` compatibility. See proof 171.
+
+2026-07-12 log-window projection exhaustion: `GlobalLogHaar.lean` now proves
+that every positive compact source test has some `lambda > 1` with its log
+pullback support inside `[-log lambda, log lambda]`, and that the corresponding
+global `Lp C 2 volume` indicator projection fixes `cc20LogPullbackLp`. The proof
+uses the existing multiplicative-window containment, explicit logarithm
+monotonicity, and the almost-everywhere `MemLp.toLp` representative; it does
+not claim pointwise equality of arbitrary Lp representatives. Aggregate build
+and import audit remain axiom-clean under `propext`, `Classical.choice`, and
+`Quot.sound`. This is source-test exhaustion only; operator compatibility,
+uniform bounds, diagonal distributional identity, same-test trace read-off,
+and RH remain open. The same module also proves the monotone cutoff law
+`P_lambda P_mu = P_lambda` whenever `1 < lambda <= mu`, so the global carrier
+has a genuine projection filtration. See proof 172.
+
+2026-07-12 continuous window-action compatibility: `GlobalLogKernel.lean` now
+proves that for `1 < lambda <= mu`, a continuous input supported in the smaller
+log window has identical global-kernel actions over the two windows. The proof
+splits the large interval into two exterior pieces and the small interval,
+annihilates the exterior integrals a.e. using support plus singleton-null
+endpoints, and applies adjacent-interval identities. This is the action-level
+counterpart of `P_lambda P_mu = P_lambda`; extension to all global L2 inputs,
+uniform bounds, diagonal distributional identity, same-test trace read-off,
+and RH remain open. See proof 173.
+
+2026-07-12 finite-window action continuity: `GlobalLogKernel.lean` now packages
+`t |-> A_lambda(t,u)` as a `ContinuousMap` for every continuous input, using
+joint kernel continuity and Mathlib's parametric interval-integral theorem.
+This is the next prerequisite for constructing the finite-window output in
+`Lp C 2` and extending it by a log-window indicator. It makes no whole-line
+boundedness or `L1` claim; the global multiplier, diagonal identity,
+same-test trace read-off, and RH remain open. See proof 174.
+
+2026-07-12 finite-window action Lp output: `GlobalLogKernel.lean` now proves
+the continuous finite-window action is `MemLp` on the restricted log-window
+measure by compact-image norm bounds, then constructs
+`cc20GlobalLogWindowRegularActionToLp` on the common global `Lp C 2 volume`
+carrier through the indicator/restriction equivalence. This is an
+input-specific finite-window output, not a whole-line bounded operator or an
+`L1` claim. The aggregate import audit remains axiom-clean; linearity,
+uniform-in-input bounds, increasing-window operator compatibility, the
+oscillatory multiplier, diagonal identity, same-test trace read-off, and RH
+remain open. See proof 175.
+
+2026-07-12 same-object Haar/log L2 compatibility: `GlobalLogKernel.lean` now
+proves linearity of the finite-window `MemLp.toLp` output, the exact norm
+identity
+`norm(globalActionToLp)^2 = integral_[−log lambda,log lambda] norm(action)^2`,
+and the parameterized Haar-L2 compatibility on continuous log-restricted
+inputs. The latter uses the inverse point `rho -> log rho`, the existing
+source-Haar action identity, and a real-valued Haar/log change-of-variables
+lemma obtained from the complex theorem by `Complex.ofReal_injective`.
+The import-facing audit remains axiom-clean with only `propext`,
+`Classical.choice`, and `Quot.sound`. This closes the finite-window
+same-object/scale mismatch but does not provide a bounded whole-line operator,
+strong cutoff convergence, the three-point bad-space estimate, the diagonal
+distributional identity, the same-test trace read-off, or RH. See proof 176.
+
+2026-07-13 fixed-window public-carrier bound: `GlobalLogKernel.lean` now
+defines the windowed continuous-input carrier
+`cc20GlobalLogWindowContinuousInputToLp` and proves its exact interval L2 norm.
+Using the same-object Haar/log output identity and the parameterized Haar
+continuous-linear-map norm, Lean proves
+`‖globalWindowActionToLp(lambda,u)‖ <=
+  ‖parameterizedHaarOperator(lambda)‖ *
+  ‖globalWindowInputToLp(lambda,u)‖`
+for every continuous input and every `lambda > 1`. This is a true
+fixed-window bound on the common `Lp C 2 volume` carrier, not a whole-line
+bound: the constant depends on the window and the dense-core/closure
+extension is not yet constructed. The aggregate audit remains axiom-clean
+under `propext`, `Classical.choice`, and `Quot.sound`. See proof 177.
+
+2026-07-13 fixed-window complete L2 extension: `GlobalLogKernel.lean` now uses
+the dense range of `BoundedContinuousFunction.toLp` and
+`LinearMap.extendOfNorm` to construct
+`cc20GlobalLogWindowRestrictedL2Operator` on the complete restricted Haar/log
+`Lp` space. Composing with `LpToLpRestrictCLM` gives the genuine common-carrier
+operator `cc20GlobalLogWindowL2Operator` on global `Lp C 2 volume`. Lean proves
+that this operator agrees on every bounded continuous core input with the
+existing finite-window integral action, and proves the bound
+`‖globalWindowL2Operator u‖ <=
+‖cc20WindowHaarComplexL2Operator lambda hlambda‖ * ‖u‖`.
+The output-side invariant
+`cc20LogWindowProjection ∘SL cc20GlobalLogWindowRestrictedL2Operator =
+cc20GlobalLogWindowRestrictedL2Operator` is also proved by dense-core
+extension, so the fixed-window map genuinely lands in the window subspace.
+The public carrier additionally satisfies
+`cc20GlobalLogWindowL2Operator ∘SL cc20LogWindowProjection =
+cc20GlobalLogWindowL2Operator`, proving the input-side restriction as well.
+The aggregate `CC20Concrete` build passes `3496/3496`; the import-facing audit
+uses only `propext`, `Classical.choice`, and `Quot.sound`. This is a genuine
+fixed-window `P_lambda K P_lambda` operator layer, but its constant still
+depends on `lambda`; cross-window strong convergence, uniform three-point
+control, the diagonal distributional identity, same-test trace read-off, and
+RH remain open. See proof 178.
+
+2026-07-13 source-test cross-window compatibility: `GlobalLogKernel.lean` now
+identifies the common-carrier `Lp` representative of every
+`cc20LogPullback p` inside any containing logarithmic window, using the source
+test's existing continuity and compact support. For `1 < lambda <= mu` and
+support contained in the smaller window, Lean proves the compressed identity
+`P_lambda (T_mu (cc20LogPullbackLp p)) =
+T_lambda (cc20LogPullbackLp p)`. The projection is essential: the unprojected
+larger-window output need not equal the smaller-window output outside the small
+window. The aggregate build passes `3497/3497`, and the import audit remains
+limited to `propext`, `Classical.choice`, and `Quot.sound`. This is not yet
+strong convergence on all global `Lp`, uniform bad-space control, the diagonal
+distributional identity, same-test trace read-off, or RH. See proof 179.
+
+2026-07-13 stable source-test window: `GlobalLogKernel.lean` packages source
+window exhaustion and compressed cross-window compatibility into
+`exists_cc20GlobalLogWindowL2Operator_source_compatibility`. For every source
+test `p`, Lean produces a concrete `lambda > 1` such that every larger
+`mu >= lambda` satisfies
+`P_lambda (T_mu (cc20LogPullbackLp p)) =
+T_lambda (cc20LogPullbackLp p)`. The aggregate build remains `3497/3497` and
+the focused audit uses only `propext`, `Classical.choice`, and `Quot.sound`.
+This is source-test stability only; all-global-Lp strong convergence, uniform
+bad-space control, the diagonal identity, same-test trace read-off, and RH
+remain open. See proof 180.
+
+2026-07-13 exp/log window homeomorphism prerequisites: `GlobalLogKernel.lean`
+now proves continuity of the finite-window `exp` and `log` subtype maps and
+both inverse identities `exp(log rho)=rho` and `log(exp t)=t`. The aggregate
+build remains `3497/3497`; the import audit still reports only `propext`,
+`Classical.choice`, and `Quot.sound`. This is deliberately only the topological
+precondition: `Measure.map exp = d rho/rho`, the complete Lp isometry,
+positive-trace transport, same-test read-off, and RH remain open. See proof
+181.
+
+2026-07-13 logarithmic window measure transport: `GlobalLogKernel.lean` now
+defines the base Lebesgue measure on the logarithmic subtype and proves, by
+compactly-supported integral uniqueness, the exact identity
+
+```text
+Measure.map exp (cc20LogWindowBaseMeasure lambda)
+  = cc20WindowHaarMeasure lambda hlambda
+```
+
+The corresponding `MeasurePreserving` theorem is axiom-clean, and its inverse
+is obtained from the existing `exp/log` homeomorphism. See proof 182.
+
+2026-07-13 finite-window Haar/log L2 transport: the same module now packages
+`cc20WindowHaarLogL2IsometryEquiv` using Mathlib's
+`Lp.compMeasurePreservingₗᵢ`. Both inverse laws use the genuine same-object
+subtype identities. On every continuous log input, the transported Haar
+regular-kernel output and the existing global-log finite-window action now
+have exactly the same norm. The import-facing audit remains limited to
+`propext`, `Classical.choice`, and `Quot.sound`. This closes the finite-window
+measure/carrier mismatch and the continuous-core output-norm comparison, not
+the full operator equality, conjugated regular-kernel trace, common-window
+limit, diagonal identity, same-test trace read-off, or RH. See proof 183.
+
+2026-07-13 fixed-window Haar/log operator conjugacy:
+`GlobalLogKernel.lean` now combines the Haar-to-log-subtype isometry with the
+subtype-to-restricted ambient `L2` isometry as
+`cc20WindowHaarRestrictedLogL2IsometryEquiv`. The exact continuous-core
+identity is `cc20WindowHaarRestrictedLogL2IsometryEquiv_apply_logRestriction`.
+The module defines the genuine restricted-window endomorphism
+`cc20GlobalLogWindowRestrictedL2Endomorphism` and the transported Haar
+operator `cc20GlobalLogWindowRestrictedL2ConjugatedHaarOperator`.
+The two agree on the bounded-continuous core, and
+`BoundedContinuousFunction.toLp_denseRange` upgrades this to the complete
+restricted `L2` equality
+`cc20GlobalLogWindowRestrictedL2Endomorphism_eq_conjugatedHaarOperator`.
+The WSL2 retained-cache aggregate build passes `3504/3504`; the import-facing
+audit remains limited to `propext`, `Classical.choice`, and `Quot.sound`.
+This is only a fixed-window regular-kernel conjugacy: positive-trace
+transport, common-window convergence, the diagonal distributional identity,
+same-test trace read-off, uniform bad-space control, and RH remain open. See
+proof 184.
+
+2026-07-13 restricted-window positive-trace transport: using the complete
+fixed-window conjugacy, `GlobalLogKernel.lean` now constructs
+`cc20GlobalLogWindowRestrictedL2HaarPreimageBasis` for every Hilbert basis of
+the restricted logarithmic `L2` carrier. The exact preimage-basis relation
+`cc20GlobalLogWindowRestrictedL2HaarPreimageBasis_apply` and the conjugated
+operator give termwise equality between restricted and Haar squared basis
+norms. Therefore
+`cc20GlobalLogWindowRestrictedL2Endomorphism_basis_normSq_summable` is
+inherited from the accepted Haar kernel estimate. The data owner
+`cc20GlobalLogWindowRestrictedL2BasisHilbertSchmidtData` and theorem
+`cc20GlobalLogWindowRestrictedL2PositiveTrace_re_nonnegative` establish the
+finite-window positive-composition trace on the restricted carrier. The
+import-facing audit remains limited to `propext`, `Classical.choice`, and
+`Quot.sound`, and the aggregate build passes `3504/3504`. This still does not
+provide the CC20 same-test trace read-off, diagonal `-2 Id`, common-window
+exhaustion, uniform bad-space control, or RH. See proof 185.
+
+2026-07-13 finite source-span window compatibility: `GlobalLogKernel.lean`
+now proves `exists_cc20LogWindow_containing_finite_logPullbacks`, choosing a
+single `lambda > 1` for any finite set of source tests by taking the maximum
+of their individual support windows. The theorem
+`cc20GlobalLogWindowL2Operator_eq_on_finite_logPullback_sum_of_le` extends the
+compressed cross-window identity to arbitrary complex finite linear
+combinations of those source pullbacks using the linearity of the projection
+and window operators. The aggregate retained-cache build remains `3504/3504`
+and the import audit reports only `propext`, `Classical.choice`, and
+`Quot.sound`. This is a larger stable test domain, not density, finite-S
+positive trace/read-off, diagonal `-2 Id`, or RH. See proof 186.
+
+2026-07-13 source-to-log Schwartz selected-formula bridge:
+`GlobalLogHaar.lean` now proves `contDiff_cc20LogPullback` and packages the
+same function as `cc20LogPullbackSchwartz`, with definitional coercion equality
+and its transported compact-support interval. `SelectedYoshidaBridge.lean`
+uses that exact object to construct
+`compactLogTestOfPositiveIntervalCompactTest` and
+`selectedWeilFormulaOfPositiveIntervalCompactTest`. Thus every existing
+`PositiveIntervalCompactTest p` now determines one same-object chain from
+`p.test` through its log pullback to the genuine selected additive
+convolution square and formula owner; no second test witness or smoothness
+premise is stored. The theorem
+`cc20LogPullbackLp_ae_eq_selectedWeilFormula_sourceTest` additionally proves
+that the global `L2` operator input is almost everywhere the exact
+`square.sourceTest.test` stored by that owner. The retained-cache WSL builds
+pass `3504/3504` for `CC20Concrete` and `2965/2965` for `CCM25Concrete`; both import audits report
+only `propext`, `Classical.choice`, and `Quot.sound`. This closes a carrier
+mismatch, not the finite-S positive trace/read-off, single-crossing
+coefficients, compact post-Q remainder, or RH. See proof 187.
+
+2026-07-13 selected single-crossing prime-power read-off:
+`Source/CCM25Concrete/SelectedSingleCrossing.lean` now defines the paired
+crossing diagonal integral on an existing `SelectedWeilSquareOwner` and proves
+`singleCrossingPairDiagonalIntegral_eq`, namely the exact interval-length
+factor `b*(F(b)+F(-b))` for the same stored convolution square `F`. For every
+prime `p` and `m != 0`,
+`eulerLogSingleCrossingAtom_eq_finitePrimeTerm_pow` proves that weighting the
+crossing at `b=m*log(p)` by `1/(m*sqrt(p^m))` is exactly
+`owner.finitePrimeTerm (p^m)`. This formalizes the coefficient cancellation in
+proof 038 without storing the desired scalar. The auxiliary
+`inv_sqrt_nat_pow_eq_rpow` theorem rewrites the coefficient literally as
+`p^(-m/2)/m` using real `rpow` laws. The retained-cache WSL builds
+pass `2917/2917` for the new module and `2966/2966` for `CCM25Concrete`; the
+import audit reports only `propext`, `Classical.choice`, and `Quot.sound`.
+The operator trace-class theorem and equality between the basis trace and this
+diagonal integral remain open, so finite-S positivity and RH remain unproved.
+See proof 188.
+
+2026-07-13 global logarithmic half-line projection API: `GlobalLogCrossing.lean`
+now defines `cc20PositiveHalfLineProjection` on the full logarithmic `L2`
+carrier, using `memLp_indicator_iff_restrict` with the restricted global
+`MemLp` witness. The API proves the pointwise-a.e. indicator representation,
+the norm bound `‖P_+ u‖ ≤ ‖u‖`, and the idempotence
+`P_+ (P_+ u) = P_+ u`. The import-facing audit reports only `propext`,
+`Classical.choice`, and `Quot.sound`; the retained-cache WSL builds pass
+`2946/2946` for the new module and `3505/3505` for `CC20Concrete`.
+The same module now defines `cc20GlobalLogTranslation b` from Mathlib's
+measure-preserving right-addition map. It proves the a.e. formula
+`U_b u(t)=u(t+b)`, exact norm preservation, and
+`U_b (U_(-b) u)=u`; the inverse proof legally pulls the inner a.e. equality
+back through the measure-preserving translation. These are only the bounded
+half-line projection and unitary translation inputs. The bounded operator
+`cc20SingleCrossingOperator b` is now the literal composition
+`(I-P_+) U_(-b) P_+`; it stores no scalar read-off and claims no operator
+ideal. No trace-class theorem, trace cyclicity, basis-trace/diagonal-integral
+identity, or RH consumer has been constructed. See proof 189.
+`cc20NegativeHalfLineProjection_coeFn` additionally identifies `I-P_+`
+almost everywhere with the `Iio 0` indicator, making the crossing geometry
+explicit at the function level.
+
+2026-07-13 rank-one smoothed crossing trace-class producer:
+`GlobalLogCrossingTraceClass.lean` now composes the genuine global crossing
+`(I-P_+) U_(-b) P_+` with a rank-one smoothing. The exact identity reduces the
+composition to `rankOne (crossing k) h`; Hilbert-basis Bessel summability then
+constructs `PositiveTrace.BasisHilbertSchmidtData`, proves the positive
+composition trace-class along every Hilbert basis, and proves its ordinary
+trace has nonnegative real part. The canonical specialization
+`cc20SourceTestSmoothedCrossing p b` uses `cc20LogPullbackLp p` on both sides,
+so one `PositiveIntervalCompactTest` owns the crossing input and trace
+coefficient without mixed witnesses. The retained-cache WSL narrow build and
+import audit are axiom-clean under `propext`, `Classical.choice`, and
+`Quot.sound`. This closes the first minimal trace-class producer only: the full
+Schwartz convolution crossing, basis-trace/diagonal-integral identity,
+finite-prime read-off, finite-S sign gate, and RH remain open. See proof 190.

@@ -1,0 +1,32 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CC20Concrete
+
+namespace ConnesWeilRH
+namespace Source
+namespace CC20Concrete
+
+#check @cc20WindowHaarComplexL2Operator
+#check @cc20WindowPositiveCoordinate
+#check @cc20WindowComplexRegularKernel
+#check @cc20WindowHaarComplexL2Operator_apply
+#check @cc20WindowHaarComplexKernelCoefficient_continuous_input
+#check @cc20WindowHaarComplexL2Operator_basis_normSq_summable
+#check @cc20WindowHaarComplexPositiveTrace_re_nonnegative
+#print cc20WindowHaarComplexL2Operator
+#print cc20WindowPositiveCoordinate
+#print cc20WindowComplexRegularKernel
+#print cc20WindowHaarComplexL2Operator_basis_normSq_summable
+#print cc20WindowHaarComplexPositiveTrace_re_nonnegative
+#print axioms cc20WindowHaarComplexL2Operator_apply
+#print axioms cc20WindowComplexRegularKernel
+#print axioms cc20WindowHaarComplexKernelCoefficient_continuous_input
+#print axioms cc20WindowHaarComplexL2Operator_basis_normSq_summable
+#print axioms cc20WindowHaarComplexPositiveTrace_re_nonnegative
+
+end CC20Concrete
+end Source
+end ConnesWeilRH

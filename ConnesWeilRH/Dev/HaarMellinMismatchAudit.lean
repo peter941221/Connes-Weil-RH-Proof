@@ -1,0 +1,21 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CC20Concrete
+
+namespace ConnesWeilRH
+namespace Source
+namespace CC20Concrete
+
+#check @exists_test_zero_on_cc20CompactInterval_nonzero_global_mellin_one
+#check @not_global_mellin_one_factors_through_cc20CompactRestriction
+#print exists_test_zero_on_cc20CompactInterval_nonzero_global_mellin_one
+#print not_global_mellin_one_factors_through_cc20CompactRestriction
+#print axioms exists_test_zero_on_cc20CompactInterval_nonzero_global_mellin_one
+#print axioms not_global_mellin_one_factors_through_cc20CompactRestriction
+
+end CC20Concrete
+end Source
+end ConnesWeilRH

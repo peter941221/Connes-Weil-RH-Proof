@@ -410,6 +410,14 @@ same correction's uniform strip-decay constant. Use the named
 unscaled transform power law, mix correction witnesses, or omit the correction
 budget.
 
+An existing `PositiveIntervalCompactTest p` already has a canonical
+log-coordinate Schwartz owner. Use `cc20LogPullbackSchwartz p`,
+`compactLogTestOfPositiveIntervalCompactTest p`, and
+`selectedWeilFormulaOfPositiveIntervalCompactTest p` to keep the source test,
+log pullback, additive convolution square, and selected formula on one object.
+Do not construct a second log-test witness or add a redundant smoothness
+premise. This bridge is not a finite-S positive-trace read-off.
+
 ### 7.11 Xi divisor counting
 
 For the project-local Jensen route, use
@@ -668,6 +676,15 @@ coefficient `p^(-m/2)/m`, this is exactly the finite-prime Weil coefficient
 `p^(-m/2)log(p)` on the same square. Assign this noncompact single-crossing
 block to the Weil main term. Only multi-crossing and prolate-correction words
 may enter the compact remainder.
+
+At the diagonal-kernel level, use
+`eulerLogSingleCrossingAtom_eq_finitePrimeTerm_pow`: it proves in Lean that the
+weight `1/(m*sqrt(p^m))` times the paired crossing interval integral is the
+existing selected finite-prime atom at `p^m`. This theorem does not identify
+that integral with an operator trace. The remaining producer must construct
+the actual half-line crossing operator, prove trace-class legality after the
+same test smoothing, and derive the basis trace equality; do not treat the
+diagonal integral definition as that missing trace theorem.
 
 The project sign is fixed: the metric first variation is the negative of the
 crossing pair, and CCM25 has `QW=archimedean+pole-sum_p W_p`. Thus the local
@@ -1214,6 +1231,56 @@ does not prove injectivity of this zero-energy first-kind equation, and the
 projected equation is a two-sided prime-delay problem rather than a triangular
 Volterra equation. Require a strictly lower injectivity theorem before adding
 this owner. See proof 125.
+
+### 7.27 Parameterized CC20 window-kernel guard
+
+`cc20RegularKernelReal` is a fixed `[1/2,2]` convenience wrapper: it applies
+`cc20SqrtIMap`, which replaces every real coordinate below `1/2` by `1/2`.
+It agrees with the genuine source kernel on the fixed interval but is not a
+global positive-half-line kernel. For a parameterized window
+`[1/lambda,lambda]` with `lambda > 2`, using this wrapper silently changes the
+kernel on the nonempty region below `1/2`.
+
+Every exhaustion or increasing-window construction must derive coordinate
+positivity from `lambda > 1`, construct `PositiveCoordinate` directly, and
+call `cc20RegularKernel`. Do not use `cc20RegularKernelReal`, `cc20SqrtIMap`,
+or any fixed-window clamp in the parameterized operator, cross-window
+compatibility, or trace-limit chain. An import audit must print the kernel
+definition so this semantic ownership remains visible.
+
+### 7.28 Common log-Haar carrier guard
+
+Different finite-window Haar `L2` spaces are not definitionally the same
+space. Put cross-window statements on the common logarithmic carrier
+
+```text
+Lp C 2 volume,  with rho = exp(t),
+```
+
+and use `integral_cc20WindowHaarMeasure_eq_logInterval` for the actual
+`d rho/rho = dt` transport. A paper change of variables, matching dimensions,
+or similarly named functions is not a Lean same-object bridge. The global
+window cutoff is `cc20LogWindowProjection`; preserve its proved representative
+formula and idempotence rather than replacing it with an unverified subtype
+embedding.
+
+The genuine global log kernel satisfies the proved identity
+`K(t,s)=k(t-s)`, is simultaneously translation invariant, and has
+`k(r)=QDeltaRegularExtension(exp(|r|))`. Treat the
+whole-line object as a convolution operator and every finite-window object as
+a compression `P_lambda K P_lambda`. Finite-window Hilbert--Schmidt or
+compactness proofs do not imply that the whole-line convolution operator is
+Hilbert--Schmidt or compact. Any global operator construction must prove its
+own convolution multiplier/boundedness theorem and then prove same-object
+compatibility with `cc20LogWindowProjection`.
+
+Do not replace that multiplier obligation with an unproved `L1` estimate. The
+CC20 sine-integral formula has oscillatory large-rho branches, while the
+published compactness argument is on a fixed compact interval. The formal
+`Q`-reduction is recorded in
+`cc20QDeltaRegularCandidate_eq_branch_derivatives`; the remaining whole-line
+bound must come from a source-backed oscillatory Fourier estimate or the
+original quantized-calculus realization.
 
 ## 8. WSL Verification
 

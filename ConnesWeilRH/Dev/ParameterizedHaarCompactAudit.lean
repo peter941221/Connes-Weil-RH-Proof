@@ -1,0 +1,26 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CC20Concrete
+
+namespace ConnesWeilRH
+namespace Source
+namespace CC20Concrete
+
+#check @cc20WindowComplexRegularKernel_swap
+#check @cc20WindowHaarComplexL2Operator_inner_symmetry
+#check @isCompactOperator_cc20WindowHaarComplexL2Operator
+#check @exists_finiteDimensional_cc20WindowHaarRegularRemainder_nonpositive
+#print cc20WindowHaarComplexL2Operator_inner_symmetry
+#print isCompactOperator_cc20WindowHaarComplexL2Operator
+#print exists_finiteDimensional_cc20WindowHaarRegularRemainder_nonpositive
+#print axioms cc20WindowComplexRegularKernel_swap
+#print axioms cc20WindowHaarComplexL2Operator_inner_symmetry
+#print axioms isCompactOperator_cc20WindowHaarComplexL2Operator
+#print axioms exists_finiteDimensional_cc20WindowHaarRegularRemainder_nonpositive
+
+end CC20Concrete
+end Source
+end ConnesWeilRH

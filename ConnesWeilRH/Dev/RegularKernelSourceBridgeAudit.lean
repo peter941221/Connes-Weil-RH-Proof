@@ -1,6 +1,6 @@
 /- Import-facing audit for the CC20 source-kernel and Haar-measure bridge. -/
 
-import ConnesWeilRH.Source.CC20Concrete.RegularKernelHaarL2
+import ConnesWeilRH.Source.CC20Concrete.RegularKernelHaarCompact
 
 open ConnesWeilRH Source CC20Concrete
 
@@ -12,6 +12,12 @@ open ConnesWeilRH Source CC20Concrete
 #check @cc20CompactSourceHaarAction_eq_weighted
 #check @cc20CompactHaarComplexL2Operator
 #check @cc20CompactHaarComplexKernelCoefficient_continuous_input
+#check @cc20CompactHaarComplexL2Operator_basis_normSq_summable
+#check @cc20CompactHaarComplexBasisHilbertSchmidtData
+#check @cc20CompactHaarComplexPositiveTrace_re_nonnegative
+#check @cc20CompactHaarComplexL2Operator_inner_symmetry
+#check @isCompactOperator_cc20CompactHaarComplexL2Operator
+#check @exists_finiteDimensional_cc20HaarRegularRemainder_nonpositive
 
 #print cc20CompactHaarMeasure_univ_lt_top
 #print cc20SourceRegularKernel_eq_cc20RegularKernel
@@ -19,6 +25,12 @@ open ConnesWeilRH Source CC20Concrete
 #print cc20CompactSourceHaarAction_eq_weighted
 #print cc20CompactHaarComplexL2Operator
 #print cc20CompactHaarComplexKernelCoefficient_continuous_input
+#print cc20CompactHaarComplexL2Operator_basis_normSq_summable
+#print cc20CompactHaarComplexBasisHilbertSchmidtData
+#print cc20CompactHaarComplexPositiveTrace_re_nonnegative
+#print cc20CompactHaarComplexL2Operator_inner_symmetry
+#print isCompactOperator_cc20CompactHaarComplexL2Operator
+#print exists_finiteDimensional_cc20HaarRegularRemainder_nonpositive
 
 #print axioms cc20CompactHaarMeasure_univ_lt_top
 #print axioms integral_cc20CompactHaarMeasure_eq_smul
@@ -28,3 +40,9 @@ open ConnesWeilRH Source CC20Concrete
 #print axioms cc20CompactSourceHaarAction_eq_weighted
 #print axioms cc20CompactHaarComplexL2Operator
 #print axioms cc20CompactHaarComplexKernelCoefficient_continuous_input
+#print axioms cc20CompactHaarComplexL2Operator_basis_normSq_summable
+#print axioms cc20CompactHaarComplexBasisHilbertSchmidtData
+#print axioms cc20CompactHaarComplexPositiveTrace_re_nonnegative
+#print axioms cc20CompactHaarComplexL2Operator_inner_symmetry
+#print axioms isCompactOperator_cc20CompactHaarComplexL2Operator
+#print axioms exists_finiteDimensional_cc20HaarRegularRemainder_nonpositive

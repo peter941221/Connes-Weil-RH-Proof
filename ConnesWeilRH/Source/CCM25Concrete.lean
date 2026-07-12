@@ -27,6 +27,7 @@ import ConnesWeilRH.Source.CCM25Concrete.FormulaComponents
 import ConnesWeilRH.Source.CCM25Concrete.Package
 import ConnesWeilRH.Source.CCM25Concrete.SelectedArchimedeanIntegrability
 import ConnesWeilRH.Source.CCM25Concrete.SelectedYoshidaBridge
+import ConnesWeilRH.Source.CCM25Concrete.SelectedSingleCrossing
 
 /-!
 # CCM25 concrete normalization spine

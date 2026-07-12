@@ -380,6 +380,20 @@ theorem multiplicativeQ_cc20DeltaRegular_of_one_lt {rho : ℝ} (hrho : 1 < rho) 
     deriv_cc20DeltaRegular_of_one_lt hrho,
     secondDeriv_cc20DeltaRegular_of_one_lt hrho]
 
+theorem cc20QDeltaRegularCandidate_eq_branch_derivatives
+    {rho : ℝ} (hrho : 0 < rho) :
+    cc20QDeltaRegularCandidate rho =
+      -4 * rho * Real.sqrt rho * cc20DeltaBranchSumDerivative rho -
+        2 * rho ^ 2 * Real.sqrt rho *
+          cc20DeltaBranchSumSecondDerivative rho := by
+  have hsqrt : Real.sqrt rho ≠ 0 := Real.sqrt_ne_zero'.mpr hrho
+  unfold cc20QDeltaRegularCandidate cc20DeltaRegularDerivative
+    cc20DeltaRegularSecondDerivative cc20DeltaRegular
+    cc20DeltaBranchSumDerivative cc20DeltaBranchSumSecondDerivative
+  field_simp [hsqrt]
+  rw [Real.sq_sqrt hrho.le]
+  ring
+
 end CC20Concrete
 end Source
 end ConnesWeilRH

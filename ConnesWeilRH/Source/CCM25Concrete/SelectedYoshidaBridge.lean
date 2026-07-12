@@ -5,6 +5,7 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Source.CC20YoshidaConstruction
+import ConnesWeilRH.Source.CC20Concrete.GlobalLogHaar
 import ConnesWeilRH.Source.CCM25Concrete.SelectedArchimedeanIntegrability
 
 /-!
@@ -36,6 +37,46 @@ theorem logPullbackRaw_contDiff
   exact
     ((normalizedCC20ConcreteTestAlgebra.legacy.encode g).smooth ⊤).comp
       Real.contDiff_exp
+
+noncomputable def compactLogTestOfPositiveIntervalCompactTest
+    (p : PositiveIntervalCompactTest) : CompactLogTest :=
+  { test := CC20Concrete.cc20LogPullbackSchwartz p
+    compactSupport := by
+      simpa only [CC20Concrete.cc20LogPullbackSchwartz_coe] using
+        CC20Concrete.hasCompactSupport_cc20LogPullback p }
+
+@[simp] theorem compactLogTestOfPositiveIntervalCompactTest_apply
+    (p : PositiveIntervalCompactTest) (u : ℝ) :
+    (compactLogTestOfPositiveIntervalCompactTest p).test u =
+      CC20Concrete.cc20LogPullback p u := by
+  rfl
+
+theorem compactLogTestOfPositiveIntervalCompactTest_support_subset
+    (p : PositiveIntervalCompactTest) :
+    Function.support
+        (compactLogTestOfPositiveIntervalCompactTest p).test ⊆
+      Set.Icc (Real.log p.lower) (Real.log p.upper) := by
+  simpa only [compactLogTestOfPositiveIntervalCompactTest_apply] using
+    CC20Concrete.cc20LogPullback_support_subset p
+
+noncomputable def selectedWeilFormulaOfPositiveIntervalCompactTest
+    (p : PositiveIntervalCompactTest) :
+    SelectedWeilFormula.SelectedWeilFormulaOwner :=
+  SelectedWeilFormula.SelectedWeilFormulaOwner.ofCompactLogTest
+    (compactLogTestOfPositiveIntervalCompactTest p)
+
+@[simp] theorem selectedWeilFormulaOfPositiveIntervalCompactTest_sourceTest_apply
+    (p : PositiveIntervalCompactTest) (u : ℝ) :
+    (selectedWeilFormulaOfPositiveIntervalCompactTest p).square.sourceTest.test u =
+      CC20Concrete.cc20LogPullback p u := by
+  rfl
+
+theorem cc20LogPullbackLp_ae_eq_selectedWeilFormula_sourceTest
+    (p : PositiveIntervalCompactTest) :
+    (CC20Concrete.cc20LogPullbackLp p : ℝ → ℂ) =ᵐ[volume]
+      (selectedWeilFormulaOfPositiveIntervalCompactTest p).square.sourceTest.test := by
+  filter_upwards [CC20Concrete.cc20LogPullbackLp_coeFn p] with u hu
+  simpa only [selectedWeilFormulaOfPositiveIntervalCompactTest_sourceTest_apply] using hu
 
 theorem logPullbackRaw_support_subset
     (g : normalizedCC20ConcreteTestAlgebra.Test)

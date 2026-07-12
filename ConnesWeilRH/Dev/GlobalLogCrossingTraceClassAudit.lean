@@ -1,0 +1,19 @@
+import ConnesWeilRH.Source.CC20Concrete.GlobalLogCrossingTraceClass
+
+open ConnesWeilRH Source
+open ConnesWeilRH.Source.CC20Concrete
+
+#check @cc20SmoothedCrossing
+#check @cc20SmoothedCrossing_eq_rankOne
+#check @cc20SmoothedCrossing_basis_normSq_summable
+#check @cc20SmoothedCrossing_positiveComposition_traceClass
+#check @cc20SmoothedCrossing_positiveComposition_trace_nonnegative
+#check @cc20SourceTestSmoothedCrossing
+#check @cc20SourceTestSmoothedCrossing_eq_rankOne
+#check @cc20SourceTestSmoothedCrossing_positiveComposition_traceClass
+#check @cc20SourceTestSmoothedCrossing_positiveComposition_trace_nonnegative
+#print axioms cc20SmoothedCrossing_basis_normSq_summable
+#print axioms cc20SmoothedCrossing_positiveComposition_traceClass
+#print axioms cc20SmoothedCrossing_positiveComposition_trace_nonnegative
+#print axioms cc20SourceTestSmoothedCrossing_positiveComposition_traceClass
+#print axioms cc20SourceTestSmoothedCrossing_positiveComposition_trace_nonnegative
