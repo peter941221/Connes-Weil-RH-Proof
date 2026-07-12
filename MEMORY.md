@@ -2816,3 +2816,17 @@ kernel coefficient representation, pointwise Hilbert-basis Parseval, the
 already proved summability to justify integral/`tsum` exchange, and Fubini.
 No RH or Weil-positivity premise enters. A complex same-kernel operator and the
 source CC20 `K_I` action/read-off remain open. See proof 158.
+
+2026-07-12 complex Hilbert--Schmidt positive trace: the same ordinary real
+regular kernel is now lifted pointwise to a complex kernel and defines the
+genuine complex-linear operator
+`cc20CompactComplexL2Operator : Lp C 2 ->L[C] Lp C 2`. The linear orientation
+is `inner K_x u`, not `inner u K_x`; the latter would be conjugate-linear.
+For continuous inputs, Lean proves the explicit integral formula with
+`(cc20CompactRegularKernel (x,y) : C) * f y`. Complex Bessel inequality gives
+summability on every complex Hilbert basis, and
+`cc20CompactComplexBasisHilbertSchmidtData` now directly inhabits the existing
+`PositiveTrace.BasisHilbertSchmidtData` consumer. Its positive composition has
+an ordinary trace with nonnegative real part. This closes complex
+Hilbert--Schmidt/positive-trace legality for the regular kernel, but not the
+source CC20 `K_I` action, Dirac split, trace read-off, or RH. See proof 159.
