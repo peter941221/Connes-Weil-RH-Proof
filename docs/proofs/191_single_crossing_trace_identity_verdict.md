@@ -1,5 +1,11 @@
 # Proof 191: Single-Crossing Trace Identity Verdict
 
+This verdict is superseded for the compact-kernel layer by
+`docs/proofs/192_compact_crossing_operator_finite_prime_read_off.md`.
+The rank-one rejection below remains valid; the later continuous-kernel
+factorization supplies the missing paired operator trace and finite-prime
+read-off without reusing the rank-one scalar.
+
 ## Result
 
 The direct second-stage continuation from the rank-one producer is rejected.

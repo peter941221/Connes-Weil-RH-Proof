@@ -21,9 +21,17 @@ diagonal summability discharged from continuity on compact finite-measure
 spaces. `SelectedCrossingKernel` specializes this to the two crossing
 orientations on compact source/kernel intervals; its public trace theorem has
 no caller-supplied analytic side conditions and the focused audit uses only
-`propext`, `Classical.choice`, and `Quot.sound`. This is only the operator and
-restricted-integral layer: support reduction to the selected convolution
-square, finite-prime read-off, sign gate, and the RH consumer remain unproved.
+`propext`, `Classical.choice`, and `Quot.sound`. The support reduction is now
+complete: the two section pairings equal the same selected values `F(b)` and
+`F(-b)`, and their traces equal `b F(b)` and `b F(-b)`. After the Euler-log
+weight, `eulerLog_weighted_pair_traces_eq_finitePrimeTerm_pow` proves that the
+sum of these actual compact `A†B` operator traces is the existing
+`finitePrimeTerm (p^m)`. The canonical positive-interval specialization also
+discharges the support premise from the existing Yoshida source-test bridge.
+The remaining crossing obligation is not the coefficient: it is the
+same-object identification of this compact kernel factorization with the
+named whole-line `C_h* C_h J_b`/semilocal metric variation, then multi-prime
+assembly, the sign gate, and the RH consumer.
 
 Plan 016 Contract M0 is complete at the trace-class interface. The proved
 source-normalized identity is

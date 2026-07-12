@@ -42,12 +42,16 @@ The repository does not yet prove RH unconditionally.
 
 Current crossing-layer milestone: `ContinuousKernelHilbertSchmidt` provides
 an axiom-clean generic continuous-kernel `A†B` trace theorem, and
-`SelectedCrossingKernel.pairData_trace_eq_restricted_crossing_integral`
-specializes it to both corrected `P_- U_b P_+` crossing orientations on
-compact intervals without caller-supplied integrability hypotheses. Do not
-describe this as the finite-prime trace identity: support reduction to the
-same selected convolution square and the finite-prime read-off are still
-open.
+`SelectedCrossingKernel` now proves both compact crossing-kernel traces are
+`b F(b)` and `b F(-b)` for the same selected convolution square. The weighted
+sum theorem `eulerLog_weighted_pair_traces_eq_finitePrimeTerm_pow` identifies
+their actual `A†B` operator traces with the existing finite-prime atom at
+`p^m`; the positive-interval specialization discharges the support premise
+from the canonical Yoshida bridge. The remaining same-object bridge is from
+this compact kernel factorization to the named whole-line
+`C_h* C_h J_b`/semilocal metric variation, followed by multi-prime assembly
+and the sign gate. Do not claim those later bridges from the coefficient
+identity alone.
 `unconditional_rh_skeleton` depends on six project roots:
 
 ```text
@@ -689,11 +693,15 @@ may enter the compact remainder.
 At the diagonal-kernel level, use
 `eulerLogSingleCrossingAtom_eq_finitePrimeTerm_pow`: it proves in Lean that the
 weight `1/(m*sqrt(p^m))` times the paired crossing interval integral is the
-existing selected finite-prime atom at `p^m`. This theorem does not identify
-that integral with an operator trace. The remaining producer must construct
-the actual half-line crossing operator, prove trace-class legality after the
-same test smoothing, and derive the basis trace equality; do not treat the
-diagonal integral definition as that missing trace theorem.
+existing selected finite-prime atom at `p^m`. The compact continuous-kernel
+realization is now supplied by
+`SelectedCrossingKernel.eulerLog_weighted_pair_traces_eq_finitePrimeTerm_pow`:
+it constructs two Hilbert--Schmidt analysis operators, proves the `A†B` basis
+traces, reduces their sections to the same convolution square, and obtains
+the finite-prime atom. This does not yet identify those compactly factored
+operators with the named whole-line `C_h* C_h J_b` or the semilocal metric
+variation. That same-object operator bridge remains required before the sign
+gate.
 
 The project translation API uses `U_b u(t)=u(t+b)`. Therefore the implemented
 positive-length crossing is `(I-P)U_bP`, which transports `[0,b)` to
