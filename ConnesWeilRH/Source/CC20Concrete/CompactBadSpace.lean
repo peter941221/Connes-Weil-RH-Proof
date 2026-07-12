@@ -125,6 +125,35 @@ theorem exists_finiteDimensional_remainder_nonpositive
   rw [← Complex.ofReal_pow, Complex.ofReal_re]
   linarith
 
+/-- If an evaluation space contains every compact-remainder control direction,
+then vectors satisfying all of its vanishing conditions lie in the control
+space orthogonal complement. -/
+theorem mem_controlSpace_orthogonal_of_le_evaluationSpace
+    {controlSpace evaluationSpace : Submodule ℂ H}
+    (hcontrol : controlSpace ≤ evaluationSpace)
+    {x : H} (hx : x ∈ evaluationSpaceᗮ) :
+    x ∈ controlSpaceᗮ :=
+  Submodule.orthogonal_le hcontrol hx
+
+/-- A compact remainder is nonpositive on the vanishing space of every
+evaluation space that contains the finite-dimensional control space. This is
+the abstract consumer for the route's finite bad-space containment gate. -/
+theorem exists_finiteDimensional_remainder_nonpositive_on_evaluationSpace
+    (operator : H →L[ℂ] H) (hcompact : IsCompactOperator operator)
+    {threshold : ℝ} (hthreshold : 0 < threshold) :
+    ∃ controlSpace : Submodule ℂ H,
+      FiniteDimensional ℂ controlSpace ∧
+        ∀ evaluationSpace : Submodule ℂ H,
+          controlSpace ≤ evaluationSpace →
+            ∀ x : H, x ∈ evaluationSpaceᗮ →
+              (⟪x, operator x - (threshold : ℂ) • x⟫_ℂ).re ≤ 0 := by
+  obtain ⟨controlSpace, hfinite, hnonpositive⟩ :=
+    exists_finiteDimensional_remainder_nonpositive operator hcompact hthreshold
+  refine ⟨controlSpace, hfinite, ?_⟩
+  intro evaluationSpace hcontrol x hx
+  exact hnonpositive x
+    (mem_controlSpace_orthogonal_of_le_evaluationSpace hcontrol hx)
+
 end CompactBadSpace
 end CC20Concrete
 end Source

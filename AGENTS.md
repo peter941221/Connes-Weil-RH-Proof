@@ -1125,6 +1125,13 @@ reopen this owner through mixed autocorrelation, finite ancillas, or Gram
 reweighting. A new route must abandon positive Schur absorption of the linear
 prime functional itself.
 
+The compact bad-space evaluation-span consumer in proof 138 is accepted Lean
+infrastructure. Use
+`exists_finiteDimensional_remainder_nonpositive_on_evaluationSpace` only after
+proving that the concrete CC20 control space lies in the same object's
+evaluation-kernel span. The abstract theorem does not supply that containment
+and must not be presented as an RH proof.
+
 The radial log-Euler derivative gives a sharp diagnostic positive multiplier:
 its Fourier coefficients are the exact `p^-m/2` Weil channels, but positivity
 requires the scalar compensation `2 log(p)/(sqrt(p)+1)` per prime. Rational

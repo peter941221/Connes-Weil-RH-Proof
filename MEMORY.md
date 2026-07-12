@@ -2586,3 +2586,16 @@ minimum Schur cost is
 NO-GO for the shared mixed-Gram positive owner, not a claim that RH is
 impossible. See proof 137 and
 `docs/proofs/137_pole_neutral_decorrelated_bump_probe.py`.
+
+2026-07-12 compact bad-space evaluation-span consumer admitted to Lean. The
+new theorems
+`mem_controlSpace_orthogonal_of_le_evaluationSpace` and
+`exists_finiteDimensional_remainder_nonpositive_on_evaluationSpace` prove that
+if an evaluation space contains the finite compact-remainder control space,
+then its vanishing subspace inherits the nonpositive `K-threshold*Id` form.
+The API uses only compactness, a positive threshold, and submodule containment;
+it imports no RH or Weil-positivity premise. The smallest source build and
+import-facing Dev audit pass in an isolated WSL2 ext4 snapshot, with only
+`propext`, `Classical.choice`, and `Quot.sound`. The remaining concrete producer
+is the CC20 containment of the control space in the span of the three
+evaluation kernels. See proof 138.
