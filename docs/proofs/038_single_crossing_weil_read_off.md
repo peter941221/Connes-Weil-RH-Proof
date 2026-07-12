@@ -2,10 +2,12 @@
 
 Date: 2026-07-12
 
-Status: the half-line single-crossing trace gives the exact prime-power Weil
-coefficient and the same convolution square. This closes the local principal
-channel used by plans 036--037. The global Sonin decomposition and compact
-remainder sign remain open. RH remains unproved.
+Status: the local half-line formula remains correct, but its use as the
+endpoint metric-projection read-off is rejected by
+`042_metric_sonin_second_prime_power_rejection.md`. The metric projection
+supplies coefficient `a^2`, not `a^2/2`, before the crossing length
+`2 log(p)` is inserted. Thus the `p^2` channel is twice the Weil atom. RH
+remains unproved.
 
 ## 1. Partial Translation Geometry
 
@@ -99,8 +101,8 @@ Plans 025--026 correctly rejected treating it as part of a compact remainder.
 Equation (R.4) identifies its proper owner: it is the finite-prime Weil main
 term itself.
 
-After subtracting the signed main term (R.5)--(R.6) from the metric Sonin
-trace, every remaining Euler word
+If an independent owner supplied the logarithmic prefactor `a^m/m`, then after
+subtracting the signed main term (R.5)--(R.6), every remaining Euler word would
 either:
 
 ```text
@@ -108,7 +110,8 @@ crosses a cutoff boundary at least twice, or
 contains the trace-class prolate correction K_prol.      (R.5)
 ```
 
-Those are precisely the trace-class classes established in plan 037.
+Those are precisely the trace-class classes considered in plan 037. The
+endpoint metric projection fails the prefactor premise at `m=2`.
 
 ## 4. Remaining Global Identification
 
@@ -119,18 +122,18 @@ two single-crossing orientations are exactly the pair in (R.3). The local
 kernel calculation cannot determine the final project sign by itself, but it
 fixes the magnitude, prime-power index, and same-test ownership.
 
-The remaining global remainder is compact. Its norm/sign is the only open
-part of this read-off lane.
+No compact global remainder follows for the endpoint metric projection: its
+excess `m=2` single crossing is noncompact before smoothing.
 
 ## 5. Verdict
 
 ```text
 partial translation geometry: exact.
 same convolution square: exact.
-p^(-m/2) log(p) coefficient: exact.
+p^(-m/2) log(p) coefficient: exact only given an a^m/m owner prefactor.
 CCM25 QW sign: exact and matching.
-raw noncompact Euler block: assigned to Weil main term, not remainder.
+endpoint metric prefactor: wrong at m=2.
 multi-crossing remainder: trace class by plan 037.
-global Sonin sign and compact norm: open.
+endpoint metric Sonin owner: rejected.
 RH: unproved.
 ```

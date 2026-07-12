@@ -2,9 +2,9 @@
 
 Date: 2026-07-12
 
-Status: the fatal raw central `p^-1` identity term cancels algebraically inside
-the orthogonal metric projection before the post-`Q` read-off. The remaining
-defect-pair trace and its sign are open. RH remains unproved.
+Status: superseded by `042_metric_sonin_second_prime_power_rejection.md`. The
+raw central identity cancels, but the surviving `U^2` single-crossing
+coefficient is twice the Weil `p^2` coefficient. RH remains unproved.
 
 ## 1. Setup
 
@@ -125,14 +125,14 @@ uncancelled `p^-1 log(p) Id` at the metric-projection level.
 raw central finite-prime identity: canceled before read-off.
 first Euler coefficient: off-diagonal Sonin defect J.
 second Euler coefficient: paired defects -J*J and JJ* plus off-diagonal terms.
-p^2 Weil coefficient: not yet identified.
-post-Q remainder sign: open.
-metric Sonin escape: alive past the central-Dirac guard.
+p^2 Weil coefficient: factor 2 too large in the endpoint projection.
+post-Q compact remainder: impossible with the excess single crossing.
+metric Sonin escape: rejected.
 RH: unproved.
 ```
 
 The full parameter flow is recorded in
 `docs/proofs/036_metric_projection_logarithmic_flow.md`. Its logarithmic
-generator contains every `U_p^m` with coefficient `a^(m-1)`; integration and
-the scaling differential recover `p^(-m/2)log(p)`. The nonlinear interrupted
-words remain the unresolved defect remainder.
+generator contains every `U_p^m` with coefficient `a^(m-1)`, but differentiating
+the moving projection factors adds another direct channel. The resulting
+endpoint coefficient is already wrong at `m=2`.

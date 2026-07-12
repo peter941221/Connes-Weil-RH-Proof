@@ -2,10 +2,12 @@
 
 Date: 2026-07-12
 
-Status: the orthogonal Sonin projection has an exact logarithmic Euler flow.
-Every prime-power translation appears in the correct generating series; the
-nonlinear terms are isolated as projection-defect remainders. Their final sign
-is open. RH remains unproved.
+Status: superseded and rejected by
+`042_metric_sonin_second_prime_power_rejection.md`. The logarithmic generator
+does contain `a^(m-1)U^m`, but differentiating the moving projection factors
+adds another direct channel. At `p^2` the endpoint projection coefficient is
+twice the Weil coefficient, so the nonlinear terms cannot all be assigned to a
+compact defect remainder. RH remains unproved.
 
 ## 1. Exact Projection Flow
 
@@ -134,17 +136,15 @@ kind of conditioning CC20 can handle.
 ## 6. Verdict
 
 ```text
-all p^m translations: exact in the logarithmic generator.
-Weil coefficient p^(-m/2) log(p): matched in the single-crossing channel.
+all p^m translations: present in the logarithmic generator.
+endpoint coefficient: wrong from p^2 onward after moving-projector terms.
 raw central p^-1 identity: canceled by metric normalization.
-mixed/defect words: isolated, sign open.
+moving-projector direct channel: supplies the fatal extra p^2 copy.
 multi-prime direct additivity: exact.
-metric Sonin route: alive.
+metric Sonin route: rejected.
 RH: unproved.
 ```
 
-The operator-ideal side of the interrupted words is closed in
-`docs/proofs/037_metric_sonin_ideal_closure.md`: CC20's prolate correction is
-trace class and every smoothed multi-crossing word is trace class. The
-remaining gate is the compact norm/sign, conditional on the exact
-single-crossing Weil read-off.
+The operator-ideal estimates for genuine multi-crossing words remain useful,
+but the excess `p^2` word is a single crossing and is not in that ideal. See
+`docs/proofs/042_metric_sonin_second_prime_power_rejection.md`.

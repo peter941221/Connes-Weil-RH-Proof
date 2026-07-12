@@ -2,10 +2,10 @@
 
 Date: 2026-07-12
 
-Status: an exact source-backed semilocal positive trace has been constructed
-without a semilocal prolate self-adjoint extension and without a large-cutoff
-cross-spectral limit. The remaining fixed-`S` trace remainder is open. RH
-remains unproved.
+Status: superseded by `042_metric_sonin_second_prime_power_rejection.md`. The
+metric projection formula is valid, but its endpoint trace has the wrong
+single-crossing coefficient at `p^2`: twice the finite-prime Weil coefficient.
+It is not a semilocal Weil positive-trace owner. RH remains unproved.
 
 ## 1. Why This Is A Different Theta Route
 
@@ -214,5 +214,6 @@ This first rejection test now passes algebraically. Expanding the metric
 projection to second order gives off-diagonal first variation
 `-QUR-RU*Q` and diagonal second variation `diag(-J*J,JJ*)`, where `J=QUR`.
 The raw scalar `a^2 I` cancels against the inverse compressed metric before
-read-off. See `docs/proofs/035_metric_projection_second_variation.md`. The
-remaining test is the smoothed defect-pair sign and the `U^2`/`p^2` atom.
+read-off. The later `U^2` calculation rejects the route: the endpoint
+projection gives twice the required `p^2` atom. See
+`docs/proofs/042_metric_sonin_second_prime_power_rejection.md`.

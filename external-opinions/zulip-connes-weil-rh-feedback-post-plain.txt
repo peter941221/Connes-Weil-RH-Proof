@@ -1,0 +1,142 @@
+Title:
+Request for feedback: a Connes-Weil route toward RH
+
+Hello everyone,
+
+I am working on a Connes-Weil style route toward the Riemann Hypothesis, using source interfaces from the Connes-Consani and Connes-Consani-Marcolli papers. I would like feedback on the mathematical route and on the interface statements that I am trying to formalize in Lean.
+
+I am not presenting this as a completed proof. The current Lean theorem is still certificate-conditional: it proves Mathlib's _root_.RiemannHypothesis from an explicit route certificate. My goal is to turn the remaining certificate fields into source-object-backed constructions and then into Lean proofs where possible.
+
+Here is the route in the form I am trying to check.
+
+Fix a test function g, and put
+
+F_g = g^* * g
+
+For this fixed g, choose a finite set of places S, a support window I, and a cutoff lambda. Here I is just the support window, or interval, used to localize the fixed test. The choice of S, I, and lambda is not meant to change the final object; it should only give a finite-lambda setting where the trace calculation can be read off.
+
+The starting point is a positive finite-lambda trace:
+
+PositiveTrace_(S,lambda)(g) >= 0
+
+The first main step is a trace read-off. The trace should equal
+
+QW_lambda(g,g)
+  + Rank_(S,I)(g)
+  + PoleJetExtra_(S,I)(g)
+  + R_(S,I,lambda,J)(g)
+
+The triple vanishing condition kills the rank and pole ledgers. The remaining term should be controlled by an endpoint-strip error:
+
+|R_(S,I,lambda,J)(g)|
+  <= C_(S,I,J)(g) Cdef_(S,I,lambda,J)(g)
+
+For fixed g, S, I, and J, the exhaustion step should give
+
+Cdef_(S,I,lambda,J)(g) -> 0
+
+as lambda -> infinity.
+
+For lambda large enough, the restricted form should agree with the full form:
+
+QW_lambda(g,g) = QW(g,g)
+
+This gives
+
+QW(g,g) >= 0
+
+The final sign bridge is
+
+QW(g,g) = - sum_v W_v(F_g)
+
+so the route gives the Connes-Consani inequality
+
+sum_v W_v(F_g) <= 0
+
+The last step is to apply the Connes-Consani finite-vanishing criterion and then transport the resulting source-RH statement to Mathlib's _root_.RiemannHypothesis.
+
+The point I most want checked is object matching. The route only works if the same data pass through all these steps:
+
+same g
+same F_g = g^* * g
+same finite set S
+same support window I
+same lambda
+same half-density convention
+same sign convention
+same pole normalization
+same finite-prime support
+
+The main mathematical gates are these.
+
+Gate 1: Trace-scale compatibility
+
+The positive trace, the support-square trace, the CC20 no-defect trace, and the CCM25 restricted form should represent the same finite-lambda scalar. In particular, I need to rule out a missing source-owned term such as
+
+Bulk_(S,lambda)(g,g) ~ C log(lambda) ||g||^2
+
+outside QW_lambda, rank, pole, and endpoint-strip Cdef.
+
+Gate 2: Sign/defect classification
+
+The CC20 post-Q source remainder is split into seven rows:
+
+Row 1: source remainder object and sign
+Row 2: source remainder after Q
+Row 3: fixed-S transport into the CCM24/Sonin/window coordinate
+Row 4: projection-defect normal form
+Row 5: no-strip rank/pole identification
+Row 6: endpoint-strip Cdef domination
+Row 7: no hidden positive defect outside Cdef
+
+The intended conclusion is the finite-lambda identity above, together with the Cdef bound on R.
+
+Gate 3: Restricted-to-full bridge
+
+I am not using finite-dimensional spectral convergence, determinant convergence, or numerical eigenvalue convergence here. The intended step is a fixed-test scalar restriction statement:
+
+QW_lambda(g,g) = QW(g,g)
+
+once lambda is large enough for the support and finite-prime atoms of F_g.
+
+Gate 4: Final sign bridge
+
+The normalization must be
+
+QW(g,g) = - sum_v W_v(F_g)
+
+The sign matters because route nonnegativity becomes the CC20 nonpositivity hypothesis only after this bridge.
+
+Gate 5: RH definition bridge
+
+The final Lean target is Mathlib's _root_.RiemannHypothesis, not a local RH predicate. The bridge has to match the same zeta function, non-trivial zero predicate, pole exclusion, trivial-zero exclusion, and critical-line condition.
+
+Here is the minimal Lean shape, only to indicate the current formalization boundary:
+
+structure RouteCertificate (inputs : RouteInputs) where
+  sourceBackedTest : SourceBackedFixedSTest inputs
+  ledgers : RouteLedgers
+  bridge : RouteBridgeCertificate inputs sourceBackedTest ledgers
+
+theorem final_connes_weil_rh
+    {inputs : RouteInputs} (cert : RouteCertificate inputs) :
+    _root_.RiemannHypothesis := by
+  ...
+
+The source-object layer now reaches the route-certificate boundary. In the current scaffold, RouteInputs, the source-backed fixed-S test, and the trace read-off data can be built from an expanded source package plus explicit front-end evidence. The remaining hard route inputs are concentrated in SourceSignDefectClassification, RestrictedToFullQWBridgeContract, FinalSignBridgeContract, and the trace-to-QW read-off bridges.
+
+Recent Lean work also moved more authority into source-owned packages: source-RH to Mathlib-RH transport now goes through RHDefinitionBridge.source_rh_to_mathlib_rh, fixed-lambda exact finite-prime support is projected from the CCM25 concrete arithmetic package, and the fixed-test QW_lambda = QW scalar read-off has been moved through the CCM25 package layer. These are interface safeguards, not analytic proofs of the CC20 or CCM25 source theorems.
+
+I would appreciate feedback on the weakest point in this setup. In particular:
+
+Question 1: Does the trace-scale read-off need an extra hypothesis to rule out a divergent bulk term?
+
+Question 2: Is the fixed-S transport in Row 3 too strong as stated?
+
+Question 3: Does the Rows 1-7 classification miss a possible semilocal cross-term?
+
+Question 4: Does the restricted-to-full step really avoid spectral convergence assumptions?
+
+Question 5: Is the final use of the Connes-Consani finite-vanishing criterion stated with the right sign and zero-set conventions?
+
+If this is an appropriate topic for this stream, I can post the trace-scale ledger, the Rows 1-7 ledger, or the current Lean theorem shapes in follow-up messages.

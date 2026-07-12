@@ -137,6 +137,11 @@ CCM24's common de Branges realization proves stability of the Sonin function
 space, not an identification with the test-root Hilbert space. The corrected
 contract is recorded in `docs/proofs/040_metric_sonin_domain_rejection.md`.
 
+The later same-object expansion gives a stronger obstruction: the endpoint
+metric projection has twice the required `p^2` coefficient, leaving an excess
+single crossing outside the compact ideal. See
+`docs/proofs/042_metric_sonin_second_prime_power_rejection.md`.
+
 ## 6. Verdict
 
 ```text
