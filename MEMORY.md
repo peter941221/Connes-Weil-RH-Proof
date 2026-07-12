@@ -3355,3 +3355,20 @@ exact support restriction supplied by the global crossing, and matches the
 focused audit reports only `propext`, `Classical.choice`, and `Quot.sound`.
 This remains a geometric bridge, not yet the continuous-kernel/operator trace
 identity or the finite-S sign gate.
+
+2026-07-13 selected crossing operator dense-core bridge:
+`SelectedCrossingOperatorBridge.lean` now identifies both finite crossing
+kernel operators on one restricted Schwartz input. With `g*` the existing
+`CompactLogTest.involution`, `pairData.right` is the source-window restriction
+of `C_(g*) u`, while `pairData.left` is the restriction of the same convolution
+at `s-b`. The proof passes through actual subtype integrals, extends them using
+the input support, and proves that Mathlib's real-linear and complex-linear
+multiplication convolution implementations coincide. The companion global
+crossing theorem expands `<h,J_b h>` as the boundary-interval integral, but
+that rank-one correlation is explicitly not the target `C_h† C_h J_b` trace.
+The retained-cache aggregate/audit build passes `3541/3541`; all new
+declarations report only `propext`, `Classical.choice`, and `Quot.sound`.
+The remaining bottom is to extend the dense-core operator equality to the
+complete finite L2 carrier and identify `pairData.traceProduct` with the
+restricted whole-line convolution/crossing composition before using the
+existing finite-prime trace read-off.

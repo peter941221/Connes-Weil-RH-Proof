@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Source.CC20Concrete.GlobalLogCrossing
+import Mathlib.MeasureTheory.Function.L2Space
 
 /-!
 # Restrict the global crossing to its finite boundary interval
@@ -36,6 +37,30 @@ theorem cc20SingleCrossingOperator_restrict_coeFn_eq_translation
   filter_upwards [hrestrict, hmem] with t ht htm
   rw [ht]
   simp only [Set.indicator_of_mem htm]
+
+theorem cc20SingleCrossingOperator_schwartz_inner_eq_boundary_integral
+    (h : SchwartzMap ℝ ℂ) (b : ℝ) (hb : 0 ≤ b) :
+    inner ℂ (h.toLp 2) (cc20SingleCrossingOperator b (h.toLp 2)) =
+      ∫ t in cc20CrossingBoundaryInterval b,
+        star (h t) * h (t + b) := by
+  rw [MeasureTheory.L2.inner_def, ← integral_indicator measurableSet_Icc]
+  have hh := h.coeFn_toLp 2 (volume : Measure ℝ)
+  have hhShift :=
+    (measurePreserving_add_right volume b).quasiMeasurePreserving.ae_eq hh
+  have hcross := cc20SingleCrossingOperator_coeFn_eq_Icc_indicator
+    b hb (h.toLp 2)
+  apply integral_congr_ae
+  filter_upwards [hh, hhShift, hcross] with t hht hhShiftAt hcrossAt
+  rw [hcrossAt]
+  simp only [RCLike.inner_apply]
+  rw [hht]
+  by_cases ht : t ∈ cc20CrossingBoundaryInterval b
+  · simp only [Set.indicator_of_mem ht]
+    have hshiftValue : (h.toLp 2 : ℝ → ℂ) (t + b) = h (t + b) := by
+      simpa only [Function.comp_apply] using hhShiftAt
+    rw [hshiftValue]
+    exact mul_comm _ _
+  · simp only [Set.indicator, ht, if_false, zero_mul]
 
 end CC20Concrete
 end Source

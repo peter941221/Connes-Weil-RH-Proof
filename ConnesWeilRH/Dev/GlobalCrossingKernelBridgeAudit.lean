@@ -11,8 +11,10 @@ namespace CC20Concrete
 
 #check @cc20CrossingBoundaryInterval
 #check @cc20SingleCrossingOperator_restrict_coeFn_eq_translation
+#check @cc20SingleCrossingOperator_schwartz_inner_eq_boundary_integral
 
 #print axioms cc20SingleCrossingOperator_restrict_coeFn_eq_translation
+#print axioms cc20SingleCrossingOperator_schwartz_inner_eq_boundary_integral
 
 end CC20Concrete
 end Source

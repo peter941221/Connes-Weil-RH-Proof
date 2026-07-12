@@ -1682,3 +1682,10 @@ The accepted focused build is
 the real restricted measure of `Icc (-b) 0`; use this bridge when comparing a
 compact kernel to the global operator. The accepted audit target is
 `ConnesWeilRH.Dev.GlobalCrossingKernelBridgeAudit`.
+
+`SelectedCrossingOperatorBridge.lean` is the accepted dense-core bridge for
+the compact `pairData` operators. On restricted Schwartz inputs, the right
+kernel is the source restriction of `C_(g*)`, and the left kernel is the same
+convolution evaluated at `s-b`. Preserve this common involution owner. Do not
+replace the trace by the single-vector correlation `<h,J_b h>`; that object
+can vanish for positive-support tests and is not `Tr(C_h† C_h J_b)`.

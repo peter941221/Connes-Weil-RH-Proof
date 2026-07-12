@@ -1,0 +1,34 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.SelectedCrossingOperatorBridge
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+namespace SelectedCrossingOperatorBridge
+
+#check @rightCoefficient_kernelRestriction_eq_setIntegral
+#check @rightCoefficient_kernelRestriction_eq_schwartzConvolution
+#check @schwartzConvolution_mul_real_eq_complex
+#check @schwartzConvolution_mul_real_comm
+#check @rightCoefficient_kernelRestriction_eq_globalConvolutionCore
+#check @rightOperator_kernelRestriction_eq_sourceConvolutionToLp
+#check @leftCoefficient_kernelRestriction_eq_globalConvolutionCore
+#check @leftOperator_kernelRestriction_eq_shiftedSourceConvolutionToLp
+
+#print axioms rightCoefficient_kernelRestriction_eq_setIntegral
+#print axioms rightCoefficient_kernelRestriction_eq_schwartzConvolution
+#print axioms schwartzConvolution_mul_real_eq_complex
+#print axioms schwartzConvolution_mul_real_comm
+#print axioms rightCoefficient_kernelRestriction_eq_globalConvolutionCore
+#print axioms rightOperator_kernelRestriction_eq_sourceConvolutionToLp
+#print axioms leftCoefficient_kernelRestriction_eq_globalConvolutionCore
+#print axioms leftOperator_kernelRestriction_eq_shiftedSourceConvolutionToLp
+
+end SelectedCrossingOperatorBridge
+end CCM25Concrete
+end Source
+end ConnesWeilRH
