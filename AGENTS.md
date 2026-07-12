@@ -1677,3 +1677,8 @@ crossing owner. Keep this composition separate from the compact kernel
 `pairData` until a same-object continuous-kernel representation is proved.
 The accepted focused build is
 `lake build ConnesWeilRH.Source.CC20Concrete ConnesWeilRH.Dev.GlobalConvolutionCrossingAudit`.
+
+`GlobalCrossingKernelBridge.lean` proves the global crossing restriction on
+the real restricted measure of `Icc (-b) 0`; use this bridge when comparing a
+compact kernel to the global operator. The accepted audit target is
+`ConnesWeilRH.Dev.GlobalCrossingKernelBridgeAudit`.

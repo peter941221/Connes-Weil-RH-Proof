@@ -3345,3 +3345,13 @@ theorem. The retained-cache aggregate build passes `3520/3520`, and
 `Classical.choice`, and `Quot.sound`. This is the operator ownership and
 positivity layer only; the continuous-kernel representation, basis trace /
 diagonal identity, finite-S read-off, sign gate, and RH remain open.
+
+2026-07-13 global-to-compact crossing geometry: `GlobalCrossingKernelBridge.lean`
+defines `cc20CrossingBoundaryInterval b = Icc (-b) 0` and proves, for `b ≥ 0`,
+the restricted-measure a.e. identity
+`cc20SingleCrossingOperator b u t = u (t+b)` on that interval. This is the
+exact support restriction supplied by the global crossing, and matches the
+`t-s+b` compact kernel variable. The aggregate build passes `3521/3521`; the
+focused audit reports only `propext`, `Classical.choice`, and `Quot.sound`.
+This remains a geometric bridge, not yet the continuous-kernel/operator trace
+identity or the finite-S sign gate.

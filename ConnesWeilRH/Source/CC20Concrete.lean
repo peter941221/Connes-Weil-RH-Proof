@@ -18,6 +18,7 @@ import ConnesWeilRH.Source.CC20Concrete.GlobalLogHaar
 import ConnesWeilRH.Source.CC20Concrete.GlobalLogCrossing
 import ConnesWeilRH.Source.CC20Concrete.GlobalLogConvolution
 import ConnesWeilRH.Source.CC20Concrete.GlobalConvolutionCrossing
+import ConnesWeilRH.Source.CC20Concrete.GlobalCrossingKernelBridge
 import ConnesWeilRH.Source.CC20Concrete.GlobalLogCrossingTraceClass
 import ConnesWeilRH.Source.CC20Concrete.ContinuousKernelHilbertSchmidt
 import ConnesWeilRH.Source.CC20Concrete.HaarLogTransport
