@@ -9,3 +9,5 @@ MEMORY.md
 *.ilean
 *.trace
 *.log
+__pycache__/
+*.py[cod]
