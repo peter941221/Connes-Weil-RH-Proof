@@ -74,6 +74,19 @@ cc20CompactSourceHaarAction
 cc20CompactSourceHaarAction_eq_weighted
 ```
 
+`RegularKernelHaarL2.lean` now reconstructs the complex-linear operator on the
+actual source space:
+
+```text
+cc20CompactHaarComplexL2Operator : Lp C 2 cc20CompactHaarMeasure ->L[C]
+  Lp C 2 cc20CompactHaarMeasure
+cc20CompactHaarComplexKernelCoefficient_continuous_input
+```
+
+For every continuous input, the operator coefficient is exactly the source
+Haar action. This is an `L2` operator construction, not yet a Hilbert--Schmidt
+or trace-class theorem.
+
 The piecewise source kernel uses the continuous ordinary value on the
 diagonal. This does not absorb the separate `-2 Dirac_0` distribution.
 
@@ -99,7 +112,7 @@ There is no `sorryAx`, project root, RH premise, or Weil-positivity premise.
 
 ## Remaining bottom
 
-The next honest layer is a complex `L2(cc20CompactHaarMeasure)` extension of
-the same kernel action, followed by Hilbert--Schmidt summability and the
-quadratic-form identity with the separate `-2 Id` term. The current theorem is
-not yet CC20 `thmqkey1`, a prime/pole/archimedean same-test read-off, or RH.
+The next honest layer is Haar-product kernel square integrability and
+Hilbert--Schmidt summability for this operator, followed by the quadratic-form
+identity with the separate `-2 Id` term. The current theorem is not yet CC20
+`thmqkey1`, a prime/pole/archimedean same-test read-off, or RH.

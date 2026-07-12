@@ -2845,3 +2845,14 @@ Haar action is defined on continuous complex inputs and audited with only
 `propext`, `Classical.choice`, and `Quot.sound`. A complex Haar-`L2` extension,
 Hilbert--Schmidt proof, separate `-2 Id` quadratic-form read-off, and RH remain
 open. See proof 160.
+
+2026-07-12 Haar-L2 operator: `RegularKernelHaarL2.lean` reconstructs the
+complex-linear same-kernel operator on the actual source space
+`Lp ℂ 2 cc20CompactHaarMeasure`, with coefficient map
+`cc20CompactHaarComplexKernelCoefficient` and operator
+`cc20CompactHaarComplexL2Operator`. The theorem
+`cc20CompactHaarComplexKernelCoefficient_continuous_input` identifies its
+continuous-input coefficient with the source Haar action exactly. The import
+audit passes with only `propext`, `Classical.choice`, and `Quot.sound`. This
+does not yet prove Haar-product square integrability, Hilbert--Schmidt
+summability, the `-2 Id + K_I` distributional split, trace read-off, or RH.
