@@ -1118,6 +1118,13 @@ the actual mixed-prime Gram nearly diagonal, pushing the Schur cost above one
 even for `{2,3}`. Treat mixed-autocorrelation discounts as untrusted until the
 same test also satisfies all pole-node constraints.
 
+Proof 137 closes the shared mixed-Gram Schur route. Pole-neutral compact bump
+combinations can avoid every visible prime-ratio shift, diagonalizing the
+actual same-object Gram; `{2,3,5}` then has Schur cost `1.149027...>1`. Do not
+reopen this owner through mixed autocorrelation, finite ancillas, or Gram
+reweighting. A new route must abandon positive Schur absorption of the linear
+prime functional itself.
+
 The radial log-Euler derivative gives a sharp diagnostic positive multiplier:
 its Fourier coefficients are the exact `p^-m/2` Weil channels, but positivity
 requires the scalar compensation `2 log(p)/(sqrt(p)+1)` per prime. Rational

@@ -2574,3 +2574,15 @@ oscillatory factors. With `h=bump_lambda*cos(kx)`, the `{2,3}` cost at
 still a numerical screen until finite pole-node constraints are imposed, but
 it blocks any unconditional mixed-Gram discount argument. See proof 136 and
 `docs/proofs/136_actual_mixed_gram_probe.py`.
+
+2026-07-12 shared mixed-Gram route NO-GO: four disjoint compact smooth bumps
+with centers `0.05,0.52,1.12,1.75` and small radius have support width above
+`log 5`, while their support differences avoid
+`log(3/2),log(5/3),log(5/2)`. Rank-nullity supplies a nonzero vector satisfying
+the finite pole rows. Its autocorrelations at all three prime-ratio shifts are
+exactly zero, so the same-object `{2,3,5}` crossing Gram is diagonal and the
+minimum Schur cost is
+`1/(2 log 2)+1/(3 log 3)+1/(5 log 5)=1.149027...>1`. This is a route-level
+NO-GO for the shared mixed-Gram positive owner, not a claim that RH is
+impossible. See proof 137 and
+`docs/proofs/137_pole_neutral_decorrelated_bump_probe.py`.
