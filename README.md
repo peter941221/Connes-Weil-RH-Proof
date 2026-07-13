@@ -1,11 +1,11 @@
 # Connes-Weil RH Proof
 
-Version 0.2.4-dev.
+Version 0.2.5-dev.
 
 This repository records a source-conditional Connes-Weil route to Mathlib's
 canonical Riemann Hypothesis statement.
 
-The public status is conditional:
+The public status, as of 2026-07-13, is conditional:
 
 ```text
 CCM24 source rows
@@ -17,8 +17,8 @@ Mathlib _root_.RiemannHypothesis
 ```
 
 The repository does not claim journal acceptance, Clay acceptance, independent
-referee certification, or a no-argument Lean proof of RH. The active Lean route
-still has this shape:
+referee certification, or an unconditional no-argument Lean proof of RH. The
+conditional route still has this shape:
 
 ```lean
 structure RouteCertificate (inputs : RouteInputs) where
@@ -32,6 +32,21 @@ theorem final_connes_weil_rh
   ...
 ```
 
+The latest Lean milestone is below the final RH-producing layer. The project
+now has an axiom-clean operator bridge for the selected finite-prime crossing:
+
+```text
+compact A†B crossing traces
+  -> global convolution crossing and its adjoint
+  -> Euler-log weighted prime-power trace atoms
+  -> finite-S operator sum on one global L2 space
+  -> compact + self-adjoint + trace read-off
+```
+
+This is a genuine same-object finite-prime trace package. It is not yet a
+positive semilocal owner and it does not prove the sign of the remaining
+post-Q terms.
+
 Local evidence:
 
 | claim | evidence |
@@ -40,8 +55,12 @@ Local evidence:
 | the route consumes a certificate | ConnesWeilRH/Route/RouteTheorem.lean:24-28 |
 | the conditional Lean theorem concludes Mathlib RH | ConnesWeilRH/Route/RouteTheorem.lean:2599-2606 |
 | the no-argument theorem remains development work | ConnesWeilRH/Dev/UnconditionalSkeleton.lean |
+| compact crossing trace reaches the whole-line convolution crossing | ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:2711 |
+| finite-S Euler-log crossing sum is self-adjoint, compact, and trace-readable | ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean:3057-3135 |
+| the ordinary CC20 window has a global compact self-adjoint owner | ConnesWeilRH/Source/CC20Concrete/GlobalLogKernel.lean:1629-1652 |
+| selected prime translations give the finite-prime quadratic read-off | ConnesWeilRH/Source/CCM25Concrete/SelectedPrimeTranslationQuadratic.lean:78-115 |
 
-Current no-argument frontier, as of 2026-07-08:
+Current no-argument frontier, as of 2026-07-13:
 
 ```text
 normalizedSelectedYoshidaDetectorPolePairingNonnegativeCoreFromTheorems
@@ -51,12 +70,56 @@ normalizedSelectedYoshidaDetectorPolePairingNonnegativeCoreFromTheorems
   -> unconditional_rh_skeleton
 ```
 
-The active blocker is not a certificate wrapper. The current development path
-asks Lean to prove detector-wide pole-pairing nonnegativity and then derives
-that every standard source non-trivial zero lies on the critical line. The route
-layer proves this pole-pairing target is equivalent to the no-off-line
-source-zero statement once Yoshida detector existence is available. Filling that
-slot would therefore prove the RH-level conclusion, not a lower local lemma.
+The active blocker has moved beyond the compact operator and finite-prime
+trace layers. The missing producer is a genuine finite-S positive semilocal
+operator whose single-crossing component is the proved global finite-S sum,
+together with a same-domain compact self-adjoint post-Q remainder and its sign.
+The published CCM24 and q-series constructions do not supply that trace
+identity. The later spectral-triple and finite Guinand--Weil papers also do not
+close this sign/positivity gap; they provide convergence or finite-matrix data,
+not the required uniform positive owner.
+
+Until that producer and the final exit are proved, `unconditional_rh_skeleton`
+is development infrastructure rather than an accepted unconditional proof.
+
+## Current Research Status
+
+The current research conclusion is negative but useful: the recent literature
+does not provide the missing finite-S positive owner. The active mathematical
+bottom is therefore explicit rather than hidden behind a wrapper:
+
+```text
+proved whole-line K_S
+  |
+  +--> need a genuine finite-S positive owner
+  |      whose single-crossing term is exactly K_S
+  |
+  +--> need same-domain post-Q remainder control
+         with the required sign
+              |
+              v
+       restricted-test sufficiency or
+       non-circular source-zero exclusion
+              |
+              v
+       SourceRH -> Mathlib _root_.RiemannHypothesis
+```
+
+Primary references checked for this status:
+
+| source | current conclusion |
+|---|---|
+| CCM24, arXiv:2310.18423v2, https://arxiv.org/abs/2310.18423 | establishes the semilocal/Sonin transport framework, but leaves semilocal positivity as further work |
+| q-series/Jacobi paper, arXiv:2403.01247, https://arxiv.org/abs/2403.01247 | supplies moment/Jacobi expansions and integrality, not the required positive trace identity |
+| Zeta Spectral Triples, arXiv:2511.22755, https://arxiv.org/abs/2511.22755 | studies self-adjoint approximants, but leaves essential prolate/ground-state steps open |
+| finite Guinand--Weil dictionary, arXiv:2607.02828, https://arxiv.org/abs/2607.02828 | supplies finite matrices and tail order, not a uniform sign theorem |
+
+The latest Lean declarations are audited by import-facing files under
+`ConnesWeilRH/Dev/`. Their `#check`, `#print`, and `#print axioms` commands make
+the declaration types and axiom dependencies reviewable. Axiom-clean local
+proofs must still be distinguished from unconditional theorems: ordinary
+premises and development-only source fields can remain even when no extra
+axiom is used.
 
 ## Source References
 
