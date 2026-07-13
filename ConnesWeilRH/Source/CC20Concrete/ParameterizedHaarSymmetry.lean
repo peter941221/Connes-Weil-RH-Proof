@@ -158,6 +158,12 @@ theorem cc20WindowHaarComplexL2Operator_inner_symmetry
   · exact cc20WindowHaarComplexL2Operator_inner_symmetry_continuous
       lambda hlambda f g
 
+theorem cc20WindowHaarComplexL2Operator_isSelfAdjoint
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    IsSelfAdjoint (cc20WindowHaarComplexL2Operator lambda hlambda) := by
+  apply LinearMap.IsSymmetric.isSelfAdjoint
+  exact cc20WindowHaarComplexL2Operator_inner_symmetry lambda hlambda
+
 end CC20Concrete
 end Source
 end ConnesWeilRH

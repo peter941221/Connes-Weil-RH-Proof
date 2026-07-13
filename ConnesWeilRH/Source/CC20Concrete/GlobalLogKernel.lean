@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Source.CC20Concrete.HaarLogTransport
-import ConnesWeilRH.Source.CC20Concrete.ParameterizedHaarL2
+import ConnesWeilRH.Source.CC20Concrete.ParameterizedHaarCompact
 import Mathlib.Analysis.Normed.Operator.Extend
 import Mathlib.MeasureTheory.Function.ContinuousMapDense
 import Mathlib.MeasureTheory.Integral.Bochner.Set
@@ -1335,6 +1335,33 @@ theorem cc20GlobalLogWindowRestrictedL2Endomorphism_eq_conjugatedHaarOperator
     (cc20GlobalLogWindowRestrictedL2ConjugatedHaarOperator lambda hlambda).continuous heq
   exact ContinuousLinearMap.ext fun v => congrFun hfun v
 
+theorem isCompactOperator_cc20GlobalLogWindowRestrictedL2Endomorphism
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    IsCompactOperator
+      (cc20GlobalLogWindowRestrictedL2Endomorphism lambda hlambda) := by
+  rw [cc20GlobalLogWindowRestrictedL2Endomorphism_eq_conjugatedHaarOperator]
+  exact
+    (isCompactOperator_cc20WindowHaarComplexL2Operator lambda hlambda).comp_clm
+      (cc20WindowHaarRestrictedLogL2IsometryEquiv
+        lambda hlambda).symm.toContinuousLinearEquiv.toContinuousLinearMap
+    |>.clm_comp
+      (cc20WindowHaarRestrictedLogL2IsometryEquiv
+        lambda hlambda).toContinuousLinearEquiv.toContinuousLinearMap
+
+theorem cc20GlobalLogWindowRestrictedL2Endomorphism_isSelfAdjoint
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    IsSelfAdjoint
+      (cc20GlobalLogWindowRestrictedL2Endomorphism lambda hlambda) := by
+  rw [cc20GlobalLogWindowRestrictedL2Endomorphism_eq_conjugatedHaarOperator]
+  have hSelf :=
+    (cc20WindowHaarComplexL2Operator_isSelfAdjoint lambda hlambda).conj_adjoint
+      (cc20WindowHaarRestrictedLogL2IsometryEquiv
+        lambda hlambda).toContinuousLinearEquiv.toContinuousLinearMap
+  simpa only [cc20GlobalLogWindowRestrictedL2ConjugatedHaarOperator,
+    (cc20WindowHaarRestrictedLogL2IsometryEquiv
+      lambda hlambda).adjoint_eq_symm,
+    ContinuousLinearMap.comp_assoc] using hSelf
+
 noncomputable def cc20GlobalLogWindowRestrictedL2HaarPreimageBasis
     (lambda : ℝ) (hlambda : 1 < lambda)
     {ι : Type*}
@@ -1492,6 +1519,17 @@ theorem cc20GlobalLogWindowRestrictedL2Operator_projection_comp
         lambda hlambda u.toContinuousMap)
   exact hext.symm
 
+theorem cc20GlobalLogWindowRestrictedL2Operator_eq_zeroExtension_comp
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    cc20GlobalLogWindowRestrictedL2Operator lambda hlambda =
+      (cc20LogWindowRestrictIndicatorCLM lambda).comp
+        (cc20GlobalLogWindowRestrictedL2Endomorphism lambda hlambda) := by
+  rw [cc20GlobalLogWindowRestrictedL2Endomorphism]
+  rw [← ContinuousLinearMap.comp_assoc]
+  rw [cc20LogWindowRestrictIndicator_comp_restrict lambda hlambda]
+  exact (cc20GlobalLogWindowRestrictedL2Operator_projection_comp
+    lambda hlambda).symm
+
 theorem norm_cc20GlobalLogWindowRestrictedL2Operator_apply_le
     (lambda : ℝ) (hlambda : 1 < lambda)
     (v : Lp ℂ 2 (volume.restrict (cc20LogWindow lambda))) :
@@ -1587,6 +1625,35 @@ theorem cc20GlobalLogWindowL2Operator_comp_projection
     cc20GlobalLogWindowRestrictedL2Operator lambda hlambda
       (LpToLpRestrictCLM ℝ ℂ ℂ volume 2 (cc20LogWindow lambda) u)
   rw [cc20LogWindowProjection_restrict_eq]
+
+theorem cc20GlobalLogWindowL2Operator_eq_zeroExtension_conjugation
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    cc20GlobalLogWindowL2Operator lambda hlambda =
+      ((cc20LogWindowRestrictIndicatorCLM lambda).comp
+        (cc20GlobalLogWindowRestrictedL2Endomorphism lambda hlambda)).comp
+          (cc20LogWindowRestrictIndicatorCLM lambda).adjoint := by
+  rw [cc20GlobalLogWindowL2Operator,
+    cc20GlobalLogWindowRestrictedL2Operator_eq_zeroExtension_comp]
+  rw [cc20LogWindowRestrict_eq_adjoint_restrictIndicatorCLM]
+
+theorem isCompactOperator_cc20GlobalLogWindowL2Operator
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    IsCompactOperator (cc20GlobalLogWindowL2Operator lambda hlambda) := by
+  rw [cc20GlobalLogWindowL2Operator_eq_zeroExtension_conjugation]
+  exact
+    (isCompactOperator_cc20GlobalLogWindowRestrictedL2Endomorphism
+      lambda hlambda).clm_comp
+        (cc20LogWindowRestrictIndicatorCLM lambda)
+    |>.comp_clm (cc20LogWindowRestrictIndicatorCLM lambda).adjoint
+
+theorem cc20GlobalLogWindowL2Operator_isSelfAdjoint
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    IsSelfAdjoint (cc20GlobalLogWindowL2Operator lambda hlambda) := by
+  rw [cc20GlobalLogWindowL2Operator_eq_zeroExtension_conjugation]
+  exact
+    (cc20GlobalLogWindowRestrictedL2Endomorphism_isSelfAdjoint
+      lambda hlambda).conj_adjoint
+        (cc20LogWindowRestrictIndicatorCLM lambda)
 
 theorem norm_cc20GlobalLogWindowL2Operator_apply_le
     (lambda : ℝ) (hlambda : 1 < lambda) (u : cc20GlobalLogL2) :

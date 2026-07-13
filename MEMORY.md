@@ -3382,3 +3382,434 @@ compatible with Mathlib's global `SchwartzMap.denseRange_toLpCLM` and removes
 the unnecessary problem of extending finite-window continuous inputs to
 compactly supported Schwartz functions. The focused CCM25 build passes
 `2989/2989` with the same three standard axioms.
+
+The canonical extension owner is now implemented in the working tree:
+`kernelIntervalRestrictedZeroExtensionLinearMap` maps a restricted-measure
+`Lp` element to the global indicator `1_K u`, with proved additivity,
+complex-linearity, and exact norm preservation. The continuous version,
+`kernelIntervalRestrictedZeroExtension`, has an explicit a.e. indicator
+representative and satisfies
+`LpToLpRestrictCLM ∘ zeroExtension = id`. Composing with the subtype isometry
+gives `kernelIntervalL2ZeroExtension`, and
+`globalL2ToKernelInterval_zeroExtension` proves its global restriction is the
+identity. The next mathematical obligation is convolution locality on this
+zero-extended carrier; no arbitrary right inverse is allowed.
+
+The Schwartz locality lemma is now present:
+`schwartzConvolution_eq_on_source_of_eqOn_kernel` proves that two Schwartz
+inputs equal on `KernelInterval a c b` have equal `g*` convolution values on
+the source interval. Its real-linear wrapper
+`globalConvolutionCore_eq_on_source_of_eqOn_kernel` matches the project's
+`mul ℝ ℂ` convolution owner. The proof uses only the fixed kernel support and
+the existing real/complex convolution compatibility; it does not claim the
+full L2 locality theorem yet.
+
+2026-07-13 complete kernel-interval restriction and density layer:
+`SelectedCrossingOperatorBridge.lean` now constructs the measure-preserving
+subtype map from `KernelInterval a c b` to the restricted real line, proves
+the induced L2 isometry surjective, and packages the resulting isometric
+equivalence. The ambient L2 restriction is also proved surjective by the
+canonical indicator zero extension. Their composition
+`globalL2ToKernelInterval` is surjective and agrees on every global Schwartz
+input with `ContinuousMap.toLp (kernelRestriction u)`. Combining this with
+`SchwartzMap.denseRange_toLpCLM` proves
+`denseRange_kernelRestriction_toLp`, with no support premise on `u`.
+The next bottom is the continuous linear zero-extension owner from interval
+L2 back to global L2; its indicator formula, linearity, and norm control must
+be proved explicitly before extending the left/right operator equality.
+
+2026-07-13 right finite-kernel extension milestone:
+`SelectedCrossingOperatorBridge.lean` now defines the dense Schwartz input
+map `rightKernelCoreInputLinearMap` and the global convolution output map
+`rightGlobalConvolutionCoreLinearMap`.  The theorem
+`rightKernelOperator_comp_coreInput_eq_globalCore` identifies the finite
+continuous-kernel operator with that global convolution on the dense carrier,
+and `rightKernelOperator_is_unique_bounded_core_extension` proves it is the
+unique bounded `LinearMap.extendOfNorm` extension.  The focused source plus
+audit build passes all 2989 jobs.  The audit reports only `propext`,
+`Classical.choice`, and `Quot.sound` for these declarations.  The remaining
+parallel obligation is the left operator, whose output is the translated
+source restriction `s ↦ (g* ⋆ u)(s-b)`; no existing project L2 translation-to-
+source-window carrier was found, so it must be added before identifying the
+trace product with the whole-line crossing operator.
+
+2026-07-13 left extension and trace-product milestone:
+The left side now uses the existing Schwartz translation owner
+`SchwartzMap.compSubConstCLM ℂ b` before global convolution and source-window
+restriction.  `schwartzConvolution_compSubConstCLM` proves the required
+pointwise translation identity, and
+`leftKernelOperator_comp_coreInput_eq_globalCore` plus
+`leftKernelOperator_is_unique_bounded_core_extension` give the matching unique
+bounded extension.  The same-object theorem
+`pairData_traceProduct_eq_extendedCoreProduct` rewrites the finite pair trace
+product as the adjoint of the left extension composed with the right extension.
+The focused source/audit build passes 2989/2989 and all new declarations use
+only `propext`, `Classical.choice`, and `Quot.sound`.  The remaining route
+obligation is to identify this finite extension product with the named
+whole-line `C_h† C_h J_b` object; this milestone does not assert that identity.
+
+2026-07-13 whole-line compression owner:
+`SelectedCrossingOperatorBridge.lean` now imports
+`GlobalConvolutionCrossing` and defines
+`kernelCompressedGlobalConvolutionCrossing` as the actual compression
+`E† ∘ (C_h† C_h J_b) ∘ E`, where `E` is the canonical
+`kernelIntervalL2ZeroExtension`.  Its application theorem is definitional and
+audited.  The build now passes 2990 jobs.  This is an owner for the genuine
+whole-line object, not an equality with the finite pair product.  The next
+proof must establish the L² locality/extension identity between this
+compression and the finite left/right operators; the existing locality lemma
+only covers Schwartz inputs and is insufficient by itself.
+
+2026-07-13 L2 locality audit:
+The available Mathlib density theorem
+`SchwartzMap.denseRange_toLpCLM` is global and does not provide a dense
+subspace of Schwartz functions whose support is strictly contained in the
+kernel interval.  The available smooth compact-support approximation theorem
+also does not directly preserve an exact `Icc` support constraint.  Therefore
+the finite-kernel/whole-line equality cannot be promoted from the existing
+Schwartz locality lemma by a one-line density argument.  A valid next producer
+must supply either an exact interval-supported smooth density theorem or a
+direct L² support/locality theorem for the bounded convolution multiplier.
+
+2026-07-13 L² locality extension milestone:
+The right finite operator now has a genuine global-carrier identity
+`rightKernelGlobalRestrictionOperator_eq_globalConvolution`.  Its proof
+compares two bounded maps from global L² to the source window, proves equality
+on the dense global Schwartz image, and applies `DenseRange.equalizer`.
+The left analogue also passes:
+`leftKernelGlobalRestrictionOperator_eq_globalTranslatedConvolution` compares
+the finite left operator with global translation by `-b` followed by `C_h` and
+source restriction.  The auxiliary
+`cc20GlobalLogTranslation_neg_apply_schwartzToLp` transports the translated
+Schwartz representative correctly through the L² quotient.  The focused
+CCM25 source/audit build remains 2990/2990 with only the three standard
+axioms.  The remaining distinction is intentional: pure global translation
+has not yet been identified with the boundary projection `J_b` on the
+zero-extended kernel carrier, so no false `C_h J_b` equality is claimed.
+
+2026-07-13 global translation covariance:
+`cc20GlobalLogConvolution_comp_translation_neg_eq` now proves on the full
+global L² carrier that convolution by the selected involution kernel commutes
+with translation by `-b`.  The proof first establishes the identity on global
+Schwartz inputs using `schwartzConvolution_compSubConstCLM` and the translated
+L² representative theorem, then extends it by `DenseRange.equalizer`.
+This makes the remaining whole-line bridge purely the boundary-projection
+comparison between translated source-window mass and `J_b`; convolution no
+longer contributes an unresolved commutation step.  The focused build remains
+2990/2990 with only `propext`, `Classical.choice`, and `Quot.sound`.
+
+2026-07-13 exact boundary projection and global factorization:
+The set-parametric canonical owner `restrictedSetZeroExtension` now works for
+every measurable set, with complex linearity, exact norm preservation, an a.e.
+indicator representative, and restriction right inverse.  Its `Icc 0 b`
+specialization defines `sourceWindowProjection`.  The theorem
+`globalBoundaryTranslationProjection_eq_singleCrossingOperator` proves for
+`b >= 0` that translation by `b` after this projection is exactly the existing
+whole-line `cc20SingleCrossingOperator b`.  Consequently
+`kernelCompressedBoundaryTranslationCrossing_eq` rewrites the actual
+compressed `C_h† C_h J_b` through the same canonical boundary projection.
+
+The finite factors are now global on the same kernel zero-extension:
+`rightKernelOperator_eq_globalConvolution_zeroExtension` and
+`leftKernelOperator_eq_globalTranslatedConvolution_zeroExtension` identify
+the right/left compact operators with their global L² convolution factors
+composed with `kernelIntervalL2ZeroExtension`.
+`pairData_traceProduct_eq_globalZeroExtensionProduct` rewrites the compact
+trace product as the adjoint product of those two factors.  All declarations
+pass the 2990-job focused build with only the three standard axioms.  The next
+operator identity is `globalL2ToSourceInterval† ∘ globalL2ToSourceInterval =
+sourceWindowProjection`; after that, the finite product can be equated with
+the compressed boundary crossing.
+
+2026-07-13 sandwiched crossing identification and order guard:
+`restrictedSetZeroExtension_eq_adjoint_restrict` proves the generic indicator
+zero-extension is exactly the adjoint of L² restriction.  Together with the
+subtype isometry this gives
+`globalL2ToSourceInterval_adjoint_comp`, namely `S†S=P_[0,b]`.
+The global translation is now packaged as the surjective isometry
+`cc20GlobalLogTranslationEquiv`, and
+`cc20GlobalLogTranslation_neg_adjoint` proves `T_-b†=T_b`.
+
+Using these same objects,
+`pairData_traceProduct_eq_kernelCompressedSandwichedCrossing` proves the exact
+finite operator identity
+
+```text
+pairData.traceProduct = E† C_h† J_b C_h E.
+```
+
+This is not the previously named compressed whole-line order
+`E† C_h† C_h J_b E`.  The difference is structural: `J_b` does not commute
+with convolution merely because convolution commutes with translations.
+Any equality of traces now requires a legal trace-class cyclicity argument,
+normality of the convolution multiplier where used, and control of the
+compression projection `E E†`.  Do not rewrite the two operators as equal.
+The focused build passes 2990/2990 and all new declarations use only the three
+standard axioms.
+
+2026-07-13 crossing trace cyclicity and surviving projection:
+`PositiveTrace.lean` now proves a genuine two-Hilbert-basis cyclicity theorem
+for Hilbert--Schmidt pairs. `summable_cyclicCoefficients` derives absolute
+double-series summability from Bessel plus `2ab <= a^2+b^2`, and
+`ordinaryTraceAlong_adjoint_comp_eq_comp_adjoint` proves
+`Tr_H(A†B)=Tr_G(BA†)` without a stored `cyclicLegal` field.
+
+Applying it to the selected compact crossing gives the exact source-window
+trace owner `sourceCyclicProjectionProduct = S C (E E†) C† T_b S†` through
+`pairData_trace_eq_sourceCyclicProjectionProduct`. The kernel compression
+`E E†` survives legal cyclicity. Therefore cyclicity alone does not identify
+the compact trace with the named whole-line `C† C J_b` trace. The next honest
+bottom is the same-object pair `(C_(g*))†=C_g` and
+`range(C_g T_b S†) subset range(E)`; these supply convolution normality and
+make the kernel projection act as the identity. The isolated WSL builds pass
+2355/2355, 2978/2978, and 2981/2981 for the source and audits, with only
+`propext`, `Classical.choice`, and `Quot.sound`. See proof 194.
+
+2026-07-13 named source-window crossing trace milestone:
+`SelectedCrossingOperatorBridge.lean` now closes every bottom named by proof
+194. `globalLogConvolution_involution_eq_adjoint` proves
+`C_(g*) = C_g†` from the Schwartz core by two dense-equalizer arguments.
+`leftKernelAdjoint_range_factorization` proves on the same compact kernel that
+`E L† = C_g T_b S†`; therefore `kernelIntervalProjection_zeroExtension`
+allows `sourceCyclicProjectionProduct_eq_uncompressed` to delete the surviving
+`E E†` only on its proved range. Fourier multiplier commutativity then gives
+`sourceCyclicUncompressedProduct_eq_namedSourceCrossingProduct`, and the final
+consumer `pairData_trace_eq_namedSourceCrossingProduct` identifies the compact
+finite-prime trace with the basis trace of `S C_g C_(g*) T_b S†`.
+
+The focused import-facing build of the source and audit passes 2979 jobs. Every
+new declaration reports only `propext`, `Classical.choice`, and `Quot.sound`.
+The next bottom is the global/source trace conversion
+`Tr_source(S A T_b S†) = Tr_global(A T_b S† S)` for
+`A=C_g C_(g*)`, followed by `T_b S† S=J_b`. This requires genuine two-space
+Hilbert--Schmidt data or an equivalent trace-class owner; it must not be
+implemented as operator equality or unrestricted formal cyclicity. See proof
+195.
+
+2026-07-13 rectangular trace-cycle reduction:
+`PositiveTrace.summable_adjoint_normSq` now proves basis-independent
+Hilbert--Schmidt summability of an adjoint from the same absolutely summable
+two-basis coefficient matrix used by cyclicity.
+`ordinaryTraceAlong_three_comp_eq_cycle` then proves
+`Tr_source(B X Y)=Tr_global(X Y B)` by cycling both traces through one common
+factor space, with four explicit Hilbert--Schmidt premises. The focused audit
+reports only `propext`, `Classical.choice`, and `Quot.sound`.
+
+`SelectedCrossingOperatorBridge` instantiates that theorem on the reflected
+kernel interval. `reflectedWholeLineLeftRightFactor_eq_namedSourceCrossingProduct`
+proves `(S X)Y` is the named source product, while
+`reflectedWholeLineCycleProduct_eq_globalConvolutionCrossing` proves `X(YS)`
+is the existing whole-line `cc20GlobalConvolutionCrossing g.involution.test b`.
+Theorems `reflectedWholeLineBoundaryLeft_summable`,
+`reflectedWholeLineRightFactor_summable`, and
+`reflectedWholeLineRightBoundary_summable` discharge three of the four cycle
+premises from the compact continuous kernels and the coisometry `S†`.
+
+The conditional consumer
+`namedSource_trace_eq_globalConvolutionCrossing_of_left_summable` leaves only
+the basis-square summability of
+`reflectedWholeLineLeftFactor = C_g E_reflected`. This is a concrete compact-
+input convolution kernel energy theorem: factor its compact output through a
+finite interval and apply `ContinuousKernelHilbertSchmidt`. Do not replace it
+with a stored trace-class premise. See proof 196.
+
+2026-07-13 unconditional whole-line crossing trace and reverse owner:
+The last rectangular-cycle premise is closed without a stored legality field.
+For `K*=[-c-b,-a+b]` and `J=[a-c-b,c-a+b]`,
+`reflectedWholeLineAdjointFiniteOperator` is the continuous-kernel operator
+`A(y,t)=g(t-y)` from `L2(J)` to `L2(K*)`. Dense-core equality identifies its
+composition with global restriction as the adjoint of
+`reflectedWholeLineLeftFactor=C_g E_K*`. Hilbert--Schmidt summability passes
+from the finite kernel to the global adjoint and then back to the left factor.
+Thus `namedSource_trace_eq_globalConvolutionCrossing` and
+`pairData_trace_eq_globalConvolutionCrossing` remove the former `hleft`
+premise and identify the compact forward trace with the named whole-line
+`C_h C_(h*) J_b` trace.
+
+The reverse compact product is structurally different:
+`reversePairData_traceProduct_eq_pairData_adjoint` proves
+`R†L=(L†R)†`. The generic theorem
+`PositiveTrace.ordinaryTraceAlong_adjoint` proves that taking an adjoint
+conjugates the diagonal trace. Hence
+`reversePairData_trace_eq_globalConvolutionCrossing_adjoint` identifies the
+`b F(-b)` compact trace with the adjoint whole-line product
+`J_b† C_h C_(h*)`, not with the forward product again. The source bridge
+builds with 2978 jobs and the import-facing audit with 2979 jobs; every new
+declaration reports only `propext`, `Classical.choice`, and `Quot.sound`.
+The next same-object bottom is the forward/adjoint pair as the single-crossing
+main term of the semilocal Euler-log metric variation, followed by multi-prime
+assembly, remainder control, and the sign gate. See proofs 196-197.
+
+2026-07-13 whole-line prime-power read-off and source screen:
+`eulerLog_weighted_global_pair_traces_eq_finitePrimeTerm_pow` now composes the
+forward and reverse compact/global trace bridges with the existing selected
+finite-prime coefficient theorem. For `b=m log(p)`, it proves on the same
+`SelectedWeilSquareOwner` that
+
+```text
+1/(m sqrt(p^m)) *
+  (Tr(cc20GlobalConvolutionCrossing h b) +
+   Tr((cc20GlobalConvolutionCrossing h b)†))
+  = finitePrimeTerm(p^m),
+```
+
+where `h=owner.sourceTest.involution.test`. The positive-interval
+specialization discharges support from the canonical Yoshida bridge, so the
+source test, convolution square, whole-line pair, and finite-prime atom remain
+one object. The source build passes 2978 jobs and the combined focused audit
+passes 2981 jobs; both declarations use only `propext`, `Classical.choice`,
+and `Quot.sound`.
+
+A fresh primary-source screen used CCM24 (arXiv:2310.18423v2) and the later
+one-prime q-series paper (arXiv:2403.01247). CCM24 proves Sonin-space transport
+but explicitly presents semilocal Weil positivity and a further prolate
+candidate as future work. The q-series paper proves moment/Jacobi expansions
+and integrality, not a positive trace/Weil identity. Therefore the next bottom
+is genuinely new mathematics: a finite-S positive owner whose single-crossing
+main term is the proved whole-line forward/adjoint pair and whose other words
+have a same-domain controlled remainder. Do not create a Lean owner from the
+published semilocal symbol or Jacobi data alone. See proof 198.
+
+2026-07-13 whole-line multi-prime assembly and current-source audit:
+`eulerLogWeightedGlobalPairTraceAtom` now names the actual Euler-log weighted
+forward/adjoint whole-line crossing scalar at `(p,m)` without putting the
+compact factor bases into the arithmetic main term.
+`GlobalPrimePowerTraceBasisData` carries the compact-kernel, source-window,
+reflected-input, and reflected-factor Hilbert bases for the same crossing
+length `m log(p)`. The theorem
+`eulerLogWeightedGlobalPairTraceAtom_sum_eq_finitePrimeTerm_pow_sum` proves for
+any finite set of prime/nonzero-exponent pairs that the sum of these genuine
+whole-line atoms is the sum of `owner.finitePrimeTerm(p^m)`, using one
+`SelectedWeilSquareOwner` and one whole-line basis throughout. This closes the
+finite-family main-term assembly layer. The positive-interval specialization
+also discharges the common support bound from the canonical Yoshida source; it
+does not construct the semilocal positive owner or control its remainder.
+
+The WSL source build passes 2978 jobs. The dedicated import-facing
+`SelectedCrossingMultiPrimeAudit` passes 2979 jobs, prints the complete
+theorem types, and reports only `propext`, `Classical.choice`, and `Quot.sound`
+for both the pointwise and finite-sum read-offs.
+
+A current primary-source search added Connes--Consani--Moscovici, *Zeta
+Spectral Triples* (arXiv:2511.22755). Its abstract states that rigorous
+convergence of the self-adjoint approximants would establish RH, while Section
+8 leaves the simple-even lowest eigenvector and its prolate approximation as
+two essential missing steps. The 2026 finite Guinand--Weil dictionary
+(arXiv:2607.02828) supplies exact finite matrices and archimedean tail order but
+no uniform sign theorem. Neither paper is the missing finite-S positive trace
+producer. The next bottom is one ordinary positive owner whose single-crossing
+quotient is the new named finite sum and whose remaining words form a
+same-domain compact self-adjoint post-`Q` remainder. See proof 199 and Plan 032.
+
+2026-07-13 whole-line finite-S crossing operator sum:
+`PositiveTrace.lean` now proves explicit trace-class closure and ordinary-trace
+linearity for adjoints, zero, addition, complex scalar multiplication, and
+finite sums. Every trace identity consumes the corresponding
+`IsTraceClassAlong` witness; no conditionally convergent diagonal series is
+treated as linear.
+
+`eulerLogWeightedGlobalPairTraceOperator` names the actual weighted operator
+`1/(m sqrt(p^m)) * (T_(p,m) + T_(p,m)^dagger)` on the whole-line crossing
+space. `globalConvolutionCrossing_isTraceClassAlong` derives its trace-class
+legality from the existing finite-interval Hilbert--Schmidt factorization.
+The finite sum `eulerLogWeightedGlobalPairTraceOperatorSum` acts on one common
+whole-line Hilbert space and one `SelectedWeilSquareOwner`. It is trace-class,
+and
+`ordinaryTraceAlong_eulerLogWeightedGlobalPairTraceOperatorSum_eq_finitePrimeTerm_pow_sum`
+identifies its ordinary trace with the selected finite-prime sum.
+
+The real Euler-log coefficient and the symmetric pair `T+T^dagger` also give
+`eulerLogWeightedGlobalPairTraceOperator_isSelfAdjoint`; finite-sum closure
+gives `eulerLogWeightedGlobalPairTraceOperatorSum_isSelfAdjoint`. The canonical
+positive-interval trace specialization removes the shared support premise from
+the Yoshida source without changing the test or square. Self-adjointness is not
+positivity, so the active bottom remains a genuine finite-S positive owner
+whose single-crossing component is this exact `K_S`, followed by a same-domain
+compact self-adjoint post-`Q` remainder and its sign. The WSL source build,
+three import-facing audits, and the final source/two-audit rerun pass 2978,
+2982, and 2980 jobs respectively. All new declarations report only `propext`,
+`Classical.choice`, and `Quot.sound`. See proof 200 and Plan 032.
+
+2026-07-13 whole-line crossing nuclear compactness:
+The custom predicate `PositiveTrace.IsTraceClassAlong` was audited and kept in
+its honest scope: it means absolute summability of one named basis diagonal,
+not basis-independent standard trace class. `PositiveTrace.lean` now supplies
+the stronger operator-ideal producer for every Hilbert--Schmidt pair product.
+For a target Hilbert basis `(e_j)`, `traceProduct_eq_tsum_nuclearTerm` proves
+
+```text
+A^dagger B = sum_j rankOne(A^dagger e_j, B^dagger e_j),
+```
+
+and `summable_norm_traceProductNuclearTerm` proves absolute convergence in
+continuous-linear-map norm. Each term factors through the locally compact
+scalar field, so it is compact; finite-sum compactness plus closedness of the
+compact-operator set yields `traceProduct_isCompactOperator`. Swapping the
+same left/right data gives compactness of the adjoint without assuming a
+generic compact-adjoint theorem absent from Mathlib.
+
+`globalConvolutionCrossingPairData` now owns the reflected finite-interval
+Hilbert--Schmidt factors on the same whole-line crossing. Its proved trace
+product equality transfers genuine compactness to both the forward crossing
+and its adjoint. Therefore each weighted prime-power operator and the finite-S
+sum `eulerLogWeightedGlobalPairTraceOperatorSum` are Mathlib compact operators.
+The latter is simultaneously compact, self-adjoint, diagonal-trace legal, and
+has trace equal to the selected finite-prime sum; the canonical positive-
+interval specialization removes the source support premise.
+
+This does not create the missing semilocal positive owner. The unresolved hard
+bottom is now sharply a common-domain identity: a genuine finite-S positive
+operator on the CC20 test-root space must expose this exact whole-line `K_S` as
+its single-crossing component and leave a same-domain compact self-adjoint
+post-Q remainder with the required sign. The generic, source, and three-audit
+WSL builds pass 2356, 2979, and 2983 jobs, and all new declarations report only
+`propext`, `Classical.choice`, and `Quot.sound`. See proof 201 and Plan 032.
+
+A targeted `research-stack` primary-source screen found no published producer.
+Connes arXiv:2602.04022 describes convergence from finite to infinite Euler
+products as a potential strategy; Groskin arXiv:2605.20224 states that the
+truncated-Weil zero convergence is open and makes no proof claim; Suzuki
+arXiv:2301.00421 builds the Weil-distribution Hilbert space under RH. None
+supplies finite-S semilocal positivity or the common-domain remainder identity.
+
+2026-07-13 global CC20 window compact self-adjoint owner:
+The indicator zero extension `cc20LogWindowRestrictIndicatorCLM` is now proved
+to be an isometry and exactly the adjoint of L2 restriction. Its composition
+with restriction is the existing whole-line window projection. The finite
+Haar regular-kernel operator is self-adjoint from its real symmetric kernel,
+and the restricted logarithmic endomorphism transports both that property and
+the existing Arzela--Ascoli compactness through the Haar/log isometry.
+
+The exact identity
+`cc20GlobalLogWindowL2Operator_eq_zeroExtension_conjugation` writes the global
+operator as `E H E†`. Hence the ordinary CC20 window regular operator is now a
+genuine Mathlib compact self-adjoint operator on the same whole-line L2 carrier
+used by `eulerLogWeightedGlobalPairTraceOperatorSum`. The focused WSL build
+passes 2985/2985, and the import-facing `GlobalLogHaarAudit` reports only
+`propext`, `Classical.choice`, and `Quot.sound` for the full chain.
+
+This closes only the common-carrier operator-ideal layer. `GlobalLogKernel`
+explicitly contains the ordinary regular part and omits the diagonal Dirac
+term and CC20 trace read-off. Do not identify it with the finite-S post-Q
+remainder without a new same-object semilocal identity. The active bottom
+remains a genuine finite-S positive owner whose exact single-crossing part is
+the selected whole-line operator sum and whose remaining same-domain words
+have the required sign. See proof 202.
+
+2026-07-13 selected finite-prime translation quadratic owner:
+`SelectedPrimeTranslationQuadratic.lean` puts the selected finite-prime data
+on one explicit vector in the global crossing Hilbert space. The vector
+`sourceRootLp owner` is the selected source test in `L2`, and
+`inner_sourceRootLp_translation_eq_convolutionSquare` identifies its
+correlation with every global translation as the same convolution-square test
+used by the selected Weil owner. The symmetric translation combination
+`primePowerTranslationOperator p m` is self-adjoint because
+`T_(-b)=T_b†`, and for prime `p` and nonzero `m` its quadratic form on that
+vector is exactly `owner.finitePrimeTerm (p^m)`. Finite sums preserve both the
+self-adjointness and the finite-prime read-off.
+
+This is a semantic same-object quadratic-form bridge, not a compactness or
+positivity theorem: global translations are intentionally noncompact. It
+does not supply the missing finite-S positive owner or the post-Q remainder
+sign. The focused source build passes 2980/2980 jobs; the import-facing audit
+reports only `propext`, `Classical.choice`, and `Quot.sound`. See proof 203.

@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Source.CC20Concrete.WindowContainment
+import Mathlib.Analysis.InnerProductSpace.Adjoint
 import Mathlib.MeasureTheory.Function.Holder
 import Mathlib.MeasureTheory.Function.LpSpace.Indicator
 import Mathlib.MeasureTheory.Function.L2Space
@@ -163,6 +164,18 @@ theorem norm_cc20LogWindowRestrictIndicatorLinearMap_le
     (measurableSet_cc20LogWindow lambda)]
   exact le_rfl
 
+theorem norm_cc20LogWindowRestrictIndicatorLinearMap
+    (lambda : ℝ) (v : Lp ℂ 2 (volume.restrict (cc20LogWindow lambda))) :
+    ‖cc20LogWindowRestrictIndicatorLinearMap lambda v‖ = ‖v‖ := by
+  change ‖((memLp_indicator_iff_restrict
+      (measurableSet_cc20LogWindow lambda)).2
+      (Lp.memLp v)).toLp
+      ((cc20LogWindow lambda).indicator v)‖ = ‖v‖
+  rw [Lp.norm_def, Lp.norm_def]
+  rw [eLpNorm_congr_ae (MemLp.coeFn_toLp _)]
+  rw [eLpNorm_indicator_eq_eLpNorm_restrict
+    (measurableSet_cc20LogWindow lambda)]
+
 noncomputable def cc20LogWindowRestrictIndicatorCLM
     (lambda : ℝ) :
     Lp ℂ 2 (volume.restrict (cc20LogWindow lambda)) →L[ℂ]
@@ -173,6 +186,75 @@ noncomputable def cc20LogWindowRestrictIndicatorCLM
     (fun v => by
       rw [one_mul]
       exact norm_cc20LogWindowRestrictIndicatorLinearMap_le lambda v)
+
+theorem norm_cc20LogWindowRestrictIndicatorCLM
+    (lambda : ℝ) (v : Lp ℂ 2 (volume.restrict (cc20LogWindow lambda))) :
+    ‖cc20LogWindowRestrictIndicatorCLM lambda v‖ = ‖v‖ :=
+  norm_cc20LogWindowRestrictIndicatorLinearMap lambda v
+
+theorem cc20LogWindowRestrictIndicatorCLM_coeFn
+    (lambda : ℝ)
+    (v : Lp ℂ 2 (volume.restrict (cc20LogWindow lambda))) :
+    (cc20LogWindowRestrictIndicatorCLM lambda v : ℝ → ℂ) =ᵐ[volume]
+      (cc20LogWindow lambda).indicator fun t => v t := by
+  let h : MemLp
+      ((cc20LogWindow lambda).indicator fun t => v t) 2 volume :=
+    (memLp_indicator_iff_restrict
+      (measurableSet_cc20LogWindow lambda)).2 (Lp.memLp v)
+  change (h.toLp
+      ((cc20LogWindow lambda).indicator fun t => v t) : ℝ → ℂ) =ᵐ[volume]
+    (cc20LogWindow lambda).indicator fun t => v t
+  exact h.coeFn_toLp
+
+theorem cc20LogWindowRestrict_restrictIndicator
+    (lambda : ℝ)
+    (v : Lp ℂ 2 (volume.restrict (cc20LogWindow lambda))) :
+    LpToLpRestrictCLM ℝ ℂ ℂ volume 2 (cc20LogWindow lambda)
+        (cc20LogWindowRestrictIndicatorCLM lambda v) = v := by
+  rw [Lp.ext_iff]
+  have hrestrict := LpToLpRestrictCLM_coeFn ℂ (cc20LogWindow lambda)
+    (cc20LogWindowRestrictIndicatorCLM lambda v)
+  have hextend := ae_restrict_of_ae (s := cc20LogWindow lambda)
+    (cc20LogWindowRestrictIndicatorCLM_coeFn lambda v)
+  have hmem : ∀ᵐ t ∂(volume.restrict (cc20LogWindow lambda)),
+      t ∈ cc20LogWindow lambda :=
+    ae_restrict_mem (measurableSet_cc20LogWindow lambda)
+  filter_upwards [hrestrict, hextend, hmem] with t hr he hm
+  rw [hr, he]
+  simp only [Set.indicator_of_mem hm]
+
+theorem cc20LogWindowRestrictIndicatorCLM_eq_adjoint_restrict
+    (lambda : ℝ) :
+    cc20LogWindowRestrictIndicatorCLM lambda =
+      (LpToLpRestrictCLM ℝ ℂ ℂ volume 2
+        (cc20LogWindow lambda)).adjoint := by
+  rw [ContinuousLinearMap.eq_adjoint_iff]
+  intro u v
+  rw [L2.inner_def, L2.inner_def]
+  rw [← integral_indicator (measurableSet_cc20LogWindow lambda)]
+  have hextend := cc20LogWindowRestrictIndicatorCLM_coeFn lambda u
+  have hrestrict := LpToLpRestrictCLM_coeFn ℂ
+    (cc20LogWindow lambda) v
+  have hrestrict' :=
+    (ae_restrict_iff' (measurableSet_cc20LogWindow lambda)).mp hrestrict
+  apply integral_congr_ae
+  filter_upwards [hextend, hrestrict'] with t he hr
+  by_cases ht : t ∈ cc20LogWindow lambda
+  · rw [he]
+    simp only [Set.indicator_of_mem ht]
+    rw [hr ht]
+  · rw [he]
+    simp only [Set.indicator_of_notMem ht]
+    simp
+
+theorem cc20LogWindowRestrict_eq_adjoint_restrictIndicatorCLM
+    (lambda : ℝ) :
+    LpToLpRestrictCLM ℝ ℂ ℂ volume 2 (cc20LogWindow lambda) =
+      (cc20LogWindowRestrictIndicatorCLM lambda).adjoint := by
+  rw [cc20LogWindowRestrictIndicatorCLM_eq_adjoint_restrict]
+  exact (ContinuousLinearMap.adjoint_adjoint
+    (LpToLpRestrictCLM ℝ ℂ ℂ volume 2
+      (cc20LogWindow lambda))).symm
 
 theorem cc20LogWindowProjection_coeFn
     (lambda : ℝ) (hlambda : 1 < lambda) (u : cc20GlobalLogL2) :
@@ -190,6 +272,28 @@ theorem cc20LogWindowProjection_coeFn
       hindicator] with t hmul hind
   rw [hmul, Pi.smul_apply', hind]
   by_cases ht : t ∈ cc20LogWindow lambda <;> simp [Set.indicator, ht]
+
+theorem cc20LogWindowRestrictIndicator_comp_restrict
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    (cc20LogWindowRestrictIndicatorCLM lambda).comp
+        (LpToLpRestrictCLM ℝ ℂ ℂ volume 2 (cc20LogWindow lambda)) =
+      cc20LogWindowProjection lambda hlambda := by
+  apply ContinuousLinearMap.ext
+  intro u
+  rw [Lp.ext_iff]
+  have hextend := cc20LogWindowRestrictIndicatorCLM_coeFn lambda
+    (LpToLpRestrictCLM ℝ ℂ ℂ volume 2 (cc20LogWindow lambda) u)
+  have hrestrict := LpToLpRestrictCLM_coeFn ℂ
+    (cc20LogWindow lambda) u
+  have hrestrict' :=
+    (ae_restrict_iff' (measurableSet_cc20LogWindow lambda)).mp hrestrict
+  have hprojection := cc20LogWindowProjection_coeFn lambda hlambda u
+  filter_upwards [hextend, hrestrict', hprojection] with t he hr hp
+  rw [ContinuousLinearMap.comp_apply, he, hp]
+  by_cases ht : t ∈ cc20LogWindow lambda
+  · simp only [Set.indicator_of_mem ht]
+    exact hr ht
+  · simp only [Set.indicator_of_notMem ht]
 
 theorem cc20LogWindowProjection_idempotent
     (lambda : ℝ) (hlambda : 1 < lambda) (u : cc20GlobalLogL2) :

@@ -175,18 +175,82 @@ the corrected prime-free trace identity itself gives `QW >= ||xi||^2`; no
 negative detector can remain after those constraints. The only surviving
 branch is a new finite-S remainder theorem.
 
+## 2026-07-13 whole-line main-term operator assembly
+
+Proofs 188--198 identify each selected `p^m` finite-prime atom with the
+Euler-log weighted forward/adjoint whole-line crossing pair. Proof 199 first
+assembled the scalar traces. Proof 200 now assembles the operators themselves
+on one `SelectedWeilSquareOwner` and one whole-line Hilbert space:
+
+```text
+K_S = sum_(p,m) 1/(m sqrt(p^m)) * (T_(p,m) + T_(p,m)^dagger),
+Tr(K_S) = sum_(p,m) owner.finitePrimeTerm(p^m).
+```
+
+Proof 201 upgrades the analytic status: each Hilbert--Schmidt product has an
+operator-norm absolutely convergent rank-one expansion, and `K_S` is a genuine
+Mathlib compact operator as well as self-adjoint and diagonal-trace legal.
+This closes the finite-family arithmetic main-term operator-ideal layer. It
+does not close Gate 3: compact self-adjointness is not positivity. The future positive owner
+must still produce exactly `K_S` as its single-crossing component, with every
+other word entering a same-domain compact self-adjoint post-`Q` remainder.
+
+The 2025 paper *Zeta Spectral Triples* (arXiv:2511.22755) does not provide that
+owner. Its abstract makes rigorous spectral convergence RH-closing, and its
+Section 8 leaves two essential steps open. The 2026 finite Guinand--Weil
+dictionary (arXiv:2607.02828) likewise supplies no uniform sign theorem.
+
+## 2026-07-13 common-carrier CC20 regular operator
+
+Proof 202 removes the Hilbert-space mismatch on the archimedean regular side.
+For the actual L2 restriction `R_lambda` and indicator zero extension
+`E_lambda`, Lean now proves
+
+```text
+E_lambda^dagger = R_lambda,
+cc20GlobalLogWindowL2Operator = E_lambda H_lambda E_lambda^dagger.
+```
+
+The global ordinary CC20 regular-kernel operator is therefore compact and
+self-adjoint on the same whole-line logarithmic L2 carrier as `K_S`.
+
+This is not Gate 3. The module contains only the ordinary regular kernel; it
+does not contain the diagonal Dirac term or the finite-S semilocal trace
+read-off. The next required theorem must derive, from a genuine positive
+finite-S owner, an exact same-object decomposition whose single-crossing term
+is `K_S` and whose post-Q remainder includes the correct CC20 regular term.
+Defining the difference of two same-domain operators would not prove that
+identity.
+
 ## Verification Contract
 
 ```text
 smallest source target:
-  ConnesWeilRH.Source.CCM25Concrete.SelectedWeilFormula
+  ConnesWeilRH.Source.CCM25Concrete.SelectedCrossingOperatorBridge
 
 future import-facing checks:
-  #check @selectedWeilFormula_eq_sourceZeroSum
-  #print selectedWeilFormula_eq_sourceZeroSum
-  #print axioms selectedWeilFormula_eq_sourceZeroSum
+  #check @finiteSPositiveTrace_singleCrossing_eq_namedFiniteSum
+  #print finiteSPositiveTrace_singleCrossing_eq_namedFiniteSum
+  #print axioms finiteSPositiveTrace_singleCrossing_eq_namedFiniteSum
 
 rejection evidence:
   one exact coefficient mismatch, noncompact remainder block, or proof that a
   fixed prime-free window cannot retain a strict negative detector.
+
+## 2026-07-13 same-object quadratic-form bridge
+
+Proof 203 adds a complementary semantic owner on the same global L2 carrier.
+`sourceRootLp owner` is the selected source test, and its inner product with a
+global translation is exactly `owner.convolutionSquare.test b`. Therefore the
+self-adjoint symmetric translation operator
+
+```text
+log(p) / sqrt(p^m) * (T_(m log p) + T_(-m log p))
+```
+
+has quadratic form `owner.finitePrimeTerm (p^m)` for every prime `p` and
+nonzero exponent `m`; finite sums give the corresponding finite-prime sum.
+This confirms the arithmetic main term on one explicit vector and one square,
+but it is intentionally noncompact and supplies neither finite-S positivity
+nor the post-Q remainder sign. The active Gate 3 bottom is unchanged.
 ```
