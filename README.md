@@ -20,7 +20,7 @@ This project studies the Connes-Weil route and formalizes its analytic and
 operator-theoretic components in Lean 4. The final target is Mathlib's
 [`_root_.RiemannHypothesis`](https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/NumberTheory/LSeries/RiemannZeta.lean).
 
-The route begins with a compactly supported test function $g$ and its
+The route begins with a compactly supported test function g and its
 convolution square
 
 ```math
@@ -71,7 +71,7 @@ finite-S crossing sum  semilocal positive owner
 
 1. Connes-Weil semilocal trace formulas
 
-   This line combines a finite set of places $S$, Sonin spaces, semilocal
+   This line combines a finite set of places S, Sonin spaces, semilocal
    Fourier theory, and the Weil explicit formula on one Hilbert space. The
    current route has formalized the exact prime-power coefficient of a single
    crossing and assembled finitely many crossings into a compact self-adjoint
@@ -90,7 +90,7 @@ finite-S crossing sum  semilocal positive owner
    The project controls the completed Xi function through Mathlib's theta
    kernel and reduces the zero-summability input to geometric ball bounds in
    the right half-plane. Quadratic Mellin decay requires shell growth
-   below $4^n$; the full Riemann-von Mangoldt asymptotic is stronger than this
+   below 4^n; the full Riemann-von Mangoldt asymptotic is stronger than this
    consumer needs.
 
 4. Nyman-Beurling and Mobius blocks
@@ -104,7 +104,7 @@ finite-S crossing sum  semilocal positive owner
 5. Prolate, Sonin, and positivity methods
 
    This direction studies time-frequency truncation, prolate wave operators,
-   Wiener-Hopf crossings, and the CC20 decomposition involving $-2I+K$.
+   Wiener-Hopf crossings, and the CC20 decomposition involving -2I + K.
    Compactness controls the operator ideal; the desired Weil inequality also
    needs spectral sign information. The active problem is therefore an exact
    semilocal decomposition with a common domain and a controlled remainder.
@@ -112,7 +112,7 @@ finite-S crossing sum  semilocal positive owner
 6. Operator-level falsification
 
    The project has tested Xi-nullspace corrections, log-Poisson positive
-   operators, Fredholm/Fock Euler-log expansions, higher-order $Q$ filters,
+   operators, Fredholm/Fock Euler-log expansions, higher-order Q filters,
    adelic scalar compensation, and Clifford prime channels. Each rejected
    construction comes with a concrete coefficient, ideal-class, density, or
    domain obstruction.
@@ -121,8 +121,8 @@ finite-S crossing sum  semilocal positive owner
 
 ### 2.1 Hilbert-Schmidt trace cycles and nuclear expansions
 
-Let $A,B:H\to G$ satisfy the Hilbert-Schmidt summability conditions on a
-Hilbert basis $(e_i)$:
+Let A, B: H -> G satisfy the Hilbert-Schmidt summability conditions on a
+Hilbert basis (e_i):
 
 ```math
 \sum_i \Vert A e_i\Vert^2<\infty,
@@ -165,7 +165,7 @@ A^{\ast}B
 
 The series converges absolutely in the operator norm on continuous linear
 maps. Each summand has finite rank, so closedness of the compact-operator
-class gives Mathlib's `IsCompactOperator` predicate for $A^{\ast}B$.
+class gives Mathlib's `IsCompactOperator` predicate for A^*B.
 
 - [`summable_norm_traceProductNuclearTerm`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CC20Concrete/PositiveTrace.lean#L427)
 - [`traceProduct_eq_tsum_nuclearTerm`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CC20Concrete/PositiveTrace.lean#L445)
@@ -173,9 +173,9 @@ class gives Mathlib's `IsCompactOperator` predicate for $A^{\ast}B$.
 
 ### 2.2 Exact crossing traces for continuous kernels
 
-For continuous kernels $L$ and $R$ on finite intervals, the project constructs
-the corresponding $L^2$ operators, proves Hilbert-Schmidt square summability,
-and identifies the diagonal trace of $L^{\ast}R$ with the integral of the
+For continuous kernels L and R on finite intervals, the project constructs
+the corresponding L2 operators, proves Hilbert-Schmidt square summability,
+and identifies the diagonal trace of L^*R with the integral of the
 inner products of kernel sections:
 
 ```math
@@ -186,7 +186,7 @@ inner products of kernel sections:
 
 - [`pairData_trace_eq_kernel_inner`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CC20Concrete/ContinuousKernelHilbertSchmidt.lean#L316)
 
-Applied to the selected convolution square $F$, this theorem yields the two
+Applied to the selected convolution square F, this theorem yields the two
 oriented crossing coefficients
 
 ```math
@@ -199,7 +199,7 @@ oriented crossing coefficients
 - [`reversePairData_trace_eq_mul_convolutionSquare_neg`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean#L320)
 - [`eulerLog_weighted_pair_traces_eq_finitePrimeTerm_pow`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean#L390)
 
-For $b=m\log p$, the Euler weight converts these traces into the prime-power
+For b = m log p, the Euler weight converts these traces into the prime-power
 term of the explicit formula:
 
 ```math
@@ -212,8 +212,8 @@ term of the explicit formula:
 ### 2.3 From compact crossings to the whole line
 
 The compact kernel and the global convolution operator act on different
-Hilbert spaces. The project constructs restriction $S$, zero extension
-$E=S^{\ast}$, translation $U_b$, and the half-line projection $P$. It then
+Hilbert spaces. The project constructs restriction S, zero extension E = S^*,
+translation U_b, and the half-line projection P. It then
 identifies the boundary translation with
 
 ```math
@@ -226,9 +226,9 @@ The relevant declarations are:
 - [`globalBoundaryTranslationProjection_eq_singleCrossingOperator`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean#L1085)
 - [`globalLogConvolution_involution_eq_adjoint`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean#L1765)
 
-A trace cycle leaves a projection $EE^{\ast}$ in the product. Lean first proves
-that the relevant factor has range inside the range of
-$E$. The rectangular three-factor trace theorem then transports the compact
+A trace cycle leaves a projection E E^* in the product. Lean first proves
+that the relevant factor has range inside the range of E. The rectangular
+three-factor trace theorem then transports the compact
 trace to the whole line:
 
 ```math
@@ -251,8 +251,8 @@ trace to the whole line:
 
 ### 2.4 A compact self-adjoint finite-prime operator
 
-For a prime power $(p,m)$, let $T_{p,m}$ denote the whole-line crossing with
-translation length $m\log p$. The project defines
+For a prime power (p, m), let T_(p,m) denote the whole-line crossing with
+translation length m log p. The project defines
 
 ```math
 K_{p,m}
@@ -267,11 +267,11 @@ and forms the finite sum before taking a trace:
 K_{\mathcal T}=\sum_{(p,m)\in\mathcal T}K_{p,m}.
 ```
 
-Every summand acts on the same global $L^2(\mathbb R)$ space and uses the same
+Every summand acts on the same global L2(R) space and uses the same
 `SelectedWeilSquareOwner`. Lean proves four properties:
 
-1. $K_{\mathcal T}$ is self-adjoint.
-2. $K_{\mathcal T}$ is a compact operator in Mathlib's sense.
+1. K_T is self-adjoint.
+2. K_T is a compact operator in Mathlib's sense.
 3. Its diagonal is absolutely summable along the named Hilbert basis.
 4. Its ordinary trace equals the finite prime-power sum attached to the same
    convolution square.
@@ -282,7 +282,7 @@ Every summand acts on the same global $L^2(\mathbb R)$ space and uses the same
 \sum_{(p,m)\in\mathcal T}\mathrm{FP}(p^m).
 ```
 
-Here $\mathrm{FP}(p^m)$ denotes the selected finite-prime term.
+Here FP(p^m) denotes the selected finite-prime term.
 
 - [`eulerLogWeightedGlobalPairTraceOperator`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean#L2906)
 - [`eulerLogWeightedGlobalPairTraceOperatorSum_isSelfAdjoint`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean#L3064)
@@ -291,9 +291,9 @@ Here $\mathrm{FP}(p^m)$ denotes the selected finite-prime term.
 
 ### 2.5 A global realization of the CC20 finite-window operator
 
-The regular CC20 kernel begins on a finite Haar window. Let $H_\lambda$ denote
-the finite-window operator and let $E_\lambda$ be zero extension into
-$L^2(\mathbb R)$. The project proves the exact conjugation identity
+The regular CC20 kernel begins on a finite Haar window. Let H_lambda denote
+the finite-window operator and let E_lambda be zero extension into L2(R). The
+project proves the exact conjugation identity
 
 ```math
 H_\lambda^{\mathrm{global}}
@@ -303,7 +303,7 @@ E_\lambda H_\lambda E_\lambda^{\ast}.
 
 Continuity and symmetry of the finite-window kernel give compactness and
 self-adjointness. The conjugation identity carries both properties to the
-global Hilbert space used by $K_{\mathcal T}$.
+global Hilbert space used by K_T.
 
 - [`cc20GlobalLogWindowL2Operator_eq_zeroExtension_conjugation`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CC20Concrete/GlobalLogKernel.lean#L1629)
 - [`isCompactOperator_cc20GlobalLogWindowL2Operator`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CC20Concrete/GlobalLogKernel.lean#L1639)
@@ -311,8 +311,7 @@ global Hilbert space used by $K_{\mathcal T}$.
 
 ### 2.6 A translation quadratic form for prime terms
 
-Let $h\in L^2(\mathbb R)$ be the selected convolution root and let $U_b$ be
-global translation. Lean proves
+Let h belong to L2(R) and let U_b be global translation. Lean proves
 
 ```math
 \langle h,U_bh\rangle=F_h(b).
@@ -354,7 +353,7 @@ f_r(x)=r^{-1}f(x/r),
 \Phi_{f_r}(s)=\Phi_f(rs).
 ```
 
-It then takes an $N$-fold convolution with $r=1/N$. The convolution power
+It then takes an N-fold convolution with r = 1/N. The convolution power
 reduces the Mellin tail while its total support stays inside the original
 budget. A correction function in a disjoint residual window performs finite
 interpolation and retains uniform quadratic decay on the strip.
@@ -365,7 +364,7 @@ interpolation and retains uniform quadratic decay on the strip.
 
 For the completed Xi function, the project starts from a theta-kernel moment
 bound and proves that right-half-plane ball estimates imply summability over
-the source nontrivial zeros. Let $N_n$ count the zeros in the $n$-th geometric
+the source nontrivial zeros. Let N_n count the zeros in the n-th geometric
 shell. The following estimate already matches the quadratic Mellin decay:
 
 ```math
@@ -373,7 +372,7 @@ N_n\le Kc^n,
 \qquad c<4.
 ```
 
-The geometric ratio $c/4$ bounds the resulting shell sum.
+The geometric ratio c/4 bounds the resulting shell sum.
 
 - [`norm_completedRiemannXi_le_kernelMoment`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CC20ZetaCounting.lean#L239)
 - [`sourceNontrivialZero_summable_of_xi_right_halfplane_ball_bounds`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CC20ZetaCounting.lean#L531)
@@ -410,21 +409,21 @@ This chain settles four coupled points.
 
 1. Crossing geometry
 
-   The function-level formula for $J_b$ confines the crossing to the exact
-   interval $[-b,0]$. The source interval of the compact kernel therefore
+   The function-level formula for J_b confines the crossing to the exact
+   interval [-b,0]. The source interval of the compact kernel therefore
    agrees with the global half-line projection.
 
 2. Trace-cycle legality
 
    The formal proof does not use an unrestricted identity of the form
-   $\mathrm{Tr}(ABC)=\mathrm{Tr}(BCA)$. Hilbert-Schmidt square sums,
+   Tr(ABC) = Tr(BCA). Hilbert-Schmidt square sums,
    absolute summability of the two-basis matrix, and the rectangular
    three-factor theorem justify each cycle.
 
 3. Compactness
 
    Absolute summability of one basis diagonal does not imply Mathlib's compact
-   operator predicate. The rank-one expansion of $A^{\ast}B$ converges in
+   operator predicate. The rank-one expansion of A^*B converges in
    operator norm and gives compactness of each prime-power crossing and its
    finite sum.
 
@@ -436,16 +435,16 @@ This chain settles four coupled points.
 
 ### 3.1 The next mathematical problem
 
-The next layer asks for a positive operator $\mathcal P_S(h)$ on the finite-$S$
+The next layer asks for a positive operator P_S(h) on the finite-S
 semilocal space and an exact same-object decomposition
 
 ```math
 \mathcal P_S(h)=K_S(h)+R_S(h).
 ```
 
-The term $K_S(h)$ must agree, summand by summand, with the crossing operator
-formalized in Section 2.4. The remainder $R_S(h)$ must share the domain, test
-function, and $Q$ action of $\mathcal P_S(h)$. A sign estimate or limiting
+The term K_S(h) must agree, summand by summand, with the crossing operator
+formalized in Section 2.4. The remainder R_S(h) must share the domain, test
+function, and Q action of P_S(h). A sign estimate or limiting
 estimate for this remainder must then yield the Weil inequality. The intended
 chain has the form
 
@@ -457,7 +456,7 @@ chain has the form
 R_S(h)\in\mathcal C_S.
 ```
 
-Here $\mathcal C_S$ denotes the class of remainders satisfying the required
+Here C_S denotes the class of remainders satisfying the required
 sign or limiting estimate.
 
 After this operator layer, one quantifier problem remains: the route-generated
@@ -483,12 +482,12 @@ Each rejected route has a specific failure mechanism.
 | Log-Poisson positive trace | Its positive coefficients do not reproduce the prime scalar in the explicit formula | [proof 111](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/111_log_poisson_positive_trace_readoff_death.md) |
 | Compact Wiener-Hopf boundary repair | A compact perturbation cannot cancel the noncompact principal symbol | [proof 118](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/118_wiener_hopf_compact_boundary_cannot_cancel_symbol.md) |
 | Fredholm/Fock Euler-log expansion | The required Euler-log derivative misses the target trace ideal | [proof 119](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/119_fredholm_euler_log_traceclass_death.md) |
-| Higher-order $Q$ filters | Differential weights strengthen the cusp principal part without producing the required sign | [proof 120](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/120_higher_q_filter_unbounded_cusp_rejection.md) |
+| Higher-order Q filters | Differential weights strengthen the cusp principal part without producing the required sign | [proof 120](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/120_higher_q_filter_unbounded_cusp_rejection.md) |
 | Adelic scalar compensation | Product-formula coefficients do not match the one-prime read-off | [proof 121](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/121_adelic_product_formula_scalar_mismatch.md) |
 | Clifford prime channels | The Gram construction retains the original sign problem and adds channel cost | [proof 122](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/122_clifford_prime_channel_gram_cost.md) |
 
 These obstructions constrain the next construction. It must provide an exact
-finite-$S$ trace read-off and control the post-$Q$ remainder on one form domain.
+finite-S trace read-off and control the post-Q remainder on one form domain.
 
 ## 4. Sources
 
@@ -506,7 +505,7 @@ The formal interfaces draw on the following papers.
    [arXiv:2310.18423](https://arxiv.org/abs/2310.18423).
 
    This paper develops the semilocal space, modulus map, Fourier compatibility,
-   and Sonin transport used to locate the finite-$S$ operator problem.
+   and Sonin transport used to locate the finite-S operator problem.
 
 3. Alain Connes, Caterina Consani, and Henri Moscovici, *Zeta Spectral
    Triples*, [arXiv:2511.22755](https://arxiv.org/abs/2511.22755).
