@@ -889,3 +889,39 @@ indefinite whenever nonzero.  This rejects a sign proof based only on nesting
 or monotonicity, but it does not decide the integrated form on the three-row
 subspace.  Compactness, the integrated three-row sign, and RH remain open.  No
 Lean owner or route rewire is authorized.
+
+## 2026-07-14 Euler chirp operator-norm compactness
+
+Proof 228 removes the apparent non-summability of the critical positive
+endpoint in Proof 225.  For `L=log(p)`, `a=p^(-1/2)`, and `q_m=mL`, the exact
+weighted endpoint kernel is
+
+```text
+a^m k_infinity(x-y+q_m)
+ =2exp((x-y)/2)cos(2pi p^m exp(x-y)).
+```
+
+Its Hilbert--Schmidt norm on a fixed interval does not decay.  However the
+complex phase kernel
+
+```text
+exp((x-y)/2)exp(2pi i lambda exp(x-y))
+```
+
+is exactly unitarily conjugate, under `u=exp(x)` and `w=exp(-y)`, to a Fourier
+transform from `exp(-I)` to `lambda exp(I)`.  Plancherel gives
+
+```text
+norm(K_lambda)<=lambda^(-1/2).
+```
+
+Consequently the real endpoint operator at `lambda=p^m` has norm at most
+`2p^(-m/2)`, and every fixed polynomially weighted Euler sum converges in
+operator norm to a compact operator.  The negative endpoint is already
+Hilbert--Schmidt summable with coefficient `p^(-m)`.
+
+Do not require termwise Hilbert--Schmidt summability: it discards the exact
+oscillatory Fourier gain.  The remaining Proof 227 bottom is now the internal,
+non-endpoint profile of the complete crossing `Y_alpha+Y_alpha*`, followed by
+the independent integrated three-row sign.  No Lean owner or route rewire is
+authorized; RH remains unproved.
