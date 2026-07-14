@@ -333,11 +333,108 @@ theorem exists_sourceZero_nearby_convolutionSquare_indicator
   · intro z
     rcases Finset.mem_union.mp z.2 with hzero | hrouteNode
     · exact le_of_lt
-        (sourceNontrivialZero_zero_lt_re
+        (CC20YoshidaNearZeros.sourceNontrivialZero_zero_lt_re
           (mem_sourceNontrivialZerosInClosedBallFinset.mp hzero).2)
     · exact hroute ⟨z.1, hrouteNode⟩
-  · exact sourceNontrivialZero_zero_lt_re hrho
+  · exact CC20YoshidaNearZeros.sourceNontrivialZero_zero_lt_re hrho
   · exact ha
+
+/-- The support-growing unscaled assembly can normalize both points in the
+Hermitian orbit of `rho`. Its final convolution square therefore has value one
+at `rho`, while selected nodes outside that orbit remain zero. -/
+theorem exists_fixedWindows_nearbyZero_unscaled_hermitian_square_assembly
+    (rho : ℂ) (hrho : rho.re ∈ Set.Icc (0 : ℝ) 1)
+    (routeNodes : Finset ℂ)
+    {baseLower baseUpper lower upper : ℝ}
+    (hbaseLower : baseLower < 0) (hbaseUpper : 0 < baseUpper)
+    (hlower : lower < 0) (hupper : 0 < upper)
+    (epsilon : ℝ) (hepsilon : 0 < epsilon) :
+    ∃ base : CompactLogTest, ∃ T : ℝ,
+      Function.support base.test ⊆ Set.Ioo baseLower baseUpper ∧
+      laplaceAt base rho = 1 ∧
+      laplaceAt base (-star rho) = 1 ∧
+      0 ≤ T ∧
+      ∀ R : ℝ, 0 ≤ R →
+        ∃ correction : CompactLogTest, ∃ C : ℝ, ∃ n : ℕ,
+          Function.support correction.test ⊆ Set.Ioo lower upper ∧
+          Function.support
+              ((convolutionIterate base n).convolution correction).test ⊆
+            Set.Ioo (((n + 1 : ℕ) : ℝ) * baseLower + lower)
+              (((n + 1 : ℕ) : ℝ) * baseUpper + upper) ∧
+          laplaceAt
+              ((convolutionIterate base n).convolution correction) rho = 1 ∧
+          laplaceAt
+              ((convolutionIterate base n).convolution correction) (-star rho) = 1 ∧
+          laplaceAt
+              ((convolutionIterate base n).convolution correction).convolutionSquare
+                rho = 1 ∧
+          (∀ z : FiniteMellinNode
+              (sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes),
+            z.1 ∉ ({rho, -star rho} : Finset ℂ) →
+              laplaceAt
+                ((convolutionIterate base n).convolution correction).convolutionSquare
+                z.1 = 0) ∧
+          0 ≤ C ∧
+          ∀ z : ℂ, z.re ∈ Set.Icc (0 : ℝ) 1 →
+            T ≤ |z.im| → 1 ≤ |z.im| → 2 * |rho.im| ≤ |z.im| →
+              ‖z - rho‖ ^ 2 *
+                  ‖laplaceAt
+                    ((convolutionIterate base n).convolution correction) z‖ <
+                epsilon := by
+  let targetNodes : Finset ℂ := {rho, -star rho}
+  let targetValues : FiniteMellinNode targetNodes → ℂ := fun _ => 1
+  obtain ⟨base, baseC, hbaseSupport, hbaseValues, hbaseC, hbaseDecay⟩ :=
+    exists_residualWindow_correction_with_quadratic_decay
+      targetNodes hbaseLower hbaseUpper targetValues
+  have hbaseTargets : ∀ w : FiniteMellinNode targetNodes,
+      laplaceAt base w.1 = 1 := by
+    intro w
+    simpa [targetValues] using hbaseValues w
+  have hrhoTarget : rho ∈ targetNodes := by
+    simp [targetNodes]
+  have hcompTarget : -star rho ∈ targetNodes := by
+    simp [targetNodes]
+  obtain ⟨T, hT, hbase⟩ :=
+    exists_laplaceAt_vertical_half_contraction_of_quadratic_bound
+      base baseC hbaseC hbaseDecay
+  have hbaseRho : laplaceAt base rho = 1 :=
+    hbaseTargets ⟨rho, hrhoTarget⟩
+  have hbaseComp : laplaceAt base (-star rho) = 1 :=
+    hbaseTargets ⟨-star rho, hcompTarget⟩
+  refine ⟨base, T, hbaseSupport, hbaseRho, hbaseComp, hT, ?_⟩
+  intro R hR
+  obtain ⟨correction, C, n, hcorrectionSupport, hassembledSupport,
+      hassembledTargets, hassembledZeros, hC, hdistance⟩ :=
+    exists_nearbyZero_unscaled_indicator_assembly_of_fixedThreshold
+      base hbaseSupport targetNodes hbaseTargets rho hrho hrhoTarget T hbase
+      routeNodes hlower hupper epsilon hepsilon R hR
+  have hassembledRho :
+      laplaceAt ((convolutionIterate base n).convolution correction) rho = 1 :=
+    hassembledTargets ⟨rho, hrhoTarget⟩
+  have hassembledComp :
+      laplaceAt ((convolutionIterate base n).convolution correction) (-star rho) = 1 :=
+    hassembledTargets ⟨-star rho, hcompTarget⟩
+  have hsquareRho :
+      laplaceAt
+          ((convolutionIterate base n).convolution correction).convolutionSquare
+        rho = 1 := by
+    rw [CompactLogTest.convolutionSquare, laplaceAt_convolution,
+      laplaceAt_involution, hassembledComp, hassembledRho]
+    simp
+  have hsquareZeros :
+      ∀ z : FiniteMellinNode
+          (sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes),
+        z.1 ∉ ({rho, -star rho} : Finset ℂ) →
+          laplaceAt
+              ((convolutionIterate base n).convolution correction).convolutionSquare
+            z.1 = 0 := by
+    intro z hz
+    have hsourceZero := hassembledZeros z hz
+    rw [CompactLogTest.convolutionSquare, laplaceAt_convolution,
+      laplaceAt_involution, hsourceZero]
+    simp
+  exact ⟨correction, C, n, hcorrectionSupport, hassembledSupport,
+    hassembledRho, hassembledComp, hsquareRho, hsquareZeros, hC, hdistance⟩
 
 /-- Finite-node interpolation for the complete assembled product.
 

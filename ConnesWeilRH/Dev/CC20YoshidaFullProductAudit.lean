@@ -34,7 +34,10 @@ open Source.CC20YoshidaConvolution.CompactLogTest
 #check @exists_convolutionSquare_base_fullProduct_indicator
 #check @exists_convolutionSquare_base_fullProduct_indicator_of_re_nonnegative
 #check @exists_sourceZero_nearby_convolutionSquare_indicator
+#check @exists_fixedWindows_nearbyZero_unscaled_hermitian_square_assembly
 #check @exists_residualWindow_correction_full_product_interpolation
+
+#print exists_fixedWindows_nearbyZero_unscaled_hermitian_square_assembly
 
 #print axioms fullProductBaseFactor
 #print axioms fullProductScale
@@ -51,6 +54,7 @@ open Source.CC20YoshidaConvolution.CompactLogTest
 #print axioms exists_convolutionSquare_base_fullProduct_indicator
 #print axioms exists_convolutionSquare_base_fullProduct_indicator_of_re_nonnegative
 #print axioms exists_sourceZero_nearby_convolutionSquare_indicator
+#print axioms exists_fixedWindows_nearbyZero_unscaled_hermitian_square_assembly
 #print axioms exists_residualWindow_correction_full_product_interpolation
 
 end CC20YoshidaFullProductAudit

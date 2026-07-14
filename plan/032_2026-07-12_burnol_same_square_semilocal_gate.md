@@ -1102,3 +1102,42 @@ consumers remain unchanged.  The next same-object target is to feed this
 detector into the existing finite-prime owner and prove the integrated sign of
 the named compact remainder on the common three-row kernel.  RH remains
 unproved.
+
+## 2026-07-14 unscaled Yoshida selected-owner bridge
+
+Proof 236 closes the next same-object ownership step.  The earlier
+normalization `Laplace(H)(rho)=1` was insufficient for the actual selected
+square, because
+
+```text
+Laplace(H^star*H)(rho)
+  =conj(Laplace(H)(-conj(rho))) Laplace(H)(rho).
+```
+
+The new axiom-clean construction interpolates both `rho` and `-conj(rho)`.
+It therefore normalizes the real selected convolution square, cancels every
+selected node outside that Hermitian orbit, and retains Proof 235's fixed
+threshold, growing support, and far-tail estimate.  The base itself is now
+constructed inside a prescribed log window; it is no longer a caller premise.
+
+`UnscaledYoshidaSelectedOwner.selectedOwner` applies
+`SelectedWeilSquareOwner.ofCompactLogTest` directly to the generated factor.
+Its source test and square are definitional equalities.  The same owner defines
+the finite-family whole-line crossing sum, which is self-adjoint, is compact
+when supplied the existing per-prime factor-basis witnesses, and has ordinary
+trace
+
+```text
+sum_(p,m) owner.finitePrimeTerm(p^m).
+```
+
+The basis witnesses remain explicit theorem parameters; the axiom audit does
+not turn them into no-premise producers.  More importantly, this operator is
+still only the named single-crossing ledger.  No positive finite-S owner has
+yet identified its complete post-Q remainder with `-2 Id+K_(S,I)`, and no
+theorem proves `K_(S,I)<2 Id` on the common three-row kernel.
+
+Thus the detector-to-arithmetic ownership bridge is closed, but Gate 3 is not.
+The active bottom is now exclusively the integrated same-domain sign of the
+complete semilocal remainder.  No route rewire is authorized; RH remains
+unproved.
