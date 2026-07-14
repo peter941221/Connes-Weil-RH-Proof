@@ -1103,41 +1103,149 @@ detector into the existing finite-prime owner and prove the integrated sign of
 the named compact remainder on the common three-row kernel.  RH remains
 unproved.
 
-## 2026-07-14 unscaled Yoshida selected-owner bridge
+## 2026-07-14 half-density centered owner repair
 
-Proof 236 closes the next same-object ownership step.  The earlier
-normalization `Laplace(H)(rho)=1` was insufficient for the actual selected
-square, because
-
-```text
-Laplace(H^star*H)(rho)
-  =conj(Laplace(H)(-conj(rho))) Laplace(H)(rho).
-```
-
-The new axiom-clean construction interpolates both `rho` and `-conj(rho)`.
-It therefore normalizes the real selected convolution square, cancels every
-selected node outside that Hermitian orbit, and retains Proof 235's fixed
-threshold, growing support, and far-tail estimate.  The base itself is now
-constructed inside a prescribed log window; it is no longer a caller premise.
-
-`UnscaledYoshidaSelectedOwner.selectedOwner` applies
-`SelectedWeilSquareOwner.ofCompactLogTest` directly to the generated factor.
-Its source test and square are definitional equalities.  The same owner defines
-the finite-family whole-line crossing sum, which is self-adjoint, is compact
-when supplied the existing per-prime factor-basis witnesses, and has ordinary
-trace
+Proof 236's raw theorem was algebraically valid but its selected-coordinate
+interpretation was wrong.  Burnol's spectral variable is `u=rho-1/2`.  For
+the mandatory half-density shift `H_c(x)=exp(x/2)H(x)`, the actual identity is
 
 ```text
-sum_(p,m) owner.finitePrimeTerm(p^m).
+Laplace(H_c^star*H_c)(rho-1/2)
+  =conj(Laplace(H)(1-conj(rho))) Laplace(H)(rho).
 ```
 
-The basis witnesses remain explicit theorem parameters; the axiom audit does
-not turn them into no-premise producers.  More importantly, this operator is
-still only the named single-crossing ledger.  No positive finite-S owner has
-yet identified its complete post-Q remainder with `-2 Id+K_(S,I)`, and no
-theorem proves `K_(S,I)<2 Id` on the common three-row kernel.
+Therefore the raw source companion is `1-conj(rho)`, not `-conj(rho)`.
+Proof 237 repairs the owner explicitly.  The new Lean definition
+`halfDensityShift` preserves compact support and proves
+`Laplace(H_c)(u)=Laplace(H)(u+1/2)`.  `selectedOwner` now owns `H_c`, while
+`exists_fixedWindows_nearbyZero_unscaled_sourceOrbit_assembly` constructs the
+same raw factor at both `rho` and `1-conj(rho)`.
 
-Thus the detector-to-arithmetic ownership bridge is closed, but Gate 3 is not.
-The active bottom is now exclusively the integrated same-domain sign of the
-complete semilocal remainder.  No route rewire is authorized; RH remains
+The corrected no-premise existence theorem returns, for one selected owner,
+
+```text
+Laplace(owner.sourceTest)(rho-1/2)=1,
+Laplace(owner.sourceTest)(-conj(rho-1/2))=1,
+Laplace(owner.convolutionSquare)(rho-1/2)=1,
+Laplace(owner.convolutionSquare)(z-1/2)=0
+  for selected source z outside {rho,1-conj(rho)}.
+```
+
+It also multiplies the two source-factor tails into the same-square bound
+
+```text
+|z-rho|^2 |(1-conj(z))-rho|^2
+  * |Laplace(owner.convolutionSquare)(z-1/2)| < epsilon^2.
+```
+
+The existing finite-family whole-line crossing sum remains attached to this
+same owner.  It is self-adjoint, compact when supplied the existing per-prime
+factor-basis witnesses, and its ordinary trace is the same owner's
+finite-prime sum.  Those basis witnesses remain explicit theorem parameters.
+
+The corrected construction still normalizes the two target source values to
+`+1`; it therefore detects the orbit positively.  The next algebraic theorem
+must interpolate the full source orbit with values
+
+```text
+H(rho)=1,
+H(1-conj(rho))=-1,
+H(conj(rho))=0,
+H(1-rho)=0,
+```
+
+so that the centered square orbit contributes `-2`.  Even that does not close
+Gate 3: it must be combined with the quartic tail, finite nearby-zero
+cancellation, finite bad-space orthogonality, and the integrated same-domain
+sign of the actual finite-S remainder `-2 Id+K_(S,I)`.  No route rewire is
+authorized; RH remains unproved.
+
+## 2026-07-14 negative orbit owner
+
+Proof 238 closes the negative finite-orbit algebra on the corrected
+half-density owner.  A new generic assembly keeps the repeated base equal to
+one at every target and puts arbitrary values in the final correction, so the
+target `-1` is independent of the convolution-count parity.
+
+The source orbit is represented by the actual finite set
+
+```text
+{rho,1-conj(rho),conj(rho),1-rho}.
+```
+
+Its adaptive values are `1` at `rho`, `-1` at the distinct companion
+`1-conj(rho)`, and zero elsewhere.  After the half-density translation, Lean
+proves that the same selected square has orbit sum exactly `-2`.  The proof
+handles both the four-point nonreal orbit and the two-point conjugation-fixed
+orbit, so the final existence theorem needs no `Im(rho) != 0` premise.
+
+`exists_fixedWindows_nearbyZero_negativeOrbit_selectedOwner` now puts the
+negative orbit sum, finite nearby-zero cancellation, growing support,
+quadratic source tail, and fourth-order selected-square tail on one owner.
+This removes the positive-detection defect left by Proof 237.
+
+Gate 3 is still open.  The theorem does not prove Burnol's all-zero spectral
+identity in Lean, identify the named crossing sum with a finite-S positive
+owner, or prove the integrated sign of `-2 Id+K_(S,I)`.  Proof 113 also forbids
+reinterpreting compact bad-space orthogonalization as a prime-free shortcut.
+The surviving next target is the complete finite-S same-domain trace/sign
+identity for this owner; no route rewire is authorized and RH remains
 unproved.
+
+## 2026-07-14 constrained sign death test
+
+Proof 239 combines the literal archimedean Q-delta kernel with Proof 224's
+one-prime nested-complement finite section and imposes the two independent
+Q-root Mellin rows.  Raw grids show positive constrained eigenvalues at
+several resolutions, but their maximizing vectors place `60%--74%` of their
+mass in the artificial boundary entries and move with the grid.  They are not
+stable bad eigendirections.
+
+Fixing the lowest smooth Dirichlet modes before refining the scattering grid
+changes the verdict.  The first six `p=2` modes remain strictly negative
+through `cells=28`; the first eight `p=3` modes remain strictly negative
+through `cells=24`.  A ten-mode `p=2` crossing at `cells=24` disappears at
+`cells=28`.  Thus the current diagnostic neither rejects nor proves the sign
+gate.
+
+Because Proof 234's proposed continuous correction is compact, a genuine bad
+eigenvalue must eventually appear in a fixed Galerkin scale under an
+operator-norm-consistent discretization.  A direction that continually
+escapes to a shrinking boundary layer violates that consistency test.  Do not
+use raw full-grid eigenvalues from the scattering proxy as route evidence.
+
+The numerical lane must now prove a convergent Galerkin approximation of the
+same post-Q owner before enlarging matrices.  The analytic lane remains the
+integrated three-row sign of the named continuous compact correction.  No
+route rewire is authorized and RH remains unproved.
+
+## 2026-07-14 certified row-only archimedean counterexample
+
+Proof 240 closes the numerical uncertainty left by Proof 239, but it changes
+the target rather than closing Gate 3.  The current route convention has nodes
+`s=0,1/2,1` (Proof 072), so for `g=(d/dx+1/2)xi` the two independent pre-root
+rows are `M_0(xi)=M_1(xi)=0`.  On the interval
+
+```text
+I=[0,3 log(2)/2],
+```
+
+the fixed four-mode Dirichlet witness with modes `{1,2,3,5}`, coefficients
+`c_1=-8/15`, `c_3=c_5=1`, and `c_2` defined by the exact `M_1` equation has
+
+```text
+<xi,(-2 Id+K_infinity)xi> > 1.3868,
+Rayleigh quotient > 0.596.
+```
+
+The value is certified by an Arb one-dimensional integral after integrating
+the CC20 derivative kernel by parts; no finite scattering matrix, Sonin cutoff,
+or grid eigenvector is involved.  Therefore the universal row-only implication
+`M_0=M_1=0 => D_infinity<=0` is false once the first prime is visible.
+
+This does not reject the complete finite-`S` sign.  It proves that the missing
+finite-dimensional bad/control space is mandatory, and that its orthogonality
+must be imposed on the same finite-`S` owner.  Proof 113 still rejects the
+prime-free shortcut.  The next bottom is a same-object finite-`S` conditioning
+theorem coupled to the negative Yoshida owner and the Burnol all-zero identity;
+no Lean owner or route rewire is authorized and RH remains unproved.

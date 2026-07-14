@@ -46,6 +46,111 @@ transform of a convolution square. -/
 noncomputable def hermitianNodeClosure (nodes : Finset ℂ) : Finset ℂ :=
   nodes ∪ nodes.image fun z => -star z
 
+/-- The source-Mellin orbit which becomes
+`{u, -conj(u), conj(u), -u}` after the half-density translation
+`u = rho - 1/2`.  A `Finset` records orbit collisions honestly. -/
+noncomputable def sourceFunctionalEquationOrbit (rho : ℂ) : Finset ℂ :=
+  {rho, 1 - star rho, star rho, 1 - rho}
+
+/-- Target values for a negative Hermitian pair.  The priority order also
+handles a real orbit without assigning incompatible values to coincident
+points: `rho` gets `1`, its distinct functional-equation companion gets
+`-1`, and every remaining orbit point gets `0`. -/
+noncomputable def negativeSourceOrbitValue (rho : ℂ) :
+    FiniteMellinNode (sourceFunctionalEquationOrbit rho) → ℂ := fun z =>
+  if z.1 = rho then 1 else if z.1 = 1 - star rho then -1 else 0
+
+@[simp] theorem mem_sourceFunctionalEquationOrbit_rho (rho : ℂ) :
+    rho ∈ sourceFunctionalEquationOrbit rho := by
+  simp [sourceFunctionalEquationOrbit]
+
+@[simp] theorem mem_sourceFunctionalEquationOrbit_companion (rho : ℂ) :
+    1 - star rho ∈ sourceFunctionalEquationOrbit rho := by
+  simp [sourceFunctionalEquationOrbit]
+
+@[simp] theorem mem_sourceFunctionalEquationOrbit_star (rho : ℂ) :
+    star rho ∈ sourceFunctionalEquationOrbit rho := by
+  simp [sourceFunctionalEquationOrbit]
+
+@[simp] theorem mem_sourceFunctionalEquationOrbit_one_sub (rho : ℂ) :
+    1 - rho ∈ sourceFunctionalEquationOrbit rho := by
+  simp [sourceFunctionalEquationOrbit]
+
+/-- Off the critical line, a source point and its functional-equation
+companion are distinct. -/
+theorem ne_one_sub_star_of_re_ne_half (rho : ℂ)
+    (hoff : rho.re ≠ 1 / 2) :
+    rho ≠ 1 - star rho := by
+  intro h
+  apply hoff
+  have hre := congrArg Complex.re h
+  simp at hre
+  linarith
+
+theorem ne_one_sub_self_of_re_ne_half (rho : ℂ)
+    (hoff : rho.re ≠ 1 / 2) :
+    rho ≠ 1 - rho := by
+  intro h
+  apply hoff
+  have hre := congrArg Complex.re h
+  simp at hre
+  linarith
+
+theorem star_ne_one_sub_star_of_re_ne_half (rho : ℂ)
+    (hoff : rho.re ≠ 1 / 2) :
+    star rho ≠ 1 - star rho := by
+  intro h
+  apply hoff
+  have hre := congrArg Complex.re h
+  simp at hre
+  linarith
+
+theorem star_ne_one_sub_self_of_re_ne_half (rho : ℂ)
+    (hoff : rho.re ≠ 1 / 2) :
+    star rho ≠ 1 - rho := by
+  intro h
+  apply hoff
+  have hre := congrArg Complex.re h
+  simp at hre
+  linarith
+
+@[simp] theorem negativeSourceOrbitValue_rho (rho : ℂ) :
+    negativeSourceOrbitValue rho
+        ⟨rho, mem_sourceFunctionalEquationOrbit_rho rho⟩ = 1 := by
+  simp [negativeSourceOrbitValue]
+
+theorem negativeSourceOrbitValue_companion (rho : ℂ)
+    (hoff : rho.re ≠ 1 / 2) :
+    negativeSourceOrbitValue rho
+        ⟨1 - star rho,
+          mem_sourceFunctionalEquationOrbit_companion rho⟩ = -1 := by
+  have hne := ne_one_sub_star_of_re_ne_half rho hoff
+  change (if 1 - star rho = rho then 1
+    else if 1 - star rho = 1 - star rho then -1 else 0) = -1
+  rw [if_neg hne.symm, if_pos rfl]
+
+theorem negativeSourceOrbitValue_star_of_ne (rho : ℂ)
+    (hoff : rho.re ≠ 1 / 2) (hnonreal : star rho ≠ rho) :
+    negativeSourceOrbitValue rho
+        ⟨star rho, mem_sourceFunctionalEquationOrbit_star rho⟩ = 0 := by
+  have hcomp := star_ne_one_sub_star_of_re_ne_half rho hoff
+  change (if star rho = rho then 1
+    else if star rho = 1 - star rho then -1 else 0) = 0
+  rw [if_neg hnonreal, if_neg hcomp]
+
+theorem negativeSourceOrbitValue_one_sub_of_ne (rho : ℂ)
+    (hoff : rho.re ≠ 1 / 2) (hnonreal : star rho ≠ rho) :
+    negativeSourceOrbitValue rho
+        ⟨1 - rho, mem_sourceFunctionalEquationOrbit_one_sub rho⟩ = 0 := by
+  have hrho := ne_one_sub_self_of_re_ne_half rho hoff
+  have hcomp : 1 - rho ≠ 1 - star rho := by
+    intro h
+    apply hnonreal
+    exact (sub_right_inj.mp h).symm
+  change (if 1 - rho = rho then 1
+    else if 1 - rho = 1 - star rho then -1 else 0) = 0
+  rw [if_neg hrho.symm, if_neg hcomp]
+
 /-- The Laplace transform of the additive involution. This is the identity
 that makes a convolution square an actual positive-definite base rather than
 an arbitrary finite-node interpolant. -/
@@ -340,8 +445,10 @@ theorem exists_sourceZero_nearby_convolutionSquare_indicator
   · exact ha
 
 /-- The support-growing unscaled assembly can normalize both points in the
-Hermitian orbit of `rho`. Its final convolution square therefore has value one
-at `rho`, while selected nodes outside that orbit remain zero. -/
+Hermitian orbit of an uncentered Laplace target. Its raw convolution square
+therefore has value one at that target, while selected nodes outside that
+orbit remain zero. This is an algebraic theorem; Burnol's spectral coordinate
+requires the half-density shift supplied by `UnscaledYoshidaSelectedOwner`. -/
 theorem exists_fixedWindows_nearbyZero_unscaled_hermitian_square_assembly
     (rho : ℂ) (hrho : rho.re ∈ Set.Icc (0 : ℝ) 1)
     (routeNodes : Finset ℂ)
@@ -435,6 +542,177 @@ theorem exists_fixedWindows_nearbyZero_unscaled_hermitian_square_assembly
     simp
   exact ⟨correction, C, n, hcorrectionSupport, hassembledSupport,
     hassembledRho, hassembledComp, hsquareRho, hsquareZeros, hC, hdistance⟩
+
+/-- Normalize the two source-Mellin points which become a Hermitian pair after
+the selected half-density shift. If `u = rho - 1/2`, then the companion of
+`u` is obtained from the source point `1 - conj(rho)`. -/
+theorem exists_fixedWindows_nearbyZero_unscaled_sourceOrbit_assembly
+    (rho : ℂ) (hrho : rho.re ∈ Set.Icc (0 : ℝ) 1)
+    (routeNodes : Finset ℂ)
+    {baseLower baseUpper lower upper : ℝ}
+    (hbaseLower : baseLower < 0) (hbaseUpper : 0 < baseUpper)
+    (hlower : lower < 0) (hupper : 0 < upper)
+    (epsilon : ℝ) (hepsilon : 0 < epsilon) :
+    ∃ base : CompactLogTest, ∃ T : ℝ,
+      Function.support base.test ⊆ Set.Ioo baseLower baseUpper ∧
+      laplaceAt base rho = 1 ∧
+      laplaceAt base (1 - star rho) = 1 ∧
+      0 ≤ T ∧
+      ∀ R : ℝ, 0 ≤ R →
+        ∃ correction : CompactLogTest, ∃ C : ℝ, ∃ n : ℕ,
+          Function.support correction.test ⊆ Set.Ioo lower upper ∧
+          Function.support
+              ((convolutionIterate base n).convolution correction).test ⊆
+            Set.Ioo (((n + 1 : ℕ) : ℝ) * baseLower + lower)
+              (((n + 1 : ℕ) : ℝ) * baseUpper + upper) ∧
+          laplaceAt
+              ((convolutionIterate base n).convolution correction) rho = 1 ∧
+          laplaceAt
+              ((convolutionIterate base n).convolution correction)
+                (1 - star rho) = 1 ∧
+          (∀ z : FiniteMellinNode
+              (sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes),
+            z.1 ∉ ({rho, 1 - star rho} : Finset ℂ) →
+              laplaceAt
+                ((convolutionIterate base n).convolution correction) z.1 = 0) ∧
+          0 ≤ C ∧
+          ∀ z : ℂ, z.re ∈ Set.Icc (0 : ℝ) 1 →
+            T ≤ |z.im| → 1 ≤ |z.im| → 2 * |rho.im| ≤ |z.im| →
+              ‖z - rho‖ ^ 2 *
+                  ‖laplaceAt
+                    ((convolutionIterate base n).convolution correction) z‖ <
+                epsilon := by
+  let targetNodes : Finset ℂ := {rho, 1 - star rho}
+  let targetValues : FiniteMellinNode targetNodes → ℂ := fun _ => 1
+  obtain ⟨base, baseC, hbaseSupport, hbaseValues, hbaseC, hbaseDecay⟩ :=
+    exists_residualWindow_correction_with_quadratic_decay
+      targetNodes hbaseLower hbaseUpper targetValues
+  have hbaseTargets : ∀ w : FiniteMellinNode targetNodes,
+      laplaceAt base w.1 = 1 := by
+    intro w
+    simpa [targetValues] using hbaseValues w
+  have hrhoTarget : rho ∈ targetNodes := by
+    simp [targetNodes]
+  have hcompTarget : 1 - star rho ∈ targetNodes := by
+    simp [targetNodes]
+  obtain ⟨T, hT, hbase⟩ :=
+    exists_laplaceAt_vertical_half_contraction_of_quadratic_bound
+      base baseC hbaseC hbaseDecay
+  have hbaseRho : laplaceAt base rho = 1 :=
+    hbaseTargets ⟨rho, hrhoTarget⟩
+  have hbaseComp : laplaceAt base (1 - star rho) = 1 :=
+    hbaseTargets ⟨1 - star rho, hcompTarget⟩
+  refine ⟨base, T, hbaseSupport, hbaseRho, hbaseComp, hT, ?_⟩
+  intro R hR
+  obtain ⟨correction, C, n, hcorrectionSupport, hassembledSupport,
+      hassembledTargets, hassembledZeros, hC, hdistance⟩ :=
+    exists_nearbyZero_unscaled_indicator_assembly_of_fixedThreshold
+      base hbaseSupport targetNodes hbaseTargets rho hrho hrhoTarget T hbase
+      routeNodes hlower hupper epsilon hepsilon R hR
+  have hassembledRho :
+      laplaceAt ((convolutionIterate base n).convolution correction) rho = 1 :=
+    hassembledTargets ⟨rho, hrhoTarget⟩
+  have hassembledComp :
+      laplaceAt ((convolutionIterate base n).convolution correction)
+        (1 - star rho) = 1 :=
+    hassembledTargets ⟨1 - star rho, hcompTarget⟩
+  exact ⟨correction, C, n, hcorrectionSupport, hassembledSupport,
+    hassembledRho, hassembledComp, hassembledZeros, hC, hdistance⟩
+
+/-- Construct the full functional-equation/conjugation orbit with a negative
+Hermitian pair.  The base remains one on the whole orbit, while the final
+correction prescribes `1` at `rho`, `-1` at `1 - conj(rho)`, and zero at every
+remaining distinct orbit point.  The same assembled factor cancels all other
+selected nodes and retains the fixed-threshold far-tail estimate. -/
+theorem exists_fixedWindows_nearbyZero_unscaled_negativeSourceOrbit_assembly
+    (rho : ℂ) (hrho : rho.re ∈ Set.Icc (0 : ℝ) 1)
+    (hoff : rho.re ≠ 1 / 2)
+    (routeNodes : Finset ℂ)
+    {baseLower baseUpper lower upper : ℝ}
+    (hbaseLower : baseLower < 0) (hbaseUpper : 0 < baseUpper)
+    (hlower : lower < 0) (hupper : 0 < upper)
+    (epsilon : ℝ) (hepsilon : 0 < epsilon) :
+    ∃ base : CompactLogTest, ∃ T : ℝ,
+      Function.support base.test ⊆ Set.Ioo baseLower baseUpper ∧
+      (∀ w : FiniteMellinNode (sourceFunctionalEquationOrbit rho),
+        laplaceAt base w.1 = 1) ∧
+      0 ≤ T ∧
+      ∀ R : ℝ, 0 ≤ R →
+        ∃ correction : CompactLogTest, ∃ C : ℝ, ∃ n : ℕ,
+          Function.support correction.test ⊆ Set.Ioo lower upper ∧
+          Function.support
+              ((convolutionIterate base n).convolution correction).test ⊆
+            Set.Ioo (((n + 1 : ℕ) : ℝ) * baseLower + lower)
+              (((n + 1 : ℕ) : ℝ) * baseUpper + upper) ∧
+          laplaceAt
+              ((convolutionIterate base n).convolution correction) rho = 1 ∧
+          laplaceAt
+              ((convolutionIterate base n).convolution correction)
+                (1 - star rho) = -1 ∧
+          (∀ w : FiniteMellinNode (sourceFunctionalEquationOrbit rho),
+            laplaceAt
+                ((convolutionIterate base n).convolution correction) w.1 =
+              negativeSourceOrbitValue rho w) ∧
+          (∀ z : FiniteMellinNode
+              (sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes),
+            z.1 ∉ sourceFunctionalEquationOrbit rho →
+              laplaceAt
+                ((convolutionIterate base n).convolution correction) z.1 = 0) ∧
+          0 ≤ C ∧
+          ∀ z : ℂ, z.re ∈ Set.Icc (0 : ℝ) 1 →
+            T ≤ |z.im| → 1 ≤ |z.im| → 2 * |rho.im| ≤ |z.im| →
+              ‖z - rho‖ ^ 2 *
+                  ‖laplaceAt
+                    ((convolutionIterate base n).convolution correction) z‖ <
+                epsilon := by
+  let baseValues :
+      FiniteMellinNode (sourceFunctionalEquationOrbit rho) → ℂ := fun _ => 1
+  obtain ⟨base, baseC, hbaseSupport, hbaseValues, hbaseC, hbaseDecay⟩ :=
+    exists_residualWindow_correction_with_quadratic_decay
+      (sourceFunctionalEquationOrbit rho)
+      hbaseLower hbaseUpper baseValues
+  have hbaseTargets :
+      ∀ w : FiniteMellinNode (sourceFunctionalEquationOrbit rho),
+        laplaceAt base w.1 = 1 := by
+    intro w
+    simpa [baseValues] using hbaseValues w
+  obtain ⟨T, hT, hbase⟩ :=
+    exists_laplaceAt_vertical_half_contraction_of_quadratic_bound
+      base baseC hbaseC hbaseDecay
+  refine ⟨base, T, hbaseSupport, hbaseTargets, hT, ?_⟩
+  intro R hR
+  obtain ⟨correction, C, n, hcorrectionSupport, hassembledSupport,
+      hassembledTargets, hassembledZeros, hC, hdistance⟩ :=
+    exists_nearbyZero_unscaled_targetValues_assembly_of_fixedThreshold
+      base hbaseSupport (sourceFunctionalEquationOrbit rho) hbaseTargets
+      (negativeSourceOrbitValue rho) rho hrho
+      (mem_sourceFunctionalEquationOrbit_rho rho) T hbase routeNodes
+      hlower hupper epsilon hepsilon R hR
+  have hassembledRho :
+      laplaceAt ((convolutionIterate base n).convolution correction) rho = 1 :=
+    calc
+      laplaceAt ((convolutionIterate base n).convolution correction) rho =
+          negativeSourceOrbitValue rho
+            ⟨rho, mem_sourceFunctionalEquationOrbit_rho rho⟩ :=
+        hassembledTargets
+          ⟨rho, mem_sourceFunctionalEquationOrbit_rho rho⟩
+      _ = 1 := negativeSourceOrbitValue_rho rho
+  have hassembledComp :
+      laplaceAt ((convolutionIterate base n).convolution correction)
+          (1 - star rho) = -1 :=
+    calc
+      laplaceAt ((convolutionIterate base n).convolution correction)
+          (1 - star rho) =
+          negativeSourceOrbitValue rho
+            ⟨1 - star rho,
+              mem_sourceFunctionalEquationOrbit_companion rho⟩ :=
+        hassembledTargets
+          ⟨1 - star rho,
+            mem_sourceFunctionalEquationOrbit_companion rho⟩
+      _ = -1 := negativeSourceOrbitValue_companion rho hoff
+  exact ⟨correction, C, n, hcorrectionSupport, hassembledSupport,
+    hassembledRho, hassembledComp, hassembledTargets, hassembledZeros,
+    hC, hdistance⟩
 
 /-- Finite-node interpolation for the complete assembled product.
 

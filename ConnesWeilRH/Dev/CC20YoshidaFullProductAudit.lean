@@ -23,6 +23,10 @@ open Source.CC20YoshidaConvolution.CompactLogTest
 #check @fullProductScale
 #check @fullProductScaledNodes
 #check @hermitianNodeClosure
+#check @sourceFunctionalEquationOrbit
+#check @negativeSourceOrbitValue
+#check @negativeSourceOrbitValue_rho
+#check @negativeSourceOrbitValue_companion
 #check @laplaceAt_involution
 #check @convolutionSquare_support_subset_symmetric
 #check @fullProductBaseFactor_convolutionSquare
@@ -35,14 +39,22 @@ open Source.CC20YoshidaConvolution.CompactLogTest
 #check @exists_convolutionSquare_base_fullProduct_indicator_of_re_nonnegative
 #check @exists_sourceZero_nearby_convolutionSquare_indicator
 #check @exists_fixedWindows_nearbyZero_unscaled_hermitian_square_assembly
+#check @exists_fixedWindows_nearbyZero_unscaled_sourceOrbit_assembly
+#check @exists_fixedWindows_nearbyZero_unscaled_negativeSourceOrbit_assembly
 #check @exists_residualWindow_correction_full_product_interpolation
 
 #print exists_fixedWindows_nearbyZero_unscaled_hermitian_square_assembly
+#print exists_fixedWindows_nearbyZero_unscaled_sourceOrbit_assembly
+#print exists_fixedWindows_nearbyZero_unscaled_negativeSourceOrbit_assembly
 
 #print axioms fullProductBaseFactor
 #print axioms fullProductScale
 #print axioms fullProductScaledNodes
 #print axioms hermitianNodeClosure
+#print axioms sourceFunctionalEquationOrbit
+#print axioms negativeSourceOrbitValue
+#print axioms negativeSourceOrbitValue_rho
+#print axioms negativeSourceOrbitValue_companion
 #print axioms laplaceAt_involution
 #print axioms convolutionSquare_support_subset_symmetric
 #print axioms fullProductBaseFactor_convolutionSquare
@@ -55,6 +67,8 @@ open Source.CC20YoshidaConvolution.CompactLogTest
 #print axioms exists_convolutionSquare_base_fullProduct_indicator_of_re_nonnegative
 #print axioms exists_sourceZero_nearby_convolutionSquare_indicator
 #print axioms exists_fixedWindows_nearbyZero_unscaled_hermitian_square_assembly
+#print axioms exists_fixedWindows_nearbyZero_unscaled_sourceOrbit_assembly
+#print axioms exists_fixedWindows_nearbyZero_unscaled_negativeSourceOrbit_assembly
 #print axioms exists_residualWindow_correction_full_product_interpolation
 
 end CC20YoshidaFullProductAudit
