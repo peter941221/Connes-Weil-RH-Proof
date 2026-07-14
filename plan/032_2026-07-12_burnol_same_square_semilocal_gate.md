@@ -738,3 +738,96 @@ The active Gate 3 analytic target is now exact:
 ```
 
 No Lean owner or route rewire is authorized.  RH remains unproved.
+
+## 2026-07-14 exact oblique-defect amplitude owner
+
+Proof 226 supersedes the preceding instruction to search first for an unknown
+Hermite--Biehler amplitude.  CCM24 already fixes the metric on the common
+Mellin carrier.  For the archimedean Sonin projection `P`, put
+
+```text
+T_alpha=I-alpha U,
+H_alpha=T_alpha* T_alpha,
+A_alpha=P H_alpha P | Ran(P),
+
+P_alpha=T_alpha P A_alpha^(-1)P T_alpha*.
+```
+
+The canonical oblique projection onto the same transported range is
+
+```text
+Q_alpha=T_alpha P T_alpha^(-1).
+```
+
+With `Delta_alpha=Q_alpha-P_alpha`, common-range algebra gives the exact
+identity
+
+```text
+P_alpha
+ =Q_alpha Q_alpha*-Delta_alpha Delta_alpha*.
+```
+
+Thus the nonconstant amplitude is the negative of one named positive square,
+not a free structure function.  In the block decomposition
+`Ran(P) direct-sum Ran(I-P)`, its exact Schur owner is
+
+```text
+Delta_alpha Delta_alpha*
+ =T_alpha P A^(-1) C Sigma^(-1) C* A^(-1)P T_alpha*,
+
+C=-alpha P(U+U*)(I-P).
+```
+
+Every amplitude word therefore contains two boundary crossings and begins at
+order `alpha^2`.  CC20's `quantsmooth` lemma and its scattering-conjugate
+version make the amplitude trace legal for every compact smooth Q-root, and
+
+```text
+Tr(C_g* C_g P_alpha)
+ =Tr(C_g* C_g Q_alpha Q_alpha*)
+   -norm(C_g Delta_alpha)_HS^2.
+```
+
+The individual amplitude contribution has a fixed nonpositive sign.  The
+compressed inverse has the uniformly convergent expansion
+
+```text
+A_alpha^(-1)
+ =(1/(1+alpha^2))
+   sum_(n>=0)(alpha/(1+alpha^2))^n[P(U+U*)P]^n,
+
+2alpha/(1+alpha^2)<=2sqrt(2)/3<1.
+```
+
+Hence any polynomial Euler-word factor is uniformly summable throughout
+`0<=alpha<=p^(-1/2)`.
+
+This does not order the nested amplitudes.  The exact finite-dimensional
+counterexample
+
+```text
+U e1=e2, U e2=e3, U e3=e1,
+alpha=1/4,
+R=span(e1), E=span(e1,e2)
+```
+
+has
+
+```text
+<e1,(Amp(E)-Amp(R))e1>=-256/4641,
+<e2,(Amp(E)-Amp(R))e2>=2032/41769.
+```
+
+Therefore `R<=E` supplies no generic sign for the difference of defect
+squares.  The next target must use the special Sonin scattering phase and the
+same compact Q-root to control the complete combination
+
+```text
+[Q_R Q_R*-Q_E Q_E*]
+  -[Delta_R Delta_R*-Delta_E Delta_E*],
+```
+
+after the exact half-line Euler series is removed.  Proving the phase and
+amplitude pieces separately by absolute estimates can destroy their required
+cancellation.  Compactness and the three-row sign of this complete nested
+combination remain open.  No Lean owner or route rewire is authorized.
