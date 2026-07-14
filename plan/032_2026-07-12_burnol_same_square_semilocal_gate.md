@@ -669,3 +669,72 @@ target-zero prime cancellation, not only subtraction of the PNT main term.
 Gate 3 remains open at the same two objects: a new finite-S same-object
 positive owner, or a new detector-specific identity for the complete
 prime-power form.  No Lean owner or route rewire follows from Proof 219.
+
+## 2026-07-14 metric projection and triangular principal channel
+
+Proofs 220--221 retain the exact Q-root ownership and show that the weighted
+Chebyshev target-orbit term is the original negative detector signal, not an
+independent positive budget.  They do not produce the finite-S sign.
+
+Proof 222 repairs the former factor-two rejection of the endpoint metric
+projection.  On each half-line translation fiber the exact Laurent diagonal
+sums of the relative projection are
+
+```text
+q_0=0,
+q_k=-a^|k| for k!=0.
+```
+
+The interrupted word at order `a^2` removes one boundary cell, so every
+prime-power coefficient is the required `p^(-m/2)log(p)`.  Proofs 042, 124,
+and 127 no longer reject this local coefficient owner.
+
+Proof 223 rejects transporting CC20's archimedean prolate angle as a
+Q-stable trace-class correction.  Its finite-Euler central coefficient is
+`a^2 log(p)`, whereas Proof 222's relative metric projection has zero central
+Laurent coefficient.  The difference grows quadratically after `Q`.
+
+Proof 224 supplies the correct same-object globalization.  For nested
+projections `R<=E`, their metric images remain nested and
+
+```text
+R_a-R=(E_a-E)-[(E_a-R_a)-(E-R)].
+```
+
+The first difference is Proof 222's exact Euler series.  The bracket is a
+canonical nested-complement projection with an explicit Schur-complement
+owner.  This closes operator bookkeeping but leaves its post-`Q` analytic
+class and sign open.
+
+Proof 225 closes only the normalized fixed-frequency principal channel.  For
+`a_q(r)=(1-cos(qr))/r^2`,
+
+```text
+Fourier(a_q)(xi)=pi(q-|xi|)_+.
+```
+
+The principal residual is therefore an archimedean chirp multiplied by a
+compact triangular band.  Its inverse Fourier response is locally smooth, so
+every fixed-`q` finite-window post-`Q` compression is Hilbert--Schmidt even
+though its pointwise symbol need not decay.
+
+This does not settle the actual metric kernel.  CCM24's ambient factor
+`E_S=product_v L_v` defines the norm weight; it is not automatically the
+Hermite--Biehler generator of the Sonin de Branges subspace.  The exact kernel
+has a nonconstant isometric-multiplier amplitude.  In addition, fixed-`q`
+compactness does not by itself give a summable estimate for
+`q=m log(p)`.
+
+The active Gate 3 analytic target is now exact:
+
+```text
+1. identify the Hermite--Biehler/isometric multiplier for the metric kernel;
+2. prove its amplitude correction is locally H^2, uniformly in
+   0<=alpha<=p^(-1/2);
+3. prove compatible locally H^2 growth for q=m log(p), summable against the
+   exact Euler coefficients;
+4. otherwise extract a fixed-frequency atom and reject compactness;
+5. only after compactness, prove the independent three-Mellin-row sign.
+```
+
+No Lean owner or route rewire is authorized.  RH remains unproved.
