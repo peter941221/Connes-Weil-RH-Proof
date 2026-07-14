@@ -1,0 +1,52 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CC20Concrete.GlobalLogMellinRows
+
+/-!
+# Import-facing audit for finite-window Mellin Riesz rows
+-/
+
+namespace ConnesWeilRH.Dev.GlobalLogMellinRowsAudit
+
+open Source.CC20Concrete
+
+#check @cc20LogMellinRow_inner_testInput_eq_logIntegral
+#check @cc20LogMellinRow_inner_testInput_eq_mellin
+#check @cc20LogMellinRow_inner_testInput_eq_fourier
+#check @cc20LogMellinRow_inner_testInput_eq_mellinAt
+#check @cc20LogMellinTestInput_inner_row_eq_zero_iff
+#check @cc20RestrictedLogMellinRow_inner_testInput_eq_mellinAt
+#check @cc20RestrictedLogMellinTestInput_inner_row_eq_zero_iff
+#check @cc20WindowHaarMellinRow_inner_testInput_eq_mellinAt
+#check @cc20WindowHaarMellinTestInput_inner_row_eq_zero_iff
+#check @cc20RestrictedLogFiniteMellinRows_vanishing_iff
+#check @cc20WindowHaarFiniteMellinRows_vanishing_iff
+#check @linearIndependent_cc20RestrictedLogFiniteMellinRows
+#check @linearIndependent_cc20WindowHaarFiniteMellinRows
+#check @exists_finite_cc20WindowHaarMellinControlSpace
+
+#print cc20LogMellinRow_inner_testInput_eq_mellin
+#print cc20RestrictedLogMellinRow_inner_testInput_eq_mellinAt
+#print cc20WindowHaarMellinTestInput_inner_row_eq_zero_iff
+#print linearIndependent_cc20WindowHaarFiniteMellinRows
+#print exists_finite_cc20WindowHaarMellinControlSpace
+
+#print axioms cc20LogMellinRow_inner_testInput_eq_logIntegral
+#print axioms cc20LogMellinRow_inner_testInput_eq_mellin
+#print axioms cc20LogMellinRow_inner_testInput_eq_fourier
+#print axioms cc20LogMellinRow_inner_testInput_eq_mellinAt
+#print axioms cc20LogMellinTestInput_inner_row_eq_zero_iff
+#print axioms cc20RestrictedLogMellinRow_inner_testInput_eq_mellinAt
+#print axioms cc20RestrictedLogMellinTestInput_inner_row_eq_zero_iff
+#print axioms cc20WindowHaarMellinRow_inner_testInput_eq_mellinAt
+#print axioms cc20WindowHaarMellinTestInput_inner_row_eq_zero_iff
+#print axioms cc20RestrictedLogFiniteMellinRows_vanishing_iff
+#print axioms cc20WindowHaarFiniteMellinRows_vanishing_iff
+#print axioms linearIndependent_cc20RestrictedLogFiniteMellinRows
+#print axioms linearIndependent_cc20WindowHaarFiniteMellinRows
+#print axioms exists_finite_cc20WindowHaarMellinControlSpace
+
+end ConnesWeilRH.Dev.GlobalLogMellinRowsAudit

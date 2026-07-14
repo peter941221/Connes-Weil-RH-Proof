@@ -188,6 +188,27 @@ theorem exists_finiteDimensional_cc20WindowHaarRegularRemainder_nonpositive
     (isCompactOperator_cc20WindowHaarComplexL2Operator lambda hlambda)
     (by norm_num : (0 : ℝ) < 2)
 
+/-- For every finite Haar window, any named Hilbert basis yields a finite set
+of coordinate rows controlling the compact `-2 Id` remainder. -/
+theorem exists_finite_cc20WindowHaarRegularRemainder_nonpositive_on_hilbertBasis_rows
+    (lambda : ℝ) (hlambda : 1 < lambda)
+    {ι : Type*}
+    (basis : HilbertBasis ι ℂ
+      (Lp ℂ 2 (cc20WindowHaarMeasure lambda hlambda))) :
+    ∃ rowIndices : Finset ι,
+      FiniteDimensional ℂ
+          (Submodule.span ℂ (basis '' (rowIndices : Set ι))) ∧
+        ∀ x : Lp ℂ 2 (cc20WindowHaarMeasure lambda hlambda),
+          (∀ i ∈ rowIndices, inner ℂ x (basis i) = 0) →
+            (inner ℂ x
+              (cc20WindowHaarComplexL2Operator lambda hlambda x -
+                (2 : ℂ) • x)).re ≤ 0 := by
+  exact CompactBadSpace.exists_finite_hilbertBasis_controlRowIndices
+    (cc20WindowHaarComplexL2Operator lambda hlambda)
+    (isCompactOperator_cc20WindowHaarComplexL2Operator lambda hlambda)
+    basis
+    (by norm_num : (0 : ℝ) < 2)
+
 end CC20Concrete
 end Source
 end ConnesWeilRH

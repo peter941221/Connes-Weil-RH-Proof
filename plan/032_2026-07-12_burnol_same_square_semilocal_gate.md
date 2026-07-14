@@ -1249,3 +1249,46 @@ must be imposed on the same finite-`S` owner.  Proof 113 still rejects the
 prime-free shortcut.  The next bottom is a same-object finite-`S` conditioning
 theorem coupled to the negative Yoshida owner and the Burnol all-zero identity;
 no Lean owner or route rewire is authorized and RH remains unproved.
+
+## 2026-07-14 natural Mellin completeness and fixed-window loop
+
+Proofs 241--244 close the ordinary finite-window control-row layer.  Proof 241
+extracts a finite bad/control frame from compactness, Proof 242 replaces raw
+row-map density by the correct dense-algebraic-span condition, and Proof 243
+identifies the actual finite-window Riesz rows with global Mellin evaluation
+under the explicit same-window support premise.
+
+Proof 244 supplies the missing completeness producer without a circle Fourier
+transport.  At the natural nodes the log-window rows are
+
+```text
+r_n(t)=exp(n*t),  n=0,1,2,... .
+```
+
+They contain one, multiply by adding indices, are fixed by star, and
+`r_1=exp(t)` separates points.  Complex Stone--Weierstrass makes their span
+dense in the continuous window functions.  Continuous-to-`L2` density and the
+two exact log/Haar isometries transport the result to the named ordinary Haar
+operator.  The theorem
+`exists_finite_cc20WindowHaarNaturalMellinZeros_remainder_nonpositive`
+therefore selects finitely many actual natural Mellin zeros and proves the
+shifted ordinary regular form nonpositive with no control-space containment
+parameter.
+
+This closes ordinary-kernel row coverage, not Gate 3.  Proof 238 can include
+the shifted nodes `n+1/2` among its arbitrary finite route nodes, but its
+unscaled support grows with the convolution count chosen after the nearby-zero
+radius.  Proof 244 selects its finite row set only after fixing `lambda`.
+Hence the remaining quantifier loop is
+
+```text
+fix lambda -> select rows(lambda) -> Yoshida support may escape lambda,
+build Yoshida -> enlarge lambda -> rows(lambda) may change.
+```
+
+A valid successor must produce uniform control under window enlargement, a
+coupled-radius support-preserving detector, or a post-assembly correction that
+preserves the negative orbit and far tail.  It must still identify the
+ordinary regular kernel with the actual finite-S post-Q remainder on the same
+owner and prove Burnol's all-zero identity.  No route rewire is authorized;
+RH remains unproved.

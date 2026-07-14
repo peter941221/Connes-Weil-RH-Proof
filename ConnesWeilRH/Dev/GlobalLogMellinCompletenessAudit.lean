@@ -1,0 +1,57 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CC20Concrete.GlobalLogMellinCompleteness
+
+/-!
+# Import-facing audit for natural Mellin completeness
+-/
+
+namespace ConnesWeilRH.Dev.GlobalLogMellinCompletenessAudit
+
+open Source.CC20Concrete
+
+#check @cc20NaturalMellinRowContinuous_zero
+#check @cc20NaturalMellinRowContinuous_mul
+#check @star_cc20NaturalMellinRowContinuous
+#check @cc20NaturalMellinRowContinuous_one_ne
+#check @cc20NaturalMellinRowStarSubalgebra_coe
+#check @cc20NaturalMellinRowStarSubalgebra_separatesPoints
+#check @cc20NaturalMellinRowStarSubalgebra_closure_eq_top
+#check @span_cc20NaturalMellinRowContinuous_closure_eq_top
+#check @span_cc20NaturalMellinRow_closure_eq_top
+#check @dense_span_cc20NaturalMellinRow
+#check @span_cc20RestrictedLogNaturalMellinRow_closure_eq_top
+#check @dense_span_cc20RestrictedLogNaturalMellinRow
+#check @span_cc20WindowHaarNaturalMellinRow_closure_eq_top
+#check @dense_span_cc20WindowHaarNaturalMellinRow
+#check @exists_finite_cc20WindowHaarNaturalMellinControlRows
+#check @exists_finite_cc20WindowHaarNaturalMellinZeros_remainder_nonpositive
+
+#print cc20NaturalMellinRowStarSubalgebra_coe
+#print span_cc20NaturalMellinRow_closure_eq_top
+#print dense_span_cc20RestrictedLogNaturalMellinRow
+#print dense_span_cc20WindowHaarNaturalMellinRow
+#print exists_finite_cc20WindowHaarNaturalMellinControlRows
+#print exists_finite_cc20WindowHaarNaturalMellinZeros_remainder_nonpositive
+
+#print axioms cc20NaturalMellinRowContinuous_zero
+#print axioms cc20NaturalMellinRowContinuous_mul
+#print axioms star_cc20NaturalMellinRowContinuous
+#print axioms cc20NaturalMellinRowContinuous_one_ne
+#print axioms cc20NaturalMellinRowStarSubalgebra_coe
+#print axioms cc20NaturalMellinRowStarSubalgebra_separatesPoints
+#print axioms cc20NaturalMellinRowStarSubalgebra_closure_eq_top
+#print axioms span_cc20NaturalMellinRowContinuous_closure_eq_top
+#print axioms span_cc20NaturalMellinRow_closure_eq_top
+#print axioms dense_span_cc20NaturalMellinRow
+#print axioms span_cc20RestrictedLogNaturalMellinRow_closure_eq_top
+#print axioms dense_span_cc20RestrictedLogNaturalMellinRow
+#print axioms span_cc20WindowHaarNaturalMellinRow_closure_eq_top
+#print axioms dense_span_cc20WindowHaarNaturalMellinRow
+#print axioms exists_finite_cc20WindowHaarNaturalMellinControlRows
+#print axioms exists_finite_cc20WindowHaarNaturalMellinZeros_remainder_nonpositive
+
+end ConnesWeilRH.Dev.GlobalLogMellinCompletenessAudit

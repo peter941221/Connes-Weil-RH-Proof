@@ -23,4 +23,7 @@ import ConnesWeilRH.Source.CC20Concrete.GlobalLogCrossingTraceClass
 import ConnesWeilRH.Source.CC20Concrete.ContinuousKernelHilbertSchmidt
 import ConnesWeilRH.Source.CC20Concrete.HaarLogTransport
 import ConnesWeilRH.Source.CC20Concrete.GlobalLogKernel
+import ConnesWeilRH.Source.CC20Concrete.GlobalLogControlFrame
+import ConnesWeilRH.Source.CC20Concrete.GlobalLogMellinRows
+import ConnesWeilRH.Source.CC20Concrete.GlobalLogMellinCompleteness
 import ConnesWeilRH.Source.CC20ConcreteTestSpace
