@@ -831,3 +831,61 @@ after the exact half-line Euler series is removed.  Proving the phase and
 amplitude pieces separately by absolute estimates can destroy their required
 cancellation.  Compactness and the three-row sign of this complete nested
 combination remain open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-14 complete nested metric flow
+
+Proof 227 supersedes the separated uniform estimates requested at the end of
+Proofs 225--226.  Let `R_alpha<=E_alpha` be the transported Sonin and crossed
+half-line metric projections, and put
+
+```text
+B_alpha=E_alpha-R_alpha,
+C_alpha=I-E_alpha,
+X_alpha=-U(I-alpha U)^(-1).
+```
+
+The exact projection flow is
+
+```text
+B_alpha'
+ =C_alpha X_alpha B_alpha+B_alpha X_alpha* C_alpha
+  -B_alpha X_alpha R_alpha-R_alpha X_alpha* B_alpha.
+```
+
+Equivalently, with
+
+```text
+Y_alpha=C_alpha X_alpha B_alpha-R_alpha X_alpha* B_alpha,
+```
+
+one has
+
+```text
+B_alpha'=Y_alpha+Y_alpha*.
+```
+
+All diagonal phase and amplitude terms cancel before this formula is formed.
+The Euler words are already summed by the uniformly bounded resolvent
+
+```text
+X_alpha=-sum_(m>=1)alpha^(m-1)U^m,
+alpha<=p^(-1/2)<=1/sqrt(2).
+```
+
+Thus the two previous gates
+
+```text
+uniform principal q=m log(p) summation;
+uniform separate amplitude summation
+```
+
+are removed as independent targets.  The correct remaining compactness target
+is one local Hilbert--Schmidt estimate for the complete crossing difference
+`Y_alpha+Y_alpha*` on the same compact `Q`-root, integrable in `alpha`.
+
+There is no abstract monotonicity shortcut.  Since the derivative is
+off-diagonal relative to `B_alpha`, it anticommutes with `2B_alpha-I` and is
+indefinite whenever nonzero.  This rejects a sign proof based only on nesting
+or monotonicity, but it does not decide the integrated form on the three-row
+subspace.  Compactness, the integrated three-row sign, and RH remain open.  No
+Lean owner or route rewire is authorized.
