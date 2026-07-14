@@ -3,7 +3,8 @@
 Date: 2026-07-12
 
 Status: normalization passed; prime-free branch rejected by proof 113;
-finite-S sign gate remains; route Lean denied.
+radial full-space escape rejected by proof 204; finite-S sign gate remains;
+route Lean denied.
 
 ## Objective
 
@@ -236,6 +237,7 @@ future import-facing checks:
 rejection evidence:
   one exact coefficient mismatch, noncompact remainder block, or proof that a
   fixed prime-free window cannot retain a strict negative detector.
+```
 
 ## 2026-07-13 same-object quadratic-form bridge
 
@@ -253,4 +255,417 @@ nonzero exponent `m`; finite sums give the corresponding finite-prime sum.
 This confirms the arithmetic main term on one explicit vector and one square,
 but it is intentionally noncompact and supplies neither finite-S positivity
 nor the post-Q remainder sign. The active Gate 3 bottom is unchanged.
+
+## 2026-07-13 radial full-space collapse
+
+Proof 204 rejects a carrier-only escape from the invariant semilocal model.
+Let `E_K` be Haar averaging onto `L2(X_S)^K_S`. For the existing radial zeta
+test `g(c)=g_0(Mod_S(c))`, its integrated scaling operator satisfies
+
+```text
+U(g) = E_K U(g) = U(g) E_K.
 ```
+
+Therefore every bounded full-space sandwich obeys
+
+```text
+U(g)^* B U(g) = U(g)^* E_K B E_K U(g).
+```
+
+Nontrivial `K_S` input/output blocks are invisible to the same radial test.
+In particular, lifting the direct one-prime cocycle owner from the invariant
+space to full `L2(X_S)` leaves the scalar Euler channel unchanged, so proof
+026's central `2^(-1) log(2)` Dirac coefficient and unbounded post-`Q`
+principal part still apply.
+
+This does not reject an explicitly new invariant block `E_K B E_K` or an
+unbounded relative form. It does reject treating the larger carrier itself as
+the missing cancellation mechanism. Any successor must now provide one of:
+
+```text
+1. a new invariant compression with an exact same-object finite-S trace
+   identity and a common-domain remainder sign; or
+2. an unbounded/relative positive form with a proved common form domain and
+   the same exact arithmetic read-off.
+```
+
+A nonradial operator obtained by integrating only along a chosen section of
+`C_S -> C_S/K_S` is a different test owner, not an escape for the same radial
+test. It needs a new semilocal trace formula before any nontrivial `K_S`
+character channel can be identified with the selected `finitePrimeTerm`.
+
+No Lean owner is authorized. Gate 3 and the RH route roots are unchanged.
+
+## 2026-07-13 inverse-log metric projection rejection
+
+Proof 205 proposed a positive translation-invariant metric. For a
+finite prime set `S_f`, put
+
+```text
+ell_S = sum_(p in S_f) log((I-p^(-1/2)U_p)^*(I-p^(-1/2)U_p)),
+b_S = sum_(p in S_f) 2 log(1+p^(-1/2)),
+H_S = ((1+b_S)I-ell_S)^(-1).
+```
+
+The scalar `b_S` is essential for `0<H_S<=I`. It does disappear from the
+formal block `Q(I-H_S^(-1))R`, but proof 206 shows that it does not disappear
+through the compressed inverse `(R H_S R)^(-1)`. The exact finite-place factor
+is
+
+```text
+Q H_S R(R H_S R)^(-1)
+  =((1+b_S)Q-Q ell_S Q)^(-1)Q ell_S R.
+```
+
+For one prime its difference from `Q ell R` contains
+
+```text
+a^2(2Q(U+U*)R+Q(U+U*)Q(U+U*)R)+O(a^3).
+```
+
+The first term is another noncompact one-step crossing; the second has even
+translation degree and cannot cancel it. Therefore Plan 046 fails before the
+weighted Wiener and common-domain gates.
+
+Proof 207 also rejects prescribing the exact Euler-log regression map to an
+otherwise unknown translation-invariant metric. Such a metric would make its
+graph invariant under the unilateral shift, while the Euler-log Hankel graph
+violates that invariance by the nonzero coefficient `d_0 d_s`.
+
+Gate 3 is open again at the stronger boundary: a successor must use a genuine
+two-cutoff Sonin identity or a common-domain unbounded relative form. It may
+not reuse either inverse-log split. No Lean owner or route rewire is
+authorized. See Plans 046--047 and proofs 206--207.
+
+## 2026-07-13 endpoint collar and current-source verdict
+
+Proof 208 rejects the immediate pole-free endpoint-wall escape. In the final
+prime-indicator cell, with `x=a-d` and `c=exp(2a)`, the source potential is
+
+```text
+kappa_a(a-d)
+ = -(1/2)log(d(2a-d))-log(2*pi)-EulerGamma
+   -F(d)-F(2a-d)-sum_(q<c) Lambda(q)/sqrt(q).
+```
+
+Its derivative is `J(2a-d)-J(d)<0`, so the endpoint collar has one exact root
+`d_c`. Partial summation gives
+
+```text
+-log(d_c)=4 sqrt(c)+o(sqrt(c)).
+```
+
+Arb certifies widths from `1.33e-4` at `c=5` down to `1.31e-175` at
+`c=10000`. A root translated into one such collar has convolution-square
+support below `log 2` at the certified and asymptotic cutoffs, hence sees no
+finite prime. Proof 113 then makes it strictly QW-positive on the M4
+complement. It cannot also be the strict negative Yoshida detector. The
+two-collar class is outside this rejection, but it has neither a determining
+theorem nor the required same-object finite-S trace read-off.
+
+Proof 209 also rejects the proposed source composition. Zenodo 20710075 proves
+only the prime sign on `C=cosh(x/2)` and leaves the odd prime competition open;
+arXiv:2607.02828 proves total positivity only for the isolated post-band
+archimedean increment. Zenodo 20737111 and 20694588 reduce the arithmetic
+ordering to scalar Loewner/Herglotz inequalities but explicitly leave those
+inequalities open. Zenodo 21326823 version 4, published 2026-07-12, proves
+simple strictly interlacing parity determinants for the negative
+Connes--Moscovici prolate spectrum; its source explicitly says the bridge to
+the truncated Weil form remains open.
+
+Therefore Gate 3 does not move to a finite Loewner, Herglotz, endpoint-collar,
+or exact-CM-prolate owner. The surviving target remains the genuine two-cutoff
+finite-S post-Q identity or a common-domain unbounded relative form whose
+single crossings are the existing named operator sum. No Lean owner or route
+rewire is authorized.
+
+## 2026-07-13 two-cutoff central-atom verdict
+
+Proof 210 rejects the bounded two-cutoff positive-angle branch.  In the
+additive log coordinate let `P_r=1_[r,infinity)`, let `s` be the independently
+chosen Fourier threshold, and for one prime write
+
+```text
+v_a=sum_m c_m T_(m log p),
+c_1=-a,
+c_(-j)=(1-a^2)a^j,
+a=p^(-1/2).
+```
+
+The natural positive owner
+
+```text
+B_(r,s)=P_r v_a^*(1-P_s)v_a P_r
+```
+
+has the exact central coefficient
+
+```text
+b_(r,s)(a)
+  =sum_m |c_m|^2 (s-r-m log p)_+ > 0
+```
+
+for every finite pair `(r,s)`.  Equal cutoffs give
+`b=a^2 log(p)`, exactly the obstruction in proof 026.  At separations
+`r-s=n log(p)`, the coefficient is `log(p)a^(2n+2)`: it can be made small but
+never zero at finite cutoff.
+
+A positive difference of nested Fourier cutoffs is a genuine cutoff-band
+square, but its central coefficient is again strictly positive.  A difference
+of nested support compressions is not positive unless the cross block between
+the support shell and the retained half-line vanishes; the Euler/Fourier angle
+does not have that invariance.  After `Q=-partial^2+1/4`, the surviving central
+atom grows like `b t^2` on narrow modulated roots, while the archimedean
+`-2 Id+compact` remainder and the mixed cocycle term are bounded/compact.
+
+Thus no finite positive two-cutoff angle, positive cutoff-band difference, or
+finite convex combination can supply the missing cancellation.  Sending the
+cutoff separation to infinity collapses the positive owner and gives no
+uniform sign theorem.  Gate 3 is now reduced to a genuinely common-domain
+relative form that explicitly renormalizes this second-order central piece.
+No Lean owner or route rewire is authorized.
+
+## 2026-07-13 compressed Euler-log Jensen verdict
+
+Proof 211 checks the most direct relative-log repair.  For
+
+```text
+H_a=(I-aU)^*(I-aU),
+ell_a=-log(H_a)=sum_(m>=1)a^m(U^m+U*^m)/m,
+A_a=R H_a R | Ran(R),
+```
+
+the direct logarithm has exactly the required Euler coefficient before the
+crossing length supplies `m log(p)`.  It is not positive: its bilateral-shift
+symbol takes the values `-2log(1-a)>0` and `-2log(1+a)<0`.  The scalar shift
+that makes it positive is a noncompact same-range bulk and recreates the
+post-Q central second-order obstruction.
+
+The operator-convex compression gap
+
+```text
+J_a=R(-log H_a)R+log(A_a)>=0
+```
+
+is genuinely positive by Hansen--Pedersen Jensen.  However,
+
+```text
+J_a=(a^2/2)R(U+U*)Q(U+U*)R+O(a^3).
+```
+
+Its coefficient-correct first-order single crossing cancels.  The resolvent
+Schur-complement formula proves that every term of `J_a` contains an
+off-diagonal block and its adjoint, hence at least two Sonin-boundary
+crossings.  The positive gap belongs to the multi-crossing remainder ideal and
+does not carry the existing finite-prime crossing sum.  Subtracting it loses
+positivity and merely restates the missing domination theorem.
+
+Gate 3 therefore cannot use a finite-place compressed-log Jensen gap.  The
+remaining relative form must couple the archimedean unbounded owner to the
+Euler logarithm before positive completion, so that a first-order cross term
+survives without scalar central bulk.  No Lean owner or route rewire is
+authorized.
+
+## 2026-07-13 p=2 scalar-budget lower gate
+
+Proof 212 gives an exact obstruction inside the remaining common-domain lane.
+At cutoff `c=2^8=256`, divide the source-root interval into eight cells of
+length `L=log(2)` and repeat one arbitrary cell function in every cell.  The
+visible `p=2` translation operator then has the constant-cell Rayleigh quotient
+
+```text
+R_8=(L/4)sum_(m=1)^7(8-m)2^(-m/2)
+   =2.007741159155714... > 2.
+```
+
+The strict inequality has an exact rational certificate using
+`1/sqrt(2)>707/1000` and `log(2)>693/1000`; the latter follows from four
+positive terms of the `2 atanh(1/3)` series.  The three route Mellin rows become
+three linear conditions on the one-cell function, leaving an
+infinite-dimensional subspace with the same Rayleigh quotient.  An orthonormal
+sequence in that subspace is weakly zero, so every compact correction vanishes
+along it.  Therefore
+
+```text
+2 Id + compact - K_(p=2)
+```
+
+is not nonnegative on the triple-vanishing domain.
+
+This does not reject the common-domain route.  It proves that the
+archimedean positive trace in the corrected CC20 identity is quantitatively
+essential: it cannot be discarded after noting only that it is nonnegative.
+The next gate is an explicit lower bound for that positive trace against the
+finite-prime excess on the same one-cell/Floquet fibers.  No Lean owner or
+route rewire is authorized.
+
+## 2026-07-13 strict CC20 multiplier and p=2 gate
+
+Proof 214 certifies the unconditional archimedean theorem
+
+```text
+ell_CC20(t)=2 theta'(t)+delta_hat(t) > 1/50
+```
+
+for every real `t`.  On `[0,50]`, 1251 Arb Taylor balls use an explicit
+`|ell_CC20''|<100` bound; the smallest lower endpoint is
+`0.029051430687854`.  For `|t|>=50`, monotonicity of `2 theta'`, the variation
+bound `integral |d'|<50` for `d(x)=delta(exp x)`, and an Arb endpoint check give
+the lower endpoint `0.074129271185...`.  The `delta` integration tail and its
+first derivative are charged using
+
+```text
+|delta(exp x)-exp(-x/2)| <= 2exp(-3x/2),  x>=8.
+```
+
+Plancherel therefore gives the common-domain coercive estimate
+
+```text
+PositiveTrace_infinity(Q(g*g*))
+ > (1/50)(||g'||^2+(1/4)||g||^2).
+```
+
+The session initially inferred a complete visible `p=2` pass from this bound
+and Proof 213.  That inference is withdrawn by the Q-root ownership correction
+immediately below.  Proof 214 remains an independent multiplier theorem; it
+does not by itself advance Gate 3 to the all-prime problem.
+
+## 2026-07-13 Q-root ownership correction
+
+Proof 217 supersedes the preceding claim that Proof 213 passes a same-object
+`p=2` gate.  The exact CC20 post-Q relation uses two linked roots:
+
+```text
+g=(d/dx+1/2)xi,
+g* * g=Q(xi* * xi),
+D_infinity(g* * g)=<xi,(-2 Id+K_I)xi>.
+```
+
+Consequently the finite-prime form is `<g,K_c g>`, whereas the scalar and
+ordinary compact terms act on `xi`.  Proof 213 instead compared
+
+```text
+PositiveTrace(Q(g* * g))+2||g||^2-<g,K_c g>,
+```
+
+which applies the Q multiplier to the positive trace without applying the
+matching first-order multiplier to the finite-prime root.  That is a different
+convolution square.
+
+On the range condition, the genuine pre-root is
+
+```text
+xi(x)=exp(-x/2) integral_(-a)^x exp(t/2)g(t)dt.
+```
+
+The corrected coarse form obtained from Proof 214's minimum alone is
+
+```text
+(1/50)||g||^2+2||L^(-1)g||^2-<g,K_c g>.
+```
+
+The corrected grid screen is strongly negative: about `-2.026` for the
+single `p=2` channel at `c=256`, size 1000, and about `-2.96` for all visible
+prime powers at `c=10000`, size 500.  The sign is stable under the pole and
+range rows.  These are death diagnostics rather than continuum certificates;
+the exact ownership mismatch already withdraws the old pass.
+
+Proof 214 remains an accepted standalone theorem:
+
+```text
+ell_CC20(t)>1/50 for every real t.
+```
+
+Proof 215's continuous PNT-main sign also remains exact in its raw model, and
+Proof 216 gives an Arb-certified no-go for a constant scalar PNT-main
+S-procedure at `c=10^6`.  Neither is a same-object Q-root producer.
+
+Gate 3 is reset to the full-multiplier comparison
+
+```text
+<g,(ell_CC20(D)-K_c)g>
+  +2||L^(-1)g||^2
+  -<L^(-1)g,K_I L^(-1)g>.                            (G3-corrected)
+```
+
+Do not replace `ell_CC20` by its global minimum, do not put the prime operator
+on the pre-root, and do not call Proofs 213--216 finite-Euler route passes.
+No Lean owner or route rewire is authorized.
+
+## 2026-07-13 archimedean relative-form collapse
+
+Proof 218 closes the corrected archimedean algebra.  Since
+
+```text
+ell_CC20(t)=2 theta'(t)+delta_hat(t),
+|g_hat(t)|^2=(t^2+1/4)|xi_hat(t)|^2,
+```
+
+the `delta_hat` part of `PositiveTrace_infinity(g)` is exactly
+`D_infinity(Q(xi* * xi))=<xi,(-2 Id+K_I)xi>`.  Therefore
+
+```text
+PositiveTrace_infinity(g)-D_infinity(g* * g)
+  = <g,2 theta'(D)g>,
+```
+
+and `(G3-corrected)` is simply
+
+```text
+<g,(2 theta'(D)-K_c)g>=QW(g,g)
+```
+
+after the pole rows vanish.  The strict bound `ell_CC20>1/50` supplies no
+independent surplus once the same-object remainder is subtracted.
+
+Gate 3 cannot close through a purely archimedean relative-form estimate: that
+would be the restricted Weil sign itself.  The active bottom returns to a
+genuine finite-S positive owner with a semilocal post-Q remainder not obtained
+by merely decomposing the archimedean identity, or to a new detector-specific
+property strong enough to control the exact prime form.  No such producer is
+currently known, and no Lean owner is authorized.
+
+## 2026-07-13 cutoff-event and detector-Schur rejection
+
+Proof 219 closes two immediate continuations after the relative-form collapse.
+First, the cutoff-free finite Weil path cannot be proved positive by pairing
+each prime-power event with the following cutoff interval.  Using the official
+Arb matrix builder from arXiv:2607.02828, the increments from `c=2` to `c=3`
+are strictly negative both in the scalar `N=0` coordinate and in the exact odd
+`N=1` coordinate:
+
+```text
+scalar: -0.0610540277693744...
+odd:    -0.1307698745455364...
+```
+
+The same strict failure recurs on several later consecutive prime-power
+intervals.  This rejects an interval-by-interval PSD telescope, including the
+odd Yoshida sector; it does not reject a nonlocal multi-interval identity.
+
+Second, the first critical-zero Xi quotient was used as a limiting-shape
+screen for detector-specific positive Schur absorption.  First-prime channels
+alone misleadingly approach the unit cost, but restoring every required
+`q=p^m` channel with pre-crossing weight `1/(m sqrt(q))` gives costs
+
+```text
+q<=11:   1.202546270438
+q<=50:   2.865228837928
+q<=250:  5.698625603386.
+```
+
+These values are stable under three Fourier-grid refinements but remain
+diagnostic, not an interval theorem about a hypothetical off-line zero.  They
+forbid treating the canonical Xi shape or its first-prime truncation as an
+already-passed Schur budget.
+
+The rational-cancellation/PNT repair also has no missing exponential gain:
+the off-line symmetry orbit creates opposite half-line rational tails, so a
+tail cutoff `T` creates a root span and prime-log range of order `2T`.  The
+squared `exp(-delta T)` approximation is exactly balanced by the contribution
+of a supremal-displacement target zero.  Any reopening needs a signed
+target-zero prime cancellation, not only subtraction of the PNT main term.
+
+Gate 3 remains open at the same two objects: a new finite-S same-object
+positive owner, or a new detector-specific identity for the complete
+prime-power form.  No Lean owner or route rewire follows from Proof 219.
