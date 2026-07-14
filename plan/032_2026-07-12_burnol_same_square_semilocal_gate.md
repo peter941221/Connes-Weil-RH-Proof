@@ -1066,3 +1066,39 @@ mathematical route-evidence level.  It need not be Hilbert--Schmidt.  The
 active bottom is now the same-domain integrated sign of the named compact
 correction on the common kernel of the three Mellin rows.  No Lean owner or
 route rewire is authorized; RH remains unproved.
+
+## 2026-07-14 unscaled Yoshida fixed-threshold escape
+
+Proof 235 removes the detector radius--convolution-count loop that invalidated
+the fixed-window version of Proof 041.  The support-preserving rescaling had
+changed the contraction threshold from `T` to `(n+1)T`; choosing the nearby
+zero radius therefore required the still-unknown convolution count.
+
+The new axiom-clean Lean chain keeps the base factors unscaled.  For one fixed
+base and one finite correction it proves
+
+```text
+|t/(2pi)|^2 |Laplace(f^(n+1)*correction)(sigma+it)|
+  <=(1/2)^(n+1) C
+```
+
+at the original fixed threshold `|t|>=T`.  The corresponding distance bound
+is epsilon-small after choosing `n`, while the support is recorded as
+
+```text
+((n+1)log(a)+lower, (n+1)log(b)+upper).
+```
+
+`exists_fixedThreshold_nearbyZero_unscaled_normalized_assembly` puts the
+normalization at `rho`, cancellation at every other selected finite node,
+growing support, and far-tail estimate on the same convolution product.  Its
+quantifier order is `exists T, forall R, exists correction C n`; hence the
+nearby radius is chosen after the fixed threshold and the count is chosen only
+after the correction constant.
+
+This result makes the growing-support Yoshida detector lane executable.  The
+finite-S post-Q sign and the semilocal positive owner remain open, and route
+consumers remain unchanged.  The next same-object target is to feed this
+detector into the existing finite-prime owner and prove the integrated sign of
+the named compact remainder on the common three-row kernel.  RH remains
+unproved.

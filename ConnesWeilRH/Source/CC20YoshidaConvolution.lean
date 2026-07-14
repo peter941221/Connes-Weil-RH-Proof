@@ -775,6 +775,291 @@ theorem exists_convolutionIterate_rescale_convolution_distance_bound_lt
     _ = epsilon := by
       field_simp [ne_of_gt hD, ne_of_gt hCplus]
 
+/-- Without support-preserving rescaling, the base contraction is evaluated at
+the original spectral point. Hence the far-vertical threshold stays equal to
+`T`, independently of the convolution count. -/
+theorem convolutionIterate_convolution_vertical_quadratic_bound
+    (f correction : CompactLogTest) (q C T : ℝ) (n : ℕ)
+    (hq : 0 ≤ q)
+    (hbase : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ, T ≤ |t| →
+      ‖laplaceAt f ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ q)
+    (hcorrection : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+          ‖laplaceAt correction
+            ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C) :
+    ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ, T ≤ |t| →
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+          ‖laplaceAt ((convolutionIterate f n).convolution correction)
+            ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤
+        q ^ (n + 1) * C := by
+  intro sigma hsigma t ht
+  have hbaseAt := hbase sigma hsigma t ht
+  have hbasePower :
+      ‖laplaceAt f ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ^ (n + 1) ≤
+        q ^ (n + 1) := by
+    gcongr
+  have hcorrectionAt := hcorrection sigma hsigma t
+  rw [laplaceAt_convolution, laplaceAt_convolutionIterate, norm_mul, norm_pow]
+  calc
+    ‖t / (2 * Real.pi)‖ ^ 2 *
+          (‖laplaceAt f ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ^ (n + 1) *
+            ‖laplaceAt correction
+              ((sigma : ℂ) + (t : ℂ) * Complex.I)‖) =
+        ‖laplaceAt f ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ^ (n + 1) *
+          (‖t / (2 * Real.pi)‖ ^ 2 *
+            ‖laplaceAt correction
+              ((sigma : ℂ) + (t : ℂ) * Complex.I)‖) := by ring
+    _ ≤ q ^ (n + 1) * C := by
+      exact mul_le_mul hbasePower hcorrectionAt
+        (mul_nonneg (sq_nonneg _) (norm_nonneg _)) (pow_nonneg hq _)
+
+theorem convolutionIterate_convolution_quadratic_bound_at_complex
+    (f correction : CompactLogTest) (q C T : ℝ) (n : ℕ)
+    (hq : 0 ≤ q)
+    (hbase : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ, T ≤ |t| →
+      ‖laplaceAt f ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ q)
+    (hcorrection : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+          ‖laplaceAt correction
+            ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C)
+    {z : ℂ} (hz : z.re ∈ Set.Icc (0 : ℝ) 1)
+    (hheight : T ≤ |z.im|) :
+    ‖z.im / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt ((convolutionIterate f n).convolution correction) z‖ ≤
+      q ^ (n + 1) * C := by
+  have hbound := convolutionIterate_convolution_vertical_quadratic_bound
+    f correction q C T n hq hbase hcorrection z.re hz z.im hheight
+  simpa only [Complex.re_add_im] using hbound
+
+theorem convolutionIterate_convolution_distance_quadratic_bound
+    (f correction : CompactLogTest) (q C T : ℝ) (n : ℕ)
+    (hq : 0 ≤ q)
+    (hbase : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ, T ≤ |t| →
+      ‖laplaceAt f ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ q)
+    (hcorrection : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+          ‖laplaceAt correction
+            ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C)
+    (rho z : ℂ)
+    (hrho : rho.re ∈ Set.Icc (0 : ℝ) 1)
+    (hz : z.re ∈ Set.Icc (0 : ℝ) 1)
+    (hcontractHeight : T ≤ |z.im|)
+    (hone : 1 ≤ |z.im|)
+    (hrhoHeight : 2 * |rho.im| ≤ |z.im|) :
+    ‖z - rho‖ ^ 2 *
+        ‖laplaceAt ((convolutionIterate f n).convolution correction) z‖ ≤
+      (6 * Real.pi) ^ 2 * (q ^ (n + 1) * C) := by
+  apply norm_sub_sq_mul_laplaceAt_le_of_vertical_quadratic_bound
+    _ rho z (q ^ (n + 1) * C) hrho hz hone hrhoHeight
+  exact convolutionIterate_convolution_quadratic_bound_at_complex
+    f correction q C T n hq hbase hcorrection hz hcontractHeight
+
+/-- Once the correction and its quadratic constant are fixed, enough unscaled
+base copies make the distance-weighted tail arbitrarily small without moving
+the far-vertical threshold. -/
+theorem exists_convolutionIterate_convolution_distance_bound_lt
+    (f correction : CompactLogTest) (C T : ℝ) (hC : 0 ≤ C)
+    (hbase : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ, T ≤ |t| →
+      ‖laplaceAt f ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ 1 / 2)
+    (hcorrection : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+          ‖laplaceAt correction
+            ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C)
+    (rho : ℂ) (hrho : rho.re ∈ Set.Icc (0 : ℝ) 1)
+    (epsilon : ℝ) (hepsilon : 0 < epsilon) :
+    ∃ n : ℕ, ∀ z : ℂ, z.re ∈ Set.Icc (0 : ℝ) 1 →
+      T ≤ |z.im| → 1 ≤ |z.im| → 2 * |rho.im| ≤ |z.im| →
+        ‖z - rho‖ ^ 2 *
+            ‖laplaceAt ((convolutionIterate f n).convolution correction) z‖ <
+          epsilon := by
+  let D : ℝ := (6 * Real.pi) ^ 2
+  have hD : 0 < D := by
+    dsimp [D]
+    positivity
+  have hCplus : 0 < C + 1 := by linarith
+  obtain ⟨n, hn⟩ := exists_pow_lt_of_lt_one
+    (div_pos hepsilon (mul_pos hD hCplus))
+    (by norm_num : (1 / 2 : ℝ) < 1)
+  refine ⟨n, ?_⟩
+  intro z hz hcontractHeight hone hrhoHeight
+  have hdistance := convolutionIterate_convolution_distance_quadratic_bound
+    f correction (1 / 2) C T n (by norm_num) hbase hcorrection
+    rho z hrho hz hcontractHeight hone hrhoHeight
+  apply lt_of_le_of_lt hdistance
+  calc
+    D * ((1 / 2 : ℝ) ^ (n + 1) * C) ≤
+        D * ((1 / 2 : ℝ) ^ n * C) := by
+      apply mul_le_mul_of_nonneg_left _ hD.le
+      apply mul_le_mul_of_nonneg_right _ hC
+      simpa [Nat.succ_eq_add_one] using
+        pow_le_pow_of_le_one (by norm_num : 0 ≤ (1 / 2 : ℝ))
+          (by norm_num : (1 / 2 : ℝ) ≤ 1) (Nat.le_succ n)
+    _ ≤ D * ((1 / 2 : ℝ) ^ n * (C + 1)) := by
+      apply mul_le_mul_of_nonneg_left _ hD.le
+      exact mul_le_mul_of_nonneg_left (by linarith) (pow_nonneg (by norm_num) _)
+    _ < D * ((epsilon / (D * (C + 1))) * (C + 1)) := by
+      gcongr
+    _ = epsilon := by
+      field_simp [ne_of_gt hD, ne_of_gt hCplus]
+
+/-- The nearby-zero correction and the unscaled convolution power can be
+assembled with one fixed base threshold. The support is allowed to grow with
+the number of copies; this is the deliberate escape from the rescaled
+radius--count feedback loop. -/
+theorem exists_residualWindow_nearbyZero_unscaled_assembled_distance_bound_lt
+    (g : normalizedCC20ConcreteTestAlgebra.Test)
+    {a b : ℝ} (ha : 0 < a) (hb : 0 < b)
+    (hsupport : Function.support
+        (fun x : ℝ =>
+          normalizedCC20ConcreteTestAlgebra.legacy.encode g x) ⊆
+      Set.Ioo a b)
+    (rho : ℂ) (hrho : rho.re ∈ Set.Icc (0 : ℝ) 1)
+    (R : ℝ) (routeNodes : Finset ℂ)
+    {lower upper : ℝ} (hlower : lower < 0) (hupper : 0 < upper)
+    (y : FiniteMellinNode
+      (sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes) → ℂ)
+    (epsilon : ℝ) (hepsilon : 0 < epsilon) :
+    ∃ correction : CompactLogTest, ∃ C T : ℝ, ∃ n : ℕ,
+      Function.support correction.test ⊆ Set.Ioo lower upper ∧
+      Function.support
+          ((convolutionIterate
+            (compactLogTestOfWindow g ha hb hsupport) n).convolution
+              correction).test ⊆
+        Set.Ioo (((n + 1 : ℕ) : ℝ) * Real.log a + lower)
+          (((n + 1 : ℕ) : ℝ) * Real.log b + upper) ∧
+      (∀ z : FiniteMellinNode
+          (sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes),
+        laplaceAt correction z.1 = y z) ∧
+      0 ≤ C ∧ 0 ≤ T ∧
+      ∀ z : ℂ, z.re ∈ Set.Icc (0 : ℝ) 1 →
+        T ≤ |z.im| → 1 ≤ |z.im| → 2 * |rho.im| ≤ |z.im| →
+          ‖z - rho‖ ^ 2 *
+              ‖laplaceAt
+                ((convolutionIterate
+                  (compactLogTestOfWindow g ha hb hsupport) n).convolution
+                    correction) z‖ < epsilon := by
+  obtain ⟨correction, C, hcorrectionSupport, hvalues, hC, hcorrectionDecay⟩ :=
+    exists_residualWindow_nearbyZero_correction_with_quadratic_decay
+      rho R routeNodes hlower hupper y
+  obtain ⟨T, hT, hbase⟩ :=
+    exists_uniform_laplaceAt_vertical_half_contraction g ha hb hsupport
+  obtain ⟨n, hdistance⟩ :=
+    exists_convolutionIterate_convolution_distance_bound_lt
+      (compactLogTestOfWindow g ha hb hsupport) correction C T hC
+      hbase hcorrectionDecay rho hrho epsilon hepsilon
+  have hbaseSupport := compactLogTestOfWindow_support_subset
+    g ha hb hsupport
+  have hassembledSupport := convolution_support_subset_add_Ioo
+    (convolutionIterate (compactLogTestOfWindow g ha hb hsupport) n)
+    correction
+    (convolutionIterate_support_subset_Ioo
+      (compactLogTestOfWindow g ha hb hsupport) hbaseSupport n)
+    hcorrectionSupport
+  exact ⟨correction, C, T, n, hcorrectionSupport, hassembledSupport,
+    hvalues, hC, hT, hdistance⟩
+
+/-- A normalized unscaled Yoshida product. The base is normalized at `rho`; a
+single finite correction kills every other selected node, while the power is
+chosen only after the correction constant is known. The existential threshold
+is outside the radius quantifier, so the theorem exposes the absence of the
+old `(n + 1) * T` radius cycle. -/
+theorem exists_fixedThreshold_nearbyZero_unscaled_normalized_assembly
+    (g : normalizedCC20ConcreteTestAlgebra.Test)
+    {a b : ℝ} (ha : 0 < a) (hb : 0 < b)
+    (hsupport : Function.support
+        (fun x : ℝ =>
+          normalizedCC20ConcreteTestAlgebra.legacy.encode g x) ⊆
+      Set.Ioo a b)
+    (rho : ℂ) (hrho : rho.re ∈ Set.Icc (0 : ℝ) 1)
+    (hbaseNormalize :
+      laplaceAt (compactLogTestOfWindow g ha hb hsupport) rho = 1)
+    (routeNodes : Finset ℂ) (hrhoNode : rho ∈ routeNodes)
+    {lower upper : ℝ} (hlower : lower < 0) (hupper : 0 < upper)
+    (epsilon : ℝ) (hepsilon : 0 < epsilon) :
+    ∃ T : ℝ, 0 ≤ T ∧
+      ∀ R : ℝ, 0 ≤ R →
+        ∃ correction : CompactLogTest, ∃ C : ℝ, ∃ n : ℕ,
+          Function.support correction.test ⊆ Set.Ioo lower upper ∧
+          Function.support
+              ((convolutionIterate
+                (compactLogTestOfWindow g ha hb hsupport) n).convolution
+                  correction).test ⊆
+            Set.Ioo (((n + 1 : ℕ) : ℝ) * Real.log a + lower)
+              (((n + 1 : ℕ) : ℝ) * Real.log b + upper) ∧
+          laplaceAt
+              ((convolutionIterate
+                (compactLogTestOfWindow g ha hb hsupport) n).convolution
+                  correction) rho = 1 ∧
+          (∀ z : FiniteMellinNode
+              (sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes),
+            z.1 ≠ rho →
+              laplaceAt
+                ((convolutionIterate
+                  (compactLogTestOfWindow g ha hb hsupport) n).convolution
+                    correction) z.1 = 0) ∧
+          0 ≤ C ∧
+          ∀ z : ℂ, z.re ∈ Set.Icc (0 : ℝ) 1 →
+            T ≤ |z.im| → 1 ≤ |z.im| → 2 * |rho.im| ≤ |z.im| →
+              ‖z - rho‖ ^ 2 *
+                  ‖laplaceAt
+                    ((convolutionIterate
+                      (compactLogTestOfWindow g ha hb hsupport) n).convolution
+                        correction) z‖ < epsilon := by
+  obtain ⟨T, hT, hbase⟩ :=
+    exists_uniform_laplaceAt_vertical_half_contraction g ha hb hsupport
+  refine ⟨T, hT, ?_⟩
+  intro R hR
+  let nodes : Finset ℂ :=
+    sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes
+  let y : FiniteMellinNode nodes → ℂ := fun z =>
+    if z.1 = rho then 1 else 0
+  have hrhoNodes : rho ∈ nodes := by
+    exact Finset.mem_union_right _ hrhoNode
+  obtain ⟨correction, C, hcorrectionSupport, hvalues, hC,
+      hcorrectionDecay⟩ :=
+    exists_residualWindow_correction_with_quadratic_decay
+      nodes hlower hupper y
+  obtain ⟨n, hdistance⟩ :=
+    exists_convolutionIterate_convolution_distance_bound_lt
+      (compactLogTestOfWindow g ha hb hsupport) correction C T hC
+      hbase hcorrectionDecay rho hrho epsilon hepsilon
+  have hbaseSupport := compactLogTestOfWindow_support_subset
+    g ha hb hsupport
+  have hassembledSupport := convolution_support_subset_add_Ioo
+    (convolutionIterate (compactLogTestOfWindow g ha hb hsupport) n)
+    correction
+    (convolutionIterate_support_subset_Ioo
+      (compactLogTestOfWindow g ha hb hsupport) hbaseSupport n)
+    hcorrectionSupport
+  have hcorrectionRho := hvalues
+    (⟨rho, hrhoNodes⟩ : FiniteMellinNode nodes)
+  dsimp [y] at hcorrectionRho
+  simp at hcorrectionRho
+  have hassembledRho :
+      laplaceAt
+          ((convolutionIterate
+            (compactLogTestOfWindow g ha hb hsupport) n).convolution
+              correction) rho = 1 := by
+    rw [laplaceAt_convolution, laplaceAt_convolutionIterate,
+      hbaseNormalize, hcorrectionRho]
+    simp
+  have hassembledZeros :
+      ∀ z : FiniteMellinNode nodes, z.1 ≠ rho →
+        laplaceAt
+          ((convolutionIterate
+            (compactLogTestOfWindow g ha hb hsupport) n).convolution
+              correction) z.1 = 0 := by
+    intro z hz
+    have hcorrection := hvalues z
+    dsimp [y] at hcorrection
+    have hzero : (if z.1 = rho then (1 : ℂ) else 0) = 0 := by
+      simp [hz]
+    rw [laplaceAt_convolution, laplaceAt_convolutionIterate,
+      hcorrection, hzero]
+    simp
+  exact ⟨correction, C, n, hcorrectionSupport, hassembledSupport,
+    hassembledRho, hassembledZeros, hC, hdistance⟩
+
 /-- The nearby-zero correction producer and the base contraction assemble into
 the epsilon-small distance majorant required for the far strip zeros. -/
 theorem exists_residualWindow_nearbyZero_assembled_distance_bound_lt
