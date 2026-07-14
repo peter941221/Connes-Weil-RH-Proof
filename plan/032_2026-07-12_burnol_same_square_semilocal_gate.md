@@ -990,3 +990,38 @@ compactness bottom is now exact: prove that Proofs 228--229's profile class
 stable under the Euler, half-line, scattering, and prolate words surrounding
 the source commutator.  The integrated three-row sign remains independent.
 No Lean owner or route rewire is authorized; RH remains unproved.
+
+## 2026-07-14 quantitative metric graph factorization
+
+Proof 231 strengthens the ideal statement.  With `b=e-r`,
+`h=T* T`, and the Schur blocks
+
+```text
+A=r h r,
+C=r h b,
+D=b h b,
+Z=b-r A^(-1)C,
+```
+
+the nested complement is the graph projection onto `T Z`, while the bare
+metric image of `b` is the graph projection onto `T b`.  If
+`delta=norm([b,u])` and `alpha<1`, then
+
+```text
+norm(C)<=2alpha delta,
+norm((I-b)T b)<=alpha delta,
+```
+
+and the graph-gap estimate gives the explicit bound
+
+```text
+norm(b_alpha-b)
+ <=[alpha/(1-alpha)+4alpha(1+alpha)/(1-alpha)^3] delta.
+```
+
+Thus the entire metric correction is a bounded graph dressing of the single
+source commutator.  The finite-window Q-root read-off is still not an ambient
+*-homomorphism, so this is not yet full compactness.  It does remove any need
+to estimate phase and amplitude separately; the next gate is only the
+root-form stability of these two graph factors.  No Lean owner or route
+rewire is authorized; RH remains unproved.
