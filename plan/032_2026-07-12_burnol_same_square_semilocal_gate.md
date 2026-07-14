@@ -1025,3 +1025,44 @@ source commutator.  The finite-window Q-root read-off is still not an ambient
 to estimate phase and amplitude separately; the next gate is only the
 root-form stability of these two graph factors.  No Lean owner or route
 rewire is authorized; RH remains unproved.
+
+## 2026-07-14 metric graph quadratic remainder
+
+Proof 232 gives exact graph and Schur tangents for the full metric correction.
+Every term beyond the named linear channel `Lambda_alpha` contains at least
+two copies of `[b,u]` or its adjoint.  CC20's smoothed one-crossing
+Hilbert--Schmidt estimate factors those nonlinear terms through two
+Hilbert--Schmidt blocks, so their root operator is Hilbert--Schmidt.  WSL
+certificates at `p=2,3` show the nonlinear residual divided by
+`norm([b,u])^2` stabilizing near `1.1634` and `0.8509`.
+
+## 2026-07-14 half-line Toeplitz path profile
+
+Proof 233 proves
+
+```text
+P U^(epsilon_1) P ... U^(epsilon_k) P
+  =1_[M(epsilon) log(p),infinity) U^(sum epsilon_j),
+```
+
+where `M` is the maximum partial path sum.  The endpoint amplitude
+`p^(M/2)` cancels Proof 228's chirp gain `p^(-M/2)` path by path.  Mixed
+metric words have total coefficient `eta^k`, with
+`eta=2alpha/(1+alpha^2)<=2sqrt(2)/3`, so every fixed polynomial graph-order
+weight remains summable.  This closes the `M^(-1)` and `D^(-1)` half-line
+branches.
+
+## 2026-07-14 Sonin alternating-profile closure
+
+Proof 234 uses `P P_hat P=r+K_prol`.  The source commutator becomes three
+boundedly dressed half-line commutators plus the trace-class
+`[K_prol,U]`.  A power telescope gives only polynomial cost for prolate
+insertions.  Since scattering and Euler multipliers commute with logarithmic
+`Q`, no-prolate words have only linearly many half-line cut points and are
+dominated by `(1+k)^2 eta^k` in the sharp profile norm.
+
+Consequently the complete metric post-Q correction is compact at the
+mathematical route-evidence level.  It need not be Hilbert--Schmidt.  The
+active bottom is now the same-domain integrated sign of the named compact
+correction on the common kernel of the three Mellin rows.  No Lean owner or
+route rewire is authorized; RH remains unproved.
