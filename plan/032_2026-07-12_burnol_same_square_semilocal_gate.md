@@ -925,3 +925,37 @@ oscillatory Fourier gain.  The remaining Proof 227 bottom is now the internal,
 non-endpoint profile of the complete crossing `Y_alpha+Y_alpha*`, followed by
 the independent integrated three-row sign.  No Lean owner or route rewire is
 authorized; RH remains unproved.
+
+## 2026-07-14 complete principal Euler profile compactness
+
+Proof 229 sums the full normalized triangular profile before applying post-Q.
+For
+
+```text
+W_p(r)=sum_(m>=1)p^(-m/2)(m log(p)-r)_+,
+```
+
+and `r=n log(p)+t`, `0<=t<log(p)`, the exact cell formula is
+
+```text
+W_p(r)
+ =p^(-(n+1)/2)
+   (log(p)-(1-p^(-1/2))t)/(1-p^(-1/2))^2.
+```
+
+The envelope is continuous, and its derivative jump at `n log(p)` is exactly
+`p^(-n/2)`.  In the only non-absolutely differentiable convolution tail, the
+cell phase satisfies `partial_r Phi_n=partial_t Phi_n`.  Two integrations by
+parts move the post-Q derivatives onto the cell amplitude.  First boundary
+values cancel by continuity; the remaining derivative-jump chirps have size
+`p^(-n/2)` and acquire Proof 228's additional `p^(-n/2)` operator-norm gain.
+They are therefore summable as `p^(-n)`.  Cell interiors are HS-summable as
+`p^(-n/2)`.
+
+Hence the complete normalized principal Euler channel is compact on every
+finite root interval.  It need not be Hilbert--Schmidt.  Proof 227's `(F.23)`
+is a sufficient but unnecessarily strong contract; the sharp full-metric
+target allows an HS-summable interior plus an operator-norm-summable chirp
+boundary.  Only the nonconstant metric part of the complete crossing and the
+integrated three-row sign remain open.  No Lean owner or route rewire is
+authorized; RH remains unproved.
