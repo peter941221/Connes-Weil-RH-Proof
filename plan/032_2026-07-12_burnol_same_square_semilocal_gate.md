@@ -2428,3 +2428,617 @@ and `0.0625153`; the guard algebra error is `2.22e-16`.
 Gate 3U, the arithmetic same-object finite-S identity, negative-owner
 integration, Burnol identity, and RH remain open.  No Lean owner or route
 rewire is authorized.
+
+## 2026-07-15 relative Jacobi to stopped-chirp square function
+
+Proofs 263--268 replace the endpoint distribution search by one legal
+determinant-line owner.  For each source projection `J in {E,R}`, define
+
+```text
+Theta_(J,s)
+ =(J exp(sW)H J+(I-J))
+  (J H J+(I-J))^(-1)
+  (J exp(sW)J+(I-J))^(-1).
+```
+
+For fixed finite `S`, `Theta_(J,s)-I` is trace class near zero.  The band
+response is
+
+```text
+Tr(W(B_S-B))
+ =partial_s log[det(Theta_(E,s))/det(Theta_(R,s))] at s=0.
+```
+
+The source-specific relative Jacobi identity moves this quotient to the
+complementary inverse-metric covariances.  With
+
+```text
+M=H^(-1)=A*A,
+Z_X=B-C(C X C)^(-1)C X B,
+Short_B|C(X)=Z_X*X Z_X,
+```
+
+the Schur envelope formula gives
+
+```text
+partial_s Short_B|C(X_s)=Z_(X_s)*X_s'Z_(X_s).
+```
+
+Causal triangularity then recovers the ordered first jet
+
+```text
+K* W K Gamma^(-1)-B W B
+```
+
+without cycling `Gamma^(-1)`.  Common forward translation history cancels in
+the centered half-line numerator.  The survivor depends on relative
+displacement, so large comparable prime paths remain.
+
+Proof 268 also gives the raw innovation guard.  For
+
+```text
+b_a(theta)=(1-a)/(1-a exp(i theta)),
+```
+
+the defect norm is
+
+```text
+norm(I-b_a*b_a)=4a/(1+a)^2.
+```
+
+At `a=p^(-1/2)`, a prime square function applied before the physical crossing
+retains the divergent half-power scale.
+
+Proof 269 tests a direct coordinate-replacement repair and rejects it in the
+periodic source screen.  Removing one prime from the complete endpoint gives
+fitted root-operator slopes
+
+```text
+-0.583 at size=256, step=0.08,
+-0.505 at size=512, step=0.08,
+-0.655 at size=640, step=0.04.
+```
+
+These values resemble `p^(-1/2)`, not `p^(-1)`.  Periodic sections do not
+preserve the second half-line, so the result blocks a raw Efron-Stein proof and
+does not prove a continuous lower bound.
+
+The normalized local inverse has the exact geometric law
+
+```text
+b_p(theta)
+ =sum_(m>=0)(1-a_p)a_p^m exp(i m theta),
+a_p=p^(-1/2).
+```
+
+Its pointwise defect telescopes across an ordered finite product:
+
+```text
+1-|product_j b_(p_j)|^2
+ =sum_j |product_(i<j)b_(p_i)|^2(1-|b_(p_j)|^2).
+```
+
+This is the spectral form of Proof 266's orthogonal prime innovation
+channels.  Proof 228 has already inserted the Euler coefficient into the
+completed chirp.  Its weighted norm and square have scales
+
+```text
+norm(K_(p,m))~a_p^m,
+norm(K_(p,m))^2~a_p^(2m)=p^(-m).
+```
+
+The former multiplication by the event weight `(1-a_p)a_p^m` reused the same
+coefficient and produced the unowned cubic ledger
+
+```text
+(1-a_p)a_p^m norm(K_(p,m))^2
+ ~p^(-3m/2).
+```
+
+Its scalar convergence is not route evidence.  The corrected first mode is
+`sum_p 1/p`, which diverges.
+
+The companion certificate verifies the local geometric and defect formulas
+below `2.34e-12`.  At prime cutoffs `100,1000,10000,100000`, the raw
+half-power ledger grows as
+
+```text
+5.54, 12.65, 29.14, 70.05,
+```
+
+while the degree-one cubic double-count ledger is
+
+```text
+3.90, 4.87, 5.29, 5.45.
+```
+
+The certificate labels that column `DOUBLE_COUNTED_NOT_ROUTE_OWNED`.  A valid
+sum must obtain a second factor from the probability that the residual
+relative displacement falls inside the compact support window:
+
+```text
+sum_p sum_(m>=1)
+ (1+m log(p))^(2d)p^(-m) Q_(S,p,k)(4B_root).
+```
+
+The active theorem must construct one adapted column on the prime innovation
+space.  Each component must contain the complete outer, second-support, and
+prolate numerator before a norm, delete the scalar mode inside that channel,
+and place its real-line kernel into Proof 228's restricted-Fourier form.  A
+contractive dual coframe may then pair against the column without an Euler
+condition number or a sum of mixed-Hessian norms.
+
+Paulin--Mackey--Tropp's matrix Efron-Stein theorem controls fluctuations around
+a mean; it does not construct this determinant-line channelization.  Petrov's
+oblique BOGC theorem assumes an ambient identity-plus-trace-class operator; the
+whole-line Euler multiplier fails that premise.  Use the relative Jacobi owner
+from Proof 267 if a BOGC factorization is attempted.
+
+Gate 3U now asks for the complete `E/R/Q/K_prol` channelization, chirp bound,
+and compact-support concentration factor in Proof 269 equations
+`(AF.17)--(AF.21)`.  The arithmetic same-object finite-S
+identity, negative-owner integration, Burnol identity, and RH remain open.  No
+Lean owner or route rewire is authorized.
+
+## 2026-07-15 renewal observability collapse
+
+Proof 270 constructs the channelization at the renewal level.  With
+
+```text
+K=E A B,
+Gamma=K*K,
+Delta=B-Gamma,
+D=Delta^(1/2),
+```
+
+define the complete left reward
+
+```text
+L_W
+ =-[W,E]* C A B
+   +A R[W,Q]*(I-Q)B
+   +A R W Q B.
+```
+
+The three adjoint products with `K` are Proof 266's outer, second-support, and
+prolate branches.  Hence
+
+```text
+N_W=L_W* K.
+```
+
+Define two columns on the renewal path space:
+
+```text
+C_K x=(K D^k x)_(k>=0),
+C_L x=(L_W D^k x)_(k>=0).
+```
+
+Since `Gamma=B-D^2`,
+
+```text
+C_K*C_K
+ =sum_(k>=0)D^k Gamma D^k
+ =B.
+```
+
+The right survivor column is an isometry.  Fixed-`S` trace legality from Proof
+261 allows the cyclic move inside each completed renewal term, giving
+
+```text
+Tr_B(N_W Gamma^(-1))
+ =sum_(k>=0)Tr_B((L_WD^k)*(KD^k))
+ =Tr_B(C_L*C_K).
+```
+
+Thus the Gate 3U scalar contains no standalone `Gamma^(-1)`.  The left column
+Gram is the observability operator
+
+```text
+X_W=sum_(k>=0)D^k L_W*L_W D^k,
+
+X_W=L_W*L_W+D X_W D.
+```
+
+The default certificate verifies `N_W=L_W*K`, the right isometry, the column
+pairing, and the Stein equation with maximum error `8.53e-16`.  An independent
+run at multiplicity ten passes below `1.50e-15`.  A conditioning stress moves
+the minimum eigenvalue of `Gamma` down to about `5.3e-3`; the observability
+norm stays below `4.53e-2` in the tested blocks.
+
+An ordinary observability operator norm cannot control the trace.  Under
+`1,2,4,8,16` orthogonal copies, the response and `Tr(X_W)` grow linearly while
+`norm(X_W)` remains fixed.  The right column's unweighted Hilbert--Schmidt norm
+also grows like the square root of the multiplicity.  This direct-sum guard
+blocks a dimension-free conclusion from `norm(X_W)` and `norm(C_K)=1`.
+
+Proof 273 shows that the active object is the signed scalar pairing
+
+```text
+Tr_B(C_L*C_K).
+```
+
+Refine the missing-channel identity
+
+```text
+Delta=I_rand*I_rand+I_C*I_C
+```
+
+through Proof 269's prime innovation channels.  Keep the three summands of
+`L_W` combined and pair them with the survivor row.  Take the scalar trace,
+apply compact support, and only then use Proof 272's concentration sum.  A
+positive `H^1` column norm loses this cancellation.  Gate 3U, the arithmetic
+same-object finite-S identity,
+negative-owner integration, Burnol identity, and RH remain open.  No Lean owner
+or route rewire is authorized.
+
+## 2026-07-15 first-missing prime row
+
+Proof 271 refines the renewal column through the actual missing channels.  Put
+
+```text
+I_rand=(I-P_0)V B,
+I_C=C A B,
+mathcalM=column(I_rand,I_C).
+```
+
+Then
+
+```text
+mathcalM*mathcalM
+ =I_rand*I_rand+I_C*I_C
+ =Delta.
+```
+
+For `D=Delta^(1/2)`, define
+
+```text
+J_0=B,
+J_(k+1)=mathcalM D^k.
+```
+
+Their Grams sum to the renewal inverse:
+
+```text
+sum_(k>=0)J_k*J_k
+ =B+sum_(k>=1)Delta^k
+ =Gamma^(-1).
+```
+
+The survivor and reward rows
+
+```text
+mathcalR_K=(K J_k*)_(k>=0),
+mathcalR_L=(L_W J_k*)_(k>=0)
+```
+
+satisfy
+
+```text
+mathcalR_K mathcalR_K*=K Gamma^(-1)K*,
+
+Tr_B(N_W Gamma^(-1))=Tr(mathcalR_L*mathcalR_K).
+```
+
+The right row is a coisometry onto `Ran(K)`.  Every nonzero renewal term now
+passes through a named first missing event, either `I_rand` or `I_C`.
+
+The random channel has an exact prime filtration.  If
+
+```text
+V_S=product_j V_j,
+A_j=E[V_j],
+```
+
+and `P_j` averages the variables after prime `j`, then
+
+```text
+(P_j-P_(j-1))V_S
+ =V_<j(V_j-A_j)A_>j.
+```
+
+Thus the prime difference contains a common unitary history, one centered
+local geometric innovation, and a contractive future average.  The prime
+differences are orthogonal and their Grams sum to `I_rand*I_rand`.
+
+The default certificate verifies the missing-channel Gram, renewal row,
+coisometry, and prime Doob formulas with maximum error `2.08e-15`.  An
+independent multiplicity-ten run passes below `1.37e-15`.
+
+The exact remaining left-row components are
+
+```text
+L_W D^k I_(rand,j)*
+
+ =L_W D^k B A_>j*(V_j*-A_j*)V_<j*,
+```
+
+together with `L_WD^kI_C*`.  The deterministic contraction `D^k B A_>j*`
+sits between the complete physical reward and the centered prime difference.
+Do not replace it by its norm before the real-line chirp kernel is derived.
+
+Proof 273 withdraws the predictable positive-column estimate `(AH.30)`.
+Gate 3U requires a scalar disintegration after the compact-rooted left row has
+paired with the coisometric survivor row.  The arithmetic same-object finite-S identity,
+negative-owner integration, Burnol identity, and RH remain open.  No Lean owner
+or route rewire is authorized.
+
+## 2026-07-15 concentration-function stopping ledger
+
+Proof 272 supplies the positive square-energy summation for the corrected
+Proof 269 ledger.  Order Proof 271's Doob filtration from large primes to
+small primes.
+The future factor `A_>p` then contains the independent variables at `q<p`.
+With independent copies `N_q,N_q'`, define
+
+```text
+Y_(S,<p)=sum_(q in S, q<p)(N_q-N_q')log(q),
+Q_h(mu)=sup_x mu((x,x+h]),
+h=max(1,4B_root).
+```
+
+For `a_q=q^(-1/2)`, the exact difference-geometric law gives
+
+```text
+1-Q_h(Law((N_q-N_q')log(q)))
+ =2a_q/(1+a_q)
+ >=q^(-1/2)
+```
+
+whenever `log(q)>h`.  Kolmogorov--Rogozin bounds `Q_h(Y_(S,<p))` by the
+inverse square root of the available smaller-prime mass.  The corrected mode
+energy satisfies
+
+```text
+E_d(p)=sum_(m>=1)(1+m log(p))^(2d)p^(-m)
+ <=C_d(1+log(p))^(2d)/p.
+```
+
+List the primes with `log(p)>h` as `r_1<...<r_n`.  For `j>=2`, the smaller
+variables contribute at least `(j-1)r_j^(-1/2)` concentration deficit.  Hence
+
+```text
+E_d(r_j)Q_h(Law(Y_(S,<r_j)))
+ <=C_d(1+log(r_j))^(2d)
+   /[r_j^(3/4)sqrt(j-1)].
+```
+
+Since `r_j>=j+1`, this has the summable envelope
+`C_d(1+log(j))^(2d)j^(-5/4)`.  The primes below `exp(h)` cost at most
+`C_d(1+h)^(2d+1)`.  Therefore
+
+```text
+sup_(finite S) sum_(p in S) E_d(p)Q_h(Law(Y_(S,<p)))
+ <=C_d'(1+B_root)^(2d+1).
+```
+
+This uses no prime number theorem and keeps one fixed orthogonal filtration.
+It does not close Gate 3U.  The actual source row is
+
+```text
+L_W D^k B A_>p*(V_p*-A_p*)V_<p*.
+```
+
+The factor `D^k` remains between the complete three-branch reward and the
+classical future average.  Proof 273 shows that a positive row norm cannot
+extract compact-support probability.  The source must keep `D^k` inside the
+signed left/right scalar pairing.  The probability source is Juškevičius, arXiv:2201.09861,
+`https://arxiv.org/abs/2201.09861`.
+
+The default WSL certificate checks the difference-geometric atom and
+prime-mode reduction with maximum exact error `1.39e-16`.  At `p<=1000000`,
+the default unstopped ledger is `132.03` and the ordered-future stopped proxy
+is `45.29`.  Gate 3U, the arithmetic same-object finite-S identity,
+negative-owner integration, Burnol identity, and RH remain open.  No Lean owner
+or route rewire is authorized.
+
+## 2026-07-15 signed paired stopping guard
+
+Proof 273 corrects the proposed source lift.  For one completed compact-root
+crossing with `|b|>2B_root`, Proof 260 gives
+
+```text
+Tr(K_(I,b,g))=0,
+norm(K_(I,b,g))_1=|I|norm(g)_2^2>0.
+```
+
+A one-element noncommutative column `H1` norm equals the trace norm.  The
+obstruction persists for a diffuse path law: take `N` pairwise
+support-separated shifts with uniform measure and equal crossing intervals.
+Then
+
+```text
+Q_h(mu_N)=1/N,
+Tr(directSum_j (1/N)K_j)=0,
+norm(directSum_j (1/N)K_j)_1=|I|norm(g)_2^2.
+```
+
+Thus a positive left-row norm measures total variation and cannot receive the
+Proof 272 concentration factor.  This withdraws Proof 271 `(AH.30)` and Proof
+272 `(AI.20)`.
+
+The fixed-`S` algebra survives.  Let `I_p` be the orthogonal prime Doob
+channels and `I_C=CAB`.  Define
+
+```text
+X_(k,p)=L_W D^k I_p*,   Y_(k,p)=K D^k I_p*,
+X_(k,C)=L_W D^k I_C*,   Y_(k,C)=K D^k I_C*.
+```
+
+Then the exact signed first-missing pairing is
+
+```text
+Tr_B(N_W Gamma^(-1))
+ =Tr(L_W* K)
+  +sum_(k>=0)
+    [sum_p Tr(X_(k,p)*Y_(k,p))
+      +Tr(X_(k,C)*Y_(k,C))].
+```
+
+The real-line source theorem must disintegrate this completed scalar, with
+the renewal index and all three physical branches still present.  A sufficient
+form is Proof 273 `(AJ.14)--(AJ.15)`: the scalar kernel vanishes outside the
+compact displacement window, has a `p^(-m)` envelope, and leaves a uniformly
+controlled base/outer remainder.  Proof 274 shows that this envelope is the
+missing extra-half-power theorem, not the local scalar coefficient.  Proof 272
+then sums the ordered-future probability mass only after that theorem is
+proved.
+
+The default WSL certificate reports zero crossing trace, crossing/H1 mass
+`40`, uniform 16-atom concentration `0.0625`, and exact signed renewal pairing
+error `5.44e-16`; its maximum checked algebra error is `2.13e-15`.  Gate 3U,
+the arithmetic same-object finite-S identity, negative-owner integration,
+Burnol identity, and RH remain open.  No Lean owner or route rewire is
+authorized.
+
+## 2026-07-15 signed-scalar coefficient ledger
+
+Proof 274 audits the coefficient after Proof 273 withdraws the positive `H1`
+route.  The three owners are
+
+```text
+weighted chirp norm             a_p^m=p^(-m/2),
+positive square energy          a_p^(2m)=p^(-m),
+signed scalar local coefficient a_p^m=p^(-m/2).
+```
+
+Proof 222's exact outer trace and Proof 264's ordered Gram response each carry
+one `a_p^m`.  The two Stinespring legs also recover the geometric probability
+once.  Reusing the square energy as the scalar coefficient would repeat the
+same ownership error in a new form.
+
+For the exact location-aware event
+
+```text
+q_(S,p,m)(B_root)
+ =mu_(S,<p)([-m log(p)-2B_root,-m log(p)+2B_root]),
+```
+
+the scalar ledger is
+
+```text
+sum_(p in S)sum_(m>=1)
+ (1+m log(p))^(2d)p^(-m/2)q_(S,p,m)(B_root).
+```
+
+Proof 272's Levy bound gives only the first-mode rank envelope
+`C(log j)^(2d)j^(-3/4)`, which is not summable.  This shows only that the
+available majorant is insufficient; it does not prove divergence of the
+signed response.
+
+The active Gate 3U target is the complete extra-half-power estimate
+
+```text
+|Phi_(S,p,m)(z;g)|
+ <=C(1+m log(p))^(2d)p^(-m)norm(g)_(H^r)^2.
+```
+
+It must be derived after the outer, second-support, and prolate branches and
+the renewal powers have recombined, or replaced by a sharper source-specific
+location estimate.  The finite-S sign, arithmetic same-object trace identity,
+negative-owner integration, Burnol identity, and RH remain open.  No Lean
+owner or route rewire is authorized.
+
+## 2026-07-15 one-prime first-jet source reduction
+
+Proof 275 rewrites the one-prime part of the missing extra half-power as one
+continuous source estimate.  For an orthogonal projection `J`, let `J_a` be
+the projection onto `(I-aU_z)Ran(J)`.  Its exact first jet is
+
+```text
+partial_a J_a|_(a=0)
+ =-(I-J)U_zJ-JU_z*(I-J).
+```
+
+Subtract this identity for the nested pair `R<=E`.  Once the detector root is
+supported in `[-B_root,B_root]`, Proof 260 deletes the completed outer
+half-line scalar for `z>2B_root`.  The one-prime dressed response is therefore
+
+```text
+exp(-z/2) q_B(z;g)=-exp(-z/2)q_R(z;g).
+```
+
+The target `O(exp(-z))=O(p^(-m))` is exactly equivalent to
+
+```text
+|q_R(z;g)|
+ <=C(1+z)^(2d)exp(-z/2)norm(g)_(H^r)^2.
+```
+
+Using `R=E E_hat E-K_prol`, this is a signed combination of three dressed
+half-line crossings and one prolate commutator.  The default WSL certificate
+checks the projection derivative with error `6.97e-10`, gives zero outer
+finite-window read-off, and finds extra-half-power decay in the finite Sonin
+diagnostic.  The diagnostic is not the continuous estimate.
+
+Proof 251's mixed Hessian guard remains active: proving the one-prime estimate
+does not authorize absolute summation of distinct-prime tangents.  The
+continuous Sonin/prolate decay must be inserted into Proof 273's complete
+determinant-resummed renewal before any absolute value.  Gate 3U, the finite-S
+sign, arithmetic same-object trace identity, negative-owner integration,
+Burnol identity, and RH remain open.  No Lean owner or route rewire is
+authorized.
+
+## 2026-07-15 CC20 static half-power tail
+
+Proof 276 audits the primary CC20 source rather than inferring decay from the
+finite Sonin sections.  Its explicit trace remainder satisfies
+
+```text
+delta(rho)=O(rho^(-1/2)).
+```
+
+The exact prolate expansion
+
+```text
+epsilon(rho)
+ =sum_n lambda_n/sqrt(1-lambda_n^2)
+   <xi_n,theta(rho^-1)zeta_n>
+```
+
+has the same tail up to one logarithm:
+
+```text
+epsilon(rho)=O(rho^(-1/2)(1+log rho)).
+```
+
+The static Sonin trace is `W_infinity+epsilon`.  CC20's regular archimedean
+coefficient is also `O(rho^(-1/2))` after half-density normalization, so the
+complete static coefficient has the displayed half-power tail up to one
+logarithm.
+
+The proof combines a `1/y` Fourier-tail estimate with CC20's polynomial
+prolate Sobolev bounds and super-exponential `lambda_n` decay.  At
+`rho=exp(z)` this is exactly the candidate `exp(-z/2)` scale.  It belongs to
+the static Sonin trace correction, not automatically to the moving projection
+first jet.  CC20's displayed `Q epsilon` estimates cover only `1<=rho<=2`.
+
+## 2026-07-15 Sonin Toeplitz covariance reduction
+
+Proof 277 identifies the moving first jet as
+
+```text
+D_J(W,H)
+ =Tr([W,J]*[H,J])
+ =2Tr(T_(WH)^J-T_W^J T_H^J).
+```
+
+Proof 276 controls the first static displacement exponent only for fixed
+support.  An absolute convolution over `|u|<=2B_root` costs `exp(B_root)`, so
+the polynomial support ledger is still open.  The compressed product is not
+controlled by that tail either.  An exact positive-detector guard has static
+product trace `0`, compressed product `4/9`, and Dirichlet pairing `-8/9`.
+
+The active one-prime theorem is therefore
+
+```text
+|Tr(T_(w h_z)^R-T_w^R T_(h_z)^R)|
+ <=C(1+z)^(2d)exp(-z/2)norm(g)_(H^r)^2.
+```
+
+This covariance must be proved using the complete CC20
+`E/E_hat/K_prol` structure.  Its distinct-prime version stays inside the
+relative Jacobi determinant and Proof 273 renewal until after the scalar trace
+and compact-support stopping.  Gate 3U, the finite-S sign, arithmetic
+same-object trace identity, negative-owner integration, Burnol identity, and
+RH remain open.  No Lean owner or route rewire is authorized.
