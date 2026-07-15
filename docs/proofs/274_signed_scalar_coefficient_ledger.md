@@ -222,3 +222,15 @@ estimate and its determinant-resummed mixed-prime extension remain open.  The
 finite-S sign, arithmetic same-object trace identity, negative-owner
 integration, Burnol's identity, and RH remain open.  No Lean owner or route
 rewire is authorized.
+
+Successor correction: Proof 289 shows that `(AK.12)` is sufficient but not
+necessary for the signed route.  The same completed reward occurs in every
+Doob prime channel, and the mandatory future Markov factors telescope:
+
+```text
+sum_p G_fut(p)(I-G_p)=I-product_p G_p.
+```
+
+Thus no primewise absolute sum, and hence no primewise extra-half-power
+estimate, is required after all prime channels remain signed.  The active
+bottom is Proof 289 `(AZ.26)`, the complete global renewal-boundary estimate.

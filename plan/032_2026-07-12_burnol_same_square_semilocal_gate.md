@@ -3042,3 +3042,1774 @@ relative Jacobi determinant and Proof 273 renewal until after the scalar trace
 and compact-support stopping.  Gate 3U, the finite-S sign, arithmetic
 same-object trace identity, negative-owner integration, Burnol identity, and
 RH remain open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-15 Burnol boundary Gram covariance
+
+Proof 278 closes the exact base-Sonin algebra needed before a relative
+Wiener--Hopf/BOGC attempt.  Let `P_0` be the source-interval projection,
+`F_0=P_0 Fourier P_0`, and
+
+```text
+A(u,v)=u+Fourier(v),
+G=A* A=[[I,F_0],[F_0,I]].
+```
+
+Burnol's projection formula is
+
+```text
+I-R=A G^(-1)A*.
+```
+
+For commuting self-adjoint multipliers `W,H`, Proof 278 derives the complete
+Sonin covariance on the two-copy source interval:
+
+```text
+Tr(R W(I-R)H R)
+ =Tr G^(-1)[
+    A*H W A-A*H A G^(-1)A*W A
+   ].                                                  (AO.8)
+```
+
+The two terms in this bracket are Proof 277's static compression and
+compressed Toeplitz product.  They are one centered owner and must not be
+estimated separately.
+
+In finite dimension, Jacobi's complementary-minor identity gives
+
+```text
+det_(Ran R)(Q_R* M Q_R)
+ =det(M) det(G^(-1)A*M^(-1)A).
+```
+
+For `M=exp(sW+tH)`, the mixed logarithmic derivative at zero is exactly the
+covariance in `(AO.8)`.  This identifies the finite-window coordinate on which
+Proof 267's relative determinant must be factorized; it does not authorize the
+ambient determinant in infinite dimension.
+
+Applying the complementary formula to `R<=E` before taking the ratio cancels
+the ambient determinant exactly:
+
+```text
+det_E(E M E)/det_R(R M R)
+ =det_(H_0)(P_0 M^-1 P_0)
+  /det_(H_0 direct-sum H_0)(G^-1 A* M^-1 A).
+```
+
+Its mixed logarithmic derivative is `S_E(W,H)-S_R(W,H)`, the base
+`D_E-D_R` owner.  This relative identity, rather than either separate
+complementary determinant, is the finite model for the continuous successor.
+
+The plus/minus channel diagonalization is
+
+```text
+G ->diag(I+F_0,I-F_0),
+
+(I+F_0)^(-1)-(I-F_0)^(-1)
+ =-2F_0(I-F_0^2)^(-1).
+```
+
+The displayed `F_0` belongs only to the odd resolvent difference.  It does not
+divide the complete centered covariance.  Proof 278's exact ownership guard
+sets
+
+```text
+F_0=0,
+K_prol=0,
+```
+
+but still obtains
+
+```text
+default:   |S_R|=1.895109, |S_E-S_R|=0.5740917,
+alternate: |S_R|=2.079365, |S_E-S_R|=0.5070580.
+```
+
+Hence the former identity-channel cancellation target is rejected.  The next
+proof must retain an even/two-boundary channel together with the odd/prolate
+channel.  Any extra half-power has to emerge from their complete relative
+determinant after recombination, not from `F_0` alone.  Proof 278 does not prove
+that estimate or the `exp(-z/2)` tail.
+
+The same certificate verifies
+
+```text
+R=E E_hat E-K_prol,
+
+[R,H]
+ =E E_hat[E,H]
+  +E[E_hat,H]E
+  +[E,H]E_hat E
+  -[K_prol,H],
+```
+
+and checks that all four branches recombine before the boundary covariance is
+taken.  The default errors are
+
+```text
+maximum exact algebra error             3.27e-15,
+Jacobi complementary determinant error  3.22e-15,
+relative E/R determinant error           9.83e-17,
+boundary covariance error               8.62e-16,
+mixed log-determinant derivative error  5.72e-8,
+relative mixed-derivative error          1.05e-8,
+three-branch commutator error            3.95e-16.
+```
+
+### Scope and non-goals
+
+Proof 278 owns only the complementary-subspace algebra and its finite
+certificate.  It does not prove:
+
+```text
+the infinite-dimensional trace domain for (AO.8),
+the Sonin covariance exp(-z/2) estimate,
+a continuous relative BOGC theorem,
+prime telescope through the boundary Gram,
+Gate 3U, the finite-S sign, or RH.
+```
+
+No Lean source or route consumer is changed.
+
+### Source evidence
+
+```text
+Burnol, Theorem 4, explicit Sonin projection:
+https://arxiv.org/abs/math/0208121
+
+Bufetov, continuous Hankel-product BOGC for the sine process:
+https://arxiv.org/abs/2412.20902
+
+Petrov, oblique Jacobi/BOGC architecture:
+https://arxiv.org/abs/2605.24976
+```
+
+Bufetov treats the ordinary sine projection.  Petrov assumes an ambient BOGC
+operator `I-K`, `K in S1`.  Neither theorem supplies the relative
+Burnol-boundary factorization required here.
+
+### Active data-bearing owner
+
+The next proof must start from the fixed-`S` relative determinant of Proof 267
+and produce a root-sandwiched identity of the form
+
+```text
+tau_(E/R,S)
+ =det(I-completed Burnol-boundary Hankel product),     (AO.19)
+```
+
+where trace class appears only after the `E/R` subtraction and the compact
+root are present.  Differentiating `(AO.19)` must recover every term of the
+four-branch commutator above and hence Proof 266's three physical numerator
+branches.
+
+### Consumer path
+
+```text
+Proof 267 relative Jacobi quotient
+  -> Proof 278 Burnol boundary coordinate
+  -> source-relative continuous Hankel product
+  -> derivative readback of every physical branch
+  -> complete normalized Euler product telescope
+  -> Proof 273 signed scalar disintegration
+  -> Gate 3U.
+```
+
+### Rejection guards
+
+Reject the successor immediately if any of the following occurs:
+
+```text
+it requires the ambient Euler multiplier to be I+S1;
+
+its derivative omits an outer, second-support, or prolate term;
+
+it claims that the complete covariance carries an `F_0` or `K_prol` factor;
+
+it cycles the ordered Gram inverse across the trace;
+
+it estimates the two terms of (AO.8) separately;
+
+it uses a positive H1 or nuclear norm to express compact-support cancellation.
+```
+
+If the boundary Gram blocks the complete prime telescope, retain `(AO.8)` as
+an exact base identity and fall back to Proof 277 `(AN.13)` inside Proof 273's
+signed renewal.  Do not weaken the object to make a standard BOGC theorem fit.
+
+### Reproduction and acceptance
+
+```text
+python3 -B docs/proofs/278_burnol_boundary_gram_covariance_probe.py
+
+python3 -B docs/proofs/278_burnol_boundary_gram_covariance_probe.py \
+  --size 34 --support-rank 8 --seed 2278
+```
+
+Success for Proof 278 means both runs verify the algebra and determinant jet,
+the zero-prolate survivor guard rejects the prolate-only mechanism, the
+document states the continuous gaps, and no Lean owner is changed.
+Partial means the boundary covariance holds but the determinant jet or physical
+branch readback fails.  Rejection means the centered Gram does not reproduce
+the same Sonin scalar.  Closure of Gate 3U requires the later continuous
+relative Hankel theorem and a uniform signed scalar bound; Proof 278 alone is
+not closure.
+
+## 2026-07-15 Burnol channel Schur cocycle
+
+Proof 279 resolves the plus/minus ownership question left by Proof 278.  With
+`J:H_0 -> H`, `P_0=J J*`, and `F_0=J*FJ`, define
+
+```text
+A_+=(J+FJ)/sqrt(2),       G_+=I+F_0,
+A_-=(J-FJ)/sqrt(2),       G_-=I-F_0,
+
+V_+=A_+G_+^(-1/2),        C_+=V_+V_+*,
+V_-=A_-G_-^(-1/2),        C_-=V_-V_-*.
+```
+
+Then `V_+,V_-` are orthogonal isometries, `F V_+=V_+`, `F V_-=-V_-`, and
+
+```text
+I-R=C_++C_-.
+```
+
+For a positive invertible perturbation `M`, the normalized Burnol boundary is
+
+```text
+B_M=[[D_+,X],[X*,D_-]],
+
+D_+=V_+*M^(-1)V_+,
+D_-=V_-*M^(-1)V_-,
+X  =V_+*M^(-1)V_-.
+```
+
+The static Gram diagonalization does not make `X` vanish.  Instead,
+
+```text
+X
+ =V_+*[(M^(-1)-F M^(-1)F)/2]V_-
+ =(1/2)V_+*[F,M^(-1)]V_-.
+```
+
+This is the exact distinction between the static overlap `F_0` and the
+Fourier-odd perturbation `[F,M^(-1)]`.
+
+With
+
+```text
+Omega_M
+ =D_-^(-1/2)(D_- -X*D_+^(-1)X)D_-^(-1/2),
+```
+
+finite-dimensional Schur factorization gives
+
+```text
+det_E(E M E)/det_R(R M R)
+ =det(J*M^(-1)J)
+  /[det(D_+)det(D_-)det(Omega_M)].
+```
+
+For `M_(s,t)=exp(sW+tH)`, let
+
+```text
+S_Q(W,H)=Tr(QW(I-Q)HQ),
+kappa=2 Re Tr(C_- W C_+ H C_-).
+```
+
+The exact mixed jets are
+
+```text
+partial_(s,t)log det(D_+)|_0=S_(C_+),
+partial_(s,t)log det(D_-)|_0=S_(C_-),
+partial_(s,t)log det(Omega)|_0=-kappa,
+
+S_E-S_R=S_(P_0)-S_(C_+)-S_(C_-)+kappa.
+```
+
+The deterministic ownership guard is
+
+```text
+F=[[0,1,0],[1,0,0],[0,0,1]],
+P_0=e_1 e_1*,
+W=H=v v*,   v=(e_2+e_3)/sqrt(2).
+```
+
+It has `F_0=K_prol=0` but
+
+```text
+S_(C_+)=S_(C_-)=3/16,
+kappa=1/8,
+S_R=1/4,
+S_E-S_R=-1/4.
+```
+
+Thus dropping the Schur coupling gives `-3/8`, while retaining only the
+coupling gives `+1/8`.  Both direct boundary channels and the coupling are
+route-owned even in the zero-prolate model.
+
+The default certificate has maximum exact algebra error `4.67e-15`, maximum
+mixed-derivative error `1.06e-7`, and deterministic target error `1.39e-16`.
+The alternate `size=34,support-rank=8,seed=2279` cohort has maximum algebra
+error `5.56e-15` and mixed-derivative error `9.07e-8`.
+
+### Active analytic target
+
+The next theorem must construct the continuous root-sandwiched relative
+determinant line represented finitely by the complete formula above.  It may
+use two mechanisms, but must recombine them before the final absolute value:
+
+```text
+Fourier-commutator coupling:
+  exploit X=(1/2)V_+*[F,M^(-1)]V_- and compact-root displacement support;
+
+diagonal relative channel:
+  compare J*M^(-1)J with D_+ and D_- on the same source geometry.
+```
+
+Do not define the four determinants separately in infinite dimension.  Do not
+assume that the diagonal relative channel is small because `F_0` or `K_prol`
+is small.  Differentiation must still reproduce both outer orientations, the
+second-support branch, and the prolate commutator.  Mixed-prime terms remain
+inside the normalized Euler determinant until the signed scalar read-off.
+
+See `docs/proofs/279_burnol_channel_schur_cocycle.md`.  The continuous trace
+domain, relative BOGC theorem, complete prime telescope, Gate 3U, finite-S
+sign, arithmetic same-object identity, negative-owner integration, Burnol
+identity, and RH remain open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-15 Toeplitz semicommutator Fredholm cocycle
+
+Proof 280 closes the fixed-`S` determinant domain for Proof 279's complete
+mixed covariance without defining its separate infinite boundary
+determinants.  For an orthogonal projection `J`, write
+
+```text
+T_J(X)=J X J|_(Ran J),
+U_s=exp(sW),
+V_t=exp(tH).
+```
+
+Use the detector-first ordered cocycle
+
+```text
+K_J(s,t)
+ =T_J(U_sV_t)T_J(V_t)^(-1)T_J(U_s)^(-1).
+```
+
+It has the exact completed-crossing factorization
+
+```text
+K_J-I
+ =J U_s(I-J)V_tJ
+   T_J(V_t)^(-1)T_J(U_s)^(-1).
+```
+
+Proof 261 gives `[W,J] in S1` for `J in {E,R}`.  Duhamel gives
+`[U_s,J] in S1`, and
+
+```text
+J U_s(I-J)=-J[U_s,J](I-J) in S1.
+```
+
+Therefore `K_J-I in S1` trace-norm continuously near zero and
+
+```text
+c_J(s,t)=det(K_J(s,t))
+```
+
+is a genuine Fredholm determinant.  No Schatten premise on `[V_t,J]` is used.
+The order is mandatory: reversing it moves the trace-class obligation to the
+raw Euler/generator leg.
+
+Both axes are normalized, `K_J(s,0)=K_J(0,t)=I`, and
+
+```text
+partial_(s,t)log c_J(s,t)|_(0,0)
+ =Tr(JW(I-J)HJ)
+ =S_J(W,H).
+```
+
+For `R<=E`, define the relative determinant-line scalar
+
+```text
+c_(E/R)(s,t)=c_E(s,t)/c_R(s,t).
+```
+
+Then
+
+```text
+partial_(s,t)log c_(E/R)|_(0,0)=S_E-S_R.
+```
+
+In finite complementary coordinates, if
+
+```text
+d_J(X)=det(Q_(Jc)*X^(-1)Q_(Jc)),
+rho(X)=d_E(X)/d_R(X),
+```
+
+Jacobi cancellation gives the exact multiplicative second difference
+
+```text
+c_(E/R)(s,t)
+ =rho(U_sV_t)/[rho(U_s)rho(V_t)].
+```
+
+Proofs 278--279 identify `rho` with the one-copy outer boundary divided by the
+complete two-copy Burnol boundary, including `D_+`, `D_-`, and `Omega`.  In
+infinite dimension the interior cocycles define the determinant line; the
+boundary factors remain coordinates and must not be defined separately.
+
+The default certificate has maximum algebra error `1.27e-14`, maximum mixed
+derivative error `8.94e-8`, and zero-prolate guard error `2.05e-8`.  The
+alternate `size=34,support-rank=8,seed=2280` cohort has maximum algebra error
+`2.05e-14` and mixed-derivative error `9.85e-8`.  The deterministic guard still
+has `F_0=K_prol=0` and reads back `S_E-S_R=-1/4`.
+
+### Active analytic target
+
+The fixed-`S` determinant domain is closed.  The next theorem is the uniform
+relative-crossing estimate
+
+```text
+|partial_(s,t)log c_(E/R)(s,t)|_(0,0)|
+ <=C(1+B_root)^d
+   norm(eta)_(H^r)norm(xi)_(H^r),
+```
+
+with constants independent of the visible finite set.  Compare `K_E-I` and
+`K_R-I` before any trace norm, apply the real-line `2B_root` displacement clip,
+and keep the complete second multiplier `V_t` whole.  Do not estimate the two
+cocycles separately, reverse their order, expand `V_t` into absolute prime
+words, or infer a uniform bound from fixed-`S` Fredholm legality.
+
+See `docs/proofs/280_toeplitz_semicommutator_cocycle.md`.  The uniform bound,
+complete prime stopping/telescope, Gate 3U, finite-S sign, arithmetic
+same-object identity, negative-owner integration, Burnol identity, and RH
+remain open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-15 band-shorted semicommutator
+
+Proof 281 descends Proof 280's relative `E/R` cocycle to one ordinary
+Fredholm determinant on the common band `B=E-R`.  With
+
+```text
+I=C direct-sum R direct-sum B,
+E=R direct-sum B,
+```
+
+define
+
+```text
+S_B(X)=B X B-B X R(R X R)^(-1)R X B
+```
+
+and
+
+```text
+L_B(s,t)
+ =S_B(U_sV_t)S_B(V_t)^(-1)S_B(U_s)^(-1).
+```
+
+Proof 261 gives `[U_s,E],[U_s,R] in S1`.  In `B(H)/S1`, the detector therefore
+commutes with `C,R,B` and becomes block diagonal on `R direct-sum B`.  Direct
+Schur algebra then gives
+
+```text
+S_B(U_sV_t)=S_B(U_s)S_B(V_t) modulo S1.
+```
+
+The possible outer path also vanishes modulo `S1` because
+
+```text
+E U_s C=-E[U_s,E]C in S1.
+```
+
+Hence
+
+```text
+L_B(s,t)-B in S1
+```
+
+trace-norm continuously.  Its ordinary Fredholm determinant is Proof 280's
+relative determinant-line scalar:
+
+```text
+det_B(L_B)=det(K_E)/det(K_R).
+```
+
+This closes the ordinary band domain specifically for the two-parameter
+semicommutator.  It does not assert that any raw one-parameter shorted
+determinant exists.
+
+At the mixed derivative, expand `E=R+B` and `I-R=C+B`.  The common `R-C`
+crossing cancels exactly:
+
+```text
+S_E-S_R
+ =Tr(B W C H B)-Tr(R W B H R).
+```
+
+Both terms are route-owned detector crossings because
+
+```text
+B W C=-B[W,E]C,
+R W B=-R[W,R]B.
+```
+
+They must remain one signed scalar difference.  Separate trace norms recreate
+the rejected outer/Sonin triangle estimate.
+
+The block-diagonal detector guard uses
+
+```text
+U=1.13 C+0.91 R+1.27 B
+```
+
+and makes the outer, Sonin, and band cocycles identities to `2.00e-15` for an
+arbitrary tested second multiplier.  The deterministic zero-prolate guard
+still has `F_0=K_prol=0` but the band crossing scalar is exactly `-1/4`.
+
+The default certificate has determinant-coordinate error `7.69e-15`, physical
+crossing error `1.18e-16`, and mixed-derivative error `1.96e-8`.  The alternate
+`size=34,support-rank=8,seed=2281` cohort has determinant-coordinate error
+`1.98e-15`, boundary-coordinate error `1.67e-14`, physical crossing error
+`3.38e-16`, and mixed-derivative error `2.65e-8`.
+
+### Active analytic target
+
+Proof 281 applies at each synchronized flow time `alpha`, with
+
+```text
+E=E_(S,alpha), R=R_(S,alpha), B=E-R, C=I-E,
+H=M_(h_(S,alpha)).
+```
+
+The second leg is the complete time-dependent generator multiplier from Proof
+253, not the endpoint metric `H_S`.  Since `D_J=2S_J`, the exact endpoint owner
+is
+
+```text
+2 integral_0^1 [
+  Tr(B W C M_(h_(S,alpha)) B)
+ -Tr(R W B M_(h_(S,alpha)) R)
+] dalpha.
+```
+
+The new lowest theorem is the uniform integrated same-object estimate
+
+```text
+|the displayed integral|
+ <=C(1+B_root)^d
+   norm(eta)_(H^r)norm(xi)_(H^r),
+```
+
+No pointwise-in-`alpha` estimate of either crossing is assumed.  Insert the
+real-line kernels, retain time cancellation, cancel common translated paths,
+apply the `2B_root` displacement clip, and only then expose the causal prime
+law.  Do not return to separate E/R determinants, separate crossing norms,
+condition-number bounds, absolute prime words, or periodic boundaries.
+
+See `docs/proofs/281_band_shorted_semicommutator.md`.  The uniform bound,
+stopped prime theorem, Gate 3U, finite-S sign, arithmetic same-object identity,
+negative-owner integration, Burnol identity, and RH remain open.  No Lean
+owner or route rewire is authorized.
+
+## 2026-07-15 moving-band cocycle integral
+
+Proof 282 composes Proof 281 with the actual synchronized finite-`S` flow and
+repairs the second-leg owner.  Use distinct parameters:
+
+```text
+alpha in [0,1]       synchronized transport time;
+(s,r) near (0,0)     cocycle deformation parameters.
+```
+
+At each `alpha`, the moving projections are
+
+```text
+E_alpha=E_(S,alpha), R_alpha=R_(S,alpha),
+B_alpha=E_alpha-R_alpha, C_alpha=I-E_alpha.
+```
+
+The second operator is
+
+```text
+H_alpha=M_(h_(S,alpha)),
+h_(S,alpha)=Re(T_S'(alpha)T_S(alpha)^(-1)),
+```
+
+not the endpoint metric `H_S=T_S*T_S`.  Apply Proof 281's shorted cocycle on
+`B_alpha` to `exp(sW)` and `exp(rH_alpha)`.  Its mixed jet is
+
+```text
+S_(E_alpha)(W,H_alpha)-S_(R_alpha)(W,H_alpha)
+
+ =Tr(B_alpha W C_alpha H_alpha B_alpha)
+  -Tr(R_alpha W B_alpha H_alpha R_alpha).
+```
+
+Proof 277 has `D_J=2S_J`.  Therefore the exact endpoint response is
+
+```text
+Tr(W(B_(S,1)-B_(S,0)))
+
+ =2 integral_0^1 [
+    Tr(B_alpha W C_alpha H_alpha B_alpha)
+   -Tr(R_alpha W B_alpha H_alpha R_alpha)
+   ] dalpha.
+```
+
+This is the route-owned target.  No pointwise-in-`alpha` estimate of either
+branch is required.  Cancellation may occur between the two branches and
+between different flow times.
+
+The actual synchronized certificate imports Proof 253's prime-log
+translations, complete product, moving projections, generator, and compact
+four-mode root.  Default errors are
+
+```text
+exact algebra                 1.25e-13,
+endpoint integration          3.10e-8,
+band cocycle mixed jet        8.42e-7.
+```
+
+The alternate `size=160,step=0.064` cohort gives `1.89e-13`, `1.49e-9`, and
+`9.56e-7`.  At default cutoff `p=2`, the integral of separate branch absolute
+values is `35.695` times the endpoint magnitude.  This is direct evidence
+against a branchwise triangle estimate, not a continuous lower bound.
+
+### Active analytic target
+
+Prove a uniform bound for the complete time integral after placing both
+detector crossings in one real-line coordinate.  Identify equal translated
+histories, cancel paths missing both moving boundaries, apply the compact
+`2B_root` displacement clip, and expose the causal prime residual only
+afterward.  Keep one absolute value outside the full integral.
+
+See `docs/proofs/282_moving_band_cocycle_integral.md`.  The uniform integrated
+bound, stopped causal theorem, Gate 3U, finite-S sign, arithmetic same-object
+identity, negative-owner integration, Burnol identity, and RH remain open.  No
+Lean owner or route rewire is authorized.
+
+## 2026-07-15 cross-root moving transgression
+
+Proof 283 connects Proof 263's legal compact cross-root endpoint form with
+Proof 282's synchronized moving-band integral.  For compact roots `eta,xi`,
+put
+
+```text
+W_(eta,xi)=C_xi* C_eta,
+F_(eta,xi)=xi^star*eta.
+```
+
+The endpoint response is
+
+```text
+Q_S(eta,xi)
+ =Tr(C_eta(B_(S,1)-B_(S,0))C_xi*).
+```
+
+At each flow time, use the complex analytic band cocycle with first leg
+`exp(sW_(eta,xi))` and second leg `exp(rM_(h_(S,alpha)))`.  Linearity of the
+mixed jet and Proof 282 give
+
+```text
+Q_S(eta,xi)
+
+ =2 integral_0^1 [
+    Tr(B_alpha W_(eta,xi) C_alpha H_alpha B_alpha)
+   -Tr(R_alpha W_(eta,xi) B_alpha H_alpha R_alpha)
+   ] dalpha.
+```
+
+This is the moving-to-endpoint transgression.  The endpoint coordinate depends
+only on `F_(eta,xi)`, whose support lies in `[-2B_root,2B_root]`; the moving
+coordinate retains the complete synchronized cancellation.
+
+Complex polarization recovers every cross response from four diagonal roots:
+
+```text
+Q_S(eta,xi)
+ =1/4 sum_(k=0)^3 i^k
+    Q_S(eta+i^k xi,eta+i^k xi).
+```
+
+All four roots remain in the same support window.  Therefore diagonal and
+cross-root Gate 3U estimates are equivalent up to a fixed constant.
+
+The actual finite-S default certificate has algebra error `3.18e-16`, endpoint
+error `2.13e-10`, cocycle mixed-jet error `9.51e-9`, and polarization error
+`1.29e-17`.  The alternate cohort gives `2.80e-16`, `2.38e-11`, `1.19e-8`,
+and `5.48e-18`.  Both responses have nonzero real and imaginary parts.
+
+Never define `Tr(U_z(B_S-B))` pointwise.  Proof 260 shows it need not be trace
+class.  Compact support must enter through the factorized cross roots and stay
+outside the complete moving integral until the one-sided causal path
+representation is assembled.
+
+See `docs/proofs/283_cross_root_moving_transgression.md`.  The causal path
+representation, uniform cross-root bound, Gate 3U, finite-S sign, arithmetic
+same-object identity, negative-owner integration, Burnol identity, and RH
+remain open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-15 cross-root causal observability pairing
+
+Proof 284 imports Proof 283's genuinely complex detector into the inverse-free
+renewal owner.  For
+
+```text
+W=W_(eta,xi)=C_xi* C_eta,
+K=E A B,
+Gamma=K*K,
+Delta=B-Gamma,
+D=Delta^(1/2),
+```
+
+the centered numerator remains
+
+```text
+N_W=K* W K-B W B Gamma.
+```
+
+Proof 270 assumed `W=W*`.  The correct cross-root left rewards are
+
+```text
+L_O=-[W,E]* C A B,
+L_S=A R[W,Q]*(I-Q)B,
+L_P=A R W* Q B,
+L_W=L_O+L_S+L_P.
+```
+
+The adjoint in `L_P` is mandatory.  It gives
+
+```text
+N_W=L_W* K,
+```
+
+whereas the old Hermitian-only `A R W Q B` produces the wrong prolate branch
+for a cross detector.  The default and alternate certificates reject that old
+formula with relative errors `1.01e-2` and `6.18e-3`, while the corrected
+factorization errors are below `2.14e-16`.
+
+With
+
+```text
+C_K x=(K D^k x)_(k>=0),
+C_(L,W) x=(L_W D^k x)_(k>=0),
+```
+
+the right column remains an isometry and the exact chain is
+
+```text
+2 integral_0^1 movingBandJet_(eta,xi,alpha) dalpha
+ =Q_S(eta,xi)
+ =Tr_B(C_(L,W)* C_K).
+```
+
+The active bottom is now the first-missing-displacement scalar
+disintegration of this already paired quantity.  Insert the compact
+cross-correlation and its `2B_root` support clip before splitting causal
+histories or taking any norm.  Keep `L_O+L_S+L_P` whole.  A raw point trace,
+`norm(C_(L,W))`, separate branch norms, and prime-path expansion before the
+support clip remain forbidden.
+
+See `docs/proofs/284_cross_root_causal_observability.md`.  The stopped scalar
+bound, Gate 3U, finite-S sign, arithmetic same-object identity, negative-owner
+integration, Burnol identity, and RH remain open.  No Lean owner or route
+rewire is authorized.
+
+## 2026-07-15 support-first two-boundary renewal functional
+
+Proof 285 recombines Proof 266's three numerator branches before expanding
+the common renewal.  With `iota_B:Ran(B)->H`,
+
+```text
+K=E A iota_B,
+Gamma=K*K,
+Delta=I-Gamma,
+```
+
+the convolution detector satisfies
+
+```text
+N_W
+ =-iota_B*A*C W K+iota_B*W R A*K.
+```
+
+Fixed-`S` completed trace cyclicity therefore gives the support-first
+functional
+
+```text
+Q_S(eta,xi)=Lambda_(eta,xi)(Z_S),
+
+Z_S
+ =R A*K Gamma^(-1)iota_B*
+  -K Gamma^(-1)iota_B*A*C.
+```
+
+The second-support and prolate terms have not been dropped: they recombine
+into the complete `R` term before this step.  Expanding only after inserting
+`F_(eta,xi)=xi^star*eta` gives
+
+```text
+Z_(S,k)
+ =R A*K Delta^k iota_B*
+  -K Delta^k iota_B*A*C.
+```
+
+Thus the `2B_root` displacement clip acts on one completed outer-minus-Sonin
+scalar before missing-channel or prime paths are exposed.
+
+The identity is only a trace-functional identity on the convolution
+commutant.  It is not the operator equality `Z_S=B_S-B` and does not extend to
+arbitrary detectors.  Default/alternate certificates have maximum exact
+errors `5.58e-16` and `9.34e-16`; their operator gaps are `0.203` and `0.223`,
+and noncommuting trace gaps are `0.0202` and `0.0177`.  Support clipping leaves
+the scalar unchanged while discarding kernels with Frobenius masses `0.181`
+and `0.194`, so positive kernel norms remain forbidden.
+
+The `seed=408` cancellation guard has exact error `6.03e-16`; taking
+absolute values per completed renewal costs `3.10x` the final response, and
+separating the outer/Sonin terms raises that cost to `20.83x`.  These are
+finite rejection ratios, not continuous lower bounds.  They forbid both
+triangle-estimate orders in the successor.
+
+The active bottom is now to factor the already support-clipped `Delta^k`
+through Proof 271's actual missing channels, cancel equal histories, and
+isolate the first unmatched prime/mode scalar without taking termwise
+absolute values.  That scalar must still earn Proof 274's extra half-power.
+
+See `docs/proofs/285_support_first_boundary_renewal.md`.  The first-missing
+scalar theorem, extra-half-power bound, Gate 3U, finite-S sign, arithmetic
+same-object identity, negative-owner integration, Burnol identity, and RH
+remain open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-15 first-missing relative-mode scalar
+
+Proof 286 factors every nonzero support-first renewal level through the actual
+missing maps after compact support has acted.  With
+
+```text
+H_(S,k)(W)
+ =iota_B* W R A*K Delta^(k-1)
+  -iota_B*A*C W K Delta^(k-1),
+```
+
+one has
+
+```text
+Lambda_W(Z_(S,k))
+ =Tr(M_C H_(S,k)(W)M_C*)
+  +sum_p Tr(M_p H_(S,k)(W)M_p*).
+```
+
+For a Doob prime channel
+
+```text
+M_p=V_<p(V_p-A_p)A_>p iota_B,
+```
+
+the common unitary past `V_<p` disappears inside the completed scalar trace.
+The predictable future `A_>p` remains.  If
+
+```text
+Y=A_>p iota_B H_(S,k)(W)iota_B* A_>p*,
+```
+
+then the exact local innovation is
+
+```text
+E Tr((V_p-A_p)Y(V_p-A_p)*)
+ =1/2 sum_(r in Z)
+   [(1-a_p)/(1+a_p)]a_p^|r|
+   Tr((U_(r log p)-I)Y(U_(r log p)-I)*).
+```
+
+This identifies the first unmatched prime/mode and shows that its route-owned
+coefficient contains exactly one `a_p^|r|=p^(-|r|/2)`.  The missing second
+copy must come from the complete real-line outer-minus-Sonin second
+difference.  It must not be inserted by squaring the coefficient.
+
+Default/alternate maximum exact errors are `1.48e-15` and `2.02e-15`.
+Deleting `A_>p` changes the scalar by about `2.9e-3`.  The `seed=1012` guard
+has exact error `1.36e-15` but charges `12.7449x` after relative modes receive
+separate absolute values.  These are finite algebra guards, not continuous
+bounds.
+
+Proof 287 corrects the active bottom.  Expand both future-average legs to
+their relative law and sum every local relative mode before estimating.  The
+result is one Markov defect.  Its outer component has three support windows
+centered at `0,+r log(p),-r log(p)`; its Sonin component is noncompact and
+requires the complete signed Toeplitz-covariance tail.  A per-mode additional
+`p^(-|r|/2)` estimate is false.
+
+See `docs/proofs/286_first_missing_relative_mode.md`.  The continuous
+readback, extra-half-power estimate, uniform base/outer remainder, Gate 3U,
+finite-S sign, arithmetic same-object identity, negative-owner integration,
+Burnol identity, and RH remain open.  No Lean owner or route rewire is
+authorized.
+
+## 2026-07-15 future-cloud relative law and Markov defect
+
+Proof 287 expands the two predictable-future legs in Proof 286.  If
+
+```text
+A_>p=integral U_y d nu_>p(y),
+mu_>p=Law(Y-Y'),
+T_ell=U_ell-I,
+```
+
+then completed trace conjugacy removes the common future history and gives
+
+```text
+Tr(T_ell A_>p X A_>p* T_ell*)
+ =integral Tr_completed(T_ell U_z X T_ell*)d mu_>p(z).
+```
+
+When the individual coefficient `kappa_X(z)=Tr(U_zX)` is legal, the completed
+second difference is
+
+```text
+2kappa_X(z)-kappa_X(z+ell)-kappa_X(z-ell).
+```
+
+Summing the full symmetric relative geometric law before any absolute value
+gives
+
+```text
+kappa_X-P_p kappa_X,
+
+(P_p kappa_X)(z)
+ =sum_(r in Z)[(1-a_p)/(1+a_p)]a_p^|r|
+    kappa_X(z+r log(p)).
+```
+
+This Markov defect annihilates constants exactly.  It is the correct
+scalar-gauge owner.  Proof 288 licenses the completed coefficient for the
+specific renewal reward; the unrelated raw endpoint point trace remains
+forbidden.
+
+For the outer half-line, compact support produces three windows:
+
+```text
+|z|<=2B_root
+  or |z+r log(p)|<=2B_root
+  or |z-r log(p)|<=2B_root.
+```
+
+The former single window is false.  A compact triangular profile with
+`B_root=1,r=9,z=0` has second difference `6` outside that old window.  The
+same guard rejects a per-mode half-power by a factor `841.777`; the alternate
+`r=11` guard gives `2525.33`.  For a point profile, the complete Markov defect
+is only `2a_p/(1+a_p)=O(a_p)`, not `O(a_p^2)`.  Centering alone therefore does
+not supply the missing half-power.
+
+The Sonin component is not compactly supported.  Proofs 275--277 require a
+signed Toeplitz-covariance/prolate tail.  The active theorem must estimate the
+complete prime-level Markov defect after the renewal sum, using outer
+three-window concentration and the Sonin tail together before one absolute
+value.
+
+Default/alternate maximum exact errors are `2.22e-16`.  Future relative-law
+errors are below `4.0e-18`, and mode-sum/Markov-defect errors are below
+`5.64e-18`.
+
+See `docs/proofs/287_future_cloud_markov_defect.md`.  The Sonin Markov-defect
+bound, uniform base/outer remainder, Gate 3U, finite-S sign, arithmetic
+same-object identity, negative-owner integration, Burnol identity, and RH
+remain open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-15 completed Markov displacement trace domain
+
+Proof 288 closes the fixed-`S` coefficient domain for Proof 287's specific
+renewal reward.  With `B=iota_B iota_B*`,
+
+```text
+X_(S,k)(W)
+ =B[W,R]R A*K Delta^(k-1)iota_B*
+  -B A*C[W,E]K Delta^(k-1)iota_B*.
+```
+
+Proof 261 and cross-root polarization give
+
+```text
+[W,E],[W,R] in S1.
+```
+
+All remaining factors are bounded for fixed finite `S`, hence
+
+```text
+X_(S,k)(W) in S1.
+```
+
+Therefore
+
+```text
+kappa_(S,k)(z)=Tr(U_z X_(S,k)(W))
+```
+
+is an ordinary bounded continuous function.  This does not legalize the raw
+endpoint trace `Tr(U_z(B_S-B))`.
+
+For one prime,
+
+```text
+A_p=(1-a_p)(I-a_p U_(log p))^(-1),
+G_p=A_p A_p*
+   =sum_(r in Z)[(1-a_p)/(1+a_p)]a_p^|r|U_(r log p).
+```
+
+The complete Markov defect is the single trace
+
+```text
+kappa_(S,k)(z)-(P_p kappa_(S,k))(z)
+ =Tr(U_z(I-G_p)X_(S,k)(W)).
+```
+
+It equals the completed relative-mode second-difference sum.  The exact local
+defect norm is
+
+```text
+norm(I-G_p)=4a_p/(1+a_p)^2=O(p^(-1/2)).
+```
+
+This is only the existing half-power.  Bounding the scalar by
+`norm(I-G_p)norm(X_(S,k))_1` is forbidden for Gate 3U: the trace norm depends
+on `S`, loses the signed outer/Sonin cancellation, and grows exactly `8x` on
+the eight-copy guard while local operator norms stay fixed.
+
+Default/alternate maximum algebra errors are `7.30e-16` and `8.02e-16`; the
+point-defect and completed-second-difference errors are below `2.64e-18`.
+
+See `docs/proofs/288_completed_markov_trace_domain.md`.  The uniform Sonin
+Markov-defect bound, base/outer remainder, Gate 3U, finite-S sign, arithmetic
+same-object identity, negative-owner integration, Burnol identity, and RH
+remain open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-15 complete-prime Markov telescope
+
+Proof 289 removes the unnecessary primewise extra-half-power requirement.
+For every nonzero renewal level the completed reward `X_(S,k)(W)` is common to
+all Doob prime channels.  The future product retained by Proofs 286--288 is
+the exact telescope factor:
+
+```text
+sum_(p in S)G_fut(p)(I-G_p)
+ =I-product_(p in S)G_p
+ =I-G_S.
+```
+
+Therefore
+
+```text
+sum_(p in S)Xi_(S,k,p)(W)
+ =Tr((I-G_S)X_(S,k)(W)).
+```
+
+Complete the relative modes inside each `I-G_p`, then complete the prime sum
+before taking an absolute value.  Do not continue toward a termwise
+`O(p^(-1))` bound: Proof 274's extra-half-power contract is sufficient but not
+necessary after the signed telescope is retained.
+
+The active owner is
+
+```text
+Q_S(eta,xi)
+ =Xi_(S,0)(W)
+  +sum_(k>=1)[
+     Xi_(S,k,C)(W)
+     +Tr((I-G_S)X_(S,k)(W))].
+```
+
+The next theorem must combine the base level, random global defect, outer
+escape, complete Burnol outer/Sonin boundary, and renewal sum into one
+real-line killed-path estimate with polynomial root-support cost.  The order
+bound `0<=I-G_S<=I` is not enough: never replace the signed scalar by
+`norm(X_(S,k))_1`.
+
+Renewal circularity guard: do not immediately add the global random defect and
+the outer missing channel.  Their Grams sum to `Delta`, so the renewal levels
+would reconstruct `Gamma^(-1)` and return to the old condition number.  The
+next construction should instead seek a root-completed source coboundary
+
+```text
+H_(S,1)=V_S(I-Delta)+Rem_S,
+```
+
+where `V_S` is a fixed-boundary, compact-support object with no
+`Gamma^(-1)`.  Prove a uniform trace bound for `V_S` and a uniformly summable
+stopped-path bound for `Rem_S`; then telescope the first term in `k` before one
+absolute value.
+
+Default/alternate exact errors are `4.98e-16/6.07e-16`; primewise absolute
+values cost `35.35x/47.64x` in the ownership guards.  See
+`docs/proofs/289_complete_prime_markov_telescope.md`.  The global
+renewal-boundary estimate, Gate 3U, finite-S sign, arithmetic same-object
+identity, negative-owner integration, Burnol identity, and RH remain open.
+No Lean owner or route rewire is authorized.
+
+## 2026-07-16 biorthogonal finite-horizon renewal colligation
+
+Proof 290 replaces the provisional `V_S(I-Delta)` coboundary by a finite path
+identity which preserves the ordered Gram trace.  Put
+
+```text
+R_n x=(Kx,K Delta x,...,K Delta^n x,Delta^(n+1)x),
+L_n x=(Kx,Kx,...,Kx,x).
+```
+
+Then
+
+```text
+L_n*R_n=I,
+1/2 I<=R_n*R_n<=I,
+
+sum_(k=0)^n N_W Delta^k
+ =L_n*diag(W,...,W,W_B)R_n-W_B.
+```
+
+With the canonical dual `F_n`, path projection `P_n`, and null coframe
+`Z_n=L_n-F_n`, use
+
+```text
+sum_(k=0)^n N_W Delta^k
+ =F_n*(O_nR_n-R_nW_B)+Z_n*[O_n,P_n]R_n.
+```
+
+The right path and canonical dual are uniformly bounded by `1` and `sqrt(2)`.
+Do not estimate the growing `L_n` or `Z_n` norms.  The active analytic theorem
+is a root-completed uniform scalar bound for the displayed two-defect pairing,
+with compact support applied before the horizon limit.  A valid source
+readback of `[O_n,P_n]` must retain both Burnol channels; no identification of
+`P_n` with the fixed Burnol projection has yet been proved.
+
+Default/alternate maximum algebra errors are `1.02e-15/1.70e-15`; right and
+dual path norms remain uniformly below their exact bounds while the left path
+growth guard exceeds `3.68x`.  See
+`docs/proofs/290_biorthogonal_finite_horizon_renewal.md`.  The path-commutator
+estimate, Gate 3U, finite-S sign, arithmetic same-object identity,
+negative-owner integration, Burnol identity, and RH remain open.  No Lean
+owner or route rewire is authorized.
+
+## 2026-07-16 single-generator path defect
+
+Proof 291 removes horizon-dependent detector algebra.  Put
+
+```text
+d_W=WK-KW_B,
+d_W^left=K*W-W_BK*.
+```
+
+Then
+
+```text
+[W_B,Delta]=d_W^left K-K*d_W,
+
+W K Delta^k-K Delta^k W_B
+ =d_W Delta^k
+  +K sum_(j=0)^(k-1)
+     Delta^j(d_W^left K-K*d_W)Delta^(k-1-j).
+```
+
+The tail survivor block has the same formula with `k=n+1`.  For diagonal
+roots, `d_W^left=d_W*`; use Proof 263 polarization only after the diagonal
+bound.
+
+The fixed physical generator is
+
+```text
+d_W
+ =[W,E]A iota_B
+  +E A C[W,E]iota_B
+  -E A R[W,R]iota_B.
+```
+
+No horizon step introduces a new detector support or source projection.  Keep
+the three branches and every term in the power-commutator transform signed.
+The active theorem is a uniform compact-root scalar bound for Proof 290's
+canonical/off-range pairing after substituting this complete single-generator
+transform.  Apply `I-P_n` only after the whole transform is assembled, and do
+not norm `L_n`, the `j`-sum, or the physical branches.
+
+Default/alternate maximum exact errors are `1.33e-15/9.66e-16`; path
+generation errors are `1.01e-16/1.19e-16`, and the scalar fixed mode vanishes
+exactly.  See `docs/proofs/291_single_generator_path_defect.md`.  The stopped
+path-transform bound, Gate 3U, finite-S sign, arithmetic same-object identity,
+negative-owner integration, Burnol identity, and RH remain open.  No Lean
+owner or route rewire is authorized.
+
+## 2026-07-16 causal two-boundary generator
+
+Proof 292 removes Proof 291's returned-outer branch using the exact source
+invariance already proved in Proof 256:
+
+```text
+E A C=0,
+C A* E=0.
+```
+
+Hence the fixed detector generator is not a three-channel object.  It is the
+signed two-boundary pair
+
+```text
+d_W
+ =[W,E]A iota_B
+  -E A R[W,R]iota_B.
+```
+
+The first commutator has the exact compact-displacement kernel
+
+```text
+[W,E](x,y)
+ =(1_E(y)-1_E(x))F(x-y),
+supp(F) subset [-2B_root,2B_root].
+```
+
+The second commutator must be recombined as
+
+```text
+[W,R]
+ =[W,E]E_hat E
+  +E[W,E_hat]E
+  +E E_hat[W,E]
+  -[W,K_prol].
+```
+
+Do not estimate those Sonin subbranches separately.  Substitute the complete
+two-boundary generator and its left companion into Proof 291's path transform,
+then apply `I-P_n`, then use compact support on the scalar, and take one
+absolute value only afterward.
+
+The default/alternate certificates report maximum exact errors
+`1.26e-15/1.03e-15`; `EAC`, `CA*E`, the returned branch, scalar fixed mode,
+and off-support outer crossing are exactly zero.  See
+`docs/proofs/292_causal_two_boundary_generator.md`.  The uniform stopped-path
+estimate, Gate 3U, finite-S sign, arithmetic same-object identity,
+negative-owner integration, Burnol identity, and RH remain open.  No Lean
+owner or route rewire is authorized.
+
+## 2026-07-16 observable two-boundary path compression
+
+Proof 293 applies an exact range compression before the hard estimate.  For
+the finite-horizon ordered path, replace each emission detector by `E W E`.
+The difference is the one-way escape
+
+```text
+q_W=C d_W=C W K,
+```
+
+whose stacked path is annihilated by `R_n*`, `L_n*`, and `P_n`.  Therefore the
+ordered response and its canonical/off-range split are unchanged, even though
+the escape block itself need not have small norm.  The only generator that
+remains is
+
+```text
+g_W=E d_W
+ =-E W C A iota_B-E A R[W,R]iota_B,
+```
+
+with left companion
+
+```text
+g_W^left
+ =-iota_B*A*C W E+iota_B*[W,R]R A*E.
+```
+
+The complete Sonin commutator remains signed; no subbranch estimate is
+allowed.  The default/alternate Proof 293 certificates report maximum exact
+errors `1.05e-15/1.25e-15`, exact agreement of original and `EWE` responses,
+and zero for all escape pairings.  See
+`docs/proofs/293_observable_two_boundary_path.md`.  The visible stopped-path
+estimate, Gate 3U, finite-S sign, arithmetic same-object identity,
+negative-owner integration, Burnol identity, and RH remain open.  No Lean
+owner or route rewire is authorized.
+
+## 2026-07-16 Hankel path-projection block closure
+
+Proof 294 computes the exact right-path projection after Proof 293's
+observable compression.  Put
+
+```text
+H_n=(R_n*R_n)^(-1)
+   =(I+Delta)(I+Delta^(2n+3))^(-1).
+```
+
+For `0<=j,k<=n`,
+
+```text
+(P_n)_(j,k)=K Delta^(j+k)H_nK*,
+(P_n)_(j,tail)=K Delta^jH_nDelta^(n+1),
+(P_n)_(tail,k)=Delta^(n+1)H_nDelta^kK*,
+(P_n)_(tail,tail)=Delta^(n+1)H_nDelta^(n+1).
+```
+
+The emission blocks and their `EWE` detector commutators are Hankel in `j+k`.
+Default/alternate maximum exact errors are `7.95e-16/9.89e-16`; projection
+and commutator Hankel errors are below `2.21e-16`, and `I<=H_n<=2I` has zero
+violation.  The positive sum of block Frobenius norms grows by
+`1.692x/1.670x` through horizon `32`, while the full commutator operator norms
+remain below `0.88/0.85`.  These are finite guards, not a continuous estimate.
+
+The active target is the signed anti-diagonal summation by parts:
+
+```text
+Hankel path commutator
+  + visible generator recurrence
+  -> initial emission boundary
+  + final survivor boundary
+  + complete outer-return/Sonin physical boundary
+  -> compact-support scalar estimate uniform in S,n.
+```
+
+Do not replace this identity by the block-cost sum, omit the mixed tail
+blocks, or identify `P_n` with Burnol's fixed projection.  If an uncanceled
+bulk term survives, reject this lane and fall back to Proof 267's relative
+determinant line.  See `docs/proofs/294_hankel_path_projection.md`.  Gate 3U,
+finite-S sign, arithmetic same-object identity, negative-owner integration,
+Burnol identity, and RH remain open.  No Lean owner or route rewire is
+authorized.
+
+## 2026-07-16 reflected Hankel divided-difference pair
+
+Proof 295 identifies the exact resource inside Proof 294's anti-diagonals.
+For `N=n+1`,
+
+```text
+h_N(t)=(1+t)/(1+t^(2N+1)),
+f_(N,r)(t)=t^r h_N(t),
+beta_(N,r)=2-f_(N,r)-f_(N,2N-r).
+```
+
+The reflected filter satisfies
+
+```text
+0<=beta_(N,r)<=2,
+beta_(N,r)(1)=beta_(N,r)'(1)=0.
+```
+
+Interior projection blocks therefore pair as
+
+```text
+P_(j,k)+P_(N-j,N-k)
+ =K(2I-beta_(N,j+k)(Delta))K*.
+```
+
+All corresponding detector commutators are operator divided differences of
+the single physical pair `g_W,g_W^left`.  Reflection across `0/tail` changes
+carrier and requires the explicit correction terms in Proof 295
+`(BF.23)`, `(BF.25)`, and `(BF.27)`.  The naive formulas fail by
+`5.63e-2/4.48e-2` on the near-survival guard; corrected maximum exact errors
+are `1.87e-15/3.28e-15`.
+
+The next gate is the actual weighted scalar assembly:
+
+```text
+Z_n*[O_n^E,P_n]R_n
+  -> pair every reflected interior block
+  -> retain all 0/tail g_W corrections
+  -> keep beta as one bounded double-zero filter
+  -> substitute the complete outer-return/Sonin generator
+  -> apply compact root support
+  -> one absolute value.
+```
+
+Do not norm the divided differences separately: the quadratic quotient of
+`beta` can be `O(N^2)`.  Do not infer the weighted assembly from the local
+reflection formulas; it remains to be proved.  See
+`docs/proofs/295_reflected_hankel_divided_difference.md`.  Gate 3U, finite-S
+sign, arithmetic same-object identity, negative-owner integration, Burnol
+identity, and RH remain open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-16 weighted reflection parity
+
+Proof 296 inserts Proof 295's blocks into the actual off-range owner
+
+```text
+T_n^off=Z_n*[O_n^E,P_n]R_n.
+```
+
+The interior path grid splits exactly as
+
+```text
+T_n^int=T_(+++)+T_(+--)+T_(-+-)+T_(--+).
+```
+
+The all-even sector has only one fixed-mode zero, with slope `N/2`.  The
+other sectors have minimum zero orders `3,2,2`.  All pairs touching path
+index `0` or the survivor tail stay in a named boundary strip.  The
+default/alternate certificates have maximum errors `1.19e-15/9.48e-16`; the
+boundary strip carries relative Frobenius magnitude `0.788/0.780` and cannot
+be discarded.
+
+The correct hard package is provisionally
+
+```text
+canonical response + T_(+++) + T_n^partial,
+```
+
+with the three soft sectors retained as one filtered remainder.  This is an
+operator decomposition only; no sector receives a separate absolute value.
+
+## 2026-07-16 emission-grid trace-anomaly guard
+
+Proof 297 rejects the finite-section inference that the interior sector traces
+vanish.  On `ell2(N)`, set
+
+```text
+X=(S+S*)/2,
+Y=(S-S*)/(2i),
+M=(Y+2I)/4,
+K=M^(1/2),
+Delta=I-M.
+```
+
+Then `[X,M]` is rank one but
+
+```text
+Tr(K[X,M]K)=-i/16.
+```
+
+Every finite shift section adds an artificial far-boundary `+i/16` and
+reports zero.  Thus fixed-`S` trace-class membership of the completed
+commutator and commutation of the scalar filters do not permit cycling the two
+expanded non-trace-class terms separately.  Never delete `T_(+++)` from a
+finite sector-trace diagnostic.
+
+The next source attack is
+
+```text
+canonical + all-even + path boundary
+  -> substitute g_W=-E W C A iota_B-E A R[W,R]iota_B
+  -> recombine outer, second-support, and prolate branches
+  -> prove source-specific anomaly cancellation/control
+  -> attach the three soft stopped sectors
+  -> compact support
+  -> one absolute value.
+```
+
+See `docs/proofs/296_weighted_reflection_parity.md` and
+`docs/proofs/297_emission_trace_anomaly_guard.md`.  Gate 3U, finite-S sign,
+arithmetic same-object identity, negative-owner integration, Burnol identity,
+and RH remain open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-16 relative Gram heat boundary layer
+
+Proof 298 tests the entire finite path at the scale missed by the local
+reflection ledger.  Set
+
+```text
+K_epsilon=sqrt(epsilon)K,
+Gamma_epsilon=epsilon Gamma,
+epsilon=T/N.
+```
+
+Then Proof 290's complete `N`-step ordered response converges to
+
+```text
+Tr_B(N_W integral_0^T exp(-t Gamma)dt).
+```
+
+For `Delta=exp(-x/N)` and path indices proportional to `N`, all six parity
+filters have explicit nonzero hyperbolic limits.  All four Proof 296 sector
+products can survive.  The fixed-horizon double/triple-zero ledger is correct
+but cannot be combined with horizon-independent positive block norms.  The
+reflected DOI block-estimate lane is rejected as Gate 3U.
+
+Use instead the ordered relative heat pair
+
+```text
+Gamma_W(s)=K*exp(sW)K,
+C_B(s)=B exp(sW) B,
+Gamma_ord(s)=C_B(s)Gamma.
+```
+
+Proof 266 gives
+
+```text
+Gamma_W(s)-Gamma_ord(s) in S1,
+
+Gamma_W(s)Gamma_ord(s)^(-1)
+ =Gamma_W(s)Gamma^(-1)C_B(s)^(-1).
+```
+
+Hence its ordered heat first jet is exactly
+
+```text
+partial_s Tr(
+  exp(-t Gamma_W(s))-exp(-t Gamma_ord(s)))|_(s=0)
+ =-t Tr(N_W exp(-t Gamma)).
+```
+
+Do not replace `Gamma_ord(s)` by its positive similar representative
+`C_B(s)^(1/2)Gamma C_B(s)^(1/2)`.  Finite determinants agree, but Proof 264's
+similarity anomaly has physical/far boundary values `0.25/0.25` while the
+finite total trace is zero.  Such a replacement can erase the ordered
+arithmetic channel.
+
+The active sufficient Gate 3U theorem is now
+
+```text
+sup_(finite S,T>=0)
+ |integral_0^T
+   Tr_B(g_(W,S)^left K_S exp(-t Gamma_S))dt|
+
+ <=C(1+B_root)^d
+   norm(eta)_(H^r)norm(xi)_(H^r),
+```
+
+with
+
+```text
+g_W=-E W C A iota_B-E A R[W,R]iota_B.
+```
+
+Keep the outer, second-support, and prolate pieces inside this one numerator;
+apply compact displacement support before the signed time integration receives
+one absolute value.  The default/alternate Proof 298 certificates have
+maximum exact errors `4.91e-10/9.86e-10`, heat-jet errors
+`6.41e-11/1.38e-10`, and discrete-to-heat refinement ratios `4.05/4.04`.
+See `docs/proofs/298_relative_gram_heat_boundary_layer.md`.  Gate 3U,
+finite-S sign, arithmetic same-object identity, negative-owner integration,
+Burnol identity, and RH remain open.  No Lean owner or route rewire is
+authorized.
+
+## 2026-07-16 positive heat and diagonal joint-torsion cancellation
+
+Proof 299 factors the ordered endpoint determinant before attempting the
+uniform estimate.  Put
+
+```text
+G_s=K*exp(sW)K,
+C_s=B exp(sW)B,
+A_s=C_s^(1/2),
+Gamma_sym(s)=A_s Gamma A_s.
+```
+
+Then
+
+```text
+R_ord(s)=G_s Gamma^(-1)C_s^(-1),
+R_sym(s)=G_s Gamma_sym(s)^(-1),
+J(s)=Gamma_sym(s)Gamma^(-1)C_s^(-1),
+
+R_ord(s)=R_sym(s)J(s).
+```
+
+Proof 266 and positive functional calculus give all three operators as
+identity plus `S1`.  The anomaly factor satisfies
+
+```text
+J(s)
+ =[A_s,Gamma]_mult [Gamma,A_s^2]_mult,
+
+det J(s)=d(A_s,Gamma)^(-1).
+```
+
+This is a genuine determinant-invariant/joint-torsion factor.  Elgart--Fraas
+`arXiv:2110.00599` gives only sufficient hypotheses for such a multiplicative
+commutator determinant to equal one; those hypotheses are not route-owned.
+Migler `arXiv:1403.4882` and `arXiv:1409.6289` provide the determinant-
+invariant and functional-calculus architecture.  Never delete `J(s)` from a
+finite determinant calculation.
+
+At the first detector jet, split
+
+```text
+N_ord=K*WK-W_B Gamma,
+N_sym=K*WK-(W_B Gamma+Gamma W_B)/2,
+N_anom=[Gamma,W_B]/2.
+```
+
+For the route diagonal `W=C_g*C_g`, Proof 263 gives a real original endpoint
+trace and Proof 265 gives `N_ord in S1`.  Hence
+
+```text
+Tr(N_sym Gamma^-1) is real,
+Tr(N_anom Gamma^-1) is purely imaginary.
+```
+
+Their sum is the same real endpoint response, so
+
+```text
+Tr(N_anom Gamma^-1)=0,
+
+Q_S(g,g)
+ =Tr(N_sym Gamma^-1)
+ =partial_s log det(R_sym(s))|_(s=0).
+```
+
+This is the source-specific anomaly theorem left open by Proof 264.  Its scope
+is only the diagonal first jet at `s=0`; it does not imply `J(s)=I`,
+`det J(s)=1`, or cross-root anomaly cancellation.  Apply Proof 263 complex
+polarization after the diagonal estimate.
+
+The active Gate 3U endpoint theorem is now
+
+```text
+sup_(finite S)
+ |partial_s log det(R_(sym,S,g)(s))|_(s=0)|
+
+ <=C(1+B_root)^d norm(g)_(H^r)^2.
+```
+
+Equivalently, use the complete real heat owner
+
+```text
+integral_0^infinity
+ Re Tr_B(g_W* K exp(-t Gamma))dt,
+
+g_W=-E W C A iota_B-E A R[W,R]iota_B.
+```
+
+Keep the outer/second-support/prolate terms inside the real part and take one
+absolute value afterward.  Proof 298's `sup_T` bound is no longer a required
+gate; it remains a stronger sufficient theorem.  Proofs 282--283 retain the
+same endpoint in the moving synchronized coordinate and may still be used for
+Euler-time cancellation.
+
+Default/alternate Proof 299 certificates have maximum exact errors
+`2.38e-10/1.69e-10`, ordered/symmetric trace errors
+`7.07e-19/3.85e-19`, and generic infinite anomaly magnitudes
+`0.175/0.225`.  See `docs/proofs/299_positive_heat_joint_torsion.md`.
+Gate 3U, finite-S sign, arithmetic same-object identity, negative-owner
+integration, Burnol identity, and RH remain open.  No Lean owner or route
+rewire is authorized.
+
+## 2026-07-16 positive polar readback and one-prime no-gain guard
+
+Proof 300 identifies exactly what Proof 299's positive symmetric determinant
+buys.  With
+
+```text
+V=K Gamma^(-1/2),
+P_S=V V*,
+```
+
+the diagonal first jet is the original projection response:
+
+```text
+partial_s log det(R_sym(s))|_(s=0)
+ =Q_S(g,g)
+ =Tr(W_g(P_S-B)).
+```
+
+This is a scalar readback through Proofs 263, 264, and 299.  It does not cycle
+`Gamma^(-1/2)` through two separately non-trace-class terms, and it does not
+promote the finite normalized determinant identity to a nonlinear
+infinite-dimensional identity.
+
+The exact commuting one-prime guard is
+
+```text
+U=diag(1,-1),
+T_a=I-aU,
+B=|(1,1)/sqrt(2)><(1,1)/sqrt(2)|,
+
+Tr(diag(2,1)(P_a-B))=-a/(1+a^2),
+Tr(diag(1,2)(P_a-B))=+a/(1+a^2),
+
+a=p^(-1/2).
+```
+
+Both detectors are strictly positive and commute with `U`.  Hence positivity
+gives neither sign nor the extra half-power: the response is
+`O(p^(-1/2))`, while a uniform `O(p^(-1))` estimate fails in this abstract
+class.  The guard omits the actual Sonin geometry, so it does not reject a
+source-specific cancellation.
+
+Default/alternate Proof 300 certificates have maximum exact errors
+`7.66e-11/9.08e-11`, measured amplitude exponents `0.9982/0.9991`, and
+largest-prime `p`-scaled responses `1000.0/1414.2`.  See
+`docs/proofs/300_positive_polar_no_gain_guard.md`.
+
+The active analytic lane is no longer another endpoint-coordinate change.  It
+is Proof 277's complete Sonin Toeplitz covariance estimate `(AN.13)`, inserted
+inside Proof 283's complete signed moving-band transgression `(AT.18)` before
+any primewise or branchwise absolute value.  Gate 3U, the finite-S sign,
+arithmetic same-object identity, negative-owner integration, Burnol identity,
+and RH remain open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-16 support-first two-point covariance cocycle
+
+Proof 301 gives the exact projection-kernel identity
+
+```text
+S_J(w,h)
+ =1/2 sum_(x,y)
+    (w(x)-w(y))(h(x)-h(y))|J_(x,y)|^2.
+```
+
+For a compact root, the multiplier is reconstructed from its correlation
+`F_(eta,xi)`, with
+
+```text
+supp(F_(eta,xi)) subset [-2B_root,2B_root].
+```
+
+Therefore support enters before any raw mode or prime disintegration.  The
+nested route uses the signed kernel `|E_alpha(x,y)|^2-|R_alpha(x,y)|^2`; the
+outer, second-support, and prolate terms remain recombined.
+
+The actual synchronized flow is also checked.  With
+
+```text
+X_alpha=T_alpha' T_alpha^(-1),
+h_alpha=Re(X_alpha),
+```
+
+the moving derivative is the complete signed two-point pairing, and linearity
+in `h_alpha=sum_p h_(p,alpha)` preserves the full moving `E_alpha/R_alpha`
+kernel in every prime channel.  Default/alternate exact errors are
+`3.54e-17/2.86e-17` for support pairing, `4.86e-17/4.51e-17` for the complete
+prime-generator sum, and `2.08e-17/8.68e-17` for endpoint integration.
+
+The static normalized product difference has an exact telescope, but it is not
+the moving owner.  Replacing the moving projection kernel by the base kernel
+has relative gaps `0.890/0.907`; this shortcut is explicitly rejected.
+
+The provisional next theorem was a source-specific analytic strip for the
+combined moving `E/R/K_prol` two-point kernel.  Proof 302 rejects its unpaired
+global `Qdelta` contour form because of the `-2 Dirac_0` residue and oscillatory
+post-`Q` tail.  The active successor is now the source divided-difference
+bridge, with compact support and the residue paired before any estimate.  See
+`docs/proofs/301_support_first_two_point_cocycle.md` and
+`docs/proofs/302_quantized_divided_difference_residue_guard.md`.
+
+## 2026-07-16 quantized divided differences and post-Q residue guard
+
+Proof 302 corrects the contour successor using CC20's actual source formula.
+Before `Q`,
+
+```text
+sqrt(rho)|delta(rho)|=O(1).
+```
+
+But `delta'(1+)=1`, so in the logarithmic coordinate
+
+```text
+Q_+ delta(exp(|x|))=-2 Dirac_0+q_reg.
+```
+
+The regular post-`Q` tail is oscillatory and does not satisfy a global
+`exp(-z/2)` bound: the rejection ratios at `rho=1024/2048` are `4096/8192`.
+The weak distribution split is verified numerically, so the residue cannot be
+absorbed into an ordinary continuous kernel.
+
+CC20 Appendix D/E instead gives the source divided-difference kernel
+
+```text
+([H,f])(s,t)=i/pi * (f(s)-f(t))/(s-t),
+```
+
+whose diagonal singularity is removable and whose constant mode vanishes.
+Proof 302's two cohorts verify the divided-difference kernel at below
+`3e-16`, the double-pairing readback at below `9e-16`, and the weak Dirac split
+at `5.12e-11/2.71e-10`.
+
+The active successor is now a source-specific divided-difference bridge for the
+full moving `E/R/K_prol` kernel.  Isolate the diagonal residue, apply the
+quantized kernel to completed root pairings, recombine all physical branches,
+and only then seek the Gate 3U estimate.  Do not apply a global contour bound
+to `Qdelta` or `Qepsilon` before this split.  See
+`docs/proofs/302_quantized_divided_difference_residue_guard.md`.
