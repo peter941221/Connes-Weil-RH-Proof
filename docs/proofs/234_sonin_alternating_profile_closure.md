@@ -269,3 +269,9 @@ RH:                                             unproved
 
 The next proof must attack the sign of the named compact correction on the
 three-row subspace; further compactness refinements no longer move the route.
+
+Successor note: Proof 261 proves that the complete correction becomes trace
+class after the two specified compact smooth roots are attached, for every
+fixed finite `S`.  It does not claim that the unsmoothed pre-root compact
+operator in `(S.17)` is trace class or Hilbert--Schmidt.  Its trace-norm
+constant depends on `S`, so the signed uniform estimate remains open.

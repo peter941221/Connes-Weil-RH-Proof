@@ -1292,3 +1292,1139 @@ preserves the negative orbit and far tail.  It must still identify the
 ordinary regular kernel with the actual finite-S post-Q remainder on the same
 owner and prove Burnol's all-zero identity.  No route rewire is authorized;
 RH remains unproved.
+
+## 2026-07-14 detector-specific global contraction
+
+Proof 249 replaces the fixed-window control-row loop by a quantitatively
+different target.  The support-corrected translated-bump DFT construction is
+rejected: its control rows must use the full envelope
+`(n+1)*base span+correction span`, and the resulting interpolation is rank
+deficient from the first tested power.
+
+For an off-line centered point `delta+i*gamma`, the resonant pair
+
+```text
+h_ell(x)=[h(x-ell)+h(x+ell)]/[2 cosh(ell*delta)],
+ell*gamma=2*pi*N,
+```
+
+keeps the transform equal to one on the complete centered orbit and makes its
+global critical-line transform and `L1` mass strictly smaller than any chosen
+`q in (0,1)`.  The exact translation, resonance, orbit-preservation,
+half-density, and `L1` statements are now axiom-clean in
+`CC20YoshidaCriticalContraction.lean`.
+
+This permits a detector-specific version of Gate 3.  It is not necessary to
+prove `E_S<=0` on the complete three-row subspace.  It is enough to prove that
+the one negative Yoshida detector satisfies `|E_S|<1/2`; semilocal trace
+positivity then bounds its Weil value below by `-1/2`, while the orbit sum
+`-2` and a small all-other-zero tail bound it above by `-7/4` after the Burnol
+identity.
+
+The exact remaining quantitative contract is a support-uniform estimate whose
+fully dressed prime-power terms are bounded by
+
+```text
+poly(m) p^(-m),
+```
+
+not the current absolute `p^(-m/2)` interior majorant.  Summing `p^(-m)` over
+the prime powers visible in support `[-B,B]` costs only a polynomial in `B`, so
+the `q^(2n)` graph-energy decay wins.  Summing `p^(-m/2)` costs exponentially
+in `B` and rejects this route.  Proof 228 supplies the second half-power for
+the endpoint chirp; the next gate is the same `TT*`/nonstationary-phase gain
+for all Proof 229 interiors after the graph dressings of Proofs 230--234.
+
+No negative-owner assembly with this base, quantitative finite-S theorem,
+Burnol Lean identity, route rewire, or RH proof is claimed.
+
+## 2026-07-15 chirp-mixture tail gain and central obstruction
+
+Proof 250 replaces the proposed generic `TT*` step by an exact calculation.
+On the Proof 229 negative cell `x=-n log(p)-t`, the two half-density factors
+cancel and the fast phase separates:
+
+```text
+A_(p,n)(r,t)=exp(r/2)b_(p,n)(t),
+Phi_(p,n)(r,t)=exp(+-2*pi*i*p^n*exp(r+t)).
+```
+
+The derivative transfer satisfies
+
+```text
+(partial_r-partial_t)^2[exp(r/2)b(t)]
+ =exp(r/2)(partial_t-1/2)^2b(t).
+```
+
+Thus every complex interior is a Bochner integral of Proof 228 chirps at
+frequency `p^n exp(t)`.  Their exact Plancherel norm gives
+
+```text
+norm(T_(p,n))<=C(1+log(p))p^(-n),  n>=1.
+```
+
+The no-prolate dressings in Proofs 230--234 preserve this tail bound: the
+scattering and Euler factors commute with `Q`, half-line cutoffs are
+contractions, and the polynomial word count sums against
+`eta^k`, `eta<=2sqrt(2)/3`.
+
+This does not pass Proof 249's complete gate.  The central cell `n=0` has
+scale `p^(-1/2)log(p)`, not `p^(-1)`.  Stable Nyström refinements through
+`p=211` agree with that scale.  The resonant pair's sparse binomial support
+cannot compensate: its exact two-sided moment at the half-prime exponent is
+
+```text
+[cosh(ell/2)/cosh(ell*|delta|)]^(2N)>1
+```
+
+for every off-line `|delta|<1/2`.  Hence neither an absolute central estimate
+nor a support-cluster count closes detector smallness.
+
+The next gate is now narrower and signed.  Compute the central coefficient of
+the complete same-object crossing
+
+```text
+Y_alpha+Y_alpha*,
+```
+
+before separating its phase, metric, half-line, or prolate branches.  A viable
+successor must prove either exact central cancellation, or a decomposition
+
+```text
+complete remainder
+ =nonnegative scalar * common central operator
+  +poly(log(p))O(p^(-1)) tail
+```
+
+with a favorable sign of the common operator on the same negative Yoshida
+detector.  If neither statement holds, Proof 249's detector-specific route is
+rejected.  The Burnol identity and finite-S trace identity remain open; no
+route rewire is authorized and RH remains unproved.
+
+## 2026-07-15 complete central gain and mixed-prime curvature
+
+Proof 251 tests the complete nested projection before splitting its phase and
+metric amplitudes.  The one-prime first variation now has strong finite-section
+evidence for the missing half-power: after multiplying by
+`a=exp(-L/2)`, the long-translation norm behaves like `exp(-L)`.  This remains
+a continuous-kernel obligation rather than a theorem.
+
+The multi-place transport introduces a new earlier death gate.  For a fixed
+projection `P` and commuting translations `U,V`, let `P_(a,b)` be the
+orthogonal projection onto `(I-aU)(I-bV) Ran(P)`.  Proof 251 derives the exact
+mixed Hessian
+
+```text
+H_P(U,V)
+ =D+D*+A_U A_V*+A_V A_U*-A_U* A_V-A_V* A_U,
+
+A_U=(I-P)UP,
+A_V=(I-P)VP,
+D=(I-P)UVP-(I-P)UPVP-(I-P)V P U P.
+```
+
+The formula agrees with an independent QR finite difference.  In the nested
+half-line/Sonin finite section, the post-Q half-line Hessian cancels and the
+Sonin Hessian survives.  At fixed separation `M-L=0.5`, its coefficient is
+constant under common translation, so the dressed mixed term scales as
+
+```text
+exp(-(L+M)/2)=1/sqrt(p*q),
+```
+
+not `1/(p*q)`.  The root operator remains indefinite after the two genuine
+pre-root rows.  Fixed 8-mode Dirichlet spaces retain both signs from step
+`0.05` through `0.025`, and Proof 240's explicit four-mode row witness has a
+positive mixed value on every refinement while its row quadrature residual
+decreases.
+
+This is not yet a continuous rejection.  The next theorem must evaluate the
+continuous mixed Sonin curvature on that explicit witness and prove or reject
+a nonzero common-translation limit.  A nonzero value on an open interval of
+`log(q/p)` rejects termwise absolute finite-S smallness because comparable
+prime pairs retain the half-power-product density.  It does not reject signed
+aggregate cancellation or a detector constructed to annihilate the complete
+finite-S bad space.  Those are the only active successors if the continuous
+death theorem passes.  Burnol's all-zero identity, the same-object finite-S
+trace identity, and RH remain open; no route rewire is authorized.
+
+## 2026-07-15 synchronized finite-S logarithmic flow
+
+Proof 252 attacks the signed-aggregate successor left open by Proof 251.  For
+the complete finite place set, define
+
+```text
+T_S(t)=product_(p in S)(I-t p^(-1/2)U_p).
+```
+
+All `U_p` are commuting logarithmic translations.  Hence
+
+```text
+X_S(t):=T_S'(t)T_S(t)^(-1)
+ =-sum_(p in S)sum_(m>=1)t^(m-1)p^(-m/2)U_p^m.
+```
+
+This is the exact Euler prime-power resolvent before any trace or norm.  Apply
+the general projection derivative to the transported half-line and Sonin
+ranges.  Their nested difference satisfies
+
+```text
+B_S'(t)=Y_S(t)+Y_S(t)*,
+
+B_S(1)-B_S(0)
+ =integral_0^1 (Y_S(t)+Y_S(t)*) dt.
+```
+
+The companion finite-section script verifies this endpoint identity, the
+right logarithmic derivative, mixed-Hessian polarization, factor-order
+independence, and an independent direct Fourier-product construction.  The
+default endpoint integration error is `6.17e-10`; the algebraic checks are at
+roundoff scale.
+
+The route-level observation is that Proof 251's degree-two pair Hessian does
+not approximate the complete endpoint once many local factors are present.
+On the fixed four-mode witness it reaches about `+1.31` by `p<=97`, while the
+complete endpoint is about `-1.12`.  Through `p<=997`, the complete tested
+endpoint remains negative and bounded even though `sum p^(-1/2)` is about
+`12.65`.  This is only a survivor diagnostic.  The values are box-sensitive,
+not converged, and every complete constrained root operator remains
+indefinite.  Finite-dimensional projection boundedness cannot be promoted to
+a continuous estimate.
+
+The active Gate 3 bottom is now the complete synchronized flow form
+
+```text
+q_(S,t)(eta,xi)
+ =Tr(C_(L_+ eta)(Y_S(t)+Y_S(t)*)C_(L_+ xi)*).
+```
+
+A successor must construct its continuous finite-window kernel and prove that
+its integral is small on the actual resonant negative-owner sequence,
+uniformly in the visible sets `S_n`, without bounding the prime-power
+resolvents separately.  CCM24's common de Branges carrier and multiplicative
+metric are the intended coordinates.  CC20's prolate correction must remain
+in the identity.
+
+This does not reopen the rejected direct cocycle, compact Wiener--Hopf repair,
+or Fredholm determinant routes.  The factorwise logarithmic derivative is not
+`Tr log`; both nested ranges are transported before `Q`, and no compact term is
+asked to cancel an unchanged essential prime symbol.  Proof 251 remains a
+guard against pairwise absolute estimates, but its continuous nonzero pair
+value is no longer the decisive death theorem for the complete owner.  The
+negative-owner integration, Burnol identity, same-object finite-S trace
+identity, and RH remain open; no route rewire is authorized.
+
+## 2026-07-15 nested Berezin synchronized flow
+
+Proof 253 identifies Proof 252's complete synchronized kernel on CCM24's
+common Mellin carrier.  The original CCM24 TeX defines
+
+```text
+E_S(s)=product_(v in S)L_v(1/2+is)
+```
+
+as the real-axis weight in `ds/|E_S|^2`.  It does not supply a semilocal
+Hermite--Biehler structure function; the relevant source paragraph is inside
+an `\iffalse` block and discusses only Burnol's archimedean case.  Hence the
+complete Sonin kernel cannot be replaced by a guessed Euler phase.
+
+For `J=R,E`, the exact changed-metric projection is
+
+```text
+J_(S,t)
+ =M_(tau)J(J M_(|tau|^2)J)^(-1)J M_(conj(tau)).
+```
+
+Its diagonal kernel density satisfies the synchronized Berezin identity
+
+```text
+partial_t k_J(s)
+ =2 Re integral
+    (x_(S,t)(s)-x_(S,t)(u))|K_J(s,u)|^2 du,
+
+x_(S,t)=partial_t log(tau_(S,t)).
+```
+
+For the nested band `B=E-R`, this splits exactly into a band variance and a
+Sonin--band coherence.  If `w=|Fourier(L_+xi)|^2` and `h=Re(x)`, the full
+instantaneous root form is
+
+```text
+q_(S,t)(xi)
+ =D_(E_(S,t))(w,h)-D_(R_(S,t))(w,h),
+
+D_J(w,h)=<[M_w,J],[M_h,J]>_HS.
+```
+
+This is a double-difference formula.  Every scalar component of `h` cancels
+exactly, including the endpoint bulk
+`sum_p p^(-1/2)/(1-p^(-1/2))`.
+
+Normalize the complete transport by the scalar
+`product_p(1-t p^(-1/2))`.  The resulting metric is pointwise at least the
+identity.  All compressed metric inverses and the nested Schur-complement
+inverse therefore have norm at most one, uniformly in `S`.  Its normalized
+real generator is a nonnegative sum of `1-cos(m log(p)s)` modes, and the
+inverse ambient metric is a probability average of independent two-sided
+geometric prime-log translations.
+
+The finite-section certificate verifies all four independent forms of the
+kernel derivative, scalar-gauge invariance, metric monotonicity, and the path
+endpoint.  Through `p<=997`, a scalar bulk about `16.96` and normalized
+generator maximum about `23.27` coexist with order-one exact responses:
+
+```text
+D_E=-2.378,
+D_R=-1.629,
+band variance=-2.763,
+coherence=+2.014,
+complete=-0.748.
+```
+
+The values are not a continuous convergence theorem and do not prove a sign.
+Metric monotonicity does not order the projection flow, which remains
+indefinite by Proof 227.
+
+The active Gate 3 bottom is now the detector-specific estimate
+
+```text
+integral_0^1 [D_(E_(S_n,t))(w_n,h_(S_n,t))
+              -D_(R_(S_n,t))(w_n,h_(S_n,t))] dt=o(1),
+```
+
+uniformly for the visible finite sets of the actual resonant negative-owner
+sequence.  A sufficient proof may use the normalized inverse's probability
+average together with compact root support, but it must retain the difference
+`D_E-D_R`.  Separate absolute estimates can recreate the rejected
+`sum p^(-1/2)` route.  Do not apply standalone Hilbert--Schmidt
+Cauchy--Schwarz to the raw Euler commutator; its trace legality comes only
+after the root smoothing and boundary cancellation remain together.  The
+negative-owner integration, Burnol identity, same-object finite-S trace
+identity, and RH remain open; no route rewire is authorized.
+
+## 2026-07-15 shorted Markov boundary gate
+
+Proof 254 tests the probability-average successor proposed by Proof 253.  It
+first strengthens the exact normalization.  If
+
+```text
+Ttilde_(S,t)
+ =product_(p in S)(I-r_p U_p)/(1-r_p),
+r_p=t p^(-1/2),
+```
+
+then the inverse transport itself is a one-sided Markov convolution:
+
+```text
+Ttilde_(S,t)^(-1)
+ =E[U_(sum_p N_p log(p))],
+P(N_p=n)=(1-r_p)r_p^n.
+```
+
+Its metric square gives Proof 253's independent two-sided geometric law.  For
+a compact root `g` supported in `[-B,B]`, the legally smoothed half-line
+crossing has trace `z F(-z)`, where `F` is the autocorrelation of `g`.
+Therefore `F(z)=0` for `|z|>2B` and every probability average obeys
+
+```text
+abs(E[z F(-z)])<=2B ||g||_2^2,
+```
+
+uniformly in `S`.  This closes the ambient Markov boundary response without
+using a moment of the random prime-log shift.
+
+The compression step has an exact additional owner.  With
+`M=Htilde^-1`, block inversion gives
+
+```text
+(J Htilde J)^-1
+ =J M J-J M(I-J)((I-J)M(I-J))^-1(I-J)M J.
+```
+
+For the nested decomposition `I=R+B+C`, the Schur inverse is
+
+```text
+Sigma^-1=B M B-B M C(C M C)^-1 C M B.
+```
+
+The second term is a positive shorting defect and is not a probability
+convolution.  A closed two-mode model proves that this is a real logical gate:
+`Htilde>=I`, a Markov inverse, nested projections, and a nonnegative detector
+vanishing at the Markov fixed mode coexist with a complete response tending to
+`-1`.  Repeating legal local factors realizes the required large total
+condition while every local Euler parameter remains below `1/sqrt(2)`.
+
+The WSL certificate verifies the one- and two-sided characteristic functions,
+the compact crossing trace, both shorting formulas, positivity, and the closed
+two-mode response at errors at most `7.9e-14`.  An optimized optional section
+through `p<=100000` is deliberately nonconverged: at sizes `384,512,640,768`
+the root norm is approximately `4.04,17.16,7.52,10.71`, the fixed witness
+changes sign, and the selected finite Sonin rank remains `9`.  These values
+reject fixed-box acceptance but are not a continuous divergence theorem.
+
+The active Gate 3 theorem is now a shorted Sonin boundary estimate.  Insert
+
+```text
+B=P(I-P_hat)P+K_prol
+```
+
+into the exact shorted difference, retain all three half-line branches and the
+band/coherence pairing, apply compact support to each completed crossing, and
+only then expand the Markov law.  A uniform polynomial bound closes Proof
+249's detector smallness; a conditioned-return coefficient with
+super-polynomial support growth rejects that route.  The negative-owner
+integration, Burnol identity, same-object finite-S trace identity, and RH
+remain open; no Lean owner or route rewire is authorized.
+
+## 2026-07-15 nested shorting cancellation and dual-frame gate
+
+Proof 255 rejects the standalone positive shorting-defect target left by
+Proof 254.  For the nested Schur frame
+
+```text
+A_R=R H R,
+Z=B-R A_R^-1 R H B,
+G=T Z,
+Sigma=G*G,
+```
+
+the oblique band projection satisfies
+
+```text
+A_obl=(I-R_T)T E T^-1,
+
+A_obl A_obl*-B_T
+ =(A_obl-B_T)(A_obl-B_T)*
+ =G[B M C(C M C)^-1 C M B]G*.
+```
+
+This is exact but cannot be estimated by positive domination.  In an exact
+three-dimensional Markov model, the phase and defect both grow as
+`kappa^2/4` while the orthogonal response remains bounded.  In the actual
+finite Sonin geometry through `p<=997`, the two positive traces are about
+`1.3262e11`, their difference is about `76.85`, and the oblique norm is about
+`1.13e7`.
+
+The canonical polar isometry
+
+```text
+V=G Sigma^-1/2,
+V*V=B,
+VV*=B_T
+```
+
+recombines the cancellation.  Its response operator obeys the exact
+Sylvester equation
+
+```text
+Omega X+X Omega=V* K+K* V,
+
+Omega=Sigma^1/2,
+X=V* W V-B W B,
+K=W G-G B W B.
+```
+
+Since the normalized metric has `H>=I`, one has `Sigma>=I`.  This removes any
+inverse-square-root condition loss, but a raw trace norm of the expanding
+`K` still grows with the outer Euler product and is rejected.
+
+The stronger owner is the inverse-metric dual frame
+
+```text
+D=B-C(C M C)^-1 C M B,
+F=T^(-*)D=G Sigma^-1.
+```
+
+It satisfies
+
+```text
+G*F=F*G=B,
+G F*=F G*=B_T,
+F*F=Sigma^-1<=B.
+```
+
+For the route's convolution detector `W`, `WT=TW`, so the outer Euler
+transport deletes exactly:
+
+```text
+Tr(W(B_T-B))
+ =Tr_B(F* W G-B W B)
+ =Tr_B(D*(W Z-Z B W B)).
+```
+
+Across physically larger finite sections containing all translations through
+`p<=997`, the intrinsic defect trace norm stays about `19.7--24.4` while the
+separated phase remains `5.6e10--8.0e10`.  This is strong survivor evidence
+for the new organization, not a continuous theorem or convergence claim.
+
+The active Gate 3 theorem is now a trace-legal polynomial-support estimate for
+the exact dual-frame pairing above, uniform in the visible finite set and the
+synchronized flow parameter.  The proof must insert
+`B=P(I-P_hat)P+K_prol`, retain the three half-line/scattering branches and the
+prolate term, apply compact support before the Markov expansion, and keep `D`
+paired with `Z`.  A polynomial support bound closes Proof 249's detector
+smallness; exponential conditioned-return growth rejects it.  The
+negative-owner integration, Burnol all-zero identity, same-object finite-S
+trace identity, and RH remain open.  No Lean owner or route rewire is
+authorized.
+
+## 2026-07-15 one-sided shorting collapse
+
+Proof 256 removes the conditioned inverse from Proof 255's dual coframe.  In
+Proof 222's source orientation the whole-line Euler inverse `A=T^-1` is a
+normal one-sided convolution, while the opposite half-line `C` is invariant
+under both `A` and `T`.  With `M=(T*T)^-1=A*A`, normality permits the causal
+factorization
+
+```text
+C M C=(C A C)*(C A C),
+C M B=(C A C)* C A B.
+```
+
+Consequently
+
+```text
+D
+ =B-C(C M C)^-1 C M B
+ =T E T^-1 B.
+```
+
+Thus `(C M C)^-1` is not an independent analytic target.  It is exactly the
+one-sided spectral factor hidden inside the oblique half-line lift.
+
+For
+
+```text
+L=(R H R)^-1 R H B,
+Z=B-RL,
+Y=WZ-Z B W B,
+K_E=D-B,
+```
+
+the intrinsic response now splits as
+
+```text
+D*Y=-B W R L+K_E*Y.
+```
+
+The second term is a completed two-crossing channel.  The first is the
+remaining complete-S Sonin graph channel.  It should not be estimated by a raw
+endpoint norm of `L`.
+
+The next organization uses the second support projection `Q`:
+
+```text
+B W R=B Q W R+B(I-Q)[W,Q]R,
+(B Q)(B Q)*=K_prol on B.
+```
+
+It then differentiates the graph along the synchronized flow:
+
+```text
+L_t'=A_t^-1 R H_t' Z_t
+    =A_t^-1/2 V_(R,t)* K_t G_t,
+V_(R,t)*G_t=0.
+```
+
+The scalar Euler bulk cancels in this formula.  A successor must pair these
+detector/prolate crossings with the graph flow inside the trace, use the
+contractive dual frame before any norm, and prove a polynomial support bound.
+Separate norms of `G_t`, `L_t`, or prime channels can recreate the rejected
+Euler condition number or the insufficient `p^(-m/2)` sum.
+
+The WSL certificate passes with maximum triangular error `4.47e-16` and
+maximum response-split error `7.13e-12`.  Its periodic and causal models are
+complementary only: periodic FFT preserves normality but loses the invariant
+half-line; zero-fill preserves causality but loses normality at the artificial
+outer endpoint.  The causal central commutator is `5.35e-14` while its global
+commutator error is `0.289`, confirming boundary localization rather than a
+continuous counterexample.
+
+The active Gate 3 theorem remains the uniform polynomial-support estimate for
+the complete two-boundary pairing.  Negative-owner integration, the Burnol
+all-zero identity, the same-object finite-S trace identity, and RH remain
+open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-15 two-boundary Q-preserving flow
+
+Proof 257 closes the trace legality of Proof 256's hard endpoint channel and
+then retires its graph coordinate as the proposed norm target.  With `E,Q`
+the two source support projections, `R` their Sonin intersection, and
+`B=E-R`, CC20's exact spectral decomposition is
+
+```text
+E Q E=R+K_prol,
+K_prol=sum_n lambda(n)^2 |zeta_n><zeta_n|.
+```
+
+Therefore
+
+```text
+(B Q)(B Q)*=K_prol on B,
+
+B W R
+ =B Q W R+B(I-Q)[W,Q]R.
+```
+
+CC20's explicit rapid-decay bound makes `BQ` trace class, and Appendix D
+makes the smoothed commutator `[W,Q]` trace class.  Thus `BWRL` is trace legal
+for every fixed finite `S`.  This supplies no uniform bound on `L`.
+
+The stronger source owner uses preservation of the second support orientation
+by the CCM24 transport.  For
+
+```text
+E_t=projection onto T_t Ran(E),
+R_t=projection onto T_t Ran(R),
+B_t=E_t-R_t,
+X_t=T_t'T_t^-1,
+```
+
+one has `R_t<=Q` and `(I-Q)X_tQ=0`.  Proof 252's band derivative therefore
+factors exactly as
+
+```text
+B_t'=Y_t+Y_t*,
+
+Y_t
+ =(I-E_t)X_tB_t-R_tX_t*Q B_t.
+```
+
+Every scalar addition to `X_t` cancels in the two displayed branches.  This
+orthogonal flow, not the endpoint graph `L_t`, is now the active analytic
+owner.
+
+The current second-support leakage must be completed before estimation.  If
+`U_t=(I-R_t)T_tB Sigma_t^-1/2` is the band isometry, then
+
+```text
+Q U_t
+ =(Q-R_t)[T_t Q B+[Q,T_t]B]Sigma_t^-1/2.
+```
+
+This exposes exactly three branches: the crossed outer half-line, the crossed
+second half-line, and the base CC20 prolate leakage.  Do not call `Q B_t`
+compact by itself.  Keep all three branches with the compact root before any
+absolute estimate.
+
+CC20 gives the explicit super-exponential bound
+
+```text
+|lambda(n)|
+ <=2^(2n) pi^(2n+1/2) ((2n)!)^2
+   /[(4n)! Gamma(2n+3/2)]
+ =exp(-2n log n+O(n)).
+```
+
+This suggests a high-mode cutoff `N(B)=O(B/log B)` capable of beating an
+exponential support envelope.  The constants and the complete low-mode bound
+remain open.  Do not introduce growing control rows until their interpolation
+and support cost are quantitatively proved; Proof 248 remains the guard.
+
+The exact WSL certificate reports generic two-projection error below
+`9.9e-16`, graph-flow error `1.21e-10`, Q-preserving nonzero-time flow error
+`1.71e-9`, and strict Sonin-flow error below `4.4e-14`.  Three physical
+sections through `p<=997` keep the hard absolute flow between `0.91` and
+`1.22` and the complete response between `-1.43` and `-1.16`, while the old
+separated phase is `10^10--10^11`.  This is survivor evidence only.
+
+Periodic transported-Q values are rejected as continuous evidence.  By
+`p<=997` the periodic model has `R_t<=Q` residual about `0.4`, exactly because
+the circle destroys the one-sided invariant half-line.  The independent
+Q-preserving model is the certificate for the new identity.
+
+The active Gate 3 theorem is now a polynomial-support bound for the complete
+three-branch Q-preserving flow.  Negative-owner integration, the same-object
+finite-S trace identity, the Burnol all-zero identity, and RH remain open.  No
+Lean owner or route rewire is authorized.
+
+## 2026-07-15 covariant transported-prolate cancellation
+
+Proof 258 rejects a tempting but invalid estimate left by Proof 257.  In the
+exact Q-preserving two-dimensional model
+
+```text
+Q=|e_1><e_1|,
+b_kappa=(kappa e_1+e_2)/sqrt(1+kappa^2),
+T_kappa=[[1,-kappa],[0,1]],
+```
+
+scale `T_kappa` so that `T_kappa*T_kappa>=I`.  The normalized transported band
+is `e_2`, so its complete Q leakage is zero, while
+
+```text
+T_kappa Q b_kappa Sigma_kappa^-1/2=+kappa e_1,
+[Q,T_kappa]b_kappa Sigma_kappa^-1/2=-kappa e_1.
+```
+
+Thus the two endpoint branches in Proof 257 can be arbitrarily large and
+cancel exactly.  Separate high-prolate and second-boundary triangle estimates
+are rejected even under Q invariance and the normalized metric lower bound.
+
+The replacement uses the orthogonal band projection `P_t=B_t`.  Define
+
+```text
+A_t=[P_t',P_t],
+mathcalU_t'=A_t mathcalU_t,
+mathcalU_0=I.
+```
+
+Then `A_t` is skew-adjoint,
+
+```text
+P_t=mathcalU_t P_0 mathcalU_t*,
+
+C_t=Q mathcalU_tP_0,
+C_tC_t*=Q P_tQ,
+
+C_t
+ =Q P_0+integral_0^t Q[P_s',P_s]mathcalU_sP_0 ds.
+```
+
+The CC20 prolate leakage is now only the initial condition `C_0=QP_0`; it is
+never multiplied by a raw norm of `T_t`.  The evolution is driven by Proof
+257's complete scalar-free band derivative.  The active analytic target is a
+root-smoothed Hilbert--Schmidt estimate for this Kato/Duhamel flow, followed by
+the compatible second factor needed for the trace.
+
+The WSL certificate verifies the branch counterexample through
+`kappa=10000` with relative sum error below `8.7e-19`.  An independent
+Q-preserving nested flow verifies Kato unitarity and transported projection
+identities below `1.3e-15`; the independent finite-difference derivative error
+is `2.70e-9`.
+
+Do not return to `norm(T_tQB)+norm([Q,T_t]B)`, a raw transported prolate tail,
+or a separate graph norm.  The uniform root-smoothed covariant estimate,
+negative-owner integration, same-object finite-S trace identity, Burnol
+identity, and RH remain open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-15 Kato trace-factorization gate
+
+Proof 259 audits whether Proof 258's covariant leakage can carry the route
+trace.  It cannot.  Put
+
+```text
+V_t=mathcalU_tB,
+C_t=QV_t,
+D_t=(I-Q)V_t.
+```
+
+Then
+
+```text
+B_t=V_tV_t*
+   =C_tC_t*+C_tD_t*+D_tC_t*+D_tD_t*,
+C_tC_t*=QB_tQ.
+```
+
+The convolution detector does not factor through `Q`, so `C_t` omits three
+blocks of the projection response.  Differentiation only gives
+
+```text
+C_t'=Q A_tV_t,
+A_t=[B_t',B_t]=Y_t-Y_t*.
+```
+
+This is one corner of the full lower crossing.  A Q-preserving nested `C^4`
+model uses a diagonal nonunitary transport which commutes with the positive
+detector and has normalized metric at least the identity.  It makes `C_t`
+constant and nonzero while the detector sees endpoint response `1/4` and
+derivative response `sqrt(3)/4`.  Thus no estimate based only on `C_t`, `C_t'`,
+or `C_tC_t*` determines the route trace.
+
+The natural Kato-frame split fails the project trace standard:
+
+```text
+C_eta B_t'C_xi*
+ =(C_eta A_tV_t)(C_xiV_t)*
+   +(C_etaV_t)(C_xiA_tV_t)*.
+```
+
+The factors `C_gV_t` need not be Hilbert--Schmidt.  On `L2(R)`, for any
+nonzero convolution kernel `g`,
+
+```text
+norm(C_gP_+)_HS^2
+ =integral_(y>=0) integral_R |g(x-y)|^2 dx dy
+ =infinity.
+```
+
+By contrast, a completed translation crossing satisfies
+`norm(C_g[P_+,U_b])_HS^2=|b|norm(g)_2^2`.  The boundary crossing, not the
+transported infinite frame, supplies the ideal property.
+
+The full Kato generator has the trace-compatible identity
+
+```text
+Tr(C_eta B_t'C_xi*)
+ =Tr([B_t,C_xi*] C_eta A_t)
+   +Tr([B_t,C_eta] A_t C_xi*).
+```
+
+This preserves `A_t=Y_t-Y_t*` before taking a norm.  It yields two legal scalar
+trace products if the band/root commutators and the root-smoothed full
+generator are Hilbert--Schmidt.  It does not prove that the original smoothed
+route operator is trace class.  The required source-specific owner has the
+stronger shape
+
+```text
+Y_t=L_tR_t,
+C_etaL_t in S2,
+R_tC_xi* in S2,
+C_etaY_tC_xi*=(C_etaL_t)(R_tC_xi*) in S1.
+```
+
+The outer boundary, second-support boundary, and base prolate term must remain
+recombined inside this factorization.  Putting them in separate direct-sum
+factors replaces their cancellation by a sum of squared norms.
+
+The research audit found no standard shortcut.  Kato transport
+(`arXiv:1106.4661v2`, Section 2.1, equations (5)--(7)) transports the ranges of
+a norm-differentiable projection family.  The Hilbert--Schmidt restricted
+Grassmannian in `arXiv:0808.2525v1` lies inside `P+S2`, and the horizontal lift
+in `arXiv:0808.2274v1`, Proposition 2.2, assumes an `S2`-valued tangent.
+`arXiv:1310.1778`, Section 2.3, likewise uses Hilbert--Schmidt graph maps as the
+chart definition.  These results assume the missing ideal property; they do
+not produce it from bounded Kato flow.  Unitarity avoids an exponential
+Gronwall factor, but the estimate still depends on the forbidden ambient
+length `integral norm(B_t')_2 dt`.
+
+The WSL certificate verifies the Kato trace identity at relative error
+`1.98e-16`, its two-factor expansion at `9.88e-17`, and the leakage-blindness
+model with maximum algebra error `3.45e-16`.  No continuous Schatten bound
+follows from the finite model.
+
+Proof 258's Kato identities and `C_t` remain useful diagnostics.  Its proposed
+seminorm `norm(C_gC_t)_HS` is retired as the active bottom.  Gate 3 returns to
+Proof 227's complete-crossing factorization, now with the two required
+Hilbert--Schmidt maps named explicitly.  The uniform polynomial-support bound,
+negative-owner integration, same-object finite-S trace identity, Burnol
+identity, and RH remain open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-15 Schatten legality versus signed trace cancellation
+
+Proof 260 finds that Proof 259's successor contract still combined two
+different obligations.  A completed finite half-line crossing does have the
+requested source-owned factorization.  On `L2(R)`, put
+
+```text
+Y_(I,b)=U_b E_I,
+K_(I,b,g)=C_g Y_(I,b) C_g*.
+```
+
+Factoring through `L2(I)` gives
+
+```text
+K_(I,b,g)
+ =(C_g U_b i_I)(r_I C_g*),
+
+norm(C_g U_b i_I)_2^2
+ =norm(r_I C_g*)_2^2
+ =|I| norm(g)_2^2.
+```
+
+Thus both factors are legal Hilbert--Schmidt maps.  They also attain the
+minimum possible positive factor cost:
+
+```text
+Tr(K_(I,b,g))=|I| F_g(b),
+norm(K_(I,b,g))_1=|I| norm(g)_2^2.
+```
+
+If the root is supported in `[-B,B]` and `|b|>2B`, then `F_g(b)=0`.  The
+scalar trace is exactly zero, while the nuclear norm and the optimal product
+of the two Hilbert--Schmidt norms remain strictly positive.  Schatten Holder
+therefore cannot retain the compact-support cancellation, even with the best
+factorization.
+
+Putting the outer boundary, second boundary, and base prolate pieces in a
+Hilbert direct sum replaces their signs by sums of squared norms.  A signed or
+Krein direct sum keeps the algebraic signs but its positive Hilbert majorant
+has the same defect.  A fused factorization can improve the estimate only if
+one first proves cancellation of the full trace norm, which is stronger than
+Proof 253's scalar `D_E-D_R` identity and is not supplied by CC20 or CCM24.
+
+An exact continuous guard uses disjoint intervals `I_n` of length
+`b_n=2^n b_0`, `b_0>2B`, and
+
+```text
+K_n=b_n^(-1)U_(b_n)C_gE_(I_n)C_g*.
+```
+
+Every `K_n` has zero diagonal trace, constant trace norm `norm(g)_2^2`, and
+operator norm tending to zero.  Placing their input and output supports
+orthogonally makes `sum_n K_n` compact but not trace class.  Hence Proofs
+228--234's operator-norm compactness cannot be upgraded to ordinary trace
+legality by abstraction.  This guard does not prove that the actual Euler
+operator is non-trace-class; it proves that its additional operator-level
+cancellation must be constructed.
+
+Peller's criterion (`arXiv:2402.09853`, Sections 5.2--5.3) says that the Hardy
+commutator `[M_phi,P_+]` is in `S_p` exactly when `phi` is in
+`B_p^(1/p)`.  At `p=1`, a verified `B_1^1` symbol can close fixed-symbol trace
+legality.  The theorem does not supply the complete three-branch symbol or a
+uniform signed estimate; its Besov norm charges modulation mass which the
+root autocorrelation can cancel at the scalar trace.
+
+Gate 3 is now split:
+
+```text
+Gate 3L:
+  prove C_eta(Y_(S,t)+Y_(S,t)*)C_xi* is in S1
+  for the fully recombined fixed-S source flow;
+
+Gate 3U:
+  identify that ordinary trace with the same-object signed
+  D_E-D_R / physical three-branch expression and prove the
+  polynomial-support bound uniformly in S.
+```
+
+Two-Hilbert--Schmidt factors remain an allowed Gate 3L certificate.  Their norm
+product is forbidden as the Gate 3U estimator.  The WSL certificate reports
+zero scalar trace, trace norm `40`, optimal factor product `40`, and maximum
+algebra error `2.31e-15`; its four crossing blocks have trace norm one each
+while their operator norms decrease from `0.539` to `0.0807`.
+
+The fixed-`S` ordinary trace-class theorem, the uniform signed bound,
+negative-owner integration, same-object finite-S trace identity, Burnol
+identity, and RH remain open.  No Lean owner or route rewire is authorized.
+
+## 2026-07-15 fixed-S trace-class gate
+
+Proof 261 closes Gate 3L at the mathematical route-evidence level.  Let `G` be
+one compact-root convolution.  CC20 Lemma `quantsmooth` gives `[G,P] in S1`
+for the crossed half-line projection.  The scattering identity and
+
+```text
+P P_hat P=R+K_prol,
+K_prol in S1,
+```
+
+give `[G,R] in S1` as well.
+
+For `J in {E,R}`, extend the compressed metric to the ambient space:
+
+```text
+A_(J,t)=J H_t J+(I-J),
+D_(J,t)=A_(J,t)^(-1).
+```
+
+The root commutes with the complete Euler metric.  Hence
+
+```text
+[G,A_(J,t)] in S1,
+[G,D_(J,t)]
+ =-D_(J,t)[G,A_(J,t)]D_(J,t) in S1.
+```
+
+The transported projection
+
+```text
+J_t=T_t J D_(J,t)J T_t*
+```
+
+therefore satisfies `[G,J_t] in S1`.  This keeps the complete compressed
+inverse intact and generalizes Proof 226's one-prime inverse-commutator step to
+the synchronized finite-`S` metric.
+
+The current crossing pulls back to the source without a Neumann expansion:
+
+```text
+Z_(J,t)=(I-J_t)X_tJ_t
+ =(I-J_t)T_t[(I-J)X_tJ]D_(J,t)J T_t*.
+```
+
+Proof 257's Q-preserving identity then gives
+
+```text
+Y_t=[Z_(E,t)-Z_(R,t)*]B_t.
+```
+
+For `E=P`, the base crossing is a sum of translation crossings through
+intervals of length `m log(p)`.  For `R`, the CC20 identity
+`R=P P_hat P-K_prol` expands each source crossing into three
+scattering-dressed half-line crossings plus a trace-class prolate commutator.
+All metric and projection dressings have trace-class commutators with the
+roots.
+
+If `[U_b,P]=L_bR_b` is the interval factorization, commuting a root through the
+bounded dressings produces
+
+```text
+(C_eta A_0L_b)(R_bA_1C_xi*),
+```
+
+with both factors Hilbert--Schmidt.  The trace-norm cost is
+`O(1+|b|)`.  The complete fixed-`S` generator has coefficients
+`t^(m-1)p^(-m/2)`, and
+
+```text
+sum_(p in S)sum_(m>=1)
+  t^(m-1)p^(-m/2)(1+m log(p))<infinity.
+```
+
+The resulting trace-norm majorant is uniform in `t in [0,1]` for each fixed
+finite `S`, because
+
+```text
+s_min(T_t)>=product_(p in S)(1-p^(-1/2))>0.
+```
+
+Consequently
+
+```text
+C_eta B_t'C_xi* in S1,
+
+C_eta(B_1-B_0)C_xi*
+ =integral_0^1 C_eta B_t'C_xi* dt in S1.
+```
+
+The ordinary trace commutes with the time integral.  Proof 253's instantaneous
+Dirichlet identity is now legal as an `S1`-times-bounded trace pairing:
+
+```text
+D_J(w,h)=Tr([M_w,J]*[M_h,J]).
+```
+
+The raw Euler commutator need not be Hilbert--Schmidt.
+
+The WSL certificate checks the compressed inverse commutator, transported
+projection, crossing pullback, complete lower flow, and band derivative with
+maximum algebra error `1.12e-15`.  The extended Dirichlet trace identity has
+relative error `1.81e-14`.  For `S={2,3,5,7,11}` and `t=0.63`, the closed
+prime-power trace majorant is `10.59827533`; 80 modes recover it within
+`4.44e-16`.
+
+Gate 3L is closed.  Gate 3U remains the active analytic bottom: prove a bound
+for the signed `D_E-D_R` trace which is independent of `S`.  Proof 261's
+absolute trace-norm sum depends on `S` and is forbidden for that estimate.
+The arithmetic same-object finite-S identity, negative-owner integration,
+Burnol identity, and RH remain open.  No Lean owner or route rewire is
+authorized.
+
+## 2026-07-15 endpoint two-commutator Gate 3U
+
+Proof 262 replaces the synchronized time integral by one endpoint pairing.
+Proof 261 supplies trace legality.  For one projection `J`, with
+
+```text
+J_T=T J(J H J)^(-1)J T*,
+H=T*T,
+[W,T]=0,
+```
+
+ordinary cyclicity gives
+
+```text
+Tr(W(J_T-J))
+ =Tr([J,W](I-J)H J(J H J)^(-1)).
+```
+
+For the nested pair `R<=E`, put
+
+```text
+B=E-R,
+C_0=I-E,
+L=(R H R)^(-1)R H B,
+Z=B-RL,
+Sigma=Z*H Z,
+mathcalD=H Z Sigma^(-1).
+```
+
+The dual coframe satisfies
+
+```text
+mathcalD*Z=B,
+mathcalD*R=0,
+mathcalD*B=B.
+```
+
+Proof 255's intrinsic endpoint response is therefore
+
+```text
+Tr(W(B_T-B))
+ =Tr_B(mathcalD*(WZ-ZBWB)).
+```
+
+Expanding `Z=B-RL` and using the three coframe identities collapses it to
+
+```text
+Tr(W(B_T-B))
+ =Tr_B(mathcalD*
+   (C_0[W,E]B-[W,R]R L)).
+```
+
+This is the new Gate 3U owner.  It contains no path parameter, Euler generator,
+Kato unitary, or outer transport.  The two terms must remain paired.
+
+For `W=C_g*C_g`, `supp(g) subset [-B_root,B_root]`, the kernel of `[W,E]`
+vanishes unless the two variables cross the outer boundary and differ by at
+most `2B_root`.  The CC20 identity
+
+```text
+R=E E_hat E-K_prol
+```
+
+decomposes `[W,R]` into the outer boundary, the scattering-conjugate second
+boundary, and a prolate trace-class commutator.  Thus all detector dependence
+is fixed and source-local; all `S` dependence sits in the paired
+`mathcalD_S,L_S`.
+
+Proof 262 also supplies an exact abstract guard.  On the `n`th two-state block,
+let
+
+```text
+mu_n=2^(-4n^2),
+M_n=diag(1,mu_n),
+H_n=M_n^(-1),
+W_n=Q_n=|e_1><e_1|,
+v_n=sqrt(1-mu_n)e_0+sqrt(mu_n)e_1,
+E_n=|v_n><v_n|,
+R_n=0.
+```
+
+In the physical basis, `M_n` is the probability average
+
+```text
+[(1+mu_n)/2]I+[(1-mu_n)/2]swap.
+```
+
+The detector kills the fixed mode, `Q_n` is invariant, and
+`E_nQ_nE_n=mu_nE_n`.  Hence the prolate eigenvalues and detector commutator
+trace norms are summable.  The endpoint response is
+
+```text
+1/(2-mu_n)-mu_n ->1/2.
+```
+
+The first `N` blocks have response `N/2+O(1)` while the cumulative detector
+commutator and prolate trace masses stay bounded.  Metric order, Markov
+averaging, fixed-mode annihilation, Q-invariance, nesting, and rapid prolate
+decay therefore do not imply Gate 3U.  This guard is not a CCM24/CC20
+counterexample because it lacks the real-line compact-root half-line geometry.
+
+The research audit found no matching determinant theorem.  Strong Szego and
+Toeplitz determinant results treat a single Hardy compression; determinant
+invariants for almost commuting Fredholm operators do not construct or bound
+the nested Sonin Schur complement uniformly in the Euler symbol.
+
+The active theorem is now
+
+```text
+abs Tr_B(mathcalD_S*
+  (C_0[W_g,E]B-[W_g,R]R L_S))
+ <=C (1+B_root)^d norm(g)_(H^r)^2,
+```
+
+with constants independent of `S`.  Insert the CC20 crossing decomposition and
+use root support before expanding the paired coframe/graph through a common
+Markov path law.
+
+The WSL certificate verifies the endpoint identities with maximum relative
+error `2.82e-13`.  In the eight-block guard, the response grows to `3.95362`
+while the cumulative detector-commutator and prolate masses stay at `0.491943`
+and `0.0625153`; the guard algebra error is `2.22e-16`.
+
+Gate 3U, the arithmetic same-object finite-S identity, negative-owner
+integration, Burnol identity, and RH remain open.  No Lean owner or route
+rewire is authorized.

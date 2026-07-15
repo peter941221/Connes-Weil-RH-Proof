@@ -19,6 +19,7 @@ import ConnesWeilRH.Source.CC20YoshidaTail
 import ConnesWeilRH.Source.CC20YoshidaNearZeros
 import ConnesWeilRH.Source.CC20YoshidaConvolution
 import ConnesWeilRH.Source.CC20YoshidaFullProduct
+import ConnesWeilRH.Source.CC20YoshidaCriticalContraction
 import ConnesWeilRH.Source.CC20PropositionC1
 import ConnesWeilRH.Source.CCM24
 import ConnesWeilRH.Source.CCM24SourceModel
