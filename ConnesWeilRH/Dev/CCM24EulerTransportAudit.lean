@@ -1,0 +1,29 @@
+import ConnesWeilRH.Source.CC20Concrete.CCM24EulerTransport
+
+namespace ConnesWeilRH
+namespace Source
+namespace CC20Concrete
+
+#check ccm24PrimeEulerTransportEquiv
+#check ccm24PrimeEulerTransportEquiv_apply
+#check ccm24PrimeEulerTransportEquiv_coeFn
+#check ccm24PrimeEulerTransportEquiv_symm_toContinuousLinearMap
+#check ccm24PrimeEulerInverse_mul_factor
+#check ccm24PrimeEulerContraction_commute
+#check ccm24PrimeEulerUnit_commute
+#check ccm24FiniteEulerTransportEquiv
+#check ccm24FiniteEulerTransportEquiv_cons_apply
+#check ccm24FiniteEulerTransportEquiv_eq_of_perm
+
+#print axioms ccm24PrimeEulerTransportEquiv_apply
+#print axioms ccm24PrimeEulerTransportEquiv_coeFn
+#print axioms ccm24PrimeEulerTransportEquiv_symm_toContinuousLinearMap
+#print axioms ccm24PrimeEulerInverse_mul_factor
+#print axioms ccm24PrimeEulerContraction_commute
+#print axioms ccm24PrimeEulerUnit_commute
+#print axioms ccm24FiniteEulerTransportEquiv_cons_apply
+#print axioms ccm24FiniteEulerTransportEquiv_eq_of_perm
+
+end CC20Concrete
+end Source
+end ConnesWeilRH

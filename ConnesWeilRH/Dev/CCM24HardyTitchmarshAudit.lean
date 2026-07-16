@@ -1,0 +1,23 @@
+import ConnesWeilRH.Source.CC20Concrete.CCM24HardyTitchmarsh
+
+namespace ConnesWeilRH
+namespace Source
+namespace CC20Concrete
+
+#check ccm24ArchimedeanFactor
+#check ccm24ArchimedeanScatteringPhase
+#check ccm24ArchimedeanScatteringPhase_eq_factor_ratio
+#check ccm24ArchimedeanHardyTitchmarsh
+#check ccm24ArchimedeanHardyTitchmarsh_fourier_readback
+#check ccm24ArchimedeanHardyTitchmarsh_involutive
+#check ccm24ArchimedeanFourierSupportClosedSubspace
+#check mem_ccm24ArchimedeanFourierSupportClosedSubspace_iff
+#check ccm24ArchimedeanSoninClosedSubspace
+
+#print axioms ccm24ArchimedeanHardyTitchmarsh_fourier_readback
+#print axioms ccm24ArchimedeanHardyTitchmarsh_involutive
+#print axioms mem_ccm24ArchimedeanFourierSupportClosedSubspace_iff
+
+end CC20Concrete
+end Source
+end ConnesWeilRH

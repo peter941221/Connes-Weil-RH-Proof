@@ -169,6 +169,30 @@ theorem cc20GlobalLogTranslation_neg_apply
   rw [hb]
   simpa [Function.comp_def] using hnegShiftAt
 
+/-- Global logarithmic translations form an additive representation. -/
+theorem cc20GlobalLogTranslation_add_apply
+    (a b : ℝ) (u : cc20GlobalLogCrossingL2) :
+    cc20GlobalLogTranslation a (cc20GlobalLogTranslation b u) =
+      cc20GlobalLogTranslation (a + b) u := by
+  rw [Lp.ext_iff]
+  have hinner :=
+    (measurePreserving_add_right volume a).quasiMeasurePreserving.ae_eq
+      (cc20GlobalLogTranslation_coeFn b u)
+  filter_upwards
+    [hinner,
+      cc20GlobalLogTranslation_coeFn a (cc20GlobalLogTranslation b u),
+      cc20GlobalLogTranslation_coeFn (a + b) u] with t hinnerAt ha hab
+  rw [ha, hab]
+  simpa only [Function.comp_apply, add_assoc] using hinnerAt
+
+/-- Any two global logarithmic translations commute. -/
+theorem cc20GlobalLogTranslation_commute
+    (a b : ℝ) (u : cc20GlobalLogCrossingL2) :
+    cc20GlobalLogTranslation a (cc20GlobalLogTranslation b u) =
+      cc20GlobalLogTranslation b (cc20GlobalLogTranslation a u) := by
+  rw [cc20GlobalLogTranslation_add_apply,
+    cc20GlobalLogTranslation_add_apply, add_comm]
+
 noncomputable def cc20NegativeHalfLineProjection :
     cc20GlobalLogCrossingL2 →L[ℂ] cc20GlobalLogCrossingL2 :=
   ContinuousLinearMap.id ℂ cc20GlobalLogCrossingL2 -

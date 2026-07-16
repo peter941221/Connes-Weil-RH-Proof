@@ -1,0 +1,20 @@
+import ConnesWeilRH.Source.CC20Concrete.CCM24FiniteEulerSoninTransport
+
+namespace ConnesWeilRH
+namespace Source
+namespace CC20Concrete
+
+#check CCM24FiniteEulerRestrictedSoninData
+#check CCM24FiniteEulerRestrictedSoninData.toRestrictedSoninEquivData
+#check CCM24FiniteEulerRestrictedSoninData.maps_sonin_intersection
+#check CCM24FiniteEulerRestrictedSoninData.toSoninTransportData
+#check CCM24FiniteEulerRestrictedSoninData.reindex
+#check CCM24FiniteEulerRestrictedSoninData.target_compression_sub_gramCorrected_isPositive
+
+#print axioms CCM24FiniteEulerRestrictedSoninData.maps_sonin_intersection
+#print axioms CCM24FiniteEulerRestrictedSoninData.reindex
+#print axioms CCM24FiniteEulerRestrictedSoninData.target_compression_sub_gramCorrected_isPositive
+
+end CC20Concrete
+end Source
+end ConnesWeilRH

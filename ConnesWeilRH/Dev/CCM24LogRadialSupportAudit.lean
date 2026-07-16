@@ -1,0 +1,22 @@
+import ConnesWeilRH.Source.CC20Concrete.CCM24LogRadialSupport
+
+namespace ConnesWeilRH
+namespace Source
+namespace CC20Concrete
+
+#check ccm24LogRadialSupportClosedSubspace
+#check ccm24LogRadialSupportProjection
+#check mem_ccm24LogRadialSupportClosedSubspace_iff
+#check ccm24PrimeEulerTransportEquiv_mem_logRadialSupport
+#check ccm24PrimeEulerTransportEquiv_symm_mem_logRadialSupport
+#check ccm24FiniteEulerTransportEquiv_mem_logRadialSupport
+#check ccm24FiniteEulerTransportEquiv_symm_mem_logRadialSupport
+#check ccm24FiniteEulerTransport_maps_logRadialSupport
+
+#print axioms mem_ccm24LogRadialSupportClosedSubspace_iff
+#print axioms ccm24PrimeEulerTransportEquiv_symm_mem_logRadialSupport
+#print axioms ccm24FiniteEulerTransport_maps_logRadialSupport
+
+end CC20Concrete
+end Source
+end ConnesWeilRH

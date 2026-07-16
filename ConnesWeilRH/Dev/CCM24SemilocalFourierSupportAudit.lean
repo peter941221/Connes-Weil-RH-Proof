@@ -1,0 +1,26 @@
+import ConnesWeilRH.Source.CC20Concrete.CCM24SemilocalFourierSupport
+
+namespace ConnesWeilRH
+namespace Source
+namespace CC20Concrete
+
+#check ccm24SemilocalHardyTitchmarsh
+#check ccm24SemilocalHardyTitchmarsh_intertwines
+#check ccm24SemilocalHardyTitchmarsh_involutive
+#check ccm24SemilocalFourierSupportClosedSubspace
+#check ccm24FiniteEulerTransport_maps_fourierSupport
+#check ccm24FiniteEulerTransport_maps_sonin
+#check ccm24FiniteEulerRestrictedSoninEquiv
+#check concreteCCM24FiniteEulerRestrictedSoninData
+#check concreteCCM24_target_compression_sub_gramCorrected_isPositive
+
+#print axioms ccm24SemilocalHardyTitchmarsh_intertwines
+#print axioms ccm24SemilocalHardyTitchmarsh_involutive
+#print axioms ccm24FiniteEulerTransport_maps_fourierSupport
+#print axioms ccm24FiniteEulerTransport_maps_sonin
+#print axioms ccm24FiniteEulerRestrictedSoninEquiv_coe
+#print axioms concreteCCM24_target_compression_sub_gramCorrected_isPositive
+
+end CC20Concrete
+end Source
+end ConnesWeilRH
