@@ -49,6 +49,7 @@ import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSForwardRenewal
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSTwoSidedOperatorExpansion
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSTwoSidedIndexBridge
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSPhysicalRenewalExpansion
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSParameterizedEulerProduct
 import ConnesWeilRH.Source.CCM25Concrete.UnscaledYoshidaSelectedOwner
 
 /-!
