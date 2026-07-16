@@ -6,8 +6,10 @@ Proof 320 places the actual finite-S CCM24 Sonin projection geometry and the
 selected finite prime-power crossing sum on the same common-log Hilbert
 carrier.
 
-For a finite family of prime powers, its visible-prime list is derived from
-the same terms used by the arithmetic operator.  The resulting operators are
+For a finite family of prime powers, its duplicate-free visible-prime list is
+derived from the same terms used by the arithmetic operator.  Deduplication is
+essential: commuting Euler factors can be reordered, but repeating a prime
+would square its factor.  The resulting operators are
 
 ```text
 E       = radial support projection
@@ -33,10 +35,16 @@ K_0 = (E - R_0) Q_0 (E - R_0),
 K_S = (E - R_S) Q_S (E - R_S).
 ```
 
-Consequently the actual band difference satisfies
+Consequently the Sonin projection difference satisfies
 
 ```text
 R_S - R_0 = E(Q_S - Q_0)E - (K_S - K_0).
+```
+
+The route band is `B=E-R`, so its actual endpoint has the opposite sign:
+
+```text
+B_S-B_0=R_0-R_S.
 ```
 
 ## Same-Object Trace Readback
@@ -45,7 +53,7 @@ Let `W` be the genuine positive convolution detector constructed from the
 selected Weil-square owner.  The module defines, rather than assumes,
 
 ```text
-projectionResponse = W (R_S - R_0)
+projectionResponse = W (B_S - B_0)
 arithmeticOperator = selected finite prime-power crossing sum
 canonicalResidual  = projectionResponse - arithmeticOperator.
 ```
@@ -54,7 +62,7 @@ For a named Hilbert basis and an explicit trace-class witness for the full
 projection response, the final theorem proves
 
 ```text
-Tr(W (R_S - R_0))
+Tr(W (B_S - B_0))
   = sum_(p,m) finitePrimeTerm(p^m) + Tr(canonicalResidual).
 ```
 

@@ -40,27 +40,31 @@ structure FinitePrimePowerFamily where
 namespace FinitePrimePowerFamily
 
 /-- The visible finite places are derived from the prime-power terms rather
-than supplied as a second, unrelated finite set.  Repeated prime bases are
-harmless because the Euler transports commute. -/
+than supplied as a second, unrelated finite set.  Prime bases are deduplicated:
+commutativity makes their order irrelevant, but it does not make a repeated
+Euler factor harmless. -/
 noncomputable def visiblePrimes (family : FinitePrimePowerFamily) :
     List CCM24VisiblePrime :=
-  family.terms.attach.toList.map fun pm =>
-    ⟨pm.1.1, (family.prime pm.1 pm.2).one_lt⟩
+  (family.terms.attach.image fun pm =>
+    ⟨pm.1.1, (family.prime pm.1 pm.2).one_lt⟩).toList
+
+theorem visiblePrimes_nodup (family : FinitePrimePowerFamily) :
+    family.visiblePrimes.Nodup := by
+  exact Finset.nodup_toList _
 
 theorem mem_visiblePrimes_of_mem
     (family : FinitePrimePowerFamily) {pm : ℕ × ℕ}
     (hpm : pm ∈ family.terms) :
     (⟨pm.1, (family.prime pm hpm).one_lt⟩ : CCM24VisiblePrime) ∈
       family.visiblePrimes := by
-  rw [visiblePrimes, List.mem_map]
-  refine ⟨⟨pm, hpm⟩, ?_, rfl⟩
-  simp
+  rw [visiblePrimes, Finset.mem_toList, Finset.mem_image]
+  exact ⟨⟨pm, hpm⟩, Finset.mem_attach _ _, rfl⟩
 
 theorem exists_term_of_mem_visiblePrimes
     (family : FinitePrimePowerFamily) {p : CCM24VisiblePrime}
     (hp : p ∈ family.visiblePrimes) :
     ∃ m, (p.1, m) ∈ family.terms := by
-  rw [visiblePrimes, List.mem_map] at hp
+  rw [visiblePrimes, Finset.mem_toList, Finset.mem_image] at hp
   obtain ⟨pm, -, rfl⟩ := hp
   exact ⟨pm.1.2, pm.2⟩
 
@@ -215,11 +219,36 @@ theorem targetProlateRemainder_isPositive
       concreteCCM24_target_compression_sub_gramCorrected_isPositive
         lambda family.visiblePrimes
 
-/-- The actual moving-band endpoint difference `R_S - R_0`. -/
+/-- The Sonin-projection endpoint difference `R_S - R_0`.  This is the
+negative of the route's band difference because `B=E-R`. -/
 noncomputable def bandDifference
     (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
     finiteSCarrier →L[ℂ] finiteSCarrier :=
   targetSoninProjection lambda family - sourceSoninProjection lambda
+
+/-- The source orthogonal Sonin band `B_0=E-R_0`. -/
+noncomputable def sourceBandProjection (lambda : CCM24SoninScale) :
+    finiteSCarrier →L[ℂ] finiteSCarrier :=
+  radialSupportProjection lambda - sourceSoninProjection lambda
+
+/-- The finite-S orthogonal Sonin band `B_S=E-R_S`. -/
+noncomputable def targetBandProjection
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    finiteSCarrier →L[ℂ] finiteSCarrier :=
+  radialSupportProjection lambda - targetSoninProjection lambda family
+
+/-- The actual route endpoint `B_S-B_0=R_0-R_S`. -/
+noncomputable def soninBandDifference
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    finiteSCarrier →L[ℂ] finiteSCarrier :=
+  targetBandProjection lambda family - sourceBandProjection lambda
+
+theorem soninBandDifference_eq_neg_soninProjectionDifference
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    soninBandDifference lambda family = -bandDifference lambda family := by
+  simp only [soninBandDifference, sourceBandProjection,
+    targetBandProjection, bandDifference]
+  abel
 
 /-- The compressed second-support change on the same carrier. -/
 noncomputable def compressionDifference
@@ -260,17 +289,22 @@ noncomputable def projectionResponse
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
     finiteSCarrier →L[ℂ] finiteSCarrier :=
-  detectorOperator owner ∘L bandDifference lambda family
+  detectorOperator owner ∘L soninBandDifference lambda family
 
 theorem projectionResponse_eq_compression_sub_prolate
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
     projectionResponse owner lambda family =
-      detectorOperator owner ∘L compressionDifference lambda family -
-        detectorOperator owner ∘L prolateDifference lambda family := by
+      detectorOperator owner ∘L prolateDifference lambda family -
+        detectorOperator owner ∘L compressionDifference lambda family := by
   rw [projectionResponse,
+    soninBandDifference_eq_neg_soninProjectionDifference,
     bandDifference_eq_compressionDifference_sub_prolateDifference]
-  exact ContinuousLinearMap.comp_sub _ _ _
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.neg_apply,
+    ContinuousLinearMap.sub_apply, map_neg, map_sub]
+  abel
 
 /-- The already constructed selected prime-power crossing sum, now indexed by
 the same family that determines the finite-S CCM24 projection. -/
@@ -306,9 +340,9 @@ theorem sameObjectResidual_eq_threePartLedger
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
     sameObjectResidual owner lambda family =
-      (detectorOperator owner ∘L compressionDifference lambda family -
+      (detectorOperator owner ∘L prolateDifference lambda family -
         arithmeticOperator owner family) -
-      detectorOperator owner ∘L prolateDifference lambda family := by
+      detectorOperator owner ∘L compressionDifference lambda family := by
   rw [sameObjectResidual, projectionResponse_eq_compression_sub_prolate]
   abel
 
