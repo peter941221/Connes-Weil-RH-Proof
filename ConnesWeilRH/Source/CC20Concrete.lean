@@ -31,6 +31,7 @@ import ConnesWeilRH.Source.CC20Concrete.ThreeBranchCommutatorLedger
 import ConnesWeilRH.Source.CC20Concrete.GlobalLogSoninProjection
 import ConnesWeilRH.Source.CC20Concrete.InvertibleTransportSonin
 import ConnesWeilRH.Source.CC20Concrete.GramCorrectedSoninTransport
+import ConnesWeilRH.Source.CC20Concrete.CCM24SoninProjectionBridge
 import ConnesWeilRH.Source.CC20Concrete.HaarLogTransport
 import ConnesWeilRH.Source.CC20Concrete.GlobalLogKernel
 import ConnesWeilRH.Source.CC20Concrete.QuantizedRemainder
