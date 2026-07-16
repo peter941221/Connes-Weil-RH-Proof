@@ -1,0 +1,44 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CC20Concrete.QuantizedRemainder
+
+/-!
+# Import-facing audit for the CC20 residue-augmented regular operator
+-/
+
+namespace ConnesWeilRH.Dev.QuantizedRemainderAudit
+
+open Source.CC20Concrete
+
+#check @cc20GlobalLogWindowRestrictedQuantizedRemainder
+#check @cc20GlobalLogWindowRestrictedQuantizedRemainder_apply
+#check @cc20GlobalLogWindowRestrictedQuantizedRemainder_inner_re
+#check @cc20GlobalLogWindowRestrictedQuantizedRemainder_isSelfAdjoint
+#check @cc20GlobalLogWindowQuantizedRemainder
+#check @cc20GlobalLogWindowQuantizedRemainder_apply
+#check @cc20GlobalLogWindowQuantizedRemainder_eq_zeroExtension_conjugation
+#check @cc20GlobalLogWindowQuantizedRemainder_isSelfAdjoint
+#check @cc20GlobalLogWindowQuantizedRemainder_inner_zeroExtension
+#check @cc20GlobalLogWindowQuantizedRemainder_apply_of_support_subset
+#check @cc20GlobalLogWindowQuantizedRemainder_inner_re_of_support_subset
+
+#print cc20GlobalLogWindowRestrictedQuantizedRemainder
+#print cc20GlobalLogWindowQuantizedRemainder
+#print cc20GlobalLogWindowQuantizedRemainder_eq_zeroExtension_conjugation
+#print cc20GlobalLogWindowQuantizedRemainder_inner_zeroExtension
+#print cc20GlobalLogWindowQuantizedRemainder_inner_re_of_support_subset
+
+#print axioms cc20GlobalLogWindowRestrictedQuantizedRemainder_apply
+#print axioms cc20GlobalLogWindowRestrictedQuantizedRemainder_inner_re
+#print axioms cc20GlobalLogWindowRestrictedQuantizedRemainder_isSelfAdjoint
+#print axioms cc20GlobalLogWindowQuantizedRemainder_apply
+#print axioms cc20GlobalLogWindowQuantizedRemainder_eq_zeroExtension_conjugation
+#print axioms cc20GlobalLogWindowQuantizedRemainder_isSelfAdjoint
+#print axioms cc20GlobalLogWindowQuantizedRemainder_inner_zeroExtension
+#print axioms cc20GlobalLogWindowQuantizedRemainder_apply_of_support_subset
+#print axioms cc20GlobalLogWindowQuantizedRemainder_inner_re_of_support_subset
+
+end ConnesWeilRH.Dev.QuantizedRemainderAudit

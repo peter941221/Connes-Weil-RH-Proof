@@ -1,0 +1,58 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CC20Concrete.DividedDifferenceKernel
+
+/-!
+# Import-facing audit for the continuous divided-difference witness
+-/
+
+namespace ConnesWeilRH.Dev.DividedDifferenceKernelAudit
+
+open Source.CC20Concrete
+
+#check @CC20DividedDifferenceData
+#check @cc20DividedDifferenceDataOfSchwartz
+#check @cc20SegmentAverageDerivative
+#check @cc20SegmentAverageDerivative_diag
+#check @cc20SegmentAverageDerivative_smul_eq_sub
+#check @cc20SegmentAverageDerivative_eq_dividedDifference
+#check @cc20QuantizedDividedDifferenceKernel
+#check @cc20QuantizedDividedDifferenceKernel_diag
+#check @cc20QuantizedDividedDifferenceKernel_offDiagonal
+#check @cc20WindowQuantizedDividedDifferenceKernel
+#check @cc20WindowQuantizedDividedDifferenceKernel_diag
+#check @cc20WindowQuantizedDividedDifferenceKernel_offDiagonal
+#check @cc20WindowRootSandwichedDividedDifferencePairData
+#check @cc20WindowRootSandwichedDividedDifferencePairData_traceProduct_isTraceClass
+#check @cc20WindowRootSandwichedDividedDifferenceResponse
+#check @cc20WindowRootSandwichedDividedDifference_pair_apply
+#check @cc20WindowRootSandwichedDividedDifferenceResponse_eq_twoPoint
+#check @integral_cc20WindowRootSandwichedDividedDifferenceResponse_eq_integral_twoPoint
+
+#print CC20DividedDifferenceData
+#print cc20DividedDifferenceDataOfSchwartz
+#print cc20SegmentAverageDerivative_smul_eq_sub
+#print cc20SegmentAverageDerivative_eq_dividedDifference
+#print cc20WindowQuantizedDividedDifferenceKernel_offDiagonal
+#print cc20WindowRootSandwichedDividedDifferencePairData_traceProduct_isTraceClass
+#print cc20WindowRootSandwichedDividedDifferenceResponse
+#print cc20WindowRootSandwichedDividedDifferenceResponse_eq_twoPoint
+#print integral_cc20WindowRootSandwichedDividedDifferenceResponse_eq_integral_twoPoint
+
+#print axioms cc20SegmentAverageDerivative
+#print axioms cc20DividedDifferenceDataOfSchwartz
+#print axioms cc20SegmentAverageDerivative_diag
+#print axioms cc20SegmentAverageDerivative_smul_eq_sub
+#print axioms cc20SegmentAverageDerivative_eq_dividedDifference
+#print axioms cc20QuantizedDividedDifferenceKernel_offDiagonal
+#print axioms cc20WindowQuantizedDividedDifferenceKernel_offDiagonal
+#print axioms cc20WindowRootSandwichedDividedDifferencePairData_traceProduct_isTraceClass
+#print axioms cc20WindowRootSandwichedDividedDifferenceResponse
+#print axioms cc20WindowRootSandwichedDividedDifference_pair_apply
+#print axioms cc20WindowRootSandwichedDividedDifferenceResponse_eq_twoPoint
+#print axioms integral_cc20WindowRootSandwichedDividedDifferenceResponse_eq_integral_twoPoint
+
+end ConnesWeilRH.Dev.DividedDifferenceKernelAudit

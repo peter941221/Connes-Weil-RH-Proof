@@ -1,0 +1,46 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CC20Concrete.RootSandwichedTrace
+
+/-!
+# Import-facing audit for the Proof 305 root-sandwiched trace producer
+-/
+
+namespace ConnesWeilRH.Dev.RootSandwichedTraceAudit
+
+open Source.CC20Concrete
+
+#check @cc20WindowRootSandwichedKernel
+#check @cc20WindowRootToLp
+#check @cc20WindowRootToLp_inner_eq_integral
+#check @cc20WindowRootSandwichedOperator
+#check @cc20WindowRootSandwichedPairData
+#check @cc20WindowRootSandwichedPairData_traceProduct_isTraceClass
+#check @cc20WindowRootSandwichedPairData_trace_eq_integral
+#check @cc20WindowRootSandwichedPairData_trace_eq_doubleIntegral
+#check @cc20WindowRootSandwichedResponse
+#check @cc20WindowRootSandwichedResponse_eq_integral_sub_residue
+#check @cc20WindowRootSandwichedResponse_eq_doubleIntegral_sub_residue
+#check @integral_cc20WindowRootSandwichedResponse_eq_integral_doubleIntegral_sub_residue
+#check @cc20WindowRootSandwichedRegularPairData
+#check @cc20WindowRootSandwichedRegularPairData_traceProduct_isTraceClass
+
+#print cc20WindowRootSandwichedKernel
+#print cc20WindowRootSandwichedPairData_traceProduct_isTraceClass
+#print cc20WindowRootSandwichedResponse_eq_integral_sub_residue
+#print cc20WindowRootSandwichedResponse_eq_doubleIntegral_sub_residue
+#print integral_cc20WindowRootSandwichedResponse_eq_integral_doubleIntegral_sub_residue
+#print axioms cc20WindowRootSandwichedKernel
+#print axioms cc20WindowRootToLp_inner_eq_integral
+#print axioms cc20WindowRootSandwichedPairData_traceProduct_isTraceClass
+#print axioms cc20WindowRootSandwichedPairData_trace_eq_integral
+#print axioms cc20WindowRootSandwichedPairData_trace_eq_doubleIntegral
+#print axioms cc20WindowRootSandwichedResponse_eq_integral_sub_residue
+#print axioms cc20WindowRootSandwichedResponse_eq_doubleIntegral_sub_residue
+#print axioms integral_cc20WindowRootSandwichedResponse_eq_integral_doubleIntegral_sub_residue
+#print axioms cc20WindowRootSandwichedRegularPairData_traceProduct_isTraceClass
+
+end ConnesWeilRH.Dev.RootSandwichedTraceAudit

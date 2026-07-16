@@ -4813,3 +4813,113 @@ quantized kernel to completed root pairings, recombine all physical branches,
 and only then seek the Gate 3U estimate.  Do not apply a global contour bound
 to `Qdelta` or `Qepsilon` before this split.  See
 `docs/proofs/302_quantized_divided_difference_residue_guard.md`.
+
+## 2026-07-16 Proof 303: finite moving divided-difference bridge
+
+Proof 303 closes the finite source-shaped algebraic bridge.  With
+
+```text
+H_J=2J-I,
+S_J(f,g)=1/8 Tr([H_J,f]*[H_J,g]),
+R=E Q E-K_prol,
+```
+
+the moving E/R covariance and the outer/second-support/prolate commutator
+expansion agree pointwise in the transport parameter and after integration.
+The two WSL2 cohorts have complete errors below `2e-15`.  Removing `K_prol`
+leaves integrated gaps `6.34e-4` and `1.55e-3`, so the signed prolate branch
+must stay inside the scalar.
+
+The residue ledger remains separate: the ordinary divided-difference matrix has
+zero diagonal mass while the source test pair contributes `-0.30` from
+`-2 Dirac_0`.  No automatic cancellation is accepted.  The finite bridge does
+prove the same-root alignment `F_(eta,xi)(0)=<eta,xi>`, so the atom is the
+explicit `-2 Id` form on root space.  It does not identify the continuous CC20
+Hardy operator or prove the same-test
+diagonal/prolate compatibility.  Next: Proof 304 root-sandwiched continuous
+trace-class identification, then the compact-support signed estimate.  Gate
+3U, the finite-S sign, Burnol identity, and RH remain open.  See
+`docs/proofs/303_quantized_moving_er_kprol_bridge.md`.
+
+## 2026-07-16 Proof 304: residue-augmented same-carrier owner
+
+Proof 304 constructs the ordinary CC20 residue owner in
+`ConnesWeilRH/Source/CC20Concrete/QuantizedRemainder.lean`:
+
+```text
+restricted owner: K_I - 2 Id
+global owner:     K_window - 2 P_window
+```
+
+The global owner is exactly zero-extension conjugation of the restricted owner,
+and its quadratic form on zero extensions is exactly the restricted quadratic
+form.  The restricted and global owners are self-adjoint.  The new finite
+natural-Mellin theorems consume this named owner directly, so the earlier
+ordinary `K_I - 2 Id` sign statement is no longer only an unlabelled shifted
+expression.
+
+The source and import-facing builds pass with only
+`[propext, Classical.choice, Quot.sound]`.  This closes the diagonal-residue
+and carrier layer.  It does not identify the ordinary owner with the finite-S
+post-Q semilocal remainder, prove Gate 3U, the finite-S sign, Burnol's identity,
+or RH.  The next lane is the continuous root-sandwiched moving
+`E/R/K_prol` trace-class bridge.  See
+`docs/proofs/304_cc20_quantized_remainder_owner.md`.
+
+## 2026-07-16 Proof 305: root-sandwiched trace-class producer
+
+The first continuous analytic leg is now owned by
+`ConnesWeilRH/Source/CC20Concrete/RootSandwichedTrace.lean`.  For any
+continuous finite-window kernel `K`, it constructs
+
+```text
+K_(left,right)(y,x)
+  = conjugate(leftRoot(y)) * K(y,x) * rightRoot(x),
+```
+
+then packages two factors through the existing continuous-kernel
+Hilbert--Schmidt theorem as a genuine `A†B` product.  Its diagonal trace is
+identified with the section integral.  The residue is kept in the same signed
+scalar but remains explicit:
+
+```text
+response = trace(A†B) - 2 * inner(rightRoot,leftRoot).
+```
+
+The finite guard is
+`docs/proofs/305_root_sandwiched_trace_probe.py`; it reports machine-precision
+trace readback and a nonzero omission gap for the atom.  This is a producer
+for trace-class legality, not the source theorem: the supplied continuous
+kernel is not yet identified with CC20's off-diagonal `[H,f]` divided
+difference, and no moving `E/R/K_prol` equality or Gate 3U estimate follows.
+The next lane must provide that source kernel witness and match all three
+moving branches before taking any absolute value.  See
+`docs/proofs/305_root_sandwiched_trace_class_bridge.md`.
+
+## 2026-07-16 Proof 306: segment-average divided difference
+
+The local source kernel is no longer an informal removable quotient.  The
+`CC20DividedDifferenceData` contract requires a continuous value, a continuous
+derivative, and `HasDerivAt`.  Define
+
+```text
+D_f(s,t) = integral_0^1 f'(t + u (s-t)) du.
+```
+
+The unit-interval fundamental theorem gives `(s-t) D_f(s,t)=f(s)-f(t)`;
+the same definition gives `D_f(t,t)=f'(t)`.  The normalized kernel
+`i/pi * D_f` is restricted to the CC20 Haar window and consumed by the
+root-sandwiched `A†B` owner.  The finite guard reports off-diagonal and
+diagonal errors below `2.2e-15` in both cohorts.
+
+This closes the continuous local divided-difference/trace-class interface,
+not the moving same-object route.  The next theorem must identify this exact
+root-paired scalar with the complete outer, second-support, and prolate
+branches, keep the explicit `-2` residue, and only then establish the
+`S`-uniform signed estimate.  Gate 3U, the finite-S sign, Burnol's identity,
+and RH remain open.  See
+`docs/proofs/306_continuous_divided_difference_kernel.md`.
+
+WSL2 verification is complete for this lane: the default target builds in
+`3587` jobs, all `99` probe files parse, and the `28` probes covering Proofs
+278--306 pass with the explicit `RH=UNPROVED` guard.

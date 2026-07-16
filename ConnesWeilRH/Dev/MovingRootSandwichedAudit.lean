@@ -1,0 +1,32 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CC20Concrete.MovingRootSandwiched
+
+namespace ConnesWeilRH.Dev.MovingRootSandwichedAudit
+
+open ConnesWeilRH Source CC20Concrete
+
+#check @cc20MovingSlice
+#check @cc20MovingRootSandwichedTwoPointScalar
+#check @cc20MovingRootSandwichedResponse_eq_twoPointScalar
+#check @continuous_cc20MovingRootSandwichedTwoPointScalar
+#check @continuous_cc20MovingRootSandwichedResponse
+#check @integrable_cc20MovingRootSandwichedTwoPointScalar
+#check @integrable_cc20MovingRootSandwichedResponse
+
+#print cc20MovingRootSandwichedResponse_eq_twoPointScalar
+#print continuous_cc20MovingRootSandwichedTwoPointScalar
+#print continuous_cc20MovingRootSandwichedResponse
+#print integrable_cc20MovingRootSandwichedResponse
+
+#print axioms cc20MovingSlice
+#print axioms cc20MovingRootSandwichedResponse_eq_twoPointScalar
+#print axioms continuous_cc20MovingRootSandwichedTwoPointScalar
+#print axioms continuous_cc20MovingRootSandwichedResponse
+#print axioms integrable_cc20MovingRootSandwichedTwoPointScalar
+#print axioms integrable_cc20MovingRootSandwichedResponse
+
+end ConnesWeilRH.Dev.MovingRootSandwichedAudit

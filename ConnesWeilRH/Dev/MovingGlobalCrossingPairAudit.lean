@@ -1,0 +1,36 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CC20Concrete.MovingGlobalCrossingPair
+
+namespace ConnesWeilRH.Dev.MovingGlobalCrossingPairAudit
+
+open ConnesWeilRH Source CC20Concrete
+
+#check @cc20MovingSingleCrossingAdjointResponse
+#check @cc20MovingSingleCrossingAdjointBoundaryIntegrand
+#check @cc20MovingSingleCrossingAdjointResponse_eq_star
+#check @cc20MovingSingleCrossingAdjointResponse_eq_boundaryIntegral
+#check @continuous_cc20MovingSingleCrossingAdjointResponse
+#check @integrable_cc20MovingSingleCrossingAdjointResponse
+#check @cc20MovingSingleCrossingPairResponse
+#check @cc20MovingSingleCrossingPairResponse_eq_two_re
+#check @cc20MovingSingleCrossingPairResponse_im
+#check @cc20MovingSingleCrossingPairResponse_eq_boundaryIntegral
+#check @continuous_cc20MovingSingleCrossingPairResponse
+#check @integrable_cc20MovingSingleCrossingPairResponse
+#check @integral_cc20MovingSingleCrossingPairResponse_eq_boundaryIntegral
+
+#print axioms cc20MovingSingleCrossingAdjointResponse_eq_boundaryIntegral
+#print axioms continuous_cc20MovingSingleCrossingAdjointResponse
+#print axioms integrable_cc20MovingSingleCrossingAdjointResponse
+#print axioms cc20MovingSingleCrossingPairResponse_eq_boundaryIntegral
+#print axioms cc20MovingSingleCrossingPairResponse_eq_two_re
+#print axioms cc20MovingSingleCrossingPairResponse_im
+#print axioms continuous_cc20MovingSingleCrossingPairResponse
+#print axioms integrable_cc20MovingSingleCrossingPairResponse
+#print axioms integral_cc20MovingSingleCrossingPairResponse_eq_boundaryIntegral
+
+end ConnesWeilRH.Dev.MovingGlobalCrossingPairAudit

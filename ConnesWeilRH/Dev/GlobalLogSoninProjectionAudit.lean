@@ -1,0 +1,38 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CC20Concrete.GlobalLogSoninProjection
+
+namespace ConnesWeilRH.Dev.GlobalLogSoninProjectionAudit
+
+open ConnesWeilRH Source CC20Concrete
+
+#check cc20PositiveHalfLineProjection_isSelfAdjoint
+#check cc20PositiveHalfLineProjection_isStarProjection
+#check @cc20TransportedHalfLineProjection
+#check @cc20TransportedHalfLineProjection_isStarProjection
+#check @cc20TransportedSoninClosedSubspace
+#check @cc20TransportedSoninProjection
+#check @cc20TransportedSoninProjection_isStarProjection
+#check @cc20TransportedSoninProjection_apply_mem_both
+#check @cc20TransportedProlateRemainder
+#check @cc20TransportedProlateRemainder_isSelfAdjoint
+#check @cc20TransportedProlateRemainder_eq_complement_conjugation
+#check @cc20TransportedProlateRemainder_isPositive
+#check @cc20TransportedSonin_eq_supports_sub_prolate
+#check @cc20TransportedSonin_commutator_eq_threeBranch
+#check @cc20TransportedSonin_residueResponse_eq_threeBranch
+
+#print axioms cc20PositiveHalfLineProjection_isSelfAdjoint
+#print axioms cc20PositiveHalfLineProjection_isStarProjection
+#print axioms cc20TransportedHalfLineProjection_isStarProjection
+#print axioms cc20TransportedSoninProjection_isStarProjection
+#print axioms cc20TransportedProlateRemainder_isSelfAdjoint
+#print axioms cc20TransportedProlateRemainder_isPositive
+#print axioms cc20TransportedSonin_eq_supports_sub_prolate
+#print axioms cc20TransportedSonin_commutator_eq_threeBranch
+#print axioms cc20TransportedSonin_residueResponse_eq_threeBranch
+
+end ConnesWeilRH.Dev.GlobalLogSoninProjectionAudit

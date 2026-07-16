@@ -1,0 +1,20 @@
+import ConnesWeilRH.Source.CC20Concrete.InvertibleTransportSonin
+
+namespace ConnesWeilRH
+namespace CC20Concrete
+
+#check transportedClosedSubmodule
+#check transportedClosedSubmodule_inf
+#check left_starProjection_absorbs_intersection
+#check right_starProjection_absorbs_intersection
+#check intersection_absorbs_left_starProjection
+#check intersection_absorbs_right_starProjection
+#check compressed_projection_sub_intersection_eq_factor
+#check compressed_projection_sub_intersection_isPositive
+
+#print axioms transportedClosedSubmodule_inf
+#print axioms compressed_projection_sub_intersection_eq_factor
+#print axioms compressed_projection_sub_intersection_isPositive
+
+end CC20Concrete
+end ConnesWeilRH

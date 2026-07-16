@@ -1,0 +1,36 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CC20Concrete.MovingDividedDifferenceKernel
+
+namespace ConnesWeilRH.Dev.MovingDividedDifferenceKernelAudit
+
+open ConnesWeilRH Source CC20Concrete
+
+#check @CC20MovingDividedDifferenceData.at
+#check @CC20DividedDifferenceData.stationary
+#check @cc20MovingDividedDifferenceDataOfSchwartzPath
+#check @cc20MovingDividedDifferenceDataOfSchwartzPath_at
+#check @cc20MovingSegmentAverageDerivative
+#check @cc20MovingSegmentAverageDerivative_eq_dividedDifference
+#check @cc20MovingQuantizedDividedDifferenceKernel_offDiagonal
+#check @cc20MovingWindowQuantizedDividedDifferenceKernel
+#check @cc20MovingRootSandwichedDividedDifferenceResponse_eq_static
+#check @continuous_cc20MovingRootSandwichedDividedDifferenceResponse
+#check @integrable_cc20MovingRootSandwichedDividedDifferenceResponse
+#check @cc20MovingRootSandwichedDividedDifferenceResponse_eq_twoPoint
+#check @integral_cc20MovingRootSandwichedDividedDifferenceResponse_eq_twoPoint
+
+#print axioms CC20DividedDifferenceData.stationary
+#print axioms cc20MovingDividedDifferenceDataOfSchwartzPath
+#print axioms cc20MovingSegmentAverageDerivative_eq_dividedDifference
+#print axioms cc20MovingQuantizedDividedDifferenceKernel_offDiagonal
+#print axioms cc20MovingRootSandwichedDividedDifferenceResponse_eq_static
+#print axioms continuous_cc20MovingRootSandwichedDividedDifferenceResponse
+#print axioms integrable_cc20MovingRootSandwichedDividedDifferenceResponse
+#print axioms cc20MovingRootSandwichedDividedDifferenceResponse_eq_twoPoint
+#print axioms integral_cc20MovingRootSandwichedDividedDifferenceResponse_eq_twoPoint
+
+end ConnesWeilRH.Dev.MovingDividedDifferenceKernelAudit

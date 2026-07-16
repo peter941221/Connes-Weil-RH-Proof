@@ -5,6 +5,7 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Source.CC20Concrete.GlobalLogMellinRows
+import ConnesWeilRH.Source.CC20Concrete.QuantizedRemainder
 import Mathlib.Topology.ContinuousMap.StoneWeierstrass
 
 /-!
@@ -300,6 +301,99 @@ theorem exists_finite_cc20WindowHaarNaturalMellinZeros_remainder_nonpositive
   intro n hn
   exact (cc20WindowHaarMellinTestInput_inner_row_eq_zero_iff
     lambda hlambda (n : ℂ) g hsupport).mpr (hzeros n hn)
+
+/-- Compactness and natural Mellin completeness select finitely many actual
+rows which control the named restricted `K_I - 2 Id` owner. -/
+theorem
+    exists_finite_cc20RestrictedLogNaturalMellinControlRows_quantizedRemainder_nonpositive
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    ∃ rowIndices : Finset ℕ,
+      FiniteDimensional ℂ
+          (Submodule.span ℂ
+            ((cc20RestrictedLogNaturalMellinRow lambda) ''
+              (rowIndices : Set ℕ))) ∧
+        ∀ x : Lp ℂ 2 (volume.restrict (cc20LogWindow lambda)),
+          (∀ n ∈ rowIndices,
+            inner ℂ x (cc20RestrictedLogNaturalMellinRow lambda n) = 0) →
+          (inner ℂ x
+            (cc20GlobalLogWindowRestrictedQuantizedRemainder
+              lambda hlambda x)).re ≤ 0 := by
+  obtain ⟨rowIndices, hfinite, hsign⟩ :=
+    CompactBadSpace.exists_finite_controlRowIndices_of_dense_span
+      (threshold := 2)
+      (cc20GlobalLogWindowRestrictedL2Endomorphism lambda hlambda)
+      (isCompactOperator_cc20GlobalLogWindowRestrictedL2Endomorphism
+        lambda hlambda)
+      (cc20RestrictedLogNaturalMellinRow lambda)
+      (dense_span_cc20RestrictedLogNaturalMellinRow lambda)
+      (by norm_num)
+  refine ⟨rowIndices, hfinite, ?_⟩
+  intro x hzeros
+  rw [cc20GlobalLogWindowRestrictedQuantizedRemainder_apply]
+  exact hsign x hzeros
+
+/-- The same named-owner sign statement for actual source tests satisfying a
+finite family of natural Mellin zero equations. -/
+theorem
+    exists_finite_cc20RestrictedLogNaturalMellinZeros_quantizedRemainder_nonpositive
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    ∃ rowIndices : Finset ℕ,
+      FiniteDimensional ℂ
+          (Submodule.span ℂ
+            ((cc20RestrictedLogNaturalMellinRow lambda) ''
+              (rowIndices : Set ℕ))) ∧
+        ∀ (g : normalizedCC20ConcreteTestAlgebra.Test),
+          Function.support
+              (fun x : ℝ =>
+                normalizedCC20ConcreteTestAlgebra.legacy.encode g x) ⊆
+            Set.Ioo (1 / lambda) lambda →
+          (∀ n ∈ rowIndices,
+            normalizedCC20TestSpace.mellinAt g (n : ℂ) = 0) →
+          (inner ℂ (cc20RestrictedLogMellinTestInput lambda g)
+            (cc20GlobalLogWindowRestrictedQuantizedRemainder lambda hlambda
+              (cc20RestrictedLogMellinTestInput lambda g))).re ≤ 0 := by
+  obtain ⟨rowIndices, hfinite, hsign⟩ :=
+    exists_finite_cc20RestrictedLogNaturalMellinControlRows_quantizedRemainder_nonpositive
+      lambda hlambda
+  refine ⟨rowIndices, hfinite, ?_⟩
+  intro g hsupport hzeros
+  apply hsign (cc20RestrictedLogMellinTestInput lambda g)
+  intro n hn
+  change inner ℂ (cc20RestrictedLogMellinTestInput lambda g)
+      (cc20RestrictedLogMellinRow lambda (n : ℂ)) = 0
+  exact (cc20RestrictedLogMellinTestInput_inner_row_eq_zero_iff
+    lambda hlambda (n : ℂ) g hsupport).mpr (hzeros n hn)
+
+/-- Zero extension puts the same finite-Mellin sign theorem on the global
+logarithmic Hilbert space without changing its quadratic form. -/
+theorem
+    exists_finite_cc20GlobalLogNaturalMellinZeros_quantizedRemainder_nonpositive
+    (lambda : ℝ) (hlambda : 1 < lambda) :
+    ∃ rowIndices : Finset ℕ,
+      FiniteDimensional ℂ
+          (Submodule.span ℂ
+            ((cc20RestrictedLogNaturalMellinRow lambda) ''
+              (rowIndices : Set ℕ))) ∧
+        ∀ (g : normalizedCC20ConcreteTestAlgebra.Test),
+          Function.support
+              (fun x : ℝ =>
+                normalizedCC20ConcreteTestAlgebra.legacy.encode g x) ⊆
+            Set.Ioo (1 / lambda) lambda →
+          (∀ n ∈ rowIndices,
+            normalizedCC20TestSpace.mellinAt g (n : ℂ) = 0) →
+          (inner ℂ
+            (cc20LogWindowRestrictIndicatorCLM lambda
+              (cc20RestrictedLogMellinTestInput lambda g))
+            (cc20GlobalLogWindowQuantizedRemainder lambda hlambda
+              (cc20LogWindowRestrictIndicatorCLM lambda
+                (cc20RestrictedLogMellinTestInput lambda g)))).re ≤ 0 := by
+  obtain ⟨rowIndices, hfinite, hsign⟩ :=
+    exists_finite_cc20RestrictedLogNaturalMellinZeros_quantizedRemainder_nonpositive
+      lambda hlambda
+  refine ⟨rowIndices, hfinite, ?_⟩
+  intro g hsupport hzeros
+  rw [cc20GlobalLogWindowQuantizedRemainder_inner_zeroExtension]
+  exact hsign g hsupport hzeros
 
 end CC20Concrete
 end Source

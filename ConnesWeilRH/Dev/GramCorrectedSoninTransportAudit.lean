@@ -1,0 +1,34 @@
+import ConnesWeilRH.Source.CC20Concrete.GramCorrectedSoninTransport
+
+namespace ConnesWeilRH
+namespace CC20Concrete
+
+#check gramCorrectedProjection
+#check gramCorrectedProjection_isIdempotentElem
+#check gramCorrectedProjection_isSelfAdjoint
+#check gramCorrectedProjection_isStarProjection
+#check gramCorrectedProjection_range
+#check restrictedClosedTransportLinearEquiv
+#check restrictedClosedTransportEquiv
+#check restrictedClosedTransportEquiv_apply_coe
+#check restrictedClosedTransportEquiv_symm_apply_coe
+#check restrictedClosedTransport_eq_subtype_comp_equiv
+#check restrictedClosedTransportInverse
+#check restrictedTransportGramInv
+#check restrictedTransportGramInv_isSelfAdjoint
+#check restrictedTransportGramInv_leftInverse
+#check restrictedClosedTransport
+#check restrictedClosedTransport_range
+#check transportedSoninStarProjection
+#check transportedSoninStarProjection_isStarProjection
+#check transportedSoninStarProjection_range
+
+#print axioms gramCorrectedProjection_isStarProjection
+#print axioms gramCorrectedProjection_range
+#print axioms restrictedClosedTransport_range
+#print axioms restrictedTransportGramInv_leftInverse
+#print axioms transportedSoninStarProjection_isStarProjection
+#print axioms transportedSoninStarProjection_range
+
+end CC20Concrete
+end ConnesWeilRH

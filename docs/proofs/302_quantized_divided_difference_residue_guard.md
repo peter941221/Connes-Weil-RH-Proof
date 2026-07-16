@@ -304,8 +304,17 @@ two-point kernel.  No Lean route consumer is changed.
 
 ## 8. Successor: Proof 303
 
-Proof 303 should construct the source-specific divided-difference bridge for
-the full `E/R/K_prol` moving kernel.  The first certificate should verify the
-outer Hardy channel against CC20's quantized kernel and then test whether the
-`-2 Dirac_0` term cancels with the same-test diagonal form.  Only after that
-bridge is exact should any contour or Sobolev estimate be attempted.
+Proof 303 now closes the finite source-shaped bridge for the full moving
+`E/R/K_prol` kernel.  Its Hardy commutator readback and branch expansion are
+exact at every sampled transport time, while deletion of `K_prol` changes the
+signed scalar.  The separate `-2 Dirac_0` ledger is not recovered by the
+ordinary divided-difference matrix; automatic cancellation is therefore
+rejected rather than assumed.
+
+Proof 304 now constructs the ordinary residue-augmented owners
+`K_I - 2 Id` and `K_window - 2 P_window`, proves their exact zero-extension
+quadratic identity, and rewires finite natural-Mellin control to those named
+objects.  This closes carrier and diagonal bookkeeping only.  The next hard
+point is the continuous root-sandwiched `E/R/K_prol` bridge and its
+same-test compatibility, before any contour or Sobolev estimate.  See
+`docs/proofs/304_cc20_quantized_remainder_owner.md`.
