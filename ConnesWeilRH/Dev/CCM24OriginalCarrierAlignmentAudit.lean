@@ -1,0 +1,29 @@
+import ConnesWeilRH.Source.CC20Concrete.CCM24OriginalCarrierAlignment
+
+namespace ConnesWeilRH.Source.CC20Concrete
+
+#check ccm24ArchimedeanEvenRadialEquiv
+#check ccm24ArchimedeanRadialFourier
+#check ccm24ArchimedeanRadialFourier_log_readback_raw
+#check ccm24ArchimedeanRadialFourier_log_readback
+#check ccm24FiniteEulerRadialTransportEquiv
+#check ccm24FiniteEulerRadialTransport_log_intertwines
+#check ccm24SemilocalRadialFourier
+#check ccm24SemilocalRadialFourier_intertwines
+#check ccm24SemilocalRadialFourier_log_readback
+#check concreteCCM24OriginalRadialSoninTransportData
+#check concreteCCM24OriginalRadialSoninTransportData_log_theta
+
+#print axioms ccm24ArchimedeanEvenRadialEquiv
+#print axioms ccm24ArchimedeanRadialFourier
+#print axioms ccm24ArchimedeanRadialFourier_log_readback_raw
+#print axioms ccm24ArchimedeanRadialFourier_log_readback
+#print axioms ccm24FiniteEulerRadialTransportEquiv
+#print axioms ccm24FiniteEulerRadialTransport_log_intertwines
+#print axioms ccm24SemilocalRadialFourier
+#print axioms ccm24SemilocalRadialFourier_intertwines
+#print axioms ccm24SemilocalRadialFourier_log_readback
+#print axioms concreteCCM24OriginalRadialSoninTransportData
+#print axioms concreteCCM24OriginalRadialSoninTransportData_log_theta
+
+end ConnesWeilRH.Source.CC20Concrete
