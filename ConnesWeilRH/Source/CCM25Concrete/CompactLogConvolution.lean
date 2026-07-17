@@ -32,6 +32,32 @@ structure CompactLogTest where
 
 namespace CompactLogTest
 
+/-- Reflection in the additive log coordinate, without complex conjugation. -/
+noncomputable def reflection (f : CompactLogTest) : CompactLogTest := by
+  let raw : ℝ → ℂ := fun x => f.test (-x)
+  have hcompact : HasCompactSupport raw := by
+    simpa [raw] using f.compactSupport.comp_homeomorph (Homeomorph.neg ℝ)
+  have hsmooth : ContDiff ℝ ∞ raw := by
+    fun_prop
+  exact
+    { test := hcompact.toSchwartzMap hsmooth
+      compactSupport := by simpa [raw] using hcompact }
+
+@[simp] theorem reflection_apply (f : CompactLogTest) (x : ℝ) :
+    f.reflection.test x = f.test (-x) :=
+  rfl
+
+/-- Reflection sends a support interval `[a,c]` to `[-c,-a]`. -/
+theorem reflection_support_subset_Icc
+    (f : CompactLogTest) (a c : ℝ)
+    (hsupp : Function.support f.test ⊆ Set.Icc a c) :
+    Function.support f.reflection.test ⊆ Set.Icc (-c) (-a) := by
+  intro x hx
+  have hreflected : f.test (-x) ≠ 0 := by
+    simpa only [reflection_apply] using hx
+  rcases hsupp hreflected with ⟨hlower, hupper⟩
+  constructor <;> linarith
+
 /-- The CCM25 involution `f*(x) = conj (f(-x))`. -/
 noncomputable def involution (f : CompactLogTest) : CompactLogTest := by
   let raw : ℝ → ℂ := fun x => star (f.test (-x))
@@ -104,6 +130,25 @@ theorem convolutionSquare_neg (g : CompactLogTest) (x : ℝ) :
       filter_upwards with t
       simp only [reflected, star_mul, star_star]
       exact mul_comm _ _
+
+/-- Reflecting the root reflects its convolution square. -/
+theorem reflection_convolutionSquare_apply
+    (g : CompactLogTest) (x : ℝ) :
+    g.reflection.convolutionSquare.test x =
+      g.convolutionSquare.test (-x) := by
+  rw [convolutionSquare_apply, convolutionSquare_apply]
+  simp only [reflection_apply, neg_neg]
+  let reflected : ℝ → ℂ := fun t =>
+    star (g.test (-t)) * g.test (-x - t)
+  calc
+    (∫ t : ℝ, star (g.test t) * g.test (-(x - t))) =
+        ∫ t : ℝ, reflected (-t) := by
+      apply integral_congr_ae
+      filter_upwards with t
+      simp only [reflected, neg_neg]
+      congr 2 <;> ring
+    _ = ∫ t : ℝ, reflected t :=
+      integral_neg_eq_self reflected (volume : Measure ℝ)
 
 /-- At zero the convolution square is the integral of the pointwise norm square. -/
 theorem convolutionSquare_zero_eq_integral_normSq (g : CompactLogTest) :

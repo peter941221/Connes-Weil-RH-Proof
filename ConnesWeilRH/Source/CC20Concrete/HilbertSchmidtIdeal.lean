@@ -98,6 +98,29 @@ theorem summable_normSq_add
         ‖right (basis i)‖ ^ 2) := by
       nlinarith [sq_nonneg (‖left (basis i)‖ - ‖right (basis i)‖)]
 
+/-- A summable diagonal for the exact positive square `A† A` forces `A` to
+be Hilbert--Schmidt in the same named basis.
+
+This implication is deliberately restricted to a positive square.  The
+project's `IsTraceClassAlong` predicate records only one diagonal series and
+is not, for a general operator, a Schatten `S1` witness.  Here every diagonal
+entry is exactly the nonnegative real number `‖A e_i‖²`, so no cyclicity or
+basis-independence is being inferred. -/
+theorem summable_normSq_of_isTraceClassAlong_adjoint_comp_self
+    {ι : Type*} (basis : HilbertBasis ι ℂ H) (operator : H →L[ℂ] G)
+    (hoperator : IsTraceClassAlong basis
+      (operator.adjoint ∘L operator)) :
+    Summable fun i => ‖operator (basis i)‖ ^ 2 := by
+  rw [IsTraceClassAlong] at hoperator
+  have habsolute := hoperator.norm
+  exact habsolute.congr fun i => by
+    rw [ContinuousLinearMap.comp_apply,
+      ContinuousLinearMap.adjoint_inner_right,
+      inner_self_eq_norm_sq_to_K]
+    rw [norm_pow]
+    exact congrArg (fun value : ℝ => value ^ 2)
+      (Complex.norm_of_nonneg (norm_nonneg (operator (basis i))))
+
 omit [CompleteSpace H] in
 /-- Named-basis trace legality is closed under subtraction without rewriting
 through a scalar action. -/

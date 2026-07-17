@@ -71,6 +71,9 @@ import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSMovingBandCalculus
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedMovingCrossing
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRadialGeneratorInvariance
 import ConnesWeilRH.Source.CCM25Concrete.CCM24RadialBoundaryPairTransport
+import ConnesWeilRH.Source.CCM25Concrete.CCM24ReflectedCompactRoot
+import ConnesWeilRH.Source.CCM25Concrete.CCM24SourceProlateTrace
+import ConnesWeilRH.Source.CCM25Concrete.CCM24UnitScaleProlateAlignment
 import ConnesWeilRH.Source.CCM25Concrete.UnscaledYoshidaSelectedOwner
 
 /-!
