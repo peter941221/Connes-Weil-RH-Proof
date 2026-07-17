@@ -121,6 +121,76 @@ theorem summable_normSq_of_isTraceClassAlong_adjoint_comp_self
     exact congrArg (fun value : ℝ => value ^ 2)
       (Complex.norm_of_nonneg (norm_nonneg (operator (basis i))))
 
+/-- A strict contraction is Hilbert--Schmidt when its canonical positive
+defect has a Hilbert--Schmidt square root.
+
+If `A† A = K`, the displayed defect is `K - K† K`.  The strict norm bound
+gives
+
+`(1 - ‖A‖²) ‖A e‖² ≤ ‖D e‖²`
+
+on every basis vector.  This is the abstract angle-gap step in the prolate
+trace reduction; it does not assert the required strict bound for any
+particular pair of projections. -/
+theorem summable_normSq_of_strictContraction_of_defect
+    {ι : Type*} (basis : HilbertBasis ι ℂ H)
+    (operator : H →L[ℂ] G) (defect : H →L[ℂ] K)
+    (hnorm : ‖operator‖ < 1)
+    (hdefect : defect.adjoint ∘L defect =
+      operator.adjoint ∘L operator -
+        (operator.adjoint ∘L operator).adjoint ∘L
+          (operator.adjoint ∘L operator))
+    (hdefectSummable : Summable fun i => ‖defect (basis i)‖ ^ 2) :
+    Summable fun i => ‖operator (basis i)‖ ^ 2 := by
+  let gram : H →L[ℂ] H := operator.adjoint ∘L operator
+  let gap : ℝ := 1 - ‖operator‖ ^ 2
+  have hgap : 0 < gap := by
+    dsimp only [gap]
+    nlinarith [norm_nonneg operator]
+  apply Summable.of_nonneg_of_le
+    (fun i => sq_nonneg ‖operator (basis i)‖)
+    (fun i => ?_)
+    (hdefectSummable.mul_left gap⁻¹)
+  have hgramBound :
+      ‖gram (basis i)‖ ≤ ‖operator‖ * ‖operator (basis i)‖ := by
+    calc
+      ‖gram (basis i)‖ =
+          ‖operator.adjoint (operator (basis i))‖ := by
+        rfl
+      _ ≤ ‖operator.adjoint‖ * ‖operator (basis i)‖ :=
+        operator.adjoint.le_opNorm _
+      _ = ‖operator‖ * ‖operator (basis i)‖ := by
+        rw [LinearIsometryEquiv.norm_map]
+  have hgramSq :
+      ‖gram (basis i)‖ ^ 2 ≤
+        ‖operator‖ ^ 2 * ‖operator (basis i)‖ ^ 2 := by
+    calc
+      ‖gram (basis i)‖ ^ 2 ≤
+          (‖operator‖ * ‖operator (basis i)‖) ^ 2 := by
+        gcongr
+      _ = ‖operator‖ ^ 2 * ‖operator (basis i)‖ ^ 2 := by
+        ring
+  have hdiagonal :
+      ‖defect (basis i)‖ ^ 2 =
+        ‖operator (basis i)‖ ^ 2 - ‖gram (basis i)‖ ^ 2 := by
+    have hop := congrArg
+      (fun map : H →L[ℂ] H => inner ℂ (basis i) (map (basis i)))
+      hdefect
+    simp only [ContinuousLinearMap.comp_apply,
+      ContinuousLinearMap.sub_apply, inner_sub_right,
+      ContinuousLinearMap.adjoint_inner_right,
+      inner_self_eq_norm_sq_to_K] at hop
+    norm_cast at hop
+  have hscaled :
+      gap * ‖operator (basis i)‖ ^ 2 ≤
+        ‖defect (basis i)‖ ^ 2 := by
+    rw [hdiagonal]
+    dsimp only [gap]
+    nlinarith
+  rw [inv_mul_eq_div]
+  exact (le_div_iff₀ hgap).2 (by
+    simpa only [mul_comm] using hscaled)
+
 omit [CompleteSpace H] in
 /-- Named-basis trace legality is closed under subtraction without rewriting
 through a scalar action. -/

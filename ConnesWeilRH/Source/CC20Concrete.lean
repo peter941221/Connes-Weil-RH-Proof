@@ -33,6 +33,7 @@ import ConnesWeilRH.Source.CC20Concrete.MovingGlobalCrossingPair
 import ConnesWeilRH.Source.CC20Concrete.ThreeBranchCommutatorLedger
 import ConnesWeilRH.Source.CC20Concrete.SelfAdjointBoundaryCommutator
 import ConnesWeilRH.Source.CC20Concrete.GlobalLogSoninProjection
+import ConnesWeilRH.Source.CC20Concrete.ProlateTraceReduction
 import ConnesWeilRH.Source.CC20Concrete.InvertibleTransportSonin
 import ConnesWeilRH.Source.CC20Concrete.GramCorrectedSoninTransport
 import ConnesWeilRH.Source.CC20Concrete.CCM24SoninProjectionBridge
