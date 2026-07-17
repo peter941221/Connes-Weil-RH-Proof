@@ -74,7 +74,9 @@ import ConnesWeilRH.Source.CCM25Concrete.CCM24RadialBoundaryPairTransport
 import ConnesWeilRH.Source.CCM25Concrete.CCM24ReflectedCompactRoot
 import ConnesWeilRH.Source.CCM25Concrete.CCM24SourceProlateTrace
 import ConnesWeilRH.Source.CCM25Concrete.CCM24UnitScaleProlateAlignment
-import ConnesWeilRH.Source.CCM25Concrete.CCM24UnitScaleProlateTraceReduction
+import ConnesWeilRH.Source.CCM25Concrete.CCM24UnitScaleStrictAngle
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSMovingCrossingPullback
+import ConnesWeilRH.Source.CCM25Concrete.CCM24RootSandwichedHalfLinePair
 import ConnesWeilRH.Source.CCM25Concrete.UnscaledYoshidaSelectedOwner
 
 /-!

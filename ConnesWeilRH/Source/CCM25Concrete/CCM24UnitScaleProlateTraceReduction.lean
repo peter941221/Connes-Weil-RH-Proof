@@ -492,27 +492,6 @@ theorem unitRawSupportCrossing_summable_of_interiorCompression
   rw [unitRawSupportCrossing_eq_neg_interiorCompression]
   simpa only [ContinuousLinearMap.neg_apply, norm_neg] using hpre
 
-/-- Once the genuine Plancherel compression is identified with the already
-constructed continuous-kernel factor, the raw Hardy--Titchmarsh crossing is
-Hilbert--Schmidt.  This leaves one exact operator equality, not a spectral or
-summability premise. -/
-theorem unitRawSupportCrossing_summable_of_additiveKernelIdentification
-    {ι : Type*} (basis : HilbertBasis ι ℂ H)
-    (hidentify : unitEvenAdditiveFourierCompression =
-      unitEvenAdditiveFiniteWindowFourierFactor) :
-    Summable fun i => ‖unitRawSupportCrossing (basis i)‖ ^ 2 := by
-  have hadditive : Summable fun i =>
-      ‖unitEvenAdditiveFourierCompression
-        (unitEvenAdditiveBasis basis i)‖ ^ 2 := by
-    rw [hidentify]
-    exact unitEvenAdditiveFiniteWindowFourierFactor_summable
-      (unitEvenAdditiveBasis basis)
-  have hlog : Summable fun i =>
-      ‖unitInteriorFourierCompression (basis i)‖ ^ 2 :=
-    (unitInteriorFourierCompression_summable_iff_evenAdditive basis).2
-      hadditive
-  exact unitRawSupportCrossing_summable_of_interiorCompression basis hlog
-
 /-- The exact unit-scale positive trace-class producer once the two genuine
 CC20 analytic facts are supplied.  This theorem adds no spectral premise to
 the project state: both obligations remain visible at the call site. -/

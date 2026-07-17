@@ -148,6 +148,43 @@ theorem parameterizedPrimeEulerFactor_commute_finiteGenerator
       rw [parameterizedFiniteEulerGenerator_cons]
       exact (parameterizedPrimeEulerFactor_commute_generator alpha beta p q).add_right ih
 
+/-- Every complete synchronized Euler product commutes with every complete
+additive Euler generator.  The two prime lists may differ. -/
+theorem parameterizedFiniteEulerFactor_commute_finiteGenerator
+    (alpha beta : ℝ) (T S : List CCM24VisiblePrime) :
+    Commute (parameterizedFiniteEulerFactor alpha T)
+      (parameterizedFiniteEulerGenerator beta S) := by
+  induction T with
+  | nil =>
+      rw [parameterizedFiniteEulerFactor]
+      exact Commute.one_left _
+  | cons p T ih =>
+      rw [parameterizedFiniteEulerFactor]
+      have hp := parameterizedPrimeEulerFactor_commute_finiteGenerator
+        alpha beta p S
+      calc
+        (parameterizedPrimeEulerFactor alpha p *
+              parameterizedFiniteEulerFactor alpha T) *
+            parameterizedFiniteEulerGenerator beta S =
+          parameterizedPrimeEulerFactor alpha p *
+            (parameterizedFiniteEulerFactor alpha T *
+              parameterizedFiniteEulerGenerator beta S) :=
+            mul_assoc _ _ _
+        _ = parameterizedPrimeEulerFactor alpha p *
+            (parameterizedFiniteEulerGenerator beta S *
+              parameterizedFiniteEulerFactor alpha T) := by rw [ih.eq]
+        _ = (parameterizedPrimeEulerFactor alpha p *
+              parameterizedFiniteEulerGenerator beta S) *
+            parameterizedFiniteEulerFactor alpha T :=
+              (mul_assoc _ _ _).symm
+        _ = (parameterizedFiniteEulerGenerator beta S *
+              parameterizedPrimeEulerFactor alpha p) *
+            parameterizedFiniteEulerFactor alpha T := by rw [hp.eq]
+        _ = parameterizedFiniteEulerGenerator beta S *
+            (parameterizedPrimeEulerFactor alpha p *
+              parameterizedFiniteEulerFactor alpha T) :=
+                mul_assoc _ _ _
+
 /-- The finite additive generator multiplied by the complete Euler product
 is exactly the product-rule derivative.  All prime channels remain inside the
 finite operator sum until this algebraic identity is complete. -/
