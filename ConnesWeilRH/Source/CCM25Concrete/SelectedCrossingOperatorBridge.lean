@@ -330,6 +330,29 @@ noncomputable def globalL2ToKernelInterval
       (LpToLpRestrictCLM ℝ ℂ ℂ volume 2
         (Set.Icc (a - b) (c + b)))
 
+/-- Restriction to a compact kernel interval is represented by evaluation at
+the subtype value. -/
+theorem globalL2ToKernelInterval_coeFn
+    (a c b : ℝ) (u : cc20GlobalLogCrossingL2) :
+    (globalL2ToKernelInterval a c b u : KernelInterval a c b → ℂ) =ᵐ[volume]
+      fun t => u t.1 := by
+  change (Lp.compMeasurePreserving Subtype.val
+      (measurePreserving_kernelIntervalSubtypeVal a c b)
+      (LpToLpRestrictCLM ℝ ℂ ℂ volume 2
+        (Set.Icc (a - b) (c + b)) u) : KernelInterval a c b → ℂ) =ᵐ[volume]
+    fun t => u t.1
+  let restricted := LpToLpRestrictCLM ℝ ℂ ℂ volume 2
+    (Set.Icc (a - b) (c + b)) u
+  have hleft := Lp.coeFn_compMeasurePreserving restricted
+    (measurePreserving_kernelIntervalSubtypeVal a c b)
+  have hrestrict :=
+    (measurePreserving_kernelIntervalSubtypeVal a c b).quasiMeasurePreserving.ae_eq_comp
+      (LpToLpRestrictCLM_coeFn ℂ
+        (Set.Icc (a - b) (c + b)) u)
+  filter_upwards [hleft, hrestrict] with t hl hr
+  rw [hl]
+  simpa only [Function.comp_apply] using hr
+
 theorem surjective_globalL2ToKernelInterval
     (a c b : ℝ) :
     Function.Surjective (globalL2ToKernelInterval a c b) := by
@@ -1831,6 +1854,47 @@ theorem kernelIntervalL2ZeroExtension_eq_adjoint_globalL2ToKernelInterval
   rw [← kernelIntervalRestrictedZeroExtension_eq_restrictedSetZeroExtension]
   congr 1
   exact (kernelIntervalSubtypeRestrictedL2IsometryEquiv a c b).adjoint_eq_symm.symm
+
+/-- The compact kernel-window projection is the literal interval indicator
+on the global logarithmic `L2` carrier. -/
+theorem kernelIntervalProjection_coeFn
+    (a c b : ℝ) (u : cc20GlobalLogCrossingL2) :
+    (kernelIntervalProjection a c b u : ℝ → ℂ) =ᵐ[volume]
+      (Set.Icc (a - b) (c + b)).indicator (fun t => u t) := by
+  have hadj : (kernelIntervalL2ZeroExtension a c b).adjoint =
+      globalL2ToKernelInterval a c b := by
+    rw [kernelIntervalL2ZeroExtension_eq_adjoint_globalL2ToKernelInterval]
+    exact ContinuousLinearMap.adjoint_adjoint _
+  have hprojection : kernelIntervalProjection a c b =
+      (restrictedSetZeroExtension
+        (Set.Icc (a - b) (c + b)) measurableSet_Icc).comp
+        (LpToLpRestrictCLM ℝ ℂ ℂ volume 2
+          (Set.Icc (a - b) (c + b))) := by
+    rw [kernelIntervalProjection, hadj, kernelIntervalL2ZeroExtension,
+      globalL2ToKernelInterval]
+    rw [kernelIntervalRestrictedZeroExtension_eq_restrictedSetZeroExtension]
+    apply ContinuousLinearMap.ext
+    intro v
+    simp only [ContinuousLinearMap.comp_apply]
+    apply congrArg (restrictedSetZeroExtension
+      (Set.Icc (a - b) (c + b)) measurableSet_Icc)
+    exact (kernelIntervalSubtypeRestrictedL2IsometryEquiv a c b).symm_apply_apply _
+  rw [hprojection, ContinuousLinearMap.comp_apply]
+  have hextend := restrictedSetZeroExtension_coeFn
+    (Set.Icc (a - b) (c + b)) measurableSet_Icc
+    (LpToLpRestrictCLM ℝ ℂ ℂ volume 2
+      (Set.Icc (a - b) (c + b)) u)
+  have hrestrict := LpToLpRestrictCLM_coeFn ℂ
+    (Set.Icc (a - b) (c + b)) u
+  have hrestrict' := (ae_restrict_iff' measurableSet_Icc).mp hrestrict
+  filter_upwards [hextend, hrestrict'] with t he hr
+  by_cases ht : t ∈ Set.Icc (a - b) (c + b)
+  · rw [Set.indicator_of_mem ht] at he ⊢
+    rw [hr ht] at he
+    exact he
+  · simp only [Set.indicator_of_notMem ht]
+    rw [he]
+    simp only [Set.indicator_of_notMem ht]
 
 theorem norm_globalL2ToKernelInterval_adjoint_apply
     (a c b : ℝ)

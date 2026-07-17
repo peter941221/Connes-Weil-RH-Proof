@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSParameterizedSoninSubspace
+import ConnesWeilRH.Source.CC20Concrete.GramCorrectedSoninTransport
 
 /-!
 # Parameterized finite-S Sonin projection
@@ -46,6 +47,31 @@ theorem parameterizedFourierSupportProjection_isStarProjection
     IsStarProjection
       (parameterizedFourierSupportProjection lambda alpha S halpha) :=
   isStarProjection_starProjection
+
+/-- The moving second-support projection is the Gram-corrected orthogonal
+projection onto the bounded-invertible image of the source Fourier-support
+space.  It is not the oblique similarity `T Q T^-1`. -/
+theorem parameterizedFourierSupportProjection_eq_gramCorrectedTransport
+    (lambda : CCM24SoninScale) (alpha : ℝ)
+    (S : List CCM24VisiblePrime) (halpha : |alpha| ≤ 1) :
+    parameterizedFourierSupportProjection lambda alpha S halpha =
+      _root_.ConnesWeilRH.CC20Concrete.transportedSoninStarProjection
+        (parameterizedFiniteEulerEquiv alpha S halpha)
+        (ccm24ArchimedeanFourierSupportClosedSubspace lambda) := by
+  apply ContinuousLinearMap.IsStarProjection.ext
+    (parameterizedFourierSupportProjection_isStarProjection
+      lambda alpha S halpha)
+    (_root_.ConnesWeilRH.CC20Concrete.transportedSoninStarProjection_isStarProjection
+      (parameterizedFiniteEulerEquiv alpha S halpha)
+      (ccm24ArchimedeanFourierSupportClosedSubspace lambda))
+  unfold parameterizedFourierSupportProjection
+  rw [Submodule.range_starProjection,
+    _root_.ConnesWeilRH.CC20Concrete.transportedSoninStarProjection_range]
+  rw [_root_.ConnesWeilRH.CC20Concrete.transportedClosedSubmodule]
+  exact congrArg
+    (fun P : ClosedSubmodule ℂ finiteSCarrier => P.toSubmodule)
+    (parameterizedFiniteEulerEquiv_maps_fourierSupport
+      lambda alpha S halpha).symm
 
 theorem parameterizedSoninProjection_isStarProjection
     (lambda : CCM24SoninScale) (alpha : ℝ)

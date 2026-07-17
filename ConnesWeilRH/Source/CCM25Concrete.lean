@@ -69,6 +69,8 @@ import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRootSandwichedProjectionCal
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSParameterizedZeroEndpoint
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSMovingBandCalculus
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedMovingCrossing
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRadialGeneratorInvariance
+import ConnesWeilRH.Source.CCM25Concrete.CCM24RadialBoundaryPairTransport
 import ConnesWeilRH.Source.CCM25Concrete.UnscaledYoshidaSelectedOwner
 
 /-!
