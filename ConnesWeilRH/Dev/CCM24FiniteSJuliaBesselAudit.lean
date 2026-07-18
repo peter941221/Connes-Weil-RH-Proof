@@ -1,0 +1,22 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSJuliaBessel
+
+namespace ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSJuliaBessel
+
+#check JuliaDefectStep
+#check juliaDefectEnergy_add_survivor_normSq
+#check juliaRangeEnergy_le_defectEnergy
+#check juliaRangeEnergy_le_normSq
+#check summable_juliaRangeEnergy
+#check tsum_juliaRangeEnergy_le
+#check summable_juliaRangeEnergy_comp
+#check finite_dual_pairing_norm_le
+
+#print axioms juliaDefectEnergy_add_survivor_normSq
+#print axioms juliaRangeEnergy_le_defectEnergy
+#print axioms juliaRangeEnergy_le_normSq
+#print axioms summable_juliaRangeEnergy
+#print axioms tsum_juliaRangeEnergy_le
+#print axioms summable_juliaRangeEnergy_comp
+#print axioms finite_dual_pairing_norm_le
+
+end ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSJuliaBessel
