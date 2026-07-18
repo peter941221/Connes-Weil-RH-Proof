@@ -2,6 +2,13 @@
 
 Date: 2026-07-18
 
+Successor audit: Proof 365 shows that `(QR.9)` does not follow for Proof
+343's actual quotient transport `A_S=mathcalF V_C mathcalF`.  Ambient
+commutation `[W,V]=0` is not inherited by the compressed quotient operator.
+Consequently `(QR.10)--(QR.13)` are superseded by the boundary-corrected
+transport in Proofs 366--369.  The fixed projection and physical bracket
+identities `(QR.2)--(QR.7)` remain valid.
+
 Status: exact same-object identification of the surviving Proof 355 detector
 crossing with the complete fixed Burnol-quotient physical commutator.  Proof
 356 then transports that single recombined commutator to every sequential
