@@ -111,6 +111,182 @@ theorem tsum_finiteEulerRenewalWeight (S : List CCM24VisiblePrime) :
       finiteEulerRenewalWeight S index = 1 := by
   exact (finiteEulerRenewalWeight_hasSum_one S).tsum_eq
 
+/-!
+Compact support may be applied to the causal probability law before any
+absolute value.  The following truncated first moment is the scalar core of
+the outer-boundary estimate: its mass is still probability mass, and its
+displacement cost is at most the support radius.
+-/
+noncomputable def finiteEulerRenewalCompactMoment
+    (B : ℝ) (S : List CCM24VisiblePrime)
+    (index : FiniteEulerRenewalIndex S) : ℝ :=
+  if finiteEulerRenewalDisplacement S index ≤ B then
+    finiteEulerRenewalWeight S index *
+      finiteEulerRenewalDisplacement S index
+  else 0
+
+theorem finiteEulerRenewalCompactMoment_nonneg
+    (B : ℝ) (S : List CCM24VisiblePrime)
+    (index : FiniteEulerRenewalIndex S) :
+    0 ≤ finiteEulerRenewalCompactMoment B S index := by
+  unfold finiteEulerRenewalCompactMoment
+  split_ifs
+  · exact mul_nonneg (finiteEulerRenewalWeight_nonneg S index)
+      (finiteEulerRenewalDisplacement_nonneg S index)
+  · exact le_rfl
+
+theorem tsum_finiteEulerRenewalCompactMoment_le
+    (B : ℝ) (hB : 0 ≤ B) (S : List CCM24VisiblePrime) :
+    ∑' index : FiniteEulerRenewalIndex S,
+      finiteEulerRenewalCompactMoment B S index ≤ B := by
+  have hweight : Summable (finiteEulerRenewalWeight S) :=
+    summable_finiteEulerRenewalWeight S
+  have hmajorant : Summable (fun index : FiniteEulerRenewalIndex S =>
+      B * finiteEulerRenewalWeight S index) :=
+    hweight.mul_left B
+  have hpoint : ∀ index : FiniteEulerRenewalIndex S,
+      finiteEulerRenewalCompactMoment B S index ≤
+        B * finiteEulerRenewalWeight S index := by
+    intro index
+    unfold finiteEulerRenewalCompactMoment
+    split_ifs with hsmall
+    · exact (mul_le_mul_of_nonneg_left hsmall
+        (finiteEulerRenewalWeight_nonneg S index)).trans_eq (by ring)
+    · exact mul_nonneg hB (finiteEulerRenewalWeight_nonneg S index)
+  calc
+    ∑' index : FiniteEulerRenewalIndex S,
+        finiteEulerRenewalCompactMoment B S index ≤
+      ∑' index : FiniteEulerRenewalIndex S,
+        B * finiteEulerRenewalWeight S index := by
+      exact (Summable.of_nonneg_of_le
+        (fun index => finiteEulerRenewalCompactMoment_nonneg B S index)
+        hpoint hmajorant).tsum_le_tsum hpoint hmajorant
+    _ = B := by
+      rw [tsum_mul_left, tsum_finiteEulerRenewalWeight]
+      ring
+
+/-! The compactly retained outer-pair atom is the object on which the
+probability-moment bound is used. -/
+noncomputable def finiteEulerRenewalCompactOuterPairAtom
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (B : ℝ) (S : List CCM24VisiblePrime)
+    (index : FiniteEulerRenewalIndex S) : ℂ :=
+  if finiteEulerRenewalDisplacement S index ≤ B then
+    (finiteEulerRenewalWeight S index : ℂ) *
+        (finiteEulerRenewalDisplacement S index : ℂ) *
+      (owner.convolutionSquare.test
+          (finiteEulerRenewalDisplacement S index) +
+        owner.convolutionSquare.test
+          (-finiteEulerRenewalDisplacement S index))
+  else 0
+
+theorem norm_finiteEulerRenewalCompactOuterPairAtom_le
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (B : ℝ) (S : List CCM24VisiblePrime)
+    (M : ℝ) (hM : ∀ x : ℝ,
+      ‖owner.convolutionSquare.test x‖ ≤ M) (hM_nonneg : 0 ≤ M)
+    (index : FiniteEulerRenewalIndex S) :
+    ‖finiteEulerRenewalCompactOuterPairAtom owner B S index‖ ≤
+      2 * M * finiteEulerRenewalCompactMoment B S index := by
+  have hweight := finiteEulerRenewalWeight_nonneg S index
+  have hdisp := finiteEulerRenewalDisplacement_nonneg S index
+  by_cases hsmall : finiteEulerRenewalDisplacement S index ≤ B
+  · rw [finiteEulerRenewalCompactOuterPairAtom, if_pos hsmall,
+      norm_mul, norm_mul, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_nonneg hweight, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_nonneg hdisp]
+    have hsum : ‖owner.convolutionSquare.test
+          (finiteEulerRenewalDisplacement S index) +
+        owner.convolutionSquare.test
+          (-finiteEulerRenewalDisplacement S index)‖ ≤ 2 * M := by
+      calc
+        ‖owner.convolutionSquare.test
+              (finiteEulerRenewalDisplacement S index) +
+            owner.convolutionSquare.test
+              (-finiteEulerRenewalDisplacement S index)‖ ≤
+          ‖owner.convolutionSquare.test
+              (finiteEulerRenewalDisplacement S index)‖ +
+            ‖owner.convolutionSquare.test
+              (-finiteEulerRenewalDisplacement S index)‖ :=
+          norm_add_le _ _
+        _ ≤ M + M := add_le_add
+          (hM (finiteEulerRenewalDisplacement S index))
+          (hM (-finiteEulerRenewalDisplacement S index))
+        _ = 2 * M := by ring
+    calc
+      finiteEulerRenewalWeight S index *
+          finiteEulerRenewalDisplacement S index *
+          ‖owner.convolutionSquare.test
+              (finiteEulerRenewalDisplacement S index) +
+            owner.convolutionSquare.test
+              (-finiteEulerRenewalDisplacement S index)‖ ≤
+        finiteEulerRenewalWeight S index *
+          finiteEulerRenewalDisplacement S index * (2 * M) := by
+            exact mul_le_mul_of_nonneg_left hsum
+              (mul_nonneg hweight hdisp)
+      _ = 2 * M * finiteEulerRenewalCompactMoment B S index := by
+        simp [finiteEulerRenewalCompactMoment, hsmall]
+        ring
+  · simp [finiteEulerRenewalCompactOuterPairAtom, hsmall,
+      finiteEulerRenewalCompactMoment]
+
+theorem tsum_norm_finiteEulerRenewalCompactOuterPairAtom_le
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (S : List CCM24VisiblePrime) (M : ℝ)
+    (hM : ∀ x : ℝ,
+      ‖owner.convolutionSquare.test x‖ ≤ M)
+    (hM_nonneg : 0 ≤ M) :
+    ∑' index : FiniteEulerRenewalIndex S,
+      ‖finiteEulerRenewalCompactOuterPairAtom owner
+        owner.supportRadius S index‖ ≤
+      2 * M * owner.supportRadius := by
+  have hB := owner.supportRadius_nonnegative
+  have hmoment : Summable (finiteEulerRenewalCompactMoment
+      owner.supportRadius S) := by
+    have hweight := summable_finiteEulerRenewalWeight S
+    have hmajorant : Summable (fun index : FiniteEulerRenewalIndex S =>
+        owner.supportRadius * finiteEulerRenewalWeight S index) :=
+      hweight.mul_left owner.supportRadius
+    apply Summable.of_nonneg_of_le
+      (fun index => finiteEulerRenewalCompactMoment_nonneg
+        owner.supportRadius S index)
+      (fun index => by
+        unfold finiteEulerRenewalCompactMoment
+        split_ifs with hsmall
+        · exact (mul_le_mul_of_nonneg_left hsmall
+            (finiteEulerRenewalWeight_nonneg S index)).trans_eq (by ring)
+        · exact mul_nonneg hB
+            (finiteEulerRenewalWeight_nonneg S index))
+      hmajorant
+  have hpoint : ∀ index : FiniteEulerRenewalIndex S,
+      ‖finiteEulerRenewalCompactOuterPairAtom owner
+          owner.supportRadius S index‖ ≤
+        2 * M * finiteEulerRenewalCompactMoment
+          owner.supportRadius S index := by
+    intro index
+    exact norm_finiteEulerRenewalCompactOuterPairAtom_le owner
+      owner.supportRadius S M hM hM_nonneg index
+  have hmajorant := hmoment.mul_left (2 * M)
+  calc
+    ∑' index : FiniteEulerRenewalIndex S,
+        ‖finiteEulerRenewalCompactOuterPairAtom owner
+            owner.supportRadius S index‖ ≤
+      ∑' index : FiniteEulerRenewalIndex S,
+        2 * M * finiteEulerRenewalCompactMoment
+          owner.supportRadius S index := by
+      exact (Summable.of_nonneg_of_le
+        (fun index => norm_nonneg _)
+        hpoint hmajorant).tsum_le_tsum hpoint hmajorant
+    _ = 2 * M *
+        (∑' index : FiniteEulerRenewalIndex S,
+          finiteEulerRenewalCompactMoment owner.supportRadius S index) := by
+      rw [tsum_mul_left]
+    _ ≤ 2 * M * owner.supportRadius := by
+      exact mul_le_mul_of_nonneg_left
+        (tsum_finiteEulerRenewalCompactMoment_le
+          owner.supportRadius hB S)
+        (mul_nonneg (by norm_num) hM_nonneg)
+
 /-- One vector term of the complete renewal translation average. -/
 noncomputable def finiteEulerRenewalTerm
     (S : List CCM24VisiblePrime) (u : finiteSCarrier)
@@ -296,6 +472,104 @@ theorem finiteEulerRenewalOuterPairAtom_eq_zero_of_support_lt
     (-finiteEulerRenewalDisplacement S index)
     (by simpa [abs_neg, abs_of_nonneg hdisp] using hfar)
   simp [finiteEulerRenewalOuterPairAtom, hforward, hreflected]
+
+/-!
+The compact atom is not a new approximation: it is the original renewal atom
+with its already-vanishing tail made explicit.  This is the exact reattachment
+needed before transferring the compact first-moment estimate to the physical
+outer renewal series.
+-/
+theorem finiteEulerRenewalOuterPairAtom_eq_compact
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (S : List CCM24VisiblePrime) (index : FiniteEulerRenewalIndex S) :
+    finiteEulerRenewalOuterPairAtom owner S index =
+      finiteEulerRenewalCompactOuterPairAtom owner owner.supportRadius S index := by
+  by_cases hsmall : finiteEulerRenewalDisplacement S index ≤ owner.supportRadius
+  · simp only [finiteEulerRenewalOuterPairAtom,
+      finiteEulerRenewalCompactOuterPairAtom, if_pos hsmall]
+  · have hfar : owner.supportRadius <
+        finiteEulerRenewalDisplacement S index := lt_of_not_ge hsmall
+    rw [finiteEulerRenewalOuterPairAtom_eq_zero_of_support_lt
+      owner S index hfar]
+    simp [finiteEulerRenewalCompactOuterPairAtom, hsmall]
+
+theorem tsum_norm_finiteEulerRenewalOuterPairAtom_le
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (S : List CCM24VisiblePrime) (M : ℝ)
+    (hM : ∀ x : ℝ,
+      ‖owner.convolutionSquare.test x‖ ≤ M)
+    (hM_nonneg : 0 ≤ M) :
+    ∑' index : FiniteEulerRenewalIndex S,
+      ‖finiteEulerRenewalOuterPairAtom owner S index‖ ≤
+      2 * M * owner.supportRadius := by
+  calc
+    ∑' index : FiniteEulerRenewalIndex S,
+        ‖finiteEulerRenewalOuterPairAtom owner S index‖ =
+      ∑' index : FiniteEulerRenewalIndex S,
+        ‖finiteEulerRenewalCompactOuterPairAtom owner
+          owner.supportRadius S index‖ := by
+      apply tsum_congr
+      intro index
+      rw [finiteEulerRenewalOuterPairAtom_eq_compact]
+    _ ≤ 2 * M * owner.supportRadius :=
+      tsum_norm_finiteEulerRenewalCompactOuterPairAtom_le owner S M hM
+        hM_nonneg
+
+theorem summable_finiteEulerRenewalOuterPairAtom
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (S : List CCM24VisiblePrime) (M : ℝ)
+    (hM : ∀ x : ℝ,
+      ‖owner.convolutionSquare.test x‖ ≤ M)
+    (hM_nonneg : 0 ≤ M) :
+    Summable (finiteEulerRenewalOuterPairAtom owner S) := by
+  have hmoment : Summable (finiteEulerRenewalCompactMoment
+      owner.supportRadius S) := by
+    have hweight := summable_finiteEulerRenewalWeight S
+    have hmajorant : Summable (fun index : FiniteEulerRenewalIndex S =>
+        owner.supportRadius * finiteEulerRenewalWeight S index) :=
+      hweight.mul_left owner.supportRadius
+    apply Summable.of_nonneg_of_le
+      (fun index => finiteEulerRenewalCompactMoment_nonneg
+        owner.supportRadius S index)
+      (fun index => by
+        unfold finiteEulerRenewalCompactMoment
+        split_ifs with hsmall
+        · exact (mul_le_mul_of_nonneg_left hsmall
+            (finiteEulerRenewalWeight_nonneg S index)).trans_eq (by ring)
+        · exact mul_nonneg owner.supportRadius_nonnegative
+            (finiteEulerRenewalWeight_nonneg S index))
+      hmajorant
+  have hmajorant := hmoment.mul_left (2 * M)
+  apply Summable.of_norm_bounded hmajorant
+  intro index
+  calc
+    ‖finiteEulerRenewalOuterPairAtom owner S index‖ =
+        ‖finiteEulerRenewalCompactOuterPairAtom owner
+          owner.supportRadius S index‖ := by
+      rw [finiteEulerRenewalOuterPairAtom_eq_compact]
+    _ ≤ 2 * M * finiteEulerRenewalCompactMoment
+        owner.supportRadius S index :=
+      norm_finiteEulerRenewalCompactOuterPairAtom_le owner
+        owner.supportRadius S M hM hM_nonneg index
+
+theorem norm_tsum_finiteEulerRenewalOuterPairAtom_le
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (S : List CCM24VisiblePrime) (M : ℝ)
+    (hM : ∀ x : ℝ,
+      ‖owner.convolutionSquare.test x‖ ≤ M)
+    (hM_nonneg : 0 ≤ M) :
+    ‖∑' index : FiniteEulerRenewalIndex S,
+      finiteEulerRenewalOuterPairAtom owner S index‖ ≤
+      2 * M * owner.supportRadius := by
+  have hsum := summable_finiteEulerRenewalOuterPairAtom owner S M hM hM_nonneg
+  calc
+    ‖∑' index : FiniteEulerRenewalIndex S,
+        finiteEulerRenewalOuterPairAtom owner S index‖ ≤
+      ∑' index : FiniteEulerRenewalIndex S,
+        ‖finiteEulerRenewalOuterPairAtom owner S index‖ :=
+      norm_tsum_le_tsum_norm hsum.norm
+    _ ≤ 2 * M * owner.supportRadius :=
+      tsum_norm_finiteEulerRenewalOuterPairAtom_le owner S M hM hM_nonneg
 
 end CCM24FiniteSMultiRenewal
 end CCM25Concrete

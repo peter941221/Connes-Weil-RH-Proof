@@ -164,6 +164,25 @@ theorem finiteEulerTransportEquiv_symm_cons_apply
     (ccm24FiniteEulerTransportEquiv S).apply_symm_apply,
     (ccm24PrimeEulerTransportEquiv p).apply_symm_apply]
 
+/-! The one-prime causal inverse is already a genuine contraction.  This is
+the ambient contraction input for the canonical Julia defect; it is not yet
+the current-range pullback used by the sequential graph construction. -/
+theorem norm_normalizedPrimeEulerInverse_le_one
+    (p : CCM24VisiblePrime) :
+    ‖normalizedPrimeEulerInverse p‖ ≤ 1 := by
+  have htransport :
+      (ccm24FiniteEulerTransportEquiv [p]).symm.toContinuousLinearMap =
+        (ccm24PrimeEulerTransportEquiv p).symm.toContinuousLinearMap := by
+    apply ContinuousLinearMap.ext
+    intro u
+    change (ccm24FiniteEulerTransportEquiv [p]).symm u =
+      (ccm24PrimeEulerTransportEquiv p).symm u
+    rw [finiteEulerTransportEquiv_symm_cons_apply p [] u]
+    simp [ccm24FiniteEulerTransportEquiv_nil]
+  rw [normalizedPrimeEulerInverse, ← htransport]
+  simpa [finiteEulerLowerFactor] using
+    (norm_lowerFactor_smul_finiteEulerInverseOperator_le_one [p])
+
 /-- Causal recursion for the normalized complete inverse. -/
 theorem normalizedFiniteEulerInverseList_cons
     (p : CCM24VisiblePrime) (S : List CCM24VisiblePrime) :

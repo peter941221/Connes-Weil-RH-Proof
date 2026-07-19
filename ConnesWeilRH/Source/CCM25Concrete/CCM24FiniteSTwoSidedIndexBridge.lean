@@ -26,6 +26,7 @@ open CCM24FiniteSProjectionTrace
 open CCM24FiniteSGramResponse
 open CCM24FiniteSCausalMarkov
 open CCM24FiniteSMultiRenewal
+open CCM24FiniteSSupportMajorant
 open CCM24FiniteSTwoSidedRenewal
 open CCM24FiniteSForwardRenewal
 open CCM24FiniteSTwoSidedOperatorExpansion
@@ -179,6 +180,105 @@ theorem abs_finiteEulerProjectionSandwichSignedWeight
           |finiteEulerProjectionSandwichSignedWeight S forwardTail
             renewalTail| = _
       rw [ih forwardTail renewalTail]
+
+/-!
+The operator expansion above is normalized twice: once on the forward Euler
+polynomial and once on the causal inverse.  Gate 3U is a raw statement, so its
+coefficient must divide by the square of the same lower factor before any
+support estimate is applied.  Keeping this as a named coefficient prevents a
+normalized total-variation bound from being silently reused as a raw one.
+-/
+
+noncomputable def finiteEulerProjectionSandwichRawSignedWeight
+    (S : List CCM24VisiblePrime)
+    (forwardIndex : FiniteEulerForwardIndex S)
+    (renewalIndex : FiniteEulerRenewalIndex S) : ℝ :=
+  finiteEulerProjectionSandwichSignedWeight S forwardIndex renewalIndex /
+    (finiteEulerLowerFactor S) ^ 2
+
+theorem finiteEulerTwoSidedNormalizedWeight_eq_lowerFactor_sq_mul_rawWeight
+    (S : List CCM24VisiblePrime)
+    (index : FiniteEulerTwoSidedRenewalIndex S) :
+    finiteEulerTwoSidedNormalizedWeight S index =
+      (finiteEulerLowerFactor S) ^ 2 *
+        finiteEulerTwoSidedRawWeight S index := by
+  induction S with
+  | nil =>
+      cases index
+      simp [finiteEulerTwoSidedNormalizedWeight,
+        finiteEulerTwoSidedRawWeight, finiteEulerLowerFactor]
+  | cons p S ih =>
+      rcases index with ⟨head, tail⟩
+      simp only [finiteEulerTwoSidedNormalizedWeight,
+        finiteEulerTwoSidedRawWeight, finiteEulerLowerFactor,
+        List.map_cons, List.prod_cons]
+      rw [ih tail]
+      simp [primeTwoSidedNormalizedWeight, finiteEulerLowerFactor]
+      ring
+
+/-! The raw coefficient has exactly the positive two-sided raw variation. -/
+theorem abs_finiteEulerProjectionSandwichRawSignedWeight
+    (S : List CCM24VisiblePrime)
+    (forwardIndex : FiniteEulerForwardIndex S)
+    (renewalIndex : FiniteEulerRenewalIndex S) :
+    |finiteEulerProjectionSandwichRawSignedWeight S forwardIndex
+        renewalIndex| =
+      finiteEulerTwoSidedRawWeight S
+        (pairForwardRenewalIndex S (forwardIndex, renewalIndex)) := by
+  have hlower : 0 < finiteEulerLowerFactor S :=
+    finiteEulerLowerFactor_pos S
+  rw [finiteEulerProjectionSandwichRawSignedWeight, abs_div,
+    abs_finiteEulerProjectionSandwichSignedWeight,
+    finiteEulerTwoSidedNormalizedWeight_eq_lowerFactor_sq_mul_rawWeight]
+  rw [abs_of_pos (sq_pos_of_pos hlower)]
+  field_simp [ne_of_gt hlower]
+
+/-! The compact raw coefficient is the coefficient-layer input to the
+source-specific boundary producer.  It is deliberately separate from the
+trace of the projection sandwich: coefficient support alone does not imply
+that trace support. -/
+noncomputable def finiteEulerProjectionSandwichCompactRawSignedWeight
+    (B : ℝ) (S : List CCM24VisiblePrime)
+    (forwardIndex : FiniteEulerForwardIndex S)
+    (renewalIndex : FiniteEulerRenewalIndex S) : ℝ :=
+  if finiteEulerTwoSidedDisplacement S
+        (pairForwardRenewalIndex S (forwardIndex, renewalIndex)) ≤ B then
+    finiteEulerProjectionSandwichRawSignedWeight S forwardIndex renewalIndex
+  else 0
+
+theorem abs_finiteEulerProjectionSandwichCompactRawSignedWeight
+    (B : ℝ) (S : List CCM24VisiblePrime)
+    (forwardIndex : FiniteEulerForwardIndex S)
+    (renewalIndex : FiniteEulerRenewalIndex S) :
+    |finiteEulerProjectionSandwichCompactRawSignedWeight B S forwardIndex
+        renewalIndex| =
+      finiteEulerTwoSidedCompactRawWeight B S
+        (pairForwardRenewalIndex S (forwardIndex, renewalIndex)) := by
+  unfold finiteEulerProjectionSandwichCompactRawSignedWeight
+    finiteEulerTwoSidedCompactRawWeight
+  split_ifs with hdisp
+  · rw [abs_finiteEulerProjectionSandwichRawSignedWeight]
+  · simp
+
+theorem tsum_abs_finiteEulerProjectionSandwichCompactRawSignedWeight_le_universal
+    (B : ℝ) (S : List CCM24VisiblePrime) (hS : S.Nodup) :
+    ∑' index : FiniteEulerForwardIndex S × FiniteEulerRenewalIndex S,
+        |finiteEulerProjectionSandwichCompactRawSignedWeight B S
+            index.1 index.2| ≤
+      (7 : ℝ) ^ (Nat.ceil (Real.exp B) + 1) := by
+  calc
+    ∑' index : FiniteEulerForwardIndex S × FiniteEulerRenewalIndex S,
+        |finiteEulerProjectionSandwichCompactRawSignedWeight B S
+            index.1 index.2| =
+      ∑' index : FiniteEulerTwoSidedRenewalIndex S,
+        finiteEulerTwoSidedCompactRawWeight B S index := by
+      rw [← (forwardRenewalIndexEquiv S).tsum_eq]
+      apply tsum_congr
+      intro index
+      exact abs_finiteEulerProjectionSandwichCompactRawSignedWeight B S
+        index.1 index.2
+    _ ≤ (7 : ℝ) ^ (Nat.ceil (Real.exp B) + 1) :=
+      tsum_finiteEulerTwoSidedCompactRawWeight_le_universal B S hS
 
 end CCM24FiniteSTwoSidedIndexBridge
 end CCM25Concrete

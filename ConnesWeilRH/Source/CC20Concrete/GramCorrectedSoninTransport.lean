@@ -37,6 +37,35 @@ noncomputable def gramCorrectedProjection
     (A : H →L[𝕜] K) (gramInv : H →L[𝕜] H) : K →L[𝕜] K :=
   A ∘L gramInv ∘L ContinuousLinearMap.adjoint A
 
+/-!
+The Gram-corrected projection is invariant under a scalar gauge.  This is the
+identity needed when a causal inverse is replaced by its Markov-normalized
+version: the scalar must be inserted into the frame and the inverse Gram
+factor simultaneously, never multiplied onto the final response.
+-/
+theorem gramCorrectedProjection_smul_gauge
+    (A : H →L[𝕜] K) (gramInv : H →L[𝕜] H)
+    (c : 𝕜) (hc : c ≠ 0) :
+    gramCorrectedProjection (c • A)
+        (((star c * c)⁻¹) • gramInv) =
+      gramCorrectedProjection A gramInv := by
+  have hstar : star c ≠ 0 := by
+    intro hzero
+    apply hc
+    simpa using congrArg star hzero
+  have hscalar : star c * (star c * c)⁻¹ * c = 1 := by
+    calc
+      star c * (star c * c)⁻¹ * c =
+          (star c * c) * (star c * c)⁻¹ := by ring
+      _ = 1 := by
+        rw [mul_inv_cancel₀ (mul_ne_zero hstar hc)]
+  apply ContinuousLinearMap.ext
+  intro x
+  simp only [gramCorrectedProjection, ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.smul_apply, map_smul, map_smulₛₗ,
+    starRingEnd_apply, smul_smul]
+  rw [hscalar, one_smul]
+
 theorem gramCorrectedProjection_isIdempotentElem
     (A : H →L[𝕜] K) (gramInv : H →L[𝕜] H)
     (hgram : gramInv ∘L ContinuousLinearMap.adjoint A ∘L A =

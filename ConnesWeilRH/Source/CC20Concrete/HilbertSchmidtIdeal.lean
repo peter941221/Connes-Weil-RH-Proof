@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Source.CC20Concrete.PositiveTrace
+import Mathlib.Analysis.InnerProductSpace.ProdL2
+import Mathlib.Topology.Algebra.Module.ContinuousLinearMap.PiProd
 
 /-!
 # Hilbert--Schmidt ideal calculus for named bases
@@ -73,6 +75,162 @@ theorem summable_normSq_precomp
       (bounded.adjoint ∘L operator.adjoint) hpost
   simpa only [ContinuousLinearMap.adjoint_comp,
     ContinuousLinearMap.adjoint_adjoint] using hreturn
+
+/-!
+The preceding theorem gives only summability.  For the normalized causal
+owner we also need the quantitative ideal inequality: precomposition by a
+bounded map costs at most its operator norm in Hilbert--Schmidt energy.
+
+The proof deliberately changes basis through the legal `A†A`/`AA†` trace
+cycle.  A pointwise estimate on the original source basis would be false in
+general; the basis change is the step that preserves the full square sum.
+-/
+theorem tsum_normSq_precomp_le
+    {ι κ ν : Type*}
+    (sourceBasis : HilbertBasis ι ℂ H)
+    (targetBasis : HilbertBasis κ ℂ G)
+    (newSourceBasis : HilbertBasis ν ℂ K)
+    (operator : H →L[ℂ] G) (bounded : K →L[ℂ] H)
+    (hoperator : Summable fun i => ‖operator (sourceBasis i)‖ ^ 2) :
+    ∑' k, ‖(operator ∘L bounded) (newSourceBasis k)‖ ^ 2 ≤
+      ‖bounded‖ ^ 2 * (∑' i, ‖operator (sourceBasis i)‖ ^ 2) := by
+  have hcomposed : Summable fun k =>
+      ‖(operator ∘L bounded) (newSourceBasis k)‖ ^ 2 :=
+    summable_normSq_precomp sourceBasis targetBasis newSourceBasis operator
+      bounded hoperator
+  have hoperatorAdjoint : Summable fun j =>
+      ‖operator.adjoint (targetBasis j)‖ ^ 2 :=
+    BasisHilbertSchmidtPairData.summable_adjoint_normSq sourceBasis targetBasis
+      operator hoperator
+  have hcomposedAdjoint : Summable fun j =>
+      ‖(operator ∘L bounded).adjoint (targetBasis j)‖ ^ 2 :=
+    BasisHilbertSchmidtPairData.summable_adjoint_normSq newSourceBasis
+      targetBasis (operator ∘L bounded) hcomposed
+  have hoperatorCycle :=
+    BasisHilbertSchmidtPairData.ordinaryTraceAlong_adjoint_comp_eq_comp_adjoint
+      sourceBasis targetBasis operator operator hoperator hoperator
+  have hoperatorEnergyComplex :
+      (∑' i, ((‖operator (sourceBasis i)‖ ^ 2 : ℝ) : ℂ)) =
+        ∑' j, ((‖operator.adjoint (targetBasis j)‖ ^ 2 : ℝ) : ℂ) := by
+    calc
+      (∑' i, ((‖operator (sourceBasis i)‖ ^ 2 : ℝ) : ℂ)) =
+          ordinaryTraceAlong sourceBasis
+            (operator.adjoint ∘L operator) := by
+        rw [ordinaryTraceAlong]
+        apply tsum_congr
+        intro i
+        rw [ContinuousLinearMap.comp_apply, operator.adjoint_inner_right,
+          inner_self_eq_norm_sq_to_K]
+        norm_cast
+      _ = ordinaryTraceAlong targetBasis
+          (operator ∘L operator.adjoint) := hoperatorCycle
+      _ = ∑' j, ((‖operator.adjoint (targetBasis j)‖ ^ 2 : ℝ) : ℂ) := by
+        rw [ordinaryTraceAlong]
+        apply tsum_congr
+        intro j
+        rw [ContinuousLinearMap.comp_apply, ← operator.adjoint_inner_left,
+          inner_self_eq_norm_sq_to_K]
+        norm_cast
+  have hoperatorEnergy :
+      (∑' i, ‖operator (sourceBasis i)‖ ^ 2) =
+        ∑' j, ‖operator.adjoint (targetBasis j)‖ ^ 2 := by
+    refine Complex.ofReal_injective ?_
+    calc
+      Complex.ofRealCLM (∑' i, ‖operator (sourceBasis i)‖ ^ 2) =
+          ∑' i, ((‖operator (sourceBasis i)‖ ^ 2 : ℝ) : ℂ) := by
+        simpa only [Complex.ofRealCLM_apply] using
+          (Complex.ofRealCLM.map_tsum hoperator)
+      _ = ∑' j, ((‖operator.adjoint (targetBasis j)‖ ^ 2 : ℝ) : ℂ) :=
+        hoperatorEnergyComplex
+      _ = Complex.ofRealCLM (∑' j, ‖operator.adjoint (targetBasis j)‖ ^ 2) := by
+        symm
+        simpa only [Complex.ofRealCLM_apply] using
+          (Complex.ofRealCLM.map_tsum hoperatorAdjoint)
+  have hcomposedCycle :=
+    BasisHilbertSchmidtPairData.ordinaryTraceAlong_adjoint_comp_eq_comp_adjoint
+      newSourceBasis targetBasis (operator ∘L bounded) (operator ∘L bounded)
+      hcomposed hcomposed
+  have hcomposedEnergyComplex :
+      (∑' k, ((‖(operator ∘L bounded) (newSourceBasis k)‖ ^ 2 : ℝ) : ℂ)) =
+        ∑' j, ((‖(operator ∘L bounded).adjoint (targetBasis j)‖ ^ 2 : ℝ) : ℂ) := by
+    calc
+      (∑' k, ((‖(operator ∘L bounded) (newSourceBasis k)‖ ^ 2 : ℝ) : ℂ)) =
+          ordinaryTraceAlong newSourceBasis
+            ((operator ∘L bounded).adjoint ∘L (operator ∘L bounded)) := by
+        rw [ordinaryTraceAlong]
+        apply tsum_congr
+        intro k
+        change ((‖(operator ∘L bounded) (newSourceBasis k)‖ ^ 2 : ℝ) : ℂ) =
+          ⟪newSourceBasis k,
+            (operator ∘L bounded).adjoint
+              ((operator ∘L bounded) (newSourceBasis k))⟫_ℂ
+        rw [(operator ∘L bounded).adjoint_inner_right,
+          inner_self_eq_norm_sq_to_K]
+        norm_cast
+      _ = ordinaryTraceAlong targetBasis
+          ((operator ∘L bounded) ∘L (operator ∘L bounded).adjoint) :=
+        hcomposedCycle
+      _ = ∑' j, ((‖(operator ∘L bounded).adjoint (targetBasis j)‖ ^ 2 : ℝ) : ℂ) := by
+        rw [ordinaryTraceAlong]
+        apply tsum_congr
+        intro j
+        change
+          ⟪targetBasis j,
+            (operator ∘L bounded)
+              ((operator ∘L bounded).adjoint (targetBasis j))⟫_ℂ =
+            ((‖(operator ∘L bounded).adjoint (targetBasis j)‖ ^ 2 : ℝ) : ℂ)
+        rw [← (operator ∘L bounded).adjoint_inner_left,
+          inner_self_eq_norm_sq_to_K]
+        norm_cast
+  have hcomposedEnergy :
+      (∑' k, ‖(operator ∘L bounded) (newSourceBasis k)‖ ^ 2) =
+        ∑' j, ‖(operator ∘L bounded).adjoint (targetBasis j)‖ ^ 2 := by
+    refine Complex.ofReal_injective ?_
+    calc
+      Complex.ofRealCLM
+          (∑' k, ‖(operator ∘L bounded) (newSourceBasis k)‖ ^ 2) =
+          ∑' k, ((‖(operator ∘L bounded) (newSourceBasis k)‖ ^ 2 : ℝ) : ℂ) := by
+        simpa only [Complex.ofRealCLM_apply] using
+          (Complex.ofRealCLM.map_tsum hcomposed)
+      _ = ∑' j,
+          ((‖(operator ∘L bounded).adjoint (targetBasis j)‖ ^ 2 : ℝ) : ℂ) :=
+        hcomposedEnergyComplex
+      _ = Complex.ofRealCLM
+          (∑' j, ‖(operator ∘L bounded).adjoint (targetBasis j)‖ ^ 2) := by
+        symm
+        simpa only [Complex.ofRealCLM_apply] using
+          (Complex.ofRealCLM.map_tsum hcomposedAdjoint)
+  have hpoint : ∀ j, ‖(operator ∘L bounded).adjoint
+      (targetBasis j)‖ ^ 2 ≤
+      ‖bounded‖ ^ 2 * ‖operator.adjoint (targetBasis j)‖ ^ 2 := by
+    intro j
+    rw [ContinuousLinearMap.adjoint_comp]
+    change ‖bounded.adjoint (operator.adjoint (targetBasis j))‖ ^ 2 ≤ _
+    calc
+      ‖bounded.adjoint (operator.adjoint (targetBasis j))‖ ^ 2 ≤
+          (‖bounded.adjoint‖ * ‖operator.adjoint (targetBasis j)‖) ^ 2 := by
+        gcongr
+        exact bounded.adjoint.le_opNorm _
+      _ = ‖bounded‖ ^ 2 * ‖operator.adjoint (targetBasis j)‖ ^ 2 := by
+        rw [ContinuousLinearMap.adjoint.norm_map]
+        ring
+  have hmajorant : Summable (fun j =>
+      ‖bounded‖ ^ 2 * ‖operator.adjoint (targetBasis j)‖ ^ 2) :=
+    hoperatorAdjoint.mul_left (‖bounded‖ ^ 2)
+  have hcomposedEnergy_le :
+      (∑' j, ‖(operator ∘L bounded).adjoint (targetBasis j)‖ ^ 2) ≤
+        ‖bounded‖ ^ 2 * (∑' j, ‖operator.adjoint (targetBasis j)‖ ^ 2) :=
+    (hcomposedAdjoint.tsum_le_tsum hpoint hmajorant).trans_eq (by
+      rw [tsum_mul_left])
+  calc
+    ∑' k, ‖(operator ∘L bounded) (newSourceBasis k)‖ ^ 2 =
+        ∑' j, ‖(operator ∘L bounded).adjoint (targetBasis j)‖ ^ 2 :=
+      hcomposedEnergy
+    _ ≤ ‖bounded‖ ^ 2 * (∑' j, ‖operator.adjoint (targetBasis j)‖ ^ 2) :=
+      hcomposedEnergy_le
+    _ = ‖bounded‖ ^ 2 *
+        (∑' i, ‖operator (sourceBasis i)‖ ^ 2) := by
+      rw [hoperatorEnergy]
 
 omit [CompleteSpace H] [CompleteSpace G] in
 /-- The sum of two Hilbert--Schmidt factors is Hilbert--Schmidt in the same
@@ -292,6 +450,95 @@ theorem addOfLeftEq_traceProduct_eq
   simp only [ContinuousLinearMap.comp_apply,
     ContinuousLinearMap.add_apply, map_add]
 
+/-!
+The fixed signed boundary ledger has factors with different compact output
+carriers.  A Cartesian product with the `L2` norm is the canonical way to
+combine those carriers: the two coordinates remain orthogonal, so the square
+sum of the combined Hilbert--Schmidt column is exactly the sum of the two
+square sums.  This is a genuine one-pair owner, rather than a list of
+trace-class claims.
+-/
+noncomputable def l2Sum
+    {ι : Type*} {sourceBasis : HilbertBasis ι ℂ H}
+    (first : BasisHilbertSchmidtPairData (G := G) sourceBasis)
+    (second : BasisHilbertSchmidtPairData (G := K) sourceBasis) :
+    BasisHilbertSchmidtPairData
+      (G := WithLp 2 (G × K)) sourceBasis where
+  left :=
+    (WithLp.prodContinuousLinearEquiv 2 ℂ G K).symm.toContinuousLinearMap ∘L
+      first.left.prod second.left
+  right :=
+    (WithLp.prodContinuousLinearEquiv 2 ℂ G K).symm.toContinuousLinearMap ∘L
+      first.right.prod second.right
+  left_summable_normSq := by
+    apply (first.left_summable_normSq.add second.left_summable_normSq).congr
+    intro i
+    change ‖first.left (sourceBasis i)‖ ^ 2 +
+        ‖second.left (sourceBasis i)‖ ^ 2 =
+      ‖WithLp.toLp 2
+        (first.left (sourceBasis i), second.left (sourceBasis i))‖ ^ 2
+    rw [WithLp.prod_norm_sq_eq_of_L2]
+    simp
+  right_summable_normSq := by
+    apply (first.right_summable_normSq.add second.right_summable_normSq).congr
+    intro i
+    change ‖first.right (sourceBasis i)‖ ^ 2 +
+        ‖second.right (sourceBasis i)‖ ^ 2 =
+      ‖WithLp.toLp 2
+        (first.right (sourceBasis i), second.right (sourceBasis i))‖ ^ 2
+    rw [WithLp.prod_norm_sq_eq_of_L2]
+    simp
+
+theorem l2Sum_traceProduct_eq_add
+    {ι : Type*} {sourceBasis : HilbertBasis ι ℂ H}
+    (first : BasisHilbertSchmidtPairData (G := G) sourceBasis)
+    (second : BasisHilbertSchmidtPairData (G := K) sourceBasis) :
+    (l2Sum first second).traceProduct =
+      first.traceProduct + second.traceProduct := by
+  apply ContinuousLinearMap.ext
+  intro x
+  apply ext_inner_left ℂ
+  intro y
+  unfold l2Sum BasisHilbertSchmidtPairData.traceProduct
+  simp [ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.adjoint_inner_right, WithLp.prod_inner_apply]
+  rw [inner_add_right, ContinuousLinearMap.adjoint_inner_right,
+    ContinuousLinearMap.adjoint_inner_right]
+
+/-!
+Precompose both Hilbert--Schmidt legs by possibly different bounded maps from
+a new source carrier.  The target carrier and its basis are retained only for
+the summability transfer; the resulting trace product acts on the new source
+carrier.
+-/
+noncomputable def boundedPrecomp
+    {ι κ μ : Type*} {sourceBasis : HilbertBasis ι ℂ H}
+    (targetBasis : HilbertBasis κ ℂ G)
+    (newSourceBasis : HilbertBasis μ ℂ K)
+    (data : BasisHilbertSchmidtPairData (G := G) sourceBasis)
+    (leftBounded rightBounded : K →L[ℂ] H) :
+    BasisHilbertSchmidtPairData (G := G) newSourceBasis where
+  left := data.left ∘L leftBounded
+  right := data.right ∘L rightBounded
+  left_summable_normSq := summable_normSq_precomp sourceBasis targetBasis
+    newSourceBasis data.left leftBounded data.left_summable_normSq
+  right_summable_normSq := summable_normSq_precomp sourceBasis targetBasis
+    newSourceBasis data.right rightBounded data.right_summable_normSq
+
+theorem boundedPrecomp_traceProduct_eq
+    {ι κ μ : Type*} {sourceBasis : HilbertBasis ι ℂ H}
+    (targetBasis : HilbertBasis κ ℂ G)
+    (newSourceBasis : HilbertBasis μ ℂ K)
+    (data : BasisHilbertSchmidtPairData (G := G) sourceBasis)
+    (leftBounded rightBounded : K →L[ℂ] H) :
+    (boundedPrecomp targetBasis newSourceBasis data leftBounded rightBounded).traceProduct =
+      leftBounded† ∘L data.traceProduct ∘L rightBounded := by
+  unfold boundedPrecomp traceProduct
+  rw [ContinuousLinearMap.adjoint_comp]
+  apply ContinuousLinearMap.ext
+  intro x
+  rfl
+
 /-- Subtraction is addition after retaining the minus sign inside the shared
 Hilbert--Schmidt right leg. -/
 noncomputable def subOfLeftEq
@@ -360,6 +607,41 @@ theorem boundedSandwich_isTraceClassAlong
     targetBasis leftBounded rightBounded]
   exact (data.boundedSandwich targetBasis leftBounded rightBounded)
     |>.traceProduct_isTraceClassAlong
+
+/-!
+Package the signed commutator of a pair-owned crossing after arbitrary bounded
+left/right dressing.  The adjoint and forward orientations are placed in two
+orthogonal `L2` coordinates; the minus sign stays in the second right leg.
+This is the reusable owner for an oriented boundary difference.
+-/
+noncomputable def boundedAdjointSub
+    {ι κ : Type*} {sourceBasis : HilbertBasis ι ℂ H}
+    (targetBasis : HilbertBasis κ ℂ G)
+    (data : BasisHilbertSchmidtPairData (G := G) sourceBasis)
+    (leftBounded rightBounded : H →L[ℂ] H) :
+    BasisHilbertSchmidtPairData
+      (G := WithLp 2 (G × G)) sourceBasis :=
+  l2Sum
+    (data.swap.boundedSandwich targetBasis leftBounded rightBounded)
+    ((data.boundedSandwich targetBasis leftBounded rightBounded).smulRight (-1))
+
+theorem boundedAdjointSub_traceProduct_eq
+    {ι κ : Type*} {sourceBasis : HilbertBasis ι ℂ H}
+    (targetBasis : HilbertBasis κ ℂ G)
+    (data : BasisHilbertSchmidtPairData (G := G) sourceBasis)
+    (leftBounded rightBounded : H →L[ℂ] H) :
+    (boundedAdjointSub targetBasis data leftBounded rightBounded).traceProduct =
+      leftBounded ∘L data.traceProduct.adjoint ∘L rightBounded -
+        leftBounded ∘L data.traceProduct ∘L rightBounded := by
+  rw [boundedAdjointSub, l2Sum_traceProduct_eq_add,
+    smulRight_traceProduct_eq,
+    boundedSandwich_traceProduct_eq,
+    boundedSandwich_traceProduct_eq,
+    swap_traceProduct_eq_adjoint]
+  apply ContinuousLinearMap.ext
+  intro x
+  simp [ContinuousLinearMap.comp_apply]
+  abel
 
 end BasisHilbertSchmidtPairData
 end PositiveTrace

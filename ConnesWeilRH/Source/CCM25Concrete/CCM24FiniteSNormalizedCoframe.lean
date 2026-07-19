@@ -135,6 +135,51 @@ theorem norm_lowerFactor_smul_finiteEulerDualFrame_le_one
         (norm_lowerFactor_smul_restrictedInverseAdjoint_le_one lambda family)
         (norm_nonneg u)
 
+/-!
+The same lower-factor normalization is a contraction on the forward frame.
+This is the frame-side half of the paired gauge; it is not a bound on the
+completed response and is never used to split its signed crossings.
+-/
+theorem norm_lowerFactor_smul_finiteEulerFrame_le_one
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    ‖(finiteEulerLowerFactor family.visiblePrimes : ℂ) •
+        finiteEulerFrame lambda family‖ ≤ 1 := by
+  have htransport :
+      ‖(finiteEulerLowerFactor family.visiblePrimes : ℂ) •
+          finiteEulerTransportOperator family‖ ≤ 1 := by
+    have hnorm :
+        ‖(finiteEulerLowerFactor family.visiblePrimes : ℂ) •
+            finiteEulerTransportOperator family‖ =
+          ‖(finiteEulerLowerFactor family.visiblePrimes : ℂ) •
+            (finiteEulerTransportOperator family)†‖ := by
+      rw [norm_smul, norm_smul, ContinuousLinearMap.adjoint.norm_map]
+    rw [hnorm]
+    exact norm_lowerFactor_smul_finiteEulerTransportAdjoint_le_one
+      family.visiblePrimes
+  have hinclusion : ‖sourceInclusion lambda‖ ≤ 1 := by
+    exact Submodule.norm_subtypeL_le _
+  have hfactor :
+      (finiteEulerLowerFactor family.visiblePrimes : ℂ) •
+          finiteEulerFrame lambda family =
+        ((finiteEulerLowerFactor family.visiblePrimes : ℂ) •
+          finiteEulerTransportOperator family) ∘L
+            sourceInclusion lambda := by
+    rw [finiteEulerFrame_eq_transport_comp_inclusion]
+    apply ContinuousLinearMap.ext
+    intro u
+    simp only [ContinuousLinearMap.smul_apply,
+      ContinuousLinearMap.comp_apply, map_smul]
+    rfl
+  rw [hfactor]
+  calc
+    _ ≤ ‖(finiteEulerLowerFactor family.visiblePrimes : ℂ) •
+          finiteEulerTransportOperator family‖ *
+        ‖sourceInclusion lambda‖ :=
+      ContinuousLinearMap.opNorm_comp_le _ _
+    _ ≤ 1 * 1 := mul_le_mul htransport hinclusion
+      (norm_nonneg _) zero_le_one
+    _ = 1 := one_mul 1
+
 /-- Insert both lower factors before estimating the metric coframe. -/
 noncomputable def normalizedFiniteEulerMetricCoframe
     (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :

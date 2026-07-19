@@ -108,6 +108,106 @@ noncomputable def completedBandCrossings
     sourceFrameLeg owner lambda ∘L
       (sourceCrossingLeg owner lambda family)†
 
+/-!
+The scalar gauge is inserted into the paired frame/coframe owner.  If
+`A` is replaced by `c A`, its canonical dual frame is replaced by
+`(star c)⁻¹ F`; the two scalar terms then cancel between the target and source
+crossings.  This is the route-compatible place for the Markov normalization.
+-/
+noncomputable def scalarGaugedTransportedFrameLeg
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (c : ℂ) : sourceSoninCarrier lambda →L[ℂ] finiteSCarrier :=
+  rootConvolution owner ∘L
+    (c • finiteEulerFrame lambda family)
+
+noncomputable def scalarGaugedTargetCrossingLeg
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (c : ℂ) : sourceSoninCarrier lambda →L[ℂ] finiteSCarrier :=
+  rootConvolution owner ∘L
+    (sourceInclusion lambda -
+      (star c)⁻¹ • finiteEulerDualFrame lambda family)
+
+noncomputable def scalarGaugedSourceCrossingLeg
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (c : ℂ) : sourceSoninCarrier lambda →L[ℂ] finiteSCarrier :=
+  rootConvolution owner ∘L
+    (sourceInclusion lambda - c • finiteEulerFrame lambda family)
+
+noncomputable def scalarGaugedCompletedBandCrossings
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (c : ℂ) : finiteSCarrier →L[ℂ] finiteSCarrier :=
+  scalarGaugedTargetCrossingLeg owner lambda family c ∘L
+      (scalarGaugedTransportedFrameLeg owner lambda family c)† +
+    sourceFrameLeg owner lambda ∘L
+      (scalarGaugedSourceCrossingLeg owner lambda family c)†
+
+theorem scalarGaugedTransportedFrameLeg_adjoint
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (c : ℂ) :
+    (scalarGaugedTransportedFrameLeg owner lambda family c)† =
+      ((star c) • (finiteEulerFrame lambda family)†) ∘L
+        (rootConvolution owner)† := by
+  have hadj :
+      (c • finiteEulerFrame lambda family)† =
+        (star c) • (finiteEulerFrame lambda family)† := by
+    apply ContinuousLinearMap.ext
+    intro u
+    apply ext_inner_right ℂ
+    intro v
+    simp only [ContinuousLinearMap.adjoint_inner_left,
+      ContinuousLinearMap.smul_apply, inner_smul_left, inner_smul_right,
+      starRingEnd_apply, star_star]
+  rw [scalarGaugedTransportedFrameLeg, ContinuousLinearMap.adjoint_comp, hadj]
+
+theorem scalarGaugedSourceCrossingLeg_adjoint
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (c : ℂ) :
+    (scalarGaugedSourceCrossingLeg owner lambda family c)† =
+      ((sourceInclusion lambda)† -
+        (star c) • (finiteEulerFrame lambda family)†) ∘L
+        (rootConvolution owner)† := by
+  rw [scalarGaugedSourceCrossingLeg, ContinuousLinearMap.adjoint_comp]
+  congr 1
+  apply ContinuousLinearMap.ext
+  intro u
+  exact ext_inner_right ℂ fun v => by
+    simp only [ContinuousLinearMap.adjoint_inner_left,
+      ContinuousLinearMap.sub_apply, ContinuousLinearMap.smul_apply,
+      inner_sub_left, inner_sub_right, inner_smul_left, inner_smul_right,
+      map_sub, map_smulₛₗ, starRingEnd_apply, star_star]
+
+set_option maxHeartbeats 1000000 in
+theorem scalarGaugedCompletedBandCrossings_eq_completedBandCrossings
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (c : ℂ) (hc : c ≠ 0) :
+    scalarGaugedCompletedBandCrossings owner lambda family c =
+      completedBandCrossings owner lambda family := by
+  have hstar : star c ≠ 0 := by
+    intro hzero
+    apply hc
+    simpa using congrArg star hzero
+  rw [scalarGaugedCompletedBandCrossings, completedBandCrossings,
+    scalarGaugedTargetCrossingLeg,
+    scalarGaugedTransportedFrameLeg_adjoint,
+    scalarGaugedSourceCrossingLeg_adjoint,
+    targetCrossingLeg, sourceFrameLeg, transportedFrameLeg_adjoint,
+    sourceCrossingLeg_adjoint]
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.smul_apply, map_sub, map_add, map_smul, smul_sub,
+    smul_smul]
+  rw [mul_inv_cancel₀ hstar, one_smul]
+  abel
+
 /-- The root-sandwiched band response is literally the completed two-crossing
 operator, not merely trace-equivalent to it. -/
 theorem rootSandwichedBandResponse_eq_completedCrossings
@@ -126,6 +226,66 @@ theorem rootSandwichedBandResponse_eq_completedCrossings
     ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply, map_add,
     map_sub, map_neg]
   abel
+
+theorem rootSandwichedBandResponse_eq_scalarGaugedCompletedBandCrossings
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (c : ℂ) (hc : c ≠ 0) :
+    rootSandwichedBandResponse owner lambda family =
+      scalarGaugedCompletedBandCrossings owner lambda family c := by
+  rw [rootSandwichedBandResponse_eq_completedCrossings]
+  exact (scalarGaugedCompletedBandCrossings_eq_completedBandCrossings
+    owner lambda family c hc).symm
+
+/-!
+The scalar gauge has an exact projection-level readback.  This is the useful
+form for Gate 3U: the lower factor is allowed to enter the two crossing legs,
+but the complete paired owner still reads back to the unscaled projection
+difference before any trace or norm is taken.
+-/
+theorem scalarGaugedCompletedBandCrossings_eq_projectionDifference
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (c : ℂ) (hc : c ≠ 0) :
+    scalarGaugedCompletedBandCrossings owner lambda family c =
+      rootConvolution owner ∘L
+        (sourceSoninProjection lambda -
+          targetSoninProjection lambda family) ∘L
+        (rootConvolution owner)† := by
+  rw [scalarGaugedCompletedBandCrossings_eq_completedBandCrossings
+    owner lambda family c hc]
+  rw [← rootSandwichedBandResponse_eq_completedCrossings owner lambda family]
+  rw [rootSandwichedBandResponse, soninBandDifference,
+    targetBandProjection, sourceBandProjection]
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.sub_apply, map_sub]
+  abel
+
+/-!
+The concrete gauge used by the causal normalization.  Its definition is kept
+separate from `normalizedSourceBandGramResponse`: the latter scales the final
+response, while this owner inserts the same nonzero scalar into the frame and
+its inverse dual leg, where the paired cancellation is exact.
+-/
+noncomputable def finiteEulerLowerFactorGaugedCompletedBandCrossings
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    finiteSCarrier →L[ℂ] finiteSCarrier :=
+  scalarGaugedCompletedBandCrossings owner lambda family
+    (finiteEulerLowerFactor family.visiblePrimes : ℂ)
+
+theorem rootSandwichedBandResponse_eq_finiteEulerLowerFactorGaugedCompletedBandCrossings
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    rootSandwichedBandResponse owner lambda family =
+      finiteEulerLowerFactorGaugedCompletedBandCrossings owner lambda family := by
+  unfold finiteEulerLowerFactorGaugedCompletedBandCrossings
+  exact rootSandwichedBandResponse_eq_scalarGaugedCompletedBandCrossings
+    owner lambda family (finiteEulerLowerFactor family.visiblePrimes : ℂ)
+    (Complex.ofReal_ne_zero.mpr
+      (ne_of_gt (finiteEulerLowerFactor_pos family.visiblePrimes)))
 
 /-- The source-carrier cycle of the same two completed crossings. -/
 noncomputable def sourceCycledBandResponse
@@ -154,6 +314,47 @@ theorem sourceCycledBandResponse_eq_neg_sourceGramResponse
     ContinuousLinearMap.neg_apply, map_sub]
   abel
 
+/-!
+The same scalar gauge on the source-carrier cycle.  The two terms are kept
+paired so that the `star c` contributions cancel before the source trace
+owner is exposed.
+-/
+noncomputable def scalarGaugedSourceCycledBandResponse
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (c : ℂ) :
+    sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda :=
+  (scalarGaugedTransportedFrameLeg owner lambda family c)† ∘L
+      scalarGaugedTargetCrossingLeg owner lambda family c +
+    (scalarGaugedSourceCrossingLeg owner lambda family c)† ∘L
+      sourceFrameLeg owner lambda
+
+set_option maxHeartbeats 1000000 in
+theorem scalarGaugedSourceCycledBandResponse_eq_sourceCycledBandResponse
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (c : ℂ) (hc : c ≠ 0) :
+    scalarGaugedSourceCycledBandResponse owner lambda family c =
+      sourceCycledBandResponse owner lambda family := by
+  have hstar : star c ≠ 0 := by
+    intro hzero
+    apply hc
+    simpa using congrArg star hzero
+  rw [scalarGaugedSourceCycledBandResponse, sourceCycledBandResponse,
+    scalarGaugedTargetCrossingLeg,
+    scalarGaugedTransportedFrameLeg_adjoint,
+    scalarGaugedSourceCrossingLeg_adjoint,
+    targetCrossingLeg, sourceFrameLeg, transportedFrameLeg_adjoint,
+    sourceCrossingLeg_adjoint]
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.smul_apply, map_sub, map_add, map_smul, smul_sub,
+    smul_smul]
+  rw [inv_mul_cancel₀ hstar, one_smul]
+  abel
+
 /-- The route-oriented source owner after the raw frame terms have cancelled. -/
 noncomputable def sourceBandGramResponse
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
@@ -167,6 +368,31 @@ theorem sourceCycledBandResponse_eq_sourceBandGramResponse
     sourceCycledBandResponse owner lambda family =
       sourceBandGramResponse owner lambda family := by
   exact sourceCycledBandResponse_eq_neg_sourceGramResponse owner lambda family
+
+/-!
+The lower-factor gauge on the actual source trace carrier.  This is the
+condition-number-free coordinate owner; its equality to the raw source
+response is an exact paired identity, not an estimate obtained by dividing a
+normalized bound.
+-/
+noncomputable def finiteEulerLowerFactorGaugedSourceCycledBandResponse
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda :=
+  scalarGaugedSourceCycledBandResponse owner lambda family
+    (finiteEulerLowerFactor family.visiblePrimes : ℂ)
+
+theorem sourceBandGramResponse_eq_finiteEulerLowerFactorGaugedSourceCycledBandResponse
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    sourceBandGramResponse owner lambda family =
+      finiteEulerLowerFactorGaugedSourceCycledBandResponse owner lambda family := by
+  unfold finiteEulerLowerFactorGaugedSourceCycledBandResponse
+  rw [← sourceCycledBandResponse_eq_sourceBandGramResponse owner lambda family]
+  exact (scalarGaugedSourceCycledBandResponse_eq_sourceCycledBandResponse
+    owner lambda family (finiteEulerLowerFactor family.visiblePrimes : ℂ)
+    (Complex.ofReal_ne_zero.mpr
+      (ne_of_gt (finiteEulerLowerFactor_pos family.visiblePrimes)))).symm
 
 /-- The only legal Gate 3L/3U candidate: one completed fixed commutator followed
 by the ordered Euler coframe. -/

@@ -116,6 +116,60 @@ theorem detector_innerCorner_eq_secondSupport_twoBranch
       noncomm_ring
     _ = band * detector * inner := by noncomm_ring
 
+/-! The two-branch reduction remains exact after the fixed-quotient
+transport and its outer band sandwich.  This is the form consumed by the
+signed first-jet estimate; no branchwise norm is taken here. -/
+theorem detector_innerCorner_transport_eq_secondSupport_twoBranch
+    (band inner secondSupport detector transport : A)
+    (hInner : IsIdempotentElem inner)
+    (hBandInner : band * inner = 0)
+    (hSecond : IsIdempotentElem secondSupport)
+    (hSecondInner : secondSupport * inner = inner) :
+    band * commutator detector inner * inner * transport * band =
+      band * secondSupport * detector * inner * transport * band +
+        band * (1 - secondSupport) * commutator detector secondSupport *
+          inner * transport * band := by
+  calc
+    band * commutator detector inner * inner * transport * band =
+        (band * commutator detector inner * inner) * transport * band := by
+          rfl
+    _ = (band * detector * inner) * transport * band := by
+      rw [detector_innerCorner_eq_commutator band inner detector hInner
+        hBandInner]
+    _ = (band * secondSupport * detector * inner +
+          band * (1 - secondSupport) * commutator detector secondSupport *
+            inner) * transport * band := by
+      rw [detector_innerCorner_eq_secondSupport_twoBranch band inner
+        secondSupport detector hSecond hSecondInner]
+    _ = band * secondSupport * detector * inner * transport * band +
+          band * (1 - secondSupport) * commutator detector secondSupport *
+            inner * transport * band := by
+      noncomm_ring
+
+/-! The route notation for Proof 405: the detector is the fixed quotient
+compression and the inner range is the complete source compression. -/
+theorem sourceCompressionCorner_eq_secondSupport_twoBranch
+    (band support secondSupport prolate detector transport : A)
+    (hInner : IsIdempotentElem
+      (sourceCompression support secondSupport prolate))
+    (hBandInner : band * sourceCompression support secondSupport prolate = 0)
+    (hSecond : IsIdempotentElem secondSupport)
+    (hSecondInner : secondSupport *
+        sourceCompression support secondSupport prolate =
+      sourceCompression support secondSupport prolate) :
+    band * commutator (compressedDetector support detector)
+        (sourceCompression support secondSupport prolate) *
+        sourceCompression support secondSupport prolate * transport * band =
+      band * secondSupport * compressedDetector support detector *
+          sourceCompression support secondSupport prolate * transport * band +
+        band * (1 - secondSupport) *
+          commutator (compressedDetector support detector) secondSupport *
+          sourceCompression support secondSupport prolate * transport * band := by
+  exact detector_innerCorner_transport_eq_secondSupport_twoBranch band
+    (sourceCompression support secondSupport prolate) secondSupport
+    (compressedDetector support detector) transport hInner hBandInner hSecond
+    hSecondInner
+
 /-- The second-support range leg has the prolate compression as its formal
 Gram square. -/
 theorem secondSupport_leg_gram

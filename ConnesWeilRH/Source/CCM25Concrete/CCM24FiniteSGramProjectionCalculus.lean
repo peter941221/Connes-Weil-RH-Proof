@@ -89,6 +89,27 @@ theorem parameterizedCanonicalGramProjection_eq_transported
     ringInverse_parameterizedSoninGram lambda alpha S halpha]
   rfl
 
+/-!
+The finite-S projection can be represented with any nonzero scalar gauge on
+the moving frame.  This is the bridge needed to insert the normalized causal
+inverse into the complement calculation without multiplying the final Gate
+response by the lower Euler factor.
+-/
+theorem parameterizedCanonicalGramProjection_eq_gaugeNormalized
+    (lambda : CCM24SoninScale) (alpha : ℝ)
+    (S : List CCM24VisiblePrime) (halpha : |alpha| ≤ 1)
+    (c : ℂ) (hc : c ≠ 0) :
+    gramCorrectedProjection
+        (c • parameterizedSoninFrame lambda alpha S)
+        (((star c * c)⁻¹) •
+          parameterizedSoninGramInv lambda alpha S halpha) =
+      parameterizedCanonicalGramProjection lambda alpha S := by
+  rw [parameterizedCanonicalGramProjection,
+    ringInverse_parameterizedSoninGram lambda alpha S halpha]
+  exact gramCorrectedProjection_smul_gauge
+    (parameterizedSoninFrame lambda alpha S)
+    (parameterizedSoninGramInv lambda alpha S halpha) c hc
+
 /-- The differentiable Gram path is the actual canonical moving Sonin
 projection from the parameterized CCM24 transport datum. -/
 theorem parameterizedCanonicalGramProjection_eq_soninProjection
