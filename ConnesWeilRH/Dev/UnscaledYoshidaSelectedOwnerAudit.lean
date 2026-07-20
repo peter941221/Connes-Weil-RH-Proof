@@ -23,6 +23,8 @@ open Source.CCM25Concrete.UnscaledYoshidaSelectedOwner
 #check @selectedOwner
 #check @selectedOwner_sourceTest
 #check @selectedOwner_convolutionSquare
+#check @selectedOwner_laplaceAt_sourceTest_centered
+#check @selectedOwner_laplaceAt_sourceTest_centered_eq_zero
 #check @selectedOwner_laplaceAt_convolutionSquare_eq_one
 #check @selectedOwner_laplaceAt_convolutionSquare_centered
 #check @selectedOwner_negativeHermitianPair_sum_eq_neg_two
@@ -48,6 +50,8 @@ open Source.CCM25Concrete.UnscaledYoshidaSelectedOwner
 
 #print axioms laplaceAt_halfDensityShift
 #print axioms halfDensityShift_support_subset
+#print axioms selectedOwner_laplaceAt_sourceTest_centered
+#print axioms selectedOwner_laplaceAt_sourceTest_centered_eq_zero
 #print axioms selectedOwner_laplaceAt_convolutionSquare_eq_one
 #print axioms selectedOwner_laplaceAt_convolutionSquare_centered
 #print axioms selectedOwner_negativeHermitianPair_sum_eq_neg_two

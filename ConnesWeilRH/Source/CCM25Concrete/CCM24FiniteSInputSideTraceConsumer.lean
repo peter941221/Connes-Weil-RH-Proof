@@ -2359,6 +2359,13 @@ with a bookkeeping pair that has the same energy.
 noncomputable abbrev fixedQuotientFirstJetBoundaryCarrier (a c : ℝ) :=
   WithLp 2 (commonBoundaryCarrier a c × commonBoundaryCarrier a c)
 
+-- Cache the canonical topology before `PiLp` adds another dependent-product
+-- layer; unfolding the complete four-branch carrier exceeds instance search.
+noncomputable local instance fixedQuotientFirstJetBoundaryCarrierTopology
+    (a c : ℝ) : TopologicalSpace
+      (fixedQuotientFirstJetBoundaryCarrier a c) :=
+  inferInstance
+
 theorem sourceFiniteEulerFixedQuotientFirstJet_ordinaryTrace_norm_le_of_currentRangeDouglas
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)

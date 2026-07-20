@@ -1,0 +1,24 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSFixedQuotientBandConsumer
+
+namespace ConnesWeilRH
+namespace Dev
+
+open Source.CCM25Concrete.CCM24FiniteSFixedQuotientBandConsumer
+
+#print axioms sourceBandFixedQuotientFirstJetInputSideProducer_response_eq_twoBranch
+#print axioms sourceBandFiniteEulerFixedQuotientFirstJetInputSideProducer_response_eq_twoBranch
+#print axioms sourceBandEulerFixedQuotient_ordinaryTrace_norm_le_of_currentRangeDouglas
+#print axioms sourceBandEulerFixedQuotient_ordinaryTrace_norm_le_of_currentRangeReadout
+#print axioms sourceBandEulerFixedQuotient_ordinaryTrace_norm_le_of_currentRangeDomination
+#print axioms sourceBandEulerFixedQuotient_ordinaryTrace_norm_le_of_currentRangeNormSqDomination
+#print axioms inputSideRectangularJuliaReadout_ordinaryTrace_norm_le
+#print axioms sourceInclusion_comp_sourceBandFiniteEulerSoninInput
+#print axioms sourceBandEulerFixedQuotient_ordinaryTrace_norm_le_of_actualCurrentRangeReadout
+
+end Dev
+end ConnesWeilRH

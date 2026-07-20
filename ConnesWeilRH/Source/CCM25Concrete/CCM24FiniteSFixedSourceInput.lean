@@ -1800,6 +1800,8 @@ theorem sourceThreeBranchSourceInputSideProducer_response_eq
       reflectedPositiveBasis reflectedOutputBasis globalBasis boundaryBasis
       sourceBasis hfactor]
 
+set_option maxHeartbeats 800000 in
+-- The balanced four-coordinate boundary carrier enlarges this readback.
 theorem sourceThreeBranchSourceInputSideProducer_root_energy_eq
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)

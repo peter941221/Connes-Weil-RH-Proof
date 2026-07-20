@@ -1,0 +1,50 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSWeightedTranslationBessel
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSWeightedTranslationBesselAudit
+
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSWeightedTranslationBessel
+
+#check @weightedIndicatorEnergy_le
+#check @weightedLocalizedBessel
+#check @identicalModes_analysisSquareLedger
+#check @identicalModes_coherentSynthesisNormSq
+#check @identicalModes_coherentSynthesisGap
+#check @parameterizedPrimeEulerGeneratorMode_apply_eq_coefficient
+#check @normSq_parameterizedPrimeEulerModeCoefficient
+#check @ccm24PrimeEulerCoefficient_sq
+#check @ccm24PrimeEulerCoefficient_even_pow
+#check @parameterizedPrimeEulerModeBoundaryEnergy_nonneg
+#check @integral_parameterizedPrimeEulerModeBoundaryEnergy
+#check @integral_parameterizedPrimeEulerModeBoundaryEnergy_le
+#check @primeEulerModeSquareMajorant_nonneg
+#check @summable_primeEulerModeSquareMajorant
+#check @tsum_primeEulerModeSquareMajorant
+#check @summable_integral_parameterizedPrimeEulerModeBoundaryEnergy
+#check @tsum_integral_parameterizedPrimeEulerModeBoundaryEnergy_le
+#check @sum_tsum_integral_parameterizedPrimeEulerModeBoundaryEnergy_le
+
+#print axioms weightedIndicatorEnergy_le
+#print axioms weightedLocalizedBessel
+#print axioms identicalModes_analysisSquareLedger
+#print axioms identicalModes_coherentSynthesisNormSq
+#print axioms identicalModes_coherentSynthesisGap
+#print axioms parameterizedPrimeEulerGeneratorMode_apply_eq_coefficient
+#print axioms normSq_parameterizedPrimeEulerModeCoefficient
+#print axioms ccm24PrimeEulerCoefficient_sq
+#print axioms ccm24PrimeEulerCoefficient_even_pow
+#print axioms parameterizedPrimeEulerModeBoundaryEnergy_nonneg
+#print axioms integral_parameterizedPrimeEulerModeBoundaryEnergy
+#print axioms integral_parameterizedPrimeEulerModeBoundaryEnergy_le
+#print axioms primeEulerModeSquareMajorant_nonneg
+#print axioms summable_primeEulerModeSquareMajorant
+#print axioms tsum_primeEulerModeSquareMajorant
+#print axioms summable_integral_parameterizedPrimeEulerModeBoundaryEnergy
+#print axioms tsum_integral_parameterizedPrimeEulerModeBoundaryEnergy_le
+#print axioms sum_tsum_integral_parameterizedPrimeEulerModeBoundaryEnergy_le
+
+end ConnesWeilRH.Dev.CCM24FiniteSWeightedTranslationBesselAudit

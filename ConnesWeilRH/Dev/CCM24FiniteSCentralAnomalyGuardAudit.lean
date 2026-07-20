@@ -1,0 +1,22 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCentralAnomalyGuard
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCentralAnomalyGuardAudit
+
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCentralAnomalyGuard
+
+#check @boundaryCompletion_response_eq_removed_sub_padding
+#check @equalCard_boundaryCompletion_response_eq_card_mul_sub
+#check @boundaryCompletion_response_sub_eq_paddingDifference
+#check @det_multiplicativeCommutator_eq_one
+
+#print axioms boundaryCompletion_response_eq_removed_sub_padding
+#print axioms equalCard_boundaryCompletion_response_eq_card_mul_sub
+#print axioms boundaryCompletion_response_sub_eq_paddingDifference
+#print axioms det_multiplicativeCommutator_eq_one
+
+end ConnesWeilRH.Dev.CCM24FiniteSCentralAnomalyGuardAudit

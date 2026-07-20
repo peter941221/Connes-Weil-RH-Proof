@@ -1,0 +1,32 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSWeightedBoundaryResolvent
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSWeightedBoundaryResolventAudit
+
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSWeightedBoundaryResolvent
+
+#check @weightedRetraction_mul_frame_eq_one
+#check @weightedObliqueProjection_sq
+#check @weightedObliqueComplement_mul_frame_eq_zero
+#check @normalizedBoundarySemicommutator_eq_retraction_sub_source
+#check @weightedRetraction_sub_eq_fixedComplement
+#check @weightedRetraction_sub_eq_movingComplement
+#check @normalizedBoundarySemicommutator_sub_eq_retractionDifference
+#check @normalizedBoundarySemicommutator_sub_eq_singleDifference
+#check @normalizedBoundarySemicommutator_sub_eq_singleDifference_moving
+
+#print axioms weightedRetraction_mul_frame_eq_one
+#print axioms weightedObliqueProjection_sq
+#print axioms weightedObliqueComplement_mul_frame_eq_zero
+#print axioms normalizedBoundarySemicommutator_eq_retraction_sub_source
+#print axioms weightedRetraction_sub_eq_fixedComplement
+#print axioms weightedRetraction_sub_eq_movingComplement
+#print axioms normalizedBoundarySemicommutator_sub_eq_retractionDifference
+#print axioms normalizedBoundarySemicommutator_sub_eq_singleDifference
+#print axioms normalizedBoundarySemicommutator_sub_eq_singleDifference_moving
+
+end ConnesWeilRH.Dev.CCM24FiniteSWeightedBoundaryResolventAudit

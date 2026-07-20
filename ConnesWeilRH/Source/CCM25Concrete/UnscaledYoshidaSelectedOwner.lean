@@ -111,6 +111,25 @@ noncomputable def selectedOwner
         ((convolutionIterate base n).convolution correction)).convolutionSquare :=
   rfl
 
+/-- A source Mellin value at `z` is the selected-root value at the centered
+point `z - 1/2`.  This exposes the root-level zero produced by the unscaled
+Yoshida correction before passing to its convolution square. -/
+theorem selectedOwner_laplaceAt_sourceTest_centered
+    (base correction : CompactLogTest) (n : ℕ) (z : ℂ) :
+    laplaceAt (selectedOwner base correction n).sourceTest (z - 1 / 2) =
+      laplaceAt ((convolutionIterate base n).convolution correction) z := by
+  rw [selectedOwner_sourceTest, laplaceAt_halfDensityShift,
+    centered_add_half]
+
+/-- A zero at a raw source node remains a zero of the selected root at the
+corresponding half-density-centered node. -/
+theorem selectedOwner_laplaceAt_sourceTest_centered_eq_zero
+    (base correction : CompactLogTest) (n : ℕ) (z : ℂ)
+    (hz :
+      laplaceAt ((convolutionIterate base n).convolution correction) z = 0) :
+    laplaceAt (selectedOwner base correction n).sourceTest (z - 1 / 2) = 0 := by
+  rw [selectedOwner_laplaceAt_sourceTest_centered, hz]
+
 /-- Normalizing the source point and its functional-equation companion
 normalizes the actual selected convolution square at `rho - 1/2`. -/
 theorem selectedOwner_laplaceAt_convolutionSquare_eq_one

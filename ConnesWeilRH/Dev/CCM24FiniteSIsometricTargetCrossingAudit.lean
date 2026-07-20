@@ -1,0 +1,32 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSIsometricTargetCrossing
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSIsometricTargetCrossingAudit
+
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSIsometricTargetCrossing
+
+#check @transportedGramProjection_mul_transportedFrame
+#check @transportedFrameDagger_mul_transportedGramProjection
+#check @transportedGramProjection_sq
+#check @targetComplement_mul_transportedFrame_eq_zero
+#check @transportedFrameDagger_mul_targetComplement_eq_zero
+#check @inverse_mul_targetComplement_mul_transport_eq_movingComplement
+#check @isometricWeightedRetraction_sub_eq_inverseTargetCrossing
+#check @targetComplement_detector_transportedFrame_eq_commutator
+#check @normalizedBoundary_sub_eq_inverseTargetCommutator
+
+#print axioms transportedGramProjection_mul_transportedFrame
+#print axioms transportedFrameDagger_mul_transportedGramProjection
+#print axioms transportedGramProjection_sq
+#print axioms targetComplement_mul_transportedFrame_eq_zero
+#print axioms transportedFrameDagger_mul_targetComplement_eq_zero
+#print axioms inverse_mul_targetComplement_mul_transport_eq_movingComplement
+#print axioms isometricWeightedRetraction_sub_eq_inverseTargetCrossing
+#print axioms targetComplement_detector_transportedFrame_eq_commutator
+#print axioms normalizedBoundary_sub_eq_inverseTargetCommutator
+
+end ConnesWeilRH.Dev.CCM24FiniteSIsometricTargetCrossingAudit

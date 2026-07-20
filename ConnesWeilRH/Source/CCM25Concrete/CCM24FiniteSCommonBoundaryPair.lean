@@ -62,21 +62,20 @@ noncomputable local instance sourceSoninCarrierCompleteSpace
     (lambda : CCM24SoninScale) : CompleteSpace (sourceSoninCarrier lambda) :=
   (ccm24ArchimedeanSoninClosedSubspace lambda).isClosed.completeSpace_coe
 
-noncomputable abbrev commonBoundaryCarrier (a c : ℝ) :=
-  WithLp 2
-    (WithLp 2
-      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c)) ×
-        Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c))) ×
-      WithLp 2
-        ((WithLp 2
-            (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval (-c) (-a))) ×
-              Lp ℂ 2 (volume : Measure (BoundaryOutputInterval (-c) (-a))))) ×
-          WithLp 2 (finiteSCarrier × finiteSCarrier)))
-
 noncomputable abbrev radialBoundaryCarrier (a c : ℝ) :=
   WithLp 2
     (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c)) ×
       Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c)))
+
+/-- One orthogonal coordinate for each term in the complete physical ledger:
+outer, reflected outer, second support, and prolate. -/
+noncomputable abbrev commonBoundaryCarrier (a c : ℝ) :=
+  WithLp 2
+    (WithLp 2
+        (radialBoundaryCarrier a c × radialBoundaryCarrier a c) ×
+      WithLp 2
+        (radialBoundaryCarrier (-c) (-a) ×
+          WithLp 2 (finiteSCarrier × finiteSCarrier)))
 
 noncomputable abbrev correctedBoundaryCarrier (a c : ℝ) :=
   WithLp 2
@@ -1541,29 +1540,28 @@ theorem outerCommutatorPairData_traceProduct_eq
           (sourceFourierSupportProjection lambda) (detectorOperator owner) u := by
         rfl
 
-/-! The reflected outer branch is the adjoint of the first branch with the
-route sign retained in the same pair owner. -/
+/-! The reflected outer branch is the negative adjoint of the first branch.
+It therefore uses the same compact-root pair and the same physical boundary;
+the reflected compact root belongs to the second-support branch below. -/
 noncomputable def reflectedOuterCommutatorPairData
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (a c : ℝ) (hac : a ≤ c)
     (hsupp : Function.support owner.sourceTest.test ⊆ Set.Icc a c)
     {ι κ τ ν : Type*}
     (negativeBasis : HilbertBasis ι ℂ
-      (Lp ℂ 2 (volume : Measure (BoundaryNegativeInputInterval (-c) (-a)))))
+      (Lp ℂ 2 (volume : Measure (BoundaryNegativeInputInterval a c))))
     (positiveBasis : HilbertBasis κ ℂ
-      (Lp ℂ 2 (volume : Measure (BoundaryPositiveInputInterval (-c) (-a)))))
+      (Lp ℂ 2 (volume : Measure (BoundaryPositiveInputInterval a c))))
     (outputBasis : HilbertBasis τ ℂ
-      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval (-c) (-a)))))
+      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c))))
     (globalBasis : HilbertBasis ν ℂ finiteSCarrier) :
     CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData
       (G := WithLp 2
-        (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval (-c) (-a))) ×
-          Lp ℂ 2 (volume : Measure (BoundaryOutputInterval (-c) (-a)))))
+        (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c)) ×
+          Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c))))
       globalBasis :=
-  (reflectedTranslatedCompactRootPairData owner lambda a c negativeBasis
-    positiveBasis outputBasis globalBasis).boundedAdjointSub outputBasis
-      (ContinuousLinearMap.id ℂ finiteSCarrier)
-      (sourceFourierSupportProjection lambda ∘L radialSupportProjection lambda)
+  (outerCommutatorPairData owner lambda a c hac hsupp negativeBasis
+    positiveBasis outputBasis globalBasis).swap.smulRight (-1)
 
 theorem reflectedOuterCommutatorPairData_traceProduct_eq
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
@@ -1571,17 +1569,45 @@ theorem reflectedOuterCommutatorPairData_traceProduct_eq
     (hsupp : Function.support owner.sourceTest.test ⊆ Set.Icc a c)
     {ι κ τ ν : Type*}
     (negativeBasis : HilbertBasis ι ℂ
-      (Lp ℂ 2 (volume : Measure (BoundaryNegativeInputInterval (-c) (-a)))))
+      (Lp ℂ 2 (volume : Measure (BoundaryNegativeInputInterval a c))))
     (positiveBasis : HilbertBasis κ ℂ
-      (Lp ℂ 2 (volume : Measure (BoundaryPositiveInputInterval (-c) (-a)))))
+      (Lp ℂ 2 (volume : Measure (BoundaryPositiveInputInterval a c))))
     (outputBasis : HilbertBasis τ ℂ
-      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval (-c) (-a)))))
+      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c))))
     (globalBasis : HilbertBasis ν ℂ finiteSCarrier) :
     (reflectedOuterCommutatorPairData owner lambda a c hac hsupp negativeBasis
       positiveBasis outputBasis globalBasis).traceProduct =
       cc20ReflectedOuterCommutatorBranch (radialSupportProjection lambda)
         (sourceFourierSupportProjection lambda) (detectorOperator owner) := by
-  sorry
+  rw [reflectedOuterCommutatorPairData,
+    CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData.smulRight_traceProduct_eq,
+    CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData.swap_traceProduct_eq_adjoint,
+    outerCommutatorPairData_traceProduct_eq owner lambda a c hac hsupp
+      negativeBasis positiveBasis outputBasis globalBasis]
+  have heq :
+      cc20ReflectedOuterCommutatorBranch
+          (radialSupportProjection lambda)
+          (sourceFourierSupportProjection lambda) (detectorOperator owner) =
+        -(cc20OuterCommutatorBranch (radialSupportProjection lambda)
+          (sourceFourierSupportProjection lambda)
+          (detectorOperator owner)).adjoint := by
+    unfold cc20ReflectedOuterCommutatorBranch
+      cc20OuterCommutatorBranch cc20Commutator
+    rw [ContinuousLinearMap.adjoint_comp,
+      ContinuousLinearMap.adjoint_comp,
+      map_sub, ContinuousLinearMap.adjoint_comp,
+      ContinuousLinearMap.adjoint_comp,
+      (radialSupportProjection_isStarProjection lambda)
+        |>.isSelfAdjoint.adjoint_eq,
+      (sourceFourierSupportProjection_isStarProjection lambda)
+        |>.isSelfAdjoint.adjoint_eq,
+      (detectorOperator_isSelfAdjoint owner).adjoint_eq]
+    apply ContinuousLinearMap.ext
+    intro u
+    simp only [ContinuousLinearMap.comp_apply,
+      ContinuousLinearMap.sub_apply, ContinuousLinearMap.neg_apply]
+    abel
+  simpa only [neg_one_smul] using heq.symm
 
 /-!
 The genuine second-support crossing is handled by the same signed pair
@@ -1806,17 +1832,16 @@ noncomputable def sourceThreeBranchPairData
     (hfactor : Summable fun i =>
       ‖sourceProlateHilbertSchmidtFactor lambda (globalBasis i)‖ ^ 2) :
     CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData
-      (G := WithLp 2
-        (WithLp 2
-          (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c)) ×
-            Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c))) ×
-          (WithLp 2
-            ((WithLp 2
-              (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval (-c) (-a))) ×
-                Lp ℂ 2 (volume : Measure (BoundaryOutputInterval (-c) (-a))))) ×
-              (WithLp 2 (finiteSCarrier × finiteSCarrier)))))) globalBasis :=
-  by
-    sorry
+      (G := commonBoundaryCarrier a c) globalBasis :=
+  CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData.l2Sum
+    (CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData.l2Sum
+      (outerCommutatorPairData owner lambda a c hac hsupp negativeBasis
+        positiveBasis outputBasis globalBasis)
+      (reflectedOuterCommutatorPairData owner lambda a c hac hsupp negativeBasis
+        positiveBasis outputBasis globalBasis))
+    (secondSupportProlateRemainderPairData owner lambda a c hac hsupp
+      reflectedNegativeBasis reflectedPositiveBasis reflectedOutputBasis
+      globalBasis hfactor)
 
 theorem sourceThreeBranchPairData_traceProduct_eq
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
@@ -1844,7 +1869,17 @@ theorem sourceThreeBranchPairData_traceProduct_eq
       cc20ThreeBranchCommutator (radialSupportProjection lambda)
         (sourceFourierSupportProjection lambda)
         (sourceProlateRemainder lambda) (detectorOperator owner) := by
-  sorry
+  rw [sourceThreeBranchPairData,
+    CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData.l2Sum_traceProduct_eq_add,
+    CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData.l2Sum_traceProduct_eq_add,
+    outerCommutatorPairData_traceProduct_eq owner lambda a c hac hsupp
+      negativeBasis positiveBasis outputBasis globalBasis,
+    reflectedOuterCommutatorPairData_traceProduct_eq owner lambda a c hac hsupp
+      negativeBasis positiveBasis outputBasis globalBasis,
+    secondSupportProlateRemainderPairData_traceProduct_eq owner lambda a c hac
+      hsupp reflectedNegativeBasis reflectedPositiveBasis reflectedOutputBasis
+      globalBasis hfactor,
+    sourceThreeBranchCommutator_eq_outerPair_add_remainder]
 
 /-!
 The fixed-quotient first jet is a bounded sandwich of the complete physical
@@ -2535,6 +2570,8 @@ theorem correctedPhysicalInputSideProducer_response_eq
       hLeftSupport hRightSupport hsupport_actual hsecondSupport_actual
       hprolate_actual hdetector_actual]
 
+set_option maxHeartbeats 800000 in
+-- The four-coordinate boundary carrier makes this definitional readback large.
 theorem correctedPhysicalInputSideProducer_root_energy_eq
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (a c : ℝ) (hac : a ≤ c)

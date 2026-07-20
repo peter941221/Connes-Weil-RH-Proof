@@ -1,0 +1,26 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSFixedQuotientContractionBound
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSFixedQuotientContractionBoundAudit
+
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSFixedQuotientContractionBound
+
+#check @boundedPrecomp_left_tsum_le_of_norm_le_one
+#check @boundedPrecomp_right_tsum_le_of_norm_le_one
+#check @boundedSandwich_left_tsum_le_of_norm_le_one
+#check @boundedSandwich_right_tsum_le_of_norm_le_one
+#check @norm_sourceBandFiniteEulerSoninInput_le_one
+#check @sourceBandFiniteEulerFixedQuotientFirstJet_ordinaryTrace_norm_le_fixedPhysicalEnergy
+
+#print axioms boundedPrecomp_left_tsum_le_of_norm_le_one
+#print axioms boundedPrecomp_right_tsum_le_of_norm_le_one
+#print axioms boundedSandwich_left_tsum_le_of_norm_le_one
+#print axioms boundedSandwich_right_tsum_le_of_norm_le_one
+#print axioms norm_sourceBandFiniteEulerSoninInput_le_one
+#print axioms sourceBandFiniteEulerFixedQuotientFirstJet_ordinaryTrace_norm_le_fixedPhysicalEnergy
+
+end ConnesWeilRH.Dev.CCM24FiniteSFixedQuotientContractionBoundAudit

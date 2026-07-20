@@ -1,0 +1,39 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSGramOrderingBridge
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSGramOrderingBridgeAudit
+
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCommonBoundaryPair
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSGramOrderingBridge
+
+#check @reflectedOuterCommutatorPairData_traceProduct_eq
+#check @sourceThreeBranchPairData_traceProduct_eq
+#check @sourceBandGramResponse_isTraceClassAlong
+#check @rectangular_isometric_targetCommutator_collapse
+#check @targetSoninProjection_eq_transport_frame_gramProjection
+#check @targetSoninProjection_comp_transport_frame
+#check @leftOrderedSourceGramResponse_eq_targetCommutator
+#check @leftOrderedSourceGramResponse_eq_adjoint
+#check @leftOrderedSourceBandGramResponse_eq_adjoint
+#check @norm_ordinaryTraceAlong_leftOrderedSourceBandGramResponse_eq
+#check @norm_ordinaryTraceAlong_finiteEulerTargetCommutatorResponse_eq
+#check @finiteEulerTargetCommutatorResponse_isTraceClassAlong
+
+#print axioms reflectedOuterCommutatorPairData_traceProduct_eq
+#print axioms sourceThreeBranchPairData_traceProduct_eq
+#print axioms sourceBandGramResponse_isTraceClassAlong
+#print axioms rectangular_isometric_targetCommutator_collapse
+#print axioms targetSoninProjection_eq_transport_frame_gramProjection
+#print axioms targetSoninProjection_comp_transport_frame
+#print axioms leftOrderedSourceGramResponse_eq_targetCommutator
+#print axioms leftOrderedSourceGramResponse_eq_adjoint
+#print axioms leftOrderedSourceBandGramResponse_eq_adjoint
+#print axioms norm_ordinaryTraceAlong_leftOrderedSourceBandGramResponse_eq
+#print axioms norm_ordinaryTraceAlong_finiteEulerTargetCommutatorResponse_eq
+#print axioms finiteEulerTargetCommutatorResponse_isTraceClassAlong
+
+end ConnesWeilRH.Dev.CCM24FiniteSGramOrderingBridgeAudit
