@@ -1,0 +1,16 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSMovingBandFlowRegularity
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSMovingBandFlowRegularityAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSMovingBandFlowRegularity
+
+#check @continuousOn_actualMovingSoninRootFlow
+#check @intervalIntegrable_actualMovingSoninRootFlow
+#check @integral_actualMovingSoninRootFlow_eq_neg_bandResponse
+
+#print axioms continuousOn_actualMovingSoninRootFlow
+#print axioms intervalIntegrable_actualMovingSoninRootFlow
+#print axioms integral_actualMovingSoninRootFlow_eq_neg_bandResponse
+
+end ConnesWeilRH.Dev.CCM24FiniteSMovingBandFlowRegularityAudit

@@ -1,0 +1,15 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSEndpointBalancedCycle
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSEndpointBalancedCycle
+
+#check @rectangularBalancedPrefixTrace
+#check @rectangularBalancedPrefixTrace_eq_targetPrefixTrace
+#check @actualBandEndpointBalancedPrefixTrace_eq_targetPrefixRootResponse
+#check @targetPrefixRootResponse_eq_two_integral_weightedBoundary
+
+#print axioms rectangularBalancedPrefixTrace_eq_targetPrefixTrace
+#print axioms actualBandEndpointBalancedPrefixTrace_eq_targetPrefixRootResponse
+#print axioms targetPrefixRootResponse_eq_two_integral_weightedBoundary

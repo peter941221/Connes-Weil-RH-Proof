@@ -1,0 +1,14 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSEndpointArithmeticLimit
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSEndpointArithmeticLimit
+
+#check @tendsto_trace_basisPrefixMatrix_ordinaryTraceAlong
+#check @tendsto_arithmeticPrefixTrace_eq_finitePrimeSum
+#check @tendsto_completedResidualPrefix_eq_routeTrace_sub_finitePrimeSum
+
+#print axioms tendsto_trace_basisPrefixMatrix_ordinaryTraceAlong
+#print axioms tendsto_arithmeticPrefixTrace_eq_finitePrimeSum
+#print axioms tendsto_completedResidualPrefix_eq_routeTrace_sub_finitePrimeSum

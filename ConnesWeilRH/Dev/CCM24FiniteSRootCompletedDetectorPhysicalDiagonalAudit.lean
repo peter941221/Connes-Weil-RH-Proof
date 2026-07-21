@@ -1,0 +1,16 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRootCompletedDetectorPhysicalDiagonal
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRootCompletedDetectorPhysicalDiagonal
+
+#check @l2Sum_inner_pairing_eq_add
+#check @sourceThreeBranchPhysicalPairing
+#check @sourceThreeBranchPairData_inner_eq_physicalPairing
+#check @rootCompletedDetectorTranslationPhysicalDiagonal
+#check @rootCompletedDetectorSoninTranslationTrace_eq_physicalDiagonal_tsum
+
+#print axioms l2Sum_inner_pairing_eq_add
+#print axioms sourceThreeBranchPairData_inner_eq_physicalPairing
+#print axioms rootCompletedDetectorSoninTranslationTrace_eq_physicalDiagonal_tsum

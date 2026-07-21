@@ -1,0 +1,17 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSMovingBandPrefixCompression
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSMovingBandPrefixCompression
+
+#check @basisPrefixMatrix
+#check @trace_basisPrefixMatrix_eq_rangeDiagonal
+#check @trace_basisPrefixMatrix_re_eq_rangeDiagonal_re
+#check @ordinaryTraceAlong_norm_le_of_prefixCompressionIntegralBound
+#check @canonicalOrdinaryTraceAlong_norm_le_supportRadiusPolynomial_of_prefixCompressionBound
+
+#print axioms trace_basisPrefixMatrix_eq_rangeDiagonal
+#print axioms trace_basisPrefixMatrix_re_eq_rangeDiagonal_re
+#print axioms ordinaryTraceAlong_norm_le_of_prefixCompressionIntegralBound
+#print axioms canonicalOrdinaryTraceAlong_norm_le_supportRadiusPolynomial_of_prefixCompressionBound

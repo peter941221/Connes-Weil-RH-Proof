@@ -1,0 +1,14 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSMovingBandTraceLimit
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSMovingBandTraceLimitAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSMovingBandTraceLimit
+
+#check @ordinaryTraceAlong_re_abs_le_of_finiteDiagonalIntegralBound
+#check @canonicalOrdinaryTraceAlong_re_abs_le_supportRadiusPolynomial_of_finiteDiagonalBound
+
+#print axioms ordinaryTraceAlong_re_abs_le_of_finiteDiagonalIntegralBound
+#print axioms canonicalOrdinaryTraceAlong_re_abs_le_supportRadiusPolynomial_of_finiteDiagonalBound
+
+end ConnesWeilRH.Dev.CCM24FiniteSMovingBandTraceLimitAudit

@@ -1,0 +1,19 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRectangularPrefixCycle
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRectangularPrefixCycle
+
+#check @rectangularPrefixMatrix
+#check @rectangularTargetProductDefect
+#check @rectangularSourceProductDefect
+#check @rectangularPrefixCycleBoundaryTrace
+#check @trace_basisPrefixMatrix_rectangularProduct_eq_cycled_add_boundary
+#check @actualBandQuadraticRectangularBoundaryTrace
+#check @trace_actualBandQuadraticRootResponse_eq_sourceCycle_add_boundary
+#check @trace_rootSandwichedBandResponse_eq_firstJet_sub_sourceCycle_sub_boundary
+
+#print axioms trace_basisPrefixMatrix_rectangularProduct_eq_cycled_add_boundary
+#print axioms trace_actualBandQuadraticRootResponse_eq_sourceCycle_add_boundary
+#print axioms trace_rootSandwichedBandResponse_eq_firstJet_sub_sourceCycle_sub_boundary

@@ -1,0 +1,14 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRootCompletedDetectorTrace
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRootCompletedDetectorTrace
+
+#check @rootCompletedDetectorTranslationPairData
+#check @rootCompletedDetectorTranslationPairData_traceProduct_eq
+#check @rootCompletedDetectorSoninTranslationPair_isTraceClassAlong
+#check @rootCompletedDetectorSoninTranslationTrace
+
+#print axioms rootCompletedDetectorTranslationPairData_traceProduct_eq
+#print axioms rootCompletedDetectorSoninTranslationPair_isTraceClassAlong

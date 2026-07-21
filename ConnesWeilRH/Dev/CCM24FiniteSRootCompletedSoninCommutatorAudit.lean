@@ -1,0 +1,14 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRootCompletedSoninCommutator
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRootCompletedSoninCommutator
+
+#check @sourceSonin_bandCommutator_band_eq_neg_soninCommutator
+#check @rootCompletedTranslationCommutatorPair_eq_neg_soninCommutator
+#check @sourceRootCompletedFiniteEulerCorner_eq_neg_soninTranslationLaw
+
+#print axioms sourceSonin_bandCommutator_band_eq_neg_soninCommutator
+#print axioms rootCompletedTranslationCommutatorPair_eq_neg_soninCommutator
+#print axioms sourceRootCompletedFiniteEulerCorner_eq_neg_soninTranslationLaw

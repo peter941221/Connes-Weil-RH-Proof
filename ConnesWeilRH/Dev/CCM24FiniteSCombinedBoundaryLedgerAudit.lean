@@ -1,0 +1,13 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCombinedBoundaryLedger
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCombinedBoundaryLedger
+
+#check @actualBandEndpointCarrierLedgerTrace
+#check @actualBandEndpointCarrierLedgerTrace_eq_two_integral_weightedBoundary
+#check @canonicalOrdinaryTraceAlong_norm_le_supportRadiusPolynomial_of_carrierLedgerBound
+
+#print axioms actualBandEndpointCarrierLedgerTrace_eq_two_integral_weightedBoundary
+#print axioms canonicalOrdinaryTraceAlong_norm_le_supportRadiusPolynomial_of_carrierLedgerBound

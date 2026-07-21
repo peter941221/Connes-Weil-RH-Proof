@@ -1,0 +1,15 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSPrefixBoundaryDefect
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSPrefixBoundaryDefect
+
+#check @basisPrefixProductDefect
+#check @basisPrefixMatrix_sub
+#check @basisPrefixMatrix_commutator_eq_internal_add_boundaryDefect
+#check @trace_basisPrefixMatrix_commutator_eq_trace_boundaryDefect
+
+#print axioms basisPrefixMatrix_sub
+#print axioms basisPrefixMatrix_commutator_eq_internal_add_boundaryDefect
+#print axioms trace_basisPrefixMatrix_commutator_eq_trace_boundaryDefect

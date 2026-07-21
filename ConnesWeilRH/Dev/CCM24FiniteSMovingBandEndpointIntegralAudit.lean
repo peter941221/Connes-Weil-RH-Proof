@@ -1,0 +1,16 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSMovingBandEndpointIntegral
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSMovingBandEndpointIntegralAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSMovingBandEndpointIntegral
+
+#check actualCompletedRootCrossing
+#check @actualMovingSoninRootFlow_eq_neg_completedRootCrossing_add_adjoint
+#check @integral_actualMovingSoninRootFlow_eq_neg_rootSandwichedBandResponse
+
+#print axioms actualCompletedRootCrossing
+#print axioms actualMovingSoninRootFlow_eq_neg_completedRootCrossing_add_adjoint
+#print axioms integral_actualMovingSoninRootFlow_eq_neg_rootSandwichedBandResponse
+
+end ConnesWeilRH.Dev.CCM24FiniteSMovingBandEndpointIntegralAudit
