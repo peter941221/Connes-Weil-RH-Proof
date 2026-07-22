@@ -1,0 +1,24 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRootConvolutionNorm
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRootConvolutionNorm
+
+#check @norm_cc20FourierMultiplier_le
+#check @norm_linearIsometryEquiv_conjugation_le
+#check @norm_cc20GlobalLogConvolution_le_toLp_one
+#check @norm_toLp_one_le_supportLength_mul_seminorm
+#check @norm_cc20GlobalLogConvolution_le_supportLength_mul_seminorm
+#check @seminorm_zero_zero_involution_eq
+#check @rootConvolution_norm_le_supportLength_mul_seminorm
+#check @sourceRootCompletedFiniteEulerTrace_norm_le_supportPhysicalEnergy
+
+#print axioms norm_cc20FourierMultiplier_le
+#print axioms norm_linearIsometryEquiv_conjugation_le
+#print axioms norm_cc20GlobalLogConvolution_le_toLp_one
+#print axioms norm_toLp_one_le_supportLength_mul_seminorm
+#print axioms norm_cc20GlobalLogConvolution_le_supportLength_mul_seminorm
+#print axioms seminorm_zero_zero_involution_eq
+#print axioms rootConvolution_norm_le_supportLength_mul_seminorm
+#print axioms sourceRootCompletedFiniteEulerTrace_norm_le_supportPhysicalEnergy

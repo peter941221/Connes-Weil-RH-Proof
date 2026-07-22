@@ -1,0 +1,10 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRootCompletedDetectorUniformTrace
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRootCompletedDetectorUniformTrace
+
+#check @sourceRootCompletedFiniteEulerTrace_norm_le_fixedPhysicalGeometricEnergy
+
+#print axioms sourceRootCompletedFiniteEulerTrace_norm_le_fixedPhysicalGeometricEnergy

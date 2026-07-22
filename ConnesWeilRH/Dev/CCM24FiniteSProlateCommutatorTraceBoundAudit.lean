@@ -1,0 +1,11 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSProlateCommutatorTraceBound
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSProlateCommutatorTraceBound
+
+#check @sourceProlateCommutator_trace_norm_le_detector_factorEnergy
+#check @sourceProlateCommutator_boundedSandwich_trace_norm_le_detector_factorEnergy
+#print axioms sourceProlateCommutator_trace_norm_le_detector_factorEnergy
+#print axioms sourceProlateCommutator_boundedSandwich_trace_norm_le_detector_factorEnergy
