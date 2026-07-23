@@ -1,0 +1,20 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedPhysicalTerminalReadout
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedPhysicalTerminalReadoutAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedPhysicalTerminalReadout
+
+#check @frameSourceInclusion
+#check @exists_fixedSource_terminal_survivor_readout_of_norm_domination
+#check @physicalBoundaryDaggerTarget
+#check @PhysicalBoundaryDaggerReadoutContract
+#check @PhysicalBoundaryDaggerReadoutContract.exists_completed_readout
+
+#print axioms frameSourceInclusion
+#print axioms exists_fixedSource_terminal_survivor_readout_of_norm_domination
+#print axioms physicalBoundaryDaggerTarget
+#print axioms PhysicalBoundaryDaggerReadoutContract
+#print axioms PhysicalBoundaryDaggerReadoutContract.exists_completed_readout
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedPhysicalTerminalReadoutAudit
