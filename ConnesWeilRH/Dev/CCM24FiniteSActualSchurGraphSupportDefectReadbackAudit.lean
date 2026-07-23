@@ -1,0 +1,27 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurGraphSupportDefectReadback
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSActualSchurGraphSupportDefectReadbackAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSActualSchurGraphSupportDefectReadback
+
+#check @canonicalGraphActionUpper
+#check @canonicalGraphSupportDefect
+#check @normalizedCanonicalGraphActionUpper
+#check @normalizedCanonicalGraphSupportDefect
+#check @canonicalGraphActionUpper_eq_schur_add_supportDefect
+#check @projection_mul_canonicalGraphSupportDefect
+#check @projection_mul_canonicalGraphActionUpper_eq_schurFrame
+#check @normalizedCanonicalGraphActionUpper_eq_normalizedSchurFrame_add_defect
+
+#print axioms canonicalGraphActionUpper_eq_schur_add_supportDefect
+#print axioms projection_mul_canonicalGraphSupportDefect
+#print axioms projection_mul_canonicalGraphActionUpper_eq_schurFrame
+#print axioms normalizedCanonicalGraphActionUpper_eq_normalizedSchurFrame_add_defect
+
+end ConnesWeilRH.Dev.CCM24FiniteSActualSchurGraphSupportDefectReadbackAudit
