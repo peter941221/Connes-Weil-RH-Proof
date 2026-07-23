@@ -1,0 +1,37 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaPolarRawReadout
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaPolarRawReadoutAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaPolarRawReadout
+
+#check @suffixEulerFrameAmbientBoundaryRightProjection_norm_le_one
+#check @suffixActualBandPolarPhysicalReadout_comp_analysis
+#check @newSuffixFrame_norm_le_one
+#check @norm_neg_adjoint_comp_comp_le_detector
+#check @suffixActualBandPolarPhysicalReadout_norm_le
+#check @rawCorrection_factorization
+#check @rawCorrection_norm_le
+#check @SuffixMismatchAmbientBoundaryReadoutData.rawAdjoint_norm_le
+#check @suffixActualBandThreeBranchCommutator_adjoint_eq_neg
+#check @suffixActualBandRawQuadraticCycledResponse_adjoint_eq_physical
+#check @suffixActualBandRawQuadraticIntertwiningDefect_adjoint_eq_fourTerm
+
+#print axioms suffixEulerFrameAmbientBoundaryRightProjection_norm_le_one
+#print axioms suffixActualBandPolarPhysicalReadout_comp_analysis
+#print axioms newSuffixFrame_norm_le_one
+#print axioms norm_neg_adjoint_comp_comp_le_detector
+#print axioms suffixActualBandPolarPhysicalReadout_norm_le
+#print axioms rawCorrection_factorization
+#print axioms rawCorrection_norm_le
+#print axioms SuffixMismatchAmbientBoundaryReadoutData.rawAdjoint_norm_le
+#print axioms suffixActualBandThreeBranchCommutator_adjoint_eq_neg
+#print axioms suffixActualBandRawQuadraticCycledResponse_adjoint_eq_physical
+#print axioms suffixActualBandRawQuadraticIntertwiningDefect_adjoint_eq_fourTerm
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaPolarRawReadoutAudit

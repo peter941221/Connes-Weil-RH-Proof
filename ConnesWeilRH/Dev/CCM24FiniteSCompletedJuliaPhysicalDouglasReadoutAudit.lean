@@ -1,0 +1,27 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaPhysicalDouglasReadout
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaPhysicalDouglasReadoutAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaPhysicalDouglasReadout
+
+#check @suffixMismatchAmbientBoundaryReadoutDataOfDomination
+#check @SuffixMismatchAmbientBoundaryReadoutData.adjoint_factorization
+#check @SuffixMismatchAmbientBoundaryReadoutData.readout_adjoint_norm_le
+#check @SuffixMismatchAmbientBoundaryReadoutData.mismatchAdjoint_eq_zero
+#check @SuffixMismatchAmbientBoundaryReadoutData.domination
+#check @suffixMismatchAmbientBoundaryDomination_iff_nonempty_readoutData
+
+#print axioms suffixMismatchAmbientBoundaryReadoutDataOfDomination
+#print axioms SuffixMismatchAmbientBoundaryReadoutData.adjoint_factorization
+#print axioms SuffixMismatchAmbientBoundaryReadoutData.readout_adjoint_norm_le
+#print axioms SuffixMismatchAmbientBoundaryReadoutData.mismatchAdjoint_eq_zero
+#print axioms SuffixMismatchAmbientBoundaryReadoutData.domination
+#print axioms suffixMismatchAmbientBoundaryDomination_iff_nonempty_readoutData
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaPhysicalDouglasReadoutAudit
