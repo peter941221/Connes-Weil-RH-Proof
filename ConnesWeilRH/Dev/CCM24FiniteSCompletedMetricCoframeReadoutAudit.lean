@@ -1,0 +1,33 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedMetricCoframeReadout
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedMetricCoframeReadoutAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedMetricCoframeReadout
+
+#check @list_map_apply_sum
+#check @finiteEulerMetricBoundaryColumn
+#check @finiteEulerMetricBoundaryColumn_apply
+#check @finiteEulerMetricBoundarySum
+#check @finiteEulerMetricBoundarySum_comp_column
+#check @finiteEulerMetricCoframeHistoryColumn
+#check @finiteEulerMetricCoframeHistoryReadout
+#check @finiteEulerMetricCoframeHistoryReadout_apply
+#check @finiteEulerMetricCoframeHistoryReadout_comp_column_eq
+
+#print axioms list_map_apply_sum
+#print axioms finiteEulerMetricBoundaryColumn
+#print axioms finiteEulerMetricBoundaryColumn_apply
+#print axioms finiteEulerMetricBoundarySum
+#print axioms finiteEulerMetricBoundarySum_comp_column
+#print axioms finiteEulerMetricCoframeHistoryColumn
+#print axioms finiteEulerMetricCoframeHistoryReadout
+#print axioms finiteEulerMetricCoframeHistoryReadout_apply
+#print axioms finiteEulerMetricCoframeHistoryReadout_comp_column_eq
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedMetricCoframeReadoutAudit
