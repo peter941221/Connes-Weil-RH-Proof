@@ -24,19 +24,19 @@ domination contract.
 
 ## What remains open
 
-The transition-bound structure is an explicit producer obligation.  It is not
-derived from the contractive reverse transition: the forward recovery is
-scalar-normalized and its norm is not available here as a family-independent
-contraction.  Therefore Proof 511 does not manufacture the missing source
-theorem, completed-history readout identity, Gate 3U bound, finite-S sign,
-Burnol identity, or unconditional RH.
+Proof 512 closes the elementary transition-bound obligation with the concrete
+family bound `8`.  This is a finite bound, not a contraction: the
+scalar-normalized forward recovery still pays the inverse Schur--Markov
+scalar.  Proof 511 therefore still does not manufacture the missing
+uniform co-defect factor producer, completed-history readout identity, Gate
+3U bound, finite-S sign, Burnol identity, or unconditional RH.
 
 The exact dependency is:
 
 ```text
 uniform Julia co-defect factors
         |
-        |  needs a uniform scalar-normalized forward-transition bound
+        |  Proof 512 supplies the finite transition bound (8)
         v
 uniform physical domination
         |
@@ -56,6 +56,6 @@ ConnesWeilRH/Dev/
   CCM24FiniteSCompletedJuliaJointProducerAudit.lean
 ```
 
-The focused declarations are axiom-clean with the repository baseline
+The reverse-readback declarations are axiom-clean with the repository baseline
 `[propext, Classical.choice, Quot.sound]`.  The finite-S sign, Burnol identity,
 and `_root_.RiemannHypothesis` remain open.
