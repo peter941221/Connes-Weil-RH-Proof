@@ -143,6 +143,48 @@ theorem exists_fixedSource_terminal_survivor_readout_of_norm_domination
   simpa only [target, historyInput, input, survivor, base,
     ContinuousLinearMap.comp_apply] using hfactorization
 
+/-!
+The terminal channel always has a literal source readout.  Its natural norm
+is the norm of the fixed physical right leg after the source-frame inclusion;
+the stronger norm-one statement above requires the separate Douglas
+domination premise and must not be inferred from Hilbert--Schmidt energy.
+-/
+theorem fixedSource_terminal_survivor_readout_of_operator_norm
+    {G : Type*} [NormedAddCommGroup G] [InnerProductSpace ℂ G]
+    [CompleteSpace G]
+    (stepData : ∀ (p : CCM24VisiblePrime) (S : List CCM24VisiblePrime),
+      CCM24FiniteSActualJuliaInput.SuffixPrimeEulerProjectedJuliaSchurFrameStepData
+        lambda G p S)
+    (S : List CCM24VisiblePrime) :
+    ∃ readout : sourceSoninCarrier lambda →L[ℂ] commonBoundaryCarrier a c,
+      ‖readout‖ ≤
+          ‖(sourceThreeBranchPairData owner lambda a c hac hsupp
+            negativeBasis positiveBasis outputBasis reflectedNegativeBasis
+            reflectedPositiveBasis reflectedOutputBasis globalBasis hfactor).right ∘L
+            frameSourceInclusion lambda‖ ∧
+        readout ∘L
+            juliaSurvivor (suffixActualSchurCoDefectSteps lambda stepData S) ∘L
+            fixedPhysicalSourceInput owner lambda a c hac hsupp negativeBasis
+              positiveBasis outputBasis reflectedNegativeBasis
+              reflectedPositiveBasis reflectedOutputBasis globalBasis
+              boundaryBasis sourceBasis hfactor =
+          (sourceThreeBranchPairData owner lambda a c hac hsupp
+            negativeBasis positiveBasis outputBasis reflectedNegativeBasis
+            reflectedPositiveBasis reflectedOutputBasis globalBasis hfactor).right ∘L
+            frameSourceInclusion lambda ∘L
+              juliaSurvivor (suffixActualSchurCoDefectSteps lambda stepData S) ∘L
+              fixedPhysicalSourceInput owner lambda a c hac hsupp negativeBasis
+                positiveBasis outputBasis reflectedNegativeBasis
+                reflectedPositiveBasis reflectedOutputBasis globalBasis boundaryBasis
+                sourceBasis hfactor := by
+  let readout :=
+    (sourceThreeBranchPairData owner lambda a c hac hsupp
+      negativeBasis positiveBasis outputBasis reflectedNegativeBasis
+      reflectedPositiveBasis reflectedOutputBasis globalBasis hfactor).right ∘L
+      frameSourceInclusion lambda
+  refine ⟨readout, le_rfl, ?_⟩
+  rfl
+
 end FixedSourceContext
 
 /-! ## The exact raw boundary target -/

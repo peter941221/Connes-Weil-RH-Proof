@@ -270,6 +270,69 @@ theorem completedRectangularBoundaryReadout_tsum_normSq_le
         completedRectangularBoundaryColumn_tsum_normSq_le_of_summable_input
           steps sourceBasis input hinput
 
+/-! ## Quantitative readout bounds -/
+
+/- A readout need not be contractive merely because the Julia history is.  The
+   following version keeps its actual operator bound visible and is the form
+   needed by source-specific terminal readouts whose norm is not yet known to
+   be one. -/
+theorem completedRectangularBoundaryReadout_tsum_normSq_le_of_norm_le
+    {iota H K G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup K] [InnerProductSpace ℂ K] [CompleteSpace K]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    (steps : List (CCM24FiniteSJuliaCoDefect.RectangularSchurCoDefectStepData
+      H K))
+    (sourceBasis : HilbertBasis iota ℂ H)
+    (input : H →L[ℂ] H)
+    (hinput : Summable fun i => ‖input (sourceBasis i)‖ ^ 2)
+    (readout : completedRectangularBoundaryCarrier steps →L[ℂ] G)
+    (bound : ℝ) (hbound : 0 ≤ bound) (hreadout : ‖readout‖ ≤ bound) :
+    (∑' i, ‖(readout ∘L completedRectangularBoundaryColumn steps ∘L input)
+        (sourceBasis i)‖ ^ 2) ≤
+      bound ^ 2 * (∑' i, ‖input (sourceBasis i)‖ ^ 2) := by
+  let column := completedRectangularBoundaryColumn steps ∘L input
+  have hcolumn : Summable fun i => ‖column (sourceBasis i)‖ ^ 2 := by
+    simpa only [column, ContinuousLinearMap.comp_apply] using
+      completedRectangularBoundaryColumn_summable_normSq_of_summable_input
+        steps sourceBasis input hinput
+  have hreadoutColumn : Summable fun i =>
+      ‖(readout ∘L column) (sourceBasis i)‖ ^ 2 :=
+    summable_normSq_postcomp sourceBasis column readout hcolumn
+  have hpoint : ∀ i,
+      ‖(readout ∘L column) (sourceBasis i)‖ ^ 2 ≤
+        bound ^ 2 * ‖column (sourceBasis i)‖ ^ 2 := by
+    intro i
+    have hnorm : ‖readout (column (sourceBasis i))‖ ≤
+        bound * ‖column (sourceBasis i)‖ := by
+      calc
+        ‖readout (column (sourceBasis i))‖ ≤
+            ‖readout‖ * ‖column (sourceBasis i)‖ := readout.le_opNorm _
+        _ ≤ bound * ‖column (sourceBasis i)‖ := by
+          exact mul_le_mul_of_nonneg_right hreadout (norm_nonneg _)
+    simpa only [ContinuousLinearMap.comp_apply, mul_pow] using
+      (sq_le_sq₀ (norm_nonneg _) (mul_nonneg hbound
+        (norm_nonneg _))).mpr hnorm
+  have hcolumnBound :
+      (∑' i, bound ^ 2 * ‖column (sourceBasis i)‖ ^ 2) =
+        bound ^ 2 * (∑' i, ‖column (sourceBasis i)‖ ^ 2) := by
+    rw [tsum_mul_left]
+  calc
+    (∑' i, ‖(readout ∘L completedRectangularBoundaryColumn steps ∘L input)
+        (sourceBasis i)‖ ^ 2) =
+        ∑' i, ‖(readout ∘L column) (sourceBasis i)‖ ^ 2 := by rfl
+    _ ≤ ∑' i, bound ^ 2 * ‖column (sourceBasis i)‖ ^ 2 :=
+      hreadoutColumn.tsum_le_tsum hpoint
+        (hcolumn.mul_left (bound ^ 2))
+    _ = bound ^ 2 * (∑' i, ‖column (sourceBasis i)‖ ^ 2) := hcolumnBound
+    _ ≤ bound ^ 2 * (∑' i, ‖input (sourceBasis i)‖ ^ 2) := by
+      exact mul_le_mul_of_nonneg_left
+        (by
+          simpa only [column, ContinuousLinearMap.comp_apply] using
+            completedRectangularBoundaryColumn_tsum_normSq_le_of_summable_input
+              steps sourceBasis input hinput)
+        (sq_nonneg bound)
+
 /-! ## Component readout factorization -/
 
 /-- Combine a terminal-survivor readout and a raw boundary-dagger readout on
