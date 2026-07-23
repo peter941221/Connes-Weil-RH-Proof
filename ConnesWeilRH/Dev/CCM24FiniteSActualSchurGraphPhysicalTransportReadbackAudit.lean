@@ -1,0 +1,27 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurGraphPhysicalTransportReadback
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSActualSchurGraphPhysicalTransportReadbackAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSActualSchurGraphPhysicalTransportReadback
+
+#check @canonicalProjectedGraphFrame
+#check @canonicalFullGraphFrame
+#check @normalizedCanonicalGraphPhysicalResidual
+#check @canonicalFullGraphFrame_eq_projected_add_supportDefect
+#check @normalizedPrimeEulerFrameTransport_comp_projectedGraphFrame
+#check @normalizedPrimeEulerFrameTransport_comp_fullGraphFrame_eq_normalizedSchurFrame_add_residual
+#check @normalizedCanonicalGraphPhysicalResidual_norm_le_supportDefect
+
+#print axioms canonicalFullGraphFrame_eq_projected_add_supportDefect
+#print axioms normalizedPrimeEulerFrameTransport_comp_projectedGraphFrame
+#print axioms
+  normalizedPrimeEulerFrameTransport_comp_fullGraphFrame_eq_normalizedSchurFrame_add_residual
+#print axioms normalizedCanonicalGraphPhysicalResidual_norm_le_supportDefect
+
+end ConnesWeilRH.Dev.CCM24FiniteSActualSchurGraphPhysicalTransportReadbackAudit
