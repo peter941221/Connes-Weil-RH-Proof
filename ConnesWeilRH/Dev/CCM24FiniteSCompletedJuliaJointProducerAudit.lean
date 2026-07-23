@@ -1,0 +1,28 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaJointProducer
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaJointProducerAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaJointProducer
+
+#check @suffixMismatchScaledForwardTransition
+#check @suffixMismatchScaledForwardTransition_apply
+#check @coDefectFactor_adjoint_factorization
+#check @coDefectFactor_toAdjointDouglasDomination
+#check @coDefectFactor_toAmbientBoundaryDomination
+#check SuffixMismatchUniformScaledForwardTransitionBoundData
+#check @SuffixMismatchAmbientBoundaryUniformCoDefectFactorData.toUniformDomination
+
+#print axioms suffixMismatchScaledForwardTransition
+#print axioms suffixMismatchScaledForwardTransition_apply
+#print axioms coDefectFactor_adjoint_factorization
+#print axioms coDefectFactor_toAdjointDouglasDomination
+#print axioms coDefectFactor_toAmbientBoundaryDomination
+#print axioms SuffixMismatchAmbientBoundaryUniformCoDefectFactorData.toUniformDomination
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaJointProducerAudit
