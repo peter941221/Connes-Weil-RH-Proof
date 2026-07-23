@@ -1,0 +1,24 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurForwardTransport
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSActualSchurForwardTransportAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSActualSchurForwardTransport
+
+#check @suffixActualSchurForwardAmbientProduct
+#check @suffixActualSchurForwardTransitionProduct
+#check @suffixActualSchurForwardAmbientProduct_comp_terminalPolarFrame
+#check @suffixActualSchurForwardAmbientProduct_norm_le_one
+#check @suffixActualSchurForwardDualCoframe
+#check @suffixActualSchurForwardDualCoframe_norm_le_one
+
+#print axioms suffixActualSchurForwardAmbientProduct_comp_terminalPolarFrame
+#print axioms suffixActualSchurForwardAmbientProduct_norm_le_one
+#print axioms suffixActualSchurForwardDualCoframe_norm_le_one
+
+end ConnesWeilRH.Dev.CCM24FiniteSActualSchurForwardTransportAudit
