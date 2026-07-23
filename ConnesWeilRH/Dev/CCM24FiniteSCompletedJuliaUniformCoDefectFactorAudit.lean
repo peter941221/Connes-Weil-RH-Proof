@@ -1,0 +1,27 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaUniformCoDefectFactor
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaUniformCoDefectFactorAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaUniformCoDefectFactor
+
+#check @SuffixMismatchAmbientBoundaryUniformDominationData.toCoDefectFactor
+#check @SuffixMismatchAmbientBoundaryUniformReadoutData.toCoDefectFactor
+#check @SuffixMismatchAmbientBoundaryUniformCoDefectFactorData.factorization
+#check @SuffixMismatchAmbientBoundaryUniformCoDefectFactorData.factor_norm_le
+#check @SuffixMismatchAmbientBoundaryUniformCoDefectFactorData.adjoint_eq_zero
+#check @SuffixMismatchAmbientBoundaryUniformDominationData.toCoDefectFactor_factor_norm_le
+
+#print axioms SuffixMismatchAmbientBoundaryUniformDominationData.toCoDefectFactor
+#print axioms SuffixMismatchAmbientBoundaryUniformReadoutData.toCoDefectFactor
+#print axioms SuffixMismatchAmbientBoundaryUniformCoDefectFactorData.factorization
+#print axioms SuffixMismatchAmbientBoundaryUniformCoDefectFactorData.factor_norm_le
+#print axioms SuffixMismatchAmbientBoundaryUniformCoDefectFactorData.adjoint_eq_zero
+#print axioms SuffixMismatchAmbientBoundaryUniformDominationData.toCoDefectFactor_factor_norm_le
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaUniformCoDefectFactorAudit
