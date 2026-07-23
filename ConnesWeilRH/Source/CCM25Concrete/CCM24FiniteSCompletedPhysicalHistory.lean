@@ -270,6 +270,98 @@ theorem completedRectangularBoundaryReadout_tsum_normSq_le
         completedRectangularBoundaryColumn_tsum_normSq_le_of_summable_input
           steps sourceBasis input hinput
 
+/-! ## Component readout factorization -/
+
+/-- Combine a terminal-survivor readout and a raw boundary-dagger readout on
+the completed history carrier.  The two maps are kept separate until the
+`WithLp` product is formed, so a source producer cannot silently replace the
+terminal channel by the defect-only history. -/
+noncomputable def completedRectangularBoundaryReadoutOfComponents
+    {H K G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup K] [InnerProductSpace ℂ K] [CompleteSpace K]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    (steps : List
+      (CCM24FiniteSJuliaCoDefect.RectangularSchurCoDefectStepData H K))
+    (terminalReadout : H →L[ℂ] G)
+    (boundaryReadout : PiLp 2
+      (fun _ : Fin (steps.map
+        (fun step => step.toAdjointCoDefectJuliaStep)).length => K) →L[ℂ] G) :
+    completedRectangularBoundaryCarrier steps →L[ℂ] G :=
+  (ContinuousLinearMap.coprod terminalReadout boundaryReadout) ∘L
+    (WithLp.prodContinuousLinearEquiv 2 ℂ H
+      (PiLp 2 (fun _ : Fin (steps.map
+        (fun step => step.toAdjointCoDefectJuliaStep)).length => K))).toContinuousLinearMap
+
+@[simp]
+theorem completedRectangularBoundaryReadoutOfComponents_apply
+    {H K G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup K] [InnerProductSpace ℂ K] [CompleteSpace K]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    (steps : List
+      (CCM24FiniteSJuliaCoDefect.RectangularSchurCoDefectStepData H K))
+    (terminalReadout : H →L[ℂ] G)
+    (boundaryReadout : PiLp 2
+      (fun _ : Fin (steps.map
+        (fun step => step.toAdjointCoDefectJuliaStep)).length => K) →L[ℂ] G)
+    (x : completedRectangularBoundaryCarrier steps) :
+    completedRectangularBoundaryReadoutOfComponents steps terminalReadout
+        boundaryReadout x =
+      terminalReadout x.fst + boundaryReadout x.snd := by
+  change terminalReadout (WithLp.fst x) + boundaryReadout (WithLp.snd x) = _
+  rfl
+
+/-- The component equations are exactly sufficient to recover the complete
+physical-column factorization.  This is an algebraic bridge only: the two
+component equations and the final readout norm remain source obligations. -/
+theorem completedRectangularBoundaryReadoutOfComponents_comp_column_eq_add
+    {H K G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup K] [InnerProductSpace ℂ K] [CompleteSpace K]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    (steps : List
+      (CCM24FiniteSJuliaCoDefect.RectangularSchurCoDefectStepData H K))
+    (sourceInput : H →L[ℂ] H)
+    (terminalReadout : H →L[ℂ] G)
+    (boundaryReadout : PiLp 2
+      (fun _ : Fin (steps.map
+        (fun step => step.toAdjointCoDefectJuliaStep)).length => K) →L[ℂ] G)
+    (terminalColumn boundaryColumn : H →L[ℂ] G)
+    (hterminal : terminalReadout ∘L
+        juliaSurvivor
+          (steps.map (fun step => step.toAdjointCoDefectJuliaStep)) ∘L
+          sourceInput = terminalColumn)
+    (hboundary : boundaryReadout ∘L rectangularBoundaryDaggerColumn steps ∘L
+        sourceInput = boundaryColumn) :
+    completedRectangularBoundaryReadoutOfComponents steps terminalReadout
+        boundaryReadout ∘L completedRectangularBoundaryColumn steps ∘L
+        sourceInput = terminalColumn + boundaryColumn := by
+  apply ContinuousLinearMap.ext
+  intro x
+  have hterminalPoint := congrArg
+    (fun operator : H →L[ℂ] G => operator x) hterminal
+  have hboundaryPoint := congrArg
+    (fun operator : H →L[ℂ] G => operator x) hboundary
+  change terminalReadout
+      (juliaSurvivor
+        (steps.map (fun step => step.toAdjointCoDefectJuliaStep))
+        (sourceInput x)) +
+      boundaryReadout (rectangularBoundaryDaggerColumn steps (sourceInput x)) =
+    terminalColumn x + boundaryColumn x
+  have hterminalPoint' :
+      terminalReadout
+          (juliaSurvivor
+            (steps.map (fun step => step.toAdjointCoDefectJuliaStep))
+            (sourceInput x)) = terminalColumn x := by
+    simpa only [ContinuousLinearMap.comp_apply] using hterminalPoint
+  have hboundaryPoint' :
+      boundaryReadout (rectangularBoundaryDaggerColumn steps (sourceInput x)) =
+        boundaryColumn x := by
+    simpa only [ContinuousLinearMap.comp_apply] using hboundaryPoint
+  rw [hterminalPoint', hboundaryPoint']
+
+
 /-! ## Gate-facing completed-history consumer -/
 
 /-- The corrected actual-Schur readout controls the unresolved Proof 492
