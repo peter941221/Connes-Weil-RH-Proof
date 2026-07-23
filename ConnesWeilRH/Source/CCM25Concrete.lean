@@ -53,6 +53,7 @@ import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSJuliaCausal
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSJuliaSchur
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSJuliaCoDefect
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurCascade
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurTelescoping
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSHarmonicDetectorRow
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSMidpointProjection
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSDetectorVariance
