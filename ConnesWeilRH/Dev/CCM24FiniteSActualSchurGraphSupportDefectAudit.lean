@@ -1,0 +1,23 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurGraphSupportDefect
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSActualSchurGraphSupportDefectAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSJuliaSchur
+open CCM24FiniteSActualSchurGraphSupportDefect
+
+#check @graphSupportDefect
+#check @eulerGraphAction_on_graphFrame_eq_schur_add_graphSupportDefect
+#check @eulerTransport_on_projectedGraphFrame_eq_schurFrame
+#check @inverse_on_schurFrame_eq_graphFrame_sub_supportDefect
+
+#print axioms eulerGraphAction_on_graphFrame_eq_schur_add_graphSupportDefect
+#print axioms eulerTransport_on_projectedGraphFrame_eq_schurFrame
+#print axioms inverse_on_schurFrame_eq_graphFrame_sub_supportDefect
+
+end ConnesWeilRH.Dev.CCM24FiniteSActualSchurGraphSupportDefectAudit
