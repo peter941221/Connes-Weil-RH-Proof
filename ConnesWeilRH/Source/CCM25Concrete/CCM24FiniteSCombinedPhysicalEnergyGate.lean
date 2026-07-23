@@ -115,6 +115,69 @@ theorem rectangularBoundaryReadout_tsum_normSq_le
         rectangularBoundaryDaggerColumn_tsum_normSq_le_of_summable_input
           steps sourceBasis input hinput
 
+/-! The quantitative form keeps the actual readout norm visible.  The Julia
+history is contractive, but a source-specific physical readout need not be;
+its squared operator norm is the exact factor paid by the Hilbert--Schmidt
+energy consumer. -/
+theorem rectangularBoundaryReadout_tsum_normSq_le_of_norm_le
+    {iota H K G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup K] [InnerProductSpace ℂ K] [CompleteSpace K]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    (steps : List
+      (CCM24FiniteSJuliaCoDefect.RectangularSchurCoDefectStepData H K))
+    (sourceBasis : HilbertBasis iota ℂ H)
+    (input : H →L[ℂ] H)
+    (hinput : Summable fun i => ‖input (sourceBasis i)‖ ^ 2)
+    (readout : PiLp 2
+      (fun _ : Fin (steps.map
+        (fun step => step.toAdjointCoDefectJuliaStep)).length => K) →L[ℂ] G)
+    (bound : ℝ) (hbound : 0 ≤ bound) (hreadout : ‖readout‖ ≤ bound) :
+    (∑' i, ‖(readout ∘L rectangularBoundaryDaggerColumn steps ∘L input)
+        (sourceBasis i)‖ ^ 2) ≤
+      bound ^ 2 * (∑' i, ‖input (sourceBasis i)‖ ^ 2) := by
+  let column := rectangularBoundaryDaggerColumn steps ∘L input
+  have hcolumn : Summable fun i => ‖column (sourceBasis i)‖ ^ 2 := by
+    simpa only [column, ContinuousLinearMap.comp_apply] using
+      rectangularBoundaryDaggerColumn_summable_normSq_of_summable_input
+        steps sourceBasis input hinput
+  have hreadoutColumn : Summable fun i =>
+      ‖(readout ∘L column) (sourceBasis i)‖ ^ 2 :=
+    summable_normSq_postcomp sourceBasis column readout hcolumn
+  have hpoint : ∀ i,
+      ‖(readout ∘L column) (sourceBasis i)‖ ^ 2 ≤
+        bound ^ 2 * ‖column (sourceBasis i)‖ ^ 2 := by
+    intro i
+    have hnorm : ‖readout (column (sourceBasis i))‖ ≤
+        bound * ‖column (sourceBasis i)‖ := by
+      calc
+        ‖readout (column (sourceBasis i))‖ ≤
+            ‖readout‖ * ‖column (sourceBasis i)‖ := readout.le_opNorm _
+        _ ≤ bound * ‖column (sourceBasis i)‖ := by
+          exact mul_le_mul_of_nonneg_right hreadout (norm_nonneg _)
+    simpa only [ContinuousLinearMap.comp_apply, mul_pow] using
+      (sq_le_sq₀ (norm_nonneg _) (mul_nonneg hbound
+        (norm_nonneg _))).mpr hnorm
+  have hcolumnBound :
+      (∑' i, bound ^ 2 * ‖column (sourceBasis i)‖ ^ 2) =
+        bound ^ 2 * (∑' i, ‖column (sourceBasis i)‖ ^ 2) := by
+    rw [tsum_mul_left]
+  calc
+    (∑' i, ‖(readout ∘L rectangularBoundaryDaggerColumn steps ∘L input)
+        (sourceBasis i)‖ ^ 2) =
+        ∑' i, ‖(readout ∘L column) (sourceBasis i)‖ ^ 2 := by rfl
+    _ ≤ ∑' i, bound ^ 2 * ‖column (sourceBasis i)‖ ^ 2 :=
+      hreadoutColumn.tsum_le_tsum hpoint
+        (hcolumn.mul_left (bound ^ 2))
+    _ = bound ^ 2 * (∑' i, ‖column (sourceBasis i)‖ ^ 2) := hcolumnBound
+    _ ≤ bound ^ 2 * (∑' i, ‖input (sourceBasis i)‖ ^ 2) := by
+      exact mul_le_mul_of_nonneg_left
+        (by
+          simpa only [column, ContinuousLinearMap.comp_apply] using
+            rectangularBoundaryDaggerColumn_tsum_normSq_le_of_summable_input
+              steps sourceBasis input hinput)
+        (sq_nonneg bound)
+
 /-! ## The one unresolved actual physical column -/
 
 /-- The forward actual-band coframe is a contraction.  This closes the
@@ -148,7 +211,8 @@ theorem norm_sourceActualBandForwardCoframe_le_one
           ‖sourceInclusion lambda‖ :=
       ContinuousLinearMap.opNorm_comp_le _ _
     _ ≤ 1 * 1 :=
-      mul_le_mul hbandInverse hinclusion (norm_nonneg _) (by norm_num)
+      mul_le_mul hbandInverse hinclusion
+        (norm_nonneg (sourceInclusion lambda)) (by norm_num)
     _ = 1 := one_mul _
 
 /-- The exact square energy of the only unresolved Proof 492 column.  The
@@ -263,6 +327,88 @@ theorem sourceActualBandCombinedPhysicalRightEnergy_le_of_actualSchurReadout
       intro i
       rw [hphysicalApply i]
     _ ≤ ∑' i, ‖sourceInput (sourceBasis i)‖ ^ 2 := henergy
+
+/-! The same consumer with an explicit readout constant.  This is the useful
+quantitative fallback when a source producer supplies `‖readout‖ ≤ C` but has
+not yet established the sharper contraction `C ≤ 1`. -/
+theorem sourceActualBandCombinedPhysicalRightEnergy_le_of_actualSchurReadout_of_norm_le
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (a c : ℝ) (hac : a ≤ c)
+    (hsupp : Function.support owner.sourceTest.test ⊆ Set.Icc a c)
+    {iota kappa tau iotaR kappaR tauR nu rho : Type*}
+    (negativeBasis : HilbertBasis iota ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryNegativeInputInterval a c))))
+    (positiveBasis : HilbertBasis kappa ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryPositiveInputInterval a c))))
+    (outputBasis : HilbertBasis tau ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c))))
+    (reflectedNegativeBasis : HilbertBasis iotaR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryNegativeInputInterval (-c) (-a)))))
+    (reflectedPositiveBasis : HilbertBasis kappaR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryPositiveInputInterval (-c) (-a)))))
+    (reflectedOutputBasis : HilbertBasis tauR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval (-c) (-a)))))
+    (globalBasis : HilbertBasis nu ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis rho ℂ (sourceSoninCarrier lambda))
+    (hfactor : Summable fun i =>
+      ‖sourceProlateHilbertSchmidtFactor lambda (globalBasis i)‖ ^ 2)
+    (stepData : ∀ (p : CCM24VisiblePrime) (S : List CCM24VisiblePrime),
+      CCM24FiniteSActualJuliaInput.SuffixPrimeEulerProjectedJuliaSchurFrameStepData
+        lambda (commonBoundaryCarrier a c) p S)
+    (sourceInput : sourceSoninCarrier lambda →L[ℂ]
+      sourceSoninCarrier lambda)
+    (hinput : Summable fun i => ‖sourceInput (sourceBasis i)‖ ^ 2)
+    (readout : PiLp 2
+      (fun _ : Fin (suffixActualSchurCoDefectSteps lambda stepData
+        family.visiblePrimes).length => finiteSCarrier) →L[ℂ]
+          commonBoundaryCarrier a c)
+    (bound : ℝ) (hbound : 0 ≤ bound) (hreadout : ‖readout‖ ≤ bound)
+    (hphysical :
+      (sourceThreeBranchPairData owner lambda a c hac hsupp negativeBasis
+          positiveBasis outputBasis reflectedNegativeBasis reflectedPositiveBasis
+          reflectedOutputBasis globalBasis hfactor).right
+          ∘L sourceActualBandForwardEndpointCoframe lambda family =
+        readout ∘L rectangularBoundaryDaggerColumn
+          (suffixActualSchurFrameSteps lambda stepData family.visiblePrimes) ∘L
+            sourceInput) :
+    sourceActualBandCombinedPhysicalRightEnergy owner lambda family a c hac
+        hsupp negativeBasis positiveBasis outputBasis reflectedNegativeBasis
+        reflectedPositiveBasis reflectedOutputBasis globalBasis sourceBasis
+        hfactor ≤
+      bound ^ 2 * (∑' i, ‖sourceInput (sourceBasis i)‖ ^ 2) := by
+  have henergy := rectangularBoundaryReadout_tsum_normSq_le_of_norm_le
+    (steps := suffixActualSchurFrameSteps lambda stepData family.visiblePrimes)
+    sourceBasis sourceInput hinput readout bound hbound hreadout
+  have hphysicalApply : ∀ i,
+      (readout ∘L rectangularBoundaryDaggerColumn
+          (suffixActualSchurFrameSteps lambda stepData family.visiblePrimes) ∘L
+            sourceInput) (sourceBasis i) =
+        (sourceThreeBranchPairData owner lambda a c hac hsupp negativeBasis
+            positiveBasis outputBasis reflectedNegativeBasis
+            reflectedPositiveBasis reflectedOutputBasis globalBasis
+            hfactor).right
+          (sourceActualBandForwardEndpointCoframe lambda family
+            (sourceBasis i)) := by
+    intro i
+    have happ := congrArg
+      (fun operator : sourceSoninCarrier lambda →L[ℂ]
+          commonBoundaryCarrier a c => operator (sourceBasis i)) hphysical.symm
+    simpa only [ContinuousLinearMap.comp_apply] using happ
+  rw [sourceActualBandCombinedPhysicalRightEnergy]
+  calc
+    (∑' i, ‖(sourceThreeBranchPairData owner lambda a c hac hsupp
+          negativeBasis positiveBasis outputBasis reflectedNegativeBasis
+          reflectedPositiveBasis reflectedOutputBasis globalBasis hfactor).right
+        (sourceActualBandForwardEndpointCoframe lambda family
+          (sourceBasis i))‖ ^ 2) =
+        ∑' i, ‖(readout ∘L rectangularBoundaryDaggerColumn
+            (suffixActualSchurFrameSteps lambda stepData family.visiblePrimes) ∘L
+              sourceInput) (sourceBasis i)‖ ^ 2 := by
+      apply tsum_congr
+      intro i
+      rw [hphysicalApply i]
+    _ ≤ bound ^ 2 * (∑' i, ‖sourceInput (sourceBasis i)‖ ^ 2) := henergy
 
 /-! ## The sharp raw-remainder consumer -/
 
