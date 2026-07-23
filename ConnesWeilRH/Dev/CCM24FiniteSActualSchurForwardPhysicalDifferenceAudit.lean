@@ -1,0 +1,25 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurForwardPhysicalDifference
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSActualSchurForwardPhysicalDifferenceAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSActualSchurForwardPhysicalDifference
+
+#check @suffixActualSchurForwardPhysicalTransportResidual
+#check @normalizedFiniteEulerInverseList_sub_forwardAmbient_eq_residual
+#check @sourceActualBandForwardSchurCoframe
+#check @sourceActualBandForwardTransportResidual
+#check @sourceActualBandForwardCoframe_eq_schurForwardCoframe_add_residual
+#check @sourceActualBandForwardSchurEndpointCoframe
+#check @sourceActualBandForwardEndpointCoframe_eq_schurForwardEndpoint_add_residual
+
+#print axioms normalizedFiniteEulerInverseList_sub_forwardAmbient_eq_residual
+#print axioms sourceActualBandForwardCoframe_eq_schurForwardCoframe_add_residual
+#print axioms sourceActualBandForwardEndpointCoframe_eq_schurForwardEndpoint_add_residual
+
+end ConnesWeilRH.Dev.CCM24FiniteSActualSchurForwardPhysicalDifferenceAudit
