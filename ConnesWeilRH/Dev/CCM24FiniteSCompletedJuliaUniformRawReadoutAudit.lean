@@ -1,0 +1,31 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaUniformRawReadout
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaUniformRawReadoutAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaUniformRawReadout
+
+#check @SuffixMismatchAmbientBoundaryUniformDominationData.toReadout
+#check @SuffixMismatchAmbientBoundaryUniformDominationData.toReadout_readout
+#check @SuffixMismatchAmbientBoundaryUniformReadoutData.toDomination
+#check @uniformDomination_iff_nonempty_uniformReadout
+#check @SuffixMismatchAmbientBoundaryUniformReadoutData.rawReadout_factorization
+#check @SuffixMismatchAmbientBoundaryUniformReadoutData.rawReadout_norm_le
+#check @SuffixMismatchAmbientBoundaryUniformReadoutData.rawAdjoint_norm_le
+#check @SuffixMismatchAmbientBoundaryUniformDominationData.rawAdjoint_norm_le
+
+#print axioms SuffixMismatchAmbientBoundaryUniformDominationData.toReadout
+#print axioms SuffixMismatchAmbientBoundaryUniformDominationData.toReadout_readout
+#print axioms SuffixMismatchAmbientBoundaryUniformReadoutData.toDomination
+#print axioms uniformDomination_iff_nonempty_uniformReadout
+#print axioms SuffixMismatchAmbientBoundaryUniformReadoutData.rawReadout_factorization
+#print axioms SuffixMismatchAmbientBoundaryUniformReadoutData.rawReadout_norm_le
+#print axioms SuffixMismatchAmbientBoundaryUniformReadoutData.rawAdjoint_norm_le
+#print axioms SuffixMismatchAmbientBoundaryUniformDominationData.rawAdjoint_norm_le
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaUniformRawReadoutAudit
