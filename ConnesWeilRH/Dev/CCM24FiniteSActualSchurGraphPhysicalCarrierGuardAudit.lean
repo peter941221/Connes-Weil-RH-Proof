@@ -1,0 +1,30 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurGraphPhysicalCarrierGuard
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSActualSchurGraphPhysicalCarrierGuardAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSActualSchurGraphPhysicalCarrierGuard
+
+#check @withFixedSourceReadout
+#check @withFixedSourceReadout_fixedSourceReadout
+#check @withFixedSourceReadout_rangeSine
+#check @withFixedSourceReadout_readout
+#check @withFixedSourceReadout_transfer_contract
+#check @suffixActualSchurGraphPhysicalProduct_eq_of_stepData
+#check @sourceActualBandGraphPhysicalCoframe_eq_of_stepData
+#check @sourceActualBandGraphPhysicalEndpointCoframe_eq_of_stepData
+#check @sourceActualBandGraphPhysicalBoundaryDaggerTarget_eq_of_stepData
+#check @sourceActualBandGraphPhysicalEndpointResidual_eq_of_stepData
+#check @sourceActualBandGraphPhysicalBoundaryDaggerResidual_eq_of_stepData
+
+#print axioms withFixedSourceReadout_fixedSourceReadout
+#print axioms suffixActualSchurGraphPhysicalProduct_eq_of_stepData
+#print axioms sourceActualBandGraphPhysicalBoundaryDaggerTarget_eq_of_stepData
+#print axioms sourceActualBandGraphPhysicalBoundaryDaggerResidual_eq_of_stepData
+
+end ConnesWeilRH.Dev.CCM24FiniteSActualSchurGraphPhysicalCarrierGuardAudit

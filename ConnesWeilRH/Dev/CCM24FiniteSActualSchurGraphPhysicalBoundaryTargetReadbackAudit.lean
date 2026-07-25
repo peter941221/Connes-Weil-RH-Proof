@@ -1,0 +1,29 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurGraphPhysicalBoundaryTargetReadback
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+namespace CCM24FiniteSActualSchurGraphPhysicalBoundaryTargetReadbackAudit
+
+open CCM24FiniteSActualSchurGraphPhysicalBoundaryTargetReadback
+
+#check @sourceActualBandGraphPhysicalBoundaryDaggerTarget
+#check @sourceActualBandGraphPhysicalBoundaryDaggerResidual
+#check @sourceActualBandGraphPhysicalDirectEndpointResidual
+#check @physicalBoundaryDaggerTarget_eq_graphTarget_add_residual
+#check @sourceActualBandGraphPhysicalBoundaryDaggerResidual_eq_rightLeg_comp
+#check @sourceActualBandGraphPhysicalEndpointResidual_eq_direct_residual
+
+#print axioms physicalBoundaryDaggerTarget_eq_graphTarget_add_residual
+#print axioms sourceActualBandGraphPhysicalBoundaryDaggerResidual_eq_rightLeg_comp
+#print axioms sourceActualBandGraphPhysicalEndpointResidual_eq_direct_residual
+
+end CCM24FiniteSActualSchurGraphPhysicalBoundaryTargetReadbackAudit
+end CCM25Concrete
+end Source
+end ConnesWeilRH

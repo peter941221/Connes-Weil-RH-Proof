@@ -1,0 +1,30 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawCoDefectFactor
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawCoDefectFactorAudit
+
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawCoDefectFactor
+
+#check suffixRawCoDefectFactorDataOfDomination
+#check SuffixRawCoDefectFactorData.domination
+#check suffixRawAmbientBoundaryDomination_iff_nonempty_coDefectFactorData
+#check SuffixRawCoDefectFactorData.rawAdjoint_eq_zero_of_leftCoDefect_eq_zero
+#check suffixRawCoDefectUniformFactorDataOfDominationData
+#check SuffixRawCoDefectUniformFactorData.toDomination
+#check uniformRawDomination_iff_nonempty_uniformCoDefectFactor
+#check exists_uniformRawDomination_iff_exists_uniformCoDefectFactor
+
+#print axioms suffixRawCoDefectFactorDataOfDomination
+#print axioms SuffixRawCoDefectFactorData.domination
+#print axioms suffixRawAmbientBoundaryDomination_iff_nonempty_coDefectFactorData
+#print axioms SuffixRawCoDefectFactorData.rawAdjoint_eq_zero_of_leftCoDefect_eq_zero
+#print axioms suffixRawCoDefectUniformFactorDataOfDominationData
+#print axioms SuffixRawCoDefectUniformFactorData.toDomination
+#print axioms uniformRawDomination_iff_nonempty_uniformCoDefectFactor
+#print axioms exists_uniformRawDomination_iff_exists_uniformCoDefectFactor
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawCoDefectFactorAudit

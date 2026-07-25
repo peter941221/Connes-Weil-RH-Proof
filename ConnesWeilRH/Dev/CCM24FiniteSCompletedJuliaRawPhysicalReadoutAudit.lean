@@ -1,0 +1,27 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalReadout
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalReadoutAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalReadout
+
+#check @SuffixRawAmbientBoundaryReadoutData.toMismatch
+#check @SuffixMismatchAmbientBoundaryReadoutData.toRaw
+#check @SuffixRawAmbientBoundaryUniformReadoutData.toMismatch
+#check @SuffixMismatchAmbientBoundaryUniformReadoutData.toRaw
+#check @exists_uniformRawReadout_iff_exists_uniformMismatchReadout
+#check @exists_uniformRawReadout_iff_exists_uniformPhysicalDomination
+
+#print axioms SuffixRawAmbientBoundaryReadoutData.toMismatch
+#print axioms SuffixMismatchAmbientBoundaryReadoutData.toRaw
+#print axioms SuffixRawAmbientBoundaryUniformReadoutData.toMismatch
+#print axioms SuffixMismatchAmbientBoundaryUniformReadoutData.toRaw
+#print axioms exists_uniformRawReadout_iff_exists_uniformMismatchReadout
+#print axioms exists_uniformRawReadout_iff_exists_uniformPhysicalDomination
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalReadoutAudit

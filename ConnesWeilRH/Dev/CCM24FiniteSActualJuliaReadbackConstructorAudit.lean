@@ -1,0 +1,20 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualJuliaReadbackConstructor
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open CCM24FiniteSActualJuliaReadbackConstructor
+
+#check suffixLiteralSchurFrameRangeSine
+#check suffixSchurFrameStepDataOfLiteralReadback
+#check suffixSchurFrameStepDataOfLiteralReadback_rangeSine
+#check suffixSchurFrameStepDataOfLiteralReadback_rangeSine_readback
+#check suffixSchurFrameStepDataOfLiteralReadback_fixedSource_readback
+
+#print axioms suffixSchurFrameStepDataOfLiteralReadback_rangeSine_readback
+#print axioms suffixSchurFrameStepDataOfLiteralReadback_fixedSource_readback
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

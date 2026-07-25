@@ -1,0 +1,25 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaNonpolarGapObstruction
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaNonpolarGapObstructionAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaNonpolarGapObstruction
+
+#check SuffixLocalNonpolarGapCoDefectFactorData.adjoint_eq_zero_of_leftCoDefect_eq_zero
+#check noLocalNonpolarGapFactor_of_adjoint_ne_zero_on_leftCoDefectKernel
+#check noUniformNonpolarGapFactor_of_adjoint_ne_zero_on_leftCoDefectKernel
+#check noExistsUniformNonpolarGapFactor_of_adjoint_ne_zero
+#check noExistsUniformPhysicalDomination_of_nonpolarGapAdjoint_ne_zero
+
+#print axioms SuffixLocalNonpolarGapCoDefectFactorData.adjoint_eq_zero_of_leftCoDefect_eq_zero
+#print axioms noLocalNonpolarGapFactor_of_adjoint_ne_zero_on_leftCoDefectKernel
+#print axioms noUniformNonpolarGapFactor_of_adjoint_ne_zero_on_leftCoDefectKernel
+#print axioms noExistsUniformNonpolarGapFactor_of_adjoint_ne_zero
+#print axioms noExistsUniformPhysicalDomination_of_nonpolarGapAdjoint_ne_zero
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaNonpolarGapObstructionAudit

@@ -1,0 +1,26 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaPolarSlotBound
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaPolarSlotBoundAudit
+
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaPolarSlotBound
+
+#check suffixActualBandLocalPolarJuliaRightFactor_norm_le_detector
+#check SuffixLocalNonpolarGapCoDefectFactorData.toLocalRawFactor
+#check SuffixLocalRawCoDefectFactorData.toNonpolarGapFactor
+#check SuffixLocalNonpolarGapCoDefectUniformFactorData.toLocalRawUniform
+#check SuffixLocalRawCoDefectUniformFactorData.toNonpolarGapUniform
+#check exists_uniformLocalRawFactor_iff_exists_uniformNonpolarGapFactor
+
+#print axioms suffixActualBandLocalPolarJuliaRightFactor_norm_le_detector
+#print axioms SuffixLocalNonpolarGapCoDefectFactorData.toLocalRawFactor
+#print axioms SuffixLocalRawCoDefectFactorData.toNonpolarGapFactor
+#print axioms SuffixLocalNonpolarGapCoDefectUniformFactorData.toLocalRawUniform
+#print axioms SuffixLocalRawCoDefectUniformFactorData.toNonpolarGapUniform
+#print axioms exists_uniformLocalRawFactor_iff_exists_uniformNonpolarGapFactor
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaPolarSlotBoundAudit

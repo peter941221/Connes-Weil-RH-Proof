@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSJuliaSchur
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSJuliaSchurContractivity
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSParameterizedSoninProjection
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualMovingProjection
 
@@ -88,6 +89,16 @@ theorem parameterizedPrimeEulerProjectedJuliaInput_projection_eq_canonicalGram
       parameterizedCanonicalGramProjection lambda alpha S := by
   rw [parameterizedPrimeEulerProjectedJuliaInput_projection,
     parameterizedCanonicalGramProjection_eq_soninProjection]
+
+theorem parameterizedPrimeEulerProjectedJuliaInput_normalizedSchurFrame_contract
+    (lambda : CCM24SoninScale) (alpha : ℝ)
+    (S : List CCM24VisiblePrime) (halpha : |alpha| ≤ 1)
+    (p : CCM24VisiblePrime) :
+    ContinuousLinearMap.adjoint
+        (parameterizedPrimeEulerProjectedJuliaInput lambda alpha S halpha p).normalizedSchurFrame ∘L
+        (parameterizedPrimeEulerProjectedJuliaInput lambda alpha S halpha p).normalizedSchurFrame ≤
+      ContinuousLinearMap.id ℂ finiteSCarrier := by
+  exact PrimeEulerProjectedJuliaInput.normalizedSchurFrame_contract _
 
 /-!
 The same construction at the endpoint is the existing finite-S projection.
@@ -199,8 +210,10 @@ structure SuffixPrimeEulerProjectedJuliaSchurFrameStepData
   readout : finiteSCarrier →L[ℂ] G
   transfer_contract :
     ContinuousLinearMap.adjoint
-        (parameterizedPrimeEulerProjectedJuliaInput lambda 1 S (by norm_num) p).normalizedSchurFrame ∘L
-        (parameterizedPrimeEulerProjectedJuliaInput lambda 1 S (by norm_num) p).normalizedSchurFrame ≤
+        (parameterizedPrimeEulerProjectedJuliaInput lambda 1 S
+          (by norm_num) p).normalizedSchurFrame ∘L
+      (parameterizedPrimeEulerProjectedJuliaInput lambda 1 S
+        (by norm_num) p).normalizedSchurFrame ≤
       ContinuousLinearMap.id ℂ finiteSCarrier
   rangeSine_weighted_le : ∀ x : finiteSCarrier,
     primeJuliaWeight p * ‖rangeSine x‖ ^ 2 ≤
@@ -209,8 +222,44 @@ structure SuffixPrimeEulerProjectedJuliaSchurFrameStepData
         transfer_contract x‖ ^ 2
   rangeSine_readback :
     rangeSine = readout ∘L
-      (parameterizedPrimeEulerProjectedJuliaInput lambda 1 S (by norm_num) p).toColligation.graphSine
-        (parameterizedPrimeEulerProjectedJuliaInput lambda 1 S (by norm_num) p).toColligation.graphCosine
+      (parameterizedPrimeEulerProjectedJuliaInput lambda 1 S
+        (by norm_num) p).toColligation.graphSine
+        (parameterizedPrimeEulerProjectedJuliaInput lambda 1 S
+          (by norm_num) p).toColligation.graphCosine
+
+/-!
+The contract-free constructor uses the canonical producer above.  The
+remaining weighted range-sine estimate is intentionally still explicit.
+-/
+noncomputable def SuffixPrimeEulerProjectedJuliaSchurFrameStepData.ofGeneratedContract
+    {lambda : CCM24SoninScale} {G : Type*}
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    {p : CCM24VisiblePrime} {S : List CCM24VisiblePrime}
+    (rangeSine : finiteSCarrier →L[ℂ] G)
+    (fixedSourceReadout : G →L[ℂ] G)
+    (readout : finiteSCarrier →L[ℂ] G)
+    (rangeSine_weighted_le : ∀ x : finiteSCarrier,
+      primeJuliaWeight p * ‖rangeSine x‖ ^ 2 ≤
+        ‖canonicalJuliaDefect
+          (parameterizedPrimeEulerProjectedJuliaInput lambda 1 S
+            (by norm_num) p).normalizedSchurFrame
+          (parameterizedPrimeEulerProjectedJuliaInput_normalizedSchurFrame_contract
+            lambda 1 S (by norm_num) p) x‖ ^ 2)
+    (rangeSine_readback :
+      rangeSine = readout ∘L
+        (parameterizedPrimeEulerProjectedJuliaInput lambda 1 S
+          (by norm_num) p).toColligation.graphSine
+          (parameterizedPrimeEulerProjectedJuliaInput lambda 1 S
+            (by norm_num) p).toColligation.graphCosine) :
+    SuffixPrimeEulerProjectedJuliaSchurFrameStepData lambda G p S :=
+  { rangeSine := rangeSine
+    fixedSourceReadout := fixedSourceReadout
+    readout := readout
+    transfer_contract :=
+      parameterizedPrimeEulerProjectedJuliaInput_normalizedSchurFrame_contract
+        lambda 1 S (by norm_num) p
+    rangeSine_weighted_le := rangeSine_weighted_le
+    rangeSine_readback := rangeSine_readback }
 
 noncomputable def SuffixPrimeEulerProjectedJuliaSchurFrameStepData.toSchurFrameStep
     {lambda : CCM24SoninScale} {G : Type*}
@@ -218,7 +267,8 @@ noncomputable def SuffixPrimeEulerProjectedJuliaSchurFrameStepData.toSchurFrameS
     {p : CCM24VisiblePrime} {S : List CCM24VisiblePrime}
     (data : SuffixPrimeEulerProjectedJuliaSchurFrameStepData lambda G p S) :
     SchurFrameJuliaRangeStepData finiteSCarrier G :=
-  (parameterizedPrimeEulerProjectedJuliaInput lambda 1 S (by norm_num) p).toPrimeSchurFrameJuliaRangeStepData
+  (parameterizedPrimeEulerProjectedJuliaInput lambda 1 S
+    (by norm_num) p).toPrimeSchurFrameJuliaRangeStepData
     data.rangeSine data.readout data.transfer_contract
     data.rangeSine_weighted_le data.rangeSine_readback
 

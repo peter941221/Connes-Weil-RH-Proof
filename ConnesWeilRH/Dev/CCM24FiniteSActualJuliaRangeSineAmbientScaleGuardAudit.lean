@@ -1,0 +1,29 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualJuliaRangeSineAmbientScaleGuard
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open CCM24FiniteSActualJuliaRangeSineAmbientScaleGuard
+
+#check primeJuliaWeight_ge_one
+#check ccm24PrimeEulerCoefficient_pos
+#check primeEulerAmbientLossScale_lt_one
+#check primeEulerAmbientLossScale_nonneg
+#check primeEulerAmbientLossScale_sq_lt_one
+#check primeEulerAmbientLossScale_sq_lt_primeJuliaWeight
+#check primeEulerAmbientLossScale_sq_ne_primeJuliaWeight
+#check primeEulerAmbientLossScale_ne_sqrt_primeJuliaWeight
+
+#print axioms primeJuliaWeight_ge_one
+#print axioms ccm24PrimeEulerCoefficient_pos
+#print axioms primeEulerAmbientLossScale_lt_one
+#print axioms primeEulerAmbientLossScale_nonneg
+#print axioms primeEulerAmbientLossScale_sq_lt_one
+#print axioms primeEulerAmbientLossScale_sq_lt_primeJuliaWeight
+#print axioms primeEulerAmbientLossScale_sq_ne_primeJuliaWeight
+#print axioms primeEulerAmbientLossScale_ne_sqrt_primeJuliaWeight
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

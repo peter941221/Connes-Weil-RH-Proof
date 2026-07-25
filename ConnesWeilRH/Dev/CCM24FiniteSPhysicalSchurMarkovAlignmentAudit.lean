@@ -1,0 +1,27 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSPhysicalSchurMarkovAlignment
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSPhysicalSchurMarkovAlignmentAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSPhysicalSchurMarkovAlignment
+
+#check @normalizedFiniteEulerMetricCoframe_eq_lowerUpper_smul_schurMarkovMixed
+#check @normalizedSourceBandGramResponse_eq_lowerUpper_smul_schurMarkovScaled
+#check @lowerUpperFactor_nonneg
+#check @lowerUpperFactor_le_one
+#check @norm_normalizedFiniteEulerMetricCoframe_le_norm_schurMarkovMixed
+#check @norm_normalizedSourceBandGramResponse_le_norm_schurMarkovScaled
+
+#print axioms normalizedFiniteEulerMetricCoframe_eq_lowerUpper_smul_schurMarkovMixed
+#print axioms normalizedSourceBandGramResponse_eq_lowerUpper_smul_schurMarkovScaled
+#print axioms lowerUpperFactor_nonneg
+#print axioms lowerUpperFactor_le_one
+#print axioms norm_normalizedFiniteEulerMetricCoframe_le_norm_schurMarkovMixed
+#print axioms norm_normalizedSourceBandGramResponse_le_norm_schurMarkovScaled
+
+end ConnesWeilRH.Dev.CCM24FiniteSPhysicalSchurMarkovAlignmentAudit
