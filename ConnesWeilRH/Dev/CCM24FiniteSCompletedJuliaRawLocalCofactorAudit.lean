@@ -1,0 +1,21 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawLocalCofactor
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawLocalCofactorAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawLocalCofactor
+
+#check @suffixActualBandRawPhysicalFourTermRow_adjoint_eq_rawIntertwiningDefect
+#check @suffixActualBandLocalRawDefect_comp_transition_eq_neg_scalar_rawIntertwiningDefect
+#check @suffixActualBandLocalRawDefect_comp_transition_eq_neg_scalar_rawPhysicalRow_adjoint
+
+#print axioms suffixActualBandRawPhysicalFourTermRow_adjoint_eq_rawIntertwiningDefect
+#print axioms suffixActualBandLocalRawDefect_comp_transition_eq_neg_scalar_rawIntertwiningDefect
+#print axioms suffixActualBandLocalRawDefect_comp_transition_eq_neg_scalar_rawPhysicalRow_adjoint
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawLocalCofactorAudit

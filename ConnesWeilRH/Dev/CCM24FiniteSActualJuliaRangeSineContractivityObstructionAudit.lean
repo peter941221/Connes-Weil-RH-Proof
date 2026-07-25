@@ -1,0 +1,29 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualJuliaRangeSineContractivityObstruction
+
+namespace ConnesWeilRH
+namespace Dev
+namespace CCM24FiniteSActualJuliaRangeSineContractivityObstructionAudit
+
+open Source.CCM25Concrete
+open Source.CCM25Concrete.CCM24FiniteSActualJuliaRangeSineContractivityObstruction
+
+#check @guardTransfer_norm_le_one
+#check @guardTransfer_contract
+#check @guardCanonicalDefect_apply_one_normSq
+#check @guardWeightedRangeSine_apply_one_normSq
+#check @no_contractivity_only_weighted_range_sine_estimate
+
+#print axioms guardTransfer_norm_le_one
+#print axioms guardTransfer_contract
+#print axioms guardCanonicalDefect_apply_one_normSq
+#print axioms guardWeightedRangeSine_apply_one_normSq
+#print axioms no_contractivity_only_weighted_range_sine_estimate
+
+end CCM24FiniteSActualJuliaRangeSineContractivityObstructionAudit
+end Dev
+end ConnesWeilRH

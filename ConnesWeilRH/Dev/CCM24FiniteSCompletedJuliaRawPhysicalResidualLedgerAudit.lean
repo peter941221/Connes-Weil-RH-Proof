@@ -1,0 +1,32 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalResidualLedger
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalResidualLedgerAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalResidualLedger
+
+#check @rawPhysicalFourTermRowOfCoframes
+#check @actualRawPhysicalFourTermRow_eq_ofCoframes
+#check @rawPhysicalCoframeResidualRow
+#check @rawPhysicalFourTermRow_eq_schur_add_residual
+#check @suffixActualBandRawPhysicalFourTermRow_eq_schur_add_residual
+#check @suffixActualSchurForwardEndpointCoframe
+#check @suffixActualBandForwardCoframe_eq_namedSchur_add_transportResidual
+#check @suffixActualBandForwardEndpointCoframe_eq_namedSchurEndpoint_add_transportResidual
+#check @suffixActualBandRawPhysicalFourTermRow_eq_namedSchur_add_residual
+#check @componentRows_add_of_schur_and_residual
+
+#print axioms actualRawPhysicalFourTermRow_eq_ofCoframes
+#print axioms rawPhysicalFourTermRow_eq_schur_add_residual
+#print axioms suffixActualBandRawPhysicalFourTermRow_eq_schur_add_residual
+#print axioms suffixActualBandForwardCoframe_eq_namedSchur_add_transportResidual
+#print axioms suffixActualBandForwardEndpointCoframe_eq_namedSchurEndpoint_add_transportResidual
+#print axioms suffixActualBandRawPhysicalFourTermRow_eq_namedSchur_add_residual
+#print axioms componentRows_add_of_schur_and_residual
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalResidualLedgerAudit

@@ -1,0 +1,23 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaAmbientLossKernel
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaAmbientLossKernelAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaAmbientLossKernel
+
+#check ccm24LogRadialSupport_add_translation_injective
+#check suffixEulerFrameAmbientLossColumn_eq_zero_imp_oldFrame_eq_zero
+#check suffixEulerFrameAmbientLossColumn_injective
+#check suffixEulerFrameLeftCoDefect_eq_zero_imp_eq_zero
+
+#print axioms ccm24LogRadialSupport_add_translation_injective
+#print axioms suffixEulerFrameAmbientLossColumn_eq_zero_imp_oldFrame_eq_zero
+#print axioms suffixEulerFrameAmbientLossColumn_injective
+#print axioms suffixEulerFrameLeftCoDefect_eq_zero_imp_eq_zero
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaAmbientLossKernelAudit

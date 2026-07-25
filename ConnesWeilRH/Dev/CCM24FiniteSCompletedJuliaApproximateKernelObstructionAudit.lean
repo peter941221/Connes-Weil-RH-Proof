@@ -1,0 +1,18 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaApproximateKernelObstruction
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaApproximateKernelObstructionAudit
+
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaApproximateKernelObstruction
+
+#check noExistsUniformRawDomination_of_approximateAnalysisZeroMode
+#check noExistsUniformPhysicalDomination_of_approximateAnalysisZeroMode
+
+#print axioms noExistsUniformRawDomination_of_approximateAnalysisZeroMode
+#print axioms noExistsUniformPhysicalDomination_of_approximateAnalysisZeroMode
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaApproximateKernelObstructionAudit

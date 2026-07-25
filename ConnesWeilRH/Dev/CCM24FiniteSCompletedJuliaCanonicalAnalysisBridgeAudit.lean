@@ -1,0 +1,29 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaCanonicalAnalysisBridge
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaCanonicalAnalysisBridgeAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSDouglasFactor
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaCanonicalAnalysisBridge
+
+#check exists_range_supported_factor_of_norm_eq
+#check SuffixEulerFrameCanonicalAnalysisFactorData
+#check suffixEulerFrameCanonicalAnalysisFactorData
+#check rawCoDefectFactor_toCanonicalPhysicalReadout
+#check rawPhysicalReadout_toCanonicalCoDefectFactor
+#check rawCoDefectUniformFactor_toCanonicalPhysicalReadout
+#check rawPhysicalUniformReadout_toCanonicalCoDefectFactor
+#check uniformRawCoDefectFactor_nonempty_iff_uniformPhysicalReadout_nonempty
+
+#print axioms exists_range_supported_factor_of_norm_eq
+#print axioms suffixEulerFrameCanonicalAnalysisFactorData
+#print axioms rawCoDefectFactor_toCanonicalPhysicalReadout
+#print axioms rawPhysicalReadout_toCanonicalCoDefectFactor
+#print axioms uniformRawCoDefectFactor_nonempty_iff_uniformPhysicalReadout_nonempty
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaCanonicalAnalysisBridgeAudit

@@ -1,0 +1,27 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaResidualOnlyAntiresonantObstruction
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaResidualOnlyAntiresonantObstructionAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaResidualOnlyAntiresonantObstruction
+
+#check @antiresonantModelEulerFactor_eq_three_halves
+#check @antiresonantModelSchurTransport_eq_id
+#check @antiresonantModelAntiresonantLoss_eq_zero
+#check @antiresonantModelResidual_eq_neg_two_thirds
+#check @antiresonantModelResidual_ne_zero
+#check @no_antiresonantModel_residual_factor
+
+#print axioms antiresonantModelEulerFactor_eq_three_halves
+#print axioms antiresonantModelSchurTransport_eq_id
+#print axioms antiresonantModelAntiresonantLoss_eq_zero
+#print axioms antiresonantModelResidual_eq_neg_two_thirds
+#print axioms antiresonantModelResidual_ne_zero
+#print axioms no_antiresonantModel_residual_factor
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaResidualOnlyAntiresonantObstructionAudit

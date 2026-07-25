@@ -1,0 +1,19 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaAnalysisIsometricFactor
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaAnalysisIsometricFactorAudit
+
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaAnalysisIsometricFactor
+
+#check SuffixEulerFrameAmbientBoundaryAnalysisFactorData
+#check suffixEulerFrameAmbientBoundaryAnalysisFactorData
+#check suffixEulerFrameAmbientBoundaryAnalysisFactorData_factor_norm_eq_on_defect
+
+#print axioms suffixEulerFrameAmbientBoundaryAnalysisFactorData
+#print axioms suffixEulerFrameAmbientBoundaryAnalysisFactorData_factor_norm_eq_on_defect
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaAnalysisIsometricFactorAudit
