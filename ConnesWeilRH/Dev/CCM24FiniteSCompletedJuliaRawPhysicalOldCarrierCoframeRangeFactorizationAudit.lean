@@ -1,0 +1,21 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeRangeFactorization
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeRangeFactorizationAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeRangeFactorization
+
+#check @rangeFactor
+#check @rangeFactor_comp_complement_comp_transportAdjoint_eq
+#check @rangeFactor_norm_le
+
+#print axioms rangeFactor
+#print axioms rangeFactor_comp_complement_comp_transportAdjoint_eq
+#print axioms rangeFactor_norm_le
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeRangeFactorizationAudit

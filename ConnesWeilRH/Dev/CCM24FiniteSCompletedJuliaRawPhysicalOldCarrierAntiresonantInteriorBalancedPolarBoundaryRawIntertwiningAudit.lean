@@ -1,0 +1,47 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorBalancedPolarBoundaryRawIntertwining
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open BalancedPolarBoundaryRawIntertwining
+
+#check
+  @suffixActualBandBalancedRawQuadraticResponse_eq_polar_sub_baseFirstJet
+#check @suffixActualBandPolarBoundaryResidualColumn_eq_balancedRawDifference
+#check
+  @suffixActualBandPolarBoundaryResidualColumn_eq_rawReverseIntertwining
+#check
+  @suffixActualBandPolarBoundaryResidualColumn_eq_neg_upperFactor_rawDefect
+#check @routeScaledPolarBoundaryResidualColumn_eq_neg_rawIntertwining
+#check @norm_routeScaledPolarBoundaryResidualColumn_eq_rawIntertwining
+#check
+  @routeScaledBalancedPolarFirstJetRecurrenceColumn_eq_boundary_sub_raw
+#check @polarBoundaryResidualRouteUniformScaledBound_iff_rawIntertwining
+#check
+  @exists_routeUniformScaledCompleteTargetBound_iff_rawIntertwining_afterPolarBoundary
+
+#print axioms
+  suffixActualBandBalancedRawQuadraticResponse_eq_polar_sub_baseFirstJet
+#print axioms
+  suffixActualBandPolarBoundaryResidualColumn_eq_balancedRawDifference
+#print axioms
+  suffixActualBandPolarBoundaryResidualColumn_eq_rawReverseIntertwining
+#print axioms
+  suffixActualBandPolarBoundaryResidualColumn_eq_neg_upperFactor_rawDefect
+#print axioms routeScaledPolarBoundaryResidualColumn_eq_neg_rawIntertwining
+#print axioms norm_routeScaledPolarBoundaryResidualColumn_eq_rawIntertwining
+#print axioms
+  routeScaledBalancedPolarFirstJetRecurrenceColumn_eq_boundary_sub_raw
+#print axioms polarBoundaryResidualRouteUniformScaledBound_iff_rawIntertwining
+#print axioms
+  exists_routeUniformScaledCompleteTargetBound_iff_rawIntertwining_afterPolarBoundary
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

@@ -1,0 +1,30 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelRightCoDefect
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelRightCoDefect
+
+#check @normalizedPrimeEulerFrameTransport_adjoint_comp_self_eq_comp_adjoint
+#check @primeEulerAmbientLossFactor_comp_adjoint_eq_rightAmbientDefect
+#check @newFrameAntiresonantColumn_adjoint_comp_self_eq_rightCoDefect
+#check @norm_sq_newFrameAntiresonantColumn_eq_rightCoDefect_inner
+#check @routeUniformRawAmbientDomination_iff_rightCoDefectDomination
+#check @exists_routeUniformRenewedAmbientDomination_iff_exists_rightCoDefect
+
+#print axioms normalizedPrimeEulerFrameTransport_adjoint_comp_self_eq_comp_adjoint
+#print axioms primeEulerAmbientLossFactor_comp_adjoint_eq_rightAmbientDefect
+#print axioms newFrameAntiresonantColumn_adjoint_comp_self_eq_rightCoDefect
+#print axioms norm_sq_newFrameAntiresonantColumn_eq_rightCoDefect_inner
+#print axioms routeUniformRawAmbientDomination_iff_rightCoDefectDomination
+#print axioms exists_routeUniformRenewedAmbientDomination_iff_exists_rightCoDefect
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

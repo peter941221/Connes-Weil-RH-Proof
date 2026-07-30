@@ -1,0 +1,29 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedPhysicalHistoryMismatch
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedPhysicalHistoryMismatchAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedPhysicalHistoryMismatch
+
+#check @suffixActualSchurMetricBoundaryOutputMaps
+#check @suffixActualSchurCoherenceBoundaryOutputMaps
+#check @suffixActualSchurMetricBoundaryOutputMaps_length
+#check @suffixActualSchurCoherenceBoundaryOutputMaps_length
+#check @suffixActualSchurBoundaryOutputMaps_sum_eq_metric_add_coherence
+#check @suffixActualSchurBoundaryOutputMaps_comp_gramInvSqrt_eq_metric_add_coherence
+#check @sourceActualBandForwardEndpointCoframe_eq_upperFactor_metric_coherence_add_residual
+
+#print axioms suffixActualSchurMetricBoundaryOutputMaps
+#print axioms suffixActualSchurCoherenceBoundaryOutputMaps
+#print axioms suffixActualSchurMetricBoundaryOutputMaps_length
+#print axioms suffixActualSchurCoherenceBoundaryOutputMaps_length
+#print axioms suffixActualSchurBoundaryOutputMaps_sum_eq_metric_add_coherence
+#print axioms suffixActualSchurBoundaryOutputMaps_comp_gramInvSqrt_eq_metric_add_coherence
+#print axioms sourceActualBandForwardEndpointCoframe_eq_upperFactor_metric_coherence_add_residual
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedPhysicalHistoryMismatchAudit

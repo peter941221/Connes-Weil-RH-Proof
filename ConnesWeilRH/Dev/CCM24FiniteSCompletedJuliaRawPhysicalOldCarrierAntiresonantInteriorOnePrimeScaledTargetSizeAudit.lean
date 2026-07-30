@@ -1,0 +1,28 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorOnePrimeScaledTargetSize
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorOnePrimeScaledTargetSize
+
+#check @coefficient_div_primeEulerAmbientLossScale_eq
+#check @coefficient_div_primeEulerAmbientLossScale_le_two
+#check @norm_onePrime_scaledCompleteCoupledAmbientTarget_le
+#check @SuffixCompleteCoupledOnePrimeUniformScaledTargetBound
+#check @onePrimeUniformScaledTargetBound
+
+#print axioms coefficient_div_primeEulerAmbientLossScale_eq
+#print axioms coefficient_div_primeEulerAmbientLossScale_le_two
+#print axioms norm_onePrime_scaledCompleteCoupledAmbientTarget_le
+#print axioms onePrimeUniformScaledTargetBound
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

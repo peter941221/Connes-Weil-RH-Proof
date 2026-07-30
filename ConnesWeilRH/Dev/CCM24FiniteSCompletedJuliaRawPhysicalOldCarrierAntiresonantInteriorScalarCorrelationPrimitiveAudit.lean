@@ -1,0 +1,36 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorScalarCorrelationPrimitive
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorScalarCorrelationPrimitive
+
+#check @inner_finiteHorizonAntiresonantCoboundaryReadout_eq_sum
+#check @routeFiniteHorizonScaledScalarCorrelation
+#check @inner_routeFiniteHorizonReadout_eq_scaledScalarCorrelation
+#check @SuffixCompleteCoupledRouteScaledScalarCorrelationBound
+#check @routeWeakMatrixCoefficientBound_of_scaledScalarCorrelation
+#check @routeScaledScalarCorrelationBound_of_weakMatrixCoefficient
+#check @routeScaledScalarCorrelation_iff_weakMatrixCoefficient
+#check @exists_routeUniformRawAmbientDomination_of_scaledScalarCorrelation
+#check @exists_routeUniformRenewedAmbientDomination_of_scaledScalarCorrelation
+
+#print axioms inner_finiteHorizonAntiresonantCoboundaryReadout_eq_sum
+#print axioms routeFiniteHorizonScaledScalarCorrelation
+#print axioms inner_routeFiniteHorizonReadout_eq_scaledScalarCorrelation
+#print axioms routeWeakMatrixCoefficientBound_of_scaledScalarCorrelation
+#print axioms routeScaledScalarCorrelationBound_of_weakMatrixCoefficient
+#print axioms routeScaledScalarCorrelation_iff_weakMatrixCoefficient
+#print axioms exists_routeUniformRawAmbientDomination_of_scaledScalarCorrelation
+#print axioms exists_routeUniformRenewedAmbientDomination_of_scaledScalarCorrelation
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

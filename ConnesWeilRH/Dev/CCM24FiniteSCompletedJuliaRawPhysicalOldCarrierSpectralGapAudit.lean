@@ -1,0 +1,34 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSpectralGap
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSpectralGapAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSpectralGap
+
+#check @normSq_le_of_spectralGap_of_norm_le
+#check @exists_factor_of_spectralGap_of_norm_le
+#check @SuffixRawOldCarrierUniformSpectralGapData
+#check @SuffixRawOldCarrierUniformRawNormData
+#check @SuffixRawOldCarrierUniformDominationData
+#check @suffixRawOldCarrierDomination_of_spectralGap_of_rawNorm
+#check @suffixRawOldCarrierUniformDominationDataOfSpectralGap
+#check @suffixRawAmbientBoundaryUniformDominationDataOfSpectralGap
+#check @suffixRawAmbientBoundaryUniformReadoutDataOfSpectralGap
+#check @exists_uniform_suffixRawOldCarrierDomination_of_spectralGap_of_rawNorm
+#check @noExistsUniformOldCarrierDomination_of_approximateKernel
+
+#print axioms normSq_le_of_spectralGap_of_norm_le
+#print axioms exists_factor_of_spectralGap_of_norm_le
+#print axioms suffixRawOldCarrierDomination_of_spectralGap_of_rawNorm
+#print axioms suffixRawOldCarrierUniformDominationDataOfSpectralGap
+#print axioms suffixRawAmbientBoundaryUniformDominationDataOfSpectralGap
+#print axioms suffixRawAmbientBoundaryUniformReadoutDataOfSpectralGap
+#print axioms exists_uniform_suffixRawOldCarrierDomination_of_spectralGap_of_rawNorm
+#print axioms noExistsUniformOldCarrierDomination_of_approximateKernel
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSpectralGapAudit

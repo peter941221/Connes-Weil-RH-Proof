@@ -1,0 +1,19 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeResidual
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeResidualAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeResidual
+
+#check @suffixActualBandMetricCoframe_cons_sub_comp_transitionAdj_eq_ambientAdjoint_comp_residual
+#check @suffixActualBandForwardCoframe_cons_eq_normalized_forward_recurrence
+
+#print axioms suffixActualBandMetricCoframe_cons_sub_comp_transitionAdj_eq_ambientAdjoint_comp_residual
+#print axioms suffixActualBandForwardCoframe_cons_eq_normalized_forward_recurrence
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeResidualAudit

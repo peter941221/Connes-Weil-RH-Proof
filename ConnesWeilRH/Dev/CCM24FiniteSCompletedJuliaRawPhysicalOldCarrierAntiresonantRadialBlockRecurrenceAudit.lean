@@ -1,0 +1,45 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialBlockRecurrence
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialBlockRecurrenceAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialBlockRecurrence
+
+#check @radialComplement_apply_eq_zero_of_fixed
+#check @radialSupportProjection_antiresonantCore_apply_of_fixed
+#check @radialComplement_antiresonantCore_apply_of_fixed
+#check @primeEulerRadialTailIterate_succ_apply
+#check @primeEulerRadialBlockReadout_antiresonantCore_apply_of_fixed
+#check @primeEulerAmbientLossScale_pos
+#check @newFrameAntiresonantColumn_eq_scale_smul_core
+#check @newFrameAntiresonantRadialBlockReadout_comp_column
+#check @norm_radialSupportProjection_le_one
+#check @norm_radialComplement_le_one
+#check @norm_primeEulerPositiveTranslation_le_one
+#check @norm_primeEulerRadialTail_le_one
+#check @norm_primeEulerRadialBoundaryStep_le_one
+#check @norm_primeEulerRadialBlockReadout_le
+#check @norm_newFrameAntiresonantRadialBlockReadout_le
+
+#print axioms radialComplement_apply_eq_zero_of_fixed
+#print axioms radialSupportProjection_antiresonantCore_apply_of_fixed
+#print axioms radialComplement_antiresonantCore_apply_of_fixed
+#print axioms primeEulerRadialTailIterate_succ_apply
+#print axioms primeEulerRadialBlockReadout_antiresonantCore_apply_of_fixed
+#print axioms primeEulerAmbientLossScale_pos
+#print axioms newFrameAntiresonantColumn_eq_scale_smul_core
+#print axioms newFrameAntiresonantRadialBlockReadout_comp_column
+#print axioms norm_radialSupportProjection_le_one
+#print axioms norm_radialComplement_le_one
+#print axioms norm_primeEulerPositiveTranslation_le_one
+#print axioms norm_primeEulerRadialTail_le_one
+#print axioms norm_primeEulerRadialBoundaryStep_le_one
+#print axioms norm_primeEulerRadialBlockReadout_le
+#print axioms norm_newFrameAntiresonantRadialBlockReadout_le
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialBlockRecurrenceAudit

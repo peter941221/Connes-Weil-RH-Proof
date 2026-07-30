@@ -1,0 +1,29 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierQuotientGuard
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierQuotientGuardAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierQuotientGuard
+
+#check guardRaw_norm_le_one
+#check guardAnalysis_norm_le_one_of_unit_interval
+#check guardAnalysis_apply_one_normSq
+#check guardRaw_apply_one_normSq
+#check guardAnalysis_injective
+#check guardAnalysis_gram_isPositive
+#check no_uniform_scalar_douglas
+
+#print axioms guardRaw_norm_le_one
+#print axioms guardAnalysis_norm_le_one_of_unit_interval
+#print axioms guardAnalysis_apply_one_normSq
+#print axioms guardRaw_apply_one_normSq
+#print axioms guardAnalysis_injective
+#print axioms guardAnalysis_gram_isPositive
+#print axioms no_uniform_scalar_douglas
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierQuotientGuardAudit

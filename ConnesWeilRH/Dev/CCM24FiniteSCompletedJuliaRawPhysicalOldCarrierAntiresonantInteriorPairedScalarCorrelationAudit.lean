@@ -1,0 +1,40 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPairedScalarCorrelation
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPairedScalarCorrelation
+
+#check @sum_range_two_mul_eq_sum_pairs
+#check @sum_range_two_mul_add_one_eq_sum_pairs_add_terminal
+#check @routePrimeLogScalarCorrelationTerm
+#check @routePrimeLogPairedScalarCorrelation
+#check @routePrimeLogPairedScalarCorrelation_eq_difference
+#check @routeFiniteHorizonScaledScalarCorrelation_eq_paired_of_even
+#check @routeFiniteHorizonScaledScalarCorrelation_eq_paired_of_odd
+#check @routePairedScalarCorrelationEnvelope
+#check @SuffixCompleteCoupledRoutePairedScalarCorrelationEnvelopeBound
+#check @routeScaledScalarCorrelationBound_of_pairedEnvelope
+#check @exists_routeUniformRawAmbientDomination_of_pairedEnvelope
+#check @exists_routeUniformRenewedAmbientDomination_of_pairedEnvelope
+
+#print axioms sum_range_two_mul_eq_sum_pairs
+#print axioms sum_range_two_mul_add_one_eq_sum_pairs_add_terminal
+#print axioms routePrimeLogPairedScalarCorrelation_eq_difference
+#print axioms routeFiniteHorizonScaledScalarCorrelation_eq_paired_of_even
+#print axioms routeFiniteHorizonScaledScalarCorrelation_eq_paired_of_odd
+#print axioms routePairedScalarCorrelationEnvelope
+#print axioms routeScaledScalarCorrelationBound_of_pairedEnvelope
+#print axioms exists_routeUniformRawAmbientDomination_of_pairedEnvelope
+#print axioms exists_routeUniformRenewedAmbientDomination_of_pairedEnvelope
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

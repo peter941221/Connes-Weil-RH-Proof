@@ -1,0 +1,24 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorOnePrimeNumeratorBound
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorOnePrimeNumeratorBound
+
+#check @norm_signedCompressedInteriorOwner_nil_le_twentyFour_mul_detector
+#check @tendsto_sqrtCoefficient_mul_norm_interior_nil_arithmeticVisiblePrimeSequence
+#check @tendsto_coefficient_mul_norm_sq_signedCompressedInteriorOwner_nil_arithmeticVisiblePrimeSequence
+
+#print axioms norm_signedCompressedInteriorOwner_nil_le_twentyFour_mul_detector
+#print axioms tendsto_sqrtCoefficient_mul_norm_interior_nil_arithmeticVisiblePrimeSequence
+#print axioms tendsto_coefficient_mul_norm_sq_signedCompressedInteriorOwner_nil_arithmeticVisiblePrimeSequence
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

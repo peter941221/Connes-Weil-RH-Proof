@@ -1,0 +1,21 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurTransitionSkewTrace
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSActualSchurTransitionSkewTraceAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSActualSchurTransitionSkewTrace
+
+#check @ordinaryTraceAlong_adjointPair_comp_skew_eq_cycled
+#check @ordinaryTraceAlong_skew_comp_adjointPair_eq_cycled
+#check @ordinaryTraceAlong_adjointPair_skewCoboundary_eq_cycledBoundaryDifference
+
+#print axioms ordinaryTraceAlong_adjointPair_comp_skew_eq_cycled
+#print axioms ordinaryTraceAlong_skew_comp_adjointPair_eq_cycled
+#print axioms ordinaryTraceAlong_adjointPair_skewCoboundary_eq_cycledBoundaryDifference
+
+end ConnesWeilRH.Dev.CCM24FiniteSActualSchurTransitionSkewTraceAudit

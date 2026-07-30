@@ -8,6 +8,7 @@ import ConnesWeilRH.Source.CC20Concrete.TraceScale
 import ConnesWeilRH.Source.CC20Concrete.PositiveTrace
 import ConnesWeilRH.Source.CC20Concrete.HilbertSchmidtIdeal
 import ConnesWeilRH.Source.CC20Concrete.CompactBadSpace
+import ConnesWeilRH.Source.CC20Concrete.CompactApproximateKernel
 import ConnesWeilRH.Source.CC20Concrete.RegularKernelHaarCompact
 import ConnesWeilRH.Source.CC20Concrete.HaarMellinMismatch
 import ConnesWeilRH.Source.CC20Concrete.WindowContainment

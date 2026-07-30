@@ -1,0 +1,36 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPointwiseAlternatingPrimitive
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPointwiseAlternatingPrimitive
+
+#check @RouteFiniteHorizonIndex
+#check @routeFiniteHorizonReadout
+#check @SuffixCompleteCoupledRoutePointwiseFiniteHorizonReadoutBound
+#check @SuffixCompleteCoupledRouteUniformFiniteHorizonReadoutBound
+#check @exists_routeUniformFiniteHorizonReadoutBound_of_pointwise
+#check @routePointwiseFiniteHorizonReadoutBound_of_uniform
+#check @routePointwise_iff_exists_routeUniformFiniteHorizonReadoutBound
+#check @routeUniformRawAmbientDomination_of_uniformFiniteHorizonReadoutBound
+#check @exists_routeUniformRawAmbientDomination_of_pointwise
+#check @exists_routeUniformRenewedAmbientDomination_of_pointwise
+
+#print axioms routeFiniteHorizonReadout
+#print axioms exists_routeUniformFiniteHorizonReadoutBound_of_pointwise
+#print axioms routePointwiseFiniteHorizonReadoutBound_of_uniform
+#print axioms routePointwise_iff_exists_routeUniformFiniteHorizonReadoutBound
+#print axioms routeUniformRawAmbientDomination_of_uniformFiniteHorizonReadoutBound
+#print axioms exists_routeUniformRawAmbientDomination_of_pointwise
+#print axioms exists_routeUniformRenewedAmbientDomination_of_pointwise
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

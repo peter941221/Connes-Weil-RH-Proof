@@ -1,0 +1,30 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelKernel
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelKernel
+
+#check @normalizedPrimeEulerFrameTransport_adjoint_comp_inverse_adjoint
+#check @primeEulerAmbientLossFactor_adjoint_eq_zero_of_mem_radialSupport
+#check @suffixEulerFrameRenewedAntiresonantColumn_eq_zero_imp_newFrame_eq_zero
+#check @suffixEulerFrameRenewedAntiresonantColumn_eq_zero_iff
+#check @suffixEulerFrameRenewedAntiresonantColumn_injective
+#check @signedCompressedInteriorOwner_eq_zero_of_renewedColumn_eq_zero
+
+#print axioms normalizedPrimeEulerFrameTransport_adjoint_comp_inverse_adjoint
+#print axioms primeEulerAmbientLossFactor_adjoint_eq_zero_of_mem_radialSupport
+#print axioms suffixEulerFrameRenewedAntiresonantColumn_eq_zero_imp_newFrame_eq_zero
+#print axioms suffixEulerFrameRenewedAntiresonantColumn_eq_zero_iff
+#print axioms suffixEulerFrameRenewedAntiresonantColumn_injective
+#print axioms signedCompressedInteriorOwner_eq_zero_of_renewedColumn_eq_zero
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

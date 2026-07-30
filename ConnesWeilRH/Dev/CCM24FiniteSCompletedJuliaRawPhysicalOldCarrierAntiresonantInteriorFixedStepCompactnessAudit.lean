@@ -1,0 +1,37 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFixedStepCompactness
+
+namespace ConnesWeilRH
+namespace Source
+
+open CC20Concrete.CompactApproximateKernel
+
+#check @denseRange_adjoint_of_injective
+#check @inner_tendsto_zero_of_injective_approximate_kernel
+#check @compact_output_tendsto_zero_of_injective_approximate_kernel
+
+#print axioms denseRange_adjoint_of_injective
+#print axioms inner_tendsto_zero_of_injective_approximate_kernel
+#print axioms compact_output_tendsto_zero_of_injective_approximate_kernel
+
+namespace CCM25Concrete
+
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFixedStepCompactness
+
+#check @suffixEulerFrameRenewalDeviationColumn_injective
+#check @completeBoundaryReverseIntertwiningDefect_isCompactOperator_of_localPairOwner
+#check @suffixActualBandCompleteBoundaryReverseIntertwiningDefect_unit_isCompactOperator
+#check @completeBoundaryReverseIntertwiningDefect_unit_tendsto_zero_of_renewalDeviation
+
+#print axioms suffixEulerFrameRenewalDeviationColumn_injective
+#print axioms completeBoundaryReverseIntertwiningDefect_isCompactOperator_of_localPairOwner
+#print axioms suffixActualBandCompleteBoundaryReverseIntertwiningDefect_unit_isCompactOperator
+#print axioms completeBoundaryReverseIntertwiningDefect_unit_tendsto_zero_of_renewalDeviation
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

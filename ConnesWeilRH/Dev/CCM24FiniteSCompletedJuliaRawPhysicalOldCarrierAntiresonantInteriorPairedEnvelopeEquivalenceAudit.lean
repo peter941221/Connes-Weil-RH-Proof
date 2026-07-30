@@ -1,0 +1,31 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPairedEnvelopeEquivalence
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPairedEnvelopeEquivalence
+
+#check @scaled_paired_envelope_le_three_mul_of_prefix_bound
+#check @routeFiniteHorizonScaledScalarCorrelation_withHorizon
+#check @pairedEnvelopeBound_of_routeScaledScalarCorrelation
+#check @routePairedEnvelope_iff_scaledScalarCorrelation
+#check @routePairedEnvelope_iff_weakMatrixCoefficient
+#check @routePairedEnvelope_iff_pointwiseFiniteHorizonReadout
+
+#print axioms scaled_paired_envelope_le_three_mul_of_prefix_bound
+#print axioms routeFiniteHorizonScaledScalarCorrelation_withHorizon
+#print axioms pairedEnvelopeBound_of_routeScaledScalarCorrelation
+#print axioms routePairedEnvelope_iff_scaledScalarCorrelation
+#print axioms routePairedEnvelope_iff_weakMatrixCoefficient
+#print axioms routePairedEnvelope_iff_pointwiseFiniteHorizonReadout
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

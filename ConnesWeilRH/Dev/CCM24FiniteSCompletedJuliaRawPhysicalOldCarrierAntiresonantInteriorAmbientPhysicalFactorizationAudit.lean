@@ -1,0 +1,22 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAmbientPhysicalFactorization
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAmbientPhysicalFactorization
+
+#check @suffixActualBandAntiresonantInteriorAmbientPhysicalCofactorResponse_eq_physical
+#check @SuffixRawOldCarrierAntiresonantInteriorPhysicalFactorData.ambient_factorization
+
+#print axioms suffixActualBandAntiresonantInteriorAmbientPhysicalCofactorResponse_eq_physical
+#print axioms SuffixRawOldCarrierAntiresonantInteriorPhysicalFactorData.ambient_factorization
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

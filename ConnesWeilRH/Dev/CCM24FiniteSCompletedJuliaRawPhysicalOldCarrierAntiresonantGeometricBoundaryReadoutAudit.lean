@@ -1,0 +1,37 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantGeometricBoundaryReadout
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantGeometricBoundaryReadoutAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantGeometricBoundaryReadout
+
+#check @norm_primeEulerRadialTail_pow_le_one
+#check @norm_primeEulerRadialBoundaryStep_comp_tail_pow_le_one
+#check @summable_primeEulerRadialGeometricBoundaryTerm
+#check @norm_inv_primeEulerAmbientLossScale
+#check @coefficient_pow_mul_norm_inv_ambientLossScale_le
+#check @norm_primeEulerRadialGeometricReadoutTerm_le
+#check @summable_linear_three_quarters
+#check @tsum_linear_three_quarters
+#check @summable_primeEulerRadialGeometricReadoutTerm
+#check @norm_primeEulerRadialGeometricReadout_le
+#check @primeEulerRadialGeometricReadout_comp_ambientLossColumn
+
+#print axioms norm_primeEulerRadialTail_pow_le_one
+#print axioms norm_primeEulerRadialBoundaryStep_comp_tail_pow_le_one
+#print axioms summable_primeEulerRadialGeometricBoundaryTerm
+#print axioms norm_inv_primeEulerAmbientLossScale
+#print axioms coefficient_pow_mul_norm_inv_ambientLossScale_le
+#print axioms norm_primeEulerRadialGeometricReadoutTerm_le
+#print axioms summable_linear_three_quarters
+#print axioms tsum_linear_three_quarters
+#print axioms summable_primeEulerRadialGeometricReadoutTerm
+#print axioms norm_primeEulerRadialGeometricReadout_le
+#print axioms primeEulerRadialGeometricReadout_comp_ambientLossColumn
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantGeometricBoundaryReadoutAudit

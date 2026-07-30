@@ -1,0 +1,63 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorTwoStepFactorCollapse
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open TwoStepFactorCollapse
+
+#check @eq_zero_of_cc20GlobalLogTranslation_eq_self
+#check @negativeTranslationCoboundary_eq_zero_imp_eq_zero
+#check @negativeTranslationCoboundary_injective
+#check @comp_left_cancel_of_injective
+#check @twoStepTranslationCoboundary_eq_oneStep_comp_add
+#check
+  @routeScaledPrimeLogAdjointCoboundaryTarget_eq_oneStep_comp_scaledAdjoint
+#check
+  @RouteScaledTwoStepCoboundaryFactorData.scaledAdjoint_factorization
+#check
+  @RouteScaledTwoStepCoboundaryFactorData.toAmbientLossFactorData
+#check
+  @SuffixCompleteCoupledAmbientLossFactorData.scaledAdjoint_factorization
+#check
+  @SuffixCompleteCoupledAmbientLossFactorData.toTwoStepFactorData
+#check @SuffixCompleteCoupledRouteUniformAmbientLossFactor
+#check @routeUniformTwoStepFactor_iff_ambientLossFactor
+#check @exists_routeUniformTwoStepFactor_iff_ambientLossFactor
+#check @routeUniformScaledTargetBound_of_twoStepFactor
+#check @pairedAdjointCoboundaryEnvelopeBound_of_twoStepFactor
+#check @routePointwiseFiniteHorizonReadoutBound_of_twoStepFactor
+#check @exists_routeUniformRawAmbientDomination_of_twoStepFactor
+#check @exists_routeUniformRenewedAmbientDomination_of_twoStepFactor
+
+#print axioms eq_zero_of_cc20GlobalLogTranslation_eq_self
+#print axioms negativeTranslationCoboundary_eq_zero_imp_eq_zero
+#print axioms negativeTranslationCoboundary_injective
+#print axioms comp_left_cancel_of_injective
+#print axioms twoStepTranslationCoboundary_eq_oneStep_comp_add
+#print axioms
+  routeScaledPrimeLogAdjointCoboundaryTarget_eq_oneStep_comp_scaledAdjoint
+#print axioms
+  RouteScaledTwoStepCoboundaryFactorData.scaledAdjoint_factorization
+#print axioms
+  RouteScaledTwoStepCoboundaryFactorData.toAmbientLossFactorData
+#print axioms
+  SuffixCompleteCoupledAmbientLossFactorData.scaledAdjoint_factorization
+#print axioms
+  SuffixCompleteCoupledAmbientLossFactorData.toTwoStepFactorData
+#print axioms routeUniformTwoStepFactor_iff_ambientLossFactor
+#print axioms exists_routeUniformTwoStepFactor_iff_ambientLossFactor
+#print axioms routeUniformScaledTargetBound_of_twoStepFactor
+#print axioms pairedAdjointCoboundaryEnvelopeBound_of_twoStepFactor
+#print axioms routePointwiseFiniteHorizonReadoutBound_of_twoStepFactor
+#print axioms exists_routeUniformRawAmbientDomination_of_twoStepFactor
+#print axioms exists_routeUniformRenewedAmbientDomination_of_twoStepFactor
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

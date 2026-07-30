@@ -1,0 +1,56 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAmbientFrameLossStability
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open AmbientFrameLossStability
+
+#check @SuffixCompleteCoupledRouteUniformAmbientFrameLossStability
+#check @norm_signedInterior_le_rawColumn_of_routeUniformRawAmbientDomination
+#check
+  @norm_completeCoupledAmbientTarget_le_of_rawAmbientDomination_and_frameLossStability
+#check
+  @completeCoupledAmbientLossFactorDataOfRawAmbientDominationAndFrameLossStability
+#check
+  @routeUniformAmbientLossFactorOfRawAmbientDominationAndFrameLossStability
+#check
+  @routeUniformTwoStepFactorOfRawAmbientDominationAndFrameLossStability
+#check
+  @pairedAdjointCoboundaryEnvelopeBoundOfRawAmbientDominationAndFrameLossStability
+#check @twoCoordinateFrame_adjoint
+#check @twoCoordinateFrame_adjoint_comp_self
+#check @twoCoordinateLoss_injective
+#check @twoCoordinate_restricted_norm_eq
+#check @one_le_mul_epsilon_of_twoCoordinateFrameLossStability
+#check @not_exists_uniform_twoCoordinateFrameLossStability
+#check @not_exists_uniform_twoCoordinateAmbientDomination
+
+#print axioms
+  norm_signedInterior_le_rawColumn_of_routeUniformRawAmbientDomination
+#print axioms
+  norm_completeCoupledAmbientTarget_le_of_rawAmbientDomination_and_frameLossStability
+#print axioms
+  completeCoupledAmbientLossFactorDataOfRawAmbientDominationAndFrameLossStability
+#print axioms
+  routeUniformAmbientLossFactorOfRawAmbientDominationAndFrameLossStability
+#print axioms
+  routeUniformTwoStepFactorOfRawAmbientDominationAndFrameLossStability
+#print axioms
+  pairedAdjointCoboundaryEnvelopeBoundOfRawAmbientDominationAndFrameLossStability
+#print axioms twoCoordinateFrame_adjoint
+#print axioms twoCoordinateFrame_adjoint_comp_self
+#print axioms twoCoordinateLoss_injective
+#print axioms twoCoordinate_restricted_norm_eq
+#print axioms one_le_mul_epsilon_of_twoCoordinateFrameLossStability
+#print axioms not_exists_uniform_twoCoordinateFrameLossStability
+#print axioms not_exists_uniform_twoCoordinateAmbientDomination
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

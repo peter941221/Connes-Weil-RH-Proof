@@ -1,0 +1,21 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeBoundedPieces
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeBoundedPiecesAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeOrientationLedger
+
+#check @suffixActualBandRawPhysicalOldCarrierKnownBoundedRow
+#check @suffixActualBandRawPhysicalOldCarrierHardRow
+#check @suffixActualBandRawPhysicalOldCarrierSignedTelescope_eq_hard_add_known
+
+#print axioms suffixActualBandRawPhysicalOldCarrierKnownBoundedRow
+#print axioms suffixActualBandRawPhysicalOldCarrierHardRow
+#print axioms suffixActualBandRawPhysicalOldCarrierSignedTelescope_eq_hard_add_known
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeBoundedPiecesAudit

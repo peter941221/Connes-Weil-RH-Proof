@@ -1,0 +1,65 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorBalancedPolarFirstJetRecurrence
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorBalancedPolarFirstJetRecurrence
+
+#check @suffixActualBandMetricFrameGauge_adjoint_eq
+#check
+  @suffixActualBandFrameDetectorCompression_eq_frameGauge_polar_frameGauge
+#check
+  @suffixActualBandFrameCoframeCommutator_eq_polarGaugeCommutator
+#check @suffixActualBandBalancedPolarFirstJetKernel
+#check @suffixActualBandBalancedPhysicalCocycleKernel_eq_polarFirstJet
+#check @suffixActualBandPolarFirstJetDefectKernel
+#check
+  @suffixActualBandBalancedPhysicalCocycleKernel_eq_frameGauge_sub_defect
+#check @suffixActualBandOldCarrierTransitionGauge
+#check @suffixActualBandOldCarrierTransitionGauge_eq_smul_transition
+#check @suffixActualBandOldCarrierTransitionGauge_comp_frameGauge
+#check @suffixActualBandBalancedPhysicalCocycle_oldCarrierRecurrence
+#check @suffixActualBandPolarFirstJetRecurrenceColumn
+#check
+  @suffixActualBandBalancedPhysicalCocycleColumn_eq_polarFirstJetRecurrence
+#check @routeScaledBalancedPolarFirstJetRecurrenceColumn
+#check
+  @routeScaledBalancedPhysicalCocycleColumn_eq_polarFirstJetRecurrence
+#check @SuffixBalancedPolarFirstJetRecurrenceRouteUniformScaledBound
+#check
+  @physicalCocycleRouteUniformScaledBound_iff_polarFirstJetRecurrence
+#check
+  @exists_routeUniformScaledCompleteTargetBound_iff_polarFirstJetRecurrence
+#check @suffixActualBandOldCarrierTransitionGauge_norm_le_two
+
+#print axioms suffixActualBandMetricFrameGauge_adjoint_eq
+#print axioms
+  suffixActualBandFrameDetectorCompression_eq_frameGauge_polar_frameGauge
+#print axioms
+  suffixActualBandFrameCoframeCommutator_eq_polarGaugeCommutator
+#print axioms suffixActualBandBalancedPhysicalCocycleKernel_eq_polarFirstJet
+#print axioms
+  suffixActualBandBalancedPhysicalCocycleKernel_eq_frameGauge_sub_defect
+#print axioms suffixActualBandOldCarrierTransitionGauge_eq_smul_transition
+#print axioms suffixActualBandOldCarrierTransitionGauge_comp_frameGauge
+#print axioms suffixActualBandBalancedPhysicalCocycle_oldCarrierRecurrence
+#print axioms
+  suffixActualBandBalancedPhysicalCocycleColumn_eq_polarFirstJetRecurrence
+#print axioms
+  routeScaledBalancedPhysicalCocycleColumn_eq_polarFirstJetRecurrence
+#print axioms
+  physicalCocycleRouteUniformScaledBound_iff_polarFirstJetRecurrence
+#print axioms
+  exists_routeUniformScaledCompleteTargetBound_iff_polarFirstJetRecurrence
+#print axioms suffixActualBandOldCarrierTransitionGauge_norm_le_two
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

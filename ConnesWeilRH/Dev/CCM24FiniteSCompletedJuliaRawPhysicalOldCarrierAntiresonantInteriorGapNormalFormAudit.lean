@@ -1,0 +1,26 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorGapNormalForm
+
+namespace ConnesWeilRH.Dev
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorGap
+
+#check @comp_eq_smul_of_eq_comp_and_comp_eq_smul_id
+#check @signedCompressedInteriorOwner
+#check @oldFrameAdjoint_comp_radialSupport_eq_self
+#check @oldFrameAdjoint_comp_compressedRenewal_comp_newFrame_eq_reverseAdjoint
+#check @signedCompressedInteriorOwner_eq_regroupedGap
+#check @signedCompressedInteriorOwner_eq_gap_comp_reverseAdjoint
+
+#print axioms comp_eq_smul_of_eq_comp_and_comp_eq_smul_id
+#print axioms oldFrameAdjoint_comp_radialSupport_eq_self
+#print axioms oldFrameAdjoint_comp_compressedRenewal_comp_newFrame_eq_reverseAdjoint
+#print axioms signedCompressedInteriorOwner_eq_regroupedGap
+#print axioms signedCompressedInteriorOwner_eq_gap_comp_reverseAdjoint
+
+end ConnesWeilRH.Dev

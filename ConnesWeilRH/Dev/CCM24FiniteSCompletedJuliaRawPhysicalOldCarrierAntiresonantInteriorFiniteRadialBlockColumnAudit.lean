@@ -1,0 +1,34 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFiniteRadialBlockColumn
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFiniteRadialBlockColumn
+
+#check @finitePrimeEulerRadialGeometricReadoutColumn_apply
+#check @finitePrimeEulerRadialGeometricBoundaryColumn_apply
+#check @finiteRadialGeometricReadoutColumn_comp_ambientLossColumn
+#check @norm_sq_finitePrimeEulerRadialGeometricReadoutColumn
+#check @sum_finiteRadialGeometricMajorant_le_thirtyTwo
+#check @norm_finitePrimeEulerRadialGeometricReadoutColumn_apply_le
+#check @norm_finitePrimeEulerRadialGeometricReadoutColumn_le_thirtyTwo
+#check @norm_finitePrimeEulerRadialGeometricBoundaryColumn_apply_le
+
+#print axioms finitePrimeEulerRadialGeometricReadoutColumn_apply
+#print axioms finitePrimeEulerRadialGeometricBoundaryColumn_apply
+#print axioms finiteRadialGeometricReadoutColumn_comp_ambientLossColumn
+#print axioms norm_sq_finitePrimeEulerRadialGeometricReadoutColumn
+#print axioms sum_finiteRadialGeometricMajorant_le_thirtyTwo
+#print axioms norm_finitePrimeEulerRadialGeometricReadoutColumn_apply_le
+#print axioms norm_finitePrimeEulerRadialGeometricReadoutColumn_le_thirtyTwo
+#print axioms norm_finitePrimeEulerRadialGeometricBoundaryColumn_apply_le
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

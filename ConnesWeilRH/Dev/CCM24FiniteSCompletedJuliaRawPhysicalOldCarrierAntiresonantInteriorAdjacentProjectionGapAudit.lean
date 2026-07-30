@@ -1,0 +1,37 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAdjacentProjectionGap
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAdjacentProjectionGap
+
+#check @frameComplement_comp_transport_comp_frameProjection_eq_zero
+#check @norm_frameProjection_sub_frameProjection_le_nearIdentity_add
+#check @oldSuffixRangeProjection
+#check @newSuffixRangeProjection
+#check @normalizedPrimeEulerFrameTransport_sub_id_norm_le_two_coefficient
+#check @normalizedPrimeEulerInverse_sub_id_norm_le_two_coefficient
+#check @norm_oldSuffixRangeProjection_sub_newSuffixRangeProjection_le
+#check @cc20Commutator_sub_cc20Commutator_eq
+#check @norm_cc20Commutator_le_two_mul
+#check @norm_adjacentSuffixProjectionCommutatorDifference_le
+
+#print axioms frameComplement_comp_transport_comp_frameProjection_eq_zero
+#print axioms norm_frameProjection_sub_frameProjection_le_nearIdentity_add
+#print axioms normalizedPrimeEulerFrameTransport_sub_id_norm_le_two_coefficient
+#print axioms normalizedPrimeEulerInverse_sub_id_norm_le_two_coefficient
+#print axioms norm_oldSuffixRangeProjection_sub_newSuffixRangeProjection_le
+#print axioms cc20Commutator_sub_cc20Commutator_eq
+#print axioms norm_cc20Commutator_le_two_mul
+#print axioms norm_adjacentSuffixProjectionCommutatorDifference_le
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

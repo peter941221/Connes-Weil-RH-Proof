@@ -1,0 +1,34 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorCompactSupportCellCutoffObstruction
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorCompactSupportCellCutoffObstruction
+
+#check @not_nonempty_finiteRadialReadoutData_of_tail_witness
+#check @supportSeparatedCrossing
+#check @supportSeparatedCrossing_apply
+#check @singletonProjection_mul_crossing_mul_singletonProjection
+#check @trace_supportSeparatedCrossing_eq_zero
+#check @supportSeparatedCrossing_ne_zero
+#check @supportSeparatedCrossing_not_factor_through_coordinateProjection
+#check @separated_singleton_support_trace_zero_but_no_operator_cutoff
+
+#print axioms not_nonempty_finiteRadialReadoutData_of_tail_witness
+#print axioms supportSeparatedCrossing
+#print axioms supportSeparatedCrossing_apply
+#print axioms singletonProjection_mul_crossing_mul_singletonProjection
+#print axioms trace_supportSeparatedCrossing_eq_zero
+#print axioms supportSeparatedCrossing_ne_zero
+#print axioms supportSeparatedCrossing_not_factor_through_coordinateProjection
+#print axioms separated_singleton_support_trace_zero_but_no_operator_cutoff
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

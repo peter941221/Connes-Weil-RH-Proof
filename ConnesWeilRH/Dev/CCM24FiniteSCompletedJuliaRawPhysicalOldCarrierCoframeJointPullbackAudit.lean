@@ -1,0 +1,21 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointPullback
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointPullbackAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointPullback
+
+#check @coframeBoundaryMomentGap
+#check @suffixActualBandRawPhysicalOldCarrierSignedTelescope_eq_gap_comp_oldFrameAdjoint
+#check @suffixActualBandRawPhysicalOldCarrierSignedTelescope_comp_scalarNormalizedInverseAdjoint_comp_newFrame_eq
+
+#print axioms coframeBoundaryMomentGap
+#print axioms suffixActualBandRawPhysicalOldCarrierSignedTelescope_eq_gap_comp_oldFrameAdjoint
+#print axioms suffixActualBandRawPhysicalOldCarrierSignedTelescope_comp_scalarNormalizedInverseAdjoint_comp_newFrame_eq
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointPullbackAudit

@@ -1,0 +1,37 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurRightCoDefect
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSActualSchurRightCoDefectAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSActualSchurRightCoDefect
+
+#check @rectangularRightBoundaryCompression
+#check @rectangularTransitionRightCoDefect
+#check @rectangularTransition_eq_oldFrameAdjoint_transport_newFrame
+#check @rectangularTransitionRightCoDefect_eq_ambient_add_boundary
+#check @rectangularRightBoundaryCompression_eq_zero_of_intertwining
+#check @rectangularTransitionRightCoDefect_eq_frameAdjoint_canonicalJuliaDefect
+#check @rectangularTransitionRightCoDefect_inner_eq_canonicalJuliaDefect_normSq
+#check @suffixActualSchurRightBoundary
+#check @suffixActualSchurRightBoundary_eq_zero
+#check @suffixActualSchurTransitionRightCoDefect_eq_ambient_add_boundary
+#check @suffixActualSchurTransitionRightCoDefect_eq_compressed_ambient
+
+#print axioms rectangularRightBoundaryCompression
+#print axioms rectangularTransitionRightCoDefect
+#print axioms rectangularTransition_eq_oldFrameAdjoint_transport_newFrame
+#print axioms rectangularTransitionRightCoDefect_eq_ambient_add_boundary
+#print axioms rectangularRightBoundaryCompression_eq_zero_of_intertwining
+#print axioms rectangularTransitionRightCoDefect_eq_frameAdjoint_canonicalJuliaDefect
+#print axioms rectangularTransitionRightCoDefect_inner_eq_canonicalJuliaDefect_normSq
+#print axioms suffixActualSchurRightBoundary
+#print axioms suffixActualSchurRightBoundary_eq_zero
+#print axioms suffixActualSchurTransitionRightCoDefect_eq_ambient_add_boundary
+#print axioms suffixActualSchurTransitionRightCoDefect_eq_compressed_ambient
+
+end ConnesWeilRH.Dev.CCM24FiniteSActualSchurRightCoDefectAudit

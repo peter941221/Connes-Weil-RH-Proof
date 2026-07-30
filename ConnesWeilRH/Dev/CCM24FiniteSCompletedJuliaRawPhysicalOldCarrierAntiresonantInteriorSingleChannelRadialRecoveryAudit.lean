@@ -1,0 +1,34 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelRadialRecovery
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSingleChannelRadialRecovery
+
+#check @normalizedPrimeEulerFrameTransport_adjoint_comp_renewalDeviation
+#check @normalizedPrimeEulerFrameTransport_adjoint_comp_lossAdjoint_comp_inverseAdjoint
+#check @primeEulerRenewedAntiresonantRecovery_comp_renewedColumn
+#check @norm_primeEulerRenewedAntiresonantRecovery_le_eight
+#check @renewedAntiresonantRadialBlockReadout_comp_renewedColumn
+#check @norm_renewedAntiresonantRadialBlockReadout_le
+#check @renewedAntiresonantRadialGeometricReadout_comp_renewedColumn
+#check @norm_renewedAntiresonantRadialGeometricReadout_le
+
+#print axioms normalizedPrimeEulerFrameTransport_adjoint_comp_renewalDeviation
+#print axioms normalizedPrimeEulerFrameTransport_adjoint_comp_lossAdjoint_comp_inverseAdjoint
+#print axioms primeEulerRenewedAntiresonantRecovery_comp_renewedColumn
+#print axioms norm_primeEulerRenewedAntiresonantRecovery_le_eight
+#print axioms renewedAntiresonantRadialBlockReadout_comp_renewedColumn
+#print axioms norm_renewedAntiresonantRadialBlockReadout_le
+#print axioms renewedAntiresonantRadialGeometricReadout_comp_renewedColumn
+#print axioms norm_renewedAntiresonantRadialGeometricReadout_le
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

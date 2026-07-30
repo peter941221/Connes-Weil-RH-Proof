@@ -1,0 +1,60 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorBalancedPolarBoundaryReduction
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorBalancedPolarBoundaryReduction
+
+#check @suffixActualBandOldCarrierDetectorIntertwining_eq_boundary
+#check @suffixActualBandOldCarrierPolarBoundaryChannel
+#check @suffixActualBandPolarBoundaryRightFactor
+#check
+  @suffixEulerDetectorBoundaryDefect_eq_leftCoDefect_comp_rightFactor
+#check @norm_suffixActualBandPolarBoundaryRightFactor_le_detector
+#check @norm_suffixEulerDetectorBoundaryDefect_le
+#check @inv_sqrtCoefficient_mul_upperFactor_eq_inv_ambientLossScale
+#check @routeScaledOldCarrierPolarBoundaryChannel
+#check @routeScaledOldCarrierPolarBoundaryChannel_eq_ambientLossScaled
+#check @norm_routeScaledOldCarrierPolarBoundaryChannel_le
+#check @suffixActualBandBaseFirstJetDifferenceKernel
+#check @suffixActualBandPolarBoundaryResidualColumn
+#check
+  @suffixActualBandPolarFirstJetRecurrenceColumn_eq_boundary_add_residual
+#check @routeScaledPolarBoundaryResidualColumn
+#check
+  @routeScaledBalancedPolarFirstJetRecurrenceColumn_eq_boundary_add_residual
+#check @SuffixPolarBoundaryResidualRouteUniformScaledBound
+#check @polarBoundaryResidualRouteUniformScaledBound_to_recurrence
+#check
+  @polarFirstJetRecurrenceRouteUniformScaledBound_to_boundaryResidual
+#check
+  @exists_routeUniformScaledCompleteTargetBound_iff_polarBoundaryResidual
+
+#print axioms suffixActualBandOldCarrierDetectorIntertwining_eq_boundary
+#print axioms
+  suffixEulerDetectorBoundaryDefect_eq_leftCoDefect_comp_rightFactor
+#print axioms norm_suffixActualBandPolarBoundaryRightFactor_le_detector
+#print axioms norm_suffixEulerDetectorBoundaryDefect_le
+#print axioms inv_sqrtCoefficient_mul_upperFactor_eq_inv_ambientLossScale
+#print axioms routeScaledOldCarrierPolarBoundaryChannel_eq_ambientLossScaled
+#print axioms norm_routeScaledOldCarrierPolarBoundaryChannel_le
+#print axioms
+  suffixActualBandPolarFirstJetRecurrenceColumn_eq_boundary_add_residual
+#print axioms
+  routeScaledBalancedPolarFirstJetRecurrenceColumn_eq_boundary_add_residual
+#print axioms polarBoundaryResidualRouteUniformScaledBound_to_recurrence
+#print axioms
+  polarFirstJetRecurrenceRouteUniformScaledBound_to_boundaryResidual
+#print axioms
+  exists_routeUniformScaledCompleteTargetBound_iff_polarBoundaryResidual
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

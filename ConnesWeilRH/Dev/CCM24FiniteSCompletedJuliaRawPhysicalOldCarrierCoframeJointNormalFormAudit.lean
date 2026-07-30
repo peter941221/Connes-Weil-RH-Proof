@@ -1,0 +1,24 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointNormalForm
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointNormalFormAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointNormalForm
+
+#check @coframeJointGapAmbientRow
+#check @coframeJointGapBoundaryResidualRow
+#check @suffixActualBandRawPhysicalOldCarrierSignedTelescope_eq_ambientDifference_add_jointBoundaryResidual
+#check @coframeJointGapBoundaryResidualRowScalarRangeAnnihilation
+#check @SuffixRawOldCarrierCoframeJointBoundaryFactorData.ofResidualRangeAnnihilation
+#check @SuffixRawOldCarrierCoframeJointBoundaryFactorData.toStepReadoutData
+
+#print axioms suffixActualBandRawPhysicalOldCarrierSignedTelescope_eq_ambientDifference_add_jointBoundaryResidual
+#print axioms SuffixRawOldCarrierCoframeJointBoundaryFactorData.ofResidualRangeAnnihilation
+#print axioms SuffixRawOldCarrierCoframeJointBoundaryFactorData.toStepReadoutData
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointNormalFormAudit

@@ -1,0 +1,23 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurTransitionOrientation
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSActualSchurTransitionOrientationAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSActualSchurTransitionOrientation
+
+#check @suffixEulerFrameTransitionAdjoint_sub_actualSchurTransitionAdjoint_eq_transportGapAdjoint_add_transitionSkew
+#check @suffixActualBandNamedSchurTransportAdjointGapRow
+#check @suffixActualBandNamedSchurTransitionSkewRow
+#check @suffixActualBandNamedSchurTransitionGapRow_eq_transportAdjointGapRow_add_transitionSkewRow
+
+#print axioms suffixEulerFrameTransitionAdjoint_sub_actualSchurTransitionAdjoint_eq_transportGapAdjoint_add_transitionSkew
+#print axioms suffixActualBandNamedSchurTransportAdjointGapRow
+#print axioms suffixActualBandNamedSchurTransitionSkewRow
+#print axioms suffixActualBandNamedSchurTransitionGapRow_eq_transportAdjointGapRow_add_transitionSkewRow
+
+end ConnesWeilRH.Dev.CCM24FiniteSActualSchurTransitionOrientationAudit

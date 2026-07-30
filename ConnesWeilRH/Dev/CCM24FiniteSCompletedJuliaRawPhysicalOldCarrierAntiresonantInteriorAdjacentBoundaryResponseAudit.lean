@@ -1,0 +1,22 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAdjacentBoundaryResponse
+
+namespace ConnesWeilRH.Dev
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAdjacentBoundaryResponse
+
+#check @suffixActualBandCompleteBoundaryResponse
+#check @suffixActualBandRawCoframeBoundaryMoment_eq_completeBoundaryResponse
+#check @suffixEulerFrameTransitionAdjoint_comp_reverseTransitionAdjoint_eq_scalar
+#check @signedCompressedInteriorOwner_eq_adjacentCompleteBoundaryResponses
+
+#print axioms suffixActualBandRawCoframeBoundaryMoment_eq_completeBoundaryResponse
+#print axioms suffixEulerFrameTransitionAdjoint_comp_reverseTransitionAdjoint_eq_scalar
+#print axioms signedCompressedInteriorOwner_eq_adjacentCompleteBoundaryResponses
+
+end ConnesWeilRH.Dev

@@ -1,0 +1,54 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossCommutatorReduction
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open AntiresonantFrameLossCommutator
+
+#check @norm_real_smul_le_iff_of_pos
+#check @ambientLossProjection_domination_iff_core
+#check @routeUniformAmbientFrameLossStability_iff_coreProjectionDomination
+#check @newSuffixRangeProjection_eq_semilocalSoninStarProjection
+#check @norm_newSuffixRangeProjection_apply_le
+#check @antiresonantCore_projection_commutator_eq_translation
+#check @antiresonantCore_projection_eq_commutator_add
+#check @translationProjectionCommutator_eq_core_sub_projection
+#check @coreProjectionDomination_of_relativeCommutatorDomination
+#check @relativeCommutatorDomination_of_coreProjectionDomination
+#check
+  @exists_routeUniformAmbientFrameLossStability_iff_relativeCommutatorDomination
+#check
+  @routeUniformAmbientLossFactorOfRawAmbientDominationAndRelativeCommutator
+#check
+  @routeUniformTwoStepFactorOfRawAmbientDominationAndRelativeCommutator
+#check
+  @pairedAdjointCoboundaryEnvelopeBoundOfRawAmbientDominationAndRelativeCommutator
+
+#print axioms norm_real_smul_le_iff_of_pos
+#print axioms ambientLossProjection_domination_iff_core
+#print axioms routeUniformAmbientFrameLossStability_iff_coreProjectionDomination
+#print axioms newSuffixRangeProjection_eq_semilocalSoninStarProjection
+#print axioms norm_newSuffixRangeProjection_apply_le
+#print axioms antiresonantCore_projection_commutator_eq_translation
+#print axioms antiresonantCore_projection_eq_commutator_add
+#print axioms translationProjectionCommutator_eq_core_sub_projection
+#print axioms coreProjectionDomination_of_relativeCommutatorDomination
+#print axioms relativeCommutatorDomination_of_coreProjectionDomination
+#print axioms
+  exists_routeUniformAmbientFrameLossStability_iff_relativeCommutatorDomination
+#print axioms
+  routeUniformAmbientLossFactorOfRawAmbientDominationAndRelativeCommutator
+#print axioms
+  routeUniformTwoStepFactorOfRawAmbientDominationAndRelativeCommutator
+#print axioms
+  pairedAdjointCoboundaryEnvelopeBoundOfRawAmbientDominationAndRelativeCommutator
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

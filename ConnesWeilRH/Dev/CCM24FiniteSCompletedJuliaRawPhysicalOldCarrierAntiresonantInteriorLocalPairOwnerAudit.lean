@@ -1,0 +1,29 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorLocalPairOwner
+
+namespace ConnesWeilRH
+namespace Dev
+namespace
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorLocalPairOwnerAudit
+
+open Source.CCM25Concrete
+open
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorLocalPairOwner
+
+#check localRawDefectPairTarget
+#check @suffixActualBandLocalRawDefectPairData_swap_traceProduct_eq_adjoint
+#check @suffixActualBandSignedCompressedInteriorPairData
+#check @suffixActualBandSignedCompressedInteriorPairData_traceProduct_eq_cofactor
+#check @suffixActualBandSignedCompressedInteriorPairData_traceProduct_eq
+
+#print axioms suffixActualBandLocalRawDefectPairData_swap_traceProduct_eq_adjoint
+#print axioms suffixActualBandSignedCompressedInteriorPairData_traceProduct_eq_cofactor
+#print axioms suffixActualBandSignedCompressedInteriorPairData_traceProduct_eq
+
+end CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorLocalPairOwnerAudit
+end Dev
+end ConnesWeilRH

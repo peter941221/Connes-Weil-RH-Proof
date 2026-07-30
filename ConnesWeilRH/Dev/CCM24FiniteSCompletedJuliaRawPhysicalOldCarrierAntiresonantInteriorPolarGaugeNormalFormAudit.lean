@@ -1,0 +1,62 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPolarGaugeNormalForm
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPolarGaugeNormalForm
+
+#check @suffixActualBandMetricFrameGauge
+#check @suffixActualBandMetricCoframeSqrt_comp_frameGauge
+#check @suffixActualBandMetricFrameGauge_comp_coframeSqrt
+#check @newSuffixFrame_comp_metricFrameGauge_eq_parameterizedSoninFrame
+#check @normalizedPrimeEulerFrameTransport_comp_newSuffixFrame_eq_polarGauge
+#check @suffixEulerFrameTransition_eq_polarGauge
+#check @suffixActualBandBalancedPolarRawMismatchKernel
+#check
+  @suffixActualBandBalancedPolarRawMismatchKernel_eq_metric_sub_firstJet
+#check
+  @suffixActualBandRoutePolarRawMismatchIntertwiningDefect_eq_polarGaugeDifference
+#check @suffixActualBandAmbientBalancedPolarGaugeDifferenceColumn
+#check
+  @suffixActualBandAmbientMetricFirstJetResidualColumn_eq_polarGaugeDifference
+#check @inv_ambientLossScale_mul_inv_upperFactor_eq_inv_sqrt_coefficient
+#check @routeScaledBalancedPolarGaugeDifferenceColumn
+#check
+  @routeScaledAmbientMetricFirstJetResidualColumn_eq_polarGaugeDifference
+#check @SuffixBalancedPolarGaugeRouteUniformScaledDifferenceBound
+#check
+  @metricFirstJetRouteUniformScaledResidualBound_iff_polarGaugeDifference
+#check
+  @exists_routeUniformScaledCompleteTargetBound_iff_polarGaugeDifference
+
+#print axioms suffixActualBandMetricCoframeSqrt_comp_frameGauge
+#print axioms suffixActualBandMetricFrameGauge_comp_coframeSqrt
+#print axioms newSuffixFrame_comp_metricFrameGauge_eq_parameterizedSoninFrame
+#print axioms
+  normalizedPrimeEulerFrameTransport_comp_newSuffixFrame_eq_polarGauge
+#print axioms suffixEulerFrameTransition_eq_polarGauge
+#print axioms
+  suffixActualBandBalancedPolarRawMismatchKernel_eq_metric_sub_firstJet
+#print axioms
+  suffixActualBandRoutePolarRawMismatchIntertwiningDefect_eq_polarGaugeDifference
+#print axioms
+  suffixActualBandAmbientMetricFirstJetResidualColumn_eq_polarGaugeDifference
+#print axioms
+  inv_ambientLossScale_mul_inv_upperFactor_eq_inv_sqrt_coefficient
+#print axioms
+  routeScaledAmbientMetricFirstJetResidualColumn_eq_polarGaugeDifference
+#print axioms
+  metricFirstJetRouteUniformScaledResidualBound_iff_polarGaugeDifference
+#print axioms
+  exists_routeUniformScaledCompleteTargetBound_iff_polarGaugeDifference
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

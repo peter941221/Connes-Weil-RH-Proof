@@ -1,0 +1,40 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPairedCorrelationCoboundary
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorPairedCorrelationCoboundary
+
+#check @inner_translation_sub_translation_add_eq_inner_coboundary
+#check @routePrimeLogAdjointCoboundaryTarget
+#check @routePrimeLogAdjointCoboundaryTarget_eq_adjoint
+#check @routePrimeLogPairedScalarCorrelation_eq_adjointCoboundary
+#check @sum_routePrimeLogPairedScalarCorrelation_eq_adjointCoboundary
+#check @routePrimeLogScalarCorrelationTerm_two_mul_eq
+#check @routePairedAdjointCoboundaryEnvelope
+#check @routePairedScalarCorrelationEnvelope_eq_adjointCoboundaryEnvelope
+#check @SuffixCompleteCoupledRoutePairedAdjointCoboundaryEnvelopeBound
+#check @routePairedAdjointCoboundaryEnvelope_iff_pairedEnvelope
+#check @routePairedAdjointCoboundaryEnvelope_iff_pointwiseFiniteHorizonReadout
+
+#print axioms inner_translation_sub_translation_add_eq_inner_coboundary
+#print axioms routePrimeLogAdjointCoboundaryTarget
+#print axioms routePrimeLogAdjointCoboundaryTarget_eq_adjoint
+#print axioms routePrimeLogPairedScalarCorrelation_eq_adjointCoboundary
+#print axioms sum_routePrimeLogPairedScalarCorrelation_eq_adjointCoboundary
+#print axioms routePrimeLogScalarCorrelationTerm_two_mul_eq
+#print axioms routePairedAdjointCoboundaryEnvelope
+#print axioms routePairedScalarCorrelationEnvelope_eq_adjointCoboundaryEnvelope
+#print axioms routePairedAdjointCoboundaryEnvelope_iff_pairedEnvelope
+#print axioms routePairedAdjointCoboundaryEnvelope_iff_pointwiseFiniteHorizonReadout
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

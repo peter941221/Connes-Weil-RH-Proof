@@ -1,0 +1,35 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorInfiniteHorizonTail
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorInfiniteHorizonTail
+
+#check @cc20GlobalLogTranslation_pow_apply
+#check @neg_cc20GlobalLogTranslation_pow_apply
+#check @inner_cc20GlobalLogTranslation_nat_mul_tendsto_zero
+#check @inner_cc20GlobalLogTranslation_pow_tendsto_zero
+#check @compact_output_tendsto_zero_of_inner_tendsto_zero
+#check @suffixActualBandCompleteCoupledAmbientTarget_unit_isCompactOperator
+#check @suffixActualBandFiniteHorizonCoupledTail_unit_apply_tendsto_zero
+#check @finiteHorizonReadout_comp_rawColumn_unit_apply_tendsto_interior
+
+#print axioms cc20GlobalLogTranslation_pow_apply
+#print axioms neg_cc20GlobalLogTranslation_pow_apply
+#print axioms inner_cc20GlobalLogTranslation_nat_mul_tendsto_zero
+#print axioms inner_cc20GlobalLogTranslation_pow_tendsto_zero
+#print axioms compact_output_tendsto_zero_of_inner_tendsto_zero
+#print axioms suffixActualBandCompleteCoupledAmbientTarget_unit_isCompactOperator
+#print axioms suffixActualBandFiniteHorizonCoupledTail_unit_apply_tendsto_zero
+#print axioms finiteHorizonReadout_comp_rawColumn_unit_apply_tendsto_interior
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

@@ -1,0 +1,23 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOnePrimeMomentNorm
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOnePrimeMomentNormAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOnePrimeMomentNorm
+
+#check @rawCoframeBoundaryMoment_norm_le
+#check @norm_smul_rawCoframeBoundaryMoment_le_three_mul_detector
+#check @norm_schurMarkovScaledRawCoframeBoundaryMoment_le_three_mul_detector
+#check @norm_onePrimeRawCoframeBoundaryMoment_le_twentyFour_mul_detector
+
+#print axioms rawCoframeBoundaryMoment_norm_le
+#print axioms norm_smul_rawCoframeBoundaryMoment_le_three_mul_detector
+#print axioms norm_schurMarkovScaledRawCoframeBoundaryMoment_le_three_mul_detector
+#print axioms norm_onePrimeRawCoframeBoundaryMoment_le_twentyFour_mul_detector
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOnePrimeMomentNormAudit

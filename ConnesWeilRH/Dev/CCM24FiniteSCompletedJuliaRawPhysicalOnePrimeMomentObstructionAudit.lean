@@ -1,0 +1,25 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOnePrimeMomentObstruction
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOnePrimeMomentObstructionAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOnePrimeMomentObstruction
+
+#check @onePrimeBoundaryMoment
+#check @primeSchurMarkovScalar_inv_le_eight
+#check @norm_primeSchurMarkovScalar_inv_le_eight
+#check @onePrimeBoundaryMoment_oldCarrier_norm_le
+#check @noExistsUniformOldCarrierDomination_of_onePrimeMomentApproximateKernel
+
+#print axioms onePrimeBoundaryMoment
+#print axioms primeSchurMarkovScalar_inv_le_eight
+#print axioms norm_primeSchurMarkovScalar_inv_le_eight
+#print axioms onePrimeBoundaryMoment_oldCarrier_norm_le
+#print axioms noExistsUniformOldCarrierDomination_of_onePrimeMomentApproximateKernel
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOnePrimeMomentObstructionAudit

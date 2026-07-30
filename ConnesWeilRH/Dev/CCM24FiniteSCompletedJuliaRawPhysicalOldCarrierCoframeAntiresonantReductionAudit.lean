@@ -1,0 +1,31 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeAntiresonantReduction
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeAntiresonantReductionAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeAntiresonantReduction
+
+#check @scalarFreeFactorization
+#check @suffixEulerFrameNewRangeComplement_isStarProjection
+#check @suffixEulerFrameNewRangeComplement_norm_le_one
+#check @suffixEulerFrameNewRangeAmbientLossLift_norm_le_two
+#check @suffixEulerFrameAmbientBoundaryOldCarrierAnalysis_comp_newFrame_eq_lift_comp_ambientLoss
+#check @newFrameAntiresonantReadout_norm_le
+#check @newFrameAntiresonantReadout_factorization
+#check @reducedRow_newFrame_norm_le_ambientLoss_of_responseReadout
+
+#print axioms scalarFreeFactorization
+#print axioms suffixEulerFrameNewRangeComplement_isStarProjection
+#print axioms suffixEulerFrameNewRangeComplement_norm_le_one
+#print axioms suffixEulerFrameNewRangeAmbientLossLift_norm_le_two
+#print axioms suffixEulerFrameAmbientBoundaryOldCarrierAnalysis_comp_newFrame_eq_lift_comp_ambientLoss
+#print axioms newFrameAntiresonantReadout_norm_le
+#print axioms newFrameAntiresonantReadout_factorization
+#print axioms reducedRow_newFrame_norm_le_ambientLoss_of_responseReadout
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeAntiresonantReductionAudit

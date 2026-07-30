@@ -1,0 +1,16 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoDefectBridge
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoDefectBridgeAudit
+
+#check @ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoDefectBridge.SuffixRawCoDefectFactorData.toOldCarrierDomination
+#check @ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoDefectBridge.SuffixRawCoDefectUniformFactorData.toOldCarrierUniformDomination
+
+#print axioms ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoDefectBridge.SuffixRawCoDefectFactorData.toOldCarrierDomination
+#print axioms ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoDefectBridge.SuffixRawCoDefectUniformFactorData.toOldCarrierUniformDomination
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoDefectBridgeAudit

@@ -1,0 +1,19 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointGapExpansion
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointGapExpansionAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointGapExpansion
+
+#check @coframeBoundaryMomentGap_eq_leakage_channel_telescope
+#check @coframeBoundaryMomentGap_eq_ambientGap_add_forwardGap
+
+#print axioms coframeBoundaryMomentGap_eq_leakage_channel_telescope
+#print axioms coframeBoundaryMomentGap_eq_ambientGap_add_forwardGap
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointGapExpansionAudit

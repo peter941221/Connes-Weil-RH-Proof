@@ -1,0 +1,25 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorRadialBracketComparison
+
+namespace ConnesWeilRH.Dev
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSAntiresonantInteriorRadialBracketComparison
+
+#check @primeEulerSourceCompressedCorrectedQuotientBracket
+#check @primeEulerSourceCompressedCorrectedQuotientBracket_eq_physical
+#check @suffixActualBandCorrectedBracketDressingResidual
+#check @primeEulerCorrectedBracketTransitionCovarianceDefect
+#check @suffixActualBandCorrectedBracketDressingAdjacentDefect
+#check @adjacentResponse_eq_covariance_add_dressing
+#check @signedCompressedInteriorOwner_eq_correctedBracketCovariance_add_dressing
+
+#print axioms primeEulerSourceCompressedCorrectedQuotientBracket_eq_physical
+#print axioms adjacentResponse_eq_covariance_add_dressing
+#print axioms signedCompressedInteriorOwner_eq_correctedBracketCovariance_add_dressing
+
+end ConnesWeilRH.Dev

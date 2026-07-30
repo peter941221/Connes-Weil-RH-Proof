@@ -1,0 +1,21 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSignedTelescope
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSignedTelescopeAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSignedTelescope
+
+#check @suffixActualBandRawPhysicalReducedRow_eq_signedTelescope
+#check @suffixActualBandRawPhysicalReducedRow_eq_rawResponseAdjoint_signedTelescope
+#check @suffixActualBandRawPhysicalOldCarrierSignedTelescope_comp_oldFrameComplement_eq_zero
+
+#print axioms suffixActualBandRawPhysicalReducedRow_eq_signedTelescope
+#print axioms suffixActualBandRawPhysicalReducedRow_eq_rawResponseAdjoint_signedTelescope
+#print axioms suffixActualBandRawPhysicalOldCarrierSignedTelescope_comp_oldFrameComplement_eq_zero
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSignedTelescopeAudit

@@ -1,0 +1,40 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorTwoStepCoboundaryFactorization
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorTwoStepCoboundaryFactorization
+
+#check @sum_range_sub_succ_eq_sub
+#check @sum_inner_translation_twoStepCoboundary_eq_endpoints
+#check @routeScaledPrimeLogAdjointCoboundaryTarget
+#check @scaled_sum_routePrimeLogPairedScalarCorrelation_eq_scaledTarget
+#check @RouteScaledTwoStepCoboundaryFactorData
+#check @SuffixCompleteCoupledRouteUniformScaledTwoStepCoboundaryFactor
+#check @norm_scaled_paired_prefix_le_of_twoStepFactor
+#check @pairedAdjointCoboundaryEnvelopeBound_of_size_and_twoStepFactor
+#check @routePointwiseFiniteHorizonReadoutBound_of_size_and_twoStepFactor
+#check @exists_routeUniformRawAmbientDomination_of_size_and_twoStepFactor
+#check @exists_routeUniformRenewedAmbientDomination_of_size_and_twoStepFactor
+
+#print axioms sum_range_sub_succ_eq_sub
+#print axioms sum_inner_translation_twoStepCoboundary_eq_endpoints
+#print axioms routeScaledPrimeLogAdjointCoboundaryTarget
+#print axioms scaled_sum_routePrimeLogPairedScalarCorrelation_eq_scaledTarget
+#print axioms RouteScaledTwoStepCoboundaryFactorData
+#print axioms norm_scaled_paired_prefix_le_of_twoStepFactor
+#print axioms pairedAdjointCoboundaryEnvelopeBound_of_size_and_twoStepFactor
+#print axioms routePointwiseFiniteHorizonReadoutBound_of_size_and_twoStepFactor
+#print axioms exists_routeUniformRawAmbientDomination_of_size_and_twoStepFactor
+#print axioms exists_routeUniformRenewedAmbientDomination_of_size_and_twoStepFactor
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH

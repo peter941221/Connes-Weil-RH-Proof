@@ -1,0 +1,19 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSpectralGapObstruction
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSpectralGapObstructionAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSpectralGapObstruction
+
+#check @noExistsUniformOldCarrierSpectralGap_of_nonzero_source_column
+#check @noExistsUniformOldCarrierSpectralGap_of_nonzero_source_column_arithmeticPrimes
+
+#print axioms noExistsUniformOldCarrierSpectralGap_of_nonzero_source_column
+#print axioms noExistsUniformOldCarrierSpectralGap_of_nonzero_source_column_arithmeticPrimes
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierSpectralGapObstructionAudit

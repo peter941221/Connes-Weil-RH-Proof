@@ -1,0 +1,25 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierLeakageExpansion
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierLeakageExpansionAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierLeakageExpansion
+
+#check @suffixActualBandRawCoframeBoundaryMoment_eq_leakage_channels
+#check @suffixActualBandRawPhysicalOldCarrierSignedTelescope_eq_leakage_telescopes
+#check @suffixEulerFrameAmbientBoundaryReadoutOfRows_comp_oldCarrierAnalysis
+#check @SuffixRawOldCarrierTwoChannelFactorData.toOldCarrierDomination
+#check @SuffixRawOldCarrierTwoChannelUniformFactorData.toUniformDomination
+
+#print axioms suffixActualBandRawCoframeBoundaryMoment_eq_leakage_channels
+#print axioms suffixActualBandRawPhysicalOldCarrierSignedTelescope_eq_leakage_telescopes
+#print axioms suffixEulerFrameAmbientBoundaryReadoutOfRows_comp_oldCarrierAnalysis
+#print axioms SuffixRawOldCarrierTwoChannelFactorData.toOldCarrierDomination
+#print axioms SuffixRawOldCarrierTwoChannelUniformFactorData.toUniformDomination
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierLeakageExpansionAudit

@@ -1,0 +1,23 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointReadout
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointReadoutAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointReadout
+
+#check @SuffixRawOldCarrierCoframeJointReadoutData.ofDomination
+#check @SuffixRawOldCarrierCoframeJointReadoutData.factorization_rows
+#check @SuffixRawOldCarrierCoframeUniformJointReadoutData.ofUniformDomination
+#check @SuffixRawOldCarrierCoframeUniformJointReadoutData.toUniformDomination
+
+#print axioms SuffixRawOldCarrierCoframeJointReadoutData.ofDomination
+#print axioms SuffixRawOldCarrierCoframeJointReadoutData.factorization_rows
+#print axioms SuffixRawOldCarrierCoframeUniformJointReadoutData.ofUniformDomination
+#print axioms SuffixRawOldCarrierCoframeUniformJointReadoutData.toUniformDomination
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierCoframeJointReadoutAudit

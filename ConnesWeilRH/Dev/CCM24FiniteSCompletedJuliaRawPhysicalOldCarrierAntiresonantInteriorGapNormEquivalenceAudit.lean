@@ -1,0 +1,23 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorGapNormEquivalence
+
+namespace ConnesWeilRH.Dev
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorGap
+
+#check @signedCompressedInteriorOwner_comp_transitionAdjoint_eq_scalar_gap
+#check @norm_signedCompressedInteriorOwner_le_gap
+#check @one_eighth_mul_norm_gap_le_signedCompressedInteriorOwner
+#check @norm_gap_le_eight_mul_signedCompressedInteriorOwner
+
+#print axioms signedCompressedInteriorOwner_comp_transitionAdjoint_eq_scalar_gap
+#print axioms norm_signedCompressedInteriorOwner_le_gap
+#print axioms one_eighth_mul_norm_gap_le_signedCompressedInteriorOwner
+#print axioms norm_gap_le_eight_mul_signedCompressedInteriorOwner
+
+end ConnesWeilRH.Dev
