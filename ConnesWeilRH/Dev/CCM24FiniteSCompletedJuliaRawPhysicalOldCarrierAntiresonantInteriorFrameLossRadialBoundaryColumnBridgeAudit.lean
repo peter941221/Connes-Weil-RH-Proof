@@ -1,0 +1,39 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryColumnBridge
+
+/-!
+# Import-facing audit for the radial boundary column bridge
+
+The audit checks the exact source-side projection/readout identities and the
+conditional factorization consumer.  It is deliberately separate from the
+source module so the public declarations can be checked for an axiom-clean
+dependency set.
+-/
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryColumnBridgeAudit
+
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.AntiresonantFrameLossRadialBoundaryColumnBridge
+
+#check @finitePrimeEulerRadialGeometricBoundaryFirstCoordinate_apply
+#check @newSuffixRangeProjection_comp_newSuffixFrame_eq_frame
+#check @radialSoninBoundaryCrossing_comp_newSuffixFrame_eq_boundaryStep
+#check @radialSoninBoundaryCrossing_comp_newSuffixFrame_eq_inv_smul_firstCoordinate
+#check @canonicalRadialBoundarySourceColumnFactorizationData
+#check @norm_radialSoninBoundaryCrossing_comp_newSuffixFrame_apply_le_of_data
+#check @normSq_radialSoninBoundaryCrossing_comp_newSuffixFrame_apply_le_of_data
+
+#print axioms finitePrimeEulerRadialGeometricBoundaryFirstCoordinate_apply
+#print axioms newSuffixRangeProjection_comp_newSuffixFrame_eq_frame
+#print axioms radialSoninBoundaryCrossing_comp_newSuffixFrame_eq_boundaryStep
+#print axioms radialSoninBoundaryCrossing_comp_newSuffixFrame_eq_inv_smul_firstCoordinate
+#print axioms canonicalRadialBoundarySourceColumnFactorizationData
+#print axioms norm_radialSoninBoundaryCrossing_comp_newSuffixFrame_apply_le_of_data
+#print axioms normSq_radialSoninBoundaryCrossing_comp_newSuffixFrame_apply_le_of_data
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryColumnBridgeAudit
