@@ -1,0 +1,27 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerCommonRootPairDataTraceConsumer
+
+namespace ConnesWeilRH
+namespace Dev
+namespace
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerCommonRootPairDataTraceConsumerAudit
+
+open Source.CCM25Concrete
+open AntiresonantFrameLossRadialPhysicalOwnerCommonRootPairData
+open AntiresonantFrameLossRadialPhysicalOwnerCommonRootPairDataTraceConsumer
+
+#check @RadialSignedPhysicalOwnerPairData.isTraceClassAlong
+#check @RadialSignedPhysicalOwnerPairData.isCompactOperator
+#check @RadialSignedOwnerRootS2Producer.sandwichedOwner_isTraceClassAlong_of_pairData
+
+#print axioms RadialSignedPhysicalOwnerPairData.isTraceClassAlong
+#print axioms RadialSignedPhysicalOwnerPairData.isCompactOperator
+#print axioms RadialSignedOwnerRootS2Producer.sandwichedOwner_isTraceClassAlong_of_pairData
+
+end CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerCommonRootPairDataTraceConsumerAudit
+end Dev
+end ConnesWeilRH
