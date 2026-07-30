@@ -1,0 +1,31 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryCauchyDefect
+
+/-!
+# Import-facing audit for the radial boundary Cauchy defect
+-/
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryCauchyDefectAudit
+
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.AntiresonantFrameLossRadialBoundaryCauchyDefect
+open ConnesWeilRH.Source.CCM25Concrete.AntiresonantFrameLossRadialPhysicalOwnerCommonRootPairData
+
+#check @cauchyPair_traceProduct_eq
+#check @radialSoninBoundaryCauchyDefect_eq_complementCompression
+#check @radialSoninBoundaryCauchyDefect_isPositive
+#check @RadialSignedPhysicalOwnerPairData.boundaryCauchyPair_traceProduct_eq
+#check @RadialSignedPhysicalOwnerPairData.boundaryCauchyPair_traceProduct_eq_defect
+
+#print axioms cauchyPair_traceProduct_eq
+#print axioms radialSoninBoundaryCauchyDefect_eq_complementCompression
+#print axioms radialSoninBoundaryCauchyDefect_isPositive
+#print axioms RadialSignedPhysicalOwnerPairData.boundaryCauchyPair_traceProduct_eq
+#print axioms RadialSignedPhysicalOwnerPairData.boundaryCauchyPair_traceProduct_eq_defect
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryCauchyDefectAudit
