@@ -1,0 +1,23 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerRootSandwichFiniteSEndpointAlignment
+
+namespace ConnesWeilRH
+namespace Dev
+namespace
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerRootSandwichFiniteSEndpointAlignmentAudit
+
+open Source.CCM25Concrete
+open AntiresonantFrameLossRadialPhysicalOwnerRootSandwich
+open AntiresonantFrameLossRadialPhysicalOwnerRootSandwichFiniteSEndpointAlignment
+
+#check @RadialSignedOwnerRootS2Producer.response_eq_targetThreeBranch_add_boundary
+
+#print axioms RadialSignedOwnerRootS2Producer.response_eq_targetThreeBranch_add_boundary
+
+end CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerRootSandwichFiniteSEndpointAlignmentAudit
+end Dev
+end ConnesWeilRH
