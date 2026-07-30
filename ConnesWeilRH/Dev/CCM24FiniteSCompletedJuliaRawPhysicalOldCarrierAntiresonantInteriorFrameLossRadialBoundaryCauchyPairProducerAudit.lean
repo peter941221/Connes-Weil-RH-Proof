@@ -1,0 +1,30 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryCauchyPairProducer
+
+/-!
+# Import-facing audit for the conditional Cauchy-defect pair producer
+-/
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryCauchyPairProducerAudit
+
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.AntiresonantFrameLossRadialBoundaryCauchyPairProducer
+
+#check @radialSoninBoundaryCauchyDefect_comp_newSuffixRangeProjection_eq_self
+#check @newSuffixRangeProjection_comp_radialSoninBoundaryCauchyDefect_eq_self
+#check @radialSoninBoundaryCauchyPairData_traceProduct_eq_defect
+#check @radialSoninBoundaryCauchyPairData_isTraceClassAlong
+#check @radialSoninBoundaryCauchyPairDataOfTraceClass_traceProduct_eq_defect
+
+#print axioms radialSoninBoundaryCauchyDefect_comp_newSuffixRangeProjection_eq_self
+#print axioms newSuffixRangeProjection_comp_radialSoninBoundaryCauchyDefect_eq_self
+#print axioms radialSoninBoundaryCauchyPairData_traceProduct_eq_defect
+#print axioms radialSoninBoundaryCauchyPairData_isTraceClassAlong
+#print axioms radialSoninBoundaryCauchyPairDataOfTraceClass_traceProduct_eq_defect
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryCauchyPairProducerAudit
