@@ -156,6 +156,28 @@ theorem RadialSignedOwnerRootS2Producer.sandwichedOwner_ordinaryTrace_norm_le
   exact CCM24FiniteSCommonBoundaryPair.commonRootS2Producer_ordinaryTrace_norm_le
     producer.base
 
+/-- A route-uniform root-energy and left-factor bound passes through the
+complete signed owner without separating its two carrier channels. -/
+theorem RadialSignedOwnerRootS2Producer.sandwichedOwner_ordinaryTrace_norm_le_of_bounds
+    {ι K G : Type*}
+    [NormedAddCommGroup K] [InnerProductSpace ℂ K] [CompleteSpace K]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    {sourceBasis : HilbertBasis ι ℂ finiteSCarrier}
+    (producer : RadialSignedOwnerRootS2Producer (K := K) (G := G)
+      sourceBasis)
+    (rootBound leftFactorBound : ℝ)
+    (hroot : (∑' i, ‖producer.base.root (sourceBasis i)‖ ^ 2) ≤ rootBound)
+    (hroot_nonneg : 0 ≤ rootBound)
+    (hleft : ‖producer.base.leftFactor‖ ≤ leftFactorBound)
+    (hleft_nonneg : 0 ≤ leftFactorBound) :
+    ‖PositiveTrace.ordinaryTraceAlong sourceBasis
+      (producer.leftSandwich ∘L radialSignedPhysicalOwner producer.p producer.S
+        ∘L producer.rightSandwich)‖ ≤
+      (1 / 2 : ℝ) * (leftFactorBound ^ 2 + 1) * rootBound := by
+  rw [← producer.response_eq_owner]
+  exact CCM24FiniteSCommonBoundaryPair.commonRootS2Producer_ordinaryTrace_norm_le_of_bounds
+    producer.base rootBound leftFactorBound hroot hroot_nonneg hleft hleft_nonneg
+
 end AntiresonantFrameLossRadialPhysicalOwnerRootSandwich
 end CCM25Concrete
 end Source

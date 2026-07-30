@@ -38,6 +38,11 @@ The module proves, from the common-root fields only:
 - compactness after supplying a target Hilbert basis;
 - the generic ordinary-trace norm bound without branchwise absolute values.
 
+It also exposes a direct consumer form: any supplied uniform bound on the
+common root energy and on the left factor gives a uniform ordinary-trace bound
+for the complete signed owner, with the same fixed constant as the generic
+common-root theorem.
+
 These are interface and legality results.  They do not prove the missing
 route-uniform Gate 3U bound, finite-`S` sign, Burnol identity, or RH.
 
@@ -68,5 +73,5 @@ Results:
 +----------------------+-------+--------+
 ```
 
-The five audited theorems use exactly
+The six audited theorems use exactly
 `[propext, Classical.choice, Quot.sound]`.
