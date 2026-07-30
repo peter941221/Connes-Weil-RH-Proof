@@ -1,0 +1,32 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerRootSandwich
+
+namespace ConnesWeilRH
+namespace Dev
+namespace
+  CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerRootSandwichAudit
+
+open Source.CCM25Concrete
+open
+  AntiresonantFrameLossRadialPhysicalOwnerRootSandwich
+
+#check RadialSignedOwnerRootS2Producer
+#check @RadialSignedOwnerRootS2Producer.response_eq_twoCarrierNormalForm
+#check @RadialSignedOwnerRootS2Producer.isTraceClassAlong
+#check @RadialSignedOwnerRootS2Producer.sandwichedOwner_isTraceClassAlong
+#check @RadialSignedOwnerRootS2Producer.sandwichedOwner_isCompactOperator
+#check @RadialSignedOwnerRootS2Producer.sandwichedOwner_ordinaryTrace_norm_le
+
+#print axioms RadialSignedOwnerRootS2Producer.response_eq_twoCarrierNormalForm
+#print axioms RadialSignedOwnerRootS2Producer.isTraceClassAlong
+#print axioms RadialSignedOwnerRootS2Producer.sandwichedOwner_isTraceClassAlong
+#print axioms RadialSignedOwnerRootS2Producer.sandwichedOwner_isCompactOperator
+#print axioms RadialSignedOwnerRootS2Producer.sandwichedOwner_ordinaryTrace_norm_le
+
+end CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerRootSandwichAudit
+end Dev
+end ConnesWeilRH
