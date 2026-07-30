@@ -1,0 +1,26 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialPhysicalOwnerComplement
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+
+open AntiresonantFrameLossRadialPhysicalOwnerComplement
+
+#check @radialComplement_comp_radialSupportProjection_eq_zero
+#check @radialComplement_comp_radialInteriorSoninCommutator_eq_zero
+#check @radialComplement_comp_radialSoninBoundaryCrossing_eq_self
+#check @radialComplement_comp_radialSignedPhysicalOwner_eq_boundary
+
+#print axioms radialComplement_comp_radialSupportProjection_eq_zero
+#print axioms radialComplement_comp_radialInteriorSoninCommutator_eq_zero
+#print axioms radialComplement_comp_radialSoninBoundaryCrossing_eq_self
+#print axioms radialComplement_comp_radialSignedPhysicalOwner_eq_boundary
+
+end CCM25Concrete
+end Source
+end ConnesWeilRH
