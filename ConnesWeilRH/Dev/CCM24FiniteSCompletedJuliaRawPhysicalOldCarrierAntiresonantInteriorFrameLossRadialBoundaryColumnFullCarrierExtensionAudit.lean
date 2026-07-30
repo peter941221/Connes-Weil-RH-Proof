@@ -1,0 +1,28 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryColumnFullCarrierExtension
+
+/-!
+# Import-facing audit for the full-carrier radial column extension
+-/
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryColumnFullCarrierExtensionAudit
+
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.AntiresonantFrameLossRadialBoundaryColumnFullCarrierExtension
+
+#check @newSuffixRangeProjection_comp_self_eq
+#check @radialSoninBoundaryCrossing_comp_newSuffixRangeProjection_eq_self
+#check @fullCarrierBoundaryChannelReadout_eq_radialSoninBoundaryCrossing
+#check @norm_fullCarrierBoundaryChannelReadout_apply_le
+
+#print axioms newSuffixRangeProjection_comp_self_eq
+#print axioms radialSoninBoundaryCrossing_comp_newSuffixRangeProjection_eq_self
+#print axioms fullCarrierBoundaryChannelReadout_eq_radialSoninBoundaryCrossing
+#print axioms norm_fullCarrierBoundaryChannelReadout_apply_le
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryColumnFullCarrierExtensionAudit
