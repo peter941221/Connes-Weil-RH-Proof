@@ -1,0 +1,30 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryCauchyEnergy
+
+/-!
+# Import-facing audit for the radial boundary Cauchy-energy criterion
+-/
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryCauchyEnergyAudit
+
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.AntiresonantFrameLossRadialBoundaryCauchyEnergy
+
+#check @radialSoninBoundaryCauchyDefect_isTraceClassAlong_of_boundaryCrossing_summable
+#check @radialSoninBoundaryCrossing_summable_of_cauchyDefect_isTraceClassAlong
+#check @radialSoninBoundaryCrossing_summable_iff_cauchyDefect_isTraceClassAlong
+#check @radialSoninBoundaryCauchyDefect_ordinaryTrace_eq_crossingEnergy
+#check @RadialSignedPhysicalOwnerPairData.boundaryCrossing_summable_of_pairData
+
+#print axioms radialSoninBoundaryCauchyDefect_isTraceClassAlong_of_boundaryCrossing_summable
+#print axioms radialSoninBoundaryCrossing_summable_of_cauchyDefect_isTraceClassAlong
+#print axioms radialSoninBoundaryCrossing_summable_iff_cauchyDefect_isTraceClassAlong
+#print axioms radialSoninBoundaryCauchyDefect_ordinaryTrace_eq_crossingEnergy
+#print axioms RadialSignedPhysicalOwnerPairData.boundaryCrossing_summable_of_pairData
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundaryCauchyEnergyAudit
