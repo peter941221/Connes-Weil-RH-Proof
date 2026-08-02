@@ -419,6 +419,7 @@ import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSGatePhysicalNormalizedRealT
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSGatePhysicalRealTraceHandoff
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSGatePhysicalTargetHermitianPrefix
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSGatePhysicalCompletedKernelBridge
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSGatePhysicalCanonicalCompletedKernel
 
 /-!
 # CCM25 concrete normalization spine
