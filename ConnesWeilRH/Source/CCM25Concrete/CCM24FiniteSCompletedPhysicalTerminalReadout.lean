@@ -203,6 +203,24 @@ noncomputable def physicalBoundaryDaggerTarget
     H →L[ℂ] G :=
   rightLeg ∘L endpoint - rightLeg ∘L inclusion ∘L survivor
 
+/-- The terminal contribution and the boundary-dagger target reconstruct the
+endpoint only after the common source input is composed on the right. -/
+theorem physicalBoundaryDaggerTarget_comp_input_add_terminal_comp_input_eq_endpoint_comp_input
+    {H G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    (rightLeg : finiteSCarrier →L[ℂ] G)
+    (endpoint inclusion : H →L[ℂ] finiteSCarrier)
+    (survivor input : H →L[ℂ] H) :
+    (rightLeg ∘L inclusion ∘L survivor) ∘L input +
+        physicalBoundaryDaggerTarget rightLeg endpoint inclusion survivor ∘L input =
+      (rightLeg ∘L endpoint) ∘L input := by
+  apply ContinuousLinearMap.ext
+  intro x
+  simp only [physicalBoundaryDaggerTarget, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.comp_apply, ContinuousLinearMap.sub_apply]
+  abel
+
 structure PhysicalBoundaryDaggerReadoutContract
     {H K G : Type*}
     [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
@@ -271,6 +289,161 @@ theorem PhysicalBoundaryDaggerReadoutContract.exists_completed_readout
     _ = readout
         (completedRectangularBoundaryColumn steps (input x)) := by
       simpa only [readout, ContinuousLinearMap.comp_apply] using hcolumn.symm
+
+set_option maxHeartbeats 4000000 in
+-- Quantitative version used by the completed-history handoff.
+/-- Exact component assembly with the joint readout norm left visible.
+This is the form needed when the source theorem proves a uniform constant
+rather than the sharper contractive bound. -/
+theorem PhysicalBoundaryDaggerReadoutContract.exists_completed_readout_of_norm_le
+    {H K G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup K] [InnerProductSpace ℂ K] [CompleteSpace K]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    (steps : List (CCM24FiniteSJuliaCoDefect.RectangularSchurCoDefectStepData
+      H K))
+    (input : H →L[ℂ] H)
+    (target : H →L[ℂ] G)
+    (data : PhysicalBoundaryDaggerReadoutContract steps input target)
+    (terminalReadout : H →L[ℂ] G)
+    (terminalColumn endpointColumn : H →L[ℂ] G)
+    (bound : ℝ)
+    (hterminal :
+      terminalReadout ∘L
+          juliaSurvivor (steps.map
+            (fun step => step.toAdjointCoDefectJuliaStep)) ∘L input =
+        terminalColumn)
+    (hendpoint :
+      terminalColumn + target ∘L input = endpointColumn)
+    (hjoint :
+      ‖completedRectangularBoundaryReadoutOfComponents steps terminalReadout
+          data.readout‖ ≤ bound) :
+    ∃ readout : completedRectangularBoundaryCarrier steps →L[ℂ] G,
+      ‖readout‖ ≤ bound ∧
+        endpointColumn =
+          readout ∘L completedRectangularBoundaryColumn steps ∘L input := by
+  let readout : completedRectangularBoundaryCarrier steps →L[ℂ] G :=
+    completedRectangularBoundaryReadoutOfComponents steps terminalReadout
+      data.readout
+  refine ⟨readout, hjoint, ?_⟩
+  have hcomponent :=
+    completedRectangularBoundaryReadoutOfComponents_comp_column_eq_add
+      steps input terminalReadout data.readout terminalColumn
+      (target ∘L input) hterminal data.factorization
+  apply ContinuousLinearMap.ext
+  intro x
+  have hsum := congrArg
+    (fun operator : H →L[ℂ] G => operator x) hendpoint
+  have hcolumn := congrArg
+    (fun operator : H →L[ℂ] G => operator x) hcomponent
+  calc
+    endpointColumn x = terminalColumn x + (target ∘L input) x := by
+      simpa only [ContinuousLinearMap.add_apply,
+        ContinuousLinearMap.comp_apply] using hsum.symm
+    _ = readout
+        (completedRectangularBoundaryColumn steps (input x)) := by
+      simpa only [readout, ContinuousLinearMap.comp_apply] using hcolumn.symm
+
+set_option maxHeartbeats 4000000 in
+-- The dependent endpoint tuple requires extra elaboration time.
+/-- The physical boundary contract assembles with the terminal equation at
+the only compositionally valid endpoint: the endpoint is still composed with
+the common source input. -/
+theorem
+    PhysicalBoundaryDaggerReadoutContract.exists_completed_readout_of_physicalBoundaryDaggerTarget
+    {H K G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup K] [InnerProductSpace ℂ K] [CompleteSpace K]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    (steps : List (CCM24FiniteSJuliaCoDefect.RectangularSchurCoDefectStepData
+      H K))
+    (input : H →L[ℂ] H)
+    (rightLeg : finiteSCarrier →L[ℂ] G)
+    (endpoint inclusion : H →L[ℂ] finiteSCarrier)
+    (survivor : H →L[ℂ] H)
+    (data : PhysicalBoundaryDaggerReadoutContract steps input
+      (physicalBoundaryDaggerTarget rightLeg endpoint inclusion survivor))
+    (terminalReadout : H →L[ℂ] G)
+    (bound : ℝ)
+    (hterminal :
+      terminalReadout ∘L
+          juliaSurvivor (steps.map
+            (fun step => step.toAdjointCoDefectJuliaStep)) ∘L input =
+        (rightLeg ∘L inclusion ∘L survivor) ∘L input)
+    (hjoint :
+      ‖completedRectangularBoundaryReadoutOfComponents steps terminalReadout
+          data.readout‖ ≤ bound) :
+    ∃ readout : completedRectangularBoundaryCarrier steps →L[ℂ] G,
+      ‖readout‖ ≤ bound ∧
+        (rightLeg ∘L endpoint) ∘L input =
+          readout ∘L completedRectangularBoundaryColumn steps ∘L input := by
+  have hendpoint :
+      (rightLeg ∘L inclusion ∘L survivor) ∘L input +
+          physicalBoundaryDaggerTarget rightLeg endpoint inclusion survivor ∘L
+            input =
+        (rightLeg ∘L endpoint) ∘L input :=
+    physicalBoundaryDaggerTarget_comp_input_add_terminal_comp_input_eq_endpoint_comp_input
+      rightLeg endpoint inclusion survivor input
+  exact
+    PhysicalBoundaryDaggerReadoutContract.exists_completed_readout_of_norm_le
+      steps input (physicalBoundaryDaggerTarget rightLeg endpoint inclusion survivor)
+      data terminalReadout
+      ((rightLeg ∘L inclusion ∘L survivor) ∘L input)
+      ((rightLeg ∘L endpoint) ∘L input) bound hterminal hendpoint hjoint
+
+set_option maxHeartbeats 4000000 in
+-- Dense-range cancellation elaborates the dependent completed-history tuple.
+/-- Dense source inputs allow the composed endpoint readback to be extended
+to the whole source carrier.  This is the exact cancellation principle needed
+to remove `input`; it is a separate source obligation and does not follow
+from the completed-history contraction. -/
+theorem
+    PhysicalBoundaryDaggerReadoutContract.exists_completed_readout_of_physicalTarget_of_denseRange
+    {H K G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup K] [InnerProductSpace ℂ K] [CompleteSpace K]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    (steps : List (CCM24FiniteSJuliaCoDefect.RectangularSchurCoDefectStepData
+      H K))
+    (input : H →L[ℂ] H)
+    (rightLeg : finiteSCarrier →L[ℂ] G)
+    (endpoint inclusion : H →L[ℂ] finiteSCarrier)
+    (survivor : H →L[ℂ] H)
+    (data : PhysicalBoundaryDaggerReadoutContract steps input
+      (physicalBoundaryDaggerTarget rightLeg endpoint inclusion survivor))
+    (terminalReadout : H →L[ℂ] G)
+    (bound : ℝ)
+    (hterminal :
+      terminalReadout ∘L
+          juliaSurvivor (steps.map
+            (fun step => step.toAdjointCoDefectJuliaStep)) ∘L input =
+        (rightLeg ∘L inclusion ∘L survivor) ∘L input)
+    (hjoint :
+      ‖completedRectangularBoundaryReadoutOfComponents steps terminalReadout
+          data.readout‖ ≤ bound)
+    (hdense : DenseRange (input : H → H)) :
+    ∃ readout : completedRectangularBoundaryCarrier steps →L[ℂ] G,
+      ‖readout‖ ≤ bound ∧
+        rightLeg ∘L endpoint =
+          readout ∘L completedRectangularBoundaryColumn steps := by
+  obtain ⟨readout, hnorm, hcomposed⟩ :=
+    PhysicalBoundaryDaggerReadoutContract.exists_completed_readout_of_physicalBoundaryDaggerTarget
+      steps input rightLeg endpoint inclusion survivor data terminalReadout
+      bound hterminal hjoint
+  refine ⟨readout, hnorm, ?_⟩
+  have hcore :
+      ((rightLeg ∘L endpoint : H →L[ℂ] G) : H → G) ∘
+          (input : H → H) =
+        ((readout ∘L completedRectangularBoundaryColumn steps :
+          H →L[ℂ] G) : H → G) ∘ (input : H → H) := by
+    funext x
+    exact DFunLike.congr_fun hcomposed x
+  have heq := DenseRange.equalizer hdense
+    (rightLeg ∘L endpoint).continuous
+    (readout ∘L completedRectangularBoundaryColumn steps).continuous hcore
+  apply ContinuousLinearMap.ext
+  intro x
+  exact congrFun heq x
 
 end CCM24FiniteSCompletedPhysicalTerminalReadout
 end CCM25Concrete

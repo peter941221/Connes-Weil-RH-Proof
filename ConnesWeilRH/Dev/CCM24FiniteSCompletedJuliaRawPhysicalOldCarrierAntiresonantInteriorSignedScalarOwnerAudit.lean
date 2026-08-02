@@ -1,0 +1,35 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSignedScalarOwner
+
+/-!
+# Import-facing audit for the complete coupled signed scalar owner
+-/
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSignedScalarOwnerAudit
+
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSignedScalarOwner
+
+#check @canonicalSuffixCompleteCoupledSignedScalarOwner
+#check @target_eq_complete_coboundary
+#check @signedScalarPairedCorrelation_eq_routePrimeLogPairedScalarCorrelation
+#check @signedScalarPairedCorrelation_eq_adjointCoboundary
+#check @routePrimeLogPairedScalarCorrelation_eq_zero_of_compactSupportCancellation
+#check @sum_range_eq_cutoff_of_tail_zero
+#check @sum_signedScalarPairedCorrelation_eq_cutoff_of_compactSupportCancellation
+#check @sum_routePrimeLogPairedScalarCorrelation_eq_cutoff_of_compactSupportCancellation
+
+#print axioms target_eq_complete_coboundary
+#print axioms signedScalarPairedCorrelation_eq_routePrimeLogPairedScalarCorrelation
+#print axioms signedScalarPairedCorrelation_eq_adjointCoboundary
+#print axioms routePrimeLogPairedScalarCorrelation_eq_zero_of_compactSupportCancellation
+#print axioms sum_range_eq_cutoff_of_tail_zero
+#print axioms sum_signedScalarPairedCorrelation_eq_cutoff_of_compactSupportCancellation
+#print axioms sum_routePrimeLogPairedScalarCorrelation_eq_cutoff_of_compactSupportCancellation
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSignedScalarOwnerAudit

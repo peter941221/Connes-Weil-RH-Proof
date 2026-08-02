@@ -410,6 +410,62 @@ theorem sourceActualBandCombinedPhysicalRightEnergy_le_of_actualSchurReadout_of_
       rw [hphysicalApply i]
     _ ≤ bound ^ 2 * (∑' i, ‖sourceInput (sourceBasis i)‖ ^ 2) := henergy
 
+/-! ## Generic trace-energy arithmetic -/
+
+/- The physical pair below is an `L2` sum of signed coordinates.  This small
+   lemma keeps the final trace estimate independent of that carrier layout:
+   once the two named-basis energies are available, arithmetic-geometric mean
+   is the only estimate needed. -/
+theorem ordinaryTraceAlong_traceProduct_norm_le_of_energy_bounds
+    {ι H G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    (sourceBasis : HilbertBasis ι ℂ H)
+    (pair : BasisHilbertSchmidtPairData (G := G) sourceBasis)
+    (leftBound rightBound : ℝ)
+    (hleft : (∑' i, ‖pair.left (sourceBasis i)‖ ^ 2) ≤ leftBound)
+    (hright : (∑' i, ‖pair.right (sourceBasis i)‖ ^ 2) ≤ rightBound)
+    (hleft_nonneg : 0 ≤ leftBound) (hright_nonneg : 0 ≤ rightBound) :
+    ‖ordinaryTraceAlong sourceBasis pair.traceProduct‖ ≤
+      (leftBound + rightBound) / 2 := by
+  let leftEnergy := ∑' i, ‖pair.left (sourceBasis i)‖ ^ 2
+  let rightEnergy := ∑' i, ‖pair.right (sourceBasis i)‖ ^ 2
+  have hleftEnergy_nonneg : 0 ≤ leftEnergy := by
+    dsimp only [leftEnergy]
+    exact tsum_nonneg fun i => sq_nonneg _
+  have hrightEnergy_nonneg : 0 ≤ rightEnergy := by
+    dsimp only [rightEnergy]
+    exact tsum_nonneg fun i => sq_nonneg _
+  have htrace := ordinaryTraceAlong_traceProduct_norm_le_geometricEnergy pair
+  have hleft_sqrt : (Real.sqrt leftEnergy) ^ 2 = leftEnergy :=
+    Real.sq_sqrt hleftEnergy_nonneg
+  have hright_sqrt : (Real.sqrt rightEnergy) ^ 2 = rightEnergy :=
+    Real.sq_sqrt hrightEnergy_nonneg
+  have hleftEnergy_le : leftEnergy ≤ leftBound := by
+    exact hleft
+  have hrightEnergy_le : rightEnergy ≤ rightBound := by
+    exact hright
+  have hgeometric :
+      Real.sqrt leftEnergy * Real.sqrt rightEnergy ≤
+        (leftBound + rightBound) / 2 := by
+    have hleft_sqrt_le : Real.sqrt leftEnergy ≤ Real.sqrt leftBound :=
+      Real.sqrt_le_sqrt hleftEnergy_le
+    have hright_sqrt_le : Real.sqrt rightEnergy ≤ Real.sqrt rightBound :=
+      Real.sqrt_le_sqrt hrightEnergy_le
+    have hamgm :
+        Real.sqrt leftBound * Real.sqrt rightBound ≤
+          (leftBound + rightBound) / 2 := by
+      nlinarith [sq_nonneg (Real.sqrt leftBound - Real.sqrt rightBound),
+        Real.sq_sqrt hleft_nonneg, Real.sq_sqrt hright_nonneg]
+    exact le_trans
+      (mul_le_mul hleft_sqrt_le hright_sqrt_le
+        (Real.sqrt_nonneg _) (Real.sqrt_nonneg _)) hamgm
+  calc
+    ‖ordinaryTraceAlong sourceBasis pair.traceProduct‖ ≤
+        Real.sqrt leftEnergy * Real.sqrt rightEnergy := by
+      simpa only [leftEnergy, rightEnergy] using htrace
+    _ ≤ (leftBound + rightBound) / 2 := hgeometric
+
 /-! ## The sharp raw-remainder consumer -/
 
 set_option maxHeartbeats 3000000 in
@@ -567,6 +623,157 @@ theorem lowerFactorGaugedActualBandCompletedRelativeResponse_trace_norm_le_of_co
     _ = 2 * M := by
       rw [← pow_two, Real.sq_sqrt (mul_nonneg (by norm_num) hM)]
     _ = 2 * fixedPhysicalEnergyMajorant owner lambda a c globalBasis := rfl
+
+set_option maxHeartbeats 3000000 in
+/- The fixed physical source input has energy at most `2 * M`.  The next
+   consumer keeps that honest constant instead of forcing the stronger and
+   currently unavailable `M` estimate on the raw endpoint column. -/
+theorem
+    lowerFactorGaugedActualBandCompletedRelativeResponse_trace_norm_le_of_combinedEnergy_le_twoMajorant
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (a c : ℝ) (hac : a ≤ c)
+    (hsupp : Function.support owner.sourceTest.test ⊆ Set.Icc a c)
+    {iota kappa tau iotaR kappaR tauR nu mu rho : Type*}
+    (negativeBasis : HilbertBasis iota ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryNegativeInputInterval a c))))
+    (positiveBasis : HilbertBasis kappa ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryPositiveInputInterval a c))))
+    (outputBasis : HilbertBasis tau ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c))))
+    (reflectedNegativeBasis : HilbertBasis iotaR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryNegativeInputInterval (-c) (-a)))))
+    (reflectedPositiveBasis : HilbertBasis kappaR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryPositiveInputInterval (-c) (-a)))))
+    (reflectedOutputBasis : HilbertBasis tauR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval (-c) (-a)))))
+    (globalBasis : HilbertBasis nu ℂ finiteSCarrier)
+    (boundaryBasis : HilbertBasis mu ℂ (commonBoundaryCarrier a c))
+    (sourceBasis : HilbertBasis rho ℂ (sourceSoninCarrier lambda))
+    (hfactor : Summable fun i =>
+      ‖sourceProlateHilbertSchmidtFactor lambda (globalBasis i)‖ ^ 2)
+    (hcombined :
+      sourceActualBandCombinedPhysicalRightEnergy owner lambda family a c hac
+          hsupp negativeBasis positiveBasis outputBasis reflectedNegativeBasis
+          reflectedPositiveBasis reflectedOutputBasis globalBasis sourceBasis
+          hfactor ≤
+        2 * fixedPhysicalEnergyMajorant owner lambda a c globalBasis) :
+    ‖ordinaryTraceAlong sourceBasis
+        (CCM24FiniteSRawCompletedGaugeOwner.lowerFactorGaugedActualBandCompletedRelativeResponse
+          owner lambda family)‖ ≤
+      3 * fixedPhysicalEnergyMajorant owner lambda a c globalBasis := by
+  let base := sourceThreeBranchPairData owner lambda a c hac hsupp
+    negativeBasis positiveBasis outputBasis reflectedNegativeBasis
+    reflectedPositiveBasis reflectedOutputBasis globalBasis hfactor
+  let J := sourceInclusion lambda
+  let V := sourceActualBandForwardCoframe lambda family
+  let C := finiteEulerMetricCoframe lambda family
+  let first := sourceActualBandForwardEndpointPairData owner lambda family
+    a c hac hsupp negativeBasis positiveBasis outputBasis
+    reflectedNegativeBasis reflectedPositiveBasis reflectedOutputBasis
+    globalBasis boundaryBasis sourceBasis hfactor
+  let second :=
+    (BasisHilbertSchmidtPairData.boundedPrecomp boundaryBasis sourceBasis
+      base V J).smulRight (-1)
+  let pair := sourceActualBandRawRemainderCommonPairData owner lambda family
+    a c hac hsupp negativeBasis positiveBasis outputBasis
+    reflectedNegativeBasis reflectedPositiveBasis reflectedOutputBasis
+    globalBasis boundaryBasis sourceBasis hfactor
+  let M := fixedPhysicalEnergyMajorant owner lambda a c globalBasis
+  have hJ : ‖J‖ ≤ 1 := by
+    dsimp only [J]
+    exact Submodule.norm_subtypeL_le _
+  have hV : ‖V‖ ≤ 1 := by
+    dsimp only [V]
+    exact norm_sourceActualBandForwardCoframe_le_one lambda family
+  have hbaseLeft :
+      (∑' i, ‖base.left (globalBasis i)‖ ^ 2) ≤ M := by
+    dsimp only [base, M]
+    exact sourceThreeBranchPairData_left_basisEnergy_le_fixedMajorant
+      owner lambda a c hac hsupp negativeBasis positiveBasis outputBasis
+      reflectedNegativeBasis reflectedPositiveBasis reflectedOutputBasis
+      globalBasis hfactor
+  have hbaseRight :
+      (∑' i, ‖base.right (globalBasis i)‖ ^ 2) ≤ M := by
+    dsimp only [base, M]
+    exact sourceThreeBranchPairData_right_basisEnergy_le_fixedMajorant
+      owner lambda a c hac hsupp negativeBasis positiveBasis outputBasis
+      reflectedNegativeBasis reflectedPositiveBasis reflectedOutputBasis
+      globalBasis hfactor
+  have hfirstLeftOperator : first.left = base.left ∘L J := by
+    dsimp only [first, base, J, V, C]
+    exact boundedPrecompAddRight_left_eq boundaryBasis sourceBasis
+      (sourceThreeBranchPairData owner lambda a c hac hsupp negativeBasis
+        positiveBasis outputBasis reflectedNegativeBasis
+        reflectedPositiveBasis reflectedOutputBasis globalBasis hfactor)
+      (sourceInclusion lambda)
+      (sourceActualBandForwardCoframe lambda family)
+      (finiteEulerMetricCoframe lambda family)
+  have hfirstLeft :
+      (∑' i, ‖first.left (sourceBasis i)‖ ^ 2) ≤ M := by
+    rw [hfirstLeftOperator]
+    exact (boundedPrecomp_left_tsum_le_of_norm_le_one boundaryBasis sourceBasis
+      base J J hJ).trans hbaseLeft
+  have hfirstRight :
+      (∑' i, ‖first.right (sourceBasis i)‖ ^ 2) ≤ 2 * M := by
+    calc
+      (∑' i, ‖first.right (sourceBasis i)‖ ^ 2) =
+          sourceActualBandCombinedPhysicalRightEnergy owner lambda family
+            a c hac hsupp negativeBasis positiveBasis outputBasis
+            reflectedNegativeBasis reflectedPositiveBasis
+            reflectedOutputBasis globalBasis sourceBasis hfactor := by
+        apply tsum_congr
+        intro i
+        rw [show first.right (sourceBasis i) =
+            base.right (sourceActualBandForwardEndpointCoframe lambda family
+              (sourceBasis i)) by
+          dsimp only [first, base]
+          exact sourceActualBandForwardEndpointPairData_right_apply owner
+            lambda family a c hac hsupp negativeBasis positiveBasis outputBasis
+            reflectedNegativeBasis reflectedPositiveBasis
+            reflectedOutputBasis globalBasis boundaryBasis sourceBasis hfactor
+            (sourceBasis i)]
+      _ ≤ 2 * M := by simpa only [M] using hcombined
+  have hsecondLeft :
+      (∑' i, ‖second.left (sourceBasis i)‖ ^ 2) ≤ M := by
+    have h := boundedPrecomp_left_tsum_le_of_norm_le_one boundaryBasis
+      sourceBasis base V J hV
+    simpa only [second, BasisHilbertSchmidtPairData.smulRight] using
+      h.trans hbaseLeft
+  have hsecondRight :
+      (∑' i, ‖second.right (sourceBasis i)‖ ^ 2) ≤ M := by
+    have h := boundedPrecomp_right_tsum_le_of_norm_le_one boundaryBasis
+      sourceBasis base V J hJ
+    simpa only [second, BasisHilbertSchmidtPairData.smulRight,
+      neg_smul, one_smul, ContinuousLinearMap.neg_apply, norm_neg] using
+      h.trans hbaseRight
+  have hpair : pair = BasisHilbertSchmidtPairData.l2Sum first second := by
+    rfl
+  have hpairLeft :
+      (∑' i, ‖pair.left (sourceBasis i)‖ ^ 2) ≤ 2 * M := by
+    rw [hpair, l2Sum_left_basisEnergy_eq_add]
+    linarith
+  have hpairRight :
+      (∑' i, ‖pair.right (sourceBasis i)‖ ^ 2) ≤ 3 * M := by
+    rw [hpair, l2Sum_right_basisEnergy_eq_add]
+    linarith
+  have hM : 0 ≤ M := by
+    dsimp only [M, fixedPhysicalEnergyMajorant]
+    positivity
+  have htrace :=
+    ordinaryTraceAlong_traceProduct_norm_le_of_energy_bounds sourceBasis pair
+      (2 * M) (3 * M) hpairLeft hpairRight
+      (mul_nonneg (by norm_num) hM) (mul_nonneg (by norm_num) hM)
+  rw [sourceActualBandRawRemainderCommonPairData_traceProduct_eq_gauged
+    owner lambda family a c hac hsupp negativeBasis positiveBasis outputBasis
+    reflectedNegativeBasis reflectedPositiveBasis reflectedOutputBasis
+    globalBasis boundaryBasis sourceBasis hfactor] at htrace
+  calc
+    ‖ordinaryTraceAlong sourceBasis
+        (CCM24FiniteSRawCompletedGaugeOwner.lowerFactorGaugedActualBandCompletedRelativeResponse
+          owner lambda family)‖ ≤
+        ((2 * M) + (3 * M)) / 2 := htrace
+    _ ≤ 3 * M := by linarith
 
 end CCM24FiniteSCombinedPhysicalEnergyGate
 end CCM25Concrete

@@ -101,6 +101,58 @@ noncomputable def fixedPhysicalSourceInput
       positiveBasis outputBasis reflectedNegativeBasis reflectedPositiveBasis
       reflectedOutputBasis globalBasis boundaryBasis sourceBasis hfactor)
 
+set_option maxHeartbeats 4000000 in
+-- The dependent fixed physical pair and dense-range conclusion need more elaboration time.
+/-- The fixed physical source input has dense range under the explicit common
+kernel condition for its two actual physical legs.  The condition is kept in
+the theorem signature because the existing physical owner has no injectivity
+producer yet. -/
+theorem fixedPhysicalSourceInput_denseRange_of_common_kernel_zero
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (a c : ℝ) (hac : a ≤ c)
+    (hsupp : Function.support owner.sourceTest.test ⊆ Set.Icc a c)
+    {iota kappa tau iotaR kappaR tauR nu mu rho : Type*}
+    (negativeBasis : HilbertBasis iota ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryNegativeInputInterval a c))))
+    (positiveBasis : HilbertBasis kappa ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryPositiveInputInterval a c))))
+    (outputBasis : HilbertBasis tau ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c))))
+    (reflectedNegativeBasis : HilbertBasis iotaR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryNegativeInputInterval (-c) (-a)))))
+    (reflectedPositiveBasis : HilbertBasis kappaR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryPositiveInputInterval (-c) (-a)))))
+    (reflectedOutputBasis : HilbertBasis tauR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval (-c) (-a)))))
+    (globalBasis : HilbertBasis nu ℂ finiteSCarrier)
+    (boundaryBasis : HilbertBasis mu ℂ (commonBoundaryCarrier a c))
+    (sourceBasis : HilbertBasis rho ℂ (sourceSoninCarrier lambda))
+    (hfactor : Summable fun i =>
+      ‖sourceProlateHilbertSchmidtFactor lambda (globalBasis i)‖ ^ 2)
+    (hkernel : ∀ x : sourceSoninCarrier lambda,
+      (fixedSourceThreeBranchPairData owner lambda a c hac hsupp negativeBasis
+        positiveBasis outputBasis reflectedNegativeBasis reflectedPositiveBasis
+        reflectedOutputBasis globalBasis boundaryBasis sourceBasis hfactor).left x =
+          0 →
+      (fixedSourceThreeBranchPairData owner lambda a c hac hsupp negativeBasis
+        positiveBasis outputBasis reflectedNegativeBasis reflectedPositiveBasis
+        reflectedOutputBasis globalBasis boundaryBasis sourceBasis hfactor).right x =
+          0 →
+      x = 0) :
+    DenseRange (fixedPhysicalSourceInput owner lambda a c hac hsupp
+      negativeBasis positiveBasis outputBasis reflectedNegativeBasis
+      reflectedPositiveBasis reflectedOutputBasis globalBasis boundaryBasis
+      sourceBasis hfactor) := by
+  let pair := fixedSourceThreeBranchPairData owner lambda a c hac hsupp
+    negativeBasis positiveBasis outputBasis reflectedNegativeBasis
+    reflectedPositiveBasis reflectedOutputBasis globalBasis boundaryBasis
+    sourceBasis hfactor
+  have hdense : DenseRange (pairSourceGramSqrt pair) :=
+    pairSourceGramSqrt_denseRange_of_common_kernel_zero pair (by
+      intro x hleft hright
+      exact hkernel x hleft hright)
+  simpa only [fixedPhysicalSourceInput, pair] using hdense
+
 theorem fixedPhysicalSourceInput_summable_normSq
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (a c : ℝ) (hac : a ≤ c)

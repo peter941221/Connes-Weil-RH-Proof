@@ -1,0 +1,30 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSFixedPhysicalSourceInputAnalyticWindowBridge
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSFixedPhysicalSourceInputAnalyticWindowBridgeAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSFixedPhysicalSourceInputAnalyticWindowBridge
+
+private abbrev DenseRangeFromOriginalMultiplier :=
+  fixedPhysicalSourceInput_denseRange_of_analytic_window_originalMultiplier
+
+private abbrev DenseRangeFromFinitePrimeTerm :=
+  fixedPhysicalSourceInput_denseRange_of_analytic_window_finitePrimeTerm
+
+private abbrev DenseRangeFromSelectedVisiblePrime :=
+  fixedPhysicalSourceInput_denseRange_of_analytic_window_selectedVisiblePrime
+
+#check @DenseRangeFromOriginalMultiplier
+#check @DenseRangeFromFinitePrimeTerm
+#check @DenseRangeFromSelectedVisiblePrime
+
+#print axioms DenseRangeFromOriginalMultiplier
+#print axioms DenseRangeFromFinitePrimeTerm
+#print axioms DenseRangeFromSelectedVisiblePrime
+
+end ConnesWeilRH.Dev.CCM24FiniteSFixedPhysicalSourceInputAnalyticWindowBridgeAudit

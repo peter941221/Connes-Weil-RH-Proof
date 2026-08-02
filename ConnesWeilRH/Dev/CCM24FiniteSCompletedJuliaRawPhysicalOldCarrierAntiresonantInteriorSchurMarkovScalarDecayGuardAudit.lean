@@ -1,0 +1,23 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorSchurMarkovScalarDecayGuard
+
+namespace ConnesWeilRH.Dev.AntiresonantSchurMarkovScalarDecayGuardAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open AntiresonantSchurMarkovScalarDecayGuard
+
+#check @suffixEulerSchurMarkovScalar_append
+#check @primeSchurMarkovScalar_canonicalVisiblePrimeSequence
+#check @suffixEulerSchurMarkovScalar_canonicalVisiblePrimePrefix
+#check @exists_canonicalVisiblePrimePrefix_scalar_lt
+
+#print axioms suffixEulerSchurMarkovScalar_append
+#print axioms primeSchurMarkovScalar_canonicalVisiblePrimeSequence
+#print axioms suffixEulerSchurMarkovScalar_canonicalVisiblePrimePrefix
+#print axioms exists_canonicalVisiblePrimePrefix_scalar_lt
+
+end ConnesWeilRH.Dev.AntiresonantSchurMarkovScalarDecayGuardAudit

@@ -1,0 +1,28 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundarySignedPairGuard
+
+/-!
+# Import-facing audit for the radial signed-pair guard
+-/
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundarySignedPairGuardAudit
+
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.AntiresonantFrameLossRadialBoundarySignedPairGuard
+
+#check @radialSoninBoundaryCauchyPairData_traceProduct_eq_crossing_iff
+#check @radialSoninBoundaryCauchyPairData_fixedPoint_of_signed_readback
+#check @radialSoninBoundaryCauchyPairData_isSelfAdjoint_of_signed_readback
+#check @radialBoundaryEnergy_does_not_change_cauchy_readback
+
+#print axioms radialSoninBoundaryCauchyPairData_traceProduct_eq_crossing_iff
+#print axioms radialSoninBoundaryCauchyPairData_fixedPoint_of_signed_readback
+#print axioms radialSoninBoundaryCauchyPairData_isSelfAdjoint_of_signed_readback
+#print axioms radialBoundaryEnergy_does_not_change_cauchy_readback
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialBoundarySignedPairGuardAudit

@@ -1,0 +1,10 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCombinedPhysicalEnergyContractionReduction
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCombinedPhysicalEnergyContractionReductionAudit
+
+open ConnesWeilRH Source CCM25Concrete
+open CCM24FiniteSCombinedPhysicalEnergyContractionReduction
+
+#check sourceActualBandCombinedPhysicalRightEnergy_le_of_endpoint_contraction
+
+end ConnesWeilRH.Dev.CCM24FiniteSCombinedPhysicalEnergyContractionReductionAudit

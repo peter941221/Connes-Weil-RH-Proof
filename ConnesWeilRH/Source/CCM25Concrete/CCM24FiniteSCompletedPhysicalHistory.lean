@@ -508,6 +508,87 @@ theorem sourceActualBandCombinedPhysicalRightEnergy_le_of_completedActualSchurRe
       rw [hphysicalApply i]
     _ ≤ ∑' i, ‖sourceInput (sourceBasis i)‖ ^ 2 := henergy
 
+/-! The same completed-history consumer with an explicit readout norm.  This
+is the source-facing quantitative form: a later producer may supply a
+uniform readout bound without proving the sharper contraction. -/
+theorem sourceActualBandCombinedPhysicalRightEnergy_le_of_completedActualSchurReadout_of_norm_le
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (a c : ℝ) (hac : a ≤ c)
+    (hsupp : Function.support owner.sourceTest.test ⊆ Set.Icc a c)
+    {iota kappa tau iotaR kappaR tauR nu rho : Type*}
+    (negativeBasis : HilbertBasis iota ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryNegativeInputInterval a c))))
+    (positiveBasis : HilbertBasis kappa ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryPositiveInputInterval a c))))
+    (outputBasis : HilbertBasis tau ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c))))
+    (reflectedNegativeBasis : HilbertBasis iotaR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryNegativeInputInterval (-c) (-a)))))
+    (reflectedPositiveBasis : HilbertBasis kappaR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryPositiveInputInterval (-c) (-a)))))
+    (reflectedOutputBasis : HilbertBasis tauR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval (-c) (-a)))))
+    (globalBasis : HilbertBasis nu ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis rho ℂ (sourceSoninCarrier lambda))
+    (hfactor : Summable fun i =>
+      ‖sourceProlateHilbertSchmidtFactor lambda (globalBasis i)‖ ^ 2)
+    (stepData : ∀ (p : CCM24VisiblePrime) (S : List CCM24VisiblePrime),
+      CCM24FiniteSActualJuliaInput.SuffixPrimeEulerProjectedJuliaSchurFrameStepData
+        lambda (commonBoundaryCarrier a c) p S)
+    (sourceInput : sourceSoninCarrier lambda →L[ℂ]
+      sourceSoninCarrier lambda)
+    (hinput : Summable fun i => ‖sourceInput (sourceBasis i)‖ ^ 2)
+    (readout : completedRectangularBoundaryCarrier
+      (suffixActualSchurFrameSteps lambda stepData family.visiblePrimes) →L[ℂ]
+        commonBoundaryCarrier a c)
+    (bound : ℝ) (hbound : 0 ≤ bound) (hreadout : ‖readout‖ ≤ bound)
+    (hphysical :
+      (sourceThreeBranchPairData owner lambda a c hac hsupp negativeBasis
+          positiveBasis outputBasis reflectedNegativeBasis
+          reflectedPositiveBasis reflectedOutputBasis globalBasis hfactor).right
+          ∘L sourceActualBandForwardEndpointCoframe lambda family =
+        readout ∘L completedRectangularBoundaryColumn
+          (suffixActualSchurFrameSteps lambda stepData family.visiblePrimes) ∘L
+            sourceInput) :
+    sourceActualBandCombinedPhysicalRightEnergy owner lambda family a c hac
+        hsupp negativeBasis positiveBasis outputBasis reflectedNegativeBasis
+        reflectedPositiveBasis reflectedOutputBasis globalBasis sourceBasis
+        hfactor ≤
+      bound ^ 2 * (∑' i, ‖sourceInput (sourceBasis i)‖ ^ 2) := by
+  have henergy := completedRectangularBoundaryReadout_tsum_normSq_le_of_norm_le
+    (steps := suffixActualSchurFrameSteps lambda stepData family.visiblePrimes)
+    sourceBasis sourceInput hinput readout bound hbound hreadout
+  have hphysicalApply : ∀ i,
+      (readout ∘L completedRectangularBoundaryColumn
+          (suffixActualSchurFrameSteps lambda stepData family.visiblePrimes) ∘L
+            sourceInput) (sourceBasis i) =
+        (sourceThreeBranchPairData owner lambda a c hac hsupp negativeBasis
+            positiveBasis outputBasis reflectedNegativeBasis
+            reflectedPositiveBasis reflectedOutputBasis globalBasis
+            hfactor).right
+          (sourceActualBandForwardEndpointCoframe lambda family
+            (sourceBasis i)) := by
+    intro i
+    have happ := congrArg
+      (fun operator : sourceSoninCarrier lambda →L[ℂ]
+          commonBoundaryCarrier a c => operator (sourceBasis i)) hphysical.symm
+    simpa only [ContinuousLinearMap.comp_apply] using happ
+  rw [sourceActualBandCombinedPhysicalRightEnergy]
+  calc
+    (∑' i, ‖(sourceThreeBranchPairData owner lambda a c hac hsupp
+          negativeBasis positiveBasis outputBasis reflectedNegativeBasis
+          reflectedPositiveBasis reflectedOutputBasis globalBasis hfactor).right
+        (sourceActualBandForwardEndpointCoframe lambda family
+          (sourceBasis i))‖ ^ 2) =
+        ∑' i, ‖(readout ∘L completedRectangularBoundaryColumn
+            (suffixActualSchurFrameSteps lambda stepData family.visiblePrimes) ∘L
+              sourceInput) (sourceBasis i)‖ ^ 2 := by
+      apply tsum_congr
+      intro i
+      rw [hphysicalApply i]
+    _ ≤ bound ^ 2 * (∑' i, ‖sourceInput (sourceBasis i)‖ ^ 2) := henergy
+
 set_option maxHeartbeats 4000000 in
 -- Elaborating the fully concrete Gate-facing carrier tuple is expensive.
 /-- Once the completed source history has fixed physical energy, Proof 494's
@@ -571,6 +652,75 @@ theorem lowerFactorGaugedActualBandCompletedRelativeResponse_trace_norm_le_of_co
       reflectedNegativeBasis reflectedPositiveBasis reflectedOutputBasis
       globalBasis sourceBasis hfactor stepData sourceInput hinput readout
       hreadout hphysical).trans hinputEnergy
+
+set_option maxHeartbeats 4000000 in
+-- Same carrier tuple as the contractive version, but with the readout bound visible.
+/-- Quantitative completed-history handoff.  A source producer may pay a
+readout constant; the Gate-facing trace bound is unchanged once the scaled
+completed-history input energy is still below the fixed physical majorant.
+This is still a consumer theorem: the physical readout identity and the
+scaled energy bound remain explicit source obligations. -/
+theorem
+    lowerFactorGaugedActualBandCompletedRelativeResponse_trace_norm_le_of_completedHistory_of_norm_le
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (a c : ℝ) (hac : a ≤ c)
+    (hsupp : Function.support owner.sourceTest.test ⊆ Set.Icc a c)
+    {iota kappa tau iotaR kappaR tauR nu mu rho : Type*}
+    (negativeBasis : HilbertBasis iota ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryNegativeInputInterval a c))))
+    (positiveBasis : HilbertBasis kappa ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryPositiveInputInterval a c))))
+    (outputBasis : HilbertBasis tau ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c))))
+    (reflectedNegativeBasis : HilbertBasis iotaR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryNegativeInputInterval (-c) (-a)))))
+    (reflectedPositiveBasis : HilbertBasis kappaR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryPositiveInputInterval (-c) (-a)))))
+    (reflectedOutputBasis : HilbertBasis tauR ℂ
+      (Lp ℂ 2 (volume : Measure (BoundaryOutputInterval (-c) (-a)))))
+    (globalBasis : HilbertBasis nu ℂ finiteSCarrier)
+    (boundaryBasis : HilbertBasis mu ℂ (commonBoundaryCarrier a c))
+    (sourceBasis : HilbertBasis rho ℂ (sourceSoninCarrier lambda))
+    (hfactor : Summable fun i =>
+      ‖sourceProlateHilbertSchmidtFactor lambda (globalBasis i)‖ ^ 2)
+    (stepData : ∀ (p : CCM24VisiblePrime) (S : List CCM24VisiblePrime),
+      CCM24FiniteSActualJuliaInput.SuffixPrimeEulerProjectedJuliaSchurFrameStepData
+        lambda (commonBoundaryCarrier a c) p S)
+    (sourceInput : sourceSoninCarrier lambda →L[ℂ]
+      sourceSoninCarrier lambda)
+    (hinput : Summable fun i => ‖sourceInput (sourceBasis i)‖ ^ 2)
+    (bound : ℝ) (hbound : 0 ≤ bound)
+    (hscaledInputEnergy :
+      bound ^ 2 * (∑' i, ‖sourceInput (sourceBasis i)‖ ^ 2) ≤
+        fixedPhysicalEnergyMajorant owner lambda a c globalBasis)
+    (readout : completedRectangularBoundaryCarrier
+      (suffixActualSchurFrameSteps lambda stepData family.visiblePrimes) →L[ℂ]
+        commonBoundaryCarrier a c)
+    (hreadout : ‖readout‖ ≤ bound)
+    (hphysical :
+      (sourceThreeBranchPairData owner lambda a c hac hsupp negativeBasis
+          positiveBasis outputBasis reflectedNegativeBasis
+          reflectedPositiveBasis reflectedOutputBasis globalBasis hfactor).right
+          ∘L sourceActualBandForwardEndpointCoframe lambda family =
+        readout ∘L completedRectangularBoundaryColumn
+          (suffixActualSchurFrameSteps lambda stepData family.visiblePrimes) ∘L
+            sourceInput) :
+    ‖ordinaryTraceAlong sourceBasis
+        (CCM24FiniteSRawCompletedGaugeOwner.lowerFactorGaugedActualBandCompletedRelativeResponse
+          owner lambda family)‖ ≤
+      2 * fixedPhysicalEnergyMajorant owner lambda a c globalBasis := by
+  apply
+    lowerFactorGaugedActualBandCompletedRelativeResponse_trace_norm_le_of_combinedEnergy
+      owner lambda family a c hac hsupp negativeBasis positiveBasis outputBasis
+      reflectedNegativeBasis reflectedPositiveBasis reflectedOutputBasis
+      globalBasis boundaryBasis sourceBasis hfactor
+  exact
+    (sourceActualBandCombinedPhysicalRightEnergy_le_of_completedActualSchurReadout_of_norm_le
+      owner lambda family a c hac hsupp negativeBasis positiveBasis outputBasis
+      reflectedNegativeBasis reflectedPositiveBasis reflectedOutputBasis
+      globalBasis sourceBasis hfactor stepData sourceInput hinput readout
+      bound hbound hreadout hphysical).trans hscaledInputEnergy
 
 end CCM24FiniteSCompletedPhysicalHistory
 end CCM25Concrete

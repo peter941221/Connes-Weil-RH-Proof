@@ -1,0 +1,19 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSFixedFullBoundaryWindowUniquenessBridge
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSFixedFullBoundaryWindowUniquenessBridgeAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSFixedFullBoundaryWindowUniquenessBridge
+
+#check @cc20GlobalLogConvolution_injective_of_fourierMultiplier_ae_ne_zero
+#check @fullBoundaryRootFactor_injective_of_translated_window_unique
+
+#print axioms cc20GlobalLogConvolution_injective_of_fourierMultiplier_ae_ne_zero
+#print axioms fullBoundaryRootFactor_injective_of_translated_window_unique
+
+end ConnesWeilRH.Dev.CCM24FiniteSFixedFullBoundaryWindowUniquenessBridgeAudit

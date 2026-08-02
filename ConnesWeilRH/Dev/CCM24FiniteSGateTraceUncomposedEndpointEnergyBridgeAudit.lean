@@ -1,0 +1,10 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSGateTraceUncomposedEndpointEnergyBridge
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSGateTraceUncomposedEndpointEnergyBridgeAudit
+
+open ConnesWeilRH Source CCM25Concrete
+open CCM24FiniteSGateTraceUncomposedEndpointEnergyBridge
+
+#check lowerFactorGauged_trace_norm_le_of_uncomposedEndpoint_combinedEnergy
+
+end ConnesWeilRH.Dev.CCM24FiniteSGateTraceUncomposedEndpointEnergyBridgeAudit

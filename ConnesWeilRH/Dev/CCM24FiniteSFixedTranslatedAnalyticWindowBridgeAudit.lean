@@ -1,0 +1,32 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSFixedTranslatedAnalyticWindowBridge
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSFixedTranslatedAnalyticWindowBridgeAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSFixedTranslatedAnalyticWindowBridge
+
+private abbrev OriginalMultiplierInjective :=
+  fullBoundaryRootFactor_injective_of_translated_analytic_window_of_original_fourierMultiplier
+
+private abbrev FinitePrimeTermInjective :=
+  fullBoundaryRootFactor_injective_of_translated_analytic_window_of_finitePrimeTerm
+
+private abbrev SelectedVisiblePrimeInjective :=
+  fullBoundaryRootFactor_injective_of_translated_analytic_window_of_selectedVisiblePrime
+
+#check @translated_window_unique_of_analytic_representatives
+#check @OriginalMultiplierInjective
+#check @FinitePrimeTermInjective
+#check @SelectedVisiblePrimeInjective
+
+#print axioms translated_window_unique_of_analytic_representatives
+#print axioms OriginalMultiplierInjective
+#print axioms FinitePrimeTermInjective
+#print axioms SelectedVisiblePrimeInjective
+
+end ConnesWeilRH.Dev.CCM24FiniteSFixedTranslatedAnalyticWindowBridgeAudit

@@ -1,0 +1,25 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSFixedPhysicalSourceInput
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSFixedPhysicalSourceInputDenseRangeAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSFixedSourceInput
+open CCM24FiniteSFixedPhysicalSourceInput
+
+#check @pairSourceGramSqrt_apply_eq_zero_iff
+#check @pairSourceGramSqrt_injective_of_common_kernel_zero
+#check @pairSourceGramSqrt_denseRange_of_common_kernel_zero
+set_option linter.style.longLine false in
+#check @fixedPhysicalSourceInput_denseRange_of_common_kernel_zero
+
+#print axioms pairSourceGramSqrt_injective_of_common_kernel_zero
+#print axioms pairSourceGramSqrt_denseRange_of_common_kernel_zero
+set_option linter.style.longLine false in
+#print axioms fixedPhysicalSourceInput_denseRange_of_common_kernel_zero
+
+end ConnesWeilRH.Dev.CCM24FiniteSFixedPhysicalSourceInputDenseRangeAudit

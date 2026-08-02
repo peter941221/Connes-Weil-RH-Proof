@@ -1,0 +1,23 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSFixedFullBoundaryInjectivityGuard
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSFixedFullBoundaryInjectivityGuardAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSFixedFullBoundaryInjectivityGuard
+
+#check @fullBoundaryRootFactor_eq_zero_of_test_eq_zero
+#check @sourceTest_ne_zero_of_finitePrimeTerm_ne_zero
+#check @sourceTest_ne_zero_of_selectedVisiblePrime
+#check @not_translated_fullBoundaryRootFactor_injective_of_sourceTest_eq_zero
+
+#print axioms fullBoundaryRootFactor_eq_zero_of_test_eq_zero
+#print axioms sourceTest_ne_zero_of_finitePrimeTerm_ne_zero
+#print axioms sourceTest_ne_zero_of_selectedVisiblePrime
+#print axioms not_translated_fullBoundaryRootFactor_injective_of_sourceTest_eq_zero
+
+end ConnesWeilRH.Dev.CCM24FiniteSFixedFullBoundaryInjectivityGuardAudit

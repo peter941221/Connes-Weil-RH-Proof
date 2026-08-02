@@ -1,0 +1,25 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSFixedPhysicalKernelBridge
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSFixedPhysicalKernelBridgeAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSFixedPhysicalKernelBridge
+
+#check @l2Sum_right_eq_zero_iff
+#check @boundedAdjointSub_right_eq_zero_iff
+#check @sourceThreeBranchPairData_right_eq_zero_imp_translated_boundary_legs_eq_zero
+#check @fixedSourceThreeBranchPairData_right_eq_zero_imp_translated_boundary_legs_eq_zero
+#check @fixedPhysicalSourceInput_denseRange_of_translated_boundary_pair_injective
+
+#print axioms l2Sum_right_eq_zero_iff
+#print axioms boundedAdjointSub_right_eq_zero_iff
+#print axioms sourceThreeBranchPairData_right_eq_zero_imp_translated_boundary_legs_eq_zero
+#print axioms fixedSourceThreeBranchPairData_right_eq_zero_imp_translated_boundary_legs_eq_zero
+#print axioms fixedPhysicalSourceInput_denseRange_of_translated_boundary_pair_injective
+
+end ConnesWeilRH.Dev.CCM24FiniteSFixedPhysicalKernelBridgeAudit

@@ -1,0 +1,30 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedPhysicalReadoutAnalyticWindowBridge
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCompletedPhysicalReadoutAnalyticWindowBridgeAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCompletedPhysicalReadoutAnalyticWindowBridge
+
+private abbrev ReadoutFromOriginalMultiplier :=
+  exists_completed_readout_of_analytic_window_originalMultiplier
+
+private abbrev ReadoutFromFinitePrimeTerm :=
+  exists_completed_readout_of_analytic_window_finitePrimeTerm
+
+private abbrev ReadoutFromSelectedVisiblePrime :=
+  exists_completed_readout_of_analytic_window_selectedVisiblePrime
+
+#check @ReadoutFromOriginalMultiplier
+#check @ReadoutFromFinitePrimeTerm
+#check @ReadoutFromSelectedVisiblePrime
+
+#print axioms ReadoutFromOriginalMultiplier
+#print axioms ReadoutFromFinitePrimeTerm
+#print axioms ReadoutFromSelectedVisiblePrime
+
+end ConnesWeilRH.Dev.CCM24FiniteSCompletedPhysicalReadoutAnalyticWindowBridgeAudit

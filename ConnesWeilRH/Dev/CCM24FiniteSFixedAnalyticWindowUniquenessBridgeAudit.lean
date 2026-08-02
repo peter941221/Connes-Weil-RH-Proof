@@ -1,0 +1,21 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSFixedAnalyticWindowUniquenessBridge
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSFixedAnalyticWindowUniquenessBridgeAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSFixedAnalyticWindowUniquenessBridge
+
+#check @analytic_eq_zero_of_ae_eq_zero_on_Icc
+#check @globalL2ToKernelInterval_zero_implies_ae_zero_on_Icc
+#check @cc20GlobalLogConvolution_eq_zero_of_analytic_representative_of_kernelInterval_zero
+
+#print axioms analytic_eq_zero_of_ae_eq_zero_on_Icc
+#print axioms globalL2ToKernelInterval_zero_implies_ae_zero_on_Icc
+#print axioms cc20GlobalLogConvolution_eq_zero_of_analytic_representative_of_kernelInterval_zero
+
+end ConnesWeilRH.Dev.CCM24FiniteSFixedAnalyticWindowUniquenessBridgeAudit

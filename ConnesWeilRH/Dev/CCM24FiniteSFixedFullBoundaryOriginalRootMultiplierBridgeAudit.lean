@@ -1,0 +1,17 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSFixedFullBoundaryOriginalRootMultiplierBridge
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSFixedFullBoundaryOriginalRootMultiplierBridgeAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSFixedFullBoundaryOriginalRootMultiplierBridge
+
+#check @fullBoundaryRootFactor_injective_of_translated_window_unique_of_original_fourierMultiplier
+
+#print axioms fullBoundaryRootFactor_injective_of_translated_window_unique_of_original_fourierMultiplier
+
+end ConnesWeilRH.Dev.CCM24FiniteSFixedFullBoundaryOriginalRootMultiplierBridgeAudit

@@ -1,0 +1,19 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSFixedOwnerFourierAeNonzeroBridge
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSFixedOwnerFourierAeNonzeroBridgeAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSFixedOwnerFourierAeNonzeroBridge
+
+#check @sourceTest_fourier_ae_ne_zero_of_analytic_of_finitePrimeTerm_ne_zero
+#check @sourceTest_fourier_ae_ne_zero_of_analytic_of_selectedVisiblePrime
+
+#print axioms sourceTest_fourier_ae_ne_zero_of_analytic_of_finitePrimeTerm_ne_zero
+#print axioms sourceTest_fourier_ae_ne_zero_of_analytic_of_selectedVisiblePrime
+
+end ConnesWeilRH.Dev.CCM24FiniteSFixedOwnerFourierAeNonzeroBridgeAudit

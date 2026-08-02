@@ -3,6 +3,7 @@ Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
+import ConnesWeilRH.Source.CC20Concrete.CompactApproximateKernel
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSFixedSourcePolar
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSInputSideTraceConsumer
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCoDefectConsumer
@@ -28,6 +29,7 @@ namespace CCM24FiniteSFixedSourceInput
 
 open CC20Concrete
 open _root_.ConnesWeilRH.CC20Concrete
+open CC20Concrete.CompactApproximateKernel
 open CC20Concrete.CompactConvolutionSupport
 open CC20Concrete.CompactRootHalfLinePair
 open MeasureTheory
@@ -721,6 +723,78 @@ theorem pairSourceGramSqrt_normSq_eq
         inner_add_left, map_add, Complex.add_re]
       rw [← ContinuousLinearMap.apply_norm_sq_eq_inner_adjoint_left,
         ← ContinuousLinearMap.apply_norm_sq_eq_inner_adjoint_left]
+
+/-! ## Dense range of the canonical Gram input -/
+
+/-- The zero set of the Gram square root is exactly the common kernel of the
+two physical Hilbert--Schmidt legs. -/
+theorem pairSourceGramSqrt_apply_eq_zero_iff
+    {ι H G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    {sourceBasis : HilbertBasis ι ℂ H}
+    (pair : CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData
+      (G := G) sourceBasis) (x : H) :
+    pairSourceGramSqrt pair x = 0 ↔
+      pair.left x = 0 ∧ pair.right x = 0 := by
+  constructor
+  · intro hzero
+    have hsum : ‖pair.left x‖ ^ 2 + ‖pair.right x‖ ^ 2 = 0 := by
+      rw [← pairSourceGramSqrt_normSq_eq pair x, hzero]
+      simp
+    have hleft_norm : ‖pair.left x‖ = 0 := by
+      nlinarith [hsum, norm_nonneg (pair.left x),
+        sq_nonneg ‖pair.right x‖]
+    have hright_norm : ‖pair.right x‖ = 0 := by
+      nlinarith [hsum, norm_nonneg (pair.right x),
+        sq_nonneg ‖pair.left x‖]
+    exact ⟨norm_eq_zero.mp hleft_norm, norm_eq_zero.mp hright_norm⟩
+  · rintro ⟨hleft, hright⟩
+    apply norm_eq_zero.mp
+    have hnormSq : ‖pairSourceGramSqrt pair x‖ ^ 2 = 0 := by
+      rw [pairSourceGramSqrt_normSq_eq pair x, hleft, hright]
+      simp
+    nlinarith [hnormSq, norm_nonneg (pairSourceGramSqrt pair x)]
+
+/-- The positive Gram square root is injective when the two physical legs have
+no common kernel.  This is the kernel condition that must be supplied before
+a composed completed-history readout can be cancelled. -/
+theorem pairSourceGramSqrt_injective_of_common_kernel_zero
+    {ι H G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    {sourceBasis : HilbertBasis ι ℂ H}
+    (pair : CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData
+      (G := G) sourceBasis)
+    (hkernel : ∀ x : H, pair.left x = 0 → pair.right x = 0 → x = 0) :
+    Function.Injective (pairSourceGramSqrt pair) := by
+  intro x y hxy
+  have hzero : pairSourceGramSqrt pair (x - y) = 0 := by
+    calc
+      pairSourceGramSqrt pair (x - y) =
+      pairSourceGramSqrt pair x - pairSourceGramSqrt pair y := by
+        simp only [map_sub]
+      _ = 0 := sub_eq_zero.mpr hxy
+  have hcommon := (pairSourceGramSqrt_apply_eq_zero_iff pair (x - y)).mp hzero
+  exact sub_eq_zero.mp (hkernel (x - y) hcommon.1 hcommon.2)
+
+/-- The canonical Gram input has dense range once the common physical kernel
+vanishes.  Self-adjointness of the positive square root transfers the generic
+dense-range theorem for adjoints to the input itself. -/
+theorem pairSourceGramSqrt_denseRange_of_common_kernel_zero
+    {ι H G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    {sourceBasis : HilbertBasis ι ℂ H}
+    (pair : CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData
+      (G := G) sourceBasis)
+    (hkernel : ∀ x : H, pair.left x = 0 → pair.right x = 0 → x = 0) :
+    DenseRange (pairSourceGramSqrt pair) := by
+  have hinjective := pairSourceGramSqrt_injective_of_common_kernel_zero
+    pair hkernel
+  have hself := pairSourceGramSqrt_isSelfAdjoint pair
+  simpa only [hself.adjoint_eq] using
+    (denseRange_adjoint_of_injective (pairSourceGramSqrt pair) hinjective)
 
 theorem pairSourceGramSqrt_summable_normSq
     {ι H G : Type*}
