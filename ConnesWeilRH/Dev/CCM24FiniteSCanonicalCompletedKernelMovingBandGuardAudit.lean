@@ -1,0 +1,20 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCanonicalCompletedKernelMovingBandGuard
+
+open ConnesWeilRH Source CCM25Concrete
+open CCM24FiniteSCanonicalCompletedKernelMovingBandGuard
+
+#check @outerProjectionDifference
+#check @movingOuterBandDifference
+#check @movingOuterBandDifference_eq_outer_add_fixed
+#check @movingOuterBandDifference_eq_fixed_iff
+#check @rootSandwichedMovingOuterBandResponse
+#check @rootSandwichedOuterProjectionDifference
+#check @rootSandwichedMovingOuterBandResponse_eq_outer_add_fixed
+#check @ordinaryTraceAlong_movingOuterBandResponse_eq_add
+#check @ordinaryTraceAlong_completedBoundaryCycle_re_eq_outer_sub_moving
+
+#print axioms movingOuterBandDifference_eq_outer_add_fixed
+#print axioms movingOuterBandDifference_eq_fixed_iff
+#print axioms rootSandwichedMovingOuterBandResponse_eq_outer_add_fixed
+#print axioms ordinaryTraceAlong_movingOuterBandResponse_eq_add
+#print axioms ordinaryTraceAlong_completedBoundaryCycle_re_eq_outer_sub_moving

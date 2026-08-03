@@ -9,9 +9,10 @@ pairing between the root commutator corner and an explicit range-root
 anticommutator corner.
 
 This identifies the exact same-object factor still missing after Proof 378.
-It does not prove that the range-root corner factors through Proof 357's one
-common boundary input.  Gate 3U, the finite-`S` sign, Burnol's identity, and
-RH remain open.
+Proof 770 now gives a preferred cyclic placement: a completed two-root
+composite factorization puts raw `R_j` on the Julia range side.  It does not
+prove that source factorization.  Gate 3U, the finite-`S` sign, Burnol's
+identity, and RH remain open.
 
 ## 1. Result
 
@@ -222,7 +223,15 @@ Ytilde_(root,j) A_root
 
 where the same source-owned Hilbert--Schmidt `A_root` must be used for every
 near prime.  Neither `(RD.21)` nor `(RD.22)` follows from unitary coordinate
-changes alone.  Together they are the correct interface to Proof 351.
+changes alone.  Together they are the direct interface to Proof 351.
+
+Proof 770 improves this interface without changing `(RD.17)`.  It cycles the
+two terms into `C_10* C_11` and `C_00* C_01`, then recombines them as the one
+completed detector corner `P C* C Q`.  If that one physical corner has a fixed
+Hilbert--Schmidt source factor with its actual Julia prefix, the range side is
+`R_j U_j^mid Psi_(j-1) A_root`.  The separate alignment `(RD.22)` is then the
+norm-one midpoint/Julia coordinate change, rather than a second source
+estimate.  The required composite factorization is not proved here.
 
 ## 5. Why the dilation matters
 
@@ -281,7 +290,8 @@ the infinite-dimensional insertion/alignment `(RD.21)--(RD.22)`.
 | positive detector root split                  | exact `(RD.17)`          |
 | detector root row                             | Proof 378 controls       |
 | exact range-root target                       | `(RD.16)`                |
-| common-root insertion/alignment                | open `(RD.21)--(RD.22)` |
+| direct common-root insertion/alignment         | open `(RD.21)--(RD.22)` |
+| preferred composite factorization              | open Proof 770 `(TC.4)` |
 | finite-S sign / Burnol / RH                    | open / open / open       |
 +------------------------------------------------+---------------------------+
 ```

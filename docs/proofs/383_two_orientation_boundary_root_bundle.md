@@ -7,10 +7,10 @@ root orientation and prolate square-root leg that can occur in the corrected
 near physical bracket.  The number of summands is fixed, and its square cost
 is polynomial in the root support and independent of the visible prime set.
 
-This supplies a concrete candidate for Proof 382's `A_root`.  It does not
-prove that Proof 380's actual range-root column factors through the actual
-Julia column built from this candidate.  Gate 3U, the finite-`S` sign,
-Burnol's identity, and RH remain open.
+This supplies a concrete candidate for Proof 770's fixed source factor.  It
+does not prove that the recombined completed two-root detector corner factors
+through this candidate.  Gate 3U, the finite-`S` sign, Burnol's identity, and
+RH remain open.
 
 ## 1. Result
 
@@ -24,7 +24,7 @@ Burnol's identity, and RH remain open.
 | total number of owner copies                  | seven                   |
 | Hilbert--Schmidt square                       | polynomial              |
 | dependence on prime count/spacing             | none                    |
-| Julia insertion/alignment                     | open `(JR.9)/(JR.19)`  |
+| recombined two-root factorization             | open `(TC.4)`          |
 | Gate 3U / finite-S sign / Burnol / RH           | open / open / open / open|
 +------------------------------------------------+---------------------------+
 ```
@@ -187,9 +187,11 @@ Proof 351 actual Julia defect column applied to `(BR.14)`.
                                                                (BR.16)
 ```
 
-Precisely, one must prove Proof 382 `(JR.9)` and `(JR.19)` with the common
-source formed from `A_root_source`.  The following weaker facts do not prove
-them:
+Precisely, one must prove Proof 770 `(TC.4)` with the common source formed
+from `A_root_source`.  The old Proof 382 `(JR.9)/(JR.19)` formulation remains
+a sufficient direct route, but the two-root composite placement makes its
+range-side Douglas step a coordinate consequence.  The following weaker facts
+do not prove the required factorization:
 
 ```text
 each physical branch factors through one component of `(BR.12)`;
@@ -230,8 +232,8 @@ The finite certificate verifies the fixed bundle, not the alignment theorem
 +------------------------------------------------+---------------------------+
 | explicit source `A_root` candidate            | closed `(BR.12)`         |
 | polynomial Hilbert--Schmidt budget            | closed `(BR.13)`         |
-| actual Julia/root alignment                   | open `(BR.16)`           |
-| active positive inequality                    | Proof 382 `(JR.19)`     |
+| actual composite factorization                | open `(BR.16)/(TC.4)`   |
+| Julia range ledger after factorization        | exact, Proofs 351/354   |
 | Gate 3U / finite-S sign / Burnol / RH           | open / open / open / open|
 +------------------------------------------------+---------------------------+
 ```

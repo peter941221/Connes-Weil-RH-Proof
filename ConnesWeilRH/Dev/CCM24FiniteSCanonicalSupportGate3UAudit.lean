@@ -1,0 +1,17 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCanonicalSupportGate3U
+
+open ConnesWeilRH Source CCM25Concrete
+open CCM24FiniteSCanonicalSupportGate3U
+
+#check @finiteEulerLowerFactor_inv_sq_le_sixteen_pow_length
+#check @canonicalVisiblePrime_log_le_supportRadius
+#check @canonicalVisiblePrimes_length_le_supportCardinality
+#check @canonicalFiniteEulerLowerFactor_inv_sq_le_supportCardinality
+#check @canonicalRealGate3USupportMajorant
+#check @canonicalRealGate3UAt_of_supportMajorant
+
+#print axioms finiteEulerLowerFactor_inv_sq_le_sixteen_pow_length
+#print axioms canonicalVisiblePrime_log_le_supportRadius
+#print axioms canonicalVisiblePrimes_length_le_supportCardinality
+#print axioms canonicalFiniteEulerLowerFactor_inv_sq_le_supportCardinality
+#print axioms canonicalRealGate3UAt_of_supportMajorant

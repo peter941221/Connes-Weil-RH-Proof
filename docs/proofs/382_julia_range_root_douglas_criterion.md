@@ -8,9 +8,12 @@ must insert one common root without changing the physical trace.  Second, the
 inserted range column must satisfy one Douglas domination by the actual Julia
 range column, not merely a Hilbert--Schmidt norm bound.
 
-This removes ambiguity from the missing common-root statement.  It does not
-prove the source domination for the corrected CCM24 quotient bracket.  Gate
-3U, the finite-`S` sign, Burnol's identity, and RH remain open.
+This removes ambiguity from the original missing common-root statement.  It
+does not prove the source factorization for the corrected CCM24 quotient
+bracket.  Proof 770 supplies a stronger placement in which the old separate
+Douglas domination is a coordinate consequence after a completed two-root
+factorization.  Gate 3U, the finite-`S` sign, Burnol's identity, and RH remain
+open.
 
 ## 1. Result
 
@@ -73,6 +76,16 @@ norm(mathcalS_A)_2^2
 
 This is the literal range owner.  Replacing `mathcalS_A` by an arbitrary
 column with the same norm loses the Julia defect coordinates.
+
+### Proof 770 update
+
+The direct range-root column below is still a valid sufficient formulation.
+It is no longer the preferred active formulation.  Proof 770 cycles the two
+root copies before inserting a common source input.  When its completed
+composites factor as `(TC.4)`, the range leg is raw
+`R_j U_j^mid Psi_(j-1) A_root`, so the actual Julia row is obtained by the
+existing midpoint coordinate unitaries with norm one.  In that route `(JR.19)`
+need not be established separately.
 
 ## 3. Pull back the physical range-root row
 
@@ -193,8 +206,13 @@ Hilbert--Schmidt.  No raw midpoint range corner remains.
 
 ## 6. Active source theorem
 
-The near Gate 3U bottom consists of the insertion identity `(JR.9)`, the
-preserved detector bound, and the positive inequality
+The following is the original direct sufficient theorem.  The preferred
+successor is Proof 770's completed two-root factorization `(TC.4)`, whose
+range readback makes the inequality below automatic.  The old direct path
+remains valid if its premises can be proved.
+
+The direct near Gate 3U bottom consists of the insertion identity `(JR.9)`,
+the preserved detector bound, and the positive inequality
 
 ```text
 mathcalY_root*mathcalY_root
@@ -248,7 +266,7 @@ the source inequality `(JR.19)`.
 | trace-preserving insertion `(JR.9)`            | open                    |
 | inserted-column Douglas criterion             | exact `(JR.13)`          |
 | kernel visibility                             | mandatory `(JR.14)`      |
-| CCM24 domination `(JR.19)`                    | open, active producer   |
+| CCM24 domination `(JR.19)`                    | open direct route; see TC.4 |
 | Proof 336 far lane                             | retained                 |
 | Gate 3U / finite-S sign / Burnol / RH           | open / open / open / open|
 +------------------------------------------------+---------------------------+
