@@ -1,0 +1,22 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawCumulativeLedger
+
+namespace ConnesWeilRH
+namespace Dev
+namespace CCM24FiniteSCausalMarkovRawCumulativeLedgerAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCausalMarkovRawCumulativeLedger
+
+#check RawCompletePhysicalFamilyChain
+#check @RawCompletePhysicalFamilyChain.family
+#check @RawCompletePhysicalFamilyChain.family_visiblePrimes
+#check @rawCompletePhysicalForcingChain
+#check @rawCompletePhysicalHermitianTrace_eq_forcingChain
+
+#print axioms RawCompletePhysicalFamilyChain.family_visiblePrimes
+#print axioms rawCompletePhysicalForcingChain
+#print axioms rawCompletePhysicalHermitianTrace_eq_forcingChain
+
+end CCM24FiniteSCausalMarkovRawCumulativeLedgerAudit
+end Dev
+end ConnesWeilRH

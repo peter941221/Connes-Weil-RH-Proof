@@ -1,0 +1,22 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawBase
+
+namespace ConnesWeilRH
+namespace Dev
+namespace CCM24FiniteSCausalMarkovRawBaseAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCausalMarkovRawBase
+
+#check @sourcePhysicalCoframeLeakage_eq_zero_of_visiblePrimes_nil
+#check @finiteEulerTargetCommutatorResponse_eq_zero_of_visiblePrimes_nil
+#check @rawCompletePhysicalHermitianTrace_eq_zero_of_visiblePrimes_nil
+#check @rawCompletePhysicalHermitianTrace_cons_eq_add_forcing
+
+#print axioms sourcePhysicalCoframeLeakage_eq_zero_of_visiblePrimes_nil
+#print axioms finiteEulerTargetCommutatorResponse_eq_zero_of_visiblePrimes_nil
+#print axioms rawCompletePhysicalHermitianTrace_eq_zero_of_visiblePrimes_nil
+#print axioms rawCompletePhysicalHermitianTrace_cons_eq_add_forcing
+
+end CCM24FiniteSCausalMarkovRawBaseAudit
+end Dev
+end ConnesWeilRH

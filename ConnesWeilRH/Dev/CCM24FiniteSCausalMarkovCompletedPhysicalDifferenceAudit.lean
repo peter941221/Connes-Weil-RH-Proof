@@ -1,0 +1,24 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovCompletedPhysicalDifference
+
+namespace ConnesWeilRH
+namespace Dev
+namespace CCM24FiniteSCausalMarkovCompletedPhysicalDifferenceAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCausalMarkovCompletedPhysicalDifference
+
+#check @completePhysicalHermitianTrace
+#check @completePhysicalHermitianTrace_eq_neg_sourceBandGramRealTrace
+#check @completePhysicalHermitianTrace_re_sub_eq_neg_coboundary_re_add_remainder
+#check @normalizedCompletePhysicalHermitianTrace
+#check @normalizedCompletePhysicalHermitianTrace_cons_eq_contract_add_forcing
+
+#print axioms completePhysicalHermitianTrace_eq_neg_sourceBandGramRealTrace
+#print axioms
+  completePhysicalHermitianTrace_re_sub_eq_neg_coboundary_re_add_remainder
+#print axioms
+  normalizedCompletePhysicalHermitianTrace_cons_eq_contract_add_forcing
+
+end CCM24FiniteSCausalMarkovCompletedPhysicalDifferenceAudit
+end Dev
+end ConnesWeilRH

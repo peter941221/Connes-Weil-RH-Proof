@@ -1,0 +1,16 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawPermutationDiamond
+
+namespace ConnesWeilRH
+namespace Dev
+namespace CCM24FiniteSCausalMarkovRawPermutationDiamondAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCausalMarkovRawPermutationDiamond
+
+#check rawCompletePhysicalForcing_diamond_of_root_visiblePrimes_perm
+
+#print axioms rawCompletePhysicalForcing_diamond_of_root_visiblePrimes_perm
+
+end CCM24FiniteSCausalMarkovRawPermutationDiamondAudit
+end Dev
+end ConnesWeilRH

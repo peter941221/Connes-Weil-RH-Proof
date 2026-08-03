@@ -1,0 +1,22 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovScaledForcingRecurrenceGuard
+
+namespace ConnesWeilRH
+namespace Dev
+namespace CCM24FiniteSCausalMarkovScaledForcingRecurrenceGuardAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCausalMarkovScaledForcingRecurrenceGuard
+
+#check @scalarNormalizedEndpoint_succ_eq_contract_add_scaledForcing
+#check @scalarScaledForcing_abs_le_one
+#check @scalarRawEndpoint_not_uniformly_bounded
+#check @scaledForcingRecurrence_has_unbounded_raw_witness
+
+#print axioms scalarNormalizedEndpoint_succ_eq_contract_add_scaledForcing
+#print axioms scalarScaledForcing_abs_le_one
+#print axioms scalarRawEndpoint_not_uniformly_bounded
+#print axioms scaledForcingRecurrence_has_unbounded_raw_witness
+
+end CCM24FiniteSCausalMarkovScaledForcingRecurrenceGuardAudit
+end Dev
+end ConnesWeilRH

@@ -1,0 +1,18 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawGateReadout
+
+namespace ConnesWeilRH
+namespace Dev
+namespace CCM24FiniteSCausalMarkovRawGateReadoutAudit
+
+open ConnesWeilRH.Source.CCM25Concrete
+open CCM24FiniteSCausalMarkovRawGateReadout
+
+#check @canonicalRealGate3UAt_iff_abs_rawCompletePhysicalHermitianTrace_le
+#check @canonicalRealGate3UAt_of_abs_rawCompletePhysicalHermitianTrace_le
+
+#print axioms canonicalRealGate3UAt_iff_abs_rawCompletePhysicalHermitianTrace_le
+#print axioms canonicalRealGate3UAt_of_abs_rawCompletePhysicalHermitianTrace_le
+
+end CCM24FiniteSCausalMarkovRawGateReadoutAudit
+end Dev
+end ConnesWeilRH
