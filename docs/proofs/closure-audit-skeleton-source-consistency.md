@@ -1,15 +1,24 @@
-# Closure Audit: THE SKELETON'S SOURCE CORE PROVES `False` — A Soundness Break, Not an Open Bottom
+# Closure Audit: THE SKELETON'S SOURCE CORE AXIOMATIZES EMPTY TYPES — Refuted by Parallel Theorems, but not an in-file `False`
 
-Date: 2026-08-04 · Status: **critical (source-level inconsistency)** · Owner lane: RH-skeleton closure audit
+Date: 2026-08-05 · Status: **critical (each RH-bottom axiom asserts an empty type)** · Owner lane: RH-skeleton closure audit
 
-## Result
+## Result (corrected on 2026-08-05)
 
-The RH skeleton `Dev/UnconditionalSkeleton.lean` rests at its apex on an axiom
-whose *existence claim* is **refuted by a theorem in the same file**.  This is
-not merely an open analytic bottom that a future estimate could close — it is a
-**soundness container**: the moment the axiom is used, the theory derives
-`False`.  A green `unconditional_rh_skeleton : RiemannHypothesis` therefore does
-NOT evidence RH; it only reports that RH is derivable in an inconsistent theory
+The RH skeleton `Dev/UnconditionalSkeleton.lean` rests at its apex on axioms
+whose *existence claims* are **refuted by theorems in the same library**.
+**Precise correction:** the skeleton does **not** derive `False` — the negative
+theorems are declared but never applied to the axiom roots to obtain it.  Lean
+allows `axiom P` and `theorem ¬P` to coexist harmlessly as long as nobody
+derives `False` from `⟨P⟩`.  What holds here is:
+
+- each bottom axiom asserts a type that a *parallel*, *proved* theorem shows is
+  empty/absent;
+- those negative theorems are present in the same environment but unused on the
+  RH path;
+
+so a green `unconditional_rh_skeleton : RiemannHypothesis` compiles **consistently**,
+yet the axioms do NOT evidence RH — they assert empty structures.  This is an
+open-bottom-with-evidence-against, not an outright inconsistent theory.
 (in Lean, `False` proves anything).
 
 ## The contradiction (statement-level, same algebra)
@@ -86,18 +95,19 @@ unconditional_rh_skeleton : RiemannHypothesis
 ```
 
 Because :137 feeds the analytic core that feeds every downstream route input,
-the inconsistency is at the **root** of the closure, not a leaf.  Every
+this empty-type root is at the **root** of the closure, not a leaf.  Every
 directive that says "replace each axiom by a real proof" (AGENTS §11/§13) must
 therefore first find a **consistent replacement for `SourceWeilFormData`** on
 the concrete algebra — i.e. decide what "finite-prime Weil data over the
 concrete test algebra" should actually be, before any per-axiom proof can be
-trusted.
+trusted (see the positive finding at the bottom: a healthy HS carrier exists in
+the CompactLog world).
 
 ## What closure would require (honest, no shortcut)
 
 1. **Resolve `SourceWeilFormData` finitely-prime contradiction.** The guard is a
    *math* proof that the current `exactSupport`/`evaluation.sourceFinitePrimeTerm`
-   model is inconsistent with evaluation-as-norm. Either:
+   model contradicts evaluation-as-norm. Either:
    - change the concrete evaluation/support model so a real (nonzero-at-2)
      finite-prime term is allowed (new data model → new proof obligations), or
    - drop the finite-prime-exact half and take the finite-prime term from a
@@ -151,18 +161,24 @@ The detector route (`CC20YoshidaDetectorExists`, `weighted_mellin_kernel_log_lin
 
 ## Judgment
 
-- **Not blocked-on-a-lemma**: the road stops at a **logical contradiction in the
-  imported source material**, which a well-typed `axiom` can wallpaper but cannot
-  make true.
-- Green build ≠ RH, and here a green build would also be **unsound** unless the
-  `axiom` + `not_nonempty_…` pairing is reconciled (removed or one side replaced).
-- Ownership: this is a *source-data model* seam, not the physical Gate 3U seam
-  that the previous docs tracked.
+- **Not blocked-on-a-lemma**: the road stops where **each RH-bottom axiom asserts
+  an empty type** that a parallel proved theorem refutes (`not_nonempty_…`,
+  `not_normalizedCoreS2B1ActualScalarIdentificationFamily`, additive-convolution
+  refutation).  A well-typed `axiom` can wallpaper an empty type but cannot make
+  it inhabited.
+- **Precise severity**: the skeleton is NOT inconsistent (it does not derive
+  `False`, because the negative theorems are not applied to the roots).  Rather,
+  it is **consistent but not RH-evidence** — the axioms stand, but each bottom
+  has a proved theorem asserting it is absent.
+- Green build ≠ RH, and a green build is *sound here* but the axioms remain open
+  bottoms, each with a refuting witness already in the library.
+- Ownership: this is a *source-data model* seam (empty finite-prime + additive
+  convolution + scalar-ID), not the physical Gate 3U seam the prior docs tracked.
 
 ## Two-lane closure verdict (2026-08-05)
 
 There are **two routes** to `SourceRH` in the skeleton, and each hits a
-*different* `<independent` kind of wall that the other route cannot bypass:
+*different* kind of wall that the other route cannot bypass:
 
 | Lane | Entry | Content boundary | Wall |
 |---|---|---|---|
