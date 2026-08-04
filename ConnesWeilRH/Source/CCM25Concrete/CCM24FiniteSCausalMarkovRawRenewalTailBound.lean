@@ -125,6 +125,36 @@ theorem inverseLowerFactorPhysicalRenewalTrace_split_bound
       abs_add_le _ _
     _ ≤ boundSupport + boundTail := add_le_add hboundSupport hboundTail
 
+/-- Axis-A0: the compact support piece inherits trace-class legality by
+subtraction.  The full physical response splits as support plus tail
+(`inverseLowerFactorPhysicalRenewalResponse_eq_support_add_tail`), so given a
+trace-class witness for the full response and for the tail, the support piece is
+trace-class along the same basis.  This removes the explicit `hsupport` premise
+from the split and split-bound consumers once the tail is bounded, using only
+`isTraceClassAlong_sub` (no new analytic estimate). -/
+theorem inverseLowerFactorPhysicalRenewalSupport_isTraceClassAlong_of_full_and_tail
+    {rho : Type*} (B : Real)
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (sourceBasis : HilbertBasis rho Complex (sourceSoninCarrier lambda))
+    (hfull : IsTraceClassAlong sourceBasis
+      (inverseLowerFactorPhysicalRenewalResponse owner lambda family))
+    (htail : IsTraceClassAlong sourceBasis
+      (inverseLowerFactorPhysicalRenewalTailResponse B owner lambda family)) :
+    IsTraceClassAlong sourceBasis
+      (inverseLowerFactorPhysicalRenewalSupportResponse B owner lambda family) := by
+  have hsupport_eq : inverseLowerFactorPhysicalRenewalSupportResponse B owner lambda
+      family =
+      inverseLowerFactorPhysicalRenewalResponse owner lambda family -
+        inverseLowerFactorPhysicalRenewalTailResponse B owner lambda family := by
+    rw [inverseLowerFactorPhysicalRenewalResponse_eq_support_add_tail B owner lambda
+      family]
+    abel
+  rw [hsupport_eq]
+  exact isTraceClassAlong_sub sourceBasis
+    (inverseLowerFactorPhysicalRenewalResponse owner lambda family)
+    (inverseLowerFactorPhysicalRenewalTailResponse B owner lambda family) hfull htail
+
 /-- A producer for a tail trace-decay bound, uniform in the visible finite
 family, closes the canonical real Gate exactly: the compact part is discarded
 in favor of a single uniform tail bound applied to the whole Gate object with
