@@ -25,6 +25,8 @@ namespace Source
 namespace CCM25Concrete
 namespace CCM24FiniteSCausalMarkovRawRenewalSupportSplit
 
+set_option synthInstance.maxHeartbeats 400000
+
 open scoped BigOperators InnerProduct InnerProductSpace
 
 open CC20Concrete
@@ -100,8 +102,8 @@ theorem finiteEulerPhysicalResponseAtom_eq_signedCoefficient_smul_unweighted
   intro u
   simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.sub_apply,
     ContinuousLinearMap.smul_apply, ContinuousLinearMap.neg_apply, map_smul,
-    map_neg, smul_smul]
-  ring
+    smul_smul]
+  rw [smul_neg]
 
 /-- The raw atom carries the raw two-sided signed coefficient exactly. -/
 theorem finiteEulerPhysicalRawRenewalAtom_eq_rawCoefficient_smul_unweighted

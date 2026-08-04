@@ -1,0 +1,23 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawSourceOwnerTrace
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSProjectionTraceRawSourceOwnerAudit
+
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawSourceOwnerTrace
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawGateReadout
+
+#check @ordinaryTraceAlong_sourceGramResponse_eq_neg_sourceBand
+#check @rawCompletePhysicalHermitianTrace_eq_realOrdinaryTrace_sourceGramResponse
+#check @canonicalRealGate3UAt_iff_abs_realOrdinaryTrace_sourceGramResponse_le
+#check @canonicalRealGate3UAt_of_abs_realOrdinaryTrace_sourceGramResponse_le
+
+#print axioms ordinaryTraceAlong_sourceGramResponse_eq_neg_sourceBand
+#print axioms rawCompletePhysicalHermitianTrace_eq_realOrdinaryTrace_sourceGramResponse
+#print axioms canonicalRealGate3UAt_iff_abs_realOrdinaryTrace_sourceGramResponse_le
+#print axioms canonicalRealGate3UAt_of_abs_realOrdinaryTrace_sourceGramResponse_le
+
+end ConnesWeilRH.Dev.CCM24FiniteSProjectionTraceRawSourceOwnerAudit

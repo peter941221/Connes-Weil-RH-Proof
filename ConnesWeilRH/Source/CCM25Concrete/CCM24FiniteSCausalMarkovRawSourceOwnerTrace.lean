@@ -64,13 +64,13 @@ theorem ordinaryTraceAlong_sourceGramResponse_eq_neg_sourceBand
       -ordinaryTraceAlong sourceBasis
         (sourceBandGramResponse owner lambda family) := by
   rw [sourceBandGramResponse]
-  rw [ordinaryTraceAlong_neg sourceBasis (sourceGramResponse owner lambda family)]
+  rw [CCM24FiniteSProjectionTrace.PositiveTrace.ordinaryTraceAlong_neg]
   simp
 
 /-- The raw Gate scalar on a finite family is exactly the real ordinary trace
 of the Q_S source owner.  This is `(AA.32)`'s analytic object. -/
 theorem rawCompletePhysicalHermitianTrace_eq_realOrdinaryTrace_sourceGramResponse
-    {rho iota kappa tau iotaR kappaR tauR nu mu : Type*}
+    {rho iota kappa tau iotaR kappaR taur nu mu : Type*}
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
     (a c : ℝ) (hac : a <= c)
@@ -103,13 +103,13 @@ theorem rawCompletePhysicalHermitianTrace_eq_realOrdinaryTrace_sourceGramRespons
     reflectedNegativeBasis reflectedPositiveBasis reflectedOutputBasis
     globalBasis boundaryBasis sourceBasis hfactor]
   rw [sourceBandGramResponse]
-  rw [ordinaryTraceAlong_neg sourceBasis (sourceGramResponse owner lambda family)]
-  simp only [Complex.neg_re, Complex.ofReal_re, neg_neg]
+  rw [CCM24FiniteSProjectionTrace.PositiveTrace.ordinaryTraceAlong_neg]
+  simp only [Complex.neg_re, Complex.ofReal_re, Complex.ofReal_neg, neg_neg]
 
 /-- Closing the real ordinary trace of the Q_S source owner on the canonical
 family closes the canonical real Gate 3U.  This is the `(AA.32)` handoff. -/
 theorem canonicalRealGate3UAt_iff_abs_realOrdinaryTrace_sourceGramResponse_le
-    {rho iota kappa tau iotaR kappaR tauR nu mu : Type*}
+    {rho iota kappa tau iotaR kappaR taur nu mu : Type*}
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (a c : ℝ) (hac : a <= c)
     (hsupp : Function.support owner.sourceTest.test ⊆ Set.Icc a c)
@@ -149,7 +149,7 @@ of the Q_S source owner may close the canonical real Gate directly.  This is
 the `(AA.32)` consumer: it applies a support estimate to the already declared
 owner, with no lower-factor normalization. -/
 theorem canonicalRealGate3UAt_of_abs_realOrdinaryTrace_sourceGramResponse_le
-    {rho iota kappa tau iotaR kappaR tauR nu mu : Type*}
+    {rho iota kappa tau iotaR kappaR taur nu mu : Type*}
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (a c : ℝ) (hac : a <= c)
     (hsupp : Function.support owner.sourceTest.test ⊆ Set.Icc a c)
