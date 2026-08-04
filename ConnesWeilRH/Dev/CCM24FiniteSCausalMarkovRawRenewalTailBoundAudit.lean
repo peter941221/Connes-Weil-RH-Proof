@@ -1,0 +1,21 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawRenewalTailBound
+
+namespace ConnesWeilRH.Dev.CCM24FiniteSCausalMarkovRawRenewalTailBoundAudit
+
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawRenewalTailBound
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawRenewalSupportSplit
+
+#check @inverseLowerFactorPhysicalRenewalTrace_eq_support_add_tail
+#check @inverseLowerFactorPhysicalRenewalTrace_split_bound
+#check @canonicalRealGate3UAt_of_tailNormBound
+
+#print axioms inverseLowerFactorPhysicalRenewalTrace_eq_support_add_tail
+#print axioms inverseLowerFactorPhysicalRenewalTrace_split_bound
+#print axioms canonicalRealGate3UAt_of_tailNormBound
+
+end ConnesWeilRH.Dev.CCM24FiniteSCausalMarkovRawRenewalTailBoundAudit

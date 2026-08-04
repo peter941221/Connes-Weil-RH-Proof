@@ -462,6 +462,7 @@ import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawSourceOwnerT
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawRenewalBridge
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawRenewalCumulativeLedger
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawRenewalSupportSplit
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawRenewalTailBound
 
 /-!
 # CCM25 concrete normalization spine
