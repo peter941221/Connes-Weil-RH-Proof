@@ -49,6 +49,26 @@ theorem pointInConcreteWindow_defaultWindow_iff
     rw [hx1]
     exact ⟨le_rfl, le_rfl, hx2⟩
 
+/--
+The zero test always satisfies the concrete gate: for `f = 0`, no point `x`
+has `f x ≠ 0`, so both `supportCarrier 0` and `fourierSupportCarrier 0` are
+`∅`, hence contained in any window.  This pins A0's empty-producer gap to the
+**nonzero** side: the gate is non-void but accepts only trivial (zero) tests.
+A nonzero admissible `g` would need BOTH compact time-support and compact
+Fourier-support inside the window — the Heisenberg/Paley–Wiener conflict that
+a band-limited operator model (seam ii) must break with an HS trace witness.
+-/
+theorem zero_test_supportCarrier_empty
+    (I : ConcreteWindow) (sourceTest : ConcreteTest) :
+    (concreteSupportWindowData I sourceTest).supportCarrier defaultSourceTest = ∅ := by
+  ext x
+  constructor
+  · intro hx
+    have htrue := mem_concreteSupportCarrier_iff.mp hx
+    exact False.elim (htrue.2 (by simp [defaultSourceTest]))
+  · intro hx
+    exact False.elim hx
+
 end A0WindowGateGuard
 end Dev
 end ConnesWeilRH
