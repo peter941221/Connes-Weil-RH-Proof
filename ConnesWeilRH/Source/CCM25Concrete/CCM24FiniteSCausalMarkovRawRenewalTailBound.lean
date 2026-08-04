@@ -152,9 +152,24 @@ The genuinely missing analytic estimate is a uniform decay of the tail operator
 side of that reduction is mechanical: each raw tail atom decomposes into a
 signed raw coefficient times an index-independent-bounded unweighted kernel, and
 the two-sided index bijection turns the coefficient-norm sum into the two-sided
-tail raw total variation.  This section makes that reduction formal; what it
-does **not** supply (and what the route still needs) is the decay of that tail
-total variation in `B`.
+tail raw total variation.  This section assembles the per-atom facts into a
+single **whole-tail** operator-norm bound
+
+```text
+‖R^(>B)‖ ≤ C0 · ∑'_{D>B} twoSidedRawWeight
+```
+
+with the `C0` constant carrying every index-independent operator norm, and then
+chains the (already formal) exponential tail decay
+`∑'_{D>B} w ≤ exp(-B/4)·∏_p (1+ρ_p)/(1-ρ_p)` onto it to get
+
+```text
+‖R^(>B)‖ ≤ C0 · exp(-B/4) · ∏_p primeTwoSidedQuarterMass
+```
+
+No trace is interchanged anywhere here: coefficient support does not give trace
+support (Proof 807 boundary), so the module produces the tail *operator-norm*
+bound that a trace-class layer then feeds through `abs (Re Tr(R^(>B)))`.
 -/
 
 /-- Uniform operator-norm bound on the index-independent operator factor chain
@@ -400,6 +415,321 @@ theorem summable_norm_finiteEulerPhysicalRawRenewalTailAtom
   exact Summable.of_nonneg_of_le
     (fun _ : FiniteEulerRenewalIndex family.visiblePrimes => norm_nonneg _)
     hpoint hmajorant
+
+/-- The operator-norm, index-independent constant of one paired raw renewal
+kernel: `‖J†‖ * ‖det‖ * ‖(I-P)‖ * ‖transported‖ * ‖J‖`.  This is the exact
+right-hand side of `norm_finiteEulerPhysicalUnweightedRenewalAtom_le_const`. -/
+noncomputable def rawRenewalTailNormConstant
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) : ℝ :=
+  ‖(sourceInclusion lambda)†‖ * ‖detectorOperator owner‖ *
+    ‖(ContinuousLinearMap.id Complex finiteSCarrier - sourceSoninProjection lambda)‖ *
+    ‖transportedSoninProjection lambda family‖ * ‖sourceInclusion lambda‖
+
+/-- A raw tail atom has operator norm at most the raw paired weight times the
+family-independent constant.  This is the same bound as
+`norm_finiteEulerPhysicalRawRenewalTailAtom_le`, with the constant named. -/
+theorem norm_finiteEulerPhysicalRawRenewalTailAtom_le_const
+    (B : ℝ) (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (forwardIndex : FiniteEulerForwardIndex family.visiblePrimes)
+    (renewalIndex : FiniteEulerRenewalIndex family.visiblePrimes) :
+    ‖finiteEulerPhysicalRawRenewalTailAtom B owner lambda family forwardIndex
+        renewalIndex‖ ≤
+      finiteEulerTwoSidedRawWeight family.visiblePrimes
+        (pairForwardRenewalIndex family.visiblePrimes (forwardIndex, renewalIndex)) *
+        rawRenewalTailNormConstant owner lambda family := by
+  rw [rawRenewalTailNormConstant]
+  exact norm_finiteEulerPhysicalRawRenewalTailAtom_le B owner lambda family
+    forwardIndex renewalIndex
+
+/-- The raw tail atom bound is also true with the constant on the left (product
+commutes). -/
+theorem norm_finiteEulerPhysicalRawRenewalTailAtom_le_const'
+    (B : ℝ) (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (forwardIndex : FiniteEulerForwardIndex family.visiblePrimes)
+    (renewalIndex : FiniteEulerRenewalIndex family.visiblePrimes) :
+    ‖finiteEulerPhysicalRawRenewalTailAtom B owner lambda family forwardIndex
+        renewalIndex‖ ≤
+      rawRenewalTailNormConstant owner lambda family *
+        finiteEulerTwoSidedRawWeight family.visiblePrimes
+          (pairForwardRenewalIndex family.visiblePrimes (forwardIndex, renewalIndex)) := by
+  rw [mul_comm]
+  exact norm_finiteEulerPhysicalRawRenewalTailAtom_le_const B owner lambda family
+    forwardIndex renewalIndex
+
+/-- A raw tail atom has operator norm at most the constant times the **indicated**
+raw weight: `0` on `{D ≤ B}` (where the tail atom vanishes) and the plain bound
+on `{D > B}`.  The indicator is what converts the summed per-atom bound into an
+exponential tail decay. -/
+theorem norm_finiteEulerPhysicalRawRenewalTailAtom_le_const_ind
+    (B : ℝ) (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (forwardIndex : FiniteEulerForwardIndex family.visiblePrimes)
+    (renewalIndex : FiniteEulerRenewalIndex family.visiblePrimes) :
+    ‖finiteEulerPhysicalRawRenewalTailAtom B owner lambda family forwardIndex
+        renewalIndex‖ ≤
+      rawRenewalTailNormConstant owner lambda family *
+        (if B < finiteEulerTwoSidedDisplacement family.visiblePrimes
+            (pairForwardRenewalIndex family.visiblePrimes (forwardIndex, renewalIndex)) then
+            finiteEulerTwoSidedRawWeight family.visiblePrimes
+              (pairForwardRenewalIndex family.visiblePrimes (forwardIndex, renewalIndex))
+          else 0) := by
+  have h : ‖finiteEulerPhysicalRawRenewalTailAtom B owner lambda family forwardIndex
+      renewalIndex‖ ≤
+      rawRenewalTailNormConstant owner lambda family *
+        (if B < finiteEulerTwoSidedDisplacement family.visiblePrimes
+            (pairForwardRenewalIndex family.visiblePrimes (forwardIndex, renewalIndex)) then
+            finiteEulerTwoSidedRawWeight family.visiblePrimes
+              (pairForwardRenewalIndex family.visiblePrimes (forwardIndex, renewalIndex))
+          else 0) := by
+    by_cases hD : B < finiteEulerTwoSidedDisplacement family.visiblePrimes
+        (pairForwardRenewalIndex family.visiblePrimes (forwardIndex, renewalIndex))
+    · rw [if_pos hD]
+      exact norm_finiteEulerPhysicalRawRenewalTailAtom_le_const' B owner lambda family
+        forwardIndex renewalIndex
+    · rw [if_neg hD]
+      unfold finiteEulerPhysicalRawRenewalTailAtom
+      rw [if_pos (le_of_not_gt hD)]
+      simp
+  by_cases hD : B < finiteEulerTwoSidedDisplacement family.visiblePrimes
+      (pairForwardRenewalIndex family.visiblePrimes (forwardIndex, renewalIndex))
+  · rw [if_pos hD]
+    rw [if_pos hD] at h
+    exact h
+  · rw [if_neg hD]
+    unfold finiteEulerPhysicalRawRenewalTailAtom
+    rw [if_pos (le_of_not_gt hD)]
+    simp
+
+/-- The renewed-fiber sum of (indicator · two-sided raw weight · C0) is summable
+in the renewal index, for each fixed forward index.  The plain raw-weight fiber
+is summable (the pairing is injective in the renewal coordinate, and the full
+weight is summable); the indicator and the constant factor preserve summability. -/
+theorem summable_twoSidedRawWeight_tail_fiber
+    (B : ℝ) (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (forwardIndex : FiniteEulerForwardIndex family.visiblePrimes) :
+    Summable (fun renewalIndex : FiniteEulerRenewalIndex family.visiblePrimes =>
+      rawRenewalTailNormConstant owner lambda family *
+        (if B < finiteEulerTwoSidedDisplacement family.visiblePrimes
+            (pairForwardRenewalIndex family.visiblePrimes
+              (forwardIndex, renewalIndex)) then
+            finiteEulerTwoSidedRawWeight family.visiblePrimes
+              (pairForwardRenewalIndex family.visiblePrimes
+                (forwardIndex, renewalIndex))
+          else 0)) := by
+  classical
+  have hweightFiber : Summable (fun renewalIndex : FiniteEulerRenewalIndex
+      family.visiblePrimes =>
+      finiteEulerTwoSidedRawWeight family.visiblePrimes
+        (pairForwardRenewalIndex family.visiblePrimes
+          (forwardIndex, renewalIndex))) := by
+    exact ((finiteEulerTwoSidedRawWeight_hasSum family.visiblePrimes).summable
+      ).comp_injective (fun r₁ r₂ hp =>
+        by
+          have hpairEq : (forwardIndex, r₁) = (forwardIndex, r₂) :=
+            (split_pairForwardRenewalIndex family.visiblePrimes (forwardIndex, r₁)).symm.trans
+              ((congrArg (splitForwardRenewalIndex family.visiblePrimes) hp).trans
+                (split_pairForwardRenewalIndex family.visiblePrimes (forwardIndex, r₂)))
+          exact congrArg Prod.snd hpairEq)
+  have hle : ∀ renewalIndex : FiniteEulerRenewalIndex family.visiblePrimes,
+      (if B < finiteEulerTwoSidedDisplacement family.visiblePrimes
+          (pairForwardRenewalIndex family.visiblePrimes
+            (forwardIndex, renewalIndex)) then
+          finiteEulerTwoSidedRawWeight family.visiblePrimes
+            (pairForwardRenewalIndex family.visiblePrimes
+              (forwardIndex, renewalIndex))
+        else 0) ≤ finiteEulerTwoSidedRawWeight family.visiblePrimes
+          (pairForwardRenewalIndex family.visiblePrimes
+            (forwardIndex, renewalIndex)) := by
+    intro renewalIndex
+    split_ifs with hB
+    · rfl
+    · exact finiteEulerTwoSidedRawWeight_nonneg _ _
+  have hinder : Summable (fun renewalIndex : FiniteEulerRenewalIndex
+      family.visiblePrimes =>
+      if B < finiteEulerTwoSidedDisplacement family.visiblePrimes
+          (pairForwardRenewalIndex family.visiblePrimes
+            (forwardIndex, renewalIndex)) then
+          finiteEulerTwoSidedRawWeight family.visiblePrimes
+            (pairForwardRenewalIndex family.visiblePrimes
+              (forwardIndex, renewalIndex))
+        else 0) := by
+    apply Summable.of_nonneg_of_le
+    · intro renewalIndex
+      split_ifs with hB
+      · exact finiteEulerTwoSidedRawWeight_nonneg _ _
+      · simp
+    · exact hle
+    · exact hweightFiber
+  exact hinder.mul_left (rawRenewalTailNormConstant owner lambda family)
+
+/-- The `C0`-scaled indicator·weight double-sum reassociates onto the two-sided
+coordinate: `Σ_f Σ'ᵣ C0·[D>B]·w(f,r) = C0 · Σ'_{D>B} w`.  The forward sum is
+finite, so `tsum_fintype` collapses it and `Summable.tsum_prod` flattens the
+nested `Σ'f Σ'ᵣ` into a product tsum; `tsum_mul_left` pulls the constant out;
+and the equiv `split` reindexes the pure-weight product tsum onto the two-sided
+coordinate (`pair (split index) = index`). -/
+theorem rawRenewalTailWeightDoubleSum_reassoc
+    (B : ℝ) (C0 : ℝ) (S : List CCM24VisiblePrime) :
+    (∑ forwardIndex : FiniteEulerForwardIndex S,
+      ∑' renewalIndex : FiniteEulerRenewalIndex S,
+        C0 *
+          if B < finiteEulerTwoSidedDisplacement S
+              (pairForwardRenewalIndex S (forwardIndex, renewalIndex)) then
+            finiteEulerTwoSidedRawWeight S
+              (pairForwardRenewalIndex S (forwardIndex, renewalIndex))
+          else 0) =
+      C0 * (∑' index : FiniteEulerTwoSidedRenewalIndex S,
+        if B < finiteEulerTwoSidedDisplacement S index then
+          finiteEulerTwoSidedRawWeight S index
+        else 0) := by
+  classical
+  let ind := fun (p : FiniteEulerForwardIndex S × FiniteEulerRenewalIndex S) =>
+    if B < finiteEulerTwoSidedDisplacement S (pairForwardRenewalIndex S p) then
+      finiteEulerTwoSidedRawWeight S (pairForwardRenewalIndex S p)
+    else 0
+  let indMode := fun (p : FiniteEulerForwardIndex S × FiniteEulerRenewalIndex S) =>
+    C0 * ind p
+  have hindModeSum : Summable indMode := by
+    have hrawSum : Summable (fun p : FiniteEulerForwardIndex S ×
+        FiniteEulerRenewalIndex S =>
+        finiteEulerTwoSidedRawWeight S (pairForwardRenewalIndex S p)) := by
+      apply (finiteEulerTwoSidedRawWeight_hasSum S).summable.comp_injective
+      intro p₁ p₂ hp
+      exact (split_pairForwardRenewalIndex S p₁).symm.trans
+        ((congrArg (splitForwardRenewalIndex S) hp).trans
+          (split_pairForwardRenewalIndex S p₂))
+    have hle : ∀ p, ind p ≤ finiteEulerTwoSidedRawWeight S
+        (pairForwardRenewalIndex S p) := by
+      intro p
+      by_cases hB : B < finiteEulerTwoSidedDisplacement S
+          (pairForwardRenewalIndex S p)
+      · simp [ind, hB]
+      · simp [ind, hB, finiteEulerTwoSidedRawWeight_nonneg]
+    have hnonneg : ∀ p, 0 ≤ ind p := by
+      intro p
+      by_cases hB : B < finiteEulerTwoSidedDisplacement S
+          (pairForwardRenewalIndex S p)
+      · simp [ind, hB, finiteEulerTwoSidedRawWeight_nonneg]
+      · simp [ind, hB]
+    have hindSum : Summable ind := Summable.of_nonneg_of_le hnonneg hle hrawSum
+    simpa [indMode] using hindSum.mul_left C0
+  rw [← tsum_fintype (L := SummationFilter.unconditional
+      (FiniteEulerForwardIndex S))]
+  rw [← Summable.tsum_prod (h := hindModeSum)]
+  conv_lhs => rw [tsum_mul_left]
+  rw [show (∑' p : FiniteEulerForwardIndex S × FiniteEulerRenewalIndex S, ind p) =
+        (∑' index : FiniteEulerTwoSidedRenewalIndex S,
+          if B < finiteEulerTwoSidedDisplacement S index then
+            finiteEulerTwoSidedRawWeight S index else 0) by
+    rw [← (forwardRenewalIndexEquiv S).symm.tsum_eq]
+    apply tsum_congr
+    intro index
+    dsimp [ind]
+    change (if B < finiteEulerTwoSidedDisplacement S (pairForwardRenewalIndex S
+        (splitForwardRenewalIndex S index)) then
+        finiteEulerTwoSidedRawWeight S (pairForwardRenewalIndex S
+          (splitForwardRenewalIndex S index)) else 0) =
+      (if B < finiteEulerTwoSidedDisplacement S index then
+        finiteEulerTwoSidedRawWeight S index else 0)
+    rw [pair_splitForwardRenewalIndex S index]]
+
+/-- The whole tail operator `R^(>B)` has operator norm at most the constant times
+the raw-weight tail total variation on `{D > B}`:
+`‖R^(>B)‖ ≤ C0 · ∑'_{D>B} twoSidedRawWeight`.  Proof 807 splits
+`R^(>B) = ∑_f ∑'_r tailAtom(f,r)`; the finite forward sum is folded per fiber
+(each renewal fiber is absolutely summable), the triangle inequality moves the
+norm inside, the per-atom indicated bound converts each norm to the indicator
+times the weight times `C0`, and the weight double-sum is reindexed onto the
+two-sided coordinate by the coordinate bijection. -/
+theorem norm_inverseLowerFactorPhysicalRenewalTailResponse_le_const
+    (B : ℝ) (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    ‖inverseLowerFactorPhysicalRenewalTailResponse B owner lambda family‖ ≤
+      rawRenewalTailNormConstant owner lambda family *
+        (∑' index : FiniteEulerTwoSidedRenewalIndex family.visiblePrimes,
+          if B < finiteEulerTwoSidedDisplacement family.visiblePrimes index then
+            finiteEulerTwoSidedRawWeight family.visiblePrimes index
+          else 0) := by
+  unfold inverseLowerFactorPhysicalRenewalTailResponse
+  calc
+    ‖∑ forwardIndex : FiniteEulerForwardIndex family.visiblePrimes,
+        ∑' renewalIndex : FiniteEulerRenewalIndex family.visiblePrimes,
+          finiteEulerPhysicalRawRenewalTailAtom B owner lambda family
+            forwardIndex renewalIndex‖ ≤
+      ∑ forwardIndex : FiniteEulerForwardIndex family.visiblePrimes,
+        ‖∑' renewalIndex : FiniteEulerRenewalIndex family.visiblePrimes,
+          finiteEulerPhysicalRawRenewalTailAtom B owner lambda family
+            forwardIndex renewalIndex‖ := by
+          exact norm_sum_le _ _
+    _ ≤ ∑ forwardIndex : FiniteEulerForwardIndex family.visiblePrimes,
+        ∑' renewalIndex : FiniteEulerRenewalIndex family.visiblePrimes,
+          ‖finiteEulerPhysicalRawRenewalTailAtom B owner lambda family
+            forwardIndex renewalIndex‖ := by
+          apply Finset.sum_le_sum
+          intro forwardIndex _hforward
+          exact norm_tsum_le_tsum_norm (f := fun renewalIndex =>
+            finiteEulerPhysicalRawRenewalTailAtom B owner lambda family
+              forwardIndex renewalIndex)
+            (summable_norm_finiteEulerPhysicalRawRenewalTailAtom B owner lambda
+              family forwardIndex)
+    _ ≤ ∑ forwardIndex : FiniteEulerForwardIndex family.visiblePrimes,
+        ∑' renewalIndex : FiniteEulerRenewalIndex family.visiblePrimes,
+          rawRenewalTailNormConstant owner lambda family *
+            (if B < finiteEulerTwoSidedDisplacement family.visiblePrimes
+                (pairForwardRenewalIndex family.visiblePrimes
+                  (forwardIndex, renewalIndex)) then
+                finiteEulerTwoSidedRawWeight family.visiblePrimes
+                  (pairForwardRenewalIndex family.visiblePrimes
+                    (forwardIndex, renewalIndex))
+              else 0) := by
+          apply Finset.sum_le_sum
+          intro forwardIndex _hforward
+          exact (summable_norm_finiteEulerPhysicalRawRenewalTailAtom B owner lambda
+                family forwardIndex).tsum_le_tsum
+              (fun renewalIndex =>
+                norm_finiteEulerPhysicalRawRenewalTailAtom_le_const_ind B owner
+                  lambda family forwardIndex renewalIndex)
+              (summable_twoSidedRawWeight_tail_fiber B owner lambda family
+                forwardIndex)
+    _ = rawRenewalTailNormConstant owner lambda family *
+        (∑' index : FiniteEulerTwoSidedRenewalIndex family.visiblePrimes,
+          if B < finiteEulerTwoSidedDisplacement family.visiblePrimes index then
+            finiteEulerTwoSidedRawWeight family.visiblePrimes index
+          else 0) := by
+          rw [rawRenewalTailWeightDoubleSum_reassoc B
+            (rawRenewalTailNormConstant owner lambda family) family.visiblePrimes]
+
+/-- The operator-norm, index-independent constant is nonnegative (a product of
+operator norms), which an inequality-chaining step needs to multiply through. -/
+theorem rawRenewalTailNormConstant_nonneg
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    0 ≤ rawRenewalTailNormConstant owner lambda family := by
+  unfold rawRenewalTailNormConstant
+  positivity
+
+/-- The whole tail operator decays exponentially in `B`: after the
+`rawRenewalTailWeightDoubleSum_reassoc` identification, the tail total
+variation `Σ'_{D>B} w` is at most `exp(-B/4)·∏_p primeTwoSidedQuarterMass`, and
+multiplying through by the (nonnegative) constant gives
+`‖R^(>B)‖ ≤ C0 · exp(-B/4) · ∏`.  This is the decay chain that feeds into the
+trace-layer bound for Gate 3U. -/
+theorem norm_inverseLowerFactorPhysicalRenewalTailResponse_le_const_exp
+    (B : ℝ) (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    ‖inverseLowerFactorPhysicalRenewalTailResponse B owner lambda family‖ ≤
+      rawRenewalTailNormConstant owner lambda family *
+        (Real.exp (-B / 4) *
+          (family.visiblePrimes.map primeTwoSidedQuarterMass).prod) := by
+  have hstep := norm_inverseLowerFactorPhysicalRenewalTailResponse_le_const B owner
+    lambda family
+  have hdecay := finiteEulerTwoSidedRawWeight_tail_decay family.visiblePrimes B
+  exact le_trans hstep (mul_le_mul_of_nonneg_left hdecay
+    (rawRenewalTailNormConstant_nonneg owner lambda family))
 
 end CCM24FiniteSCausalMarkovRawRenewalTailBound
 end CCM25Concrete
