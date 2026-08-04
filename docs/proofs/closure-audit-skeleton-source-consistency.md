@@ -41,12 +41,35 @@ weilForm := normalizedCoreSourceWeilFormDataFromTheorems   -- = axiom root
 
 Without this axiom there is **no** `SourceWeilFormData` to fill the field, so the
 entire `SourceAnalyticCore` cannot be built.  The guard
-`CCM25SourceDataGuards.not_nonempty_concreteSourceWeilFormData` shows why "build
-one for real" is impossible: `SourceWeilFormData` forces the finite-prime
-`sourceFinitePrimeTerm` to be **zero on every test**, but the evaluation reads it
-off as `vonMangoldt p · |v(t)|/√t > 0` for `t = 2`, a compact smooth bump nonzero
-at `2`.  Finitely-prime-exact-support and the evaluation are contradictory at the
-very first prime (`CCM25SourceDataGuards.lean:38-57`).
+`CCM25SourceDataGuards.not_nonempty_concreteSourceWeilFormData` shows that "build
+one for real" is impossible: `sourceFinitePrimeTerm F` is forced to be **zero on
+every test** while evaluation reads it as `vonMangoldt p · |v(t)|/√t > 0` at `t = 2`
+for a compact smooth bump nonzero at 2.  Finite-prime exact support and the
+evaluation are contradictory at the very first prime.
+
+**Field-level culprit (which type must be re-typed).** `SourceWeilFormData` has a
+**mandatory** field `finitePrime : SourceFinitePrimeData A evaluation`
+(`AnalyticCore.lean:7746-7748`), which in turn carries a mandatory
+`exactSupport : SourceFinitePrimeExactSupportData A E` (`:7460-7462`).  That
+exact-support record forces the contradiction ring:
+
+```text
+sourceVisibleGlobalIndex :  E.sourceFinitePrimeTerm n F ≠ 0 → n ∈ carrier      (:7382)
+carrier.2 of globalPrimeIndexCarrier :  n ∈ carrier → E.sourceFinitePrimeTerm n F ≠ 0   (:7364)
+```
+
+For a bump test `v` with `v(2) ≠ 0`, `sourceVisibleGlobalIndex` puts `2` in the
+carrier; `carrier.2 (0-test) 2` then demands `sourceFinitePrimeTerm 2 0 ≠ 0`,
+which `concrete_sourceFinitePrimeTerm_zero` refutes (`:7390-7393`,
+`simp`ed since `valueAt` is a `norm`).  The only escape is to make the
+**support carrier non-exact** (drop the `F : A.Test` universal quantifier / the
+carrier witness), but `exactSupport` is a **structure field, not a field witness**,
+so weakening is not a local patch — it is a source-data model re-type.  There is
+currently **no** non-axiom construction of `SourceWeilFormData`/`SourceFinitePrimeData`
+over `concreteTestAlgebra` in the codebase; every real finite-prime term is read
+from `evaluation` (e.g. `FinitePrimeSourceDataBridge.lean:348-357`), i.e. the very
+quantity the exact-support ring forces to zero.
+(`CCM25SourceDataGuards.lean:38-57`, `AnalyticCore.lean:7390-7412`.)
 
 ## Consequence for the RH route
 
