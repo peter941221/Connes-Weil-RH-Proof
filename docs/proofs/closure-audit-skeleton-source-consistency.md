@@ -114,6 +114,41 @@ trusted.
    (`weilSumPositiveIfOffLine` vs `hopesNonpositive`), consistent with AGENTS's
    "detector-only coverage is not a lower producer".
 
+## Second, independent source-model obstruction: the concrete convolution is Additive, not Mellin
+
+The concrete test algebra's `convolutionStar` is **pointwise addition**:
+
+```lean
+normalizedCoreConvolutionStar_eq_add (f g) :  convolutionStar f g = f + g
+                                          (Dev/UnconditionalSkeleton.lean:238-242)
+```
+
+But the route's Weil form is built on a Mellin convolution as a **square**:
+
+```text
+qw f g  = psi (convolutionStar f g)          (SourceWeilFormData.qw, AnalyticCore:7761-7765)
+qwLambda(lambda, f, g) = archimedeanTerm(f*g) … - Σ vonMangoldt·pairing (:7766-7774)
+```
+
+`CC20YoshidaConstruction.not_normalizedCC20MellinConvolutionLaw`
+(:2727-2755) **proves** the concrete star is *not* a Mellin law: by finite-window
+interpolation it builds `g` with `mellinAt g z = 1`, but
+`mellinAt (f*g) z = 2` (doubling) while the law demands `= 1` (squaring),
+yielding `2 = 1`. So even the Mellin structure the `qw` route needs is absent.
+
+**Two independent concrete-source-model breaks** now stand blocked before any
+per-axiom closure, each a *math* refutation (not a missing lemma):
+
+| # | Seam | Concrete fact | Refuting theorem |
+|---|---|---|---|
+| 1 | `SourceWeilFormData.finitePrime.exactSupport` | term forced 0 (carrier needs 0-test nonzero) | `CCM25SourceDataGuards.not_nonempty_concreteSourceWeilFormData` (`AnalyticCore:7390-7412`) |
+| 2 | `convolutionStar` Mellin law | additive (`f*g = f+g`) doubles Mellin value | `CC20YoshidaConstruction.not_normalizedCC20MellinConvolutionLaw` (:2727-2755) |
+
+The detector route (`CC20YoshidaDetectorExists`, `weighted_mellin_kernel_log_line_independence`
+:942) is **fully proved** but is the wrong entry for the additive convolution
+(square vs. doubling conflict) and is keyed only on the standard
+`sourceNontrivialZero`, independent of the broken `SourceWeilFormData`.
+
 ## Judgment
 
 - **Not blocked-on-a-lemma**: the road stops at a **logical contradiction in the
