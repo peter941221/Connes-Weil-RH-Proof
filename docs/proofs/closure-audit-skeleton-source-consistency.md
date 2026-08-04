@@ -159,13 +159,38 @@ The detector route (`CC20YoshidaDetectorExists`, `weighted_mellin_kernel_log_lin
 - Ownership: this is a *source-data model* seam, not the physical Gate 3U seam
   that the previous docs tracked.
 
+## Two-lane closure verdict (2026-08-05)
+
+There are **two routes** to `SourceRH` in the skeleton, and each hits a
+*different* `<independent` kind of wall that the other route cannot bypass:
+
+| Lane | Entry | Content boundary | Wall |
+|---|---|---|---|
+| **Route-A (broken core)** | `normalizedCoreSourceWeilFormDataRoot` axiom (`:137`) | `SourceWeilFormData` on `concreteTestAlgebra` | `SourceWeilFormData` is **provably empty** on the concrete algebra (`CCM25SourceDataGuards`), and the concrete convolution is pointwise-add (fails the Mellin law, `:2727`) |
+| **Route-1 (Prop C1, sign)** | `normalizedCoreCC20PropositionC1SourceCriterionRoot` axiom (`:1551`) | `∀ input, CC20PropositionC1SourceCriterion` ⇐ `input.fullWeilPositivity` (finite-S sign, `Sort 1`) | `fullWeilPositivity` bottoms at `finalSignNonpositive = SourceQWNonnegative→CC20Nonpositive` ← `hilbertSchmidtGate` (archimedean HS = `traceClass ∧ cyclicLegal`), the same concrete-model gate that Route-A hits |
+
+`RouteCertificate` requires `finalSignNonpositive`
+(`RouteTheorem.lean:1560`), which is
+`source_backed_full_positivity_of_route_bridge_certificate` fed into
+`full_weil_positivity_of_source_backed`. So **both** lanes ultimately stand
+on the **archimedean Hilbert-Schmidt gate** for the concrete source model —
+which is exactly what the two concrete-source-model breaks
+(finite-prime forced-zero + additive convolution) refute.  The finite-S sign
+is not computable on the current model.
+
+`CC20YoshidaDetectorExists` and the detector ladder are **proved** theorems
+(`CC20YoshidaCriterion`/`CC20YoshidaConstruction`), but they only
+supply the "off-line contradiction" half; the on-line (critical-line) sign
+still needs the archimedean HS gate.
+
 ## Handoff fields
 
 - RH status: **blocked — source-relevant consistency break at `weilForm` field of
   `SourceAnalyticCore` (axiom vs. guard refutation, same algebra)**.
 - Files read: `UnconditionalSkeleton`, `CCM25SourceDataGuards`,
-  `CC20Yosh` sensor *Declaration*, `CC20RouteRealization`, `AnalyticCore`,
-  `Bridge`, `S2B1TraceScale`.
+  `CC20RouteRealization`, `CC20YoshidaCriterion`, `CC20YoshidaConstruction`,
+  `CC20PropositionC1`, `CC20RHExit`, `CC20TestSpace`, `AnalyticCore`,
+  `Bridge`, `RouteTheorem`, `S2B1TraceScale`.
 - Declarations changed: none (audit round; no Lean edit).
 - Active root: for this round, the `weilForm` field of the source analytic core.
 - Build / audit: no build run this round (pure reads + report).
