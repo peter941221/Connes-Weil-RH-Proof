@@ -183,6 +183,37 @@ is not computable on the current model.
 supply the "off-line contradiction" half; the on-line (critical-line) sign
 still needs the archimedean HS gate.
 
+## Decisive positive finding (2026-08-05): the archimedean HS gate is LIVE in CompactLog world
+
+The two-lane verdict said both Routes A and 1 converge on the archimedean
+`hilbertSchmidtGate` (`traceClass ∧ cyclicLegal`).  Chasing that gate to the
+bottom **does not** end in emptiness:
+
+- `AHilbertSchmidtGateReuseProbe.hsGate_selfAdjoint` (:33):
+  `windowedBoundaryDetector g a c` is **self-adjoint** for every
+  `g : CCM25Concrete.CompactLogConvolution.CompactLogTest`.
+- `...hsGate_traceClass_enablingBridge` (:43): the detector factor is genuinely
+  **HS-trace-class along a global Hilbert basis** (`signedBoundaryOperator_isTraceClassAlong`,
+  `CompactRootHalfLinePair.lean:1358+`); the bases are parameters that any
+  `L²` space over the boundary intervals supplies.
+- `CC20YoshidaDetectorExists` ladder is fully proved (non-axiom).
+
+So `hilbertSchmidtGate g = traceClass g ∧ cyclicLegal g` **is satisfiable by a
+concrete nonzero `CompactLogTest`** — the archimedean HS gate is **not**
+structurally empty.  The A0 "single-point window `(0,0)` ⇒ zero-only test"
+obstruction is specific to the skeleton's chosen concrete carrier, not to HS
+itself.
+
+**Reconciled verdict.**  The skeleton's `SourceRH` is blocked because *its own
+concrete core* (finite-prime `exactSupport` + additive convolution) is broken
+and inconsistent with the archimedean-HS gate it needs.  But a healthy,
+nonzero, axiom-clean HS carrier already exists in
+`CCM25Concrete.CompactLogConvolution.CompactLogTest` + `CompactRootHalfLinePair`.
+The finite-S sign is *computable in the CompactLog model*; it is only unavailable
+on the skeleton's current (broken) concrete model.  The real work is to re-type
+the skeleton's source core onto the CompactLog HS carrier, not to prove the gate
+is impossible.
+
 ## Handoff fields
 
 - RH status: **blocked — source-relevant consistency break at `weilForm` field of
@@ -190,7 +221,8 @@ still needs the archimedean HS gate.
 - Files read: `UnconditionalSkeleton`, `CCM25SourceDataGuards`,
   `CC20RouteRealization`, `CC20YoshidaCriterion`, `CC20YoshidaConstruction`,
   `CC20PropositionC1`, `CC20RHExit`, `CC20TestSpace`, `AnalyticCore`,
-  `Bridge`, `RouteTheorem`, `S2B1TraceScale`.
+  `Bridge`, `RouteTheorem`, `S2B1TraceScale`, `A0WireFeasibilityProbe`,
+  `AHilbertSchmidtGateReuseProbe`, `CompactRootHalfLinePair`.
 - Declarations changed: none (audit round; no Lean edit).
 - Active root: for this round, the `weilForm` field of the source analytic core.
 - Build / audit: no build run this round (pure reads + report).
