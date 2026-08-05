@@ -99,6 +99,20 @@ theorem nonzero_hsGate_witness :
   ⟨nonzeroTest, nonzeroTest_test_ne_zero, ⟨1, 1,
     hsGate_selfAdjoint_witness 1 1⟩⟩
 
+/--
+THE VALUE: the windowed detector at the nonzero test is a *nonnegative*
+operator on the crossing space — its quadratic form is a true square `‖F u‖²` and
+hence `≥ 0`.  Algebraically `detector = F† ∘ F` with
+`F = fullBoundaryRootFactor`, so `⟨u, detector u⟩ = ‖F u‖² ≥ 0`.  This is the
+concrete sign content that A0's single-point window could never provide.
+-/
+theorem detector_diagonal_re_nonneg (a c : ℝ) (u : cc20GlobalLogCrossingL2) :
+    0 ≤ (⟪u, windowedBoundaryDetector nonzeroTest a c u⟫_ℂ).re := by
+  dsimp [windowedBoundaryDetector]
+  rw [ContinuousLinearMap.comp_apply]
+  rw [ContinuousLinearMap.adjoint_inner_right]
+  exact inner_self_nonneg (fullBoundaryRootFactor nonzeroTest a c u)
+
 end A3NonzeroCompactLogGateProbe
 end Dev
 end Source
