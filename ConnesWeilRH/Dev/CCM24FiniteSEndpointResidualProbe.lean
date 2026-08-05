@@ -136,6 +136,19 @@ theorem sourceEndpointCancellationResidual_eq_outer_add_forward_add_bandMetric
     sourcePhysicalCoframeLeakage_eq_outer_add_bandMetric]
   abel
 
+/-- The outer-radial channel IS the radial complement of the metric coframe:
+`(I−R) ∘ M`.  With `M = T† ∘ D` and `D` already radial (`R ∘ D = D`), the
+channel is nonzero precisely because the adjoint transport `T†` fails to map
+the radial image of the dual frame back into the radial subspace.  The
+Hilbert–Schmidt certificate for this channel would need `(I−R)∘T†∘D`; it is
+not supplied by closure. -/
+theorem sourceOuterCoframeLeakage_eq_radial_support_comp_metricCoframe
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    sourceOuterCoframeLeakage lambda family =
+      (ContinuousLinearMap.id ℂ finiteSCarrier - radialSupportProjection lambda) ∘L
+        finiteEulerMetricCoframe lambda family := by
+  rw [sourceOuterCoframeLeakage]
+
 end CCM24FiniteSEndpointResidualProbe
 end CCM25Concrete
 end Source
