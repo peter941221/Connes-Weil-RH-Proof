@@ -6,6 +6,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSForwardOffSoninReduction
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSPhysicalLeakage
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSPhysicalCancellationChannelSplit
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSPhysicalCancellationEndpointSplit
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCombinedCoframeGuard
 
 /-!
 # Proof-717 endpoint residual probe
@@ -49,6 +51,8 @@ open CCM24FiniteSGramResponse
 open CCM24FiniteSCoframeResponse
 open CCM24FiniteSPhysicalLeakage
 open CCM24FiniteSPhysicalCancellationChannelSplit
+open CCM24FiniteSPhysicalCancellationEndpointSplit
+open CCM24FiniteSCombinedCoframeGuard
 open CCM24FiniteSRawRemainderCommonPair
 open CCM24FiniteSInverseMetric
 open CCM24FiniteSCausalSupport
@@ -148,6 +152,22 @@ theorem sourceOuterCoframeLeakage_eq_radial_support_comp_metricCoframe
       (ContinuousLinearMap.id ℂ finiteSCarrier - radialSupportProjection lambda) ∘L
         finiteEulerMetricCoframe lambda family := by
   rw [sourceOuterCoframeLeakage]
+
+/-- The two-channel orthogonal split (Proof 723/724).  The residual
+`(I−Q)∘endpoint` decomposes through the two projections `(I−R)` and `(R−Q)`:
+the outer-radial part `(I−R)∘endpoint` and the source-band part `(R−Q)∘endpoint`.
+Because `Q ≤ R` (`R∘Q = Q`), the ranges of `(I−R)` and `(R−Q)` are orthogonal,
+so the vanishing of the residual is equivalently the joint vanishing of its two
+orthogonal components.  This is the fine-cancellation content of the metric
+wall: it is not a trace-vanish (both operators are infinite-rank). -/
+theorem sourceEndpointCancellationResidual_eq_outer_add_endpointBand
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    sourceEndpointCancellationResidual lambda family =
+      sourceOuterCoframeLeakage lambda family +
+        (sourceBandProjection lambda ∘L
+          sourceActualBandForwardEndpointCoframe lambda family) := by
+  rw [sourceEndpointCancellationResidual_eq_outer_add_forward_add_bandMetric,
+    ← sourceOuter_add_forward_add_bandMetric_eq_outer_add_endpointBand]
 
 end CCM24FiniteSEndpointResidualProbe
 end CCM25Concrete
