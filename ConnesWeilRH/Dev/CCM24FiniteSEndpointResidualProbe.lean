@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSForwardOffSoninReduction
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSPhysicalLeakage
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSPhysicalCancellationChannelSplit
 
 /-!
 # Proof-717 endpoint residual probe
@@ -26,14 +27,15 @@ the two off-Sonin branches onto one band.
   so that `residual = 0 ⟺ (N + M) ∘ L ∈ range(Q)` — the residual is the
   off-Sonin defect of the combined normalized-inverse and metric Gram term.
 
-* The band sum is also equal to `(R−Q) ∘ (N+M) ∘ L`: on source inclusions
-  the radial correction to the metric term is the second-support boundary
-  `(I−EQ₀E) R M L`, assembled with the prolate remainder `K₀ = R−Q−(I−EQ₀E) R`.
+* The Proof-723 channel split (final theorem) records the exact wall: the
+  residual splits into the outer-radial channel `(I−R) ∘ M` plus the
+  source-band channel `forward + (R−Q) ∘ M`.  The true unresolved analytic
+  content is the outer-radial channel `(I−R) ∘ M`; it is NOT equal to zero
+  in-library (only the tautology `R(R(Mu))=R(Mu)` holds), and it is not
+  supplied by closure.  Recombining these channels is the analytic content.
 
 This probe makes no norm estimate, Gate-3U bound, sign statement, or RH
-premise; it is pure operator algebra on the source Sonin carrier.  The
-classification `residual = 0` is exactly the Proof-717 wall recorded in the
-project ledger.
+premise; it is pure operator algebra on the source Sonin carrier.
 -/
 
 namespace ConnesWeilRH
@@ -46,6 +48,7 @@ open CCM24FiniteSProjectionTrace
 open CCM24FiniteSGramResponse
 open CCM24FiniteSCoframeResponse
 open CCM24FiniteSPhysicalLeakage
+open CCM24FiniteSPhysicalCancellationChannelSplit
 open CCM24FiniteSRawRemainderCommonPair
 open CCM24FiniteSInverseMetric
 open CCM24FiniteSCausalSupport
@@ -87,12 +90,9 @@ theorem sourceEndpointCancellationResidual_eq_offSonin_sum
 
 /-- The diagnostic: the residual differs from the `(R−Q)`-band sum of the
 combined coframes by exactly `(R−I) ∘ M`, the outer-radial correction of the
-metric coframe.  That correction vanishes iff the metric coframe is
-radially supported; the forward branch already is, by
-`radialSupportProjection_normalizedInverse_sourceInclusion_eq_self`.  This
-is the Proof-717 wall recorded in the project ledger: no in-library theorem
-supplies `R ∘ M = M`, and `M`'s radial support is exactly the unresolved
-analytic content. -/
+metric coframe.  The forward branch already is radially supported, by
+`radialSupportProjection_normalizedInverse_sourceInclusion_eq_self`; the
+metric coframe is not, so the band-sum gap is precisely `(R−I) ∘ M`. -/
 theorem sourceEndpointCancellationResidual_band_sum_gap
     (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
     (radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
@@ -113,6 +113,27 @@ theorem sourceEndpointCancellationResidual_band_sum_gap
   simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.add_apply,
     ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply, map_add]
   rw [hforward]
+  abel
+
+/-- The Proof-723 channel split: the residual is the outer-radial channel
+`(I−R) ∘ M` plus the source-band channel `forward + B ∘ M`.  This is the exact
+wall — the genuine metric-boundary content rides entirely on
+`sourceOuterCoframeLeakage`, and its recombination against the band channel is
+analytic content not supplied by closure. -/
+theorem sourceEndpointCancellationResidual_eq_outer_add_forward_add_bandMetric
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    sourceEndpointCancellationResidual lambda family =
+      sourceOuterCoframeLeakage lambda family +
+        (sourceActualBandForwardCoframe lambda family +
+          sourceBandMetricCoframeLeakage lambda family) := by
+  rw [sourceEndpointCancellationResidual]
+  rw [show
+    (ContinuousLinearMap.id ℂ finiteSCarrier - sourceSoninProjection lambda) ∘L
+        finiteEulerMetricCoframe lambda family =
+      sourceSoninCoframeLeakage lambda family by
+    rw [sourceSoninCoframeLeakage]]
+  rw [sourceSoninCoframeLeakage_eq_physical,
+    sourcePhysicalCoframeLeakage_eq_outer_add_bandMetric]
   abel
 
 end CCM24FiniteSEndpointResidualProbe
