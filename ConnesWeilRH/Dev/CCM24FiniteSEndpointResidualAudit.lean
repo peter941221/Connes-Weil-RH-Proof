@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.CCM24FiniteSEndpointResidualProbe
+
+namespace ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSEndpointResidualProbe
+
+#check sourceEndpointCancellationResidual
+#check sourceEndpointCancellationResidual_eq_offSonin_sum
+#check sourceEndpointCancellationResidual_band_sum_gap
+
+#print axioms sourceEndpointCancellationResidual_eq_offSonin_sum
+#print axioms sourceEndpointCancellationResidual_band_sum_gap
+
+end ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSEndpointResidualProbe
