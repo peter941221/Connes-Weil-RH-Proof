@@ -8,6 +8,7 @@ import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSPhysicalLeakage
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSPhysicalCancellationChannelSplit
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSPhysicalCancellationEndpointSplit
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCombinedCoframeGuard
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSEndpointContractionGuard
 
 /-!
 # Proof-717 endpoint residual probe
@@ -53,6 +54,7 @@ open CCM24FiniteSPhysicalLeakage
 open CCM24FiniteSPhysicalCancellationChannelSplit
 open CCM24FiniteSPhysicalCancellationEndpointSplit
 open CCM24FiniteSCombinedCoframeGuard
+open CCM24FiniteSEndpointContractionGuard
 open CCM24FiniteSRawRemainderCommonPair
 open CCM24FiniteSInverseMetric
 open CCM24FiniteSCausalSupport
@@ -168,6 +170,23 @@ theorem sourceEndpointCancellationResidual_eq_outer_add_endpointBand
           sourceActualBandForwardEndpointCoframe lambda family) := by
   rw [sourceEndpointCancellationResidual_eq_outer_add_forward_add_bandMetric,
     ← sourceOuter_add_forward_add_bandMetric_eq_outer_add_endpointBand]
+
+/-- Proof 717 in one line: the endpoint is a contraction iff it equals the
+source inclusion, equivalently iff the complete off-Sonin leakage vanishes.
+The forward part is annihilated by `Q` (`Q∘forward = 0`), and the metric part
+satisfies `Q∘M = J`, so `Q∘endpoint = J`. The remaining content is entirely
+the off-Sonin identity `(I−Q)(forward + M) = 0`, which is not in closure. -/
+theorem sourceActualBandForwardEndpointCoframe_eq_inclusion_iff_combined_leakage_eq_zero
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    sourceActualBandForwardEndpointCoframe lambda family =
+        CCM24FiniteSGramResponse.sourceInclusion lambda ↔
+      sourceActualBandCombinedCoframeLeakage lambda family = 0 := by
+  constructor
+  · intro heq
+    rw [sourceActualBandCombinedCoframeLeakage_eq_combined_sub_inclusion, heq, sub_self]
+  · intro hleakage
+    exact sourceActualBandForwardEndpointCoframe_eq_inclusion_of_combined_leakage_eq_zero
+      lambda family hleakage
 
 end CCM24FiniteSEndpointResidualProbe
 end CCM25Concrete
