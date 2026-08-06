@@ -1418,6 +1418,80 @@ from internal ledger style to journal style. Those are not new proof ingredients
 visible from the route ledger.
 ```
 
+## Open Frontier: The Proof-317 Metric Wall And The Transport-Radial Defect
+
+The route-level spine above is complete. What remains before the Gate-3U
+positivity test (`canonicalRealGate3UAt`) can close is a single honest
+hypothesis, isolated by the completed-kernel/energy-gate pair and the channel
+split. Every closure in the finite library reduces to the same point:
+
+```
+hcancellation :  sourceActualBandForwardCoframe + sourcePhysicalCoframeLeakage = 0
+```
+
+This is exactly the Statement-Ex-317 midpoint
+
+```
+norm sourceActualBandForwardEndpointCoframe <= 1  iff  hcancellation
+```
+
+So the *whole* Gate is one hypothesis short, and that hypothesis is not a gap
+in the finite library's algebra. It is an analytic fact about how the adjoint
+of the finite-Euler transport acts on the radial subspace. Writing the pieces:
+
+- `M = T-dagger D`, with `D = F . G^{-1}` the dual frame and `G^{-1}` self-adjoint;
+- `R` the radial-support projection, `Q` the source-Sonin projection, `B = R - Q`;
+- `forward = (I-Q) . (N . L)` with `N` the normalized finite-Euler inverse and
+  `L` the source inclusion.
+
+The off-Sonin sum splits orthogonally into an outer-radial channel and a
+source-band channel:
+
+```
+forward + M =  (I-R) . M      +   ( forward + B . M )
+            =  (I-R) . T-dagger . D   +   ( forward + B . M ) .
+```
+
+Because `R . D = D` (the dual frame is radially supported), the outer channel
+collapses to the single operator `(I-R) . T-dagger . R`: the question is
+whether the adjoint transport pulls a radial input out of the radial
+subspace. No closed-loop identity forces this to `0` — the only exact fact is
+the auto-tautology `R(R x) = R x`. The norm bound on the un-scaled adjoint is
+one-sided (`||T-dagger|| <= upperFactor`), which majors the channel by a live
+positive constant rather than zero.
+
+**The remaining route is analytic, not formal.** The honest open conjecture
+that closes every Gate-3U closer is
+
+```
+(II)   (I - R) . T-dagger . R = 0      on the source carrier.
+```
+
+Equivalently: the adjoint of the finite-Euler transport maps the radial
+support of every source basis vector back into the radial subspace. If this
+holds, the outer channel vanishes and `hcancellation = 0`; the Gate closes
+without any norm estimate or infinite trace bound. Two softer fallbacks are
+equally viable, and each avoids asking for exact `= 0`:
+
+1. A quantitative radial-leak bound `||(I-R) . T-dagger . R|| <= decay` folded
+   into the fixed physical energy majorant;
+
+2. Finiteness (not bounded-to-zero) of both factor diagonals
+   `Sigma || (D . W) b_i ||^2` and `Sigma || (transport . complement . kernel . W) b_i ||^2`
+   along the infinite Sonin basis: then the diagonal structural sum
+   `Re (boundary pairing b_i b_i)` is summable, and Gate-3U closes with a
+   finite real majorant, never needing the metric collapse.
+
+Option (2) makes the trace condition `bounded <= fixed majorant` a genuine
+premise instance derived from Sobolev decay, and keeps the whole turn honest.
+The formalization is unchanged: the endpoint residual probe bundle
+(Dev `CCM24FiniteSEndpointResidualProbe`) records the radial dual frame
+`R . D = D`, the outer-channel identity `(I-R) . T-dagger . D`, and the
+one-sided transport bound `||T-dagger|| <= upperFactor`, all axiom-clean.
+They do not close the Gate by themselves; they pin down that the missing
+closed-loop hypothesis is not a library splice, it is the transport-radial
+frontier above.
+
 ## Three-Battle Integrated Gate
 
 The fixed-S positive trace can be read as a Weil-form inequality only after
