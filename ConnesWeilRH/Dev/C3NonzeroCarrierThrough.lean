@@ -33,7 +33,7 @@ namespace Source
 namespace Dev
 namespace C3NonzeroCarrierThrough
 
-open scoped ComplexConjugate
+open scoped ComplexConjugate InnerProduct InnerProductSpace
 open MeasureTheory
 
 /-- The interval `Icc (-b) b` has finite Lebesgue measure. -/
@@ -113,6 +113,34 @@ theorem stepCarrierLp_crossing_inner_pos (b : ℝ) (hb : 0 < b) :
       (ConnesWeilRH.Source.CC20Concrete.cc20SingleCrossingOperator b
         (stepCarrierLp b))).re := by
   rw [stepCarrierLp_crossing_inner_eq b (le_of_lt hb)]
+  norm_num
+  linarith
+
+/-- E2: glue the Hilbert-basis diagonal trace onto the route-C trace lane.
+The ordinary trace of the rank-one smoothing on ANY Hilbert basis is the
+pairing `⟨h, SingleCrossing b k⟩` (library closure), which for the concrete
+step carrier reduces, via the A0-through inner product, to `b`.  So the
+trace-class scalar that route C reads is `b > 0` on every basis — the
+diagonal readout of the A0 witness. -/
+theorem stepCarrier_traceAlong_eq_b
+    (b : ℝ) (hb : 0 ≤ b) {ι : Type*}
+    (basis : HilbertBasis ι ℂ ConnesWeilRH.Source.CC20Concrete.cc20GlobalLogCrossingL2) :
+    ConnesWeilRH.Source.CC20Concrete.PositiveTrace.ordinaryTraceAlong basis
+        (ConnesWeilRH.Source.CC20Concrete.cc20SmoothedCrossing b
+          (stepCarrierLp b) (stepCarrierLp b)) =
+      (b : ℂ) := by
+  rw [ConnesWeilRH.Source.CC20Concrete.cc20SmoothedCrossing_ordinaryTraceAlong
+    b (stepCarrierLp b) (stepCarrierLp b) basis]
+  exact stepCarrierLp_crossing_inner_eq b hb
+
+/-- E2 readout as a strictly positive real: the trace scalar is `b > 0`. -/
+theorem stepCarrier_traceAlong_re_pos
+    (b : ℝ) (hb : 0 < b) {ι : Type*}
+    (basis : HilbertBasis ι ℂ ConnesWeilRH.Source.CC20Concrete.cc20GlobalLogCrossingL2) :
+    0 < (ConnesWeilRH.Source.CC20Concrete.PositiveTrace.ordinaryTraceAlong basis
+        (ConnesWeilRH.Source.CC20Concrete.cc20SmoothedCrossing b
+          (stepCarrierLp b) (stepCarrierLp b))).re := by
+  rw [stepCarrier_traceAlong_eq_b b (le_of_lt hb) basis]
   norm_num
   linarith
 
