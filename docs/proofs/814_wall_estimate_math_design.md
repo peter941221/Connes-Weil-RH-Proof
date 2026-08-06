@@ -133,14 +133,55 @@ Run `814_wall_estimate_numeric_probe.py` (finite-section of `(I−R)∘T†∘R`
   `‖W e_k‖` **does not decay**: it rises toward the flat `‖W‖` (`0.65→0.707`,
   `1.28→1.16`, ...).  The thinner the near-edge tail, the *more* it leaks.
 
-Why this is decisive: one prime factor of `T†` reads `f(t) − p^(−1/2) f(t+logp)`;
-the second term shifts radial mass left across `log λ`.  A carrier stacked right
-at the wall loses almost its whole edge.  Same net effect accumulates over
-`p → log (∏p)`.  So the §4 conjecture — square-squeeze by prolate tail decay —
-is **numerically falsified**: `‖W‖` is genuinely `≥ 1` for more than one prime,
-and serial decay is not square.
+Why: one prime factor of `T†` reads `f(t) − p^(−1/2) f(t+logp)`; the second term
+shifts radial mass left across `log λ`.  A carrier stacked right at the wall
+loses almost its whole edge.  So the §4 conjecture — square-squeeze by prolate
+tail decay of the **outer wall in isolation** — is **numerically falsified**:
+`‖W‖` is genuinely `≥ 1` for more than one prime, and serial decay is not square.
 
-Verdict: Gate-3U cannot be closed via the §4 wall bound on the standard carrier;
-that candidate theorem is dead.  The front must move to a *different* operator
-side (e.g. forward `T`, a band-limited vs full-domain distinction, or a
-radially-*weighted* `T†`), not keep stacking proofs on this wall.
+Verdict (scoped honestly): what this probe kills is the §4 *outer-branch* tool
+`(I−R)∘T†∘R` as a decaying estimate.  It does **not** kill Gate-3U: the actual
+load-bearing equation
+([`CCM24FiniteSEndpointContractionGuard.lean:245`](../../../ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSEndpointContractionGuard.lean))
+is
+
+```
+sourceActualBandForwardCoframe + sourcePhysicalCoframeLeakage = 0
+   = forward + (outer + secondSupport + prolate)
+```
+
+a **cancellation across branches**, not a branchwise norm decay.  The outer
+branch need not be small; it must cancel the forward + compensated
+second-support terms.  My probe measured one summand, not the sum.  That
+cancellation remains open and is the true 717 producer target.  Next step is
+a probe of the *whole* `forward + physical` sum on the real carrier, not
+branch by branch.
+
+### 6a. Two probe attempts on the full-gate object, and what they bracket
+
+The gate keys on the whole object, so I tried to measure `forward + physical`
+directly.  The exact object is the metric dual coframe
+`D = finiteEulerMetricCoframe = H·J·G⁻¹` with `H = TT†`, `G⁻¹` the restricted
+inverse Gram, and the source band `R₀ = E − sourceSoninProjection`.  Two grid
+reconstructions **bracketed the truth but neither decided it**:
+
+| attempt | construction | `‖band·D‖` | cause |
+|---------|--------------|-----------|-------|
+| `pinv(G)` on full grid | `T·G⁻¹`, band `= I−R` | `~3×10¹⁴` | `G` near-singular; naive `pinv` feeds unbounded `G⁻¹` |
+| carrier-restricted `G⁻¹` | truncate small singvals, then `band=I−R` | `0` | proxy `I−R` annihilates the radially-supported carrier `D` *by construction* |
+
+Both artifacts are failures of my grid gluing, not physics: the true `R₀`
+(orthogonal complement of the source band) does *not* annihilate `D`, but the
+grid `I−R` does.  So the numeric answer to the full-gate cancellation is **not
+yet obtained** — it needs `R₀` faithfully, i.e. the Sonin/band structure that a
+uniform `log t` grid does not reproduce.  This is the sharp reason the frontier
+is genuinely an analytic (not assembly) one.
+
+### What convergence would look like
+
+A faithful numeric probe of the three-branch cancellation must reproduce
+`sourceBandProjection = E − R₀` (source Sonin orthogonal band), not `I−R`.  That
+band is the piece for which the *Gram-corrected* frame `D = T·G⁻¹` is genuinely
+metric.  Until it is laid out on a grid that realizes `R₀`, no numeric verdict
+is decisive.  Formalizing the isometry `‖band∘D‖ = 1 ⟺ cancellation` is the
+Lean-shaped target; a grid probe alone cannot settle it without `R₀`.
