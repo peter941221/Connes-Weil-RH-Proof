@@ -11,3 +11,11 @@ MEMORY.md
 *.log
 __pycache__/
 *.py[cod]
+
+# local-only WSL probe venv
+.venv-probe/
+
+# local-only WSL setup/verification helpers (contain local absolute paths)
+a0*.sh
+a1*.sh
+mc_setup.sh
