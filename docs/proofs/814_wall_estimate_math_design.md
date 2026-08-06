@@ -115,5 +115,32 @@ current library by Lean assembly.
 
 - RH status: because Gate-3U stays open, RH remains **conditional** on this wall
   estimate; the concrete-source/Dev layer is, per `812`/`813`, quarantined.
-- Next safe move: numeric/dimensional probe of `‖W‖` on the canonical prolate
-  frame (not a Lean obligation yet); then decide whether to formalize the bound.
+- Next safe move: numeric probe of `‖W‖` on the canonical prolate frame (not a
+  Lean obligation yet); then decide whether to formalize the bound.
+
+## 6. Numeric verdict (2026-08-06): the candidate wall theorem is FALSE
+
+Run `814_wall_estimate_numeric_probe.py` (finite-section of `(I−R)∘T†∘R`).
+
+| primes        | `‖W‖` (largest singval) |
+|---------------|--------------------------|
+| `{2}`         | `0.70711`               |
+| `{2,3}`       | `1.30138`               |
+| `{2,3,5}`     | `1.98716`               |
+
+- Value is independent of `log λ` (0.0 / 1.0 gave identical numbers).
+- On a decayed prolate-like radial carrier `e_k` (width shrinking with `k`),
+  `‖W e_k‖` **does not decay**: it rises toward the flat `‖W‖` (`0.65→0.707`,
+  `1.28→1.16`, ...).  The thinner the near-edge tail, the *more* it leaks.
+
+Why this is decisive: one prime factor of `T†` reads `f(t) − p^(−1/2) f(t+logp)`;
+the second term shifts radial mass left across `log λ`.  A carrier stacked right
+at the wall loses almost its whole edge.  Same net effect accumulates over
+`p → log (∏p)`.  So the §4 conjecture — square-squeeze by prolate tail decay —
+is **numerically falsified**: `‖W‖` is genuinely `≥ 1` for more than one prime,
+and serial decay is not square.
+
+Verdict: Gate-3U cannot be closed via the §4 wall bound on the standard carrier;
+that candidate theorem is dead.  The front must move to a *different* operator
+side (e.g. forward `T`, a band-limited vs full-domain distinction, or a
+radially-*weighted* `T†`), not keep stacking proofs on this wall.
