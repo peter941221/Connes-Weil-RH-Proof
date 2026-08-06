@@ -24,6 +24,8 @@ here claims RH and nothing here proves the full `ordinaryTraceAlong` statement.
 -/
 
 import ConnesWeilRH.Source.CC20Concrete.GlobalLogCrossing
+import ConnesWeilRH.Source.CC20Concrete.GlobalLogCrossingTraceClass
+import ConnesWeilRH.Source.CC20Concrete.PositiveTrace
 import ConnesWeilRH.Basic
 
 namespace ConnesWeilRH
@@ -84,6 +86,28 @@ theorem stepCarrierFn_ne_zero (b : ℝ) (hb : 0 < b) :
   have hval : stepCarrierFn b b = 1 := stepCarrierFn_in_window b b hnonneg hlebb
   rw [hval] at happly
   norm_num at happly
+
+/--
+ZERO-NEW-MATH closure link to the trace side: the ordinary trace of the rank-one
+smoothing IS the inner product `⟨h, SingleCrossing b k⟩` on ANY Hilbert basis
+(cited from the library `cc20SmoothedCrossing_ordinaryTraceAlong`).  Combined
+with A0's carrier, the Gate scalar is exactly that inner product.  The remaining
+task is to feed the concrete step carrier through `L2.inner_def` to see it is
+`b > 0`; the pointwise identity `integrand_in_Icc_negB_zero` above gives the
+integrand on the window, which is where that value `b` comes from.
+-/
+noncomputable abbrev crossingL2 :=
+  ConnesWeilRH.Source.CC20Concrete.cc20GlobalLogCrossingL2
+
+theorem trace_smoothedCrossing_eq_inner_const
+    (b : ℝ) (k h : crossingL2) {ι : Type*}
+    (basis : HilbertBasis ι ℂ crossingL2) :
+    ConnesWeilRH.Source.CC20Concrete.PositiveTrace.ordinaryTraceAlong basis
+        (ConnesWeilRH.Source.CC20Concrete.cc20SmoothedCrossing b k h) =
+      inner ℂ h (ConnesWeilRH.Source.CC20Concrete.cc20SingleCrossingOperator b k) := by
+  simpa [crossingL2] using
+    (ConnesWeilRH.Source.CC20Concrete.cc20SmoothedCrossing_ordinaryTraceAlong
+      b k h basis)
 
 end C2NonzeroCarrierProbe
 end Dev
