@@ -7449,6 +7449,60 @@ theorem restrictedCoverage
 
 end SourceFinitePrimeExactSupportData
 
+/-
+Per-common finite-prime source support (S2 / docs:proofs:835).
+
+The legacy `SourceFinitePrimeExactSupportData` above carries a REVERSE witness
+`∀ F : A.Test, n ∈ carrier -> term n F ≠ 0` — ultra-quantified over every test.
+That forces a zero element's term to be nonzero and is the L137/L152
+contradiction (docs:proofs 833/834).  This record is the "dropped-exactSupport"
+redesign: it keeps the harmless FORWARD direction (visible -> member) and scopes
+the REVERSE witness to a single COMMON test `c`. No field constrains an
+arbitrary (in particular zero) element, so the contradiction does not arise.
+It does NOT replace the legacy structure (that is the separate Step-2 flip); it
+is added alongside so existing consumers build unchanged.
+-/
+/-- A finite-prime support carrier whose exactness is stated for a single common
+test, not for all tests.  Forward (visible -> member) is kept; reverse is
+per-common. -/
+structure PerCommonSourceFinitePrimeSupport
+    (A : SourceTestAlgebra) (E : SourceEvaluationData A) (common : A.Test) where
+  globalIndexSet : Finset ℕ
+  restrictedIndexSet : ℝ → Finset ℕ
+  sourceVisibleGlobalIndex :
+    ∀ n : ℕ, ∀ F : A.Test, E.sourceFinitePrimeTerm n F ≠ 0 -> n ∈ globalIndexSet
+  sourceVisibleRestrictedIndex :
+    ∀ lambda : ℝ, ∀ n : ℕ, ∀ F : A.Test,
+      E.sourceFinitePrimeTerm n F ≠ 0 -> 1 < n -> (n : ℝ) ≤ lambda ^ 2 ->
+        n ∈ restrictedIndexSet lambda
+  commonGlobalIndex :
+    ∀ n : ℕ, n ∈ globalIndexSet -> E.sourceFinitePrimeTerm n common ≠ 0
+  commonRestrictedIndex :
+    ∀ lambda : ℝ, ∀ n : ℕ,
+      n ∈ restrictedIndexSet lambda ->
+        E.sourceFinitePrimeTerm n common ≠ 0 ∧ 1 < n ∧ (n : ℝ) ≤ lambda ^ 2
+
+namespace PerCommonSourceFinitePrimeSupport
+
+/-- Forward direction is unaffected by the common scoping. -/
+theorem visible_mem
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (common : A.Test)
+    (S : PerCommonSourceFinitePrimeSupport A E common)
+    (n : ℕ) : (∃ F : A.Test, E.sourceFinitePrimeTerm n F ≠ 0) ->
+      n ∈ S.globalIndexSet := by
+  intro ⟨F, h⟩
+  exact S.sourceVisibleGlobalIndex n F h
+
+/-- Per-common reverse: membership implies `common`'s term is really nonzero
+(no `∀ F`, so no zero-element forced step). -/
+theorem common_mem_nonzero
+    (A : SourceTestAlgebra) (E : SourceEvaluationData A) (common : A.Test)
+    (S : PerCommonSourceFinitePrimeSupport A E common) (n : ℕ) :
+    n ∈ S.globalIndexSet -> E.sourceFinitePrimeTerm n common ≠ 0 :=
+  S.commonGlobalIndex n
+
+end PerCommonSourceFinitePrimeSupport
+
 /--
 CCM25 finite-prime source arithmetic over the shared test algebra.
 

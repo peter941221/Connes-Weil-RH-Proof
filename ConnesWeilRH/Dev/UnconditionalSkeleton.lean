@@ -133,7 +133,24 @@ noncomputable def normalizedCoreSourceSupportWindowDataFromTheorems :
     normalizedCoreSourceWindowWitnessFromTheorems
     normalizedCoreSourceSupportTestFromTheorems
 
-/- Shared CCM25 Weil-form data over the common source test algebra. -/
+/-
+STRUCTURAL WIRE-UP BLOCKER — registered for refactor (do NOT treat as wired).
+Evidence chain: docs/proofs/834_l137_wiring_impossibility_evidence_chain.md.
+
+`SourceWeilFormData.finitePrime.exactSupport` demands a global index whose two
+witnesses are `∀ F : A.Test` (a per-test POST-witness `n ∈ carrier -> term n F ≠ 0`).
+Any real carrier with a pointwise-zero element forces `term n 0 ≠ 0`, contradicting
+the zero-term identity — so NO non-empty carrier hosts it (probe
+`CarrierReplacementFeasibilityProbe` proves this axiom-clean, docs/proofs/833).
+
+This `axiom` (L137) is therefore a FALSE premise: it asserts an object that L152
+below correctly proves does NOT exist. The honest fix is NOT to keep both fighting,
+but to replace this root with the real per-common certificate route
+(`FixedLambdaCommonFinitePrimeSupportData`, scoped to one `common.sourceTest`) —
+a shared-type refactor of `SourceWeilFormData` (831 blast: ~31 files / ~200
+sumsets), currently OUT of scope. Until then this axiom + L152 together mark the
+math bottom: RH stays unconditional (not claimed).
+-/
 axiom normalizedCoreSourceWeilFormDataRoot :
   Source.AnalyticCore.SourceWeilFormData
     normalizedCoreSourceTestAlgebraFromTheorems
