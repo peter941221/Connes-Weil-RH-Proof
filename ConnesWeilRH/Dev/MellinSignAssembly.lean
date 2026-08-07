@@ -81,6 +81,33 @@ theorem halfDensity_poleSum_pow4_real (g : ℝ → ℂ)
   rw [hmin]
   ring
 
+
+/-- The route half-density sign target (>= 0) holds exactly when the single real
+   frontier holds: `Re[(M g (i/2))^4] >= 0`.  This is the precise "only remaining
+   positivity input" statement of the critical-line lane. -/
+theorem halfDensity_poleSum_nonneg_iff_pow4_re_nonneg (g : ℝ → ℂ)
+    (hg : ∀ x : ℝ, conj (g x) = g x)
+    (hFp : Integrable (MellinConvolutionIdentity.logWeight (Complex.I / 2) g))
+    (hFFp : Integrable (MellinConvolutionIdentity.logWeight (Complex.I / 2)
+        (MellinProductCarrier.conv g g)))
+    (hFm : Integrable (MellinConvolutionIdentity.logWeight (- (Complex.I / 2)) g))
+    (hFFm : Integrable (MellinConvolutionIdentity.logWeight (- (Complex.I / 2))
+        (MellinProductCarrier.conv g g))) :
+    0 ≤ ((MellinProductCarrier.mellinLift g (Complex.I / 2)) ^ 4).re ↔
+    0 ≤ ((MellinProductCarrier.mellinLift
+        (MellinProductCarrier.conv (MellinProductCarrier.conv g g)
+          (MellinProductCarrier.conv g g)) (Complex.I / 2)).re +
+      (MellinProductCarrier.mellinLift
+        (MellinProductCarrier.conv (MellinProductCarrier.conv g g)
+          (MellinProductCarrier.conv g g)) (- (Complex.I / 2))).re) := by
+  constructor
+  · intro h4
+    rw [halfDensity_poleSum_pow4_real g hg hFp hFFp hFm hFFm]
+    exact mul_nonneg (by norm_num) h4
+  · intro hsum
+    rw [halfDensity_poleSum_pow4_real g hg hFp hFFp hFm hFFm] at hsum
+    nlinarith
+
 end
 end MellinSignAssembly
 end Dev
