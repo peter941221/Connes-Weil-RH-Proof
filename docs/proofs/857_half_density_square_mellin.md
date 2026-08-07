@@ -51,3 +51,26 @@ certifies and records:
 
 No RH is claimed.  This module removes the additive-multiplicative-model bug at the level it
 enters the sign, without pretending the sign is decided.
+
+## 857b - the double square is the FOURTH power (route pole-sum shape, axiom-clean)
+
+Follow-up to the square lemma.  The route sign slot reads the DOUBLE convolution
+square convolutionSquare (convolutionSquare g).  On the faithful carrier that is
+conv (conv g g) (conv g g), and the product law applied twice gives:
+
+    M(conv (conv g g) (conv g g))(s) = (M g)(s)^4
+
+New lemma Dev/MellinHalfDensitySquare.lean::halfDensityDoubleSquareMellin_eq_mellin_pow4,
+proved by two rw of the product law (on conv g g with hFF, and the inner square with hF)
+then ring.  lake build 2955 jobs pass; #print axioms = [propext, Classical.choice, Quot.sound]
+for both 857 lemmas.
+
+So the endpoint / half-density sign the route needs reduces to:
+
+    Re[M(g)(i/2)^4] + Re[M(g)(-i/2)^4]
+
+a fourth-power complex sum.  A complex 4th power still carries a phase, so this does NOT
+by itself force the sign; it certifies the correct multiplicative shape (the additive
+2*M g, and its 4-fold square 16*Mg^2, are NOT the model).  The remaining sign step is a
+genuine analytic condition on g (a bidirectional Mellin conjugation / reality that the
+repo's star does not currently provide) - no Lean plumbing supplies it.
