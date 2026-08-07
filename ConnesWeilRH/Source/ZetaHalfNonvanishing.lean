@@ -11,8 +11,10 @@ import ConnesWeilRH.Source.DirichletEta
 
 This module records the exact lower theorem needed to prove that the CC20
 finite-vanishing triple is disjoint from the standard source nontrivial zeros.
-The project currently has no proof of `ζ(1/2) ≠ 0`; the disjointness theorem is
-therefore parameterized by that precise statement.
+`riemannZeta_half_ne_zero` below is a closed Mathlib theorem (via the
+Dirichlet-eta identity), so this disjointness row is **not** open: the module
+proves `cc20_triple_disjoint_from_standard_source_nontrivial_zeros` directly,
+axiom-clean (849). Do not re-parameterize this row by a ζ(1/2) hypothesis.
 -/
 
 namespace ConnesWeilRH
