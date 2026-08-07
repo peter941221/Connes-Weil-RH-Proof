@@ -117,6 +117,20 @@ theorem detector_diagonal_re_nonneg (a c : ℝ) (u : cc20GlobalLogCrossingL2) :
   rw [hsq]
   exact sq_nonneg _
 
+/-- The windowed HS detector at the nonzero test is **positive semidefinite** as
+   an operator on the crossing space: `F† ∘ F` is `IsPositive` for every
+   `F = fullBoundaryRootFactor`. This is strictly stronger than the single-vector
+   `detector_diagonal_re_nonneg` and is the operator-level positive sign the
+   CompactLog re-typing of the skeleton needs. -/
+theorem detector_isPositive (a c : ℝ) :
+    ContinuousLinearMap.IsPositive (windowedBoundaryDetector nonzeroTest a c) :=
+  ContinuousLinearMap.isPositive_adjoint_comp_self (fullBoundaryRootFactor nonzeroTest a c)
+
+/-- Operator-level PSD corollary: `re ⟪u, detector u⟫ ≥ 0` for every vector. -/
+theorem detector_re_inner_nonneg (a c : ℝ) (u : cc20GlobalLogCrossingL2) :
+    0 ≤ (⟪u, windowedBoundaryDetector nonzeroTest a c u⟫_ℂ).re :=
+  ContinuousLinearMap.IsPositive.re_inner_nonneg_right (detector_isPositive a c) u
+
 end A3NonzeroCompactLogGateProbe
 end Dev
 end Source
