@@ -92,11 +92,56 @@ theorem finiteBandSupport_le
   abs_re_ordinaryTraceAlong_le_card_mul_opNorm b (inverseLowerFactorPhysicalRenewalSupportResponse B owner lambda family)
 
 
+
+
+lemma isTraceClassAlong_finite
+    {rho : Type*} [Fintype rho]
+    (lambda : CCM24SoninScale)
+    (b : HilbertBasis rho ℂ (sourceSoninCarrier lambda))
+    (T : (sourceSoninCarrier lambda) →L[ℂ] (sourceSoninCarrier lambda)) :
+    IsTraceClassAlong b T := by
+  unfold IsTraceClassAlong
+  simpa using (hasSum_fintype (fun i => (⟪b i, T (b i)⟫_ℂ))).summable
+
+
+
+/-- Route-A finite Gate term: same operator for the real route carrier, bounded
+on ANY finite Hilbert band `rho`.  The compact-support and tail pieces of the
+real diagonal trace are each bounded by band cardinality times their closed
+operator norms (finiteBandSupport_le, finiteBand_tail_trace_le); summing them through
+the split identity closes the canonical real Gate 3U readout on this band.
+Axiom-clean finite-band closure: it is NOT the original infinite-carrier Gate
+(proofs/860 seam), but a genuinely route-object statement. -/
+theorem bandTerminalGate
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) {rho : Type*} [Fintype rho]
+    (b : HilbertBasis rho Complex (sourceSoninCarrier lambda)) (B : Real) :
+    canonicalRealGate3UAt owner lambda b
+      ((Fintype.card rho : ℝ) * ‖(inverseLowerFactorPhysicalRenewalSupportResponse B owner lambda (canonicalFamily owner))‖ +
+         (Fintype.card rho : ℝ) * (rawRenewalTailNormConstant owner lambda (canonicalFamily owner) *
+            (Real.exp (-B / 4) * ((canonicalFamily owner).visiblePrimes.map primeTwoSidedQuarterMass).prod))) := by
+  let suppE : ℝ := (Fintype.card rho : ℝ) * ‖(inverseLowerFactorPhysicalRenewalSupportResponse B owner lambda (canonicalFamily owner))‖
+  let tailE : ℝ := (Fintype.card rho : ℝ) * (rawRenewalTailNormConstant owner lambda (canonicalFamily owner) * (Real.exp (-B / 4) * ((canonicalFamily owner).visiblePrimes.map primeTwoSidedQuarterMass).prod))
+  change canonicalRealGate3UAt owner lambda b (suppE + tailE)
+  have hSuppClass : IsTraceClassAlong b (inverseLowerFactorPhysicalRenewalSupportResponse B owner lambda (canonicalFamily owner)) :=
+    isTraceClassAlong_finite lambda b (inverseLowerFactorPhysicalRenewalSupportResponse B owner lambda (canonicalFamily owner))
+  have hTailClass : IsTraceClassAlong b (inverseLowerFactorPhysicalRenewalTailResponse B owner lambda (canonicalFamily owner)) :=
+    isTraceClassAlong_finite lambda b (inverseLowerFactorPhysicalRenewalTailResponse B owner lambda (canonicalFamily owner))
+  have hSuppB : ‖(ordinaryTraceAlong b (inverseLowerFactorPhysicalRenewalSupportResponse B owner lambda (canonicalFamily owner))).re‖ ≤ suppE := by
+    dsimp [suppE]
+    exact finiteBandSupport_le B owner lambda (canonicalFamily owner) b
+  have hTailB : ‖(ordinaryTraceAlong b (inverseLowerFactorPhysicalRenewalTailResponse B owner lambda (canonicalFamily owner))).re‖ ≤ tailE := by
+    dsimp [tailE]
+    exact finiteBand_tail_trace_le B owner lambda (canonicalFamily owner) b
+  have hSplit : ‖(ordinaryTraceAlong b (inverseLowerFactorPhysicalRenewalResponse owner lambda (canonicalFamily owner))).re‖ ≤ suppE + tailE :=
+    inverseLowerFactorPhysicalRenewalTrace_split_bound B owner lambda (canonicalFamily owner) b suppE tailE hSuppClass hTailClass hSuppB hTailB
+  exact canonicalRealGate3UAt_of_tailNormBound owner lambda b (suppE + tailE) hSplit
+
+
+
+
 end RouteATailBandBound
 
 end CCM25Concrete
 end Source
 end ConnesWeilRH
-
-
-
