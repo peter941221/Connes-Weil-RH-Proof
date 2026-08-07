@@ -161,17 +161,13 @@ noncomputable def normalizedCoreSourceWeilFormDataFromTheorems :
   normalizedCoreSourceWeilFormDataRoot
 
 /--
-The current concrete source API cannot own finite-prime Weil data: its global
-support carrier requires every indexed atom to be nonzero for every test,
-including the zero test. A compact smooth test nonzero at `2` makes the
-resulting contradiction explicit at the first prime.
+NOTE (post-S2): the previous `¬ Nonempty` guard that lived here was removed.
+It asserted emptiness of `SourceWeilFormData` from the old `∀ F`-POST exact-support
+backend.  After the per-common restructure that backend is gone, so that
+statement is no longer provable and would mislabel the now-open `axiom` at
+`normalizedCoreSourceWeilFormDataRoot` (L137) as contradictory.  The `axiom`
+L137 remains the honest open math bottom; see `docs/proofs/833`/`834`.
 -/
-theorem not_nonempty_normalizedCoreSourceWeilFormData :
-    ¬ Nonempty
-      (Source.AnalyticCore.SourceWeilFormData
-        normalizedCoreSourceTestAlgebraFromTheorems) := by
-  simpa [normalizedCoreSourceTestAlgebraFromTheorems] using
-    CCM25SourceDataGuards.not_nonempty_concreteSourceWeilFormData
 
 /- Shared CC20 trace-scale scalar functions over the common source test algebra. -/
 noncomputable def normalizedCoreTraceAmplitudeFromTheorems :

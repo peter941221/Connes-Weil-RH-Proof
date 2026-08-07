@@ -8,54 +8,20 @@ import ConnesWeilRH.Source.AnalyticCore
 import ConnesWeilRH.Source.CC20YoshidaConstruction
 
 /-!
-# CCM25 source-data rejection guards
+# CCM25 source-data rejection guards (archived)
 
-These guards reject source interfaces whose quantifiers force the concrete
-finite-prime evaluator to vanish on every test.
+The former guard `not_nonempty_concreteSourceWeilFormData` asserted that the
+old `SourceWeilFormData` (whose `finitePrime.exactSupport` carried a global
+`∀ F : A.Test` POST-witness) was uninhabitable over the concrete algebra.  Since
+the S2 per-common restructure (`docs/proofs/833/834`) replaced that ∀F backend
+with `PerCommonSourceFinitePrimeSupport` scoped to a single `common.sourceTest`,
+the concrete type is no longer forced empty by the zero element, so that guard
+became obsolete and is now archived.  The structural verdict that motivated it
+is preserved self-contained in `Dev/CarrierReplacementFeasibilityProbe`.
 -/
 
 namespace ConnesWeilRH
 namespace Dev
-namespace CCM25SourceDataGuards
 
-open Source
-open Source.CC20YoshidaInterpolationNode.CC20YoshidaExpandedMomentNode
-
-/--
-The current concrete source API cannot own finite-prime Weil data: its global
-support carrier requires every indexed atom to be nonzero for every test,
-including the zero test. A compact smooth test nonzero at `2` makes the
-resulting contradiction explicit at the first prime.
--/
-theorem not_nonempty_concreteSourceWeilFormData :
-    ¬ Nonempty
-      (Source.AnalyticCore.SourceWeilFormData
-        Source.AnalyticCore.SourceConcreteBaseLayer.concreteTestAlgebra) := by
-  rintro ⟨W⟩
-  obtain ⟨p, _hsupport, _hnonnegative, _hreal, hp2⟩ :=
-    exists_positive_interval_compact_test_real_bump
-      (a := 1) (b := 3) (t := 2) (by norm_num) (by norm_num) (by norm_num)
-  have hzero :=
-    Source.AnalyticCore.SourceFinitePrimeExactSupportData.concrete_all_sourceFinitePrimeTerms_zero
-      W.finitePrime.exactSupport p.test 2
-  have hvalue2 : W.evaluation.valueAt p.test 2 = 1 := by
-    rw [Source.AnalyticCore.SourceEvaluationData.valueAt_eq_norm, hp2]
-    norm_num
-  have hinv_nonnegative :
-      0 ≤ W.evaluation.valueAt p.test ((2 : ℝ)⁻¹) := by
-    exact norm_nonneg _
-  have hsqrt : 0 < Real.sqrt (2 : ℝ) := Real.sqrt_pos.2 (by norm_num)
-  have hlog : 0 < Real.log (2 : ℝ) := Real.log_pos (by norm_num)
-  have hterm_pos :
-      0 < W.evaluation.sourceFinitePrimeTerm 2 p.test := by
-    rw [Source.AnalyticCore.SourceEvaluationData.sourceFinitePrimeTerm_eq_valueAt,
-      ArithmeticFunction.vonMangoldt_apply_prime Nat.prime_two]
-    norm_num only [Nat.cast_ofNat]
-    rw [hvalue2]
-    exact mul_pos hlog
-      (mul_pos (one_div_pos.mpr hsqrt) (by linarith))
-  exact (ne_of_gt hterm_pos) hzero
-
-end CCM25SourceDataGuards
 end Dev
 end ConnesWeilRH
