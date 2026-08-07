@@ -622,6 +622,48 @@ theorem ordinaryTraceAlong_traceProduct_eq_cyclic
       data.left_summable_normSq data.right_summable_normSq
 
 end BasisHilbertSchmidtPairData
+
+/-- One diagonal term of a bounded operator is bounded by the operator norm
+(from the orthonormal Hilbert-basis condition). -/
+theorem diag_term_le_opNorm (b : HilbertBasis ι ℂ H) (T : H →L[ℂ] H) (i : ι) :
+    ‖⟪ (b i), T (b i)⟫_ℂ‖ ≤ ‖T‖ := by
+  have hob : ‖⟪ (b i), T (b i)⟫_ℂ‖ ≤ ‖b i‖ * ‖T (b i)‖ :=
+    norm_inner_le_norm (b i) (T (b i))
+  have hunit : ‖b i‖ = 1 := b.orthonormal.1 i
+  have hop : ‖T (b i)‖ ≤ ‖T‖ * ‖b i‖ := T.le_opNorm (b i)
+  calc
+    ‖⟪ (b i), T (b i)⟫_ℂ‖ ≤ ‖b i‖ * ‖T (b i)‖ := hob
+    _ ≤ ‖b i‖ * (‖T‖ * ‖b i‖) := by
+      exact mul_le_mul_of_nonneg_left hop (norm_nonneg (b i))
+    _ = ‖T‖ := by rw [hunit]; ring
+
+/-- Route-A bridge: on a finite Hilbert basis, the diagonal-series trace is
+bounded by the cardinality times the operator norm.  No nuclear theory. -/
+theorem norm_ordinaryTraceAlong_le_card_mul_opNorm (b : HilbertBasis ι ℂ H)
+    [Fintype ι] (T : H →L[ℂ] H) :
+    ‖ordinaryTraceAlong b T‖ ≤ (Fintype.card ι : ℝ) * ‖T‖ := by
+  have hdiag (i : ι) : ‖⟪ (b i), T (b i)⟫_ℂ‖ ≤ ‖T‖ := diag_term_le_opNorm b T i
+  have hcard : (∑ i : ι, ‖T‖) = (Fintype.card ι : ℝ) * ‖T‖ := by
+    rw [Finset.sum_const]
+    simp [nsmul_eq_mul]
+  rw [ordinaryTraceAlong]
+  rw [tsum_fintype]
+  calc
+    ‖(∑ i : ι, ⟪ (b i), T (b i)⟫_ℂ)‖ ≤ (∑ i : ι, ‖⟪ (b i), T (b i)⟫_ℂ‖) := by
+      exact norm_sum_le Finset.univ _
+    _ ≤ (∑ i : ι, ‖T‖) := by
+      exact Finset.sum_le_sum (fun i _ => hdiag i)
+    _ = (Fintype.card ι : ℝ) * ‖T‖ := hcard
+
+/-- Real-part corollary needed by Gate endpoints. -/
+theorem abs_re_ordinaryTraceAlong_le_card_mul_opNorm (b : HilbertBasis ι ℂ H)
+    [Fintype ι] (T : H →L[ℂ] H) :
+    ‖(ordinaryTraceAlong b T).re‖ ≤ (Fintype.card ι : ℝ) * ‖T‖ :=
+  le_trans (Complex.abs_re_le_norm (ordinaryTraceAlong b T))
+    (norm_ordinaryTraceAlong_le_card_mul_opNorm b T)
+
+
+
 end PositiveTrace
 end CC20Concrete
 end Source
