@@ -69,6 +69,16 @@ noncomputable def reTyped :
   qduNormalized := False
   archimedeanSignNormalized := False
 
+/-- The re-typed archimedean trace symbols, lifted from the scalar carrier. -/
+noncomputable def reTypedArchimedean : ArchimedeanTraceSymbols :=
+  reTyped.toConcreteTraceScaleSymbols.toArchimedeanTraceSymbols
+
+/-- The concrete positive/consistency clause the CC20 consumer needs: 0 is bounded below by
+the positive trace, and support == source == positive on the Hilbert carrier. -/
+theorem reTypedArchimedean_trace_square :
+    ArchimedeanTraceSymbols.TraceSquareStatement reTypedArchimedean :=
+  ConnesWeilRH.Source.CC20Concrete.TraceScale.ScalarTraceScaleSymbols.trace_square_statement reTyped
+
 end
 end HilbertCarrierReTyped
 end Dev

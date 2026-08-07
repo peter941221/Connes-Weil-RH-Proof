@@ -37,3 +37,13 @@ Does not close (honest): the re-typed `ArchimedeanTraceSymbols`/`CC20Interface` 
 rewiring, the normalization conventions, and (above all) the committed Proof-717 Gate-3U
 analytic bottom. RH remains NOT proven. This is progress on replacing the empty/`True`
 producer, not a RH completion.
+
+
+
+## Consumer connection (follow-up on same commit)
+
+The re-typed carrier also connects to the CC20 consumer: `reTypedArchimedean` lifts it to an
+`ArchimedeanTraceSymbols`, and `reTypedArchimedean_trace_square` closes the consumer's
+`TraceSquareStatement` (0 <= positiveTrace, support == source == positive), axiom-clean
+([propext, Classical.choice, Quot.sound]).  So the empty/True-producer replacement now
+meets the CC20 trace-square obligation, not just defines the carrier.
