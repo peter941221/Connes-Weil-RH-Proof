@@ -108,10 +108,14 @@ concrete sign content that A0's single-point window could never provide.
 -/
 theorem detector_diagonal_re_nonneg (a c : ℝ) (u : cc20GlobalLogCrossingL2) :
     0 ≤ (⟪u, windowedBoundaryDetector nonzeroTest a c u⟫_ℂ).re := by
-  dsimp [windowedBoundaryDetector]
-  rw [ContinuousLinearMap.comp_apply]
-  rw [ContinuousLinearMap.adjoint_inner_right]
-  exact inner_self_nonneg (fullBoundaryRootFactor nonzeroTest a c u)
+  -- windowedBoundaryDetector g a c = (F g a c)† ∘L F g a c, so the quadratic
+  -- form is the real square ‖F u‖² via the adjoint norm-square identity.
+  have hsq : (⟪u, windowedBoundaryDetector nonzeroTest a c u⟫_ℂ).re =
+      ‖fullBoundaryRootFactor nonzeroTest a c u‖ ^ 2 := by
+    exact (ContinuousLinearMap.apply_norm_sq_eq_inner_adjoint_right
+      (fullBoundaryRootFactor nonzeroTest a c) u).symm
+  rw [hsq]
+  exact sq_nonneg _
 
 end A3NonzeroCompactLogGateProbe
 end Dev
