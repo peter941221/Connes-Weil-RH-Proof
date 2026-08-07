@@ -82,6 +82,16 @@ theorem finiteBand_tail_trace_le
           (Real.exp (-B / 4) * (family.visiblePrimes.map primeTwoSidedQuarterMass).prod)) := by
       exact mul_le_mul_of_nonneg_left hTail hc
 
+theorem finiteBandSupport_le
+    {rho : Type*}
+    (B : Real) (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (b : HilbertBasis rho Complex (sourceSoninCarrier lambda)) [Fintype rho] :
+    ‖(ordinaryTraceAlong b (inverseLowerFactorPhysicalRenewalSupportResponse B owner lambda family)).re‖ <=
+      (Fintype.card rho : Real) * ‖(inverseLowerFactorPhysicalRenewalSupportResponse B owner lambda family)‖ :=
+  abs_re_ordinaryTraceAlong_le_card_mul_opNorm b (inverseLowerFactorPhysicalRenewalSupportResponse B owner lambda family)
+
+
 end RouteATailBandBound
 
 end CCM25Concrete
