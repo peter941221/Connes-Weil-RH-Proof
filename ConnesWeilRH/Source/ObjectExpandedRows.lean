@@ -456,6 +456,11 @@ structure SourceEvaluationVisibleFinitePrimeBoundary
   sourceWeilForm : AnalyticCore.SourceWeilFormData sourceAlgebra
   sourceSymbols_eq :
     base.ccm25Model.toWeilFormSymbols = sourceWeilForm.toWeilFormSymbols
+  commonAnchor :
+    sourceAlgebra.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar
+        (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest
+        (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest
   oneLtLambda : 1 < lambda
 
 namespace SourceEvaluationVisibleFinitePrimeBoundary
@@ -468,6 +473,11 @@ noncomputable def supportDataOfSourceWeilForm
     (sourceSymbols_eq :
       base.ccm25Model.toWeilFormSymbols =
         sourceWeilForm.toWeilFormSymbols)
+    (hAnchor :
+      sourceAlgebra.legacy.encode sourceWeilForm.common =
+        sourceWeilForm.toWeilFormSymbols.convolutionStar
+          (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest
+          (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest)
     (lambda : ℝ) (hlambda : 1 < lambda) :
     CCM25Concrete.FinitePrimeSourceData.FixedLambdaCommonFinitePrimeSupportData
       sourceWeilForm.toWeilFormSymbols
@@ -483,24 +493,24 @@ noncomputable def supportDataOfSourceWeilForm
       restrictedIndexData := ?_
       routeVisibleRestrictedIndex := ?_ }
   · intro n hn
-    exact (visibleData.globalExact n).1 hn
+    exact (visibleData.globalExact hAnchor n).1 hn
   · intro n hvisible
     have hsourceVisible :
         common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
       (common.route_visibility_iff_source_visibility n).1 hvisible
     exact
-      (visibleData.globalExact n).2
+      (visibleData.globalExact hAnchor n).2
         { primePowerIndex :=
             visibleData.mathlibSourcePrimePowerIndex n hsourceVisible
           atomVisible := hsourceVisible }
   · intro n hn
-    exact (visibleData.restrictedExact n).1 hn
+    exact (visibleData.restrictedExact hAnchor n).1 hn
   · intro n hvisible hOne hCutoff
     have hsourceVisible :
         common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
       (common.route_visibility_iff_source_visibility n).1 hvisible
     exact
-      (visibleData.restrictedExact n).2
+      (visibleData.restrictedExact hAnchor n).2
         { primePowerIndex :=
             visibleData.mathlibSourcePrimePowerIndex n hsourceVisible
           atomVisible := hsourceVisible
@@ -529,7 +539,8 @@ noncomputable def supportData
       boundary.sourceWeilForm.toWeilFormSymbols
       (boundary.sourceSymbols_eq ▸ data.concreteCommonTest) lambda :=
   supportDataOfSourceWeilForm data boundary.sourceWeilForm
-    boundary.sourceSymbols_eq lambda boundary.oneLtLambda
+    boundary.sourceSymbols_eq boundary.commonAnchor
+    lambda boundary.oneLtLambda
 
 noncomputable def visibleData
     {base : SourceObjectTheoremBasePackage}
@@ -551,11 +562,17 @@ noncomputable def ofSourceWeilForm
     (sourceSymbols_eq :
       base.ccm25Model.toWeilFormSymbols =
         sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor :
+      sourceAlgebra.legacy.encode sourceWeilForm.common =
+        sourceWeilForm.toWeilFormSymbols.convolutionStar
+          (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest
+          (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest)
     (lambda : ℝ) (hlambda : 1 < lambda) :
     SourceEvaluationVisibleFinitePrimeBoundary data lambda where
   sourceAlgebra := sourceAlgebra
   sourceWeilForm := sourceWeilForm
   sourceSymbols_eq := sourceSymbols_eq
+  commonAnchor := commonAnchor
   oneLtLambda := hlambda
 
 theorem mathlibSourcePrimePowerIndex
@@ -769,6 +786,11 @@ structure SourceEvaluationVisibleFinitePrimeSupportBoundary
   sourceWeilForm : AnalyticCore.SourceWeilFormData sourceAlgebra
   sourceSymbols_eq :
     base.ccm25Model.toWeilFormSymbols = sourceWeilForm.toWeilFormSymbols
+  commonAnchor :
+    sourceAlgebra.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar
+        (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest
+        (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest
   oneLtLambda : 1 < lambda
 
 namespace SourceEvaluationVisibleFinitePrimeSupportBoundary
@@ -783,8 +805,8 @@ noncomputable def supportData
       boundary.sourceWeilForm.toWeilFormSymbols
       (boundary.sourceSymbols_eq ▸ data.concreteCommonTest) lambda :=
   SourceEvaluationVisibleFinitePrimeBoundary.supportDataOfSourceWeilForm
-    data boundary.sourceWeilForm boundary.sourceSymbols_eq lambda
-    boundary.oneLtLambda
+    data boundary.sourceWeilForm boundary.sourceSymbols_eq
+    boundary.commonAnchor lambda boundary.oneLtLambda
 
 noncomputable def visibleData
     {base : SourceObjectTheoremBasePackage}
@@ -807,11 +829,17 @@ noncomputable def ofSourceWeilForm
     (sourceSymbols_eq :
       base.ccm25Model.toWeilFormSymbols =
         sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor :
+      sourceAlgebra.legacy.encode sourceWeilForm.common =
+        sourceWeilForm.toWeilFormSymbols.convolutionStar
+          (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest
+          (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest)
     (lambda : ℝ) (hlambda : 1 < lambda) :
     SourceEvaluationVisibleFinitePrimeSupportBoundary data lambda where
   sourceAlgebra := sourceAlgebra
   sourceWeilForm := sourceWeilForm
   sourceSymbols_eq := sourceSymbols_eq
+  commonAnchor := commonAnchor
   oneLtLambda := hlambda
 
 noncomputable def ofFinitePrimeBoundary
@@ -824,6 +852,7 @@ noncomputable def ofFinitePrimeBoundary
   sourceAlgebra := boundary.sourceAlgebra
   sourceWeilForm := boundary.sourceWeilForm
   sourceSymbols_eq := boundary.sourceSymbols_eq
+  commonAnchor := boundary.commonAnchor
   oneLtLambda := boundary.oneLtLambda
 
 structure VisibleAtomInLambdaCutoffData
@@ -1084,274 +1113,6 @@ noncomputable def restrictedArithmeticData
 
 end CommonFinitePrimeCertificateBoundary
 
-theorem common_finite_prime_concrete_object_global_visible
-    {base : SourceObjectTheoremBasePackage}
-    (data : SourceObjectConcreteCommonData base)
-    {sourceAlgebra : AnalyticCore.SourceTestAlgebra}
-    (sourceWeilForm : AnalyticCore.SourceWeilFormData sourceAlgebra)
-    (sourceSymbols_eq :
-      base.ccm25Model.toWeilFormSymbols =
-        sourceWeilForm.toWeilFormSymbols)
-    {n : ℕ}
-    (hn : n ∈ base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet) :
-    base.ccm25Model.toWeilFormSymbols.finitePrimeAtomVisible n
-      (base.ccm25Model.toWeilFormSymbols.convolutionStar
-        data.concreteCommonTest.sourceTest data.concreteCommonTest.sourceTest) := by
-  have hsourceGlobal :
-      n ∈ sourceWeilForm.toWeilFormSymbols.globalPrimeIndexSet :=
-    transport_globalPrimeIndex_mem sourceSymbols_eq hn
-  have hsourceVisible :
-      sourceWeilForm.toWeilFormSymbols.finitePrimeAtomVisible n
-        (sourceWeilForm.toWeilFormSymbols.convolutionStar
-          data.concreteCommonTest.sourceTest
-          data.concreteCommonTest.sourceTest) :=
-    ((AnalyticCore.SourceWeilFormData.toWeilFormSymbols_globalPrimeIndex_exact
-      sourceWeilForm
-      (sourceWeilForm.toWeilFormSymbols.convolutionStar
-        data.concreteCommonTest.sourceTest
-        data.concreteCommonTest.sourceTest) n).1 hsourceGlobal).2
-  exact
-    transport_finitePrimeAtomVisible_convolution sourceSymbols_eq.symm
-      data.concreteCommonTest.sourceTest data.concreteCommonTest.sourceTest
-      hsourceVisible
-
-theorem common_route_visible_atom_data
-    {base : SourceObjectTheoremBasePackage}
-    (data : SourceObjectConcreteCommonData base)
-    {sourceAlgebra : AnalyticCore.SourceTestAlgebra}
-    (sourceWeilForm : AnalyticCore.SourceWeilFormData sourceAlgebra)
-    (sourceSymbols_eq :
-      base.ccm25Model.toWeilFormSymbols =
-        sourceWeilForm.toWeilFormSymbols)
-    {n : ℕ}
-    (hvisible :
-      base.ccm25Model.toWeilFormSymbols.finitePrimeAtomVisible n
-        (base.ccm25Model.toWeilFormSymbols.convolutionStar
-          data.concreteCommonTest.sourceTest
-          data.concreteCommonTest.sourceTest)) :
-    CCM25Concrete.PrimePowerSupport.SourceVisibleAtomData
-      base.ccm25Model.toWeilFormSymbols
-      data.concreteCommonTest.sourceTest
-      data.concreteCommonTest.sourceTest n := by
-  have hsourceVisible :
-      sourceWeilForm.toWeilFormSymbols.finitePrimeAtomVisible n
-        (sourceWeilForm.toWeilFormSymbols.convolutionStar
-          data.concreteCommonTest.sourceTest
-          data.concreteCommonTest.sourceTest) :=
-    transport_finitePrimeAtomVisible_convolution sourceSymbols_eq
-      data.concreteCommonTest.sourceTest data.concreteCommonTest.sourceTest
-      hvisible
-  have hprime : IsPrimePow n :=
-    AnalyticCore.SourceWeilFormData.toWeilFormSymbols_finitePrimeAtomVisible_primePower
-      sourceWeilForm
-      (sourceWeilForm.toWeilFormSymbols.convolutionStar
-        data.concreteCommonTest.sourceTest
-        data.concreteCommonTest.sourceTest)
-      hsourceVisible
-  exact
-    { primePowerIndex := hprime
-      atomVisible := hvisible }
-
-theorem common_finite_prime_concrete_object_global_index_data
-    {base : SourceObjectTheoremBasePackage}
-    (data : SourceObjectConcreteCommonData base)
-    {sourceAlgebra : AnalyticCore.SourceTestAlgebra}
-    (sourceWeilForm : AnalyticCore.SourceWeilFormData sourceAlgebra)
-    (sourceSymbols_eq :
-      base.ccm25Model.toWeilFormSymbols =
-        sourceWeilForm.toWeilFormSymbols)
-    {n : ℕ}
-    (hn : n ∈ base.ccm25Model.toWeilFormSymbols.globalPrimeIndexSet) :
-    CCM25Concrete.PrimePowerSupport.SourceGlobalIndexData
-      base.ccm25Model.toWeilFormSymbols
-      data.concreteCommonTest.sourceTest
-      data.concreteCommonTest.sourceTest n where
-  primePowerIndex := by
-    have hsourceGlobal :
-        n ∈ sourceWeilForm.toWeilFormSymbols.globalPrimeIndexSet :=
-      transport_globalPrimeIndex_mem sourceSymbols_eq hn
-    exact
-      ((AnalyticCore.SourceWeilFormData.toWeilFormSymbols_globalPrimeIndex_exact
-        sourceWeilForm
-        (sourceWeilForm.toWeilFormSymbols.convolutionStar
-          data.concreteCommonTest.sourceTest
-          data.concreteCommonTest.sourceTest) n).1 hsourceGlobal).1
-  atomVisible :=
-    data.common_finite_prime_concrete_object_global_visible
-      sourceWeilForm sourceSymbols_eq hn
-
-theorem common_finite_prime_concrete_object_restricted_visible
-    {base : SourceObjectTheoremBasePackage}
-    (data : SourceObjectConcreteCommonData base)
-    {sourceAlgebra : AnalyticCore.SourceTestAlgebra}
-    (sourceWeilForm : AnalyticCore.SourceWeilFormData sourceAlgebra)
-    (sourceSymbols_eq :
-      base.ccm25Model.toWeilFormSymbols =
-        sourceWeilForm.toWeilFormSymbols)
-    (lambda : ℝ) (_hlambda : 1 < lambda)
-    {n : ℕ}
-    (hn : n ∈ base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet
-      lambda) :
-    base.ccm25Model.toWeilFormSymbols.finitePrimeAtomVisible n
-      (base.ccm25Model.toWeilFormSymbols.convolutionStar
-        data.concreteCommonTest.sourceTest data.concreteCommonTest.sourceTest) := by
-  have hsourceRestricted :
-      n ∈ sourceWeilForm.toWeilFormSymbols.restrictedPrimeIndexSet lambda :=
-    transport_restrictedPrimeIndex_mem sourceSymbols_eq lambda hn
-  have hsourceVisible :
-      sourceWeilForm.toWeilFormSymbols.finitePrimeAtomVisible n
-        (sourceWeilForm.toWeilFormSymbols.convolutionStar
-          data.concreteCommonTest.sourceTest
-          data.concreteCommonTest.sourceTest) :=
-    (((AnalyticCore.SourceWeilFormData.toWeilFormSymbols_restrictedPrimeIndex_exact
-      sourceWeilForm lambda
-      (sourceWeilForm.toWeilFormSymbols.convolutionStar
-        data.concreteCommonTest.sourceTest
-        data.concreteCommonTest.sourceTest) n).1 hsourceRestricted).2).1
-  exact
-    transport_finitePrimeAtomVisible_convolution sourceSymbols_eq.symm
-      data.concreteCommonTest.sourceTest data.concreteCommonTest.sourceTest
-      hsourceVisible
-
-theorem common_finite_prime_concrete_object_restricted_index_data
-    {base : SourceObjectTheoremBasePackage}
-    (data : SourceObjectConcreteCommonData base)
-    {sourceAlgebra : AnalyticCore.SourceTestAlgebra}
-    (sourceWeilForm : AnalyticCore.SourceWeilFormData sourceAlgebra)
-    (sourceSymbols_eq :
-      base.ccm25Model.toWeilFormSymbols =
-        sourceWeilForm.toWeilFormSymbols)
-    (lambda : ℝ) (hlambda : 1 < lambda)
-    {n : ℕ}
-    (hn : n ∈ base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet
-      lambda) :
-    CCM25Concrete.PrimePowerSupport.SourceRestrictedIndexData
-      base.ccm25Model.toWeilFormSymbols
-      data.concreteCommonTest.sourceTest
-      data.concreteCommonTest.sourceTest lambda n where
-  primePowerIndex := by
-    have hsourceRestricted :
-        n ∈ sourceWeilForm.toWeilFormSymbols.restrictedPrimeIndexSet lambda :=
-      transport_restrictedPrimeIndex_mem sourceSymbols_eq lambda hn
-    exact
-      ((AnalyticCore.SourceWeilFormData.toWeilFormSymbols_restrictedPrimeIndex_exact
-        sourceWeilForm lambda
-        (sourceWeilForm.toWeilFormSymbols.convolutionStar
-          data.concreteCommonTest.sourceTest
-          data.concreteCommonTest.sourceTest) n).1 hsourceRestricted).1
-  atomVisible :=
-    data.common_finite_prime_concrete_object_restricted_visible
-      sourceWeilForm sourceSymbols_eq lambda hlambda hn
-  lambdaCut := by
-    have hsourceRestricted :
-        n ∈ sourceWeilForm.toWeilFormSymbols.restrictedPrimeIndexSet lambda :=
-      transport_restrictedPrimeIndex_mem sourceSymbols_eq lambda hn
-    exact
-      (((AnalyticCore.SourceWeilFormData.toWeilFormSymbols_restrictedPrimeIndex_exact
-        sourceWeilForm lambda
-        (sourceWeilForm.toWeilFormSymbols.convolutionStar
-          data.concreteCommonTest.sourceTest
-          data.concreteCommonTest.sourceTest) n).1 hsourceRestricted).2).2
-
-theorem common_finite_prime_concrete_object_restricted_index_one_lt
-    {base : SourceObjectTheoremBasePackage}
-    (data : SourceObjectConcreteCommonData base)
-    {sourceAlgebra : AnalyticCore.SourceTestAlgebra}
-    (sourceWeilForm : AnalyticCore.SourceWeilFormData sourceAlgebra)
-    (sourceSymbols_eq :
-      base.ccm25Model.toWeilFormSymbols =
-        sourceWeilForm.toWeilFormSymbols)
-    (lambda : ℝ) (hlambda : 1 < lambda)
-    {n : ℕ}
-    (hn : n ∈ base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet
-      lambda) :
-    1 < n :=
-  (data.common_finite_prime_concrete_object_restricted_index_data
-    sourceWeilForm sourceSymbols_eq lambda hlambda hn).lambdaCut.1
-
-theorem common_finite_prime_concrete_object_restricted_index_le_lambda_sq
-    {base : SourceObjectTheoremBasePackage}
-    (data : SourceObjectConcreteCommonData base)
-    {sourceAlgebra : AnalyticCore.SourceTestAlgebra}
-    (sourceWeilForm : AnalyticCore.SourceWeilFormData sourceAlgebra)
-    (sourceSymbols_eq :
-      base.ccm25Model.toWeilFormSymbols =
-        sourceWeilForm.toWeilFormSymbols)
-    (lambda : ℝ) (hlambda : 1 < lambda)
-    {n : ℕ}
-    (hn : n ∈ base.ccm25Model.toWeilFormSymbols.restrictedPrimeIndexSet
-      lambda) :
-    (n : ℝ) ≤ lambda ^ 2 :=
-  (data.common_finite_prime_concrete_object_restricted_index_data
-    sourceWeilForm sourceSymbols_eq lambda hlambda hn).lambdaCut.2
-
-theorem common_finite_prime_visibility_at_lambda
-    {base : SourceObjectTheoremBasePackage}
-    (data : SourceObjectConcreteCommonData base)
-    {sourceAlgebra : AnalyticCore.SourceTestAlgebra}
-    (sourceWeilForm : AnalyticCore.SourceWeilFormData sourceAlgebra)
-    (sourceSymbols_eq :
-      base.ccm25Model.toWeilFormSymbols =
-        sourceWeilForm.toWeilFormSymbols)
-    (lambda : ℝ) (hlambda : 1 < lambda) :
-    CCM25Concrete.FinitePrimeExact.FinitePrimeVisibilityAtLambdaStatement
-      base.ccm25Model.toWeilFormSymbols data.concreteCommonTest.sourceTest
-      data.concreteCommonTest.sourceTest lambda := by
-  constructor
-  · intro n hvisible
-    have hsourceVisible :
-        sourceWeilForm.toWeilFormSymbols.finitePrimeAtomVisible n
-          (sourceWeilForm.toWeilFormSymbols.convolutionStar
-            data.concreteCommonTest.sourceTest
-            data.concreteCommonTest.sourceTest) :=
-      transport_finitePrimeAtomVisible_convolution sourceSymbols_eq
-        data.concreteCommonTest.sourceTest data.concreteCommonTest.sourceTest
-        hvisible
-    have hsourcePrime : IsPrimePow n :=
-      AnalyticCore.SourceWeilFormData.toWeilFormSymbols_finitePrimeAtomVisible_primePower
-        sourceWeilForm
-        (sourceWeilForm.toWeilFormSymbols.convolutionStar
-          data.concreteCommonTest.sourceTest
-          data.concreteCommonTest.sourceTest)
-        hsourceVisible
-    have hsourceGlobal :
-        n ∈ sourceWeilForm.toWeilFormSymbols.globalPrimeIndexSet :=
-      AnalyticCore.SourceWeilFormData.toWeilFormSymbols_globalPrimeIndex_mem_of_primePower_visible
-        sourceWeilForm
-        (sourceWeilForm.toWeilFormSymbols.convolutionStar
-          data.concreteCommonTest.sourceTest
-          data.concreteCommonTest.sourceTest)
-        hsourcePrime hsourceVisible
-    exact transport_globalPrimeIndex_mem sourceSymbols_eq.symm hsourceGlobal
-  · constructor
-    · intro n hvisible hOne hCutoff
-      have hsourceVisible :
-          sourceWeilForm.toWeilFormSymbols.finitePrimeAtomVisible n
-            (sourceWeilForm.toWeilFormSymbols.convolutionStar
-              data.concreteCommonTest.sourceTest
-              data.concreteCommonTest.sourceTest) :=
-        transport_finitePrimeAtomVisible_convolution sourceSymbols_eq
-          data.concreteCommonTest.sourceTest data.concreteCommonTest.sourceTest
-          hvisible
-      have hsourceRestricted :
-          n ∈ sourceWeilForm.toWeilFormSymbols.restrictedPrimeIndexSet
-            lambda :=
-        AnalyticCore.SourceWeilFormData.toWeilFormSymbols_restrictedPrimeIndex_mem_of_visible
-          sourceWeilForm lambda hlambda
-          (sourceWeilForm.toWeilFormSymbols.convolutionStar
-            data.concreteCommonTest.sourceTest
-            data.concreteCommonTest.sourceTest)
-          hsourceVisible hOne hCutoff
-      exact
-        transport_restrictedPrimeIndex_mem sourceSymbols_eq.symm lambda
-          hsourceRestricted
-    · intro n
-      exact
-        transport_finitePrimeTerm_normalization sourceSymbols_eq
-          data.concreteCommonTest.sourceTest data.concreteCommonTest.sourceTest n
-          (AnalyticCore.SourceWeilFormData.toWeilFormSymbols_finitePrimeTerm_convolutionStar
-            sourceWeilForm data.concreteCommonTest.sourceTest
-            data.concreteCommonTest.sourceTest n)
 
 theorem common_finite_prime_visibility_statement
     {base : SourceObjectTheoremBasePackage}

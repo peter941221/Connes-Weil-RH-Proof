@@ -203,7 +203,9 @@ theorem globalExact
       CommonSourceTest.ConcreteCommonSourceTest W.toWeilFormSymbols}
     {lambda : ℝ}
     (_data :
-      FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda) :
+      FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda)
+    (hAnchor : A.legacy.encode W.common =
+      W.toWeilFormSymbols.convolutionStar common.sourceTest common.sourceTest) :
     ∀ n : ℕ,
       n ∈ W.toWeilFormSymbols.globalPrimeIndexSet ↔
         PrimePowerSupport.SourceGlobalIndexData
@@ -211,21 +213,19 @@ theorem globalExact
   fun n => by
     constructor
     · intro hn
-      have hExact :=
-        (W.toWeilFormSymbols_globalPrimeIndex_exact
-          (W.toWeilFormSymbols.convolutionStar
-            common.sourceTest common.sourceTest) n).1 hn
-      exact
+      have hExact := (W.toWeilFormSymbols_globalPrimeIndex_exact n).1 hn
+      refine
         { primePowerIndex := hExact.1
-          atomVisible := hExact.2 }
+          atomVisible := ?_ }
+      rw [← hAnchor]
+      exact hExact.2
     · intro hdata
-      exact
-        W.toWeilFormSymbols_globalPrimeIndex_mem_of_primePower_visible
-          (W.toWeilFormSymbols.convolutionStar
-            common.sourceTest common.sourceTest)
-          hdata.primePowerIndex
-          ((common.route_visibility_iff_source_visibility n).2
-            hdata.atomVisible)
+      have hVis :
+          W.toWeilFormSymbols.finitePrimeAtomVisible n (A.legacy.encode W.common) := by
+        rw [hAnchor]
+        exact hdata.atomVisible
+      exact (W.toWeilFormSymbols_globalPrimeIndex_exact n).2
+        ⟨hdata.primePowerIndex, hVis⟩
 
 theorem restrictedExact
     {A : AnalyticCore.SourceTestAlgebra}
@@ -234,7 +234,9 @@ theorem restrictedExact
       CommonSourceTest.ConcreteCommonSourceTest W.toWeilFormSymbols}
     {lambda : ℝ}
     (data :
-      FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda) :
+      FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda)
+    (hAnchor : A.legacy.encode W.common =
+      W.toWeilFormSymbols.convolutionStar common.sourceTest common.sourceTest) :
     ∀ n : ℕ,
       n ∈ W.toWeilFormSymbols.restrictedPrimeIndexSet lambda ↔
         PrimePowerSupport.SourceRestrictedIndexData
@@ -242,23 +244,20 @@ theorem restrictedExact
   fun n => by
     constructor
     · intro hn
-      have hExact :=
-        (W.toWeilFormSymbols_restrictedPrimeIndex_exact lambda
-          (W.toWeilFormSymbols.convolutionStar
-            common.sourceTest common.sourceTest) n).1 hn
-      exact
+      have hExact := (W.toWeilFormSymbols_restrictedPrimeIndex_exact lambda n).1 hn
+      refine
         { primePowerIndex := hExact.1
-          atomVisible := hExact.2.1
+          atomVisible := ?_
           lambdaCut := hExact.2.2 }
+      rw [← hAnchor]
+      exact hExact.2.1
     · intro hdata
-      exact
-        W.toWeilFormSymbols_restrictedPrimeIndex_mem_of_visible
-          lambda
-          data.oneLtLambda
-          (W.toWeilFormSymbols.convolutionStar
-            common.sourceTest common.sourceTest)
-          hdata.atomVisible
-          hdata.lambdaCut.1 hdata.lambdaCut.2
+      have hVis :
+          W.toWeilFormSymbols.finitePrimeAtomVisible n (A.legacy.encode W.common) := by
+        rw [hAnchor]
+        exact hdata.atomVisible
+      exact (W.toWeilFormSymbols_restrictedPrimeIndex_exact lambda n).2
+        ⟨hdata.primePowerIndex, hVis, hdata.lambdaCut.1, hdata.lambdaCut.2⟩
 
 theorem visible
     {A : AnalyticCore.SourceTestAlgebra}
@@ -373,28 +372,29 @@ noncomputable def toSupportData
     {common :
       CommonSourceTest.ConcreteCommonSourceTest W.toWeilFormSymbols}
     {lambda : ℝ}
-    (data :
-      FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda) :
+    (data : FixedLambdaSourceWeilFormVisibleArithmeticData W common lambda)
+    (hAnchor : A.legacy.encode W.common =
+      W.toWeilFormSymbols.convolutionStar common.sourceTest common.sourceTest) :
     FixedLambdaCommonFinitePrimeSupportData W.toWeilFormSymbols common lambda where
-  globalIndexData := fun n hn => (data.globalExact n).1 hn
+  globalIndexData := fun n hn => (data.globalExact hAnchor n).1 hn
   routeVisibleGlobalIndex := by
     intro n hvisible
     have hsourceVisible :
         common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
       (common.route_visibility_iff_source_visibility n).1 hvisible
     exact
-      (data.globalExact n).2
+      (data.globalExact hAnchor n).2
         { primePowerIndex :=
             data.mathlibSourcePrimePowerIndex n hsourceVisible
           atomVisible := hsourceVisible }
-  restrictedIndexData := fun n hn => (data.restrictedExact n).1 hn
+  restrictedIndexData := fun n hn => (data.restrictedExact hAnchor n).1 hn
   routeVisibleRestrictedIndex := by
     intro n hvisible hOne hCutoff
     have hsourceVisible :
         common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
       (common.route_visibility_iff_source_visibility n).1 hvisible
     exact
-      (data.restrictedExact n).2
+      (data.restrictedExact hAnchor n).2
         { primePowerIndex :=
             data.mathlibSourcePrimePowerIndex n hsourceVisible
           atomVisible := hsourceVisible
@@ -929,6 +929,16 @@ structure CanonicalSourceWeilFormSourceDataOwner
   A : AnalyticCore.SourceTestAlgebra
   sourceWeilForm : AnalyticCore.SourceWeilFormData A
   sameSymbols : W = sourceWeilForm.toWeilFormSymbols
+  /- Route-common conv-square coinciding with the source form's own `common`
+     anchor (S2 per-common restructure, docs/proofs/834/835).  Per-common
+     exactness proves membership ↔ visibility at `A.legacy.encode W.common`;
+     the route's support obligations need it at the common conv-square
+     `convolutionStar commonTestFunction commonTestFunction`.  Required input,
+     not a hidden assumption; its supply bottoms out at the Step-3 (L137)
+     obligation. -/
+  commonAnchor :
+    A.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction
   supportData :
     ∀ lambda : ℝ, 1 < lambda →
       FixedLambdaCommonFinitePrimeSupportData W
@@ -964,6 +974,8 @@ noncomputable def ofSourceWeilFormVisibleCanonicalData
     {A : AnalyticCore.SourceTestAlgebra}
     (sourceWeilForm : AnalyticCore.SourceWeilFormData A)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : A.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -994,6 +1006,7 @@ noncomputable def ofSourceWeilFormVisibleCanonicalData
   A := A
   sourceWeilForm := sourceWeilForm
   sameSymbols := sameSymbols
+  commonAnchor := commonAnchor
   supportData := supportData
   visibleData := visibleData
   canonicalAtoms := canonicalAtoms
@@ -1007,6 +1020,8 @@ noncomputable def ofSourceWeilFormVisibleCanonicalData
     {A : AnalyticCore.SourceTestAlgebra}
     (sourceWeilForm : AnalyticCore.SourceWeilFormData A)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : A.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1033,7 +1048,7 @@ noncomputable def ofSourceWeilFormVisibleCanonicalData
             (canonicalAtoms lambda hlambda))) :
     (ofSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      sameSymbols supportData visibleData canonicalAtoms certificateData).sourceWeilForm =
+      sameSymbols commonAnchor supportData visibleData canonicalAtoms certificateData).sourceWeilForm =
       sourceWeilForm :=
   rfl
 
@@ -1045,6 +1060,8 @@ noncomputable def ofSourceWeilFormVisibleCanonicalData
     {A : AnalyticCore.SourceTestAlgebra}
     (sourceWeilForm : AnalyticCore.SourceWeilFormData A)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : A.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1071,7 +1088,7 @@ noncomputable def ofSourceWeilFormVisibleCanonicalData
             (canonicalAtoms lambda hlambda))) :
     (ofSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      sameSymbols supportData visibleData canonicalAtoms certificateData).sameSymbols =
+      sameSymbols commonAnchor supportData visibleData canonicalAtoms certificateData).sameSymbols =
       sameSymbols :=
   rfl
 
@@ -1083,6 +1100,8 @@ noncomputable def ofSourceWeilFormVisibleCanonicalData
     {A : AnalyticCore.SourceTestAlgebra}
     (sourceWeilForm : AnalyticCore.SourceWeilFormData A)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : A.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1110,7 +1129,7 @@ noncomputable def ofSourceWeilFormVisibleCanonicalData
     (lambda : ℝ) (hlambda : 1 < lambda) :
     (ofSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      sameSymbols supportData visibleData canonicalAtoms certificateData).supportData
+      sameSymbols commonAnchor supportData visibleData canonicalAtoms certificateData).supportData
         lambda hlambda =
       supportData lambda hlambda :=
   rfl
@@ -1123,6 +1142,8 @@ noncomputable def ofSourceWeilFormVisibleCanonicalData
     {A : AnalyticCore.SourceTestAlgebra}
     (sourceWeilForm : AnalyticCore.SourceWeilFormData A)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : A.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1150,7 +1171,7 @@ noncomputable def ofSourceWeilFormVisibleCanonicalData
     (lambda : ℝ) (hlambda : 1 < lambda) :
     (ofSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      sameSymbols supportData visibleData canonicalAtoms certificateData).visibleData
+      sameSymbols commonAnchor supportData visibleData canonicalAtoms certificateData).visibleData
         lambda hlambda =
       visibleData lambda hlambda :=
   rfl
@@ -1163,6 +1184,8 @@ noncomputable def ofSourceWeilFormVisibleCanonicalData
     {A : AnalyticCore.SourceTestAlgebra}
     (sourceWeilForm : AnalyticCore.SourceWeilFormData A)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : A.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1190,7 +1213,7 @@ noncomputable def ofSourceWeilFormVisibleCanonicalData
     (lambda : ℝ) (hlambda : 1 < lambda) :
     (ofSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      sameSymbols supportData visibleData canonicalAtoms certificateData).canonicalAtoms
+      sameSymbols commonAnchor supportData visibleData canonicalAtoms certificateData).canonicalAtoms
         lambda hlambda =
       canonicalAtoms lambda hlambda :=
   rfl
@@ -1228,7 +1251,8 @@ theorem certificateAtoms_toNormalization_heq
       ((owner.canonicalAtoms lambda hlambda).atoms.toNormalization) := by
   rcases owner with
     ⟨sourceDataOwner, sourceDataOwner_commonTestFunction, A, sourceWeilForm,
-      sameSymbols, supportData, visibleData, canonicalAtoms, certificateData⟩
+      sameSymbols, commonAnchor, supportData, visibleData, canonicalAtoms,
+      certificateData⟩
   cases sourceDataOwner_commonTestFunction
   exact
     FixedLambdaArithmeticCertificateSourceTestData.atoms_toNormalization_heq_of_heq_sourceTest_eq
@@ -1250,14 +1274,14 @@ structure VisibleArithmeticOwnerRows
     ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
       FixedLambdaSourceWeilFormVisibleArithmeticData
         owner.sourceWeilForm
-        (owner.sameSymbols ▸
-          CommonSourceTest.concreteCommonSourceTest W commonTestFunction)
+        (CommonSourceTest.concreteCommonSourceTest
+          owner.sourceWeilForm.toWeilFormSymbols commonTestFunction)
         lambda
   supportData_eq :
     ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
       HEq
         (owner.supportData lambda hlambda)
-        ((visibleSeed lambda hlambda).toSupportData)
+        ((visibleSeed lambda hlambda).toSupportData owner.commonAnchor)
   visibleData_eq :
     ∀ lambda : ℝ, ∀ hlambda : 1 < lambda,
       HEq
@@ -1275,8 +1299,12 @@ theorem visibleArithmeticOwnerRows
     CanonicalSourceWeilFormVisibleArithmeticOwnerRows owner := by
   rcases owner with
     ⟨sourceDataOwner, sourceDataOwner_commonTestFunction, A, sourceWeilForm,
-      sameSymbols, supportData, visibleData, canonicalAtoms, certificateData⟩
+      sameSymbols, commonAnchor, supportData, visibleData, canonicalAtoms,
+      certificateData⟩
   cases sameSymbols
+  have hAnchor : A.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction :=
+    commonAnchor
   exact
     { visibleSeed := by
         intro lambda hlambda
@@ -1296,6 +1324,8 @@ theorem visibleArithmeticOwnerRows_of_sourceWeilFormVisibleCanonicalData
     {A : AnalyticCore.SourceTestAlgebra}
     (sourceWeilForm : AnalyticCore.SourceWeilFormData A)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : A.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1323,11 +1353,11 @@ theorem visibleArithmeticOwnerRows_of_sourceWeilFormVisibleCanonicalData
     CanonicalSourceWeilFormVisibleArithmeticOwnerRows
       (ofSourceWeilFormVisibleCanonicalData
         sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-        sameSymbols supportData visibleData canonicalAtoms certificateData) :=
+        sameSymbols commonAnchor supportData visibleData canonicalAtoms certificateData) :=
   visibleArithmeticOwnerRows
     (ofSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      sameSymbols supportData visibleData canonicalAtoms certificateData)
+      sameSymbols commonAnchor supportData visibleData canonicalAtoms certificateData)
 
 end CanonicalSourceWeilFormSourceDataOwner
 
@@ -1359,6 +1389,9 @@ structure ConcreteCanonicalSourceWeilFormSourceDataOwner
   owner_sourceWeilForm_symbols_eq :
     owner.sourceWeilForm.toWeilFormSymbols =
       concreteSourceWeilForm.toWeilFormSymbols
+  concreteAnchor :
+    normalizedCC20ConcreteTestAlgebra.legacy.encode concreteSourceWeilForm.common =
+      concreteSourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction
 
 namespace ConcreteCanonicalSourceWeilFormSourceDataOwner
 
@@ -1372,6 +1405,8 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
     (concreteEvaluation_eq :
       sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : normalizedCC20ConcreteTestAlgebra.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1400,7 +1435,7 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
   owner :=
     CanonicalSourceWeilFormSourceDataOwner.ofSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      sameSymbols supportData visibleData canonicalAtoms certificateData
+      sameSymbols commonAnchor supportData visibleData canonicalAtoms certificateData
   concreteSourceWeilForm := sourceWeilForm
   owner_algebra_eq := rfl
   owner_sourceWeilForm_heq := HEq.rfl
@@ -1409,6 +1444,7 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
   owner_sourceWeilForm_evaluation_eq := rfl
   concreteEvaluation_eq := concreteEvaluation_eq
   owner_sourceWeilForm_symbols_eq := rfl
+  concreteAnchor := commonAnchor
 
 @[simp] theorem ofConcreteSourceWeilFormVisibleCanonicalData_owner
     {W : WeilFormSymbols} {commonTestFunction : TestFunction}
@@ -1420,6 +1456,8 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
     (concreteEvaluation_eq :
       sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : normalizedCC20ConcreteTestAlgebra.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1446,11 +1484,11 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
             (canonicalAtoms lambda hlambda))) :
     (ofConcreteSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      concreteEvaluation_eq sameSymbols commonAnchor supportData visibleData canonicalAtoms
       certificateData).owner =
       CanonicalSourceWeilFormSourceDataOwner.ofSourceWeilFormVisibleCanonicalData
         sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-        sameSymbols supportData visibleData canonicalAtoms certificateData :=
+        sameSymbols commonAnchor supportData visibleData canonicalAtoms certificateData :=
   rfl
 
 @[simp] theorem ofConcreteSourceWeilFormVisibleCanonicalData_concreteSourceWeilForm
@@ -1463,6 +1501,8 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
     (concreteEvaluation_eq :
       sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : normalizedCC20ConcreteTestAlgebra.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1489,7 +1529,7 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
             (canonicalAtoms lambda hlambda))) :
     (ofConcreteSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      concreteEvaluation_eq sameSymbols commonAnchor supportData visibleData canonicalAtoms
       certificateData).concreteSourceWeilForm =
       sourceWeilForm :=
   rfl
@@ -1504,6 +1544,8 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
     (concreteEvaluation_eq :
       sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : normalizedCC20ConcreteTestAlgebra.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1530,7 +1572,7 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
             (canonicalAtoms lambda hlambda))) :
     (ofConcreteSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      concreteEvaluation_eq sameSymbols commonAnchor supportData visibleData canonicalAtoms
       certificateData).owner_algebra_eq =
       rfl :=
   rfl
@@ -1545,6 +1587,8 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
     (concreteEvaluation_eq :
       sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : normalizedCC20ConcreteTestAlgebra.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1571,7 +1615,7 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
             (canonicalAtoms lambda hlambda))) :
     (ofConcreteSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      concreteEvaluation_eq sameSymbols commonAnchor supportData visibleData canonicalAtoms
       certificateData).owner_sourceWeilForm_heq =
       HEq.rfl :=
   rfl
@@ -1586,6 +1630,8 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
     (concreteEvaluation_eq :
       sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : normalizedCC20ConcreteTestAlgebra.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1612,7 +1658,7 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
             (canonicalAtoms lambda hlambda))) :
     (ofConcreteSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      concreteEvaluation_eq sameSymbols commonAnchor supportData visibleData canonicalAtoms
       certificateData).owner_sourceWeilForm_eq =
       rfl :=
   rfl
@@ -1627,6 +1673,8 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
     (concreteEvaluation_eq :
       sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : normalizedCC20ConcreteTestAlgebra.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1653,7 +1701,7 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
             (canonicalAtoms lambda hlambda))) :
     (ofConcreteSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      concreteEvaluation_eq sameSymbols commonAnchor supportData visibleData canonicalAtoms
       certificateData).owner_sourceWeilForm_evaluation_heq =
       HEq.rfl :=
   rfl
@@ -1668,6 +1716,8 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
     (concreteEvaluation_eq :
       sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : normalizedCC20ConcreteTestAlgebra.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1694,7 +1744,7 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
             (canonicalAtoms lambda hlambda))) :
     (ofConcreteSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      concreteEvaluation_eq sameSymbols commonAnchor supportData visibleData canonicalAtoms
       certificateData).owner_sourceWeilForm_evaluation_eq =
       rfl :=
   rfl
@@ -1709,6 +1759,8 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
     (concreteEvaluation_eq :
       sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : normalizedCC20ConcreteTestAlgebra.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1735,7 +1787,7 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
             (canonicalAtoms lambda hlambda))) :
     (ofConcreteSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      concreteEvaluation_eq sameSymbols commonAnchor supportData visibleData canonicalAtoms
       certificateData).concreteEvaluation_eq =
       concreteEvaluation_eq :=
   rfl
@@ -1750,6 +1802,8 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
     (concreteEvaluation_eq :
       sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData)
     (sameSymbols : W = sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor : normalizedCC20ConcreteTestAlgebra.legacy.encode sourceWeilForm.common =
+      sourceWeilForm.toWeilFormSymbols.convolutionStar commonTestFunction commonTestFunction)
     (supportData :
       ∀ lambda : ℝ, 1 < lambda →
         FixedLambdaCommonFinitePrimeSupportData W
@@ -1776,7 +1830,7 @@ noncomputable def ofConcreteSourceWeilFormVisibleCanonicalData
             (canonicalAtoms lambda hlambda))) :
     (ofConcreteSourceWeilFormVisibleCanonicalData
       sourceDataOwner sourceDataOwner_commonTestFunction sourceWeilForm
-      concreteEvaluation_eq sameSymbols supportData visibleData canonicalAtoms
+      concreteEvaluation_eq sameSymbols commonAnchor supportData visibleData canonicalAtoms
       certificateData).owner_sourceWeilForm_symbols_eq =
       rfl :=
   rfl

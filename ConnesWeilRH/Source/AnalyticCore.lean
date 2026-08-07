@@ -7486,7 +7486,7 @@ namespace PerCommonSourceFinitePrimeSupport
 
 /-- Forward direction is unaffected by the common scoping. -/
 theorem visible_mem
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (common : A.Test)
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
     (S : PerCommonSourceFinitePrimeSupport A E common)
     (n : ℕ) : (∃ F : A.Test, E.sourceFinitePrimeTerm n F ≠ 0) ->
       n ∈ S.globalIndexSet := by
@@ -7512,146 +7512,164 @@ separate `exactSupport` object so support rows do not live inside visible
 arithmetic read-off records.
 -/
 structure SourceFinitePrimeData
-    (A : SourceTestAlgebra) (E : SourceEvaluationData A) where
-  exactSupport : SourceFinitePrimeExactSupportData A E
+    (A : SourceTestAlgebra) (E : SourceEvaluationData A) (common : A.Test) where
+  /- Per-common support (S2 修法): 保留前向 ∀F 覆盖, 反向 witness 只对 common.
+     `PerCommonSourceFinitePrimeSupport` 无 reverse-∀F, 故零元素不再被迫非零,
+     L137/L152 矛盾消除 (docs/proofs 833/834). -/
+  support : PerCommonSourceFinitePrimeSupport A E common
 
 namespace SourceFinitePrimeData
 
 def globalPrimeIndexSet
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A}
-    (P : SourceFinitePrimeData A E) : Finset ℕ :=
-  P.exactSupport.globalPrimeIndexSet
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) : Finset ℕ :=
+  P.support.globalIndexSet
 
 def restrictedPrimeIndexSet
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A}
-    (P : SourceFinitePrimeData A E) : ℝ → Finset ℕ :=
-  P.exactSupport.restrictedPrimeIndexSet
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) : ℝ → Finset ℕ :=
+  P.support.restrictedIndexSet
 
-@[simp] theorem globalPrimeIndexSet_eq_exactSupport
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A}
-    (P : SourceFinitePrimeData A E) :
-    P.globalPrimeIndexSet = P.exactSupport.globalPrimeIndexSet :=
+@[simp] theorem globalPrimeIndexSet_eq_support
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) :
+    P.globalPrimeIndexSet = P.support.globalIndexSet :=
   rfl
 
-@[simp] theorem restrictedPrimeIndexSet_eq_exactSupport
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A}
-    (P : SourceFinitePrimeData A E) :
-    P.restrictedPrimeIndexSet = P.exactSupport.restrictedPrimeIndexSet :=
+@[simp] theorem restrictedPrimeIndexSet_eq_support
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) :
+    P.restrictedPrimeIndexSet = P.support.restrictedIndexSet :=
   rfl
 
+/-- Per-common global exactness: the index set is *exactly* the prime powers
+visible at the common test `common` (reverse witness scoped to `common`, not
+`∀ F`). Forward (visible at ANY F -> member) still holds via
+`sourceVisibleGlobalIndex`. -/
 theorem globalExact
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A}
-    (P : SourceFinitePrimeData A E) :
-    ∀ F : A.Test, ∀ n : ℕ,
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) :
+    ∀ n : ℕ,
       n ∈ P.globalPrimeIndexSet ↔
-        IsPrimePow n ∧ E.sourceFinitePrimeTerm n F ≠ 0 := by
-  intro F n
+        IsPrimePow n ∧ E.sourceFinitePrimeTerm n common ≠ 0 := by
+  intro n
   constructor
   · intro hn
-    have hVisible := P.exactSupport.globalIndexData F n hn
+    have hVisible := P.support.commonGlobalIndex n hn
     exact ⟨E.sourceFinitePrimeTerm_nonzero_primePower hVisible, hVisible⟩
   · intro hdata
-    exact P.exactSupport.sourceVisibleGlobalIndex F n hdata.2
+    exact P.support.sourceVisibleGlobalIndex n common hdata.2
 
+/-- Per-common restricted exactness, same scoping. -/
 theorem restrictedExact
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A}
-    (P : SourceFinitePrimeData A E) :
-    ∀ lambda : ℝ, ∀ F : A.Test, ∀ n : ℕ,
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) :
+    ∀ lambda : ℝ, ∀ n : ℕ,
       n ∈ P.restrictedPrimeIndexSet lambda ↔
-        IsPrimePow n ∧ E.sourceFinitePrimeTerm n F ≠ 0 ∧
+        IsPrimePow n ∧ E.sourceFinitePrimeTerm n common ≠ 0 ∧
           1 < n ∧ (n : ℝ) ≤ lambda ^ 2 := by
-  intro lambda F n
+  intro lambda n
   constructor
   · intro hn
-    have hdata := P.exactSupport.restrictedIndexData lambda F n hn
+    have hdata := P.support.commonRestrictedIndex lambda n hn
     exact
       ⟨E.sourceFinitePrimeTerm_nonzero_primePower hdata.1, hdata.1,
         hdata.2⟩
   · intro hdata
     exact
-      P.exactSupport.sourceVisibleRestrictedIndex lambda F n
+      P.support.sourceVisibleRestrictedIndex lambda n common
         hdata.2.1 hdata.2.2.1 hdata.2.2.2
 
 def sourcePrimePowerIndex
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (_P : SourceFinitePrimeData A E) :
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (_P : SourceFinitePrimeData A E common) :
     ℕ → Prop :=
   fun n => IsPrimePow n
 
 @[simp] theorem sourcePrimePowerIndex_iff
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E) (n : ℕ) :
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) (n : ℕ) :
     P.sourcePrimePowerIndex n ↔ IsPrimePow n :=
   Iff.rfl
 
 noncomputable def vonMangoldtWeight
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (_P : SourceFinitePrimeData A E) :
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (_P : SourceFinitePrimeData A E common) :
     ℕ → ℝ :=
   fun n => ArithmeticFunction.vonMangoldt n
 
 def legacyGlobalPrimeIndexSet
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E) :
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) :
     Finset ℕ :=
   P.globalPrimeIndexSet
 
 def legacyRestrictedPrimeIndexSet
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E) :
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) :
     ℝ → Finset ℕ :=
   P.restrictedPrimeIndexSet
 
 noncomputable def sourceAtomVisible
     {A : SourceTestAlgebra} {E : SourceEvaluationData A}
-    (_P : SourceFinitePrimeData A E) :
+    {common : A.Test} (_P : SourceFinitePrimeData A E common) :
     ℕ → A.Test → Prop :=
   fun n F => E.sourceFinitePrimeTerm n F ≠ 0
 
 noncomputable def legacyFinitePrimeAtomVisible
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E) :
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) :
     ℕ → TestFunction → Prop :=
   fun n F => P.sourceAtomVisible n (A.legacy.decode F)
 
 noncomputable def finitePrimeTerm
     {A : SourceTestAlgebra} {E : SourceEvaluationData A}
-    (_P : SourceFinitePrimeData A E) :
+    {common : A.Test} (_P : SourceFinitePrimeData A E common) :
     ℕ → A.Test → ℝ :=
   E.sourceFinitePrimeTerm
 
 noncomputable def legacyFinitePrimeTerm
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E) :
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) :
     ℕ → TestFunction → ℝ :=
   fun n F => P.finitePrimeTerm n (A.legacy.decode F)
 
 noncomputable def primePowerPairing
     {A : SourceTestAlgebra} {E : SourceEvaluationData A}
-    (_P : SourceFinitePrimeData A E) :
+    {common : A.Test} (_P : SourceFinitePrimeData A E common) :
     ℕ → A.Test → A.Test → ℝ :=
   E.sourcePrimePowerPairing
 
 noncomputable def legacyPrimePowerPairing
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E) :
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) :
     ℕ → TestFunction → TestFunction → ℝ :=
   fun n f g =>
     P.primePowerPairing n (A.legacy.decode f) (A.legacy.decode g)
 
 @[simp] theorem legacyGlobalPrimeIndexSet_eq
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E) :
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) :
     P.legacyGlobalPrimeIndexSet = P.globalPrimeIndexSet :=
   rfl
 
 @[simp] theorem legacyRestrictedPrimeIndexSet_apply
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common)
     (lambda : ℝ) :
     P.legacyRestrictedPrimeIndexSet lambda =
       P.restrictedPrimeIndexSet lambda :=
   rfl
 
 @[simp] theorem legacyFinitePrimeAtomVisible_apply
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test} (P : SourceFinitePrimeData A E common)
     (n : ℕ) (F : TestFunction) :
     P.legacyFinitePrimeAtomVisible n F =
       P.sourceAtomVisible n (A.legacy.decode F) :=
   rfl
 
 @[simp] theorem legacyFinitePrimeTerm_apply
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test} (P : SourceFinitePrimeData A E common)
     (n : ℕ) (F : TestFunction) :
     P.legacyFinitePrimeTerm n F =
       P.finitePrimeTerm n (A.legacy.decode F) :=
@@ -7659,12 +7677,12 @@ noncomputable def legacyPrimePowerPairing
 
 @[simp] theorem finitePrimeTerm_eq_evaluation
     {A : SourceTestAlgebra} {E : SourceEvaluationData A}
-    (P : SourceFinitePrimeData A E) (n : ℕ) (F : A.Test) :
+    {common : A.Test} (P : SourceFinitePrimeData A E common) (n : ℕ) (F : A.Test) :
     P.finitePrimeTerm n F = E.sourceFinitePrimeTerm n F :=
   rfl
 
 @[simp] theorem legacyPrimePowerPairing_apply
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test} (P : SourceFinitePrimeData A E common)
     (n : ℕ) (f g : TestFunction) :
     P.legacyPrimePowerPairing n f g =
       P.primePowerPairing n (A.legacy.decode f) (A.legacy.decode g) :=
@@ -7672,42 +7690,49 @@ noncomputable def legacyPrimePowerPairing
 
 @[simp] theorem primePowerPairing_eq_evaluation
     {A : SourceTestAlgebra} {E : SourceEvaluationData A}
-    (P : SourceFinitePrimeData A E) (n : ℕ) (f g : A.Test) :
+    {common : A.Test} (P : SourceFinitePrimeData A E common) (n : ℕ) (f g : A.Test) :
     P.primePowerPairing n f g = E.sourcePrimePowerPairing n f g :=
   rfl
 
 theorem vonMangoldtWeight_eq_arithmetic
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E) (n : ℕ) :
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test} (P : SourceFinitePrimeData A E common) (n : ℕ) :
     P.vonMangoldtWeight n = ArithmeticFunction.vonMangoldt n :=
   rfl
 
 theorem globalPrimeIndex_primePower
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
-    (F : A.Test) {n : ℕ} (hn : n ∈ P.globalPrimeIndexSet) :
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) {n : ℕ}
+    (hn : n ∈ P.globalPrimeIndexSet) :
     IsPrimePow n :=
-  ((P.globalExact F n).1 hn).1
+  ((P.globalExact n).1 hn).1
 
+/-- Reverse witness, scoped to `common` (member -> visible at the common test). -/
 theorem globalPrimeIndex_visible
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
-    (F : A.Test) {n : ℕ} (hn : n ∈ P.globalPrimeIndexSet) :
-    P.sourceAtomVisible n F :=
-  ((P.globalExact F n).1 hn).2
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common) {n : ℕ}
+    (hn : n ∈ P.globalPrimeIndexSet) :
+    P.sourceAtomVisible n common :=
+  ((P.globalExact n).1 hn).2
 
+/-- Forward: visible at ANY F -> member (kept ∀ F, per S2 保正向收反向). -/
 theorem globalPrimeIndex_mem_of_primePower_visible
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common)
     (F : A.Test) {n : ℕ}
     (hPrime : IsPrimePow n) (hVisible : P.sourceAtomVisible n F) :
     n ∈ P.globalPrimeIndexSet :=
-  (P.globalExact F n).2 ⟨hPrime, hVisible⟩
+  P.support.sourceVisibleGlobalIndex n F hVisible
 
 theorem sourceAtomVisible_primePower_index
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common)
     (F : A.Test) {n : ℕ} (hVisible : P.sourceAtomVisible n F) :
     IsPrimePow n :=
   E.sourceFinitePrimeTerm_nonzero_primePower hVisible
 
 theorem globalCoverage
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common)
     (F : A.Test) (n : ℕ) :
     P.sourceAtomVisible n F → n ∈ P.globalPrimeIndexSet := by
   intro hVisible
@@ -7716,68 +7741,77 @@ theorem globalCoverage
       (P.sourceAtomVisible_primePower_index F hVisible) hVisible
 
 theorem restrictedPrimeIndex_primePower
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
-    (lambda : ℝ) (F : A.Test) {n : ℕ}
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common)
+    (lambda : ℝ) {n : ℕ}
     (hn : n ∈ P.restrictedPrimeIndexSet lambda) :
     IsPrimePow n :=
-  (((P.restrictedExact lambda F n).1 hn).1)
+  (((P.restrictedExact lambda n).1 hn).1)
 
+/-- Reverse, scoped to `common`. -/
 theorem restrictedPrimeIndex_visible
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
-    (lambda : ℝ) (F : A.Test) {n : ℕ}
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common)
+    (lambda : ℝ) {n : ℕ}
     (hn : n ∈ P.restrictedPrimeIndexSet lambda) :
-    P.sourceAtomVisible n F :=
-  (((P.restrictedExact lambda F n).1 hn).2).1
+    P.sourceAtomVisible n common :=
+  (((P.restrictedExact lambda n).1 hn).2).1
 
 theorem restrictedPrimeIndex_one_lt
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
-    (lambda : ℝ) (F : A.Test) {n : ℕ}
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common)
+    (lambda : ℝ) {n : ℕ}
     (hn : n ∈ P.restrictedPrimeIndexSet lambda) :
     1 < n :=
-  ((((P.restrictedExact lambda F n).1 hn).2).2).1
+  ((((P.restrictedExact lambda n).1 hn).2).2).1
 
 theorem restrictedPrimeIndex_le_lambda_sq
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
-    (lambda : ℝ) (F : A.Test) {n : ℕ}
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common)
+    (lambda : ℝ) {n : ℕ}
     (hn : n ∈ P.restrictedPrimeIndexSet lambda) :
     (n : ℝ) ≤ lambda ^ 2 :=
-  ((((P.restrictedExact lambda F n).1 hn).2).2).2
+  ((((P.restrictedExact lambda n).1 hn).2).2).2
 
 theorem restrictedPrimeIndex_lambdaCut
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
-    (lambda : ℝ) (F : A.Test) {n : ℕ}
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common)
+    (lambda : ℝ) {n : ℕ}
     (hn : n ∈ P.restrictedPrimeIndexSet lambda) :
     1 < n ∧ (n : ℝ) ≤ lambda ^ 2 :=
-  ⟨P.restrictedPrimeIndex_one_lt lambda F hn,
-    P.restrictedPrimeIndex_le_lambda_sq lambda F hn⟩
+  ⟨P.restrictedPrimeIndex_one_lt lambda hn,
+    P.restrictedPrimeIndex_le_lambda_sq lambda hn⟩
 
+/-- Forward: visible at ANY F + cutoff -> member (kept ∀ F, S2). Uses the
+per-common support's forward restricted witness. -/
 theorem restrictedPrimeIndex_mem_of_primePower_visible_cutoff
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common)
     (lambda : ℝ) (F : A.Test) {n : ℕ}
     (hPrime : IsPrimePow n) (hVisible : P.sourceAtomVisible n F)
-    (hOne : 1 < n) (hCutoff : (n : ℝ) ≤ lambda ^ 2) :
+    (hOne : 1 < n) (hCut : (n : ℝ) ≤ lambda ^ 2) :
     n ∈ P.restrictedPrimeIndexSet lambda :=
-  (P.restrictedExact lambda F n).2
-    ⟨hPrime, hVisible, hOne, hCutoff⟩
+  P.support.sourceVisibleRestrictedIndex lambda n F hVisible hOne hCut
 
 theorem restrictedCoverage
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
+    (P : SourceFinitePrimeData A E common)
     (lambda : ℝ) (hlambda : 1 < lambda)
     (F : A.Test) (n : ℕ) :
     P.sourceAtomVisible n F → 1 < n → (n : ℝ) ≤ lambda ^ 2 →
       n ∈ P.restrictedPrimeIndexSet lambda := by
-  intro hVisible
-  exact P.exactSupport.restrictedCoverage lambda hlambda F n hVisible
+  intro hVisible hOne hCut
+  exact P.support.sourceVisibleRestrictedIndex lambda n F hVisible hOne hCut
 
 theorem finitePrimeTerm_convolutionStar
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test} (P : SourceFinitePrimeData A E common)
     (f g : A.Test) (n : ℕ) :
     P.finitePrimeTerm n (A.convolutionStar f g) =
       P.vonMangoldtWeight n * P.primePowerPairing n f g :=
   rfl
 
 theorem finitePrimeTerm_convolutionSquare
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test} (P : SourceFinitePrimeData A E common)
     (g : A.Test) (n : ℕ) :
     P.finitePrimeTerm n (A.convolutionSquare g) =
       P.vonMangoldtWeight n * P.primePowerPairing n g g := by
@@ -7785,7 +7819,7 @@ theorem finitePrimeTerm_convolutionSquare
   exact P.finitePrimeTerm_convolutionStar g g n
 
 theorem legacyFinitePrimeTerm_convolutionStar
-    {A : SourceTestAlgebra} {E : SourceEvaluationData A} (P : SourceFinitePrimeData A E)
+    {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test} (P : SourceFinitePrimeData A E common)
     (f g : TestFunction) (n : ℕ) :
     P.legacyFinitePrimeTerm n (A.legacyConvolutionStar f g) =
       P.vonMangoldtWeight n * P.legacyPrimePowerPairing n f g := by
@@ -7799,7 +7833,8 @@ end SourceFinitePrimeData
 /-- CCM25 global/restricted Weil-form formulas over the shared source algebra. -/
 structure SourceWeilFormData (A : SourceTestAlgebra) where
   evaluation : SourceEvaluationData A
-  finitePrime : SourceFinitePrimeData A evaluation
+  common : A.Test
+  finitePrime : SourceFinitePrimeData A evaluation common
   archimedeanTerm : A.Test → ℝ
 
 namespace SourceWeilFormData
@@ -7836,12 +7871,12 @@ noncomputable def toWeilFormSymbols
   psi := fun F => W.psi (A.legacy.decode F)
   convolutionStar := A.legacyConvolutionStar
   globalPrimeIndexSet := W.finitePrime.globalPrimeIndexSet
-  restrictedPrimeIndexSet := W.finitePrime.restrictedPrimeIndexSet
-  finitePrimeTerm := W.finitePrime.legacyFinitePrimeTerm
+  restrictedPrimeIndexSet := fun lambda => W.finitePrime.restrictedPrimeIndexSet lambda
+  finitePrimeTerm := fun n F => W.finitePrime.legacyFinitePrimeTerm n F
   archimedeanTerm := fun F => W.archimedeanTerm (A.legacy.decode F)
   poleFunctional := fun F => W.evaluation.poleFunctional (A.legacy.decode F)
   polePairing := fun f => W.evaluation.polePairing (A.legacy.decode f)
-  primePowerPairing := W.finitePrime.legacyPrimePowerPairing
+  primePowerPairing := fun n f g => W.finitePrime.legacyPrimePowerPairing n f g
 
 @[simp] theorem toWeilFormSymbols_qw
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)
@@ -7935,18 +7970,25 @@ noncomputable def toWeilFormSymbols
 
 theorem toWeilFormSymbols_globalPrimeIndex_exact
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)
-    (F : TestFunction) (n : ℕ) :
+    (n : ℕ) :
     n ∈ W.toWeilFormSymbols.globalPrimeIndexSet ↔
-      IsPrimePow n ∧ W.toWeilFormSymbols.finitePrimeAtomVisible n F := by
-  exact W.finitePrime.globalExact (A.legacy.decode F) n
+      IsPrimePow n ∧
+      W.toWeilFormSymbols.finitePrimeAtomVisible n (A.legacy.encode W.common) := by
+  rw [toWeilFormSymbols_globalPrimeIndexSet, toWeilFormSymbols_finitePrimeAtomVisible,
+    A.legacy.decode_encode W.common]
+  exact W.finitePrime.globalExact n
 
 theorem toWeilFormSymbols_restrictedPrimeIndex_exact
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)
-    (lambda : ℝ) (F : TestFunction) (n : ℕ) :
+    (lambda : ℝ) (n : ℕ) :
     n ∈ W.toWeilFormSymbols.restrictedPrimeIndexSet lambda ↔
-      IsPrimePow n ∧ W.toWeilFormSymbols.finitePrimeAtomVisible n F ∧
+      IsPrimePow n ∧
+      W.toWeilFormSymbols.finitePrimeAtomVisible n (A.legacy.encode W.common) ∧
         1 < n ∧ (n : ℝ) ≤ lambda ^ 2 := by
-  exact W.finitePrime.restrictedExact lambda (A.legacy.decode F) n
+  rw [toWeilFormSymbols_restrictedPrimeIndexSet,
+    toWeilFormSymbols_finitePrimeAtomVisible,
+    A.legacy.decode_encode W.common]
+  exact W.finitePrime.restrictedExact lambda n
 
 theorem toWeilFormSymbols_finitePrimeAtomVisible_primePower
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)
@@ -7962,8 +8004,8 @@ theorem toWeilFormSymbols_globalPrimeIndex_mem_of_primePower_visible
     (hPrime : IsPrimePow n)
     (hVisible : W.toWeilFormSymbols.finitePrimeAtomVisible n F) :
     n ∈ W.toWeilFormSymbols.globalPrimeIndexSet :=
-  (W.toWeilFormSymbols_globalPrimeIndex_exact F n).2
-    ⟨hPrime, hVisible⟩
+  W.finitePrime.globalPrimeIndex_mem_of_primePower_visible
+    (A.legacy.decode F) hPrime hVisible
 
 theorem toWeilFormSymbols_restrictedPrimeIndex_mem_of_primePower_visible_cutoff
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)
@@ -7972,8 +8014,8 @@ theorem toWeilFormSymbols_restrictedPrimeIndex_mem_of_primePower_visible_cutoff
     (hVisible : W.toWeilFormSymbols.finitePrimeAtomVisible n F)
     (hOne : 1 < n) (hCutoff : (n : ℝ) ≤ lambda ^ 2) :
     n ∈ W.toWeilFormSymbols.restrictedPrimeIndexSet lambda :=
-  (W.toWeilFormSymbols_restrictedPrimeIndex_exact lambda F n).2
-    ⟨hPrime, hVisible, hOne, hCutoff⟩
+  W.finitePrime.restrictedPrimeIndex_mem_of_primePower_visible_cutoff
+    lambda (A.legacy.decode F) hPrime hVisible hOne hCutoff
 
 theorem toWeilFormSymbols_restrictedPrimeIndex_mem_of_visible
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)

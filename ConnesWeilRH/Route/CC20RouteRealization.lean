@@ -7309,14 +7309,31 @@ def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDa
     Σ A : Source.AnalyticCore.SourceTestAlgebra,
       Source.AnalyticCore.SourceEvaluationData A
 
+/-- S2 per-common anchor: the source-Weil-form's own `common` coincides (after
+its legacy encoding to `WeilFormSymbols`) with the route-common conv-square at
+the route stored test.  This is the invariant binding the source form's
+per-common exactness to the route's support obligations.  It is a required
+input below the source-data owner, not a hidden assumption. -/
+def NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormCommonAnchor
+    {A : Source.AnalyticCore.SourceTestAlgebra}
+    (r : NormalizedRouteBackedCC20SquareRestrictedTest)
+    (sourceWeilForm : Source.AnalyticCore.SourceWeilFormData A) : Prop :=
+  A.legacy.encode sourceWeilForm.common =
+    sourceWeilForm.toWeilFormSymbols.convolutionStar
+      r.sourceBackedTest.weilTest r.sourceBackedTest.weilTest
+
 /-- Source-Weil-form carrier below the finite-prime arithmetic carrier.  The
-explicit symbol equality is mandatory: without it, support and visible
-arithmetic data would be produced for a different `WeilFormSymbols` object. -/
+explicit symbol equality is mandatory (without it, support and visible
+arithmetic data would be produced for a different `WeilFormSymbols` object),
+and the per-common anchor is bundled so that every downstream seed-exact call
+can rebind from the source form's own `common` to the route test. -/
 def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration :=
   ∀ r : NormalizedRouteBackedCC20SquareRestrictedTest,
     Σ A : Source.AnalyticCore.SourceTestAlgebra,
       { sourceWeilForm : Source.AnalyticCore.SourceWeilFormData A //
-        r.inputs.ccm25.weilSymbols = sourceWeilForm.toWeilFormSymbols }
+        r.inputs.ccm25.weilSymbols = sourceWeilForm.toWeilFormSymbols ∧
+          NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormCommonAnchor
+            r sourceWeilForm }
 
 /-- Stronger B1 carrier provenance: the selected source-Weil-form is not only
 same-symbol with the route, but is carried by the normalized CC20 concrete test
@@ -7327,7 +7344,9 @@ def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeil
     { sourceWeilForm :
         Source.AnalyticCore.SourceWeilFormData normalizedCC20ConcreteTestAlgebra //
       sourceWeilForm.evaluation = normalizedCC20ConcreteEvaluationData ∧
-        r.inputs.ccm25.weilSymbols = sourceWeilForm.toWeilFormSymbols }
+        r.inputs.ccm25.weilSymbols = sourceWeilForm.toWeilFormSymbols ∧
+          NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormCommonAnchor
+            r sourceWeilForm }
 
 noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_concreteSourceWeilFormCarrier
     (hconcrete :
@@ -7393,7 +7412,7 @@ theorem normalizedRouteBackedCC20SquareRestrictedRoutePolePairingTransportCalibr
   let sourceWeilForm := witness.2.1
   have hsame :
       r.inputs.ccm25.weilSymbols = sourceWeilForm.toWeilFormSymbols :=
-    witness.2.2
+    witness.2.2.1
   have hcompatAt :
       normalizedCC20ConcreteEvaluationData.polePairing
           (normalizedCC20ConcreteTestAlgebra.legacy.decode
@@ -7483,7 +7502,8 @@ def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDa
   let witness := hsource r
   let A := witness.1
   let sourceWeilForm := witness.2.1
-  let hsymbols := witness.2.2
+  let hsymbols := witness.2.2.1
+  let hAnchor := witness.2.2.2
   rw [hsymbols]
   let W := sourceWeilForm.toWeilFormSymbols
   let f := r.sourceBackedTest.weilTest
@@ -7493,7 +7513,7 @@ def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDa
       Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceWeilFormVisibleArithmeticData
         sourceWeilForm common lambda :=
     { oneLtLambda := r.bridge.sourceTraceReadOff.oneLtLambda }
-  exact visibleData.toSupportData
+  exact visibleData.toSupportData hAnchor
 
 def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDataCarrierVisibleArithmeticCalibration_of_sourceWeilFormCarrier
     (hsource :
@@ -7505,7 +7525,8 @@ def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceEvaluationDa
   let witness := hsource r
   let A := witness.1
   let sourceWeilForm := witness.2.1
-  let hsymbols := witness.2.2
+  let hsymbols := witness.2.2.1
+  let hAnchor := witness.2.2.2
   rw [hsymbols]
   let W := sourceWeilForm.toWeilFormSymbols
   let f := r.sourceBackedTest.weilTest
@@ -7901,6 +7922,9 @@ structure NormalizedRouteBackedCC20SquareRestrictedCanonicalOwnerConcreteSourceW
   symbols_eq :
     canonicalOwner.sourceWeilForm.toWeilFormSymbols =
       concreteSourceWeilForm.toWeilFormSymbols
+  commonAnchor :
+    normalizedCC20ConcreteTestAlgebra.legacy.encode concreteSourceWeilForm.common =
+      concreteSourceWeilForm.toWeilFormSymbols.convolutionStar f f
 
 def NormalizedRouteBackedCC20SquareRestrictedCanonicalOwnerConcreteSourceWeilFormProvenance_of_sourceConcreteOwner
     {W : WeilFormSymbols} {f : TestFunction}
@@ -7912,6 +7936,7 @@ def NormalizedRouteBackedCC20SquareRestrictedCanonicalOwnerConcreteSourceWeilFor
   concreteSourceWeilForm := concreteOwner.concreteSourceWeilForm
   evaluation_eq := concreteOwner.concreteEvaluation_eq
   symbols_eq := concreteOwner.owner_sourceWeilForm_symbols_eq
+  commonAnchor := concreteOwner.concreteAnchor
 
 /-- Data-bearing provenance that a square restricted route carrier was produced
 by the canonical source-data route-package constructor. -/
@@ -8138,9 +8163,30 @@ noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConc
           (fun r : NormalizedRouteBackedCC20SquareRestrictedTest =>
             r.inputs.ccm25.weilSymbols)
           w.route_eq
-    exact hrouteSymbols.trans
-      (concreteOwner.owner.sameSymbols.trans
-        concreteOwner.owner_sourceWeilForm_symbols_eq)
+    have hSymbols :
+        r.inputs.ccm25.weilSymbols = concreteOwner.concreteSourceWeilForm.toWeilFormSymbols :=
+      hrouteSymbols.trans
+        (concreteOwner.owner.sameSymbols.trans
+          concreteOwner.owner_sourceWeilForm_symbols_eq)
+    have hTest :
+        r.sourceBackedTest.weilTest =
+          normalizedCC20TestSpace.toRouteTest
+            (normalizedCC20TestSpace.starConvolution w.detector.test) := by
+      simpa [normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+        normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff,
+        sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquareCanonical,
+        sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare] using
+        congrArg
+          (fun r : NormalizedRouteBackedCC20SquareRestrictedTest =>
+            r.sourceBackedTest.weilTest)
+          w.route_eq
+    have hAnchor :
+        NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormCommonAnchor
+          r concreteOwner.concreteSourceWeilForm := by
+      dsimp [NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormCommonAnchor]
+      rw [hTest]
+      exact concreteOwner.concreteAnchor
+    exact ⟨hSymbols, hAnchor⟩
 
 noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage
     (hcoverage :
@@ -8151,7 +8197,8 @@ noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSour
   rw [w.route_eq]
   exact
     ⟨w.canonicalOwner.A,
-      ⟨w.canonicalOwner.sourceWeilForm, w.canonicalOwner.sameSymbols⟩⟩
+      ⟨w.canonicalOwner.sourceWeilForm,
+        ⟨w.canonicalOwner.sameSymbols, w.canonicalOwner.commonAnchor⟩⟩⟩
 
 noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConcreteSourceWeilFormCarrierCalibration_of_canonicalRoutePackageCoverage_concreteSourceWeilFormRows
     (hcoverage :
@@ -8173,8 +8220,29 @@ noncomputable def NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeConc
           (fun r : NormalizedRouteBackedCC20SquareRestrictedTest =>
             r.inputs.ccm25.weilSymbols)
           w.route_eq
-    exact hrouteSymbols.trans
-      (w.canonicalOwner.sameSymbols.trans provenance.symbols_eq)
+    have hSymbols :
+        r.inputs.ccm25.weilSymbols = provenance.concreteSourceWeilForm.toWeilFormSymbols :=
+      hrouteSymbols.trans
+        (w.canonicalOwner.sameSymbols.trans provenance.symbols_eq)
+    have hTest :
+        r.sourceBackedTest.weilTest =
+          normalizedCC20TestSpace.toRouteTest
+            (normalizedCC20TestSpace.starConvolution w.detector.test) := by
+      simpa [normalizedRouteBackedCC20SquareRestrictedTest_of_yoshida_canonical_square_archimedean,
+        normalizedRouteBackedYoshidaDetectorSquareArchimedeanTraceRealization_of_canonicalSourceDataReadOff,
+        sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquareCanonical,
+        sourceBackedFixedSTestWithNormalizedYoshidaDetectorSquare] using
+        congrArg
+          (fun r : NormalizedRouteBackedCC20SquareRestrictedTest =>
+            r.sourceBackedTest.weilTest)
+          w.route_eq
+    have hAnchor :
+        NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormCommonAnchor
+          r provenance.concreteSourceWeilForm := by
+      dsimp [NormalizedRouteBackedCC20SquareRestrictedSourceWeilFormCommonAnchor]
+      rw [hTest]
+      exact provenance.commonAnchor
+    exact ⟨hSymbols, hAnchor⟩
 
 /-- Canonical route-package coverage supplies the same-symbol source-Weil-form
 carrier, but B1 still needs the explicit source/concrete pole-pairing
@@ -11505,7 +11573,7 @@ theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
     intro n hn
     exact
       ((sourceWeilForm.toWeilFormSymbols_restrictedPrimeIndex_exact
-        lambda C n).1 hn).1
+        lambda n).1 hn).1
   calc
     (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
         W.finitePrimeTerm n C) =
@@ -11538,7 +11606,7 @@ theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
     intro n hn
     exact
       ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact
-        C n).1 hn).1
+        n).1 hn).1
   calc
     (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
         W.finitePrimeTerm n C) =
@@ -11581,7 +11649,7 @@ theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
     intro n hn
     exact
       ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact
-        C n).1 hn).1
+        n).1 hn).1
   have hterm :
       (∑ n ∈ W.globalPrimeIndexSet,
           W.finitePrimeTerm n C) =
@@ -11729,7 +11797,7 @@ theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
     intro n hn
     exact
       ((sourceWeilForm.toWeilFormSymbols_restrictedPrimeIndex_exact
-        lambda C n).1 hn).1
+        lambda n).1 hn).1
   have hsum : Runfiltered = R := by
     calc
       Runfiltered =
@@ -11802,7 +11870,7 @@ theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
     intro n hn
     exact
       ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact
-        C n).1 hn).1
+        n).1 hn).1
   have hsum :
       (∑ n ∈ W.globalPrimeIndexSet, W.finitePrimeTerm n C) = G := by
     simp [G, hfilter]
@@ -11997,7 +12065,7 @@ theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
               (Finset.mem_filter.mp hnfilter).1
             have hsource :
                 common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
-              (visibleData.restrictedExact n).1 hnindex |>.atomVisible
+              (visibleData.restrictedExact witness.2.2.2 n).1 hnindex |>.atomVisible
             have hread :=
               Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceWeilFormVisibleArithmeticData.termReadOff
                 visibleData n hsource
@@ -12062,7 +12130,7 @@ theorem NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
               (Finset.mem_filter.mp hnfilter).1
             have hsource :
                 common.toSourceTestEvaluationInterface.sourceAtomVisible n :=
-              (visibleData.globalExact n).1 hnindex |>.atomVisible
+              (visibleData.globalExact witness.2.2.2 n).1 hnindex |>.atomVisible
             have hread :=
               Source.CCM25Concrete.FinitePrimeSourceData.FixedLambdaSourceWeilFormVisibleArithmeticData.termReadOff
                 visibleData n hsource
@@ -13425,7 +13493,7 @@ theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
     intro n hn
     exact
       ((sourceWeilForm.toWeilFormSymbols_restrictedPrimeIndex_exact
-        lambda C n).1 hn).1
+        lambda n).1 hn).1
   calc
     (∑ n ∈ (W.restrictedPrimeIndexSet lambda).filter IsPrimePow,
         W.finitePrimeTerm n C) =
@@ -13459,7 +13527,7 @@ theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
     intro n hn
     exact
       ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact
-        C n).1 hn).1
+        n).1 hn).1
   calc
     (∑ n ∈ W.globalPrimeIndexSet.filter IsPrimePow,
         W.finitePrimeTerm n C) =
@@ -13607,7 +13675,7 @@ theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
     intro n hn
     exact
       ((sourceWeilForm.toWeilFormSymbols_restrictedPrimeIndex_exact
-        lambda C n).1 hn).1
+        lambda n).1 hn).1
   have hsum :
       (∑ n ∈ W.restrictedPrimeIndexSet lambda,
           W.finitePrimeTerm n C) =
@@ -13662,7 +13730,7 @@ theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
     intro n hn
     exact
       ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact
-        C n).1 hn).1
+        n).1 hn).1
   have hsum :
       (∑ n ∈ W.globalPrimeIndexSet,
           W.finitePrimeTerm n C) =
@@ -13721,7 +13789,7 @@ theorem normalizedRouteBackedCC20SquareRestrictedRestrictedQWPoleCollapse_of_con
     intro n hn
     exact
       ((sourceWeilForm.toWeilFormSymbols_restrictedPrimeIndex_exact
-        lambda C n).1 hn).1
+        lambda n).1 hn).1
   have hsum : Runfiltered = R := by
     calc
       Runfiltered =
@@ -13786,7 +13854,7 @@ theorem normalizedRouteBackedCC20SquareRestrictedPsiPoleCollapse_of_concreteCano
     intro n hn
     exact
       ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact
-        C n).1 hn).1
+        n).1 hn).1
   have hsum :
       (∑ n ∈ W.globalPrimeIndexSet, W.finitePrimeTerm n C) = G := by
     simp [G, hfilter]
@@ -14281,7 +14349,7 @@ theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
     intro n hn
     exact
       ((sourceWeilForm.toWeilFormSymbols_restrictedPrimeIndex_exact
-        lambda C n).1 hn).1
+        lambda n).1 hn).1
   rw [hfilter] at hmass
   simpa [
     NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessRestrictedTermMassRow,
@@ -14308,7 +14376,7 @@ theorem normalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilForm
     apply Finset.filter_eq_self.2
     intro n hn
     exact
-      ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact C n).1 hn).1
+      ((sourceWeilForm.toWeilFormSymbols_globalPrimeIndex_exact n).1 hn).1
   rw [hfilter] at hmass
   simpa [
     NormalizedRouteBackedCC20SquareRestrictedCommonFinitePrimeSourceWeilFormConcreteCanonicalWitnessGlobalTermMassRow,

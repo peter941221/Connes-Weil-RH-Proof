@@ -2737,6 +2737,11 @@ noncomputable def route_certificate_of_normalized_source_weil_form_boundary_curr
     (sourceSymbols_eq :
       base.ccm25Model.toWeilFormSymbols =
         sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor :
+      sourceAlgebra.legacy.encode sourceWeilForm.common =
+        sourceWeilForm.toWeilFormSymbols.convolutionStar
+          (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest
+          (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest)
     (hseed : normalizedSeed = base.s2b1NormalizedSeed)
     (noExtraBulk :
       TraceFrontEndData.TraceScaleNoExtraBulkContract
@@ -2779,8 +2784,8 @@ noncomputable def route_certificate_of_normalized_source_weil_form_boundary_curr
           rhExit bridges)) :=
   let boundary :=
     Source.SourceObjectConcreteCommonData.SourceEvaluationVisibleFinitePrimeBoundary.ofSourceWeilForm
-      data sourceWeilForm sourceSymbols_eq traceData.lambda
-      traceData.oneLtLambda
+      data sourceWeilForm sourceSymbols_eq commonAnchor
+      traceData.lambda traceData.oneLtLambda
   route_certificate_of_normalized_boundary_rows_current_cutoff_binding
     base data ccm24 normalizedSeed remainders rhExit bridges fixedData
     traceData boundary hseed noExtraBulk ledgerPackage currentCutoff
@@ -2818,6 +2823,11 @@ noncomputable def route_certificate_of_normalized_source_weil_form_boundary_ledg
     (sourceSymbols_eq :
       base.ccm25Model.toWeilFormSymbols =
         sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor :
+      sourceAlgebra.legacy.encode sourceWeilForm.common =
+        sourceWeilForm.toWeilFormSymbols.convolutionStar
+          (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest
+          (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest)
     (hseed : normalizedSeed = base.s2b1NormalizedSeed)
     (noExtraBulk :
       TraceFrontEndData.TraceScaleNoExtraBulkContract
@@ -2860,7 +2870,7 @@ noncomputable def route_certificate_of_normalized_source_weil_form_boundary_ledg
           rhExit bridges)) :=
   route_certificate_of_normalized_source_weil_form_boundary_current_cutoff_binding
     base data ccm24 normalizedSeed remainders rhExit bridges fixedData
-    traceData sourceWeilForm sourceSymbols_eq hseed
+    traceData sourceWeilForm sourceSymbols_eq commonAnchor hseed
     noExtraBulk ledgerPackage restrictedToFullPackage.currentCutoff
 
 noncomputable def route_certificate_of_normalized_comparison_current_cutoff_binding
@@ -4433,6 +4443,11 @@ theorem final_rh_of_normalized_source_weil_form_boundary_ledger_restricted_packa
     (sourceSymbols_eq :
       base.ccm25Model.toWeilFormSymbols =
         sourceWeilForm.toWeilFormSymbols)
+    (commonAnchor :
+      sourceAlgebra.legacy.encode sourceWeilForm.common =
+        sourceWeilForm.toWeilFormSymbols.convolutionStar
+          (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest
+          (sourceSymbols_eq ▸ data.concreteCommonTest).sourceTest)
     (hseed : normalizedSeed = base.s2b1NormalizedSeed)
     (noExtraBulk :
       TraceFrontEndData.TraceScaleNoExtraBulkContract
@@ -4473,7 +4488,7 @@ theorem final_rh_of_normalized_source_weil_form_boundary_ledger_restricted_packa
     final_connes_weil_rh
       (route_certificate_of_normalized_source_weil_form_boundary_ledger_restricted_package
         base data ccm24 normalizedSeed remainders rhExit bridges fixedData
-        traceData sourceWeilForm sourceSymbols_eq hseed
+        traceData sourceWeilForm sourceSymbols_eq commonAnchor hseed
         noExtraBulk ledgerPackage restrictedToFullPackage)
 
 theorem route_certificate_of_trace_scale_data_ledgers
