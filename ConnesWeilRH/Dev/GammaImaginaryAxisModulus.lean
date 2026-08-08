@@ -104,6 +104,69 @@ theorem Gamma_pure_half_reflection :
             field_simp [Complex.I_ne_zero, hS]
   simpa [S, u, z] using hG
 
+/-- Conjugate of the pure-imaginary half-point (the point `-I/2`), used to
+identify `Gamma(-I/2)` with the conjugate of `Gamma(I/2)`. -/
+lemma star_half_i_eq : (starRingEnd Complex) (Complex.I / 2) = -(Complex.I / 2) := by
+  apply Complex.ext
+  · rw [Complex.conj_re]
+    norm_num
+  · rw [Complex.conj_im]
+    norm_num
+
+/-- Squared modulus of the pure-imaginary half-point `Gamma(I/2)`: exactly
+`2*pi/sinh(pi/2)`.  Follows from the reflection
+`Gamma(I/2)*Gamma(-I/2) = 2*pi/sinh(pi/2)` together with
+`Gamma(-I/2) = conj(Gamma(I/2))`, so the left side is `|Gamma(I/2)|^2`. -/
+theorem gamma_norm_sq_half_i :
+    ‖Complex.Gamma (Complex.I / 2)‖ ^ 2 =
+      (2 * Real.pi / Real.sinh (Real.pi / 2) : Real) := by
+  have href : Complex.Gamma (Complex.I / 2) * Complex.Gamma (-(Complex.I / 2)) =
+      ((2 * Real.pi / Real.sinh (Real.pi / 2) : Real) : Complex) := Gamma_pure_half_reflection
+  have hconj : Complex.Gamma (-(Complex.I / 2)) = star (Complex.Gamma (Complex.I / 2)) := by
+    change Complex.Gamma (-(Complex.I / 2)) = (starRingEnd Complex) (Complex.Gamma (Complex.I / 2))
+    rw [← Complex.Gamma_conj]
+    congr 1
+    exact star_half_i_eq.symm
+  have hnorm := congrArg (fun z : Complex => ‖z‖) href
+  dsimp at hnorm
+  rw [hconj, Complex.norm_mul, norm_star] at hnorm
+  have hCnonneg : (0 : Real) <= (2 * Real.pi / Real.sinh (Real.pi / 2) : Real) := by
+    have hpos : (0 : Real) < Real.sinh (Real.pi / 2) := real_sinh_pi_div_two_pos
+    positivity
+  have hCnorm : ‖((2 * Real.pi / Real.sinh (Real.pi / 2) : Real) : Complex)‖ =
+      (2 * Real.pi / Real.sinh (Real.pi / 2) : Real) := Complex.norm_of_nonneg hCnonneg
+  rw [hCnorm] at hnorm
+  simpa [pow_two] using hnorm
+
+/-- Squared modulus of the arch-band factor `Gamma(1+I/2)`: `pi/(2*sinh(pi/2))`,
+i.e. its modulus is `sqrt(pi/(2*sinh(pi/2)))`.  This completely pins the modulus
+of the arch-band candidate; only the phase (arg window) remains for the Stirling
+Gamma sign gate. -/
+theorem gamma_norm_sq_one_plus_half_i :
+      ‖Complex.Gamma (1 + Complex.I / 2)‖ ^ 2 =
+      (Real.pi / (2 * Real.sinh (Real.pi / 2)) : Real) := by
+  have hrec : Complex.Gamma (1 + Complex.I / 2) =
+      (Complex.I / 2) * Complex.Gamma (Complex.I / 2) := by
+    have hnz : (Complex.I / 2 : Complex) ≠ 0 := by
+      intro h
+      norm_num at h
+    have h := Complex.Gamma_add_one (Complex.I / 2) hnz
+    simpa [add_comm] using h
+  have hn12 : ‖(Complex.I / 2 : Complex)‖ = (1 / 2 : Real) := by
+    rw [Complex.norm_div, Complex.norm_I]
+    norm_num
+  calc
+    ‖Complex.Gamma (1 + Complex.I / 2)‖ ^ 2
+        = ‖(Complex.I / 2) * Complex.Gamma (Complex.I / 2)‖ ^ 2 := by rw [hrec]
+    _ = (‖Complex.I / 2‖ * ‖Complex.Gamma (Complex.I / 2)‖) ^ 2 := by rw [Complex.norm_mul]
+    _ = (1 / 2) ^ 2 * ‖Complex.Gamma (Complex.I / 2)‖ ^ 2 := by
+          rw [hn12]
+          ring
+    _ = (1 / 2) ^ 2 * (2 * Real.pi / Real.sinh (Real.pi / 2) : Real) := by
+          rw [gamma_norm_sq_half_i]
+    _ = Real.pi / (2 * Real.sinh (Real.pi / 2) : Real) := by
+          ring_nf
+
 end
 
 end GammaImaginaryAxisModulus
