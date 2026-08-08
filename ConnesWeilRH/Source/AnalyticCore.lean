@@ -7463,17 +7463,17 @@ It does NOT replace the legacy structure (that is the separate Step-2 flip); it
 is added alongside so existing consumers build unchanged.
 -/
 /-- A finite-prime support carrier whose exactness is stated for a single common
-test, not for all tests.  Forward (visible -> member) is kept; reverse is
-per-common. -/
+test, not for all tests.  Forward and reverse are both per-common
+(S7k; the old ∀F forward is carrier-agnostically unsatisfiable). -/
 structure PerCommonSourceFinitePrimeSupport
     (A : SourceTestAlgebra) (E : SourceEvaluationData A) (common : A.Test) where
   globalIndexSet : Finset ℕ
   restrictedIndexSet : ℝ → Finset ℕ
   sourceVisibleGlobalIndex :
-    ∀ n : ℕ, ∀ F : A.Test, E.sourceFinitePrimeTerm n F ≠ 0 -> n ∈ globalIndexSet
+    ∀ n : ℕ, E.sourceFinitePrimeTerm n common ≠ 0 -> n ∈ globalIndexSet
   sourceVisibleRestrictedIndex :
-    ∀ lambda : ℝ, ∀ n : ℕ, ∀ F : A.Test,
-      E.sourceFinitePrimeTerm n F ≠ 0 -> 1 < n -> (n : ℝ) ≤ lambda ^ 2 ->
+    ∀ lambda : ℝ, ∀ n : ℕ,
+      E.sourceFinitePrimeTerm n common ≠ 0 -> 1 < n -> (n : ℝ) ≤ lambda ^ 2 ->
         n ∈ restrictedIndexSet lambda
   commonGlobalIndex :
     ∀ n : ℕ, n ∈ globalIndexSet -> E.sourceFinitePrimeTerm n common ≠ 0
@@ -7488,10 +7488,9 @@ namespace PerCommonSourceFinitePrimeSupport
 theorem visible_mem
     {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
     (S : PerCommonSourceFinitePrimeSupport A E common)
-    (n : ℕ) : (∃ F : A.Test, E.sourceFinitePrimeTerm n F ≠ 0) ->
-      n ∈ S.globalIndexSet := by
-  intro ⟨F, h⟩
-  exact S.sourceVisibleGlobalIndex n F h
+    (n : ℕ) : E.sourceFinitePrimeTerm n common ≠ 0 ->
+      n ∈ S.globalIndexSet :=
+  S.sourceVisibleGlobalIndex n
 
 /-- Per-common reverse: membership implies `common`'s term is really nonzero
 (no `∀ F`, so no zero-element forced step). -/
@@ -7558,7 +7557,7 @@ theorem globalExact
     have hVisible := P.support.commonGlobalIndex n hn
     exact ⟨E.sourceFinitePrimeTerm_nonzero_primePower hVisible, hVisible⟩
   · intro hdata
-    exact P.support.sourceVisibleGlobalIndex n common hdata.2
+    exact P.support.sourceVisibleGlobalIndex n hdata.2
 
 /-- Per-common restricted exactness, same scoping. -/
 theorem restrictedExact
@@ -7577,7 +7576,7 @@ theorem restrictedExact
         hdata.2⟩
   · intro hdata
     exact
-      P.support.sourceVisibleRestrictedIndex lambda n common
+      P.support.sourceVisibleRestrictedIndex lambda n
         hdata.2.1 hdata.2.2.1 hdata.2.2.2
 
 def sourcePrimePowerIndex
@@ -7718,10 +7717,10 @@ theorem globalPrimeIndex_visible
 theorem globalPrimeIndex_mem_of_primePower_visible
     {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
     (P : SourceFinitePrimeData A E common)
-    (F : A.Test) {n : ℕ}
-    (hPrime : IsPrimePow n) (hVisible : P.sourceAtomVisible n F) :
+    {n : ℕ}
+    (hPrime : IsPrimePow n) (hVisible : P.sourceAtomVisible n common) :
     n ∈ P.globalPrimeIndexSet :=
-  P.support.sourceVisibleGlobalIndex n F hVisible
+  P.support.sourceVisibleGlobalIndex n hVisible
 
 theorem sourceAtomVisible_primePower_index
     {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
@@ -7733,12 +7732,12 @@ theorem sourceAtomVisible_primePower_index
 theorem globalCoverage
     {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
     (P : SourceFinitePrimeData A E common)
-    (F : A.Test) (n : ℕ) :
-    P.sourceAtomVisible n F → n ∈ P.globalPrimeIndexSet := by
+    (n : ℕ) :
+    P.sourceAtomVisible n common → n ∈ P.globalPrimeIndexSet := by
   intro hVisible
   exact
-    P.globalPrimeIndex_mem_of_primePower_visible F
-      (P.sourceAtomVisible_primePower_index F hVisible) hVisible
+    P.globalPrimeIndex_mem_of_primePower_visible
+      (P.sourceAtomVisible_primePower_index common hVisible) hVisible
 
 theorem restrictedPrimeIndex_primePower
     {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
@@ -7787,21 +7786,20 @@ per-common support's forward restricted witness. -/
 theorem restrictedPrimeIndex_mem_of_primePower_visible_cutoff
     {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
     (P : SourceFinitePrimeData A E common)
-    (lambda : ℝ) (F : A.Test) {n : ℕ}
-    (hPrime : IsPrimePow n) (hVisible : P.sourceAtomVisible n F)
+    (lambda : ℝ) {n : ℕ}
+    (hPrime : IsPrimePow n) (hVisible : P.sourceAtomVisible n common)
     (hOne : 1 < n) (hCut : (n : ℝ) ≤ lambda ^ 2) :
     n ∈ P.restrictedPrimeIndexSet lambda :=
-  P.support.sourceVisibleRestrictedIndex lambda n F hVisible hOne hCut
+  P.support.sourceVisibleRestrictedIndex lambda n hVisible hOne hCut
 
 theorem restrictedCoverage
     {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test}
     (P : SourceFinitePrimeData A E common)
-    (lambda : ℝ) (hlambda : 1 < lambda)
-    (F : A.Test) (n : ℕ) :
-    P.sourceAtomVisible n F → 1 < n → (n : ℝ) ≤ lambda ^ 2 →
+    (lambda : ℝ) (hlambda : 1 < lambda) {n : ℕ} :
+    P.sourceAtomVisible n common → 1 < n → (n : ℝ) ≤ lambda ^ 2 →
       n ∈ P.restrictedPrimeIndexSet lambda := by
   intro hVisible hOne hCut
-  exact P.support.sourceVisibleRestrictedIndex lambda n F hVisible hOne hCut
+  exact P.support.sourceVisibleRestrictedIndex lambda n hVisible hOne hCut
 
 theorem finitePrimeTerm_convolutionStar
     {A : SourceTestAlgebra} {E : SourceEvaluationData A} {common : A.Test} (P : SourceFinitePrimeData A E common)
@@ -8000,31 +7998,37 @@ theorem toWeilFormSymbols_finitePrimeAtomVisible_primePower
 
 theorem toWeilFormSymbols_globalPrimeIndex_mem_of_primePower_visible
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)
-    (F : TestFunction) {n : ℕ}
+    {n : ℕ}
     (hPrime : IsPrimePow n)
-    (hVisible : W.toWeilFormSymbols.finitePrimeAtomVisible n F) :
+    (hVisible : W.toWeilFormSymbols.finitePrimeAtomVisible n
+        (A.legacy.encode W.common)) :
     n ∈ W.toWeilFormSymbols.globalPrimeIndexSet :=
-  W.finitePrime.globalPrimeIndex_mem_of_primePower_visible
-    (A.legacy.decode F) hPrime hVisible
+  (toWeilFormSymbols_globalPrimeIndex_exact W n).mpr ⟨hPrime, hVisible⟩
 
 theorem toWeilFormSymbols_restrictedPrimeIndex_mem_of_primePower_visible_cutoff
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)
-    (lambda : ℝ) (F : TestFunction) {n : ℕ}
+    (lambda : ℝ) {n : ℕ}
     (hPrime : IsPrimePow n)
-    (hVisible : W.toWeilFormSymbols.finitePrimeAtomVisible n F)
+    (hVisible : W.toWeilFormSymbols.finitePrimeAtomVisible n
+        (A.legacy.encode W.common))
     (hOne : 1 < n) (hCutoff : (n : ℝ) ≤ lambda ^ 2) :
     n ∈ W.toWeilFormSymbols.restrictedPrimeIndexSet lambda :=
-  W.finitePrime.restrictedPrimeIndex_mem_of_primePower_visible_cutoff
-    lambda (A.legacy.decode F) hPrime hVisible hOne hCutoff
+  (toWeilFormSymbols_restrictedPrimeIndex_exact W lambda n).mpr
+    ⟨hPrime, hVisible, hOne, hCutoff⟩
 
 theorem toWeilFormSymbols_restrictedPrimeIndex_mem_of_visible
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)
-    (lambda : ℝ) (hlambda : 1 < lambda) (F : TestFunction) {n : ℕ}
-    (hVisible : W.toWeilFormSymbols.finitePrimeAtomVisible n F)
+    (lambda : ℝ) (hlambda : 1 < lambda) {n : ℕ}
+    (hVisible : W.toWeilFormSymbols.finitePrimeAtomVisible n
+        (A.legacy.encode W.common))
     (hOne : 1 < n) (hCutoff : (n : ℝ) ≤ lambda ^ 2) :
     n ∈ W.toWeilFormSymbols.restrictedPrimeIndexSet lambda :=
   W.finitePrime.restrictedCoverage lambda hlambda
-    (A.legacy.decode F) n hVisible hOne hCutoff
+      (by
+        simpa [toWeilFormSymbols_finitePrimeAtomVisible,
+          SourceFinitePrimeData.sourceAtomVisible,
+          A.legacy.decode_encode W.common] using hVisible)
+      hOne hCutoff
 
 theorem finitePrimeTerm_convolutionStar
     {A : SourceTestAlgebra} (W : SourceWeilFormData A)
@@ -8085,8 +8089,26 @@ theorem qw_lambda_formula_statement
     A.convolutionSquare_eq (A.legacy.decode f),
     W.evaluation.polePairing_eq_poleFunctional_convolutionSquare]
 
+/-- The prime-support dominance fact: the `common` test's visible prime support
+contains the support of every convolution. After the per-common forward
+narrowing (S7k), the abstract single-carrier forward can no longer prove
+coverage for an arbitrary `convolutionStar f g`; this is the kept hypothesis
+that bridges that gap, supplied as a real carrier property at the concrete route. -/
+def finitePrimeDominance
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A) : Prop :=
+  ∀ (f g : TestFunction) (n : ℕ),
+    W.toWeilFormSymbols.finitePrimeAtomVisible n
+      (W.toWeilFormSymbols.convolutionStar f g) →
+    W.toWeilFormSymbols.finitePrimeAtomVisible n
+      (A.legacy.encode W.common)
+
 theorem finite_prime_term_normalization_statement
-    {A : SourceTestAlgebra} (W : SourceWeilFormData A) :
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A)
+    (hdom : ∀ f g : TestFunction, ∀ n : ℕ,
+      W.toWeilFormSymbols.finitePrimeAtomVisible n
+        (W.toWeilFormSymbols.convolutionStar f g) →
+        W.toWeilFormSymbols.finitePrimeAtomVisible n
+          (A.legacy.encode W.common)) :
     WeilFormSymbols.FinitePrimeNormalizationStatement W.toWeilFormSymbols := by
   intro f g
   refine
@@ -8094,11 +8116,21 @@ theorem finite_prime_term_normalization_statement
       restrictedPrimeIndexCoverage := ?_
       finitePrimeTermNormalization := ?_ }
   · intro n hn
-    exact W.finitePrime.globalCoverage
-      (A.legacy.decode (W.toWeilFormSymbols.convolutionStar f g)) n hn
+    have hc : W.toWeilFormSymbols.finitePrimeAtomVisible n
+        (A.legacy.encode W.common) := hdom f g n hn
+    exact W.finitePrime.globalCoverage n
+      (by
+        simpa [toWeilFormSymbols_finitePrimeAtomVisible,
+          SourceFinitePrimeData.sourceAtomVisible,
+          A.legacy.decode_encode W.common] using hc)
   · intro lambda hlambda n hn hOne hCutoff
+    have hc : W.toWeilFormSymbols.finitePrimeAtomVisible n
+        (A.legacy.encode W.common) := hdom f g n hn
     exact W.finitePrime.restrictedCoverage lambda hlambda
-      (A.legacy.decode (W.toWeilFormSymbols.convolutionStar f g)) n hn
+      (by
+        simpa [toWeilFormSymbols_finitePrimeAtomVisible,
+          SourceFinitePrimeData.sourceAtomVisible,
+          A.legacy.decode_encode W.common] using hc)
       hOne hCutoff
   · intro n
     simpa [toWeilFormSymbols, SourceTestAlgebra.legacyConvolutionStar,

@@ -24,7 +24,8 @@ namespace AnalyticCore
 open SourceSupportWindowData
 
 noncomputable def SourceWeilFormData.toCCM25SourceModel
-    {A : SourceTestAlgebra} (W : SourceWeilFormData A) :
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A)
+    (hdom : W.finitePrimeDominance) :
     CCM25SourceModel where
   qw := W.toWeilFormSymbols.qw
   convolutionStar := W.toWeilFormSymbols.convolutionStar
@@ -37,7 +38,7 @@ noncomputable def SourceWeilFormData.toCCM25SourceModel
   poleFunctional := W.toWeilFormSymbols.poleFunctional
   polePairing := W.toWeilFormSymbols.polePairing
   primePowerPairing := W.toWeilFormSymbols.primePowerPairing
-  finitePrimeNormalization := W.finite_prime_term_normalization_statement
+  finitePrimeNormalization := W.finite_prime_term_normalization_statement hdom
   qw_eq_psi_convolution := W.qw_definition_statement
   psi_sign_formula := W.psi_sign_statement
   qw_lambda_formula := W.qw_lambda_formula_statement
@@ -45,8 +46,9 @@ noncomputable def SourceWeilFormData.toCCM25SourceModel
 
 @[simp]
 theorem SourceWeilFormData.toCCM25SourceModel_toWeilFormSymbols
-    {A : SourceTestAlgebra} (W : SourceWeilFormData A) :
-    W.toCCM25SourceModel.toWeilFormSymbols = W.toWeilFormSymbols := by
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A)
+    (hdom : W.finitePrimeDominance) :
+    (W.toCCM25SourceModel hdom).toWeilFormSymbols = W.toWeilFormSymbols := by
   rfl
 
 /--
@@ -65,11 +67,12 @@ structure SourceModelConstructorCore where
 namespace SourceModelConstructorCore
 
 noncomputable def ofSourceAnalyticCore
-    (core : SourceAnalyticCore) :
+    (core : SourceAnalyticCore)
+    (hdom : core.weilForm.finitePrimeDominance) :
     SourceModelConstructorCore where
   testAlgebra := core.testAlgebra
   supportWindow := core.supportWindow
-  ccm25SourceModel := core.weilForm.toCCM25SourceModel
+  ccm25SourceModel := core.weilForm.toCCM25SourceModel hdom
   traceScale := core.traceScale
 
 def toWeilFormSymbols (core : SourceModelConstructorCore) : WeilFormSymbols :=
@@ -90,20 +93,20 @@ def toNormalizedLegalSquareTraceScaleSymbols
 
 @[simp]
 theorem ofSourceAnalyticCore_supportWindow
-    (core : SourceAnalyticCore) :
-    (ofSourceAnalyticCore core).supportWindow = core.supportWindow := by
+    (core : SourceAnalyticCore) (hdom : core.weilForm.finitePrimeDominance) :
+    (ofSourceAnalyticCore core hdom).supportWindow = core.supportWindow := by
   rfl
 
 @[simp]
 theorem ofSourceAnalyticCore_toWeilFormSymbols
-    (core : SourceAnalyticCore) :
-    (ofSourceAnalyticCore core).toWeilFormSymbols = core.toWeilFormSymbols := by
+    (core : SourceAnalyticCore) (hdom : core.weilForm.finitePrimeDominance) :
+    (ofSourceAnalyticCore core hdom).toWeilFormSymbols = core.toWeilFormSymbols := by
   rfl
 
 @[simp]
 theorem ofSourceAnalyticCore_traceScale
-    (core : SourceAnalyticCore) :
-    (ofSourceAnalyticCore core).traceScale = core.traceScale := by
+    (core : SourceAnalyticCore) (hdom : core.weilForm.finitePrimeDominance) :
+    (ofSourceAnalyticCore core hdom).traceScale = core.traceScale := by
   rfl
 
 end SourceModelConstructorCore
@@ -491,6 +494,31 @@ theorem cc20_trace_model_eq_seed
   rfl
 
 end SourceModelConstructorInput
+
+
+
+/-- On the level of the `CCM25Concrete` certificates, the prime-support dominance
+`finitePrimeDominance` is derivable (it is not a free assumption): concrete
+`FixedLambda` coverage puts every visible `(f*g)` prime into the global prime
+index of `W`, and the narrowed per-`common` reverse (`commonGlobalIndex`) then
+says the same prime is visible at `W.common`. -/
+theorem SourceWeilFormData.finitePrimeDominance_of_certificates
+    {A : SourceTestAlgebra} (W : SourceWeilFormData A)
+    (cert : CCM25Concrete.FinitePrimeInterface.FixedLambdaArithmeticSourceTestCertificatesForAllTests
+      W.toWeilFormSymbols) :
+    W.finitePrimeDominance := by
+  intro f g n hvis
+  have hidx : n ∈ W.toWeilFormSymbols.globalPrimeIndexSet :=
+    (CCM25Concrete.FinitePrimeInterface.finite_prime_visibility_of_common_source_test_certificates
+      (cert f g)).globalPrimeIndexCoverage n hvis
+  have hrev : W.finitePrime.sourceAtomVisible n W.common :=
+    W.finitePrime.support.commonGlobalIndex n
+      (by
+        simpa [SourceWeilFormData.toWeilFormSymbols_globalPrimeIndexSet,
+          SourceFinitePrimeData.globalPrimeIndexSet_eq_support] using hidx)
+  simpa [SourceWeilFormData.toWeilFormSymbols_finitePrimeAtomVisible,
+    SourceFinitePrimeData.sourceAtomVisible, A.legacy.decode_encode W.common] using hrev
+
 
 end AnalyticCore
 end Source

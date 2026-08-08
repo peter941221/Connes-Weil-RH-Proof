@@ -687,6 +687,11 @@ noncomputable def normalizedCoreSourceModelConstructorCoreFromTheorems :
     Source.AnalyticCore.SourceModelConstructorCore :=
   Source.AnalyticCore.SourceModelConstructorCore.ofSourceAnalyticCore
     normalizedCoreSourceAnalyticCoreFromTheorems
+    (Source.AnalyticCore.SourceWeilFormData.finitePrimeDominance_of_certificates
+      normalizedCoreSourceWeilFormDataFromTheorems
+      (by
+        simpa [normalizedCoreSourceAnalyticCoreFromTheorems] using
+          normalizedCoreCCM25FinitePrimeArithmeticCertificatesFromTheorems))
 
 noncomputable def normalizedCoreSourceModelConstructorInputFromTheorems :
     Source.AnalyticCore.SourceModelConstructorInput :=
