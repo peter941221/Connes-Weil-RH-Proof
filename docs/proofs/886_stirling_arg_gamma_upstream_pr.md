@@ -1,73 +1,60 @@
-# 886 — mathlib upstream proposal: a compact-strip Stirling bound for arg-Gamma
+# 886 - In-repo Stirling / log|Gamma| remainder: the Lean construction plan
 
-Date: 2026-08-08. Status: **proposal needed by this route; not yet in mathlib.** Companion to docs/869.
+Date: 2026-08-08 (rev 2). Status: implementation plan, NOT an upstream math library
+proposal.  This is how we will prove the arch phase inside this repo, with no external
+dependency.
 
-## Problem (what the route needs)
+## Goal
 
-To certify the arch-sign `Re[Gamma(a + I/2)^4] >= 0` on the band `a in (0.815, 2.7)`
-(and specifically `a = 1`, where it is numerically positive), one must bound the phase
-of `Gamma(a + I/2)`.  `Gamma` is defined through the GammaIntegral and is not
-`norm_num`-decidable, so no closed form is available for `arg(Gamma(1 + I/2))`.
-A single, real, library-grade estimate closes the whole arch window.
+Certify, axiom-clean in this repo,  0 <= Re[Gamma(1 + I/2)^4]  by bounding
+|arg Gamma(1+I/2)| <= pi/8.  docs/888 gives the analytic reduction to the elementary
+series sandwich S in [0.38218, 0.50842].  What Lean needs is a real, in-repo estimate on
+log|Gamma(1+I/2)| (magnitude), together with the exact decimals of the constants
+(gamma, pi, log, arctan).
 
-## The missing mathlib lemma (concrete signature)
+## The single in-repo lemma we aim to prove
 
-```lean
--- Proposal (mathlib/Analysis/SpecialFunctions/Gamma/*.lean)
--- Compact-strip Stirling bound, uniform in ℓ, first-order form.
-theorem Gamma_norm_exp_bound (s : Complex) {t : Real}
-    (hsRe : 1/2 <= s.re) (hsRe' : s.re <= 3)
-    (hb : 1 <= Complex.abs s) :
-    Complex.abs (Complex.Gamma s) <=
-      Complex.rexpT 2/pi_t ...   -- place in real: exp(Re(s)*log(Real.abs s) - Re(s) + O(1/t))
-```
+    | log |Gamma(s)| - ( (Re s - 1/2) log|s| - (Re s - 1) ) |  <=  C(W) / |Im s|,
+    for  1/2 <= Re s <= 1,  |Im s| <= W.
 
-More precisely the **phase** bound we need can be stated as
+with an explicit C(W).
 
-```lean
--- compact strip, `s = a + I*t`, Re-pos, band width W:
-theorem arg_Gamma_strip_bound
-    (a : Real) (hlow hhigh W : Real) : 0 < W -> de-pos a ->
-    (the phase deviation)  |arg (Gamma (a + I*t))| <= pi/8  (for t in [-W, W])
-```
+## How to get it entirely from mathlib reals (no library addition)
 
-Reference values (exact mpmath, 40-digit; w.ss=1):
-```
-a = 1 :  Re[Gamma(1 + I/2)^4] = 0.26097... > 0
-         Re[Gamma(1 + I/2) / c q] = 0.88321767...  ->  square 0.78007... >= 1/2
-```
+Components already present in mathlib / the repo and usable as is:
 
-## Why it must live in mathlib (not the project)
+- `Real.eulerMascheroniConstant` + the sandwich
+  `eulerMascheroniSeq n < gamma < eulerMascheroniSeq' n` (n=6 gives decimal bounds).
+- `Real.pi` decimal bounds (Wallis).
+- `Real.log`, `Real.arctan` + `hasDerivAt_arctan` (for the S-sandwich atan values).
+- `Complex.Gamma` defined by the Euler integral, `Gamma_gamma_seq`/`GammaIntegral`
+  recurrence, `Gamma_conj`, `Gamma_ne_zero_of_re_pos`.
 
-The estimate needs: analytic continuation of `Gamma`, a Stirling / Euler�Maclaurin
-remainder, and `Complex.arg` continuity in a strip. mathlib v4.30.0 offers only:
-- `Complex.Gamma` (parametric, PollL, reflection, `Gamma_mul_Gamma_one_sub`),
-- `Complex.Gamma_conj`, `Gamma_ne_zero_of_re_pos`, `GammaSeq_tendsto_Gamma`,
-- real `n!` Sterling (`Mathlib/.../Gamma/Stirling.lean`),
-- `digamma` evaluations (`Gamma/Digamma.lean`), no `arg Gamma` asymptotic.
+Plain path (self-contained):
+ 1. Use the Euler partial-product `GammaSeq s n ^ s n! / ∏(s+j)` -> Gamma(s)
+    (present in mathlib, `GammaSeq_tendsto_Gamma`) to write log|Gamma(1+I/2)| as the
+    limit of a finite log-sum; or use the integral `Gamma = ∫_0^∞ t^(-1) e^-t, dt`.
+ 2. Add an Euler-Maclaurin / Stirling remainder (log x! - (x+1/2)log x + x - log(2pi)/2)
+    using mathlib's own Real.Stirling / log-factorial bounds (already defines `Sterling`
+    real sequence + `log_stirlingSeq`).  Mathlib HAS Stirling-for-factorial already.
+ 3. Bound the phase via the exact atan sandwich S of 888; close |arg|<=pi/8 by
+    nlinarith on decimal bounds.
 
-There is no `Tendsto` of `GammaSeq` with an explicit error rate and no
-`arg` (Gamma) asymptotic.  So the phase-Arg bound is a genuine library extension,
-not a lemma the formal project can climb inside its own workspace.
+## Cache of in-repo and upstream Stirling primitives
 
-## Sketch of a proof path (for a PR body)
+- In mathlib: `Stirling` (real factorial Stirling with effective lower bound
+  `sqrt_pi_le_stirlingSeq` / `less_log_factorial_stirling`), real `log`/`arctan`/`gamma`.
+- Not present and we build it: the COMPLEX bound log|Gamma| in a compact strip with an
+  explicit remainder.  This is the one genuine starting point we must construct in-repo.
 
-1. Use the series/`GammaSeq` definition of `Gamma` on the half-plane `Re > 0`.
-2. Prove the log-magnitude estimate for `Delta = log |Gamma(s)| - ((Re s - 1/2) log(1|s| - Re s))
-   and an explicit big-O error (the "Sterling" term).
-3. Bound the phase by first-order M type: `arg Gamma(s)` changing by `< pi/4` across
-   `[-W, W]` from the center value `arg Gamma(high-pos a) = 0` (real positive center,
-   `gamma_center_one_half_re_pos` in a prior round).
-4. Assemble (2)+(3) -> `|arg| <= pi/8` for the band (or the coarser `(Re/|Gamma|)^2 >= 1/2`).
+## Milestones (each compiles + axiom audit)
 
-## Recommended next steps (upstream, on GitHub)
+ M1: certified atan bounds at 1/2, 1/4, 1/6, 1/8 (from hasDerivAt_arctan + decimals).
+ M2: certified gamma (Euler-Mascheroni) and pi decimal windows.
+ M3: the log|Gamma(1+I/2)| magnitude two-sided from Stirling, then |arg|<=pi/8.
+ M4: Re[Gamma(1+I/2)^4] >= 0 via ArchPhaseWindow.
 
-1. Port the series `GammaSeq` asymptotic to `Complex` with `BigO` remainder.
-2. Add `Complex.arg` continuity on the pole-free strip.
-3. Land `theorem Gamma_stirlingarg_strip_bound`; then the project re-uses it.
+## Status
 
-## Accepted hard facts (already axiom-clean in this repo)
-`gammaPhaseWindow`, `archSign_effect_of_phaseWindow`, `HilbertArchSign_iff_phaseWindow`
-(ArchPhaseWindow.lean, [propext, Classical.choice, Quot.sound]) -- reduce the whole arch
-sign of Gamma(a + I/2) to `(Re[Gamma/conj Gamma])^2 >= 1/2`.  Landing the Stirling bound
-above closes the sign slot.
+- M1-M2 are standard real-analysis; M3 is the substantive construction.
+- No RH is claimed until M4 + the rest of the route closes.

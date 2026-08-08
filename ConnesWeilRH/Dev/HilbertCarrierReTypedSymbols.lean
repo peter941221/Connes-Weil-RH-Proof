@@ -1,6 +1,7 @@
 import ConnesWeilRH.Source.CC20Concrete.TraceScale
 import ConnesWeilRH.Source.CC20Concrete.GlobalLogCrossing
 import ConnesWeilRH.Dev.MellinHilbertCarrierMerge
+import ConnesWeilRH.Dev.HilbertSignArchCorrected
 import ConnesWeilRH.Basic
 
 /-!
@@ -12,8 +13,8 @@ on the Hilbert log carrier `cc20GlobalLogCrossingL2`, with
 - the honest half-density Mellin law (`mellinLaw`) wired from the 853 merge, axiom-clean
   through `MellinHilbertCarrierMerge.mellinHalfDensityProven`.
 
-The three normalization conventions (`uInfinity/qdu/archimedeanSign`) are left as `False`:
-they are separate obligations, not asserted.  No RH is claimed.
+The arch-sign normalization slot now carries the data-bearing non-vacuous datum
+(HilbertSignArchCorrected.hilbertArchSignDatum_inhabited); the other two (uInfinity/qdu) remain explicit False wrappers as separate obligations.  No RH is claimed.
 -/
 
 namespace ConnesWeilRH
@@ -67,7 +68,7 @@ noncomputable def reTyped :
   mellinHalfDensityMatched := MellinLaw
   uInfinityNormalized := False
   qduNormalized := False
-  archimedeanSignNormalized := False
+  archimedeanSignNormalized := Nonempty HilbertSignArchCorrected.HilbertArchSignDatum
 
 /-- The re-typed archimedean trace symbols, lifted from the scalar carrier. -/
 noncomputable def reTypedArchimedean : ArchimedeanTraceSymbols :=
