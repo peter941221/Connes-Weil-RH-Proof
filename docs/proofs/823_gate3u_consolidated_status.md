@@ -83,3 +83,16 @@ arithmetic at RH scale):
   inner channel not numerically reachable.  Not a proof, not a refutation.
 - The two live routes are at the RH scale (infinite/critical-line, or full
   analytic prolate transport) — beyond what a finite grid can do.
+## 6. Post-823 updates: 824 (resolution plateau) and 884 (Sonin-scale robustness)
+
+- **824 (2026-08-06)**: the outer leak on the exact transported-Sonin frame PLATEAUS
+  ~0.62 (per-family floor >=0.369) as n->6000 and L->32; it does not decay with
+  resolution, so the 822 non-zero is a real lower bound, not a grid artifact.
+- **884 (2026-08-08)**: sweeping the PHYSICAL Sonin scale (logla in [-2,2]) leaves the
+  outer leak flat ~0.61-0.62 (regression anchor 0.6242 vs 824's 0.6245).  So the
+  negative is SCALE-ROBUST: no choice of the physical lambda makes `(I-R)oD` vanish.
+
+These reinforce §4's item (the outer channel is numerically non-vanishing); a future
+closure must therefore come from the exact analytic cancellation `F == -D + J`
+(docs/872), not from resolution, carrier, or scale.  Status: unchanged -- conditional
+on one open identity; nothing here proves or refutes RH.
