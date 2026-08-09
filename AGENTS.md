@@ -25,6 +25,22 @@ canonicalRealGate3UAt(...)                                    = CC canonicalReal
        CCM24FiniteSCausalMarkovRawSourceOwnerTrace.lean)
 ```
 
+**Route-root decision (2026-08-10, docs/proofs/928): canonical deliverable = finite/
+decaying-band route-A Gate; infinite-carrier Gate = open analytic bottom.** The
+constructible and axiom-clean deliverable is the finite-band Gate `bandTerminalGate`
+(`Dev/RouteATailBandBound.lean`): along ANY finite Hilbert band `rho` of the source
+carrier, `|Re Tr_b (Tail)| <= card*C0*exp(-B/4)*prod` and the split identity closes
+`canonicalRealGate3UAt` on that band (axioms `[propext, Classical.choice, Quot.sound]`,
+0 sorry). The ORIGINAL infinite-carrier Gate reduces to ONE load-bearing analytic identity
+`(I-P)F = -(I-P)D`, equivalently `sourceActualBandCombinedCoframeLeakage =
+sourceActualBandForwardCoframe + sourceSoninCoframeLeakage = 0` on non-empty prime
+families; no theorem forces it, numerics (probe 884) oppose it, and the deciding F-term
+(exact Sonin intersection R0) is not numerically reachable (AGENT 818/819).
+Carrier re-point (Piece 2) is necessary-but-not-sufficient on the infinite carrier
+the bound `card * |Support|` diverges because `|Support|` does not decay in `B` (docs/927).
+Route work continues on the finite/decaying-band Gate; the infinite identity stays OPEN
+and is genuinely new math, not a Lean-assembly leaf.
+
 The missing piece is a compact-root support bound for
 `abs (ordinaryTraceAlong sourceBasis (sourceGramResponse ...)).re`, uniform in
 the finite family, computed before any absolute value. The statement-planting
@@ -197,7 +213,12 @@ Granted (no confirmation needed):
   seam, a route judgment that updates `MEMORY.md`/`docs/proofs/`).
 - Recording the per-change memory line in `MEMORY.md` and updating `AGENTS.MD`
   per the stub rules.
-- Routine Windows↔WSL one-way sync of source for verification.
+- Treat **new mathematics / new analysis / self-created theory** (anything that
+  would otherwise be labeled "open analytic bottom", "needs genuinely new
+  analysis", or "not a Lean-assembly leaf") as a **standard attackable target**,
+  attack it **directly**, and do **not** stop, ask permission, or wait for
+  consent to work on it. Absence of a known theorem is a license to construct
+  one, not a blocker to escalate to Peter.
 
 **Broad change authorization (2026-08-09):** the agent may execute **any**
 substantial or architecture-level change — new modules, module/package
@@ -206,6 +227,14 @@ carrier changes — **directly, without asking Peter for consent**. Peter will
 not be consulted for every large change. "Ask before every architecture or big
 change" (project-local instruction overrides the global AGENTS default). Do
 not stop to request a green light.
+
+**New mathematics is not a blocker (2026-08-10):** whenever a step requires new
+mathematics, new analysis, or a self-created theory rather than assembling
+existing theorems, treat it as a standing attackable target and attack it
+directly — no reporting to Peter, no asking for consent. Only the hard guards
+below (sorry/axiom, RH-only claims, destructive/git/share-infra actions) still
+stop the agent. "open analytic bottom" is work to be done in place, not news
+that needs to be surfaced first.
 
 Still requires Peter (decision with consequence / irreversibility):
 - Any `git commit` / `push` / remote operation (authorized per execution, §14).
