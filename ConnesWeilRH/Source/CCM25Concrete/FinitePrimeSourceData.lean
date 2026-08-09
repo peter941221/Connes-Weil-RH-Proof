@@ -249,6 +249,29 @@ def DirectAtomVisibleFunctionReadOff
   (fun n hn => (data.atoms.atIndex n).data) =
     (fun n hn => data.visibleArithmeticData.atVisibleIndex n hn)
 
+/--
+Step-1 re-type bridge (921 plan): given a fixed-lambda certificate whose atom
+data is keyed on the unrestricted "source-visible" predicate, reduce it onto the
+exact global prime index set.
+
+The membership `n ∈ W.globalPrimeIndexSet` is downgraded to a source-visible
+witness via the (axiom-free) `globalIndexData → SourceGlobalIndexData.atomVisible
+→ route_visibility_iff_source_visibility`.  The resulting
+`SourceGlobalFinitePrimeArithmeticData` needs arithmetic data only at the finite
+set `{global index set}`, not for every `n : ℕ`.
+-/
+def sourceGlobalArithmeticData
+    {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
+    {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
+    (data :
+      FixedLambdaArithmeticCertificateSourceTestData
+        W f g lambda sourceTest) :
+    PrimePowerArithmetic.SourceGlobalFinitePrimeArithmeticData W f g :=
+  { atIndex := fun n hn =>
+      data.visibleArithmeticData.atVisibleIndex n
+        ((PrimePowerTest.route_visibility_iff_source_visibility sourceTest n).1
+          (data.globalIndexData n hn).atomVisible) }
+
 theorem DirectAtomVisibleReadOff_of_functionReadOff
     {W : WeilFormSymbols} {f g : TestFunction} {lambda : ℝ}
     {sourceTest : PrimePowerTest.SourceTestEvaluationInterface W f g}
