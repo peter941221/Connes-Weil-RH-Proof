@@ -57,3 +57,19 @@ residual bound, which is a real-analysis leaf independent of Walls 1-2.
 Honest statement: this round removed a necessary-condition step by proof, but the
 sufficient equality is not closed. No zero-sorry path to RH is currently known.
 RH is not claimed.
+
+## 0a. Build-verification record (2026-08-10)
+
+All committed Dev leaves were re-built green at current HEAD in a fresh ext4
+mirror (seed `.lake` from the warm cwr-main cache, build dir recreated):
+- `CCM24JdaggerOrthogonality` (3275 jobs; `#print axioms` = [propext, Classical.choice, Quot.sound], 0 sorry)
+- `EBandFactorSharpProbe` (3220 jobs)
+- `Gate3UDichotomyProbe` (3418 jobs)
+- `L657DiagProbe` (2950 jobs)
+- `L657DiagnosticProbe` (2948 jobs, after `(empty : Finset Nat)` -> `(∅ : Finset Nat)`)
+
+Wall 1 re-grounding: the endpoint contraction `norm_le_one_iff` and the operator
+Gram form `End†∘End = id + L†∘L` (EndpointContractionGuard:298), together with
+the pointwise Pythagoras `‖End u‖² = ‖u‖² + ‖L u‖²`, do NOT force the sufficient
+identity `L = 0`. Closure still requires the signed cancellation
+`(E−P)∘(Forward + PhysicalLeakage) = 0` — the open analytic Piece-1.
