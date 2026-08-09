@@ -83,6 +83,56 @@ lemma remainder_eq_band_comp_band (lambda : CCM24SoninScale) :
         sourceBandProjection lambda := by
   simpa [sourceBandProjection] using sourceProlateRemainder_eq_factor lambda
 
+/-- Step 1 (band compression): compose the remainder with the band isometry
+`j = sourceBandInclusion λ`.  Via `j∘j† = B_λ` (always rewrite B_λ to j∘j†)
+and `j†∘j = id`:
+    j† (B_λ Q_λ B_λ) j = j† Q_λ j
+So the generic-λ spectral content of the remainder is exactly the band-Fourier
+compression `A := j† Q_λ j : (sourceBandCarrier λ) →L[ℂ] (sourceBandCarrier λ)`,
+restricted to `range B_λ`.  This is the operator the A-lane must show is
+trace-class (= generic-λ `Summable`). -/
+lemma adjoint_bandProjection (lambda : CCM24SoninScale) :
+    (sourceBandInclusion lambda)† ∘L sourceBandProjection lambda =
+      (sourceBandInclusion lambda)† := by
+  --  j† = j† (j j†) = (j† j) j† = id j† = j†
+  rw [← sourceBandInclusion_comp_adjoint lambda]
+  rw [← ContinuousLinearMap.comp_assoc]
+  rw [sourceBandInclusion_adjoint_comp_self lambda]
+  simp
+
+/-- The band compression `A = j† Q_λ j` on `sourceBandCarrier λ`: the operator
+whose eigenvalue-decay (: trace-class on `range B_λ`) is exactly the generic-λ
+spectral content of the remainder.  Step 1 asserts the remainder's band
+compression equals the band-Fourier compression:
+`j† (B Q B) j = j† Q j`, killing `j†∘B = j†` on the left and `B∘j = j` on the
+right (proved pointwise: `ext` then `comp_apply`, then both band factors
+collapse).  Notation: `j = sourceBandInclusion λ`, `B = sourceBandProjection λ`,
+`Q = sourceFourierSupportProjection λ`. -/
+lemma band_compression_eq (lambda : CCM24SoninScale) :
+    (sourceBandInclusion lambda)† ∘L sourceProlateRemainder lambda ∘L
+        sourceBandInclusion lambda =
+      (sourceBandInclusion lambda)† ∘L sourceFourierSupportProjection lambda ∘L
+        sourceBandInclusion lambda := by
+  rw [remainder_eq_band_comp_band lambda]
+  apply ContinuousLinearMap.ext
+  intro u
+  --  pointwise:   j† (B Q B (j u)) = j† (Q (j u)).
+  simp only [ContinuousLinearMap.comp_apply]
+  --  inner band factor:  B (j u) = j u
+  have hB : sourceBandProjection lambda (sourceBandInclusion lambda u) =
+      sourceBandInclusion lambda u := by
+    exact DFunLike.congr_fun (sourceBandProjection_comp_sourceBandInclusion lambda) u
+  rw [hB]  --  -> j† (B Q (j u)) = j† (Q (j u))
+  --  outer band factor, at the vector Q(j u):  (j† ∘ B) = j†
+  have hO : ContinuousLinearMap.adjoint (sourceBandInclusion lambda)
+        (sourceBandProjection lambda
+          (sourceFourierSupportProjection lambda (sourceBandInclusion lambda u))) =
+      ContinuousLinearMap.adjoint (sourceBandInclusion lambda)
+        (sourceFourierSupportProjection lambda (sourceBandInclusion lambda u)) := by
+    exact DFunLike.congr_fun (adjoint_bandProjection lambda)
+      (sourceFourierSupportProjection lambda (sourceBandInclusion lambda u))
+  exact hO
+
 end ELambdaFactorProbe
 end CC20Concrete
 end Source
