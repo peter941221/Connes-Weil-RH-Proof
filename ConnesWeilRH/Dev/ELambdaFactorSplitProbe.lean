@@ -133,6 +133,37 @@ lemma band_compression_eq (lambda : CCM24SoninScale) :
       (sourceFourierSupportProjection lambda (sourceBandInclusion lambda u))
   exact hO
 
+/-- Step 2a: the band-Fourier compression `A = j† Q_λ j` is self-adjoint
+(`A = A†`).  Conjugation preserves self-adjointness (`adjoint_conj`): with
+`S = sourceBandInclusion λ` (isometric inclusion of the band carrier) and
+`T = Q_λ` (a star-projection, hence self-adjoint via
+`sourceFourierSupportProjection_isStarProjection` + `isSelfAdjoint_starProjection`),
+the product `S† ∘ T ∘ S = j† Q_λ j` is self-adjoint.  So `A` is a bounded
+self-adjoint operator on the band carrier — the right kind of object for
+spectral/eigenvalue arguments, though NOT yet compact or trace-class. -/
+lemma fourierProjection_selfAdjoint (lambda : CCM24SoninScale) :
+    (sourceFourierSupportProjection lambda)† =
+      sourceFourierSupportProjection lambda :=
+  (sourceFourierSupportProjection_isStarProjection lambda).isSelfAdjoint.adjoint_eq
+
+/-- Step 2: the band-Fourier compression `A = j† Q_λ j` is self-adjoint, i.e.
+`A = A†`.  Since `Q_λ` is a star-projection (`Q_λ† = Q_λ`, as
+`fourierProjection_selfAdjoint`) and taking adjoints reverses composition
+(`adjoint_comp`) and is an involution (`adjoint_adjoint`),
+`A† = (j† Q j)† = j† Q† j = j† Q j = A`.  So `A` is a bounded self-adjoint
+operator on the band carrier — the right object for spectral/eigenvalue
+arguments.  It is NOT yet compact or trace-class; that remains the
+A-lane's genuine open point (the projection `Q_λ` has infinite rank). -/
+lemma band_FourierCompression_selfAdjoint (lambda : CCM24SoninScale) :
+    (sourceBandInclusion lambda)† ∘L sourceFourierSupportProjection lambda ∘L
+        sourceBandInclusion lambda =
+      ((sourceBandInclusion lambda)† ∘L sourceFourierSupportProjection lambda ∘L
+        sourceBandInclusion lambda)† := by
+  rw [ContinuousLinearMap.adjoint_comp, ContinuousLinearMap.adjoint_comp]
+  simp only [ContinuousLinearMap.adjoint_adjoint]
+  --  RHS = j† (Q†) j  (with Q† = Q), LHS = j† Q j ;  both reduce to j† Q j
+  simpa only [fourierProjection_selfAdjoint, ContinuousLinearMap.comp_assoc]
+
 end ELambdaFactorProbe
 end CC20Concrete
 end Source
