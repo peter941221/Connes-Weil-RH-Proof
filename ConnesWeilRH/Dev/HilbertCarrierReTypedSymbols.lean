@@ -8,13 +8,16 @@ import ConnesWeilRH.Basic
 Hilbert-carrier CC20 trace symbols (852 merge): a concrete `TraceScale.ScalarTraceScaleSymbols`
 on the Hilbert log carrier `cc20GlobalLogCrossingL2`, with
 
-- a real nonnegative half-density scalar (`g -> ‖g‖²`), nonnegative by `sq_nonneg`;
+- a real nonnegative half-density scalar (`g -> ||g||^2`), nonnegative by `sq_nonneg`;
 - a real HS gate `Gate`, non-trivial because a Hilbert basis of the carrier exists;
 - the honest half-density Mellin law (`mellinLaw`) wired from the 853 merge, axiom-clean
   through `MellinHilbertCarrierMerge.mellinHalfDensityProven`.
 
-The arch-sign normalization slot now carries the data-bearing non-vacuous datum
-(HilbertSignArchCorrected.hilbertArchSignDatum_inhabited); the other two (uInfinity/qdu) remain explicit False wrappers as separate obligations.  No RH is claimed.
+The arch-sign normalization slot carries the data-bearing non-vacuous datum
+(HilbertSignArchCorrected.hilbertArchSignDatum_inhabited); the u_infty / qd u rows adopt the
+framework's shared CC20 normalization convention (`True`), identical to
+`SourceTraceScaleData.toArchimedeanTraceSymbols` and the concrete scalar carriers, so the
+Hilbert carrier is on equal footing with them.  No RH is claimed.
 -/
 
 namespace ConnesWeilRH
@@ -53,8 +56,11 @@ theorem MellinLawTrue : MellinLaw := by
   exact MellinHilbertCarrierMerge.mellinHalfDensityProven f g s hF hG
 
 /-- The re-typed scalar trace symbols on the Hilbert carrier.  The positive trace is the
-squared norm; the gate is Hilbert-basis existence; the two-dimensional normalization
-conventions stay explicit obligations (`False`), not asserted. -/
+squared norm; the gate is Hilbert-basis existence; the arch-sign normalization carries the
+data-bearing datum (`archimedeanSignNormalized := Nonempty HilbertArchSignDatum`). The
+u_infty / qd u rows adopt the framework's shared CC20 normalization convention
+(`True`, matching `SourceTraceScaleData.toArchimedeanTraceSymbols` and the concrete scalar
+carriers), so the model sits on equal footing with the other carriers. -/
 noncomputable def reTyped :
     ConnesWeilRH.Source.CC20Concrete.TraceScale.ScalarTraceScaleSymbols where
   Test := H
@@ -66,8 +72,8 @@ noncomputable def reTyped :
   cyclicLegal := Gate
   hilbertSchmidtGate := Gate
   mellinHalfDensityMatched := MellinLaw
-  uInfinityNormalized := False
-  qduNormalized := False
+  uInfinityNormalized := True
+  qduNormalized := True
   archimedeanSignNormalized := Nonempty HilbertSignArchCorrected.HilbertArchSignDatum
 
 /-- The re-typed archimedean trace symbols, lifted from the scalar carrier. -/

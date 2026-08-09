@@ -90,6 +90,22 @@ noncomputable def retypedTraceModel
   mellinHalfDensityConvention := mellin_half_density_convention
   signsAndNormalizations := signs_and_normalizations_of_evidence E
 
+
+/-- Concrete normalization evidence for the Hilbert carrier: the u_infty / qd u rows
+adopt the framework's shared CC20 normalization convention (`True`), and the arch-sign
+row is the data-bearing datum. -/
+noncomputable def defaultNormalizationEvidence : NormalizationEvidence where
+  uInfinity := trivial
+  qdu := trivial
+  archimedeanSign := HilbertSignArchCorrected.hilbertArchSignDatum_inhabited
+
+/-- The fully-closed CC20 trace model on the re-typed Hilbert carrier: the framework
+u_infty / qd u convention plus the data-bearing sign datum close all three normalization
+rows, so the model is assembled with no remaining obligation. -/
+noncomputable def closedTraceModel : CC20TraceModel :=
+  retypedTraceModel defaultNormalizationEvidence
+
+
 end HilbertTraceModelClosure
 end Dev
 end Source

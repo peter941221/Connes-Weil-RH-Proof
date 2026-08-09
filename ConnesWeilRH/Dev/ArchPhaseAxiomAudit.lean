@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.ArchPhaseZFourthNonneg
+#print axioms ConnesWeilRH.Source.Dev.ArchPhaseZFourthNonneg.z_pow4_eq_norm_pow4_mul_exp
+#print axioms ConnesWeilRH.Source.Dev.ArchPhaseZFourthNonneg.re_z_pow4_eq_norm_pow4_mul_cos
+#print axioms ConnesWeilRH.Source.Dev.ArchPhaseZFourthNonneg.re_pow4_pos_of_abs_arg_lt_pi_eighth
+#print axioms ConnesWeilRH.Source.Dev.ArchPhaseZFourthNonneg.re_pow4_nonneg_of_abs_arg_lt_pi_eighth
