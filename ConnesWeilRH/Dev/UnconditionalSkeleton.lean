@@ -12,6 +12,7 @@ import ConnesWeilRH.Source.CC20YoshidaConstruction
 import ConnesWeilRH.Source.ZetaHalfNonvanishing
 import ConnesWeilRH.Source.S2B1TraceScale
 import ConnesWeilRH.Dev.CCM25SourceDataGuards
+import ConnesWeilRH.Dev.ConcreteP1SupportProbe
 
 /-!
 # Development skeleton for the unconditional RH checklist
@@ -134,40 +135,22 @@ noncomputable def normalizedCoreSourceSupportWindowDataFromTheorems :
     normalizedCoreSourceSupportTestFromTheorems
 
 /-
-STRUCTURAL WIRE-UP BLOCKER — registered for refactor (do NOT treat as wired).
-Evidence chain: docs/proofs/834_l137_wiring_impossibility_evidence_chain.md.
-
-`SourceWeilFormData.finitePrime.exactSupport` demands a global index whose two
-witnesses are `∀ F : A.Test` (a per-test POST-witness `n ∈ carrier -> term n F ≠ 0`).
-Any real carrier with a pointwise-zero element forces `term n 0 ≠ 0`, contradicting
-the zero-term identity — so NO non-empty carrier hosts it (probe
-`CarrierReplacementFeasibilityProbe` proves this axiom-clean, docs/proofs/833).
-
-This `axiom` (L137) is therefore a FALSE premise: it asserts an object that L152
-below correctly proves does NOT exist. The honest fix is NOT to keep both fighting,
-but to replace this root with the real per-common certificate route
-(`FixedLambdaCommonFinitePrimeSupportData`, scoped to one `common.sourceTest`) —
-a shared-type refactor of `SourceWeilFormData` (831 blast: ~31 files / ~200
-sumsets), currently OUT of scope. Until then this axiom + L152 together mark the
-math bottom: RH stays unconditional (not claimed).
+S1 RESOLVED (2026-08-09): the old L137 `axiom normalizedCoreSourceWeilFormDataRoot`
+asserted `SourceWeilFormData concreteTestAlgebra` exists while the legacy
+`forall F` reverse-exactSupport made it unsatisfiable.  The S2 per-common refactor
+(`PerCommonSourceFinitePrimeSupport`, scope reverse exactness to one common test)
+removes that contradiction, and `Source.Dev.ConcreteP1SupportProbe.concreteWeilForm` now gives
+a real, axiom-clean `SourceWeilFormData concreteTestAlgebra` (common bump, visible
+prime `2`, exact index set `{2}`).  So the axiom is REPLACED by this def: no new
+axiom, no sorry.  `normalizedCoreSourceWeilFormDataFromTheorems` is now a live
+constructible object of the exact type the old axiom asserted.  See docs/proofs/915
+section 9 and docs/proofs/833/834 for the original contradiction; RH still unclaimed.
 -/
-axiom normalizedCoreSourceWeilFormDataRoot :
-  Source.AnalyticCore.SourceWeilFormData
-    normalizedCoreSourceTestAlgebraFromTheorems
-
 noncomputable def normalizedCoreSourceWeilFormDataFromTheorems :
     Source.AnalyticCore.SourceWeilFormData
       normalizedCoreSourceTestAlgebraFromTheorems :=
-  normalizedCoreSourceWeilFormDataRoot
+  Source.Dev.ConcreteP1SupportProbe.concreteWeilForm
 
-/--
-NOTE (post-S2): the previous `¬ Nonempty` guard that lived here was removed.
-It asserted emptiness of `SourceWeilFormData` from the old `∀ F`-POST exact-support
-backend.  After the per-common restructure that backend is gone, so that
-statement is no longer provable and would mislabel the now-open `axiom` at
-`normalizedCoreSourceWeilFormDataRoot` (L137) as contradictory.  The `axiom`
-L137 remains the honest open math bottom; see `docs/proofs/833`/`834`.
--/
 
 /- Shared CC20 trace-scale scalar functions over the common source test algebra. -/
 noncomputable def normalizedCoreTraceAmplitudeFromTheorems :
@@ -8076,3 +8059,4 @@ end NormalizedContractBackedLane
 end UnconditionalSkeleton
 end Dev
 end ConnesWeilRH
+
