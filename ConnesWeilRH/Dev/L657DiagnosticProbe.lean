@@ -39,7 +39,7 @@ lemma global_index_set :
 
 /-- The restricted prime index set at lambda=0 is empty. -/
 lemma restricted_index_set_zero :
-    Wconcrete.restrictedPrimeIndexSet 0 = (empty : Finset Nat) := by
+    Wconcrete.restrictedPrimeIndexSet 0 = (∅ : Finset Nat) := by
   unfold Wconcrete
   simp [concreteWeilForm, perCommonSupport]
 
