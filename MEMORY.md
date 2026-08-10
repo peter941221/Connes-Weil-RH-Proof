@@ -1,3 +1,9 @@
+## Change Log (2026-08-10): AGENTS.md no-stop rule added
+
+- AGENTS.md (3b) now binds: do NOT stop/defer/gold-plate any path unless it is
+  conclusively judged dead (named guard/counterexample/docs ruling). Push each
+  path to a closable result or produce the precise dead-verdict evidence. Hard
+  guards (sorry/axiom, RH-only, destructive/git) still override + need Peter.
 ## Change Log (2026-08-10): consolidated wall ledger (docs/963)
 
 - docs/963 ties Wall-A 1.4, Gate-3U, and C1 to ONE shared operator<->scalar seam on

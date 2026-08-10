@@ -247,6 +247,20 @@ below (sorry/axiom, RH-only claims, destructive/git/share-infra actions) still
 stop the agent. "open analytic bottom" is work to be done in place, not news
 that needs to be surfaced first.
 
+**No-stop rule (2026-08-10, Peter):** unless a path has been **conclusively
+judged dead** — meaning named guards/definitions actively forbid or contradict
+it, a verified counterexample or model-artifact negation exists, or a route
+decision (docs/proofs) already rules it unviable — do **not** stop, defer,
+gold-plate, or decline it for any reason (missing theorem, "needs new math",
+effort, uncertainty, desire to avoid a build, or current-route estimates).
+Treat every such path as live work: advance it with the strongest available
+reasoning/analysis, and either (a) push it to a closable result, or (b) produce
+a precise **conclusive-dead verdict** (named guard / counterexample / docs
+ruling) — the only thing that ends work on that path. Waiting-for-consent or
+"let me surface this first" is a stop pattern to avoid. The never-granted hard
+guards below (sorry/axiom, RH-only claims, destructive/git/share infra) still
+override this rule and always require Peter.
+
 Still requires Peter (decision with consequence / irreversibility):
 - Any `git commit` / `push` / remote operation (authorized per execution, §14).
 - Letting unwanted shared infra, damaging shared files, dropping/adding
