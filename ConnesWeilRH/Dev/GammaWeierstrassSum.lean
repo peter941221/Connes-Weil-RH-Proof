@@ -55,6 +55,16 @@ theorem hasSum_weylArgNum :
     exact weylArgNum_eq_neg_a n
   rw [hf]
   exact HasSum.neg ConnesWeilRH.Source.Dev.SSandwich.a_summable.hasSum
+
+/- Numeric bracket on the phase partial sum, from the closed S sandwich: -/
+theorem negS_bounds :
+    - (1 / 2 : Real) - 1 / 32 <= -ConnesWeilRH.Source.Dev.SSandwich.S ∧
+      -ConnesWeilRH.Source.Dev.SSandwich.S <= - (1 / 2 : Real) := by
+  constructor
+  · have hS := ConnesWeilRH.Source.Dev.SSandwich.S_le_half_plus
+    linarith
+  · have hS := ConnesWeilRH.Source.Dev.SSandwich.S_ge_half
+    linarith
 end GammaWeierstrassSum
 end Dev
 end ConnesWeilRH
