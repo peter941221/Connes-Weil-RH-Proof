@@ -1,3 +1,11 @@
+## Change Log (2026-08-10): Wall-A 1.4 先半边结构性归零（ScabLhsZero，axiom-clean）
+
+- New ConnesWeilRH/Dev/ScabLhsZero.lean：证明 SCB/SCA 目标 LHS（poleFunctional(convolution)-polePairing(f)）结构上恒为 0
+  （因 polePairing(f)=poleFunctional(convolutionSquare)，healthy 载波上 =0）；故 Wall-A 1.4 归约为单一标量关系
+  2*totalArchimedean(convolution)+(global-restricted)=0（真实 Weil 显式公式内容）。
+  三定理（polePairing_eq_polarSquare / lhs_zero / scab_target_iff_arch_prime）#print axioms = [propext, Classical.choice, Quot.sound]，0 sorry 0 project；
+  WSL 2960 jobs 绿（cwr-lanb-archlift）。该 arch/prime 关系仍 open（真实解析）。RH 不声明。见 docs/proofs/956。
+
 ## Change Log (RECONSTRUCTED 2026-08-10): 未提交的会话 Change Log 意外覆写后的重建（详见各 docs/proofs）
 
 说明：一次性写文件失误把工作区未提交的 MEMORY.md 覆盖为空，git 无对象可恢复；以下按 docs/proofs/947-954 重建本会话近期已交付的证据条目。
