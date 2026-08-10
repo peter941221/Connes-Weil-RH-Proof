@@ -1,3 +1,20 @@
+## Change Log (RECONSTRUCTED 2026-08-10): 未提交的会话 Change Log 意外覆写后的重建（详见各 docs/proofs）
+
+说明：一次性写文件失误把工作区未提交的 MEMORY.md 覆盖为空，git 无对象可恢复；以下按 docs/proofs/947-954 重建本会话近期已交付的证据条目。
+守护教训：MEMORY.md 必须在每次大改前 git commit，且写回（ReadAllText/WriteAllText）前务必校验原文件长度，防止 $orig 读取失败后 WriteAllText 把文件覆盖成只含新条目的短文件。
+-
+- New Dev/CompactLogArchimedeanLift.lean：compactLogArchimedeanTerm（CCM25 Eq3.7 实项），axiom-clean。见 docs/947、948。
+- New Dev/CompactArchTotal.lean：totalArchimedean : TestFunction -> R（compact 输入 = Eq3.7）；healthy arch slot re-point。见 docs/948。
+- New Dev/CompactSCealBalance.lean：finitePrimePart_scaled（global-restricted=omitted）+ owner 层实平衡 + weilValue_re_split。见 docs/947。
+- New Dev/HealthyArchData.lean：healthyArchData f : SourceArchimedeanTermData 钉 arch 到 totalArchimedean，双 read-off。见 docs/950。
+- New Dev/ScabNormalForm.lean：scab_iff_pole_arch_target（SCB 等价单一标量 ScabPoleArchTarget）。见 docs/951。
+- New Dev/ScabHealthyTarget.lean：healthy 载体实例化 ScabPoleArchTarget，arch 读值钉到 data-bearing totalArchimedean，axiom-clean。见 docs/952。
+- New Dev/HealthyPsiBricks.lean：healthyPsi_sign（=PsiSignStatement）+ healthyQWDef（=QWDefinitionStatement）逐定义化关闭，axiom-clean。见 docs/953。
+- New Dev/Wall2C1InputAssembled.lean：healthy 严格对角见证喂 912 闭合 CC20PropositionC1InputData 最后构造槽。见 docs/949。
+- 镜像 cwr-lanb-archlift（isolated ext4，温 .lake）为 lane-B 验证环境，上述 Dev 模块均 WSL 绿 + #print axioms = [propext, Classical.choice, Quot.sound]，0 sorry 0 project axiom。
+- New finding：residual axiom 行 2 的第三字段 scopedArchimedeanContributionBalance = open 的 SCAL（Wall-A 1.4），无法用数据砖拆除，唯一路径=证 SCAL 标量恒等式（真实解析）。见 docs/954。
+- RH 不声明。三堵剩余墙：Wall-A 1.4（SCAL 标量恒等式）、Wall-B（(I-P)F=-(I-P)D，新数学，probe 884 反对）、C1-RH（真 RH 证明）。
+
 ## Change Log (2026-08-10): RealWeierstrassProd bricks 1-2 (WSL-verified)
 - New ConnesWeilRH/Dev/RealWeierstrassProd.lean (lane (a) Gamma developable, docs/944):
   factorScale/webfac/partialP defs; webfac_bounds (0 < w(n) <= 1 for 0<=s),

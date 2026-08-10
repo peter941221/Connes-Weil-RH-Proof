@@ -8,6 +8,7 @@ RH NOT claimed (finite-S Weil sign stays open).
 -/
 import ConnesWeilRH.Dev.HealthySourceMellinAlgebra
 import ConnesWeilRH.Dev.ConcreteP1SupportProbe
+import ConnesWeilRH.Dev.CompactArchTotal
 
 namespace ConnesWeilRH
 namespace Source
@@ -15,6 +16,7 @@ namespace Dev
 namespace WellFormHealthyRepoint
 
 open AnalyticCore
+open CCM25Concrete.CompactLogConvolution
 open HealthySourceMellinAlgebra
 open ConcreteP1SupportProbe
 
@@ -103,12 +105,46 @@ noncomputable def healthyWeilForm :
   { evaluation := healthyEval
     common := commonBump
     finitePrime := { support := healthyPerCommonSupport }
-    archimedeanTerm := fun _ => 0 }
+    archimedeanTerm := CCM25Concrete.CompactArchTotal.totalArchimedean }
 
 theorem healthyWeilForm_nonempty :
     Nonempty (SourceWeilFormData healthyMellinSourceTestAlgebra) :=
   ⟨healthyWeilForm⟩
 
+
+/-- The healthy archimedean slot now carries the real Eq.3.7 term (via the total
+extension) rather than the `fun _ => 0` placeholder; on any compact-log test it
+matches `compactLogArchimedeanTerm` / the CCM25 archimedean explicit-formula
+real part. -/
+theorem healthyArchimedean_eq_compact (f : CompactLogTest) :
+    healthyWeilForm.archimedeanTerm f.test =
+      CCM25Concrete.CompactArchTotal.totalArchimedean f.test := by
+  rfl
+
+/-- On any compact-log test the healthy archimedean slot is exactly the CCM25
+   Eq.3.7 real term. -/
+theorem healthyArchimedean_matches_compactTerm (f : CompactLogTest) :
+    healthyWeilForm.archimedeanTerm f.test =
+      CCM25Concrete.CompactLogArchimedeanLift.compactLogArchimedeanTerm f := by
+  rw [healthyArchimedean_eq_compact]
+  exact CCM25Concrete.CompactArchTotal.totalArchimedean_eq_compact f
+
+/-- The healthy `toWeilFormSymbols.archimedeanTerm` at the full `TestFunction`
+   IS the total extension, so SCAL/SCB statements operate on the real CCM25
+   Eq.3.7 term (via `totalArchimedean`) rather than the placeholder. -/
+theorem healthySymbols_archimedeanTerm_eq (F : TestFunction) :
+    healthyWeilForm.toWeilFormSymbols.archimedeanTerm F =
+      CCM25Concrete.CompactArchTotal.totalArchimedean F := by
+  rfl
+
+/-- At a convolution square of the healthy carrier, the archimedeanTerm read
+   (as SCAL/SB does) is `totalArchimedean (healthyConvolutionStar f f)`. -/
+theorem healthySymbols_archimedeanTerm_square (f : TestFunction) :
+    healthyWeilForm.toWeilFormSymbols.archimedeanTerm
+      (healthyWeilForm.toWeilFormSymbols.convolutionStar f f) =
+      CCM25Concrete.CompactArchTotal.totalArchimedean
+        (healthyMellinSourceTestAlgebra.convolutionStar f f) := by
+  rfl
 #print axioms healthyWeilForm
 
 end WellFormHealthyRepoint

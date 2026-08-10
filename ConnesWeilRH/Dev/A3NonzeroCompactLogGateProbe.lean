@@ -131,6 +131,21 @@ theorem detector_re_inner_nonneg (a c : ℝ) (u : cc20GlobalLogCrossingL2) :
     0 ≤ (⟪u, windowedBoundaryDetector nonzeroTest a c u⟫_ℂ).re :=
   ContinuousLinearMap.IsPositive.re_inner_nonneg_right (detector_isPositive a c) u
 
+/-- Strict-positivity strengthening of the diagonal quadratic form: if the
+   root-factor image F u is non-zero then the real diagonal is strictly
+   positive, not just >= 0.  The F u != 0 hypothesis is kept honest; the
+   unconditional existence xists u, 0 < norm (F u) is a separate analytic
+   injectivity fact not asserted here. -/
+theorem detector_diagonal_re_pos_of_rootFactor_ne_zero
+    (a c : ℝ) (u : cc20GlobalLogCrossingL2)
+    (hu : fullBoundaryRootFactor nonzeroTest a c u ≠ 0) :
+    0 < (⟪u, windowedBoundaryDetector nonzeroTest a c u⟫_ℂ).re := by
+  have hsq : (⟪u, windowedBoundaryDetector nonzeroTest a c u⟫_ℂ).re =
+      ‖fullBoundaryRootFactor nonzeroTest a c u‖ ^ 2 := by
+    exact (ContinuousLinearMap.apply_norm_sq_eq_inner_adjoint_right
+      (fullBoundaryRootFactor nonzeroTest a c) u).symm
+  rw [hsq]
+  exact sq_pos_of_ne_zero (norm_ne_zero_iff.mpr hu)
 end A3NonzeroCompactLogGateProbe
 end Dev
 end Source
