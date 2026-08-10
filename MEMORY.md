@@ -1,3 +1,51 @@
+## Change Log (2026-08-10): finite Weierstrass product-argument closure (WSL-verified)
+- ConnesWeilRH/Dev/GammaArgSum.lean: generalized arg_prod_coe_angle from Finset Nat to Finset alpha;
+  added real_sum_coe_angle (Real.Angle coercion distributes over Finset sum), both axiom-clean.
+- ConnesWeilRH/Dev/GammaArgProd.lean: added weylFactorIm_nonzero / weylFactor_ne_zero (0 < u),
+  weylArgNum def, and arg_weylFactor_prod_coe_angle: arg(prod_{i in t} weylFactor i) : Real.Angle
+  = sum i in t (weylArgNum i : Real.Angle). #print axioms = [propext, Classical.choice, Quot.sound],
+  0 sorry (WSL green, 1978 jobs). Finite partial-product preimage of SSeriesSandwich
+  S_eq_S2_add_atan_half. Infinite Weylstrass limit to arg(Gamma(1+I/2)) stays open (docs/940/941).
+  RH not claimed.
+## Change Log (2026-08-10): GammaArgProd extended with Gamma-product-shape + factor-arg bricks (WSL-verified)
+- ConnesWeilRH/Dev/GammaArgProd.lean now also proves axiom-clean: arg_add_mul_I
+  (arg(x + I*y) = atan(y/x) for 0 < x, general vector-phase identity), arg_exp_add_mul_I_angle
+  (arg(e^{r + I*s}) = s, as Real.Angle), alongside the earlier arg_exp_mul_I_angle /
+  arg_factor_coe_angle / arg_factor_half, plus the Gamma-factor arms arg_gamma_imag
+  (arg((u+1)/u + I/(2u)) = atan(1/(2u+2)), the S-series summand) and arg_exp_neg_z_div_n
+  (arg(e^{-1/u + I*(-1/(2u))}) = -1/(2u), the exp half). All #print axioms =
+  [propext, Classical.choice, Quot.sound], 0 sorry; WSL green. These form the finite preimage
+  of SSeriesSandwich.S_eq_S2_add_atan_half (S = tsum S2 + atan(1/2)). The infinite Weylstrass
+  log-Gamma identity for |arg Gamma(1+I/2)| <= pi/8 stays the open new-analysis leaf. RH not claimed.
+
+## Change Log (2026-08-10): verified Weierstrass factor-argument additivity (new module)
+- New ConnesWeilRH/Dev/GammaArgProd.lean: arg_exp_mul_I_angle (arg(e^{I theta})=theta, Real.Angle),
+  arg_factor_coe_angle (arg( e^{I theta}/(1+I x) )=theta-atan x, x>=0), arg_factor_half.
+  WSL green, #print axioms [propext, Classical.choice, Quot.sound], 0 sorry. Single-factor spine
+  between GammaArgBricks (factor arg) and GammaArgSum (Finset product arg = sum). Still open:
+  infinite Weierstrass log-Gamma limit connection for |arg(Gamma(1+I/2))|<=pi/8. RH not claimed.
+
+## Change Log (2026-08-10): verified product-argument additivity (new module)
+- ConnesWeilRH/Dev/GammaArgSum.lean: arg_prod_coe_angle proves axiom-clean that the Arg of a
+  Finset product = sum of factor args (Real.Angle), 0 sorry, via arg_mul_coe_angle. This is the
+  structural backbone turning Weierstrass factor args (GammaArgBricks) into the summed series
+  for arg(Gamma(1+I/2)). The cross-check arg(Gamma(1+i/2))=-0.2440583 confirmed. The
+  Weierstrass log-Gamma identity connection stays open. RH not claimed.
+
+## Change Log (2026-08-10): verified Gamma-argument bricks (new module)
+- ConnesWeilRH/Dev/GammaArgBricks.lean: prove axiom-clean arg(1+I*x) = atan x (x>=0),
+  arg(1+I/2)=atan(1/2), arg(1+I/(2n))=atan(1/(2n)). WSL green; #print axioms
+  [propext Complex.Classical.choice Quot.sound]; 0 sorry. These are the factor-phase
+  identities of the Weierstrass log-Gamma argument for base point 1+I/2. The open analytic
+  cut  tail remains ((Gamma(1+I/2)).arg = D connection). RH not claimed.
+
+## Change Log (2026-08-10): new axiom-clean hinge module Dev/GammaArgLeaf.lean
+- New ConnesWeilRH/Dev/GammaArgLeaf.lean: gammaSign_at_one (harg) proves axiom-clean
+  0 <= Re[(Gamma(1+i/2))^4] from the single premise |arg(Gamma(1+i/2))| < pi/8.
+  WSL green; #print axioms [propext, Classical.choice, Quot.sound]; 0 sorry. The finite-S
+  a=1 arch sign is now one theorem one premise away; the premise is the Weierstrass/Stirling
+  Gamma-argument leaf. RH not claimed.
+
 ## Change Log (2026-08-10): new-module + skeleton build snapshot re-verified
 - Combined WSL build green (3599 jobs): ConnesWeilRH.Dev.WellFormHealthyRepoint +
   ConnesWeilRH.Dev.WeilC1NonEmptyProducer all up-to-date compiled clean (only benign
