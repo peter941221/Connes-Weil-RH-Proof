@@ -1,3 +1,60 @@
+## Change Log (2026-08-10): new-module + skeleton build snapshot re-verified
+- Combined WSL build green (3599 jobs): ConnesWeilRH.Dev.WellFormHealthyRepoint +
+  ConnesWeilRH.Dev.WeilC1NonEmptyProducer all up-to-date compiled clean (only benign
+  reducible-linter warning on weilStateNonempty). Prior: UnconditionalSkeleton warm build
+  green (3500 jobs). Authoritative snapshot of Step1/Step2 verified state.
+## Change Log (2026-08-10): NEGATIVE verdict - naive large-band Gamma sign false (docs/937)
+- Numeric ruling: `Re[Gamma(a+i/2)^4] >= 0` is FALSE for a=3,5,10 (=-3.7, -2.9e5, -3.4e21),
+  and arg Gamma(a+i/2) -> (1/2) ln a (Stirling) not -> 0, so Re[w^4] = |w|^4 cos(4 arg) sign-flips
+  forever. docs/859 §6 conjecture (exists a0, forall a>=a0, Re>0) is REFUTED.
+- Route: naive band-test `t^a e^{-t}` cannot be the finite-S sign producer; re-anchor Step 3 to the
+  CompactLog HS/A3 positive (healthy_strict_positive_diagonal, detector_diagonal_re_nonneg), which
+  Steps 1-2 already wire. UnconditionalSkeleton exit (= Nonempty input.fullWeilPositivity) stays fed.
+- No Lean implication; evidence = scipy.special.gamma read-only. RH not claimed.
+## Change Log (2026-08-10): Step2 re-point verified; Step3 canonical = CompactLog A3 (Gamma-phase non-canonical)
+- Verified at mirror HEAD: UnconditionalSkeleton warm build green (3500 jobs); re-pointed
+  fullWeilPositivity (WellPositiveState = healthy CompactLog HS strict positive diagonal) feeds
+  the C1 exit (line 1623/1624). Audit: healthyEval/healthyPerCommonSupport/healthyWeilForm/
+  concreteC1InputData all #print axioms = [propext, Classical.choice, Quot.sound]; the only
+  remaining exit axiom is normalizedCoreCC20PropositionC1SourceCriterionRoot self-dependency.
+- Step 3 canonical home = CompactLog HS: the finite-S Weil sign IS the A3 PSD strict positivity
+  (`healthy_strict_positive_diagonal`, detector_diagonal_re_nonneg), already wired as
+  `WellPositiveState`. The Gamma-phase/Stirling branch (docs/859,869,888) is NON-canonical there.
+  What still blocks RH is the criterion theorem `CC20PropositionC1SourceCriterion` (finite
+  positivity => B.SourceRH), i.e. the real finite-S sign-forcing conclusion, far from the
+  A3 PSD seed alone.
+## Change Log (2026-08-10): healthy-carrier SourceWeilFormData brick axiom-clean (doc.936 step-2 first leaf)
+- ConnesWeilRH/Dev/WellFormHealthyRepoint.lean: transferred the per-common finite-prime support
+  ({2}, prime-2 via commonBump) from the concrete carrier onto the healthy Mellin algebra
+  (healthyForward_mem / healthyTerm_two_ne_zero / healthyPerCommonSupport), then lift to
+  healthyWeilForm : SourceWeilFormData healthyMellinSourceTestAlgebra (healthy substitute for the
+  L137 axiom, axiom-clean). WSL build green (2949 jobs); #print axioms [propext, Classical.choice,
+  Quot.sound], 0 sorry. finite-S Weil sign stays open.
+## Change Log (2026-08-10): Step 1 DONE - concrete CC20PropositionC1InputData/RouteInput at standard bridge
+- `ConnesWeilRH/Dev/WeilC1NonEmptyProducer.lean`: added `concreteC1InputData`  `Source.CC20PropositionC1InputData RHDefinitionBridge.standard cc20TripleFiniteVanishingSet  concreteWeilInput` and `concreteC1RouteInputData` (route variant). Filled fields: finiteSetIsTriple  (cc20_triple_finite_set_is_triple), finiteSetDisjointFromNontrivialZeros  (cc20_triple_disjoint_from_standard_source_nontrivial_zeros, the zeta-half nonvanishing row 849/  ZetaHalfNonvanishing), tripleVanishing (True), fullWeilPositivity (Classical.choice weilStateNonempty).  WSL build green (3593 jobs); #print axioms [propext, Classical.choice, Quot.sound], 0 sorry.
+- Foundation for step-2: the strict-diagonal re-point is already `concreteWeilInput.fullWeilPositivity =  WellPositiveState` (from Wall1HealthyPositive). Remaining step-2 work = re-point the skeleton source  consumer's `convolutionStar`/`qw` onto the healthy Mellin algebra (healthyMellinSourceTestAlgebra) and  re-run the UnconditionalSkeleton cold build+axiom audit - a large dedicated slot.
+
+## Change Log (2026-08-10): C1 non-empty Weil input PROVEN (objective: concrete non-empty C1 input)
+- `ConnesWeilRH/Dev/WeilC1NonEmptyProducer.lean`: builds a concrete `WeilPositivityInput` on the
+  healthy CompactLog HS carrier whose `fullWeilPositivity` Sort `WeilPositiveState` = the strictly
+  positive crossing vectors of the PSD convolution-square at `nonzeroTest.test`, and proves
+  `Nonempty concreteWeilInput.fullWeilPositivity` from `healthy_strict_positive_diagonal`
+  (`Wall1HealthyPositive`). Top theorem `concrete_c1_input_nonempty_exists` gives
+  `exists input, input.tripleVanishing and Nonempty input.fullWeilPositivity`.
+  WSL build green (3180 jobs); #print axioms = [propext, Classical.choice, Quot.sound], 0 sorry;
+  `WellPositiveState` marked reducible; subtype line shortened. This is the concrete non-empty
+  C1/Weil producer for the skeleton exit; the finite-S sign discharge of every such input is open.
+  RH not claimed.
+
+## Change Log (2026-08-10): healthy Mellin source-test algebra axiom-clean (doc.936 Step 1)
+- ConnesWeilRH/Dev/HealthySourceMellinAlgebra.lean: built a SourceTestAlgebra on the SAME carrier
+  TestFunction = SchwartzMap real complex as the broken concrete algebra, but with the TRUE Mellin
+  product convolutionStar f g = SchwartzMap.convolution (mul real complex) f g (plus Fourier involution
+  and square), fixing the additive  + g defect. Identity LegacyTestEquiv (Test := TestFunction) avoids
+  the CompactLogTest bijection wall (A2 probe). healthyFourierConvolutionMul records the
+  multiplicative-Mellin Fourier law. WSL build green (2936 jobs); #print axioms = [propext,
+  Classical.choice, Quot.sound], 0 sorry, 0 new project axiom. RH not claimed; re-pointing
+  fullWeilPositivity / finite-S sign to this healthy product remains.
 ## Change Log (2026-08-10): concrete healthy strict diagonal instantiated (non-empty producer)
 - `ConnesWeilRH/Dev/Wall1HealthyPositive.lean`: wired the closed strict-positive leaf onto the
   A3 concrete nonzero test. `healthy_strict_positive_diagonal` gives
