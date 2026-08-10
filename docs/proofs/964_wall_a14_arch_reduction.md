@@ -87,3 +87,12 @@ So the healthy-carrier balance fails: `2*arch + (global-restricted) = +0.588 + 0
    RH-equivalent C1 criterion.
 
 RH NOT claimed.
+
+## Self-created explicit witness (2026-08-10)
+
+`ConnesWeilRH/Dev/Wall14SelfTestWitness.lean` (axiom-clean, WSL-green) pins the
+refutation to a concrete, computable test `witnessTest = unitFourierCoreBumpSchwartz`
+(the mathlib `ContDiffBump 0`, smooth/even/compact, `test(0)=1`).  It re-instantions
+`healthy_target_refuted_of_arch_ne_zero` at this explicit test, so the dead/not
+verdict now hangs on ONE explicit scalar `arch(witnessTest^2) != 0` (leading term
+`(log(4*pi)+gamma)*norm^2 > 0`; the integral is the remaining analytic bound).
