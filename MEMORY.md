@@ -1,3 +1,13 @@
+## Change Log (2026-08-10): Wall-A 1.4 reduces to clean scalar arch(f*f)=0 (docs/964)
+
+- ConnesWeilRH/Dev/Wall14ArchReduction.lean proves axiom-clean (WSL-green 2961 jobs,
+  [propext, Classical.choice, Quot.sound], 0 sorry): on the healthy carrier, for lambda>=sqrt 2
+  globalSum=restrictedSum ({2}), and with ScabLhsZero.lhs_zero the whole SCAL/SCB balance reduces
+  EXACTLY to arch(f*f)=0 (wall14_target_iff_arch_zero_of_global_eq_restricted + healthy composition).
+  Evidence (docs/958, mpmath +0.294; positive Eq.3.7 coeff) says arch!=0, so healthy-carrier SCB
+  fails; remaining open = Lean proof of arch!=0 (real Eq.3.7 integral, same operator<->scalar seam
+  as docs/963). No RH claim.
+
 ## Change Log (2026-08-10): AGENTS.md no-stop rule added
 
 - AGENTS.md (3b) now binds: do NOT stop/defer/gold-plate any path unless it is
