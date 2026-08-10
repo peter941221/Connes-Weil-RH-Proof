@@ -1,3 +1,12 @@
+## Change Log (2026-08-10): C1-RH criterion status - input data done, criterion open (docs/960)
+
+- Audit: C1 input DATA already axiom-clean (Dev/WeilC1NonEmptyProducer on the healthy HS
+  carrier).  But the actual CC20FiniteVanishingWeilCriterion is REFUTED on the normalized
+  concrete carrier (CC20YoshidaConstruction.lean:2474 
+ot_normalizedCC20FiniteVanishingWeilCriterion)
+  and not yet proven on the healthy CompactLog HS carrier.  So the C1 lane is NOT a cheap RH
+  discharge; it is the same finite-S/Weil-positivity wall on a different carrier.  Recommend NOT
+  burning a build against the normalized concrete model (proven false there).  RH not claimed.
 ## Change Log (2026-08-10): Wall-A 1.4 pairing spec - convention reframe NOT sufficient (docs/959)
 
 - Docs/959 ruling: the SCB miss is NOT a finite-pairing convention bug (valueAt diverges,
