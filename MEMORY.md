@@ -1,3 +1,16 @@
+## Change Log (2026-08-10): Wall-A 1.4 sufficiency closed axiom-clean (Dev/Wall14ArchSufficiency.lean)
+
+- New module proves axiom-clean (WSL green, #[propext, Classical.choice, Quot.sound], 0 sorry):
+  (1) the archimedean coefficient log(4*pi)+gamma > 0; (2) the split
+  Re(archimedeanTerm) = C * Re((f*f)(0)) + Re(int integral) via Complex.add_re/mul_re;
+  (3) the sufficiency theorem archimedeanTerm_ne_zero_of_lead_pos_and_integral_bound:
+  if 0 < (f*f)(0).re and the integral term is |< C*(f*f)(0).re then arch != 0.
+  This compresses the WHOLE healthy-carrier wall-A 1.4 closure to a single bound (hI),
+  exactly the scalar the numeric probe (docs/proofs/967: arch=+2.93, |I|/A=1.02<C=3.11)
+  verifies. The remaining open leaf is proving the pointwise integral bound hI in Lean
+  (the genuinely-new bump-convolution estimate). Import note: needs
+  Mathlib.Analysis.Real.Pi.Bounds (Real.pi_gt_three) which was NOT in the WSL mirror
+  cache (compiled it via `lake build` once). RH not claimed.
 ## Change Log (2026-08-10): Wall-A 1.4 residual — numeric evidence arch=+2.93 (docs/966 update + probe 967)
 
 - Verified on the EXACT witness (unitFourierCoreBump = smoothTransition(2-2|x|)):
