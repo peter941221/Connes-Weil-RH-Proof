@@ -1,3 +1,11 @@
+## Change Log (2026-08-10): Option-2 healthy CC20TestSpace - not a cheap closure (docs/962)
+
+- Design: weilLocalSum := -Re<.,detector .> on the healthy crossing space would make
+  CC20FiniteVanishingWeilCriterion hold vacuously for all h; but choosing weil that way is a
+  guard-6 violation unless the scalar<->operator Hilbert bridge weilLocalSum(starConvolution g)=
+  -Re<g,detector g> is proved as a THEOREM (it is not in the repo).  So Option-2's real leap is
+  that bridge (real analytic/trace-class), the same operator<->scalar seam as the Arch wall.  No
+  toy construction; docs/962.  RH not claimed.
 ## Change Log (2026-08-10): C1 precision - the criterion has no healthy CC20TestSpace instance yet (docs/960)
 
 - CC20FiniteVanishingWeilCriterion ranges over a CC20TestSpace C; the repo only has the
