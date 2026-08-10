@@ -1,3 +1,13 @@
+## Change Log (2026-08-10): concrete healthy strict diagonal instantiated (non-empty producer)
+- `ConnesWeilRH/Dev/Wall1HealthyPositive.lean`: wired the closed strict-positive leaf onto the
+  A3 concrete nonzero test. `healthy_strict_positive_diagonal` gives
+    exists u, 0 < real <u, cc20GlobalConvolutionPositive nonzeroTest.test u>
+  on the global log carrier -- a concrete, verified, STRICTLY positive diagonal for the
+  non-empty producer the re-type needs. WSL build green (3179 jobs); #print axioms
+  [propext, Classical.choice, Quot.sound], 0 sorry.
+This is the analytic "non-empty producer" content: the healthy CompactLog HS carrier has a
+concrete nonzero test whose PSD convolution-square quadratic form is genuinely positive.
+RH not claimed; the C1 skeleton re-type (consuming this positive diagonal) remains.
 ## Change Log (2026-08-10): strict positive diagonal PROVEN axiom-clean (strictness seed COMPLETE)
 - `ConnesWeilRH/Dev/Wall1GlobalConvNonzero.lean` now closes the full strictness seed on the healthy
   CompactLog/HS carrier in three axiom-clean leaves:
