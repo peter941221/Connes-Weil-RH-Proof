@@ -1,3 +1,11 @@
+## Change Log (2026-08-10): Wall-A 1.4 Eq.3.7 balance - numeric probe (docs/958)
+
+- Ran docs/proofs/958_wall_a14_arch_probe.py (mpmath, 80dps) on a proxy smooth bump (route commonBump spec).
+  arch(Eq.3.7)=+0.294 (order 1, nonzero); finite side is NOT a clean -> 0 complement in either convention:
+  Connes-log cfg -> ~+0.00004 ({2} only) -> balance != 0; valueAt cfg -> the finite sum diverges
+  (partials 0.55/1.9/4.8/9.1/16/26) for this test.  So SCAL target 2*arch+(global-restricted)=0 is NOT a
+  structural identity here; closing needs the real Weil explicit formula (open analytic). No Lean added.
+  Confirms docs/955/956/957. RH NOT claimed. See docs/proofs/958_wall_a14_arch_balance.md.
 ## Change Log (2026-08-10): Wall-A 1.4 goal marked BLOCKED (analytic half open)
 
 - Route verdict (docs/955): step-1 (Wall-A 1.4 SCAL scalar) is the REQUIRED explicit-formula bridge to the
