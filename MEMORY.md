@@ -1,3 +1,17 @@
+## Change Log (2026-08-10): Wall-A 1.4 goal marked BLOCKED (analytic half open)
+
+- Route verdict (docs/955): step-1 (Wall-A 1.4 SCAL scalar) is the REQUIRED explicit-formula bridge to the
+  finite-prime/arch side; step-2 (Wall-B infinite-carrier gate) is optional for the finite-band Route-A target
+  but needed for a full-RH lift. Recommendation: attack Wall-A 1.4 first (already pinned to one scalar, docs/952-954).
+- Wall-A 1.4: structural half CLOSED and pushed (ScabLhsZero, lhs_zero, scab_target_iff_arch_prime,
+  axiom-clean, docs/956). Analytic half OPEN: the identity
+  compactLogArchimedeanTerm(Convolution f) = -(globalSum-restrictedSum)/2 (CCM25 Eq.3.7 = Weil explicit formula)
+  is genuine new real analysis; docs/957 ruled the arch term is genuinely nonzero on the route common test
+  (can't 0-dodge). Closing it needs real analytic number theory, not Lean assembly; forging forbidden per guard.
+- All prior deliverables pushed (origin/main = 4ad2f98: e99ba6f lane-B, 8e364ea docs/955 mandatory verdict,
+  0270a92 ScabLhsZero, 4ad2f98 docs/957). No further Wall-A file changed this round.
+- RH NOT claimed; RH still needs (a) C1-RH criterion (independent hard step), (b) the arch/prime analytic
+  identity, (c) Gate-3U infinite carrier (Wall-B) + Burnol for a full claim.
 ## Change Log (2026-08-10): Wall-A 1.4 arch 半是真实非零（route ruling，docs/957）
 
 - 判定：totalArchimedean 在 route common 卷上（common*common）非 0（CompactLogTest 只是任意紧支撑 Schwartz test，common-卷积仍紧支撑→有表示），
