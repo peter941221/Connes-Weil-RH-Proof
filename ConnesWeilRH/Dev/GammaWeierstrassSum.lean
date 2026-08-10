@@ -65,6 +65,15 @@ theorem negS_bounds :
     linarith
   · have hS := ConnesWeilRH.Source.Dev.SSandwich.S_ge_half
     linarith
+
+/- The `Real.Angle`-valued Weierstrass phase series converges to `(-S : Real.Angle)`,
+the image of the real `HasSum` under the continuous angle quotient. This is the
+infinite-product-angle value the Gamma hinge (docs/940) needs on its product side. -/
+theorem hasSum_angle_weylArg :
+    HasSum (fun n : Nat => ((WeierstrassFactorArg.weylArgNum (n + 1)) : Real.Angle))
+      ((-ConnesWeilRH.Source.Dev.SSandwich.S : Real) : Real.Angle) := by
+  have h := hasSum_weylArgNum.map Real.Angle.coeHom Real.Angle.continuous_coe
+  simpa [Real.Angle.coe_coeHom] using h
 end GammaWeierstrassSum
 end Dev
 end ConnesWeilRH

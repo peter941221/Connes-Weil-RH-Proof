@@ -1,3 +1,10 @@
+## Change Log (2026-08-10): WeylArg Angle bridge (WSL-verified)
+- GammaWeierstrassSum.lean: added hasSum_angle_weylArg
+  (HasSum (fun n => (weylArgNum(n+1) : Real.Angle)) (-SSandwich.S : Real.Angle))
+  axiom-clean [propext, Classical.choice, Quot.sound], 0 sorry (WSL green).
+  Infinite-product-angle value lift under the continuous Real.Angle quotient;
+  the image Step-3 Gamma hinge (docs/940/941) needs on its product side.
+
 ## Change Log (2026-08-10): negS_bounds numeric bracket (WSL-verified)
 - GammaWeierstrassSum.lean: added negS_bounds
   (-(1/2+1/32) <= -SSandwich.S /\ -SSandwich.S <= -1/2) axiom-clean,
