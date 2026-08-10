@@ -55,3 +55,21 @@ Not a Gale-phase. It is an assembly + re-type seam plus one real positivity theo
 Status: foundation bricks verified green (2704/3154/3153 jobs, axiom-clean).
 This memo records the pivot; the re-type + inhabit blck is the active load-bearing task.
 RH NOT claimed.
+## Axiom-audit confirmation (this session)
+
+Re-verified on fresh cache (seed .lake from the warm base mirror), axiom-clean for
+the positivity seed that anchors `fullWeilPositivity` on the healthy CompactLog HS
+carrier (4 declarations):
+
+    detector_diagonal_re_nonneg / detector_isPositive /
+    detector_re_inner_nonneg / nonzero_hsGate_witness
+      #print axioms  = [propext, Classical.choice, Quot.sound];  0 sorryAx, 0 project axiom.
+    (ConnesWeilRH/Dev/A3NonzeroCompactLogGateProbe.lean, build 3177 jobs green.)
+
+## Honest load-bearing next step (not done here)
+
+Strict diagonal (`exists u, 0 < norm (F u)`) and the C1 re-type+assembly
+(fullWeilPositivity as a real PSD type on the CompactLog carrier, then through
+cc20_proposition_c1_... to the RH bridge) remain OPEN.  The PSD is now verified
+axiom-clean; the window-restriction/injectivity and the multi-module re-type are
+the remaining analytic+engineering brick.  RH NOT claimed.
