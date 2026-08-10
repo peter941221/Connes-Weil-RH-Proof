@@ -4,6 +4,8 @@ import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 import Mathlib.Tactic.Positivity
 import Mathlib.Tactic.FieldSimp
 import Mathlib.Tactic.Linarith
+import Mathlib.Topology.Order.MonotoneConvergence
+import Mathlib.Order.Monotone.Basic
 /-!
 # RealWeierstrassProd: real Weierstrass partial-product skeleton (docs/944)
 
@@ -19,6 +21,8 @@ No claim that the limit equals 1/Gamma; that is the next analytic match.
 Axiom-clean off mathlib foundations. RH NOT claimed.
 -/
 
+
+open Filter
 
 namespace ConnesWeilRH
 namespace Dev
@@ -82,6 +86,24 @@ theorem partialP_mono (hs : 0 <= s) (N : Nat) :
   dsimp [partialP]
   rw [Finset.prod_range_succ]
   simpa [mul_one] using mul_le_mul_of_nonneg_left (webfac_bounds hs N).2 (partialP_pos hs N).le
+/-- The finite partial products form an antitone (non-increasing) sequence. -/
+theorem partialP_ant (hs : (0 : Real) <= s) :
+    Antitone (fun N : Nat => partialP s N) :=
+  antitone_nat_of_succ_le (fun N => partialP_mono hs N)
+
+/-- The finite partial products are bounded below by 0. -/
+theorem partialP_bddBelow (hs : (0 : Real) <= s) :
+    BddBelow (Set.range fun N : Nat => partialP s N) := by
+  refine ⟨0, ?_⟩
+  intro y hy
+  rcases hy with ⟨N, rfl⟩
+  exact (partialP_pos hs N).le
+
+/-- The finite partial Weierstrass products converge to a real limit. -/
+theorem partialP_converges (hs : (0 : Real) <= s) :
+    ∃ L : Real, Tendsto (fun N : Nat => partialP s N) atTop (nhds L) := by
+  exact ⟨sInf (Set.range fun N : Nat => partialP s N),
+    tendsto_atTop_ciInf (partialP_ant hs) (partialP_bddBelow hs)⟩
 end RealWeierstrassProd
 end Dev
 end ConnesWeilRH

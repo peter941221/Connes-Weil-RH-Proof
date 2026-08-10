@@ -4,7 +4,10 @@
   partialP_pos / partialP_le_one / partialP_mono (P_N >0, <=1, non-increasing).
   axiom-clean [propext, Classical.choice, Quot.sound], 0 sorry (WSL green 1916 jobs).
   Skeleton for the real Weierstrass product (limit = 1/Gamma NOT claimed yet);
-  next: brick 3 monotone-convergence Tendsto. RH not claimed.
+  partialP_ant / partialP_bddBelow / partialP_converges (brick 3: the
+  non-increasing bounded-below products converge to a real limit via
+  tendsto_atTop_ciInf). axiom-clean [propext, Classical.choice, Quot.sound],
+  0 sorry (WSL green).  next: identify the limit with 1/Gamma. RH not claimed.
 
 ## Change Log (2026-08-10): Weierstrass product-angle limit (WSL-verified)
 - New ConnesWeilRH/Dev/GammaWeierstrassProdAngle.lean: partialProduct_arg_eq_angle_sum
