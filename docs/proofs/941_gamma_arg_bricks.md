@@ -120,3 +120,11 @@ already tied to `-a`; this lifts the whole sequence to a `HasSum` at `-S`, so th
 series side is fully pinned. The remaining leaf is connecting `Complex.Gamma`'s
 integral to this series (mathlib has no Weierstrass product for Complex.Gamma) -
 the open multi-session analytic hinge (docs/940). RH not claimed.
+
+## 9. Verified: numeric bracket on the phase partial sum (this turn)
+`Dev/GammaWeierstrassSum.lean` adds `negS_bounds` (axiom-clean, WSL green):
+  * `negS_bounds` : `-(1/2+1/32) <= -SSandwich.S <-> SSandwich.S <= -1/2`,
+    i.e. `-S in [-0.53125, -0.5]`, from the closed S-series sandwich.
+Combined with `hasSum` the phase partial-sum is fully pinned; the only remaining
+hinge to `arg(Gamma(1+I/2)) = -gamma/2 - atan(1/2) + S` is connecting Complex.Gamma's
+integral to this series (no Weierstrass product in mathlib) - docs/940. RH not claimed.

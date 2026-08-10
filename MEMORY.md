@@ -1,3 +1,8 @@
+## Change Log (2026-08-10): negS_bounds numeric bracket (WSL-verified)
+- GammaWeierstrassSum.lean: added negS_bounds
+  (-(1/2+1/32) <= -SSandwich.S /\ -SSandwich.S <= -1/2) axiom-clean,
+  WSL green. Concrete numeric bracket on the Weierstrass log-Gamma phase-sum.
+- Committed: c2aa156.
 ## Change Log (2026-08-10): GammaWeierstrassSum hasSum -> -S (WSL-verified)
 - GammaWeierstrassSum.lean: added hasSum_weylArgNum
   (HasSum (fun n => weylArgNum(n+1)) (-SSandwich.S)) axiom-clean
