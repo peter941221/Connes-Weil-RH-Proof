@@ -23,7 +23,17 @@ healthy_scb_arch_zero_of_global_eq_restricted (f) (globalSum restrictedSum)
   ScabPoleArchTarget HealthyArchData.healthySymbols f globalSum restrictedSum <-> arch(f*f) = 0
 ```
 
-where `hfunc` is supplied by `ScabLhsZero.lhs_zero` on the healthy carrier.
+where `hfunc` is supplied by `ScabLhsZero.lhs_zero` on the healthy carrier, plus the
+formal refutation hinge
+
+```
+healthy_target_refuted_of_arch_ne_zero (f) (globalSum restrictedSum)
+  (hsum) (harch : Not (arch(f*f) = 0)) :
+  Not (ScabPoleArchTarget HealthyArchData.healthySymbols f globalSum restrictedSum)
+```
+
+so the whole "Wall-A 1.4 dead/not" decision is pinned on the single scalar
+`arch(f*f) != 0`.
 
 ## Why this collapses the whole Wall-A 1.4 to one scalar
 

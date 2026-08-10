@@ -51,6 +51,27 @@ theorem healthy_scb_arch_zero_of_global_eq_restricted
       (ConnesWeilRH.Source.Dev.ScabLhsZero.healthySymbols) f globalSum restrictedSum hsum
   exact sub_eq_zero.mp (ConnesWeilRH.Source.Dev.ScabLhsZero.lhs_zero f)
 
+
+
+/-- The healthy carrier Wall-A 1.4 balanced target is refuted whenever the
+   archimedean term is non-zero: `arch(f*f) != 0` forces the SCB balance to
+   fail as a true statement.  This is the formal hinge through the healthy
+   reduction; the analytic input `arch(f*f) != 0` (positive Eq.3.7 coefficient
+   + docs/958 probe) is the open bottom that decides the dead/not verdict. -/
+theorem healthy_target_refuted_of_arch_ne_zero
+    (f : TestFunction) (globalSum restrictedSum : Real)
+    (hsum : globalSum = restrictedSum)
+    (harch : Not ((ConnesWeilRH.Source.Dev.ScabLhsZero.healthySymbols).archimedeanTerm
+        ((ConnesWeilRH.Source.Dev.ScabLhsZero.healthySymbols).convolutionStar f f) = 0)) :
+    Not (ScabPoleArchTarget
+        (ConnesWeilRH.Source.Dev.ScabLhsZero.healthySymbols) f
+        globalSum restrictedSum) := by
+  intro htarget
+  have heq : (ConnesWeilRH.Source.Dev.ScabLhsZero.healthySymbols).archimedeanTerm
+        ((ConnesWeilRH.Source.Dev.ScabLhsZero.healthySymbols).convolutionStar f f) = 0 :=
+      (healthy_scb_arch_zero_of_global_eq_restricted f globalSum restrictedSum hsum).mp htarget
+  exact harch heq
+
 end CCM25Concrete
 end Source
 end ConnesWeilRH

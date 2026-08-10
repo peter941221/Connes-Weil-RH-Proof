@@ -6,7 +6,7 @@
   EXACTLY to arch(f*f)=0 (wall14_target_iff_arch_zero_of_global_eq_restricted + healthy composition).
   Evidence (docs/958, mpmath +0.294; positive Eq.3.7 coeff) says arch!=0, so healthy-carrier SCB
   fails; remaining open = Lean proof of arch!=0 (real Eq.3.7 integral, same operator<->scalar seam
-  as docs/963). No RH claim.
+  as docs/963); formal refutation hinge healthy_target_refuted_of_arch_ne_zero added (WSL-green, axiom-clean). No RH claim.
 
 ## Change Log (2026-08-10): AGENTS.md no-stop rule added
 
