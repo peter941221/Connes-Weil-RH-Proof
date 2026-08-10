@@ -109,3 +109,14 @@ phase window. The Gamma-side hinge (`arg(Gamma(1+I/2)) = -gamma/2 - atan(1/2) + 
 connecting `Complex.Gamma`'s integral to this finite/product series) remains the only
 open leaf (docs/940): mathlib has no Weierstrass product for Complex.Gamma, so this
 needs a self-contained in-repo log-Gamma identity.
+
+## 8. Verified: hasSum of the Weierstrass phase series (this turn)
+`Dev/GammaWeierstrassSum.lean` now also proves, axiom-clean
+`[propext, Classical.choice, Quot.sound]`, 0 sorry (WSL green):
+  * `hasSum_weylArgNum` : `HasSum (fun n => weylArgNum(n+1)) (-SSandwich.S)`.
+This is the convergent series side of the Weierstrass log-Gamma phase identity
+(`arg(Gamma(1+I/2)) = -gamma/2 - atan(1/2) + S`). The finite partial sums were
+already tied to `-a`; this lifts the whole sequence to a `HasSum` at `-S`, so the
+series side is fully pinned. The remaining leaf is connecting `Complex.Gamma`'s
+integral to this series (mathlib has no Weierstrass product for Complex.Gamma) -
+the open multi-session analytic hinge (docs/940). RH not claimed.

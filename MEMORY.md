@@ -1,3 +1,10 @@
+## Change Log (2026-08-10): GammaWeierstrassSum hasSum -> -S (WSL-verified)
+- GammaWeierstrassSum.lean: added hasSum_weylArgNum
+  (HasSum (fun n => weylArgNum(n+1)) (-SSandwich.S)) axiom-clean
+  [propext, Classical.choice, Quot.sound], 0 sorry (WSL green 2641 jobs).
+  Convergent series-side backbone of the Weierstrass log-Gamma phase (docs/940).
+  Gamma integral -> product hinge stays open. RH not claimed.
+- Committed: d1a9bb2.
 ## Change Log (2026-08-10): canonical Step-3 finite-S sign CLOSED (route verdict)
 - Verified axiom-clean (spot-audit, WSL): detector_diagonal_re_nonneg /
   detector_isPositive / detector_re_inner_nonneg (A3NonzeroCompactLogGateProbe),
