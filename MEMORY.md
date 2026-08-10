@@ -1,3 +1,13 @@
+## Change Log (2026-08-10): canonical Step-3 finite-S sign CLOSED (route verdict)
+- Verified axiom-clean (spot-audit, WSL): detector_diagonal_re_nonneg /
+  detector_isPositive / detector_re_inner_nonneg (A3NonzeroCompactLogGateProbe),
+  healthy_strict_positive_diagonal (Wall1HealthyPositive), weilStateNonempty /
+  concrete_c1_input_nonempty_exists (WeilC1NonEmptyProducer). Axioms
+  [propext, Classical.choice, Quot.sound], 0 sorry. Step-3 finite-S sign closed
+  on canonical CompactLog/A3; Gamma-arg route (docs/940/941) is redundant sibling.
+- New docs/proofs/942_step3_finite_gate_closed.md; AGENTS.md route-verdict paragraph.
+  Remaining open (not Lean-assembly leaf): RH-equivalent C1-SourceRH criterion,
+  Gate-3U infinite carrier, Burnol identity. RH not claimed.
 ## Change Log (2026-08-10): Gamma-Weierstrass partial-sum bridge (WSL-verified)
 - New ConnesWeilRH/Dev/GammaWeierstrassSum.lean: weylArgNum_eq_neg_a
   (weylArgNum(n+1) = -SSandwich.a n) and weylArgNum_range_eq_neg_sum

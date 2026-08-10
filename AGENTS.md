@@ -118,6 +118,17 @@ biorthogonality `J†∘D=id` 强制 `‖D‖≥1`，而
 forward+physical cancellation** 等价起来。故此右腿底是 Proof 717，不是 HS 机器可独立封的
 新量。See `docs/proofs/gate3u-right-energy-leakage-norm-bottom.md`.
 
+**【2026-08-10，route verdict：canonical Step-3 finite-S sign CLOSED axiom-clean】**
+Step-3 的 finite-S sign 在 **canonical CompactLog/A3** 载体上已 axiom-clean 闭合
+（docs/942，`[propext, Classical.choice, Quot.sound]`, 0 sorry）：
+`detector_diagonal_re_nonneg` / `detector_isPositive` / `detector_re_inner_nonneg`
+（`A3NonzeroCompactLogGateProbe`），`healthy_strict_positive_diagonal`
+（`Wall1HealthyPositive`），以及 `weilStateNonempty` / `concrete_c1_input_nonempty_exists`
+（`WeilC1NonEmptyProducer`）给出 concrete 非空 C1/Weil producer。Gamma-arg 支路
+（`Dev/GammaArg*`，docs/940/941/942）是 **redundant sibling**，只给出
+`Re[Gamma(1+i/2)^4]>=0`，非 canonical gate 所需。真正剩余（非 Lean-assembly leaf）：
+RH 等价 Source-criterion（C1-`SourceRH` 等价）与 Gate-3U infinite carrier、Burnol。
+
 `finite-S` sign, Burnol's identity, and RH stay open.
 
 **【决定性 apex 空根（2026-08-05，closure audit，已精修）】** 在打 RH 骨架
@@ -671,4 +682,3 @@ the axiom is "removed". Do not list C1-sign or Yoshida polarity under "provable 
 Full inventory + four-lane classification (R / A / B / C): `docs/proofs/887_rh_axiom_ledger.md`.
 `#print axioms` hook for the skeleton output (when built): a module + `#print axioms` on
 `rhDefinitionBridgeToMathlibFromTheorems`; expected output still lists the `...Root` axioms.
-
