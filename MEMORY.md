@@ -1,3 +1,10 @@
+## Change Log (2026-08-10): consolidated wall ledger (docs/963)
+
+- docs/963 ties Wall-A 1.4, Gate-3U, and C1 to ONE shared operator<->scalar seam on
+  the healthy carrier.  Closed ledger: A3 finite-S sign + Gamma/arch sign + ScabLhsZero
+  + finite-band Gate (all axiom-clean).  Open = the RH-equivalent C1 criterion (not an
+  assembly leaf), the Wall-A arch half (+0.588 residual), Gate-3U infinite + Burnol.
+  No new theorem.  Ought to stop re-deriving the same wall; RH not claimed.
 ## Change Log (2026-08-10): Option-2 healthy CC20TestSpace - not a cheap closure (docs/962)
 
 - Design: weilLocalSum := -Re<.,detector .> on the healthy crossing space would make
