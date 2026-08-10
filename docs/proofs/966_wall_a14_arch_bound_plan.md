@@ -89,3 +89,52 @@ best run as a dedicated follow-up.
    `healthy_target_refuted_of_arch_ne_zero`.
 
 RH not claimed.  Cross refs: docs/965, 963, 964, 958.
+## UPDATE (2026-08-10): numeric evidence for the exact witness — target is REAL and positive
+
+Verified with probe `docs/proofs/967_wall_a14_witness_arch_probe.py`
+(FFT convolution of `smoothTransition(2-2|x|)`, exact tail antiderivative):
+
+```
+A  = (f*f)(0) = ||f||^2     = 1.405705
+C  = log(4*pi)+gamma         = 3.108240
+I(0..R)  R=2 (compact part)  = -0.672917
+I(tail, y>2, exact)          = -0.765664   (= 2*A*ln tanh(R/2))
+I total                      = -1.438580
+arch = C*A + I               = +2.930689   (> 0)
+|I|/A                        = 1.0234      (need < C = 3.1082)
+headroom C*A - |I|           = +2.930689
+```
+
+So the single surviving scalar is NOT borderline: on the exact lean witness the
+arch term is `+2.93`, and an integral bound `|I| < C*A` (headroom ~3x) suffices
+to conclude `arch > 0 != 0` and feed `healthy_target_refuted_of_arch_ne_zero`.
+
+### Sharpened 3-term split (replaces the crude 2-part split)
+
+`arch = C*A + I` with
+
+    I = 2*Int_0^R ( e^(y/2) r(y) - A )/(e^y - e^(-y)) dy
+        + 2*A*ln(tanh(R/2))                       (exact tail, r=0 for y>R)
+
+Near 0 the integrand has the removable limit `A/2` (proved `tendsto_*_nhdsGT`),
+so there is no singularity; the integrand is continuous on `(0,inf)`.  Split the
+compact part at the crossover `y0` where `r(y) = A*e^(-y/2)`:
+
+- `I_+` on `[0,y0]` (integrand >= 0, bounded by ~A): easy, no pointwise decay.
+- `I_-` on `[y0,R]` (integrand < 0): bound by
+  `2/ Int_{y0}^R A/(e^y - e^(-y)) = -2*A*[ ln(tanh(R/2)) - ln(tanh(y0/2)) ]`
+  (needs only a LOWER bound on `y0`, i.e. how long `r(y) >= A*e^(-y/2)`).
+
+Total need: `|I| < C*A`; measured headroom `C*A - |I| = +2.93`.  A pointwise
+`r(y) >= A*e^(-y/2)` on `[0,y0]` for even `y0=0.2..0.5` plus the exact tail would
+close this entirely, without any smooth-bump internals of `ContDiffBump`.
+
+### Concrete recommendation (revised)
+
+Prefer proving the two easy facts at the exact witness (no new bump needed):
+1. `(f*f)(0) = ||f||^2` and `||f||^2 >= A0 > 0` via `f >= 1/e` on `[-1/2,1/2]`
+   (the bump is `= 1` there; only `f > 0` and `f >= 1/e` midpoint must be shown).
+2. `tendsto_archimedeanNumeratorRe_div_denominator_nhdsGT` gives the removable
+   limit `A/2` at 0; wire `Integrable` + `integral_add` to bring the split
+   `[0,y0]`, `[y0,R]`, tail into three provable pieces.
+Then a single real-arithmetic check `|I| < C*A` closes wall-A 1.4. RH not claimed.

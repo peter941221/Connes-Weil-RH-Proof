@@ -1,3 +1,14 @@
+## Change Log (2026-08-10): Wall-A 1.4 residual — numeric evidence arch=+2.93 (docs/966 update + probe 967)
+
+- Verified on the EXACT witness (unitFourierCoreBump = smoothTransition(2-2|x|)):
+  arch = C*A + I = 3.108*1.4057 - 1.4386 = +2.93 > 0, with |I|/A = 1.02 << C = 3.11
+  (probe docs/proofs/967_wall_a14_witness_arch_probe.py: FFT conv + exact tail
+  2*A*ln tanh(R/2), R=2).  So the one surviving scalar is NOT borderline; a bound
+  |I| < C*A (3x headroom) closes the wall.  docs/966 sharpened to a 3-term split:
+  removable limit A/2 at 0 (tendsto_*_nhdsGT), crossover y0 where r(y)=A*e^(-y/2),
+  exact tail.  No new bump internals needed; only (f*f)(0)=||f||^2 > 0 + the
+  integral split into three provable pieces, then real-arithmetic |I| < C*A.
+  RH not claimed.
 ## Change Log (2026-08-10): Wall-A 1.4 kill verdict (docs/965) + residual arch-bound plan (docs/966)
 
 - docs/965 consolidates the Wall-A 1.4 dead verdict on the healthy carrier: the whole balance
