@@ -138,3 +138,29 @@ Prefer proving the two easy facts at the exact witness (no new bump needed):
    limit `A/2` at 0; wire `Integrable` + `integral_add` to bring the split
    `[0,y0]`, `[y0,R]`, tail into three provable pieces.
 Then a single real-arithmetic check `|I| < C*A` closes wall-A 1.4. RH not claimed.
+
+## UPDATE 2 (2026-08-10): three-piece split numerics + first Lean target (probe 968)
+
+Probe docs/proofs/968_wall_a14_split_probe.py fixes the per-piece magnitudes:
+
+| piece | interval          | |I|/A | note |
+|-------|-------------------|-------|------|
+| +ve   | [0, y0]           | 0.061 | y0 ~ 0.274 (crossover r(y)=A e^-y/2) |
+| -ve   | [y0, R=2]         | 0.539 | max|integrand|/A ~ 0.44 |
+| tail  | y > 2             | 0.545 | EXACT = -2A ln tanh(R/2) |
+| total |                   | 1.023 | need < C = 3.108 (headroom 2.93) |
+
+So the closure only needs a rather loose `|I| < C*A`; a uniform bound |I| <= K*A
+with any K < 3.11 suffices.  The hard part is the middle (-ve) piece [y0,R],
+which needs a genuine pointwise lower bound on r(y)=Re(f*f)(y) (taking r(y)=0
+there over-shoots: 2A*ln(tanh(y0/2))-ln(...)... ~ 3.4A > C).
+
+### First-step Lean target (tractable, near-zero)
+For the near [0,y0:] the integrand has removable limit A/2 at 0
+(SelectedArchimedeanIntegrability.tendsto_archimedeanIntegrand_nhdsGT) and is
+continuous on Ioi(0); a continuity+Nhds bound gives |integrand| <= C0*A on
+[0,delta].  This alone bounds the small +ve piece.  The decisive -ve [y0,R]
+piece needs the genuinely-new pointwise r(y) >= A e^(-y/2) for y <= y0 plus a
+decaying lower bound beyond.
+
+RH not claimed.

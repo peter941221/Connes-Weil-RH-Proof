@@ -1,3 +1,11 @@
+## Change Log (2026-08-10): Wall-A 1.4 hI leaf - three-piece split numerics (docs/966 update + probe 968)
+
+- Probe 968 fixes |I|/A pieces at the unit bump: +ve [0,y0~0.274]=0.061,
+  -ve [y0,2]=0.539, tail(y>2)=0.545 exact 2A ln tanh(R/2); total |I|/A=1.023 < C=3.11,
+  headroom 2.93.  So a loose |I|<C*A suffices (any K<3.11).  The decisive open
+  step is a pointwise lower bound on r(y)=Re(f*f)(y) for the -ve middle [y0,R]
+  (concretize r(y)>=A e^-y/2 on [0,y0] + decay beyond); near-zero [0,y0] is
+  tractable via tendsto_archimedeanIntegrand_nhdsGT (removable A/2 limit). RH not claimed.
 ## Change Log (2026-08-10): Wall-A 1.4 sufficiency closed axiom-clean (Dev/Wall14ArchSufficiency.lean)
 
 - New module proves axiom-clean (WSL green, #[propext, Classical.choice, Quot.sound], 0 sorry):
