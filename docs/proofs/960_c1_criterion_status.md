@@ -50,3 +50,30 @@ difference is only the carrier, not the effort.  RH NOT claimed.
 - Do NOT spend a heat build proving C1 against the normalized concrete model (it is
   refuted).  The lever is the healthy HS carrier version of the criterion plus the
   detector, i.e. the same re-framing the Wall-A arch already points at.
+
+## Upgrade (same date): the `normalizedCC20` "refutation" is an additive-model artifact
+
+Reading the source of the negation chain (CC20YoshidaConstruction.lean) more
+carefully, the counterexample is CONDITIONAL and lives inside the broken
+additive model:
+
+- `concreteYoshidaMomentData_weilLocalSum_positive` assumes
+  `ConcreteYoshidaMomentData rho g` (an off-line nontrivial-zero datum) with
+  Mellin values set to -1 at +/-I/2, and routes the sign through the additive
+  normalized `polePairing_eq_mellin_convolutionSquare_half_sum`.
+- `concreteYoshidaMomentData_halfDensityPoleSum_negative` then reads the
+  double convolution-square at +/-I/2 -> negative, using TWO applications of the
+  additive `convolutionSquare` (g convolved twice).
+
+So `not_normalizedCC20FiniteVanishingWeilCriterion` is NOT a genuine
+falsification of the C1 criterion.  It lives in the same additive normalized
+model where the known `M(conv^2)=2*M(g)` linearization bug (docs/850, AGENTS
+lines) forces the +/-I/2 sign to be negative when it is flat/free.  The proper
+multiplicative+HS CompactLog carrier (where the sign is closed, docs/942, 850)
+is exactly the carrier on which this artifact disappears.
+
+Therefore the C1 lane is OPEN on the healthy CompactLog HS carrier (the
+criterion is neither proved nor truly refuted).  The `not_normalized...`
+negation is a *model artifact*, not a mathematical falsification.  This
+re-aligns docs/960's earlier "REFUTED" phrasing: the honest status is "open on
+the healthy carrier; additive carrier's negation is an artifact."

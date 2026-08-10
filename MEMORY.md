@@ -1,3 +1,12 @@
+## Change Log (2026-08-10): C1 audit upgrade - normalized negation is an additive-model artifact (docs/960)
+
+- Correction to docs/960: 
+ot_normalizedCC20FiniteVanishingWeilCriterion is a CONDITIONAL
+  counterexample inside the broken additive model (assumes off-line moment-datum rho, two
+  additive convolutionSquares -> +/-I/2 negative), NOT a real falsification of C1.  The
+  proper CompactLog HS carrier is where the sign is closed (docs/942/850), so the C1
+  criterion is OPEN there, not refuted-in-reality.  Honest bottom stands: C1 input done;
+  the scalar Weil-positivity/finite-S criterion is unproven on the healthy carrier.
 ## Change Log (2026-08-10): C1-RH criterion status - input data done, criterion open (docs/960)
 
 - Audit: C1 input DATA already axiom-clean (Dev/WeilC1NonEmptyProducer on the healthy HS
