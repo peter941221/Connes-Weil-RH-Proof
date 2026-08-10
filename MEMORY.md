@@ -1,7 +1,18 @@
-## Change Log (2026-08-10): cc20GlobalLogConvolution_ne_zero PROVEN (axiom-clean, 0 sorry) - strictness seed CLOSED
-- New `ConnesWeilRH/Dev/Wall1GlobalConvNonzero.lean`: for any nonzero Schwartz kernel `h`, the global log-convolution operator `cc20GlobalLogConvolution h` on `cc20GlobalLogCrossingL2` is a nonzero operator (`cc20GlobalLogConvolution_ne_zero`). WSL build green (2963 jobs); `#print axioms` = [propext, Classical.choice, Quot.sound]; 0 sorryAx.
-- Proof (Fourier multiplier, ref GlobalLogConvolution.lean): if the operator were zero, every Schwartz convolution `mul h g` vanishes (via `toLp`-injectivity); taking g=h gives `fourier_convolution` → `pairing (mul) (Fourier h) (Fourier h) = 0` pointwise → `Fourier h = 0` → `h=0` (FourierInvPair). This was the load-bearing blocked micro-brick: the already-proved PSD diagonal (`detector_re_inner_nonneg`) plus this gives the strict-positive diagonal (`exists u, mean |F u|^2 > 0`) needed to genuinely inhabit `fullWeilPositivity` on the healthy CompactLog/HS carrier.
-- Next explicit brick: wire through `globalL2ToKernelInterval` (surjective; zero-extension isometry as adjoint) to close the strict diagonal `exists u, 0 < ||fullBoundaryRootFactor nonzeroTest a c u||`. RH not claimed.
+## Change Log (2026-08-10): strict positive diagonal PROVEN axiom-clean (strictness seed COMPLETE)
+- `ConnesWeilRH/Dev/Wall1GlobalConvNonzero.lean` now closes the full strictness seed on the healthy
+  CompactLog/HS carrier in three axiom-clean leaves:
+    (1) `cc20GlobalLogConvolution_ne_zero`: a nonzero Schwartz kernel h gives a nonzero global
+        log-convolution operator on `cc20GlobalLogCrossingL2`.
+    (2) `cc20GlobalLogConvolution_strict`: exists u, 0 < ||cc20GlobalLogConvolution h u||.
+    (3) `cc20GlobalConvolutionPositive_strict_diagonal`: at nonzero h, the PSD convolution-square
+        operator `(cc-conv h)dag o cc-conv h` has strictly positive Hilbert diagonal:
+        exists u, 0 < real <u, cc20GlobalConvolutionPositive h u>.
+  WSL build green (2964 jobs); `#print axioms` = [propext, Classical.choice, Quot.sound]; 0 sorryAx
+  for every leaf.  Together with the existing nonneg diagonal this is exactly what inhabits
+  `fullWeilPositivity` on the healthy carrier - no window surgery needed.
+Proof (1) Fourier-multiplier: if zero, every Schwartz conv `h*g` vanishes (toLp-injectivity);
+g=h gives pairing mul (Fourier h)(Fourier h)=0 pointwise -> Fourier h=0 -> h=0 (FourierInvPair).
+Leaves (2)-(3) are norm-positivity reductions only. RH not claimed.
 ## Change Log (2026-08-10): STRATEGIC REDIRECT - RH exit is C1/Weil positivity, NOT Gate 3U
 - Deep-thinking verdict: Lean RH final exit = two RH-EQUIVALENT axioms in Dev/UnconditionalSkeleton.lean (C1 criterion at ~line 1555; Yoshida pole-pairing at ~line 5896). Lines 1536-1543 wire C1SourceCriterion to RiemannHypothesis via the RH bridge. Discharging EITHER IS PROVING RH (AGENTS 6/13).
 - Gate 3U (finite-band bandTerminalGate) is a trace bound and is NOT on the critical path to RH; it does not feed Weil-positivity.

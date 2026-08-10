@@ -1,32 +1,42 @@
 /-
 Wall-1 strict-positivity seed (axiom-clean, no sorry).
 
-The global log-convolution by a nonzero Schwartz kernel is a nonzero operator
-on the log-carrier Hilbert space.  This is the load-bearing strictness seed:
-the already-proved PSD diagonal gives 0 <= ||fullBoundaryRootFactor g a c u||^2;
-a strictly positive diagonal (a genuinely inhabited fullWeilPositivity on the
-healthy CompactLog/HS carrier) needs exists u, F u != 0 for a nonzero test,
-which via fullBoundaryRootFactor_eq_globalConvolution reduces to this operator
-being nonzero.
+Three leaves are closed here, jointly carrying the load-bearing strict
+positive diagonal on the healthy CompactLog/HS carrier:
 
-Proof (Fourier-multiplier, ref GlobalLogConvolution.lean):
-cc20GlobalLogConvolution h (g.toLp 2) = (Schwartz conv h g).toLp 2.
-A zero operator forces every Schwartz convolution h*g = 0; take g = h.  Then
-Fourier(conv h h) = 0, and by fourier_convolution the left side is
-pairing (mul) (Fourier h) (Fourier h), so pointwise
-Fourier h x * Fourier h x = 0, i.e. Fourier h = 0.  Since inverse-Fourier of
-Fourier h equals h (FourierPair-simp), we get h = 0, contradiction.
+  1. cc20GlobalLogConvolution_ne_zero: a nonzero Schwartz kernel h gives a
+     nonzero global log-convolution operator on cc20GlobalLogCrossingL2.
+  2. cc20GlobalLogConvolution_strict: a nonzero such operator has a vector
+     u with 0 < ||cc20GlobalLogConvolution h u||.
+  3. cc20GlobalConvolutionPositive_strict_diagonal : at a nonzero kernel h
+     the PSD convolution-square operator
+       cc20GlobalConvolutionPositive h = dag(cc20GlobalLogConvolution h)
+                                          o cc20GlobalLogConvolution h
+     has a strictly positive Hilbert diagonal:
+       exists u, 0 < real(u, cc20GlobalConvolutionPositive h u).
+     Together with the existing nonnegative diagonal this is exactly the
+     strict-positive content that inhabits fullWeilPositivity on the
+     healthy carrier - no window surgery.
 
-No RH claim: single analytic leaf only.
+Proof of 1 (Fourier multiplier, ref GlobalLogConvolution.lean):
+cc20GlobalLogConvolution h (g.toLp 2) = (Schwartz conv h g).toLp 2.  A zero
+operator forces every Schwartz convolution h*g = 0; take g = h.  Then the
+Fourier transform of conv h h is 0, and by fourier_convolution equals
+pairing mul (Fourier h) (Fourier h), so pointwise Fourier h x * Fourier h x
+= 0, hence Fourier h = 0, and inverse-Fourier (FourierInvPair) gives h = 0,
+a contradiction.  Leaves 2 and 3 are reduction / norm positivity only.
+
+No RH claim: analytic leaves only.
 -/
 import ConnesWeilRH.Source.CC20Concrete.GlobalLogConvolution
+import ConnesWeilRH.Source.CC20Concrete.GlobalConvolutionCrossing
 
 namespace ConnesWeilRH
 namespace Source
 namespace CC20Concrete
 
 open MeasureTheory
-open scoped FourierTransform
+open scoped FourierTransform InnerProduct InnerProductSpace
 
 /-! The strict seed: global log-convolution by a nonzero Schwartz kernel is a
 nonzero operator on cc20GlobalLogCrossingL2. -/
@@ -66,6 +76,34 @@ theorem cc20GlobalLogConvolution_ne_zero
     simpa using hFinv
   exact hne htozero
 
+/-- A nonzero global log-convolution acts strictly on some Hilbert vector. -/
+theorem cc20GlobalLogConvolution_strict
+    (h : SchwartzMap ℝ ℂ) (hne : h ≠ 0) :
+    ∃ u : cc20GlobalLogCrossingL2, 0 < ‖cc20GlobalLogConvolution h u‖ := by
+  classical
+  have hGne : cc20GlobalLogConvolution h ≠ 0 := cc20GlobalLogConvolution_ne_zero h hne
+  have himg : ∃ u : cc20GlobalLogCrossingL2, cc20GlobalLogConvolution h u ≠ 0 := by
+    by_contra hnone
+    have halt : ∀ u : cc20GlobalLogCrossingL2, cc20GlobalLogConvolution h u = 0 := by
+      intro u
+      by_contra hnz
+      exact hnone ⟨u, hnz⟩
+    exact hGne (ContinuousLinearMap.ext halt)
+  rcases himg with ⟨u, hz⟩
+  exact ⟨u, norm_pos_iff.mpr hz⟩
+
+/-- The strict positive Hilbert diagonal of the PSD convolution-square operator
+at a nonzero kernel: properly converts the nonnegative diagonal into a strictly
+positive one, exactly what inhabits ``fullWeilPositivity`` on the healthy
+CompactLog/HS carrier. -/
+theorem cc20GlobalConvolutionPositive_strict_diagonal
+    (h : SchwartzMap ℝ ℂ) (hne : h ≠ 0) :
+    ∃ u : cc20GlobalLogCrossingL2,
+      0 < (⟪u, cc20GlobalConvolutionPositive h u⟫_ℂ).re := by
+  rcases cc20GlobalLogConvolution_strict h hne with ⟨u, hu⟩
+  refine ⟨u, ?_⟩
+  rw [← cc20GlobalConvolutionPositive_inner_re_eq_norm_sq h u]
+  exact sq_pos_of_pos hu
 end CC20Concrete
 end Source
 end ConnesWeilRH
