@@ -1,3 +1,10 @@
+## Change Log (2026-08-10): Wall-A 1.4 arch 半是真实非零（route ruling，docs/957）
+
+- 判定：totalArchimedean 在 route common 卷上（common*common）非 0（CompactLogTest 只是任意紧支撑 Schwartz test，common-卷积仍紧支撑→有表示），
+  故 Wall-A 1.4 的 arch/素数差关系（2*total+ (global-restricted)=0）不能在 common 上用"arch=0"伪闭合；
+  闭合它必须验证 genuine analytic 恒等式 compactLogArchimedeanTerm(convolution)=-(global-restricted)/2（=Weil 显式公式，真实解析）。
+  结构性半已闭环（ScabLhsZero，docs/956）；解析半 open。RH 不声明。见 docs/proofs/957。
+
 ## Change Log (2026-08-10): Wall-A 1.4 先半边结构性归零（ScabLhsZero，axiom-clean）
 
 - New ConnesWeilRH/Dev/ScabLhsZero.lean：证明 SCB/SCA 目标 LHS（poleFunctional(convolution)-polePairing(f)）结构上恒为 0
