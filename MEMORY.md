@@ -1,3 +1,10 @@
+## Change Log (2026-08-10): C1 precision - the criterion has no healthy CC20TestSpace instance yet (docs/960)
+
+- CC20FiniteVanishingWeilCriterion ranges over a CC20TestSpace C; the repo only has the
+  normalizedCC20 instance (weilLocalSum = -polePairing, additive).  The healthy operator-diagonal
+  carrier (cc20GlobalLogCrossingL2) is NOT a CC20TestSpace, so the criterion doesn't range over it.
+  Closing C1 needs a healthy CC20TestSpace whose weilLocalSum(starConvolution g) <= 0 is a theorem.
+  Input witness (fullWeilPositivity nonempty) does NOT imply the criterion.  RH not claimed.
 ## Change Log (2026-08-10): C1 audit upgrade - normalized negation is an additive-model artifact (docs/960)
 
 - Correction to docs/960: 

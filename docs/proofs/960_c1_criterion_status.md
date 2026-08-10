@@ -77,3 +77,19 @@ criterion is neither proved nor truly refuted).  The `not_normalized...`
 negation is a *model artifact*, not a mathematical falsification.  This
 re-aligns docs/960's earlier "REFUTED" phrasing: the honest status is "open on
 the healthy carrier; additive carrier's negation is an artifact."
+
+## Precision (same date): the criterion has no healthy-carrier instance yet
+
+`CC20FiniteVanishingWeilCriterion` ranges over a `CC20TestSpace C`, and the only
+concrete such space in the repo is `normalizedCC20TestSpace`, whose
+`weilLocalSum = fun g => -polePairing g` (additive-model pole at +/-I/2).  The
+healthy carrier that carries the operator-positive diagonal
+(`cc20GlobalLogCrossingL2`, `cc20GlobalConvolutionPositive` / `nonzeroTest`) is a
+DIFFERENT object; it is not a `CC20TestSpace` with a `weilLocalSum`, so the
+criterion does not currently range over it.
+
+Hence to close C1 one must either (a) give a `CC20TestSpace` instance on a
+healthy carrier whose `weilLocalSum(starConvolution g) <= 0` is a theorem, or
+(b) find another carrier.  Merely having the input witness (`fullWeilPositivity`
+nonempty) on the L2 healthy carrier does NOT imply the criterion on a
+`CC20TestSpace`.  This is the precise open seam for C1.
