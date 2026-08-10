@@ -1,3 +1,12 @@
+## Change Log (2026-08-10): Wall-A 1.4 kill verdict (docs/965) + residual arch-bound plan (docs/966)
+
+- docs/965 consolidates the Wall-A 1.4 dead verdict on the healthy carrier: the whole balance
+  is now ONE open scalar arch(f*f)=0, all Lean-assemblable layers closed axiom-clean and pushed
+  (wall14_reduction + healthy_target_refuted_of_arch_ne_zero + Wall14SelfTestWitness). Evidence
+  (docs/958, arch=+0.294) refutes arch=0, so the only surviving step is proving arch(witness^2)!=0
+  (the Eq.3.7 archimedean integral, same operator<->scalar seam as the RH-equivalent C1 criterion).
+  docs/966 is the专项 route: tail (y>=R) closed-form integral, near part needs an explicit
+  self-controlled bump (exp(-1/(1-x^2))); recommended as a dedicated dense session. RH not claimed.
 ## Change Log (2026-08-10): Wall-A 1.4 reduces to clean scalar arch(f*f)=0 (docs/964)
 
 - ConnesWeilRH/Dev/Wall14ArchReduction.lean proves axiom-clean (WSL-green 2961 jobs,
