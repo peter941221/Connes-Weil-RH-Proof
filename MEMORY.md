@@ -1,3 +1,11 @@
+## Change Log (2026-08-10): Weierstrass product-angle limit (WSL-verified)
+- New ConnesWeilRH/Dev/GammaWeierstrassProdAngle.lean: partialProduct_arg_eq_angle_sum
+  (arg of finite Weierstrass partial product = sum of per-factor weylArgNum angles)
+  and tendsto_product_angle_arg (the partial-product argument -> -SSandwich.S in
+  Real.Angle as N->inf). axiom-clean [propext, Classical.choice, Quot.sound],
+  0 sorry (WSL green 2642 jobs). PRODUCT-side limit of the Gamma-phase hinge
+  (docs/940/941); the Gamma-integral connection stays the open analytic leaf. RH not claimed.
+
 ## Change Log (2026-08-10): WeylArg Angle bridge (WSL-verified)
 - GammaWeierstrassSum.lean: added hasSum_angle_weylArg
   (HasSum (fun n => (weylArgNum(n+1) : Real.Angle)) (-SSandwich.S : Real.Angle))

@@ -128,3 +128,15 @@ the open multi-session analytic hinge (docs/940). RH not claimed.
 Combined with `hasSum` the phase partial-sum is fully pinned; the only remaining
 hinge to `arg(Gamma(1+I/2)) = -gamma/2 - atan(1/2) + S` is connecting Complex.Gamma's
 integral to this series (no Weierstrass product in mathlib) - docs/940. RH not claimed.
+
+## 10. Verified: Weierstrass partial-product angle limit (this turn)
+`Dev/GammaWeierstrassProdAngle.lean` (new, axiom-clean `[propext, Classical.choice,
+Quot.sound]`, 0 sorry, WSL green 2642 jobs) closes the PRODUCT-side of the hinge:
+  * `partialProduct_arg_eq_angle_sum N` : arg of the finite Weierstrass partial
+    product = sum of the per-factor `weylArgNum` angles (indexed over range N).
+  * `tendsto_product_angle_arg` : the partial-product argument (in `Real.Angle`)
+    tends to `-SSandwich.S` as N -> +inf.
+So both the series side (`hasSum_weylArgNum`) and the finite-product side now tend
+to the same -S. The remaining open leaf is connecting `Complex.Gamma`'s integral
+to this product/series (mathlib has no Weierstrass product for Complex.Gamma) -
+the multi-session analytic hinge (docs/940). RH not claimed.
