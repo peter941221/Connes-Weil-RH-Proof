@@ -1,3 +1,12 @@
+## Change Log (2026-08-10): Wall-A 1.4 pairing spec - convention reframe NOT sufficient (docs/959)
+
+- Docs/959 ruling: the SCB miss is NOT a finite-pairing convention bug (valueAt diverges,
+  Connes-log leaves +0.588 residual and still needs an extra term).  Root cause = the model
+  omits the ~+0.588 explicit-formula/non-trivial-zero term; a pure re-frame (docs/958 path A)
+  would still assert a false equality. Real step is (a) prove the full Weil zero-sum balance,
+  or (b) go to the C1 criterion. arch leading term positivity ((log4pi+gamma)|f|^2 >0) is
+  rigorous for any nonzero compact test, so the verdict is robust. Numerics = proxy evidence.
+  RH not claimed.
 ## Change Log (2026-08-10): Wall-A 1.4 Eq.3.7 balance - numeric probe (docs/958)
 
 - Ran docs/proofs/958_wall_a14_arch_probe.py (mpmath, 80dps) on a proxy smooth bump (route commonBump spec).
@@ -1155,3 +1164,11 @@ is the `¥ f g lambda hlambda` finite-prime arithmetic family, built on
 built on the current concrete carrier.  L657/A roots back to the source-convolution
 redefinition (the AGENTS '复合 carrier需重定义' root), not to a missing seam.  Forcing it
 would be unsound. RH unclaimed.
+- Docs/959 ruling: the SCB miss is NOT a finite-pairing convention bug (valueAt diverges,
+  Connes-log leaves +0.588 residual and still needs an extra term).  Root cause = the model
+  omits the ~+0.588 explicit-formula/non-trivial-zero term; a pure re-frame (docs/958 path A)
+  would still assert a false equality. Real step is (a) prove the full Weil zero-sum balance,
+  or (b) go to the C1 criterion. arch leading term positivity ((log4pi+gamma)|f|^2 >0) is
+  rigorous for any nonzero compact test, so the verdict is robust. Numerics = proxy evidence.
+  RH not claimed.
+
