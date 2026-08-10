@@ -1,3 +1,11 @@
+## Change Log (2026-08-10): RealWeierstrassProd bricks 1-2 (WSL-verified)
+- New ConnesWeilRH/Dev/RealWeierstrassProd.lean (lane (a) Gamma developable, docs/944):
+  factorScale/webfac/partialP defs; webfac_bounds (0 < w(n) <= 1 for 0<=s),
+  partialP_pos / partialP_le_one / partialP_mono (P_N >0, <=1, non-increasing).
+  axiom-clean [propext, Classical.choice, Quot.sound], 0 sorry (WSL green 1916 jobs).
+  Skeleton for the real Weierstrass product (limit = 1/Gamma NOT claimed yet);
+  next: brick 3 monotone-convergence Tendsto. RH not claimed.
+
 ## Change Log (2026-08-10): Weierstrass product-angle limit (WSL-verified)
 - New ConnesWeilRH/Dev/GammaWeierstrassProdAngle.lean: partialProduct_arg_eq_angle_sum
   (arg of finite Weierstrass partial product = sum of per-factor weylArgNum angles)
