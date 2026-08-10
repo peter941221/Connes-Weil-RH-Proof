@@ -1,5 +1,7 @@
 import ConnesWeilRH.Dev.GammaArgProd
 import ConnesWeilRH.Dev.SSeriesSandwich
+import Mathlib.Topology.Algebra.InfiniteSum.Basic
+import Mathlib.Topology.Algebra.InfiniteSum.Real
 /-!
 # GammaWeierstrassSum: finite product-angle partial sums (docs/941, Step-3)
 
@@ -39,6 +41,20 @@ theorem weylArgNum_range_eq_neg_sum (N : Nat) :
     _ = -(Finset.sum (Finset.range N) fun n => ConnesWeilRH.Source.Dev.SSandwich.a n) :=
           by rw [Finset.sum_neg_distrib]
 
+
+
+/- The per-factor argument sequence converges (in `Real`) to `-S`, the negative
+of the closed `S`-series sum; this is the limit the Weierstrass log-Gamma phase
+hinge (docs/940) needs on its series side. -/
+theorem hasSum_weylArgNum :
+    HasSum (fun n : Nat => WeierstrassFactorArg.weylArgNum (n + 1))
+      (-ConnesWeilRH.Source.Dev.SSandwich.S) := by
+  have hf : (fun n : Nat => WeierstrassFactorArg.weylArgNum (n + 1)) =
+      fun n : Nat => -ConnesWeilRH.Source.Dev.SSandwich.a n := by
+    funext n
+    exact weylArgNum_eq_neg_a n
+  rw [hf]
+  exact HasSum.neg ConnesWeilRH.Source.Dev.SSandwich.a_summable.hasSum
 end GammaWeierstrassSum
 end Dev
 end ConnesWeilRH
