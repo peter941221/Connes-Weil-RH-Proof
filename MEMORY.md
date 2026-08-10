@@ -1,3 +1,28 @@
+## Handoff (2026-08-10): Wall-A 1.4 lane closed-to-one-leaf, next session pickup point
+
+- ASSEMBLY IS DONE and pushed (HEAD=origin/main=1be6075). The healthy-carrier
+  Wall-A 1.4 is reduced axiom-clean to ONE unproven scalar inequality `hI`:
+    |Re( Int_0^inf archimedeanIntegrand )| < (log 4pi + gamma) * (f*f)(0).re
+  fed into `Wall14ArchSufficiency.archimedeanTerm_ne_zero_of_lead_pos_and_integral_bound`
+  then `Wall14ArchReduction.healthy_target_refuted_of_arch_ne_zero` then
+  `Wall14SelfTestWitness.witness_refuted_of_arch_ne_zero` (0 sorry, axiom-clean).
+  All Wall-A sources: Dev/Wall14ArchReduction, Dev/Wall14ArchSufficiency,
+  Dev/Wall14SelfTestWitness; docs 965 (kill verdict), 966 (plan+split),
+  967 (probe arch=+2.93 |I|/A=1.02), 968 (three-piece split). Numerics: |I|/A=1.02,
+  C=3.11, headroom 2.93.
+- NEXT-SESSION FIRST TARGET (open leaf only): prove `hI` at the unit witness.
+  Ordered:
+  1) near-zero [0,y0~0.274]: |integrand|<=A via tendsto_archimedeanIntegrand_nhdsGT
+     (removable limit A/2 at 0) + continuity.
+  2) tail y>R=2: closed form 2A ln tanh(R/2) (exactly computed in 968).
+  3) middle [y0,R]: needs a genuine pointwise lower bound on r(y)=Re(f*f)(y),
+     e.g. construct a self-controlled bump (f=exp(-1/(1-x^2))) with pointwise
+     convolution control; the +ve[0,y0]=0.06A, -ve=0.54A, tail=0.54A budget any
+     K<3.11. Wire the split bounds into sufficiency, then refute healthy SCB.
+- Do NOT re-derive the sufficiency/assembly; it is closed. The remaining leaf is
+  new analysis (multi-session), not assembly. Do not cheap-fake with `sorry`/ax.
+  Config note: WSL mirror is CWR-lanb-arch/; needs `lake build Mathlib.Analysis.Real.Pi.Bounds` once
+  (its olbean was missing from the seeded warm cache). RH NOT claimed.
 ## Change Log (2026-08-10): Wall-A 1.4 hI leaf - three-piece split numerics (docs/966 update + probe 968)
 
 - Probe 968 fixes |I|/A pieces at the unit bump: +ve [0,y0~0.274]=0.061,
