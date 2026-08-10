@@ -1,3 +1,11 @@
+## Change Log (2026-08-10): Gamma-Weierstrass partial-sum bridge (WSL-verified)
+- New ConnesWeilRH/Dev/GammaWeierstrassSum.lean: weylArgNum_eq_neg_a
+  (weylArgNum(n+1) = -SSandwich.a n) and weylArgNum_range_eq_neg_sum
+  (sum_{n<N} weylArgNum(n+1) = -sum_{n<N} a n), both axiom-clean
+  [propext, Classical.choice, Quot.sound], 0 sorry (WSL green 2641 jobs).
+  Finite-angle preimage of arg(Gamma(1+I/2)) = -gamma/2 - atan(1/2) + tsum a.
+  Gamma-integral -> product-angle hinge stays open (docs/940). RH not claimed.
+- Committed locally: 0c03575 (finite product spine) + e413783 (partial-sum bridge).
 ## Change Log (2026-08-10): finite Weierstrass product-argument closure (WSL-verified)
 - ConnesWeilRH/Dev/GammaArgSum.lean: generalized arg_prod_coe_angle from Finset Nat to Finset alpha;
   added real_sum_coe_angle (Real.Angle coercion distributes over Finset sum), both axiom-clean.

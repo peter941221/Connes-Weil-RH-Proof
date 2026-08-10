@@ -94,3 +94,18 @@ The open leaf is unchanged and self-contained: connect the infinite Weylstrass
 partial-product limit to `arg(Γ(1 + I/2))` (docs/940) — a multi-session
 in-repo real-analysis formalization. When closed it feeds `gammaSign_at_one`;
 still RH-equivalent, no RH claim.
+
+## 7. Verified: Gamma-Weierstrass partial-sum bridge (this turn)
+`Dev/GammaWeierstrassSum.lean` (new, axiom-clean [propext, Classical.choice,
+Quot.sound], 0 sorry, WSL green 2641 jobs) ties the finite product-angle spine to
+the closed `S`-series:
+  * `weylArgNum_eq_neg_a (n)` : `weylArgNum(n+1) = -SSandwich.a n`
+    (the per-factor argument equals the negative `a`-series term).
+  * `weylArgNum_range_eq_neg_sum (N)` :
+    `sum_{n<N} weylArgNum(n+1) = -sum_{n<N} SSandwich.a n`.
+Combined with `SSeriesSandwich` (`1/2 <= S <= 1/2+1/32`), the finite product-angle
+partial sum is pinned to `[-1/2-1/32, -1/2]` (as `N -> +inf`), i.e. the minus-log-Gamma
+phase window. The Gamma-side hinge (`arg(Gamma(1+I/2)) = -gamma/2 - atan(1/2) + S`,
+connecting `Complex.Gamma`'s integral to this finite/product series) remains the only
+open leaf (docs/940): mathlib has no Weierstrass product for Complex.Gamma, so this
+needs a self-contained in-repo log-Gamma identity.
