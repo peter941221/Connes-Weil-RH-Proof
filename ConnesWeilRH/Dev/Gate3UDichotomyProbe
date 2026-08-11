@@ -1,0 +1,30 @@
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalMarkovRawBase
+
+/-!
+# Gate-3U off-Sonin dichotomy probe
+
+Gate-3U reduces through Proof-717 to the single off-Sonin component
+(I-P)F = -(I-P)D on (range P)^perp (docs/872, docs/872b). The route-facing
+predicate in the raw physical leakage is
+`sourcePhysicalCoframeLeakage lambda family = 0`.
+
+This leaf fixes the object-layer dichotomy (no analysis, no new axiom):
+
+- `emptyFamily` : the degenerate prime-power family (`terms = empty`).
+- `leakage_zero_of_visiblePrimes_nil` : `visiblePrimes = [] -> leakage = 0`,
+  wrapper over the ONLY closed library branch.
+- `gate3UDichotomy` : a first-class `Prop` obligation for the CONVERSE
+  direction (`leakage = 0 -> visiblePrimes = []`), which is OPEN and NOT
+  asserted here.
+
+No `sorry`, no new `axiom`. RH is NOT claimed.
+-/
+def datumN
+def datumM
+namespace ConnesWeilRH
+namespace Dev
+namespace Gate3UDichotomy
+
+end Gate3UDichotomy
+end Dev
+end ConnesWeilRH

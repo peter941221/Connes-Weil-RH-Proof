@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.Wall14PlateauIntegral
+#print axioms ConnesWeilRH.Source.Dev.Wall14Plateau.plateauF_symm
+#print axioms ConnesWeilRH.Source.Dev.Wall14Plateau.plateauF_eq_zero_of_two_le_abs
+#print axioms ConnesWeilRH.Source.Dev.Wall14Plateau.archimedeanNumeratorRe_eq_two_G

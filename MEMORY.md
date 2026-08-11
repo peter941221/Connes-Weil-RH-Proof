@@ -1,3 +1,20 @@
+## Change Log (2026-08-11, M.2 Next-1+Next-2 sign-boundary scan + Lean carrier port): docs/proofs/990_m2_sign_boundary_scan.{py,md} + ConnesWeilRH/Dev/M2HealthyPsiPort.lean
+- 990 numeric scan: healthy psi depends ONLY on window width w=hi-lo (translation-invariant ortho-family; exact to 5 digits),
+  sign boundary w* ~ 2.8175: w<w* psi>0 (crit-direction -> toward counterexample), w>w* psi<0 (satisfying direction),
+  monotone in width; no RH conclusion, exposes both signs as concrete measurable content.
+- Lean port M2HealthyPsiPort.lean: twoSidedCarrier=bumpPlateauTest (width-2 plateau -> the positive/width-2 side),
+  m2PsiValue = C1WeilExplicit.healthyQw carrier; isolated WSL build (2968 jobs) #print axioms [propext, Classical.choice, Quot.sound],
+  0 sorryAx, no project axiom. The negative-psi family needs a width-scaled (w>2.82) plateau = open follow-on; RH NOT claimed.
+
+## Change Log (2026-08-11, M.2 two-sided finite-vanishing psi probe + conv-square bug fix): docs/proofs/989_m2_double_sided_psi_probe.{py,md}
+- Built the correctly-dangled finite-vanishing test family: two-sided bump q (lo<0<hi) minus span{1,e^{t/2},e^t}
+  (single lstsq) -> exact three-Mellin vanish ~1e-14, with healthy conv-square (g*⋆g)=irfft(|F|^2) so A=(g*⋆g)(0)=||g||2 passes.
+- Found+fixed mechanical conv-square bug in 987/988: they used F*F (self-conv) and centered x=0 at index (2n-2)//2 (=n-1)
+  instead of F·conj(F) with x=0 at index 0. That invalidates 988's "degenerate A~0/psi~0" (correct one-sided (0.4,2.2) test gives psi=+0.0286);
+  987's even-bump psi~+0.86 survives (0.8446) because even => F*F=|F|^2.
+- Healthy psi genuinely changes sign vs window/mass: [-0.5,1.5]/[-1,1] +0.029, [-1.5,2] -0.044, [-2,2.5]/[-1.5,3] -0.150,
+  5-signal resolution-stable (N=1e4..8e4); single instances neither prove nor refute the forall-g criterion. RH NOT claimed.
+
 ## Change Log (2026-08-11, ② finite-vanishing test g probe): docs/proofs/988_vanishing_probe.{py,md}
 - Constructed a finite-vanishing test g = q - Proj_span{1,e^{t/2},e^t} on stay bump (0.4,2.2):
   M(g,0)=M(g,1/2)=M(g,1)=0 exactly (orth-complement), non-degenerate L2 (max|g|0.51).

@@ -1,0 +1,44 @@
+import ConnesWeilRH.Dev.Wall14PlateauExplicitF
+import Mathlib.Analysis.Real.Pi.Bounds
+import Mathlib.NumberTheory.Harmonic.EulerMascheroni
+import Mathlib.Analysis.SpecialFunctions.Exp
+
+/-! probe -/
+open scoped Topology
+open Real
+
+lemma expOneLL : Real.exp 1 < (11/4 : ℝ) := by
+  have h := Real.exp_bound' (x := (1:ℝ)) (by norm_num) (by norm_num) (n := 7) (hn := by norm_num)
+  norm_num [Finset.sum_range_succ] at h
+  have hlt : (1957 / 720 + 1 / 4410 : ℝ) < 11/4 := by norm_num
+  nlinarith
+
+lemma expTwo_lt : Real.exp 2 < (121/16 : ℝ) := by
+  have h := expOneLL
+  calc
+    Real.exp 2 = Real.exp (1 + 1) := by norm_num
+    _ = Real.exp 1 * Real.exp 1 := by rw [Real.exp_add]
+    _ < (11/4) * (11/4) := by nlinarith [h, Real.exp_pos (1:ℝ)]
+    _ = (121/16:ℝ) := by norm_num
+
+lemma expTwoFifths_lt : Real.exp (2/5) < (3/2 : ℝ) := by
+  have h2 : Real.exp 2 < (121/16:ℝ) := expTwo_lt
+  have hA : (Real.exp (2/5))^5 = Real.exp 2 := by
+    rw [← Real.exp_nat_mul (x := (2/5:ℝ)) (n := 5)]
+    norm_num
+  have hp : (Real.exp (2/5))^5 < (3/2:ℝ)^5 := by
+    have h121 : (121/16:ℝ) < (3/2:ℝ)^5 := by norm_num
+    calc
+      (Real.exp (2/5))^5 = Real.exp 2 := hA
+      _ < (121/16:ℝ) := h2
+      _ < (3/2:ℝ)^5 := h121
+  exact lt_of_pow_lt_pow_left' (5 : ℕ) hp
+
+lemma expTwelveFifths_lt : Real.exp (12/5) < (12 : ℝ) := by
+  calc
+    Real.exp (12/5) = Real.exp (2 + 2/5) := by norm_num
+    _ = Real.exp 2 * Real.exp (2/5) := by rw [Real.exp_add]
+    _ < (121/16) * (3/2:ℝ) := by
+      nlinarith [expTwo_lt, expTwoFifths_lt, Real.exp_pos (2:ℝ), Real.exp_pos (2/5:ℝ)]
+    _ = (363/32:ℝ) := by norm_num
+    _ < 12 := by norm_num

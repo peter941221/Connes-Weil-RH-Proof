@@ -1,0 +1,6 @@
+import ConnesWeilRH.Source.CCM25Concrete.SelectedArchimedeanIntegrability
+import ConnesWeilRH.Source.CCM25Concrete.SelectedWeilSquare
+
+#check ConnesWeilRH.Source.CCM25Concrete.SelectedWeilSquare.SelectedWeilSquareOwner.archimedeanIntegrand_integrable_on_Ioi
+#check fun (o : ConnesWeilRH.Source.CCM25Concrete.SelectedWeilSquare.SelectedWeilSquareOwner) => o.archimedeanIntegrand_integrable_on_Ioi
+#check ConnesWeilRH.Source.CCM25Concrete.SelectedWeilSquare.SelectedWeilSquareOwner

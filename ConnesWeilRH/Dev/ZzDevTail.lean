@@ -1,0 +1,189 @@
+import ConnesWeilRH.Dev.Wall14ArchSufficiency
+import ConnesWeilRH.Dev.Wall14PlateauBumpHI
+
+namespace ConnesWeilRH
+namespace Source
+namespace Dev
+namespace Wall14Plateau
+
+open MeasureTheory
+open Filter Set
+open scoped Topology
+open scoped Real
+
+/- Trial: tail constant and tail integral. -/
+
+lemma zDecom_tail_const_le : (2 * Real.exp (-1 : Real)) / (1 - Real.exp (-2 : Real)) <= (4 / 3 : Real) := by
+  let tum : Real := Real.exp (-1 : Real)
+  have hle_t : tum <= (1 / 2 : Real) := by
+    have he : (2 : Real) <= Real.exp 1 := Real.add_one_le_exp (1 : Real)
+    have hpos : (0 : Real) < Real.exp 1 := Real.exp_pos (1 : Real)
+    have hstep : (1 / Real.exp 1 : Real) <= (1 / 2 : Real) := by
+      rw [div_le_iff₀ hpos]
+      nlinarith [he]
+    unfold tum
+    rw [Real.exp_neg]
+    exact hstep
+  have hsq : tum^2 = Real.exp (-2 : Real) := by
+    unfold tum
+    rw [pow_two, Real.exp_add]
+    norm_num
+  have hden : (0 : Real) < 1 - tum^2 := by
+    have hlt : tum < (1 : Real) := by nlinarith [hle_t]
+    nlinarith
+  have hhi : 2 * tum / (1 - tum^2) <= (4 / 3 : Real) := by
+    rw [div_le_iff₀ hden]
+    nlinarith
+  calc
+    (2 * Real.exp (-1 : Real)) / (1 - Real.exp (-2 : Real))
+        = 2 * tum / (1 - tum^2) := by simp [tum, hsq]
+    _ <= (4 / 3 : Real) := hhi
+
+end Wall14Plateau
+end Dev
+end Source
+end ConnesWeilRH
+
+
+/- Tail integral, mirroring PlateauIntegrateH.int_tail_gate_le. -/
+lemma zDecom_tail_feas :
+    (∫ y in Ioi (1 : Real) , |bumpArchG y|) <= (2 * bumpA) * (Real.exp (-1 : Real) / (1 - Real.exp (-2 : Real))) := by
+  let mu : Measure ℝ := volume.restrict (Ioi (1 : ℝ))
+  let cden : ℝ := 1 - Real.exp (-2 : ℝ)
+  have hcden : 0 < cden := by
+    unfold cden
+    have helt : Real.exp (-2 : ℝ) < (1 : ℝ) :=
+      Real.exp_lt_exp.mp (by norm_num : (-2 : ℝ) < (0 : ℝ))
+    nlinarith
+  have hden_ne : cden != 0 := ne_of_gt hcden
+  have hmeas : MeasurableSet (Ioi (1 : ℝ)) := isOpen_Ioi.measurableSet
+  have bnd : (fun y : ℝ => |bumpArchG y|) <=ᵐ[mu]
+      (fun y : ℝ => (2 * bumpA) * (Real.exp (-y) / cden)) := by
+    filter_upwards [MeasureTheory.self_mem_ae_restrict hmeas] with y hy
+    exact bump_whole_exp y (by exact le_of_lt hy)
+  have hnon : (fun _ : ℝ => (0 : ℝ)) <=ᵐ[mu] (fun y : ℝ => |bumpArchG y|) := by
+    filter_upwards [MeasureTheory.self_mem_ae_restrict hmeas] with y hy
+    exact abs_nonneg (bumpArchG y)
+  have hexp : Integrable (fun y : ℝ => Real.exp (-y)) mu := by
+    change Integrable (fun y : ℝ => Real.exp (-y)) (volume.restrict (Ioi (1 : ℝ)))
+    exact integrableOn_exp_neg_Ioi (1 : ℝ)
+  have hbint : Integrable (fun y : ℝ => (2 * bumpA) * (Real.exp (-y) / cden)) mu := by
+    have coax : (fun y : ℝ => (2 * bumpA) * (Real.exp (-y) / cden)) =
+        (fun y : ℝ => ((2 * bumpA) / cden) * Real.exp (-y)) := by
+      funext y
+      field_simp [hden_ne, Real.exp_ne_zero, cden]
+      ring
+    rw [coax]
+    exact hexp.const_mul (((2 * bumpA) / cden))
+  have him := MeasureTheory.integral_mono_of_nonneg (μ := mu) hnon hbint bnd
+  have hright : (∫ y : ℝ, (2 * bumpA) * (Real.exp (-y) / cden) ∂mu)
+      = (2 * bumpA) * (Real.exp (-1) / cden) := by
+    calc
+      (∫ y : ℝ, (2 * bumpA) * (Real.exp (-y) / cden) ∂mu) =
+          (∫ y : ℝ, ((2 * bumpA) / cden) * Real.exp (-y) ∂mu) := by
+        congr 1
+        funext y
+        field_simp [hden_ne, Real.exp_ne_zero]
+        ring
+      _ = ((2 * bumpA) / cden) * (∫ y : ℝ, Real.exp (-y) ∂mu) := by
+        rw [MeasureTheory.integral_const_mul]
+      _ = ((2 * bumpA) / cden) * Real.exp (-1) := by
+        rw [integral_exp_neg_Ioi (1 : ℝ)]
+      _ = (2 * bumpA) * (Real.exp (-1) / cden) := by
+        field_simp [hden_ne]
+        ring
+  have hfin : (∫ y in Ioi (1 : ℝ), |bumpArchG y|) <= (2 * bumpA) * (Real.exp (-1) / cden) := by
+    calc
+      (∫ y in Ioi (1 : ℝ), |bumpArchG y|) <= (∫ y : ℝ, (2 * bumpA) * (Real.exp (-y) / cden) ∂mu) := by
+        simpa [mu] using him
+      _ = (2 * bumpA) * (Real.exp (-1) / cden) := hright
+  simpa [cden] using hfin
+
+/- (4/3)A form of the tail bound. -/
+theorem zDecom_tailA_le :
+    (∫ y in Ioi (1 : ℝ), |bumpArchG y|) <= (4 / 3 : ℝ) * bumpA := by
+  have hf := zDecom_tail_feas
+  have hden : (0 : ℝ) < 1 - Real.exp (-2 : ℝ) := by
+    have helt : Real.exp (-2 : ℝ) < (1 : ℝ) :=
+      Real.exp_lt_exp.mp (by norm_num : (-2 : ℝ) < (0 : ℝ))
+    linarith
+  have hden_ne : (1 - Real.exp (-2 : ℝ)) != 0 := ne_of_gt hden
+  have hCf : (2 * Real.exp (-1 : ℝ)) / (1 - Real.exp (-2 : ℝ)) <= (4/3 : ℝ) := zDecom_tail_const_le
+  calc
+    (∫ y in Ioi (1 : ℝ), |bumpArchG y|)
+        <= (2 * bumpA) * (Real.exp (-1 : ℝ) / (1 - Real.exp (-2 : ℝ))) := hf
+    _ = bumpA * ((2 * Real.exp (-1 : ℝ)) / (1 - Real.exp (-2 : ℝ))) := by
+        field_simp [hden_ne]
+        ring
+    _ <= bumpA * (4/3 : ℝ) := by
+        exact mul_le_mul_of_nonneg_left hCf (le_of_lt bumpA_pos)
+    _ = (4/3 : ℝ) * bumpA := by ring
+
+
+
+/- Split (0,inf) = (0,1] + (1,inf). -/
+lemma zDecom_split :
+    (∫ y in Ioi (0 : ℝ), |bumpArchG y|)
+      = (∫ y in Ioc (0 : ℝ) 1, |bumpArchG y|) + (∫ y in Ioi (1 : ℝ), |bumpArchG y|) := by
+  let f : ℝ → ℝ := fun y : ℝ => |bumpArchG y|
+  have r1 : IntegrableOn f (Ioc (0 : ℝ) 1) := by simpa [f] using bump_integrableOn_Ioc01_abs
+  have r2 : IntegrableOn f (Ioi (1 : ℝ)) := by simpa [f] using bump_integrableOn_Ioi1_abs
+  have hst : Disjoint (Ioc (0 : ℝ) 1) (Ioi (1 : ℝ)) := by
+    rw [Set.disjoint_left]
+    intro y hy
+    exact (not_lt_of_ge hy.1.2) hy.2
+  have ht : MeasurableSet (Ioi (1 : ℝ)) := isOpen_Ioi.measurableSet
+  have huni : Ioc (0 : ℝ) 1 ∪ Ioi (1 : ℝ) = Ioi (0 : ℝ) := by
+    ext y
+    rw [Set.mem_union, Set.mem_Ioc, Set.mem_Ioi, Set.mem_Ioi]
+    constructor
+    · rintro (h | h)
+      · exact h.1
+      · exact lt_of_lt_of_le (by norm_num : (0 : ℝ) < 1) h
+    · intro h0
+      by_cases h2 : y <= (1 : ℝ)
+      · left
+        exact ⟨h0, h2⟩
+      · right
+        exact lt_of_not_ge h2
+  calc
+    (∫ y in Ioi (0 : ℝ), f y) = (∫ y in (Ioc (0:ℝ) 1 ∪ Ioi (1:ℝ)), f y) := by rw [← huni]
+    _ = (∫ y in Ioc (0:ℝ) 1, f y) + (∫ y in Ioi (1:ℝ), f y) :=
+        MeasureTheory.setIntegral_union hst ht r1 r2
+    _ = (∫ y in Ioc (0:ℝ) 1, |bumpArchG y|) + (∫ y in Ioi (1:ℝ), |bumpArchG y|) := by simp [f]
+
+/- Sum bound: `int(0,inf) <= 11/4 + (4/3)A`. -/
+lemma zDecom_h :
+    (∫ y in Ioi (0 : ℝ), |bumpArchG y|) <= (11 / 4 : ℝ) + (4 / 3 : ℝ) * bumpA := by
+  have hn := bump_near_integral_le
+  have ht := zDecom_tailA_le
+  calc
+    (∫ y in Ioi (0 : ℝ), |bumpArchG y|) = (∫ y in Ioc (0:ℝ) 1, |bumpArchG y|) + (∫ y in Ioi (1:ℝ), |bumpArchG y|) := zDecom_split
+    _ <= (11 / 4 : ℝ) + (4/3 : ℝ) * bumpA := by nlinarith [hn, ht]
+
+/-| hI bound: strict `< (log(4pi)+gamma)*bumpA`. -/
+theorem zDecom_hI :
+    |(∫ y in (Ioi (0 : ℝ)), bumpPlateauOwner.archimedeanIntegrand y).re|
+      < (Real.log (4 * Real.pi) + Real.eulerMascheroniConstant) * bumpA := by
+  have h0 : |(∫ y in Ioi (0:ℝ), bumpPlateauOwner.archimedeanIntegrand y).re|
+         <= (∫ y in Ioi (0:ℝ), |bumpArchG y|) := bump_abs_re_int_Ioi_le
+  have hmax : (∫ y in Ioi (0:ℝ), |bumpArchG y|) <= (11/4:ℝ) + (4/3 :ℝ) * bumpA := zDecom_h
+  have h11 : (11/4:ℝ) + (4/3:ℝ)*bumpA < (29/10:ℝ)*bumpA := by
+    have hA : (9/5 : ℝ) <= bumpA := bumpA_ge_nine_fifths
+    nlinarith
+  have h22 : (29/10:ℝ)*bumpA < (Real.log (4*Real.pi) + Real.eulerMascheroniConstant) * bumpA := by
+    have hcc := ConnesWeilRH.Source.Dev.Wall14Coeff.archCoeff_gt
+    have hApos : 0 < bumpA := bumpA_pos
+    nlinarith [hcc]
+  calc
+    |(∫ y in Ioi (0:ℝ), bumpPlateauOwner.archimedeanIntegrand y).re|
+        <= (∫ y in Ioi (0:ℝ), |bumpArchG y|) := h0
+    _ <= (11/4:ℝ) + (4/3:ℝ)*bumpA := hmax
+    _ < (29/10:ℝ)*bumpA := h11
+    _ < (Real.log (4*Real.pi) + Real.eulerMascheroniConstant) * bumpA := h22
+
+/-- The archimedean term of the explicit bump is nonzero, closing the hI gate. -/
+theorem zDecom_ne_zero : bumpPlateauOwner.archimedeanTerm != 0 := by
+  apply ConnesWeilRH.Source.CCM25Concrete.archimedeanTerm_ne_zero_of_lead_pos_and_integral_bound
+  · exact bumpA_pos
+  · simpa [bumpA] using zDecom_hI

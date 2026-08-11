@@ -1,0 +1,2 @@
+-- L657MinStep: scratch stub for the L657 on-{2} atom thread (work-in-progress).
+-- No declarations, no gaps. See docs/external-consult_L657_implementation.md.
