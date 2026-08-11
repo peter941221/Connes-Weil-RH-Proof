@@ -186,6 +186,26 @@ Weil 判定到 CompactLog 载体，不重选 sign。RH 不声明，非 milestone
 
 ** PhaseGateSandwich (2026-08-08, WSL green, axiom-clean) **: `ConnesWeilRH/Dev/PhaseGateSandwich.lean` closes the analytic phase shift D = S - gamma/2 - atan(1/2) with -pi/8 < D < pi/8 (D_lower / D_upper / D_abs_lt_pi_eighth), built on SSeriesSandwich.S (1/2 <= S <= 1/2+1/32), mathlib gamma bounds (0.5<gamma<2/3) and pi>3, and ArctanCert.arctan_half.  axioms = [propext, Classical.choice, Quot.sound], 0 sorry.  This is the tail of the real-phase gate |arg Gamma(1+I/2)|<=pi/8; the Gamma magnitude identity arg=-gamma/2-atan+S remains an OPEN analytic step. RH not claimed.  +937-route-ruling (2026-08-10, docs/937): naive large-band sign Re[Gamma(a+i/2)^4]>=0 extracted at a=3,5,10 = -3.7/-2.9e5/-3.4e21 and Stirling gives rg Gamma(a+i/2) ~ (1/2)ln a (not -> 0), so Re= |w|^4 cos(4 arg) sign-flips forever; 859 §6's xists a0 forall a>=a0 Re>0 conjecture REFUTED.  Band test 	^a e^{-t} cannot be the finite-S sign producer; Step-3 sign must stay on CompactLog HS/A3 positive (healthy_strict_positive_diagonal), which Steps 1-2 already wire.  Only the isolated =1 leaf keeps Re>0 (+0.26).
 
+
+**Wall-A 1.4 hI leaf — PROVABLE closure via large-plateau bump (2026-08-10, docs/970).** The sole surviving
+scalar `arch(witness^2)!=0` (healthy-carrier Wall-A refutation, docs/965/969) now has a Lean-realizable
+analytic route that needs NO opaque mathlib-bump analysis: choose a test with a plateau `f=1` on `[-b,b]`
+(`ContDiffBump rIn=9/10 rOut=1`), rely on `F(y)>=max(0,2b-y)`, `0<=F<=A`, exact tail `2A ln tanh(R/2)`, and
+the near-removable limit `tendsto_archimedeanIntegrand_nhdsGT`; conservative `arch >= +3.34` for `b=0.9`.
+Re-point `witnessTest` to that bump, prove the 6 block pieces, assemble into the unchanged
+`archimedeanTerm_ne_zero_of_lead_pos_and_integral_bound` sufficiency (docs/965 layers). Lean build remains.
+RH NOT claimed.
+**`|F'|<=1` near-band structural reduction CLOSED (2026-08-11, Dev/Wall14PlateauFDeriv.lean, axiom-clean).**
+The derivative of the explicit bump conv-square now reduces to the folded band: `bumpFderiv x` -> (support) ->
+`int_{u in -2..2} bb x` -> `bb_two_band` splits to the two survivors
+`int_{u in -1..-9/10} + int_{u in 9/10..1}` of `bb x u := bumpReal(x-u)*bd u`, with `bd := deriv bumpReal`
+(pointwise zero on |u|<9/10 and |u|>1, odd `bd_neg`, continuous `bd_continuous`). New Leans: `bd_plateau_zero`,
+`bd_outer_zero`, `bumpFderiv_eq_integral`, `bumpFderiv_custom_sub`, `interval_integral_eq_zero_of_Ioo` (integral
+0 when zero on the open interval, via NoAtoms `Ioo_ae_eq_Ioc`), `bb_support_subset`, `bb_outer_left_interval` /
+**`|F'|<=1` now CLOSED axiom-clean (2026-08-11).** Folded survivor via `u ↦ -u` (`pair_cvt` = `integral_comp_neg`.symm + `bb_neg_piece` + `integral_add`)
+**`|bumpA - bumpF y| <= y` CLOSED axiom-clean (2026-08-11).** (two-sided MVT on `[0,y]` from `|bumpF'|<=1`, premise `bumpF 0 = bumpA`).
+**hI closure at `bumpPlateauOwner` CLOSED axiom-clean (2026-08-11, Dev/Wall14PlateauBumpHI.lean).** Near <=11/4 (`bump_near_integral_le`), tail <=(4/3)A (`bump_tail_feas`/`bump_tail_integral_le` via exp decay), split, all <=11/4+(4/3)A, `bump_hi` (|Re int_(0,inf) archimedeanIntegrand| < (log(4pi)+gamma)*A), then `bumpArchimedeanTerm_ne_zero` (owner.archimedeanTerm != 0) via `archimedeanTerm_ne_zero_of_lead_pos_and_integral_bound`; C-gate`archCoeff_gt` (29/10<log(4pi)+gamma) intact; audits `[propext, Classical.choice, Quot.sound]`, 0 sorry. RH NOT claimed.
+  Also `bumpArchimedeanTerm_re_pos : 0 < Re(bumpPlateauOwner.archimedeanTerm)` (real-part closure needed by the compact-log/healthy arch bridge) axiom-clean, and lifted onto the compact-log carrier axiom-clean in `Dev/Wall14CompactLogBridge.lean` (`compactLogArchimedean_bump_pos` / `_ne_zero`, `#print axioms`=[propext, Classical.choice, Quot.sound], 0 sorry).  CAUTION (docs/972): the healthy SCAL arch slot feeds `totalArchimedean (convolution f f)` which reads the 4-fold `(f*f)*(f*f)`, while docs/958/965 & CCM25 Eq.3.7 target the 2-fold `(log(4pi)+gamma)*Re((f*f)(0)) + I`; closure of `arch!=0` on the healthy carrier needs a wiring decision (feed `f`, not `f*f`) or a genuinely new 4-fold bound, and an object-layer re-type (SCAL `convolutionStar` on healthy `TestFunction` vs compact `CompactLogTest.convolutionSquare` — no such bridge exists yet, see route 914/914b). RH NOT claimed.  4-fold hI cost-corrected (docs/973): the 4-fold upper bound is NOT a small-constant leaf — it reduces to ONE global estimate `|e^(y/2) conv4F(y) - A4| <= (1/4) A4 (e^y - e^-y)` on (0,4] for the 4-fold conv-square shape (numerically sharp at 0), i.e. real new shape/decay analysis on conv4F; docs/965 dead-verdict already recorded and does not depend on it.
 ## 3. Execution Cadence
 
 Work top-down from the active route consumer. A substantial milestone must
