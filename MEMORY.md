@@ -1,3 +1,136 @@
+## Change Log (2026-08-11, R1 step4 arithmetic reduce-lane seam): Dev/R1Step4Probe982.lean
+- Axiom-clean [propext, Classical.choice, Quot.sound], 0 sorry, build 2951 jobs green.
+- `gd_reduce : SourceGlobalFinitePrimeArithmeticData W0 f0 f0` built via the documented
+  922 reduce-lane `SourceFinitePrimeArithmeticDataOnIndexSet.ofSourceEvaluationData`
+  (pairing/weight/term read-offs at the square), WITHOUT building the `∀ n`
+  normalization that walls L653.
+- `gd_reduce_at (n) (hn : n ∈ W0.globalPrimeIndexSet)` = `rfl` seam: reduce-lane and the
+  direct per-2 atom `gd` (L657DiagProbe) agree at every member of the exact index set
+  `{2}`. `gd_reduce_global_sum_positive` : 0 < global Mathlib sum.
+- Meaning: closes the per-index arithmetic for the finite `{2}` carrier; the remaining
+  L653 wall is the certificate's `∀n` atoms field (PrimePowerArithmetic:293), which a
+  Level-1 re-type to on-index-set (finite conjunction) still needs. Concretely this is on
+  the additive concrete carrier (square visible at 2); Schmid ambient square not visible.
+  RH not claimed.
+## Change Log (2026-08-11, 4-fold conv4F exp-half gateway): Dev/Wall14Conv4Base.lean
+- Added conv4F_mul_exp_half: e^(y/2)*conv4F(y) = int_t (e^(t/2)*bumpF t) * (e^((y-t)/2)*bumpF (y-t)); axiom-clean 0 sorry.
+- Numeric probe (scratch) confirms the crux bound |e^(y/2)conv4F - A4| <= (A4/4)(e^y - e^-y) holds on (0,4], sharp only near y->0 (ratio ~1).
+  RH not claimed; no git commit (needs Peter).
+## Change Log (2026-08-11, 4-fold conv4F base module): Dev/Wall14Conv4Base.lean
+- New module proves conv4F = convSquare(convSquare bump) real formula conv4F y = int t, bumpF t * bumpF (y-t),
+  plus shape: conv4F_even, A4_nonneg, conv4F_nonneg (>=0), conv4F_eq_zero_of_four_le_abs (support |y|>=4).
+  Axiom-clean [propext, Classical.choice, Quot.sound], 0 sorry, Dev.Wall14Conv4Base 2933 jobs green.
+- Fixed integral transport: statement uses ∫ (fun binder) not bare 'integral t :'; 'integral_ofReal (K:=Complex) (f:=...) (mu:=volume)' closes the complex cast.
+  RH not claimed; no git commit (needs Peter).
+## Change Log (2026-08-11, 4-fold hI slack found): docs/972
+- numpy probe (scratch removed) pins the 4-fold hI constants: lead C*g4(0)=14.249 with
+  g4(0)=||convBump||^2=4.584, integral I4=+0.391, arch4=+14.640 => slack ratio C*g4(0)/|I4|=36.4.
+  So the 4-fold hI needs only a CRUDE bound (g4 has support in [-4,4], tail ~ -2*g4(0)*e^-y is tiny,
+  ||convBump||^2 big). Direction-B remaining leaf is very attackable; pure analysis+build, not a wall.
+  RH not claimed; no git commit (needs Peter).
+## Change Log (2026-08-11, 4-fold lead CLOSED axiom-clean): Dev/WallBridge.lean
+- WallBridge.lean now proves the 4-fold owner lead is positive, all axiom-clean
+  [propext, Classical.choice, Quot.sound], 0 sorry (Dev.WallBridge 2930 jobs green):
+    * convBump_test0_ne_zero (value bumpA>0 at 0), convBump_normSq_integrable
+      (compact support), convBump_normSq_integral_pos (via
+      MeasureTheory.integral_pos_of_integrable_nonneg_nonzero),
+    * convBump_square0_re_pos : 0 < (convBump.convolutionSquare.test 0).re  (= ||convBump||^2_L2).
+  This is the generic-sufficiency lead for the 4-fold. Remaining leaf: the NEW 4-fold hI upper
+  bound |<integral integrand_{=convBump}.re| < C*<  +(that same lead). Direction B (docs/972). RH not claimed.
+## Change Log (2026-08-11, 4-fold bridge brick 1): Dev/WallBridge.lean
+- Dev/WallBridge.lean adds axiom-clean convBump_zero : (bumpPlateauTest.convolution bumpPlateauTest).test 0 = (bumpA:Complex) (via convolution_apply + real-even involution folding integrand to normSq + integral_complex_ofReal); WSL green (2930 jobs), #print axioms [propext, Classical.choice, Quot.sound], 0 sorry. First brick of direction-B (4-fold owner): convBump nonzero at 0 -> its ||.||_2^2-esque convolutionSquare at 0 is the positive leading term feeding the generic sufficiency; the 4-fold hI bound remains the open leaf (docs/972). RH not claimed. No git commit (needs Peter).
+## Change Log (2026-08-11, both-fold numeric tie-break): docs/972 + probe (scratch removed)
+- numpy probe on the explicit plateau bump resolved the 2-fold vs 4-fold semantic tie for the healthy
+  Wall-A arch bridge: arch2 = +4.76 (lead C*g2(0)=5.83, g2(0)=||bump||^2=1.876) and
+  arch4 = +14.64 (lead C*g4(0)=14.25, g4(0)=||bump*bump||^2=4.58) are BOTH strongly nonzero. So
+  arch(f*f)!=0 holds under either reading; numeric, not a proof. Prefer direction B (prove the 4-fold
+  owner nonzero via generic sufficiency: lead ||conv-bump||^2>0 + a new 4-fold hI) — self-consistent
+  with the existing algebra, no depended-API change, matches docs/965 verdict quantity. RH not claimed.
+## Change Log (2026-08-11, bump even-involution bridge lemmas): Dev/Wall14PlateauExplicitComplex.lean
+- Adds axiom-clean `bumpPlateauInvolution_real_even` (base real-even: star(test(-x))=test x) and
+  `bumpPlateauInvolutionSelf` (involution = id) for the explicit plateau test; WSL green (2929 jobs),
+  #print axioms [propext, Classical.choice, Quot.sound], 0 sorry. Foundation for the healthy/compact-log
+  arch bridge: real even test folds convolutionSquare to the plain self-convolution (feeds both the 2-fold
+  d and 4-fold framings of Wall-A healthy arch, docs/972). RH not claimed. No git commit (needs Peter).
+## Change Log (2026-08-11, bumpArchimedeanTerm_re_pos + healthy bridge index find): Wall14PlateauBumpHI.lean + docs/972
+- Wall14PlateauBumpHI.lean adds axiom-clean bumpArchimedeanTerm_re_pos :
+  0 < Re(bumpPlateauOwner.archimedeanTerm) (using archimedeanTerm_re_eq_lead_add_integral + bump_hI +
+  bumpA_pos; nlinarith needed htest (conv square .re = bumpA) to fire); #print axioms
+  [propext, Classical.choice, Quot.sound], 0 sorry. WSL green (2935 jobs). Pre-requisite Re>0 for the
+  healthy/compactLog arch bridge (compactLogArchimedeanTerm takes the real part).
+- docs/972 (drafted): KEY SEMANTIC FINDING — the healthy SCAL/SCB arch slot currently feeds
+  totalArchimedean (convolution f f), which reads the 4-fold (f*f)*(f*f), but docs/958/965 & CCM25 Eq.3.7
+  intend the 2-fold arch = (log4pi+gamma)*Re((f*f)(0)) + I with leading (f*f)(0)=||f||^2 (probe +0.294).
+  So code double-squares vs the stated math; the natural close is totalArchimedean(f) (2-fold), where
+  bumpArchimedeanTerm_re_pos gives >0; the 4-fold would be a NEW nonzero (not free). Needs a wiring
+  decision (feed f, not f*f) before claiming healthy-carrier arch!=0 closes. RH not claimed.
+## Change Log (2026-08-11, Wall-A BumpHI bullet lint)
+- Dev/Wall14PlateauBumpHI.lean: converted deprecated '.' bullets to '·' (8+ sites), WSL
+  rebuild green (2935 jobs), axiom audit unchanged [propext, Classical.choice, Quot.sound].
+  Remaining warnings are non-fatal style/advisory lints (longLine, simpa-vs-simp, unused,
+  flexible); left in place to avoid churn/regression risk in a green module. RH NOT claimed.
+
+## Change Log (2026-08-11, Wall-A plateau lint cleanup): Dev/Wall14PlateauProbe.lean docstring
+- Fixed malformed doc comment /-- ... --/ over plateauF_ge_lower (triggered the
+  doc-strings-should-end-with-a-single-space-or-newline linter/error); replaced with clean /- ... -/.
+  WSL rebuild green: Wall14PlateauProbe 2917 jobs, Wall14PlateauBumpHI 2935 jobs, axiom audit
+  [propext, Classical.choice, Quot.sound], 0 sorry. No route change; cosmetic/lint only. RH NOT claimed.
+
+## Change Log (2026-08-11, Wall-A 1.4 hI CLOSED at bumpPlateauOwner): Dev/Wall14PlateauBumpHI.lean
+- Wall14PlateauBumpHI.lean migrated tail/split/hI/ne_zero chain fixed and WSL-verified axiom-clean
+  [propext Classical.choice Quot.sound] 0 sorry (2935 jobs, exit 0); docs/970 blocks 4-7 now closed.
+  Fixes: exp coercion 2 vs 1+1 (rw show + Real.add_one_le_exp), exp_neg vs one_div, exp_add direction,
+  hden via Real.exp_pos, Real.exp_lt_exp.mpr (not .mp), drop redundant field_simp rings,
+  hfin calc explicit cden unfold + exact hfin, hreal via change (mu Set.univ).toReal,
+  Ioc/Ioi intro+coerce, lt_trans split. Closed: bump_near_integral_le <=11/4, bump_tail_* <=(4/3)A,
+  bump_integral_split, bump_all_integral_le <=11/4+(4/3)A, bump_hi
+  (|Re int_(0,inf) bumpArchimedeanIntegrand| < (log(4pi)+gamma)*A),
+  bumpArchimedeanTerm_ne_zero via archimedeanTerm_ne_zero_of_lead_pos_and_integral_bound.
+  C-gate archCoeff_gt (29/10<log(4pi)+gamma) intact.
+- RH NOT claimed; no git commit (needs Peter).
+
+## Change Log (2026-08-11, |A-bumpF|<=y CLOSED): Lipschitz from |bumpF|<=1 (Dev/Wall14PlateauFDeriv.lean)
+- Wall14PlateauFDeriv.lean append, WSL green, axiom-clean [propext Classical.choice Quot.sound] 0 sorry:
+  bumpA_sub_bumpF_le: |bumpA - bumpF y| <= y on [0,1], via bumpF_zero_eq_bumpA (bumpF 0 = bumpA),
+  bumpF_hasDerivAt + bumpFderiv_abs_le_one (interior derivative bound) + FTC
+  (intervalIntegral.integral_deriv_eq_sub'). Closes the |A-F|<=y near-band mean-value link.
+  STILL OPEN before this session: near/mid/tail + margin assembly of hI (now closed above). RH NOT claimed.
+
+## Change Log (2026-08-11, |bumpF'|<=1 CLOSED): near-band leaf (Dev/Wall14PlateauFDeriv.lean)
+- Wall14PlateauFDeriv.lean append, WSL green, axiom audit [propext, Classical.choice, Quot.sound], 0 sorry:
+  closure of the near-band |bumpF'| <= 1 on [0,1] (bumpFderiv_abs_le_one).
+  Pairing via bumpfFPair folds the negative survivor u -> -u (pair_cvt), with bracket_le_one + bracket_nonneg,
+  bd_nonpos / Q_nonpos / negQ_le_negBd, and bd_integral_eq (FTC) priming the leaf. RH NOT claimed.
+
+## Change Log (2026-08-11, cont.): explicit-F engine core verified (Dev/Wall14PlateauExplicit.lean)
+- New module Dev/Wall14PlateauExplicit.lean (WSL green 2928 jobs, #print axioms =
+  [propext, Classical.choice, Quot.sound], 0 sorry): explicit flat-top bump
+  `bumpEx x = 1 - Real.smoothTransition((x^2 - bSq)/(1 - bSq))`, plateau b=9/10, in x^2 so
+  smooth at 0.  Proved: plateau value 1 on x^2<=bSq, support 0 off x^2>=1, 0<=bumpEx<=1, even.
+  This is the re-point's foundational value-atom the opaque ContDiffBump cannot give.
+  Next layers (multi-session): wrap as CompactLogTest/Owner, A=(f*f)(0)/F-lower, F-slope
+  (bound smoothTransition'/F''), then 3<C + near/mid/tail assembly -> hI.  RH NOT claimed.
+## Change Log (2026-08-11, cont.): near-band `den y >= 2y` leg PROVEN (Dev/Wall14PlateauNear.lean)
+- Dev/Wall14PlateauNear.lean now PROVES (axiom-clean, WSL green 2927 jobs,
+  #print axioms = [propext, Classical.choice, Quot.sound], 0 sorry):
+  exp_exp_le_ge_two (`2 <= e^t+e^{-t}`, via Real.add_one_le_exp twice) and
+  deny_ge_two (`(2:ℝ)*y <= den y` for 0<=y). Route: `f y = den y - 2y` has f(0)=0
+  and derivative `e^y+e^{-y}-2 >= 0`, then monotone_of_deriv_nonneg. This is the clean
+  `den >= 2y` leg that converts a near-band slope `|e^{y/2}*F - A| <= k*y` into
+  `|plateauArchG| <= k` (and `|Int_{(0,1]} g| <= k`). The STILL-OPEN near piece is
+  solely that slope control on plateauF (F(0)=plateauA, F>=1.8-y, F<=plateauA,
+  plateauA in [1.8,2]). ContDiffBump (plateauBump) exposes no F-slope, so the pointwise
+  F-slope needs the explicit-F re-point (docs/969) or a quantitative compact/continuity
+  removable bound from tendsto_archimedeanNumeratorRe_div_denominator_nhdsGT (=A/2).
+  RH NOT claimed.
+
+- The decisive unblock is the explicit-F re-point. `docs/proofs/971_wall_a14_explicit_repoint_blueprint.md`
+  pins the concrete bump `bell(x)=exp(-r^2/(r^2-x^2))` flat-top design, the target lemmas
+  (bell 0<=f<=1/compact/even, A=(f*f)(0) in [2..], F slope `|F-A|<=C1*y` on [0,1]),
+  and the wiring (new `Dev/Wall14PlateauExplicit.lean`, do NOT touch the closed sufficiency).
+  A pure bell has NO flat top, so a flat-top smooth compact explicit bump is required for
+  the `F >= max(0,2*plateau-y)` plateau lower bound used by the middle piece.
+
 ## Handoff (2026-08-10): Wall-A 1.4 lane closed-to-one-leaf, next session pickup point
 
 - ASSEMBLY IS DONE and pushed (HEAD=origin/main=1be6075). The healthy-carrier
@@ -10,19 +143,159 @@
   Dev/Wall14SelfTestWitness; docs 965 (kill verdict), 966 (plan+split),
   967 (probe arch=+2.93 |I|/A=1.02), 968 (three-piece split). Numerics: |I|/A=1.02,
   C=3.11, headroom 2.93.
-- NEXT-SESSION FIRST TARGET (open leaf only): prove `hI` at the unit witness.
-  Ordered:
-  1) near-zero [0,y0~0.274]: |integrand|<=A via tendsto_archimedeanIntegrand_nhdsGT
-     (removable limit A/2 at 0) + continuity.
-  2) tail y>R=2: closed form 2A ln tanh(R/2) (exactly computed in 968).
-  3) middle [y0,R]: needs a genuine pointwise lower bound on r(y)=Re(f*f)(y),
-     e.g. construct a self-controlled bump (f=exp(-1/(1-x^2))) with pointwise
-     convolution control; the +ve[0,y0]=0.06A, -ve=0.54A, tail=0.54A budget any
-     K<3.11. Wire the split bounds into sufficiency, then refute healthy SCB.
+- NEXT-SESSION TARGET (open leaf only): close hI at the plateau witness (Dev/Wall14PlateauProbe).
+  Blocks 1-3 DONE axiom-clean: A>=9/5 (plateauA_ge_nine_fifths), F real-conv repr
+  (plateauOwnerConvSquare_eq_real), F<=A (plateauF_le_A), F>=max(0,2b-y) with b=9/10
+  (plateauF_ge_two_sub_y, plateauF_ge_lower). REMAINING (Blocks 4-7, multi-session analysis, docs/970):
+  4) near [0,delta]: |Re integrand|<=A via tendsto_archimedeanIntegrand_nhdsGT (removable A/2 at 0).
+  5) mid [delta,2]: F>=max(0,2b-y) upper-tight, finite-small integral.
+  6) tail y>2: exact -2A artanh(e^-2)=A ln tanh(1) (integral of 1/(e^y-e^-y)).
+  7) numeric 3.34 margin: compile-time arithmetic driving |J|<(log4pi+gamma)*A.
+  Feed into archimedeanTerm_ne_zero_of_lead_pos_and_integral_bound, then the healthy bridge.
+
+
+## Change Log (2026-08-11): WallA-1.4 hI foundations green (Dev/Wall14PlateauIntegral.lean)
+- Added and WSL-verified (2924 jobs, axioms [propext, Classical.choice, Quot.sound], 0 sorry):
+  plateauReal_eq_zero_of_abs_ge (plateau support radius 1),
+  plateauReal_ne_zero_imp_abs_lt_one, plateauF_symm (F even),
+  plateauF_eq_zero_of_two_le_abs (F=0 for |y|>=2, convolution support radius 2,
+  via support+abs triangle), and archimedeanNumeratorRe_eq_two_G
+  (Re(num) = 2*(e^{y/2}*F(y)-A), via convolutionSquare_add_neg_eq_two_re +
+  Complex.re_ofReal_mul + Complex.sub_re). These are the tail/mid building blocks.
+  RH NOT claimed.
+- NEXT BLOCK (the open analytic crux): Re(integrand)=numeratorRe/den identity for the integrand
+  + the near-[0,1] |g|<=A removable-limit bound. Constant plan (delta=1):
+  near=1A, mid=3/2A, tail=8/19A => |J|<3A < (log4pi+gamma)*A, so proving |J|<3A
+  suffices (3<C). Tail uses existing integral_inv_den_Ioi_le + F=0 for y>2;
+  mid uses |e^{y/2}F-A| <= e^{y/2} A bound + F-low; near needs the removable
+  limit (since plateau A != 2b, a pure-F≤A/F≥lo algebraic |g|<=A fails near 0;
+  docs/970). Tail/mid/assemble still to build. RH NOT claimed.
+
 - Do NOT re-derive the sufficiency/assembly; it is closed. The remaining leaf is
   new analysis (multi-session), not assembly. Do not cheap-fake with `sorry`/ax.
+## Change Log (2026-08-11, cont.): mid-band [1,2] decay green (Dev/Wall14PlateauMidBand.lean)
+- Dev/Wall14PlateauMidBand.lean (new): mid_expHalf_div_den_le
+  (e^{y/2}/den(y) <= e^{-y/2}/(1-e^{-2}) on y>=1 via den*e^{-y/2}=e^{y/2}-e^{-3y/2},
+  cross-multiplied by le_div_iff), and plateauG_abs_le_midconst
+  (|g| <= 2*e^{-1/2}/(1-e^{-2})*plateauA on [1,2] by chaining
+  plateauG_abs_le_mid + the decay + e^{-y/2}<=e^{-1/2}). 2927 green,
+  axioms [propext, Classical.choice, Quot.sound], 0 sorry. RH NOT claimed.
+- EMPIRICAL sizing (probe): true int_0^1|g|/A ~0.11, int_1^2|g|/A ~0.25,
+  int_2^inf~0.27, TOTAL ~0.63A << 3.11 = log(4pi)+gamma, ~5x slack; the ONLY hard
+  piece is the near-[0,1] pointwise bound at 0 (|g|~A/2, A<=2, F(0)=A, den~2y),
+  which survives no crude-bound-away-from-zero (2A/den diverges); needs F(0)=A
+  vanishing, e.g. |e^{y/2}F-A| <= max(A(e^{y/2}-1), A-e^{y/2}(1.8-y)) /den, or a
+  Lipschitz bound. Budget: with tail 0.28A and mid<=~1.4A, near must be <=~1.5A.
+  RH NOT claimed.
+## Change Log (2026-08-11, cont.): tail integral assembly green
+- Dev/Wall14PlateauIntegrateH.lean (new): int_tail_gate_le
+  (int over Ioi R of |g| <= 2A*(1/tailC)*e^-R for R>=2), via plateauG_abs_tail +
+  the existing integral_inv_dunes_Ioi_le, with integral_const_mul pull-out.
+  2926 jobs green, axioms [propext, Classical.choice, Quot.sound], 0 sorry. RH NOT claimed.
+/- bridge DONE (2026-08-11) -/
+- Dev/Wall14PlateauIntegrateH.lean: norm_integrand_eq_abs_g
+  (||integrand y|| = |g y| via Complex.ext + re/im-zero) and
+  abs_re_int_Ioi : |(int_I0 integrand).re| <= int_I0 |g|
+  (via Complex.abs_re_le_norm + MeasureTheory.norm_integral_le_integral_norm,
+  both at lemma-level). 2926 green, axioms [propext Choice Quot], 0 sorry.  RH NOT claimed.
+- NEXT: mid on [1,2]: |g|<=2/(e^{1/2}-e^{-3/2})*A (den*e^{-y/2}=e^{y/2}-e^{-3y/2})
+  then int_[1,2]<=const*A; near-[0,1] crux via removable-limit; numeric 3<C
+  via exp(5/2) < 4*pi (need pi>3.14, exp(2.5)<12.56).  RH NOT claimed.
+- NEXT (in order): (1) bridge |(int_I0 integrand).re| <= int_I0 |g| (via
+  Complex.abs_re_le_norm + MeasureTheory.norm_integral_le_integral_norm + norm f = abs g),
+  (2) mid on [1,2] via plateauG_abs_le_mid + F-low + e^{y/2}/den decay,
+  (3) near on [0,1] via removable-limit tendsto_archimedeanIntegrand_nhdsGT + continuity (crux),
+  (4) split Ioi0=[0,1]+[1,2]+[2,inf) + numeric 3<C=log(4pi)+gamma. RH NOT claimed.
+
   Config note: WSL mirror is CWR-lanb-arch/; needs `lake build Mathlib.Analysis.Real.Pi.Bounds` once
   (its olbean was missing from the seeded warm cache). RH NOT claimed.
+## Change Log (2026-08-10): Block 6 nucleus in (Dev/Wall14PlateauProbe.lean)
+- Tail-decay simplification: no exact artanh/tanh antiderivative needed. For y>=2,
+  1/(e^y-e^-y) <= e^-y/(1-e^-4) (den_inv_le_y, tailC_pos, den, den_pos; axiom-clean, 0 sorry).
+  Numerics: |J|/A ~0.61 < C=log(4pi)+gamma ~3.08, headroom ~2.48A, so a crude three-piece suffices.
+  Next: glue integral_inv_den_Ioi_le via integral_mono_of_nonneg/ae_restrict_iff'. RH NOT claimed.
+
+## Change Log (2026-08-10): Block 3 CLOSED axiom-clean (Dev/Wall14PlateauProbe.lean)
+- Merged Block 3 (pointwise lower bound). Added plateauReal_eq_one_of_abs_le (plateau = 1 on |t|<=9/10),
+  plateauOv_in (plateau-overlap block subset where both factors are exactly 1), plateauF_ge_two_sub_y
+  (F(y) >= 2b - y for 0<=y<=2b via overlap-area L2-set bound), and plateauF_ge_lower
+  (F(y) >= max(0, 2b-y)). Set-indicator: integral_indicator_one + Real.volume_Icc + max_eq_left;
+  measure-ne-oo for Icc. Green (2917) on conne-hi-bound, axioms [propext, Classical.choice, Quot.sound], 0 sorry.
+  RH NOT claimed.
+
+## Change Log (2026-08-10): Block 2c CLOSED axiom-clean (Dev/Wall14PlateauProbe.lean)
+- Merged Block 2c: the F <= A upper bound plateauF_le_A. Added plateauAffine_hasCompactSupport
+  (reflected bump un t => plateauReal (y - t) compact support via ContDiffBump.tsupport_eq = 
+  closedBall 0 1 + IsCompact.of_isClosed_subset), plateauSqRefl_integrable, 
+  plateauA_eq_integral_realSq, and plateauF_le_A via AM-GM (1/2*(p^2+q^2) integrand, 
+  reflection collapse) + MeasureTheory.integral_mono. Green (2917 jobs) on conne-hi-bound, 
+  axioms [propext, Classical.choice, Quot.sound], 0 sorry. Next: Block 3 plateauF_ge_lower. RH NOT claimed.
+
+## Change Log (2026-08-10): Block 2b CLOSED axiom-clean (Dev/Wall14PlateauProbe.lean)
+- Merged Block 2b: measure-preservation foundation for the L2 isometry. Added integral_neg_full_cont,
+  integral_add_full_cont, integral_reflect_full_cont (full-real Lebesgue-integral invariance under negation /
+  translation / reflection for continuous integrands, via MeasureTheory.integral_map + volume.map_neg_eq_self +
+  map_add_right_eq_self), plateauRealSq_continuous, plateauSq_integrable. Green (2917 jobs) on conne-hi-bound,
+  axioms [propext, Classical.choice, Quot.sound], 0 sorry. Next: finish plateauF_le_A (needs reflect-square
+  integrability via ContDiffBump.tsupport_eq compact support, then AM-GM + Cauchy-Schwarz collapse). RH NOT claimed.
+
+## Change Log (2026-08-10): Block 2 CLOSED axiom-clean (Dev/Wall14PlateauProbe.lean)
+- Merged Block 2: the real-convolution representation of the Wall-A F(y). Added plateauReal
+  (real bump copy), plateauReal_nonneg/neg/continuous, plateauTest_value_eq_ofReal,
+  convIntegrand_st, plateauRealMul_integrable, plateauOwnerConvSquare_eq_real, plateauF
+  (= Re of full convolution-square value), plateauF_eq_conv, plateauF_nonneg (0<=F).
+  The single-minus pair fix: insert simp_rw [← Complex.ofReal_mul] before
+  ContinuousLinearMap.integral_comp_comm in plateauOwnerConvSquare_eq_real to coalesce the
+  two coerced factors. Wall14PlateauProbe.lean builds green (2917 jobs) on conne-hi-bound;
+  #print axioms on plateauF_nonneg / plateauOwnerConvSquare_eq_real / plateauRealMul_integrable =
+  [propext, Classical.choice, Quot.sound], 0 sorry.  Remaining analytic blocks: plateauF_le_A
+  (Cauchy-Schwarz / AM-GM upper bound), plateauF_ge_lower (F>=max,positive 2b-y on [0,R]),
+  near/tail/mid integral split, arch>=+3.34 constant, assemble arch(witness^2)!=0, then the
+  healthy-target bridge.  RH NOT claimed.
+## Change Log (2026-08-10): Block 1 CLOSED axiom-clean (Dev/Wall14PlateauProbe.lean)
+
+- Completed the first encoding block for the large-plateau Wall-A hI closure.  Added
+  plateauA, plateauA_eq_integral_normSq, plateauTest_value_eq_one_of_abs_le,
+  plateauTest_normSq_eq_one_of_plate_le, plateauTest_normSq_integrable,
+  plateauA_ge_nine_fifths (A = Re (f*f)(0) >= 9/5) and plateauA_pos (0 < A).
+  Axioms [propext, Classical.choice, Quot.sound], 0 sorry.  The file builds green on the
+  fresh ext4 mirror `conne-hi-bound`.  Remaining blocks (per AGENTS AGENTS route): F(y)
+  bounds (0<=F<=A), F(y)>=max(0,2b-y), near/tail/mid integral split, arch>=+3.34 constant,
+  then assemble arch(witness^2)!=0 and the healthy-target bridge
+  (healthySymbols.archimedeanTerm = totalArchimedean(healthyConvolutionStar) = compactLog
+   arch on the compact-log square of the even real plateau).  RH NOT claimed.
+
+## Change Log (2026-08-10): plateau Lean foundation green (Dev/Wall14PlateauProbe.lean, axiom-clean)
+
+- WSL build loop re-established (fresh mirror `conne-hi-bound`, .lake seeded from stale cache; leaf
+  builds ~1s-30s).  Dev/Wall14PlateauProbe.lean builds green, axioms [propext, Classical.choice,
+  Quot.sound], 0 sorry: plateauBump (ContDiffBump rIn=9/10 rOut=1), plateauBumpSchwartz/plateauTest/
+  plateauTest_ne_zero, plateauOwner (SelectedWeilSquareOwner of the plateau test), plateauOwner_F0_re_nonneg.
+  This is the LARGE-PLATEAU carrier docs/970 needs; next encoding blocks: A=Re(F0)>=9/5>0,
+  F(y)>=max(0,2b-y), near/tail/mid split, arch>=+3.34 constant.  RH NOT claimed.
+
+## Change Log (2026-08-10): PROVABLE closure found — large-plateau bump kills the hI leaf (docs/970)
+
+- docs/970 gives a Lean-realizable closure of arch(witness^2)!=0 that needs NO opaque-base analysis.
+  Use f with a LARGE plateau f=1 on [-b,b] (b=9/10), support [-1,1]: then F(y)>=max(0,2b-y) pointwise,
+  0<=F<=A, tail exact 2A ln tanh(R/2); near [0,delta] removable limit A/2 via tendsto_*_nhdsGT;
+  mid [delta,R] is finite & tiny.  Conservative arch >= +3.34 for b=0.9 (deterministic, robust to
+  transition mass and near tolerance).  Re-point witness to a ContDiffBump rIn=9/10,rOut=1 and prove
+  the 6 block pieces; assemble arch>=+3.34 => arch!=0 feeding the unchanged sufficiency.  RH not claimed.
+## Change Log (2026-08-10): hI leaf triage — current witness bump is opaque => must re-point (docs/969)
+
+- docs/969 records a decisive triage of the sole surviving Wall-A leaf hI.
+  (a) Numeric re-check confirms arch=+2.93, |I|/A=1.023<C=3.108, headroom ~2.93 (matches 967/968).
+  (b) The naive 0<=F(y)<=A (Cauchy-Schwarz) bound is NOT enough: middle [y0,R] then gives
+      |I_-|<=2A[ln tanh(R/2)-ln tanh(y0/2)]~3.47A > C, so the pointwise-F requirement is real.
+  (c) The chosen witness unitFourierCoreBump (mathlib ContDiffBump) is opaque:
+      ContDiffBump.toFun goes through someContDiffBumpBase = Nonempty.some (Classical.choice),
+      so its pointwise shape on the transition (1/2,1) is not definitionally accessible in Lean.
+  Verdict: closing hI as-is needs an import-level exact-definition fight; the robust and now-required
+  path (docs/966 recommendation) is to re-point witnessTest to an explicit author-controlled compact
+  bump (exp(-1/(1-x^2))-style) with a provable pointwise bound on F(y), then feed the resulting
+  |I|<C*A into the already-closed sufficiency.  Sufficiency/reduction/refutation layers stay
+  untouched (closed, docs/965).  RH not claimed.
 ## Change Log (2026-08-10): Wall-A 1.4 hI leaf - three-piece split numerics (docs/966 update + probe 968)
 
 - Probe 968 fixes |I|/A pieces at the unit bump: +ve [0,y0~0.274]=0.061,
@@ -1294,3 +1567,12 @@ would be unsound. RH unclaimed.
   rigorous for any nonzero compact test, so the verdict is robust. Numerics = proxy evidence.
   RH not claimed.
 
+
+## Change Log (2026-08-11, 4-fold hI cost correction): docs/973
+- docs/973 corrects docs/972's "very attackable" claim: the 4-fold hI mid-band cannot use the
+  crude |conv4F|-factorized bound (leaves ~11/14.2 of the C*A4 budget on (1,4] alone). The whole
+  leaf reduces to ONE global estimate |e^{y/2} conv4F(y) - A4| <= (1/4) A4 (e^y - e^{-y}) on (0,4]
+  (conv4F = 4-fold convolution square of the explicit real bump, A4 = conv4F(0)=||convBump||^2);
+  numerically sharp at y->0+ (A4*y/2 both sides). That is real new analysis on the conv4F shape,
+  NOT a constant-picking step. Docs/965 Wall-A dead-verdict stands (already recorded); closing
+  the 4-fold nonzero is optional strengthening, Direction-B self-consistency unchanged. RH not claimed.
