@@ -25,8 +25,8 @@ integ=(np.exp(ys/2)*2*rv-2*A)/(np.exp(ys)-np.exp(-ys)); integ[0]=A/2
 Itail=2*A*np.log(np.tanh(R/2))
 cr=rv-A*np.exp(-ys/2); cross=np.where(cr<0)[0]
 y0=ys[cross[0]] if len(cross) else 0.0
-Ipos=np.trapezoid(integ[ys<=y0], ys[ys<=y0])
-Ineg=np.trapezoid(integ[ys>y0], ys[ys>y0])
+Ipos=np.trapz(integ[ys<=y0], ys[ys<=y0])
+Ineg=np.trapz(integ[ys>y0], ys[ys>y0])
 Ic=Ipos+Ineg; I=Ic+Itail
 print(f"A={A:.6f}  C={C:.6f}  C*A={C*A:.6f}")
 print(f"y0 (crossover r(y)=A e^-y/2) ~ {y0:.4f}")

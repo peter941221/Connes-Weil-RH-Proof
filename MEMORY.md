@@ -1,3 +1,46 @@
+## Change Log (2026-08-11, ② finite-vanishing test g probe): docs/proofs/988_vanishing_probe.{py,md}
+- Constructed a finite-vanishing test g = q - Proj_span{1,e^{t/2},e^t} on stay bump (0.4,2.2):
+  M(g,0)=M(g,1/2)=M(g,1)=0 exactly (orth-complement), non-degenerate L2 (max|g|0.51).
+- Result NOT decisive: conv-centre A=g2(0)~0 (one-sided support), arch/pole/term2 all ~0,
+  psi=+0.0036 degenerate scale. Both evidence neither proof nor refutation of the C1 criterion.
+- Next genuine step (not assembly): a two-sided, positive-leading, window-overlapping-2 finite-vanishing
+  test that keeps A=(g*g)(0)>0. RH NOT claimed.
+
+## Change Log (2026-08-11, ② numeric probe of explicit healthyPsi): docs/proofs/987_healthy_psi_probe.{py,md}
+- numpy probe (WSL) on raw bump conv-square (log coords): arch=2.93, pole=4.29, term2=0.49 (g(1/2)=1.0), psi=+0.86.
+- Vanishing @0/1/2/1 = 2.25/2.36/2.72 (far from 0): the raw bump is NOT in the {0,1/2,1} finite-vanishing domain,
+  so psi=+0.86 is NOT a counterexample to the C1 criterion; it just shows the raw sign.
+- term2 is NOT trivially 0 (g(1/2)=1.0) - the healthy finite-{2} prime term can be non-null on arbitrary tests.
+- Honest: no RH/criterion closure from this probe; need a finite-vanishing test first. RH NOT claimed.
+
+## Change Log (2026-08-11, ② explicit healthy Weil psi + {2} slot): Dev/C1WeilExplicit.lean
+- New module materialises the honest explicit WeilFormSymbols.PsiSignStatement formula on the healthy carrier:
+  healthyPsi F = poleFunctional F - totalArchimedean F - sum_{n in {2}} sourceFinitePrimeTerm n F (healthy Eval),
+  healthyQw g = healthyPsi (conv-square g).test, plus healthyPrimeSum_two (finite-{2} collapse) and healthyPsi_two.
+- WSL green: isolated dir, 2958 jobs, #print axioms [propext, Classical.choice, Quot.sound], 0 sorryAx.
+- The full criterion healthyPsi(conv^2 g) <= 0 (RH-equivalent) remains the open analytic step; NOT asserted. RH NOT claimed.
+
+## Change Log (2026-08-11, ② built the honest healthy CC20TestSpace seam): Dev/C1HealthyTestSpace.lean
+- New module: healthyCC20TestSpace : CC20TestSpace on the CompactLogTest carrier using genuine components:
+  toRouteTest = test, mellinAt = healthyEval.mellinAt, starConvolution = CompactLogTest.convolutionSquare,
+  weilLocalSum = -(totalArchimedean (conv-square).test), compactSupportSmooth = HasCompactSupport test.
+- Virtual sateable: healthyCriterionState F := CC20FiniteVanishingWeilCriterion healthyCC20TestSpace F; the
+  criterion value (weilLocal <=0) is the open RH-equivalent math, NOT asserted.
+- WSL green: isolated dir, 2957 jobs, #print axioms = [propext, Classical.choice, Quot.sound]; 0 sorryAx, all axiom-clean.
+- Docs/proofs/985 stats that ② was a real math gap; this materializes the missing healthy-carrier instance (docs/960) honestly.
+RH NOT claimed.
+
+## Change Log (2026-08-11, C1-to-RH Phase-1 source-verified state): docs/proofs/985_c1_phase1_verified_state.md
+- Source/code audit (no new theorem, RH NOT claimed): ①②③ on the C1->SourceRH pipe are NOT three open leaves.
+- ① strict diagonal CLOSED (was open in docs/934): Wall1GlobalConvNonzero.cc20GlobalConvolutionPositive_strict_diagonal
+  + Wall1HealthyPositive.healthy_strict_positive_diagonal + WeilC1NonEmptyProducer.concreteC1InputData (axiom-clean).
+- ③ C1->SourceRH lean direction CLOSED (library): cc20_proposition_c1_standard_source_rh_of_realized_cc20_triple_input (Source/CC20PropositionC1).
+- ② healthy CC20TestSpace instance = genuine RH-equivalent gap (docs/960): needs an HONEST weilLocal (explicit-Mellin/Weil sum) on the
+  healthy carrier; the -PSD fill is a guard-6 vacuous producer (docs/963), NOT a real closure. First big-milestone build target.
+- WSL mirror dirty+stale (HEAD f14a47f != Windows 7b7a560): ①②③ verification must use a fresh isolated WSL verification dir, not the mirror.
+- [live-verified 2026-08-11] In isolated an isolated WSL verification dir (HEAD 7b7a560, fresh .lake from dirty mirror): lake build green (3593 jobs) + #print axioms = [propext, Classical.choice, Quot.sound], 0 sorryAx for ①③ both (weilStateNonempty/concreteC1InputData/healthy_strict_positive_diagonal/cc20GlobalConvolutionPositive_strict_diagonal/C1->RH theorems).
+- ② precise blocker (source-confirmed): healthy CompactLogTest has NO defined mellinAt/weight/full weil -- building healthyCC20TestSpace needs genuinely new Melin/Weil definition on CompactLogTest; vacuous fill (-PSD or mellin=0) is guard-6 forbidden. Not an assembly task; record before claiming.
+
 ## Change Log (2026-08-11, R1 step4 arithmetic reduce-lane seam): Dev/R1Step4Probe982.lean
 - Axiom-clean [propext, Classical.choice, Quot.sound], 0 sorry, build 2951 jobs green.
 - `gd_reduce : SourceGlobalFinitePrimeArithmeticData W0 f0 f0` built via the documented
@@ -220,7 +263,7 @@
   plateauOv_in (plateau-overlap block subset where both factors are exactly 1), plateauF_ge_two_sub_y
   (F(y) >= 2b - y for 0<=y<=2b via overlap-area L2-set bound), and plateauF_ge_lower
   (F(y) >= max(0, 2b-y)). Set-indicator: integral_indicator_one + Real.volume_Icc + max_eq_left;
-  measure-ne-oo for Icc. Green (2917) on conne-hi-bound, axioms [propext, Classical.choice, Quot.sound], 0 sorry.
+  measure-ne-oo for Icc. Green (2917) on a WSL build mirror, axioms [propext, Classical.choice, Quot.sound], 0 sorry.
   RH NOT claimed.
 
 ## Change Log (2026-08-10): Block 2c CLOSED axiom-clean (Dev/Wall14PlateauProbe.lean)
@@ -228,14 +271,14 @@
   (reflected bump un t => plateauReal (y - t) compact support via ContDiffBump.tsupport_eq = 
   closedBall 0 1 + IsCompact.of_isClosed_subset), plateauSqRefl_integrable, 
   plateauA_eq_integral_realSq, and plateauF_le_A via AM-GM (1/2*(p^2+q^2) integrand, 
-  reflection collapse) + MeasureTheory.integral_mono. Green (2917 jobs) on conne-hi-bound, 
+  reflection collapse) + MeasureTheory.integral_mono. Green (2917 jobs) on a WSL build mirror, 
   axioms [propext, Classical.choice, Quot.sound], 0 sorry. Next: Block 3 plateauF_ge_lower. RH NOT claimed.
 
 ## Change Log (2026-08-10): Block 2b CLOSED axiom-clean (Dev/Wall14PlateauProbe.lean)
 - Merged Block 2b: measure-preservation foundation for the L2 isometry. Added integral_neg_full_cont,
   integral_add_full_cont, integral_reflect_full_cont (full-real Lebesgue-integral invariance under negation /
   translation / reflection for continuous integrands, via MeasureTheory.integral_map + volume.map_neg_eq_self +
-  map_add_right_eq_self), plateauRealSq_continuous, plateauSq_integrable. Green (2917 jobs) on conne-hi-bound,
+  map_add_right_eq_self), plateauRealSq_continuous, plateauSq_integrable. Green (2917 jobs) on a WSL build mirror,
   axioms [propext, Classical.choice, Quot.sound], 0 sorry. Next: finish plateauF_le_A (needs reflect-square
   integrability via ContDiffBump.tsupport_eq compact support, then AM-GM + Cauchy-Schwarz collapse). RH NOT claimed.
 
@@ -246,7 +289,7 @@
   (= Re of full convolution-square value), plateauF_eq_conv, plateauF_nonneg (0<=F).
   The single-minus pair fix: insert simp_rw [← Complex.ofReal_mul] before
   ContinuousLinearMap.integral_comp_comm in plateauOwnerConvSquare_eq_real to coalesce the
-  two coerced factors. Wall14PlateauProbe.lean builds green (2917 jobs) on conne-hi-bound;
+  two coerced factors. Wall14PlateauProbe.lean builds green (2917 jobs) on a WSL build mirror;
   #print axioms on plateauF_nonneg / plateauOwnerConvSquare_eq_real / plateauRealMul_integrable =
   [propext, Classical.choice, Quot.sound], 0 sorry.  Remaining analytic blocks: plateauF_le_A
   (Cauchy-Schwarz / AM-GM upper bound), plateauF_ge_lower (F>=max,positive 2b-y on [0,R]),
@@ -259,7 +302,7 @@
   plateauTest_normSq_eq_one_of_plate_le, plateauTest_normSq_integrable,
   plateauA_ge_nine_fifths (A = Re (f*f)(0) >= 9/5) and plateauA_pos (0 < A).
   Axioms [propext, Classical.choice, Quot.sound], 0 sorry.  The file builds green on the
-  fresh ext4 mirror `conne-hi-bound`.  Remaining blocks (per AGENTS AGENTS route): F(y)
+  fresh ext4 mirror `a WSL build mirror`.  Remaining blocks (per AGENTS AGENTS route): F(y)
   bounds (0<=F<=A), F(y)>=max(0,2b-y), near/tail/mid integral split, arch>=+3.34 constant,
   then assemble arch(witness^2)!=0 and the healthy-target bridge
   (healthySymbols.archimedeanTerm = totalArchimedean(healthyConvolutionStar) = compactLog
@@ -267,7 +310,7 @@
 
 ## Change Log (2026-08-10): plateau Lean foundation green (Dev/Wall14PlateauProbe.lean, axiom-clean)
 
-- WSL build loop re-established (fresh mirror `conne-hi-bound`, .lake seeded from stale cache; leaf
+- WSL build loop re-established (fresh mirror `a WSL build mirror`, .lake seeded from stale cache; leaf
   builds ~1s-30s).  Dev/Wall14PlateauProbe.lean builds green, axioms [propext, Classical.choice,
   Quot.sound], 0 sorry: plateauBump (ContDiffBump rIn=9/10 rOut=1), plateauBumpSchwartz/plateauTest/
   plateauTest_ne_zero, plateauOwner (SelectedWeilSquareOwner of the plateau test), plateauOwner_F0_re_nonneg.
@@ -656,7 +699,7 @@ Leaves (2)-(3) are norm-positivity reductions only. RH not claimed.
 - New file ConnesWeilRH/Dev/CCM24JdaggerOrthogonality.lean: proves the previously-open NECESSARY condition of the infinite Gate, (sourceInclusion)^dag o B = 0 and (sourceInclusion)^dag o (B o N^-1 o J) = 0, from Leibniz-algebra facts (J^dag = J^dag o P;  P o B = 0). WSL build green (3275 jobs); #print axioms = [propext, Classical.choice, Quot.sound]; 0 sorry. Explains why numeric probes of the outer channel are FLAT (linear/J-dual content vanishes; info lives only in the off-J operator norm). Does NOT close the Gate (sufficient equality L=0 still open). docs/proofs/932 + deliverable_finite_gate. RH not claimed.
 
 ## Change Log (2026-08-10): MEMORY compressed (24,395 -> 902 lines)
-- Full pre-compression snapshot kept at `MEMORY.precompress.backup.md` (29,910 lines); HEAD:MEMORY.md also retains the original. Working knowledge (commands, WSL verification, LX guards, route root) lives in AGENTS.md; MEMORY.md now keeps latest change-logs + compressed high-signal lesson lines only. RH not claimed.
+PATCH-L702 - Full pre-compression snapshot kept at an archived pre-compression backup snapshot (29,910 lines); HEAD:MEMORY.md also retains the original. Working knowledge (commands, WSL verification, LX guards, route root) lives in AGENTS.md; MEMORY.md now keeps latest change-logs + compressed high-signal lesson lines only. RH not claimed.
 ## Change Log (2026-08-10): Per-prime leakage is critical-line divergent; only cancellation can close the infinite Gate
 - `docs/proofs/930_per_prime_leakage_critical_line.md` (new). The library already has
   `norm_normalizedPhysicalLeakage_singlePrime_le_twelve_mul_coefficient` (MomentDecay:879):
@@ -777,7 +820,7 @@ a long `UnconditionalSkeleton` cold build (orthogonal to this round). RH not cla
 # MEMORY.md
 
 Last compressed: 2026-08-10. Prior full text at git HEAD:MEMORY.md and
-MEMORY.precompress.backup.md.
+PATCH-L823 an archived pre-compression backup snapshot.
 
 
 ## Current Result
@@ -1429,12 +1472,12 @@ Never reset, overwrite, or clean these paths as part of another lane.
 
 Edit and manage Git only in the Windows repository. Sync its source snapshot
 one way into WSL2 on ext4 for Lean verification. Never run Lake with Windows
-Lean or from `/mnt/c`, and never commit or push from a WSL verification mirror.
+Lean or from `the Linux-side mount`, and never commit or push from a WSL verification mirror.
 
 Preferred persistent mirror:
 
 ```text
-/home/peter/verify/Connes-Weil-RH-Proof
+the WSL verification mirror
 ```
 
 Before reuse, run `git rev-parse --show-toplevel`. If it does not return the
@@ -1508,7 +1551,7 @@ sorry/axiom (WSL-verified, mirror lineage caveat). This closes the Hilbert
 
 
 ## Change Log (2026-08-09): Route-1 trusted baseline DONE; routes 2 & 3 verdict recorded
-Route1: created isolated ext4 dir /home/peter/verify/cwr-b917, synced Windows HEAD
+Route1: created isolated ext4 dir an isolated ext4 verification dir, synced Windows HEAD
 (b3e3fce+untracked), seeded .lake/packages from main mirror, `lake build
 ConnesWeilRH.Dev.BCC20InterfaceHilbertProbe917` = 3187 jobs clean; axioms for
 cc20InterfaceOfHilbertCarrier + gateSlotInInterface = [propext, Classical.choice,
@@ -1529,7 +1572,7 @@ on `concreteTestAlgebra` with exact index `{2}` (common bump, value 1 at t=2, pr
 `#print axioms concreteWellForm` = [propext, Classical.choice, Quot.sound].
 Replaced the false axiom `normalizedCoreSourceWeilFormDataRoot` (L137) in
 `UnconditionalSkeleton` with `Source.Dev.ConcreteP1SupportProbe.concreteWeilForm`;
-module builds (3500 jobs) on cwr-b917. Audit: `normalizedCoreSourceAnalyticCore
+module builds (3500 jobs) on an isolated WSL verification dir. Audit: `normalizedCoreSourceAnalyticCore
 FromTheorems` = [propext, Classical.choice, Quot.sound] (L137 gone);
 `normalizedCoreSourceModelConstructorCoreFromTheorems` still needs
 `normalizedCoreCCM25FinitePrimeArithmeticSourceDataRoot` (= L657, a SEPARATE
@@ -1576,3 +1619,17 @@ would be unsound. RH unclaimed.
   numerically sharp at y->0+ (A4*y/2 both sides). That is real new analysis on the conv4F shape,
   NOT a constant-picking step. Docs/965 Wall-A dead-verdict stands (already recorded); closing
   the 4-fold nonzero is optional strengthening, Direction-B self-consistency unchanged. RH not claimed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
