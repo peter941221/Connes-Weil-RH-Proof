@@ -206,6 +206,17 @@ The derivative of the explicit bump conv-square now reduces to the folded band: 
 **`|bumpA - bumpF y| <= y` CLOSED axiom-clean (2026-08-11).** (two-sided MVT on `[0,y]` from `|bumpF'|<=1`, premise `bumpF 0 = bumpA`).
 **hI closure at `bumpPlateauOwner` CLOSED axiom-clean (2026-08-11, Dev/Wall14PlateauBumpHI.lean).** Near <=11/4 (`bump_near_integral_le`), tail <=(4/3)A (`bump_tail_feas`/`bump_tail_integral_le` via exp decay), split, all <=11/4+(4/3)A, `bump_hi` (|Re int_(0,inf) archimedeanIntegrand| < (log(4pi)+gamma)*A), then `bumpArchimedeanTerm_ne_zero` (owner.archimedeanTerm != 0) via `archimedeanTerm_ne_zero_of_lead_pos_and_integral_bound`; C-gate`archCoeff_gt` (29/10<log(4pi)+gamma) intact; audits `[propext, Classical.choice, Quot.sound]`, 0 sorry. RH NOT claimed.
   Also `bumpArchimedeanTerm_re_pos : 0 < Re(bumpPlateauOwner.archimedeanTerm)` (real-part closure needed by the compact-log/healthy arch bridge) axiom-clean, and lifted onto the compact-log carrier axiom-clean in `Dev/Wall14CompactLogBridge.lean` (`compactLogArchimedean_bump_pos` / `_ne_zero`, `#print axioms`=[propext, Classical.choice, Quot.sound], 0 sorry).  CAUTION (docs/972): the healthy SCAL arch slot feeds `totalArchimedean (convolution f f)` which reads the 4-fold `(f*f)*(f*f)`, while docs/958/965 & CCM25 Eq.3.7 target the 2-fold `(log(4pi)+gamma)*Re((f*f)(0)) + I`; closure of `arch!=0` on the healthy carrier needs a wiring decision (feed `f`, not `f*f`) or a genuinely new 4-fold bound, and an object-layer re-type (SCAL `convolutionStar` on healthy `TestFunction` vs compact `CompactLogTest.convolutionSquare` — no such bridge exists yet, see route 914/914b). RH NOT claimed.  4-fold hI cost-corrected (docs/973): the 4-fold upper bound is NOT a small-constant leaf — it reduces to ONE global estimate `|e^(y/2) conv4F(y) - A4| <= (1/4) A4 (e^y - e^-y)` on (0,4] for the 4-fold conv-square shape (numerically sharp at 0), i.e. real new shape/decay analysis on conv4F; docs/965 dead-verdict already recorded and does not depend on it.
+**Gate-3U 外通道 {2}-族可计算反证步骤（2026-08-11，docs/998）：** 坐标级恒等式已钉死：
+metric coframe `D=(T†T)∘J∘G⁻¹` 在带状 `(logλ−log p, logλ)` 上精确等于 `−p^{−1/2}·x(t+log p)`，故
+`‖(I−R)∘D‖>0` 当且仅当 Sonin 载在窗 `(logλ, logλ+log2)` 有非零质量；`twoFamily`（`visiblePrimes=[2]`）
+与义务 `twoOuterNonzeroObligation` 已 declar（Dev/OuterTwoNonzeroObligation.lean，无 sorry/axiom）。
+唯一剩余 analytic leaf = Sonin 窗内非零 witness（需从 semilocalFourierSupport 同构显式构造）；
+义务模块已 WSL 验证：隔离镜像 /home/peter/verify/cwr-998outer 上 `lake build Dev.OuterTwoNonzeroObligation`
+3315 jobs 0 错误，#print axioms=[propext, Classical.choice, Quot.sound]（twoFamily 带 prime term (2,1)）。
+`twoOuterNonzeroObligation` 关闭即可把 docs/998 正下界变定理。该 leaf 的精确阻塞声明见 docs/999（真新分析，非装配；关闭前 infinite-{2} Gate 保持 OPEN）。 RELATE 仍 OPEN，RH 不声明。
+
+**（2026-08-12，docs/1000）** `Dev/SoninWindowWitness.lean` 已建为 leaf 的**类型级 kernel**：四个目标用精确 `Prop` 钉死（`archimedeanSoninCarrier_nontrivial` / `_membership_pred` / `windowT(_nonempty)` / `archimedeanSonin_window_mass`），WSL 隔离镜像构建 3316 jobs 绿、`#print axioms=[propext, Classical.choice, Quot.sound]`、0 sorry；`windowT_nonempty` 已证。`archimedeanSoninCarrier_nontrivial` 与窗口质量仍为 OPEN 真新分析（Paley-Wiener/Titchmarsh 决定集统一构造，docs/1000）。因此 `twoOuterNonzeroObligation` **尚未**提升为 theorem；AGENTS 998/999 注记保持 OPEN-target，未改「已闭合」。
+
 ## 3. Execution Cadence
 
 Work top-down from the active route consumer. A substantial milestone must
@@ -339,6 +350,7 @@ restricted/global masses with one evaluation object.
 - **Axiom audits do not detect theorem premises**: `#print axioms` only shows
   what a declaration depends on; it cannot catch a wrong-stated premise.
 - Keep guards naming files as rejected-route record for future reference.
+- **`R` vs `R0` vs `S` naming landmine (Gate-3U outer/band channels)**: the CONPUTABLE  band projection is `radialSupportProjection` = `R` in docs/815/884/997 but `R0` in docs/995's private naming; the UNREACHABLE archimedean `sourceSoninProjection` is `R0` in docs/815 but `S`/`P` in docs/872/995. `OuterChannel = (I-R_radial).o.D` (docs/815) is the computable one and is what 824/884 measure (~0.62); `(I-Sonin)D=J-D` is a DIFFERENT operator that requires the exact Sonin intersection. Never equate the probe's `(I-R)D` with `(I-Sonin)D`, and always pin which projection a doc's `R`/`S` means.
 
 ## 8. WSL Verification
 

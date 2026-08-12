@@ -1,3 +1,11 @@
+## Change Log (2026-08-12, step-1 survey: V_arch = Radial ∩ HT⁻¹(Radial), no nonzero element buildable) : docs/1000
+- Surveyed every reachable carrier/equiv for a nonzero V_arch element: none ships one; the +-1 HT eigen reduction (proved in Dev/SoninWindowWitness) is void in L2 (scattering multiplier level-set thin), and the Healthy/CompactLog nonzero windows have no bridge to sourceSoninCarrier (route 914b). PG conclusion: only a continuous band-limit / PSP (Paley-Wiener-Titchmarsh) element can supply it = docs/999 multi-session new analysis. Kernel+typed gate stay honest; obligation stays a build Prop. RH not claimed.
+
+## Change Log (2026-08-12, SoninWindowWitness.lean kernel + reduction): docs/1000
+- New `ConnesWeilRH/Dev/SoninWindowWitness.lean`: typed axiom-clean kernel (nontrivial V_arch, membership predicate, windowT, window mass) + PROVED `windowT_nonempty` and `archimedeanSonin_membership_pred_of_radial_and_involutive` (radial +-1 HT eigenvector => V_arch membership) + typed non-proof gate `twoOuterNonzero_gate_on_archwitness`. WSL cwr-998o build 3316 jobs green, #print axioms [propext, Classical.choice, Quot.sound], 0 sorry. Obligation NOT lifted. RH not claimed.
+
+## Change Log (2026-08-12, Sonin-window leaf = blocking verdict, live-open): docs/proofs/999+d998
+- Full source audit confirms: V_arch = Radial INTER Fourier(HardyTitchmarsh). Nonzero element reaching window (log-la, log-la+log2) needs a tight/full Morgan set / Paley-Wiener / Blaschke construction; mathlib v4.30.0 ships none, repo has no witness (grep of all CCM24*Sonin*/HardyTitchmarsh/SemilocalFourier/RadialSupport empty). Claim TRUE, unbuildable by closed-form assembly -> docs/999 records the exact irreducible module spec and the missing analysis. Not dead, not done: live OPEN, obligation twoOuterNonzeroObligation stays axiom-clean build Prop. RH not claimed.
 ## Change Log (2026-08-11, M.2 Next-1+Next-2 sign-boundary scan + Lean carrier port): docs/proofs/990_m2_sign_boundary_scan.{py,md} + ConnesWeilRH/Dev/M2HealthyPsiPort.lean
 - 990 numeric scan: healthy psi depends ONLY on window width w=hi-lo (translation-invariant ortho-family; exact to 5 digits),
   sign boundary w* ~ 2.8175: w<w* psi>0 (crit-direction -> toward counterexample), w>w* psi<0 (satisfying direction),
