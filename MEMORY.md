@@ -1,3 +1,6 @@
+## Change Log (2026-08-12, PSP sub-target B = HT isometry assembly): Dev/PaleyHTAssembly.lean
+- New `ConnesWeilRH/Dev/PaleyHTAssembly.lean` proves `htOfWindow_ne_zero` (the HT image of the radial window element is a nonzero L2 element, via the involutive HT isometry) and the typed V_arch reduction `archimedeanSonin_mem_radial_and_ht_radial` (u ∈ V_arch <-> u radial AND HT u radial). WSL `lake build ConnesWeilRH.Dev.PaleyHTAssembly` 3318 jobs green, `#print axioms=[propext, Classical.choice, Quot.sound]`, 0 sorry. Reduces sub-target C to: nonzero radial u with HT(u) radial. docs/paley_wiener/01 sub-target B. RH not claimed.
+
 ## Change Log (2026-08-12, PSP sub-target A = concrete nonzero radial window element): Dev/PaleyWindowProbe.lean
 - New `ConnesWeilRH/Dev/PaleyWindowProbe.lean` builds `soninWindowIndicator` (constant-1 indicator of the Sonin window `(log-λ, log-λ+log2)` in `cc20GlobalLogCrossingL2`) and proves `soninWindowIndicator_mem_radial` + `soninWindowIndicator_ne_zero` (via `norm_indicatorConstLp'` + `Real.rpow_pos_of_pos`). WSL `lake build ConnesWeilRH.Dev.PaleyWindowProbe` 3317 jobs green, `#print axioms=[propext, Classical.choice, Quot.sound]`, 0 sorry. Closes docs/paley_wiener/01 sub-target A. NOT a V_arch element yet (Fourier-support half C = band-limit/Paley-Wiener-Titchmarsh stays OPEN). 998/999 still OPEN. RH not claimed.
 

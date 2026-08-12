@@ -12,6 +12,8 @@ axioms=[propext, Classical.choice, Quot.sound]`, 0 sorry). Closes sub-target A.
 Next: sub-target B (HT isometry assembly). sub-target C (band-limit /
 Paley-Wiener-Titchmarsh element in `V_arch`) stays the honest new-analysis leaf.
 
+**Milestone B DONE (2026-08-12).** `Dev/PaleyHTAssembly.lean` proves `htOfWindow_ne_zero` (HT image of the radial window element is a well-defined nonzero L2 element, via the HT isometry) and the typed reduction `archimedeanSonin_mem_radial_and_ht_radial` (u member of V_arch if and only if u radial AND HT-u radial); WSL 3318 jobs green, axiom-clean, 0 sorry. This reduces sub-target C to: build a nonzero radial u with HT(u) radial. The band-limit / Paley-Wiener-Titchmarsh construction of such a u is the live OPEN new-analysis leaf.
+
 ## 0. Why this project exists
 
 The whole route 1/2/3 (docs/1000) reduces to one analytic existence:
@@ -43,7 +45,7 @@ in dependency order. AN evidence gate is recorded per piece.
 | # | Sub-target | Math | Depends on | Gate |
 |---|-----------|------|-----------|------|
 | A | `nonzeroRadialExists` : a concrete `L2` function `R` radial at `lambda` (vanishing below `log lambda`) with nonzero mass on `(log lambda, log+log2)` | explicit test function + Lp | setup | **DONE** (Dev/PaleyWindowProbe, 3317 jobs, axiom-clean) |
-| B | `Hardy0norm` : the radial image `HT(R)` is a well-defined L2 element and cont. (handed to us) | HT isometry (in repo) | A | assembly |
+| B | `Hardy0norm` : the radial image `HT(R)` is a well-defined L2 element and cont. (handed to us) | HT isometry (in repo) | A | **DONE** (Dev/PaleyHTAssembly: dev/htOfWindow_ne_zero, the V_arch iff reduction) |
 | C | `Sonin_nonzero_cone` : some continuous band / projected element lies in `V_arch` and `!= 0` | Paley-Wiener / Titchmarsh / band-limit projection theorem (NEW to mathlib v4.30.0) | A,B - C is the honest new analysis | must be built with new math |
 | D | "-bar coatoma" : that element has nonzero mass on the window | Consequence of the explicit construction | C | assemble |
 | E | Lift `twoOuterNonzeroObligation` and flip AGENTS 998/999 to closed | coframe bridge (typed gate exists) | D | theorem |
