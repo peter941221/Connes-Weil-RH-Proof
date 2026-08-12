@@ -1,10 +1,12 @@
 # 1004 - PSP C1: the reflection bridge R o P+ o R = P- (status + exact reduction)
 
-Status: PARTIAL. The coefficient-level mirror (C1a) is CLOSED and axiom-clean
-(commit 31a05fd). The operator-level bridge is REDUCED to one Lp-Fourier crux
-`F.R = R.F`. This document records the exact reduction and the honest
-next formal step so a later session can pick up without re-deriving. RH not
-claimed. No sorry / axiom.
+Status: CLOSED (2026-08-12). The full reflection bridge `R o P+ o R = P-` is now
+proved axiom-clean in `CCM24PaleyWienerSpectral.lean`. C1a (coefficient mirror),
+C1b (`R o M+ = M- o R`), C1c (`F.R = R.F`, L2-Fourier via Schwartz-density
+extension), and the C1 assembly are all green (WSL flock `lake build` 2964 jobs,
+#print axioms=[propext, Classical.choice, Quot.sound], 0 sorry). Remaining: H3
+(inner/outer factor of `m`); 998/999 still blocked. RH not claimed. No sorry /
+axiom added.
 
 ## Why C1 matters
 
@@ -31,7 +33,7 @@ C1 := `R o P+ o R = P-`, with
   These are the `R o M+ = M- o R` (multiplier conjugation) plant.
   Axiom `#print axioms` = [propext, Classical.choice, Quot.sound].
 
-- (C1b) [understood, not final] `R o M+ = M- o R` for the frequency multipliers.
+- (C1b) [CLOSED, axiom-clean] `R o M+ = M- o R` for the frequency multipliers.
   The `ae`-coefficient bookkeeping is isolated: after `rw [houter]` the goal is
   `(R (M+ u)) xi = (M- (R u)) xi`, and the six `ae`-facts give
       (M+u)(-xi) = 1_{+}(-xi) * u(-xi)      [via quasiMeasurePreserve.ae_eq of
@@ -44,7 +46,7 @@ C1 := `R o P+ o R = P-`, with
   `rw [houter]; congr / rw [hPM.at]`. The `ae_eq` used is
   `(Measure.measurePreserving_neg volume).quasiMeasurePreserving.ae_eq`.
 
-- (C1c) [OPEN - the crux] `F.R = R.F` for the L2 Fourier isometry themselves.
+- (C1c) [CLOSED, axiom-clean] `F.R = R.F` for the L2 Fourier isometry themselves.
   `F = Lp.fourierTransform_l_i` is defined by
   `(fourierEquiv Complex (SchwartzMap R C)).extendOfIsometry ...`
   and has a coeff-based density `SchwartzMap.denseRange_toLpCLM ` plus
@@ -56,7 +58,7 @@ C1 := `R o P+ o R = P-`, with
   a dense `toLp` subset). This is a small but genuinely new extension proof; it
   is the only remaining real content of C1.
 
-- (C1-asm) [OPEN, easy once C1c] compose (C1b) + (C1c):
+- (C1-asm) [CLOSED, axiom-clean] compose (C1b) + (C1c):
     `R P+ R = R (F.symm M+ F) R
        = F.symm (R M+ R) F`   (using F.R = R.F and the involutions of F, R)
        = F.symm M- F = P-,
@@ -72,9 +74,9 @@ a NONZERO phi still requires H3 (inner/outer factor), which is untouched here.
 
 ## Where everything stands
 
-- Built + audited axiom-clean this session: C1a (commit 31a05fd).
-- Mirror olean refreshed; module `CCM24PaleyWienerSpectral` builds green
-  2964 jobs; axioms [propext, Classical.choice, Quot.sound].
-- Open: C1b (only coercion bookkeeping), C1c (the `F.R=R.F` extension), C1.
+- Built + audited axiom-clean: C1a (commit 31a05fd), then C1b, C1c, C1-asm
+  (this session) — the full bridge `R o P+ o R = P-` is now closed.
+- Module `CCM24PaleyWienerSpectral` builds green 2964 jobs; #print axioms
+  [propext, Classical.choice, Quot.sound]; 0 sorry in the added block.
 - Route crux still OPEN: H3 (inner/outer factor of `m`), 998/999 still blocked,
   RH not claimed.

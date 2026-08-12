@@ -395,6 +395,165 @@ theorem ccm24FreqHalf_mirror_ae :
     [ccm24ae_ne_zero_volume] with xi hxi
   exact ccm24FreqPositiveHalf_mirror_pointwise xi hxi
 
+noncomputable def schReflect (g : SchwartzMap Real Complex) : SchwartzMap Real Complex :=
+  SchwartzMap.compCLMOfContinuousLinearEquiv Complex
+    (LinearIsometryEquiv.neg Real).toContinuousLinearEquiv g
+
+theorem ccm24SchReflect_toLp (g : SchwartzMap Real Complex) :
+  ccm24LogSpectralReflectionLinearIsometry (g.toLp 2 volume) = (schReflect g).toLp 2 volume := by
+  rw [ccm24LogSpectralReflectionLinearIsometry]
+  change Lp.compMeasurePreserving (fun x : Real => -x) (Measure.measurePreserving_neg volume)
+      (g.toLp 2 volume) = (schReflect g).toLp 2 volume
+  rw [SchwartzMap.toLp]
+  rw [Lp.toLp_compMeasurePreserving]
+  rw [SchwartzMap.toLp]
+  congr 1
+
+
+/-- Schwartz Fourier commutes with reflection: F (schReflect g) = schReflect (F g). -/
+theorem ccm24Schwartz_fourier_reflect (g : SchwartzMap Real Complex) :
+  FourierTransform.fourier (schReflect g) = schReflect (FourierTransform.fourier g) := by
+  ext xi
+  unfold schReflect
+  simpa using (Real.fourier_comp_linearIsometry (LinearIsometryEquiv.neg Real) g xi)
+
+/-- C1c on the Schwartz/core: F (R (g.toLp)) = R (F (g.toLp)). -/
+theorem ccm24FourierSchwartz_commute (g : SchwartzMap Real Complex) :
+  FourierTransform.fourier (ccm24LogSpectralReflectionLinearIsometry (g.toLp 2 volume)) =
+    ccm24LogSpectralReflectionLinearIsometry (FourierTransform.fourier (g.toLp 2 volume)) := by
+  rw [ccm24SchReflect_toLp (g := g)]
+  rw [SchwartzMap.toLp_fourier_eq]
+  rw [SchwartzMap.toLp_fourier_eq]
+  rw [ccm24SchReflect_toLp (g := FourierTransform.fourier g)]
+  congr 1
+  exact ccm24Schwartz_fourier_reflect g
+
+/-- The Schwartz 	Lp-images are dense in the L2 carrier. -/
+lemma ccm24_sch_toL_dense :
+  Dense (Set.range (fun g : SchwartzMap Real Complex => (g.toLp 2 volume : cc20GlobalLogCrossingL2))) := by
+  have h : (fun g : SchwartzMap Real Complex => (g.toLp 2 volume : cc20GlobalLogCrossingL2)) =
+      (SchwartzMap.toLpCLM Real Complex 2 volume) := by
+    funext g
+    exact (SchwartzMap.toLpCLM_apply (F := Complex) (p := 2) (μ := volume)).symm
+  rw [h]
+  exact (SchwartzMap.denseRange_toLpCLM (F := Complex) (p := 2) (hp := by norm_num))
+
+
+/-- C1c full: Fourier transform commutes with log reflection on the whole L2,
+by density extension from the Schwartz core. -/
+theorem ccm24FourierReflection_comm (u : cc20GlobalLogCrossingL2) :
+  FourierTransform.fourier (ccm24LogSpectralReflectionLinearIsometry u) =
+    ccm24LogSpectralReflectionLinearIsometry (FourierTransform.fourier u) := by
+  let s : Set cc20GlobalLogCrossingL2 :=
+    Set.range (fun g : SchwartzMap Real Complex => (g.toLp 2 volume : cc20GlobalLogCrossingL2))
+  let D : cc20GlobalLogCrossingL2 -> cc20GlobalLogCrossingL2 := fun y =>
+    FourierTransform.fourier (ccm24LogSpectralReflectionLinearIsometry y) -
+      ccm24LogSpectralReflectionLinearIsometry (FourierTransform.fourier y)
+  have hDcont : Continuous D := by
+    unfold D
+    fun_prop
+  have hzero : Set.EqOn D (fun _ : cc20GlobalLogCrossingL2 => (0 : cc20GlobalLogCrossingL2)) s := by
+    intro y hy
+    rcases hy with ⟨g, rfl⟩
+    unfold D
+    have hc : FourierTransform.fourier
+        (ccm24LogSpectralReflectionLinearIsometry (g.toLp 2 volume)) =
+        ccm24LogSpectralReflectionLinearIsometry
+          (FourierTransform.fourier (g.toLp 2 volume)) :=
+      ccm24FourierSchwartz_commute g
+    simpa [sub_eq_zero] using hc
+  have hzeroClosure : Set.EqOn D (fun _ : cc20GlobalLogCrossingL2 => (0 : cc20GlobalLogCrossingL2)) (closure s) := by
+    apply Set.EqOn.closure hzero
+    exact hDcont
+    fun_prop
+  have hmemb : u ∈ closure s := ccm24_sch_toL_dense u
+  have hD : D u = 0 := by simpa using (hzeroClosure hmemb)
+  unfold D at hD
+  simpa [sub_eq_zero] using hD
+
+/-- C1b (probe): reflection conjugates positive to negative multiplier. -/
+theorem ccm24FreqPositiveMultiplier_reflection_mirror (u : cc20GlobalLogCrossingL2) :
+    ccm24LogSpectralReflectionLinearIsometry (ccm24FreqPositiveMultiplier u) =
+      ccm24FreqNegativeMultiplier (ccm24LogSpectralReflectionLinearIsometry u) := by
+  rw [Lp.ext_iff]
+  have hReflectPlus : (ccm24LogSpectralReflectionLinearIsometry
+      (ccm24FreqPositiveMultiplier u) : Real -> Complex) =ᵐ[volume]
+      fun x => (ccm24FreqPositiveMultiplier u) (-x) :=
+    ccm24LogSpectralReflection_coeFn (ccm24FreqPositiveMultiplier u)
+  have hSmulPlus : (ccm24FreqPositiveMultiplier u : Real -> Complex) =ᵐ[volume]
+      fun y => (ccm24FreqPositiveHalfLp : Real -> Complex) y • u y := by
+    simpa [ccm24FreqPositiveMultiplier] using
+      (Lp.coeFn_lpSMul (f := ccm24FreqPositiveHalfLp) (g := u))
+  have hIndPlus : (ccm24FreqPositiveHalfLp : Real -> Complex) =ᵐ[volume]
+      ccm24FreqPositiveIndicatorFunction :=
+    ccm24FreqPositiveHalfLp_coeFn
+  have hReflectInner : (ccm24LogSpectralReflectionLinearIsometry u : Real -> Complex) =ᵐ[volume]
+      fun x => u (-x) :=
+    ccm24LogSpectralReflection_coeFn u
+  have hSmulNeg : (ccm24FreqNegativeMultiplier
+      (ccm24LogSpectralReflectionLinearIsometry u) : Real -> Complex) =ᵐ[volume]
+      fun y => (ccm24FreqNegativeHalfLp : Real -> Complex) y •
+        (ccm24LogSpectralReflectionLinearIsometry u) y := by
+    simpa [ccm24FreqNegativeMultiplier] using
+      (Lp.coeFn_lpSMul (f := ccm24FreqNegativeHalfLp)
+        (g := ccm24LogSpectralReflectionLinearIsometry u))
+  have hIndNeg : (ccm24FreqNegativeHalfLp : Real -> Complex) =ᵐ[volume]
+      ccm24FreqNegativeIndicatorFunction :=
+    ccm24FreqNegativeHalfLp_coeFn
+  have hMirror := (Measure.measurePreserving_neg volume).quasiMeasurePreserving.ae_eq hIndPlus
+  have hSmulPlusNeg : (fun x => (ccm24FreqPositiveMultiplier u) (-x)) =ᵐ[volume]
+      fun x => (ccm24FreqPositiveHalfLp : Real -> Complex) (-x) • u (-x) := by
+    simpa [Function.comp_apply] using
+      (Measure.measurePreserving_neg volume).quasiMeasurePreserving.ae_eq hSmulPlus
+  filter_upwards [hReflectPlus, hSmulPlusNeg, hMirror, hReflectInner, hSmulNeg,
+      hIndNeg, ccm24ae_ne_zero_volume] with x hrp hspn hm hrin hsn hnInd hz
+  calc
+    (ccm24LogSpectralReflectionLinearIsometry (ccm24FreqPositiveMultiplier u) :
+        Real -> Complex) x = ccm24FreqPositiveIndicatorFunction (-x) • u (-x) := by
+      rw [hrp, hspn]
+      have hmpt : (ccm24FreqPositiveHalfLp : Real -> Complex) (-x) =
+          ccm24FreqPositiveIndicatorFunction (-x) := by
+        simpa only [Function.comp_apply] using hm
+      rw [hmpt]
+    _ = ccm24FreqNegativeIndicatorFunction x • u (-x) := by
+      congr 1
+      exact ccm24FreqPositiveHalf_mirror_pointwise x hz
+    _ = (ccm24FreqNegativeMultiplier
+        (ccm24LogSpectralReflectionLinearIsometry u) : Real -> Complex) x := by
+      rw [hsn, hnInd, hrin]
+
+/-- C1c in the Lp-fourier form: F (R u) = R (F u). -/
+theorem ccm24FourierLp_R_comm (x : cc20GlobalLogCrossingL2) :
+    (Lp.fourierTransformₗᵢ ℝ ℂ) (ccm24LogSpectralReflectionLinearIsometry x) =
+      ccm24LogSpectralReflectionLinearIsometry ((Lp.fourierTransformₗᵢ ℝ ℂ) x) := by
+  simpa using ccm24FourierReflection_comm (u := x)
+
+/-- R fibres commute with the inverse Fourier isometry. -/
+theorem ccm24FourierLp_symm_R_comm (w : cc20GlobalLogCrossingL2) :
+    ccm24LogSpectralReflectionLinearIsometry ((Lp.fourierTransformₗᵢ ℝ ℂ).symm w) =
+      (Lp.fourierTransformₗᵢ ℝ ℂ).symm (ccm24LogSpectralReflectionLinearIsometry w) := by
+  apply (Lp.fourierTransformₗᵢ ℝ ℂ).injective
+  rw [ccm24FourierLp_R_comm (x := (Lp.fourierTransformₗᵢ ℝ ℂ).symm w)]
+  simp
+
+/-- C1 assembly: R (P+ (R u)) = P- u, i.e. R o P+ o R = P-. -/
+theorem ccm24Reflection_conjugates_positiveProjection (u : cc20GlobalLogCrossingL2) :
+    ccm24LogSpectralReflectionLinearIsometry
+        (ccm24PositiveFrequencyProjection (ccm24LogSpectralReflectionLinearIsometry u)) =
+      ccm24NegativeFrequencyProjection u := by
+  apply (Lp.fourierTransformₗᵢ ℝ ℂ).injective
+  rw [ccm24FourierLp_R_comm (x := ccm24PositiveFrequencyProjection (ccm24LogSpectralReflectionLinearIsometry u))]
+  rw [ccm24PositiveFrequencyProjection_fourier_readback]
+  rw [ccm24FourierLp_R_comm (x := u)]
+  change ccm24LogSpectralReflectionLinearIsometry
+      (ccm24FreqPositiveMultiplier (ccm24LogSpectralReflectionLinearIsometry ((Lp.fourierTransformₗᵢ ℝ ℂ) u))) =
+      (Lp.fourierTransformₗᵢ ℝ ℂ) (ccm24NegativeFrequencyProjection u)
+  rw [ccm24FreqPositiveMultiplier_reflection_mirror]
+  rw [show ccm24LogSpectralReflectionLinearIsometry (ccm24LogSpectralReflectionLinearIsometry ((Lp.fourierTransformₗᵢ ℝ ℂ) u)) = (Lp.fourierTransformₗᵢ ℝ ℂ) u from ccm24LogSpectralReflection_involutive ((Lp.fourierTransformₗᵢ ℝ ℂ) u)]
+  rw [ccm24NegativeFrequencyProjection_fourier_readback]
+  rfl
+
+
 end CC20Concrete
 end Source
 end ConnesWeilRH
