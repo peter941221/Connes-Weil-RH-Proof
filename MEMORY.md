@@ -1,3 +1,6 @@
+## Change Log (2026-08-12, PSP C-core inner/outer attack plan): docs/proofs/1003
+- docs/proofs/1003 splits the C-core leaf into A1..A5 (phase meromorphic data; Beurling inner/outer split m=Q/P, P in H+, Q in H-, |P|=|Q|=1; explicit outer P=exp(Pi_- log m), Q=exp(Pi_+ log m); L2-placement of psi=P; A5 lift through vArch_mem_iff_support_ae, then D/E). Acceptance per A_k: typed+no sorry/axiom, WSL flock build +#print axioms clean. Notes mathlib has no H+/H- Hardy submodules or inner/outer machinery (new math). RH not claimed.
+
 ## Change Log (2026-08-12, PSP C-core analytic verdict via scattering factorization): docs/proofs/1002
 - docs/proofs/1002: unwound the two half-line annihilations in the Fourier/Paley-Wiener dual. C-CORE is scale-independent (two e^(+-2 pi i xi log-lambda) factor exactly cancel): needs nonzero psi in H+ with m*psi in H-. Factoring the unimodular Gamma-R scattering m = Q/P with P in H+ (upper), Q in H- (lower) gives psi=P (so m*psi = Q in H-), i.e. V_arch is nonempty. The remaining real analysis is the explicit inner/outer factorization of the Gamma-R scattering phase + L2 placement, not in mathlib, multi-session. Not dead; the +-1 eigen-void (docs/1000) rules out only that subfamily. Typed gate vArch_mem_iff_support_ae remains open. RH not claimed.
 
