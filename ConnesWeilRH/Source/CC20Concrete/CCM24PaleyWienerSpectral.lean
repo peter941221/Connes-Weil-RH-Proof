@@ -279,6 +279,84 @@ theorem ccm24HalfProjectors_mult_zero_pointwise (x : ℝ) (c : ℂ) :
       simpa [ccm24FreqNegativeHalf] using (not_lt_of_ge hge)
     simp [hpos, hneg]
 
+/-- The disjoint-indicator product, reversed order: also zero. -/
+theorem ccm24HalfProjectors_positive_times_negative_zero_pointwise (x : ℝ) (c : ℂ) :
+    ccm24FreqPositiveIndicatorFunction x * (ccm24FreqNegativeIndicatorFunction x * c) = 0 := by
+  rw [ccm24FreqPositiveIndicatorFunction, ccm24FreqNegativeIndicatorFunction]
+  by_cases hx : x < 0
+  · have hneg : x ∈ ccm24FreqNegativeHalf := by simpa [ccm24FreqNegativeHalf] using hx
+    have hpos : x ∉ ccm24FreqPositiveHalf := by
+      simpa [ccm24FreqPositiveHalf] using (not_le_of_gt hx)
+    simp [hneg, hpos]
+  · have hge : (0 : ℝ) ≤ x := le_of_not_gt hx
+    have hpos : x ∈ ccm24FreqPositiveHalf := by simpa [ccm24FreqPositiveHalf] using hge
+    have hneg : x ∉ ccm24FreqNegativeHalf := by
+      simpa [ccm24FreqNegativeHalf] using (not_lt_of_ge hge)
+    simp [hpos, hneg]
+
+/-- The two half-line projections are orthogonal: `P+ (P- u) = 0`. -/
+theorem ccm24PositiveFrequencyProjection_comp_negative (u : cc20GlobalLogCrossingL2) :
+    ccm24PositiveFrequencyProjection (ccm24NegativeFrequencyProjection u) = 0 := by
+  apply (Lp.fourierTransformₗᵢ ℝ ℂ).injective
+  rw [ccm24PositiveFrequencyProjection_fourier_readback,
+      ccm24NegativeFrequencyProjection_fourier_readback]
+  rw [Lp.ext_iff]
+  filter_upwards
+    [Lp.coeFn_lpSMul (p := ∞) (q := 2) (r := 2) ccm24FreqPositiveHalfLp
+      (ccm24FreqNegativeHalfLp • (Lp.fourierTransformₗᵢ ℝ ℂ u)),
+     Lp.coeFn_lpSMul (p := ∞) (q := 2) (r := 2) ccm24FreqNegativeHalfLp
+      (Lp.fourierTransformₗᵢ ℝ ℂ u),
+     ccm24FreqPositiveHalfLp_coeFn,
+     ccm24FreqNegativeHalfLp_coeFn] with xi hp hn hpe hne
+  rw [hp]
+  simp only [Pi.smul_apply']
+  rw [hn]
+  simp only [Pi.smul_apply']
+  rw [hpe, hne]
+  simpa [smul_eq_mul] using
+    (ccm24HalfProjectors_positive_times_negative_zero_pointwise xi (Lp.fourierTransformₗᵢ ℝ ℂ u xi))
+
+/-- The negative projection is the complement `u - P+ u` of the positive one. -/
+theorem ccm24NegativeProjection_apply (u : cc20GlobalLogCrossingL2) :
+    ccm24NegativeFrequencyProjection u = u - ccm24PositiveFrequencyProjection u := by
+  rw [eq_sub_iff_add_eq]
+  simpa [add_comm] using (ccm24PositiveFrequencyProjection_add_negative u)
+
+/-- Orthogonality of the two half-line projections, symmetrically: `P- (P+ u) = 0`.
+This follows algebraically from `P- = id - P+` and the idempotence of `P+`. -/
+theorem ccm24NegativeFrequencyProjection_comp_positive (u : cc20GlobalLogCrossingL2) :
+    ccm24NegativeFrequencyProjection (ccm24PositiveFrequencyProjection u) = 0 := by
+  rw [ccm24NegativeProjection_apply (ccm24PositiveFrequencyProjection u)]
+  rw [ccm24PositiveFrequencyProjection_idempotent u]
+  exact sub_self (ccm24PositiveFrequencyProjection u)
+
+/-- The negative projection is also idempotent: `P- (P- u) = P- u`. -/
+theorem ccm24NegativeFrequencyProjection_idempotent (u : cc20GlobalLogCrossingL2) :
+    ccm24NegativeFrequencyProjection (ccm24NegativeFrequencyProjection u) =
+      ccm24NegativeFrequencyProjection u := by
+  rw [ccm24NegativeProjection_apply (ccm24NegativeFrequencyProjection u)]
+  rw [ccm24PositiveFrequencyProjection_comp_negative u]
+  simp
+
+/-- The positive and negative halves are linearly independent: if their pieces
+sum to zero, each already vanishes, so `(range P+)` and `(range P-)` intersect
+only at `0`. -/
+theorem ccm24_split_independence {u v : cc20GlobalLogCrossingL2}
+    (h : ccm24PositiveFrequencyProjection u + ccm24NegativeFrequencyProjection v = 0) :
+    ccm24PositiveFrequencyProjection u = 0 ∧
+      ccm24NegativeFrequencyProjection v = 0 := by
+  constructor
+  · have hpos := congrArg ccm24PositiveFrequencyProjection h
+    rw [map_add] at hpos
+    rw [ccm24PositiveFrequencyProjection_idempotent u,
+        ccm24PositiveFrequencyProjection_comp_negative v] at hpos
+    simpa using hpos
+  · have hneg := congrArg ccm24NegativeFrequencyProjection h
+    rw [map_add] at hneg
+    rw [ccm24NegativeFrequencyProjection_comp_positive u,
+        ccm24NegativeFrequencyProjection_idempotent v] at hneg
+    simpa using hneg
+
 end CC20Concrete
 end Source
 end ConnesWeilRH
