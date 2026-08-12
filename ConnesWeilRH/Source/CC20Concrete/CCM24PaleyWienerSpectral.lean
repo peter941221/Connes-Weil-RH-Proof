@@ -246,6 +246,38 @@ theorem ccm24PositiveFrequencyProjection_add_negative
   simp only [Pi.smul_apply']
   rw [hpe, hnn]
   simpa [smul_eq_mul] using (ccm24HalfIndicator_add_pointwise x (Lp.fourierTransformₗᵢ ℝ ℂ u x))
+/-- The non-negative-frequency Hardy half-space `H+ = { u : P- u = 0 }`.  Because
+`P- P+ u = 0` for every `u`, this is equivalently `ker (I - P+)`. -/
+noncomputable def ccm24HardyPositiveSubspace : Submodule ℂ cc20GlobalLogCrossingL2 :=
+  ccm24NegativeFrequencyProjection.ker
+
+/-- The strictly-negative-frequency Hardy half-space `H- = { u : P+ u = 0 }`, the kernel
+of the positive-frequency projection. -/
+noncomputable def ccm24HardyNegativeSubspace : Submodule ℂ cc20GlobalLogCrossingL2 :=
+  ccm24PositiveFrequencyProjection.ker
+
+theorem mem_ccm24HardyPositiveSubspace_iff (u : cc20GlobalLogCrossingL2) :
+    u ∈ ccm24HardyPositiveSubspace ↔ ccm24NegativeFrequencyProjection u = 0 := by
+  simp [ccm24HardyPositiveSubspace, LinearMap.mem_ker]
+
+theorem mem_ccm24HardyNegativeSubspace_iff (u : cc20GlobalLogCrossingL2) :
+    u ∈ ccm24HardyNegativeSubspace ↔ ccm24PositiveFrequencyProjection u = 0 := by
+  simp [ccm24HardyNegativeSubspace, LinearMap.mem_ker]
+
+/-- The two half-line indicators are pointwise orthogonal as scalar factors. -/
+theorem ccm24HalfProjectors_mult_zero_pointwise (x : ℝ) (c : ℂ) :
+    ccm24FreqNegativeIndicatorFunction x * (ccm24FreqPositiveIndicatorFunction x * c) = 0 := by
+  rw [ccm24FreqNegativeIndicatorFunction, ccm24FreqPositiveIndicatorFunction]
+  by_cases hx : x < 0
+  · have hpos : x ∉ ccm24FreqPositiveHalf := by
+      simpa [ccm24FreqPositiveHalf] using (not_le_of_gt hx)
+    simp [hpos]
+  · have hge : 0 ≤ x := le_of_not_gt hx
+    have hpos : x ∈ ccm24FreqPositiveHalf := by
+      simpa [ccm24FreqPositiveHalf] using hge
+    have hneg : x ∉ ccm24FreqNegativeHalf := by
+      simpa [ccm24FreqNegativeHalf] using (not_lt_of_ge hge)
+    simp [hpos, hneg]
 
 end CC20Concrete
 end Source
