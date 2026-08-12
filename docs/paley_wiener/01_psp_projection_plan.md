@@ -3,6 +3,15 @@
 Status: OPEN, live target (docs/1000 steps 1/2/3). This is the gate for the
 infinite-carrier Gate-3U `{2}` readout. RH NOT claimed. No new axiom / sorry.
 
+**Milestone A DONE (2026-08-12).** `Dev/PaleyWindowProbe.lean` builds a concrete
+nonzero radial window element `soninWindowIndicator` (constant `1` on
+`(log lambda, log lambda + log 2)`, typed in `cc20GlobalLogCrossingL2`) and
+proves `soninWindowIndicator_mem_radial` + `soninWindowIndicator_ne_zero`
+(WSL `lake build ConnesWeilRH.Dev.PaleyWindowProbe` green, `#print
+axioms=[propext, Classical.choice, Quot.sound]`, 0 sorry). Closes sub-target A.
+Next: sub-target B (HT isometry assembly). sub-target C (band-limit /
+Paley-Wiener-Titchmarsh element in `V_arch`) stays the honest new-analysis leaf.
+
 ## 0. Why this project exists
 
 The whole route 1/2/3 (docs/1000) reduces to one analytic existence:
@@ -33,7 +42,7 @@ in dependency order. AN evidence gate is recorded per piece.
 
 | # | Sub-target | Math | Depends on | Gate |
 |---|-----------|------|-----------|------|
-| A | `nonzeroRadialExists` : a concrete `L2` function `R` radial at `lambda` (vanishing below `log lambda`) with nonzero mass on `(log lambda, log+log2)` | explicit test function + Lp | setup | build + audit clean |
+| A | `nonzeroRadialExists` : a concrete `L2` function `R` radial at `lambda` (vanishing below `log lambda`) with nonzero mass on `(log lambda, log+log2)` | explicit test function + Lp | setup | **DONE** (Dev/PaleyWindowProbe, 3317 jobs, axiom-clean) |
 | B | `Hardy0norm` : the radial image `HT(R)` is a well-defined L2 element and cont. (handed to us) | HT isometry (in repo) | A | assembly |
 | C | `Sonin_nonzero_cone` : some continuous band / projected element lies in `V_arch` and `!= 0` | Paley-Wiener / Titchmarsh / band-limit projection theorem (NEW to mathlib v4.30.0) | A,B - C is the honest new analysis | must be built with new math |
 | D | "-bar coatoma" : that element has nonzero mass on the window | Consequence of the explicit construction | C | assemble |

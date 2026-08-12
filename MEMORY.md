@@ -1,3 +1,6 @@
+## Change Log (2026-08-12, PSP sub-target A = concrete nonzero radial window element): Dev/PaleyWindowProbe.lean
+- New `ConnesWeilRH/Dev/PaleyWindowProbe.lean` builds `soninWindowIndicator` (constant-1 indicator of the Sonin window `(log-λ, log-λ+log2)` in `cc20GlobalLogCrossingL2`) and proves `soninWindowIndicator_mem_radial` + `soninWindowIndicator_ne_zero` (via `norm_indicatorConstLp'` + `Real.rpow_pos_of_pos`). WSL `lake build ConnesWeilRH.Dev.PaleyWindowProbe` 3317 jobs green, `#print axioms=[propext, Classical.choice, Quot.sound]`, 0 sorry. Closes docs/paley_wiener/01 sub-target A. NOT a V_arch element yet (Fourier-support half C = band-limit/Paley-Wiener-Titchmarsh stays OPEN). 998/999 still OPEN. RH not claimed.
+
 ## Change Log (2026-08-12, step-1 survey: V_arch = Radial ∩ HT⁻¹(Radial), no nonzero element buildable) : docs/1000
 - Surveyed every reachable carrier/equiv for a nonzero V_arch element: none ships one; the +-1 HT eigen reduction (proved in Dev/SoninWindowWitness) is void in L2 (scattering multiplier level-set thin), and the Healthy/CompactLog nonzero windows have no bridge to sourceSoninCarrier (route 914b). PG conclusion: only a continuous band-limit / PSP (Paley-Wiener-Titchmarsh) element can supply it = docs/999 multi-session new analysis. Kernel+typed gate stay honest; obligation stays a build Prop. RH not claimed.
 
