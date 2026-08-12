@@ -1,3 +1,6 @@
+## Change Log (2026-08-12, PSP sub-target C-setup = precise V_arch annihilation criterion): Dev/PaleyWindowAnalysis.lean
+- New `ConnesWeilRH/Dev/PaleyWindowAnalysis.lean` (axiom-clean) proves `vArch_mem_iff_support_ae`: u in V_arch iff u radial AND HT u radial, both as pointwise a.e. half-line annihilations on t < log lambda; `radial_half_solved` supplies the first branch from sub-target A. Docs/proofs/1001 pins C to a joint Hardy/multiplier condition (phi upper-Hardy AND m(.)phi(-.) upper-Hardy). WSL 3319 jobs green, axiom-clean, 0 sorry. The existential self-annihilating band construction stays OPEN (new analysis). RH not claimed.
+
 ## Change Log (2026-08-12, PSP sub-target B = HT isometry assembly): Dev/PaleyHTAssembly.lean
 - New `ConnesWeilRH/Dev/PaleyHTAssembly.lean` proves `htOfWindow_ne_zero` (the HT image of the radial window element is a nonzero L2 element, via the involutive HT isometry) and the typed V_arch reduction `archimedeanSonin_mem_radial_and_ht_radial` (u ∈ V_arch <-> u radial AND HT u radial). WSL `lake build ConnesWeilRH.Dev.PaleyHTAssembly` 3318 jobs green, `#print axioms=[propext, Classical.choice, Quot.sound]`, 0 sorry. Reduces sub-target C to: nonzero radial u with HT(u) radial. docs/paley_wiener/01 sub-target B. RH not claimed.
 
