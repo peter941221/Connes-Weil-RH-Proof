@@ -140,6 +140,113 @@ theorem ccm24PositiveFrequencyProjection_idempotent
   rw [hfE]
   exact ccm24FreqPositiveIndicator_smul_idem x (Lp.fourierTransformₗᵢ ℝ ℂ u x)
 
+/-- The non-positive half-line of the log-Fourier centre: `(-inf,0)`. -/
+noncomputable def ccm24FreqNegativeHalf : Set ℝ :=
+  Set.Iio (0 : ℝ)
+
+theorem measurableSet_ccm24FreqNegativeHalf :
+    MeasurableSet ccm24FreqNegativeHalf := by
+  exact measurableSet_Iio
+
+/-- The negative-frequency indicator `1_{(-inf,0)} : Real -> Complex`. -/
+noncomputable def ccm24FreqNegativeIndicatorFunction : ℝ → ℂ :=
+  (ccm24FreqNegativeHalf : Set ℝ).indicator (fun _ => (1 : ℂ))
+
+theorem stronglyMeasurable_ccm24FreqNegativeIndicator :
+    StronglyMeasurable ccm24FreqNegativeIndicatorFunction := by
+  exact StronglyMeasurable.indicator
+    (stronglyMeasurable_const : StronglyMeasurable (fun _ : ℝ => (1 : ℂ)))
+    measurableSet_ccm24FreqNegativeHalf
+
+theorem norm_ccm24FreqNegativeIndicatorFunction (x : ℝ) :
+    norm (ccm24FreqNegativeIndicatorFunction x) <= 1 := by
+  rw [ccm24FreqNegativeIndicatorFunction]
+  by_cases hx : x ∈ ccm24FreqNegativeHalf
+  · simp [hx]
+  · simp [hx]
+
+theorem memLp_ccm24FreqNegativeIndicatorFunction :
+    MemLp ccm24FreqNegativeIndicatorFunction ∞ (volume : Measure ℝ) := by
+  exact memLp_top_of_bound (μ := volume)
+    (stronglyMeasurable_ccm24FreqNegativeIndicator.aestronglyMeasurable) 1
+    (Filter.Eventually.of_forall (norm_ccm24FreqNegativeIndicatorFunction))
+
+/-- The negative indicator as the log-Fourier `L-infinity` element. -/
+noncomputable def ccm24FreqNegativeHalfLp : Lp ℂ ∞ (volume : Measure ℝ) :=
+  memLp_ccm24FreqNegativeIndicatorFunction.toLp ccm24FreqNegativeIndicatorFunction
+
+theorem ccm24FreqNegativeHalfLp_coeFn :
+    (ccm24FreqNegativeHalfLp : ℝ → ℂ) =ᵐ[volume]
+      ccm24FreqNegativeIndicatorFunction :=
+  memLp_ccm24FreqNegativeIndicatorFunction.coeFn_toLp
+
+/-- Multiplication by the negative-frequency indicator on the log-Fourier
+`L2` carrier: the bounded multiplier `u -> 1_{(-inf,0)} * u`. -/
+noncomputable def ccm24FreqNegativeMultiplier :
+    cc20GlobalLogCrossingL2 →ₗ[ℂ] cc20GlobalLogCrossingL2 where
+  toFun u := ccm24FreqNegativeHalfLp • u
+  map_add' := Lp.add_smul ccm24FreqNegativeHalfLp
+  map_smul' c u := by
+    exact (Lp.smul_comm c ccm24FreqNegativeHalfLp u).symm
+
+/-- The Paley--Wiener negative-frequency projection `P- = F-inverse
+(1_{(-inf,0)} .) F` on the log-Fourier `L2` carrier. -/
+noncomputable def ccm24NegativeFrequencyProjection :
+    cc20GlobalLogCrossingL2 →ₗ[ℂ] cc20GlobalLogCrossingL2 :=
+  (Lp.fourierTransformₗᵢ ℝ ℂ).symm.toLinearMap.comp
+    (ccm24FreqNegativeMultiplier.comp (Lp.fourierTransformₗᵢ ℝ ℂ).toLinearMap)
+
+/-- Spectral readback of the negative-frequency projection: its Fourier image
+is exactly the negative-frequency indicator acting on the Fourier image. -/
+theorem ccm24NegativeFrequencyProjection_fourier_readback
+    (u : cc20GlobalLogCrossingL2) :
+    Lp.fourierTransformₗᵢ ℝ ℂ (ccm24NegativeFrequencyProjection u) =
+      ccm24FreqNegativeHalfLp • (Lp.fourierTransformₗᵢ ℝ ℂ u) := by
+  simp [ccm24NegativeFrequencyProjection, ccm24FreqNegativeMultiplier]
+
+/-- The two half-line indicators, weighted by a complex scalar, sum to the scalar
+pointwise: `1_[0,inf)(x) * c + 1_(-inf,0)(x) * c = c`. -/
+theorem ccm24HalfIndicator_add_pointwise (x : ℝ) (c : ℂ) :
+    ccm24FreqPositiveIndicatorFunction x * c + ccm24FreqNegativeIndicatorFunction x * c = c := by
+  by_cases hx : x < 0
+  · rw [ccm24FreqPositiveIndicatorFunction, ccm24FreqNegativeIndicatorFunction]
+    have hpos : x ∉ ccm24FreqPositiveHalf := by
+      simpa [ccm24FreqPositiveHalf] using (not_le_of_gt hx)
+    have hmem : x ∈ ccm24FreqNegativeHalf := by
+      simpa [ccm24FreqNegativeHalf] using hx
+    simp [hpos, hmem]
+  · rw [ccm24FreqPositiveIndicatorFunction, ccm24FreqNegativeIndicatorFunction]
+    have hge : (0 : ℝ) ≤ x := le_of_not_gt hx
+    have hpos : x ∈ ccm24FreqPositiveHalf := by simpa [ccm24FreqPositiveHalf] using hge
+    have hnegg : x ∉ ccm24FreqNegativeHalf := by
+      simpa [ccm24FreqNegativeHalf] using (not_lt_of_ge hge)
+    simp [hpos, hnegg]
+
+/-- The two half-line projectors are complementary: `P+ u + P- u = u`. -/
+theorem ccm24PositiveFrequencyProjection_add_negative
+    (u : cc20GlobalLogCrossingL2) :
+    ccm24PositiveFrequencyProjection u + ccm24NegativeFrequencyProjection u = u := by
+  apply (Lp.fourierTransformₗᵢ ℝ ℂ).injective
+  rw [map_add]
+  rw [ccm24PositiveFrequencyProjection_fourier_readback,
+      ccm24NegativeFrequencyProjection_fourier_readback]
+  rw [Lp.ext_iff]
+  filter_upwards
+    [Lp.coeFn_add (ccm24FreqPositiveHalfLp • (Lp.fourierTransformₗᵢ ℝ ℂ u))
+       (ccm24FreqNegativeHalfLp • (Lp.fourierTransformₗᵢ ℝ ℂ u)),
+     Lp.coeFn_lpSMul (p := ∞) (q := 2) (r := 2) ccm24FreqPositiveHalfLp
+       (Lp.fourierTransformₗᵢ ℝ ℂ u),
+     Lp.coeFn_lpSMul (p := ∞) (q := 2) (r := 2) ccm24FreqNegativeHalfLp
+       (Lp.fourierTransformₗᵢ ℝ ℂ u),
+     ccm24FreqPositiveHalfLp_coeFn,
+     ccm24FreqNegativeHalfLp_coeFn] with x hadd hps hns hpe hnn
+  rw [hadd]
+  rw [Pi.add_apply]
+  rw [hps, hns]
+  simp only [Pi.smul_apply']
+  rw [hpe, hnn]
+  simpa [smul_eq_mul] using (ccm24HalfIndicator_add_pointwise x (Lp.fourierTransformₗᵢ ℝ ℂ u x))
+
 end CC20Concrete
 end Source
 end ConnesWeilRH
