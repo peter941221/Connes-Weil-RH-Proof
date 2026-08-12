@@ -357,6 +357,44 @@ theorem ccm24_split_independence {u v : cc20GlobalLogCrossingL2}
         ccm24NegativeFrequencyProjection_idempotent v] at hneg
     simpa using hneg
 
+
+/-- The origin is Lebesgue-null, so `x ≠ 0` almost everywhere on the carrier. -/
+theorem ccm24ae_ne_zero_volume : ∀ᵐ x ∂(volume : Measure ℝ), x ≠ 0 := by
+  rw [ae_iff]
+  simp
+
+/-- The positive-frequency indicator, reflected at the origin, equals the
+negative-frequency indicator pointwise off the single point `{0}`. -/
+theorem ccm24FreqPositiveHalf_mirror_pointwise (x : ℝ) (hx0 : x ≠ 0) :
+    ccm24FreqPositiveIndicatorFunction (-x) = ccm24FreqNegativeIndicatorFunction x := by
+  rw [ccm24FreqPositiveIndicatorFunction, ccm24FreqNegativeIndicatorFunction]
+  by_cases hx : x < 0
+  · have hPos : -x ∈ ccm24FreqPositiveHalf := by
+      simp [ccm24FreqPositiveHalf]
+      linarith
+    have hm : x ∈ ccm24FreqNegativeHalf := by
+      simp [ccm24FreqNegativeHalf]
+      exact hx
+    simp [hPos, hm]
+  · have hge : (0 : ℝ) ≤ x := le_of_not_gt hx
+    have hxpos : x > 0 := lt_of_le_of_ne hge (Ne.symm hx0)
+    have hneg : -x ∉ ccm24FreqPositiveHalf := by
+      simp [ccm24FreqPositiveHalf]
+      linarith
+    have hn : x ∉ ccm24FreqNegativeHalf := by
+      simp [ccm24FreqNegativeHalf]
+      exact hge
+    simp [hneg, hn]
+
+/-- The `L2`-almost-everywhere mirror identity: `1_{[0,inf)}(-ξ)` equals
+`1_(-inf,0)(ξ)`, the unique failure point being the null singleton `{0}`. -/
+theorem ccm24FreqHalf_mirror_ae :
+    (fun xi => ccm24FreqPositiveIndicatorFunction (-xi)) =ᵐ[volume]
+      ccm24FreqNegativeIndicatorFunction := by
+  filter_upwards
+    [ccm24ae_ne_zero_volume] with xi hxi
+  exact ccm24FreqPositiveHalf_mirror_pointwise xi hxi
+
 end CC20Concrete
 end Source
 end ConnesWeilRH
