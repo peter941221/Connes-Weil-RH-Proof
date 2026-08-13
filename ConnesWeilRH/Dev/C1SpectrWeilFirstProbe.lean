@@ -1,4 +1,4 @@
-import ConnesWeilRH.Dev.C1SpectralWeil
+import ConnesWeilRH.Dev.C1SpectralSummability
 import ConnesWeilRH.Dev.C1SameOwnerWeil
 import ConnesWeilRH.Dev.Wall14Conv4Base
 
@@ -49,6 +49,13 @@ theorem gate2_bridge_conv4 :
   constructor
   · exact hg.2
   · exact hg.1
+
+/-- The convergence premise has been discharged for the same concrete owner;
+the Gate 2 bridge is now exactly its remaining arithmetic-spectral equality. -/
+theorem gate2_bridge_conv4_iff :
+    gate2ExplicitFormula conv4B ↔
+      C1SameOwnerWeil.psi conv4B = C1SpectralWeil.spectralWeilValue conv4B :=
+  C1SpectralSummability.gate2ExplicitFormula_iff conv4B
 
 end C1SpectralWeilFirstProbe
 end Source

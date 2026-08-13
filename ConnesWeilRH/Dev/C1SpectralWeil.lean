@@ -501,6 +501,49 @@ theorem spectralHeightShell_subset_symmetricHeight (n : Nat) :
   rw [hrho] at hlt
   simpa only [Nat.add_assoc] using hlt.le
 
+/-- A finite subtype sum is the corresponding sum over the finite set.  The
+subtype equivalence is explicit so the analytic multiplicity mass cannot lose
+or duplicate an indexed zero when it is read back as a `Finset` sum. -/
+theorem tsum_finite_subtype_eq_sum_toFinset {α : Type*} {s : Set α}
+    (hs : s.Finite) (f : α → ℝ) :
+    (∑' x : {x // x ∈ s}, f x) =
+      ∑ x ∈ hs.toFinset, f x := by
+  letI : Fintype s := hs.fintype
+  rw [tsum_fintype]
+  symm
+  apply Finset.sum_subtype
+  intro x
+  exact hs.mem_toFinset
+
+/-- The analytic multiplicity mass in one dyadic shell is bounded by the
+corresponding symmetric-height window.  This preserves multiplicities; the
+older cardinality count cannot supply this bound. -/
+theorem spectralHeightMultiplicity_le_finiteHeightMultiplicity (n : Nat) :
+    spectralHeightMultiplicity (n + 1) ≤
+      (finiteHeightMultiplicity ((2 : Real) ^ (n + 2)) : Real) := by
+  classical
+  let shell := spectralHeightShell (n + 1)
+  let T : Real := (2 : Real) ^ (n + 2)
+  have hfinite : shell.Finite := by
+    simpa only [shell] using spectralHeightShell_finite (n + 1)
+  have hsubset : hfinite.toFinset ⊆ finiteHeightZeros T := by
+    intro rho hrho
+    rw [mem_finiteHeightZeros_iff]
+    apply spectralHeightShell_subset_symmetricHeight n
+    exact hfinite.mem_toFinset.mp hrho
+  calc
+    spectralHeightMultiplicity (n + 1) =
+        ∑ rho ∈ hfinite.toFinset, (xiMultiplicity rho : Real) := by
+          unfold spectralHeightMultiplicity
+          exact tsum_finite_subtype_eq_sum_toFinset hfinite
+            (fun rho => (xiMultiplicity rho : Real))
+    _ ≤ ∑ rho ∈ finiteHeightZeros T, (xiMultiplicity rho : Real) := by
+          apply Finset.sum_le_sum_of_subset_of_nonneg hsubset
+          intro rho _ _
+          exact Nat.cast_nonneg (xiMultiplicity rho)
+    _ = (finiteHeightMultiplicity T : Real) := by
+          simp only [finiteHeightMultiplicity, Nat.cast_sum]
+
 end C1SpectralWeil
 end Source
 end ConnesWeilRH
