@@ -1,5 +1,11 @@
 # Quarantined source-carrier rows are blocked by a design-level zero-test contradiction (not merely missing proofs)
 
+> **SUPERSEDED (2026-08-12).** This audit applies to the retired
+> global-reverse-support model. The S2 per-common refactor removed the zero-test
+> contradiction, and the former `SourceWeilFormData` root now has an axiom-clean
+> constructor. See `docs/proofs/835_s2_percommon_refactor_landed.md`. The current
+> all-pairs finite-prime and RH-criterion gaps are different obligations.
+
 Date: 2026-08-06
 Status: sweep result — the 26 quarantined Dev source inputs rest on a concrete
 evaluation carrier that is already inconsistent with the very data they are to

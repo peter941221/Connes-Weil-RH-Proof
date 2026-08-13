@@ -1,86 +1,68 @@
-# 01 - PSP / Paley-Wiener Project: a nonzero element of the archimedean Sonin carrier
+# 01 - PSP / Paley-Wiener project
 
-Status: OPEN, live target (docs/1000 steps 1/2/3). This is the gate for the
-infinite-carrier Gate-3U `{2}` readout. RH NOT claimed. No new axiom / sorry.
+Status: open, corrected 2026-08-12. This project tests the current
+infinite-carrier Gate-3U route. It does not prove RH.
 
-**Milestone A DONE (2026-08-12).** `Dev/PaleyWindowProbe.lean` builds a concrete
-nonzero radial window element `soninWindowIndicator` (constant `1` on
-`(log lambda, log lambda + log 2)`, typed in `cc20GlobalLogCrossingL2`) and
-proves `soninWindowIndicator_mem_radial` + `soninWindowIndicator_ne_zero`
-(WSL `lake build ConnesWeilRH.Dev.PaleyWindowProbe` green, `#print
-axioms=[propext, Classical.choice, Quot.sound]`, 0 sorry). Closes sub-target A.
-Next: sub-target B (HT isometry assembly). sub-target C (band-limit /
-Paley-Wiener-Titchmarsh element in `V_arch`) stays the honest new-analysis leaf.
+## Target
 
-**Milestone B DONE (2026-08-12).** `Dev/PaleyHTAssembly.lean` proves `htOfWindow_ne_zero` (HT image of the radial window element is a well-defined nonzero L2 element, via the HT isometry) and the typed reduction `archimedeanSonin_mem_radial_and_ht_radial` (u member of V_arch if and only if u radial AND HT-u radial); WSL 3318 jobs green, axiom-clean, 0 sorry. This reduces sub-target C to: build a nonzero radial u with HT(u) radial. The band-limit / Paley-Wiener-Titchmarsh construction of such a u is the live OPEN new-analysis leaf.
-
-## 0. Why this project exists
-
-The whole route 1/2/3 (docs/1000) reduces to one analytic existence:
+The required witness is stronger than a nonzero Sonin vector:
 
 ```text
-archimedeanSoninCarrier_nontrivial lambda  :=  exists u, u : sourceSoninCarrier lambda
-                                                with u != 0
-V_arch(lambda)  =  Radial(lambda)  INTER  HT^-1( Radial(lambda) )
-Radial(lambda)  =  { u : L2(R), u = 0 a.e. on (-inf, log lambda) }
+find u : sourceSoninCarrier(lambda) such that
+  soninWindowRestriction(lambda, u) != 0
+in L2(volume.restrict (log lambda, log lambda + log 2)).
 ```
 
-Here `HT = ccm24ArchimedeanHardyTitchmarsh` (conveniently involutive isometry,
-already in the repo). A nonzero element of `V_arch` reaching the window
-`(log lambda, log lambda + log 2)` closes step 2/3, i.e. makes
-`twoOuterNonzeroObligation` a real theorem.
+This formulation is invariant under the almost-everywhere quotient in `L2`.
+It replaces the invalid point-value test.
 
-Survey in docs/1000 found: no library witness, the exact `+-1`-eigenroute is
-`L2`-void (scattering multiplier level-set thin), and the CompactLog "healthy"
-world has no bridge to `sourceSoninCarrier`. So the only real construction is a
-**continuous-spectrum band limit / Hardy ("PSP / prolate-spheroidal wave")**
-element: a function that vanishes on the lower half-log-line and whose
-Hardy-Titchmarsh image does too.
+## Progress
 
-## 1. Decomposition into closeable sub-targets
+| Step | Claim | Status |
+|---|---|---|
+| A | Ambient radial indicator has nonzero restricted norm | Closed |
+| B | HT isometry and radial/HT-radial membership decomposition | Closed |
+| C | Nonzero scattering Toeplitz kernel / Sonin witness | Open |
+| D | Witness has nonzero log-2-window restriction | Open |
+| E | Coframe bridge proves `twoOuterNonzeroObligation` | Open |
 
-We cut the load-bearing claim into pieces, each independently build/audit-able,
-in dependency order. AN evidence gate is recorded per piece.
+The exact `+-1` eigenvector approach remains unsuitable as a generic L2
+construction. The closed reflection identity `R P+ R = P-` supports the
+Fourier-side reduction but does not create a kernel vector.
 
-| # | Sub-target | Math | Depends on | Gate |
-|---|-----------|------|-----------|------|
-| A | `nonzeroRadialExists` : a concrete `L2` function `R` radial at `lambda` (vanishing below `log lambda`) with nonzero mass on `(log lambda, log+log2)` | explicit test function + Lp | setup | **DONE** (Dev/PaleyWindowProbe, 3317 jobs, axiom-clean) |
-| B | `Hardy0norm` : the radial image `HT(R)` is a well-defined L2 element and cont. (handed to us) | HT isometry (in repo) | A | **DONE** (Dev/PaleyHTAssembly: dev/htOfWindow_ne_zero, the V_arch iff reduction) |
-| C | `Sonin_nonzero_cone` : some continuous band / projected element lies in `V_arch` and `!= 0` | Paley-Wiener / Titchmarsh / band-limit projection theorem (NEW to mathlib v4.30.0) | A,B - C is the honest new analysis | must be built with new math |
-| D | "-bar coatoma" : that element has nonzero mass on the window | Consequence of the explicit construction | C | assemble |
-| E | Lift `twoOuterNonzeroObligation` and flip AGENTS 998/999 to closed | coframe bridge (typed gate exists) | D | theorem |
+## Fourier-side form
 
-Negative sub-targets (to be killed with a named guard if they fail): the exact
-+-1 eigenspace construction (void); a "CompactLog-only" shortcut (no bridge).
-
-## 3. Execution cadence
-
-- Work top-down from the route consumer (the typed gate
-  `twoOuterNonzero_gate_on_archwitness` in `Dev/SoninWindowWitness.lean`).
-- Each sub-target: WSL isolate mirror `flock lake build <mod>` + `#print axioms`
-  = `[propext, Classical.choice, Quot.sound]`, 0 sorry.
-- Sub-target A is the first attackable item (next commit). Sub-target B is pure
-  assembly. Sub-target C is where new math enters and may take many sessions;
-  its exact, typed declaration already exists in the SoninWindowWitness kernel.
-
-## 4. This repo vs mathlib
-
-The pieces that are genuinely NEW (to be authored, then upstreamed):
-- Paley - Hardy/Radial one-sided Fourier support detection (the Titchmarsh
-  theorem): not in mathlib v4.30.0.
-- The band-limit projection "PSP" fixed-point/embedded construction.
-
-Everything else (Hardy-Titchmarsh isometry, radial subspace kernel, inner
-products) is already repo/mathlib and only needs assembly.
-
-## 5. First execution phase (step A): explicit nonzero radial window element
-
-Construct and prove in Lean (`ConnesWeilRH/Dev/PaleyWindowProbe.lean`):
+The valid Fourier target is
 
 ```text
-def hRayWindow f (f on interval) ...
-lemma radialMem_nonzero : exists _, _ = 0 on <log-> AND nonzero on window is,
-corollary build the L2 vector.
+find psi in H+ intersect L2(R), psi != 0,
+with m * psi in H- intersect L2(R),
+
+m(xi) = Gamma_R(1/2 - i * 2*pi*xi) /
+        Gamma_R(1/2 + i * 2*pi*xi).
 ```
 
-Next sub-goal in the code (A opens now, B after, C after B).
+In repository terms this is
+`archimedeanScatteringToeplitzKernel_nontrivial`. A Wiener--Hopf
+factorization does not prove this predicate: a unimodular boundary factor has
+constant modulus and is not in `L2(R)`.
+
+## Construction candidate
+
+The prolate/Sonin route is the current candidate. Connes--Moscovici state that
+a negative eigenfunction of their self-adjoint prolate operator belongs to the
+Sonin space:
+
+```text
+https://pmc.ncbi.nlm.nih.gov/articles/PMC9295779/
+```
+
+The formal work must establish the operator domain, a negative eigenfunction,
+transport to this repository's `sourceSoninCarrier`, and nonzero restriction
+to the required window.
+
+## Consequence boundary
+
+If steps C through E close, the result proves nonzero outer leakage for the
+family `{2}` and rejects the current infinite-carrier Gate-3U cancellation
+route. It supplies route diagnosis, not an RH proof.

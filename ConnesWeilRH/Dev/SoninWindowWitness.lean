@@ -1,5 +1,6 @@
 import ConnesWeilRH.Dev.OuterTwoNonzeroObligation
 import ConnesWeilRH.Source.CC20Concrete.CCM24HardyTitchmarsh
+import ConnesWeilRH.Source.CC20Concrete.CCM24PaleyWienerSpectral
 import ConnesWeilRH.Source.CC20Concrete.CCM24LogRadialSupport
 import ConnesWeilRH.Source.CC20Concrete.CCM24FiniteEulerSoninTransport
 
@@ -7,9 +8,9 @@ import ConnesWeilRH.Source.CC20Concrete.CCM24FiniteEulerSoninTransport
 # Sonin window witness module (Dev)
 
 Route: docs/proofs/999 and docs/proofs/998.  This module pins, by name and by
-exact type, the single irreducible analytic leaf that sits between the verified
-coframe identity (docs/998, `Dev/OuterTwoNonzeroObligation.lean`) and a formal
-`theorem` for `twoOuterNonzeroObligation`.
+exact type, the analytic witness target used by the conditional coframe
+calculation in docs/998. `Dev/OuterTwoNonzeroObligation.lean` defines the target
+Prop; it does not prove the coframe strip identity or the target itself.
 
 The documentation (docs/999) records that producing a nonzero element of the
 archimedean Sonin carrier `sourceSoninCarrier lambda` with nonzero mass on the
@@ -17,16 +18,17 @@ window `(log lambda, log lambda + log 2)` is genuinely new analysis (the
 Paley--Wiener / Titchmarsh detection theorem for the archimedean Sonin space),
 not present in this repository nor in mathlib v4.30.0.
 
-Each goal below is stated with its exact type as a `noncomputable def ... :
-Prop` so the statements are both *build-verified* and *axiom-clean* (a `Prop`
-`def` carries no proof obligation).  These typed statements are the verified
-contract a future session must close with real analysis.
+Each open goal below is stated with its exact type as a `noncomputable def ... :
+Prop`. A `Prop` definition fixes a type but proves nothing. The actual theorems
+needed are: a Sonin window witness, the `{2}` strip identity in `Lp`, and the
+bridge from nonzero restriction to `twoOuterNonzeroObligation`.
 -/
 
 namespace ConnesWeilRH
 namespace Dev
 namespace SoninWindowWitness
 
+open MeasureTheory
 open scoped InnerProduct
 
 open ConnesWeilRH.Source.CC20Concrete
@@ -68,13 +70,42 @@ theorem windowT_nonempty (lambda : CCM24SoninScale) :
 Goal 3 (docs/999 §3.3): nonzero `L2` mass on the window.
 
 This is the statement that a nontrivial element of the archimedean Sonin
-carrier, restricted to the window, has nonzero norm.  It is the immediate
-bridge to the outer-coframe nonzero in the family `{2}`.
+carrier has nonzero restriction to the window.  The restriction map is used
+instead of point evaluation because `Lp` elements are equal only almost
+everywhere.  It is the immediate analytic input for the outer-coframe bridge
+in the family `{2}`.
 -/
+noncomputable def soninWindowRestriction (lambda : CCM24SoninScale) :
+    cc20GlobalLogCrossingL2 →L[ℂ] Lp ℂ 2 (volume.restrict (windowT lambda)) :=
+  LpToLpRestrictCLM ℝ ℂ ℂ volume 2 (windowT lambda)
+
 noncomputable def archimedeanSonin_window_mass
     (lambda : CCM24SoninScale) : Prop :=
   ∃ u : sourceSoninCarrier lambda,
-    u ≠ 0 ∧ (∃ x : ℝ, x ∈ windowT lambda ∧ (u : cc20GlobalLogCrossingL2) x ≠ 0)
+    u ≠ 0 ∧ soninWindowRestriction lambda (u : cc20GlobalLogCrossingL2) ≠ 0
+
+/-!
+Fourier-side PSP core: a nonzero kernel vector for the scattering Toeplitz
+operator.  The multiplier is the repository phase
+`Gamma_R(1/2 - I * 2*pi*xi) / Gamma_R(1/2 + I * 2*pi*xi)`.  This declaration
+records the valid `L2`/Hardy target; it does not assert that the kernel is
+nontrivial or that the Fourier transport to `sourceSoninCarrier` is complete.
+-/
+noncomputable def archimedeanScatteringToeplitzKernel_nontrivial : Prop :=
+  ∃ psi : ccm24HardyPositiveSubspace,
+    psi ≠ 0 ∧
+      ccm24PositiveFrequencyProjection
+        (ccm24ArchimedeanScatteringMultiplier (psi : cc20GlobalLogCrossingL2)) = 0
+
+/-- A scattering Toeplitz-kernel vector has a negative-Hardy image. -/
+theorem scattering_toeplitz_kernel_image_mem_negative
+    (psi : ccm24HardyPositiveSubspace)
+    (hpsi : ccm24PositiveFrequencyProjection
+      (ccm24ArchimedeanScatteringMultiplier (psi : cc20GlobalLogCrossingL2)) = 0) :
+    ccm24ArchimedeanScatteringMultiplier (psi : cc20GlobalLogCrossingL2) ∈
+      ccm24HardyNegativeSubspace := by
+  rw [mem_ccm24HardyNegativeSubspace_iff]
+  exact hpsi
 
 /-!
 ### Reduction: a radial +-1-eigenvector of HTm already lies in V_arch.
@@ -86,7 +117,7 @@ Hardy--Titchmarsh isometry HTm forces HTm u = u (resp. -u) back into the
 radial subspace, making the Fourier-support half automatic.
 
 Hence producing a nonzero radial eigenvector of HTm is sufficient for
-rchimedeanSoninCarrier_nontrivial.  This reduction lemma is the exact
+archimedeanSoninCarrier_nontrivial.  This reduction lemma is the exact
 meeting point of the Fourier-support half; the remaining work is to exhibit the
 concrete radial eigenvector.
 -/
@@ -109,13 +140,10 @@ theorem archimedeanSonin_membership_pred_of_radial_and_involutive
 /-!
 ### The {2}-family outer gate (exact typed condition).
 
-Once a nonzero window witness u0 of the archimedean Sonin carrier exists, the
-chain w = finiteEulerGram . u0, x = sourceInclusion (GramInv w) = u0, with the
-band depletion (1-R)(Ambient .) = -2^{-1/2} shift (docs/998 sections 1, 3)
-yields a nonzero vector for sourceOuterCoframeLeakage lambda twoFamily, hence a
-nonzero operator. This typed Prop is the precise condition that closes steps 2
-and 3 of the docs/1000 route; it is left unproved here because manufacturing
-a V_arch window element is the genuine new-analysis leaf.
+Conditionally on the unformalized strip identity in docs/998, a window witness
+suggests the chain `w = finiteEulerGram u0`, followed by a nonzero image under
+`sourceOuterCoframeLeakage`. This typed Prop records the intended intermediate
+operator witness. It is not derived from `archimedeanSonin_window_mass` here.
 -/
 noncomputable def twoOuterNonzero_gate_on_archwitness
     (lambda : CCM24SoninScale) : Prop :=

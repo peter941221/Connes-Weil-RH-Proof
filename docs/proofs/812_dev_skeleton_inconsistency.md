@@ -1,5 +1,12 @@
 # Dev/UnconditionalSkeleton is internally inconsistent (axiom vs ¬Nonempty) and is not the source frontier
 
+> **SUPERSEDED (2026-08-12).** This audit describes the pre-S2
+> global-reverse-support model. The S2 per-common refactor removed the empty
+> type, and `ConcreteP1SupportProbe.concreteWeilForm` now constructs the former
+> L137 type axiom-clean. See `docs/proofs/835_s2_percommon_refactor_landed.md`
+> and `Dev/UnconditionalSkeleton.lean`. Keep the analysis below only as history;
+> it is not a statement about the current source model.
+
 Date: 2026-08-06
 Status: audit finding — quarantined Dev layer is unsound, does NOT enter the main library proof graph
 Branch: `proof/gate3u-completed-readout`

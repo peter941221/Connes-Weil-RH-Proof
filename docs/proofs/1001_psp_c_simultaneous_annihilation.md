@@ -6,9 +6,9 @@ still the live OPEN new-analysis leaf. RH not claimed. No sorry / axiom.
 ## 1. Where we are
 
 Sub-targets A (nonzero radial window element) and B (HT isometry assembly)
-are closed axiom-clean. The single remaining leaf is sub-target C: build a
-nonzero L2 element u in V_arch = Radial(lambda) INTER HT^-1(Radial(lambda)),
-with nonzero mass on the log2 window.
+are closed axiom-clean. Sub-target C must build a nonzero `L2` element in
+`V_arch = Radial(lambda) INTER HT^-1(Radial(lambda))`; a separate sub-target
+must prove nonzero restriction to the log-2 window.
 
 ## 2. The exact condition (now a Lean theorem)
 
@@ -43,30 +43,22 @@ upper), the load leaf is exact simultaneous
 
 ```
   phi      upper Hardy,    and    m * alpha upper Hardy,
-  m(x) = Gamma_R(1/2 - i 2 pi x) / conj( Gamma_R(1/2 + i 2 pi x) ).
+  m(x) = Gamma_R(1/2 - i * 2*pi*x) / Gamma_R(1/2 + i * 2*pi*x).
 ```
 
-This is a joint Hardy / multiplier condition with |m|=1 and is genuinely new
-mathematics (docs/999 already records this is not an assembly leaf): a constructive, concrete, nonzero
-pair (a, alpha) whose scattering image is again Hardy on the matching half. It
-is not a Lean-assembly leaf and is not yet proved.
+This is the scattering Toeplitz-kernel condition. It needs a concrete nonzero
+`L2` pair. A Wiener--Hopf factorization alone does not supply one.
 
 ## 5. Candidate route (probe, not yet a proof)
 
-The most receptive family is a "reflection-built" analytic alpha:
-alpha(x) = P(x) / Gamma_R(1/2 + i 2 pi x) with P real on the axis and P chosen
-so m*alpha = reflect of alpha / ... . Concretely one tries
-
-P(x+ix0) built from the Gamma-R transform of a Gaussian / Laguerre in a
-half-density, so the HT maps it back into the radial half-line; then project
-it to the window. Possibly only a *first* radial antiderivative exists; the
-construction boundary condition is where the new tool (a PSP band limit)
-is needed.
+Use a prolate/Sonin spectral construction rather than a formal factorization.
+The candidate must establish the `L2` domain, the scattering Toeplitz-kernel
+condition, the transport to `V_arch`, and its nonzero restricted norm.
 
 ## 6. Next steps
 
-1. Solve the phi/m Hardy programming problem for a concrete candidate phi.
-2. Lift a constructed pair to u by the typed gate
-   `vArch_mem_iff_support_ae` (both branches).
-3. Prove the window has nonzero mass (sub-target D) and lift
-   `twoOuterNonzeroObligation` (sub-target E), then flip AGENTS 998/999.
+1. Define the Toeplitz operator and prove its equivalence with the two Hardy
+   support conditions.
+2. Build a genuine nonzero `L2` kernel vector and transport it to `V_arch`.
+3. Prove its window restriction is nonzero and lift
+   `twoOuterNonzeroObligation`.

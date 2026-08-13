@@ -9,10 +9,74 @@ instead of appending another "current root" paragraph.
 ## 1. Project Target
 
 Aimed at a formal Connes--Weil route to RH in Lean 4 / mathlib `v4.30.0`.
-The repository does **not** yet prove RH unconditionally. Physical Gate 3U is
-the active open analytic bottom.
+The repository does **not** yet prove RH unconditionally. The active theorem
+root is the RH-level detector criterion coverage axiom
+`normalizedSelectedFinalRouteDetectorCriterionCoverageRoot`; Physical Gate 3U
+is a separate diagnostic branch, not the current RH root.
 
-## 2. Current Active Root (Gate 3U)
+## 2. Current RH Root And Route Split
+
+The shortest live consumer chain is:
+
+```text
+normalizedSelectedFinalRouteDetectorCriterionCoverageRoot
+  -> normalizedSelectedFinalRouteSourceRHFrom08AFromTheorems
+  -> cc20FiniteVanishingExitFromTheorems
+  -> rhDefinitionBridgeToMathlibFromTheorems
+  -> unconditional_rh_skeleton
+```
+
+`CC20RouteRealization.normalizedRouteBackedCC20SquareRestrictedDetectorCriterionCoverage_iff_standardSourceRH`
+proves that this coverage proposition is equivalent to `SourceRH` once the
+already-proved Yoshida detector existence theorem is supplied. It is therefore
+an RH-level statement, not a lower assembly socket.
+
+The constructive route toward that root must keep one mathematically correct
+test-space owner through the log/positive coordinate change, true Mellin
+convolution, the pole and archimedean terms, all prime-power terms, the explicit
+formula, finite-vanishing criterion, and Yoshida detectors. The repaired C1
+modules now close the object and readback layer, but not the load-bearing
+analytic theorem:
+
+```text
+CompactLog -> positive-variable coordinate bridge CLOSED
+healthy Mellin convolution                         CLOSED
+complete same-owner pole/arch/all-prime functional CLOSED as definition/readback
+all-test explicit-formula / positive-trace bridge  OPEN
+finite-vanishing Weil criterion on the same owner  OPEN (RH-level)
+Yoshida detectors on that same owner               OPEN rebuild/transport
+```
+
+### C1 Coordinate, Owner, And Sign Guards
+
+`CompactLogTest.test` and route `TestFunction` have the same Lean function type
+but different mathematical coordinates. The former reads `u = log x`; the
+latter reads the positive variable `x`. The canonical bridge is
+`C1LogPositiveBridge.toPositiveRouteTest`, with
+`mellin_toPositiveRouteTest_eq_laplaceAt` as its coordinate contract. Never
+replace this map by the identity merely because the types unify.
+
+The complete compact-log arithmetic functional is owned by
+`C1SameOwnerWeil`: `psi F` is pole minus archimedean minus every nonzero visible
+prime-power term, and `qw g = psi g.convolutionSquare`. The sign convention is
+
+```text
+source QW(g) = psi(g^* * g)
+CC20 local sum on starConvolution(g) = -source QW(g)
+```
+
+Faithful numerical probes must use the real Laplace points `+1/2` and `-1/2`,
+sample prime-power terms at `+/-log(n)`, include all visible prime powers, and
+assert `F(0) = ||g||^2` plus the pole-product identity. The historical use of
+`i/2`, raw coordinates such as `F(2)`, or a singleton `{2}` sum does not
+evaluate this functional.
+
+Support width is metadata, not object identity. A numerical residual and a
+Lean plateau with the same support interval are different owners unless a
+theorem identifies their functions and all attached data. Never transfer a
+numeric sign across that gap.
+
+### Diagnostic Gate-3U Branch
 
 The canonical real Gate 3U reduces exactly to a bound on the ordinary trace of
 the already-declared `sourceGramResponse` owner (Proof 264 `(AA.1)`/`(AA.32)`,
@@ -118,58 +182,35 @@ biorthogonality `J†∘D=id` 强制 `‖D‖≥1`，而
 forward+physical cancellation** 等价起来。故此右腿底是 Proof 717，不是 HS 机器可独立封的
 新量。See `docs/proofs/gate3u-right-energy-leakage-norm-bottom.md`.
 
-**【2026-08-10，route verdict：canonical Step-3 finite-S sign CLOSED axiom-clean】**
-Step-3 的 finite-S sign 在 **canonical CompactLog/A3** 载体上已 axiom-clean 闭合
+**【2026-08-10，corrected verdict：local CompactLog/A3 positivity CLOSED】**
+下列局部正性在 **CompactLog/A3** 载体上已 axiom-clean 闭合
 （docs/942，`[propext, Classical.choice, Quot.sound]`, 0 sorry）：
 `detector_diagonal_re_nonneg` / `detector_isPositive` / `detector_re_inner_nonneg`
 （`A3NonzeroCompactLogGateProbe`），`healthy_strict_positive_diagonal`
 （`Wall1HealthyPositive`），以及 `weilStateNonempty` / `concrete_c1_input_nonempty_exists`
-（`WeilC1NonEmptyProducer`）给出 concrete 非空 C1/Weil producer。Gamma-arg 支路
+（`WeilC1NonEmptyProducer`）给出非空局部 producer。它们证明 `F^dagger F` 的二次型
+非负，不证明“对所有 admissible tests 的完整 Weil 显式公式符号”，因此不能标记为
+finite-S sign 或 C1 criterion 闭合。Gamma-arg 支路
 （`Dev/GammaArg*`，docs/940/941/942）是 **redundant sibling**，只给出
 `Re[Gamma(1+i/2)^4]>=0`，非 canonical gate 所需。真正剩余（非 Lean-assembly leaf）：
-RH 等价 Source-criterion（C1-`SourceRH` 等价）与 Gate-3U infinite carrier、Burnol。
+RH 等价 Source-criterion；Gate-3U infinite carrier 与 Burnol 属于独立支线。
 
 `finite-S` sign, Burnol's identity, and RH stay open.
 
-**【决定性 apex 空根（2026-08-05，closure audit，已精修）】** 在打 RH 骨架
-`unconditional_rh_skeleton`（`Dev/UnconditionalSkeleton.lean:8048`）时发现：其顶层
-源 core 的 `weilForm` 字段依赖 **axiom** `normalizedCoreSourceWeilFormDataRoot`
-（:137 `SourceWeilFormData concreteTestAlgebra`），而同 library theorem
-`not_nonempty_normalizedCoreSourceWeilFormData`（:152-157，源自 `CCM25SourceDataGuards.
-lean:30-57`）在**同一 type** 上**证明其空**。**精修**：该 negation 链条在骨架 RH 路径上
-**从未被引用**到 axiom 上去推出 `False`，故骨架文件本身**一致（不推导 False）**；
-确切说，每个 bottom axiom 都在断言一个**已被平行 theorem 证明为空/缺失的 type**。
-根因：`SourceWeilFormData` 强制 finite-prime `sourceFinitePrimeTerm` 每测试 0，而 concrete
-evaluation 在 `t=2` 读出 `Λ(2)·|v|/√2>0`（vonMangoldt prime_two），首素数即矛盾。
-**此非 open analytic bottom，是** source-data 模型需重定义（`weilForm`/finite-prime/
-卷积）；但正向发现见下文——healthy HS carrier 已在 CompactLog 世界 live，re-type 即可。
-`CC20YoshidaDetectorExists` 梯子全证（非 axiom），criterion-coverage
-axiom 归并到 off-line 矛盾 guard（`CC20RouteRealization.lean:20190`），均非 analytic
-bottom。See `docs/proofs/closure-audit-skeleton-source-consistency.md`。
+**【Source model status corrected (2026-08-12)】** The former theorem saying
+`SourceWeilFormData concreteTestAlgebra` was empty described the old global
+reverse-exact-support model. The S2 per-common refactor replaced that model;
+`ConcreteP1SupportProbe.concreteWeilForm` now constructs the exact type
+axiom-clean, and `CCM25SourceDataGuards` archives the old negation. Historical
+docs 812/813/830/831 and the closure audit are superseded by docs/proofs/835 for
+this point.
 
-**【第二个独立 source-model 断点（2026-08-05）】** concrete `convolutionStar f g = f + g`
-（点加，`UnconditionalSkeleton:238-242`），而 route 的 `qw/qwLambda` 需 multiplicative
-Mellin 卷积（`mellinAt (f*g) = 2` doubling vs `=1` squaring），
-`CC20YoshidaConstruction.not_normalizedCC20MellinConvolutionLaw:2727` 证成 `2=1`。故除
-`SourceWeilFormData.finitePrime.exactSupport` 强制零外，concrete 模型的卷积结构也不成立。
-检测器梯子（`CC20YoshidaDetectorExists`，log-line independence :942 全证）虽非 axiom，
-但 key 在 `sourceNontrivialZero`、不依赖坏 `SourceWeilFormData`，且不适合 additive 卷积。
-source-model 需重定义（`weilForm` 层或整个 analytic core）再谈逐 axiom 闭合。
-
-**【two-lane 统一 verdict（2026-08-05）】** `SourceRH` 两条路都撞同一堵 concrete 模型墙：
-（a）Route-A 走 `SourceWeilFormData`（concrete 上空 + 卷积点加非 Mellin）；
-（b）Route-1（Prop C1 符号 lane，axiom `UnconditionalSkeleton:1551`）经
-`input.fullWeilPositivity(Sort 1)`（finite-S sign）→ `finalSignNonpositive =
-SourceQWNonnegativeToCC20Nonpositive` ← `hilbertSchmidtGate`(archimedean HS)，最终同墙。
-故 finite-S sign 在**当前 skeleton concrete 模型**上不可计算，但在 CompactLog HS carrier
-可算。检测器梯子虽全证只给 off-line 矛盾半边，on-line 符号仍需 archimedean HS 门。
-
-**【决定性正向（2026-08-05）】** archimedean HS 门（`hilbertSchmidtGate`）**结构性非空**：
-`AHilbertSchmidtGateReuseProbe.hsGate_selfAdjoint`(:33)+`hsGate_traceClass_enablingBridge`
-(:43) 对每个 `CompactLogTest g` 给出自伴 + 沿 global Hilbert basis 的 HS 迹类（basis 参数化，
-任何 L² space 有）。故真工作是**把 skeleton 的 source core re-type 到
-`CCM25Concrete.CompactLogConvolution.CompactLogTest` + `CompactRootHalfLinePair` HS 载体**，
-而非证明 gate 不可能；骨架被堵因它自己的 concrete core（exactSupport 强制零 + 卷积点加）坏。
+The remaining source-data root is different:
+`normalizedCoreCCM25FinitePrimeArithmeticSourceDataRoot` requires all-pairs
+finite-prime certificates plus `scopedArchimedeanContributionBalance`. The
+healthy source algebra fixes the former additive-convolution defect, while
+`WellFormHealthyRepoint.healthyWeilForm` supplies only per-common `{2}` support.
+Neither is an all-pairs/all-prime producer, and neither closes the RH criterion.
 
 `finite-S` sign, Burnol's identity, and RH stay open.
 
@@ -184,7 +225,7 @@ Weil 判定到 CompactLog 载体，不重选 sign。RH 不声明，非 milestone
 **【859，sign slot 模型墙（2026-08-07，numeric verdict）】** 一号高斯线路的诚实结论：对自然光滑实值测试（Gaussian `e^-t^2`、`e^-t`、sech），临界点 Mellin `∫ t^(i/2-1)f` 在 `t=0` 处 `~t^-1` 发散，`(M g i/2)` 不定义（即 858c 的可积前提 `Integrable (logWeight (i/2) g)` 不成立），故 `Re[(M g i/2)⁴]≥0` 语焉不祥。而在 t=0 消光的测试上 sign **不一致**（`t^a e^-t`：a=.4 → −1.99，.55 → −1.21，.9 → +0.16，1.0 → +0.26）——通用 sign 为假，具体 sign 需选消光 band 测试并做重积分下界（A0/零算子类）。`MellinSignAssembly` 本身带可导前提，无 bug；待办 = 把 `Integrable(logWeight(i/2) g)` 编为定义域谓词。见 `docs/proofs/859`。
    剩余 open：Re[Gamma(a+i/2)^4] >= 0 之相位上界（需具体化 Stirling/积分余项证明），未证。 【888（2026-08-08）：】`|arg Gamma(1+i/2)| <= pi/8` 已在 analytic 层用元素级级数夹逼闭合：arg = -gamma/2 - arctan(1/2) + S，S = Sum_n>=1 [1/(2n) - arctan(1/(2(n+1)))] 落在 `[3.8218e-1, 5.0842e-1]`（80 位 mpmath 已验），故 `Re[Gamma(1+i/2)^4] >= 0`。Lean 内闭合需在本仓库实现 real-analysis Stirling/积分余项 bound（axiom-clean、不依赖外部），除了需构造的真实解析证明（docs/888, 886 rev2）；勿在缺该证明时伪证此 leaf（A0）。 【888-wiring（2026-08-08，WSL-verified）】arch 槽已接 data-bearing `Nonempty HilbertSignArchCorrected.HilbertArchSignDatum` 并整链绿（3193 jobs，#print axioms 全 [propext, Classical.choice, Quot.sound]，无 sorryAx）。 [ArctanCert M1 done(2026-08-08,WSL-verified)] ConnesWeilRH/Dev/ArctanCert.lean gives x/(1+x*x)<=atan x<=x, 2/5<=atan(1/2)<=1/2, 4/17<=atan(1/4)<=1/4, 6/37<=atan(1/6)<=1/6, 8/65<=atan(1/8)<=1/8; 2636 jobs green, axioms [propext Classical.choice Quot.sound], 0 sorry. [SSandwich brick2 (2026-08-08,WSL-green)] ConnesWeilRH/Dev/SSeriesSandwich.lean proves axiom-clean the elementary S-series content: a=p+u split, x-x^3 <= x/(1+x^2) <= atan x, u>=0 p>=0, u<=1/(8(n+2)^3), and the telescope sum_range_p=1/2-1/(2(N+1)).  The cleaner sandwich S=1/2+U gives 1/2 <= S <= 1/2+1/32 (supersedes docs/888 tighter-but-unneeded 0.382..0.509), inside the gate [0.3596,1.14].  brick 2+2b CLOSED (2026-08-08, WSL green, axiom-clean): lift to tsum done, hasSum_p, tsum_u_le_32 (1/32 via c-telescope), S_eq S=1/2+tsum u, S_ge_half 1/2<=S, S_le_half_plus S<=1/2+1/32; axioms [propext, Classical.choice, Quot.sound], 0 sorry. OPEN next: wire gamma/atan(1/2)/pi decimals into |arg Gamma(1+i/2)|<=pi/8 (859/Mellin-cell Stirling residue). RH not claimed.
 
-** PhaseGateSandwich (2026-08-08, WSL green, axiom-clean) **: `ConnesWeilRH/Dev/PhaseGateSandwich.lean` closes the analytic phase shift D = S - gamma/2 - atan(1/2) with -pi/8 < D < pi/8 (D_lower / D_upper / D_abs_lt_pi_eighth), built on SSeriesSandwich.S (1/2 <= S <= 1/2+1/32), mathlib gamma bounds (0.5<gamma<2/3) and pi>3, and ArctanCert.arctan_half.  axioms = [propext, Classical.choice, Quot.sound], 0 sorry.  This is the tail of the real-phase gate |arg Gamma(1+I/2)|<=pi/8; the Gamma magnitude identity arg=-gamma/2-atan+S remains an OPEN analytic step. RH not claimed.  +937-route-ruling (2026-08-10, docs/937): naive large-band sign Re[Gamma(a+i/2)^4]>=0 extracted at a=3,5,10 = -3.7/-2.9e5/-3.4e21 and Stirling gives rg Gamma(a+i/2) ~ (1/2)ln a (not -> 0), so Re= |w|^4 cos(4 arg) sign-flips forever; 859 §6's xists a0 forall a>=a0 Re>0 conjecture REFUTED.  Band test 	^a e^{-t} cannot be the finite-S sign producer; Step-3 sign must stay on CompactLog HS/A3 positive (healthy_strict_positive_diagonal), which Steps 1-2 already wire.  Only the isolated =1 leaf keeps Re>0 (+0.26).
+** PhaseGateSandwich (2026-08-08, WSL green, axiom-clean) **: `ConnesWeilRH/Dev/PhaseGateSandwich.lean` closes the analytic phase shift D = S - gamma/2 - atan(1/2) with -pi/8 < D < pi/8 (D_lower / D_upper / D_abs_lt_pi_eighth), built on SSeriesSandwich.S (1/2 <= S <= 1/2+1/32), mathlib gamma bounds (0.5<gamma<2/3) and pi>3, and ArctanCert.arctan_half. Axioms = [propext, Classical.choice, Quot.sound], 0 sorry. This is the tail of the real-phase gate |arg Gamma(1+I/2)|<=pi/8; the Gamma magnitude identity arg=-gamma/2-atan+S remains an open analytic step. RH not claimed. +937-route-ruling (2026-08-10, docs/937): the naive large-band sign Re[Gamma(a+i/2)^4]>=0 extracted at a=3,5,10 equals -3.7/-2.9e5/-3.4e21. Stirling gives arg Gamma(a+i/2) ~ (1/2) ln a rather than a limit of zero, so Re = |w|^4 cos(4 arg) changes sign infinitely often. The 859 section 6 eventual-positivity conjecture is refuted. The band test t^a e^{-t} cannot be the finite-S sign producer; Step-3 sign stays on CompactLog HS/A3 positivity (`healthy_strict_positive_diagonal`). Only the isolated a=1 leaf has positive sampled value (+0.26).
 
 
 **Wall-A 1.4 hI leaf — PROVABLE closure via large-plateau bump (2026-08-10, docs/970).** The sole surviving
@@ -205,19 +246,17 @@ The derivative of the explicit bump conv-square now reduces to the folded band: 
 **`|F'|<=1` now CLOSED axiom-clean (2026-08-11).** Folded survivor via `u ↦ -u` (`pair_cvt` = `integral_comp_neg`.symm + `bb_neg_piece` + `integral_add`)
 **`|bumpA - bumpF y| <= y` CLOSED axiom-clean (2026-08-11).** (two-sided MVT on `[0,y]` from `|bumpF'|<=1`, premise `bumpF 0 = bumpA`).
 **hI closure at `bumpPlateauOwner` CLOSED axiom-clean (2026-08-11, Dev/Wall14PlateauBumpHI.lean).** Near <=11/4 (`bump_near_integral_le`), tail <=(4/3)A (`bump_tail_feas`/`bump_tail_integral_le` via exp decay), split, all <=11/4+(4/3)A, `bump_hi` (|Re int_(0,inf) archimedeanIntegrand| < (log(4pi)+gamma)*A), then `bumpArchimedeanTerm_ne_zero` (owner.archimedeanTerm != 0) via `archimedeanTerm_ne_zero_of_lead_pos_and_integral_bound`; C-gate`archCoeff_gt` (29/10<log(4pi)+gamma) intact; audits `[propext, Classical.choice, Quot.sound]`, 0 sorry. RH NOT claimed.
-  Also `bumpArchimedeanTerm_re_pos : 0 < Re(bumpPlateauOwner.archimedeanTerm)` (real-part closure needed by the compact-log/healthy arch bridge) axiom-clean, and lifted onto the compact-log carrier axiom-clean in `Dev/Wall14CompactLogBridge.lean` (`compactLogArchimedean_bump_pos` / `_ne_zero`, `#print axioms`=[propext, Classical.choice, Quot.sound], 0 sorry).  CAUTION (docs/972): the healthy SCAL arch slot feeds `totalArchimedean (convolution f f)` which reads the 4-fold `(f*f)*(f*f)`, while docs/958/965 & CCM25 Eq.3.7 target the 2-fold `(log(4pi)+gamma)*Re((f*f)(0)) + I`; closure of `arch!=0` on the healthy carrier needs a wiring decision (feed `f`, not `f*f`) or a genuinely new 4-fold bound, and an object-layer re-type (SCAL `convolutionStar` on healthy `TestFunction` vs compact `CompactLogTest.convolutionSquare` — no such bridge exists yet, see route 914/914b). RH NOT claimed.  4-fold hI cost-corrected (docs/973): the 4-fold upper bound is NOT a small-constant leaf — it reduces to ONE global estimate `|e^(y/2) conv4F(y) - A4| <= (1/4) A4 (e^y - e^-y)` on (0,4] for the 4-fold conv-square shape (numerically sharp at 0), i.e. real new shape/decay analysis on conv4F; docs/965 dead-verdict already recorded and does not depend on it.
-**Gate-3U 外通道 {2}-族可计算反证步骤（2026-08-11，docs/998）：** 坐标级恒等式已钉死：
+  Also `bumpArchimedeanTerm_re_pos : 0 < Re(bumpPlateauOwner.archimedeanTerm)` and its compact-log lift are axiom-clean. The former C1 four-fold wiring defect is fixed in `Dev/C1HealthyTestSpace.lean`: `weilLocalSum` reads its argument and the generic criterion applies `starConvolution` exactly once. The separate four-fold Wall14 estimates in docs/972/973 remain historical optional analysis, not a C1 requirement. RH NOT claimed.
+**Gate-3U 外通道 {2}-族条件性推导（2026-08-11，docs/998）：** 纸面坐标计算提出：
 metric coframe `D=(T†T)∘J∘G⁻¹` 在带状 `(logλ−log p, logλ)` 上精确等于 `−p^{−1/2}·x(t+log p)`，故
-`‖(I−R)∘D‖>0` 当且仅当 Sonin 载在窗 `(logλ, logλ+log2)` 有非零质量；`twoFamily`（`visiblePrimes=[2]`）
-与义务 `twoOuterNonzeroObligation` 已 declar（Dev/OuterTwoNonzeroObligation.lean，无 sorry/axiom）。
-唯一剩余 analytic leaf = Sonin 窗内非零 witness（需从 semilocalFourierSupport 同构显式构造）；
-义务模块已 WSL 验证：隔离镜像 /home/peter/verify/cwr-998outer 上 `lake build Dev.OuterTwoNonzeroObligation`
-3315 jobs 0 错误，#print axioms=[propext, Classical.choice, Quot.sound]（twoFamily 带 prime term (2,1)）。
-`twoOuterNonzeroObligation` 关闭即可把 docs/998 正下界变定理。该 leaf 的精确阻塞声明见 docs/999（真新分析，非装配；关闭前 infinite-{2} Gate 保持 OPEN）。 RELATE 仍 OPEN，RH 不声明。
+窗口非零质量应推出 `‖(I−R)∘D‖>0`。但该 strip identity 和 implication 尚无 Lean theorem；
+`OuterTwoNonzeroObligation.lean` 只定义 `twoFamily` 与开放 `Prop`
+`twoOuterNonzeroObligation`。下一步必须先形式化坐标桥，再构造 Sonin 窗口 witness。
+关闭该支线只会否定当前 infinite-carrier Gate-3U cancellation route，不会推出 RH。
 
-**（2026-08-12，docs/1000）
+**Diagnostic PSP branch (2026-08-12, branch `feat/paley-wiener-psp`, docs/paley_wiener/).** The finite-prime `{2}` diagnostic gate asks for a Sonin-carrier element with nonzero `L2` restriction to the log-2 window. The quotient-invariant contract is `archimedeanSonin_window_mass`, implemented through `soninWindowRestriction`; it replaces the invalid test of a representative function at one point. `Dev/PaleyWindowProbe.lean` closes the ambient radial indicator and its nonzero restricted norm, while `Dev/PaleyHTAssembly.lean` and `Dev/PaleyWindowAnalysis.lean` close the HT and support reductions. These are axiom-clean assembly results, not a carrier witness.
 
-**Active project (2026-08-12, branch `feat/paley-wiener-psp`, docs/paley_wiener/).** The route 1/2/3 gate is `archimedeanSoninCarrier_nontrivial` (a nonzero element of `V_arch = Radial INTER HT^-1(Radial)` reaching the log2 window). Survey (docs/1000) ruled out every library/assembly route (no witness, +-1 eigen-void, CompactLog no-bridge); the only real construction is a continuous band-limit / PSP (Paley-Wiener-Titchmarsh) element, much of it NEW to mathlib v4.30.0. Decomposition in docs/paley_wiener/01: A (nonzero radial window element), B (HT-isometry assembly), C (the band-limit/Paley theorem, honest new analysis), D (window mass), E (lift obligation). Each step: `flock lake build` + `#print axioms` clean, 0 sorry. RH not claimed.** `Dev/SoninWindowWitness.lean` 已建为 leaf 的**类型级 kernel**：四个目标用精确 `Prop` 钉死（`archimedeanSoninCarrier_nontrivial` / `_membership_pred` / `windowT(_nonempty)` / `archimedeanSonin_window_mass`），WSL 隔离镜像构建 3316 jobs 绿、`#print axioms=[propext, Classical.choice, Quot.sound]`、0 sorry；`windowT_nonempty` 已证。`archimedeanSoninCarrier_nontrivial` 与窗口质量仍为 OPEN 真新分析（Paley-Wiener/Titchmarsh 决定集统一构造，docs/1000）。因此 `twoOuterNonzeroObligation` **尚未**提升为 theorem；AGENTS 998/999 注记保持 OPEN-target，未改「已闭合」。**Sub-target A CLOSED (2026-08-12, Dev/PaleyWindowProbe.lean, axiom-clean):** concrete radial window element soninWindowIndicator (constant 1 on (log-λ, log-λ+log2), typed in cc20GlobalLogCrossingL2), with soninWindowIndicator_mem_radial + soninWindowIndicator_ne_zero proved; WSL lake build ConnesWeilRH.Dev.PaleyWindowProbe 3317 jobs green, #print axioms=[propext, Classical.choice, Quot.sound], 0 sorry (docs/paley_wiener/01 sub-target A). **Not** yet a V_arch element: the Fourier-support half (sub-target C, band-limit / Paley-Wiener-Titchmarsh construction) remains the live OPEN new analysis. 998/999 stay OPEN until C+D lift the obligation. **Sub-target B DONE (2026-08-12, `Dev/PaleyHTAssembly.lean`, axiom-clean):** `htOfWindow_ne_zero` (HT image of the radial window element is a nonzero L2 element, via the involutive HT isometry) and the typed reduction `archimedeanSonin_mem_radial_and_ht_radial` (u in V_arch iff u radial AND HT u radial); WSL 3318 jobs green, axiom-clean, 0 sorry. Reduces sub-target C to: build a nonzero radial u with HT(u) radial (band-limit / Paley-Wiener-Titchmarsh), which stays the live OPEN new-analysis leaf. 998/999 remain OPEN until C+D lift the obligation. **Sub-target C-setup DONE (2026-08-12, `Dev/PaleyWindowAnalysis.lean`, axiom-clean):** `vArch_mem_iff_support_ae` pins V_arch membership to the simultaneous half-line annihilations `u t = 0` and `(HT u) t = 0` a.e. on `t < log-lambda`; `radial_half_solved` closes the first branch from A (window element). docs/proofs/1001 reduces C to a joint Hardy/multiplier condition (phi upper-Hardy AND m(.)phi(-.) upper-Hardy). WSL 3319 jobs green, axiom-clean, 0 sorry. The existential self-annihilating band construction remains the live OPEN new-analysis leaf; 998/999 stay OPEN until C+D lift the obligation. **Also (docs/proofs/1002) an analytic verdict on C-core: NOT dead.** Unwound the two half-line annihilations in the Fourier/Paley-Wiener dual: the condition is scale-independent and reduces to a nonzero psi in H+ with m*psi in H-, m = Gamma_R ratio (|m|=1). Factoring m = Q/P (P upper, Q lower) gives psi=P (psi in H+, m*psi=Q in H-) so V_arch is nonempty. The remaining real analysis = explicit inner/outer factorization of the Gamma-R scattering phase + L2 placement (new math, not in mathlib, multi-session). The +-1 eigen-void (docs/1000) rules out only that subfamily. 998/999 still OPEN until a concrete witness is lifted through the typed gate `vArch_mem_iff_support_ae`. **Attack plan docs/proofs/1003** (A1..A5 sub-gates, each typed+no sorry/axiom+build/audit clean): reduces C-core to an inner/outer (Beurling) split m=Q/P of the Gamma-R scattering phase, then explicit outer = exp(outer of log m), L2-placement of psi=P, then lifting through the typed gate to D/E. mathlib v4.30.0 lacks H+/H- Hardy submodules and inner/outer machinery (new math).
+The live analytic statement is the nontriviality of the scattering Toeplitz kernel `archimedeanScatteringToeplitzKernel_nontrivial`: find nonzero `psi : H+` with `P+(m * psi) = 0`, where `m(xi) = Gamma_R(1/2 - i*2*pi*xi) / Gamma_R(1/2 + i*2*pi*xi)`. The prior factorization route `m = Q/P`, `psi = P` is retracted: an a.e.-unimodular `P` is not in `L2(R)`, and a Wiener--Hopf factorization alone does not establish a nonzero Toeplitz kernel. The remaining viable candidate is a genuine prolate/Sonin `L2` eigenfunction, followed by transport to `sourceSoninCarrier` and a proof of nonzero window restriction. Closing this branch would prove nonzero outer leakage for `{2}` and reject the current infinite-carrier Gate-3U cancellation route; it would not prove RH.
 
 ## 3. Execution Cadence
 
@@ -562,10 +601,11 @@ arithmetic, canonical atom normalization, package certificate data, and
 restricted/global masses. Do not lower the route by moving among equivalent
 wrapper spellings unless a named theorem proves otherwise. Support data plus
 visible arithmetic is insufficient when atoms can come from another source;
-package-atom alignment and same-owner transport are mandatory. The former
-concrete `SourceWeilFormData` target is uninhabited
-(`CCM25SourceDataGuards.not_nonempty_concreteSourceWeilFormData`); do not
-construct/wrap/transport it.
+  package-atom alignment and same-owner transport are mandatory. The old
+  globally quantified support model was uninhabited, but S2 replaced it with
+  `PerCommonSourceFinitePrimeSupport`; the current concrete
+  `SourceWeilFormData` is constructible (`ConcreteP1SupportProbe.concreteWeilForm`).
+  Do not reuse the archived pre-S2 emptiness guard against the current type.
 
 ## 11. RH-Level Guards
 
@@ -579,8 +619,9 @@ route.
 only the zero test satisfies both, and a `{0}`-only trace model is an empty
 producer (AGENTS §6). Do not obtain HS-gate by λ-scaling — `windowCarrier ⊆
 lambdaCarrier` is passive containment that does not enlarge the window. A
-non-single-point window architecture with nonzero tests (or a new band-limited
-HS model) is required to resolve this; it is the current analytic bottom.
+  non-single-point window architecture with nonzero tests (or a new band-limited
+  HS model) is required to resolve that archived A0 lane. It is not the current
+  RH theorem root.
 
 **A0 实证收窄 (2026-08-04, Dev/A0WindowGateGuard.lean**): build-reduced the
 RUNNING skeleton (`#reduce normalizedCoreSourcePkg.cc20Trace...hilbertSchmidtGate`):
@@ -645,7 +686,7 @@ Gram 逆，内含 `finiteEulerGramInv`）。scalar seam 给出 `‖metric cofram
 suffixEulerSchurMarkovScalar(canonical)`,且该 scalar ≤1。因 consumer 只就固定
 canonical family 求右能量，对**固定 owner** 这是**有限**（可能大于 majorant）的单算子
 界, 不族统一 → 需具体计算核对 `1/suffix(canonical)` 因子系数 vs `fixedMajorant`，
-是 active analytic bottom (condition-number 类, 防发散; 【859b/859c 推进（2026-08-08）：】定义域谓词 `MellinCriticalDefined.criticalDefined g := Integrable (logWeight (I/2) g)` 已建（axiom-clean）；`MellinBandGamma` 证得 band 测试 `t^a e^{-t}` 临界点 Mellin = `Complex.Gamma(a+i/2)` 且非零（`mellin_band_eq_Gamma` / `mellin_band_ne_zero`，axiom-clean）——sign 槽不再是空/零生产者。剩余 open：`Re[Gamma(a+i/2)^4] >= 0` 之相位上界（需 Gamma 渐近/Stirling，mathlib 尚缺），未证。
+    是该历史 Gate-3U lane 的 analytic bottom (condition-number 类, 防发散; 【859b/859c 推进（2026-08-08）：】定义域谓词 `MellinCriticalDefined.criticalDefined g := Integrable (logWeight (I/2) g)` 已建（axiom-clean）；`MellinBandGamma` 证得 band 测试 `t^a e^{-t}` 临界点 Mellin = `Complex.Gamma(a+i/2)` 且非零（`mellin_band_eq_Gamma` / `mellin_band_ne_zero`，axiom-clean）——sign 槽不再是空/零生产者。剩余 open：`Re[Gamma(a+i/2)^4] >= 0` 之相位上界（需 Gamma 渐近/Stirling，mathlib 尚缺），未证。
 
 ## 12. Coding And Review
 
@@ -716,7 +757,7 @@ project roots / `sorryAx`) plus the full repository verification gate.
 
 
 
-## 13. RH Axiom Guard (from 887 review, 2026-08-08)
+## 17. RH Axiom Guard (from 887 review, updated 2026-08-12)
 
 Read `UnconditionalSkeleton.lean` before classifying its axioms. Two of them are
 **RH-equivalent**, NOT "removable on a healthy carrier":
@@ -724,6 +765,9 @@ Read `UnconditionalSkeleton.lean` before classifying its axioms. Two of them are
   `<-> _root_.RiemannHypothesis` (lines 1555-1559).
 - `normalizedSelectedYoshidaDetectorPolePairingNonnegativeCoreRoot` (line 5896): likewise
   `<-> RiemannHypothesis` (lines 5890-5894).
+- `normalizedSelectedFinalRouteDetectorCriterionCoverageRoot` is the active root
+  of `unconditional_rh_skeleton`; `CC20RouteRealization` proves its proposition
+  equivalent to `SourceRH` under the existing detector theorem.
 
 Discharging either **IS proving RH**; you cannot swap in a healthy-carrier datum and claim
 the axiom is "removed". Do not list C1-sign or Yoshida polarity under "provable lane".

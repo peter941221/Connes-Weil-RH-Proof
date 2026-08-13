@@ -1,110 +1,68 @@
-# 991 -- M2WidthPlateau carriers: sign, Lean eval-feasibility, counterexample verdict
+# 991 - same width is not the same carrier (SUPERSEDED carrier-sign claim corrected)
 
-Date: 2026-08-11. Status: numeric evidence + source audit. RH NOT claimed.
-Lean carrier: ConnesWeilRH/Dev/M2WidthPlateau.lean (narrowC wideC narrowPsi widePsi,
-healthyQw_decomposition). Companion: docs/proofs/991_m2_widthplateau_carrier_sign.py.
+Date: 2026-08-12. Status: numeric object-identity audit. RH NOT claimed.
+Companions: `docs/proofs/991_m2_widthplateau_carrier_sign.py` and
+`ConnesWeilRH/Dev/M2WidthPlateau.lean`.
 
-## 1. The two carriers
+## Result first
 
-narrowC = width 6/5, support [-6/5,6/5], M2 window 12/5 = 2.4 (< 2.82, the 990 positive side)
-wideC   = width 3/2, support [-3/2,3/2], M2 window 3         (> 2.82, the 990 negative side)
+The earlier statement that the script computed the signs of Lean's `narrowC`
+and `wideC` was false. The script computes smooth finite-vanishing residuals
+whose support widths are `2.4` and `3.0`; Lean's carriers are plain scaled
+plateau bumps. Equal support width is not object equality.
 
-healthyQw narrowC / wideC read the healthy psi (pole - arch - finite-prime-{2}) at
-these carriers as Lean expressions (no sign/bound asserted).
+Under the corrected complete functional, both numerical residual families are
+positive and resolution-stable:
 
-## 2. Task 1: sign of narrowC vs wideC (resolution-stable numeric)
+```text
++--------------------+-------+-----------+-----------+-----------+-------------+
+| numeric residual   | N     | arch      | pole      | primes    | QW          |
++--------------------+-------+-----------+-----------+-----------+-------------+
+| width 2.4          | 10001 | +0.18608  | ~0        | -0.19253  | +0.006443   |
+| width 2.4          | 20001 | +0.18608  | ~0        | -0.19253  | +0.006444   |
+| width 2.4          | 40001 | +0.18608  | ~0        | -0.19253  | +0.006444   |
++--------------------+-------+-----------+-----------+-----------+-------------+
+| width 3.0          | 10001 | +0.41524  | ~0        | -0.41834  | +0.003105   |
+| width 3.0          | 20001 | +0.41524  | ~0        | -0.41835  | +0.003106   |
+| width 3.0          | 40001 | +0.41524  | ~0        | -0.41835  | +0.003106   |
++--------------------+-------+-----------+-----------+-----------+-------------+
+```
 
-Rows: carrier | N | arch | pole | term2 | psi | A.
+The sampled vanishing residuals are around `1e-16` to `1e-15`, and
+`F(0)=||g||_2^2=1` is asserted by the evaluator.
 
-  narrowC [-1.2,1.2]  10001  arch -0.01513  pole -0.00185  term2 -0.01299  psi +0.026260  A 0.06320
-  narrowC [-1.2,1.2]  20001  arch -0.01515  pole -0.00181  term2 -0.01300  psi +0.026337  A 0.06326
-  narrowC [-1.2,1.2]  40001  arch -0.01517  pole -0.00179  term2 -0.01299  psi +0.026374  A 0.06323
-  wideC   [-1.5,1.5]  10001  arch +0.00145  pole -0.00491  term2 +0.00697  psi -0.013328  A 0.10040
-  wideC   [-1.5,1.5]  20001  arch +0.00144  pole -0.00484  term2 +0.00698  psi -0.013261  A 0.10047
-  wideC   [-1.5,1.5]  40001  arch +0.00141  pole -0.00481  term2 +0.00697  psi -0.013188  A 0.10043
+## What Lean actually owns
 
-Three-Mellin vanish M0/Mh/M1 ~ 1e-15 in every case (in-domain finite-vanishing test).
-A = ||g||^2 holds within the 989 assert.
+`M2WidthPlateau.lean` defines:
 
-Result:
-- narrowC psi is positive (+0.0263), stable across N.
-- wideC psi is negative (-0.0132), stable, matches 989 [-1.5,1.5] -0.0132.
-So the sign flip (positive narrow / negative wide) reproduces exactly on the two Lean
-carriers.
+```lean
+noncomputable def wideC : CompactLogTest := wideTest (3 / 2) wideW_pos
+noncomputable def narrowC : CompactLogTest := wideTest (6 / 5) narrowW_pos
 
-## 3. Task-2: can Lean evaluate the psi sign?
+noncomputable def widePsi : Real := C1WeilExplicit.healthyQw wideC
+noncomputable def narrowPsi : Real := C1WeilExplicit.healthyQw narrowC
+```
 
-No, not with the current definitions. Every healthy-psi constituent is a noncomputable
-analytic integral: poleFunctional (Mellin), totalArchimedean = compactArchimedeanTerm
-(Lebesgue), sourceFinitePrimeTerm (vonMangoldt times an integral of values). norm_num /
-#eval cannot grind such integrals into a decimal. A Lean-side certified quadrature
-(interval_integral-based bound with error control, or an explicit algebraic test whose
-integrals are computable) would be a NEW separate deliverable; none exists in this repo
-today. This is why the project uses numpy numerics for the psi numbers.
-(flagged as an open leaf, not fabricated).
+These definitions make the complete expressions stateable. They do not prove
+their signs and they do not give either plain plateau the three required
+Mellin vanishings.
 
-## 4. Task-3: is the narrow psi > 0 a candidate counterexample?
+The same-owner sign bridge is closed exactly:
 
-No, as of today. The reason is the gap between the numeric full-psi and the wired
-criterion slot.
+```lean
+theorem healthyQw_eq_neg_weilLocalSum (c : CompactLogTest) :
+  C1WeilExplicit.healthyQw c =
+    -C1.healthyCC20TestSpace.weilLocalSum
+      (C1.healthyCC20TestSpace.starConvolution c)
+```
 
-The C1 criterion gate is weilLocal <= 0 on starG = conv^2 g. On the healthy carrier the
-wired healthyCC20TestSpace.weilLocalSum reads ONLY the archimedean slot:
+This proves `source QW = -CC20 local sum` for the same `c`; it does not transfer
+a number from a different numeric residual.
 
-    weilLocalSum g = - totalArchimedean (convolutionSquare g).test      (= - arch)
+## Verdict
 
-while the numeric healthy-psi is the FULL form (pole - arch - prime):
-
-    psi = poleFunctional - totalArchimedean - sourceFinitePrimeTerm(2)   (= pole - arch - prime)
-
-So the narrow psi>0 is not immediately a contradiction of the wired sign,
-because the wired slot omits the pole and prime terms. Turning narrow psi>0 into a
-formal counterexample requires TWO genuinely-open bridges, both absent:
-
-1. an identity (hardcoded) equating the criterion's weilLocalSum on conv-g with the full
-   healthyPsi (the pole+prime must enter). Without it, a positive psi is not the
-   criterion's sign.  (This is the same operator/scalar seam the route calls open, docs/proofs/963 #1.)
-2. the Lean carrier narrowC must carry the ortho-{0,1/2,1}-vanish residual that the
-   numerics use; M2WidthPlateau does NOT build it (that construction stays open).
-
-Therefore narrowC's psi>0 is a reproducible, resolution-stable, in-domain FALSIFICATION
-DIRECTION signal, but it is NOT a formal counterexample and does not refute the
-criterion today.
-
-## 5. Bottom line
-
-- (1) concrete resolution-stable sign table for the exact Lean carriers delivered.
-- (2) Lean-internal sign evaluation is blocked by the absence of integral-eval
-  machinery (open deliverable, not fabricated).
-- (3) narrow psi>0 is a direction signal, pending the full-psi==weilLocal bridge + the
-  ortho-vanish residual on the carrier, so "candidate counterexample" is not firm.
-
-RH NOT claimed at any step.
-
-
-## 6. Addendum (2026-08-11): the algebraic seam is now a Lean theorem
-
-The open bridge #1 of section 4 is now proven axiom-clean in
-ConnesWeilRH/Dev/M2WidthPlateau.lean as
-
-    theorem healthyQw_eq_weil (c : CompactLogTest) :
-      healthyQw c = healthyCC20TestSpace.weilLocalSum c
-                   + poleFunctional (conv² c).test
-                   - sourceFinitePrimeTerm 2 (conv² c).test
-
-(unfold healthyQw/healthyPsi, rw [C1.healthyWeilReadoff c], ring).  WSL green,
-axioms [propext, Classical.choice, Quot.sound], 0 sorry.  It restates exactly
-section-4's relation psi = weilLocalSum + (pole - prime): the wired
-weilLocalSum holds only -arch, and the pole+prime corrections are the full
-healthyPsi.
-
-What this does NOT do:
-- It does not compute either side (the terms remain noncomputable integrals).
-- It does not assert a sign on the wide/narrow carriers (no healthyQw <= 0).
-- It does not build the ortho-{0,1/2,1}-vanish residual on narrowC, which is
-  still the second, genuinely-open bridge (section 4 item 2) needed to turn
-  narrow psi>0 into a formal counterexample.
-
-Hence the bottom-line judgement in section 5 is unchanged: the algebraic seam
-is closed, but the counterexample / sign decision still forks on the (pole-prime)
-residual and the missing ortho-vanish carrier construction. RH NOT claimed.
+No counterexample or Lean carrier sign has been produced. The corrected script
+only shows positive complete-QW values for two residual families with matching
+support widths. A formal numerical sign would require constructing that exact
+residual in Lean and certifying its integrals; the main RH route instead needs
+the universal all-test sign theorem. RH NOT claimed.

@@ -134,7 +134,7 @@ theorem detector_re_inner_nonneg (a c : ℝ) (u : cc20GlobalLogCrossingL2) :
 /-- Strict-positivity strengthening of the diagonal quadratic form: if the
    root-factor image F u is non-zero then the real diagonal is strictly
    positive, not just >= 0.  The F u != 0 hypothesis is kept honest; the
-   unconditional existence xists u, 0 < norm (F u) is a separate analytic
+   unconditional existence exists u, 0 < norm (F u) is a separate analytic
    injectivity fact not asserted here. -/
 theorem detector_diagonal_re_pos_of_rootFactor_ne_zero
     (a c : ℝ) (u : cc20GlobalLogCrossingL2)

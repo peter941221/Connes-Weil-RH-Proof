@@ -78,7 +78,45 @@ theorem soninWindowIndicator_ne_zero (lambda : CCM24SoninScale) :
       (1 / ENNReal.toReal 2)
   linarith
 
+/-- The radial window indicator has nonzero `L2` restriction to the window.
+This validates the quotient-invariant window-mass contract. -/
+theorem soninWindowIndicator_restriction_ne_zero (lambda : CCM24SoninScale) :
+    soninWindowRestriction lambda (soninWindowIndicator lambda) ≠ 0 := by
+  intro hzero
+  have hzero_ae :
+      (soninWindowRestriction lambda (soninWindowIndicator lambda) : ℝ → ℂ) =ᵐ[
+        volume.restrict (windowT lambda)] 0 := by
+    rw [hzero]
+    exact Lp.coeFn_zero ℂ 2 (volume.restrict (windowT lambda))
+  have hrestrict :
+      (soninWindowRestriction lambda (soninWindowIndicator lambda) : ℝ → ℂ) =ᵐ[
+        volume.restrict (windowT lambda)] soninWindowIndicator lambda := by
+    exact LpToLpRestrictCLM_coeFn ℂ (windowT lambda)
+      (soninWindowIndicator lambda)
+  have hindicator_global : (soninWindowIndicator lambda : ℝ → ℂ) =ᵐ[volume]
+      (soninWindowIoo lambda).indicator fun _ => (1 : ℂ) := by
+    unfold soninWindowIndicator
+    exact indicatorConstLp_coeFn
+  have hindicator : (soninWindowIndicator lambda : ℝ → ℂ) =ᵐ[
+      volume.restrict (windowT lambda)] fun _ => (1 : ℂ) := by
+    change (soninWindowIndicator lambda : ℝ → ℂ) =ᵐ[
+      volume.restrict (soninWindowIoo lambda)] fun _ => (1 : ℂ)
+    filter_upwards [ae_restrict_of_ae hindicator_global,
+      ae_restrict_mem (measurableSet_soninWindowIoo lambda)] with x hx hmem
+    rw [hx, Set.indicator_of_mem hmem]
+  have hone_zero : ∀ᵐ x ∂volume.restrict (windowT lambda), (1 : ℂ) = 0 := by
+    filter_upwards [hrestrict, hzero_ae, hindicator] with x hres hzero hindicator
+    calc
+      (1 : ℂ) = soninWindowIndicator lambda x := hindicator.symm
+      _ = soninWindowRestriction lambda (soninWindowIndicator lambda) x := hres.symm
+      _ = 0 := hzero
+  have hmeasure : volume (windowT lambda) ≠ 0 := by
+    change volume (soninWindowIoo lambda) ≠ 0
+    exact soninWindowIoo_volume_ne_zero lambda
+  obtain ⟨x, hx, hone⟩ :=
+    Measure.exists_mem_of_measure_ne_zero_of_ae hmeasure hone_zero
+  norm_num at hone
+
 end PaleyWindow
 end Dev
 end ConnesWeilRH
-

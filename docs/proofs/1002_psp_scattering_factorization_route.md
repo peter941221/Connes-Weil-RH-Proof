@@ -1,79 +1,105 @@
-# 1002 - V_arch is nonempty: the scattering-factorization route (sub-target C core)
+# 1002 - PSP scattering reduction: the unresolved Toeplitz-kernel condition
 
-Status: analytic verdict POSITIVE (V_arch is nontrivial), but the concrete
-nonzero witness construction remains OPEN (new analysis). This document does
-NOT lend a Lean closure; it is the correct first-principles reduction and the
-existence route. RH not claimed. No sorry / axiom.
+Status: corrected 2026-08-12. The earlier factorization argument did not prove
+that `V_arch` is nontrivial. This document records the exact unresolved
+Fourier-side condition. RH is not claimed. No Lean axiom or `sorry` is added.
 
-## 0. TL;DR
+## 1. Repository scattering phase
 
-C is not dead and not an eigen-route. Unwinding the two half-line annihilations
-in the Fourier / Paley-Wiener dual gives a single condition, independent of the
-scale lambda:
+`CCM24HardyTitchmarsh.lean` defines, for real `xi`,
 
+```text
+A(xi) = Gamma_R(1/2 - i * 2*pi*xi)
+m(xi) = A(xi) / conj(A(xi))
+      = A(xi) / A(-xi)
+      = Gamma_R(1/2 - i * 2*pi*xi) /
+        Gamma_R(1/2 + i * 2*pi*xi).
 ```
-  want nonzero phi in H- (lower Hardy):       u radial
-  and   m(xi) * phi(-xi) in H-           :   (HT u) radial
-  m(x) = Gamma_R(1/2 - i 2 pi x) / conj(Gamma_R(1/2 + i 2 pi x)),  |m(x)| = 1.
+
+The equality with `A(-xi)` is theorem
+`ccm24ArchimedeanScatteringPhase_eq_factor_ratio`. The prior display with
+`conj(Gamma_R(1/2 + i * 2*pi*xi))` in the denominator was wrong: for real
+`xi`, that denominator equals the numerator and would make the displayed ratio
+identically one.
+
+## 2. Exact Fourier-side target
+
+After translating the two half-line support conditions through Fourier and
+reflection, the required candidate has the form
+
+```text
+find psi in H+ intersect L2(R), psi != 0, such that m * psi is in H- intersect L2(R).
 ```
 
-The two exp(+/-2 pi i xi log lambda) factors cancel exactly, so membership is
-identical at every scale: the open leaf "exists nonzero u in V_arch(lambda)"
-is scale-independent.
+With the repository projections, this is the Toeplitz-kernel condition
 
-## 1. The reduction (lambda cancels)
+```text
+psi in ccm24HardyPositiveSubspace,
+psi != 0,
+P+ (ccm24ArchimedeanScatteringMultiplier psi) = 0.
+```
 
-Let u in Radial(lambda) (support on t >= log lambda). Put w(t) = u(t + log lambda),
-so w in Radial(0). The elementary Fourier shift gives
-   F(u)(xi) = exp(2 pi i xi log lambda) * F(w)(xi),   with F(w) in H- (lower).
-The HT image readback (in the repo) is  F(HT u) = m(xi) * (F u)(-xi). Then
-   HT u in Radial(lambda)
-     <=>  exp(2 pi i xi log lambda) * F(HT u)(xi) in H-
-     <=>  m(xi) * (F w)(-xi) in H-.
-Set phi = F w in H-. The whole claim is the pair
+`Dev/SoninWindowWitness.lean` now exposes this exact predicate as
+`archimedeanScatteringToeplitzKernel_nontrivial`. The phase is unit modulus, so
+the multiplier is an L2 isometry. The remaining work is to prove that this
+Fourier-side condition transports to a member of `sourceSoninCarrier` and that
+the member has nonzero restriction to the log-2 window.
 
-   phi in H-  and  m(xi) * phi(-xi) in H-.                     (C*)
+## 3. Retraction of the previous factorization argument
 
-No lambda left. This is the exact 'interior' contract at every scale.
+The statement
 
-## 2. Existence route: simplify by an inner/outer (Wiener-Hopf) split
+```text
+m = Q / P, |P| = |Q| = 1 a.e., psi = P
+```
 
-Let psi(xi) = phi(-xi). Since phi in H-, psi is in H+ (upper Hardy). Condition
-(C*) is exactly
+does not produce an L2 vector on the infinite-measure line. If `|P| = 1`
+almost everywhere, then `integral_R |P|^2 = infinity`, so `P` is not an
+element of `L2(R)`. A Wiener--Hopf factorization also does not by itself imply
+that the corresponding Toeplitz operator has nonzero kernel: its index and
+Hardy-space assumptions decide the kernel.
 
-    psi in H+,   and   m * psi in H-.                        (C*')
+M. C. Camara's survey gives the relevant operator identity
+`f+ in ker(T_g)` iff `g*f+ in H-`, and relates the kernel to the factorization
+index rather than to factorization alone:
 
-Now suppose we can factor the unimodular symbol m as a ratio
+```text
+https://arxiv.org/html/1710.11572
+```
 
-    m = Q / P,   with P in H+ (upper), and Q in H- (lower),  |P| = |Q| = 1.
+Thus the prior claim "`V_arch` is nontrivial via `psi = P`" is retracted.
 
-Then taking psi = P gives: psi in H+ (true), and m * psi = (Q/P) * P = Q in H-.
-So both halves of (C*) hold.  Back-translating psi=P gives the nonzero
-Fourier-side witness, hence a nonzero u = F^{-1}(exp(-...log lambda)*...)...).
-The existence of such a P / Q factorization of m is exactly the
-inner / outer (Beurling-functional) split of the archimedean scattering phase,
-which is classical and expected to hold for this Gamma_R ratio.
+## 4. Viable construction route
 
-## 3. What remains (the actual new analysis)
+The prolate route is a candidate source of a genuine L2 witness. Connes and
+Moscovici state that a negative eigenfunction of their self-adjoint prolate
+operator belongs to the Sonin space:
 
-Matter: a controller needs the explicit, closed form outer factor of the
-specific Gamma_R scattering phase, then the L2 placement of the built phi. This
-is (a) not in mathlib v4.30.0 and (b) a genuine multi-session paper-level
-procedure; the typed gate `vArch_mem_iff_support_ae` awaits a concrete phi.
+```text
+https://pmc.ncbi.nlm.nih.gov/articles/PMC9295779/
+```
 
-## 4. Not dead, no counterexample
+The formal route requires all of the following.
 
-- The exact +-1 eigenvector path (Gamma multipliers level-set thin) is void,
-  but that only rules out that sub-family (docs/1000).
-- The factor route is an existence proof: once the Gamma_R scattering is
-  factorable (inner/outer holds), V_arch is rich (not just nonzero).
-- No documented counterexample; numerics are a separate check, not a proof.
+```text
+prolate operator and domain
+  -> negative spectral eigenfunction
+  -> transport into sourceSoninCarrier(lambda)
+  -> nonzero L2 restriction on W = (log lambda, log lambda + log 2)
+  -> exact coframe strip identity
+  -> twoOuterNonzeroObligation.
+```
 
-## 5. Next closed step (proposal)
+This branch can reject the current infinite-carrier Gate-3U route for the
+family `{2}`. It does not establish RH.
 
-1. Write the explicit inner / outer (or Gamma-R) factorization of
-   ccm24ArchimedeanScatteringPhase (the Gamma-R ratio).
-2. Lift the built phi to a non-zero L2 witness through the existing typed gate
-   `vArch_mem_iff_support_ae`.
-3. Prove the window mass (sub-target D) and lift twoOuterNonzeroObligation
-   (sub-target E), then flip AGENTS 998/999.
+## 5. Next proof obligations
+
+1. Formalize the scattering Toeplitz operator on the repository Hardy
+   subspaces and prove the exact Fourier-to-Sonin equivalence.
+
+2. Formalize the prolate operator or another concrete L2 construction and
+   prove a nonzero kernel vector.
+
+3. Prove nonzero `L2` restriction on the log-2 window, consume the coframe
+   identity, and classify the infinite-carrier Gate-3U route from the result.

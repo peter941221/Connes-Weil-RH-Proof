@@ -1,39 +1,56 @@
-# 987 — healthyPsi numeric probe on the raw bump conv-square
+# 987 - raw bump under the complete Weil functional (SUPERSEDED result corrected)
 
-Date: 2026-08-11. Status: numeric probe (numpy, WSL). RH NOT claimed. Evidence only.
-Companion: docs/proofs/987_healthy_psi_probe.py.
+Date: 2026-08-12. Status: reproducible floating-point diagnostic. RH NOT claimed.
+Companion: `docs/proofs/987_healthy_psi_probe.py`.
 
-## What was measured (log coordinate additive convolution)
+The earlier `psi ~= 0.86` result is superseded. It used an incorrect pole
+coordinate and only the prime-2 term. The current evaluator mirrors
+`C1SameOwnerWeil` for a real compact-log test and enforces the defining
+identities before printing a value.
 
-    g = f*f  (f = unitFourierCoreBump = smoothTransition(2-2|x|)), N=40001, dom=4
-    psi(g) = pole(g) - arch(g) - term2(g)          (healthyPsi, explicit Weil psi)
-    pole(g) = 2 Re M(g, i/2)                     , M(g,c)=int_t e^{c t} g(t)
-    arch(g) = C*g(0)+I,  C=log(4pi)+gamma        (docs/967 formula)
-    term2(g) = (log 2)/sqrt(2) * (g(2)+g(1/2))
+## Object and formula
 
-| quantity | value |
-|---|---|
-| A = g(0) = (f*f)(0) | 1.40571 |
-| arch | 2.93078 |
-| pole | 4.28576 |
-| term2 | 0.49013  (g(2)~1e-16, g(1/2)=1.00000) |
-| psi = pole-arch-term2 | +0.86485 |
-| vanishing Mellin @0 / @1/2 / @1 | 2.250 / 2.361 / 2.723 |
+The test is the centered smooth bump supported on `[-1,1]`. For its
+autocorrelation square `F = g^* * g`, the evaluator uses:
 
-## What this says (honest)
+```text
+A              = F(0) = ||g||_2^2
+pole(F)        = L_F(+1/2) + L_F(-1/2)
+prime_n(F)     = Lambda(n)/sqrt(n) * (F(log n) + F(-log n))
+Psi(F)         = pole(F) - arch(F) - sum_(visible prime powers n) prime_n(F)
+```
 
-- **The raw bump is NOT in the finite-vanishing domain** {0,1/2,1}: its Mellins at
-  those points are far from 0 (2.25/2.36/2.72).  The C1 criterion only ranges over
-  tests that vanish there, so `psi(g)=+0.86` on this bump is **not** a counterexample
-  to `CC20Finite VanishingWeilCriterion <= 0` — it just shows the raw sign.
-- **Structural observation (useful)**: `term2` is not trivially zero — `g(1/2)=1.0`
-  (in log coordinate t=0.5 g is nonzero).  So the healthy finite-`{2}` prime term
-  CAN be non-null; it is not a guaranteed-zero cancellation on an arbitrary test.
-- arch's sign matches docs/967 (same bump, +2.93). The docs/972 plateau-bump is a
-  different test (arch ~ +14.6); this probe uses the 967 witness family.
+It does not use `i/2`, `F(2)`, or `F(1/2)` as replacements for these
+coordinates.
 
-## Honest bottom line
-The healthy `psi` sign is now numeric-probed but gives **no** RH/criterion closure:
-the relevant test must first vanish at {0,1/2,1} (a real orthogonal-filter condition),
-then `psi(conv^2)` measured. Building such a finite-vanishing test + certifying `psi<=0`
-(if it holds) is the actual RH-equivalent step, still open. RH NOT claimed.
+## Result
+
+```text
++------------------------+----------------+
+| quantity               | value          |
++------------------------+----------------+
+| A = ||g||_2^2          | +1.40570525    |
+| arch                   | +3.31370858    |
+| pole                   | +4.72287080    |
+| all visible primes     | +1.40152344    |
+| Psi                    | +0.00763878    |
+| max pole identity err  | 1.091e-12      |
+| abs(A - ||g||_2^2)     | 1.548e-13      |
++------------------------+----------------+
+```
+
+Visible indices are `2, 3, 4, 5, 7`; the last term is numerically zero at the
+support boundary. The raw test has moments
+
+```text
+M(0)=1.50000000, M(1/2)=1.53669626, M(1)=1.65017411.
+```
+
+It is therefore outside the finite-vanishing domain. Its positive value is
+neither a proof nor a counterexample to the criterion.
+
+## Verdict
+
+This probe now checks coordinate and component assembly. It contributes no
+universal sign theorem. The old `psi ~= 0.86`, `2 Re M(F,i/2)`, and single
+`term2` readout must not be used as current evidence. RH NOT claimed.

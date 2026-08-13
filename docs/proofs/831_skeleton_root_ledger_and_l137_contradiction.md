@@ -1,5 +1,11 @@
 # 831 — `UnconditionalSkeleton.lean` 40 个 `axiom Root` 的可接性审计 + `sorryAx` 真实来源 + L137/L152 矛盾判定
 
+> **SUPERSEDED (2026-08-12).** L137/L152 判断只适用于 S2 前的旧结构。
+> per-common 重构已经解除该矛盾，随后
+> `ConcreteP1SupportProbe.concreteWeilForm` axiom-clean 地替换了原 L137
+> 根。见 `docs/proofs/835_s2_percommon_refactor_landed.md`；当前 RH 根与
+> 剩余验收标准见 `docs/proofs/1005_rh_route_after_psp_audit.md`。
+
 Date: 2026-08-06 · Status: audit + build-verified.
 File: `ConnesWeilRH/Dev/UnconditionalSkeleton.lean`（8060 行）.
 Build: `lake build ConnesWeilRH.Dev.UnconditionalSkeleton` 通过（3495 jobs，WSL `~/projects` 镜像）。

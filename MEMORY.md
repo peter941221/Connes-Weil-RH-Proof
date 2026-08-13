@@ -1,23 +1,36 @@
+
+## Change Log (2026-08-13, Gate 2 spectral side progress): Dev/C1SpectralWeil.lean + Dev/C1RouteRepairAudit.lean
+- Built the independent zero-spectral side of Gate 2, axiom-clean (`[propext, Classical.choice, Quot.sound]`, 0 sorry): `xiMultiplicity_pos` (every source nontrivial zero has analytic multiplicity > 0 in xi), the centered spectral coordinate `rho - 1/2`, the uniform centered `quadratic` decay, the dyadic height-shell partition/finiteness, and the shell `spectralHeightShell_subset_symmetricHeight` containment (Task #1 geometric half). `spectralSummable` / `gate2ExplicitFormula` are defined with summability as an obligation, NOT assumed. Build: 3529 jobs. STILL OPEN (Task #2), the unit-doubling Jensen-circle xi growth bound (`‖ξ s‖ ≤ exp G` via `norm_completedRiemannXi` → kernel-moment uniformity) that closes `spectralSummable` unconditionally; and Task #1 numeric half (`spectralHeightMultiplicity <= finiteHeightMultiplicity`). RH not claimed.
+
+## Change Log (2026-08-12, C1 same-owner route repair): Dev/C1LogPositiveBridge.lean + Dev/C1SameOwnerWeil.lean + Dev/C1HealthyTestSpace.lean + Dev/C1WeilExplicit.lean
+- The compact-log owner now reaches the positive-variable route through `F(log x)`, its Mellin readback is the bilateral Laplace transform, and one owner carries pole, archimedean, and every visible prime-power term; the focused WSL build completed 3489 jobs and all ten audits use only `[propext, Classical.choice, Quot.sound]`, while `healthyCriterionState_iff_all_vanishing_qw_nonnegative` leaves the RH-level universal sign explicitly open.
+
+## Change Log (2026-08-12, canonical numeric correction and RH route ruling): docs/proofs/985 + 987-991 + 1005 + canonical_weil_numeric.py
+- Recomputed the probes with `+/-1/2`, `+/-log n`, and all visible prime powers under mandatory convolution/pole/vanishing invariants; the old `w ~= 2.8175` sign boundary and negative family disappear, the `1.6..5.0` scan has no sampled negative value, and the docs now keep Gate 2 explicit-formula/trace, Gate 3 universal sign, and Gate 4 same-owner Yoshida detectors open.
+
+## Change Log (2026-08-12, PSP correction: L2 window contract and Toeplitz-kernel root)
+- `SoninWindowWitness.lean` now uses `soninWindowRestriction` into restricted `L2`, and `PaleyWindowProbe.lean` proves the radial indicator has nonzero restricted norm. The earlier pointwise representative test was invalid for `Lp` quotients. The scattering phase is the Gamma-R factor ratio, and the claimed `m = Q/P`, `psi = P` witness is retracted because an a.e.-unimodular factor is not in `L2(R)`. The live root is the nonzero scattering Toeplitz kernel, followed by source-carrier transport and window mass. The `{2}` branch diagnoses Gate-3U and does not imply RH.
+
 ## Change Log (2026-08-12, PSP C1 CLOSED: reflection bridge R o P+ o R = P-): Source/CC20Concrete/CCM24PaleyWienerSpectral.lean
-- Closed the whole C1 reflection bridge axiom-clean in `CCM24PaleyWienerSpectral.lean`: C1c `ccm24FourierReflection_comm` (L2 Fourier R / F commutation via Schwartz-density extension through `toLpCLM.denseRange`, `Set.EqOn.closure`, `sub_eq_zero`), the Lp-Fourier forms `ccm24FourierLp_R_comm` / `ccm24FourierLp_symm_R_comm`, C1b `ccm24FreqPositiveMultiplier_reflection_mirror` (R o M+ = M- o R via coeFn_lpSMul + quasiMeasurePreserving.ae_eq pullback + pointwise mirror off {0}), and the assembly `ccm24Reflection_conjugates_positiveProjection` (R o P+ o R = P-, via F.injective + readbacks + mirror + R^2=id). WSL flock lake build green (2964 jobs), #print axioms [propext, Classical.choice, Quot.sound], 0 sorry. This is the docs/1002 psi=phi(-xi) symbol bridge; a NONZERO psi still needs H3 (inner/outer factor), 998/999 still OPEN, RH not claimed.
+- Closed the whole C1 reflection bridge axiom-clean in `CCM24PaleyWienerSpectral.lean`: C1c `ccm24FourierReflection_comm` (L2 Fourier R / F commutation via Schwartz-density extension through `toLpCLM.denseRange`, `Set.EqOn.closure`, `sub_eq_zero`), the Lp-Fourier forms `ccm24FourierLp_R_comm` / `ccm24FourierLp_symm_R_comm`, C1b `ccm24FreqPositiveMultiplier_reflection_mirror` (R o M+ = M- o R via coeFn_lpSMul + quasiMeasurePreserving.ae_eq pullback + pointwise mirror off {0}), and the assembly `ccm24Reflection_conjugates_positiveProjection` (R o P+ o R = P-, via F.injective + readbacks + mirror + R^2=id). WSL flock lake build green (2964 jobs), #print axioms [propext, Classical.choice, Quot.sound], 0 sorry. This is the docs/1002 psi=phi(-xi) symbol bridge; a nonzero psi still needs H3 (a Toeplitz-kernel/prolate witness), 998/999 still OPEN, RH not claimed.
 
 ## Change Log (2026-08-12, PSP C1 status + work-log). docs/proofs/1004
 - docs/proofs/1004 records the reflection bridge C1 = R o P+ o R = P-. C1a (coefficient mirror, commit 31a05fd) is CLOSED axiom-clean; C1b (multiplier conjugation R o M+ = M- o R) is fully isolated to Lp-coercion bookkeeping; the crux C1c is the L2-Fourier reflection comm F o R = R o F via Schwartz-density extension. This is the 1002 psi=phi(-xi) symbol bridge. RH not claimed.
 ## Change Log (2026-08-12, PSP MATH/Hardy C1a: positive-negative indicator mirror): Source/CC20Concrete/CCM24PaleyWienerSpectral.lean
-- Appended to CCM24PaleyWienerSpectral.lean the reflection mirror of the half-line frequency indicators on the Carrier: `ccm24ae_ne_zero_volume` (the origin is Lebesgue-null, so x != 0 ae), `ccm24FreqPositiveHalf_mirror_pointwise` (1_[0,inf)(-x) = 1_(-inf,0)(x) pointwise off {0}), and the ae mirror `ccm24FreqHalf_mirror_ae` ((simplified fun xi => 1_{[0,inf)}(-xi)) = [volume] 1_(-inf,0), via filter_upwards + non-zero ae). These give the coefficient-level indicator flip `(R @ 1+) = 1-` that the reflection conjugation R o P+ o R = P- (C1) reduces to. WSL flock `lake build` + `#print axioms` = [propext, Classical.choice, Quot.sound], 0 sorry. The Lp Fourier commutation F.R = R.F (the dense-extension crux of C1) and H3 (inner/outer factor) remain open; 998/999 still OPEN; RH not claimed.
+- Appended to CCM24PaleyWienerSpectral.lean the reflection mirror of the half-line frequency indicators on the Carrier: `ccm24ae_ne_zero_volume` (the origin is Lebesgue-null, so x != 0 ae), `ccm24FreqPositiveHalf_mirror_pointwise` (1_[0,inf)(-x) = 1_(-inf,0)(x) pointwise off {0}), and the ae mirror `ccm24FreqHalf_mirror_ae` ((simplified fun xi => 1_{[0,inf)}(-xi)) = [volume] 1_(-inf,0), via filter_upwards + non-zero ae). These give the coefficient-level indicator flip `(R @ 1+) = 1-` that the reflection conjugation R o P+ o R = P- (C1) reduces to. WSL flock `lake build` + `#print axioms` = [propext, Classical.choice, Quot.sound], 0 sorry. The Lp Fourier commutation F.R = R.F (the dense-extension crux of C1) and H3 (a Toeplitz-kernel/prolate witness) remain open; 998/999 still OPEN; RH not claimed.
 ## Change Log (2026-08-12, PSP H2c: orthogonal half-line projections P+ P- = 0): Source/CC20Concrete/CCM24PaleyWienerSpectral.lean
 - Added the orthogonal complement split on `cc20GlobalLogCrossingL2`: reversed disjoint-indicator lemma `ccm24HalfProjectors_positive_times_negative_zero_pointwise`, `P+ (P- u) = 0` (Fourier push + coeFn_lpSMul + disjoint), `ccm24NegativeProjection_apply` (`P- u = u - P+ u`, from the complement `P+u + P- u = u`), `P- (P+ u) = 0` (algebraic via `P- = id - P+` + P+ idempotent), `P-` idempotent, and `ccm24_split_independence` (range P+ and range P- intersect only at 0). Together with `P+u + P- u = u` and `P+`+`P-` idempotent+orthogonal this gives the Hardy orthogonal split of the carrier. WSL flock lake build green (2964 jobs) + #print axioms [propext, Classical.choice, Quot.sound], 0 sorry. 998/999 still OPEN; RH not claimed.\n
 ## Change Log (2026-08-12, PSP MATH/Hardy H2 = negative projection + decomposition): Source/CC20Concrete/CCM24PaleyWienerSpectral.lean
-- Appended to `CCM24PaleyWienerSpectral.lean` the negative-frequency half: strict `Set.Iio 0` `ccm24FreqNegativeHalf` (disjoint from `Ici 0`, exact cover), `ccm24FreqNegativeIndicatorFunction`, `ccm24FreqNegativeHalfLp` (L-inf), `ccm24FreqNegativeMultiplier`, projection `Lm24NegativeFrequencyProjection` (P-=F^-1 1_(-inf,0) F), Fourier readback, pointwise `ccm24HalfIndicator_add_pointwise` (1_[0,inf)(x)c+1_(-inf,0)(x)c=c), and `ccm24PositiveFrequencyProjection_add_negative` (P+ u + P- u = u, via F.injective + readbacks + coeFn_lpSMul + coeFn_add). Uses `Pi.add_apply`/`Pi.smul_apply'` unfolding; the `rw [Lp.ext_iff]` (not reverse) converts the L2 identity to a.e.-form. Axiom audit (build + #print axioms) = [propext, Classical.choice, Quot.sound], 0 sorry. Extended with Hardy subspaces `ccm24HardyPositiveSubspace` (= ker P-) and `ccm24HardyNegativeSubspace` (= ker P+), membership iff via `LinearMap.mem_ker` (note `(I-P+)=P-` so H+ = ker P-), and pointwise disjointness `ccm24HalfProjectors_mult_zero_pointwise`. Axiom-clean, 0 sorry. H3 (inner/outer factor) still open; 998/999 still OPEN; RH not claimed.
+- Appended to `CCM24PaleyWienerSpectral.lean` the negative-frequency half: strict `Set.Iio 0` `ccm24FreqNegativeHalf` (disjoint from `Ici 0`, exact cover), `ccm24FreqNegativeIndicatorFunction`, `ccm24FreqNegativeHalfLp` (L-inf), `ccm24FreqNegativeMultiplier`, projection `Lm24NegativeFrequencyProjection` (P-=F^-1 1_(-inf,0) F), Fourier readback, pointwise `ccm24HalfIndicator_add_pointwise` (1_[0,inf)(x)c+1_(-inf,0)(x)c=c), and `ccm24PositiveFrequencyProjection_add_negative` (P+ u + P- u = u, via F.injective + readbacks + coeFn_lpSMul + coeFn_add). Uses `Pi.add_apply`/`Pi.smul_apply'` unfolding; the `rw [Lp.ext_iff]` (not reverse) converts the L2 identity to a.e.-form. Axiom audit (build + #print axioms) = [propext, Classical.choice, Quot.sound], 0 sorry. Extended with Hardy subspaces `ccm24HardyPositiveSubspace` (= ker P-) and `ccm24HardyNegativeSubspace` (= ker P+), membership iff via `LinearMap.mem_ker` (note `(I-P+)=P-` so H+ = ker P-), and pointwise disjointness `ccm24HalfProjectors_mult_zero_pointwise`. Axiom-clean, 0 sorry. H3 (a Toeplitz-kernel/prolate witness) still open; 998/999 still OPEN; RH not claimed.
 
 ## Change Log (2026-08-12, PSP MATH/Hardy H1 = positive-frequency projection): Source/CC20Concrete/CCM24PaleyWienerSpectral.lean
-- New `ConnesWeilRH/Source/CC20Concrete/CCM24PaleyWienerSpectral.lean` (axiom-clean) builds the Paley--Wiener positive-frequency projection P+ = F^-1 (1_[0,inf) .) F on `cc20GlobalLogCrossingL2`: indicator L-inf element `ccm24FreqPositiveHalfLp`, bounded multiplier `ccm24FreqPositiveMultiplier`, projection `ccm24PositiveFrequencyProjection` as a LinearMap (composite of fourier .symm . multiplier . fourier), Fourier readback, and `ccm24PositiveFrequencyProjection_idempotent` P+(P+ u)=P+ u (via indicator idempotence f*f=f in L-infinity). No Hardy machinery exists in mathlib v4.30.0; layer built from the Fourier isometry exactly as ccm24ArchimedeanHardyTitchmarsh does. WSL flock `lake build` + `#print axioms` = [propext, Classical.choice, Quot.sound], 0 sorry. Opens H2 (Hardy kernels H+ range / H- kernel, orth-decomp) and H3 (inner/outer factor). 998/999 still OPEN; RH not claimed.
+- New `ConnesWeilRH/Source/CC20Concrete/CCM24PaleyWienerSpectral.lean` (axiom-clean) builds the Paley--Wiener positive-frequency projection P+ = F^-1 (1_[0,inf) .) F on `cc20GlobalLogCrossingL2`: indicator L-inf element `ccm24FreqPositiveHalfLp`, bounded multiplier `ccm24FreqPositiveMultiplier`, projection `ccm24PositiveFrequencyProjection` as a LinearMap (composite of fourier .symm . multiplier . fourier), Fourier readback, and `ccm24PositiveFrequencyProjection_idempotent` P+(P+ u)=P+ u (via indicator idempotence f*f=f in L-infinity). No Hardy machinery exists in mathlib v4.30.0; layer built from the Fourier isometry exactly as ccm24ArchimedeanHardyTitchmarsh does. WSL flock `lake build` + `#print axioms` = [propext, Classical.choice, Quot.sound], 0 sorry. Opens H2 (Hardy kernels H+ range / H- kernel, orth-decomp) and H3 (a Toeplitz-kernel/prolate witness). 998/999 still OPEN; RH not claimed.
 
-## Change Log (2026-08-12, PSP C-core inner/outer attack plan): docs/proofs/1003
-- docs/proofs/1003 splits the C-core leaf into A1..A5 (phase meromorphic data; Beurling inner/outer split m=Q/P, P in H+, Q in H-, |P|=|Q|=1; explicit outer P=exp(Pi_- log m), Q=exp(Pi_+ log m); L2-placement of psi=P; A5 lift through vArch_mem_iff_support_ae, then D/E). Acceptance per A_k: typed+no sorry/axiom, WSL flock build +#print axioms clean. Notes mathlib has no H+/H- Hardy submodules or inner/outer machinery (new math). RH not claimed.
+## Change Log (2026-08-12, PSP C-core inner/outer attack plan, RETRACTED)
+- Superseded by the correction entry above and docs/proofs/1003. The `m = Q/P`, `psi = P` route does not yield an `L2(R)` witness because `|P| = 1` a.e. on an infinite-measure space.
 
-## Change Log (2026-08-12, PSP C-core analytic verdict via scattering factorization): docs/proofs/1002
-- docs/proofs/1002: unwound the two half-line annihilations in the Fourier/Paley-Wiener dual. C-CORE is scale-independent (two e^(+-2 pi i xi log-lambda) factor exactly cancel): needs nonzero psi in H+ with m*psi in H-. Factoring the unimodular Gamma-R scattering m = Q/P with P in H+ (upper), Q in H- (lower) gives psi=P (so m*psi = Q in H-), i.e. V_arch is nonempty. The remaining real analysis is the explicit inner/outer factorization of the Gamma-R scattering phase + L2 placement, not in mathlib, multi-session. Not dead; the +-1 eigen-void (docs/1000) rules out only that subfamily. Typed gate vArch_mem_iff_support_ae remains open. RH not claimed.
+## Change Log (2026-08-12, PSP C-core analytic verdict via scattering factorization, RETRACTED)
+- Superseded by the correction entry above and docs/proofs/1002. Factorization alone does not prove Toeplitz-kernel nontriviality; the valid open target is a genuine nonzero `psi : H+` with `P+(m * psi) = 0`.
 
 ## Change Log (2026-08-12, PSP sub-target C-setup = precise V_arch annihilation criterion): Dev/PaleyWindowAnalysis.lean
 - New `ConnesWeilRH/Dev/PaleyWindowAnalysis.lean` (axiom-clean) proves `vArch_mem_iff_support_ae`: u in V_arch iff u radial AND HT u radial, both as pointwise a.e. half-line annihilations on t < log lambda; `radial_half_solved` supplies the first branch from sub-target A. Docs/proofs/1001 pins C to a joint Hardy/multiplier condition (phi upper-Hardy AND m(.)phi(-.) upper-Hardy). WSL 3319 jobs green, axiom-clean, 0 sorry. The existential self-annihilating band construction stays OPEN (new analysis). RH not claimed.
@@ -36,65 +49,26 @@
 
 ## Change Log (2026-08-12, Sonin-window leaf = blocking verdict, live-open): docs/proofs/999+d998
 - Full source audit confirms: V_arch = Radial INTER Fourier(HardyTitchmarsh). Nonzero element reaching window (log-la, log-la+log2) needs a tight/full Morgan set / Paley-Wiener / Blaschke construction; mathlib v4.30.0 ships none, repo has no witness (grep of all CCM24*Sonin*/HardyTitchmarsh/SemilocalFourier/RadialSupport empty). Claim TRUE, unbuildable by closed-form assembly -> docs/999 records the exact irreducible module spec and the missing analysis. Not dead, not done: live OPEN, obligation twoOuterNonzeroObligation stays axiom-clean build Prop. RH not claimed.
-## Change Log (2026-08-11, M.2 Next-1+Next-2 sign-boundary scan + Lean carrier port): docs/proofs/990_m2_sign_boundary_scan.{py,md} + ConnesWeilRH/Dev/M2HealthyPsiPort.lean
-- 990 numeric scan: healthy psi depends ONLY on window width w=hi-lo (translation-invariant ortho-family; exact to 5 digits),
-  sign boundary w* ~ 2.8175: w<w* psi>0 (crit-direction -> toward counterexample), w>w* psi<0 (satisfying direction),
-  monotone in width; no RH conclusion, exposes both signs as concrete measurable content.
-- Lean port M2HealthyPsiPort.lean: twoSidedCarrier=bumpPlateauTest (width-2 plateau -> the positive/width-2 side),
-  m2PsiValue = C1WeilExplicit.healthyQw carrier; isolated WSL build (2968 jobs) #print axioms [propext, Classical.choice, Quot.sound],
-  0 sorryAx, no project axiom. The negative-psi family needs a width-scaled (w>2.82) plateau = open follow-on; RH NOT claimed.
+## Change Log (2026-08-11, M.2 sign-boundary scan, SUPERSEDED 2026-08-12): docs/proofs/990 + Dev/M2HealthyPsiPort.lean
+- The old `w ~= 2.8175` boundary came from the wrong pole/prime coordinates and a prime-2 truncation; corrected complete-functional results are recorded above and in docs/990. `M2HealthyPsiPort` still owns only a plain plateau, not the numerical finite-vanishing residual.
 
-## Change Log (2026-08-11, M.2 two-sided finite-vanishing psi probe + conv-square bug fix): docs/proofs/989_m2_double_sided_psi_probe.{py,md}
-- Built the correctly-dangled finite-vanishing test family: two-sided bump q (lo<0<hi) minus span{1,e^{t/2},e^t}
-  (single lstsq) -> exact three-Mellin vanish ~1e-14, with healthy conv-square (g*⋆g)=irfft(|F|^2) so A=(g*⋆g)(0)=||g||2 passes.
-- Found+fixed mechanical conv-square bug in 987/988: they used F*F (self-conv) and centered x=0 at index (2n-2)//2 (=n-1)
-  instead of F·conj(F) with x=0 at index 0. That invalidates 988's "degenerate A~0/psi~0" (correct one-sided (0.4,2.2) test gives psi=+0.0286);
-  987's even-bump psi~+0.86 survives (0.8446) because even => F*F=|F|^2.
-- Healthy psi genuinely changes sign vs window/mass: [-0.5,1.5]/[-1,1] +0.029, [-1.5,2] -0.044, [-2,2.5]/[-1.5,3] -0.150,
-  5-signal resolution-stable (N=1e4..8e4); single instances neither prove nor refute the forall-g criterion. RH NOT claimed.
+## Change Log (2026-08-11, M.2 two-sided probe, partially SUPERSEDED 2026-08-12): docs/proofs/989
+- The autocorrelation layout fix `F*conj(F)` with zero lag at index zero remains valid; the later negative values do not, because they still used the wrong pole/prime coordinates and a singleton prime term. Docs/989 now contains the complete-functional convergence table.
 
-## Change Log (2026-08-11, ② finite-vanishing test g probe): docs/proofs/988_vanishing_probe.{py,md}
-- Constructed a finite-vanishing test g = q - Proj_span{1,e^{t/2},e^t} on stay bump (0.4,2.2):
-  M(g,0)=M(g,1/2)=M(g,1)=0 exactly (orth-complement), non-degenerate L2 (max|g|0.51).
-- Result NOT decisive: conv-centre A=g2(0)~0 (one-sided support), arch/pole/term2 all ~0,
-  psi=+0.0036 degenerate scale. Both evidence neither proof nor refutation of the C1 criterion.
-- Next genuine step (not assembly): a two-sided, positive-leading, window-overlapping-2 finite-vanishing
-  test that keeps A=(g*g)(0)>0. RH NOT claimed.
+## Change Log (2026-08-11, finite-vanishing probe, SUPERSEDED 2026-08-12): docs/proofs/988
+- The construction of a numerically vanishing compact test survives, but the one-sided-degeneracy verdict was an autocorrelation indexing error: the corrected L2-normalized test has `F(0)=1` and complete `QW ~= +0.053735`.
 
-## Change Log (2026-08-11, ② numeric probe of explicit healthyPsi): docs/proofs/987_healthy_psi_probe.{py,md}
-- numpy probe (WSL) on raw bump conv-square (log coords): arch=2.93, pole=4.29, term2=0.49 (g(1/2)=1.0), psi=+0.86.
-- Vanishing @0/1/2/1 = 2.25/2.36/2.72 (far from 0): the raw bump is NOT in the {0,1/2,1} finite-vanishing domain,
-  so psi=+0.86 is NOT a counterexample to the C1 criterion; it just shows the raw sign.
-- term2 is NOT trivially 0 (g(1/2)=1.0) - the healthy finite-{2} prime term can be non-null on arbitrary tests.
-- Honest: no RH/criterion closure from this probe; need a finite-vanishing test first. RH NOT claimed.
+## Change Log (2026-08-11, raw bump probe, SUPERSEDED 2026-08-12): docs/proofs/987
+- The raw bump remains outside the triple-vanishing domain, but its old `psi ~= 0.86` used `i/2` and a prime-2 term; the complete coordinate-correct value is `+0.00763878` with all visible prime powers.
 
-## Change Log (2026-08-11, ② explicit healthy Weil psi + {2} slot): Dev/C1WeilExplicit.lean
-- New module materialises the honest explicit WeilFormSymbols.PsiSignStatement formula on the healthy carrier:
-  healthyPsi F = poleFunctional F - totalArchimedean F - sum_{n in {2}} sourceFinitePrimeTerm n F (healthy Eval),
-  healthyQw g = healthyPsi (conv-square g).test, plus healthyPrimeSum_two (finite-{2} collapse) and healthyPsi_two.
-- WSL green: isolated dir, 2958 jobs, #print axioms [propext, Classical.choice, Quot.sound], 0 sorryAx.
-- The full criterion healthyPsi(conv^2 g) <= 0 (RH-equivalent) remains the open analytic step; NOT asserted. RH NOT claimed.
+## Change Log (2026-08-11, explicit healthy Weil prototype, SUPERSEDED 2026-08-12): Dev/C1WeilExplicit.lean
+- The temporary `{2}` implementation was replaced by `C1SameOwnerWeil.finitePrimeSum`, whose support-derived finite index set contains every nonzero visible prime-power term; `C1WeilExplicit` now only supplies route-facing aliases.
 
-## Change Log (2026-08-11, ② built the honest healthy CC20TestSpace seam): Dev/C1HealthyTestSpace.lean
-- New module: healthyCC20TestSpace : CC20TestSpace on the CompactLogTest carrier using genuine components:
-  toRouteTest = test, mellinAt = healthyEval.mellinAt, starConvolution = CompactLogTest.convolutionSquare,
-  weilLocalSum = -(totalArchimedean (conv-square).test), compactSupportSmooth = HasCompactSupport test.
-- Virtual sateable: healthyCriterionState F := CC20FiniteVanishingWeilCriterion healthyCC20TestSpace F; the
-  criterion value (weilLocal <=0) is the open RH-equivalent math, NOT asserted.
-- WSL green: isolated dir, 2957 jobs, #print axioms = [propext, Classical.choice, Quot.sound]; 0 sorryAx, all axiom-clean.
-- Docs/proofs/985 stats that ② was a real math gap; this materializes the missing healthy-carrier instance (docs/960) honestly.
-RH NOT claimed.
+## Change Log (2026-08-11, healthy CC20TestSpace prototype, SUPERSEDED 2026-08-12): Dev/C1HealthyTestSpace.lean
+- The temporary identity coordinate, archimedean-only local sum, and inner second square were replaced by `toPositiveRouteTest`, complete same-owner `-psi`, and the generic criterion's single square; the universal sign remains unproved.
 
-## Change Log (2026-08-11, C1-to-RH Phase-1 source-verified state): docs/proofs/985_c1_phase1_verified_state.md
-- Source/code audit (no new theorem, RH NOT claimed): ①②③ on the C1->SourceRH pipe are NOT three open leaves.
-- ① strict diagonal CLOSED (was open in docs/934): Wall1GlobalConvNonzero.cc20GlobalConvolutionPositive_strict_diagonal
-  + Wall1HealthyPositive.healthy_strict_positive_diagonal + WeilC1NonEmptyProducer.concreteC1InputData (axiom-clean).
-- ③ C1->SourceRH lean direction CLOSED (library): cc20_proposition_c1_standard_source_rh_of_realized_cc20_triple_input (Source/CC20PropositionC1).
-- ② healthy CC20TestSpace instance = genuine RH-equivalent gap (docs/960): needs an HONEST weilLocal (explicit-Mellin/Weil sum) on the
-  healthy carrier; the -PSD fill is a guard-6 vacuous producer (docs/963), NOT a real closure. First big-milestone build target.
-- WSL mirror dirty+stale (HEAD f14a47f != Windows 7b7a560): ①②③ verification must use a fresh isolated WSL verification dir, not the mirror.
-- [live-verified 2026-08-11] In isolated an isolated WSL verification dir (HEAD 7b7a560, fresh .lake from dirty mirror): lake build green (3593 jobs) + #print axioms = [propext, Classical.choice, Quot.sound], 0 sorryAx for ①③ both (weilStateNonempty/concreteC1InputData/healthy_strict_positive_diagonal/cc20GlobalConvolutionPositive_strict_diagonal/C1->RH theorems).
-- ② precise blocker (source-confirmed): healthy CompactLogTest has NO defined mellinAt/weight/full weil -- building healthyCC20TestSpace needs genuinely new Melin/Weil definition on CompactLogTest; vacuous fill (-PSD or mellin=0) is guard-6 forbidden. Not an assembly task; record before claiming.
+## Change Log (2026-08-11, C1 phase-1 audit, SUPERSEDED 2026-08-12): docs/proofs/985
+- The missing object layer identified here is now repaired; docs/985 and docs/1005 record the current split: complete same-owner definitions/readbacks closed, all-test explicit-formula/positive-trace theorem and universal finite-vanishing sign open, same-owner Yoshida detector open, conditional SourceRH exit closed.
 
 ## Change Log (2026-08-11, R1 step4 arithmetic reduce-lane seam): Dev/R1Step4Probe982.lean
 - Axiom-clean [propext, Classical.choice, Quot.sound], 0 sorry, build 2951 jobs green.
@@ -323,9 +297,9 @@ RH NOT claimed.
 
 ## Change Log (2026-08-10): Block 2c CLOSED axiom-clean (Dev/Wall14PlateauProbe.lean)
 - Merged Block 2c: the F <= A upper bound plateauF_le_A. Added plateauAffine_hasCompactSupport
-  (reflected bump un t => plateauReal (y - t) compact support via ContDiffBump.tsupport_eq = 
-  closedBall 0 1 + IsCompact.of_isClosed_subset), plateauSqRefl_integrable, 
-  plateauA_eq_integral_realSq, and plateauF_le_A via AM-GM (1/2*(p^2+q^2) integrand, 
+  (reflected bump fun t => plateauReal (y - t) compact support via ContDiffBump.tsupport_eq =
+  closedBall 0 1 + IsCompact.of_isClosed_subset), plateauSqRefl_integrable,
+  plateauA_eq_integral_realSq, and plateauF_le_A via AM-GM (1/2*(p^2+q^2) integrand,
   reflection collapse) + MeasureTheory.integral_mono. Green (2917 jobs) on a WSL build mirror, 
   axioms [propext, Classical.choice, Quot.sound], 0 sorry. Next: Block 3 plateauF_ge_lower. RH NOT claimed.
 
@@ -710,7 +684,7 @@ ot_normalizedCC20FiniteVanishingWeilCriterion)
 - ConnesWeilRH/Dev/HealthySourceMellinAlgebra.lean: built a SourceTestAlgebra on the SAME carrier
   TestFunction = SchwartzMap real complex as the broken concrete algebra, but with the TRUE Mellin
   product convolutionStar f g = SchwartzMap.convolution (mul real complex) f g (plus Fourier involution
-  and square), fixing the additive  + g defect. Identity LegacyTestEquiv (Test := TestFunction) avoids
+  and square), fixing the additive f + g defect. Identity LegacyTestEquiv (Test := TestFunction) avoids
   the CompactLogTest bijection wall (A2 probe). healthyFourierConvolutionMul records the
   multiplicative-Mellin Fourier law. WSL build green (2936 jobs); #print axioms = [propext,
   Classical.choice, Quot.sound], 0 sorry, 0 new project axiom. RH not claimed; re-pointing
@@ -842,7 +816,7 @@ ormalizedCoreCCM25FinitePrimeArithmeticSourceDataRoot +
 ormalizedCoreSourceWeilFormDataRoot),
 no sorryAx, no new project axiom. RH not claimed. Prerequisite: synced the full Windows Source tree to the
 mirror (32 stale .lean files, incl. CCMSourceDataGuards archived form) before the build; a stale
-CCM25SourceDataGuards/FinitePrimeSourceDataBridge gave rror: build failed on the pre-sync run.
+CCM25SourceDataGuards/FinitePrimeSourceDataBridge gave Error: build failed on the pre-sync run.
 ## Change Log (2026-08-08): H2 hdom is PROVEN (not assumed) via concrete certs + routed
 
 Follow-up to the H2 landing: `finitePrimeDominance` is not a free assumption at the Source layer.
@@ -1674,17 +1648,3 @@ would be unsound. RH unclaimed.
   numerically sharp at y->0+ (A4*y/2 both sides). That is real new analysis on the conv4F shape,
   NOT a constant-picking step. Docs/965 Wall-A dead-verdict stands (already recorded); closing
   the 4-fold nonzero is optional strengthening, Direction-B self-consistency unchanged. RH not claimed.
-
-
-
-
-
-
-
-
-
-
-
-
-
-

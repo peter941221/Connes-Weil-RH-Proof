@@ -5,7 +5,7 @@ proved axiom-clean in `CCM24PaleyWienerSpectral.lean`. C1a (coefficient mirror),
 C1b (`R o M+ = M- o R`), C1c (`F.R = R.F`, L2-Fourier via Schwartz-density
 extension), and the C1 assembly are all green (WSL flock `lake build` 2964 jobs,
 #print axioms=[propext, Classical.choice, Quot.sound], 0 sorry). Remaining: H3
-(inner/outer factor of `m`); 998/999 still blocked. RH not claimed. No sorry /
+(the scattering Toeplitz-kernel / prolate witness); 998/999 still blocked. RH not claimed. No sorry /
 axiom added.
 
 ## Why C1 matters
@@ -70,7 +70,7 @@ C1 := `R o P+ o R = P-`, with
 `u in H- (= ker P+)` implies `R u in H+ (= ker P-)`, since
    P- (R u) = R (P+ (R (R u))) = R (P+ u) = 0.
 This is the docs/1002 `psi = phi(- )` symbol bridge. Still only the 'bridge';
-a NONZERO phi still requires H3 (inner/outer factor), which is untouched here.
+a nonzero phi still requires H3 (a Toeplitz-kernel witness), which is untouched here.
 
 ## Where everything stands
 
@@ -78,5 +78,5 @@ a NONZERO phi still requires H3 (inner/outer factor), which is untouched here.
   (this session) — the full bridge `R o P+ o R = P-` is now closed.
 - Module `CCM24PaleyWienerSpectral` builds green 2964 jobs; #print axioms
   [propext, Classical.choice, Quot.sound]; 0 sorry in the added block.
-- Route crux still OPEN: H3 (inner/outer factor of `m`), 998/999 still blocked,
+- Route crux still OPEN: H3 (Toeplitz-kernel/prolate witness for `m`), 998/999 still blocked,
   RH not claimed.

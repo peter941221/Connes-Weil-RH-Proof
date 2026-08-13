@@ -1,5 +1,10 @@
 # 830 — 《"一个等式" vs "40 个 sorry"》：`UnconditionalSkeleton.lean` 全部 40 个 `axiom` 的对账表 + 一处构造矛盾
 
+> **SUPERSEDED (2026-08-12).** 本文审计的是 S2 重构前的旧
+> global-reverse-support 模型。`docs/proofs/835_s2_percommon_refactor_landed.md`
+> 记录了 per-common 修复；当前 `ConcreteP1SupportProbe.concreteWeilForm`
+> 已无公理构造原 L137 类型。下文仅保留为历史证据，不能用于描述当前根。
+
 Date: 2026-08-06 · Status: analysis / audit (self-created).
 File audited: `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` (8060 lines).
 Related: `ConnesWeilRH/Dev/CCM25SourceDataGuards.lean`,

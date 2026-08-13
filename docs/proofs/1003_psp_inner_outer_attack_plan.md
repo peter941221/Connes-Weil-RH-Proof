@@ -1,50 +1,68 @@
-# 1003 - Inner/outer factorization of the Gamma-R scattering phase: attack plan
+# 1003 - PSP / prolate attack plan for the scattering Toeplitz kernel
 
-Status: PLAN (not a closure). It splits sub-target C's core into independent,
-separately Lean-buildable sub-propositions. RH not claimed. No sorry / axiom.
+Status: corrected plan, 2026-08-12. This plan does not treat an inner/outer
+factorization as a witness. RH is not claimed. No Lean axiom or `sorry` is
+added.
 
-## Goal recap (docs/1002)
+## Target
 
-Find a nonzero psi (upper-Hardy, H+) with m * psi (lower-Hardy, H-), where
+For the repository scattering phase
 
-    m(x) = Gamma_R(1/2 - i 2 pi x) / conj(Gamma_R(1/2 + i 2 pi x)),   |m| = 1.
+```text
+m(xi) = Gamma_R(1/2 - i * 2*pi*xi) /
+        Gamma_R(1/2 + i * 2*pi*xi),
+```
 
-Then the corresponding u lies in V_arch (radial AND HT-radial) and carries
-nonzero window mass.  The typed gate is `vArch_mem_iff_support_ae`.
+prove the nontriviality of the L2 Toeplitz kernel
 
-## Decomposition (each sub-prop is an independent, buildable step when the
-previous one holds)
+```text
+exists psi in H+, psi != 0, P+(m * psi) = 0.
+```
 
-A1  The scattering phase is already a programme def in the repo
-    (`ccm24ArchimedeanScatteringPhase`), meromorphic via the Gamma factors.
-    Gate: give its meromorphic extension data on the real line.
+Here `H+ = ccm24HardyPositiveSubspace`, `P+` is
+`ccm24PositiveFrequencyProjection`, and the multiplier is
+`ccm24ArchimedeanScatteringMultiplier`. This is the `L2` form of
+`m * psi in H-`.
 
-A2  Inner/outer (Beurling) split: for any |m|=1 analytic-in-a-strip symbol
-    that is the boundary value of a Nevanlinna (inner/outer class) function,
-    there exist P in H+ and Q in H- with m = Q / P and |P| = |Q| = 1 a.e.
+## Why the old plan stopped
 
-A3  Explicit outer representation:  P = exp( Pi_- (log m) ) and
-    Q = exp( Pi_+ (log m) ), where Pi_- / Pi_+ are the lower / upper real
-    Wiener spectral projections of the analytic log m; then m = Q/P and
-    log|m|=0 forces it to an inner-outer boundary.
+An a.e.-unimodular factor `P` has constant modulus one on `R`, hence does not
+belong to `L2(R)`. The assignment `psi = P` therefore fails before any
+Fourier-to-Sonin transport. Wiener--Hopf factorization can organize a Toeplitz
+problem, but it cannot replace a proof that this particular kernel is nonzero.
 
-A4  L2-placement: the resulting psi = P lies in L2, and m * psi = Q lies in
-    L2 (so both are genuine Lp elements on the carrier).
+## Work packages
 
-A5  Sufficiency lift: use `vArch_mem_iff_support_ae` to turn the analytic
-    pair into a Lean theorem; then prove window mass D; then lift
-    `twoOuterNonzeroObligation` to a theorem (E).
+```text
+T1  Define the scattering Toeplitz operator on H+.
+T2  Prove ker(T_m) iff m*psi lies in H- in the repository projection model.
+T3  Prove the transport from ker(T_m) to sourceSoninCarrier(lambda).
+T4  Construct a nonzero kernel vector from a prolate/Sonin spectral problem.
+T5  Prove its restriction to W is nonzero in L2(volume.restrict W).
+T6  Feed T5 through the coframe strip identity to twoOuterNonzeroObligation.
+```
 
-## Mathlib / repo gaps (evidence of size)
+`T1` has begun: `Dev/SoninWindowWitness.lean` defines
+`archimedeanScatteringToeplitzKernel_nontrivial` and proves the immediate
+projection-to-`H-` consequence. `T2` through `T6` remain open.
 
-- Formalization wedge: mathlib v4.30.0 has no H+/H- Hardy subspaces of
-  L2(R) and no inner/outer (Paley-Wiener) filter for our scattering phase;
-  those have to be built (new math) before the analytic pair can be closed.
+## Prolate candidate
 
-## Acceptance criteria per A_k
+The candidate is not a generic factorization. The source-backed prolate route
+uses a negative eigenfunction of the self-adjoint prolate operator. The
+Connes--Moscovici article states that such an eigenfunction belongs to the
+Sonin space:
 
-A_k closes iff:
- 1. a typed def and normal theorem (no sorry / axiom), and
- 2. a focused WSL `flock lake build <dev target>` green + `#print axioms`
-    `[propext, Classical.choice, Quot.sound]`, and
- 3. it advances toward A5 gate.
+```text
+https://pmc.ncbi.nlm.nih.gov/articles/PMC9295779/
+```
+
+The implementation must prove the domain, spectral sign, carrier transport,
+and window restriction. Each is an independent theorem, not a stored scalar.
+
+## Acceptance criteria
+
+Each package closes only with a theorem that has no project axiom or `sorry`, a
+focused WSL `flock lake build`, and a `#print axioms` audit. A nonzero Sonin
+witness would reject the current `{2}` infinite-carrier Gate-3U route; it would
+not prove RH.

@@ -41,7 +41,7 @@ ConnesWeilRH.Dev.UnconditionalSkeleton (flock-guarded, cwr-h2probe1) completed w
 [3495/3495] Built ConnesWeilRH.Dev.UnconditionalSkeleton, plus intermediary Route/Ledger,
 RouteTheorem, CC20RouteRealization, ZetaHalfNonvanishing, S2B1TraceScale, CCM25SourceDataGuards
 all green. The hdom wiring at line 688 compiles (the simpa [normalizedCoreSourceAnalyticCoreFromTheorems]
-closes the defeq). Axiom audit: initePrimeDominance_of_certificates =
+closes the defeq). Axiom audit: finitePrimeDominance_of_certificates =
 [propext, Classical.choice, Quot.sound] (axiom-free, 0 sorry); Dev core
 
 ormalizedCoreSourceModelConstructorCoreFromTheorems cascades only into the two pre-existing
@@ -50,13 +50,13 @@ ormalizedCoreCCM25FinitePrimeArithmeticSourceDataRoot +
 ormalizedCoreSourceWeilFormDataRoot),
 no sorryAx, no new project axiom. RH not claimed. Prerequisite: synced the full Windows Source tree to the
 mirror (32 stale .lean files, incl. CCMSourceDataGuards archived form) before the build; a stale
-CCM25SourceDataGuards/FinitePrimeSourceDataBridge gave rror: build failed on the pre-sync run.
+CCM25SourceDataGuards/FinitePrimeSourceDataBridge gave Error: build failed on the pre-sync run.
 ## Change Log (2026-08-08): H2 hdom is PROVEN (not assumed) via concrete certs + routed
 
 Follow-up to the H2 landing: `finitePrimeDominance` is not a free assumption at the Source layer.
 New lemma `SourceWeilFormData.finitePrimeDominance_of_certificates`
 (`Source/AnalyticSourceModel.lean`): from `CCM25Concrete.FinitePrimeInterface.FixedLambdaArithmeticSourceTestCertificates
-ForAllTests W.toWeilFormSymbols` the prime-support dominance is derived as `concrete coverage (~ visible (fg) -> n in globalIndexSet) + narrowed per-common reverse (commonGlobalIndex -> visible common)`. Warm-verified: `AnalyticSourceModel` green (2943 jobs), `#print axioms` = `[propext, Classical.choice, Quot.sound]`, 0 sorry.
+ForAllTests W.toWeilFormSymbols` the prime-support dominance is derived as `concrete coverage (~ visible (f g) -> n in globalIndexSet) + narrowed per-common reverse (commonGlobalIndex -> visible common)`. Warm-verified: `AnalyticSourceModel` green (2943 jobs), `#print axioms` = `[propext, Classical.choice, Quot.sound]`, 0 sorry.
 MANUSCRIT (UnconditionalSkeleton clean but NOT Dev-cold-built yet): `Dev/UnconditionalSkeleton:688` now passes this
 `finitePrimeDominance_of_certificates` (on `normalizedCoreSourceWeilWeilDataRoot` + `normalizedCore...ArithmeticCertificatesFromTheorems`) to `ofSourceAnalyticCore` (which now requires `hdom`). This Dev change transits existing-axiom; full `UnconditionalSkeleton` cold build (>a session) is the remaining verification; not run here. RH not claimed.
 

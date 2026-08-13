@@ -1,5 +1,13 @@
 # 835 — S2 per-common 重构落地：`SourceWeilFormData` 换成 per-common 承载，L137/L152 自相矛盾解除
 
+> **CURRENT ADDENDUM (2026-08-12).** 本文正确记录了 S2 结构修复，但其
+> “L137 仍为开放 axiom”的阶段性状态已经继续推进：
+> `Dev/UnconditionalSkeleton.lean` 现在用
+> `ConcreteP1SupportProbe.concreteWeilForm` axiom-clean 地构造该类型。
+> 剩余 source-data 缺口是 all-pairs finite-prime certificates 与
+> `scopedArchimedeanContributionBalance`；真正的顶层 RH 根是 detector
+> criterion coverage。见 `docs/proofs/1005_rh_route_after_psp_audit.md`。
+
 Date: 2026-08-07 · Status: landed (build-verified, committed, RH 仍不声明).
 Related: `docs/proofs/830_…`、`831_…`、`832_…`、`833_…`、`834_…`（探针/证据根基）。
 Commits: `e65c92b`（S2 翻转 + 承载 anchor）、`ba7925b`（修骨架 stale guard + L152）。

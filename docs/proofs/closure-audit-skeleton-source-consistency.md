@@ -1,5 +1,12 @@
 # Closure Audit: THE SKELETON'S SOURCE CORE AXIOMATIZES EMPTY TYPES — Refuted by Parallel Theorems, but not an in-file `False`
 
+> **SUPERSEDED (2026-08-12).** This closure audit concerns the retired
+> pre-S2 global-reverse-support model. The per-common refactor removed the empty
+> `SourceWeilFormData` type, and the former L137 root now has an axiom-clean
+> constructor. See `docs/proofs/835_s2_percommon_refactor_landed.md`. The current
+> active RH root is detector criterion coverage, not this historical model
+> contradiction; see `docs/proofs/1005_rh_route_after_psp_audit.md`.
+
 Date: 2026-08-05 · Status: **critical (each RH-bottom axiom asserts an empty type)** · Owner lane: RH-skeleton closure audit
 
 ## Result (corrected on 2026-08-05)
