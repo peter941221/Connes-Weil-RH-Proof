@@ -327,6 +327,78 @@ theorem completedRiemannXi_eq_zero_of_sourceNontrivialZero
   rw [completedRiemannXi_eq_mul_completedRiemannZeta hz0 hz.not_pole,
     completedRiemannZeta_eq_zero_of_sourceNontrivialZero hz, mul_zero]
 
+/-- The completed xi function has no zero in the closed half-plane
+`1 <= re s`. This packages zeta nonvanishing with the pole-removing factors
+in the project normalization of xi. -/
+theorem completedRiemannXi_ne_zero_of_one_le_re
+    {s : ℂ} (hs : 1 <= s.re) :
+    completedRiemannXi s ≠ 0 := by
+  by_cases hs1 : s = 1
+  · subst s
+    simp [completedRiemannXi]
+  · have hs0 : s ≠ 0 := by
+      intro hzero
+      subst s
+      norm_num at hs
+    have hzeta : riemannZeta s ≠ 0 :=
+      riemannZeta_ne_zero_of_one_le_re hs
+    have hcompleted : completedRiemannZeta s ≠ 0 := by
+      intro hzero
+      apply hzeta
+      rw [riemannZeta_def_of_ne_zero hs0, hzero, zero_div]
+    rw [completedRiemannXi_eq_mul_completedRiemannZeta hs0 hs1]
+    exact mul_ne_zero (mul_ne_zero hs0 (sub_ne_zero.mpr hs1)) hcompleted
+
+/-- Every zero of the completed xi function is a source nontrivial zeta zero.
+The functional equation excludes the negative-even zeta zeros by reflecting
+them into the zero-free closed right half-plane. -/
+theorem sourceNontrivialZero_of_completedRiemannXi_eq_zero
+    {z : ℂ} (hxi : completedRiemannXi z = 0) :
+    RHDefinitionBridge.standard.sourceNontrivialZero z := by
+  have hz0 : z ≠ 0 := by
+    intro hzero
+    subst z
+    simp [completedRiemannXi] at hxi
+  have hz1 : z ≠ 1 := by
+    intro hone
+    subst z
+    simp [completedRiemannXi] at hxi
+  have hcompleted : completedRiemannZeta z = 0 := by
+    rw [completedRiemannXi_eq_mul_completedRiemannZeta hz0 hz1] at hxi
+    exact (mul_eq_zero.mp hxi).resolve_left
+      (mul_ne_zero hz0 (sub_ne_zero.mpr hz1))
+  have hzeta : riemannZeta z = 0 := by
+    rw [riemannZeta_def_of_ne_zero hz0, hcompleted, zero_div]
+  have hnotNegEven : ¬∃ n : ℕ, z = -2 * (n + 1) := by
+    rintro ⟨n, rfl⟩
+    have hcomplex :
+        (1 : ℂ) - (-2 * (n + 1) : ℂ) =
+          ((1 : ℝ) + 2 * ((n : ℝ) + 1) : ℂ) := by
+      push_cast
+      ring
+    have hre :
+        ((1 : ℂ) - (-2 * (n + 1) : ℂ)).re =
+          (1 : ℝ) + 2 * ((n : ℝ) + 1) := by
+      rw [hcomplex]
+      norm_num
+    have hright : (1 : ℝ) <=
+        ((1 : ℂ) - (-2 * (n + 1) : ℂ)).re := by
+      rw [hre]
+      have hn : (0 : ℝ) <= n := Nat.cast_nonneg n
+      linarith
+    exact (completedRiemannXi_ne_zero_of_one_le_re hright)
+      (by rw [completedRiemannXi_one_sub]; exact hxi)
+  exact RHDefinitionBridge.standard_source_nontrivial_zero_of_mathlib_components
+    z hzeta hnotNegEven hz1
+
+/-- The source spectral index is exactly the zero set of the completed xi
+function, not merely a subset of it. -/
+theorem completedRiemannXi_eq_zero_iff_sourceNontrivialZero (z : ℂ) :
+    completedRiemannXi z = 0 ↔
+      RHDefinitionBridge.standard.sourceNontrivialZero z :=
+  ⟨sourceNontrivialZero_of_completedRiemannXi_eq_zero,
+    completedRiemannXi_eq_zero_of_sourceNontrivialZero⟩
+
 theorem completedRiemannXi_two_ne_zero : completedRiemannXi 2 ≠ 0 := by
   have hzeta : riemannZeta (2 : ℂ) ≠ 0 :=
     riemannZeta_ne_zero_of_one_le_re (by norm_num)

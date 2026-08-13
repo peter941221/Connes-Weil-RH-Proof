@@ -42,10 +42,27 @@ analytic theorem:
 CompactLog -> positive-variable coordinate bridge CLOSED
 healthy Mellin convolution                         CLOSED
 complete same-owner pole/arch/all-prime functional CLOSED as definition/readback
-all-test explicit-formula / positive-trace bridge  OPEN
+zero-spectral absolute summability on every test   CLOSED
+xi zero-index completeness (= exact xi zero set)   CLOSED
+same-owner arithmetic = zero-spectral formula      OPEN
+positive-trace bridge                              OPEN
 finite-vanishing Weil criterion on the same owner  OPEN (RH-level)
 Yoshida detectors on that same owner               OPEN rebuild/transport
 ```
+
+The spectral convergence half is unconditional and axiom-clean in
+`C1SpectralSummability`: the completed-xi kernel moment gives dyadic xi growth,
+Jensen bounds analytic zero multiplicity by `K * 3^n`, and compact-log Laplace
+decay contributes `4^(-n)`. Since `3 < 4`, `spectralSummableProp F` holds for
+every `CompactLogTest F`. Consequently `gate2ExplicitFormula_iff` reduces Gate
+2 exactly to `C1SameOwnerWeil.psi F = C1SpectralWeil.spectralWeilValue F`; that
+equality and the positive-trace bridge remain open.
+
+The completed-xi zero set is exactly the source spectral index:
+`completedRiemannXi_eq_zero_iff_sourceNontrivialZero` (in `CC20ZetaCounting`)
+is axiom-clean; the functional equation reflects negative-even zeta zeros into
+the zero-free closed right half-plane. The spectral sum indexes the exact xi
+zeros, not a subset.
 
 ### C1 Coordinate, Owner, And Sign Guards
 
