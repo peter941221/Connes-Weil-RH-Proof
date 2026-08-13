@@ -1,58 +1,45 @@
 import ConnesWeilRH.Dev.C1HealthyTestSpace
 
-/-! # C1WeilExplicit — the explicit healthy Weil `psi`, finite-prime `{2}` slot
+/-! # C1WeilExplicit - route-facing names for the same-owner Weil functional
 
-Materialises the honest, explicit `WeilFormSymbols.PsiSignStatement`-style formula on
-the healthy carrier:
+The implementation lives in `C1SameOwnerWeil`. This module keeps the earlier
+route-facing names while removing the former singleton `{2}` truncation.
 
-    psi F = poleFunctional F - totalArchimedean F - sum_{n in {2}} finitePrimeTerm n F
+For every compact formula test `F`, compact support computes an exact finite set
+containing all visible prime powers. For a route test `g`, `healthyQw g` applies
+the functional to `g^* * g` exactly once.
 
-built from the genuine healthy components (healthyEval, totalArchimedean, the healthy
-finite-prime `{2}` support), plus the finite-prime collapse `{2} -> {prime 2}`.
-
-HONEST SCOPE:  this sets the *formula*; the criterion `psi(conv^2 F) <= 0`
-(RH-equivalent) is NOT asserted.  RH NOT claimed.
+No sign theorem is asserted. RH NOT claimed.
 -/
+
 namespace ConnesWeilRH
 namespace Source
 namespace C1WeilExplicit
 
-open AnalyticCore
-open CCM25Concrete.CompactArchTotal
 open CCM25Concrete.CompactLogConvolution
-open Dev.WellFormHealthyRepoint
-open scoped BigOperators
+open C1SameOwnerWeil
 
-/-- The healthy explicit full-field psi: pole minus archimedean minus the
-   finite-prime sum over the healthy support `{2}`. -/
-noncomputable def healthyPsi (F : TestFunction) : Real :=
-  (Dev.WellFormHealthyRepoint.healthyEval.poleFunctional F -
-    totalArchimedean F) -
-      Dev.WellFormHealthyRepoint.healthyEval.sourceFinitePrimeTerm 2 F
+/-- The complete compact-log Weil functional. -/
+noncomputable def healthyPsi (F : CompactLogTest) : Real :=
+  C1SameOwnerWeil.psi F
 
-/-- `qw` reads psi of the convolution square, materialising `QWDefinitionStatement`. -/
+/-- `QW(g,g)` reads `Psi(g^* * g)` with one square. -/
 noncomputable def healthyQw (g : CompactLogTest) : Real :=
-  healthyPsi (g.convolutionSquare.test)
+  healthyPsi g.convolutionSquare
 
-/-- The healthy finite-prime support over the index `{2}` collapses to the
-   single term at the prime `2`. -/
-theorem healthyPrimeSum_two (F : TestFunction) :
-    (∑ n ∈ ({2} : Finset ℕ),
-        Dev.WellFormHealthyRepoint.healthyEval.sourceFinitePrimeTerm n F) =
-      Dev.WellFormHealthyRepoint.healthyEval.sourceFinitePrimeTerm 2 F := by
-  simp
-
-/-- `healthyPsi` expands to pole - arch - (single finite-prime term at 2): the
-   honest explicit formula, up to the index-set collapse. -/
-theorem healthyPsi_two (F : TestFunction) :
+/-- The route-facing name expands to all three same-owner components. -/
+theorem healthyPsi_components (F : CompactLogTest) :
     healthyPsi F =
-      (Dev.WellFormHealthyRepoint.healthyEval.poleFunctional F - totalArchimedean F) -
-        (∑ n ∈ ({2} : Finset ℕ),
-          Dev.WellFormHealthyRepoint.healthyEval.sourceFinitePrimeTerm n F) := by
-  unfold healthyPsi
-  rw [<- healthyPrimeSum_two]
+      C1SameOwnerWeil.poleTerm F -
+        C1SameOwnerWeil.archimedeanTerm F -
+          C1SameOwnerWeil.finitePrimeSum F := by
+  rfl
+
+/-- The quadratic readout agrees with the owning implementation. -/
+theorem healthyQw_eq_sameOwner (g : CompactLogTest) :
+    healthyQw g = C1SameOwnerWeil.qw g := by
+  rfl
 
 end C1WeilExplicit
 end Source
 end ConnesWeilRH
-
