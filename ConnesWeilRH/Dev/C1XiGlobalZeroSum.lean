@@ -190,6 +190,45 @@ theorem regularizedZeroTerm_norm_le (s : Complex)
               (pow_pos (by norm_num : (0 : Real) < 2) n))
             hdenBound
 
+/-- Denominator normalization from the `2^(n+1) * 2^n` shell bound to the
+consumer form `(2^n)^2`.  Same algebra as inside
+`regularizedZeroTerm_norm_instance`; factored out so the (H) brick can reuse
+it without the multiplicity inflation. -/
+theorem regularizedZeroTerm_norm_shellForm (s : Complex) (n : Nat) :
+    ‖s‖ / ((2 : Real) ^ (n + 1) * (2 : Real) ^ n) <=
+      2 * ‖s‖ / ((2 : Real) ^ n) ^ 2 := by
+  rw [pow_two]
+  have hfour : (2 : Real) ^ n * (2 : Real) ^ n = 4 ^ n := by
+    rw [← mul_pow]
+    norm_num
+  rw [pow_succ, hfour]
+  have hsym : ((2 : Real) ^ n * 2) * (2 : Real) ^ n =
+      2 * (4 : Real) ^ n := by
+    calc
+      ((2 : Real) ^ n * 2) * (2 : Real) ^ n =
+          2 * ((2 : Real) ^ n * (2 : Real) ^ n) := by
+            ring
+      _ = 2 * (4 : Real) ^ n := by rw [hfour]
+  rw [hsym]
+  have hposX : 0 < 2 * (4 : Real) ^ n := by positivity
+  have hposY : 0 < (4 : Real) ^ n := by positivity
+  rw [div_le_div_iff₀ hposX hposY]
+  ring_nf
+  have hnonneg : 0 <= ‖s‖ * (4 : Real) ^ n :=
+    mul_nonneg (norm_nonneg s)
+      (le_of_lt (pow_pos (by norm_num : (0 : Real) < 4) n))
+  nlinarith
+
+/-- Unweighted per-shell norm bound in consumer form: the height-shell
+separation gives `||term|| <= 2 * ||s|| / (2^n)^2` on shell `n + 1`. -/
+theorem regularizedZeroTerm_norm_shell_le (s : Complex) (n n0 : Nat)
+    (hn : n0 <= n) (hs_lt : |s.im| < (2 : Real) ^ n0)
+    {rho : sourceNontrivialZeroSet}
+    (hrho : rho ∈ spectralHeightShell (n + 1)) :
+    ‖regularizedZeroTerm s rho‖ <= 2 * ‖s‖ / ((2 : Real) ^ n) ^ 2 := by
+  exact le_trans (regularizedZeroTerm_norm_le s n n0 hn hs_lt hrho)
+    (regularizedZeroTerm_norm_shellForm s n)
+
 /-- Multiplicity-inflated pointwise instance of the tail weight bound:
 `||term|| <= mult * (2 * ||s|| / 4 ^ n)`.  The multiplicity factor is at
 least one, so the atom `1 / 4 ^ n` decay is preserved. -/
@@ -387,3 +426,4 @@ end
 end C1XiGlobalZeroSum
 end Source
 end ConnesWeilRH
+

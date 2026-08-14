@@ -68,7 +68,9 @@ CLOSED or in the verification queue (brick G).
 ( A-OK ) AnalyticLog verification (local analytic logs)  [CLOSED 2026-08-14]
 
 H-A0 weightedRegularizedZeroSummable (s) : Summable (weightedRegularizedZeroTerm s)
-       -- shell mass bound + regularizedZeroTerm_norm_le; ~30 lines, mechanical
+       [CLOSED 2026-08-14] -- module Dev/C1XiGlobalWeightedZeroSum.lean
+       (weightedRegularizedZeroTerm_norm_le + summable), axiom-clean;
+       G gained the consumer-form helper regularizedZeroTerm_norm_shell_le
 H-A1 regularizedSum_analyticOn_ball : AnalyticOnNhd (fun s => ∑' rho, wTerm s rho)
        open ball around any non-zero point
        -- H-A0 + uniform tail bound (regularizedZeroTail_norm_shellSum_le,
