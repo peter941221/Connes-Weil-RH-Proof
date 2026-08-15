@@ -1847,3 +1847,9 @@ would be unsound. RH unclaimed.
   all visible prime-power terms defining `C1SameOwnerWeil.psi`.  Therefore
   same-owner arithmetic readback, Gate 2 equality, the positive-trace bridge,
   the finite-vanishing criterion, Yoshida transport, and RH remain open.
+- Final verification on the current source snapshot completed the cached
+  WSL2 ext4 full build successfully (`4147 jobs`).  The Hadamard probe build
+  completed `3528 jobs`; its audited declarations remain limited to
+  `[propext, Classical.choice, Quot.sound]` with no `sorryAx`.  Existing
+  dependency linter warnings and package-cache local-change notices were
+  observed, but no new warning or build failure came from this batch.
