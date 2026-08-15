@@ -111,6 +111,14 @@ The full von Mangoldt boundary at `Re(s) = 1` remains a separate
 `FullPrimeBoundaryContract`; never infer it from absolute convergence on the
 right half-plane.
 
+The Gamma_R contribution is regular on `Re(s) > 0`.  The public
+`continuous_gammaRIntegrand_intervalIntegral` theorem therefore works on the
+positive-real subtype, and
+`tendsto_gammaRIntegrand_intervalIntegral_c_to_one` gives its finite-height
+right-hand `c -> 1+` limit.  This closes only the Gamma_R factor.  It does
+not regularize `1 / (c - 1 + t*I)` at `t = 0`, nor does it supply the full
+von Mangoldt boundary or the arithmetic/spectral equality.
+
 The Fourier readback brick uses Mathlib's `Measure.integral_comp_mul_left`
 with only `(g) (a)` explicit arguments; `volume` is implicit.  Its right-hand
 side is a real scalar action on a complex integral, so normalize it with

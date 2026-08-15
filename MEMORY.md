@@ -1,3 +1,19 @@
+## Change Log (2026-08-16, finite-height Gamma_R boundary bridge CLOSED): Dev/C1XiArithmeticIntervalReadback.lean + Probe
+- Generalized the Gamma_R differentiability owner to `Re(s) > 0` and used
+  the analytic/nonzero logarithmic-derivative continuity interface on the
+  positive-real subtype.
+- `continuous_gammaRIntegrand_intervalIntegral` proves continuity of the
+  Gamma_R contribution's finite-height interval integral, and
+  `tendsto_gammaRIntegrand_intervalIntegral_c_to_one` gives its right-hand
+  `c -> 1+` limit at the exact `c = 1` integral.
+- Verification: direct Lean compilation in the WSL2 ext4 arithmetic mirror
+  passed for the owning module and import-facing probe; both audited
+  declarations depend only on `[propext, Classical.choice, Quot.sound]`.
+- This is only the Gamma_R factor.  The elementary pole remains singular at
+  `t = 0`, and the full von Mangoldt boundary, same-owner arithmetic/spectral
+  equality, positive-trace bridge, finite-vanishing criterion, Yoshida
+  transport, and RH remain open.
+
 ## Change Log (2026-08-16, finite truncation c-to-one interval bridge CLOSED): Dev/C1XiArithmeticPrimePowerAssembly.lean + Probe
 - `continuous_finiteArithmeticPrimePowerIntegrand_intervalIntegral` uses
   `continuous_parametric_integral_of_continuous` on compact `Icc` and the

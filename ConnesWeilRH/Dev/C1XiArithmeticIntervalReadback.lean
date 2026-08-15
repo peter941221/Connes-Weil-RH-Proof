@@ -64,8 +64,8 @@ noncomputable def gammaRIntegrand
   -logDeriv Complex.Gammaℝ (verticalPoint c t) *
       symmetrizedLaplaceWeight F (verticalPoint c t) * Complex.I
 
-private theorem differentiableAt_GammaR_of_one_lt_re
-    {s : Complex} (hs : 1 < s.re) :
+private theorem differentiableAt_GammaR_of_pos_re
+    {s : Complex} (hs : 0 < s.re) :
     DifferentiableAt Complex Complex.Gammaℝ s := by
   have hgamma : Complex.Gammaℝ s ≠ 0 :=
     Complex.Gammaℝ_ne_zero_of_re_pos (by linarith)
@@ -176,7 +176,8 @@ private theorem analyticAt_GammaR_of_one_lt_re
     AnalyticAt Complex Complex.Gammaℝ s := by
   apply DifferentiableOn.analyticAt (s := {z : Complex | 1 < z.re})
   · intro z hz
-    exact (differentiableAt_GammaR_of_one_lt_re hz).differentiableWithinAt
+    have hz' : 1 < z.re := hz
+    exact (differentiableAt_GammaR_of_pos_re (by linarith [hz'])).differentiableWithinAt
   · exact (isOpen_lt continuous_const continuous_re).mem_nhds hs
 
 private theorem continuous_logDeriv_GammaR_vertical
@@ -203,6 +204,110 @@ private theorem intervalIntegrable_gammaRIntegrand
   have hgamma := continuous_logDeriv_GammaR_vertical hc
   have hweight := continuous_symmetrizedWeight_vertical F c
   exact (hgamma.neg.mul hweight).mul continuous_const |>.intervalIntegrable _ _
+
+private theorem analyticAt_GammaR_of_pos_re
+    {s : Complex} (hs : 0 < s.re) :
+    AnalyticAt Complex Complex.Gammaℝ s := by
+  apply DifferentiableOn.analyticAt (s := {z : Complex | 0 < z.re})
+  · intro z hz
+    exact (differentiableAt_GammaR_of_pos_re hz).differentiableWithinAt
+  · exact (isOpen_lt continuous_const continuous_re).mem_nhds hs
+
+private theorem continuous_positive_verticalPoint :
+    Continuous (fun p : {c : Real // 0 < c} × Real =>
+      verticalPoint p.1.1 p.2) := by
+  unfold verticalPoint
+  fun_prop
+
+private theorem continuous_logDeriv_GammaR_positive_vertical :
+    Continuous (fun p : {c : Real // 0 < c} × Real =>
+      logDeriv Complex.Gammaℝ (verticalPoint p.1.1 p.2)) := by
+  apply continuous_iff_continuousAt.2
+  intro p
+  have hlog : ContinuousAt (logDeriv Complex.Gammaℝ)
+      (verticalPoint p.1.1 p.2) :=
+    continuousAt_logDeriv_of_analyticAt_of_ne_zero
+      (analyticAt_GammaR_of_pos_re (s := verticalPoint p.1.1 p.2) (by
+        simp [verticalPoint]
+        exact p.1.2))
+      (Complex.Gammaℝ_ne_zero_of_re_pos (by
+        simp [verticalPoint]
+        exact p.1.2))
+  simpa only [Function.comp_apply] using
+    hlog.comp' (f := fun q : {c : Real // 0 < c} × Real =>
+      verticalPoint q.1.1 q.2) (x := p)
+      continuous_positive_verticalPoint.continuousAt
+
+private theorem continuous_symmetrizedWeight_positive_vertical
+    (F : CompactLogTest) :
+    Continuous (fun p : {c : Real // 0 < c} × Real =>
+      symmetrizedLaplaceWeight F (verticalPoint p.1.1 p.2)) := by
+  unfold symmetrizedLaplaceWeight
+  apply Continuous.add
+  · exact (continuous_centeredLaplaceWeight F).comp
+      continuous_positive_verticalPoint
+  · exact (continuous_centeredLaplaceWeight F).comp
+      (continuous_const.sub continuous_positive_verticalPoint)
+
+private theorem continuous_gammaRIntegrand_positive_vertical
+    (F : CompactLogTest) :
+    Continuous (fun p : {c : Real // 0 < c} × Real =>
+      gammaRIntegrand F p.1.1 p.2) := by
+  unfold gammaRIntegrand
+  exact (continuous_logDeriv_GammaR_positive_vertical.neg.mul
+    (continuous_symmetrizedWeight_positive_vertical F)).mul continuous_const
+
+theorem continuous_gammaRIntegrand_intervalIntegral
+    (F : CompactLogTest) (T : Real) :
+    Continuous (fun c : {c : Real // 0 < c} =>
+      ∫ t : Real in (-T)..T, gammaRIntegrand F c t) := by
+  apply intervalIntegral.continuous_parametric_intervalIntegral_of_continuous
+  · simpa only [Function.uncurry] using
+      (continuous_gammaRIntegrand_positive_vertical F)
+  · exact continuous_const
+
+theorem tendsto_gammaRIntegrand_intervalIntegral_c_to_one
+    (F : CompactLogTest) (T : Real) :
+    Tendsto
+      (fun c : Real =>
+        ∫ t : Real in (-T)..T, gammaRIntegrand F c t)
+      (𝓝[>] (1 : Real))
+      (𝓝 (∫ t : Real in (-T)..T, gammaRIntegrand F 1 t)) := by
+  let liftC : Real → {c : Real // 0 < c} := fun c =>
+    ⟨max c (1 / 2 : Real), by positivity⟩
+  have hmax : Tendsto (fun c : Real => max c (1 / 2 : Real))
+      (𝓝[>] (1 : Real)) (𝓝 (1 : Real)) := by
+    have hid : Tendsto (fun c : Real => c)
+        (𝓝[>] (1 : Real)) (𝓝 (1 : Real)) :=
+      continuousAt_id.tendsto.mono_left nhdsWithin_le_nhds
+    have hconst : Tendsto (fun _ : Real => (1 / 2 : Real))
+        (𝓝[>] (1 : Real)) (𝓝 (1 / 2 : Real)) :=
+      tendsto_const_nhds
+    simpa only [max_eq_left (by norm_num : (1 / 2 : Real) ≤ 1)] using hid.max hconst
+  have hlift : Tendsto liftC (𝓝[>] (1 : Real))
+      (𝓝 (⟨1, by norm_num⟩ : {c : Real // 0 < c})) := by
+    exact tendsto_subtype_rng.mpr hmax
+  have hcont : Tendsto
+      (fun c : Real =>
+        ∫ t : Real in (-T)..T, gammaRIntegrand F (liftC c) t)
+      (𝓝[>] (1 : Real))
+      (𝓝 (∫ t : Real in (-T)..T,
+        gammaRIntegrand F (⟨1, by norm_num⟩ : {c : Real // 0 < c}) t)) := by
+    simpa only [Function.comp_apply] using
+      ((continuous_gammaRIntegrand_intervalIntegral F T).continuousAt.tendsto.comp
+        hlift)
+  have heq :
+      (fun c : Real =>
+        ∫ t : Real in (-T)..T, gammaRIntegrand F (liftC c) t) =ᶠ[𝓝[>] (1 : Real)]
+      (fun c : Real =>
+        ∫ t : Real in (-T)..T, gammaRIntegrand F c t) := by
+    filter_upwards [self_mem_nhdsWithin] with c hc
+    have hc' : 1 < c := hc
+    have hcmax : max c (1 / 2 : Real) = c := by
+      exact max_eq_left (by linarith [hc'])
+    simp only [liftC]
+    rw [hcmax]
+  simpa using hcont.congr' heq
 
 private theorem continuous_negativeXiLogDeriv_vertical
     {c : Real} (hc : 1 < c) :
