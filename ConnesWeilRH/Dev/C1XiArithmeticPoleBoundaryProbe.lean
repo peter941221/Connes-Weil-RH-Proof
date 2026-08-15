@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1XiArithmeticPoleBoundary
+
+/-! Import-facing audit for the elementary-pole boundary brick. -/
+
+namespace ConnesWeilRH.Source.C1XiArithmeticPoleBoundary
+
+#check integral_elementaryPoleSingularKernel
+#check tendsto_integral_elementaryPoleSingularKernel_c_to_one
+#check elementaryPoleIntegrand_eq_regular_add_singular
+#check elementaryPoleSingularIntegrand_eq_constant_add_remainder
+#check ElementaryPoleSingularRemainderBoundaryContract
+
+#print axioms integral_elementaryPoleSingularKernel
+#print axioms tendsto_integral_elementaryPoleSingularKernel_c_to_one
+#print axioms elementaryPoleIntegrand_eq_regular_add_singular
+#print axioms elementaryPoleSingularIntegrand_eq_constant_add_remainder
+
+end ConnesWeilRH.Source.C1XiArithmeticPoleBoundary
