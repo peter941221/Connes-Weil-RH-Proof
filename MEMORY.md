@@ -1,3 +1,30 @@
+## Change Log (2026-08-16, weighted elementary-pole remainder producer CLOSED): Dev/C1XiArithmeticPoleRemainder.lean + Probe
+- `continuous_laplaceAtDerivative` and the derivative/continuity bricks for
+  `symmetrizedLaplaceWeight` give a compact-rectangle Lipschitz estimate
+  `‖W(c,t) - W(c,0)‖ ≤ C * |t|`.
+- The factor `|t|` cancels the elementary Cauchy-kernel singularity uniformly:
+  `elementaryPoleSingularRemainder` is bounded by one constant on every finite
+  height interval for the explicit sequence `c k = 1 + 1/(k+1)`.
+- The `t = 0` boundary value is defined as `0` only in the boundary integrand;
+  interval convergence is obtained through a.e. dominated convergence, not by
+  claiming unrestricted pointwise convergence at the singular point.
+- WSL2 owning-module and import-facing probe builds completed 3526/3527 jobs.
+  All audited declarations use only `[propext, Classical.choice, Quot.sound]`;
+  no `sorryAx` or project axiom was introduced.
+
+## Change Log (2026-08-16, finite-height arithmetic ledger CLOSED): Dev/C1XiArithmeticFiniteHeightLedger.lean + Probe
+- `finiteHeightArithmeticBoundaryLedgerTerm` assembles the elementary pole,
+  Gamma_R, and finite prime-power interval integrals using the same sequence
+  carried by `ElementaryPoleSingularRemainderBoundaryContract`.
+- `tendsto_finiteHeightArithmeticBoundaryLedgerTerm` proves the combined
+  right-hand `c_k -> 1+` limit by composing the Gamma_R and finite-truncation
+  `𝓝[>] 1` bridges with the contract sequence and adding the three limits.
+- The ledger is deliberately finite-height and finite-prime: it does not
+  produce the full von Mangoldt boundary, the same-owner arithmetic/spectral
+  equality, the positive-trace bridge, Gate 2, or RH.
+- WSL2 import-facing build completed 3530 jobs; the term, value, and assembly
+  theorem audit to `[propext, Classical.choice, Quot.sound]` with no `sorryAx`.
+
 ## Change Log (2026-08-16, elementary-pole finite-height boundary brick CLOSED): Dev/C1XiArithmeticPoleBoundary.lean + Probe
 - `integral_elementaryPoleSingularKernel` gives the exact finite-height
   integral `-2 * arctan(T / (c - 1)) * I` for `c > 1`, and

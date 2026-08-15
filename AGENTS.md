@@ -111,6 +111,13 @@ The full von Mangoldt boundary at `Re(s) = 1` remains a separate
 `FullPrimeBoundaryContract`; never infer it from absolute convergence on the
 right half-plane.
 
+The finite-height arithmetic ledger in `C1XiArithmeticFiniteHeightLedger`
+only adds three terms along one sequence carried by the elementary-pole
+remainder contract: Gamma_R, a finite prime-power truncation, and the
+elementary pole.  Its `c_k -> 1+` limit is not a producer for the full
+von-Mangoldt boundary or the same-owner arithmetic/spectral equality.  Keep
+the finite truncation and the full L-series as separate owners.
+
 The Gamma_R contribution is regular on `Re(s) > 0`.  The public
 `continuous_gammaRIntegrand_intervalIntegral` theorem therefore works on the
 positive-real subtype, and

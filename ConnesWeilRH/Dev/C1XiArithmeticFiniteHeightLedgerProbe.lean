@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1XiArithmeticFiniteHeightLedger
+
+/-! Import-facing audit for the same-owner finite-height arithmetic ledger. -/
+
+namespace ConnesWeilRH.Source.C1XiArithmeticFiniteHeightLedger
+
+#check finiteHeightArithmeticBoundaryLedgerTerm
+#check finiteHeightArithmeticBoundaryLedgerValue
+#check tendsto_finiteHeightArithmeticBoundaryLedgerTerm
+
+#print axioms finiteHeightArithmeticBoundaryLedgerTerm
+#print axioms finiteHeightArithmeticBoundaryLedgerValue
+#print axioms tendsto_finiteHeightArithmeticBoundaryLedgerTerm
+
+end ConnesWeilRH.Source.C1XiArithmeticFiniteHeightLedger

@@ -1,0 +1,23 @@
+import ConnesWeilRH.Dev.C1XiArithmeticPoleRemainder
+
+/-! Import-facing audit for the weighted elementary-pole remainder producer. -/
+
+namespace ConnesWeilRH.Source.C1XiArithmeticPoleRemainder
+
+#check continuous_laplaceAtDerivative
+#check hasDerivAt_symmetrizedLaplaceWeight
+#check continuous_symmetrizedLaplaceWeight
+#check exists_symmetrizedLaplaceWeight_vertical_difference_bound
+#check exists_elementaryPoleSingularRemainder_uniform_bound
+#check tendsto_elementaryPoleSingularRemainder_intervalIntegral
+#check concreteElementaryPoleSingularRemainderBoundaryContract
+
+#print axioms continuous_laplaceAtDerivative
+#print axioms hasDerivAt_symmetrizedLaplaceWeight
+#print axioms continuous_symmetrizedLaplaceWeight
+#print axioms exists_symmetrizedLaplaceWeight_vertical_difference_bound
+#print axioms exists_elementaryPoleSingularRemainder_uniform_bound
+#print axioms tendsto_elementaryPoleSingularRemainder_intervalIntegral
+#print axioms concreteElementaryPoleSingularRemainderBoundaryContract
+
+end ConnesWeilRH.Source.C1XiArithmeticPoleRemainder

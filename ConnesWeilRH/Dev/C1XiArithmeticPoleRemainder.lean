@@ -69,6 +69,7 @@ theorem continuous_laplaceAtDerivative (F : CompactLogTest) :
         simp [integrand, hzero x hx]
       _ = laplaceAtDerivative F s := by
         rfl
+  change Continuous (fun s : Complex => laplaceAtDerivative F s)
   rw [← heq]
   exact hparam
 
@@ -94,6 +95,14 @@ theorem continuous_centeredLaplaceWeightDerivative (F : CompactLogTest) :
   exact (continuous_laplaceAtDerivative F).comp
     (continuous_id.sub continuous_const)
 
+theorem continuous_symmetrizedLaplaceWeight (F : CompactLogTest) :
+    Continuous (symmetrizedLaplaceWeight F) := by
+  unfold symmetrizedLaplaceWeight
+  apply Continuous.add
+  · exact continuous_centeredLaplaceWeight F
+  · exact (continuous_centeredLaplaceWeight F).comp
+      (continuous_const.sub continuous_id)
+
 /-- Derivative of the functional-equation-symmetric weight. -/
 noncomputable def symmetrizedLaplaceWeightDerivative
     (F : CompactLogTest) (s : Complex) : Complex :=
@@ -111,7 +120,8 @@ theorem hasDerivAt_symmetrizedLaplaceWeight
     (hasDerivAt_centeredLaplaceWeight F (1 - s)).comp s harg
   have hsum := hfirst.add hsecond
   simpa only [symmetrizedLaplaceWeight, symmetrizedLaplaceWeightDerivative,
-    neg_mul, mul_neg, sub_eq_add_neg, add_comm, add_left_comm, add_assoc] using hsum
+    Function.comp_apply, neg_mul, mul_neg, mul_one, sub_eq_add_neg,
+    add_comm, add_left_comm, add_assoc] using hsum
 
 theorem continuous_symmetrizedLaplaceWeightDerivative (F : CompactLogTest) :
     Continuous (symmetrizedLaplaceWeightDerivative F) := by
@@ -186,10 +196,14 @@ theorem exists_symmetrizedLaplaceWeight_vertical_difference_bound
     intro u hu
     have hrect : (c, u) ∈ Icc (1 : Real) 2 ×ˢ Icc (-T) T := ⟨hc, hu⟩
     exact (hC₀ (c, u) hrect).trans (le_max_left _ _)
+  have hbound' : ∀ u ∈ Icc (-T) T, ‖deriv f u‖ ≤ C := by
+    intro u hu
+    rw [(hasDerivAt_symmetrizedLaplaceWeight_vertical F c u).deriv]
+    exact hbound u hu
   have hzero : (0 : Real) ∈ Icc (-T) T := by
     exact ⟨neg_nonpos.mpr hT, hT⟩
   have hmvt :=
-    Convex.norm_image_sub_le_of_norm_deriv_le hdiff hbound
+    Convex.norm_image_sub_le_of_norm_deriv_le hdiff hbound'
       (convex_Icc (-T) T) hzero ht
   simpa only [f, f', sub_zero, Real.norm_eq_abs] using hmvt
 
@@ -200,7 +214,7 @@ private theorem poleBoundaryParameter_gt_one (k : Nat) :
     1 < poleBoundaryParameter k := by
   unfold poleBoundaryParameter
   have hpos : 0 < ((k + 1 : Nat) : Real) := by positivity
-  exact lt_add_of_pos_right (inv_pos.mpr hpos)
+  linarith [inv_pos.mpr hpos]
 
 private theorem poleBoundaryParameter_le_two (k : Nat) :
     poleBoundaryParameter k ≤ 2 := by
@@ -217,10 +231,13 @@ private theorem poleBoundaryParameter_tendsto_one :
     tendsto_add_atTop_nat 1
   have hinv : Tendsto
       (fun k : Nat => ((k + 1 : Nat) : Real)⁻¹) atTop (𝓝 (0 : Real)) := by
-    simpa only [Nat.cast_add, Nat.cast_one] using
-      (tendsto_inv_atTop_nhds_zero_nat (𝕜 := Real)).comp
-        (tendsto_natCast_atTop_atTop.comp hshift)
-  simpa only [poleBoundaryParameter] using tendsto_const_nhds.add hinv
+    simpa only [Function.comp_apply] using
+      (tendsto_inv_atTop_nhds_zero_nat (𝕜 := Real)).comp hshift
+  change Tendsto
+    (fun k : Nat => (1 : Real) + ((k + 1 : Nat) : Real)⁻¹)
+    atTop (𝓝 (1 : Real))
+  simpa only [add_zero] using
+    (tendsto_const_nhds (x := (1 : Real))).add hinv
 
 private theorem continuous_elementaryPoleSingularRemainder_of_gt_one
     (F : CompactLogTest) {c : Real} (hc : 1 < c) :
@@ -242,13 +259,13 @@ private theorem continuous_elementaryPoleSingularRemainder_of_gt_one
     continuous_const)
 
 private theorem norm_elementaryPoleSingularKernel
-    {c t : Real} (hc : 1 < c) :
+    {c t : Real} :
     ‖elementaryPoleSingularKernel c t‖ =
       ‖verticalPoint c t - 1‖⁻¹ := by
   simp [elementaryPoleSingularKernel]
 
 private theorem elementaryPoleSingularRemainder_norm_le_of_parameter
-    (F : CompactLogTest) {T : Real} (hT : 0 < T)
+    (F : CompactLogTest) {T : Real}
     {C : Real} (hC : 0 ≤ C)
     (hweight : ∀ c ∈ Icc (1 : Real) 2, ∀ t ∈ Icc (-T) T,
       ‖symmetrizedLaplaceWeight F (verticalPoint c t) -
@@ -261,6 +278,7 @@ private theorem elementaryPoleSingularRemainder_norm_le_of_parameter
   have hdiff := hweight (poleBoundaryParameter k) hcIcc t ht
   by_cases ht0 : t = 0
   · simp [elementaryPoleSingularRemainder, ht0]
+    exact hC
   · let z : Complex := verticalPoint (poleBoundaryParameter k) t - 1
     have hz : z ≠ 0 := by
       dsimp [z]
@@ -291,8 +309,7 @@ private theorem elementaryPoleSingularRemainder_norm_le_of_parameter
               (verticalPoint (poleBoundaryParameter k) t) -
             symmetrizedLaplaceWeight F
               (verticalPoint (poleBoundaryParameter k) 0)‖ := by
-        rw [norm_elementaryPoleSingularKernel hc]
-        rfl
+        rw [norm_elementaryPoleSingularKernel]
       _ ≤ ‖z‖⁻¹ * (C * |t|) := by
         exact mul_le_mul_of_nonneg_left hdiff (inv_nonneg.mpr hznorm.le)
       _ = C * (‖z‖⁻¹ * |t|) := by ring
@@ -307,7 +324,7 @@ theorem exists_elementaryPoleSingularRemainder_uniform_bound
     exists_symmetrizedLaplaceWeight_vertical_difference_bound F hT.le
   refine ⟨C, hC, ?_⟩
   intro k t ht
-  exact elementaryPoleSingularRemainder_norm_le_of_parameter F hT hC hweight k t ht
+  exact elementaryPoleSingularRemainder_norm_le_of_parameter F hC hweight k t ht
 
 noncomputable def elementaryPoleSingularRemainderBoundaryIntegrand
     (F : CompactLogTest) (t : Real) : Complex :=
@@ -357,7 +374,7 @@ private theorem tendsto_elementaryPoleSingularRemainder_at_ne_zero
     elementaryPoleSingularRemainderBoundaryIntegrand, if_neg ht] using
     hprod.comp hc
 
-theorem tendsto_elementaryPoleSingularRemainder_intervalIntegral :
+theorem tendsto_elementaryPoleSingularRemainder_intervalIntegral
     (F : CompactLogTest) {T : Real} (hT : 0 < T) :
     Tendsto
       (fun k : Nat => ∫ t : Real in (-T)..T,
@@ -380,8 +397,8 @@ theorem tendsto_elementaryPoleSingularRemainder_intervalIntegral :
     filter_upwards [] with k
     filter_upwards [] with t ht
     have htcc : t ∈ Icc (-T) T := by
-      rw [uIcc_of_le (by linarith)]
-      exact uIoc_subset_uIcc ht
+      simpa only [uIcc_of_le (by linarith : -T ≤ T)] using
+        (uIoc_subset_uIcc ht)
     exact hbound k t htcc
   have hlim : ∀ᵐ t : Real ∂volume, t ∈ Ι (-T) T →
       Tendsto
@@ -394,7 +411,7 @@ theorem tendsto_elementaryPoleSingularRemainder_intervalIntegral :
   exact intervalIntegral.tendsto_integral_filter_of_dominated_convergence
     (bound := fun _ : Real => C) hmeas hbound_ae intervalIntegrable_const hlim
 
-theorem concreteElementaryPoleSingularRemainderBoundaryContract
+noncomputable def concreteElementaryPoleSingularRemainderBoundaryContract
     (F : CompactLogTest) {T : Real} (hT : 0 < T) :
     ElementaryPoleSingularRemainderBoundaryContract F T := by
   refine
