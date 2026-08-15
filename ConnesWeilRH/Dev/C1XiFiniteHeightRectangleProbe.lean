@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1XiFiniteHeightRectangle
+
+/-! Import-facing trust audit for finite-height xi rectangle readout. -/
+
+namespace ConnesWeilRH.Source.C1XiFiniteHeightRectangle
+
+#print axioms xiRectangleBoundaryAvoidsZeros_criticalStripRectangle
+#print axioms exists_xiHeightBoundaryAvoidsZeros_gt
+#print axioms xiZeroFreeHeights_boundaryAvoidsZeros
+#print axioms nat_lt_xiZeroFreeHeights
+#print axioms criticalStripRectangle_subset_ball_zero
+#print axioms exists_xiHeightRectangleFactorData_gt
+#print axioms XiHeightRectangleFactorData.xiRectangleBoundaryIntegral_readout
+#print axioms abs_im_lt_of_mem_finiteHeightZeros_of_xiHeightBoundaryAvoidsZeros
+#print axioms xiClosedBallSourceZerosInsideRectangle_eq_finiteHeightZeros
+#print axioms xiRectangleBoundaryIntegral_xiContourKernel_eq_neg_finiteSpectralSum
+
+end ConnesWeilRH.Source.C1XiFiniteHeightRectangle

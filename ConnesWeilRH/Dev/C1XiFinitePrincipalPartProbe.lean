@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1XiFinitePrincipalPart
+
+/-! Import-facing trust audit for finite principal-pole circle integrals. -/
+
+namespace ConnesWeilRH.Source.C1XiFinitePrincipalPart
+
+#print axioms circleIntegral_principalPole_eq_of_mem_ball'
+#print axioms circleIntegral_principalPole_eq_of_mem_center
+#print axioms circleIntegral_principalPole_eq_zero_of_not_mem_closedBall
+#print axioms circleIntegral_xiClosedBallPrincipalKernel_eq_sum_of_support_mem_ball
+#print axioms circleIntegral_xiClosedBallPrincipalKernel_eq_of_unique_support
+#print axioms circleIntegral_xiClosedBallPrincipalKernel_eq_neg_spectralTerm_of_unique_support
+
+end ConnesWeilRH.Source.C1XiFinitePrincipalPart

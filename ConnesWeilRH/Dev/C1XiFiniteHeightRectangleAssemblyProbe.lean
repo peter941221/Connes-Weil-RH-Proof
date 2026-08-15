@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1XiFiniteHeightRectangleAssembly
+
+/-! Import-facing trust audit for the finite-height rectangle assembly. -/
+
+namespace ConnesWeilRH.Source.C1XiFiniteHeightRectangleAssembly
+
+#print axioms xiRectangleBoundaryIntegral_eq_horizontal_add_foldedRightLine
+#print axioms XiHeightRectangleFactorData.horizontal_add_foldedRightLine_eq_neg_finiteSpectralSum
+
+end ConnesWeilRH.Source.C1XiFiniteHeightRectangleAssembly

@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1XiQuantitativeHeight
+
+/-! Import-facing trust audit for quantitative xi-zero-free height selection. -/
+
+namespace ConnesWeilRH.Source.C1XiQuantitativeHeight
+
+#print axioms gridGap_pos
+#print axioms xiHeightTubeRadius_pos
+#print axioms exists_point_Ioo_away_from_finset
+#print axioms exists_quantitative_xiHeightBoundaryAvoidsZeros
+#print axioms xiHeightForbiddenOrdinates_dyadic_card_le
+#print axioms xiHeightSeparation_dyadic_lower_bound
+#print axioms dyadicXiHeightTubeRadius_pos
+#print axioms exists_quantitative_xiHeightBoundaryAvoidsZeros_tube
+#print axioms exists_quantitative_xiHeightBoundaryAvoidsZeros_tubes
+#print axioms exists_dyadic_quantitative_xiHeightBoundaryAvoidsZeros_tubes
+
+end ConnesWeilRH.Source.C1XiQuantitativeHeight

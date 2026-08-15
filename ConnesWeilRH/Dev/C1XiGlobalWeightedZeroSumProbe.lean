@@ -7,7 +7,15 @@ namespace ConnesWeilRH.Source.C1XiGlobalWeightedZeroSum
 #check weightedRegularizedZeroTerm
 #check weightedRegularizedZeroTerm_norm_le
 #check weightedRegularizedZeroSummable
+#check weightedRegularizedZeroTerm_hasDerivAt
+#check weightedRegularizedZeroSum_split_shell
+#check weightedRegularizedZeroSum_hasDerivAt
+#check weightedRegularizedZeroSum_differentiableOn_ball
+#check weightedRegularizedZeroSum_analyticOn_ball
 
 #print axioms weightedRegularizedZeroSummable
+#print axioms weightedRegularizedZeroSum_hasDerivAt
+#print axioms weightedRegularizedZeroSum_differentiableOn_ball
+#print axioms weightedRegularizedZeroSum_analyticOn_ball
 
 end ConnesWeilRH.Source.C1XiGlobalWeightedZeroSum

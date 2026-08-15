@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1XiFiniteRectangleSupportReindex
+
+/-! Import-facing trust audit for rectangle support-to-source reindexing. -/
+
+namespace ConnesWeilRH.Source.C1XiFiniteRectangleSupportReindex
+
+#print axioms mem_xiClosedBallSourceZerosInsideRectangle_iff
+#print axioms sum_xiClosedBallSourceZerosInsideRectangle_eq_sum_support
+#print axioms
+  xiRectangleBoundaryIntegral_xiContourKernel_eq_neg_finiteSourceSpectralSum_of_factor_support
+
+end ConnesWeilRH.Source.C1XiFiniteRectangleSupportReindex

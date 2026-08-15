@@ -1,0 +1,20 @@
+import ConnesWeilRH.Dev.C1XiRemovablePole
+
+/-! Import-facing trust audit for the H-A2 removable-pole layer. -/
+
+namespace ConnesWeilRH.Source.C1XiRemovablePole
+
+#check weightedRegularizedZeroSumWithout
+#check weightedRegularizedZeroSum_eq_selected_add_without
+#check exists_sourceZero_isolating_ball
+#check weightedRegularizedZeroSumWithout_hasDerivAt
+#check weightedRegularizedZeroSumWithout_analyticOn_ball
+#check exists_local_xiLogDeriv_weightedDifference
+
+#print axioms weightedRegularizedZeroSum_eq_selected_add_without
+#print axioms exists_sourceZero_isolating_ball
+#print axioms weightedRegularizedZeroSumWithout_hasDerivAt
+#print axioms weightedRegularizedZeroSumWithout_analyticOn_ball
+#print axioms exists_local_xiLogDeriv_weightedDifference
+
+end ConnesWeilRH.Source.C1XiRemovablePole

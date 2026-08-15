@@ -1,0 +1,20 @@
+import ConnesWeilRH.Dev.C1XiFiniteFactor
+
+/-! Import-facing trust audit for finite xi divisor factorization. -/
+
+namespace ConnesWeilRH.Source.C1XiFiniteFactor
+
+#print axioms xiClosedBallDivisor_support_finite
+#print axioms xiClosedBallDivisor_mem_closedBall_and_xi_eq_zero_of_mem_support
+#print axioms xiClosedBallDivisor_mem_support_iff
+#print axioms xiClosedBallFactor_analyticAt
+#print axioms xiClosedBallFactor_eq_product_support
+#print axioms exists_xiClosedBall_factorization
+#print axioms xiClosedBall_factorization_eventuallyEq_nhds_of_mem_ball
+#print axioms xiClosedBall_factorization_eq_of_mem_ball
+#print axioms logDeriv_xiClosedBallFactor_eq_sum_of_not_mem_support
+#print axioms logDeriv_completedRiemannXi_eq_sum_add_cofactor
+#print axioms logDeriv_completedRiemannXi_eq_sum_add_cofactor_of_ne_zero
+#print axioms exists_xiClosedBall_factorization_on_ball
+
+end ConnesWeilRH.Source.C1XiFiniteFactor

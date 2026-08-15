@@ -1,7 +1,8 @@
 # 1013 — brick (H): global regularized log-derivative identity (design)
 
-Status: DESIGN (2026-08-14). Following the 1012 route ruling, the horizontal
-edge bottom is attacked through the canonical-sum lane:
+Status: DESIGN (2026-08-15). H-A0, H-A1, and the local H-A2 cancellation are
+now Lean-checked; H-A3 onward remains open. Following the 1012 route ruling,
+the horizontal edge bottom is attacked through the canonical-sum lane:
 
 ```text
 xi'/xi(s) = b + sum over ALL nontrivial zeros rho of m_rho * (1/(s-rho) + 1/rho)
@@ -37,9 +38,14 @@ summand matches it. The unweighted brick-G sums remain the *bounds*, used
 with `1 <= m_rho` to inflate.
 
 D2 (CONSTANT-DIFFERENCE, no b-recognition): prove `G(s) = logDeriv xi s -
-weightedSum s` is constant by (i) removable poles at every zero, (ii)
-polynomial growth + Liouville.  No explicit value of `b` is ever needed by
-the ASM assembly (adjacent edges cancel the constant).
+weightedSum s` is constant by (i) removable poles at every zero, (ii) a
+global growth theorem, and (iii) a valid constant-term argument.  A bound of
+`O(|s|)` or `O(|s| log |s|)` only gives an affine entire function after the
+removable-pole assembly; it does not give a constant (`G(s) = s` is the direct
+counterexample).  The missing slope-zero input must therefore be explicit,
+or the growth leg must prove a genuinely bounded `G`.  No explicit value of
+`b` is needed by the ASM assembly once the constant-difference theorem is
+available (adjacent edges cancel the constant).
 
 D3 (GAMMA ABSORBED): with D1+D2 the Gamma part never appears explicitly:
 `logDeriv completedRiemannXi` already contains the Gamma contribution and
@@ -68,30 +74,33 @@ CLOSED or in the verification queue (brick G).
 ( A-OK ) AnalyticLog verification (local analytic logs)  [CLOSED 2026-08-14]
 
 H-A0 weightedRegularizedZeroSummable (s) : Summable (weightedRegularizedZeroTerm s)
-       [CLOSED 2026-08-14] -- module Dev/C1XiGlobalWeightedZeroSum.lean
+       [CLOSED 2026-08-15] -- module Dev/C1XiGlobalWeightedZeroSum.lean
        (weightedRegularizedZeroTerm_norm_le + summable), axiom-clean;
        G gained the consumer-form helper regularizedZeroTerm_norm_shell_le
 H-A1 regularizedSum_analyticOn_ball : AnalyticOnNhd (fun s => ∑' rho, wTerm s rho)
-       open ball around any non-zero point
+       [CLOSED 2026-08-15] open ball around any non-zero point
        -- H-A0 + uniform tail bound (regularizedZeroTail_norm_shellSum_le,
        -- |s| bounded on the ball) + Cauchy-Weierstrass
 H-A2 removable_pole_at_sourceZero : G.extend analytic at every rho
+       [CLOSED 2026-08-15]
        -- pole cancellation order m vs weighted term m/(s-rho);
        -- reassembly with AnalyticLog's local-branch technique
-H-A3 growth_leg: |G s| <= C*(1+|s|) on growing circles |s| = R_k
-       -- log-derivative bound from xi dyadic growth (CLOSED)
-       -- + circle-avoids-zeros reconnaissance (dyadic ring, mirrors
-       --   BoundaryAvoidsZeros structure) + weighted sum growth
-H-A4 liouville_const: G constant
-       -- polynomial growth + Cauchy estimates + Differentiable.apply_eq_apply_of_bounded
+H-A3 growth_leg: a global bound for G on the selected circles
+       -- the current design only reaches O(R log R), which is an affine-growth
+       -- bound and is not yet a Liouville input
+H-A4 affine_growth: G(s) = a*s + b after global entire extension
+       -- Cauchy estimates can turn O(R log R) into degree <= 1
+H-A4b slope_zero: a = 0
+       -- a separate order-one/normalization argument, or a genuinely bounded G
 H-A5 xi_logDeriv_weightedRegularizedSum_constant_diff  (the H1 statement)
-       -- A2 + A3 + A4 assembly
+       -- A2 + A3 + A4 + A4b assembly
 H-B  segment bound (H2): principal O(9^n) + weighted tail + constant
        -- CLOSED 1011 principal + H-A0 tail + H1, tension with dyadic tubes
 ```
 
-Dependencies: H-A0 needs only (G-OK); H-A1/A2 need (G-OK)+(A-OK); H-A3/A4
-new analysis of standard shape; H-B is ASM-facing assembly.
+Dependencies: H-A0 needs only (G-OK); H-A1/A2 need (G-OK)+(A-OK); H-A3,
+H-A4, and H-A4b are new analysis of standard shape; H-B is ASM-facing
+assembly.
 
 ## 4. Risks and open points
 

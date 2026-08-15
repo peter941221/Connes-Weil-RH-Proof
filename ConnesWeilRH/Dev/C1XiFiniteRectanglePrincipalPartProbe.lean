@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1XiFiniteRectanglePrincipalPart
+
+/-! Import-facing trust audit for the rectangle principal-pole foundation. -/
+
+namespace ConnesWeilRH.Source.C1XiFiniteRectanglePrincipalPart
+
+#print axioms xiRectangleBoundaryIntegral_rectangleSimplePole_eq_zero_of_not_mem_rectangle
+#print axioms xiRectangleBoundaryIntegral_rectangleSimplePole_eq_two_pi_I_of_center
+#print axioms xiRectangleBoundaryIntegral_rectangleSimplePole_eq_two_pi_I_of_strictlyInside
+#print axioms rectangleBoundaryAvoidsFiniteSupport_of_xiRectangleBoundaryAvoidsZeros
+#print axioms xiRectangleBoundaryIntegral_xiClosedBallPrincipalKernel_eq_sum_of_strictlyInside
+#print axioms xiRectangleBoundaryIntegral_xiContourKernel_eq_sum_of_strictlyInside
+
+end ConnesWeilRH.Source.C1XiFiniteRectanglePrincipalPart

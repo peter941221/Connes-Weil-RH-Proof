@@ -93,6 +93,190 @@ Lean plateau with the same support interval are different owners unless a
 theorem identifies their functions and all attached data. Never transfer a
 numeric sign across that gap.
 
+### C1 Xi-Contour Guard
+
+`logDeriv completedRiemannXi` is total at a zero, whereas a residue argument
+needs its punctured meromorphic meaning. At a xi zero `rho`, obtain one local
+cofactor `h` with `xi(s) = (s-rho)^m h(s)` and `h(rho) != 0`; derive the
+analytic disc, zero-free disc, and principal-part identity from that same
+`h`, then choose the contour radius below all three. Never read the total
+value `logDeriv completedRiemannXi rho` as a residue.
+
+The finite closed-ball xi factorization supplied by Mathlib is initially only
+`codiscreteWithin`. At an interior point, first use the meromorphic identity
+principle to obtain equality on `𝓝[≠] z`, then continuity to obtain equality
+on `𝓝 z`; only this neighborhood equality may transport `deriv` or `logDeriv`.
+The resulting finite pole sum is valid only away from the local divisor
+support. Do not claim it on the closed-ball boundary or at a divisor point.
+Inside the open ball, use `xiClosedBallDivisor_mem_support_iff` to translate
+that owner-local exclusion exactly into `completedRiemannXi z != 0`, then use
+`logDeriv_completedRiemannXi_eq_sum_add_cofactor_of_ne_zero`; this is the
+public punctured-contour API and does not license evaluation at a zero.
+
+The finite principal part and the regularized kernel are separate contour
+owners. Apply rectangle Cauchy only to `xiClosedBallRegularizedKernel`, which
+is differentiable on the whole open factorization ball. For a circle around
+one selected zero, first prove that its closed disc contains exactly that
+support point; integrate that principal term with
+`circleIntegral.integral_sub_inv_of_mem_ball`, and prove every other finite
+pole term has zero circle integral from
+`Complex.circleIntegral_eq_zero_of_differentiable_on_off_countable` on the
+closed disc. Do not infer the latter from a support-point slogan: the
+closed-ball exclusion is an explicit hypothesis of the principal-part API.
+
+The finite-factor local-residue interface is now closed:
+`circleIntegral_xiClosedBallRegularizedKernel_eq_zero_of_closedBall_subset`
+uses Cauchy only for the regularized kernel on a closed disc contained in the
+open factorization ball, while
+`circleIntegral_xiContourKernel_eq_neg_spectralTerm_of_factorization_unique_support`
+recombines it with the principal part only after the circle is xi-nonzero and
+its closed disc excludes every other finite divisor support point. Callers
+must preserve both `closedBall subset factorizationBall` and the explicit
+unique-support premise; pairwise separation of a selected source family alone
+does not exclude ambient xi zeros not selected by that family.
+
+For a rectangle, use the named `xiRectangleBoundaryIntegral` and require both
+the entire closed rectangle to lie in the same open factorization ball and all
+four edges to satisfy `xiRectangleBoundaryAvoidsZeros`. The closed result
+`xiRectangleBoundaryIntegral_xiContourKernel_eq_principal` removes only the
+regularized remainder by Cauchy. The finite-pole rectangle readout is now
+closed in `C1XiFiniteRectanglePrincipalPart`: a support-avoiding standard
+rectangle reads exactly the factor-owned divisor points strictly inside it,
+with the exterior contributions killed through four zero-free strips. The
+result is reindexed in `C1XiFiniteRectangleSupportReindex` to the filtered
+finite family `xiClosedBallSourceZerosInsideRectangle` and its one-weight
+`spectralTerm` sum. Keep that filtered family tied to the same finite factor
+owner; do not replace it by an arbitrary selected zero family, a circle, or a
+height cutoff without a proved equivalence.
+
+The symmetric critical-strip specialization is closed in
+`C1XiFiniteHeightRectangle`: with `T > 0`, factor-ball containment, and
+`xiHeightBoundaryAvoidsZeros T`, the filtered same-owner family is exactly
+`finiteHeightZeros T`.  The horizontal zero-free condition is essential: it
+turns the closed height condition `|Im rho| <= T` into strict rectangle
+interiority. `exists_xiHeightBoundaryAvoidsZeros_gt` obtains such a height
+above every lower bound by excluding the finite image `rho |-> |Im rho|`, and
+`xiZeroFreeHeights` packages choices with unit gaps and `n < T_n`. Do not infer
+the condition merely from finite height or from the zero-free vertical sides.
+`C1XiQuantitativeHeight` strengthens this selection: for every `B >= 0`,
+`exists_quantitative_xiHeightBoundaryAvoidsZeros` chooses `T` in `(B, B + 1)`
+with a positive explicit separation from each ordinate in
+`finiteHeightZeros (B + 2)`. Its gap is the finite-grid radius
+`1 / (4 * (card + 2))`, where `card` counts the visible absolute ordinates.
+The closed Jensen bridge
+`xiHeightForbiddenOrdinates_dyadic_card_le` bounds that cardinality at
+`B = 2^(n + 2)` by `spectralMultiplicityConstant * 3^(n + 1)`: it forgets
+repeated ordinates, charges every remaining zero at least one analytic
+multiplicity, enlarges the height window monotonically, then applies the
+existing dyadic multiplicity estimate. This quantifies the finite grid on
+dyadic base heights; its direct consumer
+`xiHeightSeparation_dyadic_lower_bound` gives the corresponding reciprocal
+lower bound for `xiHeightSeparation`. It supplies no `xi'/xi`, cofactor, or
+contour-limit estimate.
+The same selected height has an upper horizontal zero-free complex tube:
+`xiHeightTubeRadius B = min (xiHeightSeparation B) (1 / 2)` and
+`exists_quantitative_xiHeightBoundaryAvoidsZeros_tube` exclude xi zeros from
+every ball of that radius centered at `x + T*I`. The half-unit cap keeps a
+hypothetical zero in the finite `B + 2` window, while the grid gap excludes
+it. This is zero-free geometry only, not a minimum-modulus, cofactor, or
+`xi'/xi` bound. Its two-sided consumer
+`exists_quantitative_xiHeightBoundaryAvoidsZeros_tubes` transports the same
+radius and the same selected `T` to `x - T*I` through `z |-> 1 - z` and
+`completedRiemannXi_one_sub`; do not select unrelated upper and lower heights.
+`exists_dyadic_quantitative_xiHeightBoundaryAvoidsZeros_tubes` packages the
+whole producer at each `n`: it selects `T` in
+`(2^(n + 2), 2^(n + 2) + 1)` and supplies both tubes at the explicit radius
+`min (1 / (4 * (spectralMultiplicityConstant * 3^(n + 1) + 2))) (1 / 2)`.
+This is the correct geometric input for a quantitative analytic estimate, not
+that estimate itself. `C1XiQuantitativePrincipalBound` now consumes this
+input for the finite pole part only. Its
+`exists_dyadic_quantitative_xiHeight_tubes_principal_bound` selects the same
+height and bounds the exact origin-centered factor principal sum on both
+horizontal lines by
+`4 * N_n * (N_n + 2)`, where
+`N_n = spectralMultiplicityConstant * 3^(n + 1)`. The proof reindexes the
+same factor divisor mass to source multiplicities, bounds it by
+`finiteHeightMultiplicity (T + 2) <= N_n`, and uses the zero-free tube to put
+every factor pole at distance at least `1 / (4 * (N_n + 2))`. This is an
+axiom-clean `O(9^n)` estimate for the finite principal part, not a bound for
+`logDeriv` of the zero-free cofactor, the full `xi'/xi`, a horizontal contour
+limit, Gate 2 equality, or RH. Keep the principal sum and cofactor as
+separate terms of the same factorization owner.
+`XiHeightRectangleFactorData` now packages each height with its own cofactor,
+the containing ball centered at zero with radius `T + 2`, the zero-free
+boundary, and the direct finite spectral readout; its producer is unbounded.
+Do not reuse a factor owner across heights or infer any uniform cofactor bound,
+horizontal-edge decay, or contour limit from this local data.
+
+The finite-height vertical fold is closed in `C1XiFiniteHeightVerticalFold`:
+`criticalStripVerticalBoundaryIntegral_eq_rightLineIntegral` converts the two
+oriented zero-free vertical `xiContourKernel` integrals to the one
+`verticalIntegrand` integral on `Re(s) = 1`. It uses the functional equation,
+the parameter reflection `t |-> -t`, and interval integrability on the compact
+height segment. It does not control either horizontal edge, any `xi'/xi`
+growth, a common factor owner, or a limit as `T -> infinity`; never promote it
+to a rectangle contour limit or fold the reflected weight into a local residue.
+
+`C1XiFiniteHeightRectangleAssembly` combines that fold with the same-owner
+finite rectangle readout. Its
+`horizontal_add_foldedRightLine_eq_neg_finiteSpectralSum` endpoint states that
+the two explicit horizontal edges plus the folded right-line integral equal
+the finite spectral sum. This does not compare different height owners: any
+limit argument must separately control the horizontal term and the right-line
+integral along the selected zero-free sequence.
+
+The compact-log test weight now has axiom-clean uniform fourth-order decay on
+the closed critical strip:
+`exists_uniform_centeredLaplaceWeight_vertical_quartic_decay_on_criticalStrip`.
+`C1XiHorizontalDecay` first proves that each selected zero-free height `T`
+has a finite envelope `M`: `xiHeightBoundaryAvoidsZeros T` makes
+`negativeXiLogDeriv` continuous on each compact horizontal segment, and
+`exists_xiHorizontalLogDerivEnvelope` applies compactness. It then bounds the
+horizontal boundary by `2 * M * C / |T / (2*pi)|^4` through
+`exists_quartic_horizontalBoundary_bound_of_xiHeightBoundaryAvoidsZeros`;
+`XiHeightRectangleFactorData` supplies those height-local hypotheses. This
+gives no rate comparing `M` at different heights, no uniform cofactor bound,
+and no contour limit. Do not promote the pointwise product estimate to a
+uniform `xi'/xi` growth theorem, horizontal-edge decay sequence, Gate 2
+equality, or RH claim.
+
+The next conditional layer is separated into three owners. `C1XiHABridge`
+defines `GlobalWeightedLogDerivComparison` as an explicit contract and proves
+that, when supplied, it reads the H-A1 zero sum back through the same finite
+factor owner to `logDeriv g`; it is not a Hadamard/comparison producer.
+`C1XiHorizontalLimit` combines the finite pole bound and this cofactor bound,
+then proves the horizontal boundary tends to zero under the explicit
+`M_n / |T_n/(2*pi)|^4 -> 0` contract. `C1XiFiniteHeightLimit` keeps a separate
+`XiHeightRectangleFactorData` owner at every selected height and proves that
+the folded right-line limit is `-(2*pi*i) * spectralWeilValue F` once the
+horizontal, right-line, and finite-spectral limits are supplied. These are
+conditional contour-spine theorems, not the arithmetic explicit formula.
+
+Data-bearing contracts must be ordinary structures, not `structure ... : Prop`:
+Lean permits only proof fields in a Prop-valued structure, so a real/complex
+constant field would erase the intended projections. Each height-specific
+factor owner must remain explicit; never reuse one cofactor across heights.
+
+`xiContourKernel` carries exactly one centered Laplace weight, hence one
+spectral term per xi zero. The reflected weight belongs only to
+`xiRightLineKernel` after the two vertical sides are folded; adding it to the
+local residue double-counts the zero spectrum.
+
+For a finite source-indexed zero family, choose circles only after mapping its
+members to their complex coordinates and applying finite `T2` separation.
+Each closed-ball radius must be strictly below both its separated-neighborhood
+radius and its same-cofactor safe residue radius. Distinct source subtypes do
+not by themselves justify geometric disjointness.
+
+For a common contour, choose one finite-factor owner on an outer closed ball,
+then require its whole divisor support to avoid the contour boundary. The
+principal-part circle integral is the finite sum over every support point in
+the enclosed open disc; it is not justified by summing only a preselected
+source-zero family unless a separate support-index equivalence has been
+proved. A factor-owned finite-family certificate may shrink its inner discs
+for `T2` separation, but must retain its own outer cofactor and ambient
+support-exclusion fields.
+
 ### Diagnostic Gate-3U Branch
 
 The canonical real Gate 3U reduces exactly to a bound on the ordinary trace of
@@ -428,7 +612,14 @@ Rules:
 - **Never commit or push from either mirror.** A successful WSL build accepts the
   tested Windows snapshot only; it does not transfer source ownership to WSL.
 - All Lake commands take the lock:
-  `flock -w 1800 /tmp/connes-weil-rh-lake.lock lake build <target>`.
+  `flock -w 1800 /tmp/connes-weil-rh-lake.lock lake build <target>`,
+  **and must run with the mirror as cwd** (`cd /tmp/<mirror> && flock ...`).
+  Without the `cd`, lake resolves the Windows project root from the caller's
+  cwd and writes olean into the Windows `.lake/build` (observed 2026-08-15:
+  a `flock ... lake build` without `cd` compiled Source files from
+  a Windows-mounted source path and polluted the Windows build tree; kill, delete the
+  same-day `*.olean/*.ilean/*.c/*.hash/*.json` under the Windows
+  `.lake/build`, and rerun inside the mirror).
 - `.lake/build` metadata is path-sensitive: seed package caches only, then
   recreate the project build directory; verify Lean input/output stay under the
   ext4 mirror. If a dirty mirror makes `git diff HEAD --exit-code` block on
@@ -442,6 +633,18 @@ Rules:
 - Accepted focused axiom output may contain Mathlib foundations
   `[propext, Classical.choice, Quot.sound]`; it must not contain `sorryAx` or new
   project axioms outside explicitly audited roots.
+- **Whitespace-linter tail trap**: mathlib's `style.whitespace` linter reports
+  `'' starts on column N` on the LAST line of a file that lacks a trailing
+  blank line after `end ConnesWeilRH` (the EOF implicit command lands
+  off-column). End every `.lean` file with `end ConnesWeilRH` + one blank line.
+- **Incrementality lies**: `lake build` re-runs nothing on unchanged files —
+  a "no errors/warnings" pass can mean "not rebuilt". Force acceptance
+  verification by re-copying (or `touch`) the file on the mirror first.
+- **Root-cause discipline**: capture lake output WITHOUT head/tail line caps —
+  the FIRST `error:` is the root cause; later `Unknown identifier` cascades
+  are noise. Use `grep -B3 -A10 error:` or `grep -E "^error:"`.
+- **WSL variable assignment is unreliable** in `wsl.exe -- bash -lc 'X=...; ...'`
+  (observed empty expansions); write full paths inline instead of `$VAR`.
 
 ## 8b. Cold-VS-Warm Lake Rebuilds (CacheReuse diagnostics)
 
@@ -771,6 +974,24 @@ project roots / `sorryAx`) plus the full repository verification gate.
   closure, **and** the whole-tail operator-norm bound with its exponential decay
   chain (`norm_inverseLowerFactorPhysicalRenewalTailResponse_le_const`,
   `_le_const_exp`, `rawRenewalTailNormConstant`, `rawRenewalTailWeightDoubleSum_reassoc`).
+- Brick G (CLOSED 2026-08-14, `Dev/C1XiGlobalZeroSum.lean`): global regularized
+  zero sum `Σ (1/(s-ρ)+1/ρ)` — `regularizedZeroSummable` +
+  `regularizedZeroTail_norm_shellSum_le` + consumer form
+  `regularizedZeroTerm_norm_shell_le`. Route: docs/proofs/1012 §3, 1013.
+- H-A0 (CLOSED 2026-08-14, `Dev/C1XiGlobalWeightedZeroSum.lean`):
+  `weightedRegularizedZeroSummable` for
+  `algebraMap ℝ ℂ (xiMultiplicity rho : Real) * regularizedZeroTerm s rho`.
+  Norm-cast fact: `norm_algebraMap` + `Real.norm_eq_abs` — ℂ has NO
+  `norm_ofReal` lemma; write the def with `algebraMap` literal.
+  Route: docs/proofs/1013 (queue), next H-A1 = analyticity of the weighted
+  sum via `Mathlib/Analysis/Calculus/SmoothSeries.lean`
+  (`hasDerivAt_tsum_of_isPreconnected`).
+- Name ownership for the zero-sum lane (`open` is NOT transitive; every
+  consumer imports and `open`s each namespace itself):
+  `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`
+  → `Source/CC20YoshidaNearZeros.lean`; `spectralMultiplicityConstant`,
+  `spectralHeightMultiplicity_geometric_bound` → `Dev/C1SpectralSummability.lean`;
+  `xiMultiplicity`, `spectralHeightShell(_partition/_finite)` → `Dev/C1SpectralWeil.lean`.
 
 
 

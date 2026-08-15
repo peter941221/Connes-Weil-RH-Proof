@@ -127,6 +127,40 @@ theorem exists_uniform_compactLog_laplaceAt_vertical_quadratic_decay
   simpa only [C1LogPositiveBridge.mellin_toPositiveRouteTest_eq_laplaceAt] using
     hdecay sigma hsigma t
 
+/-- Every compact log test also has a fourth-order vertical-strip bound.  This
+uses the same positive-variable coordinate bridge as the quadratic estimate. -/
+theorem exists_uniform_compactLog_laplaceAt_vertical_quartic_decay
+    (F : CompactLogTest) :
+    ∃ C : Real, 0 ≤ C ∧
+      ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+        ‖t / (2 * Real.pi)‖ ^ 4 *
+            ‖CompactLogTest.laplaceAt F
+              ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C := by
+  let a : Real := Real.exp (-C1SameOwnerWeil.supportRadius F - 1)
+  let b : Real := Real.exp (C1SameOwnerWeil.supportRadius F + 1)
+  have ha : 0 < a := Real.exp_pos _
+  have hb : 0 < b := Real.exp_pos _
+  have hsupport :
+      Function.support (C1LogPositiveBridge.toPositiveRouteTest F) ⊆
+        Set.Ioo a b := by
+    intro x hx
+    have hxRaw : x ∈ Function.support (C1LogPositiveBridge.positiveRouteRaw F) := by
+      simpa only [C1LogPositiveBridge.toPositiveRouteTest_apply,
+        C1LogPositiveBridge.positiveRouteRaw] using hx
+    have hbounds := C1LogPositiveBridge.positiveRouteRaw_support_subset F hxRaw
+    constructor
+    · exact lt_of_lt_of_le
+        (Real.exp_lt_exp.mpr (by simp)) hbounds.1
+    · exact lt_of_le_of_lt hbounds.2
+        (Real.exp_lt_exp.mpr (by simp))
+  obtain ⟨C, hC, hdecay⟩ :=
+    CC20YoshidaTail.exists_uniform_mellin_vertical_quartic_decay
+      (C1LogPositiveBridge.toPositiveRouteTest F) ha hb hsupport
+  refine ⟨C, hC, ?_⟩
+  intro sigma hsigma t
+  simpa only [C1LogPositiveBridge.mellin_toPositiveRouteTest_eq_laplaceAt] using
+    hdecay sigma hsigma t
+
 /-- Centered form of the uniform quadratic decay.  Its real coordinate is
 `sigma - 1/2`, exactly matching `rho - 1/2` on the xi spectrum. -/
 theorem exists_uniform_centered_laplaceAt_vertical_quadratic_decay
@@ -139,6 +173,32 @@ theorem exists_uniform_centered_laplaceAt_vertical_quadratic_decay
                 (t : Complex) * Complex.I)‖ ≤ C := by
   obtain ⟨C, hC, hdecay⟩ :=
     exists_uniform_compactLog_laplaceAt_vertical_quadratic_decay
+      (CC20YoshidaConvolution.CompactLogTest.exponentialWeight F
+        (-(1 / 2 : Real)))
+  refine ⟨C, hC, ?_⟩
+  intro sigma hsigma t
+  have hbound := hdecay sigma hsigma t
+  rw [laplaceAt_exponentialWeight_eq] at hbound
+  have harg :
+      ((sigma : Complex) + (t : Complex) * Complex.I) +
+          (-(1 / 2 : Real) : Complex) =
+        ((sigma - 1 / 2 : Real) : Complex) +
+          (t : Complex) * Complex.I := by
+    push_cast
+    ring
+  simpa only [harg] using hbound
+
+/-- Centered fourth-order Laplace decay on the full source critical strip. -/
+theorem exists_uniform_centered_laplaceAt_vertical_quartic_decay
+    (F : CompactLogTest) :
+    ∃ C : Real, 0 ≤ C ∧
+      ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+        ‖t / (2 * Real.pi)‖ ^ 4 *
+            ‖CompactLogTest.laplaceAt F
+              (((sigma - 1 / 2 : Real) : Complex) +
+                (t : Complex) * Complex.I)‖ ≤ C := by
+  obtain ⟨C, hC, hdecay⟩ :=
+    exists_uniform_compactLog_laplaceAt_vertical_quartic_decay
       (CC20YoshidaConvolution.CompactLogTest.exponentialWeight F
         (-(1 / 2 : Real)))
   refine ⟨C, hC, ?_⟩

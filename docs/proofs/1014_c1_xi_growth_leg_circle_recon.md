@@ -1,17 +1,19 @@
 # 1014 — brick (H) growth leg: circle reconnaissance + order-1 minimum modulus (design)
 
-Status: DESIGN (2026-08-14). This document pins down H-A3 of the 1013 brick
-queue — the only genuinely new analysis between the closed bricks and the
-canonical-sum identity.
+Status: DESIGN (2026-08-15). H-A0, H-A1, and local H-A2 are now Lean-checked.
+This document pins down H-A3 of the 1013 brick queue — the only genuinely new
+analysis between those closed bricks and the canonical-sum identity.
 
 ## 1. Position in the (H) brick
 
 ```text
-H-A0 weightedZeroSummable            (written 2026-08-14, WSL build in flight)
-H-A1 analyticOnNhd of weighted sum   [after G-OK + A-OK]
-H-A2 removable poles of G            [after A-OK]
-H-A3 growth leg  |G s| <= C(1+|s|) on circles |s| = R_k   <-- THIS DESIGN
-H-A4 Liouville: G constant
+H-A0 weightedZeroSummable            [CLOSED 2026-08-15]
+H-A1 analyticOnNhd of weighted sum   [CLOSED 2026-08-15]
+H-A2 removable poles of G            [CLOSED 2026-08-15]
+H-A3 growth leg  |G s| <= C(1+|s|) log(2+|s|) on circles |s| = R_k
+       <-- THIS DESIGN; it is not a boundedness conclusion
+H-A4 affine-growth consequence       (not yet constant)
+H-A4b slope-zero / boundedness        <-- separate missing input
 H-A5 constant-difference identity (H1)
 H-B  segment bound (H2)
 ```
@@ -58,14 +60,42 @@ can be chosen to avoid the zero lattice).
 
 ## 4. New theorem: order-1 minimum modulus on dyadic zero-free circles
 
+The Lean statements mirror the closed tubes theorem
+`exists_dyadic_quantitative_xiHeightBoundaryAvoidsZeros_tubes`
+(`C1XiQuantitativeHeight.lean:408`) — same dyadic window, new geometry
+(concentric circles instead of vertical tubes):
+
 ```lean
--- target statement shape (design only; names pending)
-theorem exists_dyadic_minmod_circle
-    {C : Real} (hC : 0 < C) :
-    ∃ k : Nat, -- radius R_k = 2^k * scale with R_k -> infinity
-      CircleZeroFree R_k ∧                        -- no zero on |s| = R_k
-      ∀ z0, |z0| = R_k ->
-        ‖completedRiemannXi z0‖ >= Real.exp (-C * (R_k + 1) * Real.log (R_k + 2))
+/-- Reconnaissance: every dyadic scale has a radius in the next unit window
+whose circle avoids the zero lattice — the circle avatar of the closed
+tubes theorem.  Count-bound + arc-measure, mirrors
+`exists_dyadic_quantitative_xiHeightBoundaryAvoidsZeros_tubes`. -/
+theorem exists_dyadic_quantitative_circleBoundaryAvoidsZeros (n : Nat) :
+    ∃ R : Real, (2 : Real) ^ (n + 2) < R ∧
+      R < (2 : Real) ^ (n + 2) + 1 ∧
+      circleBoundaryAvoidsZeros R := by ...
+  -- circleBoundaryAvoidsZeros R := ∀ z, ‖z‖ = R → completedRiemannXi z ≠ 0
+
+/-- Order-1 minimum modulus on the free dyadic circle: the same R carries
+an explicit lower bound, from Poisson's formula + the closed dyadic upper
+growth + shell counts.  C3 is explicit in `spectralMultiplicityConstant`,
+`log|xi(0)|` (closed computable value), and dyadic constants. -/
+theorem dyadicXi_circle_minmod (n : Nat) :
+    ∃ R : Real, (2 : Real) ^ (n + 2) < R ∧
+      R < (2 : Real) ^ (n + 2) + 1 ∧
+      (∀ z, ‖z‖ = R → ‖completedRiemannXi z‖ >=
+        Real.exp (-(3 : Real) * (R + 1) * Real.log (R + 2))) := by ...
+  -- C3 := 3 is the placeholder constant; the proof fixes its explicit value
+  -- (K-factors + log|xi(0)|); the growth leg only needs "some C".
+
+/-- Growth leg output (assembly; H-A3):  polynomial growth of
+`G = logDeriv xi - weightedSum` on the circle family. -/
+theorem growth_leg_polynomial_bound :
+    ∃ C : Real, 0 < C ∧
+      ∀ k : Nat, -- R_k from the two theorems above (same window)
+        ∀ z, ‖z‖ = R_k →
+          ‖logDeriv completedRiemannXi z - weightedRegularizedZeroSum z‖
+            <= C * (1 + ‖z‖) * Real.log (2 + ‖z‖) := by ...
 ```
 
 Proof skeleton (paper):
@@ -83,9 +113,9 @@ Proof skeleton (paper):
    ```
 
    which holds for all large `n0` (3/2 < 4/2 scale).  This mirrors the
-   closed `exists_dyadic_quantitative_xiHeightBoundaryAvoidsZeros_tubes`
-   structure (1011), re-based from vertical tubes to concentric circles —
-   the same counting, new geometry.
+   closed tubes theorem verbatim: same counting (dyadic window + mass
+   bound → free boundary), new geometry (angular arcs on |s| = R instead
+   of height intervals).
 
 2. **Minimum modulus on the free circle** (the core step).  With a
    zero-free circle `|s| = R_k`, Jensen's formula on the disc (closed dyadic
@@ -99,20 +129,25 @@ Proof skeleton (paper):
 3. **Compose** with Cauchy on `|xi'|` (section 3) to get
    `|logDeriv xi(z0)| <= C4 * R_k * log R_k`, then add the weighted leg
    (section 2): `|G(s)| <= C5 * (1 + |s|) log (2 + |s|)` on the family —
-   polynomial growth, Liouville territory (H-A4).
+   affine-growth territory, not a Liouville constant conclusion.
 
 ## 5. Lean work list for H-A3
 
 ```text
 ( closed  ) 1011 principal O(9^n) on the circle        [mirror, CLOSED]
-( closed  ) brick-G tail + H-A0 inflation              [verification queue]
+( closed  ) brick-G tail + H-A0 inflation              [CLOSED 2026-08-14]
 ( closed  ) Cauchy for xi' from dyadic growth          [new assembly of closed items]
-( NEW     ) circle_avoids_zeros_rk : dyadic reconnaissance relabeled
-            -- count-bound + arc-measure, mirrors BoundaryAvoidsZeros
-( NEW     ) minmod_dyadic_circle : order-1 minimum modulus, dyadic quant.
+( NEW     ) exists_dyadic_quantitative_circleBoundaryAvoidsZeros
+            -- reconnaissance relabeled; mirrors the tubes theorem
+( NEW     ) dyadicXi_circle_minmod : order-1 minimum modulus, dyadic quant.
             -- the one hard theorem; paper steps in 1013 R2 + section 4
-( new-lite) growth_leg via composition (section 3 step 3)
+( new-lite) growth_leg_polynomial_bound via composition (section 3 step 3)
 ```
+
+Dependencies: H-A1 (analyticity of the weighted sum off the zero set, now
+closed) is needed by H-A2 (removable poles) but NOT by the growth leg; the
+leg only uses the closed xi growth + H-A0 tail + the two circle theorems
+above.  H-A3's reconnaissance is structurally independent of H-A1/A2.
 
 ## 6. Fallbacks if minmod blocks
 
@@ -129,9 +164,11 @@ Proof skeleton (paper):
 
 | item | status |
 |---|---|
-| H-A0 module (weighted summable + norm bound) | written; WSL build in flight (2026-08-14) |
-| G patch (consumer-form norm helpers) | written; in the same build |
-| A-OK (AnalyticLog) | compile-green in mirror; axiom readback pending |
-| 1014 design | this document (2026-08-14) |
+| G patch (consumer-form norm helpers) | CLOSED (2026-08-14, commit 9ab36f2 + c2ca0f6) |
+| H-A0 module (weighted summable + norm bound) | CLOSED (2026-08-14, commit c2ca0f6, axiom-clean) |
+| A-OK (AnalyticLog) | CLOSED (2026-08-14, axiom readback `[propext, Classical.choice, Quot.sound]`) |
+| H-A1 analyticOnNhd (weighted sum off the zero set) | CLOSED (2026-08-15, WSL2 verified) |
+| H-A2 local removable-pole extension | CLOSED (2026-08-15, WSL2 verified) |
+| 1014 design (+ circle statement skeleton) | this document (updated 2026-08-15) |
 
 RH is not claimed; Gate-1/3U branches untouched.

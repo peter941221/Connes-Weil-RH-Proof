@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1XiFiniteSupportReindex
+
+/-! Import-facing trust audit for factor-support to source-zero reindexing. -/
+
+namespace ConnesWeilRH.Source.C1XiFiniteSupportReindex
+
+#print axioms xiClosedBallSupportToSourceZero
+#print axioms mem_xiClosedBallSourceZeros_iff
+#print axioms sum_xiClosedBallSourceZeros_eq_sum_support
+#print axioms xiClosedBallDivisor_cast_eq_xiMultiplicity_of_mem_sourceZeros
+#print axioms factor_weight_eq_spectralTerm_of_mem_sourceZeros
+#print axioms mem_xiClosedBallSourceZerosInside_iff
+#print axioms circleIntegral_xiContourKernel_eq_sourceSpectralSum_of_factor_support
+#print axioms circleIntegral_xiContourKernel_eq_neg_finiteSourceSpectralSum_of_factor_support
+
+end ConnesWeilRH.Source.C1XiFiniteSupportReindex

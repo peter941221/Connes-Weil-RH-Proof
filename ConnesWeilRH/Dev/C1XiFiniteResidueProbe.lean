@@ -1,0 +1,19 @@
+import ConnesWeilRH.Dev.C1XiFiniteResidue
+
+/-! Import-facing trust audit for finite xi residue aggregation. -/
+
+namespace ConnesWeilRH.Source.C1XiResidue
+
+#print axioms differentiableAt_xiContourKernel_of_completedRiemannXi_ne_zero
+
+end ConnesWeilRH.Source.C1XiResidue
+
+namespace ConnesWeilRH.Source.C1XiFiniteResidue
+
+#print axioms exists_finite_xiResidueCircles
+#print axioms exists_finite_pairwiseDisjoint_xiResidueClosedBalls
+#print axioms exists_finite_circleIntegral_sum_xiContourKernel_eq_neg_spectralSum
+#print axioms exists_finiteHeight_circleIntegral_sum_xiContourKernel_eq_neg_spectralSum
+#print axioms exists_finiteHeight_pairwiseDisjoint_xiResidueClosedBalls
+
+end ConnesWeilRH.Source.C1XiFiniteResidue

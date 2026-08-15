@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1XiContourDecay
+
+/-! Import-facing trust audit for the quartic xi-contour weight decay chain. -/
+
+namespace ConnesWeilRH.Source.C1XiContourDecay
+
+#print axioms CC20YoshidaTail.fourier_mellinLogSlice_quartic_decay_le_integrals
+#print axioms CC20YoshidaTail.exists_uniform_mellin_vertical_quartic_decay
+#print axioms C1SpectralWeil.exists_uniform_compactLog_laplaceAt_vertical_quartic_decay
+#print axioms C1SpectralWeil.exists_uniform_centered_laplaceAt_vertical_quartic_decay
+#print axioms exists_uniform_centeredLaplaceWeight_vertical_quartic_decay_on_criticalStrip
+
+end ConnesWeilRH.Source.C1XiContourDecay

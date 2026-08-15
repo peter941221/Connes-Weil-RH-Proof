@@ -252,6 +252,32 @@ theorem fourier_mellinLogSlice_quadratic_decay_le_integrals
   convert hfourier using 1
   all_goals simp [mellinLogSliceRaw]
 
+/-- The same compact Mellin slice has fourth-order Fourier decay.  The extra
+two integrations by parts are available because the owner is Schwartz. -/
+theorem fourier_mellinLogSlice_quartic_decay_le_integrals
+    (g : TestFunction) (sigma w : ℝ)
+    {a b : ℝ} (ha : 0 < a) (hb : 0 < b)
+    (hsupport : Function.support g ⊆ Set.Ioo a b) :
+    ‖w‖ ^ 4 * ‖𝓕 (mellinLogSlice g sigma ha hb hsupport) w‖ ≤
+      16 * ((∫ u : ℝ, ‖iteratedFDeriv ℝ 0 (mellinLogSliceRaw g sigma) u‖) +
+        (∫ u : ℝ, ‖iteratedFDeriv ℝ 1 (mellinLogSliceRaw g sigma) u‖) +
+        (∫ u : ℝ, ‖iteratedFDeriv ℝ 2 (mellinLogSliceRaw g sigma) u‖) +
+        (∫ u : ℝ, ‖iteratedFDeriv ℝ 3 (mellinLogSliceRaw g sigma) u‖) +
+        (∫ u : ℝ, ‖iteratedFDeriv ℝ 4 (mellinLogSliceRaw g sigma) u‖)) := by
+  have hfourier := Real.pow_mul_norm_iteratedFDeriv_fourier_le
+    (f := mellinLogSliceRaw g sigma)
+    (K := (0 : ℕ∞)) (N := (⊤ : ℕ∞))
+    (mellinLogSliceRaw_contDiff g sigma)
+    (fun k n _hk _hn => by
+      simpa only [mellinLogSlice_apply] using
+        SchwartzMap.integrable_pow_mul_iteratedFDeriv volume
+          (mellinLogSlice g sigma ha hb hsupport) k n)
+    (k := 0) (n := 4) le_rfl le_top w
+  rw [SchwartzMap.fourier_coe]
+  norm_num [Finset.sum_range_succ] at hfourier ⊢
+  convert hfourier using 1
+  all_goals simp [mellinLogSliceRaw]
+
 /-- A compact-window test has one quadratic Mellin decay constant on the full
 closed critical strip. -/
 theorem exists_uniform_mellin_vertical_quadratic_decay
@@ -281,6 +307,53 @@ theorem exists_uniform_mellin_vertical_quadratic_decay
   · exact hbound0 sigma hsigma
   · exact hbound1 sigma hsigma
   · exact hbound2 sigma hsigma
+
+/-- A compact-window Mellin transform has one uniform fourth-order vertical
+decay constant on the full closed critical strip. -/
+theorem exists_uniform_mellin_vertical_quartic_decay
+    (g : TestFunction)
+    {a b : ℝ} (ha : 0 < a) (hb : 0 < b)
+    (hsupport : Function.support g ⊆ Set.Ioo a b) :
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+        ‖t / (2 * Real.pi)‖ ^ 4 *
+            ‖mellin (fun x : ℝ => g x)
+              ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C := by
+  obtain ⟨C0, hC0, hbound0⟩ :=
+    exists_uniform_mellinLogSliceRaw_iteratedFDeriv_integral_bound
+      g a b 0 ha hb hsupport
+  obtain ⟨C1, hC1, hbound1⟩ :=
+    exists_uniform_mellinLogSliceRaw_iteratedFDeriv_integral_bound
+      g a b 1 ha hb hsupport
+  obtain ⟨C2, hC2, hbound2⟩ :=
+    exists_uniform_mellinLogSliceRaw_iteratedFDeriv_integral_bound
+      g a b 2 ha hb hsupport
+  obtain ⟨C3, hC3, hbound3⟩ :=
+    exists_uniform_mellinLogSliceRaw_iteratedFDeriv_integral_bound
+      g a b 3 ha hb hsupport
+  obtain ⟨C4, hC4, hbound4⟩ :=
+    exists_uniform_mellinLogSliceRaw_iteratedFDeriv_integral_bound
+      g a b 4 ha hb hsupport
+  refine ⟨16 * (C0 + C1 + C2 + C3 + C4), by positivity, ?_⟩
+  intro sigma hsigma t
+  rw [mellin_eq_fourier_mellinLogSlice g sigma t ha hb hsupport]
+  calc
+    ‖t / (2 * Real.pi)‖ ^ 4 *
+        ‖𝓕 (mellinLogSlice g sigma ha hb hsupport) (t / (2 * Real.pi))‖ ≤
+      16 * ((∫ u : ℝ, ‖iteratedFDeriv ℝ 0 (mellinLogSliceRaw g sigma) u‖) +
+        (∫ u : ℝ, ‖iteratedFDeriv ℝ 1 (mellinLogSliceRaw g sigma) u‖) +
+        (∫ u : ℝ, ‖iteratedFDeriv ℝ 2 (mellinLogSliceRaw g sigma) u‖) +
+        (∫ u : ℝ, ‖iteratedFDeriv ℝ 3 (mellinLogSliceRaw g sigma) u‖) +
+        (∫ u : ℝ, ‖iteratedFDeriv ℝ 4 (mellinLogSliceRaw g sigma) u‖)) :=
+      fourier_mellinLogSlice_quartic_decay_le_integrals
+        g sigma (t / (2 * Real.pi)) ha hb hsupport
+    _ ≤ 16 * (C0 + C1 + C2 + C3 + C4) := by
+      gcongr
+      · exact hbound0 sigma hsigma
+      · exact hbound1 sigma hsigma
+      · exact hbound2 sigma hsigma
+      · exact hbound3 sigma hsigma
+      · exact hbound4 sigma hsigma
 
 end CC20YoshidaTail
 end Source

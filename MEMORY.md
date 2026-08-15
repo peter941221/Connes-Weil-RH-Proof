@@ -1,3 +1,61 @@
+## Change Log (2026-08-14, Gate 2 dyadic finite-principal-part budget CLOSED): Dev/C1XiQuantitativePrincipalBound.lean + Dev/C1XiQuantitativePrincipalBoundProbe.lean + AGENTS.md + docs/proofs/1011_c1_xi_quantitative_principal_bound.md
+- The exact origin-centered finite factor principal sum is now bounded on both selected dyadic horizontal tubes by `4*N_n*(N_n+2)`, `N_n=K*3^(n+1)`, through same-owner divisor-to-source reindexing, height multiplicity, and tube separation. The isolated WSL2 ext4 probe completed 3536 jobs; all eight audits use only `[propext, Classical.choice, Quot.sound]`, with 0 `sorryAx`. The zero-free cofactor/minimum-modulus and full `xi'/xi` estimates remain open.
+
+## Change Log (2026-08-14, Gate 2 dyadic two-sided xi-tube producer CLOSED): Dev/C1XiQuantitativeHeight.lean + Dev/C1XiQuantitativeHeightProbe.lean + AGENTS.md + docs/proofs/1010_c1_xi_rectangle_principal_readout.md
+- `exists_dyadic_quantitative_xiHeightBoundaryAvoidsZeros_tubes` now supplies `T in (2^(n+2), 2^(n+2)+1)` and two same-height xi-zero-free tubes of explicit radius `min(1/(4*(K*3^(n+1)+2)), 1/2)`. The WSL2 probe completed 3535 jobs; all 10 audits use only `[propext, Classical.choice, Quot.sound]`, with 0 `sorryAx`. The unresolved analytic root is a quantitative minimum-modulus/cofactor or `xi'/xi` estimate on these tubes, not height selection.
+
+## Change Log (2026-08-14, Gate 2 quantitative xi-height two-sided zero-free tubes CLOSED): Dev/C1XiQuantitativeHeight.lean + Dev/C1XiQuantitativeHeightProbe.lean + AGENTS.md + docs/proofs/1010_c1_xi_rectangle_principal_readout.md
+- `exists_quantitative_xiHeightBoundaryAvoidsZeros_tubes` now returns one `T` and one radius for both `x + T*I` and `x - T*I`; the lower tube is the isometric `z |-> 1-z` image of the upper tube, with `completedRiemannXi_one_sub` preserving zero-freeness. The WSL2 probe completed 3535 jobs and all eight audits use only `[propext, Classical.choice, Quot.sound]`, with 0 `sorryAx`. No minimum-modulus, cofactor, `xi'/xi`, contour-limit, Gate 2 equality, or RH result follows.
+
+## Change Log (2026-08-14, Gate 2 quantitative xi-height zero-free tube CLOSED): Dev/C1XiQuantitativeHeight.lean + Dev/C1XiQuantitativeHeightProbe.lean + AGENTS.md + docs/proofs/1010_c1_xi_rectangle_principal_readout.md
+- The selected upper height line now has the axiom-clean tube `Metric.ball (x + T*I) (min(delta_B, 1/2))` free of xi zeros for every real `x`; the half-unit cap forces any hypothetical zero into `finiteHeightZeros(B+2)`, and the grid separation rejects it. The WSL2 probe completed 3535 jobs with seven audits using only `[propext, Classical.choice, Quot.sound]`, 0 `sorryAx`. This gives no minimum-modulus, cofactor, `xi'/xi`, contour-limit, Gate 2 equality, or RH result.
+
+## Change Log (2026-08-14, Gate 2 dyadic xi-height cardinality bridge CLOSED): Dev/C1XiQuantitativeHeight.lean + Dev/C1XiQuantitativeHeightProbe.lean + AGENTS.md + docs/proofs/1010_c1_xi_rectangle_principal_readout.md
+- The distinct visible xi ordinates at base height `2^(n+2)` are now bounded by `spectralMultiplicityConstant * 3^(n+1)`, and `xiHeightSeparation_dyadic_lower_bound` turns that into the formal reciprocal grid-gap bound; image-cardinality, positive analytic multiplicity, height monotonicity, and Jensen are the full chain. The WSL2 probe completed 3535 jobs and all five audits have only `[propext, Classical.choice, Quot.sound]`, with 0 `sorryAx`. This is a zero-separation scale only: `xi'/xi`, cofactor, contour-limit, Gate 2 equality, and RH remain open.
+
+## Change Log (2026-08-14, Gate 2 quantitative xi-zero-free height selection CLOSED): Dev/C1XiQuantitativeHeight.lean + Dev/C1XiQuantitativeHeightProbe.lean + AGENTS.md + docs/proofs/1010_c1_xi_rectangle_principal_readout.md
+- A finite-grid pigeonhole argument now selects `T in (B, B+1)` at explicit positive distance `1/(4*(card+2))` from every visible xi-zero ordinate in `finiteHeightZeros(B+2)`, hence proves `xiHeightBoundaryAvoidsZeros T`; WSL2 ext4 build of the import probe completed 3535 jobs and all three audits list only `[propext, Classical.choice, Quot.sound]`, with 0 `sorryAx`. No dyadic gap rate, `xi'/xi` bound, contour limit, Gate 2 equality, or RH claim follows.
+
+## Change Log (2026-08-14, Gate 2 zero-free-height local xi envelope CLOSED): Dev/C1XiHorizontalDecay.lean + Dev/C1XiHorizontalDecayProbe.lean + AGENTS.md + docs/proofs/1010_c1_xi_rectangle_principal_readout.md
+- A zero-free horizontal boundary now yields a finite common `xi'/xi` envelope by continuity on two compact segments, and `XiHeightRectangleFactorData` consequently yields a pointwise quartic horizontal-boundary estimate; WSL2 ext4 build of the import probe completed 3538 jobs, with all four audits limited to `[propext, Classical.choice, Quot.sound]` and 0 `sorryAx`. No cross-height growth rate, contour limit, Gate 2 equality, or RH claim follows.
+
+## Change Log (2026-08-14, Gate 2 quartic xi-contour weight decay CLOSED): Source/CC20YoshidaTail.lean + Dev/C1SpectralWeil.lean + Dev/C1XiContourDecay.lean + Dev/C1XiContourDecayProbe.lean
+- The compact-log Mellin/Laplace test weight now has a uniform fourth-order vertical bound on the full critical strip; WSL2 ext4 `lake build ConnesWeilRH.Dev.C1XiContourDecayProbe` completed 3522 jobs, and all five chain audits list only `[propext, Classical.choice, Quot.sound]`, with 0 `sorryAx`. This controls the test factor only; xi logarithmic-derivative growth, horizontal-edge decay, contour limits, Gate 2 equality, and RH remain open.
+
+## Change Log (2026-08-14, Gate 2 conditional horizontal boundary bound CLOSED): Dev/C1XiHorizontalDecay.lean + Dev/C1XiHorizontalDecayProbe.lean + docs/proofs/1010_c1_xi_rectangle_principal_readout.md
+- `xiHorizontalLogDerivEnvelope T M` plus the closed quartic test-weight bound yields `||horizontalBoundary(F,T)|| <= 2*M*C/||T/(2*pi)||^4` through `exists_quartic_horizontalBoundary_bound_of_logDerivEnvelope`; this reusable conditional form is now supplied at each zero-free height by the compactness bridge recorded above. Contour limits, Gate 2 equality, and RH remain open.
+
+## Change Log (2026-08-14, Gate 2 finite-height rectangle assembly CLOSED): Dev/C1XiFiniteHeightRectangleAssembly.lean + Dev/C1XiFiniteHeightRectangleAssemblyProbe.lean + docs/proofs/1010_c1_xi_rectangle_principal_readout.md
+- A single `XiHeightRectangleFactorData` now gives `horizontal boundary + folded right-line integral = -2*pi*i*finiteSpectralSum` through `horizontal_add_foldedRightLine_eq_neg_finiteSpectralSum`; the isolated fresh WSL2 ext4 build of `C1XiFiniteHeightRectangleAssemblyProbe` completed 3536 jobs and both audits list only `[propext, Classical.choice, Quot.sound]`, with 0 `sorryAx`. Horizontal-edge decay, the right-line contour limit, arithmetic readback, Gate 2 equality, and RH remain open.
+
+## Change Log (2026-08-14, Gate 2 finite-height xi vertical fold CLOSED): Dev/C1XiFiniteHeightVerticalFold.lean + Dev/C1XiFiniteHeightVerticalFoldProbe.lean + docs/proofs/1010_c1_xi_rectangle_principal_readout.md
+- The two oriented zero-free critical-strip vertical sides now fold exactly to the one right-line `verticalIntegrand` through `criticalStripVerticalBoundaryIntegral_eq_rightLineIntegral`; an isolated fresh WSL2 ext4 clone build of `C1XiFiniteHeightVerticalFoldProbe` completed 3535 jobs and its audit lists only `[propext, Classical.choice, Quot.sound]`, with 0 `sorryAx`. Horizontal-edge decay, a uniform xi logarithmic-derivative estimate, contour limits, Gate 2 equality, and RH remain open.
+
+## Change Log (2026-08-14, Gate 2 finite-height xi rectangle and zero-free sequence CLOSED): Dev/C1XiFiniteHeightRectangle.lean + Dev/C1XiFiniteHeightRectangleProbe.lean + docs/proofs/1010_c1_xi_rectangle_principal_readout.md
+- The symmetric critical-strip rectangle now identifies its same factor-owned strict-interior source-zero family exactly with `finiteHeightZeros T` when its horizontal height sides are xi-zero-free, and consequently reads `xiContourKernel` as `-2*pi*i` times `finiteSpectralSum F T`; a finite-exclusion theorem supplies arbitrarily high zero-free heights and `xiZeroFreeHeights` has unit gaps with `n < T_n`. `XiHeightRectangleFactorData` keeps each height's zero-free boundary, radius-`T+2` factorization, rectangle containment, and direct finite spectral readout on one owner. An isolated WSL2 ext4 clone build of `C1XiFiniteHeightRectangleProbe` completed 3534 jobs; all ten audits list only `[propext, Classical.choice, Quot.sound]`, with 0 `sorryAx`. Contour limits, arithmetic readback, Gate 2 equality, and RH remain open.
+
+## Change Log (2026-08-14, Gate 2 finite xi rectangle principal readout and source reindexing CLOSED): Dev/C1XiFiniteRectanglePrincipalPart.lean + Dev/C1XiFiniteRectanglePrincipalPartProbe.lean + Dev/C1XiFiniteRectangleSupportReindex.lean + Dev/C1XiFiniteRectangleSupportReindexProbe.lean + docs/proofs/1010_c1_xi_rectangle_principal_readout.md
+- A standard zero-free rectangle now reads the factor-owned finite principal part exactly as `-2*pi*i` times the finite source-zero spectral sum strictly inside the same rectangle: four zero-free strips reduce an arbitrary strict interior simple pole to its centered square, exterior poles vanish by Cauchy, and the finite support is filtered then reindexed through the same closed-ball divisor owner. Isolated WSL2 ext4 `lake build ConnesWeilRH.Dev.C1XiFiniteRectangleSupportReindexProbe` completed 3533 jobs; the six rectangle-readout/reindex audits report only `[propext, Classical.choice, Quot.sound]`, 0 `sorryAx`. Rectangle contour limits, arithmetic readback, the Gate 2 equality, and RH remain open.
+
+## Change Log (2026-08-14, Gate 2 finite xi rectangle-boundary regularization CLOSED): Dev/C1XiFiniteRectangleBoundary.lean + Dev/C1XiFiniteRectangleBoundaryProbe.lean + docs/proofs/1009_c1_xi_regularized_rectangle_boundary.md
+- One factor-owned rectangle boundary now has a named four-edge functional and a zero-free-boundary guard: `xiContourKernel` equals the same finite principal part on that boundary because its `dslope` regularized remainder is differentiable on the full rectangle and has zero Cauchy boundary integral. Isolated WSL2 ext4 `lake build ConnesWeilRH.Dev.C1XiFiniteRectangleBoundaryProbe` completed 3527 jobs; both public audits report only `[propext, Classical.choice, Quot.sound]`, 0 `sorryAx`. The finite principal-part rectangle residue readout, contour limits, arithmetic readback, Gate 2 equality, and RH remain open.
+
+## Change Log (2026-08-14, Gate 2 factor-owned finite xi residue discs CLOSED): Dev/C1XiFiniteFactorCircle.lean + Dev/C1XiFiniteFactorCircleProbe.lean + Dev/C1XiFiniteFactorResidue.lean + Dev/C1XiFiniteFactorResidueProbe.lean
+- A local xi cofactor now supplies an inner safe circle together with one outer finite factorization and explicit exclusion of every other ambient divisor-support point; finite `T2` separation only shrinks these factor-owned discs. Isolated WSL2 ext4 builds of `C1XiFiniteFactorCircleProbe` and `C1XiFiniteFactorResidueProbe` completed 3528/3529 jobs, with every new audit reporting `[propext, Classical.choice, Quot.sound]` and 0 `sorryAx`; a common contour, finite support-to-source reindexing, contour limits, Gate 2 equality, and RH remain open.
+
+## Change Log (2026-08-14, Gate 2 common finite-principal circle readout CLOSED): Dev/C1XiFinitePrincipalPart.lean + Dev/C1XiFinitePrincipalPartProbe.lean
+- The finite principal kernel now integrates on any positive support-avoiding circle to the finite sum of exactly its ambient divisor points in the enclosed open disc; the proof distinguishes the Cauchy `2*pi*i` readout for inside poles, zero for outside poles, and an explicit no-boundary-pole hypothesis. Isolated WSL2 ext4 `lake build ConnesWeilRH.Dev.C1XiFinitePrincipalPartProbe` completed 3526 jobs; all six audits use only `[propext, Classical.choice, Quot.sound]`, 0 `sorryAx`; regularized common-contour assembly, support-to-source reindexing, contour limits, Gate 2 equality, and RH remain open.
+
+## Change Log (2026-08-14, Gate 2 finite-factor local residue CLOSED): Dev/C1XiFiniteLocalResidue.lean + Dev/C1XiFiniteLocalResidueProbe.lean
+- A finite xi factorization now gives a complete local `xiContourKernel` residue on any positive circle whose closed disc lies in the factorization ball and contains exactly one divisor support point: the regularized `dslope` remainder integrates to zero, and the finite principal part reads back `-2*pi*i*spectralTerm`. WSL2 isolated ext4 `lake build ConnesWeilRH.Dev.C1XiFiniteLocalResidueProbe` completed 3527 jobs with both new audits `[propext, Classical.choice, Quot.sound]`, 0 `sorryAx`; finite-height compatible radius construction, punctured-rectangle assembly, arithmetic readback, Gate 2 equality, and RH remain open.
+
+## Change Log (2026-08-13, Gate 2 finite xi residue discs CLOSED): Dev/C1XiFiniteResidue.lean + Dev/C1XiFiniteResidueProbe.lean + Dev/C1XiResidueProbe.lean
+- A finite source-indexed xi-zero family now admits positive pairwise-disjoint closed residue discs, with each radius simultaneously below the local cofactor safety bound and a finite Hausdorff-separated neighborhood; every circle retains its exact multiplicity-weighted `xiContourKernel` residue. WSL2 isolated ext4 build of `C1XiFiniteResidueProbe` completed 3524 jobs with new theorem audits `[propext, Classical.choice, Quot.sound]`, 0 `sorryAx`; punctured-rectangle Cauchy assembly, contour limits, arithmetic readback, Gate 2 equality, and RH remain open.
+## Change Log (2026-08-14, Gate 2 finite xi factor continuation CLOSED): Dev/C1XiFiniteFactor.lean + Dev/C1XiFiniteFactorProbe.lean
+- The finite closed-ball xi divisor now has an everywhere-analytic factor, an interior `codiscreteWithin -> 𝓝 z` continuation, and an exact finite `logDeriv xi = sum(multiplicity/(z-rho)) + logDeriv(cofactor)` identity away from the divisor support; `xiClosedBallDivisor_mem_support_iff` and `logDeriv_completedRiemannXi_eq_sum_add_cofactor_of_ne_zero` expose the same result through the ordinary xi-nonzero predicate. A clean WSL2 ext4 import build of `C1XiFiniteFactorProbe` completed 3525 jobs with all eleven audits `[propext, Classical.choice, Quot.sound]`, 0 `sorryAx`; contour-shift assembly, arithmetic readback, Gate 2 equality, and RH remain open.
+
+## Change Log (2026-08-14, Gate 2 finite xi regularization CLOSED): Dev/C1XiFiniteRegularization.lean + Dev/C1XiFiniteRegularizationCauchy.lean
+- Split the finite xi contour kernel into its multiplicity-weighted principal poles and a differentiable `dslope` regularized remainder; rectangle Cauchy now applies only to that remainder, with explicit open-ball containment and no evaluation of total `logDeriv` at a zero. WSL2 import audits completed 3526/3527 jobs with `[propext, Classical.choice, Quot.sound]`, 0 `sorryAx`; principal-part circle assembly, punctured rectangles, arithmetic readback, Gate 2 equality, and RH remain open.
 
 ## Change Log (2026-08-13, Xi zero-index completeness CLOSED axiom-clean): Source/CC20ZetaCounting.lean + Dev/C1XiZeroIndexProbe.lean
 - Closed the completeness of the completed-xi zero index on `CC20ZetaCounting`: `completedRiemannXi_ne_zero_of_one_le_re` (no zeros in `1 <= Re s`, packaging zeta nonvanishing + pole-removing factors), `sourceNontrivialZero_of_completedRiemannXi_eq_zero` (every xi zero is a source nontrivial zero; the functional equation excludes negative-even zeta zeros by reflecting them into the zero-free right half-plane), and the bidirectional `completedRiemannXi_eq_zero_iff_sourceNontrivialZero`. The zero-spectral sum of Gate 2 now indexes the EXACT xi zero set, not a subset. WSL2 isolated mirror `c1-xi-zero-20260813` (3496 jobs green, EXIT=0), `#print axioms` = `[propext, Classical.choice, Quot.sound]`, 0 `sorryAx`; downstream `C1SpectralSummability` / `C1SpectrWeilFirstProbe` / `UnconditionalSkeleton` remain green (3532/3500 jobs). Lean notes: real-part of a complex ring expression needs `Complex.ext.ring` inside `ℂ` first then `rw`+`norm_num`, NOT `ring` on `.re`; `simpa [completedRiemannXi] using hxi` triggers linter → use `simp [completedRiemannXi] at hxi`. Gate 2 still leaves the genuine analytic equality `C1SameOwnerWeil.psi F = spectralWeilValue F` open (the classic Burnol explicit formula; needs Hadamard-product / contour machinery, absent in mathlib v4.30.0). RH NOT claimed.
@@ -1652,3 +1710,88 @@ would be unsound. RH unclaimed.
   the 4-fold nonzero is optional strengthening, Direction-B self-consistency unchanged. RH not claimed.
 ## Change Log (2026-08-13, Gate 2 multiplicity bridge): Dev/C1SpectralWeil.lean + Dev/C1SpectralWeilBridgeProbe.lean
 - Added an axiom-clean finite-subtype tsum/readback lemma and `spectralHeightMultiplicity_le_finiteHeightMultiplicity`; the dyadic shell is charged to the symmetric-height window with analytic `xiMultiplicity` weights preserved. WSL2 isolated ext4 build of the owning module plus import probe passed 3518 jobs; no `sorryAx` or project axiom introduced. Xi growth and unconditional spectral summability remain open; RH not claimed.
+
+## Change Log (2026-08-15, H-A1 weighted zero-sum analyticity): C1XiGlobalWeightedZeroSum.lean
+- Closed the weighted shell assembly and off-zero analyticity layer. The new
+  `weightedRegularizedZeroTerm_hasDerivAt` handles each punctured summand;
+  `weightedRegularizedZeroSum_split_shell` reindexes the global sum into a
+  finite prefix plus a geometrically dominated tail; and
+  `weightedRegularizedZeroSum_hasDerivAt` proves a derivative at every point
+  with `completedRiemannXi z != 0`. The public differentiable and analytic
+  consumers are `weightedRegularizedZeroSum_differentiableOn_ball` and
+  `weightedRegularizedZeroSum_analyticOn_ball`.
+- Verification: isolated WSL2 ext4 build of
+  `ConnesWeilRH.Dev.C1XiGlobalWeightedZeroSum` completed 3521 jobs. The
+  import-facing `C1XiGlobalWeightedZeroSumProbe` prints only
+  `[propext, Classical.choice, Quot.sound]` for H-A0 and all H-A1 deliverables;
+  no `sorryAx` or project axiom was introduced.
+- Lean v4.30 implementation notes: use `HasDerivAt.sub_const` for translated
+  identity functions; use `HasDerivAt.fun_sum` followed by `simpa only
+  [tsum_fintype]` for finite subtype sums; keep shell mass as a `tsum` theorem
+  and convert it under a local finite instance; and pass `sq_nonneg _` to
+  `div_le_div_of_nonneg_right` when its denominator need only be nonnegative.
+- This closes the function-theoretic H-A1 brick only. The xi cofactor bound,
+  horizontal contour limit, same-owner explicit formula, Gate 2 equality, and
+  RH remain open.
+
+## Change Log (2026-08-15, Gate 2 conditional contour spine)
+- Added `Dev/C1XiHABridge.lean`: `xiFiniteFactorPoleSum` and the
+  data-bearing `GlobalWeightedLogDerivComparison` contract. The theorems
+  `negativeXiLogDeriv_eq_neg_factorPole_add_cofactor` and
+  `cofactor_logDeriv_eq_of_globalWeightedComparison` keep the finite pole part,
+  H-A1 weighted zero sum, and one analytic cofactor on the same factor owner.
+  The global comparison remains an open input; no Hadamard theorem is claimed.
+- Added `Dev/C1XiHorizontalLimit.lean`: finite pole/cofactor envelope assembly
+  and `horizontalBoundary_tendsto_zero_of_growth_contract`. The latter is
+  conditional on `M_n / |T_n/(2*pi)|^4 -> 0`; zero-free height compactness alone
+  supplies only a height-local envelope, not this cross-height rate.
+- Added `Dev/C1XiFiniteHeightLimit.lean`: a per-height
+  `XiFiniteHeightContourLimitContract` and
+  `rightLineLimit_eq_neg_spectralWeilValue`. It consumes the existing
+  same-owner finite rectangle equation and separately supplied horizontal,
+  folded-right-line, and finite-spectral limits. It does not prove arithmetic
+  right-line readback or Gate 2 equality.
+- Added import-facing probes for all three modules. Fresh WSL2 ext4 build of
+  the three probes completed 3545 jobs. The audited declarations depend only
+  on `[propext, Classical.choice, Quot.sound]`; no `sorryAx` or new project
+  axiom was introduced.
+- Corrected two Lean integration details: importers must open `Filter` and
+  `CCM25Concrete.CompactLogConvolution` (and `Topology` scope for `𝓝`), and a
+  contract carrying numeric data must not be declared Prop-valued. The
+  same-owner explicit formula, cofactor growth producer, arithmetic readback,
+  positive-trace bridge, finite-vanishing criterion, Yoshida transport, and RH
+  remain open.
+
+## Change Log (2026-08-15, H-A2 local removable-pole cancellation): C1XiRemovablePole.lean
+- Closed the local H-A2 brick for one source-indexed xi zero.  The deleted
+  weighted sum is analytic on an isolating ball, and
+  `exists_local_xiLogDeriv_weightedDifference` constructs one analytic,
+  nonvanishing cofactor `h` together with an analytic extension `H` of
+  `logDeriv completedRiemannXi - weightedRegularizedZeroSum` across the selected
+  zero.  On the ball the extension is explicitly
+  `logDeriv h - (xiMultiplicity rho : Complex) / rho.1 -
+  weightedRegularizedZeroSumWithout rho`.
+- The sign is the positive-logarithmic-derivative convention: the local pole is
+  `+(xiMultiplicity rho : Complex) / (s - rho.1)`.  The companion
+  `negativeXiLogDeriv` identity is obtained by negation; do not introduce a
+  second pole convention.
+- Verification: after opening `C1XiVerticalFunctional` for
+  `negativeXiLogDeriv`, the owning module and import-facing probe built in WSL2
+  (3524 and 3525 jobs respectively).  `#print axioms
+  exists_local_xiLogDeriv_weightedDifference` reports only
+  `[propext, Classical.choice, Quot.sound]`; no `sorryAx` or project axiom was
+  introduced.
+- This is a local extension theorem only.  The global Hadamard identity,
+  cofactor growth, horizontal contour limit, same-owner arithmetic explicit
+  formula, Gate 2 equality, and RH remain open.
+
+## Change Log (2026-08-15, H-A3/H-A4 specification correction): docs/proofs/1013-1014
+- Corrected the design queue so an `O(|s|)` or `O(|s| log |s|)` bound is not
+  fed directly to Liouville.  Such a bound yields at most an affine entire
+  function after the global removable-pole assembly; `G(s) = s` is the direct
+  counterexample to the former constant claim.
+- H-A4 is now split into an affine-growth consequence and a separate H-A4b
+  slope-zero (or genuinely bounded-G) input.  The H1 constant-difference
+  identity remains open until that missing input is proved.  No Lean producer
+  was added for H-A3/H-A4, and the circle minimum-modulus route remains a new
+  analysis problem.

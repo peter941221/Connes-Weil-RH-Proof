@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1XiAnalyticLog
+
+/-! Import-facing trust audit for finite-factor analytic logarithms. -/
+
+namespace ConnesWeilRH.Source.C1XiAnalyticLog
+
+#check exists_local_analytic_log_of_analyticAt_nonzero
+#check analyticOnNhd_of_continuousOn_exp_eqOn
+#check exists_xiClosedBall_factorization_with_analytic_log_on_ball
+
+#print axioms exists_local_analytic_log_of_analyticAt_nonzero
+#print axioms analyticOnNhd_of_continuousOn_exp_eqOn
+#print axioms exists_xiClosedBall_factorization_with_analytic_log_on_ball
+
+end ConnesWeilRH.Source.C1XiAnalyticLog
