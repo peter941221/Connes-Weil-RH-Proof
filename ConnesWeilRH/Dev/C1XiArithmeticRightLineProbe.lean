@@ -1,0 +1,17 @@
+import ConnesWeilRH.Dev.C1XiArithmeticRightLine
+
+/-! Import-facing audit for the pointwise arithmetic right-line brick. -/
+
+namespace ConnesWeilRH.Source.C1XiArithmeticRightLine
+
+#check completedRiemannZeta_eq_GammaR_mul_riemannZeta_of_one_lt_re
+#check logDeriv_completedRiemannZeta_eq_GammaR_add_riemannZeta
+#check logDeriv_completedRiemannXi_eq_pole_GammaR_zeta
+#check vonMangoldtLSeries_eq_neg_riemannZeta_logDeriv
+#check negativeXiLogDeriv_eq_vonMangoldtLSeries_add_GammaR
+
+#print axioms completedRiemannZeta_eq_GammaR_mul_riemannZeta_of_one_lt_re
+#print axioms logDeriv_completedRiemannXi_eq_pole_GammaR_zeta
+#print axioms negativeXiLogDeriv_eq_vonMangoldtLSeries_add_GammaR
+
+end ConnesWeilRH.Source.C1XiArithmeticRightLine
