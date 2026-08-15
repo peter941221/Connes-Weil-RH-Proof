@@ -1,4 +1,5 @@
 import ConnesWeilRH.Dev.C1XiArithmeticIntervalReadback
+import ConnesWeilRH.Dev.C1SpectralWeil
 import Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
 
 /-!
@@ -43,6 +44,71 @@ theorem fourierLaplace_eq_fourier
   congr 2
   push_cast
   field_simp [Real.pi_ne_zero]
+
+theorem fourierLaplace_compactLogTest_test_eq_laplaceAt
+    (F : CompactLogTest) (t : Real) :
+    fourierLaplace F.test t =
+      CompactLogTest.laplaceAt F ((t : Complex) * Complex.I) := by
+  unfold fourierLaplace CompactLogTest.laplaceAt
+  apply integral_congr_ae
+  filter_upwards with u
+  simp only [CompactLogTest.exponentialWeight_apply]
+  congr 2
+  ring
+
+theorem centeredLaplaceWeight_vertical_eq_fourierLaplace
+    (F : CompactLogTest) (c t : Real) :
+    centeredLaplaceWeight F (verticalPoint c t) =
+      fourierLaplace
+        (CompactLogTest.exponentialWeight F
+          ((c - (1 / 2 : Real)) : Complex)).test t := by
+  rw [fourierLaplace_compactLogTest_test_eq_laplaceAt]
+  rw [C1SpectralWeil.laplaceAt_exponentialWeight_eq]
+  unfold centeredLaplaceWeight verticalPoint
+  congr 1
+  push_cast
+  ring
+
+theorem lSeriesTerm_vonMangoldt_vertical_eq_exp
+    {c t : Real} {n : Nat} (hn : n ≠ 0) :
+    LSeries.term (fun m : Nat => (ArithmeticFunction.vonMangoldt m : Complex))
+        (verticalPoint c t) n =
+      (ArithmeticFunction.vonMangoldt n : Complex) *
+        Complex.exp (-((c : Complex) * (Real.log n : Complex))) *
+        Complex.exp (-((t : Complex) * (Real.log n : Complex) * Complex.I)) := by
+  rw [LSeries.term_of_ne_zero hn]
+  have hnC : (n : Complex) ≠ 0 := by
+    exact_mod_cast hn
+  rw [Complex.cpow_def_of_ne_zero hnC, ← Complex.natCast_log]
+  simp only [verticalPoint]
+  rw [div_eq_mul_inv, ← Complex.exp_neg]
+  have hsplit :
+      -((Real.log n : Complex) *
+        ((c : Complex) + (t : Complex) * Complex.I)) =
+        -((c : Complex) * (Real.log n : Complex)) +
+          -((t : Complex) * (Real.log n : Complex) * Complex.I) := by
+    ring
+  rw [hsplit, Complex.exp_add]
+  ring
+
+@[simp] theorem arithmeticPrimePowerIntegrand_zero
+    (F : CompactLogTest) (c t : Real) :
+    arithmeticPrimePowerIntegrand F c t 0 = 0 := by
+  simp [arithmeticPrimePowerIntegrand]
+
+theorem arithmeticPrimePowerIntegrand_eq_exp_of_ne_zero
+    (F : CompactLogTest) {c t : Real} {n : Nat} (hn : n ≠ 0) :
+    arithmeticPrimePowerIntegrand F c t n =
+      (ArithmeticFunction.vonMangoldt n : Complex) *
+        Complex.exp (-((c : Complex) * (Real.log n : Complex))) *
+      Complex.exp (-((t : Complex) * (Real.log n : Complex) * Complex.I)) *
+        symmetrizedLaplaceWeight F (verticalPoint c t) * Complex.I := by
+  unfold arithmeticPrimePowerIntegrand
+  change
+    LSeries.term (fun m : Nat => (ArithmeticFunction.vonMangoldt m : Complex))
+        (verticalPoint c t) n *
+        symmetrizedLaplaceWeight F (verticalPoint c t) * Complex.I = _
+  rw [lSeriesTerm_vonMangoldt_vertical_eq_exp hn]
 
 set_option maxHeartbeats 800000 in
 private theorem integral_fourierLaplace_mul_character

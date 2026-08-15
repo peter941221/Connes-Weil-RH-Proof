@@ -1900,3 +1900,19 @@ would be unsound. RH unclaimed.
   weight identification, `LSeries.term` prime-power algebra, the full
   prime-power vertical-line integral, same-owner arithmetic readback, Gate 2
   equality, and RH remain open.
+
+## Change Log (2026-08-16, centered weight and L-series term algebra)
+- Added `fourierLaplace_compactLogTest_test_eq_laplaceAt` and
+  `centeredLaplaceWeight_vertical_eq_fourierLaplace`.  They identify the
+  centered contour weight at `c + t I` with the Fourier profile of the same
+  `CompactLogTest.exponentialWeight F (c - 1/2)` owner.
+- Added `lSeriesTerm_vonMangoldt_vertical_eq_exp`, which handles the nonzero
+  index branch through `LSeries.term_of_ne_zero`, the positive natural-cast
+  complex logarithm, and `Complex.cpow_def_of_ne_zero`.  The zero branch is
+  explicit in `arithmeticPrimePowerIntegrand_zero`; the integrand bridge is
+  `arithmeticPrimePowerIntegrand_eq_exp_of_ne_zero`.
+- WSL2 focused compilation and an import-facing `#print axioms` audit passed.
+  All six public declarations report only `[propext, Classical.choice,
+  Quot.sound]`; no `sorryAx` or project axiom was introduced.
+- The full prime-power line integral, finite visible-prime assembly, same-owner
+  arithmetic equality, Gate 2 equality, and RH remain open.
