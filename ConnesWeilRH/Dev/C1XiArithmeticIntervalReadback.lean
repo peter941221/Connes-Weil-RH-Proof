@@ -440,6 +440,64 @@ theorem intervalIntegrable_arithmeticLSeriesIntegrand_of_components
     exact hcomponents
   exact harithmetic
 
+/- The pointwise arithmetic decomposition can now be assembled at the
+finite-height interval level.  This is still strictly on `Re(s) > 1`; no
+boundary value is inferred from it. -/
+theorem intervalIntegral_verticalIntegrand_eq_arithmetic_components
+    (F : CompactLogTest) {c T : Real} (hc : 1 < c) :
+    (∫ t : Real in (-T)..T, verticalIntegrand F c t) =
+      (∫ t : Real in (-T)..T, elementaryPoleIntegrand F c t) +
+        (∫ t : Real in (-T)..T, gammaRIntegrand F c t) +
+          ∫ t : Real in (-T)..T, arithmeticLSeriesIntegrand F c t := by
+  have hpole : IntervalIntegrable
+      (fun t : Real => elementaryPoleIntegrand F c t) volume (-T) T :=
+    intervalIntegrable_elementaryPoleIntegrand F hc
+  have hgamma : IntervalIntegrable
+      (fun t : Real => gammaRIntegrand F c t) volume (-T) T :=
+    intervalIntegrable_gammaRIntegrand F hc
+  have harithmetic : IntervalIntegrable
+      (fun t : Real => arithmeticLSeriesIntegrand F c t) volume (-T) T := by
+    rw [show (fun t : Real => arithmeticLSeriesIntegrand F c t) =
+        (fun t : Real =>
+          verticalIntegrand F c t - elementaryPoleIntegrand F c t -
+            gammaRIntegrand F c t) by
+      funext t
+      rw [verticalIntegrand_eq_arithmetic_components F hc]
+      ring]
+    exact ((intervalIntegrable_verticalIntegrand F (c := c) (T := T) hc).sub
+      hpole).sub hgamma
+  calc
+    (∫ t : Real in (-T)..T, verticalIntegrand F c t) =
+        ∫ t : Real in (-T)..T,
+          (elementaryPoleIntegrand F c t + gammaRIntegrand F c t) +
+            arithmeticLSeriesIntegrand F c t := by
+      rw [show (fun t : Real => verticalIntegrand F c t) =
+        (fun t : Real =>
+            (elementaryPoleIntegrand F c t + gammaRIntegrand F c t) +
+              arithmeticLSeriesIntegrand F c t) by
+        funext t
+        exact verticalIntegrand_eq_arithmetic_components F hc]
+    _ = (∫ t : Real in (-T)..T,
+          elementaryPoleIntegrand F c t + gammaRIntegrand F c t) +
+          ∫ t : Real in (-T)..T, arithmeticLSeriesIntegrand F c t :=
+      intervalIntegral.integral_add (hpole.add hgamma) harithmetic
+    _ = (∫ t : Real in (-T)..T, elementaryPoleIntegrand F c t) +
+          (∫ t : Real in (-T)..T, gammaRIntegrand F c t) +
+            ∫ t : Real in (-T)..T, arithmeticLSeriesIntegrand F c t := by
+      rw [intervalIntegral.integral_add hpole hgamma]
+
+/- The L-series term in the preceding identity is exactly the sum of the
+integrated prime-power terms. -/
+theorem intervalIntegral_verticalIntegrand_eq_arithmetic_primePower_series
+    (F : CompactLogTest) {c T : Real} (hc : 1 < c) :
+    (∫ t : Real in (-T)..T, verticalIntegrand F c t) =
+      (∫ t : Real in (-T)..T, elementaryPoleIntegrand F c t) +
+        (∫ t : Real in (-T)..T, gammaRIntegrand F c t) +
+          ∑' n : Nat, ∫ t : Real in (-T)..T,
+            arithmeticPrimePowerIntegrand F c t n := by
+  rw [intervalIntegral_verticalIntegrand_eq_arithmetic_components F hc,
+    ← tsum_intervalIntegral_arithmeticPrimePowerIntegrand_eq F hc]
+
 /-- A finite prime-power truncation used for the `c -> 1+` boundary step. -/
 noncomputable def finiteArithmeticPrimePowerIntegrand
     (F : CompactLogTest) (N : Nat) (c t : Real) : Complex :=

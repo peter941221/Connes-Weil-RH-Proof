@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1XiArithmeticIntervalReadback
+
+/-! Import-facing audit for the finite-height arithmetic right-line assembly. -/
+
+namespace ConnesWeilRH.Source.C1XiArithmeticIntervalReadback
+
+#check intervalIntegral_verticalIntegrand_eq_arithmetic_components
+#check intervalIntegral_verticalIntegrand_eq_arithmetic_primePower_series
+
+#print axioms intervalIntegral_verticalIntegrand_eq_arithmetic_components
+#print axioms intervalIntegral_verticalIntegrand_eq_arithmetic_primePower_series
+
+end ConnesWeilRH.Source.C1XiArithmeticIntervalReadback

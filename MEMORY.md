@@ -1,3 +1,21 @@
+## Change Log (2026-08-16, finite-height right-line arithmetic assembly CLOSED): Dev/C1XiArithmeticIntervalReadback.lean + Probe
+- `intervalIntegral_verticalIntegrand_eq_arithmetic_components` now integrates
+  the pointwise `c > 1` decomposition on one `CompactLogTest` owner into the
+  elementary pole, Gamma_R, and full von Mangoldt interval terms.
+- `intervalIntegral_verticalIntegrand_eq_arithmetic_primePower_series` then
+  replaces the full von Mangoldt interval term by the convergent `tsum` of
+  integrated prime-power terms using the existing dominated `HasSum` exchange.
+- Both theorems remain strictly in `1 < c`; they do not produce the
+  `Re(s) = 1` full boundary, `FullPrimeBoundaryContract`, the same-owner
+  arithmetic/spectral equality, Gate 2, or RH.
+- WSL2 regression builds for the new assembly, interval readback, finite
+  prime-power assembly, and finite-height ledger completed 3533 jobs. The new
+  declarations audit to `[propext, Classical.choice, Quot.sound]`, with no
+  `sorryAx` or project axiom.
+- The persistent WSL2 mirror initially lacked the arithmetic right-line source
+  files; future focused verification must sync the complete
+  `C1XiArithmetic*.lean` batch before invoking Lake.
+
 ## Change Log (2026-08-16, weighted elementary-pole remainder producer CLOSED): Dev/C1XiArithmeticPoleRemainder.lean + Probe
 - `continuous_laplaceAtDerivative` and the derivative/continuity bricks for
   `symmetrizedLaplaceWeight` give a compact-rectangle Lipschitz estimate

@@ -111,12 +111,26 @@ The full von Mangoldt boundary at `Re(s) = 1` remains a separate
 `FullPrimeBoundaryContract`; never infer it from absolute convergence on the
 right half-plane.
 
+The public assembly theorems
+`intervalIntegral_verticalIntegrand_eq_arithmetic_components` and
+`intervalIntegral_verticalIntegrand_eq_arithmetic_primePower_series` now read
+the same right-line owner back at every finite height for `1 < c`: first as
+pole plus Gamma_R plus the full von Mangoldt interval term, then as the
+convergent sum of integrated prime-power terms. They are finite-height
+right-half-plane identities only. Do not rewrite them as a `c = 1` boundary
+theorem or as the missing arithmetic/spectral equality.
+
 The finite-height arithmetic ledger in `C1XiArithmeticFiniteHeightLedger`
 only adds three terms along one sequence carried by the elementary-pole
 remainder contract: Gamma_R, a finite prime-power truncation, and the
 elementary pole.  Its `c_k -> 1+` limit is not a producer for the full
 von-Mangoldt boundary or the same-owner arithmetic/spectral equality.  Keep
 the finite truncation and the full L-series as separate owners.
+
+When using the persistent WSL2 ext4 verification mirror, sync the complete
+`C1XiArithmetic*.lean` batch first if the mirror predates the current arithmetic
+commits; otherwise Lean can report a misleading missing-import error before
+checking the changed theorem.
 
 The Gamma_R contribution is regular on `Re(s) > 0`.  The public
 `continuous_gammaRIntegrand_intervalIntegral` theorem therefore works on the
