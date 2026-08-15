@@ -1,4 +1,5 @@
 import ConnesWeilRH.Dev.C1XiGlobalDifference
+import ConnesWeilRH.Dev.C1XiQuantitativeHeight
 import Mathlib.Analysis.Complex.AbsMax
 
 /-!
@@ -25,7 +26,10 @@ namespace C1XiHAGrowthContract
 
 open C1XiGlobalDifference
 open C1XiGlobalWeightedZeroSum
+open C1XiQuantitativeHeight
+open C1SpectralWeil
 open CC20ZetaCounting
+open CC20YoshidaNearZeros
 open scoped Topology
 
 noncomputable section
@@ -50,6 +54,16 @@ structure XiGlobalDifferenceCircleGrowthContract where
     ‖deriv completedRiemannXi z‖ ≤ derivative_bound n
   zero_sum_upper : ∀ n z, ‖z‖ = radius n →
     ‖weightedRegularizedZeroSum z‖ ≤ zero_sum_bound n
+
+/-- The zero-free condition for an origin-centred xi circle. -/
+def xiCircleBoundaryAvoidsZeros (R : Real) : Prop :=
+  ∀ z : Complex, ‖z‖ = R → completedRiemannXi z ≠ 0
+
+/-- The finite radius values that can occur on a zero in the bounded height
+window used to select a circle.  The image is tied to the same source-zero
+owner as `finiteHeightZeros`; it is not an arbitrary sampled zero family. -/
+noncomputable def xiCircleForbiddenRadii (B : Real) : Finset Real :=
+  (finiteHeightZeros (B + 2)).image fun rho => ‖rho.1‖
 
 /- A zero-free compact circle gives a positive minimum modulus.  This is the
 qualitative producer available before any quantitative lower-modulus estimate:
@@ -76,6 +90,62 @@ theorem exists_circle_minimum_modulus
   intro z hz
   apply hmin z
   simpa [S, Metric.mem_sphere, dist_zero_right] using hz
+
+/-- Every nonnegative base radius has a zero-free circle in the next unit
+window.  The auxiliary separation is explicit: it is the same finite-grid
+gap used by the height producer, now applied to the radius image of the
+bounded source-zero owner. -/
+theorem exists_quantitative_xiCircleBoundaryAvoidsZeros
+    (B : Real) (hB : 0 ≤ B) :
+    ∃ R : Real, B < R ∧ R < B + 1 ∧ 0 < R ∧
+      xiCircleBoundaryAvoidsZeros R ∧
+      ∀ rho ∈ finiteHeightZeros (B + 2),
+        gridGap (xiCircleForbiddenRadii B).card ≤
+          |R - ‖rho.1‖| := by
+  classical
+  let S : Finset Real := xiCircleForbiddenRadii B
+  obtain ⟨R, hRwindow, hRsep⟩ := exists_point_Ioo_away_from_finset S B
+  have hRpos : 0 < R := lt_of_le_of_lt hB hRwindow.1
+  have hsep (rho : sourceNontrivialZeroSet)
+      (hrho : rho ∈ finiteHeightZeros (B + 2)) :
+      gridGap S.card ≤ |R - ‖rho.1‖| := by
+    have hnorm_mem : ‖rho.1‖ ∈ S := by
+      dsimp only [S, xiCircleForbiddenRadii]
+      exact Finset.mem_image.mpr ⟨rho, hrho, rfl⟩
+    exact hRsep _ hnorm_mem
+  refine ⟨R, hRwindow.1, hRwindow.2, hRpos, ?_, ?_⟩
+  · intro z hz hzero
+    let rho : sourceNontrivialZeroSet :=
+      ⟨z, sourceNontrivialZero_of_completedRiemannXi_eq_zero hzero⟩
+    have hheight : |z.im| ≤ B + 2 := by
+      have him : |z.im| ≤ ‖z‖ := Complex.abs_im_le_norm z
+      rw [hz] at him
+      linarith [hRwindow.2]
+    have hrho : rho ∈ finiteHeightZeros (B + 2) := by
+      rw [mem_finiteHeightZeros_iff]
+      simpa [rho] using hheight
+    have hzero_radius : R = ‖rho.1‖ := by
+      simpa [rho] using hz.symm
+    have hgap_le_zero : gridGap S.card ≤ 0 := by
+      rw [hzero_radius] at hsep
+      simpa using hsep rho hrho
+    exact (not_le_of_gt (gridGap_pos S.card)) hgap_le_zero
+  · intro rho hrho
+    exact hsep rho hrho
+
+/-- A same-radius certificate combining finite-grid circle selection with the
+qualitative compact minimum-modulus producer.  This is deliberately a data
+bridge only: no uniform lower-modulus rate is asserted across different `B`. -/
+theorem exists_quantitative_xiCircleMinimumModulusCertificate
+    (B : Real) (hB : 0 ≤ B) :
+    ∃ R m : Real, B < R ∧ R < B + 1 ∧ 0 < m ∧
+      xiCircleBoundaryAvoidsZeros R ∧
+      (∀ z : Complex, ‖z‖ = R → m ≤ ‖completedRiemannXi z‖) := by
+  obtain ⟨R, hRlower, hRupper, hRpos, hfree, _⟩ :=
+    exists_quantitative_xiCircleBoundaryAvoidsZeros B hB
+  obtain ⟨m, hm, hmin⟩ := exists_circle_minimum_modulus
+    hRpos hfree
+  exact ⟨R, m, hRlower, hRupper, hm, hfree, hmin⟩
 
 /-- Minimum modulus and derivative bounds control the ordinary logarithmic
 derivative on a selected circle. -/
