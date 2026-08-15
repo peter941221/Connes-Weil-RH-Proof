@@ -1,6 +1,7 @@
 import ConnesWeilRH.Dev.C1XiGlobalDifference
 import ConnesWeilRH.Dev.C1XiQuantitativeHeight
 import Mathlib.Analysis.Complex.AbsMax
+import Mathlib.Analysis.Complex.Liouville
 
 /-!
 # C1XiHAGrowthContract - the honest H-A3 growth interface
@@ -27,6 +28,7 @@ namespace C1XiHAGrowthContract
 open C1XiGlobalDifference
 open C1XiGlobalWeightedZeroSum
 open C1XiQuantitativeHeight
+open C1SpectralSummability
 open C1SpectralWeil
 open CC20ZetaCounting
 open CC20YoshidaNearZeros
@@ -146,6 +148,60 @@ theorem exists_quantitative_xiCircleMinimumModulusCertificate
   obtain ⟨m, hm, hmin⟩ := exists_circle_minimum_modulus
     hRpos hfree
   exact ⟨R, m, hRlower, hRupper, hm, hfree, hmin⟩
+
+/-- The explicit derivative scale obtained from the existing dyadic xi growth
+bound.  This is intentionally an exponential numerator estimate; the
+minimum-modulus denominator is a separate H-A3 input. -/
+noncomputable def xiDyadicDerivativeBound (n : Nat) : Real :=
+  Real.exp (xiGrowthFixedConstant + 1 + 192 * (3 : Real) ^ n)
+
+theorem xiDyadicDerivativeBound_pos (n : Nat) :
+    0 < xiDyadicDerivativeBound n := by
+  unfold xiDyadicDerivativeBound
+  exact Real.exp_pos _
+
+/-- Cauchy's estimate for `xi'` on a dyadic-size ball.  The boundary is first
+folded to the right half-plane, so the estimate uses only the existing
+functional equation and the unconditional dyadic xi growth theorem. -/
+theorem xi_deriv_norm_le_of_norm_le_dyadic
+    (n : Nat) {z : Complex}
+    (hz : ‖z‖ ≤ (2 : Real) ^ (n + 3)) :
+    ‖deriv completedRiemannXi z‖ ≤ xiDyadicDerivativeBound n := by
+  have hderiv :
+      ‖deriv completedRiemannXi z‖ ≤ xiDyadicDerivativeBound n / 1 := by
+    apply Complex.norm_deriv_le_of_forall_mem_sphere_norm_le
+      (c := z) (R := (1 : Real)) (C := xiDyadicDerivativeBound n)
+      (f := completedRiemannXi) (by norm_num)
+      differentiable_completedRiemannXi.diffContOnCl
+    intro w hw
+    have hwDist : dist w z = (1 : Real) := by
+      simpa only [Metric.mem_sphere] using hw
+    have hwNorm : ‖w‖ ≤ ‖z‖ + 1 := by
+      calc
+        ‖w‖ = ‖(w - z) + z‖ := by rw [sub_add_cancel]
+        _ ≤ ‖w - z‖ + ‖z‖ := norm_add_le _ _
+        _ = dist w z + ‖z‖ := by rw [dist_eq_norm]
+        _ = ‖z‖ + 1 := by rw [hwDist]; ring
+    have hwNormStrong : ‖w‖ ≤ (2 : Real) ^ (n + 3) + 1 := by
+      linarith
+    obtain ⟨u, huRe, huNorm, huXi⟩ :=
+      exists_half_le_re_norm_le_add_one_and_norm_completedRiemannXi_eq w
+    rw [← huXi]
+    apply norm_completedRiemannXi_le_exp_of_halfplane_dyadic n huRe
+    have hpow : (2 : Real) ≤ (2 : Real) ^ (n + 3) := by
+      have hpow' : (2 : Real) ^ 1 ≤ (2 : Real) ^ (n + 3) :=
+        pow_right_mono₀ (by norm_num) (by omega)
+      simpa using hpow'
+    have hpowSucc : (2 : Real) ^ (n + 4) =
+        (2 : Real) ^ (n + 3) * 2 := by
+      rw [show n + 4 = (n + 3) + 1 by omega, pow_succ]
+    calc
+      ‖u‖ ≤ ‖w‖ + 1 := huNorm
+      _ ≤ (2 : Real) ^ (n + 3) + 2 := by linarith
+      _ ≤ (2 : Real) ^ (n + 4) := by
+        rw [hpowSucc]
+        nlinarith [hpow]
+  simpa only [div_one] using hderiv
 
 /-- Minimum modulus and derivative bounds control the ordinary logarithmic
 derivative on a selected circle. -/

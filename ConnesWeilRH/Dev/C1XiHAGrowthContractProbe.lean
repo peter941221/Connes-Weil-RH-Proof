@@ -10,6 +10,9 @@ namespace ConnesWeilRH.Source.C1XiHAGrowthContract
 #check exists_circle_minimum_modulus
 #check exists_quantitative_xiCircleBoundaryAvoidsZeros
 #check exists_quantitative_xiCircleMinimumModulusCertificate
+#check xiDyadicDerivativeBound
+#check xiDyadicDerivativeBound_pos
+#check xi_deriv_norm_le_of_norm_le_dyadic
 #check xiLogDeriv_norm_le_of_circle_growth
 #check xiGlobalWeightedDifference_norm_le_of_circle_growth
 #check xiGlobalWeightedDifference_norm_le_of_circle_growth_on_closedBall
@@ -18,6 +21,8 @@ namespace ConnesWeilRH.Source.C1XiHAGrowthContract
 #print axioms exists_circle_minimum_modulus
 #print axioms exists_quantitative_xiCircleBoundaryAvoidsZeros
 #print axioms exists_quantitative_xiCircleMinimumModulusCertificate
+#print axioms xiDyadicDerivativeBound_pos
+#print axioms xi_deriv_norm_le_of_norm_le_dyadic
 #print axioms xiGlobalWeightedDifference_norm_le_of_circle_growth
 #print axioms xiGlobalWeightedDifference_norm_le_of_circle_growth_on_closedBall
 
