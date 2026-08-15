@@ -347,6 +347,12 @@ the folded right-line limit is `-(2*pi*i) * spectralWeilValue F` once the
 horizontal, right-line, and finite-spectral limits are supplied. These are
 conditional contour-spine theorems, not the arithmetic explicit formula.
 
+`C1XiHAGrowthContract.xiGlobalWeightedDifference_norm_le_of_circle_growth_on_closedBall`
+uses the maximum modulus principle to transport the selected-circle H-A3
+bound to its closed disc. It consumes the existing circle contract only; it
+does not produce the missing minimum-modulus lower bound, cofactor growth, or
+the global Hadamard comparison.
+
 Data-bearing contracts must be ordinary structures, not `structure ... : Prop`:
 Lean permits only proof fields in a Prop-valued structure, so a real/complex
 constant field would erase the intended projections. Each height-specific

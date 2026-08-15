@@ -1,4 +1,5 @@
 import ConnesWeilRH.Dev.C1XiGlobalDifference
+import Mathlib.Analysis.Complex.AbsMax
 
 /-!
 # C1XiHAGrowthContract - the honest H-A3 growth interface
@@ -94,6 +95,28 @@ theorem xiGlobalWeightedDifference_norm_le_of_circle_growth
             exact add_le_add
               (xiLogDeriv_norm_le_of_circle_growth H hz)
               (H.zero_sum_upper n z hz)
+
+/- The maximum modulus principle transports the same circle estimate to the
+closed disc.  This is only a consumer of the circle contract: it does not
+produce the missing minimum-modulus or cofactor-growth fields. -/
+theorem xiGlobalWeightedDifference_norm_le_of_circle_growth_on_closedBall
+    (H : XiGlobalDifferenceCircleGrowthContract) {n : Nat} {z : Complex}
+    (hz : ‖z‖ ≤ H.radius n) :
+    ‖xiGlobalWeightedDifference z‖ ≤
+      H.derivative_bound n / H.minimum_modulus n + H.zero_sum_bound n := by
+  have hdiff : Differentiable Complex xiGlobalWeightedDifference :=
+    (Complex.analyticOnNhd_univ_iff_differentiable).mp
+      xiGlobalWeightedDifference_analyticOnNhd
+  apply Complex.norm_le_of_forall_mem_frontier_norm_le
+    (Metric.isBounded_ball (x := (0 : Complex)) (r := H.radius n))
+    hdiff.diffContOnCl
+  · intro w hw
+    have hw' : ‖w‖ = H.radius n := by
+      rw [frontier_ball (0 : Complex) (ne_of_gt (H.radius_pos n))] at hw
+      simpa [Metric.mem_sphere, dist_zero_right] using hw
+    exact xiGlobalWeightedDifference_norm_le_of_circle_growth H hw'
+  · rw [closure_ball (0 : Complex) (ne_of_gt (H.radius_pos n))]
+    simpa [Metric.mem_closedBall, dist_zero_right] using hz
 
 end
 end C1XiHAGrowthContract

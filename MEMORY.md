@@ -1,3 +1,17 @@
+## Change Log (2026-08-16, H-A3 closed-disc maximum-modulus consumer): C1XiHAGrowthContract.lean + Probe
+- Added `xiGlobalWeightedDifference_norm_le_of_circle_growth_on_closedBall`.
+  The theorem applies Mathlib's maximum modulus principle to the analytic
+  global H-A1/H-A2 difference on `ball 0 (radius n)`, converting the existing
+  selected-circle estimate into the same bound for every point with
+  `‖z‖ <= radius n`.
+- This is a consumer of `XiGlobalDifferenceCircleGrowthContract`; it does not
+  supply the contract's circle minimum-modulus, xi-derivative, or weighted-sum
+  fields, and it does not prove cofactor growth, H-A5 constancy, the explicit
+  formula, or RH.
+- WSL2 focused probe build completed 3531 jobs and the new declaration audits
+  to `[propext, Classical.choice, Quot.sound]`, with no `sorryAx` or project
+  axiom. The full repository build remains green at 4147 jobs.
+
 ## Change Log (2026-08-16, finite-height right-line arithmetic assembly CLOSED): Dev/C1XiArithmeticIntervalReadback.lean + Probe
 - `intervalIntegral_verticalIntegrand_eq_arithmetic_components` now integrates
   the pointwise `c > 1` decomposition on one `CompactLogTest` owner into the
