@@ -1,3 +1,26 @@
+## Change Log (2026-08-16, finite visible-prime Fourier assembly CLOSED): Dev/C1XiArithmeticPrimePowerAssembly.lean + Probe
+- `integrable_arithmeticPrimePowerIntegrand_one` proves full-line integrability
+  of each `c = 1` prime-power integrand, including the explicit `n = 0` branch.
+- `integral_globalPrimePowerIntegrandSum_eq` exchanges the exact finite
+  `C1SameOwnerWeil.globalPrimeIndexSet F` sum with the integral and reads it
+  back to `(2*pi*I) * sum finitePrimeTermComplex`.
+- `finiteArithmeticPrimePowerIntegrand_eq_finset_sum` identifies the existing
+  finite truncation owner with the corresponding finite sum at every `c` and
+  `t`; at `c = 1`,
+  `integral_finiteArithmeticPrimePowerIntegrand_one_eq_range_sum` reads the
+  truncation back to the range sum of finite prime terms.
+- `sum_range_globalIndexBound_finitePrimeTermComplex_eq` proves that compact
+  support removes all terms outside the exact global visible set.  The final
+  consumer
+  `integral_finiteArithmeticPrimePowerIntegrand_one_at_globalIndexBound_eq`
+  gives the finite `c = 1` endpoint owned by `C1SameOwnerWeil`.
+- WSL2 Lake build completed 3526 jobs.  Import-facing audits for nine public
+  declarations use only `[propext, Classical.choice, Quot.sound]`; no
+  `sorryAx` or project axiom was introduced.
+- This closes finite prime-power assembly only.  The full boundary at
+  `Re(s) = 1`, same-owner arithmetic = zero-spectral formula, positive trace,
+  finite-vanishing criterion, Yoshida transport, and RH remain open.
+
 ## Change Log (2026-08-16, single prime-power Fourier readback CLOSED): Dev/C1XiArithmeticPrimePowerReadback.lean
 - The module now exposes the Fourier inversion normalization and proves both
   the direct and reflected full-line integrals.  The reflected theorem uses

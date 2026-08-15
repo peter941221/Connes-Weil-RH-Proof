@@ -128,6 +128,16 @@ it is a theorem for one von Mangoldt term, not a boundary convergence theorem
 for the full prime-power series.  Keep the `n = 0` zero branch separate before
 using `log n` or `1 / sqrt n`.
 
+`C1XiArithmeticPrimePowerAssembly` assembles those terms over the exact finite
+`C1SameOwnerWeil.globalPrimeIndexSet F`.  It proves integrability of every
+single term at `c = 1`, exchanges the finite sum with the full-line integral,
+and reindexes the range truncation at `globalIndexBound F` to that same owner.
+The endpoint
+`integral_finiteArithmeticPrimePowerIntegrand_one_at_globalIndexBound_eq`
+is therefore a finite `c = 1` readback to `finitePrimeSum` (after taking real
+parts), not a proof of `FullPrimeBoundaryContract`, the infinite von Mangoldt
+boundary, or the arithmetic/spectral equality.
+
 ### C1 Xi-Contour Guard
 
 `logDeriv completedRiemannXi` is total at a zero, whereas a residue argument
