@@ -15,6 +15,7 @@ namespace C1XiArithmeticPrimePowerAssembly
 
 open MeasureTheory
 open Complex
+open Filter
 open CC20YoshidaConvolution
 open CCM25Concrete.CompactLogConvolution
 open C1XiArithmeticIntervalReadback
@@ -154,6 +155,48 @@ theorem finiteArithmeticPrimePowerIntegrand_eq_finset_sum
         arithmeticPrimePowerIntegrand F c t n := by
   unfold finiteArithmeticPrimePowerIntegrand arithmeticPrimePowerIntegrand
   rw [Finset.sum_mul, Finset.sum_mul]
+
+theorem continuous_finiteArithmeticPrimePowerIntegrand_intervalIntegral
+    (F : CompactLogTest) (N : Nat) (T : Real) (hT : 0 ≤ T) :
+    Continuous (fun c : Real =>
+      ∫ t : Real in (-T)..T,
+        finiteArithmeticPrimePowerIntegrand F N c t) := by
+  let g : Real → Real → Complex := fun c t =>
+    finiteArithmeticPrimePowerIntegrand F N c t
+  have hcont : Continuous g.uncurry := by
+    simpa only [Function.uncurry, g] using
+      (continuous_finiteArithmeticPrimePowerIntegrand F N)
+  have hparam : Continuous (fun c : Real =>
+      ∫ t : Real in Set.Icc (-T) T, g c t) :=
+    continuous_parametric_integral_of_continuous hcont isCompact_Icc
+  have hinterval :
+      (fun c : Real => ∫ t : Real in Set.Icc (-T) T, g c t) =
+        (fun c : Real =>
+          ∫ t : Real in (-T)..T,
+            finiteArithmeticPrimePowerIntegrand F N c t) := by
+    funext c
+    have hle : -T ≤ T := by linarith
+    calc
+      (∫ t : Real in Set.Icc (-T) T, g c t) =
+          ∫ t : Real in Set.Ioc (-T) T, g c t := by
+        exact integral_Icc_eq_integral_Ioc
+      _ = ∫ t : Real in (-T)..T,
+          finiteArithmeticPrimePowerIntegrand F N c t := by
+        rw [intervalIntegral.integral_of_le hle]
+  rw [← hinterval]
+  exact hparam
+
+theorem tendsto_finiteArithmeticPrimePowerIntegrand_intervalIntegral_c_to_one
+    (F : CompactLogTest) (N : Nat) (T : Real) (hT : 0 ≤ T) :
+    Tendsto
+      (fun c : Real =>
+        ∫ t : Real in (-T)..T,
+          finiteArithmeticPrimePowerIntegrand F N c t)
+      (𝓝[>] (1 : Real))
+      (𝓝 (∫ t : Real in (-T)..T,
+        finiteArithmeticPrimePowerIntegrand F N 1 t)) := by
+  exact (continuous_finiteArithmeticPrimePowerIntegrand_intervalIntegral
+    F N T hT).continuousAt.tendsto.mono_left nhdsWithin_le_nhds
 
 theorem integral_finiteArithmeticPrimePowerIntegrand_one_eq_range_sum
     (F : CompactLogTest) (N : Nat) :

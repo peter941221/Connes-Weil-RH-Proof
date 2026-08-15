@@ -1,3 +1,19 @@
+## Change Log (2026-08-16, finite truncation c-to-one interval bridge CLOSED): Dev/C1XiArithmeticPrimePowerAssembly.lean + Probe
+- `continuous_finiteArithmeticPrimePowerIntegrand_intervalIntegral` uses
+  `continuous_parametric_integral_of_continuous` on compact `Icc` and the
+  `Icc`/`Ioc` endpoint-null-set identity to prove continuity in `c` for every
+  finite truncation and `T >= 0`.
+- `tendsto_finiteArithmeticPrimePowerIntegrand_intervalIntegral_c_to_one`
+  specializes this to the right-hand filter `𝓝[>] 1` and the exact finite
+  interval integral at `c = 1`.
+- This bridge covers only the finite prime-power truncation.  It does not
+  provide the full von Mangoldt boundary or the elementary pole limit; the
+  latter is singular at `t = 0` and remains a separate analytic obligation.
+- Focused WSL2 build completed 3526 jobs; the subsequent repository-wide WSL2
+  build completed 4147 jobs.  The import-facing probe reports
+  11 public declarations with axioms only `[propext, Classical.choice,
+  Quot.sound]`; no `sorryAx` was introduced.
+
 ## Change Log (2026-08-16, finite visible-prime Fourier assembly CLOSED): Dev/C1XiArithmeticPrimePowerAssembly.lean + Probe
 - `integrable_arithmeticPrimePowerIntegrand_one` proves full-line integrability
   of each `c = 1` prime-power integrand, including the explicit `n = 0` branch.

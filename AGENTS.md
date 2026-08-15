@@ -138,6 +138,13 @@ is therefore a finite `c = 1` readback to `finitePrimeSum` (after taking real
 parts), not a proof of `FullPrimeBoundaryContract`, the infinite von Mangoldt
 boundary, or the arithmetic/spectral equality.
 
+For `T >= 0`, the same module proves continuity and a right-hand `c -> 1+`
+limit for the finite truncation interval integral.  This is a legitimate
+finite-height parameter bridge because the finite prime-power owner is
+continuous on a compact interval.  Do not transfer it to the elementary pole
+term: `1 / (c - 1 + t*I)` is singular at `t = 0`, so the pole boundary still
+requires an a.e. or distributional argument.
+
 ### C1 Xi-Contour Guard
 
 `logDeriv completedRiemannXi` is total at a zero, whereas a residue argument
