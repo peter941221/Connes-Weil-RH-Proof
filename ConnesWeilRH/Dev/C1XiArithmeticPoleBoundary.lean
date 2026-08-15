@@ -147,6 +147,89 @@ private theorem verticalPoint_sub_one_eq (c t : Real) :
     verticalPoint c t - 1 = ((c - 1 : Real) : Complex) + (t : Complex) * Complex.I := by
   apply Complex.ext <;> simp [verticalPoint]
 
+private theorem continuous_symmetrizedLaplaceWeight_vertical_fixed
+    (F : CompactLogTest) (c : Real) :
+    Continuous (fun t : Real =>
+      symmetrizedLaplaceWeight F (verticalPoint c t)) := by
+  have hpoint : Continuous (fun t : Real => verticalPoint c t) := by
+    unfold verticalPoint
+    fun_prop
+  unfold symmetrizedLaplaceWeight
+  apply Continuous.add
+  · exact (continuous_centeredLaplaceWeight F).comp hpoint
+  · exact (continuous_centeredLaplaceWeight F).comp
+      (continuous_const.sub hpoint)
+
+private theorem continuous_elementaryPoleSingularKernel_of_gt_one
+    {c : Real} (hc : 1 < c) :
+    Continuous (fun t : Real => elementaryPoleSingularKernel c t) := by
+  unfold elementaryPoleSingularKernel
+  have hpoint : Continuous (fun t : Real => verticalPoint c t) := by
+    unfold verticalPoint
+    fun_prop
+  have hzero : ∀ t : Real, verticalPoint c t - 1 ≠ 0 := by
+    intro t h
+    have hre := congrArg Complex.re h
+    simp [verticalPoint] at hre
+    linarith [hc]
+  exact (continuous_const.div (hpoint.sub continuous_const) hzero).neg.mul
+    continuous_const
+
+private theorem continuous_elementaryPoleRegularIntegrand_of_gt_one
+    (F : CompactLogTest) {c : Real} (hc : 1 < c) :
+    Continuous (fun t : Real => elementaryPoleRegularIntegrand F c t) := by
+  unfold elementaryPoleRegularIntegrand elementaryPoleRegularKernel
+  have hpoint : Continuous (fun t : Real => verticalPoint c t) := by
+    unfold verticalPoint
+    fun_prop
+  have hzero : ∀ t : Real, verticalPoint c t ≠ 0 := by
+    intro t h
+    have hre := congrArg Complex.re h
+    simp [verticalPoint] at hre
+    linarith [hc]
+  have hkernel : Continuous (fun t : Real =>
+      -(1 / verticalPoint c t) * Complex.I) := by
+    exact (continuous_const.div hpoint hzero).neg.mul continuous_const
+  exact hkernel.mul (continuous_symmetrizedLaplaceWeight_vertical_fixed F c)
+
+private theorem continuous_elementaryPoleSingularIntegrand_of_gt_one
+    (F : CompactLogTest) {c : Real} (hc : 1 < c) :
+    Continuous (fun t : Real => elementaryPoleSingularIntegrand F c t) := by
+  unfold elementaryPoleSingularIntegrand
+  exact (continuous_elementaryPoleSingularKernel_of_gt_one hc).mul
+    (continuous_symmetrizedLaplaceWeight_vertical_fixed F c)
+
+private theorem continuous_elementaryPoleSingularRemainder_of_gt_one
+    (F : CompactLogTest) {c : Real} (hc : 1 < c) :
+    Continuous (fun t : Real => elementaryPoleSingularRemainder F c t) := by
+  unfold elementaryPoleSingularRemainder
+  exact (continuous_elementaryPoleSingularKernel_of_gt_one hc).mul
+    ((continuous_symmetrizedLaplaceWeight_vertical_fixed F c).sub continuous_const)
+
+private theorem intervalIntegrable_elementaryPoleRegularIntegrand_of_gt_one
+    (F : CompactLogTest) {c T : Real} (hc : 1 < c) :
+    IntervalIntegrable
+      (fun t : Real => elementaryPoleRegularIntegrand F c t) volume (-T) T :=
+  (continuous_elementaryPoleRegularIntegrand_of_gt_one F hc).intervalIntegrable _ _
+
+private theorem intervalIntegrable_elementaryPoleSingularKernel_of_gt_one
+    {c T : Real} (hc : 1 < c) :
+    IntervalIntegrable
+      (fun t : Real => elementaryPoleSingularKernel c t) volume (-T) T :=
+  (continuous_elementaryPoleSingularKernel_of_gt_one hc).intervalIntegrable _ _
+
+private theorem intervalIntegrable_elementaryPoleSingularIntegrand_of_gt_one
+    (F : CompactLogTest) {c T : Real} (hc : 1 < c) :
+    IntervalIntegrable
+      (fun t : Real => elementaryPoleSingularIntegrand F c t) volume (-T) T :=
+  (continuous_elementaryPoleSingularIntegrand_of_gt_one F hc).intervalIntegrable _ _
+
+private theorem intervalIntegrable_elementaryPoleSingularRemainder_of_gt_one
+    (F : CompactLogTest) {c T : Real} (hc : 1 < c) :
+    IntervalIntegrable
+      (fun t : Real => elementaryPoleSingularRemainder F c t) volume (-T) T :=
+  (continuous_elementaryPoleSingularRemainder_of_gt_one F hc).intervalIntegrable _ _
+
 private theorem elementaryPoleSingularKernel_eq_real_parts
     {c t : Real} (hc : 1 < c) :
     elementaryPoleSingularKernel c t =
@@ -360,19 +443,196 @@ theorem elementaryPoleSingularIntegrand_eq_constant_add_remainder
   simp only [elementaryPoleSingularIntegrand, elementaryPoleSingularRemainder]
   ring
 
-/- The remainder's boundary value is intentionally a separate owner. -/
-noncomputable def remainderBoundaryValue
-    (F : CompactLogTest) (T : Real) : Complex := 0
-
 /-- A data-bearing boundary input for the weighted singular remainder. -/
 structure ElementaryPoleSingularRemainderBoundaryContract
     (F : CompactLogTest) (T : Real) where
   c : Nat → Real
   c_gt_one : ∀ k, 1 < c k
   c_tendsto_one : Tendsto c atTop (𝓝 1)
+  remainderBoundaryValue : Complex
   remainder_integral_tendsto : Tendsto
     (fun k => ∫ t : Real in (-T)..T, elementaryPoleSingularRemainder F (c k) t)
-    atTop (𝓝 (remainderBoundaryValue F T))
+    atTop (𝓝 remainderBoundaryValue)
+
+private theorem tendsto_contract_c_to_one_within
+    (F : CompactLogTest) (T : Real)
+    (hcontract : ElementaryPoleSingularRemainderBoundaryContract F T) :
+    Tendsto hcontract.c atTop (𝓝[>] (1 : Real)) := by
+  rw [tendsto_nhdsWithin_iff]
+  exact ⟨hcontract.c_tendsto_one,
+    Filter.Eventually.of_forall (fun k => hcontract.c_gt_one k)⟩
+
+/-- Assemble the regular pole limit, the singular principal-value constant, and
+the separately owned weighted remainder boundary value. -/
+theorem tendsto_elementaryPoleIntegrand_intervalIntegral_of_remainderBoundaryContract
+    (F : CompactLogTest) (T : Real) (hT : 0 < T)
+    (hcontract : ElementaryPoleSingularRemainderBoundaryContract F T) :
+    Tendsto
+      (fun k : Nat =>
+        ∫ t : Real in (-T)..T, elementaryPoleIntegrand F (hcontract.c k) t)
+      atTop
+      (𝓝 (
+        (∫ t : Real in (-T)..T,
+          elementaryPoleRegularIntegrand F 1 t) +
+          (-(Real.pi : Complex) * Complex.I) *
+            symmetrizedLaplaceWeight F (verticalPoint 1 0) +
+          hcontract.remainderBoundaryValue)) := by
+  have hc_within : Tendsto hcontract.c atTop (𝓝[>] (1 : Real)) :=
+    tendsto_contract_c_to_one_within F T hcontract
+  have hregular : Tendsto
+      (fun k : Nat =>
+        ∫ t : Real in (-T)..T,
+          elementaryPoleRegularIntegrand F (hcontract.c k) t)
+      atTop
+      (𝓝 (∫ t : Real in (-T)..T,
+        elementaryPoleRegularIntegrand F 1 t)) := by
+    simpa only [Function.comp_apply] using
+      (tendsto_elementaryPoleRegularIntegrand_intervalIntegral_c_to_one F T).comp hc_within
+  have hkernel : Tendsto
+      (fun k : Nat =>
+        ∫ t : Real in (-T)..T,
+          elementaryPoleSingularKernel (hcontract.c k) t)
+      atTop (𝓝 (-(Real.pi : Complex) * Complex.I)) := by
+    simpa only [Function.comp_apply] using
+      (tendsto_integral_elementaryPoleSingularKernel_c_to_one hT).comp hc_within
+  have hweight_cont : Continuous (fun c : Real =>
+      symmetrizedLaplaceWeight F (verticalPoint c 0)) := by
+    have hpoint : Continuous (fun c : Real => verticalPoint c 0) := by
+      unfold verticalPoint
+      fun_prop
+    unfold symmetrizedLaplaceWeight
+    apply Continuous.add
+    · exact (continuous_centeredLaplaceWeight F).comp hpoint
+    · exact (continuous_centeredLaplaceWeight F).comp
+        (continuous_const.sub hpoint)
+  have hweight : Tendsto
+      (fun k : Nat =>
+        symmetrizedLaplaceWeight F (verticalPoint (hcontract.c k) 0))
+      atTop
+      (𝓝 (symmetrizedLaplaceWeight F (verticalPoint 1 0))) := by
+    simpa only [Function.comp_apply] using
+      hweight_cont.continuousAt.tendsto.comp hcontract.c_tendsto_one
+  have hkernel_weighted : Tendsto
+      (fun k : Nat =>
+        (∫ t : Real in (-T)..T,
+          elementaryPoleSingularKernel (hcontract.c k) t) *
+          symmetrizedLaplaceWeight F (verticalPoint (hcontract.c k) 0))
+      atTop
+      (𝓝 ((-(Real.pi : Complex) * Complex.I) *
+        symmetrizedLaplaceWeight F (verticalPoint 1 0))) := by
+    simpa only [Function.comp_apply] using
+      hkernel.mul hweight
+  have hsum : Tendsto
+      (fun k : Nat =>
+        (∫ t : Real in (-T)..T,
+          elementaryPoleRegularIntegrand F (hcontract.c k) t) +
+          (∫ t : Real in (-T)..T,
+            elementaryPoleSingularKernel (hcontract.c k) t) *
+            symmetrizedLaplaceWeight F (verticalPoint (hcontract.c k) 0) +
+          ∫ t : Real in (-T)..T,
+            elementaryPoleSingularRemainder F (hcontract.c k) t)
+      atTop
+      (𝓝 (
+        (∫ t : Real in (-T)..T,
+          elementaryPoleRegularIntegrand F 1 t) +
+          (-(Real.pi : Complex) * Complex.I) *
+            symmetrizedLaplaceWeight F (verticalPoint 1 0) +
+          hcontract.remainderBoundaryValue)) := by
+    exact (hregular.add hkernel_weighted).add hcontract.remainder_integral_tendsto
+  have hdecomp : ∀ k : Nat,
+      (∫ t : Real in (-T)..T,
+        elementaryPoleIntegrand F (hcontract.c k) t) =
+        (∫ t : Real in (-T)..T,
+          elementaryPoleRegularIntegrand F (hcontract.c k) t) +
+          (∫ t : Real in (-T)..T,
+            elementaryPoleSingularKernel (hcontract.c k) t) *
+            symmetrizedLaplaceWeight F (verticalPoint (hcontract.c k) 0) +
+          ∫ t : Real in (-T)..T,
+            elementaryPoleSingularRemainder F (hcontract.c k) t := by
+    intro k
+    have hc := hcontract.c_gt_one k
+    have hregular_int :=
+      intervalIntegrable_elementaryPoleRegularIntegrand_of_gt_one F
+        (c := hcontract.c k) (T := T) hc
+    have hkernel_int :=
+      intervalIntegrable_elementaryPoleSingularKernel_of_gt_one
+        (c := hcontract.c k) (T := T) hc
+    have hsingular_int :=
+      intervalIntegrable_elementaryPoleSingularIntegrand_of_gt_one F
+        (c := hcontract.c k) (T := T) hc
+    have hremainder_int :=
+      intervalIntegrable_elementaryPoleSingularRemainder_of_gt_one F
+        (c := hcontract.c k) (T := T) hc
+    have hkernel_weighted_int : IntervalIntegrable
+        (fun t : Real => elementaryPoleSingularKernel (hcontract.c k) t *
+          symmetrizedLaplaceWeight F (verticalPoint (hcontract.c k) 0)) volume (-T) T :=
+      ((continuous_elementaryPoleSingularKernel_of_gt_one hc).mul
+        continuous_const).intervalIntegrable _ _
+    have horiginal_eq :
+        (fun t : Real => elementaryPoleIntegrand F (hcontract.c k) t) =
+          (fun t : Real =>
+            elementaryPoleRegularIntegrand F (hcontract.c k) t +
+              elementaryPoleSingularIntegrand F (hcontract.c k) t) := by
+      funext t
+      exact elementaryPoleIntegrand_eq_regular_add_singular F _ _
+    have hsingular_eq :
+        (fun t : Real => elementaryPoleSingularIntegrand F (hcontract.c k) t) =
+          (fun t : Real =>
+            elementaryPoleSingularKernel (hcontract.c k) t *
+                symmetrizedLaplaceWeight F (verticalPoint (hcontract.c k) 0) +
+              elementaryPoleSingularRemainder F (hcontract.c k) t) := by
+      funext t
+      exact elementaryPoleSingularIntegrand_eq_constant_add_remainder F _ _
+    calc
+      (∫ t : Real in (-T)..T,
+          elementaryPoleIntegrand F (hcontract.c k) t) =
+          ∫ t : Real in (-T)..T,
+            (elementaryPoleRegularIntegrand F (hcontract.c k) t +
+              elementaryPoleSingularIntegrand F (hcontract.c k) t) := by
+        rw [horiginal_eq]
+      _ = (∫ t : Real in (-T)..T,
+          elementaryPoleRegularIntegrand F (hcontract.c k) t) +
+          ∫ t : Real in (-T)..T,
+            elementaryPoleSingularIntegrand F (hcontract.c k) t :=
+        intervalIntegral.integral_add hregular_int hsingular_int
+      _ = (∫ t : Real in (-T)..T,
+          elementaryPoleRegularIntegrand F (hcontract.c k) t) +
+          ∫ t : Real in (-T)..T,
+            (elementaryPoleSingularKernel (hcontract.c k) t *
+                symmetrizedLaplaceWeight F (verticalPoint (hcontract.c k) 0) +
+              elementaryPoleSingularRemainder F (hcontract.c k) t) := by
+        rw [hsingular_eq]
+      _ = (∫ t : Real in (-T)..T,
+          elementaryPoleRegularIntegrand F (hcontract.c k) t) +
+          ((∫ t : Real in (-T)..T,
+            elementaryPoleSingularKernel (hcontract.c k) t *
+              symmetrizedLaplaceWeight F (verticalPoint (hcontract.c k) 0)) +
+            ∫ t : Real in (-T)..T,
+              elementaryPoleSingularRemainder F (hcontract.c k) t) := by
+        rw [intervalIntegral.integral_add hkernel_weighted_int hremainder_int]
+      _ = (∫ t : Real in (-T)..T,
+          elementaryPoleRegularIntegrand F (hcontract.c k) t) +
+          (∫ t : Real in (-T)..T,
+            elementaryPoleSingularKernel (hcontract.c k) t) *
+              symmetrizedLaplaceWeight F (verticalPoint (hcontract.c k) 0) +
+          ∫ t : Real in (-T)..T,
+            elementaryPoleSingularRemainder F (hcontract.c k) t := by
+        rw [intervalIntegral.integral_mul_const]
+        ring
+  have hevent :
+      (fun k : Nat =>
+        ∫ t : Real in (-T)..T,
+          elementaryPoleIntegrand F (hcontract.c k) t) =ᶠ[atTop]
+      (fun k : Nat =>
+        (∫ t : Real in (-T)..T,
+          elementaryPoleRegularIntegrand F (hcontract.c k) t) +
+          (∫ t : Real in (-T)..T,
+            elementaryPoleSingularKernel (hcontract.c k) t) *
+            symmetrizedLaplaceWeight F (verticalPoint (hcontract.c k) 0) +
+          ∫ t : Real in (-T)..T,
+            elementaryPoleSingularRemainder F (hcontract.c k) t) :=
+    Filter.Eventually.of_forall hdecomp
+  exact hsum.congr' hevent.symm
 
 end
 end C1XiArithmeticPoleBoundary

@@ -1,3 +1,24 @@
+## Change Log (2026-08-16, elementary-pole finite-height boundary brick CLOSED): Dev/C1XiArithmeticPoleBoundary.lean + Probe
+- `integral_elementaryPoleSingularKernel` gives the exact finite-height
+  integral `-2 * arctan(T / (c - 1)) * I` for `c > 1`, and
+  `tendsto_integral_elementaryPoleSingularKernel_c_to_one` gives the
+  right-hand `c -> 1+` limit `-pi * I` for `T > 0`.
+- `continuous_elementaryPoleRegularIntegrand_intervalIntegral` and
+  `tendsto_elementaryPoleRegularIntegrand_intervalIntegral_c_to_one` close
+  the regular elementary-pole interval bridge on the positive-real subtype.
+- `ElementaryPoleSingularRemainderBoundaryContract` now carries an actual
+  `remainderBoundaryValue : Complex`; the old placeholder definition `0` was
+  removed.  The final assembly keeps the weight at `c` until continuity sends
+  it to `c = 1`, then combines the regular limit, the singular constant, and
+  the separately supplied remainder limit.
+- WSL2 ext4 owning-module and import-facing probe builds completed 3525/3526
+  jobs.  The audited public declarations use only `[propext, Classical.choice,
+  Quot.sound]`; no `sorryAx` or project axiom was introduced.
+- This closes only the finite-height elementary-pole decomposition and its
+  contract-driven limit.  The full von Mangoldt boundary, same-owner
+  arithmetic/spectral equality, positive-trace bridge, finite-vanishing
+  criterion, Yoshida transport, and RH remain open.
+
 ## Change Log (2026-08-16, finite-height Gamma_R boundary bridge CLOSED): Dev/C1XiArithmeticIntervalReadback.lean + Probe
 - Generalized the Gamma_R differentiability owner to `Re(s) > 0` and used
   the analytic/nonzero logarithmic-derivative continuity interface on the

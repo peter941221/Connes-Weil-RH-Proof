@@ -153,6 +153,20 @@ continuous on a compact interval.  Do not transfer it to the elementary pole
 term: `1 / (c - 1 + t*I)` is singular at `t = 0`, so the pole boundary still
 requires an a.e. or distributional argument.
 
+`C1XiArithmeticPoleBoundary` now isolates the elementary pole into a regular
+factor and a singular Cauchy kernel.  For `c > 1`, the unweighted singular
+kernel has the exact finite-height integral
+`-2 * arctan(T / (c - 1)) * I`, and for `T > 0` its right-hand limit is
+`-pi * I`.  The regular factor has a genuine interval-integral continuity
+theorem on the positive-real subtype and a right-hand `c -> 1+` limit.
+The weighted singular term must be split with its actual value
+`symmetrizedLaplaceWeight F (verticalPoint c 0)`; it cannot be frozen at
+`c = 1` before taking the limit.  The remainder boundary is therefore carried
+by the data-bearing `ElementaryPoleSingularRemainderBoundaryContract` field
+`remainderBoundaryValue`, not defined as zero.  Its assembly theorem consumes
+that contract and proves only the finite-height elementary-pole limit; it does
+not prove the full von Mangoldt boundary or the arithmetic/spectral equality.
+
 ### C1 Xi-Contour Guard
 
 `logDeriv completedRiemannXi` is total at a zero, whereas a residue argument
