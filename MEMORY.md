@@ -1815,3 +1815,35 @@ would be unsound. RH unclaimed.
 - The same-owner arithmetic explicit formula, quantitative cofactor growth,
   horizontal contour limit, right-line arithmetic readback, positive-trace
   bridge, finite-vanishing criterion, Yoshida transport, and RH remain open.
+
+## Change Log (2026-08-15, affine-growth Hadamard brick and blocker audit)
+- `C1XiHadamardAssembly.lean` now defines
+  `XiGlobalDifferenceLinearGrowthContract` and proves
+  `iteratedDeriv_two_eq_zero_of_analyticOnNhd_of_linear_growth` by the
+  quantitative Cauchy estimate on arbitrarily large circles.  The reusable
+  consequence is `exists_affine_of_analyticOnNhd_of_linear_growth`, and
+  `xiGlobalWeightedDifference_affine_of_linear_growth` packages it for the
+  assembled xi difference.
+- This closes only H-A4's affine-growth consequence.  It does not prove a
+  zero slope: an entire function with linear growth may be `G z = z`.  A
+  bounded-global-difference input or a separate slope-zero theorem is still
+  required before the global H-A1 constant comparison can be stated as a
+  theorem rather than a contract.
+- The owning module and import-facing probe were rebuilt in the isolated
+  WSL2 ext4 verification mirror after replacing the linter-prone algebraic
+  congruence with `sub_add_cancel`.  The audited declarations use only
+  `[propext, Classical.choice, Quot.sound]`; no `sorryAx` or project axiom
+  was introduced.
+- Cofactor-growth audit: zero-free horizontal tubes give only a height-local
+  compactness envelope for the cofactor logarithmic derivative, while the
+  existing quantitative bound is for the finite principal pole part only
+  (`O(9^n)`).  No uniform cofactor producer exists.  Closing this wall needs
+  an actual lower-modulus/minimum-modulus or equivalent normalized
+  Borel--Caratheodory/order-one argument; renaming the existing contract is
+  not a proof.
+- Arithmetic right-line audit: the vertical fold and the conditional
+  right-line limit already read the spectral contour side, but no theorem
+  expands that right-line integral into the same-owner pole, archimedean, and
+  all visible prime-power terms defining `C1SameOwnerWeil.psi`.  Therefore
+  same-owner arithmetic readback, Gate 2 equality, the positive-trace bridge,
+  the finite-vanishing criterion, Yoshida transport, and RH remain open.
