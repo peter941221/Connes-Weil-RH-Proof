@@ -119,6 +119,15 @@ side is a real scalar action on a complex integral, so normalize it with
 `Real -> Complex` and use `SchwartzMap.fourierInv_coe` when moving between the
 Schwartz and function-level inverse transforms.
 
+`C1XiArithmeticPrimePowerReadback` now exposes the full-line Fourier inversion
+API and the reflected-character consumer.  The direct profile reads
+`F(log n)` and the reflected profile reads `F(-log n)` after the explicit
+change of variables `t -> -t`; do not replace that step by an evenness claim
+about the test.  The completed single-index readback is only at `c = 1`, and
+it is a theorem for one von Mangoldt term, not a boundary convergence theorem
+for the full prime-power series.  Keep the `n = 0` zero branch separate before
+using `log n` or `1 / sqrt n`.
+
 ### C1 Xi-Contour Guard
 
 `logDeriv completedRiemannXi` is total at a zero, whereas a residue argument

@@ -1,3 +1,22 @@
+## Change Log (2026-08-16, single prime-power Fourier readback CLOSED): Dev/C1XiArithmeticPrimePowerReadback.lean
+- The module now exposes the Fourier inversion normalization and proves both
+  the direct and reflected full-line integrals.  The reflected theorem uses
+  the Lebesgue change of variables `t -> -t`, so its endpoint is `F(-log n)`
+  rather than an unproved symmetry assumption on `F`.
+- The new public theorem
+  `integral_arithmeticPrimePowerIntegrand_one_eq_finitePrimeTermComplex`
+  proves, for every `n : Nat`,
+  `integral_t arithmeticPrimePowerIntegrand F 1 t n =
+   (2*pi*I) * finitePrimeTermComplex F n`.
+  The `n = 0` branch is explicit; the nonzero branch uses two Schwartz
+  Fourier profiles and the real identity `exp(-log(n)/2) = 1/sqrt(n)`.
+- WSL2 focused compilation completed 3525 jobs.  Import-facing audits for
+  seven public declarations use only `[propext, Classical.choice, Quot.sound]`
+  and contain no `sorryAx`.
+- This closes one prime-power term at the critical right line only.  Finite
+  visible-prime assembly, the full von Mangoldt boundary at `Re(s) = 1`,
+  same-owner arithmetic equality, Gate 2 equality, and RH remain open.
+
 ## Change Log (2026-08-15, C1 arithmetic interval readback brick CLOSED): Dev/C1XiArithmeticIntervalReadback.lean
 - The new arithmetic right-line module proves the pointwise decomposition for `1 < Re(s)` into the elementary pole, `Gamma_R`, and von Mangoldt L-series terms. On every finite height interval, an explicit absolute-convergence majorant and `intervalIntegral.hasSum_integral_of_dominated_convergence` exchange the von Mangoldt series with the interval integral; the exchange theorem returns `HasSum`, not `IntervalIntegrable`.
 - Finite prime-power truncations are continuous in the two real parameters and have a `c -> 1+` limit after composing `c ↦ (c,t)`. The elementary pole term has a pointwise `c -> 1+` limit only for `t != 0`: at `t = 0`, the factor `1 / (verticalPoint c 0 - 1) = 1 / (c - 1)` diverges. Do not restore an unrestricted pole-limit theorem; the zero-measure point must be handled by an a.e. or integral-level argument.
