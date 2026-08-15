@@ -367,6 +367,17 @@ value theorem. It supplies an existential lower bound for one selected circle,
 not a uniform or quantitative sequence in the radius. Do not use it as a
 cofactor-growth, Borel--Caratheodory, horizontal-limit, or H-A5 producer.
 
+`C1XiJensenCircle.xi_circleAverage_log_norm_eq_jensen` is the exact Mathlib
+Jensen identity for `log ||completedRiemannXi||` on a positive circle centered
+at `2`, with the divisor owned by the same closed ball used by the spectral
+counting lemmas. `xi_circleAverage_log_norm_ge_center` proves only that the
+circle average is at least `log ||xi 2||`, because every divisor correction is
+nonnegative. An average lower bound is not a lower bound for the pointwise
+minimum on the circle; neither theorem closes the quantitative H-A3
+minimum-modulus/cofactor wall. The direct finite-factor estimate currently
+loses an additional logarithm, so do not relabel this Jensen brick as the
+order-one minimum-modulus producer.
+
 Data-bearing contracts must be ordinary structures, not `structure ... : Prop`:
 Lean permits only proof fields in a Prop-valued structure, so a real/complex
 constant field would erase the intended projections. Each height-specific

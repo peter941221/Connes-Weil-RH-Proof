@@ -1,3 +1,26 @@
+## Change Log (2026-08-16, exact Jensen circle-average brick and honest H-A3 boundary): Dev/C1XiJensenCircle.lean + Probe
+- Added `xi_circleAverage_log_norm_eq_jensen`, an exact Mathlib Jensen identity
+  for `Real.circleAverage (fun z => log ||completedRiemannXi z||) 2 R` at
+  every `R > 0`. The divisor is the same `closedBall 2 R` owner used by the
+  existing xi spectral-counting lemmas.
+- Added `xi_circleAverage_log_norm_ge_center`. Its proof makes the correction
+  term nonnegative: analytic divisors are nonnegative, and every non-central
+  divisor point in the closed ball has distance at most `R`. This is an
+  average lower bound only; it does not provide a pointwise circle minimum or
+  a dyadic minimum-modulus rate.
+- The direct finite-factor lower-bound attempt loses `N log N` when the
+  available zero count is `N = O(R log R)`, so it yields an extra logarithm.
+  The quantitative order-one minimum-modulus/cofactor estimate remains open;
+  the Jensen identity must not be promoted to H-A3 growth, H-A5, a contour
+  limit, Gate 2 equality, or RH.
+- WSL2 ext4 owner compilation and import-facing probe passed. Both public
+  declarations audit to `[propext, Classical.choice, Quot.sound]`; no
+  `sorryAx` or project axiom was introduced. The preceding numerator leg is
+  committed and pushed as `1508d3c`. The same WSL2 verification copy then
+  completed the repository-wide `lake build` successfully (`4147 jobs`); only
+  pre-existing linter warnings and package-cache local-change notices were
+  present.
+
 ## Change Log (2026-08-16, H-A3 closed-disc maximum-modulus consumer): C1XiHAGrowthContract.lean + Probe
 - Added `xiGlobalWeightedDifference_norm_le_of_circle_growth_on_closedBall`.
   The theorem applies Mathlib's maximum modulus principle to the analytic
