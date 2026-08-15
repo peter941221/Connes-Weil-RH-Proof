@@ -93,6 +93,24 @@ Lean plateau with the same support interval are different owners unless a
 theorem identifies their functions and all attached data. Never transfer a
 numeric sign across that gap.
 
+### C1 Arithmetic Right-Line Guard
+
+`C1XiArithmeticIntervalReadback` expands the von Mangoldt L-series only at
+`1 < Re(s)`, where Mathlib supplies absolute summability. Its interval theorem
+is a genuine `HasSum` exchange with an explicit majorant; it is not an
+integrability theorem disguised as a dominated-convergence call.
+
+Finite prime-power truncations may be continued to `c -> 1+` by ordinary
+continuity after composing the two-parameter function with `c |-> (c,t)`. The
+elementary pole factor `1 / (verticalPoint c t - 1)` is singular at `t = 0`:
+an unrestricted pointwise boundary theorem is false because it contains
+`1 / (c - 1)`. Any boundary proof must state `t != 0` or use an a.e./integral
+argument that explicitly handles this null point.
+
+The full von Mangoldt boundary at `Re(s) = 1` remains a separate
+`FullPrimeBoundaryContract`; never infer it from absolute convergence on the
+right half-plane.
+
 ### C1 Xi-Contour Guard
 
 `logDeriv completedRiemannXi` is total at a zero, whereas a residue argument

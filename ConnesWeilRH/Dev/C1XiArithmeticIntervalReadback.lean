@@ -29,6 +29,7 @@ open Filter
 open Complex
 open CC20ZetaCounting
 open CC20YoshidaConvolution
+open CCM25Concrete.CompactLogConvolution
 open C1XiArithmeticRightLine
 open C1XiResidue
 open C1XiVerticalFunctional
@@ -90,8 +91,8 @@ private theorem continuous_symmetrizedWeight_vertical
   · exact (continuous_centeredLaplaceWeight F).comp
       (continuous_verticalPoint c)
   · apply (continuous_centeredLaplaceWeight F).comp
-    have h : Continuous (fun t : Real => 1 - verticalPoint c t) := by
-      fun_prop
+    have h : Continuous (fun t : Real => 1 - verticalPoint c t) :=
+      continuous_const.sub (continuous_verticalPoint c)
     exact h
 
 private theorem continuous_lSeriesTerm_vertical
@@ -113,7 +114,11 @@ private theorem norm_lSeriesTerm_vertical_eq_real
     {f : Nat → Complex} (c t : Real) (n : Nat) :
     ‖LSeries.term f (verticalPoint c t) n‖ =
       ‖LSeries.term f (c : Complex) n‖ := by
-  simp only [LSeries.norm_term_eq, verticalPoint]
+  by_cases hn : n = 0
+  · simp [hn]
+  · simp only [LSeries.norm_term_eq, verticalPoint, hn, ↓reduceIte]
+    congr 2
+    simp
 
 private theorem hasSum_arithmeticPrimePowerIntegrand
     (F : CompactLogTest) {c t : Real} (hc : 1 < c) :
@@ -137,7 +142,7 @@ private theorem intervalIntegrable_arithmeticPrimePowerIntegrand
   by_cases hn : n = 0
   · simp [arithmeticPrimePowerIntegrand, hn]
   · have hterm := continuous_lSeriesTerm_vertical (f := vonMangoldtSequence)
-      n hn
+      (c := c) n hn
     have hweight := continuous_symmetrizedWeight_vertical F c
     exact (hterm.mul hweight).mul continuous_const |>.intervalIntegrable _ _
 
@@ -166,19 +171,31 @@ private theorem intervalIntegrable_elementaryPoleIntegrand
   have hweight := continuous_symmetrizedWeight_vertical F c
   exact ((hfirst.add hsecond).neg.mul hweight).mul continuous_const |>.intervalIntegrable _ _
 
+private theorem analyticAt_GammaR_of_one_lt_re
+    {s : Complex} (hs : 1 < s.re) :
+    AnalyticAt Complex Complex.Gammaℝ s := by
+  apply DifferentiableOn.analyticAt (s := {z : Complex | 1 < z.re})
+  · intro z hz
+    exact (differentiableAt_GammaR_of_one_lt_re hz).differentiableWithinAt
+  · exact (isOpen_lt continuous_const continuous_re).mem_nhds hs
+
 private theorem continuous_logDeriv_GammaR_vertical
     {c : Real} (hc : 1 < c) :
     Continuous (fun t : Real =>
       logDeriv Complex.Gammaℝ (verticalPoint c t)) := by
   apply continuous_iff_continuousAt.2
   intro t
-  apply (continuousAt_logDeriv_of_analyticAt_of_ne_zero
-    (differentiableAt_GammaR_of_one_lt_re (s := verticalPoint c t) (by
-      simp [verticalPoint]
-      exact hc)).analyticAt
-    (Complex.Gammaℝ_ne_zero_of_re_pos (by
-      simp [verticalPoint]
-      linarith [hc]))).comp t (continuous_verticalPoint c).continuousAt
+  have hlog : ContinuousAt (logDeriv Complex.Gammaℝ) (verticalPoint c t) :=
+    continuousAt_logDeriv_of_analyticAt_of_ne_zero
+      (analyticAt_GammaR_of_one_lt_re (s := verticalPoint c t) (by
+        simp [verticalPoint]
+        exact hc))
+      (Complex.Gammaℝ_ne_zero_of_re_pos (by
+        simp [verticalPoint]
+        linarith [hc]))
+  simpa only [Function.comp_apply] using
+    hlog.comp' (f := fun t : Real => verticalPoint c t) (x := t)
+      (continuous_verticalPoint c).continuousAt
 
 private theorem intervalIntegrable_gammaRIntegrand
     (F : CompactLogTest) {c T : Real} (hc : 1 < c) :
@@ -187,6 +204,27 @@ private theorem intervalIntegrable_gammaRIntegrand
   have hweight := continuous_symmetrizedWeight_vertical F c
   exact (hgamma.neg.mul hweight).mul continuous_const |>.intervalIntegrable _ _
 
+private theorem continuous_negativeXiLogDeriv_vertical
+    {c : Real} (hc : 1 < c) :
+    Continuous (fun t : Real => negativeXiLogDeriv (verticalPoint c t)) := by
+  apply continuous_iff_continuousAt.2
+  intro t
+  have hxi : completedRiemannXi (verticalPoint c t) ≠ 0 :=
+    completedRiemannXi_ne_zero_of_one_le_re (by
+      simp [verticalPoint]
+      linarith [hc])
+  simpa only [Function.comp_apply] using
+    (differentiableAt_negativeXiLogDeriv_of_completedRiemannXi_ne_zero hxi).continuousAt.comp'
+      (f := fun t : Real => verticalPoint c t) (x := t)
+      (continuous_verticalPoint c).continuousAt
+
+private theorem intervalIntegrable_verticalIntegrand
+    (F : CompactLogTest) {c T : Real} (hc : 1 < c) :
+    IntervalIntegrable (fun t : Real => verticalIntegrand F c t) volume (-T) T := by
+  have hnegative := continuous_negativeXiLogDeriv_vertical hc
+  have hweight := continuous_symmetrizedWeight_vertical F c
+  exact (hnegative.mul hweight).mul continuous_const |>.intervalIntegrable _ _
+
 theorem verticalIntegrand_eq_arithmetic_components
     (F : CompactLogTest) {c t : Real} (hc : 1 < c) :
     verticalIntegrand F c t =
@@ -194,15 +232,17 @@ theorem verticalIntegrand_eq_arithmetic_components
         arithmeticLSeriesIntegrand F c t := by
   rw [verticalIntegrand, xiRightLineKernel,
     negativeXiLogDeriv_eq_vonMangoldtLSeries_add_GammaR
-      (verticalPoint c t) (by simpa [verticalPoint] using hc)]
+      (by simpa [verticalPoint] using hc)]
   simp only [elementaryPoleIntegrand, gammaRIntegrand,
     arithmeticLSeriesIntegrand, symmetrizedLaplaceWeight]
   ring
 
-theorem intervalIntegrable_arithmeticLSeriesIntegrand
+theorem hasSum_intervalIntegral_arithmeticPrimePowerIntegrand
     (F : CompactLogTest) {c T : Real} (hc : 1 < c) :
-    IntervalIntegrable (fun t : Real => arithmeticLSeriesIntegrand F c t)
-      volume (-T) T := by
+    HasSum
+      (fun n : Nat => ∫ t : Real in (-T)..T,
+        arithmeticPrimePowerIntegrand F c t n)
+      (∫ t : Real in (-T)..T, arithmeticLSeriesIntegrand F c t) := by
   have hseries := ArithmeticFunction.LSeriesSummable_vonMangoldt (s := (c : Complex))
     (by simpa using hc)
   obtain ⟨M₀, hM₀⟩ := isCompact_uIcc.exists_bound_of_continuousOn
@@ -215,17 +255,15 @@ theorem intervalIntegrable_arithmeticLSeriesIntegrand
     exact (hM₀ t ht).trans (le_max_left _ _)
   let bound : Nat → Real → Real := fun n _ =>
     M * ‖LSeries.term vonMangoldtSequence (c : Complex) n‖
-  have hF_int : ∀ n : Nat, IntegrableOn
-      (fun t : Real => arithmeticPrimePowerIntegrand F c t n)
-      (uIoc (-T) T) volume := by
-    intro n
-    exact (intervalIntegrable_arithmeticPrimePowerIntegrand F c T n).1
   have hF_meas : ∀ n : Nat, AEStronglyMeasurable
       (fun t : Real => arithmeticPrimePowerIntegrand F c t n)
       (volume.restrict (uIoc (-T) T)) := by
     intro n
     by_cases hn : n = 0
-    · simp [arithmeticPrimePowerIntegrand, hn]
+    · simpa [arithmeticPrimePowerIntegrand, hn] using
+        (aestronglyMeasurable_const :
+          AEStronglyMeasurable (fun _ : Real => (0 : Complex))
+            (volume.restrict (uIoc (-T) T)))
     · exact (continuous_lSeriesTerm_vertical (f := vonMangoldtSequence) n hn).mul
         (continuous_symmetrizedWeight_vertical F c) |>.mul continuous_const |>
           Continuous.aestronglyMeasurable
@@ -236,8 +274,10 @@ theorem intervalIntegrable_arithmeticLSeriesIntegrand
     filter_upwards with t ht
     have htcc : t ∈ [[-T, T]] := uIoc_subset_uIcc ht
     rw [arithmeticPrimePowerIntegrand, norm_mul, norm_mul, norm_I,
-      one_mul, norm_lSeriesTerm_vertical_eq_real]
-    exact mul_le_mul_of_nonneg_left (hM t htcc) (norm_nonneg _)
+      mul_one, norm_lSeriesTerm_vertical_eq_real]
+    simpa [bound, mul_comm] using
+      (mul_le_mul_of_nonneg_left (hM t htcc)
+        (norm_nonneg (LSeries.term vonMangoldtSequence (c : Complex) n)))
   have hbound_summable : ∀ᵐ t : Real ∂volume,
       t ∈ uIoc (-T) T → Summable (fun n => bound n t) := by
     filter_upwards with t ht
@@ -263,7 +303,7 @@ theorem tsum_intervalIntegral_arithmeticPrimePowerIntegrand_eq
     (∑' n : Nat, ∫ t : Real in (-T)..T,
       arithmeticPrimePowerIntegrand F c t n) =
       ∫ t : Real in (-T)..T, arithmeticLSeriesIntegrand F c t := by
-  exact (intervalIntegrable_arithmeticLSeriesIntegrand F hc).tsum_eq
+  exact (hasSum_intervalIntegral_arithmeticPrimePowerIntegrand F hc).tsum_eq
 
 theorem intervalIntegrable_arithmeticLSeriesIntegrand_of_components
     (F : CompactLogTest) {c T : Real} (hc : 1 < c) :
@@ -277,7 +317,23 @@ theorem intervalIntegrable_arithmeticLSeriesIntegrand_of_components
         funext t
         rw [verticalIntegrand_eq_arithmetic_components F hc]
         ring]
-  exact intervalIntegrable_arithmeticLSeriesIntegrand F hc
+  have hcomponents : IntervalIntegrable (fun t : Real =>
+      verticalIntegrand F c t - elementaryPoleIntegrand F c t -
+        gammaRIntegrand F c t) volume (-T) T :=
+    ((intervalIntegrable_verticalIntegrand F (c := c) (T := T) hc).sub
+      (intervalIntegrable_elementaryPoleIntegrand F (c := c) (T := T) hc)).sub
+        (intervalIntegrable_gammaRIntegrand F (c := c) (T := T) hc)
+  have harithmetic : IntervalIntegrable (fun t : Real =>
+      arithmeticLSeriesIntegrand F c t) volume (-T) T := by
+    rw [← show (fun t : Real =>
+        verticalIntegrand F c t - elementaryPoleIntegrand F c t -
+          gammaRIntegrand F c t) =
+      fun t => arithmeticLSeriesIntegrand F c t by
+        funext t
+        rw [verticalIntegrand_eq_arithmetic_components F hc]
+        ring]
+    exact hcomponents
+  exact harithmetic
 
 /-- A finite prime-power truncation used for the `c -> 1+` boundary step. -/
 noncomputable def finiteArithmeticPrimePowerIntegrand
@@ -287,36 +343,40 @@ noncomputable def finiteArithmeticPrimePowerIntegrand
     symmetrizedLaplaceWeight F (verticalPoint c t) * Complex.I
 
 theorem continuous_finiteArithmeticPrimePowerIntegrand
-    (F : CompactLogTest) (N : Nat) (T : Real) :
+    (F : CompactLogTest) (N : Nat) :
     Continuous (fun p : Real × Real =>
       finiteArithmeticPrimePowerIntegrand F N p.1 p.2) := by
   unfold finiteArithmeticPrimePowerIntegrand
+  have hpoint : Continuous (fun p : Real × Real => verticalPoint p.1 p.2) := by
+    unfold verticalPoint
+    fun_prop
   have hsum : Continuous (fun p : Real × Real =>
       ∑ n ∈ Finset.range (N + 1),
         LSeries.term vonMangoldtSequence
           (verticalPoint p.1 p.2) n) := by
-    apply Continuous.finset_sum
+    apply continuous_finsetSum
     intro n hn
     by_cases hn0 : n = 0
-    · simp [hn0]
-    · have hpoint : Continuous (fun p : Real × Real => verticalPoint p.1 p.2) := by
-        unfold verticalPoint
-        fun_prop
+    · simpa [hn0] using
+        (continuous_const : Continuous (fun _ : Real × Real => (0 : Complex)))
+    · have hncomplex : (n : Complex) ≠ 0 := by
+        exact_mod_cast hn0
       have hpow : Continuous (fun p : Real × Real =>
           (n : Complex) ^ verticalPoint p.1 p.2) :=
-        hpoint.const_cpow (Or.inl (by exact_mod_cast hn0))
+        hpoint.const_cpow (Or.inl hncomplex)
       have hpow_ne : ∀ p : Real × Real,
           (n : Complex) ^ verticalPoint p.1 p.2 ≠ 0 := by
         intro p
-        exact Complex.cpow_ne_zero_iff.mpr (Or.inl (by exact_mod_cast hn0))
-      rw [funext (fun p => LSeries.term_of_ne_zero hn0
-        vonMangoldtSequence (verticalPoint p.1 p.2))]
-      exact continuous_const.div hpow hpow_ne
+        exact Complex.cpow_ne_zero_iff.mpr (Or.inl hncomplex)
+      simpa only [LSeries.term_of_ne_zero hn0] using
+        (continuous_const.div hpow hpow_ne)
   have hweight : Continuous (fun p : Real × Real =>
       symmetrizedLaplaceWeight F (verticalPoint p.1 p.2)) := by
-    apply (continuous_symmetrizedWeight_vertical F 0).comp
-    unfold verticalPoint
-    fun_prop
+    unfold symmetrizedLaplaceWeight
+    apply Continuous.add
+    · exact (continuous_centeredLaplaceWeight F).comp hpoint
+    · exact (continuous_centeredLaplaceWeight F).comp
+        (continuous_const.sub hpoint)
   exact (hsum.mul hweight).mul continuous_const
 
 theorem tendsto_finiteArithmeticPrimePowerIntegrand_c_to_one
@@ -324,46 +384,53 @@ theorem tendsto_finiteArithmeticPrimePowerIntegrand_c_to_one
     Tendsto (fun c : Real => finiteArithmeticPrimePowerIntegrand F N c t)
       (𝓝[>] (1 : Real))
       (𝓝 (finiteArithmeticPrimePowerIntegrand F N 1 t)) := by
-  exact (continuous_finiteArithmeticPrimePowerIntegrand F N t).continuousAt.tendsto
-    .mono_left nhdsWithin_le_nhds
+  have hpair : ContinuousAt (fun c : Real => (c, t)) 1 :=
+    continuousAt_id.prodMk continuousAt_const
+  have hcont : ContinuousAt
+      (fun c : Real => finiteArithmeticPrimePowerIntegrand F N c t) 1 := by
+    simpa only [Function.comp_apply] using
+      (continuous_finiteArithmeticPrimePowerIntegrand F N).continuousAt.comp'
+        (f := fun c : Real => (c, t)) (x := 1) hpair
+  exact (hcont.tendsto).mono_left nhdsWithin_le_nhds
 
 theorem tendsto_elementaryPoleIntegrand_c_to_one
-    (F : CompactLogTest) (t : Real) :
+    (F : CompactLogTest) {t : Real} (ht : t ≠ 0) :
     Tendsto (fun c : Real => elementaryPoleIntegrand F c t)
       (𝓝[>] (1 : Real))
       (𝓝 (elementaryPoleIntegrand F 1 t)) := by
-  have hpoint : Continuous (fun p : Real × Real => verticalPoint p.1 p.2) := by
+  have hvertical : ContinuousAt (fun c : Real => verticalPoint c t) 1 := by
     unfold verticalPoint
     fun_prop
   have hzero : verticalPoint 1 t ≠ 0 := by
     intro h
     have hre := congrArg Complex.re h
-    simp [verticalPoint] at hre
+    norm_num [verticalPoint] at hre
   have hone : verticalPoint 1 t - 1 ≠ 0 := by
     intro h
-    have hre := congrArg Complex.re h
-    simp [verticalPoint] at hre
+    apply ht
+    have him := congrArg Complex.im h
+    simpa [verticalPoint] using him
   have hfirst : ContinuousAt (fun c : Real => 1 / verticalPoint c t) 1 := by
-    apply ContinuousAt.div continuousAt_const
-      (hpoint.comp (continuousAt_fst.comp continuousAt_id.prodMk continuousAt_const)).continuousAt
-    exact fun _ => by
-      intro h
-      have hre := congrArg Complex.re h
-      simp [verticalPoint] at hre
+    exact continuousAt_const.div hvertical hzero
   have hsecond : ContinuousAt (fun c : Real =>
       1 / (verticalPoint c t - 1)) 1 := by
-    apply ContinuousAt.div continuousAt_const
-      ((hpoint.sub continuousAt_const).comp
-        (continuousAt_id.prodMk continuousAt_const)).continuousAt
-    exact fun _ => by
-      intro h
-      have hre := congrArg Complex.re h
-      simp [verticalPoint] at hre
+    exact continuousAt_const.div (hvertical.sub continuousAt_const) hone
   have hweight : ContinuousAt (fun c : Real =>
       symmetrizedLaplaceWeight F (verticalPoint c t)) 1 := by
-    exact (continuous_symmetrizedWeight_vertical F 1).continuousAt
+    unfold symmetrizedLaplaceWeight
+    apply ContinuousAt.add
+    · simpa only [Function.comp_apply] using
+        (continuous_centeredLaplaceWeight F).continuousAt.comp'
+          (f := fun c : Real => verticalPoint c t) (x := 1) hvertical
+    · have hreflect : ContinuousAt (fun c : Real =>
+          1 - verticalPoint c t) 1 :=
+        continuousAt_const.sub hvertical
+      simpa only [Function.comp_apply] using
+        (continuous_centeredLaplaceWeight F).continuousAt.comp'
+          (f := fun c : Real => 1 - verticalPoint c t) (x := 1) hreflect
   simpa only [elementaryPoleIntegrand] using
-    (((hfirst.add hsecond).neg.mul hweight).mul continuousAt_const).tendsto
+    ((((hfirst.add hsecond).neg.mul hweight).mul continuousAt_const).tendsto).mono_left
+      nhdsWithin_le_nhds
 
 /- The full boundary value is intentionally a contract: the pointwise brick
 only supplies the L-series on `Re(s) > 1`; a proof at `Re(s) = 1` needs an
