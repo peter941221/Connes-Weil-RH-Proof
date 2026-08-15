@@ -2070,3 +2070,31 @@ would be unsound. RH unclaimed.
   Quot.sound]`; no `sorryAx` or project axiom was introduced.
 - The full prime-power line integral, finite visible-prime assembly, same-owner
   arithmetic equality, Gate 2 equality, and RH remain open.
+
+## Change Log (2026-08-16, finite c=1 arithmetic projection and H-A3 minimum producer)
+- Extended `Dev/C1XiArithmeticPrimePowerAssembly.lean` with
+  `normalized_integral_globalPrimePowerIntegrandSum_eq`, which cancels the
+  exact `2 * pi * I` Fourier normalization for the finite visible
+  prime-power owner, and
+  `normalized_integral_globalPrimePowerIntegrandSum_re_eq_finitePrimeSum`,
+  which reads the real part back to `C1SameOwnerWeil.finitePrimeSum`.
+  The theorem intentionally takes `re` after the complex normalization; the
+  individual finite prime term is complex-valued for a general formula test.
+- Extended `Dev/C1XiHAGrowthContract.lean` with
+  `exists_circle_minimum_modulus`. From a positive-radius circle and an
+  explicit xi-zero-free hypothesis, compactness of the sphere plus the
+  extreme-value theorem produces an existential strictly positive lower
+  modulus. This is a qualitative one-circle producer only; it does not give
+  a radius-uniform rate, cofactor growth, minimum-modulus sequence, horizontal
+  contour limit, H-A5 comparison, or RH.
+- Updated both import-facing probes. In a fresh ext4 WSL2 snapshot, the
+  arithmetic probe completed `3527` jobs and the H-A3 probe completed after
+  the same dependency closure. The audited declarations use only
+  `[propext, Classical.choice, Quot.sound]`; no `sorryAx` or project axiom was
+  introduced. Existing linter warnings and package-cache local-change notices
+  were unchanged.
+- The repository was already clean and synchronized at `68b2523` before this
+  batch, so the initial requested push was a no-op. After the focused checks,
+  the fresh ext4 WSL2 snapshot completed the repository-wide Lake build at
+  `4147/4147` with no errors; only existing linter warnings and package-cache
+  local-change notices were reported.

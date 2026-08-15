@@ -51,6 +51,32 @@ structure XiGlobalDifferenceCircleGrowthContract where
   zero_sum_upper : ∀ n z, ‖z‖ = radius n →
     ‖weightedRegularizedZeroSum z‖ ≤ zero_sum_bound n
 
+/- A zero-free compact circle gives a positive minimum modulus.  This is the
+qualitative producer available before any quantitative lower-modulus estimate:
+the latter remains a separate analytic problem. -/
+theorem exists_circle_minimum_modulus
+    {r : Real} (hr : 0 < r)
+    (hfree : ∀ z : Complex, ‖z‖ = r → completedRiemannXi z ≠ 0) :
+    ∃ m : Real, 0 < m ∧ ∀ z : Complex, ‖z‖ = r →
+      m ≤ ‖completedRiemannXi z‖ := by
+  let S : Set Complex := Metric.sphere 0 r
+  have hS : IsCompact S := isCompact_sphere 0 r
+  have hSne : S.Nonempty := by
+    exact NormedSpace.sphere_nonempty.mpr hr.le
+  have hcont : ContinuousOn
+      (fun z : Complex => ‖completedRiemannXi z‖) S := by
+    exact (differentiable_completedRiemannXi.continuous.norm).continuousOn
+  have hpos : ∀ z ∈ S, 0 < ‖completedRiemannXi z‖ := by
+    intro z hz
+    apply norm_pos_iff.mpr
+    apply hfree z
+    simpa [S, Metric.mem_sphere, dist_zero_right] using hz
+  obtain ⟨m, hm, hmin⟩ := hS.exists_forall_le' hcont hpos
+  refine ⟨m, hm, ?_⟩
+  intro z hz
+  apply hmin z
+  simpa [S, Metric.mem_sphere, dist_zero_right] using hz
+
 /-- Minimum modulus and derivative bounds control the ordinary logarithmic
 derivative on a selected circle. -/
 theorem xiLogDeriv_norm_le_of_circle_growth

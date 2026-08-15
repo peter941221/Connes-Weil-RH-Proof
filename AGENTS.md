@@ -167,6 +167,13 @@ is therefore a finite `c = 1` readback to `finitePrimeSum` (after taking real
 parts), not a proof of `FullPrimeBoundaryContract`, the infinite von Mangoldt
 boundary, or the arithmetic/spectral equality.
 
+`normalized_integral_globalPrimePowerIntegrandSum_eq` removes the exact
+`2 * pi * I` Fourier normalization, and
+`normalized_integral_globalPrimePowerIntegrandSum_re_eq_finitePrimeSum` reads
+its real part back to the same finite owner. The complex prime-power sum must
+not be replaced by a real cast before taking `re`: the formula test is complex
+valued in general.
+
 For `T >= 0`, the same module proves continuity and a right-hand `c -> 1+`
 limit for the finite truncation interval integral.  This is a legitimate
 finite-height parameter bridge because the finite prime-power owner is
@@ -352,6 +359,13 @@ uses the maximum modulus principle to transport the selected-circle H-A3
 bound to its closed disc. It consumes the existing circle contract only; it
 does not produce the missing minimum-modulus lower bound, cofactor growth, or
 the global Hadamard comparison.
+
+`C1XiHAGrowthContract.exists_circle_minimum_modulus` is the honest qualitative
+producer for the first part of that wall: a positive-radius circle with no xi
+zeros has a strictly positive minimum modulus by compactness and the extreme
+value theorem. It supplies an existential lower bound for one selected circle,
+not a uniform or quantitative sequence in the radius. Do not use it as a
+cofactor-growth, Borel--Caratheodory, horizontal-limit, or H-A5 producer.
 
 Data-bearing contracts must be ordinary structures, not `structure ... : Prop`:
 Lean permits only proof fields in a Prop-valued structure, so a real/complex

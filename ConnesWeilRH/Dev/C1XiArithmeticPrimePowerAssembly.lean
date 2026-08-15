@@ -133,6 +133,22 @@ theorem integral_globalPrimePowerIntegrandSum_eq
           ∑ n ∈ globalPrimeIndexSet F, finitePrimeTermComplex F n := by
       rw [Finset.mul_sum]
 
+theorem normalized_integral_globalPrimePowerIntegrandSum_eq
+    (F : CompactLogTest) :
+    (2 * (Real.pi : Complex) * Complex.I)⁻¹ *
+        (∫ t : Real,
+          ∑ n ∈ globalPrimeIndexSet F,
+            arithmeticPrimePowerIntegrand F 1 t n) =
+      ∑ n ∈ globalPrimeIndexSet F, finitePrimeTermComplex F n := by
+  have hfactor : (2 * (Real.pi : Complex) * Complex.I) ≠ 0 := by
+    apply mul_ne_zero
+    · apply mul_ne_zero
+      · norm_num
+      · exact_mod_cast Real.pi_ne_zero
+    · exact Complex.I_ne_zero
+  rw [integral_globalPrimePowerIntegrandSum_eq F]
+  rw [← mul_assoc, inv_mul_cancel₀ hfactor, one_mul]
+
 theorem finitePrimeTermComplex_eq_zero_of_not_mem_globalPrimeIndexSet
     (F : CompactLogTest) {n : Nat}
     (hn : n ∉ globalPrimeIndexSet F) :
@@ -147,6 +163,16 @@ theorem re_sum_globalPrimeTermComplex_eq_finitePrimeSum
     (∑ n ∈ globalPrimeIndexSet F, finitePrimeTermComplex F n).re =
       finitePrimeSum F := by
   simp [finitePrimeSum, finitePrimeTerm]
+
+theorem normalized_integral_globalPrimePowerIntegrandSum_re_eq_finitePrimeSum
+    (F : CompactLogTest) :
+    ((2 * (Real.pi : Complex) * Complex.I)⁻¹ *
+        (∫ t : Real,
+          ∑ n ∈ globalPrimeIndexSet F,
+            arithmeticPrimePowerIntegrand F 1 t n)).re =
+      finitePrimeSum F := by
+  rw [normalized_integral_globalPrimePowerIntegrandSum_eq F,
+    re_sum_globalPrimeTermComplex_eq_finitePrimeSum F]
 
 theorem finiteArithmeticPrimePowerIntegrand_eq_finset_sum
     (F : CompactLogTest) (N : Nat) (c t : Real) :
