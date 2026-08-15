@@ -1,0 +1,20 @@
+import ConnesWeilRH.Dev.C1XiHadamardAssembly
+
+/-! Import-facing trust audit for H-A4/H-A5 assembly consumers. -/
+
+namespace ConnesWeilRH.Source.C1XiHadamardAssembly
+
+#check XiGlobalDifferenceAffineContract
+#check xiGlobalWeightedDifference_eq_constant_of_affine_and_slope_zero
+#check xiGlobalWeightedDifference_exists_const_of_bounded
+#check xiLogDerivWeightedDifference_exists_const_of_bounded
+#check xi_logDeriv_weightedRegularizedSum_constant_diff_of_bounded
+#check xi_logDeriv_weightedRegularizedSum_constant_diff_of_affine_and_slope_zero
+
+#print axioms xiGlobalWeightedDifference_eq_constant_of_affine_and_slope_zero
+#print axioms xiGlobalWeightedDifference_exists_const_of_bounded
+#print axioms xiLogDerivWeightedDifference_exists_const_of_bounded
+#print axioms xi_logDeriv_weightedRegularizedSum_constant_diff_of_bounded
+#print axioms xi_logDeriv_weightedRegularizedSum_constant_diff_of_affine_and_slope_zero
+
+end ConnesWeilRH.Source.C1XiHadamardAssembly

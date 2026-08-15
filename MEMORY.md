@@ -1795,3 +1795,23 @@ would be unsound. RH unclaimed.
   identity remains open until that missing input is proved.  No Lean producer
   was added for H-A3/H-A4, and the circle minimum-modulus route remains a new
   analysis problem.
+
+## Change Log (2026-08-15, global xi difference and honest Hadamard consumers): C1XiGlobalDifference.lean + C1XiHAGrowthContract.lean + C1XiHadamardAssembly.lean
+- Added `xiGlobalWeightedDifference`, a piecewise global extension of
+  `logDeriv completedRiemannXi - weightedRegularizedZeroSum`.  It uses the
+  existing local H-A2 cofactor/extension data at xi zeros and proves
+  `xiGlobalWeightedDifference_analyticOnNhd` on all of `Complex`.
+- Added `XiGlobalDifferenceCircleGrowthContract` and the consumers
+  `xiLogDeriv_norm_le_of_circle_growth` and
+  `xiGlobalWeightedDifference_norm_le_of_circle_growth`.  The contract keeps
+  circle zero-freeness, minimum-modulus, derivative, and weighted-sum bounds
+  explicit; no minimum-modulus or cofactor-growth producer is claimed.
+- Added `XiGlobalDifferenceAffineContract` and the H-A4/H-A5 consumers for
+  the bounded and affine-plus-zero-slope routes.  The affine route requires a
+  separately proved zero slope; linear growth alone does not imply constancy.
+- Import-facing probes for all six files and the full WSL2 Lake build completed
+  successfully (`4147 jobs`). The new declarations remain axiom-clean with
+  only `[propext, Classical.choice, Quot.sound]` and no `sorryAx`.
+- The same-owner arithmetic explicit formula, quantitative cofactor growth,
+  horizontal contour limit, right-line arithmetic readback, positive-trace
+  bridge, finite-vanishing criterion, Yoshida transport, and RH remain open.

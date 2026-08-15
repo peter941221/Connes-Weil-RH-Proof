@@ -1,0 +1,22 @@
+import ConnesWeilRH.Dev.C1XiGlobalDifference
+
+/-! Import-facing trust audit for the global H-A2 extension assembly. -/
+
+namespace ConnesWeilRH.Source.C1XiGlobalDifference
+
+#check xiLogDerivWeightedDifferenceRaw
+#check xiLocalWeightedDifferenceData
+#check xiGlobalWeightedDifference
+#check xiGlobalWeightedDifference_eq_raw
+#check xiGlobalWeightedDifference_eq_local_extension
+#check xiGlobalWeightedDifference_analyticAt
+#check xiGlobalWeightedDifference_analyticOnNhd
+
+#print axioms xiLocalWeightedDifferenceData_nonempty
+#print axioms xiGlobalWeightedDifference_eq_raw
+#print axioms xiGlobalWeightedDifference_eq_local_extension
+#print axioms xiLogDerivWeightedDifferenceRaw_analyticAt_of_ne_zero
+#print axioms xiGlobalWeightedDifference_analyticAt
+#print axioms xiGlobalWeightedDifference_analyticOnNhd
+
+end ConnesWeilRH.Source.C1XiGlobalDifference
