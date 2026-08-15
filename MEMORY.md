@@ -1853,3 +1853,30 @@ would be unsound. RH unclaimed.
   `[propext, Classical.choice, Quot.sound]` with no `sorryAx`.  Existing
   dependency linter warnings and package-cache local-change notices were
   observed, but no new warning or build failure came from this batch.
+
+## Change Log (2026-08-15, pointwise arithmetic right-line brick)
+- Added `Dev/C1XiArithmeticRightLine.lean` and its import-facing probe. On
+  `1 < Re(s)`, the module proves the same-owner factorization
+  `completedRiemannZeta s = Gammaℝ s * riemannZeta s`, differentiates the
+  factorization on the open half-plane, and reads `-logDeriv riemannZeta`
+  back as Mathlib's complete von Mangoldt L-series through
+  `ArithmeticFunction.LSeries_vonMangoldt_eq_deriv_riemannZeta_div`.
+- The public endpoint is
+  `negativeXiLogDeriv_eq_vonMangoldtLSeries_add_GammaR`. It contains the
+  elementary factors `1/s`, `1/(s-1)`, the Gamma_R logarithmic derivative,
+  and the full prime-power L-series. It is pointwise only: no interval
+  integral exchange, archimedean distributional readback, or equality with
+  `C1SameOwnerWeil.psi` is claimed.
+- WSL2 focused build of the owner and probe completed successfully (`3522`
+  jobs). The import-facing `#print axioms` audit reports only
+  `[propext, Classical.choice, Quot.sound]` for the new factorization,
+  xi-log-derivative, and arithmetic endpoint declarations; no `sorryAx` or
+  project axiom was introduced. A cold repository-wide build was started in
+  an isolated ext4 mirror, but the external command window expired before a
+  final Lake status was captured; the prior cached full build at the preceding
+  commit remains the last completed repository-wide verification.
+- The right-line arithmetic wall is reduced but not closed: the next owner
+  must connect the pointwise Gamma_R/von-Mangoldt formula to the vertical
+  interval integral and the existing same-owner pole, archimedean, and finite
+  prime terms without hiding a Fubini or truncation contract. Gate 2 equality
+  and RH remain open.
