@@ -1886,3 +1886,17 @@ would be unsound. RH unclaimed.
   interval integral and the existing same-owner pole, archimedean, and finite
   prime terms without hiding a Fubini or truncation contract. Gate 2 equality
   and RH remain open.
+
+## Change Log (2026-08-16, prime-power Fourier inversion normalization)
+- Added `Dev/C1XiArithmeticPrimePowerReadback.lean`.  Its public
+  `fourierLaplace_eq_fourier` theorem identifies the unweighted compact-log
+  Laplace profile with Mathlib's Fourier transform, and its internal
+  inversion brick proves the normalization
+  `∫ fourierLaplace f t * exp(-t*x*I) dt = (2*pi) * f x`.
+- The proof uses `Measure.integral_comp_mul_left`, explicit real-to-complex
+  scalar normalization, and `SchwartzMap.fourierInv_coe`; it compiled in the
+  WSL2 ext4 verification mirror with no Lean diagnostics.
+- This is only the Fourier inversion normalization.  The centered Laplace
+  weight identification, `LSeries.term` prime-power algebra, the full
+  prime-power vertical-line integral, same-owner arithmetic readback, Gate 2
+  equality, and RH remain open.

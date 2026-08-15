@@ -111,6 +111,14 @@ The full von Mangoldt boundary at `Re(s) = 1` remains a separate
 `FullPrimeBoundaryContract`; never infer it from absolute convergence on the
 right half-plane.
 
+The Fourier readback brick uses Mathlib's `Measure.integral_comp_mul_left`
+with only `(g) (a)` explicit arguments; `volume` is implicit.  Its right-hand
+side is a real scalar action on a complex integral, so normalize it with
+`Complex.real_smul` before comparing it with complex multiplication.  For
+`Real.fourierInv_eq'`, coerce a Schwartz Fourier transform explicitly to
+`Real -> Complex` and use `SchwartzMap.fourierInv_coe` when moving between the
+Schwartz and function-level inverse transforms.
+
 ### C1 Xi-Contour Guard
 
 `logDeriv completedRiemannXi` is total at a zero, whereas a residue argument
