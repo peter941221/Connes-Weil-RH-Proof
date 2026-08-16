@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1XiCenterTwoHorizontal
+
+namespace ConnesWeilRH.Source.C1XiCenterTwoHorizontal
+
+#print axioms norm_centerTwoPrincipalSum_le_of_tube
+#print axioms exists_dyadicCenterTwoHorizontalData
+#print axioms DyadicCenterTwoHorizontalData.norm_negativeXiLogDeriv_upper_le
+#print axioms DyadicCenterTwoHorizontalData.norm_negativeXiLogDeriv_lower_le
+
+end ConnesWeilRH.Source.C1XiCenterTwoHorizontal

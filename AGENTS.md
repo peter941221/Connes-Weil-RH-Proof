@@ -378,6 +378,19 @@ minimum-modulus/cofactor wall. The direct finite-factor estimate currently
 loses an additional logarithm, so do not relabel this Jensen brick as the
 order-one minimum-modulus producer.
 
+The sharp xi growth theorem
+`norm_completedRiemannXi_le_exp_of_halfplane_dyadic_rlogr` has exponent
+`O(R log R)` at `R = 2^(n + 4)`. Its `3^n` successor is a deliberate geometric
+relaxation used only by `spectralSummableProp`, where it is beaten by the
+compact-log `4^(-n)` decay. Never call that relaxed bound an `R log R` bound.
+Conversely, a numerator bound `|xi'| <= exp(O(R log R))` and a lower modulus
+bound `|xi| >= exp(-O(R log R))` imply only the exponential quotient
+`|xi'/xi| <= exp(O(R log R))`; they cannot produce a polynomial cofactor or
+logarithmic-derivative bound. Do not use raw quotient division as H-A3. A
+valid horizontal-edge producer must either prove a normalized analytic-log /
+Borel--Caratheodory envelope `M_n` with `M_n / 16^n -> 0`, including its tube
+radius loss, or prove the genus-one canonical-product comparison directly.
+
 Data-bearing contracts must be ordinary structures, not `structure ... : Prop`:
 Lean permits only proof fields in a Prop-valued structure, so a real/complex
 constant field would erase the intended projections. Each height-specific
@@ -724,13 +737,13 @@ restricted/global masses with one evaluation object.
 
 WSL2 is a **verification environment, not a source workspace**. Author/manage
 git only in Windows, then copy the Windows snapshot into an ext4 mirror. Never
-run Lake through Windows Lean or from `/mnt/c`.
+run Lake through Windows Lean or from a Windows-mounted source path.
 
-Preferred persistent mirror: `/home/peter/verify/Connes-Weil-RH-Proof`.
+Preferred persistent mirror: `<ext4-mirror>/Connes-Weil-RH-Proof`.
 
 Rules:
 - Before syncing, run `git rev-parse --show-toplevel`; it must return the mirror
-  itself. If it returns `/home/peter` or any other path, **do not sync over the
+  itself. If it returns the user's home directory or any other path, **do not sync over the
   directory**; create a fresh ext4 verification directory, seed `.lake` from the
   compatible persistent cache, and copy current sources excluding `.git`/`.lake`.
 - **Do not overwrite a dirty mirror.** Record divergence and use an isolated
@@ -738,8 +751,8 @@ Rules:
 - **Never commit or push from either mirror.** A successful WSL build accepts the
   tested Windows snapshot only; it does not transfer source ownership to WSL.
 - All Lake commands take the lock:
-  `flock -w 1800 /tmp/connes-weil-rh-lake.lock lake build <target>`,
-  **and must run with the mirror as cwd** (`cd /tmp/<mirror> && flock ...`).
+  `flock -w 1800 "$TMPDIR/connes-weil-rh-lake.lock" lake build <target>`,
+  **and must run with the mirror as cwd** (`cd <ext4-mirror>/<mirror> && flock ...`).
   Without the `cd`, lake resolves the Windows project root from the caller's
   cwd and writes olean into the Windows `.lake/build` (observed 2026-08-15:
   a `flock ... lake build` without `cd` compiled Source files from
@@ -771,6 +784,68 @@ Rules:
   are noise. Use `grep -B3 -A10 error:` or `grep -E "^error:"`.
 - **WSL variable assignment is unreliable** in `wsl.exe -- bash -lc 'X=...; ...'`
   (observed empty expansions); write full paths inline instead of `$VAR`.
+
+## 8a. Canonical Incremental Build Strategy
+
+Use one persistent WSL2 ext4 mirror for the current Windows snapshot and keep
+the build ladder narrow until a coherent milestone is ready:
+
+```text
+edit a leaf
+   -> owning module
+   -> import-facing probe / #print axioms
+   -> route or aggregate target (only when the local target is green)
+   -> ConnesWeilRH root (milestone/final gate)
+```
+
+The three cache layers are different and must not be conflated:
+
+```text
+.lake/packages  = dependency/package cache (Mathlib and package sources)
+.lake/build     = this project's path-sensitive .olean/.ilean artifacts
+source mirror   = the Windows snapshot being verified
+```
+
+Daily commands run from the ext4 mirror and take the shared lock:
+
+```bash
+cd <ext4-mirror>/<current-mirror>
+flock -w 1800 "$TMPDIR/connes-weil-rh-lake.lock" \
+  lake build ConnesWeilRH.Dev.<OwningModule>
+flock -w 1800 "$TMPDIR/connes-weil-rh-lake.lock" \
+  lake build ConnesWeilRH.Dev.<ImportFacingProbe>
+```
+
+Run `lake build ConnesWeilRH` only after a related batch is coherent or when
+the milestone explicitly requires root evidence. Do not build the root after
+each helper, and do not import a `Dev` probe into `ConnesWeilRH.lean` merely to
+make that probe part of the root build; direct target builds are the intended
+audit boundary.
+
+Reuse the same mirror's `.lake/build` for the owning-module/probe loop. If the
+mirror is dirty or on a different lineage, create one isolated ext4 mirror for
+that batch, seed `.lake/packages` once, and keep its project `.lake/build`
+private to that mirror. Never recreate a fresh probe directory per edit, and
+never copy a path-sensitive project `.lake/build` from another checkout unless
+the source path and exact source snapshot are identical. Package caches may be
+shared read-only; project artifacts may not be treated as a portable cache.
+Historical setup helpers such as `a1setup.sh` may create an isolated cold
+probe, but they are not part of the daily loop and must not be used to reset
+the persistent mirror after every edit.
+
+Interpret Lake output correctly: `jobs` is dependency-graph work, not elapsed
+seconds. `Built` entries indicate recompilation; `Replayed` entries indicate
+cache reuse. A wide rebuild after an upstream dependency change is legal, while
+an unchanged target should become a short replay in the same mirror. Record
+target, job count, elapsed time, and whether the run was cold or warm in the
+verification note.
+
+The accepted verification ladder is therefore:
+
+```text
+owning module -> import-facing probe -> focused #print axioms
+             -> route/aggregate target -> root build at milestone
+```
 
 ## 8b. Cold-VS-Warm Lake Rebuilds (CacheReuse diagnostics)
 

@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1XiCenterTwoPole
+
+namespace ConnesWeilRH.Source.C1XiCenterTwoPole
+
+#print axioms integral_fourierLaplace_div_vertical
+#print axioms integral_fourierLaplace_neg_div_vertical
+#print axioms integrable_elementaryPoleIntegrand_centerTwo
+#print axioms integral_elementaryPoleIntegrand_centerTwo_eq
+#print axioms normalized_integral_elementaryPole_centerTwo_re_eq
+
+end ConnesWeilRH.Source.C1XiCenterTwoPole

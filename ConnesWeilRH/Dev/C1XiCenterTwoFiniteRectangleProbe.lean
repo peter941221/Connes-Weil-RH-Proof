@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1XiCenterTwoFiniteRectangle
+
+namespace ConnesWeilRH.Source.C1XiCenterTwoFiniteRectangle
+
+#print axioms DyadicCenterTwoHorizontalData.centerTwoRectangle_subset_factorBall
+#print axioms xiClosedBallSourceZerosInsideCenterTwoRectangle_eq_finiteHeightZeros
+#print axioms DyadicCenterTwoHorizontalData.centerTwoRectangleBoundaryIntegral_readout
+
+end ConnesWeilRH.Source.C1XiCenterTwoFiniteRectangle

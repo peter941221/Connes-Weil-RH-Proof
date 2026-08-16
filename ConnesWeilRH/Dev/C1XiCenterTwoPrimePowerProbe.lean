@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1XiCenterTwoPrimePower
+
+namespace ConnesWeilRH.Source.C1XiCenterTwoPrimePower
+
+#print axioms integral_arithmeticPrimePowerIntegrand_centerTwo_eq
+#print axioms integrable_arithmeticLSeriesIntegrand_centerTwo
+#print axioms integral_arithmeticLSeriesIntegrand_centerTwo_eq
+#print axioms normalized_integral_arithmeticLSeries_centerTwo_re_eq
+
+end ConnesWeilRH.Source.C1XiCenterTwoPrimePower

@@ -116,6 +116,97 @@ theorem exists_uniform_centeredLaplaceWeight_vertical_quadratic_decay
   rw [harg]
   exact hbound
 
+/-- Translate the fourth-order compact-support estimate from `[0, 1]` to an
+arbitrary unit Mellin strip. -/
+theorem exists_uniform_laplaceAt_vertical_quartic_decay_on_unit_strip
+    (F : CompactLogTest) (a : Real) :
+    ∃ C : Real, 0 ≤ C ∧
+      ∀ sigma ∈ Set.Icc a (a + 1), ∀ t : Real,
+        ‖t / (2 * Real.pi)‖ ^ 4 *
+            ‖CompactLogTest.laplaceAt F
+              ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C := by
+  obtain ⟨C, hC, hdecay⟩ :=
+    exists_uniform_compactLog_laplaceAt_vertical_quartic_decay
+      (CompactLogTest.exponentialWeight F a)
+  refine ⟨C, hC, ?_⟩
+  intro sigma hsigma t
+  let u : Real := sigma - a
+  have hu : u ∈ Set.Icc (0 : Real) 1 := by
+    constructor <;> dsimp [u] <;> linarith [hsigma.1, hsigma.2]
+  have hbound := hdecay u hu t
+  rw [laplaceAt_exponentialWeight_eq] at hbound
+  have harg :
+      ((u : Complex) + (t : Complex) * Complex.I) + (a : Complex) =
+        (sigma : Complex) + (t : Complex) * Complex.I := by
+    dsimp [u]
+    push_cast
+    ring
+  simpa only [harg] using hbound
+
+/-- Three translated unit strips give fourth-order decay on the full centered
+interval needed by the wide `[-1,2]` xi rectangle. -/
+theorem exists_uniform_laplaceAt_vertical_quartic_decay_on_centered_extended_strip
+    (F : CompactLogTest) :
+    ∃ C : Real, 0 ≤ C ∧
+      ∀ sigma ∈ Set.Icc (-3 / 2 : Real) (3 / 2 : Real), ∀ t : Real,
+        ‖t / (2 * Real.pi)‖ ^ 4 *
+            ‖CompactLogTest.laplaceAt F
+              ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C := by
+  obtain ⟨Cneg, hCneg, hneg⟩ :=
+    exists_uniform_laplaceAt_vertical_quartic_decay_on_unit_strip F
+      (-3 / 2 : Real)
+  obtain ⟨Cmid, hCmid, hmid⟩ :=
+    exists_uniform_laplaceAt_vertical_quartic_decay_on_unit_strip F
+      (-1 / 2 : Real)
+  obtain ⟨Cpos, hCpos, hpos⟩ :=
+    exists_uniform_laplaceAt_vertical_quartic_decay_on_unit_strip F
+      (1 / 2 : Real)
+  refine ⟨max Cneg (max Cmid Cpos),
+    le_trans hCneg (le_max_left _ _), ?_⟩
+  intro sigma hsigma t
+  by_cases hleft : sigma ≤ (-1 / 2 : Real)
+  · have hstrip : sigma ∈ Set.Icc (-3 / 2 : Real) ((-3 / 2 : Real) + 1) := by
+      constructor <;> linarith [hsigma.1, hleft]
+    exact (hneg sigma hstrip t).trans (le_max_left _ _)
+  · by_cases hmiddle : sigma ≤ (1 / 2 : Real)
+    · have hstrip : sigma ∈ Set.Icc (-1 / 2 : Real) ((-1 / 2 : Real) + 1) := by
+        constructor <;> linarith [hsigma.1, hleft, hmiddle]
+      exact (hmid sigma hstrip t).trans
+        (le_trans (le_max_left Cmid Cpos)
+          (le_max_right Cneg (max Cmid Cpos)))
+    · have hstrip : sigma ∈ Set.Icc (1 / 2 : Real) ((1 / 2 : Real) + 1) := by
+        constructor <;> linarith [hsigma.2, hmiddle]
+      exact (hpos sigma hstrip t).trans
+        (le_trans (le_max_right _ _) (le_max_right _ _))
+
+/-- The centered contour weight has uniform fourth-order decay on the fixed
+wide strip `[-1,2]`. -/
+theorem exists_uniform_centeredLaplaceWeight_vertical_quartic_decay_on_wideStrip
+    (F : CompactLogTest) :
+    ∃ C : Real, 0 ≤ C ∧
+      ∀ sigma ∈ Set.Icc (-1 : Real) 2, ∀ t : Real,
+        ‖t / (2 * Real.pi)‖ ^ 4 *
+            ‖centeredLaplaceWeight F (verticalPoint sigma t)‖ ≤ C := by
+  obtain ⟨C, hC, hdecay⟩ :=
+    exists_uniform_laplaceAt_vertical_quartic_decay_on_centered_extended_strip F
+  refine ⟨C, hC, ?_⟩
+  intro sigma hsigma t
+  have hcenter : sigma - (1 / 2 : Real) ∈
+      Set.Icc (-3 / 2 : Real) (3 / 2 : Real) := by
+    constructor <;> linarith [hsigma.1, hsigma.2]
+  have hbound := hdecay (sigma - (1 / 2 : Real)) hcenter t
+  have harg :
+      centeredLaplaceWeight F (verticalPoint sigma t) =
+        CompactLogTest.laplaceAt F
+          (((sigma - (1 / 2 : Real) : Real) : Complex) +
+            (t : Complex) * Complex.I) := by
+    unfold centeredLaplaceWeight verticalPoint
+    congr 1
+    push_cast
+    ring
+  rw [harg]
+  exact hbound
+
 /-- On the critical strip, the centered weight has fourth-order decay along
 the horizontal contour sides. -/
 theorem exists_uniform_centeredLaplaceWeight_vertical_quartic_decay_on_criticalStrip

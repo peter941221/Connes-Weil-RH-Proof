@@ -37,6 +37,13 @@ theorem gridGap_pos (N : Nat) : 0 < gridGap N := by
   unfold gridGap
   exact div_pos (by norm_num) (mul_pos (by norm_num) (gridDenom_pos N))
 
+/-- Public formula for the finite-grid separation.  Downstream quantitative
+estimates should use this theorem instead of depending on the private grid
+implementation. -/
+theorem gridGap_eq (N : Nat) :
+    gridGap N = 1 / (4 * (((N + 2 : Nat) : Real))) := by
+  rfl
+
 private theorem gridPoint_mem_Ioo (B : Real) (N : Nat) (j : Fin (N + 1)) :
     gridPoint B N j.1 ∈ Ioo B (B + 1) := by
   have hden : 0 < gridDenom N := gridDenom_pos N

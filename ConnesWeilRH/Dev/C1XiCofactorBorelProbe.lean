@@ -1,0 +1,17 @@
+import ConnesWeilRH.Dev.C1XiCofactorBorel
+
+namespace ConnesWeilRH.Source.C1XiCofactorBorel
+
+#print axioms xiClosedBallDivisorMass_eq_sourceMultiplicitySum
+#print axioms xiClosedBallDivisorMass_two_dyadic_le
+#print axioms centerTwoForbiddenRadii_card_le
+#print axioms exists_dyadic_centerTwo_outerRadius
+#print axioms centerTwo_circle_distance_le
+#print axioms exists_dyadic_centerTwo_factorization_analyticLog_boundary_bound
+#print axioms DyadicCenterTwoCofactorData.norm_normalizedLog_le_borel
+#print axioms norm_verticalPoint_sub_two_lt_dyadic_innerRadius
+#print axioms DyadicCenterTwoCofactorData.norm_deriv_normalizedLog_le
+#print axioms DyadicCenterTwoCofactorData.deriv_analyticLog_eq_logDeriv
+#print axioms DyadicCenterTwoCofactorData.norm_logDeriv_cofactor_le_on_dyadicStrip
+
+end ConnesWeilRH.Source.C1XiCofactorBorel

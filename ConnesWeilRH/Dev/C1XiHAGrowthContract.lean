@@ -149,11 +149,11 @@ theorem exists_quantitative_xiCircleMinimumModulusCertificate
     hRpos hfree
   exact ⟨R, m, hRlower, hRupper, hm, hfree, hmin⟩
 
-/-- The explicit derivative scale obtained from the existing dyadic xi growth
-bound.  This is intentionally an exponential numerator estimate; the
-minimum-modulus denominator is a separate H-A3 input. -/
+/-- The explicit derivative scale obtained from the sharp dyadic `R log R`
+xi-growth bound.  The minimum-modulus denominator remains a separate H-A3
+input. -/
 noncomputable def xiDyadicDerivativeBound (n : Nat) : Real :=
-  Real.exp (xiGrowthFixedConstant + 1 + 192 * (3 : Real) ^ n)
+  Real.exp (xiDyadicRLogRGrowthExponent n)
 
 theorem xiDyadicDerivativeBound_pos (n : Nat) :
     0 < xiDyadicDerivativeBound n := by
@@ -187,7 +187,7 @@ theorem xi_deriv_norm_le_of_norm_le_dyadic
     obtain ⟨u, huRe, huNorm, huXi⟩ :=
       exists_half_le_re_norm_le_add_one_and_norm_completedRiemannXi_eq w
     rw [← huXi]
-    apply norm_completedRiemannXi_le_exp_of_halfplane_dyadic n huRe
+    apply norm_completedRiemannXi_le_exp_of_halfplane_dyadic_rlogr n huRe
     have hpow : (2 : Real) ≤ (2 : Real) ^ (n + 3) := by
       have hpow' : (2 : Real) ^ 1 ≤ (2 : Real) ^ (n + 3) :=
         pow_right_mono₀ (by norm_num) (by omega)

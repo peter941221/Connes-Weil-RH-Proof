@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1XiCenterTwoVerticalFold
+
+namespace ConnesWeilRH.Source.C1XiCenterTwoVerticalFold
+
+#print axioms centerTwoVerticalBoundaryIntegral_eq_rightLineIntegral
+
+end ConnesWeilRH.Source.C1XiCenterTwoVerticalFold

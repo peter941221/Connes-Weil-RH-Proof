@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1XiCanonicalProduct
+
+namespace ConnesWeilRH.Source.C1XiCanonicalProduct
+
+#check xiGenusOneAtom
+#check xiGenusOneFactor
+#check logDeriv_xiGenusOneAtom_eq_regularizedZeroTerm
+#check logDeriv_xiGenusOneFactor_eq_weightedRegularizedZeroTerm
+
+#print axioms logDeriv_xiGenusOneAtom_eq_regularizedZeroTerm
+#print axioms logDeriv_xiGenusOneFactor_eq_weightedRegularizedZeroTerm
+
+end ConnesWeilRH.Source.C1XiCanonicalProduct

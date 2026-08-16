@@ -1,11 +1,13 @@
 # 1014 — brick (H) growth leg: circle reconnaissance + order-1 minimum modulus (design)
 
-Status: PARTIAL (2026-08-16). H-A0, H-A1, local H-A2, and the H-A3 numerator
-leg are Lean-checked. The exact Jensen circle-average brick and its average
-lower bound are also closed. The pointwise quantitative minimum-modulus leg,
-and therefore the assembled H-A3 growth estimate, remain open.
-This document pins down the remaining H-A3 work between the closed bricks and
-the canonical-sum identity.
+Status: PARTIAL (2026-08-16). H-A0, H-A1, local H-A2, and the sharp H-A3
+numerator leg are Lean-checked. The exact Jensen circle-average brick and its
+average lower bound are also closed. The pointwise quantitative minimum-modulus
+leg remains open, but a minimum-modulus estimate at the same exponential scale
+cannot by raw division produce the polynomial log-derivative estimate once
+listed here. The direct-quotient route is therefore retired; the remaining
+work is an analytic-log/Borel--Caratheodory route with a controlled normalization,
+or a direct genus-one canonical-product route.
 
 ## 1. Position in the (H) brick
 
@@ -16,9 +18,11 @@ H-A2 removable poles of G            [CLOSED 2026-08-15]
 H-A3 numerator |xi'(s)| <= exp(O(R_k log R_k)) on selected circles
        [CLOSED 2026-08-16, C1XiHAGrowthContract]
 H-A3 denominator |xi(s)| >= exp(-O(R_k log R_k)) on selected circles
-       <-- OPEN; this is the pointwise minimum-modulus leg
-H-A3 assembled |G s| <= C(1+|s|) log(2+|s|) on circles |s| = R_k
-       <-- OPEN; it is not a boundedness conclusion
+       <-- OPEN; useful geometric data, but not a raw-quotient H-A3 producer
+DIRECT QUOTIENT gives |xi'/xi| <= exp(O(R_k log R_k))
+       <-- insufficient for the horizontal-boundary decay target
+H-A3 assembled polynomial envelope
+       <-- OPEN; requires analytic-log/Borel--Caratheodory or canonical product
 H-A4 affine-growth consequence       (not yet constant)
 H-A4b slope-zero / boundedness        <-- separate missing input
 H-A5 constant-difference identity (H1)
@@ -44,7 +48,7 @@ circle (`C1XiQuantitativePrincipalBound` works on both tube boundaries),
 and the tail is `regularizedZeroTail_norm_shellSum_le` inflated by the
 multiplicity factor.  No new analysis in this leg.
 
-## 3. The log-deriv leg: the boundary between closed and new
+## 3. The retired direct-quotient leg
 
 `|logDeriv xi(z0)|` on `|z0| = R_k` splits into:
 
@@ -57,11 +61,19 @@ multiplicity factor.  No new analysis in this leg.
                        order-1 minimum modulus on a zero-free circle
 ```
 
-The denominator statement is still new.  A zero-free circle gives a positive
+The denominator statement is still new. A zero-free circle gives a positive
 minimum by compactness, but the resulting value is circle-dependent and has no
-usable dyadic rate. The order-one minimum-modulus theorem needed here must
-still be proved quantitatively; the existing Jensen count and zero-free-circle
-selection do not provide it by themselves.
+usable dyadic rate. More importantly, even the proposed order-one lower bound
+cannot yield a polynomial bound by direct division:
+
+```text
+exp(A * R log R) / exp(-B * R log R) = exp((A + B) * R log R).
+```
+
+At `R = 2^n`, this is `exp(O(n * 2^n))`, whereas the horizontal boundary needs
+an envelope `M_n` with `M_n / 16^n -> 0`. The existing Jensen count and
+zero-free-circle selection do not supply the missing normalized analytic-log
+estimate. Do not promote the minimum-modulus theorem below to H-A3 growth.
 
 ## 4. New theorem: order-1 minimum modulus on dyadic zero-free circles
 
@@ -81,25 +93,16 @@ theorem exists_dyadic_quantitative_circleBoundaryAvoidsZeros (n : Nat) :
       circleBoundaryAvoidsZeros R := by ...
   -- circleBoundaryAvoidsZeros R := ∀ z, ‖z‖ = R → completedRiemannXi z ≠ 0
 
-/-- TARGET (OPEN): order-1 minimum modulus on the free dyadic circle. The
-same R should carry an explicit lower bound, from Poisson's formula + the
-closed dyadic upper growth + shell counts. -/
+/-- RECONNAISSANCE TARGET (OPEN): order-1 minimum modulus on the free dyadic
+circle. It is not by itself an H-A3 polynomial-growth producer: raw division
+by the closed numerator estimate remains exponential. -/
 theorem dyadicXi_circle_minmod (n : Nat) :
     ∃ R : Real, (2 : Real) ^ (n + 2) < R ∧
       R < (2 : Real) ^ (n + 2) + 1 ∧
       (∀ z, ‖z‖ = R → ‖completedRiemannXi z‖ >=
         Real.exp (-(3 : Real) * (R + 1) * Real.log (R + 2))) := by ...
-  -- C3 := 3 is the placeholder constant; the proof fixes its explicit value
-  -- (K-factors + log|xi(0)|); the growth leg only needs "some C".
-
-/-- Growth leg output (assembly; H-A3):  polynomial growth of
-`G = logDeriv xi - weightedSum` on the circle family. -/
-theorem growth_leg_polynomial_bound :
-    ∃ C : Real, 0 < C ∧
-      ∀ k : Nat, -- R_k from the two theorems above (same window)
-        ∀ z, ‖z‖ = R_k →
-          ‖logDeriv completedRiemannXi z - weightedRegularizedZeroSum z‖
-            <= C * (1 + ‖z‖) * Real.log (2 + ‖z‖) := by ...
+  -- C3 := 3 is a placeholder. A proof fixes its explicit value, but this
+  -- theorem alone is not enough to control the logarithmic derivative.
 ```
 
 ### 4.1 Lean checkpoint: exact Jensen average, not pointwise minimum
@@ -155,10 +158,12 @@ Proof skeleton (paper):
    the CLOSED dyadic upper growth.  The constant `C3` is explicit in
    `K`, `log|xi(0)|` (a closed computable value), and the dyadic constants.
 
-3. **Compose** with Cauchy on `|xi'|` (section 3) to get
-   `|logDeriv xi(z0)| <= C4 * R_k * log R_k`, then add the weighted leg
-   (section 2): `|G(s)| <= C5 * (1 + |s|) log (2 + |s|)` on the family —
-   affine-growth territory, not a Liouville constant conclusion.
+3. **Do not compose by raw division.** The two exponential estimates only
+   bound `|xi'/xi|` exponentially. A viable replacement must either construct
+   a normalized analytic logarithm on the quantitative zero-free tubes and
+   apply Borel--Caratheodory with an explicit `M_n = o(16^n)` envelope, or
+   construct the genus-one canonical product whose logarithmic derivative is
+   the already-summable weighted zero sum up to one constant.
 
 ## 5. Lean work list for H-A3
 
@@ -171,25 +176,29 @@ Proof skeleton (paper):
 ( OPEN    ) exists_dyadic_quantitative_circleBoundaryAvoidsZeros
             -- reconnaissance relabeled; mirrors the tubes theorem
 ( OPEN    ) dyadicXi_circle_minmod : order-1 minimum modulus, dyadic quant.
-            -- the one hard theorem; paper steps in 1013 R2 + section 4
-( OPEN    ) growth_leg_polynomial_bound via composition (section 3 step 3)
+            -- geometric reconnaissance only; no raw-quotient consumer
+( OPEN    ) analytic-log/Borel--Caratheodory envelope M_n = o(16^n)
+            -- must retain one tube owner and a controlled normalization
+( OPEN    ) genus-one canonical product / constant comparison
+            -- preferred route: match weightedRegularizedZeroSum directly
 ```
 
 Dependencies: H-A1 (analyticity of the weighted sum off the zero set, now
-closed) is needed by H-A2 (removable poles) but NOT by the growth leg; the
-leg only uses the closed xi growth + H-A0 tail + the two circle theorems
-above.  H-A3's reconnaissance is structurally independent of H-A1/A2.
+closed) is needed by H-A2 (removable poles). The circle reconnaissance is
+structurally independent of H-A1/A2, but its direct quotient is prohibited.
+Both viable replacements must preserve the exact zero and cofactor owners.
 
 ## 6. Fallbacks if minmod blocks
 
-- **(GAMMA) brick revival** (1013 §5 demoted): if the circle min-mod cannot
-  be Lean'd in reasonable time, bound `|logDeriv xi|` on the segment
-  through Stirling/digamma — restores the original route with the Gamma
-  part explicit.  It is heavier in algebra but contains no order-1
-  minimum-modulus theorem.
-- **Borel–Carathéodory on zero-punctured discs**: equivalent content, worse
-  shape (requires local logs everywhere on the circle; A-OK provides them,
-  but the bookkeeping doubles).  Not recommended as first choice.
+- **Canonical product**: preferred. The existing multiplicity-weighted
+  regularized sum has exactly the genus-one logarithmic-derivative shape;
+  prove the product comparison directly instead of deriving an affine function
+  and adding an unproved slope-zero premise.
+- **Borel--Caratheodory on zero-free tubes**: acceptable only after a paper
+  lemma supplies a normalized envelope below the `16^n` horizontal budget.
+  It must not hide the same minimum-modulus problem in a chosen logarithm.
+- **(GAMMA) brick revival** (1013 §5 demoted): a third route through
+  Stirling/digamma if neither global comparison route has a formalizable core.
 
 ## 7. Status snapshot
 

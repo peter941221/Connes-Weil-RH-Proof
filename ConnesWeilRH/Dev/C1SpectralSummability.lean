@@ -99,12 +99,18 @@ theorem pow_self_le_exp_dyadic
       push_cast
       exact mul_le_mul_of_nonneg_left hmReal (Nat.cast_nonneg k)
 
-/-- Uniform xi growth on the folded dyadic ball. -/
-theorem norm_completedRiemannXi_le_exp_of_halfplane_dyadic
+/-- The sharp dyadic exponent inherited from the kernel-moment estimate.
+At radius `R = 2^(n + 4)`, its variable part is `O(R log R)`.  The separate
+geometric relaxation below exists only for spectral summability. -/
+noncomputable def xiDyadicRLogRGrowthExponent (n : Nat) : Real :=
+  xiGrowthFixedConstant + 1 + 2 * ((n + 4 : Nat) : Real) +
+    ((n + 4 : Nat) : Real) * (2 : Real) ^ (n + 4)
+
+/-- Uniform xi growth on the folded dyadic ball at the sharp `R log R` scale. -/
+theorem norm_completedRiemannXi_le_exp_of_halfplane_dyadic_rlogr
     (n : Nat) {w : Complex} (hwRe : (1 / 2 : Real) <= w.re)
     (hwNorm : ‖w‖ <= (2 : Real) ^ (n + 4)) :
-    ‖completedRiemannXi w‖ <=
-      Real.exp (xiGrowthFixedConstant + 1 + 192 * (3 : Real) ^ n) := by
+    ‖completedRiemannXi w‖ <= Real.exp (xiDyadicRLogRGrowthExponent n) := by
   let k : Nat := n + 4
   let R : Real := (2 : Real) ^ k
   let m : Nat := Nat.ceil (w.re / 2)
@@ -213,15 +219,7 @@ theorem norm_completedRiemannXi_le_exp_of_halfplane_dyadic
             Real.exp ((k : Real) * R) := by gcongr
       _ = Real.exp E := by
         simp only [E, ← Real.exp_add]
-  have hkR : (k : Real) * R <= 64 * (3 : Real) ^ n := by
-    simpa only [k, R, Nat.cast_add, Nat.cast_ofNat] using
-      nat_add_four_mul_two_pow_le_three_pow n
   have hkNonneg : 0 <= (k : Real) := Nat.cast_nonneg k
-  have hkLe : (k : Real) <= (k : Real) * R := by
-    simpa only [mul_one] using mul_le_mul_of_nonneg_left hROne hkNonneg
-  have hvariable : 2 * (k : Real) + (k : Real) * R <=
-      192 * (3 : Real) ^ n := by
-    nlinarith
   have hENonneg : 0 <= E := by
     dsimp only [E]
     exact add_nonneg
@@ -243,11 +241,32 @@ theorem norm_completedRiemannXi_le_exp_of_halfplane_dyadic
       rw [← Real.exp_add]
       congr 1
       ring
-    _ <= Real.exp
-        (xiGrowthFixedConstant + 1 + 192 * (3 : Real) ^ n) := by
-      apply Real.exp_le_exp.mpr
-      dsimp only [E]
-      linarith
+    _ = Real.exp (xiDyadicRLogRGrowthExponent n) := by
+      congr 1
+      dsimp only [xiDyadicRLogRGrowthExponent, E, k, R]
+      ring
+
+/-- A geometric relaxation of the sharp dyadic bound.  It is retained for
+the spectral summability argument, whose decay needs a ratio below `4`. -/
+theorem norm_completedRiemannXi_le_exp_of_halfplane_dyadic
+    (n : Nat) {w : Complex} (hwRe : (1 / 2 : Real) <= w.re)
+    (hwNorm : ‖w‖ <= (2 : Real) ^ (n + 4)) :
+    ‖completedRiemannXi w‖ <=
+      Real.exp (xiGrowthFixedConstant + 1 + 192 * (3 : Real) ^ n) := by
+  refine (norm_completedRiemannXi_le_exp_of_halfplane_dyadic_rlogr n hwRe hwNorm).trans ?_
+  apply Real.exp_le_exp.mpr
+  unfold xiDyadicRLogRGrowthExponent
+  have hmain : ((n + 4 : Nat) : Real) * (2 : Real) ^ (n + 4) <=
+      64 * (3 : Real) ^ n := by
+    simpa only [Nat.cast_add, Nat.cast_ofNat] using
+      nat_add_four_mul_two_pow_le_three_pow n
+  have hpow : (1 : Real) <= (2 : Real) ^ (n + 4) :=
+    one_le_pow₀ (by norm_num)
+  have hk : 0 <= ((n + 4 : Nat) : Real) := Nat.cast_nonneg _
+  have hlinear : ((n + 4 : Nat) : Real) <=
+      ((n + 4 : Nat) : Real) * (2 : Real) ^ (n + 4) := by
+    simpa only [mul_one] using mul_le_mul_of_nonneg_left hpow hk
+  nlinarith
 
 /-- The preceding folded-ball estimate controls the doubled Jensen circle for
 the height window `2^(n+2)`. -/

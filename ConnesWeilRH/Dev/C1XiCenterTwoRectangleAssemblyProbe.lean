@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1XiCenterTwoRectangleAssembly
+
+namespace ConnesWeilRH.Source.C1XiCenterTwoRectangleAssembly
+
+#print axioms xiRectangleBoundaryIntegral_eq_wideHorizontal_add_centerTwoRightLine
+#print axioms DyadicCenterTwoHorizontalData.wideHorizontal_add_centerTwoRightLine_eq
+
+end ConnesWeilRH.Source.C1XiCenterTwoRectangleAssembly

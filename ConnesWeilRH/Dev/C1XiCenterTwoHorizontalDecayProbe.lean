@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1XiCenterTwoHorizontalDecay
+
+namespace ConnesWeilRH.Source.C1XiCenterTwoHorizontalDecay
+
+#print axioms dyadicCofactor_log_penalty_le
+#print axioms dyadicCofactorBorelRealBound_le_geometricMajorant
+#print axioms dyadicCenterTwoXiLogDerivBound_le_twelve_pow
+#print axioms tendsto_dyadicCenterTwoXiLogDerivBound_div_height_pow_four
+
+end ConnesWeilRH.Source.C1XiCenterTwoHorizontalDecay

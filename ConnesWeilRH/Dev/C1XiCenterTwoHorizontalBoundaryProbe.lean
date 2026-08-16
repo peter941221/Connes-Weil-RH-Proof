@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1XiCenterTwoHorizontalBoundary
+
+namespace ConnesWeilRH.Source.C1XiCenterTwoHorizontalBoundary
+
+#print axioms DyadicCenterTwoHorizontalData.norm_wideHorizontalBoundaryIntegral_le
+#print axioms tendsto_selected_wideHorizontal_scalar_bound
+#print axioms wideHorizontalBoundaryIntegral_tendsto_zero
+
+end ConnesWeilRH.Source.C1XiCenterTwoHorizontalBoundary

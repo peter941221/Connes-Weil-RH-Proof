@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1XiGammaEulerProduct
+
+namespace ConnesWeilRH.Source.C1XiGammaEulerProduct
+
+#print axioms correctedEulerRemainder_norm_le
+#print axioms correctedEulerFactor_hasProdLocallyUniformlyOn_ball
+#print axioms correctedEulerPartialProduct_eq_GammaSeq
+#print axioms summable_logDeriv_correctedEulerFactor
+#print axioms logDeriv_tprod_correctedEulerFactor
+#print axioms correctedEulerFactor_tprod_ne_zero
+#print axioms correctedEulerFactor_tprod_eq_exp_div_Gamma
+#print axioms correctedEulerLogDeriv_tprod_eq_exp_div_Gamma
+#print axioms correctedEulerDigammaSeries
+
+end ConnesWeilRH.Source.C1XiGammaEulerProduct

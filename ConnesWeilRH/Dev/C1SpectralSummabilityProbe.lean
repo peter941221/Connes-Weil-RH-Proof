@@ -17,6 +17,7 @@ end ConnesWeilRH.Source.C1SpectralWeil
 
 namespace ConnesWeilRH.Source.C1SpectralSummability
 
+#print axioms norm_completedRiemannXi_le_exp_of_halfplane_dyadic_rlogr
 #print axioms norm_completedRiemannXi_le_exp_on_dyadic_jensen_sphere
 #print axioms finiteHeightMultiplicity_dyadic_le
 #print axioms spectralSummableProp

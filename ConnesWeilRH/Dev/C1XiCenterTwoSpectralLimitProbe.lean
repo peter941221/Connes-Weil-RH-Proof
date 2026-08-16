@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1XiCenterTwoSpectralLimit
+
+namespace ConnesWeilRH.Source.C1XiCenterTwoSpectralLimit
+
+#print axioms tendsto_selectedDyadicCenterTwoHeight_atTop
+#print axioms tendsto_selected_finiteSpectralSum
+#print axioms tendsto_selected_centerTwoFoldedRightLineIntegral
+#print axioms tendsto_selected_normalized_centerTwoRightLine_re
+
+end ConnesWeilRH.Source.C1XiCenterTwoSpectralLimit

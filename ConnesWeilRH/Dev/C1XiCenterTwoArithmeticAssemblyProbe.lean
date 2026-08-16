@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1XiCenterTwoArithmeticAssembly
+
+namespace ConnesWeilRH.Source.C1XiCenterTwoArithmeticAssembly
+
+#print axioms centerTwo_arithmetic_eq_spectral_of_gamma_contract
+#print axioms gate2ExplicitFormula_of_centerTwo_gamma_contract
+
+end ConnesWeilRH.Source.C1XiCenterTwoArithmeticAssembly

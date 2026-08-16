@@ -1,3 +1,48 @@
+## Change Log (2026-08-16, corrected Gamma Euler product)
+- `Dev/C1XiGammaEulerProduct.lean` closes `correctedEulerFactor_tprod_eq_exp_div_Gamma` on `0 < Re z`, with the finite-prefix `GammaSeq` bridge and log-derivative summability; the isolated WSL2 ext4 owner-plus-probe build completed 2772 jobs, and every audited declaration uses only `[propext, Classical.choice, Quot.sound]` with no `sorryAx` or project axiom.
+- The same owner now reads its logarithmic derivative back as `correctedEulerDigammaSeries`; the forced rebuild of the owner and probe completed 2772 jobs with no linter warnings, and both new declarations remain axiom-clean.
+- This closes only the corrected Gamma Euler product. The Gauss/digamma integral, Fubini/Gamma_R vertical readback, same-owner arithmetic/spectral equality, Gate 2, and RH remain open.
+
+## Change Log (2026-08-16, canonical incremental build strategy)
+- `AGENTS.md` now defines the reusable WSL2/ext4 build ladder: owning module,
+  import-facing probe and axiom audit, route/aggregate target, then the root
+  target only at a coherent milestone. It separates the package cache from the
+  path-sensitive project `.lake/build` cache and forbids fresh probe mirrors per
+  edit or cross-checkout `.olean` reuse.
+- On a new ext4 mirror using the shared package cache, the current
+  `C1XiCanonicalProduct` owning module completed `3524/3524` jobs in `74.53s`;
+  the same target replayed in `2.94s`, and its import-facing probe completed
+  `3525/3525` jobs in `3.62s`. The probe's audited declarations use only
+  `[propext, Classical.choice, Quot.sound]`; no `sorryAx` or project axiom was
+  introduced.
+- `a1setup.sh` now deletes its isolated probe directory cleanly and is
+  documented as a cold isolated-probe initializer, not the daily incremental
+  loop. A fresh
+  root cold run was intentionally stopped after confirming active Lean worker
+  compilation; root acceptance continues to rely on the completed `4147/4147`
+  repository build recorded in the preceding verification entries.
+
+## Change Log (2026-08-16, sharp xi growth and H-A3 direct-quotient guard)
+- `C1SpectralSummability` now exposes the sharp dyadic exponent
+  `xiDyadicRLogRGrowthExponent n = C + 1 + 2(n + 4) + (n + 4) * 2^(n + 4)`
+  and `norm_completedRiemannXi_le_exp_of_halfplane_dyadic_rlogr`. The old
+  `exp(C + 192 * 3^n)` theorem remains only as a geometric relaxation for
+  spectral summability; it is not an `R log R` xi-growth statement.
+- `C1XiHAGrowthContract.xiDyadicDerivativeBound` now consumes the sharp
+  theorem. A focused isolated WSL2 ext4 build of
+  `C1SpectralSummabilityProbe` and `C1XiHAGrowthContractProbe` completed
+  3556/3556 jobs with exit 0; the new declarations audit only to
+  `[propext, Classical.choice, Quot.sound]`.
+- H-A3 route correction: `|xi'| <= exp(O(R log R))` together with
+  `|xi| >= exp(-O(R log R))` gives only
+  `|xi'/xi| <= exp(O(R log R))`, not polynomial growth. At `R = 2^n` this
+  cannot satisfy the horizontal-edge target `M_n / 16^n -> 0`. The direct
+  minimum-modulus/quotient path is retired. Valid remaining producers are a
+  normalized analytic-log/Borel--Caratheodory estimate with the explicit tube
+  radius loss, or a direct genus-one canonical-product comparison matching the
+  existing multiplicity-weighted regularized zero sum. `docs/proofs/1014` and
+  `AGENTS.md` carry the durable guard. Gate 2 and RH remain open.
+
 ## Change Log (2026-08-16, exact Jensen circle-average brick and honest H-A3 boundary): Dev/C1XiJensenCircle.lean + Probe
 - Added `xi_circleAverage_log_norm_eq_jensen`, an exact Mathlib Jensen identity
   for `Real.circleAverage (fun z => log ||completedRiemannXi z||) 2 R` at
@@ -1760,7 +1805,7 @@ project mirror itself, create a fresh ext4 verification directory, seed its
 All Lake commands use:
 
 ```text
-flock -w 1800 /tmp/connes-weil-rh-lake.lock lake build <smallest-target>
+flock -w 1800 "$TMPDIR/connes-weil-rh-lake.lock" lake build <smallest-target>
 ```
 
 Verification order:
