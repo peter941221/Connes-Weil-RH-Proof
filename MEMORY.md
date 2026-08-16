@@ -2251,3 +2251,23 @@ would be unsound. RH unclaimed.
 - The full-kernel integrability/readback contract, same-owner Gamma_R Fubini
   bridge, Gate 2 equality, and RH remain open. The local `C1XiCenterTwoGammaScratch.lean`
   probe and the `/` backup directory remain intentionally untracked.
+
+## Change Log (2026-08-16, half-anchor Gauss readback on the full right half-plane)
+- Added the telescoping reciprocal-shift identity
+  `halfAnchorShiftReciprocalSeries_eq_inv` and used it with the corrected
+  Euler digamma series to extend the half-anchor reciprocal-series readback
+  from `1 < Re(z)` to `0 < Re(z)`:
+  `halfAnchorGaussReciprocalSeries_eq_digamma_sub_half_of_pos`.
+- Added `halfAnchorGaussContract_of_pos`, so the full half-anchor Gauss
+  integral contract now holds on the exact analytic domain `0 < Re(z)`.
+  The proof is axiom-clean and uses the already-established norm-controlled
+  sum-integral exchange; it does not introduce a boundary value at `Re(z)=0`.
+- Updated the import-facing probe and local scratch theorem. Focused WSL2
+  ext4 builds of `C1XiCenterTwoGamma` and its probe completed successfully
+  (`3537` and `3538` jobs); the audited public declarations use only
+  `[propext, Classical.choice, Quot.sound]`, with no `sorryAx` or new project
+  axiom.
+- This closes only the half-anchor Gamma_R elementary contract. The full
+  Gamma_R Fubini/same-owner vertical readback, arithmetic = spectral equality,
+  finite-vanishing criterion, and RH remain open. The `/` backup directory
+  stays intentionally untracked.

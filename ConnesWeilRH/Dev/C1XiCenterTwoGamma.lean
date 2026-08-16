@@ -649,6 +649,177 @@ theorem halfAnchorGaussReciprocalSeries_eq_digamma_sub_half
     ring
   simpa only [one_div] using hdivTarget
 
+/-! The recurrence extension below is independent of the right-half-plane
+series identity above.  It uses one explicit telescoping shift and the
+corrected Euler series at `z`, which is already valid for `0 < Re z`. -/
+
+private theorem halfAnchorShiftReciprocalSeries_eq_inv
+    {z : Complex} (hz : 0 < z.re) :
+    ∑' n : Nat,
+      (((n : Complex) + z)⁻¹ - ((n : Complex) + (z + 1))⁻¹) = z⁻¹ := by
+  let u : Nat → Complex := fun n =>
+    ((n : Complex) + z)⁻¹ - ((n : Complex) + (z + 1))⁻¹
+  have hu : Summable u := by
+    have hz1 : 0 < (z + 1).re := by
+      norm_num [Complex.add_re]
+      linarith
+    have hleft := summable_halfAnchorGaussReciprocalSeries (z := z) hz
+    have hright := summable_halfAnchorGaussReciprocalSeries (z := z + 1) hz1
+    have hsub := hright.sub hleft
+    exact hsub.congr (fun n => by
+      dsimp [u]
+      ring)
+  have hpartial : ∀ N : Nat,
+      ∑ n ∈ Finset.range N, u n = z⁻¹ - ((N : Complex) + z)⁻¹ := by
+    intro N
+    induction N with
+    | zero => simp [u]
+    | succ N ih =>
+        rw [Finset.sum_range_succ, ih]
+        dsimp [u]
+        have hshift : (N : Complex) + (z + 1) =
+            ((N + 1 : Nat) : Complex) + z := by
+          push_cast
+          ring
+        rw [hshift]
+        ring
+  have htail : Tendsto
+      (fun N : Nat => ((N : Complex) + z)⁻¹) atTop (𝓝 (0 : Complex)) := by
+    have hdiv := tendsto_natCast_div_add_atTop (𝕜 := Complex) z
+    have hinv := tendsto_inv_atTop_nhds_zero_nat (𝕜 := Complex)
+    have hmul := hinv.mul hdiv
+    have hmul' : Tendsto
+        (fun N : Nat => (N : Complex)⁻¹ * ((N : Complex) / ((N : Complex) + z)))
+        atTop (𝓝 (0 : Complex)) := by
+      simpa using hmul
+    refine hmul'.congr' ?_
+    filter_upwards [Filter.eventually_ne_atTop 0] with N hN
+    have hNcomplex : (N : Complex) ≠ 0 := by exact_mod_cast hN
+    have hden : (N : Complex) + z ≠ 0 := by
+      intro hzero
+      have hreal := congrArg Complex.re hzero
+      simp only [Complex.add_re, Complex.natCast_re] at hreal
+      norm_num at hreal
+      linarith
+    field_simp [hNcomplex, hden]
+  have hlim : Tendsto
+      (fun N : Nat => ∑ n ∈ Finset.range N, u n) atTop (𝓝 z⁻¹) := by
+    have heq : (fun N : Nat => ∑ n ∈ Finset.range N, u n) =
+        (fun N : Nat => z⁻¹ - ((N : Complex) + z)⁻¹) := by
+      funext N
+      exact hpartial N
+    rw [heq]
+    simpa using (tendsto_const_nhds.sub htail)
+  exact tendsto_nhds_unique (hu.hasSum.tendsto_sum_nat) hlim
+
+private theorem correctedEulerReciprocalSeries_eq_negEuler_sub_digamma_of_pos
+    {z : Complex} (hz : 0 < z.re) :
+    ∑' n : Nat, (1 / ((n : Complex) + z) - 1 / ((n : Complex) + 1)) =
+      -(Real.eulerMascheroniConstant : Complex) - Complex.digamma z := by
+  have hz1 : 0 < (z + 1).re := by
+    norm_num [Complex.add_re]
+    linarith
+  have hanchor : Summable (fun n : Nat =>
+      ((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + (1 : Complex))⁻¹) := by
+    simpa only [one_div] using
+      (summable_halfAnchorGaussReciprocalSeries
+        (z := (1 : Complex)) (by norm_num))
+  have hzA : Summable (fun n : Nat =>
+      ((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + z)⁻¹) := by
+    exact summable_halfAnchorGaussReciprocalSeries hz
+  have hz1A : Summable (fun n : Nat =>
+      ((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + (z + 1))⁻¹) := by
+    exact summable_halfAnchorGaussReciprocalSeries hz1
+  have hB : Summable (fun n : Nat =>
+      1 / ((n : Complex) + (z + 1)) -
+        1 / ((n : Complex) + (1 : Complex))) := by
+    exact (hanchor.sub hz1A).congr (fun n => by ring)
+  have hD : Summable (fun n : Nat =>
+      1 / ((n : Complex) + z) -
+        1 / ((n : Complex) + (z + 1))) := by
+    exact (hz1A.sub hzA).congr (fun n => by ring)
+  have hBValue : ∑' n : Nat,
+      (1 / ((n : Complex) + (z + 1)) -
+        1 / ((n : Complex) + (1 : Complex))) =
+      -(Real.eulerMascheroniConstant : Complex) - Complex.digamma (z + 1) := by
+    convert correctedEulerDigammaSeries hz using 1
+    · apply tsum_congr
+      intro n
+      congr 1 <;> ring
+  have hDValue : ∑' n : Nat,
+      (1 / ((n : Complex) + z) -
+        1 / ((n : Complex) + (z + 1))) = z⁻¹ := by
+    simpa only [one_div] using halfAnchorShiftReciprocalSeries_eq_inv hz
+  have hsum : ∑' n : Nat,
+      (1 / ((n : Complex) + z) - 1 / ((n : Complex) + 1)) =
+      (∑' n : Nat,
+        (1 / ((n : Complex) + (z + 1)) -
+          1 / ((n : Complex) + (1 : Complex)))) +
+        ∑' n : Nat,
+          (1 / ((n : Complex) + z) -
+            1 / ((n : Complex) + (z + 1))) := by
+    rw [← hB.tsum_add hD]
+    apply tsum_congr
+    intro n
+    ring
+  rw [hsum, hBValue, hDValue]
+  have hrec := Complex.digamma_apply_add_one z (by
+    intro m hm
+    have hreal := congrArg Complex.re hm
+    norm_num at hreal
+    have hmnonneg : (0 : Real) ≤ (m : Real) := by positivity
+    linarith)
+  rw [hrec]
+  ring
+
+theorem halfAnchorGaussReciprocalSeries_eq_digamma_sub_half_of_pos
+    {z : Complex} (hz : 0 < z.re) :
+    ∑' n : Nat,
+      (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + z)⁻¹) =
+      Complex.digamma z - Complex.digamma (1 / 2 : Complex) := by
+  have hanchor : Summable (fun n : Nat =>
+      ((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + (1 : Complex))⁻¹) := by
+    simpa only [one_div] using
+      (summable_halfAnchorGaussReciprocalSeries
+        (z := (1 : Complex)) (by norm_num))
+  have hzA : Summable (fun n : Nat =>
+      ((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + z)⁻¹) :=
+    summable_halfAnchorGaussReciprocalSeries hz
+  have hcz : Summable (fun n : Nat =>
+      1 / ((n : Complex) + z) - 1 / ((n : Complex) + (1 : Complex))) := by
+    exact (hanchor.sub hzA).congr (fun n => by ring)
+  have hsum : ∑' n : Nat,
+      (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + z)⁻¹) =
+      (∑' n : Nat,
+        (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + (1 : Complex))⁻¹)) -
+        ∑' n : Nat,
+          (1 / ((n : Complex) + z) -
+            1 / ((n : Complex) + (1 : Complex))) := by
+    rw [← hanchor.tsum_sub hcz]
+    apply tsum_congr
+    intro n
+    ring
+  rw [hsum]
+  have hbase : ∑' n : Nat,
+      (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + (1 : Complex))⁻¹) =
+      -(Real.eulerMascheroniConstant : Complex) -
+        Complex.digamma (1 / 2 : Complex) := by
+    simpa only [one_div] using
+      correctedEulerReciprocalSeries_eq_negEuler_sub_digamma_of_pos
+        (z := (1 / 2 : Complex)) (by norm_num)
+  have hzValue := correctedEulerReciprocalSeries_eq_negEuler_sub_digamma_of_pos hz
+  rw [hbase, hzValue]
+  ring
+
 theorem halfAnchorGaussContract_of_one_lt_re
     {z : Complex} (hz : 1 < z.re) :
     Complex.digamma z - Complex.digamma (1 / 2 : Complex) =
@@ -666,6 +837,11 @@ def HalfAnchorGaussContract : Prop :=
   ∀ z : Complex, 0 < z.re →
     Complex.digamma z - Complex.digamma (1 / 2 : Complex) =
       ∫ x : Real in Ioi (0 : Real), halfAnchorGaussKernel z x
+
+theorem halfAnchorGaussContract_of_pos : HalfAnchorGaussContract := by
+  intro z hz
+  rw [integral_halfAnchorGaussKernel_eq_tsum_integral hz]
+  exact (halfAnchorGaussReciprocalSeries_eq_digamma_sub_half_of_pos hz).symm
 
 private theorem differentiableAt_gamma_half
     {s : Complex} (hs : 0 < s.re) :
