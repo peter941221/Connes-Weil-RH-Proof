@@ -2320,3 +2320,24 @@ would be unsound. RH unclaimed.
 - This closes only the Fourier inner transform and its `4π F(0)` constant
   term. It does not prove the full Gamma_R Fubini/readback contract, the
   same-owner arithmetic/spectral equality, Gate 2, or RH.
+
+## Change Log (2026-08-17, center-2 Gamma_R reciprocal-term integrals)
+- Exposed the center-`2` resolvent owner in `Dev/C1XiCenterTwoPole.lean`
+  through `integrable_symmetrizedLaplaceWeight_centerTwo_div_vertical` and
+  `integral_symmetrizedLaplaceWeight_centerTwo_div_vertical`, preserving the
+  same `verticalPoint 2 t` coordinate and the `t |-> t / 2` scaling contract.
+- Added `gammaRReciprocalTerm`, its full-line integrability theorem, and the
+  single-term integral readback
+  `integral_gammaRReciprocalTerm` in `Dev/C1XiCenterTwoGamma.lean`.  The
+  denominator identity is
+  `n + verticalPoint 2 t / 2 = (2 * (n + 1) + t * I) / 2`; the public result
+  is written in the unambiguous distributed form `A * I - B * I`.
+- Added `integral_gammaRReciprocalPartialSum`, which exchanges a finite
+  `Finset.range N` sum with the full-line integral term by term.  This is still
+  finite-owner bookkeeping: it does not exchange the infinite reciprocal
+  series with the integral or prove the full Gamma_R Fubini/readback contract.
+- WSL2 ext4 owner/probe builds completed successfully (`3537/3537` and
+  `3538/3538`).  The import-facing axioms for all three new Gamma declarations
+  are only `[propext, Classical.choice, Quot.sound]`; no `sorryAx` or project
+  axiom was introduced.  The `/` backup directory remains intentionally
+  untracked.

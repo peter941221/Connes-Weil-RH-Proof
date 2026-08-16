@@ -437,6 +437,31 @@ private theorem integral_centerTwoWeight_div_vertical
               centerTwoPoleMinusProfile F (-y))) := by
       ring
 
+/-! Public wrappers for the center-`2` resolvent owner.  Gamma_R's reciprocal
+series uses the same denominator after the elementary `t |-> t / 2` scaling;
+keeping these wrappers here avoids duplicating the Fourier-owner proof. -/
+
+theorem integrable_symmetrizedLaplaceWeight_centerTwo_div_vertical
+    (F : CompactLogTest) {a : Real} (ha : 0 < a) :
+    Integrable (fun t : Real =>
+      symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+        ((a : Complex) + (t : Complex) * Complex.I)) :=
+  integrable_centerTwoWeight_div_vertical F ha
+
+theorem integral_symmetrizedLaplaceWeight_centerTwo_div_vertical
+    (F : CompactLogTest) {a : Real} (ha : 0 < a) :
+    (∫ t : Real,
+      symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+        ((a : Complex) + (t : Complex) * Complex.I)) =
+      (2 * (Real.pi : Complex)) *
+        ((∫ y : Real in Ioi 0,
+            Complex.exp (-(a : Complex) * (y : Complex)) *
+              centerTwoPolePlusProfile F y) +
+          (∫ y : Real in Ioi 0,
+            Complex.exp (-(a : Complex) * (y : Complex)) *
+              centerTwoPoleMinusProfile F (-y))) :=
+  integral_centerTwoWeight_div_vertical F ha
+
 private theorem centerTwo_resolvent_sum_eq_poleLaplace
     (F : CompactLogTest) :
     (∫ t : Real,

@@ -19,6 +19,9 @@ namespace ConnesWeilRH.Source.C1XiCenterTwoGamma
 #print axioms logDeriv_GammaR_eq_log_pi_add_digamma
 #print axioms logDeriv_GammaR_eq_halfAnchor
 #print axioms logDeriv_GammaR_centerTwo_eq_reciprocalSeries
+#print axioms integrable_gammaRReciprocalTerm
+#print axioms integral_gammaRReciprocalTerm
+#print axioms integral_gammaRReciprocalPartialSum
 #print axioms normalized_gammaR_centerTwo_constant_part_eq
 #print axioms normalized_integral_gammaR_centerTwo_re_eq_archimedeanTerm
 

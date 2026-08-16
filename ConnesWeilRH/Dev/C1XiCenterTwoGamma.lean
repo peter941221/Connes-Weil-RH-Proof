@@ -989,6 +989,195 @@ theorem logDeriv_GammaR_centerTwo_eq_reciprocalSeries
   rw [hseries] at hlog
   exact hlog
 
+/-- One reciprocal-series summand on the center-`2` line, retaining the
+same-owner symmetrized weight and the vertical `t` coordinate. -/
+noncomputable def gammaRReciprocalTerm
+    (F : CompactLogTest) (n : Nat) (t : Real) : Complex :=
+  (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+      ((n : Complex) + (verticalPoint 2 t / 2))⁻¹) *
+    symmetrizedLaplaceWeight F (verticalPoint 2 t) * Complex.I
+
+private theorem centerTwo_halfResolvent_eq
+    (n : Nat) (t : Real) :
+    (n : Complex) + verticalPoint 2 t / 2 =
+      ((((2 * ((n : Real) + 1) : Real) : Complex) +
+          (t : Complex) * Complex.I) / 2) := by
+  simp [verticalPoint]
+  push_cast
+  ring
+
+private theorem centerTwo_fullResolvent_ne
+    (n : Nat) (t : Real) :
+    (((2 * ((n : Real) + 1) : Real) : Complex) +
+      (t : Complex) * Complex.I) ≠ 0 := by
+  intro hzero
+  have hre := congrArg Complex.re hzero
+  simp only [add_re, ofReal_re, mul_re, ofReal_im, I_re, I_im,
+    mul_zero, sub_zero, add_zero] at hre
+  norm_num at hre
+  linarith
+
+private theorem centerTwo_halfResolvent_inv_eq
+    (n : Nat) (t : Real) :
+    ((n : Complex) + (verticalPoint 2 t / 2))⁻¹ =
+      (2 : Complex) *
+        ((((2 * ((n : Real) + 1) : Real) : Complex) +
+            (t : Complex) * Complex.I)⁻¹) := by
+  rw [centerTwo_halfResolvent_eq]
+  have hne := centerTwo_fullResolvent_ne n t
+  field_simp [hne]
+
+/-- Every reciprocal-series summand is integrable on the full center-`2`
+line.  This is a single-term result; no infinite sum/integral exchange is
+claimed here. -/
+theorem integrable_gammaRReciprocalTerm
+    (F : CompactLogTest) (n : Nat) :
+    Integrable (fun t : Real => gammaRReciprocalTerm F n t) := by
+  have hweight :=
+    C1XiCenterTwoPrimePower.integrable_symmetrizedLaplaceWeight_centerTwo F
+  have hdiv :=
+    C1XiCenterTwoPole.integrable_symmetrizedLaplaceWeight_centerTwo_div_vertical
+      F (a := 2 * ((n : Real) + 1)) (by positivity)
+  have hdivHalf : Integrable (fun t : Real =>
+      symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+        ((n : Complex) + (verticalPoint 2 t / 2))) := by
+    have heq : (fun t : Real =>
+        symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+          ((n : Complex) + (verticalPoint 2 t / 2))) =
+        (fun t : Real =>
+          (2 : Complex) *
+            (symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+              ((((2 * ((n : Real) + 1) : Real) : Complex) +
+                (t : Complex) * Complex.I)))) := by
+      funext t
+      rw [div_eq_mul_inv, centerTwo_halfResolvent_inv_eq]
+      simp only [div_eq_mul_inv]
+      ring
+    rw [heq]
+    exact hdiv.const_mul (2 : Complex)
+  have hleft : Integrable (fun t : Real =>
+      ((n : Complex) + (1 / 2 : Complex))⁻¹ *
+        symmetrizedLaplaceWeight F (verticalPoint 2 t)) :=
+    hweight.const_mul (((n : Complex) + (1 / 2 : Complex))⁻¹)
+  have hsub := hleft.sub hdivHalf
+  have hmul := hsub.mul_const Complex.I
+  apply hmul.congr
+  filter_upwards with t
+  change
+    (((n : Complex) + (1 / 2 : Complex))⁻¹ *
+        symmetrizedLaplaceWeight F (verticalPoint 2 t) -
+      symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+        ((n : Complex) + (verticalPoint 2 t / 2))) * Complex.I =
+      gammaRReciprocalTerm F n t
+  simp only [gammaRReciprocalTerm, div_eq_mul_inv]
+  ring
+
+/-- The full-line integral of one reciprocal-series summand, read back to the
+same center-`2` resolvent owner. -/
+theorem integral_gammaRReciprocalTerm
+    (F : CompactLogTest) (n : Nat) :
+    (∫ t : Real, gammaRReciprocalTerm F n t) =
+      (((n : Complex) + (1 / 2 : Complex))⁻¹) *
+          (∫ t : Real,
+            symmetrizedLaplaceWeight F (verticalPoint 2 t)) * Complex.I -
+        (2 : Complex) *
+          (∫ t : Real,
+            symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+              ((((2 * ((n : Real) + 1) : Real) : Complex) +
+                (t : Complex) * Complex.I))) * Complex.I := by
+  have hweight :=
+    C1XiCenterTwoPrimePower.integrable_symmetrizedLaplaceWeight_centerTwo F
+  have hdiv :=
+    C1XiCenterTwoPole.integrable_symmetrizedLaplaceWeight_centerTwo_div_vertical
+      F (a := 2 * ((n : Real) + 1)) (by positivity)
+  have hhalf : Integrable (fun t : Real =>
+      symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+        ((n : Complex) + (verticalPoint 2 t / 2))) := by
+    have heq : (fun t : Real =>
+        symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+          ((n : Complex) + (verticalPoint 2 t / 2))) =
+        (fun t : Real =>
+          (2 : Complex) *
+            (symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+              ((((2 * ((n : Real) + 1) : Real) : Complex) +
+                (t : Complex) * Complex.I)))) := by
+      funext t
+      rw [div_eq_mul_inv, centerTwo_halfResolvent_inv_eq]
+      simp only [div_eq_mul_inv]
+      ring
+    rw [heq]
+    exact hdiv.const_mul (2 : Complex)
+  have hhalfIntegral :
+      (∫ t : Real,
+        symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+          ((n : Complex) + (verticalPoint 2 t / 2))) =
+        (2 : Complex) *
+          (∫ t : Real,
+            symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+              ((((2 * ((n : Real) + 1) : Real) : Complex) +
+                (t : Complex) * Complex.I))) := by
+    have heq : (fun t : Real =>
+        symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+          ((n : Complex) + (verticalPoint 2 t / 2))) =
+        (fun t : Real =>
+          (2 : Complex) *
+            (symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+              ((((2 * ((n : Real) + 1) : Real) : Complex) +
+                (t : Complex) * Complex.I)))) := by
+      funext t
+      rw [div_eq_mul_inv, centerTwo_halfResolvent_inv_eq]
+      simp only [div_eq_mul_inv]
+      ring
+    rw [heq, integral_const_mul]
+  have hleft : Integrable (fun t : Real =>
+      ((n : Complex) + (1 / 2 : Complex))⁻¹ *
+        symmetrizedLaplaceWeight F (verticalPoint 2 t)) :=
+    hweight.const_mul (((n : Complex) + (1 / 2 : Complex))⁻¹)
+  calc
+    (∫ t : Real, gammaRReciprocalTerm F n t) =
+        (∫ t : Real,
+          ((n : Complex) + (1 / 2 : Complex))⁻¹ *
+              symmetrizedLaplaceWeight F (verticalPoint 2 t) -
+            symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+              ((n : Complex) + (verticalPoint 2 t / 2))) * Complex.I := by
+      rw [show (fun t : Real => gammaRReciprocalTerm F n t) =
+          (fun t : Real =>
+            (((n : Complex) + (1 / 2 : Complex))⁻¹ *
+                symmetrizedLaplaceWeight F (verticalPoint 2 t) -
+              symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+                ((n : Complex) + (verticalPoint 2 t / 2))) * Complex.I) by
+        funext t
+        simp only [gammaRReciprocalTerm, div_eq_mul_inv]
+        ring]
+      rw [integral_mul_const]
+    _ = (((n : Complex) + (1 / 2 : Complex))⁻¹) *
+          (∫ t : Real,
+            symmetrizedLaplaceWeight F (verticalPoint 2 t)) * Complex.I -
+        (∫ t : Real,
+          symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+            ((n : Complex) + (verticalPoint 2 t / 2))) * Complex.I := by
+      rw [integral_sub hleft hhalf, integral_const_mul]
+      ring
+    _ = (((n : Complex) + (1 / 2 : Complex))⁻¹) *
+          (∫ t : Real,
+            symmetrizedLaplaceWeight F (verticalPoint 2 t)) * Complex.I -
+        (2 : Complex) *
+          (∫ t : Real,
+            symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+              ((((2 * ((n : Real) + 1) : Real) : Complex) +
+                (t : Complex) * Complex.I))) * Complex.I := by
+      rw [hhalfIntegral]
+
+/-- Any finite reciprocal-series partial sum can be integrated term by term;
+the infinite exchange remains a separate convergence obligation. -/
+theorem integral_gammaRReciprocalPartialSum
+    (F : CompactLogTest) (N : Nat) :
+    (∫ t : Real, ∑ n ∈ Finset.range N, gammaRReciprocalTerm F n t) =
+      ∑ n ∈ Finset.range N, ∫ t : Real, gammaRReciprocalTerm F n t := by
+  rw [integral_finsetSum]
+  intro n hn
+  exact integrable_gammaRReciprocalTerm F n
+
 /-! The constant term in the center-`2` Gamma_R logarithmic derivative has an
 explicit same-owner readback.  This is only the constant piece; the reciprocal
 series piece still needs its own sum-integral argument. -/
