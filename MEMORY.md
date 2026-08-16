@@ -2341,3 +2341,21 @@ would be unsound. RH unclaimed.
   are only `[propext, Classical.choice, Quot.sound]`; no `sorryAx` or project
   axiom was introduced.  The `/` backup directory remains intentionally
   untracked.
+
+## Change Log (2026-08-17, center-2 Gamma_R reciprocal-series Fubini exchange)
+- Added the missing absolute-convergence bridge for the center-`2` reciprocal
+  Gamma_R terms. The first Fourier moment of the same-owner symmetrized
+  weight is integrable, and the reciprocal difference satisfies the eventual
+  bound `‖a_n(t)‖ ≤ (1 + ‖t‖) * (n^2)⁻¹` for `n > 0`.
+- Added `summable_integral_norm_gammaRReciprocalTerm`, proving
+  `Summable (fun n => ∫ t, ‖gammaRReciprocalTerm F n t‖)` by an explicit
+  `n⁻²` majorant. Added `integral_tsum_gammaRReciprocalTerm`, the genuine
+  infinite sum-integral exchange via
+  `MeasureTheory.integral_tsum_of_summable_integral_norm`.
+- The owner build and import-facing probe both pass in the WSL2 ext4 mirror
+  (`3537` and `3538` jobs). The new public declarations audit to only
+  `[propext, Classical.choice, Quot.sound]`, with no `sorryAx` or project
+  axiom.
+- This closes the reciprocal-series Fubini brick only. The normalized full
+  Gamma_R archimedean readback, same-owner arithmetic/spectral equality, Gate
+  2, and RH remain open. The local moment scratch probe remains untracked.
