@@ -1522,6 +1522,54 @@ theorem integrable_gammaRIntegrand_centerTwo
   filter_upwards with t
   exact (gammaRIntegrand_centerTwo_eq_constant_sub_tsum F t).symm
 
+/-! The full-line Gamma_R integral now has a scalar-series normal form.  The
+remaining archimedean readback is precisely the conversion of this convergent
+series into the direct positive-variable density. -/
+
+theorem integral_gammaRIntegrand_centerTwo_eq_constant_sub_tsum_integrals
+    (F : CompactLogTest) :
+    (∫ t : Real, gammaRIntegrand F 2 t) =
+      (∫ t : Real,
+        (((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) / 2) *
+          symmetrizedLaplaceWeight F (verticalPoint 2 t) * Complex.I) -
+        (1 / 2 : Complex) *
+          (∑' n : Nat, ∫ t : Real, gammaRReciprocalTerm F n t) := by
+  have hweight :=
+    C1XiCenterTwoPrimePower.integrable_symmetrizedLaplaceWeight_centerTwo F
+  have hconstant : Integrable (fun t : Real =>
+      (((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) / 2) *
+        symmetrizedLaplaceWeight F (verticalPoint 2 t) * Complex.I) :=
+    (hweight.const_mul
+      (((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) / 2)).mul_const
+      Complex.I
+  have hseries := integrable_tsum_gammaRReciprocalTerm F
+  have hsum : Integrable (fun t : Real =>
+      (1 / 2 : Complex) * ∑' n : Nat, gammaRReciprocalTerm F n t) :=
+    hseries.const_mul (1 / 2 : Complex)
+  have hdecomp := integral_sub hconstant hsum
+  have hpoint : (fun t : Real => gammaRIntegrand F 2 t) =
+      (fun t : Real =>
+        (((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) / 2) *
+            symmetrizedLaplaceWeight F (verticalPoint 2 t) * Complex.I -
+          (1 / 2 : Complex) * ∑' n : Nat, gammaRReciprocalTerm F n t) := by
+    funext t
+    exact gammaRIntegrand_centerTwo_eq_constant_sub_tsum F t
+  rw [hpoint, hdecomp, integral_const_mul, integral_tsum_gammaRReciprocalTerm]
+
+theorem normalized_gammaR_centerTwo_eq_constant_sub_tsum_integrals
+    (F : CompactLogTest) :
+    (2 * (Real.pi : Complex) * Complex.I)⁻¹ *
+        (∫ t : Real, gammaRIntegrand F 2 t) =
+      (2 * (Real.pi : Complex) * Complex.I)⁻¹ *
+          (∫ t : Real,
+            (((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) / 2) *
+              symmetrizedLaplaceWeight F (verticalPoint 2 t) * Complex.I) -
+        (1 / 2 : Complex) *
+          (2 * (Real.pi : Complex) * Complex.I)⁻¹ *
+            (∑' n : Nat, ∫ t : Real, gammaRReciprocalTerm F n t) := by
+  rw [integral_gammaRIntegrand_centerTwo_eq_constant_sub_tsum_integrals]
+  ring
+
 /-! The constant term in the center-`2` Gamma_R logarithmic derivative has an
 explicit same-owner readback.  This is only the constant piece; the reciprocal
 series piece still needs its own sum-integral argument. -/

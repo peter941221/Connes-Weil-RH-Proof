@@ -2375,3 +2375,14 @@ would be unsound. RH unclaimed.
   `[propext, Classical.choice, Quot.sound]`; no `sorryAx` or project axiom
   was added. The normalized archimedean readback, arithmetic/spectral
   equality, Gate 2, and RH remain open.
+
+## Change Log (2026-08-17, normalized Gamma_R scalar-series normal form)
+- Added `integral_gammaRIntegrand_centerTwo_eq_constant_sub_tsum_integrals`
+  and `normalized_gammaR_centerTwo_eq_constant_sub_tsum_integrals` in
+  `C1XiCenterTwoGamma`. They use the proven full-line integrability and
+  reciprocal-series Fubini exchange to express the normalized Gamma_R value
+  as the already-readable constant part minus one absolutely convergent scalar
+  series of reciprocal-term integrals.
+- This is a normal-form reduction only: it does not split the two divergent
+  pieces of an individual resolvent series, and it does not yet identify the
+  convergent paired series with `C1SameOwnerWeil.archimedeanTerm`.

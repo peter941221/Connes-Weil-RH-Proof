@@ -25,6 +25,8 @@ namespace ConnesWeilRH.Source.C1XiCenterTwoGamma
 #print axioms summable_integral_norm_gammaRReciprocalTerm
 #print axioms integral_tsum_gammaRReciprocalTerm
 #print axioms integrable_gammaRIntegrand_centerTwo
+#print axioms integral_gammaRIntegrand_centerTwo_eq_constant_sub_tsum_integrals
+#print axioms normalized_gammaR_centerTwo_eq_constant_sub_tsum_integrals
 #print axioms normalized_gammaR_centerTwo_constant_part_eq
 #print axioms normalized_integral_gammaR_centerTwo_re_eq_archimedeanTerm
 
