@@ -2271,3 +2271,16 @@ would be unsound. RH unclaimed.
   Gamma_R Fubini/same-owner vertical readback, arithmetic = spectral equality,
   finite-vanishing criterion, and RH remain open. The `/` backup directory
   stays intentionally untracked.
+
+## Change Log (2026-08-16, center-2 Gamma_R reciprocal-series readback)
+- Added `logDeriv_GammaR_centerTwo_eq_reciprocalSeries`. It substitutes the
+  now-unconditional `HalfAnchorGaussContract` into the center-`2` Gamma_R
+  identity and reads `logDeriv Gamma_R (2 + t I)` back as the same-owner
+  half-anchor reciprocal series at `verticalPoint 2 t / 2`.
+- This is a pointwise, absolutely convergent series identity. It does not
+  exchange the `t` integral with the series and does not prove the normalized
+  archimedean readback in `CenterTwoGammaReadbackContract`.
+- The owning module and import-facing probe rebuilt successfully in the WSL2
+  ext4 mirror (`3538` jobs). The new declaration uses only
+  `[propext, Classical.choice, Quot.sound]`, with no `sorryAx` or new project
+  axiom.

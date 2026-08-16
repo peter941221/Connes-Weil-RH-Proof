@@ -18,6 +18,7 @@ namespace ConnesWeilRH.Source.C1XiCenterTwoGamma
 #print axioms halfAnchorGaussContract_of_pos
 #print axioms logDeriv_GammaR_eq_log_pi_add_digamma
 #print axioms logDeriv_GammaR_eq_halfAnchor
+#print axioms logDeriv_GammaR_centerTwo_eq_reciprocalSeries
 #print axioms normalized_integral_gammaR_centerTwo_re_eq_archimedeanTerm
 
 end ConnesWeilRH.Source.C1XiCenterTwoGamma

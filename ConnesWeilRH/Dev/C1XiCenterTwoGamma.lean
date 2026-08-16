@@ -964,6 +964,31 @@ theorem logDeriv_GammaR_eq_halfAnchor
   push_cast
   ring
 
+/-! The full right-half-plane Gauss contract now gives an explicit convergent
+reciprocal series for the Gamma_R logarithmic derivative on the center-`2`
+line.  The series keeps the same `verticalPoint` coordinate owner as the
+arithmetic integrand; it is a pointwise readback brick, not yet the full
+line-integral/Fubini theorem. -/
+
+theorem logDeriv_GammaR_centerTwo_eq_reciprocalSeries
+    (t : Real) :
+    logDeriv Complex.Gammaℝ (verticalPoint 2 t) =
+      -((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) / 2 +
+        (1 / 2 : Complex) *
+          (∑' n : Nat,
+            (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + (verticalPoint 2 t / 2))⁻¹)) := by
+  have hs : 0 < (verticalPoint 2 t).re := by
+    simp [verticalPoint]
+  have hz : 0 < (verticalPoint 2 t / 2).re := by
+    simp [verticalPoint]
+  have hlog := logDeriv_GammaR_eq_halfAnchor
+    (s := verticalPoint 2 t) hs halfAnchorGaussContract_of_pos
+  have hseries := integral_halfAnchorGaussKernel_eq_tsum_integral
+    (z := verticalPoint 2 t / 2) hz
+  rw [hseries] at hlog
+  exact hlog
+
 /-- A local consumer contract for the full center-`2` Gamma_R readback.
 
 The first field is the only nontrivial analysis left after the pointwise
