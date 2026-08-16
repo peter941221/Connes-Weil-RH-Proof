@@ -2216,3 +2216,23 @@ would be unsound. RH unclaimed.
 - This remains weaker than the desired function-level sum-integral exchange:
   no dominated majorant for the infinite kernel series and no
   `HalfAnchorGaussContract` producer is claimed.
+
+## Change Log (2026-08-16, half-anchor norm-integral exchange)
+- Added `summable_halfAnchorGaussIntegralNorm` to `Dev/C1XiCenterTwoGamma.lean`.
+  A parameterized exponential path proves the cancellation-sensitive bound
+  `‖exp(-a x) - exp(-b x)‖ <= ‖a-b‖ * x * exp(-(min Re a Re b) x)`;
+  for the half-anchor terms this becomes an `O(n⁻²)` majorant after integrating
+  `x * exp(-n*x)` through the Gamma moment.
+- Added `integral_halfAnchorGaussKernel_eq_tsum_integral`, which consumes
+  `MeasureTheory.integral_tsum_of_summable_integral_norm` on the restricted
+  measure `volume.restrict (Ioi 0)` and reads the exchanged terms back to the
+  reciprocal differences. This is the first genuine infinite sum-integral
+  exchange for the half-anchor kernel; it does not yet identify the integral
+  with the digamma difference.
+- The owning module and import-facing probe compile in the WSL2 ext4 mirror
+  (`lake build ConnesWeilRH.Dev.C1XiCenterTwoGamma`, 3531 jobs). The new public
+  declarations report only `[propext, Classical.choice, Quot.sound]`; no
+  `sorryAx` or project axiom was introduced.
+- The full-kernel integrability/readback contract, same-owner Gamma_R Fubini
+  bridge, Gate 2 equality, and RH remain open. The local `C1XiCenterTwoGammaScratch.lean`
+  probe and the `/` backup directory remain intentionally untracked.

@@ -161,6 +161,225 @@ theorem integrableOn_halfAnchorGaussSeriesTerm
   exact (integrableOn_exp_neg_mul_complex_Ioi hleft).sub
     (integrableOn_exp_neg_mul_complex_Ioi hright)
 
+private theorem norm_exp_neg_mul_sub_le
+    {a b : Complex} {x : Real} (hx : 0 ≤ x) :
+    ‖Complex.exp (-(a * (x : Complex))) -
+      Complex.exp (-(b * (x : Complex)))‖ ≤
+      ‖a - b‖ * x * Real.exp (-(min a.re b.re) * x) := by
+  let f : Real → Complex := fun t =>
+    Complex.exp (-((a + (t : Complex) * (b - a)) * (x : Complex)))
+  let f' : Real → Complex := fun t =>
+    Complex.exp (-((a + (t : Complex) * (b - a)) * (x : Complex))) *
+      (-((b - a) * (x : Complex)))
+  have hderiv : ∀ t : Real, HasDerivAt f
+      (f' t) t := by
+    intro t
+    have hcast : HasDerivAt (fun y : Real => (y : Complex)) (1 : Complex) t := by
+      simpa using (hasDerivAt_id (t : Complex)).comp_ofReal
+    have hinner : HasDerivAt
+        (fun y : Real => a + (y : Complex) * (b - a)) (b - a) t := by
+      convert (hcast.mul_const (b - a)).const_add a using 1 <;> ring
+    have hscaled : HasDerivAt
+        (fun y : Real => -((a + (y : Complex) * (b - a)) * (x : Complex)))
+        (-((b - a) * (x : Complex))) t := by
+      convert (hinner.mul_const (x : Complex)).neg using 1 <;> ring
+    simpa only [f, f'] using hscaled.cexp
+  have hbound : ∀ t ∈ Ico (0 : Real) 1,
+      ‖f' t‖ ≤ ‖a - b‖ * x * Real.exp (-(min a.re b.re) * x) := by
+    intro t ht
+    have ht0 : 0 ≤ t := ht.1
+    have ht1 : t ≤ 1 := le_of_lt ht.2
+    have hmin : min a.re b.re ≤
+        (a + (t : Complex) * (b - a)).re := by
+      simp only [add_re, mul_re, ofReal_re, ofReal_im, mul_zero, sub_re, sub_im,
+        zero_mul, sub_zero, add_zero]
+      calc
+        min a.re b.re ≤ (1 - t) * min a.re b.re + t * min a.re b.re := by
+          have heq : (1 - t) * min a.re b.re + t * min a.re b.re =
+              min a.re b.re := by ring
+          rw [heq]
+        _ ≤ (1 - t) * a.re + t * b.re := by
+          exact add_le_add
+            (mul_le_mul_of_nonneg_left (min_le_left _ _) (sub_nonneg.mpr ht1))
+            (mul_le_mul_of_nonneg_left (min_le_right _ _) ht0)
+        _ = a.re + t * (b.re - a.re) := by ring
+    have hmin' : min a.re b.re ≤ a.re + t * (b.re - a.re) := by
+      simpa only [add_re, mul_re, ofReal_re, ofReal_im, mul_zero, sub_re, sub_im,
+        zero_mul, sub_zero, add_zero] using hmin
+    have hexp : ‖Complex.exp (-((a + (t : Complex) * (b - a)) * (x : Complex)))‖ ≤
+        Real.exp (-(min a.re b.re) * x) := by
+      rw [Complex.norm_exp]
+      apply Real.exp_le_exp.mpr
+      simp only [neg_re, mul_re, ofReal_re, ofReal_im, mul_zero, sub_zero,
+        add_re, sub_re, zero_mul, add_zero]
+      have hprod : 0 ≤
+          ((a.re + t * (b.re - a.re) - min a.re b.re) * x) :=
+        mul_nonneg (sub_nonneg.mpr hmin') hx
+      nlinarith
+    change ‖Complex.exp (-((a + (t : Complex) * (b - a)) * (x : Complex))) *
+      (-((b - a) * (x : Complex)))‖ ≤ _
+    rw [norm_mul]
+    have hderivnorm : ‖-((b - a) * (x : Complex))‖ = ‖a - b‖ * x := by
+      rw [norm_neg, norm_mul, norm_real, Real.norm_eq_abs, abs_of_nonneg hx,
+        norm_sub_rev]
+    rw [hderivnorm]
+    calc
+      ‖Complex.exp (-((a + (t : Complex) * (b - a)) * (x : Complex)))‖ *
+          (‖a - b‖ * x) ≤
+          Real.exp (-(min a.re b.re) * x) *
+            (‖a - b‖ * x) := by
+        exact mul_le_mul_of_nonneg_right hexp (mul_nonneg (norm_nonneg _) hx)
+      _ = ‖a - b‖ * x * Real.exp (-(min a.re b.re) * x) := by ring
+  have hmv := norm_image_sub_le_of_norm_deriv_le_segment_01'
+    (f := f) (f' := f') (C :=
+      ‖a - b‖ * x * Real.exp (-(min a.re b.re) * x))
+    (fun t ht => (hderiv t).hasDerivWithinAt) hbound
+  simpa [f, norm_sub_rev] using hmv
+
+private theorem norm_halfAnchorGaussSeriesTerm_le
+    {z : Complex} (hz : 0 < z.re) {n : Nat}
+    {x : Real} (hx : 0 ≤ x) :
+    ‖(Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))) -
+        Complex.exp (-(((n : Complex) + z) * (x : Complex))))‖ ≤
+      ‖z - (1 / 2 : Complex)‖ * x * Real.exp (-((n : Real) * x)) := by
+  let a : Complex := (n : Complex) + (1 / 2 : Complex)
+  let b : Complex := (n : Complex) + z
+  have hbase := norm_exp_neg_mul_sub_le (a := a) (b := b) hx
+  have hA_re : (n : Real) ≤ a.re := by
+    dsimp [a]
+    norm_num [Complex.add_re]
+  have hB_re : (n : Real) ≤ b.re := by
+    dsimp [b]
+    norm_num [Complex.add_re]
+    linarith
+  have hmin : (n : Real) ≤ min a.re b.re := le_min hA_re hB_re
+  have hexp : Real.exp (-(min a.re b.re) * x) ≤
+      Real.exp (-((n : Real) * x)) := by
+    apply Real.exp_le_exp.mpr
+    have hprod : 0 ≤ ((min a.re b.re - (n : Real)) * x) :=
+      mul_nonneg (sub_nonneg.mpr hmin) hx
+    nlinarith
+  have hnum : ‖a - b‖ = ‖z - (1 / 2 : Complex)‖ := by
+    dsimp [a, b]
+    have hdiff : (n : Complex) + (1 / 2 : Complex) - ((n : Complex) + z) =
+        -(z - (1 / 2 : Complex)) := by ring
+    rw [hdiff, norm_neg]
+  rw [hnum] at hbase
+  calc
+    ‖(Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))) -
+        Complex.exp (-(((n : Complex) + z) * (x : Complex))))‖ ≤
+        ‖z - (1 / 2 : Complex)‖ * x *
+          Real.exp (-(min a.re b.re) * x) := by
+      simpa [a, b] using hbase
+    _ ≤ ‖z - (1 / 2 : Complex)‖ * x *
+          Real.exp (-((n : Real) * x)) := by
+      exact mul_le_mul_of_nonneg_left hexp
+        (mul_nonneg (norm_nonneg _) hx)
+
+private theorem integrableOn_halfAnchorGaussMajorant
+    (C : Real) {n : Nat} (hn : 0 < n) :
+    IntegrableOn
+      (fun x : Real => C * x * Real.exp (-((n : Real) * x)))
+      (Ioi (0 : Real)) := by
+  have hnreal : 0 < (n : Real) := by exact_mod_cast hn
+  have hbase := integrableOn_rpow_mul_exp_neg_mul_rpow
+    (p := (1 : Real)) (s := (1 : Real)) (b := (n : Real))
+    (by norm_num) (by norm_num) hnreal
+  have hbase' : IntegrableOn
+      (fun x : Real => x * Real.exp (-((n : Real) * x)))
+      (Ioi (0 : Real)) := by
+    simpa [Real.rpow_one] using hbase
+  simpa [mul_assoc] using hbase'.const_mul C
+
+private theorem integral_halfAnchorGaussMajorant
+    (C : Real) {n : Nat} (hn : 0 < n) :
+    (∫ x : Real in Ioi (0 : Real),
+      C * x * Real.exp (-((n : Real) * x))) =
+        C * (((n : Real) ^ 2)⁻¹) := by
+  have hbase :
+      (∫ x : Real in Ioi (0 : Real),
+        x * Real.exp (-((n : Real) * x))) = (((n : Real) ^ 2)⁻¹) := by
+    have hnreal : 0 < (n : Real) := by exact_mod_cast hn
+    have hgamma := Real.integral_rpow_mul_exp_neg_mul_Ioi
+      (a := (2 : Real)) (r := (n : Real)) (by norm_num) hnreal
+    norm_num [Real.Gamma_nat_eq_factorial] at hgamma
+    simpa [div_eq_mul_inv] using hgamma
+  rw [show (fun x : Real => C * x * Real.exp (-((n : Real) * x))) =
+      (fun x : Real => C * (x * Real.exp (-((n : Real) * x)))) by
+        funext x
+        ring]
+  rw [integral_const_mul, hbase]
+
+/-! The norm-integral summability is the majorant needed for the genuine
+infinite sum-integral exchange below. -/
+theorem summable_halfAnchorGaussIntegralNorm
+    {z : Complex} (hz : 0 < z.re) :
+    Summable (fun n : Nat =>
+      ∫ x : Real in Ioi (0 : Real),
+        ‖(Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))) -
+          Complex.exp (-(((n : Complex) + z) * (x : Complex))))‖) := by
+  let C : Real := ‖z - (1 / 2 : Complex)‖
+  have hbase : Summable (fun n : Nat => C * (((n : Real) ^ 2)⁻¹)) := by
+    exact (Real.summable_nat_pow_inv (p := 2)).mpr (by norm_num) |>.mul_left C
+  apply hbase.of_norm_bounded_eventually_nat
+  filter_upwards [Filter.eventually_ge_atTop (1 : Nat)] with n hn
+  have hnpos : 0 < n := Nat.zero_lt_of_lt hn
+  have hterm : IntegrableOn
+      (fun x : Real =>
+        (Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))) -
+          Complex.exp (-(((n : Complex) + z) * (x : Complex)))))
+      (Ioi (0 : Real)) := integrableOn_halfAnchorGaussSeriesTerm hz n
+  have hmajorant : IntegrableOn
+      (fun x : Real => C * x * Real.exp (-((n : Real) * x)))
+      (Ioi (0 : Real)) := integrableOn_halfAnchorGaussMajorant C hnpos
+  have hpoint : ∀ᵐ x : Real ∂(volume.restrict (Ioi (0 : Real))),
+      ‖(Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))) -
+          Complex.exp (-(((n : Complex) + z) * (x : Complex))))‖ ≤
+        C * x * Real.exp (-((n : Real) * x)) := by
+    filter_upwards [ae_restrict_mem measurableSet_Ioi] with x hx
+    exact norm_halfAnchorGaussSeriesTerm_le hz (le_of_lt hx)
+  have hle := integral_mono_ae hterm.norm hmajorant hpoint
+  rw [integral_halfAnchorGaussMajorant C hnpos] at hle
+  have hnonneg : 0 ≤
+      ∫ x : Real in Ioi (0 : Real),
+        ‖(Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))) -
+          Complex.exp (-(((n : Complex) + z) * (x : Complex))))‖ :=
+    integral_nonneg (fun _ => norm_nonneg _)
+  rw [Real.norm_eq_abs, abs_of_nonneg hnonneg]
+  simpa only [C] using hle
+
+/-! The pointwise kernel expansion can now be exchanged with the integral on
+`(0,∞)`, because the preceding norm-integral series is summable. -/
+theorem integral_halfAnchorGaussKernel_eq_tsum_integral
+    {z : Complex} (hz : 0 < z.re) :
+    (∫ x : Real in Ioi (0 : Real), halfAnchorGaussKernel z x) =
+      ∑' n : Nat,
+        (((n : Complex) + (1 / 2 : Complex))⁻¹ - ((n : Complex) + z)⁻¹) := by
+  have hswap := MeasureTheory.integral_tsum_of_summable_integral_norm
+    (μ := volume.restrict (Ioi (0 : Real)))
+    (F := fun (n : Nat) (x : Real) =>
+      Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))) -
+        Complex.exp (-(((n : Complex) + z) * (x : Complex))))
+    (fun n => integrableOn_halfAnchorGaussSeriesTerm hz n)
+    (summable_halfAnchorGaussIntegralNorm hz)
+  calc
+    (∫ x : Real in Ioi (0 : Real), halfAnchorGaussKernel z x) =
+        ∫ x : Real in Ioi (0 : Real), ∑' n : Nat,
+          (Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))) -
+            Complex.exp (-(((n : Complex) + z) * (x : Complex)))) := by
+      apply integral_congr_ae
+      filter_upwards [ae_restrict_mem measurableSet_Ioi] with x hx
+      exact halfAnchorGaussKernel_eq_tsum (z := z) (x := x) (show 0 < x from hx)
+    _ = ∑' n : Nat,
+        (∫ x : Real in Ioi (0 : Real),
+          (Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))) -
+            Complex.exp (-(((n : Complex) + z) * (x : Complex))))) := hswap.symm
+    _ = ∑' n : Nat,
+        (((n : Complex) + (1 / 2 : Complex))⁻¹ - ((n : Complex) + z)⁻¹) := by
+      apply tsum_congr
+      intro n
+      exact integral_halfAnchorGaussSeriesTerm hz n
+
 /-- Finite geometric partial sums can be integrated term by term and read
 back to the corresponding finite reciprocal-difference sum. -/
 theorem integral_halfAnchorGaussPartialSum

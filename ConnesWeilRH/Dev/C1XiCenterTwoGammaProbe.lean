@@ -6,6 +6,8 @@ namespace ConnesWeilRH.Source.C1XiCenterTwoGamma
 #print axioms integral_exp_neg_mul_complex_Ioi
 #print axioms integral_halfAnchorGaussSeriesTerm
 #print axioms integrableOn_halfAnchorGaussSeriesTerm
+#print axioms summable_halfAnchorGaussIntegralNorm
+#print axioms integral_halfAnchorGaussKernel_eq_tsum_integral
 #print axioms integral_halfAnchorGaussPartialSum
 #print axioms summable_halfAnchorGaussReciprocalSeries
 #print axioms tendsto_integral_halfAnchorGaussPartialSum
