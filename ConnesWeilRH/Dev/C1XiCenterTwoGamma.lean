@@ -28,6 +28,7 @@ open CCM25Concrete.CompactLogConvolution
 open C1SameOwnerWeil
 open C1XiArithmeticIntervalReadback
 open C1XiVerticalFunctional
+open Filter
 open scoped Interval Topology
 
 noncomputable section
@@ -238,6 +239,23 @@ theorem summable_halfAnchorGaussReciprocalSeries
         exact div_le_div_of_nonneg_left (norm_nonneg _) (by positivity) hdenom_lower
       _ = C * (((n : Real) ^ 2)⁻¹) := by rw [div_eq_mul_inv]
   simpa [A, B] using hnorm_bound
+
+/-- The finite partial-sum integrals converge to the reciprocal-difference
+series sum.  This is the scalar limit supplied by the finite readback; the
+missing infinite sum-integral exchange is deliberately not inferred here. -/
+theorem tendsto_integral_halfAnchorGaussPartialSum
+    {z : Complex} (hz : 0 < z.re) :
+    Tendsto
+      (fun N : Nat =>
+        ∫ x : Real in Ioi (0 : Real),
+          ∑ n ∈ Finset.range N,
+            (Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))) -
+              Complex.exp (-(((n : Complex) + z) * (x : Complex)))))
+      atTop
+      (𝓝 (∑' n : Nat,
+        (((n : Complex) + (1 / 2 : Complex))⁻¹ - ((n : Complex) + z)⁻¹))) := by
+  have hlim := (summable_halfAnchorGaussReciprocalSeries hz).hasSum.tendsto_sum_nat
+  simpa only [integral_halfAnchorGaussPartialSum hz] using hlim
 
 /-- The exact analytic input needed by the half-anchor Gamma_R consumer.
 

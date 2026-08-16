@@ -2207,3 +2207,12 @@ would be unsound. RH unclaimed.
 - The WSL2 ext4 owner/probe build completed successfully (`3532/3532`), and
   the two new audited declarations use only `[propext, Classical.choice,
   Quot.sound]` with no `sorryAx` or project axiom.
+
+## Change Log (2026-08-16, half-anchor scalar limit bridge)
+- Added `tendsto_integral_halfAnchorGaussPartialSum`. It combines the finite
+  partial-sum integral identity with absolute summability of reciprocal
+  differences to prove convergence of the scalar integral values to the
+  reciprocal-series sum.
+- This remains weaker than the desired function-level sum-integral exchange:
+  no dominated majorant for the infinite kernel series and no
+  `HalfAnchorGaussContract` producer is claimed.
