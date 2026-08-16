@@ -232,6 +232,98 @@ private theorem symmetrizedLaplaceWeight_centerTwo_pole_eq
   simp only [centerTwoPolePlusProfile, centerTwoPoleMinusProfile]
   norm_num
 
+/-! The following public readback keeps the center-`2` weight on its own
+Fourier owner.  It is the inner transform needed by a later Gamma_R Fubini
+argument; no archimedean distribution is folded into it here. -/
+
+theorem integrable_symmetrizedLaplaceWeight_centerTwo_mul_character
+    (F : CompactLogTest) (x : Real) :
+    Integrable (fun t : Real =>
+      symmetrizedLaplaceWeight F (verticalPoint 2 t) *
+        Complex.exp (-((t : Complex) * (x : Complex) * Complex.I))) := by
+  have hplus := integrable_fourierLaplace_mul_character
+    (centerTwoPolePlusProfile F) x
+  have hminus := integrable_fourierLaplace_neg_mul_character
+    (centerTwoPoleMinusProfile F) x
+  simpa only [symmetrizedLaplaceWeight_centerTwo_pole_eq, add_mul] using
+    hplus.add hminus
+
+theorem integral_symmetrizedLaplaceWeight_centerTwo_mul_character
+    (F : CompactLogTest) (x : Real) :
+    (∫ t : Real,
+      symmetrizedLaplaceWeight F (verticalPoint 2 t) *
+        Complex.exp (-((t : Complex) * (x : Complex) * Complex.I))) =
+      (2 * (Real.pi : Complex)) *
+        (Complex.exp (((3 / 2 : Real) : Complex) * (x : Complex)) *
+          (F.test x + F.test (-x))) := by
+  have hplusInt := integrable_fourierLaplace_mul_character
+    (centerTwoPolePlusProfile F) x
+  have hminusInt := integrable_fourierLaplace_neg_mul_character
+    (centerTwoPoleMinusProfile F) x
+  have hplus := integral_fourierLaplace_mul_character
+    (centerTwoPolePlusProfile F) x
+  have hminus := integral_fourierLaplace_neg_mul_character
+    (centerTwoPoleMinusProfile F) x
+  calc
+    (∫ t : Real,
+        symmetrizedLaplaceWeight F (verticalPoint 2 t) *
+          Complex.exp (-((t : Complex) * (x : Complex) * Complex.I))) =
+        ∫ t : Real,
+          (fourierLaplace (centerTwoPolePlusProfile F) t +
+            fourierLaplace (centerTwoPoleMinusProfile F) (-t)) *
+            Complex.exp (-((t : Complex) * (x : Complex) * Complex.I)) := by
+      apply integral_congr_ae
+      filter_upwards with t
+      rw [symmetrizedLaplaceWeight_centerTwo_pole_eq]
+    _ = (∫ t : Real,
+          fourierLaplace (centerTwoPolePlusProfile F) t *
+            Complex.exp (-((t : Complex) * (x : Complex) * Complex.I))) +
+        ∫ t : Real,
+          fourierLaplace (centerTwoPoleMinusProfile F) (-t) *
+            Complex.exp (-((t : Complex) * (x : Complex) * Complex.I)) := by
+      rw [show (fun t : Real =>
+          (fourierLaplace (centerTwoPolePlusProfile F) t +
+            fourierLaplace (centerTwoPoleMinusProfile F) (-t)) *
+            Complex.exp (-((t : Complex) * (x : Complex) * Complex.I))) =
+          (fun t : Real =>
+            fourierLaplace (centerTwoPolePlusProfile F) t *
+                Complex.exp (-((t : Complex) * (x : Complex) * Complex.I)) +
+              fourierLaplace (centerTwoPoleMinusProfile F) (-t) *
+                Complex.exp (-((t : Complex) * (x : Complex) * Complex.I))) by
+        funext t
+        rw [add_mul]]
+      exact integral_add hplusInt hminusInt
+    _ = (2 * (Real.pi : Complex)) *
+        (centerTwoPolePlusProfile F x +
+          centerTwoPoleMinusProfile F (-x)) := by
+      rw [hplus, hminus]
+      ring
+    _ = (2 * (Real.pi : Complex)) *
+        (Complex.exp (((3 / 2 : Real) : Complex) * (x : Complex)) *
+          (F.test x + F.test (-x))) := by
+      simp only [centerTwoPolePlusProfile, centerTwoPoleMinusProfile,
+        CompactLogTest.exponentialWeight_apply]
+      have hminusExp :
+          Complex.exp (((-3 / 2 : Real) : Complex) * ((-x : Real) : Complex)) =
+            Complex.exp (((3 / 2 : Real) : Complex) * (x : Complex)) := by
+        congr 1
+        push_cast
+        ring
+      rw [hminusExp]
+      ring
+
+theorem integral_symmetrizedLaplaceWeight_centerTwo
+    (F : CompactLogTest) :
+    (∫ t : Real, symmetrizedLaplaceWeight F (verticalPoint 2 t)) =
+      (4 * (Real.pi : Complex)) * F.test 0 := by
+  have h := integral_symmetrizedLaplaceWeight_centerTwo_mul_character F 0
+  calc
+    (∫ t : Real, symmetrizedLaplaceWeight F (verticalPoint 2 t)) =
+        (2 * (Real.pi : Complex)) * (F.test 0 + F.test 0) := by
+      simpa using h
+    _ = (4 * (Real.pi : Complex)) * F.test 0 := by
+      ring
+
 private theorem laplaceAt_real_eq_halfLines
     (F : CompactLogTest) (b : Real) :
     (∫ y : Real in Ioi 0,

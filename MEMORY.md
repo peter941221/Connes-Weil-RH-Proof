@@ -2284,3 +2284,23 @@ would be unsound. RH unclaimed.
   ext4 mirror (`3538` jobs). The new declaration uses only
   `[propext, Classical.choice, Quot.sound]`, with no `sorryAx` or new project
   axiom.
+
+## Change Log (2026-08-16, center-2 Fourier inner readback)
+- Extended `Dev/C1XiCenterTwoPole.lean` with the integrability and full-line
+  Fourier readback of the same-owner centered weight at `Re(s)=2`:
+  `integrable_symmetrizedLaplaceWeight_centerTwo_mul_character` and
+  `integral_symmetrizedLaplaceWeight_centerTwo_mul_character` identify the
+  transform with `2π * exp(3x/2) * (F.test x + F.test (-x))`.
+- Added the zero-character specialization
+  `integral_symmetrizedLaplaceWeight_centerTwo`, which reads the unweighted
+  line integral as `4π * F.test 0`. The proof keeps the intermediate
+  `2π * (F.test 0 + F.test 0)` identity explicit before the final ring
+  normalization.
+- The owner and import-facing probe rebuilt in the WSL2 ext4 mirror after the
+  algebra normalization (`3528` and `3538` jobs respectively); the Gamma_R
+  owner/probe also rebuilt successfully. The new public Pole declarations
+  audit to `[propext, Classical.choice, Quot.sound]`, with no `sorryAx` or
+  project axiom.
+- This closes only the Fourier inner transform and its `4π F(0)` constant
+  term. It does not prove the full Gamma_R Fubini/readback contract, the
+  same-owner arithmetic/spectral equality, Gate 2, or RH.

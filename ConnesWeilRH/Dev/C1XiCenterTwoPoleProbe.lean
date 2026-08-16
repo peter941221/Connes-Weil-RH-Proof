@@ -4,6 +4,9 @@ namespace ConnesWeilRH.Source.C1XiCenterTwoPole
 
 #print axioms integral_fourierLaplace_div_vertical
 #print axioms integral_fourierLaplace_neg_div_vertical
+#print axioms integrable_symmetrizedLaplaceWeight_centerTwo_mul_character
+#print axioms integral_symmetrizedLaplaceWeight_centerTwo_mul_character
+#print axioms integral_symmetrizedLaplaceWeight_centerTwo
 #print axioms integrable_elementaryPoleIntegrand_centerTwo
 #print axioms integral_elementaryPoleIntegrand_centerTwo_eq
 #print axioms normalized_integral_elementaryPole_centerTwo_re_eq
