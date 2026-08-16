@@ -989,6 +989,42 @@ theorem logDeriv_GammaR_centerTwo_eq_reciprocalSeries
   rw [hseries] at hlog
   exact hlog
 
+/-! The constant term in the center-`2` Gamma_R logarithmic derivative has an
+explicit same-owner readback.  This is only the constant piece; the reciprocal
+series piece still needs its own sum-integral argument. -/
+
+theorem normalized_gammaR_centerTwo_constant_part_eq
+    (F : CompactLogTest) :
+    (((2 * (Real.pi : Complex) * Complex.I)⁻¹ *
+      (∫ t : Real,
+        (((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) / 2) *
+          symmetrizedLaplaceWeight F (verticalPoint 2 t) * Complex.I))).re =
+      ((((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) *
+        F.test 0).re) := by
+  have hweight :=
+    ConnesWeilRH.Source.C1XiCenterTwoPrimePower.integrable_symmetrizedLaplaceWeight_centerTwo F
+  have hconstant : Integrable (fun t : Real =>
+      (((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) / 2) *
+        symmetrizedLaplaceWeight F (verticalPoint 2 t) * Complex.I) := by
+    exact (hweight.const_mul
+      (((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) / 2)).mul_const
+      Complex.I
+  have hbase :=
+    ConnesWeilRH.Source.C1XiCenterTwoPole.integral_symmetrizedLaplaceWeight_centerTwo F
+  rw [integral_mul_const, integral_const_mul, hbase]
+  have hpi : (Real.pi : Complex) ≠ 0 :=
+    Complex.ofReal_ne_zero.mpr Real.pi_ne_zero
+  have hinner :
+      (2 * (Real.pi : Complex) * Complex.I)⁻¹ *
+          ((((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) / 2) *
+            (4 * (Real.pi : Complex) * (F.test 0 : Complex)) * Complex.I) =
+        (((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) *
+          F.test 0) := by
+    field_simp [hpi, Complex.I_ne_zero]
+    push_cast
+    ring
+  rw [hinner]
+
 /-- A local consumer contract for the full center-`2` Gamma_R readback.
 
 The first field is the only nontrivial analysis left after the pointwise

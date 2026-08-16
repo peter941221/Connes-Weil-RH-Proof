@@ -1,3 +1,19 @@
+## Change Log (2026-08-17, center-2 Gamma_R constant-part readback)
+- `Dev/C1XiCenterTwoGamma.lean` now proves
+  `normalized_gammaR_centerTwo_constant_part_eq`: after the exact center-`2`
+  Fourier normalization, the constant Gamma_R contribution reads back as
+  `(((log(4*pi) + EulerGamma : Complex) * F.test 0).re)` through the same
+  `C1XiCenterTwoPrimePower` and `C1XiCenterTwoPole` owners. The proof uses the
+  owner-integrability and center-`2` weight integral; it does not freeze or
+  replace the remaining reciprocal-series term.
+- The isolated WSL2 ext4 owner build completed `3537/3537` jobs and the
+  import-facing probe completed `3538/3538`. The new declaration's `#print
+  axioms` output is only `[propext, Classical.choice, Quot.sound]`, with no
+  `sorryAx` or project axiom. Existing unrelated linter warnings remain.
+- This closes only the normalized constant piece. The reciprocal-series
+  Fubini/readback, the full Gamma_R contract, Gate 2 equality, and RH remain
+  open.
+
 ## Change Log (2026-08-16, half-anchor Gauss right-half-plane readback)
 - `Dev/C1XiCenterTwoGamma.lean` now imports the corrected Euler-product
   digamma series and proves `halfAnchorShiftReciprocalSeries_eq_two`,
