@@ -1,4 +1,5 @@
 import ConnesWeilRH.Dev.C1XiCenterTwoPole
+import ConnesWeilRH.Dev.C1XiGammaEulerProduct
 import Mathlib.Analysis.SpecialFunctions.Gamma.Digamma
 import Mathlib.Analysis.PSeries
 
@@ -27,6 +28,7 @@ open CC20YoshidaConvolution
 open CCM25Concrete.CompactLogConvolution
 open C1SameOwnerWeil
 open C1XiArithmeticIntervalReadback
+open C1XiGammaEulerProduct
 open C1XiVerticalFunctional
 open Filter
 open scoped Interval Topology
@@ -475,6 +477,184 @@ theorem tendsto_integral_halfAnchorGaussPartialSum
         (((n : Complex) + (1 / 2 : Complex))⁻¹ - ((n : Complex) + z)⁻¹))) := by
   have hlim := (summable_halfAnchorGaussReciprocalSeries hz).hasSum.tendsto_sum_nat
   simpa only [integral_halfAnchorGaussPartialSum hz] using hlim
+
+/-! The Euler-product module gives the convergent digamma series only after
+shifting its parameter into `Re z > 0`.  The next lemmas use the explicit
+`3 / 2` base point to bridge that shift back to the half-anchor `1 / 2`. -/
+
+private theorem correctedEulerReciprocalSeries_eq_negEuler_sub_digamma
+    {z : Complex} (hz : 1 < z.re) :
+    ∑' n : Nat, (1 / ((n : Complex) + z) -
+      1 / ((n : Complex) + 1)) =
+      -(Real.eulerMascheroniConstant : Complex) - Complex.digamma z := by
+  have h := correctedEulerDigammaSeries (z := z - 1) (by
+    norm_num [Complex.sub_re]
+    linarith)
+  convert h using 1
+  · apply tsum_congr
+    intro n
+    congr 1 <;> ring
+  · congr 1 <;> ring
+
+theorem halfAnchorShiftReciprocalSeries_eq_two :
+    ∑' n : Nat,
+      (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + (3 / 2 : Complex))⁻¹) = (2 : Complex) := by
+  let u : Nat → Complex := fun n =>
+    ((n : Complex) + (1 / 2 : Complex))⁻¹ -
+      ((n : Complex) + (3 / 2 : Complex))⁻¹
+  have hu : Summable u := by
+    simpa [u] using
+      (summable_halfAnchorGaussReciprocalSeries
+        (z := (3 / 2 : Complex)) (by norm_num))
+  have hpartial : ∀ N : Nat,
+      ∑ n ∈ Finset.range N, u n =
+        (2 : Complex) - ((N : Complex) + (1 / 2 : Complex))⁻¹ := by
+    intro N
+    induction N with
+    | zero => norm_num [u]
+    | succ N ih =>
+        rw [Finset.sum_range_succ, ih]
+        dsimp [u]
+        have hshift : (N : Complex) + (3 / 2 : Complex) =
+            ((N + 1 : Nat) : Complex) + (1 / 2 : Complex) := by
+          push_cast
+          ring
+        rw [hshift]
+        ring
+  have hreal : Tendsto
+      (fun N : Nat => (((N : Real) + (1 / 2 : Real))⁻¹ : Complex)) atTop
+      (𝓝 (0 : Complex)) := by
+    have hr : Tendsto
+        (fun N : Nat => ((N : Real) + (1 / 2 : Real))⁻¹) atTop
+        (𝓝 (0 : Real)) :=
+      tendsto_inv_atTop_zero.comp
+        (tendsto_atTop_add_const_right atTop (1 / 2 : Real)
+          tendsto_natCast_atTop_atTop)
+    convert (Complex.continuous_ofReal.tendsto (0 : Real)).comp hr using 1
+    funext N
+    simp [Function.comp_def, Complex.ofReal_inv, Complex.ofReal_add]
+  have hcomplex : Tendsto
+      (fun N : Nat => ((N : Complex) + (1 / 2 : Complex))⁻¹) atTop
+      (𝓝 (0 : Complex)) := by
+    refine hreal.congr' ?_
+    filter_upwards [] with N
+    have hsum : (((N : Real) + (1 / 2 : Real) : Real) : Complex) =
+        (N : Complex) + (1 / 2 : Complex) := by
+      push_cast
+      ring
+    simpa only [Complex.ofReal_inv, Complex.ofReal_add] using
+      congrArg (fun w : Complex => w⁻¹) hsum
+  have hlim : Tendsto
+      (fun N : Nat => ∑ n ∈ Finset.range N, u n) atTop
+      (𝓝 (2 : Complex)) := by
+    have heq : (fun N : Nat => ∑ n ∈ Finset.range N, u n) =
+        (fun N : Nat => (2 : Complex) -
+          ((N : Complex) + (1 / 2 : Complex))⁻¹) := by
+      funext N
+      exact hpartial N
+    rw [heq]
+    simpa using (tendsto_const_nhds.sub hcomplex)
+  exact tendsto_nhds_unique (hu.hasSum.tendsto_sum_nat) hlim
+
+theorem halfAnchorGaussReciprocalSeries_eq_digamma_sub_half
+    {z : Complex} (hz : 1 < z.re) :
+    ∑' n : Nat,
+      (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + z)⁻¹) =
+      Complex.digamma z - Complex.digamma (1 / 2 : Complex) := by
+  have hzpos : 0 < z.re := lt_trans (by norm_num) hz
+  have hbase : Summable (fun n : Nat =>
+      1 / ((n : Complex) + (3 / 2 : Complex)) -
+        1 / ((n : Complex) + (1 : Complex))) := by
+    have hone := summable_halfAnchorGaussReciprocalSeries
+      (z := (1 : Complex)) (by norm_num)
+    have hthree := summable_halfAnchorGaussReciprocalSeries
+      (z := (3 / 2 : Complex)) (by norm_num)
+    have hsub := hone.sub hthree
+    convert hsub using 1
+    funext n
+    ring
+  have hzseries : Summable (fun n : Nat =>
+      1 / ((n : Complex) + z) -
+        1 / ((n : Complex) + (1 : Complex))) := by
+    have hone := summable_halfAnchorGaussReciprocalSeries
+      (z := (1 : Complex)) (by norm_num)
+    have hz' := summable_halfAnchorGaussReciprocalSeries hzpos
+    have hsub := hone.sub hz'
+    convert hsub using 1
+    funext n
+    ring
+  have hbaseValue :=
+    correctedEulerReciprocalSeries_eq_negEuler_sub_digamma
+      (z := (3 / 2 : Complex)) (by norm_num)
+  have hzValue := correctedEulerReciprocalSeries_eq_negEuler_sub_digamma hz
+  have hdiff : ∑' n : Nat,
+      (1 / ((n : Complex) + (3 / 2 : Complex)) -
+        1 / ((n : Complex) + z)) =
+      (∑' n : Nat, (1 / ((n : Complex) + (3 / 2 : Complex)) -
+        1 / ((n : Complex) + (1 : Complex)))) -
+        ∑' n : Nat, (1 / ((n : Complex) + z) -
+          1 / ((n : Complex) + (1 : Complex))) := by
+    calc
+      ∑' n : Nat, (1 / ((n : Complex) + (3 / 2 : Complex)) -
+          1 / ((n : Complex) + z)) =
+          ∑' n : Nat,
+            ((1 / ((n : Complex) + (3 / 2 : Complex)) -
+              1 / ((n : Complex) + (1 : Complex))) -
+              (1 / ((n : Complex) + z) -
+                1 / ((n : Complex) + (1 : Complex)))) := by
+        apply tsum_congr
+        intro n
+        ring
+      _ = _ := hbase.tsum_sub hzseries
+  have hsum : ∑' n : Nat,
+      (1 / ((n : Complex) + (1 / 2 : Complex)) -
+        1 / ((n : Complex) + z)) =
+      (∑' n : Nat, (1 / ((n : Complex) + (1 / 2 : Complex)) -
+        1 / ((n : Complex) + (3 / 2 : Complex)))) +
+      ∑' n : Nat, (1 / ((n : Complex) + (3 / 2 : Complex)) -
+        1 / ((n : Complex) + z)) := by
+    have hanchor : Summable (fun n : Nat =>
+        1 / ((n : Complex) + (1 / 2 : Complex)) -
+          1 / ((n : Complex) + (3 / 2 : Complex))) := by
+      simpa only [one_div] using
+        (summable_halfAnchorGaussReciprocalSeries
+          (z := (3 / 2 : Complex)) (by norm_num))
+    have hdiff' : Summable (fun n : Nat =>
+        1 / ((n : Complex) + (3 / 2 : Complex)) -
+          1 / ((n : Complex) + z)) := by
+      exact hbase.sub hzseries |>.congr (fun n => by ring)
+    rw [← hanchor.tsum_add hdiff']
+    apply tsum_congr
+    intro n
+    ring
+  have hanchorValue : ∑' n : Nat,
+      (1 / ((n : Complex) + (1 / 2 : Complex)) -
+        1 / ((n : Complex) + (3 / 2 : Complex))) = (2 : Complex) := by
+    simpa only [one_div] using halfAnchorShiftReciprocalSeries_eq_two
+  have hdivTarget : ∑' n : Nat,
+      (1 / ((n : Complex) + (1 / 2 : Complex)) -
+        1 / ((n : Complex) + z)) =
+      Complex.digamma z - Complex.digamma (1 / 2 : Complex) := by
+    rw [hsum, hanchorValue, hdiff, hbaseValue, hzValue]
+    have hrec := Complex.digamma_apply_add_one (1 / 2 : Complex) (by
+      intro m hm
+      have hre : (1 / 2 : Real) = -(m : Real) := by
+        simpa using congrArg Complex.re hm
+      have hmnonneg : (0 : Real) ≤ (m : Real) := by positivity
+      linarith)
+    norm_num at hrec
+    rw [hrec]
+    ring
+  simpa only [one_div] using hdivTarget
+
+theorem halfAnchorGaussContract_of_one_lt_re
+    {z : Complex} (hz : 1 < z.re) :
+    Complex.digamma z - Complex.digamma (1 / 2 : Complex) =
+      ∫ x : Real in Ioi (0 : Real), halfAnchorGaussKernel z x := by
+  rw [integral_halfAnchorGaussKernel_eq_tsum_integral (lt_trans (by norm_num) hz)]
+  exact (halfAnchorGaussReciprocalSeries_eq_digamma_sub_half hz).symm
 
 /-- The exact analytic input needed by the half-anchor Gamma_R consumer.
 

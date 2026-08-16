@@ -1,3 +1,18 @@
+## Change Log (2026-08-16, half-anchor Gauss right-half-plane readback)
+- `Dev/C1XiCenterTwoGamma.lean` now imports the corrected Euler-product
+  digamma series and proves `halfAnchorShiftReciprocalSeries_eq_two`,
+  `halfAnchorGaussReciprocalSeries_eq_digamma_sub_half`, and
+  `halfAnchorGaussContract_of_one_lt_re`. The proof keeps the `3 / 2` base
+  point explicit, uses `Complex.digamma_apply_add_one`, and combines the
+  already-proved norm-integrable kernel exchange with the reciprocal series.
+- The owning module built in the isolated WSL2 ext4 mirror at `3537/3537`
+  jobs; the import-facing probe built at `3538/3538`. All three new public
+  declarations audit to `[propext, Classical.choice, Quot.sound]`, with no
+  `sorryAx` or project axiom.
+- This closes the Gauss integral representation only for `1 < Re z`. The
+  full `HalfAnchorGaussContract` on `0 < Re z`, its recurrence/shift extension,
+  Gamma_R Fubini readback, Gate 2 equality, and RH remain open.
+
 ## Change Log (2026-08-16, corrected Gamma Euler product)
 - `Dev/C1XiGammaEulerProduct.lean` closes `correctedEulerFactor_tprod_eq_exp_div_Gamma` on `0 < Re z`, with the finite-prefix `GammaSeq` bridge and log-derivative summability; the isolated WSL2 ext4 owner-plus-probe build completed 2772 jobs, and every audited declaration uses only `[propext, Classical.choice, Quot.sound]` with no `sorryAx` or project axiom.
 - The same owner now reads its logarithmic derivative back as `correctedEulerDigammaSeries`; the forced rebuild of the owner and probe completed 2772 jobs with no linter warnings, and both new declarations remain axiom-clean.
