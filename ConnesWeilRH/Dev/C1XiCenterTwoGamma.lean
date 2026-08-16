@@ -37,6 +37,49 @@ noncomputable def halfAnchorGaussKernel (z : Complex) (x : Real) : Complex :=
       Complex.exp (-(z * (x : Complex)))) /
     (1 - Complex.exp (-((x : Complex))))
 
+/-! The next two readback lemmas isolate the elementary analytic pieces of
+Gauss' kernel.  They do not exchange the infinite sum with the integral; that
+exchange remains an explicit convergence obligation for the eventual
+`HalfAnchorGaussContract` producer. -/
+
+/-- Pointwise geometric expansion of the half-anchor kernel on the positive
+half-line.  The denominator is expanded with the norm-convergent geometric
+series for `exp (-x)`. -/
+theorem halfAnchorGaussKernel_eq_tsum
+    {z : Complex} {x : Real} (hx : 0 < x) :
+    halfAnchorGaussKernel z x =
+      ∑' n : Nat,
+        (Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))) -
+          Complex.exp (-(((n : Complex) + z) * (x : Complex)))) := by
+  have hnorm : ‖Complex.exp (-((x : Complex)))‖ < 1 := by
+    rw [Complex.norm_exp]
+    simp only [neg_re, ofReal_re]
+    exact (Real.exp_lt_one_iff.mpr (by linarith))
+  have hgeom := tsum_geometric_of_norm_lt_one hnorm
+  rw [halfAnchorGaussKernel, div_eq_mul_inv]
+  rw [← hgeom]
+  rw [← tsum_mul_left]
+  apply tsum_congr
+  intro n
+  rw [sub_mul]
+  congr 1
+  · rw [← Complex.exp_nat_mul]
+    rw [← Complex.exp_add]
+    congr 1
+    ring
+  · rw [← Complex.exp_nat_mul]
+    rw [← Complex.exp_add]
+    congr 1
+    ring
+
+/-- Integral of one decaying complex exponential on `(0,∞)`. -/
+theorem integral_exp_neg_mul_complex_Ioi
+    {a : Complex} (ha : 0 < a.re) :
+    (∫ x : Real in Ioi (0 : Real),
+      Complex.exp (-(a * (x : Complex)))) = a⁻¹ := by
+  simpa [neg_mul, mul_comm, mul_left_comm, mul_assoc] using
+    (integral_exp_mul_complex_Ioi (a := -a) (by simpa using ha) (c := (0 : Real)))
+
 /-- The exact analytic input needed by the half-anchor Gamma_R consumer.
 
 This is a proposition-valued contract on purpose: it carries no hidden

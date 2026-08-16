@@ -2166,3 +2166,17 @@ would be unsound. RH unclaimed.
   the fresh ext4 WSL2 snapshot completed the repository-wide Lake build at
   `4147/4147` with no errors; only existing linter warnings and package-cache
   local-change notices were reported.
+
+## Change Log (2026-08-16, half-anchor Gauss kernel elementary bricks)
+- Extended `Dev/C1XiCenterTwoGamma.lean` with
+  `halfAnchorGaussKernel_eq_tsum`, the pointwise geometric expansion of the
+  half-anchor kernel for `x > 0`, and
+  `integral_exp_neg_mul_complex_Ioi`, the exact `(0,∞)` integral of one
+  decaying complex exponential.
+- Updated `C1XiCenterTwoGammaProbe.lean`. A fresh WSL2 ext4 Lake build of the
+  owning module and probe completed successfully (`3532/3532`); both new
+  declarations report only `[propext, Classical.choice, Quot.sound]` and no
+  `sorryAx`.
+- These are local convergence/readback bricks only. The sum-integral exchange,
+  integrability of the full kernel, the global `HalfAnchorGaussContract`, the
+  same-owner Gamma_R Fubini readback, Gate 2, and RH remain open.
