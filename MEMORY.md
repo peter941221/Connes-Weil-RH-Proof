@@ -2172,7 +2172,9 @@ would be unsound. RH unclaimed.
   `halfAnchorGaussKernel_eq_tsum`, the pointwise geometric expansion of the
   half-anchor kernel for `x > 0`, and
   `integral_exp_neg_mul_complex_Ioi`, the exact `(0,∞)` integral of one
-  decaying complex exponential.
+  decaying complex exponential. The companion
+  `integral_halfAnchorGaussSeriesTerm` reads each geometric difference back
+  to `(n + 1/2)⁻¹ - (n + z)⁻¹` for `Re(z) > 0`.
 - Updated `C1XiCenterTwoGammaProbe.lean`. A fresh WSL2 ext4 Lake build of the
   owning module and probe completed successfully (`3532/3532`); both new
   declarations report only `[propext, Classical.choice, Quot.sound]` and no

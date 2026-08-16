@@ -80,6 +80,51 @@ theorem integral_exp_neg_mul_complex_Ioi
   simpa [neg_mul, mul_comm, mul_left_comm, mul_assoc] using
     (integral_exp_mul_complex_Ioi (a := -a) (by simpa using ha) (c := (0 : Real)))
 
+/-- The integral of one geometric-series difference.  This is the exact
+termwise bridge to the reciprocal series for the digamma function. -/
+theorem integral_halfAnchorGaussSeriesTerm
+    {z : Complex} (hz : 0 < z.re) (n : Nat) :
+    (∫ x : Real in Ioi (0 : Real),
+      (Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))) -
+        Complex.exp (-(((n : Complex) + z) * (x : Complex))))) =
+      (((n : Complex) + (1 / 2 : Complex))⁻¹ - ((n : Complex) + z)⁻¹) := by
+  have hleft : 0 < (((n : Complex) + (1 / 2 : Complex)).re) := by
+    simp
+    positivity
+  have hright : 0 < (((n : Complex) + z).re) := by
+    simp only [add_re, Complex.natCast_re]
+    linarith
+  have hleftInt : IntegrableOn
+      (fun x : Real =>
+        Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))))
+      (Ioi (0 : Real)) := by
+    have hleft_neg :
+        (-((n : Complex) + (1 / 2 : Complex))).re < 0 := by
+      rw [neg_re]
+      exact neg_lt_zero.mpr hleft
+    convert
+      (integrableOn_exp_mul_complex_Ioi
+        (a := -((n : Complex) + (1 / 2 : Complex))) hleft_neg (c := (0 : Real))) using 1
+    funext x
+    congr 1
+    ring
+  have hrightInt : IntegrableOn
+      (fun x : Real =>
+        Complex.exp (-(((n : Complex) + z) * (x : Complex))))
+      (Ioi (0 : Real)) := by
+    have hright_neg : (-((n : Complex) + z)).re < 0 := by
+      rw [neg_re]
+      exact neg_lt_zero.mpr hright
+    convert
+      (integrableOn_exp_mul_complex_Ioi (a := -((n : Complex) + z))
+        hright_neg (c := (0 : Real))) using 1
+    funext x
+    congr 1
+    ring
+  rw [integral_sub hleftInt hrightInt,
+    integral_exp_neg_mul_complex_Ioi hleft,
+    integral_exp_neg_mul_complex_Ioi hright]
+
 /-- The exact analytic input needed by the half-anchor Gamma_R consumer.
 
 This is a proposition-valued contract on purpose: it carries no hidden

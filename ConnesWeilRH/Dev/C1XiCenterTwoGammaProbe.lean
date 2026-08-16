@@ -4,6 +4,7 @@ namespace ConnesWeilRH.Source.C1XiCenterTwoGamma
 
 #print axioms halfAnchorGaussKernel_eq_tsum
 #print axioms integral_exp_neg_mul_complex_Ioi
+#print axioms integral_halfAnchorGaussSeriesTerm
 #print axioms logDeriv_GammaR_eq_log_pi_add_digamma
 #print axioms logDeriv_GammaR_eq_halfAnchor
 #print axioms normalized_integral_gammaR_centerTwo_re_eq_archimedeanTerm
