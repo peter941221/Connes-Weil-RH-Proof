@@ -1,5 +1,6 @@
 import ConnesWeilRH.Dev.C1XiCenterTwoPole
 import Mathlib.Analysis.SpecialFunctions.Gamma.Digamma
+import Mathlib.Analysis.PSeries
 
 /-!
 # C1XiCenterTwoGamma - the half-anchor Gamma_R interface
@@ -124,6 +125,69 @@ theorem integral_halfAnchorGaussSeriesTerm
   rw [integral_sub hleftInt hrightInt,
     integral_exp_neg_mul_complex_Ioi hleft,
     integral_exp_neg_mul_complex_Ioi hright]
+
+/-- Absolute summability of the reciprocal differences produced by the
+termwise integral.  The proof uses the real parts of the two denominators to
+obtain an eventual `O(n⁻²)` bound. -/
+theorem summable_halfAnchorGaussReciprocalSeries
+    {z : Complex} (hz : 0 < z.re) :
+    Summable (fun n : Nat =>
+      ((n : Complex) + (1 / 2 : Complex))⁻¹ - ((n : Complex) + z)⁻¹) := by
+  let C : Real := ‖z - (1 / 2 : Complex)‖
+  have hbase : Summable (fun n : Nat => C * (((n : Real) ^ 2)⁻¹)) := by
+    exact (Real.summable_nat_pow_inv (p := 2)).mpr (by norm_num) |>.mul_left C
+  apply hbase.of_norm_bounded_eventually_nat
+  filter_upwards [Filter.eventually_ge_atTop (1 : Nat)] with n hn
+  let A : Complex := (n : Complex) + (1 / 2 : Complex)
+  let B : Complex := (n : Complex) + z
+  have hnreal : (0 : Real) < n := by
+    exact_mod_cast (Nat.zero_lt_of_lt hn)
+  have hA_re : (n : Real) ≤ A.re := by
+    dsimp [A]
+    norm_num [Complex.add_re]
+  have hB_re : (n : Real) ≤ B.re := by
+    dsimp [B]
+    norm_num [Complex.add_re]
+    linarith
+  have hA_norm : (n : Real) ≤ ‖A‖ := by
+    exact hA_re.trans (le_trans (le_abs_self A.re) (abs_re_le_norm A))
+  have hB_norm : (n : Real) ≤ ‖B‖ := by
+    exact hB_re.trans (le_trans (le_abs_self B.re) (abs_re_le_norm B))
+  have hA_ne : A ≠ 0 := by
+    intro hzero
+    have := congrArg Complex.re hzero
+    dsimp [A] at this
+    norm_num [Complex.add_re] at this
+    linarith
+  have hB_ne : B ≠ 0 := by
+    intro hzero
+    have := congrArg Complex.re hzero
+    dsimp [B] at this
+    norm_num [Complex.add_re] at this
+    linarith
+  have hfactor : A⁻¹ - B⁻¹ = (B - A) / (A * B) := by
+    field_simp [hA_ne, hB_ne]
+  have hnorm_factor :
+      ‖A⁻¹ - B⁻¹‖ = ‖B - A‖ / (‖A‖ * ‖B‖) := by
+    rw [hfactor, norm_div, norm_mul]
+  have hdenom_pos : 0 < ‖A‖ * ‖B‖ := by
+    exact mul_pos (lt_of_lt_of_le hnreal hA_norm)
+      (lt_of_lt_of_le hnreal hB_norm)
+  have hdenom_lower : (n : Real) ^ 2 ≤ ‖A‖ * ‖B‖ := by
+    rw [pow_two]
+    exact mul_le_mul hA_norm hB_norm (by positivity) (norm_nonneg A)
+  have hnorm_bound : ‖A⁻¹ - B⁻¹‖ ≤ C * (((n : Real) ^ 2)⁻¹) := by
+    rw [hnorm_factor]
+    have hnum : ‖B - A‖ = C := by
+      dsimp [A, B, C]
+      congr 1
+      ring
+    rw [hnum]
+    calc
+      C / (‖A‖ * ‖B‖) ≤ C / ((n : Real) ^ 2) := by
+        exact div_le_div_of_nonneg_left (norm_nonneg _) (by positivity) hdenom_lower
+      _ = C * (((n : Real) ^ 2)⁻¹) := by rw [div_eq_mul_inv]
+  simpa [A, B] using hnorm_bound
 
 /-- The exact analytic input needed by the half-anchor Gamma_R consumer.
 

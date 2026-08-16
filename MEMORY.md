@@ -2182,3 +2182,16 @@ would be unsound. RH unclaimed.
 - These are local convergence/readback bricks only. The sum-integral exchange,
   integrability of the full kernel, the global `HalfAnchorGaussContract`, the
   same-owner Gamma_R Fubini readback, Gate 2, and RH remain open.
+
+## Change Log (2026-08-16, half-anchor reciprocal-series summability)
+- Added `summable_halfAnchorGaussReciprocalSeries` to the half-anchor Gamma_R
+  module. It bounds each reciprocal difference by
+  `‖z - 1/2‖ * (n : Real)^(-2)` after lower-bounding both denominator norms by
+  `n` on the eventual tail, then invokes Mathlib's p-series summability.
+- The WSL2 ext4 owner/probe build completed successfully (`3532/3532`). The
+  import-facing axiom audit reports only `[propext, Classical.choice,
+  Quot.sound]`; no `sorryAx` or project axiom was introduced.
+- This closes only absolute summability of the termwise reciprocal differences.
+  It does not exchange the infinite sum with the integral, prove full-kernel
+  integrability, close `HalfAnchorGaussContract`, establish the same-owner
+  Gamma_R Fubini readback, Gate 2, or RH.
