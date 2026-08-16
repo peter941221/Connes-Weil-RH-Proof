@@ -73,6 +73,22 @@ theorem halfAnchorGaussKernel_eq_tsum
     congr 1
     ring
 
+/-- A single decaying complex exponential is integrable on the positive
+half-line whenever its coefficient has positive real part. -/
+private theorem integrableOn_exp_neg_mul_complex_Ioi
+    {a : Complex} (ha : 0 < a.re) :
+    IntegrableOn (fun x : Real => Complex.exp (-(a * (x : Complex))))
+      (Ioi (0 : Real)) := by
+  have ha_neg : (-a).re < 0 := by
+    rw [neg_re]
+    exact neg_lt_zero.mpr ha
+  convert
+    (integrableOn_exp_mul_complex_Ioi
+      (a := -a) ha_neg (c := (0 : Real))) using 1
+  funext x
+  congr 1
+  ring
+
 /-- Integral of one decaying complex exponential on `(0,∞)`. -/
 theorem integral_exp_neg_mul_complex_Ioi
     {a : Complex} (ha : 0 < a.re) :
@@ -126,6 +142,41 @@ theorem integral_halfAnchorGaussSeriesTerm
     integral_exp_neg_mul_complex_Ioi hleft,
     integral_exp_neg_mul_complex_Ioi hright]
 
+/-- Every finite geometric-series difference is integrable on the positive
+half-line. -/
+theorem integrableOn_halfAnchorGaussSeriesTerm
+    {z : Complex} (hz : 0 < z.re) (n : Nat) :
+    IntegrableOn
+      (fun x : Real =>
+        (Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))) -
+          Complex.exp (-(((n : Complex) + z) * (x : Complex)))))
+      (Ioi (0 : Real)) := by
+  have hleft : 0 < (((n : Complex) + (1 / 2 : Complex)).re) := by
+    simp
+    positivity
+  have hright : 0 < (((n : Complex) + z).re) := by
+    simp only [add_re, Complex.natCast_re]
+    linarith
+  exact (integrableOn_exp_neg_mul_complex_Ioi hleft).sub
+    (integrableOn_exp_neg_mul_complex_Ioi hright)
+
+/-- Finite geometric partial sums can be integrated term by term and read
+back to the corresponding finite reciprocal-difference sum. -/
+theorem integral_halfAnchorGaussPartialSum
+    {z : Complex} (hz : 0 < z.re) (N : Nat) :
+    (∫ x : Real in Ioi (0 : Real),
+      ∑ n ∈ Finset.range N,
+        (Complex.exp (-(((n : Complex) + (1 / 2 : Complex)) * (x : Complex))) -
+          Complex.exp (-(((n : Complex) + z) * (x : Complex))))) =
+      ∑ n ∈ Finset.range N,
+        (((n : Complex) + (1 / 2 : Complex))⁻¹ - ((n : Complex) + z)⁻¹) := by
+  rw [integral_finsetSum]
+  · apply Finset.sum_congr rfl
+    intro n hn
+    exact integral_halfAnchorGaussSeriesTerm hz n
+  · intro n hn
+    exact (integrableOn_halfAnchorGaussSeriesTerm hz n)
+
 /-- Absolute summability of the reciprocal differences produced by the
 termwise integral.  The proof uses the real parts of the two denominators to
 obtain an eventual `O(n⁻²)` bound. -/
@@ -163,7 +214,6 @@ theorem summable_halfAnchorGaussReciprocalSeries
     intro hzero
     have := congrArg Complex.re hzero
     dsimp [B] at this
-    norm_num [Complex.add_re] at this
     linarith
   have hfactor : A⁻¹ - B⁻¹ = (B - A) / (A * B) := by
     field_simp [hA_ne, hB_ne]

@@ -2195,3 +2195,15 @@ would be unsound. RH unclaimed.
   It does not exchange the infinite sum with the integral, prove full-kernel
   integrability, close `HalfAnchorGaussContract`, establish the same-owner
   Gamma_R Fubini readback, Gate 2, or RH.
+
+## Change Log (2026-08-16, finite half-anchor sum readback)
+- Added the private positive-real exponential integrability helper and the
+  public `integrableOn_halfAnchorGaussSeriesTerm` theorem. Each finite
+  geometric-series difference is now explicitly `IntegrableOn` over `(0,∞)`.
+- Added `integral_halfAnchorGaussPartialSum`, which uses Mathlib's finite-sum
+  integral rule to read every finite geometric partial sum back to its exact
+  reciprocal-difference partial sum. This is a finite identity only; it does
+  not assert the infinite sum-integral exchange.
+- The WSL2 ext4 owner/probe build completed successfully (`3532/3532`), and
+  the two new audited declarations use only `[propext, Classical.choice,
+  Quot.sound]` with no `sorryAx` or project axiom.
