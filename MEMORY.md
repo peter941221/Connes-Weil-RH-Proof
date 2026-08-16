@@ -2359,3 +2359,19 @@ would be unsound. RH unclaimed.
 - This closes the reciprocal-series Fubini brick only. The normalized full
   Gamma_R archimedean readback, same-owner arithmetic/spectral equality, Gate
   2, and RH remain open. The local moment scratch probe remains untracked.
+
+## Change Log (2026-08-17, Gamma_R integrability and arch-profile resolvent)
+- Added `integral_symmetrizedLaplaceWeight_centerTwo_div_vertical_eq_archProfile`
+  in `C1XiCenterTwoPole`. It removes the private Fourier profile owners from
+  the public resolvent readback and exposes the exact positive-variable factor
+  `exp (-(a - 3/2)y) * (F.test y + F.test (-y))`.
+- Added the finite-integral construction for the reciprocal `tsum` and the
+  public `integrable_gammaRIntegrand_centerTwo` theorem in
+  `C1XiCenterTwoGamma`. The latter follows from the pointwise identity
+  `gammaRIntegrand = constant - (1/2) * reciprocalTsum`, the existing
+  `n⁻²` norm majorant, and the same-owner symmetrized-weight integrability.
+- WSL2 ext4 focused builds pass for Pole (`3528` jobs) and Gamma (`3537`
+  jobs). The new public declarations remain axiom-clean with only
+  `[propext, Classical.choice, Quot.sound]`; no `sorryAx` or project axiom
+  was added. The normalized archimedean readback, arithmetic/spectral
+  equality, Gate 2, and RH remain open.

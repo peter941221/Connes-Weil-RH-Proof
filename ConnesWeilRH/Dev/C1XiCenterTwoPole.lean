@@ -462,6 +462,91 @@ theorem integral_symmetrizedLaplaceWeight_centerTwo_div_vertical
               centerTwoPoleMinusProfile F (-y))) :=
   integral_centerTwoWeight_div_vertical F ha
 
+/-! The private Fourier profiles above can be eliminated from the public
+resolvent readback.  This is the form consumed by the Gamma_R reciprocal
+series: both reflected profiles carry the same positive-variable factor
+`exp (3 y / 2)`. -/
+
+theorem integral_symmetrizedLaplaceWeight_centerTwo_div_vertical_eq_archProfile
+    (F : CompactLogTest) {a : Real} (ha : 0 < a) :
+    (∫ t : Real,
+      symmetrizedLaplaceWeight F (verticalPoint 2 t) /
+        ((a : Complex) + (t : Complex) * Complex.I)) =
+      (2 * (Real.pi : Complex)) *
+        (∫ y : Real in Ioi (0 : Real),
+          Complex.exp (-(((a - 3 / 2 : Real) : Complex) * (y : Complex))) *
+            (F.test y + F.test (-y))) := by
+  rw [integral_symmetrizedLaplaceWeight_centerTwo_div_vertical F ha]
+  have hplus :
+      (∫ y : Real in Ioi (0 : Real),
+          Complex.exp (-(a : Complex) * (y : Complex)) *
+            centerTwoPolePlusProfile F y) =
+        ∫ y : Real in Ioi (0 : Real),
+          Complex.exp (-(((a - 3 / 2 : Real) : Complex) * (y : Complex))) *
+            F.test y := by
+    apply setIntegral_congr_fun measurableSet_Ioi
+    intro y hy
+    simp only [centerTwoPolePlusProfile,
+      CompactLogTest.exponentialWeight_apply]
+    rw [← mul_assoc, ← Complex.exp_add]
+    congr 2
+    push_cast
+    ring
+  have hminus :
+      (∫ y : Real in Ioi (0 : Real),
+          Complex.exp (-(a : Complex) * (y : Complex)) *
+            centerTwoPoleMinusProfile F (-y)) =
+        ∫ y : Real in Ioi (0 : Real),
+          Complex.exp (-(((a - 3 / 2 : Real) : Complex) * (y : Complex))) *
+            F.test (-y) := by
+    apply setIntegral_congr_fun measurableSet_Ioi
+    intro y hy
+    simp only [centerTwoPoleMinusProfile,
+      CompactLogTest.exponentialWeight_apply]
+    rw [← mul_assoc, ← Complex.exp_add]
+    congr 2
+    push_cast
+    ring
+  rw [hplus, hminus]
+  have hplusInt : IntegrableOn
+      (fun y : Real =>
+        Complex.exp (-(((a - 3 / 2 : Real) : Complex) * (y : Complex))) *
+          F.test y) (Ioi (0 : Real)) := by
+    have hbase : IntegrableOn
+        (CompactLogTest.exponentialWeight F
+          (-((a - 3 / 2 : Real) : Complex))).test
+        (Ioi (0 : Real)) (volume : Measure Real) :=
+      (CompactLogTest.exponentialWeight F
+        (-((a - 3 / 2 : Real) : Complex))).test.integrable.integrableOn
+    apply hbase.congr_fun _ measurableSet_Ioi
+    intro y hy
+    simp only [CompactLogTest.exponentialWeight_apply]
+    congr 1
+    push_cast
+    ring
+  have hminusInt : IntegrableOn
+      (fun y : Real =>
+        Complex.exp (-(((a - 3 / 2 : Real) : Complex) * (y : Complex))) *
+          F.test (-y)) (Ioi (0 : Real)) := by
+    have hbase : IntegrableOn
+        (CompactLogTest.exponentialWeight F.reflection
+          (-((a - 3 / 2 : Real) : Complex))).test
+        (Ioi (0 : Real)) (volume : Measure Real) :=
+      (CompactLogTest.exponentialWeight F.reflection
+        (-((a - 3 / 2 : Real) : Complex))).test.integrable.integrableOn
+    apply hbase.congr_fun _ measurableSet_Ioi
+    intro y hy
+    simp only [CompactLogTest.exponentialWeight_apply,
+      CompactLogTest.reflection_apply]
+    congr 1
+    push_cast
+    ring
+  rw [← integral_add hplusInt hminusInt]
+  congr 1
+  apply setIntegral_congr_fun measurableSet_Ioi
+  intro y hy
+  ring
+
 private theorem centerTwo_resolvent_sum_eq_poleLaplace
     (F : CompactLogTest) :
     (∫ t : Real,

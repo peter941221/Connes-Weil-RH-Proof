@@ -1437,6 +1437,91 @@ theorem integral_tsum_gammaRReciprocalTerm (F : CompactLogTest) :
     (fun n => integrable_gammaRReciprocalTerm F n)
     (summable_integral_norm_gammaRReciprocalTerm F)
 
+/-! The norm-summable reciprocal series is itself an integrable full-line
+function.  This is the missing measurability/finite-integral half behind the
+pointwise Gamma_R series identity. -/
+
+private theorem integrable_tsum_gammaRReciprocalTerm (F : CompactLogTest) :
+    Integrable (fun t : Real => ∑' n : Nat, gammaRReciprocalTerm F n t) := by
+  let g : Nat → Real → Complex := fun n t => gammaRReciprocalTerm F n t
+  have hg : ∀ n, Integrable (g n) := fun n =>
+    integrable_gammaRReciprocalTerm F n
+  have hsumNorm : Summable (fun n : Nat =>
+      ∫ t : Real, norm (g n t)) :=
+    summable_integral_norm_gammaRReciprocalTerm F
+  have hsumAE : AEStronglyMeasurable
+      (fun t : Real => tsum fun n : Nat => g n t) :=
+    AEStronglyMeasurable.tsum (fun n => (hg n).aestronglyMeasurable)
+  have hfinite : HasFiniteIntegral
+      (fun t : Real => tsum fun n : Nat => g n t) := by
+    rw [HasFiniteIntegral]
+    have hmeasNorm (n : Nat) : AEMeasurable (fun t : Real =>
+        enorm (g n t)) := (hg n).aestronglyMeasurable.enorm
+    have hlin :
+        (∫⁻ t : Real, enorm (∑' n : Nat, g n t)) <=
+          tsum (fun n : Nat => ∫⁻ t : Real, enorm (g n t)) := by
+      calc
+        _ <= ∫⁻ t : Real, ∑' n : Nat, enorm (g n t) := by
+          apply lintegral_mono_ae
+          filter_upwards with t
+          exact enorm_tsum_le_tsum_enorm
+        _ = tsum (fun n : Nat => ∫⁻ t : Real, enorm (g n t)) := by
+          rw [lintegral_tsum hmeasNorm]
+    have hlinFinite :
+        tsum (fun n : Nat => ∫⁻ t : Real, enorm (g n t)) ≠ ⊤ := by
+      have hterm (n : Nat) :
+          (∫⁻ t : Real, enorm (g n t)) =
+            ENNReal.ofReal (∫ t : Real, norm (g n t)) := by
+        exact (ofReal_integral_norm_eq_lintegral_enorm (hg n)).symm
+      rw [tsum_congr hterm]
+      exact hsumNorm.tsum_ofReal_ne_top
+    exact hlin.trans_lt (lt_top_iff_ne_top.mpr hlinFinite)
+  exact ⟨hsumAE, hfinite⟩
+
+private theorem gammaRReciprocalTerm_tsum_eq
+    (F : CompactLogTest) (t : Real) :
+    (∑' n : Nat, gammaRReciprocalTerm F n t) =
+      (∑' n : Nat,
+        (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + (verticalPoint 2 t / 2))⁻¹)) *
+        symmetrizedLaplaceWeight F (verticalPoint 2 t) * Complex.I := by
+  simp only [gammaRReciprocalTerm]
+  rw [tsum_mul_right, tsum_mul_right]
+
+private theorem gammaRIntegrand_centerTwo_eq_constant_sub_tsum
+    (F : CompactLogTest) (t : Real) :
+    gammaRIntegrand F 2 t =
+      (((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) / 2) *
+          symmetrizedLaplaceWeight F (verticalPoint 2 t) * Complex.I -
+        (1 / 2 : Complex) *
+          (∑' n : Nat, gammaRReciprocalTerm F n t) := by
+  unfold gammaRIntegrand
+  rw [logDeriv_GammaR_centerTwo_eq_reciprocalSeries t,
+    gammaRReciprocalTerm_tsum_eq F t]
+  ring
+
+/-! The Gamma_R integrability obligation in the center-`2` contract is now
+proved from the reciprocal-series majorant and the already-integrable constant
+term. -/
+
+theorem integrable_gammaRIntegrand_centerTwo
+    (F : CompactLogTest) :
+    Integrable (fun t : Real => gammaRIntegrand F 2 t) := by
+  have hweight :=
+    C1XiCenterTwoPrimePower.integrable_symmetrizedLaplaceWeight_centerTwo F
+  have hconstant : Integrable (fun t : Real =>
+      (((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) / 2) *
+        symmetrizedLaplaceWeight F (verticalPoint 2 t) * Complex.I) :=
+    (hweight.const_mul
+      (((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) / 2)).mul_const
+      Complex.I
+  have hseries := integrable_tsum_gammaRReciprocalTerm F
+  have hsub := hconstant.sub
+    (hseries.const_mul (1 / 2 : Complex))
+  apply hsub.congr
+  filter_upwards with t
+  exact (gammaRIntegrand_centerTwo_eq_constant_sub_tsum F t).symm
+
 /-! The constant term in the center-`2` Gamma_R logarithmic derivative has an
 explicit same-owner readback.  This is only the constant piece; the reciprocal
 series piece still needs its own sum-integral argument. -/
