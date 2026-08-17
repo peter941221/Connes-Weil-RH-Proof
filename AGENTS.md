@@ -1128,6 +1128,12 @@ line), exact data-bearing APIs, consumer rewiring path, rejection guards,
 smallest build and focused axiom audit, and success/partial/blocked/rejection
 criteria.
 
+For GitHub-rendered Markdown, use `$$` display blocks for LaTeX. Wrap a
+multiline equation in `\begin{aligned} ... \end{aligned}` when it contains an
+equals-sign continuation: GitHub can otherwise parse the preceding line as a
+heading. Avoid `\operatorname`; the repository renderer rejects it. Verify
+edited display math in the repository UI, not only through `/markdown`.
+
 ## 14. Git And Public Hygiene
 
 Imperative commit subjects ≤72 chars; commit/push only coherent milestones and

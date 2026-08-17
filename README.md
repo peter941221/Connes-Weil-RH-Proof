@@ -416,10 +416,10 @@ The convergence reduction is the exact statement
 
 $$
 \begin{aligned}
-\operatorname{gate2ExplicitFormula}(F)
+\mathrm{gate2ExplicitFormula}(F)
 &\Longleftrightarrow
-\operatorname{C1SameOwnerWeil.psi}(F)
-= \operatorname{spectralWeilValue}(F).
+\mathrm{C1SameOwnerWeil.psi}(F)
+= \mathrm{spectralWeilValue}(F).
 \end{aligned}
 $$
 
@@ -491,10 +491,10 @@ the exact xi spectral expression:
 
 $$
 \begin{aligned}
-\operatorname{gate2ExplicitFormula}(F)
+\mathrm{gate2ExplicitFormula}(F)
 &\Longleftrightarrow
-\operatorname{C1SameOwnerWeil.psi}(F)
-= \operatorname{spectralWeilValue}(F).
+\mathrm{C1SameOwnerWeil.psi}(F)
+= \mathrm{spectralWeilValue}(F).
 \end{aligned}
 $$
 

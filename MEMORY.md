@@ -2424,3 +2424,10 @@ would be unsound. RH unclaimed.
 - The GitHub `/markdown` audit now produces 25 display-math renderers, with no
   malformed `$$` headings or unrendered math blocks. The README remains ASCII
   outside LaTeX display blocks.
+
+## Change Log (2026-08-17, README renderer compatibility correction)
+- The repository UI rejected `\operatorname` in two Gate 2 display equations,
+  even though the API-side renderer accepted it. Replaced the macro with
+  `\mathrm`, which carries the Lean declaration names without relying on a
+  forbidden macro. Future README checks must use the repository UI as the
+  authority for supported LaTeX.
