@@ -38,10 +38,8 @@ open scoped Interval Topology
 
 noncomputable section
 
-/-- The same-owner arithmetic/spectral identity follows once the center-`2`
-`Gamma_R` full-line readback is supplied.  The theorem is conditional because
-the half-anchor Gauss representation and its Fubini evaluation remain an
-explicit analytic input in `CenterTwoGammaReadbackContract`. -/
+/-- The contract-level center-`2` arithmetic/spectral assembly.  Keeping this
+form exposes precisely which Gamma_R readback data the contour argument uses. -/
 theorem centerTwo_arithmetic_eq_spectral_of_gamma_contract
     (F : CompactLogTest)
     (hgamma : CenterTwoGammaReadbackContract F) :
@@ -227,6 +225,23 @@ theorem gate2ExplicitFormula_of_centerTwo_gamma_contract
     gate2ExplicitFormula F := by
   refine ⟨spectralSummableProp F, ?_⟩
   exact centerTwo_arithmetic_eq_spectral_of_gamma_contract F hgamma
+
+/-- The proved half-anchor Gauss formula supplies the center-`2` Gamma_R
+readback contract, so the complete same-owner arithmetic functional agrees
+with the independently defined zero-spectral value. -/
+theorem centerTwo_arithmetic_eq_spectral
+    (F : CompactLogTest) :
+    C1SameOwnerWeil.psi F = spectralWeilValue F := by
+  exact centerTwo_arithmetic_eq_spectral_of_gamma_contract F
+    (centerTwoGammaReadbackContract_of_halfAnchorGauss F)
+
+/-- Gate 2 is the preceding same-owner equality together with the already
+unconditional spectral summability theorem. -/
+theorem gate2ExplicitFormula_centerTwo
+    (F : CompactLogTest) :
+    gate2ExplicitFormula F := by
+  exact gate2ExplicitFormula_of_centerTwo_gamma_contract F
+    (centerTwoGammaReadbackContract_of_halfAnchorGauss F)
 
 end
 end C1XiCenterTwoArithmeticAssembly

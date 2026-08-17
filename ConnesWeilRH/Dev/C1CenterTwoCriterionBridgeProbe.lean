@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1CenterTwoCriterionBridge
+
+namespace ConnesWeilRH.Source.C1CenterTwoCriterionBridge
+
+#print axioms qw_eq_spectralWeilValue_centerTwo
+#print axioms healthyCriterionState_iff_all_vanishing_spectral_nonnegative
+
+end ConnesWeilRH.Source.C1CenterTwoCriterionBridge

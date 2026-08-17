@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1HealthyYoshidaUnscaledOrbit
+
+namespace ConnesWeilRH.Source.C1HealthyYoshidaUnscaledOrbit
+
+#print axioms healthyMinimalLaplaceRealizes_halfDensityShift_of_raw_values
+#print axioms healthyDetectorData_halfDensityShift_of_raw_values_of_spectral_neg
+#print axioms laplaceAt_halfDensityShift_convolutionSquare_centered
+
+end ConnesWeilRH.Source.C1HealthyYoshidaUnscaledOrbit

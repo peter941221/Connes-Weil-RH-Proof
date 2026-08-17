@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1HealthyYoshidaMinimalInterpolation
+
+namespace ConnesWeilRH.Source.C1HealthyYoshidaMinimalInterpolation
+
+#print axioms healthyMinimalLaplaceRealizes_of_node_values
+#print axioms HealthyMinimalLaplaceRealizes.vanishesOn_cc20Triple
+#print axioms HealthyMinimalLaplaceRealizes.detects_rho
+#print axioms exists_healthyMinimalLaplaceRealizes_primeFreeSquare
+#print axioms
+  healthyDetectorData_of_HealthyMinimalLaplaceRealizes_of_archimedeanTerm_pos
+
+end ConnesWeilRH.Source.C1HealthyYoshidaMinimalInterpolation

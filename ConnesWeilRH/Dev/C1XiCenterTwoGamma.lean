@@ -1304,7 +1304,7 @@ private theorem norm_centerTwoReciprocalDifference_le
     dsimp [a]
     intro h
     have hre := congrArg Complex.re h
-    simp only [add_re, Complex.natCast_re, ofReal_re] at hre
+    simp only [add_re, Complex.natCast_re] at hre
     norm_num at hre
     exact (by positivity : 0 < (n : Real) + 1 / 2).ne' hre
   have hb : b ≠ 0 := by
@@ -1670,6 +1670,688 @@ theorem tsum_gammaRArchProfileTerm_eq_archimedeanIntegrand
   rw [← div_eq_mul_inv]
   exact hpair
 
+/-! ### The y-side sum-integral exchange for the arch profile family
+
+The two pieces of `gammaRArchProfileTerm` diverge separately, so the domination
+below keeps them paired.  After the geometric factoring of
+`gammaRArchProfileTerm_factor`, the remaining bracket vanishes linearly at the
+origin because a Schwartz test is smooth on its compact support; beyond the
+support radius only the exponentially decaying `F(0)` piece survives.  The
+resulting bound is an `n⁻²` head plus a geometric tail, which is summable in
+`n` and licenses the sum-integral exchange on `(0, ∞)`. -/
+
+/-- The split radius: one past the support radius, hence positive while still
+containing the test support. -/
+private def archProfileSplit (F : CompactLogTest) : Real :=
+  supportRadius F + 1
+
+private theorem archProfileSplit_pos (F : CompactLogTest) :
+    0 < archProfileSplit F := by
+  have hR := supportRadius_nonnegative F
+  unfold archProfileSplit
+  linarith
+
+private theorem test_apply_eq_zero_of_split_lt
+    (F : CompactLogTest) {y : Real} (hy : archProfileSplit F < y) :
+    F.test y = 0 ∧ F.test (-y) = 0 := by
+  refine ⟨?_, ?_⟩
+  · by_contra hne
+    have hmem : y ∈ Function.support F.test := Function.mem_support.mpr hne
+    have hyR := (support_subset_Icc F hmem).2
+    unfold archProfileSplit at hy
+    linarith
+  · by_contra hne
+    have hmem : -y ∈ Function.support F.test := Function.mem_support.mpr hne
+    have hyR := neg_le_neg_iff.mp (support_subset_Icc F hmem).1
+    unfold archProfileSplit at hy
+    linarith
+
+private theorem exists_archProfile_deriv_bound (F : CompactLogTest) :
+    ∃ B : Real, 0 ≤ B ∧
+      ∀ x ∈ Set.Icc (-(archProfileSplit F)) (archProfileSplit F),
+        ‖(deriv F.test) x‖ ≤ B := by
+  have hsmooth : ContDiff ℝ 1 F.test := F.test.smooth 1
+  have hderiv : Continuous (deriv F.test) :=
+    hsmooth.continuous_deriv le_rfl
+  obtain ⟨B, hB⟩ :=
+    isCompact_Icc.exists_bound_of_continuousOn hderiv.continuousOn
+  exact ⟨max B 0, le_max_right _ _, fun x hx =>
+    (hB x hx).trans (le_max_left _ _)⟩
+
+private theorem exists_archProfile_lipschitz (F : CompactLogTest) :
+    ∃ L : Real, 0 ≤ L ∧
+      ∀ x ∈ Set.Icc (-(archProfileSplit F)) (archProfileSplit F),
+        ∀ y ∈ Set.Icc (-(archProfileSplit F)) (archProfileSplit F),
+          ‖F.test x - F.test y‖ ≤ L * ‖x - y‖ := by
+  obtain ⟨B, hB0, hB⟩ := exists_archProfile_deriv_bound F
+  refine ⟨B, hB0, fun x hx y hy => ?_⟩
+  apply Convex.norm_image_sub_le_of_norm_deriv_le (𝕜 := ℝ)
+  · intro z _
+    exact ((F.test.smooth 1).differentiable (by norm_num)).differentiableAt
+  · intro z hz
+    exact hB z hz
+  · exact convex_Icc (-(archProfileSplit F)) (archProfileSplit F)
+  · exact hy
+  · exact hx
+
+private lemma real_exp_pow_nat (x : Real) (n : Nat) :
+    Real.exp x ^ n = Real.exp (((n : Real)) * x) := by
+  induction n with
+  | zero => simp
+  | succ m ih =>
+      rw [pow_succ, ih, ← Real.exp_add]
+      push_cast
+      ring
+
+private lemma complex_exp_half_real (y : Real) :
+    Complex.exp (-((((1 / 2 : Real) : Complex) * (y : Complex)))) =
+      ((Real.exp (-(y / 2)) : Real) : Complex) := by
+  have harg : -((((1 / 2 : Real) : Complex) * (y : Complex))) =
+      ((-(y / 2) : Real) : Complex) := by
+    push_cast
+    ring
+  rw [harg, ← Complex.ofReal_exp]
+
+private lemma complex_exp_one_real (y : Real) :
+    Complex.exp (-((y : Complex))) =
+      ((Real.exp (-y) : Real) : Complex) := by
+  rw [show -((y : Complex)) = ((-y : Real) : Complex) by push_cast; ring,
+    ← Complex.ofReal_exp]
+
+private lemma complex_exp_two_real (y : Real) :
+    Complex.exp (-((((2 : Real) : Complex) * (y : Complex)))) =
+      ((Real.exp (-(2 * y)) : Real) : Complex) := by
+  have harg : -((((2 : Real) : Complex) * (y : Complex))) =
+      ((-(2 * y) : Real) : Complex) := by
+    push_cast
+    ring
+  rw [harg, ← Complex.ofReal_exp]
+
+private lemma norm_complex_exp_two_pow (y : Real) (n : Nat) :
+    ‖(((Real.exp (-(2 * y)) : Real) : Complex) ^ n)‖ =
+      Real.exp (((n : Real)) * (-(2 * y))) := by
+  rw [norm_pow, norm_real, Real.norm_eq_abs,
+    abs_of_nonneg (Real.exp_nonneg _), real_exp_pow_nat]
+
+private lemma norm_complex_exp_two_mul_test (y : Real) (F : CompactLogTest) :
+    ‖-(2 * ((Real.exp (-y) : Real) : Complex) * F.test 0)‖ =
+      2 * Real.exp (-y) * ‖F.test 0‖ := by
+  calc
+    ‖-(2 * ((Real.exp (-y) : Real) : Complex) * F.test 0)‖ =
+        ‖(2 : Complex)‖ * ‖((Real.exp (-y) : Real) : Complex)‖ * ‖F.test 0‖ := by
+          rw [norm_neg, norm_mul, norm_mul]
+    _ = 2 * Real.exp (-y) * ‖F.test 0‖ := by
+      rw [show ‖(2 : Complex)‖ = 2 by norm_num]
+      rw [norm_real, Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]
+
+/-- The paired bracket at a point below the split radius, bounded linearly in
+`y`.  This is where the two separately divergent pieces are kept together. -/
+private theorem archProfile_bracket_norm_le (F : CompactLogTest)
+    {y : Real} (hy0 : 0 ≤ y) (hyS : y ≤ archProfileSplit F)
+    {Lip : Real}
+    (hLip : ∀ x ∈ Set.Icc (-(archProfileSplit F)) (archProfileSplit F),
+        ∀ z ∈ Set.Icc (-(archProfileSplit F)) (archProfileSplit F),
+          ‖F.test x - F.test z‖ ≤ Lip * ‖x - z‖) :
+    ‖(Complex.exp (-(((1 / 2 : Real) : Complex) * (y : Complex))) *
+        (F.test y + F.test (-y)) -
+      2 * Complex.exp (-((y : Complex))) * F.test 0)‖ ≤
+      (2 * Lip + ‖F.test 0‖) * y := by
+  rw [complex_exp_half_real, complex_exp_one_real]
+  have hS := archProfileSplit_pos F
+  have hzero : (0 : Real) ∈
+      Set.Icc (-(archProfileSplit F)) (archProfileSplit F) := by
+    constructor
+    · exact neg_nonpos.mpr hS.le
+    · exact hS.le
+  have hymem : y ∈
+      Set.Icc (-(archProfileSplit F)) (archProfileSplit F) := by
+    constructor <;> linarith
+  have hnymem : -y ∈
+      Set.Icc (-(archProfileSplit F)) (archProfileSplit F) := by
+    constructor <;> linarith
+  have hL1 : ‖F.test y - F.test 0‖ ≤ Lip * y := by
+    have hmem := hLip y hymem 0 hzero
+    rwa [Real.norm_eq_abs, sub_zero, abs_of_nonneg hy0] at hmem
+  have hL2 : ‖F.test (-y) - F.test 0‖ ≤ Lip * y := by
+    have hmem := hLip (-y) hnymem 0 hzero
+    simpa [Real.norm_eq_abs, sub_zero, abs_neg, abs_of_nonneg hy0] using hmem
+  have hsum : ‖(F.test y + F.test (-y)) - 2 * F.test 0‖ ≤ 2 * Lip * y := by
+    have hsplit : (F.test y + F.test (-y)) - 2 * F.test 0 =
+        (F.test y - F.test 0) + (F.test (-y) - F.test 0) := by
+      ring
+    rw [hsplit]
+    calc ‖(F.test y - F.test 0) + (F.test (-y) - F.test 0)‖ ≤
+        ‖F.test y - F.test 0‖ + ‖F.test (-y) - F.test 0‖ :=
+          norm_add_le _ _
+      _ ≤ Lip * y + Lip * y := add_le_add hL1 hL2
+      _ = 2 * Lip * y := by ring
+  have hc1le : Real.exp (-(y / 2)) ≤ 1 :=
+    Real.exp_le_one_iff.mpr (by linarith)
+  have hdiff : Real.exp (-(y / 2)) - Real.exp (-y) ≤ y / 2 := by
+    have hone : 1 - y / 2 ≤ Real.exp (-(y / 2)) := by
+      have hexp := Real.add_one_le_exp (-(y / 2))
+      linarith
+    have hone' : 1 - Real.exp (-(y / 2)) ≤ y / 2 := by
+      linarith
+    have hsplitexp : Real.exp (-(y / 2)) - Real.exp (-y) =
+        Real.exp (-(y / 2)) * (1 - Real.exp (-(y / 2))) := by
+      have hsq : Real.exp (-y) =
+          Real.exp (-(y / 2)) * Real.exp (-(y / 2)) := by
+        rw [← Real.exp_add]
+        congr 1
+        ring
+      rw [hsq]
+      ring
+    rw [hsplitexp]
+    calc Real.exp (-(y / 2)) * (1 - Real.exp (-(y / 2))) ≤
+        Real.exp (-(y / 2)) * (y / 2) :=
+          mul_le_mul_of_nonneg_left hone' (Real.exp_pos _).le
+      _ ≤ 1 * (y / 2) :=
+          mul_le_mul hc1le le_rfl (by positivity) (by linarith)
+      _ = y / 2 := by ring
+  have hdecomp : (((Real.exp (-(y / 2)) : Real) : Complex) *
+      (F.test y + F.test (-y)) -
+      2 * ((Real.exp (-y) : Real) : Complex) * F.test 0) =
+      ((Real.exp (-(y / 2)) : Real) : Complex) *
+          ((F.test y + F.test (-y)) - 2 * F.test 0) +
+        (((Real.exp (-(y / 2)) - Real.exp (-y) : Real) : Complex) *
+          (2 * F.test 0)) := by
+    rw [Complex.ofReal_sub]
+    ring
+  rw [hdecomp]
+  have hn1 : ‖(((Real.exp (-(y / 2)) : Real) : Complex) *
+      ((F.test y + F.test (-y)) - 2 * F.test 0))‖ ≤
+      1 * (2 * Lip * y) := by
+    have hnorm1 : ‖((Real.exp (-(y / 2)) : Real) : Complex)‖ = Real.exp (-(y / 2)) := by
+      rw [norm_real, Real.norm_eq_abs, abs_of_nonneg (Real.exp_nonneg _)]
+    rw [norm_mul, hnorm1]
+    exact mul_le_mul hc1le hsum (by positivity) (by linarith)
+  have hn2 : ‖(((Real.exp (-(y / 2)) - Real.exp (-y) : Real) : Complex) *
+      (2 * F.test 0))‖ ≤ (y / 2) * (2 * ‖F.test 0‖) := by
+    have hnorm2 : ‖((Real.exp (-(y / 2)) - Real.exp (-y) : Real) : Complex)‖ =
+        Real.exp (-(y / 2)) - Real.exp (-y) := by
+      rw [norm_real, Real.norm_eq_abs,
+        abs_of_nonneg (by
+          have h1 := Real.exp_pos (-(y / 2))
+          have h2 := Real.exp_pos (-y)
+          have h3 := Real.exp_le_exp.mpr (by linarith : (-(y : Real)) ≤ -(y / 2))
+          linarith)]
+    rw [norm_mul, hnorm2, norm_mul,
+      show ‖(2 : Complex)‖ = 2 by norm_num]
+    exact mul_le_mul_of_nonneg_right hdiff (by positivity)
+  calc ‖(((Real.exp (-(y / 2)) : Real) : Complex) *
+        ((F.test y + F.test (-y)) - 2 * F.test 0) +
+        (((Real.exp (-(y / 2)) - Real.exp (-y) : Real) : Complex) *
+          (2 * F.test 0)))‖ ≤
+      ‖(((Real.exp (-(y / 2)) : Real) : Complex) *
+        ((F.test y + F.test (-y)) - 2 * F.test 0))‖ +
+      ‖(((Real.exp (-(y / 2)) - Real.exp (-y) : Real) : Complex) *
+        (2 * F.test 0))‖ :=
+        norm_add_le _ _
+    _ ≤ 1 * (2 * Lip * y) + (y / 2) * (2 * ‖F.test 0‖) :=
+        add_le_add hn1 hn2
+    _ = (2 * Lip + ‖F.test 0‖) * y := by
+        ring
+
+/-- The paired pointwise domination.  Below the split radius the paired
+bracket is linearly small at the origin; above it only the exponentially
+decaying `F(0)` piece remains. -/
+private theorem exists_archProfile_majorant (F : CompactLogTest) :
+    ∃ L : Real, 0 ≤ L ∧
+      (∀ (n : Nat) {y : Real}, 0 < y → y ≤ archProfileSplit F →
+        ‖gammaRArchProfileTerm F n y‖ ≤
+          L * y * Real.exp (-(2 * (n : Real) * y))) ∧
+      (∀ (n : Nat) {y : Real}, archProfileSplit F < y →
+        ‖gammaRArchProfileTerm F n y‖ ≤
+          2 * ‖F.test 0‖ * Real.exp (-((2 * (n : Real) + 1) * y))) := by
+  obtain ⟨Lip, hLip0, hLip⟩ := exists_archProfile_lipschitz F
+  have hS := archProfileSplit_pos F
+  refine ⟨2 * Lip + ‖F.test 0‖, by positivity, ?_, ?_⟩
+  · intro n y hy0 hyS
+    have hfactor := gammaRArchProfileTerm_factor F n hy0
+    have hbracket := archProfile_bracket_norm_le F hy0.le hyS hLip
+    rw [hfactor, complex_exp_two_real, norm_mul, norm_complex_exp_two_pow]
+    calc ‖(Complex.exp (-(((1 / 2 : Real) : Complex) * (y : Complex))) *
+          (F.test y + F.test (-y)) -
+        2 * Complex.exp (-((y : Complex))) * F.test 0)‖ *
+        Real.exp (((n : Real)) * (-(2 * y))) ≤
+        ((2 * Lip + ‖F.test 0‖) * y) *
+          Real.exp (((n : Real)) * (-(2 * y))) := by
+          exact mul_le_mul hbracket le_rfl (by positivity) (by positivity)
+      _ ≤ ((2 * Lip + ‖F.test 0‖) * y) *
+          Real.exp (-(2 * (n : Real) * y)) := by
+          have hexpEq :
+              Real.exp ((n : Real) * (-(2 * y))) =
+                Real.exp (-(2 * (n : Real) * y)) := by
+            congr 1
+            ring
+          rw [hexpEq]
+  · intro n y hy
+    obtain ⟨hy1, hy2⟩ := test_apply_eq_zero_of_split_lt F hy
+    have hy0 : 0 < y := lt_trans (archProfileSplit_pos F) hy
+    have hfactor := gammaRArchProfileTerm_factor F n hy0
+    rw [hfactor, hy1, hy2, complex_exp_half_real, complex_exp_one_real,
+      complex_exp_two_real]
+    have hsimp0 : (((Real.exp (-(y / 2)) : Real) : Complex) * (0 + 0) -
+        2 * ((Real.exp (-y) : Real) : Complex) * F.test 0) =
+        -(2 * ((Real.exp (-y) : Real) : Complex) * F.test 0) := by
+      simp
+    rw [hsimp0, norm_mul, norm_complex_exp_two_pow,
+      norm_complex_exp_two_mul_test]
+    have hexpsum : Real.exp (-y) * Real.exp (((n : Real)) * (-(2 * y))) =
+        Real.exp (-((2 * (n : Real) + 1) * y)) := by
+      rw [← Real.exp_add]
+      congr 1
+      push_cast
+      ring
+    calc 2 * Real.exp (-y) * ‖F.test 0‖ *
+        Real.exp (((n : Real)) * (-(2 * y))) =
+        2 * ‖F.test 0‖ *
+          (Real.exp (-y) * Real.exp (((n : Real)) * (-(2 * y)))) := by
+            ring
+      _ = 2 * ‖F.test 0‖ *
+          Real.exp (-((2 * (n : Real) + 1) * y)) := by
+            rw [hexpsum]
+      _ ≤ 2 * ‖F.test 0‖ *
+          Real.exp (-((2 * (n : Real) + 1) * y)) :=
+            le_rfl
+
+/-- Every paired arch profile term is integrable on the positive half-line. -/
+private theorem integrableOn_gammaRArchProfileTerm
+    (F : CompactLogTest) (n : Nat) :
+    IntegrableOn (gammaRArchProfileTerm F n) (Ioi (0 : Real)) := by
+  obtain ⟨-, -, hle1, hle2⟩ := exists_archProfile_majorant F
+  have hS := archProfileSplit_pos F
+  have hcont : Continuous (gammaRArchProfileTerm F n) := by
+    unfold gammaRArchProfileTerm
+    fun_prop
+  have hIcc : IntegrableOn (gammaRArchProfileTerm F n)
+      (Set.Icc 0 (archProfileSplit F)) := hcont.integrableOn_Icc
+  have hIoc : IntegrableOn (gammaRArchProfileTerm F n)
+      (Set.Ioc 0 (archProfileSplit F)) := hIcc.mono_set Ioc_subset_Icc_self
+  have hexp : IntegrableOn
+      (fun y : Real => Real.exp (-((2 * (n : Real) + 1) * y)))
+      (Ioi (archProfileSplit F)) :=
+    by
+      simpa only [neg_mul] using
+        (integrableOn_exp_mul_Ioi (a := -(2 * (n : Real) + 1))
+          (neg_lt_zero.mpr (by positivity)) (archProfileSplit F))
+  have hIoi : IntegrableOn (gammaRArchProfileTerm F n)
+      (Ioi (archProfileSplit F)) := by
+    refine (hexp.const_mul (2 * ‖F.test 0‖)).mono'
+      (hcont.aestronglyMeasurable.restrict) ?_
+    filter_upwards [ae_restrict_mem measurableSet_Ioi] with y hy
+    exact hle2 n (Set.mem_Ioi.mp hy)
+  rw [← Set.Ioc_union_Ioi_eq_Ioi hS.le]
+  exact hIoc.union hIoi
+
+/-- The summable majorant series for the norm integrals: an `n⁻²` head plus a
+geometric tail beyond the split radius. -/
+theorem summable_integralOn_norm_gammaRArchProfileTerm
+    (F : CompactLogTest) :
+    Summable (fun n : Nat =>
+      ∫ y : Real in Ioi (0 : Real), ‖gammaRArchProfileTerm F n y‖) := by
+  obtain ⟨L, hL0, hle1, hle2⟩ := exists_archProfile_majorant F
+  have hS := archProfileSplit_pos F
+  -- the model integral value for 0 < n
+  have hintval : ∀ n : Nat, 0 < n →
+      (∫ y : Real in Ioi (0 : Real),
+        y * Real.exp (-(2 * (n : Real) * y))) =
+        (((2 * (n : Real)) ^ 2)⁻¹) := by
+    intro n hn
+    have hgamma := Real.integral_rpow_mul_exp_neg_mul_Ioi
+      (a := (2 : Real)) (r := 2 * (n : Real)) (by norm_num) (by positivity)
+    have hgamma' :
+        (∫ y : Real in Ioi (0 : Real),
+          y * Real.exp (-(2 * (n : Real) * y))) =
+          (1 / (2 * (n : Real))) ^ 2 * Real.Gamma 2 := by
+      simpa [show (2 : Real) - 1 = 1 by norm_num] using hgamma
+    rw [hgamma']
+    norm_num [Real.Gamma_nat_eq_factorial, div_eq_mul_inv]
+    ring
+  have hint : ∀ n : Nat, 0 < n →
+      IntegrableOn (fun y : Real => y * Real.exp (-(2 * (n : Real) * y)))
+        (Ioi (0 : Real)) := by
+    intro n hn
+    refine Integrable.of_integral_ne_zero ?_
+    rw [hintval n hn]
+    positivity
+  -- the tail integral value
+  have htailval : ∀ n : Nat,
+      (∫ y : Real in Ioi (archProfileSplit F),
+        Real.exp (-((2 * (n : Real) + 1) * y))) =
+        Real.exp (-((2 * (n : Real) + 1) * archProfileSplit F)) /
+          ((2 * (n : Real) + 1)) := by
+    intro n
+    have hval := integral_exp_mul_Ioi
+      (a := -(2 * (n : Real) + 1))
+      (neg_lt_zero.mpr (by positivity)) (archProfileSplit F)
+    calc
+      (∫ y : Real in Ioi (archProfileSplit F),
+          Real.exp (-((2 * (n : Real) + 1) * y))) =
+          -Real.exp (-(2 * (n : Real) + 1) * archProfileSplit F) /
+            -(2 * (n : Real) + 1) := by
+              convert hval using 1 <;> ring
+      _ = Real.exp (-((2 * (n : Real) + 1) * archProfileSplit F)) /
+            (2 * (n : Real) + 1) := by
+              rw [neg_div_neg_eq]
+              congr 2
+              ring
+  -- the per-term bound for 0 < n
+  have hbound : ∀ n : Nat, 0 < n →
+      (∫ y : Real in Ioi (0 : Real), ‖gammaRArchProfileTerm F n y‖) ≤
+        L * (((2 * (n : Real)) ^ 2)⁻¹) +
+          2 * ‖F.test 0‖ *
+            Real.exp (-((2 * (n : Real) + 1) * archProfileSplit F)) := by
+    intro n hn
+    have hintTerm : IntegrableOn (fun y : Real => ‖gammaRArchProfileTerm F n y‖)
+        (Ioi (0 : Real)) := (integrableOn_gammaRArchProfileTerm F n).norm
+    have hdisj : Disjoint (Set.Ioc 0 (archProfileSplit F))
+        (Ioi (archProfileSplit F)) := by
+      rw [Set.disjoint_right]
+      intro x hx1 hx2
+      exact (not_lt_of_ge hx2.2) hx1
+    have hsubIoc : Set.Ioc 0 (archProfileSplit F) ⊆ Ioi (0 : Real) :=
+      fun y hy => Set.mem_Ioi.mpr (Set.mem_Ioc.mp hy).1
+    have hsubTail : Ioi (archProfileSplit F) ⊆ Ioi (0 : Real) :=
+      fun y hy => lt_trans hS (Set.mem_Ioi.mp hy)
+    have hintg : IntegrableOn
+        (fun y : Real => L * (y * Real.exp (-(2 * (n : Real) * y))))
+        (Ioi (0 : Real)) := (hint n hn).const_mul L
+    have hexp : IntegrableOn
+        (fun y : Real => Real.exp (-((2 * (n : Real) + 1) * y)))
+        (Ioi (archProfileSplit F)) :=
+      by
+        simpa only [neg_mul] using
+          (integrableOn_exp_mul_Ioi (a := -(2 * (n : Real) + 1))
+            (neg_lt_zero.mpr (by positivity)) (archProfileSplit F))
+    have hexpScaled : IntegrableOn
+        (fun y : Real =>
+          2 * ‖F.test 0‖ * Real.exp (-((2 * (n : Real) + 1) * y)))
+        (Ioi (archProfileSplit F)) := hexp.const_mul _
+    rw [← Set.Ioc_union_Ioi_eq_Ioi hS.le]
+    rw [setIntegral_union hdisj measurableSet_Ioi
+      (hintTerm.mono_set hsubIoc) (hintTerm.mono_set hsubTail)]
+    -- head: mono on the compact piece, then extend to the half-line
+    have hheadIoc : (∫ y : Real in Set.Ioc 0 (archProfileSplit F),
+        ‖gammaRArchProfileTerm F n y‖) ≤
+        (∫ y : Real in Set.Ioc 0 (archProfileSplit F),
+          L * (y * Real.exp (-(2 * (n : Real) * y)))) := by
+      refine integral_mono_ae (hintTerm.mono_set hsubIoc)
+        (hintg.mono_set hsubIoc) ?_
+      filter_upwards [ae_restrict_mem measurableSet_Ioc] with y hy
+      simpa [mul_assoc] using
+        hle1 n (Set.mem_Ioc.mp hy).1 (Set.mem_Ioc.mp hy).2
+    have hheadExt : (∫ y : Real in Set.Ioc 0 (archProfileSplit F),
+        L * (y * Real.exp (-(2 * (n : Real) * y)))) ≤
+        (∫ y : Real in Ioi (0 : Real),
+          L * (y * Real.exp (-(2 * (n : Real) * y)))) := by
+      refine setIntegral_mono_set hintg ?_ (Filter.Eventually.of_forall hsubIoc)
+      filter_upwards [ae_restrict_mem measurableSet_Ioi] with y hy
+      exact mul_nonneg hL0
+        (mul_nonneg (le_of_lt (Set.mem_Ioi.mp hy)) (Real.exp_nonneg _))
+    have hheadVal : (∫ y : Real in Ioi (0 : Real),
+        L * (y * Real.exp (-(2 * (n : Real) * y)))) =
+        L * (((2 * (n : Real)) ^ 2)⁻¹) := by
+      rw [integral_const_mul, hintval n hn]
+    have hheadFinal : (∫ y : Real in Set.Ioc 0 (archProfileSplit F),
+        ‖gammaRArchProfileTerm F n y‖) ≤
+        L * (((2 * (n : Real)) ^ 2)⁻¹) :=
+      hheadIoc.trans (hheadExt.trans (le_of_eq hheadVal))
+    -- tail: mono then the exact exponential value
+    have htailMono : (∫ y : Real in Ioi (archProfileSplit F),
+        ‖gammaRArchProfileTerm F n y‖) ≤
+        (∫ y : Real in Ioi (archProfileSplit F),
+          2 * ‖F.test 0‖ * Real.exp (-((2 * (n : Real) + 1) * y))) := by
+      refine integral_mono_ae (hintTerm.mono_set hsubTail) hexpScaled ?_
+      filter_upwards [ae_restrict_mem measurableSet_Ioi] with y hy
+      exact hle2 n (Set.mem_Ioi.mp hy)
+    have htailFinal : (∫ y : Real in Ioi (archProfileSplit F),
+        ‖gammaRArchProfileTerm F n y‖) ≤
+        2 * ‖F.test 0‖ *
+          Real.exp (-((2 * (n : Real) + 1) * archProfileSplit F)) := by
+      calc (∫ y : Real in Ioi (archProfileSplit F),
+          ‖gammaRArchProfileTerm F n y‖) ≤
+          (∫ y : Real in Ioi (archProfileSplit F),
+            2 * ‖F.test 0‖ * Real.exp (-((2 * (n : Real) + 1) * y))) :=
+              htailMono
+        _ = 2 * ‖F.test 0‖ *
+            (∫ y : Real in Ioi (archProfileSplit F),
+              Real.exp (-((2 * (n : Real) + 1) * y))) := by
+              rw [integral_const_mul]
+        _ = 2 * ‖F.test 0‖ *
+            (Real.exp (-((2 * (n : Real) + 1) * archProfileSplit F)) /
+              ((2 * (n : Real) + 1))) := by
+              rw [htailval n]
+        _ ≤ 2 * ‖F.test 0‖ *
+            Real.exp (-((2 * (n : Real) + 1) * archProfileSplit F)) :=
+              by
+                apply mul_le_mul_of_nonneg_left
+                · have hkpos : 0 < 2 * (n : Real) + 1 := by positivity
+                  apply (div_le_iff₀ hkpos).2
+                  have hn0 : 0 ≤ (n : Real) := Nat.cast_nonneg n
+                  have hk : (1 : Real) ≤ 2 * (n : Real) + 1 := by nlinarith
+                  nlinarith [Real.exp_nonneg
+                    (-((2 * (n : Real) + 1) * archProfileSplit F))]
+                · positivity
+    exact add_le_add hheadFinal htailFinal
+  -- summability of the majorant series
+  have hbase : Summable (fun n : Nat =>
+      L * (((2 * (n : Real)) ^ 2)⁻¹) +
+        2 * ‖F.test 0‖ *
+          Real.exp (-((2 * (n : Real) + 1) * archProfileSplit F))) := by
+    have h1 : Summable (fun n : Nat => L * (4⁻¹ * (((n : Real) ^ 2)⁻¹))) := by
+      have hpow : Summable (fun n : Nat => (((n : Real) ^ 2)⁻¹)) :=
+        (Real.summable_nat_pow_inv (p := 2)).mpr (by norm_num)
+      exact (hpow.mul_left _).mul_left _
+    have h1' : Summable (fun n : Nat =>
+        L * (((2 * (n : Real)) ^ 2)⁻¹)) :=
+      h1.congr (fun n => by
+        have : (((2 * (n : Real)) ^ 2)⁻¹) = 4⁻¹ * (((n : Real) ^ 2)⁻¹) := by
+          field_simp
+          ring
+        rw [this])
+    have h2 : Summable (fun n : Nat => 2 * ‖F.test 0‖ *
+        (Real.exp (-(archProfileSplit F))) *
+        ((Real.exp (-(2 * archProfileSplit F))) ^ n)) := by
+      have hgeom : Summable (fun n : Nat =>
+          ((Real.exp (-(2 * archProfileSplit F))) ^ n)) :=
+        summable_geometric_of_lt_one (by positivity)
+          (Real.exp_lt_one_iff.mpr (by
+            have := archProfileSplit_pos F
+            linarith))
+      exact hgeom.mul_left _
+    have h2' : Summable (fun n : Nat =>
+        2 * ‖F.test 0‖ *
+          Real.exp (-((2 * (n : Real) + 1) * archProfileSplit F))) :=
+      h2.congr (fun n => by
+        have hpoweq : ((Real.exp (-(2 * archProfileSplit F))) ^ n) =
+            Real.exp (((n : Real)) * (-(2 * archProfileSplit F))) :=
+          real_exp_pow_nat _ n
+        rw [hpoweq]
+        calc
+          2 * ‖F.test 0‖ * Real.exp (-(archProfileSplit F)) *
+              Real.exp (((n : Real)) * (-(2 * archProfileSplit F))) =
+            2 * ‖F.test 0‖ *
+              (Real.exp (-(archProfileSplit F)) *
+                Real.exp (((n : Real)) * (-(2 * archProfileSplit F)))) := by
+                ring
+          _ = 2 * ‖F.test 0‖ *
+              Real.exp (-(archProfileSplit F) +
+                ((n : Real) * (-(2 * archProfileSplit F)))) := by
+                rw [← Real.exp_add]
+          _ = 2 * ‖F.test 0‖ *
+              Real.exp (-((2 * (n : Real) + 1) * archProfileSplit F)) := by
+                congr 2
+                ring)
+    exact h1'.add h2'
+  apply hbase.of_norm_bounded_eventually_nat
+  filter_upwards [Filter.eventually_ge_atTop (1 : Nat)] with n hn
+  have hnpos : 0 < n := Nat.zero_lt_of_lt hn
+  have hle := hbound n hnpos
+  have hnn : 0 ≤
+      (∫ y : Real in Ioi (0 : Real), ‖gammaRArchProfileTerm F n y‖) :=
+    integral_nonneg (fun y => norm_nonneg _)
+  rw [Real.norm_eq_abs, abs_of_nonneg hnn]
+  exact hle
+
+/-- The genuine infinite sum-integral exchange for the arch profile family on
+the positive half-line. -/
+theorem integralOn_tsum_gammaRArchProfileTerm (F : CompactLogTest) :
+    (∫ y : Real in Ioi (0 : Real),
+      ∑' n : Nat, gammaRArchProfileTerm F n y) =
+      ∑' n : Nat,
+        (∫ y : Real in Ioi (0 : Real), gammaRArchProfileTerm F n y) := by
+  exact (integral_tsum_of_summable_integral_norm
+    (fun n => integrableOn_gammaRArchProfileTerm F n)
+    (summable_integralOn_norm_gammaRArchProfileTerm F)).symm
+
+/-- The archimedean density integral equals the paired arch profile series.
+This is the y-side half of the Gamma_R archimedean readback. -/
+theorem integralOn_archimedeanIntegrand_eq_tsum (F : CompactLogTest) :
+    (∫ y : Real in Ioi (0 : Real),
+      C1SameOwnerWeil.archimedeanIntegrand F y) =
+      ∑' n : Nat,
+        (∫ y : Real in Ioi (0 : Real), gammaRArchProfileTerm F n y) := by
+  have hpt : ∀ y ∈ Ioi (0 : Real),
+      C1SameOwnerWeil.archimedeanIntegrand F y =
+        ∑' n : Nat, gammaRArchProfileTerm F n y :=
+    fun y hy => (tsum_gammaRArchProfileTerm_eq_archimedeanIntegrand F hy).symm
+  rw [setIntegral_congr_fun measurableSet_Ioi hpt]
+  exact integralOn_tsum_gammaRArchProfileTerm F
+
+/-! ### Per-term Fourier/resolvent readback
+
+The paired profile has one elementary exponential tail involving `F.test 0`.
+Its integral is exactly the static reciprocal in `gammaRReciprocalTerm`; after
+that cancellation, the public center-`2` resolvent readback supplies the other
+profile.  This proves the single-index bridge without splitting the divergent
+infinite series. -/
+
+private theorem integrableOn_gammaRArchProfileTail
+    (F : CompactLogTest) (n : Nat) :
+    IntegrableOn (fun y : Real =>
+      (2 : Complex) *
+        Complex.exp (-(((2 * (n : Real) + 1 : Real) : Complex) *
+          (y : Complex))) * F.test 0)
+      (Ioi (0 : Real)) := by
+  have ha : 0 < (((2 * (n : Real) + 1 : Real) : Complex).re) := by
+    simp only [ofReal_re]
+    positivity
+  exact ((integrableOn_exp_neg_mul_complex_Ioi ha).const_mul (2 : Complex)).mul_const
+    (F.test 0)
+
+private theorem integralOn_gammaRArchProfileTail
+    (F : CompactLogTest) (n : Nat) :
+    (∫ y : Real in Ioi (0 : Real),
+      (2 : Complex) *
+        Complex.exp (-(((2 * (n : Real) + 1 : Real) : Complex) *
+          (y : Complex))) * F.test 0) =
+      ((n : Complex) + (1 / 2 : Complex))⁻¹ * F.test 0 := by
+  have ha : 0 < (((2 * (n : Real) + 1 : Real) : Complex).re) := by
+    simp only [ofReal_re]
+    positivity
+  have hn : (n : Complex) + (1 / 2 : Complex) ≠ 0 := by
+    intro hzero
+    have hre := congrArg Complex.re hzero
+    simp only [add_re, Complex.natCast_re] at hre
+    norm_num at hre
+    have hn0 : 0 ≤ (n : Real) := Nat.cast_nonneg n
+    linarith
+  rw [integral_mul_const, integral_const_mul,
+    integral_exp_neg_mul_complex_Ioi ha]
+  have hcoeff : ((2 * (n : Real) + 1 : Real) : Complex) =
+      (2 : Complex) * ((n : Complex) + (1 / 2 : Complex)) := by
+    push_cast
+    ring
+  rw [hcoeff]
+  field_simp [hn]
+
+private theorem integralOn_gammaRArchProfileTerm_eq_profile_sub_tail
+    (F : CompactLogTest) (n : Nat) :
+    (∫ y : Real in Ioi (0 : Real), gammaRArchProfileTerm F n y) =
+      (∫ y : Real in Ioi (0 : Real),
+        Complex.exp (-(((2 * (n : Real) + 1 / 2 : Real) : Complex) *
+          (y : Complex))) * (F.test y + F.test (-y))) -
+        ((n : Complex) + (1 / 2 : Complex))⁻¹ * F.test 0 := by
+  have htail := integrableOn_gammaRArchProfileTail F n
+  have hpaired := integrableOn_gammaRArchProfileTerm F n
+  have hpoint : (fun y : Real => gammaRArchProfileTerm F n y) =
+      (fun y : Real =>
+        Complex.exp (-(((2 * (n : Real) + 1 / 2 : Real) : Complex) *
+          (y : Complex))) * (F.test y + F.test (-y)) -
+          (2 : Complex) *
+            Complex.exp (-(((2 * (n : Real) + 1 : Real) : Complex) *
+              (y : Complex))) * F.test 0) := by
+    funext y
+    unfold gammaRArchProfileTerm
+    ring
+  have hprofile : IntegrableOn (fun y : Real =>
+      Complex.exp (-(((2 * (n : Real) + 1 / 2 : Real) : Complex) *
+        (y : Complex))) * (F.test y + F.test (-y))) (Ioi (0 : Real)) := by
+    apply (hpaired.add htail).congr_fun _ measurableSet_Ioi
+    intro y hy
+    change gammaRArchProfileTerm F n y +
+      (2 : Complex) *
+        Complex.exp (-(((2 * (n : Real) + 1 : Real) : Complex) *
+          (y : Complex))) * F.test 0 =
+      Complex.exp (-(((2 * (n : Real) + 1 / 2 : Real) : Complex) *
+        (y : Complex))) * (F.test y + F.test (-y))
+    rw [congrFun hpoint y]
+    ring
+  rw [hpoint, integral_sub hprofile htail,
+    integralOn_gammaRArchProfileTail F n]
+
+/-- The full-line integral of one reciprocal Gamma_R summand is the negative
+`4 * pi * I` multiple of its paired positive-variable profile integral. -/
+theorem integral_gammaRReciprocalTerm_eq_neg_four_pi_I_mul_archProfile
+    (F : CompactLogTest) (n : Nat) :
+    (∫ t : Real, gammaRReciprocalTerm F n t) =
+      -(4 * (Real.pi : Complex) * Complex.I) *
+        (∫ y : Real in Ioi (0 : Real), gammaRArchProfileTerm F n y) := by
+  have hweight :=
+    C1XiCenterTwoPole.integral_symmetrizedLaplaceWeight_centerTwo F
+  have hresolvent :=
+    C1XiCenterTwoPole.integral_symmetrizedLaplaceWeight_centerTwo_div_vertical_eq_archProfile
+      F (a := 2 * ((n : Real) + 1)) (by positivity)
+  have hprofile := integralOn_gammaRArchProfileTerm_eq_profile_sub_tail F n
+  have hresolventProfile :
+      (∫ y : Real in Ioi (0 : Real),
+        Complex.exp (-(((2 * ((n : Real) + 1) - 3 / 2 : Real) : Complex) *
+          (y : Complex))) * (F.test y + F.test (-y))) =
+        ∫ y : Real in Ioi (0 : Real),
+          Complex.exp (-(((2 * (n : Real) + 1 / 2 : Real) : Complex) *
+            (y : Complex))) * (F.test y + F.test (-y)) := by
+    apply setIntegral_congr_fun measurableSet_Ioi
+    intro y hy
+    push_cast
+    ring
+  rw [integral_gammaRReciprocalTerm F n, hweight, hresolvent,
+    hresolventProfile, hprofile]
+  ring
+
+/-- The normalized reciprocal series is the negative direct archimedean
+density integral.  This is the series-level combination of the per-term
+resolvent readback with the paired-profile Fubini theorem. -/
+theorem normalized_tsum_integral_gammaRReciprocalTerm_eq_neg_archimedeanIntegral
+    (F : CompactLogTest) :
+    (1 / 2 : Complex) * (2 * (Real.pi : Complex) * Complex.I)⁻¹ *
+        (∑' n : Nat, ∫ t : Real, gammaRReciprocalTerm F n t) =
+      -(∫ y : Real in Ioi (0 : Real),
+        C1SameOwnerWeil.archimedeanIntegrand F y) := by
+  have hterms :
+      (fun n : Nat => ∫ t : Real, gammaRReciprocalTerm F n t) =
+        (fun n : Nat => -(4 * (Real.pi : Complex) * Complex.I) *
+          (∫ y : Real in Ioi (0 : Real), gammaRArchProfileTerm F n y)) := by
+    funext n
+    exact integral_gammaRReciprocalTerm_eq_neg_four_pi_I_mul_archProfile F n
+  rw [hterms, tsum_mul_left,
+    ← integralOn_archimedeanIntegrand_eq_tsum F]
+  have hpi : (Real.pi : Complex) ≠ 0 :=
+    Complex.ofReal_ne_zero.mpr Real.pi_ne_zero
+  field_simp [hpi, Complex.I_ne_zero]
+  ring
+
 /-! The full-line Gamma_R integral now has a scalar-series normal form.  The
 remaining archimedean readback is precisely the conversion of this convergent
 series into the direct positive-variable density. -/
@@ -1754,6 +2436,21 @@ theorem normalized_gammaR_centerTwo_constant_part_eq
     ring
   rw [hinner]
 
+/-- The normalized center-`2` Gamma_R integral reads back to the complete
+same-owner archimedean term. -/
+theorem normalized_gammaR_centerTwo_re_eq_archimedeanTerm
+    (F : CompactLogTest) :
+    ((2 * (Real.pi : Complex) * Complex.I)⁻¹ *
+      (∫ t : Real, gammaRIntegrand F 2 t)).re =
+        archimedeanTerm F := by
+  rw [normalized_gammaR_centerTwo_eq_constant_sub_tsum_integrals,
+    Complex.sub_re, normalized_gammaR_centerTwo_constant_part_eq F,
+    normalized_tsum_integral_gammaRReciprocalTerm_eq_neg_archimedeanIntegral F]
+  simp only [Complex.neg_re]
+  unfold archimedeanTerm
+  rw [Complex.add_re]
+  ring
+
 /-- A local consumer contract for the full center-`2` Gamma_R readback.
 
 The first field is the only nontrivial analysis left after the pointwise
@@ -1766,6 +2463,15 @@ structure CenterTwoGammaReadbackContract (F : CompactLogTest) : Prop where
     ((2 * (Real.pi : Complex) * Complex.I)⁻¹ *
       (∫ t : Real, gammaRIntegrand F 2 t)).re =
         archimedeanTerm F
+
+/-- The center-`2` Gamma_R readback contract is supplied by the proved
+half-anchor Gauss formula, full-line integrability, and the paired-profile
+Fourier readback. -/
+theorem centerTwoGammaReadbackContract_of_halfAnchorGauss
+    (F : CompactLogTest) : CenterTwoGammaReadbackContract F :=
+  ⟨halfAnchorGaussContract_of_pos,
+    integrable_gammaRIntegrand_centerTwo F,
+    normalized_gammaR_centerTwo_re_eq_archimedeanTerm F⟩
 
 /-- The contract's readback is exactly the sign needed by the same-owner Weil
 functional.  No hidden minus sign is introduced at the Gamma_R layer. -/

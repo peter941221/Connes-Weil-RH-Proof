@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1HealthyNarrowPlateau
+
+namespace ConnesWeilRH.Source.C1HealthyNarrowPlateau
+
+#print axioms wideTest_convolutionSquare_eq_real_integral
+#print axioms wideTest_convolutionSquare_re_eq_scaled_bumpF
+#print axioms wideTest_convolutionSquare_zero_re_eq_scaled_bumpA
+#print axioms wideTest_convolutionSquare_re_nonnegative
+#print axioms wideTest_convolutionSquare_re_le_zero_mass
+#print axioms wideTest_convolutionSquare_re_eq_zero_of_two_mul_w_le_abs
+#print axioms wideTest_convolutionSquare_support_subset_open_double
+#print axioms primeFreePlateau_square_support
+#print axioms primeFreePlateau_square_mass_ge_three_fifths
+#print axioms primeFreePlateau_square_mass_le_two_thirds
+#print axioms primeFreePlateau_square_re_eq_zero_of_two_thirds_le_abs
+#print axioms primeFreePlateau_archimedeanTerm_pos
+
+end ConnesWeilRH.Source.C1HealthyNarrowPlateau

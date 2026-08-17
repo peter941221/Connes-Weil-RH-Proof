@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1CenterTwoRHExit
+
+namespace ConnesWeilRH.Source.C1CenterTwoRHExit
+
+#print axioms healthy_criterion_sourceRH_of_yoshida_detector
+#print axioms healthy_spectral_nonneg_sourceRH_of_yoshida_detector
+
+end ConnesWeilRH.Source.C1CenterTwoRHExit

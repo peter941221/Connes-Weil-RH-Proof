@@ -1,7 +1,8 @@
 # C1 Xi Conditional Contour Spine
 
-Status: three conditional Gate 2 contour modules are Lean-checked. This is not
-an explicit-formula proof and does not claim RH.
+Status: three conditional global-contour modules are Lean-checked. They remain
+an alternative Hadamard-product route; the separate center-2 contour assembly
+now closes Gate 2 without their contracts. Neither route claims RH.
 
 ## Closed bricks
 
@@ -52,31 +53,36 @@ reported only `[propext, Classical.choice, Quot.sound]`; there is no `sorryAx`.
 ## Remaining route to RH
 
 ```text
+CLOSED: center-2 Gamma_R readback + center-2 contour assembly
+        |
+        v
+same-owner explicit formula (Gate 2)
+        |
+        v
+OPEN: positive-trace / Weil criterion on the same owner
+        |
+        v
+finite-vanishing criterion
+        |
+        v
+Yoshida detector existence and transport
+        |
+        v
+SourceRH / RH root
+
+Separate conditional global-Hadamard branch:
+
 OPEN A: global H-A1/log-derivative comparison
         |
         +--> OPEN B: cofactor growth along one selected height sequence
         |             |
         |             +--> horizontal contour limit (conditional theorem exists)
         |
-        +--> OPEN C: arithmetic right-line readback
-                      |
-                      v
-              same-owner explicit formula (Gate 2)
-                      |
-                      v
-              positive-trace / Weil criterion on the same owner
-                      |
-                      v
-              finite-vanishing criterion
-                      |
-                      v
-              Yoshida detector existence and transport
-                      |
-                      v
-              SourceRH / RH root
+        +--> OPEN C: full c -> 1+ arithmetic boundary readback
 ```
 
 The zero-spectral absolute summability, exact xi-zero indexing, finite
 factor/residue/rectangle readback, and vertical fold are already closed. Gate
 3U remains a separate diagnostic branch and is not a substitute for the
-same-owner Gate 2 route.
+same-owner route. The conditional global branch is not needed by the closed
+center-2 Gate 2 endpoint.

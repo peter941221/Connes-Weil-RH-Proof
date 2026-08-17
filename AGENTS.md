@@ -35,8 +35,7 @@ The constructive route toward that root must keep one mathematically correct
 test-space owner through the log/positive coordinate change, true Mellin
 convolution, the pole and archimedean terms, all prime-power terms, the explicit
 formula, finite-vanishing criterion, and Yoshida detectors. The repaired C1
-modules now close the object and readback layer, but not the load-bearing
-analytic theorem:
+modules now close the object, readback, and center-`2` Gate 2 layers:
 
 ```text
 CompactLog -> positive-variable coordinate bridge CLOSED
@@ -44,10 +43,11 @@ healthy Mellin convolution                         CLOSED
 complete same-owner pole/arch/all-prime functional CLOSED as definition/readback
 zero-spectral absolute summability on every test   CLOSED
 xi zero-index completeness (= exact xi zero set)   CLOSED
-same-owner arithmetic = zero-spectral formula      OPEN
+same-owner arithmetic = zero-spectral formula      CLOSED (center-2 contour)
 positive-trace bridge                              OPEN
 finite-vanishing Weil criterion on the same owner  OPEN (RH-level)
-Yoshida detectors on that same owner               OPEN rebuild/transport
+Yoshida finite-node interpolation on same owner    CLOSED
+Yoshida Hermitian-square detector sign             OPEN construction
 ```
 
 The spectral convergence half is unconditional and axiom-clean in
@@ -55,8 +55,12 @@ The spectral convergence half is unconditional and axiom-clean in
 Jensen bounds analytic zero multiplicity by `K * 3^n`, and compact-log Laplace
 decay contributes `4^(-n)`. Since `3 < 4`, `spectralSummableProp F` holds for
 every `CompactLogTest F`. Consequently `gate2ExplicitFormula_iff` reduces Gate
-2 exactly to `C1SameOwnerWeil.psi F = C1SpectralWeil.spectralWeilValue F`; that
-equality and the positive-trace bridge remain open.
+2 exactly to `C1SameOwnerWeil.psi F = C1SpectralWeil.spectralWeilValue F`.
+`C1XiCenterTwoArithmeticAssembly.centerTwo_arithmetic_eq_spectral` proves that
+equality by feeding the proved
+`C1XiCenterTwoGamma.centerTwoGammaReadbackContract_of_halfAnchorGauss` into the
+center-`2` contour assembly, and `gate2ExplicitFormula_centerTwo` is the
+axiom-clean Gate 2 endpoint. The positive-trace bridge remains open.
 
 The completed-xi zero set is exactly the source spectral index:
 `completedRiemannXi_eq_zero_iff_sourceNontrivialZero` (in `CC20ZetaCounting`)
@@ -1193,14 +1197,141 @@ project roots / `sorryAx`) plus the full repository verification gate.
   Route: docs/proofs/1013 (queue), next H-A1 = analyticity of the weighted
   sum via `Mathlib/Analysis/Calculus/SmoothSeries.lean`
   (`hasDerivAt_tsum_of_isPreconnected`).
+- Center-2 Gamma_R readback (CLOSED 2026-08-17,
+  `Dev/C1XiCenterTwoGamma.lean`): the paired-profile Fubini bridge
+  `summable_integralOn_norm_gammaRArchProfileTerm`,
+  `integralOn_tsum_gammaRArchProfileTerm`, and
+  `integralOn_archimedeanIntegrand_eq_tsum` combines with the per-term
+  Fourier/resolvent identity
+  `integral_gammaRReciprocalTerm_eq_neg_four_pi_I_mul_archProfile`.
+  The normalized series theorem
+  `normalized_tsum_integral_gammaRReciprocalTerm_eq_neg_archimedeanIntegral`
+  and `normalized_gammaR_centerTwo_re_eq_archimedeanTerm` then supply
+  `centerTwoGammaReadbackContract_of_halfAnchorGauss`.
+  The two summands of `gammaRArchProfileTerm` diverge separately: never
+  dominate, integrate, or sum them separately. Keep the pair intact; use the
+  compact-support Lipschitz `n^-2` head and exponential tail before
+  `MeasureTheory.integral_tsum_of_summable_integral_norm`.
+  This closes the Gamma_R archimedean factor. Its center-`2` contract is
+  consumed by `C1XiCenterTwoArithmeticAssembly` to close Gate 2; it does not
+  close the positive-trace bridge or RH. Accepted owner-plus-probe build:
+  `lake build ConnesWeilRH.Dev.C1XiCenterTwoGamma
+  ConnesWeilRH.Dev.C1XiCenterTwoGammaProbe`.
+- Center-2 Gate 2 assembly (CLOSED 2026-08-17,
+  `Dev/C1XiCenterTwoArithmeticAssembly.lean`):
+  `centerTwo_arithmetic_eq_spectral` supplies
+  `C1SameOwnerWeil.psi F = C1SpectralWeil.spectralWeilValue F` for every
+  `CompactLogTest F`, and `gate2ExplicitFormula_centerTwo` packages it with
+  the unconditional spectral summability theorem. The assembly consumes the
+  proved `centerTwoGammaReadbackContract_of_halfAnchorGauss`; its owner-plus-
+  probe build reports only `[propext, Classical.choice, Quot.sound]`. This
+  closes Gate 2 only, not the positive-trace bridge, finite-vanishing
+  criterion, Yoshida transport, or RH.
+- Center-2 criterion bridge (CLOSED 2026-08-17,
+  `Dev/C1CenterTwoCriterionBridge.lean`):
+  `qw_eq_spectralWeilValue_centerTwo` transports the Gate 2 readback through
+  one convolution square, and
+  `healthyCriterionState_iff_all_vanishing_spectral_nonnegative` rewrites the
+  healthy finite-vanishing criterion as spectral nonnegativity on every
+  vanishing square. The spectral nonnegativity/positive-trace premise is still
+  open; this module does not assert it. Its owner-plus-probe build is
+  axiom-clean with `[propext, Classical.choice, Quot.sound]`.
+- Center-2 healthy RH exit (CLOSED as a ledger statement 2026-08-17,
+  `Dev/C1CenterTwoRHExit.lean`):
+  `healthy_spectral_nonneg_sourceRH_of_yoshida_detector` composes the bridge
+  with the generic `cc20_proposition_c1_from_yoshida_detector` at
+  `C1.healthyCC20TestSpace`, discharging the triple admissibility and
+  disjointness rows by the closed theorems. The distance to `SourceRH` on the
+  healthy owner is now exactly two explicit premises: Yoshida detector
+  existence on this owner (constructive transport, open) and nonnegativity of
+  `spectralWeilValue g.convolutionSquare` on vanishing squares (Lane R).
+  Owner-plus-probe build (3603 jobs) axiom-clean with
+  `[propext, Classical.choice, Quot.sound]`. RH is NOT claimed.
+- Healthy Yoshida detector scaffold (2026-08-17,
+  `Dev/C1HealthyYoshidaDetector.lean`): the healthy square is the genuine
+  Hermitian square `laplaceAt (g.convolutionSquare) s =
+  conj (laplaceAt g (-conj s)) * laplaceAt g s`, so a triple-vanishing test
+  has ZERO pole term on its square and `qw g = -(archimedeanTerm +
+  finitePrimeSum)` on vanishing tests. `HealthyYoshidaDetectorData rho g`
+  (nondegeneracy + unconditional `0 < weilLocalSum (starConvolution g)`)
+  refines detector existence into finite data, and
+  `healthy_sourceRH_of_healthyDetectorData_and_spectral_nonneg` is the refined
+  two-premise capstone. Build axiom-clean (3605 jobs). Producing the data is
+  the remaining constructive work; the Lane R sign stays untouched. RH NOT
+  claimed.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`
   → `Source/CC20YoshidaNearZeros.lean`; `spectralMultiplicityConstant`,
   `spectralHeightMultiplicity_geometric_bound` → `Dev/C1SpectralSummability.lean`;
   `xiMultiplicity`, `spectralHeightShell(_partition/_finite)` → `Dev/C1SpectralWeil.lean`.
+- Split-brain `CompactLogTest` namespace: the STRUCTURE lives in
+  `CCM25Concrete.CompactLogConvolution`, but `laplaceAt`, `laplaceAt_convolution`,
+  and `laplaceAt_involution` live in `CC20YoshidaConvolution.CompactLogTest`.
+  Open BOTH namespaces and use the `CompactLogTest.` prefix on the law names
+  (bare law names do not resolve). Also: the elaborator normalizes
+  neg-of-cast terms (`((-(x:ℝ)):ℂ)` becomes `-↑x`), so compound rw patterns
+  like `-↑(-(1/2))` silently re-parse and miss; peel with `Complex.ofReal_neg`
+  and `neg_neg` instead of hand-written show-casts.
 
 
+
+- Healthy Yoshida finite-node interpolation (CLOSED 2026-08-17,
+  `Dev/C1HealthyYoshidaInterpolation.lean`):
+  `compactLogTestOfWindow` transports the existing linear Mellin
+  interpolation through its exact Laplace/Mellin coordinate contract. At the
+  fixed window `(1/2, 2)`, every off-line source zero has a healthy compact-log
+  test with values `0` at `0, 1/2, 1` and `-1` at `rho, +i/2, -i/2`.
+  `HealthyExpandedLaplaceRealizes` consequently supplies compact smoothness,
+  triple vanishing, and nonzero detection at `rho`; it does not claim a sign
+  for the Hermitian square. The endpoint
+  `healthyCC20YoshidaDetectorExists_of_healthyExpandedLaplaceRealizes_and_spectral_neg`
+  reduces healthy detector existence exactly to strict negativity of
+  `spectralWeilValue g.convolutionSquare` for those fully constructed roots.
+  The companion capstone combines that local negative condition with the
+  separately guarded global nonnegativity premise to obtain `SourceRH`.
+  Owner-plus-probe WSL2 build (3606 jobs) is axiom-clean with
+  `[propext, Classical.choice, Quot.sound]`; no `sorryAx` or project axiom.
+  This does not prove either strict local negativity or global spectral
+  nonnegativity, and RH is NOT claimed.
+
+- Healthy Yoshida minimal-node and prime-free guard (2026-08-17): the healthy
+  `YoshidaDetector` consumes exactly the three values at `0`, `1/2`, `1` and
+  nonzero detection at `rho`. The legacy `plus/minus I/2` targets belong only
+  to the rejected normalized additive-doubling owner; do not require or use
+  them when constructing a healthy positive direction. The axiom-clean module
+  `Dev/C1HealthyYoshidaMinimalInterpolation.lean` realizes those four nodes in
+  the `(3/4, 5/4)` positive window, where its Hermitian square has support
+  strictly inside `(-log 2, log 2)`. Thus
+  `finitePrimeSum_eq_zero_of_support_subset_open_log_two` removes every
+  visible prime-power term, and triple vanishing removes the pole term:
+  `0 < weilLocalSum (starConvolution g)` is equivalent to
+  `0 < archimedeanTerm g.convolutionSquare`. This is a reduction of the local
+  sign construction, not an archimedean positivity theorem, detector
+  existence theorem, spectral sign producer, or RH proof.
+
+- Healthy narrow plateau archimedean positivity (CLOSED 2026-08-17,
+  `Dev/C1HealthyNarrowPlateau.lean`): `primeFreePlateau` is the same-owner
+  `wideTest` at width `1 / 3`. Its convolution square has support strictly
+  inside `(-log 2, log 2)`, square mass in `[3/5, 2/3]`, and the explicit
+  archimedean integral estimate is at most `(257 / 270) * bumpA`, while the
+  leading term is greater than `(29 / 30) * bumpA`. Therefore
+  `primeFreePlateau_archimedeanTerm_pos` proves strict positivity of the
+  ordinary `archimedeanTerm` for this concrete witness. The owner-plus-probe
+  WSL2 build (3496 jobs) reports only `[propext, Classical.choice,
+  Quot.sound]`; no `sorryAx` or project axiom was introduced. This is a
+  local archimedean positivity producer only: it does not construct a
+  `YoshidaDetector`, prove global spectral nonnegativity, close the finite-
+  vanishing criterion, or prove RH.
+
+- Narrow plateau analysis uses the root-level Mathlib declarations
+  `integral_inv` and `integral_one_div` from
+  `Mathlib.Analysis.SpecialFunctions.Integrals.Basic`; the cached WSL2
+  environment does not expose the attempted
+  `intervalIntegral.integral_inv_of_pos` spelling. Keep the selected
+  `SelectedWeilSquareOwner` throughout the estimate so the proof never mixes
+  a directly constructed function with a different owner carrying its
+  support and archimedean data.
 
 ## 17. RH Axiom Guard (from 887 review, updated 2026-08-12)
 

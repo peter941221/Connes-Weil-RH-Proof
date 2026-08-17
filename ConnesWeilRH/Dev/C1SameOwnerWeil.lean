@@ -161,6 +161,33 @@ theorem mem_globalPrimeIndexSet_iff
 noncomputable def finitePrimeSum (F : CompactLogTest) : Real :=
   ∑ n ∈ globalPrimeIndexSet F, finitePrimeTerm F n
 
+/-- A formula test supported strictly between the first positive and negative
+prime-power locations has no visible prime-power contribution.  This uses the
+actual support hypothesis, rather than the noncanonical `supportRadius` bound. -/
+theorem finitePrimeSum_eq_zero_of_support_subset_open_log_two
+    (F : CompactLogTest)
+    (hsupport :
+      Function.support F.test ⊆ Set.Ioo (-Real.log 2) (Real.log 2)) :
+    finitePrimeSum F = 0 := by
+  unfold finitePrimeSum
+  apply Finset.sum_eq_zero
+  intro n hn
+  have hprime : IsPrimePow n := (mem_globalPrimeIndexSet_iff F n).mp hn |>.1
+  have htwo : (2 : Real) ≤ n := by
+    exact_mod_cast hprime.two_le
+  have hlog : Real.log 2 ≤ Real.log n :=
+    Real.log_le_log (by norm_num) htwo
+  have hpositive : F.test (Real.log n) = 0 := by
+    by_contra hne
+    have hinside := hsupport hne
+    exact (not_lt_of_ge hlog) hinside.2
+  have hnegative : F.test (-Real.log n) = 0 := by
+    by_contra hne
+    have hinside := hsupport hne
+    have hneglog : -Real.log n ≤ -Real.log 2 := neg_le_neg hlog
+    exact (not_lt_of_ge hneglog) hinside.1
+  simp [finitePrimeTerm, finitePrimeTermComplex, hpositive, hnegative]
+
 /-- `Psi(F) = W_(0,2)(F) - W_R(F) - sum_p W_p(F)`. -/
 noncomputable def psi (F : CompactLogTest) : Real :=
   poleTerm F - archimedeanTerm F - finitePrimeSum F

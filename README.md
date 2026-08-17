@@ -61,7 +61,7 @@ arithmetic terms, the spectral sum, and the detector criterion.
 | CompactLog to positive-coordinate bridge | Closed |
 | Same-owner pole, archimedean, and prime terms | Closed as definition/readback |
 | Exact xi-zero index and spectral summability | Closed |
-| Gate 2 arithmetic-to-spectral equality | Open |
+| Gate 2 arithmetic-to-spectral equality | Closed (center-2 contour assembly) |
 | Gate 3 positive trace and Gate 4 detectors | Open |
 | SourceRH to Mathlib RH | Conditional exit |
 
@@ -91,9 +91,10 @@ arithmetic terms, the spectral sum, and the detector criterion.
    The project controls the completed Xi function through Mathlib's theta
    kernel and reduces the zero-summability input to geometric ball bounds in
    the right half-plane. The current C1 layer also proves exact xi-zero index
-   completeness, absolute spectral summability for every compact-log test, and
-   finite contour/readback bricks. The arithmetic-to-spectral equality is still
-   open. Quadratic Mellin decay requires shell growth below 4^n; the full
+   completeness, absolute spectral summability for every compact-log test,
+   finite contour/readback bricks, and the center-2 same-owner
+   arithmetic-to-spectral equality. The positive-trace and detector consumers
+   remain open. Quadratic Mellin decay requires shell growth below 4^n; the full
    Riemann-von Mangoldt asymptotic is stronger than this consumer needs.
 
 4. Nyman-Beurling and Mobius blocks
