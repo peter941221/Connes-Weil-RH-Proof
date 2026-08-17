@@ -2415,3 +2415,12 @@ would be unsound. RH unclaimed.
 - Repointed the README's Lean source anchors against `HEAD` and verified 40/40
   declaration anchors plus 33/33 repository file links. README prose is ASCII;
   mathematical display blocks use LaTeX fences.
+
+## Change Log (2026-08-17, README display-math rendering repair)
+- GitHub's Markdown renderer treated several bare multiline `$$` blocks as
+  headings because the first equation line was followed by an equals sign.
+  Wrapped all 11 affected equations in `\begin{aligned} ... \end{aligned}`
+  while preserving the existing README headings and content.
+- The GitHub `/markdown` audit now produces 25 display-math renderers, with no
+  malformed `$$` headings or unrendered math blocks. The README remains ASCII
+  outside LaTeX display blocks.

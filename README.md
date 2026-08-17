@@ -162,10 +162,11 @@ Lean declarations:
 The same module proves the nuclear expansion
 
 $$
+\begin{aligned}
 A^{\ast}B
-=
-\sum_j
+&= \sum_j
 \mathrm{rankOne}(A^{\ast}f_j,B^{\ast}f_j).
+\end{aligned}
 $$
 
 The series converges absolutely in the operator norm on continuous linear
@@ -184,9 +185,10 @@ and identifies the diagonal trace of L^*R with the integral of the
 inner products of kernel sections:
 
 $$
+\begin{aligned}
 \mathrm{Tr}(L^{\ast}R)
-=
-\int \langle L_s,R_s\rangle\,ds.
+&= \int \langle L_s,R_s\rangle\,ds.
+\end{aligned}
 $$
 
 - [`pairData_trace_eq_kernel_inner`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CC20Concrete/ContinuousKernelHilbertSchmidt.lean#L316)
@@ -208,10 +210,11 @@ For b = m log p, the Euler weight converts these traces into the prime-power
 term of the explicit formula:
 
 $$
+\begin{aligned}
 \frac{bF(b)+bF(-b)}{m\sqrt{p^m}}
-=
-\frac{\log p}{\sqrt{p^m}}
+&= \frac{\log p}{\sqrt{p^m}}
 \left(F(\log p^m)+F(-\log p^m)\right).
+\end{aligned}
 $$
 
 ### 2.3 From compact crossings to the whole line
@@ -241,15 +244,17 @@ three-factor trace theorem then transports the compact
 trace to the whole line:
 
 $$
+\begin{aligned}
 \mathrm{Tr}(L^{\ast}R)
-=
-\mathrm{Tr}(C_h C_{h^{\ast}}J_b),
+&= \mathrm{Tr}(C_h C_{h^{\ast}}J_b),
+\end{aligned}
 $$
 
 $$
+\begin{aligned}
 \mathrm{Tr}(R^{\ast}L)
-=
-\mathrm{Tr}(J_b^{\ast}C_h C_{h^{\ast}}).
+&= \mathrm{Tr}(J_b^{\ast}C_h C_{h^{\ast}}).
+\end{aligned}
 $$
 
 - [`leftKernelAdjoint_range_factorization`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingOperatorBridge.lean#L1906)
@@ -264,10 +269,11 @@ For a prime power (p, m), let T_(p,m) denote the whole-line crossing with
 translation length m log p. The project defines
 
 $$
+\begin{aligned}
 K_{p,m}
-=
-\frac{1}{m\sqrt{p^m}}
+&= \frac{1}{m\sqrt{p^m}}
 \left(T_{p,m}+T_{p,m}^{\ast}\right)
+\end{aligned}
 $$
 
 and forms the finite sum before taking a trace:
@@ -286,9 +292,10 @@ Every summand acts on the same global L2(R) space and uses the same
    convolution square.
 
 $$
+\begin{aligned}
 \mathrm{Tr}(K_{\mathcal T})
-=
-\sum_{(p,m)\in\mathcal T}\mathrm{FP}(p^m).
+&= \sum_{(p,m)\in\mathcal T}\mathrm{FP}(p^m).
+\end{aligned}
 $$
 
 Here FP(p^m) denotes the selected finite-prime term.
@@ -309,9 +316,10 @@ the finite-window operator and let E_lambda be zero extension into L2(R). The
 project proves the exact conjugation identity
 
 $$
+\begin{aligned}
 H_\lambda^{\mathrm{global}}
-=
-E_\lambda H_\lambda E_\lambda^{\ast}.
+&= E_\lambda H_\lambda E_\lambda^{\ast}.
+\end{aligned}
 $$
 
 Continuity and symmetry of the finite-window kernel give compactness and
@@ -333,10 +341,11 @@ $$
 The project then defines the self-adjoint translation combination
 
 $$
+\begin{aligned}
 D_{p,m}
-=
-\frac{\log p}{\sqrt{p^m}}
+&= \frac{\log p}{\sqrt{p^m}}
 \left(U_{m\log p}+U_{-m\log p}\right)
+\end{aligned}
 $$
 
 and obtains the finite-prime quadratic read-off on the same vector:
@@ -406,11 +415,12 @@ boundaries:
 The convergence reduction is the exact statement
 
 $$
+\begin{aligned}
 \operatorname{gate2ExplicitFormula}(F)
-\Longleftrightarrow
+&\Longleftrightarrow
 \operatorname{C1SameOwnerWeil.psi}(F)
-=
-\operatorname{spectralWeilValue}(F).
+= \operatorname{spectralWeilValue}(F).
+\end{aligned}
 $$
 
 Finite `c = 1` prime-power readback and the center-2 Gamma_R reciprocal-series
@@ -480,11 +490,12 @@ claim is the equality between the complete same-owner arithmetic functional and
 the exact xi spectral expression:
 
 $$
+\begin{aligned}
 \operatorname{gate2ExplicitFormula}(F)
-\Longleftrightarrow
+&\Longleftrightarrow
 \operatorname{C1SameOwnerWeil.psi}(F)
-=
-\operatorname{spectralWeilValue}(F).
+= \operatorname{spectralWeilValue}(F).
+\end{aligned}
 $$
 
 The conditional contour spine is already assembled from finite-factor residue,

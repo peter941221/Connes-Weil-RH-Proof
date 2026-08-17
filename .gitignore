@@ -17,3 +17,6 @@ __pycache__/
 a0*.sh
 a1*.sh
 mc_setup.sh
+
+# local-only embedded full-repo backup copy (venv, logs, private memory backups)
+/
