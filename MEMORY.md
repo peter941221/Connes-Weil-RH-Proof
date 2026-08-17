@@ -2386,3 +2386,32 @@ would be unsound. RH unclaimed.
 - This is a normal-form reduction only: it does not split the two divergent
   pieces of an individual resolvent series, and it does not yet identify the
   convergent paired series with `C1SameOwnerWeil.archimedeanTerm`.
+
+## Change Log (2026-08-17, paired arch profile term closes series-to-density)
+- Added `gammaRArchProfileTerm` (the paired positive-variable term whose two
+  pieces diverge separately but whose difference is the archimedean density),
+  `gammaRArchProfileTerm_factor` (geometric factorization with ratio
+  `exp(-2y)`), the private `pairFraction_normalize` lemma
+  (`(r⁻¹A - 2r⁻²B)/(1 - r⁻⁴) = (rA - 2B)/(r² - r⁻²)`, `r = exp(y/2)`), and the
+  main theorem `tsum_gammaRArchProfileTerm_eq_archimedeanIntegrand`: for every
+  `y > 0`, `∑' n, gammaRArchProfileTerm F n y = archimedeanIntegrand F y`.
+- Owner and probe rebuilt in the WSL2 ext4 mirror (3538 jobs); the new theorem
+  depends only on `[propext, Classical.choice, Quot.sound]` (no `sorryAx`).
+- This closes the pointwise series-to-density conversion flagged in the
+  previous entry. Remaining for the Gamma_R readback: the sum-integral
+  exchange for the arch profile family on `y ∈ (0, ∞)` plus the per-term
+  Fourier readback, which would connect the scalar reciprocal series to
+  `archimedeanTerm`. Gate 2 and RH remain open.
+
+## Change Log (2026-08-17, README status refresh)
+- Refreshed `README.md` without changing its heading or section structure.
+  The document now states explicitly that the repository has no unconditional RH
+  proof, promotes the C1 same-owner Gate 2--4 route to the active frontier, and
+  keeps the finite-band and infinite-carrier Gate-3U work as diagnostic context.
+- Added the current C1 coordinate, exact xi-index, spectral-summability,
+  arithmetic-readback, and conditional-contour status boundaries. The full
+  arithmetic/spectral equality, positive-trace criterion, and healthy-owner
+  Yoshida transport remain open.
+- Repointed the README's Lean source anchors against `HEAD` and verified 40/40
+  declaration anchors plus 33/33 repository file links. README prose is ASCII;
+  mathematical display blocks use LaTeX fences.

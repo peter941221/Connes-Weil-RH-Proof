@@ -1522,6 +1522,154 @@ theorem integrable_gammaRIntegrand_centerTwo
   filter_upwards with t
   exact (gammaRIntegrand_centerTwo_eq_constant_sub_tsum F t).symm
 
+/-- The paired positive-variable term obtained after the center-`2` resolvent
+readback.  The two pieces are kept in one term because their separate series
+are divergent at the origin, while this difference is the archimedean density
+term that has a finite `n⁻²` readback. -/
+noncomputable def gammaRArchProfileTerm
+    (F : CompactLogTest) (n : Nat) (y : Real) : Complex :=
+  Complex.exp (-(((2 * (n : Real) + 1 / 2 : Real) : Complex) * (y : Complex))) *
+      (F.test y + F.test (-y)) -
+    2 * Complex.exp (-(((2 * (n : Real) + 1 : Real) : Complex) * (y : Complex))) *
+      F.test 0
+
+private theorem gammaRArchProfileTerm_factor
+    (F : CompactLogTest) (n : Nat) {y : Real} (hy : 0 < y) :
+    gammaRArchProfileTerm F n y =
+      (Complex.exp (-(((1 / 2 : Real) : Complex) * (y : Complex))) *
+          (F.test y + F.test (-y)) -
+        2 * Complex.exp (-((y : Complex))) * F.test 0) *
+        (Complex.exp (-(((2 : Real) : Complex) * (y : Complex)))) ^ n := by
+  unfold gammaRArchProfileTerm
+  have hfirst :
+      Complex.exp (-(((2 * (n : Real) + 1 / 2 : Real) : Complex) * (y : Complex))) =
+        Complex.exp (-(((1 / 2 : Real) : Complex) * (y : Complex))) *
+          (Complex.exp (-(((2 : Real) : Complex) * (y : Complex)))) ^ n := by
+    rw [← Complex.exp_nat_mul, ← Complex.exp_add]
+    congr 1
+    push_cast
+    ring
+  have hsecond :
+      Complex.exp (-(((2 * (n : Real) + 1 : Real) : Complex) * (y : Complex))) =
+        Complex.exp (-((y : Complex))) *
+          (Complex.exp (-(((2 : Real) : Complex) * (y : Complex)))) ^ n := by
+    rw [← Complex.exp_nat_mul, ← Complex.exp_add]
+    congr 1
+    push_cast
+    ring
+  rw [hfirst, hsecond]
+  ring
+
+/-- The paired-fraction normalization underlying the archimedean readback:
+clearing negative powers turns the geometric-sum normal form into the
+`r = exp (y / 2)` numerator/denominator shape of the archimedean density. -/
+private theorem pairFraction_normalize
+    (r A B : Complex) (hr : r ≠ 0) (hden : r ^ 4 - 1 ≠ 0) :
+    (r⁻¹ * A - 2 * (r⁻¹ ^ 2) * B) / (1 - (r⁻¹ ^ 4)) =
+      (r * A - 2 * B) / (r ^ 2 - r⁻¹ ^ 2) := by
+  have hleft : 1 - (r⁻¹ ^ 4) ≠ 0 := by
+    intro h
+    apply hden
+    field_simp [hr] at h
+    simpa using h
+  have hright : r ^ 2 - r⁻¹ ^ 2 ≠ 0 := by
+    intro h
+    apply hden
+    field_simp [hr] at h
+    simpa using h
+  field_simp [hleft, hright, hr]
+
+theorem tsum_gammaRArchProfileTerm_eq_archimedeanIntegrand
+    (F : CompactLogTest) {y : Real} (hy : 0 < y) :
+    (∑' n : Nat, gammaRArchProfileTerm F n y) =
+      C1SameOwnerWeil.archimedeanIntegrand F y := by
+  let q : Complex :=
+    Complex.exp (-(((2 : Real) : Complex) * (y : Complex)))
+  have hq : ‖q‖ < 1 := by
+    dsimp [q]
+    rw [Complex.norm_exp]
+    simp only [neg_re, mul_re, ofReal_re, ofReal_im, mul_zero, sub_zero,
+      add_re, zero_mul, add_zero]
+    apply Real.exp_lt_one_iff.mpr
+    norm_num
+    linarith
+  have hterm : (fun n : Nat => gammaRArchProfileTerm F n y) =
+      (fun n : Nat =>
+        (Complex.exp (-(((1 / 2 : Real) : Complex) * (y : Complex))) *
+            (F.test y + F.test (-y)) -
+          2 * Complex.exp (-((y : Complex))) * F.test 0) * q ^ n) := by
+    funext n
+    simpa only [q] using gammaRArchProfileTerm_factor F n hy
+  rw [hterm, tsum_mul_left, tsum_geometric_of_norm_lt_one hq]
+  unfold C1SameOwnerWeil.archimedeanIntegrand
+  unfold C1SameOwnerWeil.archimedeanNumerator
+  unfold CCM25Concrete.SelectedWeilSquare.SelectedWeilSquareOwner.archimedeanDenominator
+  simp only [Complex.ofRealCLM_apply]
+  set r : Complex := ((Real.exp (y / 2) : Real) : Complex) with hr_def
+  have hr : r ≠ 0 := Complex.ofReal_ne_zero.mpr (Real.exp_pos _).ne'
+  have hexpHalf : Complex.exp (-(((1 / 2 : Real) : Complex) * (y : Complex))) =
+      r⁻¹ := by
+    rw [show -(((1 / 2 : Real) : Complex) * (y : Complex)) =
+        ((-(y / 2) : Real) : Complex) by push_cast; ring,
+      ← Complex.ofReal_exp, hr_def, Real.exp_neg, Complex.ofReal_inv]
+  have hexpY : Complex.exp (-((y : Complex))) = r⁻¹ ^ 2 := by
+    rw [show -(y : Complex) = ((-y : Real) : Complex) by push_cast; ring,
+      ← Complex.ofReal_exp, hr_def]
+    have hreal : Real.exp (-y) = (Real.exp (y / 2))⁻¹ ^ 2 := by
+      calc
+        Real.exp (-y) = Real.exp (-(y / 2) + -(y / 2)) := by congr 1 <;> ring
+        _ = Real.exp (-(y / 2)) * Real.exp (-(y / 2)) := by rw [Real.exp_add]
+        _ = (Real.exp (y / 2))⁻¹ * (Real.exp (y / 2))⁻¹ := by
+          simp only [Real.exp_neg]
+        _ = (Real.exp (y / 2))⁻¹ ^ 2 := by rw [pow_two]
+    rw [hreal, Complex.ofReal_pow, Complex.ofReal_inv]
+  have hq_r : q = r⁻¹ ^ 4 := by
+    have hneg2 : Real.exp (-y) = (Real.exp (y / 2))⁻¹ ^ 2 := by
+      calc
+        Real.exp (-y) = Real.exp (-(y / 2) + -(y / 2)) := by congr 1 <;> ring
+        _ = Real.exp (-(y / 2)) * Real.exp (-(y / 2)) := by rw [Real.exp_add]
+        _ = (Real.exp (y / 2))⁻¹ * (Real.exp (y / 2))⁻¹ := by
+          simp only [Real.exp_neg]
+        _ = (Real.exp (y / 2))⁻¹ ^ 2 := by rw [pow_two]
+    have hreal : Real.exp (-(2 * y)) = (Real.exp (y / 2))⁻¹ ^ 4 := by
+      calc
+        Real.exp (-(2 * y)) = Real.exp (-y) * Real.exp (-y) := by
+          rw [show -(2 * y) = -y + -y by ring, Real.exp_add]
+        _ = ((Real.exp (y / 2))⁻¹ ^ 2) ^ 2 := by rw [hneg2, ← pow_two]
+        _ = (Real.exp (y / 2))⁻¹ ^ 4 := by rw [← pow_mul]
+    show Complex.exp (-(((2 : Real) : Complex) * (y : Complex))) = r⁻¹ ^ 4
+    rw [show -(((2 : Real) : Complex) * (y : Complex)) =
+        ((-(2 * y) : Real) : Complex) by push_cast; ring,
+      ← Complex.ofReal_exp, hreal, hr_def, Complex.ofReal_pow,
+      Complex.ofReal_inv]
+  have hdenC : ((Real.exp y - Real.exp (-y) : Real) : Complex) =
+      r ^ 2 - r⁻¹ ^ 2 := by
+    have hpos : Real.exp y = (Real.exp (y / 2)) ^ 2 := by
+      calc
+        Real.exp y = Real.exp (y / 2 + y / 2) := by congr 1 <;> ring
+        _ = Real.exp (y / 2) * Real.exp (y / 2) := by rw [Real.exp_add]
+        _ = (Real.exp (y / 2)) ^ 2 := by rw [pow_two]
+    have hneg : Real.exp (-y) = (Real.exp (y / 2))⁻¹ ^ 2 := by
+      calc
+        Real.exp (-y) = Real.exp (-(y / 2) + -(y / 2)) := by congr 1 <;> ring
+        _ = Real.exp (-(y / 2)) * Real.exp (-(y / 2)) := by rw [Real.exp_add]
+        _ = (Real.exp (y / 2))⁻¹ * (Real.exp (y / 2))⁻¹ := by
+          simp only [Real.exp_neg]
+        _ = (Real.exp (y / 2))⁻¹ ^ 2 := by rw [pow_two]
+    rw [Complex.ofReal_sub, hr_def, hpos, hneg]
+    simp only [Complex.ofReal_pow, Complex.ofReal_inv]
+  have hden : r ^ 4 - 1 ≠ 0 := by
+    intro hzero
+    have hr4 : r ^ 4 = 1 := sub_eq_zero.mp hzero
+    have hq1 : q = 1 := by rw [hq_r, inv_pow, hr4, inv_one]
+    have hnorm : ‖(1 : Complex)‖ < 1 := by rw [← hq1]; exact hq
+    simp at hnorm
+  rw [hexpHalf, hexpY, hq_r, hdenC]
+  have hpair := pairFraction_normalize r (F.test y + F.test (-y)) (F.test 0)
+    hr hden
+  rw [← div_eq_mul_inv]
+  exact hpair
+
 /-! The full-line Gamma_R integral now has a scalar-series normal form.  The
 remaining archimedean readback is precisely the conversion of this convergent
 series into the direct positive-variable density. -/
