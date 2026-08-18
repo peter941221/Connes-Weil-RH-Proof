@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 import ConnesWeilRH.Dev.C1XiCenterTwoGammaSummedKernel
 import ConnesWeilRH.Dev.C1LaneRD3Root
+import ConnesWeilRH.Source.CC20YoshidaCriticalContraction
 
 /-!
 # C1XiCenterTwoGammaConstrainedPrefix - the N = 21 finite owner
@@ -185,8 +186,9 @@ theorem qw_eq_neg_archimedeanTerm_of_laneRConstrainedPrimeFree
     (hconstraint : laneRConstrainedPrimeFree g) :
     C1SameOwnerWeil.qw g =
       -C1SameOwnerWeil.archimedeanTerm g.convolutionSquare := by
-  exact C1HealthyYoshidaDetector.qw_eq_neg_archimedeanTerm_of_vanishesOn_cc20Triple_of_primeFreeSquare
-    g hconstraint.1 hconstraint.2
+  exact
+    C1HealthyYoshidaDetector.qw_eq_neg_archimedeanTerm_of_vanishesOn_cc20Triple_of_primeFreeSquare
+      g hconstraint.1 hconstraint.2
 
 /-- The still-open finite-prefix sign proposition selected by the numerical
 screen.  This is a target declaration, not an axiom or a proved theorem. -/
@@ -248,6 +250,102 @@ theorem laneRConstrainedPrefixPenaltyCertificate_implies_target
   have hbound := hcertificate g hconstraint.2
   rw [laneRLaplacePenalty, hzero, hhalf, hone] at hbound
   simpa using hbound
+
+/-! ### Translation-invariant penalty repair -/
+
+/-- A translation-invariant rank-three replacement for the one-sided penalty.
+
+The positive-node factor is paired with its reflected node.  Under a root
+translation the two exponential characters cancel, while a zero at the
+positive node still makes the whole product vanish. -/
+noncomputable def laneRTranslationInvariantLaplacePenalty
+    (g : CompactLogTest) : Real :=
+  Complex.normSq
+      (CC20YoshidaConvolution.CompactLogTest.laplaceAt g (0 : Complex)) +
+    ‖CC20YoshidaConvolution.CompactLogTest.laplaceAt g (-(1 / 2 : Complex)) *
+        CC20YoshidaConvolution.CompactLogTest.laplaceAt g (1 / 2 : Complex)‖ +
+    ‖CC20YoshidaConvolution.CompactLogTest.laplaceAt g (-1 : Complex) *
+        CC20YoshidaConvolution.CompactLogTest.laplaceAt g (1 : Complex)‖
+
+/-- The paired penalty is zero on the existing three-node constraint. -/
+theorem laneRTripleVanishing_translationInvariantLaplacePenalty_zero
+    {g : CompactLogTest} (hvanishes : laneRTripleVanishing g) :
+    laneRTranslationInvariantLaplacePenalty g = 0 := by
+  have hzero := laneRTripleVanishing_laplaceAt_zero hvanishes
+  have hhalf := laneRTripleVanishing_laplaceAt_half hvanishes
+  have hone := laneRTripleVanishing_laplaceAt_one hvanishes
+  rw [laneRTranslationInvariantLaplacePenalty, hzero, hhalf, hone]
+  simp
+
+/-- The stronger paired-penalty certificate is an explicit open producer. -/
+def laneRConstrainedPrefixTranslationInvariantPenaltyCertificate : Prop :=
+  ∀ g : CompactLogTest,
+    laneRPrimeFreeSquare g →
+      laneRFinitePrefixQuadraticValue g ≤
+        laneRTranslationInvariantLaplacePenalty g
+
+/-- The paired-penalty certificate still implies the fixed-prefix target. -/
+theorem laneRConstrainedPrefixTranslationInvariantPenaltyCertificate_implies_target
+    (hcertificate :
+      laneRConstrainedPrefixTranslationInvariantPenaltyCertificate) :
+    laneRConstrainedPrefixSignTarget := by
+  intro g hconstraint
+  have hbound := hcertificate g hconstraint.2
+  rw [laneRTripleVanishing_translationInvariantLaplacePenalty_zero
+    hconstraint.1] at hbound
+  simpa using hbound
+
+/-! The cancellation law is recorded independently of the open certificate. -/
+
+theorem laneRTranslationInvariantLaplaceProduct_translate
+    (g : CompactLogTest) (a : Real) (s : Complex) :
+    (CC20YoshidaConvolution.CompactLogTest.laplaceAt
+      (CC20YoshidaCriticalContraction.CompactLogTest.translate g a) (-s) *
+        CC20YoshidaConvolution.CompactLogTest.laplaceAt
+          (CC20YoshidaCriticalContraction.CompactLogTest.translate g a) s) =
+      CC20YoshidaConvolution.CompactLogTest.laplaceAt g (-s) *
+        CC20YoshidaConvolution.CompactLogTest.laplaceAt g s := by
+  have hminus :=
+    CC20YoshidaCriticalContraction.CompactLogTest.laplaceAt_translate
+      g a (-s)
+  have hplus :=
+    CC20YoshidaCriticalContraction.CompactLogTest.laplaceAt_translate
+      g a s
+  rw [hminus, hplus]
+  have hexp : Complex.exp ((-s) * (a : Complex)) *
+      Complex.exp (s * (a : Complex)) = 1 := by
+    rw [← Complex.exp_add]
+    simp only [neg_mul, neg_add_cancel, Complex.exp_zero]
+  calc
+    (Complex.exp ((-s) * (a : Complex)) *
+        CC20YoshidaConvolution.CompactLogTest.laplaceAt g (-s)) *
+        (Complex.exp (s * (a : Complex)) *
+          CC20YoshidaConvolution.CompactLogTest.laplaceAt g s) =
+        (Complex.exp ((-s) * (a : Complex)) *
+          Complex.exp (s * (a : Complex))) *
+          (CC20YoshidaConvolution.CompactLogTest.laplaceAt g (-s) *
+            CC20YoshidaConvolution.CompactLogTest.laplaceAt g s) := by
+      ring
+    _ = CC20YoshidaConvolution.CompactLogTest.laplaceAt g (-s) *
+        CC20YoshidaConvolution.CompactLogTest.laplaceAt g s := by
+      rw [hexp, one_mul]
+
+/-- The paired penalty is invariant under translation of the root. -/
+theorem laneRTranslationInvariantLaplacePenalty_translate
+    (g : CompactLogTest) (a : Real) :
+    laneRTranslationInvariantLaplacePenalty
+        (CC20YoshidaCriticalContraction.CompactLogTest.translate g a) =
+      laneRTranslationInvariantLaplacePenalty g := by
+  have hzero :=
+    CC20YoshidaCriticalContraction.CompactLogTest.laplaceAt_translate
+      g a (0 : Complex)
+  have hhalf := laneRTranslationInvariantLaplaceProduct_translate
+    g a (1 / 2 : Complex)
+  have hone := laneRTranslationInvariantLaplaceProduct_translate
+    g a (1 : Complex)
+  simp only [laneRTranslationInvariantLaplacePenalty]
+  rw [hzero, hhalf, hone]
+  simp
 
 end
 end C1XiCenterTwoGammaConstrainedPrefix

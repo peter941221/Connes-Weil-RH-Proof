@@ -1547,6 +1547,25 @@ project roots / `sorryAx`) plus the full repository verification gate.
   continuous-space sign proof, a tail sign, universal Lane R, or RH.  Do not
   import floating-point eigenvalues into Lean or replace the required
   analytic certificate with another magnitude-only adapter.
+- One-sided penalty translation failure (VERDICT, 2026-08-19,
+  `docs/proofs/1032`): the candidate
+  `P_21 <= |L(0)|^2 + |L(1/2)|^2 + |L(1)|^2` is not compatible with the
+  un-gauged owner.  `laplaceAt_translate` multiplies each node by `exp(s*a)`
+  while the convolution-square prefix is translation invariant; a stable
+  positive sampled direction appears at center `-1` (`+0.292...` at `K=48`)
+  while the centered row is negative.  Do not revive this fixed one-sided
+  penalty without an explicit translation gauge.
+- Translation-invariant paired penalty (INTERFACE CLOSED / NUMERICAL SCREEN,
+  2026-08-19, `docs/proofs/1033`):
+  `laneRTranslationInvariantLaplacePenalty` uses
+  `|L(0)|^2 + |L(-1/2)L(1/2)| + |L(-1)L(1)|`.
+  `laneRTranslationInvariantLaplaceProduct_translate` and
+  `laneRTranslationInvariantLaplacePenalty_translate` prove the algebraic
+  translation invariance, and the paired penalty is zero on the three-node
+  vanishing owner.  The finite sine screen remains negative through the
+  prime-free boundary, but the continuous certificate producer is still open.
+  The positive unrestricted sign-sector eigenvalues are diagnostics only;
+  they are not a proof of the absolute-value inequality.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`

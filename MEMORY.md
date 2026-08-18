@@ -3186,3 +3186,29 @@ would be unsound. RH unclaimed.
   stronger analytic proposition to the existing fixed-prefix target by
   explicitly rewriting the three vanishings to zero.  This is a logical
   reduction only; it does not assert the penalty inequality.
+
+## Change Log (2026-08-19, one-sided penalty translation verdict)
+- Added `docs/proofs/1032_lane_r_prefix_penalty_sine_screen.py` and its result
+  record.  The fixed positive-node penalty is structurally incompatible with
+  root translation: `laplaceAt (translate g a) s = exp(s*a) * laplaceAt g s`,
+  while the convolution-square prefix is translation invariant.  At the
+  prime-free boundary, centers `-1` and `0` give stable certificate maxima
+  `+0.29219886` and `-0.05340511` respectively at `K=24`; quadrature sizes
+  `600..1800` agree to displayed digits.  This rejects the old un-gauged
+  certificate only; the constrained prefix itself remains negative in the
+  sampled rows.
+
+## Change Log (2026-08-19, translation-invariant paired penalty)
+- Added `docs/proofs/1033_lane_r_translation_invariant_penalty_screen.py` and
+  its result record.  The repaired candidate
+  `|L(0)|^2 + |L(-1/2)L(1/2)| + |L(-1)L(1)|` is invariant across translated
+  sine windows and remains sampled-negative through `r=0.3464`, with the
+  `K=48` boundary value `-0.06624775`.
+- `C1XiCenterTwoGammaConstrainedPrefix.lean` now exposes the paired penalty,
+  its zero-on-triple-vanishing theorem, the logical implication to the fixed
+  prefix target, and axiom-clean translation product/penalty invariance
+  theorems.  The 3630-job owner/probe build reports only
+  `[propext, Classical.choice, Quot.sound]`.
+- This closes only an algebraic route interface and rejects the previous
+  one-sided candidate.  The continuous paired-kernel inequality, the fixed
+  `N=21` sign target, global spectral nonnegativity, and RH remain open.

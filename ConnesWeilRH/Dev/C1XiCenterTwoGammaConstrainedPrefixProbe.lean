@@ -20,6 +20,10 @@ namespace ConnesWeilRH.Source.C1XiCenterTwoGammaConstrainedPrefix
 #print axioms laneRTripleVanishing_laplaceAt_half
 #print axioms laneRTripleVanishing_laplaceAt_one
 #print axioms laneRConstrainedPrefixPenaltyCertificate_implies_target
+#print axioms laneRTripleVanishing_translationInvariantLaplacePenalty_zero
+#print axioms laneRConstrainedPrefixTranslationInvariantPenaltyCertificate_implies_target
+#print axioms laneRTranslationInvariantLaplaceProduct_translate
+#print axioms laneRTranslationInvariantLaplacePenalty_translate
 
 example : 0 < laneRPrefixLength := laneRPrefixLength_pos
 
