@@ -1566,6 +1566,17 @@ project roots / `sorryAx`) plus the full repository verification gate.
   prime-free boundary, but the continuous certificate producer is still open.
   The positive unrestricted sign-sector eigenvalues are diagnostics only;
   they are not a proof of the absolute-value inequality.
+- Complex Lane R owner split (INTERFACE CLOSED, 2026-08-19,
+  `docs/proofs/1034`): `C1XiCenterTwoGammaComplexSplit.lean` constructs the
+  real and imaginary compact-log component tests and carries the exact split
+  through Laplace values, triple vanishing, the real part of the Hermitian
+  convolution square, the complete archimedean term, Gamma_R profile
+  integrals, and the fixed `N = 21` prefix.  Do not infer component-level
+  prime-free support from narrow support of the complex square: cross
+  convolution cancellation can invalidate that implication.  A separate
+  root-support hypothesis is required.  The owner/probe are axiom-clean with
+  `[propext, Classical.choice, Quot.sound]`; no finite-prefix sign, global
+  Lane R, or RH theorem is claimed.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`

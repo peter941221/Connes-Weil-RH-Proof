@@ -3212,3 +3212,19 @@ would be unsound. RH unclaimed.
 - This closes only an algebraic route interface and rejects the previous
   one-sided candidate.  The continuous paired-kernel inequality, the fixed
   `N=21` sign target, global spectral nonnegativity, and RH remain open.
+
+## Change Log (2026-08-19, complex Lane R owner split)
+- Added `Dev/C1XiCenterTwoGammaComplexSplit.lean` and its import-facing probe,
+  plus verdict `docs/proofs/1034`.  The owner constructs the real and
+  imaginary compact-log component tests and proves the exact decomposition of
+  the original test, its bilateral Laplace transform, and the three-node
+  Lane R vanishing conditions.  It also splits the real part of the Hermitian
+  convolution square, the complete archimedean term, every Gamma_R profile
+  integral, and the fixed `N=21` prefix quadratic value.
+- The module intentionally does not transfer prime-free support from the
+  complex square to the two component squares.  Cross-convolution terms can
+  cancel, so component support requires a separate root-support hypothesis.
+- WSL2 owner/probe verification completed at jobs `3630`/`3631`; the audited
+  declarations use only `[propext, Classical.choice, Quot.sound]`.  This is
+  an exact owner/algebra interface only: the constrained-prefix sign,
+  universal Lane R, global spectral nonnegativity, and RH remain open.
