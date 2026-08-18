@@ -1464,6 +1464,15 @@ project roots / `sorryAx`) plus the full repository verification gate.
   produce the finite constrained-kernel inequality or a tail sign.  The
   owner/probe build completed at 3541 jobs with only
   `[propext, Classical.choice, Quot.sound]`; RH remains open.
+- Lane R prefix/tail absolute-budget screen (NUMERICAL, 2026-08-18,
+  docs/proofs/1025): the finite `N=4` prefix is negative in the tested sine
+  nullspaces, but the same-vector finite tail sum
+  `sum_(N <= n < 801) |profile_n|` is roughly `6x` to `12x` its prefix margin.
+  At `N=21`, the corresponding sampled ratios are `0.083` to `0.719` over
+  radii `0.20..0.34` and basis sizes `16,24`.  These are finite numerical
+  screens only; they reject the naive `N=4` absolute-budget choice for the
+  samples and select `N=21` as the next formal target.  Do not treat them as
+  an infinite-tail or universal constrained-kernel theorem.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`

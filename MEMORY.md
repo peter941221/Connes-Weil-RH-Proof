@@ -3056,3 +3056,16 @@ would be unsound. RH unclaimed.
   Lane R, or RH.  WSL2 owner/probe verification completed at 3541 jobs; the
   audited declarations use only `[propext, Classical.choice, Quot.sound]`.
 - Verdict recorded in `docs/proofs/1024_lane_r_gamma_prefix_tail_consumer.md`.
+
+## Change Log (2026-08-18, Lane R prefix/tail absolute-budget screen)
+- Added `docs/proofs/1025_lane_r_prefix_tail_budget_scan.py` and its result
+  record.  Reusing the 1022 sine nullspace owner, the finite `N=4` prefix has
+  a same-vector finite tail absolute sum about `6x..12x` its least-negative
+  prefix margin over the tested radii and basis sizes.  Extending to `N=21`
+  reduces the sampled ratios to `0.083..0.719` for radii `0.20..0.34` and
+  basis sizes `16,24`.
+- This rejects only the naive short-prefix absolute-budget route on the
+  recorded finite samples.  The tail is truncated at index `801`, so a ratio
+  below one is not an infinite-tail proof.  The next formal producer target
+  is the `N=21` constrained-prefix inequality plus a mass-relative infinite
+  tail bound; universal Lane R and RH remain open.
