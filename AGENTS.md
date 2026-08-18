@@ -1484,6 +1484,21 @@ project roots / `sorryAx`) plus the full repository verification gate.
   a directly constructed function with a different owner carrying its
   support and archimedean data.
 
+- Lane R D3-root archimedean sign leaf (CLOSED 2026-08-18,
+  `Dev/C1LaneRD3Root.lean` + `Dev/C1LaneRNarrowArch.lean`):
+  `D3 = (d/dt)(d/dt + 1/2)(d/dt + 1)` gives exact Laplace vanishing at
+  `0`, `1/2`, and `1`.  The explicit root
+  `narrowArchRoot = tripleVanishingRoot (wideTest (R/4))`, with
+  `R = exp(-4*(log(4*pi)+gamma+1))`, has square support in `(-R,R)`.
+  The near/middle/tail integral split proves
+  `narrowArchRoot_archimedeanTerm_nonpos`, and the prime-free readback then
+  proves `narrowArchRoot_qw_nonneg`.  The owner and probe build axiom-clean
+  with `[propext, Classical.choice, Quot.sound]`.  This is one non-strict
+  concrete witness only: it is not universal Lane R, does not establish a
+  strict Yoshida detector sign, and does not prove RH.  The `qw = -arch`
+  bridge still requires the separate `(-log 2, log 2)` support theorem; a
+  narrower support proof alone does not match that API.
+
 ## 17. RH Axiom Guard (from 887 review, updated 2026-08-12)
 
 Read `UnconditionalSkeleton.lean` before classifying its axioms. Two of them are

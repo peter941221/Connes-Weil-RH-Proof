@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1LaneRD3Root
+
+namespace ConnesWeilRH.Source.C1LaneRD3Root
+
+#print axioms derivativeShift_apply
+#print axioms laplaceAt_derivativeShift
+#print axioms laplaceAt_tripleVanishingRoot
+#print axioms tripleVanishingRoot_laplaceAt_zero
+#print axioms tripleVanishingRoot_laplaceAt_half
+#print axioms tripleVanishingRoot_laplaceAt_one
+#print axioms tripleVanishingRoot_vanishesOn_cc20Triple
+#print axioms tripleVanishingRoot_poleTerm_eq_zero
+#print axioms tripleVanishingRoot_qw_eq_neg_archimedeanTerm_of_primeFreeSquare
+#print axioms derivativeShift_support_subset_Icc
+#print axioms tripleVanishingRoot_support_subset_Icc
+#print axioms tripleVanishingRoot_square_support_subset_open_log_two_of_Icc
+
+end ConnesWeilRH.Source.C1LaneRD3Root

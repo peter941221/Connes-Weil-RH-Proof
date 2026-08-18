@@ -2922,3 +2922,23 @@ would be unsound. RH unclaimed.
 - Probe trap: autocorrelation grid for asymmetric windows starts at a - b
   (reflection about 0), NOT 2a; negative F0 is the tell (F(0) = ||g||^2 >= 0).
 - RH NOT claimed; full Lane R (prime-inclusive) remains the RH-level gap.
+
+## Change Log (2026-08-18, Lane R D3-root arch-sign Lean leaf)
+- Added `Dev/C1LaneRD3Root.lean`: the owner-preserving differential root
+  `tripleVanishingRoot h` has exact bilateral-Laplace zeros at `0`, `1/2`,
+  and `1`, with support preserved through the three derivative shifts.
+- Added `Dev/C1LaneRNarrowArch.lean`: Cauchy-Schwarz gives the square mass
+  bound, the selected-owner real integrand is split over `(0,R)`, `(R,1)`,
+  and `(1,infinity)`, and `integral_inv` evaluates the middle term.  With
+  `C = log(4*pi)+gamma` and `R = exp(-4*(C+1))`, the exact budget is
+  `C + R - (1/2)*log(1/R) <= 0`.
+- The explicit root `narrowArchRoot` proves
+  `narrowArchRoot_archimedeanTerm_nonpos` and, after the existing prime-free
+  support readback, `narrowArchRoot_qw_nonneg`.  The audit probe
+  `Dev/C1LaneRNarrowArchProbe.lean` reports only
+  `[propext, Classical.choice, Quot.sound]` for all new public declarations;
+  no `sorryAx`, RH root axiom, or unconditional RH theorem is used.
+- Verdict recorded in `docs/proofs/1018_lane_r_d3_root_arch_sign_leaf.md`.
+  Scope boundary: this is one non-strict concrete prime-free sign leaf, not
+  the universal Lane R inequality; strict detector negativity, the
+  prime-inclusive case, and RH remain open.
