@@ -1410,6 +1410,16 @@ project roots / `sorryAx`) plus the full repository verification gate.
   negativity via the C1XiCenterTwoGamma Gamma_R paired-profile machinery.
   The prime-free instance carries no prime arithmetic; full prime-inclusive
   Lane R remains the RH-level gap. RH NOT claimed.
+- Lane R prime-free spectrum scan (NUMERICAL, 2026-08-18,
+  docs/proofs/1020 + probe script): a deterministic archimedean quadratic
+  form scan on the three-moment nullspace remains negative through square
+  support radius `0.690 < log 2`, polynomial-envelope bases through `K = 32`,
+  and an independent sine basis through `K = 48`.  At the widest sine case
+  the top eigenvalue is about `-0.8535` and grid convergence is stable.  The
+  Gamma_R paired-profile declarations in `C1XiCenterTwoGamma` are an exact
+  readback only; they do not supply this sign inequality.  Do not transfer
+  numerical eigenvalues into Lean.  This is evidence for the prime-free
+  subfamily, not universal Lane R, detector positivity, or RH.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`

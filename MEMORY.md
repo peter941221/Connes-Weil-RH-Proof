@@ -2976,3 +2976,19 @@ would be unsound. RH unclaimed.
   theorem to `[propext, Classical.choice, Quot.sound]` only.  This closes an
   infinite D3/narrow subfamily, not the wider prime-free null space, the
   prime-inclusive Lane R case, or RH.
+
+## Change Log (2026-08-18, Lane R prime-free spectrum scan)
+- Added `docs/proofs/1020_lane_r_prime_free_spectrum.py` and its result record.
+  The probe constructs the archimedean quadratic form on the nullspace of
+  `laplaceAt(g, 0) = laplaceAt(g, 1/2) = laplaceAt(g, 1) = 0`, after L2
+  orthonormalization, and computes extremal eigenvalues using the exact
+  compact-support tail formula.
+- The scan stays negative for square support radii `0.20`, `0.30`, and
+  `0.690`, with Legendre-times-smooth-bump bases through `K = 32` and an
+  independent sine basis through `K = 48`.  At `r = 0.345`, `K = 48`, the
+  sine top eigenvalue is `-0.85356` on the 6001-point grid; grids 3001,
+  6001, and 12001 give `-0.85361`, `-0.85356`, and `-0.85353`.
+- This is numerical evidence for a negative prime-free Lane R subspace, not
+  a Lean theorem.  `C1XiCenterTwoGamma` supplies the exact Gamma_R profile
+  readback but no sign producer.  The prime-inclusive sign and global
+  spectral nonnegativity remain open; RH is not claimed.
