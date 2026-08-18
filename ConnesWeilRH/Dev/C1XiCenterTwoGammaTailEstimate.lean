@@ -266,6 +266,190 @@ private theorem summable_gammaRArchProfileIntegralMajorant
   simpa only [gammaRArchProfileIntegralMajorant] using
     (summable_nat_add_iff N).2 hbase
 
+/-- A closed `O(1 / N)` plus geometric bound for the shifted Gamma_R profile
+tail majorant.  The value at `N = 0` is defined but only the positive-shift
+interface below is used. -/
+noncomputable def gammaRArchProfileTailExplicitRate
+    (F : CompactLogTest) (L : Real) (N : Nat) : Real :=
+  L / (2 * (N : Real)) +
+    2 * ‖F.test 0‖ *
+      Real.exp (-((2 * (N : Real) + 1) * (supportRadius F + 1))) *
+        (1 - Real.exp (-(2 * (supportRadius F + 1))))⁻¹
+
+private theorem tsum_shift_inv_sq_le (N : Nat) (hN : 0 < N) :
+    (∑' n : Nat, (((n + N : Nat) : Real) ^ 2)⁻¹) ≤ 2 / (N : Real) := by
+  refine Real.tsum_le_of_sum_range_le (fun n => by positivity) ?_
+  intro K
+  have hsum :
+      (∑ i ∈ Finset.range K, (((i + N : Nat) : Real) ^ 2)⁻¹) =
+        ∑ i ∈ Finset.Ioo (N - 1) (N + K), ((i : Real) ^ 2)⁻¹ := by
+    refine Finset.sum_bij (fun i _ => i + N) ?_ ?_ ?_ ?_
+    · intro i hi
+      simp only [Finset.mem_range] at hi
+      simp only [Finset.mem_Ioo]
+      omega
+    · intro i hi j hj heq
+      exact Nat.add_right_cancel heq
+    · intro j hj
+      simp only [Finset.mem_Ioo] at hj
+      refine ⟨j - N, ?_, ?_⟩
+      · simp only [Finset.mem_range]
+        omega
+      · have hNj : N ≤ j := by omega
+        exact Nat.sub_add_cancel hNj
+    · intro i _
+      rfl
+  calc
+    (∑ i ∈ Finset.range K, (((i + N : Nat) : Real) ^ 2)⁻¹) =
+        ∑ i ∈ Finset.Ioo (N - 1) (N + K), ((i : Real) ^ 2)⁻¹ := hsum
+    _ ≤ 2 / (((N - 1 : Nat) : Real) + 1) :=
+      sum_Ioo_inv_sq_le (α := Real) (N - 1) (N + K)
+    _ = 2 / (N : Real) := by
+      have hden : ((N - 1 : Nat) : Real) + 1 = (N : Real) := by
+        norm_cast
+        omega
+      rw [hden]
+
+private theorem tsum_shift_head_le (L : Real) (hL : 0 ≤ L)
+    (N : Nat) (hN : 0 < N) :
+    (∑' n : Nat,
+      L * (((2 * ((n + N : Nat) : Real)) ^ 2)⁻¹)) ≤
+        L / (2 * (N : Real)) := by
+  have hbase := tsum_shift_inv_sq_le N hN
+  have hscale : 0 ≤ L * (4 : Real)⁻¹ := by positivity
+  calc
+    (∑' n : Nat,
+      L * (((2 * ((n + N : Nat) : Real)) ^ 2)⁻¹)) =
+        (L * (4 : Real)⁻¹) *
+          (∑' n : Nat, ((((n + N : Nat) : Real) ^ 2)⁻¹)) := by
+            rw [← tsum_mul_left]
+            congr 1
+            funext n
+            have heq : (((2 * ((n + N : Nat) : Real)) ^ 2)⁻¹) =
+                (4 : Real)⁻¹ * ((((n + N : Nat) : Real) ^ 2)⁻¹) := by
+              field_simp
+              ring
+            rw [heq]
+            ring
+    _ ≤ (L * (4 : Real)⁻¹) * (2 / (N : Real)) :=
+      mul_le_mul_of_nonneg_left hbase hscale
+    _ = L / (2 * (N : Real)) := by
+      have hN0 : (N : Real) ≠ 0 := by positivity
+      field_simp
+      ring
+
+private theorem summable_shift_head (L : Real) (N : Nat) :
+    Summable (fun n : Nat =>
+      L * (((2 * ((n + N : Nat) : Real)) ^ 2)⁻¹)) := by
+  have hpow : Summable (fun k : Nat => (((k : Real) ^ 2)⁻¹)) :=
+    (Real.summable_nat_pow_inv (p := 2)).mpr (by norm_num)
+  have hshift : Summable (fun n : Nat =>
+      ((((n + N : Nat) : Real) ^ 2)⁻¹)) :=
+    (summable_nat_add_iff N).2 hpow
+  have hscaled := hshift.mul_left (L * (4 : Real)⁻¹)
+  refine hscaled.congr (fun n => ?_)
+  have heq : (((2 * ((n + N : Nat) : Real)) ^ 2)⁻¹) =
+      (4 : Real)⁻¹ * ((((n + N : Nat) : Real) ^ 2)⁻¹) := by
+    field_simp
+    ring
+  rw [heq]
+  ring
+
+private theorem shifted_exponential_term_eq
+    (F : CompactLogTest) (N n : Nat) :
+    2 * ‖F.test 0‖ *
+      Real.exp (-((2 * ((n + N : Nat) : Real) + 1) *
+        (supportRadius F + 1))) =
+      (2 * ‖F.test 0‖ *
+        Real.exp (-((2 * (N : Real) + 1) * (supportRadius F + 1)))) *
+          (Real.exp (-(2 * (supportRadius F + 1))) ^ n) := by
+  symm
+  have hpoweq :
+      (Real.exp (-(2 * (supportRadius F + 1))) ^ n) =
+        Real.exp ((n : Real) * (-(2 * (supportRadius F + 1)))) :=
+    (Real.exp_nat_mul _ _).symm
+  rw [hpoweq]
+  calc
+    2 * ‖F.test 0‖ *
+        Real.exp (-((2 * (N : Real) + 1) * (supportRadius F + 1))) *
+          Real.exp ((n : Real) * (-(2 * (supportRadius F + 1)))) =
+      2 * ‖F.test 0‖ *
+        (Real.exp (-((2 * (N : Real) + 1) * (supportRadius F + 1))) *
+          Real.exp ((n : Real) * (-(2 * (supportRadius F + 1))))) := by
+            ring
+    _ = 2 * ‖F.test 0‖ *
+        Real.exp (-((2 * (N : Real) + 1) * (supportRadius F + 1)) +
+          ((n : Real) * (-(2 * (supportRadius F + 1))))) := by
+            rw [← Real.exp_add]
+    _ = 2 * ‖F.test 0‖ *
+        Real.exp (-((2 * ((n + N : Nat) : Real) + 1) *
+          (supportRadius F + 1))) := by
+            congr 2
+            push_cast
+            ring
+
+private theorem summable_shift_exponential
+    (F : CompactLogTest) (N : Nat) :
+    Summable (fun n : Nat =>
+      2 * ‖F.test 0‖ *
+        Real.exp (-((2 * ((n + N : Nat) : Real) + 1) *
+          (supportRadius F + 1)))) := by
+  have hA : 0 < supportRadius F + 1 := by
+    linarith [supportRadius_nonnegative F]
+  have hq0 : 0 ≤ Real.exp (-(2 * (supportRadius F + 1))) :=
+    Real.exp_nonneg _
+  have hq1 : Real.exp (-(2 * (supportRadius F + 1))) < 1 := by
+    apply Real.exp_lt_one_iff.mpr
+    linarith
+  have hgeom : Summable (fun n : Nat =>
+      Real.exp (-(2 * (supportRadius F + 1))) ^ n) :=
+    summable_geometric_of_lt_one hq0 hq1
+  have hscaled := hgeom.mul_left
+    (2 * ‖F.test 0‖ *
+      Real.exp (-((2 * (N : Real) + 1) * (supportRadius F + 1))))
+  refine hscaled.congr (fun n => ?_)
+  exact (shifted_exponential_term_eq F N n).symm
+
+private theorem tsum_shift_exponential_eq (F : CompactLogTest) (N : Nat) :
+    (∑' n : Nat,
+      2 * ‖F.test 0‖ *
+        Real.exp (-((2 * ((n + N : Nat) : Real) + 1) *
+          (supportRadius F + 1)))) =
+      2 * ‖F.test 0‖ *
+        Real.exp (-((2 * (N : Real) + 1) * (supportRadius F + 1))) *
+          (1 - Real.exp (-(2 * (supportRadius F + 1))))⁻¹ := by
+  have hA : 0 < supportRadius F + 1 := by
+    linarith [supportRadius_nonnegative F]
+  have hq0 : 0 ≤ Real.exp (-(2 * (supportRadius F + 1))) :=
+    Real.exp_nonneg _
+  have hq1 : Real.exp (-(2 * (supportRadius F + 1))) < 1 := by
+    apply Real.exp_lt_one_iff.mpr
+    linarith
+  rw [show (fun n : Nat =>
+      2 * ‖F.test 0‖ *
+        Real.exp (-((2 * ((n + N : Nat) : Real) + 1) *
+          (supportRadius F + 1)))) =
+      (fun n : Nat =>
+        (2 * ‖F.test 0‖ *
+          Real.exp (-((2 * (N : Real) + 1) * (supportRadius F + 1)))) *
+            (Real.exp (-(2 * (supportRadius F + 1))) ^ n)) by
+      funext n
+      exact shifted_exponential_term_eq F N n]
+  rw [tsum_mul_left, tsum_geometric_of_lt_one hq0 hq1]
+
+private theorem gammaRArchProfileTailMajorant_le_explicit_rate
+    (F : CompactLogTest) (L : Real) (hL : 0 ≤ L)
+    (N : Nat) (hN : 0 < N) :
+    gammaRArchProfileTailMajorant F L N ≤
+      gammaRArchProfileTailExplicitRate F L N := by
+  unfold gammaRArchProfileTailMajorant gammaRArchProfileIntegralMajorant
+    gammaRArchProfileTailExplicitRate
+  rw [Summable.tsum_add (summable_shift_head L N)
+    (summable_shift_exponential F N)]
+  apply add_le_add
+  · exact tsum_shift_head_le L hL N hN
+  · rw [tsum_shift_exponential_eq F N]
+
 /-- The shifted absolute profile tail is bounded by a summable explicit
 majorant.  This is a magnitude estimate only; it makes no sign assertion
 about the coupled finite Gamma_R kernel. -/
@@ -298,6 +482,21 @@ theorem gammaRArchProfileTailNorm_le_explicit_majorant
     ∑' n : Nat, gammaRArchProfileIntegralMajorant F L (n + N)
   exact hnormShift.tsum_le_tsum
     (fun n => hbound (n + N) (by omega)) hmajorShift
+
+/-- The shifted absolute Gamma_R profile tail has a closed `O(1 / N)` plus
+geometric magnitude bound.  This is still a magnitude estimate only: it does
+not assert a sign for the tail or for the full archimedean form. -/
+theorem gammaRArchProfileTailNorm_le_explicit_rate
+    (F : CompactLogTest) :
+    ∃ L : Real, 0 ≤ L ∧
+      ∀ N : Nat, 0 < N →
+        gammaRArchProfileTailNorm F N ≤
+          gammaRArchProfileTailExplicitRate F L N := by
+  obtain ⟨L, hL, hmajor⟩ := gammaRArchProfileTailNorm_le_explicit_majorant F
+  refine ⟨L, hL, ?_⟩
+  intro N hN
+  exact (hmajor N hN).trans
+    (gammaRArchProfileTailMajorant_le_explicit_rate F L hL N hN)
 
 end
 end C1XiCenterTwoGammaTailEstimate

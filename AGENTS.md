@@ -1445,9 +1445,13 @@ project roots / `sorryAx`) plus the full repository verification gate.
   `gammaRArchProfileTailNorm_le_explicit_majorant` then bounds the shifted
   absolute tail by a real `tsum` whose two components are respectively a
   summable p-series and a summable geometric series.  This is a magnitude
-  interface for the coupled finite-prefix estimate; it supplies neither a
-  tail sign nor a closed `O(1/N)` formula.  Owner/probe WSL2 build completed
-  at 3540 jobs, with audited declarations using only
+  interface for the coupled finite-prefix estimate.  The follow-up
+  `gammaRArchProfileTailNorm_le_explicit_rate` closes the rate
+  `L / (2*N) + 2*||F.test 0||*exp(-(2*N+1)*(supportRadius F+1)) /
+  (1-exp(-2*(supportRadius F+1)))` for `N > 0`, with existential `L >= 0`.
+  This remains a magnitude interface only: it supplies neither a tail sign
+  nor the finite constrained-prefix inequality.  Owner/probe WSL2 build
+  completed at 3540 jobs, with audited declarations using only
   `[propext, Classical.choice, Quot.sound]`; RH remains open.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):

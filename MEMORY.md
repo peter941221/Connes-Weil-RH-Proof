@@ -3034,8 +3034,12 @@ would be unsound. RH unclaimed.
   `gammaRArchProfileTailNorm_le_explicit_majorant` lifts it to every shifted
   absolute tail using one real majorant owner.
 - The majorant is proved summable from the exponent-two p-series and a
-  geometric series with ratio `exp(-2*(supportRadius F + 1))`.  The theorem is
-  magnitude-only: it does not provide a tail sign or a closed `O(1/N)` rate.
+  geometric series with ratio `exp(-2*(supportRadius F + 1))`.  The follow-up
+  `gammaRArchProfileTailNorm_le_explicit_rate` closes the shifted bound
+  `L/(2*N) + 2*||F.test 0||*exp(-(2*N+1)*(supportRadius F+1)) /
+  (1-exp(-2*(supportRadius F+1)))` for `N > 0`, with existential `L >= 0`.
+  The result is still magnitude-only: it does not provide a tail sign or the
+  finite constrained-prefix inequality.
 - WSL2 owner/probe verification completed at 3539/3540 jobs.  The audited
   declarations report only `[propext, Classical.choice, Quot.sound]`.
 - Verdict recorded in `docs/proofs/1023_lane_r_gamma_tail_majorant.md`.

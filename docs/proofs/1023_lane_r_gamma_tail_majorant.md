@@ -4,9 +4,10 @@ Date: 2026-08-18.
 
 ## Verdict
 
-The summed Gamma_R owner now has an explicit magnitude estimate for every
-shifted tail.  This closes the analytic size interface needed by the coupled
-finite-prefix argument.  It does not prove that the tail has either sign.
+The summed Gamma_R owner now has a closed magnitude rate for every positive
+shifted tail.  This supplies the analytic size interface needed by the
+coupled finite-prefix argument.  It does not prove that the tail has either
+sign.
 
 ## Lean Owner
 
@@ -35,6 +36,20 @@ the real p-series with exponent two and its second component is a scalar
 multiple of a geometric series with ratio
 `exp(-2(supportRadius(F)+1))`, which is strictly below one.
 
+The follow-up theorem
+`gammaRArchProfileTailNorm_le_explicit_rate` packages the same estimate into
+the closed rate
+
+```text
+tailNorm(F,N) <= L / (2N)
+  + 2 ||F.test(0)|| exp(-(2N+1)(supportRadius(F)+1))
+      / (1 - exp(-2(supportRadius(F)+1)))
+```
+
+for some `L >= 0` attached to the same test owner and every `N > 0`.  The
+constant `L` is existential, while the `N`-dependence and geometric remainder
+are explicit.
+
 ## Scope Boundary
 
 The result is a norm bound, not a sign theorem.  In particular, it does not
@@ -42,12 +57,13 @@ justify either of these stronger claims:
 
 ```text
 forall N, tail(N) <= 0
-tail(N) <= C / N with a closed explicit C
 ```
 
-The finite-prefix sign and the tail magnitude must still be combined on the
-same triple-vanishing owner.  The prime-inclusive Lane R inequality and RH
-remain open.
+The rate theorem is an absolute-value bound on the shifted profile tail; it is
+not a sign statement and does not close the finite constrained-prefix
+inequality.  The finite prefix and this tail magnitude must still be combined
+on the same triple-vanishing owner.  The prime-inclusive Lane R inequality and
+RH remain open.
 
 ## Verification
 
