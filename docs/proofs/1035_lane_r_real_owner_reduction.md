@@ -22,6 +22,12 @@ componentPrimeFreeSquare(g) :=
   and laneRPrimeFreeSquare(imagPartTest(g)).
 ```
 
+The owner also closes the safe support direction.  If the original root is
+supported in `Icc(-w,w)` with `w < 3/10`, each component has the same root
+support bound, and the existing symmetric convolution-support lemma puts both
+component squares inside `(-log 2, log 2)`.  The D3 root receives this
+producer through `tripleVanishingRoot_support_subset_Icc`.
+
 It proves that both component constructors are real-valued and that a
 real-valued sign producer implies
 
@@ -55,9 +61,10 @@ laneRPrimeFreeSquare(g)
 
 That implication is not valid from the current data: cross-convolution terms
 can cancel in the complex square.  Thus this module narrows the analytic sign
-problem to real-valued owners only on the component-supported subfamily; it
-does not close the component support gap, the real-valued sign producer, the
-universal Lane R target, or RH.
+problem to real-valued owners on the component-supported subfamily and closes
+the support producer for narrow roots; the general square-to-component support
+gap, the real-valued sign producer, the universal Lane R target, and RH remain
+open.
 
 ## Lean interface
 
@@ -67,9 +74,15 @@ The main declarations are:
 realValuedTest
 realPartTest_realValued
 imagPartTest_realValued
+realPartTest_support_subset
+imagPartTest_support_subset
+primeFreeSquare_of_support_Icc
 componentPrimeFreeSquare
+componentPrimeFreeSquare_of_support_Icc
+componentPrimeFreeSquare_tripleVanishingRoot_of_Icc
 realValuedLaneRPrefixSignTarget
 laneRFinitePrefixQuadraticValue_nonpos_of_realValued_target
+laneRFinitePrefixQuadraticValue_nonpos_tripleVanishingRoot_of_realValued_target
 ```
 
 ## Verification

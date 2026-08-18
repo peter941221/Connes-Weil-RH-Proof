@@ -12,7 +12,13 @@ open ConnesWeilRH.Source.CCM25Concrete.CompactLogConvolution
 
 #print axioms realPartTest_realValued
 #print axioms imagPartTest_realValued
+#print axioms realPartTest_support_subset
+#print axioms imagPartTest_support_subset
+#print axioms primeFreeSquare_of_support_Icc
+#print axioms componentPrimeFreeSquare_of_support_Icc
+#print axioms componentPrimeFreeSquare_tripleVanishingRoot_of_Icc
 #print axioms laneRFinitePrefixQuadraticValue_nonpos_of_realValued_target
+#print axioms laneRFinitePrefixQuadraticValue_nonpos_tripleVanishingRoot_of_realValued_target
 
 example (g : CompactLogTest) :
     realValuedTest (realPartTest g) := by

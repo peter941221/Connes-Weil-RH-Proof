@@ -1581,11 +1581,13 @@ project roots / `sorryAx`) plus the full repository verification gate.
   `docs/proofs/1035`): `C1XiCenterTwoGammaComplexSplitReduction.lean` defines
   real-valued component tests and reduces the complex `N = 21` prefix sign to
   a real-valued sign producer when both component squares are separately
-  prime-free.  Keep `componentPrimeFreeSquare` as an explicit premise:
-  `laneRPrimeFreeSquare g` does not imply it because cross-convolution terms
-  can cancel.  This closes no sign producer, universal Lane R statement, or
-  RH theorem; owner/probe axioms remain `[propext, Classical.choice,
-  Quot.sound]`.
+  prime-free.  It also provides `primeFreeSquare_of_support_Icc` and the D3
+  adapter that safely derive component prime-freeness from narrow support of
+  the original root.  Keep `componentPrimeFreeSquare` explicit when the only
+  available premise is `laneRPrimeFreeSquare g`: cross-convolution terms can
+  cancel, so square support does not transfer componentwise.  This closes no
+  sign producer, universal Lane R statement, or RH theorem; owner/probe axioms
+  remain `[propext, Classical.choice, Quot.sound]`.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`

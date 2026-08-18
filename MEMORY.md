@@ -3239,6 +3239,13 @@ would be unsound. RH unclaimed.
   prefix sign under `laneRTripleVanishing g` and the component support
   conjunction.  It consumes the exact additive split from 1034 and sums the
   two component bounds.
+- The same owner now proves `realPartTest_support_subset` and
+  `imagPartTest_support_subset`, then uses the existing symmetric convolution
+  support lemma to derive `primeFreeSquare_of_support_Icc` for any root in
+  `Icc(-w,w)` with `w < 3/10`.  The D3 root adapter
+  `componentPrimeFreeSquare_tripleVanishingRoot_of_Icc` combines this with
+  `tripleVanishingRoot_support_subset_Icc`, so the narrow-root subfamily has
+  an actual component prime-free producer.
 - The component support conjunction is intentionally not derived from
   `laneRPrimeFreeSquare g`; cross-convolution cancellation leaves that gap
   genuine.  The real-valued sign producer, universal Lane R, and RH remain
