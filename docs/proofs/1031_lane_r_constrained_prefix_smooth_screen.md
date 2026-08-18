@@ -16,6 +16,13 @@ This is still numerical evidence only.  It does not prove
 `laneRConstrainedPrefixSignTarget`, a tail sign, universal Lane R, global
 spectral nonnegativity, or RH.
 
+The Lean owner now exposes the corresponding reduction: the three-node
+penalty is named `laneRLaplacePenalty`, the open stronger inequality is named
+`laneRConstrainedPrefixPenaltyCertificate`, and
+`laneRConstrainedPrefixPenaltyCertificate_implies_target` proves that this
+certificate would imply the existing fixed-prefix target.  The certificate
+producer remains open.
+
 ## Exact screened form
 
 For a real compactly supported test `g`, put `F = g^* * g`, let
@@ -105,6 +112,10 @@ continuous kernel inequality implying it, on the full prime-free interval.
 Such a certificate must control the full compactly supported function space;
 the finite-grid spectra and the observed `lambda_star` values cannot be
 imported as proof data.
+
+The owner/probe reduction itself rebuilt axiom-clean at `3607/3608` jobs with
+only `[propext, Classical.choice, Quot.sound]`; this checks the logical bridge,
+not the missing inequality.
 
 ## Reproduction
 

@@ -1540,10 +1540,13 @@ project roots / `sorryAx`) plus the full repository verification gate.
   coefficient `1`, the full-basis corrected maximum stays negative, and the
   sampled critical coefficient is about `0.707`--`0.736` at the boundary.
   This suggests a finite-rank kernel-certificate route.
-  It is not an operator-index theorem, a continuous-space sign proof, a tail
-  sign, universal Lane R, or RH.  Do not import floating-point eigenvalues
-  into Lean or replace the required analytic certificate with another
-  magnitude-only adapter.
+  The Lean owner names `laneRLaplacePenalty` and
+  `laneRConstrainedPrefixPenaltyCertificate`; its implication theorem reduces
+  that stronger certificate to `laneRConstrainedPrefixSignTarget`, but does
+  not produce the certificate.  It is not an operator-index theorem, a
+  continuous-space sign proof, a tail sign, universal Lane R, or RH.  Do not
+  import floating-point eigenvalues into Lean or replace the required
+  analytic certificate with another magnitude-only adapter.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`

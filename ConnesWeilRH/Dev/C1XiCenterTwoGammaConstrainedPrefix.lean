@@ -195,6 +195,60 @@ def laneRConstrainedPrefixSignTarget : Prop :=
     laneRConstrainedPrimeFree g →
       laneRFinitePrefixQuadraticValue g ≤ 0
 
+/-! ### A rank-three penalty formulation of the open sign producer -/
+
+/-- The three-node Laplace penalty suggested by the smooth resolvent screen.
+  It is zero on the existing Lane R triple-vanishing subspace. -/
+noncomputable def laneRLaplacePenalty (g : CompactLogTest) : Real :=
+  Complex.normSq
+      (CC20YoshidaConvolution.CompactLogTest.laplaceAt g (0 : Complex)) +
+    Complex.normSq
+      (CC20YoshidaConvolution.CompactLogTest.laplaceAt g (1 / 2 : Complex)) +
+    Complex.normSq
+      (CC20YoshidaConvolution.CompactLogTest.laplaceAt g (1 : Complex))
+
+/-- A stronger analytic certificate whose restriction to the constrained owner
+  would prove the fixed `N = 21` prefix sign.  No producer for this
+  proposition is asserted here. -/
+def laneRConstrainedPrefixPenaltyCertificate : Prop :=
+  ∀ g : CompactLogTest,
+    laneRPrimeFreeSquare g →
+      laneRFinitePrefixQuadraticValue g ≤ laneRLaplacePenalty g
+
+theorem laneRTripleVanishing_laplaceAt_zero
+    {g : CompactLogTest} (hvanishes : laneRTripleVanishing g) :
+    CC20YoshidaConvolution.CompactLogTest.laplaceAt g (0 : Complex) = 0 := by
+  simpa [C1.healthyMellinReadoff, criticalVanishingPointValue] using
+    hvanishes CriticalVanishingPoint.zero (by
+      simp [cc20TripleFiniteVanishingSet])
+
+theorem laneRTripleVanishing_laplaceAt_half
+    {g : CompactLogTest} (hvanishes : laneRTripleVanishing g) :
+    CC20YoshidaConvolution.CompactLogTest.laplaceAt g (1 / 2 : Complex) = 0 := by
+  simpa [C1.healthyMellinReadoff, criticalVanishingPointValue] using
+    hvanishes CriticalVanishingPoint.half (by
+      simp [cc20TripleFiniteVanishingSet])
+
+theorem laneRTripleVanishing_laplaceAt_one
+    {g : CompactLogTest} (hvanishes : laneRTripleVanishing g) :
+    CC20YoshidaConvolution.CompactLogTest.laplaceAt g (1 : Complex) = 0 := by
+  simpa [C1.healthyMellinReadoff, criticalVanishingPointValue] using
+    hvanishes CriticalVanishingPoint.one (by
+      simp [cc20TripleFiniteVanishingSet])
+
+/-- The rank-three penalty certificate implies the original constrained-prefix
+  target.  The analytic inequality itself remains open. -/
+theorem laneRConstrainedPrefixPenaltyCertificate_implies_target
+    (hcertificate : laneRConstrainedPrefixPenaltyCertificate) :
+    laneRConstrainedPrefixSignTarget := by
+  intro g hconstraint
+  have hzero := laneRTripleVanishing_laplaceAt_zero hconstraint.1
+  have hhalf := laneRTripleVanishing_laplaceAt_half hconstraint.1
+  have hone := laneRTripleVanishing_laplaceAt_one hconstraint.1
+  have hbound := hcertificate g hconstraint.2
+  rw [laneRLaplacePenalty, hzero, hhalf, hone] at hbound
+  simpa using hbound
+
 end
 end C1XiCenterTwoGammaConstrainedPrefix
 end Source

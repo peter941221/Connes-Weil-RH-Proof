@@ -16,6 +16,10 @@ namespace ConnesWeilRH.Source.C1XiCenterTwoGammaConstrainedPrefix
 #print axioms tripleVanishingRoot_satisfies_laneRTripleVanishing
 #print axioms tripleVanishingRoot_satisfies_laneRPrimeFreeSquare_of_Icc
 #print axioms qw_eq_neg_archimedeanTerm_of_laneRConstrainedPrimeFree
+#print axioms laneRTripleVanishing_laplaceAt_zero
+#print axioms laneRTripleVanishing_laplaceAt_half
+#print axioms laneRTripleVanishing_laplaceAt_one
+#print axioms laneRConstrainedPrefixPenaltyCertificate_implies_target
 
 example : 0 < laneRPrefixLength := laneRPrefixLength_pos
 

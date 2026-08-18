@@ -3179,3 +3179,10 @@ would be unsound. RH unclaimed.
   as the boundary basis grows from `K = 16` to `K = 56`.  Treat this as a
   route-selection certificate candidate only: no continuous kernel inequality
   or Lean producer exists yet.
+- `C1XiCenterTwoGammaConstrainedPrefix.lean` now names the corresponding
+  `laneRLaplacePenalty` and
+  `laneRConstrainedPrefixPenaltyCertificate`.  The axiom-clean theorem
+  `laneRConstrainedPrefixPenaltyCertificate_implies_target` reduces that
+  stronger analytic proposition to the existing fixed-prefix target by
+  explicitly rewriting the three vanishings to zero.  This is a logical
+  reduction only; it does not assert the penalty inequality.
