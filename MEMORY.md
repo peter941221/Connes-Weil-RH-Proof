@@ -3133,3 +3133,23 @@ would be unsound. RH unclaimed.
   audited declaration using only `[propext, Classical.choice, Quot.sound]`.
   This closes an absolute tail-magnitude producer, not the finite-prefix sign,
   global spectral nonnegativity, Lane R, or RH.  Verdict: `docs/proofs/1029`.
+
+## Change Log (2026-08-19, Lane R constrained Gamma_R prefix owner)
+- Added `Dev/C1XiCenterTwoGammaConstrainedPrefix.lean` and its import-facing
+  probe.  The owner fixes `laneRPrefixLength = 21`, defines the real finite
+  prefix value for the genuine convolution square, and proves the exact
+  same-owner identity
+  `archimedeanTerm F = finitePrefix(F,N) + Re(profileTail(F,N))`.
+- The owner names `laneRTripleVanishing`, `laneRPrimeFreeSquare`, and their
+  conjunction, with exact D3-root and prime-free support transport interfaces.
+  The constrained prefix sign remains a named target proposition; no sign
+  assumption was added.
+- The new theorem
+  `exists_gammaRArchFinitePrefixValue_lt_zero_of_archimedeanTerm_neg` uses
+  tail convergence to show that a strictly negative complete archimedean
+  value has some test-dependent negative finite prefix.  It deliberately does
+  not identify that length with `21` or provide a uniform bound.
+- WSL2 owner/probe builds completed at 3607/3608 jobs.  The audited
+  declarations use only `[propext, Classical.choice, Quot.sound]`.  This is
+  an ownership/convergence closure, not the finite `N = 21` constrained sign,
+  universal Lane R, or RH.  Verdict: `docs/proofs/1030`.

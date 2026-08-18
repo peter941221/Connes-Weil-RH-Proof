@@ -1,0 +1,22 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1XiCenterTwoGammaConstrainedPrefix
+
+namespace ConnesWeilRH.Source.C1XiCenterTwoGammaConstrainedPrefix
+
+#print axioms laneRPrefixLength_pos
+#print axioms gammaRArchProfileIntegral_re_eq_realIntegral
+#print axioms gammaRArchProfilePrefix_re_eq_sum_realIntegral
+#print axioms archimedeanTerm_eq_gammaRArchFinitePrefixValue_add_tail_re
+#print axioms archimedeanTerm_eq_laneRFinitePrefix_add_tail_re
+#print axioms exists_gammaRArchFinitePrefixValue_lt_zero_of_archimedeanTerm_neg
+#print axioms tripleVanishingRoot_satisfies_laneRTripleVanishing
+#print axioms tripleVanishingRoot_satisfies_laneRPrimeFreeSquare_of_Icc
+#print axioms qw_eq_neg_archimedeanTerm_of_laneRConstrainedPrimeFree
+
+example : 0 < laneRPrefixLength := laneRPrefixLength_pos
+
+end ConnesWeilRH.Source.C1XiCenterTwoGammaConstrainedPrefix

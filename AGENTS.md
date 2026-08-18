@@ -1517,6 +1517,19 @@ project roots / `sorryAx`) plus the full repository verification gate.
   constrained-prefix inequality, universal Lane R, or RH.  Owner/probe WSL2
   verification completed at `3542`/`3543` jobs with only
   `[propext, Classical.choice, Quot.sound]`.
+- Constrained Gamma_R prefix owner (INTERFACE CLOSED, 2026-08-19,
+  docs/proofs/1030): `C1XiCenterTwoGammaConstrainedPrefix.lean` names the
+  numerical `N = 21` prefix, exposes its real profile-integral readback, and
+  proves the exact same-owner decomposition into that prefix plus the shifted
+  tail.  It also names the triple-vanishing and prime-free predicates and
+  transports the D3 root into them.  Since the shifted tail tends to zero,
+  `exists_gammaRArchFinitePrefixValue_lt_zero_of_archimedeanTerm_neg` proves
+  existence of some negative finite prefix whenever the complete archimedean
+  value is strictly negative.  The witness length is test-dependent: this
+  does not prove the uniform `N = 21` sign target
+  `laneRConstrainedPrefixSignTarget`, a tail sign, universal Lane R, or RH.
+  Owner/probe WSL2 verification completed at `3607`/`3608` jobs with only
+  `[propext, Classical.choice, Quot.sound]`.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`
