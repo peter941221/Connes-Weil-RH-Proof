@@ -1530,6 +1530,16 @@ project roots / `sorryAx`) plus the full repository verification gate.
   `laneRConstrainedPrefixSignTarget`, a tail sign, universal Lane R, or RH.
   Owner/probe WSL2 verification completed at `3607`/`3608` jobs with only
   `[propext, Classical.choice, Quot.sound]`.
+- Smooth constrained-prefix screen (NUMERICAL, 2026-08-19,
+  docs/proofs/1031): the fixed `N = 21` paired Gamma_R prefix is negative on
+  smooth bump-times-Legendre finite nullspaces up to square support
+  `0.6928 < log 2`.  The sampled unconstrained matrices have one positive
+  eigenvalue, while all three Laplace constraints give a stable negative
+  maximum near `-0.8`; this suggests a finite-rank kernel-certificate route.
+  It is not an operator-index theorem, a continuous-space sign proof, a tail
+  sign, universal Lane R, or RH.  Do not import floating-point eigenvalues
+  into Lean or replace the required analytic certificate with another
+  magnitude-only adapter.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`

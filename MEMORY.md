@@ -3153,3 +3153,22 @@ would be unsound. RH unclaimed.
   declarations use only `[propext, Classical.choice, Quot.sound]`.  This is
   an ownership/convergence closure, not the finite `N = 21` constrained sign,
   universal Lane R, or RH.  Verdict: `docs/proofs/1030`.
+
+## Change Log (2026-08-19, smooth constrained-prefix screen)
+- Added `docs/proofs/1031_lane_r_constrained_prefix_smooth_screen.py` and its
+  result record.  It evaluates the exact real `N = 21` paired-profile prefix
+  as a compact-interval resolvent quadratic form on Legendre-times-C-infinity-
+  bump bases, then independently checks the top eigenvector with the direct
+  convolution-square autocorrelation formula.
+- At the widest tested prime-free base radius `r = 0.3464`, the full
+  three-node constraint gives sampled top eigenvalues from `-0.8735` through
+  `-0.8074` across bump powers and basis sizes through `K = 56`; direct
+  readback discrepancies stay below the reported quadrature residual in the
+  stable rows.  The unconstrained sampled matrices show one positive
+  eigenvalue, not three.
+- One-node constraints also give negative finite spectra but with a shrinking
+  high-frequency margin, so they are diagnostics rather than a replacement
+  for the three-node target.  The next genuine producer is a continuous
+  finite-rank kernel certificate for the constrained prefix.  This screen is
+  not a Lean proof, a universal operator-index theorem, a tail sign, Lane R,
+  or RH.
