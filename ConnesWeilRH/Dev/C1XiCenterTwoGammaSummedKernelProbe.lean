@@ -12,6 +12,8 @@ open CCM25Concrete.CompactLogConvolution
 #print axioms integralOn_archimedeanIntegrand_eq_profilePrefix_add_tail
 #print axioms tendsto_gammaRArchProfileTail_zero
 #print axioms archimedeanTerm_eq_constant_add_profilePrefix_add_tail_re
+#print axioms norm_gammaRArchProfileTail_le_tailNorm
+#print axioms tendsto_gammaRArchProfileTailNorm_zero
 
 example (F : CompactLogTest) (N : Nat) :
     (∫ y : Real in Ioi (0 : Real),
@@ -19,5 +21,9 @@ example (F : CompactLogTest) (N : Nat) :
       (∑ n ∈ Finset.range N, gammaRArchProfileIntegral F n) +
         gammaRArchProfileTail F N :=
   integralOn_archimedeanIntegrand_eq_profilePrefix_add_tail F N
+
+example (F : CompactLogTest) (N : Nat) :
+    ‖gammaRArchProfileTail F N‖ ≤ gammaRArchProfileTailNorm F N :=
+  norm_gammaRArchProfileTail_le_tailNorm F N
 
 end ConnesWeilRH.Source.C1XiCenterTwoGammaSummedKernel

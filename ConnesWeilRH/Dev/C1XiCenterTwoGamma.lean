@@ -1985,6 +1985,28 @@ private theorem integrableOn_gammaRArchProfileTerm
   rw [← Set.Ioc_union_Ioi_eq_Ioi hS.le]
   exact hIoc.union hIoi
 
+/-- Public form of the paired profile majorant.  The private split-radius
+proof above is retained as the implementation owner; this theorem exposes
+only the support-radius interface needed by later tail estimates. -/
+theorem exists_gammaRArchProfile_pointwise_majorant
+    (F : CompactLogTest) :
+    ∃ L : Real, 0 ≤ L ∧
+      (∀ (n : Nat) {y : Real}, 0 < y → y ≤ supportRadius F + 1 →
+        ‖gammaRArchProfileTerm F n y‖ ≤
+          L * y * Real.exp (-(2 * (n : Real) * y))) ∧
+      (∀ (n : Nat) {y : Real}, supportRadius F + 1 < y →
+        ‖gammaRArchProfileTerm F n y‖ ≤
+          2 * ‖F.test 0‖ *
+            Real.exp (-((2 * (n : Real) + 1) * y))) := by
+  simpa [archProfileSplit] using exists_archProfile_majorant F
+
+/-- Public integrability view for consumers that keep the profile term as
+an owner rather than reopening the source file's private split proof. -/
+theorem integrableOn_gammaRArchProfileTerm_public
+    (F : CompactLogTest) (n : Nat) :
+    IntegrableOn (gammaRArchProfileTerm F n) (Ioi (0 : Real)) :=
+  integrableOn_gammaRArchProfileTerm F n
+
 /-- The summable majorant series for the norm integrals: an `n⁻²` head plus a
 geometric tail beyond the split radius. -/
 theorem summable_integralOn_norm_gammaRArchProfileTerm

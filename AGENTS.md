@@ -1438,6 +1438,17 @@ project roots / `sorryAx`) plus the full repository verification gate.
   kernel bound plus a tail norm bound, not a tail sign lemma.  Owner/probe
   audit is `[propext, Classical.choice, Quot.sound]`; numerical spectra are
   not transported into Lean and RH remains open.
+- Summed Gamma_R tail magnitude estimate (CLOSED 2026-08-18,
+  `Dev/C1XiCenterTwoGammaTailEstimate.lean`):
+  `exists_gammaRArchProfileIntegral_norm_bound` gives each paired profile
+  integral an explicit `n^-2` head plus exponential tail bound.  The public
+  `gammaRArchProfileTailNorm_le_explicit_majorant` then bounds the shifted
+  absolute tail by a real `tsum` whose two components are respectively a
+  summable p-series and a summable geometric series.  This is a magnitude
+  interface for the coupled finite-prefix estimate; it supplies neither a
+  tail sign nor a closed `O(1/N)` formula.  Owner/probe WSL2 build completed
+  at 3540 jobs, with audited declarations using only
+  `[propext, Classical.choice, Quot.sound]`; RH remains open.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`

@@ -42,6 +42,49 @@ private theorem summable_gammaRArchProfileIntegral
   intro n
   exact norm_integral_le_integral_norm _
 
+/-- A norm-valued owner for the shifted profile tail.  Keeping this as a
+real-valued series lets later sign estimates bound the tail before taking
+real parts, without reopening the sum-integral exchange. -/
+noncomputable def gammaRArchProfileTailNorm
+    (F : CompactLogTest) (N : Nat) : Real :=
+  ∑' n : Nat, ‖gammaRArchProfileIntegral F (n + N)‖
+
+/-- The complex shifted tail is bounded by its absolute profile series. -/
+theorem norm_gammaRArchProfileTail_le_tailNorm
+    (F : CompactLogTest) (N : Nat) :
+    ‖gammaRArchProfileTail F N‖ ≤ gammaRArchProfileTailNorm F N := by
+  unfold gammaRArchProfileTail gammaRArchProfileTailNorm
+  apply norm_tsum_le_tsum_norm
+  exact (summable_nat_add_iff N).2 (summable_gammaRArchProfileIntegral F).norm
+
+/-- The absolute profile tail itself tends to zero. -/
+theorem tendsto_gammaRArchProfileTailNorm_zero
+    (F : CompactLogTest) :
+    Tendsto (fun N : Nat => gammaRArchProfileTailNorm F N)
+      atTop (𝓝 (0 : Real)) := by
+  have hsum := (summable_gammaRArchProfileIntegral F).norm
+  have hpartial := hsum.tendsto_sum_tsum_nat
+  have hsplit (N : Nat) :
+      gammaRArchProfileTailNorm F N =
+        (∑' n : Nat, ‖gammaRArchProfileIntegral F n‖) -
+          ∑ n ∈ Finset.range N, ‖gammaRArchProfileIntegral F n‖ := by
+    unfold gammaRArchProfileTailNorm
+    rw [← hsum.sum_add_tsum_nat_add N]
+    ring
+  rw [show (fun N : Nat => gammaRArchProfileTailNorm F N) =
+      (fun N => (∑' n : Nat, ‖gammaRArchProfileIntegral F n‖) -
+        ∑ n ∈ Finset.range N, ‖gammaRArchProfileIntegral F n‖) by
+    funext N
+    exact hsplit N]
+  have hlim :=
+    (tendsto_const_nhds.sub hpartial :
+      Tendsto
+        (fun N : Nat => (∑' n : Nat, ‖gammaRArchProfileIntegral F n‖) -
+          ∑ n ∈ Finset.range N, ‖gammaRArchProfileIntegral F n‖)
+        atTop (𝓝 ((∑' n : Nat, ‖gammaRArchProfileIntegral F n‖) -
+          ∑' n : Nat, ‖gammaRArchProfileIntegral F n‖)))
+  simpa using hlim
+
 /-- Exact finite-prefix plus shifted-tail decomposition of the archimedean
 integrand integral.  This is the owner used by any later finite-kernel sign
 estimate; no profile is dropped or signed termwise. -/

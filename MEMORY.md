@@ -3026,3 +3026,16 @@ would be unsound. RH unclaimed.
   producer is a coupled finite constrained-kernel inequality plus a tail norm
   estimate.  Do not infer a tailwise sign from the negative total scan;
   universal prime-inclusive Lane R and RH remain open.
+
+## Change Log (2026-08-18, summed Gamma_R shifted-tail majorant)
+- Added `Dev/C1XiCenterTwoGammaTailEstimate.lean` and its probe.  The public
+  `exists_gammaRArchProfileIntegral_norm_bound` exposes the paired-profile
+  `n^-2` plus exponential estimate, while
+  `gammaRArchProfileTailNorm_le_explicit_majorant` lifts it to every shifted
+  absolute tail using one real majorant owner.
+- The majorant is proved summable from the exponent-two p-series and a
+  geometric series with ratio `exp(-2*(supportRadius F + 1))`.  The theorem is
+  magnitude-only: it does not provide a tail sign or a closed `O(1/N)` rate.
+- WSL2 owner/probe verification completed at 3539/3540 jobs.  The audited
+  declarations report only `[propext, Classical.choice, Quot.sound]`.
+- Verdict recorded in `docs/proofs/1023_lane_r_gamma_tail_majorant.md`.
