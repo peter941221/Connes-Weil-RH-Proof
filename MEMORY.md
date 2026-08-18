@@ -3228,3 +3228,19 @@ would be unsound. RH unclaimed.
   declarations use only `[propext, Classical.choice, Quot.sound]`.  This is
   an exact owner/algebra interface only: the constrained-prefix sign,
   universal Lane R, global spectral nonnegativity, and RH remain open.
+
+## Change Log (2026-08-19, conditional real-owner Lane R reduction)
+- Added `Dev/C1XiCenterTwoGammaComplexSplitReduction.lean` and its probe,
+  plus verdict `docs/proofs/1035`.  The owner defines pointwise real-valued
+  tests and the explicit conjunction `componentPrimeFreeSquare g` requiring
+  both real and imaginary component squares to be prime-free.
+- `laneRFinitePrefixQuadraticValue_nonpos_of_realValued_target` proves that a
+  real-valued constrained-prefix sign producer gives the complex `N=21`
+  prefix sign under `laneRTripleVanishing g` and the component support
+  conjunction.  It consumes the exact additive split from 1034 and sums the
+  two component bounds.
+- The component support conjunction is intentionally not derived from
+  `laneRPrimeFreeSquare g`; cross-convolution cancellation leaves that gap
+  genuine.  The real-valued sign producer, universal Lane R, and RH remain
+  open.  WSL2 owner/probe builds completed at jobs `3631`/`3632`, with only
+  `[propext, Classical.choice, Quot.sound]` in the audited declarations.

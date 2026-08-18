@@ -1577,6 +1577,15 @@ project roots / `sorryAx`) plus the full repository verification gate.
   root-support hypothesis is required.  The owner/probe are axiom-clean with
   `[propext, Classical.choice, Quot.sound]`; no finite-prefix sign, global
   Lane R, or RH theorem is claimed.
+- Conditional real-owner reduction (INTERFACE CLOSED, 2026-08-19,
+  `docs/proofs/1035`): `C1XiCenterTwoGammaComplexSplitReduction.lean` defines
+  real-valued component tests and reduces the complex `N = 21` prefix sign to
+  a real-valued sign producer when both component squares are separately
+  prime-free.  Keep `componentPrimeFreeSquare` as an explicit premise:
+  `laneRPrimeFreeSquare g` does not imply it because cross-convolution terms
+  can cancel.  This closes no sign producer, universal Lane R statement, or
+  RH theorem; owner/probe axioms remain `[propext, Classical.choice,
+  Quot.sound]`.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`
