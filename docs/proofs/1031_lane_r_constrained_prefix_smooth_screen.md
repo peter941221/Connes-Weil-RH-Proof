@@ -40,6 +40,25 @@ This is the real specialization of the same paired profile owned by
 above and independently checks its top eigenvector by direct autocorrelation
 of `F`.
 
+## Candidate certificate
+
+Let
+
+```text
+B(g) = ( L(g,0), L(g,1/2), L(g,1) )
+```
+
+where `L(g,s)` is the bilateral Laplace transform.  The screen tests the
+stronger rank-three inequality
+
+```text
+P_21(g) <= |L(g,0)|^2 + |L(g,1/2)|^2 + |L(g,1)|^2.
+```
+
+On the three-node nullspace the right-hand side is zero, so this certificate
+would imply the fixed-prefix target directly.  The coefficient `1` is a
+simple candidate selected by the screen; it is not asserted in Lean.
+
 ## Method
 
 - Base support is `[-r,r]`, with `2*r < log(2)` so the square is prime-free.
@@ -49,49 +68,54 @@ of `F`.
   rectangle-rule Gram matrix L2-orthonormalizes the resulting nullspace.
 - The reported `full_pos` is the number of positive eigenvalues in the
   *unconstrained sampled matrix*.  It is not an operator-index theorem.
+- `cert_max` evaluates `P_21 - B^T B` on the full sampled basis, while
+  `lambda_star` is the smallest sampled scalar coefficient in `P_21 -
+  lambda * B^T B` that reaches nonpositivity.  Both are finite numerical
+  diagnostics.
 
 ## Representative results
 
 All rows use `r = 0.3464`, so the square support is `0.6928`, strictly below
 `log(2) = 0.693147...`.  The `prefix_max` column is the largest constrained
-eigenvalue; negative is the desired numerical sign.
+eigenvalue; negative is the desired numerical sign.  The certificate columns
+are computed on the corresponding *unconstrained* full basis.
 
 ```text
-+----------------+----+----+---------+-------------+----------+------------+
-| constraints    | p  | K  | nullity | prefix_max  | full_pos | direct diff |
-+----------------+----+----+---------+-------------+----------+------------+
-| 0, 1/2, 1      | 1  | 24 |      21 | -0.8283769  |        1 | 8.93e-13   |
-| 0, 1/2, 1      | 1  | 40 |      37 | -0.8144911  |        1 | 8.70e-12   |
-| 0, 1/2, 1      | 1  | 56 |      53 | -0.8074099  |        1 | 2.12e-09   |
-| 0, 1/2, 1      | 2  | 40 |      37 | -0.8351858  |        1 | 1.70e-09   |
-| 0              | 1  | 32 |      31 | -0.1133544  |        1 | 5.08e-13   |
-| 1/2            | 1  | 48 |      47 | -0.0910110  |        1 | 6.06e-12   |
-| 1              | 1  | 48 |      47 | -0.0569410  |        1 | 1.91e-10   |
-| 0, 1/2         | 1  | 48 |      46 | -0.5435145  |        1 | 5.84e-10   |
-+----------------+----+----+---------+-------------+----------+------------+
++----------------+----+----+---------+-------------+----------+------------+------------+------------+
+| constraints    | p  | K  | nullity | prefix_max  | full_pos | full_max   | cert_max   | lambda_star|
++----------------+----+----+---------+-------------+----------+------------+------------+------------+
+| 0, 1/2, 1      | 1  | 16 |      13 | -0.8425865  |        1 | +1.199122  | -0.108248  | 0.707327   |
+| 0, 1/2, 1      | 1  | 32 |      29 | -0.8200490  |        1 | +1.231174  | -0.084081  | 0.723556   |
+| 0, 1/2, 1      | 1  | 48 |      45 | -0.8104713  |        1 | +1.244280  | -0.073817  | 0.732830   |
+| 0, 1/2, 1      | 1  | 56 |      53 | -0.8074083  |        1 | +1.248421  | -0.070534  | 0.736218   |
++----------------+----+----+---------+-------------+----------+------------+------------+------------+
 ```
 
 The one-node screens are useful diagnostics, not a replacement theorem: their
 high-frequency margin shrinks substantially.  Keeping all three existing
-Lane R constraints gives a much more stable sampled gap near `-0.8`.
+Lane R constraints gives a much more stable sampled gap near `-0.8`.  The
+unconstrained positive index is one in these finite screens, but that pattern
+is not an operator-index theorem.
 
 ## Consequence for the proof route
 
 The productive next Lean statement is not another absolute-tail adapter.  It
-is an analytic certificate for the continuous quadratic kernel on the
-prime-free interval, for example a rank-three correction whose restriction to
-the three Laplace-moment nullspace is nonpositive.  Such a certificate must
-control the full compactly supported function space; the finite-grid spectra
-above cannot be imported as proof data.
+is an analytic proof of the candidate rank-three certificate, or a stronger
+continuous kernel inequality implying it, on the full prime-free interval.
+Such a certificate must control the full compactly supported function space;
+the finite-grid spectra and the observed `lambda_star` values cannot be
+imported as proof data.
 
 ## Reproduction
 
 ```text
 python docs/proofs/1031_lane_r_constrained_prefix_smooth_screen.py \
   --grid-size 6001 --radii 0.34 0.3464 \
-  --basis-sizes 8 12 16 24 32 --envelope-powers 1 2
+  --basis-sizes 8 12 16 24 32 --envelope-powers 1 2 \
+  --penalty-coefficient 1
 
 python docs/proofs/1031_lane_r_constrained_prefix_smooth_screen.py \
   --grid-size 8001 --radii 0.3464 --basis-sizes 40 56 \
-  --envelope-powers 1 --constraint-nodes 0 0.5 1
+  --envelope-powers 1 --constraint-nodes 0 0.5 1 \
+  --penalty-coefficient 1
 ```

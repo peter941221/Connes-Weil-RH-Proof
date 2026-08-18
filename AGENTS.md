@@ -1535,7 +1535,11 @@ project roots / `sorryAx`) plus the full repository verification gate.
   smooth bump-times-Legendre finite nullspaces up to square support
   `0.6928 < log 2`.  The sampled unconstrained matrices have one positive
   eigenvalue, while all three Laplace constraints give a stable negative
-  maximum near `-0.8`; this suggests a finite-rank kernel-certificate route.
+  maximum near `-0.8`.  A stronger sampled candidate is
+  `P_21(g) <= |L(g,0)|^2 + |L(g,1/2)|^2 + |L(g,1)|^2`: with penalty
+  coefficient `1`, the full-basis corrected maximum stays negative, and the
+  sampled critical coefficient is about `0.707`--`0.736` at the boundary.
+  This suggests a finite-rank kernel-certificate route.
   It is not an operator-index theorem, a continuous-space sign proof, a tail
   sign, universal Lane R, or RH.  Do not import floating-point eigenvalues
   into Lean or replace the required analytic certificate with another

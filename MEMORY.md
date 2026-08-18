@@ -3172,3 +3172,10 @@ would be unsound. RH unclaimed.
   finite-rank kernel certificate for the constrained prefix.  This screen is
   not a Lean proof, a universal operator-index theorem, a tail sign, Lane R,
   or RH.
+- The probe also tests the stronger candidate certificate
+  `P_21(g) <= |L(g,0)|^2 + |L(g,1/2)|^2 + |L(g,1)|^2` on the full sampled
+  basis.  With coefficient `1`, the corrected top eigenvalue remains
+  negative; the finite sampled threshold rises from about `0.707` to `0.736`
+  as the boundary basis grows from `K = 16` to `K = 56`.  Treat this as a
+  route-selection certificate candidate only: no continuous kernel inequality
+  or Lean producer exists yet.

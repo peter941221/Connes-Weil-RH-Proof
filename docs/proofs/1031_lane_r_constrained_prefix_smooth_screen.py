@@ -28,6 +28,7 @@ from scipy.signal import fftconvolve
 ARCH_CONSTANT = math.log(4.0 * math.pi) + np.euler_gamma
 LOG_TWO = math.log(2.0)
 VANISH_NODES = (0.0, 0.5, 1.0)
+CERTIFICATE_NODES = VANISH_NODES
 
 
 def simpson_weights(count: int, step: float) -> np.ndarray:
@@ -58,6 +59,8 @@ class ScreenResult:
     prefix_maximum: float
     unconstrained_positive_count: int
     unconstrained_maximum: float
+    certificate_maximum: float
+    certificate_threshold: float
     moment_residual: float
     orthonormality_error: float
     direct_difference: float
@@ -136,6 +139,19 @@ class SmoothPrefixScreen:
         orthonormality_error = float(np.max(np.abs(gram - np.eye(gram.shape[0]))))
         return functions, residual, orthonormality_error
 
+    def laplace_matrix(self, functions: np.ndarray) -> np.ndarray:
+        return np.stack(
+            [
+                functions.T
+                @ (self.moment_weights * np.exp(node * self.grid))
+                for node in CERTIFICATE_NODES
+            ]
+        )
+
+    def laplace_penalty_matrix(self, functions: np.ndarray) -> np.ndarray:
+        moments = self.laplace_matrix(functions)
+        return moments.T @ moments
+
     def resolvent_matrix(self, functions: np.ndarray, exponent: float) -> np.ndarray:
         count = self.grid.size
         lags = self.step * np.arange(-(count - 1), count)
@@ -174,12 +190,37 @@ class SmoothPrefixScreen:
             value += profile - 2.0 * mass / (2.0 * index + 1.0)
         return float(value)
 
-    def solve(self, prefix_length: int, envelope_power: int) -> ScreenResult:
+    def solve(
+        self,
+        prefix_length: int,
+        envelope_power: int,
+        penalty_coefficient: float,
+    ) -> ScreenResult:
         matrix = self.prefix_matrix(self.functions, prefix_length)
         eigenvalues, eigenvectors = np.linalg.eigh(matrix)
         unconstrained = np.linalg.eigvalsh(
             self.prefix_matrix(self.full_functions, prefix_length)
         )
+        threshold_matrix = self.prefix_matrix(self.full_functions, prefix_length)
+        certificate = threshold_matrix.copy()
+        penalty = self.laplace_penalty_matrix(self.full_functions)
+        certificate -= penalty_coefficient * penalty
+
+        def certificate_top(coefficient: float) -> float:
+            return float(
+                np.linalg.eigvalsh(threshold_matrix - coefficient * penalty)[-1]
+            )
+
+        high = 1.0
+        while certificate_top(high) > 0.0 and high < 1e12:
+            high *= 2.0
+        low = 0.0
+        for _ in range(50):
+            middle = (low + high) / 2.0
+            if certificate_top(middle) > 0.0:
+                low = middle
+            else:
+                high = middle
         least_negative = eigenvectors[:, -1]
         direct_difference = abs(
             self.direct_prefix_value(least_negative, prefix_length)
@@ -195,6 +236,8 @@ class SmoothPrefixScreen:
             prefix_maximum=float(eigenvalues[-1]),
             unconstrained_positive_count=int(np.sum(unconstrained > 1e-8)),
             unconstrained_maximum=float(unconstrained[-1]),
+            certificate_maximum=float(np.linalg.eigvalsh(certificate)[-1]),
+            certificate_threshold=high,
             moment_residual=self.moment_residual,
             orthonormality_error=self.orthonormality_error,
             direct_difference=direct_difference,
@@ -208,6 +251,12 @@ def main() -> None:
     parser.add_argument("--radii", type=float, nargs="+", default=(0.20, 0.30, 0.34, 0.3464))
     parser.add_argument("--basis-sizes", type=int, nargs="+", default=(8, 12, 16, 24, 32))
     parser.add_argument("--envelope-powers", type=int, nargs="+", default=(1, 2))
+    parser.add_argument(
+        "--penalty-coefficient",
+        type=float,
+        default=1.0,
+        help="coefficient in the sampled rank-three Laplace penalty",
+    )
     parser.add_argument(
         "--constraint-nodes",
         type=float,
@@ -226,11 +275,12 @@ def main() -> None:
     print(
         f"N={args.prefix_length} grid={args.grid_size} "
         f"prime-free square bound log(2)={LOG_TWO:.12f} "
-        f"constraint_nodes={tuple(args.constraint_nodes)}"
+        f"constraint_nodes={tuple(args.constraint_nodes)} "
+        f"penalty_coefficient={args.penalty_coefficient:g}"
     )
     print(
         "radius basis bump nodes nullity prefix_min prefix_max full_pos full_max "
-        "moment_residual orth_error direct_diff"
+        "cert_max lambda_star moment_residual orth_error direct_diff"
     )
     print("-" * 118)
     for envelope_power in args.envelope_powers:
@@ -243,13 +293,18 @@ def main() -> None:
                     envelope_power,
                     tuple(args.constraint_nodes),
                 )
-                result = screen.solve(args.prefix_length, envelope_power)
+                result = screen.solve(
+                    args.prefix_length,
+                    envelope_power,
+                    args.penalty_coefficient,
+                )
                 print(
                     f"{result.radius:6.4f} {result.basis_size:5d} "
                     f"{result.envelope_power:4d} {result.constraint_count:5d} "
                     f"{result.nullity:7d} "
                     f"{result.prefix_minimum:+11.7f} {result.prefix_maximum:+11.7f} "
                     f"{result.unconstrained_positive_count:8d} {result.unconstrained_maximum:+10.6f} "
+                    f"{result.certificate_maximum:+10.6f} {result.certificate_threshold:10.6f} "
                     f"{result.moment_residual:.2e} {result.orthonormality_error:.2e} "
                     f"{result.direct_difference:.2e}"
                 )
