@@ -2672,3 +2672,208 @@ would be unsound. RH unclaimed.
 - Scope boundary: this is a coordinate and detector-data adapter only. It
   does not prove the spectral sign premise, a Yoshida detector for every
   off-line zero, the finite-vanishing criterion, or RH.
+
+## Change Log (2026-08-18, right-oriented healthy detector and conditional RH exit)
+- Added `Dev/C1HealthyYoshidaSpectralNegativity.lean` and its probe.  The
+  new construction starts from a source xi zero strictly to the right of the
+  critical line, keeps the fixed-window interpolation, closed spectral prefix,
+  and fourth-order high-shell tail on one selected square owner, and proves
+  `exists_healthyDetectorData_of_sourceNontrivialZero_right`.
+- The sign mechanism is explicit: the controlled low shells contribute at
+  most `-xiMultiplicity rho`, while the absolute tail is strictly smaller than
+  `xiMultiplicity rho`; therefore
+  `spectralWeilValue g.convolutionSquare < 0`.  This is a constructed local
+  negative spectral value, not an assumption.
+- `C1SpectralWeil.exists_rightOfCriticalXiZero_of_re_ne_half` supplies a
+  right-side functional-equation representative for every off-line xi zero,
+  preserving analytic multiplicity.  Consequently
+  `healthy_sourceRH_of_global_spectral_nonneg` proves `SourceRH` from only the
+  remaining global premise that every healthy triple-vanishing square has
+  nonnegative `spectralWeilValue`.
+- The directional formulation is intentional.  Do not mechanically reflect a
+  right-side detector to the original left-side zero: no theorem says that
+  reflection preserves the same Hermitian-square spectral sign or its selected
+  owner.  The generic all-off-line detector API therefore remains open, while
+  the right-oriented API is sufficient for the conditional contradiction.
+- WSL2 ext4 verification rebuilt the owner and probe with
+  `lake build ConnesWeilRH.Dev.C1HealthyYoshidaSpectralNegativity
+  ConnesWeilRH.Dev.C1HealthyYoshidaSpectralNegativityProbe` (3633 jobs).
+  The four public construction/exit declarations audit to only `[propext,
+  Classical.choice, Quot.sound]`, with no `sorryAx` or project axiom.
+- Scope boundary: global spectral nonnegativity remains the RH-level open
+  premise.  This work does not prove the positive-trace bridge, the global
+  sign, or unconditional RH.
+
+## Change Log (2026-08-18, remainder-aware positive-trace consumer)
+- Added `Dev/C1PositiveTraceLimitBridge.lean` and its probe. The
+  `PositiveTraceLimitFamily` structure binds one Hilbert basis, one sequence
+  of `BasisHilbertSchmidtData`, a real remainder sequence, its limit to zero,
+  and the same-owner readback to `C1SameOwnerWeil.qw`.
+- `positiveTrace_sub_remainder_lower_bound` uses the diagonal ordinary trace
+  positivity of the stored `A^* A` composition. The limit theorem then derives
+  `0 <= C1SameOwnerWeil.qw g`, and the center-2 identity transports that result
+  to `0 <= spectralWeilValue g.convolutionSquare`.
+- Added `Dev/C1PositiveTraceLimitBridgeExit.lean` and its probe. On the fixed
+  triple-vanishing owner, `sourceRH_of_positiveTraceLimitFamily` composes that
+  sign consumer with the right-oriented conditional Yoshida exit and yields
+  `RHDefinitionBridge.standard.SourceRH` under the explicit family premise.
+- The corrected source identity is preserved: `docs/proofs/016_corrected_trace_identity.md`
+  states `PositiveTrace = QW + D` on vanishing tests. The new code therefore
+  keeps `D` as a nonzero-capable remainder and does not construct any analytic
+  operator, trace-class/cyclicity witness, remainder estimate, or unconditional
+  RH proof. The remaining task is the same-owner analytic producer.
+- WSL2 ext4 owner-plus-probe verification completed with
+  `lake build ConnesWeilRH.Dev.C1PositiveTraceLimitBridge
+  ConnesWeilRH.Dev.C1PositiveTraceLimitBridgeProbe
+  ConnesWeilRH.Dev.C1PositiveTraceLimitBridgeExit
+  ConnesWeilRH.Dev.C1PositiveTraceLimitBridgeExitProbe` (3636 jobs).
+  The audited declarations use only `[propext, Classical.choice, Quot.sound]`;
+  no `sorryAx` or project RH axiom was introduced.
+
+## Change Log (2026-08-18, finite-window positive-trace producer)
+- Added `Dev/C1PositiveTraceWindowProducer.lean` and its probe. The producer
+  packages the complete compact boundary factor twice as one
+  `BasisHilbertSchmidtPairData` owner with a shared whole-line `globalBasis`.
+  `fullBoundaryPositivePairData.traceProduct` is therefore the genuine
+  rectangular `F†F` trace product, not a trace of an unrelated window owner.
+- The square adapter uses the output interval zero extension
+  `kernelIntervalL2ZeroExtension (-c) (-a) 0`, not the input-window extension.
+  Its readback is proved from
+  `kernelIntervalL2ZeroExtension_eq_adjoint_globalL2ToKernelInterval` and
+  `globalL2ToKernelInterval_zeroExtension`, giving `E†E = id` on the output
+  L2 space. Consequently the square `BasisHilbertSchmidtData` satisfies
+  `positiveComposition = windowedBoundaryDetector`, with a trace-class witness
+  and nonnegative real ordinary trace.
+- The initial local proof exposed two Lean ownership details: the
+  `SelectedCrossingOperatorBridge` namespace must be opened in every consumer,
+  and `adjoint_adjoint` must be simplified before applying the zero-extension
+  readback. These are representation fixes, not added assumptions.
+- WSL2 ext4 verification completed
+  `lake build ConnesWeilRH.Dev.C1PositiveTraceWindowProducer
+  ConnesWeilRH.Dev.C1PositiveTraceWindowProducerProbe` successfully (`3693`
+  jobs). The pair and square declarations audited through the probe use only
+  `[propext, Classical.choice, Quot.sound]`; no `sorryAx` or project RH axiom
+  was introduced.
+- Status boundary: finite-window `F†F` and common-carrier zero-extension are
+  CLOSED. Constructing a cutoff-indexed `PositiveTracePairLimitFamily`, proving
+  the remainder tends to zero, and reading its limit back to the same-owner
+  `C1SameOwnerWeil.qw` remain OPEN. Unconditional RH remains OPEN.
+
+## Change Log (2026-08-18, fixed-carrier positive-trace cutoff adapter)
+- Added `Dev/C1PositiveTraceCutoffAdapter.lean` and
+  `Dev/C1PositiveTraceCutoffAdapterProbe.lean`. The adapter defines the
+  test-owned expanding schedule
+  `cutoffRadius g n = C1SameOwnerWeil.supportRadius g + n + 1`, with symmetric
+  lower/upper endpoints, support containment, and monotonic endpoint lemmas.
+- Each cutoff chooses local Hilbert bases for the varying compact input/output
+  intervals, but `cutoffPositiveBasisData` is the square
+  `fullBoundaryPositiveBasisData` on one fixed whole-line `globalBasis`. This
+  is necessary because the rectangular pair's target `Lp` space changes with
+  the window; it cannot be treated as a fixed-`G` `PositiveTracePairLimitFamily`.
+  The existing zero-extension theorem supplies the same-owner finite-window
+  readback and the positive ordinary trace at every `n`.
+- `CutoffLimitContracts` keeps the two unresolved analytic obligations
+  explicit: `remainder_tendsto_zero` and the corrected trace's Tendsto to
+  `C1SameOwnerWeil.qw`. `positiveTraceLimitFamilyOfCutoffContracts` only
+  assembles the already-proved order consumer from those fields; it does not
+  prove or erase either one.
+- WSL2 ext4 verification completed:
+  `lake build ConnesWeilRH.Dev.C1PositiveTraceCutoffAdapter
+  ConnesWeilRH.Dev.C1PositiveTraceCutoffAdapterProbe` (`3694` jobs). The probe
+  reports only `[propext, Classical.choice, Quot.sound]` for the new
+  declarations; no `sorryAx`, RH root axiom, or unconditional RH theorem was
+  introduced. The analytic cutoff remainder and same-owner limit remain OPEN.
+
+## Change Log (2026-08-18, dominated diagonal cutoff adapter)
+- Added `C1PositiveTraceTraceContinuity.lean` to isolate the generic Tannery
+  step on one fixed Hilbert basis. A summable real diagonal majorant and
+  pointwise diagonal limits imply convergence of `ordinaryTraceAlong`, with a
+  separate real-part theorem. The majorant and limit operator are hypotheses,
+  not derived from finite-window compactness.
+- Extended `C1PositiveTraceCutoffAdapter.lean` with
+  `CutoffDominatedTraceWitness`. It binds the cutoff square sequence, one
+  candidate limit operator, the index-wise summable bound, diagonal
+  convergence/dominance, and the same-owner identity
+  `(ordinaryTraceAlong globalBasis limitOperator).re = qw g`.
+- `cutoffReadback_tendsto_qw_of_dominatedWitness` combines the generic trace
+  limit with an independently supplied `remainder -> 0` contract. The
+  resulting `CutoffLimitContracts` therefore preserves the corrected identity
+  `PositiveTrace = QW + D`; it does not make `D` zero or prove the analytic
+  witness.
+- The WSL2 ext4 probe build completed successfully:
+  `lake build ConnesWeilRH.Dev.C1PositiveTraceCutoffAdapterProbe` (`3696`
+  jobs). The new declarations audit to only `[propext, Classical.choice,
+  Quot.sound]`, with no `sorryAx`, RH root axiom, or unconditional RH theorem.
+- Scope boundary: the generic diagonal-continuity adapter is CLOSED. A
+  concrete cutoff limit operator, summable bound, remainder estimate, and
+  same-owner trace readback remain OPEN; unconditional RH remains OPEN.
+
+## Change Log (2026-08-18, cutoff compression and dominated-trace obstruction)
+- Added `Dev/C1PositiveTraceCutoffCompression.lean`. The finite-window
+  positive detector is read back as the exact compressed whole-line operator
+  `C† * P_window * C`; its natural projection-free candidate is `C† * C`,
+  which is identified with the convolution square only as an operator
+  identity. The projection is intentionally retained until trace convergence
+  is proved.
+- Added `Dev/C1PositiveTraceCutoffObstruction.lean` and its probe. For any
+  fixed Hilbert basis, positive-composition sequence, summable real bound, and
+  diagonal domination, `positiveComposition_trace_re_le_tsum_bound` gives
+  `(ordinaryTraceAlong basis (operators n).positiveComposition).re <=
+  ∑' i, bound i`. The specialization
+  `cutoffDominatedTraceWitness_trace_re_bounded` gives a uniform upper bound
+  for the expanding cutoff sequence. The contrapositive interface
+  `not_exists_cutoffDominatedTraceWitness_of_trace_re_unbounded` says that an
+  independently proved unbounded real trace would rule out the current
+  dominated-diagonal witness.
+- Verification: after adding the required
+  `open scoped InnerProduct InnerProductSpace`, direct WSL2 commands
+  `lake env lean ConnesWeilRH/Dev/C1PositiveTraceCutoffObstruction.lean` and
+  the probe both pass. The probe reports only
+  `[propext, Classical.choice, Quot.sound]` for the new declarations, with no
+  `sorryAx`, project RH root axiom, or unconditional RH theorem.
+- Scope boundary: this is a uniform-bound consequence and a conditional
+  obstruction, not a proof that the concrete cutoff trace is unbounded. The
+  concrete limit operator, summable majorant, cutoff remainder estimate, and
+  same-owner analytic readback remain open; RH remains open.
+
+## Change Log (2026-08-18, exact positive-trace cutoff growth)
+- Added `Dev/C1PositiveTraceCutoffGrowth.lean` and its audit probe
+  `Dev/C1PositiveTraceCutoffGrowthProbe.lean`. The owner moves the finite-window
+  Hilbert--Schmidt energy through the already-proved trace cycle and zero-
+  extension readback, then proves the exact formula
+
+  ```text
+  Re Tr(cutoffPositiveBasisData g globalBasis n).positiveComposition
+    = (cutoffUpper g n - cutoffLower g n)
+        * integral x, Complex.normSq (g.test x)
+  ```
+
+  for the canonical symmetric cutoff. The bridge is same-owner: the trace is
+  first read as the `fullBoundaryRootKernel` section energy, and only then
+  translated to the whole-line mass.
+- `integral_normSq_pos_of_test_ne_zero` proves strict positivity of the mass
+  for every `g.test != 0`. Since the window length grows linearly with `n`,
+  `cutoffPositiveBasisData_trace_re_unbounded_of_test_ne_zero` proves that the
+  real cutoff traces are unbounded. Combining this with the earlier uniform
+  bound consequence gives
+  `not_nonempty_cutoffDominatedTraceWitness_of_test_ne_zero`: the current
+  fixed-basis summable diagonal-majorant witness cannot exist for a nonzero
+  compact-log root.
+- WSL2 ext4 verification used the persistent mirror
+  `c1-positive-trace-compression-20260818`. `lake build
+  ConnesWeilRH.Dev.C1PositiveTraceCutoffGrowth` completed successfully (3703
+  jobs); then both `lake build
+  ConnesWeilRH.Dev.C1PositiveTraceCutoffGrowthProbe` (3704 jobs) and the direct
+  `lake env lean
+  ConnesWeilRH/Dev/C1PositiveTraceCutoffGrowthProbe.lean` audit passed. Every
+  audited owner declaration reports exactly `[propext, Classical.choice,
+  Quot.sound]`; no `sorryAx`, project RH root axiom, or unconditional RH
+  theorem appears.
+- Tooling note: running `lake env lean` on the owner alone checks its source but
+  does not emit an importable `.olean` in this mirror. The probe must therefore
+  follow `lake build` of the owner; otherwise Lean reports only a missing object
+  file for `C1PositiveTraceCutoffGrowth`.
+- Scope boundary: this is a concrete trace-growth obstruction to one dominated
+  diagonal route, not a proof that every renormalized, subtracted, or otherwise
+  finite-window limit is impossible. The cutoff remainder estimate and
+  same-owner analytic readback remain open, and unconditional RH remains open.

@@ -48,6 +48,62 @@ theorem xiMultiplicity_pos (rho : sourceNontrivialZeroSet) :
     (completedRiemannXi_analyticOrderAt_ne_top rho.1)]
   simp only [hzeroNat, Nat.cast_zero]
 
+/-- The functional equation maps a source xi zero to another source xi zero.
+The subtype keeps that transport explicit so later finite orbit sums cannot
+silently replace a zero with an arbitrary complex point. -/
+noncomputable def oneSubXiZero (rho : sourceNontrivialZeroSet) :
+    sourceNontrivialZeroSet :=
+  ⟨1 - rho.1,
+    sourceNontrivialZero_of_completedRiemannXi_eq_zero (by
+      rw [completedRiemannXi_one_sub]
+      exact completedRiemannXi_eq_zero_of_sourceNontrivialZero rho.2)⟩
+
+@[simp] theorem oneSubXiZero_coe (rho : sourceNontrivialZeroSet) :
+    (oneSubXiZero rho : Complex) = 1 - rho.1 :=
+  rfl
+
+/-- The functional-equation involution preserves the analytic multiplicity of
+every xi zero.  This is an order-of-vanishing statement, not merely equality
+of the two function values. -/
+theorem xiMultiplicity_oneSub (rho : sourceNontrivialZeroSet) :
+    xiMultiplicity (oneSubXiZero rho) = xiMultiplicity rho := by
+  have hderiv : deriv (fun s : Complex => (1 : Complex) - s) rho.1 ≠ 0 := by
+    rw [deriv_const_sub_id]
+    norm_num
+  have hcomp :
+      analyticOrderAt
+          (completedRiemannXi ∘ fun s : Complex => (1 : Complex) - s) rho.1 =
+        analyticOrderAt completedRiemannXi (1 - rho.1) :=
+    analyticOrderAt_comp_of_deriv_ne_zero
+      (f := completedRiemannXi) (g := fun s : Complex => (1 : Complex) - s)
+      (z₀ := rho.1) (analyticAt_const.sub analyticAt_id) hderiv
+  have hinvariance :
+      analyticOrderAt completedRiemannXi (1 - rho.1) =
+        analyticOrderAt completedRiemannXi rho.1 := by
+    rw [← hcomp]
+    apply analyticOrderAt_congr
+    filter_upwards with s
+    simpa [Function.comp_def] using completedRiemannXi_one_sub s
+  change analyticOrderNatAt completedRiemannXi (1 - rho.1) =
+    analyticOrderNatAt completedRiemannXi rho.1
+  exact congrArg ENat.toNat hinvariance
+
+/-- Every xi zero away from the critical line has a functional-equation
+representative strictly to the right of that line, with the same analytic
+multiplicity.  The returned subtype is either the original zero or its
+`s |-> 1 - s` image, so later spectral arguments retain the zero owner. -/
+theorem exists_rightOfCriticalXiZero_of_re_ne_half
+    (rho : sourceNontrivialZeroSet) (hoff : rho.1.re ≠ 1 / 2) :
+    exists sigma : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < sigma.1.re /\
+      xiMultiplicity sigma = xiMultiplicity rho /\
+      (sigma = rho \/ sigma = oneSubXiZero rho) := by
+  rcases lt_or_gt_of_ne hoff with hleft | hright
+  · refine ⟨oneSubXiZero rho, ?_, xiMultiplicity_oneSub rho, Or.inr rfl⟩
+    simp only [oneSubXiZero_coe, Complex.sub_re, Complex.one_re]
+    linarith
+  · exact ⟨rho, hright, rfl, Or.inl rfl⟩
+
 /-- The zero coordinate centered at the critical line. -/
 noncomputable def centeredXiCoordinate (rho : sourceNontrivialZeroSet) : Complex :=
   rho.1 - (1 / 2 : Complex)

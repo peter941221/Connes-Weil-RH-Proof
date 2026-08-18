@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1PositiveTraceLimitBridge
+
+namespace ConnesWeilRH.Source.C1PositiveTraceLimitBridge
+
+#print axioms positiveTrace_sub_remainder_lower_bound
+#print axioms qw_nonnegative_of_positiveTraceLimitFamily
+#print axioms spectral_nonnegative_of_positiveTraceLimitFamily
+#print axioms healthyCriterionState_of_positiveTraceLimitFamily
+
+end ConnesWeilRH.Source.C1PositiveTraceLimitBridge

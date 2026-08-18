@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1HealthyYoshidaSpectralPrefix
+
+namespace ConnesWeilRH.Source.C1HealthyYoshidaSpectralPrefix
+
+#print axioms finiteSpectralPrefix_re_le_neg_xiMultiplicity_of_orbit_control
+
+end ConnesWeilRH.Source.C1HealthyYoshidaSpectralPrefix

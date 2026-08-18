@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1SpectralTailBound
+
+namespace ConnesWeilRH.Source.C1SpectralTailBound
+
+#print axioms FourthOrderSpectralTail
+#print axioms spectralTerm_norm_tail_instance_of_fourthOrderTail
+#print axioms spectralTail_norm_shellSum_le_of_fourthOrderTail
+#print axioms exists_dyadic_tail_start
+#print axioms exists_dyadic_tail_start_with_budget_lt_xiMultiplicity
+#print axioms exists_spectralTail_norm_shellSum_le_of_fourthOrderTail
+
+end ConnesWeilRH.Source.C1SpectralTailBound

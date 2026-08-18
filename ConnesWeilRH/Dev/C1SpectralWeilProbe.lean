@@ -1,6 +1,9 @@
 import ConnesWeilRH.Dev.C1SpectralWeil
 
 #print axioms ConnesWeilRH.Source.C1SpectralWeil.xiMultiplicity_pos
+#print axioms ConnesWeilRH.Source.C1SpectralWeil.oneSubXiZero
+#print axioms ConnesWeilRH.Source.C1SpectralWeil.xiMultiplicity_oneSub
+#print axioms ConnesWeilRH.Source.C1SpectralWeil.exists_rightOfCriticalXiZero_of_re_ne_half
 #print axioms ConnesWeilRH.Source.C1SpectralWeil.finiteHeightMultiplicity_le_xi_divisor_mass
 #print axioms ConnesWeilRH.Source.C1SpectralWeil.finiteHeightMultiplicity_cast_le_of_xi_exp_sphere_bound
 #print axioms ConnesWeilRH.Source.C1SpectralWeil.exists_spectral_laplaceAt_quadratic_bound

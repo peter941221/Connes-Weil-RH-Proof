@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1PositiveTraceCutoffCompression
+
+open ConnesWeilRH Source
+open ConnesWeilRH.Source.Dev.C1PositiveTraceCutoffCompression
+
+#check cutoffLimitOperatorCandidate
+#check windowedBoundaryDetector_eq_compressedGlobalConvolution
+#check cutoffLimitOperatorCandidate_eq_uncompressedGlobalConvolution
+
+#print axioms windowedBoundaryDetector_eq_compressedGlobalConvolution
+#print axioms cutoffLimitOperatorCandidate_eq_uncompressedGlobalConvolution

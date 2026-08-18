@@ -44,10 +44,16 @@ complete same-owner pole/arch/all-prime functional CLOSED as definition/readback
 zero-spectral absolute summability on every test   CLOSED
 xi zero-index completeness (= exact xi zero set)   CLOSED
 same-owner arithmetic = zero-spectral formula      CLOSED (center-2 contour)
-positive-trace bridge                              OPEN
+positive-trace order consumer                       CLOSED
+finite-window F†F producer                          CLOSED; fixed-carrier cutoff and
+                                                    dominated-diagonal adapters CLOSED;
+                                                    nonzero-root witness ruled out by
+                                                    exact cutoff growth
+concrete cutoff remainder/readback producer          OPEN
 finite-vanishing Weil criterion on the same owner  OPEN (RH-level)
 Yoshida finite-node interpolation on same owner    CLOSED
-Yoshida Hermitian-square detector sign             OPEN construction
+right-oriented Yoshida detector construction       CLOSED (same owner)
+global spectral nonnegativity on vanishing squares OPEN (RH-level)
 ```
 
 The spectral convergence half is unconditional and axiom-clean in
@@ -60,7 +66,35 @@ every `CompactLogTest F`. Consequently `gate2ExplicitFormula_iff` reduces Gate
 equality by feeding the proved
 `C1XiCenterTwoGamma.centerTwoGammaReadbackContract_of_halfAnchorGauss` into the
 center-`2` contour assembly, and `gate2ExplicitFormula_centerTwo` is the
-axiom-clean Gate 2 endpoint. The positive-trace bridge remains open.
+axiom-clean Gate 2 endpoint. The remainder-aware positive-trace consumer,
+finite-window `F†F` producer, fixed-carrier cutoff adapter, and generic
+dominated-diagonal trace-continuity adapter are closed. The exact cutoff-growth
+theorem now rules out `CutoffDominatedTraceWitness g globalBasis` whenever
+`g.test != 0`; it does not rule out every possible renormalized or
+finite-window convergence mechanism. The concrete cutoff remainder estimate
+and same-owner analytic readback remain open.
+
+### C1 Positive-Trace Cutoff Growth Guard
+
+For the canonical symmetric cutoff, the finite-window square has the exact
+identity
+
+```text
+Re Tr(cutoffPositiveBasisData g globalBasis n).positiveComposition
+  = (cutoffUpper g n - cutoffLower g n)
+      * ∫ x, Complex.normSq (g.test x)
+```
+
+`integral_normSq_pos_of_test_ne_zero` proves that the mass factor is strictly
+positive when `g.test != 0`, and
+`cutoffPositiveBasisData_trace_re_unbounded_of_test_ne_zero` consequently
+proves unbounded growth in `n`. Therefore
+`not_nonempty_cutoffDominatedTraceWitness_of_test_ne_zero` excludes the
+current fixed-basis summable diagonal-majorant witness for every nonzero root.
+Do not reintroduce that witness as if it followed from finite-window
+Hilbert--Schmidt compactness. This obstruction says nothing by itself about a
+renormalized trace, a finite-window subtraction, the cutoff remainder, or the
+same-owner analytic readback.
 
 The completed-xi zero set is exactly the source spectral index:
 `completedRiemannXi_eq_zero_iff_sourceNontrivialZero` (in `CC20ZetaCounting`)
@@ -1242,9 +1276,12 @@ project roots / `sorryAx`) plus the full repository verification gate.
   with the generic `cc20_proposition_c1_from_yoshida_detector` at
   `C1.healthyCC20TestSpace`, discharging the triple admissibility and
   disjointness rows by the closed theorems. The distance to `SourceRH` on the
-  healthy owner is now exactly two explicit premises: Yoshida detector
-  existence on this owner (constructive transport, open) and nonnegativity of
-  `spectralWeilValue g.convolutionSquare` on vanishing squares (Lane R).
+  generic all-zero healthy owner is exactly two explicit premises: Yoshida
+  detector existence on that owner (constructive transport, open) and
+  nonnegativity of `spectralWeilValue g.convolutionSquare` on vanishing
+  squares (Lane R).  The later right-oriented construction removes the first
+  premise only after choosing the functional-equation representative on the
+  right of the critical line.
   Owner-plus-probe build (3603 jobs) axiom-clean with
   `[propext, Classical.choice, Quot.sound]`. RH is NOT claimed.
 - Healthy Yoshida detector scaffold (2026-08-17,
@@ -1256,9 +1293,97 @@ project roots / `sorryAx`) plus the full repository verification gate.
   (nondegeneracy + unconditional `0 < weilLocalSum (starConvolution g)`)
   refines detector existence into finite data, and
   `healthy_sourceRH_of_healthyDetectorData_and_spectral_nonneg` is the refined
-  two-premise capstone. Build axiom-clean (3605 jobs). Producing the data is
-  the remaining constructive work; the Lane R sign stays untouched. RH NOT
-  claimed.
+  two-premise capstone. Build axiom-clean (3605 jobs). The generic all-zero
+  detector producer remains open; the later right-oriented producer closes
+  the direction needed for the spectral-sign contradiction. The Lane R sign
+  stays untouched. RH NOT claimed.
+- Right-oriented healthy detector and conditional RH exit (CLOSED 2026-08-18,
+  `Dev/C1HealthyYoshidaSpectralNegativity.lean`): for every source xi zero
+  strictly to the right of the critical line,
+  `exists_healthyDetectorData_of_sourceNontrivialZero_right` builds genuine
+  `HealthyYoshidaDetectorData` on one selected half-density-shifted owner. It
+  keeps the finite interpolation prefix and fourth-order spectral tail on that
+  same square, then proves its `spectralWeilValue` is strictly negative.
+  `healthy_sourceRH_of_global_spectral_nonneg` chooses a right-side
+  functional-equation representative for any hypothetical off-line zero and
+  contradicts the explicit global nonnegativity premise. This is conditional:
+  it does not prove global spectral nonnegativity or RH. Do not reflect a
+  right detector back to a left zero without a new owner-preserving theorem;
+  the reflection has not been proved to preserve the same Hermitian-square
+  spectral sign. The owner-plus-probe WSL2 build (3633 jobs) is axiom-clean
+ with `[propext, Classical.choice, Quot.sound]`.
+- Remainder-aware positive-trace consumer (CLOSED 2026-08-18,
+  `Dev/C1PositiveTraceLimitBridge.lean` and
+  `Dev/C1PositiveTraceLimitBridgeExit.lean`):
+  `PositiveTraceLimitFamily` keeps one Hilbert basis, trace-data sequence,
+  real remainder, vanishing remainder limit, and same-owner readback in one
+  structure. `positiveTrace_sub_remainder_lower_bound` uses only the ordinary
+  `A^* A` trace positivity; the two limit consumers then derive
+  `qw >= 0`, spectral nonnegativity, and the conditional `SourceRH` exit.
+  The corrected trace identity in `docs/proofs/016_corrected_trace_identity.md`
+  requires `PositiveTrace = QW + D` on vanishing tests, so `D` is kept as a
+  genuine remainder and is never defined to be zero. The finite-window
+  operator construction and its trace-class witness are now closed by the
+  companion producer below. A fixed-carrier cutoff schedule adapter now binds
+  the expanding windows to one whole-line basis; its remainder estimate and
+  same-owner analytic readback remain open. The owner-plus-probe WSL2 build
+  (3636 jobs) is axiom-clean with
+  `[propext, Classical.choice, Quot.sound]`; `Tendsto` requires `open Filter`
+  and the `𝓝` notation requires `open scoped Topology`.
+- Finite-window positive-trace producer (CLOSED 2026-08-18,
+  `Dev/C1PositiveTraceWindowProducer.lean` and its probe):
+  `fullBoundaryPositivePairData` keeps the same whole-line `globalBasis` on
+  both copies of `fullBoundaryRootFactor : H -> G`, proving the genuine
+  rectangular `F†F` trace is trace-class and has nonnegative real part.
+  `fullBoundaryOutputZeroExtension` maps the output interval back into the
+  common carrier, and its proved identity `E†E = id` yields the square owner
+  `fullBoundaryPositiveBasisData.positiveComposition =
+  windowedBoundaryDetector`. The square trace-class, detector readback, and
+  nonnegativity declarations all audit to `[propext, Classical.choice,
+  Quot.sound]`; WSL2 ext4 owner-plus-probe verification completed `3693`
+  jobs. This is a fixed-window result only: it does not construct the
+  `PositiveTracePairLimitFamily`, prove a cutoff remainder tends to zero,
+  identify the limit with `C1SameOwnerWeil.qw`, or prove RH. The local import
+  `open CCM25Concrete.SelectedCrossingOperatorBridge` is required because
+  namespace openings are not transitive across files.
+- Fixed-carrier cutoff adapter (CLOSED 2026-08-18,
+  `Dev/C1PositiveTraceCutoffAdapter.lean` and its probe):
+  `cutoffRadius g n = supportRadius g + n + 1` gives an expanding symmetric
+  window containing `Function.support g.test`; `cutoffPositiveBasisData` uses
+  fresh local interval bases only for Hilbert--Schmidt summability while every
+  ordinary trace stays on one caller-supplied `globalBasis`. The proved
+  `positiveComposition = windowedBoundaryDetector` readback and nonnegative
+  trace are packaged into `CutoffLimitContracts`, whose two fields are exactly
+  `remainder_tendsto_zero` and the same-owner corrected-trace readback. The
+  adapter constructs `PositiveTraceLimitFamily` from those fields but does not
+  prove either field. WSL2 ext4 `lake build
+  ConnesWeilRH.Dev.C1PositiveTraceCutoffAdapter
+  ConnesWeilRH.Dev.C1PositiveTraceCutoffAdapterProbe` completed successfully
+  (`3694` jobs); the probe audit reports only `[propext, Classical.choice,
+  Quot.sound]`, with no `sorryAx` or RH root axiom.
+- Dominated-diagonal cutoff adapter (CLOSED 2026-08-18,
+  `Dev/C1PositiveTraceTraceContinuity.lean` and the extended cutoff probe):
+  `tendsto_ordinaryTraceAlong_re_of_dominated_diagonal` applies Tannery
+  convergence on the fixed `globalBasis` under an explicit summable diagonal
+  majorant. `CutoffDominatedTraceWitness` records that majorant, the candidate
+  limit operator, diagonal convergence/dominance, and the same-owner limit
+  trace identity. `cutoffLimitContractsOfDominatedWitness` then combines this
+  trace limit with a separately supplied `remainder -> 0`; it does not produce
+  the majorant, remainder estimate, or analytic same-owner identity. WSL2
+  ext4 verification completed the owner and probe build at `3696` jobs with
+  only `[propext, Classical.choice, Quot.sound]`.
+- Cutoff compression obstruction (CLOSED 2026-08-18,
+  `Dev/C1PositiveTraceCutoffCompression.lean` and
+  `Dev/C1PositiveTraceCutoffObstruction.lean`): each finite-window detector is
+  exactly `C† * P_window * C`, while the natural uncompressed candidate is
+  `C† * C`; the projection cannot be removed before a trace-limit theorem.
+  `positiveComposition_trace_re_le_tsum_bound` proves that any summable
+  diagonal majorant gives one uniform upper bound for all cutoff real traces,
+  and `not_exists_cutoffDominatedTraceWitness_of_trace_re_unbounded` excludes
+  the current dominated-diagonal witness if a separate lower-growth theorem
+  proves those traces unbounded. No such lower-growth theorem is present yet.
+  Direct WSL2 `lake env lean` checks of the owner and probe pass; the audited
+  declarations use only `[propext, Classical.choice, Quot.sound]`.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`
