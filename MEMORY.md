@@ -2992,3 +2992,18 @@ would be unsound. RH unclaimed.
   a Lean theorem.  `C1XiCenterTwoGamma` supplies the exact Gamma_R profile
   readback but no sign producer.  The prime-inclusive sign and global
   spectral nonnegativity remain open; RH is not claimed.
+
+## Change Log (2026-08-18, Gamma_R profile-term screen)
+- Added `docs/proofs/1021_lane_r_gamma_profile_term_screen.py` and its verdict.
+  Direct Gauss-Legendre double integration of the individual paired-profile
+  kernel shows that the termwise sign route fails: on the same triple-
+  vanishing prime-free subspace at `r = 0.345`, the largest eigenvalue is
+  negative through `n = 200`, positive at `n = 400`, and remains positive at
+  `n = 800`.
+- The screen analytically integrates the inner exponential-cusp kernel and
+  applies Gauss-Legendre only to the smooth outer action; moment residual is
+  about `3e-17` and L2 orthonormality error about `5e-16`.  Quadrature sizes
+  `600`, `1800`, and `3000` agree on the displayed positive values.  This
+  rejects only a termwise proof.  The total archimedean form from 1020 remains
+  negative in the tested spaces, so the next target must control the summed
+  Gamma_R kernel and retain its constant/tail cancellation.

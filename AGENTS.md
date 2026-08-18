@@ -1420,6 +1420,14 @@ project roots / `sorryAx`) plus the full repository verification gate.
   readback only; they do not supply this sign inequality.  Do not transfer
   numerical eigenvalues into Lean.  This is evidence for the prime-free
   subfamily, not universal Lane R, detector positivity, or RH.
+- Gamma_R profile-term sign screen (REJECTED, 2026-08-18,
+  docs/proofs/1021 + probe script): the individual paired-profile quadratic
+  forms are nonpositive at small indices but develop positive directions on
+  the same three-moment prime-free subspace (at `n = 400` in the
+  analytically de-singularized Gauss-Legendre screen).  Do not pursue a theorem of the form
+  `forall n, profileTerm n <= 0`; the total arch sign requires the constant
+  term and cross-index cancellation.  The exact Gamma_R readback remains
+  valid, but it is not a sign producer.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`
