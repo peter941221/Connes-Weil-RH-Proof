@@ -498,20 +498,18 @@ private theorem archimedeanRealIntegrand_integral_le_narrow_budget
       dsimp [A]
       ring
 
-private theorem archimedeanTerm_nonpos_of_narrow_budget
+theorem archimedeanTerm_le_narrow_budget
     (g : CompactLogTest) (R : ℝ)
     (hRpos : 0 < R) (hRlt : R < 1)
-    (hsupport : Function.support g.convolutionSquare.test ⊆ Ioo (-R) R)
-    (hbudget :
-      Real.log (4 * Real.pi) + Real.eulerMascheroniConstant + R -
-          (1 / 2 : ℝ) * Real.log (1 / R) ≤ 0) :
-    C1SameOwnerWeil.archimedeanTerm g.convolutionSquare ≤ 0 := by
+    (hsupport : Function.support g.convolutionSquare.test ⊆ Ioo (-R) R) :
+    C1SameOwnerWeil.archimedeanTerm g.convolutionSquare ≤
+      (Real.log (4 * Real.pi) + Real.eulerMascheroniConstant + R -
+          (1 / 2 : ℝ) * Real.log (1 / R)) *
+        (g.convolutionSquare.test 0).re := by
   rw [C1SameOwnerWeil.archimedeanTerm_square_eq_selected]
   rw [ConnesWeilRH.Source.CCM25Concrete.archimedeanTerm_re_eq_lead_add_integral]
   let C : ℝ := Real.log (4 * Real.pi) + Real.eulerMascheroniConstant
   let A : ℝ := (g.convolutionSquare.test 0).re
-  have hA : 0 ≤ A := by
-    simpa [A] using g.convolutionSquare_zero_re_nonnegative
   have hI :
       (∫ y in Ioi (0 : ℝ),
         (SelectedWeilSquareOwner.ofCompactLogTest g).archimedeanIntegrand y).re ≤
@@ -524,10 +522,6 @@ private theorem archimedeanTerm_nonpos_of_narrow_budget
       _ ≤ (R - (1 / 2 : ℝ) * Real.log (1 / R)) * A := by
         simpa [A] using
           (archimedeanRealIntegrand_integral_le_narrow_budget g R hRpos hRlt hsupport)
-  have hbudget' : C + R - (1 / 2 : ℝ) * Real.log (1 / R) ≤ 0 := by
-    simpa [C, sub_eq_add_neg, add_assoc, add_left_comm, add_comm] using hbudget
-  have hmul : (C + R - (1 / 2 : ℝ) * Real.log (1 / R)) * A ≤ 0 :=
-    mul_nonpos_of_nonpos_of_nonneg hbudget' hA
   calc
     C * A +
           (∫ y in Ioi (0 : ℝ),
@@ -535,7 +529,47 @@ private theorem archimedeanTerm_nonpos_of_narrow_budget
         C * A + (R - (1 / 2 : ℝ) * Real.log (1 / R)) * A :=
       by simpa [add_comm] using add_le_add_left hI (C * A)
     _ = (C + R - (1 / 2 : ℝ) * Real.log (1 / R)) * A := by ring
-    _ ≤ 0 := hmul
+    _ = (Real.log (4 * Real.pi) + Real.eulerMascheroniConstant + R -
+        (1 / 2 : ℝ) * Real.log (1 / R)) *
+        (g.convolutionSquare.test 0).re := by
+      dsimp [C, A]
+
+theorem archimedeanTerm_nonpos_of_narrow_budget
+    (g : CompactLogTest) (R : ℝ)
+    (hRpos : 0 < R) (hRlt : R < 1)
+    (hsupport : Function.support g.convolutionSquare.test ⊆ Ioo (-R) R)
+    (hbudget :
+      Real.log (4 * Real.pi) + Real.eulerMascheroniConstant + R -
+          (1 / 2 : ℝ) * Real.log (1 / R) ≤ 0) :
+    C1SameOwnerWeil.archimedeanTerm g.convolutionSquare ≤ 0 := by
+  have hbound := archimedeanTerm_le_narrow_budget
+    g R hRpos hRlt hsupport
+  have hA : 0 ≤ (g.convolutionSquare.test 0).re :=
+    g.convolutionSquare_zero_re_nonnegative
+  have hmul :
+      (Real.log (4 * Real.pi) + Real.eulerMascheroniConstant + R -
+          (1 / 2 : ℝ) * Real.log (1 / R)) *
+        (g.convolutionSquare.test 0).re ≤ 0 :=
+    mul_nonpos_of_nonpos_of_nonneg hbudget hA
+  exact hbound.trans hmul
+
+theorem archimedeanTerm_neg_of_narrow_budget
+    (g : CompactLogTest) (R : ℝ)
+    (hRpos : 0 < R) (hRlt : R < 1)
+    (hsupport : Function.support g.convolutionSquare.test ⊆ Ioo (-R) R)
+    (hbudget :
+      Real.log (4 * Real.pi) + Real.eulerMascheroniConstant + R -
+          (1 / 2 : ℝ) * Real.log (1 / R) < 0)
+    (hmass : 0 < (g.convolutionSquare.test 0).re) :
+    C1SameOwnerWeil.archimedeanTerm g.convolutionSquare < 0 := by
+  have hbound := archimedeanTerm_le_narrow_budget
+    g R hRpos hRlt hsupport
+  have hmul :
+      (Real.log (4 * Real.pi) + Real.eulerMascheroniConstant + R -
+          (1 / 2 : ℝ) * Real.log (1 / R)) *
+        (g.convolutionSquare.test 0).re < 0 :=
+    mul_neg_of_neg_of_pos hbudget hmass
+  exact lt_of_le_of_lt hbound hmul
 
 /-- The exact archimedean coefficient used by the narrow-support budget. -/
 noncomputable def narrowArchCoefficient : ℝ :=
@@ -566,6 +600,12 @@ theorem narrowArchRadius_budget :
   rw [narrowArchRadius_log_inv]
   have hR : narrowArchRadius ≤ 1 := narrowArchRadius_lt_one.le
   nlinarith [narrowArchCoefficient_pos]
+
+theorem narrowArchRadius_budget_lt :
+    narrowArchCoefficient + narrowArchRadius -
+        (1 / 2 : ℝ) * Real.log (1 / narrowArchRadius) < 0 := by
+  rw [narrowArchRadius_log_inv]
+  nlinarith [narrowArchCoefficient_pos, narrowArchRadius_lt_one]
 
 noncomputable def narrowArchBaseWidth : ℝ := narrowArchRadius / 4
 

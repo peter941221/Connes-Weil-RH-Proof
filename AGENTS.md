@@ -1499,6 +1499,19 @@ project roots / `sorryAx`) plus the full repository verification gate.
   bridge still requires the separate `(-log 2, log 2)` support theorem; a
   narrower support proof alone does not match that API.
 
+- Lane R D3-root strict sign (CLOSED 2026-08-18,
+  `Dev/C1LaneRStrictness.lean`): the base `wideTest` has a strictly positive
+  real Laplace value at `s = 2`, so the exact D3 transform law proves
+  `narrowArchRoot.test != 0`.  The exposed budget estimate
+  `archimedeanTerm_le_narrow_budget`, together with the strict scalar budget
+  `narrowArchRadius_budget_lt` and positive square mass, then proves
+  `narrowArchRoot_archimedeanTerm_neg` and
+  `narrowArchRoot_qw_pos`.  The owner-plus-probe WSL2 build (3619 jobs) is
+  axiom-clean with `[propext, Classical.choice, Quot.sound]`.  This is a
+  strict positive `qw` witness for Lane R only; it is not detector positivity,
+  universal Lane R, or RH.  Keep the detector-side sign distinction explicit:
+  prime-free detector data would require a positive archimedean term.
+
 ## 17. RH Axiom Guard (from 887 review, updated 2026-08-12)
 
 Read `UnconditionalSkeleton.lean` before classifying its axioms. Two of them are

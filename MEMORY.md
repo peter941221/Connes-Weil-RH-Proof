@@ -2942,3 +2942,23 @@ would be unsound. RH unclaimed.
   Scope boundary: this is one non-strict concrete prime-free sign leaf, not
   the universal Lane R inequality; strict detector negativity, the
   prime-inclusive case, and RH remain open.
+
+## Change Log (2026-08-18, Lane R D3-root strict sign)
+- Extended `Dev/C1LaneRD3Root.lean` with
+  `tripleVanishingRoot_test_ne_zero_of_laplaceAt_two`: a nonzero base Laplace
+  value at `s = 2` prevents the differential root from collapsing.
+- Refactored `Dev/C1LaneRNarrowArch.lean` to expose
+  `archimedeanTerm_le_narrow_budget` and the strict consequence
+  `archimedeanTerm_neg_of_narrow_budget`; added the strict radius budget
+  theorem `narrowArchRadius_budget_lt`.
+- Added `Dev/C1LaneRStrictness.lean` and its probe.  Positivity of the base
+  bump's real compactly-supported Laplace integral proves
+  `narrowArchRoot_test_ne_zero`, then positive square mass gives
+  `narrowArchRoot_archimedeanTerm_neg` and `narrowArchRoot_qw_pos`.
+- WSL2 owner/probe build completed at 3619 jobs.  All audited declarations
+  report only `[propext, Classical.choice, Quot.sound]`; no `sorryAx`, RH root
+  axiom, or unconditional RH theorem was introduced.
+- Scope boundary: this is a strict sign for one explicit prime-free Lane R
+  witness.  It does not prove universal Lane R or detector positivity; the
+  prime-inclusive sign problem and RH remain open.  Verdict recorded in
+  `docs/proofs/1019_lane_r_d3_root_strict_sign.md`.

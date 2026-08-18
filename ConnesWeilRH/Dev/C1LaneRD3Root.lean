@@ -274,6 +274,27 @@ theorem laplaceAt_tripleVanishingRoot
       (0 - s) * ((1 / 2 : ℂ) - s) * (1 - s) * laplaceAt h s := by
   simp [tripleVanishingRoot, laplaceAt_derivativeShift, mul_assoc]
 
+/-- A nonzero Laplace value away from the three differential roots prevents
+the D3 construction from collapsing to the zero test. -/
+theorem tripleVanishingRoot_test_ne_zero_of_laplaceAt_two
+    (h : CompactLogTest)
+    (hlap : laplaceAt h (2 : ℂ) ≠ 0) :
+    (tripleVanishingRoot h).test ≠ 0 := by
+  intro hzero
+  have hrootLap : laplaceAt (tripleVanishingRoot h) (2 : ℂ) = 0 := by
+    unfold laplaceAt
+    simp only [exponentialWeight_apply]
+    rw [hzero]
+    simp
+  have hprod :
+      ((0 - (2 : ℂ)) * ((1 / 2 : ℂ) - 2) * (1 - 2)) *
+          laplaceAt h (2 : ℂ) = 0 := by
+    rw [← laplaceAt_tripleVanishingRoot h (2 : ℂ)]
+    exact hrootLap
+  rcases mul_eq_zero.mp hprod with hfactor | hbase
+  · norm_num at hfactor
+  · exact hlap hbase
+
 @[simp] theorem tripleVanishingRoot_laplaceAt_zero
     (h : CompactLogTest) :
     laplaceAt (tripleVanishingRoot h) 0 = 0 := by
