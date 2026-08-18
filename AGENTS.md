@@ -1484,6 +1484,15 @@ project roots / `sorryAx`) plus the full repository verification gate.
   derivative/Lipschitz constant behind the `n^-2` bound.  Do not infer that
   premise from Cauchy-Schwarz, and do not call this bridge a Lane R or RH
   proof.  Owner/probe WSL2 verification is axiom-clean.
+- Mass-relative Lipschitz stress screen (NUMERICAL, 2026-08-18,
+  docs/proofs/1027): normalized D3 roots retain three-point Laplace residuals
+  below `4e-12`, while the interior-grid lower bound for the convolution-square
+  derivative grows from `72.7` at frequency `0` to `256.5` at frequency `256`
+  at unit mass.  This is evidence against assuming a small frequency-uniform
+  mass-only coefficient for the Gamma_R `n^-2` head.  It is not a proof against
+  a finite-band or owner-specific bound; use a derivative-energy certificate
+  or a coupled quadratic tail instead.  Do not import these floating-point
+  values into Lean.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`

@@ -3089,3 +3089,17 @@ would be unsound. RH unclaimed.
   declarations use only `[propext, Classical.choice, Quot.sound]`.  This is a
   conditional interface, not the missing finite-prefix proof, universal Lane
   R, or RH.
+
+## Change Log (2026-08-18, mass-relative Lipschitz stress screen)
+- Added `docs/proofs/1027_mass_relative_lipschitz_stress.py` and its result
+  record.  The probe forms compactly supported D3 roots with exact formal
+  vanishing nodes, normalizes square mass to one, and measures an interior
+  derivative lower bound for the autocorrelation.  The bound grows from
+  `72.7` at frequency `0` to `256.5` at frequency `256`, while numerical
+  Laplace residuals remain below `4e-12`.
+- This is finite floating-point route-selection evidence only.  It rejects the
+  assumption of a small frequency-uniform mass coefficient for the existing
+  Lipschitz-based `n^-2` majorant, but does not rule out a finite-band or
+  owner-specific certificate.  The next formal route is derivative-energy or
+  coupled quadratic-tail control; the 1026 conditional bridge remains the
+  assembly consumer.  Lane R and RH remain open.
