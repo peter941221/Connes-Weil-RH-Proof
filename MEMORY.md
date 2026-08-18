@@ -3068,4 +3068,7 @@ would be unsound. RH unclaimed.
   recorded finite samples.  The tail is truncated at index `801`, so a ratio
   below one is not an infinite-tail proof.  The next formal producer target
   is the `N=21` constrained-prefix inequality plus a mass-relative infinite
-  tail bound; universal Lane R and RH remain open.
+  tail bound.  A higher-frequency follow-up (`K=32,48`, quadrature `1800`)
+  kept the sampled `N=21` maximum ratio below `0.753` and `N=41` below
+  `0.351`; this is still finite sampled evidence.  Universal Lane R and RH
+  remain open.

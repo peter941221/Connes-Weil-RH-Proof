@@ -59,6 +59,11 @@ The finite tail in this table is only `N <= n < 801`.  The 1023 theorem gives
 an infinite magnitude rate, but its existential profile constant is not yet
 related to the square mass strongly enough to replace this screen.
 
+A higher-frequency stability run with quadrature size `1800`, basis sizes
+`32,48`, radii `0.30,0.34`, and `1500` samples kept the `N=21` sampled maximum
+ratio below `0.753`; the `N=41` maximum was below `0.351`.  This strengthens the
+choice of a longer prefix, but remains finite sampled evidence.
+
 ## Route decision
 
 Do not spend the next proof round on an `N=4` absolute-tail coupling.  The
