@@ -1504,6 +1504,19 @@ project roots / `sorryAx`) plus the full repository verification gate.
   this is an adapter only.  Owner/probe WSL2 verification completed at
   `3541`/`3542` jobs with `[propext, Classical.choice, Quot.sound]`.
   Do not infer a universal `C_L`, Lane R, global spectral nonnegativity, or RH.
+- Derivative-energy Gamma_R tail producer (MAGNITUDE CLOSED, 2026-08-19,
+  docs/proofs/1029): `C1XiCenterTwoGammaDerivativeEnergy.lean` defines the
+  compact-log derivative energy and proves the genuine convolution-square
+  derivative bound
+  `||deriv (g^* * g).test x|| <=
+  sqrt(squareMass(g)) * sqrt(derivativeEnergy(g))`.
+  Reflection/translation invariance gives the support-local Lipschitz
+  certificate, and `gammaRArchProfileTailNorm_le_derivativeEnergy_rate`
+  supplies the existing explicit shifted-tail rate.  This is an unconditional
+  absolute-magnitude producer only; it does not supply a tail sign, the finite
+  constrained-prefix inequality, universal Lane R, or RH.  Owner/probe WSL2
+  verification completed at `3542`/`3543` jobs with only
+  `[propext, Classical.choice, Quot.sound]`.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`

@@ -3120,3 +3120,16 @@ would be unsound. RH unclaimed.
   to `[propext, Classical.choice, Quot.sound]`; WSL2 builds completed at
   `3541` and `3542` jobs.  This is a conditional adapter only; Lane R, global
   spectral nonnegativity, and RH remain open.  Verdict: `docs/proofs/1028`.
+
+## Change Log (2026-08-19, derivative-energy Gamma_R tail producer)
+- Added `Dev/C1XiCenterTwoGammaDerivativeEnergy.lean` and its import-facing
+  probe.  `compactLogDerivativeEnergy` plus Holder `L2` control of the genuine
+  convolution derivative gives
+  `||deriv (g^* * g).test x|| <=
+  sqrt((g^* * g)(0).re) * sqrt(compactLogDerivativeEnergy g)`;
+  reflection/translation readback turns this into the support-local Lipschitz
+  certificate and `gammaRArchProfileTailNorm_le_derivativeEnergy_rate`.
+  WSL2 owner/probe verification completed at 3542/3543 jobs, with every
+  audited declaration using only `[propext, Classical.choice, Quot.sound]`.
+  This closes an absolute tail-magnitude producer, not the finite-prefix sign,
+  global spectral nonnegativity, Lane R, or RH.  Verdict: `docs/proofs/1029`.
