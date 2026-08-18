@@ -1381,9 +1381,24 @@ project roots / `sorryAx`) plus the full repository verification gate.
   diagonal majorant gives one uniform upper bound for all cutoff real traces,
   and `not_exists_cutoffDominatedTraceWitness_of_trace_re_unbounded` excludes
   the current dominated-diagonal witness if a separate lower-growth theorem
-  proves those traces unbounded. No such lower-growth theorem is present yet.
-  Direct WSL2 `lake env lean` checks of the owner and probe pass; the audited
-  declarations use only `[propext, Classical.choice, Quot.sound]`.
+  proves those traces unbounded. The lower-growth theorem is now CLOSED by
+  `Dev/C1PositiveTraceCutoffGrowth.lean` (exact trace = window length times
+  `L2` mass, hence unbounded). Direct WSL2 `lake env lean` checks of the
+  owner and probe pass; the audited declarations use only
+  `[propext, Classical.choice, Quot.sound]`.
+- Plain-window trace family verdict (DEAD for `qw` readback, 2026-08-18,
+  `Dev/C1PositiveTraceCutoffVerdict.lean`, docs/proofs/1016):
+  `not_nonempty_cutoffLimitContracts_of_test_ne_zero` proves
+  `IsEmpty (CutoffLimitContracts g globalBasis)` for every nonzero
+  compact-log root. The two contract fields force the raw cutoff trace to
+  converge to the finite `C1SameOwnerWeil.qw g`, while the exact
+  window-length formula plus `cutoffPositiveBasisData_trace_re_monotone`
+  forces monotone linear divergence. The plain-window detector trace is the
+  pure window bulk mass with no arithmetic content; do NOT re-attack this
+  family with sharper estimates. A productive positive-trace limit needs a
+  different detector family (Hilbert-transform/Mellin-conjugated window) so
+  the bulk cancels. Owner and probe are WSL2 axiom-clean
+  `[propext, Classical.choice, Quot.sound]`; RH NOT claimed.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`

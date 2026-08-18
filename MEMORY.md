@@ -2877,3 +2877,28 @@ would be unsound. RH unclaimed.
   diagonal route, not a proof that every renormalized, subtracted, or otherwise
   finite-window limit is impossible. The cutoff remainder estimate and
   same-owner analytic readback remain open, and unconditional RH remains open.
+
+## Change Log (2026-08-18, plain-window trace family verdict)
+- Added `Dev/C1PositiveTraceCutoffVerdict.lean` + probe.
+  `cutoffPositiveBasisData_trace_re_monotone` proves the raw cutoff traces
+  are monotone (window grows, mass fixed). The main theorem
+  `not_nonempty_cutoffLimitContracts_of_test_ne_zero` proves
+  `IsEmpty (CutoffLimitContracts g globalBasis)` for every nonzero
+  compact-log root: the contract's `readback_tendsto_qw` plus
+  `remainder_tendsto_zero` force the raw trace to converge to the finite
+  `C1SameOwnerWeil.qw g`, while the exact window-length formula forces
+  monotone linear divergence to +∞.
+- This upgrades the growth obstruction from "dominated-diagonal witness
+  impossible" to "ANY remainder-corrected readback of this family is
+  impossible": the plain-window detector trace is exactly the window bulk
+  mass `(cutoffUpper - cutoffLower) * ∫‖g.test‖²` with zero arithmetic
+  content. Verdict recorded in docs/proofs/1016; do not re-attack this
+  family with sharper estimates — change the detector family
+  (HT/Mellin-conjugated window) instead.
+- WSL2 ext4 mirror verification: owner built (3704 jobs) and probe built,
+  `lake env lean` audit reports only `[propext, Classical.choice,
+  Quot.sound]` for both declarations; no `sorryAx` or project axiom.
+  Lean note: `Monotone (fun n => ...)` goals keep beta-redexes — use
+  `beta_reduce` before `rw` of a pointwise formula.
+- Lane R (global spectral nonnegativity) remains the sole RH-level gap; RH
+  NOT claimed.
