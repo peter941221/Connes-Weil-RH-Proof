@@ -2962,3 +2962,17 @@ would be unsound. RH unclaimed.
   witness.  It does not prove universal Lane R or detector positivity; the
   prime-inclusive sign problem and RH remain open.  Verdict recorded in
   `docs/proofs/1019_lane_r_d3_root_strict_sign.md`.
+
+## Change Log (2026-08-18, D3 narrow-family generalization)
+- Generalized the strictness owner in `Dev/C1LaneRStrictness.lean`: for every
+  compact-log `h` supported in `[-narrowArchRadius/4,
+  narrowArchRadius/4]`, `tripleVanishingRoot_qw_nonneg_of_narrow_base` proves
+  the prime-free Lane R sign.  With `laplaceAt h 2 != 0`, the strict theorem
+  `tripleVanishingRoot_qw_pos_of_narrow_base_of_laplaceAt_two_ne_zero` applies.
+- The support proof preserves the same D3 root and square owner, then uses the
+  existing `(-log 2, log 2)` prime-free readback.  No numerical sign is
+  transported into Lean.
+- The expanded probe still builds at 3619 jobs and audits every new public
+  theorem to `[propext, Classical.choice, Quot.sound]` only.  This closes an
+  infinite D3/narrow subfamily, not the wider prime-free null space, the
+  prime-inclusive Lane R case, or RH.

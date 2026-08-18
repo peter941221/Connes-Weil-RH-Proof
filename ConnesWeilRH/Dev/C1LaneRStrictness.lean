@@ -125,6 +125,108 @@ private theorem wideTest_laplaceAt_two_re_pos
   rw [hlap]
   simpa using hqpos
 
+private theorem convolutionSquare_mass_pos_of_test_ne_zero
+    (g : CompactLogTest) (hg : g.test ≠ 0) :
+    0 < (g.convolutionSquare.test 0).re := by
+  rw [g.convolutionSquare_zero_eq_integral_normSq]
+  have hpoint : ∃ x : ℝ, g.test x ≠ 0 := by
+    by_contra! hpoint
+    apply hg
+    ext x
+    exact hpoint x
+  obtain ⟨x, hx⟩ := hpoint
+  have hcont : Continuous
+      (fun y : ℝ => Complex.normSq (g.test y)) := by
+    simpa only [Function.comp_apply] using
+      Complex.continuous_normSq.comp g.test.continuous
+  have hcompact : HasCompactSupport
+      (fun y : ℝ => Complex.normSq (g.test y)) := by
+    simpa only [Function.comp_apply] using
+      g.compactSupport.comp_left (by simp)
+  exact MeasureTheory.integral_pos_of_integrable_nonneg_nonzero
+    (f_cont := hcont)
+    (f_int := hcont.integrable_of_hasCompactSupport hcompact)
+    (f_nonneg := fun y => Complex.normSq_nonneg (g.test y))
+    (f_x := (Complex.normSq_pos.mpr hx).ne')
+
+private theorem tripleVanishingRoot_square_support_of_narrow_base
+    (h : CompactLogTest)
+    (hsupport : Function.support h.test ⊆
+      Set.Icc (-narrowArchBaseWidth) narrowArchBaseWidth) :
+    Function.support (C1LaneRD3Root.tripleVanishingRoot h).convolutionSquare.test ⊆
+      Set.Ioo (-narrowArchRadius) narrowArchRadius := by
+  have hroot := C1LaneRD3Root.tripleVanishingRoot_support_subset_Icc h hsupport
+  have hinput : Function.support
+      (C1LaneRD3Root.tripleVanishingRoot h).test ⊆
+      Set.Ioo (-(narrowArchRadius) / 2) (narrowArchRadius / 2) := by
+    intro x hx
+    have hx' := hroot hx
+    rcases hx' with ⟨hxlow, hxhigh⟩
+    dsimp [narrowArchBaseWidth] at hxlow hxhigh
+    constructor <;> nlinarith [narrowArchRadius_pos]
+  exact CC20YoshidaConvolution.CompactLogTest.convolutionSquare_support_subset_symmetric
+    (C1LaneRD3Root.tripleVanishingRoot h) (a := narrowArchRadius) hinput
+
+private theorem tripleVanishingRoot_square_support_open_log_two_of_narrow_base
+    (h : CompactLogTest)
+    (hsupport : Function.support h.test ⊆
+      Set.Icc (-narrowArchBaseWidth) narrowArchBaseWidth) :
+    Function.support (C1LaneRD3Root.tripleVanishingRoot h).convolutionSquare.test ⊆
+      Set.Ioo (-Real.log 2) (Real.log 2) := by
+  have hwidth : narrowArchBaseWidth < (3 / 10 : ℝ) := by
+    dsimp [narrowArchBaseWidth]
+    nlinarith [narrowArchRadius_lt_one]
+  exact C1LaneRD3Root.tripleVanishingRoot_square_support_subset_open_log_two_of_Icc
+    h hsupport hwidth
+
+theorem tripleVanishingRoot_archimedeanTerm_neg_of_narrow_base_of_laplaceAt_two_ne_zero
+    (h : CompactLogTest)
+    (hsupport : Function.support h.test ⊆
+      Set.Icc (-narrowArchBaseWidth) narrowArchBaseWidth)
+    (hlap : CompactLogTest.laplaceAt h (2 : ℂ) ≠ 0) :
+    C1SameOwnerWeil.archimedeanTerm
+        (C1LaneRD3Root.tripleVanishingRoot h).convolutionSquare < 0 := by
+  have hroot := C1LaneRD3Root.tripleVanishingRoot_test_ne_zero_of_laplaceAt_two
+    h hlap
+  have hmass := convolutionSquare_mass_pos_of_test_ne_zero
+    (C1LaneRD3Root.tripleVanishingRoot h) hroot
+  exact archimedeanTerm_neg_of_narrow_budget
+    (C1LaneRD3Root.tripleVanishingRoot h) narrowArchRadius
+    narrowArchRadius_pos narrowArchRadius_lt_one
+    (tripleVanishingRoot_square_support_of_narrow_base h hsupport)
+    (by simpa [narrowArchCoefficient] using narrowArchRadius_budget_lt)
+    hmass
+
+theorem tripleVanishingRoot_qw_nonneg_of_narrow_base
+    (h : CompactLogTest)
+    (hsupport : Function.support h.test ⊆
+      Set.Icc (-narrowArchBaseWidth) narrowArchBaseWidth) :
+    0 ≤ C1SameOwnerWeil.qw (C1LaneRD3Root.tripleVanishingRoot h) := by
+  have hprimefree := tripleVanishingRoot_square_support_open_log_two_of_narrow_base
+    h hsupport
+  have harch := archimedeanTerm_nonpos_of_narrow_budget
+    (C1LaneRD3Root.tripleVanishingRoot h) narrowArchRadius
+    narrowArchRadius_pos narrowArchRadius_lt_one
+    (tripleVanishingRoot_square_support_of_narrow_base h hsupport)
+    (by simpa [narrowArchCoefficient] using narrowArchRadius_budget)
+  rw [C1LaneRD3Root.tripleVanishingRoot_qw_eq_neg_archimedeanTerm_of_primeFreeSquare
+    h hprimefree]
+  exact neg_nonneg.mpr harch
+
+theorem tripleVanishingRoot_qw_pos_of_narrow_base_of_laplaceAt_two_ne_zero
+    (h : CompactLogTest)
+    (hsupport : Function.support h.test ⊆
+      Set.Icc (-narrowArchBaseWidth) narrowArchBaseWidth)
+    (hlap : CompactLogTest.laplaceAt h (2 : ℂ) ≠ 0) :
+    0 < C1SameOwnerWeil.qw (C1LaneRD3Root.tripleVanishingRoot h) := by
+  have harch := tripleVanishingRoot_archimedeanTerm_neg_of_narrow_base_of_laplaceAt_two_ne_zero
+    h hsupport hlap
+  have hprimefree := tripleVanishingRoot_square_support_open_log_two_of_narrow_base
+    h hsupport
+  rw [C1LaneRD3Root.tripleVanishingRoot_qw_eq_neg_archimedeanTerm_of_primeFreeSquare
+    h hprimefree]
+  exact neg_pos.mpr harch
+
 theorem narrowArchRoot_test_ne_zero : narrowArchRoot.test ≠ 0 := by
   apply C1LaneRD3Root.tripleVanishingRoot_test_ne_zero_of_laplaceAt_two
   have hpos := wideTest_laplaceAt_two_re_pos
@@ -145,26 +247,8 @@ theorem narrowArchRoot_test_ne_zero : narrowArchRoot.test ≠ 0 := by
 
 theorem narrowArchRoot_square_mass_pos :
     0 < (narrowArchRoot.convolutionSquare.test 0).re := by
-  rw [narrowArchRoot.convolutionSquare_zero_eq_integral_normSq]
-  have hpoint : ∃ x : ℝ, narrowArchRoot.test x ≠ 0 := by
-    by_contra! hpoint
-    apply narrowArchRoot_test_ne_zero
-    ext x
-    exact hpoint x
-  obtain ⟨x, hx⟩ := hpoint
-  have hcont : Continuous
-      (fun y : ℝ => Complex.normSq (narrowArchRoot.test y)) := by
-    simpa only [Function.comp_apply] using
-      Complex.continuous_normSq.comp narrowArchRoot.test.continuous
-  have hcompact : HasCompactSupport
-      (fun y : ℝ => Complex.normSq (narrowArchRoot.test y)) := by
-    simpa only [Function.comp_apply] using
-      narrowArchRoot.compactSupport.comp_left (by simp)
-  exact MeasureTheory.integral_pos_of_integrable_nonneg_nonzero
-    (f_cont := hcont)
-    (f_int := hcont.integrable_of_hasCompactSupport hcompact)
-    (f_nonneg := fun y => Complex.normSq_nonneg (narrowArchRoot.test y))
-    (f_x := (Complex.normSq_pos.mpr hx).ne')
+  exact convolutionSquare_mass_pos_of_test_ne_zero
+    narrowArchRoot narrowArchRoot_test_ne_zero
 
 theorem narrowArchRoot_archimedeanTerm_neg :
     C1SameOwnerWeil.archimedeanTerm narrowArchRoot.convolutionSquare < 0 := by

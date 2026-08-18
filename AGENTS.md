@@ -1511,6 +1511,11 @@ project roots / `sorryAx`) plus the full repository verification gate.
   strict positive `qw` witness for Lane R only; it is not detector positivity,
   universal Lane R, or RH.  Keep the detector-side sign distinction explicit:
   prime-free detector data would require a positive archimedean term.
+  The same module also proves the family theorems
+  `tripleVanishingRoot_qw_nonneg_of_narrow_base` and
+  `tripleVanishingRoot_qw_pos_of_narrow_base_of_laplaceAt_two_ne_zero` for
+  every D3 root whose base support lies in `[-R/4,R/4]`; treat this as a
+  universal D3/narrow subfamily only, not as Lane R coverage.
 
 ## 17. RH Axiom Guard (from 887 review, updated 2026-08-12)
 

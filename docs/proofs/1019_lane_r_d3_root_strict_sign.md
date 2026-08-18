@@ -58,6 +58,24 @@ strictly positive square mass into strict archimedean negativity.  For
 `R = exp(-4*(C+1))`, `narrowArchRadius_budget_lt` proves the scalar budget is
 strictly negative using only `C > 0` and `R < 1`.
 
+## Family Extension
+
+The same owner now covers an entire D3/narrow-support family.  For every
+`h : CompactLogTest` with
+
+```text
+support(h) subset [-R/4, R/4]
+```
+
+the theorem
+`tripleVanishingRoot_qw_nonneg_of_narrow_base` proves
+`0 <= qw (tripleVanishingRoot h)`.  If additionally
+`Laplace(h, 2) != 0`, then
+`tripleVanishingRoot_qw_pos_of_narrow_base_of_laplaceAt_two_ne_zero` proves
+strict positivity.  This is a universal result for the selected D3/narrow
+family, not the universal Lane R statement: wider prime-free tests and all
+prime-inclusive squares remain outside its hypotheses.
+
 ## Verification
 
 WSL2 owner and probe build:
@@ -75,4 +93,5 @@ introduced.
 ## Scope boundary
 
 The result strengthens one explicit prime-free leaf from non-strict to
-strict.  The prime-inclusive case and the universal Lane R sign remain open.
+strict and closes the corresponding D3/narrow-support family.  The
+prime-inclusive case and the universal Lane R sign remain open.
