@@ -3103,3 +3103,20 @@ would be unsound. RH unclaimed.
   owner-specific certificate.  The next formal route is derivative-energy or
   coupled quadratic-tail control; the 1026 conditional bridge remains the
   assembly consumer.  Lane R and RH remain open.
+
+## Change Log (2026-08-19, mass-relative Lipschitz tail adapter)
+- `Dev/C1XiCenterTwoGamma.lean` now exposes
+  `gammaRArchProfileTerm_norm_le_of_support_lipschitz`, with an explicit
+  `0 <= Lip` field and the support-local paired-profile head estimate.
+- `Dev/C1XiCenterTwoGammaMassRelativeTail.lean` adds
+  `gammaRArchProfileTerm_norm_le_mass_scaled_of_support_lipschitz` and
+  `gammaRArchProfileTailNorm_le_mass_scaled_rate_of_support_lipschitz`.
+  A supplied certificate with `Lip = C_L * squareMass` is converted to the
+  coefficient `(2 * C_L + 1) * squareMass` and then passed to the existing
+  mass-scaled tail rate.  The certificate itself and the finite-prefix sign
+  producer remain open.
+- `Dev/C1XiCenterTwoGammaProbe.lean` and
+  `Dev/C1XiCenterTwoGammaMassRelativeTailProbe.lean` audit the new declarations
+  to `[propext, Classical.choice, Quot.sound]`; WSL2 builds completed at
+  `3541` and `3542` jobs.  This is a conditional adapter only; Lane R, global
+  spectral nonnegativity, and RH remain open.  Verdict: `docs/proofs/1028`.

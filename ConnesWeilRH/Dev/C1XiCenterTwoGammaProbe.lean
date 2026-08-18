@@ -26,6 +26,7 @@ namespace ConnesWeilRH.Source.C1XiCenterTwoGamma
 #print axioms integral_tsum_gammaRReciprocalTerm
 #print axioms integrable_gammaRIntegrand_centerTwo
 #print axioms gammaRArchProfileTerm
+#print axioms gammaRArchProfileTerm_norm_le_of_support_lipschitz
 #print axioms tsum_gammaRArchProfileTerm_eq_archimedeanIntegrand
 #print axioms summable_integralOn_norm_gammaRArchProfileTerm
 #print axioms integralOn_tsum_gammaRArchProfileTerm

@@ -9,6 +9,8 @@ open CCM25Concrete.CompactLogConvolution
 
 #print axioms convolutionSquare_zero_norm_eq_re
 #print axioms gammaRArchProfileTailNorm_le_mass_scaled_rate
+#print axioms gammaRArchProfileTerm_norm_le_mass_scaled_of_support_lipschitz
+#print axioms gammaRArchProfileTailNorm_le_mass_scaled_rate_of_support_lipschitz
 #print axioms archimedeanTerm_nonpos_of_mass_scaled_prefix_bound
 #print axioms archimedeanTerm_neg_of_mass_scaled_prefix_bound
 

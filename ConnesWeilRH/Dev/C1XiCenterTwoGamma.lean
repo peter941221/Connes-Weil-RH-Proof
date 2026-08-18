@@ -1956,6 +1956,52 @@ private theorem exists_archProfile_majorant (F : CompactLogTest) :
           Real.exp (-((2 * (n : Real) + 1) * y)) :=
             le_rfl
 
+/-- A supplied support-local Lipschitz certificate gives the explicit paired
+profile head bound.  This is the producer-facing form of the compact-support
+argument used by `exists_gammaRArchProfile_pointwise_majorant`; it leaves the
+Lipschitz constant visible for later finite-band or energy estimates. -/
+theorem gammaRArchProfileTerm_norm_le_of_support_lipschitz
+    (F : CompactLogTest) (Lip : Real) (hLip0 : 0 ≤ Lip)
+    (hLip :
+      ∀ x ∈ Set.Icc (-(supportRadius F + 1)) (supportRadius F + 1),
+        ∀ z ∈ Set.Icc (-(supportRadius F + 1)) (supportRadius F + 1),
+          ‖F.test x - F.test z‖ ≤ Lip * ‖x - z‖)
+    (n : Nat) {y : Real} (hy0 : 0 < y)
+    (hyS : y ≤ supportRadius F + 1) :
+    ‖gammaRArchProfileTerm F n y‖ ≤
+      (2 * Lip + ‖F.test 0‖) * y *
+        Real.exp (-(2 * (n : Real) * y)) := by
+  have hLip' :
+      ∀ x ∈ Set.Icc (-(archProfileSplit F)) (archProfileSplit F),
+        ∀ z ∈ Set.Icc (-(archProfileSplit F)) (archProfileSplit F),
+          ‖F.test x - F.test z‖ ≤ Lip * ‖x - z‖ := by
+    intro x hx z hz
+    exact hLip x (by simpa [archProfileSplit] using hx) z
+      (by simpa [archProfileSplit] using hz)
+  have hyS' : y ≤ archProfileSplit F := by
+    simpa [archProfileSplit] using hyS
+  have hbracket := archProfile_bracket_norm_le F hy0.le hyS' hLip'
+  have hfactor := gammaRArchProfileTerm_factor F n hy0
+  have hcoef : 0 ≤ (2 * Lip + ‖F.test 0‖) * y := by
+    positivity
+  rw [hfactor, complex_exp_two_real, norm_mul, norm_complex_exp_two_pow]
+  calc
+    ‖(Complex.exp (-(((1 / 2 : Real) : Complex) * (y : Complex))) *
+          (F.test y + F.test (-y)) -
+        2 * Complex.exp (-((y : Complex))) * F.test 0)‖ *
+        Real.exp (((n : Real)) * (-(2 * y))) ≤
+        ((2 * Lip + ‖F.test 0‖) * y) *
+          Real.exp (((n : Real)) * (-(2 * y))) := by
+      exact mul_le_mul hbracket le_rfl (by positivity) hcoef
+    _ ≤ ((2 * Lip + ‖F.test 0‖) * y) *
+        Real.exp (-(2 * (n : Real) * y)) := by
+      have hexpEq :
+          Real.exp ((n : Real) * (-(2 * y))) =
+            Real.exp (-(2 * (n : Real) * y)) := by
+        congr 1
+        ring
+      rw [hexpEq]
+
 /-- Every paired arch profile term is integrable on the positive half-line. -/
 private theorem integrableOn_gammaRArchProfileTerm
     (F : CompactLogTest) (n : Nat) :

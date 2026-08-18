@@ -73,6 +73,61 @@ theorem gammaRArchProfileTailNorm_le_mass_scaled_rate
   rw [convolutionSquare_zero_norm_eq_re g] at hrate
   simpa [gammaRArchProfileTailMassRate] using hrate
 
+/-- The support-Lipschitz certificate is the concrete producer interface for
+the abstract head premise above.  Its coefficient is exposed separately so
+the same conversion can feed both the tail and prefix consumers. -/
+theorem gammaRArchProfileTerm_norm_le_mass_scaled_of_support_lipschitz
+    (g : CompactLogTest) (C_L : Real) (hC_L : 0 ≤ C_L)
+    (hLip :
+      ∀ x ∈ Set.Icc (-(supportRadius g.convolutionSquare + 1))
+          (supportRadius g.convolutionSquare + 1),
+        ∀ z ∈ Set.Icc (-(supportRadius g.convolutionSquare + 1))
+            (supportRadius g.convolutionSquare + 1),
+          ‖g.convolutionSquare.test x - g.convolutionSquare.test z‖ ≤
+            (C_L * (g.convolutionSquare.test 0).re) * ‖x - z‖)
+    (n : Nat) {y : Real} (hy0 : 0 < y)
+    (hyS : y ≤ supportRadius g.convolutionSquare + 1) :
+    ‖gammaRArchProfileTerm g.convolutionSquare n y‖ ≤
+      (2 * C_L + 1) * (g.convolutionSquare.test 0).re * y *
+        Real.exp (-(2 * (n : Real) * y)) := by
+  have hmass : 0 ≤ (g.convolutionSquare.test 0).re :=
+    g.convolutionSquare_zero_re_nonnegative
+  have hLipConst : 0 ≤ C_L * (g.convolutionSquare.test 0).re :=
+    mul_nonneg hC_L hmass
+  calc
+    ‖gammaRArchProfileTerm g.convolutionSquare n y‖ ≤
+        (2 * (C_L * (g.convolutionSquare.test 0).re) +
+          ‖g.convolutionSquare.test 0‖) * y *
+          Real.exp (-(2 * (n : Real) * y)) :=
+      gammaRArchProfileTerm_norm_le_of_support_lipschitz
+        g.convolutionSquare (C_L * (g.convolutionSquare.test 0).re)
+        hLipConst hLip n hy0 hyS
+    _ = (2 * C_L + 1) * (g.convolutionSquare.test 0).re * y *
+          Real.exp (-(2 * (n : Real) * y)) := by
+      rw [convolutionSquare_zero_norm_eq_re g]
+      ring
+
+/-- A mass-relative support-Lipschitz certificate supplies the abstract head
+premise required by the shifted-tail rate. -/
+theorem gammaRArchProfileTailNorm_le_mass_scaled_rate_of_support_lipschitz
+    (g : CompactLogTest) (C_L : Real) (hC_L : 0 ≤ C_L)
+    (hLip :
+      ∀ x ∈ Set.Icc (-(supportRadius g.convolutionSquare + 1))
+          (supportRadius g.convolutionSquare + 1),
+        ∀ z ∈ Set.Icc (-(supportRadius g.convolutionSquare + 1))
+            (supportRadius g.convolutionSquare + 1),
+          ‖g.convolutionSquare.test x - g.convolutionSquare.test z‖ ≤
+            (C_L * (g.convolutionSquare.test 0).re) * ‖x - z‖)
+    (N : Nat) (hN : 0 < N) :
+    gammaRArchProfileTailNorm g.convolutionSquare N ≤
+      gammaRArchProfileTailMassRate g (2 * C_L + 1) N := by
+  apply gammaRArchProfileTailNorm_le_mass_scaled_rate g (2 * C_L + 1)
+    (by nlinarith [hC_L])
+  · intro n y hy0 hyS
+    exact gammaRArchProfileTerm_norm_le_mass_scaled_of_support_lipschitz
+      g C_L hC_L hLip n hy0 hyS
+  · exact hN
+
 /-- The prefix/tail consumer assembled with a mass-scaled tail certificate. -/
 theorem archimedeanTerm_nonpos_of_mass_scaled_prefix_bound
     (g : CompactLogTest) (C : Real) (N : Nat) (hC : 0 ≤ C)

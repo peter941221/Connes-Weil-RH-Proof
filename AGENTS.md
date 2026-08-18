@@ -1493,6 +1493,17 @@ project roots / `sorryAx`) plus the full repository verification gate.
   a finite-band or owner-specific bound; use a derivative-energy certificate
   or a coupled quadratic tail instead.  Do not import these floating-point
   values into Lean.
+- Mass-relative Lipschitz tail adapter (CONDITIONAL CLOSED, 2026-08-19,
+  docs/proofs/1028): `C1XiCenterTwoGamma` now exposes
+  `gammaRArchProfileTerm_norm_le_of_support_lipschitz` with an explicit
+  nonnegative `Lip`.  `C1XiCenterTwoGammaMassRelativeTail` converts a supplied
+  certificate `Lip = C_L * squareMass` into the head coefficient
+  `(2 * C_L + 1) * squareMass` and feeds it to
+  `gammaRArchProfileTailNorm_le_mass_scaled_rate_of_support_lipschitz`.
+  The certificate and the finite constrained-prefix inequality remain open;
+  this is an adapter only.  Owner/probe WSL2 verification completed at
+  `3541`/`3542` jobs with `[propext, Classical.choice, Quot.sound]`.
+  Do not infer a universal `C_L`, Lane R, global spectral nonnegativity, or RH.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`
