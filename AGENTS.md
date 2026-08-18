@@ -1473,6 +1473,17 @@ project roots / `sorryAx`) plus the full repository verification gate.
   screens only; they reject the naive `N=4` absolute-budget choice for the
   samples and select `N=21` as the next formal target.  Do not treat them as
   an infinite-tail or universal constrained-kernel theorem.
+- Lane R mass-relative tail bridge (CONDITIONAL CLOSED, 2026-08-18,
+  docs/proofs/1026): `C1XiCenterTwoGammaTailEstimate` now exposes
+  `gammaRArchProfileTailNorm_le_explicit_rate_of_pointwise_majorant`, so a
+  later owner can supply an explicit profile constant instead of unpacking an
+  existential `L`.  `C1XiCenterTwoGammaMassRelativeTail` rewrites the norm of
+  a convolution-square zero value to its nonnegative real mass and assembles a
+  budget with `L = C * mass`.  The local mass-scaled profile estimate remains
+  a premise: `convolutionSquare_norm_le_mass` controls values, not the
+  derivative/Lipschitz constant behind the `n^-2` bound.  Do not infer that
+  premise from Cauchy-Schwarz, and do not call this bridge a Lane R or RH
+  proof.  Owner/probe WSL2 verification is axiom-clean.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`

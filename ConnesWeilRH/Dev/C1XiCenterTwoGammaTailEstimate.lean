@@ -483,6 +483,69 @@ theorem gammaRArchProfileTailNorm_le_explicit_majorant
   exact hnormShift.tsum_le_tsum
     (fun n => hbound (n + N) (by omega)) hmajorShift
 
+/-! ### Explicit pointwise certificate consumer
+
+The existential theorem above is useful for convergence, but it hides the
+constant that a finite-prefix sign proof must budget against.  This consumer
+keeps the pointwise head and support-tail certificates explicit, so a later
+owner can supply a constant with a meaningful normalization (for example,
+one proportional to a convolution-square mass).
+-/
+
+/-- A supplied pointwise profile certificate gives the corresponding explicit
+shifted tail rate.  This theorem makes no claim that the certificate constant
+is universal or mass-relative. -/
+theorem gammaRArchProfileTailNorm_le_explicit_rate_of_pointwise_majorant
+    (F : CompactLogTest) (L : Real) (hL : 0 ≤ L)
+    (hhead :
+      ∀ (n : Nat) {y : Real}, 0 < y → y ≤ supportRadius F + 1 →
+        ‖gammaRArchProfileTerm F n y‖ ≤
+          L * y * Real.exp (-(2 * (n : Real) * y)))
+    (htail :
+      ∀ (n : Nat) {y : Real}, supportRadius F + 1 < y →
+        ‖gammaRArchProfileTerm F n y‖ ≤
+          2 * ‖F.test 0‖ *
+            Real.exp (-((2 * (n : Real) + 1) * y)))
+    (N : Nat) (hN : 0 < N) :
+    gammaRArchProfileTailNorm F N ≤
+      gammaRArchProfileTailExplicitRate F L N := by
+  have hbound : ∀ n : Nat, 0 < n →
+      ‖gammaRArchProfileIntegral F n‖ ≤
+        gammaRArchProfileIntegralMajorant F L n := by
+    intro n hn
+    change ‖∫ y : Real in Ioi (0 : Real),
+      gammaRArchProfileTerm F n y‖ ≤
+      L * (((2 * (n : Real)) ^ 2)⁻¹) +
+        2 * ‖F.test 0‖ *
+          Real.exp (-((2 * (n : Real) + 1) * (supportRadius F + 1)))
+    exact (norm_integral_le_integral_norm _).trans
+      (profile_integral_norm_le F hn hL hhead htail)
+  have hnorm : Summable (fun n : Nat =>
+      ‖gammaRArchProfileIntegral F n‖) := by
+    have hcomplex : Summable (fun n : Nat =>
+        gammaRArchProfileIntegral F n) := by
+      have hmajor := summable_integralOn_norm_gammaRArchProfileTerm F
+      apply hmajor.of_norm_bounded
+      intro n
+      exact norm_integral_le_integral_norm _
+    exact hcomplex.norm
+  have hnormShift : Summable (fun n : Nat =>
+      ‖gammaRArchProfileIntegral F (n + N)‖) :=
+    (summable_nat_add_iff N).2 hnorm
+  have hmajorShift : Summable (fun n : Nat =>
+      gammaRArchProfileIntegralMajorant F L (n + N)) :=
+    summable_gammaRArchProfileIntegralMajorant F L N
+  have hmajor : gammaRArchProfileTailNorm F N ≤
+      gammaRArchProfileTailMajorant F L N := by
+    change (∑' n : Nat,
+      ‖gammaRArchProfileIntegral F (n + N)‖) ≤
+      ∑' n : Nat,
+        gammaRArchProfileIntegralMajorant F L (n + N)
+    exact hnormShift.tsum_le_tsum
+      (fun n => hbound (n + N) (by omega)) hmajorShift
+  exact hmajor.trans
+    (gammaRArchProfileTailMajorant_le_explicit_rate F L hL N hN)
+
 /-- The shifted absolute Gamma_R profile tail has a closed `O(1 / N)` plus
 geometric magnitude bound.  This is still a magnitude estimate only: it does
 not assert a sign for the tail or for the full archimedean form. -/

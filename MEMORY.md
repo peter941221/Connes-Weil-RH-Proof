@@ -3072,3 +3072,20 @@ would be unsound. RH unclaimed.
   kept the sampled `N=21` maximum ratio below `0.753` and `N=41` below
   `0.351`; this is still finite sampled evidence.  Universal Lane R and RH
   remain open.
+
+## Change Log (2026-08-18, mass-relative Gamma_R tail bridge)
+- Added `Dev/C1XiCenterTwoGammaTailEstimate.lean` theorem
+  `gammaRArchProfileTailNorm_le_explicit_rate_of_pointwise_majorant`.  It
+  keeps the pointwise head and support-tail certificates explicit and returns
+  the closed tail rate for a supplied nonnegative `L`, rather than hiding that
+  constant behind an existential.
+- Added `Dev/C1XiCenterTwoGammaMassRelativeTail.lean` and its probe.  The owner
+  proves `convolutionSquare_zero_norm_eq_re`, specializes the explicit rate to
+  `L = C * squareMass`, and assembles non-strict/strict prefix consumers.  The
+  mass-scaled pointwise head estimate is an explicit premise; the existing
+  Cauchy-Schwarz value bound does not control the derivative/Lipschitz constant
+  used by the `n^-2` estimate.
+- WSL2 owner/probe verification completed at 3541 jobs.  The audited new
+  declarations use only `[propext, Classical.choice, Quot.sound]`.  This is a
+  conditional interface, not the missing finite-prefix proof, universal Lane
+  R, or RH.

@@ -8,6 +8,7 @@ open CCM25Concrete.CompactLogConvolution
 
 #print axioms exists_gammaRArchProfileIntegral_norm_bound
 #print axioms gammaRArchProfileTailNorm_le_explicit_majorant
+#print axioms gammaRArchProfileTailNorm_le_explicit_rate_of_pointwise_majorant
 #print axioms gammaRArchProfileTailNorm_le_explicit_rate
 
 example (F : CompactLogTest) :
