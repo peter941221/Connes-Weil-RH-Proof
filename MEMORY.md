@@ -3007,3 +3007,22 @@ would be unsound. RH unclaimed.
   rejects only a termwise proof.  The total archimedean form from 1020 remains
   negative in the tested spaces, so the next target must control the summed
   Gamma_R kernel and retain its constant/tail cancellation.
+
+## Change Log (2026-08-18, summed Gamma_R prefix/tail owner)
+- Added `Dev/C1XiCenterTwoGammaSummedKernel.lean` and its import-facing probe.
+  The public API defines the paired profile integral and shifted tail,
+  proves the exact `range N` prefix plus tail identity for the archimedean
+  integral, adds the constant-term readback for `archimedeanTerm`, and proves
+  the shifted tail tends to zero.  WSL2 builds completed at 3538/3539 jobs;
+  all audited declarations use only `[propext, Classical.choice, Quot.sound]`.
+- Added `docs/proofs/1022_lane_r_summed_gamma_kernel_probe.py` and its result
+  record.  On the sine basis at `r = 0.345` (square radius `0.690 < log 2`),
+  the first all-negative finite prefix is Lean length `N = 4`; the 3201-term
+  profile reference has spectrum `[-2.43038594, -0.86432766]`.  An
+  independent direct arch calculation differs by at most `2.373e-5` on the
+  recorded grid.  Quadrature sizes 600/1800/3000 agree on displayed prefix
+  values, with moment residual <= `5.6e-17` and L2 error <= `8.9e-16`.
+- High finite tails still show tiny positive directions, so the correct next
+  producer is a coupled finite constrained-kernel inequality plus a tail norm
+  estimate.  Do not infer a tailwise sign from the negative total scan;
+  universal prime-inclusive Lane R and RH remain open.

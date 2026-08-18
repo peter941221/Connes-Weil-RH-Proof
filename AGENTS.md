@@ -1428,6 +1428,16 @@ project roots / `sorryAx`) plus the full repository verification gate.
   `forall n, profileTerm n <= 0`; the total arch sign requires the constant
   term and cross-index cancellation.  The exact Gamma_R readback remains
   valid, but it is not a sign producer.
+- Summed Gamma_R prefix/tail owner (2026-08-18, docs/proofs/1022):
+  `Dev/C1XiCenterTwoGammaSummedKernel.lean` exposes the exact decomposition
+  `archimedeanTerm = constant + sum (range N) profileIntegral + shiftedTail`
+  and proves the shifted tail tends to zero.  The 1022 sine-nullspace screen
+  finds the first all-negative finite prefix at Lean length `N = 4`, with the
+  3201-term reference top eigenvalue about `-0.8643`; small positive directions
+  remain in high finite tails.  The next valid target is a finite constrained
+  kernel bound plus a tail norm bound, not a tail sign lemma.  Owner/probe
+  audit is `[propext, Classical.choice, Quot.sound]`; numerical spectra are
+  not transported into Lean and RH remains open.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`
