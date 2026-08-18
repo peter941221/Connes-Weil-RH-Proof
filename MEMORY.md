@@ -2902,3 +2902,23 @@ would be unsound. RH unclaimed.
   `beta_reduce` before `rw` of a pointwise formula.
 - Lane R (global spectral nonnegativity) remains the sole RH-level gap; RH
   NOT claimed.
+
+## Change Log (2026-08-18, Lane R arch-sign numeric probe: prime-free subfamily CONFIRMED)
+- New `docs/proofs/1017_lane_r_arch_sign_probe.py` + results doc. Mirrors the
+  exact Lean definitions (laplaceAt = bilateral Laplace, convolutionSquare =
+  g* * g, archimedean denominator 2 sinh y) and samples triple-vanishing
+  prime-free roots (bump basis phi*e^{kt}, null space of the moments at
+  s = 0, 1/2, 1; window (log(1-w), log(1+w))).
+- VERDICT (good): arch(g^2) < 0 STRICTLY for every sampled unit-norm root
+  across 4 windows (values -1.24..-0.77, spread < 0.02) => qw = -arch > 0.
+  The quadratic form looks negative DEFINITE on the vanishing subspace.
+  Pole kill verified numerically (|pole| <= 4.4e-16). Detector roots at FAKE
+  off-line points keep arch < 0 — the Lean sign flip needs a REAL off-line
+  zero (RH-false world), consistent with theory.
+- Identified Lean targets: (1) concrete-root leaf arch(root^2) <= 0 via the
+  C1HealthyNarrowPlateau near/mid/tail template; (2) general subspace
+  negativity via the C1XiCenterTwoGamma Gamma_R paired-profile
+  diagonalization. The prime-free instance carries no prime arithmetic.
+- Probe trap: autocorrelation grid for asymmetric windows starts at a - b
+  (reflection about 0), NOT 2a; negative F0 is the tell (F(0) = ||g||^2 >= 0).
+- RH NOT claimed; full Lane R (prime-inclusive) remains the RH-level gap.

@@ -1399,6 +1399,17 @@ project roots / `sorryAx`) plus the full repository verification gate.
   different detector family (Hilbert-transform/Mellin-conjugated window) so
   the bulk cancels. Owner and probe are WSL2 axiom-clean
   `[propext, Classical.choice, Quot.sound]`; RH NOT claimed.
+- Lane R prime-free numeric verdict (POSITIVE, 2026-08-18,
+  docs/proofs/1017 + probe script): sampled triple-vanishing prime-free
+  roots satisfy `archimedeanTerm (g^2) < 0` strictly with margin 0.77..1.24
+  at unit norm (qw = -arch > 0), across four windows; the arch quadratic
+  form looks negative DEFINITE on the vanishing subspace. Detector roots at
+  fake off-line points keep arch < 0 (the Lean sign flip needs a REAL
+  off-line zero). Identified next Lean targets: concrete-root leaf
+  `arch(root^2) <= 0` via the plateau template, then the general subspace
+  negativity via the C1XiCenterTwoGamma Gamma_R paired-profile machinery.
+  The prime-free instance carries no prime arithmetic; full prime-inclusive
+  Lane R remains the RH-level gap. RH NOT claimed.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`
