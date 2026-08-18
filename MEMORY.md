@@ -3043,3 +3043,16 @@ would be unsound. RH unclaimed.
 - WSL2 owner/probe verification completed at 3539/3540 jobs.  The audited
   declarations report only `[propext, Classical.choice, Quot.sound]`.
 - Verdict recorded in `docs/proofs/1023_lane_r_gamma_tail_majorant.md`.
+
+## Change Log (2026-08-18, summed Gamma_R prefix/tail sign consumer)
+- Added `Dev/C1XiCenterTwoGammaPrefixTailConsumer.lean` and its probe.
+  `archimedeanTerm_nonpos_of_profilePrefix_bound_and_tailNorm_bound` consumes
+  the exact constant-plus-finite-prefix-plus-shifted-tail identity and the
+  norm readback to prove full archimedean nonpositivity from matching real
+  prefix and tail budgets.  The strict companion preserves a positive prefix
+  margin `delta`.
+- This is a consumer theorem, not the missing finite constrained-kernel
+  producer: it does not assert a finite-prefix sign, a tail sign, universal
+  Lane R, or RH.  WSL2 owner/probe verification completed at 3541 jobs; the
+  audited declarations use only `[propext, Classical.choice, Quot.sound]`.
+- Verdict recorded in `docs/proofs/1024_lane_r_gamma_prefix_tail_consumer.md`.

@@ -1453,6 +1453,17 @@ project roots / `sorryAx`) plus the full repository verification gate.
   nor the finite constrained-prefix inequality.  Owner/probe WSL2 build
   completed at 3540 jobs, with audited declarations using only
   `[propext, Classical.choice, Quot.sound]`; RH remains open.
+- Summed Gamma_R prefix/tail sign consumer (CLOSED 2026-08-18,
+  `Dev/C1XiCenterTwoGammaPrefixTailConsumer.lean`):
+  `archimedeanTerm_nonpos_of_profilePrefix_bound_and_tailNorm_bound` consumes
+  the exact constant-plus-prefix-plus-tail decomposition, bounds the tail real
+  part by `Complex.re_le_norm` and `norm_gammaRArchProfileTail_le_tailNorm`,
+  and concludes `archimedeanTerm F <= 0` from a matching prefix budget and
+  absolute tail budget.  The strict companion retains a positive `delta`
+  prefix margin.  This is an order-theoretic consumer only; it does not
+  produce the finite constrained-kernel inequality or a tail sign.  The
+  owner/probe build completed at 3541 jobs with only
+  `[propext, Classical.choice, Quot.sound]`; RH remains open.
 - Name ownership for the zero-sum lane (`open` is NOT transitive; every
   consumer imports and `open`s each namespace itself):
   `sourceNontrivialZeroSet`, `dyadicShellIndex`, `lt_two_pow_succ_dyadicShellIndex`
