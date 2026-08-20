@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1Stage3Characterization
+
+namespace ConnesWeilRH.Source.C1Stage3Characterization
+
+#print axioms positiveTracePairLimitFamily_exists_of_qw_nonnegative
+#print axioms qw_nonnegative_iff_stage3_family_exists
+#print axioms healthyCriterionState_iff_all_vanishing_stage3_pair_families
+
+end ConnesWeilRH.Source.C1Stage3Characterization

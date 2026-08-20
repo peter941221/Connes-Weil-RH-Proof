@@ -1,0 +1,23 @@
+import ConnesWeilRH.Dev.C1CrossingEulerLogReadback
+
+/-! Import-facing audit for the Stage-1/Stage-2 common-carrier readback. -/
+
+namespace ConnesWeilRH.Source.C1CrossingEulerLogReadback
+
+open C1CrossingCommonCarrier
+
+#check C1CrossingCommonCarrier.crossingCommonCarrierData
+#check eulerLogWeightedCarrierPairTrace_eq_finitePrimeTerm_pow
+#check eulerLogWeightedCarrierPairTrace_sum_eq_finitePrimeTerm_pow_sum
+#check canonicalPrimePowerTerms_sum_eq_selectedFinitePrimeTerm_sum
+#check canonicalEulerLogCarrierPairTrace_sum_re_eq_finitePrimeSum
+#check qw_eq_pole_sub_archimedean_sub_canonicalEulerLogCarrierTrace
+
+#print axioms C1CrossingCommonCarrier.crossingCommonCarrierData
+#print axioms eulerLogWeightedCarrierPairTrace_eq_finitePrimeTerm_pow
+#print axioms eulerLogWeightedCarrierPairTrace_sum_eq_finitePrimeTerm_pow_sum
+#print axioms canonicalPrimePowerTerms_sum_eq_selectedFinitePrimeTerm_sum
+#print axioms canonicalEulerLogCarrierPairTrace_sum_re_eq_finitePrimeSum
+#print axioms qw_eq_pole_sub_archimedean_sub_canonicalEulerLogCarrierTrace
+
+end ConnesWeilRH.Source.C1CrossingEulerLogReadback

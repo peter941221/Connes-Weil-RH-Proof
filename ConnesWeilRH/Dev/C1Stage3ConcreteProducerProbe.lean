@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1Stage3ConcreteProducer
+
+open ConnesWeilRH.Source.C1Stage3ConcreteProducer
+
+#check stage3NarrowArchFamily
+#print axioms stage3NarrowArch_qw_nonneg
+#print axioms stage3NarrowArch_square_spectral_nonnegative

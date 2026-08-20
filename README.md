@@ -5,7 +5,7 @@ ideas surrounding the Connes-Weil explicit formula.
 
 Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 
-> **Status as of 2026-08-17.** This repository does not contain an
+> **Status as of 2026-08-19.** This repository does not contain an
 > unconditional proof of the Riemann hypothesis. The no-argument theorem
 > `unconditional_rh_skeleton` consumes explicit project axioms, including
 > `normalizedSelectedFinalRouteDetectorCriterionCoverageRoot`.
@@ -13,6 +13,14 @@ Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 > The active constructive route is the C1 same-owner route. Physical Gate 3U is
 > a separate diagnostic branch. The residual project-axiom ledger is recorded
 > in [`RhOutputAxiomLedger.lean`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/RhOutputAxiomLedger.lean).
+
+> **Mainline freeze (2026-08-19).** Gate 3U, Lane R, numerical probes, and
+> alternative physical routes are archived/frozen. New work must name a direct
+> consumer of `normalizedSelectedFinalRouteDetectorCriterionCoverageRoot`.
+> The standalone finite-band deliverable is under
+> [`archive/diagnostic_gate3u/`](archive/diagnostic_gate3u/).
+> Run `pwsh -File scripts/check_rh_mainline_freeze.ps1` before starting new
+> work; it rejects edits to frozen route namespaces by default.
 
 ## 1. The project
 
@@ -65,7 +73,10 @@ arithmetic terms, the spectral sum, and the detector criterion.
 | Gate 3 positive trace and Gate 4 detectors | Open |
 | SourceRH to Mathlib RH | Conditional exit |
 
-### 1.1 Representative lines of attack
+### 1.1 Frozen historical lines of attack
+
+The following routes are retained for provenance only. They are not an active
+work queue; use `RH_MAINLINE_FREEZE.md` for the only allowed RH consumers.
 
 1. Connes-Weil semilocal trace formulas
 

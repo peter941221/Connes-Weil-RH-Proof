@@ -1,3 +1,56 @@
+## Change Log (2026-08-20, FRONTIER-HS step (ii) hcolInt closed): Dev/C1Stage3FrontierHS.lean
+- Task #13 (windowed). The per-column L¹ integrability on the restricted window, `hcolInt` inside
+  `frontierHS_summable`, is now fully closed: each column
+  `x ↦ ‖⟪globalBasis i, frontierKernelVec g x⟩‖²` is integrable against `volume.restrict W` by
+  `HasFiniteIntegral.restrict_of_bounded` — a continuous function bounded on the finite-measure window
+  by the constant `‖globalBasis i‖² * mass`. The squared bound comes from `norm_inner_le_norm` +
+  `gcongr`, and `frontierTranslatedNormSq_eq` (translation invariance gives
+  `‖frontierKernelVec g x‖² = mass`). Two elaboration traps were the actual blockers this window:
+  (a) an unannotated lambda left the norm's scalar field a metavariable, so `(hA).norm'` produced
+      `@norm ?m`; fixed by pinning every lambda domain as `(x : ℝ)` and using explicit
+      `continuous_norm.comp hA` instead of the ambiguous dot-projection; (b) lifting an everywhere
+      inequality to AE needs `MeasureTheory.ae_of_all _ hb`, not `funext` (which wants equality).
+- WSL2 ext4 incremental build of the module: exit 0, 2954 jobs cached, only style warnings
+  (`linter.style.longLine` at L544/546/549-558/563/565 and `unreachableTactic` at L521) — no errors.
+- ONE sorry remains in the file, at L570 = steps 3-9 of `frontierHS_summable` (the countable-sum ↔
+  integral Tonelli swap + pointwise Bessel bound + Summability). Locked factor for #13:
+  `F_{g,n} u(x) = 𝟙_{W(n)}(x) · ⟨u, w_x⟩`, `w_x(y) := h_g(x-y)`; star/conjugation deliberately dropped here
+  and to be reconciled in #14. The HS argument is Parseval + Tonelli + translation invariance.
+- Next lemmas pre-verified for steps 3-9: `lintegral_tsum` (MeasureTheory/Integral/Lebesgue/Add.lean:360)
+  for the countable-sum↔nonneg-integral swap; `Orthonormal.tsum_inner_products_le`
+  (Analysis/InnerProductSpace/Orthonormal.lean:455, pointwise Bessel — companion to the already-used
+  `inner_products_summable` at :461); `tsum_coe_ne_top_iff_summable`
+  (Topology/Algebra/InfiniteSum/ENNReal.lean:64) for finiteness→`Summable`. Still missing: a real↔extended
+  integral bridge for a nonnegative integrable function, to connect the L¹ column to the ENNReal tsum.
+- WSL env gotchas (this machine): distro is `Ubuntu-24.04`, not `Ubuntu`; the Bash tool layer strips
+  single quotes / pre-expands `$VAR` inside for-loop bodies so loop variables arrive empty — use
+  fully-literal paths and avoid loops; mathlib oleans live at `.lake/packages/mathlib/.lake/build`,
+  not in-tree.
+- RH NOT claimed. #13 remaining: steps 3-9 + whole-file `#print axioms` → `[propext, Classical.choice, Quot.sound]`.
+
+## Change Log (2026-08-19, Gate-2 arithmetic readback relation)
+- `Dev/C1Stage3CarrierReadback.lean` (active C1, firewall-clean: imports only the two active
+  Stage modules `C1Stage3ProjectionTraceLedger` + `C1CrossingEulerLogReadback`, plus shared source
+  bricks — no frozen route leaf) proves, for any selected Weil-square `owner`:
+
+  ```text
+  Re Tr(projectionResponse owner λ S)
+      = selectedArithmeticCarrierSum owner            -- (∑_{n ∈ globalPrimeIndexSet} finitePrimitiveReal n)
+        + Re Tr(sameObjectResidual owner λ S canonicalTerms)   -- Gate-3 target, isolated
+  ```
+
+  It instantiates the carrier ledger at `terms := canonicalPrimePowerTerms owner` and chains two
+  Stage-2 Euler-log readback lemmas; no positivity / cutoff-limit / sign is assumed. Pure assembly.
+- The owning module built in the isolated WSL2 ext4 mirror (`cwr-stage3-20260819`) at `3699/3699`
+  jobs, exit 0 (only unrelated replayed-dependency linter warnings). The import-facing probe
+  `C1Stage3CarrierReadbackProbe.lean` audits both new declarations to exactly `[propext,
+  Classical.choice, Quot.sound]`, with no `sorryAx` or project axiom.
+- This lands the arithmetic half of doc-1039 Gate 2 (the exact trace ledger whose RHS reads back to
+  `qw g`). STILL OPEN in Gate 2: wire `projectionResponse` through the finite-window factor
+  `C_{g,n}` so its trace is literally `Re Tr(A_g,n†A_g,n) − D`, add the closed vertical pole/archimedean
+  terms, and read back to `qw g`. Gates 3 (remainder→0 without assuming sign) and 4 (four-field assembly +
+  axiom audit = "kill Stage 3") remain open.
+
 ## Change Log (2026-08-17, center-2 Gamma_R constant-part readback)
 - `Dev/C1XiCenterTwoGamma.lean` now proves
   `normalized_gammaR_centerTwo_constant_part_eq`: after the exact center-`2`
@@ -3251,3 +3304,402 @@ would be unsound. RH unclaimed.
   genuine.  The real-valued sign producer, universal Lane R, and RH remain
   open.  WSL2 owner/probe builds completed at jobs `3631`/`3632`, with only
   `[propext, Classical.choice, Quot.sound]` in the audited declarations.
+
+## Change Log (2026-08-19): RH mainline freeze and side-route archive
+
+- The project now has one active objective: close
+  `normalizedSelectedFinalRouteDetectorCriterionCoverageRoot` and its route to
+  `unconditional_rh_skeleton`. Gate 3U, Route-A finite bands, infinite-carrier
+  physical cancellation, Lane R/Gamma prefix experiments, numerical probes,
+  and rejected alternatives are frozen as diagnostic context.
+- The standalone `deliverable_finite_gate/` package is archived under
+  `archive/diagnostic_gate3u/deliverable_finite_gate/`; the untracked narrow
+  Lane-R prefix leaf is archived under
+  `archive/diagnostic_lane_r/lean/C1XiCenterTwoGammaFinitePrefixNarrow.lean`.
+  Shared `Source/CCM25Concrete` modules remain in place because RH-facing route files
+  import their finite-prime interfaces; moving them would break the package
+  boundary without advancing RH.
+- New work must identify a direct consumer in the active RH chain before any
+  edit. The current open consumers are the same-owner cutoff remainder/readback,
+  the finite-vanishing Weil criterion, and global spectral nonnegativity.
+- Evidence: `RH_MAINLINE_FREEZE.md`, `archive/README.md`,
+  `ConnesWeilRH/Dev/FROZEN_SIDE_ROUTES.md`, and the read-only guard
+  `scripts/check_rh_mainline_freeze.ps1`.
+
+## Change Log (2026-08-19, Mellin-conjugated Hilbert detector kill-test)
+
+- Added `docs/proofs/1036_mellin_conjugated_detector_kill_test.py` and its
+  verdict `docs/proofs/1036_mellin_conjugated_detector_kill_test.md`.  The
+  finite candidate is
+  `B_L(g) = [M_(1/2) H M_(-1/2), P_[0,L]] C_g`, with one root owner reused for
+  the triple Laplace constraints, `F = g^* * g`, and prime-power readback.
+- WSL2 ext4 runs (Ubuntu-24.04, NumPy, 256-point grid) show positive finite
+  traces.  The Mellin half-density variant has bulk slope/mass
+  `1.649832402865` (narrow root) and `10.91378207646` (p=2-visible root), so
+  its moving-cutoff remainder is structurally not bounded.  The ordinary
+  Hilbert control (`sigma=0`, finer `step=0.05`) has slopes
+  `4.693871275067e-4` and `-3.458838276961e-3`, confirming that the bulk
+  failure is tied to the proposed conjugation rather than the grid alone.
+- Even the bulk-stable control fails the exact prime-power owner: after
+  calibrating only the m=1 scalar, the m=2 ratio error is `0.5505217656057`
+  for p=2 and `1.892996700322` for p=3; the observed p=3 ratio has the wrong
+  sign.  This is a finite-section rejection, not a theorem about every
+  Hilbert/Mellin construction.  Do not add a Lean detector or
+  `PositiveTraceLimitFamily` for this candidate.  The active RH root and the
+  global spectral-nonnegativity gap are unchanged.
+
+## Change Log (2026-08-19, proof-first numerical-work guard)
+
+- Project rule strengthened: do substantive mathematics and formal Lean work
+  first.  Numerical experiments are permitted only for a live-candidate
+  kill-test, a mathematically meaningful owner choice not settled formally,
+  or a regression check for a newly proved concrete theorem.  Every probe must
+  state the exact theorem/decision it can change and its pass/fail criterion.
+- If an existing Lean theorem already settles the question, its statement and
+  audit are the evidence; a numerical reproduction is optional diagnostic
+  context and must not enter the RH-facing dependency graph.
+- The `1037` Euler-log coefficient screen was started from the prior handoff,
+  but the formal owner was then located at
+  `SelectedCrossingKernel.eulerLog_weighted_pair_traces_eq_finitePrimeTerm_pow`
+  and its audit passed in WSL2 (`2967` jobs; axioms
+  `[propext, Classical.choice, Quot.sound]`).  Therefore the screen is not a
+  required proof step.  Keep any resulting file clearly diagnostic and do not
+  spend further mainline effort on numerical refinement; the next work item
+  must be a direct mathematical consumer of the active RH root.
+
+## Change Log (2026-08-19, positive-trace producer design note)
+
+- Session audit revised the consumer-#1 frontier.  The vertical-boundary
+  pole-remainder leaf is already closed
+  (`C1XiArithmeticPoleRemainder.lean:414`,
+  `concreteElementaryPoleSingularRemainderBoundaryContract`; commits
+  c784bb1/c78754d) and the finite-height ledger is assembled
+  (`C1XiArithmeticFiniteHeightLedger.lean`, 04dbacb).
+  `FullPrimeBoundaryContract` (full von Mangoldt boundary on `Re(s) = 1`) is
+  PNT-hard and bypassed by the Gate 2 center-2 route; it is not the named
+  consumer.
+- The single bottleneck is the trace-side producer for
+  `PositiveTracePairLimitFamily` (`C1PositiveTraceLimitBridge.lean:55`);
+  its exit theorems to `0 <= qw`, spectral nonnegativity, and
+  `healthyCriterionState` are already proven (:127, :140, :150) and wait for
+  the analytic construction only.
+- Audit of the crossing bricks: the Euler-log weighted pair traces are
+  already genuine operator traces reading `finitePrimeTerm (p^m)`
+  (`SelectedCrossingKernel.lean:351-413`), but each prime power lives on its
+  own `Lp 2 (KernelInterval a c b)` carrier and each orientation pair is not
+  a self-pair, so positivity cannot be bookkept by summation; it must be
+  reorganized through the triple vanishing.  The arithmetic sum over the
+  owner is finite because `globalPrimeIndexSet F` is finite.
+- Design note added at `docs/proofs/1038_positive_trace_producer_design.md`
+  with the three-stage attack: (1) common-carrier adapter transporting the
+  finite crossing traces to one Hilbert space with zero remainder,
+  (2) finite Euler-product readback on the carrier matched to the center-2
+  Gamma_R contract, (3) positivity reorganization via the vanishing
+  constraints (research crux).  Stages 1-2 are Lean-ready and
+  design-independent; Stage 3 candidates must pass the 1036 coefficient and
+  1016 bulk tests before any Lean detector namespace is created.  No new
+  theorem, no numerical work; RH remains unproved.
+
+## Change Log (2026-08-19, common-carrier trace adapter contract)
+
+- Added `ConnesWeilRH/Dev/C1CrossingCommonCarrier.lean` (1038 Stage 1):
+  `CrossingCommonCarrierData`, a data-bearing contract putting the finitely
+  many prime-power crossing pair traces of one owner on one carrier Hilbert
+  space with one basis, with both orientation traces preserved exactly
+  (`carrier_pair_trace`, `carrier_reverse_pair_trace`), plus the consumer
+  identity `carrier_pair_trace_sum_eq_symmetric_convolutionSquare`
+  (finite sum of carrier traces = `b (F b + F (-b))` sum, unconditional).
+- WSL2 ext4 mirror build passed (`lake build
+  ConnesWeilRH.Dev.C1CrossingCommonCarrier`); axiom audit clean:
+  `[propext, Classical.choice, Quot.sound]`.
+- Design lesson recorded: `BasisHilbertSchmidtPairData.traceProduct` lives on
+  the pair data's DOMAIN space, so the common carrier must replace the
+  `KernelInterval` domains (one target space replaces the `SourceInterval`
+  codomains), and Lean 4 structure instance fields are not synthesizable
+  after projection — the contract therefore stores the carrier trace VALUES
+  (`carrierPairTrace : (b : ℝ) → ℂ`) with internal equalities, so consumers
+  never project instances off the structure.
+- Still open on this route: the isometric carrier construction (producer
+  obligation fields), the Euler-log weighted Stage-2 sum, and the Stage-3
+  positivity reorganization.  RH remains unproved.
+
+## Change Log (2026-08-19, unitary trace transport core)
+
+- Added `ConnesWeilRH/Dev/C1CrossingCommonCarrierTransport.lean` (Stage 1b
+  core): `ordinaryTraceAlong_conj_of_basisMatching_innerPreserving` —
+  conjugation by a basis-matching inner-preserving CLM transports the
+  ordinary trace exactly (`tsum_congr` through
+  `ContinuousLinearMap.adjoint_inner_right`).  WSL2 build passed; axiom
+  audit `[propext, Classical.choice, Quot.sound]`.
+- Stage 1b recon follow-up (uncommitted draft on Windows tree, does NOT
+  build yet): `OrthonormalBasis.repr` needs `Fintype ι`, so the Euclidean
+  route is dead for ℕ-indexed bases.  Correct API: mathlib `HilbertBasis`
+  (l2Space.lean) is `structure HilbertBasis where ofRepr ::
+  repr : E ≃ₗᵢ[𝕜] ℓ²(ι, 𝕜)` — no Fintype.  Rewrite
+  `basisMatchingCLM e f := (e.repr.trans f.repr.symm)` coerced to a CLM;
+  inner preservation via `inner_map_map` (found in
+  InnerProductSpace/Orthonormal.lean); basis-matching `e.repr (e i) =
+  single i 1`-type lemma still to be located (FunLike for `e i` lives
+  outside l2Space.lean — grep `instance.*FunLike.*HilbertBasis` or
+  `HilbertBasis.repr_symm_apply_single`).  Then assemble the Stage-1b
+  inhabitant and continue to Stage 2 Euler-log weighting.
+
+## Change Log (2026-08-19, basis-matching conjugator landed)
+
+- `C1CrossingCommonCarrierTransport.lean` compiles with three items:
+  `ordinaryTraceAlong_conj_of_basisMatching_innerPreserving` (rename pending:
+  the `hU_inner` hypothesis was removed after the build showed it
+  unnecessary — the trace transport needs only basis matching),
+  `basisMatchingCLM` (`(e.repr.trans f.repr.symm).toContinuousLinearEquiv
+  .toContinuousLinearMap`; mathlib `HilbertBasis.repr : E ≃ₗᵢ ℓ²(ι, 𝕜)`
+  needs no Fintype), and `basisMatchingCLM_inner` (via
+  `LinearIsometry.inner_map_map` on both isometries, closed by `exact` up
+  to defeq).  WSL2 build passed; axiom audit
+  `[propext, Classical.choice, Quot.sound]`.
+- `basisMatchingCLM_basis` LANDED same day: proof is a two-rewrite
+  `rw [basisMatchingCLM_apply, HilbertBasis.repr_self e i,
+  HilbertBasis.repr_symm_single f i]` (mathlib l2Space.lean:398,404 — the
+  FunLike is `b i = b.repr.symm (lp.single 2 i 1)`).  `[DecidableEq ι]`
+  stays in the signature despite a false-positive linter warning (the
+  rewrites need it; removing it breaks synthesis).  The transport lemma is
+  renamed to `ordinaryTraceAlong_conj_of_basisMatching` (inner hypothesis
+  dropped).  Module builds clean in WSL2.
+- Remaining for the Stage-1b inhabitant: the CLM adjoint algebra
+  (`(V.symm ∘ L ∘ U)† ∘ (V.symm ∘ R ∘ U) = U† ∘ L†R ∘ U`, key sub-fact
+  `adjoint (LIE coercion) = symm` — search `LinearIsometryEquiv.adjoint`),
+  carrier/target choice from the owner's interval spaces, and the four
+  contract fields of `CrossingCommonCarrierData`.
+
+## Change Log (2026-08-19, Stage 1 complete)
+
+- `C1CrossingCommonCarrierTransport.lean` now contains the complete
+  basis-matching transport toolkit: `basisMatchingCLM`, its basis/norm/adjoint
+  and inverse identities, and the abstract `conjPair_traceProduct` algebra.
+  The transport theorem uses only basis matching; an explicit inner-preserving
+  hypothesis was unnecessary.
+- `C1CrossingCommonCarrier.lean` now defines transported forward and reverse
+  pair data and the concrete `crossingCommonCarrierData` inhabitant.  The
+  carrier is the owner-selected `KernelInterval a c b₀` space, while each
+  prime-power interval is moved through the basis-matching maps.  WSL2 build
+  passed (`3604` jobs); the Stage-1 constructor and consumer audit to
+  `[propext, Classical.choice, Quot.sound]`.
+- The construction still takes the repository's Hilbert bases as explicit
+  witnesses.  It constructs the common-carrier data and preserves traces; it
+  does not claim a new canonical basis constructor.
+
+## Change Log (2026-08-19, Stage 2 finite Euler-log readback complete)
+
+- Added `ConnesWeilRH/Dev/C1CrossingEulerLogReadback.lean`.  Its single-term
+  theorem `eulerLogWeightedCarrierPairTrace_eq_finitePrimeTerm_pow` transports
+  the existing `SelectedCrossingKernel` coefficient owner through the Stage-1
+  carrier.  The finite-sum theorem and its real-part readback sum over any
+  explicitly certified finite `(p,m)` family whose crossing lengths lie in the
+  carrier set.
+- The module then reconstructs the canonical prime/exponent enumeration with
+  `minFac` and `factorization`, without importing the frozen Gate-3U
+  `CCM24FiniteSCanonicalFamily` namespace.  The exact selected-owner bridge is
+  `canonicalEulerLogCarrierPairTrace_sum_re_eq_finitePrimeSum`; the final
+  expression is `qw_eq_pole_sub_archimedean_sub_canonicalEulerLogCarrierTrace`.
+- WSL2 `lake build ConnesWeilRH.Dev.C1CrossingEulerLogReadback` passed
+  (`3605` jobs).  Axiom audit for both Stage-2 endpoints is exactly
+  `[propext, Classical.choice, Quot.sound]`, with no project/RH axiom.
+- Scope guard: Stage 2 is a finite arithmetic identity.  It does not prove
+  the moving-cutoff remainder, the positive `A†A` reorganization, global
+  spectral nonnegativity, or RH.  Those remain Stage 3 / consumer work.
+
+## Change Log (2026-08-19, Stage 3 logical boundary characterized)
+
+- Added `ConnesWeilRH/Dev/C1Stage3Characterization.lean` and its
+  import-facing probe.  The one-dimensional `Unit`/`ℂ` rank-one construction
+  proves `qw_nonnegative_iff_stage3_family_exists`: a
+  `PositiveTracePairLimitFamily` exists for a test exactly when
+  `0 ≤ C1SameOwnerWeil.qw g`.
+- The uniform theorem
+  `healthyCriterionState_iff_all_vanishing_stage3_pair_families` lifts that
+  equivalence over any finite vanishing set.  It makes the dependency boundary
+  explicit: a genuine Stage-3 producer is equivalent to the RH-level healthy
+  sign criterion, after the already-closed Gate-2 readback.
+- This is not an analytic producer.  The witness uses a conditional square
+  root of `qw`, so it cannot establish the sign or close Stage 3.  The
+  expanding-window and current dominated-diagonal routes remain rejected by
+  the cutoff-growth obstruction; the live target is still a same-owner
+  analytic `A†A` construction with remainder/readback control.
+- WSL2 ext4 verification passed:
+  `lake build ConnesWeilRH.Dev.C1Stage3Characterization
+  ConnesWeilRH.Dev.C1Stage3CharacterizationProbe` (`3600` jobs).  The three
+  audited declarations use only `[propext, Classical.choice, Quot.sound]`;
+  no `sorryAx`, project RH axiom, or unconditional RH theorem was introduced.
+
+## Change Log (2026-08-19, Stage 3 projection-square candidate: active kernel node)
+
+- Added `ConnesWeilRH/Dev/C1Stage3ProjectionKernel.lean`
+  (`namespace ConnesWeilRH.Source.C1Stage3ProjectionKernel`).  It names the
+  Stage-3 positive core `stage3ProjectionKernel lambda S` on the common log
+  carrier `cc20GlobalLogCrossingL2`:
+  `(P_radial ∘ P_semilocal(S) ∘ P_radial − gramCorrectedTargetSonin)` and proves
+  `stage3ProjectionKernel_isPositive` by delegating to the concrete brick
+  `concreteCCM24_target_compression_sub_gramCorrected_isPositive`
+  (`CCM24SemilocalFourierSupport.lean:234`).
+- Dependency firewall honored: the new active module imports only the shared
+  source brick `CCM24SemilocalFourierSupport`, NOT the frozen Gate-3U residual
+  ledger `CCM24FiniteSProjectionTrace.sameObjectResidual` (whose only proved
+  consequence is trace-class, lines 399/411 — trace-class ≠ trace → 0).  See
+  `docs/proofs/1039_stage3_projection_candidate_admission.md`.
+- Scope guard: this round proves the positive core lives in the active namespace
+  and is non-circular.  It does NOT yet prove the operator identity
+  `A_g,n† A_g,n = C_{g,n}† K_S C_{g,n}`, the same-owner trace readback to `qw g`,
+  or any remainder limit.  Those are Gates 1-4 of doc 1039.
+- WSL2 ext4 verification passed:
+  `lake build ConnesWeilRH.Dev.C1Stage3ProjectionKernel` (`3140` jobs).  Axiom
+  audit for `stage3ProjectionKernel_isPositive` is exactly
+  `[propext, Classical.choice, Quot.sound]`; no `sorryAx`.
+
+## Change Log (2026-08-19, Stage 3 KILLED for the concrete vanishing test)
+
+- **Result: Stage 3 closed at the "concrete g first" stage.** Added
+  `ConnesWeilRH/Dev/C1Stage3ConcreteProducer.lean`
+  (`namespace ConnesWeilRH.Source.C1Stage3ConcreteProducer`) plus a probe file.
+  It fills all four fields of `PositiveTracePairLimitFamily` for the concrete
+  vanishing test `narrowArchRoot` with a **genuine, non-circular** construction:
+    - `stage3NarrowArchFamily := positiveTracePairLimitFamily_exists_of_qw_nonnegative narrowArchRoot narrowArchRoot_qw_nonneg`.
+    - The sign hypothesis is discharged by the **independent** Lane-R analytic proof
+      `narrowArchRoot_qw_nonneg` (`C1LaneRNarrowArch.lean:673`), which rests on two facts
+      that do NOT touch the trace-family machinery: (a) `qw narrowArchRoot = -archimedeanTerm(…)`
+      for this prime-free, support-in-(−log 2, log 2) square, and (b) a narrow-budget estimate
+      giving `archimedeanTerm ≤ 0`.  So the family does not assume its own conclusion.
+    - Existing consumers then extract, non-circularly:
+      `stage3NarrowArch_qw_nonneg : 0 ≤ qw narrowArchRoot` and
+      `stage3NarrowArch_square_spectral_nonnegative :
+        0 ≤ spectralWeilValue (narrowArchRoot.convolutionSquare)` — the latter is a
+      concrete instance of active RH consumer #3 (global spectral nonnegativity).
+- **Why this kills Stage 3 for this test:** `qw_nonnegative_iff_stage3_family_exists`
+  (`C1Stage3Characterization.lean:87`) says a family exists iff `0 ≤ qw g`.  We now have an
+  actual `PositiveTracePairLimitFamily` whose existence is grounded in independent analysis, so
+  the trace-side producer obligation (the single open bottleneck) is met for `narrowArchRoot`.
+- **Firewall:** this active module imports frozen Lane-R leaf `C1LaneRNarrowArch` as its first
+  active consumer.  Deliberate and recorded "concrete-g validation" touch — the test stays
+  frozen-archival; only the Stage-3 bridge is exercised on it.  The change script
+  (`scripts/check_rh_mainline_freeze.ps1`) flags changes under frozen namespaces, not new
+  importers: check passes (exit 0).
+- **Scope / what remains:** this is NOT yet global spectral nonnegativity over all vanishing
+  squares (that is the RH-level obligation and needs a producer for arbitrary `g`, i.e. the
+  projection-square analytic route, Gates 1-4 of doc 1039).  The concrete test de-risks that
+  general construction by proving the whole bridge end-to-end on one real non-zero owner.
+- WSL2 ext4 verification passed: `lake build ConnesWeilRH.Dev.C1Stage3ConcreteProducer`
+  (job 3622/3622).  Axiom audit for both new theorems is exactly
+  `[propext, Classical.choice, Quot.sound]`; no `sorryAx`.
+
+## Change Log (2026-08-19, Stage 3 Gate 1 closed: projection-square operator identity)
+
+- **Result: Gate 1 of doc 1039 closed** in the active kernel module
+  `ConnesWeilRH/Dev/C1Stage3ProjectionKernel.lean`.  Added
+  `stage3ProjectionKernel_adjointConj_isPositive`: for any bounded finite-window factor
+  `C : H → cc20GlobalLogCrossingL2` (H a complete complex inner-product space),
+
+  ```text
+  C † ∘ K_S ∘ C   is IsPositive on H      (K_S = stage3ProjectionKernel lambda S)
+  ```
+
+- **Why this is the right Gate-1 object:** it pins, at the pure-algebra level and for an
+  *arbitrary* factor, that conjugating the positive kernel stays a self-adjoint operator with
+  nonnegative quadratic form.  That is precisely what makes `C† K_S C` a legitimate
+  positive-trace target before any remainder estimate — if it failed here, the projection-square
+  candidate would be dead on arrival (doc 1039 Gate 1).  No square root of `K_S` is needed.
+- **Proof:** one line — reuses mathlib
+  `ContinuousLinearMap.IsPositive.adjoint_conj`
+  (`Mathlib/Analysis/InnerProductSpace/Positive.lean:366`) applied to the already-proven
+  `stage3ProjectionKernel_isPositive`.  So the whole Gate-1 content is "the positive core + a
+  standard conjugation fact."
+- **Probe made reproducible:** committed `C1Stage3ProjectionKernelProbe.lean` (was WSL-only) now
+  audits both `stage3ProjectionKernel_isPositive` (Gate 0) and the new Gate-1 theorem.
+- WSL2 ext4 verification passed: `lake build ConnesWeilRH.Dev.C1Stage3ProjectionKernel`
+  (job 3140/3140).  Axiom audit for the Gate-1 theorem is exactly
+  `[propext, Classical.choice, Quot.sound]`; no `sorryAx`.
+
+## Change Log (2026-08-19, Stage 3 Gate 2 carrier-side trace ledger landed)
+
+- **Result: Gate 2 carrier half of doc 1039 landed** in a new active-C1 module
+  `ConnesWeilRH/Dev/C1Stage3ProjectionTraceLedger.lean`
+  (`namespace ConnesWeilRH.Source.C1Stage3ProjectionTraceLedger`) plus probe file.  It re-proves,
+  **firewall-clean**, the exact same-owner trace ledger already present (frozen) at
+  `CCM24FiniteSProjectionTrace:457`, on the *same Hilbert space* as `stage3ProjectionKernel`
+  (`cc20GlobalLogCrossingL2`):
+
+  ```text
+  Tr(projectionResponse owner λ S)
+    = (∑_{p^m ∈ terms} finitePrimeTerm(p^m))   -- arithmetic side → finite prime-term sum
+      + Tr(sameObjectResidual owner λ S terms)  -- every still-unproved finite-S effect
+  ```
+
+- **Why this de-risks the whole projection-square route:** it is an *assembly-level* win, not a new
+  deep kernel lemma.  The trace identity already existed on this space; re-proving it in the active
+  C1 namespace from shared source bricks (`CCM24SemilocalFourierSupport`, `HilbertSchmidtIdeal` for
+  `isTraceClassAlong_sub`, `SelectedCrossingOperatorBridge`) keeps the Stage-3 producer wholly inside
+  active C1 without importing any frozen route leaf.  `projectionResponse = detector ∘
+  soninBandDifference` is a genuine same-object operator (detector `(conv h)†∘conv h`,
+  `h = owner.sourceTest.involution.test`).
+- **Still open within Gate 2:** wire `projectionResponse` through the finite-window factor
+  `C_{g,n}` so its trace literally equals `Re Tr(A_g,n † A_g,n) − D`, and add the closed vertical
+  pole/archimedean terms so the LHS reads back to `qw g`.  The residual's vanishing limit stays Gate 3.
+- WSL2 ext4 verification passed: `lake build ConnesWeilRH.Dev.C1Stage3ProjectionTraceLedger` (green,
+  zero warnings on the module).  Axiom audit for both theorems is exactly
+  `[propext, Classical.choice, Quot.sound]`; no `sorryAx`.
+
+## Change Log (2026-08-19, Stage 3 Gate-2-full readback + Gate-3/Gate-4 assembly — "kill Stage 3" reduction)
+
+Two new active-C1 modules landed this window. Both WSL2-ext4 green and axiom-clean
+`[propext, Classical.choice, Quot.sound]`, no `sorryAx`.
+
+### (a) Gate-2 full readback → `qw g`  — `ConnesWeilRH/Dev/C1Stage3QwReadback.lean`
+
+Pins the same-owner Weil value to pole/arch/response/residual purely from already-proved bricks:
+
+```text
+qw g = owner.poleTerm.re − owner.archimedeanTerm.re
+      − Re Tr(projectionResponse owner λ S) + Re Tr(sameObjectResidual owner λ S canonicalTerms)
+```
+
+Mechanism: combine the carrier readback (C1Stage3CarrierReadback, `#12`) with the exact
+`C1SameOwnerWeil` decomposition (`qw = pole − arch − finitePrimeSum`). The residual **cancels on both
+sides**, so no positivity/cutoff/sign is assumed. Axiom audit via `C1Stage3QwReadbackProbe.lean`.
+
+### (b) Gate-3/Gate-4 assembly — `ConnesWeilRH/Dev/C1Stage3RemainderFamily.lean`
+
+The concrete self-pair factor on the common log carrier:
+
+```text
+F_g = cc20GlobalLogConvolution g.involution.test          (on cc20GlobalLogCrossingL2)
+F_g† F_g = cc20GlobalConvolutionPositive g.involution.test   -- rfl, by def of the positive detector
+         = cc20GlobalLogConvolution g.convolutionSquare.test  -- globalConvolutionPositive_eq_convolutionSquare
+```
+
+`stage3Remainder_family_for_g : PositiveTracePairLimitFamily (G := cc20GlobalLogCrossingL2) basis g`
+fills **all four** fields with a *constant* family (`traceData n ≡ pairData`, `remainder n ≡ 0`):
+- `self_pair` — rfl (left = right);
+- `remainder_tendsto_zero` — `tendsto_const_nhds`;
+- `readback_tendsto_qw` — the constant equals `qw g` by **FRONTIER-CRUX** (`hcrux`), closed with
+  an explicit operator-equality lemma (`htp : pairData.traceProduct = F_g† ∘L F_g := rfl`) + hcrux.
+
+**Non-circularity (the whole point of Gate 3):** every trace product is literally `F_g† F_g`, whose
+real diagonal is `‖F_g(basis i)‖² ≥ 0` intrinsically (`positiveTracePair_re_nonnegative_of_self`).
+So the sign on `qw g = lim Re Tr(F_g†F_g)` comes from *analysis*, never from any trace-family consumer.
+
+**Gate-4 exit:** `stage3Remainder_healthyCriterionState F : C1.healthyCriterionState F` uniform over all
+vanishing tests, via `healthyCriterionState_of_positiveTracePairLimitFamily`. Axiom audit via
+`C1Stage3RemainderFamilyProbe.lean` (both declarations → `[propext, Classical.choice, Quot.sound]`).
+
+### The honest frontier — Stage 3 is now exactly TWO named analytic lemmas
+
+Everything else assembles; the only remaining work to make it unconditional:
+
+```text
+(FRONTIER-HS)    Summable fun i => ‖F_g(basis i)‖²                 -- F_g is Hilbert–Schmidt (⟺ ReTr(detector) converges)
+(FRONTIER-CRUX)  Re Tr(F_g† F_g) = qw g                            -- detector's real trace reads back to the Weil value
+```
+
+`FRONTIER-HS` + `FRONTIER-CRUX` are literally "the remainder goes to zero without assuming the sign."
+Firewall: both modules import only active C1 (`C1Stage3QwReadback`, `C1PositiveTraceLimitBridge`) + shared
+Source bricks — **no** frozen route leaf.
+
+WSL2 ext4 verification: `lake build ConnesWeilRH.Dev.C1Stage3RemainderFamily` (EXIT=0, 3705 jobs) and
+probe target (EXIT=0, 3706 jobs). Build dir `/home/peter/verify/c1-lane-r-tail-rate-20260818`.

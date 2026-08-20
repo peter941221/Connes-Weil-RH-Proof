@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1Stage3QwReadback
+
+#print axioms ConnesWeilRH.Source.C1Stage3QwReadback.stage3QwReadback_qw_eq_pole_sub_arch_sub_response_add_residual

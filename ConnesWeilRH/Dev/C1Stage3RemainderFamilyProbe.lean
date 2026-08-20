@@ -1,0 +1,4 @@
+import ConnesWeilRH.Dev.C1Stage3RemainderFamily
+
+#print axioms ConnesWeilRH.Source.C1Stage3RemainderFamily.stage3FamilyFactor_traceProduct_eq_positiveDetector
+#print axioms ConnesWeilRH.Source.C1Stage3RemainderFamily.stage3Remainder_healthyCriterionState

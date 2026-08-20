@@ -31,6 +31,48 @@ proves that this coverage proposition is equivalent to `SourceRH` once the
 already-proved Yoshida detector existence theorem is supplied. It is therefore
 an RH-level statement, not a lower assembly socket.
 
+### 2.1 Mainline Freeze (2026-08-19)
+
+Gate 3U, Route-A finite bands, infinite-carrier cancellation, Lane R/Gamma
+prefix experiments, numerical probes, and rejected alternative routes are
+archived and frozen. They are diagnostic context, not RH consumers. New work
+must name a direct consumer of `normalizedSelectedFinalRouteDetectorCriterionCoverageRoot`
+before implementation. Shared source files that remain imported for build
+compatibility must not gain new dependencies from frozen namespaces. Reopen a
+frozen route only after a checked theorem directly implies the active root and
+the result is recorded in `MEMORY.md`.
+
+### 2.2 Proof-First Evidence And Numerical Work Guard (2026-08-19)
+
+Substantive mathematics and formal proof take priority over numerical probing.
+Do **not** run or add a numerical experiment merely because it is convenient,
+interesting, or available.  Before any numerical work, name the exact open
+theorem or route decision it can change and the concrete acceptance/rejection
+criterion it will test.
+
+Numerical work is allowed only when at least one of these conditions holds:
+
+1. it is a bounded kill-test for a live candidate and can reject that route;
+2. it distinguishes mathematically different owners while no formal theorem
+   yet decides between them; or
+3. it is a regression check for a newly implemented concrete theorem, with the
+   formal theorem remaining the actual evidence.
+
+If an existing Lean theorem already settles the coefficient, identity, or
+ownership question, use that theorem and its audit instead of repeating a
+numerical screen.  Numerical output must never be presented as a proof of a
+limit, positivity statement, the active detector root, or RH.  Diagnostic
+probes must remain outside the RH-facing dependency graph and must not create
+new dependencies from frozen namespaces.
+
+The preferred decision order is:
+
+```text
+exact formal theorem / missing proof obligation
+  -> direct mathematical construction or counterexample
+  -> bounded numerical diagnostic only if it changes the route decision
+```
+
 The constructive route toward that root must keep one mathematically correct
 test-space owner through the log/positive coordinate change, true Mellin
 convolution, the pole and archimedean terms, all prime-power terms, the explicit
@@ -74,6 +116,64 @@ theorem now rules out `CutoffDominatedTraceWitness g globalBasis` whenever
 finite-window convergence mechanism. The concrete cutoff remainder estimate
 and same-owner analytic readback remain open.
 
+### C1 Common-Carrier Stages 1-2 (2026-08-19)
+
+The finite arithmetic part of the positive-trace producer is now closed as a
+separate, axiom-clean readback layer:
+
+```text
+Stage 1  crossingCommonCarrierData                     CLOSED
+         basis-matching CLM transport and trace fields
+Stage 2  C1CrossingEulerLogReadback                    CLOSED
+         canonical finite prime-power enumeration and
+         Euler-log carrier trace = finitePrimeSum/qw decomposition
+Stage 3  positive A†A reorganization and cutoff limit  OPEN
+```
+
+`C1Stage3Characterization` records the exact logical boundary: for the
+one-dimensional `Unit`/`ℂ` witness, a `PositiveTracePairLimitFamily` exists
+for a test iff `0 ≤ C1SameOwnerWeil.qw g`, and uniformly over a finite
+vanishing set this is equivalent to `healthyCriterionState`.  The witness is
+conditional and rank-one; it is a characterization of the RH-level sign, not
+the required same-owner analytic producer or a closure of Stage 3.
+
+`C1CrossingEulerLogReadback` depends only on the active C1 owner,
+`SelectedCrossingKernel`, and mathlib prime-power factorization.  It does not
+import the frozen Gate-3U finite-S family.  Its endpoint is the exact finite
+identity
+
+```text
+qw g = poleTerm (g * g) - archimedeanTerm (g * g)
+       - Re (finite Euler-log carrier trace)
+```
+
+with carrier data and support containment explicit in the theorem
+hypotheses.  This closes neither the moving-cutoff remainder nor positivity;
+those remain the direct `PositiveTracePairLimitFamily` consumer gap.
+
+### Stage-3 Projection-Square Candidate Kernel
+
+The projection-square candidate's positive core is now an active, non-circular
+node: `C1Stage3ProjectionKernel.stage3ProjectionKernel_isPositive` proves
+`K_S = P_radial ∘ P_semilocal(S) ∘ P_radial − gramCorrectedTargetSonin ≥ 0` on the
+common log carrier by delegating to `CCM24SemilocalFourierSupport.lean:234`.
+
+Two reusable rules from this step (doc `1039_stage3_projection_candidate_admission.md`):
+
+- **Dependency firewall:** an active C1 module may import shared source bricks
+  (`Source.CC20Concrete.*`) but must NOT take a frozen Gate-3U route leaf as a new
+  consumer.  The residual ledger
+  `CCM24FiniteSProjectionTrace.sameObjectResidual` (lines 325/339) is such a leaf;
+  re-prove any needed algebraic fact from the lower-level Sonin/prolate lemmas instead.
+
+- **Pitfall — trace-class ≠ trace → 0:** `..._isTraceClassAlong` (lines 399/411 of
+  that file) only says an operator is trace-class along a basis; it does not bound or
+  send its diagonal sum to zero.  Do not cite trace-class as a remainder limit.
+
+This round proves the positive core lives in the active namespace only.  The
+operator identity `A_g,n† A_g,n = C_{g,n}† K_S C_{g,n}`, the same-owner readback to
+`qw g`, and the remainder limit are still open (Gates 1-4 of doc 1039).
+
 ### C1 Positive-Trace Cutoff Growth Guard
 
 For the canonical symmetric cutoff, the finite-window square has the exact
@@ -95,6 +195,21 @@ Do not reintroduce that witness as if it followed from finite-window
 Hilbert--Schmidt compactness. This obstruction says nothing by itself about a
 renormalized trace, a finite-window subtraction, the cutoff remainder, or the
 same-owner analytic readback.
+
+### C1 Detector Prime-Power Kill-Test Guard
+
+The 2026-08-19 finite screen in
+`docs/proofs/1036_mellin_conjugated_detector_kill_test.md` rejects the naive
+Mellin-conjugated Hilbert commutator
+`[M_(1/2) H M_(-1/2), P_[0,L]] C_g` as a C1 detector owner: its finite trace
+has a cutoff-length bulk.  Removing the conjugation removes the sampled bulk,
+but still misses the exact `m = 2` prime-power coefficient.  Any replacement
+detector must keep one owner for `g`, `g^* * g`, and all readback terms, and must
+pass the coefficient
+`p^(-m/2) * log(p) * (F(m*log(p)) + F(-m*log(p)))` at `m = 2` before a
+remainder estimate or Lean `PositiveTraceLimitFamily` is introduced.  The
+probe is diagnostic finite-section evidence only; it does not close global
+spectral nonnegativity or RH.
 
 The completed-xi zero set is exactly the source spectral index:
 `completedRiemannXi_eq_zero_iff_sourceNontrivialZero` (in `CC20ZetaCounting`)
@@ -454,7 +569,11 @@ proved. A factor-owned finite-family certificate may shrink its inner discs
 for `T2` separation, but must retain its own outer cofactor and ambient
 support-exclusion fields.
 
-### Diagnostic Gate-3U Branch
+### Frozen Diagnostic Gate-3U Branch
+
+This entire section is historical diagnostic context. It is sealed by the
+mainline freeze above: do not extend it, promote it to an RH consumer, or use
+its finite-band result as evidence for `SourceRH`.
 
 The canonical real Gate 3U reduces exactly to a bound on the ordinary trace of
 the already-declared `sourceGramResponse` owner (Proof 264 `(AA.1)`/`(AA.32)`,
@@ -821,7 +940,14 @@ Rules:
   the FIRST `error:` is the root cause; later `Unknown identifier` cascades
   are noise. Use `grep -B3 -A10 error:` or `grep -E "^error:"`.
 - **WSL variable assignment is unreliable** in `wsl.exe -- bash -lc 'X=...; ...'`
-  (observed empty expansions); write full paths inline instead of `$VAR`.
+  (observed empty expansions); write full paths inline instead of `$VAR`. The Bash tool layer
+  additionally strips single quotes / pre-expands `$VAR` inside for-loop bodies, so a loop's own
+  variables arrive empty — use fully-literal paths and avoid loops in `wsl -d ... -- bash -lc '...'`.
+- **Distro name for `wsl -d`:** the installed distro is `Ubuntu-24.04`, not bare `Ubuntu` —
+  `wsl -d Ubuntu` fails with `WSL_E_DISTRO_NOT_FOUND`. List with `wsl -l -v` if unsure.
+- **Where mathlib oleans actually live:** modern Lake keeps each package's compiled artifacts at
+  `.lake/packages/mathlib/.lake/build`, NOT in the project tree; an empty count under the project
+  `.lake/build` does not mean a cold cache — check the per-package build dir before assuming a rebuild.
 
 ## 8a. Canonical Incremental Build Strategy
 
