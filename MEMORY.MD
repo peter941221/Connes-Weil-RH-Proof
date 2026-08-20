@@ -1,3 +1,39 @@
+## Change Log (2026-08-21, FRONTIER-HS steps 3–9 CLOSED — final sorry killed): Dev/C1Stage3FrontierHS.lean
+- Task #13 (windowed) is now FULLY closed: every step of `frontierHS_summable` is proven and the last
+  `sorry` (formerly L570, steps 3–9) is removed — there is no `sorry`/`admit` left anywhere in the file.
+  The windowed operator factor is Hilbert–Schmidt: its total mass equals `meas(W(n)) · ‖h_g‖₂² < ∞`,
+  proved entirely over ENNReal (`ℝ≥0∞`) via a Tonelli countable-sum↔integral swap, pointwise Parseval /
+  Bessel at each window point, and translation invariance.
+- Real↔ENNReal bridges that closed steps 3–9: `ENNReal.ofReal_tsum_of_nonneg` (a nonneg summable real
+  family's ℝ≥0∞ tsum = ofReal of its real tsum) for the pointwise Bessel/Parseval collapse, and
+  `ENNReal.summable_toReal` + `Summable.congr` to turn "ℝ≥0∞ tsum ≠ ⊤" into plain-ℝ `Summable`, routing
+  through `.toReal` because the `ℝ≥0 → ℝ≥0∞` coercion is not definitionally `ofReal`.
+- Elaboration traps actually hit and fixed this window (builds #9→#14):
+    (a) a comma-lambda in TERM mode — `show … = tsum (fun i : ν, cfun i x)` — Lean 4 wants `=>` there; the
+        comma form is tactic-sugar only. Fixed to `fun i : ν => cfun i x`.
+    (b) a *tactic* used in a term position: after `show P from <proof>`, `<proof>` is a term, so a bare
+        `simpa only […] using …` must become `by simpa only […] using …`.
+    (c) **hidden section-variable argument** — the big one. The file opens `namespace ConnesWeilRH.Source.`
+        `C1Stage3FrontierHS` and a `noncomputable section` with an EXPLICIT variable
+        `(globalBasis : HilbertBasis ν ℂ cc20GlobalLogCrossingL2)`. Any declaration whose type/body names
+        `globalBasis` gets it PREPENDED as a leading parameter, so `frontierCoeffSummable (v)` and
+        `frontierParseval_normSq (v)` really take `(globalBasis) (v)`: the calls must be written
+        `… globalBasis (frontierKernelVec g x)`. (`frontierKernelVec` never references `globalBasis`, so it is
+        NOT prepended and stays `frontierKernelVec g x`.) Symptom when missed: "expected HilbertBasis".
+    (d) `ENNReal.summable_toReal {f} (hsum)` has `f` IMPLICIT — passing the family positionally dropped it
+        into the `hsum : ∑' x, f x ≠ ⊤` slot; bind `(f := fac)`.
+    (e) an anonymous `_` in `pow_two_nonneg _` inside a `.congr` step minted a fresh metavar instead of
+        unifying with the norm-squared; pinned it as `(r := ‖factor i‖²)` in `ENNReal.toReal_ofReal`.
+- WSL2 ext4 incremental build of the module: GREEN (exit 0), no errors, olean produced (~953 KB). Only
+  style warnings remain (`linter.style.longLine`, and a pre-existing `unnecessarySimpa` at L606).
+- Axiom probe: threw away `_AxiomProbeHS.lean` running
+  `#print axioms ConnesWeilRH.Source.C1Stage3FrontierHS.frontierHS_summable` → exactly
+  `[propext, Classical.choice, Quot.sound]`. No `sorryAx`, no project-internal axiom — the lemma is
+  axiom-clean. NOTE: the module's *import* path is `ConnesWeilRH.Dev.C1Stage3FrontierHS` (its file location)
+  but its declared namespace is `…Source.…`; `#print axioms` must use the SOURCE name, not the import path.
+- RH NOT claimed. #13 remaining → now none for this lemma; FRONTIER-CRUX (the star/conjugation reconciliation
+  deferred to #14) stays open.
+
 ## Change Log (2026-08-20, FRONTIER-HS step (ii) hcolInt closed): Dev/C1Stage3FrontierHS.lean
 - Task #13 (windowed). The per-column L¹ integrability on the restricted window, `hcolInt` inside
   `frontierHS_summable`, is now fully closed: each column

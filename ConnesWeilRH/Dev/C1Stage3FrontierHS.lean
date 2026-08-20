@@ -566,8 +566,96 @@ theorem frontierHS_summable (n : Nat) (g : CompactLogTest) :
     exact ⟨hfcont.aestronglyMeasurable,
       HasFiniteIntegral.restrict_of_bounded (‖globalBasis i‖ ^ 2 * mass) hWfin hf⟩
 
-  -- TEMP (grinding frontierHS_summable): rest of the proof to be filled in.
-  sorry
+  -- Steps 3–9: work over the window's restricted Lebesgue measure throughout; this removes every indicator / `if x ∈ W`
+  -- case split and lets the Tonelli swap (`lintegral_tsum`) need only pointwise a.e.-measurability.
+  let μW : Measure ℝ := volume.restrict W
+  have hfinμ : IsFiniteMeasure μW := frontierWindow_finiteMeasure n
+  set cfun : ν → ℝ → ℝ := fun (i : ν) (x : ℝ) => ‖⟪globalBasis i, frontierKernelVec g x⟫‖ ^ 2 with hcfundef
+  have hcfunnn (i : ν) (x : ℝ) : 0 ≤ cfun i x := by simpa only [hcfundef] using pow_two_nonneg _
+  set F : ν → ℝ → ℝ≥0∞ := fun (i : ν) (x : ℝ) => ENNReal.ofReal (cfun i x) with hFdef
+
+  -- (iii) per-column lintegral finiteness: `x ↦ |⟨e_i,w_x⟩|²` is pointwise bounded by the constant
+  --      `‖e_i‖² · mass` on W, so its lintegral is at most that constant times `μW univ < ∞`.
+  have hcolFin (i : ν) : ∫⁻ x, F i x ∂μW < ∞ := by
+    -- pointwise bound via Cauchy–Schwarz (`‖w_x‖² = mass`, translation-invariance):
+    have hbnd (x : ℝ) : cfun i x ≤ ‖globalBasis i‖ ^ 2 * mass := by
+      simpa only [hcfundef] using by
+        calc _ ≤ (‖globalBasis i‖ * ‖frontierKernelVec g x‖) ^ 2 := by
+              gcongr <;> simpa using norm_inner_le_norm _ _
+          _ = ‖globalBasis i‖ ^ 2 * mass := by
+              rw [mul_pow, show ‖frontierKernelVec g x‖ ^ 2 = mass from by simpa only using frontierTranslatedNormSq_eq g x]
+    -- the pointwise bound is a.e.-true on W (in fact everywhere); integrate it:
+    have hae : ∀ᵐ (x : ℝ) ∂μW, F i x ≤ ENNReal.ofReal (‖globalBasis i‖ ^ 2 * mass) := by
+      simpa only [hFdef] using ae_of_all _ (by intro x; exact ENNReal.ofReal_le_ofReal (hbnd x))
+    calc ((∫⁻ x, F i x ∂μW) : ℝ≥0∞)
+        ≤ ∫⁻ x, ENNReal.ofReal (‖globalBasis i‖ ^ 2 * mass) ∂μW := by simpa using lintegral_mono_ae hae
+      _ = ENNReal.ofReal (‖globalBasis i‖ ^ 2 * mass) * μW Set.univ := by simp only [lintegral_const]
+    -- a product of two finite ℝ≥0∞ factors is still `< ∞`: the first is the coe of a real, the second a finite measure.
+      _ < ∞ := ENNReal.mul_lt_top (ENNReal.ofReal_lt_top) ((frontierWindow_finiteMeasure n).measure_univ_lt_top)
+
+  -- (iv) per-column L²↔linear-integral bridge: `‖F e_i‖²` as an extended real equals the lintegral of
+  --      its pointwise coefficient function — this is what lets Tonelli's swap run entirely in ℝ≥0∞.
+  have hcolBridge (i : ν) : ENNReal.ofReal (‖frontierWindowFactor n g (globalBasis i)‖ ^ 2) =
+      ∫⁻ x, F i x ∂μW := by
+    -- real-side identity from step (i), rewritten over the restricted measure (`∫ x in W · ≡ ∫ _ ∂(volume.restrict W) ·`).
+    have hcol : ‖frontierWindowFactor n g (globalBasis i)‖ ^ 2 = ∫ x, cfun i x ∂μW := by simpa [hcfundef] using hcolReal i
+    -- the real integral of a nonneg a.e.-measurable integrand equals the toReal of its lintegral:
+    -- nonnegativity holds everywhere, hence a.e. — written in explicit filter form to avoid the
+    -- `∀ᵐ`/`≤ᵐ[·]` modifier-letter codepoint trap (this is definitionally `0 ≤ᵐ[μW] cfun i`).
+    have hnn : Filter.Eventually (fun x => 0 ≤ cfun i x) (ae μW) := by
+      simpa [hcfundef] using ae_of_all _ (by intro x; exact pow_two_nonneg _)
+    -- `F i = ofReal ∘ (cfun i)`, so its lintegral is exactly the one appearing on the right above.
+    calc ENNReal.ofReal (‖frontierWindowFactor n g (globalBasis i)‖ ^ 2)
+        = ENNReal.ofReal (∫ x, cfun i x ∂μW) := by rw [hcol]
+      _ = ENNReal.ofReal (ENNReal.toReal (∫⁻ x, F i x ∂μW)) := by
+          rw [integral_eq_lintegral_of_nonneg_ae hnn ?_] <;> simpa [F, hcfundef] using (hcolInt i).1
+      _ = ∫⁻ x, F i x ∂μW := by
+          -- the lintegral is finite (step (iii)), so `ofReal ∘ toReal` collapses.
+          have hlt : (∫⁻ x, F i x ∂μW) < ∞ := hcolFin i
+          rw [ENNReal.ofReal_toReal (ne_of_lt hlt)]
+
+  -- (v) pointwise Parseval at each window point: for the orthonormal basis `globalBasis` and any carrier element,
+  --     `∑' |⟨e_i, v⟩|² = ‖v‖²`.  With `F i x = ofReal(cfun i x)` this is exactly what Tonelli's swap collapses to.
+  have hptEq (x : ℝ) : (∑' i : ν, F i x) = ENNReal.ofReal (‖frontierKernelVec g x‖ ^ 2) := by
+    -- The real coefficient family `cfun · x` is pointwise nonneg and summable (Bessel), so its ℝ≥0∞ tsum equals the coe of
+    -- its real tsum (`ofReal_tsum_of_nonneg`); Parseval then evaluates that real tsum at `‖w_x‖²`.
+    have hsreal : Summable fun i => cfun i x := by simpa [hcfundef] using frontierCoeffSummable globalBasis (frontierKernelVec g x)
+    calc ((∑' i : ν, F i x) : ℝ≥0∞)
+        = ENNReal.ofReal (tsum fun i => cfun i x) := by
+            simpa [hFdef] using (ENNReal.ofReal_tsum_of_nonneg (f := fun i => cfun i x) (hcfunnn · x) hsreal).symm
+      _ = ENNReal.ofReal (‖frontierKernelVec g x‖ ^ 2) := by
+            rw [show tsum (fun i : ν => cfun i x) = ‖frontierKernelVec g x‖ ^ 2 from by
+                simpa only [hcfundef] using frontierParseval_normSq globalBasis (frontierKernelVec g x)]
+
+  -- (vi) Tonelli swap + pointwise Parseval → total mass `< ∞`:
+  have hFae (i : ν) : AEMeasurable (fun x => F i x) μW := by
+    simpa [hFdef, hcfundef] using ((hcolInt i).1.aemeasurable).ennreal_ofReal
+  have htotal : (∑' i : ν, ENNReal.ofReal (‖frontierWindowFactor n g (globalBasis i)‖ ^ 2)) < ∞ := by
+    calc ((∑' i : ν, ENNReal.ofReal (‖frontierWindowFactor n g (globalBasis i)‖ ^ 2)) : ℝ≥0∞)
+        = ∑' i : ν, ∫⁻ x, F i x ∂μW := by congr with i; simpa using hcolBridge i
+      _ = ∫⁻ x, (∑' i : ν, F i x) ∂μW := by rw [← lintegral_tsum hFae]
+          -- Tonelli's swap needs every column a.e.-measurable over μW: each `F i` is `ofReal ∘ (cfun i)`, and
+          -- `cfun i` is integrable (`hcolInt`), so `.aemeasurable.ennreal_ofReal` supplies the measurability —
+          -- pre-proven as `hFae` above and passed explicitly, avoiding a side-goal inside this calc.
+      _ = ∫⁻ x, ENNReal.ofReal (‖frontierKernelVec g x‖ ^ 2) ∂μW := by congr; funext x; simpa using hptEq x
+        -- the squared translate mass is independent of `x` (`‖w_x‖² = mass`, translation invariance):
+      _ = ∫⁻ x, ENNReal.ofReal mass ∂μW := by
+          congr; funext x
+          have h : ‖frontierKernelVec g x‖ ^ 2 = mass := by simpa only using frontierTranslatedNormSq_eq g x
+          rw [h]
+        -- a constant's lintegral is the constant times the total measure:
+      _ = ENNReal.ofReal mass * μW Set.univ := by simp only [lintegral_const]
+        -- both factors are finite ℝ≥0∞, so their product is `< ∞`:
+      _ < ∞ := ENNReal.mul_lt_top (ENNReal.ofReal_lt_top) ((frontierWindow_finiteMeasure n).measure_univ_lt_top)
+
+  -- (vii) conclude `Summable` from the extended-real tsum being finite: a nonneg real family is summable iff its
+  --       ℝ≥0∞-tsum is not top (`tsum_coe_ne_top_iff_summable_coe`, which lands over plain ℝ).
+  -- Name the ENNReal coefficient family so the "finite tsum ⟹ summable of its real part" bridge is explicit:
+  -- the `ℝ≥0 → ℝ≥0∞` coercion is *not* definitionally `ofReal`, so we route through `.toReal` + `Summable.congr`.
+  set fac : ν → ℝ≥0∞ := fun i => ENNReal.ofReal (‖frontierWindowFactor n g (globalBasis i)‖ ^ 2) with hfadef
+  have hneTop : ∑' i, fac i ≠ ⊤ := by simpa [hfadef] using ne_of_lt htotal
+  exact (ENNReal.summable_toReal (f := fac) hneTop).congr
+      (fun i => by simpa [hfadef] using ENNReal.toReal_ofReal (r := ‖frontierWindowFactor n g (globalBasis i)‖ ^ 2) (pow_two_nonneg _))
 
 end
 
