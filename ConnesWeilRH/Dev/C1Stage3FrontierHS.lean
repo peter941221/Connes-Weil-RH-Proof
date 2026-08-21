@@ -732,6 +732,199 @@ theorem frontierHS_summable (n : Nat) (g : CompactLogTest) :
   exact (ENNReal.summable_toReal (f := fac) hneTop).congr
       (fun i => by simpa [hfadef] using ENNReal.toReal_ofReal (r := ‖frontierWindowFactor n g (globalBasis i)‖ ^ 2) (pow_two_nonneg _))
 
+/-! ### Mass readback (P0-a): the windowed factor's Hilbert–Schmidt mass is exactly `meas(W(n)) · ‖h_g‖₂²`. -/
+
+/-- The real Lebesgue measure of the expanding log-window `W(n)` equals its length `2·log(frontierWindowParam n)`.
+Because `frontierWindowParam n = ↑(n+2) → +∞`, this is what makes the windowed-mass readback below diverge as
+`n → ∞` (the logarithm tends to `+∞`). -/
+theorem frontierWindow_realVolume (n : Nat) :
+    volume.real (frontierWindow n) = 2 * Real.log (frontierWindowParam n) := by
+  rw [frontierWindow, cc20LogWindow]   -- W(n) = Icc (-log λ) (log λ),  λ := frontierWindowParam n > 1.
+  have hpos : 0 < Real.log (frontierWindowParam n) := Real.log_pos (frontierWindowParam_gt_one n)
+  rw [Measure.real, Real.volume_Icc]
+  · simp only [ENNReal.toReal_ofReal (show 0 ≤ Real.log (frontierWindowParam n) - -(Real.log (frontierWindowParam n)) from by linarith)]   -- interval length `2·log λ ≥ 0`.
+    ring
+
+/-- **P0-a mass readback.** The squared Hilbert–Schmidt columns of the windowed factor sum to exactly the kernel's
+section energy over the window, which — by translation invariance (`frontierTranslatedNormSq_eq`) — is the constant
+`‖h_g‖₂²` integrated against the window: `meas(W(n)) · ‖h_g‖₂²`.  This exposes the *real-valued equality* form of the
+total-mass computation inside `frontierHS_summable`, so the moving-cutoff limit (P2) can be stated cleanly: the windowed
+trace is **purely** `window-length × mass` with no other term — which is exactly why plain windowing alone cannot read
+back to the finite Weil value `qw g` (kill-test 1016, made Lean-explicit). -/
+theorem frontierWindowFactor_hsMass_eq (n : Nat) (g : CompactLogTest) :
+    ∑' i, ‖frontierWindowFactor n g (globalBasis i)‖ ^ 2 =
+      volume.real (frontierWindow n) * ∫ t, ‖(g.involution).test t‖ ^ 2 := by
+  let W : Set ℝ := frontierWindow n
+  have hWmeas : MeasurableSet W := by simpa only [W] using measurableSet_cc20LogWindow _
+  set mass := ∫ t, ‖(g.involution).test t‖ ^ 2 with hmassdef
+  let μW : Measure ℝ := volume.restrict W
+  have hfinμ : IsFiniteMeasure μW := frontierWindow_finiteMeasure n
+
+  -- (i) real column identity: `‖F e_i‖²` is the window-restricted integral of `|⟨e_i, w_x⟩|²`.
+  set cfun : ν → ℝ → ℝ := fun (i : ν) (x : ℝ) => ‖(⟪globalBasis i, frontierKernelVec g x⟫ : ℂ)‖ ^ 2 with hcfundef
+  have hcolReal (i : ν) : ‖frontierWindowFactor n g (globalBasis i)‖ ^ 2 = ∫ x in W, cfun i x := by
+    dsimp only [frontierWindowFactor]
+    have hlp := frontierLp2NormSq (frontierWindowFactor_memLp n g (globalBasis i))
+    rw [hlp, ← MeasureTheory.integral_indicator hWmeas]
+    -- pointwise, |f(x)|² is the window indicator of `cfun i x` (both ites share membership in W):
+    have hp (x : ℝ) : ‖(if hx : x ∈ frontierWindow n then ⟪globalBasis i, frontierKernelVec g x⟫ else 0)‖ ^ 2 =
+        W.indicator (fun _ => cfun i x) x := by
+      by_cases h : x ∈ frontierWindow n <;> simp [h, W, Set.indicator, norm_zero, hcfundef] <;> norm_num
+    rw [funext hp]
+    rfl
+
+  -- (ii) per-column integrability on the window: continuous + bounded-by-a-constant on a finite measure.
+  have hcolInt (i : ν) : Integrable (cfun i) μW := by
+    dsimp only [Integrable, cfun]   -- AEStronglyMeasurable ∧ HasFiniteIntegral, over the restricted window measure.
+    -- continuity in x: joint continuity of the inner product with one leg fixed to the basis vector.
+    have hwcont : Continuous fun x => frontierKernelVec g x := (frontierKernelVec_uniformContinuous g).continuous
+    -- annotate the constant leg's domain as ℝ: an unbounded `fun _` leaves its codomain-of-domain a metavariable,
+    -- so `[TopologicalSpace ?m]` cannot resolve (`continuous_const` needs it).
+    have hconst : Continuous (fun (_ : ℝ) => (globalBasis i : cc20GlobalLogCrossingL2)) := continuous_const
+    have hA : Continuous fun (x : ℝ) => (⟪globalBasis i, frontierKernelVec g x⟫ : ℂ) := by
+      exact Continuous.inner (𝕜 := ℂ) (E := cc20GlobalLogCrossingL2) hconst hwcont
+    -- the squared coefficient is continuous (norm of a continuous map, then square).
+    have hfcont : Continuous fun (x : ℝ) => ‖(⟪globalBasis i, frontierKernelVec g x⟫ : ℂ)‖ ^ 2 := by
+      have hnormC : Continuous (fun (x : ℝ) => ‖(⟪globalBasis i, frontierKernelVec g x⟫ : ℂ)‖) := continuous_norm.comp hA
+      simpa only [pow_two] using Continuous.mul hnormC hnormC
+    -- the window has finite real measure.
+    have hWfin : volume W < ∞ := by
+      simpa [Measure.restrict_apply_univ] using (frontierWindow_finiteMeasure n).measure_univ_lt_top
+    -- a uniform, x-independent bound: Cauchy–Schwarz + `‖w_x‖² = mass`.
+    have hb (x : ℝ) : abs (‖(⟪globalBasis i, frontierKernelVec g x⟫ : ℂ)‖ ^ 2) ≤ ‖globalBasis i‖ ^ 2 * mass := by
+      have hsqw : ‖frontierKernelVec g x‖ ^ 2 = mass := by simpa only using frontierTranslatedNormSq_eq g x
+      rw [abs_of_nonneg (by positivity)]   -- the integrand is a square, hence ≥ 0.
+      calc _ ≤ (‖globalBasis i‖ * ‖frontierKernelVec g x‖) ^ 2 := by gcongr <;> simpa using norm_inner_le_norm _ _
+        _ = ‖globalBasis i‖ ^ 2 * mass := by rw [mul_pow, hsqw]
+    have hf : ∀ᵐ (x : ℝ) ∂μW, abs (‖(⟪globalBasis i, frontierKernelVec g x⟫ : ℂ)‖ ^ 2) ≤ ‖globalBasis i‖ ^ 2 * mass := by
+      simpa using ae_of_all _ hb
+    exact ⟨hfcont.aestronglyMeasurable, HasFiniteIntegral.restrict_of_bounded (‖globalBasis i‖ ^ 2 * mass) hWfin hf⟩
+
+  -- (iii) per-column L²↔linear-integral bridge.
+  set F : ν → ℝ → ℝ≥0∞ := fun (i : ν) (x : ℝ) => ENNReal.ofReal (cfun i x) with hFdef
+
+  -- per-column lintegral finiteness: `x ↦ |⟨e_i,w_x⟩|²` is pointwise bounded by the constant `‖e_i‖² · mass` on W, so its
+  --     lintegral is at most that constant times `μW univ < ∞`.
+  have hcolFin (i : ν) : ∫⁻ x, F i x ∂μW < ∞ := by
+    -- pointwise bound via Cauchy–Schwarz (`‖w_x‖² = mass`, translation-invariance):
+    have hbnd (x : ℝ) : cfun i x ≤ ‖globalBasis i‖ ^ 2 * mass := by
+      simpa only [hcfundef] using by
+        calc _ ≤ (‖globalBasis i‖ * ‖frontierKernelVec g x‖) ^ 2 := by
+              gcongr <;> simpa using norm_inner_le_norm _ _
+          _ = ‖globalBasis i‖ ^ 2 * mass := by
+              rw [mul_pow, show ‖frontierKernelVec g x‖ ^ 2 = mass from by simpa only using frontierTranslatedNormSq_eq g x]
+    -- the pointwise bound is a.e.-true on W (in fact everywhere); integrate it:
+    have hae : ∀ᵐ (x : ℝ) ∂μW, F i x ≤ ENNReal.ofReal (‖globalBasis i‖ ^ 2 * mass) := by
+      simpa only [hFdef] using ae_of_all _ (by intro x; exact ENNReal.ofReal_le_ofReal (hbnd x))
+    calc ((∫⁻ x, F i x ∂μW) : ℝ≥0∞)
+        ≤ ∫⁻ x, ENNReal.ofReal (‖globalBasis i‖ ^ 2 * mass) ∂μW := by simpa using lintegral_mono_ae hae
+      _ = ENNReal.ofReal (‖globalBasis i‖ ^ 2 * mass) * μW Set.univ := by simp only [lintegral_const]
+    -- a product of two finite ℝ≥0∞ factors is still `< ∞`: the first is the coe of a real, the second a finite measure.
+      _ < ∞ := ENNReal.mul_lt_top (ENNReal.ofReal_lt_top) ((frontierWindow_finiteMeasure n).measure_univ_lt_top)
+
+  have hcolBridge (i : ν) : ENNReal.ofReal (‖frontierWindowFactor n g (globalBasis i)‖ ^ 2) = ∫⁻ x, F i x ∂μW := by
+    have hcol : ‖frontierWindowFactor n g (globalBasis i)‖ ^ 2 = ∫ x, cfun i x ∂μW := by simpa [hcfundef] using hcolReal i
+    -- the integrand is nonneg everywhere, hence a.e. on the window:
+    have hnn : Filter.Eventually (fun x => 0 ≤ cfun i x) (ae μW) := by
+      simpa [hcfundef] using ae_of_all _ (by intro x; exact pow_two_nonneg _)
+    calc ENNReal.ofReal (‖frontierWindowFactor n g (globalBasis i)‖ ^ 2)
+        = ENNReal.ofReal (∫ x, cfun i x ∂μW) := by rw [hcol]
+      _ = ENNReal.ofReal (ENNReal.toReal (∫⁻ x, F i x ∂μW)) := by
+          rw [integral_eq_lintegral_of_nonneg_ae hnn ?_] <;> simpa [F, hcfundef] using (hcolInt i).1
+      _ = ∫⁻ x, F i x ∂μW := by
+          -- the lintegral is finite (bounded-by-a-constant on a finite measure), so `ofReal ∘ toReal` collapses.
+          have hlt : (∫⁻ x, F i x ∂μW) < ∞ := hcolFin i
+          rw [ENNReal.ofReal_toReal (ne_of_lt hlt)]
+
+  -- (iv) pointwise Parseval at each window point: `∑' |⟨e_i, w_x⟩|² = ‖w_x‖²`.
+  have hptEq (x : ℝ) : (∑' i : ν, F i x) = ENNReal.ofReal (‖frontierKernelVec g x‖ ^ 2) := by
+    have hsreal : Summable fun i => cfun i x := by simpa [hcfundef] using frontierCoeffSummable globalBasis (frontierKernelVec g x)
+    calc ((∑' i : ν, F i x) : ℝ≥0∞)
+        = ENNReal.ofReal (tsum fun i => cfun i x) := by
+            simpa [hFdef] using (ENNReal.ofReal_tsum_of_nonneg (f := fun i => cfun i x) (fun i => pow_two_nonneg _) hsreal).symm
+      _ = ENNReal.ofReal (‖frontierKernelVec g x‖ ^ 2) := by
+            rw [show tsum (fun i : ν => cfun i x) = ‖frontierKernelVec g x‖ ^ 2 from by
+                simpa only [hcfundef] using frontierParseval_normSq globalBasis (frontierKernelVec g x)]
+
+  -- (v) Tonelli swap + pointwise Parseval → the total mass equals `mass` times the window measure.
+  have hFae (i : ν) : AEMeasurable (fun x => F i x) μW := by
+    simpa [hFdef, hcfundef] using ((hcolInt i).1.aemeasurable).ennreal_ofReal
+  have htotal_eq : (∑' i : ν, ENNReal.ofReal (‖frontierWindowFactor n g (globalBasis i)‖ ^ 2)) =
+      ENNReal.ofReal mass * μW Set.univ := by
+    calc ((∑' i : ν, ENNReal.ofReal (‖frontierWindowFactor n g (globalBasis i)‖ ^ 2)) : ℝ≥0∞)
+        = ∑' i : ν, ∫⁻ x, F i x ∂μW := by congr with i; simpa using hcolBridge i
+      _ = ∫⁻ x, (∑' i : ν, F i x) ∂μW := by rw [← lintegral_tsum hFae]
+      -- pointwise Parseval at each window point replaces the per-column sum with the section norm:
+      _ = ∫⁻ x, ENNReal.ofReal (‖frontierKernelVec g x‖ ^ 2) ∂μW := by congr; funext x; simpa using hptEq x
+      -- translation invariance makes the section mass the constant `mass` (`frontierTranslatedNormSq_eq`):
+      _ = ∫⁻ x, ENNReal.ofReal mass ∂μW := by
+          congr; funext x
+          have h : ‖frontierKernelVec g x‖ ^ 2 = mass := by simpa only using frontierTranslatedNormSq_eq g x
+          rw [h]
+      -- a constant's lintegral is the constant times the total measure:
+      _ = ENNReal.ofReal mass * μW Set.univ := by simp only [lintegral_const]
+
+  -- (vi) read both finite sides back to ℝ.
+  have hlhs : ENNReal.toReal ((∑' i : ν, ENNReal.ofReal (‖frontierWindowFactor n g (globalBasis i)‖ ^ 2))) =
+      ∑' i, ‖frontierWindowFactor n g (globalBasis i)‖ ^ 2 := by
+    have hsumEN : (∑' i : ν, ENNReal.ofReal (‖frontierWindowFactor n g (globalBasis i)‖ ^ 2)) =
+        ENNReal.ofReal (∑' i, ‖frontierWindowFactor n g (globalBasis i)‖ ^ 2) := by
+      simpa using (ENNReal.ofReal_tsum_of_nonneg (fun i => pow_two_nonneg _) (frontierHS_summable globalBasis n g)).symm
+    rw [hsumEN]
+    exact ENNReal.toReal_ofReal (tsum_nonneg fun i => pow_two_nonneg _)
+  have hmassnn : 0 ≤ mass := by
+    rw [hmassdef]
+    apply integral_nonneg
+    intro t
+    exact pow_two_nonneg _
+  have hrhs : ENNReal.toReal (ENNReal.ofReal mass * μW Set.univ) = volume.real (frontierWindow n) * mass := by
+    rw [ENNReal.toReal_mul]
+    have hmu : μW Set.univ = volume (frontierWindow n) := by simpa only [μW, W] using Measure.restrict_apply_univ _
+    rw [hmu, ENNReal.toReal_ofReal hmassnn]
+    have hvol : (volume (frontierWindow n)).toReal = volume.real (frontierWindow n) := by simpa only [Measure.real] using rfl
+    rw [hvol]
+    ring
+
+  calc ∑' i, ‖frontierWindowFactor n g (globalBasis i)‖ ^ 2
+      = ENNReal.toReal ((∑' i : ν, ENNReal.ofReal (‖frontierWindowFactor n g (globalBasis i)‖ ^ 2))) := by simpa using hlhs.symm
+    _ = ENNReal.toReal (ENNReal.ofReal mass * μW Set.univ) := by rw [htotal_eq]
+      _ = volume.real (frontierWindow n) * mass := hrhs
+
+/-- **P0-a divergence.** When the kernel has positive mass, the windowed factor's Hilbert–Schmidt mass is unbounded in the
+window size `n` — it grows like `2·log(n+2) · ‖h_g‖₂²`.  This is kill-test 1016 ("plain window trace ≡ window-length ×
+mass") made Lean-explicit: **plain windowing alone does not converge to the finite Weil value `qw g`;** P2 must either
+subtract this bulk term or use a detector whose trace carries genuine Weil content (the Mellin/log-weighted route of 1037). -/
+theorem frontierWindowFactor_hsMass_tendsTop (g : CompactLogTest)
+    (hpos : 0 < ∫ t, ‖(g.involution).test t‖ ^ 2) :
+    ∀ M : ℝ, ∃ n : ℕ, M ≤ ∑' i, ‖frontierWindowFactor n g (globalBasis i)‖ ^ 2 := by
+  intro M
+  set mass := ∫ t, ‖(g.involution).test t‖ ^ 2 with hmassdef
+  have hpos' : 0 < mass := by simpa [hmassdef] using hpos
+  by_cases hM : 0 < M
+  · -- `M > 0`: pick a window whose parameter strictly exceeds `exp(M / (2·mass))`.
+    set T := M / (2 * mass) with hTdef   -- we need `log(frontierWindowParam n) ≥ T`, i.e. the parameter above `exp T`.
+    have hTpos : 0 < T := by simp [hTdef]; positivity
+    -- Pick `N` with `↑N > exp T`; then the built-in `+2` gap makes `frontierWindowParam N = ↑(N+2)` strictly exceed it.
+    obtain ⟨N, hNgt⟩ : ∃ N : ℕ, Real.exp T < (↑N : ℝ) := exists_nat_gt _   -- hNgt : exp T < ↑N
+    have hgap : (↑N : ℝ) < frontierWindowParam N := by rw [frontierWindowParam]; norm_cast; omega
+    have hbig : Real.exp T < frontierWindowParam N := lt_trans hNgt hgap
+    -- log is increasing on positive reals, so `log(param) > log(exp T) = T`.
+    have hlog : T ≤ Real.log (frontierWindowParam N) := le_of_lt <| by
+      calc (T : ℝ) = Real.log (Real.exp T) := (Real.log_exp T).symm
+        _ < Real.log (frontierWindowParam N) := Real.log_lt_log (Real.exp_pos T) hbig
+    use N
+    rw [frontierWindowFactor_hsMass_eq globalBasis N g, frontierWindow_realVolume N]
+    calc (M : ℝ) = 2 * T * mass := by rw [hTdef]; field_simp
+      _ ≤ 2 * Real.log (frontierWindowParam N) * mass := by gcongr <;> simpa using hlog
+  · -- `M ≤ 0`: the window-0 value is already nonnegative, so it dominates `M`.
+    use 0
+    rw [frontierWindowFactor_hsMass_eq globalBasis 0 g, frontierWindow_realVolume 0]
+    have hmle0 : M ≤ 0 := by linarith [hM]
+    have hlogpos : 0 < Real.log (frontierWindowParam 0) := by
+      rw [frontierWindowParam]; exact Real.log_pos (by norm_num)   -- `frontierWindowParam 0 = 2`, and `1 < 2`.
+    have hrhsNonneg : 0 ≤ 2 * Real.log (frontierWindowParam 0) * mass := by nlinarith [hlogpos, hpos']
+    linarith [hmle0, hrhsNonneg]
+
 end
 
 end C1Stage3FrontierHS
