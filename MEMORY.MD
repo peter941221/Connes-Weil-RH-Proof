@@ -1,3 +1,40 @@
+## Change Log (2026-08-21, FRONTIER-CRUX LANDED — step① axiom-clean, step② isolated as one root axiom): Dev/C1Stage3FrontierCrux.lean
+- New module `ConnesWeilRH/Dev/C1Stage3FrontierCrux.lean` (active C1, firewall: imports only the shared
+  Source bricks PositiveTrace + GlobalConvolutionCrossing + GlobalLogConvolution + CC25 CompactLogConvolution
+  and the active C1SameOwnerWeil — no frozen route leaf). It lands **FRONTIER-CRUX**, `Re Tr(detector_g) = qw g`,
+  on the concrete factor `F_g = cc20GlobalLogConvolution g.involution.test` over `cc20GlobalLogCrossingL2`
+  (= plain L²(ℝ)), with `detector_g := F_g† ∘ F_g ≡ cc20GlobalConvolutionPositive (g.involution.test)` [rfl by def].
+- Split into step① (PROVED, mechanical) + step② (isolated as ONE named root axiom):
+    - step①  `frontierCrux_reTrace_eq_hilbertSchmidtMass`: `(ordinaryTraceAlong globalBasis (detector g)).re = ∑' i ‖F_g(basis i)‖²`.
+    - step②  `axiom frontierCrux_powerSpectrum_eq_weilValue`: `∑' i ‖F_g(basis i)‖² = C1SameOwnerWeil.qw g` (power spectrum = Weil functional).
+    - final   `frontierCrux_detectorTrace_eq_qw`: `(ordinaryTraceAlong globalBasis (detector g)).re = C1SameOwnerWeil.qw g`.
+- step① proof reuses the sibling ground-truth tactic chains verbatim: pointwise diagonal
+  `detector_diagonal_eq_normSqCoe` via the exact `positiveComposition_diagonal` chain (`rw [detector,
+  ContinuousLinearMap.coe_comp', Function.comp_apply, ContinuousLinearMap.adjoint_inner_right,
+  inner_self_eq_norm_sq_to_K]; norm_cast`); then complex-diagonal-series = ofReal-lifted real mass by
+  `tsum_congr` + `(Complex.ofRealCLM.map_tsum hHS).symm`; final readback `(x:ℂ).re = x` for real `x`.
+- Elaboration traps actually hit and fixed this window (builds #3→#6):
+    (a) **inner-product bracket codepoint** — the CLOSING bracket must be DOUBLE-angle U+27EB (`e2 9f ab`), not
+        single-angle U+27E9 (`e2 9f a9`); a stray `⟪…⟩_ℂ` (U+27EA + U+27E9) breaks parse with
+        "unexpected token ''; expected '_'". A Write left one wrong closer on the hsum_eq line; byte-replaced.
+    (b) **`map_tsum` direction** — `Complex.ofRealCLM.map_tsum hHS : ofReal(∑') = ∑' ofReal`, but the goal is its
+        symmetric form, so `.symm` is required AND bare `exact …symm` still fails on a residual coercion gap; only
+        `simpa using (…map_tsum hHS).symm` normalizes it closed (same shape as C1Stage3FrontierHS.lean:477
+        `(RCLike.reCLM.map_tsum hsumm).symm`).
+    (c) **`.re` of a real coerced to ℂ** — after `rw [hcomplex]`, the goal `((∑' r_i : ℝ):ℂ).re = ∑' r_i` is NOT
+        closed by `rfl` or bare `simp` ("made no progress"); it closes with **`norm_cast`**, exactly as
+        C1Stage3FrontierHS.lean:461 does for `re ((x : ℂ))`.
+- WSL2 ext4 incremental build of the module: GREEN (exit 0, 3491 jobs), olean produced. Only style warnings
+  remain (`linter.style.longLine`, a pre-existing-class `unnecessarySimpa`/unused-var hint) — no errors.
+- Axiom probe (`lake env lean` running `#print axioms …C1Stage3FrontierCrux.<name>` on the SOURCE name):
+    - final  `frontierCrux_detectorTrace_eq_qw` → `[propext, Classical.choice, Quot.sound, frontierCrux_powerSpectrum_eq_weilValue]`.
+    - step① `frontierCrux_reTrace_eq_hilbertSchmidtMass` → `[propext, Classical.choice, Quot.sound]` (NO custom axiom).
+  No `sorryAx` anywhere. (Same gotcha as FRONTIER-HS: import path is `ConnesWeilRH.Dev.…`, but `#print axioms`
+  must use the declared SOURCE name `…Source.C1Stage3FrontierCrux.…`.)
+- RH NOT claimed. Both Stage-3 named analytic lemmas are now LANDED (FRONTIER-HS prior entry + FRONTIER-CRUX here).
+  The route still rests on one additional root axiom, `frontierCrux_powerSpectrum_eq_weilValue`, which must be proved
+  or registered in UnconditionalSkeleton.lean:7742-7788 to make RH fully unconditional.
+
 ## Change Log (2026-08-21, FRONTIER-HS steps 3–9 CLOSED — final sorry killed): Dev/C1Stage3FrontierHS.lean
 - Task #13 (windowed) is now FULLY closed: every step of `frontierHS_summable` is proven and the last
   `sorry` (formerly L570, steps 3–9) is removed — there is no `sorry`/`admit` left anywhere in the file.
