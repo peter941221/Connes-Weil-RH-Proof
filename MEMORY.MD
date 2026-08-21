@@ -1,3 +1,30 @@
+## Change Log (2026-08-21, FRONTIER-CRUX Gate-4 closure wired to `healthyCriterionState`): Dev/C1Stage3FrontierCrux.lean
+- Added the **Gate-4 closure theorem** `frontierCrux_closes_healthyCriterionState` to
+  `Dev/C1Stage3FrontierCrux.lean` (new import: active C1 module `C1Stage3RemainderFamily`). It proves, as a named
+  result, that the RH-level exit follows from exactly two analytic facts:
+
+    ```text
+    frontierCrux_closes_healthyCriterionState :
+      (hHS : ∀ g, Summable fun i => ‖stage3FamilyFactor g (basis i)‖²)   -- bare-operator FRONTIER-HS form
+        ⊢ C1.healthyCriterionState F
+    ```
+
+  Proof is two lines: `apply C1Stage3RemainderFamily.stage3Remainder_healthyCriterionState globalBasis F hHS; intro g;
+  exact frontierCrux_detectorTrace_eq_qw globalBasis g (hHS g)`. This makes explicit that the route's endgame needs
+  [bare HS-summability] ∧ [FRONTIER-CRUX], and FRONTIER-CRUX reduces to the single root axiom
+  `frontierCrux_powerSpectrum_eq_weilValue`.
+- **Cross-module defeq confirmed**: my module-local `stage3FamilyFactor`/`detector` (bodies `cc20GlobalLogConvolution
+  g.involution.test`, `(·)† ∘L (·)`) unify definitionally with the identically-bodied defs in
+  `C1Stage3RemainderFamily`, so my step①+step② theorem feeds RemainderFamily's `hcrux` slot directly. No cycle: CRUX→
+  RemainderFamily, and no reverse import.
+- WSL2 ext4 build GREEN (exit 0, 3706 jobs). Axiom probe on the closure theorem → `[propext, Classical.choice,
+  Quot.sound, frontierCrux_powerSpectrum_eq_weilValue]`, **no sorryAx** — confirming "RH rests on one root axiom plus
+  the HS-summability premise" at the type level. (Elaboration traps this window: `stage3Remainder_healthyCriterionState`
+  must be namespace-qualified; its `hcrux` slot is a bare `∀ g, …` with NO extra per-g binder — an over-introducing
+  `intro g _` fails.)
+- RH still NOT claimed. Remaining to full unconditionality: (a) prove bare-operator HS-summability (FRONTIER-HS so far
+  covers only the windowed factor), and (b) prove or register `frontierCrux_powerSpectrum_eq_weilValue`.
+
 ## Change Log (2026-08-21, FRONTIER-CRUX LANDED — step① axiom-clean, step② isolated as one root axiom): Dev/C1Stage3FrontierCrux.lean
 - New module `ConnesWeilRH/Dev/C1Stage3FrontierCrux.lean` (active C1, firewall: imports only the shared
   Source bricks PositiveTrace + GlobalConvolutionCrossing + GlobalLogConvolution + CC25 CompactLogConvolution

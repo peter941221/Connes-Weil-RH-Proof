@@ -8,6 +8,7 @@ import ConnesWeilRH.Source.CC20Concrete.GlobalConvolutionCrossing
 import ConnesWeilRH.Source.CC20Concrete.GlobalLogConvolution
 import ConnesWeilRH.Source.CCM25Concrete.CompactLogConvolution
 import ConnesWeilRH.Dev.C1SameOwnerWeil
+import ConnesWeilRH.Dev.C1Stage3RemainderFamily
 
 /-!
 # C1 Stage-3 FRONTIER-CRUX (active namespace) — the detector trace reads back to `qw g`
@@ -133,6 +134,21 @@ theorem frontierCrux_detectorTrace_eq_qw (g : CompactLogTest)
     (ordinaryTraceAlong globalBasis (detector g)).re = C1SameOwnerWeil.qw g := by
   rw [frontierCrux_reTrace_eq_hilbertSchmidtMass globalBasis g hHS]
   exact frontierCrux_powerSpectrum_eq_weilValue globalBasis g hHS
+
+/-! ### Closure — the two named Stage-3 analytic facts close the RH-level criterion. -/
+
+/-- **Gate-4 closure.** Once the concrete self-pair factor is Hilbert–Schmidt uniformly in `g`
+(bare-operator form of FRONTIER-HS) and its detector trace reads back to `qw g` (FRONTIER-CRUX:
+step ① proved above + step ② the single root axiom), the Gate-4 assembly of
+`C1Stage3RemainderFamily` yields the finite-vanishing healthy criterion state — the RH-level exit —
+with no further hypothesis.  This is the named statement that "RH rests on exactly these two
+analytic frontiers, and CRUX reduces to one root axiom." -/
+theorem frontierCrux_closes_healthyCriterionState (F : Finset CriticalVanishingPoint)
+    (hHS : ∀ g : CompactLogTest, Summable fun i => ‖stage3FamilyFactor g (globalBasis i)‖ ^ 2) :
+    C1.healthyCriterionState F := by
+  apply C1Stage3RemainderFamily.stage3Remainder_healthyCriterionState globalBasis F hHS
+  intro g
+  exact frontierCrux_detectorTrace_eq_qw globalBasis g (hHS g)
 
 end
 end C1Stage3FrontierCrux
