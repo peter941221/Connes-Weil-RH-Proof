@@ -394,6 +394,81 @@ theorem frontierTranslatedNormSq_eq (g : CompactLogTest) (x : ℝ) :
       hsub.integral_comp (Homeomorph.subLeft x).measurableEmbedding
         (fun t => ‖(g.involution).test t‖ ^ 2)
 
+/-- **Bare-vs-windowed bridge (FRONTIER-HS §).** The squared norm of a kernel translate is the constant mass
+(`frontierTranslatedNormSq_eq`), so its section energy over any finite-measure set `S` is exactly
+`meas(S) · ‖h_g‖₂²` — independent of where `S` sits, purely a function of its measure.  Over all of ℝ this grows
+without bound for any nonzero kernel (Lebesgue measure of ℝ is infinite): that is precisely why the bare
+convolution operator on `L²(ℝ)` is **not** Hilbert–Schmidt, and FRONTIER-HS restricts to a finite window before
+claiming summability.  This is the unwindowed form of the total-mass computation in `frontierHS_summable`. -/
+theorem frontierBareSectionEnergy_eq_massTimesMeasure (g : CompactLogTest) (S : Set ℝ)
+    (hs : MeasurableSet S) (hfin : volume S < ∞) :
+    ∫ x in S, ‖frontierKernelVec g x‖ ^ 2 =
+      volume.real S * ∫ t, ‖(g.involution).test t‖ ^ 2 := by
+  haveI : MeasurableSet S := hs
+  set mass := ∫ t, ‖(g.involution).test t‖ ^ 2 with hmassdef
+  -- on `S` the section value is the pointwise-constant `mass` (translation invariance), so the indicator's
+  -- integrand collapses to that constant:
+  have hconst : S.indicator (fun x => ‖frontierKernelVec g x‖ ^ 2) = S.indicator (fun _ => mass) := by
+    ext x; simp only [Set.indicator]
+    split_ifs with h
+    · simpa only using frontierTranslatedNormSq_eq g x   -- in `S`: the section value is the constant mass
+    · rfl                                                -- off `S`: both indicator values are 0
+  -- `∫ in S, f` is the full-line integral of its indicator (`integral_indicator`, used at line ~517 for W(n)),
+  -- then a constant's indicator-integral over a finite-measure set is `meas(S) • const` (the same rule
+  -- FRONTIER-HS uses on the window box, line ~336):
+  rw [← MeasureTheory.integral_indicator hs, hconst]
+  rw [integral_indicator_const _ hs]
+  simp only [smul_eq_mul, hmassdef]
+
+/-- **Corollary (`#10` — bare HS-summability on `ℝ`).** Because section energy is homogeneous in measure (the
+bridge above), it grows without bound as the window expands whenever the kernel mass `‖h_g‖₂² > 0`.  Hence a
+translation-invariant convolution operator on infinite-measure `L²(ℝ)` has finite Hilbert–Schmidt mass **iff**
+its kernel vanishes — this is exactly why FRONTIER-HS restricts to a finite window before claiming summability. -/
+theorem frontierBareHS_windowEnergy_unbounded (g : CompactLogTest)
+    (hpos : 0 < ∫ t, ‖(g.involution).test t‖ ^ 2) :
+    ∀ M : ℝ, ∃ I : Set ℝ, MeasurableSet I ∧ volume I < ∞ ∧
+      M ≤ ∫ x in I, ‖frontierKernelVec g x‖ ^ 2 := by
+  intro M
+  set mass := ∫ t, ‖(g.involution).test t‖ ^ 2 with hmassdef
+  have hpos' : 0 < mass := by simpa [hmassdef] using hpos
+  -- A box `[-R, R]` (with `R ≥ 0`) has real measure exactly `2·R`, so (by the bridge) its section energy is
+  -- `(2·R)·mass`.  Choose `R` so this exceeds `M`: if `M+1 > 0` take `R = (M+1)/(2·mass)` (energy = `M+1`);
+  -- otherwise `M < -1` and the unit box already works.
+  by_cases h : 0 < M + 1
+  · set R := (M + 1) / (2 * mass) with hRdef
+    use Set.Icc (-R) R
+    refine ⟨measurableSet_Icc, ?_, ?_⟩
+    · -- finite measure of a real interval: its length is a (finite) real.
+      rw [Real.volume_Icc]
+      exact ENNReal.ofReal_lt_top
+    · rw [frontierBareSectionEnergy_eq_massTimesMeasure g _ measurableSet_Icc (by simp)]
+      have hposR : 0 < R := by simpa [hRdef] using div_pos h (by nlinarith)   -- `M+1 > 0`, `2·mass > 0`.
+      have hvol : volume.real (Set.Icc (-R) R) = 2 * R := by
+        rw [Measure.real, Real.volume_Icc]
+        · simp only [ENNReal.toReal_ofReal (show 0 ≤ R - -R from by linarith)]   -- `R - -R = 2·R ≥ 0`.
+          ring
+      rw [hvol, hRdef]
+      field_simp [hpos']   -- energy = `(2 · ((M+1)/(2·mass))) · mass` = `M + 1 > M`.
+      linarith
+  · -- `¬(M+1 > 0)` i.e. `M ≤ -1 < 0`.  A symbolic positive radius keeps the box endpoints real-typed (the exact
+    -- path that compiled above); its energy `(2·R)·mass > 0` already dominates `M < 0`, so no exact value is needed.
+    set R := mass + 1 with hRdef   -- strictly positive, hence a genuine box.
+    use Set.Icc (-R) R
+    refine ⟨measurableSet_Icc, ?_, ?_⟩
+    · rw [Real.volume_Icc]
+      exact ENNReal.ofReal_lt_top
+    · rw [frontierBareSectionEnergy_eq_massTimesMeasure g _ measurableSet_Icc (by simp)]
+      have hposR : 0 < R := by rw [hRdef]; nlinarith [hpos']   -- `mass > 0` ⇒ `mass + 1 > 0`.
+      have hvol : volume.real (Set.Icc (-R) R) = 2 * R := by
+        rw [Measure.real, Real.volume_Icc]
+        · simp only [ENNReal.toReal_ofReal (show 0 ≤ R - -R from by linarith)]   -- `R > 0` ⇒ `2·R ≥ 0`.
+          ring
+      rw [hvol, hRdef]   -- goal: `M ≤ 2 · (mass + 1) · mass`; RHS is `> 0`, and `M < 0`.
+      have hposE : 0 < 2 * (mass + 1) * mass := by
+        refine mul_pos ?_ hpos'
+        exact mul_pos zero_lt_two (by linarith [hpos'])   -- `0 < mass + 1` from `mass > 0`.
+      nlinarith [not_lt.mp h, hposE]   -- `M ≤ -1 < 0 < energy`.
+
 /-- The windowed correlation map of `u` lies in L²(ℝ): it is zero outside the finite-measure window, and on
 the window Cauchy–Schwarz bounds it by the constant `‖u‖·‖h_g‖`.  Extracted as a named lemma so that both the
 carrier element below *and* its squared-norm computation reuse one `MemLp` proof term (so the two `.toLp`
