@@ -222,7 +222,31 @@ vanishing test `g`. All in `Dev/C1Stage3WindowedTraceP3a.lean`:
   narrow-root `p3aFamily` uniformly over tests.
 
 Axiom-clean: all three new results depend only on `[propext, Classical.choice, Quot.sound]`, zero
-`sorryAx`; full `lake build ConnesWeilRH` is green (LAKE_EXIT=0). **Consumed end-to-end (§D):** `C1Stage3FrontierStatus.frontierStatus_healthyCriterionState_of_rankOneCorrection` feeds this family as the uniform `hfamily` of `p4_healthyCriterionState`, yielding `C1.healthyCriterionState F`. On the operator-level route Stage-3 windowing now reduces to a single isolated premise — every vanishing test has nonnegative Weil value (`0 ≤ qw g`) — taken explicitly (sign-transparent, non-circular at `narrowArchRoot` via `C1LaneRStrictness.narrowArchRoot_qw_pos`). RH still unclaimed.
+`sorryAx`; the owning-module and import-facing probe builds pass, and a locked full-root build on the current
+`HEAD` completes 4147/4147 jobs (`LAKE_EXIT=0`). **Consumed end-to-end (§D):** `C1Stage3FrontierStatus.frontierStatus_healthyCriterionState_of_rankOneCorrection` feeds this family as the uniform `hfamily` of `p4_healthyCriterionState`, yielding `C1.healthyCriterionState F`. On the operator-level route Stage-3 windowing now reduces to a single isolated premise — every vanishing test has nonnegative Weil value (`0 ≤ qw g`) — taken explicitly (sign-transparent, non-circular at `narrowArchRoot` via `C1LaneRStrictness.narrowArchRoot_qw_pos`). RH still unclaimed.
+
+### C1 Stage-3 Projection Operator Contract (2026-08-23)
+
+`C1PositiveTraceLimitBridge.PositiveTraceOperatorLimitFamily` is the correct
+contract for a window owner of the form `C† K C` when `K` is positive but no
+same-factor square root has been constructed.  It records, for each cutoff,
+the operator, named-basis trace-class evidence, and `ContinuousLinearMap.IsPositive`,
+then keeps the real remainder and same-owner `qw` readback as separate limit fields.
+`positiveTraceOperator_re_nonnegative` and its order consumer derive the sign
+only from those two operator facts; they do not identify `C†KC` with `F†F`.
+
+`Dev/C1Stage3ProjectionOperatorFamily.lean` instantiates this contract with
+`cutoffProjectionPairData`, proving `cutoffProjectionOperator_isTraceClassAlong`
+and `cutoffProjectionOperator_isPositive`.  The structure
+`ProjectionCutoffLimitContracts` intentionally leaves the cutoff remainder and
+`qw` readback as caller-supplied analysis.  The uniform healthy-criterion
+consumer is therefore conditional and does not close the RH root.
+
+Focused WSL2 ext4 verification: owner `3707/3707`, import-facing probe
+`3708/3708`; all six audited declarations use only
+`[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.  Do not weaken
+the operator contract back to `left = right`: positivity of a bounded kernel
+under adjoint conjugation is a different fact from self-pair factorization.
 
 ### C1 Positive-Trace Cutoff Growth Guard
 
@@ -971,6 +995,7 @@ restricted/global masses with one evaluation object.
 - **`field_simp` on a norm-power divisor needs the *base* nonzero, not just its square**: to cancel `(qw g / ‖d0‖⁴) · ‖d0‖⁴ = qw g`, `field_simp [ne_of_gt (hd0 : 0 < ‖d0‖²)]` only cancels three of the four factors and leaves the residual goal `qw g * ‖d0‖ / ‖d0‖ = qw g` — it cannot derive the first-power base fact `‖d0‖ ≠ 0` from the squared one `‖d0‖² ≠ 0`. Fix: derive and feed the base explicitly, `have hd0n : ‖d0‖ ≠ 0 := by intro h; rw [h] at hd0; nlinarith`, then `field_simp [hd0n]` cancels fully. (Observed 2026-08-23, same build, final calc step of `rankOneCorrection_HS_mass_eq_qw`.)
 
 - **A section variable referenced only in a proof BODY is NOT auto-lifted into a new declaration's parameters**: Lean promotes an explicit `variable {ν} [Countable ν] (globalBasis : …)` into a later theorem's leading parameter ONLY when that theorem's *type signature* mentions it. If the type does not reference `globalBasis` but the proof body does (`:= by exact … globalBasis …`), the variable is **not** lifted → "Unknown identifier `globalBasis`" plus an unsolved goal whose context is missing both `globalBasis` and `[Countable ν]`. Fix: name `globalBasis` as an explicit leading parameter of that specific theorem — its type `HilbertBasis ν ℂ …` drags `{ν}` + `[Countable ν]` into scope so they lift with it. (Observed 2026-08-23, §D end-to-end closure build, `C1Stage3FrontierStatus.frontierStatus_healthyCriterionState_of_rankOneCorrection`. Refines the preceding explicit-section-variable bullet: body-only use is NOT enough.)
+
 
 ## 8. WSL Verification
 

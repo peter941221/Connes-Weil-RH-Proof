@@ -21,6 +21,25 @@
   all six `#print axioms` probes in this leaf exactly `[propext, Classical.choice, Quot.sound]`,
   zero `sorryAx`. Committed ee32d6d.
 
+## Change Log (2026-08-23, projection cutoff operator-family contract)
+
+- Added `PositiveTraceOperatorLimitFamily` to `Dev/C1PositiveTraceLimitBridge.lean`.
+  This is a distinct contract from `PositiveTracePairLimitFamily`: it stores an
+  arbitrary positive trace operator, explicit `IsTraceClassAlong` evidence, and
+  the remainder/readback limits.  The distinction is required for the active
+  projection owner `C† K_S C`; forcing `left = right` would be a false operator
+  identity.
+- Added `Dev/C1Stage3ProjectionOperatorFamily.lean` and its probe.  The new
+  `cutoffProjectionOperator` is definitionally the existing
+  `cutoffProjectionPairData.traceProduct`; trace-class and positivity are
+  inherited from the finite-window pair ledger.  `ProjectionCutoffLimitContracts`
+  keeps the two unresolved analytic facts explicit, and its consumer derives
+  `0 ≤ qw g` / the healthy criterion only when those facts are supplied.
+- Verification: WSL2 `Ubuntu-24.04` ext4 owner build `3707/3707`, probe build
+  `3708/3708`; all six audited declarations report only
+  `[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`. No RH claim or
+  cutoff-limit estimate was added.
+
 ## Change Log (2026-08-22, bare whole-line Hilbert--Schmidt premise KILLED)
 - Added `Dev/C1Stage3BareHSObstruction.lean`.  For a nonzero compact-log
   test, the bare factor
@@ -4161,3 +4180,32 @@ than through a by-block ending in `rfl`.
 **Next:** (1) commit this leaf + AGENTS/MEMORY and push to origin/main; (2) Program P step 2 — lift §C's scalar bulk witness
 to an explicit correction **operator** family whose own HS-mass reads back to `qw g` for every vanishing test (not just the
 constant offset); (3) feed FRONTIER-HS(§A) + FRONTIER-CRUX(§C-as-theorem) into `p5_healthyCriterionState` to close Stage 3.
+## Change Log (2026-08-23, pair-family RH exit adapter)
+
+- Added `sourceRH_of_positiveTracePairLimitFamily` to
+  `ConnesWeilRH/Dev/C1PositiveTraceLimitBridgeExit.lean`.
+- The theorem accepts the active cross-space Stage-3 contract
+  `PositiveTracePairLimitFamily (G := G) basis g`, obtains
+  `0 <= spectralWeilValue g.convolutionSquare` from the existing positive
+  self-pair consumer, and feeds the already-closed right-oriented Yoshida
+  exit. It introduces no new analytic assumption and does not claim RH
+  without the uniform pair-family producer.
+- Added the matching `sourceRH_of_positiveTraceOperatorLimitFamily` exit for
+  the active projection owner `C† K_S C`; it consumes the operator-level
+  positivity contract without pretending that the owner is `F†F`.
+- Added the corresponding `#print axioms` probe. The intended next producer
+  can now target the pair-family contract directly without coercing its output
+  space to the input carrier.
+
+## Verification Note (2026-08-23, current Windows snapshot)
+
+- In a fresh ext4 WSL2 snapshot, `lake build
+  ConnesWeilRH.Dev.C1PositiveTraceLimitBridgeExit` completed 3634/3634 and
+  `...ExitProbe` completed 3635/3635. The probe reports exactly
+  `[propext, Classical.choice, Quot.sound]` for both declarations and no
+  `sorryAx`.
+- A locked full `lake build ConnesWeilRH` on the same current `HEAD` snapshot
+  completed 4147/4147 (`LAKE_EXIT=0`). An earlier un-locked incremental attempt
+  reported a transient error in `CCM24FiniteSRawCompletedSchurCocycle`; its
+  isolated rebuild and the final locked full build both pass, so no source fix
+  was needed.

@@ -3,5 +3,7 @@ import ConnesWeilRH.Dev.C1PositiveTraceLimitBridgeExit
 namespace ConnesWeilRH.Source.C1PositiveTraceLimitBridgeExit
 
 #print axioms sourceRH_of_positiveTraceLimitFamily
+#print axioms sourceRH_of_positiveTracePairLimitFamily
+#print axioms sourceRH_of_positiveTraceOperatorLimitFamily
 
 end ConnesWeilRH.Source.C1PositiveTraceLimitBridgeExit

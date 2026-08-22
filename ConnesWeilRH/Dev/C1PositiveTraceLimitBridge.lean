@@ -1,5 +1,6 @@
 import ConnesWeilRH.Dev.C1CenterTwoCriterionBridge
 import ConnesWeilRH.Source.CC20Concrete.PositiveTrace
+import Mathlib.Analysis.InnerProductSpace.Positive
 
 /-!
 # C1PositiveTraceLimitBridge - remainder-aware positivity consumer
@@ -70,6 +71,27 @@ structure PositiveTracePairLimitFamily
             (traceData n).traceProduct).re - remainder n)
       atTop (𝓝 (C1SameOwnerWeil.qw g))
 
+/- A positive operator need not be presented as `F†F` with the same factor on
+both sides.  The projection-window owner is exactly of this form: `C† K C`
+with `K` positive, while its trace-class proof comes from a cross-space
+Hilbert--Schmidt pair.  This contract keeps those two facts explicit instead
+of forcing an invalid `left = right` identification. -/
+structure PositiveTraceOperatorLimitFamily
+    {ι H : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    (basis : HilbertBasis ι ℂ H) (g : CompactLogTest) where
+  traceOperator : Nat → H →L[ℂ] H
+  traceClass : ∀ n, IsTraceClassAlong basis (traceOperator n)
+  positive : ∀ n, (traceOperator n).IsPositive
+  remainder : Nat → Real
+  remainder_tendsto_zero :
+    Tendsto remainder atTop (𝓝 (0 : Real))
+  readback_tendsto_qw :
+    Tendsto
+      (fun n =>
+        (ordinaryTraceAlong basis (traceOperator n)).re - remainder n)
+      atTop (𝓝 (C1SameOwnerWeil.qw g))
+
 theorem positiveTrace_sub_remainder_lower_bound
     {ι H : Type*}
     [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
@@ -122,6 +144,30 @@ theorem positiveTracePair_sub_remainder_lower_bound
       (data.traceData n) (data.self_pair n)
   linarith
 
+theorem positiveTraceOperator_re_nonnegative
+    {ι H : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    (basis : HilbertBasis ι ℂ H) (T : H →L[ℂ] H)
+    (hpositive : T.IsPositive)
+    (htrace : IsTraceClassAlong basis T) :
+    0 ≤ (ordinaryTraceAlong basis T).re := by
+  rw [ordinaryTraceAlong]
+  rw [Complex.re_tsum htrace]
+  exact tsum_nonneg (fun i => hpositive.re_inner_nonneg_right (basis i))
+
+theorem positiveTraceOperator_sub_remainder_lower_bound
+    {ι H : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    {basis : HilbertBasis ι ℂ H} {g : CompactLogTest}
+    (data : PositiveTraceOperatorLimitFamily basis g) (n : Nat) :
+    -data.remainder n ≤
+      (ordinaryTraceAlong basis (data.traceOperator n)).re - data.remainder n := by
+  have htrace :
+      0 ≤ (ordinaryTraceAlong basis (data.traceOperator n)).re :=
+    positiveTraceOperator_re_nonnegative basis (data.traceOperator n)
+      (data.positive n) (data.traceClass n)
+  linarith
+
 /-- A self-pair `F†F` family has the same order-theoretic consequence as the
 original `H -> H` family.  The target space `G` is kept explicit. -/
 theorem qw_nonnegative_of_positiveTracePairLimitFamily
@@ -162,6 +208,43 @@ theorem healthyCriterionState_of_positiveTracePairLimitFamily
       F).mpr
   intro g hvanishing
   exact spectral_nonnegative_of_positiveTracePairLimitFamily
+    (hfamily g hvanishing)
+
+theorem qw_nonnegative_of_positiveTraceOperatorLimitFamily
+    {ι H : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    {basis : HilbertBasis ι ℂ H} {g : CompactLogTest}
+    (data : PositiveTraceOperatorLimitFamily basis g) :
+    0 ≤ C1SameOwnerWeil.qw g := by
+  have hlower :
+      Tendsto (fun n => -data.remainder n) atTop (𝓝 (0 : Real)) := by
+    simpa using data.remainder_tendsto_zero.neg
+  exact le_of_tendsto_of_tendsto' hlower data.readback_tendsto_qw
+    (positiveTraceOperator_sub_remainder_lower_bound data)
+
+theorem spectral_nonnegative_of_positiveTraceOperatorLimitFamily
+    {ι H : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    {basis : HilbertBasis ι ℂ H} {g : CompactLogTest}
+    (data : PositiveTraceOperatorLimitFamily basis g) :
+    0 ≤ C1SpectralWeil.spectralWeilValue g.convolutionSquare := by
+  rw [← C1CenterTwoCriterionBridge.qw_eq_spectralWeilValue_centerTwo g]
+  exact qw_nonnegative_of_positiveTraceOperatorLimitFamily data
+
+theorem healthyCriterionState_of_positiveTraceOperatorLimitFamily
+    {ι H : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    (basis : HilbertBasis ι ℂ H) (F : Finset CriticalVanishingPoint)
+    (hfamily :
+      ∀ g : CompactLogTest,
+        CC20VanishesOn C1.healthyCC20TestSpace F g →
+          PositiveTraceOperatorLimitFamily basis g) :
+    C1.healthyCriterionState F := by
+  apply
+    (C1CenterTwoCriterionBridge.healthyCriterionState_iff_all_vanishing_spectral_nonnegative
+      F).mpr
+  intro g hvanishing
+  exact spectral_nonnegative_of_positiveTraceOperatorLimitFamily
     (hfamily g hvanishing)
 
 /-- The positive `A† A` trace and a vanishing cutoff remainder force the

@@ -1,0 +1,27 @@
+import ConnesWeilRH.Dev.C1Stage3ProjectionOperatorFamily
+
+namespace ConnesWeilRH
+namespace Source
+namespace Dev
+namespace C1Stage3ProjectionOperatorFamilyProbe
+
+open C1Stage3ProjectionOperatorFamily
+
+#check @cutoffProjectionOperator_eq_traceProduct
+#check @cutoffProjectionOperator_isTraceClassAlong
+#check @cutoffProjectionOperator_isPositive
+#check @positiveTraceOperatorLimitFamilyOfProjectionCutoffContracts
+#check @qw_nonnegative_of_projectionCutoffLimitContracts
+#check @healthyCriterionState_of_projectionCutoffLimitContracts
+
+#print axioms cutoffProjectionOperator_eq_traceProduct
+#print axioms cutoffProjectionOperator_isTraceClassAlong
+#print axioms cutoffProjectionOperator_isPositive
+#print axioms positiveTraceOperatorLimitFamilyOfProjectionCutoffContracts
+#print axioms qw_nonnegative_of_projectionCutoffLimitContracts
+#print axioms healthyCriterionState_of_projectionCutoffLimitContracts
+
+end C1Stage3ProjectionOperatorFamilyProbe
+end Dev
+end Source
+end ConnesWeilRH

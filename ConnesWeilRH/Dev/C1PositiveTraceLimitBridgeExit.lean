@@ -42,6 +42,46 @@ theorem sourceRH_of_positiveTraceLimitFamily
   exact spectral_nonnegative_of_positiveTraceLimitFamily
     (hfamily g hvanishing)
 
+/-- A cross-space self-pair family is the natural contract for the active
+Stage-3 window and projection owners.  Its positive trace still feeds the
+same right-oriented Yoshida exit; keeping this adapter here prevents callers
+from weakening the target-space boundary to an accidental same-space identity.
+-/
+theorem sourceRH_of_positiveTracePairLimitFamily
+    {ι H G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    (basis : HilbertBasis ι ℂ H)
+    (hfamily :
+      ∀ g : CompactLogTest,
+        CC20VanishesOn C1.healthyCC20TestSpace
+          cc20TripleFiniteVanishingSet g →
+          PositiveTracePairLimitFamily (G := G) basis g) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_global_spectral_nonneg
+  intro g hvanishing
+  exact spectral_nonnegative_of_positiveTracePairLimitFamily
+    (hfamily g hvanishing)
+
+/-- The projection-window owner stores positivity directly on `C† K C` rather
+than as a same-factor pair.  Its operator-level family has the same
+right-oriented Yoshida exit once the trace-class, positivity, remainder, and
+same-owner readback fields are supplied. -/
+theorem sourceRH_of_positiveTraceOperatorLimitFamily
+    {ι H : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    (basis : HilbertBasis ι ℂ H)
+    (hfamily :
+      ∀ g : CompactLogTest,
+        CC20VanishesOn C1.healthyCC20TestSpace
+          cc20TripleFiniteVanishingSet g →
+          PositiveTraceOperatorLimitFamily basis g) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_global_spectral_nonneg
+  intro g hvanishing
+  exact spectral_nonnegative_of_positiveTraceOperatorLimitFamily
+    (hfamily g hvanishing)
+
 end
 end C1PositiveTraceLimitBridgeExit
 end Source
