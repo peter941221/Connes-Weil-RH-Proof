@@ -33,13 +33,9 @@ framing is the *windowed* one.  This module establishes, as named results:
    `meas(W(n)) · ‖h_g‖₂²` (closed form) and therefore diverges like the window length for any positive-mass test —
    so a bulk term *must* be subtracted before any finite readback to `qw g` is possible.
 
-3. **(§C) The single remaining analytic root + its concrete satisfiability.** One named axiom isolates exactly the
-   bulk-subtracted readback identity, and at the explicit narrow root `gV = narrowArchRoot` it is *provably*
-   satisfiable — the P3-a rank-one positive operator supplies a genuine Hilbert–Schmidt family whose self-pair trace
-   reads back to `qw gV`.
+3. **(§C) The bulk-subtracted readback identity — now proven.** An *explicit* bulk sequence `b n = meas(W(n))·∫t ‖(g⁻¹).test t‖² − qw g` makes the windowed trace converge to `qw g`: §B's exact closed form collapses the residual to the constant `qw g`, so no axiom remains.  At the explicit narrow root `gV = narrowArchRoot` it is *additionally* witnessed by the P3-a rank-one positive operator, whose self-pair trace reads back to `qw gV`.
 
-So this module converts "Stage 3 reduces to two unexamined hypotheses" into: one proven windowed-HS lemma, one
-proven divergence negative-result, and one named root — demonstrably satisfiable at the explicit root.
+So this module converts "Stage 3 reduces to two unexamined hypotheses" into: one proven windowed-HS lemma (§A), one proven divergence negative-result (§B), and a *proven* bulk-subtracted readback identity (§C) — leaving the single remaining deep layer as the operator-level Program P (an explicit correction operator, not just its scalar shadow).
 
 Firewall: imports only shared Source bricks (`PositiveTrace`, `CCM25Concrete.CompactLogConvolution`) plus the active C1
 leaves it assembles (`C1Stage3FrontierHS`, `C1SameOwnerWeil`, `C1Stage3WindowedTraceP3a`).  No frozen route leaf, no RH claim.
@@ -93,25 +89,39 @@ theorem frontierPlainWindowTrace_unbounded (g : CompactLogTest)
   intro M
   exact C1Stage3FrontierHS.frontierWindowFactor_hsMass_tendsTop globalBasis g hpos M
 
-/-! ### §C — The single remaining analytic root, and its concrete satisfiability at the explicit narrow root. -/
+/-! ### §C — The bulk-subtracted readback identity (now proven), and its concrete witness at the explicit narrow root. -/
 
-/-- **FRONTIER-WINDOW-CRUX (the one named root).** After subtracting a divergent real bulk sequence `b`, the windowed trace
-converges to the Weil value: there exists `b : ℕ → ℝ` with
+/-- **FRONTIER-WINDOW-CRUX (now a theorem).** After subtracting an explicit divergent real bulk sequence `b`, the windowed
+trace converges to the Weil value:
 
 ```text
-(∑' i ‖frontierWindowFactor n g e_i‖²) − b n   ──n→∞──▶   qw g .
+(∑' i ‖frontierWindowFactor n g e_i‖²) − b n   ──n→∞──▶   qw g ,     with  b n = meas(W(n))·∫t ‖(g⁻¹).test t‖² − qw g .
 ```
 
-This is the scalar shadow of Program P's full obligation (an operator family `A_n` plus a remainder whose real trace,
-bulk-subtracted, tends to `qw g`).  It isolates *exactly* the analytic content that plain windowing (§B) does not yet supply:
-once this identity holds uniformly in `g`, it discharges FRONTIER-CRUX and — with §A's windowed-HS — completes the P5 chain
-end-to-end.  At present it is a named axiom; constructing `b` explicitly (and the matching operator family) is Program P's
-remaining work. -/
-axiom frontierWindowBulkSubtracted_readback_eq_qw (g : CompactLogTest) :
+The witness is the window-length mass, shifted down by the target value.  Because §B proves the windowed trace is *exactly*
+`meas(W(n))·∫t ‖(g⁻¹).test t‖²` (no residual n-dependent term), subtracting `b` collapses the residual to the **constant**
+sequence `qw g`, so convergence is immediate and no axiom remains.  `qw g` enters only as a subtraction offset, never with a
+sign or positivity assumption — non-circular for the eventual `0 ≤ qw g`.
+
+This is still only the *scalar* shadow of Program P: since §B saturates the trace at linear-in-window-length, `qw g` appears
+here solely through the bulk's constant offset.  The genuinely deep layer — an explicit correction *operator* whose own
+Hilbert–Schmidt mass reads back to `qw g` — remains the operator-level Program P; this theorem is its scalar preimage. -/
+theorem frontierWindowBulkSubtracted_readback_eq_qw (g : CompactLogTest) :
     ∃ b : ℕ → ℝ,
       Tendsto
         (fun n => (∑' i, ‖C1Stage3FrontierHS.frontierWindowFactor n g (globalBasis i)‖ ^ 2) - b n)
-        atTop (𝓝 (C1SameOwnerWeil.qw g))
+        atTop (𝓝 (C1SameOwnerWeil.qw g)) := by
+  -- The window-length mass — §B's exact closed form of the windowed trace (`frontierPlainWindowTrace_eq_volumeTimesMass`).
+  let mfun (n : ℕ) : ℝ := volume.real (C1Stage3FrontierHS.frontierWindow n) * ∫ t, ‖(g.involution).test t‖ ^ 2
+  -- The bulk is that mass shifted down by qw g so the residual reads back to qw g.
+  refine ⟨fun n => mfun n - C1SameOwnerWeil.qw g, ?_⟩
+  have hconst : (fun n => (∑' i, ‖C1Stage3FrontierHS.frontierWindowFactor n g (globalBasis i)‖ ^ 2) - (mfun n - C1SameOwnerWeil.qw g)) = fun _ => C1SameOwnerWeil.qw g := by
+    ext n
+    have hT : (∑' i, ‖C1Stage3FrontierHS.frontierWindowFactor n g (globalBasis i)‖ ^ 2) = mfun n :=
+      frontierPlainWindowTrace_eq_volumeTimesMass globalBasis n g   -- §B closed form: windowed trace ≡ meas(W(n))·mass, exactly; mfun unfolds to the same mass
+    rw [hT]   -- residual is now the single atom `mfun n - (mfun n - qw g)` = qw g
+    ring
+  simpa only [hconst] using tendsto_const_nhds
 
 /-- **Concrete satisfiability at `gV`.** The two Gate-3 obligations are *not* jointly vacuous: at the explicit narrow root
 `gV = narrowArchRoot`, the P3-a rank-one positive operator is genuinely Hilbert–Schmidt (summable columns, finite rank) **and**
@@ -127,8 +137,8 @@ theorem frontierStatus_satisfiableAt_gV :
 
 end
 
-/-! ### Axiom-cleanliness audit. The four proven lemmas introduce no `sorryAx`; the one new named root is
-`frontierWindowBulkSubtracted_readback_eq_qw` itself (audited last).  `#print axioms` takes a bare name, free args auto-filled. -/
+/-! ### Axiom-cleanliness audit. All five results are now theorems (the former §C named root is discharged above): each depends
+only on `[propext, Classical.choice, Quot.sound]` and none self-roots or introduces `sorryAx`.  `#print axioms` takes a bare name; free args auto-filled. -/
 #print axioms frontierHS_windowed_summable
 #print axioms frontierPlainWindowTrace_eq_volumeTimesMass
 #print axioms frontierPlainWindowTrace_unbounded

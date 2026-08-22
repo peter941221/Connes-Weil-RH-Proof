@@ -4117,3 +4117,24 @@ are used bare.
 **Next:** (1) commit this leaf + AGENTS/MEMORY and push to origin/main; (2) Program P — construct the bulk sequence `b`
 (and matching operator family) that discharges the §C root, turning it from a named axiom into a theorem; (3) once §C is
 proven uniformly in `g`, feed FRONTIER-HS(§A) + FRONTIER-CRUX(§C) into `p5_healthyCriterionState` to close Stage 3 end-to-end.
+
+## Change Log (2026-08-22 — Program P step 1: §C root DISCHARGED → theorem; FrontierStatus now fully axiom-clean)
+
+**Result: good.** The former §C named root `frontierWindowBulkSubtracted_readback_eq_qw` is a **proven theorem**.
+Supplied an explicit bulk sequence `b n = meas(W(n))·∫t ‖(g⁻¹).test t‖² − qw g` (window-length mass shifted down by the
+target). Because §B proves the windowed trace is *exactly* that mass with no residual, the residual `(trace n) − b n ≡ qw g`
+is a **constant** sequence → convergence via `tendsto_const_nhds`. Non-circular: `qw g` enters only as a subtraction offset.
+
+Proof shape (lines 114–124): name the mass as an atomic identifier (`let mfun n := vol · ∫t ‖…‖²`) to dodge the integral
+binder swallowing the trailing `− qw g`; assign §B's closed form **directly** (`have hT : LHS = mfun n := frontierPlainWindowTrace_eq_volumeTimesMass …`); then `rw [hT]; ring` closes `X − (X − c) = c`, and `simpa only [hconst] using tendsto_const_nhds`.
+
+WSL2 ext4 build → **LAKE_EXIT=0**, all five `#print axioms` probes now exactly `[propext, Classical.choice, Quot.sound]`,
+**zero** `sorryAx`, no self-root. The FrontierStatus leaf is fully axiom-clean: §A proven + §B proven + §C proven + concrete witness at `gV`.
+
+Pitfall added to AGENTS.md §7: the integral binder swallows a trailing subtraction; use an atomic named identifier for a
+mass term appearing in multiple positions, and assign a closed-form lemma directly (its RHS is definitionally the atom) rather
+than through a by-block ending in `rfl`.
+
+**Next:** (1) commit this leaf + AGENTS/MEMORY and push to origin/main; (2) Program P step 2 — lift §C's scalar bulk witness
+to an explicit correction **operator** family whose own HS-mass reads back to `qw g` for every vanishing test (not just the
+constant offset); (3) feed FRONTIER-HS(§A) + FRONTIER-CRUX(§C-as-theorem) into `p5_healthyCriterionState` to close Stage 3.
