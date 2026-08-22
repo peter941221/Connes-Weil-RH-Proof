@@ -3971,3 +3971,56 @@ Source bricks — **no** frozen route leaf.
 
 WSL2 ext4 verification: `lake build ConnesWeilRH.Dev.C1Stage3RemainderFamily` (EXIT=0, 3705 jobs) and
 probe target (EXIT=0, 3706 jobs). Build dir `/home/peter/verify/c1-lane-r-tail-rate-20260818`.
+
+## Change Log (2026-08-22 — P3-a·1 + P4 consumer LANDED, build-clean)
+
+**Result: good.** Route B windowing (Program P3-a) now closes on the explicit narrow root
+`gV = C1LaneRNarrowArch.narrowArchRoot`. New module `ConnesWeilRH/Dev/C1Stage3WindowedTraceP3a.lean`
+(292 lines) builds clean and every probed lemma is axiom-clean.
+
+What it proves — **one bare rank-1 positive self-operator** (the pivot away from the earlier
+two-part `A₀⊔D_g`): on the carrier `cc20GlobalLogCrossingL2` (= plain L²(ℝ)),
+
+```text
+TmapCLM := InnerProductSpace.rankOne ℂ (s • d0) d0        -- finite-rank ⇒ Hilbert–Schmidt
+d0      := frontierKernelVec gV 3                          -- translated involution kernel at x = 3
+p3aF0   := (gV.convolutionSquare.test 0).re               -- = ‖d0‖², strictly positive
+s       := Real.sqrt(qw gV / p3aF0²)                       -- chosen so the HS-mass lands on qw gV
+```
+
+whose Hilbert–Schmidt self-pair mass reads back to the Weil value **as an equality**:
+
+```text
+Re Tr(T† T) = ∑' i ‖T (basis i)‖² = s² · ‖d0‖⁴ = (qw gV / p3aF0²) · ‖d0‖⁴ = qw gV .
+```
+
+The identity rests on the kernel-mass bridge `p3a_kernelMass_eq_p3aF0`, Parseval on the carrier
+(`frontierParseval_normSq`), and the rank-one column factorization (`hcolNormSq`). Because the operator
+is fixed (not windowed) the trace is a constant in the family index, so one constant family inhabits
+`PositiveTracePairLimitFamily`.
+
+**P4 consumer added.** `p4_healthyCriterionState F : C1.healthyCriterionState F`, proved by
+`apply C1PositiveTraceLimitBridge.healthyCriterionState_of_positiveTracePairLimitFamily (H := …)(G := …)
+globalBasis F; intro g hvanishing; exact hfamily g hvanishing`. It is **Scope B / conditional**: it takes the
+uniform producer obligation `hfamily : ∀ g, CC20VanishesOn C1.healthyCC20TestSpace F g →
+PositiveTracePairLimitFamily …` as an explicit hypothesis and mirrors the
+`C1Stage3RemainderFamily.stage3Remainder_healthyCriterionState` idiom. The reason for not fully
+generalizing: `p3aFamily` exists only at the fixed root gV, and generalizing to arbitrary vanishing g would
+be circular (the scaling needs `qw g ≥ 0`, the very conclusion). No sign on `qw g` is ever assumed — each
+family's self-pair trace product is an intrinsically-positive adjoint-times-factor operator, so nonnegativity
+of `qw g` for vanishing tests is concluded, not presupposed.
+
+WSL2 ext4 verification (built on the ext4 mirror, **not** `/mnt/c`, per the project "禁止用mnt" rule):
+`lake build ConnesWeilRH.Dev.C1Stage3WindowedTraceP3a` → **BUILD_EXIT=0, 3625 jobs**, "Build completed
+successfully". Axiom audit: all 11 probed names (`p3aF0_pos`, `p3a_qw_pos`, `p3a_kernelMass_eq_p3aF0`,
+`p3a_normD0_sq_eq_p3aF0`, `hcolNormSq`, `hsumT`, `p3a_HS_mass_eq_qw`, `p3a_pair_reTrace_eq_HS_mass`,
+`p3a_readback_eq`, `p3aFamily`, `p4_healthyCriterionState`) depend ONLY on `[propext, Classical.choice,
+Quot.sound]`; **zero `sorryAx`**.
+
+**Pitfall recorded in AGENTS.md §7:** bare `simp` does NOT expand `‖s • d0‖²` on the L² carrier —
+`norm_smul` is not a default-simp lemma. Fix: `rw [norm_smul, mul_pow]` first, then BARE `simp` closes
+`‖(s : ℂ)‖² = |s|² = s²` for ANY real `s`, no `0 ≤ s` hypothesis needed.
+
+**Next:** (1) P5 producer obligation — extend the concrete `p3aFamily` witness from gV to every test
+vanishing on F (the analytic content the `hfamily` hypothesis isolates); (2) commit this module + memory/agents;
+(3) re-run the full C1 route build once P5 lands to confirm no regression at the aggregate target.

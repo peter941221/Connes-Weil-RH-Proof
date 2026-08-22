@@ -930,6 +930,7 @@ restricted/global masses with one evaluation object.
   what a declaration depends on; it cannot catch a wrong-stated premise.
 - Keep guards naming files as rejected-route record for future reference.
 - **`R` vs `R0` vs `S` naming landmine (Gate-3U outer/band channels)**: the CONPUTABLE  band projection is `radialSupportProjection` = `R` in docs/815/884/997 but `R0` in docs/995's private naming; the UNREACHABLE archimedean `sourceSoninProjection` is `R0` in docs/815 but `S`/`P` in docs/872/995. `OuterChannel = (I-R_radial).o.D` (docs/815) is the computable one and is what 824/884 measure (~0.62); `(I-Sonin)D=J-D` is a DIFFERENT operator that requires the exact Sonin intersection. Never equate the probe's `(I-R)D` with `(I-Sonin)D`, and always pin which projection a doc's `R`/`S` means.
+- **`simp` does NOT expand `‖s • d0‖²` on an L² carrier**: on `cc20GlobalLogCrossingL2` (= `Lp ℂ 2 (volume : Measure ℝ)`) the scalar-multiple norm lemma `norm_smul` is not a default-simp lemma, so bare `simp` leaves `‖s•d0‖²` stuck ("made no progress"). Fix: `rw [norm_smul, mul_pow]` first → `(‖s‖·‖d0‖)² = ‖s‖²·‖d0‖²`, then BARE `simp` closes the scalar residual `‖(s:ℂ)‖² = |s|² = s²` for ANY real `s` — **no `0 ≤ s` hypothesis needed**. (Observed 2026-08-22, C1Stage3WindowedTraceP3a P4 build.)
 
 ## 8. WSL Verification
 
