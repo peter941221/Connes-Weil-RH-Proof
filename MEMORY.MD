@@ -4072,3 +4072,48 @@ globalBasis F …`.
 **Next:** (1) aggregate C1 route regression build on WSL2 ext4 to confirm no regression at the aggregate target before
 declaring Stage 3 closed; (2) commit this module + AGENTS/MEMORY for P5; (3) decide whether FRONTIER-HS / FRONTIER-CRUX
 promote to first-class named lemmas in a dedicated module.
+
+## Change Log (2026-08-22 — FrontierStatus leaf LANDED, build-clean; the two Gate-3 facts pinned as one proven + one named root)
+
+**Result: good.** New leaf `ConnesWeilRH/Dev/C1Stage3FrontierStatus.lean` (~140 lines) promotes the residual
+FRONTIER-HS / FRONTIER-CRUX content into a dedicated, audited module — P5's "Next step #3". WSL2 ext4 build is green
+(`LAKE_EXIT=0`, full `lake build ConnesWeilRH` = 3730 jobs) and the axiom probe is exactly as designed: four proven lemmas
+are clean `[propext, Classical.choice, Quot.sound]`, one named root carries only itself, **zero** `sorryAx` in the whole log.
+
+What it pins — "Stage 3 reduces to two unexamined hypotheses" becomes three named results:
+
+```text
+§A frontierHS_windowed_summable (n) (g) : Summable fun i => ‖frontierWindowFactor n g e_i‖²
+      -- FRONTIER-HS, WINDOWED form: the positive half is PROVEN (reuses C1Stage3FrontierHS.frontierHS_summable).
+
+§B frontierPlainWindowTrace_eq_volumeTimesMass : ∑' i ‖…e_i‖² = meas(W(n)) · ∫t ‖(g⁻¹).test t‖²
+   frontierPlainWindowTrace_unbounded (hpos)  : ∀ M, ∃ n, M ≤ ∑' i ‖…e_i‖²
+      -- plain windowing alone carries NO Weil content: closed form = window-length × mass → diverges; a bulk term MUST be subtracted.
+
+§C axiom frontierWindowBulkSubtracted_readback_eq_qw (g) : ∃ b, Tendsto (fun n => (∑' i ‖…e_i‖² − b n)) atTop (𝓝 (qw g))
+      -- the ONE named root: exactly the analytic content §B does not supply.
+
+   frontierStatus_satisfiableAt_gV : (Summable fun i => ‖TmapCLM e_i‖²) ∧ Re Tr(T†T) = qw gV
+      -- concrete satisfiability witness at gV = narrowArchRoot, reusing P3-a's hsumT + p3a_readback_eq.
+```
+
+**Why the windowed framing is honest.** On the *bare* global convolution factor FRONTIER-HS is not even jointly
+satisfiable for a nonzero test (HS-mass `‖h_g‖₂² · meas(ℝ) = ∞`, the #10 obstruction); cutting by a finite log-window makes
+the total mass exactly `meas(W(n))·‖h_g‖₂² < ∞` — so §A is provable, while §B shows raw windowing still diverges and forces
+§C's bulk subtraction. The module converts "two unexamined hypotheses" into: one proven windowed-HS lemma + one proven
+divergence negative-result + one named root demonstrably satisfiable at the explicit root `gV`.
+
+**Verification (WSL2 ext4, built on the mirror — NOT `/mnt/c`):** full library build → **LAKE_EXIT=0**. Axiom audit:
+§A/§B/satisfiableAt_gV → `[propext, Classical.choice, Quot.sound]`; `frontierWindowBulkSubtracted_readback_eq_qw` → those plus
+itself (the intended single self-root); `grep -c sorryAx fs_build.log` = **0**. Being a pure leaf it imports only shared Source
+bricks + active C1 leaves and is itself imported by nothing, so no aggregate regression was expected or needed.
+
+**Pitfalls recorded in AGENTS.md §7:** (a) lambda body swallows a top-level `∧` — parenthesize the first conjunct; (b)
+`cc20GlobalLogCrossingL2` is not transitively re-exported by a module that merely uses it — must import
+`CC20Concrete.GlobalLogCrossing` **and** `open CC20Concrete`. Also refined the existing explicit-section-var bullet: only
+declarations whose *type* depends on the variable get it as a leading arg; carrier-only defs (`TmapCLM`, `frontierWindowFactor`)
+are used bare.
+
+**Next:** (1) commit this leaf + AGENTS/MEMORY and push to origin/main; (2) Program P — construct the bulk sequence `b`
+(and matching operator family) that discharges the §C root, turning it from a named axiom into a theorem; (3) once §C is
+proven uniformly in `g`, feed FRONTIER-HS(§A) + FRONTIER-CRUX(§C) into `p5_healthyCriterionState` to close Stage 3 end-to-end.
