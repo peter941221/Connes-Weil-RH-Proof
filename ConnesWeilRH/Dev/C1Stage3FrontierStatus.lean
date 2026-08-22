@@ -135,15 +135,59 @@ theorem frontierStatus_satisfiableAt_gV :
   · exact C1Stage3WindowedTraceP3a.hsumT globalBasis
   · exact C1Stage3WindowedTraceP3a.p3a_readback_eq globalBasis
 
+/-! ### §D — End-to-end closure via Program P step 2's operator-level rank-one family. -/
+
+/-- **End-to-end Stage-3 windowing closure (operator level).** Feeding Program P step 2's rank-one positive
+self-correction family (`C1Stage3WindowedTraceP3a.positiveTracePairLimitFamily_of_rankOneCorrection`) as the uniform
+`hfamily` of `p4_healthyCriterionState` yields the finite-vanishing healthy criterion state.
+
+This is the *operator-level* dual of the scalar routes already pinned here and in `C1Stage3FrontierCrux`:
+
+* the **bare stage-remainder route** (`stage3Remainder_family_for_g`) needs *two* frontier facts — FRONTIER-HS (the bare
+  convolution factor Hilbert–Schmidt) **and** FRONTIER-CRUX (its detector trace reads back to `qw g`, isolated as an axiom
+  in `C1Stage3FrontierCrux`).  Yet §B proves the *bare* HS mass is `‖h_g‖₂² · meas(ℝ) = ∞` for any nonzero kernel, so that
+  route's FRONTIER-HS premise is itself the #10 obstruction;
+
+* the **windowed factor** (§A) *is* Hilbert–Schmidt, but §B shows its trace diverges like `meas(W(n)) · ‖h_g‖₂²`, and a
+  vanishing-remainder family cannot absorb that bulk in its `remainder` field (it must live inside the operator — the deep
+  log-weighted detector of kill-test 1037).
+
+Program P step 2's rank-one correction sidesteps both: it is genuinely Hilbert–Schmidt, has an **identically-zero**
+remainder, and its self-pair trace reads back to `qw g` outright.  Its only per-test input is a lower bound `0 ≤ qw g` plus one
+fixed nonzero carrier vector `d0`.
+
+So on the operator-level route Stage-3 windowing reduces to the **single isolated premise** that every vanishing test has
+nonnegative Weil value — precisely the RH sign content the consumer chain exists to pin down non-circularly.  The reduction is
+*sign-transparent*: unlike `stage3Remainder_family_for_g`, which derives `0 ≤ qw g` from a trace identity (no sign input), here
+`0 ≤ qw g` is an explicit per-test hypothesis; at the narrow root it is independently proven
+(`C1LaneRStrictness.narrowArchRoot_qw_pos`, via `p3a_qw_pos`), so the closure is concrete and non-circular there.  The witness
+that these premises are jointly satisfiable for a vanishing test is §C's `frontierStatus_satisfiableAt_gV`. -/
+theorem frontierStatus_healthyCriterionState_of_rankOneCorrection
+    (globalBasis : HilbertBasis ν ℂ cc20GlobalLogCrossingL2)
+    (F : Finset CriticalVanishingPoint)
+    (d0 : cc20GlobalLogCrossingL2) (hd0 : 0 < ‖d0‖ ^ 2)
+    (hqw : ∀ g : CompactLogTest, CC20VanishesOn C1.healthyCC20TestSpace F g →
+        0 ≤ C1SameOwnerWeil.qw g) :
+    C1.healthyCriterionState F := by
+  -- `globalBasis` is an explicit parameter here, shadowing the section variable of that name.
+  -- A body-only use of a section variable is not auto-lifted here, so it must be named.
+  -- Any Hilbert basis of the carrier works for the closure.
+  exact C1Stage3WindowedTraceP3a.p4_healthyCriterionState globalBasis F fun g hvanishing =>
+      C1Stage3WindowedTraceP3a.positiveTracePairLimitFamily_of_rankOneCorrection
+          globalBasis g d0 hd0 (hqw g hvanishing)
+
 end
 
-/-! ### Axiom-cleanliness audit. All five results are now theorems (the former §C named root is discharged above): each depends
-only on `[propext, Classical.choice, Quot.sound]` and none self-roots or introduces `sorryAx`.  `#print axioms` takes a bare name; free args auto-filled. -/
+/-! ### Axiom-cleanliness audit — all six results are now theorems (the §C
+named root and the §D end-to-end closure discharged above); each depends only on
+`[propext, Classical.choice, Quot.sound]`; none self-roots or introduces `sorryAx`.
+`#print axioms` takes a bare name; free args auto-filled. -/
 #print axioms frontierHS_windowed_summable
 #print axioms frontierPlainWindowTrace_eq_volumeTimesMass
 #print axioms frontierPlainWindowTrace_unbounded
 #print axioms frontierStatus_satisfiableAt_gV
 #print axioms frontierWindowBulkSubtracted_readback_eq_qw
+#print axioms frontierStatus_healthyCriterionState_of_rankOneCorrection
 
 end C1Stage3FrontierStatus
 end Source
