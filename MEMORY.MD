@@ -4024,3 +4024,51 @@ Quot.sound]`; **zero `sorryAx`**.
 **Next:** (1) P5 producer obligation — extend the concrete `p3aFamily` witness from gV to every test
 vanishing on F (the analytic content the `hfamily` hypothesis isolates); (2) commit this module + memory/agents;
 (3) re-run the full C1 route build once P5 lands to confirm no regression at the aggregate target.
+
+## Change Log (2026-08-22 — P5 producer LANDED, build-clean; Stage 3 consumer chain complete end-to-end)
+
+**Result: good.** The `hfamily` hypothesis of `p4_healthyCriterionState` is now discharged **non-circularly and
+uniformly for every vanishing test**, so the whole Route B windowing consumer chain closes in one line. Module
+`C1Stage3WindowedTraceP3a.lean` grew 292 → **321 lines** (added `import ConnesWeilRH.Dev.C1Stage3RemainderFamily`
+and the P5 block); WSL2 ext4 leaf build is clean and every probed lemma stays axiom-clean.
+
+What it proves — the uniform producer is stage3Remainder's structural factor, **not** a generalization of P3-a's
+rank-1 witness:
+
+```text
+F_g := C1Stage3RemainderFamily.stage3FamilyFactor g   -- = conv(g.involution.test), independent of globalBasis
+p5_healthyCriterionState (F) (hHS : ∀ g, Summable fun i => ‖F_g(basis i)‖²)
+                          (hcrux : ∀ g, Re Tr(F_g† F_g) = qw g)  : C1.healthyCriterionState F := by
+  exact p4_healthyCriterionState globalBasis F fun g hvanishing =>
+      C1Stage3RemainderFamily.stage3Remainder_family_for_g globalBasis g (hHS g) (hcrux g)
+```
+
+**Why this is the non-circular one.** P3-a's `TmapCLM` bakes in `s = √(qw gV / p3aF0²)` — its construction already
+needs `qw gV ≥ 0`, so it is clean *only* at the narrow root where `narrowArchRoot_qw_pos` was proven independently.
+The general test has no such independent positivity, so reusing that scaling would be circular. The structural factor
+`F_g = conv(g.involution.test)` carries **no sign on `qw g` in its construction**; its self-pair product is an
+`F_g† F_g`, intrinsically positive, so the nonnegativity of `qw g` for vanishing tests is *concluded*, not assumed.
+
+**Residual analytic content = exactly two named Gate-3 facts** (the hypotheses P5 isolates):
+
+```text
+(FRONTIER-HS)    ∀ g, Summable fun i => ‖F_g(basis i)‖²     -- F_g is Hilbert–Schmidt
+(FRONTIER-CRUX)  ∀ g, Re Tr(F_g† F_g) = qw g                -- the detector's real trace reads back to qw
+```
+
+`p3aFamily` remains as a *concrete witness* that these two obligations are satisfiable (at `gV`).
+
+WSL2 ext4 verification (built on the ext4 mirror, **not** `/mnt/c`): `lake build
+ConnesWeilRH.Dev.C1Stage3WindowedTraceP3a` → **BUILD_EXIT=0**. Axiom audit: all 12 probed names — the prior 11 plus
+`p5_healthyCriterionState` — depend ONLY on `[propext, Classical.choice, Quot.sound]`; `grep -c sorryAx p5_build.log` =
+**0**.
+
+**Pitfall recorded in AGENTS.md §7 (new bullet):** an explicit section variable `(globalBasis : …)` silently becomes a
+LEADING EXPLICIT parameter of every later declaration — even when calling such a theorem from within the same section,
+you must pass `globalBasis` first. Omitting it shifts all args left ("expected HilbertBasis ?m.N but got F") and poisons
+the axiom probe with a spurious `sorryAx`. This was exactly P5's initial failure; fixed by `p4_healthyCriterionState
+globalBasis F …`.
+
+**Next:** (1) aggregate C1 route regression build on WSL2 ext4 to confirm no regression at the aggregate target before
+declaring Stage 3 closed; (2) commit this module + AGENTS/MEMORY for P5; (3) decide whether FRONTIER-HS / FRONTIER-CRUX
+promote to first-class named lemmas in a dedicated module.

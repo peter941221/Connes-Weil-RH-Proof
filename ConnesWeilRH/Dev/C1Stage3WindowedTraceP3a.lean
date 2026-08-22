@@ -10,6 +10,7 @@ import ConnesWeilRH.Source.CCM25Concrete.CompactLogConvolution
 import ConnesWeilRH.Dev.C1LaneRNarrowArch
 import ConnesWeilRH.Dev.C1LaneRStrictness
 import ConnesWeilRH.Dev.C1PositiveTraceLimitBridge
+import ConnesWeilRH.Dev.C1Stage3RemainderFamily
 import ConnesWeilRH.Dev.C1SameOwnerWeil
 
 /-!
@@ -271,6 +272,33 @@ theorem p4_healthyCriterionState (F : Finset CriticalVanishingPoint)
   intro g hvanishing
   exact hfamily g hvanishing
 
+/-! ### The P5 producer — the non-circular uniform family for every vanishing test. -/
+
+/-- **P5 producer (uniform, non-circular).** The `hfamily` obligation of `p4_healthyCriterionState` is discharged by
+stage3Remainder's structural factor `F_g = conv(g.involution.test)`, whose self-pair product is *definitionally* the
+selected positive root detector — an `F† F` with **no sign on `qw g` assumed in its construction**.  Unlike P3-a's
+rank-1 witness (which bakes `s = √(qw g / p3aF0²)` into the operator and is therefore clean only at the narrow root,
+where `narrowArchRoot_qw_pos` was independently proven), this producer works for every test `g`.  Its only remaining
+analytic content is exactly the two named Gate-3 facts:
+
+```text
+(FRONTIER-HS)    ∀ g, Summable fun i => ‖F_g(basis i)‖²            -- F_g is Hilbert–Schmidt
+(FRONTIER-CRUX)  ∀ g, Re Tr(F_g† F_g) = qw g                      -- the detector's real trace reads back to qw
+```
+
+Routing these through `p4_healthyCriterionState` completes the P3-a consumer chain end-to-end: `C1.healthyCriterionState F`
+now follows non-circularly from FRONTIER-HS + FRONTIER-CRUX alone.  The rank-1 family `p3aFamily` remains as a concrete
+witness that these obligations are satisfiable, at the explicit root `gV`. -/
+theorem p5_healthyCriterionState (F : Finset CriticalVanishingPoint)
+    (hHS : ∀ g : CompactLogTest, Summable fun i => ‖C1Stage3RemainderFamily.stage3FamilyFactor g (globalBasis i)‖ ^ 2)
+    (hcrux : ∀ g : CompactLogTest,
+        (CC20Concrete.PositiveTrace.ordinaryTraceAlong globalBasis
+            ((C1Stage3RemainderFamily.stage3FamilyFactor g).adjoint ∘L C1Stage3RemainderFamily.stage3FamilyFactor g)).re =
+          C1SameOwnerWeil.qw g) :
+    C1.healthyCriterionState F := by
+  exact p4_healthyCriterionState globalBasis F fun g hvanishing =>
+      C1Stage3RemainderFamily.stage3Remainder_family_for_g globalBasis g (hHS g) (hcrux g)
+
 end
 
 /-! ### Axiom-cleanliness audit — each P3-a lemma carries only `[propext, Classical.choice, Quot.sound]`, no `sorryAx`.
@@ -286,6 +314,7 @@ end
 #print axioms p3a_readback_eq
 #print axioms p3aFamily
 #print axioms p4_healthyCriterionState
+#print axioms p5_healthyCriterionState
 
 end C1Stage3WindowedTraceP3a
 end Source
