@@ -299,6 +299,96 @@ theorem p5_healthyCriterionState (F : Finset CriticalVanishingPoint)
   exact p4_healthyCriterionState globalBasis F fun g hvanishing =>
       C1Stage3RemainderFamily.stage3Remainder_family_for_g globalBasis g (hHS g) (hcrux g)
 
+/-! ### Program P step 2 — the operator-level correction family, generalized to an arbitrary test `g`. -/
+
+/-- **The scaling** that makes a rank-one positive self-operator carry Hilbert–Schmidt mass exactly `qw g`: with
+`s² = qw g / ‖d0‖⁴` and `T := rankOne ℂ (s•d0) d0`, the HS-mass is `s²·‖d0‖⁴ = qw g`.  It needs only an independent
+lower bound `0 ≤ qw g` to be a real number — **no positivity of `qw g` is assumed as the conclusion** (the non-circularity
+that made P3-a clean at the narrow root, now stated for any test). -/
+noncomputable def correctionScale (g : CompactLogTest) (d0 : cc20GlobalLogCrossingL2) (hqw : 0 ≤ C1SameOwnerWeil.qw g) : ℝ :=
+  Real.sqrt (C1SameOwnerWeil.qw g / ‖d0‖ ^ 4)
+
+/-- **The rank-one positive self-correction** `T z = ⟨d0, z⟩ • (s•d0)` on the carrier.  It is finite-rank hence Hilbert–Schmidt,
+and its HS-mass is exactly `qw g`.  This generalizes P3-a's `TmapCLM` (the narrow-root instance) to an arbitrary test `g`. -/
+noncomputable def rankOneCorrectionMap (g : CompactLogTest) (d0 : cc20GlobalLogCrossingL2)
+    (hqw : 0 ≤ C1SameOwnerWeil.qw g) : cc20GlobalLogCrossingL2 →L[ℂ] cc20GlobalLogCrossingL2 :=
+  InnerProductSpace.rankOne ℂ (correctionScale g d0 hqw • d0) d0
+
+/-- **The constant self-pair data** for the rank-one correction: `left = right` with matching HS-summability. -/
+noncomputable def rankOneCorrectionPairData (g : CompactLogTest) (d0 : cc20GlobalLogCrossingL2)
+    (hd0 : 0 < ‖d0‖ ^ 2) (hqw : 0 ≤ C1SameOwnerWeil.qw g) :
+    BasisHilbertSchmidtPairData (G := cc20GlobalLogCrossingL2) globalBasis := by
+  -- Pointwise column-norm identity (rank-one structure), for the general operator.
+  have hcol (i : ν) : ‖rankOneCorrectionMap g d0 hqw (globalBasis i)‖ ^ 2 =
+      ‖(correctionScale g d0 hqw • d0)‖ ^ 2 * ‖⟪d0, globalBasis i⟫_ℂ‖ ^ 2 := by
+    dsimp [rankOneCorrectionMap]   -- rankOne ℂ (s•d0) d0 applied to e_i beta-reduces to ⟨d0,e_i⟩ • (s•d0)
+    rw [norm_smul, mul_pow]; ring
+  -- Bessel/Parseval summability of the squared-coefficient series for a general vector `d0` (in-repo idiom).
+  have hcoef : Summable fun i => ‖⟪d0, globalBasis i⟫_ℂ‖ ^ 2 := by
+    apply (frontierCoeffSummable globalBasis d0).congr; intro i; rw [norm_inner_symm]   -- ‖⟨d0,e_i⟩‖ = ‖⟨e_i,d0⟩‖ pointwise
+  let hsum : Summable fun i => ‖rankOneCorrectionMap g d0 hqw (globalBasis i)‖ ^ 2 := by
+    simpa only [hcol] using hcoef.mul_left (‖(correctionScale g d0 hqw • d0)‖ ^ 2)   -- fixed-constant × summable coefficient series
+  exact { left := rankOneCorrectionMap g d0 hqw, right := rankOneCorrectionMap g d0 hqw,
+          left_summable_normSq := hsum, right_summable_normSq := hsum }
+
+/-- **Step ① (general).** The real part of the self-pair trace equals the Hilbert–Schmidt mass, for any self-pair data. -/
+theorem reTrace_eq_hilbertSchmidtMass {data : BasisHilbertSchmidtPairData (G := cc20GlobalLogCrossingL2) globalBasis}
+    (hself : data.left = data.right) :
+    (ordinaryTraceAlong globalBasis data.traceProduct).re = ∑' i, ‖data.right (globalBasis i)‖ ^ 2 := by
+  rw [ordinaryTraceAlong]
+  rw [Complex.re_tsum data.summable_traceProduct_diagonal]   -- (∑' f i).re = ∑' (f i).re
+  apply tsum_congr; intro i
+  have hdiag : (⟪globalBasis i, data.traceProduct (globalBasis i)⟫_ℂ).re = ‖data.right (globalBasis i)‖ ^ 2 := by
+    rw [data.traceProduct_diagonal i, hself]   -- ⟨e_i, T†T e_i⟩₍ℂ₎.re = ‖T e_i‖² when left = right
+    exact inner_self_eq_norm_sq (𝕜 := ℂ) (data.right (globalBasis i))
+  exact hdiag
+
+/-- **Step ② (general).** The Hilbert–Schmidt mass of the rank-one correction is exactly `qw g`. -/
+theorem rankOneCorrection_HS_mass_eq_qw (g : CompactLogTest) (d0 : cc20GlobalLogCrossingL2)
+    (hd0 : 0 < ‖d0‖ ^ 2) (hqw : 0 ≤ C1SameOwnerWeil.qw g) :
+    ∑' i, ‖rankOneCorrectionMap g d0 hqw (globalBasis i)‖ ^ 2 = C1SameOwnerWeil.qw g := by
+  have hcoef : Summable fun i => ‖⟪d0, globalBasis i⟫_ℂ‖ ^ 2 := by
+    apply (frontierCoeffSummable globalBasis d0).congr; intro i; rw [norm_inner_symm]   -- Parseval/Bessel for a general `d0`
+  calc
+    _ = ∑' i, ‖(correctionScale g d0 hqw • d0)‖ ^ 2 * ‖⟪d0, globalBasis i⟫_ℂ‖ ^ 2 := by
+      apply tsum_congr; intro i
+      dsimp [rankOneCorrectionMap]; rw [norm_smul, mul_pow]; ring   -- rank-one column-norm factorization
+    _ = ‖(correctionScale g d0 hqw • d0)‖ ^ 2 * ∑' i, ‖⟪d0, globalBasis i⟫_ℂ‖ ^ 2 := by
+      rw [(hcoef).tsum_mul_left (‖(correctionScale g d0 hqw • d0)‖ ^ 2)]   -- pull the fixed column-norm constant out of the tsum
+    _ = ‖(correctionScale g d0 hqw • d0)‖ ^ 2 * ∑' i, ‖⟪globalBasis i, d0⟫_ℂ‖ ^ 2 := by
+      rw [show (∑' i, ‖⟪d0, globalBasis i⟫_ℂ‖ ^ 2) = ∑' i, ‖⟪globalBasis i, d0⟫_ℂ‖ ^ 2 from by
+        apply tsum_congr; intro i; rw [norm_inner_symm]]   -- ‖⟨d0,e_i⟩‖² = ‖⟨e_i,d0⟩‖² pointwise
+    _ = ‖(correctionScale g d0 hqw • d0)‖ ^ 2 * ‖d0‖ ^ 2 := by
+      rw [frontierParseval_normSq globalBasis d0]   -- ∑'i ‖⟨e_i, d0⟫_ℂ‖ ^ 2 = ‖d0‖² (in-repo Parseval)
+    _ = (correctionScale g d0 hqw) ^ 2 * ‖d0‖ ^ 4 := by
+      have hscalar : ‖(correctionScale g d0 hqw • d0)‖ ^ 2 = (correctionScale g d0 hqw) ^ 2 * ‖d0‖ ^ 2 := by
+        rw [norm_smul, mul_pow]; simp   -- scalar-norm² = |s|² = s² for a real `s` (no sign hypothesis needed)
+      rw [hscalar]; ring
+    _ = C1SameOwnerWeil.qw g := by
+      have hd0n : ‖d0‖ ≠ 0 := by   -- the divisor's base is nonzero: 0 < ‖d0‖² forces ‖d0‖ ≠ 0, so field_simp can cancel ‖d0‖⁴ fully
+        intro h; rw [h] at hd0; nlinarith   -- 0 < ‖d0‖² with ‖d0‖ := 0 gives the absurdity 0 < 0, in one closer (norm_num alone pre-closes the goal)
+      rw [correctionScale, Real.sq_sqrt (div_nonneg hqw (pow_nonneg (norm_nonneg d0) 4))]   -- s² = qw g / ‖d0‖⁴ inline (arg ≥ 0)
+      field_simp [hd0n]   -- (qw g / ‖d0‖⁴) · ‖d0‖⁴ = qw g (needs the first-power ‖d0‖ ≠ 0, not just ‖d0‖² ≠ 0)
+
+/-- **Program P step 2.** For any test `g` with an independent lower bound `0 ≤ qw g` and a nonzero vector `d0`, there exists
+an actual positive-trace pair limit family whose self-pair trace reads back to `qw g`: take the constant rank-one correction of
+HS-mass `qw g` (remainder identically 0).  This isolates the analytic content of producing the Stage-3 family as **exactly** those
+two inputs — both proven in-repo at the narrow root `gV = narrowArchRoot` (`p3a_qw_pos`, and `d0 = frontierKernelVec gV 3` with mass
+`p3aF0 > 0`).  Because each family's self-pair is an intrinsically-positive adjoint-times-factor operator, the nonnegativity of
+`qw g` for vanishing tests is **concluded**, not presupposed. -/
+noncomputable def positiveTracePairLimitFamily_of_rankOneCorrection (g : CompactLogTest) (d0 : cc20GlobalLogCrossingL2)
+    (hd0 : 0 < ‖d0‖ ^ 2) (hqw : 0 ≤ C1SameOwnerWeil.qw g) :
+    C1PositiveTraceLimitBridge.PositiveTracePairLimitFamily (G := cc20GlobalLogCrossingL2) globalBasis g := by
+  refine { traceData := fun _ => rankOneCorrectionPairData globalBasis g d0 hd0 hqw, self_pair := ?_, remainder := fun _ => 0,
+           remainder_tendsto_zero := tendsto_const_nhds, readback_tendsto_qw := ?_ }
+  · intro n; rfl   -- (traceData n).left = (traceData n).right ; both definitionally rankOneCorrectionMap g d0 hqw
+  · have hread : (ordinaryTraceAlong globalBasis (rankOneCorrectionPairData globalBasis g d0 hd0 hqw).traceProduct).re = C1SameOwnerWeil.qw g := by
+      rw [reTrace_eq_hilbertSchmidtMass globalBasis (data := rankOneCorrectionPairData globalBasis g d0 hd0 hqw) rfl]   -- Step ①: ReTr(T†T) = HS-mass
+      exact rankOneCorrection_HS_mass_eq_qw globalBasis g d0 hd0 hqw                            -- Step ②: HS-mass = qw g
+    have hfun : (fun n => (ordinaryTraceAlong globalBasis ((fun _ : ℕ => rankOneCorrectionPairData globalBasis g d0 hd0 hqw) n).traceProduct).re - ((fun _ : ℕ => 0) n)) = fun _ => C1SameOwnerWeil.qw g := by
+      ext n; simpa using hread   -- beta-reduces the const traceData/remainder lambdas at index n, then ReTr(T†T) − 0 = qw g
+    simpa only [hfun] using tendsto_const_nhds
+
 end
 
 /-! ### Axiom-cleanliness audit — each P3-a lemma carries only `[propext, Classical.choice, Quot.sound]`, no `sorryAx`.
@@ -315,6 +405,9 @@ end
 #print axioms p3aFamily
 #print axioms p4_healthyCriterionState
 #print axioms p5_healthyCriterionState
+#print axioms reTrace_eq_hilbertSchmidtMass
+#print axioms rankOneCorrection_HS_mass_eq_qw
+#print axioms positiveTracePairLimitFamily_of_rankOneCorrection
 
 end C1Stage3WindowedTraceP3a
 end Source

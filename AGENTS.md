@@ -197,6 +197,36 @@ reintroduce an independent `D₂,n → 0` obligation for this owner: the route i
 structurally rejected and needs a renormalized correction or a different
 detector owner.  Trace-class alone is not a limit estimate.
 
+### C1 Stage-3 Windowed Trace — Program P step 2 (operator-level correction family) (2026-08-23)
+
+Program P **step 2** lifts the §C *scalar* bulk witness to an explicit rank-one
+positive self-correction **operator** whose own Hilbert–Schmidt mass reads back to
+`qw g`, generalized from the narrow root `gV = narrowArchRoot` to an arbitrary
+vanishing test `g`. All in `Dev/C1Stage3WindowedTraceP3a.lean`:
+
+- `correctionScale g d0 hqw := Real.sqrt (C1SameOwnerWeil.qw g / ‖d0‖⁴)` — the scalar
+  whose square is exactly the Weil value over the vector's norm⁴; needs only an
+  independent lower bound `hqw : 0 ≤ qw g` to be a real number.
+- `rankOneCorrectionMap g d0 hqw := InnerProductSpace.rankOne ℂ ((correctionScale…) • d0) d0` —
+  finite-rank hence Hilbert–Schmidt; its column-norm factorizes as
+  `‖T e_i‖² = ‖(s•d0)‖² · ‖⟨d0, e_i⟩₍ℂ₎‖²`.
+- `reTrace_eq_hilbertSchmidtMass` (Step ①): for **any** self-pair data with `left = right`,
+  `Re Tr(T†T) = ∑' i ‖T e_i‖²` — the real self-trace equals the HS mass.
+- `rankOneCorrection_HS_mass_eq_qw` (Step ②): that operator's HS mass is exactly `qw g`,
+  proven from only `hqw : 0 ≤ qw g` and a nonzero vector (`hd0 : 0 < ‖d0‖²`). Because each
+  self-pair is intrinsically positive, the nonnegativity of `qw g` for vanishing tests is
+  **concluded, not assumed** — the same non-circularity that made P3-a clean at the narrow root.
+- `positiveTracePairLimitFamily_of_rankOneCorrection`: assembles a full
+  `C1PositiveTraceLimitBridge.PositiveTracePairLimitFamily` for an arbitrary test `g` (constant
+  rank-one correction, remainder identically 0, readback tending to `qw g`). This generalizes the
+  narrow-root `p3aFamily` uniformly over tests.
+
+Axiom-clean: all three new results depend only on `[propext, Classical.choice, Quot.sound]`, zero
+`sorryAx`; full `lake build ConnesWeilRH` is green (LAKE_EXIT=0). What remains on the Stage-3
+windowing frontier is to feed the two residual Gate-3 facts — FRONTIER-HS windowed (§A of
+`C1Stage3FrontierStatus`) and FRONTIER-CRUX — into `p5_healthyCriterionState`; this module now
+supplies the operator-level witness that makes those obligations satisfiable, not merely their scalar shadow.
+
 ### C1 Positive-Trace Cutoff Growth Guard
 
 For the canonical symmetric cutoff, the finite-window square has the exact
@@ -938,6 +968,10 @@ restricted/global masses with one evaluation object.
 - **A carrier type is NOT transitively re-exported by a module that merely uses it**: the name `cc20GlobalLogCrossingL2` lives in `CC20Concrete.GlobalLogCrossing`; importing a brick that *uses* it (e.g. `C1Stage3FrontierHS`) does not bring the bare name into scope. To write it bare you must `import ConnesWeilRH.Source.CC20Concrete.GlobalLogCrossing` **and** `open CC20Concrete`. Otherwise "Unknown identifier cc20GlobalLogCrossingL2" — which then cascades: the section variable's type fails → `globalBasis : sorry` → every basis-binder inference in the file breaks (a wall of ~15 downstream errors from one missing import). (Observed 2026-08-22, `C1Stage3FrontierStatus`.)
 
 - **The integral binder `∫ t, body` swallows everything to its right** — including a trailing subtraction: source text `volume.real W * ∫ t, ‖…‖² − c` parses as `vol * (∫t (‖…‖² − c))`, NOT `(vol · ∫t ‖…‖²) − c`. Symptom when you meant the latter: `ring_nf` leaves the goal unchanged because two mass subterms are not equal ring-atoms, or a spurious "No goals to be solved" on an inner `rfl` because §B's rewrite already closed it. Fix: name the mass as an **atomic identifier** (`let mfun n := vol · ∫t ‖…‖²`) and reference that bare name in both positions — no parsing ambiguity with a plain identifier, so `ring` closes `X − (X − c) = c`. When reusing §B's closed form to set up such an equality, assign the lemma **directly** (`have hT : LHS = mfun n := frontierPlainWindowTrace_eq_volumeTimesMass …`) rather than via a by-block that ends in `rfl` — its RHS is definitionally `mfun n`, so the rewrite closes it and a trailing `rfl` errors. (Observed 2026-08-22, §C bulk-witness build, `C1Stage3FrontierStatus`.)
+
+- **`norm_num at h` can pre-close a `False` goal**: when the current goal is `False` (e.g. inside proving `a ≠ b`) and you simplify a hypothesis into an absurdity — `intro h; rw [h] at hd0; norm_num at hd0` turns `hd0 : 0 < ‖d0‖²` into `hd0 : 0 < 0` — the *tactic* `norm_num at hd0` discharges that contradiction and leaves **no goals**. A trailing `exact lt_irrefl _ hd0` then errors with "No goals to be solved". Fix: make exactly one tactic the sole closer. Use `nlinarith` (it normalizes `0² = 0`, sees `hd0 : 0 < 0`, and closes `False`) after a hypothesis-only rewrite (`rw [h] at hd0` never touches the main goal): `intro h; rw [h] at hd0; nlinarith`. (Observed 2026-08-23, Program P step-2 build, `C1Stage3WindowedTraceP3a.rankOneCorrection_HS_mass_eq_qw`.)
+
+- **`field_simp` on a norm-power divisor needs the *base* nonzero, not just its square**: to cancel `(qw g / ‖d0‖⁴) · ‖d0‖⁴ = qw g`, `field_simp [ne_of_gt (hd0 : 0 < ‖d0‖²)]` only cancels three of the four factors and leaves the residual goal `qw g * ‖d0‖ / ‖d0‖ = qw g` — it cannot derive the first-power base fact `‖d0‖ ≠ 0` from the squared one `‖d0‖² ≠ 0`. Fix: derive and feed the base explicitly, `have hd0n : ‖d0‖ ≠ 0 := by intro h; rw [h] at hd0; nlinarith`, then `field_simp [hd0n]` cancels fully. (Observed 2026-08-23, same build, final calc step of `rankOneCorrection_HS_mass_eq_qw`.)
 
 ## 8. WSL Verification
 
