@@ -1,3 +1,76 @@
+## Change Log (2026-08-22, bare whole-line Hilbert--Schmidt premise KILLED)
+- Added `Dev/C1Stage3BareHSObstruction.lean`.  For a nonzero compact-log
+  test, the bare factor
+  `stage3FamilyFactor g = cc20GlobalLogConvolution g.involution.test` cannot
+  satisfy the current fixed-basis Hilbert--Schmidt premise
+  `Summable (fun i => ‖stage3FamilyFactor g (globalBasis i)‖ ^ 2)`.
+- The proof keeps one owner throughout: the finite cutoff operator is exactly
+  a postcomposition of the bare factor by interval restriction followed by
+  zero extension (`cutoffPositiveBasisData_operator_eq_postcomp`).  Both maps
+  are contractions, so `cutoffEnergy_le_bareHS_mass` gives a cutoff-independent
+  upper bound from bare HS summability.  The existing exact identity
+  `Re Tr = (cutoffUpper - cutoffLower) * ∫ ‖g.test‖²`, together with strict
+  positivity of the mass, makes the cutoff trace unbounded; hence
+  `not_bare_hilbertSchmidt_of_test_ne_zero` is contradictory.  The universal
+  premise is refuted by `Dev.Wall14Plateau.bumpPlateauTest` via
+  `not_forall_bare_hilbertSchmidt`.
+- This is a negative result for the FRONTIER-HS owner, not an RH proof.  A
+  windowed factor may still be Hilbert--Schmidt; that does not imply the bare
+  whole-line convolution is HS.  Any surviving Stage-3 route must use a
+  renormalized/finite-window owner or prove a genuinely different detector
+  factor, while preserving the same-owner arithmetic readback.
+- Verification: WSL2 `Ubuntu-24.04` ext4
+  `lake build ConnesWeilRH.Dev.C1Stage3BareHSObstruction` completed
+  `3728/3728`; `C1Stage3BareHSObstructionProbe.lean` compiled and audited all
+  five public declarations to exactly `[propext, Classical.choice, Quot.sound]`
+  (no `sorryAx`, project axiom, or RH conclusion).
+
+## Change Log (2026-08-22, Stage-3 projection defect bounds and cutoff kill-test LANDED)
+- Added `Dev/C1Stage3ProjectionDefectBounds.lean` with the unconditional norm
+  bounds
+  `‖D₁‖ ≤ ‖fullBoundaryRootFactor‖² * ‖kernelInsertionDefect‖` and
+  `‖D₂‖ ≤ ‖windowedBoundaryDetector‖ + ‖projectionResponse‖`, plus explicit
+  zero-iff/readback lemmas.  These are quantitative bounds only; they do not
+  manufacture a decay rate.
+- Added the canonical cutoff owners `cutoffKernelInsertionSandwich` and
+  `cutoffWindowToResponseDefect`.  For every nonzero source test and every
+  trace-class fixed `projectionResponse`,
+  `cutoffWindowToResponseDefect_trace_re_unbounded_of_sourceTest_ne_zero`
+  proves its real trace is unbounded, using the exact window-length trace
+  formula and monotonicity.  The companion theorem
+  `not_tendsto_zero_cutoffWindowToResponseDefect_trace_re_of_sourceTest_ne_zero`
+  therefore rejects `D₂,n → 0` even at scalar trace level.
+- Interpretation: the `D₂` open item is **closed as a negative result** for the
+  current fixed-response/canonical-window owner.  It cannot be repaired by
+  citing trace-class; a renormalized/finite-window correction or a different
+  detector owner is required.  The `D₁` open item is narrowed to a genuine
+  compressed-kernel compatibility/rate estimate; only its norm bound is closed.
+- Verification: WSL2 `Ubuntu-24.04` ext4 owning build
+  `ConnesWeilRH.Dev.C1Stage3ProjectionDefectBounds` completed `3722/3722`;
+  import-facing probe reports only `[propext, Classical.choice, Quot.sound]`
+  for all twelve declarations, with no `sorryAx` or project axiom.
+
+## Change Log (2026-08-22, Stage-3 finite-window projection wiring LANDED): `Dev/C1Stage3ProjectionWindow.lean`
+- Added `Dev/C1Stage3ProjectionResponseBridge.lean` as the next active-C1 Stage-3
+  wiring layer.  It proves the exact same-owner factorization
+  `C† K_S C = F†(Z†K_S Z)F`, splits this into the finite-window detector plus the
+  named `kernelInsertionSandwich`, and then splits again against the active
+  `projectionResponse` via `windowToResponseDefect`.  The corresponding
+  named-basis trace-class lemmas and the three-term ordinary-trace ledger are
+  axiom-clean; no defect is asserted to tend to zero and no `qw`/RH result is
+  claimed.  The added arithmetic attachment
+  `realTrace_fullBoundaryProjectionPairData_eq_selectedArithmetic_add_defects`
+  reads the real trace back to `selectedArithmeticCarrierSum` plus the same-object
+  residual and both explicit window defects.  It is scalar bookkeeping only: no
+  pole/archimedean cancellation, limit, sign, or RH conclusion is supplied.  The
+  import-facing probe reports only `[propext, Classical.choice, Quot.sound]` for
+  all thirteen declarations.  WSL2 ext4 owning/probe builds completed at
+  `3712`/`3713` jobs, and `check_rh_mainline_freeze.ps1` passes.
+
+- Added an active-C1 finite-window/kernel owner for the projection-square candidate.  `kernelSandwichPairData` packages a Hilbert--Schmidt factor `C` and bounded kernel `K` as one pair with trace product `C† ∘ K ∘ C`; bounded postcomposition proves the right leg remains Hilbert--Schmidt.  `kernelSandwichPairData_traceProduct_isPositive` delegates positivity to Mathlib's `ContinuousLinearMap.IsPositive.adjoint_conj`, and `ordinaryTraceAlong_re_nonnegative_of_positive` turns positivity plus diagonal summability into a nonnegative real trace.
+- `fullBoundaryProjectionPairData` instantiates the owner with the real finite-window factor `fullBoundaryPositiveOperator` and active `stage3ProjectionKernel`.  Its `cutoffProjectionPairData` specialization now supplies the actual expanding `n`-sequence from `cutoffLower/Upper` and the existing local bases.  These declarations prove the exact trace-product identity, `IsTraceClassAlong`, `IsPositive`, and nonnegative real trace without importing frozen Gate-3U leaves.
+- Verification: isolated WSL2 ext4 owning target `ConnesWeilRH.Dev.C1Stage3ProjectionWindow` completed successfully (`3703` jobs); import-facing probe completed (`3707` jobs).  All twelve Window declarations use only `[propext, Classical.choice, Quot.sound]`; no `sorryAx` and no project axiom.  This closes only the finite-window operator wiring sub-obligation.  The `qw` readback, triple-vanishing ledger, and `D_{g,n} → 0` remain open.
+
 ## Change Log (2026-08-21, P3-a·0 VERDICT: qw(narrowArchRoot) ≈ +5.8e48 > 0 → GREEN LIGHT for P3-a·1): p3_probe_qw_narrow.py
 - **Verdict first: GOOD — sign robustly positive; magnitude ≈ F(0)×23.6; readback gap = exactly qw(g_v).** The P3-a·0 probe (repo root `p3_probe_qw_narrow.py`) evaluates the same-owner Weil value of the explicit vanishing test `narrowArchRoot`
   (C1LaneRNarrowArch.lean:626-628) using ONLY explicit repo formulas; every structural collapse is cited in-file with line refs.

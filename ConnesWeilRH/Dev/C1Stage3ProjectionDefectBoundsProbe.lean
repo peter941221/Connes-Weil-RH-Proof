@@ -1,0 +1,29 @@
+import ConnesWeilRH.Dev.C1Stage3ProjectionDefectBounds
+
+open ConnesWeilRH.Source.Dev.C1Stage3ProjectionDefectBounds
+
+#check @norm_kernelInsertionSandwich_le
+#check @norm_windowToResponseDefect_le
+#check @kernelInsertionSandwich_eq_zero_iff
+#check @windowToResponseDefect_eq_zero_iff
+#check @cutoffKernelInsertionSandwich
+#check @cutoffWindowToResponseDefect
+#check @norm_cutoffKernelInsertionSandwich_le
+#check @norm_cutoffWindowToResponseDefect_le
+#check @ordinaryTraceAlong_cutoffWindowToResponseDefect_eq_sub
+#check @cutoffWindowToResponseDefect_trace_re_eq_sub
+#check @cutoffWindowToResponseDefect_trace_re_unbounded_of_sourceTest_ne_zero
+#check @not_tendsto_zero_cutoffWindowToResponseDefect_trace_re_of_sourceTest_ne_zero
+
+#print axioms norm_kernelInsertionSandwich_le
+#print axioms norm_windowToResponseDefect_le
+#print axioms kernelInsertionSandwich_eq_zero_iff
+#print axioms windowToResponseDefect_eq_zero_iff
+#print axioms cutoffKernelInsertionSandwich
+#print axioms cutoffWindowToResponseDefect
+#print axioms norm_cutoffKernelInsertionSandwich_le
+#print axioms norm_cutoffWindowToResponseDefect_le
+#print axioms ordinaryTraceAlong_cutoffWindowToResponseDefect_eq_sub
+#print axioms cutoffWindowToResponseDefect_trace_re_eq_sub
+#print axioms cutoffWindowToResponseDefect_trace_re_unbounded_of_sourceTest_ne_zero
+#print axioms not_tendsto_zero_cutoffWindowToResponseDefect_trace_re_of_sourceTest_ne_zero

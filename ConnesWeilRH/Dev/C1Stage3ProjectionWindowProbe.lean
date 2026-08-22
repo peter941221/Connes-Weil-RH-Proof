@@ -1,0 +1,31 @@
+import ConnesWeilRH.Dev.C1Stage3ProjectionWindow
+
+open ConnesWeilRH.Source.Dev.C1Stage3ProjectionWindow
+
+-- Import-facing checks: the finite-window factor and the active kernel are
+-- exposed through one trace-product owner.
+#check @kernelSandwichPairData_traceProduct_eq
+#check @kernelSandwichPairData_traceProduct_isTraceClassAlong
+#check @kernelSandwichPairData_traceProduct_isPositive
+#check @ordinaryTraceAlong_re_nonnegative_of_positive
+#check @fullBoundaryProjectionPairData_traceProduct_eq
+#check @fullBoundaryProjectionPairData_traceProduct_isTraceClassAlong
+#check @fullBoundaryProjectionPairData_traceProduct_isPositive
+#check @fullBoundaryProjectionPairData_trace_re_nonnegative
+#check @cutoffProjectionPairData_traceProduct_eq
+#check @cutoffProjectionPairData_traceProduct_isTraceClassAlong
+#check @cutoffProjectionPairData_traceProduct_isPositive
+#check @cutoffProjectionPairData_trace_re_nonnegative
+
+#print axioms kernelSandwichPairData_traceProduct_eq
+#print axioms kernelSandwichPairData_traceProduct_isTraceClassAlong
+#print axioms kernelSandwichPairData_traceProduct_isPositive
+#print axioms ordinaryTraceAlong_re_nonnegative_of_positive
+#print axioms fullBoundaryProjectionPairData_traceProduct_eq
+#print axioms fullBoundaryProjectionPairData_traceProduct_isTraceClassAlong
+#print axioms fullBoundaryProjectionPairData_traceProduct_isPositive
+#print axioms fullBoundaryProjectionPairData_trace_re_nonnegative
+#print axioms cutoffProjectionPairData_traceProduct_eq
+#print axioms cutoffProjectionPairData_traceProduct_isTraceClassAlong
+#print axioms cutoffProjectionPairData_traceProduct_isPositive
+#print axioms cutoffProjectionPairData_trace_re_nonnegative

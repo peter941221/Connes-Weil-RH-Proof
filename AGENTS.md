@@ -115,6 +115,9 @@ theorem now rules out `CutoffDominatedTraceWitness g globalBasis` whenever
 `g.test != 0`; it does not rule out every possible renormalized or
 finite-window convergence mechanism. The concrete cutoff remainder estimate
 and same-owner analytic readback remain open.
+The stronger audit in `Dev/C1Stage3BareHSObstruction.lean` now also rules out
+the bare whole-line FRONTIER-HS premise itself for every nonzero test; only a
+new windowed or renormalized detector owner can remain viable.
 
 ### C1 Common-Carrier Stages 1-2 (2026-08-19)
 
@@ -170,9 +173,29 @@ Two reusable rules from this step (doc `1039_stage3_projection_candidate_admissi
   that file) only says an operator is trace-class along a basis; it does not bound or
   send its diagonal sum to zero.  Do not cite trace-class as a remainder limit.
 
-This round proves the positive core lives in the active namespace only.  The
-operator identity `A_g,n† A_g,n = C_{g,n}† K_S C_{g,n}`, the same-owner readback to
-`qw g`, and the remainder limit are still open (Gates 1-4 of doc 1039).
+This round proves the positive core and finite-window operator wiring in the
+active namespace only.  The same-owner readback to `qw g`, the triple-vanishing
+ledger, and the remainder/defect limit remain open (Gates 2-4 of doc 1039;
+the current canonical `D₂` owner is structurally rejected by the cutoff audit).
+
+The active response bridge is now explicit in
+`Dev/C1Stage3ProjectionResponseBridge.lean`: `C† K_S C` is factored through the
+output compression and decomposed into `projectionResponse` plus two named
+operator defects (`kernelInsertionSandwich` and `windowToResponseDefect`).
+The associated named-basis trace ledger is conditional on trace legality of
+`projectionResponse`; neither defect may be treated as a vanishing remainder
+without a separate estimate.  Type equality on the common carrier is not an
+operator identity.
+
+The quantitative audit is in `Dev/C1Stage3ProjectionDefectBounds.lean`.
+`kernelInsertionSandwich` has only the norm bound
+`‖F‖² * ‖Z†KZ - I‖`; no decay rate follows without a compressed-kernel
+compatibility theorem.  For the canonical symmetric cutoff,
+`windowToResponseDefect` has an unbounded real trace for every nonzero source
+test when the fixed `projectionResponse` is trace-class.  Therefore do not
+reintroduce an independent `D₂,n → 0` obligation for this owner: the route is
+structurally rejected and needs a renormalized correction or a different
+detector owner.  Trace-class alone is not a limit estimate.
 
 ### C1 Positive-Trace Cutoff Growth Guard
 
@@ -195,6 +218,24 @@ Do not reintroduce that witness as if it followed from finite-window
 Hilbert--Schmidt compactness. This obstruction says nothing by itself about a
 renormalized trace, a finite-window subtraction, the cutoff remainder, or the
 same-owner analytic readback.
+
+### C1 Bare Whole-Line Hilbert--Schmidt Obstruction
+
+The current FRONTIER-HS premise is false for every nonzero compact-log test.
+`Dev/C1Stage3BareHSObstruction.lean` proves this without adding an analytic
+axiom: `cutoffPositiveBasisData_operator_eq_postcomp` identifies each finite
+cutoff with the bare convolution followed by interval restriction and
+zero-extension; `norm_cutoffWindowPostcomp_le_one` makes that postcomposition a
+contraction; and `cutoffEnergy_le_bareHS_mass` transfers any bare HS mass bound
+to every cutoff.  The exact cutoff trace-growth theorem then contradicts that
+uniform bound, yielding `not_bare_hilbertSchmidt_of_test_ne_zero` and the
+universal counterexample `not_forall_bare_hilbertSchmidt`.
+
+Do not infer whole-line HS summability from the finite-window HS producer.  The
+negative theorem only kills this bare owner; it does not kill a renormalized or
+finite-window detector, and it supplies no cutoff remainder or same-owner
+`qw` readback.  Any replacement must state its own factor and preserve the
+coefficient/readback audit.
 
 ### C1 Detector Prime-Power Kill-Test Guard
 
@@ -1059,6 +1100,19 @@ an outer `namespace` unclosed at EOF; the error only surfaces on the final build
 (`Invalid name after end: Expected <leafnamespace>, but found ...`). Always
 confirm each `namespace` opened at the top of a file has a matching `end` after
 the last declaration, before launching a long build.
+
+**Identifier/universe pitfall (2026-08-22)**: Lean treats ASCII identifiers and
+their visually similar Unicode forms as different names (`nu` versus `ν`).  In a
+declaration with `relaxedAutoImplicit = false`, mixing them can silently create
+an extra single-letter implicit type and later report stuck universe constraints.
+Use one spelling consistently in binder headers and result types, then rerun the
+owning target before diagnosing the mathematics.
+
+**Namespace visibility pitfall (2026-08-22)**: a transitive import makes a Lean
+declaration available to elaboration but does not open its namespace.  The Stage-3
+arithmetic bridge therefore needs `open C1CrossingEulerLogReadback` before using
+`canonicalPrimePowerTerms` or `canonicalCrossingLengthSet`; an `Unknown identifier`
+at those names is a visibility error, not a missing theorem.
 
 ## 8c. Numeric probe hygiene on the metric wall (`docs/proofs/*probe.py`)
 

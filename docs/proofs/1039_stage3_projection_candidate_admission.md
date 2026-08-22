@@ -1,7 +1,10 @@
 # 1039 — Stage-3 projection-square candidate admission spec
 
 Status: **specification / gate definition** (no RH-facing theorem claimed yet).
-Date: 2026-08-19. Companion module: `ConnesWeilRH/Dev/C1Stage3ProjectionKernel.lean`.
+Date: 2026-08-22. Companion modules: `ConnesWeilRH/Dev/C1Stage3ProjectionKernel.lean`,
+`ConnesWeilRH/Dev/C1Stage3ProjectionWindow.lean`,
+`ConnesWeilRH/Dev/C1Stage3ProjectionResponseBridge.lean`, and
+`ConnesWeilRH/Dev/C1Stage3ProjectionDefectBounds.lean`.
 
 > **Concrete-g closure achieved (2026-08-19).** Stage 3 is now closed for the first
 > concrete vanishing test `narrowArchRoot` via an *alternative, non-circular* route:
@@ -48,6 +51,110 @@ Active node proving the positive core lives in C1 and is non-circular:
 `C1Stage3ProjectionKernel.stage3ProjectionKernel_isPositive`.  It delegates to the
 concrete brick; that brick does not reference `qw` or any RH statement, so there is
 no circularity.
+
+**Finite-window wiring LANDED (2026-08-22).**
+`C1Stage3ProjectionWindow.kernelSandwichPairData` now keeps one finite-window
+Hilbert--Schmidt owner `C` and inserts any bounded positive kernel `K` as the
+same-object sandwich `C† ∘ K ∘ C`.  The right leg `K ∘ C` remains
+Hilbert--Schmidt by bounded postcomposition, so the sandwich has a legal
+named-basis diagonal trace.  The concrete instance
+`fullBoundaryProjectionPairData` uses `fullBoundaryPositiveOperator` and
+`stage3ProjectionKernel`; `cutoffProjectionPairData` specializes it to the
+existing expanding `n`-cutoff sequence.  Its trace product is proved
+`IsPositive`, trace-class, and has nonnegative real trace.  The import-facing
+probe reports only `[propext, Classical.choice, Quot.sound]` for all twelve
+Window declarations (WSL2 ext4 owning build 3703 jobs; probe 3707 jobs).
+
+This closes the operator-level finite-window wiring sub-obligation.  It does **not**
+construct a square root, identify the trace with `qw`, prove the triple-vanishing
+ledger, or provide `D_{g,n} → 0`; those remain the Gate-2/Gate-3 obligations below.
+
+**Window-to-response bridge LANDED (2026-08-22).**
+`ConnesWeilRH/Dev/C1Stage3ProjectionResponseBridge.lean` makes the remaining
+operator mismatch explicit on the same owner and carrier.  With `Z` the output
+zero-extension, `F` the compact boundary root factor, and `K_S` the active
+positive kernel, the new declarations prove
+
+```text
+outputCompressedStage3Kernel = Z† K_S Z
+fullBoundaryProjectionPairData.traceProduct
+  = F† (Z† K_S Z) F
+  = windowedBoundaryDetector + kernelInsertionSandwich
+  = projectionResponse + kernelInsertionSandwich + windowToResponseDefect.
+```
+
+The first identity is `fullBoundaryProjectionPairData_traceProduct_eq_outputCompressed`
+(`C1Stage3ProjectionResponseBridge.lean:107`); the detector split is
+`..._eq_detector_add_kernelInsertion` (`:129`); and the owner-preserving three-term
+split is `..._eq_projectionResponse_add_defects` (`:225`).  The two named defects are
+
+```text
+kernelInsertionSandwich = F† (Z† K_S Z − I) F
+windowToResponseDefect = windowedBoundaryDetector − projectionResponse.
+```
+
+Both are actual operator differences.  `kernelInsertionSandwich_isTraceClassAlong`
+(`:163`) proves named-basis trace legality from the already-proved finite-window
+and detector trace classes; `windowToResponseDefect_isTraceClassAlong` (`:198`)
+requires only the still-explicit trace-class premise for `projectionResponse`.
+The final trace ledger is
+`ordinaryTraceAlong_fullBoundaryProjectionPairData_eq_projectionResponse_add_defects`
+(`:247`).  This is a precise Gate-2 wiring result, not a remainder estimate:
+neither defect is asserted to vanish, and no pole/archimedean or `qw` readback is
+claimed.
+
+**Arithmetic scalar attachment LANDED (2026-08-22).**
+`realTrace_fullBoundaryProjectionPairData_eq_selectedArithmetic_add_defects`
+(`C1Stage3ProjectionResponseBridge.lean:287`) combines the named trace ledger with
+the active Stage-2 owner.  Under explicit common-carrier and support certificates,
+the real trace is exactly
+
+```text
+selectedArithmeticCarrierSum owner
+  + Re Tr(sameObjectResidual owner λ S canonicalPrimePowerTerms)
+  + Re Tr(kernelInsertionSandwich ...)
+  + Re Tr(windowToResponseDefect ...).
+```
+
+This is a scalar bookkeeping/readback theorem only: it leaves the residual and both
+window defects visible, and it supplies neither a pole/archimedean cancellation nor
+any limit or sign.  The owning WSL2 ext4 build completed at `3712/3712` jobs and the
+import-facing probe at `3713/3713`; all thirteen audited declarations use only
+`[propext, Classical.choice, Quot.sound]`, with no `sorryAx` or project axiom.
+The mainline freeze check passes.
+
+**Defect bounds and cutoff verdict LANDED (2026-08-22).**
+`ConnesWeilRH/Dev/C1Stage3ProjectionDefectBounds.lean` gives the two honest
+quantitative estimates:
+
+```text
+‖kernelInsertionSandwich‖
+  ≤ ‖fullBoundaryRootFactor‖² · ‖kernelInsertionDefect‖
+
+‖windowToResponseDefect‖
+  ≤ ‖windowedBoundaryDetector‖ + ‖projectionResponse‖.
+```
+
+The corresponding zero-iff statements are explicit; no equality is inferred
+from the common carrier type.  For the existing symmetric cutoff, the module
+defines `cutoffKernelInsertionSandwich` and `cutoffWindowToResponseDefect`, and
+proves the exact real-trace subtraction identity for the latter.  Combining it
+with the window-length formula and trace monotonicity gives
+
+```text
+∀ B : ℝ, ∃ n,
+  B < Re Tr(cutoffWindowToResponseDefect owner λ S n)
+```
+
+whenever `owner.sourceTest.test ≠ 0` and the fixed response is trace-class.
+Consequently
+`not_tendsto_zero_cutoffWindowToResponseDefect_trace_re_of_sourceTest_ne_zero`
+proves that `D₂,n → 0` is false for this owner, already at the scalar real-trace
+level.  This is a structural rejection of the current `D₂` owner, not a missing
+estimate.  The `D₁` norm bound is closed, but an actual `εₙ → 0` rate remains
+conditional on a new compressed-kernel compatibility theorem.  The owning build
+completed at `3722/3722`; the import-facing axiom probe reports only
+`[propext, Classical.choice, Quot.sound]` for all twelve audited declarations.
 
 ## The four gates (all must pass before producer promotion)
 
@@ -123,6 +230,11 @@ ledger: it fixes the RHS arithmetic side to the real carrier sum; what remains i
 pole/archimedean terms so the LHS reads back to `qw g`. The residual's vanishing limit stays
 **Gate 3**.
 
+The new `fullBoundaryProjectionPairData` supplies the positive trace-class
+`C† K_S C` owner needed for this wiring, but it is intentionally not claimed to
+equal `projectionResponse` or `qw`: that equality still requires the missing
+same-owner ledger and pole/archimedean assembly.
+
 ### Gate 3 — remainder to zero, no circularity
 Prove an explicit bound
 
@@ -136,6 +248,21 @@ is precisely what the frozen residual ledger does *not* yet give:
 residual into a prolate-difference and a compression-difference term, and the only
 consequences currently proved are trace-class (`..._isTraceClassAlong`, lines 399/411) —
 trace-class ≠ trace → 0.
+
+**Defect-specific status (2026-08-22).** The two window defects must not be
+treated symmetrically.  The first one has the closed bound
+
+```text
+‖D₁,n‖ ≤ ‖Fₙ‖² · ‖Zₙ† K_S Zₙ − I‖,
+```
+
+but no theorem here makes the right-hand side tend to zero.  The second one is
+the fixed-response difference
+`D₂,n = windowedBoundaryDetector_n − projectionResponse`; its real trace is
+unbounded on every nonzero source test, so an independent `D₂,n → 0` claim is
+incompatible with the canonical cutoff.  Gate 3 therefore needs a different
+owner (for example an explicit renormalized/finite-window correction or a new
+detector), rather than a stronger estimate on this `D₂` definition.
 
 ### Gate 4 — assembly + axiom audit
 Only after Gates 1-3: fill `PositiveTracePairLimitFamily` (the four fields at
