@@ -1,3 +1,98 @@
+## Change Log (2026-08-21, P3-a·0 VERDICT: qw(narrowArchRoot) ≈ +5.8e48 > 0 → GREEN LIGHT for P3-a·1): p3_probe_qw_narrow.py
+- **Verdict first: GOOD — sign robustly positive; magnitude ≈ F(0)×23.6; readback gap = exactly qw(g_v).** The P3-a·0 probe (repo root `p3_probe_qw_narrow.py`) evaluates the same-owner Weil value of the explicit vanishing test `narrowArchRoot`
+  (C1LaneRNarrowArch.lean:626-628) using ONLY explicit repo formulas; every structural collapse is cited in-file with line refs.
+
+    ```text
+    narrowArchRoot = g_v(x) := t'''(x) + (3/2)t''(x) + (1/2)t'(x),   t(x) := bumpEx(x/w)
+      w = R/4,  R = exp(-4(c+1)),  c = log(4π)+γ  ⇒  R ≈ 7.30e-8,  w ≈ 1.82e-8
+    structural collapses (all proven in Lean):
+      poleTerm(F) = 0 ∀h          C1LaneRD3Root.lean:332-336   [L_g(s)=(0-s)(½-s)(1-s)L_h(s)]
+      primeSum(F) = 0             C1LaneRNarrowArch.lean:653-671  [supp F ⊆ [-2w,2w] ≪ log 2]
+      ⇒ qw(g_v) = −archimedeanTerm(F) EXACTLY   C1LaneRNarrowArch.lean:665-671;  F(0)=‖g_v‖²
+    ```
+
+  Decomposition (nfft 2^17/2^18 double-resolution + 2^19 witness; every cross-check is in-script):
+
+    ```text
+    quantity                            value              check
+    I33=∫B3² grid vs Parseval           4.98356e+08        rel ~3e-11 ✓
+    I22 / I11                           5.70e+04 / 1.8835  I11 = P3-0 bumpA to 12 digits; GL leg agrees ✓
+    FTC ∫B1 (= f(1)-f(-1) = 0)          +1.1e-16           exact ⇒ int G du ≡ 0 (all three int Bk vanish)
+    id I31+I22                          0.0e+00            spectral-exact integration-by-parts identity ✓
+    int G² direct vs 3-term expansion   1.35009e+55        rel 5e-12 ✓ (exact identities hold numerically)
+    Φ(0) autocorrelation vs ∫G²         1.35009e+55        rel 2e-11 ✓
+    pole diagnostic (L_F±½ exact zero)  −4.2e5             = 1.7e-42·F(0), machine zero ✓
+    I_main[0,2w]                        −2.20e+48          O(F(0)) — the pre-estimate was wrong (see below)
+    F(0)=‖g_v‖²                         +2.46353e+47       stable to 1e-11 across resolutions ✓
+    ```
+
+  **VERDICT: qw(narrowArchRoot) ≈ +5.82e48 ± 8.5e46 (≈1.5%)**, ABOVE the Lean rigorous lower bound F(0)(c+2−R) = +1.26e48 — which is a THEOREM independent of numerics
+  (C1LaneRNarrowArch.lean:501-608 ⇒ archTerm ≤ (c+R−½ln(1/R))F(0) < 0, with ½ln(1/R)=2(c+1) at :592). Sign is bulletproof;
+  magnitude converges upward with resolution (qw: +5.74/+5.82/+5.91e48 for nfft=2^17/2^18/2^19 — the O(h) delta sits entirely in I_main).
+
+- **Sharp asymptotic (derived this run; supersedes the pre-estimate).** Because ∫G du ≡ 0 exactly, ∫₀²[Φ(u)+Φ(−u)]du = 0
+  kills I_main's leading piece and leaves `I_main = W·K'' + O(W²)` with K'' := ∫₀²(E(u)−Φ(0))/u du < 0 (E = even part of Φ):
+
+    ```text
+    |I_main|/F(0) → |K''|/Φ(0) ≈ 8.9   — an O(1) constant, NOT ~w   (measured: −8.58@2^17, −8.93@2^18 via I_main/W)
+    qw/F(0) = ln(1/w) − c + |K''|/Φ(0) + o(1)   [formula 17.82−3.11+8.93=23.64 vs probe 23.637 ✓]
+    ```
+
+- **Readback gap prototype (= the P2 strong form, now on a vanishing test).** With ReTr(A_n†A_n) = 2log(n+2)·F(0) (P2 identity
+  C1Stage3WindowedTraceP2.lean:106; general-in-g mass C1Stage3FrontierHS.lean:754):
+
+    ```text
+    n | ReTr(A_n)      | −bulk        | plain readback lim | target qw(g_v)
+    1 | +5.41e+47      | −5.41e+47   | 0                  | +5.823e+48
+    64| +2.06e+48      | −2.06e+48   | 0                  | +5.823e+48
+    ```
+
+  Plain log-bulk subtraction leaves residual ≡ **+qw(g_v), n-INDEPENDENT** ⇒ T_n = A_n alone cannot read back; the finite correction piece (有限修正件) must be D_g = (log bulk) − qw, i.e. carry exactly the HS mass qw ≈ F(0)[ln(1/w)+C] as a fixed offset.
+  Sign > 0 ⇒ self-pair family FEASIBLE on g_v (matches Lean strict theorem C1LaneRStrictness.lean:261 / narrowArchRoot_qw_nonneg C1LaneRNarrowArch.lean:673). **Green light for P3-a·1 (Lean module + WSL2 ext4 build + axiom probe + freeze script).**
+
+- **Target-selection record:** `narrowArchRoot` chosen over the `C1HealthyYoshidaInterpolation` witness (:141-159): explicit closed formula (vs existence-style via surjectivity), vanishing on cc20TripleFiniteVanishingSet, and strict positivity already proven in Lean — sign feasibility was pre-confirmed before probing.
+  Note for P3-a·1: ∫g_v dx = 0 exactly (zero-mean) — a design hint for the operator-level bulk B_n / structure of D_g.
+
+## Change Log (2026-08-21, P3-0 VERDICT: qw(bumpPlateauTest) = -0.421583 != 0 → Fork B): p3_probe_qw_plateau.py
+- **Verdict first: the probe succeeded and the answer is decisive — FORK B.** The numerical probe at repo root
+  `p3_probe_qw_plateau.py` evaluates the same-owner Weil value of the plateau test using ONLY explicit repo formulas
+  (evidence comments cite every source line; three independent legs agree):
+
+    ```text
+                          trapz lo/hi        Gauss-Legendre direct   agreement
+    M(1/2)                +1.974942104       +1.974942104            < 1e-9
+    F(0)=bumpA            +1.883508745       +1.883508745            exact (>= 9/5 sanity holds)
+    poleTerm = 2*M^2      +7.800792629       +7.800792629            < 1e-9
+    I_main [0,2]          -0.584038786/-0.584038789   (GL) -0.584038790   < 4e-9
+    archTerm              +4.757400728       +4.757400727            < 1e-9
+    primeSum {2,3,4,5,7}  +3.464975155       +3.464975155            < 1e-9
+    qw g0                 -0.421583254/-0.421583258   (GL) -0.421583252   ~2e-9
+    ```
+
+  FFT cross-checks of F(log n) vs direct quadrature match to <= 2.2e-16 (the earlier FFT bug was the origin index:
+  the support [-1,1] must straddle index 0 so the circular convolution has no wrap-around contamination).
+- **Two probe bugs found and fixed on the archimedean leg** (both would have flipped the verdict): the denominator is
+  `e^y - e^{-y} = 2 sinh y` (SelectedWeilFormula.lean:103), NOT `expm1(y) - exp(-y)` which tends to -1 and creates a
+  false pole at asinh(1/2); and the tail constant is `int_2^inf dy/(2sinh y) = atanh(e^{-2}) ~= 0.136135`, not
+  `-ln(1-e^{-2})` (which integrates `1/(e^y-1)` instead). With both fixed, all legs converge to ~1e-9.
+- **Structural consequence (the strong form of Fork B).** For g0 the windowed trace satisfies
+  ReTr(A_n^* A_n) = 2 log(n+2) bumpA EXACTLY for every n (C1Stage3WindowedTraceP2.lean:106; general-in-g mass at
+  C1Stage3FrontierHS.lean:754). Any bulk-subtracted self-pair residual therefore has ReTr_n >= 0 pointwise, and the
+  `PositiveTracePairLimitFamily` readback with remainder -> 0 forces lim ReTr_n = qw g0 < 0 — impossible. So NO
+  self-pair limit family can exist on g0 at all (this is exactly the contrapositive of
+  C1PositiveTraceLimitBridge.qw_nonnegative_of_positiveTracePairLimitFamily). Plain bulk subtraction leaves a gap of
+  -qw(g0) ~= +0.4216; P3-a must add an explicit finite correction piece whose HS mass reads back to qw g, not merely
+  a log/bulk remainder.
+- **Scope check: g0 is NOT in the vanishing class.** CC20VanishesOn (CC20TestSpace.lean:28) requires mellinAt g s = 0
+  at every critical value in F; for healthyCC20TestSpace mellinAt = laplaceAt (C1HealthyTestSpace.lean:66), and the
+  plateau test has M(s) > 0 on real s with generically nonzero complex values. The consumer obligation is universal
+  over VANISHING tests only, so the negative plateau value does not directly block P3-a — it identifies the missing
+  correction piece and confirms the sign obstruction is exactly the RH-level content.
+- Pitfalls recorded: (1) FFT circular convolution of a centered signal lands near index 2*(N/2) mod N = 0 unless the
+  origin sits at position 0; verify against direct quadrature before trusting any FFT leg. (2) `np.expm1(y)` is e^y-1,
+  not e^y — a one-character class of bug when writing e^y - e^{-y}. (3) `-ln(1-e^{-a})` integrates 1/(e^y-1), while
+  atanh(e^{-a}) = sum_k e^{-(2k+1)a}/(2k+1) integrates 1/(2sinh y); they differ by ~0.0093 at a=2.
+
 ## Change Log (2026-08-21, FRONTIER-CRUX Gate-4 closure wired to `healthyCriterionState`): Dev/C1Stage3FrontierCrux.lean
 - Added the **Gate-4 closure theorem** `frontierCrux_closes_healthyCriterionState` to
   `Dev/C1Stage3FrontierCrux.lean` (new import: active C1 module `C1Stage3RemainderFamily`). It proves, as a named

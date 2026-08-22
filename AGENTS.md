@@ -1158,6 +1158,27 @@ floor ≥0.369), so it PLATEAUS to a positive constant — the 822 leak is real,
 transported-Sonin outer channel cannot vanish. A leak that decays to 0 as
 `n,L→∞` would instead be a grid artifact and should be discarded. (See 824.)
 
+**(P3-0, 2026-08-21) FFT legs need an origin check; closed-form tails need the right antiderivative.** Two bugs in
+the `qw(bumpPlateauTest)` probe (`p3_probe_qw_plateau.py`) would each have flipped the Fork A/B verdict:
+(1) circular convolution of a signal centered at index N/2 lands near `2·(N/2) mod N = 0` — the FFT origin must sit
+at position 0 so the support [−1,1] straddles index 0 (wrap-around is safe only when support width < period); always
+cross-check an FFT leg against direct quadrature at probe points before trusting it. (2) `np.expm1(y)` is e^y − 1,
+NOT e^y: the archimedean denominator is `e^y − e^{−y} = 2 sinh y` (`SelectedWeilFormula.lean:103`), and writing
+`expm1(y) − exp(−y)` makes it tend to −1 (false pole at asinh(½)). (3) The tail `∫_a^∞ dy/(2sinh y)` is
+`atanh(e^{−a}) = Σ_k e^{−(2k+1)a}/(2k+1)`, NOT `-ln(1−e^{−a})` (that integrates 1/(e^y−1)); they differ by ~0.0093
+at a=2, i.e. +0.035 on the archimedean term. Final probe: three independent legs (trapz double-resolution, FFT grid,
+Gauss–Legendre direct) agree to ~2e-9; `qw g₀ = −0.421583` → Fork B.
+
+**(P3-a·0, 2026-08-21) at narrow width w, do NOT assume the archimedean main integral is relatively ~w.** In
+`p3_probe_qw_narrow.py` (qw of `narrowArchRoot`, w ≈ 1.8e-8), the pre-estimate claimed I_main[0,2w] contributes only
+O(w·F(0)) — off by an O(1) factor of ~9. Root cause: when ∫g dx = 0 exactly (zero-mean test; here all three spectral-integral
+moments vanish because bumpEx is flat at ±1 AND vanishes there, so int Bₖ = 0 ∀k), the identity
+∫₀²[Φ(u)+Φ(−u)]du = 0 cancels I_main's leading piece and leaves `I_main = w·K''` with K'' := ∫₀²(E(u)−Φ(0))/u du an O(Φ(0))
+constant ⇒ |I_main|/F(0) → |K''|/Φ(0) ≈ 8.9, i.e. O(1), NOT ~w. Rule: for any narrow-support archimedean integral, FIRST check
+the zero-mean identity; and verify the dimensionless ratio (here I_main/F(0)) is resolution-stable before calling a term
+"negligible". Minor companion lesson: `np.polynomial.legendre.leggauss` nodes already live on [−1,1] — remapping them into
+[0,1] silently computes a half-integral for even integrands (the tell is exactly a factor 2).
+
 ## 9. CC20 Operator/Trace Rule
 
 The current normalized core does not implement operator theory
