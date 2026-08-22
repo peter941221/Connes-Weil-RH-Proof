@@ -1,3 +1,26 @@
+## Change Log (2026-08-23, Stage-3 windowing closed end-to-end via Program P step 2 operator family)
+- Added `frontierStatus_healthyCriterionState_of_rankOneCorrection` to
+  `Dev/C1Stage3FrontierStatus.lean` (§D). It feeds Program P step 2's rank-one
+  positive self-correction family
+  (`C1Stage3WindowedTraceP3a.positiveTracePairLimitFamily_of_rankOneCorrection`)
+  as the uniform `hfamily` of `p4_healthyCriterionState`, yielding
+  `C1.healthyCriterionState F`. This closes Route B Stage-3 windowing end-to-end: on
+  the operator-level route the only isolated premise left is that every vanishing test
+  has nonnegative Weil value (`0 <= qw g`), taken explicitly (sign-transparent; at
+  `narrowArchRoot` it is independently proven via `C1LaneRStrictness.narrowArchRoot_qw_pos`).
+- Why this route wins: the bare stage-remainder route needs FRONTIER-HS + FRONTIER-CRUX
+  but its bare HS mass is `‖h_g‖₂² * meas(ℝ) = ∞` (#10); the windowed factor (§A) is
+  Hilbert--Schmidt yet diverges like `meas(W(n)) * ‖h_g‖₂²`, which a vanishing-remainder
+  family cannot absorb. The rank-one correction is genuinely HS with an identically-zero
+  remainder and its self-pair trace reads back to `qw g` outright; its only per-test input
+  is `0 <= qw g` + one nonzero carrier vector `d0`.
+- Build gotcha (also recorded in AGENTS.md §7): a section variable referenced only in the
+  proof BODY is not auto-lifted into a new declaration's parameters unless its TYPE mentions
+  it; here `globalBasis` had to be named an explicit leading parameter of the theorem.
+- Verification: WSL2 `Ubuntu-24.04` ext4 full `lake build ConnesWeilRH` green (LAKE_EXIT=0);
+  all six `#print axioms` probes in this leaf exactly `[propext, Classical.choice, Quot.sound]`,
+  zero `sorryAx`. Committed ee32d6d.
+
 ## Change Log (2026-08-22, bare whole-line Hilbert--Schmidt premise KILLED)
 - Added `Dev/C1Stage3BareHSObstruction.lean`.  For a nonzero compact-log
   test, the bare factor

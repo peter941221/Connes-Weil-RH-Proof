@@ -222,10 +222,7 @@ vanishing test `g`. All in `Dev/C1Stage3WindowedTraceP3a.lean`:
   narrow-root `p3aFamily` uniformly over tests.
 
 Axiom-clean: all three new results depend only on `[propext, Classical.choice, Quot.sound]`, zero
-`sorryAx`; full `lake build ConnesWeilRH` is green (LAKE_EXIT=0). What remains on the Stage-3
-windowing frontier is to feed the two residual Gate-3 facts — FRONTIER-HS windowed (§A of
-`C1Stage3FrontierStatus`) and FRONTIER-CRUX — into `p5_healthyCriterionState`; this module now
-supplies the operator-level witness that makes those obligations satisfiable, not merely their scalar shadow.
+`sorryAx`; full `lake build ConnesWeilRH` is green (LAKE_EXIT=0). **Consumed end-to-end (§D):** `C1Stage3FrontierStatus.frontierStatus_healthyCriterionState_of_rankOneCorrection` feeds this family as the uniform `hfamily` of `p4_healthyCriterionState`, yielding `C1.healthyCriterionState F`. On the operator-level route Stage-3 windowing now reduces to a single isolated premise — every vanishing test has nonnegative Weil value (`0 ≤ qw g`) — taken explicitly (sign-transparent, non-circular at `narrowArchRoot` via `C1LaneRStrictness.narrowArchRoot_qw_pos`). RH still unclaimed.
 
 ### C1 Positive-Trace Cutoff Growth Guard
 
@@ -972,6 +969,8 @@ restricted/global masses with one evaluation object.
 - **`norm_num at h` can pre-close a `False` goal**: when the current goal is `False` (e.g. inside proving `a ≠ b`) and you simplify a hypothesis into an absurdity — `intro h; rw [h] at hd0; norm_num at hd0` turns `hd0 : 0 < ‖d0‖²` into `hd0 : 0 < 0` — the *tactic* `norm_num at hd0` discharges that contradiction and leaves **no goals**. A trailing `exact lt_irrefl _ hd0` then errors with "No goals to be solved". Fix: make exactly one tactic the sole closer. Use `nlinarith` (it normalizes `0² = 0`, sees `hd0 : 0 < 0`, and closes `False`) after a hypothesis-only rewrite (`rw [h] at hd0` never touches the main goal): `intro h; rw [h] at hd0; nlinarith`. (Observed 2026-08-23, Program P step-2 build, `C1Stage3WindowedTraceP3a.rankOneCorrection_HS_mass_eq_qw`.)
 
 - **`field_simp` on a norm-power divisor needs the *base* nonzero, not just its square**: to cancel `(qw g / ‖d0‖⁴) · ‖d0‖⁴ = qw g`, `field_simp [ne_of_gt (hd0 : 0 < ‖d0‖²)]` only cancels three of the four factors and leaves the residual goal `qw g * ‖d0‖ / ‖d0‖ = qw g` — it cannot derive the first-power base fact `‖d0‖ ≠ 0` from the squared one `‖d0‖² ≠ 0`. Fix: derive and feed the base explicitly, `have hd0n : ‖d0‖ ≠ 0 := by intro h; rw [h] at hd0; nlinarith`, then `field_simp [hd0n]` cancels fully. (Observed 2026-08-23, same build, final calc step of `rankOneCorrection_HS_mass_eq_qw`.)
+
+- **A section variable referenced only in a proof BODY is NOT auto-lifted into a new declaration's parameters**: Lean promotes an explicit `variable {ν} [Countable ν] (globalBasis : …)` into a later theorem's leading parameter ONLY when that theorem's *type signature* mentions it. If the type does not reference `globalBasis` but the proof body does (`:= by exact … globalBasis …`), the variable is **not** lifted → "Unknown identifier `globalBasis`" plus an unsolved goal whose context is missing both `globalBasis` and `[Countable ν]`. Fix: name `globalBasis` as an explicit leading parameter of that specific theorem — its type `HilbertBasis ν ℂ …` drags `{ν}` + `[Countable ν]` into scope so they lift with it. (Observed 2026-08-23, §D end-to-end closure build, `C1Stage3FrontierStatus.frontierStatus_healthyCriterionState_of_rankOneCorrection`. Refines the preceding explicit-section-variable bullet: body-only use is NOT enough.)
 
 ## 8. WSL Verification
 
