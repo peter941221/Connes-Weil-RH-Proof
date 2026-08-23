@@ -6,6 +6,8 @@ open ConnesWeilRH.Source.Dev.C1Stage3ProjectionDefectBounds
 #check @norm_windowToResponseDefect_le
 #check @kernelInsertionSandwich_eq_zero_iff
 #check @windowToResponseDefect_eq_zero_iff
+#check @kernelInsertionDefect_eq_compressedKernelDifference
+#check @norm_kernelInsertionDefect_le_kernelDifference
 #check @cutoffKernelInsertionSandwich
 #check @cutoffWindowToResponseDefect
 #check @norm_cutoffKernelInsertionSandwich_le
@@ -25,6 +27,8 @@ open ConnesWeilRH.Source.Dev.C1Stage3ProjectionDefectBounds
 #print axioms norm_windowToResponseDefect_le
 #print axioms kernelInsertionSandwich_eq_zero_iff
 #print axioms windowToResponseDefect_eq_zero_iff
+#print axioms kernelInsertionDefect_eq_compressedKernelDifference
+#print axioms norm_kernelInsertionDefect_le_kernelDifference
 #print axioms cutoffKernelInsertionSandwich
 #print axioms cutoffWindowToResponseDefect
 #print axioms norm_cutoffKernelInsertionSandwich_le

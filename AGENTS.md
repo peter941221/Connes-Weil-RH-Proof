@@ -206,6 +206,31 @@ reintroduce an independent `D₂,n → 0` obligation for this owner: the route i
 structurally rejected and needs a renormalized correction or a different
 detector owner.  Trace-class alone is not a limit estimate.
 
+The compressed-kernel compatibility question for `D₁` is now answered at the
+reduction level in `Dev/C1Stage3ProjectionDefectBounds.lean`.  With
+`Z = fullBoundaryOutputZeroExtension a c`:
+
+- `kernelInsertionDefect_eq_compressedKernelDifference` proves
+  `D₁ = Z.adjoint ∘L (K_S - id) ∘L Z`, i.e. the defect compresses the single
+  **fixed, cutoff-independent** operator `K_S - id`; and
+- `norm_kernelInsertionDefect_le_kernelDifference` proves
+  `‖D₁‖ ≤ ‖K_S - id‖`, since both `Z` (zero-extension isometry) and `Z.adjoint`
+  are contractions.
+
+So plain windowing gives a **uniform, window-independent upper bound** for `D₁`:
+it cannot blow up along any cutoff sequence, but it also has no built-in decay —
+forcing `‖D₁(a_n,c_n)‖ → 0` requires `K_S` to act as the identity on the growing
+window subspaces (equivalently `Z†(K_S - id)Z → 0`), a property of the kernel, not
+of the window.  Both declarations are axiom-clean (`propext`, `Classical.choice`,
+`Quot.sound`).
+
+- **Pitfall — let-bound operator + simp direction:** in the norm proof `Z` is a
+  local `let`, so `unfold fullBoundaryOutputZeroExtension` on goal `‖Z u‖ ≤ …` does
+  nothing (the def name is not literally present).  Unfold it by listing the binding:
+  `simpa only [Z, fullBoundaryOutputZeroExtension] using norm_…`.  And when the bound
+  RHS is a left-multiple `1 * ‖u‖`, simp needs `one_mul` (reduces `1 * x → x`), not
+  `mul_one` (which reduces `x * 1`).
+
 The same obstruction is now proved for a moving response owner.  The active
 definitions/theorems `cutoffWindowToMovingResponseDefect`,
 `ordinaryTraceAlong_cutoffWindowToMovingResponseDefect_eq_sub`, and

@@ -47,6 +47,8 @@ open CC20Concrete.PositiveTrace
 open C1PositiveTraceCutoffAdapter
 open C1PositiveTraceCutoffGrowth
 open C1PositiveTraceCutoffVerdict
+open C1PositiveTraceWindowProducer
+open C1Stage3ProjectionKernel
 open C1Stage3ProjectionResponseBridge
 open C1Stage3ProjectionTraceLedger
 open CCM25Concrete.SelectedWeilSquare
@@ -126,6 +128,67 @@ theorem windowToResponseDefect_eq_zero_iff
           projectionResponse owner lambda S = 0 ↔
         windowedBoundaryDetector owner.sourceTest a c =
           projectionResponse owner lambda S)
+
+/-! ## The D₁ compressed-kernel reduction
+
+The insertion defect is not an independent object: it is exactly the output-
+compression, by the same zero-extension `Z`, of the fixed global operator
+`K_S - id`.  Because the compressed kernel deviates from the identity only
+through this single cutoff-independent operator, no decay of `D₁,n -> 0` can be
+manufactured from the windowing alone; it requires a genuine estimate on how
+that fixed operator compresses to expanding output windows. -/
+
+/-- The insertion defect equals the output-compression of the Stage-3 kernel's
+deviation from the identity global operator.  Since `Z = fullBoundaryOutputZeroExtension a c`
+satisfies `Z.adjoint ∘L Z = id`, we have `Z.adjoint K_S Z - I = Z.adjoint (K_S - id) Z`. -/
+theorem kernelInsertionDefect_eq_compressedKernelDifference
+    (a c : ℝ) (lambda : CCM24SoninScale) (S : List CCM24VisiblePrime) :
+    kernelInsertionDefect a c lambda S =
+      (fullBoundaryOutputZeroExtension a c).adjoint ∘L
+        (stage3ProjectionKernel lambda S - ContinuousLinearMap.id ℂ cc20GlobalLogCrossingL2) ∘L
+          fullBoundaryOutputZeroExtension a c := by
+  apply ContinuousLinearMap.ext
+  intro u
+  unfold kernelInsertionDefect outputCompressedStage3Kernel
+  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.id_apply]
+  have hId : (fullBoundaryOutputZeroExtension a c).adjoint ((fullBoundaryOutputZeroExtension a c) u) = u := by
+    rw [← ContinuousLinearMap.comp_apply, fullBoundaryOutputZeroExtension_adjoint_comp,
+      ContinuousLinearMap.id_apply]
+  rw [map_sub, hId]
+
+/-- The insertion defect is bounded uniformly in the window (hence also along any
+cutoff sequence) by the norm of the fixed global operator `K_S - id`: both the
+zero-extension and its adjoint are contractions. -/
+theorem norm_kernelInsertionDefect_le_kernelDifference
+    (a c : ℝ) (lambda : CCM24SoninScale) (S : List CCM24VisiblePrime) :
+    ‖kernelInsertionDefect a c lambda S‖ ≤
+      ‖stage3ProjectionKernel lambda S - ContinuousLinearMap.id ℂ cc20GlobalLogCrossingL2‖ := by
+  let Z := fullBoundaryOutputZeroExtension a c
+  let Kdiff : cc20GlobalLogCrossingL2 →L[ℂ] cc20GlobalLogCrossingL2 :=
+    stage3ProjectionKernel lambda S - ContinuousLinearMap.id ℂ cc20GlobalLogCrossingL2
+  have hZ : ‖Z‖ ≤ 1 := by
+    apply ContinuousLinearMap.opNorm_le_bound _ zero_le_one
+    intro u
+    simpa only [Z, fullBoundaryOutputZeroExtension, one_mul] using
+      (norm_kernelIntervalL2ZeroExtension (-c) (-a) 0 u).le
+  have hZadj : ‖Z.adjoint‖ ≤ 1 := by
+    rw [ContinuousLinearMap.adjoint.norm_map]
+    exact hZ
+  calc
+    ‖kernelInsertionDefect a c lambda S‖ =
+        ‖(fullBoundaryOutputZeroExtension a c).adjoint ∘L Kdiff ∘L fullBoundaryOutputZeroExtension a c‖ := by
+      rw [kernelInsertionDefect_eq_compressedKernelDifference]
+    _ ≤ ‖Z.adjoint‖ * ‖Kdiff ∘L Z‖ := ContinuousLinearMap.opNorm_comp_le _ _
+    _ ≤ ‖Z.adjoint‖ * (‖Kdiff‖ * ‖Z‖) := by
+      exact mul_le_mul_of_nonneg_left (ContinuousLinearMap.opNorm_comp_le Kdiff Z) (norm_nonneg _)
+    _ ≤ 1 * (‖Kdiff‖ * ‖Z‖) := by
+      apply mul_le_mul_of_nonneg_right hZadj
+      exact mul_nonneg (norm_nonneg _) (norm_nonneg _)
+    _ = ‖Kdiff‖ * ‖Z‖ := one_mul _
+    _ ≤ ‖Kdiff‖ * 1 := by
+      exact mul_le_mul_of_nonneg_left hZ (norm_nonneg _)
+    _ = ‖Kdiff‖ := mul_one _
 
 /-! ## The canonical cutoff sequence -/
 
