@@ -228,9 +228,10 @@ The finite-window Gate-2 ledger is now assembled in the active leaf
 combines the existing same-owner `qw` readback with the exact finite-window
 trace bridge.  Its formula keeps the arithmetic residual, `D₁` insertion
 defect, and `D₂` window-to-response defect as separate real traces.  This is
-an exact identity only; no defect limit or RH conclusion is inferred.  The
-owner/probe audit is required to remain `[propext, Classical.choice,
-Quot.sound]` with zero `sorryAx`.
+an exact identity only; no defect limit or RH conclusion is inferred.  WSL2
+ext4 verification is green: owner `3714/3714`, import-facing probe `3715/3715`,
+and locked full-root `lake build ConnesWeilRH` `4147/4147`; the declaration
+audits to `[propext, Classical.choice, Quot.sound]` with zero `sorryAx`.
 
 ### C1 Stage-3 Windowed Trace — Program P step 2 (operator-level correction family) (2026-08-23)
 

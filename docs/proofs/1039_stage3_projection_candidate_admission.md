@@ -263,8 +263,9 @@ The theorem is
 `stage3ProjectionFullReadback_qw_eq_pole_sub_arch_sub_trace_add_defects`.
 It closes the algebraic Gate-2 assembly only: the residual and both window
 defects remain explicit real traces, and no term is asserted to vanish.  The
-module imports only active C1 readback/bridge leaves; its owner/probe audit
-must remain axiom-clean with no `sorryAx`.
+module imports only active C1 readback/bridge leaves.  WSL2 ext4 owner/probe
+builds completed at `3714/3714` and `3715/3715`, with the locked full-root
+build at `4147/4147`; the declaration is axiom-clean with no `sorryAx`.
 
 ### Gate 3 — remainder to zero, no circularity
 Prove an explicit bound

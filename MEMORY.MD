@@ -7,9 +7,10 @@
   finite-window positive trace, plus the canonical same-object residual and
   the explicit `D₁`/`D₂` real traces.  All three correction terms remain
   visible; this closes a Gate-2 assembly gap but proves no vanishing estimate.
-- The module is active-C1 only and is intended to audit to
-  `[propext, Classical.choice, Quot.sound]` with zero `sorryAx` after the
-  WSL2 ext4 owner/probe build.
+- The module is active-C1 only.  WSL2 ext4 owner/probe builds completed at
+  `3714/3714` and `3715/3715`; the locked full-root build completed
+  `4147/4147`.  The declaration audits to
+  `[propext, Classical.choice, Quot.sound]` with zero `sorryAx`.
 
 ## Change Log (2026-08-23, D1 compressed-defect sufficiency theorem)
 - Extended `Dev/C1Stage3ProjectionDefectBounds.lean` with
