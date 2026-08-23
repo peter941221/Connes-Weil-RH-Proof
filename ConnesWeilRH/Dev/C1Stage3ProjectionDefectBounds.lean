@@ -304,6 +304,138 @@ theorem not_tendsto_zero_cutoffWindowToResponseDefect_trace_re_of_sourceTest_ne_
       exact this
     exact (not_lt_of_ge (le_of_lt (hN N (le_rfl)))) hlargeN
 
+/-! ## Moving-response obstruction
+
+The fixed-response obstruction is not an artifact of holding the response
+operator constant.  If a moving response has a uniformly bounded real trace,
+it still cannot absorb the canonical window bulk.  Any surviving response
+owner must therefore carry an equally divergent trace, which is precisely the
+renormalized/finite-part choice left open by the route audit.
+-/
+
+noncomputable def cutoffWindowToMovingResponseDefect
+    (owner : SelectedWeilSquareOwner)
+    (response : Nat → projectionCarrier →L[ℂ] projectionCarrier) (n : Nat) :
+    projectionCarrier →L[ℂ] projectionCarrier :=
+  windowedBoundaryDetector owner.sourceTest
+      (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n) -
+    response n
+
+theorem ordinaryTraceAlong_cutoffWindowToMovingResponseDefect_eq_sub
+    (owner : SelectedWeilSquareOwner)
+    (response : Nat → projectionCarrier →L[ℂ] projectionCarrier)
+    {nu : Type*} (globalBasis : HilbertBasis nu ℂ projectionCarrier)
+    (hresponse : ∀ n, IsTraceClassAlong globalBasis (response n)) (n : Nat) :
+    ordinaryTraceAlong globalBasis
+        (cutoffWindowToMovingResponseDefect owner response n) =
+      ordinaryTraceAlong globalBasis
+        (windowedBoundaryDetector owner.sourceTest
+          (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n)) -
+        ordinaryTraceAlong globalBasis (response n) := by
+  unfold cutoffWindowToMovingResponseDefect
+  exact ordinaryTraceAlong_sub globalBasis _ _
+    (windowedBoundaryDetector_isTraceClassAlong
+      owner.sourceTest (cutoffLower owner.sourceTest n)
+        (cutoffUpper owner.sourceTest n)
+        (cutoffFullBasis owner.sourceTest n)
+        (cutoffOutputBasis owner.sourceTest n) globalBasis)
+    (hresponse n)
+
+theorem cutoffWindowToMovingResponseDefect_trace_re_cofinal_unbounded_of_sourceTest_ne_zero
+    (owner : SelectedWeilSquareOwner)
+    (response : Nat → projectionCarrier →L[ℂ] projectionCarrier)
+    {nu : Type*} (globalBasis : HilbertBasis nu ℂ projectionCarrier)
+    (hresponse : ∀ n, IsTraceClassAlong globalBasis (response n))
+    (hresponse_upper : ∃ upperBound : ℝ, ∀ n,
+      (ordinaryTraceAlong globalBasis (response n)).re ≤ upperBound)
+    (hg : owner.sourceTest.test ≠ 0) :
+    ∀ start : Nat, ∀ boundValue : ℝ, ∃ n,
+      start ≤ n ∧ boundValue <
+        (ordinaryTraceAlong globalBasis
+          (cutoffWindowToMovingResponseDefect owner response n)).re := by
+  obtain ⟨upperBound, hupper⟩ := hresponse_upper
+  intro start boundValue
+  obtain ⟨m, hm⟩ :=
+    cutoffPositiveBasisData_trace_re_unbounded_of_test_ne_zero
+      owner.sourceTest globalBasis hg (boundValue + upperBound)
+  let n : Nat := max start m
+  have hstart : start ≤ n := le_max_left _ _
+  have hmle : m ≤ n := le_max_right _ _
+  have hmono := cutoffPositiveBasisData_trace_re_monotone
+    owner.sourceTest globalBasis hmle
+  have hdetm := cutoffPositiveBasisData_trace_eq_detector
+    owner.sourceTest globalBasis m
+  have hdetn := cutoffPositiveBasisData_trace_eq_detector
+    owner.sourceTest globalBasis n
+  have hdetmRe := congrArg Complex.re hdetm
+  have hdetnRe := congrArg Complex.re hdetn
+  have hdetMono :
+      (ordinaryTraceAlong globalBasis
+        (windowedBoundaryDetector owner.sourceTest
+          (cutoffLower owner.sourceTest m) (cutoffUpper owner.sourceTest m))).re ≤
+      (ordinaryTraceAlong globalBasis
+        (windowedBoundaryDetector owner.sourceTest
+          (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n))).re := by
+    rw [← hdetmRe, ← hdetnRe]
+    exact hmono
+  have hdetmLarge :
+      boundValue + upperBound <
+        (ordinaryTraceAlong globalBasis
+          (windowedBoundaryDetector owner.sourceTest
+            (cutoffLower owner.sourceTest m) (cutoffUpper owner.sourceTest m))).re := by
+    calc
+      boundValue + upperBound <
+          (ordinaryTraceAlong globalBasis
+            (cutoffPositiveBasisData owner.sourceTest globalBasis m).positiveComposition).re := hm
+      _ = (ordinaryTraceAlong globalBasis
+          (windowedBoundaryDetector owner.sourceTest
+            (cutoffLower owner.sourceTest m) (cutoffUpper owner.sourceTest m))).re := hdetmRe
+  have hdetnLarge :
+      boundValue + upperBound <
+        (ordinaryTraceAlong globalBasis
+          (windowedBoundaryDetector owner.sourceTest
+            (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n))).re :=
+    lt_of_lt_of_le hdetmLarge hdetMono
+  refine ⟨n, hstart, ?_⟩
+  have htrace := ordinaryTraceAlong_cutoffWindowToMovingResponseDefect_eq_sub
+    owner response globalBasis hresponse n
+  have htraceRe := congrArg Complex.re htrace
+  have htraceRe' :
+      (ordinaryTraceAlong globalBasis
+        (cutoffWindowToMovingResponseDefect owner response n)).re =
+        (ordinaryTraceAlong globalBasis
+          (windowedBoundaryDetector owner.sourceTest
+            (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n))).re -
+          (ordinaryTraceAlong globalBasis (response n)).re := by
+    simpa only [Complex.sub_re] using htraceRe
+  rw [htraceRe']
+  have hresp := hupper n
+  linarith
+
+theorem not_tendsto_zero_cutoffWindowToMovingResponseDefect_trace_re_of_sourceTest_ne_zero
+    (owner : SelectedWeilSquareOwner)
+    (response : Nat → projectionCarrier →L[ℂ] projectionCarrier)
+    {nu : Type*} (globalBasis : HilbertBasis nu ℂ projectionCarrier)
+    (hresponse : ∀ n, IsTraceClassAlong globalBasis (response n))
+    (hresponse_upper : ∃ upperBound : ℝ, ∀ n,
+      (ordinaryTraceAlong globalBasis (response n)).re ≤ upperBound)
+    (hg : owner.sourceTest.test ≠ 0) :
+    ¬ Tendsto
+      (fun n =>
+        (ordinaryTraceAlong globalBasis
+          (cutoffWindowToMovingResponseDefect owner response n)).re)
+      atTop (𝓝 (0 : ℝ)) := by
+  intro hzero
+  have hbounded : ∀ᶠ n : Nat in atTop,
+      (ordinaryTraceAlong globalBasis
+        (cutoffWindowToMovingResponseDefect owner response n)).re < 1 :=
+    hzero.eventually (gt_mem_nhds (by norm_num))
+  obtain ⟨N, hN⟩ := eventually_atTop.mp hbounded
+  obtain ⟨n, hnN, hn⟩ :=
+    cutoffWindowToMovingResponseDefect_trace_re_cofinal_unbounded_of_sourceTest_ne_zero
+      owner response globalBasis hresponse hresponse_upper hg N 1
+  exact (not_lt_of_ge (le_of_lt (hN n hnN))) hn
+
 end
 end C1Stage3ProjectionDefectBounds
 end Dev

@@ -197,6 +197,18 @@ reintroduce an independent `D₂,n → 0` obligation for this owner: the route i
 structurally rejected and needs a renormalized correction or a different
 detector owner.  Trace-class alone is not a limit estimate.
 
+The same obstruction is now proved for a moving response owner.  The active
+definitions/theorems `cutoffWindowToMovingResponseDefect`,
+`ordinaryTraceAlong_cutoffWindowToMovingResponseDefect_eq_sub`, and
+`cutoffWindowToMovingResponseDefect_trace_re_cofinal_unbounded_of_sourceTest_ne_zero`
+show that any response family whose real trace has a uniform upper bound still
+leaves a cofinal-unbounded defect on every nonzero source test; the matching
+`not_tendsto_zero_...` theorem rules out a zero limit.  Thus the surviving
+design space is narrower than “let the response vary”: the response itself
+must carry the divergent bulk (or be replaced by a finite-part/renormalized
+owner).  WSL2 ext4 owner/probe build `3723/3723` is green and all four new
+declarations are axiom-clean with no `sorryAx`.
+
 ### C1 Stage-3 Windowed Trace — Program P step 2 (operator-level correction family) (2026-08-23)
 
 Program P **step 2** lifts the §C *scalar* bulk witness to an explicit rank-one

@@ -264,6 +264,17 @@ incompatible with the canonical cutoff.  Gate 3 therefore needs a different
 owner (for example an explicit renormalized/finite-window correction or a new
 detector), rather than a stronger estimate on this `D₂` definition.
 
+**Moving-response extension (2026-08-23).** The fixed-response obstruction is
+not repaired by allowing the response to vary with the cutoff.  The active
+moving owner `cutoffWindowToMovingResponseDefect` has the exact trace
+subtraction identity, and
+`cutoffWindowToMovingResponseDefect_trace_re_cofinal_unbounded_of_sourceTest_ne_zero`
+proves that its real trace is cofinal-unbounded whenever the response trace is
+uniformly bounded above.  Hence a viable moving response must itself carry the
+linear window bulk; a finite-part or renormalized operator is required.  The
+corresponding `not_tendsto_zero_...` theorem is axiom-clean and rules out a
+zero defect limit under that bounded-response hypothesis.
+
 ### Gate 4 — assembly + axiom audit
 Only after Gates 1-3: fill `PositiveTracePairLimitFamily` (the four fields at
 `C1PositiveTraceLimitBridge.lean:55-71`) and let the existing consumers carry it to

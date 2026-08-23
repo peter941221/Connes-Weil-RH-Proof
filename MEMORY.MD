@@ -1,3 +1,19 @@
+## Change Log (2026-08-23, moving-response cutoff obstruction)
+- Extended `Dev/C1Stage3ProjectionDefectBounds.lean` with the moving-response
+  owner `cutoffWindowToMovingResponseDefect`.  Its trace identity is exact, and
+  `cutoffWindowToMovingResponseDefect_trace_re_cofinal_unbounded_of_sourceTest_ne_zero`
+  proves cofinal unboundedness whenever the response family is trace-class and
+  its real trace has a uniform upper bound.  Therefore
+  `not_tendsto_zero_cutoffWindowToMovingResponseDefect_trace_re_of_sourceTest_ne_zero`
+  rules out a zero defect limit even for a moving response; varying the response
+  is insufficient unless it carries the same divergent bulk or uses a genuine
+  finite-part/renormalized owner.
+- This is a negative route result, not a replacement detector and not an RH
+  claim.  It preserves the existing `D₁` compressed-kernel norm bound and the
+  fixed-response `D₂` obstruction.  WSL2 ext4 owner/probe build completed
+  `3723/3723`; all four new declarations use only
+  `[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.
+
 ## Change Log (2026-08-23, projection operator exact trace ledger)
 - Extended `Dev/C1Stage3ProjectionOperatorFamily.lean` with three axiom-clean
   identities for the active cutoff owner `C† K C`:
