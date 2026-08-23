@@ -25,13 +25,16 @@ namespace Dev
 namespace C1Stage3ProjectionFullReadback
 
 open CC20Concrete
+open CC20Concrete.CompactRootHalfLinePair
 open CC20Concrete.PositiveTrace
 open CCM25Concrete.CompactLogConvolution
+open CCM25Concrete.SelectedCrossingOperatorBridge
 open CCM25Concrete.SelectedWeilSquare
 open C1CrossingCommonCarrier
 open C1CrossingEulerLogReadback
 open C1Stage3ProjectionResponseBridge
 open C1Stage3ProjectionTraceLedger
+open C1Stage3ProjectionWindow
 open C1Stage3QwReadback
 open MeasureTheory
 open scoped InnerProduct InnerProductSpace BigOperators
