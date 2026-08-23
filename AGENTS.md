@@ -117,7 +117,16 @@ finite-window convergence mechanism. The concrete cutoff remainder estimate
 and same-owner analytic readback remain open.
 The stronger audit in `Dev/C1Stage3BareHSObstruction.lean` now also rules out
 the bare whole-line FRONTIER-HS premise itself for every nonzero test; only a
-new windowed or renormalized detector owner can remain viable.
+new windowed or renormalized detector owner can remain viable.  The added
+theorem `hsPremise_forces_zero_test` (contrapositive of
+`not_bare_hilbertSchmidt_of_test_ne_zero`) sharpens this to the per-test form:
+a single compact-log test whose bare convolution factor is assumed Hilbert--Schmidt
+must vanish identically.  Hence the FRONTIER-CRUX step② root axiom
+`C1Stage3FrontierCrux.frontierCrux_powerSpectrum_eq_weilValue`, which carries exactly that
+per-test summability as its own premise, is only ever instantiated on the zero test (both sides `0`);
+every nontrivial detector readback must pass through a windowed/renormalized owner.  All new
+declarations audit to `[propext, Classical.choice, Quot.sound]`, no `sorryAx`; full root build
+`4147/4147`.
 
 ### C1 Common-Carrier Stages 1-2 (2026-08-19)
 

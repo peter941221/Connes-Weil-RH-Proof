@@ -166,6 +166,24 @@ theorem not_forall_bare_hilbertSchmidt :
     Dev.Wall14Plateau.bumpPlateauTest Dev.Wall14Plateau.bumpPlateauTest_ne_zero
     (hAll Dev.Wall14Plateau.bumpPlateauTest)
 
+/-! ## The bare FRONTIER-CRUX premise only survives at the zero test -/
+
+/-- **Route-kill for the bare detector.** The per-test Hilbert–Schmidt premise of the concrete bare
+FRONTIER-CRUX readback forces the test to be trivial.  This is the contrapositive content of
+`not_bare_hilbertSchmidt_of_test_ne_zero`: for a fixed compact-log test, if its whole-line convolution
+factor `stage3FamilyFactor g = cc20GlobalLogConvolution g.involution.test` is assumed Hilbert–Schmidt
+(summable diagonal norm squares in an orthonormal basis), then the test must vanish identically.
+
+Consequence: step②'s root axiom `C1Stage3FrontierCrux.frontierCrux_powerSpectrum_eq_weilValue` — whose
+own premise is exactly this per-test summability — is only ever instantiated on the zero test, where both
+the Hilbert–Schmidt mass and `qw g` are `0`.  Every **nontrivial** detector readback therefore has to pass
+through a windowed or renormalized owner (the cutoff `C† K C` projection route), not the bare factor. -/
+theorem hsPremise_forces_zero_test (g : CompactLogTest)
+    (hHS : Summable fun i => ‖stage3FamilyFactor g (globalBasis i)‖ ^ 2) :
+    g.test = 0 := by
+  by_contra hgzero
+  exact not_bare_hilbertSchmidt_of_test_ne_zero globalBasis g hgzero hHS
+
 end
 end C1Stage3BareHSObstruction
 end Source

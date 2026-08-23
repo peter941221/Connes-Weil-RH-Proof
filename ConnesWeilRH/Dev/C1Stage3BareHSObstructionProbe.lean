@@ -16,9 +16,11 @@ reduce to the Lean/mathlib baseline (`propext`, `Classical.choice`, and
 #check @cutoffEnergy_le_bareHS_mass
 #check @not_bare_hilbertSchmidt_of_test_ne_zero
 #check @not_forall_bare_hilbertSchmidt
+#check @hsPremise_forces_zero_test
 
 #print axioms norm_cutoffWindowPostcomp_le_one
 #print axioms cutoffPositiveBasisData_operator_eq_postcomp
 #print axioms cutoffEnergy_le_bareHS_mass
 #print axioms not_bare_hilbertSchmidt_of_test_ne_zero
 #print axioms not_forall_bare_hilbertSchmidt
+#print axioms hsPremise_forces_zero_test

@@ -1,3 +1,18 @@
+## Change Log (2026-08-23, bare FRONTIER-CRUX premise is vacuous)
+- Added `hsPremise_forces_zero_test` to `Dev/C1Stage3BareHSObstruction.lean`:
+  the per-test Hilbert--Schmidt premise of the concrete bare FRONTIER-CRUX readback
+  forces the test to be trivial (`g.test = 0`).  It is the contrapositive content of
+  `not_bare_hilbertSchmidt_of_test_ne_zero` (proof: one `by_contra`, apply the obstruction).
+- Consequence for Route B: step②'s root axiom
+  `C1Stage3FrontierCrux.frontierCrux_powerSpectrum_eq_weilValue` carries exactly this per-test
+  summability as its own premise, so it is only ever instantiated on the zero test (both sides 0).
+  Every nontrivial detector readback must go through a windowed/renormalized owner (`C† K C`), not the bare factor.
+- Probe `Dev/C1Stage3BareHSObstructionProbe.lean` extended with `#check` + `#print axioms` for the new theorem;
+  it audits to `[propext, Classical.choice, Quot.sound]`, no `sorryAx`.
+- WSL2 ext4 (clone at remote SHA): owner/probe build `3729/3729`; locked full-root
+  `lake build ConnesWeilRH` completed `4147/4147`, no errors.  This does not close the windowed
+  D₁/D₂/readback gaps or RH; it retires the bare detector branch as a live-looking root.
+
 ## Change Log (2026-08-23, finite-window Gate-2 full readback)
 - Added active leaf `Dev/C1Stage3ProjectionFullReadback.lean` and its probe.
   `stage3ProjectionFullReadback_qw_eq_pole_sub_arch_sub_trace_add_defects`
