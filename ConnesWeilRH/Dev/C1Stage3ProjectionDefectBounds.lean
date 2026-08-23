@@ -190,6 +190,34 @@ theorem norm_kernelInsertionDefect_le_kernelDifference
       exact mul_le_mul_of_nonneg_left hZ (norm_nonneg _)
     _ = ‖Kdiff‖ := mul_one _
 
+/-- **Quadratic-form reduction of the D₁ kernel-side condition.** For every test in
+the finite output window, the window quadratic form of the insertion defect is *literally*
+the global quadratic form of `K_S - id` evaluated on the embedded vector `Z u`:
+
+```
+⟪u, D₁(u)⟫  =  ⟪Z u, (K_S − id)(Z u)⟫
+```
+
+This is the load-bearing translation that names what "‖D₁‖ → 0 along a cutoff sequence"
+actually demands of the kernel: `K_S` must act as the identity on the embedded window
+subspaces `range Z`.  Plain windowing alone (the uniform bound above) supplies no such
+decay; it is purely a property of `K_S = P_radial ∘ P_semilocal(S) ∘ P_radial − Gram_Sonin`. -/
+theorem kernelInsertionDefect_quadraticForm_eq_compressedGlobalDefect
+    (a c : ℝ) (lambda : CCM24SoninScale) (S : List CCM24VisiblePrime)
+    (u : Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c))) :
+    inner ℂ u ((kernelInsertionDefect a c lambda S) u) =
+      inner ℂ ((fullBoundaryOutputZeroExtension a c) u)
+        ((stage3ProjectionKernel lambda S -
+            ContinuousLinearMap.id ℂ cc20GlobalLogCrossingL2)
+              ((fullBoundaryOutputZeroExtension a c) u)) := by
+  let Z := fullBoundaryOutputZeroExtension a c
+  let Kdiff : cc20GlobalLogCrossingL2 →L[ℂ] cc20GlobalLogCrossingL2 :=
+    stage3ProjectionKernel lambda S - ContinuousLinearMap.id ℂ cc20GlobalLogCrossingL2
+  have hEq : kernelInsertionDefect a c lambda S = Z.adjoint ∘L Kdiff ∘L Z := by
+    rw [kernelInsertionDefect_eq_compressedKernelDifference]
+  rw [hEq, ContinuousLinearMap.comp_apply, ContinuousLinearMap.comp_apply]
+  exact ContinuousLinearMap.adjoint_inner_right Z u (Kdiff (Z u))
+
 /-! ## The canonical cutoff sequence -/
 
 /-- `D₁` specialized to the existing symmetric cutoff, transported back to the

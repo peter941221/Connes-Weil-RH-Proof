@@ -231,6 +231,34 @@ of the window.  Both declarations are axiom-clean (`propext`, `Classical.choice`
   RHS is a left-multiple `1 * ‖u‖`, simp needs `one_mul` (reduces `1 * x → x`), not
   `mul_one` (which reduces `x * 1`).
 
+The reduction is now pushed one level down to **quadratic form**, which is the
+precise statement of what "‖D₁‖ → 0 along a cutoff sequence" demands.  The active
+theorem `kernelInsertionDefect_quadraticForm_eq_compressedGlobalDefect` proves, for
+every window test `u`,
+
+```
+⟪u, D₁ u⟫   =   ⟨Z u, (K_S − id)(Z u)⟩     (global inner product)
+```
+
+i.e. the window quadratic form of the defect is **literally** the global
+`(K_S − id)` quadratic form evaluated on the embedded vector `Z u`.  So forcing
+`D₁ → 0` in norm along a cutoff is exactly asking that `K_S` act as the identity,
+in the quadratic-form sense, on the embedded window subspaces `range Z` — a clean
+named analytic premise about the kernel, not the window.
+
+- **Pitfall — apply the operator inside the quadratic form:** write
+  `inner ℂ u ((kernelInsertionDefect …) u)`; passing the bare operator
+  `inner ℂ u (kernelInsertionDefect …) u` leaves an unapplied `→L[ℂ]` map in a
+  vector slot ("expected type ↥(Lp …)").  The window L² space pretty-prints as
+  `↥(Lp ℂ 2 volume)` but is the same `Lp ℂ 2 (volume : Measure …)` type, so an explicit
+  `(u : Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c)))` annotation works.
+
+- **Pitfall — adjoint-inner lemma namespacing:** the fundamental adjoint identity is
+  `ContinuousLinearMap.adjoint_inner_right (A x y) : ⟪x, A† y⟫ = ⟪A x, y⟫`; it lives in
+  `namespace ContinuousLinearMap` (revealed by the scoped line
+  `postfix:1000 "†" => ContinuousLinearMap.adjoint`).  The bare name
+  `adjoint_inner_right` is **not** in scope and gives "Unknown identifier".
+
 The same obstruction is now proved for a moving response owner.  The active
 definitions/theorems `cutoffWindowToMovingResponseDefect`,
 `ordinaryTraceAlong_cutoffWindowToMovingResponseDefect_eq_sub`, and
