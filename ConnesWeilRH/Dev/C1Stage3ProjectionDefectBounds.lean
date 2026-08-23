@@ -6,6 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 import ConnesWeilRH.Dev.C1Stage3ProjectionResponseBridge
 import ConnesWeilRH.Dev.C1PositiveTraceCutoffGrowth
 import ConnesWeilRH.Dev.C1PositiveTraceCutoffVerdict
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompactRootEnergy
 
 /-!
 # C1 Stage-3 projection defect bounds and cutoff obstruction
@@ -49,6 +50,8 @@ open C1PositiveTraceCutoffVerdict
 open C1Stage3ProjectionResponseBridge
 open C1Stage3ProjectionTraceLedger
 open CCM25Concrete.SelectedWeilSquare
+open CCM25Concrete.SelectedCrossingOperatorBridge
+open CCM25Concrete.CCM24FiniteSCompactRootEnergy
 open MeasureTheory
 open Filter
 open scoped Topology
@@ -152,6 +155,80 @@ theorem norm_cutoffKernelInsertionSandwich_le
           lambda S‖ := by
   exact norm_kernelInsertionSandwich_le g (cutoffLower g n)
     (cutoffUpper g n) lambda S
+
+/-! ## The honest `D₁` sufficient condition -/
+
+/-- The root factor on a canonical cutoff is uniformly bounded by the
+whole-line convolution norm.  The only cutoff-dependent map in the
+factorization is the interval restriction, whose norm is at most one. -/
+theorem norm_cutoffFullBoundaryRootFactor_le_globalConvolution
+    (g : CCM25Concrete.CompactLogConvolution.CompactLogTest) (n : Nat) :
+    ‖fullBoundaryRootFactor g (cutoffLower g n) (cutoffUpper g n)‖ ≤
+      ‖cc20GlobalLogConvolution g.involution.test‖ := by
+  rw [fullBoundaryRootFactor_eq_globalConvolution
+    g (cutoffLower g n) (cutoffUpper g n)
+    (support_subset_cutoffWindow g n)]
+  calc
+    ‖globalL2ToKernelInterval (-cutoffUpper g n) (-cutoffLower g n) 0 ∘L
+        cc20GlobalLogConvolution g.involution.test‖ ≤
+        ‖globalL2ToKernelInterval (-cutoffUpper g n) (-cutoffLower g n) 0‖ *
+          ‖cc20GlobalLogConvolution g.involution.test‖ :=
+      ContinuousLinearMap.opNorm_comp_le _ _
+    _ ≤ 1 * ‖cc20GlobalLogConvolution g.involution.test‖ := by
+      exact mul_le_mul_of_nonneg_right
+        (norm_globalL2ToKernelInterval_le_one
+          (-cutoffUpper g n) (-cutoffLower g n) 0)
+        (norm_nonneg _)
+    _ = ‖cc20GlobalLogConvolution g.involution.test‖ := one_mul _
+
+/-- If the compressed output defect has norm tending to zero, the root-factor
+sandwich defect `D₁,n` tends to zero in operator norm.  The theorem exposes
+exactly the missing analytic input: no decay of `Zₙ† Kₙ Zₙ - I` is inferred
+from trace-class or positivity alone. -/
+theorem tendsto_norm_cutoffKernelInsertionSandwich_zero_of_compressedDefect
+    (g : CCM25Concrete.CompactLogConvolution.CompactLogTest)
+    (lambda : CCM24SoninScale) (S : List CCM24VisiblePrime)
+    (hdefect :
+      Tendsto
+        (fun n => ‖kernelInsertionDefect
+          (cutoffLower g n) (cutoffUpper g n) lambda S‖)
+        atTop (𝓝 (0 : ℝ))) :
+    Tendsto
+      (fun n => ‖cutoffKernelInsertionSandwich g lambda S n‖)
+      atTop (𝓝 (0 : ℝ)) := by
+  let boundValue : ℝ := ‖cc20GlobalLogConvolution g.involution.test‖
+  have hbound : ∀ n,
+      ‖cutoffKernelInsertionSandwich g lambda S n‖ ≤
+        boundValue ^ 2 *
+          ‖kernelInsertionDefect
+            (cutoffLower g n) (cutoffUpper g n) lambda S‖ := by
+    intro n
+    calc
+      ‖cutoffKernelInsertionSandwich g lambda S n‖ ≤
+          ‖fullBoundaryRootFactor g (cutoffLower g n)
+            (cutoffUpper g n)‖ ^ 2 *
+            ‖kernelInsertionDefect
+              (cutoffLower g n) (cutoffUpper g n) lambda S‖ :=
+        norm_cutoffKernelInsertionSandwich_le g lambda S n
+      _ ≤ boundValue ^ 2 *
+          ‖kernelInsertionDefect
+            (cutoffLower g n) (cutoffUpper g n) lambda S‖ := by
+        apply mul_le_mul_of_nonneg_right _ (norm_nonneg _)
+        apply pow_le_pow_left₀ (norm_nonneg _) _ 2
+        exact norm_cutoffFullBoundaryRootFactor_le_globalConvolution g n
+  have hupper : Tendsto
+      (fun n => boundValue ^ 2 *
+        ‖kernelInsertionDefect
+          (cutoffLower g n) (cutoffUpper g n) lambda S‖)
+      atTop (𝓝 (0 : ℝ)) := by
+    simpa only [mul_zero] using
+      (tendsto_const_nhds.mul hdefect :
+        Tendsto
+          (fun n => boundValue ^ 2 *
+            ‖kernelInsertionDefect
+              (cutoffLower g n) (cutoffUpper g n) lambda S‖)
+          atTop (𝓝 (boundValue ^ 2 * 0)))
+  exact squeeze_zero (fun n => norm_nonneg _) hbound hupper
 
 theorem norm_cutoffWindowToResponseDefect_le
     (owner : SelectedWeilSquareOwner)

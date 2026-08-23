@@ -123,7 +123,7 @@ import-facing probe at `3713/3713`; all thirteen audited declarations use only
 `[propext, Classical.choice, Quot.sound]`, with no `sorryAx` or project axiom.
 The mainline freeze check passes.
 
-**Defect bounds and cutoff verdict LANDED (2026-08-22).**
+**Defect bounds and cutoff verdict LANDED (2026-08-22; D₁ sufficiency extended 2026-08-23).**
 `ConnesWeilRH/Dev/C1Stage3ProjectionDefectBounds.lean` gives the two honest
 quantitative estimates:
 
@@ -151,10 +151,25 @@ Consequently
 `not_tendsto_zero_cutoffWindowToResponseDefect_trace_re_of_sourceTest_ne_zero`
 proves that `D₂,n → 0` is false for this owner, already at the scalar real-trace
 level.  This is a structural rejection of the current `D₂` owner, not a missing
-estimate.  The `D₁` norm bound is closed, but an actual `εₙ → 0` rate remains
-conditional on a new compressed-kernel compatibility theorem.  The owning build
-completed at `3722/3722`; the import-facing axiom probe reports only
-`[propext, Classical.choice, Quot.sound]` for all twelve audited declarations.
+estimate.
+
+The `D₁` side now has the exact sufficient-condition bridge
+`norm_cutoffFullBoundaryRootFactor_le_globalConvolution`: every canonical-cutoff
+root factor is bounded by the fixed whole-line convolution norm, since the
+cutoff factor is global convolution followed by a restriction contraction.
+Therefore
+`tendsto_norm_cutoffKernelInsertionSandwich_zero_of_compressedDefect` proves
+`‖D₁,n‖ → 0` in operator norm from the single explicit premise
+
+```text
+‖Zₙ† K_S Zₙ − I‖ → 0.
+```
+
+This closes the implication, not the analytic premise itself: trace-class and
+positivity do not imply compressed-kernel decay.  The WSL2 ext4 owner/probe
+builds completed at `3820/3820` and `3821/3821`; the locked full-root build
+completed at `4147` jobs.  Both new declarations audit to
+`[propext, Classical.choice, Quot.sound]` with zero `sorryAx`.
 
 ## The four gates (all must pass before producer promotion)
 

@@ -9,6 +9,8 @@ open ConnesWeilRH.Source.Dev.C1Stage3ProjectionDefectBounds
 #check @cutoffKernelInsertionSandwich
 #check @cutoffWindowToResponseDefect
 #check @norm_cutoffKernelInsertionSandwich_le
+#check @norm_cutoffFullBoundaryRootFactor_le_globalConvolution
+#check @tendsto_norm_cutoffKernelInsertionSandwich_zero_of_compressedDefect
 #check @norm_cutoffWindowToResponseDefect_le
 #check @ordinaryTraceAlong_cutoffWindowToResponseDefect_eq_sub
 #check @cutoffWindowToResponseDefect_trace_re_eq_sub
@@ -26,6 +28,8 @@ open ConnesWeilRH.Source.Dev.C1Stage3ProjectionDefectBounds
 #print axioms cutoffKernelInsertionSandwich
 #print axioms cutoffWindowToResponseDefect
 #print axioms norm_cutoffKernelInsertionSandwich_le
+#print axioms norm_cutoffFullBoundaryRootFactor_le_globalConvolution
+#print axioms tendsto_norm_cutoffKernelInsertionSandwich_zero_of_compressedDefect
 #print axioms norm_cutoffWindowToResponseDefect_le
 #print axioms ordinaryTraceAlong_cutoffWindowToResponseDefect_eq_sub
 #print axioms cutoffWindowToResponseDefect_trace_re_eq_sub

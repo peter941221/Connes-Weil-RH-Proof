@@ -1,3 +1,22 @@
+## Change Log (2026-08-23, D1 compressed-defect sufficiency theorem)
+- Extended `Dev/C1Stage3ProjectionDefectBounds.lean` with
+  `norm_cutoffFullBoundaryRootFactor_le_globalConvolution`.  The theorem uses
+  `fullBoundaryRootFactor_eq_globalConvolution` and the restriction contraction
+  `norm_globalL2ToKernelInterval_le_one` to give a cutoff-independent root-factor
+  bound.
+- Added
+  `tendsto_norm_cutoffKernelInsertionSandwich_zero_of_compressedDefect`: if the
+  compressed output defect norm
+  `‖Zₙ† K_S Zₙ - I‖` tends to zero, then the canonical `D₁,n` sandwich tends to
+  zero in operator norm by squeeze.  The compressed-defect limit remains an
+  explicit analysis premise; no trace-class or positivity shortcut is used.
+- WSL2 ext4 owner/probe builds completed at `3820/3820` and `3821/3821`; the
+  locked full-root `lake build ConnesWeilRH` completed at `4147` jobs.  The two
+  new declarations audit to `[propext, Classical.choice, Quot.sound]` with zero
+  `sorryAx`.  This
+  narrows the live Stage-3 work to proving compressed-kernel compatibility/decay
+  or replacing the owner; it does not close the same-owner `qw` readback or RH.
+
 ## Change Log (2026-08-23, moving-response cutoff obstruction)
 - Extended `Dev/C1Stage3ProjectionDefectBounds.lean` with the moving-response
   owner `cutoffWindowToMovingResponseDefect`.  Its trace identity is exact, and

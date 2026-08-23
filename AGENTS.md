@@ -206,8 +206,21 @@ leaves a cofinal-unbounded defect on every nonzero source test; the matching
 `not_tendsto_zero_...` theorem rules out a zero limit.  Thus the surviving
 design space is narrower than “let the response vary”: the response itself
 must carry the divergent bulk (or be replaced by a finite-part/renormalized
-owner).  WSL2 ext4 owner/probe build `3723/3723` is green and all four new
-declarations are axiom-clean with no `sorryAx`.
+owner).  WSL2 ext4 owner/probe builds `3820/3820` and `3821/3821` are green;
+the four moving-response declarations are axiom-clean with no `sorryAx`.
+
+The `D₁` sufficiency gap is now isolated cleanly.  The active theorem
+`norm_cutoffFullBoundaryRootFactor_le_globalConvolution` bounds every
+canonical-cutoff root factor by the fixed whole-line convolution norm, because
+the cutoff factor is global convolution followed by a restriction contraction.
+Consequently
+`tendsto_norm_cutoffKernelInsertionSandwich_zero_of_compressedDefect` proves
+operator-norm convergence of `D₁,n` from the single explicit premise
+`‖Zₙ† K_S Zₙ - I‖ → 0`.  This is a sufficient-condition theorem, not a proof of
+compressed-kernel decay; trace-class and positivity still do not supply that
+premise.  The WSL2 ext4 owner/probe builds `3820/3820` and `3821/3821` and the
+axiom audit are green with only `[propext, Classical.choice, Quot.sound]` and
+zero `sorryAx`.
 
 ### C1 Stage-3 Windowed Trace — Program P step 2 (operator-level correction family) (2026-08-23)
 
