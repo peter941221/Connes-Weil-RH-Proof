@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1Stage3ProjectionFullReadback
+
+open ConnesWeilRH.Source.Dev.C1Stage3ProjectionFullReadback
+
+#check @stage3ProjectionFullReadback_qw_eq_pole_sub_arch_sub_trace_add_defects
+#print axioms stage3ProjectionFullReadback_qw_eq_pole_sub_arch_sub_trace_add_defects

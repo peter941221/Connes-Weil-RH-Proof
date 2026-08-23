@@ -250,6 +250,22 @@ The new `fullBoundaryProjectionPairData` supplies the positive trace-class
 equal `projectionResponse` or `qw`: that equality still requires the missing
 same-owner ledger and pole/archimedean assembly.
 
+**Finite-window full readback LANDED (2026-08-23).**
+`ConnesWeilRH/Dev/C1Stage3ProjectionFullReadback.lean` now combines the two
+active identities into the exact owner-preserving formula
+
+```text
+qw g = pole(g*⋆g) − arch(g*⋆g) − Re Tr(C† K_S C)
+       + Re Tr(sameObjectResidual) + Re Tr(D₁) + Re Tr(D₂).
+```
+
+The theorem is
+`stage3ProjectionFullReadback_qw_eq_pole_sub_arch_sub_trace_add_defects`.
+It closes the algebraic Gate-2 assembly only: the residual and both window
+defects remain explicit real traces, and no term is asserted to vanish.  The
+module imports only active C1 readback/bridge leaves; its owner/probe audit
+must remain axiom-clean with no `sorryAx`.
+
 ### Gate 3 — remainder to zero, no circularity
 Prove an explicit bound
 

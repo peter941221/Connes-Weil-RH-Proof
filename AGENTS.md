@@ -222,6 +222,16 @@ premise.  The WSL2 ext4 owner/probe builds `3820/3820` and `3821/3821` and the
 axiom audit are green with only `[propext, Classical.choice, Quot.sound]` and
 zero `sorryAx`.
 
+The finite-window Gate-2 ledger is now assembled in the active leaf
+`Dev/C1Stage3ProjectionFullReadback.lean`:
+`stage3ProjectionFullReadback_qw_eq_pole_sub_arch_sub_trace_add_defects`
+combines the existing same-owner `qw` readback with the exact finite-window
+trace bridge.  Its formula keeps the arithmetic residual, `D₁` insertion
+defect, and `D₂` window-to-response defect as separate real traces.  This is
+an exact identity only; no defect limit or RH conclusion is inferred.  The
+owner/probe audit is required to remain `[propext, Classical.choice,
+Quot.sound]` with zero `sorryAx`.
+
 ### C1 Stage-3 Windowed Trace — Program P step 2 (operator-level correction family) (2026-08-23)
 
 Program P **step 2** lifts the §C *scalar* bulk witness to an explicit rank-one

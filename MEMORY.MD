@@ -1,3 +1,16 @@
+## Change Log (2026-08-23, finite-window Gate-2 full readback)
+- Added active leaf `Dev/C1Stage3ProjectionFullReadback.lean` and its probe.
+  `stage3ProjectionFullReadback_qw_eq_pole_sub_arch_sub_trace_add_defects`
+  combines `stage3QwReadback_qw_eq_pole_sub_arch_sub_response_add_residual`
+  with the exact finite-window projection trace bridge.
+- The resulting identity reads `qw g` as pole minus archimedean minus the
+  finite-window positive trace, plus the canonical same-object residual and
+  the explicit `D₁`/`D₂` real traces.  All three correction terms remain
+  visible; this closes a Gate-2 assembly gap but proves no vanishing estimate.
+- The module is active-C1 only and is intended to audit to
+  `[propext, Classical.choice, Quot.sound]` with zero `sorryAx` after the
+  WSL2 ext4 owner/probe build.
+
 ## Change Log (2026-08-23, D1 compressed-defect sufficiency theorem)
 - Extended `Dev/C1Stage3ProjectionDefectBounds.lean` with
   `norm_cutoffFullBoundaryRootFactor_le_globalConvolution`.  The theorem uses
