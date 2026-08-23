@@ -3,6 +3,8 @@ Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
+import Mathlib.Analysis.InnerProductSpace.Adjoint
+import Mathlib.Analysis.InnerProductSpace.Rayleigh
 import ConnesWeilRH.Dev.C1Stage3ProjectionResponseBridge
 import ConnesWeilRH.Dev.C1PositiveTraceCutoffGrowth
 import ConnesWeilRH.Dev.C1PositiveTraceCutoffVerdict
@@ -217,6 +219,77 @@ theorem kernelInsertionDefect_quadraticForm_eq_compressedGlobalDefect
     rw [kernelInsertionDefect_eq_compressedKernelDifference]
   rw [hEq, ContinuousLinearMap.comp_apply, ContinuousLinearMap.comp_apply]
   exact ContinuousLinearMap.adjoint_inner_right Z u (Kdiff (Z u))
+
+/-- **The insertion defect is self-adjoint.**  `D₁` is the compression of the fixed global
+operator `K_S − id`:
+
+```
+        D₁  =  Z † ∘ (K_S − id) ∘ Z
+```
+
+and both summands of `K_S − id` are self-adjoint (`K_S` is positive, hence symmetric; the
+identity is trivially so), so their difference is.  Compressing a self-adjoint operator by
+any bounded factor keeps it self-adjoint (mathlib `IsSelfAdjoint.adjoint_conj`).  This makes
+the quadratic form of `D₁` a genuine *symmetric* Rayleigh quotient — the key fact that turns
+"vanishing on every window test" into "the whole operator is zero". -/
+theorem kernelInsertionDefect_isSelfAdjoint
+    (a c : ℝ) (lambda : CCM24SoninScale) (S : List CCM24VisiblePrime) :
+    IsSelfAdjoint (kernelInsertionDefect a c lambda S) := by
+  let Z := fullBoundaryOutputZeroExtension a c
+  let Kdiff : cc20GlobalLogCrossingL2 →L[ℂ] cc20GlobalLogCrossingL2 :=
+    stage3ProjectionKernel lambda S - ContinuousLinearMap.id ℂ cc20GlobalLogCrossingL2
+  have hKdiff : IsSelfAdjoint Kdiff := by
+    apply ContinuousLinearMap.isSelfAdjoint_iff_isSymmetric.mpr
+    simpa using (stage3ProjectionKernel_isPositive lambda S).isSymmetric.sub LinearMap.IsSymmetric.id
+  have hEq : kernelInsertionDefect a c lambda S = Z.adjoint ∘L Kdiff ∘L Z := by
+    rw [kernelInsertionDefect_eq_compressedKernelDifference]
+  rw [hEq]
+  exact hKdiff.adjoint_conj Z
+
+/-- **Exact iff for the D₁ kernel-side condition.**  Because `D₁` is self-adjoint, its
+quadratic form is a symmetric Rayleigh quotient and mathlib's
+`norm_eq_iSup_rayleighQuotient` gives `‖D₁‖ = ⨆ x |⟪D₁x,x⟫|/‖x‖²`.  Hence:
+
+```
+   (∀ u, ⟪u, D₁(u)⟫ = 0)      ⟹    ‖D₁‖ = 0    ⟹    D₁ = 0
+```
+
+The forward direction uses only self-adjointness: each Rayleigh quotient of a symmetric
+operator equals its real quadratic form, which `hQF` fixes at zero, so the sup — and hence the
+operator norm — vanishes.  The reverse direction is immediate (the zero operator's quadratic
+form is trivially zero).  So "the quadratic form vanishes on every window test" is *exactly*
+"D₁ is the zero operator". -/
+theorem kernelInsertionDefect_eq_zero_iff_quadraticFormZero
+    (a c : ℝ) (lambda : CCM24SoninScale) (S : List CCM24VisiblePrime) :
+    (∀ u, inner ℂ u ((kernelInsertionDefect a c lambda S) u) = 0) ↔
+      kernelInsertionDefect a c lambda S = 0 := by
+  constructor
+  · intro hQF
+    let E := Lp ℂ 2 (volume : Measure (BoundaryOutputInterval a c))
+    let D : E →L[ℂ] E := kernelInsertionDefect a c lambda S
+    have hSym : (D : E →ₗ[ℂ] E).IsSymmetric :=
+      IsSelfAdjoint.isSymmetric (kernelInsertionDefect_isSelfAdjoint a c lambda S)
+    -- every Rayleigh quotient of D vanishes: re⟪D x,x⟫ = re⟪x,D x⟫ = 0 by hQF + real symmetry.
+    have hRQ : ∀ x, |D.rayleighQuotient x| = 0 := by
+      intro x
+      rw [abs_eq_zero]
+      have hnum : (inner ℂ (D x) x).re = 0 := by
+        rw [← ((inferInstance : InnerProductSpace ℂ E).conj_inner_symm (D x) x), hQF x]
+        simp
+      rw [ContinuousLinearMap.rayleighQuotient, ContinuousLinearMap.reApplyInnerSelf_apply]
+      simp [hnum]
+    -- hence the operator norm is zero: ‖D‖ = ⨆ |rayleigh| and each quotient is 0.
+    have hOpNorm : ‖D‖ = 0 := by
+      apply le_antisymm
+      · rw [ContinuousLinearMap.norm_eq_iSup_rayleighQuotient D hSym]
+        exact ciSup_le fun x => le_of_eq (hRQ x)
+      · exact norm_nonneg _
+    rw [← norm_eq_zero]
+    simpa only [D] using hOpNorm
+  · intro hD1
+    intro u
+    rw [hD1]
+    simp
 
 /-! ## The canonical cutoff sequence -/
 

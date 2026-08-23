@@ -259,6 +259,38 @@ named analytic premise about the kernel, not the window.
   `postfix:1000 "†" => ContinuousLinearMap.adjoint`).  The bare name
   `adjoint_inner_right` is **not** in scope and gives "Unknown identifier".
 
+This round closes the self-adjointness + exact-zero companion for `D₁`, still in
+`Dev/C1Stage3ProjectionDefectBounds.lean`.  Two new theorems, both axiom-clean
+(`propext`, `Classical.choice`, `Quot.sound`; zero `sorryAx`; full-root build `4147/4147`):
+
+- **Self-adjointness.** `kernelInsertionDefect_iselfAdoint` proves `D₁` is self-adjoint because
+  it is the compression `Z†(K_S − id)Z`: both summands of `K_S − id` are symmetric (`K_S` is
+  positive, hence symmetric; the identity is trivially so), so `K_S − id` is, and a compression
+  of a self-adjoint map by any bounded factor stays self-adjoint (mathlib
+  `IsSelfAdjoint.adjoint_conj Z`).
+
+- **Exact iff companion.** `kernelInsertionDefect_eq_zero_iff_quadraticFormZero` proves
+  `(∀ u, ⟪u, D₁(u)⟫ = 0) ↔ D₁ = 0`.  The forward direction uses only self-adjointness: for a
+  symmetric operator each Rayleigh quotient equals its real quadratic form, which the hypothesis
+  fixes at zero; hence `‖D₁‖ = ⨆ |rayleighQuotient|` (mathlib
+  `ContinuousLinearMap.norm_eq_iSup_rayleighQuotient`) is zero and so is `D₁`.  The reverse
+  direction is immediate.
+
+- **Pitfall — self-adjoint/symmetric identifiers look misspelled:** the symmetry projection on
+  `IsSelfAdjoint` and the companion instance token (e.g. the `.id` term used at line 243) carry a
+  spelling that reads like a typo (`…Symetric`, not `…Symmetric`).  Capture these tokens verbatim
+  from the file bytes — retyping them as "correct" English breaks the build with unknown-identifier.
+
+- **Pitfall — ⟪·,·⟫ binds the scalar implicitly and gets stuck:** `inner_re_symm x y : re ⟪x,y⟩ =
+  re ⟪y,x⟩` infers the scalar field from context; on a let-bound `Lp`/AddSubgroup carrier that
+  inference leaves an unsolved metavariable (`stuck InnerProductSpace ?m …`).  Use the explicit-inner
+  class field instead, pinning the scalar to `ℂ`:
+  `((inferInstance : InnerProductSpace ℂ E).conj_inner_symm a b) : conj (inner ℂ b a) = inner ℂ a b`.
+
+- **Pitfall — turn `‖T‖ = 0` into the target `T = 0`:** with goal `D₁ = 0` and a proof of
+  `‖D₁‖ = 0`, rewrite first with `rw [← norm_eq_zero]`.  A plain forward `rw [norm_eq_zero]` fails —
+  it searches for an existing `‖_‖ = 0` on the LHS, but the target is a bare `_ = 0`.
+
 The same obstruction is now proved for a moving response owner.  The active
 definitions/theorems `cutoffWindowToMovingResponseDefect`,
 `ordinaryTraceAlong_cutoffWindowToMovingResponseDefect_eq_sub`, and

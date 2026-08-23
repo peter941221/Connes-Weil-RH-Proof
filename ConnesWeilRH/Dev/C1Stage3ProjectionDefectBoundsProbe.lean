@@ -9,6 +9,8 @@ open ConnesWeilRH.Source.Dev.C1Stage3ProjectionDefectBounds
 #check @kernelInsertionDefect_eq_compressedKernelDifference
 #check @norm_kernelInsertionDefect_le_kernelDifference
 #check @kernelInsertionDefect_quadraticForm_eq_compressedGlobalDefect
+#check @kernelInsertionDefect_isSelfAdjoint
+#check @kernelInsertionDefect_eq_zero_iff_quadraticFormZero
 #check @cutoffKernelInsertionSandwich
 #check @cutoffWindowToResponseDefect
 #check @norm_cutoffKernelInsertionSandwich_le
@@ -31,6 +33,8 @@ open ConnesWeilRH.Source.Dev.C1Stage3ProjectionDefectBounds
 #print axioms kernelInsertionDefect_eq_compressedKernelDifference
 #print axioms norm_kernelInsertionDefect_le_kernelDifference
 #print axioms kernelInsertionDefect_quadraticForm_eq_compressedGlobalDefect
+#print axioms kernelInsertionDefect_isSelfAdjoint
+#print axioms kernelInsertionDefect_eq_zero_iff_quadraticFormZero
 #print axioms cutoffKernelInsertionSandwich
 #print axioms cutoffWindowToResponseDefect
 #print axioms norm_cutoffKernelInsertionSandwich_le
