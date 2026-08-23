@@ -1,3 +1,20 @@
+## Change Log (2026-08-23, projection operator exact trace ledger)
+- Extended `Dev/C1Stage3ProjectionOperatorFamily.lean` with three axiom-clean
+  identities for the active cutoff owner `C† K C`:
+  `cutoffProjectionOperator_trace_re_nonnegative` derives the real trace sign
+  from `ContinuousLinearMap.IsPositive` plus named-basis trace-class evidence;
+  `ordinaryTraceAlong_cutoffProjectionOperator_eq_projectionResponse_add_defects`
+  exposes the exact decomposition into `projectionResponse`,
+  `kernelInsertionSandwich`, and `windowToResponseDefect`; and
+  `realTrace_cutoffProjectionOperator_eq_selectedArithmetic_add_defects`
+  attaches the same owner to `selectedArithmeticCarrierSum`,
+  `sameObjectResidual`, and the two explicit defects.
+- This is an exact ledger, not an estimate: neither defect is claimed to tend
+  to zero, and the theorem does not identify the projection owner with `F†F`
+  or prove `qw`/RH.  WSL2 ext4 owner/probe builds completed `3713/3713` and
+  `3714/3714`; the three new declarations use only
+  `[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.
+
 ## Change Log (2026-08-23, Stage-3 windowing closed end-to-end via Program P step 2 operator family)
 - Added `frontierStatus_healthyCriterionState_of_rankOneCorrection` to
   `Dev/C1Stage3FrontierStatus.lean` (§D). It feeds Program P step 2's rank-one

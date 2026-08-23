@@ -248,6 +248,21 @@ Focused WSL2 ext4 verification: owner `3707/3707`, import-facing probe
 the operator contract back to `left = right`: positivity of a bounded kernel
 under adjoint conjugation is a different fact from self-pair factorization.
 
+The projection owner now also has an exact trace ledger in
+`Dev/C1Stage3ProjectionOperatorFamily.lean`:
+`cutoffProjectionOperator_trace_re_nonnegative` derives the scalar sign from
+operator positivity and trace-class evidence,
+`ordinaryTraceAlong_cutoffProjectionOperator_eq_projectionResponse_add_defects`
+expands `C† K C` into `projectionResponse + kernelInsertionSandwich +
+windowToResponseDefect`, and
+`realTrace_cutoffProjectionOperator_eq_selectedArithmetic_add_defects` attaches
+the same owner to `selectedArithmeticCarrierSum` plus the explicit
+`sameObjectResidual` and both defects.  These are exact identities only; no
+defect limit, `qw` readback, or RH conclusion is asserted.  The focused WSL2
+owner/probe builds are `3713/3713` and `3714/3714`, with the three new audited
+declarations using only `[propext, Classical.choice, Quot.sound]` and zero
+`sorryAx`.
+
 ### C1 Positive-Trace Cutoff Growth Guard
 
 For the canonical symmetric cutoff, the finite-window square has the exact

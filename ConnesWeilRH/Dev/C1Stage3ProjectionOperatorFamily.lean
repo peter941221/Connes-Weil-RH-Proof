@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 import ConnesWeilRH.Dev.C1PositiveTraceLimitBridge
 import ConnesWeilRH.Dev.C1Stage3ProjectionWindow
+import ConnesWeilRH.Dev.C1Stage3ProjectionResponseBridge
 
 /-!
 # C1 Stage-3 projection cutoff operator family
@@ -32,12 +33,22 @@ namespace Dev
 namespace C1Stage3ProjectionOperatorFamily
 
 open Filter
+open MeasureTheory
 open scoped InnerProduct InnerProductSpace Topology
 open CC20Concrete
+open CC20Concrete.CompactRootHalfLinePair
 open CC20Concrete.PositiveTrace
 open CCM25Concrete.CompactLogConvolution
+open CCM25Concrete.SelectedCrossingOperatorBridge
+open CCM25Concrete.SelectedWeilSquare
+open C1CrossingCommonCarrier
+open C1CrossingEulerLogReadback
+open C1PositiveTraceCutoffAdapter
 open C1PositiveTraceLimitBridge
+open C1Stage3CarrierReadback
 open C1Stage3ProjectionWindow
+open C1Stage3ProjectionResponseBridge
+open C1Stage3ProjectionTraceLedger
 
 noncomputable section
 
@@ -79,6 +90,92 @@ theorem cutoffProjectionOperator_isPositive
     (cutoffProjectionOperator g lambda S globalBasis n).IsPositive := by
   exact cutoffProjectionPairData_traceProduct_isPositive
     g lambda S globalBasis n
+
+theorem cutoffProjectionOperator_trace_re_nonnegative
+    {nu : Type*}
+    (g : CompactLogTest) (lambda : CCM24SoninScale)
+    (S : List CCM24VisiblePrime)
+    (globalBasis : HilbertBasis nu ℂ projectionCarrier) (n : Nat) :
+    0 ≤ (ordinaryTraceAlong globalBasis
+      (cutoffProjectionOperator g lambda S globalBasis n)).re := by
+  exact positiveTraceOperator_re_nonnegative globalBasis
+    (cutoffProjectionOperator g lambda S globalBasis n)
+    (cutoffProjectionOperator_isPositive g lambda S globalBasis n)
+    (cutoffProjectionOperator_isTraceClassAlong g lambda S globalBasis n)
+
+/-! The concrete cutoff owner now has an exact response ledger.  The two
+defects remain visible: this theorem is an identity, not a remainder estimate.
+-/
+
+theorem ordinaryTraceAlong_cutoffProjectionOperator_eq_projectionResponse_add_defects
+    (owner : SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (S : List CCM24VisiblePrime)
+    {nu : Type*} (globalBasis : HilbertBasis nu ℂ projectionCarrier)
+    (hresponse : IsTraceClassAlong globalBasis
+      (projectionResponse owner lambda S)) (n : Nat) :
+    ordinaryTraceAlong globalBasis
+        (cutoffProjectionOperator owner.sourceTest lambda S globalBasis n) =
+      ordinaryTraceAlong globalBasis (projectionResponse owner lambda S) +
+        ordinaryTraceAlong globalBasis
+          (kernelInsertionSandwich owner.sourceTest
+            (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n)
+            lambda S) +
+        ordinaryTraceAlong globalBasis
+          (windowToResponseDefect owner
+            (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n)
+            lambda S) := by
+  simpa only [cutoffProjectionOperator, cutoffProjectionPairData] using
+    (ordinaryTraceAlong_fullBoundaryProjectionPairData_eq_projectionResponse_add_defects
+      owner (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n)
+      lambda S (cutoffFullBasis owner.sourceTest n)
+      (cutoffOutputBasis owner.sourceTest n) globalBasis hresponse)
+
+/-! Attach the same cutoff owner to the active finite arithmetic scalar.  The
+common-carrier certificate and the selected response trace class stay explicit;
+the residual and both window defects are not hidden in a definition.
+-/
+
+theorem realTrace_cutoffProjectionOperator_eq_selectedArithmetic_add_defects
+    (owner : SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (S : List CCM24VisiblePrime) (n : Nat)
+    (data : CrossingCommonCarrierData owner.sourceTest.test
+      owner.sourceTest.test.continuous (cutoffLower owner.sourceTest n)
+        (cutoffUpper owner.sourceTest n) (canonicalCrossingLengthSet owner))
+    (hsupp : Function.support owner.sourceTest.test ⊆
+      Set.Icc (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n))
+    {iota kappa nu : Type*}
+    (fullBasis : HilbertBasis iota ℂ
+      (Lp ℂ 2 (volume : Measure
+        (BoundaryFullInputInterval (cutoffLower owner.sourceTest n)
+          (cutoffUpper owner.sourceTest n)))))
+    (outputBasis : HilbertBasis kappa ℂ
+      (Lp ℂ 2 (volume : Measure
+        (BoundaryOutputInterval (cutoffLower owner.sourceTest n)
+          (cutoffUpper owner.sourceTest n)))))
+    (globalBasis : HilbertBasis nu ℂ projectionCarrier)
+    (basisData : ∀ pm : {pm // pm ∈ canonicalPrimePowerTerms owner},
+      GlobalPrimePowerTraceBasisData (cutoffLower owner.sourceTest n)
+        (cutoffUpper owner.sourceTest n) pm.1.1 pm.1.2)
+    (hresponse : IsTraceClassAlong globalBasis
+      (projectionResponse owner lambda S)) :
+    (ordinaryTraceAlong globalBasis
+      (cutoffProjectionOperator owner.sourceTest lambda S globalBasis n)).re =
+      selectedArithmeticCarrierSum owner +
+        (ordinaryTraceAlong globalBasis
+          (sameObjectResidual owner lambda S
+            (canonicalPrimePowerTerms owner))).re +
+        (ordinaryTraceAlong globalBasis
+          (kernelInsertionSandwich owner.sourceTest
+            (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n)
+            lambda S)).re +
+        (ordinaryTraceAlong globalBasis
+          (windowToResponseDefect owner
+            (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n)
+            lambda S)).re := by
+  simpa only [cutoffProjectionOperator, cutoffProjectionPairData] using
+    (realTrace_fullBoundaryProjectionPairData_eq_selectedArithmetic_add_defects
+      owner (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n)
+      lambda S data hsupp fullBasis outputBasis globalBasis basisData hresponse)
 
 /-! The two missing analytic fields are data, not definitions. -/
 
