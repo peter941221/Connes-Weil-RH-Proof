@@ -2,13 +2,14 @@
 
 Date: 2026-08-24.
 
-Status: **Paper analysis only; no new Lean; no RH claim.** After the
-2026-08-24 refutations (bare-operator FRONTIER-HS, P2 bulk-subtracted
-readback), both live producers of `healthyCriterionState` reduce to one
-open statement — the vanishing-test sign. This document fixes its exact
-shape, lays out the term-by-term structure of both sides of the closed
-Gate-2 identity, and defines the first Lean lemma targets and bounded
-kill-tests.
+Status: **Stage 1 underway: W1 LANDED (commit 20af271, axiom-clean);
+no RH claim.** After the 2026-08-24 refutations (bare-operator
+FRONTIER-HS, P2 bulk-subtracted readback), both live producers of
+`healthyCriterionState` reduce to one open statement — the
+vanishing-test sign. This document fixes its exact shape, lays out the
+term-by-term structure of both sides of the closed Gate-2 identity, and
+defines the Lean lemma targets and bounded kill-tests. W2 (vanishing
+transfer), W3 (splitting), W4 (residual control) remain open.
 
 ## 1. The obligation (exact shape)
 
@@ -157,12 +158,11 @@ normalization (`centeredXiCoordinate`, `C1SpectralWeil.lean:107`):
 ## 5. First Lean lemma targets (small, falsifiable, in dependency order)
 
 ```text
-W1  ON-LINE TERMWISE NONNEG (ready now, expected small):
-    0 <= Re[spectralTerm g.convolutionSquare rho] for rho on the
-    critical line.  Proof shape: unfold spectralTerm, rewrite with
-    laplaceAt_convolutionSquare, observe w purely imaginary makes the
-    Hermitian product a norm-square, m(rho) >= 0.  First NEW sign
-    theorem of the attack; no hypothesis on g at all.
+W1  ON-LINE TERMWISE NONNEG: LANDED 2026-08-24 (commit 20af271,
+    Dev/C1SpectralOnlineNonneg.lean,
+    spectralTerm_convolutionSquare_nonneg_of_onLine, axiom-clean).
+    For rho on the critical line the term is m(rho) * |L_g(w)|^2 >= 0,
+    unconditional in g, no vanishing input, no RH claim.
 
 W2  VANISHING TRANSFER (normalization bridge):
     CC20VanishesOn F g is stated via mellinAt; spectralTerm uses
