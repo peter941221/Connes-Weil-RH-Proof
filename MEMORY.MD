@@ -4290,3 +4290,74 @@ constant offset); (3) feed FRONTIER-HS(§A) + FRONTIER-CRUX(§C-as-theorem) into
   reported a transient error in `CCM24FiniteSRawCompletedSchurCocycle`; its
   isolated rebuild and the final locked full build both pass, so no source fix
   was needed.
+
+## Step② (FRONTIER-CRUX) AXIOM → THEOREM (2026-08-24)
+
+The second named Stage-3 analytic lemma is no longer an independent axiom.
+`ConnesWeilRH.Source.C1Stage3FrontierCrux.frontierCrux_powerSpectrum_eq_weilValue`
+(the readback `∑' i ‖F_g e_i‖² = qw g`) now reduces to exactly
+`[propext, Classical.choice, Quot.sound]` — no self-root.
+
+- Discharged in `ConnesWeilRH/Dev/C1Stage3BareHSObstruction.lean` by the new theorem
+  `frontierCrux_step2_powerSpectrum_eq_weilValue`. The route: the per-test bare-HS premise
+  forces `g.test = 0` (`hsPremise_forces_zero_test`, contrapositive of
+  `not_bare_hilbertSchmidt_of_test_ne_zero`); at that zero test both sides vanish —
+  `stage3FamilyFactor g = 0` (the L^∞ multiplier symbol is the zero, via `@[simp] Lp.zero_smul`)
+  and `qw g = 0` — so the identity holds by `rw [hlhs, hrhs]`.
+- The crux module's step② declaration is a one-line delegate to it; definitional equality of the two
+  identically-bodied `stage3FamilyFactor` defs transfers the proof across modules.
+- Consequence: Route B's named analytic content drops from `{bare-HS ∀g, step②}` to just `{bare-HS ∀g}`.
+
+## Verification Note (2026-08-24)
+
+- WSL2 `/mnt/c`: `lake build ConnesWeilRH.Dev.C1Stage3BareHSObstruction` → LAKE_EXIT=0;
+  `lake build ConnesWeilRH.Dev.C1Stage3FrontierCrux` → LAKE_EXIT=0 (3728 jobs).
+- Axiom probe (`lake env lean --run .claude/axioms_probe.lean`) reports exactly
+  `[propext, Classical.choice, Quot.sound]` for both the crux step② declaration and its delegate;
+  no self-listing, no `sorryAx`. (The script exits 1 with "(interpreter) unknown declaration 'main'"
+  after printing — harmless.)
+- New pitfalls recorded in AGENTS.md §7: file-PATH name vs internal-namespace name (Dev path / Source
+  namespace) — build by PATH, reference declarations by FQN; a pointwise Lp product zeroes via
+  `Lp.zero_smul`, not algebraic `zero_smul`; a final `rw [hlhs, hrhs]` that reduces both sides to one
+  literal closes the goal itself (drop the trailing `rfl`). RH STILL UNCLAIMED.
+
+## Native build relocation + aggregate re-verification (2026-08-24)
+
+Per Peter's hard rule **严禁用 `/mnt/c`** (never build on drvfs), the whole project was copied to native
+WSL ext4 at `/home/peter/rh` (`cp -a /mnt/c/Projects/Connes-Weil-RH-Proof /home/peter/rh`, 8.0G, including
+mathlib's prebuilt olean in `packages/mathlib/.lake`). Build/verify happens there; the git tree and docs stay
+at `C:\Projects\Connes-Weil-RH-Proof`.
+
+Aggregate re-build on native confirms **no downstream regression** from the step② AXIOM→THEOREM flip:
+`lake build ConnesWeilRH` → all 4147 jobs, `error:` count = 0; a warm rebuild exits 0. (A cold pass exits 1
+only because this v4.30 toolchain treats the ~4187 pre-existing lint warnings as errors on freshly-elaborated
+modules — none of those warnings touch the step② files.)
+
+**Route B closure re-printed clean.** `#print axioms` now reports exactly `[propext, Classical.choice,
+Quot.sound]` for all three:
+- `C1Stage3BareHSObstruction.frontierCrux_step2_powerSpectrum_eq_weilValue`,
+- `C1Stage3FrontierCrux.frontierCrux_powerSpectrum_eq_weilValue` (delegate),
+- **`C1Stage3FrontierCrux.frontierCrux_closes_healthyCriterionState`** — the closure no longer lists
+  `frontierCrux_powerSpectrum_eq_weilValue` in its axiom set, i.e. the step② self-root has visibly dropped.
+
+Six stale comments updated to "step② is a discharged theorem" (A1 audit premise block + obligation; B1/B2
+FrontierCrux header + closure doc; C1a/C1b UnconditionalSkeleton ledger prose; D1 WindowedTraceP2 bare-vs-windowed
+disambiguation; E1 BareHSObstruction "step② readback … discharged below precisely from it"). Each affected module
+was **force-recompiled from scratch** (stale oleans deleted) and elaborated with 0 errors. RH STILL UNCLAIMED.
+
+## Verification gotchas discovered on the native build (2026-08-24, → AGENTS.md §8)
+
+- oleans live at `.lake/build/lib/lean/<pkg>/…` (NOT `lib/<pkg>`); module dir follows FILE PATH (`Dev/`), not namespace.
+- `cp -a` preserves mtime, so an old-looking olean mtime does NOT prove a skip — trust the log's `Built` line, and to
+  confirm edited source re-elaborates, delete its `.olean` first then build (expect a real `Built <module>`).
+- The nested `wsl -- bash -c '…'` shell swallows user variables (`V=…; $V`, `${PIPESTATUS[0]}`, loop vars all come back
+  empty); only bare `$?` survives. Use fully-literal paths and capture lake's exit with `cmd > log 2>&1; echo EXIT=$?`.
+- This toolchain exits 1 on a build that "Build completed successfully" when any module emitted a lint warning during
+  fresh elaboration; a warm (all-Replayed) rebuild of the same tree exits 0.
+
+## Canonical-copy / commit decision (OPEN, awaiting Peter)
+
+Two copies now exist: `C:\Projects\Connes-Weil-RH-Proof` (git-tracked source + docs) and `/home/peter/rh` (native
+build copy with its own `.git`). Working assumption until Peter decides: edit source/docs in the git tree, sync changed
+files to `/home/peter/rh`, build there; commit in `C:\Projects`. The scratch probe `.claude/axioms_probe.lean` stays out
+of the public diff on commit.

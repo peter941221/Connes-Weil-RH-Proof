@@ -1141,12 +1141,22 @@ restricted/global masses with one evaluation object.
 
 - **A section variable referenced only in a proof BODY is NOT auto-lifted into a new declaration's parameters**: Lean promotes an explicit `variable {ν} [Countable ν] (globalBasis : …)` into a later theorem's leading parameter ONLY when that theorem's *type signature* mentions it. If the type does not reference `globalBasis` but the proof body does (`:= by exact … globalBasis …`), the variable is **not** lifted → "Unknown identifier `globalBasis`" plus an unsolved goal whose context is missing both `globalBasis` and `[Countable ν]`. Fix: name `globalBasis` as an explicit leading parameter of that specific theorem — its type `HilbertBasis ν ℂ …` drags `{ν}` + `[Countable ν]` into scope so they lift with it. (Observed 2026-08-23, §D end-to-end closure build, `C1Stage3FrontierStatus.frontierStatus_healthyCriterionState_of_rankOneCorrection`. Refines the preceding explicit-section-variable bullet: body-only use is NOT enough.)
 
+- **A module's file PATH name ≠ its internal namespace — and for the Stage-3 crux files they differ**: `ConnesWeilRH/Dev/C1Stage3FrontierCrux.lean` declares `namespace ConnesWeilRH.Source.C1Stage3FrontierCrux`, so the *module* (what `lake build <target>` resolves to a source file) is named by its **path** — `ConnesWeilRH.Dev.C1Stage3FrontierCrux` — while every theorem's fully-qualified name uses the **internal namespace**, e.g. `ConnesWeilRH.Source.C1Stage3FrontierCrux.frontierCrux_powerSpectrum_eq_weilValue`. Building by the namespace FQN (`lake build ConnesWeilRH.Source.C1Stage3FrontierCrux`) fails with "no such file or directory … `.Source/C1Stage3FrontierCrux.lean`" because no file exists at that path; `#print axioms` / cross-references use the `.Source.` name instead. Same split for `C1Stage3BareHSObstruction` (Dev path, Source namespace). Rule: **build/import by PATH, reference declarations by their declared-namespace FQN.** (Observed 2026-08-24, step② axiom probe.)
+
+- **A pointwise Lp product zeroes via `@[simp] Lp.zero_smul`, NOT algebraic `zero_smul`**: for `(0 : Lp 𝕜 ⊤ μ) • f` (the Fourier-multiplier `cc20FourierMultiplier h u = (𝓕h).toLp ⊤ • u`), the zeroing simp lemma is Mathlib's `MeasureTheory.Function.Holder.Lp.zero_smul`. An unqualified `rw [zero_smul]` looks for the generic `[SMulWithZero]` form and fails "did not find an occurrence of pattern `0 • ?m`" because this product is a **pointwise Lp** operation, not scalar-field smul. Fix: after rewriting the multiplier to its zero (`rw [hmult]`), close with plain `simp` (or `simp [ContinuousLinearMap.map_zero]`) so `Lp.zero_smul` + `LinearMap.zero_apply` reduce both sides to the L² zero. (Observed 2026-08-24, `C1Stage3BareHSObstruction.stage3FamilyFactor_zero_of_test_zero`.)
+
+- **A final `rw [hlhs, hrhs]` that reduces both sides to one literal can close the goal itself — do NOT add a trailing `rfl`**: with `hlhs : LHS = 0` and `hrhs : RHS = 0`, the last `rw [hlhs, hrhs]` rewrites the target to `0 = 0`, which this toolchain's `rw` closes automatically; an extra `rfl` then errors "No goals to be solved". (Same family as the earlier norm_num / by-block-rfl pre-close hazards: after a final rewrite, check whether it already discharged a definitionally-true goal before adding another closer.) (Observed 2026-08-24, main theorem of `C1Stage3BareHSObstruction`.)
+
+- **Fast axiom probe without rebuilding the audit module**: `lake env lean --run <scratch.lean>` elaborates a tiny script against the already-built oleans and prints `#print axioms …` — far faster than building `UnifiedRemainingGapsRouteAudit`. Two gotchas: (a) it still loads all transitive oleans from `/mnt/c`, so allow several minutes; (b) import by **PATH** name, and a script with no `main` exits 1 with "(interpreter) unknown declaration 'main'" *after* printing the axiom lists — that exit-1 is harmless. (Observed 2026-08-24.)
+
 
 ## 8. WSL Verification
 
 WSL2 is a **verification environment, not a source workspace**. Author/manage
 git only in Windows, then copy the Windows snapshot into an ext4 mirror. Never
 run Lake through Windows Lean or from a Windows-mounted source path.
+
+**Hard rule (2026-08-24): 严禁用 `/mnt/c` — build natively on WSL ext4.** The live native copy is `/home/peter/rh` (ext4, has its own `.git`, ~8 GB with a warm `.lake`). Never point `lake build` at the Windows tree via `/mnt/c/…`: drvfs costs ~7 min/heavy brick while native ext4 is ≈5× faster. Workflow: edit in the git tree (`C:\Projects\Connes-Weil-RH-Proof`) → sync changed files to `/home/peter/rh` → build natively there.
 
 Preferred persistent mirror: `<ext4-mirror>/Connes-Weil-RH-Proof`.
 
@@ -1194,12 +1204,15 @@ Rules:
 - **WSL variable assignment is unreliable** in `wsl.exe -- bash -lc 'X=...; ...'`
   (observed empty expansions); write full paths inline instead of `$VAR`. The Bash tool layer
   additionally strips single quotes / pre-expands `$VAR` inside for-loop bodies, so a loop's own
-  variables arrive empty — use fully-literal paths and avoid loops in `wsl -d ... -- bash -lc '...'`.
+  variables arrive empty — use fully-literal paths and avoid loops in `wsl -d ... -- bash -lc '...'`. Only a BARE `$?` survives (even `${PIPESTATUS[0]}` is lost); to capture lake's exit, run `cmd > log 2>&1; echo EXIT=$?` with NO pipe.
 - **Distro name for `wsl -d`:** the installed distro is `Ubuntu-24.04`, not bare `Ubuntu` —
   `wsl -d Ubuntu` fails with `WSL_E_DISTRO_NOT_FOUND`. List with `wsl -l -v` if unsure.
 - **Where mathlib oleans actually live:** modern Lake keeps each package's compiled artifacts at
   `.lake/packages/mathlib/.lake/build`, NOT in the project tree; an empty count under the project
   `.lake/build` does not mean a cold cache — check the per-package build dir before assuming a rebuild.
+- **Where THIS project's oleans live:** `.lake/build/lib/lean/ConnesWeilRH/<Path>.olean`, keyed by FILE PATH — so `Dev` modules are under `…/lib/lean/ConnesWeilRH/Dev/<module>.olean`, NOT under `lib/ConnesWeilRH`. Checking the wrong dir makes a built module look absent.
+- **`cp -a` preserves mtime, so an old-looking olean does not prove a skip:** trust the log's `Built <module>` line over file mtimes. To *prove* an edited source re-elaborated, delete its `.olean` first, then build and expect a real `Built` (refines "Incrementality lies" above).
+- **Cold vs warm aggregate build exit differs on lint warnings:** v4.30 Lake treats the ~4187 pre-existing lint warnings as errors ON freshly-elaborated modules, so a cold `lake build ConnesWeilRH` can print "Build completed successfully" yet still EXIT 1 — while a warm (all-Replayed) rebuild of the SAME tree exits 0. The true regression signal is the count of `error:` lines (= 0), not the exit code.
 
 ## 8a. Canonical Incremental Build Strategy
 
