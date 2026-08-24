@@ -1,4 +1,19 @@
 ## Change Log (2026-08-24, audit refresh + Prong B/C opening + W1 LANDED)
+- **W2/W3 landed (2026-08-24).** Added the axiom-clean leaf
+  `Dev/C1SpectralVanishingTransfer.lean`.  Its `half`-node bridge keeps
+  `CC20TestSpace.mellinAt`, compact-log `laplaceAt`, and the positive-route
+  Mellin owner identical; vanishing at `1 / 2` gives zero at both square-pole
+  evaluations and therefore
+  `qw = -archimedeanTerm - finitePrimeSum`.  This is arithmetic pole removal,
+  not cancellation of source spectral zeros.
+- Added `Dev/C1SpectralOnlineSplit.lean`.  Under
+  `SpectralSummable g.convolutionSquare`, the exact indicator/complement split
+  reads `spectralWeilValue g.convolutionSquare` as a nonnegative critical-line
+  mass (W1) plus a named off-line residual.  The existing `oneSubXiZero` map
+  reflects the centered coordinate by `-w` and preserves multiplicity, but the
+  Hermitian law needs `-star w`; conjugate-zero transport and the residual bound
+  remain open.  Both leaves force-recompiled natively with no `error:` or
+  `sorryAx`; aggregate root remains `4147/4147`.
 - Refreshed `Dev/UnifiedRemainingGapsRouteAudit.lean` (commit `bcf57cd`) to the
   post-refutation state: prints `bareHS_iff_zero_test` /
   `not_forall_bare_hilbertSchmidt` (uniform bare premise REFUTED) and
