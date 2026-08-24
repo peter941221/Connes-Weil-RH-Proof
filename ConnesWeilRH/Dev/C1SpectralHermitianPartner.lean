@@ -134,6 +134,52 @@ theorem spectralTerm_convolutionSquare_pair_re_decomposition
     laplaceAt_convolutionSquare]
   ring
 
+/-! ### **W4a wiring.**  Multiplicity now survives the conjugation leg -/
+
+/-- The analytic multiplicity is invariant under complex-conjugating a source
+zero.  This is the anti-holomorphic half that `xiMultiplicity_oneSub` already
+supplied for the functional-equation leg; together they close the partner. -/
+theorem xiMultiplicity_conjugateXiZero_eq (rho : sourceNontrivialZeroSet) :
+    xiMultiplicity (conjugateXiZero rho) = xiMultiplicity rho := by
+  unfold xiMultiplicity
+  rw [conjugateXiZero_coe]
+  simpa using congrArg ENat.toNat
+    (analyticOrderAt_completedRiemannXi_conj_symmetric rho.1)
+
+/-- The analytic multiplicity is invariant under the Hermitian companion: the
+functional-equation leg preserves it (`xiMultiplicity_oneSub`) and so does the
+conjugation leg just proved, and `hermitianPartner` is their composition. -/
+theorem xiMultiplicity_hermitianPartner_eq (rho : sourceNontrivialZeroSet) :
+    xiMultiplicity (hermitianPartner rho) = xiMultiplicity rho := by
+  unfold hermitianPartner
+  rw [xiMultiplicity_oneSub, xiMultiplicity_conjugateXiZero_eq]
+
+/-- **W4a discharge.**  The square-laplace partner identity now holds without
+the multiplicity hypothesis: the companion carries exactly the same analytic
+multiplicity, so its coefficient is a real fixed by conjugation. -/
+theorem spectralTerm_convolutionSquare_hermitianPartner_star_uncond
+    (g : CompactLogTest) (rho : sourceNontrivialZeroSet) :
+    spectralTerm g.convolutionSquare (hermitianPartner rho) =
+      star (spectralTerm g.convolutionSquare rho) := by
+  exact spectralTerm_convolutionSquare_hermitianPartner_star g rho
+    (xiMultiplicity_hermitianPartner_eq rho)
+
+/-- **W4a clean pair sum.**  With the multiplicities matched, the multiplicity-gap
+term in `..._pair_re_decomposition` vanishes: a zero and its Hermitian partner
+contribute exactly twice the real part of either one. -/
+theorem spectralTerm_convolutionSquare_pair_re_sum_uncond
+    (g : CompactLogTest) (rho : sourceNontrivialZeroSet) :
+    (spectralTerm g.convolutionSquare (hermitianPartner rho) +
+        spectralTerm g.convolutionSquare rho).re =
+      2 * (spectralTerm g.convolutionSquare rho).re := by
+  rw [spectralTerm_convolutionSquare_pair_re_decomposition]
+  have hgap :
+      ((xiMultiplicity (hermitianPartner rho) : ℝ)) -
+        (xiMultiplicity rho : ℝ) = 0 := by
+    rw [xiMultiplicity_hermitianPartner_eq]
+    ring
+  rw [hgap, zero_mul, add_zero]
+
 #print axioms conjugateXiZero
 #print axioms centeredXiCoordinate_conjugateXiZero
 #print axioms hermitianPartner
@@ -143,6 +189,10 @@ theorem spectralTerm_convolutionSquare_pair_re_decomposition
 #print axioms spectralTerm_convolutionSquare_hermitianPartner_star
 #print axioms spectralTerm_convolutionSquare_hermitianPartner_re_eq
 #print axioms spectralTerm_convolutionSquare_pair_re_decomposition
+#print axioms xiMultiplicity_conjugateXiZero_eq
+#print axioms xiMultiplicity_hermitianPartner_eq
+#print axioms spectralTerm_convolutionSquare_hermitianPartner_star_uncond
+#print axioms spectralTerm_convolutionSquare_pair_re_sum_uncond
 
 end
 end C1SpectralHermitianPartner
