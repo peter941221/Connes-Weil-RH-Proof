@@ -454,6 +454,23 @@ is axiom-clean; the functional equation reflects negative-even zeta zeros into
 the zero-free closed right half-plane. The spectral sum indexes the exact xi
 zeros, not a subset.
 
+### C1 W4 Hermitian Partner Guard (2026-08-24)
+
+`Dev/C1XiConjugation.lean` proves the completed-xi conjugation identity
+`completedRiemannXi (star z) = star (completedRiemannXi z)` using the real-valued
+Hurwitz kernel and `Complex.cpow_conj`; the theorem is axiom-clean. The active
+partner leaf `Dev/C1SpectralHermitianPartner.lean` then defines the source-zero
+transport `rho -> star rho -> 1 - star rho`, proving the centered coordinate is
+`-star w` and the transport is involutive. The square spectral term transports
+by exact conjugation only under the explicit hypothesis
+`xiMultiplicity (hermitianPartner rho) = xiMultiplicity rho`.
+
+Do not write an unconditional off-line `2 * Re` pairing: before multiplicity
+transport is proved, the exact pair decomposition has the residual
+`(m_partner - m) * Re (L(g□)(w))`. This is the named W4 multiplicity defect,
+not a simplification artifact. The partner module compiles natively with only
+`[propext, Classical.choice, Quot.sound]` and no `sorryAx`.
+
 ### C1 Coordinate, Owner, And Sign Guards
 
 `CompactLogTest.test` and route `TestFunction` have the same Lean function type

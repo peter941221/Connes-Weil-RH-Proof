@@ -1,4 +1,15 @@
 ## Change Log (2026-08-24, audit refresh + Prong B/C opening + W1 LANDED)
+- **W4 Hermitian partner transport advanced (2026-08-24).** Added
+  `Dev/C1XiConjugation.lean` with axiom-clean conjugation laws for completed
+  zeta-zero and completed xi. Added `Dev/C1SpectralHermitianPartner.lean`:
+  `conjugateXiZero` and `hermitianPartner` transport source zeros, send the
+  centered coordinate to `star w` and `-star w`, and are involutions. Under an
+  explicit multiplicity transport premise, the Hermitian convolution-square
+  spectral term is exactly the star of the original term, hence has equal real
+  part. Without that premise, the exact pair ledger exposes the sole defect:
+  `(m_partner - m) * Re(L(g□)(w))`. No `2 Re` off-line pairing or RH claim is
+  made. Native owner build is clean with `[propext, Classical.choice,
+  Quot.sound]` and zero `sorryAx`.
 - **W2/W3 landed (2026-08-24).** Added the axiom-clean leaf
   `Dev/C1SpectralVanishingTransfer.lean`.  Its `half`-node bridge keeps
   `CC20TestSpace.mellinAt`, compact-log `laplaceAt`, and the positive-route
