@@ -149,12 +149,43 @@ theorem p2_bumpTrace_tendsto_top : Tendsto (bumpWindowTrace globalBasis) atTop a
   intro x hx   -- hx : x ≥ a  (i.e. a ≤ x)
   exact le_trans ha (show bumpWindowTrace globalBasis a ≤ bumpWindowTrace globalBasis x from (p2_bumpTrace_monotone globalBasis) hx)
 
-/-! ### Axiom-cleanliness audit — each P2 lemma carries only `[propext, Classical.choice, Quot.sound]`, no `sorryAx`.
+/-! ### The windowed obstruction in one line -/
+
+/-- **The renormalized remainder is identically zero.** `p2_bumpTrace_eq_windowLengthTimesMass` holds *exactly*: the
+moving-cutoff self-pair trace equals the pure bulk `2 · log(n+2)·bumpA` with no further term.  Subtracting that bulk leaves
+the zero sequence for every window size, so plain windowing tracks the divergent bulk exactly and isolates nothing else —
+kill-test 1016 in its sharpest form (windowed side). -/
+theorem p2_bumpTrace_sub_bulk_zero (n : Nat) :
+    bumpWindowTrace globalBasis n - 2 * Real.log (frontierWindowParam n) * bumpA = 0 := by
+  rw [bumpWindowTrace, p2_bumpTrace_eq_windowLengthTimesMass]
+  ring
+
+/-- **Consequence: a renormalized readback forces `qw g₀ = 0`.** If one claimed that subtracting the divergent bulk makes
+the windowed trace converge to the Weil value of `g₀`, then — by `p2_bumpTrace_sub_bulk_zero` that remainder is identically
+zero and so converges to `0`; uniqueness of limits in ℝ forces `C1SameOwnerWeil.qw bumpPlateauTest = 0`.  This window choice,
+renormalized the natural way, isolates no Weil content at all. -/
+theorem p2_renormReadback_forces_qw_zero :
+    (Tendsto (fun n => bumpWindowTrace globalBasis n - 2 * Real.log (frontierWindowParam n) * bumpA)
+        atTop (𝓝 (C1SameOwnerWeil.qw bumpPlateauTest))) →
+      C1SameOwnerWeil.qw bumpPlateauTest = 0 := by
+  intro hReadback
+  have hRemZero : ∀ n, bumpWindowTrace globalBasis n - 2 * Real.log (frontierWindowParam n) * bumpA = 0 :=
+    fun n => p2_bumpTrace_sub_bulk_zero globalBasis n
+  have hConst : (fun n => bumpWindowTrace globalBasis n - 2 * Real.log (frontierWindowParam n) * bumpA) =
+      (fun _ : ℕ => 0) := funext hRemZero
+  rw [hConst] at hReadback
+  have hToZero : Tendsto (fun (_ : ℕ) => 0) atTop (𝓝 (0 : ℝ)) := tendsto_const_nhds
+  -- Same function tending to two points in a T2 space forces them equal: qw g₀ = 0.
+  exact tendsto_nhds_unique hReadback hToZero
+
+/-! P2 axiom-cleanliness audit: each lemma carries only [propext, Classical.choice, Quot.sound].
 `#print axioms` takes a bare name (free args auto-filled with metavariables). -/
 #print axioms p2_bumpTrace_eq_windowLengthTimesMass
 #print axioms p2_bumpTrace_tendsTop
 #print axioms p2_bumpTrace_monotone
 #print axioms p2_bumpTrace_tendsto_top
+#print axioms p2_bumpTrace_sub_bulk_zero
+#print axioms p2_renormReadback_forces_qw_zero
 
 end
 
