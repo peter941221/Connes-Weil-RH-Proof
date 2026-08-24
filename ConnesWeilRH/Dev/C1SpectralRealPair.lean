@@ -1,5 +1,7 @@
 import ConnesWeilRH.Dev.C1SpectralQwAssembly
 import ConnesWeilRH.Dev.C1HealthyYoshidaDetector
+import ConnesWeilRH.Dev.C1SpectralHermitianPartner
+import ConnesWeilRH.Dev.C1SpectralOnlineNonneg
 
 /-!
 # C1SpectralRealPair - the phase-route foundations for W4b-bound
@@ -37,6 +39,11 @@ open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
 open CC20YoshidaConvolution
 open C1SpectralWeil
+open C1SpectralHermitianPartner
+open C1SpectralOnlineNonneg
+open C1SpectralOnlineSplit
+open C1SpectralOfflinePairing
+open C1SpectralQwAssembly
 open MeasureTheory
 
 noncomputable section
@@ -121,6 +128,139 @@ theorem spectralTerm_convolutionSquare_re_of_isReal
   rw [hmre, hmim]
   ring
 
+/-- On the critical line, a real test identifies the reflected transform value
+with the conjugate of the original value. -/
+theorem laplaceAt_neg_centered_of_isReal_of_onLine
+    (g : CompactLogTest) (hreal : IsRealTest g)
+    (rho : sourceNontrivialZeroSet) (honline : rho.1.re = 1 / 2) :
+    CompactLogTest.laplaceAt g (-(centeredXiCoordinate rho)) =
+      star (CompactLogTest.laplaceAt g (centeredXiCoordinate rho)) := by
+  have hcoord := centeredXiCoordinate_star_eq_neg_of_onLine rho honline
+  have hstar := laplaceAt_star g hreal (centeredXiCoordinate rho)
+  rw [hcoord] at hstar
+  exact hstar.symm
+
+/-- The real-test square value at an on-line zero is the norm square of the
+single transform value. -/
+theorem laplaceAt_convolutionSquare_of_isReal_of_onLine
+    (g : CompactLogTest) (hreal : IsRealTest g)
+    (rho : sourceNontrivialZeroSet) (honline : rho.1.re = 1 / 2) :
+    CompactLogTest.laplaceAt g.convolutionSquare
+        (centeredXiCoordinate rho) =
+      ((Complex.normSq
+        (CompactLogTest.laplaceAt g (centeredXiCoordinate rho)) : ℝ) : ℂ) := by
+  rw [laplaceAt_convolutionSquare_of_isReal g hreal,
+    laplaceAt_neg_centered_of_isReal_of_onLine g hreal rho honline,
+    Complex.normSq_eq_conj_mul_self]
+  simp only [Complex.star_def]
+
+/-- The corresponding on-line spectral term has the expected real norm-square
+form, with the natural multiplicity as a real scalar. -/
+theorem spectralTerm_convolutionSquare_re_of_isReal_of_onLine
+    (g : CompactLogTest) (hreal : IsRealTest g)
+    (rho : sourceNontrivialZeroSet) (honline : rho.1.re = 1 / 2) :
+    (spectralTerm g.convolutionSquare rho).re =
+      (xiMultiplicity rho : ℝ) *
+        Complex.normSq (CompactLogTest.laplaceAt g (centeredXiCoordinate rho)) := by
+  rw [spectralTerm, laplaceAt_convolutionSquare_of_isReal_of_onLine
+    g hreal rho honline]
+  simp only [Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
+    Complex.natCast_re, Complex.natCast_im, zero_mul, sub_zero]
+
+/-- For a real test, the Hermitian partner turns the reflected product into its
+complex conjugate.  This is the phase-level counterpart of the generic W4a
+partner transport. -/
+theorem laplaceAt_hermitianPartner_product_eq_star_of_isReal
+    (g : CompactLogTest) (hreal : IsRealTest g)
+    (rho : sourceNontrivialZeroSet) :
+    CompactLogTest.laplaceAt g (-(centeredXiCoordinate (hermitianPartner rho))) *
+        CompactLogTest.laplaceAt g (centeredXiCoordinate (hermitianPartner rho)) =
+      star (CompactLogTest.laplaceAt g (-(centeredXiCoordinate rho)) *
+        CompactLogTest.laplaceAt g (centeredXiCoordinate rho)) := by
+  rw [centeredXiCoordinate_hermitianPartner]
+  have hright := (laplaceAt_star g hreal (centeredXiCoordinate rho)).symm
+  have hleft := (laplaceAt_star g hreal (-(centeredXiCoordinate rho))).symm
+  have hleft' :
+      CompactLogTest.laplaceAt g (-star (centeredXiCoordinate rho)) =
+        star (CompactLogTest.laplaceAt g (-(centeredXiCoordinate rho))) := by
+    simpa using hleft
+  rw [show -(-star (centeredXiCoordinate rho)) = star (centeredXiCoordinate rho) by ring,
+    hright, hleft']
+  exact (star_mul
+    (CompactLogTest.laplaceAt g (-(centeredXiCoordinate rho)))
+    (CompactLogTest.laplaceAt g (centeredXiCoordinate rho))).symm
+
+/-! ### Right-half phase readback -/
+
+/-- The multiplicity-weighted phase kernel carried by one right-half zero. -/
+def rightHalfPhaseKernel (g : CompactLogTest)
+    (rho : sourceNontrivialZeroSet) : ℝ :=
+  (xiMultiplicity rho : ℝ) *
+    (CompactLogTest.laplaceAt g (-(centeredXiCoordinate rho)) *
+      CompactLogTest.laplaceAt g (centeredXiCoordinate rho)).re
+
+/-- The real part of one right-half indicator term reads back to the explicit
+phase kernel exposed by the real-test square law.  The indicator is kept on
+the whole zero index type, matching the W4b pairing ledger. -/
+theorem rightHalfSpectralTerm_re_eq_indicator_phase
+    (g : CompactLogTest) (hreal : IsRealTest g)
+    (rho : sourceNontrivialZeroSet) :
+    (Set.indicator rightHalfOffLine
+        (spectralTerm g.convolutionSquare) rho).re =
+      Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho := by
+  by_cases h : rho ∈ rightHalfOffLine
+  · rw [Set.indicator_of_mem h, Set.indicator_of_mem h]
+    simpa [rightHalfPhaseKernel] using
+      spectralTerm_convolutionSquare_re_of_isReal g hreal rho
+  · simp [h]
+
+/-- Mechanical tsum-level readback of the right-half residual: for a real
+test, its real part is the tsum of multiplicity-weighted phase kernels over
+the right-half indicator.  This is an identity only; the missing W4b bound is
+still a separate inequality about this real series. -/
+theorem rightHalfSpectralSum_re_eq_tsum_indicator_phase
+    (g : CompactLogTest) (hreal : IsRealTest g) :
+    (rightHalfSpectralSum g).re =
+      ∑' rho : sourceNontrivialZeroSet,
+        Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho := by
+  have hsum := summable_rightHalfSpectralTerm g
+  unfold rightHalfSpectralSum
+  rw [Complex.re_tsum hsum]
+  exact tsum_congr fun rho =>
+    rightHalfSpectralTerm_re_eq_indicator_phase g hreal rho
+
+/-- The remaining W4b inequality restricted to the pointwise-real,
+F-vanishing subspace, expressed directly in terms of the named phase kernel.
+This is a proposition-valued target, not an assumed axiom or positivity fact.
+The unrestricted `CompactLogTest` target in `C1SpectralQwAssembly` remains
+strictly stronger. -/
+def rightHalfPhaseBound_onRealVanishing
+    {F : Finset CriticalVanishingPoint} : Prop :=
+  ∀ g : CompactLogTest, IsRealTest g →
+    CC20VanishesOn C1.healthyCC20TestSpace F g →
+      (∑' rho : sourceNontrivialZeroSet,
+        Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) ≥
+        -(1 / 2 : ℝ) * onLineSpectralMass g
+
+/-- On real tests, the phase-kernel target is exactly the original right-half
+spectral-sum target; the theorem is only a change of presentation. -/
+theorem rightHalfPhaseBound_onRealVanishing_iff_spectral
+    {F : Finset CriticalVanishingPoint} :
+    rightHalfPhaseBound_onRealVanishing (F := F) ↔
+      (∀ g : CompactLogTest, IsRealTest g →
+        CC20VanishesOn C1.healthyCC20TestSpace F g →
+          (rightHalfSpectralSum g).re ≥
+            -(1 / 2 : ℝ) * onLineSpectralMass g) := by
+  unfold rightHalfPhaseBound_onRealVanishing
+  constructor
+  · intro h g hreal hvanishes
+    rw [rightHalfSpectralSum_re_eq_tsum_indicator_phase g hreal]
+    exact h g hreal hvanishes
+  · intro h g hreal hvanishes
+    have hspectral := h g hreal hvanishes
+    rw [rightHalfSpectralSum_re_eq_tsum_indicator_phase g hreal] at hspectral
+    exact hspectral
+
 /-! ### The autocorrelation mass at the origin -/
 
 /-- The origin value of the Hermitian convolution square is a nonnegative real
@@ -143,6 +283,11 @@ theorem norm_convolutionSquare_test_zero_eq_integral_normSq
   have hnonneg : 0 ≤ ∫ x : ℝ, Complex.normSq (g.test x) :=
     integral_nonneg (fun x => Complex.normSq_nonneg (g.test x))
   rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hnonneg]
+
+#print axioms rightHalfSpectralTerm_re_eq_indicator_phase
+#print axioms rightHalfSpectralSum_re_eq_tsum_indicator_phase
+#print axioms rightHalfPhaseBound_onRealVanishing
+#print axioms rightHalfPhaseBound_onRealVanishing_iff_spectral
 
 end
 end C1SpectralRealPair

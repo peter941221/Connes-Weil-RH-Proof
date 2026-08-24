@@ -1,3 +1,25 @@
+## Change Log (2026-08-25 session 6, W4b phase tsum target LANDED)
+- **Phase tsum readback LANDED** (`ConnesWeilRH/Dev/C1SpectralRealPair.lean`,
+  Build #20: 3614 jobs, 0 error / 0 sorryAx; the new declarations audit to
+  `[propext, Classical.choice, Quot.sound]`).  `rightHalfPhaseKernel` names
+  the multiplicity-weighted real phase term for a pointwise-real test, and
+  `rightHalfSpectralTerm_re_eq_indicator_phase` lifts the single-term
+  `spectralTerm_convolutionSquare_re_of_isReal` identity through the right-half
+  indicator.  `rightHalfSpectralSum_re_eq_tsum_indicator_phase` then uses
+  `Complex.re_tsum` and unconditional right-half summability to read
+  `Re(rightHalfSpectralSum g)` back as the indicator tsum of that phase kernel.
+- **Restricted target named, with exact equivalence:**
+  `rightHalfPhaseBound_onRealVanishing` is the proposition-valued lower bound
+  for the phase tsum on pointwise-real F-vanishing tests, and
+  `rightHalfPhaseBound_onRealVanishing_iff_spectral` proves equivalence with
+  the original `rightHalfSpectralSum` lower bound on that restricted subspace.
+- **Boundary remains explicit:** this is an exact total-series identity, not
+  an estimate.  The live W4b obligation is still
+  `Re(rightHalfSpectralSum g) >= -(1/2) * onLineSpectralMass g` on every
+  F-vanishing test; on the real-test subspace it now has the named phase-tsum
+  form, but no positivity or autocorrelation bound has been added.  RH remains
+  unclaimed.
+
 ## Change Log (2026-08-25 session 5, W4b phase interface LANDED)
 - **W4b phase interface LANDED** (`ConnesWeilRH/Dev/C1SpectralRealPair.lean`,
   Build #18: 3614 jobs, 0 error / 0 sorryAx; six audited declarations use

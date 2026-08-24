@@ -228,7 +228,7 @@ W5-lite REDUCTION LEDGER: LANDED 2026-08-25 (axiom-clean,
     witness family — the live target is the right-half Re form.
 
 W4b-PHASE INTERFACE: LANDED 2026-08-25 (axiom-clean,
-    `Dev/C1SpectralRealPair.lean`, Build #18: 3614 jobs).  For a pointwise-real
+    `Dev/C1SpectralRealPair.lean`, Build #20: 3614 jobs).  For a pointwise-real
     compact-log test, the leaf proves the conjugation transport
     `laplaceAt_star`, the Hermitian square collapse
     `laplaceAt_convolutionSquare_of_isReal`, and the explicit real-part
@@ -239,17 +239,38 @@ W4b-PHASE INTERFACE: LANDED 2026-08-25 (axiom-clean,
         = m(rho) * Re(L_g(-w_rho) * L_g(w_rho)).
 
     It also exposes the existing origin-mass theorem as
-    `norm_convolutionSquare_test_zero_eq_integral_normSq`.  This is a formal
-    interface for the phase-sensitive kernel.  It does NOT prove the missing
-    off-origin autocorrelation bound or the W4b inequality; those remain
-    analytic obligations.
+    `norm_convolutionSquare_test_zero_eq_integral_normSq`, and names the
+    multiplicity-weighted phase kernel `rightHalfPhaseKernel`.  The new
+    tsum-level readback is:
+
+      Re(rightHalfSpectralSum g)
+        = tsum rho, 1_rightHalf(rho) * rightHalfPhaseKernel(g,rho)
+
+    via `rightHalfSpectralSum_re_eq_tsum_indicator_phase`.  The restricted
+    analytic target is now named
+    `rightHalfPhaseBound_onRealVanishing`, and
+    `rightHalfPhaseBound_onRealVanishing_iff_spectral` proves that it is only
+    a change of presentation from the original right-half bound on real
+    vanishing tests.  This is a formal phase interface and an exact
+    total-series identity.  It does NOT prove the missing off-origin
+    autocorrelation bound or the W4b inequality; those remain analytic
+    obligations.
 
 W4  RESIDUAL CONTROL (the deep step, REMAINS OPEN):
     off-line residual + (-poleTerm g^2) bounded by the on-line mass
     for g vanishing on F (arithmetic face: |B| + |C| from section 3
-    enter here through the Gate-2 identity).  Evidence beyond the narrow
-    root: KT-1040a/b/c below, all GREEN; KT-1040c additionally narrows
-    the attack surface to the phase structure (the modulus route is dead).
+    enter here through the Gate-2 identity).  On the pointwise-real
+    subspace, the remaining target can be rewritten using the new readback
+    as the lower bound
+
+      tsum rho, 1_rightHalf(rho) * rightHalfPhaseKernel(g,rho)
+        >= -(1/2) * onLineSpectralMass(g).
+
+    This rewrite does not remove the analytic estimate, and the general
+    `CompactLogTest` target remains the live W4b obligation.  Evidence beyond
+    the narrow root: KT-1040a/b/c below, all GREEN; KT-1040c additionally
+    narrows the attack surface to the phase structure (the modulus route is
+    dead).
 ```
 
 The exact complement split is sufficient to name the residual for W4 without
