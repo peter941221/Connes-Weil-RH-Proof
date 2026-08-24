@@ -1185,6 +1185,12 @@ restricted/global masses with one evaluation object.
 
 - **Check the ext4 mirror for stale sources BEFORE building on it:** `/home/peter/rh` had pre-wiring W4a files (missing the multiplicity-transport theorems) while oleans looked healthy; a build there would have verified the wrong sources. Cheap guard: `diff <(tr -d '\r' < windows-file) <(tr -d '\r' < mirror-file)` for the modules under edit, or `rsync` the source tree first and let lake rebuild the touched bricks. (Observed 2026-08-25.)
 
+- **`tsum_congr` yields an EQUALITY, not a `<=` — never feed it straight into `.trans` on a `le` goal** (Observed 2026-08-25, C1SpectralQwAssembly): the type mismatch is reported at the `.trans` site AND elaboration silently inserts `sorry` downstream — the module still reaches the `#print axioms` stage, so the failure mode is `sorryAx` in the audit block, not a red error. Guard: build `have h : lhs = rhs := tsum_congr fun x => _` with an explicit type ascription (which also folds any un-unfolded `def` such as `offLineNormMass`), then compose `(norm_tsum_le_tsum_norm habs).trans h.le`. Related: `norm_tsum_le_tsum_norm` is an inequality and cannot be `rw`'d at all.
+
+- **`rw` may leave a residual goal that differs only by an un-unfolded local `def`** (Observed 2026-08-25): after `rw [thm_with_tsum_rhs]` the auto-`rfl` can leave `tsum-expr = myDef g` where `myDef g` *is* that tsum by definition. Append an explicit `rfl` (whnf closes it); do not chase the difference with more rewrites.
+
+- **WSL python for probes has NO scipy system-wide; run via uv** (Observed 2026-08-25): neither `/usr/bin/python3.12` user-site nor the two `~/.*venv*` carry numpy+scipy. Working invocation: `/home/peter/.local/bin/uv run --with numpy --with scipy python <probe>.py` from the probe directory (ephemeral env, no system pollution). This is how 1041/1042 run.
+
 
 ## 8. WSL Verification
 

@@ -2,15 +2,18 @@
 
 Date: 2026-08-24.
 
-Status: **Stage 2: W1, W2, W3, W4a (conjugate transport), and the W4b-pairing
-tsum split LANDED; KT-1040a/b RUN GREEN; no RH claim.** After the 2026-08-24
+Status: **Stage 2: W1, W2, W3, W4a (conjugate transport), the W4b-pairing
+tsum split, and the W5-lite reduction ledger LANDED; KT-1040a/b/c RUN GREEN;
+no RH claim.** After the 2026-08-24
 refutations (bare-operator FRONTIER-HS, P2 bulk-subtracted readback), both live
 producers of `healthyCriterionState` reduce to one open statement — the
 vanishing-test sign. This document fixes its exact shape, lays out the
 term-by-term structure of both sides of the closed Gate-2 identity, and
 defines the Lean lemma targets and bounded kill-tests. What remains open is
 the W4b analytic bound itself (the residual versus the on-line mass on the
-F-vanishing subspace).
+F-vanishing subspace).  KT-1040c narrows WHERE that bound must live: the
+modulus-form sufficient condition is already false on the bounded family;
+the attack surface is the phase structure of the Hermitian pair product.
 
 ## 1. The obligation (exact shape)
 
@@ -205,11 +208,30 @@ W4b-pairing  TSUM PAIR DECOMPOSITION: LANDED 2026-08-25 (axiom-clean,
     index type — no orbit quotient, no termwise off-line sign asserted
     (`offLineSpectralMass_eq_two_mul_re_tsum_rightHalf`).
 
+W5-lite REDUCTION LEDGER: LANDED 2026-08-25 (axiom-clean,
+    `Dev/C1SpectralQwAssembly.lean`).  The ledger is assembled and the hqw
+    obligation is REDUCED to one named inequality, in two interchangeable
+    shapes:
+      `hqw_of_forall_vanishing_rightHalf_bound`: hqw follows if, for every
+        F-vanishing g,  Re (rightHalfSpectralSum g) >= -(1/2) * onLineSpectralMass g.
+      `hqw_of_forall_vanishing_offLineNormMass_le`: the modulus form, if
+        offLineNormMass g <= onLineSpectralMass g.
+    Both reductions are pure bookkeeping — absolute summability
+    (`summable_spectralNormTerm`, the shell argument read out for the
+    scalar majorant) is unconditional, so NO vanishing input is consumed;
+    the F-vanishing subspace enters only where the inequality premise is
+    proved.  The module also binds the ledger to the W2 arithmetic face
+    (`onLine_add_offLine_eq_neg_archimedeanTerm_sub_finitePrimeSum`), the
+    identity a W4b-bound attack from the arithmetic side must close.
+    KT-1040c below shows the modulus-form premise is FALSE on the bounded
+    witness family — the live target is the right-half Re form.
+
 W4  RESIDUAL CONTROL (the deep step, REMAINS OPEN):
     off-line residual + (-poleTerm g^2) bounded by the on-line mass
     for g vanishing on F (arithmetic face: |B| + |C| from section 3
     enter here through the Gate-2 identity).  Evidence beyond the narrow
-    root: KT-1040a/b below, both GREEN.
+    root: KT-1040a/b/c below, all GREEN; KT-1040c additionally narrows
+    the attack surface to the phase structure (the modulus route is dead).
 ```
 
 The exact complement split is sufficient to name the residual for W4 without
@@ -269,9 +291,34 @@ KT-1040b  RUN 2026-08-25 (same script): qw STAYS POSITIVE.
           No track toward 0: W4 has slack inside this bounded family.
           Caveat: the first 16 zeros only - tail mass uncontrolled, so
           this is steering evidence, not a bound.
+
+KT-1040c  RUN 2026-08-25 (docs/proofs/1042_kt1040c_probe.py): GREEN,
+          and it NARROWS THE W4b ATTACK SURFACE.  The first K zeta zeros
+          are relocated synthetically to beta = 1/2 + delta (delta =
+          0.01..0.49), each zero arriving with its three mirrors; the
+          margin moves by Delta_j = 4 Re[conj(v_j) u_j] - 2|L(i gamma_j)|^2
+          with u = L_g(delta + i gamma), v = L_g(-delta + i gamma)
+          (square law + W4b-pairing + W1).  Across all 6 members,
+          7 deltas, K = 1..16: min qw_hyp = +1.025 (never negative;
+          2^19 spot check +1.025291).  Structural readbacks:
+          (i) real-phase injections are nearly neutral (Delta ~ 0 for
+          every member; the widest witness erodes only 0.07 at
+          delta = 0.49) — the true phase of conj(v) u sits in the
+          nonnegative sector on this family;
+          (ii) the pair contribution 4 Re[conj(v) u] is shift-invariant
+          in g (the translation factors e^{(delta+i gamma)c} and
+          e^{(-delta-i gamma)c} cancel), matching the qw
+          shift-invariance of KT-1040a;
+          (iii) WARNING: the modulus amplification |v u| / |L|^2 grows
+          exponentially in delta (up to 428x on the widest witness,
+          ~1e20 on the SVD-kill member), and the phase-worst floor
+          dips to -2.33: the modulus-form sufficient condition
+          (offLineNormMass <= onLine mass) is FALSE on this family.
+          W4b-bound must exploit the Hermitian phase structure, not
+          termwise modulus control.
 ```
 
-Both are evidence for steering only; neither replaces W1-W5.
+All three are evidence for steering only; none replaces W1-W5.
 
 ## 8. Freeze-discipline note
 

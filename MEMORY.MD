@@ -1,3 +1,41 @@
+## Change Log (2026-08-25 session 4, W5-lite ledger LANDED + KT-1040c GREEN)
+- **W5-lite reduction ledger LANDED** (`ConnesWeilRH/Dev/C1SpectralQwAssembly.lean`,
+  Build #17: 3613 jobs, 0 error / 0 sorryAx, all 14 declarations
+  `[propext, Classical.choice, Quot.sound]`). The hqw obligation is now REDUCED to one
+  named inequality, in two shapes:
+  - `hqw_of_forall_vanishing_rightHalf_bound`: hqw follows if for every F-vanishing g,
+    `Re (rightHalfSpectralSum g) >= -(1/2) * onLineSpectralMass g` (the LIVE target);
+  - `hqw_of_forall_vanishing_offLineNormMass_le`: modulus form
+    `offLineNormMass g <= onLineSpectralMass g` (FALSIFIED as a target by KT-1040c below).
+  Both reductions are pure bookkeeping: `summable_spectralNormTerm` (new; the shell
+  argument read out for the scalar majorant) makes absolute summability unconditional,
+  so NO vanishing input is consumed by the ledger. Also landed: the two-block ledger
+  `qw_eq_onLine_add_two_mul_re_rightHalfSpectralSum` (qw = on + 2*Re(right-half sum),
+  unconditional in g), the modulus ladder
+  `offLineSpectralMass_ge_neg_offLineNormMass` / `qw_ge_onLine_sub_offLineNormMass`,
+  and the arithmetic binding `onLine_add_offLine_eq_neg_archimedeanTerm_sub_finitePrimeSum`
+  (on + off = -arch - primeSum on the F-vanishing subspace; the identity an
+  arithmetic-side W4b attack must close).
+- **KT-1040c RUN GREEN + narrows the W4b attack surface**
+  (`docs/proofs/1042_kt1040c_probe.py`, reuses the 1041 pipeline via importlib).
+  Synthetic relocation of the first K zeta zeros to beta = 1/2 + delta
+  (delta = 0.01..0.49, K = 1..16, 6 members): margin moves by
+  Delta_j = 4 Re[conj(v_j) u_j] - 2|L(i gamma_j)|^2, u = L_g(delta+i gamma),
+  v = L_g(-delta+i gamma). Min qw_hyp = +1.025 over everything (never negative;
+  2^19 spot check +1.025291). Readbacks:
+  (i) real-phase injections nearly neutral (widest witness erodes only 0.07);
+  (ii) pair contribution 4 Re[conj(v) u] is g-shift-invariant (translation factors
+       e^{(delta+i gamma)c} and e^{(-delta-i gamma)c} cancel) - matches qw invariance;
+  (iii) WARNING: modulus amplification |vu|/|L|^2 grows exponentially in delta
+       (428x on the widest witness, ~1e20 on the SVD-kill member) and the
+       phase-worst floor dips to -2.33: the modulus-form sufficient condition is
+       FALSE on this family. W4b-bound must exploit the Hermitian PHASE structure,
+       not termwise modulus control.
+- **WSL probe runtime:** no scipy system-wide; run via
+  `/home/peter/.local/bin/uv run --with numpy --with scipy python <probe>.py`.
+- RH STILL UNCLAIMED. Chain state: W1/W2/W3/W4a/W4b-pairing/W5-lite all LANDED;
+  open = W4b-bound (the single inequality, phase-structure route) then W5 final assembly.
+
 ## Change Log (2026-08-25 later, KT-1040a/b GREEN + W4b-pairing LANDED)
 - **KT-1040a/b RUN, both GREEN** (`docs/proofs/1041_kt1040_probe.py`, WSL
   .venv-probe, numpy quad-precision convergence 2^17/2^18/2^19). Witnesses are
