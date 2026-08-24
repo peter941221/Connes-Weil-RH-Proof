@@ -1149,6 +1149,10 @@ restricted/global masses with one evaluation object.
 
 - **Fast axiom probe without rebuilding the audit module**: `lake env lean --run <scratch.lean>` elaborates a tiny script against the already-built oleans and prints `#print axioms …` — far faster than building `UnifiedRemainingGapsRouteAudit`. Two gotchas: (a) it still loads all transitive oleans from `/mnt/c`, so allow several minutes; (b) import by **PATH** name, and a script with no `main` exits 1 with "(interpreter) unknown declaration 'main'" *after* printing the axiom lists — that exit-1 is harmless. (Observed 2026-08-24.)
 
+- **Unicode minus sign `−` (U+2212) is NOT Lean's subtraction operator — use ASCII `-`**: typing `a − b` with the typographic minus parses `−` as an *identifier*, not an infix op → "expected token" at that column, which cascades to "Unknown constant `<theorem>`" for the whole declaration (the body never elaborates) plus a spurious entry in any downstream `#print axioms`. Docstrings/comments may keep `−` in prose; only **expression positions** need ASCII `-`. Symptom fingerprint: two "expected token" errors at exactly the columns where you wrote an infix minus, followed by "Unknown constant" on every later reference. (Observed 2026-08-24, both new lemmas of `C1Stage3WindowedTraceP2` first build.)
+
+- **Uniqueness of limits is `Filter.tendsto_nhds_unique`, NOT a bare `tendsto_unique`**: the "same function tending to two points forces them equal" lemma is `tendsto_nhds_unique [T2Space X] {f : Y → X} {l : Filter Y} {a b : X} [NeBot l] (ha : Tendsto f l (𝓝 a)) (hb : Tendsto f l (𝓝 b)) : a = b` (mathlib `Topology/Separation/Hausdorff.lean`). There is no unqualified `tendsto_unique`; guessing that name gives "Unknown identifier". For ℝ targets both `[T2Space ℝ]` and `[NeBot atTop]` auto-resolve, so after rewriting the hypothesis to a constant-zero sequence you close with `exact tendsto_nhds_unique hReadback (tendsto_const_nhds)`. (Observed 2026-08-24, `C1Stage3WindowedTraceP2.p2_renormReadback_forces_qw_zero`.)
+
 
 ## 8. WSL Verification
 

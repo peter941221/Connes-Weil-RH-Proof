@@ -4390,3 +4390,39 @@ Lean gotchas this session (→ keep in AGENTS §8): a *function-equality* goal `
 binders to introduce — use `ext i`, not bare `intro i` (a failed sub-tactic silently injects `sorryAx`). And the exit-code
 capture bit again: a run that actually FAILED still read back `LAKE_EXIT=0`; the trustworthy signals are the log's
 "Build completed successfully" line plus a zero count of real `error:` lines, not `$?`.
+
+## Windowed-side obstruction landed in P2 (2026-08-24, commit 1bed538)
+
+The **windowed** counterpart of `bareHS_iff_zero_test`, in `C1Stage3WindowedTraceP2`
+(namespace `Source.C1Stage3WindowedTraceP2`). Two lemmas:
+
+```lean
+p2_bumpTrace_sub_bulk_zero (n : Nat) :
+    bumpWindowTrace globalBasis n - 2 * Real.log (frontierWindowParam n) * bumpA = 0
+
+p2_renormReadback_forces_qw_zero :
+    (Tendsto (fun n => bumpWindowTrace globalBasis n - 2*log(param n)*bumpA) atTop (𝓝 (qw g₀))) → qw g₀ = 0
+```
+
+- **Why it's crisp:** `p2_bumpTrace_eq_windowLengthTimesMass` holds *exactly* — the moving-cutoff self-pair trace equals the
+  pure bulk with no further term. Subtracting that bulk leaves a sequence **identically zero** for every window size
+  (kill-test 1016 on the windowed side). So any renormalized readback to `qw g₀` sees a constant-zero sequence, which
+  converges to `0`; uniqueness of limits in ℝ forces `C1SameOwnerWeil.qw bumpPlateauTest = 0`. This mirrors the bare-side iff:
+  on each owner the obstruction is now one line.
+- **Proof shape:** `p2_bumpTrace_sub_bulk_zero` is just `rw [bumpWindowTrace, p2_bumpTrace_eq_windowLengthTimesMass]; ring`.
+  The corollary lifts pointwise-zero to function equality via `funext`, rewrites the readback hypothesis to the constant-zero
+  function (`rw [hConst] at hReadback`), then closes with `tendsto_nhds_unique hReadback (tendsto_const_nhds)` — ℝ is T₂ and
+  `atTop : Filter ℕ` is NeBot, both auto-resolved.
+
+**Axiom-clean verified natively:** after deleting the module `.olean` and force-recompiling, BOTH new lemmas reduce to EXACTLY
+`[propext, Classical.choice, Quot.sound]` (module target "Build completed successfully (3486 jobs)"). **No downstream
+regression:** full `lake build ConnesWeilRH` → 4147 jobs, 0 real `error:` lines, 0 `sorryAx`, "Build completed successfully".
+P2 is a leaf module (nothing imports it), so the two additions cannot break dependents; the aggregate re-confirms globally.
+RH STILL UNCLAIMED.
+
+Lean gotchas this session (→ keep in AGENTS §8):
+- **Unicode minus sign** `−` (U+2212) is NOT Lean's subtraction operator — it parses as an identifier → "expected token" at that
+  column, cascading to "Unknown constant" for the whole theorem. Use ASCII `-`. Docstrings/comments may keep `−` in prose; only
+  expression positions need ASCII. (Broke both new lemmas on first build.)
+- **Uniqueness of limits** is NOT a bare `tendsto_unique`; it's `Filter.tendsto_nhds_unique [T2Space X]
+  (ha : Tendsto f l (𝓝 a)) (hb : Tendsto f l (𝓝 b)) : a = b` (mathlib `Topology/Separation/Hausdorff.lean`).
