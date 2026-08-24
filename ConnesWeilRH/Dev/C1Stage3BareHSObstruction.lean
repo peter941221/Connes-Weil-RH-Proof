@@ -306,6 +306,40 @@ theorem qw_zero_of_test_zero (g : CompactLogTest) (hzero : g.test = 0) :
   rw [hpole, harch, hfprime]
   norm_num
 
+/-! ## The bare FRONTIER-HS premise holds exactly at the zero test -/
+
+/-- **The obstruction in one line.** On the concrete *bare* self-pair factor
+`stage3FamilyFactor g = cc20GlobalLogConvolution (g.involution.test)`, per-test Hilbert--Schmidt
+summability `Summable (i => ‖F_g (basis i)‖²)` holds **iff** the test is trivial:
+
+  * forward — `hsPremise_forces_zero_test`: a nonzero compact-log test has an unbounded
+    cutoff-trace lower bound that no bare HS mass can uniformly upper-bound, so HS forces `g.test = 0`;
+  * reverse — at `g.test = 0` the factor is the zero operator (`stage3FamilyFactor_zero_of_test_zero`)
+    and every diagonal norm square is `0`, a summable series.
+
+Route consequence: Route B's closure consumes a **uniform-in-`g`** premise `∀ g, Summable …`. On the bare
+owner that universal is already refuted by one nonzero witness (`not_forall_bare_hilbertSchmidt`, via the
+explicit plateau test), so every *nontrivial* detector readback must pass through a windowed or renormalized
+factor (where `C1Stage3FrontierHS` supplies HS) — not the bare convolution. -/
+theorem bareHS_iff_zero_test (g : CompactLogTest) :
+    Summable (fun i => ‖stage3FamilyFactor g (globalBasis i)‖ ^ 2) ↔ g.test = 0 := by
+  constructor
+  · exact hsPremise_forces_zero_test globalBasis g
+  · intro hzero
+    have hfz : stage3FamilyFactor g = 0 := stage3FamilyFactor_zero_of_test_zero g hzero
+    -- pointwise-zero diagonal at the zero test (same idiom as `frontierCrux_step2_powerSpectrum_eq_weilValue`).
+    have hterm : ∀ i, ‖stage3FamilyFactor g (globalBasis i)‖ ^ 2 = 0 := fun i => by
+      rw [show stage3FamilyFactor g (globalBasis i) = 0 from by rw [hfz]; simp]
+      norm_num
+    have hfzfn : (fun i => ‖stage3FamilyFactor g (globalBasis i)‖ ^ 2) = fun _ => 0 :=
+      funext hterm
+    rw [hfzfn]
+    exact summable_zero   -- a constant-zero series is summable over any index type.
+
+-- Axiom-cleanliness audit: the iff reuses only existing obstruction lemmas, so `#print axioms` reports
+-- exactly the three ambient axioms (no self-root, no `sorryAx`).
+#print axioms bareHS_iff_zero_test
+
 /-! ## The main theorem — step② follows from the bare obstruction alone -/
 
 /-- **Step② as a theorem (not an axiom).** Under the per-test Hilbert–Schmidt premise `hHS`, the
