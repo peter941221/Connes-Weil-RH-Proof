@@ -1191,6 +1191,8 @@ restricted/global masses with one evaluation object.
 
 - **WSL python for probes has NO scipy system-wide; run via uv** (Observed 2026-08-25): neither `/usr/bin/python3.12` user-site nor the two `~/.*venv*` carry numpy+scipy. Working invocation: `/home/peter/.local/bin/uv run --with numpy --with scipy python <probe>.py` from the probe directory (ephemeral env, no system pollution). This is how 1041/1042 run.
 
+- **The real-test phase leaf exposes an interface, not the missing bound** (Observed 2026-08-25, `C1SpectralRealPair`): `spectralTerm_convolutionSquare_re_of_isReal` is an exact reduction to `Re(L_g(-w) * L_g(w))`, while `norm_convolutionSquare_test_zero_eq_integral_normSq` only reads the origin mass. Do not cite either theorem as an off-origin autocorrelation estimate or as the W4b inequality; the phase bound remains an independent analytic premise.
+
 
 ## 8. WSL Verification
 

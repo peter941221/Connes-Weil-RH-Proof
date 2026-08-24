@@ -1,3 +1,19 @@
+## Change Log (2026-08-25 session 5, W4b phase interface LANDED)
+- **W4b phase interface LANDED** (`ConnesWeilRH/Dev/C1SpectralRealPair.lean`,
+  Build #18: 3614 jobs, 0 error / 0 sorryAx; six audited declarations use
+  only `[propext, Classical.choice, Quot.sound]`).  For pointwise-real
+  compact-log tests, `laplaceAt_star` pushes conjugation through the bilateral
+  Laplace integral, `laplaceAt_convolutionSquare_of_isReal` reduces the
+  Hermitian square to `L_g(-s) * L_g(s)`, and
+  `spectralTerm_convolutionSquare_re_of_isReal` exposes the exact phase object
+  `m(rho) * Re(L_g(-w_rho) * L_g(w_rho))`.  The leaf also re-exports the
+  existing origin-mass readback
+  `norm_convolutionSquare_test_zero_eq_integral_normSq`.
+- **Boundary made explicit:** this interface does not prove the off-origin
+  autocorrelation bound `|F(y)| <= |F(0)|`, nor the W4b inequality
+  `Re(rightHalfSpectralSum) >= -(1/2) * onLineSpectralMass`; both remain open
+  analytic obligations.  RH remains unclaimed.
+
 ## Change Log (2026-08-25 session 4, W5-lite ledger LANDED + KT-1040c GREEN)
 - **W5-lite reduction ledger LANDED** (`ConnesWeilRH/Dev/C1SpectralQwAssembly.lean`,
   Build #17: 3613 jobs, 0 error / 0 sorryAx, all 14 declarations

@@ -3,7 +3,8 @@
 Date: 2026-08-24.
 
 Status: **Stage 2: W1, W2, W3, W4a (conjugate transport), the W4b-pairing
-tsum split, and the W5-lite reduction ledger LANDED; KT-1040a/b/c RUN GREEN;
+tsum split, the W5-lite reduction ledger, and the real-test phase interface
+LANDED; KT-1040a/b/c RUN GREEN;
 no RH claim.** After the 2026-08-24
 refutations (bare-operator FRONTIER-HS, P2 bulk-subtracted readback), both live
 producers of `healthyCriterionState` reduce to one open statement — the
@@ -225,6 +226,23 @@ W5-lite REDUCTION LEDGER: LANDED 2026-08-25 (axiom-clean,
     identity a W4b-bound attack from the arithmetic side must close.
     KT-1040c below shows the modulus-form premise is FALSE on the bounded
     witness family — the live target is the right-half Re form.
+
+W4b-PHASE INTERFACE: LANDED 2026-08-25 (axiom-clean,
+    `Dev/C1SpectralRealPair.lean`, Build #18: 3614 jobs).  For a pointwise-real
+    compact-log test, the leaf proves the conjugation transport
+    `laplaceAt_star`, the Hermitian square collapse
+    `laplaceAt_convolutionSquare_of_isReal`, and the explicit real-part
+    readback
+    `spectralTerm_convolutionSquare_re_of_isReal`:
+
+      Re(spectralTerm(g^2,rho))
+        = m(rho) * Re(L_g(-w_rho) * L_g(w_rho)).
+
+    It also exposes the existing origin-mass theorem as
+    `norm_convolutionSquare_test_zero_eq_integral_normSq`.  This is a formal
+    interface for the phase-sensitive kernel.  It does NOT prove the missing
+    off-origin autocorrelation bound or the W4b inequality; those remain
+    analytic obligations.
 
 W4  RESIDUAL CONTROL (the deep step, REMAINS OPEN):
     off-line residual + (-poleTerm g^2) bounded by the on-line mass
