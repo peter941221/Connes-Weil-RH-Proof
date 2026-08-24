@@ -1205,6 +1205,7 @@ Rules:
   (observed empty expansions); write full paths inline instead of `$VAR`. The Bash tool layer
   additionally strips single quotes / pre-expands `$VAR` inside for-loop bodies, so a loop's own
   variables arrive empty — use fully-literal paths and avoid loops in `wsl -d ... -- bash -lc '...'`. Only a BARE `$?` survives (even `${PIPESTATUS[0]}` is lost); to capture lake's exit, run `cmd > log 2>&1; echo EXIT=$?` with NO pipe.
+  **But do not trust even that:** observed twice this session — a build whose log ends "Lean exited with code 1 / build failed" still read back `EXIT=0`. The ground truth is the LOG, not any exit code: grep for real `error:` lines (see above) and the terminal "Build completed successfully (N jobs)" footer.
 - **Distro name for `wsl -d`:** the installed distro is `Ubuntu-24.04`, not bare `Ubuntu` —
   `wsl -d Ubuntu` fails with `WSL_E_DISTRO_NOT_FOUND`. List with `wsl -l -v` if unsure.
 - **Where mathlib oleans actually live:** modern Lake keeps each package's compiled artifacts at

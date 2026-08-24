@@ -4361,3 +4361,32 @@ Two copies now exist: `C:\Projects\Connes-Weil-RH-Proof` (git-tracked source + d
 build copy with its own `.git`). Working assumption until Peter decides: edit source/docs in the git tree, sync changed
 files to `/home/peter/rh`, build there; commit in `C:\Projects`. The scratch probe `.claude/axioms_probe.lean` stays out
 of the public diff on commit.
+
+## bareHS_iff_zero_test landed (2026-08-24, commit 59f8ff8)
+
+Crystallized the obstruction in ONE named statement in `C1Stage3BareHSObstruction`:
+`bareHS_iff_zero_test : Summable (i => ‖stage3FamilyFactor g (globalBasis i)‖²) ↔ g.test = 0`. On the concrete
+*bare* self-pair factor, per-test Hilbert–Schmidt summability holds **iff** the test is trivial.
+
+- forward — reuses `hsPremise_forces_zero_test` (HS ⇒ zero test).
+- reverse — at `g.test = 0`, `stage3FamilyFactor g = 0` (`stage3FamilyFactor_zero_of_test_zero`); the diagonal norm
+  squares are pointwise `0`; close with mathlib's `summable_zero` (a constant-zero series is summable over any index
+  type). The reverse branch mirrors the main theorem's already-elaborating idiom exactly: build a pointwise-zero
+  `hterm`, lift to `hfzfn : (…) = fun _ => 0` via `funext`, `rw [hfzfn]`, then `exact summable_zero`.
+
+**Axiom-clean verified natively:** after deleting the module `.olean` and force-recompiling, `#print axioms
+bareHS_iff_zero_test` reduces to EXACTLY `[propext, Classical.choice, Quot.sound]` — no self-root, no `sorryAx`;
+module elaborates with 0 `error:` lines ("Build completed successfully (3711 jobs)"). Route B's one remaining
+obligation (uniform-in-`g` FRONTIER-HS) is now crisply stated as provably false on the bare owner: per-test it holds
+only at zero, and the universal is refuted by the single nonzero plateau witness.
+
+**No downstream regression (aggregate re-verified natively):** `lake build ConnesWeilRH` → 4147 jobs, 0 real `error:`
+lines, "Build completed successfully". Force-recompiled the audit module to re-print Route B: both
+`frontierCrux_powerSpectrum_eq_weilValue` (step② delegate) AND **`frontierCrux_closes_healthyCriterionState`** still reduce
+to EXACTLY `[propext, Classical.choice, Quot.sound]` — the step② self-root stays dropped with `bareHS_iff_zero_test` in place.
+RH STILL UNCLAIMED.
+
+Lean gotchas this session (→ keep in AGENTS §8): a *function-equality* goal `⊢ (fun i => …) = fun _ => 0` has NO
+binders to introduce — use `ext i`, not bare `intro i` (a failed sub-tactic silently injects `sorryAx`). And the exit-code
+capture bit again: a run that actually FAILED still read back `LAKE_EXIT=0`; the trustworthy signals are the log's
+"Build completed successfully" line plus a zero count of real `error:` lines, not `$?`.
