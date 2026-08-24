@@ -394,6 +394,23 @@ theorem tendsto_norm_cutoffKernelInsertionSandwich_zero_of_compressedDefect
           atTop (𝓝 (boundValue ^ 2 * 0)))
   exact squeeze_zero (fun n => norm_nonneg _) hbound hupper
 
+/-- **Named open obligation (Prong C input): kernel compatibility along
+cutoffs.**  The compressed-kernel difference `kernelInsertionDefect` — the
+operator behind the quadratic form of `Z† (K_S - id) Z` (see
+`kernelInsertionDefect_quadraticForm_eq_compressedGlobalDefect`) — must tend
+to zero in operator norm along the canonical cutoffs.
+`tendsto_norm_cutoffKernelInsertionSandwich_zero_of_compressedDefect` turns
+exactly this statement into `D₁,n → 0`; nothing else on the projection-owner
+route consumes a stronger input.  Deliberately a `def` of a `Prop`: a name
+for the open statement, asserted nowhere, assumed nowhere. -/
+def kernelCompatibilityAlongCutoffs
+    (g : CCM25Concrete.CompactLogConvolution.CompactLogTest)
+    (lambda : CCM24SoninScale) (S : List CCM24VisiblePrime) : Prop :=
+  Tendsto
+    (fun n => ‖kernelInsertionDefect
+      (cutoffLower g n) (cutoffUpper g n) lambda S‖)
+    atTop (𝓝 (0 : ℝ))
+
 theorem norm_cutoffWindowToResponseDefect_le
     (owner : SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (S : List CCM24VisiblePrime) (n : Nat) :
