@@ -2,14 +2,15 @@
 
 Date: 2026-08-24.
 
-Status: **Stage 1: W1, W2, and the exact W3 complement split LANDED;
-no RH claim.** After the 2026-08-24 refutations (bare-operator
-FRONTIER-HS, P2 bulk-subtracted readback), both live producers of
-`healthyCriterionState` reduce to one open statement — the
+Status: **Stage 2: W1, W2, W3, W4a (conjugate transport), and the W4b-pairing
+tsum split LANDED; KT-1040a/b RUN GREEN; no RH claim.** After the 2026-08-24
+refutations (bare-operator FRONTIER-HS, P2 bulk-subtracted readback), both live
+producers of `healthyCriterionState` reduce to one open statement — the
 vanishing-test sign. This document fixes its exact shape, lays out the
 term-by-term structure of both sides of the closed Gate-2 identity, and
-defines the Lean lemma targets and bounded kill-tests. W4 (residual control)
-and the genuine off-line conjugate pairing remain open.
+defines the Lean lemma targets and bounded kill-tests. What remains open is
+the W4b analytic bound itself (the residual versus the on-line mass on the
+F-vanishing subspace).
 
 ## 1. The obligation (exact shape)
 
@@ -188,11 +189,27 @@ W3  EXACT COMPLEMENT SPLIT: LANDED 2026-08-24 (axiom-clean,
     identify this map with the conjugate-zero transport needed for a paired
     off-line formula.  That conjugate pairing remains open.
 
-W4  RESIDUAL CONTROL (the deep step):
+W4a CONJUGATE TRANSPORT: LANDED 2026-08-25 (axiom-clean,
+    `Dev/C1XiConjugation.lean` + `Dev/C1SpectralHermitianPartner.lean`).
+    The partner `rho |-> 1 - star rho` has centered coordinate `-star w`,
+    is an involution, multiplicity survives the conjugation leg
+    (`analyticOrderAt_completedRiemannXi_conj_symmetric` via iterated-derivative
+    commutation), and a zero plus its partner contribute exactly
+    `2 * Re` of either term (`spectralTerm_convolutionSquare_pair_re_sum_uncond`).
+
+W4b-pairing  TSUM PAIR DECOMPOSITION: LANDED 2026-08-25 (axiom-clean,
+    `Dev/C1SpectralOfflinePairing.lean`).  The off-line residual of the W3
+    split equals twice the real part of the right-half (positive centered
+    real part) spectral sum: `hermitianPartner` swaps the sign halves and is
+    an involution, so the whole argument stays at indicator level on the
+    index type — no orbit quotient, no termwise off-line sign asserted
+    (`offLineSpectralMass_eq_two_mul_re_tsum_rightHalf`).
+
+W4  RESIDUAL CONTROL (the deep step, REMAINS OPEN):
     off-line residual + (-poleTerm g^2) bounded by the on-line mass
     for g vanishing on F (arithmetic face: |B| + |C| from section 3
-    enter here through the Gate-2 identity).  No prior evidence yet
-    beyond the narrow root (section 7).
+    enter here through the Gate-2 identity).  Evidence beyond the narrow
+    root: KT-1040a/b below, both GREEN.
 ```
 
 The exact complement split is sufficient to name the residual for W4 without
@@ -231,17 +248,27 @@ Proposed bounded kill-tests (each one script, bounded window, no new
 machinery):
 
 ```text
-KT-1040a  Second witness, different shape: evaluate qw on a second
-          F-vanishing test from a different bump family (e.g. shifted
-          center, or g1 + c*g2 combo - vanishing is linear, combos of
-          F-vanishing tests still vanish).  GREEN = both positive.
+KT-1040a  RUN 2026-08-25 (docs/proofs/1041_kt1040_probe.py): GREEN.
+          Five wide F-vanishing witnesses (plateau and non-plateau
+          profiles, widths 0.6-0.9, centers -1.5..1.5, one combo), every
+          qw > 0 under int g^2 = 1: min +1.096 (smooth wide), max +3.63.
+          All built with the SAME triple operator as the narrow root,
+          P(D)h with P(D) = D(D+1/2)(D+1), at widths where prime powers
+          ARE visible (n <= 121).  Structural readback: qw is determined
+          by the autocorrelation, hence shift-invariant (the two plateau
+          witnesses at different centers agree exactly); the archimedean
+          integral piece carries the positivity (I_main ~ -6.5 under
+          F(0) = 1), and the finite prime sum is the only adversarial
+          term (up to +0.47 against qw on the widest test).
 
-KT-1040b  Adversarial probe for W4: minimize the on-line spectral mass
-          over a bounded family of F-vanishing tests (shrink the
-          on-line |L_g(i gamma)| coefficients) and watch qw.  If qw
-          stays positive as on-line mass -> small, W4 has slack;
-          if it tracks toward 0 or below, W4 is tight/false and the
-          attack must find the compensating term first.
+KT-1040b  RUN 2026-08-25 (same script): qw STAYS POSITIVE.
+          SVD combinations of a 20-member basis kill the Fourier
+          coefficients at the first K zero ordinates (kills verified to
+          ~1e-15) for K = 1, 2, 4, 6, 8: qw ranges +3.18..+3.66 while
+          the visible first-16 on-line pair mass drops 0.274 -> 0.038.
+          No track toward 0: W4 has slack inside this bounded family.
+          Caveat: the first 16 zeros only - tail mass uncontrolled, so
+          this is steering evidence, not a bound.
 ```
 
 Both are evidence for steering only; neither replaces W1-W5.

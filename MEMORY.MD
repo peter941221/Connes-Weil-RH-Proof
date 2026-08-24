@@ -1,3 +1,63 @@
+## Change Log (2026-08-25 later, KT-1040a/b GREEN + W4b-pairing LANDED)
+- **KT-1040a/b RUN, both GREEN** (`docs/proofs/1041_kt1040_probe.py`, WSL
+  .venv-probe, numpy quad-precision convergence 2^17/2^18/2^19). Witnesses are
+  wide F-vanishing tests `g = P(D)h`, P(D) = D(D+1/2)(D+1) (the narrow-root
+  operator), on plateau/non-plateau bumps with prime powers visible (n <= 121).
+  **KT-1040a:** 5/5 witnesses qw > 0 under int g^2 = 1 (min +1.096, max +3.63).
+  **KT-1040b:** SVD kills of the first K on-line Fourier coefficients (verified
+  ~1e-15, K = 1..8): qw stays +3.18..+3.66 while visible first-16 pair mass
+  drops 0.274 -> 0.038. NO track toward 0 - W4 has slack inside the bounded
+  family (steering only; tail zeros beyond 16 uncontrolled). Structural
+  readback: qw is autocorrelation-determined hence shift-invariant; the
+  archimedean integral carries positivity (I_main ~ -6.5 at F(0)=1); the finite
+  prime sum is the only adversarial term (up to +0.47 against qw, widest test).
+- **W4b-pairing LANDED** (Build #16, 3611 jobs, 0 error / 0 sorryAx, all 11
+  declarations exactly `[propext, Classical.choice, Quot.sound]`): new leaf
+  `Dev/C1SpectralOfflinePairing.lean` proves
+  `offLineSpectralMass_eq_two_mul_re_tsum_rightHalf`: the off-line residual of
+  the W3 split equals TWICE the real part of the right-half (positive centered
+  real part) spectral sum. Route: partner negates the centered real part
+  (`re_centeredXiCoordinate_hermitianPartner`), preserves off-line membership,
+  and swaps the sign halves; `hermitianPartnerEquiv` (involution) reindexes the
+  left-half tsum onto the right half; W4a's conjugate-real-part equality closes
+  the pointwise gap. Everything stays at indicator level on the index type -
+  no orbit-quotient type, no termwise off-line sign asserted.
+- **Mirror drift caught:** the ext4 mirror `/home/peter/rh` still held the
+  PRE-wiring W4a sources; rebuilt from the Windows tree (source of truth) before
+  any new work. Spellings corrected in this file and in AGENTS.MD section 7: the
+  on-disk names are `xiMultiplicity_conjugateXiZero_eq` /
+  `xiMultiplicity_hermitianPartner_eq` (not `xiMultiplier_*`).
+- **Remaining open: W4b-bound** - the analytic inequality coupling the (now
+  clean right-half) residual to the on-line mass on the F-vanishing subspace;
+  then hqw assembly (W5). RH still unclaimed.
+
+
+- **W4a LANDED.** The analytic multiplicity of a source zero is invariant under
+  complex conjugation. New core lemmas in `Dev/C1XiConjugation.lean` (all six
+  axiom-clean `[propext, Classical.choice, Quot.sound]`, re-verified by Build #15):
+  `completedRiemannZeta0_conj` / `completedRiemannXi_conj` (the completed xi is a
+  fixed point of the conjugation companion), `iteratedDeriv_conjConj` (conjugation
+  commutes with iterated differentiation through the anti-holomorphic companion map
+  `z \mapsto conj (f (conj z))`), and the W4a core
+  `analyticOrderAt_completedRiemannXi_conj_symmetric` - the vanishing order at
+  `star z0` equals that at `z0`, transferred via the ENat natCast-le characterization.
+- **Wiring + discharge in `Dev/C1SpectralHermitianPartner.lean`.**
+  `xiMultiplicity_conjugateXiZero_eq` (the conjugation leg) composes with the existing
+  functional-equation leg `xiMultiplicity_oneSub` to give
+  `xiMultiplicity_hermitianPartner_eq`: a zero and its Hermitian partner carry the SAME
+  analytic multiplicity. This discharges the `hmul` hypothesis, yielding
+  `spectralTerm_convolutionSquare_hermitianPartner_star_uncond` (the partner term is
+  exactly the star of the original) and the **clean pair-sum formula**
+  `spectralTerm_convolutionSquare_pair_re_sum_uncond`:
+  `(term(partner rho) + term(rho)).re = 2 * (term(rho)).re`. The multiplicity-gap
+  defect `(m_partner - m) * Re(L(g□)(w))` now vanishes identically.
+- Build #15 gate (both modules force-recompiled from scratch): **0 `error:`,
+  0 `sorryAx`**, all 19 audited declarations exactly `[propext, Classical.choice,
+  Quot.sound]`. The one prior failure was line-level: after substituting the
+  multiplicity gap with `0` the residual is a LEFT-multiple `0 * X`, so it closes by
+  `zero_mul`, not `mul_zero`. RH still unclaimed; W4a feeds **W4b (off-line residual
+  bound)**, the remaining analytic content of the hqw sign attack.
+
 ## Change Log (2026-08-24, audit refresh + Prong B/C opening + W1 LANDED)
 - **W4 Hermitian partner transport advanced (2026-08-24).** Added
   `Dev/C1XiConjugation.lean` with axiom-clean conjugation laws for completed
