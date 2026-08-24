@@ -1,3 +1,38 @@
+## Change Log (2026-08-24, audit refresh + Prong B/C opening + W1 LANDED)
+- Refreshed `Dev/UnifiedRemainingGapsRouteAudit.lean` (commit `bcf57cd`) to the
+  post-refutation state: prints `bareHS_iff_zero_test` /
+  `not_forall_bare_hilbertSchmidt` (uniform bare premise REFUTED) and
+  `p2_renormReadback_forces_qw_zero` (P2 bulk-subtracted windowed route dead)
+  alongside the two LIVE producers — rank-one self-correction
+  (`frontierStatus_healthyCriterionState_of_rankOneCorrection`, input `hqw`)
+  and projection-owner D₁ sufficiency
+  (`tendsto_norm_cutoffKernelInsertionSandwich_zero_of_compressedDefect`,
+  input kernel compatibility). All nine audited declarations carry exactly
+  `[propext, Classical.choice, Quot.sound]`. Module build 3892 jobs, 0 errors.
+- Added `docs/proofs/1040_hqw_sign_attack.md` (commit `855a937`): paper analysis
+  of the single open obligation (vanishing-test sign). Key repo find: the
+  Hermitian square law `laplaceAt_convolutionSquare`
+  (`Dev/C1HealthyYoshidaDetector.lean:48`) already gives on-line spectral
+  termwise nonnegativity — no test-space reality assumption needed. Attack
+  chain W1→W4: on-line nonneg (landed), vanishing transfer, splitting,
+  residual control. Bounded kill-tests KT-1040a/b defined, not yet run.
+- Named the Prong C open obligation (commit `7050525`):
+  `kernelCompatibilityAlongCutoffs` in
+  `Dev/C1Stage3ProjectionDefectBounds.lean` — a `def` of the Prop the D₁
+  sufficiency theorem consumes. A name only; asserted nowhere.
+- **W1 LANDED** (commit `20af271`): new leaf `Dev/C1SpectralOnlineNonneg.lean`
+  with `spectralTerm_convolutionSquare_nonneg_of_onLine` — for a source zero
+  `rho` on the critical line, the multiplicity-weighted spectral term of the
+  Hermitian convolution square is `m(rho) * |L_g(w)|^2 >= 0`, termwise,
+  unconditional in `g`, no vanishing input, no RH claim. Axiom-clean
+  `[propext, Classical.choice, Quot.sound]`. The W1 mechanism: at the purely
+  imaginary centered coordinate `star w = -w` collapses the Hermitian law to a
+  norm square.
+- Gate: locked full-root `lake build ConnesWeilRH` = `4147/4147`, 0 `error:`,
+  0 `sorryAx`. RH still unclaimed; open obligations unchanged in kind: the
+  vanishing-test sign (now with a proven positive block inside) plus detector
+  transport at the exit.
+
 ## Change Log (2026-08-23, bare FRONTIER-CRUX premise is vacuous)
 - Added `hsPremise_forces_zero_test` to `Dev/C1Stage3BareHSObstruction.lean`:
   the per-test Hilbert--Schmidt premise of the concrete bare FRONTIER-CRUX readback
