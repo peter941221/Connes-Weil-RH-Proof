@@ -27,9 +27,10 @@ open UnconditionalSkeleton
 #print unconditional_rh_skeleton
 #print axioms unconditional_rh_skeleton
 
--- Stage-3 analytic route (Route B), registered in UnconditionalSkeleton's root ledger: step① is proved, so Route B rests
--- on exactly two named premises — bare-operator FRONTIER-HS and the single step② root axiom below.  The closure theorem
--- shows that once both hold uniformly in `g`, the RH-level healthy criterion state follows with no further hypothesis.
+-- Stage-3 analytic route (Route B), registered in UnconditionalSkeleton's root ledger: step① is proved and step② is
+-- discharged from the bare obstruction, so Route B rests on exactly one named premise — bare-operator FRONTIER-HS.  The
+-- closure theorem shows that once it holds uniformly in `g`, the RH-level healthy criterion state follows with no further
+-- hypothesis (the two analytic steps being proven lemmas).
 #print axioms ConnesWeilRH.Source.C1Stage3FrontierCrux.frontierCrux_powerSpectrum_eq_weilValue
 #print axioms ConnesWeilRH.Source.C1Stage3FrontierCrux.frontierCrux_closes_healthyCriterionState
 
@@ -37,7 +38,7 @@ open UnconditionalSkeleton
 -- the remaining path to bare `RiemannHypothesis` carries NO hidden axiom — each step below depends only on
 -- [propext, Classical.choice, Quot.sound].  The two non-axiomatic obligations that must still be SUPPLIED are:
 --   (1) exit premise 1 = CC20YoshidaDetectorExists healthyCC20TestSpace cc20TripleFiniteVanishingSet (open detector transport), and
---   (2) the step② root axiom above — what actually turns a positive-trace family into `healthyCriterionState`.
+--   (2) bare-operator FRONTIER-HS — the uniform-in-`g` Hilbert--Schmidt summability `∀ g, Summable ...` that the closure consumes to produce `healthyCriterionState`.
 #check ConnesWeilRH.Source.C1CenterTwoRHExit.healthy_criterion_sourceRH_of_yoshida_detector
 #print axioms ConnesWeilRH.Source.C1CenterTwoRHExit.healthy_criterion_sourceRH_of_yoshida_detector
 #print axioms ConnesWeilRH.Source.RHDefinitionBridge.source_rh_to_mathlib_rh

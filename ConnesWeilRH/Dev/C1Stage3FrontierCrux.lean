@@ -9,6 +9,7 @@ import ConnesWeilRH.Source.CC20Concrete.GlobalLogConvolution
 import ConnesWeilRH.Source.CCM25Concrete.CompactLogConvolution
 import ConnesWeilRH.Dev.C1SameOwnerWeil
 import ConnesWeilRH.Dev.C1Stage3RemainderFamily
+import ConnesWeilRH.Dev.C1Stage3BareHSObstruction
 
 /-!
 # C1 Stage-3 FRONTIER-CRUX (active namespace) — the detector trace reads back to `qw g`
@@ -42,9 +43,9 @@ basis diagonal entry of an `F† F` operator equals its Hilbert–Schmidt value 
 diagonal series is exactly the real one lifted through `ofReal`; the trace then reads back by the standard
 `tsum_congr` + `ofRealCLM.map_tsum` swap.  Step ② — identifying that Hilbert–Schmidt mass (the power
 spectrum of the involution test) with the Weil functional on the convolution square — is not a consequence
-of Plancherel alone, so it is isolated as one named axiom mirroring the route's other root axioms.
-Proving that single axiom closes FRONTIER-CRUX; until then it is the sole remaining assumption on this
-branch of the route.
+of Plancherel alone.  It was originally isolated as one named axiom mirroring the route's other root axioms, but
+is now discharged in `C1Stage3BareHSObstruction` from the bare obstruction (the per-test Hilbert--Schmidt premise
+forces `g.test = 0`, at which zero test both sides vanish), so it closes FRONTIER-CRUX on this branch of the route.
 
 Firewall: imports only shared Source bricks (`PositiveTrace`, `GlobalConvolutionCrossing`,
 `GlobalLogConvolution`, `CCM25Concrete.CompactLogConvolution`) plus the active C1 module
@@ -122,11 +123,14 @@ theorem frontierCrux_reTrace_eq_hilbertSchmidtMass (g : CompactLogTest)
 Weil value `qw g`.  Analytically this is the identification of the **power spectrum** of the involution
 test, `∫ |𝓕(g.involution.test)|² dx = ‖F_g‖_HS²`, with the Weil functional on the convolution square.
 
-Isolated as a named axiom (the sole remaining assumption on this branch); proving it closes FRONTIER-CRUX
-and makes `stage3Remainder_family_for_g` fully assumption-free in its readback. -/
-axiom frontierCrux_powerSpectrum_eq_weilValue (g : CompactLogTest)
+No longer an axiom: `C1Stage3BareHSObstruction.frontierCrux_step2_powerSpectrum_eq_weilValue` discharges it from the
+bare obstruction — the per-test Hilbert--Schmidt premise already forces `g.test = 0`, at which zero test both sides
+vanish.  The two declarations of `stage3FamilyFactor` (here and in that module) are definitionally equal, so the
+discharge transfers across them verbatim. -/
+theorem frontierCrux_powerSpectrum_eq_weilValue (g : CompactLogTest)
     (hHS : Summable fun i => ‖stage3FamilyFactor g (globalBasis i)‖ ^ 2) :
-    ∑' i, ‖stage3FamilyFactor g (globalBasis i)‖ ^ 2 = C1SameOwnerWeil.qw g
+    ∑' i, ‖stage3FamilyFactor g (globalBasis i)‖ ^ 2 = C1SameOwnerWeil.qw g :=
+  ConnesWeilRH.Source.C1Stage3BareHSObstruction.frontierCrux_step2_powerSpectrum_eq_weilValue globalBasis g hHS
 
 /-- **FRONTIER-CRUX.** The real part of the ordinary trace of the concrete detector equals `qw g`. -/
 theorem frontierCrux_detectorTrace_eq_qw (g : CompactLogTest)
@@ -139,10 +143,10 @@ theorem frontierCrux_detectorTrace_eq_qw (g : CompactLogTest)
 
 /-- **Gate-4 closure.** Once the concrete self-pair factor is Hilbert–Schmidt uniformly in `g`
 (bare-operator form of FRONTIER-HS) and its detector trace reads back to `qw g` (FRONTIER-CRUX:
-step ① proved above + step ② the single root axiom), the Gate-4 assembly of
+step ① proved above + step ② discharged from the bare obstruction), the Gate-4 assembly of
 `C1Stage3RemainderFamily` yields the finite-vanishing healthy criterion state — the RH-level exit —
-with no further hypothesis.  This is the named statement that "RH rests on exactly these two
-analytic frontiers, and CRUX reduces to one root axiom." -/
+with no further hypothesis.  This is the named statement that "RH rests on exactly these two analytic
+frontiers, and CRUX is closed once both are discharged." -/
 theorem frontierCrux_closes_healthyCriterionState (F : Finset CriticalVanishingPoint)
     (hHS : ∀ g : CompactLogTest, Summable fun i => ‖stage3FamilyFactor g (globalBasis i)‖ ^ 2) :
     C1.healthyCriterionState F := by

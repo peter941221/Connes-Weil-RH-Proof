@@ -7802,15 +7802,16 @@ above.  Its Gate-4 assembly (`C1Stage3RemainderFamily.stage3Remainder_healthyCri
 
 Step ① of FRONTIER-CRUX (`Re Tr(detector) = ∑' ‖F_g e_i‖²`) is **proved** in `C1Stage3FrontierCrux` (axiom-clean);
 step ② — identifying that Hilbert–Schmidt mass with the Weil functional on the convolution square,
-`∑' i ‖F_g (basis i)‖² = qw g` — is not a consequence of Plancherel alone and is registered below as the single
-named root axiom this branch rests on.  Bare-operator FRONTIER-HS holds iff the kernel vanishes a.e. over infinite
+`∑' i ‖F_g (basis i)‖² = qw g` — is not a consequence of Plancherel alone; it was registered below as the single named
+root axiom this branch rests on, but has since been discharged in `C1Stage3BareHSObstruction` (step ② no longer names
+a root).  Bare-operator FRONTIER-HS holds iff the kernel vanishes a.e. over infinite
 measure `L²(ℝ)` (characterized by `C1Stage3FrontierHS.frontierBareHS_windowEnergy_unbounded`).  Upgrading both of
 these from named premises to proved lemmas makes Route B unconditional and, with it, the RH-level exit. -/
 
 -- Registered Stage-3 analytic root (FRONTIER-CRUX step②, power spectrum = Weil functional).  Single source of truth:
 -- ConnesWeilRH.Source.C1Stage3FrontierCrux.frontierCrux_powerSpectrum_eq_weilValue — imported above so it is part of
 -- this skeleton's audited dependency closure.  Its exact axiom set (expected {propext, Classical.choice, Quot.sound})
--- and the Route-B premise set are reported by the route-audit probe; upgrading step② to a theorem removes it entirely.
+-- and the Route-B premise set are reported by the route-audit probe; now that step② has been upgraded to a theorem, its self-root no longer appears in the closure's axiom set.
 
 /- These roots belonged only to the demoted detector-selected upgrade ladder.
 They are retained in source history above but are not active assumptions.

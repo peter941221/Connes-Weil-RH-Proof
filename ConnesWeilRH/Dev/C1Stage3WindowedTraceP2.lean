@@ -49,9 +49,10 @@ is a single fixed, finite real.  **Plain windowing therefore does NOT read back 
 trace diverges like the window length while the target stays bounded and nonzero.  This is kill-test 1016 made
 fully concrete for the explicit plateau test.
 
-The ONE new analytic identity that step ② must supply for the WINDOWED route (the bare-operator axiom in
-`C1Stage3FrontierCrux.frontierCrux_powerSpectrum_eq_weilValue`) is thus a **renormalized** readback: after
-subtracting the divergent bulk `2 · log(n+2) · bumpA`, the remainder must tend to `qw g₀`.  That identity is not a
+The ONE new analytic identity that step ② must supply for the WINDOWED route is thus a **renormalized** readback,
+distinct from the bare-operator step ② in `C1Stage3FrontierCrux.frontierCrux_powerSpectrum_eq_weilValue`, which is now
+discharged there (the per-test Hilbert--Schmidt premise forces `g.test = 0`).  For windowing, after subtracting the
+divergent bulk `2 · log(n+2) · bumpA`, the remainder must tend to `qw g₀`.  That renormalized identity is not a
 consequence of Parseval/Plancherel alone — the two proven lemmas below show exactly what plain windowing gives and
 nothing more — so it remains the isolated frontier obligation on this branch.
 
