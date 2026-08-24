@@ -1160,7 +1160,7 @@ WSL2 is a **verification environment, not a source workspace**. Author/manage
 git only in Windows, then copy the Windows snapshot into an ext4 mirror. Never
 run Lake through Windows Lean or from a Windows-mounted source path.
 
-**Hard rule (2026-08-24): 严禁用 `/mnt/c` — build natively on WSL ext4.** The live native copy is `/home/peter/rh` (ext4, has its own `.git`, ~8 GB with a warm `.lake`). Never point `lake build` at the Windows tree via `/mnt/c/…`: drvfs costs ~7 min/heavy brick while native ext4 is ≈5× faster. Workflow: edit in the git tree (`C:\Projects\Connes-Weil-RH-Proof`) → sync changed files to `/home/peter/rh` → build natively there.
+**Hard rule (2026-08-24): 严禁用 `/mnt/c` — build natively on WSL ext4.** The live native copy is `/home/peter/rh` (ext4, ~8 GB with a warm `.lake`). **Canonical-copy adjudication (2026-08-24, Peter-approved): the Windows git tree `C:\Projects\Connes-Weil-RH-Proof` is the single source of truth; `/home/peter/rh` is a BUILD-ONLY copy with NO `.git`** (its old `.git` — 46 stashes, ~30 campaign branches, 4 tags from the 2026-07 multi-AI era — was archived to `/home/peter/rh-git-archive-2026-08-24.tar.gz` (17 MB, verified readable) and then deleted; restore with `tar xzf` if ever needed). Never point `lake build` at the Windows tree via `/mnt/c/…`: drvfs costs ~7 min/heavy brick while native ext4 is ≈5× faster. Workflow: edit in the git tree (`C:\Projects\Connes-Weil-RH-Proof`) → sync changed files to `/home/peter/rh` → build natively there. The old "mirror must be its own git toplevel" sync check is obsolete — the mirror has no `.git` by design; `git rev-parse` there must now FAIL.
 
 Preferred persistent mirror: `<ext4-mirror>/Connes-Weil-RH-Proof`.
 
