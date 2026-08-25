@@ -45,6 +45,7 @@ open C1SpectralOnlineSplit
 open C1SpectralOfflinePairing
 open C1SpectralQwAssembly
 open MeasureTheory
+open Filter
 
 noncomputable section
 
@@ -308,6 +309,22 @@ theorem rightHalfPhaseTerm_norm_le_spectralNormTerm
       (Complex.abs_re_le_norm (spectralTerm g.convolutionSquare rho))
   · simp [h]
 
+/-- The phase-term norm series is summable by comparison with the existing
+scalar spectral majorant.  Keeping this proof named lets later tail and
+cofinality lemmas reuse the same absolute-convergence witness. -/
+theorem summable_rightHalfPhaseNorm
+    (g : CompactLogTest) (hreal : IsRealTest g) :
+    Summable (fun rho : sourceNontrivialZeroSet =>
+      ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖) := by
+  have hmajorant : Summable (fun rho : sourceNontrivialZeroSet =>
+      Set.indicator rightHalfOffLine
+        (spectralNormTerm g.convolutionSquare) rho) :=
+    (summable_spectralNormTerm g.convolutionSquare).indicator rightHalfOffLine
+  exact Summable.of_nonneg_of_le
+    (fun rho => norm_nonneg _)
+    (fun rho => rightHalfPhaseTerm_norm_le_spectralNormTerm g hreal rho)
+    hmajorant
+
 /-- The complement tail is bounded in norm by the tsum of its termwise norms.
 This is the explicit, auditable error budget that remains after selecting a
 finite zero prefix. -/
@@ -318,18 +335,40 @@ theorem rightHalfPhaseTail_norm_le_tsum_norm
         Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖ ≤
     ∑' rho : {rho // rho ∉ T},
         ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖ := by
-  have hmajorant : Summable (fun rho : sourceNontrivialZeroSet =>
-      Set.indicator rightHalfOffLine
-        (spectralNormTerm g.convolutionSquare) rho) :=
-    (summable_spectralNormTerm g.convolutionSquare).indicator rightHalfOffLine
-  have hphaseNorm : Summable (fun rho : sourceNontrivialZeroSet =>
-      ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖) :=
-    Summable.of_nonneg_of_le
-      (fun rho => norm_nonneg _)
-      (fun rho => rightHalfPhaseTerm_norm_le_spectralNormTerm g hreal rho)
-      hmajorant
   exact norm_tsum_le_tsum_norm
-    (hphaseNorm.subtype (fun rho => rho ∉ T))
+    ((summable_rightHalfPhaseNorm g hreal).subtype
+      (fun rho => rho ∉ T))
+
+/-- Absolute phase tails can be made arbitrarily small by enlarging a finite
+prefix.  This is the cofinality consequence of unconditional summability; it
+does not provide the missing phase lower bound. -/
+theorem exists_rightHalfPhasePrefix_tail_budget_lt
+    (g : CompactLogTest) (hreal : IsRealTest g)
+    {epsilon : Real} (hepsilon : 0 < epsilon) :
+    ∃ T : Finset sourceNontrivialZeroSet,
+      (∑' rho : {rho // rho ∉ T},
+        ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖) < epsilon := by
+  have hEventually : ∀ᶠ T : Finset sourceNontrivialZeroSet in atTop,
+      (∑' rho : {rho // rho ∉ T},
+        ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖) < epsilon :=
+    (tendsto_order.1 (tendsto_tsum_compl_atTop_zero
+      (fun rho : sourceNontrivialZeroSet =>
+        ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖))).2
+      epsilon hepsilon
+  rcases (eventually_atTop.1 hEventually) with ⟨T, hT⟩
+  exact ⟨T, hT T le_rfl⟩
+
+/-- The actual complex phase tail inherits the same arbitrarily-small budget.
+This is the useful form for combining a finite-prefix phase estimate with the
+global W4b target. -/
+theorem exists_rightHalfPhasePrefix_phaseTail_norm_lt
+    (g : CompactLogTest) (hreal : IsRealTest g)
+    {epsilon : Real} (hepsilon : 0 < epsilon) :
+    ∃ T : Finset sourceNontrivialZeroSet,
+      ‖∑' rho : {rho // rho ∉ T},
+        Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖ < epsilon := by
+  obtain ⟨T, hT⟩ := exists_rightHalfPhasePrefix_tail_budget_lt g hreal hepsilon
+  exact ⟨T, (rightHalfPhaseTail_norm_le_tsum_norm g hreal T).trans_lt hT⟩
 
 /-- Lower-bound form of the finite-prefix reduction.  Closing W4b now amounts
 to proving that the finite prefix minus this explicit tail budget is at least
@@ -382,8 +421,11 @@ theorem norm_convolutionSquare_test_zero_eq_integral_normSq
 #print axioms summable_rightHalfPhaseTerm
 #print axioms rightHalfPhaseTsum_eq_prefix_add_tail
 #print axioms rightHalfPhaseTerm_norm_le_spectralNormTerm
+#print axioms summable_rightHalfPhaseNorm
 #print axioms rightHalfPhaseTail_norm_le_tsum_norm
 #print axioms rightHalfPhaseTsum_ge_prefix_sub_tailNorm
+#print axioms exists_rightHalfPhasePrefix_tail_budget_lt
+#print axioms exists_rightHalfPhasePrefix_phaseTail_norm_lt
 
 end
 end C1SpectralRealPair

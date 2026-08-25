@@ -257,8 +257,8 @@ W4b-PHASE INTERFACE: LANDED 2026-08-25 (axiom-clean,
     obligations.
 
 W4b-FINITE PREFIX / TAIL LEDGER: LANDED 2026-08-25 (axiom-clean,
-    `C1SpectralRealPair.lean`, Build #21: 3614 jobs).  The phase series now
-    has an explicit convergence and truncation interface:
+    `C1SpectralRealPair.lean`, Build #22: 3614 jobs).  The phase series now
+    has an explicit convergence, truncation, and cofinal tail interface:
 
     - `summable_rightHalfPhaseTerm` derives real phase-term summability from
       the existing complex right-half series.
@@ -266,17 +266,24 @@ W4b-FINITE PREFIX / TAIL LEDGER: LANDED 2026-08-25 (axiom-clean,
       an arbitrary finite `Finset` prefix plus the complementary subtype tail.
     - `rightHalfPhaseTerm_norm_le_spectralNormTerm` bounds each phase term by
       the already-proved scalar `spectralNormTerm` majorant.
+    - `summable_rightHalfPhaseNorm` packages the scalar majorant as an
+      absolutely summable norm series.
     - `rightHalfPhaseTail_norm_le_tsum_norm` turns that majorant into an
-      explicit norm budget for the tail, and
-      `rightHalfPhaseTsum_ge_prefix_sub_tailNorm` gives the resulting lower
-      bound: finite prefix minus tail budget.
+      explicit norm budget for the tail.
+    - `exists_rightHalfPhasePrefix_tail_budget_lt` and
+      `exists_rightHalfPhasePrefix_phaseTail_norm_lt` prove that, for every
+      positive epsilon, some finite prefix makes the scalar and actual phase
+      tails smaller than epsilon.
+    - `rightHalfPhaseTsum_ge_prefix_sub_tailNorm` gives the resulting
+      lower bound: finite prefix minus tail budget.
 
-    This is a mechanical reduction, not a W4b proof.  No claim is made that
-    the tail budget vanishes for a chosen prefix, and no sign is assigned to
-    an individual off-line phase term.  The remaining analytic task is to
-    choose/estimate a finite prefix and prove that prefix minus its audited
-    tail budget is at least `-(1/2) * onLineSpectralMass` on the vanishing
-    subspace.
+    This is a mechanical reduction, not a W4b proof.  The cofinality theorem
+    does show that the tail budget can be made arbitrarily small by enlarging
+    the prefix, but it assigns no sign to an individual off-line phase term
+    and supplies no lower bound for the finite prefix.  The remaining
+    analytic task is to choose/estimate a finite prefix and prove that prefix
+    minus its audited tail budget is at least `-(1/2) * onLineSpectralMass`
+    on the vanishing subspace.
 
 W4  RESIDUAL CONTROL (the deep step, REMAINS OPEN):
     off-line residual + (-poleTerm g^2) bounded by the on-line mass

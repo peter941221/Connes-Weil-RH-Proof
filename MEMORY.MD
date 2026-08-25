@@ -1,3 +1,20 @@
+## Change Log (2026-08-25 session 8, W4b cofinal phase-tail budget CLOSED)
+- **Cofinal phase-tail budget LANDED** (`ConnesWeilRH/Dev/C1SpectralRealPair.lean`,
+  Build #22: 3614 jobs; full root Build #22: 4147 jobs; 0 error / 0 `sorryAx`).
+  `summable_rightHalfPhaseNorm` factors the existing scalar spectral majorant
+  into an absolute phase-norm series.  The two
+  `exists_rightHalfPhasePrefix_*_lt` theorems then show that every positive
+  epsilon admits a finite zero prefix whose scalar tail and actual phase tail
+  are both below epsilon.
+- `rightHalfPhaseTsum_ge_prefix_sub_tailNorm` remains the exact lower-bound
+  ledger: total phase tsum >= finite prefix - audited tail norm.  This closes
+  convergence/cofinality bookkeeping only.  It does **not** prove a lower
+  bound for the finite prefix, assign a sign to any off-line term, or close
+  the W4b inequality/RH.
+- The fix also makes the `Filter` namespace explicit for `atTop` and
+  `eventually_atTop`, and parenthesizes `Summable.subtype` before applying its
+  complement predicate.  Both are reusable Lean API guards.
+
 ## Change Log (2026-08-25 session 7, W4b finite-prefix/tail ledger LANDED)
 - **Finite-prefix/tail phase ledger LANDED** (`ConnesWeilRH/Dev/C1SpectralRealPair.lean`,
   Build #21: 3614 jobs, 0 error / 0 `sorryAx`).  The new declarations are

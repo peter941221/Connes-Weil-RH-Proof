@@ -1196,6 +1196,7 @@ restricted/global masses with one evaluation object.
 - **Summable vectors are not automatically summable norm sequences** (Observed 2026-08-25, `C1SpectralRealPair`): `norm_tsum_le_tsum_norm` requires `Summable (fun i => ‖f i‖)`, not merely `Summable f`. For the phase tail, first compare `‖phaseTerm i‖` with the existing scalar `spectralNormTerm` majorant using `Summable.of_nonneg_of_le`, then pass the resulting norm-series proof to `norm_tsum_le_tsum_norm`.
 
 - **`Summable.subtype` takes a predicate, not a `Finset`** (Observed 2026-08-25, `C1SpectralRealPair`): for the complement of a finite prefix `T`, use `(hsum.subtype (fun rho => rho ∉ T))`; passing `T` directly produces an application type mismatch. In finite sums, follow the local notation `∑ rho ∈ T, ...`.
+- **Filter names may need the namespace opened explicitly** (Observed 2026-08-25, `C1SpectralRealPair`): `atTop` and `eventually_atTop` are provided by `Filter`; add `open Filter` (or use `Filter.atTop` / `Filter.eventually_atTop`) when a cofinal finite-prefix proof reports unknown identifiers.
 
 
 ## 8. WSL Verification
