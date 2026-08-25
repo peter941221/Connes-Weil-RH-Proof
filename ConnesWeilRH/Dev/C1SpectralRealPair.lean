@@ -391,6 +391,61 @@ theorem rightHalfPhaseTsum_ge_prefix_sub_tailNorm
     exact neg_le_of_abs_le (by simpa [Real.norm_eq_abs])
   linarith
 
+/-- A finite-prefix certificate closes the phase lower bound.  The certificate
+consists of a prefix value above the target by `epsilon` and a complementary
+tail norm strictly below the same margin. -/
+theorem rightHalfPhaseBound_of_prefix_tail_certificate
+    (g : CompactLogTest) (hreal : IsRealTest g)
+    (T : Finset sourceNontrivialZeroSet) {epsilon : ℝ}
+    (hprefix :
+      -(1 / 2 : ℝ) * onLineSpectralMass g + epsilon ≤
+        (∑ rho ∈ T,
+          Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho))
+    (htail :
+      (∑' rho : {rho // rho ∉ T},
+        ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖) <
+        epsilon) :
+    (∑' rho : sourceNontrivialZeroSet,
+        Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) ≥
+      -(1 / 2 : ℝ) * onLineSpectralMass g := by
+  have hledger := rightHalfPhaseTsum_ge_prefix_sub_tailNorm g hreal T
+  have hstrict :
+      -(1 / 2 : ℝ) * onLineSpectralMass g <
+        (∑ rho ∈ T,
+          Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) -
+          ∑' rho : {rho // rho ∉ T},
+            ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖ := by
+    linarith
+  exact le_of_lt (lt_of_lt_of_le hstrict hledger)
+
+/-- The remaining real-test W4b obligation can be packaged as a finite-prefix
+certificate: every real, F-vanishing test must admit one prefix whose phase
+margin dominates its audited tail budget. -/
+def rightHalfPhasePrefixCertificate_onRealVanishing
+    {F : Finset CriticalVanishingPoint} : Prop :=
+  ∀ g : CompactLogTest, IsRealTest g →
+    CC20VanishesOn C1.healthyCC20TestSpace F g →
+      ∀ epsilon : ℝ, 0 < epsilon →
+        ∃ T : Finset sourceNontrivialZeroSet,
+          -(1 / 2 : ℝ) * onLineSpectralMass g + epsilon ≤
+              (∑ rho ∈ T,
+                Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) ∧
+            (∑' rho : {rho // rho ∉ T},
+              ‖Set.indicator rightHalfOffLine
+                (rightHalfPhaseKernel g) rho‖) < epsilon
+
+/-- A prefix certificate is sufficient for the real-test phase target.  This
+is an assembly theorem only; producing the certificate is the open analytic
+part of W4b. -/
+theorem rightHalfPhaseBound_onRealVanishing_of_prefix_certificate
+    {F : Finset CriticalVanishingPoint}
+    (hcert : rightHalfPhasePrefixCertificate_onRealVanishing (F := F)) :
+    rightHalfPhaseBound_onRealVanishing (F := F) := by
+  intro g hreal hvanishes
+  obtain ⟨T, hprefix, htail⟩ := hcert g hreal hvanishes 1 (by norm_num)
+  exact rightHalfPhaseBound_of_prefix_tail_certificate
+    g hreal T hprefix htail
+
 /-! ### The autocorrelation mass at the origin -/
 
 /-- The origin value of the Hermitian convolution square is a nonnegative real
@@ -424,6 +479,9 @@ theorem norm_convolutionSquare_test_zero_eq_integral_normSq
 #print axioms summable_rightHalfPhaseNorm
 #print axioms rightHalfPhaseTail_norm_le_tsum_norm
 #print axioms rightHalfPhaseTsum_ge_prefix_sub_tailNorm
+#print axioms rightHalfPhaseBound_of_prefix_tail_certificate
+#print axioms rightHalfPhasePrefixCertificate_onRealVanishing
+#print axioms rightHalfPhaseBound_onRealVanishing_of_prefix_certificate
 #print axioms exists_rightHalfPhasePrefix_tail_budget_lt
 #print axioms exists_rightHalfPhasePrefix_phaseTail_norm_lt
 

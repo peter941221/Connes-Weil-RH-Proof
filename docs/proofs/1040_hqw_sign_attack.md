@@ -3,8 +3,9 @@
 Date: 2026-08-24.
 
 Status: **Stage 2: W1, W2, W3, W4a (conjugate transport), the W4b-pairing
-tsum split, the W5-lite reduction ledger, the real-test phase interface, and
-the finite-prefix/tail phase ledger LANDED; KT-1040a/b/c RUN GREEN;
+tsum split, the W5-lite reduction ledger, the real-test phase interface, the
+finite-prefix/tail phase ledger, and the finite-prefix certificate packaging
+LANDED; KT-1040a/b/c RUN GREEN;
 no RH claim.** After the 2026-08-24
 refutations (bare-operator FRONTIER-HS, P2 bulk-subtracted readback), both live
 producers of `healthyCriterionState` reduce to one open statement — the
@@ -284,6 +285,26 @@ W4b-FINITE PREFIX / TAIL LEDGER: LANDED 2026-08-25 (axiom-clean,
     analytic task is to choose/estimate a finite prefix and prove that prefix
     minus its audited tail budget is at least `-(1/2) * onLineSpectralMass`
     on the vanishing subspace.
+
+W4b-FINITE PREFIX CERTIFICATE INTERFACE: LANDED 2026-08-25 (axiom-clean,
+    `C1SpectralRealPair.lean`, Build #23: 3614 jobs; full root 4147).
+    The remaining obligation is now packaged as a single named certificate:
+
+    - `rightHalfPhaseBound_of_prefix_tail_certificate`: one finite zero
+      prefix whose phase sum exceeds the target by epsilon with audited tail
+      norm below epsilon implies the total phase tsum satisfies the W4b lower
+      bound.  By cofinality, a single margin per test suffices in assembly.
+    - `rightHalfPhasePrefixCertificate_onRealVanishing`: named proposition -
+      every real F-vanishing test admits such a prefix for every positive
+      epsilon.
+    - `rightHalfPhaseBound_onRealVanishing_of_prefix_certificate`: assembly;
+      the certificate proposition implies
+      `rightHalfPhaseBound_onRealVanishing`.
+
+    Producing the certificate is the remaining analytic part of W4b: per
+    vanishing test, a finite zero prefix whose phase sum beats
+    `-(1/2) * onLineSpectralMass` by any requested margin.  No positivity or
+    autocorrelation estimate was added; W4b and RH remain open.
 
 W4  RESIDUAL CONTROL (the deep step, REMAINS OPEN):
     off-line residual + (-poleTerm g^2) bounded by the on-line mass

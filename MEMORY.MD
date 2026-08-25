@@ -1,3 +1,21 @@
+## Change Log (2026-08-25 session 9, W4b finite-prefix certificate interface LANDED)
+- **Finite-prefix certificate packaging LANDED** (`ConnesWeilRH/Dev/C1SpectralRealPair.lean`,
+  Build #23: 3614 jobs; full root Build #23: 4147 jobs; 0 error / 0 `sorryAx`;
+  all new declarations audit to `[propext, Classical.choice, Quot.sound]`).
+- `rightHalfPhaseBound_of_prefix_tail_certificate` proves that one finite zero
+  prefix whose phase sum exceeds the target by epsilon and whose audited tail
+  norm is below epsilon implies the W4b phase lower bound.  Cofinality then
+  lets a single margin certificate per test assemble into the full bound.
+- `rightHalfPhasePrefixCertificate_onRealVanishing` names the remaining
+  obligation: every real F-vanishing test admits such a prefix for every
+  positive epsilon, and
+  `rightHalfPhaseBound_onRealVanishing_of_prefix_certificate` assembles it to
+  close `rightHalfPhaseBound_onRealVanishing`.
+- **Boundary remains explicit:** this is packaging/assembly, not an estimate.
+  Producing the certificate (a finite prefix whose phase sum beats
+  `-(1/2) * onLineSpectralMass` by any requested margin) is still the open
+  analytic part of W4b; RH remains unclaimed.
+
 ## Change Log (2026-08-25 session 8, W4b cofinal phase-tail budget CLOSED)
 - **Cofinal phase-tail budget LANDED** (`ConnesWeilRH/Dev/C1SpectralRealPair.lean`,
   Build #22: 3614 jobs; full root Build #22: 4147 jobs; 0 error / 0 `sorryAx`).
