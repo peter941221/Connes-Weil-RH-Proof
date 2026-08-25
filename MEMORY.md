@@ -1,3 +1,44 @@
+## Change Log (2026-08-26 session 13 cont. 4, SECOND BOUNDARY RUNG LANDED — third-order Taylor ceiling)
+- **Same leaf `Dev/C1SpectralW4bBoundary.lean`** (+~325 lines; build
+  `3628/3628`, 0 `error:`, 0 `sorryAx`; all **33** declarations
+  `[propext, Classical.choice, Quot.sound]`).
+  - New analytic brick: third-order Taylor bound
+    `log_one_plus_t_le_cubicLogTower` — for every `t ≥ 0`,
+    `Real.log (1 + t) ≤ cubicLogTower t` with
+    `cubicLogTower t = t − t²/2 + t³/3`; the gap function is non-decreasing on
+    `[0, ∞)` (`cubicLogTower_gap_hasDerivAt`: derivative `x³/(1+x) ≥ 0`,
+    assembled via `HasDerivAt.comp_const_add`) and zero at `t = 0`. Pure
+    calculus + monotone-on-derivative-nonneg.
+  - **Refined ceiling** `refinedArchCoefficientRationalCeiling :=
+    77183772755855054857 / 24000000000000000000` ≈ 3.2160 — the EXACT sum of
+    `3 · d9(log 2)`, the third-order bound at rational `q = d6(π)/2 − 1`
+    (slide `log(π/2) ≤ P₃(q)` via monotonicity of `P₃` on `[te, qe]` and cubic
+    difference factorization), and γ < 2/3. Drop ≈ 0.1 over the first ceiling —
+    spent entirely replacing `log u ≤ u − 1` with the Taylor bound; true c ≈
+    3.1084, headroom now ≈ 0.107 (was ≈ 0.21).
+  - **Second boundary-guided radius**
+    `refinedBoundaryArchRadius := Real.exp (-((13 : ℝ)/2))` ≈ 1.50e-3 — about
+    **1.65x wider** than the first rung (`exp(−7)` ≈ 9.12e-4), strict widening
+    proven by `boundaryArchRadius_lt_refinedBoundaryArchRadius`. Budget close is
+    again pure rational arithmetic: `B(exp(-13/2)) < ceiling' + 1/30 − 13/4 =
+    -(16227244144945143 / 24000000000000000000) ≈ -6.8e-4 < 0`, with
+    `exp(-13/2) ≤ 1/30` from `Real.add_one_le_exp` at `x = 13/6` cubed —
+    `(19/6)^3 > 30`.
+  - Two new W4b instances on the refined class (qw ≥ 0 + right-half inequality,
+    square support in `Ioo(−refinedBoundaryArchRadius)
+    refinedBoundaryArchRadius`) by delegation; both axiom-clean.
+- New AGENTS §7 gotchas: term-mode `HasDerivAt.comp` defers inline arguments to
+  metavariables (use the shift lemma `comp_const_add`); untyped numeric
+  literals float the field to ℕ in implicit-point deriv lemmas (`(0 : ℝ)`); v4
+  `DifferentiableOn` bullets are `DifferentiableWithinAt`, and membership iffs
+  are `Set.mem_Ici`/`Set.mem_Ioi`; plain defs over ℝ division need
+  `noncomputable` (the codegen check fires only on a fully green build).
+- Boundary unchanged: still a proper support class; universal W4b over all
+  vanishing tests (hence RH) remains open. This rung reaches ~76% of the way to
+  the true family boundary R* ≈ 1.98e-3. Next cuts: sharpen γ < 2/3 and/or add
+  higher-order log terms toward `R*`, and/or the density/completeness leaf
+  (needs a topology choice on `CompactLogTest`).
+
 ## Change Log (2026-08-25 session 13 cont. 3, BOUNDARY RUNG LANDED — first radius not defined through c)
 - **New leaf `Dev/C1SpectralW4bBoundary.lean`** (build `3628/3628`,
   0 `error:`, 0 `sorryAx`; all **17** declarations
