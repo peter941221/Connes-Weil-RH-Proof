@@ -459,13 +459,28 @@ three independent width constraints, in increasing order of difficulty:
 
 1. the prime-free window `support(g□) ⊆ (−log 2, log 2)` — arithmetic, could
    be relaxed to partial prime sums with explicit control;
-2. the archimedean budget radius — the uniform `archimedeanTerm ≤ 0` window;
-   widening it needs genuine kernel analysis (the Lane-R budget constant
-   `log(4π) + γ + R − (1/2)log(1/R) ≤ 0` gives R up to ≈ e^{−2(c+1)});
+2. the archimedean budget radius — the uniform `archimedeanTerm ≤ 0` window.
+   The first rung is ALGEBRAIC, not analytic: choosing `log(1/R) = k(c+1)`
+   with `k ≥ 2` collapses the budget expression to `R − (k−2)(c+1)/2 ... `;
+   in particular `widerArchRadius = exp(−2(c+1))` closes it by `R < 1` alone
+   (landed: `qw_nonneg_of_vanishesOn_cc20Triple_of_wider_square_support`,
+   ~12x wider than the original radius, zero new analysis).  Beyond that
+   rung, closing the budget at a larger `R` needs an explicit Lean-provable
+   UPPER bound on `c = log(4π) + γ` (the true boundary of the family is
+   R* ≈ e^{−2(c+R*)} ≈ 6.3e−3);
 3. dropping the window entirely — that is the full W4b, the RH content.
 
 Widening attacks should name which constraint they relax; a relaxation of any
 single constraint keeps the other two assembled proofs intact.
+
+**First widening rung LANDED (2026-08-25).**  The same leaf now carries the
+radius-parameterized principle (`qw_nonneg_of_vanishesOn_cc20Triple_of_
+budget_window`: any `R` with `0 < R < 1`, `R ≤ log 2`, and a provable budget
+works) plus the widened instances at `widerArchRadius = exp(−2(c+1))`.
+All 17 declarations axiom-clean (`[propext, Classical.choice, Quot.sound]`),
+leaf 3627/3627, root 4147/4147, 0 sorryAx.  The class is monotone in the
+radius: every narrow-class test is automatically a widened-class test;
+`widerArchRadius_gt_narrowArchRadius` records the strict inclusion.
 
 ## 8. Freeze-discipline note
 

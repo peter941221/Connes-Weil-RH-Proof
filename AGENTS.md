@@ -194,6 +194,14 @@ obligation and RH remain open.  Attacks that widen this class (bigger budget
 radius, wider prime-free windows, partial prime sums) are the natural next
 consumers.
 
+**First widening rung LANDED (same leaf):** the assembly is now
+radius-PARAMETERIZED (`qw_nonneg_of_vanishesOn_cc20Triple_of_budget_window`:
+any `R` with `0 < R < 1`, `R ≤ log 2`, and a Lean-provable budget works), and
+the first rung beyond the original radius landed by pure algebra:
+`widerArchRadius = exp(−2(c+1))` (~12x wider) closes the budget as `R − 1 < 0`
+— the factor `4` in `narrowArchRadius` was a proof artifact, not the family
+boundary.  Next rung needs an explicit upper bound on `c = log(4π)+γ`.
+
 ### C1 Common-Carrier Stages 1-2 (2026-08-19)
 
 The finite arithmetic part of the positive-trace producer is now closed as a

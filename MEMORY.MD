@@ -1,3 +1,27 @@
+## Change Log (2026-08-25 session 13 cont. 2, WIDENED-RADIUS RUNG LANDED — pure algebra)
+- **Same leaf `Dev/C1SpectralNarrowW4b.lean`** (+~170 lines; leaf build
+  `3627/3627`, root `4147/4147`, 0 `error:`, 0 `sorryAx`; all **17**
+  declarations `[propext, Classical.choice, Quot.sound]`):
+  - Radius-PARAMETERIZED principle landed:
+    `qw_nonneg_of_vanishesOn_cc20Triple_of_budget_window` (+ phase form
+    `rightHalfSpectralSum_re_ge_neg_half_of_budget_window`) — any radius `R`
+    with `0 < R < 1`, `R ≤ log 2`, and a Lean-provable budget works.  The W4b
+    class is monotone in the radius: widening = certifying more radii.
+  - First rung beyond the original radius: `widerArchRadius = exp(−2(c+1))`
+    ≈ 8.5e-4, **~12x wider** than `narrowArchRadius = e^{−4(c+1)} ≈ 7.2e-7`.
+    The budget expression collapses to `R − 1 < 0`, closing with the same
+    nlinarith shape — zero new analysis.
+  - Key insight: the factor `4` in `narrowArchRadius` was a PROOF ARTIFACT
+    (making nlinarith close via `R ≤ 1`), not the mathematical boundary of
+    the algebraic family; any `k ≥ 2` admits `exp(−k(c+1))`.
+  - Prime-side chain: `widerArchRadius ≤ e^{−2} ≤ 1/3 < log 2` (via
+    `Real.add_one_le_exp 2` → `e² ≥ 3`, and `Real.log_two_gt_d9`:
+    `0.6931471803 < log 2`).  Strict inclusion recorded by
+    `widerArchRadius_gt_narrowArchRadius`.
+- Next rung: a Lean-provable UPPER bound on `c = log(4π)+γ` (π decimal bounds
+  + rational γ bound) makes any numerically-closing radius admissible; the
+  family's true boundary is R* ≈ e^{−2(c+R*)} ≈ 6.3e-3 (~7x beyond this rung).
+
 ## Change Log (2026-08-25 session 13 cont., NARROW-CLASS W4b INSTANCE LANDED — first ∀-class)
 - **New leaf `Dev/C1SpectralNarrowW4b.lean`** (leaf build `3627/3627`, root
   `4147/4147`, 0 `error:`, 0 `sorryAx`, all 6 declarations
