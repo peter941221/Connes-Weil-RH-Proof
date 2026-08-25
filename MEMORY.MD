@@ -1,3 +1,82 @@
+## Change Log (2026-08-25 session 13, W4b complex→real reduction LANDED)
+- **Rescue + verification of session 12's unverified claim.** The 503-crashed
+  session left `C1SpectralRealPair.lean` with a premature green claim. The
+  real ext4 rebuild FAILED with 2 root causes (unclosed lambda-arg paren in a
+  multi-line `change`; `rw` lists rewriting patterns already consumed by
+  `if_neg`), both fixed. Verified state: leaf `3640/3640`, locked root
+  `4147/4147`, 0 `error:`, 0 `sorryAx`.
+- **Unconditional carrier-correction zero + qw split LANDED** in
+  `ConnesWeilRH/Dev/C1SpectralRealPair.lean`:
+  `finitePrimeCarrierCorrection_eq_zero` (pointwise split +
+  zero-outside-carrier kills every summand, no carrier hypotheses),
+  `finitePrimeSum_convolutionSquare_eq_componentSums`,
+  `qw_convolutionSquare_eq_componentQws` (`qw g = qw (Re g) + qw (Im g)` for
+  EVERY complex test). All audit `[propext, Classical.choice, Quot.sound]`.
+- **Route consequence: W4b sign problem reduces to real tests.** New theorem
+  `qw_nonneg_of_forall_real_vanishing`: if `0 ≤ qw h` holds on all REAL
+  vanishing tests, it holds on ALL vanishing tests (components are real via
+  `isRealTest_realPartTest`/`isRealTest_imagPartTest` and inherit vanishing).
+  The KT-1040c phase route (real-test phase sums) therefore now targets the
+  complete W4b obligation. Still a reduction, not a positivity proof; RH
+  remains unclaimed.
+- Two new Lean gotchas recorded in AGENTS §7 (multi-line `change` paren trap;
+  rw-order vs consumed patterns).
+
+## Change Log (2026-08-25 session 12, W4b real-component owner bridge LANDED)
+- Added the exact complex-to-real Laplace square split
+  `laplaceAt_convolutionSquare_eq_componentSquares_add_cross` in
+  `ConnesWeilRH/Dev/C1SpectralRealPair.lean`. It expands a complex test into
+  its real and imaginary component squares plus the explicit `I`-weighted
+  reflected cross term. The proof is algebraic (`ring_nf` followed by
+  `Complex.I_sq`) and audits to `[propext, Classical.choice, Quot.sound]`.
+  This is a decomposition only: the cross term still has no sign or norm bound,
+  so W4b and RH remain open.
+- The same leaf now also proves real-axis reality and split lemmas:
+  `laplaceAt_im_eq_zero_of_isRealTest_real`,
+  `laplaceAt_convolutionSquare_cross_re_zero_at_real`,
+  `laplaceAt_convolutionSquare_re_split_at_real`,
+  `poleTerm_convolutionSquare_split`, and the pointwise coefficient identity
+  `finitePrimeTerm_convolutionSquare_re_split`. These are exact algebraic
+  readbacks (leaf build `3640/3640`, no `sorryAx`). The finite-prime *sum*
+  still cannot be split automatically because its carrier is trimmed by total
+  term nonvanishing; cancellation can change membership. Therefore this round
+  does not establish `qw` additivity or W4b positivity.
+- Added the conditional carrier bridge
+  `finitePrimeSum_convolutionSquare_split_of_disjoint_carriers` and its
+  consumer `qw_split_of_disjoint_component_carriers`. Under an explicit
+  equality of the total carrier with the disjoint union of the component
+  carriers, the finite-prime sum and complete `qw` split exactly. The carrier
+  equality/disjointness is not proved universally; it is now the named
+  residual obligation rather than an implicit assumption.
+- Added four axiom-clean W4b bridges in `ConnesWeilRH/Dev/C1SpectralRealPair.lean`:
+  `isRealTest_realPartTest`, `isRealTest_imagPartTest`,
+  `realPartTest_vanishesOn_of_vanishesOn`, and
+  `imagPartTest_vanishesOn_of_vanishesOn`.
+- These reuse `C1XiCenterTwoGammaComplexSplit.realPartTest` /
+  `imagPartTest` and its Laplace-zero transfer.  They make the abstract
+  `IsRealTest` phase route constructible from every complex vanishing test.
+- Important boundary: the existing complex-split file proves archimedean and
+  Gamma/profile decompositions, but does not prove a `qw` or off-line phase
+  sign split.  Do not infer `qw g >= 0` from component-level estimates without
+  controlling the cross spectral terms.
+- Native ext4 verification: leaf `3640/3640`; full `ConnesWeilRH` `4147/4147`,
+  0 errors, 0 `sorryAx`; new bridge declarations use only
+  `[propext, Classical.choice, Quot.sound]`.
+
+## Change Log (2026-08-25 session 11, W4b certificate boundary pinned)
+- **Exact boundary theorem LANDED** in `ConnesWeilRH/Dev/C1SpectralRealPair.lean`:
+  `rightHalfPhasePrefixCertificate_iff_qw_pos` proves that, for every real test,
+  the finite-prefix/tail certificate is equivalent to strict Weil positivity
+  `0 < C1SameOwnerWeil.qw g`.  It combines the existing strict phase/certificate
+  equivalence with the exact W4b ledger
+  `qw = onLineSpectralMass + 2 * Re(rightHalfSpectralSum)`.
+- This is an audit result, not a positivity proof: the certificate cannot be
+  supplied as a weaker analytic assumption.  The remaining W4b work is still
+  the genuine universal sign bound (`qw >= 0`, including the boundary case).
+- Native ext4 leaf build after the change: `C1SpectralRealPair` 3614/3614,
+  with the new theorem audited to `[propext, Classical.choice, Quot.sound]`
+  and no `sorryAx`.
+
 ## Change Log (2026-08-25 session 10, W4b certificate quantifier FIXED + strict-bound equivalence LANDED)
 - **Certificate refinement LANDED** (`ConnesWeilRH/Dev/C1SpectralRealPair.lean`,
   Build #24: 3614 jobs; full root Build #24: 4147 jobs; 0 error / 0 `sorryAx`;
@@ -4696,3 +4775,43 @@ Lean gotchas this session (→ keep in AGENTS §8):
   expression positions need ASCII. (Broke both new lemmas on first build.)
 - **Uniqueness of limits** is NOT a bare `tendsto_unique`; it's `Filter.tendsto_nhds_unique [T2Space X]
   (ha : Tendsto f l (𝓝 a)) (hb : Tendsto f l (𝓝 b)) : a = b` (mathlib `Topology/Separation/Hausdorff.lean`).
+
+## W4b carrier correction completed (2026-08-25)
+
+The active W4b leaf `Dev/C1SpectralRealPair.lean` now has an exact
+carrier-aware decomposition for arbitrary complex tests.  The finite prime
+support of `g.convolutionSquare` need not equal the union of the component
+supports because total-term cancellation can change membership; the new
+noncomputable finite sum `finitePrimeCarrierCorrection g` records precisely
+that residual.
+
+The checked identities are:
+
+```text
+finitePrimeSum(g□)
+  = finitePrimeSum(real□) + finitePrimeSum(imag□)
+    + finitePrimeCarrierCorrection(g)
+
+qw(g)
+  = qw(real) + qw(imag) - finitePrimeCarrierCorrection(g)
+```
+
+The correction is proved zero under the explicit disjoint-carrier and
+union-carrier hypotheses, recovering the earlier conditional split.  **The
+build claim in the first version of this entry was premature** — the session
+died (upstream 503) before the ext4 build ran; the rescue rebuild found two
+compile errors (an unclosed lambda-argument paren in the `change` of
+`finitePrimeCarrierCorrection_eq_zero`, and `rw` lists re-rewriting patterns
+already consumed by `if_neg`).  Both fixed on 2026-08-25; after the fixes the
+native WSL2 ext4 owner build completes `3640/3640` and the locked aggregate
+root build completes `4147/4147`, 0 `error:`, 0 `sorryAx`, and all new
+declarations audit to `[propext, Classical.choice, Quot.sound]`.
+
+The correction is moreover proved UNCONDITIONALLY zero by
+`finitePrimeCarrierCorrection_eq_zero` (each summand dies on the pointwise
+split + zero-outside-carrier), so `qw_convolutionSquare_eq_componentQws`
+(`qw g = qw (Re g) + qw (Im g)`) needs no carrier hypotheses, and
+`qw_nonneg_of_forall_real_vanishing` reduces the W4b sign obligation from
+complex vanishing tests to REAL vanishing tests.  This is an exact identity
+and a reduction, not a positivity result; the real-test sign bound remains
+the open W4b gap.  RH remains unproved.

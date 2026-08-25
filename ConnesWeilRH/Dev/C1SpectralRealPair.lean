@@ -2,6 +2,7 @@ import ConnesWeilRH.Dev.C1SpectralQwAssembly
 import ConnesWeilRH.Dev.C1HealthyYoshidaDetector
 import ConnesWeilRH.Dev.C1SpectralHermitianPartner
 import ConnesWeilRH.Dev.C1SpectralOnlineNonneg
+import ConnesWeilRH.Dev.C1XiCenterTwoGammaComplexSplit
 
 /-!
 # C1SpectralRealPair - the phase-route foundations for W4b-bound
@@ -44,6 +45,7 @@ open C1SpectralOnlineNonneg
 open C1SpectralOnlineSplit
 open C1SpectralOfflinePairing
 open C1SpectralQwAssembly
+open C1XiCenterTwoGammaComplexSplit
 open MeasureTheory
 open Filter
 
@@ -55,6 +57,93 @@ noncomputable section
 numerical witness family of KT-1040a/b/c has this property. -/
 def IsRealTest (g : CompactLogTest) : Prop :=
   ∀ x : ℝ, star (g.test x) = g.test x
+
+/-! ### Constructible real component owners -/
+
+theorem isRealTest_realPartTest (g : CompactLogTest) :
+    IsRealTest (realPartTest g) := by
+  intro x
+  rw [realPartTest_apply]
+  simp
+
+theorem isRealTest_imagPartTest (g : CompactLogTest) :
+    IsRealTest (imagPartTest g) := by
+  intro x
+  rw [imagPartTest_apply]
+  simp
+
+theorem realPartTest_vanishesOn_of_vanishesOn
+    {F : Finset CriticalVanishingPoint} (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace F g) :
+    CC20VanishesOn C1.healthyCC20TestSpace F (realPartTest g) := by
+  intro p hp
+  cases p with
+  | zero =>
+      have hg := hvanishes CriticalVanishingPoint.zero hp
+      have hr := laplaceAt_realPart_eq_zero_of_eq_zero
+        (s := (0 : ℝ)) (g := g) (by simpa [C1.healthyMellinReadoff,
+          criticalVanishingPointValue] using hg)
+      simpa [C1.healthyMellinReadoff, criticalVanishingPointValue] using hr
+  | half =>
+      have hg := hvanishes CriticalVanishingPoint.half hp
+      have hg' : CompactLogTest.laplaceAt g ((1 / 2 : ℝ) : ℂ) = 0 := by
+        simpa [C1.healthyMellinReadoff, criticalVanishingPointValue] using hg
+      have hr := laplaceAt_realPart_eq_zero_of_eq_zero
+        (s := (1 / 2 : ℝ)) (g := g) hg'
+      simpa [C1.healthyMellinReadoff, criticalVanishingPointValue] using hr
+  | one =>
+      have hg := hvanishes CriticalVanishingPoint.one hp
+      have hr := laplaceAt_realPart_eq_zero_of_eq_zero
+        (s := (1 : ℝ)) (g := g) (by simpa [C1.healthyMellinReadoff,
+          criticalVanishingPointValue] using hg)
+      simpa [C1.healthyMellinReadoff, criticalVanishingPointValue] using hr
+
+theorem imagPartTest_vanishesOn_of_vanishesOn
+    {F : Finset CriticalVanishingPoint} (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace F g) :
+    CC20VanishesOn C1.healthyCC20TestSpace F (imagPartTest g) := by
+  intro p hp
+  cases p with
+  | zero =>
+      have hg := hvanishes CriticalVanishingPoint.zero hp
+      have hi := laplaceAt_imagPart_eq_zero_of_eq_zero
+        (s := (0 : ℝ)) (g := g) (by simpa [C1.healthyMellinReadoff,
+          criticalVanishingPointValue] using hg)
+      simpa [C1.healthyMellinReadoff, criticalVanishingPointValue] using hi
+  | half =>
+      have hg := hvanishes CriticalVanishingPoint.half hp
+      have hg' : CompactLogTest.laplaceAt g ((1 / 2 : ℝ) : ℂ) = 0 := by
+        simpa [C1.healthyMellinReadoff, criticalVanishingPointValue] using hg
+      have hi := laplaceAt_imagPart_eq_zero_of_eq_zero
+        (s := (1 / 2 : ℝ)) (g := g) hg'
+      simpa [C1.healthyMellinReadoff, criticalVanishingPointValue] using hi
+  | one =>
+      have hg := hvanishes CriticalVanishingPoint.one hp
+      have hi := laplaceAt_imagPart_eq_zero_of_eq_zero
+        (s := (1 : ℝ)) (g := g) (by simpa [C1.healthyMellinReadoff,
+          criticalVanishingPointValue] using hg)
+      simpa [C1.healthyMellinReadoff, criticalVanishingPointValue] using hi
+
+/-! ### Exact complex-to-real spectral split -/
+
+theorem laplaceAt_convolutionSquare_eq_componentSquares_add_cross
+    (g : CompactLogTest) (s : ℂ) :
+    CompactLogTest.laplaceAt g.convolutionSquare s =
+      CompactLogTest.laplaceAt (realPartTest g).convolutionSquare s +
+        CompactLogTest.laplaceAt (imagPartTest g).convolutionSquare s +
+        Complex.I *
+          (star (CompactLogTest.laplaceAt (realPartTest g) (-star s)) *
+              CompactLogTest.laplaceAt (imagPartTest g) s -
+            star (CompactLogTest.laplaceAt (imagPartTest g) (-star s)) *
+              CompactLogTest.laplaceAt (realPartTest g) s) := by
+  rw [C1HealthyYoshidaDetector.laplaceAt_convolutionSquare,
+    laplaceAt_eq_realPart_add_I_imagPart g (-star s),
+    laplaceAt_eq_realPart_add_I_imagPart g s,
+    C1HealthyYoshidaDetector.laplaceAt_convolutionSquare,
+    C1HealthyYoshidaDetector.laplaceAt_convolutionSquare]
+  simp only [map_add, map_mul, Complex.star_def, Complex.conj_I]
+  ring_nf
+  simp [Complex.I_sq]
 
 /-- Pointwise conjugation identity for the exponential-weight integrand of a
 real test. -/
@@ -87,6 +176,498 @@ theorem laplaceAt_star (g : CompactLogTest) (hreal : IsRealTest g) (s : ℂ) :
     _ = ∫ x : ℝ, Complex.exp (star s * (x : ℂ)) * g.test x :=
       MeasureTheory.integral_congr_ae
         (ae_of_all _ (fun x => star_expMul_test g hreal s x))
+
+/-- A real test has a real Laplace value at every real spectral point. -/
+theorem laplaceAt_im_eq_zero_of_isRealTest_real
+    (g : CompactLogTest) (hreal : IsRealTest g) (s : ℝ) :
+    (CompactLogTest.laplaceAt g (s : ℂ)).im = 0 := by
+  have hstar := laplaceAt_star g hreal (s : ℂ)
+  have hfixed : star (CompactLogTest.laplaceAt g (s : ℂ)) =
+      CompactLogTest.laplaceAt g (s : ℂ) := by
+    simpa using hstar
+  have him := congrArg Complex.im hfixed
+  have him' : -(CompactLogTest.laplaceAt g (s : ℂ)).im =
+      (CompactLogTest.laplaceAt g (s : ℂ)).im := by
+    simpa [Complex.star_def] using him
+  linarith
+
+/-- At a real spectral point, the explicit cross term in the complex-to-real
+split is purely imaginary.  This is an exact reality statement, not a global
+positivity estimate. -/
+theorem laplaceAt_convolutionSquare_cross_re_zero_at_real
+    (g : CompactLogTest) (s : ℝ) :
+    (Complex.I *
+      (star (CompactLogTest.laplaceAt (realPartTest g) (-star (s : ℂ))) *
+          CompactLogTest.laplaceAt (imagPartTest g) (s : ℂ) -
+        star (CompactLogTest.laplaceAt (imagPartTest g) (-star (s : ℂ))) *
+          CompactLogTest.laplaceAt (realPartTest g) (s : ℂ))).re = 0 := by
+  have hrealR := isRealTest_realPartTest g
+  have hrealI := isRealTest_imagPartTest g
+  have hRpos := laplaceAt_im_eq_zero_of_isRealTest_real
+    (realPartTest g) hrealR s
+  have hIpos := laplaceAt_im_eq_zero_of_isRealTest_real
+    (imagPartTest g) hrealI s
+  have hRneg := laplaceAt_im_eq_zero_of_isRealTest_real
+    (realPartTest g) hrealR (-s)
+  have hIneg := laplaceAt_im_eq_zero_of_isRealTest_real
+    (imagPartTest g) hrealI (-s)
+  have hRref :
+      (star (CompactLogTest.laplaceAt (realPartTest g) (-star (s : ℂ)))).im = 0 := by
+    have h := laplaceAt_star (realPartTest g) hrealR (-star (s : ℂ))
+    rw [h]
+    simpa [Complex.star_def] using hRneg
+  have hIref :
+      (star (CompactLogTest.laplaceAt (imagPartTest g) (-star (s : ℂ)))).im = 0 := by
+    have h := laplaceAt_star (imagPartTest g) hrealI (-star (s : ℂ))
+    rw [h]
+    simpa [Complex.star_def] using hIneg
+  simp only [Complex.mul_re, Complex.mul_im, Complex.sub_re, Complex.sub_im,
+    Complex.I_re, Complex.I_im, Complex.one_re, Complex.one_im,
+    hRref, hIref, hRpos, hIpos]
+  ring
+
+/-- The real part of the convolution-square Laplace value splits into the two
+component squares at every real spectral point; the cross term contributes no
+real part there. -/
+theorem laplaceAt_convolutionSquare_re_split_at_real
+    (g : CompactLogTest) (s : ℝ) :
+    (CompactLogTest.laplaceAt g.convolutionSquare (s : ℂ)).re =
+      (CompactLogTest.laplaceAt (realPartTest g).convolutionSquare (s : ℂ)).re +
+        (CompactLogTest.laplaceAt (imagPartTest g).convolutionSquare (s : ℂ)).re := by
+  rw [laplaceAt_convolutionSquare_eq_componentSquares_add_cross]
+  rw [Complex.add_re, Complex.add_re]
+  rw [laplaceAt_convolutionSquare_cross_re_zero_at_real]
+  simp
+
+/-- The pole endpoint only samples real spectral points, so its square value
+splits exactly into the real and imaginary component squares. -/
+theorem poleTerm_convolutionSquare_split (g : CompactLogTest) :
+    C1SameOwnerWeil.poleTerm g.convolutionSquare =
+      C1SameOwnerWeil.poleTerm (realPartTest g).convolutionSquare +
+        C1SameOwnerWeil.poleTerm (imagPartTest g).convolutionSquare := by
+  unfold C1SameOwnerWeil.poleTerm
+  simp only [Complex.add_re]
+  have hplus := laplaceAt_convolutionSquare_re_split_at_real g (1 / 2 : ℝ)
+  have hminus := laplaceAt_convolutionSquare_re_split_at_real g (-(1 / 2) : ℝ)
+  have hplus' :
+      (CompactLogTest.laplaceAt g.convolutionSquare (1 / 2 : ℂ)).re =
+        (CompactLogTest.laplaceAt (realPartTest g).convolutionSquare (1 / 2 : ℂ)).re +
+          (CompactLogTest.laplaceAt (imagPartTest g).convolutionSquare (1 / 2 : ℂ)).re := by
+    convert hplus using 1 <;> norm_num
+  have hminus' :
+      (CompactLogTest.laplaceAt g.convolutionSquare (-1 / 2 : ℂ)).re =
+        (CompactLogTest.laplaceAt (realPartTest g).convolutionSquare (-1 / 2 : ℂ)).re +
+          (CompactLogTest.laplaceAt (imagPartTest g).convolutionSquare (-1 / 2 : ℂ)).re := by
+    convert hminus using 1 <;> norm_num
+  rw [hplus', hminus']
+  ring
+
+/-- Each individual finite prime-power coefficient is real-linear in the
+convolution-square real part.  This pointwise identity does not yet split the
+carrier-trimmed `finitePrimeSum`, whose support is defined by total-term
+nonvanishing. -/
+theorem finitePrimeTerm_convolutionSquare_re_split
+    (g : CompactLogTest) (n : ℕ) :
+    C1SameOwnerWeil.finitePrimeTerm g.convolutionSquare n =
+      C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n +
+        C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n := by
+  unfold C1SameOwnerWeil.finitePrimeTerm C1SameOwnerWeil.finitePrimeTermComplex
+  simp only [Complex.mul_re, Complex.add_re, Complex.ofReal_re,
+    Complex.ofReal_im]
+  rw [convolutionSquare_re_split g (Real.log n),
+    convolutionSquare_re_split g (-Real.log n)]
+  ring
+
+/-- The exact finite carrier correction needed when the total prime-power
+support does not coincide with the component supports. -/
+noncomputable def finitePrimeCarrierCorrection (g : CompactLogTest) : Real :=
+  let U := C1SameOwnerWeil.globalPrimeIndexSet g.convolutionSquare ∪
+    C1SameOwnerWeil.globalPrimeIndexSet (realPartTest g).convolutionSquare ∪
+    C1SameOwnerWeil.globalPrimeIndexSet (imagPartTest g).convolutionSquare
+  Finset.sum U (fun n =>
+    (if n ∈ C1SameOwnerWeil.globalPrimeIndexSet g.convolutionSquare then
+        C1SameOwnerWeil.finitePrimeTerm g.convolutionSquare n else 0) -
+      (if n ∈ C1SameOwnerWeil.globalPrimeIndexSet (realPartTest g).convolutionSquare then
+        C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n else 0) -
+      (if n ∈ C1SameOwnerWeil.globalPrimeIndexSet (imagPartTest g).convolutionSquare then
+        C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n else 0))
+
+/-- Exact carrier-corrected decomposition of the finite prime-power owner. -/
+theorem finitePrimeSum_convolutionSquare_eq_componentSums_add_correction
+    (g : CompactLogTest) :
+    C1SameOwnerWeil.finitePrimeSum g.convolutionSquare =
+      C1SameOwnerWeil.finitePrimeSum (realPartTest g).convolutionSquare +
+        C1SameOwnerWeil.finitePrimeSum (imagPartTest g).convolutionSquare +
+          finitePrimeCarrierCorrection g := by
+  classical
+  let T := C1SameOwnerWeil.globalPrimeIndexSet g.convolutionSquare
+  let R := C1SameOwnerWeil.globalPrimeIndexSet (realPartTest g).convolutionSquare
+  let I := C1SameOwnerWeil.globalPrimeIndexSet (imagPartTest g).convolutionSquare
+  let U := T ∪ R ∪ I
+  have hTU : T ⊆ U := by
+    intro n hn
+    simp [U, hn]
+  have hRU : R ⊆ U := by
+    intro n hn
+    simp [U, hn]
+  have hIU : I ⊆ U := by
+    intro n hn
+    simp [U, hn]
+  have hzero_of_not_mem : ∀ (F : CompactLogTest) {n : ℕ},
+      n ∉ C1SameOwnerWeil.globalPrimeIndexSet F →
+        C1SameOwnerWeil.finitePrimeTerm F n = 0 := by
+    intro F n hn
+    have hcomplex : C1SameOwnerWeil.finitePrimeTermComplex F n = 0 := by
+      by_contra hne
+      apply hn
+      exact (C1SameOwnerWeil.mem_globalPrimeIndexSet_iff F n).2
+        ⟨C1SameOwnerWeil.finitePrimeTermComplex_nonzero_primePower F hne, hne⟩
+    simpa [C1SameOwnerWeil.finitePrimeTerm] using congrArg Complex.re hcomplex
+  have hT :
+      (Finset.sum U (fun n =>
+        if n ∈ T then C1SameOwnerWeil.finitePrimeTerm g.convolutionSquare n else 0)) =
+        Finset.sum T (fun n => C1SameOwnerWeil.finitePrimeTerm g.convolutionSquare n) := by
+    calc
+      Finset.sum U (fun n =>
+          if n ∈ T then C1SameOwnerWeil.finitePrimeTerm g.convolutionSquare n else 0) =
+          Finset.sum U (fun n => C1SameOwnerWeil.finitePrimeTerm g.convolutionSquare n) := by
+            apply Finset.sum_congr rfl
+            intro n hnU
+            by_cases hnT : n ∈ T
+            · simp [hnT]
+            · have hz := hzero_of_not_mem (g.convolutionSquare) (by simpa [T] using hnT)
+              simp [hnT, hz]
+      _ = Finset.sum T (fun n => C1SameOwnerWeil.finitePrimeTerm g.convolutionSquare n) := by
+        symm
+        apply Finset.sum_subset hTU
+        intro n _hnU hnT
+        exact hzero_of_not_mem (g.convolutionSquare) (by simpa [T] using hnT)
+  have hR :
+      (Finset.sum U (fun n =>
+        if n ∈ R then
+          C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n else 0)) =
+        Finset.sum R (fun n =>
+          C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n) := by
+    calc
+      Finset.sum U (fun n =>
+          if n ∈ R then
+            C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n else 0) =
+          Finset.sum U (fun n =>
+            C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n) := by
+            apply Finset.sum_congr rfl
+            intro n hnU
+            by_cases hnR : n ∈ R
+            · simp [hnR]
+            · have hz := hzero_of_not_mem (realPartTest g).convolutionSquare
+                (by simpa [R] using hnR)
+              simp [hnR, hz]
+      _ = Finset.sum R (fun n =>
+          C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n) := by
+        symm
+        apply Finset.sum_subset hRU
+        intro n _hnU hnR
+        exact hzero_of_not_mem (realPartTest g).convolutionSquare (by simpa [R] using hnR)
+  have hI :
+      (Finset.sum U (fun n =>
+        if n ∈ I then
+          C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n else 0)) =
+        Finset.sum I (fun n =>
+          C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n) := by
+    calc
+      Finset.sum U (fun n =>
+          if n ∈ I then
+            C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n else 0) =
+          Finset.sum U (fun n =>
+            C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n) := by
+            apply Finset.sum_congr rfl
+            intro n hnU
+            by_cases hnI : n ∈ I
+            · simp [hnI]
+            · have hz := hzero_of_not_mem (imagPartTest g).convolutionSquare
+                (by simpa [I] using hnI)
+              simp [hnI, hz]
+      _ = Finset.sum I (fun n =>
+          C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n) := by
+        symm
+        apply Finset.sum_subset hIU
+        intro n _hnU hnI
+        exact hzero_of_not_mem (imagPartTest g).convolutionSquare (by simpa [I] using hnI)
+  unfold C1SameOwnerWeil.finitePrimeSum finitePrimeCarrierCorrection
+  change Finset.sum T (fun n => C1SameOwnerWeil.finitePrimeTerm g.convolutionSquare n) =
+    (Finset.sum R (fun n =>
+      C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n)) +
+      Finset.sum I (fun n =>
+        C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n) +
+        Finset.sum U (fun n =>
+          ((if n ∈ T then C1SameOwnerWeil.finitePrimeTerm g.convolutionSquare n else 0) -
+            (if n ∈ R then
+              C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n else 0) -
+            (if n ∈ I then
+              C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n else 0))
+        )
+  rw [← hT, ← hR, ← hI]
+  simp only [Finset.sum_sub_distrib, Finset.sum_add_distrib]
+  ring
+
+/-- The finite-carrier correction enters the Weil quadratic value with the
+opposite sign because `qw` subtracts the finite prime-power owner. -/
+theorem qw_convolutionSquare_eq_componentQws_sub_correction
+    (g : CompactLogTest) :
+    C1SameOwnerWeil.qw g =
+      C1SameOwnerWeil.qw (realPartTest g) +
+        C1SameOwnerWeil.qw (imagPartTest g) -
+          finitePrimeCarrierCorrection g := by
+  unfold C1SameOwnerWeil.qw C1SameOwnerWeil.psi
+  rw [poleTerm_convolutionSquare_split,
+    C1XiCenterTwoGammaComplexSplit.archimedeanTerm_split,
+    finitePrimeSum_convolutionSquare_eq_componentSums_add_correction]
+  ring
+
+/-- If the trimmed prime-power carrier of a complex square is exactly the
+disjoint union of the carriers of its real and imaginary component squares,
+then the finite prime sum inherits the pointwise coefficient split.  The
+carrier hypothesis is intentionally explicit: total-term cancellation can
+otherwise change membership and invalidate a naive sum decomposition. -/
+theorem finitePrimeSum_convolutionSquare_split_of_disjoint_carriers
+    (g : CompactLogTest)
+    (hcarrier :
+      C1SameOwnerWeil.globalPrimeIndexSet g.convolutionSquare =
+        C1SameOwnerWeil.globalPrimeIndexSet (realPartTest g).convolutionSquare ∪
+          C1SameOwnerWeil.globalPrimeIndexSet (imagPartTest g).convolutionSquare)
+    (hdisjoint :
+      Disjoint
+        (C1SameOwnerWeil.globalPrimeIndexSet (realPartTest g).convolutionSquare)
+        (C1SameOwnerWeil.globalPrimeIndexSet (imagPartTest g).convolutionSquare)) :
+    C1SameOwnerWeil.finitePrimeSum g.convolutionSquare =
+      C1SameOwnerWeil.finitePrimeSum (realPartTest g).convolutionSquare +
+        C1SameOwnerWeil.finitePrimeSum (imagPartTest g).convolutionSquare := by
+  unfold C1SameOwnerWeil.finitePrimeSum
+  rw [hcarrier, Finset.sum_union hdisjoint]
+  congr 1
+  · apply Finset.sum_congr rfl
+    intro n hn
+    have hnI : n ∉
+        C1SameOwnerWeil.globalPrimeIndexSet (imagPartTest g).convolutionSquare := by
+      exact Finset.disjoint_left.1 hdisjoint hn
+    have hzero :
+        C1SameOwnerWeil.finitePrimeTermComplex
+            (imagPartTest g).convolutionSquare n = 0 := by
+      by_contra hne
+      apply hnI
+      exact (C1SameOwnerWeil.mem_globalPrimeIndexSet_iff
+        ((imagPartTest g).convolutionSquare) n).2
+        ⟨C1SameOwnerWeil.finitePrimeTermComplex_nonzero_primePower
+          ((imagPartTest g).convolutionSquare) hne, hne⟩
+    have himag :
+        C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n = 0 := by
+      simpa [C1SameOwnerWeil.finitePrimeTerm] using congrArg Complex.re hzero
+    rw [finitePrimeTerm_convolutionSquare_re_split g n, himag, add_zero]
+  · apply Finset.sum_congr rfl
+    intro n hn
+    have hnR : n ∉
+        C1SameOwnerWeil.globalPrimeIndexSet (realPartTest g).convolutionSquare := by
+      exact Finset.disjoint_right.1 hdisjoint hn
+    have hzero :
+        C1SameOwnerWeil.finitePrimeTermComplex
+            (realPartTest g).convolutionSquare n = 0 := by
+      by_contra hne
+      apply hnR
+      exact (C1SameOwnerWeil.mem_globalPrimeIndexSet_iff
+        ((realPartTest g).convolutionSquare) n).2
+        ⟨C1SameOwnerWeil.finitePrimeTermComplex_nonzero_primePower
+          ((realPartTest g).convolutionSquare) hne, hne⟩
+    have hreal :
+        C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n = 0 := by
+      simpa [C1SameOwnerWeil.finitePrimeTerm] using congrArg Complex.re hzero
+    rw [finitePrimeTerm_convolutionSquare_re_split g n, hreal, zero_add]
+
+/-- Under the explicit carrier-stability hypothesis, the complete same-owner
+Weil quadratic value splits into the two real component values.  This is a
+conditional complexification lemma, not a proof that the carrier hypothesis
+holds for arbitrary tests. -/
+theorem qw_split_of_disjoint_component_carriers
+    (g : CompactLogTest)
+    (hcarrier :
+      C1SameOwnerWeil.globalPrimeIndexSet g.convolutionSquare =
+        C1SameOwnerWeil.globalPrimeIndexSet (realPartTest g).convolutionSquare ∪
+          C1SameOwnerWeil.globalPrimeIndexSet (imagPartTest g).convolutionSquare)
+    (hdisjoint :
+      Disjoint
+        (C1SameOwnerWeil.globalPrimeIndexSet (realPartTest g).convolutionSquare)
+        (C1SameOwnerWeil.globalPrimeIndexSet (imagPartTest g).convolutionSquare)) :
+    C1SameOwnerWeil.qw g =
+      C1SameOwnerWeil.qw (realPartTest g) +
+        C1SameOwnerWeil.qw (imagPartTest g) := by
+  unfold C1SameOwnerWeil.qw C1SameOwnerWeil.psi
+  rw [poleTerm_convolutionSquare_split,
+    C1XiCenterTwoGammaComplexSplit.archimedeanTerm_split,
+    finitePrimeSum_convolutionSquare_split_of_disjoint_carriers
+      g hcarrier hdisjoint]
+  ring
+
+/-- Under carrier stability, the correction is exactly zero.  This records
+why the earlier disjoint-carrier split is a special case of the general
+carrier-corrected identity. -/
+theorem finitePrimeCarrierCorrection_eq_zero_of_disjoint_carriers
+    (g : CompactLogTest)
+    (hcarrier :
+      C1SameOwnerWeil.globalPrimeIndexSet g.convolutionSquare =
+        C1SameOwnerWeil.globalPrimeIndexSet (realPartTest g).convolutionSquare ∪
+          C1SameOwnerWeil.globalPrimeIndexSet (imagPartTest g).convolutionSquare)
+    (hdisjoint :
+      Disjoint
+        (C1SameOwnerWeil.globalPrimeIndexSet (realPartTest g).convolutionSquare)
+        (C1SameOwnerWeil.globalPrimeIndexSet (imagPartTest g).convolutionSquare)) :
+    finitePrimeCarrierCorrection g = 0 := by
+  have hsum := finitePrimeSum_convolutionSquare_eq_componentSums_add_correction g
+  rw [finitePrimeSum_convolutionSquare_split_of_disjoint_carriers
+    g hcarrier hdisjoint] at hsum
+  linarith
+
+/-! ### The carrier correction is an exact zero, without carrier hypotheses -/
+
+/-- The carrier correction vanishes pointwise for every complex test.
+
+The carrier predicates are trimmed using the complex prime-power term, while
+the scalar summands use its real part.  The already-proved identity
+`finitePrimeTerm_convolutionSquare_re_split` and the fact that a term outside
+its carrier is zero therefore make each summand of the correction zero.  No
+disjointness or union hypothesis is needed. -/
+theorem finitePrimeCarrierCorrection_eq_zero (g : CompactLogTest) :
+    finitePrimeCarrierCorrection g = 0 := by
+  classical
+  let T := C1SameOwnerWeil.globalPrimeIndexSet g.convolutionSquare
+  let R := C1SameOwnerWeil.globalPrimeIndexSet (realPartTest g).convolutionSquare
+  let I := C1SameOwnerWeil.globalPrimeIndexSet (imagPartTest g).convolutionSquare
+  let U := T ∪ R ∪ I
+  have hzero_of_not_mem : ∀ (F : CompactLogTest) {n : ℕ},
+      n ∉ C1SameOwnerWeil.globalPrimeIndexSet F →
+        C1SameOwnerWeil.finitePrimeTerm F n = 0 := by
+    intro F n hn
+    have hcomplex : C1SameOwnerWeil.finitePrimeTermComplex F n = 0 := by
+      by_contra hne
+      apply hn
+      exact (C1SameOwnerWeil.mem_globalPrimeIndexSet_iff F n).2
+        ⟨C1SameOwnerWeil.finitePrimeTermComplex_nonzero_primePower F hne, hne⟩
+    simpa [C1SameOwnerWeil.finitePrimeTerm] using congrArg Complex.re hcomplex
+  unfold finitePrimeCarrierCorrection
+  change Finset.sum U (fun n =>
+    ((if n ∈ T then C1SameOwnerWeil.finitePrimeTerm g.convolutionSquare n else 0) -
+      (if n ∈ R then
+        C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n else 0) -
+      (if n ∈ I then
+        C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n else 0))) = 0
+  apply Finset.sum_eq_zero
+  intro n hnU
+  by_cases hnT : n ∈ T
+  · by_cases hnR : n ∈ R
+    · by_cases hnI : n ∈ I
+      · rw [if_pos hnT, if_pos hnR, if_pos hnI,
+          finitePrimeTerm_convolutionSquare_re_split g n]
+        ring
+      · have hI0 :
+          C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n = 0 :=
+          hzero_of_not_mem (imagPartTest g).convolutionSquare (by simpa [I] using hnI)
+        rw [if_pos hnT, if_pos hnR, if_neg hnI,
+          finitePrimeTerm_convolutionSquare_re_split g n, hI0]
+        ring
+    · by_cases hnI : n ∈ I
+      · have hR0 :
+          C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n = 0 :=
+          hzero_of_not_mem (realPartTest g).convolutionSquare (by simpa [R] using hnR)
+        rw [if_pos hnT, if_neg hnR, if_pos hnI,
+          finitePrimeTerm_convolutionSquare_re_split g n, hR0]
+        ring
+      · have hR0 :
+          C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n = 0 :=
+          hzero_of_not_mem (realPartTest g).convolutionSquare (by simpa [R] using hnR)
+        have hI0 :
+          C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n = 0 :=
+          hzero_of_not_mem (imagPartTest g).convolutionSquare (by simpa [I] using hnI)
+        rw [if_pos hnT, if_neg hnR, if_neg hnI,
+          finitePrimeTerm_convolutionSquare_re_split g n, hR0, hI0]
+        ring
+  · have hT0 : C1SameOwnerWeil.finitePrimeTerm g.convolutionSquare n = 0 :=
+      hzero_of_not_mem g.convolutionSquare (by simpa [T] using hnT)
+    have hcomponent :
+        C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n +
+            C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n = 0 := by
+      calc
+        C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n +
+              C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n =
+            C1SameOwnerWeil.finitePrimeTerm g.convolutionSquare n :=
+          (finitePrimeTerm_convolutionSquare_re_split g n).symm
+        _ = 0 := hT0
+    by_cases hnR : n ∈ R
+    · by_cases hnI : n ∈ I
+      · rw [if_neg hnT, if_pos hnR, if_pos hnI]
+        linarith
+      · have hI0 :
+          C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n = 0 :=
+          hzero_of_not_mem (imagPartTest g).convolutionSquare (by simpa [I] using hnI)
+        rw [if_neg hnT, if_pos hnR, if_neg hnI]
+        linarith
+    · by_cases hnI : n ∈ I
+      · have hR0 :
+          C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n = 0 :=
+          hzero_of_not_mem (realPartTest g).convolutionSquare (by simpa [R] using hnR)
+        rw [if_neg hnT, if_neg hnR, if_pos hnI]
+        linarith
+      · have hR0 :
+          C1SameOwnerWeil.finitePrimeTerm (realPartTest g).convolutionSquare n = 0 :=
+          hzero_of_not_mem (realPartTest g).convolutionSquare (by simpa [R] using hnR)
+        have hI0 :
+          C1SameOwnerWeil.finitePrimeTerm (imagPartTest g).convolutionSquare n = 0 :=
+          hzero_of_not_mem (imagPartTest g).convolutionSquare (by simpa [I] using hnI)
+        rw [if_neg hnT, if_neg hnR, if_neg hnI]
+        linarith
+
+/-- The complete finite prime-power sum splits into the two real component
+owners for every complex test. -/
+theorem finitePrimeSum_convolutionSquare_eq_componentSums (g : CompactLogTest) :
+    C1SameOwnerWeil.finitePrimeSum g.convolutionSquare =
+      C1SameOwnerWeil.finitePrimeSum (realPartTest g).convolutionSquare +
+        C1SameOwnerWeil.finitePrimeSum (imagPartTest g).convolutionSquare := by
+  have hsum := finitePrimeSum_convolutionSquare_eq_componentSums_add_correction g
+  rw [finitePrimeCarrierCorrection_eq_zero] at hsum
+  simpa using hsum
+
+/-- The complete Weil quadratic value splits into the two real component
+values for every complex test. -/
+theorem qw_convolutionSquare_eq_componentQws (g : CompactLogTest) :
+    C1SameOwnerWeil.qw g =
+      C1SameOwnerWeil.qw (realPartTest g) +
+        C1SameOwnerWeil.qw (imagPartTest g) := by
+  rw [qw_convolutionSquare_eq_componentQws_sub_correction,
+    finitePrimeCarrierCorrection_eq_zero, sub_zero]
+
+/-- **Complex-to-real reduction of the W4b sign problem.**
+
+If the Weil quadratic value is nonnegative on every *real* vanishing test,
+then it is nonnegative on every complex vanishing test: the exact component
+split `qw_convolutionSquare_eq_componentQws` writes the complex value as the
+sum of the two component values, each component is a real test
+(`isRealTest_realPartTest`, `isRealTest_imagPartTest`), and each component
+inherits the vanishing condition
+(`realPartTest_vanishesOn_of_vanishesOn`,
+`imagPartTest_vanishesOn_of_vanishesOn`).
+
+This is unconditional bookkeeping, not a positivity proof: the remaining W4b
+obligation is the sign bound on real tests, now known to suffice for all
+tests. -/
+theorem qw_nonneg_of_forall_real_vanishing
+    {F : Finset CriticalVanishingPoint}
+    (hreal : ∀ h : CompactLogTest, IsRealTest h →
+      CC20VanishesOn C1.healthyCC20TestSpace F h → 0 ≤ C1SameOwnerWeil.qw h)
+    (g : CompactLogTest)
+    (hg : CC20VanishesOn C1.healthyCC20TestSpace F g) :
+    0 ≤ C1SameOwnerWeil.qw g := by
+  rw [qw_convolutionSquare_eq_componentQws]
+  exact add_nonneg
+    (hreal (realPartTest g) (isRealTest_realPartTest g)
+      (realPartTest_vanishesOn_of_vanishesOn g hg))
+    (hreal (imagPartTest g) (isRealTest_imagPartTest g)
+      (imagPartTest_vanishesOn_of_vanishesOn g hg))
 
 /-- The Hermitian square law of a real test collapses: the conjugation leg
 disappears and the off-line pair product is the plain product of the two
@@ -507,6 +1088,37 @@ theorem rightHalfPhaseStrictBound_iff_prefixCertificate
     · exact div_pos (sub_pos.mpr hstrict) zero_lt_two
     · linarith [hstrictbound]
 
+/-! ### The certificate is exactly strict Weil positivity -/
+
+/-
+The prefix certificate is not an independent source of positivity.  The
+previous theorem identifies it with a strict lower bound for the total phase
+sum; the W4b ledger then identifies that strict lower bound with
+`0 < qw g`.  Keeping this equivalence explicit prevents a later producer from
+mistaking the certificate interface for a weaker, purely analytic premise.
+-/
+theorem rightHalfPhasePrefixCertificate_iff_qw_pos
+    (g : CompactLogTest) (hreal : IsRealTest g) :
+    (∃ margin > (0 : ℝ),
+      ∃ T : Finset sourceNontrivialZeroSet,
+        -(1 / 2 : ℝ) * onLineSpectralMass g + margin ≤
+          (∑ rho ∈ T,
+            Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) ∧
+        (∑' rho : {rho // rho ∉ T},
+          ‖Set.indicator rightHalfOffLine
+            (rightHalfPhaseKernel g) rho‖) < margin) ↔
+      0 < C1SameOwnerWeil.qw g := by
+  rw [rightHalfPhaseStrictBound_iff_prefixCertificate g hreal]
+  constructor
+  · intro hphase
+    rw [qw_eq_onLine_add_two_mul_re_rightHalfSpectralSum]
+    rw [rightHalfSpectralSum_re_eq_tsum_indicator_phase g hreal]
+    linarith
+  · intro hqw
+    rw [qw_eq_onLine_add_two_mul_re_rightHalfSpectralSum] at hqw
+    rw [rightHalfSpectralSum_re_eq_tsum_indicator_phase g hreal] at hqw
+    linarith
+
 /-- Why the certificate margin must be existential rather than demanded for
 EVERY positive epsilon: the phase series is absolutely summable, so every
 finite prefix is uniformly bounded above by the total absolute mass of the
@@ -570,6 +1182,25 @@ theorem norm_convolutionSquare_test_zero_eq_integral_normSq
 
 #print axioms rightHalfSpectralTerm_re_eq_indicator_phase
 #print axioms rightHalfSpectralSum_re_eq_tsum_indicator_phase
+#print axioms isRealTest_realPartTest
+#print axioms isRealTest_imagPartTest
+#print axioms realPartTest_vanishesOn_of_vanishesOn
+#print axioms imagPartTest_vanishesOn_of_vanishesOn
+#print axioms laplaceAt_convolutionSquare_eq_componentSquares_add_cross
+#print axioms laplaceAt_im_eq_zero_of_isRealTest_real
+#print axioms laplaceAt_convolutionSquare_cross_re_zero_at_real
+#print axioms laplaceAt_convolutionSquare_re_split_at_real
+#print axioms poleTerm_convolutionSquare_split
+#print axioms finitePrimeTerm_convolutionSquare_re_split
+#print axioms finitePrimeSum_convolutionSquare_eq_componentSums_add_correction
+#print axioms qw_convolutionSquare_eq_componentQws_sub_correction
+#print axioms finitePrimeSum_convolutionSquare_split_of_disjoint_carriers
+#print axioms qw_split_of_disjoint_component_carriers
+#print axioms finitePrimeCarrierCorrection_eq_zero_of_disjoint_carriers
+#print axioms finitePrimeCarrierCorrection_eq_zero
+#print axioms finitePrimeSum_convolutionSquare_eq_componentSums
+#print axioms qw_convolutionSquare_eq_componentQws
+#print axioms qw_nonneg_of_forall_real_vanishing
 #print axioms rightHalfPhaseBound_onRealVanishing
 #print axioms rightHalfPhaseBound_onRealVanishing_iff_spectral
 #print axioms summable_rightHalfPhaseTerm
@@ -582,6 +1213,7 @@ theorem norm_convolutionSquare_test_zero_eq_integral_normSq
 #print axioms rightHalfPhasePrefixCertificate_onRealVanishing
 #print axioms rightHalfPhaseBound_onRealVanishing_of_prefix_certificate
 #print axioms rightHalfPhaseStrictBound_iff_prefixCertificate
+#print axioms rightHalfPhasePrefixCertificate_iff_qw_pos
 #print axioms not_rightHalfPhasePrefix_unboundedMargins
 #print axioms exists_rightHalfPhasePrefix_tail_budget_lt
 #print axioms exists_rightHalfPhasePrefix_phaseTail_norm_lt

@@ -128,6 +128,56 @@ every nontrivial detector readback must pass through a windowed/renormalized own
 declarations audit to `[propext, Classical.choice, Quot.sound]`, no `sorryAx`; full root build
 `4147/4147`.
 
+### W4b Complex-to-Real Split Guard (2026-08-25)
+
+`Dev/C1SpectralRealPair.lean` now proves
+`laplaceAt_convolutionSquare_eq_componentSquares_add_cross`: a complex test's
+Laplace transform of the convolution square equals the real-component square
+plus the imaginary-component square plus an explicit reflected cross term.
+The identity is exact and axiom-clean, but it does not imply positivity. Any
+future W4b argument must supply a separate bound or cancellation theorem for
+that cross term; componentwise nonnegativity alone is insufficient.
+On the real axis the new lemmas
+`laplaceAt_convolutionSquare_re_split_at_real` and
+`poleTerm_convolutionSquare_split` remove the cross term from the real part.
+`finitePrimeTerm_convolutionSquare_re_split` is only pointwise: do not promote
+it to finite-prime-sum additivity without proving equality of the trimmed
+carriers, since total-term cancellation can alter carrier membership.
+The conditional theorem
+`finitePrimeSum_convolutionSquare_split_of_disjoint_carriers` makes this
+precise: if the total carrier is the disjoint union of the component carriers,
+then the finite-prime sum splits. Its consumer
+`qw_split_of_disjoint_component_carriers` also splits the full `qw`. These
+carrier hypotheses remain open for arbitrary complex tests and must not be
+silently assumed.
+The general theorem
+`finitePrimeSum_convolutionSquare_eq_componentSums_add_correction` removes
+that hidden assumption by introducing the exact finite carrier correction
+`finitePrimeCarrierCorrection`; consequently
+`qw_convolutionSquare_eq_componentQws_sub_correction` has the correction with
+a minus sign because `qw` subtracts the prime-power sum.  The correction is
+proved zero under the disjoint-carrier hypotheses by
+`finitePrimeCarrierCorrection_eq_zero_of_disjoint_carriers`.  These are exact
+finite identities only: they do not provide a sign for the correction or close
+the universal W4b positivity obligation.
+
+**Resolution (2026-08-25, same file, verified):** the carrier caution above is
+now unconditional.  `finitePrimeCarrierCorrection_eq_zero` proves the
+correction identically zero for EVERY complex test — the pointwise split
+`finitePrimeTerm_convolutionSquare_re_split` plus zero-outside-carrier kills
+every summand of the correction, so carrier hypotheses are unnecessary.
+Hence `finitePrimeSum_convolutionSquare_eq_componentSums` and
+`qw_convolutionSquare_eq_componentQws` (`qw g = qw (Re g) + qw (Im g)`) hold
+unconditionally.  The route consequence is the reduction theorem
+`qw_nonneg_of_forall_real_vanishing`: nonnegativity of `qw` on REAL vanishing
+tests implies nonnegativity on ALL vanishing tests, because both components
+are real tests (`isRealTest_realPartTest` / `isRealTest_imagPartTest`) and
+inherit vanishing (`realPartTest_vanishesOn_of_vanishesOn` /
+`imagPartTest_vanishesOn_of_vanishesOn`).  The universal W4b sign obligation
+therefore collapses from complex tests to real tests.  This is still only a
+reduction: the sign bound on real vanishing tests remains the open W4b
+obligation, and the Laplace cross term off the real axis still has no bound.
+
 ### C1 Common-Carrier Stages 1-2 (2026-08-19)
 
 The finite arithmetic part of the positive-trace producer is now closed as a
@@ -470,6 +520,22 @@ transport is proved, the exact pair decomposition has the residual
 `(m_partner - m) * Re (L(g□)(w))`. This is the named W4 multiplicity defect,
 not a simplification artifact. The partner module compiles natively with only
 `[propext, Classical.choice, Quot.sound]` and no `sorryAx`.
+
+The W4b finite-prefix certificate is now audited as an exact boundary, not a
+free analytic premise. `C1SpectralRealPair.rightHalfPhasePrefixCertificate_iff_qw_pos`
+proves that, for every real test, the certificate is equivalent to strict
+`0 < C1SameOwnerWeil.qw g` after the exact phase ledger is applied. Therefore
+the remaining universal W4b task is still the genuine Weil sign bound
+`0 ≤ qw g` (including its possible zero boundary); adding prefix/tail
+bookkeeping alone cannot supply that sign.
+
+The same W4b module now exposes constructible real component owners:
+`isRealTest_realPartTest` and `isRealTest_imagPartTest`, together with
+`realPartTest_vanishesOn_of_vanishesOn` and
+`imagPartTest_vanishesOn_of_vanishesOn`. These are coordinate/vanishing
+bridges only. The complex-split owner has no theorem turning component-level
+archimedean or Gamma positivity into a full `qw` sign, because the spectral
+phase has cross terms. Any such lift requires a separate cross-term estimate.
 
 ### C1 Coordinate, Owner, And Sign Guards
 
@@ -1182,6 +1248,10 @@ restricted/global masses with one evaluation object.
 - **`rw [Set.indicator_apply, if_neg h]` fails on Decidable synthesis:** instantiating `Set.indicator_apply` leaves the `ite` instance as a metavariable, and `if_neg` then triggers instance synthesis for `Decidable (a ∈ s)` on a def-defined set — fails. Do NOT fight instances: prove the zero case as its own `have e : s.indicator f a = 0 := by simp [h_not_mem]` and `rw [e]`; `simp` resolves the classical instance. (Observed 2026-08-25.)
 
 - **Parenthesize `.mp` inside application arguments:** `h (iff_lemma x).mp hpl` parses as applying `h` to the PARTIALLY applied `.mp`; the intended `h ((iff_lemma x).mp hpl)` needs the outer parentheses. Symptom: "Application type mismatch: the argument has type ... → ... but is expected to have type <the goal prop>". (Observed 2026-08-25.)
+
+- **A `change`/term-mode lambda argument must CLOSE its paren before a trailing `= …`:** in `change Finset.sum U (fun n => …-term…) = 0`, forgetting the lambda-argument's closing `)` makes `= 0` part of the lambda body, so the sum becomes a sum of `Prop` — the error surfaces far away as "failed to synthesize instance of type class" at the `change` line plus "unexpected token ':'" at the next focus-dot tactic, with cascading "Unknown identifier" noise. Count the parens of a multi-line `change` against its target shape before building; a lone `)` on its own closing line (as in the sibling lemma) is the safe style. (Observed 2026-08-25, `finitePrimeCarrierCorrection_eq_zero` first build.)
+
+- **`rw` order matters when one rewrite CONSUMES another's pattern:** after `rw [if_neg hnT]` replaces `if n ∈ T then term_T else 0` by `0`, a later `hT0 : term_T = 0` in the SAME list fails "Did not find an occurrence of the pattern term_T". Order rewrites so the term-level identity (`hT0`, `hR0`, …) either precedes the `if_pos/if_neg` that erases its pattern, or drop it and let `linarith` read it from context. (Observed 2026-08-25, `¬T` branch of the same proof: 4 cascade failures from one consumed pattern.)
 
 - **Check the ext4 mirror for stale sources BEFORE building on it:** `/home/peter/rh` had pre-wiring W4a files (missing the multiplicity-transport theorems) while oleans looked healthy; a build there would have verified the wrong sources. Cheap guard: `diff <(tr -d '\r' < windows-file) <(tr -d '\r' < mirror-file)` for the modules under edit, or `rsync` the source tree first and let lake rebuild the touched bricks. (Observed 2026-08-25.)
 
