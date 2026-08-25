@@ -3,8 +3,8 @@
 Date: 2026-08-24.
 
 Status: **Stage 2: W1, W2, W3, W4a (conjugate transport), the W4b-pairing
-tsum split, the W5-lite reduction ledger, and the real-test phase interface
-LANDED; KT-1040a/b/c RUN GREEN;
+tsum split, the W5-lite reduction ledger, the real-test phase interface, and
+the finite-prefix/tail phase ledger LANDED; KT-1040a/b/c RUN GREEN;
 no RH claim.** After the 2026-08-24
 refutations (bare-operator FRONTIER-HS, P2 bulk-subtracted readback), both live
 producers of `healthyCriterionState` reduce to one open statement — the
@@ -255,6 +255,28 @@ W4b-PHASE INTERFACE: LANDED 2026-08-25 (axiom-clean,
     total-series identity.  It does NOT prove the missing off-origin
     autocorrelation bound or the W4b inequality; those remain analytic
     obligations.
+
+W4b-FINITE PREFIX / TAIL LEDGER: LANDED 2026-08-25 (axiom-clean,
+    `C1SpectralRealPair.lean`, Build #21: 3614 jobs).  The phase series now
+    has an explicit convergence and truncation interface:
+
+    - `summable_rightHalfPhaseTerm` derives real phase-term summability from
+      the existing complex right-half series.
+    - `rightHalfPhaseTsum_eq_prefix_add_tail` writes the total phase tsum as
+      an arbitrary finite `Finset` prefix plus the complementary subtype tail.
+    - `rightHalfPhaseTerm_norm_le_spectralNormTerm` bounds each phase term by
+      the already-proved scalar `spectralNormTerm` majorant.
+    - `rightHalfPhaseTail_norm_le_tsum_norm` turns that majorant into an
+      explicit norm budget for the tail, and
+      `rightHalfPhaseTsum_ge_prefix_sub_tailNorm` gives the resulting lower
+      bound: finite prefix minus tail budget.
+
+    This is a mechanical reduction, not a W4b proof.  No claim is made that
+    the tail budget vanishes for a chosen prefix, and no sign is assigned to
+    an individual off-line phase term.  The remaining analytic task is to
+    choose/estimate a finite prefix and prove that prefix minus its audited
+    tail budget is at least `-(1/2) * onLineSpectralMass` on the vanishing
+    subspace.
 
 W4  RESIDUAL CONTROL (the deep step, REMAINS OPEN):
     off-line residual + (-poleTerm g^2) bounded by the on-line mass

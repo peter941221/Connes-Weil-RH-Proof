@@ -261,6 +261,97 @@ theorem rightHalfPhaseBound_onRealVanishing_iff_spectral
     rw [rightHalfSpectralSum_re_eq_tsum_indicator_phase g hreal] at hspectral
     exact hspectral
 
+/-! ### Finite-prefix and tail bookkeeping for the phase series -/
+
+/-- The real phase terms inherit summability from the already-proved complex
+right-half spectral series.  This is a convergence statement only; it does not
+control the sign of any phase term or of their total. -/
+theorem summable_rightHalfPhaseTerm
+    (g : CompactLogTest) (hreal : IsRealTest g) :
+    Summable (fun rho : sourceNontrivialZeroSet =>
+      Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) := by
+  have hsumRe : Summable (fun rho : sourceNontrivialZeroSet =>
+      (Set.indicator rightHalfOffLine
+        (spectralTerm g.convolutionSquare) rho).re) :=
+    RCLike.reCLM.summable (summable_rightHalfSpectralTerm g)
+  exact hsumRe.congr fun rho =>
+    rightHalfSpectralTerm_re_eq_indicator_phase g hreal rho
+
+/-- Exact decomposition of the total phase tsum into a finite prefix and the
+complementary subtype tail.  The finite set is arbitrary and is therefore a
+reusable interface for later analytic estimates. -/
+theorem rightHalfPhaseTsum_eq_prefix_add_tail
+    (g : CompactLogTest) (hreal : IsRealTest g)
+    (T : Finset sourceNontrivialZeroSet) :
+    (∑' rho : sourceNontrivialZeroSet,
+        Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) =
+      (∑ rho ∈ T,
+        Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) +
+        ∑' rho : {rho // rho ∉ T},
+          Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho := by
+  exact (Summable.sum_add_tsum_subtype_compl
+    (summable_rightHalfPhaseTerm g hreal) T).symm
+
+/-- A termwise scalar majorant for the phase kernel.  It is the real-part
+contraction `|Re z| ≤ ‖z‖` followed by the existing spectral norm readback. -/
+theorem rightHalfPhaseTerm_norm_le_spectralNormTerm
+    (g : CompactLogTest) (hreal : IsRealTest g)
+    (rho : sourceNontrivialZeroSet) :
+    ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖ ≤
+      Set.indicator rightHalfOffLine
+        (spectralNormTerm g.convolutionSquare) rho := by
+  by_cases h : rho ∈ rightHalfOffLine
+  · have hphase := rightHalfSpectralTerm_re_eq_indicator_phase g hreal rho
+    rw [Set.indicator_of_mem h, Set.indicator_of_mem h] at hphase
+    rw [Set.indicator_of_mem h, Set.indicator_of_mem h, ← hphase]
+    simpa only [Real.norm_eq_abs, norm_spectralTerm] using
+      (Complex.abs_re_le_norm (spectralTerm g.convolutionSquare rho))
+  · simp [h]
+
+/-- The complement tail is bounded in norm by the tsum of its termwise norms.
+This is the explicit, auditable error budget that remains after selecting a
+finite zero prefix. -/
+theorem rightHalfPhaseTail_norm_le_tsum_norm
+    (g : CompactLogTest) (hreal : IsRealTest g)
+    (T : Finset sourceNontrivialZeroSet) :
+    ‖∑' rho : {rho // rho ∉ T},
+        Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖ ≤
+    ∑' rho : {rho // rho ∉ T},
+        ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖ := by
+  have hmajorant : Summable (fun rho : sourceNontrivialZeroSet =>
+      Set.indicator rightHalfOffLine
+        (spectralNormTerm g.convolutionSquare) rho) :=
+    (summable_spectralNormTerm g.convolutionSquare).indicator rightHalfOffLine
+  have hphaseNorm : Summable (fun rho : sourceNontrivialZeroSet =>
+      ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖) :=
+    Summable.of_nonneg_of_le
+      (fun rho => norm_nonneg _)
+      (fun rho => rightHalfPhaseTerm_norm_le_spectralNormTerm g hreal rho)
+      hmajorant
+  exact norm_tsum_le_tsum_norm
+    (hphaseNorm.subtype (fun rho => rho ∉ T))
+
+/-- Lower-bound form of the finite-prefix reduction.  Closing W4b now amounts
+to proving that the finite prefix minus this explicit tail budget is at least
+`-(1/2) * onLineSpectralMass`; this theorem itself is unconditional. -/
+theorem rightHalfPhaseTsum_ge_prefix_sub_tailNorm
+    (g : CompactLogTest) (hreal : IsRealTest g)
+    (T : Finset sourceNontrivialZeroSet) :
+    (∑' rho : sourceNontrivialZeroSet,
+        Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) ≥
+      (∑ rho ∈ T,
+        Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) -
+        ∑' rho : {rho // rho ∉ T},
+          ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖ := by
+  rw [rightHalfPhaseTsum_eq_prefix_add_tail g hreal T]
+  have htail := rightHalfPhaseTail_norm_le_tsum_norm g hreal T
+  have htailLower : -‖∑' rho : {rho // rho ∉ T},
+      Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖ ≤
+      ∑' rho : {rho // rho ∉ T},
+        Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho := by
+    exact neg_le_of_abs_le (by simpa [Real.norm_eq_abs])
+  linarith
+
 /-! ### The autocorrelation mass at the origin -/
 
 /-- The origin value of the Hermitian convolution square is a nonnegative real
@@ -288,6 +379,11 @@ theorem norm_convolutionSquare_test_zero_eq_integral_normSq
 #print axioms rightHalfSpectralSum_re_eq_tsum_indicator_phase
 #print axioms rightHalfPhaseBound_onRealVanishing
 #print axioms rightHalfPhaseBound_onRealVanishing_iff_spectral
+#print axioms summable_rightHalfPhaseTerm
+#print axioms rightHalfPhaseTsum_eq_prefix_add_tail
+#print axioms rightHalfPhaseTerm_norm_le_spectralNormTerm
+#print axioms rightHalfPhaseTail_norm_le_tsum_norm
+#print axioms rightHalfPhaseTsum_ge_prefix_sub_tailNorm
 
 end
 end C1SpectralRealPair

@@ -1,3 +1,24 @@
+## Change Log (2026-08-25 session 7, W4b finite-prefix/tail ledger LANDED)
+- **Finite-prefix/tail phase ledger LANDED** (`ConnesWeilRH/Dev/C1SpectralRealPair.lean`,
+  Build #21: 3614 jobs, 0 error / 0 `sorryAx`).  The new declarations are
+  axiom-clean with only `[propext, Classical.choice, Quot.sound]`:
+  `summable_rightHalfPhaseTerm`,
+  `rightHalfPhaseTsum_eq_prefix_add_tail`,
+  `rightHalfPhaseTerm_norm_le_spectralNormTerm`,
+  `rightHalfPhaseTail_norm_le_tsum_norm`, and
+  `rightHalfPhaseTsum_ge_prefix_sub_tailNorm`.
+- The first theorem derives real phase-term summability from the complex
+  right-half series.  The second decomposes the total phase tsum for an
+  arbitrary finite zero prefix.  The scalar majorant theorem uses
+  `|Re z| <= ||z||` and `norm_spectralTerm`; the tail theorem then uses the
+  existing `summable_spectralNormTerm` and `Summable.of_nonneg_of_le` before
+  applying `norm_tsum_le_tsum_norm`.
+- **Boundary remains explicit:** this is a truncation/error-budget interface,
+  not the W4b sign estimate.  It does not prove that any tail tends to zero,
+  assign a sign to an off-line term, or close RH.  The remaining target is a
+  finite-prefix phase lower bound minus the audited tail budget, at least
+  `-(1/2) * onLineSpectralMass` on the vanishing subspace.
+
 ## Change Log (2026-08-25 session 6, W4b phase tsum target LANDED)
 - **Phase tsum readback LANDED** (`ConnesWeilRH/Dev/C1SpectralRealPair.lean`,
   Build #20: 3614 jobs, 0 error / 0 sorryAx; the new declarations audit to

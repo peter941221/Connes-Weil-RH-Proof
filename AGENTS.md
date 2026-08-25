@@ -1193,6 +1193,10 @@ restricted/global masses with one evaluation object.
 
 - **The real-test phase leaf exposes an interface, not the missing bound** (Observed 2026-08-25, `C1SpectralRealPair`): `spectralTerm_convolutionSquare_re_of_isReal` is an exact reduction to `Re(L_g(-w) * L_g(w))`, `rightHalfPhaseKernel` names that multiplicity-weighted phase term, and `rightHalfSpectralSum_re_eq_tsum_indicator_phase` is only the `Complex.re_tsum` total-series readback. `rightHalfPhaseBound_onRealVanishing` names the restricted proposition but does not prove it; its `_iff_spectral` companion is only a presentation equivalence. `norm_convolutionSquare_test_zero_eq_integral_normSq` only reads the origin mass. Do not cite any of these as an off-origin autocorrelation estimate or as the W4b inequality; the phase bound remains an independent analytic premise.
 
+- **Summable vectors are not automatically summable norm sequences** (Observed 2026-08-25, `C1SpectralRealPair`): `norm_tsum_le_tsum_norm` requires `Summable (fun i => ‖f i‖)`, not merely `Summable f`. For the phase tail, first compare `‖phaseTerm i‖` with the existing scalar `spectralNormTerm` majorant using `Summable.of_nonneg_of_le`, then pass the resulting norm-series proof to `norm_tsum_le_tsum_norm`.
+
+- **`Summable.subtype` takes a predicate, not a `Finset`** (Observed 2026-08-25, `C1SpectralRealPair`): for the complement of a finite prefix `T`, use `(hsum.subtype (fun rho => rho ∉ T))`; passing `T` directly produces an application type mismatch. In finite sums, follow the local notation `∑ rho ∈ T, ...`.
+
 
 ## 8. WSL Verification
 
