@@ -1,3 +1,20 @@
+## Change Log (2026-08-25 session 10, W4b certificate quantifier FIXED + strict-bound equivalence LANDED)
+- **Certificate refinement LANDED** (`ConnesWeilRH/Dev/C1SpectralRealPair.lean`,
+  Build #24: 3614 jobs; full root Build #24: 4147 jobs; 0 error / 0 `sorryAx`;
+  new declarations audit to `[propext, Classical.choice, Quot.sound]`).
+- The session-9 certificate demanded a fresh finite prefix for EVERY positive
+  epsilon.  That is provably too strong: the phase series is absolutely
+  summable, so every finite prefix is uniformly bounded by the total absolute
+  mass of the series (`not_rightHalfPhasePrefix_unboundedMargins` records this
+  in Lean).  The def now carries one EXISTENTIAL margin per test with a single
+  prefix witnessing both inequalities together.
+- `rightHalfPhaseStrictBound_iff_prefixCertificate` proves that, per real
+  test, this existential-margin certificate is equivalent to the STRICT phase
+  lower bound (total tsum strictly above `-(1/2) * onLineSpectralMass`).  The
+  non-strict W4b target then follows by the existing assembly theorem.
+- **Boundary remains explicit:** producing a certificate - equivalently,
+  proving the strict bound for each real F-vanishing test - is still the open
+  analytic part of W4b; RH remains unclaimed.
 ## Change Log (2026-08-25 session 9, W4b finite-prefix certificate interface LANDED)
 - **Finite-prefix certificate packaging LANDED** (`ConnesWeilRH/Dev/C1SpectralRealPair.lean`,
   Build #23: 3614 jobs; full root Build #23: 4147 jobs; 0 error / 0 `sorryAx`;

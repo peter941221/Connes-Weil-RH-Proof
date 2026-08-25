@@ -418,21 +418,26 @@ theorem rightHalfPhaseBound_of_prefix_tail_certificate
     linarith
   exact le_of_lt (lt_of_lt_of_le hstrict hledger)
 
-/-- The remaining real-test W4b obligation can be packaged as a finite-prefix
-certificate: every real, F-vanishing test must admit one prefix whose phase
-margin dominates its audited tail budget. -/
+/-- The remaining real-test W4b obligation packaged as a finite-prefix
+certificate.  For each pointwise-real F-vanishing test there must exist one
+finite zero prefix and one positive margin such that the phase sum over the
+prefix beats `-(1/2) * onLineSpectralMass` by at least the margin while the
+audited absolute tail of the complementary zeros stays below it.  The margin
+is EXISTENTIAL: demanding a fresh certificate for every positive margin would
+be too strong, because the absolutely summable phase series bounds every
+finite prefix uniformly (see `not_rightHalfPhasePrefix_unboundedMargins`). -/
 def rightHalfPhasePrefixCertificate_onRealVanishing
     {F : Finset CriticalVanishingPoint} : Prop :=
   ∀ g : CompactLogTest, IsRealTest g →
     CC20VanishesOn C1.healthyCC20TestSpace F g →
-      ∀ epsilon : ℝ, 0 < epsilon →
+      ∃ margin > (0 : ℝ),
         ∃ T : Finset sourceNontrivialZeroSet,
-          -(1 / 2 : ℝ) * onLineSpectralMass g + epsilon ≤
+          -(1 / 2 : ℝ) * onLineSpectralMass g + margin ≤
               (∑ rho ∈ T,
                 Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) ∧
             (∑' rho : {rho // rho ∉ T},
               ‖Set.indicator rightHalfOffLine
-                (rightHalfPhaseKernel g) rho‖) < epsilon
+                (rightHalfPhaseKernel g) rho‖) < margin
 
 /-- A prefix certificate is sufficient for the real-test phase target.  This
 is an assembly theorem only; producing the certificate is the open analytic
@@ -442,9 +447,103 @@ theorem rightHalfPhaseBound_onRealVanishing_of_prefix_certificate
     (hcert : rightHalfPhasePrefixCertificate_onRealVanishing (F := F)) :
     rightHalfPhaseBound_onRealVanishing (F := F) := by
   intro g hreal hvanishes
-  obtain ⟨T, hprefix, htail⟩ := hcert g hreal hvanishes 1 (by norm_num)
+  obtain ⟨margin, _, T, hprefix, htail⟩ := hcert g hreal hvanishes
   exact rightHalfPhaseBound_of_prefix_tail_certificate
     g hreal T hprefix htail
+
+/-! ### The certificate is exactly the strict phase bound -/
+
+/-- A finite prefix whose phase sum beats the target by a positive margin, with
+the audited absolute tail below that same margin, is per test equivalent to the
+STRICT lower bound for the total phase tsum.  Forward: the exact prefix/tail
+split keeps the strictness - the complementary tail cannot absorb the whole
+margin because its norm stays below it.  Backward: cofinality shrinks the tail
+and the margin is extracted from the strict gap between the total and the
+target. -/
+theorem rightHalfPhaseStrictBound_iff_prefixCertificate
+    (g : CompactLogTest) (hreal : IsRealTest g) :
+    (∃ margin > (0 : ℝ),
+      ∃ T : Finset sourceNontrivialZeroSet,
+        -(1 / 2 : ℝ) * onLineSpectralMass g + margin ≤
+          (∑ rho ∈ T,
+            Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) ∧
+          (∑' rho : {rho // rho ∉ T},
+            ‖Set.indicator rightHalfOffLine
+              (rightHalfPhaseKernel g) rho‖) < margin) ↔
+      ((∑' rho : sourceNontrivialZeroSet,
+          Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) >
+        -(1 / 2 : ℝ) * onLineSpectralMass g) := by
+  set Sphase := (∑' rho : sourceNontrivialZeroSet,
+      Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) with hSphase
+  set Tg := -(1 / 2 : ℝ) * onLineSpectralMass g with hTg
+  constructor
+  · rintro ⟨margin, _, T, hprefix, htail⟩
+    have hsplit := rightHalfPhaseTsum_eq_prefix_add_tail g hreal T
+    set ttail := (∑' rho : {rho // rho ∉ T},
+        Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) with httail
+    have habsstrict : |ttail| < margin := by
+      simpa [Real.norm_eq_abs] using
+        (rightHalfPhaseTail_norm_le_tsum_norm g hreal T).trans_lt htail
+    have hlow : -margin < ttail := (abs_lt.mp habsstrict).1
+    rw [hSphase, hsplit]
+    linarith [hprefix, hlow]
+  · intro hstrict
+    obtain ⟨T, htail⟩ := exists_rightHalfPhasePrefix_tail_budget_lt g hreal
+      (epsilon := (Sphase - Tg) / 2)
+      (div_pos (sub_pos.mpr hstrict) zero_lt_two)
+    have hsplit := rightHalfPhaseTsum_eq_prefix_add_tail g hreal T
+    set ttail := (∑' rho : {rho // rho ∉ T},
+        Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) with httail
+    set Pfull := (∑ rho ∈ T,
+        Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) with hPdef
+    have hpre : Pfull = Sphase - ttail := by linarith [hsplit]
+    have habstail : |ttail| ≤ (∑' rho : {rho // rho ∉ T},
+        ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖) := by
+      simpa [Real.norm_eq_abs] using rightHalfPhaseTail_norm_le_tsum_norm g hreal T
+    have habsle : ttail ≤ |ttail| := le_abs_self ttail
+    have hsup : ttail < (Sphase - Tg) / 2 := by linarith [habsle, habstail, htail]
+    have hstrictbound : Pfull > Sphase - (Sphase - Tg) / 2 := by linarith [hpre, hsup]
+    refine ⟨(Sphase - Tg) / 2, ?_, T, ?_, htail⟩
+    · exact div_pos (sub_pos.mpr hstrict) zero_lt_two
+    · linarith [hstrictbound]
+
+/-- Why the certificate margin must be existential rather than demanded for
+EVERY positive epsilon: the phase series is absolutely summable, so every
+finite prefix is uniformly bounded above by the total absolute mass of the
+series; margins growing without bound would force unbounded prefix sums.  This
+records the quantifier fix for `rightHalfPhasePrefixCertificate_onRealVanishing`. -/
+theorem not_rightHalfPhasePrefix_unboundedMargins
+    (g : CompactLogTest) (hreal : IsRealTest g) :
+    ¬(∀ ε > (0 : ℝ), ∃ T : Finset sourceNontrivialZeroSet,
+      -(1 / 2 : ℝ) * onLineSpectralMass g + ε ≤
+        (∑ rho ∈ T,
+          Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) ∧
+        (∑' rho : {rho // rho ∉ T},
+          ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖) < ε) := by
+  set Mabs := (∑' rho : sourceNontrivialZeroSet,
+      ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖) with hMdef
+  have hboundT : ∀ T : Finset sourceNontrivialZeroSet,
+      (∑ rho ∈ T, Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho) ≤ Mabs := by
+    intro T
+    have hsplit := Summable.sum_add_tsum_subtype_compl (summable_rightHalfPhaseNorm g hreal) T
+    have htailnn : 0 ≤ ∑' rho : {rho // rho ∉ T},
+        ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) rho‖ :=
+      tsum_nonneg fun _ => norm_nonneg _
+    have hpointwise : ∀ ρ ∈ T,
+        Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) ρ ≤
+          ‖Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) ρ‖ := by
+      intro ρ hmem
+      simpa using le_abs_self (Set.indicator rightHalfOffLine (rightHalfPhaseKernel g) ρ)
+    exact (Finset.sum_le_sum hpointwise).trans (by linarith [hsplit, htailnn])
+  intro hH
+  rcases le_total Mabs (-(1 / 2 : ℝ) * onLineSpectralMass g) with hMle | hTgle
+  · obtain ⟨T, hprefix, _⟩ := hH 1 zero_lt_one
+    have hb := hboundT T
+    linarith
+  · obtain ⟨T, hprefix, _⟩ := hH ((Mabs - (-(1 / 2 : ℝ) * onLineSpectralMass g)) + 1)
+      (by linarith [hTgle])
+    have hb := hboundT T
+    linarith
 
 /-! ### The autocorrelation mass at the origin -/
 
@@ -482,6 +581,8 @@ theorem norm_convolutionSquare_test_zero_eq_integral_normSq
 #print axioms rightHalfPhaseBound_of_prefix_tail_certificate
 #print axioms rightHalfPhasePrefixCertificate_onRealVanishing
 #print axioms rightHalfPhaseBound_onRealVanishing_of_prefix_certificate
+#print axioms rightHalfPhaseStrictBound_iff_prefixCertificate
+#print axioms not_rightHalfPhasePrefix_unboundedMargins
 #print axioms exists_rightHalfPhasePrefix_tail_budget_lt
 #print axioms exists_rightHalfPhasePrefix_phaseTail_norm_lt
 

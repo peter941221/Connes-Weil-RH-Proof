@@ -287,24 +287,34 @@ W4b-FINITE PREFIX / TAIL LEDGER: LANDED 2026-08-25 (axiom-clean,
     on the vanishing subspace.
 
 W4b-FINITE PREFIX CERTIFICATE INTERFACE: LANDED 2026-08-25 (axiom-clean,
-    `C1SpectralRealPair.lean`, Build #23: 3614 jobs; full root 4147).
-    The remaining obligation is now packaged as a single named certificate:
+    `C1SpectralRealPair.lean`, Build #23: 3614 jobs; full root 4147), then
+    REFINED 2026-08-25 (Build #24: 3614 jobs; full root 4147).  The remaining
+    obligation is packaged as a single named certificate with an EXISTENTIAL
+    margin:
 
     - `rightHalfPhaseBound_of_prefix_tail_certificate`: one finite zero
-      prefix whose phase sum exceeds the target by epsilon with audited tail
-      norm below epsilon implies the total phase tsum satisfies the W4b lower
-      bound.  By cofinality, a single margin per test suffices in assembly.
+      prefix whose phase sum exceeds the target by a positive margin with
+      audited tail norm below that same margin implies the total phase tsum
+      satisfies the W4b lower bound.
     - `rightHalfPhasePrefixCertificate_onRealVanishing`: named proposition -
-      every real F-vanishing test admits such a prefix for every positive
-      epsilon.
+      every real F-vanishing test admits one finite prefix and one positive
+      margin satisfying those two inequalities together.
     - `rightHalfPhaseBound_onRealVanishing_of_prefix_certificate`: assembly;
       the certificate proposition implies
       `rightHalfPhaseBound_onRealVanishing`.
 
-    Producing the certificate is the remaining analytic part of W4b: per
-    vanishing test, a finite zero prefix whose phase sum beats
-    `-(1/2) * onLineSpectralMass` by any requested margin.  No positivity or
-    autocorrelation estimate was added; W4b and RH remain open.
+    The Build #24 refinement fixes a quantifier: demanding a fresh prefix for
+    EVERY positive margin is provably too strong, since the phase series is
+    absolutely summable and therefore bounds every finite prefix uniformly
+    (`not_rightHalfPhasePrefix_unboundedMargins`).  Per test, the certificate
+    with its existential margin is then EXACTLY the strict lower bound
+    `tsum > -(1/2) * onLineSpectralMass`
+    (`rightHalfPhaseStrictBound_iff_prefixCertificate`); the non-strict W4b
+    target follows by assembly.  Producing a certificate - i.e. showing the
+    total phase tsum is strictly above the target, equivalently finding a
+    finite prefix with positive margin over its audited tail - remains the
+    open analytic part of W4b; no positivity or autocorrelation estimate was
+    added and RH is unclaimed.
 
 W4  RESIDUAL CONTROL (the deep step, REMAINS OPEN):
     off-line residual + (-poleTerm g^2) bounded by the on-line mass
