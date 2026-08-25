@@ -1,3 +1,39 @@
+## Change Log (2026-08-25 session 13 cont. 3, BOUNDARY RUNG LANDED — first radius not defined through c)
+- **New leaf `Dev/C1SpectralW4bBoundary.lean`** (build `3628/3628`,
+  0 `error:`, 0 `sorryAx`; all **17** declarations
+  `[propext, Classical.choice, Quot.sound]`): the first W4b rung whose radius
+  is NOT defined through `c = log(4π)+γ`.  `boundaryArchRadius := Real.exp (-7)`
+  ≈ 9.12e-4, about **3.5x wider** than the previous rung (`widerArchRadius`
+  ≈ 2.7e-4); strict widening proven by `narrowArchCoefficient_gt_five_halves`.
+  - Admissibility is PURE RATIONAL ARITHMETIC: exact split
+    `log(4π) = 3 log 2 + log(π/2)` (via `4π = 8·(π/2)`), then the rational
+    ceiling `archCoefficientRationalCeiling := 12438392659 / 3750000000`
+    ≈ 3.3169 — the EXACT sum of three ingredient ceilings built only from
+    mathlib digit bounds: `Real.log_two_lt_d9`, `Real.pi_lt_d6` (fed through
+    the elementary bound `log u ≤ u − 1` on `u = π/2 ∈ [1,2]`), and
+    `Real.eulerMascheroniConstant_lt_two_thirds`.  True c ≈ 3.1084, so the
+    ceiling carries ≈ 0.21 of headroom — exactly the fuel for future rungs.
+  - Budget close: `B(e^{-7}) < ceiling + 1/8 − 7/2 = −1742858728 / 3e10`
+    ≈ −0.058 < 0, with `e^{−7} ≤ 1/8` from `Real.add_one_le_exp` (`e⁷ ≥ 8`).
+- **Family shape theorem landed**: `budgetExpression_strictMonoOn_pos` — for
+  `0 < x < y`, `B(y) − B(x) = (y−x) + (1/2) log(y/x)` > 0, so the admissible
+  radii form an initial segment `(0, R*]`.  Consequence recorded as
+  `budget_nonpos_of_le_boundaryArchRadius` (every radius ≤ the rung is
+  budget-admissible at once).  Numerically `R* ≈ 1.98e-3`, about twice this
+  rung; sharpening any one ingredient bound lowers the ceiling and pushes the
+  admissible window toward `R*`.
+- Two W4b instances on the boundary-guided class (qw ≥ 0 + right-half
+  inequality, square support in `Ioo(−boundaryArchRadius) boundaryArchRadius`)
+  by delegation to the budget-window principle; both axiom-clean.
+- New AGENTS §7 gotchas: `one_div` v4.30 direct-inverse form (no follow-up
+  `one_mul`); `StrictMonoOn` goals are lambda applications (beta-reduce with
+  `change`, then explicit-arg rewrites); `nlinarith` treats noncomputable defs
+  as atoms (`unfold` before the final pass).
+- Boundary unchanged: still a proper support class; the universal W4b
+  obligation over all vanishing tests (hence RH) remains open.  Next cuts:
+  sharpen the three ingredient bounds toward `R*`, and/or the
+  density/completeness leaf (needs a topology choice on `CompactLogTest`).
+
 ## Change Log (2026-08-25 session 13 cont. 2, WIDENED-RADIUS RUNG LANDED — pure algebra)
 - **Same leaf `Dev/C1SpectralNarrowW4b.lean`** (+~170 lines; leaf build
   `3627/3627`, root `4147/4147`, 0 `error:`, 0 `sorryAx`; all **17**

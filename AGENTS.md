@@ -1292,6 +1292,12 @@ restricted/global masses with one evaluation object.
 - **`Summable.subtype` takes a predicate, not a `Finset`** (Observed 2026-08-25, `C1SpectralRealPair`): for the complement of a finite prefix `T`, use `(hsum.subtype (fun rho => rho ∉ T))`; passing `T` directly produces an application type mismatch. In finite sums, follow the local notation `∑ rho ∈ T, ...`.
 - **Filter names may need the namespace opened explicitly** (Observed 2026-08-25, `C1SpectralRealPair`): `atTop` and `eventually_atTop` are provided by `Filter`; add `open Filter` (or use `Filter.atTop` / `Filter.eventually_atTop`) when a cofinal finite-prefix proof reports unknown identifiers.
 
+- **`one_div` in mathlib v4.30 is a DIRECT inverse rewrite — no follow-up `one_mul`** (Observed 2026-08-25, `C1SpectralW4bBoundary.budgetExpr_eq_linear_plus_half_log`): the lemma at `Mathlib/Algebra/Group/Defs.lean:1090` states `one_div (a : G) : 1 / a = a⁻¹`, so after `rw [one_div]` the goal already contains `a⁻¹`; an extra `one_mul` in the rewrite list fails "Did not find an occurrence of the pattern `1 * ?a`" because there is no multiplication left to clear. Correct shape: `have hlog : Real.log (1 / R) = -Real.log R := by rw [one_div, Real.log_inv]`, then rewrite with `hlog` and let `ring` finish.
+
+- **A `StrictMonoOn f s` goal is a LAMBDA APPLICATION — beta-reduce it before rewriting** (Observed 2026-08-25, `C1SpectralW4bBoundary.budgetExpression_strictMonoOn_pos`): after `intro x hx y hy hxy` the target displays as `(fun R => …) x < (fun R => …) y`, and a pointwise equality lemma whose pattern mentions the expression in `R` fails "Did not find an occurrence of the pattern" against the un-reduced lambda. Fix: `change` to the beta-reduced two-sided inequality, then rewrite with EXPLICIT arguments (`rw [@pointwise_lemma x, @pointwise_lemma y]`) and close by `add_lt_add`.
+
+- **`nlinarith`/`linarith` treat a noncomputable `def` as an OPAQUE ATOM — `unfold` it before the final pass** (Observed 2026-08-25, `C1SpectralW4bBoundary.boundaryArchRadius_budget_lt`): with `boundaryArchRadius := Real.exp (-7)` and hypothesis `h : Real.exp (-7) ≤ 1/8`, nlinarith sees two unrelated atoms (the def name vs the exp term) and reports "linarith failed to find a contradiction" although the goal is one linear inequality in that single unknown. Fix: `unfold boundaryArchRadius` immediately before the final `nlinarith [hceil, h]`.
+
 
 ## 8. WSL Verification
 
