@@ -1,3 +1,29 @@
+## Change Log (2026-08-25 session 13 cont., NARROW-CLASS W4b INSTANCE LANDED — first ∀-class)
+- **New leaf `Dev/C1SpectralNarrowW4b.lean`** (leaf build `3627/3627`, root
+  `4147/4147`, 0 `error:`, 0 `sorryAx`, all 6 declarations
+  `[propext, Classical.choice, Quot.sound]`): the W4b target inequality
+  `Re(rightHalfSpectralSum g) ≥ −(1/2)·onLineSpectralMass g` — the single
+  named sufficient condition of the W5-lite ledger — now holds
+  **unconditionally for an entire class**: every test vanishing on
+  `cc20TripleFiniteVanishingSet` whose Hermitian square is supported in
+  `Ioo(−narrowArchRadius, narrowArchRadius)`.
+- Assembly consumed only landed axiom-clean pieces: triple vanishing kills the
+  pole term, `finitePrimeSum_eq_zero_of_support_subset_open_log_two` kills the
+  prime sum (new `narrowArchRadius_lt_log_two` via `e^{−4} ≤ 1/5 < 3/5 <
+  log 2` with `Real.add_one_le_exp` + `Real.log_two_gt_d9`), the UNIFORM
+  narrow budget `archimedeanTerm_nonpos_of_narrow_budget` kills the
+  archimedean sign, and the W5-lite ledger converts `0 ≤ qw` back into the
+  phase inequality.
+- Also landed the root-support entrance
+  (`qw_nonneg_of_vanishesOn_cc20Triple_of_narrow_root_support`, root support
+  ⊆ `Icc(−narrowArchBaseWidth, narrowArchBaseWidth)` via
+  `convolutionSquare_support_subset_symmetric`), making the class manifestly
+  closed under linear combinations (vanishing + support window preserved).
+  Class contains `narrowArchRoot` and all `tripleVanishingRoot` images of
+  narrow bases.
+- Boundary unchanged: proper subclass of the vanishing space; universal W4b
+  (all vanishing tests) remains the named open obligation; RH unclaimed.
+
 ## Change Log (2026-08-25 session 13, W4b complex→real reduction LANDED)
 - **Rescue + verification of session 12's unverified claim.** The 503-crashed
   session left `C1SpectralRealPair.lean` with a premature green claim. The

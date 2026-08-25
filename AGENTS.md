@@ -178,6 +178,22 @@ therefore collapses from complex tests to real tests.  This is still only a
 reduction: the sign bound on real vanishing tests remains the open W4b
 obligation, and the Laplace cross term off the real axis still has no bound.
 
+**First forall-class instance (2026-08-25, `Dev/C1SpectralNarrowW4b.lean`):**
+the complete W4b inequality, in both `0 ≤ qw` and phase form, holds
+unconditionally on the narrow class — every test vanishing on
+`cc20TripleFiniteVanishingSet` whose Hermitian square is supported in
+`Ioo(−narrowArchRadius, narrowArchRadius)` (root-support entrance: support
+inside `Icc(−narrowArchBaseWidth, narrowArchBaseWidth)`).  The assembly is
+pole-kill (triple vanishing) + prime-kill
+(`finitePrimeSum_eq_zero_of_support_subset_open_log_two`, with the new
+`narrowArchRadius_lt_log_two`) + the uniform archimedean budget
+(`archimedeanTerm_nonpos_of_narrow_budget`, no realness or nondegeneracy
+needed) + the W5-lite ledger.  The class is nonempty, linear-combination
+closed, and strictly smaller than the vanishing space: the universal W4b
+obligation and RH remain open.  Attacks that widen this class (bigger budget
+radius, wider prime-free windows, partial prime sums) are the natural next
+consumers.
+
 ### C1 Common-Carrier Stages 1-2 (2026-08-19)
 
 The finite arithmetic part of the positive-trace producer is now closed as a

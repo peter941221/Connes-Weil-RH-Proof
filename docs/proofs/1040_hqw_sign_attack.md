@@ -419,6 +419,54 @@ KT-1040c  RUN 2026-08-25 (docs/proofs/1042_kt1040c_probe.py): GREEN,
 
 All three are evidence for steering only; none replaces W1-W5.
 
+## 7b. W4b-NARROW: first forall-class instance LANDED (2026-08-25)
+
+`Dev/C1SpectralNarrowW4b.lean` (axiom-clean, leaf 3627/3627, root 4147/4147,
+0 sorryAx) proves the complete W4b target inequality on an entire class,
+unconditionally:
+
+```text
+for every g with
+    CC20VanishesOn healthy cc20TripleFiniteVanishingSet g, and
+    support (g□.test) ⊆ Ioo (−narrowArchRadius, narrowArchRadius):
+        Re (rightHalfSpectralSum g) ≥ −(1/2) · onLineSpectralMass g
+    and hence 0 ≤ qw g.
+```
+
+Assembly (no new analysis; every input already landed and axiom-clean):
+
+```text
+triple vanishing        kills poleTerm (pole at the half node)
+square support window   kills finitePrimeSum  (open log-2 window;
+                        narrowArchRadius < log 2 via e^−4 ≤ 1/5 < 3/5 < log 2)
+arch budget (UNIFORM    kills the archimedean sign:
+in g, no realness)      archimedeanTerm (g□) ≤ 0   [C1LaneRNarrowArch]
+W5-lite ledger          converts 0 ≤ qw back into the phase inequality
+```
+
+The root-support entrance (`qw_nonneg_of_vanishesOn_cc20Triple_of_narrow_
+root_support`: root support ⊆ Icc(−narrowArchBaseWidth, narrowArchBaseWidth)
+via `convolutionSquare_support_subset_symmetric`) makes the class manifestly
+closed under linear combinations: vanishing and the support window are both
+preserved.  Nonempty: contains `narrowArchRoot` and every `tripleVanishingRoot`
+image of a narrow base.
+
+**Why this matters strategically.**  Before this leaf, the W4b inequality had
+only single-test witnesses (`narrowArchRoot`) and numerical evidence
+(KT-1040a/b/c).  It now holds on a linear, nontrivial forall-class.  The
+remaining universal obligation is to WIDEN the class; the assembly shows the
+three independent width constraints, in increasing order of difficulty:
+
+1. the prime-free window `support(g□) ⊆ (−log 2, log 2)` — arithmetic, could
+   be relaxed to partial prime sums with explicit control;
+2. the archimedean budget radius — the uniform `archimedeanTerm ≤ 0` window;
+   widening it needs genuine kernel analysis (the Lane-R budget constant
+   `log(4π) + γ + R − (1/2)log(1/R) ≤ 0` gives R up to ≈ e^{−2(c+1)});
+3. dropping the window entirely — that is the full W4b, the RH content.
+
+Widening attacks should name which constraint they relax; a relaxation of any
+single constraint keeps the other two assembled proofs intact.
+
 ## 8. Freeze-discipline note
 
 Every lemma above must name its direct consumer on the
