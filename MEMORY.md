@@ -1,3 +1,38 @@
+## Change Log (2026-08-26 session 13 cont. 5, THIRD BOUNDARY RUNG LANDED -- direct Euler certificate)
+- **Same leaf `Dev/C1SpectralW4bBoundary.lean`** (+~287 lines; owning-module
+  build `3628/3628`, warm full root `4147/4147`, both with 0 `error:` and 0
+  `sorryAx`; all **53** audited declarations exactly
+  `[propext, Classical.choice, Quot.sound]`, and 0 leaf-local lint warnings).
+  No numerical probe was run or used as evidence.
+  - New direct analytic envelope:
+    `centeredEulerMascheroniUpper n = H_(n+1) - log(n + 3/2)`.  The Padé lower
+    bound `2x / (x + 2) <= log(1 + x)` proves its successor inequality, so it
+    is antitone; `Real.tendsto_harmonic_sub_log` plus the vanishing centered
+    log correction proves that it tends to the Euler--Mascheroni constant.
+    Therefore `eulerMascheroniConstant_le_centeredEulerMascheroniUpper` is an
+    unconditional theorem for every `n`.
+  - The concrete exact certificate uses only `n = 3`:
+    `U_3 = 25/12 - (2 * log 2 + log(1 + 1/8))`.  Combining
+    `Real.log_two_gt_d9` with the same Padé inequality at `1/8` gives
+    `eulerMascheroniConstant_lt_twenty_nine_fiftieth`; no floating-point
+    evaluation occurs.
+  - Together with the existing third-order `log(pi/2)` bound, the new gamma
+    certificate proves `narrowArchCoefficient_lt_313_div_100`.  Separately,
+    `exp_neg_sixty_three_tenths_le_one_fiftieth` follows from
+    `exp(21/20) >= 41/20`, monotonicity of sixth powers, and exact rational
+    arithmetic.
+  - **Third boundary-guided radius:**
+    `thirdBoundaryArchRadius := exp(-63/10)`.  Its exact budget close is
+    `B(R) < 313/100 + 1/50 - 63/20 = 0`; it lies below `log 2` and strictly
+    above `refinedBoundaryArchRadius`.  The monotone interval theorem and the
+    two unconditional consumers
+    `qw_nonneg_of_vanishesOn_cc20Triple_of_third_boundary_square_support` and
+    `rightHalfSpectralSum_re_ge_neg_half_of_third_boundary_square_support`
+    land the wider W4b class.
+- Boundary unchanged: this is still a proper support-restricted W4b class.
+  Universal W4b nonnegativity, the active RH-level criterion coverage root,
+  and RH itself remain unproved.
+
 ## Change Log (2026-08-26 session 13 cont. 4, SECOND BOUNDARY RUNG LANDED — third-order Taylor ceiling)
 - **Same leaf `Dev/C1SpectralW4bBoundary.lean`** (+~325 lines; build
   `3628/3628`, 0 `error:`, 0 `sorryAx`; all **33** declarations

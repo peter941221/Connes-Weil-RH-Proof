@@ -1310,6 +1310,10 @@ restricted/global masses with one evaluation object.
 
 - **wsl.exe `sh -c '<literal>'` single-quote wrapping breaks on ANY apostrophe inside the heredoc** (Observed 2026-08-26, same session): Lean source full of primes (`x'`, `hpos.ne'`) terminates the outer shell quote early ("ring: command not found", "syntax error near unexpected token"). Use apostrophe-free local names or explicit has (e.g. `have hne : 1 + x ≠ 0 := ne_of_gt hpos` instead of touching `hpos.ne'`).
 
+- **Concrete `harmonic` values need a Finset recursion rewrite, not just `norm_num [harmonic]`** (Observed 2026-08-26, direct Euler certificate): expanding `harmonic 4` leaves the nested finite sum `∑ x ∈ Finset.range 4, (↑x + 1)⁻¹`; `norm_num [harmonic]` does not descend through it. Use `norm_num [harmonic, Finset.sum_range_succ]` to obtain the exact rational value. When a later logarithm still contains `↑3 + 1 + 1/2`, prove and rewrite a named rational argument equality before applying a `log` identity; it is not definitionally equal to `9/2` for `change`/`rw`.
+
+- **For nonnegative real bases, `pow_le_pow_left₀` is the direct power-monotonicity lemma** (Observed 2026-08-26, third W4b radius): use `pow_le_pow_left₀ hnonneg hle n` to lift `a ≤ b` to `a^n ≤ b^n`. Do not reach for the differently shaped `pow_le_pow_left'` when a simple real rational/exponential comparison is needed.
+
 
 ## 8. WSL Verification
 

@@ -82,9 +82,37 @@ The admissible class widens by the factor `exp (7 − 13/2) = exp (1/2)`
 by the γ ceiling `2/3` (true γ ≈ 0.577) and the higher-order terms of the log
 bound — the next cuts on the ladder.
 
+## The third boundary-guided rung: `thirdBoundaryArchRadius = exp (-63/10)`
+
+This rung replaces the crude Euler--Mascheroni upper bound by a direct analytic
+certificate.  The centered harmonic envelope
+
+```text
+U_n = H_(n+1) - log(n + 3/2)
+```
+
+is antitone and tends to γ.  At `n = 3`, the exact identity
+
+```text
+U_3 = 25/12 - (2 log 2 + log(1 + 1/8))
+```
+
+combines Mathlib's lower digit certificate for `log 2` with the Padé bound
+`2x/(x+2) ≤ log(1+x)` to prove `γ < 29/50`.  Together with the existing
+third-order π bound, this gives `c < 313/100` without a numerical experiment.
+The exponent certificate `exp(-63/10) ≤ 1/50` follows from
+`exp(21/20) ≥ 41/20` and sixth powers.  Hence
+
+```text
+B(exp(-63/10)) < 313/100 + 1/50 - 63/20 = 0.
+```
+
+The same budget-window theorem therefore supplies the W4b positivity and
+right-half spectral inequality on the strictly wider third support class.
+
 ## Boundary
 
-`Ioo (-refinedBoundaryArchRadius) refinedBoundaryArchRadius` is still a proper
+`Ioo (-thirdBoundaryArchRadius) thirdBoundaryArchRadius` is still a proper
 support class (and so is every smaller radius, by the monotonicity lemmas):
 the universal W4b obligation over all vanishing tests (hence RH) remains open,
 and the density/completeness question for the budget family — which needs a
@@ -109,6 +137,7 @@ open C1SpectralVanishingTransfer
 open C1SpectralQwAssembly
 open C1LaneRNarrowArch
 open C1SpectralNarrowW4b
+open Filter Topology
 
 noncomputable section
 
@@ -440,6 +469,181 @@ theorem log_pi_half_le_third_order_bound :
     linarith [hdiffltpos]
   exact le_trans htaylor hslide
 
+/-! ### A direct centered-harmonic upper envelope for the Euler constant -/
+
+/-- The centered upper sequence for the Euler--Mascheroni constant.  The half-step
+shift is deliberate: the Padé lower bound for `log (1 + x)` makes this sequence
+antitone, while the ordinary harmonic-minus-log limit still identifies its limit
+as `gamma`. -/
+noncomputable def centeredEulerMascheroniUpper (n : ℕ) : ℝ :=
+  (harmonic (n + 1) : ℝ) - Real.log ((n + 1 : ℝ) + (1 / 2 : ℝ))
+
+/-- One centered-harmonic step decreases.  The exact input is mathlib's analytic
+bound `2x / (x + 2) <= log (1 + x)` at `x = 1 / (n + 3/2)`; its rational left
+side simplifies to `1 / (n + 2)`. -/
+theorem centeredEulerMascheroniUpper_succ_le (n : ℕ) :
+    centeredEulerMascheroniUpper (n + 1) ≤ centeredEulerMascheroniUpper n := by
+  let a : ℝ := (n + 1 : ℝ) + (1 / 2 : ℝ)
+  have ha : 0 < a := by
+    dsimp [a]
+    positivity
+  have hpad := Real.le_log_one_add_of_nonneg (show 0 ≤ 1 / a by positivity)
+  have hleft : 2 * (1 / a) / (1 / a + 2) = 1 / ((n + 2 : ℕ) : ℝ) := by
+    dsimp [a]
+    push_cast
+    field_simp [ha.ne']
+    ring
+  have hright : Real.log (1 + 1 / a) =
+      Real.log (((n + 2 : ℕ) : ℝ) + (1 / 2 : ℝ)) -
+        Real.log (((n + 1 : ℕ) : ℝ) + (1 / 2 : ℝ)) := by
+    have ha1 : a + 1 ≠ 0 := by positivity
+    calc
+      Real.log (1 + 1 / a) = Real.log ((a + 1) / a) := by
+        congr 1
+        field_simp [ha.ne']
+      _ = Real.log (a + 1) - Real.log a := by
+        rw [Real.log_div ha1 ha.ne']
+      _ = Real.log (((n + 2 : ℕ) : ℝ) + (1 / 2 : ℝ)) -
+          Real.log (((n + 1 : ℕ) : ℝ) + (1 / 2 : ℝ)) := by
+        dsimp [a]
+        push_cast
+        congr 1
+        all_goals ring_nf
+  rw [hleft, hright] at hpad
+  have hstep : ((n : ℝ) + 1 + 1)⁻¹ ≤
+      Real.log ((n : ℝ) + 1 + 1 + (1 / 2 : ℝ)) -
+        Real.log ((n : ℝ) + 1 + (1 / 2 : ℝ)) := by
+    convert hpad using 1 <;> push_cast <;> ring_nf
+  unfold centeredEulerMascheroniUpper
+  rw [harmonic_succ]
+  push_cast
+  linarith [hstep]
+
+/-- The centered sequence is antitone on the natural numbers. -/
+theorem centeredEulerMascheroniUpper_antitone : Antitone centeredEulerMascheroniUpper :=
+  antitone_nat_of_succ_le centeredEulerMascheroniUpper_succ_le
+
+/-- The centered sequence has the same limit as the usual harmonic-minus-log
+sequence.  The correction is `log (x + 1/2) - log x`, which tends to zero at
+infinity by mathlib's logarithmic limit theorem. -/
+theorem tendsto_centeredEulerMascheroniUpper :
+    Tendsto centeredEulerMascheroniUpper atTop (𝓝 Real.eulerMascheroniConstant) := by
+  have hbase : Tendsto (fun n : ℕ => (harmonic (n + 1) : ℝ) - Real.log (n + 1))
+      atTop (𝓝 Real.eulerMascheroniConstant) := by
+    apply (Real.tendsto_harmonic_sub_log.comp (tendsto_add_atTop_nat 1)).congr'
+    filter_upwards with n
+    simp only [Function.comp_apply]
+    push_cast
+    rfl
+  have hcorrection : Tendsto
+      (fun n : ℕ => Real.log ((n + 1 : ℝ) + (1 / 2 : ℝ)) - Real.log (n + 1))
+      atTop (𝓝 0) := by
+    apply ((Real.tendsto_log_comp_add_sub_log (1 / 2 : ℝ)).comp
+      (tendsto_natCast_atTop_atTop.comp (tendsto_add_atTop_nat 1))).congr'
+    filter_upwards with n
+    simp only [Function.comp_apply]
+    push_cast
+    rfl
+  have hcentered : Tendsto centeredEulerMascheroniUpper atTop
+      (𝓝 (Real.eulerMascheroniConstant - 0)) := by
+    refine (hbase.sub hcorrection).congr' (Eventually.of_forall fun n => ?_)
+    unfold centeredEulerMascheroniUpper
+    ring
+  simpa using hcentered
+
+/-- **Direct analytic Euler bound.**  Every term of the centered harmonic upper
+sequence bounds the Euler--Mascheroni constant from above.  This is a theorem of
+analysis, not a numerical estimate; a later W4b budget certificate may select a
+concrete `n` and reduce its rational harmonic value separately. -/
+theorem eulerMascheroniConstant_le_centeredEulerMascheroniUpper (n : ℕ) :
+    Real.eulerMascheroniConstant ≤ centeredEulerMascheroniUpper n :=
+  centeredEulerMascheroniUpper_antitone.le_of_tendsto
+    tendsto_centeredEulerMascheroniUpper n
+
+/-- The low-index centered envelope has an exact logarithmic decomposition.
+The identity `9/2 = 4 * (1 + 1/8)` lets the existing lower certificates for
+`log 2` and `log (1 + x)` bound the Euler constant without evaluating any
+transcendental quantity. -/
+theorem centeredEulerMascheroniUpper_three_eq :
+    centeredEulerMascheroniUpper 3 =
+      (25 / 12 : ℝ) -
+        (2 * Real.log 2 + Real.log (1 + (1 / 8 : ℝ))) := by
+  have hsplit : Real.log ((9 / 2 : ℝ)) =
+      2 * Real.log 2 + Real.log (1 + (1 / 8 : ℝ)) := by
+    calc
+      Real.log ((9 / 2 : ℝ)) =
+          Real.log ((4 : ℝ) * (1 + (1 / 8 : ℝ))) := by
+        congr 1
+        norm_num
+      _ = Real.log 4 + Real.log (1 + (1 / 8 : ℝ)) := by
+        rw [Real.log_mul (by norm_num : (4 : ℝ) ≠ 0) (by norm_num : (1 + (1 / 8 : ℝ)) ≠ 0)]
+      _ = 2 * Real.log 2 + Real.log (1 + (1 / 8 : ℝ)) := by
+        rw [show (4 : ℝ) = 2 * 2 by norm_num,
+          Real.log_mul (by norm_num : (2 : ℝ) ≠ 0) (by norm_num : (2 : ℝ) ≠ 0)]
+        ring
+  unfold centeredEulerMascheroniUpper
+  have hharmonic : (harmonic (3 + 1) : ℝ) = 25 / 12 := by
+    norm_num [harmonic, Finset.sum_range_succ]
+  have harg : ((3 : ℕ) : ℝ) + 1 + (1 / 2 : ℝ) = 9 / 2 := by
+    norm_num
+  rw [hharmonic, harg, hsplit]
+
+/-- **Direct rational Euler certificate.**  The centered-harmonic envelope at
+`n = 3`, the certified lower digit bound for `log 2`, and the Padé lower bound
+`2x / (x + 2) ≤ log (1 + x)` at `x = 1/8` imply `γ < 29/50`. -/
+theorem eulerMascheroniConstant_lt_twenty_nine_fiftieth :
+    Real.eulerMascheroniConstant < (29 / 50 : ℝ) := by
+  have hupper := eulerMascheroniConstant_le_centeredEulerMascheroniUpper 3
+  rw [centeredEulerMascheroniUpper_three_eq] at hupper
+  have hpad := Real.le_log_one_add_of_nonneg (show (0 : ℝ) ≤ 1 / 8 by norm_num)
+  have hpad' : (2 / 17 : ℝ) ≤ Real.log (1 + (1 / 8 : ℝ)) := by
+    norm_num at hpad ⊢
+    exact hpad
+  nlinarith [Real.log_two_gt_d9]
+
+/-- The exact direct Euler certificate lowers the coefficient below `313/100`.
+The strict `log 2` and Euler bounds, together with the existing non-strict
+third-order bound for `log (π/2)`, leave a strictly positive rational margin. -/
+theorem narrowArchCoefficient_lt_313_div_100 :
+    narrowArchCoefficient < (313 / 100 : ℝ) := by
+  rw [narrowArchCoefficient_log_split]
+  have hlog2 : 3 * Real.log 2 < 3 * ((6931471808 : ℝ) / 10 ^ 10) := by
+    nlinarith [Real.log_two_lt_d9]
+  have hpihalf : Real.log (Real.pi / 2) ≤
+      cubicLogTower ((3141593 : ℝ) / (2 * 10 ^ 6) - 1) :=
+    log_pi_half_le_third_order_bound
+  have hgamma : Real.eulerMascheroniConstant < (29 / 50 : ℝ) :=
+    eulerMascheroniConstant_lt_twenty_nine_fiftieth
+  have hsum : 3 * ((6931471808 : ℝ) / 10 ^ 10) +
+      cubicLogTower ((3141593 : ℝ) / (2 * 10 ^ 6) - 1) + (29 / 50 : ℝ) <
+        313 / 100 := by
+    norm_num [cubicLogTower]
+  nlinarith [hlog2, hpihalf, hgamma, hsum]
+
+/-- `exp (-63/10) ≤ 1/50`, certified from `exp (21/20) ≥ 41/20` and sixth
+powers.  This is the reciprocal estimate needed by the third W4b radius. -/
+theorem exp_neg_sixty_three_tenths_le_one_fiftieth :
+    Real.exp (-((63 : ℝ) / 10)) ≤ 1 / 50 := by
+  have hbase : (41 / 20 : ℝ) ≤ Real.exp ((21 : ℝ) / 20) := by
+    have h := Real.add_one_le_exp ((21 : ℝ) / 20)
+    nlinarith
+  have hsix : (41 / 20 : ℝ) ^ 6 ≤ (Real.exp ((21 : ℝ) / 20)) ^ 6 :=
+    pow_le_pow_left₀ (by norm_num) hbase 6
+  have heq : Real.exp ((63 : ℝ) / 10) = (Real.exp ((21 : ℝ) / 20)) ^ 6 := by
+    rw [← Real.exp_nat_mul]
+    norm_num
+  have hfifty : (50 : ℝ) ≤ Real.exp ((63 : ℝ) / 10) := by
+    rw [heq]
+    have hpow : (50 : ℝ) ≤ (41 / 20 : ℝ) ^ 6 := by
+      norm_num
+    exact hpow.trans hsix
+  have hprod : Real.exp (-((63 : ℝ) / 10)) * Real.exp ((63 : ℝ) / 10) = 1 := by
+    rw [← Real.exp_add]
+    norm_num
+  have hposA : (0 : ℝ) < Real.exp ((63 : ℝ) / 10) := Real.exp_pos _
+  have hposB : (0 : ℝ) < Real.exp (-((63 : ℝ) / 10)) := Real.exp_pos _
+  nlinarith [hfifty, hprod, hposA, hposB]
+
 /-! ### The refined ceiling and the second boundary-guided rung -/
 
 /-- A refined rational ceiling for `narrowArchCoefficient`: sum of the three
@@ -596,6 +800,97 @@ theorem rightHalfSpectralSum_re_ge_neg_half_of_refined_boundary_square_support
     refinedBoundaryArchRadius_pos refinedBoundaryArchRadius_lt_one
     refinedBoundaryArchRadius_lt_log_two.le refinedBoundaryArchRadius_budget g hvanishes hsupport
 
+/-! ### The third boundary-guided rung from the direct Euler certificate -/
+
+/-- The third boundary-guided radius.  Its budget is closed by the direct
+coefficient certificate `narrowArchCoefficient_lt_313_div_100`, rather than by
+an unproved decimal approximation of the Euler--Mascheroni constant. -/
+noncomputable def thirdBoundaryArchRadius : ℝ := Real.exp (-((63 : ℝ) / 10))
+
+theorem thirdBoundaryArchRadius_pos : 0 < thirdBoundaryArchRadius := by
+  exact Real.exp_pos _
+
+theorem thirdBoundaryArchRadius_lt_one : thirdBoundaryArchRadius < 1 := by
+  rw [thirdBoundaryArchRadius, Real.exp_lt_one_iff]
+  norm_num
+
+theorem thirdBoundaryArchRadius_log_inv :
+    Real.log (1 / thirdBoundaryArchRadius) = (63 : ℝ) / 10 := by
+  rw [thirdBoundaryArchRadius, one_div, Real.log_inv, Real.log_exp]
+  ring
+
+/-- The third radius is budget-admissible.  After the exact log readback, its
+entire inequality is rational: `313/100 + 1/50 - 63/20 = 0`, with strictness
+coming from the coefficient certificate. -/
+theorem thirdBoundaryArchRadius_budget_lt :
+    narrowArchCoefficient + thirdBoundaryArchRadius -
+        (1 / 2 : ℝ) * Real.log (1 / thirdBoundaryArchRadius) < 0 := by
+  rw [thirdBoundaryArchRadius_log_inv]
+  unfold thirdBoundaryArchRadius
+  nlinarith [narrowArchCoefficient_lt_313_div_100,
+    exp_neg_sixty_three_tenths_le_one_fiftieth]
+
+theorem thirdBoundaryArchRadius_budget :
+    narrowArchCoefficient + thirdBoundaryArchRadius -
+        (1 / 2 : ℝ) * Real.log (1 / thirdBoundaryArchRadius) ≤ 0 := by
+  exact thirdBoundaryArchRadius_budget_lt.le
+
+/-- The third radius remains inside the prime-free window. -/
+theorem thirdBoundaryArchRadius_lt_log_two : thirdBoundaryArchRadius < Real.log 2 := by
+  rw [thirdBoundaryArchRadius]
+  have hlog : (1 / 50 : ℝ) < Real.log 2 := by
+    nlinarith [Real.log_two_gt_d9]
+  exact lt_of_le_of_lt exp_neg_sixty_three_tenths_le_one_fiftieth hlog
+
+/-- The direct-Euler rung strictly widens the second boundary-guided class. -/
+theorem refinedBoundaryArchRadius_lt_thirdBoundaryArchRadius :
+    refinedBoundaryArchRadius < thirdBoundaryArchRadius := by
+  unfold refinedBoundaryArchRadius thirdBoundaryArchRadius
+  apply Real.exp_lt_exp.2
+  norm_num
+
+/-- Every positive radius below the third rung inherits budget admissibility
+from strict monotonicity of the common budget expression. -/
+theorem budget_nonpos_of_le_thirdBoundaryArchRadius {R : ℝ} (hRpos : 0 < R)
+    (hRle : R ≤ thirdBoundaryArchRadius) :
+    narrowArchCoefficient + R - (1 / 2 : ℝ) * Real.log (1 / R) ≤ 0 := by
+  rcases eq_or_lt_of_le hRle with (hRe | hRlt)
+  · subst hRe
+    exact thirdBoundaryArchRadius_budget
+  · have hstrict :=
+      budgetExpression_strictMonoOn_pos hRpos thirdBoundaryArchRadius_pos hRlt
+    exact le_of_lt (lt_trans hstrict thirdBoundaryArchRadius_budget_lt)
+
+/-! ### The W4b instances on the third boundary-guided class -/
+
+/-- **Third-rung Weil positivity.**  The direct Euler certificate widens the
+unconditional W4b positivity class while keeping the same test-space owner and
+the same prime-free support premise. -/
+theorem qw_nonneg_of_vanishesOn_cc20Triple_of_third_boundary_square_support
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+        cc20TripleFiniteVanishingSet g)
+    (hsupport : Function.support g.convolutionSquare.test ⊆
+      Set.Ioo (-thirdBoundaryArchRadius) thirdBoundaryArchRadius) :
+    0 ≤ C1SameOwnerWeil.qw g := by
+  exact qw_nonneg_of_vanishesOn_cc20Triple_of_budget_window
+    thirdBoundaryArchRadius_pos thirdBoundaryArchRadius_lt_one
+    thirdBoundaryArchRadius_lt_log_two.le thirdBoundaryArchRadius_budget
+    g hvanishes hsupport
+
+/-- **The W4b target inequality on the third boundary-guided class.** -/
+theorem rightHalfSpectralSum_re_ge_neg_half_of_third_boundary_square_support
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+        cc20TripleFiniteVanishingSet g)
+    (hsupport : Function.support g.convolutionSquare.test ⊆
+      Set.Ioo (-thirdBoundaryArchRadius) thirdBoundaryArchRadius) :
+    (rightHalfSpectralSum g).re ≥ -(1 / 2 : ℝ) * onLineSpectralMass g := by
+  exact rightHalfSpectralSum_re_ge_neg_half_of_budget_window
+    thirdBoundaryArchRadius_pos thirdBoundaryArchRadius_lt_one
+    thirdBoundaryArchRadius_lt_log_two.le thirdBoundaryArchRadius_budget
+    g hvanishes hsupport
+
 /-! ### Axiom-cleanliness audit — every result above is a theorem; each depends
 only on `[propext, Classical.choice, Quot.sound]`; no self-root, no `sorryAx`,
 no new project axiom. -/
@@ -632,6 +927,26 @@ no new project axiom. -/
 #print axioms budget_nonpos_of_le_refinedBoundaryArchRadius
 #print axioms qw_nonneg_of_vanishesOn_cc20Triple_of_refined_boundary_square_support
 #print axioms rightHalfSpectralSum_re_ge_neg_half_of_refined_boundary_square_support
+#print axioms centeredEulerMascheroniUpper
+#print axioms centeredEulerMascheroniUpper_succ_le
+#print axioms centeredEulerMascheroniUpper_antitone
+#print axioms tendsto_centeredEulerMascheroniUpper
+#print axioms eulerMascheroniConstant_le_centeredEulerMascheroniUpper
+#print axioms centeredEulerMascheroniUpper_three_eq
+#print axioms eulerMascheroniConstant_lt_twenty_nine_fiftieth
+#print axioms narrowArchCoefficient_lt_313_div_100
+#print axioms exp_neg_sixty_three_tenths_le_one_fiftieth
+#print axioms thirdBoundaryArchRadius
+#print axioms thirdBoundaryArchRadius_pos
+#print axioms thirdBoundaryArchRadius_lt_one
+#print axioms thirdBoundaryArchRadius_log_inv
+#print axioms thirdBoundaryArchRadius_budget_lt
+#print axioms thirdBoundaryArchRadius_budget
+#print axioms thirdBoundaryArchRadius_lt_log_two
+#print axioms refinedBoundaryArchRadius_lt_thirdBoundaryArchRadius
+#print axioms budget_nonpos_of_le_thirdBoundaryArchRadius
+#print axioms qw_nonneg_of_vanishesOn_cc20Triple_of_third_boundary_square_support
+#print axioms rightHalfSpectralSum_re_ge_neg_half_of_third_boundary_square_support
 
 end
 end C1SpectralW4bBoundary
