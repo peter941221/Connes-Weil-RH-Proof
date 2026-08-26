@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1CC20LpOperator
+#print axioms ConnesWeilRH.Source.C1CC20LpOperator.applyKernel
+#print axioms ConnesWeilRH.Source.C1CC20LpOperator.applyKernel_pointwise_l2_bound

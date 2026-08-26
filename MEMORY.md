@@ -1,3 +1,36 @@
+## Change Log (2026-08-26 session 23, CC20 kf_I L² FOUNDATION — HILBERT–SCHMIDT POINTWISE BOUND)
+- **Result: good.**  The boundedness foundation for CC20's windowed integral
+  operator `kf_I` on `L²(I)` is now formalized in the new leaf
+  `Dev/C1CC20LpOperator.lean`, in its raw integral form (owner-preserving idiom,
+  not via the abstract `Lp` type).  The primary source remains Connes--Consani,
+  arXiv:2006.13771: <https://arxiv.org/abs/2006.13771>.
+- `applyKernel k f x := ∫ y, k (x, y) * f y` applies an integral kernel to a
+  function at one output coordinate.
+- `applyKernel_pointwise_l2_bound`: for fixed `x`, with the kernel's `x`-row and
+  `f` both in `L²` (`MemLp … (ENNReal.ofReal 2)`),
+
+  ```text
+  ‖(Af)(x)‖ ≤ ‖k(·, x)‖₂ · ‖f‖₂.
+  ```
+
+  The proof is exactly Cauchy--Schwarz for the pairing `(u,v) ↦ ∫ u v`:
+  norm-of-integral ≤ integral-of-norm (`norm_integral_le_integral_norm`),
+  pointwise `‖k f‖ = ‖k‖·‖f‖` a.e. (`integral_congr_ae`, `norm_mul`), then the
+  product bound via `integral_mul_norm_le_Lp_mul_Lq` with `(2 : ℝ).HolderConjugate 2`.
+- WSL2 verification is green per the per-brick protocol (NOT the aggregate):
+  the explicit owning-module build `lake build ConnesWeilRH.Dev.C1CC20LpOperator`
+  completes `2677/2677`, EXIT 0; a focused `#print axioms` audit on both declarations
+  reports exactly `[propext, Classical.choice, Quot.sound]`, zero `sorryAx`.
+- Repo fact settled: the bare aggregate `lake build ConnesWeilRH` ("full root",
+  `4147/4147`) covers only the non-Dev Source tree — it does not compile standalone
+  top-level `Dev/` leaves that nothing in that tree imports (lakefile default auto-glob,
+  no `.lakeignore`). A green full-root build therefore does NOT prove a new Dev brick
+  compiles; always target the module explicitly. Recorded as an AGENTS §7 gotcha.
+- Scope guard: this is boundedness infrastructure only — no RH sign or coverage claim.
+  It supplies the pointwise `L²` estimate that CC20's `kf_I` rests on, but does not yet
+  construct the paper's concrete `T`, `R`, `kf_I` kernels, prove the integrated
+  operator-norm form `‖Af‖₂ ≤ ‖k‖_{L²(ℝ²)}·‖f‖₂`, or discharge any RH root.
+
 ## Change Log (2026-08-26 session 22, CC20 HILBERT LEMMA FIRST + OPERATOR SPECTRAL DECOMPOSITION)
 - **Result: good.**  The finite-dimensional CC20 Lemma `first` certificate is
   now lifted to an arbitrary complex Hilbert space in the new leaf

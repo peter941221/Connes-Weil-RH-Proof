@@ -398,6 +398,48 @@ In particular, the paper's numerical statements (`lambda2 <= 0.772216`, the
 floating-point evidence.  They still require exact interval certificates and
 the concrete operator construction before Gate 1 closes.
 
+## 6g. Raw L² integral-operator bound for `kf_I` (landed 2026-08-26)
+
+The first analytic brick toward the paper's concrete windowed operator
+`kf_I` on `L²(I)` is now in Lean.  The source is the Hilbert--Schmidt
+estimate behind Connes--Consani, arXiv:2006.13771: an `L²` kernel applied to
+an `L²` input gives a bounded output, controlled pointwise by the kernel's
+row mass and the input norm.
+
+`Dev/C1CC20LpOperator.lean` supplies this in its raw integral form (not via
+the abstract `Lp` type), matching the owner-preserving idiom on this branch:
+
+```text
+applyKernel k f x  =  ∫_y k(x, y) f(y) dy        -- definition
+‖(Af)(x)‖ ≤ ‖k(·,x)‖₂ · ‖f‖₂                    -- theorem
+```
+
+The theorem `applyKernel_pointwise_l2_bound` is exactly Cauchy--Schwarz for
+the pairing `(u, v) ↦ ∫ u(y) v(y) dy`, with the kernel's `x`-row as one
+factor and `f` the other; the two `MemLp (· 2)` hypotheses say both factors
+lie in `L²`.  The proof is three steps: norm-of-integral ≤ integral-of-norm,
+the pointwise `‖k f‖ = ‖k‖ · ‖f‖` rewrite a.e., then the Lp/Lq product bound.
+
+This is boundedness infrastructure only; it carries no RH sign or coverage
+claim and does not yet construct the concrete kernel of `kf_I`.  The next
+brick is the integrated operator-norm form `‖Af‖₂ ≤ ‖k‖_{L²(ℝ²)} · ‖f‖₂`,
+which integrates this pointwise bound over `x` (an extra Fubini +
+integral-monotonicity round).  The still-open item
+
+```text
+paper's concrete L2(I) operators T, R, kf_I                  OPEN
+```
+
+above is unchanged: the estimate bounds an arbitrary `L²` kernel, but the
+paper's specific `kf_I`, `T`, and `R` kernels are not yet written down.
+
+Verification (per-brick protocol): owning-module build
+`ConnesWeilRH.Dev.C1CC20LpOperator` green (`2677 jobs`, exit 0); both
+declarations audit to `[propext, Classical.choice, Quot.sound]`, no `sorryAx`.
+The synchronized root build passes `4147 jobs`, `0 error`; note this aggregate
+covers the non-Dev source tree only — Dev leaves (including this one) are
+verified by explicit targeting, as for every other Dev brick.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
