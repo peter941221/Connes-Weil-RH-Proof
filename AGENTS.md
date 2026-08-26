@@ -1395,6 +1395,48 @@ Rules:
   data structure (the default `Type`) for certificate payloads, and reserve
   `Prop` structures for proof-only records. (Observed 2026-08-26,
   `C1CC20ArchimedeanReadback.CC20EndpointTraceCertificate`.)
+- **CC20 finite-dimensional positivity is a separate algebraic brick**:
+  `C1CC20FiniteDimensional` proves the 2x2 trace/determinant criterion in both
+  directions and its shifted `epsilon` coercivity form, but it does not prove
+  the paper's infinite-dimensional spectral estimates or endpoint trace bound.
+  Keep the numerical spectral data and the analytic certificate as explicit
+  caller premises; do not promote this lemma into Gate 1. (Observed
+  2026-08-26, CC20 `weil-compo.tex` Lemma `first`.)
+- **The CC20 coefficient band is an arithmetic adapter, not spectral evidence**:
+  `C1CC20EndpointCoefficient.cc20EndpointCoefficient_band` derives
+  `13 < 4 * gamma / log 2 < 17` only from the explicit rational bounds
+  `294/100 < gamma < 2944/1000` and Mathlib's certified `log 2` bounds.  Keep
+  those gamma inequalities as caller-supplied data until Lemma `second`'s
+  operator/numerical proof is formalized. (Observed 2026-08-26.)
+- **A declaration whose result type is a data structure must be a `def`, not a
+  `theorem`** (dual of the Prop-structure gotcha above): Lean rejects
+  `theorem foo ... : CC20EndpointTraceCertificate g := ...` with "type of
+  theorem is not a proposition".  Use `noncomputable def` when the payload
+  mentions `Real.log` etc.; `#print axioms` audits a `def` exactly like a
+  theorem, so the probe pattern still works.  Also remember sibling-leaf names
+  need an explicit `open` (e.g. `cc20EndpointCoefficient_band` lives in
+  `Source.C1CC20EndpointCoefficient`, one `open` per namespace). (Observed
+  2026-08-26, `C1CC20EndpointCertificateData`.)
+- **Fin-literal false branches resist decide/omega/norm_num; use an
+  if-then-else entry function instead**: after `fin_cases i <;> fin_cases j`
+  on `Fin 3`, a leftover hypothesis `h : (fun i ↦ i) ⟨0, ⋯⟩ < (fun i ↦ i)
+  ⟨0, ⋯⟩` cannot be discharged by `omega`, `norm_num at h`, or `by decide`
+  (the `isLt` proof fields of the two literals differ, so both sides are
+  opaque atoms).  When the goal is an entry property of a small explicit
+  matrix, define the matrix as `Matrix.of fun i j => if i < j then 0 else
+  if i = j then 1 else ...` — triangularity then falls to `simp [def, h]`
+  with no case enumeration, and entry computation still works with
+  `fin_cases` + `simp` + `norm_num`. (Observed 2026-08-26,
+  `C1YoshidaLdlCertificate.witnessL`.)
+- **PosDef goals over ℝ carry `star x`; peel with `show`**: the second
+  field of `Matrix.PosDef.of_dotProduct_mulVec_pos` produces goals of the
+  form `0 < star x ⬝ᵥ (M *ᵥ x)` — `rw` against an un-starred identity
+  fails.  Since `TrivialStar ℝ` makes `star x = x` a `rfl`, a
+  `show 0 < x ⬝ᵥ ...` restate fixes the rewrite.  Related micro-facts:
+  `sq_pos_of_ne_zero` is a single-argument alias (`sq_pos_of_ne_zero h`,
+  no `_`), and over ℝ `Lᵀᴴ = L` bridges via
+  `Matrix.conjTranspose_eq_transpose_of_trivial` + `transpose_transpose`.
+  (Observed 2026-08-26, `C1YoshidaLdlCertificate`.)
 
 ## 8a. Canonical Incremental Build Strategy
 

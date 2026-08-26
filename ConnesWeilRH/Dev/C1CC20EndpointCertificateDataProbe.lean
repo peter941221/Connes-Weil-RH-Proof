@@ -1,0 +1,21 @@
+import ConnesWeilRH.Dev.C1CC20EndpointCertificateData
+
+namespace ConnesWeilRH.Source.C1CC20EndpointCertificateData
+
+#check CC20GammaSpectralData.coefficient_band
+#check CC20EndpointOperatorTraceData.toCertificate
+#check CC20EndpointOperatorTraceData.realTrace_eq_hsNormSq
+#check qw_nonneg_of_cc20EndpointOperatorTraceData
+#check cc20ScaledNegativeForm_le_rankOne
+#check cc20EndpointResidual_nonpositive_of_shifted_form
+#check zeroTraceCertificate_of_nonnegative_wInfinity
+
+#print axioms CC20GammaSpectralData.coefficient_band
+#print axioms CC20EndpointOperatorTraceData.toCertificate
+#print axioms CC20EndpointOperatorTraceData.realTrace_eq_hsNormSq
+#print axioms qw_nonneg_of_cc20EndpointOperatorTraceData
+#print axioms cc20ScaledNegativeForm_le_rankOne
+#print axioms cc20EndpointResidual_nonpositive_of_shifted_form
+#print axioms zeroTraceCertificate_of_nonnegative_wInfinity
+
+end ConnesWeilRH.Source.C1CC20EndpointCertificateData

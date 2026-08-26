@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1CC20EndpointCoefficient
+
+namespace ConnesWeilRH.Source.C1CC20EndpointCoefficient
+
+#check cc20EndpointCoefficient_band
+#print axioms cc20EndpointCoefficient_band
+
+end ConnesWeilRH.Source.C1CC20EndpointCoefficient

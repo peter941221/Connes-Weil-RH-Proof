@@ -207,6 +207,125 @@ outside this leaf, but no sign surprise remains: our `archimedeanTerm` is
 CC20's `W_ℝ` verbatim, and the first cut
 needs precisely `W_ℝ ≤ 0` on the window class, i.e. `W∞ ≥ 0` there.
 
+## 6b. Finite-dimensional algebraic brick (landed 2026-08-26)
+
+`Dev/C1CC20FiniteDimensional.lean` now formalizes the real two-dimensional
+algebra used by CC20 Lemma `first`:
+
+```text
+trace(M - εI) ≥ 0 ∧ det(M - εI) ≥ 0
+  ->  ε (x² + y²) ≤ (x,y) M (x,y)ᵀ
+```
+
+The leaf also records the exact CC20 coordinate trace and determinant formulas
+under `α² + β² = 1`, and packages the hypotheses as
+`CC20LemmaFirstCertificate`.  The converse is included: nonnegativity on every
+coordinate pair forces the same trace and determinant conditions.  The WSL2
+owning build is `960/960`; the import-facing probe is `961/961` and reports
+nine declarations using only
+`[propext, Classical.choice, Quot.sound]`
+with no `sorryAx`.  This closes the finite algebraic substep only; CC20's
+numerical spectral bounds, positive Sonin trace, endpoint inequality, and
+Archimedean sign theorem remain explicit open premises.
+
+## 6c. Endpoint coefficient arithmetic adapter (landed 2026-08-26)
+
+`Dev/C1CC20EndpointCoefficient.lean` isolates the finite numerical implication
+in CC20 Lemma `second`.  With the explicit caller premise
+
+```text
+294/100 < gamma < 2944/1000
+```
+
+the theorem `cc20EndpointCoefficient_band` proves
+
+```text
+13 < 4 * gamma / log 2 < 17.
+```
+
+The proof uses Mathlib's certified decimal bounds for `log 2`, so the result is
+exact rational arithmetic.  The gamma enclosure remains an open input from
+CC20's operator/numerical argument; this leaf does not prove the endpoint trace
+estimate or the Archimedean sign.
+
+The owning build is `2123/2123` and the import-facing probe is `2124/2124`,
+with only `[propext, Classical.choice, Quot.sound]` and no `sorryAx`.
+
+## 6d. Endpoint certificate data layer (landed 2026-08-26)
+
+`Dev/C1CC20EndpointCertificateData.lean` joins the three already-landed
+layers (gamma enclosure, coefficient band, positive-trace readback) into the
+data interface consumed by the same-owner certificate
+`CC20EndpointTraceCertificate`:
+
+```text
+CC20GammaSpectralData            gamma : ℝ with 294/100 < gamma < 2944/1000
+    coefficient = 4 * gamma / log 2, band 13 < c < 17, c > 0
+CC20EndpointOperatorTraceData    positive HS trace + explicit endpoint_bound
+    toCertificate                 ⟶ CC20EndpointTraceCertificate g
+    realTrace_eq_hsNormSq         ordinary trace readback (Source/PositiveTrace)
+qw_nonneg_of_cc20EndpointOperatorTraceData
+                                 certificate consumer assembly into qw ≥ 0
+cc20ScaledNegativeForm_le_rankOne
+cc20EndpointResidual_nonpositive_of_shifted_form
+                                 the scalar rank-one transfer of Lemma second
+zeroTraceCertificate_of_nonnegative_wInfinity
+                                 caller-supplied zero-trace regression witness
+                                 (a definition: the certificate is data)
+```
+
+Evidence boundary: `endpoint_bound` remains an explicit analytic field of
+`CC20EndpointOperatorTraceData`; nothing in this leaf proves the CC20 trace
+estimate or the Archimedean sign.  The zero-trace witness is deliberately
+support-free — the support/prime-free hypotheses belong to the downstream
+`qw` consumer.
+
+The six-target batch build (finite-dimensional brick, coefficient adapter,
+certificate data, and all three probes) completes `3613 jobs`, `0 error`;
+all eighteen audited declarations depend only on
+`[propext, Classical.choice, Quot.sound]` with no `sorryAx`.
+
+## 6e. Yoshida LDLᵀ engine and the CC20 operator-gap skeleton (2026-08-26)
+
+Two further leaves land the remaining algebraic layers of Gate 1:
+
+**`Dev/C1YoshidaLdlCertificate.lean` — the exact elimination engine.**
+Yoshida §6 tracks, in strict rational interval arithmetic, the classical
+identity
+
+```text
+x ⬝ᵥ ((L * D * Lᵀ) *ᵥ x) = ∑ i, d i * (Lᵀ *ᵥ x) i ^ 2
+```
+
+The leaf proves this reading identity (`ldlt_dotProduct_eq`), the forward
+substitution injectivity of a unit lower triangular transpose
+(`unitLowerTriangular_transpose_mulVec_injective`, largest-nonzero-index
+argument), and assembles them into `posDef_of_ldlt : U = L * D * Lᵀ ⟹
+U.PosDef`.  A synthetic 3x3 rational witness (`witnessL`, `witnessD`) makes
+the pipeline non-vacuous: `witness_matrix_eq` evaluates the exact Gram
+matrix, and `witness_posDef` certifies it.  This is the first structurally
+nonzero Yoshida-shape certificate; transcribing the actual 10x10 odd /
+200x200 even digamma interval data remains future work.
+
+**`Dev/C1CC20OperatorGap.lean` — the abstract skeleton of Lemma `second`.**
+With caller premises
+
+```text
+(H1)  qT ξ + a·(ell ξ)² ≥ ε₂·‖ξ‖²            (Lemma `first` on T)
+(H2)  −ε₁·‖ξ‖² ≤ qKf ξ − qT ξ                (‖kf_I − T‖ ≤ ε₁)
+```
+
+the leaf proves the two displayed algebra steps of the paper:
+`cc20GapCoercivity_transfer` (shifted coercivity `ε₂ − ε₁` for `qKf`) and
+`cc20NegativeForm_le_rankOne` (the sign flip by `−2ε'(1₊) ≤ 0` giving
+`⟨ξ|nf_I ξ⟩ ≤ γ·(ell ξ)²` with `γ := 2ε'(1₊)·a`), plus the factory
+`CC20OperatorGapData.toGammaSpectralData` feeding the coefficient band.
+The spectral estimates themselves remain caller premises.
+
+Both probes are green (3621 jobs, 0 error; all audited declarations only
+`[propext, Classical.choice, Quot.sound]`, no `sorryAx`), and the full root
+build after the complete source sync passes: `4147 jobs`, `0 error`.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
@@ -216,6 +335,22 @@ needs precisely `W_ℝ ≤ 0` on the window class, i.e. `W∞ ≥ 0` there.
   declarations `[propext, Classical.choice, Quot.sound]`).
 * CC20 log-coordinate readback + endpoint certificate consumer: LANDED,
   axiom-clean (`C1CC20ArchimedeanReadbackProbe` green, 3606 jobs, 0 sorryAx).
+* CC20 finite-dimensional trace/determinant + shifted-coercivity brick: LANDED,
+  axiom-clean (`C1CC20FiniteDimensionalProbe` green, 961 jobs, 0 sorryAx).
+* CC20 endpoint coefficient arithmetic band: LANDED, axiom-clean
+  (`C1CC20EndpointCoefficientProbe` green, 2124 jobs, 0 sorryAx); the gamma
+  enclosure remains an explicit caller premise.
+* CC20 endpoint certificate data layer: LANDED, axiom-clean (six-target batch
+  `3613 jobs`, 0 error; 18 declarations `[propext, Classical.choice,
+  Quot.sound]`, 0 sorryAx); `endpoint_bound` remains an explicit analytic
+  field.
+* Yoshida LDLᵀ engine + synthetic 3x3 witness: LANDED, axiom-clean
+  (`C1YoshidaLdlCertificateProbe` green); actual 10x10 digamma interval
+  transcription still future work.
+* CC20 operator-gap skeleton of Lemma `second` (coercivity transfer + sign
+  flip + gamma factory): LANDED, axiom-clean (`C1CC20OperatorGapProbe`
+  green); spectral estimates remain caller premises.
+* Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: NOT attempted; the certificate remains the
   explicit open analytic obligation (§6a).
 * Titchmarsh bridge: NOT attempted; deferral decision recorded in §5.

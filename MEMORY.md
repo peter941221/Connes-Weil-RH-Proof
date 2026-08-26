@@ -1,3 +1,117 @@
+## Change Log (2026-08-26 session 20, YOSHIDA LDLᵀ ENGINE + OPERATOR-GAP SKELETON + ROOT GREEN)
+- **New leaf `Dev/C1YoshidaLdlCertificate.lean`** with import-facing probe.
+  It formalizes the exact elimination engine behind Yoshida 1992 §6
+  (10x10 odd / 200x200 even matrices at `a = log 2 / 2`):
+  - `ldlt_dotProduct_eq`: the reading identity
+    `x ⬝ᵥ ((L * D * Lᵀ) *ᵥ x) = ∑ i, d i * (Lᵀ *ᵥ x) i ^ 2` via
+    `Matrix.mulVec_mulVec` twice + `Matrix.dotProduct_mulVec` +
+    `← Matrix.mulVec_transpose` + `Matrix.mulVec_diagonal`.
+  - `unitLowerTriangular_transpose_mulVec_injective`: forward substitution
+    by largest nonzero index (`Finset.filter` + `Finset.max'`, no case
+    enumeration).
+  - `posDef_of_ldlt`: `Matrix.PosDef.of_dotProduct_mulVec_pos` with
+    Hermiticity from `isHermitian_conjTranspose_mul_mul` bridged by
+    `Matrix.conjTranspose_eq_transpose_of_trivial` over ℝ; strict
+    positivity via `Finset.sum_pos'` + `sq_pos_of_ne_zero` (single-argument
+    alias).
+  - Synthetic 3x3 witness: `witnessL` as an **if-then-else entry function**
+    (not a matrix literal — see gotcha), `witness_matrix_eq` evaluates the
+    exact rational Gram matrix
+    `[[4,2,4/3],[2,10,35/12],[4/3,35/12,289/144]]`, `witness_posDef`
+    certifies it.  First structurally nonzero Yoshida-shape certificate;
+    the actual digamma interval data is future work.
+- **New leaf `Dev/C1CC20OperatorGap.lean`** with import-facing probe.  The
+  abstract skeleton of CC20 Lemma `second` (arXiv:2006.13771): with caller
+  premises `(H1) qT ξ + a·ℓ(ξ)² ≥ ε₂‖ξ‖²` (Lemma `first` on T) and
+  `(H2) −ε₁‖ξ‖² ≤ qKf ξ − qT ξ` (spectral0), it proves
+  `cc20GapCoercivity_transfer` (nlinarith) and
+  `cc20NegativeForm_le_rankOne` (`mul_le_mul_of_nonpos_left` + ring_nf +
+  linarith) concluding `⟨ξ|nf_I ξ⟩ ≤ γ·ℓ(ξ)²` with `γ := 2ε'(1₊)·a`, plus
+  `toGammaSpectralData` feeding the coefficient band.
+- WSL2 ext4 verification (mirror `/home/peter/rh`): both owning builds and
+  both probes green (`3621 jobs`, 0 error); all audited declarations only
+  `[propext, Classical.choice, Quot.sound]`, no `sorryAx`.  After a full
+  `rsync` source sync (whole `ConnesWeilRH/` tree + root files), the full
+  root build passes: `4147 jobs`, `0 error`, exit 0.
+- Scope guard: nothing here proves the digamma values, the operator norm
+  estimate `‖kf_I − T‖ ≤ ε₁`, the spectral data of T, the endpoint
+  inequality, Archimedean sign, RH, or the active root.
+
+## Change Log (2026-08-26 session 19, CC20 ENDPOINT CERTIFICATE DATA LAYER)
+- **New leaf `Dev/C1CC20EndpointCertificateData.lean`** with import-facing
+  probe.  It joins the three previously separate layers (gamma enclosure,
+  coefficient band, positive Hilbert-Schmidt trace readback) into the
+  same-owner certificate interface `CC20EndpointTraceCertificate`:
+  - `CC20GammaSpectralData` bundles the caller-supplied gamma enclosure with
+    `coefficient = 4 * gamma / log 2`, `coefficient_band : 13 < c < 17`, and
+    `coefficient_positive`.
+  - `CC20EndpointOperatorTraceData` bundles a positive HS trace with the
+    still-open `endpoint_bound` field; `toCertificate` feeds the certificate
+    consumer, and `qw_nonneg_of_cc20EndpointOperatorTraceData` assembles
+    `0 ≤ qw g` from it.
+  - `realTrace_eq_hsNormSq` reads back the ordinary trace along a Hilbert
+    basis via `Source/CC20Concrete/PositiveTrace`.
+  - `cc20ScaledNegativeForm_le_rankOne` and
+    `cc20EndpointResidual_nonpositive_of_shifted_form` isolate the scalar
+    rank-one transfer of Lemma `second` as pure algebra with the operator
+    estimate left as a caller premise.
+  - `zeroTraceCertificate_of_nonnegative_wInfinity` is a caller-supplied
+    zero-trace regression witness; it is a `noncomputable def` because the
+    certificate is a data structure, not a Prop.
+- WSL2 ext4 verification (mirror `/home/peter/rh`): six-target batch
+  (finite-dimensional brick, coefficient adapter, certificate data, three
+  probes) completed `3613 jobs`, `0 error`; all eighteen audited declarations
+  depend only on `[propext, Classical.choice, Quot.sound]`, no `sorryAx`.
+- Mirror note: `/home/peter/rh` had NOT carried `C1CC20FiniteDimensional*.lean`
+  from the older verification mirror; copy such leaves forward per batch
+  before judging a new leaf's failure there.
+- Scope guard: `endpoint_bound` remains an explicit analytic field.  This leaf
+  does not prove the gamma enclosure, the operator norm estimate, the positive
+  Sonin trace theorem, the endpoint inequality, Archimedean sign, RH, or the
+  active root.
+
+## Change Log (2026-08-26 session 18, CC20 ENDPOINT COEFFICIENT ARITHMETIC)
+- **New leaf `Dev/C1CC20EndpointCoefficient.lean`** with import-facing probe.
+  It formalizes the finite arithmetic consequence of CC20 Lemma `second`:
+  under the explicit caller-supplied enclosure
+  `294/100 < gamma < 2944/1000`, the coefficient
+  `c = 4 * gamma / log 2` satisfies `13 < c < 17`.
+  The proof uses Mathlib's certified `Real.log_two_gt_d9` and
+  `Real.log_two_lt_d9`; it uses no floating-point computation.
+- WSL2 ext4 verification: owning target completed `2123/2123`; the
+  import-facing probe completed `2124/2124`; the audited theorem depends only
+  on `[propext, Classical.choice, Quot.sound]` and has no `sorryAx`.
+- Scope guard: this is an arithmetic adapter only.  It does not prove the
+  gamma enclosure, CC20's numerical spectral estimate, the positive Sonin
+  trace, the endpoint inequality, Archimedean sign, RH, or the active root.
+
+## Change Log (2026-08-26 session 17, CC20 FINITE-DIMENSIONAL POSITIVITY BRICK)
+- **New leaf `Dev/C1CC20FiniteDimensional.lean`** with import-facing probe.
+  It formalizes the finite real algebra behind CC20 `weil-compo.tex` Lemma
+  `first` (source: <https://arxiv.org/abs/2006.13771>, Lemma `first`):
+  - `quadraticForm_nonneg_of_trace_det` proves a symmetric 2x2 quadratic form
+    is nonnegative from nonnegative trace and determinant, by completing the
+    square; the `p = 0` branch is handled explicitly.
+  - `trace_det_of_quadraticForm_nonneg` proves the converse, including the
+    explicit `p = 0` counterpoint argument for a nonzero off-diagonal entry.
+  - `quadraticForm_ge_of_shifted_trace_det` upgrades this to an explicit
+    coercive lower bound `epsilon * (x^2 + y^2)` by applying the same test to
+    the diagonally shifted matrix.
+  - `cc20LemmaFirstForm_trace` and `cc20LemmaFirstForm_determinant` provide the
+    exact CC20 coordinate readback under `alpha^2 + beta^2 = 1`.
+  - `cc20LemmaFirstForm_nonneg` and `cc20LemmaFirstForm_nonneg_iff` expose the
+    CC20 parameterization in forward and converse directions; the shifted
+    `cc20LemmaFirstForm_ge_epsilon` gives the coercive form, and
+    `CC20LemmaFirstCertificate.nonnegative` packages the data-level consumer.
+- WSL2 ext4 verification: owning target `lake build
+  ConnesWeilRH.Dev.C1CC20FiniteDimensional` completed `960/960`; the import
+  probe completed `961/961` and prints all nine declarations with exactly
+  `[propext, Classical.choice,
+  Quot.sound]` and no `sorryAx`.
+- Scope guard: this is only the finite-dimensional algebraic brick.  It does
+  not provide CC20's numerical spectral bounds, the positive Sonin trace, the
+  endpoint inequality, Archimedean sign, RH, or the active detector root.
+
 ## Change Log (2026-08-26 session 16, README status refresh)
 - Refreshed `README.md` to match the current C1 same-owner frontier: center-2
   Gate 2 is closed; the Stage-3 positive-trace consumer and right-oriented

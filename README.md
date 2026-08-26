@@ -469,6 +469,16 @@ criterion (Gate 3) and universal W4b positivity remain open; RH is not claimed.
 - [`cc20WInfinityLog_eq_neg_archimedeanTerm`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L47)
 - [`CC20EndpointTraceCertificate`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L94)
 - [`qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L133)
+- [`cc20LemmaFirstForm_nonneg_iff`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20FiniteDimensional.lean#L158)
+- [`cc20LemmaFirstForm_ge_epsilon`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20FiniteDimensional.lean#L189)
+- [`cc20EndpointCoefficient_band`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20EndpointCoefficient.lean#L27)
+- [`CC20EndpointOperatorTraceData`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20EndpointCertificateData.lean#L67)
+- [`qw_nonneg_of_cc20EndpointOperatorTraceData`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20EndpointCertificateData.lean#L103)
+- [`zeroTraceCertificate_of_nonnegative_wInfinity`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20EndpointCertificateData.lean#L161)
+- [`posDef_of_ldlt`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1YoshidaLdlCertificate.lean#L101)
+- [`witness_posDef`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1YoshidaLdlCertificate.lean#L181)
+- [`cc20GapCoercivity_transfer`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20OperatorGap.lean#L64)
+- [`cc20NegativeForm_le_rankOne`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20OperatorGap.lean#L79)
 - [`qw_nonneg_of_vanishesOn_cc20Triple_of_boundary_square_support`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1SpectralW4bBoundary.lean#L329)
 - [`qw_nonneg_of_vanishesOn_cc20Triple_of_refined_boundary_square_support`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1SpectralW4bBoundary.lean#L780)
 - [`qw_nonneg_of_vanishesOn_cc20Triple_of_third_boundary_square_support`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1SpectralW4bBoundary.lean#L869)
@@ -490,6 +500,8 @@ producer, and discharge the finite-vanishing criterion/coverage root.
 | Gate 2 arithmetic-to-spectral equality | Closed | Center-2 contour assembly |
 | Positive-trace order consumer (Stage-3 P3-a) | Closed | Rank-one correction, conditional on `0 <= qw g` |
 | CC20 Archimedean readback + rank-one error kill | Closed | Endpoint certificate interface only |
+| CC20 finite-dimensional trace/determinant algebra | Closed | Shifted coercivity brick; no spectral/trace estimate |
+| CC20 endpoint coefficient arithmetic band | Closed | `13 < 4γ/log 2 < 17` from explicit gamma bounds; spectral source open |
 | Yoshida finite-node interpolation + right-oriented detector | Closed | Same-owner conditional exit |
 | W4b positivity on narrow class + boundary rungs | Closed | Proper support classes (`exp(-7)`, `exp(-13/2)`, `exp(-63/10)`) |
 | W4b universal positivity over all vanishing tests | Open | RH-level |

@@ -1,0 +1,25 @@
+import ConnesWeilRH.Dev.C1CC20FiniteDimensional
+
+namespace ConnesWeilRH.Source.C1CC20FiniteDimensional
+
+#check quadraticForm_nonneg_of_trace_det
+#check quadraticForm_ge_of_shifted_trace_det
+#check trace_det_of_quadraticForm_nonneg
+#check cc20LemmaFirstForm_nonneg
+#check cc20LemmaFirstForm_nonneg_iff
+#check cc20LemmaFirstForm_trace
+#check cc20LemmaFirstForm_determinant
+#check cc20LemmaFirstForm_ge_epsilon
+#check CC20LemmaFirstCertificate.nonnegative
+
+#print axioms quadraticForm_nonneg_of_trace_det
+#print axioms quadraticForm_ge_of_shifted_trace_det
+#print axioms trace_det_of_quadraticForm_nonneg
+#print axioms cc20LemmaFirstForm_nonneg
+#print axioms cc20LemmaFirstForm_nonneg_iff
+#print axioms cc20LemmaFirstForm_trace
+#print axioms cc20LemmaFirstForm_determinant
+#print axioms cc20LemmaFirstForm_ge_epsilon
+#print axioms CC20LemmaFirstCertificate.nonnegative
+
+end ConnesWeilRH.Source.C1CC20FiniteDimensional
