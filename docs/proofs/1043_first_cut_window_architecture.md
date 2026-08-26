@@ -326,6 +326,78 @@ Both probes are green (3621 jobs, 0 error; all audited declarations only
 `[propext, Classical.choice, Quot.sound]`, no `sorryAx`), and the full root
 build after the complete source sync passes: `4147 jobs`, `0 error`.
 
+## 6f. Hilbert Lemma `first` and operator spectral decomposition (landed 2026-08-26)
+
+The next layer replaces both scalar shadows in §6e by their genuine Hilbert
+space and bounded-operator statements.  The source is Connes--Consani,
+arXiv:2006.13771, Lemmas `first` and `second`:
+<https://arxiv.org/abs/2006.13771>.
+
+`Dev/C1CC20HilbertLemmaFirst.lean` first proves the complex Hermitian 2x2
+criterion and then performs the full orthogonal decomposition
+
+```text
+xi = x phi + u,       u perpendicular to phi
+u  = y chi + z,       z perpendicular to chi
+
+||xi||^2 = |x|^2 + |y|^2 + ||z||^2.
+```
+
+This gives `cc20LemmaFirstHilbertForm_ge_epsilon`: the shifted determinant
+certificate controls every vector of the ambient complex Hilbert space, not
+only a real coordinate pair.
+
+`Dev/C1CC20OperatorGap.lean` then proves the missing spectral-decomposition
+algebra.  With
+
+```text
+T xi = lambdaMax * <phi,xi> phi + R(xi_perp)
+R(phi_perp) is contained in phi_perp
+Re <u,Ru> <= lambda2 * ||u||^2       for u in phi_perp,
+```
+
+the theorem `cc20DefectQuadraticForm_ge_of_spectralDecomposition` derives
+
+```text
+-(lambdaMax - 1) |<phi,xi>|^2
+  + (1 - lambda2) ||xi_perp||^2
+    <= Re <xi,(id - T)xi>.
+```
+
+The end-to-end checked chain is now
+
+```text
+Hermitian 2x2 determinant certificate
+  -> cc20LemmaFirstHilbertForm_ge_epsilon
+  -> cc20TCoercivity_of_spectralDecomposition
+  -> ||kf_I - T|| <= epsilon1
+  -> cc20NegativeForm_le_rankOne_of_spectralDecomposition_and_opNorm
+  -> gamma * |<psi,xi>|^2 rank-one upper bound.
+```
+
+The last theorem no longer accepts a caller-supplied pointwise `hspectral`
+inequality.  It accepts the actual decomposition, invariant-complement bound,
+and operator norm estimate.  All new declarations are axiom-clean:
+`[propext, Classical.choice, Quot.sound]`, with no `sorryAx`; the focused
+operator owner/probe build completes `3613/3613`, and the synchronized root
+build completes `4147/4147`.
+
+The remaining boundary is concrete and analytic, not scalar algebra:
+
+```text
+paper's concrete L2(I) operators T, R, kf_I                  OPEN
+certified lambdaMax / lambda2 and residual Rayleigh bound   OPEN
+certified ||kf_I - T|| <= epsilon1                          OPEN
+certified alpha, beta, a, epsilon2 determinant inequalities OPEN
+positive Sonin trace endpoint / W_infinity lower bound      OPEN
+RH-level universal coverage root                            OPEN
+```
+
+In particular, the paper's numerical statements (`lambda2 <= 0.772216`, the
+`epsilon1` enclosure, and the reported overlaps) have not been imported as
+floating-point evidence.  They still require exact interval certificates and
+the concrete operator construction before Gate 1 closes.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
@@ -333,8 +405,20 @@ build after the complete source sync passes: `4147 jobs`, `0 error`.
 * Root-support ledger + endpoint interface: LANDED, axiom-clean
   (`C1HealthyYoshidaDetectorProbe` green, 3605 jobs, 0 sorryAx; all five new
   declarations `[propext, Classical.choice, Quot.sound]`).
+* Four-node interpolator root support: LANDED, axiom-clean
+  (`exists_healthyMinimalLaplaceRealizes_rootSupport_logTwoHalf`).  The
+  constructed test lies in `Icc(-log 2 / 2, log 2 / 2)` and its prime-free
+  square theorem is now a corollary of that stronger statement.  This gives
+  triple vanishing and nonzero detection only, not the strict detector sign.
 * CC20 log-coordinate readback + endpoint certificate consumer: LANDED,
   axiom-clean (`C1CC20ArchimedeanReadbackProbe` green, 3606 jobs, 0 sorryAx).
+* Endpoint/detector incompatibility guard: LANDED, axiom-clean.  An endpoint
+  certificate on a root-supported triple-vanishing test forces
+  `archimedeanTerm(g square) <= 0` and `qw g >= 0`, while strict healthy
+  detector data on the same test forces `qw g < 0`.  The capstone
+  `sourceRH_of_rootSupportedHealthyDetectorData_and_endpointCertificates`
+  confirms that supplying both universally is already an RH proof; the
+  current four-node interpolation does not supply the strict-sign premise.
 * CC20 finite-dimensional trace/determinant + shifted-coercivity brick: LANDED,
   axiom-clean (`C1CC20FiniteDimensionalProbe` green, 961 jobs, 0 sorryAx).
 * CC20 endpoint coefficient arithmetic band: LANDED, axiom-clean
@@ -349,9 +433,16 @@ build after the complete source sync passes: `4147 jobs`, `0 error`.
   transcription still future work.
 * CC20 operator-gap skeleton of Lemma `second` (coercivity transfer + sign
   flip + gamma factory): LANDED, axiom-clean (`C1CC20OperatorGapProbe`
-  green); spectral estimates remain caller premises.
+  green).
+* Complex Hilbert-space Lemma `first` and the genuine spectral-decomposition
+  adapter: LANDED, axiom-clean.  The direct Lemma `second` endpoint now consumes
+  `T = lambdaMax |phi><phi| + R`, complement invariance, the residual Rayleigh
+  bound, and `||kf_I - T|| <= epsilon1`; it no longer consumes a pointwise
+  `hspectral` shadow.  The concrete operators and exact numerical certificates
+  remain caller premises.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
-* Endpoint sign / trace theorem: NOT attempted; the certificate remains the
-  explicit open analytic obligation (§6a).
+* Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
+  analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
+  landed, but the infinite-dimensional operator/spectral estimate is absent.
 * Titchmarsh bridge: NOT attempted; deferral decision recorded in §5.
 * RH remains unclaimed; the universal W4b over all vanishing tests is open.

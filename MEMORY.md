@@ -1,3 +1,86 @@
+## Change Log (2026-08-26 session 22, CC20 HILBERT LEMMA FIRST + OPERATOR SPECTRAL DECOMPOSITION)
+- **Result: good.**  The finite-dimensional CC20 Lemma `first` certificate is
+  now lifted to an arbitrary complex Hilbert space in the new leaf
+  `Dev/C1CC20HilbertLemmaFirst.lean`.  The primary source is Connes--Consani,
+  arXiv:2006.13771, Lemmas `first` and `second`:
+  <https://arxiv.org/abs/2006.13771>.
+- `cc20ComplexHermitianForm_nonneg` and
+  `cc20ComplexHermitianForm_ge_epsilon` prove the Hermitian 2x2
+  trace/determinant block, including the complex cross term.  The exact
+  Pythagorean identities for
+  `xi = <phi,xi> phi + cc20OrthogonalPart phi xi` and then
+  `xi_perp = <chi,xi> chi + z` feed
+  `cc20LemmaFirstHilbertForm_ge_epsilon`; the latter is the full ambient-space
+  coercivity theorem, not a finite-coordinate proxy.
+- `Dev/C1CC20OperatorGap.lean` now proves the operator-level path from the
+  paper's spectral data.  `cc20RealQuadraticForm_eq_of_spectralDecomposition`
+  reads back
+  `T = lambdaMax |phi><phi| + R`; the new
+  `cc20DefectQuadraticForm_ge_of_spectralDecomposition` combines that identity,
+  invariance of `phi`'s orthogonal complement, and
+  `Re <u,Ru> <= lambda2 ||u||^2` into
+
+  ```text
+  -(lambdaMax - 1) |<phi,xi>|^2
+    + (1 - lambda2) ||xi_perp||^2
+      <= Re <xi,(id - T)xi>.
+  ```
+
+  `cc20TCoercivity_of_spectralDecomposition` feeds this into Hilbert Lemma
+  `first`, and
+  `cc20NegativeForm_le_rankOne_of_spectralDecomposition_and_opNorm` then feeds
+  the genuine norm premise `||kf_I - T|| <= epsilon1` into Lemma `second`.
+  The new endpoint has no caller-supplied pointwise `hspectral` shadow.
+- WSL2 native-ext4 verification is green.  Hilbert leaf/probe previously
+  completed `1906/1906`; the extended operator owner/probe completes
+  `3613/3613`; the synchronized full root completes `4147/4147`.  Every new
+  audited declaration reports exactly
+  `[propext, Classical.choice, Quot.sound]`; the changed Lean diff contains no
+  `axiom`, `sorry`, or `admit`.
+- Scope guard: the concrete CC20 operators and certified numerical enclosures
+  remain open.  In particular this session does not construct the paper's
+  actual `T`, `R`, `kf_I`, prove `lambda2 <= 0.772216`, prove
+  `||kf_I - T|| <= epsilon1`, certify the determinant constants, close the
+  positive Sonin trace endpoint, discharge the active RH root, or prove RH.
+
+## Change Log (2026-08-26 session 21, ROOT-SUPPORT INTERPOLATOR + ENDPOINT/DETECTOR BOUNDARY)
+- `Dev/C1HealthyYoshidaMinimalInterpolation.lean` now proves
+  `exists_healthyMinimalLaplaceRealizes_rootSupport_logTwoHalf`: for every
+  off-line source zero, the four-node interpolator is supported in the exact
+  CC20/Yoshida root window
+  `[-log 2 / 2, log 2 / 2]`.  The previous prime-free-square theorem is now a
+  corollary of this stronger support statement via
+  `convolutionSquare_support_subset_two_mul_Ioo`.
+- `Dev/C1CC20ArchimedeanReadback.lean` now records the exact sign boundary:
+  `archimedeanTerm_nonpos_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf`
+  derives the endpoint Archimedean sign, while
+  `not_healthyYoshidaDetectorData_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf`
+  proves that a root-supported endpoint certificate and strict healthy
+  detector data cannot belong to the same test.
+- The capstone
+  `sourceRH_of_rootSupportedHealthyDetectorData_and_endpointCertificates`
+  proves that universal root-supported strict detector data together with
+  universal endpoint certificates implies `SourceRH`.  This is a boundary
+  theorem, not a discharge of either premise.  The existing unconditional
+  strict detector construction controls the spectral tail by iterated
+  convolution and has support growing with the interpolation order; the new
+  four-node root interpolator has fixed support but does not control the
+  remaining infinite zero sum.  Conflating those owners would amount to
+  assuming the RH-level step.
+- WSL2 ext4 focused verification is green: minimal interpolator/probe
+  `3607/3607`; endpoint readback/probe `3606/3606`.  Every new declaration
+  audits to exactly `[propext, Classical.choice, Quot.sound]`; no `sorryAx`
+  or project axiom was introduced.
+- Locked full-root verification is also green: `lake build ConnesWeilRH`
+  reports `Build completed successfully (4147 jobs)`.  The RH output audit
+  still reports the five intended project roots, including the active
+  `normalizedSelectedFinalRouteDetectorCriterionCoverageRoot`; no root was
+  silently replaced by a theorem in this session.
+- Scope guard: the CC20/Yoshida endpoint operator estimate is still open, as
+  is global Weil nonnegativity on all triple-vanishing tests.  The active
+  `normalizedSelectedFinalRouteDetectorCriterionCoverageRoot` remains
+  equivalent to `SourceRH` and has not been removed.  RH is NOT claimed.
+
 ## Change Log (2026-08-26 session 20, YOSHIDA LDLᵀ ENGINE + OPERATOR-GAP SKELETON + ROOT GREEN)
 - **New leaf `Dev/C1YoshidaLdlCertificate.lean`** with import-facing probe.
   It formalizes the exact elimination engine behind Yoshida 1992 §6

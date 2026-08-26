@@ -146,6 +146,90 @@ theorem qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf
   rw [htwo] at hwindow
   exact hwindow
 
+/-- On the Yoshida root window, an endpoint trace certificate forces the
+Archimedean term of the Hermitian square to be nonpositive.  This is the
+sign-facing form of the endpoint theorem: triple vanishing kills the pole,
+root support kills every prime term, and the remaining identity is
+`qw g = -archimedeanTerm (g □)`. -/
+theorem archimedeanTerm_nonpos_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+        cc20TripleFiniteVanishingSet g)
+    (hsupport : Function.support g.test ⊆
+      Set.Icc (-(Real.log 2 / 2)) (Real.log 2 / 2))
+    (hcertificate : CC20EndpointTraceCertificate g) :
+    C1SameOwnerWeil.archimedeanTerm g.convolutionSquare ≤ 0 := by
+  have hqw : 0 ≤ C1SameOwnerWeil.qw g :=
+    qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf
+      g hvanishes hsupport hcertificate
+  have hreadback :=
+    qw_eq_neg_archimedeanTerm_of_vanishesOn_cc20Triple_of_rootSupport_logTwoHalf
+      g hvanishes hsupport
+  rw [hreadback] at hqw
+  linarith
+
+/-- A CC20 endpoint certificate and strict healthy detector data cannot live
+on the same root-supported test.  The endpoint certificate gives `qw g ≥ 0`,
+whereas detector data gives a strictly negative spectral value and hence
+`qw g < 0` through the proved center-`2` readback.
+
+This theorem is a route guard: four-node interpolation inside the endpoint
+window supplies vanishing and nonzero detection, but a proof of its strict
+detector sign would already cross the RH-level boundary. -/
+theorem not_healthyYoshidaDetectorData_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf
+    (g : CompactLogTest)
+    (hsupport : Function.support g.test ⊆
+      Set.Icc (-(Real.log 2 / 2)) (Real.log 2 / 2))
+    (hcertificate : CC20EndpointTraceCertificate g)
+    (rho : Complex) :
+    ¬ C1HealthyYoshidaDetector.HealthyYoshidaDetectorData rho g := by
+  intro hdetector
+  have hqwNonnegative : 0 ≤ C1SameOwnerWeil.qw g :=
+    qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf
+      g hdetector.vanishesOnF hsupport hcertificate
+  have hspectralNegative :
+      C1SpectralWeil.spectralWeilValue g.convolutionSquare < 0 :=
+    (C1HealthyYoshidaDetector.weilSquareSumPositive_iff_spectralWeilValue_neg g).mp
+      hdetector.weilSquareSumPositive
+  have hqwNegative : C1SameOwnerWeil.qw g < 0 := by
+    rw [C1CenterTwoCriterionBridge.qw_eq_spectralWeilValue_centerTwo]
+    exact hspectralNegative
+  exact (not_lt_of_ge hqwNonnegative) hqwNegative
+
+/-- The exact RH-level boundary exposed by the endpoint route.  If every
+off-line source zero had strict healthy detector data on the Yoshida root
+window, and every triple-vanishing test on that window carried the published
+CC20 endpoint certificate, then the two preceding signs would contradict one
+another and every source zero would lie on the critical line.
+
+The current four-node interpolation theorem does not discharge
+`hrootDetector`: it supplies vanishing and nonzero detection, but not the
+strict Weil sign. -/
+theorem sourceRH_of_rootSupportedHealthyDetectorData_and_endpointCertificates
+    (hrootDetector : forall {rho : Complex},
+      RHDefinitionBridge.standard.sourceNontrivialZero rho ->
+        rho.re ≠ 1 / 2 ->
+          exists g : CompactLogTest,
+            C1HealthyYoshidaDetector.HealthyYoshidaDetectorData rho g /\
+              Function.support g.test ⊆
+                Set.Icc (-(Real.log 2 / 2)) (Real.log 2 / 2))
+    (hendpoint : forall g : CompactLogTest,
+      CC20VanishesOn C1.healthyCC20TestSpace
+          cc20TripleFiniteVanishingSet g ->
+        Function.support g.test ⊆
+            Set.Icc (-(Real.log 2 / 2)) (Real.log 2 / 2) ->
+          Nonempty (CC20EndpointTraceCertificate g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  by_cases hline : rho.re = 1 / 2
+  · simpa [RHDefinitionBridge.standard] using hline
+  · obtain ⟨g, hdetector, hsupport⟩ := hrootDetector hrho hline
+    obtain ⟨hcertificate⟩ :=
+      hendpoint g hdetector.vanishesOnF hsupport
+    exact False.elim
+      ((not_healthyYoshidaDetectorData_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf
+        g hsupport hcertificate rho) hdetector)
+
 /-- On a triple-vanishing root with the prime-free Hermitian square, the
 sign-corrected CC20 Archimedean distribution reads back exactly to `qw`.
 

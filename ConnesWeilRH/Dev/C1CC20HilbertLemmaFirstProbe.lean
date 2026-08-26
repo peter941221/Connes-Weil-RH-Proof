@@ -1,0 +1,27 @@
+import ConnesWeilRH.Dev.C1CC20HilbertLemmaFirst
+
+namespace ConnesWeilRH.Source.C1CC20HilbertLemmaFirst
+
+#check cc20ComplexHermitianForm
+#check cc20ComplexHermitianForm_nonneg
+#check cc20ComplexHermitianForm_ge_epsilon
+#check cc20RankOneSquare_eq_complexHermitianForm
+#check cc20OrthogonalPart
+#check inner_cc20OrthogonalPart_eq_zero
+#check norm_sq_eq_normSq_inner_add_orthogonalPart
+#check CC20OrthonormalFrame
+#check cc20LemmaFirstHilbertForm
+#check cc20LemmaFirstHilbertForm_ge_epsilon
+
+#print axioms cc20ComplexHermitianForm
+#print axioms cc20ComplexHermitianForm_nonneg
+#print axioms cc20ComplexHermitianForm_ge_epsilon
+#print axioms cc20RankOneSquare_eq_complexHermitianForm
+#print axioms cc20OrthogonalPart
+#print axioms inner_cc20OrthogonalPart_eq_zero
+#print axioms norm_sq_eq_normSq_inner_add_orthogonalPart
+#print axioms CC20OrthonormalFrame
+#print axioms cc20LemmaFirstHilbertForm
+#print axioms cc20LemmaFirstHilbertForm_ge_epsilon
+
+end ConnesWeilRH.Source.C1CC20HilbertLemmaFirst

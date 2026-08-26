@@ -172,17 +172,64 @@ theorem HealthyMinimalLaplaceRealizes.detects_rho
     CompactLogTest.laplaceAt g rho ≠ 0 :=
   h.2.2.2
 
+/-- The fixed residual window used by the four-node interpolator lies inside
+the centered Yoshida endpoint window. -/
+private theorem fixedWindow_log_bounds :
+    -(Real.log 2 / 2) <
+        Real.log CCM25Concrete.SelectedYoshidaBridge.fixedWindowLower /\
+      Real.log CCM25Concrete.SelectedYoshidaBridge.fixedWindowUpper <
+        Real.log 2 / 2 := by
+  have hlowerLog :
+      Real.log (1 / 2 : Real) <
+        Real.log ((3 / 4 : Real) * (3 / 4 : Real)) := by
+    apply Real.log_lt_log
+    · norm_num
+    · norm_num
+  have hlowerLeft : Real.log (1 / 2 : Real) = -Real.log 2 := by
+    rw [show (1 / 2 : Real) = (2 : Real)⁻¹ by norm_num, Real.log_inv]
+  have hlowerRight :
+      Real.log ((3 / 4 : Real) * (3 / 4 : Real)) =
+        2 * Real.log CCM25Concrete.SelectedYoshidaBridge.fixedWindowLower := by
+    rw [Real.log_mul (by norm_num : (3 / 4 : Real) ≠ 0)
+      (by norm_num : (3 / 4 : Real) ≠ 0)]
+    simp only [CCM25Concrete.SelectedYoshidaBridge.fixedWindowLower]
+    ring
+  have hlower :
+      -(Real.log 2 / 2) <
+        Real.log CCM25Concrete.SelectedYoshidaBridge.fixedWindowLower := by
+    rw [hlowerLeft, hlowerRight] at hlowerLog
+    linarith
+  have hupperLog :
+      Real.log ((5 / 4 : Real) * (5 / 4 : Real)) < Real.log 2 := by
+    apply Real.log_lt_log
+    · norm_num
+    · norm_num
+  have hupperLeft :
+      Real.log ((5 / 4 : Real) * (5 / 4 : Real)) =
+        2 * Real.log CCM25Concrete.SelectedYoshidaBridge.fixedWindowUpper := by
+    rw [Real.log_mul (by norm_num : (5 / 4 : Real) ≠ 0)
+      (by norm_num : (5 / 4 : Real) ≠ 0)]
+    simp only [CCM25Concrete.SelectedYoshidaBridge.fixedWindowUpper]
+    ring
+  have hupper :
+      Real.log CCM25Concrete.SelectedYoshidaBridge.fixedWindowUpper <
+        Real.log 2 / 2 := by
+    rw [hupperLeft] at hupperLog
+    linarith
+  exact ⟨hlower, hupper⟩
+
 /-- The narrow residual-window interpolation theorem realizes the four
-healthy detector nodes while keeping the Hermitian square prime-free. -/
-theorem exists_healthyMinimalLaplaceRealizes_primeFreeSquare
+healthy detector nodes on the root-support class consumed by the
+Yoshida--Connes--Consani endpoint theorem. -/
+theorem exists_healthyMinimalLaplaceRealizes_rootSupport_logTwoHalf
     {rho : Complex}
     (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho)
     (hoff : rho.re ≠ 1 / 2) :
     exists g : CompactLogTest,
       HealthyMinimalLaplaceRealizes rho g /\
         CompactLogTest.laplaceAt g rho = -1 /\
-          Function.support g.convolutionSquare.test ⊆
-            Set.Ioo (-Real.log 2) (Real.log 2) := by
+          Function.support g.test ⊆
+            Set.Icc (-(Real.log 2 / 2)) (Real.log 2 / 2) := by
   classical
   have hlower :
       Real.log CCM25Concrete.SelectedYoshidaBridge.fixedWindowLower < 0 :=
@@ -201,15 +248,33 @@ theorem exists_healthyMinimalLaplaceRealizes_primeFreeSquare
   have hrhoValue := hvalues
     (⟨rho, by simp [healthyDetectorNodeSet]⟩ :
       FiniteMellinNode (healthyDetectorNodeSet rho))
-  have hsquare :=
-    convolutionSquare_support_subset_difference g hsupport
-  have hwidth :=
-    CCM25Concrete.SelectedYoshidaBridge.fixedWindow_logWidth_lt_log_two
+  have hwindow := fixedWindow_log_bounds
   refine ⟨g, hrealizes, ?_, ?_⟩
   · simpa [healthyDetectorNodeTarget] using hrhoValue
   · intro x hx
-    rcases hsquare hx with ⟨hlowerSquare, hupperSquare⟩
-    constructor <;> linarith
+    rcases hsupport hx with ⟨hlower, hupper⟩
+    exact ⟨hwindow.1.le.trans hlower.le, hupper.le.trans hwindow.2.le⟩
+
+/-- The same four-node interpolator has a prime-free Hermitian square.  This
+is derived from its stronger root-support certificate, so endpoint consumers
+and square-support consumers use the same constructed test. -/
+theorem exists_healthyMinimalLaplaceRealizes_primeFreeSquare
+    {rho : Complex}
+    (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho)
+    (hoff : rho.re ≠ 1 / 2) :
+    exists g : CompactLogTest,
+      HealthyMinimalLaplaceRealizes rho g /\
+        CompactLogTest.laplaceAt g rho = -1 /\
+          Function.support g.convolutionSquare.test ⊆
+            Set.Ioo (-Real.log 2) (Real.log 2) := by
+  rcases exists_healthyMinimalLaplaceRealizes_rootSupport_logTwoHalf hrho hoff with
+    ⟨g, hrealizes, hrhoValue, hsupport⟩
+  refine ⟨g, hrealizes, hrhoValue, ?_⟩
+  have hwindow :=
+    CompactLogTest.convolutionSquare_support_subset_two_mul_Ioo g hsupport
+  have htwo : (2 : Real) * (Real.log 2 / 2) = Real.log 2 := by ring
+  rw [htwo] at hwindow
+  exact hwindow
 
 /-- The narrow four-node interpolation root supplies all non-sign fields of
 healthy detector data once the remaining archimedean positivity is proved. -/

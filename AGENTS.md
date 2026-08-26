@@ -1402,6 +1402,29 @@ Rules:
   Keep the numerical spectral data and the analytic certificate as explicit
   caller premises; do not promote this lemma into Gate 1. (Observed
   2026-08-26, CC20 `weil-compo.tex` Lemma `first`.)
+- **Unpack CC20 spectral containment before using it as a form bound**:
+  `C1CC20OperatorGap.cc20DefectQuadraticForm_ge_of_spectralDecomposition`
+  consumes three distinct operator facts: the exceptional-eigenvector
+  decomposition `T = lambdaMax |phi><phi| + R`, invariance of `phi`'s
+  orthogonal complement, and the Rayleigh bound
+  `Re <u,Ru> <= lambda2 ||u||^2` on that complement.  A paper statement that
+  the spectrum lies in `{lambdaMax} union [-2,lambda2]` does not become the
+  last fact in Lean without the matching self-adjoint spectral theorem or a
+  direct proof.  Keep the concrete numerical enclosure explicit until that
+  producer exists. (Observed 2026-08-26, CC20 Lemma `second`.)
+- **Use the real inner-self theorem when `Complex.re` and `RCLike.re` do not
+  rewrite directly**: taking `congrArg Complex.re` of
+  `inner_self_eq_norm_sq_to_K` can leave a casted-power real-part goal that
+  neither `rw` nor `norm_num` closes.  Use
+  `inner_self_eq_norm_mul_norm (𝕜 := ℂ)`, `change` its real-part spelling,
+  then `simpa only [pow_two]`. (Observed 2026-08-26,
+  `cc20DefectQuadraticForm_eq_norm_sq_sub_realQuadraticForm`.)
+- **Localize Hilbert-space decomposition rewrites**: a global `rw [hxi]` can
+  rewrite both the intended vector occurrence and an occurrence nested inside
+  `cc20OrthogonalPart phi xi`, changing the owner of the orthogonal remainder.
+  First `change` the goal to atomic coordinates (`x`, `u`), then rewrite the
+  exposed `xi` only. (Observed 2026-08-26,
+  `cc20RealQuadraticForm_eq_of_spectralDecomposition`.)
 - **The CC20 coefficient band is an arithmetic adapter, not spectral evidence**:
   `C1CC20EndpointCoefficient.cc20EndpointCoefficient_band` derives
   `13 < 4 * gamma / log 2 < 17` only from the explicit rational bounds
@@ -1437,6 +1460,12 @@ Rules:
   no `_`), and over ℝ `Lᵀᴴ = L` bridges via
   `Matrix.conjTranspose_eq_transpose_of_trivial` + `transpose_transpose`.
   (Observed 2026-08-26, `C1YoshidaLdlCertificate`.)
+- **Lean `!=` is Boolean; `≠` is propositional**: a premise written
+  `x != y` elaborates through `Bool` and, in proposition position, expects
+  `(x != y) = true`.  It cannot consume `h : ¬ x = y`.  Use `x ≠ y` when the
+  proof is a `Not` value.  Some existing detector adapters deliberately use
+  Boolean inequality, so follow the expected type rather than replacing the
+  token mechanically. (Observed 2026-08-26 in the root-support RH boundary.)
 
 ## 8a. Canonical Incremental Build Strategy
 
@@ -2279,14 +2308,28 @@ project roots / `sorryAx`) plus the full repository verification gate.
   to the rejected normalized additive-doubling owner; do not require or use
   them when constructing a healthy positive direction. The axiom-clean module
   `Dev/C1HealthyYoshidaMinimalInterpolation.lean` realizes those four nodes in
-  the `(3/4, 5/4)` positive window, where its Hermitian square has support
-  strictly inside `(-log 2, log 2)`. Thus
+  the `(3/4, 5/4)` positive window.  The strengthened theorem
+  `exists_healthyMinimalLaplaceRealizes_rootSupport_logTwoHalf` proves the
+  root itself lies in `[-log 2 / 2, log 2 / 2]`; consequently its Hermitian
+  square has support strictly inside `(-log 2, log 2)`. Thus
   `finitePrimeSum_eq_zero_of_support_subset_open_log_two` removes every
   visible prime-power term, and triple vanishing removes the pole term:
   `0 < weilLocalSum (starConvolution g)` is equivalent to
   `0 < archimedeanTerm g.convolutionSquare`. This is a reduction of the local
   sign construction, not an archimedean positivity theorem, detector
   existence theorem, spectral sign producer, or RH proof.
+
+- CC20 endpoint/root-detector boundary (2026-08-26): an endpoint certificate
+  on a root-supported triple-vanishing test forces `qw g >= 0` and
+  `archimedeanTerm(g square) <= 0`; strict `HealthyYoshidaDetectorData` on the
+  same test forces `qw g < 0`.  The axiom-clean guard
+  `not_healthyYoshidaDetectorData_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf`
+  records the contradiction, and the companion `sourceRH_of_...` theorem
+  shows that universal root-supported strict detectors plus universal CC20
+  endpoint certificates already imply `SourceRH`.  Do not attach the strict
+  sign of the existing growing-support spectral-tail detector to the fixed
+  four-node root interpolator; they are different owners, and that transfer
+  is RH-level.
 
 - Healthy narrow plateau archimedean positivity (CLOSED 2026-08-17,
   `Dev/C1HealthyNarrowPlateau.lean`): `primeFreePlateau` is the same-owner
