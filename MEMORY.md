@@ -1,4 +1,58 @@
-## Change Log (2026-08-26 session 13 cont. 5, THIRD BOUNDARY RUNG LANDED -- direct Euler certificate)
+## Change Log (2026-08-26 session 14, FIRST-CUT WINDOW ARCHITECTURE -- translation invariance + root-support log2/2 ledger + CC20 dictionary verified)
+- **Two new layers toward the first cut, all axiom-clean** (leaf probe builds
+  `3505/3505` and `3605/3605`, final full root `4147/4147`, all with 0
+  `error:` and 0 `sorryAx`; every audited declaration exactly
+  `[propext, Classical.choice, Quot.sound]`).  Design note:
+  `docs/proofs/1043_first_cut_window_architecture.md`.
+  - `Source/CCM25Concrete/CompactLogConvolution.lean` (+~100 lines):
+    `CompactLogTest.ext` (structure extensionality; the test field determines
+    the structure), then the root-to-square support geometry:
+    `convolutionSquare_support_subset_two_mul` (root `Icc (-a) a` ⟹ square
+    `Icc (-(2a)) (2a)`; nonzero value at `x` needs both factors nonzero at
+    points differing by `x`), `convolutionSquare_two_mul_eq_zero` (at the
+    doubled endpoint the square vanishes — the two root windows overlap in at
+    most one point, and the continuous integrand with singleton support is
+    identically zero; open-preimage argument, no measure theory), and
+    `convolutionSquare_support_subset_two_mul_Ioo` (square sits in the OPEN
+    doubled interval).
+  - `Source/CC20YoshidaCriticalContraction.lean`:
+    `translate_convolutionSquare_apply` / `translate_convolutionSquare` —
+    translating the root does NOT change its Hermitian convolution square
+    (involution shifts opposite; `integral_add_right_eq_self`).
+  - New leaf `Dev/C1YoshidaTranslation.lean`: `qw_translate` (Weil value
+    translation-invariant), `vanishesOn_translate_iff` (every finite Mellin
+    vanishing set invariant both directions; `laplaceAt_translate` +
+    `Complex.exp_ne_zero`), `translate_support_subset_Icc`.
+  - `Dev/C1HealthyYoshidaDetector.lean`:
+    `qw_eq_neg_archimedeanTerm_of_vanishesOn_cc20Triple_of_rootSupport_logTwoHalf`
+    (ROOT support `Icc (-(log2/2)) (log2/2)` + triple vanishing ⟹ `qw = -arch`;
+    the square lands in the OPEN prime-free window so the existing pole-kill +
+    prime-kill apply verbatim) and
+    `qw_nonneg_of_archimedeanTerm_nonpos_..._rootSupport_logTwoHalf` — the
+    fixed interface the endpoint sign theorem must fill.
+- **Architecture decision (1043 §2, §5)**: CC20's main theorems
+  (weil-compo.tex lines 125 / 1958) hypothesize ROOT support
+  `[2^(-1/2), 2^(1/2)]` = log `Icc (-(log2/2)) (log2/2)`, NOT square support.
+  The SQUARE-support form needs the Titchmarsh convolution theorem
+  (Cartwright-class machinery, absent from Mathlib; est. 2000+ lines) —
+  deferred.  The first cut lands in ROOT form; the root class is already 377×
+  wider than every budget rung (`log 2 ≈ 0.693` vs `exp(-63/10) ≈ 1.8e-3`).
+- **Dictionary readback 4 VERIFIED ON PAPER (1043 §6)**: with the half-density
+  involution `f♯(x) = x⁻¹ f(1/x)` (pinned by matching the prime term against
+  `finitePrimeTermComplex`) and `F(y) = e^(y/2) f(e^y)`, CC20's `W_ℝ(f)`
+  (tex:2048) is LITERALLY our `archimedeanTerm F`, and `W∞ := -W_ℝ` (tex:~2055)
+  gives `W∞ = -archimedeanTerm` — exactly the sign `qw = -arch` needs on the
+  prime-free window.  CC20's bad direction `c|ĝ(0)|²` with `c = 4γ/log2`,
+  `γ ≈ 2.94355` (Lemma `second`, tex:1932-1960) is killed by the triple
+  vanishing.  No sign surprise remains; writing the Lean readback theorem and
+  the endpoint sign theorem (GATE 1, Yoshida LDLᵀ vs CC20 trace route) is the
+  next fight.  RH remains unclaimed.
+- AGENTS §7 +2 gotchas: Git-Bash-harness `wsl.exe` needs `MSYS_NO_PATHCONV=1`
+  and direct exec (no `bash -lc` scripts); non-login exec misses
+  `~/.elan/bin` so build with the absolute lake path, and `| tail` buffers
+  background-build output (poll with `pgrep`).
+
+
 - **Same leaf `Dev/C1SpectralW4bBoundary.lean`** (+~287 lines; owning-module
   build `3628/3628`, warm full root `4147/4147`, both with 0 `error:` and 0
   `sorryAx`; all **53** audited declarations exactly

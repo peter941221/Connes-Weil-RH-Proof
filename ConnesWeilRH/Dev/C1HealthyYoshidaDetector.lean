@@ -138,6 +138,42 @@ theorem qw_eq_neg_archimedeanTerm_of_vanishesOn_cc20Triple_of_primeFreeSquare
       g.convolutionSquare hsupport]
   ring
 
+/-- Root support in the full Yoshida window `[−log 2 / 2, log 2 / 2]` already
+places the Hermitian square in the open prime-free window `(-log 2, log 2)`,
+because the doubled endpoints carry no mass.  Triple vanishing then leaves
+only the negative archimedean contribution. -/
+theorem qw_eq_neg_archimedeanTerm_of_vanishesOn_cc20Triple_of_rootSupport_logTwoHalf
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+        cc20TripleFiniteVanishingSet g)
+    (hsupport : Function.support g.test ⊆
+      Set.Icc (-(Real.log 2 / 2)) (Real.log 2 / 2)) :
+    C1SameOwnerWeil.qw g =
+      -C1SameOwnerWeil.archimedeanTerm g.convolutionSquare := by
+  refine qw_eq_neg_archimedeanTerm_of_vanishesOn_cc20Triple_of_primeFreeSquare
+    g hvanishes ?_
+  have hwindow :=
+    CompactLogTest.convolutionSquare_support_subset_two_mul_Ioo g hsupport
+  have htwo : (2 : ℝ) * (Real.log 2 / 2) = Real.log 2 := by ring
+  rw [htwo] at hwindow
+  exact hwindow
+
+/-- The interface the endpoint sign theorem must fill: once the archimedean
+term is known nonpositive on the centered root-support class (the
+Yoshida / Connes-Consani endpoint at `log 2 / 2`), the same-owner Weil value
+is nonnegative there. -/
+theorem qw_nonneg_of_archimedeanTerm_nonpos_of_vanishesOn_cc20Triple_of_rootSupport_logTwoHalf
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+        cc20TripleFiniteVanishingSet g)
+    (hsupport : Function.support g.test ⊆
+      Set.Icc (-(Real.log 2 / 2)) (Real.log 2 / 2))
+    (harch : C1SameOwnerWeil.archimedeanTerm g.convolutionSquare ≤ 0) :
+    0 ≤ C1SameOwnerWeil.qw g := by
+  rw [qw_eq_neg_archimedeanTerm_of_vanishesOn_cc20Triple_of_rootSupport_logTwoHalf
+    g hvanishes hsupport]
+  linarith
+
 /-! ### The detector data package -/
 
 /-- The healthy detector data package: three nondegeneracy fields plus an

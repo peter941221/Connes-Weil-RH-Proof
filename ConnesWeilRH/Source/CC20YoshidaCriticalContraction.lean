@@ -84,6 +84,34 @@ theorem laplaceAt_translate (f : CompactLogTest) (a : ℝ) (s : ℂ) :
         ∫ x : ℝ, Complex.exp (s * (x : ℂ)) * f.test x :=
       integral_const_mul _ _
 
+/-- Translating the root does not change its Hermitian convolution square.
+The involution translates in the opposite direction, so the two shifts cancel
+inside the convolution integral. -/
+theorem translate_convolutionSquare_apply
+    (f : CompactLogTest) (a x : ℝ) :
+    (translate f a).convolutionSquare.test x =
+      f.convolutionSquare.test x := by
+  rw [CCM25Concrete.CompactLogConvolution.CompactLogTest.convolutionSquare_apply,
+    CCM25Concrete.CompactLogConvolution.CompactLogTest.convolutionSquare_apply]
+  simp only [translate_apply]
+  let integrand : ℝ → ℂ := fun t => star (f.test (-t)) * f.test (x - t)
+  calc
+    (∫ t : ℝ, star (f.test (-t - a)) * f.test (x - t - a)) =
+        ∫ t : ℝ, integrand (t + a) := by
+      apply integral_congr_ae
+      filter_upwards with t
+      simp only [integrand]
+      congr 2 <;> ring
+    _ = ∫ t : ℝ, integrand t :=
+      integral_add_right_eq_self integrand a
+
+/-- Structure-level form of `translate_convolutionSquare_apply`. -/
+theorem translate_convolutionSquare (f : CompactLogTest) (a : ℝ) :
+    (translate f a).convolutionSquare = f.convolutionSquare := by
+  apply CCM25Concrete.CompactLogConvolution.CompactLogTest.ext
+  ext x
+  exact translate_convolutionSquare_apply f a x
+
 /-- The centered translated pair.  Its transform is a hyperbolic-cosine
 factor, normalized to equal one at centered real displacement `delta` when
 the imaginary phase is resonant. -/

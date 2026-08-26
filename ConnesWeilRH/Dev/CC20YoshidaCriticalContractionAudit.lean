@@ -18,6 +18,8 @@ open Source.CC20YoshidaCriticalContraction.CompactLogTest
 
 #check @translate
 #check @laplaceAt_translate
+#check @translate_convolutionSquare_apply
+#check @translate_convolutionSquare
 #check @centeredPair
 #check @laplaceAt_centeredPair
 #check @exp_mul_I_eq_one_of_mul_eq_nat_two_pi
@@ -41,6 +43,8 @@ open Source.CC20YoshidaCriticalContraction.CompactLogTest
 #print norm_laplaceAt_raw_centeredPair_critical_le
 
 #print axioms laplaceAt_translate
+#print axioms translate_convolutionSquare_apply
+#print axioms translate_convolutionSquare
 #print axioms laplaceAt_centeredPair
 #print axioms exp_mul_I_eq_one_of_mul_eq_nat_two_pi
 #print axioms centered_exponential_sum_eq_two_cosh_of_phase

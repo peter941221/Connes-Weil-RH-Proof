@@ -32,6 +32,17 @@ structure CompactLogTest where
 
 namespace CompactLogTest
 
+/-- Compact logarithmic tests are determined by their underlying Schwartz
+functions; the compact-support field is proof data. -/
+@[ext] theorem ext {f g : CompactLogTest} (h : f.test = g.test) : f = g := by
+  cases f with
+  | mk f hf =>
+      cases g with
+      | mk g hg =>
+          dsimp only at h
+          subst g
+          rfl
+
 /-- Reflection in the additive log coordinate, without complex conjugation. -/
 noncomputable def reflection (f : CompactLogTest) : CompactLogTest := by
   let raw : ℝ → ℂ := fun x => f.test (-x)
@@ -188,6 +199,97 @@ theorem convolutionSquare_add_neg_eq_two_re (g : CompactLogTest) (x : ℝ) :
   · simp
     ring
   · simp
+
+/-- A root supported in a symmetric interval has its Hermitian convolution
+square supported in the doubled interval: a nonzero value at `x` needs both
+convolution factors nonzero at points whose difference is `x`. -/
+theorem convolutionSquare_support_subset_two_mul
+    (g : CompactLogTest) {a : ℝ}
+    (hsupport : Function.support g.test ⊆ Set.Icc (-a) a) :
+    Function.support g.convolutionSquare.test ⊆ Set.Icc (-(2 * a)) (2 * a) := by
+  intro x hx
+  by_contra hout
+  have hxne : g.convolutionSquare.test x ≠ 0 := Function.mem_support.mp hx
+  have hint : (fun t : ℝ => star (g.test (-t)) * g.test (x - t)) = 0 := by
+    funext t
+    by_contra hne
+    have h1 := left_ne_zero_of_mul hne
+    have h2 := right_ne_zero_of_mul hne
+    have hu := hsupport (star_ne_zero.mp h1)
+    have hv := hsupport h2
+    exact hout ⟨by linarith [hu.1, hu.2, hv.1, hv.2],
+      by linarith [hu.1, hu.2, hv.1, hv.2]⟩
+  rw [convolutionSquare_apply, hint] at hxne
+  simp at hxne
+
+/-- At the doubled endpoint the Hermitian convolution square vanishes: the two
+root-support windows then overlap in at most one point, and the continuous
+integrand with support inside a singleton is identically zero. -/
+theorem convolutionSquare_two_mul_eq_zero
+    (g : CompactLogTest) {a : ℝ}
+    (hsupport : Function.support g.test ⊆ Set.Icc (-a) a) :
+    g.convolutionSquare.test (2 * a) = 0 := by
+  have hpoint : ∀ t : ℝ,
+      star (g.test (-t)) * g.test (2 * a - t) ≠ 0 → t = a := by
+    intro t ht
+    have h1 := left_ne_zero_of_mul ht
+    have h2 := right_ne_zero_of_mul ht
+    have hu := hsupport (star_ne_zero.mp h1)
+    have hv := hsupport h2
+    linarith [hu.1, hu.2, hv.1, hv.2]
+  have hint : (fun t : ℝ => star (g.test (-t)) * g.test (2 * a - t)) = 0 := by
+    funext t
+    by_contra hne
+    have hta : a = t := (hpoint t hne).symm
+    subst hta
+    have hctest := SchwartzMap.continuous g.test
+    have hcont : Continuous fun t : ℝ => star (g.test (-t)) * g.test (2 * a - t) :=
+      (hctest.comp continuous_neg).star.mul
+        (hctest.comp (continuous_const.sub continuous_id))
+    have hnonzero : a ∈
+        (fun t : ℝ => star (g.test (-t)) * g.test (2 * a - t)) ⁻¹'
+          {z : ℂ | z ≠ 0} := hne
+    have hopen : IsOpen
+        ((fun t : ℝ => star (g.test (-t)) * g.test (2 * a - t)) ⁻¹'
+          {z : ℂ | z ≠ 0}) :=
+      hcont.isOpen_preimage _ isOpen_ne
+    obtain ⟨ε, hε, hball⟩ := Metric.isOpen_iff.mp hopen a hnonzero
+    have hmem : a - ε / 2 ∈
+        (fun t : ℝ => star (g.test (-t)) * g.test (2 * a - t)) ⁻¹'
+          {z : ℂ | z ≠ 0} := by
+      refine hball ?_
+      simp only [Metric.mem_ball, Real.dist_eq]
+      rw [abs_lt]
+      constructor <;> linarith
+    have heq : a - ε / 2 = a := hpoint _ hmem
+    linarith
+  rw [convolutionSquare_apply, hint]
+  simp
+
+/-- The Hermitian convolution square of a root supported in a symmetric
+interval is supported in the OPEN doubled interval: both endpoints carry no
+mass because the root-support windows only touch there. -/
+theorem convolutionSquare_support_subset_two_mul_Ioo
+    (g : CompactLogTest) {a : ℝ}
+    (hsupport : Function.support g.test ⊆ Set.Icc (-a) a) :
+    Function.support g.convolutionSquare.test ⊆ Set.Ioo (-(2 * a)) (2 * a) := by
+  intro x hx
+  obtain ⟨hlo, hhi⟩ := convolutionSquare_support_subset_two_mul g hsupport hx
+  have hright : g.convolutionSquare.test (2 * a) = 0 :=
+    convolutionSquare_two_mul_eq_zero g hsupport
+  have hleft : g.convolutionSquare.test (-(2 * a)) = 0 := by
+    rw [g.convolutionSquare_neg, hright]
+    simp
+  have hxne : g.convolutionSquare.test x ≠ 0 := Function.mem_support.mp hx
+  constructor
+  · by_contra hle
+    have hxeq : x = -(2 * a) := by linarith
+    rw [hxeq] at hxne
+    exact hxne hleft
+  · by_contra hle
+    have hxeq : x = 2 * a := by linarith
+    rw [hxeq] at hxne
+    exact hxne hright
 
 end CompactLogTest
 end CompactLogConvolution

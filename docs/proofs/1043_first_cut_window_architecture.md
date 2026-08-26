@@ -1,0 +1,196 @@
+# 1043 — First-cut window architecture: root support, translation, and the two remaining gates
+
+Date: 2026-08-26 (session 14)
+Status: architecture landed in Lean (translation layer + root-support ledger);
+endpoint sign theorem and Titchmarsh bridge remain open. RH is NOT claimed.
+
+## 1. What the first cut is
+
+The first cut is the unconditional positivity rung on the full prime-free
+window, in either of two forms:
+
+```
+(SQUARE form)  support (g□) ⊆ (− log 2, log 2)  + triple vanishing  →  0 ≤ qw g
+(ROOT form)    support g  ⊆ [− log 2 / 2, log 2 / 2] + triple vanishing → 0 ≤ qw g
+```
+
+Both dominate every current budget rung: the third boundary rung covers
+`support (g□) ⊆ (−exp(−13/2), exp(−13/2))` with `exp(−13/2) ≈ 1.5e−3`, while
+`log 2 ≈ 0.693` — a factor of about 377. The ROOT form is exactly the
+published Yoshida (1992) / Connes–Consani (2020) window; the SQUARE form is
+strictly stronger and needs the Titchmarsh bridge (§5).
+
+## 2. Published-theorem hypothesis is ROOT support (verified in source)
+
+From the arXiv source `weil-compo.tex` of Connes–Consani 2006.13771:
+
+```
+line 125  (mainthmintro): Let g ∈ C_c^∞(ℝ_+^*) have support in the interval
+          [2^(−1/2), 2^(1/2)] and Fourier transform vanishing at i/2 and 0 ...
+line 1958 (mainthmfine):  ... support in the interval [2^(−1/2), 2^(1/2)] and
+          whose Fourier transform vanishes at −i/2 ... then W∞(g*g*) ≥
+          Tr(θ(g) S θ(g)*) − c |ĝ(0)|²,  13 < c < 17.
+```
+
+`[2^(−1/2), 2^(1/2)]` in the multiplicative coordinate is
+`[− log 2 / 2, log 2 / 2]` in the additive log coordinate — the ROOT support,
+not the square support. The bad direction is the rank-one term `c |ĝ(0)|²`,
+which the triple vanishing (which includes `laplaceAt g 0 = 0`) kills.
+
+## 3. Layer architecture (what landed this session)
+
+```
+            triple vanishing on g
+                        |
+        +---------------+----------------+
+        |                                |
+   pole kill (existing)          support g ⊆ Icc (−log2/2) (log2/2)
+        |                                |
+        |                    convolutionSquare_support_subset_two_mul_Ioo
+        |                    (NEW: doubled interval, OPEN, endpoints free)
+        |                                |
+        +---------------→ qw g = − archimedeanTerm (g□)
+                                         |
+                 +-----------------------+------------------------+
+                 |                                (GATE 1)           |
+       (this is where the first cut stops today)                     |
+                 |                                                   |
+   [GATE 1] endpoint sign:  archimedeanTerm (g□) ≤ 0   ... OPEN      |
+                 |                                                   |
+                 v                                                   |
+          0 ≤ qw g   on the ROOT-support class                        |
+                                                                     |
+   [GATE 2] Titchmarsh:  support (g□) ⊆ (−log2, log2) →              |
+            ∃ translation centering g into [−log2/2, log2/2]  ... OPEN
+                 |
+                 v
+          0 ≤ qw g   on the SQUARE-support class  = the first cut, full
+```
+
+Landed this session (all axiom-clean, `[propext, Classical.choice,
+Quot.sound]`):
+
++---------------------------------------------------------------+--------------------------------------------------------------+
+| Layer                                                         | Declarations                                                 |
++---------------------------------------------------------------+--------------------------------------------------------------+
+| Source: structure extensionality                              | CompactLogTest.ext (test field determines the structure)     |
+| Source: translation of the square                             | translate_convolutionSquare_apply / translate_convolutionSquare |
+| Source: support propagation of the square                     | convolutionSquare_support_subset_two_mul                     |
+| Source: endpoint vanishing at ±2a                             | convolutionSquare_two_mul_eq_zero                            |
+| Source: open doubled window                                   | convolutionSquare_support_subset_two_mul_Ioo                 |
+| Dev: translation invariance leaf                              | qw_translate, vanishesOn_translate_iff,                      |
+|                                                               | translate_support_subset_Icc                                 |
+| Dev: root-support ledger                                      | qw_eq_neg_archimedeanTerm_of_vanishesOn_cc20Triple_of_      |
+|                                                               | rootSupport_logTwoHalf                                       |
+| Dev: endpoint interface                                       | qw_nonneg_of_archimedeanTerm_nonpos_of_vanishesOn_cc20Triple|
+|                                                               | _of_rootSupport_logTwoHalf                                   |
++---------------------------------------------------------------+--------------------------------------------------------------+
+
+The key new support fact: the doubled endpoints carry NO mass. If
+`support g ⊆ [−a, a]`, the autocorrelation integrand at `x = 2a` can only be
+nonzero where the two support windows overlap, which is the single point
+`t = a`; the continuous integrand supported in a singleton is identically
+zero. Hence the square sits in the OPEN window `Ioo (−2a) (2a)` and the
+existing prime-kill (`finitePrimeSum_eq_zero_of_support_subset_open_log_two`)
+applies verbatim with `a = log 2 / 2`.
+
+## 4. Why the budget ladder cannot reach this window (recap)
+
+`B(R) = log(4π) + γ + R − (1/2) log(1/R)` is strictly increasing on `R > 0`
+(proven in Lean, `budgetExpression_strictMonoOn_pos`) with true zero
+`R* ≈ 1.98e−3`. At `R = log 2` one has `B(log 2) ≈ +3.9 > 0`. Pointwise
+bounds die long before the window; the endpoint theorem needs the vanishing
+orthogonality (Hilbert-space mechanism), which is exactly what
+Yoshida/CC20 supply.
+
+## 5. GATE 2 — Titchmarsh autocorrelation bridge (status: open, deliberate deferral)
+
+Needed only for the SQUARE form. The required statement:
+
+```
+support (g□) ⊆ (−L, L)  →  diameter (support g) ≤ L
+                         →  ∃ a, support (translate g a) ⊆ [−L/2, L/2]
+```
+
+The forward inclusion (root → square) is the easy direction and is now in
+Lean. The reverse direction is the Titchmarsh convolution theorem; the
+classical proofs go through Paley–Wiener / Cartwright-class entire-function
+theory (indicator diagrams), none of which is in Mathlib today. The
+autocorrelation identity `F̂ = |ĝ|²` (F = g□) gives the positivity that makes
+the endpoint identity true, but the formalization cost is a separate
+multi-session project (est. 2000+ lines of harmonic analysis infrastructure).
+
+Decision: the ROOT form is the landing target for the first cut; the SQUARE
+form becomes the Titchmarsh upgrade. The route consumer chain is unchanged:
+any unconditional positivity rung extends the same ladder, and the ROOT-form
+class is already 377× wider than every existing rung.
+
+## 6. GATE 1 — endpoint sign theorem (the mathematical core, open)
+
+Target statement in our owner (the Dev interface is already in place):
+
+```
+archimedeanTerm (g□) ≤ 0
+  for all g with support g ⊆ [−log 2/2, log 2/2] and triple vanishing.
+```
+
+Two published proof mechanisms, both heavy:
+
++---------------------+-------------------------------------------------------------+
+| Mechanism           | Formalization shape                                         |
++---------------------+-------------------------------------------------------------+
+| Yoshida 1992 §6     | high-frequency coercivity + odd 10×10 + even 200×200 exact   |
+|                     | rational LDLᵀ certificates; floats only generate, Lean      |
+|                     | verifies exact identities.                                  |
+| Connes–Consani 2020 | W∞(g□) ≥ Tr(θ(g) S θ(g)*) − c|ĝ(0)|²; positive Sonin-trace  |
+|                     | operator + rank-one compression; needs trace-class API and  |
+|                     | the numerically-certified constant band 13 < c < 17.        |
++---------------------+-------------------------------------------------------------+
+
+Dictionary obligations before either can be assembled (the four same-owner
+readbacks):
+
+```
+1. log coordinate:        their ρ = e^t  ↔  our test t
+2. window:                [2^(−1/2), 2^(1/2)]  ↔  Icc (−log2/2) (log2/2)
+3. vanishing points:      ĝ(0), ĝ(±i/2)  ↔  laplaceAt g (0), (±1/2)
+4. archimedean sign:      their W∞(g□)  ↔  −archimedeanTerm (g□)
+```
+
+Readback 4 is now VERIFIED ON PAPER (2026-08-26, session 14), from the CC20
+source (weil-compo.tex):
+
+* (tex:2048, eq. bombieriexplicit2)
+  `W_ℝ(f) = (log 4π + γ) f(1) + ∫₁^∞ (f(x) + f♯(x) − (2/x) f(1)) dx/(x − x⁻¹)`
+  with the half-density involution `f♯(x) = x⁻¹ f(1/x)` (pinned by matching
+  the prime term `W_p(f) = log p · Σ_m (f(p^m) + f♯(p^m))` against our
+  `finitePrimeTermComplex F n = Λ(n) · n^(−1/2) · (F(log n) + F(−log n))`).
+* Substituting `x = e^y` and our half-density test `F(y) = e^(y/2) f(e^y)`
+  gives literally our numerator:
+  `W_ℝ(f) = (log 4π + γ) F(0) + ∫₀^∞ (e^(y/2)(F(y)+F(−y)) − 2F(0)) dy/(e^y − e^(−y))
+   = archimedeanTerm F`.
+* (tex:~2055) CC20 define `W∞ := −W_ℝ`; hence `W∞ = −archimedeanTerm`, which
+  is exactly the sign needed by `qw = pole − arch − primeSum` on the
+  prime-free window (`qw = −arch = W∞` there).
+* Their bad direction `c |ĝ(0)|²` with `ĝ(0) = ∫ g = laplaceAt g 0` is killed
+  by the triple vanishing (which contains `laplaceAt g 0 = 0`).
+* The CC20 operator route reduces to Lemma `second` (tex:1932): the operator
+  `nf_I = −2ε'(1₊)(id − kf_I)` on `L²(I)`, `I = [−½ log 2, ½ log 2]`,
+  satisfies `⟨ξ, nf_I ξ⟩ ≤ γ |⟨ξ₀, ξ⟩|²` with `γ ≈ 2.94355`, i.e. a
+  RANK-ONE upper bound; `c = 4γ/log 2 ∈ (13, 17)`.
+
+The formal content of readback 4 in Lean still has to be written as a theorem
+(the on-paper verification above is the specification), but no sign surprise
+remains: our `archimedeanTerm` is CC20's `W_ℝ` verbatim, and the first cut
+needs precisely `W_ℝ ≤ 0` on the window class, i.e. `W∞ ≥ 0` there.
+
+## 7. Session boundary
+
+* Translation invariance layer: LANDED, axiom-clean
+  (`C1YoshidaTranslationProbe` green, 3505 jobs, 0 sorryAx).
+* Root-support ledger + endpoint interface: LANDED, axiom-clean
+  (`C1HealthyYoshidaDetectorProbe` green, 3605 jobs, 0 sorryAx; all five new
+  declarations `[propext, Classical.choice, Quot.sound]`).
+* Endpoint sign theorem: NOT attempted this session; design only (§6).
+* Titchmarsh bridge: NOT attempted; deferral decision recorded in §5.
+* RH remains unclaimed; the universal W4b over all vanishing tests is open.
