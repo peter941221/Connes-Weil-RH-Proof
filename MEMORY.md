@@ -1,3 +1,14 @@
+## Change Log (2026-08-26 session 16, README status refresh)
+- Refreshed `README.md` to match the current C1 same-owner frontier: center-2
+  Gate 2 is closed; the Stage-3 positive-trace consumer and right-oriented
+  Yoshida detector exit are conditional consumers; W4b is closed only on proper
+  support classes; and the CC20 endpoint trace certificate remains an analytic
+  interface rather than a proved sign theorem.
+- The remaining RH-level work is stated explicitly as universal W4b positivity,
+  the concrete cutoff/remainder/readback producer, and the finite-vanishing
+  criterion/coverage root. No Lean source or theorem status changed in this
+  documentation-only refresh.
+
 ## Change Log (2026-08-26 session 15, CC20 LOG-COORDINATE READBACK + ENDPOINT CERTIFICATE CONSUMER)
 - **New leaf `Dev/C1CC20ArchimedeanReadback.lean`** and probe, verified in WSL2
   with `3606/3606` jobs, zero `error:` lines, zero `sorryAx`, and all eight

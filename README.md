@@ -5,13 +5,19 @@ ideas surrounding the Connes-Weil explicit formula.
 
 Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 
-> **Status as of 2026-08-19.** This repository does not contain an
+> **Status as of 2026-08-26.** This repository does not contain an
 > unconditional proof of the Riemann hypothesis. The no-argument theorem
 > `unconditional_rh_skeleton` consumes explicit project axioms, including
 > `normalizedSelectedFinalRouteDetectorCriterionCoverageRoot`.
 >
-> The active constructive route is the C1 same-owner route. Physical Gate 3U is
-> a separate diagnostic branch. The residual project-axiom ledger is recorded
+> The active constructive route is the C1 same-owner route. Gate 2
+> (arithmetic-to-spectral equality) is closed via the center-2 contour
+> assembly. The remaining RH-level gaps are: universal W4b positivity on
+> vanishing tests, the concrete cutoff/remainder and same-owner readback
+> producer, and the finite-vanishing criterion/coverage root. The Stage-3
+> positive-trace consumer and the right-oriented Yoshida detector exit are
+> closed only as conditional consumers of those gaps. Physical Gate 3U is a
+> separate diagnostic branch. The residual project-axiom ledger is recorded
 > in [`RhOutputAxiomLedger.lean`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/RhOutputAxiomLedger.lean).
 
 > **Mainline freeze (2026-08-19).** Gate 3U, Lane R, numerical probes, and
@@ -70,13 +76,16 @@ arithmetic terms, the spectral sum, and the detector criterion.
 | Same-owner pole, archimedean, and prime terms | Closed as definition/readback |
 | Exact xi-zero index and spectral summability | Closed |
 | Gate 2 arithmetic-to-spectral equality | Closed (center-2 contour assembly) |
-| Gate 3 positive trace and Gate 4 detectors | Open |
+| Gate 3 positive trace and finite-vanishing criterion | Open (RH-level) |
+| Gate 4 right-oriented Yoshida detector exit | Closed (conditional) |
+| Uniform detector-data / criterion coverage | Open (RH-level) |
 | SourceRH to Mathlib RH | Conditional exit |
 
 ### 1.1 Frozen historical lines of attack
 
 The following routes are retained for provenance only. They are not an active
-work queue; use `RH_MAINLINE_FREEZE.md` for the only allowed RH consumers.
+work queue; the active C1 status is summarized in Sections 2--3. Use
+`RH_MAINLINE_FREEZE.md` for the only allowed RH consumers.
 
 1. Connes-Weil semilocal trace formulas
 
@@ -88,14 +97,17 @@ work queue; use `RH_MAINLINE_FREEZE.md` for the only allowed RH consumers.
    identification with the load-bearing semilocal metric variation and its
    sign/RH consumer remain open.
 
-2. Yoshida zero detectors
+2. Yoshida zero detectors (older normalized branch)
 
    Yoshida's method constructs Mellin test functions aimed at a prescribed
    zero off the critical line. The repository formalizes support budgets,
-   convolution-power tail reduction, finite interpolation, and uniform
-   quadratic decay on the critical strip. The existing detector theorem is
-   attached to the older normalized test space; rebuilding or transporting the
-   detector to the healthy C1 same-owner space remains open.
+   convolution-power tail reduction, finite interpolation, translation/support
+   transport, and uniform quadratic decay on the critical strip. The healthy
+   C1 layer now has finite-node interpolation, translation/support transport,
+   and a right-oriented detector construction with a conditional RH exit on
+   the same owner. The older normalized detector route is retained only for
+   provenance; the active remaining issue is the global sign and criterion
+   coverage input needed to make the conditional consumers unconditional.
 
 3. Xi-function zero counting
 
@@ -104,9 +116,11 @@ work queue; use `RH_MAINLINE_FREEZE.md` for the only allowed RH consumers.
    the right half-plane. The current C1 layer also proves exact xi-zero index
    completeness, absolute spectral summability for every compact-log test,
    finite contour/readback bricks, and the center-2 same-owner
-   arithmetic-to-spectral equality. The positive-trace and detector consumers
-   remain open. Quadratic Mellin decay requires shell growth below 4^n; the full
-   Riemann-von Mangoldt asymptotic is stronger than this consumer needs.
+   arithmetic-to-spectral equality. The positive-trace producer, universal
+   W4b sign, and finite-vanishing coverage remain open, while the right-oriented
+   detector construction is available as a conditional consumer. Quadratic
+   Mellin decay requires shell growth below 4^n; the full Riemann-von Mangoldt
+   asymptotic is stronger than this consumer needs.
 
 4. Nyman-Beurling and Mobius blocks
 
@@ -132,7 +146,7 @@ work queue; use `RH_MAINLINE_FREEZE.md` for the only allowed RH consumers.
    adelic scalar compensation, and Clifford prime channels. Each rejected
    construction comes with a concrete coefficient, ideal-class, density, or
    domain obstruction. These records are historical route filters; they do not
-   replace the current C1 Gate 2--4 work.
+   replace the current C1 Gate 3 and coverage work.
 
 ## 2. Formalized Lean 4 results
 
@@ -420,9 +434,12 @@ boundaries:
 | Pole, archimedean, and visible prime terms | Closed as definition/readback |
 | Absolute spectral summability for every test | Closed |
 | Exact completed-xi zero index | Closed |
-| Arithmetic value equals spectral value | Open |
-| Positive trace and finite-vanishing criterion | Open |
-| Yoshida detectors on the healthy owner | Open: rebuild/transport |
+| Arithmetic value equals spectral value | Closed (center-2 contour) |
+| Stage-3 positive-trace order consumer | Closed (conditional on `0 <= qw g`) |
+| CC20 Archimedean log readback and rank-one error kill | Closed as dictionary/readback |
+| W4b positivity on proper support classes | Closed (narrow class and boundary rungs) |
+| Universal W4b positivity and finite-vanishing criterion | Open (RH-level) |
+| Right-oriented Yoshida detector construction | Closed (conditional exit) |
 
 The convergence reduction is the exact statement
 
@@ -436,31 +453,49 @@ $$
 $$
 
 Finite `c = 1` prime-power readback and the center-2 Gamma_R reciprocal-series
-normal form are also closed as local analytic bricks. They do not yet identify
-the full archimedean term with `C1SameOwnerWeil.archimedeanTerm`, and they do
-not close Gate 2 or RH.
+normal form are closed as local analytic bricks. The center-2 contour assembly
+now proves the same-owner arithmetic-to-spectral equality as an axiom-clean
+Lean theorem, closing Gate 2. The positive-trace and finite-vanishing
+criterion (Gate 3) and universal W4b positivity remain open; RH is not claimed.
 
+- [`centerTwo_arithmetic_eq_spectral`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean#L232)
+- [`gate2ExplicitFormula_centerTwo`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean#L240)
 - [`mellin_toPositiveRouteTest_eq_laplaceAt`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1LogPositiveBridge.lean#L127)
 - [`spectralSummableProp`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1SpectralSummability.lean#L377)
 - [`completedRiemannXi_eq_zero_iff_sourceNontrivialZero`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Source/CC20ZetaCounting.lean#L396)
 - [`normalized_integral_globalPrimePowerIntegrandSum_re_eq_finitePrimeSum`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1XiArithmeticPrimePowerAssembly.lean#L167)
 - [`normalized_gammaR_centerTwo_eq_constant_sub_tsum_integrals`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1XiCenterTwoGamma.lean#L1559)
+- [`cc20WRLog_eq_archimedeanTerm`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L39)
+- [`cc20WInfinityLog_eq_neg_archimedeanTerm`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L47)
+- [`CC20EndpointTraceCertificate`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L94)
+- [`qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L133)
+- [`qw_nonneg_of_vanishesOn_cc20Triple_of_boundary_square_support`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1SpectralW4bBoundary.lean#L329)
+- [`qw_nonneg_of_vanishesOn_cc20Triple_of_refined_boundary_square_support`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1SpectralW4bBoundary.lean#L780)
+- [`qw_nonneg_of_vanishesOn_cc20Triple_of_third_boundary_square_support`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1SpectralW4bBoundary.lean#L869)
+- [`healthy_sourceRH_of_global_spectral_nonneg`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean#L554)
 
 ## 3. Current frontier
 
-As of 2026-08-17, the finite-prime crossing chain is a verified infrastructure
-subchain, while the active RH frontier is the C1 same-owner route. The C1 route
-keeps one `CompactLogTest` owner through the coordinate bridge, the arithmetic
-functional, the xi spectral index, and the remaining criterion gates.
+As of 2026-08-26, the finite-prime crossing chain is a verified infrastructure
+subchain, and the C1 same-owner route has closed Gate 2. The active RH
+frontier is now explicit: prove the endpoint trace/sign estimate behind the
+universal W4b inequality, construct the genuine cutoff/remainder/readback
+producer, and discharge the finite-vanishing criterion/coverage root.
 
 | Frontier item | State | Scope |
 | --- | --- | --- |
 | CompactLog to positive-coordinate bridge | Closed | C1 coordinate ownership |
 | Same-owner pole, archimedean, and prime readback | Closed | Definition/readback only |
 | Exact xi-zero index and spectral summability | Closed | Every compact-log test |
-| Arithmetic equals spectral expression | Open | Gate 2 |
-| Positive trace and finite-vanishing criterion | Open | Gate 3, RH-level |
-| Yoshida transport to the healthy owner | Open | Gate 4 |
+| Gate 2 arithmetic-to-spectral equality | Closed | Center-2 contour assembly |
+| Positive-trace order consumer (Stage-3 P3-a) | Closed | Rank-one correction, conditional on `0 <= qw g` |
+| CC20 Archimedean readback + rank-one error kill | Closed | Endpoint certificate interface only |
+| Yoshida finite-node interpolation + right-oriented detector | Closed | Same-owner conditional exit |
+| W4b positivity on narrow class + boundary rungs | Closed | Proper support classes (`exp(-7)`, `exp(-13/2)`, `exp(-63/10)`) |
+| W4b universal positivity over all vanishing tests | Open | RH-level |
+| Concrete cutoff remainder/readback producer | Open | Stage-3 remainder and same-owner trace estimate |
+| Finite-vanishing Weil criterion on the same owner | Open | Gate 3, RH-level |
+| Detector-data / criterion coverage root | Open | RH-level coverage axiom is still consumed by the skeleton |
 | Finite crossing operator chain | Closed subchain | Coefficient and compactness checks |
 | Infinite-carrier Gate-3U cancellation | Open diagnostic branch | Not the active RH root |
 
@@ -496,44 +531,63 @@ The current frontier separates four coupled points.
 
 ### 3.1 The next mathematical problem
 
-The next load-bearing statement is the C1 Gate 2 equality for one
-`CompactLogTest` owner. Spectral convergence is already closed; the remaining
-claim is the equality between the complete same-owner arithmetic functional and
-the exact xi spectral expression:
+Gate 2 is closed: the center-2 contour assembly proves the same-owner
+arithmetic-to-spectral equality as an axiom-clean Lean theorem
+([`gate2ExplicitFormula_centerTwo`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean#L240)).
+The next load-bearing statement is the W4b universal positivity
 
 $$
-\begin{aligned}
-\mathrm{gate2ExplicitFormula}(F)
-&\Longleftrightarrow
-\mathrm{C1SameOwnerWeil.psi}(F)
-= \mathrm{spectralWeilValue}(F).
-\end{aligned}
+0 \le \mathrm{C1SameOwnerWeil.qw}(g)
+\qquad
+\text{for every vanishing test } g.
 $$
 
-The conditional contour spine is already assembled from finite-factor residue,
-horizontal-limit, and right-line-limit consumers. Its missing inputs are a
-global weighted log-derivative comparison, a quantitative cofactor bound, and
-the same-owner arithmetic right-line readback.
+The Stage-3 windowed trace (Program P step 2) reduces the positive-trace
+criterion to this single premise:
+[`positiveTracePairLimitFamily_of_rankOneCorrection`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1Stage3WindowedTraceP3a.lean#L379)
+assembles a full `PositiveTracePairLimitFamily` for each test, conditional on
+`0 <= qw g`. This is a sign-transparent consumer, not an analytic proof of
+that premise. The CC20 Archimedean readback closes the log-coordinate
+dictionary and kills the rank-one error under triple vanishing; its
+[`CC20EndpointTraceCertificate`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L94)
+still requires a nonnegative endpoint trace and the bound
+`trace - c * |g-hat(0)|^2 <= W-infinity(g-square)`. Supplying that certificate
+is the remaining Archimedean sign/trace theorem.
 
-| Contour or route brick | State | Limitation |
+W4b is closed on a narrow class (triple vanishing + bounded Hermitian-square
+support) and on three boundary-guided rungs
+(`exp(-7)`, `exp(-13/2)`, and `exp(-63/10)`), plus the earlier algebraic
+`widerArchRadius` rung
+([`qw_nonneg_of_vanishesOn_cc20Triple_of_budget_window`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1SpectralNarrowW4b.lean#L171)).
+The reduction
+[`qw_nonneg_of_forall_real_vanishing`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1SpectralRealPair.lean#L658)
+collapses the universal obligation from complex to real vanishing tests; the
+sign bound on real vanishing tests remains the open W4b gap. The published
+root-support window `Icc(-log 2 / 2, log 2 / 2)` is still much wider than these
+rungs; the endpoint theorem is the first-cut target. A square-support version
+would additionally need a Titchmarsh convolution bridge, which is deliberately
+deferred.
+
+| Route brick | State | Limitation |
 | --- | --- | --- |
-| H-A0 weighted zero-sum convergence | Closed | Axiom-clean local brick |
-| H-A1 weighted-sum analyticity | Closed | Does not compare globally with `xi'/xi` |
-| H-A2 local removable-pole cancellation | Closed | Local extension only |
-| Finite factor, residue, rectangle, and vertical fold | Closed | Finite or conditional consumers |
-| H-A3 cofactor growth and H-A4 slope-zero input | Open | Needed for a global comparison |
-| Horizontal contour limit | Conditional consumer | Requires a quantitative growth contract |
-| Same-owner arithmetic right-line readback | Open | Needed for Gate 2 |
-| Positive trace, finite vanishing, and Yoshida transport | Open | The remaining RH-level route |
+| Gate 2 center-2 contour assembly | Closed | Axiom-clean, `4147/4147` |
+| Stage-3 rank-one correction (Program P step 2) | Closed | Conditional on `0 <= qw g`; no analytic producer |
+| CC20 Archimedean readback + rank-one error kill | Closed | Endpoint trace certificate still required |
+| W4b narrow-class instance | Closed | Proper support class, not universal |
+| W4b boundary-guided rungs (`exp(-7)`, `exp(-13/2)`, `exp(-63/10)`) | Closed | Each a proper support class |
+| W4b reduction to real vanishing tests | Closed | Sign bound on real tests still open |
+| W4b universal positivity over all vanishing tests | Open | RH-level; endpoint sign theorem |
+| Concrete cutoff remainder/readback producer | Open | Stage-3 remainder and same-owner trace estimate |
+| Finite-vanishing Weil criterion on the same owner | Open | RH-level |
 
 The finite-prime crossing operator in Section 2.4 remains useful as a
-coefficient and compactness check. It is not, by itself, the positive trace
-needed by the C1 criterion. The intended implication after Gate 2 is
+coefficient and compactness check. The intended implication after W4b and the
+remainder are closed is
 
 $$
-\text{positive trace}
+0 \le \mathrm{C1SameOwnerWeil.qw}(g)
 \Longrightarrow
-QW(g,g)\ge 0
+\text{positive trace}
 \Longrightarrow
 \sum_v W_v(F_g)\le 0
 \Longrightarrow
@@ -543,19 +597,28 @@ $$
 ### 3.2 Representative obstructions
 
 The route boundary is split into current blockers and historical rejected
-constructions. The active blockers are the C1 Gate 2 equality, the
-positive-trace/finite-vanishing criterion, and detector transport on the healthy
-owner.
+constructions. The active blockers are W4b universal positivity, the concrete
+cutoff remainder/readback producer, and the finite-vanishing Weil criterion on
+the same owner. Gate 2 and Yoshida detector construction are now closed.
 
 Current blockers:
 
 | Route | Current gap | Record |
 | --- | --- | --- |
-| C1 Gate 2 arithmetic readback | The same-owner arithmetic functional is not yet identified with the spectral value | [proof 1006](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1006_gate2_spectral_summability_closure.md) |
-| C1 global H-A1 comparison | Local analytic and removable-pole bricks do not provide a uniform cofactor growth bound | [proof 1013](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1013_c1_xi_global_hadamard_brick.md) |
-| C1 minimum-modulus route | Raw quotient bounds remain exponential and do not imply the required horizontal decay | [proof 1014](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1014_c1_xi_growth_leg_circle_recon.md) |
-| Healthy-owner positive trace and detectors | The positive-trace criterion and Yoshida transport are still open | [proof 1005](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1005_rh_route_after_psp_audit.md) |
+| W4b universal positivity | The endpoint trace estimate / Archimedean sign theorem is not proved; the narrow class and boundary rungs cover only proper support classes | [proof 1040](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1040_hqw_sign_attack.md), [proof 1043](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1043_first_cut_window_architecture.md) |
+| CC20 endpoint trace certificate | The log-coordinate readback and rank-one error-kill consumer are proved, but the nonnegative endpoint trace and `trace - error <= W-infinity` bound are still analytic obligations | [proof 1043](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1043_first_cut_window_architecture.md) |
+| Concrete cutoff remainder/readback | The Stage-3 positive-trace consumer is closed only conditionally on `0 <= qw g`; the cutoff remainder estimate is not supplied | [proof 1038](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1038_positive_trace_producer_design.md), [proof 1016](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1016_plain_window_trace_family_verdict.md) |
+| Bare whole-line HS obstruction | The bare whole-line HS premise is false for every nonzero test; only a windowed or renormalized detector can remain viable | [proof 1016](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1016_plain_window_trace_family_verdict.md) |
+| Finite-vanishing Weil criterion on the same owner | The same-owner finite-vanishing criterion is an RH-level gap; Gate 3 positive-trace remains open | [proof 1005](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1005_rh_route_after_psp_audit.md) |
 | Infinite-carrier Gate-3U | The required physical cancellation identity is open; finite-band decay does not close the infinite carrier | [proof 1005](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1005_rh_route_after_psp_audit.md) |
+
+The cutoff gap is structural, not a missing `trace-class` annotation. The bare
+whole-line Hilbert--Schmidt owner is ruled out for every nonzero test, and the
+canonical finite-window trace has a linearly growing bulk. The insertion defect
+has only a uniform compression bound, while the window-to-response defect can
+have an unbounded real trace even for a bounded response. A viable producer
+therefore needs an explicit finite-part/renormalized or otherwise new detector
+owner, together with a genuine remainder and same-owner readback estimate.
 
 Historical rejected routes:
 
@@ -570,8 +633,12 @@ Historical rejected routes:
 | Clifford prime channels | The Gram construction retains the original sign problem and adds channel cost | [proof 122](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/122_clifford_prime_channel_gram_cost.md) |
 
 These records keep the route boundary explicit. A successful next construction
-must preserve one C1 owner, prove the arithmetic-to-spectral equality, and then
-establish the positive trace and detector criterion on that same owner.
+must preserve one C1 owner and the closed arithmetic-to-spectral equality, then
+fill the endpoint certificate, establish universal W4b positivity, and supply
+the concrete cutoff remainder/readback needed by the positive-trace consumer.
+The finite-vanishing criterion and detector-coverage root must then be discharged
+on that same owner before the conditional `SourceRH` exit can become an
+unconditional theorem.
 
 ## 4. Sources
 
