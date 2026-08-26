@@ -1,3 +1,23 @@
+## Change Log (2026-08-26 session 15, CC20 LOG-COORDINATE READBACK + ENDPOINT CERTIFICATE CONSUMER)
+- **New leaf `Dev/C1CC20ArchimedeanReadback.lean`** and probe, verified in WSL2
+  with `3606/3606` jobs, zero `error:` lines, zero `sorryAx`, and all eight
+  audited declarations exactly `[propext, Classical.choice, Quot.sound]`.
+  - `cc20WRLog_eq_archimedeanTerm` formalizes the CC20 `W_R` expression in the
+    existing half-density log coordinate and proves exact same-owner readback.
+  - `cc20WInfinityLog_eq_neg_archimedeanTerm` records `W∞ = −W_R` with the
+    paper's sign.
+  - Triple vanishing gives `laplaceAt g 0 = 0`, so the rank-one error
+    `cc20RankOneBadDirection c g = c * normSq (laplaceAt g 0)` is exactly zero.
+  - `CC20EndpointTraceCertificate` stores the remaining analytic payload as a
+    nonnegative trace plus `trace − error ≤ W∞(g□)`; the consumers
+    `qw_nonneg_of_cc20EndpointTraceCertificate` and its ROOT-support variant
+    derive `0 ≤ qw g` without hiding any trace theorem as an axiom.
+  - This closes the dictionary/readback and error-kill bookkeeping only.  The
+    endpoint trace estimate / Archimedean sign theorem remains open; RH is not
+    claimed.
+- New AGENTS §7 gotcha: `Prop` structures cannot contain `Real` certificate
+  fields; use a `Type` structure for data payloads.
+
 ## Change Log (2026-08-26 session 14, FIRST-CUT WINDOW ARCHITECTURE -- translation invariance + root-support log2/2 ledger + CC20 dictionary verified)
 - **Two new layers toward the first cut, all axiom-clean** (leaf probe builds
   `3505/3505` and `3605/3605`, final full root `4147/4147`, all with 0

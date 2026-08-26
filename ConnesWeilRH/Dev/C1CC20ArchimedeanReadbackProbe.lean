@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1CC20ArchimedeanReadback
+
+namespace ConnesWeilRH.Source.C1CC20ArchimedeanReadback
+
+#print axioms cc20WRLog_eq_archimedeanTerm
+#print axioms cc20WInfinityLog_eq_neg_archimedeanTerm
+#print axioms laplaceAt_zero_eq_zero_of_vanishesOn_cc20Triple
+#print axioms cc20RankOneBadDirection_eq_zero_of_vanishesOn_cc20Triple
+#print axioms cc20WInfinityLog_ge_trace_of_endpoint_bound
+#print axioms qw_nonneg_of_cc20EndpointTraceCertificate
+#print axioms qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf
+#print axioms cc20WInfinityLog_eq_qw_of_vanishesOn_cc20Triple_of_primeFreeSquare
+
+end ConnesWeilRH.Source.C1CC20ArchimedeanReadback

@@ -179,9 +179,32 @@ source (weil-compo.tex):
   satisfies `⟨ξ, nf_I ξ⟩ ≤ γ |⟨ξ₀, ξ⟩|²` with `γ ≈ 2.94355`, i.e. a
   RANK-ONE upper bound; `c = 4γ/log 2 ∈ (13, 17)`.
 
-The formal content of readback 4 in Lean still has to be written as a theorem
-(the on-paper verification above is the specification), but no sign surprise
-remains: our `archimedeanTerm` is CC20's `W_ℝ` verbatim, and the first cut
+## 6a. Lean readback and endpoint certificate (landed)
+
+`Dev/C1CC20ArchimedeanReadback.lean` now formalizes the log-coordinate
+dictionary without adding an analytic axiom:
+
+* `cc20WRLog_eq_archimedeanTerm` proves the displayed CC20 `W_R` expression is
+  exactly the existing same-owner `archimedeanTerm`.
+* `cc20WInfinityLog_eq_neg_archimedeanTerm` records the paper's sign convention
+  `W∞ = −W_R`.
+* `laplaceAt_zero_eq_zero_of_vanishesOn_cc20Triple` and
+  `cc20RankOneBadDirection_eq_zero_of_vanishesOn_cc20Triple` kill the CC20
+  rank-one error `c |ĝ(0)|²` from the explicit zero node.
+* `CC20EndpointTraceCertificate` isolates the remaining analytic payload as
+  two fields: a nonnegative trace and the endpoint lower bound
+  `trace − c|ĝ(0)|² ≤ W∞(g□)`.
+* `qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf`
+  consumes that certificate and the existing support ledger to derive
+  `0 ≤ qw g` on the ROOT window.
+
+The probe build is axiom-clean (`3606/3606`, zero `sorryAx`).  The certificate
+is an interface, not a proof of the CC20 trace estimate; GATE 1 remains open.
+
+The formal content of readback 4 is now present as the checked log-coordinate
+theorems above.  The positive-coordinate change-of-variables proof is still
+outside this leaf, but no sign surprise remains: our `archimedeanTerm` is
+CC20's `W_ℝ` verbatim, and the first cut
 needs precisely `W_ℝ ≤ 0` on the window class, i.e. `W∞ ≥ 0` there.
 
 ## 7. Session boundary
@@ -191,6 +214,9 @@ needs precisely `W_ℝ ≤ 0` on the window class, i.e. `W∞ ≥ 0` there.
 * Root-support ledger + endpoint interface: LANDED, axiom-clean
   (`C1HealthyYoshidaDetectorProbe` green, 3605 jobs, 0 sorryAx; all five new
   declarations `[propext, Classical.choice, Quot.sound]`).
-* Endpoint sign theorem: NOT attempted this session; design only (§6).
+* CC20 log-coordinate readback + endpoint certificate consumer: LANDED,
+  axiom-clean (`C1CC20ArchimedeanReadbackProbe` green, 3606 jobs, 0 sorryAx).
+* Endpoint sign / trace theorem: NOT attempted; the certificate remains the
+  explicit open analytic obligation (§6a).
 * Titchmarsh bridge: NOT attempted; deferral decision recorded in §5.
 * RH remains unclaimed; the universal W4b over all vanishing tests is open.

@@ -1389,6 +1389,12 @@ Rules:
 
 - **Git-Bash-harness `wsl.exe` calls need `MSYS_NO_PATHCONV=1` and direct exec (no `bash -lc`)**: when the agent shell is Git Bash (not PowerShell), MSYS rewrites `/home/...`-style arguments — `wsl.exe --cd /home/peter/rh ...` dies with `Wsl/ERROR_PATH_NOT_FOUND` — and single-quoted `bash -lc '<script with $vars>'` loses quoting through the wsl.exe relay (loop variables print empty). Robust pattern from this harness: prefix every call with `MSYS_NO_PATHCONV=1`, execute ONE command per `wsl.exe -- <cmd> <args>` call, and do multi-step shell logic in separate invocations or a script file. (Observed 2026-08-26, session 14.)
 - **`wsl.exe --cd ... flock ... lake build` fails "flock: failed to execute lake" from non-login exec**: direct exec does not source the login PATH, so `~/.elan/bin` is absent and `lake` is not found — while the SAME command worked from PowerShell-era sessions (different default environment). Always build from this harness as `MSYS_NO_PATHCONV=1 wsl.exe --cd /home/peter/rh flock -w 3600 /tmp/connes-weil-rh-lake.lock /home/peter/.elan/bin/lake build <targets>`. Also: piping build output through `| tail` buffers everything until EOF, so a background build's output file reads EMPTY while running — poll with `wsl.exe -- pgrep -f 'lake build'` instead of the output file. (Observed 2026-08-26, session 14.)
+- **Prop-valued structures cannot store analytic data**: a structure declared
+  with `: Prop` may only have proof-valued fields; Lean rejects fields such as
+  `Real` coefficients or traces with "failed to generate projection". Use a
+  data structure (the default `Type`) for certificate payloads, and reserve
+  `Prop` structures for proof-only records. (Observed 2026-08-26,
+  `C1CC20ArchimedeanReadback.CC20EndpointTraceCertificate`.)
 
 ## 8a. Canonical Incremental Build Strategy
 
