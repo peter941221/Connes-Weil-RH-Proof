@@ -700,6 +700,35 @@ Strategic consequences:
    substrate both routes reduce to; it is what a future Lean interval-
    certificate leaf will consume.
 
+### 6m. Paper-window operator brick: `kf_I` boundedness on `I` (landed 2026-08-27)
+
+`Dev/C1CC20RootWindowOperator.lean` instantiates the explicit certified
+window-mass flagship at the paper's OWN working interval. New objects:
+
+```text
+cc20RootHalfWidth                    log 2 / 2, positive by log_pos/norm_num
+cc20RootWindow_eq_cc20Window         I = cc20Window (log 2 / 2)   [rfl]
+two_mul_cc20RootHalfWidth_sq_eq_logTwo_sq   (2a)^2 = (log 2)^2 at a = root radius
+volume_cc20RootSquarePair            area(I × I) = ofReal ((log 2)^2)
+applyKernel_l2_sq_le_explicit_rootWindow    FLAGSHIP at the paper window:
+    ∃ Bc ≥ 0, ∫⁻ ‖A f‖ₑ² ≤ ofReal (Bc²·(log 2)²) · ∫⁻ ‖f‖ₑ²
+      from Continuous data.endpointWindowKernel alone
+```
+
+This is the boundedness half of the paper's `nf_I`/`kf_I` on `L²(I)`
+(arXiv:2006.13771, Lemma `second`'s window), with the doubled half-width
+collapsing exactly to `(log 2)^2` in the closed form.  The spectral half —
+the prolate data of `CC20EndpointSpectralData`, the equation-(100) slope
+identity, and every sign estimate — remains the explicit caller obligation;
+no RH claim.  Proof note for the record: `ring` treats a plain noncomputable
+def as an opaque atom (`4·X^2 = (log 2)^2` refuses to close), so the
+doubling identity needs `unfold cc20RootHalfWidth` before the ring pass —
+the same hazard class as the §7 nlinarith-atom gotcha, now confirmed for
+`ring`.  Verification per-brick: `RawKernelMass → RootWindowOperator →
+Audit` chain green on ext4 explicit targeting (`2687` jobs); all five new
+declarations report exactly `[propext, Classical.choice, Quot.sound]`, no
+`sorryAx`.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean

@@ -1,0 +1,19 @@
+import ConnesWeilRH.Dev.C1CC20RootWindowOperator
+
+namespace ConnesWeilRH.Source.C1CC20RootWindowOperator
+
+open CC20Concrete
+
+#check cc20RootHalfWidth_pos
+#check cc20RootWindow_eq_cc20Window
+#check two_mul_cc20RootHalfWidth_sq_eq_logTwo_sq
+#check volume_cc20RootSquarePair
+#check applyKernel_l2_sq_le_explicit_rootWindow
+
+#print axioms cc20RootHalfWidth_pos
+#print axioms cc20RootWindow_eq_cc20Window
+#print axioms two_mul_cc20RootHalfWidth_sq_eq_logTwo_sq
+#print axioms volume_cc20RootSquarePair
+#print axioms applyKernel_l2_sq_le_explicit_rootWindow
+
+end ConnesWeilRH.Source.C1CC20RootWindowOperator
