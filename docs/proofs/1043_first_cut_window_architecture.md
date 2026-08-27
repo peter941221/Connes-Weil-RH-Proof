@@ -1162,6 +1162,59 @@ Native WSL2 ext4 audit evidence:
 successfully at `2698/2698` jobs.  All five declarations audit to exactly
 `[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.
 
+### 6y. Scope-check of the finite-certificate route against Bombieri 2000 (landed 2026-08-27)
+
+Free source: E. Bombieri, "Remarks on Weil's quadratic functional in the theory
+of prime numbers, I" (local extracted text `~/blogs/bombieri.txt`; PDF never
+committed).  Purpose: verify the Yoshida-scope precedent and capture exact
+normalizations before any table transcription.  Verdict first, then evidence.
+
+* GO for a finite-certificate GATE 1 attack, anchored twice.  (Intro, l.90:)
+  Yoshida reduces positivity of the Weil functional on a fixed support
+  `[-t, t]` to a finite calculation depending on t, and verifies that
+  positivity at `t = (log 2)/2` -- exactly our ROOT half-width.  The
+  reduction is unconditional.
+* Normalizations of section 7 captured verbatim; transcription must consume
+  these factors, never raw sinc Gram data:
+  `K(x) = sin x / x`;
+  `(1/4+x^2) K*(x,y,t) = (1/4+y^2) K*(y,x,t)
+     = (1/4+xy) K(t(x-y))
+       - [cosh(t) cos(t(x-y)) + cos(t(x+y))] / (2 t sinh t)`   (7.1);
+  `z_gamma = X_rho`, `w_gamma = (1/4+gamma^2) z_gamma`, `Lambda = 1/lambda`
+  (7.2);
+  `H(x,y,t) = 2t K*(x,y,t) / (1/4+y^2)`   (7.3);
+  `w = Lambda H w` over Gamma, `D(Lambda;t) = det[I - Lambda H(Gamma;t)]`
+  (7.4)/(7.5).
+* Kernel provenance sharpened (display in the Lemma-10 proof): up to the same
+  congruence weights, `H` is the `[-t,t]` Gram matrix of the exponentials
+  `e^{i gamma u}` plus explicitly displayed correction terms.  Entries are
+  elementary (`sinc`, `cosh`, `cos`) with NO digamma; the truncated tail of
+  that Lemma-10 identity is the next extraction target.  Bombieri's section-7
+  variant may therefore be cheaper to certify than Yoshida's own digamma
+  tables, with `scripts/yoshida_intervals/` kept as the verifying engine.
+* Sign-count framework recorded: Theorem 8 states `#negative eigenvalues of
+  H(Gamma;t) = #distinct complex-conjugate pairs in Gamma`; Lemma 10 adds
+  that all-real Gamma forces a nonnegative spectrum.  CAUTION: both are
+  conditional on all-real ordinates (RH-equivalent input); they may feed
+  detector/coverage arguments only, never the unconditional GATE 1 sign.
+* Bombieri Theorem 12 is NOT a formalizable producer here.  Its displayed
+  optimization gives `T[G] >= [log K - O(1) - 4(a+2/K) a K^2 log K] ||F||^2`
+  with `K = (1/a)(1+log(1/a))^-1`, which evaluates to `-1.29 - O(1)` at
+  `a = log 2 / 2` (out-of-tree float check only; nothing transported into
+  Lean).  Its structural value stands: the prime sum vanishes because
+  `supp(F * F(-.))` misses every `+- log n` -- the same mechanism as our ROOT
+  ledger -- and the explicit formula's last two terms are literally our
+  `archimedeanTerm`.
+* Section 13 fake-zero experiments (unique negative eigenvalue tending to 0,
+  fictitious zero off the critical line, N up to 160) independently
+  anticipate our strict-detector design.
+
+Decision consequence: brick 2 proceeds as planned.  Inside the
+finite-certificate lane, prefer deriving certificates from the captured
+elementary normalized system (7.1)-(7.5); the CC20 gamma lane stays the
+fallback consumer behind the already-landed adapters.  Yoshida 1992 remains
+paywalled; the scope precedent above is sufficient for the route decision.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
@@ -1248,6 +1301,19 @@ successfully at `2698/2698` jobs.  All five declarations audit to exactly
   axiom-clean (2698 jobs, 0 sorryAx).  The concrete endpoint owner now has an
   L1 x L2 x L2 scalar bound with both factors explicitly zero-extended; the
   finite-rank difference profile for `K_I - T` remains open.
+* Equation-(119) rank-one approximant (`C1CC20FiniteRankApproximation`):
+  LANDED, axiom-clean (2700 jobs, 0 sorryAx); eq-(120) discharged by Fubini.
+  Strict lambda data (11-term chi formula, remainder, certified absolute-value
+  integration) and any `C(R)` producer remain open.
+* Certificate honesty guards: LANDED, axiom-clean
+  (`C1CC20NegativeIndex` finrank <= 1 for strictly negative subspaces under a
+  one-functional kernel, specialized to the Riesz bad direction;
+  `C1CC20EndpointSpectralOwnerGuard` blocks positivity smuggling through the
+  spectral owner; `C1CC20EndpointAnalyticModeData` supplies the minimal
+  genuine derivative owner with uniqueness).
+* Finite-certificate scope-check against Bombieri 2000: LANDED as section 6y
+  -- GO verdict at `t = log 2 / 2`, normalizations (7.1)-(7.5) captured,
+  Theorem 12 excluded as a producer by an out-of-tree constant check.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

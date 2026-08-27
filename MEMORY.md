@@ -76,3 +76,9 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   derivative owner and proved derivative uniqueness plus a negative replacement
   guard; this closes the arbitrary-derivative defect without storing endpoint
   positivity as source data; 2562-job paired build axiom-clean.
+- 2026-08-27 six leaf pairs committed in five coherent commits (ff29431..
+  4f00d51) after SHA-verified WSL replay audit; docs/proofs/1043 gained section
+  6y : Bombieri-2000 scope-check GO at t = log 2 / 2, normalizations (7.1)-(7.5)
+  captured elementary/digamma-free, Theorem 12 ruled out as a producer
+  (constant -1.29 - O(1) at our window), Theorem 8/Lemma 10 flagged
+  conditional-only.
