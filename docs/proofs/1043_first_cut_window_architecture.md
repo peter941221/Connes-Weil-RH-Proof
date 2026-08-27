@@ -1896,6 +1896,43 @@ sufficient for the route decision.
   the eigen-relation assembly `λ Σ|w|² = Q(Z) − boundary`, the λ ≥ 0
   folding with `wirtingerFull`, the exponential-independence
   contradiction, and the Theorem-8 sign count.  DETECTOR only.
+* Wirtinger slice 12b, the boundary bridge
+  (`C1BombieriSection8BoundaryBridge`): LANDED, axiom-clean (leaf +
+  audit, 5 declarations, 0 sorryAx; commit `7353968`).  Second brick
+  of the (8.11) readback: the weighted double sum
+  `ΣΣ γ_i(γ_i − γ_j)·winInt t (γ_j − γ_i)·(conj z_i z_j)` — the
+  γ·window weight that separates the Q-form's sinc channel from the
+  Lemma-10 Gram matrix — factors completely into rank-two boundary
+  products `(Σ_i bfac_i)(Σ_j efac_j) − (Σ_i bfac'_i)(Σ_j efac'_j)`
+  (`gamma_sin_boundaryBridge`), with `bfac_i = (γ_i I e^{−iγ_i t})
+  conj z_i`, `efac_j = e^{iγ_j t} z_j`, primed = conjugate-angle
+  variants.  Engine chain, per pair (`boundaryPair`): `θ·winInt t θ =
+  2 sin(θt)` (`mul_winInt_eq_sin`, the if-split unifying the diagonal
+  `2t·0 = 0` with the sinc branch), the Euler half-turn
+  `−2 sin a = I(e^{ia} − e^{−ia})` (`negTwoSinI`), and the angle split
+  `e^{i(γ_j−γ_i)t} = e^{iγ_j t}·conj(e^{iγ_i t})` (`conj_expI` supplies
+  the canonical `−x` cast form), then `Finset.sum_mul_sum` turns the
+  two double sums into product-of-sums form — exactly the rank-two
+  structure the Lemma-10 Gram identity's correction terms carry, so the
+  (8.11) boundary correction can be stated as two scalar products
+  instead of a double sum.  Mechanics worth recording (v4.30):
+  `Complex.ofReal_neg` must be applied FORWARD to pull a negation out
+  of a cast (the ← direction needs the pattern `-↑?r`, which a goal
+  containing `↑(−x)` never shows); binop% elaborates
+  `2 * Real.sin (θ*t) / θ` as `2 * (sin/θ)` — division INNERMOST — so
+  hand-written rw chains over the displayed left-assoc shape fail, and
+  the robust closer is `field_simp` with `θ ≠ 0` in context;
+  `push_cast` turns `↑(Real.sin (0*t))` into `Complex.sin (0 * ↑t)`
+  via the ofReal_sin simproc (the goal then needs `zero_mul` +
+  `Complex.sin_zero`, i.e. `simp`, not the Real-side lemmas); the
+  double-sum split `∑∑(X − Y) = ∑∑X − ∑∑Y` at BOTH levels goes through
+  `simp only [Finset.sum_sub_distrib]` — the rw form cannot name the
+  outer binder in `(f :=)`; and a `∀ i j` pair lemma applied to
+  summands under binders again needs `simp only`, not `rw` (same
+  lesson as 12a's `dcoef_mul_conj`).  Remaining (8.11) steps open: the
+  eigen-relation assembly `λ Σ|w|² = Q(Z) − boundary`, the λ ≥ 0
+  folding with `wirtingerFull`, the exponential-independence
+  contradiction, and the Theorem-8 sign count.  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
