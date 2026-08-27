@@ -1670,6 +1670,26 @@ sufficient for the route decision.
   `c := Z⁺(t)/φ₊(t)`, `F = Z⁺ − cφ₊`, φ₊ evenness, and the
   `(a²−b²)/(a+b)² = (a−b)/(a+b)` exp algebra), the odd-case mirror with
   `coth(t/2)`, and the (8.14) assembly.  DETECTOR only.
+* Wirtinger (8.13) slice 7e, the even-case inequality
+  (`C1BombieriSection8WirtingerSlice5`): LANDED, axiom-clean (leaf + audit
+  `2659 jobs`, 0 sorryAx).  `phiEven_even` / `phiEven_ne_zero`;
+  `tanhHalf_eq_ratio` (`(e^t − e^{−t})/(e^{t/2} + e^{−t/2})² = tanh(t/2)`,
+  the (8.13) weight — v4.30 defines `Real.tanh x` as
+  `(Complex.tanh x).re`, so `unfold` DESTROYS the goal; the bridge is
+  `Real.tanh_eq_sinh_div_cosh`, and the old import
+  `Mathlib.Analysis.SpecialFunctions.Trigonometric` is GONE — hyperbolic
+  functions live in `Mathlib.Analysis.Complex.Trigonometric`);
+  flagship `wirtingerEven`: for even `Z` (`t ≥ 0`), `Q(Z)` is the cast of
+  a real expression dominating `normSq(Z t)·(e^t − e^{−t})/φ₊(t)²` with
+  explicit slack `S ≥ 0` — the even case of (8.13) in the real-channel
+  shape.  Mechanism: subtract `c := Z(t)/φ₊(t)` times the envelope; the
+  remainder is C¹, even, and vanishes at both endpoints, so `qShiftEven`
+  applies and `qF_real` + `sqMass_nonneg` push `Q(F)` through the real
+  channel; `field_simp` leaves a `Z t * (1 − 1) = 0` residue — close with
+  `ring`.  Remaining (8.13) steps open: the odd-case mirror with the
+  `coth(t/2)` weight (`φ₋ = e^{u/2} − e^{−u/2}`, odd, `φ₋(t) ≠ 0` for
+  `t ≠ 0`), and the (8.14) assembly over the eigenvalue equation.
+  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
