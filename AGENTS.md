@@ -46,9 +46,12 @@ proofs need Paley-Wiener / Cartwright entire-function theory absent from
 Mathlib (~2000+ lines estimate).
 
 Standing authorization: normal engineering procedures run without asking,
-including broad architecture-level changes and genuinely new mathematics.
-Still requires Peter: any commit/push/public GitHub payload, dependency or CI
-changes, destructive ops, and any step violating the integrity or RH guards.
+including broad architecture-level changes and genuinely new mathematics,
+and - granted 2026-08-27 - routine commits and pushes of mainline progress
+to this repository's origin.  Still requires Peter: public GitHub payloads
+beyond routine mainline pushes (new repos, PR/issue bodies, comments),
+dependency or CI changes, destructive ops, and any step violating the
+integrity or RH guards.
 No-stop rule: a path is dead ONLY with a named guard, counterexample, or
 route ruling that says so.
 
