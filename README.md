@@ -12,38 +12,107 @@ Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 > [`13bae3d`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/13bae3d).
 > **No unconditional proof of the Riemann hypothesis is claimed here.**
 
-### Progress map
+### Route map
+
+Read top-down: the goal needs one gap closed; the gap decomposes into named
+obligations, each tagged with its state.
 
 ```text
-==============================================================================
- PROGRESS MAP - ACTIVE C1 SAME-OWNER MAINLINE (ROOT FORM)
- State of commit 13bae3d, 2026-08-27. RH IS NOT CLAIMED.
-==============================================================================
-  LEGEND   CLOSED / LANDED = proved; audited leaves report only
-           [propext, Classical.choice, Quot.sound], zero sorryAx.
-           OPEN       = explicit, separately-audited obligation.
-           DEFERRED   = postponed by a documented design decision.
+              HOW THIS REPOSITORY ATTACKS THE RIEMANN HYPOTHESIS
 
-  Route foundations and provenance guard layers   ARCHIVED   superseded
-  Gate 2: arithmetic-to-spectral equality         CLOSED     center-2 contour
-  W-program lemmas W1, W2, W3, W4a, W4b-pairing   LANDED     axiom-clean
-  W4b support-class rungs (three radii)           LANDED     non-universal
-  Pure-analysis widening ladder to ROOT window    RULED OUT  B(log 2) ~= +3.9
-  CC20 window-operator chain, proof 1043 s6g-s6v  LANDED     through eq-(121)
-  Concrete K_I - T finite-rank difference profile OPEN       next target
-  GATE 1: endpoint sign theorem                   OPEN       mathematical core
-  GATE 2: Titchmarsh square-form bridge           DEFERRED   not attempted
-  Final assembly: unconditional_rh                SKELETON   explicit premises
-==============================================================================
+   One test family g; one real number qw(g); one demand:
+   qw(g) >= 0 for every admissible vanishing test g.
+
+              +------------------------------------------+
+              | RIEMANN HYPOTHESIS                       |
+              | _root_.RiemannHypothesis (Mathlib)       |
+              +------------------------------------------+
+                                    ^
+                                    | wrapper composition only:
+                                    | coverage-root <-> SourceRH bridges,
+                                    | conditional exits pre-composed. [LANDED]
+        +------------------------------------------------------+
+        | UNIVERSAL WEIL POSITIVITY      ** THE GAP **         |
+        |                                                      |
+        | qw(g) >= 0 for EVERY admissible vanishing test       |
+        | (= the detector/criterion coverage root)             |
+        +------------------------------------------------------+
+
+      THE GAP decomposes into four named obligations:
+
++--< (1) TEST-CLASS COMPLETENESS
+|       density of admissible tests inside all vanishing tests;
+|       lifts any fixed-window result to universality.
+|                                             [OPEN]
+|
++--< (2) ARITHMETIC = SPECTRAL, on ONE owner
+|       qw(g) equals its spectral value;
+|       gate2ExplicitFormula_centerTwo       [LANDED]
+|
++--< (3) ROOT-WINDOW REWRITE ... and THE SIGN INSIDE IT
+|
+|     On ROOT-supported triple-vanishing tests qw collapses to the
+|     archimedean term alone:
+|
+|            qw(g)  =  - arch(g^2)
+|
+|     primes die by support, pole dies by triple vanishing;
+|     pure algebra.                          [LANDED]
+|
+|     So everything now hangs on GATE 1:
+|
+|     +==< (4) GATE 1 : ENDPOINT SIGN THEOREM
+|     ||                                     ** YOU ARE HERE **
+|     ||
+|     ||    arch(g^2) <= 0  for all ROOT-class tests.
+|     ||    Published mechanisms exist (Yoshida 1992, Connes-Consani
+|     ||    2020); none formalized yet.      [OPEN]
+|     ||
+|     ||=== fed by (4a) CONCRETE K_I - T ENVELOPE
+|     |||      rank-one approximant T = lambda*rankOne(phi,phi) and a
+|     |||      certified operator-norm envelope into eq-(121);
+|     |||      consumes applyKernelLp + eq-(121) pairing bound.
+|     |||      Next actionable brick.        [NEXT]
+|     |||
+|     ||=== fed by (4b) NUMERIC CERTIFICATE DATA
+|     |||      Yoshida exact-rational LDL^T (engine ready under
+|     |||      scripts/yoshida_intervals/)  OR  CC20 rank-one bound,
+|     |||      gamma ~= 2.94355 certified in 13 < 4g/log 2 < 17.
+|     |||                                    [DATA OPEN]
+|     |
+|     '+--> both stand on the OPERATOR FLOOR, already built:
+|             windowed kernels -> L2 mass ladder -> eq-(121) fold
+|             -> bounded operators applyKernelLp     [LANDED]
+|
++ - < (5) GATE 2 : TITCHMARSH SQUARE-FORM BRIDGE
+          would widen the class beyond ROOT support; classical proofs
+          need Cartwright theory absent from Mathlib. Not needed for
+          the first cut.                       [DEFERRED]
+
+When (4) turns LANDED, stream (3) yields ROOT-class positivity; then
+(1) promotes it to THE GAP itself - and with (2) underneath, the
+existing wrapper composes an unconditional proof of RH.
 ```
 
-A milestone count is not an honest measure of distance to RH. Most
-operator-level infrastructure has landed and audits clean, but the remaining
-items are precisely the hard analytic gates: the endpoint sign theorem behind
-GATE 1 (two published mechanisms exist, both heavy), the concrete difference
-kernel `K_I - T` enclosure that feeds it, and GATE 2, whose classical proofs
-require Paley-Wiener / Cartwright-class harmonic analysis that is absent from
-Mathlib today.
+How to read the tags:
+
+- `[LANDED]` - proved in Lean and axiom-clean: every audited declaration
+  reports exactly `[propext, Classical.choice, Quot.sound]`, never `sorryAx`.
+- `[OPEN]` - an explicit, separately audited obligation; nothing is hidden
+  behind an axiom or a placeholder.
+- `[NEXT]` - the current construction target; `[DATA OPEN]` - the numeric
+  side of a tag whose Lean interfaces already exist.
+- `[DEFERRED]` - postponed by a documented design decision, recorded in
+  [proof 1043](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1043_first_cut_window_architecture.md),
+  the living design record behind this map.
+
+A milestone count is not an honest measure of distance to RH. The operator
+floor has landed and audits clean, but what remains is the hard analytic core:
+the GATE 1 sign estimate, its two feeds above, and test-class completeness.
+Ruled-out shortcuts are equally part of the record: the bare whole-line
+Hilbert-Schmidt premise is false for every nonzero test, the plain-window
+cutoff trace family is an empty producer, and the pure-analysis budget ladder
+cannot reach the ROOT window (`B(log 2) ~= +3.9 > 0`).
 
 ### Commit timeline
 
