@@ -398,7 +398,7 @@ In particular, the paper's numerical statements (`lambda2 <= 0.772216`, the
 floating-point evidence.  They still require exact interval certificates and
 the concrete operator construction before Gate 1 closes.
 
-## 6g. Raw L² integral-operator bound for `kf_I` (landed 2026-08-26)
+## 6g. Raw L² integral-operator bounds for `kf_I` (landed 2026-08-27)
 
 The first analytic brick toward the paper's concrete windowed operator
 `kf_I` on `L²(I)` is now in Lean.  The source is the Hilbert--Schmidt
@@ -420,11 +420,25 @@ factor and `f` the other; the two `MemLp (· 2)` hypotheses say both factors
 lie in `L²`.  The proof is three steps: norm-of-integral ≤ integral-of-norm,
 the pointwise `‖k f‖ = ‖k‖ · ‖f‖` rewrite a.e., then the Lp/Lq product bound.
 
-This is boundedness infrastructure only; it carries no RH sign or coverage
-claim and does not yet construct the concrete kernel of `kf_I`.  The next
-brick is the integrated operator-norm form `‖Af‖₂ ≤ ‖k‖_{L²(ℝ²)} · ‖f‖₂`,
-which integrates this pointwise bound over `x` (an extra Fubini +
-integral-monotonicity round).  The still-open item
+The integrated square-mass brick is now also formalized in
+`Dev/C1CC20LpOperatorNorm.lean`.  Its theorem
+`rows_l2_ae_of_kernel_l2` derives `MemLp (fun y => k (x, y)) 2` for almost
+every row of a two-variable `L²` kernel.  Its endpoint
+`applyKernel_l2_sq_bound` proves
+
+```text
+∫⁻ x, ‖(Af)(x)‖ₑ²
+  ≤ (∫⁻ p : ℝ×ℝ, ‖k(p)‖ₑ²) * (∫⁻ y, ‖f(y)‖ₑ²).
+```
+
+The proof keeps the global calculation in `ENNReal` lintegrals, so a
+non-integrable Bochner integral cannot collapse to `0`.  It combines the
+pointwise Cauchy--Schwarz bound with a.e. row `L²` membership, lintegral
+monotonicity, constant-factor extraction, and `lintegral_prod`.
+
+This remains boundedness infrastructure only: it carries no RH sign or
+coverage claim and does not construct the concrete kernel of `kf_I`.  The
+still-open item
 
 ```text
 paper's concrete L2(I) operators T, R, kf_I                  OPEN
@@ -433,12 +447,13 @@ paper's concrete L2(I) operators T, R, kf_I                  OPEN
 above is unchanged: the estimate bounds an arbitrary `L²` kernel, but the
 paper's specific `kf_I`, `T`, and `R` kernels are not yet written down.
 
-Verification (per-brick protocol): owning-module build
-`ConnesWeilRH.Dev.C1CC20LpOperator` green (`2677 jobs`, exit 0); both
-declarations audit to `[propext, Classical.choice, Quot.sound]`, no `sorryAx`.
-The synchronized root build passes `4147 jobs`, `0 error`; note this aggregate
-covers the non-Dev source tree only — Dev leaves (including this one) are
-verified by explicit targeting, as for every other Dev brick.
+Verification (per-brick protocol): native WSL ext4 builds are green for
+`ConnesWeilRH.Dev.C1CC20LpOperator` (`2677 jobs`) and
+`ConnesWeilRH.Dev.C1CC20LpOperatorNorm` (`2683 jobs`).  The focused audit for
+the two integrated declarations reports exactly
+`[propext, Classical.choice, Quot.sound]`, with no `sorryAx`.  The aggregate
+root build is not evidence for these standalone `Dev/` leaves; they are
+verified by explicit targeting.
 
 ## 7. Session boundary
 

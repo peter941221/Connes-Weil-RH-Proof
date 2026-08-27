@@ -1,0 +1,3 @@
+import ConnesWeilRH.Dev.C1CC20LpOperatorNorm
+#print axioms ConnesWeilRH.Source.C1CC20LpOperatorNorm.rows_l2_ae_of_kernel_l2
+#print axioms ConnesWeilRH.Source.C1CC20LpOperatorNorm.applyKernel_l2_sq_bound

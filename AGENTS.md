@@ -1390,6 +1390,15 @@ Rules:
 
 - **Git-Bash-harness `wsl.exe` calls need `MSYS_NO_PATHCONV=1` and direct exec (no `bash -lc`)**: when the agent shell is Git Bash (not PowerShell), MSYS rewrites `/home/...`-style arguments — `wsl.exe --cd /home/peter/rh ...` dies with `Wsl/ERROR_PATH_NOT_FOUND` — and single-quoted `bash -lc '<script with $vars>'` loses quoting through the wsl.exe relay (loop variables print empty). Robust pattern from this harness: prefix every call with `MSYS_NO_PATHCONV=1`, execute ONE command per `wsl.exe -- <cmd> <args>` call, and do multi-step shell logic in separate invocations or a script file. (Observed 2026-08-26, session 14.)
 - **`wsl.exe --cd ... flock ... lake build` fails "flock: failed to execute lake" from non-login exec**: direct exec does not source the login PATH, so `~/.elan/bin` is absent and `lake` is not found — while the SAME command worked from PowerShell-era sessions (different default environment). Always build from this harness as `MSYS_NO_PATHCONV=1 wsl.exe --cd /home/peter/rh flock -w 3600 /tmp/connes-weil-rh-lake.lock /home/peter/.elan/bin/lake build <targets>`. Also: piping build output through `| tail` buffers everything until EOF, so a background build's output file reads EMPTY while running — poll with `wsl.exe -- pgrep -f 'lake build'` instead of the output file. (Observed 2026-08-26, session 14.)
+- **`MemLp`/lintegral `L²` bridge discipline**: after rewriting
+  `eLpNorm_lt_top_iff_lintegral_rpow_enorm_lt_top` at exponent
+  `ENNReal.ofReal 2`, explicitly rewrite
+  `ENNReal.toReal_ofReal (by norm_num : (0 : ℝ) ≤ 2)`; it is not automatic in
+  this toolchain.  For a local row-mass `let m`, use `simpa only [m] using hm`
+  to unfold it.  In executable `ENNReal` bounds, prefer `⊤` over `∞`; and keep
+  pointwise Cauchy--Schwarz terms in their `Real.rpow` representation until
+  the Bochner bridge, where `Real.rpow_two` converts to a Nat square.  (Observed
+  2026-08-27, `C1CC20LpOperatorNorm`.)
 - **Prop-valued structures cannot store analytic data**: a structure declared
   with `: Prop` may only have proof-valued fields; Lean rejects fields such as
   `Real` coefficients or traces with "failed to generate projection". Use a

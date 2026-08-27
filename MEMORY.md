@@ -1,3 +1,35 @@
+## Change Log (2026-08-27 session 24, CC20 kf_I L² INTEGRATED MASS BOUND)
+- **Result: good.**  `Dev/C1CC20LpOperatorNorm.lean` closes the second
+  boundedness brick for the raw CC20 integral-kernel owner.  It imports the
+  committed pointwise Cauchy--Schwarz estimate from
+  `C1CC20LpOperator.lean`, but keeps all global mass calculations in
+  nonnegative extended reals (`ENNReal` lintegrals).
+- `rows_l2_ae_of_kernel_l2` proves that an `L²(ℝ×ℝ)` complex kernel has an
+  `L²` row for almost every output coordinate.  The proof is Fubini/Tonelli:
+  product a.e. strong measurability gives measurable rows, while finite total
+  squared mass makes the row-mass finite a.e.
+- `applyKernel_l2_sq_bound` proves the exact squared Hilbert--Schmidt mass
+  inequality
+
+  ```text
+  ∫⁻ x, ‖applyKernel k f x‖ₑ²
+    ≤ (∫⁻ p : ℝ×ℝ, ‖k p‖ₑ²) * (∫⁻ y, ‖f y‖ₑ²).
+  ```
+
+  It squares the existing pointwise bound, bridges real Bochner squared norms
+  to lintegrals, applies `lintegral_mono_ae`, pulls out the input mass, then
+  closes by `lintegral_prod`.  The bridge is deliberately needed because a
+  non-integrable real Bochner integral is definitionally `0`, whereas the
+  lintegral retains the correct `⊤` failure value.
+- **Native WSL ext4 evidence:** explicit owner build
+  `lake build ConnesWeilRH.Dev.C1CC20LpOperatorNorm` completed successfully
+  (`2683 jobs`).  Focused `#print axioms` for both public declarations reports
+  exactly `[propext, Classical.choice, Quot.sound]`, with no `sorryAx`.
+- Scope guard: this does not construct the paper's concrete `kf_I`, `T`, or
+  `R`; package the raw integral as an `Lp` bounded operator; certify a CC20
+  spectral enclosure; prove an endpoint sign; discharge the active RH root;
+  or prove RH.
+
 ## Change Log (2026-08-26 session 23, CC20 kf_I L² FOUNDATION — HILBERT–SCHMIDT POINTWISE BOUND)
 - **Result: good.**  The boundedness foundation for CC20's windowed integral
   operator `kf_I` on `L²(I)` is now formalized in the new leaf
