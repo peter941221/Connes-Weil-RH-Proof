@@ -1418,6 +1418,24 @@ sufficient for the route decision.
   bare `ring` treats `x ^ (-1)` as an atom so the `u`-denominators can
   never cancel the display's coefficient denominator.  The (7.2)-(7.5)
   ownership chain remains the next slice.
+* Bombieri (7.3) normalized kernel (`C1BombieriSection7H`): LANDED,
+  axiom-clean (leaf 1510 jobs, audit 1511 jobs, 0 sorryAx) --
+  `bombieriH` (`H(x,y;t) = 2 t K*(x,y;t)/(1/4 + y^2)`, the (7.3)
+  definition), the (7.3) readback `bombieriH_mul_weight_eq`, and the
+  flagship `bombieriH_symmetric` (`H(x,y;t) = H(y,x;t)` for `t != 0`,
+  `x != y`): multiplying the (7.1) symmetry law by `2 t` and reading
+  both sides through the (7.3) readbacks shows the normalization
+  symmetrizes the kernel, which is the entrance for the
+  symmetric-matrix eigenvalue sign count of (7.4).  Mechanics: the
+  symmetry law's `binop%` weight form (`1/4 + (x:Complex) ^ 2`) is
+  restated into single real casts via `Complex.ofReal_pow` (backward)
+  plus `push_cast`; `mul_assoc` is stated LEFT-associated
+  (`(a*b)*c = a*(b*c)`), so flattening a nested product needs the
+  backward rewrite; `mul_left_comm` rewrites must be explicitly
+  instantiated or the second call reverts the first.  The (7.4)/(7.5)
+  matrix layer over a finite zero set and the `z_gamma = X_rho`
+  transcription remain open (`X_rho`'s definition needs a fresh book
+  p.204 read; the scan stays out of the repository).
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

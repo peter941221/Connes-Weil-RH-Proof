@@ -116,3 +116,13 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   BEFORE field_simp (its inner ring_nf expands inverse arguments and
   orphans the factored nonzero facts); bare ring treats inverses as
   atoms.  Next slice: the (7.2)-(7.5) ownership chain.
+- 2026-08-28 C1BombieriSection7H(+Audit) : the (7.3) normalized kernel
+  landed - bombieriH (H(x,y;t) = 2t K*/(1/4+y^2)), the readback
+  bombieriH_mul_weight_eq, and the flagship bombieriH_symmetric
+  (H(x,y;t) = H(y,x;t), t != 0, x != y): the (7.3) normalization
+  symmetrizes the kernel via the (7.1) law, the entrance for the
+  symmetric-matrix sign count of (7.4).  Audit 1511 jobs axiom-clean
+  ([propext, Classical.choice, Quot.sound], no sorryAx).  Mechanics:
+  mul_assoc is LEFT-associated (flatten with the backward rewrite);
+  mul_left_comm needs explicit instantiation.  Next: (7.4)/(7.5) matrix
+  layer over Fin n; z_gamma = X_rho needs a fresh book p.204 read.
