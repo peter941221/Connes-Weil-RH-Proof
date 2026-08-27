@@ -1933,6 +1933,32 @@ sufficient for the route decision.
   eigen-relation assembly `λ Σ|w|² = Q(Z) − boundary`, the λ ≥ 0
   folding with `wirtingerFull`, the exponential-independence
   contradiction, and the Theorem-8 sign count.  DETECTOR only.
+* Wirtinger slice 12c, the eigen-relation Gram transport
+  (`C1BombieriSection8EigenGram`): LANDED, axiom-clean (leaf + audit,
+  3 declarations, 0 sorryAx; commit `18b9b82`).  First half of the
+  eigen-relation assembly of (8.11): from the (7.4) eigen-equation
+  `w = Λ • H(Γ;t) *ᵥ w` for the weighted vector
+  `w = bombieriWOfZ γ z` derive the Gram-quadratic identity
+  `Σ_i w_i conj(w_i) = Λ · Σ_i Σ_j 2t K*(γ_i,γ_j;t) z_j conj(w_i)`
+  (`bombieriEigen_gram`), with `conj(w_i) = (¼ + γ_i²) conj(z_i)`
+  (`conj_bombieriWOfZ`) — the (7.2) weight on the conjugate side, the
+  raw `K*`-matrix on the data side (`mulVec_weight_apply`, the
+  per-entry readback of `bombieriHMatrix_mulVec_weight`).  Stated with
+  `Λ` DIRECTLY — no division, hence no nonvanishing premise on the
+  eigenvalue — so the `λ ≥ 0` fold downstream never divides.
+  Mechanics worth recording (v4.30): the FIRST slot of the
+  eigen-equation is transported by
+  `congrArg (fun c => c * conj w_i) (hpc i)` — an `rw` of the
+  component equation would rewrite the `w_i` inside the conjugation
+  as well (the recorded `congrArg, never rw` mechanic, now with its
+  sharpest instance); and `Finset.mul_sum` is the `b * ∑` form while
+  `Finset.sum_mul` is `∑ * b` — distributing a post-sum factor needs
+  the LATTER (`rw [mul_assoc, Finset.sum_mul]`), while pulling `Λ`
+  back out of a sum needs the former's ← direction.  Remaining (8.11)
+  steps open: the Lemma-10 substitution (sinc channel → Q-form +
+  rank-two boundary products), the λ ≥ 0 folding with
+  `wirtingerFull`, the exponential-independence contradiction, and
+  the Theorem-8 sign count.  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
