@@ -1315,6 +1315,33 @@ restricted/global masses with one evaluation object.
 - **For nonnegative real bases, `pow_le_pow_left₀` is the direct power-monotonicity lemma** (Observed 2026-08-26, third W4b radius): use `pow_le_pow_left₀ hnonneg hle n` to lift `a ≤ b` to `a^n ≤ b^n`. Do not reach for the differently shaped `pow_le_pow_left'` when a simple real rational/exponential comparison is needed.
 
 
+- **A Git-Bash-side `>` redirect does NOT land inside WSL**: writing
+  `wsl.exe -- ... lake build X > /tmp/log 2>&1` makes GIT BASH perform the
+  redirect into its own temp (`C:\Users\...\Temp\log.log`), while a later
+  `/usr/bin/grep /tmp/log` call looks INSIDE Ubuntu and finds nothing. Either
+  wrap the whole pipeline in an explicit
+  `wsl.exe -d Ubuntu-24.04 -- /bin/sh -c "flock ... lake build X > /tmp/l 2>&1"`
+  (apostrophe-free command), or let the tool capture stdout and read it back at
+  `$(cygpath -w <git-bash-tmp-path>)`. (Observed 2026-08-27,
+  C1CC20RawKernelMass audit round.)
+- **The `wsl:` localhost-proxy UTF-16 banner poisons pipes as binary**: when
+  the proxy notice prints, bytes preceding real output make
+  `grep pattern file` report "Binary file (standard input) matches" instead of
+  lines. Use `grep -a`, or better: capture to a log and read it with the file
+  reader. (Observed 2026-08-27.)
+- **`Set.mem_prod` has no `.mp`/`.mpr` in v4.30**: membership proofs go through
+  anonymous constructors `⟨hx, hy⟩` and projections `hm.1`/`hm.2`. (Observed
+  2026-08-27, windowed-kernel diagonal lemma.)
+- **MemLp's first field wants `AEStronglyMeasurable`, not `AEMeasurable`**:
+  from a `Measurable h`, feed `h.aestronglyMeasurable`; `.aemeasurable`
+  produces a type mismatch inside `refine ⟨_, ?_⟩`. (Observed 2026-08-27,
+  memLp certification of the windowed kernel.)
+- **`IsCompact.exists_bound_of_continuousOn` bounds the NORM of the value**:
+  for a real-valued continuous-on function `g = fun p => ‖K p‖` the obtained
+  hypothesis reads `‖‖K p‖‖ ≤ B`; bridge with
+  `(Real.norm_of_nonneg (norm_nonneg _)).symm` before rewriting. (Observed
+  2026-08-27.)
+
 ## 8. WSL Verification
 
 WSL2 is a **verification environment, not a source workspace**. Author/manage

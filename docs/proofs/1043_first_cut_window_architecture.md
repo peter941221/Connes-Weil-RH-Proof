@@ -551,6 +551,31 @@ Focused native WSL ext4 builds are green for the formula, owner guard, and
 audit; every new theorem audits to `[propext, Classical.choice, Quot.sound]`
 with no `sorryAx`.
 
+## 6j. Windowed raw-kernel L2 brick (landed 2026-08-27)
+
+`Dev/C1CC20RawKernelMass.lean` connects the §6i formula layer to the `L2`
+boundedness foundation of `C1CC20LpOperator` / `C1CC20LpOperatorNorm`.  The
+raw kernel depends on its arguments only through the displacement
+`p.2 - p.1`, so restricting both coordinates to the symmetric window
+`[-a, a]` and carrying an explicit uniform profile bound `B` yields:
+
+```text
+endpointKernelOnSquare data a        =  ([-a,a]^2).indicator K_raw     -- definition
+measurable_endpointKernelOnSquare    measurable from continuous profile
+exists_norm_bound_on_window          compactness packages B >= 0       (∀ p in window, ‖K_raw p‖ ≤ B)
+enorm_sq_endpointKernelOnSquare_le   pointwise: ‖kernel‖ₑ² ≤ B²
+endpointKernelOnSquare_diagonal_zero Remark 6 survives the restriction
+memLp_..._of_mass_lt_top             MemLp 2 from total-mass premise
+applyKernel_l2_sq_le_of_kernelMassTopLt   explicit operator bound via applyKernel_l2_sq_bound
+```
+
+The boundedness certificate itself stays caller-supplied on purpose: it is
+exactly the slot where a prolate/uniform-convergence realization (or a
+Yoshida-style numerical certificate) plugs in.  Verification is per-brick:
+native WSL ext4 explicit targets green (`C1CC20RawKernelMass` 2685 jobs,
+`C1CC20RawKernelMassAudit` 2686 jobs); all seven audited declarations report
+only `[propext, Classical.choice, Quot.sound]`, no `sorryAx`.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean

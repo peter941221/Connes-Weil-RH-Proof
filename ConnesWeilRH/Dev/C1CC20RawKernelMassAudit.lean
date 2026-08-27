@@ -1,0 +1,26 @@
+import ConnesWeilRH.Dev.C1CC20RawKernelMass
+
+namespace ConnesWeilRH.Source.C1CC20RawKernelMass
+
+open CC20Concrete
+
+#check endpointKernelOnSquare_of_mem
+#check endpointKernelOnSquare_of_not_mem
+#check measurableSet_cc20WindowPair
+#check continuous_endpointWindowKernelComplex
+#check measurable_endpointKernelOnSquare
+#check exists_norm_bound_on_window
+#check enorm_sq_endpointKernelOnSquare_le
+#check endpointKernelOnSquare_diagonal_zero
+#check memLp_endpointKernelOnSquare_of_mass_lt_top
+#check applyKernel_l2_sq_le_of_kernelMassTopLt
+
+#print axioms continuous_endpointWindowKernelComplex
+#print axioms measurable_endpointKernelOnSquare
+#print axioms exists_norm_bound_on_window
+#print axioms enorm_sq_endpointKernelOnSquare_le
+#print axioms endpointKernelOnSquare_diagonal_zero
+#print axioms memLp_endpointKernelOnSquare_of_mass_lt_top
+#print axioms applyKernel_l2_sq_le_of_kernelMassTopLt
+
+end ConnesWeilRH.Source.C1CC20RawKernelMass

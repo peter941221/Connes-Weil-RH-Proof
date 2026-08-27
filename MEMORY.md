@@ -1,3 +1,15 @@
+## Change Log (2026-08-27 session 26b, windowed raw-kernel L2 brick)
+- `Dev/C1CC20RawKernelMass.lean` : restrict the paper's raw endpoint kernel to
+  the symmetric square window `[-a,a]^2` and land its L2 glue: measurability
+  from a continuous displacement profile, compactness-packaged uniform bound
+  `B`, pointwise squared-enorm domination, unconditional windowed-diagonal
+  zero (Remark 6 survives restriction), MemLp-2 certification from a total-
+  mass premise, and the operator-level specialization of
+  `applyKernel_l2_sq_bound`.  Axiom-clean; explicit targets green on the WSL
+  ext4 mirror (`C1CC20RawKernelMass` 2685 jobs, audit 2686 jobs).  Feeds the
+  concrete `kf_I` input of `C1CC20OperatorGap`; GATE 1 numerically-certified
+  profile bound remains open.
+
 ## Change Log (2026-08-27 session 26, CC20 endpoint formula and owner bridge)
 - **Result: good, but deliberately bounded.**  Added
   `Source/CC20Concrete/EndpointKernelFormula.lean`, a formula-level encoding of
