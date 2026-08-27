@@ -779,6 +779,54 @@ downloadable artifact; they enter Lean ONLY through explicit rational-
 interval certificate nodes (per §6k anti-fabrication mechanics), never as
 bare literals.
 
+### 6o. Translate-invariance pack: the L2 shift slot discharged (landed 2026-08-27)
+
+New leaf `Dev/C1CC20TranslateInvariance.lean` (+ audit).  This removes the
+last caller premise of the L2a slice brick:
+
+```
+abs_corrInnerSlice_le  η ξ v            (Dev/C1CC20CorrBridge.lean)
+   requires  hxiShiftedMemLp : ∀ w, MemLp (fun x => ξ (x + w)) p2
+        └────────── now supplied by memLp_shift hξ w ──────────┘
+```
+
+Landed content, all mathlib-native (signatures confirmed against v4.30 by
+compiler probes):
+
+* `lintegral_enorm_sq_shift` : `∫⁻ ‖ξ(·+w)‖ₑ² = ∫⁻ ‖ξ‖ₑ²`, directly
+  `lintegral_add_right_eq_self`.  Pitfall recorded: the lemma reads
+  `∫⁻ f(x+g) = ∫⁻ f x`; one must feed the UNSHIFTED base
+  `(fun x => ‖ξ x‖ₑ ^ 2)` so that the lemma's own shift produces the
+  desired left-hand side — feeding an already-shifted body double-shifts.
+* `ltTop_of_memLp` : plain-mass finiteness recovered from a `MemLp`
+  hypothesis (converse direction of the RawKernelMass expansion).
+  The reverse rewrite `rw [← eLpNorm_lt_top_iff…]` misses because the iff's
+  RHS pattern carries the exponent as `(ENNReal.ofReal 2).toReal`, while
+  the goal shows a literal `2`; fix is to read the biconditional FORWARDS
+  (`.mp`) into a local hypothesis, normalize with
+  `rw [ENNReal.toReal_ofReal …] at`, then `exact`.
+* `memLp_shift` : strong measurability of `ξ ∘ (+w)` via
+  `hξ.1.comp_quasiMeasurePreserving (quasiMeasurePreserving_add_right
+  volume w)`, finiteness via the two items above and the same
+  iff-expansion closer used in
+  `C1CC20RawKernelMass.memLp_endpointKernelOnSquare_of_mass_lt_top`.
+
+Verified per-brick on ext4: explicit target
+`ConnesWeilRH.Dev.C1CC20TranslateInvarianceAudit`, 2686 jobs, exit clean;
+all three declarations `[propext, Classical.choice, Quot.sound]`;
+`sorryAx` count in log = 0.
+
+Next bricks up the same ladder (paper eqs above):
+
+```text
+L2b  pairing fold over L¹ weight -> paper (121):
+     needs real-integral shift twin + weight integrability bookkeeping;
+     consumes abs_corrInnerSlice_le
+L1   displacement-composition identity (definition-level tie to
+     endpointKernelOnSquare / endpointWindowKernelComplex)
+L3   finite-rank spectral-control slot T = λ Σ (e_n − d(|n|) e_{αn})
+```
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
@@ -821,6 +869,10 @@ bare literals.
   bound, and `||kf_I - T|| <= epsilon1`; it no longer consumes a pointwise
   `hspectral` shadow.  The concrete operators and exact numerical certificates
   remain caller premises.
+* Translate-invariance pack for the L2 slice brick (`memLp_shift`,
+  `lintegral_enorm_sq_shift`, `ltTop_of_memLp`): LANDED, axiom-clean
+  (2686 jobs, 0 sorryAx); `abs_corrInnerSlice_le`'s shift slot is now a
+  one-line corollary for every MemLp consumer.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

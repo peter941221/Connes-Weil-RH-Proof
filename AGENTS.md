@@ -1374,6 +1374,24 @@ restricted/global masses with one evaluation object.
   targets behind explicit parameters with printed cost models, and route
   tight certificates to accelerated algorithms later instead of letting a
   test hang silently. (Observed 2026-08-27.)
+- **Output redirection in a WSL build command must happen INSIDE wsl.exe**:
+  `wsl.exe ... lake build ... > /mnt/c/...log` redirects on the GIT-BASH
+  side where `/mnt/c` does not exist → "No such file or directory", LAKE
+  never runs. Wrap with `wsl.exe ... bash -c "... > /home/peter/blogs/…"`
+  so the ext4-side shell owns the redirect. (Observed 2026-08-27,
+  translate-invariance builds.)
+- **`lintegral_add_right_eq_self f g : ∫⁻ x, f (x+g) = ∫⁻ x, f x` shifts by
+  ITS OWN application**: to state `∫⁻ ‖ξ(x+w)‖² = ∫⁻ ‖ξ x‖²` feed the
+  UNSHIFTED base `(fun x => ‖ξ x‖ₑ ^ 2)`; passing an already-shifted body
+  yields `‖ξ(x+w+w)‖`. Same double-shift trap as any pointwise-congruence
+  lemma family. (Observed 2026-08-27.)
+- **Reverse `rw [← iff]` fails when goal literals differ from the lemma's
+  RHS spellings**: `eLpNorm_lt_top_iff_lintegral_rpow_enorm_lt_top`'s RHS
+  writes the exponent `(ENNReal.ofReal 2).toReal`; a goal with literal `2`
+  misses the pattern. Fix: read the biconditional FORWARDS —
+  `.mp h` into a local `have`, normalize it
+  (`rw [ENNReal.toReal_ofReal …] at h`), then `exact h`. (Observed
+  2026-08-27, ltTop_of_memLp.)
 
 ## 8. WSL Verification
 
