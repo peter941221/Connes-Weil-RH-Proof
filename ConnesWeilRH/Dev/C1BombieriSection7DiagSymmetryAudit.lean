@@ -20,6 +20,7 @@ open ConnesWeilRH.Source.C1BombieriSection7DiagSymmetry
 #print axioms ConnesWeilRH.Source.C1BombieriSection7DiagSymmetry.bombieriK_diagPair
 #print axioms ConnesWeilRH.Source.C1BombieriSection7DiagSymmetry.bombieriKstar_diagonalFold
 #print axioms ConnesWeilRH.Source.C1BombieriSection7DiagSymmetry.bombieriKstar_diagonalClosedForm
+#print axioms ConnesWeilRH.Source.C1BombieriSection7DiagSymmetry.bombieriK_genPair
 
 end C1BombieriSection7DiagSymmetryAudit
 end Source

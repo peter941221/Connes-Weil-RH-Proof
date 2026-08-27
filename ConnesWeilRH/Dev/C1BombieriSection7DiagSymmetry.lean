@@ -20,6 +20,9 @@ Content:
   to the explicit real quantity `(sin^2 u + sinh^2 v) / (u^2 + v^2)`; the
   imaginary parts cancel and the real part collapses against the circular
   and hyperbolic Pythagorean identities.
+* `bombieriK_genPair` -- the same product with INDEPENDENT real parts
+  `K(-a + vi) * K(b + vi)` as an explicit real/imaginary pair; this is the
+  off-diagonal building block for the full symmetry law (7.1).
 * `bombieriKstar_diagonalFold` -- on the diagonal the corrected kernel folds
   to `1 - (t / sinh t)` times that kernel pair, because the two correction
   coefficients `(1/2 +- ir)` add up to `1` and the two correction products
@@ -189,6 +192,78 @@ theorem bombieriKstar_diagonalClosedForm (r t : Real) (ht : t ≠ 0) :
   rw [hfin, congrArg Complex.ofReal hscal]
   push_cast
   ring
+
+/-- General kernel pair `K(-a + vi) * K(b + vi)` with INDEPENDENT real
+parts, still on the common imaginary offset `v`: the master split turns it
+into an explicit real/imaginary pair of rational functions.  This is the
+building block behind the off-diagonal correction products of the full law
+(7.1); the diagonal slice above is the special case `a = b`. -/
+theorem bombieriK_genPair (a b v : Real) (hv : v ≠ 0) :
+    bombieriK (((-a : Real) : Complex) + (v : Real) * Complex.I)
+        * bombieriK ((b : Complex) + (v : Real) * Complex.I)
+      = Complex.ofReal
+          (((Real.sin a * Real.cosh v * a + Real.cos a * Real.sinh v * v)
+              * (Real.sin b * Real.cosh v * b + Real.cos b * Real.sinh v * v)
+            + (Real.cos a * Real.sinh v * a - Real.sin a * Real.cosh v * v)
+              * (Real.cos b * Real.sinh v * b - Real.sin b * Real.cosh v * v))
+            / ((a * a + v * v) * (b * b + v * v)))
+        + Complex.ofReal
+          (((Real.sin a * Real.cosh v * a + Real.cos a * Real.sinh v * v)
+              * (Real.cos b * Real.sinh v * b - Real.sin b * Real.cosh v * v)
+            - (Real.cos a * Real.sinh v * a - Real.sin a * Real.cosh v * v)
+              * (Real.sin b * Real.cosh v * b + Real.cos b * Real.sinh v * v))
+            / ((a * a + v * v) * (b * b + v * v))) * Complex.I := by
+  have h1 := bombieriK_re_add_mulI (-a) v (Or.inr hv)
+  have h2 := bombieriK_re_add_mulI b v (Or.inr hv)
+  rw [Real.sin_neg, Real.cos_neg] at h1
+  -- Normalize the `(-a)` instance onto the shared real vocabulary.
+  have hd : ((-a) * (-a) + v * v) = (a * a + v * v) := by ring
+  have hnm : ((-(Real.sin a) * Real.cosh v * (-a)
+                + Real.cos a * Real.sinh v * v))
+      = (Real.sin a * Real.cosh v * a + Real.cos a * Real.sinh v * v) := by
+    ring
+  have hnj : ((Real.cos a * Real.sinh v * (-a)
+                - (-Real.sin a) * Real.cosh v * v))
+      = (-(Real.cos a * Real.sinh v * a - Real.sin a * Real.cosh v * v)) := by
+    ring
+  rw [hd, hnm, hnj] at h1
+  have hsplit :
+      ((-(Real.cos a * Real.sinh v * a - Real.sin a * Real.cosh v * v))
+          / (a * a + v * v))
+        = (-((Real.cos a * Real.sinh v * a
+              - Real.sin a * Real.cosh v * v) / (a * a + v * v))) := by
+    ring
+  rw [hsplit] at h1
+  rw [h1, h2]
+  -- Nonvanishing denominators and the merged fraction identity.
+  have hDa : a * a + v * v ≠ 0 := by
+    have hpos : (0 : Real) < a * a + v * v := by
+      nlinarith [sq_pos_of_ne_zero hv, sq_nonneg a]
+    exact ne_of_gt hpos
+  have hDb : b * b + v * v ≠ 0 := by
+    have hpos : (0 : Real) < b * b + v * v := by
+      nlinarith [sq_pos_of_ne_zero hv, sq_nonneg b]
+    exact ne_of_gt hpos
+  have hmerge : ∀ (Pa Qa Pb Qb Da Db : Real), Da ≠ 0 → Db ≠ 0 →
+      (Complex.ofReal (Pa / Da) + Complex.ofReal (-(Qa / Da)) * Complex.I)
+          * (Complex.ofReal (Pb / Db) + Complex.ofReal (Qb / Db) * Complex.I)
+        = Complex.ofReal ((Pa * Pb + Qa * Qb) / (Da * Db))
+          + Complex.ofReal ((Pa * Qb - Qa * Pb) / (Da * Db)) * Complex.I := by
+    intro Pa Qa Pb Qb Da Db hDa0 hDb0
+    apply Complex.ext
+    · simp only [Complex.mul_re, Complex.mul_im, Complex.add_re, Complex.add_im,
+        Complex.ofReal_re, Complex.ofReal_im, Complex.I_re, Complex.I_im]
+      field_simp
+      ring
+    · simp only [Complex.mul_re, Complex.mul_im, Complex.add_re, Complex.add_im,
+        Complex.ofReal_re, Complex.ofReal_im, Complex.I_re, Complex.I_im]
+      field_simp
+      ring
+  rw [hmerge (Real.sin a * Real.cosh v * a + Real.cos a * Real.sinh v * v)
+    (Real.cos a * Real.sinh v * a - Real.sin a * Real.cosh v * v)
+    (Real.sin b * Real.cosh v * b + Real.cos b * Real.sinh v * v)
+    (Real.cos b * Real.sinh v * b - Real.sin b * Real.cosh v * v)
+    (a * a + v * v) (b * b + v * v) hDa hDb]
 
 end C1BombieriSection7DiagSymmetry
 end Source
