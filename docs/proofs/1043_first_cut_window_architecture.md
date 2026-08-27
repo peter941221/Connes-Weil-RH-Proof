@@ -1088,6 +1088,80 @@ Boundary: this is Hilbert--Schmidt boundedness of one L2 kernel.  It neither
 identifies the raw displacement form with the windowed quotient operator nor
 constructs the finite-rank `T` or a certified norm/L1 estimate for `K_I - T`.
 
+### 6w. Square-window displacement action readback (landed 2026-08-27)
+
+`Dev/C1CC20WindowedDisplacementReadback.lean` closes the exact missing
+ownership bridge between the square-window CC20 kernel and the already-landed
+translation form.  With `E_I f = 1_I * f`, it proves pointwise that
+
+```text
+applyKernel(windowedDisplacementKernel a I, f)
+  = E_I (applyKernel(displacementKernel a, E_I f)).
+```
+
+Thus the two indicators in the square kernel have distinct, explicit jobs:
+the first restricts and zero-extends the input, while the second restricts and
+zero-extends the output.  The specialization
+`applyKernel_endpointKernelOnSquare_eq_windowedTranslateFold` applies this
+identity directly to the concrete CC20 endpoint profile and rewrites the
+inner raw action into
+
+```text
+integral_v a(v) * E_I(f)(x + v).
+```
+
+The quotient theorem
+`coeFn_applyKernelLp_endpointKernelOnSquare_eq_zeroExtend_ae` transports the
+same identity to the representative of the already-constructed bounded
+`Lp(C, 2)` operator.  Its conclusion is deliberately an a.e. equality: an
+`Lp` value is an almost-everywhere equivalence class, and
+`MemLp.coeFn_toLp` is the required bridge from its chosen representative to
+the raw integral.
+
+Boundary: the bare translation-invariant kernel is not asserted to be a
+global `L2(R x R)` kernel.  The result therefore does not construct
+`applyKernelLp` for the raw kernel, does not construct `T`, and does not
+provide the certified L1/norm enclosure for `K_I - T`.  It gives the lawful
+windowed owner relation needed before those later certificates can feed the
+equation-(121) and operator-gap adapters.
+
+Native WSL2 ext4 audit evidence:
+`lake build ConnesWeilRH.Dev.C1CC20WindowedDisplacementReadbackAudit`
+completed successfully at `2695/2695` jobs.  All seven declarations audit to
+exactly `[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.
+
+### 6x. Square-window pairing readback: equation-(121) now consumes K_I (landed 2026-08-27)
+
+`Dev/C1CC20WindowedPairingReadback.lean` carries the newly explicit window
+ownership through the scalar pairing layer.  It first proves
+
+```text
+integral_x eta(x) * K_I(xi)(x)
+  = integral_x E_I(eta)(x) * K(E_I(xi))(x),
+```
+
+then combines this with the existing displacement Fubini readback.  The exact
+theorem `pairing_applyKernel_windowedDisplacementKernel_eq_weightedCorrFold`
+keeps its product-integrability premise visible.  The wrapper
+`norm_pairing_applyKernel_windowedDisplacementKernel_le_of_l1Weight` discharges
+that premise from an L1 profile and the two zero-extended L2 factors, and the
+endpoint specialization applies it directly to `endpointKernelOnSquare`.
+
+```text
+profile a in L1, eta and xi in L2
+  -> |<eta, K_I xi>|
+       <= ||E_I eta||_2 * ||E_I xi||_2 * integral |a(v)| dv.
+```
+
+This is the first equation-(121) estimate whose left side is the concrete
+square-window endpoint owner.  It does not yet bound `K_I - T`: the finite-rank
+approximant and certified difference profile remain absent.
+
+Native WSL2 ext4 audit evidence:
+`lake build ConnesWeilRH.Dev.C1CC20WindowedPairingReadbackAudit` completed
+successfully at `2698/2698` jobs.  All five declarations audit to exactly
+`[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
@@ -1163,6 +1237,17 @@ constructs the finite-rank `T` or a certified norm/L1 estimate for `K_I - T`.
   LANDED, axiom-clean (2686 jobs, 0 sorryAx); any certified windowed L2 kernel
   now yields an actual bounded `Lp ℂ 2` operator, but the concrete difference
   kernel `K_I - T` and its numerical enclosure remain open.
+* Square-window displacement action readback (`cc20WindowZeroExtend`,
+  `applyKernel_endpointKernelOnSquare_eq_windowedTranslateFold`,
+  `coeFn_applyKernelLp_endpointKernelOnSquare_eq_zeroExtend_ae`): LANDED,
+  axiom-clean (2695 jobs, 0 sorryAx).  It proves the concrete owner is
+  `1_I K 1_I` at both raw and a.e.-quotient levels, without asserting that the
+  bare whole-plane translation kernel is itself an L2 operator.
+* Square-window equation-(121) pairing (`pairing_applyKernel_windowedDisplacementKernel_eq_weightedCorrFold`,
+  `norm_pairing_applyKernel_endpointKernelOnSquare_le_of_l1Weight`): LANDED,
+  axiom-clean (2698 jobs, 0 sorryAx).  The concrete endpoint owner now has an
+  L1 x L2 x L2 scalar bound with both factors explicitly zero-extended; the
+  finite-rank difference profile for `K_I - T` remains open.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
