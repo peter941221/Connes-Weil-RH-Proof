@@ -1830,6 +1830,45 @@ sufficient for the route decision.
   diagonal `2t` vs off-diagonal sinc split), then the Gram-quadratic
   readback `λ Σ w conj(w) = Q(Z) − boundary`, then the ≥ 0 assembly.
   DETECTOR only.
+* Wirtinger slice 11, the (8.5) exponential sum and its mass expansion
+  (`C1BombieriSection8ExpMass`): LANDED, axiom-clean (leaf + audit,
+  11 declarations, 0 sorryAx; commit `a3f49e3`).  The reduction object
+  of Lemma 10 is now a Lean definition: `expSum γ z u = Σ i,
+  e^{−iγ_i u} z_i` in the canonical single-cast form, its
+  term-by-term `HasDerivAt.sum` derivative (the coefficient vector
+  becomes `w_i = (−iγ_i) z_i` — the coordinate change behind the
+  eigenvalue equation (7.4)), and the flagship mass expansion
+  `∫_{−t}^{t} (Z · conj Z)(u) du = Σ_i Σ_j (z_i · conj z_j) ·
+  winInt t (γ_j − γ_i)`, where `winInt` unifies the diagonal value
+  `2t` (θ = 0) with the off-diagonal sinc value `2 sin(θt)/θ`
+  (θ ≠ 0) — the integral readback of the Lemma-10 Gram identity's
+  kernel, the engine of the (8.10) → (8.11) step.  Route: conjugation
+  rides `open scoped ComplexConjugate` (v4.30 `conj` is the SCOPED
+  NOTATION for `(starRingEnd ℂ)`, not a constant — `map_mul`/`map_sum`
+  then apply verbatim and every conjugation lemma rewrites
+  syntactically); `expPair_mul` folds each Gram pair into
+  `e^{i(γ_j−γ_i)x} (z_i conj z_j)` via `mul_mul_mul_comm` +
+  `exp_add`; the finite sum is exchanged through
+  `intervalIntegral.integral_finsetSum` over a NAMED per-i integrand
+  `gramPair` (higher-order rewrite patterns only match when the
+  integrand is a named def pinned with `(f := ...)`); each pair's
+  window integral is the slice-10 flagship through the `winInt` case
+  split.  No Fubini anywhere.  Mechanics worth recording (v4.30):
+  `HasDerivAt.congr` does NOT exist (the environment lacks
+  `HasFDerivAtFilter.congr`) — transport the function slot through a
+  funext'd lambda-equality `have` and `rw ... at h`; the Pi-sum
+  application lemma is `Finset.sum_apply` (`Pi.sum_apply` does not
+  exist), and `IntervalIntegrable.sum`'s conclusion is the Pi-sum
+  FORM `∑ j, f j` while `unfold` produces the lambda form
+  `fun y => ∑ j, f j y` — the symbolic-n defeq stall again, bridged
+  by the same funext `have`; `rw [defName]` on a noncomputable def
+  fails "using equation theorems" — `unfold defName` works (and
+  beta-reduces by itself here; a following `simp only []` then errors
+  "made no progress" — drop it).  Remaining (8.11) steps open: the
+  Gram-quadratic readback `λ Σ w conj(w) = Q(Z) − boundary` (consuming
+  `bombieriKstar_lemma10` + the window integrals + `wirtingerFull`),
+  the λ ≥ 0 assembly, the exponential-independence contradiction, and
+  the Theorem-8 sign count.  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

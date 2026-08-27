@@ -4,24 +4,25 @@ Current route snapshot + rotating change log. Compressed 2026-08-27: full
 history lives in git history, `docs/proofs/`, and
 `_precompress_backup_2026-08-27/`. Working rules live in `AGENTS.md`.
 
-## Current snapshot (2026-08-27)
+## Current snapshot (2026-08-28)
 
 - Route: C1 same-owner mainline, ROOT form (`[-log 2/2, log 2/2]`); design
   record `docs/proofs/1043`. RH NOT claimed.
-- Committed frontier `13bae3d`: CC20 window-operator chain landed through the
-  L2-kernel quotient lift (`applyKernelLp`, proof 1043 s6g-s6v). The generic
-  equation-(121) engine is complete: uniform displacement bound, weighted
-  correlation fold, Fubini discharge, operator-norm adapter.
-- Pending commit (working tree): s6w/s6x square-window readback leaves -
-  `pairing_applyKernel_windowedDisplacementKernel_eq_weightedCorrFold` and
-  `norm_pairing_applyKernel_endpointKernelOnSquare_le_of_l1Weight` give the
-  concrete endpoint owner `K_I` an L1 x L2 x L2 scalar pairing bound.
+- Committed frontier `a3f49e3`: the Bombieri Lemma-10 DETECTOR chain is
+  landed through slice 11 - section-7 readback + (7.1) symmetry + Lemma-10
+  Gram identity + (7.2)-(7.5) finite-Gamma matrix layer, and the FULL
+  Wirtinger (8.13) inequality `wirtingerFull` plus its (8.11) transport
+  bricks: the finite-window exponential integral (ExpSum) and the (8.5)
+  exponential sum `Z(u) = sum e^{-i gamma u} z_gamma` with its
+  term-by-term derivative and mass expansion over Gram pairs (ExpMass).
 - Next bricks, in order:
-  1. Concrete finite-rank difference profile `K_I - T`
-     (`T = lambda * rankOne phi phi`) with certified envelope feeding eq-(121).
-  2. Eq-(100) slope identity + GATE 1 numeric certificate (Yoshida rational
-     LDL^T, or CC20 rank-one gamma ~ 2.94355 in `13 < 4*gamma/log 2 < 17`).
-  3. Universal W4b / coverage root; capstone already formal:
+  1. Gram-quadratic readback (8.11): `lambda * sum w conj w = Q(Z) -
+     bombieriEvenOddBoundary-terms` via bombieriKstar_lemma10 + the window
+     integrals; then `wirtingerFull` folds to `lambda * sum |w|^2 >= 0`.
+  2. Exponential-independence contradiction (`lambda = 0` forces all
+     `z_gamma = 0`) + Theorem-8 sign count. DETECTOR only.
+  3. `K_I - T` finite-rank profile -> eq-(100)/GATE 1 certificate ->
+     universal W4b; capstone already formal:
      `sourceRH_of_rootSupportedHealthyDetectorData_and_endpointCertificates`.
 - GATE 2 (Titchmarsh/Cartwright square-form bridge): deferred, not attempted.
 
@@ -193,3 +194,4 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
 - 2026-08-28 `617e707`: parity-split pairing FIX — qSplit's second slot swapped to the TRUE derivatives (even part <-> (Zp - Zp*neg)/2, odd part <-> (Zp + Zp*neg)/2); parallelogram algebra symmetric in the fp pairing but only the cross pairing feeds wirtingerEven/wirtingerOdd; 2661 jobs, axiom-clean.
 - 2026-08-28 `3e769f6`: Wirtinger slice 9 leaf `C1BombieriSection8WirtingerFull` (+Audit, 2663 jobs, 0 sorryAx) - the FULL (8.13): flagship wirtingerFull (Q(Z) = ofReal(R/phi+^2 |Z+(t)|^2 + R/phi-^2 |Z-(t)|^2 + S), S >= 0, via qSplit + wirtingerEven on Z+ + wirtingerOdd on Z-) and wirtingerFull_weights (tanh(t/2) + coth(t/2) weights, book-verbatim). NEW MECHANICS: outer C-valued => reflection chain rule is HasDerivAt.scomp (plain .comp needs outer on the algebra K'), derivative arrives as SMUL (-1:R). Zp(-u) bridged by neg_one_smul; HasDerivAt.div_const's constant is in the TARGET space (2 : C); rw-instantiated RHSs arrive beta-reduced (drop the simp only [] - it errors "made no progress"); linter.style.show FLAGS show-as-defeq-change as ERROR (use simp only [] for beta); import closure of Slice6/7 chain EXCLUDES Slice5 - import WirtingerSlice5 explicitly for wirtingerEven. Next: (8.11) transport onto the (8.5) exponential sum, lambda >= 0 assembly, exponential independence, Thm 8 sign count. DETECTOR only.
 - 2026-08-28 `5465468`: Wirtinger slice 10 leaf `C1BombieriSection8ExpSum` (+Audit, 2665 jobs, 0 sorryAx) - the finite-window exponential integral: integral_exp_i_window (int_{-t}^{t} e^{i*theta*u} du = ofReal(2 sin(theta*t)/theta), theta != 0) + theta=0 diagonal 2t - the integral readback of the Gram identity's sinc term, engine of the (8.10)->(8.11) step. Route: real channel, NO complex division - exp_mul_I Euler split, cos half by real FTA with sin(theta*u)/theta antiderivative (theta divided INSIDE - no integral-linearity node-mismatch), sin half odd via integral_symmetry_half_real (local real mirror - the landed integral_symmetry_half is C-valued and binop% silently lifts real inputs through a cast). NEW MECHANICS: Real.hasDerivAt_sin/cos live in Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv - NOT in the closure of Analysis.Complex.Trigonometric, import explicitly; integral_eq_sub_of_hasDerivAt's 2nd arg is IntervalIntegrable f' (integrability of the DERIVATIVE, not continuity); mul_neg is now stated a * -b = -(a * b) (forward direction); integral_const_mul takes NO integrability premise; Complex.real_smul bridges the algebra smul in integral_const's (b-a) . c (root smul_eq_mul is Mul.toSMul-only); bare mul_comm hits the first mul in traversal order possibly INSIDE a cast - close Euler-split tails with ring. Next: (8.5) exponential sum over Fin n, then the Gram-quadratic readback lambda*sum|w|^2 = Q(Z) - boundary, then the >= 0 assembly. DETECTOR only.
+- 2026-08-28 `a3f49e3`: Wirtinger slice 11 leaf `C1BombieriSection8ExpMass` (+Audit, 11 declarations, 0 sorryAx) - the (8.5) exponential sum Z(u) = sum e^{-i*gamma*u} z_gamma (noncomputable def expSum in single-cast form), its term-by-term HasDerivAt.sum derivative (coefficient vector becomes w_i = (-i*gamma_i) . z_i - the (7.4) coordinate change), and the flagship mass expansion int_{-t}^{t} (Z . conj Z) du = sum_i sum_j (z_i . conj z_j) . winInt t (gamma_j - gamma_i), with winInt unifying diagonal 2t (theta=0) and off-diagonal sinc 2 sin(theta*t)/theta - the integral readback of the Lemma-10 Gram identity's kernel. Route: conjugation via open scoped ComplexConjugate (the scope notation for starRingEnd C - map_mul/map_sum apply verbatim); expPair_mul folds each pair into e^{i(gamma_j-gamma_i)x} via mul_mul_mul_comm + exp_add; finite-sum exchange through intervalIntegral.integral_finsetSum over a NAMED per-i integrand gramPair (no higher-order patterns), per-pair window through the slice-10 case split integral_winInt. NEW MECHANICS: Complex.conj is NOT a constant in v4.30 - it is scoped notation for (starRingEnd C) in scope ComplexConjugate (write bare conj after open scoped ComplexConjugate); HasDerivAt.congr does NOT exist (environment lacks HasFDerivAtFilter.congr) - use a funext function-equality have + rw ... at h; the real name is Finset.sum_apply (Pi.sum_apply does not exist); IntervalIntegrable.sum's conclusion is the Pi-sum form (sum j, f j), not fun x => sum j, f j x - bridge with a funext hfun have (symbolic-n Pi-sum defeq stall: rw's trailing rfl may or may not close the beta, so keep the rfl optional); rw [defName] on a noncomputable def can fail "using equation theorems" - use unfold defName (which beta-reduces by itself in this context; a following simp only [] then errors "made no progress"); higher-order integral_finsetSum patterns only match with the integrand pinned as a named def plus (f := ...) named args. Next: Gram-quadratic readback lambda*sum|w|^2 = Q(Z) - boundary, then lambda >= 0 assembly, exponential independence, Thm 8 sign count. DETECTOR only.
