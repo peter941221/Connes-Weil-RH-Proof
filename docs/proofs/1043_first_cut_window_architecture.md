@@ -1869,6 +1869,33 @@ sufficient for the route decision.
   `bombieriKstar_lemma10` + the window integrals + `wirtingerFull`),
   the λ ≥ 0 assembly, the exponential-independence contradiction, and
   the Theorem-8 sign count.  DETECTOR only.
+* Wirtinger slice 12a, the Q-form of the (8.5) sum over Gram pairs
+  (`C1BombieriSection8QForm`): LANDED, axiom-clean (leaf + audit,
+  5 declarations, 0 sorryAx; commit `81e153b`).  First half of the
+  (8.11) readback: the Wirtinger quadratic form of the (8.5) sum, in
+  the `qIntegrand` owner of the Wirtinger chain, read back over the
+  Gram pairs — `¼∫|Z|² + ∫|Z'|² = Σ_i Σ_j (¼ + γ_iγ_j)(z_i conj z_j)
+  · winInt t (γ_j − γ_i)`, with the derivative coefficient
+  `dcoef_i = (−iγ_i) z_i` (the (7.4) coordinate change) contributing
+  `γ_iγ_j` per pair through `dcoef_i · conj(dcoef_j) =
+  (γ_iγ_j)(z_i conj z_j)` (`I * (−I) = 1` + single-cast merge), both
+  window integrals being the slice-11 flagship (once at `z`, once at
+  `dcoef γ z`).  Mechanics worth recording (v4.30): continuity of
+  `expSum` is FREE from `hasDerivAt_expSum` (differentiable implies
+  continuous — no Pi-sum unfolding ever exercised); continuity of the
+  mass function `Z · conj Z` rides `continuous_star.comp` (the normSq
+  bridge is ℝ-valued and cannot state a `ℝ → ℂ` function equality);
+  `mul_mul_mul_comm` needs all FOUR arguments explicit (a partial
+  argument list leaves `?c ?d` unassigned and the pattern never
+  matches); and `Finset.sum_add_distrib` under a double sum must be
+  applied with ALL arguments explicit (`(s := ...) (f := ...) (g := ...)`)
+  — the bare lemma's higher-order pattern `?f x + ?g x` fails to unify
+  when the summand functions mention an outer binder, and the direction
+  must be read off the actual goal (the ←-merge can fire on the LEFT
+  side, flipping the needed `.symm`).  Remaining (8.11) steps open:
+  the eigen-relation assembly `λ Σ|w|² = Q(Z) − boundary`, the λ ≥ 0
+  folding with `wirtingerFull`, the exponential-independence
+  contradiction, and the Theorem-8 sign count.  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
