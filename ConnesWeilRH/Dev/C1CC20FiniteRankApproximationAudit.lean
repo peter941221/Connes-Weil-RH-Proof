@@ -1,0 +1,23 @@
+import ConnesWeilRH.Dev.C1CC20FiniteRankApproximation
+
+namespace ConnesWeilRH.Source.C1CC20FiniteRankApproximation
+
+#check cc20FourierProjection
+#check cc20FourierProjectionProfile
+#check cc20FourierProjectionKernel_eq_windowedDisplacementKernel
+#check applyKernelLp_cc20FourierProjectionKernel_eq_projection
+#check CC20FiniteRankData
+#check cc20FiniteRankOperator
+#check cc20FiniteRankProfile
+#check memLp_one_cc20FiniteRankProfile
+#check cc20FiniteRank_equation120
+
+#print axioms cc20FourierProjectionKernel_eq_windowedDisplacementKernel
+#print axioms applyKernelLp_cc20FourierProjectionKernel_eq_projection
+#print axioms cc20FiniteRankOperator
+#print axioms cc20FiniteRankProfile
+#print axioms memLp_one_cc20FiniteRankProfile
+#print axioms cc20FiniteRank_equation120
+
+end ConnesWeilRH.Source.C1CC20FiniteRankApproximation
+
