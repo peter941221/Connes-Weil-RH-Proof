@@ -1366,11 +1366,58 @@ sufficient for the route decision.
   (Re shared, Im opposite), `(1/2+iy)AB + (1/2-iy)CD = (u - 2 y v)` exactly
   (imaginary parts cancel), so the general law reduces to the real identity
   `(1/4+x^2)(t/sinh t)(u - 2 y v) = x(x-y) K(t(x-y))
-     + [cosh t cos(t(x-y)) - cos(t(x+y))] / (2 sinh t)`
+     + [cosh t cos(t(x-y)) - cos(t(x+y))] / (2 t sinh t)`
   with `u`, `v` the shared real / opposite imaginary parts of the pair
   products; product-to-sum angle identities (cos_sub/cos_add) are the
   expected core haves.  The Lemma-10 Gram identity and (7.2)-(7.5)
   ownership chain remain open slices.
+* Bombieri (7.1) general slice (`C1BombieriSection7Symmetry`, commit
+  `ce15ee3`, 1509 jobs, 0 sorryAx): the full off-diagonal law
+  `(1/4+x^2) K*(x,y;t) = (1/4+xy) K(t(x-y))
+     - [cosh t cos(t(x-y)) - cos(t(x+y))] / (2 t sinh t)` for `t != 0`,
+  `x != y` (`bombieriKstar_symmetryLaw`); its scalar engine
+  `bombieri7_core` (the law as an explicit real identity in the six
+  frozen atoms, after `bombieriK_genPair` consumes both correction
+  products and the fold `(1/2+iy)AB + (1/2-iy)CD = (u - 2 y v)` kills
+  the imaginary parts); `wCollapse` (the cosine pair equals twice
+  `sin(ty) sin(tx) cosh^2(t/2) + cos(ty) cos(tx) sinh^2(t/2)` via
+  cos_sub/cos_add and `cosh^2 = sinh^2 + 1`); and the punchline
+  corollary `bombieriKstar_symmetric`
+  (`(1/4+x^2) K*(x,y;t) = (1/4+y^2) K*(y,x;t)`, sinc odd + cosine pair
+  even under `x <-> y`).  Proof mechanics worth recording: inside a
+  complex ambient `binop%` re-elaborates the definition's real scalars
+  as complex numeral divisions (`1/4` -> `(1:Complex)/(4:Complex)`), a
+  complex power of a cast (`x^2` -> `↑x ^ 2`), a cast-level complex
+  division (`t / Real.sinh t` -> `↑t / ↑(Real.sinh t)`), and an
+  atom-split leading argument (`t * (x-y)` -> `↑t * (↑x - ↑y)`); a
+  normalization block right after `unfold` pulls each back into a
+  single `Complex.ofReal` block, without which `div_re`/`div_im`
+  explode the projections into unmatchable `Complex.re 1` /
+  `Complex.normSq` fragments.  The six trig atoms are frozen with
+  `set` before `field_simp` (which otherwise reorders products inside
+  `Real.sin`/`Real.cosh` arguments and splits each atom in two).  The
+  Lemma-10 Gram identity and (7.2)-(7.5) ownership chain remain open
+  slices.
+* Bombieri Lemma-10 Gram identity (`C1BombieriSection7Lemma10`): LANDED,
+  axiom-clean (leaf 1509 jobs, audit 1510 jobs, 0 sorryAx) -- the book
+  p.210 display verbatim (`bombieriKstar_lemma10`, `t != 0`, `x != y`):
+  `2t K*(x,y;t) = 2 sin(t(x-y))/(x-y) - [e^{(1/2-iy)t} - e^{-(1/2-iy)t}]
+  /(e^t - e^{-t}) * [e^{(1/2+ix)t} - e^{-(1/2+ix)t}]/(1/2+ix) - (y-term
+  mirrored)`, plus the reusable quarter-turn kernel identity
+  `bombieriK_I_mul` (`K(I*u) = sinh u / u`) and the `Complex.sinh`
+  defining-equation bridges `expBracket` / `sinhBracket`.  Proof mechanics
+  worth recording: each of the four correction arguments is a quarter-turn
+  `t(i/2 -+ c) = I * ((1/2 +- i c) t)`, so the kernel identity turns them
+  into `sinh` quotients; the matching coefficient then cancels its `u` and
+  every `t` disappears.  The correction brackets are discharged as
+  standalone `have`s whose compound denominators are FIRST frozen with
+  `set` as opaque atoms (nonvanishing facts transported through the
+  defining equations) -- `field_simp`'s inner `ring_nf` otherwise
+  distributes the products inside the inverse arguments (leaving
+  `Complex.I ^ 2` unnormalized) and orphans the factored facts, while
+  bare `ring` treats `x ^ (-1)` as an atom so the `u`-denominators can
+  never cancel the display's coefficient denominator.  The (7.2)-(7.5)
+  ownership chain remains the next slice.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

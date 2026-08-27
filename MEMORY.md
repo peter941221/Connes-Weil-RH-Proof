@@ -95,3 +95,24 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   (`[propext, Classical.choice, Quot.sound]`, no sorryAx); real-arg and
   pure-imag special cases plus the (7.1)/(Lemma-10)/(7.2)-(7.5) identities
   are the next slices.
+- 2026-08-27 C1BombieriSection7Symmetry(+Audit) : the general Bombieri (7.1)
+  symmetry law landed - bombieriKstar_symmetryLaw (full off-diagonal closed
+  form, t != 0, x != y), its scalar engine bombieri7_core, the cosine-pair
+  collapse wCollapse, and the punchline corollary bombieriKstar_symmetric
+  ((1/4+x^2) K*(x,y;t) = (1/4+y^2) K*(y,x;t)); 1509-job audit axiom-clean
+  ([propext, Classical.choice, Quot.sound], no sorryAx); commit ce15ee3
+  pushed and ls-remote verified.  binop% complex-ambient normalization block
+  (numeral divisions / complex power of a cast / cast-level division) is the
+  key new mechanic, recorded in doc 1043 section 7.  Lemma-10 Gram identity
+  and the (7.2)-(7.5) ownership chain are the next slices.
+- 2026-08-28 C1BombieriSection7Lemma10(+Audit) : the Bombieri Lemma-10 Gram
+  identity landed - bombieriKstar_lemma10 (book p.210 display verbatim:
+  2t K* = 2 sin(t(x-y))/(x-y) minus the two exponential-bracket correction
+  terms, t != 0, x != y), the reusable quarter-turn identity
+  bombieriK_I_mul (K(I*u) = sinh u / u), and the Complex.sinh defining
+  bridges expBracket / sinhBracket; audit 1510 jobs, axiom-clean
+  ([propext, Classical.choice, Quot.sound], no sorryAx).  Key mechanic
+  recorded in doc 1043 section 7: freeze compound denominators with `set`
+  BEFORE field_simp (its inner ring_nf expands inverse arguments and
+  orphans the factored nonzero facts); bare ring treats inverses as
+  atoms.  Next slice: the (7.2)-(7.5) ownership chain.
