@@ -650,6 +650,56 @@ mpmath floats modulo explicit parsing slack; T6 rejects negative-definite
 input. This closes nothing in GATE 1 by itself; it pins the honest boundary
 where real matrix data must enter from a primary source.
 
+### 6l. Accessible-source breakthrough: Bombieri 2000 memoir (2026-08-27)
+
+With email ruled out, the paywall problem was routed around instead: E.
+Bombieri, *Remarks on Weil's quadratic functional in the theory of prime
+numbers, I*, Atti Accad. Naz. Lincei (9) 11 (2000), 183–233 is FREE in full
+at <http://www.bdim.eu/item?fmt=pdf&id=RLIN_2000_9_11_3_183_0> (EUDML entry
+<https://eudml.org/doc/252338>). Verbatim findings relevant to GATE 1:
+
+* On Yoshida (memoir p. 184): "he shows how the positivity of this
+  functional for functions supported in a fixed interval [−t, t] can be
+  reduced to a finite calculation (depending on t), **and verifies this
+  positivity for t = (log 2)/2**." The target window of the first cut has
+  EXACTLY this half-width — Yoshida's published verification covers the
+  first-cut window scope.
+* The abstract re-proves the same positivity theorem independently.
+* Full explicit machinery (§§6–7): `K(x) = sin x / x`, `M = e^t`, and the
+  finite-matrix resolvent built solely from elementary trigonometric/
+  hyperbolic data:
+
+```text
+(7.1)  K*(x,y;t) = [ (1/4+xy)·K(t(x−y)) − cosh(t)·cos(t(x−y))
+                     − cos(t(x+y)) ] / (2t·sinh(t))
+(7.3)  H(x;y;t)   = 2t · K*(x;y;t)        (up to the printed 1/(1/4+y²)
+                                           normalization; verify against PDF
+                                           when transcribing)
+(7.4)  w_gamma = Λ Σ_gamma' H(γ,γ';t) w_gamma'
+```
+
+Usability analysis (read against §8): `H(Γ;t)` is indexed by a multiset Γ
+of zero ordinates (ρ = 1/2 + iγ), and Lemma 10 shows every γ real implies
+all eigenvalues non-negative while non-real conjugate pairs create negative
+eigenvalues — i.e. Bombieri's matrices are a CONDITIONAL off-line-zero
+detector, not directly an unconditional positivity certificate. Direct
+reuse inside GATE 1 therefore does not follow mechanically.
+
+Strategic consequences:
+
+1. The mathematically required endpoint fact — positivity of the Weil
+   functional on root-support tests — exists in the published record as a
+   verified finite calculation at our exact window (source: Bombieri's
+   description of [Yos92]).
+2. Since both Bombieri's and (described) Yoshida's finite methods reduce
+   window-class positivity to spectra of explicit kernels over [−t, t]
+   bands, the unconditional formalizable route remains the prolate /
+   Hermitian-Toeplitz program of CC20 §6 — consistent with §6k's verdict;
+   no dependency on inaccessible pages is created.
+3. The elementary kernel toolbox above (sinc-based entries) is the shared
+   substrate both routes reduce to; it is what a future Lean interval-
+   certificate leaf will consume.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
