@@ -155,3 +155,19 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   (freeze atoms -> unfold defs -> push_cast -> clear inverse powers).
   Open: the analytic (8.13)/(8.14) integral steps; detector only, never
   unconditional GATE 1.
+
+- 2026-08-28 commit 6cfcba2: slice 7a of the analytic (8.13) chain LANDED --
+  C1BombieriSection8Wirtinger(+Audit): the even envelope phiEven with
+  derivative and ODE phi'' = (1/4)phi, derivative transport through the
+  Real->Complex cast (hasDerivAt_cast), the product-rule derivative of
+  g*phi', and ibpCoreEven = the IBP core identity
+  (integral of g'phi' + g(1/4)phi over [-t,t] = [g phi'] endpoints) via
+  intervalIntegral.integral_eq_sub_of_hasDerivAt.  Leaf 2654 jobs, audit
+  2655 jobs, 6 declarations axiom-clean, 0 sorryAx.  Mechanics: compound
+  casts with single ascription get SPLIT by binop% in the complex ambient
+  (use inner : Real ascription or explicit Complex.ofReal); negative
+  literals need (-2 : Real) ascription or they fall through to Z; -x/2
+  elaborates as (-x)/2 not x/(-2); specialization at x := -t leaves - -t
+  (rw [neg_neg] at the FTA result).  Open: envelope integral R = 2 sinh t,
+  Q-shift identity, Q(F) >= 0 real channel, odd-case mirror, (8.14)
+  assembly; detector only, never unconditional GATE 1.

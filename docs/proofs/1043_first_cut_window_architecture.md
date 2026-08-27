@@ -1554,6 +1554,39 @@ sufficient for the route decision.
   sums to a single cast atom, and a SECOND `field_simp` with
   `Complex.ofReal_ne_zero.mpr hX` clears residual inverse powers before
   `ring` closes.
+* Wirtinger (8.13) slice 7a, the IBP core (`C1BombieriSection8Wirtinger`):
+  LANDED, axiom-clean (leaf `2654 jobs`, audit `2655 jobs`, 0 sorryAx).
+  The even envelope `phiEven u = exp (u/2) + exp (-u/2)` with its
+  derivative (`hasDerivAt_phiEven`, purely in `R`) and the envelope ODE
+  `phi'' = (1/4) phi` (`phiEven_ode`); derivative transport through the
+  `Real -> Complex` cast (`hasDerivAt_cast`, via
+  `Complex.ofRealCLM.hasDerivAt` + `HasDerivAt.scomp` + `congr_deriv`);
+  the product-rule derivative `hasDerivAt_g_mul_phiEven'` of
+  `g * phi'`; and the IBP core identity `ibpCoreEven`:
+  `integral over [-t,t] of (g' phi' + g (1/4) phi) = [g phi']` at the two
+  endpoints, proved with `intervalIntegral.integral_eq_sub_of_hasDerivAt`
+  (product rule + fundamental theorem; no abstract IBP).
+  Mechanics worth recording (v4.30): a compound cast
+  `((1/2 * ...) : Complex)` with a SINGLE type ascription is elaborated by
+  binop% in the COMPLEX ambient and splits into
+  `up (1/2) * (up e1 - up e2)`, which is not definitionally equal to the
+  single cast `up (1/2 * ...)` produced by a transport lemma -- write the
+  inner `: Real` ascription (or explicit `Complex.ofReal`) to force the
+  single-cast form everywhere; a NEGATIVE literal passed where the
+  implicit type is not yet known falls through to `Z` (DivInvMonoid Z
+  failure) -- ascribe `(-2 : Real)`; `-x / 2` elaborates as `(-x) / 2`,
+  NOT `x / (-2)` as produced by `div_const (-2)` -- bridge with
+  `funext` + `neg_div`/`div_neg`; specialization at `x := -t` leaves
+  `- -t` unreduced in exponentials -- `rw [neg_neg] at` the FTA result
+  before `exact`; `HasDerivAt.comp`'s `h2 o h` output unifies with a
+  lambda goal only when asserted through an explicit-type `have`
+  (elaboration-order workaround); `simpa only [id_eq]` on
+  `HasDerivAt.const_mul` leaves `(c * 1)` -- add `mul_one`.  Remaining
+  (8.13) steps open: envelope integral evaluation (`R = 2 sinh t`), the
+  Q-shift identity `Q(g) = Q(F) + tanh(t/2)|g(t)|^2` with vanishing
+  cross terms `X(F) = 0`, `Q(F) >= 0` through the real channel, and the
+  odd-case mirror with `coth(t/2)`.  DETECTOR only; never an
+  unconditional GATE 1.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
