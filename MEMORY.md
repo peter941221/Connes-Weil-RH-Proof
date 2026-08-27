@@ -88,3 +88,10 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   plus numerical triangle closure (worst 8.9e-16); doc 1043 §6y rewritten in
   place; engine README provenance refreshed to make Bombieri sec-7 the
   transcription source.
+- 2026-08-27 C1BombieriSection7Readback(+Audit) : first Lean slice of the
+  Bombieri sec-7 lane - bombieriK (sinc with removable value 1 at 0),
+  bombieriKstar verbatim from book p.203, and the master re/im split lemma
+  for K on any `a + b*I`; 1507-job build axiom-clean
+  (`[propext, Classical.choice, Quot.sound]`, no sorryAx); real-arg and
+  pure-imag special cases plus the (7.1)/(Lemma-10)/(7.2)-(7.5) identities
+  are the next slices.

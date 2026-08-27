@@ -1335,6 +1335,12 @@ sufficient for the route decision.
   closure (worst 8.9e-16); a sign erratum in (7.1) from the lossy text layer
   was corrected in place; Theorem 12 excluded as a producer by an
   out-of-tree constant check.
+* Bombieri section-7 readback slice one (`C1BombieriSection7Readback`):
+  LANDED, axiom-clean (1507 jobs, 0 sorryAx) -- sinc kernel `bombieriK`,
+  corrected kernel `bombieriKstar` verbatim from book p.203, and the master
+  real/imaginary split lemma `bombieriK_re_add_mulI`.  The (7.1) closed
+  form, the Lemma-10 Gram identity, and the ownership chain (7.2)-(7.5)
+  remain open slices.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
