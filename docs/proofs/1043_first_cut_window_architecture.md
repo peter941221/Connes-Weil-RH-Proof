@@ -1616,6 +1616,45 @@ sufficient for the route decision.
   `envelopeIntegralEven` + conj-linearity of the interval integral),
   `Q(F) >= 0` through the real channel, the odd-case mirror with
   `coth(t/2)`, and the (8.14) assembly.  DETECTOR only.
+* Wirtinger (8.13) slice 7c, the Q-shift identity
+  (`C1BombieriSection8WirtingerSlice3`): LANDED, axiom-clean (leaf + audit
+  `2656`/`2657 jobs`, 0 sorryAx).  `integral_star_interval` (conj passes
+  through the interval integral: the root-level Bochner `integral_conj`
+  applied to each `Ioc` piece behind a def-unfolding `show` bridge);
+  `xIntegrand_conj` (the IBP-core integrand of `conj F` is `conj` of the
+  integrand, since the envelope weights are real); `xIntegral_zero` /
+  `xIntegral_conj_zero` (both cross integrals vanish at `F(±t) = 0` — no
+  `HasDerivAt` through `conj` exists or is needed); `rIntegral` (the
+  envelope quadratic density integrates to `e^t − e^{−t}` through the real
+  channel); `qIntegrand_expansion` + flagship `qShiftEven`:
+  `Q(F + c·φ₊) = Q(F) + c·conj(c)·(e^t − e^{−t})`.
+  Mechanics worth recording (v4.30): `Complex.ofReal_mul`/`ofReal_add`
+  are stated with the CAST on the LEFT (`↑(a*b) = ↑a * ↑b`) — merging a
+  cast-product into a cast-of-product therefore needs `←` (backward), and
+  splitting needs the forward direction; a probe written as
+  `(↑a * ↑b : ℂ) = ↑(a*b) := Complex.ofReal_mul a b` compiles VACUOUSLY
+  because binop% re-elaborates `↑a * ↑b` into `↑(a*b)`, making the expected
+  type trivially reflexive — probes of cast-lemma orientation must pin the
+  form so binop% cannot normalize it.  Second reappearance of the binop%
+  ambient hazard: a `show … from by simp` whose cast argument contains
+  real ARITHMETIC (`(1/2)*(exp − exp)`) gets lifted into the complex
+  ambient (`Complex.exp`, complex numeral divisions) and can never match
+  the goal's single-cast form — fix by proving a bare-variable helper
+  (`star_ofReal (r : Real) : (starRingEnd ℂ) ↑r = ↑r`) and rewriting with
+  explicit instantiations.  `rw [theorem-with-function-variables]` can
+  fail to fire a higher-order pattern (`xIntegrand (fun y ↦ ?F y) …` even
+  when the goal matches visibly) — the robust route is a funext'd
+  lambda-equality `have` between fully instantiated lambdas (same trick as
+  slice 7b's `hf`/`hg`).  `Continuous.intervalIntegrable h (-t) t` without
+  an ascribed expected type leaves the measure as an unassigned
+  metavariable (`IsLocallyFiniteMeasure ?m` stuck) — ascribe the full
+  `IntervalIntegrable … volume …` type on every such `have`.  And
+  `noncomputable` is needed on every def whose body contains a real
+  numeral division (`1/4 : Real`), even when the codomain is `ℂ`.
+  Remaining (8.13) steps open: `Q(F) ≥ 0` through the real channel
+  (`Complex.mul_conj` + `integral_ofReal` + `integral_nonneg`), the
+  odd-case mirror with `coth(t/2)`, and the (8.14) assembly.
+  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
