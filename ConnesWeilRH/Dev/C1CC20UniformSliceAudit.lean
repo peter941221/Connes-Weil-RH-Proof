@@ -7,11 +7,15 @@ namespace ConnesWeilRH.Source.C1CC20UniformSlice
 #check aestronglyMeasurable_norm_sq_shift
 #check mass_shift_real
 #check abs_corrInnerSlice_uniform
+#check eventuallyEq_comp_add_right
+#check volume_preimage_add_right_eq_zero
 
 #print axioms integral_shift
 #print axioms measure_preimage_add_right_null
 #print axioms aestronglyMeasurable_norm_sq_shift
 #print axioms mass_shift_real
 #print axioms abs_corrInnerSlice_uniform
+#print axioms eventuallyEq_comp_add_right
+#print axioms volume_preimage_add_right_eq_zero
 
 end ConnesWeilRH.Source.C1CC20UniformSlice

@@ -107,6 +107,26 @@ theorem abs_corrInnerSlice_uniform {η ξ : ℝ → ℂ}
   refine (abs_corrInnerSlice_le heta (fun w => memLp_shift hxi w) v).trans ?_
   rw [mass_shift_real hxi v]
 
+section Transport
+
+/-- An a.e.-equality of functions transports along right-addition.
+Accessed by DOT NOTATION on the `QuasiMeasurePreserving` instance —
+note the underlying full path is `…Measure.QuasiMeasurePreserving.ae_eq`
+(the extra `.Measure.` segment broke every spelled-out prefix attempt). -/
+theorem eventuallyEq_comp_add_right {f g : ℝ → ℂ}
+    (hf : f =ᵐ[volume] g) (w : ℝ) :
+    (fun x => f (x + w)) =ᵐ[volume] (fun x => g (x + w)) :=
+  (quasiMeasurePreserving_add_right volume w).ae_eq hf
+
+/-- Null-preimage twin with NO measurability premise — strictly stronger
+than `measure_preimage_add_right_null`. -/
+theorem volume_preimage_add_right_eq_zero {S : Set ℝ}
+    (hnull : volume S = 0) (w : ℝ) :
+    volume ((fun x : ℝ => x + w) ⁻¹' S) = 0 :=
+  (quasiMeasurePreserving_add_right volume w).preimage_null hnull
+
+end Transport
+
 end C1CC20UniformSlice
 end Source
 end ConnesWeilRH
