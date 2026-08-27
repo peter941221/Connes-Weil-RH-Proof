@@ -1426,6 +1426,14 @@ restricted/global masses with one evaluation object.
   the goal; the latter compiles but triggers a style lint. (Observed
   2026-08-27, PairingFold.)
 
+- **Translation of Bochner integrals needs the Group/Integral import**:
+  `Mathlib.MeasureTheory.Measure.Lebesgue.Basic` explicitly has
+  `assert_not_exists MeasureTheory.integral`, so it cannot make
+  `integral_add_right_eq_self` visible.  Import
+  `Mathlib.MeasureTheory.Group.Integral` for the Bochner theorem.  Its
+  zero-on-nonintegrable convention means the equality needs no extra
+  integrability premise. (Observed 2026-08-27, DisplacementKernel.)
+
 ## 8. WSL Verification
 
 WSL2 is a **verification environment, not a source workspace**. Author/manage

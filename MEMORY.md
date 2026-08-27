@@ -1,3 +1,29 @@
+## Change Log (2026-08-27 session 26d, CC20 displacement-kernel bridge)
+- **Result: good.**  `Dev/C1CC20DisplacementKernel.lean` now makes the
+  CC20 kernel owner relation explicit.  It defines
+  `displacementKernel a (x,y) = a(y-x)` and its square-window restriction,
+  then proves the exact one-variable translation identity
+
+  ```text
+  applyKernel(displacementKernel a, f)(x)
+    = integral_v a(v) * f(x+v).
+  ```
+
+- `endpointWindowKernelComplex_eq_displacementKernel` and
+  `endpointKernelOnSquare_eq_windowedDisplacementKernel` prove that the
+  formula-layer endpoint kernel and the existing square-window owner are
+  exactly these definitions for `endpointDisplacementProfile`.  The raw
+  endpoint operator therefore has the translate form consumed by the
+  L1-weighted correlation estimate.
+- Native WSL2 ext4 evidence: explicit audit target
+  `lake build ConnesWeilRH.Dev.C1CC20DisplacementKernelAudit` completed
+  successfully at `2692/2692` jobs.  All four declarations print exactly
+  `[propext, Classical.choice, Quot.sound]`; no `sorryAx` occurs.
+- Scope boundary: this is only the one-variable change of variables and
+  definition-level owner bridge.  Moving from the windowed double integral
+  to the L1-weighted correlation pairing still needs a separately stated
+  Fubini/readback theorem with its own integrability assumptions.
+
 ## Change Log (2026-08-27 session 26c, CC20 Lemma-3 pairing fold)
 - **Result: good.**  `Dev/C1CC20PairingFold.lean` now closes the L2b
   analytic engine behind Connes--Consani Lemma 3 / equation (121), as cited

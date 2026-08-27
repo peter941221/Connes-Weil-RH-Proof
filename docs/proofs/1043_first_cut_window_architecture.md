@@ -914,6 +914,39 @@ Native WSL2 ext4 audit evidence:
 at `2688/2688` jobs.  Both declarations audit to exactly
 `[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.
 
+### 6r. L1 displacement-kernel owner bridge (landed 2026-08-27)
+
+`Dev/C1CC20DisplacementKernel.lean` fixes the exact orientation needed to
+connect the paper's two-variable kernel to the L2b weight:
+
+```text
+displacementKernel a (x, y) = a(y - x)
+
+applyKernel(displacementKernel a, f)(x)
+  = integral_v a(v) * f(x + v).
+```
+
+The proof is the translation `y = v + x`, using the Bochner integral's
+`integral_add_right_eq_self` invariance.  The profile orientation is therefore
+the same as `corrInnerSlice eta xi v = integral_x eta(x) * xi(x+v)` and the
+same `a(v)` that `abs_corrWeightedFold_le` controls.
+
+The leaf also proves, by definition rather than an analytic approximation,
+that `endpointWindowKernelComplex` is `displacementKernel` of
+`endpointDisplacementProfile`, and `endpointKernelOnSquare` is the matching
+square-window indicator.  This is the owner-preserving handoff from the
+equation-(104) formula layer to the equation-(121) engine.
+
+Native WSL2 ext4 audit evidence:
+`lake build ConnesWeilRH.Dev.C1CC20DisplacementKernelAudit` completed
+successfully at `2692/2692` jobs.  The four declarations audit to exactly
+`[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.
+
+Boundary: this does NOT yet exchange a windowed double integral for the
+correlation fold.  That Fubini/readback theorem must state and prove the
+necessary integrability hypotheses; no implicit interchange is licensed by
+this definition-level bridge.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
@@ -968,6 +1001,10 @@ at `2688/2688` jobs.  Both declarations audit to exactly
   `abs_corrWeightedFold_le`): LANDED, axiom-clean (2688 jobs,
   0 sorryAx); this is the generic equation-(121) engine, while the concrete
   `K_I - T` L1 certificate remains open.
+* Displacement-kernel owner bridge (`displacementKernel`,
+  `applyKernel_displacementKernel_eq_translateFold`): LANDED, axiom-clean
+  (2692 jobs, 0 sorryAx); it fixes the equation-(104) to equation-(121)
+  orientation, while the windowed Fubini/readback layer remains open.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

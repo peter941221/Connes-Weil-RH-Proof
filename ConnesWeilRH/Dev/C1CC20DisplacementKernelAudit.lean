@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1CC20DisplacementKernel
+
+namespace ConnesWeilRH.Source.C1CC20DisplacementKernel
+
+#check applyKernel_displacementKernel_eq_translateFold
+#check endpointWindowKernelComplex_eq_displacementKernel
+#check endpointKernelOnSquare_eq_windowedDisplacementKernel
+#check applyKernel_endpointWindowKernelComplex_eq_translateFold
+
+#print axioms applyKernel_displacementKernel_eq_translateFold
+#print axioms endpointWindowKernelComplex_eq_displacementKernel
+#print axioms endpointKernelOnSquare_eq_windowedDisplacementKernel
+#print axioms applyKernel_endpointWindowKernelComplex_eq_translateFold
+
+end ConnesWeilRH.Source.C1CC20DisplacementKernel
