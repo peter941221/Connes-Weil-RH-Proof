@@ -171,3 +171,17 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   (rw [neg_neg] at the FTA result).  Open: envelope integral R = 2 sinh t,
   Q-shift identity, Q(F) >= 0 real channel, odd-case mirror, (8.14)
   assembly; detector only, never unconditional GATE 1.
+
+- 2026-08-28 commit 49e7fa1: slice 7b of the analytic (8.13) chain LANDED --
+  C1BombieriSection8WirtingerSlice2(+Audit): pointwise square expansions
+  phi^2 = e^u+2+e^-u and phi'^2 = (1/4)(e^u-2+e^-u), ibpCoreEven_zero
+  (IBP core vanishes at zero endpoints -- the cross-term killer), and
+  envelopeIntegralEven: (1/4)int phi^2 + int phi'^2 = e^t - e^-t
+  (= 2 sinh t) over [-t,t], the R of Q(g) = Q(F) + |c|^2 R.  Leaf 2655
+  jobs, audit 2656 jobs, 5 declarations axiom-clean, 0 sorryAx.
+  NEW HAZARD: interval-integral notation binder AMBIGUITY -- in
+  (1/4) * int f + int g the second integral is SUCKED INTO the first
+  integrand (fun x => f x + int g); parenthesize every integral inside
+  arithmetic; found via pp.explicit on the rw-failure dump.  Mathlib has
+  NO intervalIntegral.integral_exp (use the FTA route); integral_comp_neg
+  is premise-free; integral_congr takes Set.EqOn (uIcc a b).

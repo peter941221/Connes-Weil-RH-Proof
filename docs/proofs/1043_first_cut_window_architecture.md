@@ -1587,6 +1587,35 @@ sufficient for the route decision.
   cross terms `X(F) = 0`, `Q(F) >= 0` through the real channel, and the
   odd-case mirror with `coth(t/2)`.  DETECTOR only; never an
   unconditional GATE 1.
+* Wirtinger (8.13) slice 7b, envelope integral + X(F) = 0
+  (`C1BombieriSection8WirtingerSlice2`): LANDED, axiom-clean (leaf + audit
+  `2655`/`2656 jobs`, 0 sorryAx).  Pointwise square expansions
+  `phiEven_sq` (`phi^2 = e^u + 2 + e^{-u}`) and `phiEvenDeriv_sq`
+  (`phi'^2 = (1/4)(e^u - 2 + e^{-u})`); `ibpCoreEven_zero` (the IBP core
+  vanishes on C^1 functions with zero endpoints -- the cross-term killer
+  of the Q-shift identity); flagship `envelopeIntegralEven`: the envelope
+  quadratic integral `(1/4) int phi^2 + int phi'^2` over `[-t, t]` equals
+  `e^t - e^{-t}` (= `2 sinh t`), the `R` constant of
+  `Q(g) = Q(F) + |c|^2 R` -- the `t`-terms of the two expansions cancel.
+  Support: private real exponential integrals `integral_exp_real` /
+  `integral_expNeg_real` via the fundamental theorem (Mathlib has NO
+  `intervalIntegral.integral_exp`) and premise-free
+  `integral_comp_neg` for the reflected exponential.
+  Mechanics worth recording: the interval-integral NOTATION has a binder
+  AMBIGUITY -- `(1/4) * int x in a..b, f x + int x in a..b, g x` parses
+  with the SECOND integral SUCKED INTO the first integrand
+  (`fun x => f x + int g`, so the first integral is of a real-valued
+  integrand containing another integral); the plain display cannot show
+  this -- PARENTHESIZE every integral that participates in an arithmetic
+  expression: `((int ...) + (int ...))`.  Diagnostic that found it:
+  `pp.explicit` on the rw-failure dump (the goal's first intervalIntegral
+  node carried the second one inside its integrand lambda).  Also:
+  `intervalIntegral.integral_congr` takes `Set.EqOn f g (uIcc a b)`.
+  Remaining (8.13) steps open: the Q-shift assembly
+  `Q(g) = Q(F) + tanh(t/2)|g(t)|^2` (consumes `ibpCoreEven_zero` +
+  `envelopeIntegralEven` + conj-linearity of the interval integral),
+  `Q(F) >= 0` through the real channel, the odd-case mirror with
+  `coth(t/2)`, and the (8.14) assembly.  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
