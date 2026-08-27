@@ -1392,6 +1392,26 @@ restricted/global masses with one evaluation object.
   `.mp h` into a local `have`, normalize it
   (`rw [ENNReal.toReal_ofReal …] at h`), then `exact h`. (Observed
   2026-08-27, ltTop_of_memLp.)
+- **Bochner shift-invariance API lives in the ROOT namespace in v4.30**:
+  the spellings that exist are `map_add_right_eq_self`,
+  `measurePreserving_add_right`, `lintegral_add_right_eq_self` (no
+  `Measure.`/`MeasureTheory.` prefix); there is NO Bochner
+  `integral_add_right_eq_self` — build it as `integral_map` fed by
+  `map_add_right_eq_self`, rewriting the AESM premise across the measure
+  equality first (`rw [hmap]; exact hφ`). (Observed 2026-08-27,
+  integral_shift.)
+- **Function-level FPow vs body-level lambda shapes are defeq but NOT
+  accepted by `exact`**: `.norm.pow 2 |> comp_quasiMeasurePreserving`
+  yields `ASM ((‖ξ‖)^2 ∘ (+w))` which hard-typed `exact` rejects against
+  `ASM (fun x => ‖ξ(x+w)‖^2)`. Wrap in a `have` and close with
+  `simpa using hb` — simp unfolds Pi-pow/composition onto lambdas.
+  Same treatment for integral statements derived through such functions.
+  (Observed 2026-08-27, aestronglyMeasurable_norm_sq_shift.)
+- **Null-preimage goals need `← Measure.map_apply`**: the goal form is
+  `μ (f ⁻¹' s) = 0` while map_apply rewrites map-form→preimage-form, so the
+  forward direction never matches; use `rw [← Measure.map_apply hf hs,
+  map_add_right_eq_self …]`. (Observed 2026-08-27,
+  measure_preimage_add_right_null.)
 
 ## 8. WSL Verification
 

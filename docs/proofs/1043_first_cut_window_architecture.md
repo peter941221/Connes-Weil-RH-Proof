@@ -827,6 +827,56 @@ L1   displacement-composition identity (definition-level tie to
 L3   finite-rank spectral-control slot T = λ Σ (e_n − d(|n|) e_{αn})
 ```
 
+### 6p. Uniform displacement bound: eq-(121) constant made displacement-free (landed 2026-08-27)
+
+New leaf `Dev/C1CC20UniformSlice.lean` (+ audit), same ladder as §6o:
+
+```
+abs_corrInnerSlice_le  :  ‖slice v‖ ≤ m(η)^½ · m(ξ∘(+v))^½   (v-dependent)
+       │  mass_shift_real                          [this leaf]
+       ▼
+abs_corrInnerSlice_uniform :
+       ‖corrInnerSlice η ξ v‖ ≤ (∫‖η x‖²)^½ · (∫‖ξ x‖²)^½   ∀ v
+```
+
+Landed content:
+
+* `integral_shift` — REAL Bochner shift twin, generic normed-space:
+  built from root-namespace `map_add_right_eq_self` (`IsAddRightInvariant`
+  instance) fed through `integral_map`, pushing the measurability premise
+  across the measure equality first.
+* `measure_preimage_add_right_null` — preimage of a null set under
+  right-addition is null; the combinational core of transporting
+  a.e.-statements along shifts. Uses `← Measure.map_apply` to enter map
+  form.
+* `aestronglyMeasurable_norm_sq_shift` — `.norm.pow 2` closes pointwise,
+  composition rides `quasiMeasurePreserving_add_right`; `simpa` normalizes
+  the function-FPow/∘ shapes onto plain lambdas (both compile checks fail
+  otherwise).
+* `mass_shift_real` — `∫ ‖ξ(x+w)‖² = ∫ ‖ξ x‖²` for REAL integrals, the twin
+  actually consumed by folding.
+* `abs_corrInnerSlice_uniform` — the displacement-free slice Cauchy–Schwarz
+  constant, exactly what equation (121) multiplies by the `L¹` mass of the
+  window profile.
+
+Verified per-brick on ext4: explicit target
+`ConnesWeilRH.Dev.C1CC20UniformSliceAudit`, 2687 jobs, exit clean;
+all five declarations `[propext, Classical.choice, Quot.sound]`;
+`sorryAx` count 0.
+
+Remaining half of L2b (recorded, not landed): strong measurability of the
+slice map `v ↦ corrInnerSlice η ξ v`. Route mapped out by probes this
+session: MemLp's definitional form is an existential
+(`∃ rep, StronglyMeasurable rep ∧ f =ᵐ rep`) so Borel representatives come
+free via `obtain`; the joint function assembles through
+`StronglyMeasurable.comp_measurable` + `.mul`; partial integration uses
+`StronglyMeasurable.integral_prod_right` (joint form on `uncurry f`);
+pointwise slice equality per fixed `v` rides
+`QuasiMeasurePreserving.preimage_ae_eq` (QuasiMeasurePreserving.lean:126)
+through the null-preimage lemma above; domination/integrability closes with
+`Integrable.mono` against `(fun v => K * ‖a v‖)` from
+`Integrable.const_mul`.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
@@ -873,6 +923,10 @@ L3   finite-rank spectral-control slot T = λ Σ (e_n − d(|n|) e_{αn})
   `lintegral_enorm_sq_shift`, `ltTop_of_memLp`): LANDED, axiom-clean
   (2686 jobs, 0 sorryAx); `abs_corrInnerSlice_le`'s shift slot is now a
   one-line corollary for every MemLp consumer.
+* Uniform displacement bound (`integral_shift`, `mass_shift_real`,
+  `abs_corrInnerSlice_uniform`): LANDED, axiom-clean (2687 jobs,
+  0 sorryAx); the eq-(121) slice constant no longer depends on the
+  displacement parameter.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
