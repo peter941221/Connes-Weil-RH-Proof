@@ -1223,6 +1223,48 @@ Verdict first, then evidence.
   `w = Lambda * (H(Gamma;t) w)` with the scalar multiple of the vector,
   not a diagonal matrix acting on the left; the landed
   `bombieriEigenvec_iff` states exactly this shape.
+* Section-8 Lemma-10 chain, CERTIFIED by visual read of book pp.209-212
+  (2026-08-28).  Lemma 9: `F in V°`, `F not identically 0`, satisfying the
+  eigenvalue equation (8.3) `lambda (1/4 + Delta) F = L[F]` on `(-t, t)`
+  forces `lambda` REAL (proof: `((1/4+Delta)F, F) = 1/4 int|F|^2 +
+  int|F'|^2 > 0` by (8.2), and `(L[F], F)` is real by `Gamma = -conj
+  Gamma` plus Fubini).  Corollary (8.4): the resolvent
+  `D_N(Lambda,t) = det[I - Lambda H(Gamma_N;t)]` has only REAL roots.
+  Lemma 10 (full statement): `H(Gamma;t)` has eigenvalue 0 iff some
+  `gamma in Gamma` has multiplicity > 1, in which case the multiplicity of
+  0 is `sum'[m(gamma) - 1]` over distinct gamma; and if every gamma is
+  real, ALL eigenvalues are non-negative.  Proof chain (8.5)-(8.15):
+  `Z(u) = sum_gamma e^{-i gamma u} z_gamma` (8.5) reduces the system;
+  multiplying (8.6) by `(1/4+gamma^2) conj(z_gamma)` and summing gives
+  (8.10); integration by parts turns it into (8.11)
+  `lambda sum w conj(w) = 1/4 int|Z|^2 + int|Z'|^2 - C/(2S)(|Z(t)|^2 +
+  |Z(-t)|^2) + 1/S [conj Z(t) Z(-t) ...]` with `C = e^t + e^{-t}`,
+  `S = e^t - e^{-t}`; the even/odd decomposition
+  `Z^+- (u) = [Z(u) +- Z(-u)]/2` recombines the boundary correction into
+  `tanh(t/2) |Z^+(t)|^2 + coth(t/2) |Z^-(t)|^2`; the Wirtinger-type
+  inequality (8.13) `(e^{t/2} -+ e^{-t/2})/(e^{t/2} +- e^{-t/2})
+  |Z^-(t)|^2 <= 1/4 int|Z^-|^2 + int|(Z^-)'|^2` holds with equality iff
+  `Z^-(u) = Z^-(t) (e^{u/2} -+ e^{-u/2})/(e^{t/2} +- e^{-t/2})` (proof:
+  integration by parts on `F^+- = Z^+- - Z^+-(t)(e^{u/2} -+
+  e^{-u/2})/(e^{t/2} +- e^{-t/2})`); assembling gives (8.14)
+  `lambda sum w conj(w) = 1/4 int|F|^2 + int|F'|^2 >= 0` with (8.15)
+  `F(u) = Z(u) - A e^{u/2} - B e^{-u/2}`, `F(+-t) = 0`; `lambda = 0` then
+  forces `F` to vanish identically, and linear independence of
+  `e^{u/2}, e^{-u/2}, e^{-i gamma u}` on finite intervals (Gamma finite)
+  forces all `z_gamma = 0`, a contradiction.
+  ERRATUM 2 against the printed page: the p.211 recombination bracket is
+  the REAL-symmetric combination `a conj(b) + conj(a) b` (twice the real
+  part of `a conj b`), NOT the printed anti-symmetric-looking difference
+  -- with the printed minus the identity fails already at `a = b = 1`
+  (LHS `cosh t / sinh t`, RHS `tanh(t/2)`), while the symmetric bracket
+  closes it on generic complex probes (and the Lean proof needs nothing
+  beyond `Real.exp_neg` and `ring`).
+  FORMALIZATION STATUS: the pure-algebra core of this chain is LANDED
+  (see section 7: the even/odd boundary recombination identity and its
+  nonnegativity for `t > 0`); the analytic steps ((8.2), (8.13), (8.14)
+  with integrals and integration by parts) stay open and are the natural
+  next slice if the detector route is pursued -- as a DETECTOR only,
+  never an unconditional GATE 1.
 * Lemma-10 identity COMPLETED (display in its proof, book p.210, same
   triangle-verified status):
   `2t K*(x,y,t) = 2 sin(t(x-y))/(x-y)
@@ -1492,6 +1534,26 @@ sufficient for the route decision.
   the `w` inside `mulVec w`); `simp only` on the mulVec sums keeps the
   summands LEFT-associated (`(2t) bullet K* bullet z`), so per-entry
   helpers must be stated in the same association.
+* Lemma-10 detector skeleton (`C1BombieriSection8Boundary`): LANDED,
+  axiom-clean (leaf + audit `1707 jobs`, 0 sorryAx).  From the book
+  pp.209-212 visual read (recorded in section 6y): the even/odd boundary
+  recombination `bombieriEvenOddBoundary` -- the raw two-point boundary
+  correction `C/(2S)(a conj a + b conj b) - (a conj b + conj a b)/S`
+  equals the `tanh(t/2)`-weighted square of the even part plus the
+  `coth(t/2)`-weighted square of the odd part -- and
+  `bombieriEvenOddBoundary_nonneg` (`t > 0` makes both weights strictly
+  positive, `Complex.normSq` squares).  v4.30 mechanics: `Complex.conj`
+  and `Complex.abs` NO LONGER EXIST -- use `star`/`(starRingEnd ℂ)`
+  (statement and proof in ONE syntactic form; `map_add`/`map_sub` of
+  `starRingEnd ℂ` for conj of sums) and `Complex.normSq` (with
+  `Complex.normSq_nonneg`, `Complex.mul_conj` for the bridge); `set`
+  NORMALIZES later atom definitions against earlier ones (`dB` came out
+  as `2 * dC`), so transport nonzero facts through the shown equation;
+  `field_simp` on frozen atoms may leave the atoms intact -- then
+  `rw [hdA, ..., hdE]` unfolds them, `push_cast` expands the ofReal
+  sums to a single cast atom, and a SECOND `field_simp` with
+  `Complex.ofReal_ne_zero.mpr hX` clears residual inverse powers before
+  `ring` closes.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

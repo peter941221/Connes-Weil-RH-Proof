@@ -141,3 +141,17 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   dotProduct, no Matrix.dotProduct); transport h : w = ... w via
   congrArg, never rw.  Next: Lemma-10/Theorem-8 conditional sign
   detector; then K_I-T finite-rank profile toward GATE 1.
+- 2026-08-28 C1BombieriSection8Boundary(+Audit) : the Lemma-10 detector
+  skeleton landed - bombieriEvenOddBoundary (book p.211 even/odd boundary
+  recombination: raw two-point correction = tanh(t/2)-weighted even square
+  + coth(t/2)-weighted odd square) + bombieriEvenOddBoundary_nonneg
+  (both weights positive for t > 0).  Book pp.209-212 read: Lemma 9
+  (lambda real), Corollary (8.4) (D_N real-rooted), Lemma 10 full
+  statement, chain (8.5)-(8.15) recorded in doc 1043 section 6y.
+  ERRATUM 2: the p.211 bracket is the REAL-symmetric a*conj b + conj a*b,
+  not the printed minus form (fails already at a = b = 1).  Leaf + audit
+  1707 jobs, axiom-clean.  v4.30: Complex.conj/Complex.abs are GONE
+  (use star/starRingEnd and Complex.normSq); two-stage field_simp
+  (freeze atoms -> unfold defs -> push_cast -> clear inverse powers).
+  Open: the analytic (8.13)/(8.14) integral steps; detector only, never
+  unconditional GATE 1.
