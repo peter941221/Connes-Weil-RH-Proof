@@ -14,6 +14,14 @@ open CC20Concrete
 #check endpointKernelOnSquare_diagonal_zero
 #check memLp_endpointKernelOnSquare_of_mass_lt_top
 #check applyKernel_l2_sq_le_of_kernelMassTopLt
+#check lintegral_weight_eq_volume
+#check volume_cc20Window_of_nonneg
+#check volume_cc20WindowPair_of_nonneg
+#check enorm_sq_le_weighted_bound
+#check lintegral_enorm_sq_le_of_profileBound
+#check lintegral_enorm_sq_le_closed_of_profileBound
+#check memLp_endpointKernelOnSquare_of_profileBound
+#check applyKernel_l2_sq_le_explicit
 
 #print axioms continuous_endpointWindowKernelComplex
 #print axioms measurable_endpointKernelOnSquare
@@ -22,5 +30,11 @@ open CC20Concrete
 #print axioms endpointKernelOnSquare_diagonal_zero
 #print axioms memLp_endpointKernelOnSquare_of_mass_lt_top
 #print axioms applyKernel_l2_sq_le_of_kernelMassTopLt
+#print axioms lintegral_weight_eq_volume
+#print axioms volume_cc20WindowPair_of_nonneg
+#print axioms enorm_sq_le_weighted_bound
+#print axioms lintegral_enorm_sq_le_closed_of_profileBound
+#print axioms memLp_endpointKernelOnSquare_of_profileBound
+#print axioms applyKernel_l2_sq_le_explicit
 
 end ConnesWeilRH.Source.C1CC20RawKernelMass

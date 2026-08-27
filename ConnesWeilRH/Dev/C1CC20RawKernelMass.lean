@@ -201,6 +201,129 @@ theorem applyKernel_l2_sq_le_of_kernelMassTopLt
     memLp_endpointKernelOnSquare_of_mass_lt_top data a hcont hmass
   exact C1CC20LpOperatorNorm.applyKernel_l2_sq_bound hf hk
 
+/-!
+### Explicit certified window mass
+
+The total-kernel-mass premise of the previous section collapses into
+theorems once the displacement profile is bounded: compactness supplies the
+bound on the window and the squared window mass is dominated by
+`(B ^ 2) * area(windowPair)` through elementary volume identities.  A
+continuous displacement profile on compacts is therefore all the analysis
+the windowed operator needs.
+-/
+
+/-- Keystone volume identity: the lintegral of the window membership weight
+equals the window's measure. -/
+theorem lintegral_weight_eq_volume {a : ℝ} :
+    (∫⁻ p : ℝ × ℝ,
+        (cc20WindowPair a).indicator (fun _ => (1 : ENNReal)) p) =
+      volume (cc20WindowPair a) :=
+  lintegral_indicator_one (measurableSet_cc20WindowPair a)
+
+theorem volume_cc20Window_of_nonneg {a : ℝ} (_ha : 0 ≤ a) :
+    volume (cc20Window a) = ENNReal.ofReal ((2 : ℝ) * a) := by
+  have hx : cc20Window a = Set.Icc (-a) a := rfl
+  rw [hx, Real.volume_Icc]
+  congr 1
+  ring
+
+theorem volume_cc20WindowPair_of_nonneg {a : ℝ} (ha : 0 ≤ a) :
+    volume (cc20WindowPair a) = ENNReal.ofReal (((2 : ℝ) * a) ^ 2) := by
+  have hv := volume_cc20Window_of_nonneg ha
+  have hnpos : (0 : ℝ) ≤ (2 : ℝ) * a := by nlinarith
+  rw [show volume (cc20WindowPair a) =
+      volume (cc20Window a) * volume (cc20Window a) from
+      Measure.prod_prod (cc20Window a) (cc20Window a),
+    hv]
+  rw [show ((2 : ℝ) * a) ^ 2 = (2 : ℝ) * a * ((2 : ℝ) * a) from by ring]
+  exact (ENNReal.ofReal_mul hnpos).symm
+
+/-- Pointwise domination of the squared-enorm windowed kernel by the
+certified bound times the window membership weight. -/
+theorem enorm_sq_le_weighted_bound
+    (data : CC20EndpointSpectralData) (a : ℝ) (Bc : ℝ)
+    (hbound : ∀ p ∈ cc20WindowPair a,
+        ‖data.endpointWindowKernelComplex p‖ ≤ Bc) (p : ℝ × ℝ) :
+    ‖endpointKernelOnSquare data a p‖ₑ ^ (2 : ℝ) ≤
+      ENNReal.ofReal (Bc ^ 2) *
+        ((cc20WindowPair a).indicator (fun _ => (1 : ENNReal)) p) := by
+  by_cases hp : p ∈ cc20WindowPair a
+  · have hb := enorm_sq_endpointKernelOnSquare_le data a Bc hbound p
+    have hval : ((cc20WindowPair a).indicator
+        (fun _ => (1 : ENNReal)) p) = 1 := by simp [hp]
+    rw [hval]
+    simpa using hb
+  · rw [endpointKernelOnSquare_of_not_mem data a hp]
+    simp [hp]
+
+/-- Explicit mass theorem: under a certified profile bound `Bc` and a
+nonnegative window parameter, the squared mass of the windowed raw kernel is
+dominated by `Bc ^ 2` times the window area measure. -/
+theorem lintegral_enorm_sq_le_of_profileBound
+    (data : CC20EndpointSpectralData) (a : ℝ) (Bc : ℝ) (_ha : 0 ≤ a)
+    (hbound : ∀ p ∈ cc20WindowPair a,
+        ‖data.endpointWindowKernelComplex p‖ ≤ Bc) :
+    (∫⁻ p : ℝ × ℝ, ‖endpointKernelOnSquare data a p‖ₑ ^ (2 : ℝ)) ≤
+      ENNReal.ofReal (Bc ^ 2) * volume (cc20WindowPair a) := by
+  have hwtm : Measurable ((cc20WindowPair a).indicator
+      (fun _ => (1 : ENNReal))) :=
+    measurable_const.indicator (measurableSet_cc20WindowPair a)
+  refine le_trans
+    (lintegral_mono (enorm_sq_le_weighted_bound data a Bc hbound)) ?_
+  rw [lintegral_const_mul _ hwtm, lintegral_weight_eq_volume]
+
+/-- Closed-form mass domination: the squared kernel mass is at most
+`Bc ^ 2 * (2 * a) ^ 2`. -/
+theorem lintegral_enorm_sq_le_closed_of_profileBound
+    (data : CC20EndpointSpectralData) (a : ℝ) (Bc : ℝ) (ha : 0 ≤ a)
+    (hbound : ∀ p ∈ cc20WindowPair a,
+        ‖data.endpointWindowKernelComplex p‖ ≤ Bc) :
+    (∫⁻ p : ℝ × ℝ, ‖endpointKernelOnSquare data a p‖ₑ ^ (2 : ℝ)) ≤
+      ENNReal.ofReal (Bc ^ 2 * ((2 * a) ^ 2)) := by
+  have hstep := lintegral_enorm_sq_le_of_profileBound data a Bc ha hbound
+  rw [volume_cc20WindowPair_of_nonneg ha] at hstep
+  exact le_trans hstep (ENNReal.ofReal_mul (sq_nonneg Bc)).symm.le
+
+/-- MemLp certification for the windowed raw kernel with everything
+analytic discharged: strong measurability is unconditional and the mass side
+is the explicit profile-bound estimate. -/
+theorem memLp_endpointKernelOnSquare_of_profileBound
+    (data : CC20EndpointSpectralData) (a : ℝ) (Bc : ℝ) (ha : 0 ≤ a)
+    (hcont : Continuous data.endpointWindowKernel)
+    (hbound : ∀ p ∈ cc20WindowPair a,
+        ‖data.endpointWindowKernelComplex p‖ ≤ Bc) :
+    MemLp (endpointKernelOnSquare data a) (ENNReal.ofReal 2) volume := by
+  have hfin : (∫⁻ p : ℝ × ℝ,
+      ‖endpointKernelOnSquare data a p‖ₑ ^ (2 : ℝ)) < ⊤ :=
+    lt_of_le_of_lt
+      (lintegral_enorm_sq_le_closed_of_profileBound data a Bc ha hbound)
+      ENNReal.ofReal_lt_top
+  exact memLp_endpointKernelOnSquare_of_mass_lt_top data a hcont hfin
+
+/-- Flagship packaging: continuous displacement profile alone yields the full
+explicit operator bound
+
+    ∫⁻ x, ‖applyKernel kI f x‖ₑ² ≤ Bc² · (2·a)² · (∫⁻ y, ‖f y‖ₑ²)
+
+with `Bc` supplied by compactness from the continuity premise itself. -/
+theorem applyKernel_l2_sq_le_explicit
+    (data : CC20EndpointSpectralData) (a : ℝ) (ha : 0 ≤ a)
+    (hcont : Continuous data.endpointWindowKernel)
+    {f : ℝ → ℂ} (hf : MemLp f (ENNReal.ofReal 2)) :
+    ∃ Bc : ℝ, 0 ≤ Bc ∧
+      (∫⁻ x, ‖C1CC20LpOperator.applyKernel
+          (endpointKernelOnSquare data a) f x‖ₑ ^ (2 : ℝ)) ≤
+        ENNReal.ofReal (Bc ^ 2 * ((2 * a) ^ 2)) *
+          (∫⁻ y, ‖f y‖ₑ ^ (2 : ℝ)) := by
+  obtain ⟨Bc, hBc0, hBc⟩ := exists_norm_bound_on_window data a hcont
+  refine ⟨Bc, hBc0, ?_⟩
+  have hk : MemLp (endpointKernelOnSquare data a) (ENNReal.ofReal 2) volume :=
+    memLp_endpointKernelOnSquare_of_profileBound data a Bc ha hcont hBc
+  have hstep := C1CC20LpOperatorNorm.applyKernel_l2_sq_bound hf hk
+  exact le_trans hstep
+    (mul_le_mul_left
+      (lintegral_enorm_sq_le_closed_of_profileBound data a Bc ha hBc) _)
+
 end C1CC20RawKernelMass
 end Source
 end ConnesWeilRH

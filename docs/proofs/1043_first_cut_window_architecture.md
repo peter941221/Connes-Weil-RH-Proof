@@ -576,6 +576,33 @@ native WSL ext4 explicit targets green (`C1CC20RawKernelMass` 2685 jobs,
 `C1CC20RawKernelMassAudit` 2686 jobs); all seven audited declarations report
 only `[propext, Classical.choice, Quot.sound]`, no `sorryAx`.
 
+### 6j' Explicit certified window mass (landed 2026-08-27)
+
+The caller-supplied total-mass and profile-bound premises are now eliminated
+into theorems inside the same leaf, under one hypothesis pair — continuity of
+the real displacement profile plus `0 ≤ a`.  The ladder:
+
+```text
+lintegral_indicator_one              ∫⁻ membership weight = volume(windowPair)
+volume_cc20Window_of_nonneg          volume [-a,a] = ofReal (2a)
+volume_cc20WindowPair_of_nonneg      volume windowPair = ofReal ((2a)^2)
+enorm_sq_le_weighted_bound           ‖kernel‖ₑ² ≤ Bc² · weight(pointwise)
+lintegral_enorm_sq_le_of_profileBound    master mass ≤ Bc² · volume(windowPair)
+lintegral_enorm_sq_le_closed_of_profileBound   ≤ ofReal (Bc²·(2a)²)
+memLp_endpointKernelOnSquare_of_profileBound   MemLp 2, no mass premise left
+applyKernel_l2_sq_le_explicit        FLAGSHIP: from continuity alone,
+    ∃ Bc ≥ 0, ∫⁻ ‖A f‖ₑ² ≤ ofReal(Bc²(2a)²) · ∫⁻ ‖f‖ₑ²
+```
+
+The flagship packages compactness (`exists_norm_bound_on_window`) with the
+mass chain, so any continuous displacement profile on the square window now
+carries an explicit square-mass operator bound with zero caller-supplied
+analysis.  What remains open above this brick is unchanged and concrete:
+writing down the paper's actual `kf_I / T / R` kernels via the prolate data
+(`CC20EndpointSpectralData`) and proving the equation-(100) slope identity.
+Verification unchanged: both targets green (`2685`/`2686` jobs), all thirteen
+audited declarations `[propext, Classical.choice, Quot.sound]`, no `sorryAx`.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean

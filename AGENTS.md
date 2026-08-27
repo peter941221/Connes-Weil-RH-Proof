@@ -1341,6 +1341,26 @@ restricted/global masses with one evaluation object.
   hypothesis reads `‖‖K p‖‖ ≤ B`; bridge with
   `(Real.norm_of_nonneg (norm_nonneg _)).symm` before rewriting. (Observed
   2026-08-27.)
+- **`show T from e` takes a TERM, not a tactic**: inside `rw [show h = k from …]`
+  a bare `ring` fails "Unknown identifier" because it is parsed as a term;
+  write `from by ring`. (Observed 2026-08-27, windowPair volume closer.)
+- **A single `rw [hv]` rewrites ALL syntactically identical occurrences** of
+  the pattern in one call, and exact-match term joiners then fail on residual
+  shape differences (`2*a*(2*a)` vs `(2*a)^2`). Fix: pre-normalize the goal
+  with `rw [show x^2 = x*x from by ring]` so the joiner's shapes align exactly,
+  or pin implicit args (`ENNReal.ofReal_mul` has ONE hypothesis — do not apply
+  it twice). (Observed 2026-08-27.)
+- **Look up signatures in mathlib sources before inventing lemma names**: v4.30
+  truths found by grep under `/home/peter/rh/.lake/packages/mathlib/Mathlib/` —
+  `Measure.prod_prod (s) (t) : μ.prod ν (s ×ˢ t) = μ s * ν t` needs NO
+  measurable-set hypotheses; `lintegral_indicator_one` needs only
+  `MeasurableSet s`; `mul_le_mul_right'` is deprecated in favor of
+  `mul_le_mul_left` per the compiler hint. Guessing names/measures cost three
+  failed rounds this stretch. (Observed 2026-08-27.)
+- **WSL `/tmp` is tmpfs wiped between tool invocations on VM cold start**:
+  build logs written to `/tmp/*.log` vanish between wsl.exe calls. Persist
+  logs under `/home/peter/blogs/` (ext4) when they must be re-read later in
+  the session. (Observed 2026-08-27.)
 
 ## 8. WSL Verification
 
