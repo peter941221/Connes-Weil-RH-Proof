@@ -1738,6 +1738,61 @@ sufficient for the route decision.
   different atoms.  Remaining (8.13) steps open: the (8.14) assembly
   over the eigenvalue equation, then the Theorem-8 sign count.
   DETECTOR only.
+* Wirtinger (8.14) slice 8a, the even/odd parity split
+  (`C1BombieriSection8ParitySplit`): LANDED, axiom-clean (leaf + audit
+  `2661 jobs` after the pairing fix, 0 sorryAx; commits `8f87a7d` +
+  `617e707`).  `qSplit`: `Q(Z) = Q(Z⁺) + Q(Z⁻)` over the symmetric
+  window at the `qIntegrand` integral level (values only — no
+  differentiability enters), where `Z^± = (Z ± Z∘neg)/2`; the engine
+  is `integral_symmetry_half` (`∫_{−t}^{t} f = ∫_0^t (f x + f (−x))`,
+  via premise-free `integral_comp_neg` and the ROOT-NAMESPACE
+  `neg_zero` — `Real.neg_zero` does NOT exist in v4.30) plus the
+  parallelogram law through `Complex.normSq_add`/`normSq_sub` (whose
+  `±2·Re(z·conj w)` cross terms cancel pairwise as ring atoms).
+  Mechanics worth recording: `normSq_half` needs the numeral evaluated
+  separately (`Complex.normSq 2` is an OfNat node; `normSq_ofReal`'s
+  `↑?r` pattern cannot fire — `simp; norm_num` gives `normSq 2 = 4`);
+  `unfold` does NOT beta-reduce (`simp only []` forces it); after
+  `simp only []` with `u := −x` the substitution leaves `- -x` — a
+  GLOBAL `rw [neg_neg]` first, then each ±x evaluation is a distinct
+  atom and the 12 `mul_conj` + 8 `normSq_half` + 4 `normSq_add` +
+  4 `normSq_sub` chain closes under `push_cast; ring`.
+  PAIRING FIX (`617e707`): the first cut paired the even part with the
+  even half-sum of `Zp`; swapped to the TRUE derivatives — the even
+  part paired with the odd half-difference `(Zp − Zp∘neg)/2`, the odd
+  part with the even half-sum `(Zp + Zp∘neg)/2`.  The parallelogram
+  algebra is symmetric in the second-slot pairing, so both statements
+  are true, but only the true-derivative pairing is consumed by the
+  Wirtinger corollaries downstream.  DETECTOR only.
+* Wirtinger (8.13) slice 9, the full inequality (`C1BombieriSection8WirtingerFull`):
+  LANDED, axiom-clean (leaf + audit `2663 jobs`, 0 sorryAx; commit
+  `3e769f6`).  Flagship `wirtingerFull`: for every C¹ `Z` with `t > 0`,
+  `Q(Z) = ↑((e^t−e^{−t})/φ₊(t)²·|Z⁺(t)|² + (e^t−e^{−t})/φ₋(t)²·|Z⁻(t)|² + S)`
+  with `S ≥ 0`, assembled from `qSplit` + `wirtingerEven` on `Z⁺` +
+  `wirtingerOdd` on `Z⁻` (the split parts carry their TRUE derivatives:
+  `d/du Z⁺ = (Zp − Zp∘neg)/2`, `d/du Z⁻ = (Zp + Zp∘neg)/2`, the exact
+  pairing `qSplit` supplies); corollary `wirtingerFull_weights`
+  identifies the weights as `tanh(t/2)` and `coth(t/2)` (stated
+  through `cosh`/`sinh`) — the book's (8.13) verbatim.  Mechanics
+  worth recording (v4.30): the outer function is ℂ-valued, so the
+  reflection chain rule `d/du Z(−u) = −(Zp (−u))` goes through
+  `HasDerivAt.scomp` — plain `HasDerivAt.comp` requires the outer
+  function on the algebra `𝕜'` and does NOT apply; `scomp`'s
+  derivative is the SMUL `h' • g₁'`, i.e. `(-1 : ℝ) • Zp (−u)`,
+  bridged to the negation by `neg_one_smul`; `HasDerivAt.div_const`'s
+  constant lives in the TARGET space (`d : 𝕜'`, so `(2 : ℂ)`);
+  `rw`-instantiated theorem right-hand sides arrive ALREADY
+  beta-reduced (`simp only []` then errors "made no progress" — drop
+  it); the v4.30 `linter.style.show` flags `show`-as-defeq-change as
+  an ERROR (use `simp only []` to force beta instead); and the import
+  closure of the Slice6/7 chain does NOT include Slice5, so
+  `wirtingerEven`/`tanhHalf_eq_ratio` need an explicit
+  `import ...WirtingerSlice5`.  Remaining (8.13)/(8.14) steps open:
+  the (8.11) transport onto the (8.5) exponential-sum `Z(u) =
+  Σ e^{−iγu} z_γ` (λ Σ w conj(w) = Q(Z) − boundary correction), the
+  λ ≥ 0 assembly with the landed boundary lemma, the
+  exponential-independence contradiction, and the Theorem-8 sign
+  count.  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
