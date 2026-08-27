@@ -988,6 +988,70 @@ Native WSL2 ext4 audit evidence:
 successfully at `2693/2693` jobs.  The four declarations audit to exactly
 `[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.
 
+### 6t. Product integrability: discharge the Fubini premise from L1 x L2 x L2 (landed 2026-08-27)
+
+`Dev/C1CC20ProductIntegrability.lean` removes the explicit Fubini premise in
+§6s for the raw translation-invariant displacement kernel.  For
+
+```text
+D(v, x) = a(v) * eta(x) * xi(x + v),
+```
+
+the new theorem `integrable_displacementCorrelationIntegrand` derives
+`Integrable (Function.uncurry D) (volume.prod volume)` from an a.e.-strongly
+measurable profile with `integrable ||a||`, plus `MemLp eta 2` and
+`MemLp xi 2`.  It uses `integrable_prod_iff` in the displacement-first
+coordinate order, Holder on each fixed slice, and `mass_shift_real` to make
+the slice bound uniform in `v`:
+
+```text
+integral_x ||D(v, x)||
+  <= (L2mass eta)^(1/2) * (L2mass xi)^(1/2) * ||a(v)||.
+```
+
+`aestronglyMeasurable_displacementCorrelationIntegrand` separately records
+the product-space measurability proof, so the Fubini and domination evidence
+remain independently inspectable.  The wrapper
+`norm_pairing_applyKernel_displacementKernel_le_of_l1Weight` feeds the
+automatic premise into §6s and leaves the equation-(121) scalar pairing bound
+with only the natural L1/L2 assumptions.
+
+Native WSL2 ext4 audit evidence: the joint explicit audit batch for this leaf
+and §6u completed successfully at `3626/3626` jobs.  The three declarations
+here audit to exactly `[propext, Classical.choice, Quot.sound]`, with zero
+`sorryAx`.
+
+Boundary: this proves product integrability for the raw displacement form.
+It does not identify that raw form with a square-window `L2` operator; that
+step still needs explicit zero-extension and support hypotheses for the
+concrete `K_I - T` owner.
+
+### 6u. Pairing bound to operator-norm gap: CC20 Lemma-second adapter (landed 2026-08-27)
+
+`Dev/C1CC20PairingOperatorNorm.lean` records the Hilbert-space conversion
+needed after the concrete operator representation is available:
+
+```text
+forall eta xi, ||<eta, A xi>|| <= B * ||eta|| * ||xi||
+  -> ||A|| <= B.
+```
+
+`opNorm_le_of_norm_inner_le` proves this by testing the pairing estimate at
+`eta = A xi`; the zero-output case is separated and the nonzero case cancels
+`||A xi||`.  `cc20GapNorm_le_of_pairingBound` specializes the result to
+`kf - T`, and `cc20NegativeForm_le_rankOne_of_pairingBound` immediately
+feeds the resulting norm-gap premise into `C1CC20OperatorGap`'s existing
+Lemma-second consumer.
+
+Native WSL2 ext4 audit evidence: the joint explicit audit batch with §6t
+completed successfully at `3626/3626` jobs.  The three declarations here audit
+to exactly `[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.
+
+Boundary: no bounded operator on the `L2` quotient is constructed here, and
+no numerical L1 enclosure for the concrete profile is supplied.  This is the
+ready consumer between a future concrete `K_I - T` pairing theorem and the
+already-landed CC20 endpoint-gap machinery.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
@@ -1050,6 +1114,15 @@ successfully at `2693/2693` jobs.  The four declarations audit to exactly
   `norm_pairing_applyKernel_displacementKernel_le`): LANDED, axiom-clean
   (2693 jobs, 0 sorryAx); product integrability is an explicit caller premise
   and the concrete `K_I - T` L1/operator-norm enclosure remains open.
+* Product-integrability discharge (`integrable_displacementCorrelationIntegrand`,
+  `norm_pairing_applyKernel_displacementKernel_le_of_l1Weight`): LANDED,
+  axiom-clean (joint audit 3626 jobs, 0 sorryAx); the raw equation-(121) Fubini premise
+  now follows from L1 x L2 x L2, while square-window quotient ownership remains
+  an explicit separate obligation.
+* Pairing-to-operator-norm adapter (`opNorm_le_of_norm_inner_le`,
+  `cc20NegativeForm_le_rankOne_of_pairingBound`): LANDED, axiom-clean
+  (joint audit 3626 jobs, 0 sorryAx); the concrete `K_I - T` operator and certified L1
+  profile enclosure are still missing.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

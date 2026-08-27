@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1CC20ProductIntegrability
+
+namespace ConnesWeilRH.Source.C1CC20ProductIntegrability
+
+#check aestronglyMeasurable_displacementCorrelationIntegrand
+#check integrable_displacementCorrelationIntegrand
+#check norm_pairing_applyKernel_displacementKernel_le_of_l1Weight
+
+#print axioms aestronglyMeasurable_displacementCorrelationIntegrand
+#print axioms integrable_displacementCorrelationIntegrand
+#print axioms norm_pairing_applyKernel_displacementKernel_le_of_l1Weight
+
+end ConnesWeilRH.Source.C1CC20ProductIntegrability

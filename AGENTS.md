@@ -1442,6 +1442,25 @@ restricted/global masses with one evaluation object.
   algebra.  The required API is in `Mathlib.MeasureTheory.Integral.Prod`.
   (Observed 2026-08-27, DisplacementReadback.)
 
+- **Choose the unprimed product-integrability theorem for displacement-first
+  coordinates**: `integrable_prod_iff` treats the first product coordinate as
+  the outer slice variable, which matches `D(v, x)`.  The primed variant uses
+  the opposite orientation and leaves the intended Holder slice in the wrong
+  coordinate.  (Observed 2026-08-27, C1CC20ProductIntegrability.)
+
+- **`MemLp.integrable_mul` needs an ENNReal Holder-conjugate instance**:
+  a real proof such as `hholder : (2 : ℝ).HolderConjugate 2` is not inferred
+  automatically.  Install the local instance
+  `letI := hholder.ennrealOfReal` before calling the `MemLp` product theorem.
+  (Observed 2026-08-27, C1CC20ProductIntegrability.)
+
+- **Derive an operator norm from a complex pairing estimate by testing the
+  output against itself**: use `eta = A xi`, split `A xi = 0`, and in the
+  nonzero branch use `inner_self_re_eq_norm`,
+  `inner_self_eq_norm_mul_norm`, and `le_of_mul_le_mul_left`.  Expanding
+  complex coercions obscures the cancellation and produces avoidable type
+  mismatches.  (Observed 2026-08-27, C1CC20PairingOperatorNorm.)
+
 ## 8. WSL Verification
 
 WSL2 is a **verification environment, not a source workspace**. Author/manage

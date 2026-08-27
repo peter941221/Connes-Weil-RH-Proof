@@ -1,3 +1,26 @@
+## Change Log (2026-08-27 session 26f, automatic CC20 product integrability and operator-gap adapter)
+- **Result: good.**  `Dev/C1CC20ProductIntegrability.lean` now discharges the
+  Fubini premise for
+  `D(v, x) = a(v) * eta(x) * xi(x + v)` from an a.e.-strongly measurable L1
+  profile and two `MemLp`-2 factors.  It uses the displacement-first
+  `integrable_prod_iff` orientation, per-slice Holder, and
+  `mass_shift_real`; `norm_pairing_applyKernel_displacementKernel_le_of_l1Weight`
+  therefore gives the equation-(121) scalar pairing bound without a caller
+  supplied product-integrability hypothesis.
+- `Dev/C1CC20PairingOperatorNorm.lean` closes the abstract final adapter:
+  a uniform Hilbert-space pairing bound implies an operator-norm bound, and
+  `cc20NegativeForm_le_rankOne_of_pairingBound` feeds it into the existing
+  `C1CC20OperatorGap` Lemma-second conclusion.  The proof uses the test vector
+  `eta = A xi`, with zero-output and cancellation cases explicit.
+- Native WSL2 ext4 evidence: one explicit joint audit of
+  `C1CC20ProductIntegrabilityAudit` and `C1CC20PairingOperatorNormAudit`
+  completed successfully at `3626/3626` jobs.  All six declarations printed
+  exactly `[propext, Classical.choice, Quot.sound]`; `sorryAx` count was zero.
+- Scope boundary: these are raw-function and abstract-Hilbert bridges.  They
+  neither construct the concrete square-window quotient operator nor certify
+  the L1 difference profile for `K_I - T`; do not use them to identify those
+  owners without explicit support/zero-extension evidence.
+
 ## Change Log (2026-08-27 session 26e, CC20 displacement Fubini readback)
 - **Result: good.**  `Dev/C1CC20DisplacementReadback.lean` closes the
   Fubini/readback layer above the displacement-kernel bridge.  Under the

@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1CC20PairingOperatorNorm
+
+namespace ConnesWeilRH.Source.C1CC20PairingOperatorNorm
+
+#check opNorm_le_of_norm_inner_le
+#check cc20GapNorm_le_of_pairingBound
+#check cc20NegativeForm_le_rankOne_of_pairingBound
+
+#print axioms opNorm_le_of_norm_inner_le
+#print axioms cc20GapNorm_le_of_pairingBound
+#print axioms cc20NegativeForm_le_rankOne_of_pairingBound
+
+end ConnesWeilRH.Source.C1CC20PairingOperatorNorm
