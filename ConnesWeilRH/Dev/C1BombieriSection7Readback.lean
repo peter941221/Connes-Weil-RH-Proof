@@ -96,6 +96,41 @@ theorem bombieriK_re_add_mulI (a b : Real) (hab : a ≠ 0 ∨ b ≠ 0) :
     ring_nf
     field_simp [show a ^ 2 + b ^ 2 ≠ 0 from ne_of_gt hpos]
 
+/-- The kernel value at a real argument, with the removable point excluded. -/
+theorem bombieriK_ofReal {a : Real} (ha : a ≠ 0) :
+    bombieriK ((a : Complex)) = ((Real.sin a / a : Real) : Complex) := by
+  unfold bombieriK
+  rw [if_neg (by exact_mod_cast ha)]
+  rw [← Complex.ofReal_sin]
+  exact (Complex.ofReal_div (Real.sin a) a).symm
+
+/-- The kernel value at a purely imaginary argument `b * I`: the `i` factors
+cancel and the value is real. -/
+theorem bombieriK_mul_I {b : Real} (hb : b ≠ 0) :
+    bombieriK ((b : Real) * Complex.I)
+      = ((Real.sinh b / b : Real) : Complex) := by
+  unfold bombieriK
+  have hzne : (((b : Real) * Complex.I : Complex)) ≠ 0 := by
+    intro h0
+    have him := congrArg Complex.im h0
+    simp at him
+    exact hb him
+  rw [if_neg hzne, Complex.sin_mul_I, ← Complex.ofReal_sinh]
+  rw [div_eq_iff hzne]
+  apply Complex.ext
+  · simp only [Complex.mul_re, Complex.mul_im, Complex.add_re, Complex.add_im,
+      Complex.ofReal_re, Complex.ofReal_im, Complex.I_re, Complex.I_im]
+    first
+      | done
+      | ring_nf; field_simp [hb]
+      | field_simp [hb]; ring
+  · simp only [Complex.mul_re, Complex.mul_im, Complex.add_re, Complex.add_im,
+      Complex.ofReal_re, Complex.ofReal_im, Complex.I_re, Complex.I_im]
+    first
+      | done
+      | ring_nf; field_simp [hb]
+      | field_simp [hb]; ring
+
 end C1BombieriSection7Readback
 end Source
 end ConnesWeilRH

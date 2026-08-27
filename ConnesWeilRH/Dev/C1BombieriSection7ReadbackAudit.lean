@@ -21,6 +21,8 @@ open ConnesWeilRH.Source.C1BombieriSection7Readback
 #print axioms ConnesWeilRH.Source.C1BombieriSection7Readback.bombieriKstar
 #print axioms ConnesWeilRH.Source.C1BombieriSection7Readback.bombieriK_zero
 #print axioms ConnesWeilRH.Source.C1BombieriSection7Readback.bombieriK_re_add_mulI
+#print axioms ConnesWeilRH.Source.C1BombieriSection7Readback.bombieriK_ofReal
+#print axioms ConnesWeilRH.Source.C1BombieriSection7Readback.bombieriK_mul_I
 
 end C1BombieriSection7ReadbackAudit
 end Source
