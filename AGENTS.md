@@ -1741,6 +1741,29 @@ trace in a named Hilbert basis; `ordinaryTraceAlong_neg` needs no trace witness.
 A legal cyclic trace move requires two Hilbert-Schmidt factors or one
 trace-class times one bounded factor; bounded-times-HS alone is not trace-class.
 
+**CC20 `Q(delta)` / `Qepsilon` pointwise-owner guard (2026-08-27):** the current
+`cc20RegularKernel` has provably positive pointwise diagonal
+(`cc20QDeltaDiagonalValue_pos`), while Connes--Consani's paper reports
+`Qepsilon(1)=0` for the raw `K_I` kernel.  The theorem
+`cc20RegularKernel_ne_of_pointwise_zero_diagonal` rejects only a literal
+pointwise identification; a diagonal mismatch alone cannot reject
+almost-everywhere kernel or induced-operator equality.  A future `K_I` bridge
+must formalize its own raw kernel/action and prove the required relation away
+from the diagonal before it can enter a same-owner trace argument.
+
+**CC20 endpoint-formula boundary (2026-08-27):**
+`CC20EndpointSpectralData` and `EndpointKernelFormula.lean` encode the paper's
+upper-scale equations (99) and (104), yielding
+`qEpsilon_one` and a zero raw `K_I` diagonal for any supplied spectral data.
+Its `endpointSlope` is explicitly tied to the summable equation-(100) spectral
+series, but this is still a formula-level theorem, not a concrete prolate realization:
+`tsum` is totalized in Lean, so the endpoint value is sound because every
+summand is zero, but it does **not** establish convergence or equality with
+the analytic `Qepsilon` away from `rho = 1`.  Do not feed
+`endpointWindowKernelComplex` into the `L2` operator bridge without separately
+proving its `MemLp`/kernel-mass hypotheses, and do not describe the resulting
+pointwise guard as an a.e. or induced-operator result.
+
 ## 10. CCM25 Canonical Owner Rule
 
 Preserve one source owner through source Weil-form, evaluation data, visible

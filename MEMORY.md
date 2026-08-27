@@ -1,3 +1,39 @@
+## Change Log (2026-08-27 session 26, CC20 endpoint formula and owner bridge)
+- **Result: good, but deliberately bounded.**  Added
+  `Source/CC20Concrete/EndpointKernelFormula.lean`, a formula-level encoding of
+  Connes--Consani equations (99) and (104) from
+  [arXiv:2006.13771](https://arxiv.org/html/2006.13771).  The data contract
+  carries `lambda(n)`, `xi_n^an`, its derivative, and the positive normalizing
+  slope `epsilon'(1+)`, including the summable equation-(100) identity for
+  that slope; it defines the upper-scale `epsilon` series, the `Qepsilon`
+  series, and the raw additive/window kernels.
+- `qEpsilonSummand_one`, `qEpsilon_one`,
+  `endpointAdditiveKernel_zero`, `endpointWindowKernel_diagonal`, and
+  `integral_endpointWindowKernel_diagonal_zero` are exact, axiom-clean
+  consequences of the paper formula.  At `rho = 1`, equal integral endpoints
+  kill the integral and the two boundary terms cancel, so the proof needs no
+  numerical approximation or convergence theorem.  The last result is only an
+  integral of diagonal values, not an identification with an operator trace.
+- Added `Dev/C1CC20EndpointKernelOwnerGuard.lean`, which log-lifts the raw
+  endpoint kernel to the existing positive-coordinate domain and proves
+  `cc20RegularKernel_ne_endpointKernelOnPositiveCoordinates`.  This is a
+  literal pointwise nonidentification only; it does not claim a.e. kernel or
+  operator nonidentification.
+- Native WSL ext4 builds are green for the formula module, owner guard, and
+  audit (`2559`, `2654`, and `2655` jobs).  The audit reports only
+  `[propext, Classical.choice, Quot.sound]` for every new theorem and no
+  `sorryAx`.
+- Open boundary: no actual prolate modes, spectral-series convergence, `L2`
+  mass proof, interval-restricted `kf_I` action, or numerical spectral
+  enclosure has been supplied.  The next concrete Gate 1 work must construct
+  those objects before invoking `C1CC20LpOperator` or `C1CC20OperatorGap`.
+
+## Change Log (2026-08-27 session 25, CC20 `Q(delta)` / `Qepsilon` pointwise owner guard)
+- **Result: good.**  `SineIntegral.lean` now proves `neg_one_le_sineIntegralQuotient` from `Real.neg_one_le_sinc` and interval-integral monotonicity; this is an exact analytic lower bound, not a numerical estimate.
+- `RegularKernel.lean` now proves `cc20QDeltaDiagonalValue_pos`, `cc20RegularKernel_diagonal_pos`, and `cc20RegularKernel_ne_of_pointwise_zero_diagonal`; the last theorem rejects only literal pointwise kernel equality with a zero-diagonal candidate.
+- `RegularKernelAudit.lean` exposes and axiom-audits the three declarations; native WSL ext4 source and audit builds are green, and every new declaration has only `[propext, Classical.choice, Quot.sound]` with zero `sorryAx`.
+- Route judgment: Connes--Consani Proposition 5/Remark 6 ([arXiv:2006.13771](https://arxiv.org/html/2006.13771)) states `Qepsilon(1) = 0` for the paper `K_I` kernel, whereas the current `Q(delta)` profile has a positive pointwise diagonal.  Do not use this diagonal fact alone to claim a.e. or operator nonidentification; formalizing the paper kernel/action remains open.
+
 ## Change Log (2026-08-27 session 24, CC20 kf_I L² INTEGRATED MASS BOUND)
 - **Result: good.**  `Dev/C1CC20LpOperatorNorm.lean` closes the second
   boundedness brick for the raw CC20 integral-kernel owner.  It imports the

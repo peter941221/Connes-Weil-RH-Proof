@@ -455,6 +455,102 @@ the two integrated declarations reports exactly
 root build is not evidence for these standalone `Dev/` leaves; they are
 verified by explicit targeting.
 
+## 6h. `Q(delta)` / `Qepsilon` pointwise-diagonal owner guard (landed 2026-08-27)
+
+Primary-source check: Connes--Consani, Proposition 5 and Remark 6,
+[arXiv:2006.13771](https://arxiv.org/html/2006.13771), define the compact
+operator `K_I` through the additive kernel
+`Qepsilon(exp(|v|)) / (2 * epsilon'(1+))` and state that
+`Qepsilon(1) = 0`.  Thus a formal transcription of that raw paper kernel has
+a zero pointwise diagonal.
+
+The existing repository object is not that kernel.  It is explicitly the
+ordinary `Q(delta)` regular profile, with diagonal value
+
+```text
+cc20QDeltaDiagonalValue
+  = 8 * pi^2 / 9 + sineIntegralQuotient (4 * pi) - 1 / 2.
+```
+
+The new source facts prove it is strictly positive without numerical
+evaluation:
+
+```text
+Real.neg_one_le_sinc
+  -> -1 <= sineIntegralQuotient(x)
+  -> pi > 3
+  -> 0 < cc20QDeltaDiagonalValue.
+```
+
+Consequently `cc20RegularKernel_diagonal_pos` holds at every positive
+coordinate, and
+`cc20RegularKernel_ne_of_pointwise_zero_diagonal` rejects a literal equality
+between the current regular kernel and any candidate whose pointwise diagonal
+is identically zero.
+
+This is a strict owner guard, not an operator theorem.  A diagonal is a
+measure-zero set, so this result alone does not rule out almost-everywhere
+kernel equality or equality of induced integral operators.  Any future bridge
+to the paper's `K_I` must first formalize its own kernel/action and then prove
+the required off-diagonal or operator-level relation; it may not instantiate a
+same-kernel premise with the current `Q(delta)` regular profile.
+
+## 6i. Formal `Qepsilon` series and raw endpoint kernel (landed 2026-08-27)
+
+The first owner guard only used the paper's stated diagonal value.  The new
+source module `CC20Concrete/EndpointKernelFormula.lean` now transcribes the
+formula that gives that value.  Its primary source is Connes--Consani,
+equations (84), (97)--(99), and (104):
+<https://arxiv.org/html/2006.13771>.
+
+`CC20EndpointSpectralData` deliberately records exactly the ingredients which
+the future concrete prolate construction must supply:
+
+```text
+lambda(n), xi_n^an, (xi_n^an)', epsilon'(1+)
+  -> lambda(n)^2 / (1 - lambda(n)^2)
+  -> epsilonUpper(rho)                 [Lemma 4 rewrite]
+  -> qEpsilon(rho)                     [equation (99)]
+  -> qEpsilon(exp(|x - y|)) /
+       (2 * epsilon'(1+))              [equation (104), raw K_I kernel]
+```
+
+The normalizing slope is not an arbitrary positive field: the contract also
+requires the summable equation-(100) identity
+`epsilon'(1+) = sum_n lambda(n)^2/(1-lambda(n)^2) * xi_n^an(1)^2`.
+The actual prolate construction still has to prove that identity.
+
+The exact endpoint calculation is now checked rather than cited:
+
+```text
+C_n(1) = 0                         -- integral endpoints coincide
+qEpsilon(1) = tsum_n weight(n)*0 = 0
+K_raw(x, x) = qEpsilon(exp(0)) / (2*epsilon'(1+)) = 0.
+```
+
+The corresponding raw diagonal integral is also formalized as
+`integral_endpointWindowKernel_diagonal_zero` for every measure.  This is the
+precise kernel-level content of Remark 6; it is not yet an equality with the
+trace of a Hilbert-space operator.
+
+`C1CC20EndpointKernelOwnerGuard.lean` also log-lifts this raw kernel to the
+positive-coordinate domain and proves the specific theorem
+`cc20RegularKernel_ne_endpointKernelOnPositiveCoordinates`.  Thus the
+existing positive-diagonal `Q(delta)` owner cannot be substituted for the
+paper formula even as a literal kernel function.
+
+This progress has an important precise limit.  Lean's `tsum` is totalized, so
+the `rho = 1` result is sound with no convergence premise because every
+summand is zero.  It does **not** show that the series converges to the
+analytic `Qepsilon` for other `rho`, construct the prolate modes, prove the
+kernel has finite `L2` mass, or construct the interval-restricted bounded
+operator `K_I`.  Those four analytic steps remain the required route into the
+already-proved `C1CC20LpOperator` and `C1CC20OperatorGap` foundations.
+
+Focused native WSL ext4 builds are green for the formula, owner guard, and
+audit; every new theorem audits to `[propext, Classical.choice, Quot.sound]`
+with no `sorryAx`.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean

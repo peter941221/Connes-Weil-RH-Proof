@@ -1,0 +1,25 @@
+import ConnesWeilRH.Dev.C1CC20EndpointKernelOwnerGuard
+
+namespace ConnesWeilRH.Source.C1CC20EndpointKernelOwnerGuard
+
+open CC20Concrete
+
+#check CC20EndpointSpectralData.weight_denominator_pos
+#check CC20EndpointSpectralData.epsilonUpper_one
+#check CC20EndpointSpectralData.qEpsilonSummand_one
+#check CC20EndpointSpectralData.qEpsilon_one
+#check CC20EndpointSpectralData.endpointAdditiveKernel_zero
+#check CC20EndpointSpectralData.endpointWindowKernel_diagonal
+#check CC20EndpointSpectralData.integral_endpointWindowKernel_diagonal_zero
+#check endpointKernelOnPositiveCoordinates_diagonal
+#check cc20RegularKernel_ne_endpointKernelOnPositiveCoordinates
+
+#print axioms CC20EndpointSpectralData.qEpsilonSummand_one
+#print axioms CC20EndpointSpectralData.qEpsilon_one
+#print axioms CC20EndpointSpectralData.endpointAdditiveKernel_zero
+#print axioms CC20EndpointSpectralData.endpointWindowKernel_diagonal
+#print axioms CC20EndpointSpectralData.integral_endpointWindowKernel_diagonal_zero
+#print axioms endpointKernelOnPositiveCoordinates_diagonal
+#print axioms cc20RegularKernel_ne_endpointKernelOnPositiveCoordinates
+
+end ConnesWeilRH.Source.C1CC20EndpointKernelOwnerGuard

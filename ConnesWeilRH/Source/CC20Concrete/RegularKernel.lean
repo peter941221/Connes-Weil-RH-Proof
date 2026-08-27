@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Source.CC20Concrete.RegularKernelCandidate
+import Mathlib.Analysis.Real.Pi.Bounds
 import Mathlib.MeasureTheory.Function.LocallyIntegrable
 
 /-!
@@ -50,6 +51,19 @@ noncomputable def ratioRadius
 /-- Ordinary two-variable part of the proposed CC20 compact remainder. -/
 noncomputable def cc20QDeltaDiagonalValue : ℝ :=
   8 * Real.pi ^ 2 / 9 + sineIntegralQuotient (4 * Real.pi) - 1 / 2
+
+/-- The continuous diagonal value selected for the current `Q(delta)` regular
+profile is strictly positive. -/
+theorem cc20QDeltaDiagonalValue_pos : 0 < cc20QDeltaDiagonalValue := by
+  unfold cc20QDeltaDiagonalValue
+  have hsi : -1 ≤ sineIntegralQuotient (4 * Real.pi) :=
+    neg_one_le_sineIntegralQuotient _
+  have hpi : 3 < Real.pi := Real.pi_gt_three
+  have hpiPlus : 0 < Real.pi + 3 := by
+    nlinarith [Real.pi_pos]
+  have hpiSq : 0 < (Real.pi - 3) * (Real.pi + 3) :=
+    mul_pos (sub_pos.mpr hpi) hpiPlus
+  nlinarith
 
 /-- Measurable diagonal extension candidate for the ordinary `Q(delta)`
 profile.  Continuity at `rho = 1` is a separate theorem. -/
@@ -262,6 +276,31 @@ theorem measurable_cc20RegularKernel : Measurable cc20RegularKernel := by
 theorem cc20RegularKernel_diagonal (u : PositiveCoordinate) :
     cc20RegularKernel (u, u) = cc20QDeltaDiagonalValue := by
   simp [cc20RegularKernel, ratioRadius, ne_of_gt u.property]
+
+/-- Every pointwise diagonal value of the current `Q(delta)` regular kernel is
+strictly positive. -/
+theorem cc20RegularKernel_diagonal_pos (u : PositiveCoordinate) :
+    0 < cc20RegularKernel (u, u) := by
+  rw [cc20RegularKernel_diagonal]
+  exact cc20QDeltaDiagonalValue_pos
+
+/-- A raw kernel whose pointwise diagonal is identically zero cannot be the
+current `Q(delta)` regular kernel.  This rejects only a literal pointwise
+kernel identification; a statement about almost-everywhere kernels or induced
+integral operators needs additional evidence away from the diagonal. -/
+theorem cc20RegularKernel_ne_of_pointwise_zero_diagonal
+    (candidate : PositiveCoordinate × PositiveCoordinate → ℝ)
+    (hzero : ∀ u : PositiveCoordinate, candidate (u, u) = 0) :
+    cc20RegularKernel ≠ candidate := by
+  intro hEq
+  have hdiag : cc20QDeltaDiagonalValue = 0 := by
+    calc
+      cc20QDeltaDiagonalValue =
+          cc20RegularKernel (cc20SqrtILower, cc20SqrtILower) :=
+        (cc20RegularKernel_diagonal cc20SqrtILower).symm
+      _ = candidate (cc20SqrtILower, cc20SqrtILower) := congrFun hEq _
+      _ = 0 := hzero cc20SqrtILower
+  exact (ne_of_gt cc20QDeltaDiagonalValue_pos) hdiag
 
 theorem continuousAt_cc20RegularKernel_diagonal (u : PositiveCoordinate) :
     ContinuousAt cc20RegularKernel (u, u) := by

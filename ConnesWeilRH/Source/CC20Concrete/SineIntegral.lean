@@ -84,6 +84,22 @@ theorem continuous_sineIntegralQuotient : Continuous sineIntegralQuotient := by
 theorem measurable_sineIntegralQuotient : Measurable sineIntegralQuotient :=
   continuous_sineIntegralQuotient.measurable
 
+/-- The normalized sine-integral average is bounded below by the pointwise
+lower bound for `sinc`. -/
+theorem neg_one_le_sineIntegralQuotient (x : ℝ) :
+    -1 ≤ sineIntegralQuotient x := by
+  unfold sineIntegralQuotient
+  have hconstant : IntervalIntegrable (fun _ : ℝ => (-1 : ℝ)) volume 0 1 :=
+    continuous_const.intervalIntegrable 0 1
+  have hsinc : IntervalIntegrable (fun t : ℝ => Real.sinc (x * t)) volume 0 1 :=
+    (Real.continuous_sinc.comp (continuous_const.mul continuous_id)).intervalIntegrable 0 1
+  have hmono := intervalIntegral.integral_mono
+    (μ := volume) (a := (0 : ℝ)) (b := 1)
+    (f := fun _ : ℝ => (-1 : ℝ))
+    (g := fun t : ℝ => Real.sinc (x * t))
+    (by norm_num) hconstant hsinc (fun t => Real.neg_one_le_sinc (x * t))
+  simpa using hmono
+
 lemma sinc_slope_bound_pos {x : ℝ} (hx : 0 < x) (hx1 : x ≤ 1) :
     |(Real.sinc x - 1) / x| ≤ x / 4 := by
   have hsin_upper : Real.sin x < x := Real.sin_lt hx

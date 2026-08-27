@@ -9,8 +9,11 @@ open ConnesWeilRH.Source.CC20Concrete
 #check ratioRadius_eq_one_iff
 #check cc20RegularKernel
 #check cc20QDeltaDiagonalValue
+#check cc20QDeltaDiagonalValue_pos
 #check cc20QDeltaRegularExtension
 #check cc20RegularKernel_diagonal
+#check cc20RegularKernel_diagonal_pos
+#check cc20RegularKernel_ne_of_pointwise_zero_diagonal
 #check cc20RegularKernel_off_diagonal
 #check measurable_cc20RegularKernel
 #check cc20RegularKernel_swap
@@ -26,6 +29,9 @@ open ConnesWeilRH.Source.CC20Concrete
 
 #print axioms one_le_ratioRadius
 #print axioms ratioRadius_eq_one_iff
+#print axioms cc20QDeltaDiagonalValue_pos
+#print axioms cc20RegularKernel_diagonal_pos
+#print axioms cc20RegularKernel_ne_of_pointwise_zero_diagonal
 #print axioms measurable_cc20RegularKernel
 #print axioms cc20RegularKernel_swap
 #print axioms continuousWithinAt_cc20QDeltaRegularExtension_Ici
