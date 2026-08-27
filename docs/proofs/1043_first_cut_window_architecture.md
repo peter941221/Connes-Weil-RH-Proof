@@ -1198,6 +1198,31 @@ Verdict first, then evidence.
   (`cosh cos(t(x-y)) - cos(t(x+y))`); the lossy extraction had suggested a
   plus.  An earlier draft of this section carried the wrong sign; corrected
   in place after the visual read.
+* Section-6 coefficients `X_rho`, CERTIFIED by visual read of book p.202
+  (2026-08-28).  `phi` is the characteristic function of `(1/M, M)` with
+  `M = e^t`; the test functions are `f in W_0` of the form
+  (6.1) `f(x) = sum_rho X_rho phi(x) x^{-rho} + X_0 phi(x)
+         + X_1 phi(x) x^{-1}`  if `x in (M^{-1}, M)`,
+  and `f(x) = 0` if `x not in (M^{-1}, M)`; the sum runs over ALL complex
+  zeros `rho` of zeta, repeated according to their multiplicity `m(rho)`.
+  The two end coefficients are fixed by `f(M) = f(1/M) = 0` (6.2):
+  `X_0 = - sum_rho (M^{1-rho} - M^{rho-1})/(M - M^{-1}) X_rho`,
+  `X_1 = - sum_rho (M^rho - M^{-rho})/(M - M^{-1}) X_rho`.
+  The Mellin transform factors term by term (6.3):
+  `f~(s) = sum_rho X_rho phi~(s-rho) + X_0 phi~(s) + X_1 phi~(s-1)`.
+  By Lemma 7, for `f` to be a formal solution of the dual eigenvalue
+  problem it is SUFFICIENT (footnote 5: only sufficient -- the expansion
+  (6.1) may lack uniqueness) that `X_rho = f~(rho)/(lambda rho (1-rho))`;
+  in view of (6.3) this yields the eigenvalue equation (6.4):
+  `lambda rho (1-rho) X_rho =
+     sum_{rho'} [ phi~(rho-rho')
+       - (M^{1-rho'} - M^{rho'-1})/(M - M^{-1}) phi~(rho)
+       - (M^{rho'} - M^{-rho'})/(M - M^{-1}) phi~(rho-1) ] X_{rho'}`.
+  CLARIFICATION for (7.2)/(7.4) inherited from the same read: on book
+  p.203 `Lambda = 1/lambda` is a SCALAR -- (7.4) is
+  `w = Lambda * (H(Gamma;t) w)` with the scalar multiple of the vector,
+  not a diagonal matrix acting on the left; the landed
+  `bombieriEigenvec_iff` states exactly this shape.
 * Lemma-10 identity COMPLETED (display in its proof, book p.210, same
   triangle-verified status):
   `2t K*(x,y,t) = 2 sin(t(x-y))/(x-y)
@@ -1436,6 +1461,37 @@ sufficient for the route decision.
   matrix layer over a finite zero set and the `z_gamma = X_rho`
   transcription remain open (`X_rho`'s definition needs a fresh book
   p.204 read; the scan stays out of the repository).
+* Bombieri (7.2)/(7.4)/(7.5) finite-Gamma matrix layer
+  (`C1BombieriSection7Gamma`): LANDED, axiom-clean (leaf + audit
+  `1706 jobs`, 0 sorryAx).  Gamma is modeled as `gamma : Fin n -> Real`
+  (repetitions carry the multiplicity `m(gamma)`): `bombieriWOfZ` is the
+  (7.2) coordinate change `w_gamma = (1/4 + gamma^2) z_gamma`
+  (`noncomputable` -- the real division `1/4` pulls in
+  `Real.instDivInvMonoid`); `bombieriHMatrix` is (7.4)'s `H(Gamma;t)`
+  with `bombieriHMatrix_transpose` proving it symmetric (flagship
+  `bombieriH_symmetric` off the diagonal, `by_cases` trivial on it);
+  `bombieriHMatrix_mulVec_weight` is the ownership identity -- the
+  H-matrix acting on the weighted vector equals `2 t` times the raw
+  `K*`-matrix acting on `z`, per entry through the private `entry_eq`
+  -- which is why (7.4) is equivalent to the original system (6.4);
+  `bombieriEigenvec_iff` is the (7.4) readback in scalar-Lambda shape:
+  `w = Lam * (H(Gamma;t) *v w)` componentwise (for every index `i`,
+  `w i = Lam * (H(Gamma;t) *v w) i`) iff `w = Lam smul (H(Gamma;t) *v w)`
+  as vectors; `bombieriD` is the
+  (7.5) resolvent determinant `det[I - Lam smul H(Gamma;t)]` with
+  `bombieriD_zero : D(0,t) = 1` (Theorem 6's constant term).  The
+  section-6 `X_rho` definition (6.1)-(6.4) is transcribed into section
+  6y from the book p.202 visual read; in the finite-certificate lane
+  `z` enters as explicit data indexed by Gamma, so no function-space
+  infrastructure is needed.  Mechanics: the `ᵀ` transpose notation is
+  namespace-scoped in v4.30 -- write `Matrix.transpose`; v4.30 has root
+  `dotProduct`, no `Matrix.dotProduct`, but `M.mulVec v i = sum j,
+  M i j * v j` holds by `rfl`, so a private elementwise helper replaces
+  unfolding; a hypothesis `h : w = ... w` must be transported via
+  `congrArg (fun v => v i) h`, NOT `rw [h]` (`rw` would also rewrite
+  the `w` inside `mulVec w`); `simp only` on the mulVec sums keeps the
+  summands LEFT-associated (`(2t) bullet K* bullet z`), so per-entry
+  helpers must be stated in the same association.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

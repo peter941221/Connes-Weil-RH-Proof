@@ -126,3 +126,18 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   mul_assoc is LEFT-associated (flatten with the backward rewrite);
   mul_left_comm needs explicit instantiation.  Next: (7.4)/(7.5) matrix
   layer over Fin n; z_gamma = X_rho needs a fresh book p.204 read.
+- 2026-08-28 C1BombieriSection7Gamma(+Audit) : the (7.2)/(7.4)/(7.5)
+  finite-Gamma matrix layer landed - bombieriWOfZ (w = (1/4+gamma^2) z),
+  bombieriHMatrix + bombieriHMatrix_transpose (H(Gamma;t) symmetric),
+  bombieriHMatrix_mulVec_weight (H on the weighted vector = 2t times the
+  raw K*-matrix on z, i.e. (7.4) is exactly (6.4)),
+  bombieriEigenvec_iff (scalar-Lambda eigenvector readback), bombieriD
+  (det[I - Lam smul H]) + bombieriD_zero (D(0,t) = 1).  Leaf + audit
+  1706 jobs, axiom-clean ([propext, Classical.choice, Quot.sound], no
+  sorryAx).  Section-6 X_rho definition (6.1)-(6.4) transcribed into doc
+  1043 section 6y from the book p.202 visual read (Lambda = 1/lambda is
+  a SCALAR).  Mechanics: v4.30 Matrix.transpose notation is
+  namespace-scoped; mulVec v i = sum j, M i j * v j holds by rfl (root
+  dotProduct, no Matrix.dotProduct); transport h : w = ... w via
+  congrArg, never rw.  Next: Lemma-10/Theorem-8 conditional sign
+  detector; then K_I-T finite-rank profile toward GATE 1.
