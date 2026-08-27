@@ -1690,6 +1690,54 @@ sufficient for the route decision.
   `coth(t/2)` weight (`φ₋ = e^{u/2} − e^{−u/2}`, odd, `φ₋(t) ≠ 0` for
   `t ≠ 0`), and the (8.14) assembly over the eigenvalue equation.
   DETECTOR only.
+* Wirtinger (8.13) slice 7f, the odd envelope core
+  (`C1BombieriSection8WirtingerSlice6`): LANDED, axiom-clean (leaf + audit
+  `2658`/`2659 jobs`, 0 sorryAx).  The mirror of slices 7a/7b for the odd
+  envelope `phiOdd u = e^{u/2} − e^{−u/2}` with derivative
+  `½(e^{u/2} + e^{−u/2})`: `hasDerivAt_phiOdd`, the ODE `phiOdd_ode`
+  (`(φ₋')' = ¼φ₋`, derivative target reusing the raw lambda so `ring`
+  needs no def unfolding), square expansions `phiOdd_sq`
+  (`φ₋² = e^u − 2 + e^{−u}`) and `phiOddDeriv_sq`
+  (`φ₋'² = ¼(e^u + 2 + e^{−u})`), the product-rule transport
+  `hasDerivAt_g_mul_phiOdd'`, the IBP core `ibpCoreOdd` /
+  `ibpCoreOdd_zero`, and flagship `envelopeIntegralOdd`:
+  `¼∫φ₋² + ∫φ₋'² = e^t − e^{−t}` — the SAME constant `R` as the even
+  case, the `±2` terms of the two expansions canceling through the
+  interval integrals.  The Q-form integrand is parity-independent, so
+  the real channel of slice 7d is reused verbatim; only the IBP weights
+  are mirrored.  Cosmetic note: the log carries an INFO-level
+  `ring`/`ring_nf` suggestion block with zero `error:` lines — the
+  acceptance signal stays the log text plus the axiom audit.
+  Remaining (8.13) steps open: the odd Q-shift + odd-case inequality,
+  and the (8.14) assembly.  DETECTOR only.
+* Wirtinger (8.13) slice 7g, the odd-case inequality
+  (`C1BombieriSection8WirtingerSlice7`): LANDED, axiom-clean (leaf + audit
+  `2660 jobs`, 0 sorryAx).  Completes the even/odd pair behind (8.13):
+  `xIntegrandOdd`/`rIntegralOdd`/`xIntegralOdd_zero`/
+  `xIntegralOdd_conj_zero` (the odd IBP cross integrals, vanishing at
+  zero endpoints through the integral-level conj transport of slice 7c),
+  `qIntegrandOdd_expansion` + flagship `qShiftOdd`
+  (`Q(F + c·φ₋) = Q(F) + c·conj(c)·(e^t − e^{−t})` — the same constant
+  `R` as the even case), `phiOdd_odd`/`phiOdd_pos` (`t > 0` makes
+  `φ₋(t) > 0`), the weight identification
+  `coshHalf_div_sinhHalf_eq_ratio`
+  (`(e^t − e^{−t})/(e^{t/2} − e^{−t/2})² = cosh(t/2)/sinh(t/2)` — the
+  `coth(t/2)` of the book's (8.13); Mathlib v4.30 has NO `Real.coth`
+  anywhere, so the weight is stated through `cosh`/`sinh`), and flagship
+  `wirtingerOdd`: for odd `Z` with `t > 0`, `Q(Z)` is the cast of a real
+  expression dominating `normSq(Z t)·(e^t − e^{−t})/φ₋(t)²` with slack
+  `S ≥ 0`.  Odd-mirror mechanics worth recording (both NEW vs the even
+  case): (1) the weight identity needs an explicit difference-of-squares
+  factorization BEFORE `field_simp` — the residual otherwise carries
+  `(a−b)²`-inverse and `(a−b)`-inverse as distinct `ring` atoms that
+  never cancel (and `field_simp` alone then closes the goal, so the
+  trailing `ring` must go); (2) in the odd-endpoint hypothesis the
+  `rw [phiOdd_odd]` puts the negation INSIDE the cast
+  (`Complex.ofReal (-phiOdd t)`) — `Complex.ofReal_neg` must pull it out
+  before `field_simp`, since `ring` treats `↑(−φ₋t)` and `↑(φ₋t)` as
+  different atoms.  Remaining (8.13) steps open: the (8.14) assembly
+  over the eigenvalue equation, then the Theorem-8 sign count.
+  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
