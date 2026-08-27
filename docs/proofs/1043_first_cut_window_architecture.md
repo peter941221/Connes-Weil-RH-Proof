@@ -729,6 +729,56 @@ Audit` chain green on ext4 explicit targeting (`2687` jobs); all five new
 declarations report exactly `[propext, Classical.choice, Quot.sound]`, no
 `sorryAx`.
 
+### 6n. CC20 §5–6 extraction: the numerical bridge into GATE 1 (2026-08-27)
+
+Primary-source quotes pulled from <https://arxiv.org/html/2006.13771>
+(all equation numbers theirs):
+
+* Proposition 5, eqs (103)/(104): for an interval `I ⊆ [−log 2, log 2]`
+  of length ≤ log 2 the correlation form defines
+  `N_I = −2ε′(1₊)(Id − K_I)` with
+
+```text
+⟨η|K_I ξ⟩ = (2ε′(1₊))⁻¹ ∫∫ η̄(x) ξ(x+v) (Qε)(exp|v|) dx dv
+```
+
+  i.e. a DISPLACEMENT-type operator: only `v` enters the raw profile, `x`
+  runs along the interval.
+* Lemma 3, eqs (119)/(120)/(121): if `τ(λ,α,d,m)` approximates
+  `χ := (Qε)(exp|x|)/(2ε′(1₊))` in `L¹([0, log 2])` to distance ≤ ε,
+  then on `I = [−(log 2)/2, (log 2)/2]` the compact `K_I` is within OPERATOR
+  NORM ε of the finite rank
+  `T = λ Σ_n (e_n − d(|n|) e_{α_n})`, where `e_α` are rank-one projections
+  onto `exp(±2πiαx/log 2)`, with conventions `α_{−n} = −α_n`, `d(0) = 0`,
+  and `α_n = n`, `d(n) = 1` for `n > m`.  The proof is one inequality,
+  eq (121): `|∫∫ η̄ξ(x+v)a(v)| ≤ ‖ξ‖‖η‖ ∫|a(v)|dv` via pointwise
+  Cauchy–Schwarz in `x`.
+* Eq (114)/(115) (Fact 1): with `m = 1732` and the paper's downloaded
+  angles/coefficients, `2∫₀^{log 2}|τ − χ| dx ∼ 0.00122`.
+* §6.2 eq (105): discretized Toeplitz form on lattice `ωZ`, `ω = 1/5000`;
+  precise numeric tables are published as a DOWNLOAD, not in text — any
+  transcription must flag them as externally-sourced certificate inputs.
+* Appendix F: the first 11 prolate terms already give uniform 1e−11
+  approximation of `Qε`.
+
+Contract for the next Lean leaves (above the landed
+`C1CC20RootWindowOperator` boundedness brick):
+
+```text
+L1  corrKernel/composition: displacement-form kernel equals
+    profile∘(p.2 − p.1) on the pair window        [definition-level]
+L2  opNorm-distance bridge, paper (121):
+    ‖A_a − A_b‖ ≤ L¹-window-mass of (a − b)
+    via pointwise Cauchy–Schwarz                  [the reusable engine]
+L3  finite-rank slot: T = λ Σ (e_n − d e_{αn})    [spectral consumer]
+```
+
+Evidence boundary: the numeric certificates (λ, angles α_j, d(j), Fact 1's
+0.00122) originate in a computer calculation whose precise values are a
+downloadable artifact; they enter Lean ONLY through explicit rational-
+interval certificate nodes (per §6k anti-fabrication mechanics), never as
+bare literals.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
