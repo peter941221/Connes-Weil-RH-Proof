@@ -14,95 +14,123 @@ Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 
 ### Route map
 
-Read top-down: the goal needs one gap closed; the gap decomposes into named
-obligations, each tagged with its state.
+Read it like a pilgrimage: the departure is at the top, RH lies at the
+bottom; every station on the road carries its state.
 
 ```text
-              HOW THIS REPOSITORY ATTACKS THE RIEMANN HYPOTHESIS
 
-   One test family g; one real number qw(g); one demand:
-   qw(g) >= 0 for every admissible vanishing test g.
+            THE ROAD TO THE RIEMANN HYPOTHESIS - JOURNEY MAP
+        read downward: the departure is at the top, RH at the bottom
 
-              +------------------------------------------+
-              | RIEMANN HYPOTHESIS                       |
-              | _root_.RiemannHypothesis (Mathlib)       |
-              +------------------------------------------+
-                                    ^
-                                    | wrapper composition only:
-                                    | coverage-root <-> SourceRH bridges,
-                                    | conditional exits pre-composed. [LANDED]
-        +------------------------------------------------------+
-        | UNIVERSAL WEIL POSITIVITY      ** THE GAP **         |
-        |                                                      |
-        | qw(g) >= 0 for EVERY admissible vanishing test       |
-        | (= the detector/criterion coverage root)             |
-        +------------------------------------------------------+
+   ===================  LEG I - ALREADY BEHIND US  ====================
 
-      THE GAP decomposes into four named obligations:
+   DEPARTURE (July 2026): the Weil criterion is chosen as the road.
+   If qw(g) >= 0 for EVERY admissible vanishing test g, then RH follows.
 
-+--< (1) TEST-CLASS COMPLETENESS
-|       density of admissible tests inside all vanishing tests;
-|       lifts any fixed-window result to universality.
-|                                             [OPEN]
-|
-+--< (2) ARITHMETIC = SPECTRAL, on ONE owner
-|       qw(g) equals its spectral value;
-|       gate2ExplicitFormula_centerTwo       [LANDED]
-|
-+--< (3) ROOT-WINDOW REWRITE ... and THE SIGN INSIDE IT
-|
-|     On ROOT-supported triple-vanishing tests qw collapses to the
-|     archimedean term alone:
-|
-|            qw(g)  =  - arch(g^2)
-|
-|     primes die by support, pole dies by triple vanishing;
-|     pure algebra.                          [LANDED]
-|
-|     So everything now hangs on GATE 1:
-|
-|     +==< (4) GATE 1 : ENDPOINT SIGN THEOREM
-|     ||                                     ** YOU ARE HERE **
-|     ||
-|     ||    arch(g^2) <= 0  for all ROOT-class tests.
-|     ||    Published mechanisms exist (Yoshida 1992, Connes-Consani
-|     ||    2020); none formalized yet.      [OPEN]
-|     ||
-|     ||=== fed by (4a) CONCRETE K_I - T ENVELOPE
-|     |||      rank-one approximant T = lambda*rankOne(phi,phi) and a
-|     |||      certified operator-norm envelope into eq-(121);
-|     |||      consumes applyKernelLp + eq-(121) pairing bound.
-|     |||      Next actionable brick.        [NEXT]
-|     |||
-|     ||=== fed by (4b) NUMERIC CERTIFICATE DATA
-|     |||      Yoshida exact-rational LDL^T (engine ready under
-|     |||      scripts/yoshida_intervals/)  OR  CC20 rank-one bound,
-|     |||      gamma ~= 2.94355 certified in 13 < 4g/log 2 < 17.
-|     |||                                    [DATA OPEN]
-|     |
-|     '+--> both stand on the OPERATOR FLOOR, already built:
-|             windowed kernels -> L2 mass ladder -> eq-(121) fold
-|             -> bounded operators applyKernelLp     [LANDED]
-|
-+ - < (5) GATE 2 : TITCHMARSH SQUARE-FORM BRIDGE
-          would widen the class beyond ROOT support; classical proofs
-          need Cartwright theory absent from Mathlib. Not needed for
-          the first cut.                       [DEFERRED]
+        |
+        v  +-----------------------------------------------------+
+           | STATION 1 - SAME-OWNER FOUNDATIONS     [CLEARED]    |
+           | log-coordinate bridge; pole / archimedean / prime   |
+           | readbacks; xi-zero index and spectral summability   |
+           +-----------------------------------------------------+
+        |
+        v  +-----------------------------------------------------+
+           | STATION 2 - GATE 2                    [CLEARED]     |
+           | arithmetic-to-spectral equality on ONE owner;       |
+           | center-2 contour assembly                           |
+           +-----------------------------------------------------+
+        |
+        v  +-----------------------------------------------------+
+           | STATION 3 - THE W-MOUNTAIN PASS       [CLEARED]     |
+           | W1 online nonnegativity -> W2 vanishing bridge ->   |
+           | W3 spectral split -> W4a conjugation -> W4b pairing |
+           | (residual = 2 x Re(right-half sum)) -> real-test    |
+           | reduction. Five days, five lemmas, axiom-clean.     |
+           +-----------------------------------------------------+
+        |
+        |
+        +------>  SIDE VALLEY - the budget-window ladder:
+        |         three rungs carved, then PROVEN unreachable
+        |         against the ROOT window: B(log 2) ~= +3.9 > 0.
+        |                            ** TURNED BACK **
+        |
+   ============  LEG II - THE GREAT TURN (CC20 ROUTE)  ================
 
-When (4) turns LANDED, stream (3) yields ROOT-class positivity; then
-(1) promotes it to THE GAP itself - and with (2) underneath, the
-existing wrapper composes an unconditional proof of RH.
+        v  +-----------------------------------------------------+
+           | STATION 4 - OPERATOR FLOOR ON WINDOW I [BUILT]      |
+           | [-log2/2, log2/2]: kernels -> L2 mass ladder ->     |
+           | eq-(121) fold -> bounded operators applyKernelLp.   |
+           | The pure-algebra key already fits too:              |
+           | qw(g) = -arch(g^2) here (primes die by support,     |
+           | pole dies by triple vanishing).                     |
+           +-----------------------------------------------------+
+        |
+
+   ##############  YOU ARE HERE  -  GATE 1 BASE CAMP  ################
+
+        |  BASE CAMP OF GATE 1 - ENDPOINT SIGN THEOREM
+        |
+        |      goal: arch(g^2) <= 0 for all ROOT-class tests
+        |                                            [OPEN]
+        |      two supply lines being cut through:
+        |
+        |      (a) CONCRETE K_I - T ENVELOPE......... [NEXT]
+        |          rank-one approximant + certified norm
+        |          envelope feeding eq-(121)
+        |
+        |      (b) NUMERIC CERTIFICATE DATA.... [DATA OPEN]
+        |          Yoshida exact-rational LDL^T OR CC20
+        |          rank-one bound gamma ~= 2.94355 in
+        |          13 < 4g/log 2 < 17
+        |
+
+   =====================  LEG III - STILL AHEAD  ======================
+
+        |
+        v  +-----------------------------------------------------+
+           | STATION 5 - TEST-CLASS COMPLETENESS   [AHEAD]       |
+           | density of admissible tests: lifts ROOT-class       |
+           | positivity to EVERY vanishing test                  |
+           +-----------------------------------------------------+
+        |
+        v  +-----------------------------------------------------+
+           | STATION 6 - UNIVERSAL WEIL POSITIVITY  [LAST GAP]   |
+           | qw(g) >= 0 universally (= the coverage root)        |
+           +-----------------------------------------------------+
+        |
+        v  +-----------------------------------------------------+
+           | STATION 7 - WRAPPER COMPOSITION       [LANDED]      |
+           | coverage-root <-> SourceRH bridges plus the         |
+           | conditional exits; proved once; no analysis inside  |
+           +-----------------------------------------------------+
+        |
+        v
+   ,---------------------------------------------------,
+   |            R I E M A N N   H Y P O T H E S I S    |
+   |            _root_.RiemannHypothesis (Mathlib)     |
+   '---------------------------------------------------'
+
+   ROADS NOT TAKEN (kept so nobody wanders back in):
+     x  bare whole-line Hilbert-Schmidt premise - false for every
+        nonzero test (proved)
+     x  plain-window cutoff trace family - empty producer (proved)
+     o  GATE 2 Titchmarsh square-form bridge - deferred by design;
+        not needed for this first cut (Cartwright theory absent
+        from Mathlib)
 ```
 
 How to read the tags:
 
-- `[LANDED]` - proved in Lean and axiom-clean: every audited declaration
-  reports exactly `[propext, Classical.choice, Quot.sound]`, never `sorryAx`.
-- `[OPEN]` - an explicit, separately audited obligation; nothing is hidden
-  behind an axiom or a placeholder.
-- `[NEXT]` - the current construction target; `[DATA OPEN]` - the numeric
-  side of a tag whose Lean interfaces already exist.
-- `[DEFERRED]` - postponed by a documented design decision, recorded in
+- `[CLEARED]` / `[BUILT]` / `[LANDED]` - proved in Lean and axiom-clean:
+  every audited declaration reports exactly
+  `[propext, Classical.choice, Quot.sound]`, never `sorryAx`.
+- `[OPEN]` / `[AHEAD]` / `[LAST GAP]` - explicit outstanding obligations;
+  nothing is hidden behind an axiom or a placeholder.
+- `[NEXT]` - the brick under construction right now; `[DATA OPEN]` - the
+  numeric side of a gate whose Lean interfaces already exist.
+- `** TURNED BACK **` and the `x` roads - ruled-out paths, kept as signposts
+  so nobody wanders back in; `[DEFERRED]` / `o` - postponed by a documented
+  design decision, recorded in
   [proof 1043](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1043_first_cut_window_architecture.md),
   the living design record behind this map.
 
