@@ -1413,6 +1413,19 @@ restricted/global masses with one evaluation object.
   map_add_right_eq_self …]`. (Observed 2026-08-27,
   measure_preimage_add_right_null.)
 
+- **A real exponent selects `Real.rpow`, not natural-number `pow`**: in a
+  goal such as `0 ≤ ‖f x‖ ^ (2 : ℝ)`, `pow_nonneg` expects a `Nat` exponent
+  and reports a type mismatch.  Use
+  `Real.rpow_nonneg (norm_nonneg _) _`; this is also the existing idiom in
+  `C1CC20LpOperatorNorm`. (Observed 2026-08-27, PairingFold.)
+
+- **`MeasureTheory.integral_mono` here wants a pointwise function order**:
+  after proving `h : ∀ x, f x ≤ g x`, pass `h` directly.  Wrapping it as
+  `Filter.Eventually.of_forall h` gives a type mismatch because this API does
+  not take an a.e. relation.  Also prefer `change` over `show` when it alters
+  the goal; the latter compiles but triggers a style lint. (Observed
+  2026-08-27, PairingFold.)
+
 ## 8. WSL Verification
 
 WSL2 is a **verification environment, not a source workspace**. Author/manage

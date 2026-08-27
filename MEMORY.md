@@ -1,3 +1,31 @@
+## Change Log (2026-08-27 session 26c, CC20 Lemma-3 pairing fold)
+- **Result: good.**  `Dev/C1CC20PairingFold.lean` now closes the L2b
+  analytic engine behind Connes--Consani Lemma 3 / equation (121), as cited
+  in `docs/proofs/1043_first_cut_window_architecture.md` from
+  [arXiv:2006.13771](https://arxiv.org/html/2006.13771).  The new
+  `aestronglyMeasurable_corrInnerSlice` constructs strong measurability of
+  the displacement-slice map from `MemLp` representatives, product
+  measurability, partial integration, and the already-proved a.e. shift
+  transport.  `abs_corrWeightedFold_le` then proves the exact generic bound
+
+  ```text
+  || integral a(v) * corrInnerSlice(eta, xi, v) dv ||
+    <= mass(eta)^(1/2) * mass(xi)^(1/2) * integral ||a(v)|| dv.
+  ```
+
+- The proof consumes `abs_corrInnerSlice_uniform` from
+  `C1CC20UniformSlice`, dominates pointwise by the fixed Cauchy--Schwarz
+  constant times `||a||`, obtains integrability via `Integrable.mono`, and
+  closes with `norm_integral_le_integral_norm` plus `integral_mono`.
+- Native WSL2 ext4 evidence: explicit audit target
+  `lake build ConnesWeilRH.Dev.C1CC20PairingFoldAudit` completed successfully
+  at `2688/2688` jobs.  Both declarations print exactly
+  `[propext, Classical.choice, Quot.sound]`; no `sorryAx` occurs.
+- Scope boundary: this is a generic L1-weighted correlation inequality.  It
+  does not yet identify the paper's concrete `K_I - T` displacement profile,
+  prove its L1 numerical enclosure, construct finite-rank `T`, establish an
+  endpoint sign, discharge the active detector criterion, or prove RH.
+
 ## Change Log (2026-08-27 session 26b, windowed raw-kernel L2 brick)
 - `Dev/C1CC20RawKernelMass.lean` : restrict the paper's raw endpoint kernel to
   the symmetric square window `[-a,a]^2` and land its L2 glue: measurability

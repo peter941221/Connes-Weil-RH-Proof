@@ -877,6 +877,43 @@ through the null-preimage lemma above; domination/integrability closes with
 `Integrable.mono` against `(fun v => K * ‖a v‖)` from
 `Integrable.const_mul`.
 
+### 6q. L2b pairing fold: the full equation-(121) analytic engine (landed 2026-08-27)
+
+`Dev/C1CC20PairingFold.lean` closes the remaining L2b half as two
+axiom-clean declarations:
+
+```text
+aestronglyMeasurable_corrInnerSlice
+  MemLp eta 2, MemLp xi 2
+    -> AEStronglyMeasurable (fun v => corrInnerSlice eta xi v)
+
+abs_corrWeightedFold_le
+  || integral_v a(v) * corrInnerSlice eta xi v ||
+    <= (integral ||eta||^2)^(1/2)
+       * (integral ||xi||^2)^(1/2)
+       * integral ||a||.
+```
+
+The first declaration chooses the Borel representatives contained in the
+definition of `MemLp`; the joint map `(v,x) -> eta(x) * xi(x+v)` is strongly
+measurable by coordinate composition and multiplication, and
+`StronglyMeasurable.integral_prod_right` integrates out `x`.  The old and
+representative slices agree for each `v` through
+`eventuallyEq_comp_add_right`.
+
+The second declaration consumes the displacement-free bound
+`abs_corrInnerSlice_uniform`, bounds each folded integrand by
+`K * ||a v||`, proves it integrable with `Integrable.mono`, and applies
+`norm_integral_le_integral_norm` followed by `integral_mono`.  This is the
+formal analytic content of the Cauchy--Schwarz step in paper equation (121);
+the concrete profile `a = K_I - T` and its numerical L1 certificate remain
+separate next obligations.
+
+Native WSL2 ext4 audit evidence:
+`lake build ConnesWeilRH.Dev.C1CC20PairingFoldAudit` completed successfully
+at `2688/2688` jobs.  Both declarations audit to exactly
+`[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
@@ -927,6 +964,10 @@ through the null-preimage lemma above; domination/integrability closes with
   `abs_corrInnerSlice_uniform`): LANDED, axiom-clean (2687 jobs,
   0 sorryAx); the eq-(121) slice constant no longer depends on the
   displacement parameter.
+* L1-weighted correlation fold (`aestronglyMeasurable_corrInnerSlice`,
+  `abs_corrWeightedFold_le`): LANDED, axiom-clean (2688 jobs,
+  0 sorryAx); this is the generic equation-(121) engine, while the concrete
+  `K_I - T` L1 certificate remains open.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
