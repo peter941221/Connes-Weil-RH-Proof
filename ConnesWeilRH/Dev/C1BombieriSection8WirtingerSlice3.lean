@@ -59,7 +59,7 @@ private noncomputable def xIntegrand (f fp : Real → Complex) (x : Real) : Comp
     + f x * Complex.ofReal ((1 / 4 : Real) * phiEven x)
 
 /-- The Q-form integrand. -/
-private noncomputable def qIntegrand (f fp : Real → Complex) (x : Real) : Complex :=
+noncomputable def qIntegrand (f fp : Real → Complex) (x : Real) : Complex :=
   Complex.ofReal ((1 / 4 : Real)) * (f x * (starRingEnd ℂ) (f x))
     + fp x * (starRingEnd ℂ) (fp x)
 
