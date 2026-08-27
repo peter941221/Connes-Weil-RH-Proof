@@ -27,12 +27,18 @@ The Gate-1 numerical route in this repository cites:
   behind the access wall and were **NOT obtained**. Per repository integrity
   rules (`AGENTS.md` §6), no formula is fabricated here.
 
-Consequence for the plan: the "odd 10×10 / even 200×200 digamma LDLᵀ"
-description in `docs/proofs/1043` §6e should be treated as *unconfirmed until
-either (a) full text becomes accessible, or (b) CC20's own §6 Toeplitz route
-supplies the needed certificates directly*. Route choice between them is open;
-neither consumes anything from this scaffold until a primary-source formula
-lands.
+Consequence for the plan (updated 2026-08-27 evening): route (a) is now
+satisfied by a different open primary source. Bombieri 2000, section 7
+(53-page scan `~/bombieri_weil_qf.pdf`, kept out of the repository) supplies
+a certified elementary entry-formula system: the sinc kernel `K*`, the
+symmetry law (7.1), the eigen system (7.2)-(7.5), and the completed Lemma-10
+Gram identity -- visual read plus numerical triangle closure, worst deviation
+8.9e-16, recorded in `docs/proofs/1043` §6y (including a sign erratum found
+in the lossy text layer of (7.1)). The "odd 10×10 / even 200×200 digamma
+LDLᵀ" description of Yoshida's own matrices remains *unconfirmed* behind the
+access wall. The engine's digamma brackets stay available for the CC20 gamma
+lane. Transcription starts from the Bombieri section-7 formulas; nothing
+consumes this scaffold until those value nodes land.
 
 ## What the engine provides today
 
@@ -74,8 +80,9 @@ digamma bracket to high-precision `mpmath.mp.psi`.
 
 ## Integration path (when real data exists)
 
-1. Transcribe entry formulas from the accessible source (full text or a
-   paper-supplied table) into value nodes, one `source` per node.
+1. Transcribe entry formulas from the certified Bombieri section-7 system
+   (`docs/proofs/1043` §6y) into value nodes, one `source` per node; each
+   source string names the equation and the scan page it came from.
 2. Emit per-entry rational intervals `[lo_q, hi_q]`.
 3. Extend a Dev leaf consuming those pairs through the existing
    `C1YoshidaLdlCertificate` reading identity; keep floats on the generator

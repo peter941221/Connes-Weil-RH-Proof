@@ -1164,34 +1164,52 @@ successfully at `2698/2698` jobs.  All five declarations audit to exactly
 
 ### 6y. Scope-check of the finite-certificate route against Bombieri 2000 (landed 2026-08-27)
 
-Free source: E. Bombieri, "Remarks on Weil's quadratic functional in the theory
-of prime numbers, I" (local extracted text `~/blogs/bombieri.txt`; PDF never
-committed).  Purpose: verify the Yoshida-scope precedent and capture exact
-normalizations before any table transcription.  Verdict first, then evidence.
+Source: E. Bombieri, "Remarks on Weil's quadratic functional in the theory of
+prime numbers, I".  Primary artifact now on hand: the 53-page scan
+`~/bombieri_weil_qf.pdf` (stays out of the repository; book page p = pdf index
+p - 181).  Secondary: extracted text `~/blogs/bombieri.txt` (lossy on display
+math -- see the sign erratum below).  Purpose: verify the Yoshida-scope
+precedent and certify exact normalizations before any table transcription.
+Verdict first, then evidence.
 
 * GO for a finite-certificate GATE 1 attack, anchored twice.  (Intro, l.90:)
   Yoshida reduces positivity of the Weil functional on a fixed support
   `[-t, t]` to a finite calculation depending on t, and verifies that
   positivity at `t = (log 2)/2` -- exactly our ROOT half-width.  The
   reduction is unconditional.
-* Normalizations of section 7 captured verbatim; transcription must consume
-  these factors, never raw sinc Gram data:
+* Section-7 normalizations, now CERTIFIED by visual read of book p.203 plus a
+  numerical triangle closure (definition vs (7.1) vs the Lemma-10 form;
+  worst deviation 8.9e-16 over a grid containing `t = log 2/2`, the diagonal
+  `x = y`, `x = 0`, and off-window points; floats stay out of Lean):
   `K(x) = sin x / x`;
+  `K*(x,y,t) = K(t(x-y))
+     - (t/sinh t) (1/2+iy) K(t(i/2-y)) K(t(i/2+x))
+     - (t/sinh t) (1/2-iy) K(t(i/2+y)) K(t(i/2-x))`;
   `(1/4+x^2) K*(x,y,t) = (1/4+y^2) K*(y,x,t)
      = (1/4+xy) K(t(x-y))
-       - [cosh(t) cos(t(x-y)) + cos(t(x+y))] / (2 t sinh t)`   (7.1);
+       - [cosh(t) cos(t(x-y)) - cos(t(x+y))] / (2 t sinh t)`   (7.1);
   `z_gamma = X_rho`, `w_gamma = (1/4+gamma^2) z_gamma`, `Lambda = 1/lambda`
   (7.2);
   `H(x,y,t) = 2t K*(x,y,t) / (1/4+y^2)`   (7.3);
   `w = Lambda H w` over Gamma, `D(Lambda;t) = det[I - Lambda H(Gamma;t)]`
-  (7.4)/(7.5).
-* Kernel provenance sharpened (display in the Lemma-10 proof): up to the same
-  congruence weights, `H` is the `[-t,t]` Gram matrix of the exponentials
-  `e^{i gamma u}` plus explicitly displayed correction terms.  Entries are
-  elementary (`sinc`, `cosh`, `cos`) with NO digamma; the truncated tail of
-  that Lemma-10 identity is the next extraction target.  Bombieri's section-7
-  variant may therefore be cheaper to certify than Yoshida's own digamma
-  tables, with `scripts/yoshida_intervals/` kept as the verifying engine.
+  (7.4)/(7.5); Theorem 6: `D` is entire of order 1, finite exponential type,
+  with `D = 1 + sum (-1)^n Delta_n Lambda^n / n!`.
+  ERRATUM against the text layer: the sign inside (7.1)'s fraction is MINUS
+  (`cosh cos(t(x-y)) - cos(t(x+y))`); the lossy extraction had suggested a
+  plus.  An earlier draft of this section carried the wrong sign; corrected
+  in place after the visual read.
+* Lemma-10 identity COMPLETED (display in its proof, book p.210, same
+  triangle-verified status):
+  `2t K*(x,y,t) = 2 sin(t(x-y))/(x-y)
+     - [e^{(1/2-iy)t} - e^{-(1/2-iy)t}]/(e^t - e^{-t})
+       * [e^{(1/2+ix)t} - e^{-(1/2+ix)t}]/(1/2+ix)
+     - [e^{(1/2+iy)t} - e^{-(1/2+iy)t}]/(e^t - e^{-t})
+       * [e^{(1/2-ix)t} - e^{-(1/2-ix)t}]/(1/2-ix)`.
+  Entries are elementary (`sinc`, `cosh`, `cos`, complex exponentials) with
+  NO digamma.  Bombieri's section-7 system is therefore the accessible
+  primary-source entry-formula set for the finite-certificate lane, with
+  `scripts/yoshida_intervals/` kept as the verifying engine; Yoshida's own
+  digamma tables remain unconfirmed behind the access wall.
 * Sign-count framework recorded: Theorem 8 states `#negative eigenvalues of
   H(Gamma;t) = #distinct complex-conjugate pairs in Gamma`; Lemma 10 adds
   that all-real Gamma forces a nonnegative spectrum.  CAUTION: both are
@@ -1210,10 +1228,10 @@ normalizations before any table transcription.  Verdict first, then evidence.
   anticipate our strict-detector design.
 
 Decision consequence: brick 2 proceeds as planned.  Inside the
-finite-certificate lane, prefer deriving certificates from the captured
-elementary normalized system (7.1)-(7.5); the CC20 gamma lane stays the
-fallback consumer behind the already-landed adapters.  Yoshida 1992 remains
-paywalled; the scope precedent above is sufficient for the route decision.
+finite-certificate lane, transcribe the certified elementary system above;
+the CC20 gamma lane stays the fallback consumer behind the already-landed
+adapters.  Yoshida 1992 remains paywalled; the scope precedent above is
+sufficient for the route decision.
 
 ## 7. Session boundary
 
@@ -1312,8 +1330,11 @@ paywalled; the scope precedent above is sufficient for the route decision.
   spectral owner; `C1CC20EndpointAnalyticModeData` supplies the minimal
   genuine derivative owner with uniqueness).
 * Finite-certificate scope-check against Bombieri 2000: LANDED as section 6y
-  -- GO verdict at `t = log 2 / 2`, normalizations (7.1)-(7.5) captured,
-  Theorem 12 excluded as a producer by an out-of-tree constant check.
+  -- GO verdict at `t = log 2 / 2`; K*, (7.1)-(7.5), and the completed
+  Lemma-10 Gram identity certified by visual read plus numerical triangle
+  closure (worst 8.9e-16); a sign erratum in (7.1) from the lossy text layer
+  was corrected in place; Theorem 12 excluded as a producer by an
+  out-of-tree constant check.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

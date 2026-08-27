@@ -82,3 +82,9 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   captured elementary/digamma-free, Theorem 12 ruled out as a producer
   (constant -1.29 - O(1) at our window), Theorem 8/Lemma 10 flagged
   conditional-only.
+- 2026-08-27 scan located (`~/bombieri_weil_qf.pdf`, out of repo, 53 pp) :
+  (7.1) sign erratum fixed (MINUS between the cosines; text layer was lossy),
+  K* definition and completed Lemma-10 Gram identity certified by visual read
+  plus numerical triangle closure (worst 8.9e-16); doc 1043 §6y rewritten in
+  place; engine README provenance refreshed to make Bombieri sec-7 the
+  transcription source.
