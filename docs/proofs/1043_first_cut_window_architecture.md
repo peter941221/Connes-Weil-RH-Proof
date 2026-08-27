@@ -1655,6 +1655,21 @@ sufficient for the route decision.
   (`Complex.mul_conj` + `integral_ofReal` + `integral_nonneg`), the
   odd-case mirror with `coth(t/2)`, and the (8.14) assembly.
   DETECTOR only.
+* Wirtinger (8.13) slice 7d, the real channel
+  (`C1BombieriSection8WirtingerSlice4`): LANDED, axiom-clean (leaf + audit
+  `2658 jobs`, 0 sorryAx).  Since `ℂ` carries no order, `Q(F) ≥ 0` is
+  stated as the pair `qF_real` (the Q-form integral equals the
+  `Complex.ofReal` cast of `¼∫normSq F + ∫normSq F'`, via pointwise
+  `Complex.mul_conj` + `integral_ofReal`) and `sqMass_nonneg` (the real
+  expression is nonnegative for `t ≥ 0`, via
+  `intervalIntegral.integral_nonneg` — whose signature needs the explicit
+  `a ≤ b` first argument — plus `Complex.normSq_nonneg`).
+  `Complex.continuous_normSq` exists under that name.  Supporting change:
+  `qIntegrand` in the slice-3 leaf is now public.  Remaining (8.13)
+  steps open: the even-case corollary `tanh(t/2)|Z⁺(t)|² ≤ Q(Z⁺)` (via
+  `c := Z⁺(t)/φ₊(t)`, `F = Z⁺ − cφ₊`, φ₊ evenness, and the
+  `(a²−b²)/(a+b)² = (a−b)/(a+b)` exp algebra), the odd-case mirror with
+  `coth(t/2)`, and the (8.14) assembly.  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
