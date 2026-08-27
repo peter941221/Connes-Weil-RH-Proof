@@ -5,6 +5,97 @@ ideas surrounding the Connes-Weil explicit formula.
 
 Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 
+## Status dashboard
+
+> **Updated 2026-08-27.** This dashboard describes the repository state of
+> commit
+> [`13bae3d`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/13bae3d).
+> **No unconditional proof of the Riemann hypothesis is claimed here.**
+
+### Progress map
+
+```text
+==============================================================================
+ PROGRESS MAP - ACTIVE C1 SAME-OWNER MAINLINE (ROOT FORM)
+ State of commit 13bae3d, 2026-08-27. RH IS NOT CLAIMED.
+==============================================================================
+  LEGEND   CLOSED / LANDED = proved; audited leaves report only
+           [propext, Classical.choice, Quot.sound], zero sorryAx.
+           OPEN       = explicit, separately-audited obligation.
+           DEFERRED   = postponed by a documented design decision.
+
+  Route foundations and provenance guard layers   ARCHIVED   superseded
+  Gate 2: arithmetic-to-spectral equality         CLOSED     center-2 contour
+  W-program lemmas W1, W2, W3, W4a, W4b-pairing   LANDED     axiom-clean
+  W4b support-class rungs (three radii)           LANDED     non-universal
+  Pure-analysis widening ladder to ROOT window    RULED OUT  B(log 2) ~= +3.9
+  CC20 window-operator chain, proof 1043 s6g-s6v  LANDED     through eq-(121)
+  Concrete K_I - T finite-rank difference profile OPEN       next target
+  GATE 1: endpoint sign theorem                   OPEN       mathematical core
+  GATE 2: Titchmarsh square-form bridge           DEFERRED   not attempted
+  Final assembly: unconditional_rh                SKELETON   explicit premises
+==============================================================================
+```
+
+A milestone count is not an honest measure of distance to RH. Most
+operator-level infrastructure has landed and audits clean, but the remaining
+items are precisely the hard analytic gates: the endpoint sign theorem behind
+GATE 1 (two published mechanisms exist, both heavy), the concrete difference
+kernel `K_I - T` enclosure that feeds it, and GATE 2, whose classical proofs
+require Paley-Wiener / Cartwright-class harmonic analysis that is absent from
+Mathlib today.
+
+### Commit timeline
+
+```text
+DATE         EVENT                                                COMMIT
+------------------------------------------------------------------------
+2026-07-09   repository baseline verification mirror            d0bdeed
+2026-08-16   center-2 Fourier weight transform readbacks        a47723d
+2026-08-17   Gamma reciprocal-series density identity           86af892
+             center-2 Gate 2 route closed (arith = spectral)    f1f45d1
+2026-08-19   Lane R reduced to real owners, then frozen         271b8fd
+2026-08-21   FRONTIER-HS steps 3-9 closed, last sorry killed    8b93e8c
+2026-08-24   bare whole-line HS premise refuted                 59f8ff8
+             sign-attack plan docs/proofs/1040 defined          855a937
+             W1: on-line spectral term of a square >= 0         20af271
+             W2 vanishing bridge + W3 spectral split            1e69b31
+2026-08-25   W4a: multiplicity survives conjugation             d79d86e
+             W4b pairing = 2 x Re(right-half sum)               a7dcccc
+             hqw collapsed to a single named inequality         3fdaaa1
+             first broadly-quantified W4b class (narrow)        53520ac
+             budget class widened by pure algebra               a4b0b75
+             boundary-guided rung at exp(-7)                    98fd821
+2026-08-26   second boundary rung at exp(-13/2)                 253d821
+             direct-Euler boundary rung (third rung)            8a37b7e
+             translation layer + root-support window ledger     f12b4fe
+             pure-analysis ladder formally ruled out
+             CC20 archimedean log-coordinate readback           74b94fa
+             endpoint + Yoshida LDL^T algebraic layers          8b84704
+             Hilbert Lemma first + spectral decomposition       3bbe82f
+             kf_I L2 foundation: HS pointwise bound             62018f9
+2026-08-27   Qepsilon endpoint kernel formula + guards          6967031
+             kernel mass premises promoted to theorems          53f8cfa
+             Yoshida interval-certificate engine                f36db49
+             Bombieri 2000 logged as accessible source          c3e61f2
+             paper-window kf_I boundedness brick                f149389
+             translate-invariance pack (shift slot)             5173f21
+             uniform displacement bound frees eq-(121)          2d26182
+             weighted correlation fold: eq-(121) engine         1e9f0a1
+             displacement-kernel owner bridge                   922a266
+             integrability discharge + Fubini readback          6a23ea8
+             pairing bound -> operator-norm gap adapter         5c0cff8
+             HS kernels lifted to bounded quotient ops          13bae3d
+------------------------------------------------------------------------
+HEAD at this writing:
+https://github.com/peter941221/Connes-Weil-RH-Proof/commit/13bae3d
+```
+
+The narrative snapshot below is retained unchanged from the previous
+(2026-08-26) revision. Its frontier tables in Section 3 remain accurate for
+the items they list and predate only the CC20 window-operator chain summarized
+above.
+
 > **Status as of 2026-08-26.** This repository does not contain an
 > unconditional proof of the Riemann hypothesis. The no-argument theorem
 > `unconditional_rh_skeleton` consumes explicit project axioms, including
