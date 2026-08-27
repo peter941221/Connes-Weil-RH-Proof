@@ -1793,6 +1793,43 @@ sufficient for the route decision.
   λ ≥ 0 assembly with the landed boundary lemma, the
   exponential-independence contradiction, and the Theorem-8 sign
   count.  DETECTOR only.
+* Wirtinger slice 10, the finite-window exponential integral
+  (`C1BombieriSection8ExpSum`): LANDED, axiom-clean (leaf + audit
+  `2665 jobs`, 0 sorryAx; commit `5465468`).  First brick of the
+  (8.11) transport: flagship `integral_exp_i_window` —
+  `∫_{−t}^{t} e^{iθu} du = ↑(2 sin(θt)/θ)` for `θ ≠ 0` — the integral
+  readback of the sinc term `2 sin(t(γ−γ'))/(γ−γ')` in the Lemma-10
+  Gram identity, plus the `θ = 0` diagonal `2t`.  Route: real
+  channel, NO complex division — `exp_mul_I` splits the integrand
+  pointwise into `↑(cos θu) + I·↑(sin θu)`; the cosine half
+  integrates by the real fundamental theorem with `sin(θu)/θ` as
+  antiderivative (θ divided INSIDE, so no integral-linearity
+  node-mismatch is ever exercised); the sine half is odd and vanishes
+  through `integral_symmetry_half_real`, a real-valued mirror of the
+  parity-split halving identity (the landed `integral_symmetry_half`
+  is ℂ-valued — binop% silently lifts a real-valued argument through
+  a cast, so the mirror is stated locally rather than reusing it).
+  Mechanics worth recording (v4.30): the real `sin`/`cos` derivative
+  lemmas live in `Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv`
+  (`Real.hasDerivAt_sin`/`Real.hasDerivAt_cos`), which is NOT in the
+  closure of `Analysis.Complex.Trigonometric` — explicit import
+  needed; `integral_eq_sub_of_hasDerivAt`'s second argument is
+  `IntervalIntegrable f' volume a b` (integrability of the DERIVATIVE,
+  not continuity); `mul_neg` is now stated `a * -b = -(a * b)` (use
+  the FORWARD direction to fold `θ * -t`); `integral_const_mul` takes
+  NO integrability premise (`(r) (f)` only); the ℂ-valued
+  `integral_symmetry_half` silently binop%-lifts real-valued inputs
+  (cast appears in the expected type of the continuity argument);
+  `Complex.real_smul` bridges the ℝ•ℂ algebra smul in
+  `integral_const`'s `(b − a) • c` (root `smul_eq_mul` does NOT apply
+  — that is `Mul.toSMul`-only); a bare `mul_comm` rewrite hits the
+  FIRST multiplication in traversal order, possibly INSIDE a cast —
+  close Euler-split tails with `ring` instead.  Remaining (8.11) steps
+  open: the (8.5) exponential sum `Z(u) = Σ e^{−iγu} z_γ` with
+  term-by-term derivative and mass expansion over `Fin n` (the
+  diagonal `2t` vs off-diagonal sinc split), then the Gram-quadratic
+  readback `λ Σ w conj(w) = Q(Z) − boundary`, then the ≥ 0 assembly.
+  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
