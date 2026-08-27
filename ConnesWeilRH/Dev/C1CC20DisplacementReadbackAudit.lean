@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1CC20DisplacementReadback
+
+namespace ConnesWeilRH.Source.C1CC20DisplacementReadback
+
+#check weightedCorrFold_eq_iteratedIntegral
+#check weightedCorrFold_eq_swappedIteratedIntegral
+#check pairing_applyKernel_displacementKernel_eq_weightedCorrFold
+#check norm_pairing_applyKernel_displacementKernel_le
+
+#print axioms weightedCorrFold_eq_iteratedIntegral
+#print axioms weightedCorrFold_eq_swappedIteratedIntegral
+#print axioms pairing_applyKernel_displacementKernel_eq_weightedCorrFold
+#print axioms norm_pairing_applyKernel_displacementKernel_le
+
+end ConnesWeilRH.Source.C1CC20DisplacementReadback

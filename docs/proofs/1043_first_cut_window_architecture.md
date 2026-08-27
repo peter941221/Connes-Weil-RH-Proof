@@ -947,6 +947,47 @@ correlation fold.  That Fubini/readback theorem must state and prove the
 necessary integrability hypotheses; no implicit interchange is licensed by
 this definition-level bridge.
 
+### 6s. L1 Fubini/readback: bilinear displacement operator bound (landed 2026-08-27)
+
+`Dev/C1CC20DisplacementReadback.lean` closes the interchange deliberately
+left open in §6r.  Define the product integrand in displacement-first
+coordinates by
+
+```text
+D(v, x) = a(v) * eta(x) * xi(x + v).
+```
+
+Given the explicit premise `Integrable (uncurry D) (volume.prod volume)`, the
+leaf proves the two exact readbacks
+
+```text
+integral_v a(v) * corrInnerSlice(eta, xi, v)
+  = integral_x integral_v D(v, x)
+
+integral_x eta(x) * applyKernel(displacementKernel a, xi)(x)
+  = integral_v a(v) * corrInnerSlice(eta, xi, v).
+```
+
+Consequently `norm_pairing_applyKernel_displacementKernel_le` applies the
+landed equation-(121) engine and gives the scalar operator estimate
+
+```text
+|| integral_x eta(x) * A_a(x) ||
+  <= ||eta||_2 * ||xi||_2 * ||a||_1.
+```
+
+This is the exact analytic bridge intended by Lemma 3.  It uses
+`integral_integral_swap` only with the named product-integrability premise;
+there is no unlicensed Fubini exchange.  The concrete next obligation is to
+provide this premise and the L1 profile certificate for the actual windowed
+kernel difference `K_I - T`, then promote the scalar bound to the target
+operator-norm statement.
+
+Native WSL2 ext4 audit evidence:
+`lake build ConnesWeilRH.Dev.C1CC20DisplacementReadbackAudit` completed
+successfully at `2693/2693` jobs.  The four declarations audit to exactly
+`[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
@@ -1005,6 +1046,10 @@ this definition-level bridge.
   `applyKernel_displacementKernel_eq_translateFold`): LANDED, axiom-clean
   (2692 jobs, 0 sorryAx); it fixes the equation-(104) to equation-(121)
   orientation, while the windowed Fubini/readback layer remains open.
+* Displacement Fubini/readback (`pairing_applyKernel_displacementKernel_eq_weightedCorrFold`,
+  `norm_pairing_applyKernel_displacementKernel_le`): LANDED, axiom-clean
+  (2693 jobs, 0 sorryAx); product integrability is an explicit caller premise
+  and the concrete `K_I - T` L1/operator-norm enclosure remains open.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

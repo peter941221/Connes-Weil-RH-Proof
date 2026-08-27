@@ -1434,6 +1434,14 @@ restricted/global masses with one evaluation object.
   zero-on-nonintegrable convention means the equality needs no extra
   integrability premise. (Observed 2026-08-27, DisplacementKernel.)
 
+- **Fubini needs `Integrable (Function.uncurry f) (mu.prod nu)` explicitly**:
+  `integral_integral_swap hf` then has the exact orientation
+  `integral_x integral_y f x y = integral_y integral_x f x y`.  Keep this
+  premise in the theorem contract; it is the proof obligation that licenses
+  the exchange, not a detail the Bochner integral can infer from pointwise
+  algebra.  The required API is in `Mathlib.MeasureTheory.Integral.Prod`.
+  (Observed 2026-08-27, DisplacementReadback.)
+
 ## 8. WSL Verification
 
 WSL2 is a **verification environment, not a source workspace**. Author/manage

@@ -1,3 +1,31 @@
+## Change Log (2026-08-27 session 26e, CC20 displacement Fubini readback)
+- **Result: good.**  `Dev/C1CC20DisplacementReadback.lean` closes the
+  Fubini/readback layer above the displacement-kernel bridge.  Under the
+  explicit premise
+  `Integrable (Function.uncurry (displacementCorrelationIntegrand a eta xi))
+  (volume.prod volume)`, it proves
+
+  ```text
+  integral_x eta(x) * applyKernel(displacementKernel a, xi)(x)
+    = integral_v a(v) * corrInnerSlice(eta, xi, v).
+  ```
+
+- `norm_pairing_applyKernel_displacementKernel_le` combines that equality
+  with the equation-(121) fold to bound the bilinear pairing by the two L2
+  masses and the L1 mass of `a`.  Every integral interchange is explicitly
+  justified through `integral_integral_swap`; no non-integrable Fubini step
+  is implicit.
+- Native WSL2 ext4 evidence: explicit audit target
+  `lake build ConnesWeilRH.Dev.C1CC20DisplacementReadbackAudit` completed
+  successfully at `2693/2693` jobs.  All four declarations print exactly
+  `[propext, Classical.choice, Quot.sound]`; no `sorryAx` occurs.
+- Scope boundary: the theorem is a scalar bilinear-form bound for a
+  translation-invariant raw kernel.  It does not yet construct the bounded
+  `L2` operator induced by a concrete `K_I - T`, discharge the product
+  integrability premise automatically for the square-window owner, promote
+  the bilinear estimate to a `ContinuousLinearMap` operator norm, or provide
+  the paper's numerical L1 certificate.
+
 ## Change Log (2026-08-27 session 26d, CC20 displacement-kernel bridge)
 - **Result: good.**  `Dev/C1CC20DisplacementKernel.lean` now makes the
   CC20 kernel owner relation explicit.  It defines
