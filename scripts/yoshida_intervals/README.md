@@ -54,6 +54,16 @@ consumes this scaffold until those value nodes land.
   proof-carrying route before Lean consumption).
 * **Exact interval algebra**: add / scale / multiply / join of `[lo, hi]`
   Fraction pairs, with directed results (no floating point anywhere).
+* **Rigorous elementary brackets on interval arguments**
+  (`elementary_bracket(kind, theta_iv)` for `kind ∈ {sin, cos, sinh, cosh}`):
+  the defining Taylor series evaluated in exact Fraction interval arithmetic,
+  truncated at degree `E` with the Lagrange remainder
+  `sup|θ|^(E+1)/(E+1)! · M` added back (`M = 1` for sin/cos,
+  `M = exp(sup|θ)|` via an in-file proven rational upper bound — no stored
+  digits). The term count doubles until the remainder meets `width_target`.
+  Unlike `psi_bracket`, ZERO pre-stored digits are consumed, so these brackets
+  are already proof-carrying: they need only be transcribed as rational pairs.
+
 * **Exact symmetric-matrix Cholesky/LDLᵀ inspection** for positive-definite
   rational matrices: pivots `d_i` and factors `L` come out as exact
   Fractions, mirroring the shape already certified in Lean by
@@ -75,8 +85,11 @@ uv run --with mpmath python3 yoshida_interval_gen.py --self-test --mpmath
 Self-tests cross-check the LDLᵀ engine against the synthetic witness already
 landed in Lean (`witnessL` subdiagonals 1/2, 1/3, 1/4 with `D = diag(4,9,1)`),
 verify `psi(1) = −gamma` inside its bracket, verify `psi(1/2) = −gamma − 2·log 2`
-against independently published digit expansions, and optionally compare the
-digamma bracket to high-precision `mpmath.mp.psi`.
+against independently published digit expansions, and optionally compare both
+the digamma bracket and the four elementary brackets to high-precision
+`mpmath` values (modulo explicit parsing slack). The elementary suite also
+checks the exact removable values at zero and the Pythagorean containment
+`sin²θ + cos²θ ∋ 1` as a set identity on interval outputs.
 
 ## Integration path (when real data exists)
 
