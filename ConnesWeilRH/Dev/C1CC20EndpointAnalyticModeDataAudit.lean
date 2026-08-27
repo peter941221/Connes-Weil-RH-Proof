@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1CC20EndpointAnalyticModeData
+
+namespace ConnesWeilRH.Source.C1CC20EndpointAnalyticModeData
+
+#print axioms analyticModeDeriv_eq_of_hasDerivAt
+#print axioms replaceAnalyticModeDeriv_hasDerivAt_iff
+#print axioms not_hasDerivAt_replaceAnalyticModeDeriv_of_ne
+
+end ConnesWeilRH.Source.C1CC20EndpointAnalyticModeData
+

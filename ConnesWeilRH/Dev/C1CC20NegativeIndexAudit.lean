@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1CC20NegativeIndex
+
+namespace ConnesWeilRH.Source.C1CC20NegativeIndex
+
+#check IsStrictlyNegativeSubspace
+#check finrank_strictlyNegativeSubspace_le_one
+#check cc20Endpoint_negativeIndex_le_one_of_kernel_nonnegative
+#check cc20Endpoint_negativeIndex_le_one_of_inner_kernel_nonnegative
+
+#print axioms IsStrictlyNegativeSubspace
+#print axioms finrank_strictlyNegativeSubspace_le_one
+#print axioms cc20Endpoint_negativeIndex_le_one_of_kernel_nonnegative
+#print axioms cc20Endpoint_negativeIndex_le_one_of_inner_kernel_nonnegative
+
+end ConnesWeilRH.Source.C1CC20NegativeIndex

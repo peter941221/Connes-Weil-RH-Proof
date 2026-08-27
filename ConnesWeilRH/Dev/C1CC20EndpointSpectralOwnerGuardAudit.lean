@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1CC20EndpointSpectralOwnerGuard
+
+namespace ConnesWeilRH.Source.C1CC20EndpointSpectralOwnerGuard
+
+#check replaceAnalyticModeDeriv
+#check replaceAnalyticModeDeriv_eigenvalue
+#check replaceAnalyticModeDeriv_analyticMode
+#check replaceAnalyticModeDeriv_endpointSlope
+#check replaceAnalyticModeDeriv_deriv
+
+#print axioms replaceAnalyticModeDeriv
+#print axioms replaceAnalyticModeDeriv_eigenvalue
+#print axioms replaceAnalyticModeDeriv_analyticMode
+#print axioms replaceAnalyticModeDeriv_endpointSlope
+#print axioms replaceAnalyticModeDeriv_deriv
+
+end ConnesWeilRH.Source.C1CC20EndpointSpectralOwnerGuard
+
