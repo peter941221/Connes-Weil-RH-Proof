@@ -1361,6 +1361,19 @@ restricted/global masses with one evaluation object.
   build logs written to `/tmp/*.log` vanish between wsl.exe calls. Persist
   logs under `/home/peter/blogs/` (ext4) when they must be re-read later in
   the session. (Observed 2026-08-27.)
+- **wsl.exe `sh -c` compounds are fragile through Git-Bash quoting**: echoed
+  shell variables (`rc=$?`) arrive empty, exit codes surface as bare 1, and
+  stdout/stderr interleave with the UTF-16 banner scrambled mid-line.
+  Prefer DIRECT exec form (`wsl.exe --cd <dir> /usr/bin/python3 script args`)
+  and diagnose failures by writing a log file ext4-side and reading it back
+  in a separate call. (Observed 2026-08-27, interval-generator runs.)
+- **Pure-Python exact-Fraction loops set the real cost**: a series summed
+  with Fractions costs microseconds per term, so an O(1/N)-convergent
+  series at 50-digit precision means ~1e50 terms — unworkable regardless of
+  machine. Fix the TARGET precision of smoke tests (1e-4), keep deep
+  targets behind explicit parameters with printed cost models, and route
+  tight certificates to accelerated algorithms later instead of letting a
+  test hang silently. (Observed 2026-08-27.)
 
 ## 8. WSL Verification
 

@@ -1,0 +1,82 @@
+# Yoshida-shaped finite-matrix interval certificates — generator scaffold
+
+Status: ENGINE ONLY, 2026-08-27. No Yoshida matrix data has been encoded,
+because none is available from an accessible primary source. This file states
+exactly what was checked and what remains open, so a future contributor does
+not mistake the scaffold for evidence.
+
+## Provenance findings (checked 2026-08-27)
+
+The Gate-1 numerical route in this repository cites:
+
+> H. Yoshida, *On Hermitian forms attached to zeta functions*,
+> Zeta functions in geometry (Tokyo, 1990),
+> Advanced Studies in Pure Mathematics 21, Kinokuniya, Tokyo, 1992, 281–325.
+
+* The Connes–Consani paper (arXiv:2006.13771) lists exactly this reference in
+  its bibliography; its own §6 uses Hermitian Toeplitz matrices and equation
+  (114)'s trigonometric approximation rather than quoting Yoshida's matrices.
+* The chapter is hosted by Project Euclid, DOI `10.2969/aspm/02110281`
+  (<https://projecteuclid.org/proceedings/advanced-studies-in-pure-mathematics/Zeta-Functions-in-Geometry/Chapter/On-Hermitian-Forms-attached-to-Zeta-Functions/10.2969/aspm/02110281>).
+  Only page 1 (the introduction) previews. From that page we verified, quoted
+  verbatim from the OCR: Yoshida works with test functions `F ∈ C_c^∞(ℝ)` and
+  the class `C(a) = { φ | supp φ ⊆ [−a, a] }`, i.e. **the SQUARE support form**,
+  and reduces R.H. to positive definiteness of the hermitian form restricted to
+  every `C(a)`.
+* The matrix entry formulas (and any role of the digamma function `psi`) live
+  behind the access wall and were **NOT obtained**. Per repository integrity
+  rules (`AGENTS.md` §6), no formula is fabricated here.
+
+Consequence for the plan: the "odd 10×10 / even 200×200 digamma LDLᵀ"
+description in `docs/proofs/1043` §6e should be treated as *unconfirmed until
+either (a) full text becomes accessible, or (b) CC20's own §6 Toeplitz route
+supplies the needed certificates directly*. Route choice between them is open;
+neither consumes anything from this scaffold until a primary-source formula
+lands.
+
+## What the engine provides today
+
+`yoshida_interval_gen.py`, pure Python 3 stdlib (no dependencies):
+
+* **Rigorous digamma brackets at positive rationals**, from the series
+  `psi(x) = −gamma + Σ_{k≥0} (1/(k+1) − 1/(k+x))`:
+  every partial-sum term is an exact `Fraction`; the tail obeys the
+  elementary bound `|tail(N)| ≤ |x−1|/N` because `k + x > k` makes
+  `1/((k+x)(k+1)) ≤ 1/(k(k+1))` telescope. The Euler–Mascheroni constant is
+  carried as an explicit bracketing pair of rationals whose digit source is
+  recorded (published expansion, OEIS A002852 tier — re-derive or import via a
+  proof-carrying route before Lean consumption).
+* **Exact interval algebra**: add / scale / multiply / join of `[lo, hi]`
+  Fraction pairs, with directed results (no floating point anywhere).
+* **Exact symmetric-matrix Cholesky/LDLᵀ inspection** for positive-definite
+  rational matrices: pivots `d_i` and factors `L` come out as exact
+  Fractions, mirroring the shape already certified in Lean by
+  `Dev/C1YoshidaLdlCertificate.lean`.
+* **Lean emitters**: interval lines and LDLᵀ witness skeletons formatted as
+  transcribable snippets matching that leaf's conventions.
+* **Anti-fabrication mechanics**: every value node carries a mandatory
+  `source` string; the engine refuses empty sources, so the encoder cannot
+  silently invent an entry.
+
+## Usage
+
+```bash
+cd scripts/yoshida_intervals
+python3 yoshida_interval_gen.py --self-test          # stdlib only
+uv run --with mpmath python3 yoshida_interval_gen.py --self-test --mpmath
+```
+
+Self-tests cross-check the LDLᵀ engine against the synthetic witness already
+landed in Lean (`witnessL` subdiagonals 1/2, 1/3, 1/4 with `D = diag(4,9,1)`),
+verify `psi(1) = −gamma` inside its bracket, verify `psi(1/2) = −gamma − 2·log 2`
+against independently published digit expansions, and optionally compare the
+digamma bracket to high-precision `mpmath.mp.psi`.
+
+## Integration path (when real data exists)
+
+1. Transcribe entry formulas from the accessible source (full text or a
+   paper-supplied table) into value nodes, one `source` per node.
+2. Emit per-entry rational intervals `[lo_q, hi_q]`.
+3. Extend a Dev leaf consuming those pairs through the existing
+   `C1YoshidaLdlCertificate` reading identity; keep floats on the generator
+   side only — Lean verifies exact identities.

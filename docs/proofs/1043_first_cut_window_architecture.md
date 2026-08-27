@@ -603,6 +603,53 @@ writing down the paper's actual `kf_I / T / R` kernels via the prolate data
 Verification unchanged: both targets green (`2685`/`2686` jobs), all thirteen
 audited declarations `[propext, Classical.choice, Quot.sound]`, no `sorryAx`.
 
+### 6k. Yoshida finite-matrix data: provenance check and certificate engine scaffold (2026-08-27)
+
+The GATE 1 numerical route needs finite Hermitian-form certificates. The
+primary source check today settled what is and is not available:
+
+* The cited chapter `[Yos92]` — H. Yoshida, *On Hermitian forms attached to
+  zeta functions*, Adv. Stud. Pure Math. 21 (1992), 281–325 — exists on
+  Project Euclid, DOI `10.2969/aspm/02110281`, but only page 1 previews; the
+  full text (with the matrix entries) is access-restricted.
+* From the previewable introduction (OCR quoted verbatim): Yoshida's test
+  class is `C(a) = { φ | supp φ ⊆ [−a, a] }` — the SQUARE support form in our
+  additive log coordinate — and R.H. reduces to positive definiteness of the
+  hermitian form restricted to every `C(a)`. This confirms the target shape
+  of our SQUARE-first-cut bridge but supplies NO entry formulas.
+* CC20 itself does not quote Yoshida's matrices; its own §6 controls the gap
+  with Hermitian Toeplitz matrices around equation (114)'s trigonometric
+  approximation.
+
+Route consequence: the "odd 10×10 / even 200×200 digamma LDLᵀ" description of
+the Yoshida route stays UNCONFIRMED until either full-text access or a
+paper-supplied table appears; the CC20 §6 Toeplitz route is the currently
+accessible alternative. Nothing consumes fabricated data.
+
+What landed anyway is the certified-numerics ENGINE,
+`scripts/yoshida_intervals/` (README + generator, stdlib-only Python):
+
+```text
+Interval / const_interval / add / scale / mul / join   exact Fraction algebra
+psi_bracket(x, width_target)   rigorous digamma bracket at rational x > 0
+                               psi(x) = -gamma + S_N(x) ± |x-1|/N
+                               tail bound |x-1|/N by telescoping k(k+1)
+                               (direct-series cost model documented:
+                                N ~ |x-1|/width; deep targets future work)
+ldlt_positive_definite(A)      exact symmetric rational PD inspection,
+                               mirror of Dev/C1YoshidaLdlCertificate
+emit_*                         Lean-ready transcription snippets
+source field                   mandatory per value node - anti-fabrication
+```
+
+Self-tests green on WSL (stdlib and `--mpmath` variants): T1 reproduces the
+landed Lean witness exactly (`d = (4,9,1)`, subdiagonals `1/2, 1/3, 1/4`);
+T2/T3 verify `psi(1) = −gamma` and `psi(1/2) = −gamma − 2·log 2` against
+published digit expansions; T5 cross-checks brackets against high-dps
+mpmath floats modulo explicit parsing slack; T6 rejects negative-definite
+input. This closes nothing in GATE 1 by itself; it pins the honest boundary
+where real matrix data must enter from a primary source.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
