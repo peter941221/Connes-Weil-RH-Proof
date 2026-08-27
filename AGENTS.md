@@ -1461,6 +1461,27 @@ restricted/global masses with one evaluation object.
   complex coercions obscures the cancellation and produces avoidable type
   mismatches.  (Observed 2026-08-27, C1CC20PairingOperatorNorm.)
 
+- **Use the numeral exponent `2` in public `Lp` operator types**:
+  `MemLp f (ENNReal.ofReal 2)` is fine for analytic lemmas, but
+  `Lp ℂ (ENNReal.ofReal 2)` does not reliably trigger mathlib's topological
+  and Hilbert-space instances.  Expose `Lp ℂ 2` / `MemLp f 2` in the operator
+  interface and bridge the analytic form with `simpa`.  (Observed 2026-08-27,
+  C1CC20KernelLpLift.)
+
+- **Do not infer raw integral additivity from L2 data at every point**:
+  `integral_add` requires both summands to be integrable.  Obtain
+  `rows_l2_ae_of_kernel_l2 hk`, use Holder to prove the two row products
+  integrable on that a.e. set, and only then establish the a.e. output
+  additivity needed by `MemLp.toLp_congr`.  (Observed 2026-08-27,
+  C1CC20KernelLpLift.)
+
+- **For an L2 quotient norm, bridge through the squared mass before taking a
+  square root**: prove `||toLp f||^2 = integral ||f||^2`, transport the
+  Hilbert--Schmidt inequality at that level, then use `sq_le_sq₀` with both
+  sides nonnegative.  This avoids fragile direct coercions between ENNReal
+  mass and real operator norms.  (Observed 2026-08-27,
+  C1CC20KernelLpLift.)
+
 ## 8. WSL Verification
 
 WSL2 is a **verification environment, not a source workspace**. Author/manage

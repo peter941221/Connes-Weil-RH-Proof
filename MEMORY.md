@@ -1,3 +1,24 @@
+## Change Log (2026-08-27 session 26g, L2 kernel quotient lift)
+- **Result: good.**  `Dev/C1CC20KernelLpLift.lean` promotes the raw
+  Hilbert--Schmidt theorem to a concrete bounded map on
+  `Lp ℂ 2 (volume : Measure ℝ)`.  `applyKernelLpLinear` handles the a.e.
+  quotient carefully: raw application respects a.e. equality, `integral_add`
+  is used only on the a.e. L2 kernel rows where Holder gives integrability,
+  and `applyKernelLp` is then formed with `LinearMap.mkContinuous`.
+- `opNorm_applyKernelLp_le` gives
+  `||applyKernelLp k|| <= ||k.toLp k||`.  The proof transports the existing
+  extended-real mass estimate through a general Bochner/lintegral bridge and
+  the squared L2 quotient norm identity.  This is the missing typed operator
+  consumer for a future certified `endpointKernelOnSquare` / `K_I - T` owner.
+- Native WSL2 ext4 evidence: explicit
+  `C1CC20KernelLpLiftAudit` completed successfully at `2686/2686` jobs.  All
+  nine audited declarations printed exactly `[propext, Classical.choice,
+  Quot.sound]`; `sorryAx` count was zero.
+- Scope boundary: the leaf proves boundedness for a single L2 kernel, not
+  equality between the raw displacement operator and a square-window owner.
+  It does not construct `T`, certify the difference profile, prove the CC20
+  endpoint sign, or prove RH.
+
 ## Change Log (2026-08-27 session 26f, automatic CC20 product integrability and operator-gap adapter)
 - **Result: good.**  `Dev/C1CC20ProductIntegrability.lean` now discharges the
   Fubini premise for

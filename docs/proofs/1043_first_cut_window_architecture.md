@@ -1052,6 +1052,42 @@ no numerical L1 enclosure for the concrete profile is supplied.  This is the
 ready consumer between a future concrete `K_I - T` pairing theorem and the
 already-landed CC20 endpoint-gap machinery.
 
+### 6v. L2-kernel quotient lift: raw Hilbert--Schmidt control becomes a bounded operator (landed 2026-08-27)
+
+`Dev/C1CC20KernelLpLift.lean` closes the representation gap that remained
+open after §6t--§6u.  For every `MemLp k 2` kernel, it builds the actual
+bounded operator on the a.e.-quotient:
+
+```text
+raw L2 kernel k
+  -> applyKernelLpLinear k : Lp(C,2) ->L Lp(C,2)
+  -> applyKernelLp k       : Lp(C,2) ->L Lp(C,2)
+  -> ||applyKernelLp k|| <= ||k.toLp k||.
+```
+
+The construction proves output `MemLp` membership, preserves a.e. equality of
+inputs, and proves additivity only on the a.e. set of L2 kernel rows, where
+Holder supplies the two integrability premises required by `integral_add`.
+It therefore does not mistake the Bochner integral's zero-on-nonintegrable
+convention for a linearity theorem.  The real squared-mass identity then
+converts the landed extended-real Hilbert--Schmidt estimate into the norm
+bound used by `LinearMap.mkContinuous`.
+
+This gives a direct typed consumer for the existing
+`memLp_endpointKernelOnSquare_of_profileBound`: once a concrete endpoint
+kernel has that certificate, `applyKernelLp` is the corresponding bounded
+windowed L2 operator.  It also supplies the operator-side input needed by the
+§6u CC20-gap adapter.
+
+Native WSL2 ext4 audit evidence:
+`lake build ConnesWeilRH.Dev.C1CC20KernelLpLiftAudit` completed successfully
+at `2686/2686` jobs.  All nine declarations audit to exactly
+`[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.
+
+Boundary: this is Hilbert--Schmidt boundedness of one L2 kernel.  It neither
+identifies the raw displacement form with the windowed quotient operator nor
+constructs the finite-rank `T` or a certified norm/L1 estimate for `K_I - T`.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean
@@ -1123,6 +1159,10 @@ already-landed CC20 endpoint-gap machinery.
   `cc20NegativeForm_le_rankOne_of_pairingBound`): LANDED, axiom-clean
   (joint audit 3626 jobs, 0 sorryAx); the concrete `K_I - T` operator and certified L1
   profile enclosure are still missing.
+* L2-kernel quotient lift (`applyKernelLp`, `opNorm_applyKernelLp_le`):
+  LANDED, axiom-clean (2686 jobs, 0 sorryAx); any certified windowed L2 kernel
+  now yields an actual bounded `Lp ℂ 2` operator, but the concrete difference
+  kernel `K_I - T` and its numerical enclosure remain open.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
