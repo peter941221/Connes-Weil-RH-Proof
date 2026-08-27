@@ -21,7 +21,10 @@ Q(Z) = Q(Z⁺) + Q(Z⁻)
 ```
 
 stated at the `qIntegrand` integral level over the symmetric window
-`[-t, t]` (values only — no differentiability enters).  The engine is
+`[-t, t]` (values only — no differentiability enters).  The second slot
+pairs each part with its TRUE derivative (the even part with the odd
+half-difference of `Zp`, the odd part with the even half-sum), which is
+what the Wirtinger corollaries consume downstream.  The engine is
 the halving identity `∫_{−t}^{t} f = ∫_0^t (f x + f (−x))` plus the
 parallelogram law `normSq(a+b) + normSq(a−b) = 2(normSq a + normSq b)`
 (with `Complex.normSq_add`/`normSq_sub`, whose `±2·Re(z·conj w)` cross
@@ -77,50 +80,50 @@ theorem qSplit (t : Real) (ht : 0 ≤ t) (Z Zp : Real → Complex)
     (hZ : Continuous Z) (hZp : Continuous Zp) :
     (∫ x in -t..t, qIntegrand Z Zp x)
       = (∫ x in -t..t, qIntegrand (fun u => (Z u + Z (-u)) / 2)
-          (fun u => (Zp u + Zp (-u)) / 2) x)
+          (fun u => (Zp u - Zp (-u)) / 2) x)
         + (∫ x in -t..t, qIntegrand (fun u => (Z u - Z (-u)) / 2)
-          (fun u => (Zp u - Zp (-u)) / 2) x) := by
+          (fun u => (Zp u + Zp (-u)) / 2) x) := by
   have hZneg : Continuous fun u : Real => Z (-u) := hZ.comp continuous_neg
   have hZpneg : Continuous fun u : Real => Zp (-u) := hZp.comp continuous_neg
   have hE : Continuous fun u : Real => (Z u + Z (-u)) / 2 :=
     (hZ.add hZneg).div_const 2
-  have hE' : Continuous fun u : Real => (Zp u + Zp (-u)) / 2 :=
-    (hZp.add hZpneg).div_const 2
+  have hD' : Continuous fun u : Real => (Zp u - Zp (-u)) / 2 :=
+    (hZp.sub hZpneg).div_const 2
   have hO : Continuous fun u : Real => (Z u - Z (-u)) / 2 :=
     (hZ.sub hZneg).div_const 2
-  have hO' : Continuous fun u : Real => (Zp u - Zp (-u)) / 2 :=
-    (hZp.sub hZpneg).div_const 2
+  have hS' : Continuous fun u : Real => (Zp u + Zp (-u)) / 2 :=
+    (hZp.add hZpneg).div_const 2
   rw [integral_symmetry_half t ht (fun x : Real => qIntegrand Z Zp x)
       (continuous_qIntegrand Z Zp hZ hZp),
     integral_symmetry_half t ht
       (fun x : Real => qIntegrand (fun u => (Z u + Z (-u)) / 2)
-        (fun u => (Zp u + Zp (-u)) / 2) x) (continuous_qIntegrand _ _ hE hE'),
+        (fun u => (Zp u - Zp (-u)) / 2) x) (continuous_qIntegrand _ _ hE hD'),
     integral_symmetry_half t ht
       (fun x : Real => qIntegrand (fun u => (Z u - Z (-u)) / 2)
-        (fun u => (Zp u - Zp (-u)) / 2) x) (continuous_qIntegrand _ _ hO hO')]
+        (fun u => (Zp u + Zp (-u)) / 2) x) (continuous_qIntegrand _ _ hO hS')]
   have hiE : IntervalIntegrable (fun x : Real => qIntegrand
-        (fun u => (Z u + Z (-u)) / 2) (fun u => (Zp u + Zp (-u)) / 2) x
+        (fun u => (Z u + Z (-u)) / 2) (fun u => (Zp u - Zp (-u)) / 2) x
       + qIntegrand (fun u => (Z u + Z (-u)) / 2)
-        (fun u => (Zp u + Zp (-u)) / 2) (-x)) volume 0 t :=
-    Continuous.intervalIntegrable
-      ((continuous_qIntegrand _ _ hE hE').add
-        ((continuous_qIntegrand _ _ hE hE').comp continuous_neg)) 0 t
-  have hiO : IntervalIntegrable (fun x : Real => qIntegrand
-        (fun u => (Z u - Z (-u)) / 2) (fun u => (Zp u - Zp (-u)) / 2) x
-      + qIntegrand (fun u => (Z u - Z (-u)) / 2)
         (fun u => (Zp u - Zp (-u)) / 2) (-x)) volume 0 t :=
     Continuous.intervalIntegrable
-      ((continuous_qIntegrand _ _ hO hO').add
-        ((continuous_qIntegrand _ _ hO hO').comp continuous_neg)) 0 t
+      ((continuous_qIntegrand _ _ hE hD').add
+        ((continuous_qIntegrand _ _ hE hD').comp continuous_neg)) 0 t
+  have hiO : IntervalIntegrable (fun x : Real => qIntegrand
+        (fun u => (Z u - Z (-u)) / 2) (fun u => (Zp u + Zp (-u)) / 2) x
+      + qIntegrand (fun u => (Z u - Z (-u)) / 2)
+        (fun u => (Zp u + Zp (-u)) / 2) (-x)) volume 0 t :=
+    Continuous.intervalIntegrable
+      ((continuous_qIntegrand _ _ hO hS').add
+        ((continuous_qIntegrand _ _ hO hS').comp continuous_neg)) 0 t
   have hpt : (fun x : Real => qIntegrand Z Zp x + qIntegrand Z Zp (-x))
       = (fun x : Real => qIntegrand (fun u => (Z u + Z (-u)) / 2)
-            (fun u => (Zp u + Zp (-u)) / 2) x
-          + qIntegrand (fun u => (Z u + Z (-u)) / 2)
-            (fun u => (Zp u + Zp (-u)) / 2) (-x)
-          + (qIntegrand (fun u => (Z u - Z (-u)) / 2)
             (fun u => (Zp u - Zp (-u)) / 2) x
+          + qIntegrand (fun u => (Z u + Z (-u)) / 2)
+            (fun u => (Zp u - Zp (-u)) / 2) (-x)
+          + (qIntegrand (fun u => (Z u - Z (-u)) / 2)
+            (fun u => (Zp u + Zp (-u)) / 2) x
           + qIntegrand (fun u => (Z u - Z (-u)) / 2)
-            (fun u => (Zp u - Zp (-u)) / 2) (-x))) := by
+            (fun u => (Zp u + Zp (-u)) / 2) (-x))) := by
     funext x
     unfold qIntegrand
     simp only []
