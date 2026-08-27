@@ -1341,6 +1341,36 @@ sufficient for the route decision.
   real/imaginary split lemma `bombieriK_re_add_mulI`.  The (7.1) closed
   form, the Lemma-10 Gram identity, and the ownership chain (7.2)-(7.5)
   remain open slices.
+* Engine elementary-bracket module (commit `13a4105`): `scripts/yoshida_intervals/
+  yoshida_interval_gen.py` gains `elementary_bracket(kind, theta_iv)` --
+  rigorous sin/cos/sinh/cosh brackets on whole INTERVAL arguments from the
+  defining Taylor series in exact Fraction arithmetic plus an in-file
+  Lagrange remainder bound (M = 1 or exp(sup) via a proven rational exp
+  upper bound; the geometric-tail ratio is gated on N + 1 > a after the
+  self-tests caught the negative-ratio fake convergence).  NO stored
+  digits, unlike `psi_bracket`.  Self-tests T1-T11 green stdlib-only and
+  with mpmath (a rational mpmath argument must be built from integer
+  numerator/denominator, not an int/int float quotient).  `Interval` grew
+  value `__eq__`; README public surface updated.
+* Bombieri (7.1) diagonal slice (`C1BombieriSection7DiagSymmetry`, commits
+  `2688aad` + `01a7591`, 1508 jobs, 0 sorryAx): on the diagonal x = y = r
+  the two rank-correction terms collapse (coefficients (1/2 +- ir) add to
+  one, products coincide), the kernel pair `K(-u + vi) K(u + vi)` collapses
+  to the real `(sin^2 u + sinh^2 v) / (u^2 + v^2)` via the master split and
+  the two Pythagorean identities, giving the book identity
+  `K*(r,r;t) = 1 - (cosh t - cos(2tr)) / (2 t sinh t (1/4 + r^2))`
+  (`bombieriKstar_diagonalClosedForm`); plus `bombieriK_genPair`, the same
+  product with INDEPENDENT real parts as an explicit re/im pair -- the
+  off-diagonal building block.  Derivation note for the remaining general
+  (7.1) slice: with AB and CD the two correction products
+  (Re shared, Im opposite), `(1/2+iy)AB + (1/2-iy)CD = (u - 2 y v)` exactly
+  (imaginary parts cancel), so the general law reduces to the real identity
+  `(1/4+x^2)(t/sinh t)(u - 2 y v) = x(x-y) K(t(x-y))
+     + [cosh t cos(t(x-y)) - cos(t(x+y))] / (2 sinh t)`
+  with `u`, `v` the shared real / opposite imaginary parts of the pair
+  products; product-to-sum angle identities (cos_sub/cos_add) are the
+  expected core haves.  The Lemma-10 Gram identity and (7.2)-(7.5)
+  ownership chain remain open slices.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
