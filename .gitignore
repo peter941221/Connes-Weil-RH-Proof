@@ -18,5 +18,7 @@ a0*.sh
 a1*.sh
 mc_setup.sh
 
-# local-only embedded full-repo backup copy (venv, logs, private memory backups)
+# local-only pre-compression backups (private workflow artifacts)
+_precompress_backup_*/
+# local-only embedded full-repo backup copy (directory name is a PUA char)
 /
