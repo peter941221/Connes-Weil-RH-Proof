@@ -1,0 +1,17 @@
+import ConnesWeilRH.Dev.C1CC20Gate1Assembly
+
+namespace ConnesWeilRH.Source.C1CC20Gate1Assembly
+
+#check cc20Eq115_localGapCertificate_of_uniformGrid
+#check cc20Eq115_gapNorm_le_of_uniformGrid
+#check cc20Eq115_negativeForm_le_rankOne_of_uniformGrid
+#check cc20Eq115_coefficient_band_of_uniformGrid
+#check cc20Eq115_gate1Residual_nonpositive_of_uniformGrid
+
+#print axioms cc20Eq115_localGapCertificate_of_uniformGrid
+#print axioms cc20Eq115_gapNorm_le_of_uniformGrid
+#print axioms cc20Eq115_negativeForm_le_rankOne_of_uniformGrid
+#print axioms cc20Eq115_coefficient_band_of_uniformGrid
+#print axioms cc20Eq115_gate1Residual_nonpositive_of_uniformGrid
+
+end ConnesWeilRH.Source.C1CC20Gate1Assembly

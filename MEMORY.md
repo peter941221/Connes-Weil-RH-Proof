@@ -365,3 +365,18 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   sum_n (1 - d_n) = -114996652757599/312500000000000 gives
   tau(0) = -1.062 * lambda, so a tau-only quadrature would certify a
   useless O(lambda) bound.  Design record docs/proofs/1045.
+- 2026-08-28 C1CC20Gate1Assembly(+Audit) : the GATE 1 conditional
+  assembly for the CONCRETE extracted table - one entry point composing
+  the grid layer into the eq-(121) operator-norm gap, the Lemma-second
+  rank-one conclusion, the 13 < 4*gamma/log 2 < 17 band, and the
+  slope-matched endpoint residual trace - (4a/log 2)*rank <= 0 under the
+  eq-(100) trace identification; 5 declarations axiom-clean, zero
+  sorryAx, 3644-job batch build.  Corrections: the gamma-weighted
+  residual is NOT derivable from this chain (needs 2*ePrime >= 1) - the
+  honest constant is the repair weight a.  T-side spectral judgment: the
+  eq-(119) operator does NOT decouple into 2x2 blocks (sinc-type Gram
+  coupling), so the coercivity block needs a certified eigenvalue
+  enclosure of a 3464x3464 matrix with log-2-transcendental entries.
+  GATE 1 residue is now exactly four named payloads (alpha endpoint
+  enclosure, beta grid table, gamma T-spectral block, delta archimedean
+  comparison).  Design record docs/proofs/1046.
