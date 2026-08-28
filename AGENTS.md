@@ -237,3 +237,7 @@ leggauss nodes already live on [-1,1].
   usable form bound in Lean without the decomposition facts: exceptional-vector
   split, complement invariance, complement Rayleigh bound. Keep concrete
   numerical enclosures as explicit caller premises until producers exist.
+- ROOT-local zero extension may jump at its two boundary points.  A certificate
+  whose downstream use is confined to the ROOT displacement window should
+  require `ContinuousOn` that window, never an artificial global `Continuous`
+  premise.

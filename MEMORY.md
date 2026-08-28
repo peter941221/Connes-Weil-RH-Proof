@@ -8,7 +8,7 @@ history lives in git history, `docs/proofs/`, and
 
 - Route: C1 same-owner mainline, ROOT form (`[-log 2/2, log 2/2]`); design
   record `docs/proofs/1043`. RH NOT claimed.
-- Committed frontier `553b30d`: the Bombieri Lemma-10 DETECTOR chain has its
+- Committed frontier `1954294`: the Bombieri Lemma-10 DETECTOR chain has its
   finite (8.11) assembly landed - section-7 readback + (7.1) symmetry + Lemma-10
   Gram identity + (7.2)-(7.5) finite-Gamma matrix layer, and the FULL
   Wirtinger (8.13) inequality `wirtingerFull` plus its (8.11) transport
@@ -58,8 +58,10 @@ history lives in git history, `docs/proofs/`, and
   equation-(115) certificate has been asserted.  The new
   `C1CC20FiniteRankLocalGapCertificate` aligns that consumer with the actual
   ROOT-local support, and `C1CC20FiniteRankHalfGapCertificate` turns CC20's
-  half-window Fact-1 shape into the local certificate from continuity plus
-  endpoint/finite-profile evenness.  No whole-line mass is inferred from the
+  half-window Fact-1 shape into the local certificate from ROOT-local
+  `ContinuousOn` plus endpoint/finite-profile evenness.  The paired
+  `plus/minus` reindexing producer is now formalized in
+  `C1CC20FiniteRankProfileSymmetry`; no whole-line mass is inferred from the
   paper's local bound.
 - Latest verified CC20 equation-(115) source boundary:
   `scripts/cc20_eq115/extract_source.py` validates the two CC20-linked DOCX
@@ -320,8 +322,17 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
 - 2026-08-28 C1CC20FiniteRankLocalGapCertificate(+Audit) and
   C1CC20FiniteRankHalfGapCertificate(+Audit) : aligned the equation-(115)
   certificate interface with CC20 Fact 1.  ROOT-local zero extension preserves
-  the square-window difference kernel, while continuity and evenness convert
+  the square-window difference kernel, while ROOT-local `ContinuousOn` and
+  evenness convert
   `2 * integral_[0,log 2] |tau - chi|` into the local whole-support mass used
   by equation-(121).  Forced audits: 3635 and 3636 jobs, standard axioms only,
-  zero sorryAx.  The finite-profile symmetry witness and strict numerical mass
-  inequality remain unproduced.
+  zero sorryAx.
+- 2026-08-28 C1CC20FiniteRankProfileSymmetry(+Audit) : formalized the paired
+  finite-index `plus/minus` producer for the equation-(120) profile.  A finite
+  equivalence negates `frequency` and `perturbedFrequency` while preserving
+  `coefficient`; finite reindexing makes the profile even, including any
+  zero-frequency fixed point.  The HalfGap adapter now requires only
+  ROOT-window `ContinuousOn`, avoiding a false global-continuity obligation at
+  zero-extension boundaries.  Forced 3638-job audit rebuild, standard axioms
+  only, zero sorryAx.  Instantiation for the extracted table and the strict
+  Fact-1 mass inequality remain open.

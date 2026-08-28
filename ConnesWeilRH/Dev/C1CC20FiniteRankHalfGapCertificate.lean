@@ -31,18 +31,20 @@ open C1CC20DisplacementKernel C1CC20FiniteRankApproximation
   C1CC20FiniteRankDifference C1CC20FiniteRankLocalGapCertificate
   C1CC20OperatorGap
 
-/-- A continuous real function has the expected symmetric-window halving
-identity.  This is kept local to the Fact-1 bridge so no DETECTOR leaf is an
-analytic dependency of the CC20 gap route. -/
-theorem intervalIntegral_symmetry_half_real (t : ℝ) (f : ℝ → ℝ)
-    (hfc : Continuous f) :
+/-- A real function continuous on a symmetric window has the expected
+half-window identity.  This is kept local to the Fact-1 bridge so no DETECTOR
+leaf is an analytic dependency of the CC20 gap route. -/
+theorem intervalIntegral_symmetry_half_real (t : ℝ) (ht : 0 ≤ t) (f : ℝ → ℝ)
+    (hfc : ContinuousOn f (Set.Icc (-t) t)) :
     ∫ x in -t..t, f x = ∫ x in 0..t, (f x + f (-x)) := by
   have hA : IntervalIntegrable f volume (-t) 0 :=
-    Continuous.intervalIntegrable hfc (-t) 0
+    (hfc.mono (Set.Icc_subset_Icc le_rfl ht)).intervalIntegrable_of_Icc
+      (neg_nonpos.mpr ht)
   have hB : IntervalIntegrable f volume 0 t :=
-    Continuous.intervalIntegrable hfc 0 t
-  have hB' : IntervalIntegrable (fun x : ℝ => f (-x)) volume 0 t :=
-    Continuous.intervalIntegrable (hfc.comp continuous_neg) 0 t
+    (hfc.mono (Set.Icc_subset_Icc (neg_nonpos.mpr ht) le_rfl)).intervalIntegrable_of_Icc ht
+  have hB' : IntervalIntegrable (fun x : ℝ => f (-x)) volume 0 t := by
+    simpa only [neg_zero, neg_neg] using
+      (IntervalIntegrable.iff_comp_neg (f := f) (a := 0) (b := -t)).mp hA.symm
   rw [intervalIntegral.integral_add hB hB',
     intervalIntegral.integral_comp_neg (f := f) (a := 0) (b := t),
     neg_zero,
@@ -73,10 +75,10 @@ theorem cc20FiniteRankDifferenceProfile_even_of_finiteProfile_even
     endpointDisplacementProfile endpointData v - cc20FiniteRankProfile finiteData v
   rw [endpointDisplacementProfile_even, hfinite]
 
-/-- A continuous profile has an integrable norm after ROOT-local zero
-extension. -/
+/-- A profile continuous on the ROOT displacement window has an integrable
+norm after ROOT-local zero extension. -/
 theorem integrable_norm_cc20RootLocalizedProfile_of_continuous
-    (a : ℝ → ℂ) (ha : Continuous a) :
+    (a : ℝ → ℂ) (ha : ContinuousOn a cc20RootDisplacementWindow) :
     Integrable (fun v => ‖cc20RootLocalizedProfile a v‖) volume := by
   have hnorm :
       (fun v => ‖cc20RootLocalizedProfile a v‖) =
@@ -86,21 +88,21 @@ theorem integrable_norm_cc20RootLocalizedProfile_of_continuous
       simp [cc20RootLocalizedProfile, hv]
   rw [hnorm, integrable_indicator_iff measurableSet_cc20RootDisplacementWindow]
   simpa only [cc20RootDisplacementWindow] using
-    (ha.norm.integrableOn_Icc (μ := volume)
-      (a := -cc20RootLength) (b := cc20RootLength))
+    ha.norm.integrableOn_Icc
 
-/-- Continuous profiles remain almost strongly measurable after ROOT-local
-zero extension. -/
+/-- ROOT-window continuity supplies the local almost-strong measurability
+needed after zero extension. -/
 theorem aestronglyMeasurable_cc20RootLocalizedProfile_of_continuous
-    (a : ℝ → ℂ) (ha : Continuous a) :
+    (a : ℝ → ℂ) (ha : ContinuousOn a cc20RootDisplacementWindow) :
     AEStronglyMeasurable (cc20RootLocalizedProfile a) volume := by
-  simpa only [cc20RootLocalizedProfile] using
-    ha.aestronglyMeasurable.indicator measurableSet_cc20RootDisplacementWindow
+  rw [cc20RootLocalizedProfile,
+    aestronglyMeasurable_indicator_iff measurableSet_cc20RootDisplacementWindow]
+  simpa only [cc20RootDisplacementWindow] using ha.integrableOn_Icc.aestronglyMeasurable
 
 /-- The whole-line mass of the ROOT-local zero extension is exactly twice the
 positive-half interval mass when the profile is even. -/
 theorem integral_norm_cc20RootLocalizedProfile_eq_two_half
-    (a : ℝ → ℂ) (ha : Continuous a)
+    (a : ℝ → ℂ) (ha : ContinuousOn a cc20RootDisplacementWindow)
   (heven : ∀ v : ℝ, a (-v) = a v) :
     (∫ v, ‖cc20RootLocalizedProfile a v‖) =
       2 * ∫ v in (0 : ℝ)..cc20RootLength, ‖a v‖ := by
@@ -118,8 +120,8 @@ theorem integral_norm_cc20RootLocalizedProfile_eq_two_half
   have hsymm :
       (∫ v in -cc20RootLength..cc20RootLength, ‖a v‖) =
         2 * ∫ v in (0 : ℝ)..cc20RootLength, ‖a v‖ := by
-    rw [intervalIntegral_symmetry_half_real cc20RootLength
-      (fun v : ℝ => ‖a v‖) ha.norm, hpoint,
+    rw [intervalIntegral_symmetry_half_real cc20RootLength cc20RootLength_pos.le
+      (fun v : ℝ => ‖a v‖) (by simpa only [cc20RootDisplacementWindow] using ha.norm), hpoint,
       intervalIntegral.integral_const_mul]
   have hnorm :
       (fun v => ‖cc20RootLocalizedProfile a v‖) =
@@ -150,8 +152,9 @@ structure CC20FiniteRankHalfGapCertificate {ι : Type*} [Fintype ι]
     (endpointData : CC20EndpointSpectralData)
     (finiteData : CC20FiniteRankData ι)
     (gapData : CC20OperatorGapData (Lp ℂ 2 (volume : Measure ℝ))) where
-  difference_profile_continuous :
-    Continuous (cc20FiniteRankDifferenceProfile endpointData finiteData)
+  difference_profile_continuousOn_root :
+    ContinuousOn (cc20FiniteRankDifferenceProfile endpointData finiteData)
+      cc20RootDisplacementWindow
   finite_profile_even : ∀ v : ℝ,
     cc20FiniteRankProfile finiteData (-v) = cc20FiniteRankProfile finiteData v
   two_half_norm_mass_le_epsilon1 :
@@ -179,15 +182,15 @@ noncomputable def CC20FiniteRankHalfGapCertificate.toLocalCertificate
       profile_norm_integrable := ?_
       profile_norm_mass_le_epsilon1 := ?_ }
   · exact aestronglyMeasurable_cc20RootLocalizedProfile_of_continuous
-      profile certificate.difference_profile_continuous
+      profile certificate.difference_profile_continuousOn_root
   · exact integrable_norm_cc20RootLocalizedProfile_of_continuous
-      profile certificate.difference_profile_continuous
+      profile certificate.difference_profile_continuousOn_root
   · calc
       (∫ v, ‖cc20FiniteRankDifferenceRootProfile endpointData finiteData v‖) =
           2 * ∫ v in (0 : ℝ)..cc20RootLength, ‖profile v‖ := by
         simpa only [cc20FiniteRankDifferenceRootProfile, profile] using
           (integral_norm_cc20RootLocalizedProfile_eq_two_half profile
-            certificate.difference_profile_continuous hprofile_even)
+            certificate.difference_profile_continuousOn_root hprofile_even)
       _ ≤ gapData.epsilon1 := by
         simpa only [profile] using certificate.two_half_norm_mass_le_epsilon1
 

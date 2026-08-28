@@ -1358,11 +1358,18 @@ pairing bound, operator-norm bound, and rank-one negative-form consumer.
 
 `C1CC20FiniteRankHalfGapCertificate` proves the exact half-to-full conversion.
 It derives the endpoint profile's evenness from its `exp(|v|)` definition and
-requires the finite profile's evenness as a separate structural producer.
-With continuity and the paper-shaped half-window mass inequality, it yields a
-ROOT-local certificate.  No strict numerical inequality, finite-profile
-symmetry witness, lambda interval, chi enclosure, or absolute-value integral
-is supplied by these leaves.
+requires the finite profile's evenness as a separate structural producer.  Its
+analytic premise is only `ContinuousOn` the ROOT displacement window: a
+ROOT-local zero extension can jump at the two window endpoints, so demanding
+global continuity would be an artificial and potentially false obligation.
+
+`C1CC20FiniteRankProfileSymmetry` supplies the structural part conditionally
+from a finite reindexing `negIndex : iota equiv iota` which negates both
+frequency fields and preserves each coefficient.  `Equiv.sum_comp` then proves
+the finite profile even; fixed points cover the zero-frequency term.  The
+remaining producer work is to instantiate that paired data for the extracted
+equation-(115) table and to prove the strict numerical Fact-1 inequality,
+lambda interval, chi enclosure, and absolute-value integral.
 
 ## 7. Session boundary
 
@@ -1466,11 +1473,19 @@ is supplied by these leaves.
   numerical enclosure is claimed.
 * ROOT-local Fact-1 adapter (`C1CC20FiniteRankLocalGapCertificate`,
   `C1CC20FiniteRankHalfGapCertificate`): LANDED, axiom-clean (separate forced
-  3635/3636-job audit rebuilds, 0 sorryAx).  It fixes the hypothesis mismatch
+  3638-job audit rebuild, 0 sorryAx).  It fixes the hypothesis mismatch
   between CC20's `2 integral_[0,log 2]` estimate and the older whole-line
   certificate: ROOT-local zero extension leaves `K_I - T` unchanged, and
-  profile evenness turns the half-window mass into that local mass.  The
-  finite-profile symmetry and strict Fact-1 inequality remain producer work.
+  profile evenness turns the half-window mass into that local mass.  Its
+  regularity premise is ROOT-local `ContinuousOn`, not global continuity,
+  because the zero extension can jump at the endpoints.
+* Paired finite-profile symmetry (`C1CC20FiniteRankProfileSymmetry`): LANDED,
+  axiom-clean (same forced 3638-job audit rebuild, 0 sorryAx).  A finite
+  `plus/minus` reindexing negates both frequency fields and preserves the
+  coefficient, which makes the equation-(120) profile even by finite-sum
+  reindexing; fixed points include the zero-frequency term.  Instantiating
+  that structure for the extracted data and proving the strict Fact-1 mass
+  inequality remain producer work.
 * Certificate honesty guards: LANDED, axiom-clean
   (`C1CC20NegativeIndex` finrank <= 1 for strictly negative subspaces under a
   one-functional kernel, specialized to the Riesz bad direction;

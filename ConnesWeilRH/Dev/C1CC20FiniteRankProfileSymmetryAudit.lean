@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1CC20FiniteRankProfileSymmetry
+
+namespace ConnesWeilRH.Source.C1CC20FiniteRankProfileSymmetry
+
+#check CC20FiniteRankProfileNegationData
+#check cc20FourierPhase_neg_neg
+#check neg_mem_cc20RootDisplacementWindow_iff
+#check cc20FourierProjectionProfile_neg_neg
+#check cc20FiniteRankProfileTerm_neg_neg_of_negationData
+#check cc20FiniteRankProfile_even_of_negationData
+
+#print axioms cc20FourierPhase_neg_neg
+#print axioms neg_mem_cc20RootDisplacementWindow_iff
+#print axioms cc20FourierProjectionProfile_neg_neg
+#print axioms cc20FiniteRankProfileTerm_neg_neg_of_negationData
+#print axioms cc20FiniteRankProfile_even_of_negationData
+
+end ConnesWeilRH.Source.C1CC20FiniteRankProfileSymmetry
