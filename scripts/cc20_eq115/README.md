@@ -34,3 +34,21 @@ python3 scripts/cc20_eq115/extract_source.py \
 The manifest does not provide the missing strict data for `lambda`, the
 analytic `chi`, or `integral |tau - chi|`.  Fact 1 in the paper states only
 an asymptotic decimal `~0.00122`; it is not a Lean-ready inequality.
+
+## Data and Lean table generator
+
+The `data/` directory holds the validated inputs and their deterministic
+manifest:
+
+- `rangles5000.docx`, `coefficients.docx` - the published DOCX inputs,
+  byte-identical to the Dropbox originals; the extractor re-checks both
+  SHA-256 digests on every run.
+- `cc20_eq115_manifest.json` - the deterministic extractor output, with one
+  per-node source string per entry.
+
+`gen_eq115_table.py` consumes the manifest and emits the Lean data module
+`ConnesWeilRH/Dev/C1CC20Eq115Table.lean` (exact rationals only; the output
+is a pure function of the manifest bytes, so regenerate rather than
+hand-edit).  From the repository root:
+
+    python3 scripts/cc20_eq115/gen_eq115_table.py
