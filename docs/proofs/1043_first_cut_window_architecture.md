@@ -2025,6 +2025,18 @@ sufficient for the route decision.
   while the correction coefficient is symmetric by cosine parity.  Next is
   the lambda-sign fold with `wirtingerFull`, followed by exponential
   independence and the conditional Theorem-8 sign count.  DETECTOR only.
+* Wirtinger slice 12h, endpoint/Wirtinger identification
+  (`C1BombieriSection8EndpointWirtinger`): LANDED, axiom-clean (leaf +
+  audit, 2673 jobs, 4 audited declarations, 0 sorryAx).  It proves that
+  the (8.11) `endpointCorrection` is exactly the even/odd endpoint term of
+  `wirtingerFull_weights`, then obtains
+  `integral qIntegrand(Z,Z') - endpointCorrection = ofReal(S)` with
+  `0 <= S`, and hence `KstarGram = ofReal(S)`.  The coefficient readback
+  combines Bombieri's (8.12) boundary identity with exact
+  `tanh(t/2)`/`coth(t/2)` exponential-ratio identities and the norm-square
+  identity `z conj(z) / 4 = normSq(z/2)`.  No eigenvalue sign has been
+  inferred yet: the remaining step must relate `Lam` to the reciprocal
+  eigenvalue and exclude the zero-eigenvector case.  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

@@ -8,8 +8,8 @@ history lives in git history, `docs/proofs/`, and
 
 - Route: C1 same-owner mainline, ROOT form (`[-log 2/2, log 2/2]`); design
   record `docs/proofs/1043`. RH NOT claimed.
-- Committed frontier `5040926`: the Bombieri Lemma-10 DETECTOR chain is
-  landed through slice 12d - section-7 readback + (7.1) symmetry + Lemma-10
+- Committed frontier `fb6fd2b`: the Bombieri Lemma-10 DETECTOR chain has its
+  finite (8.11) assembly landed - section-7 readback + (7.1) symmetry + Lemma-10
   Gram identity + (7.2)-(7.5) finite-Gamma matrix layer, and the FULL
   Wirtinger (8.13) inequality `wirtingerFull` plus its (8.11) transport
   bricks: the finite-window exponential integral (ExpSum), the (8.5)
@@ -38,10 +38,16 @@ history lives in git history, `docs/proofs/`, and
   the (7.4) eigen-relation to that finite (8.11) right side without division
   by `Lam`.  The next open finite-dimensional step is the lambda-sign fold
   against `wirtingerFull`.
+- Latest verified Wirtinger fold: `C1BombieriSection8EndpointWirtinger`
+  identifies `endpointCorrection` with the even/odd endpoint part of
+  `wirtingerFull_weights`, proving `KstarGram = ofReal S` for some
+  `S >= 0`.  The remaining detector work is the reciprocal-eigenvalue
+  relation and the zero-vector exclusion; no unconditional endpoint sign is
+  claimed.
 - Next bricks, in order:
-  1. Gram-quadratic readback (8.11): assemble the finite double sum from
-     EigenGram + KstarSubst + QForm + BoundaryBridge, then fold it with
-     `wirtingerFull` to obtain `lambda * sum |w|^2 >= 0`.
+  1. Relate `Lam` to the reciprocal eigenvalue and combine
+     `KstarGram = ofReal S`, `S >= 0`, and the weighted eigen-relation into
+     the conditional lambda-sign statement.
   2. Exponential-independence contradiction (`lambda = 0` forces all
      `z_gamma = 0`) + Theorem-8 sign count. DETECTOR only.
   3. `K_I - T` finite-rank profile -> eq-(100)/GATE 1 certificate ->
@@ -250,3 +256,11 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   `bombieriEigen_gram_total`; 2672-job audit, two declarations axiom-clean,
   zero sorryAx.  The Q-form transposition uses `winInt_neg`; the endpoint
   channel uses the cosine-symmetric correction coefficient.  DETECTOR only.
+- 2026-08-28 C1BombieriSection8EndpointWirtinger(+Audit) : identified the
+  (8.11) endpoint correction with the even/odd boundary in
+  `wirtingerFull_weights`, yielding the nonnegative real remainder
+  `integral qIntegrand - endpointCorrection = ofReal S` and therefore
+  `KstarGram = ofReal S`, `S >= 0`; 2673-job audit, four declarations
+  axiom-clean, zero sorryAx.  The exact weight conversion uses
+  `tanh(t/2) = (exp t - 1)/(exp t + 1)` and its odd reciprocal together
+  with the squared-norm-of-a-half identity.  DETECTOR only.
