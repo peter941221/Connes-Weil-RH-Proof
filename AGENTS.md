@@ -173,6 +173,12 @@ verifies exact identities.
   large timeout, or in background tasks.
 - WSL `/tmp` tmpfs content does not survive across invocations reliably:
   persist logs outside tmpfs (e.g. under `/home/...`).
+- Do not background a multi-step WSL `sh -c` chain with `&`: after `wsl.exe`
+  returns, WSL can reclaim the entire chain before its first copy or build.
+  Keep the invocation attached to the host task, or use a durable supervisor.
+- A nested-shell `$?` can be expanded at the wrong boundary.  Never use a
+  reported `LAKE_EXIT` as acceptance evidence; inspect the WSL-side log for
+  zero `error:` lines and its success footer.
 
 ### 7b. Lean / Mathlib v4.30 recurring hazards
 
@@ -212,6 +218,9 @@ verifies exact identities.
   first. When Complex.re rewrites stall, use `inner_self_eq_norm_mul_norm`.
 - Mathlib names: `Set.indicator_of_notMem` (camelCase); post-deprecation
   `mul_le_mul_left`; `sq_pos_of_ne_zero` single-arg.
+- Term-level `mod_cast` preserves strictness and needs an expected target.  To
+  derive a nonstrict real inequality from a strict rational one, first
+  `apply le_of_lt`, then use `exact mod_cast h`.
 
 ### 7c. Numeric-probe fidelity laws (docs/proofs probes)
 

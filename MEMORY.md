@@ -4,7 +4,7 @@ Current route snapshot + rotating change log. Compressed 2026-08-27: full
 history lives in git history, `docs/proofs/`, and
 `_precompress_backup_2026-08-27/`. Working rules live in `AGENTS.md`.
 
-## Current snapshot (2026-08-28)
+## Current snapshot (2026-08-29)
 
 - Route: C1 same-owner mainline, ROOT form (`[-log 2/2, log 2/2]`); design
   record `docs/proofs/1043`. RH NOT claimed.
@@ -71,6 +71,19 @@ history lives in git history, `docs/proofs/`, and
   records are retained explicitly.  The reader rejects a swapped input before
   writing output.  It provides no strict `lambda` interval, analytic `chi`
   enclosure, or absolute-value integral.
+- Latest verified CC20 gamma sandwich:
+  `C1CC20GammaCoercivity` converts a symmetric row-band enclosure into lower
+  and upper complex matrix-form bounds by a finite AM-GM fold.  It was forced
+  to re-elaborate with its audit on 2026-08-29: zero `error:` lines, footer
+  `Build completed successfully (2943 jobs)`, and only
+  `[propext, Classical.choice, Quot.sound]` for all three declarations.
+- Latest verified coefficient positivity:
+  `C1CC20Eq115CoefficientPositivity` is generated from the exact extracted
+  table as 1,732 branch-local `rfl` equations plus one `interval_cases`
+  aggregation sweep.  The final `gamma5` log records its successful 1242 s
+  build.  The proposed Bessel consumer is not accepted: forced `gamma6`
+  retains 15 root errors, so `cc20Eq115_gate1hT` must not be treated as an
+  available route theorem and its audit has not run.
 - Next bricks, in order:
   1. Package the conditional eigenvalue sign into the finite determinant
      / Theorem-8 sign-count consumer, including its separate zero-eigenvalue
@@ -380,3 +393,18 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   GATE 1 residue is now exactly four named payloads (alpha endpoint
   enclosure, beta grid table, gamma T-spectral block, delta archimedean
   comparison).  Design record docs/proofs/1046.
+- 2026-08-29 C1CC20GammaCoercivity(+Audit) : added and forced-rebuilt the
+  generic symmetric-row-band AM-GM sandwich for complex matrix forms; 2943
+  jobs, zero errors, and all three declarations audit to the standard axioms.
+- 2026-08-29 C1CC20Eq115CoefficientPositivity +
+  scripts/cc20_eq115/gen_positivity.awk : generated 1,732 exact-rational
+  branch equations and a single `interval_cases` positivity sweep; final leaf
+  build recorded at 1242 s.  The real nonnegativity corollary weakens first
+  with `le_of_lt` before its target-directed `mod_cast`.
+- 2026-08-29 C1CC20GammaBesselCoercivity(+Audit),
+  C1CC20GammaBesselProbe, and probe_sinh.lean : recorded the proposed
+  Fourier/Bessel coercivity route and its API probes.  Forced `gamma6` is red
+  with 15 root errors; neither the Bessel claims nor its audit are accepted.
+- 2026-08-29 docs/proofs/1047 and AGENTS/MEMORY : corrected the checkpoint
+  record to distinguish the accepted sandwich/positivity leaves from the red
+  Bessel research frontier.
