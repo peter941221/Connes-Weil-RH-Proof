@@ -2037,6 +2037,17 @@ sufficient for the route decision.
   identity `z conj(z) / 4 = normSq(z/2)`.  No eigenvalue sign has been
   inferred yet: the remaining step must relate `Lam` to the reciprocal
   eigenvalue and exclude the zero-eigenvector case.  DETECTOR only.
+* Wirtinger slice 12i, reciprocal eigenvalue sign
+  (`C1BombieriSection8LambdaSign`): LANDED, axiom-clean (leaf + audit,
+  2674 jobs, 5 audited declarations, 0 sorryAx).  With explicit caller
+  premises `lam : Real`, `((lam : Complex) * Lam = 1)`, and a nonzero
+  weighted eigenvector, it proves `lam * WMass = S` for the Wirtinger
+  remainder `S >= 0`; the strictly positive weighted mass then yields
+  `0 <= lam`, and the reciprocal premise yields `0 < lam` in this nonzero
+  branch.  The zero-eigenvalue branch is deliberately left to the
+  sign-count consumer, where it is already nonnegative.  No realness,
+  reciprocal relation, or nonzero-vector condition is stored as a theorem
+  input.  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

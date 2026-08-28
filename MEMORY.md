@@ -8,7 +8,7 @@ history lives in git history, `docs/proofs/`, and
 
 - Route: C1 same-owner mainline, ROOT form (`[-log 2/2, log 2/2]`); design
   record `docs/proofs/1043`. RH NOT claimed.
-- Committed frontier `fb6fd2b`: the Bombieri Lemma-10 DETECTOR chain has its
+- Committed frontier `3b46691`: the Bombieri Lemma-10 DETECTOR chain has its
   finite (8.11) assembly landed - section-7 readback + (7.1) symmetry + Lemma-10
   Gram identity + (7.2)-(7.5) finite-Gamma matrix layer, and the FULL
   Wirtinger (8.13) inequality `wirtingerFull` plus its (8.11) transport
@@ -36,21 +36,22 @@ history lives in git history, `docs/proofs/`, and
 - Latest verified total assembly: `C1BombieriSection8TotalAssembly` proves
   `KstarGram = integral qIntegrand(Z,Z') - endpointCorrection` and carries
   the (7.4) eigen-relation to that finite (8.11) right side without division
-  by `Lam`.  The next open finite-dimensional step is the lambda-sign fold
-  against `wirtingerFull`.
+  by `Lam`.  Its output is now consumed by the endpoint/Wirtinger and
+  reciprocal-sign folds.
 - Latest verified Wirtinger fold: `C1BombieriSection8EndpointWirtinger`
   identifies `endpointCorrection` with the even/odd endpoint part of
   `wirtingerFull_weights`, proving `KstarGram = ofReal S` for some
-  `S >= 0`.  The remaining detector work is the reciprocal-eigenvalue
-  relation and the zero-vector exclusion; no unconditional endpoint sign is
-  claimed.
+  `S >= 0`.  Its output is now consumed by the reciprocal-sign fold; no
+  unconditional endpoint sign is claimed.
+- Latest verified reciprocal-sign fold: `C1BombieriSection8LambdaSign`
+  keeps `lam : Real`, `(lam : Complex) * Lam = 1`, and `z != 0` as explicit
+  premises, then proves `0 < lam` in the reciprocal branch.  A zero
+  eigenvalue needs no reciprocal and remains for the Theorem-8 sign count.
 - Next bricks, in order:
-  1. Relate `Lam` to the reciprocal eigenvalue and combine
-     `KstarGram = ofReal S`, `S >= 0`, and the weighted eigen-relation into
-     the conditional lambda-sign statement.
-  2. Exponential-independence contradiction (`lambda = 0` forces all
-     `z_gamma = 0`) + Theorem-8 sign count. DETECTOR only.
-  3. `K_I - T` finite-rank profile -> eq-(100)/GATE 1 certificate ->
+  1. Package the conditional eigenvalue sign into the finite determinant
+     / Theorem-8 sign-count consumer, including its separate zero-eigenvalue
+     branch. DETECTOR only.
+  2. `K_I - T` finite-rank profile -> eq-(100)/GATE 1 certificate ->
      universal W4b; capstone already formal:
      `sourceRH_of_rootSupportedHealthyDetectorData_and_endpointCertificates`.
 - GATE 2 (Titchmarsh/Cartwright square-form bridge): deferred, not attempted.
@@ -264,3 +265,11 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   axiom-clean, zero sorryAx.  The exact weight conversion uses
   `tanh(t/2) = (exp t - 1)/(exp t + 1)` and its odd reciprocal together
   with the squared-norm-of-a-half identity.  DETECTOR only.
+- 2026-08-28 C1BombieriSection8LambdaSign(+Audit) : made the reciprocal
+  eigenvalue fold explicit: from the (7.4) weighted eigen-relation,
+  `(lam : Complex) * Lam = 1`, and nonzero `z`, derives
+  `lam * WMass = S`, `S >= 0`, then `0 <= lam` and `0 < lam` in the
+  reciprocal branch; 2674-job audit, five declarations axiom-clean,
+  zero sorryAx.  The realness and reciprocal relation remain caller
+  premises, and the zero-eigenvalue branch is not conflated with this one.
+  DETECTOR only.
