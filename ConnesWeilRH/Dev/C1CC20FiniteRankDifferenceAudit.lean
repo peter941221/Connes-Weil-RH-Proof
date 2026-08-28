@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1CC20FiniteRankDifference
+
+namespace ConnesWeilRH.Source.C1CC20FiniteRankDifference
+
+#check cc20FiniteRankDifferenceProfile
+#check cc20FiniteRankDifferenceKernel
+#check cc20FiniteRankDifferenceKernel_eq_windowedDisplacementKernel
+#check memLp_cc20FiniteRankDifferenceKernel
+#check applyKernelLp_cc20FiniteRankDifferenceKernel_eq_operatorGap
+
+#print axioms cc20FiniteRankDifferenceKernel_eq_windowedDisplacementKernel
+#print axioms memLp_cc20FiniteRankDifferenceKernel
+#print axioms applyKernelLp_cc20FiniteRankDifferenceKernel_eq_operatorGap
+
+end ConnesWeilRH.Source.C1CC20FiniteRankDifference

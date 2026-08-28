@@ -1,0 +1,21 @@
+import ConnesWeilRH.Dev.C1CC20FiniteRankOperatorReadback
+
+namespace ConnesWeilRH.Source.C1CC20FiniteRankOperatorReadback
+
+#check cc20FiniteRankTermKernel
+#check memLp_cc20FiniteRankTermKernel
+#check cc20FiniteRankTermKernel_eq_windowedDisplacementKernel
+#check applyKernelLp_cc20FiniteRankTermKernel_eq_operatorTerm
+#check cc20FiniteRankKernel
+#check memLp_cc20FiniteRankKernel
+#check cc20FiniteRankKernel_eq_windowedDisplacementKernel
+#check applyKernelLp_cc20FiniteRankKernel_eq_operator
+
+#print axioms memLp_cc20FiniteRankTermKernel
+#print axioms cc20FiniteRankTermKernel_eq_windowedDisplacementKernel
+#print axioms applyKernelLp_cc20FiniteRankTermKernel_eq_operatorTerm
+#print axioms memLp_cc20FiniteRankKernel
+#print axioms cc20FiniteRankKernel_eq_windowedDisplacementKernel
+#print axioms applyKernelLp_cc20FiniteRankKernel_eq_operator
+
+end ConnesWeilRH.Source.C1CC20FiniteRankOperatorReadback

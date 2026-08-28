@@ -173,6 +173,37 @@ theorem applyKernel_smul
         ring]
   exact integral_smul z _
 
+/-- Adding two `L²` kernels commutes with their raw action on an `L²` input,
+almost everywhere.  The rowwise Holder argument is the kernel-side analogue
+of `applyKernel_add_ae`: it supplies the two integrability facts before
+using `integral_add`, rather than relying on the integral's default value on
+nonintegrable functions. -/
+theorem applyKernel_kernel_add_ae
+    {k l : ℝ × ℝ → ℂ} {f : ℝ → ℂ}
+    (hk : MemLp k (ENNReal.ofReal 2))
+    (hl : MemLp l (ENNReal.ofReal 2))
+    (hf : MemLp f (ENNReal.ofReal 2)) :
+    applyKernel (fun p => k p + l p) f =ᵐ[volume]
+      fun x => applyKernel k f x + applyKernel l f x := by
+  have hholder : (2 : ℝ).HolderConjugate 2 := by
+    rw [Real.holderConjugate_iff]
+    norm_num
+  letI : ENNReal.HolderConjugate (ENNReal.ofReal 2) (ENNReal.ofReal 2) :=
+    hholder.ennrealOfReal
+  have hkrows := rows_l2_ae_of_kernel_l2 hk
+  have hlrows := rows_l2_ae_of_kernel_l2 hl
+  filter_upwards [hkrows, hlrows] with x hkx hlx
+  have hkint : Integrable (fun y : ℝ => k (x, y) * f y) volume := by
+    simpa only [Pi.mul_apply] using hkx.integrable_mul hf
+  have hlint : Integrable (fun y : ℝ => l (x, y) * f y) volume := by
+    simpa only [Pi.mul_apply] using hlx.integrable_mul hf
+  unfold applyKernel
+  rw [show (fun y : ℝ => (k (x, y) + l (x, y)) * f y) =
+      fun y => k (x, y) * f y + l (x, y) * f y by
+        funext y
+        ring,
+    integral_add hkint hlint]
+
 /-- The linear operator on the L2 quotient induced by an L2 kernel. -/
 noncomputable def applyKernelLpLinear
     (k : ℝ × ℝ → ℂ) (hk : MemLp k 2) :
@@ -275,6 +306,100 @@ noncomputable def applyKernelLp
     Lp ℂ 2 (volume : Measure ℝ) →L[ℂ] Lp ℂ 2 (volume : Measure ℝ) :=
   LinearMap.mkContinuous (applyKernelLpLinear k hk) ‖hk.toLp k‖
     (norm_applyKernelLpLinear_le k hk)
+
+/-- The quotient lift is additive in its `L²` kernel.  This is the bridge
+needed to read a finite sum of raw Fourier kernels back as the corresponding
+finite-rank bounded operator. -/
+theorem applyKernelLp_kernel_add
+    {k l : ℝ × ℝ → ℂ}
+    (hk : MemLp k 2) (hl : MemLp l 2) :
+    applyKernelLp (fun p => k p + l p) (hk.add hl) =
+      applyKernelLp k hk + applyKernelLp l hl := by
+  apply ContinuousLinearMap.ext
+  intro f
+  let hf : MemLp (f : ℝ → ℂ) 2 volume := Lp.memLp f
+  apply MemLp.toLp_congr
+    (memLp_applyKernel_two (hk.add hl) hf)
+    ((memLp_applyKernel_two hk hf).add (memLp_applyKernel_two hl hf))
+  exact applyKernel_kernel_add_ae (by simpa using hk) (by simpa using hl)
+    (by simpa using hf)
+
+/-- The quotient lift is homogeneous in its `L²` kernel. -/
+theorem applyKernelLp_kernel_smul
+    {k : ℝ × ℝ → ℂ} (hk : MemLp k 2) (z : ℂ) :
+    applyKernelLp (z • k) (hk.const_smul z) =
+      z • applyKernelLp k hk := by
+  apply ContinuousLinearMap.ext
+  intro f
+  let hf : MemLp (f : ℝ → ℂ) 2 volume := Lp.memLp f
+  apply MemLp.toLp_congr
+    (memLp_applyKernel_two (hk.const_smul z) hf)
+    ((memLp_applyKernel_two hk hf).const_smul z)
+  change applyKernel (z • k) (f : ℝ → ℂ) =ᵐ[volume]
+    z • applyKernel k (f : ℝ → ℂ)
+  rw [show z • k = fun p => z * k p by
+        rfl]
+  filter_upwards with x
+  unfold applyKernel
+  rw [show (fun y : ℝ => (z * k (x, y)) * (f : ℝ → ℂ) y) =
+      fun y => z • (k (x, y) * (f : ℝ → ℂ) y) by
+        funext y
+        simp only [smul_eq_mul]
+        ring,
+    integral_smul]
+  rfl
+
+/-- The quotient lift preserves kernel subtraction. -/
+theorem applyKernelLp_kernel_sub
+    {k l : ℝ × ℝ → ℂ}
+    (hk : MemLp k 2) (hl : MemLp l 2) :
+    applyKernelLp (k - l) (hk.sub hl) =
+      applyKernelLp k hk - applyKernelLp l hl := by
+  calc
+    applyKernelLp (k - l) (hk.sub hl) =
+      applyKernelLp k hk +
+        applyKernelLp ((-1 : ℂ) • l) (hl.const_smul (-1 : ℂ)) := by
+        simpa only [sub_eq_add_neg, neg_one_smul] using
+          (applyKernelLp_kernel_add hk (hl.const_smul (-1 : ℂ)))
+    _ = applyKernelLp k hk + (-1 : ℂ) • applyKernelLp l hl := by
+      rw [applyKernelLp_kernel_smul]
+    _ = applyKernelLp k hk - applyKernelLp l hl := by
+      simp only [sub_eq_add_neg, neg_smul, one_smul]
+
+/-- The zero `L²` kernel lifts to the zero bounded operator. -/
+theorem applyKernelLp_kernel_zero :
+    applyKernelLp (fun _ : ℝ × ℝ => (0 : ℂ)) (MemLp.zero) = 0 := by
+  simpa using
+    (applyKernelLp_kernel_smul
+      (k := fun _ : ℝ × ℝ => (0 : ℂ)) (MemLp.zero) 0)
+
+/-- A finite sum of `L²` kernels lifts to the corresponding finite sum of
+bounded operators.  The explicit membership proof is retained so future
+certificate leaves can use the result without an unproved integrability
+shortcut. -/
+theorem applyKernelLp_kernel_finsetSum
+    {ι : Type*} (s : Finset ι) (k : ι → ℝ × ℝ → ℂ)
+    (hk : ∀ i, MemLp (k i) 2) :
+    applyKernelLp (∑ i ∈ s, k i)
+        (memLp_finsetSum' s fun i _ => hk i) =
+      ∑ i ∈ s, applyKernelLp (k i) (hk i) := by
+  classical
+  induction s using Finset.induction_on with
+  | empty =>
+      simpa using applyKernelLp_kernel_zero
+  | insert a s ha ih =>
+      calc
+        applyKernelLp (∑ i ∈ insert a s, k i)
+            (memLp_finsetSum' (insert a s) fun i _ => hk i) =
+          applyKernelLp (k a) (hk a) +
+            applyKernelLp (∑ i ∈ s, k i)
+              (memLp_finsetSum' s fun i _ => hk i) := by
+          simpa only [Finset.sum_insert ha] using
+            (applyKernelLp_kernel_add (hk a)
+              (memLp_finsetSum' s fun i _ => hk i))
+        _ = ∑ i ∈ insert a s, applyKernelLp (k i) (hk i) := by
+          rw [ih]
+          simp only [Finset.sum_insert ha]
 
 /-- Hilbert--Schmidt control of the induced L2 operator norm. -/
 theorem opNorm_applyKernelLp_le
