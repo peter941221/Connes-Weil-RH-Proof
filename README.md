@@ -9,7 +9,7 @@ Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 
 > **Updated 2026-08-28.** This dashboard describes the repository state of
 > commit
-> [`70983b6`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/70983b6).
+> [`01fa0a1`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/01fa0a1).
 > **No unconditional proof of the Riemann hypothesis is claimed here.**
 
 ### Route map
@@ -91,28 +91,38 @@ bottom; every station on the road carries its state.
            | Fact-1 half-gap certificate ASSEMBLED concretely.   |
            +-----------------------------------------------------+
         |
+        v  +-----------------------------------------------------+
+           | GATE 1 ASSEMBLY - CONDITIONAL CHAIN [WIRED]         |
+           | one entry point for the concrete table: grid ->     |
+           | eq-(121) operator gap -> Lemma-second rank-one ->   |
+           | 13 < 4g/log 2 < 17 -> slope-matched residual.       |
+           | Residue = four named payloads (see base camp).      |
+           +-----------------------------------------------------+
+        |
 
    ##############  YOU ARE HERE  -  GATE 1 BASE CAMP  ################
 
-        |  the concrete certificate is down to TWO ANALYTIC SIDES:
+        |  goal: arch(g^2) <= 0 for all ROOT-class tests [OPEN]
+        |  the machinery is wired END TO END; four payloads close it:
         |
-        |      goal: arch(g^2) <= 0 for all ROOT-class tests
-        |                                            [OPEN]
-        |
-        |      (a) ENDPOINT PROFILE CHI ........ [DATA OPEN]
+        |      (alpha) ENDPOINT PROFILE CHI ..... [DATA OPEN]
         |          a concrete CC20EndpointSpectralData with an
         |          analytic enclosure on e^|v| in [1, 2] (the
-        |          paper states only asymptotics) plus its
-        |          ROOT-window continuity
+        |          paper states only asymptotics)
         |
-        |      (b) STRICT MASS 2*integral_[0,log2] |chi - tau|
+        |      (beta) JOINT GRID TABLE 2*int |chi - tau|
         |          <= epsilon1 ................ [DATA OPEN]
         |          certified L1 quadrature over the extracted
-        |          table (floats generate, Lean verifies)
+        |          table (consumer landed; blocked by alpha)
         |
-        |      then: eq-(100) slope identity + the rank-one
-        |      bound gamma ~= 2.94355 in 13 < 4g/log 2 < 17
-        |      -> GATE 1
+        |      (gamma) T-SIDE COERCIVITY BLOCK . [DATA OPEN]
+        |          certified eigenvalue enclosure of the
+        |          concrete eq-(119) operator (no 2x2-block
+        |          shortcut: sinc-type Gram coupling)
+        |
+        |      (delta) ARCHIMEDEAN COMPARISON .. [DATA OPEN]
+        |          trace - coefficient*rank <= W-infinity(g^2)
+        |          (the CC20 trace-formula comparison)
         |
 
    =====================  LEG III - STILL AHEAD  ======================
@@ -223,9 +233,12 @@ DATE         EVENT                                                COMMIT
              profile symmetry producer                           f4eafad
              extracted eq-(115) table into Lean                  24f2dbe
              concrete Fact-1 certificate assembly                70983b6
+             record of the certificate reduction                 f3abc6d
+             Fact-1 mass-bound consumption layer                 84c133c
+             GATE 1 conditional assembly                         01fa0a1
 ------------------------------------------------------------------------
 HEAD at this writing:
-https://github.com/peter941221/Connes-Weil-RH-Proof/commit/70983b6
+https://github.com/peter941221/Connes-Weil-RH-Proof/commit/01fa0a1
 ```
 
 The narrative snapshot below is retained unchanged from the previous
