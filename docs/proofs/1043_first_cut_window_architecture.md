@@ -1300,6 +1300,45 @@ the CC20 gamma lane stays the fallback consumer behind the already-landed
 adapters.  Yoshida 1992 remains paywalled; the scope precedent above is
 sufficient for the route decision.
 
+### 6z. Equation-(115) published-table source boundary (landed 2026-08-28)
+
+The two finite tables used by CC20 equation (114) are now reproducibly
+readable from the paper-linked primary artifacts, rather than being treated as
+anonymous floating-point input.  The reader
+`scripts/cc20_eq115/extract_source.py` accepts only these document identities:
+
+* angles: <https://www.dropbox.com/s/kjmra7t9ejet1pw/rangles5000.docx?dl=0>,
+  SHA-256 `0aab652b2187f766af19ba07264a5c02da7b62b40e0b2aaa14773b06460f1ed5`;
+* coefficients:
+  <https://www.dropbox.com/s/e2bswzrh3tps00h/coefficients.docx?dl=0>,
+  SHA-256 `5387ede3a9de8673536d76dd4163b9c60665c929cd51923dbf812ecf128a1266`.
+
+Both DOCX files contain 1,733 Mathematica-form decimal tokens.  The last
+angle is the exact sentinel `1733`; equation (114) fixes `m = 1732`, so the
+reader emits entries 1 through 1,732 from both lists and retains the two
+terminal records explicitly.  Every emitted node carries its original token,
+exact rational numerator and denominator, document URL, SHA-256, and entry
+index.  A swapped-document negative test is rejected by the hash gate before
+an output manifest is written.
+
+This closes only the finite-data provenance problem.  It does not convert the
+paper's Fact 1 statement
+`2 integral_0^(log 2) |tau - chi| dx ~ 0.00122` into a strict inequality.
+Three independent producers remain necessary:
+
+1. a strict interval for the `lambda` used with these `omega = 1/5000` table
+   values (the paper gives only a separate approximate `lambda ~ 1.05177` at
+   `omega = 10^-3`);
+2. a primary-source-backed analytic enclosure for `chi`, including the
+   eleven-term prolate approximation and its remainder;
+3. a certified absolute-value integration scheme for the resulting
+   `tau - chi` enclosure.
+
+Only after all three are formalized may their resulting bound populate
+`CC20FiniteRankGapCertificate`; the already-landed equation-(121) consumer
+then transports it to the operator gap.  The source reader itself claims no
+spectral or RH consequence.
+
 ## 7. Session boundary
 
 * Translation invariance layer: LANDED, axiom-clean

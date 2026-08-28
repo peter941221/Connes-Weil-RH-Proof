@@ -8,7 +8,7 @@ history lives in git history, `docs/proofs/`, and
 
 - Route: C1 same-owner mainline, ROOT form (`[-log 2/2, log 2/2]`); design
   record `docs/proofs/1043`. RH NOT claimed.
-- Committed frontier `429b747`: the Bombieri Lemma-10 DETECTOR chain has its
+- Committed frontier `553b30d`: the Bombieri Lemma-10 DETECTOR chain has its
   finite (8.11) assembly landed - section-7 readback + (7.1) symmetry + Lemma-10
   Gram identity + (7.2)-(7.5) finite-Gamma matrix layer, and the FULL
   Wirtinger (8.13) inequality `wirtingerFull` plus its (8.11) transport
@@ -56,13 +56,22 @@ history lives in git history, `docs/proofs/`, and
   and the Lemma-second rank-one consumer.  Its three fields are analytic
   regularity plus `integral norm(chi - tau) <= epsilon1`; no numerical
   equation-(115) certificate has been asserted.
+- Latest verified CC20 equation-(115) source boundary:
+  `scripts/cc20_eq115/extract_source.py` validates the two CC20-linked DOCX
+  artifacts by fixed SHA-256 and DOCX/XML structure, then emits the first
+  1,732 angle and coefficient entries as exact rational source nodes.  The
+  angle document's exact final `1733` sentinel and both unused terminal
+  records are retained explicitly.  The reader rejects a swapped input before
+  writing output.  It provides no strict `lambda` interval, analytic `chi`
+  enclosure, or absolute-value integral.
 - Next bricks, in order:
   1. Package the conditional eigenvalue sign into the finite determinant
      / Theorem-8 sign-count consumer, including its separate zero-eigenvalue
      branch. DETECTOR only.
-  2. Produce a primary-source-backed strict equation-(115) `L1` certificate
-     for `chi - tau`, then consume it in eq-(100)/GATE 1 and universal W4b;
-     the capstone is already formal:
+  2. Produce a strict interval for `lambda`, an analytic `chi` enclosure, and
+     certified absolute-value integration for `chi - tau`; then consume the
+     resulting equation-(115) `L1` certificate in eq-(100)/GATE 1 and
+     universal W4b.  The capstone is already formal:
      `sourceRH_of_rootSupportedHealthyDetectorData_and_endpointCertificates`.
 - GATE 2 (Titchmarsh/Cartwright square-form bridge): deferred, not attempted.
 
@@ -294,3 +303,12 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   bound, operator-norm gap, and rank-one negative-form consumer.  Forced
   3637-job audit rebuild: 31 standard-axiom lines, zero errors, zero sorryAx.
   No strict numeric profile enclosure is claimed.
+- 2026-08-28 `553b30d`: CC20 equation-(115) source reader LANDED --
+  `scripts/cc20_eq115/extract_source.py` validates the two paper-linked DOCX
+  inputs by fixed SHA-256, DOCX/XML structure, exact 1,733-token counts, and
+  the final angle sentinel `1733`; it emits the first 1,732 entries of each
+  table as exact rational records with raw token and per-node source string,
+  retaining both unused terminal records.  Real-source extraction emitted
+  3,466 source nodes; a swapped-document test was rejected before output.
+  Boundary: this validates `alpha/d` data only.  A strict `lambda` interval,
+  analytic `chi` enclosure, and certified `integral |tau - chi|` remain open.
