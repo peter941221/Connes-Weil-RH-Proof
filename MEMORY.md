@@ -218,3 +218,10 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   `conj(Z'(-t)) Z(-t) - conj(Z'(t)) Z(t)`; 2668-job audit, axiom-clean,
   zero sorryAx.  This supplies the boundary input for the remaining (8.11)
   finite-sum assembly and remains DETECTOR only.
+- 2026-08-28 C1BombieriSection8KernelWeights(+Audit) : proved the uniform
+  weighted entry form of (7.1), including both repeated-ordinate diagonal and
+  off-diagonal cases: `(1/4+x^2) 2t K*` is the Q-form `winInt` coefficient
+  minus the elementary endpoint-correction coefficient.  `winInt_neg` gives
+  its frequency evenness for finite-sum reindexing; 2668-job audit,
+  axiom-clean, zero sorryAx.  The diagonal cancellation is proved in Real
+  before one Complex cast, avoiding incompatible hyperbolic-function casts.

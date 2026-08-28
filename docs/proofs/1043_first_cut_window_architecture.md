@@ -1985,6 +1985,19 @@ sufficient for the route decision.
   Remaining (8.11) work is now finite-sum assembly of these substitutions
   with slices 12a--12c, then the lambda-sign fold with `wirtingerFull`.
   DETECTOR only.
+* Wirtinger slice 12e, weighted kernel entries
+  (`C1BombieriSection8KernelWeights`): LANDED, axiom-clean (leaf + audit,
+  2668 jobs, 0 sorryAx).  The uniform entry identity absorbs the first
+  `(1/4+x^2)` matrix weight:
+  `(1/4+x^2) 2t K*(x,y;t) = (1/4+xy) winInt(t,y-x) -
+  [cosh(t) cos(t(x-y)) - cos(t(x+y))]/sinh(t)`.  It joins the non-diagonal
+  (7.1) law with the separately proven diagonal removable-value formula,
+  so repeated ordinates remain in the finite carrier.  `winInt_neg` records
+  the frequency-evenness needed when reindexing the Q-form double sum.
+  The diagonal proof first closes its rational identity in `Real` before a
+  single `Complex.ofReal` embedding, avoiding a `push_cast` rewrite of
+  `Real.cosh`/`Real.sinh` into incompatible complex functions.  Next is the
+  finite endpoint factorization of the correction channel.  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
