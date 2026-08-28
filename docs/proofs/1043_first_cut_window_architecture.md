@@ -1334,10 +1334,35 @@ Three independent producers remain necessary:
 3. a certified absolute-value integration scheme for the resulting
    `tau - chi` enclosure.
 
-Only after all three are formalized may their resulting bound populate
-`CC20FiniteRankGapCertificate`; the already-landed equation-(121) consumer
-then transports it to the operator gap.  The source reader itself claims no
-spectral or RH consequence.
+Only after all three are formalized may their resulting bound populate the
+half-window certificate described below; the already-landed equation-(121)
+consumer then transports its ROOT-local mass to the operator gap.  The source
+reader itself claims no spectral or RH consequence.
+
+### 6za. ROOT-local form of CC20 Fact 1 (landed 2026-08-28)
+
+CC20 Fact 1 controls the displacement difference only where the ROOT square
+can see it:
+
+```text
+2 * integral_[0, log 2] |tau(v) - chi(v)| dv <= epsilon1.
+```
+
+The former `CC20FiniteRankGapCertificate` instead asks for a whole-line
+integral.  That is a strictly stronger hypothesis and does not follow from
+the published Fact 1.  `C1CC20FiniteRankLocalGapCertificate` therefore
+zero-extends the profile outside `[-log 2, log 2]`; the square-window kernel
+is unchanged because every difference `y - x` in the ROOT square lies in that
+interval.  Its local mass certificate feeds the existing equation-(121)
+pairing bound, operator-norm bound, and rank-one negative-form consumer.
+
+`C1CC20FiniteRankHalfGapCertificate` proves the exact half-to-full conversion.
+It derives the endpoint profile's evenness from its `exp(|v|)` definition and
+requires the finite profile's evenness as a separate structural producer.
+With continuity and the paper-shaped half-window mass inequality, it yields a
+ROOT-local certificate.  No strict numerical inequality, finite-profile
+symmetry witness, lambda interval, chi enclosure, or absolute-value integral
+is supplied by these leaves.
 
 ## 7. Session boundary
 
@@ -1439,6 +1464,13 @@ spectral or RH consequence.
   Lemma-second rank-one consumer.  The certificate owns only measurability,
   norm integrability, and the asserted mass bound; no strict equation-(115)
   numerical enclosure is claimed.
+* ROOT-local Fact-1 adapter (`C1CC20FiniteRankLocalGapCertificate`,
+  `C1CC20FiniteRankHalfGapCertificate`): LANDED, axiom-clean (separate forced
+  3635/3636-job audit rebuilds, 0 sorryAx).  It fixes the hypothesis mismatch
+  between CC20's `2 integral_[0,log 2]` estimate and the older whole-line
+  certificate: ROOT-local zero extension leaves `K_I - T` unchanged, and
+  profile evenness turns the half-window mass into that local mass.  The
+  finite-profile symmetry and strict Fact-1 inequality remain producer work.
 * Certificate honesty guards: LANDED, axiom-clean
   (`C1CC20NegativeIndex` finrank <= 1 for strictly negative subspaces under a
   one-functional kernel, specialized to the Riesz bad direction;

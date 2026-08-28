@@ -55,7 +55,12 @@ history lives in git history, `docs/proofs/`, and
   certificate into the equation-(121) pairing bound, the operator-norm gap,
   and the Lemma-second rank-one consumer.  Its three fields are analytic
   regularity plus `integral norm(chi - tau) <= epsilon1`; no numerical
-  equation-(115) certificate has been asserted.
+  equation-(115) certificate has been asserted.  The new
+  `C1CC20FiniteRankLocalGapCertificate` aligns that consumer with the actual
+  ROOT-local support, and `C1CC20FiniteRankHalfGapCertificate` turns CC20's
+  half-window Fact-1 shape into the local certificate from continuity plus
+  endpoint/finite-profile evenness.  No whole-line mass is inferred from the
+  paper's local bound.
 - Latest verified CC20 equation-(115) source boundary:
   `scripts/cc20_eq115/extract_source.py` validates the two CC20-linked DOCX
   artifacts by fixed SHA-256 and DOCX/XML structure, then emits the first
@@ -312,3 +317,11 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   3,466 source nodes; a swapped-document test was rejected before output.
   Boundary: this validates `alpha/d` data only.  A strict `lambda` interval,
   analytic `chi` enclosure, and certified `integral |tau - chi|` remain open.
+- 2026-08-28 C1CC20FiniteRankLocalGapCertificate(+Audit) and
+  C1CC20FiniteRankHalfGapCertificate(+Audit) : aligned the equation-(115)
+  certificate interface with CC20 Fact 1.  ROOT-local zero extension preserves
+  the square-window difference kernel, while continuity and evenness convert
+  `2 * integral_[0,log 2] |tau - chi|` into the local whole-support mass used
+  by equation-(121).  Forced audits: 3635 and 3636 jobs, standard axioms only,
+  zero sorryAx.  The finite-profile symmetry witness and strict numerical mass
+  inequality remain unproduced.
