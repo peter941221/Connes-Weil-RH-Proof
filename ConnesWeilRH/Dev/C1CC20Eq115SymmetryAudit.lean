@@ -1,0 +1,19 @@
+import ConnesWeilRH.Dev.C1CC20Eq115Symmetry
+
+namespace ConnesWeilRH.Source.C1CC20Eq115Symmetry
+
+#check cc20Eq115NegationData
+#check cc20Eq115Profile_even
+#check cc20Eq115DifferenceProfile_even
+#check continuousOn_cc20FourierProjectionProfile
+#check continuousOn_cc20Eq115Profile
+#check cc20Eq115_halfGapCertificate
+
+#print axioms cc20Eq115NegationData
+#print axioms cc20Eq115Profile_even
+#print axioms cc20Eq115DifferenceProfile_even
+#print axioms continuousOn_cc20FourierProjectionProfile
+#print axioms continuousOn_cc20Eq115Profile
+#print axioms cc20Eq115_halfGapCertificate
+
+end ConnesWeilRH.Source.C1CC20Eq115Symmetry
