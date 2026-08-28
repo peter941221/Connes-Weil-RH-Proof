@@ -105,8 +105,9 @@ mathlib oleans under `.lake/packages/mathlib/.lake/build/`.
 
 ## [4] Coding Conventions & Review Expectations
 
-Follow existing namespaces/naming/layout; end every `.lean` file with
-`end ConnesWeilRH` plus one trailing blank line (whitespace linter trap).
+Follow existing namespaces/naming/layout; end every `.lean` file with a final
+`end ...` and exactly one terminating newline.  Do not add an empty EOF line:
+`git diff --check` rejects it.
 Data-bearing owners beat separate propositions when several facts must refer
 to one object (test + square, operator + kernel, kernel + HS norm). Keep
 support parameter and operator cutoff distinct. A legal cyclic trace move

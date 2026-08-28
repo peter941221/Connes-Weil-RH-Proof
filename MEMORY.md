@@ -8,7 +8,7 @@ history lives in git history, `docs/proofs/`, and
 
 - Route: C1 same-owner mainline, ROOT form (`[-log 2/2, log 2/2]`); design
   record `docs/proofs/1043`. RH NOT claimed.
-- Committed frontier `3b46691`: the Bombieri Lemma-10 DETECTOR chain has its
+- Committed frontier `429b747`: the Bombieri Lemma-10 DETECTOR chain has its
   finite (8.11) assembly landed - section-7 readback + (7.1) symmetry + Lemma-10
   Gram identity + (7.2)-(7.5) finite-Gamma matrix layer, and the FULL
   Wirtinger (8.13) inequality `wirtingerFull` plus its (8.11) transport
@@ -47,12 +47,22 @@ history lives in git history, `docs/proofs/`, and
   keeps `lam : Real`, `(lam : Complex) * Lam = 1`, and `z != 0` as explicit
   premises, then proves `0 < lam` in the reciprocal branch.  A zero
   eigenvalue needs no reciprocal and remains for the Theorem-8 sign count.
+- Latest verified CC20 finite-rank gap chain:
+  `C1CC20FiniteRankOperatorReadback` reads the equation-(119) Fourier profile
+  back as the bounded ROOT-window operator `T`; `C1CC20FiniteRankDifference`
+  names `chi - tau` and proves that its lifted kernel is `K_I - T`; and
+  `C1CC20FiniteRankGapCertificate` turns an independent profile `L1` mass
+  certificate into the equation-(121) pairing bound, the operator-norm gap,
+  and the Lemma-second rank-one consumer.  Its three fields are analytic
+  regularity plus `integral norm(chi - tau) <= epsilon1`; no numerical
+  equation-(115) certificate has been asserted.
 - Next bricks, in order:
   1. Package the conditional eigenvalue sign into the finite determinant
      / Theorem-8 sign-count consumer, including its separate zero-eigenvalue
      branch. DETECTOR only.
-  2. `K_I - T` finite-rank profile -> eq-(100)/GATE 1 certificate ->
-     universal W4b; capstone already formal:
+  2. Produce a primary-source-backed strict equation-(115) `L1` certificate
+     for `chi - tau`, then consume it in eq-(100)/GATE 1 and universal W4b;
+     the capstone is already formal:
      `sourceRH_of_rootSupportedHealthyDetectorData_and_endpointCertificates`.
 - GATE 2 (Titchmarsh/Cartwright square-form bridge): deferred, not attempted.
 
@@ -273,3 +283,14 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   zero sorryAx.  The realness and reciprocal relation remain caller
   premises, and the zero-eigenvalue branch is not conflated with this one.
   DETECTOR only.
+- 2026-08-28 `429b747`: CC20 finite-rank gap chain LANDED --
+  `C1CC20KernelLpLift` now lifts kernel addition, scalar multiplication,
+  subtraction, zero, and finite sums; `C1CC20FiniteRankOperatorReadback`
+  identifies the equation-(119) finite Fourier profile with its bounded
+  operator `T`; `C1CC20FiniteRankDifference` identifies the named
+  equation-(115) profile `chi - tau` with `K_I - T`; and
+  `C1CC20FiniteRankGapCertificate` consumes only analytic regularity plus
+  `integral norm(chi - tau) <= epsilon1` to derive the equation-(121) pairing
+  bound, operator-norm gap, and rank-one negative-form consumer.  Forced
+  3637-job audit rebuild: 31 standard-axiom lines, zero errors, zero sorryAx.
+  No strict numeric profile enclosure is claimed.

@@ -1390,6 +1390,16 @@ sufficient for the route decision.
   LANDED, axiom-clean (2700 jobs, 0 sorryAx); eq-(120) discharged by Fubini.
   Strict lambda data (11-term chi formula, remainder, certified absolute-value
   integration) and any `C(R)` producer remain open.
+* Finite-rank gap interface (`C1CC20FiniteRankOperatorReadback`,
+  `C1CC20FiniteRankDifference`, `C1CC20FiniteRankGapCertificate`): LANDED,
+  axiom-clean (forced 3637-job audit rebuild, 0 sorryAx).  It reads the
+  equation-(119) Fourier profile back as the bounded ROOT-window operator
+  `T`, names the equation-(115) profile `chi - tau`, identifies its lifted
+  kernel with `K_I - T`, and turns a separately supplied profile `L1` mass
+  bound into the equation-(121) pairing bound, operator-norm gap, and
+  Lemma-second rank-one consumer.  The certificate owns only measurability,
+  norm integrability, and the asserted mass bound; no strict equation-(115)
+  numerical enclosure is claimed.
 * Certificate honesty guards: LANDED, axiom-clean
   (`C1CC20NegativeIndex` finrank <= 1 for strictly negative subspaces under a
   one-functional kernel, specialized to the Riesz bad direction;
