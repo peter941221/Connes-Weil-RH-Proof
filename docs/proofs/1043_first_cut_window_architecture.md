@@ -1998,6 +1998,21 @@ sufficient for the route decision.
   single `Complex.ofReal` embedding, avoiding a `push_cast` rewrite of
   `Real.cosh`/`Real.sinh` into incompatible complex functions.  Next is the
   finite endpoint factorization of the correction channel.  DETECTOR only.
+* Wirtinger slice 12f, endpoint-correction factorization
+  (`C1BombieriSection8EndpointCorrection`): LANDED, axiom-clean (leaf +
+  audit, 2669 jobs, 2 audited declarations, 0 sorryAx).  Its flagship
+  `kernelEndpointCorrection_eq_endpointCorrection` factors the elementary
+  double-sum correction from the weighted (7.1) entry formula exactly into
+  Bombieri's (8.11) endpoint expression:
+  `(e^t + e^-t)/(2(e^t-e^-t)) (Z(t) conj Z(t) + Z(-t) conj Z(-t)) -
+  1/(e^t-e^-t) (Z(t) conj Z(-t) + conj Z(t) Z(-t))`.
+  The proof uses the finite product readback
+  `expSum_endpoint_product`, pairs opposite exponential phases into cosine,
+  and distributes the two scalar channels through the finite double sum.
+  This is the shorter faithful route from (7.1) to (8.11): it retains
+  repeated ordinates and avoids a redundant expansion of the Lemma-10
+  bracket factors.  Next is the finite-sum total assembly with QForm and
+  EigenGram, then the lambda-sign fold with `wirtingerFull`.  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

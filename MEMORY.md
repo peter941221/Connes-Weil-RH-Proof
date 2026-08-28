@@ -8,7 +8,7 @@ history lives in git history, `docs/proofs/`, and
 
 - Route: C1 same-owner mainline, ROOT form (`[-log 2/2, log 2/2]`); design
   record `docs/proofs/1043`. RH NOT claimed.
-- Committed frontier `0137ee5`: the Bombieri Lemma-10 DETECTOR chain is
+- Committed frontier `6971cc8`: the Bombieri Lemma-10 DETECTOR chain is
   landed through slice 12d - section-7 readback + (7.1) symmetry + Lemma-10
   Gram identity + (7.2)-(7.5) finite-Gamma matrix layer, and the FULL
   Wirtinger (8.13) inequality `wirtingerFull` plus its (8.11) transport
@@ -28,6 +28,11 @@ history lives in git history, `docs/proofs/`, and
   and the weighted diagonal identity
   `2t K*(r,r;t) = 2t - (cosh t - cos(2tr)) /
   (sinh t * (1/4 + r^2))` (KstarSubst).
+- Latest verified slice: `C1BombieriSection8EndpointCorrection` factors the
+  elementary correction channel of the weighted (7.1) kernel entries into
+  the real-symmetric endpoint correction of (8.11).  It uses finite endpoint
+  product expansion and opposite-phase pairing, so repeated ordinates remain
+  valid and no Lemma-10 bracket expansion is needed.
 - Next bricks, in order:
   1. Gram-quadratic readback (8.11): assemble the finite double sum from
      EigenGram + KstarSubst + QForm + BoundaryBridge, then fold it with
@@ -225,3 +230,10 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   its frequency evenness for finite-sum reindexing; 2668-job audit,
   axiom-clean, zero sorryAx.  The diagonal cancellation is proved in Real
   before one Complex cast, avoiding incompatible hyperbolic-function casts.
+- 2026-08-28 C1BombieriSection8EndpointCorrection(+Audit) : factored the
+  weighted (7.1) elementary correction double sum into Bombieri's exact
+  (8.11) real-symmetric endpoint correction through
+  `kernelEndpointCorrection_eq_endpointCorrection`; 2669-job audit,
+  two declarations axiom-clean, zero sorryAx.  `expSum_endpoint_product`
+  provides the reusable finite endpoint-product expansion.  The route avoids
+  expanding Lemma-10's bracket factors and preserves repeated ordinates.
