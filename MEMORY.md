@@ -352,3 +352,16 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   for the extracted table - reducing it to exactly two analytic caller
   fields (chi continuity + strict mass); 6 declarations axiom-clean, zero
   sorryAx, 3640-job build.  Design record docs/proofs/1044.
+- 2026-08-28 C1CC20Eq115MassBound(+Audit) : the Fact-1 strict-mass
+  consumption layer - l1_uniform_grid (uniform grid + per-tile bounds
+  gives delta * sum mass), l1_tail_bound (last piece ends exactly at the
+  irrational log 2, symbolic tail length, no numeric evaluation), and
+  cc20Eq115_halfGapCertificate_of_uniformGrid turning a grid bound table
+  plus the two analytic caller fields into the full half-gap certificate;
+  5 declarations axiom-clean, zero sorryAx, 3642-job batch build.  The grid
+  table itself is deliberately NOT produced: the chi side needs the
+  concrete endpoint enclosure (Sturm-Liouville regularity absent from
+  Mathlib), and tau alone is provably not small - exact-rational
+  sum_n (1 - d_n) = -114996652757599/312500000000000 gives
+  tau(0) = -1.062 * lambda, so a tau-only quadrature would certify a
+  useless O(lambda) bound.  Design record docs/proofs/1045.
