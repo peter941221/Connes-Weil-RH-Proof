@@ -2013,6 +2013,18 @@ sufficient for the route decision.
   repeated ordinates and avoids a redundant expansion of the Lemma-10
   bracket factors.  Next is the finite-sum total assembly with QForm and
   EigenGram, then the lambda-sign fold with `wirtingerFull`.  DETECTOR only.
+* Wirtinger slice 12g, total finite-sum assembly
+  (`C1BombieriSection8TotalAssembly`): LANDED, axiom-clean (leaf + audit,
+  2672 jobs, 2 audited declarations, 0 sorryAx).  Its flagship
+  `bombieriKstarGram_eq_qIntegrand_sub_endpointCorrection` assembles the
+  weighted (7.1) entries into the exact (8.11) identity
+  `KstarGram = integral qIntegrand(Z,Z') - endpointCorrection`.
+  `bombieriEigen_gram_total` then transports the (7.4) eigen-relation to
+  this right side without dividing by `Lam`.  The only new bookkeeping is
+  finite double-sum transposition: the Q-form frequency uses `winInt_neg`,
+  while the correction coefficient is symmetric by cosine parity.  Next is
+  the lambda-sign fold with `wirtingerFull`, followed by exponential
+  independence and the conditional Theorem-8 sign count.  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are

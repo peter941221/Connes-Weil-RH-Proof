@@ -8,7 +8,7 @@ history lives in git history, `docs/proofs/`, and
 
 - Route: C1 same-owner mainline, ROOT form (`[-log 2/2, log 2/2]`); design
   record `docs/proofs/1043`. RH NOT claimed.
-- Committed frontier `6971cc8`: the Bombieri Lemma-10 DETECTOR chain is
+- Committed frontier `5040926`: the Bombieri Lemma-10 DETECTOR chain is
   landed through slice 12d - section-7 readback + (7.1) symmetry + Lemma-10
   Gram identity + (7.2)-(7.5) finite-Gamma matrix layer, and the FULL
   Wirtinger (8.13) inequality `wirtingerFull` plus its (8.11) transport
@@ -33,6 +33,11 @@ history lives in git history, `docs/proofs/`, and
   the real-symmetric endpoint correction of (8.11).  It uses finite endpoint
   product expansion and opposite-phase pairing, so repeated ordinates remain
   valid and no Lemma-10 bracket expansion is needed.
+- Latest verified total assembly: `C1BombieriSection8TotalAssembly` proves
+  `KstarGram = integral qIntegrand(Z,Z') - endpointCorrection` and carries
+  the (7.4) eigen-relation to that finite (8.11) right side without division
+  by `Lam`.  The next open finite-dimensional step is the lambda-sign fold
+  against `wirtingerFull`.
 - Next bricks, in order:
   1. Gram-quadratic readback (8.11): assemble the finite double sum from
      EigenGram + KstarSubst + QForm + BoundaryBridge, then fold it with
@@ -237,3 +242,11 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   two declarations axiom-clean, zero sorryAx.  `expSum_endpoint_product`
   provides the reusable finite endpoint-product expansion.  The route avoids
   expanding Lemma-10's bracket factors and preserves repeated ordinates.
+- 2026-08-28 C1BombieriSection8TotalAssembly(+Audit) : assembled the
+  weighted (7.1) finite `K*` Gram sum into the (8.11) form
+  `integral qIntegrand(Z,Z') - endpointCorrection` through
+  `bombieriKstarGram_eq_qIntegrand_sub_endpointCorrection`, then transported
+  the (7.4) eigen-relation through the same equality with the division-free
+  `bombieriEigen_gram_total`; 2672-job audit, two declarations axiom-clean,
+  zero sorryAx.  The Q-form transposition uses `winInt_neg`; the endpoint
+  channel uses the cosine-symmetric correction coefficient.  DETECTOR only.
