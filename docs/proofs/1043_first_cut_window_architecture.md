@@ -1959,6 +1959,23 @@ sufficient for the route decision.
   rank-two boundary products), the λ ≥ 0 folding with
   `wirtingerFull`, the exponential-independence contradiction, and
   the Theorem-8 sign count.  DETECTOR only.
+* Wirtinger slice 12d, the Lemma-10 substitution pair
+  (`C1BombieriSection8KstarSubst`): LANDED, axiom-clean (leaf + audit,
+  2 declarations, 0 sorryAx; commit `0137ee5`).  It exposes exactly the
+  two entry-level forms consumed by the remaining finite-Gamma double sum:
+  off the diagonal, `2t K*(x,y;t)` is the `winInt t (y-x)` Q-form channel
+  minus the two exponential-bracket correction products
+  (`bombieriKstar_lemma10_winInt`); on the diagonal,
+  `2t K*(r,r;t) = 2t - (cosh t - cos(2tr)) /
+  (sinh t * (1/4 + r^2))` (`bombieriKstar_twoT_diag`).  The latter
+  denominator is essential: it survives multiplication by `2t` and must
+  remain attached to the diagonal correction.  The proof derives
+  `sinh t != 0` directly from `Real.sinh_eq` and `exp` injectivity, proves
+  the scalar cancellation in `Real`, then re-embeds it with
+  `Complex.ofReal`; this avoids fragile complex `field_simp` normalization.
+  Remaining (8.11) work is now finite-sum assembly of these substitutions
+  with slices 12a--12c, then the lambda-sign fold with `wirtingerFull`.
+  DETECTOR only.
 * Full root build after complete source sync: GREEN (`4147 jobs`, 0 error).
 * Endpoint sign / trace theorem: OPEN; the certificate remains the explicit
   analytic obligation (§6a).  Its scalar and finite-dimensional algebra are
