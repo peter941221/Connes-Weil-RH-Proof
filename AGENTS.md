@@ -250,3 +250,20 @@ leggauss nodes already live on [-1,1].
   whose downstream use is confined to the ROOT displacement window should
   require `ContinuousOn` that window, never an artificial global `Continuous`
   premise.
+### 7e. v4.30 cast/spelling hazards (Bessel-repair round)
+
+- `(e : ℂ)` + `^ 2` elaborates the power OUTSIDE the cast (`(↑e) ^ 2`).
+  Cast-folds (`← ofReal_mul/sub/sum`) need `← Complex.ofReal_pow` first,
+  and `rw` folds only the FIRST matched occurrence class — repeat the item
+  per side.
+- `star` ↔ `conj` spelling: bridge inside rw chains with
+  `starRingEnd_apply`; `Complex.norm_conj` clears conj under a norm.
+  `simp only [Complex.star_def]` can recursion-bomb in this state.
+- `inner_sum` = sum in the RIGHT slot; `sum_inner` = LEFT slot — check the
+  body, not the name.  CLM sum application: use
+  `ContinuousLinearMap.sum_apply` (`rfl` and `simp` both fail).
+- `ite` conditions must match the goal's argument ORDER: bridge with
+  `if_pos h.symm` / `if_neg (Ne.symm h)`.
+- omega treats `((an, false)).1` and `an` as distinct atoms: derive
+  `have hn := by omega` on plain casts first, transport with
+  `Int.ofNat_inj.mp hn`.  Bool `cases` order is false-then-true.

@@ -408,3 +408,9 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
 - 2026-08-29 docs/proofs/1047 and AGENTS/MEMORY : corrected the checkpoint
   record to distinguish the accepted sandwich/positivity leaves from the red
   Bessel research frontier.
+- 2026-08-29 C1CC20GammaBesselCoercivity(+Audit) : repaired the RED Bessel
+  producer (15 root errors, six forced builds) to accepted; every audit
+  declaration prints the three standard axioms, zero sorryAx.  Flagship
+  `cc20Eq115_gate1hT` now supplies the concrete (gamma) `hT` at
+  `epsilon2 <= 1 - lam`; probe file deleted per its own contract; record
+  docs/proofs/1048.

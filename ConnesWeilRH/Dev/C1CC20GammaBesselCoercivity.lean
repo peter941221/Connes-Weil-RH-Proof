@@ -152,8 +152,9 @@ theorem star_cc20WindowFourierModeRaw_mul (m k : ℤ) :
             Complex.I)) := by
   funext y
   by_cases hy : y ∈ cc20Window cc20RootHalfWidth
-  · simp only [cc20WindowFourierModeRaw, Set.indicator_of_mem hy,
-      star_cc20FourierPhase, cc20FourierPhase]
+  · simp only [cc20WindowFourierModeRaw, Set.indicator_of_mem hy]
+    rw [star_cc20FourierPhase]
+    simp only [cc20FourierPhase]
     rw [← Complex.exp_add]
     congr 1
     push_cast
@@ -175,15 +176,16 @@ theorem inner_cc20WindowFourierVector_int_eq (m k : ℤ) :
   rw [← integral_star_cc20WindowFourierModeRaw_mul (m : ℝ)
       (f := cc20WindowFourierVector (k : ℝ)),
     integral_congr_ae hcongr, star_cc20WindowFourierModeRaw_mul m k,
-    integral_indicator (measurableSet_cc20Window cc20RootHalfWidth),
-    cc20Window, cc20RootHalfWidth_eq_half_length, neg_div,
+    MeasureTheory.integral_indicator (measurableSet_cc20Window cc20RootHalfWidth),
+    cc20Window, cc20RootHalfWidth_eq_half_length, ← neg_div,
     integral_Icc_eq_integral_Ioc, ← integral_of_le
       (by linarith [cc20RootLength_pos] : -cc20RootLength / 2 ≤ cc20RootLength / 2),
     window_exp_integral (k - m)]
-  rw [sub_eq_zero]
   by_cases h : k = m
-  · rw [if_pos h, if_pos h.symm]
-  · rw [if_neg h, if_neg (Ne.symm h)]
+  · have hkm : k - m = 0 := by omega
+    rw [if_pos hkm, if_pos h.symm]
+  · have hkm : ¬(k - m = 0) := by omega
+    rw [if_neg hkm, if_neg (Ne.symm h)]
 
 /-- The unit-normalized window mode of an arbitrary real frequency. -/
 def cc20RealUnitWindowFourierMode (α : ℝ) :
@@ -211,10 +213,11 @@ theorem cc20Orthonormal_unitWindowFourierMode :
   rw [inner_smul_left, inner_smul_right,
     inner_cc20WindowFourierVector_int_eq m k]
   by_cases h : m = k
-  · rw [← mul_assoc, hstar, if_pos h,
-      ← Complex.ofReal_mul, inv_mul_cancel₀ cc20RootLength_ne_zero,
+  · rw [← mul_assoc, starRingEnd_apply, hstar]
+    simp only [if_pos h]
+    rw [← Complex.ofReal_mul, inv_mul_cancel₀ cc20RootLength_ne_zero,
       Complex.ofReal_one]
-  · rw [if_neg h, mul_zero, mul_zero]
+  · rw [if_neg h, mul_zero, mul_zero, if_neg h]
 
 /-- The quadratic form of one unnormalized Fourier projection is the squared
 coefficient of the corresponding unit mode. -/
@@ -227,17 +230,17 @@ theorem cc20FourierProjection_inner (α : ℝ)
     simp only [Complex.star_def]
     rw [mul_comm, ← Complex.normSq_eq_conj_mul_self, pow_two,
         ← Complex.ofReal_mul, ← pow_two, norm_sq_eq_normSq]
-  have hcn : ‖((Real.sqrt cc20RootLength : ℝ)⁻¹ : ℂ)‖ ^ 2 =
+  have hcn : ‖(starRingEnd ℂ) ((Real.sqrt cc20RootLength : ℝ)⁻¹ : ℂ)‖ ^ 2 =
       (cc20RootLength : ℝ)⁻¹ := by
-    rw [norm_sq_eq_normSq, Complex.normSq_inv, Complex.normSq_ofReal,
-      Real.mul_self_sqrt cc20RootLength_pos.le]
+    rw [Complex.norm_conj, norm_sq_eq_normSq, Complex.normSq_inv,
+      Complex.normSq_ofReal, Real.mul_self_sqrt cc20RootLength_pos.le]
   unfold cc20FourierProjection cc20RealUnitWindowFourierMode
   rw [ContinuousLinearMap.smul_apply, InnerProductSpace.rankOne_apply,
     inner_smul_right, inner_smul_right,
-    ← inner_conj_symm (x := ξ) (y := cc20WindowFourierVector α), hwstar,
-    inner_smul_left]
-  simp only [Complex.star_def, Complex.conj_ofReal]
-  rw [norm_mul, mul_pow, hcn, ← Complex.ofReal_mul, ← Complex.ofReal_mul]
+    ← inner_conj_symm (x := ξ) (y := cc20WindowFourierVector α),
+    starRingEnd_apply, hwstar, inner_smul_left]
+  rw [norm_mul, ← Complex.ofReal_pow, ← Complex.ofReal_pow, mul_pow,
+    ← Complex.ofReal_mul, hcn]
 
 /-- **The (gamma) Bessel-coercivity brick.**  For any equation-(119)-style
 finite-rank data whose base frequencies are an injective integer list and
@@ -263,8 +266,7 @@ theorem cc20DefectQuadraticForm_ge_of_bessel
     intro i
     rw [cc20FiniteRankOperatorTerm, ContinuousLinearMap.sub_apply,
       ContinuousLinearMap.smul_apply, inner_sub_right, inner_smul_right,
-      cc20FourierProjection_inner, cc20FourierProjection_inner,
-      ← Complex.ofReal_mul, ← Complex.ofReal_sub]
+      cc20FourierProjection_inner, cc20FourierProjection_inner]
   have hq : cc20RealQuadraticForm (cc20FiniteRankOperator data) ξ =
       data.lambda * ∑ i : ι,
         (‖inner ℂ (cc20RealUnitWindowFourierMode (data.frequency i)) ξ‖ ^ 2 -
@@ -272,16 +274,14 @@ theorem cc20DefectQuadraticForm_ge_of_bessel
             ‖inner ℂ (cc20RealUnitWindowFourierMode (data.perturbedFrequency i)) ξ‖ ^ 2) := by
     unfold cc20RealQuadraticForm
     rw [cc20FiniteRankOperator, ContinuousLinearMap.smul_apply,
-      inner_smul_right,
-      (show (∑ i : ι, cc20FiniteRankOperatorTerm data i) ξ =
-          ∑ i : ι, cc20FiniteRankOperatorTerm data i ξ from rfl),
-      inner_sum]
-    simp_rw [hterm]
+      inner_smul_right, ContinuousLinearMap.sum_apply, inner_sum]
+    simp_rw [hterm, ← Complex.ofReal_pow, ← Complex.ofReal_mul,
+      ← Complex.ofReal_sub]
     rw [← Complex.ofReal_sum, ← Complex.ofReal_mul, Complex.ofReal_re]
   have hfreq : (∑ i : ι,
         ‖inner ℂ (cc20RealUnitWindowFourierMode (data.frequency i)) ξ‖ ^ 2) =
       ∑ i : ι, ‖inner ℂ (cc20UnitWindowFourierMode (base i)) ξ‖ ^ 2 :=
-    Finset.sum_congr rfl fun i _ => by rw [hbase i]
+    Finset.sum_congr rfl fun i _ => by rw [cc20UnitWindowFourierMode, hbase i]
   have hperp : (∑ i : ι, ‖inner ℂ (cc20UnitWindowFourierMode (base i)) ξ‖ ^ 2) ≤
       ‖ξ‖ ^ 2 := by
     have hb := cc20Orthonormal_unitWindowFourierMode.sum_inner_products_le
@@ -298,7 +298,7 @@ theorem cc20DefectQuadraticForm_ge_of_bessel
   have hbound : cc20RealQuadraticForm (cc20FiniteRankOperator data) ξ ≤
       data.lambda * ‖ξ‖ ^ 2 := by
     rw [hq]
-    exact mul_le_mul_of_nonneg_left (hdrop.trans (hfreq.trans hperp)) hlam
+    exact mul_le_mul_of_nonneg_left (hdrop.trans (hfreq.trans_le hperp)) hlam
   rw [cc20DefectQuadraticForm_eq_norm_sq_sub_realQuadraticForm]
   linarith
 
@@ -314,17 +314,23 @@ theorem cc20Eq115BaseFrequency_injective :
   obtain ⟨an, ab⟩ := a
   obtain ⟨bn, bb⟩ := b
   cases ab <;> cases bb <;>
-    simp only [cc20Eq115BaseFrequency, reduceIte] at hab
-  · refine Prod.ext (Fin.ext ?_) rfl
-    exact Int.ofNat_inj.mp (by omega)
-  · have hX : 0 < ((an.val : ℤ)) + 1 := Nat.cast_add_one_pos _
-    have hY : 0 < ((bn.val : ℤ)) + 1 := Nat.cast_add_one_pos _
-    linarith [hab, hX, hY]
-  · have hX : 0 < ((an.val : ℤ)) + 1 := Nat.cast_add_one_pos _
-    have hY : 0 < ((bn.val : ℤ)) + 1 := Nat.cast_add_one_pos _
-    linarith [hab, hX, hY]
-  · refine Prod.ext (Fin.ext ?_) rfl
-    exact Int.ofNat_inj.mp (by omega)
+    simp [cc20Eq115BaseFrequency] at hab
+  · -- (false, false): `-(n+1) = -(m+1)` forces `n = m`.
+    have hn : ((an.val : ℤ)) = ((bn.val : ℤ)) := by omega
+    refine Prod.ext (Fin.ext ?_) rfl
+    exact Int.ofNat_inj.mp hn
+  · -- (false, true): negative equals positive, contradiction.
+    have hX : (0 : ℤ) < ((an.val : ℤ)) + 1 := Nat.cast_add_one_pos _
+    have hY : (0 : ℤ) < ((bn.val : ℤ)) + 1 := Nat.cast_add_one_pos _
+    linarith
+  · -- (true, false): positive equals negative, contradiction.
+    have hX : (0 : ℤ) < ((an.val : ℤ)) + 1 := Nat.cast_add_one_pos _
+    have hY : (0 : ℤ) < ((bn.val : ℤ)) + 1 := Nat.cast_add_one_pos _
+    linarith
+  · -- (true, true): `n+1 = m+1` forces `n = m`.
+    have hn : ((an.val : ℤ)) = ((bn.val : ℤ)) := by omega
+    refine Prod.ext (Fin.ext ?_) rfl
+    exact Int.ofNat_inj.mp hn
 
 theorem cc20Eq115Data_frequency_eq (lam : ℝ) (i : Fin 1732 × Bool) :
     (cc20Eq115Data lam).frequency i = (cc20Eq115BaseFrequency i : ℝ) := by
@@ -363,7 +369,9 @@ theorem cc20Eq115_gate1hT
   have h₁ := cc20Eq115DefectBessel_ge lam hlam xi
   have h₂ : gapData.epsilon2 * ‖xi‖ ^ 2 ≤ (1 - lam) * ‖xi‖ ^ 2 :=
     mul_le_mul_of_nonneg_right hε (sq_nonneg _)
-  simp only [Pi.zero_apply, pow_two, mul_zero, add_zero]
+  have h0 : ((fun _ => (0 : ℝ)) xi) ^ 2 = 0 := by
+    simp
+  rw [h0, mul_zero, add_zero]
   exact h₂.trans h₁
 
 end
