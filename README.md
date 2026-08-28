@@ -7,9 +7,9 @@ Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 
 ## Status dashboard
 
-> **Updated 2026-08-27.** This dashboard describes the repository state of
+> **Updated 2026-08-28.** This dashboard describes the repository state of
 > commit
-> [`13bae3d`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/13bae3d).
+> [`70983b6`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/70983b6).
 > **No unconditional proof of the Riemann hypothesis is claimed here.**
 
 ### Route map
@@ -65,23 +65,54 @@ bottom; every station on the road carries its state.
            | pole dies by triple vanishing).                     |
            +-----------------------------------------------------+
         |
+        v  +-----------------------------------------------------+
+           | DETECTOR RIDGE - BOMBIERI/WIRTINGER   [CLEARED]     |
+           | (8.13) wirtingerFull: Q(Z) splits into even/odd     |
+           | envelopes plus a nonnegative remainder; (8.11) the  |
+           | weighted K* Gram sum = ofReal S with S >= 0; the    |
+           | reciprocal-eigenvalue sign 0 < lam, conditional.    |
+           | DETECTOR only - never an unconditional GATE 1.      |
+           +-----------------------------------------------------+
+        |
+        v  +-----------------------------------------------------+
+           | CC20 FINITE-RANK INTERFACE            [BUILT]       |
+           | eq-(115) profile difference chi - tau = K_I - T;    |
+           | eq-(119) finite operator T; eq-(121) pairing bound, |
+           | operator-norm gap, rank-one consumer; ROOT-local    |
+           | Fact-1 alignment; paired plus/minus symmetry.       |
+           +-----------------------------------------------------+
+        |
+        v  +-----------------------------------------------------+
+           | EXTRACTED TABLE - PUBLISHED eq-(115) DATA [LANDED]  |
+           | m = 1732 angles + coefficients, exact rationals,    |
+           | SHA-256-pinned DOCX sources; the sign-paired index  |
+           | makes alpha_{-n} = -alpha_n hold by construction;   |
+           | concrete evenness + ROOT-window continuity; the     |
+           | Fact-1 half-gap certificate ASSEMBLED concretely.   |
+           +-----------------------------------------------------+
+        |
 
    ##############  YOU ARE HERE  -  GATE 1 BASE CAMP  ################
 
-        |  BASE CAMP OF GATE 1 - ENDPOINT SIGN THEOREM
+        |  the concrete certificate is down to TWO ANALYTIC SIDES:
         |
         |      goal: arch(g^2) <= 0 for all ROOT-class tests
         |                                            [OPEN]
-        |      two supply lines being cut through:
         |
-        |      (a) CONCRETE K_I - T ENVELOPE......... [NEXT]
-        |          rank-one approximant + certified norm
-        |          envelope feeding eq-(121)
+        |      (a) ENDPOINT PROFILE CHI ........ [DATA OPEN]
+        |          a concrete CC20EndpointSpectralData with an
+        |          analytic enclosure on e^|v| in [1, 2] (the
+        |          paper states only asymptotics) plus its
+        |          ROOT-window continuity
         |
-        |      (b) NUMERIC CERTIFICATE DATA.... [DATA OPEN]
-        |          Yoshida exact-rational LDL^T OR CC20
-        |          rank-one bound gamma ~= 2.94355 in
-        |          13 < 4g/log 2 < 17
+        |      (b) STRICT MASS 2*integral_[0,log2] |chi - tau|
+        |          <= epsilon1 ................ [DATA OPEN]
+        |          certified L1 quadrature over the extracted
+        |          table (floats generate, Lean verifies)
+        |
+        |      then: eq-(100) slope identity + the rank-one
+        |      bound gamma ~= 2.94355 in 13 < 4g/log 2 < 17
+        |      -> GATE 1
         |
 
    =====================  LEG III - STILL AHEAD  ======================
@@ -135,8 +166,10 @@ How to read the tags:
   the living design record behind this map.
 
 A milestone count is not an honest measure of distance to RH. The operator
-floor has landed and audits clean, but what remains is the hard analytic core:
-the GATE 1 sign estimate, its two feeds above, and test-class completeness.
+floor, the detector ridge, and the published-data table have landed and audit
+clean, but what remains is the hard analytic core: the two endpoint sides
+listed at base camp, the GATE 1 sign estimate they feed, and test-class
+completeness.
 Ruled-out shortcuts are equally part of the record: the bare whole-line
 Hilbert-Schmidt premise is false for every nonzero test, the plain-window
 cutoff trace family is an empty producer, and the pure-analysis budget ladder
@@ -183,9 +216,16 @@ DATE         EVENT                                                COMMIT
              integrability discharge + Fubini readback          6a23ea8
              pairing bound -> operator-norm gap adapter         5c0cff8
              HS kernels lifted to bounded quotient ops          13bae3d
+2026-08-28   Wirtinger (8.13) flagship wirtingerFull             18b9b82
+             Bombieri (8.11) K*Gram mass + conditional sign      1875953
+             CC20 finite-rank gap interface                      429b747
+             eq-(115) source reader + Fact-1 ROOT-local fix      553b30d
+             profile symmetry producer                           f4eafad
+             extracted eq-(115) table into Lean                  24f2dbe
+             concrete Fact-1 certificate assembly                70983b6
 ------------------------------------------------------------------------
 HEAD at this writing:
-https://github.com/peter941221/Connes-Weil-RH-Proof/commit/13bae3d
+https://github.com/peter941221/Connes-Weil-RH-Proof/commit/70983b6
 ```
 
 The narrative snapshot below is retained unchanged from the previous

@@ -336,3 +336,19 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   zero-extension boundaries.  Forced 3638-job audit rebuild, standard axioms
   only, zero sorryAx.  Instantiation for the extracted table and the strict
   Fact-1 mass inequality remain open.
+- 2026-08-28 scripts/cc20_eq115/data + gen_eq115_table.py : committed the two
+  published eq-(115) DOCX inputs (SHA-256-pinned, extractor revalidates every
+  run) and the deterministic Lean table generator; the extractor reproduces
+  cc20_eq115_manifest.json byte-identically.  Provenance chain now
+  DOCX -> manifest -> Lean module, all committed.
+- 2026-08-28 C1CC20Eq115Table(+Audit) : generated table module - 1732 angles +
+  1732 coefficients as exact rationals, the paired full data set
+  cc20Eq115Data (Fin 1732 x Bool) with sign in the Bool slot so
+  alpha_{-n} = -alpha_n, d(-n) = d(n) hold BY CONSTRUCTION, lambda free;
+  6 declarations axiom-clean, zero sorryAx.
+- 2026-08-28 C1CC20Eq115Symmetry(+Audit) : concrete negation data, profile
+  evenness for every lam, ROOT-window continuity of the finite profile, and
+  cc20Eq115_halfGapCertificate assembling the Fact-1 half-gap certificate
+  for the extracted table - reducing it to exactly two analytic caller
+  fields (chi continuity + strict mass); 6 declarations axiom-clean, zero
+  sorryAx, 3640-job build.  Design record docs/proofs/1044.
