@@ -23,6 +23,11 @@ namespace C1BombieriSection8BoundaryBridgeAudit
 #print axioms ConnesWeilRH.Source.C1BombieriSection8BoundaryBridge.mul_winInt_eq_sin
 #print axioms ConnesWeilRH.Source.C1BombieriSection8BoundaryBridge.boundaryPair
 #print axioms ConnesWeilRH.Source.C1BombieriSection8BoundaryBridge.gamma_sin_boundaryBridge
+#print axioms ConnesWeilRH.Source.C1BombieriSection8BoundaryBridge.sum_efac
+#print axioms ConnesWeilRH.Source.C1BombieriSection8BoundaryBridge.sum_efac'
+#print axioms ConnesWeilRH.Source.C1BombieriSection8BoundaryBridge.sum_bfac
+#print axioms ConnesWeilRH.Source.C1BombieriSection8BoundaryBridge.sum_bfac'
+#print axioms ConnesWeilRH.Source.C1BombieriSection8BoundaryBridge.gamma_sin_boundaryEndpoint
 
 end C1BombieriSection8BoundaryBridgeAudit
 end Source

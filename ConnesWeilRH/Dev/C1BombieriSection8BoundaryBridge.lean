@@ -42,6 +42,7 @@ namespace C1BombieriSection8BoundaryBridge
 
 open ConnesWeilRH.Source.C1BombieriSection8ExpMass
 open ConnesWeilRH.Source.C1BombieriSection8ExpSum
+open ConnesWeilRH.Source.C1BombieriSection8QForm
 open scoped ComplexConjugate
 
 variable {n : Nat}
@@ -172,6 +173,65 @@ theorem gamma_sin_boundaryBridge (t : Real) (ht : 0 ≤ t)
       (f := fun i : Fin n => bfac' t γ z i)
       (g := fun j : Fin n => efac' t γ z j)).symm
   rw [hprod1, hprod2]
+
+/-- The positive-angle endpoint factor is the exponential sum at `-t`. -/
+theorem sum_efac (t : Real) (γ : Fin n → Real) (z : Fin n → Complex) :
+    (∑ j, efac t γ z j) = expSum γ z (-t) := by
+  unfold efac expSum
+  refine Finset.sum_congr rfl fun j _ => ?_
+  congr 2
+  ring
+
+/-- The negative-angle endpoint factor is the exponential sum at `t`. -/
+theorem sum_efac' (t : Real) (γ : Fin n → Real) (z : Fin n → Complex) :
+    (∑ j, efac' t γ z j) = expSum γ z t := by
+  unfold efac' expSum
+  refine Finset.sum_congr rfl fun j _ => ?_
+  congr 2
+  ring
+
+/-- The negative-angle weighted factor is the conjugate derivative at `-t`. -/
+theorem sum_bfac (t : Real) (γ : Fin n → Real) (z : Fin n → Complex) :
+    (∑ i, bfac t γ z i)
+      = conj (expSum γ (dcoef γ z) (-t)) := by
+  unfold bfac expSum dcoef
+  rw [map_sum]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [conj_mul_d, conj_expTerm (γ i) (-t), conj_mul_d, conj_mul_d,
+    Complex.conj_ofReal, Complex.conj_I, Complex.ofReal_neg]
+  have harg : γ i * (-t) = -(γ i * t) := by ring
+  rw [harg]
+  have hexp : Complex.exp (-Complex.ofReal (γ i * t) * Complex.I)
+      = Complex.exp (Complex.ofReal (-(γ i * t)) * Complex.I) := by
+    congr 1
+    rw [Complex.ofReal_neg]
+  have hcoeff : Complex.ofReal (-(γ i)) = -Complex.ofReal (γ i) :=
+    Complex.ofReal_neg (γ i)
+  rw [hexp, hcoeff]
+  ring
+
+/-- The positive-angle weighted factor is the conjugate derivative at `t`. -/
+theorem sum_bfac' (t : Real) (γ : Fin n → Real) (z : Fin n → Complex) :
+    (∑ i, bfac' t γ z i)
+      = conj (expSum γ (dcoef γ z) t) := by
+  unfold bfac' expSum dcoef
+  rw [map_sum]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [conj_mul_d, conj_expTerm (γ i) t, conj_mul_d, conj_mul_d,
+    Complex.conj_ofReal, Complex.conj_I, Complex.ofReal_neg]
+  ring
+
+/-- Public endpoint form of the rank-two boundary bridge.  The weighted
+window double sum is exactly the difference of the two endpoint
+derivative products that occurs in Bombieri's (8.10). -/
+theorem gamma_sin_boundaryEndpoint (t : Real) (ht : 0 ≤ t)
+    (γ : Fin n → Real) (z : Fin n → Complex) :
+    (∑ i, ∑ j, (Complex.ofReal (γ i) * Complex.ofReal (γ i - γ j))
+        * winInt t (γ j - γ i) * (conj (z i) * z j))
+      = conj (expSum γ (dcoef γ z) (-t)) * expSum γ z (-t)
+        - conj (expSum γ (dcoef γ z) t) * expSum γ z t := by
+  rw [gamma_sin_boundaryBridge t ht γ z,
+    sum_bfac t γ z, sum_efac t γ z, sum_bfac' t γ z, sum_efac' t γ z]
 
 end C1BombieriSection8BoundaryBridge
 end Source

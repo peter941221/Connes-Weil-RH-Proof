@@ -1933,6 +1933,15 @@ sufficient for the route decision.
   eigen-relation assembly `λ Σ|w|² = Q(Z) − boundary`, the λ ≥ 0
   folding with `wirtingerFull`, the exponential-independence
   contradiction, and the Theorem-8 sign count.  DETECTOR only.
+* Boundary bridge endpoint readback (`C1BombieriSection8BoundaryBridge`):
+  LANDED, axiom-clean (ten declarations, 2668-job audit, 0 sorryAx).
+  The formerly private rank-two factors now read back as the actual
+  exponential-sum endpoints: `Σ efac = Z(-t)`, `Σ efac' = Z(t)`,
+  `Σ bfac = conj(Z'(-t))`, and `Σ bfac' = conj(Z'(t))`.  Consequently
+  `gamma_sin_boundaryEndpoint` exposes the entire weighted double sum
+  as `conj(Z'(-t)) Z(-t) − conj(Z'(t)) Z(t)`, the boundary term required
+  by the remaining finite-sum assembly of (8.11).  This is a detector
+  readback only; it establishes no unconditional endpoint sign.
 * Wirtinger slice 12c, the eigen-relation Gram transport
   (`C1BombieriSection8EigenGram`): LANDED, axiom-clean (leaf + audit,
   3 declarations, 0 sorryAx; commit `18b9b82`).  First half of the
