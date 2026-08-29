@@ -93,16 +93,27 @@ history lives in git history, `docs/proofs/`, and
   3464x3464 eigenvalue project stays optional; the accepted sandwich
   `C1CC20GammaCoercivity` is the sharpening engine.  Record
   `docs/proofs/1048`.
+- Latest verified GATE 1 Bessel discharge:
+  `C1CC20Gate1BesselDischarge` exhibits
+  `a = 1`, `epsilon1 = (1 - lam) / 2`, and `epsilon2 = 1 - lam` as concrete
+  `CC20OperatorGapData`, then supplies the Bessel `hT` with `ell := 0` to
+  every existing GATE 1 consumer.  The T-side payload and structural gap-data
+  choice therefore leave those consumer signatures; at `ePrime = 1`, the
+  ROOT-window `K_I` defect form is nonnegative, and the slope-matched
+  residual is nonpositive under the grid and endpoint premises.  Forced ext4
+  mirror rebuild: 3644 jobs, zero `error:` lines, zero `sorryAx`, and seven
+  audit declarations with `[propext, Classical.choice, Quot.sound]`.  Record
+  `docs/proofs/1049`.
 - Next bricks, in order:
-  1. Exhibit one `CC20OperatorGapData` with `h_gap : epsilon1 < epsilon2`
-     and `epsilon2 <= 1 - lam` (small assembly brick on top of the accepted
-     gamma `hT`).
-  2. Reconnaissance of payload (delta): read CC20 sec. 5-6 verbatim, pin the
-     exact archimedean-comparison display.
-  3. Payload (alpha): interval-arithmetic ODE certificates for the endpoint
+  1. Payload (alpha): interval-arithmetic ODE certificates for the endpoint
      profile `chi` (long pole; unblocks the (beta) grid table).  The
      capstone stays formal:
      `sourceRH_of_rootSupportedHealthyDetectorData_and_endpointCertificates`.
+  2. Payload (beta): use the alpha enclosure to produce the concrete
+     uniform-grid Fact-1 table at the exhibited gap data.
+  3. Payload (delta): transcribe the exact eq-(99)-(104) archimedean
+     comparison producer; CC20 section-5/6 reconnaissance is recorded, but
+     Theorem-7/Proposition-5 are not yet Lean declarations.
   4. Package the conditional eigenvalue sign into the finite determinant
      / Theorem-8 sign-count consumer.  DETECTOR only.
 - GATE 2 (Titchmarsh/Cartwright square-form bridge): deferred, not attempted.
@@ -426,3 +437,8 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   `cc20Eq115_gate1hT` now supplies the concrete (gamma) `hT` at
   `epsilon2 <= 1 - lam`; probe file deleted per its own contract; record
   docs/proofs/1048.
+- 2026-08-29 C1CC20Gate1BesselDischarge(+Audit) : exhibited the concrete
+  Bessel-compatible gap data and discharged `hT` from the rank-one and
+  slope-residual GATE 1 consumers; at `ePrime := 1` the `K_I` defect form is
+  nonnegative.  Forced ext4-mirror audit: 3644 jobs, zero errors, zero
+  sorryAx, seven standard-axiom readbacks; record docs/proofs/1049.

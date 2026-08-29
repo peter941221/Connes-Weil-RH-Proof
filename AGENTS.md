@@ -162,9 +162,11 @@ verifies exact identities.
 - Incrementality lies: unchanged files re-run nothing ("no errors" may mean
   "not rebuilt"). To prove re-elaboration of an edited file, delete its
   `.olean` first and expect a real `Built` line.
-- All Lake commands take the lock AND run with the mirror as cwd; without the
-  cd, lake resolves the caller cwd and pollutes the Windows `.lake/build`
-  (kill it and delete same-day artifacts there if that happens).
+- All Lake commands take the lock AND issue an explicit `cd` to the mirror
+  root inside the Linux shell; do not rely on `wsl.exe --cd` alone.  Without
+  the shell-level `cd`, Lake can resolve the caller cwd and pollute the
+  Windows `.lake/build` (kill it and delete same-day artifacts there if that
+  happens).
 - Cost model (warm ext4 mirror): no-op root build ~3 s; the real cost per edit
   is re-elaborating the one edited file (~12 s per big Dev leaf). Never judge
   progress by job counts; keep the persistent mirror warm.
@@ -267,3 +269,12 @@ leggauss nodes already live on [-1,1].
 - omega treats `((an, false)).1` and `an` as distinct atoms: derive
   `have hn := by omega` on plain casts first, transport with
   `Int.ofNat_inj.mp hn`.  Bool `cases` order is false-then-true.
+- Feeding a term into a slot with an implicit FUNCTION argument (e.g.
+  `{ell : H -> ℝ}`): instantiate the implicit FIRST with a named argument
+  `(ell := fun _ => (0 : ℝ))`, then pass the term.  Higher-order unification
+  will not infer a constant function from the beta-reduced filler and dies
+  with a misleading `0 has type ℝ ... expected Prop` mismatch.
+- Structure-instance projections reduce by `rfl`, but arithmetic on the
+  projected literals (`x * 1 = x` over ℝ) does NOT: close readback lemmas
+  with `show` (unfold the projection) + `rw [rfl-projections]` + `norm_num`,
+  not bare `rfl`/`rw [defName]`.

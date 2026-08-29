@@ -1,0 +1,22 @@
+import ConnesWeilRH.Dev.C1CC20Gate1BesselDischarge
+
+namespace ConnesWeilRH.Source.C1CC20Gate1BesselDischarge
+
+#check cc20Eq115Gate1GapData
+#check cc20Eq115_exhibitedGapData_gamma_eq
+#check cc20Eq115_exhibitedGapData_band_iff
+#check cc20Eq115_gate1hT_exhibited
+#check cc20Eq115_negativeForm_le_rankOne_of_uniformGrid_bessel
+#check cc20Eq115_kf_defect_nonneg_of_uniformGrid
+#check cc20Eq115_gate1Residual_nonpositive_of_uniformGrid_bessel
+
+#print axioms cc20Eq115_exhibitedGapData_gamma_eq
+#print axioms cc20Eq115_exhibitedGapData_band_iff
+#print axioms cc20Eq115_gate1hT_exhibited
+#print axioms cc20Eq115_negativeForm_le_rankOne_of_uniformGrid_bessel
+#print axioms cc20Eq115_kf_defect_nonneg_of_uniformGrid
+#print axioms cc20Eq115_gate1Residual_nonpositive_of_uniformGrid_bessel
+-- The gap-data exhibit is a data definition; pin its axiom report too.
+#print axioms cc20Eq115Gate1GapData
+
+end ConnesWeilRH.Source.C1CC20Gate1BesselDischarge
