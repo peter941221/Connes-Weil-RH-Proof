@@ -1,0 +1,24 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1SelectedDetectorSemiLocalResidualDecomposition
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1SelectedDetectorSemiLocalResidualDecompositionAudit
+
+open C1SelectedDetectorSemiLocalResidualDecomposition
+
+#check soninBandDifference_eq_semiLocalProlate_sub_compression
+#check projectionResponse_eq_semiLocalProlate_sub_compression
+#check selectedEulerBoundaryResidual_eq_prolate_sub_compression
+
+#print axioms soninBandDifference_eq_semiLocalProlate_sub_compression
+#print axioms projectionResponse_eq_semiLocalProlate_sub_compression
+#print axioms selectedEulerBoundaryResidual_eq_prolate_sub_compression
+
+end C1SelectedDetectorSemiLocalResidualDecompositionAudit
+end Source
+end ConnesWeilRH

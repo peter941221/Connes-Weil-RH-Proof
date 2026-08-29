@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1ProjectionSquareOrderGuard
+
+open ConnesWeilRH Source Dev C1ProjectionSquareOrderGuard
+
+#check @stage3ProjectionKernel_le_id
+#check @stage3ProjectionKernel_complement_isPositive
+#check @outputCompressedStage3Kernel_le_id
+#check @kernelInsertionDefect_le_zero
+
+#print axioms stage3ProjectionKernel_le_id
+#print axioms stage3ProjectionKernel_complement_isPositive
+#print axioms outputCompressedStage3Kernel_le_id
+#print axioms kernelInsertionDefect_le_zero

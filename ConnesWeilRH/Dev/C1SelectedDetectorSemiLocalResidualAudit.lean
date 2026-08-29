@@ -1,0 +1,28 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1SelectedDetectorSemiLocalResidual
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1SelectedDetectorSemiLocalResidualAudit
+
+open C1SelectedDetectorSemiLocalResidual
+
+#check selectedEulerBoundarySum_eq_arithmeticOperator
+#check selectedEulerBoundaryResidual_eq_sameObjectResidual
+#check projectionResponse_eq_selectedEulerBoundary_add_residual
+#check selectedEulerBoundaryResidual_isTraceClassAlong
+#check ordinaryTraceAlong_projectionResponse_eq_visibleEulerSum_add_residual
+
+#print axioms selectedEulerBoundarySum_eq_arithmeticOperator
+#print axioms selectedEulerBoundaryResidual_eq_sameObjectResidual
+#print axioms projectionResponse_eq_selectedEulerBoundary_add_residual
+#print axioms selectedEulerBoundaryResidual_isTraceClassAlong
+#print axioms ordinaryTraceAlong_projectionResponse_eq_visibleEulerSum_add_residual
+
+end C1SelectedDetectorSemiLocalResidualAudit
+end Source
+end ConnesWeilRH
