@@ -81,18 +81,30 @@ history lives in git history, `docs/proofs/`, and
   `C1CC20Eq115CoefficientPositivity` is generated from the exact extracted
   table as 1,732 branch-local `rfl` equations plus one `interval_cases`
   aggregation sweep.  The final `gamma5` log records its successful 1242 s
-  build.  The proposed Bessel consumer is not accepted: forced `gamma6`
-  retains 15 root errors, so `cc20Eq115_gate1hT` must not be treated as an
-  available route theorem and its audit has not run.
+  build.
+- Latest verified gamma coercivity producer:
+  `C1CC20GammaBesselCoercivity` repairs the former RED Bessel leaf.  Bessel
+  over orthonormal windowed integer Fourier modes proves the eq-(119) defect
+  form `>= (1 - lam) * ||xi||^2` for the concrete table, and the flagship
+  `cc20Eq115_gate1hT` supplies the GATE 1 `hT` premise with `ell := 0`
+  whenever `epsilon2 <= 1 - lam`.  Forced rebuild: zero `error:` lines,
+  `Build completed successfully (3633 jobs)`, every audit declaration
+  `[propext, Classical.choice, Quot.sound]`, zero `sorryAx`.  The sharp
+  3464x3464 eigenvalue project stays optional; the accepted sandwich
+  `C1CC20GammaCoercivity` is the sharpening engine.  Record
+  `docs/proofs/1048`.
 - Next bricks, in order:
-  1. Package the conditional eigenvalue sign into the finite determinant
-     / Theorem-8 sign-count consumer, including its separate zero-eigenvalue
-     branch. DETECTOR only.
-  2. Produce a strict interval for `lambda`, an analytic `chi` enclosure, and
-     certified absolute-value integration for `chi - tau`; then consume the
-     resulting equation-(115) `L1` certificate in eq-(100)/GATE 1 and
-     universal W4b.  The capstone is already formal:
+  1. Exhibit one `CC20OperatorGapData` with `h_gap : epsilon1 < epsilon2`
+     and `epsilon2 <= 1 - lam` (small assembly brick on top of the accepted
+     gamma `hT`).
+  2. Reconnaissance of payload (delta): read CC20 sec. 5-6 verbatim, pin the
+     exact archimedean-comparison display.
+  3. Payload (alpha): interval-arithmetic ODE certificates for the endpoint
+     profile `chi` (long pole; unblocks the (beta) grid table).  The
+     capstone stays formal:
      `sourceRH_of_rootSupportedHealthyDetectorData_and_endpointCertificates`.
+  4. Package the conditional eigenvalue sign into the finite determinant
+     / Theorem-8 sign-count consumer.  DETECTOR only.
 - GATE 2 (Titchmarsh/Cartwright square-form bridge): deferred, not attempted.
 
 Settled verdicts never to re-litigate:

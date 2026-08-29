@@ -7,9 +7,9 @@ Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 
 ## Status dashboard
 
-> **Updated 2026-08-28.** This dashboard describes the repository state of
+> **Updated 2026-08-29.** This dashboard describes the repository state of
 > commit
-> [`01fa0a1`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/01fa0a1).
+> [`ef44b4c`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/ef44b4c).
 > **No unconditional proof of the Riemann hypothesis is claimed here.**
 
 ### Route map
@@ -92,18 +92,28 @@ bottom; every station on the road carries its state.
            +-----------------------------------------------------+
         |
         v  +-----------------------------------------------------+
+           | GAMMA COERCIVITY - BESSEL BRICK       [CLEARED]     |
+           | row-band AM-GM sandwich + 1732-branch coefficient   |
+           | positivity; Bessel over orthonormal windowed        |
+           | integer Fourier modes: eq-(119) defect form >=      |
+           | (1-lam)||xi||^2; flagship cc20Eq115_gate1hT lands   |
+           | the GATE 1 hT premise (ell := 0).                   |
+           +-----------------------------------------------------+
+        |
+        v  +-----------------------------------------------------+
            | GATE 1 ASSEMBLY - CONDITIONAL CHAIN [WIRED]         |
            | one entry point for the concrete table: grid ->     |
            | eq-(121) operator gap -> Lemma-second rank-one ->   |
            | 13 < 4g/log 2 < 17 -> slope-matched residual.       |
-           | Residue = four named payloads (see base camp).      |
+           | Residue = alpha / beta / delta + the gap-data       |
+           | choice (see base camp); gamma is ACCEPTED.          |
            +-----------------------------------------------------+
         |
 
    ##############  YOU ARE HERE  -  GATE 1 BASE CAMP  ################
 
         |  goal: arch(g^2) <= 0 for all ROOT-class tests [OPEN]
-        |  the machinery is wired END TO END; four payloads close it:
+        |  the machinery is wired END TO END; the payloads:
         |
         |      (alpha) ENDPOINT PROFILE CHI ..... [DATA OPEN]
         |          a concrete CC20EndpointSpectralData with an
@@ -115,14 +125,22 @@ bottom; every station on the road carries its state.
         |          certified L1 quadrature over the extracted
         |          table (consumer landed; blocked by alpha)
         |
-        |      (gamma) T-SIDE COERCIVITY BLOCK . [DATA OPEN]
-        |          certified eigenvalue enclosure of the
-        |          concrete eq-(119) operator (no 2x2-block
-        |          shortcut: sinc-type Gram coupling)
+        |      (gamma) T-SIDE COERCIVITY BLOCK . [ACCEPTED]
+        |          Bessel over windowed integer modes gives
+        |          defect >= (1-lam)||xi||^2 (flagship
+        |          cc20Eq115_gate1hT, ell := 0); the sharp
+        |          3464x3464 eigenvalue enclosure is now
+        |          OPTIONAL (the sandwich is the sharpener)
         |
         |      (delta) ARCHIMEDEAN COMPARISON .. [DATA OPEN]
         |          trace - coefficient*rank <= W-infinity(g^2)
-        |          (the CC20 trace-formula comparison)
+        |          (pinned to the CC20 sec. 6 root window
+        |          L = log 2)
+        |
+        |      (gapData) GAP-DATA CHOICE ....... [DATA OPEN]
+        |          one CC20OperatorGapData with
+        |          epsilon1 < epsilon2 <= 1 - lam (small
+        |          assembly obligation)
         |
 
    =====================  LEG III - STILL AHEAD  ======================
@@ -236,9 +254,11 @@ DATE         EVENT                                                COMMIT
              record of the certificate reduction                 f3abc6d
              Fact-1 mass-bound consumption layer                 84c133c
              GATE 1 conditional assembly                         01fa0a1
+2026-08-29   gamma sandwich + 1732-branch positivity sweep       195d233
+             Bessel producer repaired, gamma hT accepted         ef44b4c
 ------------------------------------------------------------------------
 HEAD at this writing:
-https://github.com/peter941221/Connes-Weil-RH-Proof/commit/01fa0a1
+https://github.com/peter941221/Connes-Weil-RH-Proof/commit/ef44b4c
 ```
 
 The narrative snapshot below is retained unchanged from the previous
