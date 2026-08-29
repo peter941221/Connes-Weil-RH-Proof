@@ -7,13 +7,18 @@ import ConnesWeilRH.Dev.C1CC20Gate1Assembly
 import ConnesWeilRH.Dev.C1CC20GammaBesselCoercivity
 
 /-!
-# The GATE 1 Bessel discharge: the T-side payload leaves the assembly
+# The non-paper-scale GATE 1 Bessel branch
 
 The Bessel brick `C1CC20GammaBesselCoercivity` supplies the flagship T-side
 coercivity premise `hT` for every scale `lam < 1` at the level
-`epsilon2 <= 1 - lam`.  This leaf turns that producer into CONCRETE gap data
-and discharges `hT` from the GATE 1 assembly, so that the assembly's
-consumers no longer carry the T-side spectral block at all.
+`epsilon2 <= 1 - lam`.  This leaf turns that producer into concrete gap data
+and discharges `hT` in a specialized branch of the GATE 1 assembly.
+
+This branch is not paper-facing.  The finite-rank scale reported in CC20 is
+about `1.05158`, hence lies in the opposite regime `1 < lam`.  At that scale
+the paper uses an exceptional direction, a spectral bound on its orthogonal
+complement, and a rank-one repair.  The general GATE 1 assembly must retain
+that spectral payload.
 
 The exhibited gap data is the honest ORDER-STRUCTURE choice
 
@@ -25,12 +30,13 @@ The exhibited gap data is the honest ORDER-STRUCTURE choice
 for which `h_gap : epsilon1 < epsilon2` is exactly the statement
 `0 < 1 - lam`.  It is NOT the paper's numeric scale (`a ~ 0.064`,
 `epsilon2 ~ 0.00441`): the archimedean constants stay tied to payload
-(delta).  What the exhibit closes is the STRUCTURAL residue: at this data
-every GATE 1 consumer premise is a grid number, the endpoint continuity,
-the endpoint `MemLp` premise, or the single scalar `ePrime` - and the
-rank-one constant reads `gamma = 2 * ePrime`, so the paper band
+(delta).  What the exhibit closes is the structural residue of the
+`lam < 1` branch: every specialized consumer premise is a grid number,
+endpoint continuity, the endpoint `MemLp` premise, or the single scalar
+`ePrime` - and the rank-one constant reads `gamma = 2 * ePrime`, so the formal band
 `294/100 < gamma < 2944/1000` becomes the one-dimensional interval
-`147/100 < ePrime < 1472/1000` for the caller.
+`147/100 < ePrime < 1472/1000` for the caller.  This scalar readback does not
+turn the branch into the published `lam > 1` argument.
 
 Discharges proved here:
 
@@ -69,12 +75,12 @@ open C1CC20Gate1Assembly C1CC20GammaBesselCoercivity
 
 noncomputable section
 
-/-- The exhibited GATE 1 gap data at the Bessel coercivity level
+/-- The exhibited non-paper-scale GATE 1 gap data at the Bessel coercivity level
 `epsilon2 = 1 - lam`: the order relations `epsilon1 < epsilon2 <= 1 - lam`
 hold by construction, and the repair weight is normalized to `a = 1` so the
-rank-one constant reads `gamma = 2 * ePrime`.  The paper's numeric scale is
-a separate archimedean payload; this exhibit closes the structural residue
-`h_gap` together with `epsilon2 <= 1 - lam`. -/
+rank-one constant reads `gamma = 2 * ePrime`.  The paper's `lam > 1` scale is
+outside this branch; this exhibit closes only the structural residue `h_gap`
+together with `epsilon2 <= 1 - lam` under the explicit premise `lam < 1`. -/
 def cc20Eq115Gate1GapData (lam ePrime : ℝ)
     (_hlam1 : lam < 1) (hePrime : 0 ≤ ePrime) :
     CC20OperatorGapData (Lp ℂ 2 (volume : Measure ℝ)) where
@@ -103,9 +109,10 @@ theorem cc20Eq115_exhibitedGapData_gamma_eq (lam ePrime : ℝ)
   rw [h1, h2]
   norm_num
 
-/-- The paper's coefficient band `294/100 < gamma < 2944/1000` becomes, at
+/-- The formal coefficient band `294/100 < gamma < 2944/1000` becomes, at
 the exhibited gap data, the one-dimensional interval `147/100 < ePrime <
-1472/1000` - the caller's only remaining rank-one-side obligation. -/
+1472/1000`.  This is an algebraic readback inside the `lam < 1` branch, not a
+producer for CC20's published `lam > 1` scale. -/
 theorem cc20Eq115_exhibitedGapData_band_iff (lam ePrime : ℝ)
     (hlam1 : lam < 1) (hePrime : 0 ≤ ePrime) :
     ((294 : ℝ) / 100 < CC20OperatorGapData.gamma

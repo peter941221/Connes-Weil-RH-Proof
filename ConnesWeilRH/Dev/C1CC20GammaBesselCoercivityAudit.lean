@@ -12,11 +12,19 @@ namespace ConnesWeilRH.Source.C1CC20GammaBesselCoercivity
 #check cc20Orthonormal_unitWindowFourierMode
 #check cc20FourierProjection_inner
 #check cc20DefectQuadraticForm_ge_of_bessel
+#check cc20Eq115NonzeroBaseFrequency
+#check cc20Eq115NonzeroBaseFrequency_injective
 #check cc20Eq115BaseFrequency
 #check cc20Eq115BaseFrequency_injective
+#check cc20Eq115NonzeroData_frequency_eq
 #check cc20Eq115Data_frequency_eq
+#check cc20Eq115Data_center_operatorTerm
+#check cc20Eq115Data_center_profileTerm
+#check cc20Eq115Data_some_operatorTerm
+#check cc20Eq115Data_operator_eq_center_add_nonzero
 #check cc20Eq115DefectBessel_ge
 #check cc20Eq115_gate1hT
+#check cc20Eq115_paperScale_not_bessel_admissible
 
 #print axioms cc20RootLength_ne_zero
 #print axioms window_exp_integral
@@ -25,10 +33,17 @@ namespace ConnesWeilRH.Source.C1CC20GammaBesselCoercivity
 #print axioms cc20Orthonormal_unitWindowFourierMode
 #print axioms cc20FourierProjection_inner
 #print axioms cc20DefectQuadraticForm_ge_of_bessel
+#print axioms cc20Eq115NonzeroBaseFrequency_injective
 #print axioms cc20Eq115BaseFrequency_injective
+#print axioms cc20Eq115NonzeroData_frequency_eq
 #print axioms cc20Eq115Data_frequency_eq
+#print axioms cc20Eq115Data_center_operatorTerm
+#print axioms cc20Eq115Data_center_profileTerm
+#print axioms cc20Eq115Data_some_operatorTerm
+#print axioms cc20Eq115Data_operator_eq_center_add_nonzero
 #print axioms cc20Eq115DefectBessel_ge
 #print axioms cc20Eq115_gate1hT
+#print axioms cc20Eq115_paperScale_not_bessel_admissible
 -- The three data definitions are expected axiom-free; pin that in the log.
 #print axioms cc20RealUnitWindowFourierMode
 #print axioms cc20UnitWindowFourierMode

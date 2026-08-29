@@ -1,11 +1,17 @@
-# 1049 - The GATE 1 Bessel discharge and the (delta) reconnaissance
+# 1049 - The non-paper Bessel branch and the (delta) reconnaissance
 
 Date: 2026-08-29.  Follows 1048.  Two deliverables: (A) the GATE 1 T-side
 payload is discharged from the assembly by a new accepted leaf, shrinking the
 conditional chain; (B) the archimedean-comparison payload (delta) is pinned
 to named CC20 displays from a verbatim HTML sweep.
 
-## A. The Bessel-discharge leaf (accepted)
+Paper-scale correction, same date: part A is a specialized `lam < 1` branch,
+not a discharge of the paper-facing payload.  CC20's reported scale is near
+`1.05158 > 1`, so the general GATE 1 chain still needs its exceptional-vector,
+complement-spectrum, and rank-one-repair certificate.  Proof 1050 supersedes
+the earlier route-status interpretation while preserving the valid theorem.
+
+## A. The non-paper Bessel branch (accepted under `lam < 1`)
 
 `ConnesWeilRH/Dev/C1CC20Gate1BesselDischarge(+Audit).lean` exhibits concrete
 gap data and discharges the `hT` premise of the GATE 1 assembly.  The
@@ -28,16 +34,15 @@ payload (delta).  Accepted declarations:
 | `cc20Eq115_kf_defect_nonneg_of_uniformGrid` | at `ePrime := 1`: plain `0 <= q(K_I)` from the grid table alone |
 | `cc20Eq115_gate1Residual_nonpositive_of_uniformGrid_bessel` | GATE 1 flagship residual `trace <= 0` with NO `hT` premise |
 
-Net effect on the conditional chain: at the concrete extracted table, the
+Net effect on the specialized conditional chain: at the concrete extracted table, the
 `K_I`-side defect form is nonnegative - and the eq-(100)-identified endpoint
 residual is nonpositive - from (i) a uniform-grid Fact-1 table for the
 extracted profile, (ii) `ContinuousOn` of the endpoint displacement profile,
 (iii) the endpoint kernel `MemLp` premise, and (iv) `lam in [0, 1)`.  The
-T-side spectral block is GONE from every consumer.  What remains for GATE 1
-is payload (alpha) (endpoint profile enclosure feeding the grid table),
-payload (delta) (the archimedean comparison of the residual against
-`W-infinity`), and the paper-scale numerics (the `ePrime` band is now a
-one-dimensional interval).
+T-side spectral block is gone only from the new `lam < 1` consumers.  The
+paper-facing GATE 1 assembly still needs payload (alpha), the dependent grid
+table (beta), paper-scale payload (gamma), and payload (delta).  The algebraic
+`ePrime` interval does not bridge the incompatible `lam` regimes.
 
 GATE 1 payload table after this batch:
 
@@ -45,9 +50,9 @@ GATE 1 payload table after this batch:
 | --- | --- |
 | alpha endpoint enclosure | OPEN (interval-ODE project; feeds the grid table) |
 | beta joint grid table | OPEN (blocked by alpha) |
-| gamma T-side coercivity | ACCEPTED and DISCHARGED from consumers |
+| gamma T-side coercivity | OPEN at the paper scale; Bessel accepted only for `lam < 1` |
 | delta archimedean comparison | OPEN (pinned below) |
-| gapData choice | CLOSED (order structure; paper scale separate) |
+| gapData choice | CLOSED only inside the non-paper Bessel branch |
 
 ## B. (delta) reconnaissance: the CC20 comparison chain
 

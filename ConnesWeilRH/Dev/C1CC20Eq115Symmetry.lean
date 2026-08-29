@@ -11,8 +11,9 @@ import ConnesWeilRH.Dev.C1CC20FiniteRankHalfGapCertificate
 # Concrete symmetry and certificate assembly for the extracted table
 
 The extracted equation-(115) table `cc20Eq115Data` realizes the paper's
-`alpha_{-n} = -alpha_n`, `d(-n) = d(n)` conventions structurally over the
-paired index `Fin m x Bool`, so the evenness producer of
+central convention `d(0) = 0` and the identities
+`alpha_{-n} = -alpha_n`, `d(-n) = d(n)` structurally over the index
+`Option (Fin m x Bool)`, so the evenness producer of
 `C1CC20FiniteRankProfileSymmetry` applies verbatim.  This leaf packages that
 pairing, proves the finite profile even and ROOT-window continuous, and
 assembles the Fact-1 half-gap certificate for the concrete table.
@@ -43,21 +44,25 @@ open C1CC20DisplacementKernel C1CC20FiniteRankApproximation
 
 open C1CC20Eq115Table
 
-/-- The paired `plus/minus` negation data of the extracted table: the `Bool`
-slot carries the sign, so frequencies flip and coefficients are preserved
-under `cc20Eq115NegIndex`. -/
+/-- The `zero/plus/minus` negation data of the extracted table: `none` is the
+fixed central index, while the `Bool` slot carries the nonzero sign. -/
 def cc20Eq115NegationData (lam : Real) :
     CC20FiniteRankProfileNegationData (cc20Eq115Data lam) where
   negIndex := cc20Eq115NegIndex
   frequency_at_negIndex := by
-    rintro ⟨n, s⟩
-    cases s <;> simp [cc20Eq115Data, cc20Eq115NegIndex]
+    rintro (_ | ⟨n, s⟩)
+    · simp [cc20Eq115Data, cc20Eq115NegIndex]
+    · cases s <;>
+        simp [cc20Eq115Data, cc20Eq115NonzeroData, cc20Eq115NegIndex]
   perturbedFrequency_at_negIndex := by
-    rintro ⟨n, s⟩
-    cases s <;> simp [cc20Eq115Data, cc20Eq115NegIndex]
+    rintro (_ | ⟨n, s⟩)
+    · simp [cc20Eq115Data, cc20Eq115NegIndex]
+    · cases s <;>
+        simp [cc20Eq115Data, cc20Eq115NonzeroData, cc20Eq115NegIndex]
   coefficient_at_negIndex := by
-    rintro ⟨n, s⟩
-    simp [cc20Eq115Data, cc20Eq115NegIndex]
+    rintro (_ | ⟨n, s⟩)
+    · simp [cc20Eq115Data, cc20Eq115NegIndex]
+    · simp [cc20Eq115Data, cc20Eq115NonzeroData, cc20Eq115NegIndex]
 
 /-- The extracted finite profile is even, for every value of the free scale
 `lam`.  This discharges `finite_profile_even` of the Fact-1 half-gap
@@ -90,7 +95,7 @@ theorem continuousOn_cc20FourierProjectionProfile (alpha : Real) :
 window: a finite sum of window-indicator Fourier phases. -/
 theorem continuousOn_cc20Eq115Profile (lam : Real) :
     ContinuousOn (cc20FiniteRankProfile (cc20Eq115Data lam)) cc20RootDisplacementWindow := by
-  have hterm : ∀ i : Fin 1732 × Bool,
+  have hterm : ∀ i : Option (Fin 1732 × Bool),
       ContinuousOn (cc20FiniteRankProfileTerm (cc20Eq115Data lam) i)
         cc20RootDisplacementWindow := by
     intro i
@@ -110,13 +115,16 @@ theorem continuousOn_cc20Eq115Profile (lam : Real) :
         (((cc20Eq115Data lam).coefficient i : Real) : ℂ))
   have hsum : ContinuousOn
       (fun v : Real =>
-        ∑ i : Fin 1732 × Bool, cc20FiniteRankProfileTerm (cc20Eq115Data lam) i v)
+        ∑ i : Option (Fin 1732 × Bool),
+          cc20FiniteRankProfileTerm (cc20Eq115Data lam) i v)
       cc20RootDisplacementWindow :=
     continuousOn_finsetSum Finset.univ fun i _ => hterm i
   have hfun :
-      (∑ i : Fin 1732 × Bool, cc20FiniteRankProfileTerm (cc20Eq115Data lam) i) =
+      (∑ i : Option (Fin 1732 × Bool),
+        cc20FiniteRankProfileTerm (cc20Eq115Data lam) i) =
         fun v : Real =>
-          ∑ i : Fin 1732 × Bool, cc20FiniteRankProfileTerm (cc20Eq115Data lam) i v := by
+          ∑ i : Option (Fin 1732 × Bool),
+            cc20FiniteRankProfileTerm (cc20Eq115Data lam) i v := by
     funext v
     exact Finset.sum_apply v Finset.univ
       (fun i => cc20FiniteRankProfileTerm (cc20Eq115Data lam) i)

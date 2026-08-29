@@ -24,9 +24,10 @@ inputs).  Regenerate rather than hand-edit; every integer here is a
 copied manifest entry, and no floating-point value enters this file.
 
 The published tables list the positive half `n = 1..m`; the full
-equation-(114) data set `alpha_{-n} = -alpha_n`, `d(-n) = d(n)` is
-realized structurally in `cc20Eq115Data` over the paired index
-`Fin m x Bool`, so no digit-level pairing check is ever needed.
+equation-(114) data set also contains the central `n = 0` term with
+`d(0) = 0`.  It is realized structurally in `cc20Eq115Data` over
+`Option (Fin m × Bool)`: `none` is zero and `some` carries the paired
+nonzero signs.  No digit-level pairing check is ever needed.
 -/
 
 namespace ConnesWeilRH
@@ -3526,15 +3527,10 @@ noncomputable def cc20Eq115Angle (n : Fin 1732) : Real := cc20Eq115AngleQ n
 noncomputable def cc20Eq115Coefficient (n : Fin 1732) : Real :=
   cc20Eq115CoefficientQ n
 
-/-- The full equation-(114) finite data set over the paired index
-`Fin m x Bool`: the `Bool` slot carries the sign, so `frequency`,
-`perturbedFrequency` flip under sign flip while `coefficient` is
-sign-independent, matching the paper's conventions
-`alpha_{-n} = -alpha_n` and `d(-n) = d(n)`.  The scale `lambda` stays a
-parameter: the published tables fix the angles and coefficients, not
-the strict `lambda` interval, which remains an open certificate side.
--/
-noncomputable def cc20Eq115Data (lam : Real) :
+/-- The nonzero equation-(114) table over the paired index `Fin m × Bool`.
+This is retained as the exact table payload; the paper's operator also
+contains the separate central term `n = 0`. -/
+noncomputable def cc20Eq115NonzeroData (lam : Real) :
     CC20FiniteRankData (Fin 1732 × Bool) where
   lambda := lam
   frequency := fun i =>
@@ -3543,12 +3539,39 @@ noncomputable def cc20Eq115Data (lam : Real) :
     if i.2 then cc20Eq115Angle i.1 else -(cc20Eq115Angle i.1)
   coefficient := fun i => cc20Eq115Coefficient i.1
 
-/-- The sign-flip involution of the paired index. -/
-def cc20Eq115NegIndex : Fin 1732 × Bool ≃ Fin 1732 × Bool where
-  toFun i := (i.1, !i.2)
-  invFun i := (i.1, !i.2)
-  left_inv i := by obtain ⟨n, s⟩ := i; simp
-  right_inv i := by obtain ⟨n, s⟩ := i; simp
+/-- The full equation-(114)/(119) finite data set.  `none` is the
+central index `n = 0`, where `alpha_0 = 0` and `d(0) = 0`; hence its
+operator term is exactly `e_0`.  At `some i`, the `Bool` slot carries
+the sign, so `frequency` and `perturbedFrequency` flip while
+`coefficient` is sign-independent, matching the paper's conventions
+`alpha_{-n} = -alpha_n` and `d(-n) = d(n)`.  The scale `lambda` stays a
+parameter: the published tables fix the angles and coefficients, not
+the strict `lambda` interval, which remains an open certificate side.
+-/
+noncomputable def cc20Eq115Data (lam : Real) :
+    CC20FiniteRankData (Option (Fin 1732 × Bool)) where
+  lambda := lam
+  frequency
+    | none => 0
+    | some i => (cc20Eq115NonzeroData lam).frequency i
+  perturbedFrequency
+    | none => 0
+    | some i => (cc20Eq115NonzeroData lam).perturbedFrequency i
+  coefficient
+    | none => 0
+    | some i => (cc20Eq115NonzeroData lam).coefficient i
+
+/-- The sign-flip involution fixing the central index. -/
+def cc20Eq115NegIndex :
+    Option (Fin 1732 × Bool) ≃ Option (Fin 1732 × Bool) where
+  toFun
+    | none => none
+    | some i => some (i.1, !i.2)
+  invFun
+    | none => none
+    | some i => some (i.1, !i.2)
+  left_inv i := by rcases i with _ | ⟨n, s⟩ <;> simp
+  right_inv i := by rcases i with _ | ⟨n, s⟩ <;> simp
 
 end C1CC20Eq115Table
 

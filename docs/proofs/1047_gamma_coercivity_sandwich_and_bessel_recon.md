@@ -7,6 +7,13 @@ equation-(115) table without an eigenvalue enclosure, and the reconnaissance
 verdicts from the literature sweep (what does and does not bypass payload
 (alpha)).  The Bessel source is not an accepted Lean result at this checkpoint.
 
+Superseding correction (2026-08-29): equation (119) includes the central
+`n = 0` term, and CC20's reported scale is near `lam = 1.05158 > 1`.
+Accordingly, the discussion below of Bessel as a possible shortcut for the
+paper-scale gamma payload is historical reconnaissance only.  The repaired
+Bessel theorem is valid for `lam < 1`, but paper-scale gamma still requires
+the exceptional-direction/complement/rank-one argument.  See proof 1050.
+
 ## What landed
 
 This checkpoint contains three Dev leaves plus two audit leaves in

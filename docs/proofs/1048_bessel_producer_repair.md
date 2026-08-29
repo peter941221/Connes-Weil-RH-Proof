@@ -5,6 +5,13 @@ Date: 2026-08-29.  Follows 1047.  Records the repair of
 the RED research frontier (forced `gamma6` build, 15 root errors), and the
 resulting GATE 1 status change.
 
+Paper-scale correction, same date: this record originally treated the
+condition `lam < 1` as compatible with the paper.  It is not.  CC20 reports
+the exceptional scale near `lam = 1.05158 > 1`.  The Bessel theorem below is
+accepted Lean mathematics only for a non-paper parameter branch; it does not
+discharge paper-scale payload (gamma).  Proof 1050 is the superseding route
+judgment.
+
 ## What is now accepted
 
 The Bessel leaf builds with a forced re-elaboration: zero `error:` lines,
@@ -19,14 +26,13 @@ with zero `sorryAx`.  The flagship payload is
       (gapData) (hε : gapData.epsilon2 <= 1 - lam) :
       defect(xi) + gapData.a * (ell xi)^2 >= gapData.epsilon2 * ‖xi‖^2
 
-exhibited with `ell := 0`.  Payload (gamma) therefore has an ACCEPTED
-concrete producer for the equation-(115) table; the remaining GATE 1 work
-is payloads (alpha) and (delta), the (beta) grid table (blocked by alpha),
-and the gapData exhibit satisfying `h_gap : epsilon1 < epsilon2` together
-with `epsilon2 <= 1 - lam`.  The 3464x3464 directed-rounding eigenvalue
-project stays optional: the accepted row-band sandwich
-(`C1CC20GammaCoercivity`) remains the consumption engine for sharpening
-`epsilon2` beyond `1 - lam` toward the paper's ~0.00441 scale.
+exhibited with `ell := 0`.  This is an accepted producer for the
+equation-(119) table only under `lam < 1`.  Paper-scale payload (gamma)
+remains OPEN because `1 - lam < 0` at the reported scale.  A certified
+finite-section/Toeplitz enclosure, or an equivalent exact complement frame
+bound plus exceptional-direction repair, is therefore required rather than
+optional.  The accepted row-band sandwich (`C1CC20GammaCoercivity`) remains
+the consumption engine for that stronger certificate.
 
 `C1CC20GammaBesselProbe.lean` is deleted per its own header contract
 ("delete once the brick lands"); git history retains it.
@@ -83,18 +89,17 @@ project stays optional: the accepted row-band sandwich
 | --- | --- | --- |
 | alpha | endpoint enclosure `hchi` | OPEN - interval-arithmetic ODE certificates |
 | beta | joint (chi - tau) uniform-grid table | OPEN - blocked by alpha |
-| gamma | concrete flagship `hT` | ACCEPTED at `epsilon2 <= 1 - lam` (`cc20Eq115_gate1hT`) |
+| gamma | paper-scale flagship `hT` | OPEN; Bessel is accepted only for the non-paper branch `lam < 1` |
 | delta | archimedean comparison | OPEN - pinned to the CC20 §6 root window |
-| gapData | choice satisfying `h_gap` and `epsilon2 <= 1 - lam` | OPEN - assembly obligation |
+| gapData | paper-scale repaired-form data | OPEN; the Bessel exhibit applies only when `lam < 1` |
 
-RH is not claimed.  Filling (alpha), (beta), (delta) and the gapData
-choice closes GATE 1 at the single entry point
+RH is not claimed.  Filling (alpha), (beta), paper-scale (gamma), (delta),
+and the repaired-form data closes GATE 1 at the single entry point
 `cc20Eq115_gate1Residual_nonpositive_of_uniformGrid`.
 
 ## Next steps
 
-1. Exhibit one `CC20OperatorGapData` with `h_gap : epsilon1 < epsilon2`
-   and `epsilon2 <= 1 - lam` (small assembly brick; needs concrete
-   numerics only through `lam < 1`, which holds for the paper scale).
-2. (delta) reconnaissance: read CC20 §5-6 verbatim, pin the exact display.
-3. (alpha) interval-ODE certificate project (long pole; unblocks beta).
+1. Build the paper-scale exceptional-direction/complement spectral
+   certificate at `lam > 1`; do not reuse the Bessel exhibit.
+2. (delta) transcribe the CC20 section 5-6 trace comparison on the same owner.
+3. (alpha) build the interval-ODE certificate project, which unblocks beta.

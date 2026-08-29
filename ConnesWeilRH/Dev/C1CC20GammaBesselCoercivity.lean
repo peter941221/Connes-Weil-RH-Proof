@@ -15,12 +15,11 @@ import Mathlib.Analysis.InnerProductSpace.Orthonormal
 import Mathlib.Tactic.Continuity
 
 /-!
-# The (gamma) Bessel-coercivity brick for the concrete eq-(115) operator
+# The coarse Bessel bound for the concrete eq-(119) operator
 
-This leaf fills the T-side coercivity premise `hT` of the GATE 1 assembly
-for every nonnegative scale `lam`.  The observation is elementary but was
-hitherto unnoticed in the route design: the equation-(115) BASE frequencies
-are exactly the nonzero integers `+-1, ..., +-m`, and the repo's mode
+This leaf gives a coarse T-side estimate for every nonnegative scale `lam`.
+The equation-(119) BASE frequencies are exactly the integers
+`-m, ..., -1, 0, 1, ..., m`, and the repo's mode
 convention `cc20FourierPhase alpha x = exp (2 * pi * I * alpha * x / log 2)`
 makes the windowed integer modes an orthonormal SYSTEM once normalized by
 `(log 2)^(-1/2)`.  Bessel's inequality over the image set of the
@@ -36,11 +35,11 @@ coefficients `d_n` are nonnegative.  The result:
     cc20DefectQuadraticForm (cc20FiniteRankOperator (cc20Eq115Data lam)) xi
       ≥ (1 - lam) * ‖xi‖²     (for 0 ≤ lam)
 
-with NO spectral calculus, NO Gershgorin enclosure, and NO dependence on
-the endpoint profile chi.  This is the (gamma) payload of GATE 1 in its
-admissible elementary form; the sandwich leaf `C1CC20GammaCoercivity`
-remains the consumption engine for sharpening the constant `1 - lam`
-toward the paper's `epsilon2` budget if a later audit demands it.
+with no spectral calculus and no dependence on the endpoint profile chi.
+It gives a positive coercivity constant only when `lam < 1`.  CC20's
+published exceptional scale has `1 < lam`, so the paper-facing GATE 1 still
+needs its rank-one repair and complement spectral bound.  The final guard in
+this file makes that route boundary explicit.
 
 Reference: equations (115), (118)-(120) of
 <https://arxiv.org/html/2006.13771>; companion records docs/proofs/1046,
@@ -302,19 +301,24 @@ theorem cc20DefectQuadraticForm_ge_of_bessel
   rw [cc20DefectQuadraticForm_eq_norm_sq_sub_realQuadraticForm]
   linarith
 
-/-! ### Instantiation at the extracted equation-(115) table -/
+/-! ### Instantiation at the full equation-(119) table -/
 
-/-- The base frequency of a paired table index as an integer: `+- (n + 1)`. -/
-def cc20Eq115BaseFrequency (i : Fin 1732 × Bool) : ℤ :=
+/-- The base frequency of a nonzero paired table index: `+- (n + 1)`. -/
+def cc20Eq115NonzeroBaseFrequency (i : Fin 1732 × Bool) : ℤ :=
   if i.2 then ((i.1.val : ℤ) + 1) else -((i.1.val : ℤ) + 1)
 
-theorem cc20Eq115BaseFrequency_injective :
-    Function.Injective cc20Eq115BaseFrequency := by
+/-- The full base frequency, including the central index `n = 0`. -/
+def cc20Eq115BaseFrequency : Option (Fin 1732 × Bool) → ℤ
+  | none => 0
+  | some i => cc20Eq115NonzeroBaseFrequency i
+
+theorem cc20Eq115NonzeroBaseFrequency_injective :
+    Function.Injective cc20Eq115NonzeroBaseFrequency := by
   intro a b hab
   obtain ⟨an, ab⟩ := a
   obtain ⟨bn, bb⟩ := b
   cases ab <;> cases bb <;>
-    simp [cc20Eq115BaseFrequency] at hab
+    simp [cc20Eq115NonzeroBaseFrequency] at hab
   · -- (false, false): `-(n+1) = -(m+1)` forces `n = m`.
     have hn : ((an.val : ℤ)) = ((bn.val : ℤ)) := by omega
     refine Prod.ext (Fin.ext ?_) rfl
@@ -332,16 +336,97 @@ theorem cc20Eq115BaseFrequency_injective :
     refine Prod.ext (Fin.ext ?_) rfl
     exact Int.ofNat_inj.mp hn
 
-theorem cc20Eq115Data_frequency_eq (lam : ℝ) (i : Fin 1732 × Bool) :
-    (cc20Eq115Data lam).frequency i = (cc20Eq115BaseFrequency i : ℝ) := by
+theorem cc20Eq115BaseFrequency_injective :
+    Function.Injective cc20Eq115BaseFrequency := by
+  intro a b hab
+  rcases a with _ | a
+  · rcases b with _ | ⟨bn, bb⟩
+    · rfl
+    · exfalso
+      cases bb
+      · change (0 : ℤ) = -((bn.val : ℤ) + 1) at hab
+        omega
+      · change (0 : ℤ) = (bn.val : ℤ) + 1 at hab
+        omega
+  · rcases a with ⟨an, ab⟩
+    rcases b with _ | b
+    · exfalso
+      cases ab
+      · change -((an.val : ℤ) + 1) = (0 : ℤ) at hab
+        omega
+      · change (an.val : ℤ) + 1 = (0 : ℤ) at hab
+        omega
+    · apply congrArg some
+      apply cc20Eq115NonzeroBaseFrequency_injective
+      exact hab
+
+theorem cc20Eq115NonzeroData_frequency_eq
+    (lam : ℝ) (i : Fin 1732 × Bool) :
+    (cc20Eq115NonzeroData lam).frequency i =
+      (cc20Eq115NonzeroBaseFrequency i : ℝ) := by
   obtain ⟨n, b⟩ := i
   cases b <;>
-    simp only [cc20Eq115Data, cc20Eq115BaseFrequency,
+    simp only [cc20Eq115NonzeroData, cc20Eq115NonzeroBaseFrequency,
       reduceIte] <;>
     push_cast <;> ring
 
-/-- **The (gamma) payload at the concrete table:** for every nonnegative
-scale, the equation-(119) defect form is coercive with constant `1 - lam`. -/
+theorem cc20Eq115Data_frequency_eq
+    (lam : ℝ) (i : Option (Fin 1732 × Bool)) :
+    (cc20Eq115Data lam).frequency i = (cc20Eq115BaseFrequency i : ℝ) := by
+  rcases i with _ | i
+  · simp [cc20Eq115Data, cc20Eq115BaseFrequency]
+  · exact cc20Eq115NonzeroData_frequency_eq lam i
+
+/-- The central equation-(119) summand is exactly `e_0`; this is the term
+omitted by the earlier nonzero-only owner. -/
+theorem cc20Eq115Data_center_operatorTerm (lam : ℝ) :
+    cc20FiniteRankOperatorTerm (cc20Eq115Data lam) none =
+      cc20FourierProjection 0 := by
+  unfold cc20FiniteRankOperatorTerm
+  simp [cc20Eq115Data]
+
+/-- The central displacement-profile summand is the constant Fourier
+projection profile corresponding to the `1/2` in equation (114). -/
+theorem cc20Eq115Data_center_profileTerm (lam : ℝ) :
+    cc20FiniteRankProfileTerm (cc20Eq115Data lam) none =
+      cc20FourierProjectionProfile 0 := by
+  unfold cc20FiniteRankProfileTerm
+  simp [cc20Eq115Data]
+
+/-- Every noncentral summand of the full paper data is definitionally the
+corresponding summand of the retained nonzero table payload. -/
+theorem cc20Eq115Data_some_operatorTerm (lam : ℝ)
+    (i : Fin 1732 × Bool) :
+    cc20FiniteRankOperatorTerm (cc20Eq115Data lam) (some i) =
+      cc20FiniteRankOperatorTerm (cc20Eq115NonzeroData lam) i := by
+  rfl
+
+/-- **Equation-(119) owner readback.**  The corrected full operator is the
+old nonzero-only operator plus the missing central term `lam * e_0`.
+This equality prevents a proof about the truncated owner from being reused
+silently as a proof about the paper's operator. -/
+theorem cc20Eq115Data_operator_eq_center_add_nonzero (lam : ℝ) :
+    cc20FiniteRankOperator (cc20Eq115Data lam) =
+      (lam : ℂ) • cc20FourierProjection 0 +
+        cc20FiniteRankOperator (cc20Eq115NonzeroData lam) := by
+  have hsum :
+      (∑ i : Fin 1732 × Bool,
+          cc20FiniteRankOperatorTerm (cc20Eq115Data lam) (some i)) =
+        ∑ i : Fin 1732 × Bool,
+          cc20FiniteRankOperatorTerm (cc20Eq115NonzeroData lam) i := by
+    apply Finset.sum_congr rfl
+    intro i _
+    exact cc20Eq115Data_some_operatorTerm lam i
+  unfold cc20FiniteRankOperator
+  rw [Fintype.sum_option, smul_add,
+    cc20Eq115Data_center_operatorTerm, hsum]
+  rw [show (cc20Eq115Data lam).lambda = lam from rfl,
+    show (cc20Eq115NonzeroData lam).lambda = lam from rfl]
+
+/-- **The coarse Bessel bound at the concrete table:** for every nonnegative
+scale, the equation-(119) defect form is bounded below by
+`(1 - lam) * ||xi||^2`.  It is positive only on the non-paper branch
+`lam < 1`. -/
 theorem cc20Eq115DefectBessel_ge (lam : ℝ) (hlam : 0 ≤ lam) :
     ∀ ξ : Lp ℂ 2 (volume : Measure ℝ),
       cc20DefectQuadraticForm (cc20FiniteRankOperator (cc20Eq115Data lam)) ξ ≥
@@ -350,7 +435,10 @@ theorem cc20Eq115DefectBessel_ge (lam : ℝ) (hlam : 0 ≤ lam) :
     cc20Eq115BaseFrequency
     (cc20Eq115Data_frequency_eq lam)
     cc20Eq115BaseFrequency_injective
-    (fun i => cc20Eq115Coefficient_nonneg i.1) hlam ξ
+    (fun i => by
+      rcases i with _ | i
+      · simp [cc20Eq115Data]
+      · exact cc20Eq115Coefficient_nonneg i.1) hlam ξ
 
 /-- **The `hT` premise producer for the GATE 1 flagship.**  At the concrete
 eq-(115) operator the flagship's T-side coercivity premise holds with the
@@ -359,7 +447,7 @@ flagship `cc20Eq115_gate1Residual_nonpositive_of_uniformGrid` into a
 theorem whose remaining premises are exactly payloads (alpha), (beta),
 (delta) and the gap-data choice. -/
 theorem cc20Eq115_gate1hT
-    (lam : ℝ) (hlam : 0 ≤ lam) (hlam1 : lam < 1)
+    (lam : ℝ) (hlam : 0 ≤ lam) (_hlam1 : lam < 1)
     (gapData : CC20OperatorGapData (Lp ℂ 2 (volume : Measure ℝ)))
     (hε : gapData.epsilon2 ≤ 1 - lam) :
     ∀ xi : Lp ℂ 2 (volume : Measure ℝ),
@@ -373,6 +461,13 @@ theorem cc20Eq115_gate1hT
     simp
   rw [h0, mul_zero, add_zero]
   exact h₂.trans h₁
+
+/-- The elementary Bessel discharge cannot consume the published
+exceptional-eigenvalue regime `1 < lam`: its positive constant requires the
+opposite strict inequality `lam < 1`. -/
+theorem cc20Eq115_paperScale_not_bessel_admissible
+    {lam : ℝ} (hpaper : 1 < lam) : ¬ lam < 1 := by
+  linarith
 
 end
 
