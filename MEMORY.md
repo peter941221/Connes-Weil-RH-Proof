@@ -82,40 +82,43 @@ history lives in git history, `docs/proofs/`, and
   table as 1,732 branch-local `rfl` equations plus one `interval_cases`
   aggregation sweep.  The final `gamma5` log records its successful 1242 s
   build.
-- Latest verified gamma coercivity producer:
-  `C1CC20GammaBesselCoercivity` repairs the former RED Bessel leaf.  Bessel
-  over orthonormal windowed integer Fourier modes proves the eq-(119) defect
-  form `>= (1 - lam) * ||xi||^2` for the concrete table, and the flagship
-  `cc20Eq115_gate1hT` supplies the GATE 1 `hT` premise with `ell := 0`
-  whenever `epsilon2 <= 1 - lam`.  Forced rebuild: zero `error:` lines,
-  `Build completed successfully (3633 jobs)`, every audit declaration
-  `[propext, Classical.choice, Quot.sound]`, zero `sorryAx`.  The sharp
-  3464x3464 eigenvalue project stays optional; the accepted sandwich
-  `C1CC20GammaCoercivity` is the sharpening engine.  Record
-  `docs/proofs/1048`.
-- Latest verified GATE 1 Bessel discharge:
-  `C1CC20Gate1BesselDischarge` exhibits
-  `a = 1`, `epsilon1 = (1 - lam) / 2`, and `epsilon2 = 1 - lam` as concrete
-  `CC20OperatorGapData`, then supplies the Bessel `hT` with `ell := 0` to
-  every existing GATE 1 consumer.  The T-side payload and structural gap-data
-  choice therefore leave those consumer signatures; at `ePrime = 1`, the
-  ROOT-window `K_I` defect form is nonnegative, and the slope-matched
-  residual is nonpositive under the grid and endpoint premises.  Forced ext4
-  mirror rebuild: 3644 jobs, zero `error:` lines, zero `sorryAx`, and seven
-  audit declarations with `[propext, Classical.choice, Quot.sound]`.  Record
-  `docs/proofs/1049`.
+- Latest verified equation-(119) owner correction:
+  the published operator sums over all integers with `d(0) = 0`; the previous
+  `Fin 1732 x Bool` owner omitted `lam * e_0`.  `cc20Eq115Data` now uses
+  `Option (Fin 1732 x Bool)`, fixes `none` at zero, and retains the old paired
+  payload as `cc20Eq115NonzeroData`.  The audited readback is
+  `T_full = lam * e_0 + T_nonzero`.  The generator reproduces the corrected
+  file at SHA-256 `3059ebbd73113df0b6c09dc366827ece22756572ef7d84c9c6d09283a6282d25`.
+- Latest verified Bessel scope correction:
+  `C1CC20GammaBesselCoercivity` still proves the honest bound
+  `q_T >= (1 - lam) * ||xi||^2`, and `C1CC20Gate1BesselDischarge` remains an
+  accepted specialized branch under `lam < 1`.  CC20's reported scale is near
+  `lam = 1.05158 > 1`, so these declarations do NOT discharge paper-scale
+  payload (gamma).  That payload again requires the exceptional direction,
+  complement spectral bound, and rank-one repair.  Final ext4 audit:
+  `Build completed successfully (3649 jobs)`, zero `error:`, zero `sorryAx`;
+  51 readbacks have `[propext, Classical.choice, Quot.sound]`, and the pure
+  equivalence `cc20Eq115NegIndex` has `[propext]`.  The final scope-label
+  cleanup keeps `lam < 1` as an explicit `_hlam1` route guard; its owner and
+  audit were re-elaborated with `Build completed successfully (3633 jobs)`
+  and no local unused-variable warning.  Record `docs/proofs/1050`.
+- RH route judgment after the paper-scale audit:
+  ROOT-window CC20 positivity is a local archimedean base case, not a density
+  theorem for arbitrary supports.  The Lean coverage proposition is already
+  proved equivalent to Mathlib RH once detector existence is supplied.  The
+  recommended narrower global target is detector-selected semi-local
+  positivity for each constructed detector and its finite visible prime set;
+  this still needs new semi-local positive-trace mathematics.
 - Next bricks, in order:
-  1. Payload (alpha): interval-arithmetic ODE certificates for the endpoint
-     profile `chi` (long pole; unblocks the (beta) grid table).  The
-     capstone stays formal:
-     `sourceRH_of_rootSupportedHealthyDetectorData_and_endpointCertificates`.
-  2. Payload (beta): use the alpha enclosure to produce the concrete
-     uniform-grid Fact-1 table at the exhibited gap data.
-  3. Payload (delta): transcribe the exact eq-(99)-(104) archimedean
-     comparison producer; CC20 section-5/6 reconnaissance is recorded, but
-     Theorem-7/Proposition-5 are not yet Lean declarations.
-  4. Package the conditional eigenvalue sign into the finite determinant
-     / Theorem-8 sign-count consumer.  DETECTOR only.
+  1. Payload (gamma): paper-scale finite-section/Toeplitz certificates for
+     exceptional overlap, complement coercivity, and the rank-one determinant.
+  2. Payloads (alpha/beta): concrete prolate modes, Appendix-F tail, endpoint
+     profile enclosure, and the exact Fact-1 L1 table.
+  3. Payload (delta): the Theorem-7/eq-(83) same-owner trace identity plus
+     eq-(99)-(104), yielding ROOT-window endpoint positivity.
+  4. Detector-selected semi-local finite-prime positivity, then the landed
+     `SourceRH` and Mathlib RH bridges.  Do not name the RH-equivalent coverage
+     root as though it were an ordinary completeness lemma.
 - GATE 2 (Titchmarsh/Cartwright square-form bridge): deferred, not attempted.
 
 Settled verdicts never to re-litigate:
@@ -378,10 +381,9 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   cc20_eq115_manifest.json byte-identically.  Provenance chain now
   DOCX -> manifest -> Lean module, all committed.
 - 2026-08-28 C1CC20Eq115Table(+Audit) : generated table module - 1732 angles +
-  1732 coefficients as exact rationals, the paired full data set
-  cc20Eq115Data (Fin 1732 x Bool) with sign in the Bool slot so
-  alpha_{-n} = -alpha_n, d(-n) = d(n) hold BY CONSTRUCTION, lambda free;
-  6 declarations axiom-clean, zero sorryAx.
+  1732 coefficients as exact rationals, initially stored as the paired nonzero
+  data set `(Fin 1732 x Bool)` with sign in the Bool slot.  The missing central
+  equation-(119) term was found and repaired on 2026-08-29; see proof 1050.
 - 2026-08-28 C1CC20Eq115Symmetry(+Audit) : concrete negation data, profile
   evenness for every lam, ROOT-window continuity of the finite profile, and
   cc20Eq115_halfGapCertificate assembling the Fact-1 half-gap certificate
@@ -432,13 +434,47 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   record to distinguish the accepted sandwich/positivity leaves from the red
   Bessel research frontier.
 - 2026-08-29 C1CC20GammaBesselCoercivity(+Audit) : repaired the RED Bessel
-  producer (15 root errors, six forced builds) to accepted; every audit
-  declaration prints the three standard axioms, zero sorryAx.  Flagship
-  `cc20Eq115_gate1hT` now supplies the concrete (gamma) `hT` at
-  `epsilon2 <= 1 - lam`; probe file deleted per its own contract; record
-  docs/proofs/1048.
-- 2026-08-29 C1CC20Gate1BesselDischarge(+Audit) : exhibited the concrete
-  Bessel-compatible gap data and discharged `hT` from the rank-one and
-  slope-residual GATE 1 consumers; at `ePrime := 1` the `K_I` defect form is
-  nonnegative.  Forced ext4-mirror audit: 3644 jobs, zero errors, zero
-  sorryAx, seven standard-axiom readbacks; record docs/proofs/1049.
+  theorem to accepted at its explicit `lam < 1` premises.  The later
+  paper-scale audit shows this is a non-paper branch, not payload (gamma).
+- 2026-08-29 C1CC20Gate1BesselDischarge(+Audit) : exhibited Bessel-compatible
+  gap data and discharged `hT` only in the specialized `lam < 1` consumers;
+  proof 1050 supersedes the earlier paper-facing status interpretation.
+- 2026-08-29 eq-(119) owner + route audit : restored the missing `n = 0`
+  summand with `Option (Fin 1732 x Bool)`, proved
+  `T_full = lam * e_0 + T_nonzero`, and added the paper-scale Bessel rejection
+  guard.  The first batch paid the 1131 s generated-coefficient rebuild and
+  exposed two root proof errors; the second exposed one projection readback;
+  final round: 3649 jobs, success footer, zero errors, zero sorryAx, standard
+  axiom set.  README/AGENTS/docs 1044/1047-1050 now record that ROOT positivity
+  still needs detector-selected semi-local mathematics before RH.
+- 2026-08-29 C1MetricProjectionResponseGuard(+Audit) and proof 1051 : tied
+  the active C1 response definition to the old Gram-corrected endpoint metric
+  projection exactly (`projectionResponse = detector o (R_0 - R_S)`).  The
+  one-prime expansion has a candidate one-crossing `p^2` term with coefficient
+  `a^2`, versus the Euler logarithm's `a^2/2`. The response identity is
+  Lean-checked; the noncompact source-Sonin channel readback remains an
+  analytic premise, so the coefficient verdict is conditional. The WSL2
+  focused build finished at 3161 jobs with zero errors and standard axioms
+  only. This does not reject a genuinely new semilocal positive owner.
+- 2026-08-29 C1ProjectionSquareCanonicalCutoffGuard(+Audit) and proof 1052 :
+  promoted the existing canonical `D2` obstruction to an import-facing no-go
+  guard. For every nonzero source test and trace-class fixed response, the real
+  trace of `cutoffWindowToResponseDefect` cannot tend to zero; the current
+  positive projection-square ledger therefore cannot close by a canonical
+  residual-to-zero argument. Qualified proof 1051: its response identity is
+  Lean-checked, while the factor-two `p^2` conclusion still needs a
+  source-Sonin principal-channel readback. The broader semilocal search is not
+  rejected.
+- 2026-08-29 docs/proofs/1053_semilocal_prolate_asymptotic_hard_bone.md :
+  route audit narrowed the only uneliminated RH-facing construction to an
+  asymptotic, two-cutoff semilocal prolate cross-spectral trace. Fixed-cutoff
+  projection and positive-multiplier owners remain rejected. Proof 1054 then
+  showed that P2a is only a necessary first-order target; no conditional Lean
+  producer is permitted before the coefficient-complete P2b cancellation.
+- 2026-08-29 docs/proofs/1054_semilocal_prolate_second_variation_gate.md :
+  exact three-point cyclic-pair calculation showed that the Poisson/logarithmic
+  measure path has a strictly nonzero iterated first-harmonic second response
+  after subtracting the direct `cos(2 L s)` response, even for an exactly
+  prolate-normalized positive cross-spectral Hilbert-Schmidt energy. This does
+  not reject a special Gamma/Meixner-Pollaczek cancellation, but it makes P2b,
+  not P2a, the first coefficient-complete go/no-go gate.

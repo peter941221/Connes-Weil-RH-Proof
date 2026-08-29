@@ -7,9 +7,10 @@ Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 
 ## Status dashboard
 
-> **Updated 2026-08-29.** This dashboard describes the repository state of
-> commit
-> [`ef44b4c`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/ef44b4c).
+> **Updated 2026-08-29.** This dashboard describes commit
+> [`39f0f81`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/39f0f81)
+> plus the pending paper-scale correction recorded in
+> [proof 1050](docs/proofs/1050_one_shot_rh_route_verdict.md).
 > **No unconditional proof of the Riemann hypothesis is claimed here.**
 
 ### Route map
@@ -85,20 +86,19 @@ bottom; every station on the road carries its state.
         v  +-----------------------------------------------------+
            | EXTRACTED TABLE - PUBLISHED eq-(115) DATA [LANDED]  |
            | m = 1732 angles + coefficients, exact rationals,    |
-           | SHA-256-pinned DOCX sources; the sign-paired index  |
-           | makes alpha_{-n} = -alpha_n hold by construction;   |
+           | SHA-256-pinned DOCX sources; n=0 plus the sign-paired|
+           | nonzero index make eq-(119) complete and symmetric; |
            | concrete evenness + ROOT-window continuity; the     |
            | Fact-1 half-gap certificate ASSEMBLED concretely.   |
            +-----------------------------------------------------+
         |
         v  +-----------------------------------------------------+
-           | GAMMA COERCIVITY - BESSEL BRICK       [CLEARED]     |
+           | GAMMA COERCIVITY - PAPER SCALE          [OPEN]      |
            | row-band AM-GM sandwich + 1732-branch coefficient   |
-           | positivity; Bessel over orthonormal windowed        |
-           | integer Fourier modes: eq-(119) defect form >=      |
-           | (1-lam)||xi||^2; flagship cc20Eq115_gate1hT lands   |
-           | the GATE 1 hT premise (ell := 0) and discharges it  |
-           | from the concrete GATE 1 consumers.                 |
+           | positivity are built. Bessel gives defect >=        |
+           | (1-lam)||xi||^2 only for lam < 1. CC20 uses          |
+           | lam ~= 1.05158 > 1, so exceptional direction +      |
+           | complement spectrum + rank-one repair remain open.  |
            +-----------------------------------------------------+
         |
         v  +-----------------------------------------------------+
@@ -106,8 +106,8 @@ bottom; every station on the road carries its state.
            | one entry point for the concrete table: grid ->     |
            | eq-(121) operator gap -> Lemma-second rank-one ->   |
            | 13 < 4g/log 2 < 17 -> slope-matched residual.       |
-           | Residue = alpha / beta / delta; gamma and the       |
-           | structural gap-data choice are discharged.          |
+           | Residue = alpha / beta / paper-gamma / delta.       |
+           | Bessel discharges only a separate lam < 1 branch.   |
            +-----------------------------------------------------+
         |
 
@@ -126,38 +126,37 @@ bottom; every station on the road carries its state.
         |          certified L1 quadrature over the extracted
         |          table (consumer landed; blocked by alpha)
         |
-        |      (gamma) T-SIDE COERCIVITY BLOCK . [ACCEPTED]
-        |          Bessel over windowed integer modes gives
-        |          defect >= (1-lam)||xi||^2 (flagship
-        |          cc20Eq115_gate1hT, ell := 0); the concrete
-        |          gap-data exhibit discharges hT from the
-        |          rank-one and residual consumers.  The sharp
-        |          3464x3464 eigenvalue enclosure is OPTIONAL
-        |          (the sandwich is the sharpener)
+        |      (gamma) PAPER-SCALE COERCIVITY .... [DATA OPEN]
+        |          CC20 has lam ~= 1.05158 > 1, while the
+        |          Bessel lower bound is only (1-lam)||xi||^2.
+        |          Need an exact finite-section/Toeplitz
+        |          certificate for the exceptional direction,
+        |          complement frame bound, and rank-one repair.
         |
         |      (delta) ARCHIMEDEAN COMPARISON .. [DATA OPEN]
         |          trace - coefficient*rank <= W-infinity(g^2)
         |          (pinned to the CC20 sec. 6 root window
         |          L = log 2)
         |
-        |      (gapData) GAP-DATA CHOICE ....... [CLOSED]
+        |      (gapData) NON-PAPER BESSEL BRANCH [CLOSED]
         |          a = 1, epsilon1 = (1-lam)/2,
-        |          epsilon2 = 1-lam; the paper-scale ePrime
-        |          interval remains a caller-side numeric choice
+        |          epsilon2 = 1-lam under lam < 1; it cannot
+        |          instantiate the published lam > 1 argument
         |
 
    =====================  LEG III - STILL AHEAD  ======================
 
         |
         v  +-----------------------------------------------------+
-           | STATION 5 - TEST-CLASS COMPLETENESS   [AHEAD]       |
-           | density of admissible tests: lifts ROOT-class       |
-           | positivity to EVERY vanishing test                  |
+           | STATION 5 - SEMI-LOCAL DETECTOR STEP  [AHEAD]       |
+           | selected detector + its finite visible prime set;   |
+           | prove the same-owner semi-local trace positivity    |
            +-----------------------------------------------------+
         |
         v  +-----------------------------------------------------+
-           | STATION 6 - UNIVERSAL WEIL POSITIVITY  [LAST GAP]   |
-           | qw(g) >= 0 universally (= the coverage root)        |
+           | STATION 6 - DETECTOR NONNEGATIVITY     [LAST GAP]   |
+           | contradict the landed strict negative detector;     |
+           | coverage-root is RH-equivalent, not a density lemma |
            +-----------------------------------------------------+
         |
         v  +-----------------------------------------------------+
@@ -198,9 +197,10 @@ How to read the tags:
 
 A milestone count is not an honest measure of distance to RH. The operator
 floor, the detector ridge, and the published-data table have landed and audit
-clean, but what remains is the hard analytic core: the two endpoint sides
-listed at base camp, the GATE 1 sign estimate they feed, and test-class
-completeness.
+clean, but what remains is the hard analytic core: all four paper-scale GATE 1
+payloads and a new detector-selected semi-local positivity theorem.  ROOT
+positivity cannot be lifted to arbitrary supports by density alone because
+the mixed quadratic terms and newly visible prime powers are uncontrolled.
 Ruled-out shortcuts are equally part of the record: the bare whole-line
 Hilbert-Schmidt premise is false for every nonzero test, the plain-window
 cutoff trace family is an empty producer, and the pure-analysis budget ladder
@@ -258,7 +258,7 @@ DATE         EVENT                                                COMMIT
              Fact-1 mass-bound consumption layer                 84c133c
              GATE 1 conditional assembly                         01fa0a1
 2026-08-29   gamma sandwich + 1732-branch positivity sweep       195d233
-             Bessel producer repaired, gamma hT accepted         ef44b4c
+             Bessel theorem accepted only under lam < 1          ef44b4c
              Bessel discharge + concrete gap-data exhibit         d75186f
 ------------------------------------------------------------------------
 Code frontier at this writing:

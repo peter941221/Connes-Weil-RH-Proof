@@ -4,7 +4,7 @@
 最重要的几条规则：
 1. 禁止无实质作用的数值实验，要打数学证明。
 2. 多个实质推进之后统一批量构建验收、记录。
-3. 
+3. `coverage root` 已在 Lean 中证明与 RH 等价，禁止把它写成普通密度引理。
 
 
 Working rules for the Connes-Weil RH formalization. Compressed 2026-08-27:
@@ -28,18 +28,24 @@ Freeze rules: `RH_MAINLINE_FREEZE.md` (run
 `pwsh -File scripts/check_rh_mainline_freeze.ps1` before touching frozen route
 namespaces). Current phase states: README "Status dashboard" (top).
 
-Route position (2026-08-27, commit 13bae3d + pending s6w/s6x leaves):
-CC20 window-operator chain landed through bounded quotient operators
-(`applyKernelLp`). Next bricks, in order:
+Route position (2026-08-29, commit 39f0f81 + pending proof-1050 correction):
+the CC20 finite-rank chain is wired through the concrete eq-(115) table, but
+the paper-scale audit found two corrections.  Equation (119) includes the
+central `n = 0` term, and the published scale is about `lam = 1.05158 > 1`;
+the landed Bessel lower bound is therefore only a valid `lam < 1` side branch.
+Next bricks, in order:
 
-1. Concrete finite-rank difference profile `K_I - T`
-   (`T = lambda * rankOne phi phi` from `CC20EndpointSpectralData`) with a
-   certified L1 profile / operator-norm envelope feeding eq-(121).
-2. Eq-(100) slope identity consumption and GATE 1 numeric certificates
-   (Yoshida exact-rational LDL^T via `scripts/yoshida_intervals/`, or CC20
-   rank-one bound gamma ~ 2.94355 certified on `13 < 4*gamma/log 2 < 17`).
-3. Universal W4b / coverage root (`normalizedSelectedFinalRouteDetectorCriterionCoverageRoot`,
-   RH-equivalent per docs/proofs/887).
+1. Paper-scale finite-section/Toeplitz certificate: exceptional direction,
+   complement spectral bound, and rank-one repair producing positive
+   coercivity near `lam > 1`.
+2. Concrete prolate owner plus Appendix-F uniform tail, exact Fact-1 L1
+   certificate, and equation-(100) slope identity.
+3. Theorem-7 same-owner trace identity and the resulting ROOT-window endpoint
+   positivity theorem.
+4. Detector-selected semi-local positivity for each constructed detector and
+   its finite visible prime set, then `SourceRH` and Mathlib RH.  The existing
+   coverage root is the final RH-equivalent statement, not an intermediate
+   density lemma; design judgment: `docs/proofs/1050_one_shot_rh_route_verdict.md`.
 
 GATE 2 (Titchmarsh square-form bridge) is deliberately deferred: classical
 proofs need Paley-Wiener / Cartwright entire-function theory absent from
@@ -238,6 +244,16 @@ leggauss nodes already live on [-1,1].
 
 ### 7d. CC20 owner landmines (live)
 
+- Paper equation (119) sums over all integers and explicitly sets `d(0)=0`.
+  A paired `+/-1,...,+/-m` owner is the truncated operator
+  `T - lam * e_0`; the full finite owner must carry a fixed central index.
+- Bessel gives `q_T >= (1-lam)||xi||^2`.  It is coercive only for `lam < 1`,
+  while CC20 reports the exceptional scale near `1.05158 > 1`.  Never mark
+  paper-scale gamma closed from this branch; use the exceptional vector,
+  complement bound, and rank-one repair.
+- Fact 1 describes its `~0.00122` L1 value as a computer calculation.  The
+  decimal and plot are reconnaissance only; Lean needs a directed interval
+  certificate for the profile and its absolute-value integral.
 - `cc20RegularKernel` has strictly positive pointwise diagonal; paper's raw
   `K_I` has `Qepsilon(1)=0` diagonal zero. A diagonal mismatch rejects literal
   identification only - a.e./operator-level bridging is its own obligation.
@@ -252,6 +268,20 @@ leggauss nodes already live on [-1,1].
   whose downstream use is confined to the ROOT displacement window should
   require `ContinuousOn` that window, never an artificial global `Continuous`
   premise.
+- The active C1 `projectionResponse` is exactly the old endpoint metric
+  difference `R_0 - R_S`, with `R_S = A (A^* A)^(-1) A^*`. The canonical
+  positive-kernel cutoff bridge has a Lean-proved `D2` obstruction: for every
+  nonzero test its real trace cannot tend to zero, so that closure is dead.
+  See `docs/proofs/1052_c1_projection_square_canonical_cutoff_no_go.md`.
+  The `p^2` factor-two calculation in proof 1051 remains a diagnostic
+  conditional on a source-Sonin principal-channel readback not yet formalized;
+  do not cite it as an independent formal no-go.
+- A future semilocal prolate cross-spectral owner must not treat a correct
+  first Szego-phase variation (P2a) as an Euler-log proof. Its `p^2`
+  coefficient also contains an iterated first-harmonic second variation.
+  Prove the P2b cancellation on the same one-crossing readback before adding a
+  conditional Lean producer; proof 1054 gives an exact finite cyclic-pair
+  counterexample to any general QR/Toda cancellation claim.
 ### 7e. v4.30 cast/spelling hazards (Bessel-repair round)
 
 - `(e : ℂ)` + `^ 2` elaborates the power OUTSIDE the cast (`(↑e) ^ 2`).
