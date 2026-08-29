@@ -478,3 +478,26 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   prolate-normalized positive cross-spectral Hilbert-Schmidt energy. This does
   not reject a special Gamma/Meixner-Pollaczek cancellation, but it makes P2b,
   not P2a, the first coefficient-complete go/no-go gate.
+- 2026-08-29 docs/proofs/1055_semilocal_p2b_verdict.md (with
+  1055_semilocal_p2b_probe.py, p2b_probe_results.json, p2b_probe_run.log) :
+  P2b DECIDED = DEAD. Three separable claims. (A) The harness exactly
+  reproduces the 1054 counterexample (Delta = -0.354698, PASS), so generic
+  QR/Toda algebra cannot cancel the iterated first-harmonic response, and no
+  mechanism exists (Ong--Remling needs bounded Jacobi; CCM24 coefficients grow
+  like n). (B) Decisive new finding - the gate's numerical test is itself
+  infeasible at fixed precision: cyclic-vector -> Jacobi-coefficient recovery
+  amplifies deep-coordinate noise by prod a_j ~ K!/K^(1/4) against a signal
+  floor set by band depth 4*pi*lambda^2; the SAME base energy (g=1, two
+  float representations of the identical cyclic vector) differs 39-268% at
+  every tested lambda, and Lanczos coefficients exceed the truncation norm
+  bound by depth 5-6. The earlier interim "iterated channel 1e3-1e8x direct,
+  no lambda decay" reading is WITHDRAWN as amplifier output, not physics; the
+  JSON rows carry the measured dE0 blowup label in place of that claim.
+  (C) No P0/P1 self-adjoint realization exists in CCM24 (formal expression
+  (5) only), so P2b as a kill test was never meaningful. Consequence: the
+  last surviving global-shape candidate from 1053 is eliminated; the active
+  program is exactly the four GATE 1 paper-scale payloads plus the
+  detector-selected semi-local step, and no probe/owner may reference the
+  prolate family until a proved realization + analytic one-crossing identity
+  exist (verdict section 5 revival conditions). AGENTS 7c gains laws (8) and
+  (9) from this round; 7d replaces the P2b warning with the closure.

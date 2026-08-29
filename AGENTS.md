@@ -240,7 +240,15 @@ resolution AND interval - plateau vs decay separates fact from grid artifact;
 against direct quadrature (origin placement!), get closed-form tails from the
 right antiderivative, and remember np.expm1(y) = e^y - 1; (7) for narrow
 zero-mean tests, expect O(1)/F(0) cancellations making "small" terms O(1);
-leggauss nodes already live on [-1,1].
+leggauss nodes already live on [-1,1]; (8) cyclic-vector -> Jacobi-coefficient
+recovery amplifies deep-coordinate vector noise by prod_(j<k) a_j ~ k!/k^(1/4):
+for a_k ~ k, a dense float64 start vector is decodable only to depth ~15-20
+(verified in 1055: 1e-15 start error gives a_5 = 1070 > ||J|| at M=1952); the
+exact-coordinate start e_0 is the sole exception because its deep noise is
+exactly zero; Stieltjes/Gram-Schmidt coefficient recovery for exponential
+weights is hopeless for the same reason; (9) in Euler-log channel bookkeeping,
+the delta_f term is the FIRST variation along exp(2 t f) dm, not a second
+derivative of that path (mixing them flips the 1054 control sign).
 
 ### 7d. CC20 owner landmines (live)
 
@@ -276,12 +284,17 @@ leggauss nodes already live on [-1,1].
   The `p^2` factor-two calculation in proof 1051 remains a diagnostic
   conditional on a source-Sonin principal-channel readback not yet formalized;
   do not cite it as an independent formal no-go.
-- A future semilocal prolate cross-spectral owner must not treat a correct
-  first Szego-phase variation (P2a) as an Euler-log proof. Its `p^2`
-  coefficient also contains an iterated first-harmonic second variation.
-  Prove the P2b cancellation on the same one-crossing readback before adding a
-  conditional Lean producer; proof 1054 gives an exact finite cyclic-pair
-  counterexample to any general QR/Toda cancellation claim.
+- The semilocal prolate cross-spectral family is CLOSED by record 1055: P2b
+  was unprovable (no P0/P1 realization, no cancellation mechanism, 1054 exact
+  counterexample) AND unfalsifiable by computation (the gate observable has no
+  fixed-precision decodable content - 7c law (8) applies to the whole
+  lambda-scaling regime). No new probe, table, or conditional Lean owner may
+  reference `W_(lambda,S)` / prolate asymptotics unless and until a proved
+  self-adjoint realization plus an analytic one-crossing identity exists
+  (revival conditions, docs/proofs/1055_semilocal_p2b_verdict.md section 5).
+  Its earlier P2a-iterate warning remains true for any hypothetical revival:
+  a correct first Szego-phase variation is not an Euler-log proof; the `p^2`
+  coefficient also carries the iterated first-harmonic second variation.
 ### 7e. v4.30 cast/spelling hazards (Bessel-repair round)
 
 - `(e : ℂ)` + `^ 2` elaborates the power OUTSIDE the cast (`(↑e) ^ 2`).

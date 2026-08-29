@@ -8,9 +8,10 @@ Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 ## Status dashboard
 
 > **Updated 2026-08-29.** This dashboard describes commit
-> [`39f0f81`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/39f0f81)
-> plus the pending paper-scale correction recorded in
-> [proof 1050](docs/proofs/1050_one_shot_rh_route_verdict.md).
+> [`6eacb53`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/6eacb53)
+> (paper-scale audit, semilocal guards, records 1050-1054) together with the
+> P2b closure recorded in
+> [proof 1055](docs/proofs/1055_semilocal_p2b_verdict.md).
 > **No unconditional proof of the Riemann hypothesis is claimed here.**
 
 ### Route map
@@ -175,6 +176,11 @@ bottom; every station on the road carries its state.
      x  bare whole-line Hilbert-Schmidt premise - false for every
         nonzero test (proved)
      x  plain-window cutoff trace family - empty producer (proved)
+     x  semilocal prolate asymptotic family - DEAD at the P2b gate
+        (proof 1055): the cancellation has no mechanism (1054 exact
+        counterexample) and no fixed-precision evaluation exists at any
+        meaningful scale (precision wall); revival needs a proved
+        self-adjoint realization plus an analytic one-crossing identity
      o  GATE 2 Titchmarsh square-form bridge - deferred by design;
         not needed for this first cut (Cartwright theory absent
         from Mathlib)
@@ -198,7 +204,11 @@ How to read the tags:
 A milestone count is not an honest measure of distance to RH. The operator
 floor, the detector ridge, and the published-data table have landed and audit
 clean, but what remains is the hard analytic core: all four paper-scale GATE 1
-payloads and a new detector-selected semi-local positivity theorem.  ROOT
+payloads and a new detector-selected semi-local positivity theorem.  Proof
+1055 closed the asymptotic prolate candidate that was supposed to supply the
+second: its P2b gate has neither a mechanism nor a decidable evaluation, so
+the semi-local step must now arrive from a NEW construction, and no
+conditional Lean owner referencing `W_(lambda,S)` may be added.  ROOT
 positivity cannot be lifted to arbitrary supports by density alone because
 the mixed quadratic terms and newly visible prime powers are uncontrolled.
 Ruled-out shortcuts are equally part of the record: the bare whole-line
@@ -260,6 +270,9 @@ DATE         EVENT                                                COMMIT
 2026-08-29   gamma sandwich + 1732-branch positivity sweep       195d233
              Bessel theorem accepted only under lam < 1          ef44b4c
              Bessel discharge + concrete gap-data exhibit         d75186f
+             dashboard refresh through Bessel discharge           39f0f81
+             eq-(119) owner gains the central n = 0 term          5aafd9f
+             paper-scale audit + guards, records 1050-1054        6eacb53
 ------------------------------------------------------------------------
 Code frontier at this writing:
 https://github.com/peter941221/Connes-Weil-RH-Proof/commit/d75186f
