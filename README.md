@@ -97,7 +97,8 @@ bottom; every station on the road carries its state.
            | positivity; Bessel over orthonormal windowed        |
            | integer Fourier modes: eq-(119) defect form >=      |
            | (1-lam)||xi||^2; flagship cc20Eq115_gate1hT lands   |
-           | the GATE 1 hT premise (ell := 0).                   |
+           | the GATE 1 hT premise (ell := 0) and discharges it  |
+           | from the concrete GATE 1 consumers.                 |
            +-----------------------------------------------------+
         |
         v  +-----------------------------------------------------+
@@ -105,8 +106,8 @@ bottom; every station on the road carries its state.
            | one entry point for the concrete table: grid ->     |
            | eq-(121) operator gap -> Lemma-second rank-one ->   |
            | 13 < 4g/log 2 < 17 -> slope-matched residual.       |
-           | Residue = alpha / beta / delta + the gap-data       |
-           | choice (see base camp); gamma is ACCEPTED.          |
+           | Residue = alpha / beta / delta; gamma and the       |
+           | structural gap-data choice are discharged.          |
            +-----------------------------------------------------+
         |
 
@@ -128,19 +129,21 @@ bottom; every station on the road carries its state.
         |      (gamma) T-SIDE COERCIVITY BLOCK . [ACCEPTED]
         |          Bessel over windowed integer modes gives
         |          defect >= (1-lam)||xi||^2 (flagship
-        |          cc20Eq115_gate1hT, ell := 0); the sharp
-        |          3464x3464 eigenvalue enclosure is now
-        |          OPTIONAL (the sandwich is the sharpener)
+        |          cc20Eq115_gate1hT, ell := 0); the concrete
+        |          gap-data exhibit discharges hT from the
+        |          rank-one and residual consumers.  The sharp
+        |          3464x3464 eigenvalue enclosure is OPTIONAL
+        |          (the sandwich is the sharpener)
         |
         |      (delta) ARCHIMEDEAN COMPARISON .. [DATA OPEN]
         |          trace - coefficient*rank <= W-infinity(g^2)
         |          (pinned to the CC20 sec. 6 root window
         |          L = log 2)
         |
-        |      (gapData) GAP-DATA CHOICE ....... [DATA OPEN]
-        |          one CC20OperatorGapData with
-        |          epsilon1 < epsilon2 <= 1 - lam (small
-        |          assembly obligation)
+        |      (gapData) GAP-DATA CHOICE ....... [CLOSED]
+        |          a = 1, epsilon1 = (1-lam)/2,
+        |          epsilon2 = 1-lam; the paper-scale ePrime
+        |          interval remains a caller-side numeric choice
         |
 
    =====================  LEG III - STILL AHEAD  ======================
@@ -256,9 +259,10 @@ DATE         EVENT                                                COMMIT
              GATE 1 conditional assembly                         01fa0a1
 2026-08-29   gamma sandwich + 1732-branch positivity sweep       195d233
              Bessel producer repaired, gamma hT accepted         ef44b4c
+             Bessel discharge + concrete gap-data exhibit         d75186f
 ------------------------------------------------------------------------
-HEAD at this writing:
-https://github.com/peter941221/Connes-Weil-RH-Proof/commit/ef44b4c
+Code frontier at this writing:
+https://github.com/peter941221/Connes-Weil-RH-Proof/commit/d75186f
 ```
 
 The narrative snapshot below is retained unchanged from the previous
