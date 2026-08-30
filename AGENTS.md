@@ -240,6 +240,28 @@ verifies exact identities.
   un-synthesized metavariables ("don't know how to synthesize placeholder"). Derive an
   idempotence equality with a CONCRETE target via `simpa only [mul_apply] using congrArg
   (fun T => T v) hstar.isIdempotentElem`, then close with `exact congrArg g hidem`.
+- `rw [h]` replaces ALL occurrences of h's LHS in ONE step; a repeated `[h]`
+  in the same list fails ("did not find an occurrence") when exactly two
+  matches existed. Write one `rw [h]`. Conversely, `let`-bound names are NOT
+  unfolded inside hypotheses - run `dsimp only [<name>] at h` before rewriting
+  with it (goal-side lets do unfold).
+- On Hilbert endomaps `E →L[ℂ] E`, `f * g ≡ f.comp g` is DEFQ (rfl), and so
+  are chains (`f ∘L g ∘L h ≡ (f * g) * h`). The printer shows inferred-sigma
+  composition as `∘SL`, but it stays defeq to pure `*`: a two-sided `change`
+  from comp-chain form to pure-`*` form succeeds even though the display
+  differs. Verify such shape claims in a probe file, not by eyeballing.
+- `noncomm_ring` on endomaps works only with PURE-`*` terms: inferred-sigma
+  composition subterms stall it ("simp lemmas don't apply; try abel"). It
+  takes NO positional hypothesis arguments (`noncomm_ring ha` is a parse
+  error in v4.30) and does not consume local ring relations like `h : a * a =
+  1` - rewrite with `rw [h]` first, then call it. It DOES know the unit laws
+  internally (closes residuals like `x * 1 - 1 * x = x - x`).
+- Bare `simp` does NOT strip identity factors (`x * 1`, `1 * x`) on `→L[ℂ]`
+  endomaps: `mul_one`/`one_mul` exist but are not simp-marked for that type.
+  Use an explicit `rw [mul_one, one_mul]` or let `noncomm_ring` finish.
+- Cheap tactic-shape iteration: a standalone probe .lean plus direct
+  `lake env lean <file>` (~30-60 s) settles defeq/tactic questions before
+  burning full module builds; accept on LOG content, never exit code (see 7a).
 
 ### 7c. Numeric-probe fidelity laws (docs/proofs probes)
 
@@ -276,18 +298,23 @@ verifies exact identities.
   quantities carry a factor 2.  Before booking ANY convention pin, wire
   the contract identity to the paper's published derived number (here
   eps'(1+) ~ 22.9965) and require the match.
-- (15) To separate a real trace-class DIVERGENCE from an under-resolution
-  artifact, compare at CONSTANT frequency window while QUARTERING dt: a true
-  spectrum grows with the WINDOW and is dt-invariant (1063: {2,3,5} sum
-  20.8779 vs 20.8784 at xi_max=51.2, dt 1/4). If it moves with dt, it is
-  aliasing of the oscillatory phase, not physics. Odd-N grids are mandatory
-  (even N drops Nyquist, breaks m(-xi)=conj m(xi), destroys the involution).
-- (16) A D-WEIGHTED sum can converge while the raw sum diverges: the repair
-  is owner-independent only if raw angle-mass M(X) is SUBLINEAR (1063: ~X^0.45)
-  while every Schwartz weight decays FASTER than any polynomial, so
-  Abel-summation bounds Sum w(xi_n) cos^2 by int X^0.5 xi^{-N}. Three test
-  weights (k=0.3/1/3) are a SAMPLE not the SCOPE - state the inequality, not
-  the sample, as the robustness argument.
+- (15) To separate a candidate continuum spectral-tail divergence from an
+  under-resolution artifact, compare at CONSTANT frequency window while
+  QUARTERING dt.  In 1063, the finite-grid `{2,3,5}` statistic was 20.8779
+  versus 20.8784 at xi_max=51.2 under a dt-quarter pair.  This validates the
+  probe's interval-growth observation; it does NOT prove a continuum
+  trace-class negation. Odd-N grids are mandatory (even N drops Nyquist,
+  breaks m(-xi)=conj m(xi), destroys the involution).
+- (16) A finite-grid D-WEIGHTED statistic can plateau while the raw statistic
+  grows.  This is evidence to study smoothing, not a proof of
+  `IsTraceClassAlong basis (D oL K)`: that predicate is a named-basis series
+  and `D oL K` can be non-self-adjoint.  With `K = A† A` and `D = C† C`, use
+  the Lean-proved active-order identity
+  `D K = (A C)†(A C) + C†[C,K]`; then require (a) a continuum
+  Hilbert--Schmidt proof for `A C` and (b) a legal pair owner for the signed
+  root-commutator.  `C†[C,K]` expands as the `E/Q/R` four-branch ledger; the
+  existing detector-level half-line pair for `C† C` does not close a
+  root-level branch.  The three 1063 Gaussian scales are reconnaissance only.
 
 Before trusting any probe number: (1) reproduce a Lean-proven identity first;
 (2) restrict Grams/inverses to the carrier span BEFORE inverting; (3) make the
@@ -352,12 +379,13 @@ derivative of that path (mixing them flips the 1054 control sign).
   Its earlier P2a-iterate warning remains true for any hypothetical revival:
   a correct first Szego-phase variation is not an Euler-log proof; the `p^2`
   coefficient also carries the iterated first-harmonic second variation.
-- Proof 1056 Ruling 2 (anti-conflation): the F1 unit-scale crux
-  `targetProlateRemainder_unit_isTraceClassAlong` and any alpha-profile
-  trace work concern OUR fixed-scale concrete model operators; they are
-  outside the freeze above, but they do NOT supply the 1055-P0/P1 revival
-  conditions. Never bookkeep a proof of F1 or an `hchi` enclosure as a
-  "revival payment" for the asymptotic family.
+- Proof 1056 Ruling 2 (anti-conflation): the historical raw F1 crux is retired
+  by 1063's numerical guard.  Its replacement F1' contract and the fixed-scale
+  symmetric-sandwich analysis, like any alpha-profile trace work, concern OUR
+  fixed-scale concrete model operators; they are outside the freeze above, but
+  they do NOT supply the 1055-P0/P1 revival conditions. Never bookkeep a proof
+  of F1', the sandwich, or an `hchi` enclosure as a "revival payment" for the
+  asymptotic family.
 - Alpha is de-risked in shape by 1057/1058/1061/1062: CC20's own eq-(170)
   truncates `Q epsilon` to 11 terms with a published remainder <= 2.366e-12
   on [1,2] (tail arithmetic reproduced exactly by `docs/proofs/
