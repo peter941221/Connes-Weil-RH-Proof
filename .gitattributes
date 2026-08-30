@@ -1,0 +1,2 @@
+# shell scripts are executed under WSL2 bash; keep LF on every checkout
+*.sh text eol=lf
