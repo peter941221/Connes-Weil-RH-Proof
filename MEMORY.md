@@ -565,3 +565,33 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   7a rule), cc20_pin.sh/cc20_number.sh (tex maps), run_1058_probe.sh
   (venv-46937-py312). No Lean edits; F1 remains the only sorry carrier of
   the C1 thread; 1055 freeze untouched and still binding.
+
+## 2026-08-30 (second batch) - record 1059: the pre-flight fired, and the convention closed
+
+Same-day follow-through on the 1056 pre-flight and the 1058 open item.
+1059 (1) REVOKED brick-2b: closing the target angle bound by perturbing the
+source bound through the Euler transport needs delta > 0.985166 already at
+S = {2} (kappa(T_2) = (1+2^{-1/2})/(1-2^{-1/2}) = 5.828427, coefficient
+c_p = p^{-1/2} exact, pool CCM24VisiblePrime = {p : 1 < p} unbounded), while
+CCM24UnitScaleStrictAngle.lean:1403-1413 proves only 0 < delta <= 1 for
+unitLeakageLowerBound. Related trap recorded: prolateFactor U composes two
+orthogonal projections (ProlateTraceReduction.lean:38-40), so its norm <= 1
+is automatic - strictness is the entire content, never count the bound.
+Posture: F1 stays the leaf's named conditional premise (R2 default); 2a
+Gram-corrected reduction proceeds as algebra; R1 (target-side angle lemma
+from additive-kernel geometry, log p >= log 2 window-shift gap) deferred to
+its own design record. (2) PINNED the lambda(n) convention from raw tex
+967-983: lambda(n) = Wang lambda_{2n}^{c=2pi} = even-parity branch of the
+collocation spectrum with kernel sin(2 pi D)/(pi D) on [-1,1]; probe block
+B2 measures [0.9999428, 0.9593903, 0.2746660, 3.478238e-3, 7.465620e-6,
+5.820371e-9] and verifies the paper's (983) bound on it. This corrected the
+1058 label error (the old "c = 2 pi" row was omega = pi) and moved MP/ARB
+onset to n >= 6; the tightest alpha enclosure is mode 0 (p(0) ~ 93.5 off the
+1 - lambda(0)^2 ~ 1.14e-4 denominator). Lesson banked in AGENTS 7d: the
+1056-style "reserved revocation condition" pattern WORKS - a one-evening
+paper pre-flight retired a scheme that would have cost weeks mid-build;
+always price the uniformity quantifier (here: forall families) before
+scheduling the brick. 1056 amended (s5b), 1058 verdict amended (s2/s3),
+README C1/alpha boxes rewritten. No Lean edits; the F1 sorry at
+C1ProlateResponseTraceLegalityUnitScale.lean:121 stands as the thread's
+documented premise; 1055 freeze untouched and still binding.

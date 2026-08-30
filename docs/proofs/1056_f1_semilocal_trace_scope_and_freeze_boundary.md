@@ -189,6 +189,20 @@ this scope's GO can be revoked, and it is checkable in one paper page.
 4. The 1055 freeze itself is untouched and still binding for
    `W_(lambda,S)`, asymptotics, one-crossing readbacks, and probes.
 
+## 5b. AMENDMENT (same day, pre-flight fired) - see 1059
+
+The section 4 pre-flight ran and REVOKED brick 2b as written: closing the
+target angle bound by perturbing the source angle bound through the Euler
+transport needs `delta > 0.985166` already at `S = {2}`
+(`kappa(T_2) = (1+2^{-1/2})/(1-2^{-1/2}) = 5.828427`), while the source file
+proves only `0 < unitLeakageLowerBound <= 1` qualitatively, and the visible-
+prime pool `{p : 1 < p}` has no family bound so no uniform repair exists.
+Full arithmetic, the surviving re-scope (2a algebra + F1 kept conditional as
+R2 default, target-side angle lemma R1 by separate design record), and the
+independent win (lambda(n) convention pinned from tex:967-983) are in
+`docs/proofs/1059_2b_margin_revocation_and_lambda_convention_pin.md`.
+Rulings 1-3 and the freeze-boundary analysis above stand untouched.
+
 ## 6. Sources
 
 ```text

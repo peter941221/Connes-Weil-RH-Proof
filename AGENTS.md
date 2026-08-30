@@ -323,16 +323,36 @@ derivative of that path (mixing them flips the 1054 control sign).
   outside the freeze above, but they do NOT supply the 1055-P0/P1 revival
   conditions. Never bookkeep a proof of F1 or an `hchi` enclosure as a
   "revival payment" for the asymptotic family.
-- Alpha is de-risked in shape by 1057/1058: CC20's own eq-(170) truncates
+- Alpha is de-risked in shape by 1057/1058/1059: CC20's own eq-(170) truncates
   `Q epsilon` to 11 terms with a published remainder <= 2.366e-12 on [1,2]
   (tail arithmetic reproduced exactly by `docs/proofs/
   1058_alpha_chi_reconnaissance_probe.py`).  The alpha brick is an 11-mode
   validated-ODE campaign (MP/ARB eigenvalues + analytic continuation across
-  x = 1), NOT an open-ended spectral realization.  Before any alpha work,
-  pin the convention question recorded open in 1058 s3 item 4: which
-  concentration spectrum is the paper's `lambda(n)` (c = 2pi vs the repo's
-  `unitAdditiveFourierKernel` scale) - resolve from propQe/sonineQ in the
-  tex, do not guess.
+  x = 1), NOT an open-ended spectral realization.
+- The lambda(n) convention is PINNED (1059 s4, tex:967-983 verbatim): the
+  paper's `lambda(n)` = Wang `lambda_{2n}^{c=2pi}` = the EVEN-parity branch
+  of the concentration spectrum with collocation kernel
+  `sin(2 pi (x-y)) / (pi (x-y))` on [-1,1] - values
+  `[0.9999428, 0.9593903, 0.2746660, 3.478238e-3, 7.465620e-6, 5.820371e-9]`
+  (n = 0..5), with the paper's own (983) bound verified on the branch.
+  Landmines: the repo `unitAdditiveFourierKernel` (omega = 1) scale is a
+  DIFFERENT spectrum and the 1058 probe's original "c = 2 pi" row was
+  mislabeled (omega = pi) - do not reuse either as lambda(n) values.  The
+  campaign's tightest enclosure is mode 0: `p(0) = lambda(0)/sqrt(1 -
+  lambda(0)^2) ~ 93.5` off the `1 - lambda(0)^2 ~ 1.14e-4` denominator;
+  MP/ARB is needed from n = 6 on the even branch.
+- F1 brick-2b (1056) is REVOKED by its own pre-flight (1059): the target
+  prolate-factor angle strictness is NOT obtainable by perturbing the
+  source angle bound through the Euler transport - `kappa(T_2) = 5.828`
+  demands `delta > 0.9852` while `unitLeakageLowerBound` is only
+  qualitatively bounded (`0 < delta <= 1`), and the visible-prime pool
+  `{p : 1 < p}` is unbounded.  Also: `prolateFactor U` is a composition of
+  two orthogonal projections, so `‖prolateFactor U‖ <= 1` is AUTOMATIC -
+  never count that inequality as progress; strictness is the whole claim.
+  Current posture: F1 stays the Dev leaf's named conditional premise (R2),
+  2a Gram-corrected reduction proceeds as algebra, R1 (target-side angle
+  lemma via additive-kernel geometry, shifts log p >= log 2 moving the
+  window off itself) is deferred to its own design record.
 ### 7e. v4.30 cast/spelling hazards (Bessel-repair round)
 
 - `(e : ℂ)` + `^ 2` elaborates the power OUTSIDE the cast (`(↑e) ^ 2`).

@@ -109,6 +109,50 @@ def prolate_eigs(omega, M=600, nmax=25):
     return lam[:nmax]
 
 
+def block_b2():
+    """Convention pin (CC20 tex:967-983): lambda(n) = lambda_{2n}^{c=2pi},
+    the EVEN-parity branch of the windowed bandlimiting spectrum for the
+    pair (window [-1,1], band |xi| <= 1 with e^{2 pi i x xi} convention) =
+    collocation omega = 2 pi.  Verify the paper's own decay bound
+        |lambda(n)| <= 2^{2n} pi^{2n+1/2} ((2n)!)^2 / ((4n)! Gamma(2n+3/2))
+    against the computed even-branch eigenvalues, and report the parity
+    split so the even-branch selection is visible, not assumed."""
+    print("=== (B2) convention pin: even branch + tex (983) bound ===")
+    omega = 2 * math.pi
+    M = 800
+    nodes, weights = np.polynomial.legendre.leggauss(M)
+    r = np.sqrt(weights)
+    dx = nodes[:, None] - nodes[None, :]
+    K = (omega / math.pi) * np.sinc(omega * dx / math.pi)
+    A = r[:, None] * K * r[None, :]
+    ev, evec = np.linalg.eigh(A)
+    lam_full = ev[::-1]
+    vecs = evec[:, ::-1]
+    # parity of each collocated mode: correlation with its reflection
+    flip = np.arange(M)[::-1]
+    parity = np.sign((vecs[flip, :] * r[:, None] * vecs * r[:, None]).sum(0))
+    even_idx = [k for k in range(30) if parity[k] > 0]
+    lam_even = lam_full[even_idx]
+    print(f"B2a parity-even indices (full spectrum positions): "
+          f"{even_idx[:8]} ...")
+    n_b = min(5, len(lam_even) - 1)
+    print(f"B2b even branch lambda_n (n=0..{n_b}) = "
+          f"{np.array2string(lam_even[:n_b+1], precision=6)}")
+    ok = True
+    for n in range(n_b + 1):
+        bound = (2.0 ** (2 * n) * math.pi ** (2 * n + 0.5)
+                 * (math.factorial(2 * n) ** 2)
+                 / (math.factorial(4 * n) * float(mp.gamma(2 * n + 1.5))))
+        v = abs(lam_even[n])
+        good = v <= bound
+        ok = ok and good
+        print(f"B2c n={n}: |lambda| = {v:.6e}  tex-(983) bound = "
+              f"{bound:.6e}  within -> {good}")
+    print(f"B2d paper bound consistent with even branch -> {ok}")
+    print("B2e reading: repo c=2 row of block B is NOT the paper's lambda(n);"
+          " the c=2pi EVEN sub-branch is. MP/ARB depth requirement unchanged.")
+
+
 def block_b():
     print("=== (B) scale: prolate concentration eigenvalues ===")
     for omega, tag in [(math.pi, "c=2pi band |xi|<=pi (kernel e^{i xi x})"),
@@ -163,5 +207,6 @@ if __name__ == "__main__":
     print(f"mpmath dps={mp.mp.dps}  numpy={np.__version__}")
     block_a()
     block_b()
+    block_b2()
     block_c()
     print("=== END ===")

@@ -17,7 +17,10 @@ Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 > [proof 1057](docs/proofs/1057_cc20_verbatim_delta_chain_and_numbering_map.md)
 > (CC20 raw-tex delta pinning + exact numbering map),
 > [proof 1058](docs/proofs/1058_alpha_chi_reconnaissance_verdict.md)
-> (alpha reconnaissance: the endpoint profile is 11 terms deep).
+> (alpha reconnaissance: the endpoint profile is 11 terms deep),
+> [proof 1059](docs/proofs/1059_2b_margin_revocation_and_lambda_convention_pin.md)
+> (F1 brick-2b perturbation scheme REVOKED by its own pre-flight; the
+> paper's lambda(n) convention PINNED to the c = 2 pi even branch).
 > **No unconditional proof of the Riemann hypothesis is claimed here.**
 
 ### Route map
@@ -127,8 +130,12 @@ bottom; every station on the road carries its state.
         |          shape pinned (1057/1058): 11 modes suffice - the
         |          paper's own eq-(170) bounds the rest by 2.366e-12
         |          on [1,2], and probe 1058 reproduced that tail
-        |          arithmetic exactly; remaining: MP/ARB interval-
-        |          ODE data for n <= 10 (float64 eigen-floor at ~11)
+        |          arithmetic exactly; spectrum pinned (1059 s4):
+        |          lambda(n) = Wang lambda_{2n}^{c=2pi}, even branch
+        |          [0.99994, 0.95939, 0.27467, 3.48e-3, 7.47e-6,
+        |          5.82e-9, ...]; remaining: MP/ARB interval-ODE data
+        |          for n <= 10, first certificate = mode 0 (the
+        |          1 - lambda(0)^2 ~ 1.14e-4 small denominator)
         |
         |      (beta) JOINT GRID TABLE 2*int |chi - tau|
         |          <= epsilon1 ................ [DATA OPEN]
@@ -162,8 +169,12 @@ bottom; every station on the road carries its state.
         |  holds modulo the single F1 crux + two compression-HS
         |  premises.  F1 scoped (1056): LEGAL for fixed lambda = 1
         |  model objects (outside the 1055 freeze; explicitly NOT a
-        |  1055-P1 revival payment) and GO as brick #2 = Gram-
-        |  corrected reduction + two fixed-scale estimate tables.
+        |  1055-P1 revival payment).  Brick #2 re-scoped (1059): the
+        |  2b perturbation scheme was REVOKED by its own margin check
+        |  (kappa(T_2) = 5.83 vs a qualitative source margin); F1
+        |  stays the thread's named conditional premise (R2 default),
+        |  2a Gram-corrected reduction proceeds as algebra, and the
+        |  target-side angle lemma (R1) is a separate design record.
         |
 
    =====================  LEG III - STILL AHEAD  ======================
@@ -297,10 +308,12 @@ DATE         EVENT                                                COMMIT
              dashboard/memory/norms refresh, 1055 round           40fd6f5
              P2b verdict: semilocal prolate family DEAD           d330e90
 2026-08-30   brick #1: unit-scale trace legality, F1 isolated   16b5f96
-             records 1056-1058: F1 scope, CC20 tex pins, alpha    (this commit)
+             records 1056-1058: F1 scope, CC20 tex pins, alpha    9fc97ba
+             .gitattributes: LF shell scripts for WSL2            74b6203
+             record 1059: 2b REVOKED, lambda(n) pinned            (this commit)
 ------------------------------------------------------------------------
 Code frontier at this writing:
-https://github.com/peter941221/Connes-Weil-RH-Proof/commit/16b5f96
+https://github.com/peter941221/Connes-Weil-RH-Proof/commit/74b6203
 ```
 
 The narrative snapshot below is retained unchanged from the previous

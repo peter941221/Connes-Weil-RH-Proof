@@ -34,6 +34,11 @@ A  control, mpmath dps=60, the paper's closed-form series of eq (169):
 
 B  scale, concentration eigenvalues of P_window Q_band on [-1,1],
    Gauss-Legendre collocation M = 600:
+   [AMENDED 1059: this row's "c = 2 pi" label was WRONG - collocation
+    bandwidth was omega = pi; the paper's actual lambda(n) spectrum is
+    the omega = 2 pi EVEN branch, measured in probe block B2:
+    [0.9999428, 0.9593903, 0.2746660, 3.478238e-3, 7.465620e-6,
+    5.820371e-9], paper bound (983) verified n = 0..5.]
    band c = 2 pi:  lambda_0..4 = [0.981046, 0.749620, 0.243593,
                     0.024647, 0.001066], all |lambda_n| < 1
                     consecutive ratios (above float64 floor, depth 11):
@@ -70,13 +75,17 @@ GO (shape decision for the alpha brick):
      comparison, qEpsilonSummand enclosure via interval Taylor for the
      angular prolate ODE plus continuation across x = 1, hmass via the
      yoshida_intervals pattern against the enclosed chi.
-NOT FUNDED / still open:
-  4. the exact convention identifying the paper's lambda(n) with which of
-     the computed concentration spectra (c = 2 pi vs c = 2): pinned next
-     from propQe/sonineQ (tex:2165-2235); until then block B magnitudes
-     are convention-uncertain (decay shape is robust, values are not).
-  5. beta stays blocked by alpha; gamma paper-scale and F1 brick #2 are
-     separate threads (1056).
+RESOLVED:
+  4. [CLOSED by 1059] the paper's lambda(n) = Wang lambda_{2n}^{c=2pi}
+     (tex:967-969 verbatim), i.e. the EVEN-parity branch of the
+     omega = 2 pi concentration spectrum (probe block B2); tex (983)
+     decay bound verified on it.  The repo c = 2 / omega = pi rows are
+     different spectra and must not be substituted.  MP/ARB onset:
+     n >= 6 on the even branch; tightest enclosure is p(0) = 93.5
+     (1 - lambda(0)^2 ~ 1.14e-4 denominator).
+STILL OPEN:
+  5. beta stays blocked by alpha; F1 is re-scoped by 1059 (2b perturbation
+     REVOKED; 2a algebra + conditional premise are the default).
 ```
 
 ## 4. Reproduction
