@@ -48,9 +48,11 @@ opens the numerics for the weighted restatement.
     MULTIPLICATION BY |hat h|^2 in Fourier space (GlobalConvolutionCrossing
     .lean:22-25, h Schwartz). 1063b measures Tr(D K_S) for three Gaussian
     decay scales across windows: the weighted sums SATURATE (W1) - e.g.
-    S={2,3,5} over the xi_max 12.8 -> 51.2 sweep: k=0.3: 4.376 -> 4.405,
-    k=1.0: 1.4020 -> 1.4077, k=3.0: 0.5340 -> 0.5359, while the raw sums
-    double. And the saturation is ROBUST FOR EVERY OWNER, not just the tested
+    S={2,3,5} over the xi_max 12.8 -> 102.4 sweep (8x window): k=0.3:
+    4.376 -> 4.410, k=1.0: 1.4020 -> 1.4085, k=3.0: 0.5340 -> 0.5362,
+    with each octave's increment HALVING (geometric -> a limit exists),
+    while the raw sums double and double. And the saturation is ROBUST FOR
+    EVERY OWNER, not just the tested
     scales: the raw divergence is sublinear (~ X^0.5) while any Schwartz
     decay beats every polynomial, so Sum w(xi_n) cos^2(theta_n) converges for
     every |hat h|^2 Schwartz. DESIGN CHANGE: the leaf's sorry is restated as
@@ -202,19 +204,22 @@ after normalization), Tr(D K_S) = Sum_n <v_n, D v_n> cos^2(theta_n). If the
 angle bank sits at high |xi|, any Schwartz |hat h| with enough decay makes
 the weighted sum converge: F1' numerically true while raw F1 is false.
 Probe: `1063b_f1_weighted_probe.py` (decision rule W1/W2 in its header).
-Outcome (logs `/home/peter/probe1063b_small.log`, big grid pending in
-`probe1063b_big.log`):
+Outcome (logs `/home/peter/probe1063b_small.log`, `/home/peter/probe1063b_big.log`),
+full 4-octave sweep:
 
 ```text
-WEIGHTED, S={2,3,5}      xi=12.8   xi=25.6   xi=51.2      (raw over same sweep:
-  k=0.3 (gentle)           4.376     4.396     4.405       10.212 -> 15.177
-  k=1.0                    1.4020    1.4058    1.4077      -> 20.878, +104%)
-  k=3.0 (slowest tested)   0.5340    0.5353    0.5359
-S={2,3} k=1.0:            1.1344    1.1387    1.1407
-S={2}   k=1.0:            0.7242    0.7286    0.7309
-src     k=1.0:            1.3338    1.3306    1.3292   (anchor also flat)
-=> W1 CONFIRMED: every weighted sum drifts < 1% over a 4x window while the
-   raw sums double. Verdict: F1' (D-weighted trace legality) is true.
+WEIGHTED, S={2,3,5}      xi=12.8   xi=25.6   xi=51.2   xi=102.4   (raw over
+  k=0.3 (gentle)           4.376     4.396     4.405     4.410     the SAME
+  k=1.0                    1.4020    1.4058    1.4077    1.4085    sweep:
+  k=3.0 (slowest tested)   0.5340    0.5353    0.5359    0.5362    10.212 ->
+                                                              28.275, +177%)
+S={2,3} k=1.0:           1.1344    1.1387    1.1407    1.1417
+S={2}   k=1.0:           0.7242    0.7286    0.7309    0.7320
+src     k=1.0:           1.3338    1.3306    1.3292    1.3286   (anchor converges too)
+=> W1 CONFIRMED at 4 octaves: every weighted increment HALVES with each
+   octave (k=1, {2,3,5}: +.0038, +.0019, +.0008 - geometric) = a limit EXISTS
+   while the raw sums double and double. Verdict: F1' (D-weighted trace
+   legality) is true.
 ```
 
 Why W1 is robust for EVERY owner (not just the three Gaussian scales): the
