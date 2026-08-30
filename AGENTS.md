@@ -229,6 +229,10 @@ verifies exact identities.
 - Term-level `mod_cast` preserves strictness and needs an expected target.  To
   derive a nonstrict real inequality from a strict rational one, first
   `apply le_of_lt`, then use `exact mod_cast h`.
+- Annotating `have h : f (f _) = f _ := by intro x; ...` leaves the `_` placeholders as
+  un-synthesized metavariables ("don't know how to synthesize placeholder"). Derive an
+  idempotence equality with a CONCRETE target via `simpa only [mul_apply] using congrArg
+  (fun T => T v) hstar.isIdempotentElem`, then close with `exact congrArg g hidem`.
 
 ### 7c. Numeric-probe fidelity laws (docs/proofs probes)
 

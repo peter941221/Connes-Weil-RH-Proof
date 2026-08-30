@@ -501,3 +501,30 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   prolate family until a proved realization + analytic one-crossing identity
   exist (verdict section 5 revival conditions). AGENTS 7c gains laws (8) and
   (9) from this round; 7d replaces the P2b warning with the closure.
+- 2026-08-30 C1ProlateResponseTraceLegalityUnitScale(+Audit) : brick #1 of the
+  Option-C semi-local bridge landed as a green leaf with its two analytic cruxes
+  bracketed. The Gate-2 readback premise `hresponse` (trace legality of the
+  selected-detector response at unit scale) is now a theorem: the response
+  decomposes as detectorOperator ∘ prolateDifference − detectorOperator ∘
+  compressionDifference, and each band piece is packaged as an l2Sum Hilbert--
+  Schmidt pair whose left-bounded sandwich makes it trace-class along any named
+  global basis. F2 is now fully proven this round: fourierCompressionFactor_adjoint_comp_self
+  ((Q E)^dagger (Q E) = E Q E, from the two star projections + idempotence) and
+  compressionFactorPairData_traceProduct_eq are both axiom-clean, so
+  detectorCompressionChange_isTraceClassAlong_at_unit carries no sorryAx of its own.
+  The ONLY `sorryAx` carrier left in the leaf is the isolated F1 semilocal crux
+  targetProlateRemainder_unit_isTraceClassAlong; its consumers detectorProlateChange and
+  the capstone projectionResponse_isTraceClassAlong_at_unit inherit it transitively.
+  Paired build after deleting the leaf .olean: real Built line (33s), footer
+  Build completed successfully (3198 jobs), zero ^error:. Mechanics (recorded for
+  the commit round): boundedSandwich_isTraceClassAlong needs a carrier basis, so
+  the sandwich is taken with an explicitly-typed ContinuousLinearMap.id finiteSCarrier
+  and simpa'd through [identity, comp_id] (mirrors CCM24SourceProlateTrace.lean:167);
+  dot-notation .smulRight must stay on the same line as its closing paren or it
+  degrades to function application; a `have h : f(f _)=f_ := by intro x` with `_`
+  placeholders leaves un-synthesized metavariables - close idempotence with a concrete
+  target + exact congrArg (the F1 pattern). Open: the single F1 semilocal crux
+  targetProlateRemainder_unit_isTraceClassAlong (target-side unit-scale kernel summability;
+  source mirror CCM24UnitScaleStrictAngle.lean:1501 not directly reusable, independent
+  family structure) is now the ONLY gap - F2 closed this round. Committed as the brick #1
+  green leaf + paired audit.
