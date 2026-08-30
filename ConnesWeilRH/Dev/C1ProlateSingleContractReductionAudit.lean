@@ -1,0 +1,19 @@
+import ConnesWeilRH.Dev.C1ProlateSingleContractReduction
+
+/-! Focused axiom audit for the single-contract reduction (record 1066). -/
+
+namespace ConnesWeilRH.Source.C1ProlateSingleContractReductionAudit
+
+open C1ProlateSingleContractReduction
+
+#check @targetProlateRemainderFactor_unit_diagonal_eq_targetRemainder
+#check @targetProlateDetectorRightSmoothingFactorSummable_of_remainderFactorSummable
+#check @targetProlateRemainderFactorSummable_iff_unitIsTraceClassAlong
+#check @targetProlateRemainderDetectorWeightedTraceLegality_of_remainderFactorSummable
+
+#print axioms targetProlateRemainderFactor_unit_diagonal_eq_targetRemainder
+#print axioms targetProlateDetectorRightSmoothingFactorSummable_of_remainderFactorSummable
+#print axioms targetProlateRemainderFactorSummable_iff_unitIsTraceClassAlong
+#print axioms targetProlateRemainderDetectorWeightedTraceLegality_of_remainderFactorSummable
+
+end ConnesWeilRH.Source.C1ProlateSingleContractReductionAudit
