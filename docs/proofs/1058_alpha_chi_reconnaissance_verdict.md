@@ -76,13 +76,14 @@ GO (shape decision for the alpha brick):
      angular prolate ODE plus continuation across x = 1, hmass via the
      yoshida_intervals pattern against the enclosed chi.
 RESOLVED:
-  4. [CLOSED by 1059] the paper's lambda(n) = Wang lambda_{2n}^{c=2pi}
-     (tex:967-969 verbatim), i.e. the EVEN-parity branch of the
-     omega = 2 pi concentration spectrum (probe block B2); tex (983)
-     decay bound verified on it.  The repo c = 2 / omega = pi rows are
-     different spectra and must not be substituted.  MP/ARB onset:
-     n >= 6 on the even branch; tightest enclosure is p(0) = 93.5
-     (1 - lambda(0)^2 ~ 1.14e-4 denominator).
+  4. [CLOSED by 1059, then CORRECTED by 1062] the block-B2 values
+     [0.99994, ...] are the CONCENTRATION (squared) eigenvalues, i.e. the
+     paper's lambda(n)^2, NOT lambda(n); the true convention (tex:967-983
+     re-read verbatim) is lambda(n) = (-1)^n sqrt(these) = the SINGLE
+     windowed-Fourier eigenvalue (prolateeq/cosalphan), and the paper's
+     own printed list [0.999971, -0.979485, 0.524086, ...] confirms it.
+     The repo c = 2 / omega = pi rows are different spectra and must not
+     be substituted.  MP/ARB onset: n >= 6 on the even branch.
 STILL OPEN:
   5. beta stays blocked by alpha; F1 is re-scoped by 1059 (2b perturbation
      REVOKED; 2a algebra + conditional premise are the default).

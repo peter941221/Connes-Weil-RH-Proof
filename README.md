@@ -26,7 +26,13 @@ Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 > feeding the endpoint certificate; delta is gated on gamma),
 > [proof 1061](docs/proofs/1061_alpha_t1_lambda_table_and_data_map.md)
 > (alpha campaign T1: the lambda(n) candidate table converges at 33-80
-> stable digits and the contract's eigenvalue obligation splits).
+> stable digits and the contract's eigenvalue obligation splits),
+> [proof 1062](docs/proofs/1062_alpha_t2t3_anchor_validation_and_lambda_sqrt_correction.md)
+> (T2/T3 dictionary validated at 1e-33; the anchor test CORRECTED the
+> 1059 pin: the paper's lambda(n) is the windowed-Fourier eigenvalue, the
+> square root of the concentration table, with a sqrt(2) inner-product
+> factor - and the endpointSlope identity then reproduces the paper's
+> printed term list and the 22.9965 anchor digit for digit).
 > **No unconditional proof of the Riemann hypothesis is claimed here.**
 
 ### Route map
@@ -132,20 +138,24 @@ bottom; every station on the road carries its state.
         |  goal: arch(g^2) <= 0 for all ROOT-class tests [OPEN]
         |  the machinery is wired END TO END; the payloads:
         |
-        |      (alpha) ENDPOINT PROFILE CHI ..... [T1 TABLE IN HAND]
+        |      (alpha) ENDPOINT PROFILE CHI ..... [T1-T3 DATA IN HAND]
         |          shape pinned (1057/1058): 11 modes suffice - the
         |          paper's own eq-(170) bounds the rest by 2.366e-12
         |          on [1,2], and probe 1058 reproduced that tail
-        |          arithmetic exactly; spectrum pinned (1059 s4):
-        |          lambda(n) = Wang lambda_{2n}^{c=2pi}, even branch;
-        |          T1 candidate table n=0..10 computed (1061) at dps
-        |          60, 33-80 stable digits across M=44/56; the
-        |          eigenvalue obligation SPLITS: n>=2 discharged by
-        |          the paper's (983) bound (< 0.754 < 1), only modes
-        |          0-1 need validated enclosures (margins 1.14e-4 /
-        |          7.96e-2); remaining: T2 interval-ODE modes with
-        |          continuation across x=1, T3 slope anchor, B1-B3
-        |          rigorization bricks
+        |          arithmetic exactly; CONVENTION CORRECTED (1062):
+        |          the paper's lambda(n) is the SINGLE windowed-Fourier
+        |          eigenvalue = (-1)^n sqrt(concentration table), NOT the
+        |          concentration eigenvalue the 1059 s4 pin said; T1
+        |          concentration table n=0..10 at dps 60, 33-80 stable
+        |          digits M=44/56; T2/T3 CLOSED numerically (1062): the
+        |          analyticMode sinc-extension validates at ODE residual
+        |          1e-33 (x=1 continuation automatic), and the endpoint-
+        |          Slope identity reproduces the paper's printed t(n) list
+        |          (11.9719, 8.77574, ...) and anchor 22.9964756839 vs
+        |          22.9965; eigenvalue obligation SPLITS: n>=2 by (983)
+        |          (< 0.754 < 1), modes 0-1 need enclosures (corrected
+        |          margins 5.72e-5 / 4.06e-2); remaining: B1-B3
+        |          rigorization bricks + the innerltwoeven sqrt(2) lemma
         |
         |      (beta) JOINT GRID TABLE 2*int |chi - tau|
         |          <= epsilon1 ................ [DATA OPEN]
@@ -327,10 +337,12 @@ DATE         EVENT                                                COMMIT
              .gitattributes: LF shell scripts for WSL2            74b6203
              record 1059: 2b REVOKED, lambda(n) pinned            0e787b0
              GATE 1 delta wiring leaf + record 1060               64482b6
-             alpha T1 lambda(n) candidate table + record 1061    (this commit)
+             alpha T1 lambda(n) candidate table + record 1061     abd9a78
+             alpha T2/T3 anchor validation + record 1062          (this commit)
+               (1059 lambda(n) pin CORRECTED: windowed-Fourier sqrt)
 ------------------------------------------------------------------------
 Code frontier at this writing:
-https://github.com/peter941221/Connes-Weil-RH-Proof/commit/64482b6
+https://github.com/peter941221/Connes-Weil-RH-Proof/commit/abd9a78
 ```
 
 The narrative snapshot below is retained unchanged from the previous

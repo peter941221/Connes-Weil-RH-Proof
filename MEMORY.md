@@ -647,3 +647,42 @@ CC20EndpointSpectralData verbatim into the record's T1-T4 target map;
 T2 (interval-Taylor modes + continuation across the regular-singular
 x = 1) is the next probe slice, and README alpha box now reads
 [T1 TABLE IN HAND].
+
+## 2026-08-30 (fifth batch) - record 1062: T2/T3 anchor validation CAUGHT the 1059 convention bug
+
+No Lean change. The 1062 probe (docs/proofs/1062_alpha_t2t3_mode_anchor_probe.py,
+runner scripts/run_1062_probe.sh, log /home/peter/cc20/probe1062.log) wired
+the contract's own endpointSlope_eq_spectral identity up to the paper's
+published anchor eps'(1+) ~ 22.9965 to validate the mode dictionary before
+booking any enclosure. The ODE falsification gate PASSED at 1e-33 (the sinc
+integral representation IS the paper's analyticMode, and continuation across
+the regular-singular x=1 is automatic because the integrand's x-dependence is
+ENTIRE - not a hard target after all), but the raw anchor sum came out
+5.379035, NOT 22.9965. Chasing that mismatch through the raw tex found the
+1059 s4 pin was a SQUARE ROOT off: tex:967-983 defines lambda(n) as the
+eigenvalue of the SINGLE windowed Fourier operator P_1 F P_1 (prolateeq/
+cosalphan) with ALTERNATING sign (-1)^n, whereas the collocation kernel
+sin(2pi(x-y))/(pi(x-y)) = P_1 F P_1 F gives the SQUARED (concentration)
+spectrum, so the whole 1061 table [0.99994, 0.95939, ...] is lambda(n)^2 and
+the true lambda(n) = (-1)^n sqrt(those) = the paper's own printed list
+[0.999971, -0.979485, 0.524086, -0.0589766, ...]. Two normalization factors
+then close it: weight = mu^2/(1-mu^2) = lam_c/(1-lam_c), and the paper's
+L^2(R)_ev inner product is 1/2 int_R (innerltwoeven), so a unit-norm mode is
+sqrt(2) x the standard-L2 value. Under the corrected convention the term t(n)
+= (lam_c/(1-lam_c)) * 2 * xi_probe(1)^2 reproduces the paper's PRINTED t(n)
+list digit for digit (t(0)=11.9719...t(4)=0.000125459, all <= 2.7e-6 rel) and
+the sum hits 22.9964756839 vs the published 22.9965. Consequences booked: the
+contract's eigenvalue field is the SIGNED lambda(n); the eigenvalue_sq_lt_one
+split SURVIVES (n>=2 by (983) on |mu|, bound(2)=0.75394<1 monotone) but with
+corrected mode-0/1 margins 5.7247e-5 / 4.0610e-2 (the 1.14e-4/7.96e-2 figures
+1061 printed were the squared-operator margins, 2x too generous); the
+tightest enclosure budget is mode 0 at <5.7e-5, and a new innerltwoeven
+sqrt(2) normalization lemma joins the instance checklist. AGENTS 7c gains law
+(14) (a composition kernel gives the SQUARED spectrum; verify inner-product
+normalization; wire the contract identity to the paper's derived number
+BEFORE booking a convention pin) and the 7d lambda-pin + T1-split bullets are
+rewritten to the corrected reading; records 1058 s3 item 4, 1059 s4, 1061 all
+get AMENDMENT sections pointing here (nothing deleted). This is the 1059
+lesson - price derived quantities before scheduling bricks - catching its own
+predecessor: the mismatch was findable the instant the anchor was wired, which
+is exactly what 1061 s1 prescribed and 1062 executed.

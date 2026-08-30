@@ -146,3 +146,21 @@ probe log: /home/peter/cc20/probe1061.log (deterministic, rerun via
   scripts/run_1061_probe.sh)
 docs/proofs/1058 (collocation floor history), 1059 s4 (convention pin)
 ```
+
+## AMENDMENT (record 1062, same day) - the table survives, the mapping is by SQUARE ROOT
+
+Section 1-2's candidate table is the concentration spectrum lam_c(n) =
+the paper's lambda(n)^2 (not lambda(n) itself - 1059 s4's mispin
+inherited here); section 2's weight column (lam_c^2/(1-lam_c^2)) is NOT
+the contract weight, which is mu^2/(1-mu^2) = lam_c/(1-lam_c); the
+"enclosure margins 1.1449e-4 / 7.957e-2" are the SQUARE-ROOT-SCALED
+margins (true 1-mu^2 margins: 5.7247e-5 / 4.0610e-2).  The eigenvalue
+split SURVIVES in corrected form: |mu(n)| <= (983) bound(n) with
+bound(2) = 0.75394 < 1 monotone discharges eigenvalue_sq_lt_one for
+n >= 2, leaving modes 0-1.  Section 3's chi_n table and section 4's B1-B3
+plan stand (B2's error budget tightens to < 5.7e-5).  The T2/T3
+continuation and anchor layers were then closed numerically by 1062
+(endpointSlope = 22.9964756839, per-term t(n) matched to the paper's
+printed list, ODE residual 1e-33 validating analyticMode and sqrt2
+normalization).  See
+docs/proofs/1062_alpha_t2t3_anchor_validation_and_lambda_sqrt_correction.md.

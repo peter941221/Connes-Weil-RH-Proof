@@ -244,3 +244,23 @@ docs/proofs/1058_alpha_chi_reconnaissance_probe.py block B2, log
 docs/proofs/1056 s3-s4 (the reserved revocation condition), 1057 s5
   (alpha tail context)
 ```
+
+## AMENDMENT (record 1062, same day) - section 4's convention pin is a SQUARE ROOT off
+
+The pin "lambda(n) = even-parity branch of the concentration spectrum" is
+WRONG as stated: tex:967-983 re-read verbatim shows the paper's lambda(n)
+is the eigenvalue of the SINGLE windowed Fourier operator P_1 F P_1
+(prolateeq / cosalphan, with ALTERNATING signs), and the concentration
+operator P_1 F P_1 F (cosalphan1) has eigenvalue lambda(n)^2.  The
+collocation kernel sin(2pi(x-y))/(pi(x-y)) used in s4 computes the
+SQUARED operator, so the s4 value list [0.99994, 0.95939, ...] = the
+paper's lambda(n)^2, and the paper's actual list is
+lambda(n) = (-1)^n sqrt(s4 list) = [0.999971, -0.979485, 0.524086, ...]
+exactly matching tex:972-975.  Corrected margins for the contract:
+1 - lambda(0)^2 = 5.7247e-5 (not 1.1449e-4), mode 1 = 4.0610e-2 (not
+7.957e-2); the (983) bound applies to |lambda(n)| directly.  The mode-0
+p(0) ~ 93.5 scale in s4 is also superseded (tau(0) = mu/sqrt(1-mu^2) ~
+132.2).  Discovery route and corrected anchor validation (sum t(n) =
+22.9964756839 vs paper 22.9965, per-term match to <= 2.7e-6) in
+docs/proofs/1062_alpha_t2t3_anchor_validation_and_lambda_sqrt_correction.md.
+The rest of 1059 (the 2b revocation, R1/R2 re-scope) is untouched.

@@ -264,6 +264,18 @@ verifies exact identities.
   one mis-signed beta_0 in 1061 turned a positive operator's ground
   eigenvalue negative (chi_0 = -13.4).  Positivity of a positive operator
   is a hard assertion gate in every probe.
+- (14) A collocation kernel that is a COMPOSITION of two operators gives
+  the SQUARED spectrum, not the spectrum.  The sinc kernel
+  sin(2 pi (x-y))/(pi (x-y)) on [-1,1] is P_1 F P_1 F (concentration), so
+  its eigenvalues are lambda(n)^2; the paper's lambda(n) is the SINGLE
+  windowed-Fourier eigenvalue (prolateeq/cosalphan, tex:967-983), with
+  ALTERNATING sign (-1)^n.  1059 s4 mispinned the concentration table as
+  lambda(n) and only 1062's anchor test caught it.  Also verify the
+  inner-product normalization: L^2(R)_ev uses <eta|xi> = 1/2 int_R (tex
+  innerltwoeven), a sqrt(2) factor versus standard L2, and squared
+  quantities carry a factor 2.  Before booking ANY convention pin, wire
+  the contract identity to the paper's published derived number (here
+  eps'(1+) ~ 22.9965) and require the match.
 
 Before trusting any probe number: (1) reproduce a Lean-proven identity first;
 (2) restrict Grams/inverses to the carrier span BEFORE inverting; (3) make the
@@ -334,31 +346,42 @@ derivative of that path (mixing them flips the 1054 control sign).
   outside the freeze above, but they do NOT supply the 1055-P0/P1 revival
   conditions. Never bookkeep a proof of F1 or an `hchi` enclosure as a
   "revival payment" for the asymptotic family.
-- Alpha is de-risked in shape by 1057/1058/1059: CC20's own eq-(170) truncates
-  `Q epsilon` to 11 terms with a published remainder <= 2.366e-12 on [1,2]
-  (tail arithmetic reproduced exactly by `docs/proofs/
+- Alpha is de-risked in shape by 1057/1058/1061/1062: CC20's own eq-(170)
+  truncates `Q epsilon` to 11 terms with a published remainder <= 2.366e-12
+  on [1,2] (tail arithmetic reproduced exactly by `docs/proofs/
   1058_alpha_chi_reconnaissance_probe.py`).  The alpha brick is an 11-mode
-  validated-ODE campaign (MP/ARB eigenvalues + analytic continuation across
-  x = 1), NOT an open-ended spectral realization.
-- The lambda(n) convention is PINNED (1059 s4, tex:967-983 verbatim): the
-  paper's `lambda(n)` = Wang `lambda_{2n}^{c=2pi}` = the EVEN-parity branch
-  of the concentration spectrum with collocation kernel
-  `sin(2 pi (x-y)) / (pi (x-y))` on [-1,1] - values
-  `[0.9999428, 0.9593903, 0.2746660, 3.478238e-3, 7.465620e-6, 5.820371e-9]`
-  (n = 0..5), with the paper's own (983) bound verified on the branch.
-  Landmines: the repo `unitAdditiveFourierKernel` (omega = 1) scale is a
-  DIFFERENT spectrum and the 1058 probe's original "c = 2 pi" row was
-  mislabeled (omega = pi) - do not reuse either as lambda(n) values.  The
-  campaign's tightest enclosure is mode 0: `p(0) = lambda(0)/sqrt(1 -
-  lambda(0)^2) ~ 93.5` off the `1 - lambda(0)^2 ~ 1.14e-4` denominator;
-  MP/ARB is needed from n = 6 on the even branch.
-- Alpha T1 is a SPLIT obligation (1061): for the contract field
-  `eigenvalue_sq_lt_one`, n >= 2 follows from the paper's own (983) bound
-  alone (bound(2) = 0.754 < 1 and decreasing), so only modes 0-1 need
-  validated numerical enclosures - and their margins (1.145e-4, 7.957e-2)
-  sit 26+ orders above the 1e-30 cross-truncation noise of the dps-60
-  candidate table.  Do not schedule an 11-mode enclosure campaign for the
-  eigenvalue field; schedule {0,1} plus the (983) monotone-arithmetic lemma.
+  validated-ODE campaign, NOT an open-ended spectral realization, and 1062
+  showed the "analytic continuation across x = 1" is not a hard target at
+  all: the bandlimited integral representation
+  `xi^an(x) = (1/lambda) int_{-1}^{1} sinc(2 pi (x-y)) xi(y) dy` has
+  ENTIRE x-dependence, so the same quadrature gives the mode on all of
+  [0,2] (ODE residual 1e-33 at x = 0.5, 1.5, 2 validates it).
+- The lambda(n) convention is CORRECTED (1062; supersedes the 1059 s4 pin):
+  the paper's `lambda(n)` is the eigenvalue of the SINGLE windowed Fourier
+  operator `P_1 F P_1` (tex prolateeq/cosalphan), with ALTERNATING sign,
+  and it equals `(-1)^n * sqrt(concentration eigenvalue)`.  The collocation
+  kernel `sin(2 pi (x-y))/(pi (x-y)) = P_1 F P_1 F` gives the SQUARED
+  spectrum, so the 1061 table `[0.99994, 0.95939, 0.27467, ...]` is
+  `lambda(n)^2`; the paper's actual `lambda(n)` list (tex:972-975) is
+  `[0.999971, -0.979485, 0.524086, -0.0589766, ...]`.  The contract's
+  `eigenvalue` field is the SIGNED `lambda(n)`.  The paper's inner product
+  on `L^2(R)_ev` is `1/2 int_R` (tex innerltwoeven), so a unit-norm
+  `analyticMode(1)` is sqrt(2) x the standard-L2 value the probes compute
+  (factor 2 on every squared term).  With those, the endpointSlope identity
+  reproduces the paper's printed `t(n)` list and the 22.9965 anchor to
+  <= 2.7e-6 relative (1062 s1).  Landmines kept from 1059: the repo
+  `unitAdditiveFourierKernel` (omega = 1) scale is a DIFFERENT spectrum and
+  the 1058 probe's original "c = 2 pi" row was mislabeled (omega = pi).
+- Alpha T1 is a SPLIT obligation (1061, corrected by 1062): for the contract
+  field `eigenvalue_sq_lt_one`, n >= 2 follows from the paper's own (983)
+  bound on `|lambda(n)|` alone (bound(2) = 0.75394 < 1 and decreasing), so
+  only modes 0-1 need validated enclosures - and their margins
+  (`1 - lambda(0)^2 = 5.7247e-5`, `1 - lambda(1)^2 = 4.0610e-2`, the
+  SQUARE-ROOT-scaled values, not the 1.14e-4/7.96e-2 concentration margins
+  1061 first printed) sit 24+ orders above the 1e-30 cross-truncation noise.
+  Do not schedule an 11-mode enclosure campaign; schedule {0,1} plus the
+  (983) monotone-arithmetic lemma (brick B1) and the innerltwoeven sqrt(2)
+  normalization identity.
 - F1 brick-2b (1056) is REVOKED by its own pre-flight (1059): the target
   prolate-factor angle strictness is NOT obtainable by perturbing the
   source angle bound through the Euler transport - `kappa(T_2) = 5.828`
