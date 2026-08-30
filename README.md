@@ -23,7 +23,10 @@ Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 > paper's lambda(n) convention PINNED to the c = 2 pi even branch),
 > [proof 1060](docs/proofs/1060_gate1_delta_wiring_contract.md)
 > (GATE 1 delta contract: the (141)-(143) chain is now a Lean structure
-> feeding the endpoint certificate; delta is gated on gamma).
+> feeding the endpoint certificate; delta is gated on gamma),
+> [proof 1061](docs/proofs/1061_alpha_t1_lambda_table_and_data_map.md)
+> (alpha campaign T1: the lambda(n) candidate table converges at 33-80
+> stable digits and the contract's eigenvalue obligation splits).
 > **No unconditional proof of the Riemann hypothesis is claimed here.**
 
 ### Route map
@@ -129,16 +132,20 @@ bottom; every station on the road carries its state.
         |  goal: arch(g^2) <= 0 for all ROOT-class tests [OPEN]
         |  the machinery is wired END TO END; the payloads:
         |
-        |      (alpha) ENDPOINT PROFILE CHI ..... [DATA OPEN]
+        |      (alpha) ENDPOINT PROFILE CHI ..... [T1 TABLE IN HAND]
         |          shape pinned (1057/1058): 11 modes suffice - the
         |          paper's own eq-(170) bounds the rest by 2.366e-12
         |          on [1,2], and probe 1058 reproduced that tail
         |          arithmetic exactly; spectrum pinned (1059 s4):
-        |          lambda(n) = Wang lambda_{2n}^{c=2pi}, even branch
-        |          [0.99994, 0.95939, 0.27467, 3.48e-3, 7.47e-6,
-        |          5.82e-9, ...]; remaining: MP/ARB interval-ODE data
-        |          for n <= 10, first certificate = mode 0 (the
-        |          1 - lambda(0)^2 ~ 1.14e-4 small denominator)
+        |          lambda(n) = Wang lambda_{2n}^{c=2pi}, even branch;
+        |          T1 candidate table n=0..10 computed (1061) at dps
+        |          60, 33-80 stable digits across M=44/56; the
+        |          eigenvalue obligation SPLITS: n>=2 discharged by
+        |          the paper's (983) bound (< 0.754 < 1), only modes
+        |          0-1 need validated enclosures (margins 1.14e-4 /
+        |          7.96e-2); remaining: T2 interval-ODE modes with
+        |          continuation across x=1, T3 slope anchor, B1-B3
+        |          rigorization bricks
         |
         |      (beta) JOINT GRID TABLE 2*int |chi - tau|
         |          <= epsilon1 ................ [DATA OPEN]
@@ -319,10 +326,11 @@ DATE         EVENT                                                COMMIT
              records 1056-1058: F1 scope, CC20 tex pins, alpha    9fc97ba
              .gitattributes: LF shell scripts for WSL2            74b6203
              record 1059: 2b REVOKED, lambda(n) pinned            0e787b0
-             GATE 1 delta wiring leaf + record 1060               (this commit)
+             GATE 1 delta wiring leaf + record 1060               64482b6
+             alpha T1 lambda(n) candidate table + record 1061    (this commit)
 ------------------------------------------------------------------------
 Code frontier at this writing:
-https://github.com/peter941221/Connes-Weil-RH-Proof/commit/0e787b0
+https://github.com/peter941221/Connes-Weil-RH-Proof/commit/64482b6
 ```
 
 The narrative snapshot below is retained unchanged from the previous

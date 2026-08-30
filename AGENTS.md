@@ -253,6 +253,17 @@ verifies exact identities.
   (lambda_10 ~ 1e-22).  Any validated computation of lambda_n or the modes
   for n >= 7 must be mpmath/ARB; float64 eigenvalue ratios below the floor
   are noise, not physics.
+- (12) A module-level mpmath constant (e.g. `OMEGA = 2*mp.pi` at import)
+  freezes that value at the dps in effect at IMPORT time and silently caps
+  every later evaluation (1061 first run: dps-15 freeze faked a 5e-18
+  eigenvalue plateau for n >= 6).  Recompute inside the `workdps` at the
+  call site.
+- (13) Sparse-operator tables (multiplication by x, x^2, ... in the
+  Legendre basis) must come from PRODUCTS of the exact recurrence
+  matrices (X @ X), never from hand-derived closed-form coefficients -
+  one mis-signed beta_0 in 1061 turned a positive operator's ground
+  eigenvalue negative (chi_0 = -13.4).  Positivity of a positive operator
+  is a hard assertion gate in every probe.
 
 Before trusting any probe number: (1) reproduce a Lean-proven identity first;
 (2) restrict Grams/inverses to the carrier span BEFORE inverting; (3) make the
@@ -341,6 +352,13 @@ derivative of that path (mixing them flips the 1054 control sign).
   campaign's tightest enclosure is mode 0: `p(0) = lambda(0)/sqrt(1 -
   lambda(0)^2) ~ 93.5` off the `1 - lambda(0)^2 ~ 1.14e-4` denominator;
   MP/ARB is needed from n = 6 on the even branch.
+- Alpha T1 is a SPLIT obligation (1061): for the contract field
+  `eigenvalue_sq_lt_one`, n >= 2 follows from the paper's own (983) bound
+  alone (bound(2) = 0.754 < 1 and decreasing), so only modes 0-1 need
+  validated numerical enclosures - and their margins (1.145e-4, 7.957e-2)
+  sit 26+ orders above the 1e-30 cross-truncation noise of the dps-60
+  candidate table.  Do not schedule an 11-mode enclosure campaign for the
+  eigenvalue field; schedule {0,1} plus the (983) monotone-arithmetic lemma.
 - F1 brick-2b (1056) is REVOKED by its own pre-flight (1059): the target
   prolate-factor angle strictness is NOT obtainable by perturbing the
   source angle bound through the Euler transport - `kappa(T_2) = 5.828`

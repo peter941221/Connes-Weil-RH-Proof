@@ -622,3 +622,28 @@ Build lessons banked as AGENTS 7f: def-namespace prefix is not the type
 valued certificate => noncomputable def; rw-at fails on projections =>
 calc chain. README delta box upgraded [CONTRACT WIRED]; timeline names
 0e787b0 for the 1059 batch and frontier URL corrected (was stale 74b6203).
+
+## 2026-08-30 (fourth batch) - record 1061: alpha campaign slice T1 data in hand
+
+No Lean change. The alpha 11-mode campaign got its first concrete data
+slice: probe docs/proofs/1061_alpha_lambda_t1_probe.py (runner
+scripts/run_1061_probe.sh, log /home/peter/cc20/probe1061.log) computes the
+full candidate table lambda(n), n = 0..10, at dps 60 by parity-block
+Gauss-Legendre collocation of the omega = 2pi kernel; cross-truncation
+M = 44 vs 56 leaves 33-80 stable digits per mode (max |diff| 4.98e-60),
+matching the 1058 float64 anchor to 9.7e-8 and satisfying the paper's
+(983) bound on the branch. Key structural finding: the contract field
+eigenvalue_sq_lt_one SPLITS - n >= 2 is discharged by (983) alone
+(bound(2) = 0.754 < 1, monotone: pure-arithmetic Lean brick B1), and only
+modes 0-1 need validated enclosures (margins 1.145e-4 / 7.957e-2, 26+
+orders above noise). The commutant (SL operator, exact sparse Legendre
+matrix with x^2 built as X@X of the Bonnet tridiagonal) yields the chi_n
+the T2 ODE enclosures consume, with chi_0 = 5.494 matching the c - 0.789
+large-c asymptotic. Two methodology bugs fixed en route and banked as
+AGENTS 7c laws (12)-(13): import-time dps-freeze of module-level mpmath
+constants faked a 5e-18 plateau; a hand-signed x^2 coefficient made a
+positive operator's ground eigenvalue negative. Read the contract
+CC20EndpointSpectralData verbatim into the record's T1-T4 target map;
+T2 (interval-Taylor modes + continuation across the regular-singular
+x = 1) is the next probe slice, and README alpha box now reads
+[T1 TABLE IN HAND].
