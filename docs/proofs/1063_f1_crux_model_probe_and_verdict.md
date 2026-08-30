@@ -1,69 +1,56 @@
-# 1063 - F1 crux: exact operator model, numerical probe, and the trace-class verdict
+# 1063 - F1 crux: exact operator model, numerical probe, and operational verdict
 
 Date: 2026-08-30. Follows 1056 (F1 reclassification), 1059 (2b revoked, R1/R2
 posture), 1062 (alpha convention corrections). Companion probes:
 `docs/proofs/1063_f1_target_angle_probe.py` (raw angle sums),
-`docs/proofs/1063b_f1_weighted_probe.py` (detector-weighted repair F1').
-No Lean change; the Dev leaf keeps its single sorry at
-`C1ProlateResponseTraceLegalityUnitScale.lean:117-121`.
+`docs/proofs/1063b_f1_weighted_probe.py` (detector-weighted candidate F1').
+The original raw-F1 `sorry` has since been removed from the Dev leaf.  The
+leaf now carries F1' as an explicit analytic contract and contains a proven
+active-order algebraic reduction; no analytic trace-class proof is claimed
+here.
 
 Question put by Peter: is the semilocal crux F1 attackable ("打通") or
 provably-not ("确定打不了")? This record answers it for the RAW statement and
 opens the numerics for the weighted restatement.
 
-## 0. Verdict up front
+## 0. Operational verdict up front
 
 ```text
-(1) RAW F1 IS FALSE (falsification oracle, 4 octaves of frequency window).
-    The angle sum Sum cos^2(theta_n) of the pair (E, Q_S) is dt-converged and
-    GROWS with the frequency window over xi_max = 12.8 -> 102.4:
-    src 3.18 -> 3.43 -> 3.12 -> 2.47 FLAT [proven anchor passes],
-    S={2} 4.07 -> 5.16 -> 6.83 -> 7.40, S={2,3} 7.78 -> 11.34 -> 13.21 -> 16.83,
-    S={2,3,5} 10.21 -> 15.18 -> 20.88 -> 28.28 (per-octave ratios 1.49/1.38/1.35
-    ~ xi_max^0.4). The top nonmeet angle is PINNED away from 0 at every grid
-    (0.378-0.391, and 0.735 at the largest) - essential spectrum, not a
-    decaying tail: K_S is not compact, not merely not trace class. The
-    dt-invariance is established at three window sizes with a dt QUARTERING
-    pair agreeing to 0.003% ({2,3,5} @ 51.2: 20.8779 vs 20.8784), so the
-    growth follows the WINDOW, not the grid - it is not under-resolution of
-    the oscillatory phase. The source case, computed by the IDENTICAL code
-    path, plateaus exactly where the repo's proven theorem says it must - the
-    rig is anchored, the target failure is the operator's.
+(1) RAW F1 IS REJECTED AS A PROOF TARGET, NOT FORMALLY NEGATED.
+    The finite-grid angle statistic grows with its frequency window over
+    xi_max = 12.8 -> 102.4 for every tested nonempty family, while the source
+    anchor stays O(1).  The strongest resolution check is {2,3,5} at xi_max
+    51.2: 20.8779 versus 20.8784 after quartering dt (0.003%).  This is strong
+    evidence against pursuing the raw theorem, but it is not a Lean theorem
+    that the continuum operator is non-compact or non-trace-class.
 
-(2) WHAT KILLS IT (mechanism, section 2): HT_S = T_S HT T_S^{-1} is again a
-    self-adjoint unitary Fourier involution, HT_S = F^{-1} M_{m_S} R F with
-    m_S(xi) = m(xi) * mu_S(xi)/conj(mu_S(xi)), mu_S = prod_p (1 - p^{-1/2}
-    e^{-2 pi i xi log p}). The transport multiplies the scattering phase by an
-    ALMOST-PERIODIC unimodular factor that does NOT converge to 1 as
-    |xi| -> infinity. For the half-line pair the principal angles are governed
-    by that phase at infinity, so a non-vanishing quasi-periodic twist holds
-    open an infinite bank of angles bounded away from 0 -> Sum cos^2 = infinity.
-    The source phase m(xi) is different in kind: its derivative varies slowly
-    (stationary phase makes the off-diagonal kernel decay), which is exactly
-    what CCM24UnitScaleStrictAngle proves.
+(2) THE PHASE-TWIST EXPLANATION IS A MODEL-LEVEL HYPOTHESIS.
+    The derived transported phase m_S = m * mu_S / conj(mu_S) explains the
+    observed persistent nonmeet band.  No essential-spectrum theorem, no
+    principal-angle-to-Lean-trace equivalence, and no formal negation of raw
+    F1 has been proved from it.
 
-(3) THE ROUTE IS REPAIRED, NOT WITHDRAWN (section 5): the Dev leaf never
-    consumes K_S raw - every consumer sandwiches `detectorOperator owner` on
-    the left (leaf lines 262-300, capstone 415), and the detector is
-    MULTIPLICATION BY |hat h|^2 in Fourier space (GlobalConvolutionCrossing
-    .lean:22-25, h Schwartz). 1063b measures Tr(D K_S) for three Gaussian
-    decay scales across windows: the weighted sums SATURATE (W1) - e.g.
-    S={2,3,5} over the xi_max 12.8 -> 102.4 sweep (8x window): k=0.3:
-    4.376 -> 4.410, k=1.0: 1.4020 -> 1.4085, k=3.0: 0.5340 -> 0.5362,
-    with each octave's increment HALVING (geometric -> a limit exists),
-    while the raw sums double and double. And the saturation is ROBUST FOR
-    EVERY OWNER, not just the tested
-    scales: the raw divergence is sublinear (~ X^0.5) while any Schwartz
-    decay beats every polynomial, so Sum w(xi_n) cos^2(theta_n) converges for
-    every |hat h|^2 Schwartz. DESIGN CHANGE: the leaf's sorry is restated as
-    the D-weighted F1' (section 6), which is numerically true and which the
-    capstone consumer shape (D oL ..., boundedSandwich at 279-289) already
-    matches.
+(3) F1' IS A CANDIDATE, NOT A CLOSED BRICK.
+    The weighted finite-dimensional statistics plateau for the tested Gaussian
+    multipliers.  They motivate smoothing, but they do not prove
+    `IsTraceClassAlong basis (D oL K_S)`: that Lean predicate is a summability
+    statement for a named basis (PositiveTrace.lean:32-39), while D oL K_S is
+    generally non-self-adjoint.  In particular, finite-dimensional trace
+    cyclicity may not be imported into the named-basis continuum series.
+
+(4) THE PROVEN NEW ALGEBRAIC ENTRY USES THE ACTIVE OPERATOR ORDER.
+    With K_S = A† A and D = C† C, the Dev leaf now proves
+      D K_S = C† K_S C + C† [C, K_S]
+            = (A C)† (A C) + C† [C, K_S].
+    Thus no cyclic trace readback is assumed: S1 is the honest positive
+    active-order sandwich, while S2 is the explicit root-commutator remainder.
+    A second Lean theorem expands S2 into its concrete signed four-branch
+    `E/Q_S/R_S` ledger.
 ```
 
-## 1. What F1 is, reduced to numbers
+## 1. Historical raw F1 and the finite-grid model
 
-The sorry (Dev leaf, unit scale lambda = 1, any global basis):
+The removed raw theorem was (unit scale lambda = 1, any global basis):
 
 ```lean
 theorem targetProlateRemainder_unit_isTraceClassAlong
@@ -84,9 +71,13 @@ HT_S = T_S.trans HT ...; Q_S = HT_S E HT_S                 CCM24SemilocalFourier
 R_S  = E wedge Q_S (Gram-corrected meet)                   CCM24FiniteSProjectionTrace.lean:145
 K_S  = E Q_S E - R_S >= 0                                  CCM24FiniteSProjectionTrace.lean:161-166
 K_S = A^* A,  A = Q_S E (E - R_S)                          Dev leaf:76-107
-F1   <=> K_S trace class <=> Sum_n cos^2(theta_n) < infinity,
-       cos^2(theta_n) = nonmeet spectrum of M = E Q_S E.
 ```
+
+The probe represents the nonmeet spectrum of the discretized `E Q_S E` by
+principal-angle mass.  That is a useful diagnostic model of raw F1, not a Lean
+lemma identifying its finite-grid sum with
+`IsTraceClassAlong basis K_S`.  The latter is defined as a named-basis complex
+diagonal series in `PositiveTrace.lean:32-39`.
 
 KEY DERIVATION (not yet a Lean lemma; the probe stands or falls with it):
 since every shift becomes a frequency multiplier, f T_S f^{-1} = M_{mu_S} with
@@ -98,41 +89,36 @@ HT_S = f^{-1} M_{mu_S} M_m R M_{mu_S}^{-1} f
      = f^{-1} M_{m_S} R f,   m_S = m . mu_S / conj(mu_S).
 ```
 
-Because |m_S| = 1 and m_S(-xi) = conj m_S(xi), HT_S is a self-adjoint unitary
-involution for EVERY S, so Q_S is an orthogonal projection and M = E Q_S E >= 0.
-Gate check in the probe confirms numerically: HT^2 - I and HT - HT^* vanish to
-3e-12, per-S phase symmetry to 0, at every grid.
+Because |m_S| = 1 and m_S(-xi) = conj m_S(xi), the intended continuum model
+makes HT_S a self-adjoint unitary involution.  The probe checks the corresponding
+finite matrices: HT^2 - I and HT - HT^* are below 3e-12 and phase reflection
+symmetry is below the stated gate.  Those are implementation gates, not a
+formal continuum proof.
 
 Quantifier note (1059 lesson): F1 is per-family (`family.terms : Finset`), so
 no uniformity across families is required - and the probe shows it fails even
 per-family, so this rescue does not apply.
 
-## 2. Why the raw statement should be false (first-principles mechanism)
+## 2. Why the raw statistic grows (unproved analytic mechanism)
 
 The two projections are (chi_{t>=0}, HT_S chi_{t>=0} HT_S). Conjugating by f,
 E becomes the Hardy space H2_+ and HT_S becomes multiplication by the phase
-e^{2 i arg m_S( xi)} followed by the reflection R. In that picture the
-principal angles of the pair are read off the phase of m_S at infinity
-(Halmos two-projections / Karlovich-type essential spectra for truncated
-Fourier isometries). The source phase arg m varies like -2 pi xi log(2 pi xi)
-- smooth, stationary phase gives kernel decay off the diagonal, angles close
-fast enough that Sum cos^2 < infinity (the content of the proven source
-theorem, and our anchor: src plateau, top angle 0.959 constant = ONE fixed
-boundary-layer angle, tail empty).
+e^{2 i arg m_S( xi)} followed by the reflection R.  It is plausible that a
+non-decaying almost-periodic phase twist produces the observed persistent
+finite-grid angle band.  Turning this into an essential-spectrum statement
+would require a separate theorem about the relevant truncated Fourier/Hankel
+operator; no such theorem is present in this repository.
 
-The transported phase adds 2 arg mu_S(xi), a QUASI-PERIODIC function with
-spectrum in the lattice Z-span{log p : p in S}. It has no limit at infinity;
-every interval (X, 2X) contains modes where the twist is order 1. The probe
-sees precisely that: new nonmeet eigenvalues land in the SAME magnitude band
-(e.g. (0.05, 0.1]: sum 0.68 -> 2.14 -> 4.03 across xi_max doublings, mean
-value ~ 0.08 constant) at a rate proportional to the window size. That is
-Weyl-law filling of an essential spectrum, i.e. K_S not compact, not merely
-not trace class.
+The transported phase adds 2 arg mu_S(xi), a quasi-periodic function with
+spectrum in the lattice Z-span{log p : p in S}.  The probe sees new nonmeet
+eigenvalues in the same finite-grid magnitude band as the window grows.  This
+is evidence consistent with a non-decaying tail; it is not a Weyl law and does
+not establish that K_S is non-compact in Lean's continuum model.
 
 ## 3. The probe and its gates (AGENTS 7c discipline)
 
-Script: `docs/proofs/1063_f1_target_angle_probe.py` (deterministic; WSL venv;
-copy next to it, OUTDIR=/home/peter/1063art).
+Script: `docs/proofs/1063_f1_target_angle_probe.py` (deterministic; run in a
+Linux-side scientific environment and keep generated logs outside the repo).
 
 ```text
 Grids:      N x T with ODD N (even N drops Nyquist, breaks m(-xi)=conj m(xi),
@@ -146,8 +132,7 @@ Anchor:     S={} must reproduce the proven source summability -> it does.
 Split:      meet = first gap > 0.02 block; banded sums threshold-robust.
 ```
 
-Decision table, nonmeet sum Sum cos^2 (SUMMARY lines; logs
-`/home/peter/probe1063c.log`, `/home/peter/probe1063d.log`):
+Decision table, finite-grid nonmeet statistic (the recorded `SUMMARY` lines):
 
 ```text
 +----------+---------+---------+---------+---------+---------+
@@ -162,15 +147,15 @@ Decision table, nonmeet sum Sum cos^2 (SUMMARY lines; logs
 +----------+---------+---------+---------+---------+---------+
 per-octave ratios {2,3,5}: 1.49 / 1.38 / 1.35 - no bend toward saturation at
 4 octaves; top nonmeet angle 0.378/0.412/0.391/0.735 - PINNED away from 0,
-so not even compactness of K_S survives.
+which is evidence against a decaying raw tail in this discretization.
 
 dt-invariance pairs (same xi_max, finer dt):
   12.8:  1025/T20 vs 2049/T40 (halve):      src 3.179/3.247  {2,3,5} 10.212/10.284
   25.6:  2049/T20 vs 4097/T40 (halve):      src 3.433/3.517  {2,3,5} 15.177/15.191
   51.2:  4097/T20 vs 8193/T40 (QUARTER):    src 3.121/3.150  {2,3,5} 20.8779/20.8784
                                             {2} 6.829/6.842  {2,3} 13.212/13.182
-The 51.2 pair quarters dt with 0.003% agreement: the growth follows the
-frequency WINDOW, not the grid - under-resolution is ruled out.
+The 51.2 pair quarters dt with 0.003% agreement: within this model, the
+observed growth follows the frequency window rather than this grid refinement.
 
 meet block: src 42/117/303/746 (Landau-type growth) - the Sonin intersection
 IS infinite-dimensional: the 1055 lambda~1 block, now measured at unit scale.
@@ -179,115 +164,136 @@ IS infinite-dimensional: the 1055 lambda~1 block, now measured at unit scale.
 ## 4. What this does and does not prove
 
 ```text
-IT DOES: a falsification oracle for the raw F1 statement, anchored on a
-    proven theorem by the identical code path, dt-converged over 4 octaves of
-    window (dt-quarter pair to 0.003%), gate-verified. Under the house rule
-    "a target statement failing numerics is not scheduled as a brick" (1055
-    precedent), RAW F1 gets the same treatment: DEAD as a proof target. It is
-    a numerical verdict, not a Lean negation: the continuum operator is only
-    approximated; the escape hatches are (a) probe-unfaithful definition
-    reading - checked line by line (section 1) and by the gates; (b) a true
-    plateau at much larger xi_max - contradicted by the band-fill statistics
-    (mean angle per new mode CONSTANT ~0.08 in (0.05,0.1], count growing with
-    the window) and by the pinned top angle (no decay sequence at all).
-IT DOES NOT: touch 1055's freeze, the 2b revocation, or alpha/beta/gamma/
+IT DOES: provide a high-quality operational guard against spending proof effort
+    on raw F1.  The source-side anchor, resolution sweep, interval sweep, and
+    algebraic finite-matrix gates all pass.  Under the project's pre-flight
+    rule, raw F1 is retired as the next analytic target.
+IT DOES NOT: prove a continuum negation, identify the principal-angle statistic
+    with Lean's named-basis `IsTraceClassAlong`, establish an essential spectrum,
+    or prove any detector-weighted trace theorem.  The continuum operator and
+    the required trace rearrangements remain analytic work.
+IT ALSO DOES NOT: touch 1055's freeze, the 2b revocation, or alpha/beta/gamma/
     delta (GATE 1 mainline is unaffected; this is the C1 Dev-leaf thread).
 ```
 
-## 5. The repair under test: F1' (detector-weighted trace legality)
+## 5. The candidate repair: active-order smoothing plus a root commutator
 
-The leaf's consumers: `detectorProlateChange_isTraceClassAlong_at_unit`
-(leaf:262-300) and the capstone (404-420) only ever ask for
-`IsTraceClassAlong globalBasis (detectorOperator owner oL K_S)`. With
-D = detectorOperator owner = M_{|hat h|^2} (Fourier multiplier, 0 <= D <= I
-after normalization), Tr(D K_S) = Sum_n <v_n, D v_n> cos^2(theta_n). If the
-angle bank sits at high |xi|, any Schwartz |hat h| with enough decay makes
-the weighted sum converge: F1' numerically true while raw F1 is false.
-Probe: `1063b_f1_weighted_probe.py` (decision rule W1/W2 in its header).
-Outcome (logs `/home/peter/probe1063b_small.log`, `/home/peter/probe1063b_big.log`),
-full 4-octave sweep:
+The current consumer still asks for the explicit F1' contract
 
-```text
-WEIGHTED, S={2,3,5}      xi=12.8   xi=25.6   xi=51.2   xi=102.4   (raw over
-  k=0.3 (gentle)           4.376     4.396     4.405     4.410     the SAME
-  k=1.0                    1.4020    1.4058    1.4077    1.4085    sweep:
-  k=3.0 (slowest tested)   0.5340    0.5353    0.5359    0.5362    10.212 ->
-                                                              28.275, +177%)
-S={2,3} k=1.0:           1.1344    1.1387    1.1407    1.1417
-S={2}   k=1.0:           0.7242    0.7286    0.7309    0.7320
-src     k=1.0:           1.3338    1.3306    1.3292    1.3286   (anchor converges too)
-=> W1 CONFIRMED at 4 octaves: every weighted increment HALVES with each
-   octave (k=1, {2,3,5}: +.0038, +.0019, +.0008 - geometric) = a limit EXISTS
-   while the raw sums double and double. Verdict: F1' (D-weighted trace
-   legality) is true.
+```lean
+IsTraceClassAlong globalBasis
+  (detectorOperator owner ∘L targetProlateRemainder unitSoninScale family)
 ```
 
-Why W1 is robust for EVERY owner (not just the three Gaussian scales): the
-raw angle-mass cumulative M(X) = Sum_{xi_n <= X} cos^2(theta_n) grows
-SUBLINEARLY (~ X^0.45 measured), so by Abel summation
-Sum w(xi_n) cos^2(theta_n) <= w(X0) M-infinity-tail + int |dw| M <=
-C_N int xi^{-N} xi^{0.5} dxi < infinity for ANY Schwartz w = |hat h|^2 and
-any N. The inequality (sublinear divergence vs super-polynomial decay) is
-owner-independent; the Gaussian sweep is a sample, not the scope.
+but the probe does not prove that proposition.  In particular,
+`detectorOperator owner = C† C` and `K_S = A† A`, so the requested operator
+is `C† C A† A`: it is generally non-self-adjoint.  The finite-grid value
+obtained by weighting eigenvectors of a discretized positive overlap is a
+useful diagnostic, not a proof of the named-basis diagonal series above.
+
+The recorded four-octave finite-grid statistics are nevertheless informative:
+
+```text
+WEIGHTED, S={2,3,5}      xi=12.8   xi=25.6   xi=51.2   xi=102.4
+  k=0.3                    4.376     4.396     4.405     4.410
+  k=1.0                    1.4020    1.4058    1.4077    1.4085
+  k=3.0                    0.5340    0.5353    0.5359    0.5362
+```
+
+They support the hypothesis that high-frequency smoothing is relevant.  They
+do not establish convergence for every owner, because the observed exponent
+and the bridge from the finite-grid angle statistic to the continuum kernel
+are both still unproved.
+
+The honest active-order reduction is:
+
+```text
+D K_S = C† K_S C + C† [C, K_S]
+      = (A C)† (A C) + C† [C, K_S].
+```
+
+Both identities are Lean-proved in
+`C1ProlateResponseTraceLegalityUnitScale.lean` as
+`targetProlateDetectorRightSmoothingFactor_adjoint_comp_self` and
+`detectorTargetProlate_eq_rightSandwich_add_rootCommutator`.  The next two
+obligations are now separate, exact, and in the same operator order as the
+consumer:
+
+```text
+S1. Prove Summable_i ||(A C)(globalBasis i)||².
+    This gives trace legality of C† K_S C = (A C)† (A C) through a genuine
+    two-Hilbert--Schmidt owner.
+
+S2. Prove trace legality of C† [C, K_S].  The proved four-branch identity is
+    C† [C, K_S]
+      = -C†( E Q_S [E,C] + E [Q_S,C] E + [E,C] Q_S E - [R_S,C] ).
+    The signed second-support/Sonin part may require a coupled estimate; it
+    must not be replaced by an unlicensed cyclic trace step.
+```
+
+The existing `CCM24RadialBoundaryPairTransport` proves a detector-level
+half-line commutator for `D = C† C`; it does not prove any root-level term in
+S2.  Connes--Consani Lemma D.1 proves that its specific quantized differential
+`[H,f]` is trace class for Schwartz `f`; it supports the *shape* of a
+half-line/Schwartz commutator argument, but is not a producer for the finite-S
+Fourier or Sonin branches above.  Source: Connes--Consani, Lemma D.1,
+arXiv:2006.13771, https://arxiv.org/abs/2006.13771.
 
 ## 6. Consequences for the Dev leaf and the thread
 
 ```text
 DECIDED:
-- The raw sorry at :117-121 states a FALSE proposition. Do not attack it.
-  The 1059 R2 posture ("keep F1 as a named conditional premise") is now
-  SUPERSEDED: a named false premise is worse than none - the capstone must
-  stop routing through raw K_S trace-classness.
-- THE F1' BRICK (next mainline action in this thread), a leaf edit:
-    (a) DELETE the raw theorem `targetProlateRemainder_unit_isTraceClassAlong`
-        and its reduction `..._unit_summable` (:117-159).
-    (b) ADD: for the owner's detector D,
-        theorem targetProlateRemainderDetectorWeighted_isTraceClassAlong
-          (owner : ...) (family : FinitePrimePowerFamily) {nu}
-          (basis : HilbertBasis nu ℂ finiteSCarrier) :
-          IsTraceClassAlong basis
-            (detectorOperator owner oL targetProlateRemainder unitSoninScale family)
-    (c) Route `detectorProlateChange_isTraceClassAlong_at_unit` (262-300) and
-        the capstone (404-420) through F1' instead of the raw sandwich.
-- EXPECTED PROOF MECHANISM (the analysis the brick must actually write -
-  numerics SUPPORT it, they do NOT prove it):
-  D oL K_S = D oL A^* A = (A oL D)^* oL A with D = detectorOperator owner =
-  (conv h)^* (conv h) = M_{|hat h|^2}. Trace-classness of a product reduces
-  to HS of the smoothed factor: it suffices that A oL D = Q_S E (E - R_S) D
-  is Hilbert-Schmidt, i.e. the Schwartz right-factor absorbs the angle bank
-  (exactly what 1063b measures). The meet piece (E - R_S) D deserves its own
-  lemma: R_S oL D should be HS because the Sonin/meet basis is analytic and
-  |hat h|^2 Schwartz kills it in Fourier - the same decay, opposite role.
-- If the mechanism fails to close: the honest fallback is the compression
-  side only (F2 + its two HS premises are unconditional targets; the prolate
-  side of the response stays conditional with NO false named premise).
+- The raw theorem `targetProlateRemainder_unit_isTraceClassAlong` and its
+  false-looking reduction have been removed.  The numerical guard retires it
+  as a proof target; this is not a formal theorem of negation.
+- `targetProlateRemainderDetectorWeightedTraceLegality` is now an explicit
+  F1' PROP contract consumed by the response.  It has no producer yet.
+- The leaf now proves the active-order reduction
+    D K_S = (A C)† (A C) + C† [C, K_S]
+  and the exact four-branch expansion of its commutator remainder.  This is
+  valid algebra in the requested operator order; it does not supply either
+  analytic trace-class producer.
+- NEXT ANALYTIC TARGETS:
+    (S1) produce the named summability of A C;
+    (S2) build a legal pair owner for the signed root-commutator ledger.
+  Both targets must be established in Lean or reduced to explicit analytic
+  contracts.  Neither may be discharged by the 1063 finite-grid data.
+- If S1 or S2 fails, the honest fallback is still the compression side only:
+  F2 remains an independent target, while the prolate side stays conditional
+  with no false raw premise.
 ```
 
 ## 5b. Superseded hypotheses of this session
 
 ```text
-S1 (collapse: R_S = {0} by a Privalov-type argument): REFUTED by the probe -
-   the lambda~1 meet block GROWS with bandwidth (42/117/303/746): the Sonin
-   intersection is infinite-dimensional, consistent with 1055's block.
+S1-old (collapse: R_S = {0} by a Privalov-type argument): the growing
+   finite-grid meet block argues against this route, but is not a formal
+   refutation of the continuum claim.
 S3 (D-smoothing absorbs everything, so the raw statement was moot): PARTLY
-   REFUTED as a bypass (D does not commute with the meet and the RAW
-   statement still fails), but it is the shape of the SURVIVING repair F1'.
+   ruled out as a bypass: D does not commute with the meet, and smoothing has
+   not yet produced a legal readback to the original response.
 2b (perturbation of the source through the transport): already REVOKED by
-   1059; nothing here resurrects it - the divergence above is a property of
-   the exact transported operator, not of any perturbation error.
+   1059; nothing here resurrects it.
 ```
 
 ## 7. Sources
 
 ```text
-ConnesWeilRH/Dev/C1ProlateResponseTraceLegalityUnitScale.lean:76-121, 262-300, 404-420
+ConnesWeilRH/Dev/C1ProlateResponseTraceLegalityUnitScale.lean
 ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSProjectionTrace.lean:145-220
+ConnesWeilRH/Source/CCM25Concrete/CCM24FiniteSBandTrace.lean:35-47
+ConnesWeilRH/Source/CCM25Concrete/CCM24RadialBoundaryPairTransport.lean:470-850
+ConnesWeilRH/Source/CC20Concrete/PositiveTrace.lean:32-39, 270-287, 520-575
+ConnesWeilRH/Source/CC20Concrete/ThreeBranchCommutatorLedger.lean:27-71
 ConnesWeilRH/Source/CC20Concrete/CCM24HardyTitchmarsh.lean:43-126, 331-380
 ConnesWeilRH/Source/CC20Concrete/CCM24SemilocalFourierSupport.lean:31-83
 ConnesWeilRH/Source/CC20Concrete/CCM24EulerTransport.lean:182-206
 ConnesWeilRH/Source/CC20Concrete/GlobalConvolutionCrossing.lean:22-25
 ConnesWeilRH/Source/CC20Concrete/GlobalLogHaar.lean:30
 docs/proofs/1063_f1_target_angle_probe.py, 1063b_f1_weighted_probe.py
-logs: /home/peter/probe1063{b,c,d}.log (WSL; OUTDIR=/home/peter/1063art)
+Connes--Consani, "Weil positivity and Trace formula, the archimedean place",
+  Lemma D.1, arXiv:2006.13771, https://arxiv.org/abs/2006.13771
+Generated probe logs are intentionally unversioned in the Linux-side
+verification environment.
 docs/proofs/1056, 1059 (posture), 1055 (freeze; the lambda~1 block = our meet)
 ```

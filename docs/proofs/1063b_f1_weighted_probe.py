@@ -1,30 +1,28 @@
-# 1063b - does the detector weighting D rescue F1?
+# 1063b - finite-grid detector-weighting diagnostic for F1'
 #
-# 1063 evidence so far: the RAW angle sum Sum cos^2(theta_n) of the pair
-# (E, Q_S) grows with the frequency window xi_max (dt-converged!) for every
-# nonempty family, while the source case S={} plateaus (proven-trace-class
-# anchor). If that persists at xi_max -> infinity, K_S is NOT trace class and
-# the raw F1 statement (C1ProlateResponseTraceLegalityUnitScale.lean:117-121)
-# is FALSE as written.
+# The raw finite-grid nonmeet statistic grows with the frequency window for
+# every tested nonempty family, while the source anchor stays bounded.  That
+# rejects the historical raw-F1 theorem as the next proof target, but does NOT
+# prove a continuum negation or identify the statistic with Lean's named-basis
+# `IsTraceClassAlong` predicate.
 #
-# But the Dev leaf never consumes K_S raw: every consumer routes through
-# `detectorOperator owner oL ...` (leaf lines 262-300 and capstone 404-420),
-# and detectorOperator = (conv h)^d (conv h) for a Schwartz h
-# (GlobalConvolutionCrossing.lean:22-25), i.e. MULTIPLICATION BY |hat h|^2
-# in the Fourier variable. This probe measures the weighted trace
+# This script computes a finite-dimensional weighted spectral statistic for
+# the detector-shaped multiplier.  It is not a trace-class proof.  In Lean,
+# D = C† C and K_S = A† A, so D K_S is generally non-self-adjoint and a legal
+# readback from any symmetric positive sandwich requires a separate theorem.
 #
-#   Tr(D K_S) = Sum_{nonmeet n} <v_n, D v_n> cos^2(theta_n),
+# The finite statistic is
 #
-# for Gaussian weights w(xi) = exp(-(k xi)^2 / 2), k in {0.3, 1, 3} (the
-# three decay scales standing for "gentle / medium / fast" Schwartz falloff).
+#   Sum_{nonmeet n} <v_n, D v_n> lambda_n,
+#
+# for Gaussian multipliers w(xi) = exp(-(k xi)^2 / 2), k in {0.3, 1, 3}.
 #
 # Decision rule (H-numbers shared with 1063):
-#   W1: weighted sums SATURATE in xi_max  -> the repair F1' (D-weighted
-#       remainder trace-class) is numerically true; raw F1 was the wrong
-#       statement to chase and the leaf's consumer already fits F1'.
-#   W2: weighted sums grow like the raw sums -> no Schwartz weighting can
-#       absorb the pathology (it is not high-frequency-localized); the
-#       semilocal Station-5 brick is DEAD, not repairable.
+#   W1: apparent saturation -> investigate the honest symmetric factor
+#       B = A C† and seek a continuum Hilbert--Schmidt proof.
+#   W2: growth like the raw statistic -> smoothing is not supported by this
+#       model, so do not schedule a proof brick without another mechanism.
+# Neither outcome proves or disproves F1' or the semilocal route.
 #
 # Gates: positivity (lambda_min > -1e-6), weights in [0,1], and the raw
 # nonmeet sum must REPRODUCE the 1063 table (same code path -> same numbers).
@@ -44,7 +42,7 @@ p = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(p)
 
 
-def weighted_traces(N, S, E_diag, F, xi):
+def weighted_statistics(N, S, E_diag, F, xi):
     phase = p.transport_phase(xi, S)
     HT = p.build_HT(phase, F, N)
     ED = np.diag(E_diag)
@@ -78,10 +76,10 @@ def run():
         E_diag = (t >= 0.0).astype(float)
         print(f"\n--- grid N={N} T={T} (dt={dt:.4f}, xi_max={abs(xi).max():.1f}) ---")
         for S in [[], [2], [2, 3], [2, 3, 5]]:
-            jb, rows = weighted_traces(N, S, E_diag, F, xi)
+            jb, rows = weighted_statistics(N, S, E_diag, F, xi)
             name = "S=" + ",".join(str(x) for x in S)
             line = "  ".join(f"{lab}:{v:.4f}" for lab, v in rows)
-            print(f"WEIGHT|N{N}|{name}|meet={jb}|{line}")
+            print(f"WEIGHTED_STAT|N{N}|{name}|meet={jb}|{line}")
 
 
 if __name__ == "__main__":

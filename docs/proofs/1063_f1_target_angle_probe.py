@@ -10,7 +10,8 @@
 #   HT_S = T_S HT T_S^{-1} = F^* M_{m_S} Flip F,
 #          m_S(xi) = m(xi) * mu(xi)/conj(mu(xi)),     (derivation, record 1063)
 #          mu(xi) = prod_p (1 - p^{-1/2} e^{-2 pi i xi log p})
-#   Q_S  = HT_S E HT_S ;  F1 <=> lambda_n(M_S) in l1
+#   Q_S  = HT_S E HT_S ; the nonmeet spectrum is a diagnostic model for raw F1
+#          (not a Lean equivalence to named-basis trace legality).
 #
 # Gates (AGENTS 7c): positivity of the positive operator is a hard assert;
 # resolution AND interval sweeps must agree before any verdict is trusted;
@@ -193,9 +194,9 @@ def run():
             print(f"SUMMARY|N{N}T{T:g}|{name}|meet={jb}|nonmeet-sum={st:.4f}")
             np.save(f"{outdir}/1063_spec_N{N}_T{T:g}_{name.replace('=','').replace(',','_') or 'src'}.npy",
                     vals)
-    # H1 (plateau, F1 true) vs H2 (window-driven growth, F1 false) is read
-    # from the SUMMARY lines: dt-halving at FIXED xi_max must not move the
-    # sum (artifact check), and xi_max doubling must not bend it down.
+    # Read the SUMMARY lines as a numerical diagnostic only: dt-halving at a
+    # fixed xi_max checks discretization sensitivity, while interval growth
+    # warns against scheduling raw F1 as the next continuum proof target.
     print("\n=== done: grep 'SUMMARY|' in this log for the decision table ===")
 
 

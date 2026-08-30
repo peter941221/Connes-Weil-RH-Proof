@@ -4,12 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSProjectionTrace
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSBandTrace
 import ConnesWeilRH.Source.CCM25Concrete.CCM24SourceProlateTrace
 import ConnesWeilRH.Source.CCM25Concrete.CCM24UnitScaleStrictAngle
 import ConnesWeilRH.Dev.C1SelectedDetectorSemiLocalEulerBoundary
 
 /-!
-# P1: trace legality of the finite-S projection response at unit scale
+# P1: detector-weighted trace legality of the finite-S response at unit scale
 
 This is brick #1 of the Option-C semi-local bridge (doc 1050 section 4).  The
 Gate-2 arithmetic readback
@@ -24,10 +25,11 @@ currently carries one explicit analytic premise,
 hresponse : IsTraceClassAlong globalBasis (projectionResponse owner lambda family)
 ```
 
-which is exactly the Hilbert--Schmidt / trace legality of the selected-detector
-response operator.  This file discharges that premise at the canonical unit
-scale `lambda = unitSoninScale`, so the readback evaluates with no
-trace-legality assumption.
+which is exactly the trace legality of the selected-detector response
+operator.  This file reduces that premise at the canonical unit scale
+`lambda = unitSoninScale` to the exact detector-weighted target-prolate
+obligation F1' below, plus the two Fourier-compression Hilbert--Schmidt
+premises.  It does not claim to discharge F1' analytically.
 
 The response decomposes (Source-side, family form) as a difference of two
 detector-weighted band pieces:
@@ -38,19 +40,21 @@ projectionResponse owner lambda family
         [CCM24FiniteSProjectionTrace.projectionResponse_eq_compression_sub_prolate]
 ```
 
-Each band piece is the traceProduct of an `l2Sum` of Hilbert--Schmidt pair data,
-so a left-bounded sandwich over that pair data makes each detector-weighted
-piece trace-class along any named global basis; their difference inherits it.
+The source prolate and both compression pieces use established
+Hilbert--Schmidt pair data.  The finite-S target prolate remainder is consumed
+directly in its detector-weighted form, because that is the exact operator
+needed by the response.
 
-Two unit-scale facts are the load-bearing new content:
+Two unit-scale contracts are load-bearing:
 
-  F1. the target prolate factor is unconditionally Hilbert--Schmidt at unit
-      scale (mirror of `sourceProlateHilbertSchmidtFactor_unit_summable`);
-  F2. the two Fourier-compression factors are unconditionally Hilbert--Schmidt
-      at unit scale.
+  F1'. detector-weighted target-prolate trace legality at unit scale;
+  F2. named Hilbert--Schmidt summability for the two Fourier-compression
+       factors at unit scale.
 
-No positivity, no remainder sign, and no RH-facing statement is asserted here;
-this file only supplies trace legality for the exact readback object.
+Record 1063 supplies a numerical guard against spending proof effort on the
+stronger raw-F1 statement.  It is not a formal negation of that continuum
+statement.  No positivity, no remainder sign, and no RH-facing statement is
+asserted here; this file only supplies conditional trace-legality reductions.
 -/
 
 namespace ConnesWeilRH
@@ -71,22 +75,23 @@ local notation "Op" => finiteSCarrier →L[ℂ] finiteSCarrier
 
 noncomputable section
 
-/-- The target prolate square root `Q_S (E-R_S)`, the finite-S mirror of
-`sourceProlateHilbertSchmidtFactor`. -/
-noncomputable def targetProlateHilbertSchmidtFactor
+/-- The bounded target prolate factor `Q_S (E-R_S)`.  It is a factor of the
+finite-S remainder, but this leaf makes no raw Hilbert--Schmidt assertion about
+it: record 1063 guards against scheduling the corresponding raw target. -/
+noncomputable def targetProlateRemainderFactor
     (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) : Op :=
   targetFourierSupportProjection lambda family ∘L
     (radialSupportProjection lambda - targetSoninProjection lambda family)
 
 /-- The actual finite-S prolate remainder is the positive square of that named
-factor, mirroring `sourceProlateHilbertSchmidtFactor_adjoint_comp_self`. -/
-theorem targetProlateHilbertSchmidtFactor_adjoint_comp_self
+factor. -/
+theorem targetProlateRemainderFactor_adjoint_comp_self
     (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
-    (targetProlateHilbertSchmidtFactor lambda family).adjoint ∘L
-        targetProlateHilbertSchmidtFactor lambda family =
+    (targetProlateRemainderFactor lambda family).adjoint ∘L
+        targetProlateRemainderFactor lambda family =
       targetProlateRemainder lambda family := by
   rw [targetProlateRemainder_eq_factor]
-  unfold targetProlateHilbertSchmidtFactor
+  unfold targetProlateRemainderFactor
   rw [ContinuousLinearMap.adjoint_comp, map_sub]
   rw [(targetFourierSupportProjection_isStarProjection lambda family)
     |>.isSelfAdjoint.adjoint_eq]
@@ -106,119 +111,280 @@ theorem targetProlateHilbertSchmidtFactor_adjoint_comp_self
     (radialSupportProjection lambda - targetSoninProjection lambda family)
     (by simpa only [ContinuousLinearMap.mul_apply] using hidempotent)
 
-/-- [CRUX -- the new semilocal analysis of brick #1] The finite-S prolate
-remainder `K_S = E Q_S E - R_S` is trace-class along any named global basis at
-the canonical unit scale.  Its source-side twin `sourceProlateRemainder
-unitSoninScale` is already known trace-class via the strict-angle machinery, but
-the finite Euler transport that conjugates the archimedean transform into
-`U_S = E_S Hinf E_S^{-1}` is only a bounded invertible map (`≃L[ℂ]`, not an
-isometry), so the existing `≃ₗᵢ[ℂ]`-parametrized `prolateFactor` reduction does
-not apply directly.  [ROUND-2 CRUX: proof body below.] -/
-theorem targetProlateRemainder_unit_isTraceClassAlong
-    (family : FinitePrimePowerFamily) {ι : Type*}
-    (basis : HilbertBasis ι ℂ finiteSCarrier) :
-    IsTraceClassAlong basis (targetProlateRemainder unitSoninScale family) := by
-  sorry
-
-/-- Term-by-term, the complex diagonal of the finite-S prolate remainder equals
-the squared norm of its square root `Q_S (E-R_S)`: this is exactly the
-`A^dagger A = K_S` identity read on a single basis vector. -/
-theorem targetProlateHilbertSchmidtFactor_unit_diagonal_eq_targetRemainder
-    (family : FinitePrimePowerFamily) {ι : Type*}
-    (basis : HilbertBasis ι ℂ finiteSCarrier) (i : ι) :
-    ((‖targetProlateHilbertSchmidtFactor unitSoninScale family (basis i)‖ ^ 2 : ℝ) : ℂ) =
-      inner ℂ (basis i) (targetProlateRemainder unitSoninScale family (basis i)) := by
-  have hsq := targetProlateHilbertSchmidtFactor_adjoint_comp_self unitSoninScale family
-  rw [← hsq, ContinuousLinearMap.comp_apply]
-  rw [ContinuousLinearMap.adjoint_inner_right, inner_self_eq_norm_sq_to_K]
-  norm_cast
+/-- F1': the exact analytic obligation consumed by the response.  This is an
+explicit proposition rather than a stored source-data field or an established
+theorem: an eventual producer must prove that the selected detector regularizes
+the finite-S target prolate remainder along the named basis consumed downstream. -/
+def targetProlateRemainderDetectorWeightedTraceLegality
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily) {ν : Type*}
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier) : Prop :=
+  IsTraceClassAlong globalBasis
+    (detectorOperator owner ∘L targetProlateRemainder unitSoninScale family)
 
 /-!
-F1. The finite-S prolate factor is unconditionally Hilbert--Schmidt at the
-canonical unit scale along every named global basis, mirroring
-`sourceProlateHilbertSchmidtFactor_unit_summable`.  It reduces to one new
-analytic input: trace-class legality of the semilocal prolate remainder (the
-crux above).  The reduction is proved plumbing from `A^dagger A = K_S`; no
-positivity or RH-facing statement is used.
--/
-theorem targetProlateHilbertSchmidtFactor_unit_summable
-    (family : FinitePrimePowerFamily) {ι : Type*} (basis : HilbertBasis ι ℂ finiteSCarrier) :
-    Summable fun i => ‖targetProlateHilbertSchmidtFactor unitSoninScale family (basis i)‖ ^ 2 := by
-  -- the single new analytic input: K_S is trace-class at unit scale [CRUX]
-  have htrace : IsTraceClassAlong basis (targetProlateRemainder unitSoninScale family) :=
-    targetProlateRemainder_unit_isTraceClassAlong family basis
-  rw [IsTraceClassAlong] at htrace   -- Summable fun i => ⟪basis i, ((K_S)(basis i))⟫_ℂ
-  have hnorm : Summable fun i => ‖(inner ℂ (basis i) (targetProlateRemainder unitSoninScale family (basis i)))‖ :=
-    htrace.norm
-  -- term-by-term the complex diagonal modulus is exactly the squared norm of the factor:
-  have hpointwise : ∀ i, ‖(inner ℂ (basis i) (targetProlateRemainder unitSoninScale family (basis i)))‖ =
-      ‖targetProlateHilbertSchmidtFactor unitSoninScale family (basis i)‖ ^ 2 := by
-    intro i
-    rw [← targetProlateHilbertSchmidtFactor_unit_diagonal_eq_targetRemainder family basis i]
-    exact Complex.norm_of_nonneg (sq_nonneg _)
-  exact hnorm.congr hpointwise
+The direct F1' contract above is the exact operand of `projectionResponse`.
+Write `A† A = K_S` and `D = C† C`, with `C` the selected convolution root.
+The active order has the exact decomposition
 
-/-- Package the target prolate factor as an `A^dagger A` trace owner once its
-single named-basis Hilbert--Schmidt sum is supplied (mirror of
-`sourceProlatePairData`). -/
-noncomputable def targetProlatePairData
+```text
+D K_S = C† K_S C + C† [C, K_S].
+```
+
+The first term is the positive square `(A C)† (A C)`.  The second term is the
+only root-commutator remainder that must be controlled before the active
+response can be read back.  This is not a cyclic trace assertion: both
+ingredients below are explicit analytic obligations.
+-/
+
+/-- The active-order smoothing factor `A C`, where `A† A = K_S` and `C` is the
+selected convolution root. -/
+noncomputable def targetProlateDetectorRightSmoothingFactor
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily) : Op :=
+  targetProlateRemainderFactor unitSoninScale family ∘L
+    CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner
+
+/-- The positive active-order sandwich `C† K_S C`. -/
+noncomputable def targetProlateDetectorRightSandwich
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily) : Op :=
+  (CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner)† ∘L
+    targetProlateRemainder unitSoninScale family ∘L
+      CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner
+
+/-- The active-order sandwich is exactly `(A C)† (A C)`. -/
+theorem targetProlateDetectorRightSmoothingFactor_adjoint_comp_self
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily) :
+    (targetProlateDetectorRightSmoothingFactor owner family).adjoint ∘L
+        targetProlateDetectorRightSmoothingFactor owner family =
+      targetProlateDetectorRightSandwich owner family := by
+  unfold targetProlateDetectorRightSmoothingFactor targetProlateDetectorRightSandwich
+  rw [ContinuousLinearMap.adjoint_comp]
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [ContinuousLinearMap.comp_apply]
+  have hfactor := congrArg
+    (fun operator : Op => operator
+      (CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner u))
+    (targetProlateRemainderFactor_adjoint_comp_self unitSoninScale family)
+  simpa only [ContinuousLinearMap.comp_apply] using
+    congrArg (CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner).adjoint hfactor
+
+/-- Named-basis Hilbert--Schmidt summability for the active-order smoothing
+factor.  This is the S1 analytic obligation. -/
+def targetProlateDetectorRightSmoothingFactorSummable
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily) {ν : Type*}
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier) : Prop :=
+  Summable fun i =>
+    ‖targetProlateDetectorRightSmoothingFactor owner family (globalBasis i)‖ ^ 2
+
+/-- Pair-data owner for the positive active-order sandwich. -/
+noncomputable def targetProlateDetectorRightSandwichPairData
     {ν : Type*} (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
-    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
-    (hfactor : Summable fun i =>
-      ‖targetProlateHilbertSchmidtFactor lambda family (globalBasis i)‖ ^ 2) :
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily)
+    (hfactor : targetProlateDetectorRightSmoothingFactorSummable owner family globalBasis) :
     BasisHilbertSchmidtPairData (G := finiteSCarrier) globalBasis where
-  left := targetProlateHilbertSchmidtFactor lambda family
-  right := targetProlateHilbertSchmidtFactor lambda family
+  left := targetProlateDetectorRightSmoothingFactor owner family
+  right := targetProlateDetectorRightSmoothingFactor owner family
   left_summable_normSq := hfactor
   right_summable_normSq := hfactor
 
-theorem targetProlatePairData_traceProduct_eq
+/-- The pair-data trace product is the active-order positive sandwich. -/
+theorem targetProlateDetectorRightSandwichPairData_traceProduct_eq
     {ν : Type*} (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
-    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
-    (hfactor : Summable fun i =>
-      ‖targetProlateHilbertSchmidtFactor lambda family (globalBasis i)‖ ^ 2) :
-    (targetProlatePairData globalBasis lambda family hfactor).traceProduct =
-      targetProlateRemainder lambda family := by
-  unfold targetProlatePairData BasisHilbertSchmidtPairData.traceProduct
-  exact targetProlateHilbertSchmidtFactor_adjoint_comp_self lambda family
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily)
+    (hfactor : targetProlateDetectorRightSmoothingFactorSummable owner family globalBasis) :
+    (targetProlateDetectorRightSandwichPairData globalBasis owner family hfactor).traceProduct =
+      targetProlateDetectorRightSandwich owner family := by
+  unfold targetProlateDetectorRightSandwichPairData
+    BasisHilbertSchmidtPairData.traceProduct
+  exact targetProlateDetectorRightSmoothingFactor_adjoint_comp_self owner family
 
-/-- The prolate change `K_S - K_0` is the trace product of an l2Sum pair whose
-first coordinate carries the finite-S factor and whose second carries the source
-factor with a minus sign. -/
-noncomputable def prolateDifferencePairData
+/-- S1 makes the active-order positive sandwich trace-legal along the same
+named basis. -/
+theorem targetProlateDetectorRightSandwich_isTraceClassAlong
     {ν : Type*} (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
-    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
-    (hfactorTarget : Summable fun i =>
-      ‖targetProlateHilbertSchmidtFactor lambda family (globalBasis i)‖ ^ 2)
-    (hfactorSource : Summable fun i =>
-      ‖sourceProlateHilbertSchmidtFactor lambda (globalBasis i)‖ ^ 2) :
-    BasisHilbertSchmidtPairData
-      (G := WithLp 2 (finiteSCarrier × finiteSCarrier)) globalBasis :=
-  CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData.l2Sum
-    (targetProlatePairData globalBasis lambda family hfactorTarget)
-    ((CCM24SourceProlateTrace.sourceProlatePairData globalBasis lambda
-      hfactorSource).smulRight (-1))
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily)
+    (hfactor : targetProlateDetectorRightSmoothingFactorSummable owner family globalBasis) :
+    IsTraceClassAlong globalBasis (targetProlateDetectorRightSandwich owner family) := by
+  let data := targetProlateDetectorRightSandwichPairData globalBasis owner family hfactor
+  have htrace : IsTraceClassAlong globalBasis data.traceProduct :=
+    data.traceProduct_isTraceClassAlong
+  have hproduct : data.traceProduct = targetProlateDetectorRightSandwich owner family := by
+    simpa only [data] using
+      targetProlateDetectorRightSandwichPairData_traceProduct_eq globalBasis owner family hfactor
+  rw [hproduct] at htrace
+  exact htrace
 
-theorem prolateDifferencePairData_traceProduct_eq
+/-- The active-order root-commutator remainder `C† [C, K_S]`. -/
+noncomputable def targetProlateDetectorRootCommutatorRemainder
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily) : Op :=
+  (CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner)† ∘L
+    cc20Commutator (CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner)
+      (targetProlateRemainder unitSoninScale family)
+
+/-- The S2 trace-legality obligation for the active-order root commutator. -/
+def targetProlateDetectorRootCommutatorTraceLegality
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily) {ν : Type*}
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier) : Prop :=
+  IsTraceClassAlong globalBasis
+    (targetProlateDetectorRootCommutatorRemainder owner family)
+
+/-- Two genuine Hilbert--Schmidt legs for `[C, K_S]` supply S2 after bounded
+left multiplication by `C†`; no unrestricted trace cyclicity is used. -/
+theorem targetProlateDetectorRootCommutatorTraceLegality_of_pairData
+    {ν κ G : Type*} [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier) (factorBasis : HilbertBasis κ ℂ G)
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily)
+    (pairData : BasisHilbertSchmidtPairData (G := G) globalBasis)
+    (hpair : pairData.traceProduct =
+      cc20Commutator (CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner)
+        (targetProlateRemainder unitSoninScale family)) :
+    targetProlateDetectorRootCommutatorTraceLegality owner family globalBasis := by
+  let identity := ContinuousLinearMap.id ℂ finiteSCarrier
+  have htrace : IsTraceClassAlong globalBasis
+      ((CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner).adjoint ∘L
+        pairData.traceProduct ∘L identity) := by
+    exact pairData.boundedSandwich_isTraceClassAlong factorBasis
+      (CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner).adjoint identity
+  rw [hpair] at htrace
+  simpa only [targetProlateDetectorRootCommutatorTraceLegality,
+    targetProlateDetectorRootCommutatorRemainder, identity,
+    ContinuousLinearMap.comp_id] using htrace
+
+/-- The root/target-prolate commutator is the negative of the concrete
+outer/second-support/reflected-outer/Sonin four-branch ledger.  The two outer
+branches are the half-line convolution candidates; existing detector-level
+machinery for `C† C` is not by itself a producer for this root commutator.
+All four branches remain explicit analytic obligations here. -/
+theorem rootConvolution_targetProlateRemainder_commutator_eq_neg_threeBranch
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily) :
+    cc20Commutator (CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner)
+        (targetProlateRemainder unitSoninScale family) =
+      -cc20ThreeBranchCommutator
+        (radialSupportProjection unitSoninScale)
+        (targetFourierSupportProjection unitSoninScale family)
+        (targetSoninProjection unitSoninScale family)
+        (CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner) := by
+  let C : Op := CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner
+  let K : Op := targetProlateRemainder unitSoninScale family
+  let E : Op := radialSupportProjection unitSoninScale
+  let Q : Op := targetFourierSupportProjection unitSoninScale family
+  let R : Op := targetSoninProjection unitSoninScale family
+  have hK : K = E ∘L Q ∘L E - R := by
+    rfl
+  have hledger : cc20Commutator K C = cc20ThreeBranchCommutator E Q R C :=
+    cc20Commutator_eq_threeBranch_of_eq E Q K R C hK
+  have hanti : cc20Commutator C K = -cc20Commutator K C := by
+    unfold cc20Commutator
+    apply ContinuousLinearMap.ext
+    intro u
+    simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.neg_apply,
+      ContinuousLinearMap.comp_apply]
+    abel
+  change cc20Commutator C K = -cc20ThreeBranchCommutator E Q R C
+  rw [hanti, hledger]
+
+/-- A pair owner for the complete signed four-branch ledger supplies S2 after
+bounded left multiplication by `C†`.  This deliberately does not require the
+four terms to be trace-class separately. -/
+theorem targetProlateDetectorRootCommutatorTraceLegality_of_threeBranchPairData
+    {ν κ G : Type*} [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier) (factorBasis : HilbertBasis κ ℂ G)
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily)
+    (pairData : BasisHilbertSchmidtPairData (G := G) globalBasis)
+    (hpair : pairData.traceProduct =
+      -cc20ThreeBranchCommutator
+        (radialSupportProjection unitSoninScale)
+        (targetFourierSupportProjection unitSoninScale family)
+        (targetSoninProjection unitSoninScale family)
+        (CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner)) :
+    targetProlateDetectorRootCommutatorTraceLegality owner family globalBasis := by
+  apply targetProlateDetectorRootCommutatorTraceLegality_of_pairData
+    globalBasis factorBasis owner family pairData
+  exact hpair.trans
+    (rootConvolution_targetProlateRemainder_commutator_eq_neg_threeBranch
+      owner family).symm
+
+/-- The active-order root-commutator remainder is the same four-branch ledger
+after its required bounded left multiplier `C†` is restored. -/
+theorem targetProlateDetectorRootCommutatorRemainder_eq_neg_threeBranch
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily) :
+    targetProlateDetectorRootCommutatorRemainder owner family =
+      -((CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner).adjoint ∘L
+        cc20ThreeBranchCommutator
+          (radialSupportProjection unitSoninScale)
+          (targetFourierSupportProjection unitSoninScale family)
+          (targetSoninProjection unitSoninScale family)
+          (CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner)) := by
+  let C : Op := CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner
+  let K : Op := targetProlateRemainder unitSoninScale family
+  let E : Op := radialSupportProjection unitSoninScale
+  let Q : Op := targetFourierSupportProjection unitSoninScale family
+  let R : Op := targetSoninProjection unitSoninScale family
+  have hcomm : cc20Commutator C K = -cc20ThreeBranchCommutator E Q R C := by
+    simpa only [C, K, E, Q, R] using
+      rootConvolution_targetProlateRemainder_commutator_eq_neg_threeBranch
+        owner family
+  change C.adjoint ∘L cc20Commutator C K =
+    -(C.adjoint ∘L cc20ThreeBranchCommutator E Q R C)
+  rw [hcomm]
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [ContinuousLinearMap.comp_apply, map_neg, ContinuousLinearMap.neg_apply]
+
+/-- Exact active-order decomposition.  It isolates the positive S1 square from
+the root-commutator S2 remainder. -/
+theorem detectorTargetProlate_eq_rightSandwich_add_rootCommutator
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily) :
+    detectorOperator owner ∘L targetProlateRemainder unitSoninScale family =
+      targetProlateDetectorRightSandwich owner family +
+        targetProlateDetectorRootCommutatorRemainder owner family := by
+  unfold targetProlateDetectorRightSandwich
+    targetProlateDetectorRootCommutatorRemainder cc20Commutator
+  let C : Op := CCM25Concrete.CCM24FiniteSBandTrace.rootConvolution owner
+  let K : Op := targetProlateRemainder unitSoninScale family
+  change ((C.adjoint ∘L C) ∘L K) =
+    (C.adjoint ∘L K ∘L C) + C.adjoint ∘L (C ∘L K - K ∘L C)
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.sub_apply, map_sub]
+  abel
+
+/-- F1' follows from the active-order smoothing estimate S1 and the
+root-commutator trace owner S2. -/
+theorem targetProlateRemainderDetectorWeightedTraceLegality_of_rightSmoothing_and_rootCommutator
     {ν : Type*} (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
-    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
-    (hfactorTarget : Summable fun i =>
-      ‖targetProlateHilbertSchmidtFactor lambda family (globalBasis i)‖ ^ 2)
-    (hfactorSource : Summable fun i =>
-      ‖sourceProlateHilbertSchmidtFactor lambda (globalBasis i)‖ ^ 2) :
-    (prolateDifferencePairData globalBasis lambda family hfactorTarget
-      hfactorSource).traceProduct = prolateDifference lambda family := by
-  unfold prolateDifferencePairData
-  rw [CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData.l2Sum_traceProduct_eq_add,
-    targetProlatePairData_traceProduct_eq globalBasis lambda family hfactorTarget,
-    CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData.smulRight_traceProduct_eq,
-    CCM24SourceProlateTrace.sourceProlatePairData_traceProduct_eq]
-  rw [prolateDifference, neg_one_smul, sub_eq_add_neg]
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily)
+    (hfactor : targetProlateDetectorRightSmoothingFactorSummable owner family globalBasis)
+    (hcomm : targetProlateDetectorRootCommutatorTraceLegality owner family globalBasis) :
+    targetProlateRemainderDetectorWeightedTraceLegality owner family globalBasis := by
+  have hright := targetProlateDetectorRightSandwich_isTraceClassAlong
+    globalBasis owner family hfactor
+  unfold targetProlateRemainderDetectorWeightedTraceLegality
+  rw [detectorTargetProlate_eq_rightSandwich_add_rootCommutator]
+  exact isTraceClassAlong_add globalBasis _ _ hright hcomm
 
 /-!
-F2. The two Fourier-compression factors `Q_S E` and `Q_0 E` are unconditionally
-Hilbert--Schmidt at the canonical unit scale.  Their difference is the band
-compression change.  [ROUND-1 CRUX: proof body below.]
+F2. The two Fourier-compression factors `Q_S E` and `Q_0 E` are explicit
+named-basis Hilbert--Schmidt contracts at the canonical unit scale.  Their
+difference is the band compression change; this file consumes, rather than
+produces, those contracts.
 -/
 noncomputable def fourierCompressionFactor
     (lambda : CCM24SoninScale) (fourierSupport : Op) : Op :=
@@ -258,30 +424,24 @@ noncomputable def compressionDifferencePairData
       (sourceFourierSupportProjection lambda) hcompressionSource).smulRight (-1))
 
 /-! The detector-weighted prolate change is trace-class along any named global
-basis at unit scale, from F1 (and the unconditional source-side HS fact). -/
+basis at unit scale from F1' and the established source-side HS fact. -/
 theorem detectorProlateChange_isTraceClassAlong_at_unit
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
-    (family : FinitePrimePowerFamily) {ν : Type*} (globalBasis : HilbertBasis ν ℂ finiteSCarrier) :
+    (family : FinitePrimePowerFamily) {ν : Type*} (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (htarget : targetProlateRemainderDetectorWeightedTraceLegality owner family globalBasis) :
     IsTraceClassAlong globalBasis
       (detectorOperator owner ∘L prolateDifference unitSoninScale family) := by
-  let tdata := targetProlatePairData globalBasis unitSoninScale family
-    (targetProlateHilbertSchmidtFactor_unit_summable family globalBasis)
   let sdata := CCM24SourceProlateTrace.sourceProlatePairData globalBasis unitSoninScale
     (sourceProlateHilbertSchmidtFactor_unit_summable globalBasis)
-  have htarget : tdata.traceProduct = targetProlateRemainder unitSoninScale family := by
-    simpa using targetProlatePairData_traceProduct_eq globalBasis unitSoninScale family _
+  have hsandTarget : IsTraceClassAlong globalBasis
+      (detectorOperator owner ∘L targetProlateRemainder unitSoninScale family) :=
+    htarget
   have hsource : sdata.traceProduct = sourceProlateRemainder unitSoninScale := by
     simpa using CCM24SourceProlateTrace.sourceProlatePairData_traceProduct_eq
       globalBasis unitSoninScale _
   -- each detector-weighted single-carrier piece is trace-class along the global basis:
   -- its carrier is `finiteSCarrier`, so the sandwich's target basis IS globalBasis.
   let identity := ContinuousLinearMap.id ℂ finiteSCarrier
-  have hsandTarget : IsTraceClassAlong globalBasis
-      (detectorOperator owner ∘L tdata.traceProduct) := by
-    simpa only [identity, ContinuousLinearMap.comp_id] using
-      tdata.boundedSandwich_isTraceClassAlong globalBasis
-        (detectorOperator owner) identity
-  rw [htarget] at hsandTarget
   have hsandSource : IsTraceClassAlong globalBasis
       (detectorOperator owner ∘L sdata.traceProduct) := by
     simpa only [identity, ContinuousLinearMap.comp_id] using
@@ -397,13 +557,15 @@ theorem detectorCompressionChange_isTraceClassAlong_at_unit
   exact isTraceClassAlong_sub globalBasis _ _ hsandTarget hsandSource
 
 /-!
-P1 capstone.  The selected-detector response operator is trace-class along any
-named global basis at the canonical unit scale, so the Gate-2 readback premise
-`hresponse` discharges for this exact object.
+P1 capstone.  Given F1' and the two F2 named-basis contracts, the
+selected-detector response operator is trace-class along the supplied global
+basis at the canonical unit scale.  This is the conditional form needed by the
+Gate-2 readback premise `hresponse`.
 -/
 theorem projectionResponse_isTraceClassAlong_at_unit
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
     (family : FinitePrimePowerFamily) {ν : Type*} (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (hprolateTarget : targetProlateRemainderDetectorWeightedTraceLegality owner family globalBasis)
     (hcompressionTarget : Summable fun i =>
       ‖fourierCompressionFactor unitSoninScale
           (targetFourierSupportProjection unitSoninScale family) (globalBasis i)‖ ^ 2)
@@ -413,7 +575,7 @@ theorem projectionResponse_isTraceClassAlong_at_unit
     IsTraceClassAlong globalBasis
       (projectionResponse owner unitSoninScale family) := by
   have hprolate := detectorProlateChange_isTraceClassAlong_at_unit owner family
-    globalBasis
+    globalBasis hprolateTarget
   have hcompression := detectorCompressionChange_isTraceClassAlong_at_unit owner
     family globalBasis hcompressionTarget hcompressionSource
   rw [projectionResponse_eq_compression_sub_prolate]
