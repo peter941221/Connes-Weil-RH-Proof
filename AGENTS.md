@@ -276,6 +276,18 @@ verifies exact identities.
   quantities carry a factor 2.  Before booking ANY convention pin, wire
   the contract identity to the paper's published derived number (here
   eps'(1+) ~ 22.9965) and require the match.
+- (15) To separate a real trace-class DIVERGENCE from an under-resolution
+  artifact, compare at CONSTANT frequency window while QUARTERING dt: a true
+  spectrum grows with the WINDOW and is dt-invariant (1063: {2,3,5} sum
+  20.8779 vs 20.8784 at xi_max=51.2, dt 1/4). If it moves with dt, it is
+  aliasing of the oscillatory phase, not physics. Odd-N grids are mandatory
+  (even N drops Nyquist, breaks m(-xi)=conj m(xi), destroys the involution).
+- (16) A D-WEIGHTED sum can converge while the raw sum diverges: the repair
+  is owner-independent only if raw angle-mass M(X) is SUBLINEAR (1063: ~X^0.45)
+  while every Schwartz weight decays FASTER than any polynomial, so
+  Abel-summation bounds Sum w(xi_n) cos^2 by int X^0.5 xi^{-N}. Three test
+  weights (k=0.3/1/3) are a SAMPLE not the SCOPE - state the inequality, not
+  the sample, as the robustness argument.
 
 Before trusting any probe number: (1) reproduce a Lean-proven identity first;
 (2) restrict Grams/inverses to the carrier span BEFORE inverting; (3) make the
