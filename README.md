@@ -7,11 +7,17 @@ Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 
 ## Status dashboard
 
-> **Updated 2026-08-29.** This dashboard describes commit
-> [`6eacb53`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/6eacb53)
-> (paper-scale audit, semilocal guards, records 1050-1054) together with the
-> P2b closure recorded in
-> [proof 1055](docs/proofs/1055_semilocal_p2b_verdict.md).
+> **Updated 2026-08-30.** This dashboard describes commit
+> [`16b5f96`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/16b5f96)
+> (brick #1: unit-scale trace legality of the finite-S response, F2 proven,
+> the single F1 crux isolated) together with the P2b closure recorded in
+> [proof 1055](docs/proofs/1055_semilocal_p2b_verdict.md) and the
+> 2026-08-30 analysis batch: [proof 1056](docs/proofs/1056_f1_semilocal_trace_scope_and_freeze_boundary.md)
+> (F1 freeze-boundary rulings + brick #2 scope),
+> [proof 1057](docs/proofs/1057_cc20_verbatim_delta_chain_and_numbering_map.md)
+> (CC20 raw-tex delta pinning + exact numbering map),
+> [proof 1058](docs/proofs/1058_alpha_chi_reconnaissance_verdict.md)
+> (alpha reconnaissance: the endpoint profile is 11 terms deep).
 > **No unconditional proof of the Riemann hypothesis is claimed here.**
 
 ### Route map
@@ -118,9 +124,11 @@ bottom; every station on the road carries its state.
         |  the machinery is wired END TO END; the payloads:
         |
         |      (alpha) ENDPOINT PROFILE CHI ..... [DATA OPEN]
-        |          a concrete CC20EndpointSpectralData with an
-        |          analytic enclosure on e^|v| in [1, 2] (the
-        |          paper states only asymptotics)
+        |          shape pinned (1057/1058): 11 modes suffice - the
+        |          paper's own eq-(170) bounds the rest by 2.366e-12
+        |          on [1,2], and probe 1058 reproduced that tail
+        |          arithmetic exactly; remaining: MP/ARB interval-
+        |          ODE data for n <= 10 (float64 eigen-floor at ~11)
         |
         |      (beta) JOINT GRID TABLE 2*int |chi - tau|
         |          <= epsilon1 ................ [DATA OPEN]
@@ -133,16 +141,29 @@ bottom; every station on the road carries its state.
         |          Need an exact finite-section/Toeplitz
         |          certificate for the exceptional direction,
         |          complement frame bound, and rank-one repair.
+        |          Constants tex-pinned (1057 s2): b ~ 0.05158,
+        |          a ~ 0.064, eps2 ~ 0.00441, eps1 ~ 0.00122,
+        |          <zeta|xi_0> ~ 0.94865, second gap c > 0.227784.
         |
         |      (delta) ARCHIMEDEAN COMPARISON .. [DATA OPEN]
         |          trace - coefficient*rank <= W-infinity(g^2)
-        |          (pinned to the CC20 sec. 6 root window
-        |          L = log 2)
+        |          pinned to raw tex eqs (141)-(143) plus the E(f)
+        |          chain (1057); flag: intro theorem vanishes at
+        |          +i/2 AND 0, final theorem at -i/2 with rank-one
+        |          penalty - the detector consumer must match ONE
         |
         |      (gapData) NON-PAPER BESSEL BRANCH [CLOSED]
         |          a = 1, epsilon1 = (1-lam)/2,
         |          epsilon2 = 1-lam under lam < 1; it cannot
         |          instantiate the published lam > 1 argument
+        |
+        |  PARALLEL THREAD - C1 BRICKS (Option-C semi-local bridge,
+        |  1050 s4): brick #1 LANDED 16b5f96 - F2 proven, capstone
+        |  holds modulo the single F1 crux + two compression-HS
+        |  premises.  F1 scoped (1056): LEGAL for fixed lambda = 1
+        |  model objects (outside the 1055 freeze; explicitly NOT a
+        |  1055-P1 revival payment) and GO as brick #2 = Gram-
+        |  corrected reduction + two fixed-scale estimate tables.
         |
 
    =====================  LEG III - STILL AHEAD  ======================
@@ -273,9 +294,13 @@ DATE         EVENT                                                COMMIT
              dashboard refresh through Bessel discharge           39f0f81
              eq-(119) owner gains the central n = 0 term          5aafd9f
              paper-scale audit + guards, records 1050-1054        6eacb53
+             dashboard/memory/norms refresh, 1055 round           40fd6f5
+             P2b verdict: semilocal prolate family DEAD           d330e90
+2026-08-30   brick #1: unit-scale trace legality, F1 isolated   16b5f96
+             records 1056-1058: F1 scope, CC20 tex pins, alpha    (this commit)
 ------------------------------------------------------------------------
 Code frontier at this writing:
-https://github.com/peter941221/Connes-Weil-RH-Proof/commit/d75186f
+https://github.com/peter941221/Connes-Weil-RH-Proof/commit/16b5f96
 ```
 
 The narrative snapshot below is retained unchanged from the previous

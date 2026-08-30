@@ -152,6 +152,13 @@ verifies exact identities.
 
 - MSYS rewrites POSIX-looking args: prefix every `wsl.exe` call with
   `MSYS_NO_PATHCONV=1`. Use `/c/Windows/System32/wsl.exe` if bare `wsl` is off PATH.
+- WSL NAT does NOT mirror the Windows localhost proxy: direct `curl`/`pip`
+  from inside WSL hang or write 0-byte files silently. Route through the
+  default gateway: `GW=$(ip route show default | awk '{print $3}');
+  https_proxy="http://${GW}:<port>"` (see `scripts/fetch_cc20.sh`).
+- System `python3` is PEP 668 externally managed (pip --user fails silently);
+  probes use the Linux-side venv with mpmath/numpy/scipy (currently
+  `/home/peter/venv-46937-py312`; locate with `ls -d /home/peter/venv-*`).
 - Direct exec sources NO login profile: absolute paths required, e.g.
   `/home/peter/.elan/bin/lake`, distro is `-d Ubuntu-24.04`.
 - `bash -lc '<script>'` through wsl.exe mangles quoting: `$var` expands empty
@@ -236,6 +243,17 @@ verifies exact identities.
 
 ### 7c. Numeric-probe fidelity laws (docs/proofs probes)
 
+- (10) CC20 equation numbers are pinned to the raw tex source by proof 1057
+  (170 numbered equations; eq-(115) = `computerverif`, eq-(119) = `opT`,
+  eq-(121) = `opTbound`).  Cite 1057's map, not HTML sweeps.  The intro and
+  final theorems have DIFFERENT vanishing-condition sets (1057 s5) - match
+  exactly one at each consumer.
+- (11) Prolate concentration eigenvalues decay per-step ~ (C/n)^2: at
+  c = 2pi the float64 Gauss-Legendre collocation floor hits at index ~11
+  (lambda_10 ~ 1e-22).  Any validated computation of lambda_n or the modes
+  for n >= 7 must be mpmath/ARB; float64 eigenvalue ratios below the floor
+  are noise, not physics.
+
 Before trusting any probe number: (1) reproduce a Lean-proven identity first;
 (2) restrict Grams/inverses to the carrier span BEFORE inverting; (3) make the
 carrier real (dpss/Slepian for prolate claims, not smooth bumps); (4) sweep
@@ -299,6 +317,22 @@ derivative of that path (mixing them flips the 1054 control sign).
   Its earlier P2a-iterate warning remains true for any hypothetical revival:
   a correct first Szego-phase variation is not an Euler-log proof; the `p^2`
   coefficient also carries the iterated first-harmonic second variation.
+- Proof 1056 Ruling 2 (anti-conflation): the F1 unit-scale crux
+  `targetProlateRemainder_unit_isTraceClassAlong` and any alpha-profile
+  trace work concern OUR fixed-scale concrete model operators; they are
+  outside the freeze above, but they do NOT supply the 1055-P0/P1 revival
+  conditions. Never bookkeep a proof of F1 or an `hchi` enclosure as a
+  "revival payment" for the asymptotic family.
+- Alpha is de-risked in shape by 1057/1058: CC20's own eq-(170) truncates
+  `Q epsilon` to 11 terms with a published remainder <= 2.366e-12 on [1,2]
+  (tail arithmetic reproduced exactly by `docs/proofs/
+  1058_alpha_chi_reconnaissance_probe.py`).  The alpha brick is an 11-mode
+  validated-ODE campaign (MP/ARB eigenvalues + analytic continuation across
+  x = 1), NOT an open-ended spectral realization.  Before any alpha work,
+  pin the convention question recorded open in 1058 s3 item 4: which
+  concentration spectrum is the paper's `lambda(n)` (c = 2pi vs the repo's
+  `unitAdditiveFourierKernel` scale) - resolve from propQe/sonineQ in the
+  tex, do not guess.
 ### 7e. v4.30 cast/spelling hazards (Bessel-repair round)
 
 - `(e : ℂ)` + `^ 2` elaborates the power OUTSIDE the cast (`(↑e) ^ 2`).

@@ -528,3 +528,40 @@ never committed). Recheck Bombieri eq-(7.3) normalization before transcribing.
   source mirror CCM24UnitScaleStrictAngle.lean:1501 not directly reusable, independent
   family structure) is now the ONLY gap - F2 closed this round. Committed as the brick #1
   green leaf + paired audit.
+
+- 2026-08-30 records 1056/1057/1058 (analysis batch, no Lean change): F1
+  scoping + the most dangerous breakpoint cleared of suspicion (1056): the
+  unit-scale crux `targetProlateRemainder_unit_isTraceClassAlong` is OUTSIDE
+  the 1055 freeze (fixed lambda=1 star-projection model objects, no W_(lambda,S)
+  / asymptotics) and is explicitly NOT a revival payment (Ruling 2); scope
+  verdict GO with reclassification - the plumbing shortcut fails because the
+  finite Euler transport is a TRANSLATION polynomial (`ccm24PrimeEulerTrans-
+  portEquiv = prod (1 - c_p Shift_-logp)`), translations do not commute with
+  support projections, and the isometry is consumed exactly at
+  `prolateFactor_summable_of_strictAngle (U : H ≃ₗᵢ[ℂ] H)`
+  (ProlateTraceReduction.lean:214); brick #2 = 2a generalize reduction via the
+  existing Gram bridge (`targetSoninProjection_eq_gramCorrected`), 2b target
+  angle bound by perturbation (needs margin check: source bound vs sum p^-1/2),
+  2c translation-stability of the crossing HS decay. Pre-flight: 2b margin
+  check is the one thing that can revoke GO. 1057: fetched the CC20 e-print
+  raw tex (sha256 b01d353b..20f3fc, 170 numbered equations) and pinned the
+  delta chain VERBATIM - eq-(141) maininequ (c = 4*gamma/log 2), (142)-(143)
+  + the E(f) chain, (140) negativeNI, (134) spectral0, the gamma numerics
+  (b ~ 0.05158, a ~ 0.064, eps2 ~ 0.00441, eps1 ~ 0.00122, <zeta|xi_0> ~
+  0.94865, second gap > 0.227784, 13 < c_best < 17); the repo numbering is
+  EXACT (eq-(115)=computerverif, (119)=opT, (121)=opTbound); FLAG: intro
+  theorem vanishes at +i/2 AND 0 but final theorem only at -i/2 with the
+  rank-one penalty (detector consumer must match ONE); 1049-B's HTML sweep
+  is superseded. 1058: alpha reconnaissance probe GREEN in all three blocks -
+  the paper's own eq-(170) arithmetic reproduced to six digits (tail
+  2.36527e-12 <= 2.366e-12; nu identity; nu_35 = 4.11e-81; p(n) <= 120n^2),
+  prolate eigenvalues [0.981046, 0.749620, 0.243593, ...] decay per-step
+  ~ (C/n)^2 with the float64 collocation floor at index ~11 (lambda_10 ~
+  1e-22 => validated campaign needs MP/ARB for n >= 7), slope series
+  summable at reconnaissance level. Net: alpha SHAPE = 11-mode validated-ODE
+  campaign with a published tail, not open-ended; convention question (which
+  spectrum is the paper's lambda(n)) recorded open. Scripts: fetch_cc20.sh
+  (WSL NAT proxy via default gateway - localhost proxies not mirrored, new
+  7a rule), cc20_pin.sh/cc20_number.sh (tex maps), run_1058_probe.sh
+  (venv-46937-py312). No Lean edits; F1 remains the only sorry carrier of
+  the C1 thread; 1055 freeze untouched and still binding.
