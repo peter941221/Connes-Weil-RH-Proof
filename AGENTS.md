@@ -202,6 +202,14 @@ verifies exact identities.
 - A nested-shell `$?` can be expanded at the wrong boundary.  Never use a
   reported `LAKE_EXIT` as acceptance evidence; inspect the WSL-side log for
   zero `error:` lines and its success footer.
+- A bare binary in a non-interactive `wsl.exe bash -c` chain is NOT on PATH
+  (no login profile sourced): `flock <lock> lake ...` then prints "flock:
+  failed to execute lake: No such file or directory" while the shell still
+  echoed EXIT=0 and NO build ran at all - only log-evidence acceptance caught
+  it. Use the canonical one-command template verbatim (absolute
+  `/home/peter/.elan/bin/lake`, dedicated lock, explicit `cd` inside the Linux
+  shell); do not launch a second instance against the same log file in
+  parallel - bash truncates the log at setup time even while blocked on flock.
 
 ### 7b. Lean / Mathlib v4.30 recurring hazards
 
@@ -281,6 +289,12 @@ verifies exact identities.
   ThreeBranchCommutatorLedger.lean:27-29), exactly as
   CCM24FiniteSCommonBoundaryPair.lean:1751 does - otherwise it stays an opaque
   atom and a signed-difference close leaves a residual goal.
+- Identifiers do NOT continue across source-line breaks: a long theorem name
+  split over two lines parses as the complete first line (an identifier ending
+  in `_`) followed by application of the second line - "Unknown identifier
+  `..._`" at the call site. Keep names on one line or use the fully qualified
+  path; observed when calling record-1065's two-contract corollary from brick
+  1066.
 
 ### 7c. Numeric-probe fidelity laws (docs/proofs probes)
 

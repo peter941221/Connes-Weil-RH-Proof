@@ -814,3 +814,35 @@ hazards: implicit dot on a parenthesized applied receiver in def bodies fails
 resolution (use pipe-forward or fully-qualified call), and named defs like
 cc20Commutator are not auto-unfolded by bare simp only. RH unclaimed; GATE 1
 mainline untouched.
+
+## 2026-08-31 (tenth batch) - record 1066: F1' collapses to ONE analytic contract
+
+The two remaining F1' contracts are related by pure plumbing, and the brick
+`C1ProlateSingleContractReduction` (+ paired audit; design record
+docs/proofs/1066) records that as four declarations. The capstone corollary
+`targetProlateRemainderDetectorWeightedTraceLegality_of_remainderFactorSummable`
+closes F1' at unit scale from the SINGLE contract S2-FK-HS =
+`targetProlateRemainderFactorSummable`: S1 follows in one line via committed-green
+`summable_normSq_precomp` (HilbertSchmidtIdeal.lean:56-77; all three basis slots are
+globalBasis, operator := F_K, bounded := rootConvolution owner - PREcomposition; the
+postcomp sibling gives `C oL F_K`, the wrong order), and S2-legality was already brick
+1065's pair owner consuming the same contract.
+
+The iff theorem is what retires the second producer: S2-FK-HS is termwise identical to
+the retired raw-F1 series via the record-1063 diagonal identity ((|F_K e_i|^2 : R) : C)
+= <e_i, K_S e_i> (proof verbatim from git 74b8cbb; direction A is new but closes with
+h.congr + Summable.of_norm only). The single open contract IS numerically the {2,3,5}
+series record 1063 flagged (~xi_max^0.4 growth over four octaves), so 1063's operational
+guard is INHERITED, not a verdict: the probe measured nonmeet angle mass of M = E Q_S E
+while K_S = M - R_S leaves two unproved bridges (meet-residual control; grid-to-continuum
+basis). Next slice = record 1067 candidate: measure |F_K_model|_HS^2 = Tr(M - R_S) directly
+in the 1063 rig before scheduling an analytic producer.
+
+Build evidence (build #4, warm NTFS mirror): first run red on ONE error - the brick split
+record-1065's corollary name across two source lines and Lean read line one as the complete
+identifier (no identifier continuation across newlines; hazard banked in AGENTS 7b); second
+run green: footer `Build completed successfully (3201 jobs)`, zero error lines, zero sorryAx,
+all four declarations on exactly [propext, Classical.choice, Quot.sound]. New 7a hazard too:
+bare binary under non-interactive wsl bash -c is not on PATH and flock reports phantom
+EXIT=0 with no build at all (log-evidence acceptance catches it). RH unclaimed; GATE 1
+mainline untouched.
