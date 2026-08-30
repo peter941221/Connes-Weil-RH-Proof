@@ -1,0 +1,21 @@
+import ConnesWeilRH.Dev.C1SemilocalDetectorSecondSupportBridge
+
+/-! Focused axiom audit for the finite-S detector second-support bridge. -/
+
+namespace ConnesWeilRH.Source.C1SemilocalDetectorSecondSupportBridgeAudit
+
+open C1SemilocalDetectorSecondSupportBridge
+
+#check @semilocalHardyTitchmarsh_detector_conjugation
+#check @targetSecondSupportOrientedCrossing_eq_semilocalHardyTitchmarsh_conjugation
+#check @targetSecondSupportCompactRootPairData_traceProduct_eq
+#check @targetSecondSupportOrientedCrossing_isTraceClassAlong
+#check @targetSecondSupportCommutator_isTraceClassAlong
+
+#print axioms semilocalHardyTitchmarsh_detector_conjugation
+#print axioms targetSecondSupportOrientedCrossing_eq_semilocalHardyTitchmarsh_conjugation
+#print axioms targetSecondSupportCompactRootPairData_traceProduct_eq
+#print axioms targetSecondSupportOrientedCrossing_isTraceClassAlong
+#print axioms targetSecondSupportCommutator_isTraceClassAlong
+
+end ConnesWeilRH.Source.C1SemilocalDetectorSecondSupportBridgeAudit

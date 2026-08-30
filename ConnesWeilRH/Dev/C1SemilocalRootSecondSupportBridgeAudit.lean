@@ -1,0 +1,43 @@
+import ConnesWeilRH.Dev.C1SemilocalRootSecondSupportBridge
+
+/-! Focused axiom audit for the finite-S root second-support bridge. -/
+
+namespace ConnesWeilRH.Source.C1SemilocalRootSecondSupportBridgeAudit
+
+open C1SemilocalRootSecondSupportBridge
+
+#check @rootConvolution_comp_translation
+#check @rootConvolution_comp_primeEulerTransport
+#check @rootConvolution_comp_finiteEulerTransport
+#check @primeEulerTransportAdjoint_comp_rootConvolution
+#check @finiteEulerTransportAdjoint_comp_rootConvolution
+#check @semilocalHardyTitchmarsh_root_conjugation
+#check @reflection_involution_apply
+#check @fourier_reflection_involution_apply
+#check @reflectedRootFourierMultiplier_eq_reflection_conjugation
+#check @reflectedSpectralRoot
+#check @reflectedSpectralRoot_eq_reflectedConvolution
+#check @archimedeanHardyTitchmarsh_root_conjugation_eq_reflectedSpectralRoot
+#check @archimedeanHardyTitchmarsh_root_conjugation_eq_reflectedRoot
+#check @semilocalHardyTitchmarsh_root_conjugation_eq_reflectedRoot
+#check @targetFourierSupport_rootCommutator_eq_reflectedRoot
+#check @targetRootSecondSupportCommutatorBranch_eq_reflectedRoot
+
+#print axioms rootConvolution_comp_translation
+#print axioms rootConvolution_comp_primeEulerTransport
+#print axioms rootConvolution_comp_finiteEulerTransport
+#print axioms primeEulerTransportAdjoint_comp_rootConvolution
+#print axioms finiteEulerTransportAdjoint_comp_rootConvolution
+#print axioms semilocalHardyTitchmarsh_root_conjugation
+#print axioms reflection_involution_apply
+#print axioms fourier_reflection_involution_apply
+#print axioms reflectedRootFourierMultiplier_eq_reflection_conjugation
+#print axioms reflectedSpectralRoot
+#print axioms reflectedSpectralRoot_eq_reflectedConvolution
+#print axioms archimedeanHardyTitchmarsh_root_conjugation_eq_reflectedSpectralRoot
+#print axioms archimedeanHardyTitchmarsh_root_conjugation_eq_reflectedRoot
+#print axioms semilocalHardyTitchmarsh_root_conjugation_eq_reflectedRoot
+#print axioms targetFourierSupport_rootCommutator_eq_reflectedRoot
+#print axioms targetRootSecondSupportCommutatorBranch_eq_reflectedRoot
+
+end ConnesWeilRH.Source.C1SemilocalRootSecondSupportBridgeAudit

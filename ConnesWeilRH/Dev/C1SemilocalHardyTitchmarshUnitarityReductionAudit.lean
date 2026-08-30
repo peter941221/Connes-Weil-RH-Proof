@@ -1,0 +1,43 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1SemilocalHardyTitchmarshUnitarityReduction
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1SemilocalHardyTitchmarshUnitarityReductionAudit
+
+open C1SemilocalHardyTitchmarshUnitarityReduction
+
+#print axioms archimedeanHardyTitchmarsh_symm_apply
+#print axioms fourierTransform_comp_globalLogTranslation
+#print axioms archimedeanHardyTitchmarsh_globalLogTranslation
+#print axioms archimedeanHardyTitchmarsh_comp_globalLogTranslation
+#print axioms ccm24PrimeEulerContraction_adjoint_eq
+#print axioms ccm24PrimeEulerContraction_commute_adjoint
+#print axioms ccm24PrimeEulerTransport_commute_adjoint
+#print axioms ccm24FiniteEulerTransport_commute_adjoint
+#print axioms ccm24FiniteEulerTransport_isStarNormal
+#print axioms archimedeanHardyTitchmarsh_adjoint_eq_self
+#print axioms archimedeanHardyTitchmarsh_isSelfAdjoint
+#print axioms ccm24FiniteEulerTransport_comp_symm_toContinuousLinearMap
+#print axioms ccm24FiniteEulerTransport_symm_adjoint_comp_archimedeanHardyTitchmarsh
+#print axioms ccm24FiniteEulerTransport_symm_commute_adjoint
+#print axioms ccm24FiniteEulerTransport_comp_archimedeanHardyTitchmarsh
+#print axioms ccm24SemilocalHardyTitchmarsh_toContinuousLinearMap
+#print axioms ccm24SemilocalHardyTitchmarsh_adjoint_eq_self
+#print axioms ccm24SemilocalHardyTitchmarsh_isSelfAdjoint
+#print axioms ccm24SemilocalHardyTitchmarsh_comp_self
+#print axioms ccm24SemilocalHardyTitchmarsh_mem_unitary
+#print axioms ccm24SemilocalHardyTitchmarshUnitary
+#print axioms ccm24SemilocalHardyTitchmarshLinearIsometryEquiv
+#print axioms ccm24SemilocalHardyTitchmarshLinearIsometryEquiv_symm_apply
+#print axioms ccm24SemilocalFourierSupport_toSubmodule_eq_map_logRadialSupport
+#print axioms ccm24SemilocalFourierSupport_starProjection_apply
+#print axioms ccm24SemilocalFourierSupport_starProjection_eq_unitary_conjugate
+
+end C1SemilocalHardyTitchmarshUnitarityReductionAudit
+end Source
+end ConnesWeilRH
