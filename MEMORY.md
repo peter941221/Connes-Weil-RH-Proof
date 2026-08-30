@@ -595,3 +595,30 @@ scheduling the brick. 1056 amended (s5b), 1058 verdict amended (s2/s3),
 README C1/alpha boxes rewritten. No Lean edits; the F1 sorry at
 C1ProlateResponseTraceLegalityUnitScale.lean:121 stands as the thread's
 documented premise; 1055 freeze untouched and still binding.
+
+## 2026-08-30 (third batch) - record 1060 + brick: GATE 1 delta contract wired
+
+First Lean change since brick #1: new Dev leaf
+C1CC20ArchimedeanComparisonWiring.lean (+ paired Audit) turns the delta
+payload from the assembly's "NOT claimed here" prose into a named contract:
+structure CC20ArchimedeanComparison {k, trace, eTerm, gamma,
+trace_nonnegative, h142, hEchain, h143} whose fields are exactly CC20's
+(142) trace split, the E-chain rank bound, and (143) k-hat(0) = -2 g-hat(0).
+Producer noncomputable def builds CC20EndpointTraceCertificate with the paper
+coefficient 4*gamma/log 2; the proof is purely the vanishing mechanism:
+half-node + h143 => normSq = 0 => E(f) <= 0; h142 => trace <= W_infinity;
+zero-node kills the certificate's rank coordinate. Composition theorem
+qw_nonneg_of_archimedeanComparison reaches 0 <= qw g. Build evidence: 3607
+jobs, no error lines, zero sorryAx, all three public declarations on
+[propext, Classical.choice, Quot.sound]. Coordinate landmine (1060 s2):
+chain rank at laplaceAt s=1/2 vs certificate rank at s=0 are NEVER
+identified - the triple set {0,1/2,1} (paper nodes {rho=0,-i/2,+i/2}, the
+union of intro+final vanishing sets) zeroes both; safe-side resolution of
+the 1057 s5 flag; revisit this leaf if any consumer weakens vanishing.
+Residual delta obligation is now three checklists fields, gated on the
+gamma paper-scale payload (k-construction on the log owner + (140) chain).
+Build lessons banked as AGENTS 7f: def-namespace prefix is not the type
+(error-recovery sorry binders fake downstream linarith failures); Type-
+valued certificate => noncomputable def; rw-at fails on projections =>
+calc chain. README delta box upgraded [CONTRACT WIRED]; timeline names
+0e787b0 for the 1059 batch and frontier URL corrected (was stale 74b6203).

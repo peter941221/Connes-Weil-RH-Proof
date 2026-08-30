@@ -353,6 +353,17 @@ derivative of that path (mixing them flips the 1054 control sign).
   2a Gram-corrected reduction proceeds as algebra, R1 (target-side angle
   lemma via additive-kernel geometry, shifts log p >= log 2 moving the
   window off itself) is deferred to its own design record.
+- GATE 1 delta is CONTRACT-WIRED by 1060 (leaf
+  `Dev/C1CC20ArchimedeanComparisonWiring.lean`): the paper's (141)-(143) +
+  E(f) chain is the structure `CC20ArchimedeanComparison` (fields
+  h142/hEchain/h143/trace_nonnegative), consumed into
+  `CC20EndpointTraceCertificate` and onward to `0 <= qw g`.  Coordinate
+  landmine, do not lose: the CHAIN rank coordinate is `laplaceAt` s = 1/2
+  (paper `rho = 0`), the CERTIFICATE rank coordinate is `laplaceAt` s = 0
+  (paper `rho = i/2`); they are never identified - the wiring closes
+  because the triple vanishing set {0, 1/2, 1} zeroes BOTH.  If any future
+  consumer weakens the vanishing set, this leaf must be revisited first.
+  The 1057 s5 intro-vs-final vanishing flag is resolved on this safe side.
 ### 7e. v4.30 cast/spelling hazards (Bessel-repair round)
 
 - `(e : ℂ)` + `^ 2` elaborates the power OUTSIDE the cast (`(↑e) ^ 2`).
@@ -379,3 +390,19 @@ derivative of that path (mixing them flips the 1054 control sign).
   projected literals (`x * 1 = x` over ℝ) does NOT: close readback lemmas
   with `show` (unfold the projection) + `rw [rfl-projections]` + `norm_num`,
   not bare `rfl`/`rw [defName]`.
+
+### 7f. v4.30 hazards (1060 delta-wiring round)
+
+- `Source.CC20YoshidaConvolution.CompactLogTest` is only the DEF prefix of
+  `laplaceAt` - the TYPE is `CCM25Concrete.CompactLogConvolution.CompactLogTest`
+  (via `open CCM25Concrete.CompactLogConvolution`, use the bare name in type
+  positions).  Writing the def prefix as a type gives a cascade:
+  `Unknown identifier` + error-recovery `sorry` binders that make unrelated
+  downstream `linarith` failures LOOK real.  Fix the binder first.
+- A "certificate" structure with Real data fields is Type-valued: its
+  producer must be `noncomputable def` (Real.log division also blocks
+  plain `def`), never `theorem`.
+- `rw [...] at H.field` fails on structure projections
+  ("expected single reference to variable"): use a `calc` chain against the
+  projection instead, and `rw [eqHypothesis]; linarith` to consume an
+  additive identification like `trace = W + e`.

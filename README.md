@@ -20,7 +20,10 @@ Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 > (alpha reconnaissance: the endpoint profile is 11 terms deep),
 > [proof 1059](docs/proofs/1059_2b_margin_revocation_and_lambda_convention_pin.md)
 > (F1 brick-2b perturbation scheme REVOKED by its own pre-flight; the
-> paper's lambda(n) convention PINNED to the c = 2 pi even branch).
+> paper's lambda(n) convention PINNED to the c = 2 pi even branch),
+> [proof 1060](docs/proofs/1060_gate1_delta_wiring_contract.md)
+> (GATE 1 delta contract: the (141)-(143) chain is now a Lean structure
+> feeding the endpoint certificate; delta is gated on gamma).
 > **No unconditional proof of the Riemann hypothesis is claimed here.**
 
 ### Route map
@@ -152,12 +155,17 @@ bottom; every station on the road carries its state.
         |          a ~ 0.064, eps2 ~ 0.00441, eps1 ~ 0.00122,
         |          <zeta|xi_0> ~ 0.94865, second gap c > 0.227784.
         |
-        |      (delta) ARCHIMEDEAN COMPARISON .. [DATA OPEN]
-        |          trace - coefficient*rank <= W-infinity(g^2)
-        |          pinned to raw tex eqs (141)-(143) plus the E(f)
-        |          chain (1057); flag: intro theorem vanishes at
-        |          +i/2 AND 0, final theorem at -i/2 with rank-one
-        |          penalty - the detector consumer must match ONE
+        |      (delta) ARCHIMEDEAN COMPARISON .. [CONTRACT WIRED]
+        |          trace - coefficient*rank <= W-infinity(g^2), the
+        |          raw tex eqs (141)-(143) + E(f) chain (1057), is now
+        |          a named Lean contract CC20ArchimedeanComparison
+        |          whose fields ARE the three chain steps; the 1060
+        |          leaf produces the EndpointTraceCertificate from it
+        |          (standard-three axioms, no sorry) and composes to
+        |          0 <= qw g; the 1057 s5 vanishing-node flag is
+        |          resolved on the safe side - our triple set {0,
+        |          1/2, 1} contains every candidate node; remaining:
+        |          h142/hEchain/h143 discharge, now GATED ON GAMMA
         |
         |      (gapData) NON-PAPER BESSEL BRANCH [CLOSED]
         |          a = 1, epsilon1 = (1-lam)/2,
@@ -310,10 +318,11 @@ DATE         EVENT                                                COMMIT
 2026-08-30   brick #1: unit-scale trace legality, F1 isolated   16b5f96
              records 1056-1058: F1 scope, CC20 tex pins, alpha    9fc97ba
              .gitattributes: LF shell scripts for WSL2            74b6203
-             record 1059: 2b REVOKED, lambda(n) pinned            (this commit)
+             record 1059: 2b REVOKED, lambda(n) pinned            0e787b0
+             GATE 1 delta wiring leaf + record 1060               (this commit)
 ------------------------------------------------------------------------
 Code frontier at this writing:
-https://github.com/peter941221/Connes-Weil-RH-Proof/commit/74b6203
+https://github.com/peter941221/Connes-Weil-RH-Proof/commit/0e787b0
 ```
 
 The narrative snapshot below is retained unchanged from the previous
