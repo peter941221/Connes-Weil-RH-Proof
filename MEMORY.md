@@ -686,3 +686,52 @@ get AMENDMENT sections pointing here (nothing deleted). This is the 1059
 lesson - price derived quantities before scheduling bricks - catching its own
 predecessor: the mismatch was findable the instant the anchor was wired, which
 is exactly what 1061 s1 prescribed and 1062 executed.
+
+## 2026-08-30 (sixth batch) - record 1063: raw F1 FALSIFIED numerically; D-weighted F1' is the surviving route
+
+Task from Peter: rank the most dangerous breakpoints, deep-dive F1, and render
+a binary verdict ("打通" or "确定打不了") on the semilocal crux. F1 = the sole
+sorryAx carrier in `C1ProlateResponseTraceLegalityUnitScale.lean:117-121`,
+`targetProlateRemainder_unit_isTraceClassAlong`. Pinned every model object to
+Lean source (GlobalLogHaar:30 half-line E; CCM24HardyTitchmarsh:43-126,331-380
+source HT; EulerTransport:182-206; SemilocalFourierSupport:31-83; FiniteS-
+ProjectionTrace:145-220) and derived the KEY identity HT_S = f^{-1} M_{m_S} R f
+with m_S(xi) = m(xi) mu_S/conj mu_S, mu_S = prod_p (1 - p^{-1/2} e^{-2 pi i xi
+log p}) - the transport is a pure phase twist, self-adjoint unitary involution
+for EVERY S (gate: HT^2=I, HT=HT* to 3e-12; odd-N grids mandatory, even N drops
+Nyquist and silently breaks m(-xi)=conj m(xi), 8e-1 vs 3e-12). Built
+docs/proofs/1063_f1_target_angle_probe.py (angle sum of M=E Q_S E, meet split by
+first gap, scipy loggamma anchored to mpmath dps-50 at 4.6e-15) and
+1063b_f1_weighted_probe.py (D-weighted Tr(D K_S), Gaussian scales k=0.3/1/3).
+
+VERDICT (raw F1 is FALSE, 4 octaves of window, dt-quarter invariance to 0.003%):
+nonmeet Sum cos^2 over xi_max 12.8->25.6->51.2->102.4: src {PROVEN anchor}
+3.18/3.43/3.12/2.47 FLAT; {2,3,5} 10.21/15.18/20.88/28.28 grows ~xi_max^0.4; top
+angle pinned at 0.378-0.735 never decaying -> K_S not even compact. dt-invariance
+(4097/T20 20.8779 vs 8193/T40 20.8784 @ same window) proves the growth tracks
+the frequency WINDOW not the grid. Source plateaus by the IDENTICAL code path, so
+the rig is anchored and the failure is the operator's. Mechanism: the quasi-
+periodic twist mu_S/conj mu_S has no limit at |xi|->inf, so a non-vanishing angle
+bank persists at every frequency (Karlovich-type essential spectrum); the source
+phase arg m varies slowly, stationary phase closes angles - what
+CCM24UnitScaleStrictAngle proves.
+
+REPAIR (F1', owner-independent, numerically CONFIRMED): every leaf consumer
+(262-300, capstone 415) already sandwiches detectorOperator = M_{|hat h|^2}
+(GlobalConvolutionCrossing:22-25). Weighted sums SATURATE: {2,3,5} over the 4x
+window k=1.0 1.4020->1.4077, k=3.0 0.5340->0.5359, while raw doubles. Robust
+because raw angle-mass is SUBLINEAR (~X^0.45) and every Schwartz w beats every
+polynomial, so Abel summation bounds the weighted tail for EVERY owner - the 3
+test weights are a sample, not the scope. DESIGN DECISION (1063 s6): delete the
+raw sorry + reduction (:117-159), ADD
+targetProlateRemainderDetectorWeighted_isTraceClassAlong (D oL K_S) and route the
+capstone through it; expected mechanism D oL A^* A = (A oL D)^* oL A with the
+Schwartz right-factor absorbing the bank. This SUPERSEDES 1059's R2 posture:
+a named FALSE premise is worse than none. S1 (R_S={0} collapse) REFUTED by the
+probe - the meet block GROWS 42/117/303/746 (infinite-dimensional Sonin
+intersection = the 1055 lambda~1 block, now measured at unit scale); S3 downgraded
+from bypass to the shape of the surviving F1'. AGENTS 7c gains law (15) (dt-
+invariance at fixed window separates real divergence from under-resolution) and
+(16) (weighted saturation needs the sublinear-vs-Schwartz inequality, not the 3-
+point sample). GATE 1 mainline (alpha/beta/gamma/delta) untouched. No Lean change
+this batch (record + two probes only); commit d1dfae1 PUSHED, ls-remote verified.
