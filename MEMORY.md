@@ -778,3 +778,39 @@ untouched; RH unclaimed. New tactic hazards banked in AGENTS 7b: rw
 all-occurrences semantics, noncomm_ring on endomaps (pure-* only, no positional
 h args, ignores local a*a=1), mul_one/one_mul not simp-marked for `→L[ℂ]`
 endomaps, and comp-chain vs pure-* defeq.
+
+## 2026-08-31 (ninth batch) - record 1065: S2 pair owner green under one prolate-factor contract
+
+S2 now closes in Lean from EXACTLY ONE new named analytic contract. The brick
+`C1ProlateRootCommutatorPairOwner` (+ paired audit leaf; design record
+docs/proofs/1065) builds `targetProlateRootCommutatorPairData`: base data D0
+owns K_S as the positive square of its bounded factor F_K = Q_S (E - R_S)
+(existing adjoint-composition theorem), two boundedSandwich transports put the
+convolution root on either side, and l2Sum + smulRight(-1) forms the signed
+difference. The crux equation `T_P = cc20Commutator(C, K_S)` closes by
+rw [l2Sum_traceProduct_eq_add, smulRight_traceProduct_eq, D1 eq, D2 eq] then
+simp only [sub_eq_add_neg, neg_one_smul, cc20Commutator]. The root never
+appears as a Hilbert--Schmidt leg (bounded dressing only), so NO self-adjoint
+or unitary assumption on C is required - this is why the two-sided sandwich
+shape (option D) beat the oriented-difference alternatives in 1065's options
+table. The E/Q/R four-branch ledger stays the ESTIMATE route; legality does not
+consume it.
+
+The single new obligation S2-FK-HS = `targetProlateRemainderFactorSummable`
+(owner-free: Summable |F_K (globalBasis i)|^2) is named, producer-pending, and
+likely shares a producer with S1 (equivalent if the root were unitary on the
+carrier - not yet promoted). The F1' capstone is now a two-contract corollary:
+`targetProlateRemainderDetectorWeightedTraceLegality_of_rightSmoothing_and_
+remainderFactorSummable`: S1 + S2-FK-HS => F1'. Closing F1' at unit scale from
+here on is PURELY analytic production of the two summability facts - no more
+Lean owner machinery.
+
+Build evidence (build #3): footer `Build completed successfully (3200 jobs)`,
+zero error lines, zero sorryAx; all 11 audited declarations on exactly
+[propext, Classical.choice, Quot.sound]. The build ran against the warm NTFS
+mirror because wsl.exe inherited the Windows caller cwd (no explicit cd);
+dual-mirror olean-mtime discipline is now banked in AGENTS 7a, and two new 7b
+hazards: implicit dot on a parenthesized applied receiver in def bodies fails
+resolution (use pipe-forward or fully-qualified call), and named defs like
+cc20Commutator are not auto-unfolded by bare simp only. RH unclaimed; GATE 1
+mainline untouched.

@@ -180,6 +180,14 @@ verifies exact identities.
   the shell-level `cd`, Lake can resolve the caller cwd and pollute the
   Windows `.lake/build` (kill it and delete same-day artifacts there if that
   happens).
+- Dual-mirror cache divergence: `wsl.exe` inherits the Windows caller cwd, so
+  an un-cd'd build silently runs against the NTFS copy and its `.lake`. The
+  two mirrors' oleans can be days apart (observed 2026-08-31: ext4 mirror 5
+  days stale while `/mnt/c/.lake` was fresh). Before judging incremental vs
+  full wave, compare olean mtimes on BOTH sides (`ls -la .lake/build/lib/lean/...`).
+  A warm NTFS cache is a legitimate ~10-min fast path mid-campaign IF you know
+  which mirror each build used (check `/proc/<pid>/cwd` of the lake process if
+  in doubt). An un-planned full wave costs ~1.5 h on NTFS.
 - Cost model (warm ext4 mirror): no-op root build ~3 s; the real cost per edit
   is re-elaborating the one edited file (~12 s per big Dev leaf). Never judge
   progress by job counts; keep the persistent mirror warm.
@@ -262,6 +270,17 @@ verifies exact identities.
 - Cheap tactic-shape iteration: a standalone probe .lean plus direct
   `lake env lean <file>` (~30-60 s) settles defeq/tactic questions before
   burning full module builds; accept on LOG content, never exit code (see 7a).
+- Implicit dot notation on a parenthesized applied receiver inside def bodies
+  can fail to resolve ("Function expected at <receiver> ... being applied to
+  the argument .method") even when the identical pattern is green elsewhere:
+  every repo-green `.smulRight (-1)` usage keeps `).method` on ONE line. Safe
+  forms: pipe-forward (`a b c |>.method ...`) or a fully-qualified explicit
+  call; never start `.method` on a new line after `(receiver)`.
+- Named defs are NOT auto-unfolded by bare `simp only`: list them explicitly in
+  the simp set, e.g. `cc20Commutator` (noncomputable def at
+  ThreeBranchCommutatorLedger.lean:27-29), exactly as
+  CCM24FiniteSCommonBoundaryPair.lean:1751 does - otherwise it stays an opaque
+  atom and a signed-difference close leaves a residual goal.
 
 ### 7c. Numeric-probe fidelity laws (docs/proofs probes)
 
