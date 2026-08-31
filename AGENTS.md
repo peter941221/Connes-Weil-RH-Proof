@@ -5,6 +5,8 @@
 1. 禁止无实质作用的数值实验，要打数学证明。
 2. 多个实质推进之后统一批量构建验收、记录。
 3. `coverage root` 已在 Lean 中证明与 RH 等价，禁止把它写成普通密度引理。
+4. 唯一 RH 主线是健康 `CompactLog` 载体上的 B5 形态：只为选定探测器及其
+   有限可见素数集证明半局部正性。禁止把 ROOT 窗口正性写成 B1 已闭合。
 
 
 Working rules for the Connes-Weil RH formalization. Compressed 2026-08-27:
@@ -22,14 +24,27 @@ gaps: no `sorry`, `admit`, new axioms, `True`/`Set.univ` producer fields, or
 stored conclusions disguised as source data. Audited leaves must print exactly
 `[propext, Classical.choice, Quot.sound]`, zero `sorryAx`.
 
-Active route = C1 same-owner mainline, ROOT form landing target (window
-`[-log 2/2, log 2/2]`). Design record: `docs/proofs/1043_first_cut_window_architecture.md`.
+Active route = healthy-`CompactLog`, B5-shaped, detector-selected semi-local
+mainline.  The ROOT form on `[-log 2/2, log 2/2]` is a shared local CC20 base,
+not an RH exit and not the universal B1 criterion.  The mathematical exit is
+detector-specific semi-local positivity on the same healthy owner, followed by
+`SourceRH` and Mathlib RH.  Design records:
+`docs/proofs/1043_first_cut_window_architecture.md` and
+`docs/proofs/1076_b1_b5_minimal_exit_route_selection.md`.
 Freeze rules: `RH_MAINLINE_FREEZE.md` (run
 `pwsh -File scripts/check_rh_mainline_freeze.ps1` before touching frozen route
 namespaces). Current phase states: README "Status dashboard" (top).
 
-Route position (2026-08-29, commit 39f0f81 + pending proof-1050 correction):
-the CC20 finite-rank chain is wired through the concrete eq-(115) table, but
+Route selection (2026-08-31, record 1076): the output audit has two singleton
+logical cuts, B1 and B5, and each cut is RH-equivalent.  B1's executable
+producer would require positivity for all compactly supported vanishing tests;
+B5 asks only for the detectors selected against hypothetical off-line zeros.
+The B1-only universal globalization is frozen.  The literal normalized B5
+socket remains an audit interface, not a producer target: its underlying
+`normalizedCC20TestSpace` uses the rejected additive convolution model.
+
+Current local-base position: the CC20 finite-rank chain is wired through the
+concrete eq-(115) table, but
 the paper-scale audit found two corrections.  Equation (119) includes the
 central `n = 0` term, and the published scale is about `lam = 1.05158 > 1`;
 the landed Bessel lower bound is therefore only a valid `lam < 1` side branch.
@@ -43,9 +58,17 @@ Next bricks, in order:
 3. Theorem-7 same-owner trace identity and the resulting ROOT-window endpoint
    positivity theorem.
 4. Detector-selected semi-local positivity for each constructed detector and
-   its finite visible prime set, then `SourceRH` and Mathlib RH.  The existing
-   coverage root is the final RH-equivalent statement, not an intermediate
-   density lemma; design judgment: `docs/proofs/1050_one_shot_rh_route_verdict.md`.
+   its finite visible prime set on the healthy `CompactLog` owner, then
+   `SourceRH` and Mathlib RH.  The existing normalized coverage root is an
+   RH-equivalent audit socket, not an intermediate density lemma and not the
+   mathematical owner for new work; design judgments:
+   `docs/proofs/1050_one_shot_rh_route_verdict.md` and record 1076.
+
+Do not schedule a parallel B1 campaign.  `gamma + alpha/beta + delta` may
+advance as the shared ROOT-local base only when the proposed theorem names a
+consumer in the healthy detector-specific semi-local chain.  A density lift,
+an all-test sign theorem, or new producer work on the normalized additive B5
+owner is frozen.
 
 GATE 2 (Titchmarsh square-form bridge) is deliberately deferred: classical
 proofs need Paley-Wiener / Cartwright entire-function theory absent from
@@ -604,3 +627,26 @@ silently misprices every extrapolation (1075 s4.3 erratum).
   ("expected single reference to variable"): use a `calc` chain against the
   projection instead, and `rw [eqHypothesis]; linarith` to consume an
   additive identification like `trace = W + e`.
+
+### 7g. B1/B5 route boundary (record 1076)
+
+- In this section `B1` and `B5` mean the output-audit logical cuts.  Record
+  1074's historical label "GATE 1 alpha B1" is only a local work-package
+  label; call that brick `alpha-(983)-tail` in new plans.  It is not the B1
+  exit and does not unfreeze universal B1 work.
+- `gamma + alpha/beta + delta` ends at ROOT-window `qw` nonnegativity.  CC20
+  Theorem 1 has that fixed support; Appendix C equation (155) quantifies over
+  all compactly supported tests and all places.  No density or partition
+  argument crosses this quantifier gap because it must control mixed quadratic
+  terms and newly visible prime powers.
+- B1 and B5 are singleton logical exits in the output audit, but they are not
+  equal work packages.  A natural B1 producer needs the universal all-test
+  sign.  The selected-detector B5-shaped producer needs only one healthy
+  semi-local certificate per hypothetical off-line zero and its finite visible
+  prime set.  Freeze the B1-only universal generalization.
+- The literal `normalizedSelectedFinalRouteDetectorCriterionCoverageRoot`
+  remains useful as an RH-equivalent audit socket.  Do not build its producer
+  on `normalizedCC20TestSpace`: `not_normalizedCC20MellinConvolutionLaw` proves
+  that owner's alleged square doubles Mellin values instead of multiplying
+  them.  New detector work uses genuine `CompactLogTest` convolution and exits
+  through a healthy-owner `SourceRH` theorem.

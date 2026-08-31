@@ -8,15 +8,19 @@ $repoRoot = Split-Path -Parent (Split-Path -Parent $PSCommandPath)
 Set-Location -LiteralPath $repoRoot
 
 $freezePath = Join-Path $repoRoot 'RH_MAINLINE_FREEZE.md'
-$activeRoot = 'normalizedSelectedFinalRouteDetectorCriterionCoverageRoot'
+$auditSocket = 'normalizedSelectedFinalRouteDetectorCriterionCoverageRoot'
+$activeRouteMarker = 'detector-specific semi-local positivity'
 
 if (-not (Test-Path -LiteralPath $freezePath)) {
     throw "Missing RH mainline freeze manifest: $freezePath"
 }
 
 $freezeText = Get-Content -LiteralPath $freezePath -Raw
-if ($freezeText -notlike "*$activeRoot*") {
-    throw "Freeze manifest does not name the active RH root: $activeRoot"
+if ($freezeText -notlike "*$auditSocket*") {
+    throw "Freeze manifest does not name the RH-equivalent audit socket: $auditSocket"
+}
+if ($freezeText -notlike "*$activeRouteMarker*") {
+    throw "Freeze manifest does not name the healthy CompactLog mainline"
 }
 
 $frozenPathPattern = '^(ConnesWeilRH/Dev/.*(Gate3U|RouteA|RawRenewal|LaneR).*)$|^(docs/proofs/.*gate3u.*)$'
@@ -47,7 +51,7 @@ if ($violations.Count -gt 0) {
     throw "Frozen side-route changes detected. Advance the RH mainline or pass -AllowFrozen for an explicitly reviewed archival edit:`n$joined"
 }
 
-Write-Output "RH mainline freeze check passed: active root $activeRoot"
+Write-Output "RH mainline freeze check passed: healthy CompactLog mainline; audit socket $auditSocket"
 if ($AllowFrozen) {
     Write-Output 'Explicit archival override: -AllowFrozen'
 }

@@ -1090,3 +1090,18 @@ multi-bump combinations or support-location freedom (the 1070 gap-2 scope
 wall).  New AGENTS law 7c (24): growth-law variable attribution via
 row-wise division.  No Lean change (B1 brick 1076 recon'd, not started);
 P1 producer design record not started; RH unclaimed; GATE 1 untouched.
+
+2026-08-31 docs/proofs/1076_b1_b5_minimal_exit_route_selection.md + AGENTS.md +
+RH_MAINLINE_FREEZE.md : route audit confirms two singleton logical exits,
+{B1} and {B5}, but selects one executable campaign: healthy-CompactLog,
+B5-shaped detector-specific semi-local positivity.  The gamma + alpha/beta +
+delta chain remains the shared ROOT-local base; it does not close B1.  The
+B1-only universal all-support globalization is frozen.  The literal normalized
+B5 root remains an RH-equivalent audit socket, not a producer owner, because
+not_normalizedCC20MellinConvolutionLaw rejects its additive convolution model.
+The freeze checker now verifies both the healthy mainline marker and the audit
+socket.  `pwsh -NoProfile -File scripts/check_rh_mainline_freeze.ps1` passed;
+git diff --check passed apart from line-ending notices.  No Lean file changed,
+no theorem build was required, and RH remains unclaimed.  Terminology guard:
+the output-audit cut is `B1`; record 1074's local "GATE 1 alpha B1" brick is
+called `alpha-(983)-tail` in new plans and does not unfreeze B1.
