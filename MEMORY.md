@@ -846,3 +846,16 @@ all four declarations on exactly [propext, Classical.choice, Quot.sound]. New 7a
 bare binary under non-interactive wsl bash -c is not on PATH and flock reports phantom
 EXIT=0 with no build at all (log-evidence acceptance catches it). RH unclaimed; GATE 1
 mainline untouched.
+
+2026-08-31 RH_ROUTE_MECHANISM.md : new root-level three-view mechanism doc (a) RH compressed
+to the 5-line checklist (all five roots dated c59e955e, 2026-07-10; live #print axioms run on
+the warm mirror reproduced the e99ba6f ledger digit-for-digit, build footer 3775 jobs, zero
+error lines); (b) scaffolding census: Source+Route 8,402 axiom-clean theorems / 266,381 lines,
+zero axioms, zero sorries, plus the five-sentence glosses and acceptance instruments; (c) the
+demolished false paths with named death certificates (59f8ff8 bare-HS, 08-26 budget ladder,
+1052 D2, 1055 prolate double death, 1063 raw-F1, 1059 brick-2b REVOKED, 80 plan/ screens).
+Side audit finding banked here: the full-tree axiom census is 39 declarations (the earlier
+"40" counted a backtick prose hit in WeilC1NonEmptyProducer.lean:6 - corrected), of which
+5 are LIVE under the RH closure, 8 wrapped-off-chain, and 26 declared-but-unconsumed
+deadweight candidates for a zero-risk hygiene prune (NOT yet done; Dev-only, no consumers).
+Docs only; no .lean touched; RH unclaimed.
