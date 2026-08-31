@@ -5,6 +5,61 @@ ideas surrounding the Connes-Weil explicit formula.
 
 Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 
+```text
++===========================================================================+
+|  VIEW (b) — OPERATING SYSTEM: one round, every round                      |
++===========================================================================+
+
+   [claim in the published paper]
+        |
+        | recompute independently at certified precision
+        | (floats may generate candidates, never count as evidence)
+        v
+   [numeric probe]
+        |
+        | trust the probe only after it reproduces an identity that
+        | is already machine-proved, and matches the paper's own
+        | printed anchor value
+        v
+   [machine-checkable data]
+        |
+        | exact rationals with source-hashed provenance, or interval
+        | certificates — approximate numbers do not survive this step
+        v
+   [Lean theorem]  +  its own audit file
+        |
+        | build ladder from the edited module up to a full-route
+        | aggregate; acceptance reads the build log, not an exit code
+        v
+   +=================================== GATE ==================================+
+   |   is the axiom print exactly Lean's three standard foundations?           |
+   +===============+-----------------------------------------------+===========+
+         YES       |                                               |  NO
+         v         |                                               v
+   +-----------------------------+     +------------------------------+
+   | MAINLINE (imported trees)   |     | FRONTIER                     |
+   | audit-clean theorems only   |     | incomplete work and visible  |
+   |                             |     | placeholders live here ONLY  |
+   +-----------------------------+     +------------------------------+
+
+   WHAT THE MACHINE ALREADY PRODUCED (the scaffold under the checklist):
+
+   foundations -> arithmetic=spectral equality -> spectral bridge ->
+   window operator floor -> detector inequalities -> CC20 interface
+   (paper data re-encoded in checkable form) -> GATE 1 assembly [WIRED]
+
+   WHAT THE CHECKLIST LINES STILL OWE (obligations, not estimates):
+
+   (1)   hardest item: a coercivity certificate at the paper's own
+         scale; then mode enclosures; then one certified grid
+   (2)(3)(4)   interval certificates for three published numbers
+   (5)   a new construction — none on the table yet
+
+   CENSUS: of every assumption ever declared on the frontier, exactly
+   these five lines touch the RH output. "The rest contribute nothing"
+   is a transitivity consequence of the audit, not an estimate.
+```
+
 ## Status dashboard
 
 > **Updated 2026-08-30.** This dashboard describes commit
@@ -34,229 +89,6 @@ Toolchain: Lean 4.30.0 and Mathlib 4.30.0.
 > factor - and the endpointSlope identity then reproduces the paper's
 > printed term list and the 22.9965 anchor digit for digit).
 > **No unconditional proof of the Riemann hypothesis is claimed here.**
-
-### Route map
-
-Read it like a pilgrimage: the departure is at the top, RH lies at the
-bottom; every station on the road carries its state.
-
-```text
-
-            THE ROAD TO THE RIEMANN HYPOTHESIS - JOURNEY MAP
-        read downward: the departure is at the top, RH at the bottom
-
-   ===================  LEG I - ALREADY BEHIND US  ====================
-
-   DEPARTURE (July 2026): the Weil criterion is chosen as the road.
-   If qw(g) >= 0 for EVERY admissible vanishing test g, then RH follows.
-
-        |
-        v  +-----------------------------------------------------+
-           | STATION 1 - SAME-OWNER FOUNDATIONS     [CLEARED]    |
-           | log-coordinate bridge; pole / archimedean / prime   |
-           | readbacks; xi-zero index and spectral summability   |
-           +-----------------------------------------------------+
-        |
-        v  +-----------------------------------------------------+
-           | STATION 2 - GATE 2                    [CLEARED]     |
-           | arithmetic-to-spectral equality on ONE owner;       |
-           | center-2 contour assembly                           |
-           +-----------------------------------------------------+
-        |
-        v  +-----------------------------------------------------+
-           | STATION 3 - THE W-MOUNTAIN PASS       [CLEARED]     |
-           | W1 online nonnegativity -> W2 vanishing bridge ->   |
-           | W3 spectral split -> W4a conjugation -> W4b pairing |
-           | (residual = 2 x Re(right-half sum)) -> real-test    |
-           | reduction. Five days, five lemmas, axiom-clean.     |
-           +-----------------------------------------------------+
-        |
-        |
-        +------>  SIDE VALLEY - the budget-window ladder:
-        |         three rungs carved, then PROVEN unreachable
-        |         against the ROOT window: B(log 2) ~= +3.9 > 0.
-        |                            ** TURNED BACK **
-        |
-   ============  LEG II - THE GREAT TURN (CC20 ROUTE)  ================
-
-        v  +-----------------------------------------------------+
-           | STATION 4 - OPERATOR FLOOR ON WINDOW I [BUILT]      |
-           | [-log2/2, log2/2]: kernels -> L2 mass ladder ->     |
-           | eq-(121) fold -> bounded operators applyKernelLp.   |
-           | The pure-algebra key already fits too:              |
-           | qw(g) = -arch(g^2) here (primes die by support,     |
-           | pole dies by triple vanishing).                     |
-           +-----------------------------------------------------+
-        |
-        v  +-----------------------------------------------------+
-           | DETECTOR RIDGE - BOMBIERI/WIRTINGER   [CLEARED]     |
-           | (8.13) wirtingerFull: Q(Z) splits into even/odd     |
-           | envelopes plus a nonnegative remainder; (8.11) the  |
-           | weighted K* Gram sum = ofReal S with S >= 0; the    |
-           | reciprocal-eigenvalue sign 0 < lam, conditional.    |
-           | DETECTOR only - never an unconditional GATE 1.      |
-           +-----------------------------------------------------+
-        |
-        v  +-----------------------------------------------------+
-           | CC20 FINITE-RANK INTERFACE            [BUILT]       |
-           | eq-(115) profile difference chi - tau = K_I - T;    |
-           | eq-(119) finite operator T; eq-(121) pairing bound, |
-           | operator-norm gap, rank-one consumer; ROOT-local    |
-           | Fact-1 alignment; paired plus/minus symmetry.       |
-           +-----------------------------------------------------+
-        |
-        v  +-----------------------------------------------------+
-           | EXTRACTED TABLE - PUBLISHED eq-(115) DATA [LANDED]  |
-           | m = 1732 angles + coefficients, exact rationals,    |
-           | SHA-256-pinned DOCX sources; n=0 plus the sign-paired|
-           | nonzero index make eq-(119) complete and symmetric; |
-           | concrete evenness + ROOT-window continuity; the     |
-           | Fact-1 half-gap certificate ASSEMBLED concretely.   |
-           +-----------------------------------------------------+
-        |
-        v  +-----------------------------------------------------+
-           | GAMMA COERCIVITY - PAPER SCALE          [OPEN]      |
-           | row-band AM-GM sandwich + 1732-branch coefficient   |
-           | positivity are built. Bessel gives defect >=        |
-           | (1-lam)||xi||^2 only for lam < 1. CC20 uses          |
-           | lam ~= 1.05158 > 1, so exceptional direction +      |
-           | complement spectrum + rank-one repair remain open.  |
-           +-----------------------------------------------------+
-        |
-        v  +-----------------------------------------------------+
-           | GATE 1 ASSEMBLY - CONDITIONAL CHAIN [WIRED]         |
-           | one entry point for the concrete table: grid ->     |
-           | eq-(121) operator gap -> Lemma-second rank-one ->   |
-           | 13 < 4g/log 2 < 17 -> slope-matched residual.       |
-           | Residue = alpha / beta / paper-gamma / delta.       |
-           | Bessel discharges only a separate lam < 1 branch.   |
-           +-----------------------------------------------------+
-        |
-
-   ##############  YOU ARE HERE  -  GATE 1 BASE CAMP  ################
-
-        |  goal: arch(g^2) <= 0 for all ROOT-class tests [OPEN]
-        |  the machinery is wired END TO END; the payloads:
-        |
-        |      (alpha) ENDPOINT PROFILE CHI ..... [T1-T3 DATA IN HAND]
-        |          shape pinned (1057/1058): 11 modes suffice - the
-        |          paper's own eq-(170) bounds the rest by 2.366e-12
-        |          on [1,2], and probe 1058 reproduced that tail
-        |          arithmetic exactly; CONVENTION CORRECTED (1062):
-        |          the paper's lambda(n) is the SINGLE windowed-Fourier
-        |          eigenvalue = (-1)^n sqrt(concentration table), NOT the
-        |          concentration eigenvalue the 1059 s4 pin said; T1
-        |          concentration table n=0..10 at dps 60, 33-80 stable
-        |          digits M=44/56; T2/T3 CLOSED numerically (1062): the
-        |          analyticMode sinc-extension validates at ODE residual
-        |          1e-33 (x=1 continuation automatic), and the endpoint-
-        |          Slope identity reproduces the paper's printed t(n) list
-        |          (11.9719, 8.77574, ...) and anchor 22.9964756839 vs
-        |          22.9965; eigenvalue obligation SPLITS: n>=2 by (983)
-        |          (< 0.754 < 1), modes 0-1 need enclosures (corrected
-        |          margins 5.72e-5 / 4.06e-2); remaining: B1-B3
-        |          rigorization bricks + the innerltwoeven sqrt(2) lemma
-        |
-        |      (beta) JOINT GRID TABLE 2*int |chi - tau|
-        |          <= epsilon1 ................ [DATA OPEN]
-        |          certified L1 quadrature over the extracted
-        |          table (consumer landed; blocked by alpha)
-        |
-        |      (gamma) PAPER-SCALE COERCIVITY .... [DATA OPEN]
-        |          CC20 has lam ~= 1.05158 > 1, while the
-        |          Bessel lower bound is only (1-lam)||xi||^2.
-        |          Need an exact finite-section/Toeplitz
-        |          certificate for the exceptional direction,
-        |          complement frame bound, and rank-one repair.
-        |          Constants tex-pinned (1057 s2): b ~ 0.05158,
-        |          a ~ 0.064, eps2 ~ 0.00441, eps1 ~ 0.00122,
-        |          <zeta|xi_0> ~ 0.94865, second gap c > 0.227784.
-        |
-        |      (delta) ARCHIMEDEAN COMPARISON .. [CONTRACT WIRED]
-        |          trace - coefficient*rank <= W-infinity(g^2), the
-        |          raw tex eqs (141)-(143) + E(f) chain (1057), is now
-        |          a named Lean contract CC20ArchimedeanComparison
-        |          whose fields ARE the three chain steps; the 1060
-        |          leaf produces the EndpointTraceCertificate from it
-        |          (standard-three axioms, no sorry) and composes to
-        |          0 <= qw g; the 1057 s5 vanishing-node flag is
-        |          resolved on the safe side - our triple set {0,
-        |          1/2, 1} contains every candidate node; remaining:
-        |          h142/hEchain/h143 discharge, now GATED ON GAMMA
-        |
-        |      (gapData) NON-PAPER BESSEL BRANCH [CLOSED]
-        |          a = 1, epsilon1 = (1-lam)/2,
-        |          epsilon2 = 1-lam under lam < 1; it cannot
-        |          instantiate the published lam > 1 argument
-        |
-        |  PARALLEL THREAD - C1 BRICKS (Option-C semi-local bridge,
-        |  1050 s4): brick #1 LANDED 16b5f96 - F2 proven, capstone
-        |  holds modulo the single F1 crux + two compression-HS
-        |  premises.  F1 scoped (1056): LEGAL for fixed lambda = 1
-        |  model objects (outside the 1055 freeze; explicitly NOT a
-        |  1055-P1 revival payment).  Brick #2 re-scoped (1059): the
-        |  2b perturbation scheme was REVOKED by its own margin check
-        |  (kappa(T_2) = 5.83 vs a qualitative source margin); F1
-        |  stays the thread's named conditional premise (R2 default),
-        |  2a Gram-corrected reduction proceeds as algebra, and the
-        |  target-side angle lemma (R1) is a separate design record.
-        |
-
-   =====================  LEG III - STILL AHEAD  ======================
-
-        |
-        v  +-----------------------------------------------------+
-           | STATION 5 - SEMI-LOCAL DETECTOR STEP  [AHEAD]       |
-           | selected detector + its finite visible prime set;   |
-           | prove the same-owner semi-local trace positivity    |
-           +-----------------------------------------------------+
-        |
-        v  +-----------------------------------------------------+
-           | STATION 6 - DETECTOR NONNEGATIVITY     [LAST GAP]   |
-           | contradict the landed strict negative detector;     |
-           | coverage-root is RH-equivalent, not a density lemma |
-           +-----------------------------------------------------+
-        |
-        v  +-----------------------------------------------------+
-           | STATION 7 - WRAPPER COMPOSITION       [LANDED]      |
-           | coverage-root <-> SourceRH bridges plus the         |
-           | conditional exits; proved once; no analysis inside  |
-           +-----------------------------------------------------+
-        |
-        v
-   ,---------------------------------------------------,
-   |            R I E M A N N   H Y P O T H E S I S    |
-   |            _root_.RiemannHypothesis (Mathlib)     |
-   '---------------------------------------------------'
-
-   ROADS NOT TAKEN (kept so nobody wanders back in):
-     x  bare whole-line Hilbert-Schmidt premise - false for every
-        nonzero test (proved)
-     x  plain-window cutoff trace family - empty producer (proved)
-     x  semilocal prolate asymptotic family - DEAD at the P2b gate
-        (proof 1055): the cancellation has no mechanism (1054 exact
-        counterexample) and no fixed-precision evaluation exists at any
-        meaningful scale (precision wall); revival needs a proved
-        self-adjoint realization plus an analytic one-crossing identity
-     o  GATE 2 Titchmarsh square-form bridge - deferred by design;
-        not needed for this first cut (Cartwright theory absent
-        from Mathlib)
-```
-
-How to read the tags:
-
-- `[CLEARED]` / `[BUILT]` / `[LANDED]` - proved in Lean and axiom-clean:
-  every audited declaration reports exactly
-  `[propext, Classical.choice, Quot.sound]`, never `sorryAx`.
-- `[OPEN]` / `[AHEAD]` / `[LAST GAP]` - explicit outstanding obligations;
-  nothing is hidden behind an axiom or a placeholder.
-- `[NEXT]` - the brick under construction right now; `[DATA OPEN]` - the
-  numeric side of a gate whose Lean interfaces already exist.
-- `** TURNED BACK **` and the `x` roads - ruled-out paths, kept as signposts
-  so nobody wanders back in; `[DEFERRED]` / `o` - postponed by a documented
-  design decision, recorded in
-  [proof 1043](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/docs/proofs/1043_first_cut_window_architecture.md),
-  the living design record behind this map.
 
 A milestone count is not an honest measure of distance to RH. The operator
 floor, the detector ridge, and the published-data table have landed and audit

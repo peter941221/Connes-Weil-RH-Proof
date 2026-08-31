@@ -905,3 +905,16 @@ probes, background-task "completed exit 0" unverified until pgrep empty + end ba
 (two pythons thrash OpenBLAS), WSLg X-noise /tmp-file-then-cat in one call, $var loss even
 single-quoted across the wsl boundary. RH unclaimed; GATE 1 mainline untouched (alpha B1/B2
 enclosures still next on that line).
+
+2026-08-31 (mechanism-doc pass): RH_ROUTE_MECHANISM.md finalized into three
+number-free views: (a) RH -> five checkable sentences; (b) the operating
+system (paper claim -> probe -> certified data -> Lean theorem -> audit gate);
+(c) converted from the closed-roads grading table to a box-per-sentence
+walkthrough of the five live lines (says / why hard / owes), with the graded
+road record kept as a one-line pointer into README + docs/proofs. View (b) now
+sits at the very top of README.md; the old journey map and its tag legend were
+removed from README (223 lines), the "milestone count is not an honest
+measure" paragraph retained. The same three views were inserted (HTML-escaped,
+no added heading) at the top of an out-of-repo interview-preparation page.
+Box alignment normalized mechanically: single-box interiors now uniform per
+box group; the pre-existing 1-column GATE border drift was fixed. RH unclaimed.

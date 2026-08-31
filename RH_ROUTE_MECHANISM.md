@@ -10,51 +10,49 @@
 +===========================================================================+
 
    +---------------------------------------------------------------+
-   | RH: every nontrivial zero of zeta sits on Re(s) = 1/2        |
-   | problem: infinitely many zeros, none individually checkable  |
+   |  RH: every nontrivial zero of zeta sits on Re(s) = 1/2        |
+   |  problem: infinitely many zeros, none individually checkable  |
    +---------------------------------------------------------------+
                          |
                          | [step 1] Weil criterion (classical theorem,
                          |          restated in Lean): zeros -> signs
                          v
    +---------------------------------------------------------------+
-   |  RH  <==>  q_w(g) >= 0 for every probe g vanishing at        |
-   |            the three points {0, 1/2, 1}                      |
+   |  RH  <==>  q_w(g) >= 0 for every probe g vanishing at         |
+   |  the three points {0, 1/2, 1}                                 |
    +---------------------------------------------------------------+
                          |
                          | [step 2] attack the sums through ONE
-                         |          concrete object (CC20 paper)
+                         |          concrete finite matrix (CC20 paper)
                          v
    +---------------------------------------------------------------+
-   |  finite-rank operator T on the log window [-log2/2, log2/2]  |
-   |  eq-(115/119/121) interface; T > 0  ==>  q_w(g) >= 0        |
+   |  finite-rank operator T on a fixed log window                 |
+   |  T >= 0  ==>  q_w(g) >= 0                                     |
    +---------------------------------------------------------------+
                          |
                          | [step 3] whole chain formalized; every
                          |          arrow = already-checked theorem
                          v
    +---------------------------------------------------------------+
-   |  coverage root -> SourceRH -> cc20 finite-vanishing          |
-   |        -> rhDefinitionBridge -> _root_.RiemannHypothesis    |
+   |  coverage root -> SourceRH -> cc20 finite-vanishing           |
+   |  -> rhDefinitionBridge -> _root_.RiemannHypothesis            |
    +---------------------------------------------------------------+
                          |
                          | [step 4] #print axioms
                          |  (Lean's transitive borrow-list; total)
                          v
    +---------------------------------------------------------------+
-   |  CHECKLIST  (five named sentences, written 2026-07-10)      |
-   |                                                             |
-   |   ( ) (1) C1 criterion: every probe's energy >= 0           |
-   |   ( ) (2) finite-prime arithmetic data package              |
-   |   ( ) (3) remainder rows: "outside, no bulk"                |
-   |   ( ) (4) trace-package remainder data                      |
-   |   ( ) (5) detector coverage: no off-line zero escapes       |
-   |                              |                              |
-   |   (1),(5) = cores: each iff RH -- proved theorems           |
-   |   (2),(3),(4) = data slots: certificates pending            |
-   |                                                             |
-   |   audit line = 8 = these 5 + Lean ticket [propext,          |
-   |                Classical.choice, Quot.sound]                |
+   |  CHECKLIST  (what the final audit still assumes)              |
+   |                                                               |
+   |  ( ) (1) C1 criterion: every probe's energy >= 0              |
+   |  ( ) (2) finite-prime arithmetic data package                 |
+   |  ( ) (3) remainder rows: "outside, no bulk"                   |
+   |  ( ) (4) trace-package remainder data                         |
+   |  ( ) (5) detector coverage: no off-line zero escapes          |
+   |                                                               |
+   |  (1),(5) = cores: each proved equivalent to RH                |
+   |  (2),(3),(4) = data slots: certificates pending               |
+   |  nothing else is borrowed beyond Lean's own foundations       |
    +---------------------------------------------------------------+
 ```
 
@@ -70,208 +68,134 @@
 |  VIEW (b) — OPERATING SYSTEM: one round, every round                      |
 +===========================================================================+
 
-   [paper fact]  (e.g. CC20 eq-(115) table, Fact-1 L1 ~ 0.00122)
+   [claim in the published paper]
         |
-        | recompute independently; floats may only generate,
-        | never evidence (law 11: validated values need
-        | mpmath/ARB; law 12: constants inside workdps)
+        | recompute independently at certified precision
+        | (floats may generate candidates, never count as evidence)
         v
-   [numeric probe]  docs/proofs/NNNN_*_probe.py
+   [numeric probe]
         |
-        | pre-trust law (1): first reproduce a Lean-proven identity
-        | convention pins must match the paper's published number
-        | (this anchor test caught our own sqrt errata, 1059->1062)
+        | trust the probe only after it reproduces an identity that
+        | is already machine-proved, and matches the paper's own
+        | printed anchor value
         v
    [machine-checkable data]
-        |   exact rationals + per-node SHA-256 provenance
-        |   (scripts/cc20_eq115/)          interval certs
-        |   (scripts/yoshida_intervals/)
-        v
-   [Lean brick]  Dev/<Leaf>.lean  +  paired <Leaf>Audit.lean
         |
-        | build ladder: owner -> import probe -> #print axioms
-        |  -> Dev batch -> full-root (milestones only)
-        | acceptance = log footer + zero "^error:" lines; the
-        |  exit code is untrusted in both directions (AGENTS 7a)
+        | exact rationals with source-hashed provenance, or interval
+        | certificates — approximate numbers do not survive this step
         v
-   +========================== GATE ==============================+
-   |  axiom print == [propext, Classical.choice, Quot.sound]?     |
-   +==============+---------------------------------+--------------+
-        YES      |                                 |  NO
-        v        v                                 v   (stays frontier work)
-   +-----------------------------+     +--------------------------+
-   | imported trees (Source/     |     | Dev/ frontier: 1022 files|
-   |  Route): 598 files,         |     | 41 sorry, probes only;   |
-   |  266,381 lines,             |     | freeze guard fail-closed |
-   |  8,402 theorems, 0 axioms   |     | on frozen namespaces     |
-   +-----------------------------+     +--------------------------+
+   [Lean theorem]  +  its own audit file
+        |
+        | build ladder from the edited module up to a full-route
+        | aggregate; acceptance reads the build log, not an exit code
+        v
+   +=================================== GATE ==================================+
+   |   is the axiom print exactly Lean's three standard foundations?           |
+   +===============+-----------------------------------------------+===========+
+         YES       |                                               |  NO
+         v         |                                               v
+   +-----------------------------+     +------------------------------+
+   | MAINLINE (imported trees)   |     | FRONTIER                     |
+   | audit-clean theorems only   |     | incomplete work and visible  |
+   |                             |     | placeholders live here ONLY  |
+   +-----------------------------+     +------------------------------+
 
-   WHAT THE SCAFFOLD ALREADY CARRIES (README route map):
+   WHAT THE MACHINE ALREADY PRODUCED (the scaffold under the checklist):
 
-   +----------+------------------------------------------+-----------+
-   | floor    | content                                  | state     |
-   +----------+------------------------------------------+-----------+
-   | st.1     | same-owner foundations, log bridge,      | CLEARED   |
-   |          | pole/archimedean/prime readbacks         |           |
-   | st.2     | GATE 2 arithmetic = spectral (center-2)  | CLEARED   |
-   | st.3     | W-mountain W1..W4b (spectral split)      | CLEARED   |
-   | st.4     | operator floor on window, eq-(121) fold  | BUILT     |
-   | ridge    | detector: Wirtinger (8.13), (8.11)       | CLEARED   |
-   | iface    | CC20 finite-rank + 1732-entry table      | LANDED    |
-   | assembly | GATE 1 conditional chain                 | WIRED     |
-   +----------+------------------------------------------+-----------+
+   foundations -> arithmetic=spectral equality -> spectral bridge ->
+   window operator floor -> detector inequalities -> CC20 interface
+   (paper data re-encoded in checkable form) -> GATE 1 assembly [WIRED]
 
-   THE FIVE LINES, SIDE BY SIDE:
+   WHAT THE CHECKLIST LINES STILL OWE (obligations, not estimates):
 
-   +-----+------------------------------+-----------------+---------------+
-   | #   | plain words                  | face            | still owes    |
-   +-----+------------------------------+-----------------+---------------+
-   | (1) | every admissible probe has a | analytic;       | gamma, alpha, |
-   |     | nonnegative energy account   | iff RH proved   | beta; delta   |
-   |     |                              | (:1518, :1537)  | wired         |
-   | (2) | prime-term data package      | data slot       | L1 interval   |
-   |     |                              |                 | certificate   |
-   | (3) | tail ledger, no bulk         | data slot       | rows cert     |
-   | (4) | trace-package remainders     | data slot       | trace cert    |
-   | (5) | no off-line detector escapes | construction;   | NEW design    |
-   |     |                              | iff RH proved   | (none yet)    |
-   +-----+------------------------------+-----------------+---------------+
+   (1)   hardest item: a coercivity certificate at the paper's own
+         scale; then mode enclosures; then one certified grid
+   (2)(3)(4)   interval certificates for three published numbers
+   (5)   a new construction — none on the table yet
 
-   CENSUS OF ALL DECLARED axiom ROOTS (39):
-   +--------------+-----------------+-----------------------------+
-   | 5 LIVE       | 8 wrapped       | 26 declared-unconsumed      |
-   | under RH     | off-RH contract | deadweight (prune           |
-   | closure      | lanes           | candidates)                 |
-   +--------------+-----------------+-----------------------------+
-        "the other 34 contribute nothing to the RH output" is a
-        transitivity consequence of the audit, not an estimate.
+   CENSUS: of every assumption ever declared on the frontier, exactly
+   these five lines touch the RH output. "The rest contribute nothing"
+   is a transitivity consequence of the audit, not an estimate.
 ```
 
-> **Interview script — view (b)** (read down the loop)
-> - "This is the per-round procedure. It starts from a claim in the published paper."
-> - "We recompute that claim at certified precision; ordinary floating-point output never counts as evidence."
-> - "It is then re-encoded as machine-checkable data: exact rationals with per-node provenance hashes, or interval certificates."
-> - "Finally it becomes a Lean theorem, and the audit below the gate asks one question: is its axiom print exactly the three standard axioms?"
-> - "Passing results enter the imported tree — 8,400 theorems so far, all axiom-clean. Anything else remains frontier work."
-> - "The closing table is the full assumption census: 39 roots declared, 5 of them load-bearing — and that split is machine-checked, not estimated."
+> **Interview script — view (b)** (read down the loop, then the three summaries)
+> - "Every round starts from a claim in a paper; nothing printed is taken on trust."
+> - "We recompute the claim at certified precision, validate the computation itself against a known anchor, and re-encode it as data Lean can check: exact values with hashed provenance, or interval certificates."
+> - "One gate decides membership — a theorem enters the mainline only when its axiom print shows nothing beyond Lean's standard foundations; incomplete work keeps its placeholders visible in the frontier instead."
+> - "That is why 'it compiles' cannot masquerade as 'it is proven' here: the boundary is printed by the checker, not asserted by us."
 
 ```text
 +===========================================================================+
-|  VIEW (c) — PRUNING + REMAINING GATES                                     |
+|  VIEW (c) — WHAT REMAINS: the five lines, explained one by one            |
 +===========================================================================+
 
-   OFF-BOARD ROADS - four grades, not one
-   (nothing here "counts as progress"; only grade F was ever
-   completed, and completed != an RH step):
-
-   +---------------------------+--------------+------------------+--------+
-   | road                      | GRADE        | instrument       | record |
-   +---------------------------+--------------+------------------+--------+
-   | bare whole-line HS        | DEAD by      | theorem: false   | 59f8ff8|
-   | premise                   | THEOREM      | for every        | 08-24  |
-   |                           |              | nonzero test     |        |
-   | pure-analysis budget      | DEAD by      | theorem:         | 08-26; |
-   | ladder to ROOT window     | THEOREM      | B(log2)=+3.9>0,  | 3 rungs|
-   |                           |              | top rung proven  | carved |
-   |                           |              | unreachable      | first  |
-   | plain-window cutoff trace | DEAD by      | theorem: empty   | -      |
-   | family                    | THEOREM      | producer         |        |
-   | canonical positive-kernel | DEAD by      | theorem: D2      | 1052   |
-   | cutoff bridge             | THEOREM      | obstruction      | no-go  |
-   +---------------------------+--------------+------------------+--------+
-   | semilocal prolate         | DEAD by      | no mechanism     | 1054/  |
-   | asymptotic family         | VERDICT      | (1054 exact      | 1055;  |
-   | (sole STATION 5-6 cand.)  |              | counterexample)  | d330e90|
-   |                           |              | + no decidable   | 08-29; |
-   |                           |              | eval (precision  | revival|
-   |                           |              | wall)            | conds  |
-   |                           |              |                  | written|
-   | raw F1 semilocal crux     | DEAD by      | 4-octave, dt-    | 1063   |
-   |                           | VERDICT      | invariant number-| 08-31; |
-   |                           |              | ic falsification;| D-wt   |
-   |                           |              | D-weighted F1'   | F1'    |
-   |                           |              | survives instead | survives|
-   | F1 brick-2b               | DEAD by      | own pre-flight   | 1059   |
-   | (perturbation scheme)     | VERDICT      | margin check     |REVOKED |
-   +---------------------------+--------------+------------------+--------+
-   | Nyman, Burnol, Sonin,     | SCREENED     | named coeff/     | plan/  |
-   | adelic, Clifford,         | OUT          | ideal-class/     | 80     |
-   | Fredholm, log-Poisson,    | (verdict-    | density/domain   | files  |
-   | Xi-nullspace, ...         | grade)       | obstructions     |        |
-   +---------------------------+--------------+------------------+--------+
-   | Lane R, Gamma_R prefix/   | FROZEN,      | work EXISTS;     | 271b8fd|
-   | tail sign experiments     | NOT DEAD     | doesn't imply    | 08-19; |
-   |                           |              | global spectral  |arch/   |
-   |                           |              | nonnegativity    |lane_r  |
-   | Gate 3U physical branch   | FROZEN,      | finite-band      |arch/   |
-   |                           | NOT DEAD     | Route-A deliver- |diagnos-|
-   |                           |              | able COMPLETE,   | tic_   |
-   |                           |              | audit-clean -    | gate3u;|
-   |                           |              | not an RH step;  |ident-  |
-   |                           |              | infinite-carrier | ities  |
-   |                           |              | identities OPEN  | OPEN   |
-   +---------------------------+--------------+------------------+--------+
-
-   REOPENING RULES, by grade:
-   +--------------+------------------------------------------------+
-   | DEAD by      | needs a NEW checked theorem implying the RH    |
-   | THEOREM      | root; the old statement is refuted for good    |
-   +--------------+------------------------------------------------+
-   | DEAD by      | written revival conditions (e.g. 1055 s5:      |
-   | VERDICT      | proved self-adjoint realization + analytic     |
-   |              | one-crossing identity, else citation is frozen)|
-   +--------------+------------------------------------------------+
-   | SCREENED     | re-entry must address the named obstruction    |
-   | OUT          | head-on                                        |
-   +--------------+------------------------------------------------+
-   | FROZEN,      | nothing disproved it: Unfreeze Rule             |
-   | NOT DEAD     | (RH_MAINLINE_FREEZE.md) - only a checked       |
-   |              | implication to the coverage root reopens it    |
-   +--------------+------------------------------------------------+
-
-   WHAT IS LEFT — dependency graph to the first checkmarks:
-
-            +-------------------------------------------+
-            | gamma: paper-scale coercivity certificate |  <-- hardest:
-            | Toeplitz finite-section at lam~1.05158>1  |   textbook
-            | (Bessel branch only works for lam < 1)    |   bounds fail
-            +-------------------------------------------+
-                  |                        |
-                  v                        v
-   +------------------------+   +---------------------------+
-   | delta: (141)-(143)     |   | alpha: 11-mode ODE        |
-   | chain -- ALREADY WIRED |   | enclosures + B1-B3 bricks |
-   +------------------------+   +---------------------------+
-                  |                        |
-                  |                        v
-                  |              +---------------------------+
-                  |              | beta: certified L1 grid   |
-                  |              | 2*int|chi-tau| <= eps1    |
-                  |              +---------------------------+
-                  |                        |
-                  +------------+-----------+
-                               v
-                    +------------------------+
-                    | LINE (1) can be ticked |
-                    +------------------------+
-   +-----------------------------------+   +---------------------------+
-   | interval certificates -> (2)(3)(4)|   | NEW CONSTRUCTION -> (5)   |
-   | (exact-rationals machinery ready) |   | (none on the table yet)   |
-   +-----------------------------------+   +---------------------------+
+   The audit of the RH output assumes exactly five named sentences.
+   Two are cores: each carries a proved theorem of the form
+   "this sentence <==> RH" — they are the mountain, restated.
+   Three are data slots: no new mathematics, only certificates.
 
    +---------------------------------------------------------------+
-   | NET TERRAIN: 39 roots declared -> 34 machine-proven off-closure|
-   | -> the 5-line board is irreducible; closed roads are why       |
-   |   these are the only gates left on this route                  |
+   |  (1)  C1 criterion                            [CORE: iff RH]  |
+   |  says: every probe that vanishes at 0, 1/2, 1 has             |
+   |  nonnegative Weil energy                                      |
+   |  why hard: the published positivity argument closes only      |
+   |  below the paper's own scale; at scale it needs a             |
+   |  repair term that no textbook bound supplies                  |
+   |  owes: a certificate chain — coercivity certificate at the    |
+   |  paper's scale, then mode enclosures, then one                |
+   |  certified grid; the comparison stage is already              |
+   |  wired and waits                                              |
+   +---------------------------------------------------------------+
+
+   +---------------------------------------------------------------+
+   |  (2)  finite-prime arithmetic data              [DATA SLOT]   |
+   |  says: the prime-side terms of the explicit formula take      |
+   |  exactly the packaged values                                  |
+   |  owes: one interval certificate; the exact-rationals          |
+   |  machinery for this already exists                            |
+   +---------------------------------------------------------------+
+
+   +---------------------------------------------------------------+
+   |  (3)  remainder rows: outside, no bulk          [DATA SLOT]   |
+   |  says: the tail rows cut off outside the window carry no      |
+   |  bulk mass                                                    |
+   |  owes: one interval certificate                               |
+   +---------------------------------------------------------------+
+
+   +---------------------------------------------------------------+
+   |  (4)  trace-package remainders                  [DATA SLOT]   |
+   |  says: trace data is compatible across the cutoff scales      |
+   |  within the stated bounds                                     |
+   |  owes: one interval certificate                               |
+   +---------------------------------------------------------------+
+
+   +---------------------------------------------------------------+
+   |  (5)  detector coverage                        [CORE: iff RH] |
+   |  says: every zero off the line would be caught by our         |
+   |  test family — a counterexample cannot hide outside it        |
+   |  why hard: a construction claim, not a bound; the one         |
+   |  natural candidate family was closed by verdict               |
+   |  owes: a genuinely new construction — none on the table yet   |
+   +---------------------------------------------------------------+
+
+   +---------------------------------------------------------------+
+   |  Balance: 2 cores need new mathematics or the completion of   |
+   |  a published argument; 3 slots need certificates, which is    |
+   |  production work                                              |
+   |                                                               |
+   |  Every road that bypasses these five lines is closed with a   |
+   |  graded certificate (theorem / verdict / screened / frozen);  |
+   |  the road map and round records live in README.md and         |
+   |  docs/proofs/                                                 |
    +---------------------------------------------------------------+
 ```
 
-> **Interview script — view (c)** (read the table top to bottom, then the graph)
-> - "The roads here are closed, but at four distinct grades rather than one label."
-> - "Four are refuted by theorem; those are final."
-> - "Three were closed by written verdicts; their reopening conditions are recorded next to them."
-> - "Two are frozen, not refuted. Gate 3U is the instructive case: its finite-band deliverable is complete and audit-clean, but it does not consume the RH root, so it earns no progress credit."
-> - "The graph below is the remaining path: gamma is the hardest item, alpha and beta follow from it, and line (5) has no candidate yet — stated plainly rather than papered over."
+> **Interview script — view (c)** (read the five boxes top to bottom)
+> - "The audit's entire residual is these five sentences; this view reads them one at a time."
+> - "Lines (1) and (5) are cores: each carries a proved equivalence theorem, so working on either is working on RH itself."
+> - "(1) is the sign statement over the probe space; the published proof runs short at the paper's own scale, and closing that gap is a staged certificate chain."
+> - "(5) is the coverage claim for the test family; it is a construction problem with no candidate on the table — stated plainly."
+> - "(2)-(4) are data slots: three published numbers awaiting interval certificates — production, not research."
 
 ---
 
