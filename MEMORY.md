@@ -1105,3 +1105,17 @@ git diff --check passed apart from line-ending notices.  No Lean file changed,
 no theorem build was required, and RH remains unclaimed.  Terminology guard:
 the output-audit cut is `B1`; record 1074's local "GATE 1 alpha B1" brick is
 called `alpha-(983)-tail` in new plans and does not unfreeze B1.
+
+2026-08-31 RESOURCE_SCHEDULING.md + AGENTS.md +
+scripts/run_resource_aware_task.sh + scripts/test_resource_aware_task.sh :
+introduced one WSL admission protocol for the main and certificate mirrors.
+Warm focused Lake leaves take a shared global lock; cold/root/broad/numeric/
+unknown jobs take it exclusively; every job also takes an exclusive lock for
+its own `.lake/build`.  Static classification fails closed and live pressure
+upgrades normal work below 6 GiB, below 20 percent available memory, or above
+0.70 one-minute load per CPU.  The admission lock prevents new shared work
+from passing a heavy waiter.  `bash -n` passed.  The executable test classified
+focused/root/cold/numeric/Git/opaque-shell cases, forced a low-memory upgrade,
+observed overlap across separate mirrors, serialization on one mirror, global
+heavy exclusion, and the event order `holder -> heavy -> follower`.  No Lean
+file changed, no theorem build was required, and RH remains unclaimed.

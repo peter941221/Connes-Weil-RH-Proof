@@ -95,10 +95,17 @@ Canonical one-command builds from this Git-Bash harness (direct exec, ONE
 command per call, full paths - see gotchas below):
 
 ```bash
-MSYS_NO_PATHCONV=1 wsl.exe --cd /home/peter/rh flock -w 3600 \
-  /tmp/connes-weil-rh-lake.lock /home/peter/.elan/bin/lake build \
+MSYS_NO_PATHCONV=1 wsl.exe -d Ubuntu-24.04 -- \
+  /mnt/c/Projects/Connes-Weil-RH-Proof/scripts/run_resource_aware_task.sh \
+  --workspace /home/peter/rh --log /home/peter/rh/build-logs/<name>.log -- \
+  /home/peter/.elan/bin/lake build \
   ConnesWeilRH.Dev.<Module> ConnesWeilRH.Dev.<Module>Audit
 ```
+
+The runner gives focused warm builds a shared global resource lock, gives
+full/numeric/cold/unknown tasks an exclusive lock, and serializes writes to
+each mirror. Live memory or CPU pressure upgrades a normal task to heavy.
+`RESOURCE_SCHEDULING.md` is the complete policy and override contract.
 
 Verification ladder: owning module -> import-facing probe -> focused
 `#print axioms` -> route/Dev batch -> full-root aggregate at milestones only.
@@ -110,7 +117,9 @@ Audit checks per brick: read back each declaration's `#print axioms`
 Keep every Dev leaf paired with a `...Audit` module containing the focused
 axiom prints.
 
-Numeric probes run WSL-side via `uv run --with numpy --with scipy`.
+Numeric probes run WSL-side through the same resource runner via absolute
+`/home/peter/.local/bin/uv run --with numpy --with scipy`; auto mode classifies
+them as heavy.
 
 ## [3] Project Structure
 
@@ -124,6 +133,8 @@ ConnesWeilRH/
                    NOT covered by the root aggregate - explicit targeting only
 docs/proofs/       numbered design records (1043 = active)
 scripts/yoshida_intervals/  exact-Fraction LDL^T/digamma certificate engine
+scripts/run_resource_aware_task.sh  shared/exclusive WSL resource admission
+RESOURCE_SCHEDULING.md  classifier, lock order, overrides, and test contract
 ```
 
 Owner landmarks: `CompactLogTest` structure lives in
@@ -198,11 +209,12 @@ verifies exact identities.
 - Incrementality lies: unchanged files re-run nothing ("no errors" may mean
   "not rebuilt"). To prove re-elaboration of an edited file, delete its
   `.olean` first and expect a real `Built` line.
-- All Lake commands take the lock AND issue an explicit `cd` to the mirror
-  root inside the Linux shell; do not rely on `wsl.exe --cd` alone.  Without
-  the shell-level `cd`, Lake can resolve the caller cwd and pollute the
-  Windows `.lake/build` (kill it and delete same-day artifacts there if that
-  happens).
+- All Lake builds and numeric probes go through
+  `scripts/run_resource_aware_task.sh`. The runner acquires the global
+  shared/exclusive lock, the per-mirror exclusive lock, and then `cd`s to the
+  mirror. A raw `flock` protects only its own lock file and bypasses cross-
+  mirror resource admission. Do not rely on `wsl.exe --cd` alone; Lake can
+  otherwise resolve the caller cwd and pollute the Windows `.lake/build`.
 - TWO-TREE SOURCE SYNC: edits land in the Windows tree; WSL runs the
   /home/peter clone. Before EVERY WSL probe run, `cp` the edited file
   through /mnt/c into the clone and verify md5sum on BOTH sides (a stale
@@ -235,10 +247,9 @@ verifies exact identities.
   (no login profile sourced): `flock <lock> lake ...` then prints "flock:
   failed to execute lake: No such file or directory" while the shell still
   echoed EXIT=0 and NO build ran at all - only log-evidence acceptance caught
-  it. Use the canonical one-command template verbatim (absolute
-  `/home/peter/.elan/bin/lake`, dedicated lock, explicit `cd` inside the Linux
-  shell); do not launch a second instance against the same log file in
-  parallel - bash truncates the log at setup time even while blocked on flock.
+  it. Use the canonical resource-runner template with absolute executable
+  paths. Pass a unique `--log` path per invocation; the runner opens it only
+  after admission, so a queued task cannot truncate the active task's log.
 - `uv` shares that bare-binary trap (record 1067): probes run through absolute
   `/home/peter/.local/bin/uv run --with numpy --with scipy python ...`.
 - Long Python probes redirected to a file are BLOCK-buffered: on SIGKILL the
