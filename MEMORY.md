@@ -945,3 +945,16 @@ P1 (continuum HS of F_K C for the ACTUAL root) and P2 (four-branch ledger via
 pairData - classical commutator-smoothing adaptation; the quasi-periodic twist
 is the named difficulty). No Lean change this round. AGENTS 7a gains the
 env-metacharacter rule. RH unclaimed.
+
+2026-08-31 (audit rehearsal for the interview): synced the repo (HEAD
+7e04a34) to the warm ext4 mirror and re-ran the ledger chain live: build
+footer "Build completed successfully (3775 jobs)", zero ^error: lines, and
+`lake env lean ConnesWeilRH/Dev/RhOutputAxiomLedger.lean` printed exactly the
+8-axiom residual (3 Lean ticket + the 5 named roots; unchanged since 08-10).
+Confirmed at 7e04a34: bridge theorem still :8069, the two iff theorems still
+:1518/:1537; word-level `grep -rnw sorry` on Source/ returns only the two
+doc-comment prose hits (ObjectTheoremBasePackage.lean:2793/:2806); real
+standalone `sorry` tactic lines live in exactly 4 files, all Dev/_*.lean
+scratch, none imported by the mainline. The step-by-step live command
+sequence was placed at the top of the out-of-repo interview-preparation
+notes page. RH unclaimed; no repo source changes this pass.
