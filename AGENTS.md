@@ -180,6 +180,12 @@ verifies exact identities.
   the shell-level `cd`, Lake can resolve the caller cwd and pollute the
   Windows `.lake/build` (kill it and delete same-day artifacts there if that
   happens).
+- TWO-TREE SOURCE SYNC: edits land in the Windows tree; WSL runs the
+  /home/peter clone. Before EVERY WSL probe run, `cp` the edited file
+  through /mnt/c into the clone and verify md5sum on BOTH sides (a stale
+  clone re-runs the old build and prints its old banner - observed twice
+  in the 1072 round). Commit the byte-exact run version: post-run comment
+  polish changes the md5 and breaks the evidence pin.
 - Dual-mirror cache divergence: `wsl.exe` inherits the Windows caller cwd, so
   an un-cd'd build silently runs against the NTFS copy and its `.lake`. The
   two mirrors' oleans can be days apart (observed 2026-08-31: ext4 mirror 5
@@ -422,7 +428,23 @@ exact-coordinate start e_0 is the sole exception because its deep noise is
 exactly zero; Stieltjes/Gram-Schmidt coefficient recovery for exponential
 weights is hopeless for the same reason; (9) in Euler-log channel bookkeeping,
 the delta_f term is the FIRST variation along exp(2 t f) dm, not a second
-derivative of that path (mixing them flips the 1054 control sign).
+derivative of that path (mixing them flips the 1054 control sign); (20) port
+paper-local symbols VERBATIM and check name collisions with standard
+notation: (qe)'s T_n is an integral function of prolate data (tex:1341-1349),
+NOT Chebyshev - tex:1370 ("Qeps(1) = 0") falsifies the standard-name reading
+(1072 (d); same family as law (14)); read the definition region plus one
+falsifiable property line before coding any printed series; (21) np.interp
+requires ASCENDING xp and never checks: a [b->a]+[b->c] concatenation
+poisons every query below b with binary-search garbage (1072 (g): Qeps came
+out 283 instead of ~1e-4); (22) never seed a continuation series with an
+edge-NODE value: GL's last node sits 1-O(N^-2) from the endpoint and the
+offset times |f'(endpoint)| is 1e-5..1e-3 per mode (1072 (g)); extrapolate
+barycentrically to the endpoint and gate with an independent identity (the
+ODE seed relation caught it); (23) eigenvector reliability of a symmetric
+eigh ends where mu ~ noise/gap: below mu ~ 1e-9 the sinc-kernel modes are
+parity-mixed junk while their eigenvalues still print fine - compute only
+the load-bearing modes and bound the rest by the paper's own rapid-decay
+(983) instead of carrying junk rows (1072 (f)).
 
 ### 7d. CC20 owner landmines (live)
 

@@ -1039,3 +1039,32 @@ of all 34 non-ledger roots MISLICED live structure instances (one wave ate
 2,282 lines before errors hit the live bridge fields; reverted by git
 checkout). The WRAPPED eight stay until a semantic rewiring record retires
 them. RH unclaimed.
+
+2026-08-31 (1071/1072/1073/1074 quad landing, 0d61aaa): (1) 1071 engineered
+hunt VERDICT E-H1: the symmetric family g~ = N s(s-1) exp((-d^2+i mu) s(1-s))
+FLIPS the j = 1 certificate at O(1) scale (flip -1.02..-2.56, wall/lever
+0.31-0.54, phase gate exact +-pi at all 392 mu* rows); j >= 2 obstruction is
+LINEAR wall/lever ~ 0.66 gamma_j (zero crowding), five-plus orders better
+than 1070's exponential - 1070 consequence 4 discharged, G path live with
+zero-engineered tests at the first zero's height.  (2) 1072 B-kill VERDICT
+B-K2: lambda*(m) = 1.051280/1.051582/1.051605/1.051607 at m =
+64/256/1024/1732 - CONVERGES, paper scale sits at the flat well bottom
+(3e-6 relative), pipeline has NO zero-input slot => the "spectral shadow"
+idea B is dead as stated.  Getting there took five gate-caught defects
+(record s5 (a)-(g)): half kernel, missing -alpha side, normalization mispin,
+the Qepsilon CHEBYSHEV MISREADING (the paper's T_n in (qe) is a paper-local
+integral function of prolate data; tex:1370 falsifies; 1058 confirmed clean
+- it only quoted), SL ghost eigenpairs (dropped for the sinc path + R-ratio
+chi), noise-floor mode scope (load-bearing five modes + (983) tail), edge-
+node seed + non-ascending interp grid.  The accepted chain reproduces the
+paper's printed t(n) to 2.7e-6, eps'(1+) to 5.3e-9, compressed spectrum to
+1.3e-7, and Fact-1 to 1.2e-3 absolute.  (3) 1073 re-route DESIGN: capstone
+premise produced via the two-contract corollary (P1 S1' right-smoothing + P2
+S2 root commutator pair data) instead of the measured-false single-contract
+S2-FK-HS; consumer-compatible, zero downstream edits.  (4) 1074 B1
+ASSESSMENT: (983) arithmetic brick worth one attempt for n >= 2
+(b(2) = 768 pi^4/99225 < 1 via pi < 22/7, ratio < 1 via pi^2 < 10); n = 0,1
+NOT covered ((983) vacuous there - need the analytic strict-contraction
+argument); transfer hypothesis |lambda(n)| <= b(n) is a separate analytic
+obligation.  New AGENTS laws: 7a two-tree sync, 7c (20)-(23).  No Lean
+change in this batch; RH unclaimed; GATE 1 mainline untouched.
