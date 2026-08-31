@@ -859,3 +859,49 @@ Side audit finding banked here: the full-tree axiom census is 39 declarations (t
 5 are LIVE under the RH closure, 8 wrapped-off-chain, and 26 declared-but-unconsumed
 deadweight candidates for a zero-risk hygiene prune (NOT yet done; Dev-only, no consumers).
 Docs only; no .lean touched; RH unclaimed.
+
+## 2026-08-31 (eleventh batch) - record 1067: direct Tr(M-R_S) probe - BRIDGE 1 closes, ROUTE B stands
+
+The single open F1' contract is now measured DIRECTLY in the record-1063 rig
+(design docs/proofs/1067 + probe 1067_fk_hs_direct_trace_probe.py; commit
+34feb2d). R_S pinned as the star projection of the MEET
+(CCM24SemilocalFourierSupport.lean:134-137), so R_S_model = P_W with W = U n V and
+Tr(K_S)_model = Tr(M) - dim(U n V) = SUM_{theta>0} cos^2(theta_n) EXACTLY - the meet
+residual is identically zero in finite dimensions. Measured three independent ways
+(spectrum of B, the Hermitian U-block of Q_S; Re Tr(M) - d plus eigvalsh(M - R_S_model);
+||Q_S(E - P_W)||_F^2 entry-level): all agree to <= 2.6e-11 on every one of the 20 cases
+(< 1e-8 closure gate). BRIDGE 1 (meet-residual control) CLOSED. Cross-validation exact:
+source gap-split meet count reproduces 1063's 42/117/303/746 at all four octaves;
+nonmeet_1063style matches every published raw sum to 4 decimals; dt-quarter pair on the
+deciding family {2,3,5} is machine-level (rel-diff 5.3e-5).
+
+VERDICT per the pre-stated fork: GROWTH -> ROUTE B. fk_hs_sq({2,3,5}) = 16.20/20.17/
+26.87/34.27 over xi_max 12.8->102.4 (increments +3.97/+6.70/+7.40 INCREASING - no
+saturation bend; measured exponent ~0.36, same sublinear regime as 1063's raw ~0.4 since
+fk = raw + O(1)); source anchor flat [6.18, 7.12] at every resolution and octave.
+Consequences: (1) the UNWEIGHTED IsTraceClassAlong K_S - which record-1066's iff
+identifies termwise with S2-FK-HS = targetProlateRemainderFactorSummable - FAILS for
+{2,3,5} in this model; S2-FK-HS AS CURRENTLY SHAPED is not producible from this family's
+data. (2) F1' must be routed through the D-weighted statement (Tr(D oL K_S): record 1063
+saturation + owner-independent), scheduled as its OWN design record - Lean re-route swaps
+the corollary's S2-FK-HS premise for targetProlateRemainderDetectorWeighted_isTraceClassAlong
+and re-shapes around D K_S = (A C)^dagger(A C) + C^dagger[C, K_S]; this round measures only,
+no Lean changed. (3) BRIDGE 2 (grid->continuum basis) stays open but SHARPENED: the strict
+meet d sits O(1) below the gap-split block by a bounded <=6 near-1 fringe whose eigenvalues
+creep toward 1 with N ({2,3,5} bottom trio 0.99418 -> 0.99699 over the four octaves) - extra
+directions of the infinite-dimensional Sonin meet not yet converged at finite resolution;
+either continuum reading keeps ~xi^0.4 growth, so BRIDGE 2's resolution cannot change this
+verdict, only its constant term. GUARD STATUS: 1063's {2,3,5} guard ambiguity (the probe
+measured M while the contract faces K_S = M - R_S) is now RESOLVED in the unfavorable
+direction - the growth regime survives intact plus an O(1) fringe; ROUTE B stands.
+
+Operational: single deterministic run accepted on log evidence only (20 SUMMARY lines +
+56/56 gate lines, zero NUL bytes, no FAIL/error/traceback; full log in the Linux-side
+verification environment, unversioned per the 1063 convention). An early duplicate launch
+ran concurrently and was killed by exact PID; its block-buffered stdout would have been lost
+on SIGKILL (a normal-exit final flush rewrites from byte 0 and overwrote the fragment
+cleanly). New AGENTS 7a hazards banked: uv bare-binary path, python -u for redirected long
+probes, background-task "completed exit 0" unverified until pgrep empty + end banner in log
+(two pythons thrash OpenBLAS), WSLg X-noise /tmp-file-then-cat in one call, $var loss even
+single-quoted across the wsl boundary. RH unclaimed; GATE 1 mainline untouched (alpha B1/B2
+enclosures still next on that line).

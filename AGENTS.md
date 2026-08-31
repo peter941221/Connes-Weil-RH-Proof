@@ -210,6 +210,22 @@ verifies exact identities.
   `/home/peter/.elan/bin/lake`, dedicated lock, explicit `cd` inside the Linux
   shell); do not launch a second instance against the same log file in
   parallel - bash truncates the log at setup time even while blocked on flock.
+- `uv` shares that bare-binary trap (record 1067): probes run through absolute
+  `/home/peter/.local/bin/uv run --with numpy --with scipy python ...`.
+- Long Python probes redirected to a file are BLOCK-buffered: on SIGKILL the
+  whole log is lost, and on normal exit the final flush rewrites from byte 0,
+  silently overwriting any fragment a concurrent duplicate launch wrote. Run
+  with `python -u`; treat a background task's "completed (exit code 0)" as
+  unverified until `pgrep -f <script>` is empty AND the log shows its end
+  banner; two pythons on one grid thrash OpenBLAS thread pools (record 1067:
+  a duplicate launch stalled the real run for ~1 h before PID-kill).
+- WSLg X-server noise ("your ... screen size is bogus") can interleave into
+  wsl.exe stdout and swallow command output; redirect the command's own output
+  to a /tmp file inside WSL and cat it in the SAME invocation (tmpfs does not
+  survive across calls).
+- Even correctly single-quoted, a plain `$var` assigned inside `bash -c '...'`
+  can arrive empty across the Git-Bash -> wsl.exe boundary (record 1067: "f=...;
+  wc < $f" died with "ambiguous redirect"); hardcode paths in the bash -c string.
 
 ### 7b. Lean / Mathlib v4.30 recurring hazards
 
