@@ -993,3 +993,36 @@ standalone `sorry` tactic lines live in exactly 4 files, all Dev/_*.lean
 scratch, none imported by the mainline. The step-by-step live command
 sequence was placed at the top of the out-of-repo interview-preparation
 notes page. RH unclaimed; no repo source changes this pass.
+
+## 2026-08-31 (fourteenth batch) - record 1070: LEVEL-1 Weil hunting probe - H3', smooth detectors cannot hunt
+
+docs/proofs/1070_weil_q_hunting_level1.md (+ 1070_weil_q_hunting_probe.py V2
++ 1070_anchor_debug.py; pre-registration commit dfcdbd7, fork stated before
+data): the 1069 G-path verdict got its LEVEL-1 measurement, with two
+pre-run corrections the ANCHOR GATE forced (record s6, nothing deleted).
+(1) Anchor implementation bugs: trivial side is f~(1) + f~(0) - NOT 2 f~(1)
+(pointwise f = f^sharp does not merge int f and int f^sharp = int f/x);
+bombieriexplicit2's subtraction term has an exponential tail beyond the
+test's support (integrate W_R's u-quadrature to 40).  After the fixes the
+identity closes 1.655e-10 relative with u-form and f~-form (tex:2047 vs
+tex:2049) agreeing independently to 1.7e-10.  (2) DICTIONARY CORRECTION
+(operative): f = g * g^sharp has f~(s) = g~(s) g~(1-s) (Mellin convolution
+theorem), not the pre-registered g~(s+1)g~(s-1); on the critical line the
+zero side is then TERMWISE |g~(rho)|^2 >= 0, trivial side vanishes exactly,
+and the flip lever is the cross term 2Re[g~(beta+i gamma)conj(g~(1-beta+
+i gamma))].  Measured verdict H3': NO flip at any delta >= spacing width
+for j >= 2, and the single j = 1 flip (delta = 0.6516, xphase = 2.853,
+cos = -0.96) is e^{-81}-suppressed denormal - toothless.  Mechanism
+(quantitatively exact, predicted 2.85 vs measured 2.853): the cross-phase
+is (2 beta - 1)(gamma delta^2 - 4/gamma), LOCKED inside |phi| <= 11/gamma
+across the whole O(1)-scale window delta in [1/gamma, 4/gamma] - the cross
+term is structurally positive in-band; rotating it to pi forces
+gamma delta^2 >~ 3.5 where every term carries e^{-3.5 gamma}.  EXPONENTIAL
+hunting law: every family flip has absolute scale <= poly(gamma)
+e^{-1.74 gamma_j}.  Consequences: G must adopt zero-engineered (Yoshida-type)
+tests - noting mainprop requires F disjoint from Z, so the low-zero
+background must be beaten by interference, not vanishing; the unbounded
+background margin is the spectral-side avatar of 1069's sandwich blowup;
+A's budget is exponential, not the -0.55 power law.  Next slice: ONE
+engineered family through the same closed-form pipeline.  No Lean change;
+RH unclaimed; GATE 1 mainline untouched.

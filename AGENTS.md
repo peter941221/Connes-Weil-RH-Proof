@@ -232,6 +232,12 @@ verifies exact identities.
   Put such assignments INSIDE `sh -c '...'` with hardcoded paths, or pick
   metacharacter-free values; and redirect probe logs inside the `sh -c`
   string - a Git-Bash-side `> /home/peter/...` aborts before wsl.exe runs.
+- `pgrep -f <pattern>` inside a `wsl.exe sh -c '...'` wrapper matches the
+  WRAPPER's own command line whenever the plain pattern appears anywhere in
+  it (even in a `cp` line elsewhere in the same command) - the char-class
+  trick `1070_weil_q_huntin[g]` only works if the plain string appears
+  NOWHERE else in that invocation.  Split guard-check and launch into two
+  separate calls.
 
 ### 7b. Lean / Mathlib v4.30 recurring hazards
 
@@ -381,6 +387,24 @@ verifies exact identities.
   two knobs' roles exchanged; pool points with `k*Xi >= kappa0_min` for the
   log-log exponent, and always keep the unweighted/low-order anchor whose
   continuum behavior is already committed (1067/1068) on the same code path.
+
+- (18) Weil-test dictionary (1070): for the Weil test `f = g * g^sharp`
+  (multiplicative convolution) the Mellin image is `f~(s) = g~(s) g~(1-s)`
+  (Mellin convolution theorem + `(g^sharp)~(s) = g~(1-s)`), NOT any shifted
+  product.  On the critical line `f~(rho) = |g~(rho)|^2` TERMWISE, so the
+  zero side is a sum of squares; `f~(1) = g~(1)g~(0)` and `f~(0) = g~(0)g~(1)`
+  vanish exactly when `g~` vanishes at {0,1}.  A wrong dictionary passes all
+  quadrature checks (each piece is internally consistent) and only a
+  derivation catches it - derive the dictionary, then pin it, before scanning.
+- (19) Explicit-formula anchor traps (1070): (a) `f = f^sharp` pointwise does
+  NOT merge the trivial side: `int f^sharp = f~(0) = int f dx/x`, a different
+  Mellin value from `f~(1)` (evenness of f~ as a function says f~(-1) = f~(1),
+  nothing about s = 0).  (b) bombieriexplicit2's subtraction term
+  `-2e^{-u}f(1)/(1-e^{-2u})` has an EXPONENTIAL TAIL beyond the test's
+  support - integrate W_R's u-quadrature to ~40, not to the support edge.
+  (c) Cross-validate ANY W_R implementation against bombieriexplicit3
+  (the f~/digamma form) - the two closed forms agreeing to 1e-10 plus the
+  mpmath zero list is a three-point anchor; do not trust a single-form closure.
 
 Before trusting any probe number: (1) reproduce a Lean-proven identity first;
 (2) restrict Grams/inverses to the carrier span BEFORE inverting; (3) make the
