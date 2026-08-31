@@ -135,4 +135,105 @@ verdict is written into section 5 by hand from the table.
 
 ## 5. Post-run addendum (filled after execution)
 
-PENDING.
+Run: one deterministic WSL run (zero error/traceback/FAIL; 392/392 fork
+rows = 7 j x 4 delta x 7 beta x {mu=0, mu*}; all anchor/family gates green:
+ANCHOR-A identity, ANCHOR-B sign, symmetry 4.3e-31, dictionary exact 0,
+phase gate exact +-pi at every mu* row, mu-invariance <= 1e-20 at every
+scanned row).  Every scanned cutoff fit inside the 1272-zero cache
+(largest cutoff 1689 < 1729), so no row needed its tail-bound escape.
+
+### 5.1 The measured fork table (per j: best row over the delta/beta grid)
+
+```text
+  j | gamma_j | min wall/lever (mu*) | best flip (any mu)
+  1 |  14.135 |        0.0000        |  -2.562152  FLIP
+  2 |  21.016 |        1.3190        |  +1.150546  no flip
+  3 |  25.011 |        1.9680        |  +2.137980  no flip
+  5 |  32.936 |        3.3760        |  +4.172392  no flip
+ 10 |  49.774 |        6.7610        |  +9.265919  no flip
+ 20 |  77.144 |       13.0520        | +19.161391  no flip
+ 30 | 101.317 |       19.1750        | +29.055215  no flip
+```
+
+The j = 1 flips (all seven beta at delta = 1/gamma_1, six at
+delta = 2/gamma_1): margin 3.180, P = 2.000, wall 1.180, lever 2.20-3.74,
+flip = -1.02 .. -2.56 (wall/lever 0.31-0.54), xphase = +-pi exactly,
+tail < 2.3e-18 - an O(1)-scale certificate sink by both clauses of the
+pre-registered scale check (lever AND wall >= e^{-2}).
+
+### 5.2 VERDICT: E-H1 fired at j = 1; the j >= 2 obstruction is LINEAR
+
+Per the pre-stated fork: an O(1)-scale flip occurs at j = 1 (the branch's
+own clause "at least at j = 1").  The G path is LIVE with zero-engineered
+tests, at the first zero's height, with the recipe below.  The scan also
+measured the obstruction law the fork's E-H3 branch was probing:
+
+```text
+  min wall/lever ~ 0.66 * gamma_j   (j >= 2; measured ratios 0.64-0.68)
+```
+
+a LINEAR hunting obstruction - five-plus orders of magnitude better than
+1070's exponential law poly(gamma) e^{-1.74 gamma_j} at every scanned
+height (at gamma_30: e^{-176} vs 19).  The phase lever bought the whole
+difference, exactly as the family design intended.
+
+### 5.3 The mechanism and the recipe
+
+```text
+  WHY j = 1: the first zero is spectrally ISOLATED - gamma_2 - gamma_1 =
+     6.88 is a full detector band width at delta = 2/gamma_1, so the
+     background vanishes into the envelope (measured wall 2.4e-5 against
+     P = 0.0787) while the phase lever 4|g~(beta+i gamma_1)|^2 cos(phi)
+     survives at O(1).  At j >= 2 the spacing 2 pi/log gamma shrinks, the
+     neighbours crowd into every band, and the wall accumulates: the
+     linear law 0.66 gamma_j IS zero crowding.
+  RECIPE (recorded per E-H1): family E with F = {0,1};
+     delta ~ 1/gamma_1 (the c = 1 row; c = 2 also flips with the wall
+     vanished); mu = mu*(beta, gamma) = (pi/2 - arg V_F(beta+i gamma)
+     + delta^2 y)/x per the s1 formula - the phase gate confirmed
+     xphase = +-pi to < 1e-5 at EVERY mu* row (392-row grid); any
+     beta in {0.05..0.45} flips at j = 1.
+```
+
+### 5.4 Consequences for the G path
+
+```text
+  1. 1070's consequence 4 is DISCHARGED: there exists an explicit
+     engineered family that hunts at O(1) scale - the smooth-family
+     verdict was a property of the family, not of LEVEL-1 hunting.
+  2. The single-detector reach of THIS family is the lowest zeros only
+     (wall/lever < 1 needs gamma_j <~ 1.5): zero crowding, not
+     suppression, is the binding constraint.  Two escape directions are
+     now the design levers: (a) multi-bump / combined tests, (b)
+     support-location freedom (prime-local / semilocal tests) - the
+     latter is again the 1070 gap-2 SCOPE wall, now with a measured
+     price tag.
+  3. Per-detector certificates (1050) absorb a LINEAR law as a schedule:
+     detector #j must overcome ~gamma_j background - polynomial cost,
+     not the exponential budget 1070 forced on A.
+  4. Next slice options: (a) fine c-lattice at j = 2 (wall/lever 1.32 -
+     one constant away from flipping; worth one narrow scan), (b) the
+     multi-bump family, (c) hand the recipe to the Lean-facing detector
+     design as the first CONSTRUCTIVE hunting datum.
+```
+
+### 5.5 Caveats (honesty ledger)
+
+```text
+  - The pre-registered mechanism prediction (s0) EXPECTED E-H3 with
+    wall/lever ~ 0.57 gamma_j ~ 8 at j = 1; the measurement at the c = 1
+    row gave 0.31-0.54 - the continuum estimate was right about the LINEAR
+    form (measured coefficient 0.66) and wrong about the j = 1 constant
+    (the isolation effect above).  The fork decided on data, as designed.
+  - Run history: the first launch crashed at its own PHASE gate - the
+    gate formula measured distance-to-zero instead of distance-to-pi;
+    one mu=0 control row (j=1, delta=0.3/gamma_1: wall/lever 130) was
+    flushed before the crash.  Gate formula fixed, zero cache persisted
+    Linux-side, full grid re-run; no verdict data was read before the
+    corrected run completed.
+  - The delta lattice is coarse (c in {0.3, 0.6, 1, 2}): the true optimum
+    and the exact flip boundary in (c, beta) are unresolved; j = 2's
+    1.32 is an upper bound over this lattice.
+  - The class caveats of 1070 s2 carry over (Gaussian-type entire g~,
+    not C_c^inf; full Weil functional, no semilocal restriction).
+```

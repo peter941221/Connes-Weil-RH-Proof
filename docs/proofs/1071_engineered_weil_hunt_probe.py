@@ -83,7 +83,18 @@ def mu_star(delta, beta, gamma):
 
 
 def zero_cache(gmax):
-    """Ordinates gamma_j up to gmax (mpmath, cached once)."""
+    """Ordinates gamma_j up to gmax (mpmath); persisted Linux-side so re-runs
+    do not re-pay the zetazero sweep.  Roundtrip via nstr(.,35) at dps 30 is
+    exact (more digits than the working precision)."""
+    cachefile = "/home/peter/1071_zerocache.json"
+    if os.path.exists(cachefile):
+        with open(cachefile) as fh:
+            strs = json.load(fh)
+        gam = [mp.mpf(s) for s in strs]
+        if gam and gam[-1] > gmax:
+            print(f"[cache] loaded {len(gam)} zeros from {cachefile}",
+                  flush=True)
+            return gam
     gam = []
     j = 0
     while True:
@@ -95,6 +106,8 @@ def zero_cache(gmax):
         if j % 500 == 0:
             print(f"[cache] j={j} gamma={float(g):.1f} / gmax={gmax:.1f}",
                   flush=True)
+    with open(cachefile, "w") as fh:
+        json.dump([mp.nstr(g, 35) for g in gam], fh)
     print(f"[cache] done: {j - 1} zeros up to gamma {gmax:.1f}", flush=True)
     return gam
 
@@ -266,7 +279,7 @@ def run():
                     fl = float(margin0 + A - Pj)
                     xphase = float(mp.arg(gtil(bb + 1j * gj) ** 2))
                     if mutag == "mu*":
-                        pherr = abs(abs(xphase - mpi) - mpi)
+                        pherr = min(abs(xphase - mpi), abs(xphase + mpi))
                         assert pherr < 1e-5, "phase gate: mu* missed pi"
                         minv = sum(2 * abs(gtil(mpf(1) / 2 + 1j * g)) ** 2
                                    for g in gam[:ncov])
