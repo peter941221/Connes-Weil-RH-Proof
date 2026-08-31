@@ -5,9 +5,9 @@ import ConnesWeilRH.Dev.UnconditionalSkeleton
 
 Verification hook, not a source module.
 Refreshing, per milestone the authoritative "#print axioms" residual-count
-audit (AGENTS 8, docs/proofs/887).  As of 2026-08-10 the output
+audit (AGENTS 8, docs/proofs/887).  Re-verified 2026-08-31: the output
 `rhDefinitionBridgeToMathlibFromTheorems` depends on exactly these project
-axioms (verified on the Linux-side mirror):
+axioms (live run on the warm Linux build, zero error lines):
 
   1. normalizedCoreCC20PropositionC1SourceCriterionRoot   (RH-equivalent)
   2. normalizedCoreCCM25FinitePrimeArithmeticSourceDataRoot
