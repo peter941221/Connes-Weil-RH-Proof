@@ -1026,3 +1026,16 @@ background margin is the spectral-side avatar of 1069's sandwich blowup;
 A's budget is exponential, not the -0.55 power law.  Next slice: ONE
 engineered family through the same closed-form pipeline.  No Lean change;
 RH unclaimed; GATE 1 mainline untouched.
+
+2026-08-31 (deadweight socket prune, record 1074): true frontier axiom
+census is 39 decls (the 40th '^axiom' grep hit is prose at :146), all in
+Dev/UnconditionalSkeleton.lean: 5 LEDGER (printed by the RH audit), 8
+WRAPPED (each plugged through a FromTheorems wrapper def into same-file
+structure instances), 26 DEADWEIGHT (zero references). Wave-pruned the 26
+(55 lines, 8088->8033); ledger-chain build zero-error; audit residual
+byte-identical (3 ticket + 5 roots, no sorryAx); demo tree re-synced and
+re-audited. Negative result banked: compiler-error-driven cascade pruning
+of all 34 non-ledger roots MISLICED live structure instances (one wave ate
+2,282 lines before errors hit the live bridge fields; reverted by git
+checkout). The WRAPPED eight stay until a semantic rewiring record retires
+them. RH unclaimed.
