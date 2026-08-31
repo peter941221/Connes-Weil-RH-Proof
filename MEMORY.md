@@ -1068,3 +1068,25 @@ NOT covered ((983) vacuous there - need the analytic strict-contraction
 argument); transfer hypothesis |lambda(n)| <= b(n) is a separate analytic
 obligation.  New AGENTS laws: 7a two-tree sync, 7c (20)-(23).  No Lean
 change in this batch; RH unclaimed; GATE 1 mainline untouched.
+
+2026-08-31 (record 1075: fine c-lattice flips j = 2; E-H1 extends; 1071
+erratum): G-side narrow scan pre-registered and executed as a REUSE of the
+committed 1071 probe (env overrides only, zero code change; HEAD-vs-clone
+md5 verified before launch).  Fork F-A fired: min wall/lever at j = 2 is
+0.9850 < 1 at (c* = 1.20, beta = 0.46), flip -0.0503, both O(1)-scale
+clauses passed (wall 3.27, lever 3.32) - but the sink is THIN (1.5 percent
+of the lever).  j = 3 (1.563) and j = 5 (2.826) stay above 1 at their own
+valleys.  ERRATUM applied in place to 1071 s5.2/s5.3: the crowding law's
+variable is the zero INDEX j (stable ratios 0.64-0.68 per j), NOT gamma_j
+(the original text's notation slip; per-gamma ratios 0.06-0.19); since
+gamma_j ~ j log j the wall is SUB-linear in gamma, so 1071's
+LINEAR-vs-EXPONENTIAL verdict stands a fortiori.  The coarse c-lattice
+missed the valley at c ~ 1.2 and overestimated walls by 16-25 percent.
+Caveats logged: beta* sits at the grid EDGE (deeper j = 2 flips may exist
+past 0.46); linear-in-j beyond j = 5 is coarse-resolution only.
+Consequence for the G path: single detectors of this family now reach
+zeros #1 AND #2 at O(1) scale - a two-zero proof of concept; j >= 3 needs
+multi-bump combinations or support-location freedom (the 1070 gap-2 scope
+wall).  New AGENTS law 7c (24): growth-law variable attribution via
+row-wise division.  No Lean change (B1 brick 1076 recon'd, not started);
+P1 producer design record not started; RH unclaimed; GATE 1 untouched.

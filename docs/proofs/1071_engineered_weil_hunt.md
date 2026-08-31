@@ -172,6 +172,15 @@ measured the obstruction law the fork's E-H3 branch was probing:
   min wall/lever ~ 0.66 * gamma_j   (j >= 2; measured ratios 0.64-0.68)
 ```
 
+  [ERRATUM, record 1075 s4.3: the law's variable is the zero INDEX j,
+  not gamma_j - the 0.64-0.68 ratios hold when divided by j (dividing
+  the same table by gamma_j gives 0.06-0.19; the text above was a
+  notation slip).  The wall grows LINEARLY IN j; since gamma_j ~
+  j log j this is SUB-linear in gamma, so this section's
+  LINEAR-vs-EXPONENTIAL verdict stands a fortiori.  The fine c-lattice
+  (1075) refined the constant to 0.49-0.57 and FLIPPED j = 2 at
+  wall/lever 0.985.]
+
 a LINEAR hunting obstruction - five-plus orders of magnitude better than
 1070's exponential law poly(gamma) e^{-1.74 gamma_j} at every scanned
 height (at gamma_30: e^{-176} vs 19).  The phase lever bought the whole
@@ -187,6 +196,7 @@ difference, exactly as the family design intended.
      survives at O(1).  At j >= 2 the spacing 2 pi/log gamma shrinks, the
      neighbours crowd into every band, and the wall accumulates: the
      linear law 0.66 gamma_j IS zero crowding.
+     [erratum 1075 s4.3: linear in the INDEX j; see the 5.2 note.]
   RECIPE (recorded per E-H1): family E with F = {0,1};
      delta ~ 1/gamma_1 (the c = 1 row; c = 2 also flips with the wall
      vanished); mu = mu*(beta, gamma) = (pi/2 - arg V_F(beta+i gamma)

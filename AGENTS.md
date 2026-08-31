@@ -444,7 +444,12 @@ ODE seed relation caught it); (23) eigenvector reliability of a symmetric
 eigh ends where mu ~ noise/gap: below mu ~ 1e-9 the sinc-kernel modes are
 parity-mixed junk while their eigenvalues still print fine - compute only
 the load-bearing modes and bound the rest by the paper's own rapid-decay
-(983) instead of carrying junk rows (1072 (f)).
+(983) instead of carrying junk rows (1072 (f)); (24) before naming the
+variable of a fitted growth law, divide the table ROW-WISE by every
+candidate variable and check which ratio is the stable one - 1071 printed
+"0.66 * gamma_j" but the stable ratio was per zero INDEX j (0.64-0.68 per
+j vs 0.06-0.19 per gamma_j); j vs gamma_j ~ j log j is a log-factor that
+silently misprices every extrapolation (1075 s4.3 erratum).
 
 ### 7d. CC20 owner landmines (live)
 
