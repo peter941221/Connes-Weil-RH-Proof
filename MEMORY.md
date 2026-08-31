@@ -946,6 +946,41 @@ pairData - classical commutator-smoothing adaptation; the quasi-periodic twist
 is the named difficulty). No Lean change this round. AGENTS 7a gains the
 env-metacharacter rule. RH unclaimed.
 
+## 2026-08-31 (thirteenth batch) - record 1069: LINE-5 coverage tension probe - H1 CONFIRMED
+
+docs/proofs/1069_line5_coverage_idea_ledger.md (+ 1069_coverage_tension_probe.py;
+pre-registration commit c048e20, fork stated before data): the 2026-08-31 LINE-5
+brainstorm became a seven-idea ledger (A Parseval frame, B lambda*-shadow,
+C Stone-Weierstrass, D de Branges, E Nyman-gated, F Kesten, G dual hunter) plus
+the FIRST decisive probe of the coverage-positivity tension. Key design point
+(banked as AGENTS 7c law 17): a fixed-grid k-sweep cannot see a continuum blowup
+(D_k -> I saturates on any finite grid), so the discriminating measurement is
+the constant-product ray k*Xi = kappa0 - H1 predicts ~Xi^alpha growth along the
+ray, H2 flatness. Measured (28/28 SUMMARY lines, all identity gates green, k=1
+anchor reproduces committed 1068 digit-for-digit, src anchor consistent): the
+continuum detector mass f(k) = lim_Xi t_tr1(k, Xi) blows up with NO saturation
+bend over k in [0.125, 1] - b = -0.536..-0.569, STEEPER than the pass-band
+prediction -0.4; ray k*Xi=12.8 grows 3.78 -> 5.77 -> 8.50 (max/min 2.25 over two
+octaves, H2 said flat). VERDICT H1: the one-shot UNIT-SCALE shaping of LINE (5)
+is dead as a mechanism (covering zero #j needs k_j = 1.177*2pi/gamma_j -> 0 and
+f(k_j) ~ gamma_j^0.55 unbounded; f(0.125)/f(1) = 3.2x per measured octave).
+Structural refinement: the ENTIRE blowup is the positive sandwich leg
+p_hs_sq = Tr(C_k K_S C_k) (the S1'/1066-iff family); the root commutator is
+scale-robust (l_tr1 = 1.23-1.73 across the sweep) - 1067 (k=0 ~Xi^0.4), 1068
+(k=1 flat), 1069 (f(k) ~ k^-0.55) are one picture
+Tr(C_k K_S C_k)(Xi) ~ min(Xi, c/k)^alpha. Architectural nuance kept honest:
+certificates are PER-DETECTOR (1050), so polynomial degradation is a
+schedule/structure cost, not an immediate contradiction - what fails logically
+is the fixed-constant one-shot reading. Path verdict (should we walk which
+path): PRIMARY = G (dual hunter) via LEVEL-1 - implement Weil-q numerics for
+the Gaussian detector family and measure the hunting ratio r(D_k, gamma);
+r >= c > 0 => scale-parameterized one-shot family survives as a schedule
+problem, r -> 0 => adaptive frame (A) forced with -0.55 as the budget
+constraint. SIDE = B (lambda*-shadow) cheap kill using scripts/cc20_eq115
+(structural caveat predicts dead). No qw implementation exists in-repo (recon:
+pyIH.py is a Lean generator). No Lean change; RH unclaimed; GATE 1 mainline
+untouched.
+
 2026-08-31 (audit rehearsal for the interview): synced the repo (HEAD
 7e04a34) to the warm ext4 mirror and re-ran the ledger chain live: build
 footer "Build completed successfully (3775 jobs)", zero ^error: lines, and

@@ -370,6 +370,17 @@ verifies exact identities.
   root-commutator.  `C†[C,K]` expands as the `E/Q/R` four-branch ledger; the
   existing detector-level half-line pair for `C† C` does not close a
   root-level branch.  The three 1063 Gaussian scales are reconnaissance only.
+- (17) A fixed-grid parameter sweep cannot see a continuum blowup: at fixed
+  window the observable saturates (e.g. `D_k -> I` as `k -> 0` is FINITE on
+  any finite grid), so a blowup-vs-bounded fork about the continuum limit is
+  INVISIBLE to it (1069 first design error, caught pre-registration).  The
+  discriminating design is the constant-product ray `k*Xi = kappa0` with
+  `kappa0 >> 1`: detector cutoff and window march together, and along the
+  ray H-blowup predicts growth `~Xi^alpha` while H-bounded predicts
+  flatness.  Same family as law (15) (constant window, quarter dt) with the
+  two knobs' roles exchanged; pool points with `k*Xi >= kappa0_min` for the
+  log-log exponent, and always keep the unweighted/low-order anchor whose
+  continuum behavior is already committed (1067/1068) on the same code path.
 
 Before trusting any probe number: (1) reproduce a Lean-proven identity first;
 (2) restrict Grams/inverses to the carrier span BEFORE inverting; (3) make the

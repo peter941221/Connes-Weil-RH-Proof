@@ -139,3 +139,112 @@ authoritative; acceptance = the SUMMARY table + slope fit + coverage
 matrix, not any exit code.
 
 ## 5. Post-run addendum (filled after execution)
+
+Run: one deterministic WSL sweep (28/28 expected SUMMARY lines, full log
+`/home/peter/1069_probe.log`, Linux-side verification environment, unversioned
+per the 1063 convention). Acceptance on the flushed log, not exit codes: zero
+error/traceback/FAIL/NUL; every in-`measure_k` identity gate stayed live and
+green (res1/res2/res3 <= 5e-14 everywhere); the k = 1 {2,3,5} anchor
+reproduced the committed 1068 s5.1 table digit-for-digit (3.7836/3.7527/3.7376)
+and src fk_unw = 6.1786 with strict meet d = 39 reproduced 1067 exactly.
+
+### 5.1 The measured fork table
+
+```text
+{2,3,5}, t_tr1 = ||D_k K_S||_1 at the LARGEST window measured per k
+(kxi = k*xi_max at that point; all kxi >= 6.4 so the detector is effectively
+compact on the window and these are f(k) readings, not window artifacts):
++--------+---------+-------+-------------------------------------------+
+| k      | t_tr1   | kxi   | step ratio (per k-halving)                |
++--------+---------+-------+-------------------------------------------+
+| 1.0    |  3.7319 | 102.4 |  (1068 committed, N8193)                  |
+| 0.5    |  5.7711 |  51.2 |  1.547   (local slope log2 = 0.63)        |
+| 0.25   |  8.5088 |  25.6 |  1.474   (0.56)                           |
+| 0.125  | 11.9801 |   6.4 |  1.408   (0.49)                           |
++--------+---------+-------+-------------------------------------------+
+Pooled log-log fit over the 11 asymptotic points (k*Xi >= 6.4):
+  b = -0.569 (all), b = -0.536 (k <= 0.5 subset, max residual 0.017).
+Ray test (constant k*Xi = 12.8, Xi = 12.8 -> 51.2): 3.78 -> 5.77 -> 8.50,
+max/min = 2.25 - grows ~1.5x per Xi-doubling; H2 predicted flatness.
+src anchor: b = -0.261 (all) / -0.188 (k <= 0.5), mild growth consistent
+with its own FLAT raw plateau (~6.5) - the anchor does what its raw does;
+no MODEL MISREAD.
+```
+
+### 5.2 VERDICT: H1 confirmed - the coverage-positivity tension is REAL
+
+Per the pre-stated fork s3: the continuum detector-mass function blows up as
+k ↓ 0 with NO saturation bend over the measured octave k in [0.125, 1]:
+
+```text
+  f(k) = lim_Xi t_tr1(k, Xi)  ~  amp * k^(-0.54 +- 0.03),  amp(1) ~ 3.7-4.0.
+```
+
+The measured exponent is STEEPER than the pass-band prediction -0.4 (the
+Gaussian soft edge is worse than a sharp cutoff), and just outside the
+pre-stated H1 band [-0.5, -0.3] on the steep side. Structural refinement the
+fork did not anticipate: the ENTIRE blowup lives in the positive sandwich leg
+p_hs_sq = Tr(C_k K_S C_k) (t_tr1 ~= p_hs_sq + O(1) at every point), while the
+root-commutator leg is scale-robust (l_tr1 = 1.23-1.73 across the whole sweep,
+s_tr1 <= 0.91). So 1067 (k = 0 grows ~Xi^0.4), 1068 (k = 1 flat in Xi), and
+1069 (f(k) ~ k^-0.55) are ONE consistent picture: Tr(C_k K_S C_k)(Xi) ~
+min(Xi, c/k)^alpha with alpha ~ 0.4-0.55; the S2 pairData route is scale-
+robust, and the S1'/1066-iff quantity is the one that carries the tension.
+
+```text
+CONSEQUENCES (design constraints, per s2-s3):
+  1. The ONE-SHOT UNIT-SCALE shaping of LINE (5) is dead as a mechanism:
+     covering zero #j needs k_j = 1.177*2pi/gamma_j -> 0, and the certificate
+     mass grows f(k_j) ~ gamma_j^0.55 without bound (measured: f(0.125)/f(1)
+     = 3.2x over one octave; extrapolated f(0.031) ~ 25 for zero #100,
+     f(7.4e-6) ~ 2.5e3 for gamma = 1e6).
+  2. ARCHITECTURAL NUANCE (refines fork consequence 1): the route's
+     certificates are PER-DETECTOR (record 1050 detector-selected semilocal),
+     so a polynomially-degrading constant is a schedule/structure cost - the
+     entire GATE-1 alpha machinery is unit-scale and would have to be
+     re-proved per scale k with degrading constants - not an immediate
+     logical contradiction. What fails logically is the fixed-constant
+     one-shot reading, exactly as pre-stated.
+  3. The redesign vocabulary is A/G (frame / dual hunter): EITHER a
+     multiscale detector net with one cell per height band (per-cell
+     constants, no uniformity obligation), OR a proof that the LEVEL-1
+     hunting ratio stays bounded below as k -> 0 - which is precisely the
+     next measurement.
+```
+
+### 5.3 Which path (the answer to "should we walk which path")
+
+```text
+PRIMARY: G (constructive dual hunter) via LEVEL-1 - implement the Weil
+  functional q(D_k) numerically for the Gaussian detector family
+  (archimedean + finite terms + sum_rho h_D(rho) over the first N zeros),
+  validate q >= 0 (LINE-1 sanity), then measure the hunting ratio
+  r(D_k, gamma) = h_Dk(beta+i gamma) / (q margin) on the (k, gamma) grid.
+  This single number decides between:
+    - r >= c > 0 as k -> 0: a scale-parameterized one-shot family with
+      polynomial constants survives; write the per-scale design record
+      (schedule cost, accepted).
+    - r -> 0: the adaptive frame (A) is forced; the exponent -0.55 is the
+      budget constraint the frame must beat.
+  Preconditions: pin CC20's test conventions from the 1057 tex map; the repo
+  has NO qw implementation today (recon 2026-08-31: pyIH.py is a Lean-file
+  generator, scratch_nyman_block.py has only digamma/Gram parts).
+SIDE (cheap, one session): B (lambda* ~ 1.05158 as zero shadow) - build
+  T(lambda) from the landed eq-115 table and test responsiveness to zero
+  data; the structural caveat (arithmetic+archimedean only, zeros enter
+  nowhere) predicts DEAD, but the kill is cheap and permanently informative.
+AFTER LEVEL-1: A (Parseval frame) supplies the redesign vocabulary with the
+  cos^2 theta / meet / rank-one-repair machinery already banked; its own
+  prerequisite is LEVEL-1's c_D(rho) model, so it cannot go first.
+UNCHANGED: E stays gated by the Nyman archive audit; C, D, F unchanged.
+```
+
+### 5.4 New probe-fidelity law (banked in AGENTS 7c (17))
+
+A fixed-grid parameter sweep cannot see a continuum blowup: at fixed window
+the observable saturates (D_k -> I as k -> 0 is FINITE on the grid), so the
+H1/H2 fork is invisible to it. The discriminating design is the
+constant-product ray k*Xi = kappa0 (here kappa0 = 6.4, 12.8, 25.6, 51.2),
+which keeps the detector's effective cutoff and the window marching together:
+along the ray H1 predicts growth ~Xi^alpha, H2 flatness. Same family as law
+(15) (constant window, quarter dt) with the roles of the two knobs exchanged.
