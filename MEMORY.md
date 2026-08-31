@@ -918,3 +918,30 @@ measure" paragraph retained. The same three views were inserted (HTML-escaped,
 no added heading) at the top of an out-of-repo interview-preparation page.
 Box alignment normalized mechanically: single-box interiors now uniform per
 box group; the pre-existing 1-column GATE border drift was fixed. RH unclaimed.
+
+## 2026-08-31 (twelfth batch) - record 1068: the D-weighted route's unmeasured bone measured - OUTCOME A
+
+2026-08-31 docs/proofs/1068_root_commutator_ledger_probe_and_verdict.md :
+pre-registered (commit d5f936e, fork stated before data) + executed the
+four-branch ledger / root-commutator probe in the 1067 rig, measuring the two
+contracts the 1067 ROUTE B re-route consumes (S1' right-sandwich HS, S2 root
+commutator C-dagger-[C,K_S] trace-legality) - the quantities 1063b never touched.
+Verdict OUTCOME A per the pre-stated fork: at k=1 EVERY D-weighted quantity is
+O(1) and monotone DECREASING over the four octaves ({2,3,5}: p_hs_sq
+3.5661->3.5356, l_hs_sq 0.2086->0.1688, l_tr1 1.3462->1.2850, s_tr1
+0.5800->0.5395, t_tr1 3.7836->3.7319) while the k=0 control on the same code
+path grows 16.20->34.27 reproducing 1067 exactly (and strict meet d minus
+1067's gap-split = the s5.3 fringe {3,3,4,4} exactly). All Lean identity
+residuals (ID-1/2/3) <= 1e-11 machine level; dt-invariance at the real pair
+<= 3e-4 all families; src anchor flat 1.006. Structural finds: (a) the leaf's
+globalBasis is universally quantified, so the produceable S2 route is forced
+basis-independent -> trace-norm / pairData HS-legs path (leaf:243/:301);
+(b) in the xi-character basis (diagonalizing C) the diagonal of C-dagger-[C,K_S] is
+ALGEBRICALLY ZERO (measured 0.0000 everywhere) - the S2 danger lives only off
+that basis; (c) br_out = br_refl exactly, Sonin branch collapses under k=3.
+Consequences: next brick = the D-weighted re-route DESIGN RECORD (swap the
+capstone premise to the two-contract corollary leaf:370-381), then producers
+P1 (continuum HS of F_K C for the ACTUAL root) and P2 (four-branch ledger via
+pairData - classical commutator-smoothing adaptation; the quasi-periodic twist
+is the named difficulty). No Lean change this round. AGENTS 7a gains the
+env-metacharacter rule. RH unclaimed.

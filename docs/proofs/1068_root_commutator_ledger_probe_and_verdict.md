@@ -144,3 +144,91 @@ family {2,3,5} is expected at machine level (1067 saw 5.3e-5).
 | MODEL MISREAD | src anchor grows or any gate fires | no verdict; re-audit the model reading |
 
 ## 5. Post-run addendum (filled after execution)
+
+Run: two deterministic WSL runs - (a) the dt-invariance leg at the real pair
+`[[4097,20],[8193,40]]` for all four families, k=1.0; (b) the four-octave
+sweep (48 SUMMARY lines, complete log `/home/peter/1068_sweep.log`, Linux-side
+verification environment, unversioned per the 1063 convention; case npz under
+`/home/peter/1068_out/`). Acceptance rests on the flushed logs + saved npz,
+not exit codes (AGENTS 7a). All gates green: m-sym 0, HT involution ~1e-13,
+Q_S idempotent, positivity, every ID-1/2/3 residual <= 1e-11, every ID-4
+anchor matched the committed 1067 table, every ID-5 absdiag <= trace-norm
+check passed, src anchor flat gate 1.006 <= 1.5.
+
+### 5.1 The measured fork table (k = 1.0, primary Gaussian weight)
+
+```text
+Deciding family {2,3,5}, octaves xi_max = 12.8 / 25.6 / 51.2 / 102.4:
++-----------+----------+----------+----------+----------+-----------------+
+| quantity  | N1025    | N2049    | N4097    | N8193    | shape           |
++-----------+----------+----------+----------+----------+-----------------+
+| p_hs_sq   |  3.5661  |  3.5458  |  3.5383  |  3.5356  | DECREASING      |
+| l_hs_sq   |  0.2086  |  0.1855  |  0.1739  |  0.1688  | DECREASING      |
+| l_tr1     |  1.3462  |  1.3145  |  1.2910  |  1.2850  | DECREASING      |
+| s_tr1     |  0.5800  |  0.5569  |  0.5448  |  0.5395  | DECREASING      |
+| t_tr1     |  3.7836  |  3.7527  |  3.7376  |  3.7319  | DECREASING      |
+| (k=0 ctr) | 16.1996  |  20.1700 |  26.8715 |  34.2696 | growth, = 1067  |
++-----------+----------+----------+----------+----------+-----------------+
+src anchor (k=1): p_hs_sq 2.3998/2.3905/2.3864/2.3844 (octave ratio 1.006);
+the other three families have the SAME flat/decreasing shape (e.g. t_tr1:
+src 2.58 -> 2.56, {2} 3.09 -> 3.07, {2,3} 3.52 -> 3.48).  k=3 rows are
+smaller with the same shape (e.g. {2,3,5} p_hs_sq 2.50 at N8193).
+```
+
+Every k=0 row reproduces the committed 1067 s5.1 table within 5e-3 on the
+same code path, and the strict meet d = 39/114/299/742 differs from 1067's
+gap-split counts 42/117/303/746 by exactly the near-meet fringe {3,3,4,4} of
+1067 s5.3 - two independent cross-validations.
+
+### 5.2 VERDICT: OUTCOME A (all saturate - a fortiori, monotone DECREASE)
+
+Per the pre-stated fork s0(3)/s4: no measured quantity grows anywhere; the
+D-weighted branch quantities are O(1) constants that DECREASE slightly while
+the unweighted control on the SAME rig grows +112% over the same octaves.
+The three Lean identity residuals sit at 1e-15, dt-invariance at the real
+pair is <= 3e-4 for every family, and the source anchor is flat.
+
+```text
+CONSEQUENCES (per s4 OUTCOME A):
+  1. The D-weighted identity route IS produceable in the model. The next
+     brick is the DESIGN RECORD for the Lean re-route: route the capstone
+     premise through targetProlateRemainderDetectorWeightedTraceLegality_
+     of_rightSmoothing_and_rootCommutator (leaf:370-381) instead of the
+     single-contract S2-FK-HS corollary; all owner machinery already exists
+     and is axiom-clean.
+  2. Producer P1 (S1'): continuum HS of F_K oL C for the ACTUAL selected
+     convolution root.  The probe's Gaussian root is the Schwartz stand-in
+     (model gap, s1); the owner-independence transfer (1063: any Schwartz
+     beats the ~xi^0.4 raw mass) must be argued per-owner in the record.
+  3. Producer P2 (S2): four-branch ledger trace-legality via the pairData
+     path (leaf:243-265/:301-320) - measured ||[C,K_S]||_1 ~ 1.29 flat.
+     The proof class is the classical commutator-smoothing adaptation; the
+     named difficulty is the quasi-periodic twist mu_S/conj(mu_S), exactly
+     the mechanism that killed raw F1 (1063).
+  4. NO Lean change this round (probe + record only).  1067's ROUTE B
+     verdict stands; this record supplies the route's produceability
+     evidence, not a proof.
+```
+
+### 5.3 Structural finds (banked for the design record)
+
+```text
+(1) BASIS-INDEPENDENCE IS FORCED, AND HELPS.  Every contract in the leaf
+    quantifies universally over globalBasis (e.g. leaf:118-123, :177-182,
+    :234-239) - a producer must supply the SAME arbitrary basis the
+    downstream consumer uses, so no basis choice is available.  The correct
+    produceable target is therefore basis-independent: trace-class-ness
+    (any ONB satisfies sum |diag| <= ||T||_1), supplied via the pairData
+    HS-legs path.  Consistently: in the xi-character basis (which
+    diagonalizes C) the diagonal of S = C†[C,K_S] is ALGEBRAICALLY ZERO
+    (measured 0.0000 to machine precision in every case) - the S2 danger
+    lives only in bases not aligned with C, and the trace-norm route
+    bypasses that分歧 entirely.
+(2) BRANCH SHAPE: br_out = br_refl exactly (Hermitian symmetry), the
+    second-support branch carries the most mass, and the Sonin branch
+    collapses under k=3 (5.6e-2 -> 1e-5): the R-commutator is concentrated
+    where the detector is.
+(3) The ledger HS^2 and trace norms are not merely bounded but DECREASING
+    in the window - consistent with the commutator being a boundary object
+    (1064's second-support shape), not a bulk object.
+```

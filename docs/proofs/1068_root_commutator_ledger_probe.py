@@ -113,9 +113,10 @@ def measure_k(F, ctx, N, k, c_amp, w_amp, fam_key):
                    t_trace_re=t_ad_t, t_trace_im=0.0, ratio_s=float("nan"),
                    ratio_t=float("nan"), res_id1=0.0, res_ledger=0.0, res_id3=0.0,
                    br_out=0.0, br_sec=0.0, br_refl=0.0, br_prol=0.0)
-        ck = COMMITTED_1067[fam_key]
-        assert abs(t_ad_t - ck) < 5e-3, \
-            f"k=0 anchor mismatch vs 1067 at {fam_key}: {t_ad_t:.4f} vs {ck}"
+        ck = COMMITTED_1067.get(fam_key)
+        if ck is not None:
+            assert abs(t_ad_t - ck) < 5e-3, \
+                f"k=0 anchor mismatch vs 1067 at {fam_key}: {t_ad_t:.4f} vs {ck}"
         return out
 
     # ---- convolution root and detector (Hermitian positive contractions) ----

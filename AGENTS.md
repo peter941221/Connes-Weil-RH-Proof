@@ -226,6 +226,12 @@ verifies exact identities.
 - Even correctly single-quoted, a plain `$var` assigned inside `bash -c '...'`
   can arrive empty across the Git-Bash -> wsl.exe boundary (record 1067: "f=...;
   wc < $f" died with "ambiguous redirect"); hardcode paths in the bash -c string.
+- Env-assignment VALUES with metacharacters do not survive either: after
+  wsl.exe re-parsing the quotes are gone and `;` splits the command
+  (record 1068: `env SLIST_1068='[];[2]'` executed `[2]` as a command).
+  Put such assignments INSIDE `sh -c '...'` with hardcoded paths, or pick
+  metacharacter-free values; and redirect probe logs inside the `sh -c`
+  string - a Git-Bash-side `> /home/peter/...` aborts before wsl.exe runs.
 
 ### 7b. Lean / Mathlib v4.30 recurring hazards
 
