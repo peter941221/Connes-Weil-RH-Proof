@@ -673,7 +673,39 @@ visible-prime set. C3 remains open.
 The finite-prime crossing operator and the Gate 2 calculation remain verified
 infrastructure. They do not establish the C3 positivity statement.
 
-### 3.1 The next mathematical problem
+### 3.1 The Connes–Weil trace balance
+
+On the healthy owner, the closed center-2 assembly identifies the same-owner
+Weil functional with the zero-spectral value. This is the repository's formal
+trace balance behind the [Connes–Consani trace-formula paper](https://arxiv.org/abs/2006.13771):
+
+$$
+\boxed{
+  \begin{aligned}
+  &\text{CONNES-WEIL TRACE BALANCE} \\
+  \Psi(F)
+    &= \mathrm{poleTerm}(F)
+       - \mathrm{archimedeanTerm}(F)
+       - \mathrm{finitePrimeSum}(F) \\
+    &= \mathrm{spectralWeilValue}(F) \\
+  \mathrm{poleTerm}(F_g)
+    &= \mathrm{finitePrimeSum}(F_g)=0 \\
+  &\Longrightarrow\quad
+    \mathrm{spectralWeilValue}(F_g)
+      = -\mathrm{archimedeanTerm}(F_g)
+  \end{aligned}
+}
+$$
+
+The selected triple-vanishing, prime-free square
+`F_g = g.convolutionSquare` has zero pole and finite-prime terms. C3 must
+establish the remaining strict archimedean sign. The three equalities come from
+[`psi_eq_components`](ConnesWeilRH/Dev/C1SameOwnerWeil.lean#L199),
+[`centerTwo_arithmetic_eq_spectral`](ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean#L232),
+and
+[`qw_eq_neg_archimedeanTerm_of_vanishesOn_cc20Triple_of_primeFreeSquare`](ConnesWeilRH/Dev/C1HealthyYoshidaDetector.lean#L127).
+
+### 3.2 The next mathematical problem
 
 C2 reduces the next station to one scalar inequality. For the pinned detector
 `g : CompactLogTest`, the Lean handoff theorem
@@ -697,7 +729,7 @@ reconnaissance for the second source zero; no theorem consumes those numbers.
 | Detector-specific semi-local positivity | Open | Derive the healthy-detector data on the same `CompactLog` owner |
 | Contradiction to `SourceRH` | Open | Connect the detector certificate to the existing exit without using the coverage socket |
 
-### 3.2 Route boundaries
+### 3.3 Route boundaries
 
 The project keeps rejected and frozen routes visible so that a local theorem
 does not get mistaken for an RH exit.

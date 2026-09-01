@@ -1159,3 +1159,9 @@ active proof chain. It pairs the CC20 endpoint inequality `0 <= qw g` with the
 root-supported detector identity `qw g = spectralWeilValue F_g < 0` and links
 the conditional Lean exit composition. C3 and its inputs remain open; docs
 only, no Lean theorem changed.
+
+2026-09-01 README.md : inserted a Connes-Weil trace-balance panel after the
+Section 3 frontier dashboard. It connects the closed center-2 same-owner
+equality with the selected square's pole/prime cancellation and C3's remaining
+archimedean sign; Section 3 subsections were renumbered. Docs only, no Lean
+theorem changed.
