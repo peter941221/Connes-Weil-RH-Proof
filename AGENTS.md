@@ -518,6 +518,32 @@ silently misprices every extrapolation (1075 s4.3 erratum).
   passing bare real `gamma` evaluates a Laplace transform at real points (growth
   `e^{gamma a}` across the window) - symptom: single-point and node checks green
   while row sums are astronomical (margin0 ~ 5e17).
+- (29) Pointwise reference lookup (1086 G1): a comparator must evaluate the
+  reference AT each sample; nearest-grid lookup on a coarse precomputed grid
+  has O(spacing * |phi'/phi|) error (measured 0.45 relative in the chirp
+  region, |phi'/phi| ~ 30-40) - symptom: constant-magnitude relative
+  residual that does not shrink with candidate improvements.
+- (30) Reference self-convergence floor (1086 G1): a float64 quadrature
+  reference has its OWN discretization error; a pre-registered tolerance
+  tighter than the reference's coarse-vs-fine residual compares the
+  candidate against reference noise (1086: gate 1e-6 vs floor 8.4e-5).
+  Before firing F-C on a gate failure, measure the reference's
+  self-convergence; split the gate into a definitional leg (round-trip
+  against the imported original) plus a same-point leg with tolerance
+  max(floor, k x self-convergence).  Record the amendment openly.
+- (31) FFT autocorrelation normalization (1086): the circular
+  autocorrelation is `np.fft.ifft(|fft(x)|^2)` with NO extra factor -
+  `np.fft.ifft` already carries 1/L; appending `* L` inflates every lag by
+  L (symptom: a window integral ~3e5 where O(1) is expected, and the
+  FFT-vs-brute-force tie check at ~L instead of ~1e-16).  Always carry the
+  tie check (`abs(R[k]*du - dot(conj(h[:N-k]), h[k:])*du)`) and treat it as
+  a hard gate before reading any arch/window number off R.
+- (32) Factor-bookkeeping against the Lean source (1086): closed-form pieces
+  of a Lean quantity (e.g. the arch tail `-2 F 0 / sinh y` beyond the
+  support) must be re-derived FROM THE LEAN DEFINITION, not from a prose
+  draft - 1086's tail was written as `F0 log tanh a`, missing the factor 2
+  from BOTH numerator terms vanishing; caught by re-reading
+  `archimedeanNumerator` before the second run.
 
 ### 7d. CC20 owner landmines (live)
 
