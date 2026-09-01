@@ -1188,3 +1188,13 @@ inside the root window turns the record-1082 rescue gate's hypothesis
 debts (three nodal sums, detection, root support) into theorems, leaving
 exactly the two-term anchor positivity open on the constructed pair.
 Record 1083; built clean (3651 jobs), three standard axioms, zero sorryAx.
+
+2026-09-01 ConnesWeilRH/Dev/C1HealthyDetectorAnchorReduction.lean (+Audit) :
+collapsed the record-1083 pair's anchor obligation onto the single
+interpolant: an even test and an odd test summing to twice h have
+arch f.convSq + arch g.convSq = 4 * arch h.convSq exactly (cross dead by
+the odd kill, sum scales by four under pure integral congruence with no
+integrability input). Kernel (a) of consumer 3 is now one inequality on
+one root-window triple-vanishing detecting test, with the witness
+supplied by the 7-node interpolation. Record 1084; built clean (3652
+jobs), three standard axioms, zero sorryAx.

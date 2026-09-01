@@ -190,7 +190,7 @@ noncomputable def pairNodeTarget (rho : ℂ)
 
 /-! ### The nonzero facts used to evaluate the target -/
 
-private theorem pair_ne_zero
+theorem pair_ne_zero
     {rho : ℂ} (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho) :
     rho ≠ 0 := by
   intro hzero
@@ -264,7 +264,7 @@ private theorem negOne_ne_neg_rho
   have h' : (1 : ℂ) = rho := by simpa using congrArg Neg.neg h
   exact pair_ne_one hrho h'.symm
 
-private theorem pair_neg_rho_ne_rho {rho : ℂ} (hrho0 : rho ≠ 0) :
+theorem pair_neg_rho_ne_rho {rho : ℂ} (hrho0 : rho ≠ 0) :
     -rho ≠ rho := by
   intro h
   have h2 : rho - -rho = 0 := by
@@ -280,19 +280,19 @@ private theorem pair_neg_rho_ne_rho {rho : ℂ} (hrho0 : rho ≠ 0) :
 
 /-! ### The target values at all seven nodes -/
 
-private theorem pairNodeTarget_at_rho (rho : ℂ) :
+theorem pairNodeTarget_at_rho (rho : ℂ) :
     pairNodeTarget rho (⟨rho, by simp [pairNodeSet]⟩ :
       FiniteMellinNode (pairNodeSet rho)) = 1 := by
   dsimp [pairNodeTarget]
   exact if_pos rfl
 
-private theorem pairNodeTarget_at_neg_rho {rho : ℂ} (hrho0 : rho ≠ 0) :
+theorem pairNodeTarget_at_neg_rho {rho : ℂ} (hrho0 : rho ≠ 0) :
     pairNodeTarget rho (⟨-rho, by simp [pairNodeSet]⟩ :
       FiniteMellinNode (pairNodeSet rho)) = -1 := by
   dsimp [pairNodeTarget]
   rw [if_neg (pair_neg_rho_ne_rho hrho0), if_pos rfl]
 
-private theorem pairNodeTarget_at_zero
+theorem pairNodeTarget_at_zero
     {rho : ℂ} (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho) :
     pairNodeTarget rho (⟨0, by simp [pairNodeSet]⟩ :
       FiniteMellinNode (pairNodeSet rho)) = 0 := by
@@ -300,7 +300,7 @@ private theorem pairNodeTarget_at_zero
   rw [if_neg (Ne.symm (pair_ne_zero hrho)),
     if_neg (pair_zero_ne_neg_rho (pair_ne_zero hrho))]
 
-private theorem pairNodeTarget_at_half
+theorem pairNodeTarget_at_half
     {rho : ℂ} (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho)
     (hoff : rho.re ≠ 1 / 2) :
     pairNodeTarget rho (⟨1 / 2, by simp [pairNodeSet]⟩ :
@@ -316,7 +316,7 @@ private theorem pairNodeTarget_at_neg_half
   dsimp [pairNodeTarget]
   rw [if_neg (Ne.symm (pair_ne_neg_half hrho)), if_neg (negHalf_ne_neg_rho hoff)]
 
-private theorem pairNodeTarget_at_one
+theorem pairNodeTarget_at_one
     {rho : ℂ} (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho) :
     pairNodeTarget rho (⟨1, by simp [pairNodeSet]⟩ :
       FiniteMellinNode (pairNodeSet rho)) = 0 := by

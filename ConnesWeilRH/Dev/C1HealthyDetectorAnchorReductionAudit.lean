@@ -1,0 +1,35 @@
+import ConnesWeilRH.Dev.C1HealthyDetectorAnchorReduction
+
+/-!
+# Audit for `C1HealthyDetectorAnchorReduction`
+
+Checks the public surface of the anchor-collapse algebra and pins the axiom
+profile of every headline statement.  The expected axiom base is exactly
+`[propext, Classical.choice, Quot.sound]` and `sorryAx` must be absent.
+-/
+
+namespace ConnesWeilRH.Source.C1HealthyDetectorAnchorReductionAudit
+
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.C1HealthyDetectorAnchorReduction
+
+-- public surface
+#check @C1HealthyDetectorAnchorReduction.convolutionSquare_eq_four_mul_of_test_eq_two_mul
+#check @C1HealthyDetectorAnchorReduction.archimedeanNumerator_convolutionSquare_eq_four_mul
+#check @C1HealthyDetectorAnchorReduction.archimedeanIntegrand_convolutionSquare_eq_four_mul
+#check @C1HealthyDetectorAnchorReduction.archimedeanTerm_convolutionSquare_eq_four_mul
+#check @C1HealthyDetectorAnchorReduction.anchor_eq_four_mul_of_even_odd_sum
+#check @C1HealthyDetectorAnchorReduction.arch_pair_eq_four_mul
+#check @C1HealthyDetectorAnchorReduction.laplaceAt_sumTest_evenOdd
+#check @C1HealthyDetectorAnchorReduction.rootGate_of_tripleVanishing_detecting_rootWindow
+#check @C1HealthyDetectorAnchorReduction.exists_kernelA_final
+
+-- axiom pins
+#print axioms C1HealthyDetectorAnchorReduction.archimedeanTerm_convolutionSquare_eq_four_mul
+#print axioms C1HealthyDetectorAnchorReduction.anchor_eq_four_mul_of_even_odd_sum
+#print axioms C1HealthyDetectorAnchorReduction.arch_pair_eq_four_mul
+#print axioms C1HealthyDetectorAnchorReduction.laplaceAt_sumTest_evenOdd
+#print axioms C1HealthyDetectorAnchorReduction.rootGate_of_tripleVanishing_detecting_rootWindow
+#print axioms C1HealthyDetectorAnchorReduction.exists_kernelA_final
+
+end ConnesWeilRH.Source.C1HealthyDetectorAnchorReductionAudit

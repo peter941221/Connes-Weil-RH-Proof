@@ -696,6 +696,18 @@ silently misprices every extrapolation (1075 s4.3 erratum).
   ONE summand, not `rcases` on the hypothesis.
   (5) `rw [← sub_neg_eq_add]` for `a + b = c → a - -b = c`; the forward
   direction only matches goals that still contain `- -`.
+- Anchor-scaling lessons (record 1084, three probe iterations 5 -> 1 -> 0):
+  (1) the `ext` TACTIC has no registered extensionality lemma for `ℂ` in
+  this Mathlib ("No applicable extensionality theorem found") - use explicit
+  `apply Complex.ext` with the re/im subgoals, where bare `simp` closes
+  star-of-numeral goals (the `ℂ` star instance is conj-defeq);
+  (2) `Complex.star_def` rewrites `star z` into the `(starRingEnd ℂ) z`
+  spelling, which then does NOT match `Complex.conj_ofReal`'s `conj ↑r`
+  pattern - bridge with `starRingEnd_apply` or avoid the chain entirely;
+  (3) exact archimedean scaling (`F = 2h` pointwise => `arch F.convSq =
+  4 * arch h.convSq`) needs NO integrability input: `integral_congr_ae` +
+  `integral_const_mul` are unconditional, because `archimedeanTerm` is a
+  constant-times-`test 0` plus an integral read off the test pointwise.
 ### 7e. v4.30 cast/spelling hazards (Bessel-repair round)
 
 - `(e : ℂ)` + `^ 2` elaborates the power OUTSIDE the cast (`(↑e) ^ 2`).
