@@ -1119,3 +1119,10 @@ focused/root/cold/numeric/Git/opaque-shell cases, forced a low-memory upgrade,
 observed overlap across separate mirrors, serialization on one mirror, global
 heavy exclusion, and the event order `holder -> heavy -> follower`.  No Lean
 file changed, no theorem build was required, and RH remains unclaimed.
+
+2026-09-01 README.md : replaced the stale preface and commit timeline with an
+evidence-linked status dashboard at commit 9f9507b; it states the healthy
+`CompactLog`, B5-shaped mainline, C2 closure, and C3 gate without claiming RH.
+Updated the current-frontier and historical-route wording to keep the frozen
+universal-B1 path separate from the active detector-specific route. Docs only;
+no Lean theorem changed.
