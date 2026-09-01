@@ -321,28 +321,26 @@ Let A, B: H -> G satisfy the Hilbert-Schmidt summability conditions on a
 Hilbert basis (e_i):
 
 $$
-\sum_i \Vert A e_i\Vert^2<\infty,
-\qquad
-\sum_i \Vert B e_i\Vert^2<\infty.
+\boxed{
+  \begin{aligned}
+  &\text{HILBERT-SCHMIDT TRACE CYCLE} \\
+  &\sum_i \Vert A e_i\Vert^2 < \infty,\qquad
+    \sum_i \Vert B e_i\Vert^2 < \infty \\
+  &\Longrightarrow\quad
+    \sum_{i,j}
+    \left|
+      \langle A e_i,f_j\rangle
+      \langle f_j,B e_i\rangle
+    \right| < \infty \\
+  &\Longrightarrow\quad
+    \mathrm{Tr}_H(A^{\ast}B)
+    = \mathrm{Tr}_G(BA^{\ast})
+  \end{aligned}
+}
 $$
 
-The project first proves absolute summability of the two-basis coefficient
-matrix:
-
-$$
-\sum_{i,j}
-\left|
-\langle A e_i,f_j\rangle
-\langle f_j,B e_i\rangle
-\right|<\infty.
-$$
-
-This estimate justifies the exchange of the two infinite sums and gives the
-cross-space trace identity
-
-$$
-\mathrm{Tr}_H(A^{\ast}B)=\mathrm{Tr}_G(BA^{\ast}).
-$$
+The middle implication permits exchange of the two infinite sums; the last
+line is the cross-space trace identity.
 
 Lean declarations:
 
@@ -684,9 +682,7 @@ $$
   \begin{aligned}
   &\text{CONNES-WEIL TRACE BALANCE} \\
   \Psi(F)
-    &= \mathrm{poleTerm}(F)
-       - \mathrm{archimedeanTerm}(F)
-       - \mathrm{finitePrimeSum}(F) \\
+    &= \mathrm{poleTerm}(F) - \mathrm{archimedeanTerm}(F) - \mathrm{finitePrimeSum}(F) \\
     &= \mathrm{spectralWeilValue}(F) \\
   \mathrm{poleTerm}(F_g)
     &= \mathrm{finitePrimeSum}(F_g)=0 \\
@@ -740,6 +736,26 @@ does not get mistaken for an RH exit.
 | Normalized additive B5 socket | Its convolution doubles a Mellin value rather than multiplying the required values | [proof 1076](docs/proofs/1076_b1_b5_minimal_exit_route_selection.md) |
 | Bare whole-line Hilbert-Schmidt premise | It fails for each nonzero test | [proof 1016](docs/proofs/1016_plain_window_trace_family_verdict.md) |
 | Gate 3U and Lane R | The freeze policy archives them outside the healthy-owner chain | [`RH_MAINLINE_FREEZE.md`](RH_MAINLINE_FREEZE.md) |
+
+The normalized B5 socket has an explicit Mellin counterexample:
+
+$$
+\boxed{
+  \begin{gathered}
+  \text{NORMALIZED B5: MELLIN OBSTRUCTION} \\
+  \widetilde g(\rho)=1,\qquad
+  \widetilde{g\star g}(\rho)=2\ne1=\widetilde g(\rho)^2 \\
+  \Longrightarrow\quad
+  \text{the Mellin product law fails on this owner.}
+  \end{gathered}
+}
+$$
+
+[`not_normalizedCC20MellinConvolutionLaw`](ConnesWeilRH/Source/CC20YoshidaConstruction.lean#L2727)
+constructs the witness. The healthy `CompactLog` owner uses a genuine
+Hermitian square, as
+[`C1HealthyYoshidaDetector.lean`](ConnesWeilRH/Dev/C1HealthyYoshidaDetector.lean#L13)
+records.
 
 Historical rejected routes:
 

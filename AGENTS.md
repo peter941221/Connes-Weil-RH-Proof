@@ -177,6 +177,14 @@ read it back upstream.
   function identifiers and `\text{...}` for labels; avoid spacing macros,
   then inspect the rendered GitHub page after pushing. The Markdown API only
   confirms block parsing.
+- GFM parses Markdown before handing content to its math renderer: a source
+  line inside `$$` that begins with `-` becomes a Markdown list and drops the
+  display block. In multiline equations, keep subtraction after a non-list
+  TeX token such as an `aligned` `&=` row. Accept only when source display
+  delimiters and Markdown-API `js-display-math` counts agree.
+- A README math panel carries one theorem-level proof node. Keep prose and a
+  blank line on each side of a boxed display; consolidate a premise-to-result
+  chain instead of stacking formulas that repeat the same transition.
 
 ## [6] Environment, Secrets & Deployment
 

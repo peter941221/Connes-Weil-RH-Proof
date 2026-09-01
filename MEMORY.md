@@ -1165,3 +1165,10 @@ Section 3 frontier dashboard. It connects the closed center-2 same-owner
 equality with the selected square's pole/prime cancellation and C3's remaining
 archimedean sign; Section 3 subsections were renumbered. Docs only, no Lean
 theorem changed.
+
+2026-09-01 README.md + AGENTS.md : condensed the Section 2.1 Hilbert-Schmidt
+premises, coefficient summability, and cross-space trace equality into one
+boxed proof node; added a Section 3.3 normalized-B5 Mellin obstruction witness.
+Each new display serves one theorem-level node and retains prose spacing.
+Documented the GFM leading-minus parsing guard and README panel scope rule.
+Docs only, no Lean theorem changed.
