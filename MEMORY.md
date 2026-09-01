@@ -1178,3 +1178,13 @@ linking the CC20 and CCM25 papers plus proof 1070 to their load-bearing Lean
 interfaces and README panels. New README displays now require adjacent source
 evidence and an owner-aware Lean link for repository claims. Docs only, no Lean
 theorem changed.
+
+2026-09-01 ConnesWeilRH/Dev/C1HealthyDetectorEvenOddPair.lean (+Audit) :
+landed the explicit even/odd detector pair for consumer 3 kernel (a).
+Reflection without conjugation trades the Laplace parameter for its
+negative; the even/odd parts h +- h.reflection are unconditionally even
+and odd; the 7-node symmetric interpolation on {rho, -rho, 0, +-1/2, +-1}
+inside the root window turns the record-1082 rescue gate's hypothesis
+debts (three nodal sums, detection, root support) into theorems, leaving
+exactly the two-term anchor positivity open on the constructed pair.
+Record 1083; built clean (3651 jobs), three standard axioms, zero sorryAx.

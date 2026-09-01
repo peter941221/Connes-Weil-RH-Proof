@@ -674,6 +674,28 @@ silently misprices every extrapolation (1075 s4.3 erratum).
   `(g.test.smooth ⊤).continuous` (`SchwartzMap.contDiff` is not a field).
   (9) `eq_neg_self_iff` does not exist in this Mathlib; use the
   `neg_add_cancel` + `mul_eq_zero` route above.
+- Owner-construction lessons (record 1083, three probe iterations 27 -> 13
+  -> 1 -> 0):
+  (1) `(by tac).symm` / `(by tac).field` dot-chains STRIP the tactic block of
+  its expected type ("invalid 'by' tactic, expected type has not been
+  provided") - bind the fact in an ASCRIBED `have h' : T := by tac` first,
+  then apply the projection to `h'`.
+  (2) A constant-times-function compactness fact must be reached with an
+  ASCRIBED pointwise type: `have h : HasCompactSupport (fun x => (c:ℂ) * f x)
+  := f.compactSupport.mul_left` works (isDefEq does the Pi.mul elimination),
+  but stating `(fun _ => c) * f.test` inline elaborates `HMul` at the wrong
+  head, and `simpa` can never see through an UNAPPLIED `Pi.mul` sitting
+  inside `HasCompactSupport` (Pi.mul_apply needs an application).
+  (3) Reflection WITHOUT conjugation gives `lap f.reflection s = lap f (-s)`
+  by pure substitution; the chain is `rw [hsplit, integral_neg_eq_self]` -
+  do NOT put `integral_neg` in the list (the hsplit integrand has no leading
+  negation; the pattern can never match).
+  (4) Before union/rsplit reasoning on supports, `Function.mem_support` must
+  be in the simp set (`x ∈ support f` is `f x ≠ 0`; `rcases` on `≠` fails -
+  it is not inductive).  Then split the goal disjunction with `by_cases` on
+  ONE summand, not `rcases` on the hypothesis.
+  (5) `rw [← sub_neg_eq_add]` for `a + b = c → a - -b = c`; the forward
+  direction only matches goals that still contain `- -`.
 ### 7e. v4.30 cast/spelling hazards (Bessel-repair round)
 
 - `(e : ℂ)` + `^ 2` elaborates the power OUTSIDE the cast (`(↑e) ^ 2`).
