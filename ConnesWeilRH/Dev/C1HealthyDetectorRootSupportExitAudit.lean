@@ -1,0 +1,19 @@
+import ConnesWeilRH.Dev.C1HealthyDetectorRootSupportExit
+
+/-! Focused axiom audit for the consumer-3 root-support exit module
+(record 1081). -/
+
+namespace ConnesWeilRH.Source.C1HealthyDetectorRootSupportExitAudit
+
+open C1HealthyDetectorRootSupportExit
+
+#check @rootSupportedHealthyDetectorGate
+#check @rootSupportedGate_of_selectedDetectorArchimedeanGate
+#check @sourceRH_of_rootSupportedGate_rightRep_and_endpointCertificates
+#check @exists_fourthOrderTail_halfDensityShift_convolutionSquare
+
+#print axioms rootSupportedGate_of_selectedDetectorArchimedeanGate
+#print axioms sourceRH_of_rootSupportedGate_rightRep_and_endpointCertificates
+#print axioms exists_fourthOrderTail_halfDensityShift_convolutionSquare
+
+end ConnesWeilRH.Source.C1HealthyDetectorRootSupportExitAudit

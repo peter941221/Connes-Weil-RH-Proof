@@ -613,6 +613,15 @@ silently misprices every extrapolation (1075 s4.3 erratum).
   because the triple vanishing set {0, 1/2, 1} zeroes BOTH.  If any future
   consumer weakens the vanishing set, this leaf must be revisited first.
   The 1057 s5 intro-vs-final vanishing flag is resolved on this safe side.
+- Consumer-3 landmine (record 1081): the root-support wall lives ONLY on the
+  prefix side.  The TAIL side is damper-free closable for every test
+  (`exists_fourthOrderTail_halfDensityShift_convolutionSquare`: the Hermitian
+  product squares quadratic vertical decay into fourth order).  Do not
+  re-attack the tail with n-fold damping - the n-fold orbit is what DESTROYS
+  root support (`Ioo((n+1)*baseLower + lower, ...)`), and the epsilon-vs-radius
+  circle (`epsilon = f(C(corr(R(n0(epsilon)))))`) is broken in-library only by
+  that damping.  Also: `mul_le_mul_of_nonneg_left` cannot see through
+  left-association - state `81 * (A * B)`, not `81 * A * B`.
 ### 7e. v4.30 cast/spelling hazards (Bessel-repair round)
 
 - `(e : ℂ)` + `^ 2` elaborates the power OUTSIDE the cast (`(↑e) ^ 2`).
