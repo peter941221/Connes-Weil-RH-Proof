@@ -29,35 +29,42 @@ for each current claim.
 | C2 detector pinning | Closed with five axiom-clean declarations | [proof 1080](docs/proofs/1080_c2_detector_pinning_exit.md) |
 | C3 semi-local positivity | Structural exit formalized; strict sign and prefix-side construction remain open | [proof 1081](docs/proofs/1081_c3_root_support_exit.md) |
 
-### Lean 4 verification boundary
+### Lean 4 audit × Connes-Weil identity
 
-The formal layer records implications with their remaining premises rather
-than treating an interface as a proof. Write `RootGate` for
-[`rootSupportedHealthyDetectorGate`](ConnesWeilRH/Dev/C1HealthyDetectorRootSupportExit.lean).
-`RootGate_right` denotes that gate for every right representative. The
-displayed assumptions remain inputs to the checked implications.
+Read the left panel as checked Lean implications with named premises. The
+right panel states the Connes-Weil identity that joins zero, trivial, and
+place terms. Write `RootGate` for
+[`rootSupportedHealthyDetectorGate`](ConnesWeilRH/Dev/C1HealthyDetectorRootSupportExit.lean),
+and `RootGate_right` for that gate over every right representative.
 
 $$
-\underbrace{
-  \begin{aligned}
-  \bigl(\mathrm{C2}(\rho,g)\land
-    0<\mathrm{archimedeanTerm}(F_g)\bigr)
-    &\xrightarrow{\ \mathrm{Lean}\,4\ }
-      \mathrm{RootGate}(\rho), \\
-  \bigl(\mathrm{RootGate}_{\mathrm{right}}\land
-    \mathrm{EndpointCertificates}\bigr)
-    &\xrightarrow{\ \mathrm{Lean}\,4\ }
-      \mathrm{SourceRH}
-  \end{aligned}
-}_{\substack{
-  \text{consumer-3 structural interface}\\
+\boxed{
+  \begin{gathered}
+  \mathrm{LEAN}\,4\ \mathrm{AUDIT} \\
+  \mathrm{C2}\land h_{\mathrm{sign}}
+    \xrightarrow{\ \mathrm{Lean}\,4\ }\mathrm{RootGate} \\
+  \mathrm{RootGate}_{\mathrm{right}}\land h_{\mathrm{endpoint}}
+    \xrightarrow{\ \mathrm{Lean}\,4\ }\mathrm{SourceRH} \\
   [\mathrm{propext},\mathrm{Classical.choice},\mathrm{Quot.sound}]
-}}
+  \end{gathered}
+}
+\qquad
+\boxed{
+  \begin{gathered}
+  \mathrm{CONNES\!-\!WEIL\ IDENTITY} \\
+  \sum_{\rho}\widetilde f(\rho)
+    =\widetilde f(1)+\widetilde f(0)-\sum_v W_v(f) \\
+  f=g\ast g^\sharp,\qquad
+  \widetilde f\!\left(\frac12+it\right)
+    =\left|\widetilde g\!\left(\frac12+it\right)\right|^2
+  \end{gathered}
+}
 $$
 
-The strict sign, the prefix-side root-support construction, and the endpoint
-certificates remain open inputs. The output bridge still names five project
-axioms.
+Here `h_sign` is the strict archimedean inequality and `h_endpoint` is the
+root-supported endpoint certificate. They remain open inputs, as do the five
+project axioms in the output bridge. The right panel follows
+[proof 1070](docs/proofs/1070_weil_q_hunting_level1.md).
 
 ### Active proof chain
 

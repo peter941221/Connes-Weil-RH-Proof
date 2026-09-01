@@ -1143,3 +1143,11 @@ keeps the strict sign, prefix-side construction, endpoint certificates, and
 five project axioms explicit as open inputs. GitHub's Markdown API parses all
 30 display blocks but does not test browser macro compatibility; AGENTS now
 records that distinction. Docs only; no Lean theorem changed.
+
+2026-09-01 README.md : replaced the single Lean verification display with a
+paired boxed hero: the left panel lists the C2-to-root-gate and
+root-gate-to-SourceRH Lean implications with their audit axioms; the right
+panel gives the Connes-Weil explicit formula and critical-line square identity
+from proof 1070. The open sign, endpoint, and project-axiom inputs remain
+explicit. GitHub's Markdown API parses all 30 display blocks. Docs only; no
+Lean theorem changed.
