@@ -484,6 +484,23 @@ candidate variable and check which ratio is the stable one - 1071 printed
 "0.66 * gamma_j" but the stable ratio was per zero INDEX j (0.64-0.68 per
 j vs 0.06-0.19 per gamma_j); j vs gamma_j ~ j log j is a log-factor that
 silently misprices every extrapolation (1075 s4.3 erratum).
+- (25) mpmath/numpy boundary traps (1078): `mpf` parses NUMERIC LITERALS only
+  (`mpf("log(2)")` throws - use `mlog(mpf(2))`); `mpc` has no `.im` attribute -
+  use the context method `mp.im(z)`; `np.exp` cannot consume `mpc` - convert
+  `complex(s)` at the numpy pipeline entry.
+- (26) Prose-over-code sign hazard (1079 run 1): reimplementing a family from a
+  docstring while the code disagrees flips the sign EXACTLY (self-consistency
+  rel = 2.000, antipodal fingerprint) - 1077's make_g3 docstring said `s(1-s)`
+  while its code uses vf0 = s(s-1) (1071:41).  Any reimplementation must pass a
+  same-point self-consistency gate against the imported original BEFORE use.
+- (27) Linear-system orientation (1079 run 1): `lu_solve` consumes
+  `Sum_m M[j,m] c_m`; building the matrix as `[unknown][constraint]` silently
+  solves the transpose - symptom: garbage solution magnitudes (~1e5) and a
+  post-solve residual failing by orders of magnitude.
+- (28) On-line row placement (1079 run 1): Weil rows live at `s = 1/2 + i*gamma`;
+  passing bare real `gamma` evaluates a Laplace transform at real points (growth
+  `e^{gamma a}` across the window) - symptom: single-point and node checks green
+  while row sums are astronomical (margin0 ~ 5e17).
 
 ### 7d. CC20 owner landmines (live)
 

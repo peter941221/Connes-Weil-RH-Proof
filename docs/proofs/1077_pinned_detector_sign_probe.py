@@ -77,7 +77,11 @@ CACHE_GMAX = float(os.environ.get("CACHE_GMAX_1077", "0"))  # 0 => auto
 
 
 def make_g3(delta, norm, mu):
-    """g_3(s) = N' * s(1-s) (s-1/2)^2 * exp((-d^2 + i mu) s(1-s)).
+    """g_3(s) = N' * s(s-1) (s-1/2)^2 * exp((-d^2 + i mu) s(1-s)).
+
+    (Docstring erratum, 1079: this said s(1-s); the code's vf0 = s(s-1)
+    per 1071:41.  Zeros and magnitudes agree either way; the SIGN differs,
+    which matters for any reimplementation of the on-line values.)
 
     Symmetric: g_3(1-s) = g_3(s).  Vanishes EXACTLY at {0, 1/2, 1}."""
     c = -delta * delta + 1j * mu
