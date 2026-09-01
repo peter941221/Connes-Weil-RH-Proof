@@ -1149,5 +1149,7 @@ paired boxed hero: the left panel lists the C2-to-root-gate and
 root-gate-to-SourceRH Lean implications with their audit axioms; the right
 panel gives the Connes-Weil explicit formula and critical-line square identity
 from proof 1070. The open sign, endpoint, and project-axiom inputs remain
-explicit. GitHub's Markdown API parses all 30 display blocks. Docs only; no
-Lean theorem changed.
+explicit. A 1440px GitHub Preview readback confirms both boxes render without
+a macro error or raw-source fallback; the panel labels use `\text{...}` and
+the formulas avoid `\!` spacing commands. GitHub's Markdown API parses all 30
+display blocks. Docs only; no Lean theorem changed.

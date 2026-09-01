@@ -173,9 +173,10 @@ require Peter's authorization per execution; after publishing public text,
 read it back upstream.
 
 - GitHub's browser math renderer rejects `\operatorname` in README display
-  blocks and prints the raw source instead. Use `\mathrm{...}` for function
-  identifiers, then inspect the rendered GitHub page after pushing; the
-  Markdown API only confirms block parsing.
+  blocks and can render `\!` as a visible character. Use `\mathrm{...}` for
+  function identifiers and `\text{...}` for labels; avoid spacing macros,
+  then inspect the rendered GitHub page after pushing. The Markdown API only
+  confirms block parsing.
 
 ## [6] Environment, Secrets & Deployment
 

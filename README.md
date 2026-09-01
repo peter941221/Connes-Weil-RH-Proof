@@ -40,7 +40,7 @@ and `RootGate_right` for that gate over every right representative.
 $$
 \boxed{
   \begin{gathered}
-  \mathrm{LEAN}\,4\ \mathrm{AUDIT} \\
+  \text{LEAN 4 AUDIT} \\
   \mathrm{C2}\land h_{\mathrm{sign}}
     \xrightarrow{\ \mathrm{Lean}\,4\ }\mathrm{RootGate} \\
   \mathrm{RootGate}_{\mathrm{right}}\land h_{\mathrm{endpoint}}
@@ -51,12 +51,12 @@ $$
 \qquad
 \boxed{
   \begin{gathered}
-  \mathrm{CONNES\!-\!WEIL\ IDENTITY} \\
+  \text{CONNES-WEIL IDENTITY} \\
   \sum_{\rho}\widetilde f(\rho)
     =\widetilde f(1)+\widetilde f(0)-\sum_v W_v(f) \\
   f=g\ast g^\sharp,\qquad
-  \widetilde f\!\left(\frac12+it\right)
-    =\left|\widetilde g\!\left(\frac12+it\right)\right|^2
+  \widetilde f\left(\frac12+it\right)
+    =\left|\widetilde g\left(\frac12+it\right)\right|^2
   \end{gathered}
 }
 $$
@@ -231,8 +231,8 @@ f=g\ast g^\sharp,
 \qquad
 \widetilde f(s)=\widetilde g(s)\widetilde g(1-s),
 \qquad
-\widetilde f\!\left(\frac12+it\right)
-  =\left|\widetilde g\!\left(\frac12+it\right)\right|^2.
+\widetilde f\left(\frac12+it\right)
+  =\left|\widetilde g\left(\frac12+it\right)\right|^2.
 $$
 
 3. Xi-function zero counting
