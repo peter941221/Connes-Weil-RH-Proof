@@ -185,6 +185,9 @@ read it back upstream.
 - A README math panel carries one theorem-level proof node. Keep prose and a
   blank line on each side of a boxed display; consolidate a premise-to-result
   chain instead of stacking formulas that repeat the same transition.
+- An added README display needs adjacent evidence: a paper, proof record, or
+  Lean declaration. When it states a repository claim, link the corresponding
+  Lean theorem and name the mathematical owner.
 
 ## [6] Environment, Secrets & Deployment
 

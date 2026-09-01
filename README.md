@@ -779,6 +779,18 @@ gate for a pinned detector, or the detector-certificate contradiction to
 
 The formal interfaces draw on the following papers.
 
+### Paper-to-interface map
+
+Read each row from source to Lean interface to README panel. The source states
+the mathematical object; the Lean declaration fixes the carrier and quantifiers
+used here.
+
+| Source | Mathematical object | Lean interface | README panel |
+| :-- | :-- | :-- | :-- |
+| [Connes–Consani (2020)](https://arxiv.org/abs/2006.13771) | Weil explicit formula and archimedean place | [`centerTwo_arithmetic_eq_spectral`](ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean#L232) | Section 3.1 Connes–Weil trace balance |
+| [Connes–Consani–Moscovici (2023)](https://arxiv.org/abs/2310.18423) | Semilocal space and Fourier transport | [`CompactLogTest.convolutionSquare`](ConnesWeilRH/Source/CCM25Concrete/CompactLogConvolution.lean#L114) | Healthy C2-to-C3 owner |
+| [proof 1070](docs/proofs/1070_weil_q_hunting_level1.md) | Mellin square product law | [`not_normalizedCC20MellinConvolutionLaw`](ConnesWeilRH/Source/CC20YoshidaConstruction.lean#L2727) | Section 3.3 normalized B5 obstruction |
+
 1. Alain Connes and Caterina Consani, *Weil positivity and Trace formula: the
    archimedean place*,
    [arXiv:2006.13771](https://arxiv.org/abs/2006.13771).

@@ -1172,3 +1172,9 @@ boxed proof node; added a Section 3.3 normalized-B5 Mellin obstruction witness.
 Each new display serves one theorem-level node and retains prose spacing.
 Documented the GFM leading-minus parsing guard and README panel scope rule.
 Docs only, no Lean theorem changed.
+
+2026-09-01 README.md + AGENTS.md : added a paper-to-interface map in Sources,
+linking the CC20 and CCM25 papers plus proof 1070 to their load-bearing Lean
+interfaces and README panels. New README displays now require adjacent source
+evidence and an owner-aware Lean link for repository claims. Docs only, no Lean
+theorem changed.
