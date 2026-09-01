@@ -639,6 +639,41 @@ silently misprices every extrapolation (1075 s4.3 erratum).
   circle (`epsilon = f(C(corr(R(n0(epsilon)))))`) is broken in-library only by
   that damping.  Also: `mul_le_mul_of_nonneg_left` cannot see through
   left-association - state `81 * (A * B)`, not `81 * A * B`.
+- Integral-rewrite diseases (record 1082, six build iterations 38 -> 0
+  errors).  All are kabstract pattern-shape traps around `integral_add`:
+  (1) `MeasureTheory.integral_add` is BETA-form (`∫ a, f a + g a`),
+  `integral_add'` is Pi-add form (`∫ a, (f + g) a`) - pick the variant whose
+  LHS matches the GOAL's syntactic integrand shape, not the defeq one.
+  (2) Merging twice: the first merge produces beta-form `∫ f a + ∫ g a`; to
+  merge THAT again the second hint's function must be a LAMBDA (`have h :
+  Integrable (fun y => B y + C y) := B.add C` - the ascription is defeq and
+  fixes the syntactic shape).  A Pi-add-typed hint produces an unmatched
+  `(f + g) a` pattern; a Pi-add of a Pi-add never matches.
+  (3) `rw [h]` rewrites ALL occurrences of the instantiation: from
+  `a = -a`, `rw [two_mul, h]` lands on `-a + -a` where `add_neg_cancel`
+  cannot fire.  Route: `have h3 : -a + a = 0 := neg_add_cancel _;
+  rw [← h] at h3` then `two_mul` + `mul_eq_zero` + `resolve_left`.
+  (4) `integral_congr_ae`'s conclusion has integrals on BOTH sides - `apply`
+  fails when the goal RHS is a bare `0`; state the zero-integral equality
+  explicitly, then `rw` + `simp`.
+  (5) On unrestricted integrals the `Filter.Eventually.of_forall` /
+  `filter_upwards` hypothesis has ONE binder (no set membership); over
+  `Set.Ioi` restricts the authority is ALSO one binder in this Mathlib -
+  `fun y _ => ...` fails with introN.  Verify against the expected-type in
+  the error, not against intuition.
+  (6) `rw`'s closing `rfl` is NOT full-defeq: `0 + 0 = 0` (Complex instance
+  head) and `f.involution.test t = star (f.test (-t))` (structure-projection
+  unfold) both survive it - finish with explicit `simp` / `ring` /
+  `simp only [involution_apply]`.
+  (7) `exponentialWeight f s` returns a CompactLogTest, NOT a function:
+  integrability of the weighted test is `SchwartzMap.integrable (...).test`.
+  (8) `ConvolutionExistsAt f g x L μ` IS the `Integrable (fun t => L (f t)
+  (g (x - t))) μ` statement - `HasCompactSupport.convolutionExists_left_of_
+  continuous_right ... y` supplies pointwise convolution integrability
+  directly (dodges nonexistent `SchwartzMap.comp`); continuity input is
+  `(g.test.smooth ⊤).continuous` (`SchwartzMap.contDiff` is not a field).
+  (9) `eq_neg_self_iff` does not exist in this Mathlib; use the
+  `neg_add_cancel` + `mul_eq_zero` route above.
 ### 7e. v4.30 cast/spelling hazards (Bessel-repair round)
 
 - `(e : ℂ)` + `^ 2` elaborates the power OUTSIDE the cast (`(↑e) ^ 2`).

@@ -1,0 +1,41 @@
+import ConnesWeilRH.Dev.C1HealthyDetectorArchRescue
+
+/-!
+# Audit for `C1HealthyDetectorArchRescue`
+
+Checks the public surface of the archimedean-rescue algebra and pins the
+axiom profile of every headline statement.  The expected axiom base is
+exactly `[propext, Classical.choice, Quot.sound]` and `sorryAx` must be
+absent.
+-/
+
+namespace ConnesWeilRH.Source.C1HealthyDetectorArchRescueAudit
+
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.C1HealthyDetectorArchRescue
+
+-- public surface
+#check @C1HealthyDetectorArchRescue.sumTest
+#check @C1HealthyDetectorArchRescue.laplaceAt_sumTest
+#check @C1HealthyDetectorArchRescue.archimedeanNumerator_sumTest
+#check @C1HealthyDetectorArchRescue.archimedeanIntegrand_sumTest
+#check @C1HealthyDetectorArchRescue.integrableOn_archimedeanIntegrand_convolutionSquare
+#check @C1HealthyDetectorArchRescue.crossTest
+#check @C1HealthyDetectorArchRescue.convolutionSquare_sumTest_apply
+#check @C1HealthyDetectorArchRescue.integrableOn_archimedeanIntegrand_crossTest
+#check @C1HealthyDetectorArchRescue.archimedeanTerm_convolutionSquare_sumTest
+#check @C1HealthyDetectorArchRescue.archimedeanTerm_eq_zero_of_test_odd
+#check @C1HealthyDetectorArchRescue.laplaceAt_neg_of_test_odd
+#check @C1HealthyDetectorArchRescue.laplaceAt_eq_zero_of_test_odd
+#check @C1HealthyDetectorArchRescue.test_neg_crossTest_of_even_odd
+#check @C1HealthyDetectorArchRescue.archimedeanTerm_convolutionSquare_sumTest_of_even_odd
+#check @C1HealthyDetectorArchRescue.rootSupportedGate_of_evenBase_oddCorrection
+
+-- axiom pins
+#print axioms C1HealthyDetectorArchRescue.archimedeanTerm_convolutionSquare_sumTest
+#print axioms C1HealthyDetectorArchRescue.archimedeanTerm_eq_zero_of_test_odd
+#print axioms C1HealthyDetectorArchRescue.archimedeanTerm_convolutionSquare_sumTest_of_even_odd
+#print axioms C1HealthyDetectorArchRescue.laplaceAt_eq_zero_of_test_odd
+#print axioms C1HealthyDetectorArchRescue.rootSupportedGate_of_evenBase_oddCorrection
+
+end ConnesWeilRH.Source.C1HealthyDetectorArchRescueAudit
