@@ -1,0 +1,21 @@
+import ConnesWeilRH.Dev.C1HealthyDetectorPinning
+
+/-! Focused axiom audit for the consumer-2 exit module (record 1080). -/
+
+namespace ConnesWeilRH.Source.C1HealthyDetectorPinningAudit
+
+open C1HealthyDetectorPinning
+
+#check @convolutionSquare_support_logTwo_of_rootSupport_logTwoHalf
+#check @globalPrimeIndexSet_eq_empty_of_support_subset_open_log_two
+#check @exists_pinnedHealthyDetector_rootWindow
+#check @healthyDetectorData_iff_selectedDetectorArchimedeanGate
+#check @exists_healthyDetectorData_of_gate_of_pinnedHealthyDetector
+
+#print axioms convolutionSquare_support_logTwo_of_rootSupport_logTwoHalf
+#print axioms globalPrimeIndexSet_eq_empty_of_support_subset_open_log_two
+#print axioms exists_pinnedHealthyDetector_rootWindow
+#print axioms healthyDetectorData_iff_selectedDetectorArchimedeanGate
+#print axioms exists_healthyDetectorData_of_gate_of_pinnedHealthyDetector
+
+end ConnesWeilRH.Source.C1HealthyDetectorPinningAudit
