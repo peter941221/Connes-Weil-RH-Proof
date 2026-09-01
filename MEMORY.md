@@ -1126,3 +1126,11 @@ evidence-linked status dashboard at commit 9f9507b; it states the healthy
 Updated the current-frontier and historical-route wording to keep the frozen
 universal-B1 path separate from the active detector-specific route. Docs only;
 no Lean theorem changed.
+
+2026-09-01 README.md : added the C2-to-C3 mathematical interface from
+`C1HealthyDetectorPinning.lean` and four evidence-linked historical formulas:
+the Weil explicit formula and Mellin square identity (proof 1070), the
+Nyman-Beurling Schur complement (proof 020), and the Bessel scope boundary
+(proof 1050). GitHub GFM renders all 29 display blocks; C2 remains closed, C3
+open, B1 frozen, and the Bessel `lam < 1` scope explicit. Docs only; no Lean
+theorem changed.

@@ -44,6 +44,31 @@ for each current claim.
   SourceRH -> Mathlib RiemannHypothesis              [target]
 ```
 
+For a pinned detector, write `F_g` for `g.convolutionSquare`. The active
+mathematical interface is
+
+$$
+\underbrace{
+  \begin{aligned}
+  \operatorname{supp}(g)
+    &\subseteq \left[-\frac{\log 2}{2},\frac{\log 2}{2}\right], \\
+  \operatorname{laplaceAt}(g,\rho)&=-1, \qquad
+  \operatorname{globalPrimeIndexSet}(F_g)=\varnothing
+  \end{aligned}
+}_{\text{C2: closed}}
+\quad
+\xrightarrow{\quad\text{C3 proof obligation}\quad}
+\quad
+\underbrace{
+  0<\operatorname{archimedeanTerm}(F_g)
+}_{\text{C3: open}}.
+$$
+
+C2 supplies the support, detector normalization, and visible-prime data. C3
+requires the strict right-hand inequality on the same healthy owner; the
+[`selectedDetectorArchimedeanGate`](ConnesWeilRH/Dev/C1HealthyDetectorPinning.lean#L113)
+is its exact Lean statement.
+
 The universal B1 all-test campaign and the normalized additive B5 socket are
 frozen. The active route seeks detector-specific positivity on the same healthy
 owner.
@@ -138,6 +163,15 @@ RH consumers.
    identification with the load-bearing semilocal metric variation and its
    sign/RH consumer remain open.
 
+   The paper-facing calculation brings the zero, trivial, and place terms into
+   one explicit formula, documented in
+   [proof 1070](docs/proofs/1070_weil_q_hunting_level1.md):
+
+$$
+\sum_{\rho}\widetilde f(\rho)
+  = \widetilde f(1)+\widetilde f(0)-\sum_v W_v(f).
+$$
+
 2. Yoshida zero detectors (older normalized branch)
 
    Yoshida's method constructs Mellin test functions aimed at a prescribed
@@ -149,6 +183,19 @@ RH consumers.
    the same owner. The older normalized detector route is retained only for
    provenance. The active route now carries its C2-to-C3 handoff on the
    healthy `CompactLog` owner.
+
+   Its convolution square uses the Mellin identity. The critical-line term is
+   therefore a square modulus; [proof 1070](docs/proofs/1070_weil_q_hunting_level1.md)
+   derives this identity rather than assuming a shifted product.
+
+$$
+f=g\ast g^\sharp,
+\qquad
+\widetilde f(s)=\widetilde g(s)\widetilde g(1-s),
+\qquad
+\widetilde f\!\left(\frac12+it\right)
+  =\left|\widetilde g\!\left(\frac12+it\right)\right|^2.
+$$
 
 3. Xi-function zero counting
 
@@ -171,6 +218,16 @@ RH consumers.
    non-cancellation problem of RH-level strength. The numerical and structural
    evidence remains useful as a record of this obstruction.
 
+   The finite block exposes the obstruction through its Schur complement. The
+   explicit Mobius coefficients do not remove `G_N^{-1}`; see
+   [proof 020](docs/proofs/020_nyman_mobius_m4_first_verdict.md).
+
+$$
+\Vert w_N\Vert^2
+  = a_N^{\mathsf T}
+\left(B_N-C_N^{\mathsf T}G_N^{-1}C_N\right)a_N.
+$$
+
 5. Prolate, Sonin, and positivity methods
 
    This direction studies time-frequency truncation, prolate wave operators,
@@ -179,6 +236,19 @@ RH consumers.
    needs spectral sign information. The finite-band Route-A Gate is now an
    axiom-clean diagnostic result. The infinite-carrier Gate-3U cancellation
    identity remains open and is not the active RH root.
+
+   The Bessel bound marks the parameter boundary. The lower bound is rigorous
+   but does not reach the paper scale. The
+   paper-scale certificate needs an exceptional direction, a complement bound,
+   and a rank-one repair; [proof 1050](docs/proofs/1050_one_shot_rh_route_verdict.md)
+   records that distinction.
+
+$$
+q_T(\xi)\ge(1-\lambda)\Vert\xi\Vert^2
+\quad(\lambda<1),
+\qquad
+\lambda_{\mathrm{paper}}\simeq1.05158>1.
+$$
 
 6. Operator-level falsification
 
