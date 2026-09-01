@@ -6,6 +6,11 @@ Status: NO-GO for treating the current ROOT-window endpoint theorem as the
 last step to RH.  GO for one uninterrupted proof campaign with batched
 verification at ownership boundaries.  RH is not claimed.
 
+Map role: supporting paper-scale and quantifier boundary. Its route-selection
+content is superseded by the binding healthy-`CompactLog`, B5-shaped ruling in
+[`003`](003_b1_b5_minimal_exit_route_selection.md); current endpoint scope is
+defined by [`004`](004_endpoint_literature_interface_audit.md).
+
 ## 1. What was checked
 
 The primary source is Connes--Consani, *Weil positivity and Trace formula,

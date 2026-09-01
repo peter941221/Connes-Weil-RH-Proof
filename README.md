@@ -24,10 +24,11 @@ for each current claim.
 
 | Item | Status | Primary evidence |
 | :-- | :-- | :-- |
-| Mathematical mainline | B5-shaped, detector-specific route on the healthy `CompactLog` owner | [route ruling 1076](docs/proofs/1076_b1_b5_minimal_exit_route_selection.md) |
+| Current route map | Architecture, binding route ruling, and endpoint boundary | [route-map index](docs/map/README.md) |
+| Mathematical mainline | B5-shaped, detector-specific route on the healthy `CompactLog` owner | [route ruling 1076](docs/map/003_b1_b5_minimal_exit_route_selection.md) |
 | Output bridge | Five explicit project axioms remain | [`RhOutputAxiomLedger.lean`](ConnesWeilRH/Dev/RhOutputAxiomLedger.lean) |
 | C2 detector pinning | Closed with five axiom-clean declarations | [proof 1080](docs/proofs/1080_c2_detector_pinning_exit.md) |
-| C3 semi-local positivity | Structural exit formalized; strict sign and prefix-side construction remain open | [proof 1081](docs/proofs/1081_c3_root_support_exit.md) |
+| C3 semi-local positivity | Root-window kernel (a) adjudicated numerically NEGATIVE (top of arch on the triple-vanishing subspace plateaus at -0.853, no positive direction at any resolution); carrier and transport routes closed, obligation re-anchored to certificate extension at the detector's orbit window | [proof 1087](docs/proofs/1087_c3_root_window_spectral_verdict.md), [proof 1081](docs/proofs/1081_c3_root_support_exit.md) |
 
 ### Lean 4 audit × Connes-Weil identity
 
@@ -76,7 +77,8 @@ project axioms in the output bridge. The right panel follows
                |
                v
   C3: root-supported gate / RH-exit wiring           [formalized]
-      strict sign + prefix construction              [open]
+      root-window kernel (a) adjudicated negative    [1087 scan]
+      re-anchored: orbit-window certificate growth   [open]
                |
                v
   SourceRH -> Mathlib RiemannHypothesis              [target]
@@ -121,7 +123,16 @@ $$
 C2 supplies the support, detector normalization, and visible-prime data. C3
 requires the strict right-hand inequality on the same healthy owner; the
 [`selectedDetectorArchimedeanGate`](ConnesWeilRH/Dev/C1HealthyDetectorPinning.lean#L113)
-is its exact Lean statement.
+is its exact Lean statement. Record 1087 measured the whole root-window
+feasible set of this inequality spectrally - the top of the archimedean form
+on the triple-vanishing subspace plateaus at about -0.85 per unit mass, so
+the displayed window admits no positive direction for any detector (and,
+through the explicit-formula identity, producing one would be an off-line
+zero witness, not a step toward RH). The open C3 obligation therefore moves
+outward along the radius: extend the ROOT-local endpoint certificate to the
+detector's orbit support with its finite visible-prime set, which the frozen
+consumer wording already authorizes. See
+[proof 1087](docs/proofs/1087_c3_root_window_spectral_verdict.md).
 
 The universal B1 all-test campaign and the normalized additive B5 socket are
 frozen. The active route seeks detector-specific positivity on the same healthy
@@ -196,7 +207,7 @@ arithmetic terms, the spectral sum, and the detector criterion.
 | Gate 2 arithmetic-to-spectral equality | Closed by the center-2 contour assembly |
 | ROOT-window CC20 positivity | Shared local base; it is not an RH exit |
 | C2 selected `CompactLog` detector and visible-prime set | Closed |
-| C3 detector-specific semi-local positivity | Open |
+| C3 detector-specific semi-local positivity | Root-window branch numerically adjudicated negative ([1087](docs/proofs/1087_c3_root_window_spectral_verdict.md)); obligation re-anchored to orbit-window certificate extension |
 | Universal B1 all-test globalization | Frozen |
 | `SourceRH` to Mathlib RH | Conditional target after the healthy-owner exit |
 
@@ -294,7 +305,7 @@ $$
    The Bessel bound marks the parameter boundary. The lower bound is rigorous
    but does not reach the paper scale. The
    paper-scale certificate needs an exceptional direction, a complement bound,
-   and a rank-one repair; [proof 1050](docs/proofs/1050_one_shot_rh_route_verdict.md)
+   and a rank-one repair; [proof 1050](docs/map/002_one_shot_rh_route_verdict.md)
    records that distinction.
 
 $$
@@ -603,7 +614,7 @@ boundaries:
 | W4b positivity on proper support classes | Closed historical local results |
 | Universal W4b all-test globalization | Frozen |
 | C2 pinned healthy detector | Closed |
-| C3 detector-specific semi-local positivity | Open |
+| C3 detector-specific semi-local positivity | Open; root-window kernel (a) numerically negative definite ([1087](docs/proofs/1087_c3_root_window_spectral_verdict.md)), re-anchored outward |
 
 The convergence reduction is the exact statement
 
@@ -620,7 +631,10 @@ Finite `c = 1` prime-power readback and the center-2 Gamma_R reciprocal-series
 normal form are closed as local analytic bricks. The center-2 contour assembly
 now proves the same-owner arithmetic-to-spectral equality as an axiom-clean
 Lean theorem, closing Gate 2. The universal W4b campaign is frozen; the active
-unresolved obligation is C3 detector-specific semi-local positivity. RH is not
+unresolved obligation is C3 detector-specific semi-local positivity, now
+targeted at an expanded-radius (orbit-window) certificate: the root-window
+branch of its kernel (a) was numerically adjudicated negative definite by
+[proof 1087](docs/proofs/1087_c3_root_window_spectral_verdict.md). RH is not
 claimed.
 
 - [`centerTwo_arithmetic_eq_spectral`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean#L232)
@@ -653,7 +667,7 @@ claimed.
 
 At [commit `9f9507b`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/9f9507b),
 the project pursues the detector-specific, B5-shaped route selected in
-[proof 1076](docs/proofs/1076_b1_b5_minimal_exit_route_selection.md). C2 is
+[proof 1076](docs/map/003_b1_b5_minimal_exit_route_selection.md). C2 is
 complete: Lean constructs a root-window detector with an explicit finite
 visible-prime set. C3 remains open.
 
@@ -663,7 +677,7 @@ visible-prime set. C3 remains open.
 | Gate 2 arithmetic-to-spectral equality | Closed | Center-2 contour assembly |
 | Paper-scale ROOT-window CC20 base | Open | Shared local base, not an RH exit |
 | C2 selected detector and visible-prime set | Closed | Root-window support and an empty visible-prime set |
-| C3 detector-specific semi-local positivity | Open | One strict archimedean sign inequality on a pinned detector |
+| C3 detector-specific semi-local positivity | Open (root window closed) | One strict archimedean sign inequality; the root-window feasible set is numerically empty ([1087](docs/proofs/1087_c3_root_window_spectral_verdict.md)) - the remaining shape is the same inequality at the detector's orbit window |
 | Detector certificate to `SourceRH` | Open | Healthy-owner contradiction theorem |
 | Universal B1 all-test globalization | Frozen | It would require positivity for every compactly supported test |
 | Normalized B5 coverage socket | Audit-only | Its additive convolution fails the Mellin product law |
@@ -713,15 +727,22 @@ $$
 $$
 
 The next accepted result must prove this C3 gate for a selected detector on the
-healthy owner. That proof may use a directed interval certificate or a
+healthy owner. Records [1077](docs/proofs/1077_pinned_detector_sign.md)
+through [1086](docs/proofs/1086_g3_carrier_design.md) searched for such a
+detector inside the root window; [proof 1087](docs/proofs/1087_c3_root_window_spectral_verdict.md)
+adjudicated the whole window: the top of the archimedean form on the
+triple-vanishing subspace plateaus near -0.85 per unit mass, so no root-window
+test can satisfy the displayed inequality (the trace balance above explains the
+sign - at radius below log 2 the gate is an off-line-zero witness, not an RH
+lemma). The surviving C3 shape is the same gate at the detector's orbit window,
+reached by growing the ROOT-local endpoint certificate outward over a finite
+visible-prime set. That proof may use a directed interval certificate or a
 structured algebraic sign theorem, but it must land as a Lean theorem with its
-own axiom audit. Records [1077](docs/proofs/1077_pinned_detector_sign.md)
-through [1079](docs/proofs/1079_windowed_node_correction.md) report numerical
-reconnaissance for the second source zero; no theorem consumes those numbers.
+own axiom audit; no theorem consumes the scan numbers.
 
 | Requirement | State | Acceptance condition |
 | :-- | :-- | :-- |
-| C3 archimedean gate | Open | Prove the strict inequality on a selected pinned detector |
+| C3 archimedean gate | Open (root window numerically closed by [1087](docs/proofs/1087_c3_root_window_spectral_verdict.md)) | Prove the strict inequality on a detector at an expanded-radius (orbit) window |
 | Detector-specific semi-local positivity | Open | Derive the healthy-detector data on the same `CompactLog` owner |
 | Contradiction to `SourceRH` | Open | Connect the detector certificate to the existing exit without using the coverage socket |
 
@@ -732,8 +753,8 @@ does not get mistaken for an RH exit.
 
 | Boundary | Why it cannot close the active route | Evidence |
 | :-- | :-- | :-- |
-| Universal B1 all-test positivity | ROOT-window positivity does not control mixed terms or newly visible prime powers | [proof 1076](docs/proofs/1076_b1_b5_minimal_exit_route_selection.md) |
-| Normalized additive B5 socket | Its convolution doubles a Mellin value rather than multiplying the required values | [proof 1076](docs/proofs/1076_b1_b5_minimal_exit_route_selection.md) |
+| Universal B1 all-test positivity | ROOT-window positivity does not control mixed terms or newly visible prime powers | [proof 1076](docs/map/003_b1_b5_minimal_exit_route_selection.md) |
+| Normalized additive B5 socket | Its convolution doubles a Mellin value rather than multiplying the required values | [proof 1076](docs/map/003_b1_b5_minimal_exit_route_selection.md) |
 | Bare whole-line Hilbert-Schmidt premise | It fails for each nonzero test | [proof 1016](docs/proofs/1016_plain_window_trace_family_verdict.md) |
 | Gate 3U and Lane R | The freeze policy archives them outside the healthy-owner chain | [`RH_MAINLINE_FREEZE.md`](RH_MAINLINE_FREEZE.md) |
 

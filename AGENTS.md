@@ -7,6 +7,14 @@
 3. `coverage root` 已在 Lean 中证明与 RH 等价，禁止把它写成普通密度引理。
 4. 唯一 RH 主线是健康 `CompactLog` 载体上的 B5 形态：只为选定探测器及其
    有限可见素数集证明半局部正性。禁止把 ROOT 窗口正性写成 B1 已闭合。
+5. 每次开始新的实质性数学砖块前，必须先阅读 `docs/map/README.md` 和绑定
+   路线文档 `003`；端点/C3 工作再读 `004`，ROOT-window 或 paper-scale
+   工作再回溯 `001/002`。新战役或路线图更新后须完整重读 `001`--`004`。
+   没有健康 `CompactLog` B5 主线消费者（consumer）的工作不得开打。
+6. 打的过程中，任何改变路线选择、砖块状态、owner/量词/消费者、no-go 判定
+   或端点供应者的发现，都可以立即更新对应 `docs/map/` 文档，不必等待战役
+   结束；写明证据和状态。若改变绑定路线或当前状态，同次同步 `README.md` 与
+   本文件。未定论的原始数值现象留在 `docs/proofs/`，不得直接改写地图结论。
 
 
 Working rules for the Connes-Weil RH formalization. Compressed 2026-08-27:
@@ -29,11 +37,31 @@ mainline.  The ROOT form on `[-log 2/2, log 2/2]` is a shared local CC20 base,
 not an RH exit and not the universal B1 criterion.  The mathematical exit is
 detector-specific semi-local positivity on the same healthy owner, followed by
 `SourceRH` and Mathlib RH.  Design records:
-`docs/proofs/1043_first_cut_window_architecture.md` and
-`docs/proofs/1076_b1_b5_minimal_exit_route_selection.md`.
+`docs/map/001_first_cut_window_architecture.md` and
+`docs/map/003_b1_b5_minimal_exit_route_selection.md`.
 Freeze rules: `RH_MAINLINE_FREEZE.md` (run
 `pwsh -File scripts/check_rh_mainline_freeze.ps1` before touching frozen route
 namespaces). Current phase states: README "Status dashboard" (top).
+
+Route-map preflight (mandatory): before beginning a new substantive proof
+brick, Lean theorem, carrier family, or numerical investigation, always read
+`docs/map/README.md` and binding route ruling `003`. Read `004` when the work
+touches C3, endpoint certificates, or an external endpoint source. Read
+`001` and `002` when it uses the ROOT-window local base, the
+`gamma + alpha/beta + delta` chain, paper-scale Toeplitz work, or a quantifier
+boundary. Read `001` through `004` in order when opening a new proof campaign
+or after any map update. State the healthy-`CompactLog` B5 consumer that the
+work serves before opening the new thread; without one, do not start the work.
+
+Route-map maintenance (live): during work, update the affected `docs/map/`
+record immediately when new evidence changes a route selection, brick status,
+owner, quantifier, consumer, no-go ruling, or endpoint supplier. Do not wait
+for a campaign or batched build to end. Each update must cite its evidence and
+label the result as formal, literature-backed, or a project candidate. If it
+changes binding route authority or the current status, synchronize `README.md`
+and this file in the same change. Raw or unresolved numerical observations
+belong in `docs/proofs/` and cannot alone change a map conclusion. Use the next
+sequential `00N_` filename for a new route-level record.
 
 Route selection (2026-08-31, record 1076): the output audit has two singleton
 logical cuts, B1 and B5, and each cut is RH-equivalent.  B1's executable
@@ -62,7 +90,7 @@ Next bricks, in order:
    `SourceRH` and Mathlib RH.  The existing normalized coverage root is an
    RH-equivalent audit socket, not an intermediate density lemma and not the
    mathematical owner for new work; design judgments:
-   `docs/proofs/1050_one_shot_rh_route_verdict.md` and record 1076.
+   `docs/map/002_one_shot_rh_route_verdict.md` and record 1076.
 
 Do not schedule a parallel B1 campaign.  `gamma + alpha/beta + delta` may
 advance as the shared ROOT-local base only when the proposed theorem names a
@@ -131,7 +159,9 @@ ConnesWeilRH/
   Route/           conditional route composition (CC20RouteRealization)
   Dev/             research frontier leaves + paired ...Audit modules;
                    NOT covered by the root aggregate - explicit targeting only
-docs/proofs/       numbered design records (1043 = active)
+docs/map/          route architecture, selection, and interface-audit records;
+                   use sequential `001_`, `002_`, ... reading-order prefixes
+docs/proofs/       numbered proof and research records
 scripts/yoshida_intervals/  exact-Fraction LDL^T/digamma certificate engine
 scripts/run_resource_aware_task.sh  shared/exclusive WSL resource admission
 RESOURCE_SCHEDULING.md  classifier, lock order, overrides, and test contract
@@ -201,6 +231,12 @@ verifies exact identities.
 
 ### 7a. WSL / Git-Bash toolbox (globally reusable)
 
+- Importing a committed probe script by file path
+  (`importlib.util.module_from_spec` + `exec_module`) fails inside
+  `@dataclass` processing with
+  `AttributeError: 'NoneType' object has no attribute '__dict__'` unless
+  you first register it: `sys.modules["name"] = module` BEFORE
+  `exec_module` (dataclasses look the defining module up there; 1087 cert).
 - MSYS rewrites POSIX-looking args: prefix every `wsl.exe` call with
   `MSYS_NO_PATHCONV=1`. Use `/c/Windows/System32/wsl.exe` if bare `wsl` is off PATH.
 - WSL NAT does NOT mirror the Windows localhost proxy: direct `curl`/`pip`
@@ -538,12 +574,25 @@ silently misprices every extrapolation (1075 s4.3 erratum).
   FFT-vs-brute-force tie check at ~L instead of ~1e-16).  Always carry the
   tie check (`abs(R[k]*du - dot(conj(h[:N-k]), h[k:])*du)`) and treat it as
   a hard gate before reading any arch/window number off R.
-- (32) Factor-bookkeeping against the Lean source (1086): closed-form pieces
-  of a Lean quantity (e.g. the arch tail `-2 F 0 / sinh y` beyond the
-  support) must be re-derived FROM THE LEAN DEFINITION, not from a prose
-  draft - 1086's tail was written as `F0 log tanh a`, missing the factor 2
-  from BOTH numerator terms vanishing; caught by re-reading
-  `archimedeanNumerator` before the second run.
+- (32) Factor-bookkeeping against the Lean source (1086, CORRECTED by 1087):
+  closed-form pieces of a Lean quantity must be re-derived FROM THE LEAN
+  DEFINITION, not from a prose draft.  The arch tail beyond the square
+  support is `F 0 * log tanh(r)` - the FACTOR-X1 form.  The 1020 scan had
+  it right all along; the 1086 design draft and this law's first edition
+  both asserted a factor 2 ("BOTH numerator terms vanish"), which DOUBLE-
+  PAID the 2: `numerator/denominator = -2F0/(e^y - e^-y) = -F0/sinh y`,
+  primitive `F0 log tanh(y/2)`.  A prose "correction" that is not
+  certified against the raw integrand can itself be the defect - the
+  error direction was stated backwards once before the numbers settled it.
+- (33) Settle factor disputes by direct RAW-INTEGRAND re-integration with
+  TWO gates, not one: (Ga) closed form vs direct must agree to the
+  quadrature's own first-cell sliver scale (1087: 5.6e-05 against a grid
+  whose body starts at y = step for a direction with O(1e2) integrand
+  slope), and (Gb) the rival factor variant must MISS by O(1), rejected
+  far outside every noise floor - a single tolerance gate cannot tell
+  "closed form correct" from "closed form and direct share the same
+  bug".  Both gates printed in the log, both asserted in code
+  (`1087_c3_roundtrip_cert.py`).
 
 ### 7d. CC20 owner landmines (live)
 
@@ -799,3 +848,11 @@ silently misprices every extrapolation (1075 s4.3 erratum).
   that owner's alleged square doubles Mellin values instead of multiplying
   them.  New detector work uses genuine `CompactLogTest` convolution and exits
   through a healthy-owner `SourceRH` theorem.
+- A published compact-window Weil lower bound is not automatically a
+  `CC20EndpointTraceCertificate`.  Before importing it, prove the exact
+  log-coordinate carrier map, Hermitian-square convention, sign/normalization
+  readback to `cc20WInfinityLog`, and an auditable certificate for its claimed
+  interval computation.  Once scalar `0 <= cc20WInfinityLog g.convolutionSquare`
+  is available on a triple-vanishing test, prefer the existing
+  `zeroTraceCertificate_of_nonnegative_wInfinity` constructor; do not recreate
+  a nonzero trace package without need (record 1088).

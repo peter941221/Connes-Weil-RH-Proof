@@ -282,3 +282,44 @@ the 1084/1085 gate discharges.  If the top of arch|_V is <= 0, kernel
 (a) is FALSE for the log2/2 window and the route must revisit the
 radius (a free parameter upstream of the 1080 transport).  Either
 outcome is decisive, which is why this is the next brick.
+
+## 8. ERRATUM (2026-09-01, added when record 1087 executed the fork)
+
+Two corrections, neither of which changes this record's F-B verdict;
+both were found by the spectral scan and certified by the raw-integrand
+re-integration in `1087_c3_roundtrip_cert.py`
+(`1087_c3_roundtrip_cert.log`).
+
+1. SECTION 4 TAIL FACTOR.  The closed form's beyond-support tail is
+
+       F(0) * log tanh(a)        (x1)
+
+   NOT `2 * F(0) log tanh(a)` as drafted here.  The numerator's "2" in
+   `exp(y/2)(F(y)+F(-y)) - 2F(0)` is correct, but the denominator is
+   `exp y - exp(-y) = 2 sinh y`, so the primitive `-log tanh(y/2)`
+   already carries that 2; the x2 reading double-paid it.  Corrected
+   section 6 G5 values for the three tapers (x1 tail at their true
+   supports, F0 as measured there):
+
+       taper r=0.95:  -2.977252  ->  -1.679
+       taper r=0.80:  -1.544236  ->  -1.004
+       taper r=0.60:  -0.337002  ->  -0.263
+
+   and the section 5 ceiling constant is `c0 + log tanh(r*a)` per F0,
+   i.e. +2.010 at the window edge (not +0.911).  Every corrected value
+   is still negative: G4/G5 both FAIL exactly as recorded, the F-B
+   verdict and the "no legal object of this family" conclusion stand,
+   and the surrogate fl2 comparison is unaffected.
+
+2. SECTION 7.3 SPECULATION RESOLVED AGAINST IT.  "The measured signs
+   show the form is INDEFINITE on the family ... so a positive direction
+   of arch|_V is not excluded" - the non-exclusion was tested and lost.
+   Record 1087 scans arch|_V spectrally (both basis families, K to 32,
+   six radii to the window edge) and finds the top of arch|_V at
+   -0.853 +/- 0.002, negative definite at every resolution, for every
+   rho simultaneously.  The fork's second branch fired: kernel (a) is
+   numerically FALSE for the log2/2 window, and the pre-registered
+   consequence - "the route must revisit the radius" - is executed in
+   1087 section 5.4 (certificate extension to the orbit window).  The
+   carrier-indefiniteness observation is still true and still useless:
+   it never constrained V.

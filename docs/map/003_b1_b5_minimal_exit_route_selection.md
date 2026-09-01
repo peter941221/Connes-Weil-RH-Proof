@@ -4,6 +4,11 @@ Date: 2026-08-31.
 
 Status: route ruling. RH is not claimed.
 
+Map role: binding route ruling. New work must serve the healthy-`CompactLog`,
+B5-shaped chain stated here unless a later record in `docs/map/` explicitly
+replaces this decision. The endpoint-certificate scope and provenance labels
+are maintained by [`004`](004_endpoint_literature_interface_audit.md).
+
 ## Decision
 
 The output audit has two singleton logical cuts:

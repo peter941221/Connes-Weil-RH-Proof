@@ -4,6 +4,11 @@ Date: 2026-08-26 (session 14)
 Status: architecture landed in Lean (translation layer + root-support ledger);
 endpoint sign theorem and Titchmarsh bridge remain open. RH is NOT claimed.
 
+Map role: supporting ROOT-window architecture. The binding route choice is
+[`003`](003_b1_b5_minimal_exit_route_selection.md), and the current endpoint
+scope is [`004`](004_endpoint_literature_interface_audit.md). This record does
+not authorize a B1 campaign or revival of the deferred Titchmarsh bridge.
+
 ## 1. What the first cut is
 
 The first cut is the unconditional positivity rung on the full prime-free
