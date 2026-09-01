@@ -1198,3 +1198,4 @@ integrability input). Kernel (a) of consumer 3 is now one inequality on
 one root-window triple-vanishing detecting test, with the witness
 supplied by the 7-node interpolation. Record 1084; built clean (3652
 jobs), three standard axioms, zero sorryAx.
+2026-09-01 C1HealthyDetectorKernelABridge.lean : record 1085 - kernel (a) IS the record-1080 scalar gate. negation invariance of the Hermitian square + arch term (star eats both minus signs), 7-node interpolant detection value exposed EXACTLY = 1, g := negTest h pinned per 1080 (HealthyMinimalLaplaceRealizes + value -1 + radius log2/2 + empty visible primes), selectedDetectorArchimedeanGate rho g <-> 0 < arch h.convSq, and the anchor positivity yields the full HealthyYoshidaDetectorData package. One object, one inequality, no duplicated formulation. Build 3653 jobs, three standard axioms, zero sorryAx.
