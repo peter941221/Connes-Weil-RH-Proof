@@ -82,8 +82,24 @@ project axioms in the output bridge. The right panel follows
   SourceRH -> Mathlib RiemannHypothesis              [target]
 ```
 
-For a pinned detector, write `F_g` for `g.convolutionSquare`. The active
-mathematical interface is
+For a pinned detector, write `F_g` for `g.convolutionSquare`. The RH exit
+applies two incompatible sign statements to the same test:
+
+$$
+\underbrace{0\le q_w(g)}_{\text{CC20 endpoint certificate}}
+\qquad\land\qquad
+\underbrace{
+  q_w(g)=\mathrm{spectralWeilValue}(F_g)<0
+}_{\text{root-supported detector}}
+\qquad\Longrightarrow\qquad
+\bot.
+$$
+
+The Lean composition
+[`sourceRH_of_rootSupportedGate_rightRep_and_endpointCertificates`](ConnesWeilRH/Dev/C1HealthyDetectorRootSupportExit.lean)
+proves this same-owner contradiction.
+
+The active mathematical interface is
 
 $$
 \underbrace{

@@ -1153,3 +1153,9 @@ explicit. A 1440px GitHub Preview readback confirms both boxes render without
 a macro error or raw-source fallback; the panel labels use `\text{...}` and
 the formulas avoid `\!` spacing commands. GitHub's Markdown API parses all 30
 display blocks. Docs only; no Lean theorem changed.
+
+2026-09-01 README.md : inserted a same-owner contradiction strip after the
+active proof chain. It pairs the CC20 endpoint inequality `0 <= qw g` with the
+root-supported detector identity `qw g = spectralWeilValue F_g < 0` and links
+the conditional Lean exit composition. C3 and its inputs remain open; docs
+only, no Lean theorem changed.
