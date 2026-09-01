@@ -14,7 +14,7 @@ for each current claim.
 ## Status dashboard
 
 > [!IMPORTANT]
-> **Research status at [commit `9f9507b`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/9f9507b): 2026-09-01.**
+> **Research status at [commit `ff83f7a`](https://github.com/peter941221/Connes-Weil-RH-Proof/commit/ff83f7a): 2026-09-01.**
 > This repository does not contain an unconditional proof of
 > the Riemann hypothesis. The output bridge
 > [`rhDefinitionBridgeToMathlibFromTheorems`](https://github.com/peter941221/Connes-Weil-RH-Proof/blob/main/ConnesWeilRH/Dev/RhOutputAxiomLedger.lean#L24)
@@ -27,7 +27,37 @@ for each current claim.
 | Mathematical mainline | B5-shaped, detector-specific route on the healthy `CompactLog` owner | [route ruling 1076](docs/proofs/1076_b1_b5_minimal_exit_route_selection.md) |
 | Output bridge | Five explicit project axioms remain | [`RhOutputAxiomLedger.lean`](ConnesWeilRH/Dev/RhOutputAxiomLedger.lean) |
 | C2 detector pinning | Closed with five axiom-clean declarations | [proof 1080](docs/proofs/1080_c2_detector_pinning_exit.md) |
-| C3 semi-local positivity | Open: prove one archimedean sign inequality for a selected detector | [`selectedDetectorArchimedeanGate`](ConnesWeilRH/Dev/C1HealthyDetectorPinning.lean#L113) |
+| C3 semi-local positivity | Structural exit formalized; strict sign and prefix-side construction remain open | [proof 1081](docs/proofs/1081_c3_root_support_exit.md) |
+
+### Lean 4 verification boundary
+
+The formal layer records implications with their remaining premises rather
+than treating an interface as a proof. Write `RootGate` for
+[`rootSupportedHealthyDetectorGate`](ConnesWeilRH/Dev/C1HealthyDetectorRootSupportExit.lean).
+`RootGate_right` denotes that gate for every right representative. The
+displayed assumptions remain inputs to the checked implications.
+
+$$
+\underbrace{
+  \begin{aligned}
+  \bigl(\mathrm{C2}(\rho,g)\land
+    0<\mathrm{archimedeanTerm}(F_g)\bigr)
+    &\xrightarrow{\ \mathrm{Lean}\,4\ }
+      \mathrm{RootGate}(\rho), \\
+  \bigl(\mathrm{RootGate}_{\mathrm{right}}\land
+    \mathrm{EndpointCertificates}\bigr)
+    &\xrightarrow{\ \mathrm{Lean}\,4\ }
+      \mathrm{SourceRH}
+  \end{aligned}
+}_{\substack{
+  \text{consumer-3 structural interface}\\
+  [\mathrm{propext},\mathrm{Classical.choice},\mathrm{Quot.sound}]
+}}
+$$
+
+The strict sign, the prefix-side root-support construction, and the endpoint
+certificates remain open inputs. The output bridge still names five project
+axioms.
 
 ### Active proof chain
 
@@ -38,7 +68,8 @@ for each current claim.
   C2: selected CompactLog detector                  [complete]
                |
                v
-  C3: detector-specific semi-local positivity       [open]
+  C3: root-supported gate / RH-exit wiring           [formalized]
+      strict sign + prefix construction              [open]
                |
                v
   SourceRH -> Mathlib RiemannHypothesis              [target]
@@ -50,17 +81,17 @@ mathematical interface is
 $$
 \underbrace{
   \begin{aligned}
-  \operatorname{supp}(g)
+  \mathrm{supp}(g)
     &\subseteq \left[-\frac{\log 2}{2},\frac{\log 2}{2}\right], \\
-  \operatorname{laplaceAt}(g,\rho)&=-1, \qquad
-  \operatorname{globalPrimeIndexSet}(F_g)=\varnothing
+  \mathrm{laplaceAt}(g,\rho)&=-1, \qquad
+  \mathrm{globalPrimeIndexSet}(F_g)=\varnothing
   \end{aligned}
 }_{\text{C2: closed}}
 \quad
 \xrightarrow{\quad\text{C3 proof obligation}\quad}
 \quad
 \underbrace{
-  0<\operatorname{archimedeanTerm}(F_g)
+  0<\mathrm{archimedeanTerm}(F_g)
 }_{\text{C3: open}}.
 $$
 

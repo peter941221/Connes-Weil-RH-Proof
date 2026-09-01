@@ -1131,6 +1131,15 @@ no Lean theorem changed.
 `C1HealthyDetectorPinning.lean` and four evidence-linked historical formulas:
 the Weil explicit formula and Mellin square identity (proof 1070), the
 Nyman-Beurling Schur complement (proof 020), and the Bessel scope boundary
-(proof 1050). GitHub GFM renders all 29 display blocks; C2 remains closed, C3
-open, B1 frozen, and the Bessel `lam < 1` scope explicit. Docs only; no Lean
-theorem changed.
+(proof 1050). GitHub GFM parses all 29 display blocks; browser macro
+compatibility needs a separate check. C2 remains closed, C3 open, B1 frozen,
+and the Bessel `lam < 1` scope explicit. Docs only; no Lean theorem changed.
+
+2026-09-01 README.md + AGENTS.md : synchronized the status dashboard to
+`ff83f7a` / record 1081, added a Lean 4 verification-boundary display for the
+C2-to-root-gate and root-gate-to-SourceRH implications, and replaced the
+unsupported README math macro `\operatorname` with `\mathrm`. The dashboard
+keeps the strict sign, prefix-side construction, endpoint certificates, and
+five project axioms explicit as open inputs. GitHub's Markdown API parses all
+30 display blocks but does not test browser macro compatibility; AGENTS now
+records that distinction. Docs only; no Lean theorem changed.

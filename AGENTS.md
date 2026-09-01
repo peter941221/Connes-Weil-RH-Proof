@@ -172,6 +172,11 @@ commit; stage by explicit path. Commit/push and all public GitHub payloads
 require Peter's authorization per execution; after publishing public text,
 read it back upstream.
 
+- GitHub's browser math renderer rejects `\operatorname` in README display
+  blocks and prints the raw source instead. Use `\mathrm{...}` for function
+  identifiers, then inspect the rendered GitHub page after pushing; the
+  Markdown API only confirms block parsing.
+
 ## [6] Environment, Secrets & Deployment
 
 Toolchain pinned by `lean-toolchain` (v4.30.0); dependency/CI changes need
