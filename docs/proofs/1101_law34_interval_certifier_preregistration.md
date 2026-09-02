@@ -121,6 +121,47 @@ Gauss-Legendre core (n_gl = 4096) with the REGISTERED remainder stack of
 the table above; budget exhaustion reports "straddle at budget" (no
 verdict, recorded).
 
+## 3.1 Pre-run amendment (v2 arithmetic model; committed before any run)
+
+The v1 design evaluates every GL node in `arb` interval arithmetic.  The
+smoke validation showed (a) the per-node interval loops are ~1000x too
+slow on the shared machine, and (b) the interval widths at the widow
+nodes are in fact DOMINATED by engine rounding, not by the theorems:
+the `h''''` interval at `y = s0` is ~1e28-wide (2^-80 times the ~1e44
+cancelling Leibniz terms), the same enclosure class a float64 evaluation
+gets with a registered forward-error bound.  The v2 model is therefore
+the honest and faster route to the SAME certified enclosures:
+
+- Values: float64, vectorized (numpy), including the GL nodes/weights
+  (their rounding stays covered by the REGISTERED perturbation term
+  `2^-53 (n sup|H| + 2 sup|H'|)`, unchanged).
+- Arithmetic widths: REGISTERED forward error analysis.  Each f^(k)
+  node value carries a magnitude sum `M >= sum |intermediate terms|`
+  tracked in the same pass; the leg arithmetic error is bounded by
+  `2^-52 * C * M` with the REGISTERED op-count constants
+  (`C_FVAL = 4096` per-node evaluation chain including the exact-integer
+  `R_m` and dyadic Legendre `polyval` chains, `C_DOT = 512`, assembly
+  margins).  The `h`-machinery (`N^(j) = e^{y/2} sum C(j,i) 2^-i F^(j-i)`,
+  `S^(m) = u P_m(coth y)`, Leibniz to order 4) is evaluated in `wadd/
+  wmul` pair arithmetic: `(value, width)` with per-op `2^-52 * 4 *
+  magnitude` margins.  These constants dominate nothing: every term is
+  <= ~1e-10 where the mesh remainder is ~1e-7.
+- Theorem remainders: UNCHANGED from section 1 (ellipse `8 M_rho
+  rho^{1-2n}/(rho^2-1)` with the closed-form `M_rho`; endpoint balls
+  `eta a B_0 B_k`; mesh Simpson `span^5 M4_cell/90`; Taylor ladder with
+  `s0^4 M4/24`; G-mrho region verification retained verbatim).
+- Assembly: `arb` intervals (`IV`) for the final sums, `C_ARCH`,
+  `log tanh`, the ladder, and the verdict enclosures.  G-eng unchanged
+  (python-flint REQUIRED).
+- `eta = 0.02` exactly as section 1 states (the v1 code had drifted to
+  0.028; corrected to the registered value).
+
+The certified statements, gates, thresholds, and verdict mapping of
+sections 2-4 are UNCHANGED; only the width-derivation mechanism is
+amended.  G-nest now also checks interval NESTING (theta -> theta/2
+single passes, no auto-refinement).  This amendment is committed BEFORE
+the first executed probe (1097b pre-registration-before-run discipline).
+
 ## 4. Verdict mapping (pre-registered)
 
 ```text
