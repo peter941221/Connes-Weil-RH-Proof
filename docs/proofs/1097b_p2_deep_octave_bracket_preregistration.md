@@ -116,3 +116,74 @@ not claim a continuum sign for any family: a finite-matrix trace continuation
 is NUMERICAL evidence under the map-`004` labels, and the 1063-standard
 guard (dt-invariance, four octaves, dt-invariant exponent) is the reason the
 committed table was actionable at all.
+
+## 5. Verdict (appended after the run)
+
+**H1-REJECTED / H2-CONFIRMED — every certification gate passed.**
+
+The run is log `build-logs/1097b_bracket_probe2.log` (acceptance by flushed
+log).  The executed probe copy (md5 `fd0a30970350ac22bb36a3164b67f47e`) is
+byte-identical to the committed copy.  A first attempt
+(`build-logs/1097b_bracket_probe1.log`, probe md5
+`bbdd7c6d823c9d86e2845780e8fc84b7`) aborted before any measurement with
+`ModuleNotFoundError: mpmath` - the run-block had omitted the mpmath
+constraint that the imported 1067 rig's phase spot-check needs; the fix
+added `--with mpmath` to the run-block comment only.
+
+All gates, from log lines 88-98:
+
+```text
++----------+--------------------------------------------------+--------+
+| Gate     | Measurement                                      | Result |
++----------+--------------------------------------------------+--------+
+| G-anc    | anchors + lean cross-anchor (both families)      | PASS   |
+| G-src    | src FINE 6.5620 vs committed 6.4740, 1.36e-02    | PASS   |
+| G-brkt   | {2,3,5} coarse-fine +1.4525 (tr_ks), +1.3325     | PASS   |
+|          | (ks_frob2); src +1.0707, +1.0010 - strictly      |        |
+|          | positive in all four pairs, p_hs excluded        |        |
+| G-conf   | src COARSE 7.6327 vs committed 6.4740, 1.79e-01  | PASS   |
+|          | outside the 5e-2 band - the coarse member is     |        |
+|          | the artifact                                     |        |
++----------+--------------------------------------------------+--------+
+| H1       | tr_ks ... 26.8715 -> 34.2696 -> 41.0499;         | FIRES  |
+|          | slope16x +0.335 (>= +0.15); inc ratio 0.917      |        |
+|          | (>= 0.5) - no bend at the certified fine octave  |        |
+| H2       | p_hs slope8x -0.004; l_tr1 slope8x -0.022        | PASSES |
+|          | (both |slope| < 0.15, over the anchor rows)      |        |
++----------+--------------------------------------------------+--------+
+```
+
+Cross-run reproducibility against the record-1097 log (soft check, not a
+gate): all four deep-grid rows reproduced to max rel 1.54e-05 / 4.87e-06 /
+1.12e-05 / 4.88e-06 - the 1097 ABORT data and this run observe the same
+objects.
+
+Verdict line, verbatim (log line 98):
+
+```text
+H1-REJECTED / H2-CONFIRMED: the raw trace keeps the power law at the
+certified fine point (slope16x +0.335, inc ratio 0.917) while law-16 (a)/(b)
+stay O(1) (p_hs -0.004, l_tr1 -0.022).  The record-1096 A-in-HS primitive is
+CLOSED for continuum scheduling (numerical guard, 1063-standard); the
+canonical S2 primitive set = (a) AC in HS + (b) commutator trace legality.
+```
+
+Repo changes fired by the pre-registered mapping (record 1097 section 5,
+inherited unchanged):
+
+- map `004` section 4: P2/S2 producer primitive re-pointed to (a) + (b);
+- record 1096 doc: erratum block (its own numbering) demoting the discharge
+  to a valid-but-unschedulable implication;
+- AGENTS 7c law (36): a discharge chain that lands on a previously falsified
+  quantity class must re-run that quantity's guard before the primitive is
+  called narrower;
+- follow-up Lean brick record 1098
+  (`C1ProlateRootCommutatorAbsorbedLegalityDischarge.lean`): wires the
+  record-1095 consumer contract from (a) `targetProlateDetectorAbsorbedFactorHS`
+  and (b) `targetProlateDetectorRootCommutatorTraceLegality` through the
+  leaf's law-16 decomposition; build green (3201 jobs), all seven
+  declarations on exactly `[propext, Classical.choice, Quot.sound]`.
+
+Record 1095's sandwiched nuclearity remains the canonical consumer
+contract; record 1096 is demoted, not deleted.  RH is not claimed; the
+evidence level of this verdict is NUMERICAL (map `004` section 1).

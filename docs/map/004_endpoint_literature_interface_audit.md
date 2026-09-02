@@ -153,6 +153,23 @@ In particular:
 Thus P2, not the arithmetic coefficient bookkeeping, is the unresolved
 mathematical step.
 
+Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
+support chain's discharged primitive was re-adjudicated by the
+pre-registered fork.  The record-1096 primitive A-in-HS (equivalently
+`Tr K_S < inf`) is the raw-F1 quantity class that record 1063 falsified,
+and the certified deep-octave probe confirmed the raw trace keeps its
+power law (41.0499 at `xi_max = 204.8`, slope16x +0.335, no bend) while
+the law-16 weighted legs stay O(1).  The canonical S2 primitive set is
+therefore (a) `targetProlateDetectorAbsorbedFactorHS` (the absorbed
+factor in Hilbert-Schmidt; witness: committed `p_hs` 3.5661 -> 3.5356,
+O(1)) and (b) `targetProlateDetectorRootCommutatorTraceLegality`
+(commutator-remainder legality; witness: committed `l_tr1` 1.3462 ->
+1.2850, O(1)).  Record 1098
+(`C1ProlateRootCommutatorAbsorbedLegalityDischarge.lean`, FORMAL, no sign)
+wires the record-1095 consumer contract from (a)+(b); record 1096 is
+demoted to a valid-but-unschedulable implication.  The verdict evidence
+level is NUMERICAL (this record's section 1).
+
 ## 5. The ROOT endpoint interface
 
 The current ROOT-local endpoint package is

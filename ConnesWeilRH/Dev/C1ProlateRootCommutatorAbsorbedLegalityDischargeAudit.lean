@@ -1,0 +1,39 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1ProlateRootCommutatorAbsorbedLegalityDischarge
+
+/-!
+# Audit for the S2 absorbed-legality discharge (record 1098)
+
+Public surface check plus axiom pins.  The discharge must depend on exactly
+the three standard Mathlib axioms and on no `sorryAx`.
+-/
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1ProlateRootCommutatorAbsorbedLegalityDischargeAudit
+
+open ConnesWeilRH.Source.C1ProlateRootCommutatorAbsorbedLegalityDischarge
+
+#check @targetProlateDetectorAbsorbedFactorHS
+#check @targetProlateDetectorAbsorbedPairData
+#check @targetProlateDetectorAbsorbedPairData_traceProduct_eq
+#check @targetProlateDetectorRootCommutatorRightSummand_isTraceClassAlong_of_absorbedHS
+#check @targetProlateDetectorRootCommutatorLeftSummand_eq_add
+#check @targetProlateDetectorRootCommutatorLeftSummand_isTraceClassAlong_of_absorbedHS
+#check @targetProlateDetectorRootCommutatorSandwichedTermNuclearity_of_absorbedLegality
+
+#print axioms targetProlateDetectorAbsorbedFactorHS
+#print axioms targetProlateDetectorAbsorbedPairData
+#print axioms targetProlateDetectorAbsorbedPairData_traceProduct_eq
+#print axioms targetProlateDetectorRootCommutatorRightSummand_isTraceClassAlong_of_absorbedHS
+#print axioms targetProlateDetectorRootCommutatorLeftSummand_eq_add
+#print axioms targetProlateDetectorRootCommutatorLeftSummand_isTraceClassAlong_of_absorbedHS
+#print axioms targetProlateDetectorRootCommutatorSandwichedTermNuclearity_of_absorbedLegality
+
+end C1ProlateRootCommutatorAbsorbedLegalityDischargeAudit
+end Source
+end ConnesWeilRH

@@ -140,3 +140,25 @@ is strictly weaker than record 1065's F_K-in-HS base (which failed for {2,3,5}).
 3. OWED - owner transfer stand-in Gaussian root -> actual selected convolution root per-owner (bounded bookkeeping),
    then commit 1096 with the hygiene gate (non-mainline payload): promote "S2's owed contract = A in HS alone" as
    canonical, retiring the bare-root premise of records 1093/1094 from the critical path.
+
+## 6. Erratum (records 1097/1097b/1098, 2026-09-02)
+
+The pre-registered primitive fork fired H1-REJECTED / H2-CONFIRMED at the
+certified deep octave: the raw trace `Tr K_S` - which is what
+`targetProlateRemainderFactorHS` requires - KEEPS its power law at
+`xi_max = 204.8` (34.2696 -> 41.0499, slope16x +0.335, no bend, all
+certification gates green), while the law-16 weighted legs stay O(1).
+This record's discharge is therefore DEMOTED to a valid-but-unschedulable
+implication: the Lean content is correct (build green, clean axioms, the
+implication `A in HS => SandwichedTermNuclearity` stands), but its
+primitive is the record-1063-falsified raw-F1 class, so no producer work
+may schedule it.  The canonical S2 primitive set is (a)
+`targetProlateDetectorAbsorbedFactorHS` + (b)
+`targetProlateDetectorRootCommutatorTraceLegality`, wired by record 1098
+(`C1ProlateRootCommutatorAbsorbedLegalityDischarge.lean`); section 5 item
+2 above is SUPERSEDED by that re-point, and section 3's narrowing chain
+now ends at "1096 A-in-HS (demoted) - 1098 (a)+(b) canonical".  Evidence:
+`docs/proofs/1097_p2_contract_fork_preregistration.md` (ABORT as
+registered), `1097b_p2_deep_octave_bracket_preregistration.md` (verdict),
+`1098_p2_s2_absorbed_legality_discharge.md` (re-point brick).  NUMERICAL
+evidence level; RH unclaimed.
