@@ -1,5 +1,5 @@
-"""1087 roundtrip certification: the scan's closed-form arch against a
-DIRECT integration of the Lean archimedean integrand.
+"""1087 numerical round-trip check: compare the scan's closed-form arch with
+a direct quadrature of the Lean archimedean integrand.
 
 The gate quantity (Lean sources, quoted in record 1087):
 
@@ -7,7 +7,9 @@ The gate quantity (Lean sources, quoted in record 1087):
     denominator y   = exp y - exp (-y) = 2 sinh y           (SelectedWeilFormula)
     arch F          = ( c0 * F 0 + int_{y>0} numerator/denominator ).re
 
-For a real even square F the integrand is (exp(y/2) F - F0)/sinh y.
+For a Hermitian square F the real integrand is
+(exp(y/2) Re(F(y)) - F0)/sinh y. The sampled profile below is real, so its
+square is real and even.
 Beyond the square support S = 2r the integrand is -F0/sinh y and its
 primitive is log tanh(y/2), so the analytic tail is
 
@@ -15,9 +17,10 @@ primitive is log tanh(y/2), so the analytic tail is
 
 The 1086 probe series g/h recorded TAIL x2 = 2 * F0 * log(tanh a), which
 double-counts the numerator's 2 against a denominator already equal to
-2 sinh y.  This script decides the question by NUMBERS: it integrates the
-full Lean integrand directly over [0, S] plus [S, Y_MAX] with no body/tail
-split and compares against every closed-form variant.
+2 sinh y.  This script distinguishes the two implementations numerically. It
+integrates the Lean integrand over [0, S] plus [S, Y_MAX], uses no closed-form
+tail in that value, and reports a separate bound for the omitted interval
+[Y_MAX, infinity).
 
 Run inside docs/proofs (imports the committed 1020 module by file).
 """
@@ -27,6 +30,7 @@ from __future__ import annotations
 import importlib.util
 import math
 import os
+import sys
 
 import numpy as np
 
@@ -37,8 +41,6 @@ spec = importlib.util.spec_from_file_location(
 )
 assert spec is not None and spec.loader is not None
 m = importlib.util.module_from_spec(spec)
-import sys
-
 sys.modules["p1020"] = m  # dataclasses in the imported module need this
 spec.loader.exec_module(m)
 
@@ -60,12 +62,13 @@ def fine_correlation(h: np.ndarray, step: float) -> tuple[np.ndarray, float]:
 
 
 def direct_arch(lags: np.ndarray, f0: float, step: float,
-                y_max: float) -> float:
+                y_max: float) -> tuple[float, float]:
     """Integrate the raw Lean integrand (exp(y/2) F - F0)/sinh y.
 
     On [0, S] use the sampled correlation; on [S, y_max] F is identically
     zero and the integrand -F0/sinh y is integrated on a log-spaced grid.
-    No closed-form tail is used anywhere.
+    No closed-form tail is added to the returned quadrature value. The second
+    return value bounds the omitted interval [y_max, infinity).
     """
     c0 = math.log(4.0 * math.pi) + float(np.euler_gamma)
     y_in = np.arange(1, lags.size) * step
@@ -83,7 +86,8 @@ def direct_arch(lags: np.ndarray, f0: float, step: float,
     tail_grid[0] = s_tail_start
     tail_vals = -f0 / np.sinh(tail_grid)
     tail = float(np.trapezoid(tail_vals, tail_grid))
-    return c0 * f0 + body + tail
+    omitted_tail_bound = -f0 * math.log(math.tanh(y_max / 2.0))
+    return c0 * f0 + body + tail, omitted_tail_bound
 
 
 def main() -> None:
@@ -113,7 +117,9 @@ def main() -> None:
 
     # direct fine correlation + raw integration
     lags, f0_fine = fine_correlation(h, probe.step)
-    direct = direct_arch(lags, f0_fine, probe.step, y_max=20.0)
+    direct, omitted_tail_bound = direct_arch(
+        lags, f0_fine, probe.step, y_max=20.0
+    )
 
     # tail variants evaluated at the square-support edge S = 2r
     tail_x1 = f0_fine * math.log(math.tanh(RADIUS))
@@ -139,6 +145,7 @@ def main() -> None:
     print(f"law31 tie fft-vs-linear max|diff| = {tie:.3e}  (<= 1e-12)")
     print(f"closed form (scan, tail x1)      = {closed:+.8f}")
     print(f"DIRECT raw Lean-integrand arch   = {direct:+.8f}")
+    print(f"omitted |tail| beyond y=20       <= {omitted_tail_bound:.3e}")
     print(f"|closed - direct|                = {abs(closed - direct):.3e}"
           f"  (sliver-scale agreement expected)")
     print(f"arch if tail were x2             = {closed - tail_x1 + 2.0 * tail_x1:+.8f}")
@@ -150,26 +157,27 @@ def main() -> None:
           f"{np.abs(node_values)}  (grid quadrature)")
     print(f"|lap h rho2| (top direction)     = {abs(rho2_value):.6f}")
     print(f"gram cond = {gram_condition:.2e}  orth err = {orth_error:.2e}")
-    # Ga: closed form matches the raw integration up to the scan's known
+    # Ga: the closed form matches the independent quadrature up to the scan's
     # first-cell grid sliver (its body grid starts at y = step, so the
     # [0, step] piece - order 1e-4 for this high-frequency direction - is
     # the only systematic difference; the tail itself must reproduce to it).
-    ga = abs(closed - direct) <= 2e-4
+    ga = abs(closed - direct) <= 2e-4 + omitted_tail_bound
     # Gb: the 1086 probe-style x2 tail variant must be OFF by O(1), i.e.
     # rejected by a wide margin, not within sliver tolerance.
     arch_x2 = closed - tail_x1 + 2.0 * tail_x1
     gb = abs(arch_x2 - direct) >= 0.5
     verdict = (
-        "PASS Ga+Gb: scan closed form (tail x1) reproduces the direct "
+        "PASS Ga+Gb: scan closed form (tail x1) agrees with the direct "
         "Lean-integrand integration within the first-cell sliver; the "
         "1086 g/h tail x2 variant misses by O(1) and is rejected - the "
         "factor 2 in the numerator is already paid by 2*sinh(y)"
         if ga and gb
         else f"FAIL ga={ga} gb={gb}: audit before anything else"
     )
-    print(f"Ga |closed-direct|={abs(closed - direct):.3e} <= 2e-4  ->  {ga}")
+    print(f"Ga |closed-direct|={abs(closed - direct):.3e} "
+          f"<= 2e-4 + omitted tail  ->  {ga}")
     print(f"Gb |x2-variant-direct|={abs(arch_x2 - direct):.3e} >= 0.5  ->  {gb}")
-    print(f"VERDICT {verdict}")
+    print(f"NUMERICAL CROSS-CHECK {verdict}")
 
 
 if __name__ == "__main__":

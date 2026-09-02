@@ -6,15 +6,17 @@ Status: revised 2026-08-31 by route record 1076.
 
 The repository has one active mathematical objective: close the unconditional
 Connes--Weil route to the Riemann Hypothesis through the healthy `CompactLog`
-owner.  The active mathematical chain is
+owner. The active dependency graph is
 
 ```text
-gamma + alpha/beta + delta
-  -> ROOT-window CC20 positivity                 [shared local base]
-  -> selected detector + finite visible primes  [healthy CompactLog owner]
-  -> detector-specific semi-local positivity
-  -> SourceRH
+assume an off-line zero
+  -> selected orbit detector with qw(g) < 0      [formal]
+  -> detector-specific semi-local positivity: qw(g) >= 0  [open]
+  -> SourceRH                                    [formal implication]
   -> Mathlib RiemannHypothesis
+
+ROOT-window CC20 positivity                      [shared local base]
+  -> applies only with a matching support theorem or a semi-local extension
 ```
 
 `normalizedSelectedFinalRouteDetectorCriterionCoverageRoot` stays in the output
@@ -59,11 +61,12 @@ New Lean or analytic work is allowed only when the proposed theorem names a
 direct consumer in the active healthy-owner chain.  The open consumers are:
 
 1. The paper-scale `gamma + alpha/beta + delta` ROOT-local certificate package.
-2. A genuine compact-log detector with explicit support radius and finite
-   visible-prime set.
+2. An explicit support radius and finite visible-prime set for the formal
+   compact-log orbit detector.
 3. Semi-local positive-trace/readback data for that selected detector on the
    same healthy owner.
-4. The contradiction theorem from that detector certificate to `SourceRH`.
+4. Maintenance of the formal detector-specific contradiction interface to
+   `SourceRH`.
 
 Before editing, record which consumer is being advanced. A bound that ends at
 a physical trace, finite band, numerical scan, universal-B1 placeholder, or

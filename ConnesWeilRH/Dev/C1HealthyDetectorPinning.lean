@@ -2,11 +2,12 @@ import ConnesWeilRH.Dev.C1HealthyYoshidaMinimalInterpolation
 import ConnesWeilRH.Dev.C1SameOwnerWeil
 
 /-!
-# C1HealthyDetectorPinning - consumer #2 exit: the pinned healthy log detector
+# C1HealthyDetectorPinning - ROOT-window pinned interpolation
 
-This module advances consumer 2 of `RH_MAINLINE_FREEZE.md` ("Allowed Work",
-item 2): *a genuine compact-log detector with explicit support radius and
-finite visible-prime set*.
+This module records the ROOT-supported interpolation alternative. It does not
+supply item 2 of `RH_MAINLINE_FREEZE.md`: the test constructed here is not the
+convolution-orbit detector returned by
+`exists_healthyDetectorData_of_sourceNontrivialZero_right`.
 
 The object is unconditional and per off-line source zero: the four-node
 interpolator (`exists_healthyMinimalLaplaceRealizes_rootSupport_logTwoHalf`)
@@ -15,14 +16,13 @@ explicit radius, and this module promotes the prime-free square to the
 EXPLICIT visible-prime statement `globalPrimeIndexSet g.convolutionSquare
 = ∅` - the finite visible-prime set in its minimal (empty) form.
 
-The sign obligation is deliberately NOT claimed here.  For the pinned
-detector, the full `HealthyYoshidaDetectorData` package is EQUIVALENT to the
-single scalar gate `selectedDetectorArchimedeanGate`, which is exactly the
-opening obligation of consumer 3 (semi-local positive-trace/readback data).
-The numerical chain `docs/proofs/1077` - `1079` measures that gate deeply
-positive (sink 33.78% of lever at the second source zero, node residual
-4.5e-18) with an explicit named test family; no numerical content is
-consumed by any theorem here.  RH is NOT claimed.
+The sign obligation is not claimed here. For the pinned test, the full
+`HealthyYoshidaDetectorData` package is equivalent to the scalar predicate
+`selectedDetectorArchimedeanGate`. That predicate is `arch > 0`, hence it
+produces the strict-negative `qw < 0` branch at ROOT support. It is not the
+active C3/P2 premise `qw >= 0` for the formal orbit detector. Records
+1077--1079 measured a surrogate, while records 1086--1087 proved no continuum
+sign. No numerical result is consumed by a theorem here. RH is not claimed.
 -/
 
 namespace ConnesWeilRH
@@ -82,12 +82,12 @@ theorem globalPrimeIndexSet_eq_empty_of_support_subset_open_log_two
   · have hinside := hsupport hpos
     exact absurd hinside.2 (not_lt.mpr hlog2le)
 
-/-! ### The pinned detector (consumer #2 exit) -/
+/-! ### The pinned ROOT-window interpolation test -/
 
-/-- CONSUMER #2 EXIT.  For every off-line source zero there is a genuine
-compact-log detector that vanishes on the triple node set, detects the zero
-with the normalized value `-1`, carries the EXPLICIT support radius
-`log 2 / 2`, and has the EXPLICIT finite (empty) visible-prime set. -/
+/-- For every off-line source zero there is a compact-log interpolation test
+that vanishes on the triple node set, detects the zero with normalized value
+`-1`, has support radius `log 2 / 2`, and has an empty visible-prime set. This
+statement supplies no `HealthyYoshidaDetectorData` sign field. -/
 theorem exists_pinnedHealthyDetector_rootWindow
     {rho : Complex}
     (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho)
@@ -105,17 +105,18 @@ theorem exists_pinnedHealthyDetector_rootWindow
     globalPrimeIndexSet_eq_empty_of_support_subset_open_log_two g.convolutionSquare
       (convolutionSquare_support_logTwo_of_rootSupport_logTwoHalf g hsupport)
 
-/-! ### The consumer-2 to consumer-3 handoff gate -/
+/-! ### The ROOT-supported negative-detector gate -/
 
-/-- The single scalar gate that consumer 3 (semi-local positive-trace /
-readback data) must discharge on a pinned detector: strict positivity of the
-archimedean term of the Hermitian square. -/
+/-- The scalar sign needed to promote a pinned ROOT test to strict-negative
+detector data: positivity of the square's archimedean term. This is not the
+semi-local nonnegativity premise of the active C3 exit. -/
 def selectedDetectorArchimedeanGate (_rho : Complex) (g : CompactLogTest) :
     Prop :=
   0 < C1SameOwnerWeil.archimedeanTerm g.convolutionSquare
 
-/-- On a pinned detector the full healthy detector data package is EQUIVALENT
-to the scalar archimedean gate: consumer 3 owes exactly one inequality. -/
+/-- On a pinned ROOT test, the full healthy detector data package is equivalent
+to the scalar archimedean gate. This characterizes the conditional
+ROOT-supported negative-detector branch. -/
 theorem healthyDetectorData_iff_selectedDetectorArchimedeanGate
     {rho : Complex} {g : CompactLogTest}
     (h : HealthyMinimalLaplaceRealizes rho g)
@@ -135,8 +136,8 @@ theorem healthyDetectorData_iff_selectedDetectorArchimedeanGate
       healthyDetectorData_of_HealthyMinimalLaplaceRealizes_of_archimedeanTerm_pos
         h hprimefree hgate
 
-/-- A pinned detector whose archimedean gate holds yields the full healthy
-detector package - the consumer-3 entry point, with no other obligation. -/
+/-- A pinned ROOT test whose archimedean gate holds yields the full healthy
+strict-negative detector package. -/
 theorem exists_healthyDetectorData_of_gate_of_pinnedHealthyDetector
     {rho : Complex} {g : CompactLogTest}
     (hpinned : HealthyMinimalLaplaceRealizes rho g)

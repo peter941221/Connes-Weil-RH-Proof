@@ -1,6 +1,6 @@
 import ConnesWeilRH.Dev.C1HealthyDetectorRootSupportExit
 
-/-! Focused axiom audit for the consumer-3 root-support exit module
+/-! Focused axiom audit for the conditional ROOT-support exit module
 (record 1081). -/
 
 namespace ConnesWeilRH.Source.C1HealthyDetectorRootSupportExitAudit

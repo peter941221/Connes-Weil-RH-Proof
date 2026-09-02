@@ -2,13 +2,13 @@ import ConnesWeilRH.Dev.C1HealthyDetectorAnchorReduction
 import ConnesWeilRH.Dev.C1HealthyDetectorPinning
 
 /-!
-# C1HealthyDetectorKernelABridge - kernel (a) IS the record-1080 scalar gate
+# C1HealthyDetectorKernelABridge - ROOT negative-detector scalar gate
 
-Record 1084 reduced consumer 3 kernel (a) to `0 < arch h.convSq` for ONE
-root-window triple-vanishing detecting test, and record 1080 named the
-consumer-2/3 handoff as the scalar gate `selectedDetectorArchimedeanGate`
-on a PINNED detector.  This module proves the two open obligations are THE
-SAME inequality on THE SAME explicit object:
+Record 1084 reduced the historical ROOT-supported negative-detector branch to
+`0 < arch h.convSq` for one root-window triple-vanishing detecting test.
+Record 1080 named the same sign `selectedDetectorArchimedeanGate` on a pinned
+test. This module proves that the two formulations use the same inequality on
+the same explicit object:
 
 1. `convolutionSquare_negTest` - pointwise negation leaves the Hermitian
    square unchanged (`star` eats the minus sign);
@@ -24,9 +24,12 @@ SAME inequality on THE SAME explicit object:
    kernel (a)'s anchor positivity on `h`, and the anchor positivity yields
    the full `HealthyYoshidaDetectorData` package.
 
-Kernel (a) of consumer 3 and the record-1080 handoff gate are therefore the
-same single inequality; the remaining content is unchanged (the 1077-1079
-measured object, fl2 = -1.294, sink 33.78%).  RH is NOT claimed.
+The former kernel (a) and the record-1080 gate are therefore the same
+conditional strict-negative-detector inequality. They do not supply the active
+C3/P2 premise `qw >= 0` for the formal orbit detector. Records 1077--1079
+measured a different surrogate. Records
+1086--1087 found no positive direction in the tested carrier family and finite
+Galerkin spaces, but supplied no continuum upper bound. RH is not claimed.
 -/
 
 namespace ConnesWeilRH
@@ -103,8 +106,8 @@ explicit pair `(h, g)`:
   positivity on `h`, and that single inequality yields the FULL
   `HealthyYoshidaDetectorData` package on `g`.
 
-So kernel (a) of consumer 3 and the record-1080 handoff gate are the same
-inequality on the same object. -/
+Thus the former kernel (a) and the record-1080 gate are the same
+strict-negative-detector inequality on the same object. -/
 theorem exists_pinnedDetector_of_kernelAInterpolant
     {rho : ℂ}
     (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho)

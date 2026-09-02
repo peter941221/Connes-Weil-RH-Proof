@@ -4,7 +4,8 @@ import ConnesWeilRH.Source.RHDefinition
 /-!
 # C1HealthyDetectorEvenOddPair - the explicit even/odd detector pair
 
-Record 1082 reduced consumer 3 kernel (a) to a NAMED CERTIFICATE SHAPE: an
+Record 1082 reduced the historical ROOT-supported negative-detector branch to
+the following certificate shape: an
 even base `f`, an odd correction `g`, the three nodal sums, detection, root
 support, and strict positivity of the two-term anchor
 `0 < arch f.convSq + arch g.convSq`.  The nodal sums, the detection and the
@@ -28,9 +29,11 @@ This module discharges them unconditionally, for every off-line source zero:
    root support, and the certificate obligation reduced EXACTLY to the
    two-term anchor positivity through the record-1082 rescue gate.
 
-The anchor positivity `0 < arch f.convSq + arch g.convSq` remains the single
-open inequality of kernel (a); the 1077-1079 numerics (fl2 = -1.294, sink
-33.78%) are the measurement program for it.  RH is NOT claimed.
+The anchor positivity `0 < arch f.convSq + arch g.convSq` remains open. Records
+1077--1079 measured a surrogate rather than this inequality; records 1086--1087
+proved no continuum sign. This branch supplies strict-negative detector data,
+not the active C3/P2 inequality `qw >= 0` for the formal orbit detector. RH is
+not claimed.
 -/
 
 namespace ConnesWeilRH
@@ -337,8 +340,8 @@ pair of compact-log tests such that `f` is even, `g` is odd, the three nodal
 sums vanish (`lap f 0 = 0`, the half and one sums), the sum detects `rho`
 with value `2`, the combined support sits in the closed root window, and the
 record-1082 rescue gate follows from the two-term anchor positivity alone.
-Kernel (a) of consumer 3 is thereby reduced EXACTLY to
-`0 < arch f.convSq + arch g.convSq` on a CONSTRUCTED pair. -/
+The former ROOT negative-detector kernel is thereby reduced to
+`0 < arch f.convSq + arch g.convSq` on a constructed pair. -/
 theorem exists_evenOddPair_of_offLineZero
     {rho : ℂ}
     (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho)

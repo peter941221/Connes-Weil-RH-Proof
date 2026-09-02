@@ -1,22 +1,23 @@
 # 1086 - the g3 carrier: closed form, the C-infinity obstruction, and the
 # first direct measurement of the gate quantity
 
-Date: 2026-09-01.  Follows 1085 (kernel (a) = the record-1080 scalar gate,
-one inequality on one explicit object).  Advances consumer 3 kernel (a):
-the positive attack on `0 < arch h.convSq`.
+Date: 2026-09-01. Follows 1085, which reduced the historical ROOT-supported
+negative-detector branch to one inequality on one explicit object. This record
+tests `0 < arch h.convSq`. It does not supply the active C3 obligation
+`0 <= qw(g)` for the formal orbit detector.
 
 ## 1. Where the inequality stands
 
-After 1085 the entire remaining content of consumer 3 kernel (a) is:
+Within that conditional ROOT-supported negative-detector branch, 1085 leaves:
 
     find ONE test h with
       supp h ⊆ (-log 2 / 2, log 2 / 2),
       lap h = 0 on {0, 1/2, 1},   lap h rho != 0,
       0 < arch h.convSq,
 
-because every other clause of the root-supported gate is a theorem.  The
-1077-1079 program is the numeric blueprint; what this record adds is the
-missing piece nobody had measured: the LEAN GATE QUANTITY ITSELF.
+because every other clause of the root-supported gate is a theorem. The
+1077--1079 program is the numerical blueprint; this record evaluates the Lean
+gate quantity rather than its earlier surrogate.
 
 Field observation (honest correction to the 1079 bookkeeping): the
 1077-1079 quantity `fl2 = margin0 + A - P2` is the level-1 row-model
@@ -98,33 +99,30 @@ self-consistency gate against the imported original).
 `h_c` is supported in `[-r a, r a]`, so `F = h_c.convSq` is supported in
 `[-2 r a, 2 r a]` with `2 r a < log 2`, and
 
-    arch(h_c.convSq) = c0 * F(0) + int_0^{2a} I(y) dy + F(0) log tanh(a),
+    arch(h_c.convSq) = c0 * F(0) + int_0^{2 r a} I(y) dy
+                       + F(0) log tanh(r a),
     I(y) = (e^{y/2} * 2 Re F(y) - 2 F(0)) / (e^y - e^{-y}),   c0 = log(4pi)+gamma,
 
-where the tail beyond `y = 2a` (where `F = 0` identically) is the CLOSED
-FORM `-2 F(0) int_{2a}^oo dy/sinh y = 2 F(0) log tanh(a)` (the numerator
-is `- 2 F 0` there - BOTH terms of `F(y) + F(-y)` vanish - and
-`int dy/sinh y = log tanh(y/2)`; an earlier draft of this section dropped
-the factor 2, caught by cross-checking against the Lean numerator before
-the second probe run), and `I(y) -> F(0)/2` at `y -> 0+` (bounded: the
-numerator vanishes to first order because `Re F` is even).  So the WHOLE
-gate quantity is: one number `F(0) = ||h_c||^2`, one compact-interval
-integral of the autocorrelation, and one explicit tail constant.  A
-directed-interval certificate over finitely many boxes is therefore
-sufficient in principle - no algebraic sign theorem is needed or expected
-(the integrand has no closed-form sign structure).  This retires the
-"algebraic sign theorem" alternative of the record-1081 notes for this
-carrier.
+For `y > 2 r a`, both `F(y)` and `F(-y)` vanish. The integrand is then
+`-F(0) / sinh(y)`, because the factor two in the numerator cancels the factor
+two in `e^y - e^{-y} = 2 sinh(y)`. Since
+`d/dy log(tanh(y/2)) = 1/sinh(y)`, the tail equals
+`F(0) log(tanh(r a))`. Also, `I(y) -> F(0)/2` as `y -> 0+`; the numerator
+vanishes to first order because `Re F` is even. The gate value consists of
+`F(0) = ||h_c||^2`, one compact-interval autocorrelation integral, and the
+explicit tail. Directed interval integration is one possible certificate for
+a fixed parameter choice. This record does not rule out an analytic sign
+argument.
 
-## 5. Lean landing shape, and the coupling to kernel (b)
+## 5. Lean landing shape for the historical ROOT branch
 
-B1 (next brick if the fork fires): the carrier family as a named
+R1 (next brick if the fork fires): the carrier family as a named
 `CompactLogTest` - `chirpedCarrier (d mu a r)` built from the closed form
 of section 3 times a smooth cutoff, with `ContDiff`/`HasCompactSupport`
 and strict in-window support (`r < 1`).  ContDiff of the product needs
 nothing beyond fun_prop; the object is honest even before any sign claim.
 
-B2 (the correction, in Lean): the tool `exists_residualWindow_correction`
+R2 (the correction, in Lean): the tool `exists_residualWindow_correction`
 SUPPLIES `w` with prescribed values at the seven nodes, so the five-clause
 test is `h_c = sumTest h_0 w` with `w`'s targets equal to `-lap h_0` on
 {0, 1/2, 1} and 0 on {rho, -rho, -1/2, -1} - existence is a theorem
@@ -134,10 +132,10 @@ exact quadratic decomposition, `arch(h_0 + w) = arch(h_0) + arch(cross) +
 arch(w)`, and a Cauchy-Schwarz-type bound `|arch(crossTest f g)| <=
 C(f) * ||g||` would let the measured margin on the explicit pair absorb
 any SMALL correction.  The size of the available correction is exactly
-the interpolation-constant question - kernel (b)'s prefix-side wall.  So
-the two C3 kernels MEET here: the carrier's stability radius is priced by
-the same constant whose uniformity is the prefix wall.  This coupling is
-a structural output of this record; no theorem is claimed for it yet.
+the interpolation-constant question in the historical prefix-side wall. Thus
+the two ROOT-branch subproblems meet here: the carrier's stability radius is
+priced by the same interpolation constant. This observation does not address
+the active C3/P2 inequality for the formal orbit detector.
 
 ## 6. Pre-registered fork (BEFORE any run)
 
@@ -158,7 +156,7 @@ Gates, all stated before the run:
        stands on its own either way).
 
     FORK:
-    F-A = G1..G5 all pass at some r: proceed to the B1 Lean carrier brick.
+    F-A = G1..G5 all pass at some r: proceed to the R1 Lean carrier brick.
     F-B = G1..G4 pass but G5 fails at every r: the 1077-1079 surrogate
           evidence does NOT certify the gate quantity - freeze carrier
           work and re-examine the attack line (major negative finding).
@@ -192,7 +190,7 @@ stability picture of section 5), the arch pieces (c0 F(0), window
 integral, tail), and an hp (mpmath) spot-check of F(0) and I(y) at three
 y-values for the best r (<= 1e-6 rel).
 
-## 7. VERDICT (probe-1086h.log, 2026-09-01): F-B fired
+## 7. Verdict (probe-1086h.log, 2026-09-01): tested carrier slice frozen
 
 Gate results (cfg cd=1.5, beta=0.49, gamma_2=21.02204, mu*=0.003553,
 a=0.346574, c0=3.108240; log probe-1086h.log):
@@ -206,120 +204,109 @@ a=0.346574, c0=3.108240; log probe-1086h.log):
     G4  FAIL at every r: fl2(h_c) = +0.0962 / +0.4515 / +0.1755 -
         the SMOOTH family's surrogate is POSITIVE where the hard-
         truncated blueprint measured -1.294.
-    G5  FAIL at every r: arch(h_c.convSq) = -2.977252 (r=0.95) /
-        -1.544236 (r=0.80) / -0.337002 (r=0.60).
+    G5  FAIL at every r after the corrected x1 tail:
+        arch(h_c.convSq) = -1.679 (r=0.95) /
+        -1.004 (r=0.80) / -0.263 (r=0.60).
 
-By the letter of the fork this is F-B*-mixed (G3 fails at two tapers,
-G4 fails everywhere, not only G5); the substantive F-B condition - G5
-fails at EVERY r - holds, and F-B's prescribed consequence is applied:
-this carrier family does NOT certify the Lean gate quantity; carrier
-work on it is frozen; the attack line is re-examined.
+No pre-registered fork label matches this outcome: F-B required G1--G4 to
+pass, while G3 failed at two tapers and G4 failed at all three. G5 also failed
+at all three. As a post-run project decision, this record applies the same stop
+action as F-B to this parameter slice: it supplies no gate witness, and work on
+this carrier line is frozen.
 
 ### 7.1 The two independent negatives
 
-Both the gate AND its 1070-dictionary surrogate fail for the legal
-(C-infinity) object:
+Both the gate and its 1070-dictionary surrogate fail for the tested legal
+C-infinity profiles:
 
   * G4: the surrogate sign is not robust under legal smoothing.  The
     1079 value fl2 = -1.294 belonged to the hard-truncated object with
     polynomial bumps (mass piled against the window edge, lever 3.8);
     the smooth taper at r=0.95 has lever 0.994 and the surrogate flips
-    POSITIVE.  So even a surrogate-only continuation of 1077-1079 has
-    no legal witness in this family.
-  * G5: the gate quantity itself is negative at every taper, with the
-    pieces settling where the negativity lives:
+    positive. The three tested tapers contain no surrogate witness.
+  * G5: after correcting the tail factor described in section 8, the gate
+    quantity is still negative at every tested taper:
 
-        r      F0       c0*F0    window      tail       arch
-        0.95   1.2355   +3.840   -4.1028     -2.7146    -2.9773
-        0.80   0.6075   +1.888   -2.0977     -1.3348    -1.5442
-        0.60   0.1203   +0.374   -0.4466     -0.2644    -0.3370
+        r       arch
+        0.95   -1.679
+        0.80   -1.004
+        0.60   -0.263
 
-        (h_0 alone: arch -4.568 / -3.716 / -2.470; w alone: -0.841 /
-        -1.381 / -1.703; h_c exceeds h_0 + w by a POSITIVE residual
-        +2.43 / +3.55 / +3.84 - the form is not diagonal on this pair,
-        h_0 is neither even nor odd, no 1082 decomposition applies.)
+    These are numerical values for this carrier family only. The original
+    component table used the superseded x2 tail and is intentionally removed.
 
-### 7.2 Mechanism (why the gate quantity is negative here)
+### 7.2 Observed mechanism in this parameter slice
 
-The structural positive ceiling is c0*F0 + tail =
-F0 * (log 4pi + gamma + 2 log tanh a) = +0.91102 * F0 (the tail is
-2 F0 log tanh a per the corrected section 4).  Positivity therefore
-requires window > -0.911 F0, i.e. the autocorrelation must retain
-NEAR-LAG (in-phase) mass: I(y) ~ F0/2 near y = 0 and the deficit is
-governed by the relative derivative mass omega^2 (I(0.02) = -6.875
-back-solves to omega^2 ~ 6e2).  The chirped Gaussian carries phase
--u^2 mu/(4|lambda|^2) ~ -23.5 u^2 - roughly one full period across the
-root window - which is precisely what kills the three Mellin nodes
-cheaply in Mellin space and EXPENSIVELY in autocorrelation space: the
-gate functional rewards in-phase mass and the chirp destroys it.  The
-node-restoring correction w cannot repair this (its own arch is
-negative at every r).
+The structural positive ceiling is `c0*F0 + tail`, with
+`tail = F0 * log(tanh(r*a))` for taper ratio `r`. At the full window edge
+this is approximately `+2.00963 * F0`. Positivity would require the window
+term to exceed the negative of that ceiling. Near zero, `I(y) ~ F0/2`; in
+this run `I(0.02) = -6.875`, which corresponds to a relative derivative-mass
+scale near `6e2`. The chirp phase
+`-u^2 mu/(4|lambda|^2) ~ -23.5 u^2` varies by about one period across the
+ROOT window. This explains the loss of near-lag autocorrelation in the tested
+slice. The correction `w` also had a negative archimedean value at all three
+tapers. These observations do not establish the sign for other parameters.
 
 ### 7.3 What survives, and the re-examination direction
 
-Survives: the closed form (G1, now round-trip-certified), the rig and
-its anchor reproduction (G2), the measurement methodology itself
+Survives: the closed form (G1, numerically cross-checked), the rig and
+its anchor reproduction (G2), and the measurement method
 (FFT-vs-brute-force tie 7e-17..9e-16 at every lag, F(0) against
 mpmath at rel <= 7e-15, I(y) against mpmath at three y per taper).
-UNAFFECTED: records 1063/1067 (the D-weighted F1' routes through its
-own functional), the 1084/1085 reduction (kernel (a) asks for SOME
-root-window triple-vanishing detecting test, and this family was one
-candidate), the prefix-side wall.  RH is NOT claimed, no route death
-beyond this family.
+Records 1063/1067 use a different functional. The 1084/1085 reduction still
+asks whether some root-window triple-vanishing detecting test has a positive
+archimedean square term, and the prefix-side wall remains. The pre-registered
+decision freezes this candidate line. It is not a no-go theorem for untested
+parameters, for all ROOT tests, or for active C3/P2.
 
-Re-examination (record 1087 candidate, to be pre-registered on its
-own): arch(h.convSq) is a QUADRATIC FORM in the test h; the
-triple-vanishing conditions are THREE linear constraints.  Kernel (a)
-is therefore a SPECTRAL question - the top of the spectrum of the arch
-form restricted to the codimension-3 subspace V = {h : lap h = 0 on
-{0, 1/2, 1}}, supp h in the window - not a carrier-guessing question.
-The measured signs show the form is INDEFINITE on the family (both
-diagonal pieces negative, residual cross positive), so a positive
-direction of arch|_V is not excluded; if the top eigenvalue of arch|_V
-is positive with a rho_2-detecting eigenvector (or a generic
-perturbation of one), kernel (a) has an explicit optimal witness and
-the 1084/1085 gate discharges.  If the top of arch|_V is <= 0, kernel
-(a) is FALSE for the log2/2 window and the route must revisit the
-radius (a free parameter upstream of the 1080 transport).  Either
-outcome is decisive, which is why this is the next brick.
+The next question is spectral because `arch(h.convSq)` is a quadratic form and
+triple vanishing gives three linear constraints. Record 1087 evaluates finite
+compression matrices for this form on the constrained ROOT window. A positive
+computed eigenvalue would exhibit a numerical candidate direction. A negative
+maximum on a certified exact subspace would give only a lower bound for the
+continuum supremum. The actual floating-point spaces are not certified
+subspaces. Excluding all positive directions requires a validated upper bound
+on the unresolved complement; record 1087 supplies no such bound.
 
 ## 8. ERRATUM (2026-09-01, added when record 1087 executed the fork)
 
-Two corrections, neither of which changes this record's F-B verdict;
-both were found by the spectral scan and certified by the raw-integrand
-re-integration in `1087_c3_roundtrip_cert.py`
+Two corrections, neither of which changes the negative result on the three
+tested tapers or the registered stop decision. The tail factor was derived
+again from the source formula and numerically cross-checked
+against raw-integrand quadrature in `1087_c3_roundtrip_cert.py`
 (`1087_c3_roundtrip_cert.log`).
 
-1. SECTION 4 TAIL FACTOR.  The closed form's beyond-support tail is
+1. SECTION 4 TAIL FACTOR. The body above now uses the corrected
+   beyond-support tail
 
-       F(0) * log tanh(a)        (x1)
+       F(0) * log tanh(S/2)        (x1)
 
-   NOT `2 * F(0) log tanh(a)` as drafted here.  The numerator's "2" in
+   where `[-S,S]` is the support of the square. For taper ratio `r` and
+   root half-width `a`, this is `F(0) * log tanh(r*a)`, not
+   `2 * F(0) log tanh(r*a)`. The numerator's "2" in
    `exp(y/2)(F(y)+F(-y)) - 2F(0)` is correct, but the denominator is
    `exp y - exp(-y) = 2 sinh y`, so the primitive `-log tanh(y/2)`
    already carries that 2; the x2 reading double-paid it.  Corrected
-   section 6 G5 values for the three tapers (x1 tail at their true
+   section 7 G5 values for the three tapers (x1 tail at their true
    supports, F0 as measured there):
 
        taper r=0.95:  -2.977252  ->  -1.679
        taper r=0.80:  -1.544236  ->  -1.004
        taper r=0.60:  -0.337002  ->  -0.263
 
-   and the section 5 ceiling constant is `c0 + log tanh(r*a)` per F0,
+   and the section 7.2 ceiling constant is `c0 + log tanh(r*a)` per F0,
    i.e. +2.010 at the window edge (not +0.911).  Every corrected value
-   is still negative: G4/G5 both FAIL exactly as recorded, the F-B
-   verdict and the "no legal object of this family" conclusion stand,
-   and the surrogate fl2 comparison is unaffected.
+   is still negative. G4/G5 fail on the tested slice, the registered stop
+   decision stands, and the surrogate `fl2` comparison is unaffected.
 
-2. SECTION 7.3 SPECULATION RESOLVED AGAINST IT.  "The measured signs
-   show the form is INDEFINITE on the family ... so a positive direction
-   of arch|_V is not excluded" - the non-exclusion was tested and lost.
-   Record 1087 scans arch|_V spectrally (both basis families, K to 32,
-   six radii to the window edge) and finds the top of arch|_V at
-   -0.853 +/- 0.002, negative definite at every resolution, for every
-   rho simultaneously.  The fork's second branch fired: kernel (a) is
-   numerically FALSE for the log2/2 window, and the pre-registered
-   consequence - "the route must revisit the radius" - is executed in
-   1087 section 5.4 (certificate extension to the orbit window).  The
-   carrier-indefiniteness observation is still true and still useless:
-   it never constrained V.
+2. SECTION 7.3 FOLLOW-UP REMAINS NUMERICAL. Record 1087 evaluates finite
+   compression matrices for `arch|_V` in two basis families, through `K=32`
+   and six radii. Every computed largest eigenvalue is negative; the largest
+   reported value is about `-0.8535`. This is evidence that the tested spaces
+   contain no positive matrix eigenvector. It is not a continuum sign decision.
+   A maximum on a certified exact subspace would be a lower bound for `sup_V`,
+   but these floating-point spaces are not certified subspaces, and record 1087
+   proves no upper bound for the unresolved complement. The historical ROOT
+   negative-detector branch therefore remains mathematically unresolved by
+   this scan; active C3/P2 is a different same-owner semi-local inequality.

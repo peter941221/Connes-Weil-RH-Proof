@@ -1,335 +1,278 @@
-# 1087 - the root-window spectral verdict: arch is numerically negative
-# definite on the triple-vanishing subspace, and kernel (a) has no
-# positive direction at radius log 2 / 2
+# 1087 - root-window finite-matrix reconnaissance and tail-factor correction
 
-Date: 2026-09-01.  Follows 1086 (F-B: the g3 family does not certify the
-gate) and executes the re-examination 1086 section 7.3 pre-registered:
+Date: 2026-09-01. Follows record 1086.
 
-    arch(h.convSq) is a QUADRATIC FORM in h; the triple-vanishing
-    conditions are THREE linear constraints.  Kernel (a) is therefore a
-    SPECTRAL question - the top of the spectrum of arch restricted to
-    V = {h : lap h = 0 on {0, 1/2, 1}}, supp h in the window - not a
-    carrier-guessing question.  ... If the top of arch|_V is <= 0,
-    kernel (a) is FALSE for the log2/2 window and the route must revisit
-    the radius.  Either outcome is decisive, which is why this is the
-    next brick.
+Status: numerical reconnaissance, corrected after a claim-strength audit. This
+record proves no theorem about the infinite-dimensional form or C3. It records
+one analytic tail identity and floating-point evidence from finite compression
+models. The computation neither proves that the root-window detector set is
+empty nor closes or retires a C3 construction.
 
-Advances consumer 3 kernel (a) of `RH_MAINLINE_FREEZE.md` by ADJUDICATING
-it: the outcome is the negative branch, at a margin so wide that no
-carrier, taper, node set, or correction inside the root window can close
-the gap.
+## 1. The continuum question
 
-## 1. What is decided, exactly
+Let
 
-Record 1085 made kernel (a) one inequality on one object: the root gate
-is satisfiable at an off-line rho iff some
+```text
+a = log(2) / 2,
+V_a = {h : CompactLogTest | supp(h) subset [-a,a],
+             laplaceAt(h,s) = 0 for s in {0,1/2,1}},
+A(h) = archimedeanTerm(h.convolutionSquare).
+```
 
-    h,  supp h subset (-a, a),  a = log 2 / 2,
-    lap h = 0 on {0, 1/2, 1},   lap h rho != 0,
-    0 < arch(h.convSq)
+For a root-supported, triple-vanishing test, Lean proves
 
-exists.  Detection is ONE further open linear condition, so the feasible
-set over ALL rho is controlled by the sign of arch on the whole
-codimension-3 subspace V intersected with the window: a positive
-direction exists iff arch is positive somewhere on V.  This record scans
-that subspace spectrally instead of sampling carriers.
+```text
+qw(h) = -A(h).
+```
 
-## 2. Protocol
+The prime term vanishes here because the Hermitian square is supported inside
+`(-log 2, log 2)`. For a root-supported `HealthyYoshidaDetectorData rho h`,
+its strict local-Weil-sum field is therefore equivalent to `A(h) > 0`; its
+other fields also require smooth compact support, triple vanishing, and
+`laplaceAt(h, rho) ≠ 0`. The scan imposes only the three moment constraints.
+It does not impose the detector value at `rho`.
 
-The committed probe `docs/proofs/1020_lane_r_prime_free_spectrum.py`
-(byte-identical on the WSL mirror; `cmp`-checked) is RE-USED with zero
-code change - like the record-1075 re-use of a committed probe, the
-frozen-script rule bars new theorem work, not measurement re-use, and
-this run names its consumer explicitly (kernel (a), per the 1086
-section-7.3 pre-registration).  For each radius r and basis size K it
-builds:
+The scan uses real-valued basis profiles. In an idealized exact Galerkin
+setting, if a real finite-dimensional subspace `V_{a,K} subset V_a`, then
 
-* a sampled basis on [-r, r] from two INDEPENDENT families -
-  Legendre profiles times the C-infinity envelope
-  `exp(-1/(1-x^2))^p`, p in {1,2,3} (smooth-legal, strictly supported),
-  and sine profiles `sin(k pi (x+r) / 2r)` (completeness check);
-* the exact triple-vanishing nullspace by SVD of the moment matrix
-  `lap b_i (s)`, s in {0, 1/2, 1}, with the repo's Laplace convention
-  `laplaceAt f s = int exp(s x) f x` (`CC20YoshidaConvolution.lean:35-56`
-  - plus sign, verified before reading any eigenvalue);
-* QR orthonormalization of the null functions in the L2 mass, then the
-  quadratic-form matrix of `arch(h^2)` by diagonal-plus-polarization
-  (every entry is an exact integral-form evaluation, no derivative
-  stencils), and `scipy.linalg.eigh` eigenvalues normalized by ||h|| = 1.
+```text
+lambda_{a,K}
+  = sup {A(h) : h in V_{a,K}, ||h||_2 = 1}
+  <= sup {A(h) : h in V_a, ||h||_2 = 1}.
+```
 
-Sweep (committed log): r in {0.300, 0.320, 0.330, 0.340, 0.345, 0.346}
-(window edge a = log 2 / 2 = 0.346574), K in {8,12,16,20,24,28,32},
-Legendre at p in {1,2,3} plus sine - 168 rows in total, EVERY row
-flagged "negative definite" with zero exceptions.  The square is
-supported in [-2r, 2r], so every row is prime-free (2r < log 2): this
-is the window the 1080 pinned spec and the capstone's root-support
-clause consume.  The radii chosen are the hard end - arch rises
-monotonically with r (the tail `F0 log tanh r` is the only r-dependent
-term), so a negative window edge bounds every smaller radius a fortiori
-in the resolved section.
+This inequality fixes the direction of inference for a certified exact
+subspace: its maximum is a lower bound for the full supremum. A negative value
+cannot prove that the full supremum is nonpositive. Such a conclusion needs a
+rigorous upper bound for the unresolved complement.
 
-## 3. Fidelity audit of the closed form (the law-26/31/32 stack)
+The program does not certify the premise `V_{a,K} subset V_a`. It imposes the
+three moment constraints by floating-point quadrature and SVD. The enveloped
+Legendre profiles use a smooth bump, but their computed constraint nullspace is
+only approximate. The sine profiles are an independent L2 check; after zero
+extension they are not C-infinity at the support endpoints and therefore are
+not `CompactLogTest` values. The scan also omits general complex-valued
+directions. None of the reported eigenvalues is a rigorous lower bound for the
+continuum supremum.
 
-The scan evaluates arch through the 1086 section-4 closed form.  Before
-booking its verdict, all three convention-sensitive pieces were re-read
-from the Lean source and then certified by a DIRECT integration of the
-raw integrand (`docs/proofs/1087_c3_roundtrip_cert.py`, run
-`1087_cert.log`):
+## 2. What was computed
 
-    numerator   F y = exp(y/2) (F y + F -y) - 2 F 0   C1SameOwnerWeil.lean:48
-    denominator y   = exp y - exp(-y) = 2 sinh y      SelectedWeilFormula.lean:103
-    arch F = ( c0 F 0 + int_{y>0} numerator/denominator ).re
+The reused probe
+[`1020_lane_r_prime_free_spectrum.py`](1020_lane_r_prime_free_spectrum.py)
+formed constrained matrices for
 
-For a real even square the integrand reduces to
-`(exp(y/2) F(y) - F 0) / sinh y`, and beyond the square support S = 2r
-the numerator is exactly `-2 F 0`, so the analytic tail is
+```text
+r in {0.300, 0.320, 0.330, 0.340, 0.345, 0.346},
+K in {8, 12, 16, 20, 24, 28, 32},
+basis family in {sine, enveloped Legendre with p in {1,2,3}}.
+```
 
-    int_S^inf  -2 F 0 / (2 sinh y) dy  =  F 0 * log tanh(S/2) = F 0 log tanh r.      (x1)
+This gives 168 configurations. Every computed matrix had a negative largest
+eigenvalue. Representative rows are:
 
-THE TAIL-COEFFICIENT FINDING.  The 1086 section-4 draft recorded the
-tail as `2 F 0 log tanh(a)` (x2), justified by "BOTH terms of F(y)+F(-y)
-vanish" - true about the numerator but WRONG about the total, because
-the 2 of `e^y - e^{-y} = 2 sinh y` was then double-paid.  The 1020 scan
-used the x1 form from the start.  `1087_c3_roundtrip_cert.py` decides
-the question by numbers, on the actual top eigenvector of the scan at
-the window edge (sine basis, r = 0.346, K = 32):
+```text
+r=0.346  sine K= 8  eig_max=-0.87580185  condG=1.00e+00
+r=0.346  sine K=32  eig_max=-0.85351242  condG=1.00e+00
+r=0.346  leg  K=32  eig_max=-0.89141329  condG=5.91e+10  (p=1)
+```
 
-    top eigenvalue (matrix)     = -0.85351242
-    closed form (scan, tail x1) = -0.85351242
-    DIRECT raw-integrand arch   = -0.85345597
-    Ga  |closed - direct|       = 5.6e-05   <= 2e-4   PASS
-        (the residual is the scan's first-cell grid sliver: its body
-        quadrature starts at y = step; for this high-frequency direction
-        the integrand runs O(1e2) over the first step)
-    Gb  |x2-tail variant - direct| = 1.10   >= 0.5    PASS
-        (the probe-style x2 tail misses by O(1) - rejected at four
-        orders of magnitude above the noise floor)
-    law-31 tie (FFT vs linear correlation) = 6.7e-16
-    node residuals at {0, 1/2, 1}  <= 1.1e-17
-    gram condition = 1.0,  orthonormality error 7.8e-16
-    |lap h rho2| (top direction)   = 0.579936
+For the sine family at `r=0.346`, the computed maxima were
 
-So the scan's numbers are Lean-faithful up to 1e-4, and the tail
-coefficient is settled in favor of x1.  Consequences:
+```text
+K        8          12         16         20         24         28         32
+eig_max -0.87580   -0.86633   -0.86141   -0.85834   -0.85624   -0.85469   -0.85351
+```
 
-* `AGENTS.md` law (32) stated the correction in the WRONG direction and
-  is amended in place (see that section; the law now says exactly what
-  to re-derive and how to certify it).
-* The 1086 G5 values each sat `|F0 log tanh(r a)|` too negative.
-  Corrected with the x1 tail at their true supports:
-  arch(h_c) = -1.679 (r=0.95) / -1.004 (r=0.80) / -0.263 (r=0.60);
-  the 1086 ceiling constant is `c0 F0 + F0 log tanh(r a)`, which at the
-  window edge is 3.10824 - 1.09861 = 2.00963 * F0 (not +0.911 * F0).
-  EVERY corrected value remains negative: 1086's F-B verdict stands
-  under its own erratum, and an erratum note is appended there.
-* The margin of THIS scan moves by at most 1.1 units in the direction of
-  MORE negativity under the x2 reading; the x1 reading is the certified
-  one and still leaves 0.85 of gap.  The verdict is convention-stable.
+The run supports only these statements:
 
-## 4. Result: negative definite at every radius, every basis, every K
+1. no sampled matrix had an eigenvector with a positive computed eigenvalue;
+2. the sine and lower-order enveloped Legendre rows both give negative
+   computed maxima;
+3. the observed sine values rise slowly as `K` grows;
+4. no convergence rate or complement bound was proved, so extrapolating the
+   displayed sequence to the continuum is not justified.
 
-The log's `eig` column prints [lowest, HIGHEST] of the resolved section
-(the scan-log header states this convention verbatim: "eigenvalues are
-arch(g^2) on L2-unit triple-vanishing roots").  The quantity that
-decides kernel (a) is the HIGHEST one - a lower bound on
-`sup_V arch / ||h||_2^2` from one K-dimensional section.  Raw
-representative rows (reproduced from the 168-row scan log; the log file
-itself is local evidence - `*.log` is git-ignored by repository
-convention, and the reproduction command in section 7 regenerates it):
+The high-order enveloped Legendre rows are ill-conditioned. At `p=3, K=32`,
+`condG` reaches `8.24e15`, and the largest printed moment residual reaches
+`1.12e-8`. Those rows carry less diagnostic weight than the well-conditioned
+sine rows; they do not provide an independent high-resolution confirmation.
 
-    r=0.34600 square=0.69200 sin K= 8 p=1 null= 5 eig=[-1.70298685, -0.87577377] condG=1.00e+00 resid=2.97e-17 OK negative definite
-    r=0.34600 square=0.69200 sin K=32 p=1 null=29 eig=[-3.13221912, -0.85348429] condG=1.00e+00 resid=5.55e-17 OK negative definite
-    r=0.34600 square=0.69200 leg K=32 p=1 null=29 eig=[-3.62280018, -0.89138582] condG=5.91e+10 resid=4.34e-12 OK negative definite
+The scan also does not establish monotonicity in the support radius. Changing
+`r` changes the feasible functions and their whole autocorrelations. A
+tail-only monotonicity argument is therefore invalid.
 
-Aggregated top eigenvalues:
+## 3. Tail-factor correction
 
-    r       sin K= 8   sin K=32   leg p=1 K=32   leg p=3 K=32
-    0.300   -1.01879   -0.99654   -1.03441       -1.08440
-    0.320   -0.95410   -0.93184   -0.96972       -1.01972
-    0.330   -0.92325   -0.90098   -0.93887       -0.98887
-    0.340   -0.89332   -0.87103   -0.90893       -0.95894
-    0.345   -0.87868   -0.85639   -0.89429       -0.94431
-    0.346   -0.87577   -0.85348   -0.89139       -0.94140
+The tail correction follows from the Lean definitions
 
-Two clean monotone patterns, and no third reading available:
+```text
+N_F(y) = exp(y/2) * (F(y) + F(-y)) - 2 * F(0),
+D(y)   = exp(y) - exp(-y) = 2 * sinh(y).
+```
 
-* INCREASE with r: arch rises as the window widens (the r-dependence is
-  exactly the tail term `log tanh r`), so 0.346 - the largest radius
-  still prime-free - is the BEST case.  It is still negative by 0.85.
-* INCREASE toward a plateau in K: at r = 0.346 the sine top eigenvalue
-  goes -0.87577, -0.86630, -0.86138, -0.85832, -0.85621, -0.85467,
-  -0.85348 (K = 8..32, step 4): increments +0.0095, +0.0049, +0.0031,
-  +0.0021, +0.0015, +0.0012 - geometrically damping, converging to
-  about -0.852, NOT climbing to zero.  The Legendre p=1 sections rise
-  the same way but slower (-0.94834 at K=8 to -0.89139 at K=32),
-  because the envelope tilts its basis away from the high-frequency
-  directions the top of arch|_V occupies; leg p=1 at K=32 and sin K=32
-  bracket -0.85 from below with 0.038 between them, and leg p=2/p=3
-  interleave.  On numerical health: every sine row has Gram condition
-  exactly 1.0 (the sine basis is already near-orthogonal) with node
-  residuals <= 1e-16, and leg p=1 residuals <= 1.2e-11 - the two
-  families whose bounds matter are the well-conditioned ones; the
-  high-envelope leg p=3 rows carry condG up to 8.2e+15 and residuals
-  up to 3.8e-09 and their bounds are correspondingly weaker, which costs
-  nothing since they sit 0.09 BELOW the sine bounds already.  The
-  certified path (section 3) was run on the r=0.346 sine K=32 row, the
-  best AND the cleanest.
+See
+[`archimedeanNumerator`](../../ConnesWeilRH/Dev/C1SameOwnerWeil.lean#L48)
+and
+[`archimedeanDenominator`](../../ConnesWeilRH/Source/CCM25Concrete/SelectedWeilFormula.lean#L103).
+For a Hermitian square, `F(-y) = conj(F(y))` and `F(0)` is real, so the real
+integrand is
 
-So the two basis families, six radii, seven sizes, three envelope
-powers - 168 independent lower-bound computations - all report the same
-capped sup, and none reports anything even within 0.85 (per unit L2
-norm) of the gate `0 < arch`.
+```text
+(exp(y/2) * Re(F(y)) - F(0)) / sinh(y).
+```
 
-Logically precisely: a K-section compression gives only a LOWER bound
-on `sup_V`, so what the sweep establishes numerically is
+The scan uses real-valued profiles, for which `F` is real and even.
 
-    sup_{h in V, ||h||=1} arch(h.convSq) ~= -0.853   (window edge),
+If `F` is supported in `[-S,S]`, then for `y > S` it becomes
+`-F(0)/sinh(y)`. Since
 
-with the sine sections rising monotonically toward that plateau and no
-sign of the 1/K-tail needed to reach 0 within the resolution tested.
-A rigorous UPPER bound on V would need a validated spectral-gap
-argument, and this record does not attempt one.  What it does give is
-the pre-registered decision quantity: the fork in 1086 section 7.3
-asked whether the top of arch|_V is <= 0 or > 0, and every probe -
-8 basis sizes to K=32, 2 independent families, 6 radii up to the hard
-window edge - says the top sits at MINUS point eight five, a full 0.85
-below the gate, growing more negative as the window narrows.
-Adjudication (negative branch): the feasible set of kernel (a) is
-numerically EMPTY - not for a family of carriers, but for the whole
-subspace, for every rho.
+```text
+d/dy log(tanh(y/2)) = 1 / sinh(y),
+```
 
-## 5. What the verdict closes, and why it is structural
+the exact tail is
 
-1. THE PINNED-DETECTOR PROGRAM (records 1077-1086) is closed as a
-   strategy, not frozen as a family.  Every object it can produce lies
-   in V; V admits no arch > 0 direction; the 1085 bridge
-   `HealthyYoshidaDetectorData rho g <-> 0 < arch h.convSq` therefore
-   has an unsatisfiable right side at the root radius.  No taper, no
-   node placement, no correction w, no eigenvector certificate can
-   change this, because they all quantify over the same V.  Carrier
-   search inside the root window must STOP, not continue harder.
+```text
+integral_S^infinity -F(0)/sinh(y) dy
+  = F(0) * log(tanh(S/2)).
+```
 
-2. THE TRANSPORT ROUTE IS ALSO CLOSED, and this is the larger
-   consequence.  Record 1081 section 3 isolated the remaining
-   root-support obstruction on the prefix side and called uniform
-   interpolation-constant control "real open mathematics".  The scan
-   makes that wall pointless to climb: transport would have to deliver
-   some h in V_root with arch(h) > 0 (the gate it must preserve is
-   exactly what V_root forbids).  The room the prefix wall guards is
-   empty.  Kernel (b) (the prefix-side interpolation-constant question)
-   is retired as a C3 attack line - NOT solved; ruled irrelevant for
-   root-window transport.  The damper-free tail theorem of 1081 stands
-   and remains useful for the larger-window route below.
+For a test supported in `[-r,r]`, its square has `S=2r`, so the tail is
 
-3. THE SIGN IS RH-CONSISTENT, which is what makes the negative branch
-   the EXPECTED one - and this is the deep point of the record.  The
-   very mechanism that makes `0 < arch` the DETECTION gate (1080/1084)
-   is a sign weight on the zero side: a test in V inside the prime-free
-   window has zero pole and zero visible-prime contributions, so the
-   same-owner explicit formula pins `arch` to the signed zero sum alone
-   - a sum whose weight is NEGATIVE on the critical line and positive
-   only for off-line zeros (which is exactly why the library theorem
-   `exists_healthyDetectorData_of_sourceNontrivialZero_right` supplies
-   arch-positive detector data UNCONDITIONALLY from an off-line input).
-   If every zero is on the line, every surviving term is negative:
-   arch < 0 on ALL of V.  The scan's finding - a negative top of
-   arch|_V at the window with no positive direction visible at any
-   resolution - is therefore what an RH world MUST look like from this
-   instrument.  Consequence: the root-window gate is not a
-   construction problem at all; producing h in V_root with arch > 0 is,
-   through this same identity, an OFF-LINE ZERO WITNESS, i.e. evidence
-   of ¬RH - so it cannot be a lemma toward RH.  The 1077-1086 program
-   was (its records did not see this) a ¬RH witness search whose
-   success sign was pre-decided against it.  The 0.85 margin is
-   numeric, not a theorem, but it is a margin in the direction RH
-   predicts, and the pre-registered 1086 fork was won by the branch
-   that RH makes inevitable.  This is why re-anchoring (item 4) moves
-   the radius, not the sign search.
+```text
+F(0) * log(tanh(r)),
+```
 
-4. THE ONLY SURVIVING SHAPE OF CONSUMER 3 (the fork's prescribed
-   radius revisit).  The radius enters the feasibility question through
-   exactly one gate: prime visibility.  2r < log 2 keeps primes away
-   and, per this scan, keeps arch negative on the vanishing subspace;
-   past 2r > log 2 the test sees p = 2 and the vanishing set grows by
-   the visible-prime clauses - which is precisely the shape the freeze
-   and `docs/map/003` already authorize:
+not `2 * F(0) * log(tanh(r))`. The earlier factor two counted the numerator's
+factor two without cancelling the identical factor in the denominator.
 
-   > consumer 2: "healthy detector support and finite visible-prime
-   > ownership"; the B5 shape "may use the detector's support radius to
-   > select a finite set of visible primes".
+The companion script
+[`1087_c3_roundtrip_cert.py`](1087_c3_roundtrip_cert.py) numerically checks that
+the implementation using this tail agrees with a direct integration of the raw
+integrand. The direct integration stops at `y=20`; the exact magnitude of the
+omitted tail is printed separately and is below `5e-9` in this run. At
+`r=0.346`, sine `K=32`, it printed:
 
-   The unconditional detector data ALREADY EXISTS for right-oriented
-   off-line zeros (1081 section 1, `exists_healthyDetectorData_of_
-   sourceNontrivialZero_right`) on the n-fold orbit support; what the
-   capstone lacked was the matching `0 <= qw` certificate at THAT
-   window.  The re-anchored consumer 3 is therefore: extend the
-   ROOT-local CC20 certificate package outward to the orbit window
-   W_n = Ioo((n+1) baseLower + lower, (n+1) baseUpper + upper) by the
-   FINITE visible-prime readback
-   `{p^k : k log p <= rad(W_n)}` - grow the certificate to the
-   detector's support instead of shrinking the detector to the
-   certificate's support.  That is the same local base, the same
-   owner, a finite number of extra signed prime terms, and a nonempty
-   feasible set (the orbit detector's arch positivity is exactly what
-   the library theorem supplies unconditionally, at the orbit radius).
+```text
+matrix value                         -0.85351242
+closed form with the x1 tail         -0.85351242
+direct raw-integrand quadrature      -0.85345597
+absolute difference                  5.645e-05
+x2-tail error against direct value   1.100e+00
+FFT/correlation consistency error    6.7e-16
+moment residuals                     <= 1.1e-17
+omitted tail beyond y=20             < 5e-9
+```
 
-   The next record (1089 design; 1088 was consumed by the endpoint audit
-   that became map record 004) should concretize: the explicit n = 1
-   window radius from `C1HealthyYoshidaUnscaledOrbit` /
-   `exists_nearbyZero_unscaled_targetValues_assembly_of_fixedThreshold`,
-   the finite visible-prime set it exposes, and the certificate
-   extension statement `0 <= qw g` at that window as a named consumer.
-   A follow-on scan of arch|_V with the visible-prime vanishing rows
-   added (a constrained nonlinear problem: `F(log 2) = 0` is QUADRATIC
-   in h, unlike the linear Mellin rows) can price how far outward the
-   positive region reaches, but no theorem claim is attached to that
-   idea here.
+This cross-check distinguishes the two tail formulas by a wide numerical
+margin. It is not an interval certificate for the continuum spectrum.
 
-## 6. What is NOT here
+Applying the corrected tail to the three record-1086 tapers changes their
+reported archimedean values to approximately
 
-No Lean theorem is proved from this scan and none is attempted: a
-numerical spectrum is not a certificate.  RH is NOT claimed; the
-negative-definite observation is a consistency check, and the record's
-weight is the STRATEGIC re-anchor (sections 5.1-5.4), not the
-arithmetic.  The 1080-1085 chain of reductions stands unchanged as
-theorems; they simply discharge onto a set this scan shows to be empty
-at the root radius.  The tail-erratum amendment leaves 1086's F-B
-conclusion intact.  Frozen namespaces received no theorem work; this
-record's numerical scan has the named consumer required by the freeze
-(the 1086 section 7.3 pre-registration of kernel (a)'s spectral fork).
+```text
+taper ratio   0.95      0.80      0.60
+A(h)         -1.679    -1.004    -0.263
+```
 
-## 7. Evidence and reproduction
+Record 1086's three corrected values remain negative numerical results for its
+particular `g_3` family. They say nothing about untested root-supported tests.
 
-* Scan log (committed): `docs/proofs/1087_c3_root_window_spectrum.log`
-  (the 2026-09-01 WSL run through `scripts/run_resource_aware_task.sh` in
-  the Linux-side verification mirror of the repository, using the
-  project's SciPy 1.18 virtual environment - environment locations are
-  operational detail owned by `AGENTS.md` section 7a and are not repeated
-  here).
-* Fidelity certification script (committed):
-  `docs/proofs/1087_c3_roundtrip_cert.py`; its run log is local evidence
-  (`*.log` git-ignored) - the final block of its stdout, reproduced
-  verbatim as the record's primary certificate evidence:
+## 4. Claims supported and unsupported
 
-      Ga |closed-direct|=5.645e-05 <= 2e-4  ->  True
-      Gb |x2-variant-direct|=1.100e+00 >= 0.5  ->  True
-      VERDICT PASS Ga+Gb: scan closed form (tail x1) reproduces the direct
-      Lean-integrand integration within the first-cell sliver; the 1086 g/h
-      tail x2 variant misses by O(1) and is rejected - the factor 2 in the
-      numerator is already paid by 2*sinh(y)
-* Reproduce the scan:
+Supported by the source identity and the numerical runs:
 
-      python3 1020_lane_r_prime_free_spectrum.py \
-        --radii 0.30 0.32 0.33 0.34 0.345 0.346 \
-        --basis-sizes 8 12 16 20 24 28 32 \
-        --envelope-powers 1 2 3 \
-        --basis-families legendre sine
+```text
++ the tail coefficient is x1, not x2;
++ the tested 1086 family remains negative after that correction;
++ all 168 approximate compression matrices have negative computed maxima;
++ no eigenvector with a positive computed eigenvalue was found at the tested
+  resolutions.
+```
 
-  (plus the smaller-radius default sweep; committed 1020 script is
-  byte-identical to the one that produced the log - `cmp` PASS).
-* Reproduce the certification:
+Not supported by this record:
 
-      cd docs/proofs && python3 1087_c3_roundtrip_cert.py
+```text
+- A(h) <= 0 for every h in V_a;
+- negative definiteness of the infinite-dimensional restriction A|V_a;
+- emptiness of the root-supported healthy-detector set;
+- closure of the pinned-carrier or root-support transport programs;
+- any no-go ruling or mandatory change of support radius;
+- any Lean theorem about the sign of A or qw.
+```
 
-  Requires numpy/scipy (the project SciPy 1.18 environment); prints
-  Ga/Gb two-sided gates and the law-31 tie.
+Agreement across finite bases checks the implementation. It does not turn the
+sampled spaces into exact `CompactLogTest` subspaces. A valid no-go theorem
+would need an upper enclosure such as
+
+```text
+sup_{h in V_a, ||h||_2=1} A(h) <= -epsilon
+```
+
+with `epsilon > 0`, proved by an exact analytic estimate or a validated
+finite-section-plus-tail certificate.
+
+## 5. Consequence for C3
+
+Record 1087 does not decide C3. The formal detector construction uses a
+convolution orbit, and its public theorem exports no ROOT-window support bound:
+
+```lean
+theorem exists_healthyDetectorData_of_sourceNontrivialZero_right
+    (rho : sourceNontrivialZeroSet)
+    (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re) :
+    ∃ g : CompactLogTest, HealthyYoshidaDetectorData rho.1 g
+```
+
+See
+[`C1HealthyYoshidaSpectralNegativity.lean`](../../ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean#L511).
+That package yields `qw(g) < 0`. The unresolved B5 obligation is to prove
+`qw(g) >= 0` for the same selected `g`.
+
+At larger support, visible prime powers generally contribute. Triple vanishing
+gives the exact identity
+
+```text
+qw(g) = -archimedeanTerm(F_g) - finitePrimeSum(F_g),
+F_g = g.convolutionSquare.
+```
+
+Consequently the negative-detector condition is
+
+```text
+archimedeanTerm(F_g) + finitePrimeSum(F_g) > 0,
+```
+
+rather than the root-only gate `archimedeanTerm(F_g) > 0`. The existing orbit
+detector supplies the negative side. C3 still needs a same-owner semi-local
+certificate for the opposite inequality.
+
+The minimal formal exit is now stated by
+`healthy_sourceRH_of_right_detector_specific_qw_nonneg`: for every hypothetical
+right-hand off-line zero, one matching `g` carrying both healthy detector data
+and `0 <= qw(g)` implies `SourceRH`. This theorem is an implication only; no
+producer of its nonnegativity premise is claimed here.
+
+## 6. Reproduction
+
+Run the following payload from `docs/proofs/` through the repository resource
+runner documented in [`RESOURCE_SCHEDULING.md`](../../RESOURCE_SCHEDULING.md):
+
+```bash
+python3 1020_lane_r_prime_free_spectrum.py \
+  --radii 0.30 0.32 0.33 0.34 0.345 0.346 \
+  --basis-sizes 8 12 16 20 24 28 32 \
+  --envelope-powers 1 2 3 \
+  --basis-families legendre sine
+```
+
+Run the raw-integrand cross-check through the same runner:
+
+```bash
+python3 1087_c3_roundtrip_cert.py
+```
+
+Both require NumPy and SciPy. The generated `*.log` files are local,
+git-ignored artifacts; the representative outputs needed to interpret the
+record are reproduced above.

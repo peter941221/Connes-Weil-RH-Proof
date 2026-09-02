@@ -22,18 +22,30 @@ These cuts do not describe equal proof campaigns.  The project will pursue one
 B5-shaped campaign on the healthy `CompactLog` owner.  The B1-only universal
 generalization is frozen.
 
-The active chain is:
+The active dependency graph is:
 
 ```text
-gamma + alpha/beta + delta
-  -> ROOT-window CC20 positivity
-  -> one selected detector and its finite visible-prime set
-  -> detector-specific semi-local positivity on the same healthy owner
-  -> SourceRH
-  -> Mathlib RiemannHypothesis
+assume an off-line zero rho
+          |
+          +--> orbit detector g with qw(g) < 0       [formal]
+          |
+          +--> 0 <= qw(g) for the same g and its
+                 finite visible prime-power set      [open]
+                            |
+                            v
+                         SourceRH                    [formal implication]
+                            |
+                            v
+                 Mathlib RiemannHypothesis
+
+ROOT-window CC20 positivity                          [local base, open in Lean]
+          |
+          +--> usable only after proving that the selected g lies in its
+               support class, or after extending the certificate semi-locally
 ```
 
-The first arrow package is a local base.  It does not close B1 or B5.
+The ROOT package is a local base, not a predecessor that automatically applies
+to the orbit detector. It does not close B1 or B5.
 
 Terminology guard: `B1` and `B5` in this record are the output-audit cuts.
 Record 1074's older phrase "GATE 1 alpha B1" names only the bounded
@@ -70,6 +82,21 @@ See `ConnesWeilRH/Dev/UnconditionalSkeleton.lean` and
 `ConnesWeilRH/Route/CC20RouteRealization.lean`.  These equivalences establish
 the logical cuts.  They do not supply sound analytic producers for either cut.
 
+The healthy owner now also has the exact minimal B5 implication:
+
+```lean
+(∀ rho : sourceNontrivialZeroSet,
+  (1 / 2 : Real) < rho.1.re →
+    ∃ g : CompactLogTest,
+      HealthyYoshidaDetectorData rho.1 g ∧ 0 ≤ C1SameOwnerWeil.qw g) →
+  RHDefinitionBridge.standard.SourceRH
+```
+
+This is theorem `healthy_sourceRH_of_right_detector_specific_qw_nonneg` in
+`C1HealthyYoshidaSpectralNegativity.lean`. The same file constructs the strict
+negative detector for every hypothetical right-hand off-line zero. The only
+missing part of this implication is the matching `qw g >= 0` producer.
+
 ## Evidence for the quantifier boundary
 
 CC20 Theorem 1 assumes support in `[2^(-1/2), 2^(1/2)]`.  In log
@@ -102,10 +129,11 @@ chosen against one hypothetical off-line zero.  It may use the detector's
 support radius to select a finite set of visible primes.  The second obligation
 has fewer sign cases and does not require a universal partition theorem.
 
-This comparison ranks the targets; it does not prove that B5 has a producer.
-Record 1075 reaches only the first two zero indices in a numerical family, and
-that family is not yet a compactly supported smooth test.  Numerical hunting
-does not count as a route payment.
+This comparison ranks the targets; it does not prove that B5 has a positivity
+producer. The orbit detector with `qw(g) < 0` is formal, but the theorem exports
+no ROOT or `[-0.8,0.8]` support bound. Record 1087 reports only floating-point
+finite-matrix values at ROOT support and proves no continuum sign. Numerical
+hunting does not change either statement.
 
 ## Owner correction
 
@@ -131,9 +159,11 @@ premise.
 Allowed work must name one of these consumers:
 
 1. a missing paper-scale field of the ROOT-local CC20 certificate;
-2. healthy detector support and finite visible-prime ownership;
+2. an explicit support bound and finite visible-prime ownership for the formal
+   orbit detector;
 3. detector-specific semi-local positivity or its same-owner trace readback;
-4. the healthy-owner contradiction to `SourceRH`.
+4. maintenance of the now-formal healthy-owner contradiction interface to
+   `SourceRH`.
 
 The following work is frozen:
 

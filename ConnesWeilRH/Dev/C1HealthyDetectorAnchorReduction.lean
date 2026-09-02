@@ -18,16 +18,17 @@ onto the interpolant itself:
    h.convSq` EXACTLY - the pair's cross term is dead by the record-1082
    odd kill, and the sum square scales by four;
 3. `arch_pair_eq_four_mul`: specialization to `(evenPart h, oddPart h)`;
-4. `rootGate_of_tripleVanishing_detecting_rootWindow` - KERNEL (a) FINAL
+4. `rootGate_of_tripleVanishing_detecting_rootWindow` - the former kernel (a)
    FORM: a SINGLE test `h` with root-window support, triple vanishing at
    `{0, 1/2, 1}`, detection at `rho`, and `0 < arch h.convSq` satisfies the
    full root-supported healthy detector gate.  The even/odd pair is a
    decomposition device; the anchor positivity obligation lands back on
    `h` itself - the pinned-detector scalar gate of record 1080;
-5. `exists_kernelA_final`: the hypotheses are satisfiable - the 7-node
-   symmetric interpolant of record 1083 provides the witness, so kernel (a)
-   of consumer 3 is EXACTLY: find one root-window triple-vanishing
-   detecting test with positive archimedean square term.
+5. `exists_kernelA_final`: the 7-node symmetric interpolant of record 1083
+   supplies all hypotheses except the positive archimedean square term.
+
+This is a conditional ROOT-supported strict-negative-detector branch. It does
+not produce the active C3/P2 inequality `qw >= 0` for the formal orbit detector.
 
 RH is NOT claimed.
 -/
@@ -193,11 +194,11 @@ theorem rootGate_of_tripleVanishing_detecting_rootWindow
 
 /-! ### The witness exists: the 7-node interpolant -/
 
-/-- THE KERNEL (a) STATEMENT.  For every off-line source zero there is a
+/-- Former kernel (a) statement. For every off-line source zero there is a
 single root-window test, triple-vanishing on the criterion set and
 detecting at `rho`, whose full root-supported gate follows from the
-positivity of its OWN archimedean square term.  The remaining obligation
-of consumer 3 kernel (a) is exactly `0 < arch h.convSq` for such a test. -/
+positivity of its own archimedean square term. This implication supplies no
+proof of that sign. -/
 theorem exists_kernelA_final
     {rho : ℂ}
     (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho)

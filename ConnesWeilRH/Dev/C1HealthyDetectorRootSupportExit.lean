@@ -4,20 +4,22 @@ import ConnesWeilRH.Dev.C1HealthyYoshidaUnscaledOrbit
 import ConnesWeilRH.Dev.C1SpectralTailBound
 
 /-!
-# C1HealthyDetectorRootSupportExit - consumer #3 in its capstone-consumable form
+# C1HealthyDetectorRootSupportExit - conditional ROOT-supported contradiction
 
-This module advances consumer 3 of `RH_MAINLINE_FREEZE.md`: *detector-specific
-semi-local positivity on the same healthy owner*.
+This module records a conditional ROOT-local alternative to the active C3/P2
+obligation. It does not prove detector-specific semi-local nonnegativity for
+the formal orbit detector.
 
 The unconditional spectral-negativity construction
 (`C1HealthyYoshidaSpectralNegativity`) already produces
 `HealthyYoshidaDetectorData` for every off-line source zero oriented to the
-right of the critical line, but its owner is an n-fold convolution orbit whose
-support leaves the ROOT window.  The capstone
+right of the critical line. Its public conclusion exports no ROOT-window
+support bound; internally, its n-fold convolution support bound depends on the
+selected orbit length. The capstone
 `sourceRH_of_rootSupportedHealthyDetectorData_and_endpointCertificates`
 consumes the detector data only together with ROOT support, because the CC20
-endpoint certificate is proved exactly on root-supported tests.  Consumer 3 is
-therefore precisely the root-support transport of the strict spectral sign:
+endpoint certificate is proved exactly on root-supported tests. This module
+isolates one conditional ROOT-local C3 branch:
 
     rootSupportedHealthyDetectorGate rho :=
       exists g, HealthyYoshidaDetectorData rho g /\
@@ -40,7 +42,10 @@ What lands here:
    root-support obstruction is isolated on the prefix side: the ball-radius
    interpolation constants versus the geometric shell budget.
 
-RH is NOT claimed; the root-supported gate stays open.
+The binding route does not assume that this branch applies to the orbit
+detector. C3 may instead require a semi-local certificate at the orbit's actual
+support, including its finite visible prime powers. RH is not claimed; the
+root-supported gate stays open.
 -/
 
 namespace ConnesWeilRH
@@ -68,13 +73,12 @@ private theorem re_add_im_I (z : Complex) :
   · simp
   · simp
 
-/-! ### The consumer-3 gate in capstone form -/
+/-! ### The ROOT-supported strict-negative gate -/
 
-/-- The root-support transport of the strict detector sign, stated exactly as
-the healthy-owner RH capstone consumes it.  This is consumer 3's remaining
-obligation: the unconditional spectral-negativity construction supplies the
-data package away from the ROOT window, and the CC20 endpoint certificate
-route needs it on the ROOT window. -/
+/-- The root-support form of the strict detector sign, stated exactly as the
+ROOT-local capstone consumes it. The orbit-detector theorem does not supply
+this support field, so this proposition remains a conditional alternative to
+an orbit-scale semi-local certificate. -/
 def rootSupportedHealthyDetectorGate (rho : Complex) : Prop :=
   ∃ g : CompactLogTest,
     HealthyYoshidaDetectorData rho g /\

@@ -547,6 +547,31 @@ theorem healthy_sourceRH_of_right_healthyDetectorData_and_spectral_nonneg
         hg.weilSquareSumPositive
     exact False.elim ((not_lt_of_ge hnonneg) hnegative)
 
+/-- The minimal B5-shaped exit: for each hypothetical right-hand off-line zero,
+it is enough to exhibit one healthy detector whose same-owner Weil value is
+nonnegative.  The detector package supplies strict negativity for that same
+test, so no all-test positivity hypothesis is needed. -/
+theorem healthy_sourceRH_of_right_detector_specific_qw_nonneg
+    (hsemiLocal : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+            0 ≤ C1SameOwnerWeil.qw g) :
+    RHDefinitionBridge.standard.SourceRH := by
+  intro rho hrho
+  by_cases hline : rho.re = 1 / 2
+  · simpa [RHDefinitionBridge.standard] using hline
+  · obtain ⟨sigma, hright, _hmultiplicity, _hchoice⟩ :=
+      exists_rightOfCriticalXiZero_of_re_ne_half ⟨rho, hrho⟩ hline
+    obtain ⟨g, hg, hnonnegative⟩ := hsemiLocal sigma hright
+    have hspectralNegative : spectralWeilValue g.convolutionSquare < 0 :=
+      (weilSquareSumPositive_iff_spectralWeilValue_neg g).mp
+        hg.weilSquareSumPositive
+    have hqwNegative : C1SameOwnerWeil.qw g < 0 := by
+      rw [C1CenterTwoCriterionBridge.qw_eq_spectralWeilValue_centerTwo]
+      exact hspectralNegative
+    exact False.elim ((not_lt_of_ge hnonnegative) hqwNegative)
+
 /-- The fixed-window construction discharges the right-oriented detector
 premise in the preceding RH exit.  The remaining hypothesis is precisely the
 global spectral nonnegativity statement; this theorem is conditional and is

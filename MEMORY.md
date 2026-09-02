@@ -1209,4 +1209,52 @@ jobs), three standard axioms, zero sorryAx.
 
 2026-09-01 docs/map/README.md + AGENTS.md : made the route map live during proof work. Route-relevant evidence may update the affected map record immediately; changes to binding authority or current status synchronize README and AGENTS in the same edit. Raw unresolved numerical observations remain in `docs/proofs/`; new route-level records use the next `00N_` prefix. Docs only; no Lean theorem changed.
 
-2026-09-01 1087 root-window spectral verdict (docs/proofs/1087_c3_root_window_spectral_verdict.md + committed 1087_c3_roundtrip_cert.py; scan/cert logs kept local per the repo `*.log` convention, with representative raw lines quoted inside the record; erratum appended to 1086 section 8; AGENTS laws (32) corrected + (33) added; README + docs/map/004 status rows synchronized) : executed the 1086 section-7.3 pre-registered spectral fork for consumer 3 kernel (a). arch is a quadratic form, triple vanishing is 3 linear constraints; the scan measured the TOP of arch|_V over 168 (radius x basis x family x K) configurations up to the window edge r = 0.346: it plateaus at -0.853 +/- 0.002, negative definite at every resolution, for every rho. Fidelity certified three independent ways (matrix eigenvalue / scan closed form / DIRECT raw Lean-integrand integration, agreement 5.6e-05, rival tail variant rejected by O(1)); the 1086 draft tail factor 2 was a double-count, the 1020 scan's x1 form is Lean-faithful, 1086's corrected G5 values (-1.679/-1.004/-0.263) keep its F-B verdict. Consequences: the pinned-detector carrier program 1077-1086 is closed AS A STRATEGY (V_root has no positive direction for any carrier to find), the 1081 prefix-wall transport route is ruled irrelevant (the room it guards is empty; kernel (b) retired as a C3 attack line, not solved), and the sign is RH-consistent - arch > 0 on V_root is an off-line witness, i.e. a ¬RH statement, so the gate could never have been a lemma toward RH. Re-anchor per the fork's prescribed radius revisit: grow the CC20 certificate package OUTWARD to the detector's orbit window with its finite visible-prime set (freeze/map wording already authorizes support radius + finite visible primes); next record 1089 design (1088 was consumed by the endpoint audit that became map record 004). Scan evidence, not a certificate; no Lean theorem claimed or unproved was touched; RH unclaimed.
+2026-09-01 docs/proofs/1087_c3_root_window_spectral_verdict.md +
+1087_c3_roundtrip_cert.py + docs/proofs/1086_g3_carrier_design.md : corrected
+the tail to `F(0) * log(tanh(S/2))` and demoted every continuum/no-go claim.
+The 168 floating-point compression matrices have negative computed maxima. The
+scan does not certify continuum lower bounds: its moment nullspaces are numeric,
+and the zero-extended sine basis is not a smooth `CompactLogTest` family. Even
+an exact legal finite subspace would supply no complement upper bound. The scan
+found no positive matrix eigenvector; it did not prove negative definiteness,
+emptiness of the ROOT detector
+class, route closure, or a required support-radius change. The independent raw
+integrand check agrees with the x1 implementation to `5.645e-05` and rejects
+the x2 implementation by `1.100`; its omitted `y > 20` tail is bounded by
+`4.122e-09`. The worst high-order Legendre row has Gram condition number
+`8.24e15` and the largest printed moment residual is `1.12e-8`, so those rows
+are diagnostic only. These checks validate the formula implementation, not the
+continuum sign.
+
+2026-09-01 README.md + docs/map/003_b1_b5_minimal_exit_route_selection.md +
+docs/map/004_endpoint_literature_interface_audit.md + AGENTS.md +
+RH_MAINLINE_FREEZE.md : replaced the stale ROOT-detector narrative with the
+healthy-`CompactLog`, detector-specific semi-local obligation. C3 remains open:
+the orbit construction proves `qw(g) < 0`, while no theorem proves `0 <= qw(g)`
+for that same detector and its finite visible prime-power set. External compact-
+window results remain candidate suppliers pending convention, support, and
+certificate bridges. README's public build note points to
+`RESOURCE_SCHEDULING.md`, not an internal collaboration document.
+
+2026-09-01 ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean + Probe :
+added `healthy_sourceRH_of_right_detector_specific_qw_nonneg`, the minimal
+same-detector implication from semi-local nonnegativity to `SourceRH`. Focused
+WSL build completed successfully with 3633 jobs, zero `error:` lines, zero
+`sorryAx`, and exactly `[propext, Classical.choice, Quot.sound]` for the new
+theorem.
+
+2026-09-01 C1HealthyDetectorPinning.lean +
+C1HealthyDetectorKernelABridge.lean + C1HealthyDetectorRootSupportExit.lean :
+corrected stale C3 comments. Records 1077--1079 measured a surrogate rather
+than the archimedean gate; the orbit theorem exports no ROOT support bound; and
+the root-support exit is a conditional local branch rather than the whole C3
+obligation. The three modules and paired audits rebuilt successfully with 3655
+jobs, zero `error:` lines, and zero `sorryAx`.
+
+2026-09-01 final C3 documentation/formal audit : the full WSL aggregate rebuilt
+successfully with 3809 jobs, zero `error:` lines, and zero `sorryAx`; a forced
+leaf rebuild completed with 3633 jobs and prints exactly
+`[propext, Classical.choice, Quot.sound]` for
+`healthy_sourceRH_of_right_detector_specific_qw_nonneg`. The output ledger still
+contains exactly five project axioms. Therefore C3 is not closed: the formal
+same-detector exit exists, but no theorem produces its `0 <= qw(g)` premise.

@@ -2,13 +2,13 @@ import ConnesWeilRH.Dev.C1HealthyDetectorRootSupportExit
 import ConnesWeilRH.Dev.C1HealthyNarrowPlateau
 
 /-!
-# C1HealthyDetectorArchRescue - the archimedean-rescue algebra for consumer 3
+# C1HealthyDetectorArchRescue - ROOT negative-detector rescue algebra
 
-Consumer 3 of `RH_MAINLINE_FREEZE.md` (after records 1080/1081) reduces to the
-single scalar kernel `0 < archimedeanTerm g.convolutionSquare` on a pinned
-root-supported triple-vanishing detector.  This module supplies the ALGEBRA a
-future certificate plugs into, and discovers the exact symmetry structure of
-that kernel:
+Records 1080/1081 introduced a conditional ROOT-supported branch whose open
+sign is `0 < archimedeanTerm g.convolutionSquare` on a pinned
+triple-vanishing test. This sign promotes the test to strict-negative detector
+data. It is distinct from the active C3/P2 premise `qw >= 0` for the formal
+orbit detector. This module supplies algebra for the ROOT branch:
 
 1. pointwise sums of compact-log tests (`sumTest`), with the Laplace
    additivity readback;

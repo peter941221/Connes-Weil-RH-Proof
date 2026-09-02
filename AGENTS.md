@@ -41,7 +41,7 @@ detector-specific semi-local positivity on the same healthy owner, followed by
 `docs/map/003_b1_b5_minimal_exit_route_selection.md`.
 Freeze rules: `RH_MAINLINE_FREEZE.md` (run
 `pwsh -File scripts/check_rh_mainline_freeze.ps1` before touching frozen route
-namespaces). Current phase states: README "Status dashboard" (top).
+namespaces). Current phase states: README "Status" (top).
 
 Route-map preflight (mandatory): before beginning a new substantive proof
 brick, Lean theorem, carrier family, or numerical investigation, always read
@@ -71,12 +71,19 @@ The B1-only universal globalization is frozen.  The literal normalized B5
 socket remains an audit interface, not a producer target: its underlying
 `normalizedCC20TestSpace` uses the rejected additive convolution model.
 
-Current local-base position: the CC20 finite-rank chain is wired through the
-concrete eq-(115) table, but
-the paper-scale audit found two corrections.  Equation (119) includes the
-central `n = 0` term, and the published scale is about `lam = 1.05158 > 1`;
-the landed Bessel lower bound is therefore only a valid `lam < 1` side branch.
-Next bricks, in order:
+Current branch status: the right-oriented convolution-orbit construction now
+formally supplies `HealthyYoshidaDetectorData`, hence `qw(g) < 0`, for every
+hypothetical off-line zero. The minimal same-detector contradiction to
+`SourceRH` is also formal. C3 is still open because no theorem proves
+`0 <= qw(g)` for that same orbit-supported detector and its finite visible
+prime-power set. ROOT positivity can feed this branch only after a matching
+support theorem or a genuine semi-local extension; there is no automatic arrow
+from the ROOT window to the orbit detector.
+
+The CC20 finite-rank chain is wired through the concrete eq-(115) table, but the
+paper-scale audit found two corrections. Equation (119) includes the central
+`n = 0` term, and the published scale is about `lam = 1.05158 > 1`; the landed
+Bessel lower bound is therefore only a valid `lam < 1` side branch. Open bricks:
 
 1. Paper-scale finite-section/Toeplitz certificate: exceptional direction,
    complement spectral bound, and rank-one repair producing positive
@@ -85,9 +92,10 @@ Next bricks, in order:
    certificate, and equation-(100) slope identity.
 3. Theorem-7 same-owner trace identity and the resulting ROOT-window endpoint
    positivity theorem.
-4. Detector-selected semi-local positivity for each constructed detector and
-   its finite visible prime set on the healthy `CompactLog` owner, then
-   `SourceRH` and Mathlib RH.  The existing normalized coverage root is an
+4. An explicit support/visible-prime description of the formal orbit detector,
+   followed by detector-selected semi-local `qw >= 0` on that same healthy
+   `CompactLog` owner. The contradiction to `SourceRH` is already wired. The
+   existing normalized coverage root is an
    RH-equivalent audit socket, not an intermediate density lemma and not the
    mathematical owner for new work; design judgments:
    `docs/map/002_one_shot_rh_route_verdict.md` and record 1076.
@@ -581,18 +589,25 @@ silently misprices every extrapolation (1075 s4.3 erratum).
   it right all along; the 1086 design draft and this law's first edition
   both asserted a factor 2 ("BOTH numerator terms vanish"), which DOUBLE-
   PAID the 2: `numerator/denominator = -2F0/(e^y - e^-y) = -F0/sinh y`,
-  primitive `F0 log tanh(y/2)`.  A prose "correction" that is not
-  certified against the raw integrand can itself be the defect - the
-  error direction was stated backwards once before the numbers settled it.
-- (33) Settle factor disputes by direct RAW-INTEGRAND re-integration with
-  TWO gates, not one: (Ga) closed form vs direct must agree to the
+  primitive `F0 log tanh(y/2)`. A prose correction without a source-level
+  derivation can itself be defective; numerical raw-integrand quadrature is an
+  implementation cross-check, not the proof of this identity.
+- (33) Cross-check factor implementations by direct RAW-INTEGRAND
+  re-integration with TWO gates, not one: (Ga) closed form vs direct must agree to the
   quadrature's own first-cell sliver scale (1087: 5.6e-05 against a grid
   whose body starts at y = step for a direction with O(1e2) integrand
   slope), and (Gb) the rival factor variant must MISS by O(1), rejected
   far outside every noise floor - a single tolerance gate cannot tell
   "closed form correct" from "closed form and direct share the same
-  bug".  Both gates printed in the log, both asserted in code
+  bug". Both gates must be printed in the log and asserted in code
   (`1087_c3_roundtrip_cert.py`).
+- (34) A Galerkin variational bound requires a certified inclusion of the
+  finite space in the continuum carrier. In record 1087, the smooth-bump
+  Legendre profiles use floating-point quadrature/SVD for the moment nullspace,
+  while zero-extended sine profiles are not C-infinity at the endpoints.
+  Their eigenvalues are matrix observations, not certified lower bounds for the
+  `CompactLogTest` supremum. Before invoking the min-max inequality, prove the
+  basis belongs to the carrier and certify the constraints and matrix entries.
 
 ### 7d. CC20 owner landmines (live)
 

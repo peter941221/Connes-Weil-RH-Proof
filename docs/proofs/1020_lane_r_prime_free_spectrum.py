@@ -1,9 +1,10 @@
 """Lane R prime-free archimedean spectrum scan.
 
-This is a deterministic follow-up to 1017.  It constructs the real
-triple-vanishing subspace in a smooth compactly supported polynomial basis,
-forms the archimedean quadratic form of the Hermitian convolution square,
-and reports the extremal eigenvalues after L2 normalization.
+This is a deterministic follow-up to 1017. It forms floating-point
+moment-constrained compression matrices in two sampled basis families and
+reports their extremal eigenvalues after L2 normalization. The enveloped
+Legendre family has smooth compactly supported profiles. The sine family is an
+L2 cross-check whose zero extensions are not C-infinity at the endpoints.
 
 For a base support [-r, r], the square is supported in [-2r, 2r].  The
 prime-free regime is therefore 2r < log(2).  The three rows of the moment
@@ -237,7 +238,7 @@ def print_result(result: SpectrumResult) -> None:
     eigenvalues = result.eigenvalues
     square_radius = 2.0 * result.radius
     verdict = (
-        "OK negative definite"
+        "MATRIX TOP EIGENVALUE NEGATIVE"
         if eigenvalues[-1] < -1e-7
         else "BORDERLINE"
         if eigenvalues[-1] <= 1e-7
@@ -289,8 +290,8 @@ def main() -> None:
     print(f"prime-free boundary: square radius < log(2) = {LOG_TWO:.12f}")
     print()
     print(
-        "radius / basis-size scan; eigenvalues are arch(g^2) on L2-unit "
-        "triple-vanishing roots"
+        "radius / basis-size scan; computed eigenvalues come from "
+        "floating-point moment-constrained arch compressions"
     )
     print("-" * 132)
     for basis_family in args.basis_families:
@@ -308,9 +309,9 @@ def main() -> None:
                     print_result(result)
     print("-" * 132)
     print(
-        "Interpretation: a positive top eigenvalue is a concrete numerical "
-        "positive direction; a negative top eigenvalue only supports the "
-        "prime-free Lane R sign and is not a Lean theorem."
+        "Interpretation: a positive top eigenvalue is a sampled numerical "
+        "direction. A negative top eigenvalue describes only this matrix; "
+        "it is not a continuum or Lean sign theorem."
     )
 
 
