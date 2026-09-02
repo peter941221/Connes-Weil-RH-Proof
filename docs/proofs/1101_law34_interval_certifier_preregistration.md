@@ -86,9 +86,12 @@ SEPARATE, later bricks).  The ALL-of-`V` statement is not attempted here.
 |          | REQUIRED (no mpmath.iv fallback: certification     |         |
 |          | claims are the product).                            |         |
 | G-deriv  | Bump derivative chain (R_1..R_5 assembled to f')  | ABORT   |
-|          | IV-eval vs centered FD of f_float (d/du             |         |
-|          | convention: FD/(2h)/a, h=1e-4) at 12 random      |         |
-|          | interior points: CONTAINS the FD value (slack      |         |
+|          | IV-eval vs centered FD of f_float (d/du           |         |
+|          | convention: FD/(2h)/a, h=1e-5, RE-REGISTERED in   |         |
+|          | 3.1 -- at h=1e-4 the FD truncation term exceeded  |         |
+|          | the tolerance on the phase-1 carrier), at 12      |         |
+|          | random interior points: CONTAINS the FD value     |         |
+|          | (slack                                            |         |
 |          | <= 1e-6*max(1,|fd|)); PLUS the f_float second-    |         |
 |          | difference quotient shows the Richardson order-2   |         |
 |          | signature at h = 2e-3, h/2, h/4 (successive        |         |
@@ -283,7 +286,15 @@ with the criterion the gate actually implements (12-point containment +
 order-2 Richardson signature); it is a self-consistency and smoothness
 audit of the derivative chains, not a certification threshold, and
 tightening it is impossible since a false chain fails containment
-outright.  All other gate thresholds are verbatim.  This amendment is
+outright.  The FD STEP was re-registered at `h = 1e-5` (pre-run,
+after the official run attempt ABORTED at `x = -0.890522` on the
+phase-1 carrier, sine K=20 top): at `h = 1e-4` the truncation term
+`f''' h^2/6 <= _sup_whole(3) h^2/6 ~ 2e-5` exceeds the registered
+tolerance `1e-6 * max(1, |fd|)` for ANY correct chain, so the old
+step made the gate unsatisfiable on the decision-relevant carrier;
+at `h = 1e-5` the truncation is `~ 1e-7` and float noise `~ 1e-10`
+-- the tolerance itself is UNCHANGED (a mechanism fix, not a
+threshold weakening).  All other gate thresholds are verbatim.  This amendment is
 committed BEFORE the first executed probe (1097b
 pre-registration-before-run discipline); the pre-run smokes that located
 the reversed-Horner and second-difference-denominator bugs are engine

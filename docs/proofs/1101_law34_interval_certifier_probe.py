@@ -1203,7 +1203,13 @@ def run_g_deriv(carrier):
     a = carrier.a
     for _ in range(12):
         x = -0.9 + 1.8 * rng.random()
-        h = 1e-4
+        # h = 1e-5: at h = 1e-4 the FD truncation term f'''h^2/6 (<=
+        # _sup_whole(3) * h^2 / 6 ~ 2e-5 on the registered phase-1
+        # carrier, sine K=20 top) exceeded the registered tolerance
+        # 1e-6*max(1,|fd|) and the gate ABORTED at x = -0.890522 --
+        # the threshold is UNCHANGED, only the mechanism step is
+        # re-registered so a correct chain can pass (doc 3.1).
+        h = 1e-5
         # f_x / f_float are d/du derivatives at u = a x; the divided
         # difference steps in x, so compare against (1/a) * d/dx
         fd = (carrier.f_float(x + h, 0) - carrier.f_float(x - h, 0)) \
