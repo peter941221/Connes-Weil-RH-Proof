@@ -6,14 +6,35 @@
   <a href="lakefile.toml"><img alt="Mathlib 4.30.0" src="https://img.shields.io/badge/Mathlib%204.30.0-0f766e?style=flat-square"></a>
 </p>
 
-This repository formalizes analytic and operator-theoretic pieces of the
-Connes--Weil approach to the Riemann hypothesis in Lean 4. It keeps four
-different things separate:
+This repository develops a Lean 4 formalization of analytic and
+operator-theoretic ingredients in the Connes--Weil approach to the Riemann
+hypothesis. It keeps four kinds of evidence distinct: theorems checked by the
+Lean kernel, assumptions still needed by the route, results taken from the
+literature, and numerical experiments used only as diagnostics.
 
-1. propositions proved by Lean;
-2. explicit assumptions still required by the output theorem;
-3. results quoted from the literature;
-4. numerical experiments used only as diagnostics.
+The mathematical question is the [Riemann Hypothesis (RH)](https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/NumberTheory/LSeries/RiemannZeta.lean).
+The Riemann zeta function has trivial zeros at the negative even integers; its
+other zeros in the critical strip are the nontrivial zeros. RH asserts that
+every such zero lies on the critical line:
+
+$$
+\boxed{
+\begin{aligned}
+\mathrm{RH}:&\quad
+\forall s\in\mathbb{C},\quad
+\bigl(\zeta(s)=0\ \land\ 0<\mathrm{Re}(s)<1\bigr)\\
+&\qquad\Longrightarrow\quad \mathrm{Re}(s)=\frac12.
+\end{aligned}
+}
+$$
+
+The labels used throughout the project are:
+
+1. **Lean theorems:** propositions checked by the Lean kernel.
+2. **Route assumptions:** explicit premises required by the output theorem.
+3. **Literature results:** formulas and conventions quoted from published sources.
+4. **Numerical diagnostics:** finite-precision experiments for testing candidates;
+   they are not proofs.
 
 ## Status
 
@@ -26,18 +47,9 @@ different things separate:
 
 ## 1. The mathematical spine
 
-The target statement is the critical-line condition for every nontrivial zero:
-
-$$
-\boxed{
-\zeta(s)=0,\quad 0<\mathrm{Re}(s)<1
-\quad\Longrightarrow\quad
-\mathrm{Re}(s)=\frac12
-}
-$$
-
-For a compactly supported test g, the Weil construction uses a Hermitian
-convolution square. In multiplicative coordinates:
+The formal route tests this statement with a compactly supported function g and
+its Hermitian convolution square. In multiplicative coordinates, the relevant
+identities are:
 
 $$
 \begin{aligned}
@@ -135,12 +147,12 @@ This is a same-test contradiction, not an all-test positivity claim.
 
 ## 3. Lean Formalization
 
-The engineering contribution is an auditable Lean 4 architecture for the
-Connes--Weil route: one typed owner carries the test and its square, each
-analytic step is an explicit contract, and every frontier leaf has an axiom
-audit. Each item below pairs one declaration with the mathematical relation it
-exposes. The links point to the owning Lean lines; they do not claim that the
-open analytic producer has already been proved.
+The Lean layer is organized as an auditable architecture for the Connes--Weil
+route: one typed owner carries the test and its square, each analytic step is
+an explicit contract, and every frontier leaf has an axiom audit. Each item
+below pairs one declaration with the mathematical relation it exposes. The
+links point to the owning Lean lines; they do not claim that the open analytic
+producer has already been proved.
 
 **1. Same-owner arithmetic and spectral values: `centerTwo_arithmetic_eq_spectral`**
 
@@ -466,8 +478,8 @@ recorded in
 
 [Record 1089](docs/proofs/1089_orbit_certificate_extension_design.md) closes
 the detector-data side of C3: the support window and the finite
-visible-prime bound are formal for one pinned object. The remaining
-mathematics is the sign producer:
+visible-prime bound are formal for one pinned object. What remains is to prove
+the sign for that same object:
 
 1. prove orbitWindowSemiLocalGate for the pinned detector;
 2. discharge its archimedean and finite-prime terms by a legal endpoint or
