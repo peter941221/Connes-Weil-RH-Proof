@@ -48,10 +48,30 @@ The labels used throughout the project are:
 ## 1. The mathematical spine
 
 The formal route tests this statement with a compactly supported function g and
-its Hermitian convolution square. In multiplicative coordinates, the relevant
-identities are:
+its Hermitian convolution square. Four displays carry the route: the Euler
+product, the square, the explicit formula, and the positivity criterion.
+
+**The prime side.** The primes enter through the Euler product and the
+logarithmic derivative of zeta:
 
 $$
+\boxed{
+\zeta(s)=\sum_{n\ge1}\frac{1}{n^{s}}
+=\prod_{p}\frac{1}{1-p^{-s}},
+\qquad
+-\frac{\zeta'}{\zeta}(s)=\sum_{n\ge1}\frac{\Lambda(n)}{n^{s}}
+\qquad\bigl(\mathrm{Re}\,s>1\bigr)
+}
+$$
+
+The coefficient $\Lambda(n)$ is the same von Mangoldt weight that the Lean
+prime term uses
+[verbatim](ConnesWeilRH/Dev/C1SameOwnerWeil.lean#L36).
+
+**The square.** In multiplicative coordinates, the relevant identities are:
+
+$$
+\boxed{
 \begin{aligned}
 g^{\sharp}(x)&=x^{-1}\overline{g(x^{-1})},\\
 F_g&=g\ast g^{\sharp},\\
@@ -59,14 +79,62 @@ F_g&=g\ast g^{\sharp},\\
 \widetilde F_g\left(\frac12+it\right)
   &=\left|\widetilde g\left(\frac12+it\right)\right|^2.
 \end{aligned}
+}
 $$
 
 The last line is the square mechanism: on the critical line, the zero-side
 contribution is termwise nonnegative. The product convention is derived in
 [proof 1070](docs/proofs/1070_weil_q_hunting_level1.md), rather than assumed.
 
-The Lean owner uses the additive logarithmic coordinate. Its involution and
-square are:
+**The explicit formula.** For the square $F_g$, the Weil explicit formula,
+pinned line-by-line from CC20 in
+[proof 1070](docs/proofs/1070_weil_q_hunting_level1.md), puts the zeta zeros
+on one side and the archimedean and prime contributions on the other:
+
+$$
+\boxed{
+\begin{aligned}
+\sum_{\zeta(\rho)=0}\widetilde F_g(\rho)
+&=\underbrace{\widetilde F_g(1)+\widetilde F_g(0)}_{\text{trivial side}}
+-\underbrace{W_{\mathbb{R}}(F_g)}_{\text{archimedean}}
+-\underbrace{\sum_{p}W_p(F_g)}_{\text{primes}},\\
+W_p(F_g)
+&=\log p\sum_{m\ge1}
+  \Bigl(F_g\bigl(p^{m}\bigr)+F_g^{\sharp}\bigl(p^{m}\bigr)\Bigr),\\
+W_{\mathbb{R}}(F_g)
+&=\bigl(\log 4\pi+\gamma\bigr)F_g(1)\\
+&\quad+\mathrm{pv}\int_1^{\infty}
+\frac{F_g(x)+F_g^{\sharp}(x)-2x^{-1}F_g(1)}{x-x^{-1}}\,dx.
+\end{aligned}
+}
+$$
+
+When every zero lies on the critical line, each conjugate pair
+$\rho=\frac12\pm i\gamma$ contributes
+$2\bigl|\widetilde g\bigl(\frac12+i\gamma\bigr)\bigr|^{2}\ge 0$
+to the left-hand side, and no admissible $g$ can push the sum below zero.
+A single off-line zero $\rho=\beta+i\gamma$ replaces that pair by the
+quadruple $\{\beta\pm i\gamma,\,(1-\beta)\pm i\gamma\}$, whose contribution
+has no fixed sign. On the repository's vanishing class the trivial side is
+identically zero, so the criterion collapses to the Yoshida--CC20 positivity
+form:
+
+$$
+\boxed{
+\mathrm{RH}\ \Longleftrightarrow\
+W_{\mathbb{R}}(F_g)+\sum_{p}W_p(F_g)\le 0
+\quad\text{for every admissible }g
+}
+$$
+
+The repository realizes the negated display, with the pole readback added
+back, as $q_w(g)=\mathrm{poleTerm}-\mathrm{archimedeanTerm}
+-\mathrm{finitePrimeSum}$ in additive coordinates; on the triple-vanishing
+class the pole term is already zero. Section 2 shows the spectral readback
+of the same value.
+
+**The Lean owner.** The Lean owner uses the additive logarithmic coordinate.
+Its involution and square are:
 
 $$
 \boxed{
