@@ -219,11 +219,13 @@ $$
 $$
 \boxed{
 \begin{aligned}
+\mathrm{B5}_{\mathrm{premise}}:&\quad
+  \forall\rho,\quad
+  \mathrm{Re}(\rho)>\frac12\Longrightarrow
+  \exists g:\mathrm{CompactLogTest},\\
+&\qquad \mathrm{Healthy}(\rho,g)\land q_w(g)\ge 0,\\
 \mathrm{B5}:&\quad
-\left(\forall\rho,\quad
-  \mathrm{Re}(\rho)>\frac12\Longrightarrow\exists g,\\
-&\qquad \mathrm{Healthy}(\rho,g)\land q_w(g)\ge 0\right)\\
-&\quad\Longrightarrow \mathrm{RH}.
+  \mathrm{B5}_{\mathrm{premise}}\Longrightarrow \mathrm{RH}.
 \end{aligned}
 }
 $$
@@ -249,137 +251,139 @@ Each item pairs one declaration with the mathematical relation it exposes.
 The links point to the owning Lean lines; they do not claim that the open
 analytic producer has already been proved.
 
-1. **Same-owner arithmetic and spectral values: `centerTwo_arithmetic_eq_spectral`**
+**1. Same-owner arithmetic and spectral values: `centerTwo_arithmetic_eq_spectral`**
 
-   The same `CompactLogTest` is read in both languages:
+The same `CompactLogTest` is read in both languages:
 
-   $$
-   \boxed{
-   \begin{aligned}
-   \psi_{\mathrm{arith}}(F)&=\psi_{\mathrm{spec}}(F),\\
-   &\qquad F:\mathrm{CompactLogTest}.
-   \end{aligned}
-   }
-   $$
+$$
+\boxed{
+\begin{aligned}
+\psi_{\mathrm{arith}}(F)&=\psi_{\mathrm{spec}}(F),\\
+&\qquad F:\mathrm{CompactLogTest}.
+\end{aligned}
+}
+$$
 
-   Evidence: [C1XiCenterTwoArithmeticAssembly.lean#L232](ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean#L232).
+Evidence: [C1XiCenterTwoArithmeticAssembly.lean#L232](ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean#L232).
 
-2. **Healthy detector from a right-oriented zero: `exists_healthyDetectorData_of_sourceNontrivialZero_right`**
+**2. Healthy detector from a right-oriented zero: `exists_healthyDetectorData_of_sourceNontrivialZero_right`**
 
-   A hypothetical zero to the right of the critical line supplies one detector package:
+A hypothetical zero to the right of the critical line supplies one detector package:
 
-   $$
-   \boxed{
-   \begin{aligned}
-   \rho\in\mathrm{sourceNontrivialZeroSet},\quad
-   \frac12<\mathrm{Re}(\rho),\quad
-   \mathrm{Re}(\rho)\ne\frac12\\
-   &\Longrightarrow\exists g:\mathrm{CompactLogTest},\;
-     \mathrm{HealthyYoshidaDetectorData}(\rho,g).
-   \end{aligned}
-   }
-   $$
+$$
+\boxed{
+\begin{aligned}
+\rho\in\mathrm{sourceNontrivialZeroSet},\quad
+\frac12<\mathrm{Re}(\rho),\quad
+\mathrm{Re}(\rho)\ne\frac12\\
+&\Longrightarrow\exists g:\mathrm{CompactLogTest},\;
+  \mathrm{HealthyYoshidaDetectorData}(\rho,g).
+\end{aligned}
+}
+$$
 
-   Evidence: [C1HealthyYoshidaSpectralNegativity.lean#L511](ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean#L511).
+Evidence: [C1HealthyYoshidaSpectralNegativity.lean#L511](ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean#L511).
 
-3. **ROOT endpoint consumer: `qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf`**
+**3. ROOT endpoint consumer: `qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf`**
 
-   The endpoint certificate is a separate input, while the sign conclusion belongs to the same owner:
+The endpoint certificate is a separate input, while the sign conclusion belongs to the same owner:
 
-   $$
-   \boxed{
-   \begin{aligned}
-   \mathrm{Vanishes}(g)&\land
-     \mathrm{supp}(g)\subseteq
-       \left[-\frac{\log 2}{2},\frac{\log 2}{2}\right]\\
-   &\land\mathrm{EndpointCertificate}(g)
-     \Longrightarrow q_w(g)\ge 0.
-   \end{aligned}
-   }
-   $$
+$$
+\boxed{
+\begin{aligned}
+\mathrm{Vanishes}(g)&\land
+  \mathrm{supp}(g)\subseteq
+    \left[-\frac{\log 2}{2},\frac{\log 2}{2}\right]\\
+&\land\mathrm{EndpointCertificate}(g)
+  \Longrightarrow q_w(g)\ge 0.
+\end{aligned}
+}
+$$
 
-   Evidence: [C1CC20ArchimedeanReadback.lean#L133](ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L133).
+Evidence: [C1CC20ArchimedeanReadback.lean#L133](ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L133).
 
-4. **Selected semi-local residual: `projectionResponse_eq_selectedEulerBoundary_add_residual`**
+**4. Selected semi-local residual: `projectionResponse_eq_selectedEulerBoundary_add_residual`**
 
-   The selected detector keeps the visible Euler boundary and the remaining
-   projection residual as separate terms:
+The selected detector keeps the visible Euler boundary and the remaining
+projection residual as separate terms:
 
-   $$
-   \boxed{
-   \begin{aligned}
-   \mathrm{ProjectionResponse}(g)&=
-     \mathrm{VisibleEulerBoundary}(g)+\mathrm{Residual}(g),\\
-   \mathrm{Vanishes}(g)\land
-     \text{sign certificate}(g)&\Longrightarrow q_w(g)\ge 0.
-   \end{aligned}
-   }
-   $$
+$$
+\boxed{
+\begin{aligned}
+\mathrm{ProjectionResponse}(g)&=
+  \mathrm{VisibleEulerBoundary}(g)+\mathrm{Residual}(g),\\
+\mathrm{Vanishes}(g)\land
+  \text{sign certificate}(g)&\Longrightarrow q_w(g)\ge 0.
+\end{aligned}
+}
+$$
 
-   Evidence: [C1SelectedDetectorSemiLocalResidual.lean#L79](ConnesWeilRH/Dev/C1SelectedDetectorSemiLocalResidual.lean#L79).
+Evidence: [C1SelectedDetectorSemiLocalResidual.lean#L79](ConnesWeilRH/Dev/C1SelectedDetectorSemiLocalResidual.lean#L79).
 
-5. **Support and visible-prime ownership: `support_subset_Icc` and `mem_globalPrimeIndexSet_iff`**
+**5. Support and visible-prime ownership: `support_subset_Icc` and `mem_globalPrimeIndexSet_iff`**
 
-   The same `CompactLogTest` owns both its support radius and its finite
-   visible prime-power set:
+The same `CompactLogTest` owns both its support radius and its finite
+visible prime-power set:
 
-   $$
-   \boxed{
-   \begin{aligned}
-   \mathrm{supp}(F.test)&\subseteq[-R_F,R_F],\\
-   n\in\mathrm{globalPrimeIndexSet}(F)&\Longleftrightarrow
-     \mathrm{IsPrimePow}(n)\land
-     \mathrm{finitePrimeTermComplex}(F,n)\ne 0.
-   \end{aligned}
-   }
-   $$
+$$
+\boxed{
+\begin{aligned}
+\mathrm{supp}(F.test)&\subseteq[-R_F,R_F],\\
+n\in\mathrm{globalPrimeIndexSet}(F)&\Longleftrightarrow
+  \mathrm{IsPrimePow}(n)\land
+  \mathrm{finitePrimeTermComplex}(F,n)\ne 0.
+\end{aligned}
+}
+$$
 
-   Evidence: [C1SameOwnerWeil.lean#L77](ConnesWeilRH/Dev/C1SameOwnerWeil.lean#L77) and [C1SameOwnerWeil.lean#L149](ConnesWeilRH/Dev/C1SameOwnerWeil.lean#L149).
+Evidence: [C1SameOwnerWeil.lean#L77](ConnesWeilRH/Dev/C1SameOwnerWeil.lean#L77) and [C1SameOwnerWeil.lean#L149](ConnesWeilRH/Dev/C1SameOwnerWeil.lean#L149).
 
-6. **Minimal B5 exit: `healthy_sourceRH_of_right_detector_specific_qw_nonneg`**
+**6. Minimal B5 exit: `healthy_sourceRH_of_right_detector_specific_qw_nonneg`**
 
-   One nonnegative value for the detector selected against each right-hand zero is enough for the logical exit:
+One nonnegative value for the detector selected against each right-hand zero is enough for the logical exit:
 
-   $$
-   \boxed{
-   \begin{aligned}
-   &\left[\forall\rho,\quad
-     \mathrm{Re}(\rho)>\frac12\Longrightarrow\exists g,\\
-   &\qquad \mathrm{Healthy}(\rho,g)\land q_w(g)\ge 0\right]\\
-   &\qquad\Longrightarrow \mathrm{SourceRH}.
-   \end{aligned}
-   }
-   $$
+$$
+\boxed{
+\begin{aligned}
+\mathrm{B5}_{\mathrm{detector}}:&\quad
+  \forall\rho,\quad
+  \mathrm{Re}(\rho)>\frac12\Longrightarrow\exists g,\\
+&\qquad \mathrm{Healthy}(\rho,g)\land q_w(g)\ge 0,\\
+\mathrm{B5}:&\quad
+  \mathrm{B5}_{\mathrm{detector}}\Longrightarrow \mathrm{SourceRH}.
+\end{aligned}
+}
+$$
 
-   Evidence: [C1HealthyYoshidaSpectralNegativity.lean#L554](ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean#L554).
+Evidence: [C1HealthyYoshidaSpectralNegativity.lean#L554](ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean#L554).
 
-7. **Prime-power trace readback: `eulerLog_weighted_pair_traces_eq_finitePrimeTerm_pow`**
+**7. Prime-power trace readback: `eulerLog_weighted_pair_traces_eq_finitePrimeTerm_pow`**
 
-   A paired crossing trace carries the exact finite-prime coefficient:
+A paired crossing trace carries the exact finite-prime coefficient:
 
-   $$
-   \boxed{
-   \frac{1}{m\sqrt{p^m}}
-   \left(\mathrm{Tr}\,K_{p^m}+\mathrm{Tr}\,K_{p^m}^{\mathrm{rev}}\right)
-   =W_{p^m}(F_g).
-   }
-   $$
+$$
+\boxed{
+\frac{1}{m\sqrt{p^m}}
+\left(\mathrm{Tr}\,K_{p^m}+\mathrm{Tr}\,K_{p^m}^{\mathrm{rev}}\right)
+=W_{p^m}(F_g).
+}
+$$
 
-   Evidence: [SelectedCrossingKernel.lean#L390](ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean#L390).
+Evidence: [SelectedCrossingKernel.lean#L390](ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean#L390).
 
-8. **Normalized-socket rejection: `not_normalizedCC20MellinConvolutionLaw`**
+**8. Normalized-socket rejection: `not_normalizedCC20MellinConvolutionLaw`**
 
-   The old additive socket doubles a Mellin value, so it cannot be the Weil square:
+The old additive socket doubles a Mellin value, so it cannot be the Weil square:
 
-   $$
-   \boxed{
-   \widetilde g(z)=1,\qquad
-   \widetilde{g\star_{\mathrm{add}}g}(z)=2
-   \ne 1=\widetilde g(z)\widetilde g(1-z).
-   }
-   $$
+$$
+\boxed{
+\widetilde g(z)=1,\qquad
+\widetilde{g\star_{\mathrm{add}}g}(z)=2
+\ne 1=\widetilde g(z)\widetilde g(1-z).
+}
+$$
 
-   Evidence: [CC20YoshidaConstruction.lean#L2727](ConnesWeilRH/Source/CC20YoshidaConstruction.lean#L2727).
+Evidence: [CC20YoshidaConstruction.lean#L2727](ConnesWeilRH/Source/CC20YoshidaConstruction.lean#L2727).
 
 ## 6. Frozen and deferred routes
 
