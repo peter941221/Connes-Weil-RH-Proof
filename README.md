@@ -17,6 +17,8 @@ The Riemann zeta function has trivial zeros at the negative even integers; its
 other zeros in the critical strip are the nontrivial zeros. RH asserts that
 every such zero lies on the critical line:
 
+<br>
+
 $$
 \boxed{
 \begin{aligned}
@@ -27,6 +29,8 @@ $$
 \end{aligned}
 }
 $$
+
+<br>
 
 The labels used throughout the project are:
 
@@ -54,6 +58,8 @@ product, the square, the explicit formula, and the positivity criterion.
 **The prime side.** The primes enter through the Euler product and the
 logarithmic derivative of zeta:
 
+<br>
+
 $$
 \boxed{
 \zeta(s)=\sum_{n\ge1}\frac{1}{n^{s}}
@@ -64,11 +70,15 @@ $$
 }
 $$
 
+<br>
+
 The coefficient $\Lambda(n)$ is the same von Mangoldt weight that the Lean
 prime term uses
 [verbatim](ConnesWeilRH/Dev/C1SameOwnerWeil.lean#L36).
 
 **The square.** In multiplicative coordinates, the relevant identities are:
+
+<br>
 
 $$
 \boxed{
@@ -82,6 +92,8 @@ F_g&=g\ast g^{\sharp},\\
 }
 $$
 
+<br>
+
 The last line is the square mechanism: on the critical line, the zero-side
 contribution is termwise nonnegative. The product convention is derived in
 [proof 1070](docs/proofs/1070_weil_q_hunting_level1.md), rather than assumed.
@@ -90,6 +102,8 @@ contribution is termwise nonnegative. The product convention is derived in
 pinned line-by-line from CC20 in
 [proof 1070](docs/proofs/1070_weil_q_hunting_level1.md), puts the zeta zeros
 on one side and the archimedean and prime contributions on the other:
+
+<br>
 
 $$
 \boxed{
@@ -109,6 +123,8 @@ W_{\mathbb{R}}(F_g)
 }
 $$
 
+<br>
+
 When every zero lies on the critical line, each conjugate pair
 $\rho=\frac12\pm i\gamma$ contributes
 $2\bigl|\widetilde g\bigl(\frac12+i\gamma\bigr)\bigr|^{2}\ge 0$
@@ -119,6 +135,8 @@ has no fixed sign. On the repository's vanishing class the trivial side is
 identically zero, so the criterion collapses to the Yoshida--CC20 positivity
 form:
 
+<br>
+
 $$
 \boxed{
 \mathrm{RH}\ \Longleftrightarrow\
@@ -126,6 +144,8 @@ W_{\mathbb{R}}(F_g)+\sum_{p}W_p(F_g)\le 0
 \quad\text{for every admissible }g
 }
 $$
+
+<br>
 
 The repository realizes the negated display, with the pole readback added
 back, as $q_w(g)=\mathrm{poleTerm}-\mathrm{archimedeanTerm}
@@ -135,6 +155,8 @@ of the same value.
 
 **The Lean owner.** The Lean owner uses the additive logarithmic coordinate.
 Its involution and square are:
+
+<br>
 
 $$
 \boxed{
@@ -146,6 +168,8 @@ F_g&=\texttt{g.involution.convolution g}.
 }
 $$
 
+<br>
+
 The implementation is
 [CompactLogTest.convolutionSquare](ConnesWeilRH/Source/CCM25Concrete/CompactLogConvolution.lean#L114).
 This owner is retained through the coordinate, convolution, arithmetic, trace,
@@ -154,6 +178,8 @@ and detector layers.
 ## 2. One quadratic form, two signs
 
 The same-owner Weil value has both an arithmetic and a spectral description:
+
+<br>
 
 $$
 \boxed{
@@ -167,6 +193,8 @@ q_w(g)
 \end{aligned}
 }
 $$
+
+<br>
 
 The first line is the component decomposition. The second is the completed
 center-2 contour readback, proved by
@@ -201,6 +229,8 @@ two obligations:
 The negative sign is formal. The positive sign is the open C3 theorem. The
 minimal contradiction is therefore:
 
+<br>
+
 $$
 \boxed{
 \begin{aligned}
@@ -210,6 +240,8 @@ q_w(g)&<0,\\
 \end{aligned}
 }
 $$
+
+<br>
 
 This is a same-test contradiction, not an all-test positivity claim.
 
@@ -226,6 +258,8 @@ producer has already been proved.
 
 The same `CompactLogTest` is read in both languages:
 
+<br>
+
 $$
 \boxed{
 \begin{aligned}
@@ -235,11 +269,15 @@ $$
 }
 $$
 
+<br>
+
 Evidence: [C1XiCenterTwoArithmeticAssembly.lean#L232](ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean#L232).
 
 **2. Healthy detector from a right-oriented zero: `exists_healthyDetectorData_of_sourceNontrivialZero_right`**
 
 A hypothetical zero to the right of the critical line supplies one detector package:
+
+<br>
 
 $$
 \boxed{
@@ -253,11 +291,15 @@ $$
 }
 $$
 
+<br>
+
 Evidence: [C1HealthyYoshidaSpectralNegativity.lean#L511](ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean#L511).
 
 **3. ROOT endpoint consumer: `qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf`**
 
 The endpoint certificate is a separate input, while the sign conclusion belongs to the same owner:
+
+<br>
 
 $$
 \boxed{
@@ -271,12 +313,16 @@ $$
 }
 $$
 
+<br>
+
 Evidence: [C1CC20ArchimedeanReadback.lean#L133](ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L133).
 
 **4. Selected semi-local residual: `projectionResponse_eq_selectedEulerBoundary_add_residual`**
 
 The selected detector keeps the visible Euler boundary and the remaining
 projection residual as separate terms:
+
+<br>
 
 $$
 \boxed{
@@ -289,12 +335,16 @@ $$
 }
 $$
 
+<br>
+
 Evidence: [C1SelectedDetectorSemiLocalResidual.lean#L79](ConnesWeilRH/Dev/C1SelectedDetectorSemiLocalResidual.lean#L79).
 
 **5. Support and visible-prime ownership: `support_subset_Icc` and `mem_globalPrimeIndexSet_iff`**
 
 The same `CompactLogTest` owns both its support radius and its finite
 visible prime-power set:
+
+<br>
 
 $$
 \boxed{
@@ -307,11 +357,15 @@ n\in\mathrm{globalPrimeIndexSet}(F)&\Longleftrightarrow
 }
 $$
 
+<br>
+
 Evidence: [C1SameOwnerWeil.lean#L77](ConnesWeilRH/Dev/C1SameOwnerWeil.lean#L77) and [C1SameOwnerWeil.lean#L149](ConnesWeilRH/Dev/C1SameOwnerWeil.lean#L149).
 
 **6. Minimal B5 exit: `healthy_sourceRH_of_right_detector_specific_qw_nonneg`**
 
 One nonnegative value for the detector selected against each right-hand zero is enough for the logical exit:
+
+<br>
 
 $$
 \boxed{
@@ -326,11 +380,15 @@ $$
 }
 $$
 
+<br>
+
 Evidence: [C1HealthyYoshidaSpectralNegativity.lean#L554](ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean#L554).
 
 **7. Prime-power trace readback: `eulerLog_weighted_pair_traces_eq_finitePrimeTerm_pow`**
 
 A paired crossing trace carries the exact finite-prime coefficient:
+
+<br>
 
 $$
 \boxed{
@@ -340,11 +398,15 @@ $$
 }
 $$
 
+<br>
+
 Evidence: [SelectedCrossingKernel.lean#L390](ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean#L390).
 
 **8. Normalized-socket rejection: `not_normalizedCC20MellinConvolutionLaw`**
 
 The old additive socket doubles a Mellin value, so it cannot be the Weil square:
+
+<br>
 
 $$
 \boxed{
@@ -353,6 +415,8 @@ $$
 \ne 1=\widetilde g(z)\widetilde g(1-z).
 }
 $$
+
+<br>
 
 Evidence: [CC20YoshidaConstruction.lean#L2727](ConnesWeilRH/Source/CC20YoshidaConstruction.lean#L2727).
 
@@ -365,13 +429,19 @@ governs the remaining proof work.
 
 The ROOT window is the compact local base inherited from the CC20 theorem:
 
+<br>
+
 $$
 \mathrm{supp}(g)\subseteq
 \left[-\frac{\log 2}{2},\frac{\log 2}{2}\right].
 $$
 
+<br>
+
 For that support class, Lean proves the square enters the open prime-free
 window and the finite-prime term disappears:
+
+<br>
 
 $$
 \boxed{
@@ -389,6 +459,8 @@ q_w(g)&=-\mathrm{archimedeanTerm}(F_g).
 }
 $$
 
+<br>
+
 The endpoint consumer is
 [qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf](ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L133).
 It still needs an actual CC20EndpointTraceCertificate; the certificate is
@@ -396,6 +468,8 @@ not currently produced by the repository.
 
 The formal detector is different. Its fixed-window D1 export is packaged with
 an explicit orbit window and a finite visible-prime bound:
+
+<br>
 
 $$
 \boxed{
@@ -408,7 +482,11 @@ q\in\mathrm{globalPrimeIndexSet}(F_g)
 }
 $$
 
+<br>
+
 The formal gate on this same object is
+
+<br>
 
 $$
 \boxed{
@@ -420,6 +498,8 @@ $$
 \end{aligned}
 }
 $$
+
+<br>
 
 There is still no automatic arrow from ROOT positivity to this orbit-supported
 detector. The fixed-window D1 bound is too wide for the external
@@ -433,6 +513,8 @@ numerical-only [record 1087](docs/proofs/1087_c3_root_window_spectral_verdict.md
 
 The output audit contains two singleton logical cuts:
 
+<br>
+
 $$
 \boxed{
 \begin{aligned}
@@ -443,6 +525,8 @@ $$
 \end{aligned}
 }
 $$
+
+<br>
 
 $$
 \boxed{
@@ -457,6 +541,8 @@ $$
 \end{aligned}
 }
 $$
+
+<br>
 
 Both cuts are RH-equivalent at the logical level. They are not equally sized
 proof campaigns:
@@ -492,6 +578,8 @@ not mistaken for the current RH strategy.
 The obstruction is a concrete Lean counterexample, not a naming preference. A
 finite-window interpolant is chosen with Mellin value one:
 
+<br>
+
 $$
 \boxed{
 \begin{aligned}
@@ -503,6 +591,8 @@ $$
 }
 $$
 
+<br>
+
 The exact witness and contradiction are implemented by
 [not_normalizedCC20MellinConvolutionLaw](ConnesWeilRH/Source/CC20YoshidaConstruction.lean#L2727).
 The healthy owner uses the genuine convolution square shown in Section 1.
@@ -512,6 +602,8 @@ The healthy owner uses the genuine convolution square shown in Section 1.
 The Nyman--Beurling/Mobius line was not rejected because its finite matrices
 are uninteresting. Its projection step keeps the hard inverse:
 
+<br>
+
 $$
 \boxed{
 \|w_N\|^2
@@ -519,6 +611,8 @@ $$
     \left(B_N-C_N^{\mathsf T}G_N^{-1}C_N\right)a_N
 }
 $$
+
+<br>
 
 Any proposed cancellation must control the projected Schur complement, not only
 an unprojected Mobius sum. This is the structural conclusion of
@@ -528,6 +622,8 @@ an unprojected Mobius sum. This is the structural conclusion of
 
 The landed Bessel estimate has a precise scope:
 
+<br>
+
 $$
 \boxed{
 q_T(\xi)\ge(1-\lambda)\|\xi\|^2
@@ -536,6 +632,8 @@ q_T(\xi)\ge(1-\lambda)\|\xi\|^2
 \lambda_{\mathrm{paper}}\simeq1.05158>1.
 }
 $$
+
+<br>
 
 It is a valid lambda < 1 side branch, not a paper-scale endpoint proof.
 The required exceptional direction, complement bound, and rank-one repair are
@@ -563,6 +661,8 @@ are discharged. A ROOT result alone is not the orbit result.
 
 The current dependency is therefore:
 
+<br>
+
 $$
 \boxed{
 \begin{aligned}
@@ -580,6 +680,8 @@ $$
 \end{aligned}
 }
 $$
+
+<br>
 
 No arrow in this display is being reported as complete unless a linked Lean
 declaration or proof record says so.
