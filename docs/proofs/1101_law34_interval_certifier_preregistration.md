@@ -277,6 +277,82 @@ the honest and faster route to the SAME certified enclosures:
   kills every width term outside the widow); no other precision
   escalation is used.
 
+Second pre-run amendment batch (v2.1; committed BEFORE the first
+executed run, same 1097b discipline).  Official run attempts 1 and 2
+ABORTED at registered gates (G-deriv, G-int); each abort was traced to
+root and fixed as a valid or TIGHTER bound -- no registered threshold
+was touched (law 39):
+
+- Sine geometry (run-2 ABORT: `G-int plain a=2 sine b2: f64
+  +2.46061732 outside [+2.45226295, +2.45414471]`, a 6.5e-3 miss).
+  `_ellipse_geom_f` cut the eta endpoint slivers for BOTH families,
+  but the ball compensation exists only for the bump (legendre)
+  family -- section 1 registers "the sine family is entire and needs
+  no balls", and the code violated its own registered geometry: the
+  cut dropped the end-sliver mass with nothing replacing it (the eta
+  device is a bump-singularity exclusion, meaningless for an entire
+  function).  Fix: the sine core is the WHOLE interval `[-1, 1 -
+  y/a]`; legendre keeps `[-1+eta, 1-eta-y/a]` + balls.  Post-fix
+  G-int 6/6 with sine b2 interval `[2.45960472, 2.46161435]`
+  containing the committed f64 value.  The interval got WIDER (more
+  mass covered): a soundness repair, not a loosening.
+- Arb corner constants (pre-run smoke on K24): F2/F4 were float64
+  squared-chain legs (`_legsq`, for `int (f')^2`, `int (f'')^2`)
+  whose registered ulp model tracks intermediate-term magnitudes with
+  NO cancellation bookkeeping -- at a=4 K=24 the Leibniz terms reach
+  ~1e33 and the measured widths were 1.37e25 / 6.27e29, driving
+  `first_cell` to 1.16e+04.  Integration by parts (boundary terms
+  vanish for both families: compact bump; sine basis zeroes at +-1)
+  identifies the L2 norms with y=0 legs:
+  `int (f^(m+1))^2 = (-1)^(m+1) int f f^(2m+2)`, i.e.
+  `F''(0) = -int f'^2` and `F''''(0) = int f''^2`, so
+  `F2 = F''(0)/2`, `F4 = F''''(0)/24` are the ORDER-2 / ORDER-4 arb
+  legs on the certified 4096-node rule at 256-bit precision, where
+  the same bound is honest (intermediate ulps ~1e-45 at 1e33 scale).
+  `_legsq` REMOVED.  Measured K24 half-widths after: F0 6.59e-11,
+  F2 2.45e-09, F4 1.87e-04 -- F4's width enters M4Q only through the
+  `s0^4/96 ~ 7.5e-45` prefactor, so the corner ladder width is
+  1.92e-21.
+- Global-sup node backward error on the widow arb path: `_pert_sup`
+  replaces the per-node `_pert_prod` M-product form (`_pert_sq` dies
+  with `_legsq`).  Every node value is bounded by the closed-form
+  global sup `_sup_whole(j)`, so
+  `|dH| <= node_err * a (S1*Sk + S0*S_{k+1})` per node, `sum w_i = 2`
+  -- valid, and it avoids the no-cancellation intermediate-magnitude
+  sums that over-counted by ~9 orders at K24 scale (measured:
+  W(F0) 1.25e-6 with the M-products vs 6.6e-11 final).
+- Real endpoint Legendre sup (`P_j_real`) for the REAL-line uses of
+  `P_j` (`ball_bound`, `_sup_core`):
+  `sup_{[-1,1]} |P_k^(m)| = |P_k^(m)(1)| = (k+m)!/((k-m)! m! 2^m)`
+  (endpoint maximum, classic), combined as `sum_k |c_k| * that`.  The
+  monomial coefficient-abs-sum valid for the COMPLEX disk is ~1.3e8
+  at K=24, m=0 (vs ~5 = ||c||_1-class) and made the endpoint-ball
+  term on F0 equal 1.25e-6 -- `C_ARCH * F0` alone then breaks the
+  5e-7 arch budget.  `_mrho` (complex ellipse boundary verification)
+  KEEPS the disk-valid `P_j`: the tightening is applied exactly where
+  the real-line supremum applies, never where complex magnitudes are
+  needed.
+
+Measured after the batch (width_target 3e-7; registered budget arch
+half-width <= 5e-7):
+
+```text
++------------+-----------+-----------+-----------+----------+---------+
+| carrier    | W(F0)     | W(F2)     | W(F4)     | arch hw  | >= f64  |
++------------+-----------+-----------+-----------+----------+---------+
+| b0 legK16  | 1.1e-16   | 9.1e-17   | 4.8e-12   | 1.87e-09 |   --    |
+| K16 top    | 1.7e-13   | 1.7e-11   | 9.8e-06   | 8.52e-08 |  True   |
+| K24 top    | 6.6e-11   | 2.4e-09   | 1.9e-04   | 1.06e-07 |  True   |
+| sine K20   | 4.9e-16   | 3.7e-15   | 4.5e-14   | 1.06e-07 |  True   |
++------------+-----------+-----------+-----------+----------+---------+
+```
+
+(body_w -- the Simpson mesh remainder -- dominates at 2.12e-07 on the
+K-scale carriers and stays under the 3e-7 body target; G-deriv at the
+re-registered step h=1e-5 passes with slack 1.6e-10 / 8.9e-10 and
+Richardson ratios 4.005 / 4.006.)  Every budget class is now inside
+the registered budget with no threshold touched.
+
 The certified statements and the verdict mapping of sections 2 and 4 are
 UNCHANGED; only the width-derivation mechanism is amended.  G-nest now
 also checks interval NESTING (theta -> theta/2 single passes, no

@@ -352,6 +352,26 @@ class Carrier:
                 self.pd.append(self.pd[-1].deriv())
             self.pd_iv = [[IV(c) for c in q.c] for q in self.pd]
             self.P_j = [q.coeff_abs_sum() for q in self.pd]
+            # REAL-interval endpoint sup of the derivative:
+            # sup_{[-1,1]}|P_k^(m)| = |P_k^(m)(1)|
+            #   = (k+m)! / ((k-m)! m! 2^m)   (max at the endpoint;
+            # classic) -- so sup|p^(m)| <= sum_k |c_k| * that.  A
+            # REGISTERED tightening of the monomial coeff-abs-sum P_j
+            # for the real-line uses (ball_bound, _sup_core): at a=4
+            # K=24 it is 1.3e8 -> ||c||_1 ~ 5 at m=0 (pre-run finding:
+            # the monomial P_j made the endpoint-ball term 1.25e-6,
+            # and C_ARCH * that alone breaks the 5e-7 arch budget).
+            # _mrho (COMPLEX ellipse) keeps the disk-valid P_j.
+            cabs = [abs(float(c)) for c in self.coeffs]
+            self.P_j_real = []
+            for m in range(_CHAINS):
+                tot = 0.0
+                for kk in range(m, len(cabs)):
+                    r = 1
+                    for t in range(kk - m + 1, kk + m + 1):
+                        r *= t
+                    tot += cabs[kk] * r / (math.factorial(m) * 2.0 ** m)
+                self.P_j_real.append(tot * (1.0 + 1e-9))
             self.D_j = [max(q.deg(), 0) for q in self.pd]
             rn, rd, rl1, rdeg = rho_chains(_CHAINS)
             self.rho_num_iv = [[IV(float(c)) for c in n] for n in rn]
@@ -368,6 +388,7 @@ class Carrier:
             self.pd = []
             self.pd_iv = []
             self.P_j = []
+            self.P_j_real = []
             self.D_j = []
 
     @staticmethod
@@ -437,9 +458,10 @@ class Carrier:
     def ball_bound(self, k, delta):
         """sup|f^(k)(u)| on |u/a| >= 1 - delta, closed form.
 
-        bsup * (1/a)^k * sum_j C(k,j) P_j N_{k-j} (1.98 delta)^{-2(k-j)}
+        bsup * (1/a)^k * sum_j C(k,j) P_j_real N_{k-j} (1.98 delta)^{-2(k-j)}
         with bsup = exp(-1/(2 delta - delta^2)); valid because
-        (1 - x^2) >= (2 - delta) delta on the cell, |p^(j)| <= P_j,
+        (1 - x^2) >= (2 - delta) delta on the cell, |p^(j)| <= P_j_real
+        (endpoint Legendre-derivative sup -- registered tightening),
         |R_m| <= N_m (1 - x^2)^(-2m), and each (b R_m) term is increasing on
         the cell (delta = 0.02 < 1/32, REGISTERED).
         """
@@ -451,7 +473,8 @@ class Carrier:
         bsup = math.exp(-1.0 / (2.0 * delta - delta * delta))
         total = 0.0
         for j in range(k + 1):
-            total += (float(_binom[k][j]) * self.P_j[j] * self.rho_l1[k - j]
+            total += (float(_binom[k][j]) * self.P_j_real[j]
+                      * self.rho_l1[k - j]
                       * (1.98 * delta) ** (-2 * (k - j)))
         return bsup * total / (self.a ** k)
 
@@ -474,7 +497,7 @@ class Carrier:
         for j in range(k + 1):
             mm = k - j
             saddle = 1.0 if mm == 0 else (2.0 * mm / math.e) ** (2 * mm)
-            total += (float(_binom[k][j]) * self.P_j[j]
+            total += (float(_binom[k][j]) * self.P_j_real[j]
                       * self.rho_l1[mm] * saddle)
         return (total / a ** k) * (1.0 + 1e-9)
 
@@ -489,8 +512,17 @@ class Carrier:
         """Core interval [lo_i, hi_i] in x and rho for the GL ellipse
         (float shift yf; certified geometry, float64-representable)."""
         sigma = float(yf) / self.a
-        lo_i = -1.0 + self.ETA
-        hi_i = 1.0 - self.ETA - sigma
+        if self.family == "sine":
+            # entire family: the core is the WHOLE interval (doc section 1
+            # "the sine family is entire and needs no balls") -- the eta
+            # cut is a bump-singularity device only; cutting it for sine
+            # without any ball compensation lost the end-sliver mass
+            # (G-int ABORT: sine b2 f64 sat 6.5e-3 above the interval).
+            lo_i = -1.0
+            hi_i = 1.0 - sigma
+        else:
+            lo_i = -1.0 + self.ETA
+            hi_i = 1.0 - self.ETA - sigma
         if hi_i - lo_i <= 1e-12:
             return None
         mid = (lo_i + hi_i) / 2.0
@@ -618,13 +650,22 @@ class Carrier:
                            + wrel * float(np.dot(weights, M[0] * Ms[k]))) \
             * (1.0 + 2.0 ** -40)
 
-    def _pert_sq(self, xs, weights, M, m, half):
-        """Per-node backward error of the square leg H = (f^(m)(a x))^2
-        (y = 0): |dQ| <= 2^-53 a half sum w_i [ 2 a |x_i| M_m_i M_{m+1,i}
-        + M_m_i^2 ]."""
-        a = self.a
-        d = np.abs(xs) * (2.0 * a * M[m] * M[m + 1]) + M[m] * M[m]
-        return (2.0 ** -53) * a * half * float(np.dot(weights, d))
+    def _pert_sup(self, node_err, k, half):
+        """Widow-path node backward error with GLOBAL sup magnitudes:
+        |dH| per node <= node_err * a (|f'||f_s| + |f||f'_s|)
+        <= node_err * a (S1*Sk + S0*S_{k+1}), S_j = _sup_whole(j) closed
+        forms -- sound because every node value is bounded by the global
+        sup.  The per-node intermediate-term magnitudes M of _pert_prod
+        (no cancellation bookkeeping) over-count by ~9 orders at a=4
+        K=24: measured W(F0) = 1.25e-6 with M-products vs ~1e-15 here,
+        and 1.25e-6 alone breaks the registered 5e-7 arch budget via
+        C_ARCH * F0 (pre-run finding).  sum_i w_i = 2 on [-1, 1]."""
+        s0w = self._sup_whole(0)
+        s1w = self._sup_whole(1)
+        skw = self._sup_whole(k)
+        sk1w = self._sup_whole(k + 1)
+        return (2.0 * self.a * half * node_err * self.a
+                * (s1w * skw + s0w * sk1w)) * (1.0 + 2.0 ** -40)
 
     def _legs_iv(self, yf, kmax, nodes, n_nodes):
         """arb interval legs F^(k)(yf), k = 0..kmax, at the CURRENT
@@ -632,11 +673,12 @@ class Carrier:
         section 3.1), each with its FULL width (per-node node/weight
         backward error + ellipse + balls; the f_x evaluations themselves
         round at 2^-256, negligible against them).  Full widths are the
-        right choice for k >= 1: those legs enter the pole-free Q-bound
-        M4Q (doc 3.1, _q4_sup) with O(1) coefficients and one mean-value
-        step s0 * B_(k+1) each, and the per-node bound keeps every leg
-        width <= ~1e-8 even for K-scale carriers (widow remainder then
-        <= M4Q * s0^4/96 ~ 1e-40)."""
+        right choice for k >= 1: they enter the pole-free Q-bound
+        M4Q (doc 3.1, _q4_sup) and the arb corner constants with O(1)
+        coefficients and, for M4Q, one mean-value step s0 * B_(k+1)
+        each (a leg width of 8.3 at a=2 K=16 -- measured -- costs
+        s0^4 * 8.3 / 96 in the remainder).  The k=0 corner leg is used
+        AS-IS for F0/F2/F4 (doc 3.1: arb corner constants)."""
         a = self.a
         eta = self.ETA
         geom = self._ellipse_geom_f(yf)
@@ -651,11 +693,6 @@ class Carrier:
                     * IV.unit() for k in range(kmax + 1)]
         _, _, mid, half, rho, sigma = geom
         ns_a, ws_a, ns_f, ws_f, dmax = nodes
-        # per-node magnitudes at the float64 reference nodes (>= the true
-        # node values up to the registered (1+2^-40) margin: dmax <= 1e-26)
-        xsf = mid + half * ns_f
-        _, Mf = self._fvals(xsf, kmax + 1)
-        _, Msf = self._fvals(xsf + sigma, kmax + 1)
         sx = IV(sigma)
         miv, hiv = IV(mid), IV(half)
         tot = [IV(Fraction(0)) for _ in range(kmax + 1)]
@@ -668,9 +705,11 @@ class Carrier:
         scale = IV(half * a)
         out = []
         for k in range(kmax + 1):
-            # node/weight error: dmax per node, weights are arb intervals
-            # (their own enclosure is carried by tot); no wrel term.
-            rem = (self._pert_prod(ws_f, Mf, Msf, k, half, dmax, 0.0)
+            # node error: dmax per node with GLOBAL sup magnitudes
+            # (_pert_sup; the M-product form over-counts ~9 orders at
+            # K24 scale); weights are arb intervals (their own
+            # enclosure is carried by tot); no wrel term.
+            rem = (self._pert_sup(dmax, k, half)
                    + self._ell_term(sigma, mid, half, rho, k,
                                     n_nodes=n_nodes))
             if self.family == "legendre":
@@ -714,29 +753,6 @@ class Carrier:
                      * self.ball_bound(0, self.ETA)
                      * self.ball_bound(k, self.ETA) * 1.1)
         return v, arith + rest + balls + 1e-300
-
-    def _legsq(self, m):
-        """Certified int (f^(m))^2 du over [-a, a] (core [-1+eta, 1-eta]
-        + two balls for the legendre family; y = 0 square leg)."""
-        a = self.a
-        eta = self.ETA
-        half = 1.0 - eta
-        nodes, weights = _GL_NODES
-        xs = half * nodes
-        V, M = self._fvals(xs, m + 1)
-        v = a * half * float(np.dot(weights, V[m] * V[m]))
-        mag = a * half * float(np.dot(weights, M[m] * M[m]))
-        arith = _FEPS * (2 * self._C_FVAL + self._C_DOT + self._C_ASM) \
-            * (mag + abs(v))
-        rest = (self._pert_sq(xs, weights, M, m, half)
-                + self._ell_term(0.0, 0.0, half,
-                                 1.0 + 0.9 * eta / half, m, km1=m))
-        balls = 0.0
-        if self.family == "legendre":
-            bb = self.ball_bound(m, eta)
-            balls = 2.0 * eta * a * bb * bb * 1.1
-        return v, arith + rest + balls + 1e-300
-
 
 def _precompute_gl(n):
     nodes, weights = leggauss(n)
@@ -908,13 +924,21 @@ class CertMachine:
         self.a = carrier.a
         self.s0 = 2.0 ** -35
         self.width_target = width_target
-        v0, w0 = carrier._leg(0.0, 0)
-        self.F0v, self.F0w = v0, w0
-        self.F0 = IV.span(v0 - w0, v0 + w0)
-        v1, w1 = carrier._legsq(1)
-        self.F2 = -IV.span(v1 - w1, v1 + w1) / IV(2)
-        v2, w2 = carrier._legsq(2)
-        self.F4 = IV.span(v2 - w2, v2 + w2) / IV(24)
+        # F0, F2, F4 as ARB corner constants (doc 3.1).  The float ulp
+        # model on the SQUARED chains (int (f')^2, int (f'')^2) tracks
+        # intermediate-term magnitudes with no cancellation bookkeeping:
+        # at a=4 K=24 the Leibniz terms reach ~1e33 and the registered
+        # widths come out 1e25/1e29 (measured pre-run), swamping any
+        # absolute budget.  Integration by parts (boundary terms vanish:
+        # compact bump; sine basis zeroes at +-1) identifies
+        # int (f^(m+1))^2 = (-1)^(m+1) int f f^(2m+2), i.e. the L2 norms
+        # ARE the y=0 legs F''(0) = -int f'^2 and F''''(0) = int f''^2 --
+        # so F2 = F''(0)/2, F4 = F''''(0)/24 as arb legs on the certified
+        # 4096-node rule, where the 2^-256 intermediate ulps (~1e-45 at
+        # 1e33 scale) make the same bound honest.
+        self.F0, self.F2, self.F4 = self._arb_corner_constants()
+        self.F0v = float(self.F0.midf())
+        self.F0w = float(self.F0.width() / 2.0)
         # (1/sinh)^(m)(y) = u P_m(coth y):  P_{m+1} = -(P_m'(t^2-1) + t P_m)
         p = Poly([Fraction(1)])
         self._Pm = [p]
@@ -937,6 +961,22 @@ class CertMachine:
                 break
             theta *= 0.9
         return max(theta, 1e-4)
+
+    def _arb_corner_constants(self):
+        """(F0, F2, F4) as arb intervals: the y=0 legs of order 0, 2, 4
+        on the certified _gl_arb rule at WIDOW_PREC (doc 3.1);
+        F2 = F''(0)/2, F4 = F''''(0)/24 are the Taylor coefficients the
+        ladder consumes."""
+        c = self.carrier
+        n_nodes = Carrier.N_GL
+        old = _flint.ctx.prec
+        _flint.ctx.prec = WIDOW_PREC
+        try:
+            nodes = _gl_arb()
+            L = c._legs_iv(0.0, 4, nodes, n_nodes)
+        finally:
+            _flint.ctx.prec = old
+        return L[0], L[2] / IV(2), L[4] / IV(24)
 
     def _peval(self, poly, tv):
         acc = (0.0, 0.0)
@@ -1359,8 +1399,9 @@ def main() -> None:
         carr = Carrier(radius, [float(c) for c in combo], family)
         stats = {}
         # registered budget: arch half-width <= 5e-7; the widow ladder
-        # contributes a fixed ~1.7e-7 half-width, so the body targets
-        # 3e-7 (plus F0*C_ARCH ~1e-11)
+        # is the Q-bound remainder (~1e-40) plus the arb corner constant
+        # widths (F0 +-~1e-12 b0-class, ~1e-7 at a=4 K=24 scale), so the
+        # body targets 3e-7
         mach = CertMachine(carr, width_target=3e-7)
         av = mach.arch(stats)
         pv = mach.prime(probe.prime_terms)
