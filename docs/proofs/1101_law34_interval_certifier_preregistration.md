@@ -378,6 +378,26 @@ its band-containment form: its certified intervals are wide
 (>= 6.7e-05 >> 2e-5 band), where containment of the band is the
 STRICTER reading and all six passed it.
 
+Fourth pre-run amendment batch (located by official run 4, committed
+BEFORE run 5).  Run 4 executed END-TO-END GREEN (G-eng, G-deriv,
+G-mrho n/a sine, G-int 6/6, G-prime 3/3, G-nest ratio 18.03 nested,
+6 certified directions) -- but its printed verdict line said
+`H2c ... on [3 arch-top rows]`, which is NOT the registered mapping:
+section 4 registers H2c as "EVERY certified U_total < 0 (margin >=
+certified width)" and H1c as "SOME L_total > 0 (margin >= width)";
+the selector tested "SOME U_total < 0" without the margin condition
+and so mislabeled a partial-negative table as H2c.  Applying the
+registered mapping to run 4's own JSON gives STRADDLE (three
+totaltop rows contain zero: totals within +/-9.4e-8).  The code now
+implements section 4 LITERALLY (every/margin conditions, plus the
+zero-containing rows echoed in the STRADDLE line); this is the
+MORE CONSERVATIVE reading -- a verdict can only get harder to claim.
+Run 5 re-executes the full probe with the fixed selector so that the
+printed verdict and `1101_cert.json` come from one self-consistent
+official execution (the certified rows themselves are deterministic:
+arb fixed-precision outward rounding + fixed eigensolve; run 4's
+table is the expected content).
+
 The certified statements and the verdict mapping of sections 2 and 4 are
 UNCHANGED; only the width-derivation mechanism is amended.  G-nest now
 also checks interval NESTING (theta -> theta/2 single passes, no

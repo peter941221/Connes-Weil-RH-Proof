@@ -1433,21 +1433,42 @@ def main() -> None:
               f"(w {total.width():.2e})  theta {stats['theta']:.5f} "
               f"cells {stats['y_cells']}")
         report["directions"].append(rec)
+    # Registered mapping (doc section 4), implemented LITERALLY:
+    # H1c: SOME certified L_total > 0 with margin >= certified width;
+    # H2c: EVERY certified U_total < 0 with margin >= certified width;
+    # else STRADDLE.  The v1 selector tested "some U_total < 0" for H2c
+    # and dropped the margin condition (run-4 finding: it printed
+    # "H2c ... on [3 arch-top rows]" while the three totaltop rows
+    # straddle zero -- the registered mapping's answer there is
+    # STRADDLE).  The registered mapping is the more conservative
+    # reading; implementing it cannot weaken any verdict.
+    def _width(r):
+        return r["total_U"] - r["total_L"]
+
     h1c = [(r["label"], r["total_L"]) for r in report["directions"]
-           if r["total_L"] > 0]
-    h2c = [(r["label"], r["total_U"]) for r in report["directions"]
-           if r["total_U"] < 0]
+           if r["total_L"] > 0 and r["total_L"] >= _width(r)]
+    h2c_rows = [(r["label"], r["total_U"]) for r in report["directions"]
+                if r["total_U"] < 0 and -r["total_U"] >= _width(r)]
+    h2c_all = bool(report["directions"]) and len(h2c_rows) == len(
+        report["directions"])
     out = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                        "1101_cert.json")
     with open(out, "w", encoding="utf-8") as fh:
         json.dump(report, fh, indent=1, default=str)
     print(f"certificate file: {out}")
+    straddle = [(r["label"], r["total_L"], r["total_U"])
+                for r in report["directions"]
+                if r["total_L"] <= 0 <= r["total_U"]]
     if h1c:
         print(f"VERDICT: H1c CERTIFIED-POSITIVE-GATE on {h1c}")
-    elif h2c:
-        print(f"VERDICT: H2c CERTIFIED-NEGATIVE-GATE on {h2c}")
+    elif h2c_all:
+        print(f"VERDICT: H2c CERTIFIED-NEGATIVE-GATE (every direction, "
+              f"margin >= width) on {h2c_rows}")
     else:
         print("VERDICT: STRADDLE (no separation at the certified width)")
+        print(f"  negative-with-margin: {len(h2c_rows)}/"
+              f"{len(report['directions'])} rows; "
+              f"zero-containing: {straddle}")
     print("END 1101")
 
 
