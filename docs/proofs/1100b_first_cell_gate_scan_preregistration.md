@@ -176,4 +176,119 @@ The README is not touched (README change guard).
 
 ## 5. Verdict (appended after the run)
 
-PENDING.
+VERDICT: **SPLIT2** (the pre-registered third branch).  All ABORT-class
+gates passed; every corrected top over `V` is pinned at zero within the
+certified fidelity - the +-1e-5 verdict threshold is never approached,
+let alone crossed.  Neither H1b nor H2b fired.  Evidence level
+NUMERICAL; RH unclaimed; GATE 1 untouched.
+
+Executed state: probe final md5
+`4a1b81d5948b70ae0f0351461699dc27`, byte-identical on the Windows
+working copy and the Linux-side verification mirror; run log
+`1100b_gate_scan_run6.log` (flushed content accepted: end banner, no
+ABORT, no traceback).  The executed probe differs from the
+pre-registration commit `4bc764f` by exactly the four implementation
+fixes enumerated in the run history below; the final file is committed
+with this verdict.
+
+### 5.1 Run history (all pre-scan; bugs fixed without re-registration, 1100 runs 2-4 precedent)
+
+```text
+run1  crash : arch_direct's f_at passed 2-D (chunk, nodes) arrays to
+              the analytic evaluator (1-D only).  Fixed: ravel,
+              evaluate, reshape.
+run2  ABORT : G-cell-3, bit-identical to run3.  arch_direct's F(0)
+run3  ABORT   anchor integrated over [-a/2, +a/2] instead of [-a, a]:
+              Gauss-Legendre reference nodes [-1, 1] map to [-a, a]
+              with factor a.  The shrunken F(0) un-removes the
+              removable singularity at y = 0 (a delta/sinh(y) spike)
+              and inflates the direct body by ~0.24: corrected
+              +0.86414811 vs direct +1.10464228, gap 2.40e-01,
+              y-refine non-convergent 2.78e-02.
+run4  crash : top-case eigenvectors live in null-space dimension
+              d = K - 3 while arch_direct consumes basis coordinates
+              K.  Fixed: transport coords through the null-space
+              coefficients (combo = coefficients @ coeffs).
+run5  crash : a lint-appeasement line (combo = coeffs placed BEFORE
+              the branch that assigns it) created a real
+              UnboundLocalError at exactly the guarded site.  All
+              gates were already green in that run before the crash.
+run6  GREEN : accepted run.
+```
+
+### 5.2 Gate values (run6)
+
+```text
++----------+-------------------------------------------------------+
+| Gate     | Measured                                              |
++----------+-------------------------------------------------------+
+| G-arch-1 | worst drift 2.773e-05 over the nine 1087 anchors      |
+|          | (recorded, <= 1e-4)                                   |
+| G-arch-2 | 9 rows, all gaps 0.00e+00                             |
+| G-recon  | worst rel 0.00e+00 (bit-equal to the imported rig)    |
+| G-count  | a=1 -> 5 [2,3,4,5,7]; a=2 -> 24 terms, exact          |
+| G-sym-t  | 7.772e-16 at scale 8.280e-01 (<= 5e-6, grid 32001)    |
+| G-closed | q=2: fine 8.617e-09, shrink 4.18x, null 4.274e-09;    |
+|          | q=3: fine 8.884e-09, shrink 4.07x, null 4.615e-09     |
+| G-repro  | 32/32 rows, worst gap 9.67e-07 (a=1.0 leg K=16)       |
+| G-cell-2 | ratio band [0.4171, 0.9989] in [0.30, 1.005]          |
+| G-cell-3 | all six cases <= 5e-6: gaps 1.03e-10 / 7.81e-11 /     |
+|          | 4.69e-09 / 7.34e-09 / 8.41e-09 / 5.80e-09; the three  |
+|          | decision-relevant top directions certified:           |
+|          | a=2 leg K=16  +0.89158689 = +0.89158689               |
+|          | a=4 leg K=24  +1.86947307 = +1.86947306               |
+|          | a=2 sine K=20 +0.95649122 = +0.95649123               |
+| G-cell-4 | y-refine worst 1.04e-11 (<= 1e-7)                     |
+| G-row    | all 32 scan rows ok (worst resid 8.7e-11, orth 5.5e-11)|
++----------+-------------------------------------------------------+
+```
+
+### 5.3 Corrected scan result and reading
+
+Corrected top_total K-sequences at grid 32001 (6-decimal print):
+
+```text
+legendre a=1: -0.000181 -0.000000 -0.000000 +0.000000 +0.000000 +0.000000
+legendre a=2: -0.000001 +0.000000 +0.000000 +0.000000 +0.000000 +0.000000
+legendre a=3: -0.000000 +0.000000 +0.000000 +0.000000 +0.000000 +0.000000
+legendre a=4: +0.000000 +0.000000 +0.000000 +0.000000 +0.000000 +0.000000
+sine     a=1: -0.000001 +0.000000 +0.000000 +0.000000
+sine     a=2: +0.000000 +0.000000 +0.000000 +0.000000
+```
+
+All six extrapolated limits print as +-0.000000 (|T| < 5e-7), four to
+five orders inside the +-1e-5 verdict threshold.  Reading:
+
+1. The record-1100 +-3e-5 residual is RESOLVED as the first-cell
+   artifact: law 37's `-(0.94..1.00) x step/2` identity shift is
+   removed exactly by the correction, and what remains over `V` is a
+   pinned zero.  Both parts separately stay O(1) (top_arch
+   +0.12..+1.89, top_prime -0.67..+1.42) - the cancellation at the top
+   is exact to ~1e-6, which is the explicit-formula structure showing
+   through the rig.
+2. The gate top over `V` carries NO visible sign at any scanned
+   radius, and NO spectral gap: finite-K tops approach zero from
+   below as K rises, consistent with a continuum top of exactly 0.
+   `Q <= 0` on all of `V` and a positive top direction are both
+   consistent with this data at the ~1e-6 level - float64 cannot
+   separate them.
+3. Consequence for C3 (as pre-registered for this branch): the
+   certified-upper-bound machinery (law 34 - a certified `Q <= 0` on
+   `V`, e.g. interval-arithmetic arch bounds plus a certified
+   spectral-gap upper bound) is the next target REGARDLESS of branch.
+   Per section 4, no map 004 change is keyed to SPLIT2.
+4. Honest prediction audit: the pre-run naive prediction (H1b firing
+   at a in {2,3,4}, tops +1.9e-5..+2.3e-5) did NOT survive - it
+   extrapolated record-1100 offsets measured at grid 8001, while at
+   the executed grid 32001 the residual sits below 5e-7.  The
+   pre-registered SPLIT2 branch absorbed this; no gate was weakened
+   and no repo change fired beyond this section.
+5. Presentation note: the "sine a=3/a=4 NO VALID ROWS" lines in the
+   log summary are the K-sequence loop printing the full radius grid
+   for both families; the pre-registered sine plan scans a in {1,2}
+   only - no sine row was dropped.
+6. Scope guard: the pinned zero is NOT an RH-direction claim.  It is
+   consistent both with the Weil-positivity-on-`V` statement holding
+   with zero margin (RH-consistent, no-gap scenario) and with a true
+   sign below float64 fidelity.  Certifying either reading is exactly
+   the named law-34 machinery.

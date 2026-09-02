@@ -617,9 +617,11 @@ def arch_direct(
     nodes, weights = leggauss(n_glu)
 
     def f_at(x: np.ndarray) -> np.ndarray:
-        return coeffs @ probe.analytic_basis(np.asarray(x, dtype=float))
+        arr = np.asarray(x, dtype=float)
+        vals = coeffs @ probe.analytic_basis(arr.ravel())
+        return vals.reshape(arr.shape) if arr.ndim > 1 else vals
 
-    f0 = (a / 2.0) * float(np.dot(weights, f_at(nodes) ** 2))
+    f0 = a * float(np.dot(weights, f_at(a * nodes) ** 2))
     ys = np.linspace(0.0, 2.0 * a, n_y)
     corr = np.empty(n_y)
     corr[0] = f0
@@ -670,6 +672,7 @@ def run_direct_gates() -> None:
             function = probe.basis[
                 0 if family == "legendre" else 2
             ]
+            combo = coeffs  # basis coordinates already
         else:
             functions, _sv, coefficients, _cond, _orth = (
                 probe._orthonormal_null_functions()
@@ -681,6 +684,7 @@ def run_direct_gates() -> None:
             )
             coeffs = eigvecs[:, -1]
             function = coeffs @ functions
+            combo = probe.coefficients @ coeffs
             extra = (
                 f" lambda_top {float(eigvals[-1]):+.6f} "
                 f"rayleigh {float(coeffs @ arch_m @ coeffs):+.6f}"
@@ -697,8 +701,10 @@ def run_direct_gates() -> None:
         corrected = mine + first_cell_of(
             _corr, function.size, probe.step
         )
-        direct = arch_direct(coeffs, probe)
-        direct_fine = arch_direct(coeffs, probe, n_y=4001)
+        direct = arch_direct(combo if mode == "top" else coeffs, probe)
+        direct_fine = arch_direct(
+            combo if mode == "top" else coeffs, probe, n_y=4001
+        )
         gap = abs(corrected - direct)
         gap4 = abs(direct - direct_fine)
         print(
