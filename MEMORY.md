@@ -1258,3 +1258,17 @@ leaf rebuild completed with 3633 jobs and prints exactly
 `healthy_sourceRH_of_right_detector_specific_qw_nonneg`. The output ledger still
 contains exactly five project axioms. Therefore C3 is not closed: the formal
 same-detector exit exists, but no theorem produces its `0 <= qw(g)` premise.
+
+2026-09-02 README.md : rewrote the public README around formula-led proof nodes,
+the healthy-`CompactLog` B5 contradiction, representative Lean interfaces
+including the orbit-window C3 gate, and a compact archive of frozen or
+deliberately deferred routes. Preserved the
+current C3-open status, five project axioms, ROOT-versus-orbit support boundary,
+and all route-map evidence links. Documentation only; no Lean theorem or route
+decision changed.
+
+2026-09-02 README.md : removed the redundant status dashboard table and its
+duplicate route-summary paragraph from the public lead-in at the user's
+request. The RH warning remains at the top; formula-led mathematics,
+representative Lean interfaces, and frozen-route provenance remain in the
+middle and later sections.
