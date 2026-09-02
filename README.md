@@ -133,123 +133,14 @@ $$
 
 This is a same-test contradiction, not an all-test positivity claim.
 
-## 3. ROOT support versus orbit support
+## 3. Lean Formalization
 
-The ROOT window is the compact local base inherited from the CC20 theorem:
-
-$$
-\mathrm{supp}(g)\subseteq
-\left[-\frac{\log 2}{2},\frac{\log 2}{2}\right].
-$$
-
-For that support class, Lean proves the square enters the open prime-free
-window and the finite-prime term disappears:
-
-$$
-\boxed{
-\begin{aligned}
-\mathrm{supp}(g)
-  &\subseteq\left[-\frac{\log 2}{2},\frac{\log 2}{2}\right]\\
-\Longrightarrow\quad
-\mathrm{supp}(F_g)
-  &\subseteq(-\log 2,\log 2)\\
-\Longrightarrow\quad
-\mathrm{finitePrimeSum}(F_g)&=0\\
-\Longrightarrow\quad
-q_w(g)&=-\mathrm{archimedeanTerm}(F_g).
-\end{aligned}
-}
-$$
-
-The endpoint consumer is
-[qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf](ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L133).
-It still needs an actual CC20EndpointTraceCertificate; the certificate is
-not currently produced by the repository.
-
-The formal detector is different. Its fixed-window D1 export is packaged with
-an explicit orbit window and a finite visible-prime bound:
-
-$$
-\boxed{
-\begin{aligned}
-\mathrm{supp}(g)&\subseteq
-  \mathrm{Ioo}(-(n+2),n+2),\\
-q\in\mathrm{globalPrimeIndexSet}(F_g)
-  &\Longrightarrow (q:\mathbb{R})<\exp\bigl(2(n+2)\bigr).
-\end{aligned}
-}
-$$
-
-The formal gate on this same object is
-
-$$
-\boxed{
-\begin{aligned}
-0\le q_w(g)
-  &\Longleftrightarrow
-\mathrm{archimedeanTerm}(F_g)
-  +\mathrm{finitePrimeSum}(F_g)\le 0.
-\end{aligned}
-}
-$$
-
-There is still no automatic arrow from ROOT positivity to this orbit-supported
-detector. The fixed-window D1 bound is too wide for the external
-[-0.8,0.8] candidate interface; map 004 marks that bridge impossible for this
-family. The surviving task is the orbit-window semi-local sign, not support
-discovery. See the formal ROOT-support interface in
-[proof 1080](docs/proofs/1080_c2_detector_pinning_exit.md) and the
-numerical-only [record 1087](docs/proofs/1087_c3_root_window_spectral_verdict.md).
-
-## 4. The route choice: B1 or B5
-
-The output audit contains two singleton logical cuts:
-
-$$
-\boxed{
-\begin{aligned}
-\mathrm{B1}:&\quad
-\left(\forall g,\quad
-  \mathrm{tripleVanishing}(g)\Longrightarrow q_w(g)\ge 0\right)\\
-&\quad\Longrightarrow \mathrm{RH}.
-\end{aligned}
-}
-$$
-
-$$
-\boxed{
-\begin{aligned}
-\mathrm{B5}_{\mathrm{premise}}:&\quad
-  \forall\rho,\quad
-  \mathrm{Re}(\rho)>\frac12\Longrightarrow
-  \exists g:\mathrm{CompactLogTest},\\
-&\qquad \mathrm{Healthy}(\rho,g)\land q_w(g)\ge 0,\\
-\mathrm{B5}:&\quad
-  \mathrm{B5}_{\mathrm{premise}}\Longrightarrow \mathrm{RH}.
-\end{aligned}
-}
-$$
-
-Both cuts are RH-equivalent at the logical level. They are not equally sized
-proof campaigns:
-
-| Route | Meaning | Project decision |
-| :-- | :-- | :-- |
-| B1 | Positivity for every compactly supported triple-vanishing test | Frozen universal campaign |
-| B5 | Positivity for the detector selected against each hypothetical zero | Active healthy-owner mainline |
-| ROOT | A local CC20 support class with no visible prime powers | Shared base; not an RH exit |
-| Orbit | The selected detector's actual support and visible prime powers | C3 consumer; positivity open |
-
-The binding decision is record 1076:
-[003_b1_b5_minimal_exit_route_selection.md](docs/map/003_b1_b5_minimal_exit_route_selection.md).
-The endpoint scope is maintained by
-[004_endpoint_literature_interface_audit.md](docs/map/004_endpoint_literature_interface_audit.md).
-
-## 5. Representative Lean interfaces
-
-Each item pairs one declaration with the mathematical relation it exposes.
-The links point to the owning Lean lines; they do not claim that the open
-analytic producer has already been proved.
+The engineering contribution is an auditable Lean 4 architecture for the
+Connes--Weil route: one typed owner carries the test and its square, each
+analytic step is an explicit contract, and every frontier leaf has an axiom
+audit. Each item below pairs one declaration with the mathematical relation it
+exposes. The links point to the owning Lean lines; they do not claim that the
+open analytic producer has already been proved.
 
 **1. Same-owner arithmetic and spectral values: `centerTwo_arithmetic_eq_spectral`**
 
@@ -385,7 +276,124 @@ $$
 
 Evidence: [CC20YoshidaConstruction.lean#L2727](ConnesWeilRH/Source/CC20YoshidaConstruction.lean#L2727).
 
-## 6. Frozen and deferred routes
+## 4. Current progress: support ownership and route selection
+
+This section records the live support boundary and the route decision that
+governs the remaining proof work.
+
+### ROOT support versus orbit support
+
+The ROOT window is the compact local base inherited from the CC20 theorem:
+
+$$
+\mathrm{supp}(g)\subseteq
+\left[-\frac{\log 2}{2},\frac{\log 2}{2}\right].
+$$
+
+For that support class, Lean proves the square enters the open prime-free
+window and the finite-prime term disappears:
+
+$$
+\boxed{
+\begin{aligned}
+\mathrm{supp}(g)
+  &\subseteq\left[-\frac{\log 2}{2},\frac{\log 2}{2}\right]\\
+\Longrightarrow\quad
+\mathrm{supp}(F_g)
+  &\subseteq(-\log 2,\log 2)\\
+\Longrightarrow\quad
+\mathrm{finitePrimeSum}(F_g)&=0\\
+\Longrightarrow\quad
+q_w(g)&=-\mathrm{archimedeanTerm}(F_g).
+\end{aligned}
+}
+$$
+
+The endpoint consumer is
+[qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf](ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L133).
+It still needs an actual CC20EndpointTraceCertificate; the certificate is
+not currently produced by the repository.
+
+The formal detector is different. Its fixed-window D1 export is packaged with
+an explicit orbit window and a finite visible-prime bound:
+
+$$
+\boxed{
+\begin{aligned}
+\mathrm{supp}(g)&\subseteq
+  \mathrm{Ioo}(-(n+2),n+2),\\
+q\in\mathrm{globalPrimeIndexSet}(F_g)
+  &\Longrightarrow (q:\mathbb{R})<\exp\bigl(2(n+2)\bigr).
+\end{aligned}
+}
+$$
+
+The formal gate on this same object is
+
+$$
+\boxed{
+\begin{aligned}
+0\le q_w(g)
+  &\Longleftrightarrow
+\mathrm{archimedeanTerm}(F_g)
+  +\mathrm{finitePrimeSum}(F_g)\le 0.
+\end{aligned}
+}
+$$
+
+There is still no automatic arrow from ROOT positivity to this orbit-supported
+detector. The fixed-window D1 bound is too wide for the external
+[-0.8,0.8] candidate interface; map 004 marks that bridge impossible for this
+family. The surviving task is the orbit-window semi-local sign, not support
+discovery. See the formal ROOT-support interface in
+[proof 1080](docs/proofs/1080_c2_detector_pinning_exit.md) and the
+numerical-only [record 1087](docs/proofs/1087_c3_root_window_spectral_verdict.md).
+
+### B1 versus B5 route choice
+
+The output audit contains two singleton logical cuts:
+
+$$
+\boxed{
+\begin{aligned}
+\mathrm{B1}:&\quad
+\left(\forall g,\quad
+  \mathrm{tripleVanishing}(g)\Longrightarrow q_w(g)\ge 0\right)\\
+&\quad\Longrightarrow \mathrm{RH}.
+\end{aligned}
+}
+$$
+
+$$
+\boxed{
+\begin{aligned}
+\mathrm{B5}_{\mathrm{premise}}:&\quad
+  \forall\rho,\quad
+  \mathrm{Re}(\rho)>\frac12\Longrightarrow
+  \exists g:\mathrm{CompactLogTest},\\
+&\qquad \mathrm{Healthy}(\rho,g)\land q_w(g)\ge 0,\\
+\mathrm{B5}:&\quad
+  \mathrm{B5}_{\mathrm{premise}}\Longrightarrow \mathrm{RH}.
+\end{aligned}
+}
+$$
+
+Both cuts are RH-equivalent at the logical level. They are not equally sized
+proof campaigns:
+
+| Route | Meaning | Project decision |
+| :-- | :-- | :-- |
+| B1 | Positivity for every compactly supported triple-vanishing test | Frozen universal campaign |
+| B5 | Positivity for the detector selected against each hypothetical zero | Active healthy-owner mainline |
+| ROOT | A local CC20 support class with no visible prime powers | Shared base; not an RH exit |
+| Orbit | The selected detector's actual support and visible prime powers | C3 consumer; positivity open |
+
+The binding decision is record 1076:
+[003_b1_b5_minimal_exit_route_selection.md](docs/map/003_b1_b5_minimal_exit_route_selection.md).
+The endpoint scope is maintained by
+[004_endpoint_literature_interface_audit.md](docs/map/004_endpoint_literature_interface_audit.md).
+
+## 5. Frozen and deferred routes
 
 The project keeps failed or superseded routes visible so that a local lemma is
 not mistaken for the current RH strategy.
@@ -399,7 +407,7 @@ not mistaken for the current RH strategy.
 | Titchmarsh square-form bridge | Deliberately deferred | A formal reverse support theorem needs Paley--Wiener / Cartwright machinery not present in Mathlib | [architecture record 1043](docs/map/001_first_cut_window_architecture.md) |
 | External [-0.8,0.8] compact-window candidate for the D1 orbit | Blocked for this detector family | The selected detector still needs a support-compatible semi-local bridge | [map 004](docs/map/004_endpoint_literature_interface_audit.md), [record 1087](docs/proofs/1087_c3_root_window_spectral_verdict.md) |
 
-### 6.1 The normalized-socket guard
+### 5.1 The normalized-socket guard
 
 The obstruction is a concrete Lean counterexample, not a naming preference. A
 finite-window interpolant is chosen with Mellin value one:
@@ -419,7 +427,7 @@ The exact witness and contradiction are implemented by
 [not_normalizedCC20MellinConvolutionLaw](ConnesWeilRH/Source/CC20YoshidaConstruction.lean#L2727).
 The healthy owner uses the genuine convolution square shown in Section 1.
 
-### 6.2 The inverse-Gram boundary
+### 5.2 The inverse-Gram boundary
 
 The Nyman--Beurling/Mobius line was not rejected because its finite matrices
 are uninteresting. Its projection step keeps the hard inverse:
@@ -436,7 +444,7 @@ Any proposed cancellation must control the projected Schur complement, not only
 an unprojected Mobius sum. This is the structural conclusion of
 [proof 020](docs/proofs/020_nyman_mobius_m4_first_verdict.md).
 
-### 6.3 The prolate parameter boundary
+### 5.3 The prolate parameter boundary
 
 The landed Bessel estimate has a precise scope:
 
@@ -454,7 +462,7 @@ The required exceptional direction, complement bound, and rank-one repair are
 recorded in
 [route record 1050](docs/map/002_one_shot_rh_route_verdict.md).
 
-## 7. The remaining mathematics
+## 6. The remaining mathematics
 
 [Record 1089](docs/proofs/1089_orbit_certificate_extension_design.md) closes
 the detector-data side of C3: the support window and the finite
@@ -464,7 +472,8 @@ mathematics is the sign producer:
 1. prove orbitWindowSemiLocalGate for the pinned detector;
 2. discharge its archimedean and finite-prime terms by a legal endpoint or
    semi-local trace certificate;
-3. feed that same-object result into hsemiLocal in Section 5.3.
+3. feed that same-object result into item 6 of the Lean formalization
+   contributions above.
 
 The endpoint literature may help with the ROOT local base, but it becomes a
 valid C3 input only after the convention, support, sign, and interval
@@ -495,7 +504,7 @@ $$
 No arrow in this display is being reported as complete unless a linked Lean
 declaration or proof record says so.
 
-## 8. Verification
+## 7. Verification
 
 Formal claims follow this chain:
 
@@ -530,13 +539,13 @@ Numerical files under docs/proofs/ generate candidates and diagnostics.
 Floating-point eigenvalues are not treated as proofs of an
 infinite-dimensional sign.
 
-## 9. Sources and repository map
+## 8. Sources and repository map
 
 The repository uses several source layers. A citation below records the role of
 the source; it does not turn an open source-interface contract into a proved
 theorem.
 
-### 9.1 External mathematical sources
+### 8.1 External mathematical sources
 
 1. **CC20: Connes--Consani, *Weil positivity and Trace formula: the archimedean place*.**
    [arXiv:2006.13771](https://arxiv.org/abs/2006.13771) supplies the
@@ -602,7 +611,7 @@ theorem.
     [§25.10](https://dlmf.nist.gov/25.10). These references support formula
     verification; they do not supply the route's missing semi-local theorem.
 
-### 9.2 Project evidence and repository map
+### 8.2 Project evidence and repository map
 
 1. **Source audit.** [Source Reread Audit](docs/audits/source-reread-v0.2.md)
    maps `weil-compo.tex`, `mainc2m24fine.tex`, and `mc2arXiv.tex` to the
