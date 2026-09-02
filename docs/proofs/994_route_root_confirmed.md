@@ -8,7 +8,7 @@ No new proof, no new root change. RH NOT claimed.
 User asked to "do option 1": make the finite-band Route-A gate the canonical deliverable
 and separate the infinite-carrier open bottom. A source/tree audit shows this decision
 is ALREADY the active state of the repo, implemented by the docs/928 route-root margin
-(2026-08-10) and carried in AGENTS.md §2. This memo independently re-verifies that the
+(2026-08-10) and carried in the route status document. This memo independently re-verifies that the
 claimed closure is real and sorry-free, so no future session needs to re-attempt the
 re-point.
 
@@ -21,7 +21,8 @@ re-point.
      stays OPEN, separate, genuinely-new-math bottom;
    - carrier re-point (Piece 2) is not a path to closing the infinite Gate.
 2. **Route-A closed** (`docs/proofs/861_routeA_finite_band_gate_closed.md`).
-3. **AGENTS.md §2 "Current Active Root"** already carries this (`[2026-08-10, docs/proofs/928]`).
+3. **The route status document's active-root section** already carries this
+   (`[2026-08-10, docs/proofs/928]`).
 
 ## Independent re-verification of the closure (this session)
 

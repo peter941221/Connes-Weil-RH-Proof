@@ -22,3 +22,22 @@ mc_setup.sh
 _precompress_backup_*/
 # local-only embedded full-repo backup copy (directory name is a PUA char)
 /
+
+# private project instructions and working memory; never publish these files
+/AGENTS.md
+/AGENTS.MD
+/MEMORY.md
+/MEMORY.MD
+/MEMORY.precompress.backup.md
+/.claude/
+/.CLAUDE/
+
+# root-level scratch probes; durable diagnostics belong under docs/proofs/
+/_probe*.lean
+/_blk*.lean
+/_block*.lean
+/axn.lean
+/__axsn.sh
+/probe*.lean
+/p3_probe_*.py
+/pyIH.py

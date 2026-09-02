@@ -10,7 +10,7 @@ for the source-conditional route manuscript.
 
 ## Requirements
 
-The project priority recorded in `AGENTS.md` is:
+The project priority recorded in `RH_MAINLINE_FREEZE.md` is:
 
 ```text
 finish the mathematical proof packages first, then continue Lean work.

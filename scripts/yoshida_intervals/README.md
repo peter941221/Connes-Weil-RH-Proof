@@ -25,7 +25,7 @@ The Gate-1 numerical route in this repository cites:
   every `C(a)`.
 * The matrix entry formulas (and any role of the digamma function `psi`) live
   behind the access wall and were **NOT obtained**. Per repository integrity
-  rules (`AGENTS.md` §6), no formula is fabricated here.
+  repository source-data rules, no formula is fabricated here.
 
 Consequence for the plan (updated 2026-08-27 evening): route (a) is now
 satisfied by a different open primary source. Bombieri 2000, section 7

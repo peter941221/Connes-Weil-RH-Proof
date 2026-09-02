@@ -15,7 +15,7 @@ Every formula is the repo's own (Lean refs):
   g = P(D)h with P(D) = D(D+1/2)(D+1)  =>  L_g(s) = (0-s)(1/2-s)(1-s) L_h(s)
       (integration by parts on compact support; the SAME operator as the
       proven-positive narrow root: tripleVanishingRoot, C1LaneRD3Root.lean:264;
-      g_v(x) = t''' + (3/2)t'' + (1/2)t', p3_probe_qw_narrow.py header).
+      g_v(x) = t''' + (3/2)t'' + (1/2)t', from the archived narrow-width probe header).
       Hence for EVERY h: poleTerm(g^2) = Re[L_F(1/2)+L_F(-1/2)] = 0 exactly,
       by the Hermitian square law L_{g^2}(s) = conj(L_g(-conj s)) * L_g(s)
       (C1HealthyYoshidaDetector.lean:48), and the probe tracks qw by

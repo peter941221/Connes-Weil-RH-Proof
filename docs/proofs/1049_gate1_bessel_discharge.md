@@ -116,7 +116,7 @@ shell-level project `cd`, 3644 jobs, zero `error:` lines, the success footer,
 zero `sorryAx`, and seven `#print axioms` reports containing exactly
 `[propext, Classical.choice, Quot.sound]`.
 
-New mechanics for AGENTS.md 7e: when feeding a term with a beta-reducible
+New mechanics for the Lean/Mathlib hazard ledger: when feeding a term with a beta-reducible
 function argument into an implicit-argument slot, instantiate the implicit
 FIRST via named arguments; do not rely on higher-order pattern unification
 to guess a constant function.

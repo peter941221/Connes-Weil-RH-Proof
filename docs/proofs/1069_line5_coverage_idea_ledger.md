@@ -227,8 +227,9 @@ PRIMARY: G (constructive dual hunter) via LEVEL-1 - implement the Weil
     - r -> 0: the adaptive frame (A) is forced; the exponent -0.55 is the
       budget constraint the frame must beat.
   Preconditions: pin CC20's test conventions from the 1057 tex map; the repo
-  has NO qw implementation today (recon 2026-08-31: pyIH.py is a Lean-file
-  generator, scratch_nyman_block.py has only digamma/Gram parts).
+  has NO qw implementation today (recon 2026-08-31: the former root-level
+  Lean generator was private scratch code, while
+  scripts/scratch_nyman_block.py contains only digamma/Gram parts).
 SIDE (cheap, one session): B (lambda* ~ 1.05158 as zero shadow) - build
   T(lambda) from the landed eq-115 table and test responsiveness to zero
   data; the structural caveat (arithmetic+archimedean only, zeros enter

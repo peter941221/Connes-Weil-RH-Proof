@@ -256,7 +256,7 @@ python docs/proofs/1055_semilocal_p2b_probe.py        # ~6 min
 Harness structure: `control_3point` (Claim A), `tail_growth_demo` and
 `precision_wall` (Claim B), `p2b_fd_table` (labelled artefact data only),
 `base_physics` (exact-start reference energies). Known numeric landmines
-recorded in AGENTS.md section 7c/7d: Stieltjes/QR coefficient recovery is
+recorded in the project hazard ledger: Stieltjes/QR coefficient recovery is
 catastrophically ill-conditioned for these exponential weights; the direct
 Euler channel is the FIRST variation along `exp(2 t cos(2 L s))`, not a second
 derivative; Lanczos here needs full reorthogonalization twice and is still

@@ -53,7 +53,8 @@ But `commonTestFunction` can be chosen with its squared convolution vanishing at
 holds trivially. The existential escapes the contradiction.
 
 => `Common Wconcrete` is NOT structurally empty. 923's "empty" is overturned.
-The correct provable statement is the probe (`probe_balance_false`), which MEMORY.md records.
+The correct provable statement is the probe (`probe_balance_false`), which the
+dated proof records preserve.
 
 ## 3. Why the `:653` axiom is still an honesty barrier (cannot be removed by a leaf)
 

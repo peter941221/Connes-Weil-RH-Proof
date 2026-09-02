@@ -42,7 +42,7 @@ Therefore
       * (psi((r+1)/L)-psi(r/L)).                         (M4.3)
 ```
 
-This is a finite formula. `scratch_nyman_block.py --exact` implements it with
+This is a finite formula. `scripts/scratch_nyman_block.py --exact` implements it with
 a positive-real digamma recurrence and asymptotic expansion. Through `N=32`,
 the normalized certificate from (M4.3) differs from the two-million-term
 calculation by approximately `1e-5` or less:
@@ -469,7 +469,7 @@ track each other.
 
 ## 11. Final Large-Scale Rejection Run
 
-The matrix-free CUDA mode in `scratch_nyman_block.py` avoids constructing the
+The matrix-free CUDA mode in `scripts/scratch_nyman_block.py` avoids constructing the
 full `2N` Gram matrix. It forms the old basis through cutoff `M`, constructs the
 selected block vector directly, and solves the two normal equations for the
 target and block projections with diagonally preconditioned conjugate gradient.
@@ -477,7 +477,7 @@ target and block projections with diagonally preconditioned conjugate gradient.
 Command shape:
 
 ```text
-python scratch_nyman_block.py --gpu-n 4096 --cutoff 250000
+python scripts/scratch_nyman_block.py --gpu-n 4096 --cutoff 250000
 ```
 
 The relative normal-equation residuals were below `1e-11`. The resulting

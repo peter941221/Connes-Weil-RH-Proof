@@ -14,7 +14,8 @@ Date: 2026-08-22. Companion modules: `ConnesWeilRH/Dev/C1Stage3ProjectionKernel.
 > `0 ≤ qw narrowArchRoot` and spectral nonnegativity of its square (axiom-clean, no
 > `sorryAx`). This de-risks but does **not** replace the projection-square analytic
 > route below: that general route (Gates 1-4) is still required for arbitrary vanishing
-> squares = global spectral nonnegativity. See MEMORY.md change log 2026-08-19.
+> squares = global spectral nonnegativity. See the dated proof records for the
+> 2026-08-19 change log.
 
 ## What it is
 

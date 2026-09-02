@@ -59,7 +59,7 @@ Source: `ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean:351-413`,
    not bookkept.
 
 3. **The arithmetic sum is finite for a compactly supported owner.**
-   `C1SameOwnerWeil.globalPrimeIndexSet F` is an exact finite set (AGENTS.md
+   `C1SameOwnerWeil.globalPrimeIndexSet F` is an exact finite set (the route
    "C1XiArithmeticPrimePowerAssembly"), because `F(b) + F(-b)` vanishes once
    `|b|` exceeds the support radius.  So the producer faces a finite
    reorganization problem, not a tail-convergence problem.  Any design that

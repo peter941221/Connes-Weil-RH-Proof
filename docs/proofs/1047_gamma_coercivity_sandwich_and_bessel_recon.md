@@ -102,7 +102,8 @@ alongside `extract_source.py` / `gen_eq115_table.py` for provenance.
 
 Two small probes are retained with this checkpoint:
 `C1CC20GammaBesselProbe.lean` (the FTOC-integral reconnaissance) and the
-root-level `probe_sinh.lean` (exp-independence API reconnaissance).  Neither
+the former root-level hyperbolic-function probe (exp-independence API
+reconnaissance). Neither
 is imported by an accepted route leaf or treated as proof evidence.
 
 ## Why Bessel is the proposed shortcut for the hard version of (gamma)

@@ -220,5 +220,5 @@ ConnesWeilRH/Source/CCM25Concrete/CCM24UnitScaleProlateTraceReduction.lean:
 ConnesWeilRH/Source/CCM25Concrete/CCM24UnitScaleStrictAngle.lean:1492-1507
   (source premises discharged unconditionally)
 docs/proofs/1055_semilocal_p2b_verdict.md sections 4-6 (freeze text)
-AGENTS.md section 7d (live landmine clauses)
+the live route hazard ledger
 ```

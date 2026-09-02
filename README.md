@@ -79,9 +79,9 @@ $$
 \boxed{
 \begin{aligned}
 q_w(g)
-  &=\mathrm{poleTerm}(F_g)
-    -\mathrm{archimedeanTerm}(F_g)
-    -\mathrm{finitePrimeSum}(F_g),\\[2mm]
+  &=\mathrm{poleTerm}(F_g)\\
+  &\quad-\mathrm{archimedeanTerm}(F_g)\\
+  &\quad-\mathrm{finitePrimeSum}(F_g),\\
 q_w(g)
   &=\mathrm{spectralWeilValue}(F_g).
 \end{aligned}
@@ -197,8 +197,9 @@ There is still no automatic arrow from ROOT positivity to this orbit-supported
 detector. The fixed-window D1 bound is too wide for the external
 [-0.8,0.8] candidate interface; map 004 marks that bridge impossible for this
 family. The surviving task is the orbit-window semi-local sign, not support
-discovery. See [record 1089](docs/proofs/1089_orbit_certificate_extension_design.md)
-and the numerical-only [record 1087](docs/proofs/1087_c3_root_window_spectral_verdict.md).
+discovery. See the formal ROOT-support interface in
+[proof 1080](docs/proofs/1080_c2_detector_pinning_exit.md) and the
+numerical-only [record 1087](docs/proofs/1087_c3_root_window_spectral_verdict.md).
 
 ## 4. The route choice: B1 or B5
 
@@ -209,14 +210,20 @@ $$
 \begin{aligned}
 \mathrm{B1}:&\quad
 \left(\forall g,\quad
-  \mathrm{tripleVanishing}(g)\Longrightarrow q_w(g)\ge0\right)
-  \Longrightarrow \mathrm{RH},\\[1mm]
+  \mathrm{tripleVanishing}(g)\Longrightarrow q_w(g)\ge 0\right)\\
+&\quad\Longrightarrow \mathrm{RH}.
+\end{aligned}
+}
+$$
+
+$$
+\boxed{
+\begin{aligned}
 \mathrm{B5}:&\quad
 \left(\forall\rho,\quad
-  \mathrm{Re}(\rho)>\frac12\Longrightarrow
-  \exists g\,
-  \bigl(\mathrm{Healthy}(\rho,g)\land q_w(g)\ge0\bigr)\right)
-  \Longrightarrow \mathrm{RH}.
+  \mathrm{Re}(\rho)>\frac12\Longrightarrow\exists g,\\
+&\qquad \mathrm{Healthy}(\rho,g)\land q_w(g)\ge 0\right)\\
+&\quad\Longrightarrow \mathrm{RH}.
 \end{aligned}
 }
 $$
@@ -238,118 +245,141 @@ The endpoint scope is maintained by
 
 ## 5. Representative Lean interfaces
 
-The following declarations are the small set that best exposes the formal
-architecture. They are not a claim that the surrounding modules are complete.
+Each item pairs one declaration with the mathematical relation it exposes.
+The links point to the owning Lean lines; they do not claim that the open
+analytic producer has already been proved.
 
-| Lean interface | What it fixes | Status and evidence |
-| :-- | :-- | :-- |
-| centerTwo_arithmetic_eq_spectral | One CompactLogTest owner has matching arithmetic and spectral values | [C1XiCenterTwoArithmeticAssembly.lean#L232](ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean#L232) |
-| exists_healthyDetectorData_of_sourceNontrivialZero_right | A right-oriented off-line zero produces one healthy detector | [C1HealthyYoshidaSpectralNegativity.lean#L511](ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean#L511) |
-| qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf | A ROOT certificate implies the same-owner nonnegative sign | [C1CC20ArchimedeanReadback.lean#L133](ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L133) |
-| orbitWindowSemiLocalGate and qw_nonneg_of_orbitWindowSemiLocalGate | The orbit-window C3 sign is one Prop with a one-line bridge to q_w(g) >= 0 | [C1OrbitWindowSemiLocalGate.lean#L57](ConnesWeilRH/Dev/C1OrbitWindowSemiLocalGate.lean#L57) |
-| healthy_sourceRH_of_right_detector_specific_qw_nonneg | The exact B5-shaped contradiction interface to SourceRH | [C1HealthyYoshidaSpectralNegativity.lean#L554](ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean#L554) |
-| eulerLog_weighted_pair_traces_eq_finitePrimeTerm_pow | A crossing trace reads back to the exact finite prime-power coefficient | [SelectedCrossingKernel.lean#L390](ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean#L390) |
-| not_normalizedCC20MellinConvolutionLaw | The old additive socket cannot implement the Mellin square law | [CC20YoshidaConstruction.lean#L2727](ConnesWeilRH/Source/CC20YoshidaConstruction.lean#L2727) |
+1. **Same-owner arithmetic and spectral values: `centerTwo_arithmetic_eq_spectral`**
 
-### 5.1 The arithmetic-to-spectral bridge
+   The same `CompactLogTest` is read in both languages:
 
-This is the center-2 equality that lets the same test be read in both
-languages:
+   $$
+   \boxed{
+   \begin{aligned}
+   \psi_{\mathrm{arith}}(F)&=\psi_{\mathrm{spec}}(F),\\
+   &\qquad F:\mathrm{CompactLogTest}.
+   \end{aligned}
+   }
+   $$
 
-~~~lean
-theorem centerTwo_arithmetic_eq_spectral
-    (F : CompactLogTest) :
-    C1SameOwnerWeil.psi F = spectralWeilValue F := by
-  exact centerTwo_arithmetic_eq_spectral_of_gamma_contract F
-    (centerTwoGammaReadbackContract_of_halfAnchorGauss F)
-~~~
+   Evidence: [C1XiCenterTwoArithmeticAssembly.lean#L232](ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean#L232).
 
-Evidence:
-[C1XiCenterTwoArithmeticAssembly.lean#L232](ConnesWeilRH/Dev/C1XiCenterTwoArithmeticAssembly.lean#L232).
-The declaration is an equality under its explicit owner and analytic
-contracts; it is not a premise-free RH theorem.
+2. **Healthy detector from a right-oriented zero: `exists_healthyDetectorData_of_sourceNontrivialZero_right`**
 
-### 5.2 The ROOT endpoint consumer
+   A hypothetical zero to the right of the critical line supplies one detector package:
 
-The endpoint interface is deliberately separated from the certificate
-producer:
+   $$
+   \boxed{
+   \begin{aligned}
+   \rho\in\mathrm{sourceNontrivialZeroSet},\quad
+   \frac12<\mathrm{Re}(\rho),\quad
+   \mathrm{Re}(\rho)\ne\frac12\\
+   &\Longrightarrow\exists g:\mathrm{CompactLogTest},\;
+     \mathrm{HealthyYoshidaDetectorData}(\rho,g).
+   \end{aligned}
+   }
+   $$
 
-~~~lean
-theorem qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf
-    (g : CompactLogTest)
-    (hvanishes :
-      CC20VanishesOn C1.healthyCC20TestSpace
-        cc20TripleFiniteVanishingSet g)
-    (hsupport :
-      Function.support g.test ⊆
-        Set.Icc (-(Real.log 2 / 2)) (Real.log 2 / 2))
-    (hcertificate : CC20EndpointTraceCertificate g) :
-    0 ≤ C1SameOwnerWeil.qw g
-~~~
+   Evidence: [C1HealthyYoshidaSpectralNegativity.lean#L511](ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean#L511).
 
-Evidence:
-[C1CC20ArchimedeanReadback.lean#L133](ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L133).
-The missing mathematics is the construction of hcertificate, not the
-logical use of a certificate once supplied.
+3. **ROOT endpoint consumer: `qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf`**
 
-### 5.3 The minimal B5 exit
+   The endpoint certificate is a separate input, while the sign conclusion belongs to the same owner:
 
-The active exit asks for one nonnegative value for the same detector that Lean
-already proves to be negative:
+   $$
+   \boxed{
+   \begin{aligned}
+   \mathrm{Vanishes}(g)&\land
+     \mathrm{supp}(g)\subseteq
+       \left[-\frac{\log 2}{2},\frac{\log 2}{2}\right]\\
+   &\land\mathrm{EndpointCertificate}(g)
+     \Longrightarrow q_w(g)\ge 0.
+   \end{aligned}
+   }
+   $$
 
-~~~lean
-theorem healthy_sourceRH_of_right_detector_specific_qw_nonneg
-    (hsemiLocal : ∀ rho : sourceNontrivialZeroSet,
-      (1 / 2 : Real) < rho.1.re →
-        ∃ g : CompactLogTest,
-          HealthyYoshidaDetectorData rho.1 g ∧
-            0 ≤ C1SameOwnerWeil.qw g) :
-    RHDefinitionBridge.standard.SourceRH
-~~~
+   Evidence: [C1CC20ArchimedeanReadback.lean#L133](ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L133).
 
-Evidence:
-[C1HealthyYoshidaSpectralNegativity.lean#L554](ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean#L554).
-The theorem is a conditional implication. The open producer is exactly
-hsemiLocal.
+4. **Selected semi-local residual: `projectionResponse_eq_selectedEulerBoundary_add_residual`**
 
-### 5.4 The orbit-window C3 gate
+   The selected detector keeps the visible Euler boundary and the remaining
+   projection residual as separate terms:
 
-Record 1089 makes the remaining sign obligation a single proposition on the
-same explicit detector:
+   $$
+   \boxed{
+   \begin{aligned}
+   \mathrm{ProjectionResponse}(g)&=
+     \mathrm{VisibleEulerBoundary}(g)+\mathrm{Residual}(g),\\
+   \mathrm{Vanishes}(g)\land
+     \text{sign certificate}(g)&\Longrightarrow q_w(g)\ge 0.
+   \end{aligned}
+   }
+   $$
 
-~~~lean
-def orbitWindowSemiLocalGate (g : CompactLogTest) : Prop :=
-  C1SameOwnerWeil.archimedeanTerm g.convolutionSquare +
-      C1SameOwnerWeil.finitePrimeSum g.convolutionSquare <= 0
+   Evidence: [C1SelectedDetectorSemiLocalResidual.lean#L79](ConnesWeilRH/Dev/C1SelectedDetectorSemiLocalResidual.lean#L79).
 
-theorem qw_nonneg_of_orbitWindowSemiLocalGate
-    (g : CompactLogTest)
-    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
-        cc20TripleFiniteVanishingSet g)
-    (hgate : orbitWindowSemiLocalGate g) :
-    0 <= C1SameOwnerWeil.qw g
-~~~
+5. **Support and visible-prime ownership: `support_subset_Icc` and `mem_globalPrimeIndexSet_iff`**
 
-The same module exports one pinned detector carrying the support and visible
-prime-power data:
+   The same `CompactLogTest` owns both its support radius and its finite
+   visible prime-power set:
 
-~~~lean
-theorem exists_pinnedOrbitDetector_with_window_and_visiblePrimes
-    (rho : sourceNontrivialZeroSet)
-    (hoff : rho.1.re ≠ 1 / 2)
-    (hright : (1 / 2 : Real) < rho.1.re) :
-    ∃ g : CompactLogTest, ∃ n : Nat,
-      HealthyYoshidaDetectorData rho.1 g ∧
-      Function.support g.test ⊆
-        Set.Ioo (-((n + 2 : ℕ) : Real)) (((n + 2 : ℕ) : Real)) ∧
-      ∀ q ∈ C1SameOwnerWeil.globalPrimeIndexSet g.convolutionSquare,
-        (q : Real) < Real.exp (2 * ((n + 2 : ℕ) : Real))
-~~~
+   $$
+   \boxed{
+   \begin{aligned}
+   \mathrm{supp}(F.test)&\subseteq[-R_F,R_F],\\
+   n\in\mathrm{globalPrimeIndexSet}(F)&\Longleftrightarrow
+     \mathrm{IsPrimePow}(n)\land
+     \mathrm{finitePrimeTermComplex}(F,n)\ne 0.
+   \end{aligned}
+   }
+   $$
 
-Evidence:
-[C1OrbitWindowSemiLocalGate.lean#L57](ConnesWeilRH/Dev/C1OrbitWindowSemiLocalGate.lean#L57)
-and [record 1089](docs/proofs/1089_orbit_certificate_extension_design.md).
-This closes the data and support interface; it does not prove the gate.
+   Evidence: [C1SameOwnerWeil.lean#L77](ConnesWeilRH/Dev/C1SameOwnerWeil.lean#L77) and [C1SameOwnerWeil.lean#L149](ConnesWeilRH/Dev/C1SameOwnerWeil.lean#L149).
+
+6. **Minimal B5 exit: `healthy_sourceRH_of_right_detector_specific_qw_nonneg`**
+
+   One nonnegative value for the detector selected against each right-hand zero is enough for the logical exit:
+
+   $$
+   \boxed{
+   \begin{aligned}
+   &\left[\forall\rho,\quad
+     \mathrm{Re}(\rho)>\frac12\Longrightarrow\exists g,\\
+   &\qquad \mathrm{Healthy}(\rho,g)\land q_w(g)\ge 0\right]\\
+   &\qquad\Longrightarrow \mathrm{SourceRH}.
+   \end{aligned}
+   }
+   $$
+
+   Evidence: [C1HealthyYoshidaSpectralNegativity.lean#L554](ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean#L554).
+
+7. **Prime-power trace readback: `eulerLog_weighted_pair_traces_eq_finitePrimeTerm_pow`**
+
+   A paired crossing trace carries the exact finite-prime coefficient:
+
+   $$
+   \boxed{
+   \frac{1}{m\sqrt{p^m}}
+   \left(\mathrm{Tr}\,K_{p^m}+\mathrm{Tr}\,K_{p^m}^{\mathrm{rev}}\right)
+   =W_{p^m}(F_g).
+   }
+   $$
+
+   Evidence: [SelectedCrossingKernel.lean#L390](ConnesWeilRH/Source/CCM25Concrete/SelectedCrossingKernel.lean#L390).
+
+8. **Normalized-socket rejection: `not_normalizedCC20MellinConvolutionLaw`**
+
+   The old additive socket doubles a Mellin value, so it cannot be the Weil square:
+
+   $$
+   \boxed{
+   \widetilde g(z)=1,\qquad
+   \widetilde{g\star_{\mathrm{add}}g}(z)=2
+   \ne 1=\widetilde g(z)\widetilde g(1-z).
+   }
+   $$
+
+   Evidence: [CC20YoshidaConstruction.lean#L2727](ConnesWeilRH/Source/CC20YoshidaConstruction.lean#L2727).
 
 ## 6. Frozen and deferred routes
 
@@ -363,7 +393,7 @@ not mistaken for the current RH strategy.
 | Gate 3U and Lane R | Archived | Physical finite-band and prefix/tail sign experiments do not supply global spectral nonnegativity | [RH_MAINLINE_FREEZE.md](RH_MAINLINE_FREEZE.md) |
 | Nyman--Beurling / Mobius blocks | Historical obstruction | The projected energy retains the inverse Gram matrix G_N^{-1} | [proof 020](docs/proofs/020_nyman_mobius_m4_first_verdict.md) |
 | Titchmarsh square-form bridge | Deliberately deferred | A formal reverse support theorem needs Paley--Wiener / Cartwright machinery not present in Mathlib | [architecture record 1043](docs/map/001_first_cut_window_architecture.md) |
-| External [-0.8,0.8] compact-window candidate for the D1 orbit | Blocked for this detector family | The formal orbit window is Ioo(-(n+2), n+2), so the M6 support bridge cannot hold | [map 004](docs/map/004_endpoint_literature_interface_audit.md), [record 1089](docs/proofs/1089_orbit_certificate_extension_design.md) |
+| External [-0.8,0.8] compact-window candidate for the D1 orbit | Blocked for this detector family | The selected detector still needs a support-compatible semi-local bridge | [map 004](docs/map/004_endpoint_literature_interface_audit.md), [record 1087](docs/proofs/1087_c3_root_window_spectral_verdict.md) |
 
 ### 6.1 The normalized-socket guard
 
@@ -497,40 +527,108 @@ infinite-dimensional sign.
 
 ## 9. Sources and repository map
 
-Primary mathematical sources:
+The repository uses several source layers. A citation below records the role of
+the source; it does not turn an open source-interface contract into a proved
+theorem.
 
-1. Alain Connes and Caterina Consani, *Weil positivity and Trace formula: the
-   archimedean place*,
-   [arXiv:2006.13771](https://arxiv.org/abs/2006.13771).
-2. Alain Connes, Caterina Consani, and Henri Moscovici, *Zeta Zeros and Prolate
-   Wave Operators: Semilocal Adelic Operators*,
-   [arXiv:2310.18423](https://arxiv.org/abs/2310.18423).
-3. Marcus Chuk, *Weil positivity in compact windows: certified two-sided
-   bounds and a Landau--Widom decay law*,
-   [arXiv:2608.24827](https://arxiv.org/abs/2608.24827).
+### 9.1 External mathematical sources
 
-The third item is an unreviewed external candidate. Its conventions and
-certificate interface are not yet landed in Lean. The project's Mellin-square
-dictionary is derived in
-[proof 1070](docs/proofs/1070_weil_q_hunting_level1.md).
+1. **CC20: Connes--Consani, *Weil positivity and Trace formula: the archimedean place*.**
+   [arXiv:2006.13771](https://arxiv.org/abs/2006.13771) supplies the
+   archimedean trace template, Mellin half-density convention, and Proposition
+   C.1. The source file used by the project is `weil-compo.tex`.
 
-Repository layout:
+2. **CCM24: Connes--Consani--Moscovici, *Zeta Zeros and Prolate Wave Operators: Semilocal Adelic Operators*.**
+   [arXiv:2310.18423](https://arxiv.org/abs/2310.18423) supplies the fixed-
+   `S` semilocal model, support/Fourier transport, bounded comparison, and
+   Sonin-space context. The source file is `mainc2m24fine.tex`.
 
-~~~text
-ConnesWeilRH/
-  Source/       imported definitions and reusable analytic/operator facts
-  Route/        conditional route compositions and equivalence audits
-  Dev/          research-frontier leaves with focused audit modules
+3. **CCM25: Connes--Consani--Moscovici, *Zeta Spectral Triples*.**
+   [arXiv:2511.22755](https://arxiv.org/abs/2511.22755) supplies the `QW`,
+   `QW_lambda`, finite-prime, pole, and half-density interfaces. Its numerical
+   or spectral-convergence discussion is not imported as a theorem. The source
+   file is `mc2arXiv.tex`.
 
-docs/map/       route authority and endpoint-interface decisions
-docs/proofs/    derivations, proof records, and numerical diagnostics
-scripts/        certificate generation and resource-aware build helpers
-~~~
+4. **Yoshida: H. Yoshida, *On Hermitian Forms Attached to Zeta Functions*.**
+   [Project Euclid, DOI 10.2969/aspm/02110281](https://projecteuclid.org/ebooks/advanced-studies-in-pure-mathematics/Zeta-Functions-in-Geometry/chapter/On-Hermitian-Forms-attached-to-Zeta-Functions/10.2969/aspm/02110281.pdf)
+   is the historical fixed-support Hermitian-form route. The full matrix tables
+   remain access-restricted; the repository records that boundary in the
+   architecture map.
 
-The final Mathlib target is
-[_root_.RiemannHypothesis](https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/NumberTheory/LSeries/RiemannZeta.lean).
-The root import is [ConnesWeilRH.lean](ConnesWeilRH.lean).
+5. **Bombieri: E. Bombieri, *Remarks on Weil's quadratic functional in the theory of prime numbers, I*.**
+   [BDIM scan](http://www.bdim.eu/item?fmt=pdf&id=RLIN_2000_9_11_3_183_0) and
+   [EUDML record](https://eudml.org/doc/252338) provide an accessible finite-
+   certificate discussion, the sinc kernel, and the section-7 matrix formulas.
+   They support route reconstruction; the conditional zero-detector statements
+   are not an unconditional positivity proof.
+
+6. **Burnol: Jean-Francois Burnol, *Sur les espaces de Sonine associes par de Branges a la transformation de Fourier*.**
+   [arXiv:math/0208121](https://arxiv.org/abs/math/0208121) supplies the Sonine
+   projection and evaluator-kernel context used by the deferred boundary work.
+
+7. **Connes--Moscovici, *The UV prolate spectrum matches the zeros of zeta*.**
+   [PMC9295779](https://pmc.ncbi.nlm.nih.gov/articles/PMC9295779/) motivates
+   the prolate/Sonin detector direction. It is a detector reference, not a
+   completed Lean sign theorem.
+
+8. **Titchmarsh: E. C. Titchmarsh, *The zeros of certain integral functions*.**
+   [DOI 10.1112/plms/s2-25.1.283](https://doi.org/10.1112/plms/s2-25.1.283)
+   is the classical convolution-support theorem behind the deferred
+   square-support bridge.
+
+9. **Beurling: A. Beurling, *A closure problem related to the Riemann zeta-function*.**
+   [DOI 10.1073/pnas.41.5.312](https://doi.org/10.1073/pnas.41.5.312) is the
+   source for the density criterion whose finite-dimensional obstruction is
+   recorded in proof 020.
+
+10. **Camara: M. C. Camara, Toeplitz/Wiener--Hopf factorization survey.**
+   [arXiv:1710.11572](https://arxiv.org/html/1710.11572) is cited for the
+   kernel/index warning: factorization alone does not produce a nonzero
+   Toeplitz kernel.
+
+11. **Chuk: Marcus Chuk, *Weil positivity in compact windows: certified two-sided bounds and a Landau--Widom decay law*.**
+   [arXiv:2608.24827](https://arxiv.org/abs/2608.24827) is an unreviewed
+   external candidate for endpoint certificates. Its conventions and numerical
+   bounds still need a project-owned bridge.
+
+12. **Special-function references.** The prolate and Gamma-side checks use the
+    [NIST Digital Library of Mathematical Functions](https://dlmf.nist.gov/18.15),
+    [§18.23](https://dlmf.nist.gov/18.23.E4), and
+    [§25.10](https://dlmf.nist.gov/25.10). These references support formula
+    verification; they do not supply the route's missing semi-local theorem.
+
+### 9.2 Project evidence and repository map
+
+1. **Source audit.** [Source Reread Audit](docs/audits/source-reread-v0.2.md)
+   maps `weil-compo.tex`, `mainc2m24fine.tex`, and `mc2arXiv.tex` to the
+   theorem-shaped interfaces. [Source Import Legitimacy Audit](docs/audits/source-import-legitimacy-audit.md)
+   records which claims remain source-conditional.
+
+2. **Route authority.** [Map index](docs/map/README.md) points to
+   [001](docs/map/001_first_cut_window_architecture.md),
+   [002](docs/map/002_one_shot_rh_route_verdict.md),
+   [003](docs/map/003_b1_b5_minimal_exit_route_selection.md), and
+   [004](docs/map/004_endpoint_literature_interface_audit.md). Record 003
+   binds the healthy-`CompactLog`, B5-shaped route; record 004 owns endpoint
+   provenance and the C3 boundary.
+
+3. **Formula and detector records.** [Proof 1057](docs/proofs/1057_cc20_verbatim_delta_chain_and_numbering_map.md)
+   pins CC20 equation numbers; [proof 1070](docs/proofs/1070_weil_q_hunting_level1.md)
+   derives the Mellin-square dictionary; [proof 1080](docs/proofs/1080_c2_detector_pinning_exit.md)
+   records the detector-pinning boundary, while [record 1087](docs/proofs/1087_c3_root_window_spectral_verdict.md)
+   records the numerical C3 status.
+
+4. **Code layout.** `ConnesWeilRH/Source/` holds reusable definitions and
+   source-facing contracts; `ConnesWeilRH/Route/` holds conditional route
+   composition; `ConnesWeilRH/Dev/` holds research-frontier leaves and paired
+   audits; `docs/map/` holds binding route decisions; `docs/proofs/` holds
+   derivations and diagnostics; `scripts/` holds certificate generators and
+   resource-aware build helpers.
+
+5. **Final formal target.** The root import is
+   [ConnesWeilRH.lean](ConnesWeilRH.lean), and the final Mathlib target is
+   [_root_.RiemannHypothesis](https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/NumberTheory/LSeries/RiemannZeta.lean).
 
 ## License
 
-Apache License 2.0. See [LICENSE](LICENSE).
+MIT License. See [LICENSE](LICENSE).

@@ -360,7 +360,7 @@ world that knows about off-line zeros".
 Priors already on file:
 
 - `qw narrowArchRoot ~= +5.82e48 +- 8.5e46 > 0` (kill-test 1016 era,
-  `MEMORY.MD:197,225`), and this one is backed by a Lean THEOREM:
+  the dated project proof log), and this one is backed by a Lean THEOREM:
   `narrowArchRoot_qw_pos` (`Dev/C1LaneRStrictness.lean:260`), rigorous
   lower bound +1.26e48.  One explicit vanishing test is proven
   positive; the gap is ALL vanishing tests.

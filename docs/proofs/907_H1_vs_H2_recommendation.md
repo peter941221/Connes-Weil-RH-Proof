@@ -83,7 +83,7 @@ theorem normalizedCC20_source_rh_of_square_restricted_route_criterion
 1. **H1**：写 `hiloBridgeToRoute`，把 route 的 cc 从 `normalizedLegalSquareTraceScaleToCC20TraceModel` 重指到 `reTypedArchimedean`（补一个 ae/measure 桥使 Mellin half-density 落地），build + `#print axioms`，只动 `Dev` + 一个 route 重写，不碰 `weilForm`。
 2. **H1 冒烟审计**：确认 `#print axioms` 保持 `[propext, Classical.choice, Quot.sound]`（无新项目 axiom）。
 3. **H2（需 Peter 拍板，架构级）**：重建 `SourceFinitePrimeExactSupportData` 为 per-test index（或舍弃全局 `exactSupport`），先量化改动的 axiom 数量，再定要不要动。
-4. 每条路 1-2 行写进 `MEMORY.md`（`<date> <file> : what + why`）。
+4. 每条路 1-2 行写进日期化 proof record（`<date> <file> : what + why`）。
 
 ## 7. 附录（本会话"打到底"实证：两条杠杆的真实底线）
 

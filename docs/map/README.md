@@ -54,7 +54,7 @@ a campaign or batched build to end. Cite the evidence and label the result as
 formal, literature-backed, or a project candidate.
 
 If an update changes binding route authority or current status, synchronize
-the repository `README` and `AGENTS.md` in the same change. Keep raw or
+the repository `README` and `RH_MAINLINE_FREEZE.md` in the same change. Keep raw or
 unresolved numerical observations in [`../proofs/`](../proofs/); they do not
 by themselves change a map conclusion. A new route-level record receives the
 next sequential `00N_` filename.
