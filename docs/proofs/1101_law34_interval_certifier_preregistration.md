@@ -45,7 +45,7 @@ remainder a theorem-valid formula; no float64 node or weight trusted):
 |---|---|---|
 | `F(y)`, `F(0)`, `F(log q)`, moment squares | Gauss-Legendre on the interior core `[-1+eta, 1-eta-y/a]` + two endpoint ball cells of width `eta = 0.02` (legendre family only; the sine family is entire and needs no balls) | core remainder `|E| <= 8 * M_rho * rho^{1-2n} / (rho^2-1)` (REGISTERED constant 8 vs the classical Chebyshev-coefficient bound `2 M rho^{-k}` summed over k >= n, x2 margin) with `rho = 1 + 0.9 * eta/half`; `M_rho` a CLOSED-FORM theorem bound (triangle inequality + `|1-z^2| >= Delta` with `Delta = 0.9*(2 eta - eta^2)`, `|exp(-1/(1-z^2))| <= exp(1/Delta)` on the region, `|poly(z)| <= P * Rx^deg`, `|R_m(z)| <= N_m * Rx^deg / Delta^{2m}`; both `Delta` and the bounds VERIFIED by G-mrho on the ellipse boundary) — no sampling, no margin; GL node/weight float64 rounding REGISTERED `n * 2^-52 * (n * sup|H| + 2 * sup|H'|)`; ball cells `|int| <= eta * a * B_0 B_k` with closed-form pointwise `B_k = bsup * (1/a)^k * sum_j C(k,j) P_j N_{k-j} (1.98 eta)^{-2(k-j)}`, `bsup = exp(-1/(2 eta - eta^2))`, sup-at-inner-edge REGISTERED (`eta = 0.02 < 1/(4*8)`, each `(b R_m)` term increasing on the cell); n_gl = 4096 |
 | `I_body` | composite Simpson on the adaptive mesh `y_{j+1} = y_j (1+theta)` from `s0`, 3 h-evals per cell | `|E_j| <= span^5 * M4_cell / 90` per cell, `M4_cell <= max |h''''|` over the cell by absolute-max unary interval evaluation at 3 nodes (h'''' is interval-evaluable everywhere on the mesh: cells avoid 0), x1.16 theta REGISTERED safety |
-| first cell `[0, s0]` | Taylor ladder `s0 h0 + s0^2 h1/2 + s0^3 h2/3 + s0^4 h3/4` + remainder `s0^4 * M4/24` | `h0 = F0/2`, `h1 = F2 + F0/8`, `h2 = F2/2 - F0/16`, `h3 = F4 - F2/24 - 7 F0/384` (series of `N = e^{y/2}F - F0` over `sinh`, all closed forms via `F0`, `F2 = -(1/2) int (f')^2`, `F4 = (1/24) int (f'')^2` — series algebra in the y^m-coefficients: `N_1 = F0/2`, `N_2 = F0/8 + F2`, `N_3 = F0/48 + F2/2`, `N_4 = F0/384 + F2/8 + F4`, `h0 = N_1`, `h1 = N_2`, `h2 = N_3 - h0/6`, `h3 = N_4 - h1/6`); `M4 = sup|h''''|` on `[0, s0]` by interval evals at 4 positive points x a REGISTERED `(1 + 4 s0)` growth margin — the 4th-order term is certified, not cut (`s0 = 2^-35`; the certified-width impact of every order-4+ term is `<= 1e-34`); the y^5-coefficient would need `F^(6)(0) = -int (f''')^2` and is NOT used |
+| first cell `[0, s0]` | Taylor ladder `s0 h0 + s0^2 h1/2 + s0^3 h2/3 + s0^4 h3/4` + remainder `M4Q * s0^4/96` (pole-free Q-bound; the original `s0^4 * M4/24` Leibniz form is SUPERSEDED by section 3.1) | `h0 = F0/2`, `h1 = F2 + F0/8`, `h2 = F2/2 - F0/16`, `h3 = F4 - F2/24 - 7 F0/384` (series of `N = e^{y/2}F - F0` over `sinh`, all closed forms via `F0`, `F2 = -(1/2) int (f')^2`, `F4 = (1/24) int (f'')^2` — series algebra in the y^m-coefficients: `N_1 = F0/2`, `N_2 = F0/8 + F2`, `N_3 = F0/48 + F2/2`, `N_4 = F0/384 + F2/8 + F4`, `h0 = N_1`, `h1 = N_2`, `h2 = N_3 - h0/6`, `h3 = N_4 - h1/6`); `M4Q = sup|Q''''|` on `[0, s0]` for `Q = N − T3*sinh` (`T3` = the ladder polynomial, `Q` vanishing to order 4 at 0) — the pole-free leg-sup-norm ladder of section 3.1, `sup|F^(7)|` closed by Cauchy–Schwarz with `_sup_whole(7)`; the 4th-order term is certified, not cut (`s0 = 2^-35`; the certified-width impact of every order-4+ term is `<= 1e-34`); the y^5-coefficient would need `F^(6)(0) = -int (f''')^2` and is NOT used |
 | tail `F0 log tanh a`, `C_ARCH`, | arb certified primitives | directed-rounding interval arithmetic (python-flint `arb`, 80 bit default, 256-bit escalation pre-approved) |
 | `h'` | closed form with `F`, `F'` | `F'(y) = int f(u) f'(u+y) du` (boundary terms vanish: `f(+-a) = 0`) |
 | derivative chains | bump `R_m` via recurrence `R_{m+1} = R'_m + R_m * rho'`, `rho = -1/(1-x^2)`, generated programmatically to order 5; Legendre-derivative polynomials exact | audited by G-deriv (finite-difference containment + order-signature), never by belief |
@@ -85,11 +85,20 @@ SEPARATE, later bricks).  The ALL-of-`V` statement is not attempted here.
 | G-eng    | python-flint `arb` loads, version printed;         | ABORT   |
 |          | REQUIRED (no mpmath.iv fallback: certification     |         |
 |          | claims are the product).                            |         |
-| G-deriv  | Derivative chains (bump R_1..R_5, h', F') vs      | ABORT   |
-|          | centered finite differences at 20 rational points: |         |
-|          | intervals CONTAIN the FD values AND shrink by      |         |
-|          | ~16x per halving (order-4 signature); any miss or  |         |
-|          | wrong order -> ABORT.                              |         |
+| G-deriv  | Bump derivative chain (R_1..R_5 assembled to f')  | ABORT   |
+|          | IV-eval vs centered FD of f_float (d/du             |         |
+|          | convention: FD/(2h)/a, h=1e-4) at 12 random      |         |
+|          | interior points: CONTAINS the FD value (slack      |         |
+|          | <= 1e-6*max(1,|fd|)); PLUS the f_float second-    |         |
+|          | difference quotient shows the Richardson order-2   |         |
+|          | signature at h = 2e-3, h/2, h/4 (successive        |         |
+|          | differences r1, r2: |r1|/|r2| within [3.5,4.5]),   |         |
+|          | i.e. the float evaluator is C^4 and the FD limit   |         |
+|          | converges at the right order.  Any miss or wrong   |         |
+|          | order -> ABORT.  Cross-implementation audit of the |         |
+|          | chains (a shared float/IV bug would cancel the     |         |
+|          | self-consistency tests here) is done by G-int vs   |         |
+|          | the independent 1100b rig, not by this gate.       |         |
 | G-mrho   | The REGISTERED region bounds hold on the ellipse   | ABORT   |
 |          | boundary: `|1-z^2| >= Delta = 0.9*(2 eta - eta^2)` |         |
 |          | and `|Re(1/(1-z^2))| <= 1/Delta` at 64 sampled     |         |
@@ -132,9 +141,19 @@ cancelling Leibniz terms), the same enclosure class a float64 evaluation
 gets with a registered forward-error bound.  The v2 model is therefore
 the honest and faster route to the SAME certified enclosures:
 
-- Values: float64, vectorized (numpy), including the GL nodes/weights
-  (their rounding stays covered by the REGISTERED perturbation term
-  `2^-53 (n sup|H| + 2 sup|H'|)`, unchanged).
+- Values: float64, vectorized (numpy), including the GL nodes/weights.
+  Their rounding is covered by the REGISTERED PER-NODE backward error
+  `2^-53 a half sum_i w_i (a |x_i| |dH/dx|_i + |H|_i)`, where `|H|` and
+  `|dH/dx|` are the `_fvals` per-node intermediate-term magnitudes
+  evaluated at the SAME float64 nodes (a valid bound: node `x_i` enters
+  as `f^(j)(a x_i)`; the mean-value step for the difference leg uses the
+  global sup closed forms, sigma-scaled).  The v1 worst-case form
+  `2^-53 (n sup|H| + 2 sup|H'|)` — the same theorem, summed pointwise —
+  was found (pre-run, on the top-K16 direction) to over-count by up to
+  8 orders on high-derivative-scale carriers, because `sup|f|` x
+  `sup|f''''|` ~ `1e16` while the per-node products sum to the
+  integral's own scale.  The registered `2^-53` representation constant
+  and every other formula are UNCHANGED.
 - Arithmetic widths: REGISTERED forward error analysis.  Each f^(k)
   node value carries a magnitude sum `M >= sum |intermediate terms|`
   tracked in the same pass; the leg arithmetic error is bounded by
@@ -149,18 +168,126 @@ the honest and faster route to the SAME certified enclosures:
 - Theorem remainders: UNCHANGED from section 1 (ellipse `8 M_rho
   rho^{1-2n}/(rho^2-1)` with the closed-form `M_rho`; endpoint balls
   `eta a B_0 B_k`; mesh Simpson `span^5 M4_cell/90`; Taylor ladder with
-  `s0^4 M4/24`; G-mrho region verification retained verbatim).
+  the pole-free `M4Q s0^4/96` (widow bullet below); G-mrho region
+  verification retained verbatim).
 - Assembly: `arb` intervals (`IV`) for the final sums, `C_ARCH`,
   `log tanh`, the ladder, and the verdict enclosures.  G-eng unchanged
   (python-flint REQUIRED).
 - `eta = 0.02` exactly as section 1 states (the v1 code had drifted to
   0.028; corrected to the registered value).
+- Degenerate end-of-mesh legs (the `y`-window fully inside the endpoint
+  balls, core interval empty): width = closed-form pointwise endpoint-ball
+  bound `a (2 - eta - sigma) B_0 B_k * 1.1` (the v1 formula) for the
+  legendre family; for the entire sine family, whose `B_k` is not a bump
+  bound, the derivative-sup closed form `(2a - y) sup|f| sup|f^(k)| *
+  (1+1e-9)`.  The float64 VALUE is 0 (the window has shrunk to the flat
+  region for legendre; for sine the whole-domain bound covers the
+  leftover sliver).
+- Widow remainder (`I_first`, the Taylor ladder over `[0, s0]` of section
+  1): at `y ~ s0` the cancellation `N = e^{y/2} F - F0` is NOT
+  float64-certifiable, so the widow evaluations run under the REGISTERED
+  precision escalation (section 4: "precision escalation to 256-bit
+  arb"; `flint.ctx.prec = 256`, scoped and restored), AND -- found
+  necessary on the pre-run smoke of the top-K16 direction -- on
+  ARB-TAYLOR-ENCLOSED nodes/weights: the float64 node representation
+  term `2^-53|x_i|` times `sup|dH/dx|` (~1e14 for K-scale carriers)
+  overshoots any absolute budget once it meets the leg machinery.  The
+  4096-node rule is therefore built ONCE at
+  an escalated RECURRENCE precision `NODE_PREC = 6700` bits by ONE arb
+  pass of the 3-term Legendre recurrence plus an interval
+  Taylor/mean-value certificate per node (NOT a second recurrence
+  pass -- a second pass amplifies the pass-1 input interval widths
+  ~1e-450 by `(1+sqrt2)^n ~ 1e1568` and overflows to +/-inf at the
+  endpoint nodes: pre-run finding).  (Also pre-run: the arb
+  recurrence amplifies each step's outward rounding like
+  `(1+sqrt2)^m <= 3^m` -- interval dependency, NOT removed by point
+  inputs: a 256-bit build ABORTS at node 0 with `|P'| absmin <= 0`;
+  with `|P_m| <= 1` on `(-1,1)` the injected width per step is
+  `<= 3*2^-6700`, so every pass-1 certified width is
+  `<= 4096*3*2^(6493-6700) ~ 1.5e-55`.)  Per node (all interval
+  quantities, arb outward-rounded):
+  `p <= absmax(P_n(x_hat))`, `d >= absmin(P_n'(x_hat))`,
+  `delta1 = (p + 1e-60)/d` (Kantorovich, ASSERTED `<= 1e-14`),
+  `m = x_hat - P(x_hat)/P'(x_hat)`, `e = m - x_hat`,
+  `[P''(x_hat)]` from the Legendre ODE `(1-x^2)P'' = 2xP' - n(n+1)P`
+  at the EXACT float node with the SAME certified `P`, `P'`
+  intervals, `[P'']_seg = [P''(x_hat)] +/- N3*2*delta1` (segment
+  `|x - x_hat| <= 2*delta1`),
+  `[P(m)] subset P + P'(x_hat)*e + [P'']_seg*e^2/2` (quadratic
+  Lagrange form -- exact, no third-order truncation),
+  `[P'(m)] subset P' + [P''(x_hat)]*e +/- N3*delta1^2/2`,
+  `delta = absmax([P(m)]) / (absmin([P'(m)]) - max|[P'']_seg|*2*delta1)`
+  with `N3 = (n-2)(n-1)n(n+1)(n+2)(n+3)/48 >= sup|P_n'''|` on
+  `[-1,1]` (endpoint supremum of `P^(k)`; exact integer product,
+  one float rounding, `1+1e-9` margin): by the mean-value theorem
+  `x* in [m - delta, m + delta]` (asserted per node: contraction
+  `delta <= delta1/2` and budget `delta <= 1e-26`, measured
+  ~3e-27 -- dominated by the endpoint-node quadratic
+  `P''/2*delta1^2 ~ 2.4e-20` over `|P'| ~ 8.4e6`; ABORT on failure).
+  The scipy float64 root is ONLY a starting value -- its accuracy is
+  never assumed.  Weights are enclosed through `z = m +/- delta` by
+  `2/((1-z^2) D^2)` with `D = [P'(m)] +/- [P'']_seg*delta`.  Legs are
+  arb-interval GL sums on this rule with their FULL registered widths
+  (per-node residual `dmax * ~3.3e19 <= 3.3e-7` at the asserted cap,
+  contribution `~ 1e-7` at the measured `dmax` -- the float64
+  `2^-53|x|` form of this term was the ~3.7e3 overshoot), the ellipse
+  theorem remainder at `n = 4096` -- `<= ~1e-50` sine / `<= ~1e-22`
+  legendre -- and the endpoint balls.  The REMAINDER model itself is the
+  pole-free Q-bound (pre-run replacement, located by the diag13
+  decomposition): the section-1 form `M4 = sup|h''''|` by 4-point
+  interval evaluations is NOT interval-certifiable at `y ~ s0`, because
+  the Leibniz expansion `h'''' = sum C(4,j) N^(j) S^(4-j)` has
+  individual `y^-5`-pole terms that cannot cancel in interval
+  arithmetic (measured for top-K16 at `y = s0/8`: term `N^0 S^(4)`
+  width `1.6e-12 * 3.8e58 = 6.1e46`, `|h''''| subset +/-6e46` against a
+  true value ~1e3, giving `rem = s0^4 M4/24 = 3.7e3` -- seven orders
+  over budget; the float-node variant failed with the SAME 3.66e3,
+  proving the FORM, not the node precision, was the obstruction).  No
+  width model fixes a non-cancellable form, so
+  `rem = int_0^s0 (h - T3)` is bounded WITHOUT differentiating
+  `1/sinh`: `T3 = h0 + h1 y + h2 y^2 + h3 y^3` is the exact Taylor-3 of
+  `h = N0/sinh` at 0 (the `_h_consts` coefficient matching, table above:
+  `N_m` the `y^m`-coefficients of `N0`, `h0 = N_1`, `h1 = N_2`,
+  `h2 = N_3 - h0/6`, `h3 = N_4 - h1/6`), `Q := N0 - T3*sinh` vanishes
+  to order 4 at 0, and Taylor's integral form with `sinh(y) >= y` gives
 
-The certified statements, gates, thresholds, and verdict mapping of
-sections 2-4 are UNCHANGED; only the width-derivation mechanism is
-amended.  G-nest now also checks interval NESTING (theta -> theta/2
-single passes, no auto-refinement).  This amendment is committed BEFORE
-the first executed probe (1097b pre-registration-before-run discipline).
+      rem <= M4Q * s0^4 / 96,   M4Q := sup_{[0,s0]} |Q''''|,
+
+  which is POLE-FREE: `Q'''' = N0'''' - (T3*sinh)''''` with
+  `N0''''(y) = e^{y/2} sum_i C(4,i) 2^{i-4} F^(i)(y)` and only
+  `sinh`/`cosh` (bounded by `cosh(s0) <= 1.000...01`) on the polynomial
+  side.  Each `sup|F^(i)|` on `[0,s0]` is the arb leg `F^(i)(s0)` above
+  plus ONE mean-value step `s0 * B_(i+1)`, the ladder terminating at the
+  Cauchy-Schwarz ball `sup|F^(7)| <= sqrt(F0 * 2a) * sup|f^(7)|` with
+  `sup|f^(7)|` the registered closed form `_sup_whole(7)`.  Full leg
+  widths are the right choice here precisely because they enter `M4Q`
+  through `absmax` and a single `s0` factor.  The old `N^0 =
+  (e^{y/2}-1) F + [F(y) - F(0)]` DIRECT-difference integrand
+  (`_df_iv`) is REMOVED together with its consumer -- its `s`-scaled
+  node rounding only ever entered the Leibniz `h''''` term the Q-bound
+  replaces.  Measured pre-run: `first_cell` half-widths `~8e-24` (b0)
+  and `~1.5e-8` (top-K16, `B7`-cascade dominated), inside the REGISTERED
+  widow budget entry `~2e-7`; arch half-widths `1.9e-9` (b0) /
+  `1.04e-7` (K16) vs the `<= 5e-7` budget, and the top-K16 arch interval
+  contains the committed 1100b corrected float64 value.  Everywhere else
+  on the mesh the float64 registered widths stay (the `span^5` factor
+  kills every width term outside the widow); no other precision
+  escalation is used.
+
+The certified statements and the verdict mapping of sections 2 and 4 are
+UNCHANGED; only the width-derivation mechanism is amended.  G-nest now
+also checks interval NESTING (theta -> theta/2 single passes, no
+auto-refinement).  The G-deriv row above replaces the v1 table wording
+("20 points / ~16x order-4 shrinkage", which never matched any code)
+with the criterion the gate actually implements (12-point containment +
+order-2 Richardson signature); it is a self-consistency and smoothness
+audit of the derivative chains, not a certification threshold, and
+tightening it is impossible since a false chain fails containment
+outright.  All other gate thresholds are verbatim.  This amendment is
+committed BEFORE the first executed probe (1097b
+pre-registration-before-run discipline); the pre-run smokes that located
+the reversed-Horner and second-difference-denominator bugs are engine
+debugging, not executed probe runs.
 
 ## 4. Verdict mapping (pre-registered)
 
