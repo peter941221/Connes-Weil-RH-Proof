@@ -23,6 +23,9 @@ _precompress_backup_*/
 # local-only embedded full-repo backup copy (directory name is a PUA char)
 /
 
+# local-only external-AI prompt packs (private workflow artifacts)
+/prompt/
+
 # private project instructions and working memory; never publish these files
 /AGENTS.md
 /AGENTS.MD
