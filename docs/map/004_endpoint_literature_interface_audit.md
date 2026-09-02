@@ -75,8 +75,15 @@ formalized as
 ```
 
 by `healthy_sourceRH_of_right_detector_specific_qw_nonneg`. This is only the
-contradiction wiring. No theorem currently produces the `0 <= qw g` field for
-the orbit detector.
+contradiction wiring. Record
+[`1099`](../proofs/1099_c3_exit_composition.md) removes the last quantifier
+slack on the formal side: its
+`sourceRH_of_orbitWindowSemiLocalGate` composes the record-1089 pinned
+object with the bridge `qw_nonneg_of_orbitWindowSemiLocalGate`, so the
+entire remaining C3 content is the single universal Prop
+`orbitWindowSemiLocalGate g` for every healthy orbit detector of every
+hypothetical right-hand off-line zero (FORMAL reduction; the gate's sign is
+the open part). No theorem currently proves the gate.
 
 ## 3. Sign bookkeeping at ROOT and beyond
 
@@ -134,7 +141,10 @@ the opposite semi-local inequality on the same object.
 | P1   | Finite visible-prime crossing and trace  | FORMAL readback infrastructure;  |
 |      | ownership                               | no sign                          |
 +------+-----------------------------------------+----------------------------------+
-| P2   | 0 <= qw(g) for the same orbit detector  | OPEN                             |
+| P2   | 0 <= qw(g) for the same orbit detector  | OPEN; formal remainder is        |
+|      |                                         | exactly `orbitWindowSemiLocal-   |
+|      |                                         | Gate` on healthy orbit detectors |
+|      |                                         | (record 1099, FORMAL reduction)  |
 +------+-----------------------------------------+----------------------------------+
 | Exit | D1 + P2 imply SourceRH                  | FORMAL implication               |
 +------+-----------------------------------------+----------------------------------+
