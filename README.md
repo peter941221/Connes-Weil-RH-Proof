@@ -83,9 +83,9 @@ prime term uses
 $$
 \boxed{
 \begin{aligned}
-g^{\sharp}(x)&=x^{-1}\overline{g(x^{-1})},\\[0.5em]
-F_g&=g\ast g^{\sharp},\\[0.5em]
-\widetilde F_g(s)&=\widetilde g(s)\widetilde g(1-s),\\[0.5em]
+g^{\sharp}(x)&=x^{-1}\overline{g(x^{-1})},\\
+F_g&=g\ast g^{\sharp},\\
+\widetilde F_g(s)&=\widetilde g(s)\widetilde g(1-s),\\
 \widetilde F_g\left(\frac12+it\right)
   &=\left|\widetilde g\left(\frac12+it\right)\right|^2.
 \end{aligned}
@@ -111,12 +111,12 @@ $$
 \sum_{\zeta(\rho)=0}\widetilde F_g(\rho)
 &=\underbrace{\widetilde F_g(1)+\widetilde F_g(0)}_{\text{trivial side}}
 -\underbrace{W_{\mathbb{R}}(F_g)}_{\text{archimedean}}
--\underbrace{\sum_{p}W_p(F_g)}_{\text{primes}},\\[0.5em]
+-\underbrace{\sum_{p}W_p(F_g)}_{\text{primes}},\\
 W_p(F_g)
 &=\log p\sum_{m\ge1}
-  \Bigl(F_g\bigl(p^{m}\bigr)+F_g^{\sharp}\bigl(p^{m}\bigr)\Bigr),\\[0.5em]
+  \Bigl(F_g\bigl(p^{m}\bigr)+F_g^{\sharp}\bigl(p^{m}\bigr)\Bigr),\\
 W_{\mathbb{R}}(F_g)
-&=\bigl(\log 4\pi+\gamma\bigr)F_g(1)\\[0.5em]
+&=\bigl(\log 4\pi+\gamma\bigr)F_g(1)\\
 &\quad+\mathrm{pv}\int_1^{\infty}
 \frac{F_g(x)+F_g^{\sharp}(x)-2x^{-1}F_g(1)}{x-x^{-1}}\,dx.
 \end{aligned}
@@ -161,8 +161,8 @@ Its involution and square are:
 $$
 \boxed{
 \begin{aligned}
-g^{\star}(x)&=\overline{g(-x)},\\[0.5em]
-F_g&=g^{\star}\ast g,\\[0.5em]
+g^{\star}(x)&=\overline{g(-x)},\\
+F_g&=g^{\star}\ast g,\\
 F_g&=\texttt{g.involution.convolution g}.
 \end{aligned}
 }
@@ -185,9 +185,9 @@ $$
 \boxed{
 \begin{aligned}
 q_w(g)
-  &=\mathrm{poleTerm}(F_g)\\[0.5em]
-  &\quad-\mathrm{archimedeanTerm}(F_g)\\[0.5em]
-  &\quad-\mathrm{finitePrimeSum}(F_g),\\[0.5em]
+  &=\mathrm{poleTerm}(F_g)\\
+  &\quad-\mathrm{archimedeanTerm}(F_g)\\
+  &\quad-\mathrm{finitePrimeSum}(F_g),\\
 q_w(g)
   &=\mathrm{spectralWeilValue}(F_g).
 \end{aligned}
@@ -234,8 +234,8 @@ minimal contradiction is therefore:
 $$
 \boxed{
 \begin{aligned}
-q_w(g)&<0,\\[0.5em]
-0&\le q_w(g),\\[0.5em]
+q_w(g)&<0,\\
+0&\le q_w(g),\\
 \therefore\quad&\bot.
 \end{aligned}
 }
@@ -372,8 +372,8 @@ $$
 \begin{aligned}
 \mathrm{B5}_{\mathrm{detector}}:&\quad
   \forall\rho,\quad
-  \mathrm{Re}(\rho)>\frac12\Longrightarrow\exists g,\\[0.5em]
-&\qquad \mathrm{Healthy}(\rho,g)\land q_w(g)\ge 0,\\[0.5em]
+  \mathrm{Re}(\rho)>\frac12\Longrightarrow\exists g,\\
+&\qquad \mathrm{Healthy}(\rho,g)\land q_w(g)\ge 0,\\
 \mathrm{B5}:&\quad
   \mathrm{B5}_{\mathrm{detector}}\Longrightarrow \mathrm{SourceRH}.
 \end{aligned}
@@ -447,12 +447,12 @@ $$
 \boxed{
 \begin{aligned}
 \mathrm{supp}(g)
-  &\subseteq\left[-\frac{\log 2}{2},\frac{\log 2}{2}\right]\\[0.5em]
+  &\subseteq\left[-\frac{\log 2}{2},\frac{\log 2}{2}\right]\\
 \Longrightarrow\quad
 \mathrm{supp}(F_g)
-  &\subseteq(-\log 2,\log 2)\\[0.5em]
+  &\subseteq(-\log 2,\log 2)\\
 \Longrightarrow\quad
-\mathrm{finitePrimeSum}(F_g)&=0\\[0.5em]
+\mathrm{finitePrimeSum}(F_g)&=0\\
 \Longrightarrow\quad
 q_w(g)&=-\mathrm{archimedeanTerm}(F_g).
 \end{aligned}
@@ -534,8 +534,8 @@ $$
 \mathrm{B5}_{\mathrm{premise}}:&\quad
   \forall\rho,\quad
   \mathrm{Re}(\rho)>\frac12\Longrightarrow
-  \exists g:\mathrm{CompactLogTest},\\[0.5em]
-&\qquad \mathrm{Healthy}(\rho,g)\land q_w(g)\ge 0,\\[0.5em]
+  \exists g:\mathrm{CompactLogTest},\\
+&\qquad \mathrm{Healthy}(\rho,g)\land q_w(g)\ge 0,\\
 \mathrm{B5}:&\quad
   \mathrm{B5}_{\mathrm{premise}}\Longrightarrow \mathrm{RH}.
 \end{aligned}
@@ -583,8 +583,8 @@ finite-window interpolant is chosen with Mellin value one:
 $$
 \boxed{
 \begin{aligned}
-\widetilde g(z)&=1,\\[0.5em]
-\widetilde{g\star_{\mathrm{add}}g}(z)&=2,\\[0.5em]
+\widetilde g(z)&=1,\\
+\widetilde{g\star_{\mathrm{add}}g}(z)&=2,\\
 2&\ne 1
   =\widetilde g(z)\widetilde g(1-z).
 \end{aligned}
@@ -668,11 +668,11 @@ $$
 \begin{aligned}
 \text{orbit support + visible primes}
 &\longrightarrow
-\text{same-owner semi-local trace identity}\\[0.5em]
+\text{same-owner semi-local trace identity}\\
 &\longrightarrow
-0\le q_w(g)\\[0.5em]
+0\le q_w(g)\\
 &\longrightarrow
-\text{contradiction with }q_w(g)<0\\[0.5em]
+\text{contradiction with }q_w(g)<0\\
 &\longrightarrow
 \mathrm{SourceRH}
 \longrightarrow
