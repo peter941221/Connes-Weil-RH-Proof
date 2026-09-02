@@ -452,8 +452,9 @@ recorded in
 
 ## 7. The remaining mathematics
 
-Record 1089 closes the detector-data side of C3: the support window and the
-finite visible-prime bound are formal for one pinned object. The remaining
+[Record 1089](docs/proofs/1089_orbit_certificate_extension_design.md) closes
+the detector-data side of C3: the support window and the finite
+visible-prime bound are formal for one pinned object. The remaining
 mathematics is the sign producer:
 
 1. prove orbitWindowSemiLocalGate for the pinned detector;

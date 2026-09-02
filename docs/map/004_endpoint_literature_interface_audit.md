@@ -205,8 +205,17 @@ The result is potentially relevant in two different ways:
    convention bridge, Corollary 9 could replace the E1--E3 ROOT positivity
    producer.
 2. It would close P2 for the orbit detector only if the selected detector were
-   proved to have support inside `[-0.8,0.8]`. No such support theorem is
-   currently exported.
+   proved to have support inside `[-0.8,0.8]`. For the committed fixed-window
+   D1 orbit export this is IMPOSSIBLE, not merely unexported: the construction
+   of `C1HealthyYoshidaUnscaledOrbit.lean` exports the support bound
+   `Ioo (-(n+2)) (n+2)` (FORMAL, `n >= 0`), which always contains points of
+   `|u|` in `(0.8, 2]`. Record
+   [`1089`](../proofs/1089_orbit_certificate_extension_design.md) packages this
+   support bound, the visible prime-power readback `q < exp(2*(n+2))`, and the
+   orbit semi-local gate on one pinned object
+   (`C1OrbitWindowSemiLocalGate.lean`, FORMAL, no sign). Sub-0.8-window orbit
+   variants would face the record-1087 negative plateau (NUMERICAL,
+   extrapolated beyond the scanned radius - reconnaissance, not verdict).
 
 The required import bridges are:
 
