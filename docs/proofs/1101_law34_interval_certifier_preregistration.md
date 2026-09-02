@@ -455,4 +455,93 @@ README untouched (README change guard).
 
 ## 5. Verdict (appended after the run)
 
-(Pending.)
+VERDICT: **STRADDLE** (the registered third branch, section 4).
+Official run 5 executed END-TO-END GREEN under the heavy resource
+lock; `1101_cert.json` is the certificate artifact.  Runs 1-4 aborted
+at registered gates; each abort was traced to root and fixed by the
+pre-run amendment batches of section 3.1 (five fixes in total --
+`ff95997` widow Q-bound form, `e759c13` G-deriv FD step, `3210d6b`
+sine full-core geometry + arb corner constants + `_pert_sup` +
+`P_j_real`, `0e50051` G-prime agreement direction, `ab60754` verdict
+selector = section 4 literally).  No registered threshold was ever
+weakened (law 39); the selector fix made the verdict HARDER to claim.
+Determinism is certified twice over: run 4 and run 5 produce the same
+certificate (md5 equal) and the same printed table.
+
+Gates (run 5): G-eng ok; G-deriv ok (worst f' slack 1.44e-08, f''
+Richardson ratio 3.999); G-mrho ran vacuously green (the phase-1
+carrier is entire sine; the bump region-bound faithfulness is carried
+by G-int on the three legendre directions); G-nest ok (width
+1.40e-05 -> 7.74e-07, ratio 18.03, nested); G-int ok 6/6 (f64 band
+containment, certified widths 6.74e-05 .. 3.24e-03 at the 2e-3 probe
+target); G-prime ok 3/3 (razor widths 1.72e-11 / 1.01e-10 / 8.31e-11,
+agreement-within-allowance, distances ~2e-11..7e-9 << 5e-4); G-rows
+all under the 1e-10 orthonormality line (orth 7.9e-14 / 1.6e-12 /
+6.7e-16).
+
+Certified table (phase 2, width_target 3e-7; `Q = arch + prime`, the
+gate needs `Q <= 0`; every number an interval):
+
+```text
++--------------------------+--------------+--------------+-----------+
+| direction                | total_L      | total_U      | width     |
++--------------------------+--------------+--------------+-----------+
+| top a=2 leg  K=16        | -4.415988391e-03 | -4.415818064e-03 | 1.70e-07 |
+| top a=4 leg  K=24        | -8.932738672e-03 | -8.932526045e-03 | 2.13e-07 |
+| top a=2 sine K=20        | -6.516464363e-03 | -6.516252756e-03 | 2.12e-07 |
+| totaltop a=2 leg  K=16   | -3.060882175e-08 | +2.960058004e-08 | 6.02e-08 |
+| totaltop a=4 leg  K=24   | -9.675341395e-08 | +9.370404408e-08 | 1.90e-07 |
+| totaltop a=2 sine K=20   | -2.540776453e-08 | +2.244753092e-08 | 4.79e-08 |
++--------------------------+--------------+--------------+-----------+
+```
+
+Reading (per section 4):
+
+- NO H1c: no direction has certified `L_total > 0`.  This record
+  produces NO certified positive-gate witness -- the probe's whole
+  purpose was to be able to say so rigorously.
+- NO H2c: the three TOTAL-GATE top directions (the argmax rows of
+  `arch + prime`) CONTAIN ZERO at the certified width.
+- The three ARCH-top rows are strictly negative with margin
+  `>= 4.4e-3`, i.e. 2e4 x their own certified width -- the project's
+  first theorem-valid certified bounds on the gate functional.
+- Budget compliance: arch half-widths <= 1.07e-07 (budget 5e-7),
+  prime widths <= 1.12e-10, TOTAL widths <= 2.13e-07 (budget 1e-6).
+
+Cross-record consistency: the STRADDLE row is the CERTIFIED twin of
+1100b SPLIT2 -- 1100b's float64 scan pinned every corrected total-gate
+top over `V` to zero within the +-1e-5 threshold; here the same
+phenomenon is pinned by theorem-valid intervals at |Q| <= 9.68e-08,
+~100x tighter, and it is exactly the max-total direction (not the
+arch-top rows) where the gate is tight.  The continuum-vs-rig
+agreement behind this: certified arch interval contains the committed
+corrected float64 values (G-int, legendre tops within 9e-08 of
+center), certified prime leg agrees with the independent 1100b-mirror
+recomputation within 7e-09.
+
+Scope guards: every certified statement is about ONE explicit
+function; the all-of-`V` sign statement is NOT claimed (law 34 part 2,
+below, is the carrier of that step); the plain G-cell-3 basis rows
+were certified for ARCH only (G-int) -- their TOTALs are not in
+section 4's mapping rows; no first-cell sliver appears anywhere (the
+certified body starts at y = 0 with the removable limit, section 1);
+RH is not claimed; GATE 1 untouched; README untouched.
+
+Named next bricks (both follow section 4's STRADDLE branch verbatim):
+
+1. The CERTIFIED SPECTRAL-GAP REDUCTION from `V` to the finite
+   Galerkin subspace (law 34 part 2): converts "max over the explicit
+   totaltop direction is |Q| <= 1e-7" into an all-of-`V` bound only if
+   the gap between the top and the rest of `V` is itself certified --
+   with no gap (law 39 note: 1100b measured NO spectral gap -- finite-K
+   tops approach zero), this brick must carry an explicit
+   K-approach-rate bound.
+2. DIRECT certification of the PINNED orbit detector (record 1089's
+   object) through this same machine -- the detector-subclass path of
+   section 2, which does not need a gap theorem.
+
+Deliverable of record: law-34 brick 1 -- a certified interval
+evaluator for `orbitWindowSemiLocalGate`-shaped functionals on
+explicit carriers, with every quadrature remainder a theorem-valid
+formula and every engine rounding a registered bound; the certificate
+`1101_cert.json` is the input format for a later Lean brick.
