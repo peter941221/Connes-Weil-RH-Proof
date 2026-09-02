@@ -1361,11 +1361,20 @@ def run_g_prime(report):
         funcs, _sv, _coefficients, _cond, _orth = \
             probe._orthonormal_null_functions()
         f64 = prime_float64(probe, coeffs, funcs)
-        ok = pv.contains_float(f64 - 5e-4) and pv.contains_float(f64 + 5e-4)
+        # Registered reading (doc section 3): the certified leg CONTAINS
+        # the f64 recomputation, the 5e-4 being the trapezoid-bias
+        # ALLOWANCE -- i.e. agreement-within-allowance: f64 lies in the
+        # allowance-EXPANDED certified interval.  The v2 code wrapped the
+        # band INSIDE the interval (pv must cover [f64-5e-4, f64+5e-4]),
+        # unsatisfiable by construction: pv is razor-sharp (registered
+        # widths ~1e-11, budget prime half-width 5e-7) and can never be
+        # 1e-3 wide (run-3 finding; doc 3.1 batch 3).  Threshold UNCHANGED.
+        lo = pv.midf() - pv.width() / 2.0
+        hi = pv.midf() + pv.width() / 2.0
+        ok = (f64 >= lo - 5e-4) and (f64 <= hi + 5e-4)
         if not ok:
-            sys.exit(f"ABORT: G-prime {label}: f64 {f64:+.6f} outside "
-                     f"[{pv.midf() - pv.width()/2:+.6f}, "
-                     f"{pv.midf() + pv.width()/2:+.6f}]")
+            sys.exit(f"ABORT: G-prime {label}: f64 {f64:+.8f} outside "
+                     f"[{lo - 5e-4:+.8f}, {hi + 5e-4:+.8f}]")
         report["G-prime"].append({"label": label, "f64": f64,
                                   "L": pv.midf() - pv.width() / 2,
                                   "U": pv.midf() + pv.width() / 2})

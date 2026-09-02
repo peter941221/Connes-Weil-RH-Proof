@@ -353,6 +353,31 @@ re-registered step h=1e-5 passes with slack 1.6e-10 / 8.9e-10 and
 Richardson ratios 4.005 / 4.006.)  Every budget class is now inside
 the registered budget with no threshold touched.
 
+Third pre-run amendment batch (official run 3 located it; committed
+BEFORE run 4).  Run 3 passed G-eng, G-deriv, G-mrho, G-int (6/6,
+widths 6.74e-05 .. 2.68e-03) and ABORTED at `G-prime top a=2 leg
+K=16: f64 -0.896003 outside [-0.896003, -0.896003]` -- three identical
+6-decimal renderings.  Root cause (measured via diag17 at full
+precision): the gate CODE wrapped the allowance band INSIDE the
+certified interval (`pv must contain [f64-5e-4, f64+5e-4]`, width
+>= 1e-3), which is UNSATISFIABLE by construction -- the certified
+prime leg is razor-sharp (registered widths ~1e-11, budget prime
+half-width 5e-7; measured pv widths 1.7e-11 / 1.0e-10 / 8.3e-11), so
+no correct implementation can pass the inverted comparison.  Same
+class as the run-1 G-deriv trap (a mechanism that makes a registered
+gate unsatisfiable), and the same remedy: implement the REGISTERED
+semantics, section 3's table row -- "the certified prime leg [L,U]
+CONTAINS the float64 recomputation", the 5e-4 being the
+trapezoid-bias ALLOWANCE, i.e. agreement-within-allowance:
+`f64 in [L - 5e-4, U + 5e-4]`.  The threshold 5e-4 is UNCHANGED (not
+weakened; if anything the direction fix is only possible because the
+certified leg is 7+ orders TIGHTER than the allowance).  The two
+implementations were pre-verified to agree: distances f64-to-pv
+1.97e-11 (K16) / 6.68e-09 (K24) / 6.89e-09 (sine K20).  G-int keeps
+its band-containment form: its certified intervals are wide
+(>= 6.7e-05 >> 2e-5 band), where containment of the band is the
+STRICTER reading and all six passed it.
+
 The certified statements and the verdict mapping of sections 2 and 4 are
 UNCHANGED; only the width-derivation mechanism is amended.  G-nest now
 also checks interval NESTING (theta -> theta/2 single passes, no
