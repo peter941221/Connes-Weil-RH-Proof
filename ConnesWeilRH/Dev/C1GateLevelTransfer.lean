@@ -75,7 +75,11 @@ theorem qformDoubleSum {A : Matrix (Fin k) (Fin k) ℝ} (x : Fin k → ℝ) :
   rw [h2]
   have h3 : (uK.sum fun i => uK.sum fun j => x i * A i j * x j) =
       (uK.sum fun i => uK.sum fun j => A i j * x i * x j) := by
-    congr; intro i; congr; intro j; ring
+    apply Finset.sum_congr rfl
+    intro i _
+    apply Finset.sum_congr rfl
+    intro j _
+    ring
   rw [h3]
 
 /-- Per-index split of a full univ-sum: the `i`th value plus the off-diagonal tail.
@@ -83,7 +87,8 @@ Rewrites `univ` as `insert i (univ \ {i})` so `Finset.sum_insert` applies direct
 theorem sumUnivSplit {g : Fin k → ℝ} (i : Fin k) :
     uK.sum g = g i + (uK \ {i}).sum g := by
   have hu : uK = insert i (uK \ {i}) := by ext j; simp
-  rw [hu, Finset.sum_insert (by simp : i ∉ uK \ {i})]
+  conv_lhs => rw [hu]
+  rw [Finset.sum_insert (by simp : i ∉ uK \ {i})]
 
 /-- Collect the whitened-box lower bound. The per-pair lower bound, summed over all ordered
 pairs, equals `sum_i c_i * x_i^2` with the diagonal-dominance coefficient
@@ -127,7 +132,7 @@ theorem lbCollect {d : Fin k → ℝ} (rad : Matrix (Fin k) (Fin k) ℝ) (x : Fi
       rw [if_pos rfl]
       rw [Finset.sum_congr rfl (fun j hj => if_neg (fun h : j = i =>
         (Finset.mem_sdiff.mp hj).2 (Finset.mem_singleton.mpr h)))]
-      rw [add_zero]
+      rw [zero_add]
     have hswap : ∀ g : Fin k → Fin k → ℝ,
         (uK.sum fun i => (uK \ {i}).sum (fun j => g i j))
           = (uK.sum fun j => (uK \ {j}).sum (fun i => g i j)) := by
@@ -146,7 +151,7 @@ theorem lbCollect {d : Fin k → ℝ} (rad : Matrix (Fin k) (Fin k) ℝ) (x : Fi
         rw [if_pos rfl]
         rw [Finset.sum_congr rfl (fun i hi => if_neg (fun h : j = i =>
           (Finset.mem_sdiff.mp hi).2 (Finset.mem_singleton.mpr h.symm)))]
-        rw [add_zero]
+        rw [zero_add]
       rw [s1, s2, s3]
     have hA : (uK.sum fun i => (uK \ {i}).sum (fun j => -(rad i j / 2) * x i ^ 2))
         = (uK.sum fun i => ((uK \ {i}).sum (fun j => -(rad i j / 2))) * x i ^ 2) :=
@@ -164,8 +169,10 @@ theorem lbCollect {d : Fin k → ℝ} (rad : Matrix (Fin k) (Fin k) ℝ) (x : Fi
     calc (uK.sum fun i => (uK \ {i}).sum (fun j => -(rad i j / 2) * (x i ^ 2 + x j ^ 2)))
         = (uK.sum fun i => (uK \ {i}).sum (fun j => -(rad i j / 2) * x i ^ 2))
           + (uK.sum fun i => (uK \ {i}).sum (fun j => -(rad i j / 2) * x j ^ 2)) := by
-          rw [← Finset.sum_add_distrib]
-          exact Finset.sum_congr rfl (fun i _ => Finset.sum_congr rfl (fun j _ => by ring))
+          apply Finset.sum_congr rfl
+          intro i _
+          rw [Finset.sum_congr rfl (fun j _ => mul_add _ _ _)]
+          exact Finset.sum_add_distrib
       _ = (uK.sum fun i => ((uK \ {i}).sum (fun j => -(rad i j / 2))) * x i ^ 2)
           + (uK.sum fun j => ((uK \ {j}).sum (fun i => -(rad i j / 2))) * x j ^ 2) := by
           rw [hA, hB]
@@ -205,16 +212,16 @@ theorem qform_nonneg_whitenedBox {d : Fin k → ℝ} (rad : Matrix (Fin k) (Fin 
       have hab : |(E i j) * (x i * x j)| ≤ (rad i j / 2) * (x i ^ 2 + x j ^ 2) := by
         calc
           _ = |E i j| * |x i * x j| := by rw [abs_mul]
-            _ ≤ rad i j * |x i * x j| := by
-              apply mul_le_mul_of_nonneg_right ((abs_le.mp (heb i j)).1)
+          _ ≤ rad i j * |x i * x j| := by
+              apply mul_le_mul_of_nonneg_right (abs_le.mp (heb i j)).1
               exact abs_nonneg _
-              _ ≤ rad i j * ((x i ^ 2 + x j ^ 2) / 2) := by
-                have hinner : |x i * x j| ≤ (x i ^ 2 + x j ^ 2) / 2 := by
-                  nlinarith [two_abs_mul_le_sq_add_sq (x i) (x j)]
-                apply mul_le_mul_of_nonneg_left hinner
-                exact hradpos i j
-              _ = (rad i j / 2) * (x i ^ 2 + x j ^ 2) := by ring
-      nlinarith [hxy, hab]
+          _ ≤ rad i j * ((x i ^ 2 + x j ^ 2) / 2) := by
+              have hinner : |x i * x j| ≤ (x i ^ 2 + x j ^ 2) / 2 := by
+                nlinarith [two_abs_mul_le_sq_add_sq (x i) (x j)]
+              exact mul_le_mul_of_nonneg_left hinner (hradpos i j)
+          _ = (rad i j / 2) * (x i ^ 2 + x j ^ 2) := by ring
+      refine le_trans ?_ hxy
+      linarith [hab]
   -- Sum the pointwise lower bound over all pairs.
   have hsum : (uK.sum fun i => uK.sum fun j => (if i = j then (d i - rad i i) * x i ^ 2 else -(rad i j / 2) * (x i ^ 2 + x j ^ 2))) ≤
       (uK.sum fun i => uK.sum fun j => A i j * x i * x j) := by
@@ -229,8 +236,8 @@ theorem qform_nonneg_whitenedBox {d : Fin k → ℝ} (rad : Matrix (Fin k) (Fin 
     intro i; nlinarith [hpos i, sq_nonneg (x i)]
   calc
     0 ≤ uK.sum fun i => (d i - rad i i - (uK \ {i}).sum fun j => (rad i j + rad j i) / 2) * x i ^ 2 := hnonneg
-      _ = uK.sum fun i => uK.sum fun j => (if i = j then (d i - rad i i) * x i ^ 2 else -(rad i j / 2) * (x i ^ 2 + x j ^ 2)) := by rw [lbCollect d rad x]
-        _ ≤ uK.sum fun i => uK.sum fun j => A i j * x i * x j := hsum
-          _ = x ⬝ᵥ (A *ᵥ x) := (qformDoubleSum A x).symm
+    _ = uK.sum fun i => uK.sum fun j => (if i = j then (d i - rad i i) * x i ^ 2 else -(rad i j / 2) * (x i ^ 2 + x j ^ 2)) := by rw [lbCollect d rad x]
+    _ ≤ uK.sum fun i => uK.sum fun j => A i j * x i * x j := hsum
+    _ = x ⬝ᵥ (A *ᵥ x) := (qformDoubleSum A x).symm
 
 end ConnesWeilRH.Source.C1GateLevelTransfer
