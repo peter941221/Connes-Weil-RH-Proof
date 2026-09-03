@@ -24,7 +24,17 @@ NEXP = 9                      # n_lo = 8 -> n + 1 = 9, a_det = n + 2 = 10
 A_DET = NEXP + 1
 GAMMAS = [float(mpmath.im(mpmath.zetazero(j))) for j in range(1, 10)]
 T = GAMMAS[0]
-DELTAS = [0.5, 0.25, 0.125, 0.0625, 1 / 64, 1 / 256]
+# fix batch 6 (post-S1 registered extension): delta = 0.0 is the TRUE
+# 1089 pinned configuration - at rho on the critical line the orbit
+# entries 1-rho-bar and 1-rho collide with rho and rho-bar and the
+# priority order of healthyUnscaledTargetValue (first match wins, the
+# semantics the add() collision policy mirrors) resolves the pair to
+# rho -> 1 / rho-bar -> 0: 6 distinct targets + 7 forced line zeros
+# = 13 constraints, the object whose gate Prop IS the open obligation.
+# The positive-delta rows are the 1114b favorable-branch SURROGATE
+# scan, registered first; its coefficients diverge as delta -> 0
+# because the surrogate carries BOTH conflicting +-1 targets.
+DELTAS = [0.0, 0.5, 0.25, 0.125, 0.0625, 1 / 64, 1 / 256]
 PIN2, PIN3, PIN4 = 1.4433774e-6, 1.6140489e-8, 2.5999281e-10
 
 L = 28.0
@@ -231,7 +241,10 @@ def main():
         # orbit/target entries and 9 forced line zeros {1/2 +- i*gamma_1}
         # U {1/2 + i*gamma_j, j=2..8} (for delta > 0 the gamma_1 pair
         # are NOT orbit members, and 1-rho <> 1-rho-bar are distinct).
-        assert len(nodes) == 17, f"node structure changed: {len(nodes)}"
+        n_expect = 13 if delta == 0.0 else 17
+        assert len(nodes) == n_expect, (
+            f"node structure changed at delta={delta}: "
+            f"{len(nodes)} != {n_expect}")
         sol, a, cond = solve_correction(nodes, NEXP)  # cond = residual
 
         err = max(abs(raw_val(z, sol, NEXP) - v) / max(1.0, abs(v))

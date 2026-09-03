@@ -163,6 +163,30 @@ means the domination lemma, if it exists, must be configuration-local
 Stage A does real work) - also a usable finding. ABORT class fires
 ONLY on S0 failures (machine is wrong), never on signs.
 
+## 1b. Post-S1 registered extension (fix batch 6)
+
+The surrogate scan landed green (6/6 rows, GATE/f0 = +0.44906 to
++0.44908, strictly positive and delta-flat) and its coefficient
+divergence (|a|max x3.4/x2.3/x2.0/x3.9/x4.0 per halving) revealed a
+STRUCTURAL fact not visible in the definitions-only reading: as
+delta -> 0 the surrogate carries BOTH conflicting targets
+rho -> +1 and 1-rho-bar -> -1 through the same point 1/2+i*gamma_1,
+so it CANNOT converge to the true pinned object; in the Lean
+definition the healthyUnscaledTargetValue case order resolves the
+collision (rho fires first; the 1-rho-bar case never applies at
+delta=0). The true k=1 configuration is therefore 13 constraints:
+6 distinct orbit/target entries {rho -> 1, rho-bar -> 0,
+rho+1/2 -> -1, 1/2, 1, 3/2 -> 0} plus 7 forced line zeros
+{1/2 + i*gamma_j : j = 2..8} (the gamma_1 pair ARE the target pair;
+conjugate zeros gamma_j >= 2 leave the ball). This extension adds
+delta = 0.0 (the genuine 1089 twin, whose gate Prop IS the open
+C3 obligation) to the same machine - the add() collision policy
+already mirrors Lean's priority semantics, so it is a
+configuration, not code, change. Explicitly labeled post-run; no
+pre-registered prediction covers the true configuration's sign
+(the design intent IS the obligation; anything the model shows is
+information, not adjudication). RH NOT claimed; MODEL record.
+
 ## 2. Artifacts and run protocol
 
 Probe: docs/proofs/1116_d1_model_probe.py (numpy + mpmath; prime
