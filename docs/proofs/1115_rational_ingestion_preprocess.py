@@ -43,28 +43,34 @@ def eye(n):
 
 
 def nullspace(R):
-    """RREF-based exact nullspace; returns K (n x nullity, columns are
-    the basis vectors)."""
+    """RREF-based exact nullspace; returns (K, A, E, piv, free) where
+    E * R = A with A the RREF (K: 8x5 basis with I_5 block at free
+    columns)."""
     m, n = len(R), len(R[0])
     A = [row[:] for row in R]
+    E = eye(m)
     piv = []
     r = 0
     for c in range(n):
         pr = next((i for i in range(r, m) if A[i][c] != 0), None)
         if pr is None:
             continue
-        A[r], A[pr] = A[pr], A[r]
+        for row in (A, E):
+            row[r], row[pr] = row[pr], row[r]
         p = A[r][c]
         A[r] = [x / p for x in A[r]]
+        E[r] = [x / p for x in E[r]]
         for i in range(m):
             if i != r and A[i][c] != 0:
                 f = A[i][c]
                 A[i] = [a - f * b for a, b in zip(A[i], A[r])]
+                E[i] = [a - f * b for a, b in zip(E[i], E[r])]
         piv.append(c)
         r += 1
         if r == m:
             break
     assert r == m, f"rank {r} < {m}"
+    assert mm(E, R) == A, "E*R != A"
     free = [c for c in range(n) if c not in piv]
     K = []
     for fc in free:
@@ -73,7 +79,9 @@ def nullspace(R):
         for i, pc in enumerate(piv):
             v[pc] = -A[i][fc]
         K.append(v)
-    return mt(K)  # columns -> basis
+    K = mt(K)  # columns -> basis
+    assert mm(A, K) == [[F(0)] * len(free)] * m, "A*K != 0"
+    return K, A, E, piv, free
 
 
 def ldl(A):
@@ -159,11 +167,33 @@ for src, c in load_classes():
     assert all(len(row) == n for row in R)
 
     Drad = madd(mscale(abs(U), rad_G), rad_M)
-    Dmid = msub(mscale(U, mid_G), mid_M)
-    Dmid = [[(Dmid[i][j] + Dmid[j][i]) / 2 for j in range(n)]
-            for i in range(n)]           # symmetrize exactly
+    Draw = msub(mscale(U, mid_G), mid_M)
 
-    K = nullspace(R)                     # 8x5
+    # REGISTERED FINDING (this assert fired on run 3 and the finding is
+    # DATA, not a bug): the RAW float-domain centers mid_G / mid_M are
+    # NOT exactly symmetric - the 1112/1113 machines compute Gram entry
+    # (i,j) and (j,i) as INDEPENDENT rounded quantities, so the boxes
+    # are entrywise-valid for an asymmetric center.  The T-center
+    # certificate therefore runs through the EXPLICIT symmetrization
+    # Dc := (Draw + Draw^T)/2, and the generic quadratic-form flip
+    # (antisymmetric part contributes 0 to x^T A x, a theorem over any
+    # commutative ring) gets back to the raw centers in the final
+    # isTopBound statement.  Asymmetries measured and printed for the
+    # record; the box side (T-box, 1115b) inherits the +|asym|/2
+    # radius correction - out of scope of this brick as registered.
+    asymG = max(abs(mid_G[i][j] - mid_G[j][i]) for i in range(n)
+                for j in range(n))
+    asymM = max(abs(mid_M[i][j] - mid_M[j][i]) for i in range(n)
+                for j in range(n))
+    asymD = max(abs(Draw[i][j] - Draw[j][i]) for i in range(n)
+                for j in range(n))
+    print(f"raw-center asymmetry: G {float(asymG):.3e}  "
+          f"M {float(asymM):.3e}  Draw {float(asymD):.3e}")
+    Dmid = [[(Draw[i][j] + Draw[j][i]) / 2 for j in range(n)]
+            for i in range(n)]           # EXPLICIT symmetrization
+    assert Dmid == mt(Dmid), "symmetrization failed (impossible unless code bug)"
+
+    K, Arref, Elim, piv, free = nullspace(R)   # 8x5 basis + E*R=A
     assert mm(R, K) == [[F(0)] * 5] * 3, "R*K != 0"
     RRt = mm(R, mt(R))
     dRR = det(RRt)
@@ -173,15 +203,24 @@ for src, c in load_classes():
               - RRt[(i + 1) % 3][(j + 2) % 3] * RRt[(i + 2) % 3][(j + 1) % 3])
              for j in range(3)] for i in range(3)]
     inv3 = [[x / dRR for x in row] for row in inv3]
-    W = mm(mt(R), inv3)                  # 8x3
-    assert mm(R, W) == eye(3), "R*W != I"
-    T = [row[:5] + [W[i][j] for j in range(3)] for i, row in enumerate(K)]
-    dT = det(T)
+    Wraw = mm(mt(R), inv3)               # 8x3 projector factor
+    assert mm(R, Wraw) == eye(3), "R*Wraw != I"
+    # kernel closure as ONE 8x8 identity: K*V + W*R = I, V extracts the
+    # free-column coordinates, W := (I - K*V) * Wraw (Q maps through the
+    # rowspace projector since Q kills the kernel).
+    V = [[F(1) if i == free[j] else F(0) for i in range(n)] for j in range(5)]
+    KV = mm(K, V)
+    Q = msub(eye(8), KV)
+    W = mm(Q, Wraw)
+    dT = det([r[:5] + [W[i][j] for j in range(3)]
+              for i, r in enumerate(K)])
     assert dT != 0, "T singular"
+    closure = madd(KV, mm(W, R))
+    assert closure == eye(8), "closure identity K*V + W*R = I FAILED"
+    print("kernel-closure identity K*V + W*R = I_8: EXACT")
 
-    Dred = mm(mt(K), mm(Dmid, K))        # 5x5
-    Dred = [[(Dred[i][j] + Dred[j][i]) / 2 for j in range(5)]
-            for i in range(5)]
+    Dred = mm(mt(K), mm(Dmid, K))        # 5x5, RAW (no silent repair)
+    assert Dred == mt(Dred), "raw Dred = K^T Dc K not exactly symmetric"
     Dred_rad = mm(mabs(mt(K)), madd(mscale(abs(U), mabs(rad_G)),
                                     mabs(rad_M)))
     Dred_rad = mm(Dred_rad, mabs(K))
@@ -194,6 +233,19 @@ for src, c in load_classes():
     Gp = mm(Lam, mm(Dred, mt(Lam)))       # must be diag(d) exactly
     assert all(Gp[i][j] == (d[i] if i == j else 0) for i in range(5)
                for j in range(5)), "congruence identity failed"
+
+    # STAGED matrices exactly as the Lean brick will see them; each field
+    # below becomes one entrywise norm_num identity obligation.
+    diagd = [[d[i] if i == j else F(0) for j in range(5)] for i in range(5)]
+    assert mm(L, mm(diagd, mt(L))) == Dred, "L diag(d) L^T != Dred"
+    Dc = Dmid
+    DKc = mm(Dc, K)                       # 8x5
+    KVc = KV                              # 8x8 = K*V
+    WRc = mm(W, R)                        # 8x8
+    Ld = mm(L, diagd)                     # 5x5
+    assert mm(mt(K), DKc) == Dred, "staged K^T (Dc K) != Dred"
+    assert madd(KVc, WRc) == eye(8), "staged KVc + WRc != I_8"
+    assert mm(Ld, mt(L)) == Dred, "staged (L diag) L^T != Dred"
     # |Lam E Lam^T| <= |Lam| |E| |Lam|^T entrywise
     radp = mm(mabs(Lam), mm(Dred_rad, mabs(mt(Lam))))
     slacks = []
@@ -210,7 +262,13 @@ for src, c in load_classes():
           f"{'GREEN (norm_num-able DD)' if mn > 0 else 'RED: falsifier - report only'}")
 
     if mn > 0:
+        V = [[F(1) if i == free[j] else F(0) for i in range(n)]
+             for j in range(5)]           # 5x8 left-inverse of K
+        assert mm(V, K) == eye(5), "V*K != I"
         results.append(dict(src=src, A_R=A_R,
+                            asym_G_float=float(asymG),
+                            asym_M_float=float(asymM),
+                            asym_D_float=float(asymD),
                             U=str(U),
                             mid_G=[[str(x) for x in r] for r in mid_G],
                             rad_G=[[str(x) for x in r] for r in rad_G],
@@ -218,11 +276,23 @@ for src, c in load_classes():
                             rad_M=[[str(x) for x in r] for r in rad_M],
                             R=[[str(x) for x in r] for r in R],
                             K=[[str(x) for x in r] for r in K],
+                            V=[[str(x) for x in r] for r in V],
+                            A_rref=[[str(x) for x in r] for r in Arref],
+                            E_elim=[[str(x) for x in r] for r in Elim],
+                            pivots=piv, free_cols=free,
                             W=[[str(x) for x in r] for r in W],
+                            Draw=[[str(x) for x in r] for r in Draw],
+                            Dc=[[str(x) for x in r] for r in Dc],
+                            DKc=[[str(x) for x in r] for r in DKc],
+                            KVc=[[str(x) for x in r] for r in KVc],
+                            WRc=[[str(x) for x in r] for r in WRc],
+                            Ld=[[str(x) for x in r] for r in Ld],
+                            Dred=[[str(x) for x in r] for r in Dred],
                             Ldl_L=[[str(x) for x in r] for r in L],
                             Ldl_d=[str(x) for x in d],
                             Lam=[[str(x) for x in r] for r in Lam],
                             Dred_rad=[[str(x) for x in r] for r in Dred_rad],
+                            radp=[[str(x) for x in r] for r in radp],
                             slacks=[str(s) for s in slacks],
                             min_slack_float=float(mn)))
 
