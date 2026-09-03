@@ -15,7 +15,6 @@ import time
 
 import mpmath
 import numpy as np
-from scipy.integrate import simpson
 
 mpmath.mp.dps = 80
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -37,6 +36,20 @@ SGN = (-1.0) ** np.arange(NX)                   # parity twiddle (FFT pair)
 M_GL, M_CHK = 900, 1400
 GLX, GLW = np.polynomial.legendre.leggauss(M_GL)
 CHIX = None
+
+
+def simpson_uniform(y, dx):
+    """Composite Simpson on a uniform grid (last interval falls back to
+    trapezoid when the sample count is even), keeping the stdlib + numpy
+    stack declared in the preregistration."""
+    n = len(y)
+    if n % 2 == 0:
+        tail = 0.5 * dx * (y[-1] + y[-2])
+        y = y[:-1]
+    else:
+        tail = 0.0
+    y3 = y.reshape(-1, 3)
+    return float(tail + (dx / 3.0) * (y3[:, 0] + 4.0 * y3[:, 1] + y3[:, 2]).sum())
 
 
 def chi(u):
@@ -231,7 +244,7 @@ def main():
         integ[1:] = num[1:] / (2 * np.sinh(yp[1:]))
         integ[0] = f0 / 2.0
         tail = f0 * math.log(math.tanh(yp[-1] / 2))
-        arch = LOG4PI_GAMMA * f0 + float(simpson(integ.real, x=yp)) + tail
+        arch = LOG4PI_GAMMA * f0 + simpson_uniform(integ.real, DX) + tail
         psum = prime_sum(int(math.exp(2.0 * A_DET)), F.real)
         row = dict(delta=delta, R=R, cond=cond,
                    max_abs_a=float(np.abs(a).max()),
