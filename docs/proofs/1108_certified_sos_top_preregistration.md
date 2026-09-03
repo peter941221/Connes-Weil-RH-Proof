@@ -131,3 +131,99 @@ committed 1101 probe module (zero transcription). Runtime minutes
 expected (36 pair tables x 256 inner x 256 outer arb nodes). Log
 local (gitignored); numbers live in this doc's post-run addendum.
 RH unclaimed.
+
+## 6. Post-run addendum (2026-09-03 night) - VERDICT: PASS
+
+HEAD at run time: 4d955f2 (fix batch 2). Run 3 was green on first
+execution with both fix batches. The headline:
+
+    top(A+P)|_V  <=  -4.0e-07   CERTIFIED on the (2,8) window class.
+
+First strictly negative CERTIFIED gate top in the campaign (1101
+could only certify the +/-9.68e-08 straddle band; the law-34
+"certified-upper-bound machinery" named there is now landed).
+
+Realized vs registered (literal):
+
+    +------------+---------------------+------------------------------+
+    | gate       | registered          | realized                     |
+    +------------+---------------------+------------------------------+
+    | G-coef     | worst ratio <= 10   | 3.15e-02 (l=100; 300x room) |
+    | G-width    | <= 2e-8             | 4.97e-16                     |
+    | G-margin   | f(NU*) <= -4.5e-7   | -1.443377e-06 (3.2x clear)   |
+    | G-agree    | no abort <= 1e-2    | diff -4.66e-07 (see below)   |
+    | Cholesky   | 8 pivots >= 1e-9    | min absmin 4.82e-05 (4.8e4x) |
+    +------------+---------------------+------------------------------+
+
+Run ledger (ABORTs honored, zero threshold weakenings, 1101
+procedure):
+
+- run 1  ABORT-AGREE (+1.079e+01): the G-agree diagnostic computed
+         the UNCONSTRAINED raw pencil instead of the constrained
+         top. Fix batch 1 (e691488, committed before rerun): SVD
+         null-basis reduced pencil, same rank rule as
+         f0.null_setup.
+- run 2  ABORT-AGREE (constrained top +0.381 vs anchor -9.773e-07):
+         localized by per-block 30-digit mpmath recomputation
+         against the f0 anchor machine - G00/A00/R00 matched to 8
+         digits; P00 alone was off by 0.204 (mine 1.18350217 vs f0
+         0.97972861). Root cause: prime-power weights must be von
+         Mangoldt Lambda(q)/sqrt(q) = log p / sqrt q at q = p^k
+         (the f0.lam_sieve convention); my derivation used
+         log q / sqrt q, over-weighting prime powers by k. Fix
+         batch 2 (4d955f2) + convention registered in section 1.
+- run 3  PASS (this addendum).
+
+Identity reconciliation (the cross-construction 1107 named next):
+the certified machine's midpoint constrained top -1.443377e-06
+matches the INDEPENDENT zero-Gram prediction - lambda_min(Z_60|V)
+full precision = +1.443313051e-06 (committed
+p6_weil.zero_gram(2, 8, Nz=60, tail=False), float64):
+
+    |top_arb + lambda_min(Z_60)| = 6.395e-11   (4.4e-05 relative)
+
+Two independent machines - interval-GL arb pencil vs float Simpson
+zero-Gram - agree on top(A+P)|_V = -lambda_min(Z_60) to 4+
+significant figures. Consequences:
+
+- the 1105-1107 identity branch (A + P = -Z) is confirmed at
+  certified precision;
+- f0's anchor -9.773e-07 is ASSIGNED THE QUADRATURE BIAS: its
+  -4.66e-07 distance from the arb midpoint equals the 4.6e-07
+  residual 1107 predicted between lambda_min(Z_60) and the
+  f0-biased pin depth;
+- the true pin depth of the registered (2,8) class is
+  1.4433e-06, not 9.773e-07 (1107's lambda_min flatness across
+  N = 60/120/300 stands; f0's top was the biased side -
+  a correction to how 1105's "true pin depth" phrasing should be
+  read);
+- the S-lemma certificate needed NEITHER mu-sign surgery NOR the
+  explicit Z route: the dual multiplier NU* absorbed the whole job
+  (f(NU*) = -1.443377e-06 = the constrained top itself - exact
+  duality, as the trust-region S-lemma guarantees).
+
+Scope caveats (unchanged from the header): the claim covers the
+5-dimensional registered window class (Legendre x bump, K = 8) at
+radius a = 2. It does NOT discharge the Lean gate Prop for any
+detector, does NOT touch the Q-F2 function-class gap, and is
+consistent with 1100b/1101 - their near-zero total-gate tops are
+suprema over DIFFERENT truncation subspaces (sine/leg families), so
+the sign of the gate on the infinite-dimensional triple-vanishing
+space is untouched by this record. RH is not claimed; no map change
+is keyed to any branch of this record.
+
+Named next (in order):
+
+1. Certified-optimal U: bisection over U on the cached interval
+   matrices (rebuild is minutes; Cholesky is milliseconds) - the
+   largest U whose T_int(NU*_U) passes turns one certificate into a
+   certified ENCLOSURE of top(A+P)|_V itself; identity predicts the
+   answer to contain -1.4433e-06 within ~1e-10.
+2. Same certificate at (4,8), where 1107's preview margin came in
+   +2.6e-10 BELOW criterion - adjudicates float noise vs class
+   geometry.
+3. E0 promotion of the S-lemma certificate into Lean (user-gated:
+   1105 authorized the re-registration direction; the pre-reg +
+   approval for the gate itself are still owed).
+
+RH unclaimed.
