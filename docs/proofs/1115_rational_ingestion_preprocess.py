@@ -96,7 +96,9 @@ def unit_lower_inv(L):
     Li = eye(n)
     for i in range(n):
         for j in range(i):
-            Li[i][j] = F(-sum(L[i][k] * Li[k][j] for k in range(j)))
+            # inverse recurrence: sum over k in [j, i-1] (terms k<j vanish
+            # only because Li[k][j]=0 for k<j, NOT because they're absent)
+            Li[i][j] = F(-sum(L[i][k] * Li[k][j] for k in range(j, i)))
     return Li
 
 
