@@ -281,8 +281,8 @@ theorem archimedeanNumerator_ICdefect (g : CompactLogTest) {ι : Type}
       have he1 : (ICdefect g (insert a s) w lam).test =
           (ICdefect g s w lam).test - (lam a : ℂ) • (w a).test := by
         ext x
-        rw [← ICdefect_test, SchwartzMap.sub_apply,
-          SchwartzMap.smul_apply, ICdefect_test, ICdefect_test,
+        rw [ICdefect_test, SchwartzMap.sub_apply,
+          SchwartzMap.smul_apply, ICdefect_test,
           Finset.sum_insert hat]
         ring
       rw [he1, coe_sub, hNsub, coe_smul, hNsmul, ih,
@@ -769,8 +769,8 @@ theorem ICgate_ICdefect (g : CompactLogTest) {ι : Type} (s : Finset ι)
           (ICdefect g s w lam).test -
             (lam a : ℂ) • (w a).test := by
         ext x
-        rw [← ICdefect_test, SchwartzMap.sub_apply,
-          SchwartzMap.smul_apply, ICdefect_test, ICdefect_test,
+        rw [ICdefect_test, SchwartzMap.sub_apply,
+          SchwartzMap.smul_apply, ICdefect_test,
           Finset.sum_insert hat]
         ring
       have hcsS : HasCompactSupport
@@ -794,7 +794,7 @@ theorem ICgate_ICdefect (g : CompactLogTest) {ι : Type} (s : Finset ι)
         have hcong : (fun y : ℝ => archimedeanIntegrand
             (packTest ((lam a : ℂ) • (w a).test)
               ((w a).compactSupport.smul_left
-                (f := fun _ => (lam a : ℂ)))) y =
+                (f := fun _ => (lam a : ℂ))) y) =
             fun y : ℝ => (lam a : ℂ) • archimedeanIntegrand (w a) y := by
           funext y
           rw [archimedeanIntegrand_packTest_smul (lam a) (w a).test
