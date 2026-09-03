@@ -188,11 +188,13 @@ for src, c in load_classes():
     # (|K|^T (U radG+radM) |K|) -- done above in one chain: verify shape
     assert len(Dred_rad) == 5 and len(Dred_rad[0]) == 5
 
-    L, d = ldl(Dred)
+    L, d = ldl(Dred)                      # Dred = L diag(d) L^T exactly
     Lam = unit_lower_inv(L)
-    Gp = mm(mt(Lam), mm(Dred, Lam))      # should be diag(d)
+    # WHITENING CONGRUENCE: Lam Dred Lam^T = L^-1 (L D L^T) L^-T = D
+    Gp = mm(Lam, mm(Dred, mt(Lam)))       # must be diag(d) exactly
     assert all(Gp[i][j] == (d[i] if i == j else 0) for i in range(5)
                for j in range(5)), "congruence identity failed"
+    # |Lam E Lam^T| <= |Lam| |E| |Lam|^T entrywise
     radp = mm(mabs(Lam), mm(Dred_rad, mabs(mt(Lam))))
     slacks = []
     for i in range(5):
