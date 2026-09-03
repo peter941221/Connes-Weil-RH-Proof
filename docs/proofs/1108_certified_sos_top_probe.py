@@ -221,14 +221,26 @@ if w_max > WIDTH_BUDGET:
     abort("BUDGET")
 
 # --------------------------------------------------- G-agree diagnostic
-Lg = cholesky(G, lower=True)
-Lgi = np.linalg.inv(Lg)
-Bpen = Lgi @ M @ Lgi.T
+# top of the pencil RESTRICTED to the float null space of R (same
+# rank rule as f0.null_setup), then compared to the f0 anchor; the
+# unconstrained raw pencil would legitimately sit at O(10).
+_, svr, vhr = np.linalg.svd(R, full_matrices=True)
+rank_r = int(np.sum(svr > 1e-11 * max(svr[0], 1.0)))
+Zn = vhr[rank_r:].T                          # 8 x (8-rank) null basis
+Bz = Zn.T @ G @ Zn
+Mz = Zn.T @ M @ Zn
+Lz = cholesky(Bz, lower=True)
+Lzi = np.linalg.inv(Lz)
+Bpen = Lzi @ Mz @ Lzi.T
 top_mid = float(eigh((Bpen + Bpen.T) / 2.0, eigvals_only=True)[-1])
-print(f"raw-basis midpoint constrained top = {top_mid:+.6e} "
+print(f"midpoint constrained top = {top_mid:+.6e} "
       f"(f0 anchor {F0_ANCHOR:+.3e}; diff {top_mid - F0_ANCHOR:.2e})")
 if abs(top_mid - F0_ANCHOR) > 1e-2:
     abort("AGREE")
+
+# full-space pencil for the S-lemma dual f(NU)
+Lg = cholesky(G, lower=True)
+Lgi = np.linalg.inv(Lg)
 
 # --------------------------------------------------- S-lemma candidate NU
 def f_grad(nu_flat):
@@ -255,11 +267,12 @@ def bfgs_from(nu0):
 # warm start from the KKT stationarity of the top pencil pair:
 # (R^T nu + nu^T R) c* = (lam0 G - M) c*,  linear in nu entries:
 #   col (s,t): term1 vector R[s]*c_star[t], term2 adds rc[s] at row t.
+# c* here is the RAW (8-dim, G-normalized) constrained top vector.
 Bpen_s = (Bpen + Bpen.T) / 2.0
 ev0, ec0 = eigh(Bpen_s)
 u_top = ec0[:, -1]
 lam0 = float(ev0[-1])
-c_star = Lgi.T @ u_top                       # G-normalized raw vector
+c_star = Zn @ (Lzi.T @ u_top)                # reduced -> raw coordinates
 rhs = lam0 * G @ c_star - M @ c_star
 A_ls = np.zeros((K, 3 * K))
 rc = R @ c_star
