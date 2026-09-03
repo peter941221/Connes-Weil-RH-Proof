@@ -37,8 +37,11 @@ form with arb (python-flint), global precision 300 bits.
 1. Interval entries (directed rounding, rule sum arb-exact):
    G_ij = int phi_i phi_j                       (8x8, Gram)
    R_si = int phi_i e^{s t}, s in {0,1/2,1}     (3x8, moments)
-   P_ij = 2 sum_q (log q / sqrt q) int phi_i(t) phi_j(t + log q) dt
-                                              (visible q < e^{2a}, arb log)
+   P_ij = 2 sum_q (Lambda(q) / sqrt q) int phi_i(t) phi_j(t + log q) dt
+   (visible q < e^{2a}, shift log q, weight von Mangoldt Lambda(q)/sqrt q
+    = log p / sqrt q for q = p^k - the f0.lam_sieve convention; run-1
+    localization caught my first derivation mis-weighting prime powers
+    by k, 0.204 at P00; fix batch 2)
    A_ij via pair table B_kl(y) = int phi_k(t) phi_l(t - y) dt and
    arch(f) = C_ARCH F0 + int_0^{2a} [e^{y/2}(F(y)+F(-y)) - 2 F0] /
              (2 sinh y) dy + F0 * log tanh(a)     (tail closed form)

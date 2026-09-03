@@ -167,10 +167,23 @@ P_MAT = np.empty((K, K), dtype=object)
 for i in range(K):
     for j in range(K):
         P_MAT[i, j] = IV(0)
+def von_mangoldt_log(q):
+    """Lambda(q) = log p for q = p^k (f0.lam_sieve convention - the
+    base-prime log, NOT log q: fix batch 2, run-1 diag)."""
+    for p in range(2, q + 1):
+        k = 0
+        pw = q
+        while pw % p == 0 and pw > 1:
+            pw //= p
+            k += 1
+        if pw == 1 and k >= 1:
+            return math.log(p)
+    raise AssertionError(q)
+
+
 for n_q, q in enumerate(PRIMES):
-    xi = IV(IV(q).iv.log())
-    w = xi / IV(IV(q).iv.sqrt())            # arb log/sqrt (f0 float agrees
-                                            # to ~1e-16, below TAU)
+    xi = IV(IV(q).iv.log())                 # shift position: log q
+    w = IV(von_mangoldt_log(q)) / IV(IV(q).iv.sqrt())   # weight: log p / sqrt q
     tab = t_table(-xi)             # phi_j(t + xi)
     for i in range(K):
         for j in range(K):
