@@ -190,3 +190,86 @@ discharged; Q-F2 / infinite-dimensional sign untouched; RH NOT claimed;
 no map change keyed. WSL /usr/bin/python3 (uv-cache flint + .venv-probe).
 Runtime = two table builds (GL-256 ~ minutes, GL-512 ~ 6 min) + trivial
 eigh/chol tail. Log local (gitignored); numbers live in this doc.
+
+## 3. POST-RUN ADDENDUM (2026-09-03, runs 1-2) - VERDICT: PASS-IV28 +
+PASS-IV48 (landed verdict is the RUN 2 output, fix-batch-1 hardened)
+
+Run ledger:
+    run 1  (HEAD 588ba5a): PASS-IV28 + PASS-IV48, zero ABORT; but the
+           registered (4,8) prediction (STRADDLE, slack -0.15) was
+           falsified UPWARD -> pre-registered falsifier path executed
+           (book the real coupling); the coupling audit FOUND an
+           unregistered center-displacement channel (s1b item 2).
+    fix 1  (HEAD b8680ca): CENTER_CHOL comparison-sum bound registered
+           and committed BEFORE the rerun; radii strictly increased;
+           zero threshold changes.
+    run 2  (HEAD b8680ca): PASS-IV28 + PASS-IV48, zero ABORT. LANDING.
+
+Realized-vs-registered (run 2 literals):
+
++--------+-----------------+------------------+-----------------------------+
+| class  | predicted slack | realized slack | certified top <= U (+EPS) |
++--------+-----------------+------------------+-----------------------------+
+| (2,8)  |  ~0.93 PASS     | +8.943e-01 PASS  | -1.0434e-06 -> -1.0424e-06  |
+| (4,8)  | ~-0.15 STRADDLE | +9.284e-01 PASS  | -1.59993e-10 -> -5.9993e-11|
++--------+-----------------+------------------+-----------------------------+
+
+Corrections recorded:
+    (a) ERRATUM on s1b item 2: the pre-rerun "realized cost ~1e-9 /
+    ~5e-8" estimate was wrong - it multiplied the center channel as if
+    it were inert, while the channel passes through the SAME
+    |Rc-1| Drad |Rc-1|^T soft-direction amplification as the data
+    channel. Realized worst-row budget cost at (4,8): slack
+    +9.528e-01 -> +9.284e-01, i.e. 2.44e-02 consumed (over half the
+    4.7e-02 row budget). PASS survives at +0.928 - but the honest
+    statement is that RUN 1's margin was covering an unregistered
+    channel roughly half the size of its own budget, which is exactly
+    the 1108-erratum geometry. The rerun is not ceremony: the landing
+    certificate now bounds the channel it uses.
+    (b) The registered 1.6e-15 (4,8) entry-radius estimate was 11x
+    small (realized 1.776e-14, dominated by the 8-ulp widen of the
+    float midpoints of entries ~O(1-30), not by the arb rad); the
+    40.6x orthogonality factor (s1b item 1) absorbed the error. Both
+    errors being in OPPOSITE directions means neither may be trusted
+    to recur: the model is now recorded as "pessimistic worst-case
+    alignment; realized budget = entrywise |X| w |Y|^T, never the
+    norm bound".
+
+Landing statements (literal, dependency-safe):
+    (2,8): top(A+P)|_V <= -1.042377419559e-06 on the triple-vanishing
+           window class at radius 2 (GL-256, arb 300-bit box + TRUNC
+           2.64e-12 + ulp-widen + CENTER_CHOL; fixed-float congruences
+           read as exact rationals; positive test = entrywise diagonal
+           dominance of the identity-centered whitened box).
+    (4,8): top(A+P)|_V <= -5.9992810737e-11 at radius 4 - the FIRST
+           DEPENDENCY-SAFE strictly-negative certificate at a=4
+           (1110's remains the float-domain one and is numerically
+           TIGHTER: -1.5999e-10; DELTA = 1e-10 is the interval tax).
+    (2,8) vs 1109: 1109's -1.4423e-06 is tighter but its machine was
+           adjudicated ball-arithmetic (1109 audit / laws 51-52);
+           1112's -1.0424e-06 REPLACES it as the sound statement.
+    Canaries (run 2): G-xcheck 1.67e-17 / 9.44e-16 (<=1e-12);
+           G-contain silent-pass; G-reactive 4.320e-03 / 5.738e-01
+           (>=1e-6); G-coef 3.15e-02 bit-identical to 1108/1110.
+    Cross-machine: 1112 top_mid(4,8) -2.599928073740e-10 vs 1110
+           -2.599918657200e-10: diff 9.4e-15 <= realized HRAD ~5e-12,
+           inside the shared box semantics.
+
+Artifact: docs/proofs/1112_cert.json (committed) - per class:
+    outward rational enclosures G_lo/G_hi, M_lo/M_hi (Fractions on the
+    FULL-space boxes - the ingestion contract data), U + U_outward,
+    R_mid/G_mid/M_mid + null_basis_Zn (8x5, columns span ker R) +
+    chol_L + chol_Rc float dumps, DELTA/EPS/TAU/N_GL/TRUNC, row_slacks,
+    verdict. A future Lean ingestion brick starts from the RATIONAL
+    boxes and re-derives the whole chain symbolically - nothing in
+    1112's float pipeline is assumed by it.
+
+Named next: (1) record 1113 - (a,8) radius-family scan (a=3 natural;
+    1106 booked a=10 V-top POSITIVE +3.789978 -> the family has a sign
+    change to locate; run the 1112 interval machine class-by-class);
+    (2) record 1114 - I-C/Q-F2 opening (exact statement now pinned:
+    {g.convSq : g healthy} not contained in any fixed V(a,K), spectra
+    disjoint; literature front found: arXiv 2608.24827 finite reduction
+    for WINDOW positivity - the bridge OUT of the window is still
+    nobody's theorem); (3) 1111 rational-Cholesky ingestion (smaller
+    n toy first). RH unclaimed; map unchanged; README untouched.
