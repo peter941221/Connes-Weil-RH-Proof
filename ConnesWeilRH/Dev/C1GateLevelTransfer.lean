@@ -45,7 +45,7 @@ private abbrev uK : Finset (Fin k) := Finset.univ
 /-- AM-GM cross-term bound: `2*|a|*|b| <= a^2 + b^2` (equivalently
 `|ab| <= (a^2+b^2)/2`). The only elementary inequality the L1 proof uses for its
 off-diagonal control. -/
-theorem two_abs_mul_le_sq_add_sq {a b : ℝ} : 2 * |a| * |b| ≤ a ^ 2 + b ^ 2 := by
+theorem two_abs_mul_le_sq_add_sq (a b : ℝ) : 2 * |a| * |b| ≤ a ^ 2 + b ^ 2 := by
   have hpos : (a - b) ^ 2 ≥ 0 := sq_nonneg _
   have hsum : (a + b) ^ 2 ≥ 0 := sq_nonneg _
   -- the two squares give a^2+b^2 >= 2ab and a^2+b^2 >= -2ab, hence >= 2|ab|.
@@ -169,6 +169,7 @@ theorem lbCollect {d : Fin k → ℝ} (rad : Matrix (Fin k) (Fin k) ℝ) (x : Fi
     calc (uK.sum fun i => (uK \ {i}).sum (fun j => -(rad i j / 2) * (x i ^ 2 + x j ^ 2)))
         = (uK.sum fun i => (uK \ {i}).sum (fun j => -(rad i j / 2) * x i ^ 2))
           + (uK.sum fun i => (uK \ {i}).sum (fun j => -(rad i j / 2) * x j ^ 2)) := by
+          rw [← Finset.sum_add_distrib]
           apply Finset.sum_congr rfl
           intro i _
           rw [Finset.sum_congr rfl (fun j _ => mul_add _ _ _)]
@@ -213,7 +214,7 @@ theorem qform_nonneg_whitenedBox {d : Fin k → ℝ} (rad : Matrix (Fin k) (Fin 
         calc
           _ = |E i j| * |x i * x j| := by rw [abs_mul]
           _ ≤ rad i j * |x i * x j| := by
-              apply mul_le_mul_of_nonneg_right (abs_le.mp (heb i j)).1
+              apply mul_le_mul_of_nonneg_right (heb i j)
               exact abs_nonneg _
           _ ≤ rad i j * ((x i ^ 2 + x j ^ 2) / 2) := by
               have hinner : |x i * x j| ≤ (x i ^ 2 + x j ^ 2) / 2 := by
@@ -225,19 +226,22 @@ theorem qform_nonneg_whitenedBox {d : Fin k → ℝ} (rad : Matrix (Fin k) (Fin 
   -- Sum the pointwise lower bound over all pairs.
   have hsum : (uK.sum fun i => uK.sum fun j => (if i = j then (d i - rad i i) * x i ^ 2 else -(rad i j / 2) * (x i ^ 2 + x j ^ 2))) ≤
       (uK.sum fun i => uK.sum fun j => A i j * x i * x j) := by
-    apply Finset.sum_le_sum; intro i
-    apply Finset.sum_le_sum; intro j
+    apply Finset.sum_le_sum
+    intro i _
+    apply Finset.sum_le_sum
+    intro j _
     exact hLB i j
   -- Each collected diagonal coefficient is strictly positive by the slack.
   have hpos : ∀ i, 0 < d i - rad i i - (uK \ {i}).sum fun j => (rad i j + rad j i) / 2 := by
     intro i; linarith [hslack i]
   have hnonneg : 0 ≤ uK.sum fun i => (d i - rad i i - (uK \ {i}).sum fun j => (rad i j + rad j i) / 2) * x i ^ 2 := by
     apply Finset.sum_nonneg
-    intro i; nlinarith [hpos i, sq_nonneg (x i)]
+    intro i _
+    exact mul_nonneg (le_of_lt (hpos i)) (sq_nonneg (x i))
   calc
     0 ≤ uK.sum fun i => (d i - rad i i - (uK \ {i}).sum fun j => (rad i j + rad j i) / 2) * x i ^ 2 := hnonneg
-    _ = uK.sum fun i => uK.sum fun j => (if i = j then (d i - rad i i) * x i ^ 2 else -(rad i j / 2) * (x i ^ 2 + x j ^ 2)) := by rw [lbCollect d rad x]
+    _ = uK.sum fun i => uK.sum fun j => (if i = j then (d i - rad i i) * x i ^ 2 else -(rad i j / 2) * (x i ^ 2 + x j ^ 2)) := by rw [lbCollect rad x]
     _ ≤ uK.sum fun i => uK.sum fun j => A i j * x i * x j := hsum
-    _ = x ⬝ᵥ (A *ᵥ x) := (qformDoubleSum A x).symm
+    _ = x ⬝ᵥ (A *ᵥ x) := (qformDoubleSum x).symm
 
 end ConnesWeilRH.Source.C1GateLevelTransfer
