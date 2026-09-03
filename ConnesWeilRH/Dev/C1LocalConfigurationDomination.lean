@@ -281,13 +281,13 @@ theorem archimedeanNumerator_ICdefect (g : CompactLogTest) {ι : Type}
       have he1 : (ICdefect g (insert a s) w lam).test =
           (ICdefect g s w lam).test - (lam a : ℂ) • (w a).test := by
         ext x
-        rw [ICdefect_test, ICdefect_test, SchwartzMap.sub_apply,
-          SchwartzMap.smul_apply, SchwartzMap.sum_apply,
+        rw [← ICdefect_test, SchwartzMap.sub_apply,
+          SchwartzMap.smul_apply, ICdefect_test, ICdefect_test,
           Finset.sum_insert hat]
         ring
       rw [he1, coe_sub, hNsub, coe_smul, hNsmul, ih,
         Finset.sum_insert hat]
-      simp only [sub_eq_add_neg, neg_smul]
+      simp only [sub_eq_add_neg]
       abel
 
 /-! ### Pointwise linearity: the archimedean integrand -/
@@ -386,7 +386,7 @@ theorem archimedeanTerm_packTest_add (f g : TestFunction)
     filter_upwards with y
     rw [archimedeanIntegrand_packTest_add f g hf hg y]
   rw [hcong, integral_add (hIf : Integrable _ _) (hIg : Integrable _ _)]
-  simp only [add_re]
+  simp only [Complex.add_re]
   ring
 
 theorem archimedeanTerm_packTest_sub (f g : TestFunction)
@@ -415,7 +415,7 @@ theorem archimedeanTerm_packTest_sub (f g : TestFunction)
     filter_upwards with y
     rw [archimedeanIntegrand_packTest_sub f g hf hg y]
   rw [hcong, integral_sub (hIf : Integrable _ _) (hIg : Integrable _ _)]
-  simp only [sub_re]
+  simp only [Complex.sub_re, Complex.add_re]
   ring
 
 theorem archimedeanTerm_packTest_smul (c : ℝ) (f : TestFunction)
@@ -449,7 +449,6 @@ theorem archimedeanTerm_packTest_smul (c : ℝ) (f : TestFunction)
     intro Z
     simp
   rw [hre]
-  rfl
 
 /-! ### Pointwise linearity: the prime ingredients -/
 
@@ -616,7 +615,6 @@ theorem finitePrimeSum_packTest_add (f g : TestFunction)
   rw [e1, e2, e3,
     Finset.sum_congr rfl (fun n _ => finitePrimeTerm_packTest_add f g hf hg n),
     Finset.sum_add_distrib]
-  rfl
 
 /-- The prime sum is real-homogeneous. -/
 theorem finitePrimeSum_packTest_smul (c : ℝ) (f : TestFunction)
@@ -685,7 +683,6 @@ theorem finitePrimeSum_packTest_sub (f g : TestFunction)
   rw [e1, e2, e3,
     Finset.sum_congr rfl (fun n _ => finitePrimeTerm_packTest_sub f g hf hg n),
     Finset.sum_sub_distrib]
-  rfl
 
 /-! ### Gate additivity, homogeneity, subtraction -/
 
@@ -772,8 +769,8 @@ theorem ICgate_ICdefect (g : CompactLogTest) {ι : Type} (s : Finset ι)
           (ICdefect g s w lam).test -
             (lam a : ℂ) • (w a).test := by
         ext x
-        rw [ICdefect_test, ICdefect_test, SchwartzMap.sub_apply,
-          SchwartzMap.smul_apply, SchwartzMap.sum_apply,
+        rw [← ICdefect_test, SchwartzMap.sub_apply,
+          SchwartzMap.smul_apply, ICdefect_test, ICdefect_test,
           Finset.sum_insert hat]
         ring
       have hcsS : HasCompactSupport
@@ -794,15 +791,19 @@ theorem ICgate_ICdefect (g : CompactLogTest) {ι : Type} (s : Finset ι)
           (packTest ((lam a : ℂ) • (w a).test)
             ((w a).compactSupport.smul_left (f := fun _ => (lam a : ℂ)))))
           (Ioi (0 : ℝ)) := by
-        have hcong : (fun y : ℝ =>
-            archimedeanIntegrand
-              (packTest ((lam a : ℂ) • (w a).test)
-                ((w a).compactSupport.smul_left
-                  (f := fun _ => (lam a : ℂ))))) =
+        have hcong : (fun y : ℝ => archimedeanIntegrand
+            (packTest ((lam a : ℂ) • (w a).test)
+              ((w a).compactSupport.smul_left
+                (f := fun _ => (lam a : ℂ)))) y =
             fun y : ℝ => (lam a : ℂ) • archimedeanIntegrand (w a) y := by
           funext y
-          exact archimedeanIntegrand_packTest_smul (lam a) (w a).test
-            (w a).compactSupport y _
+          rw [archimedeanIntegrand_packTest_smul (lam a) (w a).test
+              (w a).compactSupport y]
+          have hpacka : packTest ((w a).test) ((w a).compactSupport) = w a := by
+            refine CompactLogTest.ext ?_
+            ext x
+            simp [packTest_apply]
+          rw [hpacka]
         rw [hcong]
         have hsmul : (fun y : ℝ => (lam a : ℂ) •
             archimedeanIntegrand (w a) y) =
@@ -818,14 +819,26 @@ theorem ICgate_ICdefect (g : CompactLogTest) {ι : Type} (s : Finset ι)
         rw [show ICdefect g (insert a s) w lam = packTest
             ((ICdefect g s w lam).test - (lam a : ℂ) • (w a).test) hcsS from
           CompactLogTest.ext hte]
-        rw [ICgate_packTest_sub _ _ _ _
-          (support_ICdefect_subset hg
-            fun i hi => hw i (Finset.mem_insert_of_mem hi))
-          hsuppS hpartial hIsmul,
+        have hfS := (ICdefect g s w lam).compactSupport
+        rw [ICgate_packTest_sub ((ICdefect g s w lam).test)
+            ((lam a : ℂ) • (w a).test) hfS
+            ((w a).compactSupport.smul_left (f := fun _ => (lam a : ℂ)))
+            (support_ICdefect_subset hg
+              fun i hi => hw i (Finset.mem_insert_of_mem hi))
+            hsuppS hpartial hIsmul,
           ICgate_packTest_smul (lam a) (w a).test (w a).compactSupport
             hwa hIwa ((w a).compactSupport.smul_left
               (f := fun _ => (lam a : ℂ)))]
-        simp
+        have hpackS : packTest ((ICdefect g s w lam).test) hfS =
+            ICdefect g s w lam := by
+          refine CompactLogTest.ext ?_
+          ext x
+          simp [packTest_apply]
+        have hpacka2 : packTest ((w a).test) ((w a).compactSupport) = w a := by
+          refine CompactLogTest.ext ?_
+          ext x
+          simp [packTest_apply]
+        rw [hpackS, hpacka2]
       rw [hstep, hres, Finset.sum_insert hat]
       ring
 
