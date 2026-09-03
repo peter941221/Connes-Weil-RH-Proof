@@ -89,6 +89,8 @@ example (rho : ℂ) (g : CompactLogTest)
     C1OrbitWindowSemiLocalGate.orbitWindowSemiLocalGate g :=
   absurd (hfloor rho hz hh) hoff
 
+end -- the noncomputable section opened above
+
 end C1LocalConfigurationDominationAudit
 end Source
 end ConnesWeilRH
