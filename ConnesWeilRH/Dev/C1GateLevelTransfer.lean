@@ -218,7 +218,9 @@ theorem qform_nonneg_whitenedBox {d : Fin k → ℝ} (rad : Matrix (Fin k) (Fin 
               exact abs_nonneg _
           _ ≤ rad i j * ((x i ^ 2 + x j ^ 2) / 2) := by
               have hinner : |x i * x j| ≤ (x i ^ 2 + x j ^ 2) / 2 := by
-                nlinarith [two_abs_mul_le_sq_add_sq (x i) (x j)]
+                have hmul : |x i * x j| = |x i| * |x j| := abs_mul _ _
+                have hamgm := two_abs_mul_le_sq_add_sq (x i) (x j)
+                linarith
               exact mul_le_mul_of_nonneg_left hinner (hradpos i j)
           _ = (rad i j / 2) * (x i ^ 2 + x j ^ 2) := by ring
       refine le_trans ?_ hxy
