@@ -190,7 +190,7 @@ theorem lbCollect {d : Fin k → ℝ} (rad : Matrix (Fin k) (Fin k) ℝ) (x : Fi
 perturbation keeps the quadratic form nonnegative whenever every diagonal slack is strictly
 positive. Box-robust: it holds for EVERY real perturbation E with `|E i j| <= rad i j`. -/
 theorem qform_nonneg_whitenedBox {d : Fin k → ℝ} (rad : Matrix (Fin k) (Fin k) ℝ)
-    (hdpos : ∀ i, 0 < d i) (hradpos : ∀ i j, 0 ≤ rad i j)
+    (hradpos : ∀ i j, 0 ≤ rad i j)
     (hslack : ∀ i, rad i i + ((uK \ {i}).sum fun j => (rad i j + rad j i) / 2) < d i)
     {E : Matrix (Fin k) (Fin k) ℝ} (heb : ∀ i j, |E i j| ≤ rad i j) (x : Fin k → ℝ) :
     0 ≤ x ⬝ᵥ ((diagonal d + E) *ᵥ x) := by
