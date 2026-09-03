@@ -124,3 +124,25 @@ the external report. Per section 3, this authorizes - but does not
 execute - a SEPARATE pre-registration to re-register E0 as an
 SOS-identity certificate. No program change is booked by this record;
 RH unclaimed.
+
+## 6. Addendum B - P-7 K-fracture re-run (their pre-registered experiment 3)
+
+Run 2026-09-03, committed 1100b rig, a = 2, grid 4001, legendre. Their
+pre-registered criterion eps(K=24) > 1: **PASS**.
+
+```text
+K    d    topA        minP        eps          band=(K-1)pi/8
+8    5   +0.854466   -0.858729   +4.9893e-03   2.75
+16  13   +0.891587   -0.904387   +1.4356e-02   5.89
+24  21   +0.908998   -2.773355   +2.0510e+00   9.03
+32  29   +0.919364   -3.094872   +2.3663e+00  12.17
+48  45   +0.931452   -3.372194   +2.6204e+00  18.46
+```
+
+All five rows digit-agree with their P-7 table (+4.99e-3 / +1.44e-2 /
++2.05 / +2.37 / +2.62). The mirror dies at K = 24, exactly when the
+basis band crosses gamma_1 = 14.13: the windowed-mirror phenomenon and
+the certified pinning both live in the sub-gamma_1 world. Consequence
+for the certification machine: any K >= 24 certification needs MORE
+zeros in the Gram (their ~2K estimate) and cannot ride the mirror.
+Log: `1105_weil_identity_bundle/p7_run.log` (local, gitignored).
