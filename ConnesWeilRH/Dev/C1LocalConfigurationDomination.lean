@@ -791,10 +791,10 @@ theorem ICgate_ICdefect (g : CompactLogTest) {ι : Type} (s : Finset ι)
           (packTest ((lam a : ℂ) • (w a).test)
             ((w a).compactSupport.smul_left (f := fun _ => (lam a : ℂ)))))
           (Ioi (0 : ℝ)) := by
-        have hcong : (fun y : ℝ => archimedeanIntegrand
+        have hcong : archimedeanIntegrand
             (packTest ((lam a : ℂ) • (w a).test)
               ((w a).compactSupport.smul_left
-                (f := fun _ => (lam a : ℂ)))) y) =
+                (f := fun _ => (lam a : ℂ)))) =
             fun y : ℝ => (lam a : ℂ) • archimedeanIntegrand (w a) y := by
           funext y
           rw [archimedeanIntegrand_packTest_smul (lam a) (w a).test
