@@ -66,8 +66,22 @@ S0 (instantiation fidelity; abort-class if any fails):
         |raw(z_i) - y_i| <= 1e-8 * max(1,|y_i|) at every constraint
         node, computed by INDEPENDENT quadrature (different N).
   S0.2  support: chi, corr inside (-1,1); h = base^{*9} * corr inside
-        (-10,10) checked on the FFT grid (max |h| outside 10.05 = 0
-        below 1e-12); F = square inside (-20.05, 20.05) likewise.
+        (-10,10) checked on the FFT grid; F = square inside
+        (-20.05, 20.05) likewise.  AMPLITUDE-RELATIVE threshold
+        (max|.|outside / max|.|total <= 1e-12) - fix batch 2,
+        registered BEFORE any run: the favorable-branch coefficients
+        are O(1e37) (discovered at self-test stage), so an absolute
+        1e-12 floor is the wrong yardstick; the relative form is the
+        literal reading of "vanishes outside the support".
+        Same batch: the h-reconstruction is built by centered circular
+        FFT convolutions of resolved sample grids (the frequency-
+        product route needed Gauss-Legendre accuracy up to xi ~ 1.8e3,
+        where 900 points under-resolve by ~1.5 per wavelength and the
+        aliasing corrupted the reconstruction - caught by the
+        convention self-test, zero S1 data consumed), and the s-side
+        raw(z) evaluations moved to mpmath dps 80 (float64 re-summation
+        of 1e37-scale coefficients against O(1) values is pure
+        cancellation noise).
   S0.3  PARSEVAL CROSS-CHECK (the load-bearing one): the x-side FFT
         correlation F, evaluated by bilateral Laplace at the nodes
         (quadrature), must satisfy |Fhat(z) - raw(z)*conj(raw(-z-bar))|
