@@ -52,6 +52,28 @@ All cells: bundle `f0`, grid 4001, legendre, envelope_power=1.
 - ABORT: f0 anchor drift > 2e-3 (the bundle must stay pinned to the
   committed F.1 anchors).
 
+## 2.5 Post-run addendum (2026-09-03) - VERDICT: PASS (all three)
+
+All three rebuilt experiments reproduce the external numbers
+digit-for-digit on our machine (shared anchor-verified f0):
+
+- F.4: jumps drop-0 / drop-1/2 / drop-1 = +1e-6 / +4.45e-3 / +1e-6;
+  drop-{0,1} (keeping 1/2) stays pinned at +2.5e-7; drop-{0,1/2}
+  +2.9616; drop-all +9.2165. Criterion (i) and (ii) PASS. THE
+  MULTIPLIER SET SHRINKS TO ONE (the s=1/2 constraint) is now an
+  internal decision-grade fact.
+- F.5: slope/-A = 0.664 (a=2) / 0.731 (a=4) - outside [0.8, 1.2] as
+  predicted; delta* at noise scale (-1e-3 grid point / 0). PASS.
+- F.6: all ten values match the external table to 6 digits
+  (a=10: V=+3.789978, full=+5.055632); monotone in both columns.
+  PASS. Gap-to-peak at a=10 still +1.58 on V - slow convergence
+  confirmed with no external feed.
+
+Log: `1106_fpack_completion.log` (local, gitignored). Consequence:
+the E0 certificate object count drops from three multipliers to one;
+the next record (1107) designs the SOS upper-bound machinery on this
+basis. RH unclaimed.
+
 ## 3. What this record buys
 
 (i) "the multiplier set shrinks to ONE (the s=1/2 constraint)" becomes
