@@ -45,7 +45,7 @@ theorem two_abs_mul_le_sq_add_sq {a b : ℝ} : 2 * |a| * |b| ≤ a ^ 2 + b ^ 2 :
   have hab1 : 2 * a * b ≤ a ^ 2 + b ^ 2 := by nlinarith [hpos]
   have hab2 : -(2 * a * b) ≤ a ^ 2 + b ^ 2 := by nlinarith [hsum]
   have habs : |a * b| ≤ (a ^ 2 + b ^ 2) / 2 := by
-    rw [abs_le_iff, div_le_iff (show 0 < (2:ℝ), by norm_num)]
+    rw [abs_le]
     constructor <;> nlinarith [hab1, hab2]
   calc
     2 * |a| * |b| = 2 * (|a| * |b|) := by ring
