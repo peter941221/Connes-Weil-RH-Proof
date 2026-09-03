@@ -59,7 +59,7 @@ namespace ConnesWeilRH
 namespace Source
 namespace C1LocalConfigurationDomination
 
-open MeasureTheory Set
+open MeasureTheory Set Filter
 open CCM25Concrete.CompactLogConvolution
 open C1SameOwnerWeil
 open scoped BigOperators
@@ -83,6 +83,7 @@ theorem ICgate_congr {F G : CompactLogTest} (h : F.test = G.test) :
     ICgate F = ICgate G := by
   have h2 : F = G := CompactLogTest.ext h
   subst h2
+  rfl
 
 /-! ### Packaging and coercion plumbing -/
 
@@ -125,6 +126,7 @@ theorem hasCompactSupport_finset_sum {ι : Type} (s : Finset ι)
         (hf a (Finset.mem_insert_self a s)) using 1
       ext x
       simp [hat]
+      abel
 
 /-- A finite sum of integrable functions is integrable. -/
 theorem ICintegrable_sum {ι : Type} {μ : Measure ℝ} (s : Finset ι)
@@ -132,7 +134,7 @@ theorem ICintegrable_sum {ι : Type} {μ : Measure ℝ} (s : Finset ι)
     Integrable (fun x => ∑ i ∈ s, f i x) μ := by
   classical
   induction s using Finset.induction_on with
-  | empty => simpa using (integrable_const (0 : ℂ))
+  | empty => simp
   | @insert a s hat ih =>
       convert (h a (Finset.mem_insert_self a s)).add
         (ih fun b hb => h b (Finset.mem_insert_of_mem hb)) using 1
@@ -158,8 +160,11 @@ def ICdefect (g : CompactLogTest) {ι : Type} (s : Finset ι)
 @[simp] theorem ICdefect_test (g : CompactLogTest) {ι : Type} (s : Finset ι)
     (w : ι → CompactLogTest) (lam : ι → ℝ) (x : ℝ) :
     (ICdefect g s w lam).test x =
-      g.test x - ∑ i ∈ s, (lam i : ℂ) • (w i).test x :=
-  rfl
+      g.test x - ∑ i ∈ s, (lam i : ℂ) • (w i).test x := by
+  show (g.test - ∑ i ∈ s, (lam i : ℂ) • (w i).test) x =
+      g.test x - ∑ i ∈ s, (lam i : ℂ) • (w i).test x
+  simp only [SchwartzMap.sub_apply, SchwartzMap.sum_apply,
+    SchwartzMap.smul_apply]
 
 /-- The defect's support is covered by the ingredients' support bound. -/
 theorem support_ICdefect_subset {g : CompactLogTest} {ι : Type} {s : Finset ι}
@@ -168,19 +173,19 @@ theorem support_ICdefect_subset {g : CompactLogTest} {ι : Type} {s : Finset ι}
     (hw : ∀ i ∈ s, Function.support (w i).test ⊆ Ioo (-B) B) :
     Function.support (ICdefect g s w lam).test ⊆ Ioo (-B) B := by
   intro x hx
-  rw [ICdefect_test, Function.mem_support] at hx
+  rw [Function.mem_support] at hx
+  rw [ICdefect_test] at hx
   by_cases h : x ∈ Ioo (-B) B
   · exact h
   · apply absurd hx
-    push_neg at h
     have hg0 : g.test x = 0 := by
-      rw [Function.not_mem_support]
-      exact fun hne => h (hg hne)
+      by_contra hne
+      exact h (hg (Function.mem_support.mpr hne))
     have hs : ∑ i ∈ s, (lam i : ℂ) • (w i).test x = 0 := by
-      refine Finset.sum_eq_zero fun i hi _ => ?_
+      refine Finset.sum_eq_zero fun i hi => ?_
       have hzero : (w i).test x = 0 := by
-        rw [Function.not_mem_support]
-        exact fun hne => h (hw i hi hne)
+        by_contra hne
+        exact h (hw i hi (Function.mem_support.mpr hne))
       simp [hzero]
     rw [hg0, hs, sub_self]
 
@@ -189,7 +194,7 @@ theorem support_smul_subset {f : ℝ → ℂ} {c : ℂ} {B : ℝ}
     (h : Function.support f ⊆ Ioo (-B) B) :
     Function.support (fun x => c • f x) ⊆ Ioo (-B) B := by
   intro x hx
-  rw [Function.mem_support] at hx ⊢
+  rw [Function.mem_support] at hx
   by_cases h0 : f x = 0
   · rw [h0, smul_zero] at hx
     exact absurd hx rfl
@@ -216,9 +221,7 @@ theorem archimedeanNumerator_packTest_add (f g : TestFunction)
       archimedeanNumerator (packTest f hf) y +
         archimedeanNumerator (packTest g hg) y := by
   unfold archimedeanNumerator
-  rw [packTest_apply, packTest_apply, packTest_apply]
-  rw [coe_add, coe_add, coe_add]
-  simp only [Complex.ofRealCLM_apply]
+  simp only [packTest_apply, SchwartzMap.add_apply]
   ring
 
 theorem archimedeanNumerator_packTest_sub (f g : TestFunction)
@@ -227,20 +230,21 @@ theorem archimedeanNumerator_packTest_sub (f g : TestFunction)
       archimedeanNumerator (packTest f hf) y -
         archimedeanNumerator (packTest g hg) y := by
   unfold archimedeanNumerator
-  rw [packTest_apply, packTest_apply, packTest_apply]
-  rw [coe_sub, coe_sub, coe_sub]
-  simp only [Complex.ofRealCLM_apply]
+  simp only [packTest_apply, SchwartzMap.sub_apply]
   ring
 
+/-- Real homogeneity of the numerator.  The compact-support proof of the
+scaled function is abstracted (`∀ hc`) so the `packTest` pattern rewrites
+against ANY proof term: bundling the proof inside the statement blocked
+higher-order matching in the first build. -/
 theorem archimedeanNumerator_packTest_smul (c : ℝ) (f : TestFunction)
     (hf : HasCompactSupport f) (y : ℝ) :
-    archimedeanNumerator (packTest ((c : ℂ) • f)
-      (hf.smul_left (f := fun _ => (c : ℂ)))) y =
-      (c : ℂ) • archimedeanNumerator (packTest f hf) y := by
+    ∀ (hc : HasCompactSupport ((c : ℂ) • f)),
+      archimedeanNumerator (packTest ((c : ℂ) • f) hc) y =
+        (c : ℂ) • archimedeanNumerator (packTest f hf) y := by
+  intro hc
   unfold archimedeanNumerator
-  rw [packTest_apply, packTest_apply]
-  rw [coe_smul]
-  simp only [Complex.ofRealCLM_apply, smul_eq_mul]
+  simp only [packTest_apply, SchwartzMap.smul_apply, smul_eq_mul]
   ring
 
 /-- The numerator is linear along the whole defect combination: fixed-`y`
@@ -273,11 +277,12 @@ theorem archimedeanNumerator_ICdefect (g : CompactLogTest) {ι : Type}
         simp [ICdefect_test]
       rw [he0, Finset.sum_empty, sub_zero]
   | @insert a s hat ih =>
-      have he1 : (ICdefect g (insert a s hat) w lam).test =
+      have he1 : (ICdefect g (Finset.insert a s) w lam).test =
           (ICdefect g s w lam).test - (lam a : ℂ) • (w a).test := by
         ext x
-        rw [ICdefect_test, ICdefect_test, Finset.sum_insert hat]
-        simp
+        rw [ICdefect_test, ICdefect_test, SchwartzMap.sub_apply,
+          SchwartzMap.smul_apply, SchwartzMap.sum_apply,
+          Finset.sum_insert hat]
         ring
       rw [he1, coe_sub, hNsub, coe_smul, hNsmul, ih,
         Finset.sum_insert hat]
@@ -306,12 +311,13 @@ theorem archimedeanIntegrand_packTest_sub (f g : TestFunction)
 
 theorem archimedeanIntegrand_packTest_smul (c : ℝ) (f : TestFunction)
     (hf : HasCompactSupport f) (y : ℝ) :
-    archimedeanIntegrand (packTest ((c : ℂ) • f)
-      (hf.smul_left (f := fun _ => (c : ℂ)))) y =
-      (c : ℂ) • archimedeanIntegrand (packTest f hf) y := by
+    ∀ (hc : HasCompactSupport ((c : ℂ) • f)),
+      archimedeanIntegrand (packTest ((c : ℂ) • f) hc) y =
+        (c : ℂ) • archimedeanIntegrand (packTest f hf) y := by
+  intro hc
   unfold archimedeanIntegrand
-  rw [archimedeanNumerator_packTest_smul]
-  simp
+  rw [archimedeanNumerator_packTest_smul c f hf hc]
+  simp only [div_eq_mul_inv, mul_smul, smul_mul_assoc]
 
 /-- The defect integrand is the linear combination of the ingredient
 integrands, pointwise; the identity holds at every `y` including denominator
@@ -343,7 +349,7 @@ theorem ICdefect_integrand_integrable (g : CompactLogTest) {ι : Type}
   rw [hcong]
   refine (hIg : Integrable (fun y => archimedeanIntegrand g y)
       (volume.restrict (Ioi (0 : ℝ)))).sub ?_
-  refine ICintegrable_sum _ t (fun i y =>
+  refine ICintegrable_sum t (fun i y =>
     (lam i : ℂ) * archimedeanIntegrand (w i) y) ?_
   intro i hi
   have hI : Integrable (fun y => archimedeanIntegrand (w i) y)
@@ -365,9 +371,8 @@ theorem archimedeanTerm_packTest_add (f g : TestFunction)
           Real) : Complex)) * (packTest f hf).test 0 +
         (((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant :
           Real) : Complex)) * (packTest g hg).test 0 := by
-    rw [packTest_apply, packTest_apply, packTest_apply]
-    rw [coe_add]
-    simp only [Pi.add_apply]
+    rw [packTest_apply, packTest_apply, packTest_apply, coe_add]
+    simp
     ring
   rw [heval,
     integral_congr_ae (eventually_of_forall fun y =>
@@ -389,9 +394,8 @@ theorem archimedeanTerm_packTest_sub (f g : TestFunction)
           Real) : Complex)) * (packTest f hf).test 0 -
         (((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant :
           Real) : Complex)) * (packTest g hg).test 0 := by
-    rw [packTest_apply, packTest_apply, packTest_apply]
-    rw [coe_sub]
-    simp only [Pi.sub_apply]
+    rw [packTest_apply, packTest_apply, packTest_apply, coe_sub]
+    simp
     ring
   rw [heval,
     integral_congr_ae (eventually_of_forall fun y =>
@@ -404,23 +408,22 @@ theorem archimedeanTerm_packTest_smul (c : ℝ) (f : TestFunction)
     (hf : HasCompactSupport f)
     (hIf : IntegrableOn (archimedeanIntegrand (packTest f hf))
       (Ioi (0 : ℝ))) :
-    archimedeanTerm
-        (packTest ((c : ℂ) • f) (hf.smul_left (f := fun _ => (c : ℂ)))) =
-      c * archimedeanTerm (packTest f hf) := by
+    ∀ (hc : HasCompactSupport ((c : ℂ) • f)),
+      archimedeanTerm (packTest ((c : ℂ) • f) hc) =
+        c * archimedeanTerm (packTest f hf) := by
+  intro hc
   set C0 : ℂ := ((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant :
       Real) : ℂ) with hC0
-  have heval : C0 *
-      (packTest ((c : ℂ) • f)
-        (hf.smul_left (f := fun _ => (c : ℂ)))).test 0 =
+  have heval : C0 * (packTest ((c : ℂ) • f) hc).test 0 =
       (c : ℂ) • (C0 * (packTest f hf).test 0) := by
     rw [packTest_apply, packTest_apply]
     rw [coe_smul]
-    simp only [Pi.smul_apply, smul_eq_mul]
+    simp
     ring
   unfold archimedeanTerm
   rw [heval,
     integral_congr_ae (eventually_of_forall fun y =>
-      archimedeanIntegrand_packTest_smul c f hf y),
+      archimedeanIntegrand_packTest_smul c f hf hc y),
     integral_smul]
   rw [← smul_add]
   have hre : ∀ (Z : ℂ), ((c : ℂ) • Z).re = c * Z.re := by
@@ -436,20 +439,17 @@ theorem finitePrimeTermComplex_packTest_add (f g : TestFunction)
       finitePrimeTermComplex (packTest f hf) n +
         finitePrimeTermComplex (packTest g hg) n := by
   unfold finitePrimeTermComplex
-  rw [packTest_apply, packTest_apply, packTest_apply]
-  rw [coe_add, coe_add]
-  simp only [Pi.add_apply]
+  simp only [packTest_apply, SchwartzMap.add_apply]
   ring
 
 theorem finitePrimeTermComplex_packTest_smul (c : ℝ) (f : TestFunction)
     (hf : HasCompactSupport f) (n : ℕ) :
-    finitePrimeTermComplex (packTest ((c : ℂ) • f)
-      (hf.smul_left (f := fun _ => (c : ℂ)))) n =
-      (c : ℂ) • finitePrimeTermComplex (packTest f hf) n := by
+    ∀ (hc : HasCompactSupport ((c : ℂ) • f)),
+      finitePrimeTermComplex (packTest ((c : ℂ) • f) hc) n =
+        (c : ℂ) • finitePrimeTermComplex (packTest f hf) n := by
+  intro hc
   unfold finitePrimeTermComplex
-  rw [packTest_apply, packTest_apply]
-  rw [coe_smul]
-  simp only [Pi.smul_apply, smul_eq_mul]
+  simp only [packTest_apply, SchwartzMap.smul_apply, smul_eq_mul]
   ring
 
 theorem finitePrimeTerm_packTest_add (f g : TestFunction)
@@ -463,19 +463,23 @@ theorem finitePrimeTerm_packTest_add (f g : TestFunction)
 
 theorem finitePrimeTerm_packTest_smul (c : ℝ) (f : TestFunction)
     (hf : HasCompactSupport f) (n : ℕ) :
-    finitePrimeTerm (packTest ((c : ℂ) • f)
-      (hf.smul_left (f := fun _ => (c : ℂ)))) n =
-      c * finitePrimeTerm (packTest f hf) n := by
+    ∀ (hc : HasCompactSupport ((c : ℂ) • f)),
+      finitePrimeTerm (packTest ((c : ℂ) • f) hc) n =
+        c * finitePrimeTerm (packTest f hf) n := by
+  intro hc
   unfold finitePrimeTerm
-  rw [finitePrimeTermComplex_packTest_smul]
-  simp
+  rw [finitePrimeTermComplex_packTest_smul c f hf hc]
+  have hre : ((c : ℂ) • finitePrimeTermComplex (packTest f hf) n).re =
+      c * (finitePrimeTermComplex (packTest f hf) n).re := by
+    simp
+  rw [hre]
 
 /-- Prime sums are support-controlled: a test supported in `Ioo (-B) B` has
 all its visible prime terms inside the common ceiling
 `Nat.ceil (exp B) + 1`. -/
 theorem finitePrimeSum_packTest_eq_sum_range (f : TestFunction)
     (hf : HasCompactSupport f) {B : ℝ}
-    (h : Function.support f ⊆ Ioo (-B) B) :
+    (h : Function.support ⇑f ⊆ Ioo (-B) B) :
     finitePrimeSum (packTest f hf) =
       ∑ n ∈ Finset.range (Nat.ceil (Real.exp B) + 1),
         finitePrimeTerm (packTest f hf) n := by
@@ -486,17 +490,20 @@ theorem finitePrimeSum_packTest_eq_sum_range (f : TestFunction)
     intro n hn
     have hlog : Real.log (n : ℝ) ≥ B := by
       have hpos : (0 : ℝ) < Real.exp B := Real.exp_pos B
-      have h := Real.log_lt_log hpos hn
-      rwa [Real.log_exp] at h
+      have h' := Real.log_lt_log hpos hn
+      rw [Real.log_exp] at h'
+      exact le_of_lt h'
+    have heq : F.test = f := rfl
     have hp : F.test (Real.log (n : ℝ)) = 0 := by
-      rw [Function.not_mem_support]
-      exact fun hmem => not_lt_of_ge hlog ((h hmem).2)
+      rw [heq]
+      by_contra hne
+      exact not_lt_of_ge hlog ((h (Function.mem_support.mpr hne)).2)
     have hm : F.test (-Real.log (n : ℝ)) = 0 := by
-      rw [Function.not_mem_support]
-      exact fun hmem => not_lt_of_ge hlog ((h hmem).1)
+      rw [heq]
+      by_contra hne
+      exact not_lt_of_ge hlog ((h (Function.mem_support.mpr hne)).1)
     unfold finitePrimeTerm finitePrimeTermComplex
-    rw [packTest_apply, packTest_apply, packTest_apply, packTest_apply,
-      hp, hm]
+    rw [hp, hm]
     simp
   have hzb : ∀ n : ℕ, globalIndexBound F ≤ n → finitePrimeTerm F n = 0 := by
     intro n hn
@@ -514,18 +521,20 @@ theorem finitePrimeSum_packTest_eq_sum_range (f : TestFunction)
       by_cases hh : IsPrimePow n ∧ finitePrimeTermComplex F n ≠ 0
       · simp [hh]
       · rw [if_neg hh]
-        push_neg at hh
-        rcases hh with hnp | hzero
-        · have h2 : finitePrimeTermComplex F n = 0 := by
+        by_cases hnp : IsPrimePow n
+        · have hzero : finitePrimeTermComplex F n = 0 := by
+            by_contra hc
+            exact hh ⟨hnp, hc⟩
+          simp [finitePrimeTerm, hzero]
+        · have hzero : finitePrimeTermComplex F n = 0 := by
             by_contra hc
             exact hnp (finitePrimeTermComplex_nonzero_primePower F hc)
-          simp [finitePrimeTerm, h2]
-        · simp [finitePrimeTerm, hzero]
+          simp [finitePrimeTerm, hzero]
   have hgrowL : ∑ n ∈ Finset.range (globalIndexBound F), finitePrimeTerm F n =
       ∑ n ∈ Finset.range (max (globalIndexBound F) N), finitePrimeTerm F n := by
     have hIco : ∑ n ∈ Finset.Ico (globalIndexBound F)
         (max (globalIndexBound F) N), finitePrimeTerm F n = 0 :=
-      Finset.sum_eq_zero fun n hn _ => hzb n (Finset.mem_Ico.mp hn).1
+      Finset.sum_eq_zero fun n hn => hzb n (Finset.mem_Ico.mp hn).1
     calc ∑ n ∈ Finset.range (globalIndexBound F), finitePrimeTerm F n
         = ∑ n ∈ Finset.range (globalIndexBound F), finitePrimeTerm F n + 0 :=
           (add_zero _).symm
@@ -534,12 +543,12 @@ theorem finitePrimeSum_packTest_eq_sum_range (f : TestFunction)
             (max (globalIndexBound F) N), finitePrimeTerm F n := by rw [hIco]
       _ = ∑ n ∈ Finset.range (max (globalIndexBound F) N),
             finitePrimeTerm F n :=
-          (Finset.sum_range_add_sum_Ico _ (Nat.le_max_left _ _)).symm
+          Finset.sum_range_add_sum_Ico _ (Nat.le_max_left _ _)
   have hgrowR : ∑ n ∈ Finset.range N, finitePrimeTerm F n =
       ∑ n ∈ Finset.range (max (globalIndexBound F) N), finitePrimeTerm F n := by
     have hIco : ∑ n ∈ Finset.Ico N (max (globalIndexBound F) N),
         finitePrimeTerm F n = 0 := by
-      refine Finset.sum_eq_zero fun n hn _ => ?_
+      refine Finset.sum_eq_zero fun n hn => ?_
       have h1 := Finset.mem_Ico.mp hn
       have hceil : (Real.exp B : ℝ) ≤ (Nat.ceil (Real.exp B) : ℝ) :=
         by exact_mod_cast Nat.le_ceil _
@@ -556,54 +565,57 @@ theorem finitePrimeSum_packTest_eq_sum_range (f : TestFunction)
             finitePrimeTerm F n := by rw [hIco]
       _ = ∑ n ∈ Finset.range (max (globalIndexBound F) N),
             finitePrimeTerm F n :=
-          (Finset.sum_range_add_sum_Ico _ (Nat.le_max_right _ _)).symm
+          Finset.sum_range_add_sum_Ico _ (Nat.le_max_right _ _)
   rw [hrange, hgrowL, ← hgrowR]
 
 /-- The prime sum is additive on tests supported in a common window. -/
 theorem finitePrimeSum_packTest_add (f g : TestFunction)
     (hf : HasCompactSupport f) (hg : HasCompactSupport g) {B : ℝ}
-    (hF : Function.support f ⊆ Ioo (-B) B)
-    (hG : Function.support g ⊆ Ioo (-B) B) :
+    (hF : Function.support ⇑f ⊆ Ioo (-B) B)
+    (hG : Function.support ⇑g ⊆ Ioo (-B) B) :
     finitePrimeSum (packTest (f + g) (hf.add hg)) =
       finitePrimeSum (packTest f hf) + finitePrimeSum (packTest g hg) := by
-  have hFG : Function.support (packTest (f + g) (hf.add hg)).test ⊆
-      Ioo (-B) B := by
-    rw [packTest_apply]
-    have h1 : ⇑(f + g) = fun x : ℝ => f x + g x := coe_add f g
-    rw [h1]
+  have hFG : Function.support ⇑(f + g) ⊆ Ioo (-B) B := by
+    rw [coe_add]
     intro x hx
-    rw [Function.mem_support] at hx
-    by_cases h2 : f x = 0
-    · have h3 : g x ≠ 0 := by
-        intro h4; rw [h2, h4, add_zero] at hx; exact hx rfl
-      exact hG h3
-    · exact hF h2
-  rw [finitePrimeSum_packTest_eq_sum_range _ _ hFG,
-    finitePrimeSum_packTest_eq_sum_range _ _ hF,
-    finitePrimeSum_packTest_eq_sum_range _ _ hG,
-    Finset.sum_add_distrib]
+    by_contra hxB
+    have h1 : ⇑f x = 0 := by
+      by_contra hne
+      exact hxB (hF (Function.mem_support.mpr hne))
+    have h2 : ⇑g x = 0 := by
+      by_contra hne
+      exact hxB (hG (Function.mem_support.mpr hne))
+    apply hx
+    simp [h1, h2]
+  have e1 := finitePrimeSum_packTest_eq_sum_range (f + g) (hf.add hg) hFG
+  have e2 := finitePrimeSum_packTest_eq_sum_range f hf hF
+  have e3 := finitePrimeSum_packTest_eq_sum_range g hg hG
+  rw [e1, e2, e3, Finset.sum_add_distrib]
   refine Finset.sum_congr rfl fun n _ => ?_
-  rw [packTest_apply, packTest_apply, packTest_apply]
   exact finitePrimeTerm_packTest_add f g hf hg n
 
 /-- The prime sum is real-homogeneous. -/
 theorem finitePrimeSum_packTest_smul (c : ℝ) (f : TestFunction)
     (hf : HasCompactSupport f) {B : ℝ}
-    (h : Function.support f ⊆ Ioo (-B) B) :
-    finitePrimeSum (packTest ((c : ℂ) • f)
-      (hf.smul_left (f := fun _ => (c : ℂ)))) =
-      c * finitePrimeSum (packTest f hf) := by
-  have hc : Function.support
-      (packTest ((c : ℂ) • f)
-        (hf.smul_left (f := fun _ => (c : ℂ)))).test ⊆ Ioo (-B) B := by
-    rw [packTest_apply, coe_smul]
-    exact support_smul_subset h
-  rw [finitePrimeSum_packTest_eq_sum_range _ _ hc,
-    finitePrimeSum_packTest_eq_sum_range _ _ h,
-    Finset.mul_sum]
+    (h : Function.support ⇑f ⊆ Ioo (-B) B) :
+    ∀ (hc : HasCompactSupport ((c : ℂ) • f)),
+      finitePrimeSum (packTest ((c : ℂ) • f) hc) =
+        c * finitePrimeSum (packTest f hf) := by
+  intro hc
+  have hc' : Function.support ⇑((c : ℂ) • f) ⊆ Ioo (-B) B := by
+    rw [coe_smul]
+    intro x hx
+    by_contra hxB
+    have h1 : ⇑f x = 0 := by
+      by_contra hne
+      exact hxB (h (Function.mem_support.mpr hne))
+    apply hx
+    simp [h1]
+  have e1 := finitePrimeSum_packTest_eq_sum_range ((c : ℂ) • f) hc hc'
+  have e2 := finitePrimeSum_packTest_eq_sum_range f hf h
+  rw [e1, e2, Finset.mul_sum]
   refine Finset.sum_congr rfl fun n _ => ?_
-  rw [packTest_apply, packTest_apply]
-  exact finitePrimeTerm_packTest_smul c f hf n
+  exact finitePrimeTerm_packTest_smul c f hf hc
 
 theorem finitePrimeTermComplex_packTest_sub (f g : TestFunction)
     (hf : HasCompactSupport f) (hg : HasCompactSupport g) (n : ℕ) :
@@ -611,8 +623,7 @@ theorem finitePrimeTermComplex_packTest_sub (f g : TestFunction)
       finitePrimeTermComplex (packTest f hf) n -
         finitePrimeTermComplex (packTest g hg) n := by
   unfold finitePrimeTermComplex
-  rw [packTest_apply, packTest_apply, packTest_apply]
-  rw [coe_sub, coe_sub]
+  simp only [packTest_apply, SchwartzMap.sub_apply]
   ring
 
 theorem finitePrimeTerm_packTest_sub (f g : TestFunction)
@@ -628,20 +639,27 @@ theorem finitePrimeTerm_packTest_sub (f g : TestFunction)
 common window. -/
 theorem finitePrimeSum_packTest_sub (f g : TestFunction)
     (hf : HasCompactSupport f) (hg : HasCompactSupport g) {B : ℝ}
-    (hF : Function.support f ⊆ Ioo (-B) B)
-    (hG : Function.support g ⊆ Ioo (-B) B) :
+    (hF : Function.support ⇑f ⊆ Ioo (-B) B)
+    (hG : Function.support ⇑g ⊆ Ioo (-B) B) :
     finitePrimeSum (packTest (f - g) (hf.sub hg)) =
       finitePrimeSum (packTest f hf) - finitePrimeSum (packTest g hg) := by
-  have hFG : Function.support (packTest (f - g) (hf.sub hg)).test ⊆
-      Ioo (-B) B := by
-    rw [packTest_apply, coe_sub]
-    exact support_sub_subset hF hG
-  rw [finitePrimeSum_packTest_eq_sum_range _ _ hFG,
-    finitePrimeSum_packTest_eq_sum_range _ _ hF,
-    finitePrimeSum_packTest_eq_sum_range _ _ hG,
-    Finset.sum_sub_distrib]
+  have hFG : Function.support ⇑(f - g) ⊆ Ioo (-B) B := by
+    rw [coe_sub]
+    intro x hx
+    by_contra hxB
+    have h1 : ⇑f x = 0 := by
+      by_contra hne
+      exact hxB (hF (Function.mem_support.mpr hne))
+    have h2 : ⇑g x = 0 := by
+      by_contra hne
+      exact hxB (hG (Function.mem_support.mpr hne))
+    apply hx
+    simp [h1, h2]
+  have e1 := finitePrimeSum_packTest_eq_sum_range (f - g) (hf.sub hg) hFG
+  have e2 := finitePrimeSum_packTest_eq_sum_range f hf hF
+  have e3 := finitePrimeSum_packTest_eq_sum_range g hg hG
+  rw [e1, e2, e3, Finset.sum_sub_distrib]
   refine Finset.sum_congr rfl fun n _ => ?_
-  rw [packTest_apply, packTest_apply, packTest_apply]
   exact finitePrimeTerm_packTest_sub f g hf hg n
 
 /-! ### Gate additivity, homogeneity, subtraction -/
@@ -649,8 +667,8 @@ theorem finitePrimeSum_packTest_sub (f g : TestFunction)
 /-- Gate subtraction on a common support window: the insert-step workhorse. -/
 theorem ICgate_packTest_sub (f h : TestFunction)
     (hf : HasCompactSupport f) (hh : HasCompactSupport h) {B : ℝ}
-    (hF : Function.support f ⊆ Ioo (-B) B)
-    (hH : Function.support h ⊆ Ioo (-B) B)
+    (hF : Function.support ⇑f ⊆ Ioo (-B) B)
+    (hH : Function.support ⇑h ⊆ Ioo (-B) B)
     (hIf : IntegrableOn (archimedeanIntegrand (packTest f hf)) (Ioi (0 : ℝ)))
     (hIh : IntegrableOn (archimedeanIntegrand (packTest h hh)) (Ioi (0 : ℝ))) :
     ICgate (packTest (f - h) (hf.sub hh)) =
@@ -658,11 +676,12 @@ theorem ICgate_packTest_sub (f h : TestFunction)
   unfold ICgate
   rw [archimedeanTerm_packTest_sub f h hf hh hIf hIh,
     finitePrimeSum_packTest_sub f h hf hh hF hH]
+  ring
 
 theorem ICgate_packTest_add (f g : TestFunction)
     (hf : HasCompactSupport f) (hg : HasCompactSupport g) {B : ℝ}
-    (hF : Function.support f ⊆ Ioo (-B) B)
-    (hG : Function.support g ⊆ Ioo (-B) B)
+    (hF : Function.support ⇑f ⊆ Ioo (-B) B)
+    (hG : Function.support ⇑g ⊆ Ioo (-B) B)
     (hIf : IntegrableOn (archimedeanIntegrand (packTest f hf)) (Ioi (0 : ℝ)))
     (hIg : IntegrableOn (archimedeanIntegrand (packTest g hg)) (Ioi (0 : ℝ))) :
     ICgate (packTest (f + g) (hf.add hg)) =
@@ -670,17 +689,19 @@ theorem ICgate_packTest_add (f g : TestFunction)
   unfold ICgate
   rw [archimedeanTerm_packTest_add f g hf hg hIf hIg,
     finitePrimeSum_packTest_add f g hf hg hF hG]
+  ring
 
 theorem ICgate_packTest_smul (c : ℝ) (f : TestFunction)
     (hf : HasCompactSupport f) {B : ℝ}
-    (h : Function.support f ⊆ Ioo (-B) B)
+    (h : Function.support ⇑f ⊆ Ioo (-B) B)
     (hIf : IntegrableOn (archimedeanIntegrand (packTest f hf)) (Ioi (0 : ℝ))) :
-    ICgate (packTest ((c : ℂ) • f)
-      (hf.smul_left (f := fun _ => (c : ℂ)))) =
-      c * ICgate (packTest f hf) := by
+    ∀ (hc : HasCompactSupport ((c : ℂ) • f)),
+      ICgate (packTest ((c : ℂ) • f) hc) = c * ICgate (packTest f hf) := by
+  intro hc
   unfold ICgate
-  rw [archimedeanTerm_packTest_smul c f hf hIf,
-    finitePrimeSum_packTest_smul c f hf h]
+  rw [archimedeanTerm_packTest_smul c f hf hIf hc,
+    finitePrimeSum_packTest_smul c f hf h hc]
+  ring
 
 /-! ### The master identity -/
 
@@ -708,6 +729,7 @@ theorem ICgate_ICdefect (g : CompactLogTest) {ι : Type} (s : Finset ι)
         ext x
         simp [ICdefect_test]
       rw [heta0, Finset.sum_empty, sub_zero]
+      rfl
   | @insert a s hat ih =>
       intro hw hIw
       have hres := ih (fun i hi => hw i (Finset.mem_insert_of_mem hi))
@@ -719,23 +741,30 @@ theorem ICgate_ICdefect (g : CompactLogTest) {ι : Type} (s : Finset ι)
       have hpartial : IntegrableOn (archimedeanIntegrand
           (ICdefect g s w lam)) (Ioi (0 : ℝ)) :=
         ICdefect_integrand_integrable g s w lam
-          (Finset.subset_insert a s hat) hIg
+          (fun b hb => Finset.mem_insert_of_mem hb) hIg
           (fun i hi => hIw i (Finset.mem_insert_of_mem hi))
-      have hte : (ICdefect g (insert a s hat) w lam).test =
+      have hte : (ICdefect g (Finset.insert a s) w lam).test =
           (ICdefect g s w lam).test -
             (lam a : ℂ) • (w a).test := by
         ext x
-        rw [ICdefect_test, ICdefect_test, Finset.sum_insert hat]
-        simp
+        rw [ICdefect_test, ICdefect_test, SchwartzMap.sub_apply,
+          SchwartzMap.smul_apply, SchwartzMap.sum_apply,
+          Finset.sum_insert hat]
         ring
       have hcsS : HasCompactSupport
           ((ICdefect g s w lam).test - (lam a : ℂ) • (w a).test) :=
         HasCompactSupport.sub (ICdefect g s w lam).compactSupport
           ((w a).compactSupport.smul_left (f := fun _ => (lam a : ℂ)))
-      have hsuppS : Function.support ((lam a : ℂ) • (w a).test) ⊆
-          Ioo (-B) B := by
+      have hsuppS : Function.support
+          ⇑((lam a : ℂ) • (w a).test) ⊆ Ioo (-B) B := by
         rw [coe_smul]
-        exact support_smul_subset hwa
+        intro x hx
+        by_contra hxB
+        have h1 : ⇑(w a).test x = 0 := by
+          by_contra hne
+          exact hxB (hwa (Function.mem_support.mpr hne))
+        apply hx
+        simp [h1]
       have hIsmul : IntegrableOn (archimedeanIntegrand
           (packTest ((lam a : ℂ) • (w a).test)
             ((w a).compactSupport.smul_left (f := fun _ => (lam a : ℂ)))))
@@ -748,7 +777,7 @@ theorem ICgate_ICdefect (g : CompactLogTest) {ι : Type} (s : Finset ι)
             fun y : ℝ => (lam a : ℂ) • archimedeanIntegrand (w a) y := by
           funext y
           exact archimedeanIntegrand_packTest_smul (lam a) (w a).test
-            (w a).compactSupport y
+            (w a).compactSupport y _
         rw [hcong]
         have hsmul : (fun y : ℝ => (lam a : ℂ) •
             archimedeanIntegrand (w a) y) =
@@ -759,9 +788,9 @@ theorem ICgate_ICdefect (g : CompactLogTest) {ι : Type} (s : Finset ι)
         have hI : Integrable (fun y : ℝ => archimedeanIntegrand (w a) y)
             (volume.restrict (Ioi (0 : ℝ))) := hIwa
         exact hI.const_mul' _
-      have hstep : ICgate (ICdefect g (insert a s hat) w lam) =
+      have hstep : ICgate (ICdefect g (Finset.insert a s) w lam) =
           ICgate (ICdefect g s w lam) - lam a * ICgate (w a) := by
-        rw [show ICdefect g (insert a s hat) w lam = packTest
+        rw [show ICdefect g (Finset.insert a s) w lam = packTest
             ((ICdefect g s w lam).test - (lam a : ℂ) • (w a).test) hcsS from
           CompactLogTest.ext hte]
         rw [ICgate_packTest_sub _ _ _ _
@@ -769,7 +798,9 @@ theorem ICgate_ICdefect (g : CompactLogTest) {ι : Type} (s : Finset ι)
             fun i hi => hw i (Finset.mem_insert_of_mem hi))
           hsuppS hpartial hIsmul,
           ICgate_packTest_smul (lam a) (w a).test (w a).compactSupport
-            hwa hIwa]
+            hwa hIwa ((w a).compactSupport.smul_left
+              (f := fun _ => (lam a : ℂ)))]
+        simp
       rw [hstep, hres, Finset.sum_insert hat]
       ring
 
@@ -806,33 +837,59 @@ theorem orbitWindowSemiLocalGate_of_contraction (g : CompactLogTest)
     (hbudget : c.epsilon ≤ ∑ i ∈ c.s, c.lam i * c.mu i) :
     C1OrbitWindowSemiLocalGate.orbitWindowSemiLocalGate g := by
   rw [orbitWindowSemiLocalGate_iff]
-  set B := (2 : ℝ) * max c.b (c.s.sup c.a) with hBdef
+  -- A common window `Ioo (-B) B` for the head square and every window
+  -- square, sized from the root supports through
+  -- `convolutionSquare_support_subset_two_mul_Ioo`.  The radius over the
+  -- windows is taken as the sum of absolute values (a `sup` over `Finset`
+  -- in `ℝ` would need an `OrderBot`, which `ℝ` does not carry).
+  set M := ∑ i ∈ c.s, |c.a i| with hMdef
+  set B := (2 : ℝ) * max c.b M with hBdef
   have hgs : Function.support g.convolutionSquare.test ⊆ Ioo (-B) B := by
-    have h1 := convolutionSquare_support_subset_two_mul_Ioo g
-      (fun x hx => Set.Ioo_subset_Icc_self (c.hgsupp hx))
-    have h2 : (2 : ℝ) * c.b ≤ B := by
-      have : c.b ≤ max c.b (c.s.sup c.a) := le_max_left _ _
-      linarith
-    refine (Ioo_subset_Ioo (by linarith) h2).trans h1
+    have h1 : Function.support g.convolutionSquare.test ⊆
+        Ioo (-(2 * c.b)) (2 * c.b) :=
+      CompactLogTest.convolutionSquare_support_subset_two_mul_Ioo g
+        (c.hgsupp.trans Set.Ioo_subset_Icc_self)
+    refine Set.Subset.trans h1 ?_
+    intro x hx
+    simp only [Set.mem_Ioo] at hx ⊢
+    have hbnd : (2 : ℝ) * c.b ≤ B := by
+      have : c.b ≤ max c.b M := le_max_left _ _
+      rw [hBdef]; linarith
+    have hnb : -B ≤ -(2 * c.b) := by rw [hBdef]; linarith
+    obtain ⟨hL, hR⟩ := hx
+    exact ⟨by linarith, by linarith⟩
   have hws : ∀ i ∈ c.s,
       Function.support ((c.w i).convolutionSquare).test ⊆ Ioo (-B) B := by
     intro i hi
-    have h1 := convolutionSquare_support_subset_two_mul_Ioo (c.w i)
-      (fun x hx => Set.Ioo_subset_Icc_self (c.hwsupp i hi hx))
-    have h2 : (2 : ℝ) * c.a i ≤ B := by
-      have : c.a i ≤ c.s.sup c.a := Finset.le_sup hi
-      have : max c.b (c.s.sup c.a) ≥ c.a i := le_max_right _ _
+    have h1 : Function.support ((c.w i).convolutionSquare).test ⊆
+        Ioo (-(2 * c.a i)) (2 * c.a i) :=
+      CompactLogTest.convolutionSquare_support_subset_two_mul_Ioo (c.w i)
+        ((c.hwsupp i hi).trans Set.Ioo_subset_Icc_self)
+    refine Set.Subset.trans h1 ?_
+    intro x hx
+    simp only [Set.mem_Ioo] at hx ⊢
+    have hM : |c.a i| ≤ M :=
+      Finset.single_le_sum (fun j _ => abs_nonneg (c.a j)) hi
+    have hle : c.a i ≤ M := by
+      have : c.a i ≤ |c.a i| := le_abs_self _
       linarith
-    refine (Ioo_subset_Ioo (by linarith) h2).trans h1
-  have hmain := ICgate_ICdefect g.convolutionSquare c.s
-    (fun i => (c.w i).convolutionSquare) c.lam hgs
-    (fun i hi => hws i hi)
-    (archimedeanIntegrand_square_integrableOn_Ioi g)
-    (fun i hi => archimedeanIntegrand_square_integrableOn_Ioi (c.w i))
-  have hb : ∑ i ∈ c.s, c.lam i * ICgate ((c.w i).convolutionSquare) ≤
+    have hbnd : (2 : ℝ) * c.a i ≤ B := by rw [hBdef]; linarith
+    have hnb : -B ≤ -(2 * c.a i) := by rw [hBdef]; linarith
+    obtain ⟨hL, hR⟩ := hx
+    exact ⟨by linarith, by linarith⟩
+  have hmain : ICgate (ICdefect g.convolutionSquare c.s
+      (fun i => (c.w i).convolutionSquare) c.lam) =
+      ICgate g.convolutionSquare -
+        ∑ i ∈ c.s, c.lam i * ICgate (c.w i).convolutionSquare :=
+    ICgate_ICdefect g.convolutionSquare c.s
+      (fun i => (c.w i).convolutionSquare) c.lam hgs
+      (fun i hi => hws i hi)
+      (archimedeanIntegrand_square_integrableOn_Ioi g)
+      (fun i hi => archimedeanIntegrand_square_integrableOn_Ioi (c.w i))
+  have hb : ∑ i ∈ c.s, c.lam i * ICgate (c.w i).convolutionSquare ≤
       ∑ i ∈ c.s, c.lam i * (-c.mu i) :=
     Finset.sum_le_sum fun i hi =>
-      mul_le_mul_of_nonneg_left (c.hcert i) (c.hlam i hi)
+      mul_le_mul_of_nonneg_left (c.hcert i hi) (c.hlam i hi)
   have hneg : ∑ i ∈ c.s, c.lam i * (-c.mu i) =
       -∑ i ∈ c.s, c.lam i * c.mu i := by
     rw [← Finset.sum_neg_distrib]
@@ -846,8 +903,9 @@ below `H` makes every `|rho.im| <= H` off-line `rho` hypothesis absurd, so the
 contraction type is inhabited for every test by the vacuous cell.  This
 proves the floor ==> contraction ==> gate plumbing typechecks end-to-end on
 one configuration-space cell, with the floor hypothesis exactly the shape
-1114 §2 Stage A produces. -/
-theorem ICStageBContraction_of_below_floor (rho : ℂ) (H : ℝ)
+1114 §2 Stage A produces.  (A `def`, not a `theorem`: its type is the
+structure `ICStageBContraction`, which is not a proposition.) -/
+noncomputable def ICStageBContraction_of_below_floor (rho : ℂ) (H : ℝ)
     (g : CompactLogTest)
     (hz : RHDefinitionBridge.standard.sourceNontrivialZero rho)
     (hheight : |rho.im| ≤ H)
@@ -856,6 +914,7 @@ theorem ICStageBContraction_of_below_floor (rho : ℂ) (H : ℝ)
     (hoff : rho.re ≠ 1 / 2) : ICStageBContraction g :=
   absurd (hfloor rho hz hheight) hoff
 
+end
 end C1LocalConfigurationDomination
 end Source
 end ConnesWeilRH
