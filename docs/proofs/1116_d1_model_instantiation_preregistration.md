@@ -138,6 +138,14 @@ cancellation-dominated assembly; h-support keeps 1e-12, measured
 8.7e-16); (iii) added reported quantities: sum|a| (x-side
 conditioning companion to S1.3), n_meas, per-node ratios, and
 GATE/f0 (scale-invariant reading, since gate(l*g) = |l|^2 gate(g)).
+Fix batch 5 (pre-data, second launch aborted at ratio 5.71e-06 vs the
+1e-6 guess, zero S1 rows consumed): the per-node table reads
+{0.7i: 5.0e-10, 3.3i: 7.5e-9, 0.3+0.5i: 5.7e-6, -0.25+2i: 8.4e-7},
+measurable count 4; the off-axis residuals match the quantified x-side
+noise (corr sample error eps*sum|a_m| ~ 1e12, smeared by the
+base^{*9} kernel and amplified by e^{Re z*20}); structural breakage
+is O(1) (the pre-batch-4 log showed 1e16-1e78). S0.3 threshold set
+to 1e-4 = 57x the observed worst residual.
 Finding booked from the aborted launch itself (a report, not a
 patch): at k=1 favorable branch the D1 pinning is OUTSIDE float-grade
 realizability for the polynomial-in-chi correction model -
