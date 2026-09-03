@@ -90,3 +90,78 @@ Lean gate Prop NOT discharged; I-C / Q-F2 untouched (record 1114);
 a >= 6 deferred (prime-shift cost 4*sqrt(exp(2a)) ~ 14k at a=6 -
 TRUNC/precision engineering or exact integration first). RH NOT
 claimed; no map change keyed.
+
+## 3b. POST-RUN ADDENDUM (run 2026-09-03 16:04-16:09, one run, zero ABORTs)
+
+Run ledger: single clean run (~6 min total; (3,8) seconds, (5,8) ~4
+min). All six inherited gates green in both cells:
+
+    gate         (3,8)            (5,8)           budget
+    G-coef       3.15e-02 (bit-identical across 1108/1110/1112/1113)  <= 10
+    G-width      7.45e-16          1.24e-15        <= 1e-07
+    G-xcheck     5.38e-16          7.30e-15        <= 1e-12
+    G-reactive   7.72e-02          2.835e+00       >= 1e-06
+    anchor drift 3.66e-07 (shared)                  <= 2e-3
+    G-contain, G-env              passed both.
+
+Verdicts (selector of §1 executed literally):
+
+    cell   top_mid           DELTA      U            min slack   VERDICT
+    (3,8)  -1.614048887e-08  4.0e-09    -1.214049e-08  +0.9785   PASS-IV38
+    (5,8)  -4.425156442e-13  7.0e-13    +2.574844e-13  (skipped) STRADDLE-IV58
+
+LANDING STATEMENT (new third certified radius):
+
+    top(A+P)|_{V(3,8)} <= -1.2140489e-08 + 1e-10 (inherited channels)
+                       = -1.204049e-08 < 0   [DEPENDENCY-SAFE interval cert]
+
+pin(3) = 1.614049e-08 inside registered band [9.7e-09, 3.9e-08]: BAND-OK.
+pin(5) = 4.425156e-13 BELOW band floor 1.7e-12 (3.8x): BAND-VIOLATION -
+the registered falsifier of §0 FIRED and is booked here per protocol
+(report, do NOT patch; no threshold touched):
+
+    realized per-unit ratios  r(2->3) = 1.1183e-02   r(3->4) = 1.6108e-02
+                              r(4->5) = 1.7020e-03   (fit was 1.342e-02)
+
+The two-point geometric law survives 2->4 (r wanders 1.1-1.6e-02) but
+COLLAPSES at 4->5 by another order of magnitude: the certified margin
+decays SUPER-geometrically once a > 4. The STRADDLE selector fired via
+the U >= 0 route (DELTA 7e-13 wider than the realized pin), not the
+registered whitened-noise-floor route; slack was therefore never
+attempted and (5,8) carries NO certificate claim (bundle row_slacks =
+null, chol_Rc = null as registered). Direction of the surprise matters
+for 1114/I-C: the horizon is CLOSER than modeled - brute-force window
+certification degrades faster than the exponential that the (2,4)
+pair suggested, so the function-class gap to the detector class is
+wider, not narrower, than §1's estimate.
+
+Probe print defect (post-run fix in the same commit): the pre-run
+ratio guard was written as the chained comparison "pins[hi] > 0.0 >
+pins[lo]" (fires only for hi>0 AND lo<0), so all three positive ratios
+printed "undefined". Pure display bug - every quantity used by any
+gate or verdict was untouched; the ratios above were reconstructed
+arithmetically from the printed pins (and verified against the bundle
+top_mid values). Fixed to "pins[hi] > 0.0 and pins[lo] > 0.0".
+
+Identity column (§2): A+P = -Z now confirmed at FOUR radii on the
+cross-machine absolute diagnostic:
+
+    a=2  D = 6.40e-11 (1110/1105, GL-256)     a=3  D = 1.541e-14
+    a=4  D = 1.558e-14 (1110)                 a=5  D = 2.044e-14
+
+all <= 1e-10 band; the three GL-512 values agree at ~2e-14 and the
+GL-256 (a=2) value is a 4000x quadrature-scale outlier (as expected -
+absolute band, no relative claim, law 44 discipline).
+
+F.6 pure-arch column (anchor-verified, measurement only):
+top_arch(3) = +1.346238 in (0.854466, 1.781109) OK;
+top_arch(5) = +2.198382 in (1.781109, 3.789978) OK; monotone bracket
+2<3<4<5 OK (no gate fires - pure-arch has no prime term by construction).
+
+Named next, updated: (i) rational-Cholesky ingestion brick for the
+THREE PASS classes (2,8)/(3,8)/(4,8) boxes (1111 bridge is the Lean
+endpoint); (ii) an a=5 re-attempt is NOT booked - pin(5) = 4.4e-13 vs
+HRAD ~ 5e-12 says the whitened slack would FAIL at any U<0 DELTA, so
+exact integration (or a coarser spectral truncation K < 8) must come
+first; (iii) 1114 I-C recon probe (running); (iv) a >= 6 unchanged
+(deferred, and now doubly so). RH NOT claimed; no map change keyed.

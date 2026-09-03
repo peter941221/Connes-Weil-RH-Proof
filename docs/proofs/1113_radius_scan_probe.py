@@ -431,7 +431,7 @@ pins = {2.0: 1.443377419559e-06, 4.0: 2.599928073740e-10}
 for cl, r in results:
     pins[cl["A_R"]] = -r["top_mid"]
 for lo, hi in ((2.0, 3.0), (3.0, 4.0), (4.0, 5.0)):
-    if pins[hi] > 0.0 > pins[lo]:
+    if pins[hi] > 0.0 and pins[lo] > 0.0:
         print(f"r({lo:g}->{hi:g}) = {pins[hi] / pins[lo]:.3e}")
     else:
         print(f"r({lo:g}->{hi:g}) = undefined (non-positive pin: "
