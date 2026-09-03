@@ -98,3 +98,61 @@ targeted build via scripts/run_resource_aware_task.sh
 (lake build ConnesWeilRH.Dev.E0SlemmaBridge
 ConnesWeilRH.Dev.E0SlemmaBridgeAudit); log local (gitignored);
 numbers and statements live in this doc's post-run addendum.
+
+## 5. Post-run addendum (2026-09-03 night) - VERDICT: GREEN
+
+HEAD of pre-run commit: 47e55db. Final build (run 6):
+"Build completed successfully (1772 jobs)", ZERO error lines, ZERO
+warnings attributable to the new modules, and all three public
+declarations print exactly [propext, Classical.choice, Quot.sound]
+(sorryAx count 0):
+
+    isTopBound_of_psd   (headline bridge)
+    ratio_le_of_psd     (Rayleigh-quotient form, G > 0)
+    ingestion_toy       (closed-data witness, pencil exactly 0)
+
+Realized-vs-registered notes (literal):
+
+- the PSD predicate landed on Mathlib's REALIZED name
+  `Matrix.PosSemidef` (section 1 wrote "Matrix.IsPosSemidef" - the
+  4.30 API spells the predicate PosSemidef with
+  posSemidef_iff_dotProduct_mulVec as the quadratic-form bridge;
+  same contract, name corrected by evidence);
+- the algebra came out as: expand the quadratic form IN PLACE in
+  the working hypothesis (sub/add/smul_mulVec +
+  dotProduct_sub/add/smul), kill each multiplier term via the
+  identity  c.T*(A*NU)*v c = (R*vc) .T (NU*vc)  (orientation fix:
+  Mathlib's mulVec_mulVec folds, does not split - rewrite with
+  the arrow reversed), then rw hc, zero_dotProduct, and linarith;
+- G-positive-definiteness never entered the headline proof (as
+  registered: the implication is hypothesis-free in G); the toy
+  needed one explicit-argument fix (NU is invisible in the goal,
+  provided with (NU := ...) by the caller).
+
+Run ledger (build iterations, zero semantic changes after run 2's
+design note):
+
+- run 1  RED: bad import name (Data.Matrix.Notation -> Basic).
+- run 2  RED: mulVec_mulVec orientation + nonexistent
+         smul_mulVec_assoc + a target-matching hexp design that
+         overshot (vecMul atom rewrites); in-place restructure.
+- run 3  RED: last mile - U .T (scalar) needed smul_eq_mul and the
+         duplicate zero_dotProduct rw missed (all-occurrences
+         rewrite had already closed both).
+- run 4  GREEN (1772 jobs); runs 5-6: warning hygiene only
+         (unused simp args / dead norm_num removed - linter
+         honesty, law 39 direction: proofs tightened to what they
+         actually use, no threshold semantics touched).
+
+What 1112 inherits (concretely): the ingestion contract is
+`(sLemmaPencil U G M R NU).PosSemidef` over (Fin 8) rational data -
+1112 must emit (G, M, R, NU, U) as rationals with an interval-
+provable PSD pencil; a future ingestion brick then closes
+PosSemidef on the midpoint data (via diagonal Cholesky evidence -
+`PosSemidef.of_dotProduct_mulVec_nonneg` + rational sum-of-squares,
+or native_decide at modest denominators - registered OPEN, not
+assumed).  The I-C statement (1114) must conclude `isTopBound` on
+coordinates to plug in.
+
+RH unclaimed; no gate Prop discharged; map unchanged; README
+untouched.

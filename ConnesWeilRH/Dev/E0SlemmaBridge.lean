@@ -4,7 +4,7 @@ Released under the Apache 2.0 license as described in the file LICENSE.
 -/
 
 import Mathlib.LinearAlgebra.Matrix.PosDef
-import Mathlib.Data.Matrix.Notation
+import Mathlib.Data.Matrix.Basic
 
 /-!
 # E0: the S-lemma top-bound bridge (record 1111)
@@ -68,24 +68,22 @@ theorem isTopBound_of_psd {G M : Matrix (Fin n) (Fin n) ℝ}
     (hT : (sLemmaPencil U G M R NU).PosSemidef) : isTopBound U G M R := by
   intro c hc
   obtain ⟨_, hq⟩ := posSemidef_iff_dotProduct_mulVec.mp hT
-  have hnz : 0 ≤ dotProduct c (sLemmaPencil U G M R NU *ᵥ c) := by simpa using hq c
+  have h1 : 0 ≤ dotProduct c (sLemmaPencil U G M R NU *ᵥ c) := by simpa using hq c
+  -- Each multiplier term is a pairing of (R *v c) with (NU *v c): it vanishes
+  -- exactly on the kernel of R (the "any NU carries the implication" mechanism).
   have hmulR : dotProduct c ((R.transpose * NU) *ᵥ c)
       = dotProduct (R.mulVec c) (NU.mulVec c) := by
-    rw [mulVec_mulVec, dotProduct_mulVec, vecMul_transpose]
+    rw [← mulVec_mulVec, dotProduct_mulVec, vecMul_transpose]
   have hmulN : dotProduct c ((NU.transpose * R) *ᵥ c)
       = dotProduct (R.mulVec c) (NU.mulVec c) := by
-    rw [dotProduct_comm, mulVec_mulVec, dotProduct_mulVec, vecMul_transpose,
-      dotProduct_comm]
-  have hexp : dotProduct c (sLemmaPencil U G M R NU *ᵥ c)
-      = U * dotProduct c (G.mulVec c) - dotProduct c (M.mulVec c)
-        - (dotProduct (R.mulVec c) (NU.mulVec c)
-          + dotProduct (R.mulVec c) (NU.mulVec c)) := by
-    unfold sLemmaPencil
-    simp only [sub_mulVec, add_mulVec, neg_mulVec, smul_mulVec_assoc, mulVec_mulVec,
-      dotProduct_sub, dotProduct_add, dotProduct_neg, dotProduct_smul,
-      dotProduct_mulVec, vecMul_transpose]
-    ring
-  rw [hexp, hmulR, hc, zero_dotProduct, hmulN, hc, zero_dotProduct] at hnz
+    rw [← mulVec_mulVec, dotProduct_mulVec, vecMul_transpose, dotProduct_comm]
+  -- Distribute the quadratic form over the pencil IN PLACE (the atoms of the
+  -- working hypothesis then match the goal syntactically for linarith).
+  rw [sLemmaPencil] at h1
+  simp only [sub_mulVec, add_mulVec, smul_mulVec, dotProduct_sub, dotProduct_add,
+    dotProduct_smul] at h1
+  rw [hmulR, hmulN, hc] at h1
+  simp only [zero_dotProduct, add_zero, sub_zero, smul_eq_mul] at h1
   linarith
 
 /-- Rayleigh-quotient form (`G > 0`): the literal "certified top <= U"
@@ -108,15 +106,16 @@ theorem ingestion_toy :
     isTopBound (0 : ℝ) (1 : Matrix (Fin 2) (Fin 2) ℝ)
       (!![(0 : ℝ), 1; 1, 0] : Matrix (Fin 2) (Fin 2) ℝ)
       (!![(0 : ℝ), 1] : Matrix (Fin 1) (Fin 2) ℝ) := by
-  refine isTopBound_of_psd ?_
-  have hzero : sLemmaPencil (0 : ℝ) 1 (!![(0 : ℝ), 1; 1, 0] : Matrix (Fin 2) (Fin 2) ℝ)
+  refine isTopBound_of_psd (NU := !![-(1 : ℝ), 0]) ?_
+  have hzero : sLemmaPencil (0 : ℝ) (1 : Matrix (Fin 2) (Fin 2) ℝ)
+      (!![(0 : ℝ), 1; 1, 0] : Matrix (Fin 2) (Fin 2) ℝ)
       (!![(0 : ℝ), 1] : Matrix (Fin 1) (Fin 2) ℝ)
       (!![-(1 : ℝ), 0] : Matrix (Fin 1) (Fin 2) ℝ) = 0 := by
     ext i j
     fin_cases i <;> fin_cases j
     all_goals
-      simp [sLemmaPencil, Matrix.mul_apply, transpose_apply, dotProduct,
-        Fin.sum_univ_one, Fin.sum_univ_two]
+      simp [sLemmaPencil, Matrix.mul_apply, Matrix.sub_apply, Matrix.add_apply,
+        Matrix.cons_val_zero, mul_neg]
   rw [hzero]
   exact PosSemidef.zero
 
