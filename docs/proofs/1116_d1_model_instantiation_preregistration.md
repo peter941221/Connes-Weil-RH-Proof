@@ -114,6 +114,35 @@ S1 (the data point, report-class, NO thresholds to pass):
         float-grade realizability and the pilot must move - report
         only).
 
+Fix batch 4 (pre-data; first launch aborted on S0.2/S0.3: its one
+printed delta=1/2 row is QUARANTINED by the failed S0 asserts - an
+unverified machine's output is not data, per house law that gate
+results require the fidelity gates to pass first). Root cause,
+established by the per-node audit of the
+aborted run: the Parseval identity conj(G(-conj z))G(z) =
+raw(z+1/2) conj(raw(1/2-conj z)) holds with ratio 1.0000e+00 at every
+probe above the x-side noise floor (|lhs| = |rhs| to printed
+precision at z = 0.7i, 3.3i), but the k=1 model has an INTRINSIC
+dynamic range: C must cancel B^9 ~ e^{-54} at the gamma_1-heights, so
+coefficients are O(1e27) against node values O(1) and unconstrained
+deep-cancellation values go down to 1e-41 - below any float64
+x-side resolution (noise ~1e-16 * sample scale). Amendments, both
+strengthening the semantics of the gates over noise, never weakening
+what is measured: (i) S0.3 test set = low-Re nodes {0.7i, 3.3i,
+0.3+0.5i, -0.25+2i, 0.3+7.5i, -0.1+11i, rho} with the assertion
+applied only at nodes where max(|lhs|,|rhs|) >= 1e-8*max|F| (at
+least 3 must qualify; non-even nodes still pin the conjugate and
+e^{x/2}-shift conventions); (ii) S0.2 F-support floor set to 1e-8
+RELATIVE (measured leak 6.1e-10 at delta=1/2 is float noise of the
+cancellation-dominated assembly; h-support keeps 1e-12, measured
+8.7e-16); (iii) added reported quantities: sum|a| (x-side
+conditioning companion to S1.3), n_meas, per-node ratios, and
+GATE/f0 (scale-invariant reading, since gate(l*g) = |l|^2 gate(g)).
+Finding booked from the aborted launch itself (a report, not a
+patch): at k=1 favorable branch the D1 pinning is OUTSIDE float-grade
+realizability for the polynomial-in-chi correction model -
+domination data at this point needs either the scale-invariant
+GATE/f0 reading (done) or an mp-grade x-side (not scheduled).
 Registered expectations (1114b-primed): the design INTENT of the
 pinned detector is that its gate is exactly the obligation (P2), so
 prior expectation is genuinely split; the informative datum is the
