@@ -6,7 +6,6 @@ VERDICT line per docs/proofs/1104_mirror_decay_scan_preregistration.md.
 Diagnostic float64; no certified bound; RH not claimed.
 """
 import importlib.util
-import math
 import os
 import sys
 import time
@@ -36,6 +35,7 @@ KSTAB = [(2.0, 16, 32001), (4.0, 24, 32001)]
 def load_rig():
     path = os.path.join(PROOFS, "1100b_first_cell_gate_scan_probe.py")
     spec = importlib.util.spec_from_file_location("probe1100b", path)
+    assert spec is not None and spec.loader is not None
     mod = importlib.util.module_from_spec(spec)
     sys.modules["probe1100b"] = mod
     spec.loader.exec_module(mod)
