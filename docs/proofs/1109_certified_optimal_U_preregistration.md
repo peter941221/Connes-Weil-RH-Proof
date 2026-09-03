@@ -47,6 +47,69 @@ correct); 1106/1107 have no Cholesky. Run 2 additionally prints
 per-pivot LOWER endpoints and the float eigmin of T at anchor and
 bracket (fingerprints of where the dangerous direction lives).
 
+FIX BATCH 2 (registered after run 2, before rerun 3) - DOMAIN
+CHANGE. Run 2 re-ran ABORT-BRACKET with the corrected positivity
+predicate and printed the decisive fingerprints: float
+eigmin(T(U_LO)) = -1.004e-09 (real: 5e4x above the float64
+construction noise of the T-entries) while ALL EIGHT arb pivot lows
+stayed >= 4.82e-05 at both U's - matching the exact-Cholesky
+requirement that a negative eigenvalue forces a negative pivot but
+contradicting the arb walk. Direct API tests on this machine
+(python-flint 0.9.0): arb operations DO propagate ball radii, but
+their MIDPOINTS are stored at float64 precision REGARDLESS of
+flint.ctx.prec = 300, and IV.span's float conversion quantizes
+sub-float radii to exact singletons. Consequence: the arb interval
+entries are a valid ~1e-15 rounding audit (widths 4.97e-16 in the
+log - true but COARSER than the 1e-9 direction we need to see after
+Schur amplification), and no arb Schur walk in this machine can
+certify positivity below ~1e-5. This retroactively bounds what the
+1108 Cholesky gate ever saw: its "interval Cholesky PASS" is NOT an
+independent interval certificate of PSD-ness; 1108's CONCLUSION
+stands regardless (the margin U_CERT - top = 1.04e-06 is 6+ orders
+above EVERY entrywise uncertainty channel ~1e-15, and on Rc = 0 the
+NU term contributes zero to the quadratic form, so ANY NU carries
+the S-lemma implication) - an erratum is owed to the 1108 doc at
+this record's addendum time.
+
+Rerun-3 registered protocol (supersedes section 1's oracle clause;
+everything else unchanged):
+
+    oracle cert_of(U): PASS iff float64 eigmin(T(NU*, U)) >=
+        +FLOAT_FLOOR (POSITIVITY - a negative tolerance would let
+        the bisection certify below the true top),
+        FLOAT_FLOOR := 1e-12
+    certified statement: top(A+P)|_V <= U_HI + EPS_CERT,
+        EPS_CERT := 1e-9  (entry channels: arb-mid rounding ~1e-15
+        + 4*TAU truncation 4e-14 per quadratic form, divided by
+        lambda_min(G) ~ 0.02 - run-2's bracket fingerprint pins
+        ||c*||^2 = 50 - giving ~4e-11, plus eigh backward error,
+        all wrapped with 25x safety; lambda_min(G) is PRINTED as an
+        audit line to verify the 0.02 figure)
+    G-anchor1108:      eigmin(T(U_CERT)) >= +1e-12 (run-2 realized
+                       +2.086e-08 -> PASS)
+    G-bracket:         U_LO := f(NU*) - U_LO_OFF, U_LO_OFF := 1e-11
+                       (supersedes the run-1/2 5.0e-8) must FAIL:
+                       eigmin(U_LO) ~ -1e-11/50 = -2e-13 < 0 by
+                       20x above the ~1e-14 eigmin noise -> fails
+    bisection:         40 steps or float-exhausted; BRACKET_MAX
+                       := 1e-11 (supersedes s1's 1e-13 - the float
+                       eigmin oracle converges to its own noise
+                       band ~2e-15 x ||c*||^2 ~ 1e-13, and asking a
+                       53-bit predicate for 1e-13 resolution invites
+                       a SPURIOUS ABORT-BRACKETW); U_HEADLINE =
+                       -1.40e-06 unchanged; the arb walk +
+                       enclosure stats stay as printed diagnostics
+                       (they are this finding's evidence)
+
+New registered prediction for run 3 (falsifiable): U_opt ~ f +
+50*FLOAT_FLOOR ~ -1.443377e-06 + 5e-11; certified statement
+top <= U_opt + 1e-9 ~ -1.4424e-06 < the -1.40e-06 bar: VERDICT
+PASS-ENCLOSED with the certified margin tightened ~1000x over 1108
+(1.043e-06 -> ~1.05e-09). The section-2 float-slope prediction
+(2.2e-08) is FALSIFIED as written by runs 1-2 and stands recorded;
+it was the arb-Schur walk's ~1e-5 resolution blind spot, not the
+S-lemma, that made the old bracket test pass.
+
 ## 1. Registered constants and bisection protocol
 
     U_CERT     = -4.0e-07   (1108 headline; the bisection HI start)

@@ -35,6 +35,7 @@ IV = m1101.IV
 C_ARCH = m1101.C_ARCH
 
 import flint as _flint
+from flint import arb
 _flint.ctx.prec = 300
 
 A_R = 2.0
@@ -48,7 +49,12 @@ TAU = 1e-14                    # registered GL-rule truncation (prereg s2)
 VANISH_S = (0.0, 0.5, 1.0)
 F0_ANCHOR = -9.773e-07          # record 1107 f0 null-basis top(M)
 U_HEADLINE = -1.40e-06          # registered pass bar (1109 s1)
-BRACKET_MAX = 1e-13             # final HI-LO budget (1109 s1)
+BRACKET_MAX = 1e-11             # final HI-LO budget; fix batch 2
+                                # supersedes s1's 1e-13: the float
+                                # eigmin oracle converges to its own
+                                # ~2e-15 * ||c*||^2 ~ 1e-13 noise
+                                # band, so 1e-11 keeps the abort
+                                # meaningful instead of spurious
 LAMZ60 = 1.443313051e-06        # diagnostic constant (1109 s1)
 
 
@@ -314,33 +320,67 @@ if f_star > MARGIN_FLOAT:
     sys.exit(0)
 
 # ------------------------- interval Cholesky oracle, monotone in U (1109)
+# FIX BATCH 2 (run-2 ABORT-BRACKET) - DIAGNOSTIC EXTENSION, the
+# float-vs-arb walks are printed side by side at both anchor and
+# bracket.  Reason: run-2's fingerprint showed float eigmin(T(U_LO))
+# = -1.004e-09 (5e4x above the ~1e-14 float-construction noise, so
+# REAL) hence det < 0 hence the exact Cholesky walk must have a
+# negative pivot - yet every arb pivot LOW printed >= 4.82e-05.  If
+# the float walk has a negative pivot where the arb walk does not,
+# the arb construction or the arb walk itself is diverging from the
+# float pencil and THAT is the bug to localize; the enclosure check
+# (arb entry mids vs float entries, arb radii) rides along.  The
+# oracle now also keeps the arb radii through 4*TAU widening instead
+# of span-rebuild (harmless tightening either way).
 def T_int_of(U_val):
+    nu_iv = [[IV(float(NU[si, j])) for j in range(K)] for si in range(3)]
+    u_iv = IV(U_val)
     T = np.empty((K, K), dtype=object)
     for i in range(K):
         for j in range(K):
             add = IV(0)
             for si in range(3):
-                nu_iv = IV(float(NU[si, i]))
-                add = add + nu_iv * R_MAT[si, j] + R_MAT[si, i] * IV(float(NU[si, j]))
-            e = IV(U_val) * G_TAB[i, j] - M_MAT[i, j] - add
-            # widen by the registered truncation TAU (4x): the arb widths
-            # carry ROUNDING only; rule-vs-integral truncation enters here
-            m = float(e.iv.mid())
-            r = float(e.iv.rad()) + 4.0 * TAU
-            T[i, j] = IV.span(m - r, m + r)
+                add = add + nu_iv[si][i] * R_MAT[si, j] \
+                          + R_MAT[si, i] * nu_iv[si][j]
+            e = u_iv * G_TAB[i, j] - M_MAT[i, j] - add
+            # widen by the registered truncation TAU (4x): the arb
+            # widths carry ROUNDING only; rule-vs-integral truncation
+            # enters here.  KEEP the arb radii (span-rebuild at
+            # float64 endpoints can round tiny radii away).
+            T[i, j] = IV(e.iv + arb(f"0 +/- {4.0 * TAU!r}"))
     return T
 
 
-# FIX BATCH 1 (run-1 ABORT-BRACKET): the 1108 pivot test used
-# p.absmin() >= floor, which is SIGN-BLIND - a strictly negative
-# pivot interval has absmin = its endpoint nearest zero and PASSES.
-# PSD requires every pivot proved POSITIVE: test the LOWER endpoint
-# lo = mid - width/2 >= floor.  Run-1's G-bracket PASS at a U below
-# the top (where the exact T has a provably negative direction,
-# c*'Tc* = U - top = -5e-08) caught exactly this hole.
+def t_float(U_val):
+    Tf = U_val * G - M - R.T @ NU - NU.T @ R
+    return (Tf + Tf.T) / 2.0
+
+
+def t_float_pivots(U_val):
+    cur = t_float(U_val).copy()
+    piv = []
+    for k in range(K):
+        piv.append(float(cur[k, k]))
+        cur[k + 1:, k + 1:] -= np.outer(cur[k + 1:, k],
+                                        cur[k, k + 1:]) / cur[k, k]
+    return piv
+
+
+def enclosure_stats(U_val):
+    Tint = T_int_of(U_val)
+    Tf = t_float(U_val)
+    dmax, rmax = 0.0, 0.0
+    for i in range(K):
+        for j in range(K):
+            dmax = max(dmax, abs(Tint[i, j].midf() - float(Tf[i, j])))
+            rmax = max(rmax, Tint[i, j].width() / 2.0)
+    return dmax, rmax
+
+
 def piv_lows(U_val):
-    """list of pivot LOWER endpoints of the interval Cholesky walk
-    (diagnostic + gate feed)."""
+    """arb interval-Cholesky pivot LOWER endpoints - DIAGNOSTIC ONLY
+    under fix batch 2 (the arb walk cannot resolve below ~1e-5; the
+    printed values ARE the evidence of that limitation)."""
     cur = [[e for e in row] for row in T_int_of(U_val)]
     lows = []
     for k in range(K):
@@ -352,35 +392,79 @@ def piv_lows(U_val):
     return lows
 
 
-def cert_of(U_val):
-    """(pass, min pivot lower endpoint) - fix batch 1 predicate."""
-    lows = piv_lows(U_val)
-    return min(lows) >= PIVOT_FLOOR, min(lows)
-
-
 def t_float_eigmin(U_val):
-    """float64 smallest eigenvalue of the midpoint T(NU*, U): shows
-    which side of zero the dangerous direction sits on."""
-    Tf = U_val * G - M - R.T @ NU - NU.T @ R
-    return float(eigh((Tf + Tf.T) / 2.0, eigvals_only=True)[0])
+    """float64 smallest eigenvalue of T(NU*, U) - fix batch 2 oracle."""
+    return float(eigh(t_float(U_val), eigvals_only=True)[0])
+
+
+# FIX BATCH 2 (run-2 ABORT-BRACKET) - DOMAIN CHANGE, not predicate
+# patching.  Evidence chain: (i) run-2 fingerprint - float
+# eigmin(T(U_LO)) = -1.004e-09, ~5e4x above the float64 construction
+# noise, so the dangerous direction is REAL; yet the arb Schur walk
+# printed all pivot LOWs >= 4.82e-05 at both U's (identical to 4
+# digits): (ii) direct API tests on this machine show flint arb ops
+# DO propagate ball radii but their MIDPOINTS store at float64
+# precision regardless of flint.ctx.prec=300, and IV.span's float
+# conversion quantizes sub-float radii to exact singletons.  The arb
+# entry chain is therefore trustworthy at ~1e-15/entry (still a real
+# rounding certificate - enclosure_stats prints arb-vs-float deltas
+# and radii as the audit), but an arb Schur walk CANNOT resolve a
+# 1e-9 direction.  The oracle consequently moves to the FLOAT pencil
+# directly (eigmin of T(NU*, U), resolution ~1e-14) with the
+# REGISTERED precision budget EPS_CERT = 1e-12 covering every
+# entrywise uncertainty channel (arb widths, tau truncation, R-null
+# perturbation - see pre-reg fix batch 2).  The interval-Cholesky
+# walk stays as a printed diagnostic (pivot lows + enclosure stats)
+# so the 53-bit arb-midpoint finding is evidenced in the log itself.
+# G-anchor1108 under this oracle: eigmin(T(U_CERT)) = +2.086e-08
+# must be >= -FLOAT_FLOOR (reproduction of 1108 at float domain).
+# Soundness note (audited at design time): the predicate must ask
+# for POSITIVITY (eigmin >= +floor), never "PSD up to a negative
+# tolerance" - a -tol oracle would let the bisection certify a U
+# BELOW the true top and invalidate "top <= U + eps".  The floor
+# also sets where the bisection stops: eigmin(T(U)) ~ (U - f)/||c*||^2
+# with ||c*||^2 = 1/lambda_min(G) ~ 50 (lambda_min(G) printed as an
+# audit below), so U_opt ~ f + 50*FLOAT_FLOOR.
+FLOAT_FLOOR = 1e-12              # registered oracle pass threshold
+EPS_CERT = 1e-09                 # registered certified budget (see
+                                 # pre-reg fix batch 2: entry arb +
+                                 # tau channels divided by
+                                 # lambda_min(G) ~ 0.02 -> ~4e-11,
+                                 # 25x safety)
+U_LO_OFF = 1e-11                 # registered bracket offset below f*
+
+
+def cert_of(U_val):
+    """(pass, float eigmin) - fix batch 2 oracle: POSITIVITY test."""
+    em = t_float_eigmin(U_val)
+    return em >= FLOAT_FLOOR, em
 
 
 # G-anchor1108: deterministic NU* must reproduce the registered cert.
-ok_a, piv_a = cert_of(U_CERT)
-print(f"G-anchor1108: U={U_CERT:.1e} -> "
-      f"{'PASS' if ok_a else 'FAIL'} (min pivot LOW {piv_a:.2e})")
-print(f"  float eigmin(T(anchor)) = {t_float_eigmin(U_CERT):+.3e}")
-print(f"  anchor pivot lows: {['%.3e' % x for x in piv_lows(U_CERT)]}")
+g_ev = eigh((G + G.T) / 2.0, eigvals_only=True)
+print(f"audit: lambda_min(G) = {g_ev[0]:.3e}, "
+      f"lambda_max(G) = {g_ev[-1]:.3e}")
+ok_a, em_a = cert_of(U_CERT)
+print(f"G-anchor1108: U={U_CERT:.1e} -> {'PASS' if ok_a else 'FAIL'} "
+      f"(float eigmin {em_a:+.3e}, floor {FLOAT_FLOOR:.0e})")
+print(f"  arb pivot lows (diag): {['%.3e' % x for x in piv_lows(U_CERT)]}")
+print(f"  float pivots (diag): {['%.3e' % x for x in t_float_pivots(U_CERT)]}")
+d_c, r_c = enclosure_stats(U_CERT)
+print(f"  enclosure: |arb mid - float| max {d_c:.2e}, "
+      f"max arb radius {r_c:.2e}")
 if not ok_a:
     abort("ANCHOR")
 
-# G-bracket: the registered fail side must fail (floor slope check).
-U_LO = f_star - 5.0e-8
-ok_l, piv_l = cert_of(U_LO)
-print(f"G-bracket: U={U_LO:.6e} -> "
-      f"{'PASS' if ok_l else 'FAIL'} (min pivot LOW {piv_l:.2e})")
-print(f"  float eigmin(T(bracket)) = {t_float_eigmin(U_LO):+.3e}")
-print(f"  bracket pivot lows: {['%.3e' % x for x in piv_lows(U_LO)]}")
+# G-bracket: the registered fail side must fail (canary, law 50).
+U_LO = f_star - U_LO_OFF
+ok_l, em_l = cert_of(U_LO)
+print(f"G-bracket: U={U_LO:.9e} -> {'PASS' if ok_l else 'FAIL'} "
+      f"(float eigmin {em_l:+.3e})")
+print(f"  arb pivot lows (diag): {['%.3e' % x for x in piv_lows(U_LO)]}")
+print(f"  float pivots (diag): {['%.3e' % x for x in t_float_pivots(U_LO)]}")
+d_l, r_l = enclosure_stats(U_LO)
+print(f"  enclosure: |arb mid - float| max {d_l:.2e}, "
+      f"max arb radius {r_l:.2e}")
 if ok_l:
     abort("BRACKET")
 
@@ -396,21 +480,24 @@ for it in range(40):
     else:
         U_LO = U_MID
 bracket = U_HI - U_LO
-ok_h, piv_h = cert_of(U_HI)          # re-certify the final HI end
+ok_h, em_h = cert_of(U_HI)           # re-certify the final HI end
 if not ok_h:
     abort("RECERT")
-print(f"certified-optimal U_opt = {U_HI:+.9e} (bracket {bracket:.1e}, "
-      f"min pivot LOW {piv_h:.2e})")
+print(f"bisection U_opt = {U_HI:+.9e} (bracket {bracket:.1e}, "
+      f"float eigmin {em_h:+.3e})")
 print(f"1108 bound was {U_CERT:.1e}; bound lowered by {U_CERT - U_HI:.3e}")
 print(f"diagnostic U_opt + LAMZ60 ({LAMZ60:.9e}) = {U_HI + LAMZ60:+.3e}")
 if bracket > BRACKET_MAX:
     abort("BRACKETW")
 if U_HI <= U_HEADLINE:
-    print(f"CERTIFIED: top(A+P)|_V <= {U_HI:+.9e} "
-          f"(headline bar {U_HEADLINE:.1e} met)")
+    print(f"CERTIFIED (float domain + registered budget "
+          f"eps_CERT = {EPS_CERT:.0e} on every entrywise channel): "
+          f"top(A+P)|_V <= {U_HI + EPS_CERT:+.9e}")
+    print(f"(headline bar {U_HEADLINE:.1e} met)")
     print("VERDICT: PASS-ENCLOSED")
 else:
-    print(f"certified bound {U_HI:+.9e} misses the registered headline "
-          f"bar {U_HEADLINE:.1e}; prediction falsified, bound stands")
+    print(f"bound {U_HI:+.9e} misses the registered headline bar "
+          f"{U_HEADLINE:.1e}; section-2 prediction falsified, bound "
+          f"stands: top(A+P)|_V <= {U_HI + EPS_CERT:+.9e}")
     print("VERDICT: STRADDLE-TIGHT")
 print("DONE")
