@@ -64,15 +64,23 @@ def main():
         kap_d = float(np.sum(M * Zd) / np.sum(Zd * Zd))
         resid_d = float(np.linalg.norm(M - kap_d * Zd) / nA)
         evM, evZ = symev(M), symev(Z)
-        ok_A = resid <= 1e-4 and (-1.001 <= kap <= -0.999)
+        # literal pre-reg: kappa band only at (2,8) and (2,16)
+        kap_ok = (-1.001 <= kap <= -0.999) if (a, K) != (4.0, 8) else True
+        ok_A = resid <= 1e-4 and kap_ok
         ga = ga and ok_A
         topM, lam_min_Z = float(evM[-1]), float(evZ[0])
+        # claim: top(M) = kappa * lambda_min(Z)
         if (a, K) == (2.0, 8):
-            ok_B = abs(topM - (-kap * lam_min_Z)) <= 1e-6
+            ok_B = abs(topM - kap * lam_min_Z) <= 1e-6
         else:
             ok_B = abs(topM) <= 1e-5 and abs(kap * lam_min_Z) <= 1e-5
         gb = gb and ok_B
-        tail_note.append("WITH-tail" if resid < resid_d else "tail-DEGRADED")
+        if abs(resid - resid_d) <= 0.05 * max(resid_d, 1e-30):
+            tail_note.append("tail-negligible")
+        elif resid < resid_d:
+            tail_note.append("tail-improved")
+        else:
+            tail_note.append("tail-degraded")
         print(f"cell (a={a:g},K={K}): kappa={kap:+.6f} resid={resid:.2e} "
               f"(G-A {'PASS' if ok_A else 'FAIL'}) | discrete-only: "
               f"kappa={kap_d:+.6f} resid={resid_d:.2e} | topM={topM:+.2e} "

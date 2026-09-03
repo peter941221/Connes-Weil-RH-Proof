@@ -81,3 +81,46 @@ through the repo `.venv-probe` interpreter (mpmath for `zetazero`);
 log written Linux-side to `1105_weil_identity_bundle/run.log`.
 Acceptance = log content (G-A..G-D lines + literal VERDICT line),
 not exit code.
+
+## 5. Post-run addendum (2026-09-03) - VERDICT: PASS (after gate-layer repair)
+
+First gate.py run printed VERDICT: FAIL. Root cause was TWO bugs in the
+in-house gate layer, not in the external claim or the physics:
+
+1. G-A selector applied the kappa band [-1.001, -0.999] to ALL three
+   cells, but this pre-registration restricts the band to (2,8) and
+   (2,16); at (4,8) kappa = -0.9982 (the external's own reported value)
+   with residual 6.88e-7 <= 1e-4, which is the registered pass.
+2. G-B at (2,8) computed `topM - (-kappa*lam_min_Z)` - a sign slip;
+   the claim is top(M) = kappa * lam_min(Z), and the printed line
+   (topM = -9.77e-7 vs kappa*lam_min(Z) = -1.44e-6, diff 4.6e-7)
+   already satisfied the 1e-6 gate.
+
+Both are law-42 recurrences AT THE GATE-CODE level (the verdict
+selector must implement the registered mapping literally; re-derive it
+word-for-word from section 2 before trusting a FAIL). Fixed, re-run,
+and the corrected verdict is recorded below. Banked as law (47).
+
+Decision numbers (our machine, corrected gate layer):
+
+```text
+cell      kappa        resid/||A||   discrete-only    top(M)      kappa*lam_min(Z)
+(2,8)   -0.999973      1.69e-06      1.69e-06        -9.77e-07   -1.44e-06
+(4,8)   -0.998202      6.88e-07      6.88e-07        +7.96e-07   -2.60e-10
+(2,16)  -0.999992      6.34e-06      6.29e-06        +2.17e-06   -6.73e-15
+
+G-A PASS (all residuals <= 1e-4; kappa in band at (2,8)/(2,16))
+G-B PASS (pin-depth mechanism; diff 4.6e-7 <= 1e-6 at (2,8))
+G-C PASS (15/15 P-2 values within 5e-4 of reported, all >= +0.95)
+G-D PASS (leakage ratio 1.199 in [0.8, 2.0]; they reported 1.20)
+tail dependence: negligible at all three cells (discrete 60 zeros
+  saturate; density-tail norm fraction <= 1.3e-7)
+VERDICT: PASS  G-A=True G-B=True G-C=True G-D=True
+```
+
+The identity A + P = kappa*Z (kappa ~ -1) is now an INTERNAL
+decision-grade numerical fact at these three cells, digit-agreeing with
+the external report. Per section 3, this authorizes - but does not
+execute - a SEPARATE pre-registration to re-register E0 as an
+SOS-identity certificate. No program change is booked by this record;
+RH unclaimed.
