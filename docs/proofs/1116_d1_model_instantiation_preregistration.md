@@ -207,3 +207,47 @@ the object the domination search must dominate and the object whose
 Lean contract 1116c will fix once the shape is seen. RH NOT claimed;
 external consultation route remains dormant (in-house per the
 standing directive); no map change keyed.
+
+## 3. POST-RUN VERDICT (runs 4 and 5, final probe at commit af06b85)
+
+S0: ALL GREEN, all 7 rows (full numbers in the committed
+1116_d1_model.json; the run transcript stays in the Linux-side
+build-logs directory): S0.1 worst
+1.0e-12; S0.2 h-leak worst 9.0e-16, F-leak worst 7.4e-10 (relative,
+within the 1e-8 floor of fix batch 5's noise quantification); S0.3:
+4 measurable nodes per row, worst measured ratio 7.5e-6, margin
+13x under the 1e-4 floor; the delta=0 row independently CONFIRMED
+the structural prediction of fix batch 6 (assert: exactly 13
+collision-resolved constraints).
+
+S1 (the data): every gate strictly positive. Scale-invariant
+readings GATE/f0: TRUE delta=0 configuration +4.5698e-01;
+surrogate plateau +4.4908e-01 (delta-flat to 2e-5 from delta=1/8
+down). The plateau does NOT converge to the true value -
+independent confirmation that the positive-delta surrogate family
+diverges structurally from the priority-resolved pinning (it drags
+the conflicting +1/-1 pair that Lean's case order deletes).
+
+Findings (report class, MODEL semantics throughout):
+(F1) The polynomial-in-chi interpolation class, at its UNIQUE
+    13-element member matching the true k=1 pinning, places the
+    arch+prime gate at +0.457 ||g||_2^2 - positive. The pre-
+    registered "gate positive" branch fired for EVERY configuration
+    including the true one: domination of this model by the
+    certified window forms is FALSE at k=1, so if the Stage-B
+    lemma holds it is configuration-LOCAL and Stage A (zero
+    localization, Platt-Trudgian floor + Ford ceiling) does
+    essential work - exactly the 1114 §3 bridge geometry, now with
+    its first detector-side datum.
+(F2) C3 is not refuted: the sign is a property of the model class.
+    The true Lean corr (exists_residualWindow_correction) carries
+    decay/existence structure this 13-parameter span cannot
+    express; the unique interpolant's +0.457 says the naive model
+    cannot serve as a counterexample OR as a domination target -
+    any further model-side pilot must either consume the real
+    iterative correction or move the probe from gate VALUES to
+    the configuration-locality statement itself.
+(F3) Booked next: 1116c - fix the model-consumption contract in
+    Lean on the TRUE 13-node δ=0 data shape (not the surrogate),
+    and re-open the a=5 line only against (F1)-style sign data.
+RH NOT claimed; no map change keyed.
