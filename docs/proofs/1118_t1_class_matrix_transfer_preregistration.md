@@ -167,3 +167,53 @@ JSON bundles. If obligation (c) requires mechanism C2, a probe
 Run protocol: commit artifacts BEFORE the first build (house law); every
 build error gets a root-caused fix batch committed before rerun; post-run
 addendum lands after G1-G4 are evaluated. RH NOT claimed; no map change keyed.
+
+## 5. Post-run addendum (2026-09-04, kernel green; record stays OPEN)
+
+Scope landed this window: sub-obligation (a)'s GENERIC kernel -
+`ConnesWeilRH/Dev/C1GateLevelTransfer.lean`, five declarations, all proved
+with zero `sorry`:
+
+    two_abs_mul_le_sq_add_sq (a b : ℝ)     AM-GM cross-term bound
+    qformDoubleSum                         x ⬝ᵥ (A *ᵥ x) = full double sum
+    sumUnivSplit                           univ-sum = diagonal + off-diagonal tail
+    lbCollect                              per-pair bound collects to sum c_i x_i^2,
+                                           c_i = d_i - rad i i - (sum j≠i)(rad i j + rad j i)/2
+    qform_nonneg_whitenedBox               0 <= x ⬝ᵥ ((diagonal d + E) *ᵥ x) for EVERY
+                                           entrywise-bounded E (|E i j| <= rad i j) when each
+                                           slack rad i i + (sum j≠i)(rad i j + rad j i)/2 < d i
+
+The headline theorem is box-robust exactly as registered in (a): E is
+universally quantified over the entrywise box, so a true-data consumer needs
+only `Hbox` to instantiate it. Verification state (build 9, Linux-side
+mirror, focused build): `RESOURCE_RESULT exit=0`, footer `Build completed
+successfully (1773 jobs).`, zero `^error:` lines, zero warnings, zero
+`sorry` in the log. Fix-batch chain, one commit per root-caused failure:
+938ffa2 (kernel draft) -> 760743b (header form: house files open with a
+plain `/-` comment, not a module docstring) -> ebee19e (abs_le) -> 4d7949d
+(draft had written big-sigma as U+2213 with subscript braces; all sums
+rebuilt as explicit ASCII `Finset.sum` over the `uK` abbrev) -> ea0852f
+(bare-`fun` sums swallow a following `=`/`<` making the summand a Prop;
+`show T, by tac` not term syntax; v4.30 `pow_two` is stated `a ^ 2 = a * a`;
+the hO off-diagonal collection proved in full - restricted sums become
+if-zeroed full sums, `Finset.sum_comm` swaps them, row/column shares merge
+via sum_add_distrib + sum_neg_distrib) -> f8b4393 (calc steps need
+monotonic/flat indentation; `zero_add` not `add_zero` for `0 + s`;
+sum_sub_distrib consumes a subtraction, routed via `← sub_eq_add_neg`) ->
+f0f2fb4 (implicit leading arguments: call sites must be `lbCollect rad x`
+/ `qformDoubleSum x`; `heb i j` itself is the needed bound, not an
+abs_le.mp projection; `intro i` must also intro the membership) -> f1c50d7
+(nlinarith cannot see |x i * x j| = |x i| * |x j|; feed abs_mul) -> d1d5964
+(hdpos dropped: slack subsumes diagonal positivity).
+
+Honest gate status: G1 partially met - the KERNEL builds green, but the
+registered artifact list includes the Audit module, which is NOT yet
+written; G2's `#print axioms` sweep has therefore not run (no sorry in the
+log is satisfied, the axiom-set check is not). G3/G4: hygiene held at 0
+matches on every batch; the fidelity headline of s2 is not yet instantiated.
+Still owed for THIS record before any verdict: (i) the Audit module over
+the five declarations; (ii) per-class instantiation feeding the five exact
+slacks of `docs/proofs/1115_qchain.json` as `hslack` (falsifier as booked
+in (a)); (iii) the s2 headline composition (ratio/absolute forms).
+Obligations (b) and (c) unchanged and unstarted. RH NOT claimed; no map
+change keyed.
