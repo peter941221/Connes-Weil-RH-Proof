@@ -188,3 +188,92 @@ map change keyed. WSL /usr/bin/python3, uv-cache flint +
 .venv-probe; runtime dominated by the table build: ~(512 y + ~450
 prime + 1 G + 3 R) arb-ball tables at 512^2-equivalent work,
 ~1.5-2 h; log local (gitignored); numbers live in this doc.
+
+## 4. Post-run addendum (2026-09-03 late night) - VERDICT: PASS-NEG48
+
+HEAD at run 3: 07b1d4b (fix batch 2). The headline:
+
+    CERTIFIED:  top(A+P)|_V  <=  -1.599919e-10  < 0   at (4,8),
+
+float-domain semantics with the registered EPS_48 = 1e-10 budget
+(1109 audit standards) - the second strictly negative certified
+class top in the campaign and the adjudication of 1107's
++2.600074418e-10 (4,8) preview: the sub-preview-resolution pin was
+FLOAT RESOLUTION, not class geometry.
+
+Realized vs registered (literal):
+
+    +------------+------------------------+-------------------------------+
+    | item       | registered             | realized                      |
+    +------------+------------------------+-------------------------------+
+    | G-coef     | worst ratio <= 10      | 3.15e-02 (bit-identical to    |
+    |            |                        | 1108 - the registered scale-  |
+    |            |                        | invariance claim, exact)      |
+    | G-width    | <= 1e-7                | 9.94e-16                      |
+    | G-xcheck   | |diff| <= 1e-12        | 2.57e-18 (same matrix, two    |
+    |            | (s2 hoped <= 1e-13)    | LAPACK routes)                |
+    | G-reactive | moved >= 1e-6          | 5.738e-01                     |
+    | top_mid    | [-3.2e-10, -2.0e-10]   | -2.599918657200e-10           |
+    | identity D | |D| <= 2e-10 MET       | +1.558e-14 - MET by 4 digits  |
+    | verdict    | PASS-NEG48             | PASS-NEG48                    |
+    +------------+------------------------+-------------------------------+
+
+Live budget audit: lambda_min(G) = 7.059e-05, lambda_max(G) =
+5.960e-01 (= 2x the (2,8) values - clean scale-a behavior);
+sigma_min(R) = 1.701e-01; sum prime weights 2*Lambda(q)/sqrt(q) =
+213.548 -> GL-truncation channel 2.1e-18 (PNT estimate in s0 was
+~2.3e2, correct); ||c*||^2 = 18.5 with G-norm 1.000000 (whitening
+round-trip check). Entry-rounding amplification <= 18.5 x ~1e-15
+<< EPS_48: the 1e-10 budget carries >= 1e4 unused margin.
+
+Identity consequence (the big one): A + P = -Z is now confirmed on
+TWO independent float machines at TWO classes -
+(2,8): |top + lambda_min(Z_60)| = 6.395e-11 (record 1108);
+(4,8): |top + lambda_min(Z_60)| = 1.558e-14 (this record; note
+Z_60 IS Z at a=4 - no zero below log 18 ~ 2.89 < gamma_1 ~ 14.1).
+The Weil identity branch is decision-grade across radii.
+
+Class geometry booked from the run-2 diagnostic (new facts,
+section 1c): the triple-vanishing rows have WILDLY unequal
+leverage at (4,8) - the s=1/2 row carries the whole constraint
+(drop it: top +7.89e-01; keep it with s=0, s=1: -2.6e-10), while
+the s=0 and s=1 rows contribute at 1e-10 scale, and M splits by
+parity to 1.55e-15 (even-sector top +1.202e+01, odd-sector top
+-1.553e-11). Two uses ahead: (i) any future sensitivity or
+optimizer work on this class should reweight by row leverage;
+(ii) canary lessons - the registered must-fail side must have its
+perturbation's LEVERAGE measured first (law 53, banked in the
+local norms doc).
+
+Run ledger (ABORTs honored, zero threshold weakenings):
+
+- run 1  ABORT-XCHECK (eigvalsh raw +3.58e+01): canary input
+         contract error - M has skew part ~||M|| (one-directional
+         prime shifts, B(-xi)^T = B(xi)); scipy eigvalsh reads one
+         triangle. Fix batch 1 (7cca9a9): compare on symmetric
+         parts; gate constants untouched.
+- run 2  ABORT-REACT (flipped R[2,3] moved top 1.08e-10 < 1e-6):
+         canary premise error - s=1 row nearly inactive (drop-row
+         leverage table above). Fix batch 2 (07b1d4b):
+         deterministic load-bearing-row corruption, FLOOR
+         UNCHANGED.
+- run 3  PASS-NEG48 (this addendum).
+
+Runtime honesty note: the registered ~1.5-2 h estimate was 10x
+conservative - the PT hoist plus cheaper-than-feared arb ball
+products made the full build ~6 min per run.
+
+Named next (in order):
+
+1. Dependency-safe TRUE interval certificate for the (2,8)
+   statement (1109's carried item, own record + pre-reg): now it
+   should cover BOTH certified classes a=2 and a=4 in one design,
+   since both rest on float-domain budgets.
+2. Same certified predicate across the radius family (a,8),
+   a = 1,2,3,..., registered per-class - maps where class
+   negativity lives; the (a,8) pin magnitudes (1.44e-06,
+   2.60e-10) drop fast in a, so a=3 is the natural next probe.
+3. E0 Lean promotion of the S-lemma certificate (user-gated -
+   unchanged).
+
+RH unclaimed; map unchanged; no gate Prop discharged.
