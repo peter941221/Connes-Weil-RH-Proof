@@ -150,3 +150,50 @@ Run protocol: commit artifacts BEFORE the first build (house law);
 every build error gets a root-caused fix batch committed before rerun;
 post-run addendum section lands after G1-G4 are evaluated. RH NOT
 claimed; no map change keyed.
+
+## 5. Post-run addendum (2026-09-04, after build 8)
+
+Verdict: G1-G4 all PASS. The module and its audit compile clean on the
+Linux-side mirror; the Stage-B contract is formalized exactly as
+registered. RH NOT claimed; no map change keyed; T1/T2 stand open as §2
+named them.
+
+Build trail (house law: every build error root-caused into a committed fix
+batch before rerun): pre-run artifacts `1fedac1`; one fix-batch commit per
+failed build (`786b549`, `5d6a522`, `17060ac`, `04a647d`, `b7db30a`,
+`8469662`, `1b43c9f`, batches 2-7 including the 5b paren re-balance);
+error counts across the failed builds declined monotonically
+13 -> 5 -> 2 (+ one parse cascade) -> 1 -> 0 in the main module, and build
+8 (2026-09-04) is the first green run:
+
+    Build completed successfully (3635 jobs).
+    grep -c '^error:' <build-8 log> = 0   (runner exit = 0, first clean exit)
+
+Gate evaluation against §3 (all evidence from the build-8 log):
+
+| gate | verdict | evidence |
+|------|---------|----------|
+| G1 build green | PASS | footer above; zero `^error:` lines in the whole log; audit module built on top of the already-green main module |
+| G2 no sorry, axiom subset | PASS | zero `sorry` matches; all 21 `#print axioms` lists are exactly [propext, Classical.choice, Quot.sound] - choice enters only through the inherited supportRadius/globalIndexBound machinery, as predicted at registration |
+| G3 fidelity | PASS | the Iff.rfl proof of orbitWindowSemiLocalGate_iff compiles clean (it would fail elaboration if the two gate texts drifted) |
+| G4 hygiene | PASS | every fix batch's staged diff greps 0 forbidden patterns before commit, final commit included |
+
+Non-gate debt recorded for a later cleanup pass: three linter notes in the
+main module - `show`-readability at 164:2 and 271:4, unused variable hIf at
+423:5. Style-only; G2 as registered gates on sorry/axioms only. (The log
+carries 156 warning lines in total; every other one is pre-existing debt in
+other modules or lake package-cache noise.)
+
+What build 8 certifies, and what it does not:
+- Certifies: the gate functional IS record 1089's gate Prop literally (G3);
+  the linearity layer + master identity elaborate with zero sorry;
+  `ICStageBContraction g` exists as one inhabitable type whose bridge to the
+  1089 gate elaborates at an arbitrary test; the k=1 below-floor cell is a
+  real inhabitant (the audit's end-to-end examples compile and typecheck).
+- Does not certify: any sign of GATE/f0 for the actual detector. T2 (an
+  instance for the D1-pinned g) remains the bone itself; T1 (class ==> matrix
+  transfer over the three registered axioms) is unchanged by this record.
+
+Next candidates, each independent of the other and of T2: a cleanup batch
+folding the three linter notes, or starting the T1 transcendental-half
+transfer.
