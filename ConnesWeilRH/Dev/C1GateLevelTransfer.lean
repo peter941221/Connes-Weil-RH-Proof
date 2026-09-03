@@ -1,4 +1,4 @@
-/-!
+/-
 # C1GateLevelTransfer - T1 class==>matrix transfer: the box-robust (T-box) kernel
 
 Record 1118, sub-obligation (a): the algebraic half of the transcendental
