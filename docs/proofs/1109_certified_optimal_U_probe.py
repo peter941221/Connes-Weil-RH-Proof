@@ -331,25 +331,46 @@ def T_int_of(U_val):
     return T
 
 
-def cert_of(U_val):
-    """(pass, min pivot absmin): 1108 section 1 step 4 verbatim."""
+# FIX BATCH 1 (run-1 ABORT-BRACKET): the 1108 pivot test used
+# p.absmin() >= floor, which is SIGN-BLIND - a strictly negative
+# pivot interval has absmin = its endpoint nearest zero and PASSES.
+# PSD requires every pivot proved POSITIVE: test the LOWER endpoint
+# lo = mid - width/2 >= floor.  Run-1's G-bracket PASS at a U below
+# the top (where the exact T has a provably negative direction,
+# c*'Tc* = U - top = -5e-08) caught exactly this hole.
+def piv_lows(U_val):
+    """list of pivot LOWER endpoints of the interval Cholesky walk
+    (diagnostic + gate feed)."""
     cur = [[e for e in row] for row in T_int_of(U_val)]
-    piv_min = np.inf
+    lows = []
     for k in range(K):
         p = cur[k][k]
-        if p.absmin() < PIVOT_FLOOR:
-            return False, p.absmin()
-        piv_min = min(piv_min, p.absmin())
+        lows.append(p.midf() - p.width() / 2.0)
         for i in range(k + 1, K):
             for j in range(k + 1, K):
                 cur[i][j] = cur[i][j] - cur[i][k] * cur[k][j] / p
-    return True, piv_min
+    return lows
+
+
+def cert_of(U_val):
+    """(pass, min pivot lower endpoint) - fix batch 1 predicate."""
+    lows = piv_lows(U_val)
+    return min(lows) >= PIVOT_FLOOR, min(lows)
+
+
+def t_float_eigmin(U_val):
+    """float64 smallest eigenvalue of the midpoint T(NU*, U): shows
+    which side of zero the dangerous direction sits on."""
+    Tf = U_val * G - M - R.T @ NU - NU.T @ R
+    return float(eigh((Tf + Tf.T) / 2.0, eigvals_only=True)[0])
 
 
 # G-anchor1108: deterministic NU* must reproduce the registered cert.
 ok_a, piv_a = cert_of(U_CERT)
 print(f"G-anchor1108: U={U_CERT:.1e} -> "
-      f"{'PASS' if ok_a else 'FAIL'} (min pivot absmin {piv_a:.2e})")
+      f"{'PASS' if ok_a else 'FAIL'} (min pivot LOW {piv_a:.2e})")
+print(f"  float eigmin(T(anchor)) = {t_float_eigmin(U_CERT):+.3e}")
+print(f"  anchor pivot lows: {['%.3e' % x for x in piv_lows(U_CERT)]}")
 if not ok_a:
     abort("ANCHOR")
 
@@ -357,7 +378,9 @@ if not ok_a:
 U_LO = f_star - 5.0e-8
 ok_l, piv_l = cert_of(U_LO)
 print(f"G-bracket: U={U_LO:.6e} -> "
-      f"{'PASS' if ok_l else 'FAIL'} (min pivot absmin {piv_l:.2e})")
+      f"{'PASS' if ok_l else 'FAIL'} (min pivot LOW {piv_l:.2e})")
+print(f"  float eigmin(T(bracket)) = {t_float_eigmin(U_LO):+.3e}")
+print(f"  bracket pivot lows: {['%.3e' % x for x in piv_lows(U_LO)]}")
 if ok_l:
     abort("BRACKET")
 
@@ -377,7 +400,7 @@ ok_h, piv_h = cert_of(U_HI)          # re-certify the final HI end
 if not ok_h:
     abort("RECERT")
 print(f"certified-optimal U_opt = {U_HI:+.9e} (bracket {bracket:.1e}, "
-      f"min pivot absmin {piv_h:.2e})")
+      f"min pivot LOW {piv_h:.2e})")
 print(f"1108 bound was {U_CERT:.1e}; bound lowered by {U_CERT - U_HI:.3e}")
 print(f"diagnostic U_opt + LAMZ60 ({LAMZ60:.9e}) = {U_HI + LAMZ60:+.3e}")
 if bracket > BRACKET_MAX:

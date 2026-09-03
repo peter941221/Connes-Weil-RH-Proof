@@ -24,6 +24,29 @@ TAU, same registered BFGS start set, rng seed 1108, PIVOT_FLOOR
 replaced by the bisection below. Deterministic reproduction of
 NU* is itself a GATE this time (G-anchor1108).
 
+FIX BATCH 1 (registered after run 1, before rerun): run 1 ended
+ABORT-BRACKET - the G-bracket call PASSED at U_LO = f(NU*) - 5e-8,
+where the exact T(NU*, U_LO) is PROVABLY not PSD (the constrained
+maximizer c* has Rc* = 0 and c*'Tc* = U_LO - top = -5e-08). Root
+cause: the inherited 1108 pivot predicate tested p.absmin() >=
+floor, which is SIGN-BLIND (a strictly negative pivot interval has
+absmin = endpoint nearest zero, and passes). The correct Moore
+gate is POSITIVITY of every pivot: lower endpoint mid - width/2 >=
+PIVOT_FLOOR. The bisection predicate, not the mathematics, was
+broken; 1108's own conclusion is UNAFFECTED (see the note below
+this doc's fix section: on Rc = 0 the NU term contributes zero to
+the quadratic form, so the S-lemma implication holds for ANY NU,
+and the anchor margin 1.04e-06 exceeds every error channel by 6
+orders; the corrected anchor gate re-proves it rigorously).
+Audit: the absmin hole is confined to the 1108 Cholesky section
+and its 1109 copy - 1101's own certified statements use
+endpoint-sign predicates (total_L > 0 / total_U < 0, lines
+1448-1451) and its absmin uses are |P'| bounded away from zero
+(sign-irrelevant Kantorovich requirements - semantically
+correct); 1106/1107 have no Cholesky. Run 2 additionally prints
+per-pivot LOWER endpoints and the float eigmin of T at anchor and
+bracket (fingerprints of where the dangerous direction lives).
+
 ## 1. Registered constants and bisection protocol
 
     U_CERT     = -4.0e-07   (1108 headline; the bisection HI start)
