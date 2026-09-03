@@ -133,6 +133,38 @@ canary's input contract being corrected to state the true identity
 it should test). The canary remains independent: LAPACK sygvx
 generalized driver vs Cholesky-whitened heev.
 
+## 1c. FIX BATCH 2 (run 2: ABORT-REACT; committed before rerun)
+
+Run 2 realized top_mid = -2.599918657200e-10 (inside the
+prediction band), G-xcheck green at |diff| = 2.57e-18, but
+ABORT-REACT: sign-flipping R[2,3] moved the top by only 1.082e-10
+(< REACT_MIN 1e-6).
+
+Root cause (diagnostic run, not speculation): the (4,8) class has
+NEARLY INACTIVE CONSTRAINT ROWS -
+
+    top|null(R)         = -2.599919e-10
+    top|null(drop s=0)  = -3.815861e-13   (s=0 row: O(1e-10) leverage)
+    top|null(drop s=1/2)= +7.891679e-01   (s=1/2 row: THE load-bearer)
+    top|null(drop s=1)  = -9.640712e-13   (s=1 row: O(1e-10) leverage)
+    top unconstrained   = +4.123968e+01
+
+plus a clean parity split: M cross-parity block 1.55e-15, G cross
+3.98e-90 (analytic zero), even-sector top +1.202e+01, odd-sector
+top -1.553e-11. The rng picked an entry of the s=1 row - flipping
+it moves the null space but not the top, because that row's whole
+contribution to the top is at 1e-10 scale, same size as the pin
+itself. The pipeline is NOT blind (dropping rows or the whole
+constraint moves the top by 0.79 / 41).
+
+Fix - change the corruption, NOT the floor (law 39): deterministic
+canary = offset the s=1/2 row, R_cor[1,:] += 0.1 (every component).
+The drop-row1 experiment registers its leverage at +7.9e-01, so a
+0.1 shift must move the top by >> REACT_MIN; and if the pencil
+ever ignored R entirely, the corrupted and true tops would
+coincide at +41 and the gate still fires. rng retired. REACT_MIN
+stays 1e-6.
+
 ## 2. Registered prediction (falsifiable)
 
 top_mid in [-3.2e-10, -2.0e-10] (identity branch +- the GL machine

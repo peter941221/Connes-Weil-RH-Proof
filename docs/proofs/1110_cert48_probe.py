@@ -281,16 +281,18 @@ if d_xc > XCHECK_MAX:
     abort("XCHECK")
 
 # G-reactive canary (law 50): a pipeline that cannot see corrupted
-# data is not computing.  Flip the sign of one R entry (rng seed
-# 1110), the top must move by at least REACT_MIN.
-rng = np.random.default_rng(1110)
-si = int(rng.integers(3))
-cj = int(rng.integers(K))
+# data is not computing.  FIX BATCH 2: run 1's random single-entry
+# sign-flip landed on the s=1 row, which at (4,8) is NEARLY
+# INACTIVE for the top (drop-row1 moves it by +7.9e-01, drop
+# row0/row2 by ~1e-10 - class geometry, not pipeline blindness).
+# Deterministic corruption instead: offset the load-bearing s=1/2
+# row by +0.1; its registered leverage makes the >= 1e-6 floor
+# honest, and total blindness (top stuck at +41) still fires.
 R_cor = R.copy()
-R_cor[si, cj] = -R_cor[si, cj]
+R_cor[1, :] += 0.1
 top_cor, *_ = pencil_top(R_cor, G, M)
 react = abs(top_cor - top_mid)
-print(f"G-reactive: sign-flip R[{si},{cj}] moved top by "
+print(f"G-reactive: offset R[s=1/2,:] += 0.1 moved top by "
       f"{react:.3e} (min {REACT_MIN:.0e})")
 if react < REACT_MIN:
     abort("REACT")
