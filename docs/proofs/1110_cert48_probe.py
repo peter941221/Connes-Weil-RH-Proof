@@ -269,7 +269,11 @@ print(f"(4,8) reduced-pencil top_mid = {top_mid:+.12e} "
       f"(identity prediction -LAMZ48 = {-LAMZ48:+.12e})")
 
 # G-xcheck canary (law 50): INDEPENDENT eigensolver route.
-top_gen = float(eigvalsh(Mz, Bz)[-1])
+# FIX BATCH 1: eigvalsh reads ONE triangle, so M (skew part ~1e1 -
+# prime shifts are one-directional, B(-xi)^T = B(xi) => P^T != P)
+# must enter as the quadratic form's symmetric part, matching what
+# the primary route does after congruence.
+top_gen = float(eigvalsh((Mz + Mz.T) / 2.0, (Bz + Bz.T) / 2.0)[-1])
 d_xc = abs(top_gen - top_mid)
 print(f"G-xcheck: eigvalsh(Mz,Bz) = {top_gen:+.12e}; "
       f"|diff| = {d_xc:.2e} (max {XCHECK_MAX:.0e})")

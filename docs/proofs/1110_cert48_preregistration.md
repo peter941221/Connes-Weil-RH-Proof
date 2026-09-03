@@ -108,6 +108,31 @@ Verdict mapping (literal):
     ABORT-*: gates; fix registered before any rerun.
 No FAIL branch: inability to certify negative is never refutation.
 
+## 1b. FIX BATCH 1 (run 1: ABORT-XCHECK; committed before rerun)
+
+Run 1 realized top_mid = -2.599918657200e-10 (inside the registered
+prediction band, section 2) but the G-xcheck canary aborted:
+eigvalsh(Mz,Bz) read +3.584039075737e+01, |diff| = 3.58e+01.
+
+Root cause - the CANARY, not the pipeline: the prime-shift overlap
+satisfies the exact identity B(-xi)^T = B(xi), and every visible
+shift is in ONE direction (xi = log q > 0), so P^T != P and
+M = A + P carries a skew part of size ~||M|| ~ 1e1. The primary
+pencil_top symmetrizes after congruence (correct: the quadratic
+form c^T M c depends only on (M+M^T)/2). The xcheck passed the RAW
+non-symmetric Mz to scipy.linalg.eigvalsh, which reads only one
+triangle and silently treats skew garbage as the matrix - hence a
+result on the ||M|| scale. 1108/1109 were immune: their T-pencil
+symmetrizes by construction.
+
+Fix: compare the generalized route on the same quadratic form -
+eigvalsh((Mz+Mz.T)/2, (Bz+Bz.T)/2) (Bz asymmetry is ball-level
+~1e-16, symmetrized for hygiene). Gate constants and selectors
+UNCHANGED (no threshold weakening, law 39/42 - this is the
+canary's input contract being corrected to state the true identity
+it should test). The canary remains independent: LAPACK sygvx
+generalized driver vs Cholesky-whitened heev.
+
 ## 2. Registered prediction (falsifiable)
 
 top_mid in [-3.2e-10, -2.0e-10] (identity branch +- the GL machine
