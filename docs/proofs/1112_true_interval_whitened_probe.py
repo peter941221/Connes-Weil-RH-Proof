@@ -262,9 +262,17 @@ def certify(cl):
     # symmetrize the box half-width BEFORE the congruence, never after; the
     # raw |CMC - CMC^T| is M's true skewness (one-directional prime shifts,
     # law 53 provenance), NOT a rounding term - it must not enter radii.
-    # (2) FLOAT_OP_FLOOR: registered absolute floor for float congruence
-    # products (~1e-14 realized scale, 10x provision).
-    FLOAT_OP_FLOOR = 1e-13
+    # FIX BATCH 1 (channel audit, registered pre-rerun after the (4,8)
+    # prediction falsified UPWARD; law-47 mirror - a PASS must survive
+    # re-derivation of its own arithmetic): the float CENTER of each
+    # affine image differs from the exact rational product (all fixed
+    # float matrices are read as EXACT rationals in the soundness chain,
+    # so the center displacement must enter the RADIUS as a bound, not a
+    # floor). Channel: CENTER_CHOL := 4*eps * (|X| @ |mid| @ |Y|T), the
+    # standard two-product matmul rounding bound (eps = float64 machine
+    # epsilon; realized displacement observed 6.2e-11 at (4,8), far above
+    # the deleted 1e-13 floor).
+    CENTER_CHOL = 4.0 * np.finfo(float).eps
     wM_box = wM + WIDEN_ULPS * np.array(
         [[math.ulp(v) for v in row] for row in mid_of(M_MAT)]) + TRUNC
     wM_box = (wM_box + wM_box.T) / 2.0
@@ -273,7 +281,8 @@ def certify(cl):
     wG_box = (wG_box + wG_box.T) / 2.0
     CMC = C @ M @ C.T
     CMC_sym = (CMC + CMC.T) / 2.0
-    HRAD = np.abs(C) @ wM_box @ np.abs(C).T + FLOAT_OP_FLOOR
+    HRAD = np.abs(C) @ wM_box @ np.abs(C).T \
+        + CENTER_CHOL * (np.abs(C) @ np.abs(M) @ np.abs(C).T)
     top_mid = float(eigvalsh(CMC_sym)[-1])
     print(f"reduced top_mid = {top_mid:+.12e}; lambda_min(Pz)="
           f"{eigh((Pz + Pz.T) / 2.0, eigvals_only=True)[0]:.3e}; "
@@ -326,13 +335,12 @@ def certify(cl):
     Gmid = Rci @ Dmid @ Rci.T
     Gmid_sym = (Gmid + Gmid.T) / 2.0
     # |Gmid - Gmid.T| is PURE float rounding here (Dmid is symmetric by
-    # construction), so it is a legitimate rounding cover; the old *1e-3
-    # "overprovision" of |Gmid_sym - I| UNDER-counted the real double-
-    # product rounding (~1e-14 realized) - replaced by the same registered
-    # FLOAT_OP_FLOOR (10x provision) as the first congruence.
+    # construction), so it is a legitimate rounding cover; fix batch 1
+    # replaces the old floor with the CENTER_CHOL comparison-sum bound
+    # (same channel as the first congruence).
     GRAD = np.abs(Rci) @ Drad @ np.abs(Rci).T \
         + np.abs(Gmid - Gmid.T) / 2.0 \
-        + FLOAT_OP_FLOOR
+        + CENTER_CHOL * (np.abs(Rci) @ np.abs(Dmid) @ np.abs(Rci).T)
     slacks = []
     for i in range(n_dim):
         off = sum(abs(Gmid_sym[i, j]) + GRAD[i, j]

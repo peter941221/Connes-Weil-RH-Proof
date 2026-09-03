@@ -50,10 +50,10 @@ AFFINE maps (no nonlinear reuse - the law-52 hole cannot appear):
      quantity is M's TRUE skewness (one-directional prime shifts; law 53
      provenance), not rounding, and the symmetrized midpoint C(M+Mᵗ)/2Cᵗ
      already handles it. Rounding of the float congruence itself is
-     covered by a registered absolute floor FLOAT_OP_FLOOR := 1e-13
-     (realized product rounding ~1e-14 at both whitening stages: ‖Rc⁻¹‖²
-     ~ 1/DELTA amplification of ~1e-16 relative ops), added to HRAD and
-     GRAD; the draft's |Gmid_sym − I|*1e-3 UNDER-provisioned this.
+     covered by the CENTER_CHOL comparison-sum bound of section 1b
+     (fix batch 1; a pre-commit 1e-13 scalar floor was found to be both
+     under-provisioned and structurally wrong for an entrywise product-
+     rounding channel - superseded BEFORE run 2, see 1b).
 
   3. Slack U + second fixed whitening. U := top_mid + DELTA (DELTA > 0
      registered per class, below -top_mid so U < 0). D := U I - Hbox
@@ -83,8 +83,9 @@ Per class c in {(2,8): N_GL=256,TAU=1e-14}, {(4,8): N_GL=512,TAU=1e-20}:
 
     A_R, K=8, VANISH_S=(0,1/2,1), von_mangoldt weights (law 49)
     WIDEN_ULPS = 8 ; TRUNC_PER_ENTRY = 20*TAU
-    FLOAT_OP_FLOOR = 1e-13 (registered float-congruence rounding floor,
-    both whitening stages; see s0 self-review fix)
+    CENTER_CHOL = 4*eps_float * (|X| @ |mid| @ |Y|T) comparison-sum bound
+    on the float-CENTER displacement of each affine image, added to HRAD
+    and GRAD (fix batch 1; replaces the pre-commit 1e-13 floor)
     DELTA(2,8) = 4.0e-07 ;  DELTA(4,8) = 1.0e-10   (registered, U<0 both:
     U(2,8) ~ -1.04e-06, U(4,8) ~ -1.6e-10; DELTA chosen against the
     amplification formula slack ~ 1 - n_dim * rad_H / DELTA with
@@ -140,6 +141,45 @@ it, fixed pre-run, pre-completion):
     Falsifiers: (2,8) slack < 0 => amplification model wrong, print
     ||L^-1||^2 and per-row radii and localize; (4,8) slack > 0 => model
     pessimistic, upgrade and book the real coupling.
+
+## 1b. FIX BATCH 1 (registered pre-rerun, after run 1: PASS-IV28 +
+PASS-IV48, but the registered (4,8) prediction STRADDLE was falsified
+UPWARD — min slack +9.528e-01 vs predicted ~ -0.15; the pre-registered
+falsifier said "model pessimistic -> upgrade and book the real
+coupling", and the coupling audit found a genuine unregistered channel)
+
+Channel audit (diagnostic recomputation from the bundle, Rc round-trip
+|diff| 7.8e-17 / 1.1e-15 — the bundle is self-consistent):
+
+  1. WHY the model was pessimistic (booked): the registered formula
+  rad_G ~ rad_M * ||L-1||^2 * ||Rc-1||^2 treats the box noise as
+  worst-case-aligned with the SOFT eigendirection of Dmid (the DELTA
+  direction). Realized: Dmid spectra {4.0e-07, 3.2e-05, 7.3e-05, 7.9e-03,
+  8.4e-02} at (2,8) and {1.0e-10, 3.7e-08, 2.7e-06, 4.9e-06, 1.2e-03} at
+  (4,8) — the DELTA-isolated direction is ONE of five, and the GL-
+  quadrature box noise is nearly ORTHOGONAL to the top-state direction
+  (the F.5 mechanism: the top state is a Z-zero direction). Realized
+  per-entry GRAD max 8.3e-02 / 4.9e-02 vs model 1.6e-01 / 2.0e+00 =
+  pessimism 1.9x (2,8) / 40.6x (4,8). The verdict literals are
+  unaffected (min-slack > 0 is the test either way); the PREDICTION
+  model is corrected, not the gate.
+  2. THE UNREGISTERED HOLE (the reason for the rerun): each affine box
+  is centered at a FLOAT product (CMC_sym, Gmid), while the soundness
+  chain reads the fixed float matrices as EXACT rationals — the
+  displacement |float-center - exact-center| is a real channel that the
+  pre-commit 1e-13 "floor" both under-provisioned (realized
+  |Gmid_sym - I| = 9.5e-13 at (2,8) and 6.2e-11 at (4,8), i.e. 600x the
+  floor) and structured wrongly (a scalar floor cannot bound an
+  entrywise product-rounding pattern). Law-47 mirror applied: a PASS
+  must survive re-derivation of its own arithmetic, so the channel is
+  bounded, not waved off: CENTER_CHOL := 4 * eps_float *
+  (|X| @ |mid| @ |Y|T) added to HRAD and GRAD (standard two-product
+  matmul rounding bound, entrywise; realized cost ~1e-9 (2,8) / ~5e-8
+  (4,8) against slack budgets 4.7e-02 - PASS survives with ~6 orders of
+  margin if the bound is correct, and if it does not, that is a real
+  STRADDLE).
+  3. ZERO threshold changes: DELTA, EPS, canary literals, verdict
+  mapping all untouched; the change strictly INCREASES radii.
 
 ## 2. Scope, environment, runtime
 
