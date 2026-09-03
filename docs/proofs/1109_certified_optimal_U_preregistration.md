@@ -188,3 +188,105 @@ Environment and execution: identical to 1108 (WSL
 /usr/bin/python3, uv-cache python-flint + .venv-probe PYTHONPATH,
 log local gitignored). Runtime = 1108 table build (minutes) +
 42 interval Choleskys (negligible). RH unclaimed.
+
+## 5. Post-run addendum (2026-09-03 late) - VERDICT: PASS-ENCLOSED (run 3)
+
+HEAD at run time: fba1b80 (fix batch 2). Realized headline:
+
+    bisection U_opt        = -1.443327592e-06  (bracket 9.5e-19)
+    CERTIFIED: top(A+P)|_V <= -1.442327592e-06
+               (float-domain oracle + registered budget EPS_CERT=1e-9)
+
+which tightens 1108's -4.0e-07 bound by ~1000x (certified margin
+above the true top: 1.043e-06 -> ~1.05e-09) and replaces the
+campaign's only negative-certified gate number.
+
+Prediction accounting (every registered number, literal):
+
+    +-----------+----------------+------------------+-----------+
+    | quantity  | registered     | realized         | status    |
+    +-----------+----------------+------------------+-----------+
+    | run-2 s2  | delta 2.2e-08  | arb walk blind   | FALSIFIED |
+    | fix2 pred | f+5e-11        | f+4.94e-11       | MET       |
+    | bar       | <= -1.40e-06   | -1.4433e-06      | MET       |
+    | G-anchor  | eigmin>=+1e-12 | +2.086e-08       | PASS      |
+    | G-bracket | must FAIL      | FAIL (-2.0e-13)  | PASS      |
+    | tightening| ~1e3 x         | 9.94e2 x         | MET       |
+    +-----------+----------------+------------------+-----------+
+
+Diagnostic vs the identity: U_opt + LAMZ60 = -1.454e-11 - the
+float-Z and float-GL machines' constrained tops now differ by
+~4.9e-11 + registered floor; the 6.4e-11 residual sits inside the
+combined entrywise budgets of BOTH float machines (Simpson v_gamma
+on the Z side, TAU-widened GL on this side), consistent with 1107's
+attribution of the residual to Z-side quadrature bias.
+
+Run ledger (laws 42/46/47/50/51/52 in play):
+
+- run 1  ABORT-BRACKET: 1108-inherited absmin pivot predicate is
+         sign-blind (negative pivots pass); fix batch 1 (38f001f).
+- run 2  ABORT-BRACKET: with the corrected positivity predicate the
+         arb walk still missed the provably-negative direction -
+         fingerprints localized it: float eigmin(T(U_LO)) =
+         -1.004e-09 REAL, all eight arb pivot lows >= +4.82e-05,
+         float-vs-arb Schur walks diverge by ~1e-4 on late pivots.
+         Root cause (API-tested, law 51): flint arb stores midpoints
+         at float64 REGARDLESS of ctx.prec, and ball arithmetic does
+         not track dependency - through a Schur recursion on a
+         pencil whose pivots span 1.7 -> 4.2e-08 the enclosure
+         validity of the walk is LOST (law 52). Fix batch 2
+         (fba1b80): oracle = float eigmin >= +1e-12 (POSITIVITY; a
+         negative tolerance would certify below the top and was
+         caught at design review), EPS_CERT = 1e-9 budget, U_LO_OFF
+         1e-11, BRACKET_MAX 1e-11 (a 53-bit predicate asked for
+         1e-13 would self-abort spuriously).
+- run 3  PASS-ENCLOSED (this addendum).
+
+EPS_CERT derivation (audited, not waved): the certified entrywise
+channel is GL-rule-vs-float-midpoint (arb ball widths 4.97e-16 +
+span rounding) + 4*TAU truncation widening + summing 24 prime / 256
+arch terms + eigh backward error ~= 3e-12 in absolute entry units;
+its effect on the constrained max scales with ||c*||^2 = 50 (run-2
+fingerprint: -5e-08 eigenvalue shift -> -1.004e-09 eigmin, i.e.
+G-normalized maximizer with Euclidean norm^2 50), NOT with the
+worst-case 1/lambda_min(G) = 2.8e4 - the lambda_min(G) eigenvector
+directions do not carry the pencil top - giving ~1.5e-10;
+registered budget 1e-9 = 6.7x that. The lambda_min(G) audit line
+(3.530e-05) printed as registered.
+
+Machine audit conclusions (campaign-wide, law 51/52 follow-up):
+
+- 1108: CONCLUSION stands (margin 1.043e-06 >> 1e-10 total error
+  channel; S-lemma duality carries the bound for ANY NU since the
+  NU term contributes zero on Rc = 0), but its "interval Cholesky
+  PASS" label was never an interval certificate; a pointer-erratum
+  is committed with this addendum.
+- 1101: UNAFFECTED. Its certifications are analytic-tail dominated
+  (2e-7 registered widths vs 1e-15-level midpoint effects) and its
+  endpoint predicates are sign-aware; it never ran a ball-arithmetic
+  Cholesky as a certificate.
+- 1106/1107: no Cholesky, no arb - unaffected.
+- The true-interval certificate for THIS statement (dependency-safe
+  enclosure of the PSD predicate at 1e-9 gaps) needs a whitened
+  congruence L_G^-1 T L_G^-T or dangerous-subspace subdivision -
+  named next #2 below, its own record with its own pre-registration.
+
+Scope: same 5-dim registered (2,8) window class as 1108; float-
+domain certified statement with the registered budget above; the
+Lean gate Prop is NOT discharged; Q-F2 untouched; RH unclaimed; no
+map change keyed.
+
+Named next:
+
+1. Record 1110: (4,8) class certificate on the float-domain
+   machine (1107 preview margin +2.6e-10 below criterion gets its
+   float-domain adjudication; HI-ladder search registered because
+   f(NU*) at a=4 is not previewed; t_table pt-hoist halves the
+   ~450-shift build).
+2. True-interval dependency-safe certificate of the (2,8) class
+   statement (whitened congruence or 2D dangerous-subspace
+   interval enclosure) - closes the "certified" label at interval
+   rigor.
+3. E0 Lean promotion - user-gated, unchanged.
+
+RH unclaimed.

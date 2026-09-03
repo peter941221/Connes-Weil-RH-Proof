@@ -227,3 +227,34 @@ Named next (in order):
    approval for the gate itself are still owed).
 
 RH unclaimed.
+
+## 7. Erratum pointer (2026-09-03 late, from record 1109's machine audit)
+
+The section-1 step-4 / section-6 "interval Cholesky" predicate was
+NEVER an interval certificate. Two selector-level defects, both
+fixed and evidenced in record 1109 (commits 38f001f, fba1b80):
+(i) p.absmin() >= floor is sign-blind (a negative pivot passes);
+(ii) the python-flint arb walk is ball arithmetic, not interval
+arithmetic - midpoints store at float64 regardless of ctx.prec and
+dependency through the Schur recursion destroys enclosure validity
+on this pencil (1109 run-3: float Schur pivots descend to 4.22e-08
+while the arb walk's final pivot "low" read 9.768e-05 - a mid error
+~1e-4, vastly beyond the 4e-14 ball radii).
+
+WHAT SURVIVES: this record's CONCLUSION, top(A+P)|_V <= -4.0e-07,
+stands with margin over every quantified error channel: f(NU*) =
+-1.443377e-06 is a float-domain S-lemma dual, and on Rc = 0 the NU
+term contributes zero to the quadratic form, so ANY NU carries the
+implication; the total entrywise uncertainty (arb widths +
+registered TAU + summation channels + ||c*||^2 = 50 amplification)
+is ~1e-10, i.e. 1e4 x below the 1.043e-06 margin. The rigorous
+float-domain statement with registered budget is record 1109's
+CERTIFIED top(A+P)|_V <= -1.442327592e-06.
+
+RECLASSIFICATION: section 6's verdict row "interval Cholesky PASS"
+reads as a float-domain diagnostic that ran on a ball walk; the
+dependency-safe TRUE interval certificate for the same statement is
+named next of 1109 (whitened congruence or dangerous-subspace
+subdivision, own record). 1101's certificates are UNAFFECTED
+(endpoint predicates, analytic-tail-dominated widths 2e-7 >> any
+midpoint effect, no ball-Cholesky). Laws 51/52 banked; RH unclaimed.
