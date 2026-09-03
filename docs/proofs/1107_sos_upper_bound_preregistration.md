@@ -64,3 +64,33 @@ sit below the quadrature floor (then only (2, 8) can PASS).
 Probe `1107_sos_upper_bound_probe.py` imports the verbatim p6_weil
 zero_gram construction (1105 bundle). WSL-side through `.venv-probe`,
 log local (gitignored).
+
+## 4. Post-run addendum (2026-09-03) - VERDICT: PASS
+
+```text
+cell (2,8): top(M) = -9.773e-07 (orientation)
+  N=60/120/300: lam_min(Z_N) = +1.443e-06 (N-stable), tau_N <= 1.6e-13
+  preview margin m_N = +1.443e-06  => PASS
+cell (4,8): top(M) = +7.959e-07 (orientation)
+  N=60/120/300: lam_min(Z_N) = +2.600e-10, tau_N <= 2e-20
+  => below the 1e-7 band, as pre-registered (pin depth under the
+     float64 floor there; only (2,8) could PASS)
+best preview margin = +1.443e-06 at (2,8) (14x the 1101 certified
+straddle band 9.68e-8)
+```
+
+Reading: on V at (2,8) the zero Gram saturates by N = 60 (tail mass
+1.6e-13 - the window basis has no Fourier content above gamma_60 at
+this precision), and the SOS upper bound would certify
+top(A+P)|_V <= -1.44e-6 + tau_N, a NEGATIVE upper bound with a real
+margin, no eigenvalue surgery at the pinning scale. The diagnostic
+identity residual (record 1105: 1.7e-6 of ||A||, quadrature) is the
+only obstacle between this preview and a certified bound; per section
+1 it drops out in the certified route (exact Lean kernel identity).
+Route status: the SOS upper-bound machinery is FEASIBLE at (2,8);
+the certification record (interval machine, 1101 lineage) is the named
+next brick, with three registered ingredients: (i) kernel identity,
+(ii) interval lambda_min(Z_N), (iii) interval tau_N (decay x counting,
+RH-free). At (4,8) the same machinery needs higher-precision entries
+or a larger window - registered as follow-up, not blocker.
+RH unclaimed.
