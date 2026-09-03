@@ -3,7 +3,6 @@ gates G-A..G-D against the VERBATIM external runners f0/p6_weil/f3_random
 (docs/proofs/1105_weil_identity_verification_preregistration.md).
 Diagnostic float64; RH not claimed.
 """
-import math
 import os
 import sys
 
