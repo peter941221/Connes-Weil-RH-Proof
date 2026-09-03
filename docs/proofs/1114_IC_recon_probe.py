@@ -7,21 +7,22 @@ import json
 import math
 import os
 
-import mpmath as mp
+import mpmath
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-mp.dps = 30
+mpmath.mp.dps = 30
 
 KPROBE = [1, 2, 3, 4, 5, 7, 10, 15, 20]
-KMAX = 90                      # zeros precomputed far enough to close balls
+KMAX = 170                     # ball closure: max T+R = 284 at k=20,
+                               # gamma_170 > 300 (run 1 truncated at 219)
 A_CERT_MAX = 4.0               # 1112/1113 certified reach
 HORIZON = 5.0                  # 1113 STRADDLE horizon (registered)
 
 print("computing zeta zeros (mpmath zetazero, dps=30)...")
 gammas = {}
 for j in range(1, KMAX + 1):
-    gammas[j] = float(mp.im(mp.zetazero(j)))
+    gammas[j] = float(mpmath.im(mpmath.zetazero(j)))
 G1 = gammas[1]
 print(f"gamma_1 = {G1:.6f}   gamma_{KMAX} = {gammas[KMAX]:.4f}")
 
@@ -53,6 +54,7 @@ for k in KPROBE:
     n0 = math.ceil(math.log2(T)) - 1          # min n : T < 2^(n+1)
     assert T < 2.0 ** (n0 + 1), (k, n0)
     R = 2.0 ** (n0 + 1) + 2.0 + math.sqrt(1.5 ** 2 + T * T)
+    assert gammas[KMAX] > T + R, f"ball OPEN at k={k}: T+R={T + R:.1f}"
     ball = []
     for j, gj in gammas.items():
         if j == k or gj > T + R:

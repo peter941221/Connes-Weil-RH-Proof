@@ -185,10 +185,24 @@ Stage B - the owed lemma (NOT in the literature; this is the core):
 
   (1) The exact two-sided statement with file:line anchors (§0-1) -
       done here.
-  (2) Quantified gap: a_det model table (zeros k=1..34, ball radii
-      R=2..32, n_model, a_det = n_model+2 vs certified a_max = 4 and
-      horizon 5) and spectral-disjointness fraction table
-      (1114_IC_recon_probe.py).
+  (2) Quantified gap (1114b RUN, model-declared, balls closed):
+
+          k=1 :  R = 32.2, N_ball = 7,   a_det in [10, 13], f_band = 0.32
+          k=5 :  R = 99.0, N_ball = 43,  a_det in [13, 86], f_band = 3.3e-16
+          k=20:  R = 207,  N_ball = 127, a_det in [15, 268], f_band = 6.6e-30
+
+      favorably-branched support deficit a_det_lo - 5 >= 5 at EVERY
+      probed zero (R3's >= 11 falsified at k=1 - 8 there, 30+ for k>=2,
+      booked in 1114b §3b); spectral disjointness ABSOLUTE from k=2.
+      Combined with 1113's super-geometric pin decay (pin(a) < 1e-26
+      for a >= 10 vs a 2.6e-19 float noise floor), the brute-force
+      window route is closed at BOTH model branches - the only live
+      shape is DOMINATION (Stage B), not membership.
   (3) The dominance-lemma skeleton with its inputs/outputs pinned
       (§2 Stage B) and the literature confirmed to stop short.
+      Pilot guidance from 1114b: build Stage B FIRST at k=1 - the
+      ball is 7 tabulated zeros (height < 47), visible primes < 4.9e8,
+      wholly inside the Platt-Trudgian 3e12 verified regime, and the
+      model detector's f_band = 0.32 is the only nonzero overlap
+      anywhere in the scan.
   Not claimed: any discharge, any RH consequence, any map change.
