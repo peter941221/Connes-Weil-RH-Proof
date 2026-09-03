@@ -53,8 +53,12 @@ Correction basis (MODEL choice, declared): c(x) = sum_{m=0}^{M-1}
 a_m x^m chi(x) on the C-infinity bump chi(x) = exp(-1/(1-x^2)) on
 |x| < 1, with M = (#constraints); moment rows computed as d^m B/dz^m
 by Gauss-Legendre (N = 900) at each node; mpmath dps >= 80; the
-constraint count here is 16 (9 target/orbit nodes with collisions
-resolved by the if-else priority, 7 line-zero forcing nodes). The
+constraint count here is 17 at every scan delta (fix batch 3,
+pre-run, machine-enumerated: the first registration said 16 by
+conflating the gamma_1 line-zero pair {1/2 +- i*gamma_1}, which for
+delta > 0 are NOT orbit members, with orbit nodes; correct split:
+8 distinct orbit/target entries + 9 forced line zeros
+{1/2 +- i*gamma_1} U {1/2 + i*gamma_j : j = 2..8}). The
 quadratic-decay constant of the TRUE construction is existential; the
 model's realized log2(max|c|) is REPORTED and compared to 1114b's
 modeled log2C - mismatch is a report, not a patch target.
@@ -104,7 +108,7 @@ S1 (the data point, report-class, NO thresholds to pass):
         certified window forms plausibly sit above this detector form?
         A gate value >= 0 says NO at that delta, and that is the
         finding, not a failure).
-  S1.3  conditioning of the 16x16 interpolation matrix (report; if
+  S1.3  conditioning of the 17x17 interpolation matrix (report; if
         the solver cannot reach S0.1 at dps 80, that is itself booked
         evidence that the favorable-branch n=8 point sits outside
         float-grade realizability and the pilot must move - report

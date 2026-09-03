@@ -226,7 +226,12 @@ def main():
                 z = 0.5 + 1j * sgn_ * gm
                 if abs(z - rho) <= R:
                     add(z, 0)
-        assert len(nodes) == 16, f"node structure changed: {len(nodes)}"
+        # fix batch 3 (pre-run): registered "16" was a miscount - the
+        # machine-enumerated set is 17 at every scan delta: 8 distinct
+        # orbit/target entries and 9 forced line zeros {1/2 +- i*gamma_1}
+        # U {1/2 + i*gamma_j, j=2..8} (for delta > 0 the gamma_1 pair
+        # are NOT orbit members, and 1-rho <> 1-rho-bar are distinct).
+        assert len(nodes) == 17, f"node structure changed: {len(nodes)}"
         sol, a, cond = solve_correction(nodes, NEXP)  # cond = residual
 
         err = max(abs(raw_val(z, sol, NEXP) - v) / max(1.0, abs(v))
