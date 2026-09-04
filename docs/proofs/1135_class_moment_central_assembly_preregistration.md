@@ -65,3 +65,32 @@ line moment certificate with the explicit `2 * 10^-15` endpoint budget.
 The remaining true-data task after this record is the central interval
 enclosure itself.  The Hbox chain, `(iv)`, same-detector semi-local positivity,
 SourceRH, and RH remain open.
+
+## 5. Post-run addendum (2026-09-05, after builds 1--5)
+
+VERDICT: ASSEMBLY LANDED; CENTRAL TARGET ENVELOPE REMAINS OPEN.
+
+The preregistration commit `8d52357` preceded implementation.  The landed
+module is `ConnesWeilRH.Dev.C1ClassMomentCentralAssembly`, paired with its
+audit module.  The implementation provides:
+
+* the exact `99/100` central radius and three-interval decomposition;
+* even-moment reflection of the two endpoint tails;
+* a data-bearing `centralMomentEnvelope` adapter to record 1132; and
+* strict whole-line transport with endpoint budget `2 / 10 ^ 15`, consuming
+  record 1134's two one-sided tail bounds.
+
+The audit also constructs the deliberately coarse symbolic envelope
+`0 <= I_0 <= 2`.  This is a fidelity check for the assembly and is not the
+registered `I_0`/`I_2` numerical producer.
+
+Canonical build 5 on the ext4 mirror completed successfully with 3664 jobs,
+zero `error:` lines, zero `sorryAx`, and no warnings originating in the new
+modules.  Fourteen audited declarations printed exactly
+`[propext, Classical.choice, Quot.sound]`.  The implementation chain after
+the preregistration was `36441f8`, `f37f311`, `1ce89e6`, `bd12644`, and
+`e1c0925`.
+
+No route-map conclusion changes.  The genuine central interval envelope for
+the registered `I_0` and `I_2` boxes, Hbox, `(iv)`, same-detector semi-local
+positivity, SourceRH, and RH remain open.
