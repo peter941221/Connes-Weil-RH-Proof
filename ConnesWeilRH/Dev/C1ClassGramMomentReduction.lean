@@ -204,6 +204,11 @@ theorem momentIBPCore_hasDerivAt (k : ℕ) (hk : 0 < k) (x : ℝ) :
         simp [classUnitWeight, classBump, hy]
       simp [hy, hb]
     · field_simp [hy]
+      have hxpow : x ^ k = x ^ (k - 1) * x := by
+        calc
+          x ^ k = x ^ (k - 1 + 1) := by rw [Nat.sub_add_cancel hk]
+          _ = x ^ (k - 1) * x := by simp [pow_add]
+      rw [hxpow]
       ring
 
 /-! ## Exact moment recurrence -/
@@ -232,7 +237,6 @@ theorem classMoment_recurrence (k : ℕ) (hk : 0 < k) :
       funext x
       dsimp [momentIBPDerivative]
       ring
-    rw [hfun]
     have hA' : Integrable
         (fun x : ℝ => (k : ℝ) * (x ^ (k - 1) * classUnitWeight x)) := by
       simpa only [Pi.mul_apply] using hA
@@ -244,8 +248,28 @@ theorem classMoment_recurrence (k : ℕ) (hk : 0 < k) :
         (fun x : ℝ => ((k : ℝ) + 4) *
           (x ^ (k + 3) * classUnitWeight x)) := by
       simpa only [Pi.mul_apply] using hC
-    rw [integral_add (hA'.sub hB') hC']
-    rw [integral_sub hA' hB']
+    have hsplit :
+        (∫ x : ℝ,
+          (k : ℝ) * (x ^ (k - 1) * classUnitWeight x) -
+            (2 * (k : ℝ) + 8) * (x ^ (k + 1) * classUnitWeight x) +
+            ((k : ℝ) + 4) * (x ^ (k + 3) * classUnitWeight x)) =
+          (∫ x : ℝ,
+            (k : ℝ) * (x ^ (k - 1) * classUnitWeight x) -
+              (2 * (k : ℝ) + 8) * (x ^ (k + 1) * classUnitWeight x)) +
+            ∫ x : ℝ, ((k : ℝ) + 4) *
+              (x ^ (k + 3) * classUnitWeight x) := by
+      simpa only [Pi.add_apply, Pi.sub_apply] using
+        (integral_add (hA'.sub hB') hC')
+    have hsplit' :
+        (∫ x : ℝ,
+          (k : ℝ) * (x ^ (k - 1) * classUnitWeight x) -
+            (2 * (k : ℝ) + 8) * (x ^ (k + 1) * classUnitWeight x)) =
+          (∫ x : ℝ, (k : ℝ) *
+            (x ^ (k - 1) * classUnitWeight x)) -
+            ∫ x : ℝ, (2 * (k : ℝ) + 8) *
+              (x ^ (k + 1) * classUnitWeight x) := by
+      simpa only [Pi.sub_apply] using (integral_sub hA' hB')
+    rw [hfun, hsplit, hsplit']
     rw [integral_const_mul, integral_const_mul, integral_const_mul]
     rfl
   rw [← hrewrite]
