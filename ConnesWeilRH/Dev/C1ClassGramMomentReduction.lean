@@ -134,8 +134,7 @@ theorem hasDerivAt_classBump (x : ℝ) :
   change HasDerivAt (fun y : ℝ => expNegInvGlue (1 - y ^ 2))
     ((-2 * x) * (1 - x ^ 2)⁻¹ ^ 2 * classBump x) x
   convert hcomp using 1 <;>
-    simp [classBump, Function.comp_def] <;>
-    ring
+    (simp [classBump, Function.comp_def]; ring)
 
 theorem hasDerivAt_classUnitWeight (x : ℝ) :
     HasDerivAt classUnitWeight
@@ -193,8 +192,9 @@ theorem momentIBPCore_hasDerivAt (k : ℕ) (hk : 0 < k) (x : ℝ) :
     simpa using hasDerivAt_pow k x
   have hpoly : HasDerivAt (fun y : ℝ => (1 - y ^ 2) ^ 2)
       (-4 * x * (1 - x ^ 2)) x := by
-    convert ((hasDerivAt_const x (1 : ℝ)).sub ((hasDerivAt_id x).pow 2)).pow 2 using 1 <;>
-      simp [id_eq] <;> ring
+    convert ((hasDerivAt_const x (1 : ℝ)).sub ((hasDerivAt_id x).pow 2)).pow 2 using 1
+    simp [id_eq]
+    ring
   have hweight := hasDerivAt_classUnitWeight x
   have hprod := (hpow.mul hpoly).mul hweight
   convert hprod using 1
