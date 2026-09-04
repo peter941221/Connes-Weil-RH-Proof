@@ -126,7 +126,7 @@ Lean analysis over existing objects.
 
   G1  (build) focused `lake build ConnesWeilRH.Dev.C1ArchimedeanIntegrability
       Generic ConnesWeilRH.Dev.C1ArchimedeanIntegrabilityGenericAudit` on the
-      ext4 mirror `/home/peter/rh` via the resource runner: footer
+      ext4 build mirror via the resource runner: footer
       "Build completed successfully (N jobs)" AND zero `^error:` lines AND
       zero `sorry`.  Acceptance = log content, not exit code.
   G2  (axioms) every `#print axioms` in the audit prints exactly
@@ -151,3 +151,53 @@ named legality hypotheses, leaving the T2 assembly exactly:
   C2 + Hnorm as booked above.
 No route selection changes; no map record edit beyond the routine frontier
 note; RH NOT claimed.
+
+## 6. Post-run addendum (2026-09-04, after builds 1-2)
+
+VERDICT: LANDED.  Chain: prereg `77372d6` committed BEFORE any build ->
+module draft `01127b7` -> build 1 FAILED (6 error sites) -> one fix batch ->
+build 2 FULL GREEN.
+
+Build 1 root causes (three mechanisms, one fix batch):
+  (a) missing scoped opens - `𝓝` / `𝓝[>]` need `open scoped Filter` (the
+      six "unexpected token '>'" / "Unknown identifier 𝓝" sites are ONE
+      root cause), and `⬝ᵥ` / `*ᵥ` need `open Matrix` (subscriptTerm
+      elaborator, the gotcha already banked from record 1118);
+  (b) numerator-zero lemmas - `simp [def]` alone does not close the `.re`
+      form; mirrors the owner route: prove `archimedeanNumerator F 0 = 0`
+      by `simp [archimedeanNumerator]; ring` first, then `.re` / `.im`
+      zero by simp through it;
+  (c) the support contradiction `supportRadius F < y` vs `y <= supportRadius
+      F` closed by linarith - `LT.lt.not_le` dot-projection resolved into
+      the nonexistent `Real.lt.not_le` in this Mathlib build.
+
+Build 2: FULL GREEN - "Build completed successfully (3637 jobs)", zero
+`^error:` lines, zero `sorry` (main module 45 s, audit 1.2 s).
+G1 PASS.  G2 PASS: 19/19 `#print axioms` records exactly
+`[propext, Classical.choice, Quot.sound]` (lines rejoined across wraps,
+zero non-standard, 19 unique declarations).  G3 PASS: both fidelity
+`example`s compile - the pair legality at an abstract pair, and the free
+hrep headline returning the literal T2 slot with NO legality hypothesis.
+G4 PASS after one hygiene fix: the prereg had leaked the local mirror
+path; genericized to "the ext4 build mirror" (house style; zero committed
+repo documents contain the path).  Warnings: the log's 153 warnings are
+the pre-existing old-module set (same count as the 1119/1120/1121
+builds); ZERO warnings on the two new modules.
+
+Deviations: NONE on the preregistered statement shapes.  One ADDITIONAL
+declaration beyond the prereg list: `archimedeanNumerator_zero` (the
+intermediate lemma required by root cause (b)) - additive, audited.
+
+Consequence: the 1121 named hypothesis
+`∀ i j, IntegrableOn (archimedeanIntegrand (pairTest w i j)) (Ioi 0)` is
+DISCHARGED.  `pairTest_legality` proves it for every pair of window tests
+with no data input; `gate_sum_span_free` / `gate_qform_span_free` /
+`hrep_of_gateMatrix_eq_free` restate the 1121 headlines with the `hI`
+argument removed.  The generic headline subsumes the square case too; the
+existing `archimedeanIntegrand_square_integrableOn_Ioi` route is left
+untouched for its current consumers (backward compatible, 1121 statements
+unchanged).  T2 named-obligation set after this record: exactly
+  (iv)  real contraction decay via the 1116c model-consumption contract,
+  C2    drift bound on the TRUE moment table (true-table route only),
+  Hnorm normalization bookkeeping.
+RH NOT claimed; no map change keyed.
