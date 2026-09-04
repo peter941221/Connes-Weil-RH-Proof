@@ -14,6 +14,7 @@ RH is NOT claimed.
 -/
 
 open ConnesWeilRH Source C1ClassGramOwner
+open C1HboxRationalData
 open CCM25Concrete.CompactLogConvolution
 open Matrix
 
