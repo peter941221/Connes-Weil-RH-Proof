@@ -57,6 +57,8 @@ theorem q28_classGramModel_bounds_of_baseMomentBounds
         2 * classGramMomentModel I0 I2 i j ≤ GHi_q28 i j := by
   rcases hI0 with ⟨hI0lo, hI0hi⟩
   rcases hI2 with ⟨hI2lo, hI2hi⟩
+  norm_num [q28Moment0Lo, q28Moment0Hi, q28Moment2Lo, q28Moment2Hi]
+    at hI0lo hI0hi hI2lo hI2hi
   intro i j
   fin_cases i <;> fin_cases j
   all_goals
