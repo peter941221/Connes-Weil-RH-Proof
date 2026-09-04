@@ -11,6 +11,7 @@ namespace C1Q28ClassGramIntervalTransferAudit
 
 open C1Q28ClassGramIntervalTransfer
 open C1ClassGramMomentReduction
+open C1ClassGramOwner
 open C1HboxRationalData
 open Matrix
 
