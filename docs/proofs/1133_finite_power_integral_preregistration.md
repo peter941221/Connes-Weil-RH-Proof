@@ -58,3 +58,19 @@ inequalities; it does not assert or import a numerical approximation.
 
 The post-run addendum will report whether the exact polynomial engine and its
 adapter landed.  The actual exponential bump envelope and RH remain open.
+
+## 5. Post-run addendum (2026-09-05, after builds 1-3)
+
+VERDICT: LANDED (calculus engine only).
+
+The preregistration commit `df4bd82` preceded the implementation.  After two
+Lean v4.30 syntax/API corrections, build 3 completed successfully (3662
+jobs), with zero `^error:` lines and zero `sorryAx` occurrences.  The audit
+printed all five registered declarations, each with exactly
+`[propext, Classical.choice, Quot.sound]`.
+
+The landed declarations are the finite power-sum integral identity, its
+interval-integrability theorem, the generic adapter to `IntegralEnvelope`,
+and the class-moment adapter.  The exact rational-coefficient fidelity
+example also compiles.  No concrete exponential envelope, registered
+`10^-15` base-moment interval, Hbox certificate, or RH conclusion was added.
