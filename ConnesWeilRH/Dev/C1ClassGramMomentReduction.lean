@@ -133,7 +133,8 @@ theorem hasDerivAt_classBump (x : ℝ) :
   have hcomp := hflat.comp x harg
   change HasDerivAt (fun y : ℝ => expNegInvGlue (1 - y ^ 2))
     ((-2 * x) * (1 - x ^ 2)⁻¹ ^ 2 * classBump x) x
-  simpa [classBump, Function.comp_def] using hcomp
+  convert hcomp using 1 <;>
+    (simp [classBump, Function.comp_def]; try ring)
 
 theorem hasDerivAt_classUnitWeight (x : ℝ) :
     HasDerivAt classUnitWeight
