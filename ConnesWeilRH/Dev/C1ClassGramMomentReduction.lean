@@ -131,6 +131,8 @@ theorem hasDerivAt_classBump (x : ℝ) :
     expNegInvGlue.hasDerivAt_polynomial_eval_inv_mul
       (1 : ℝ[X]) (1 - x ^ 2)
   have hcomp := hflat.comp x harg
+  change HasDerivAt (fun y : ℝ => expNegInvGlue (1 - y ^ 2))
+    ((-2 * x) * (1 - x ^ 2)⁻¹ ^ 2 * classBump x) x
   convert hcomp using 1 <;>
     simp [classBump, Function.comp_def, id_eq] <;>
     ring
@@ -139,9 +141,8 @@ theorem hasDerivAt_classUnitWeight (x : ℝ) :
     HasDerivAt classUnitWeight
       ((-4 * x) * (1 - x ^ 2)⁻¹ ^ 2 * classUnitWeight x) x := by
   have h := (hasDerivAt_classBump x).mul (hasDerivAt_classBump x)
-  convert h using 1
-  · rfl
-  · simp only [classUnitWeight, inv_pow]
+  convert h using 1 <;>
+    simp only [classUnitWeight, inv_pow] <;>
     ring
 
 /-! ## Integration-by-parts core -/
@@ -197,7 +198,6 @@ theorem momentIBPCore_hasDerivAt (k : ℕ) (hk : 0 < k) (x : ℝ) :
   have hweight := hasDerivAt_classUnitWeight x
   have hprod := (hpow.mul hpoly).mul hweight
   convert hprod using 1
-  · rfl
   · dsimp [momentIBPCore, momentIBPDerivative]
     by_cases hy : 1 - x ^ 2 = 0
     · have hb : classUnitWeight x = 0 := by
@@ -233,8 +233,19 @@ theorem classMoment_recurrence (k : ℕ) (hk : 0 < k) :
       dsimp [momentIBPDerivative]
       ring
     rw [hfun]
-    rw [integral_add (hA.sub hB) hC]
-    rw [integral_sub hA hB]
+    have hA' : Integrable
+        (fun x : ℝ => (k : ℝ) * (x ^ (k - 1) * classUnitWeight x)) := by
+      simpa only [Pi.mul_apply] using hA
+    have hB' : Integrable
+        (fun x : ℝ => (2 * (k : ℝ) + 8) *
+          (x ^ (k + 1) * classUnitWeight x)) := by
+      simpa only [Pi.mul_apply] using hB
+    have hC' : Integrable
+        (fun x : ℝ => ((k : ℝ) + 4) *
+          (x ^ (k + 3) * classUnitWeight x)) := by
+      simpa only [Pi.mul_apply] using hC
+    rw [integral_add (hA'.sub hB') hC']
+    rw [integral_sub hA' hB']
     rw [integral_const_mul, integral_const_mul, integral_const_mul]
     rfl
   rw [← hrewrite]
