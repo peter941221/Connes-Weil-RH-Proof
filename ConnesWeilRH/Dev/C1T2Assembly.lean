@@ -41,6 +41,7 @@ open CCM25Concrete.CompactLogConvolution
 open C1HboxRationalData
 open C1GateLevelTransferClasses
 open C1HkerSpan
+open C1WindowRationalIngest
 open C1LocalConfigurationDomination
 open C1SameOwnerWeil
 open C1GateMatrixRepresentation
@@ -80,11 +81,12 @@ theorem qform_norm_representative_sqrt {n : ℕ}
     (fun i => (Real.sqrt (c ⬝ᵥ (G *ᵥ c)))⁻¹ * c i) ⬝ᵥ
         (G *ᵥ (fun i => (Real.sqrt (c ⬝ᵥ (G *ᵥ c)))⁻¹ * c i)) = 1 := by
   rw [qform_smul_homogeneous]
-  have hsqrt : Real.sqrt (c ⬝ᵥ (G *ᵥ c)) * Real.sqrt (c ⬝ᵥ (G *ᵥ c))
-      = c ⬝ᵥ (G *ᵥ c) := Real.mul_self_sqrt hpos.le
   have hne : Real.sqrt (c ⬝ᵥ (G *ᵥ c)) ≠ 0 :=
     (Real.sqrt_pos.mpr hpos).ne'
-  field_simp
+  have hinv : (Real.sqrt (c ⬝ᵥ (G *ᵥ c)))⁻¹ * (c ⬝ᵥ (G *ᵥ c))
+      = Real.sqrt (c ⬝ᵥ (G *ᵥ c)) := by
+    field_simp
+  rw [pow_two, ← mul_assoc, hinv, mul_inv_cancel₀ hne]
 
 /-- Normalization is WLOG: a positive-G-norm coefficient has a rescaled
 representative with unit G-norm. -/
@@ -121,7 +123,7 @@ theorem gate_span_smul_homogeneous {k : ℕ} (w : Fin k → CompactLogTest)
     ICgate ((spanObj w (fun i => t * y i)).convolutionSquare)
       = t ^ 2 * ICgate ((spanObj w y).convolutionSquare) := by
   rw [gate_sum_span_free w (fun i => t * y i) hw,
-    gate_sum_span_free w y hw]
+    gate_sum_span_free w y hw, Finset.mul_sum]
   refine Finset.sum_congr rfl fun p _ => ?_
   ring
 
@@ -131,6 +133,7 @@ theorem support_subset_Ioo_of_radius_lt (F : CompactLogTest) {b : ℝ}
     Function.support F.test ⊆ Ioo (-b) b := by
   intro x hx
   have hcc := support_subset_Icc F hx
+  simp only [Set.mem_Icc] at hcc
   exact ⟨by linarith, by linarith⟩
 
 /-! ## Hnorm discharge: certified Stage-B windows from unnormalized data -/
@@ -203,7 +206,7 @@ theorem defectGate_singleton_eq_sub (g W : CompactLogTest) :
       (fun _ => W.convolutionSquare) (fun _ => 1))
       = ICgate g.convolutionSquare - ICgate W.convolutionSquare := by
   set R : ℝ :=
-    2 * (max (supportRadius g) (supportRadius W) + 1) with hRdef
+    2 * (max (supportRadius g) (supportRadius W) + 1)
   have hb : max (supportRadius g) (supportRadius W)
       < max (supportRadius g) (supportRadius W) + 1 := by linarith
   have hgg : Function.support g.convolutionSquare.test ⊆ Ioo (-R) R := by
@@ -214,9 +217,11 @@ theorem defectGate_singleton_eq_sub (g W : CompactLogTest) :
     refine CompactLogTest.convolutionSquare_support_subset_two_mul_Ioo W ?_
     exact (support_subset_Ioo_of_radius_lt W
       (lt_of_le_of_lt (le_max_right _ _) hb)).trans Set.Ioo_subset_Icc_self
-  exact ICgate_ICdefect _ _ _ _ hgg (fun i _ => hWW)
-    (integrableOn_archimedeanIntegrand _)
-    (fun i _ => integrableOn_archimedeanIntegrand _)
+  have h := ICgate_ICdefect g.convolutionSquare {()}
+    (fun _ => W.convolutionSquare) (fun _ => 1) hgg (fun i _ => hWW)
+    (integrableOn_archimedeanIntegrand g.convolutionSquare)
+    (fun i _ => integrableOn_archimedeanIntegrand W.convolutionSquare)
+  simpa using h
 
 /-! ## Assembly: the one-window Stage-B instance -/
 
@@ -224,7 +229,7 @@ theorem defectGate_singleton_eq_sub (g W : CompactLogTest) :
 (the 1116c contract) plus the budget yield a literal `ICStageBContraction`.
 After this theorem, the ENTIRE remaining content of (iv) is the defect
 bound `hdec`. -/
-theorem stageBContraction_of_certifiedWindow (g W : CompactLogTest)
+noncomputable def stageBContraction_of_certifiedWindow (g W : CompactLogTest)
     {b a mu epsilon : ℝ}
     (hgsupp : Function.support g.test ⊆ Ioo (-b) b)
     (hWsupp : Function.support W.test ⊆ Ioo (-a) a)

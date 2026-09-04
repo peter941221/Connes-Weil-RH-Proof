@@ -35,6 +35,7 @@ open CCM25Concrete.CompactLogConvolution
 open C1HboxRationalData
 open C1GateLevelTransferClasses
 open C1HkerSpan
+open C1WindowRationalIngest
 open C1LocalConfigurationDomination
 open C1SameOwnerWeil
 open C1GateMatrixRepresentation
