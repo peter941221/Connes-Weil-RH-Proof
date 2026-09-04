@@ -25,6 +25,7 @@ open MeasureTheory
 open C1ClassWindowObjects
 open C1ClassGramOwner
 open C1HboxRationalData
+open Polynomial
 open scoped BigOperators
 
 noncomputable section
@@ -36,8 +37,6 @@ theorem classBump_neg (x : ℝ) : classBump (-x) = classBump x := by
   simp [classBump]
 
 /-- The first eight Legendre factors have the standard parity. -/
-set_option maxHeartbeats 2000000000 in
--- reason: finite unfolding of the eight defining recurrence cases
 theorem legendrePoly_eval_neg_fin8 (i : Fin 8) (x : ℝ) :
     eval (-x) (legendrePoly (i : ℕ)) =
       (-1 : ℝ) ^ (i : ℕ) * eval x (legendrePoly (i : ℕ)) := by
@@ -65,6 +64,7 @@ theorem classGramEntry_zero_of_odd_parity
     simp [pow_add]
   have hpoint : ∀ x : ℝ, f (-x) = -f x := by
     intro x
+    dsimp [f]
     rw [classWindowFun_neg a ha i, classWindowFun_neg a ha j]
     rw [← pow_add, hpow]
     ring
@@ -75,47 +75,38 @@ theorem classGramEntry_zero_of_odd_parity
       (∫ x : ℝ, f (-x)) = ∫ x : ℝ, -f x := by
         apply integral_congr_ae
         exact Filter.Eventually.of_forall hpoint
-      _ = -∫ x : ℝ, f x := integral_neg
+      _ = -∫ x : ℝ, f x := by rw [integral_neg]
   have hz : (∫ x : ℝ, f x) = 0 := by
     linarith [hsym, hneg]
   simpa [classGramEntry, f] using hz
 
 /-! ## The committed boxes cross zero on the odd entries -/
 
-set_option maxHeartbeats 2000000000 in
--- reason: 32 exact rational lower/upper comparisons for each class
 theorem zero_mem_odd_box_q28 :
     ∀ i j : Fin 8, Odd ((i : ℕ) + (j : ℕ)) →
       GLo_q28 i j ≤ 0 ∧ 0 ≤ GHi_q28 i j := by
   intro i j hodd
-  fin_cases i <;> fin_cases j <;> simp [GLo_q28, GHi_q28] at hodd ⊢ <;>
-    norm_num at hodd ⊢
+  fin_cases i <;> fin_cases j <;> norm_num [Odd] at hodd ⊢
 
-set_option maxHeartbeats 2000000000 in
--- reason: 32 exact rational lower/upper comparisons for each class
 theorem zero_mem_odd_box_q38 :
     ∀ i j : Fin 8, Odd ((i : ℕ) + (j : ℕ)) →
       GLo_q38 i j ≤ 0 ∧ 0 ≤ GHi_q38 i j := by
   intro i j hodd
-  fin_cases i <;> fin_cases j <;> simp [GLo_q38, GHi_q38] at hodd ⊢ <;>
-    norm_num at hodd ⊢
+  fin_cases i <;> fin_cases j <;> norm_num [Odd] at hodd ⊢
 
-set_option maxHeartbeats 2000000000 in
--- reason: 32 exact rational lower/upper comparisons for each class
 theorem zero_mem_odd_box_q48 :
     ∀ i j : Fin 8, Odd ((i : ℕ) + (j : ℕ)) →
       GLo_q48 i j ≤ 0 ∧ 0 ≤ GHi_q48 i j := by
   intro i j hodd
-  fin_cases i <;> fin_cases j <;> simp [GLo_q48, GHi_q48] at hodd ⊢ <;>
-    norm_num at hodd ⊢
+  fin_cases i <;> fin_cases j <;> norm_num [Odd] at hodd ⊢
 
 /-! ## Hbox-facing partial discharge -/
 
 theorem classGram_odd_bounds
     (a : ℝ) (ha : 0 < a) (GLo GHi : Matrix (Fin 8) (Fin 8) ℝ)
-    (hboxOdd : ∀ i j, Odd ((i : ℕ) + (j : ℕ)) →
+    (hboxOdd : ∀ i j : Fin 8, Odd ((i : ℕ) + (j : ℕ)) →
       GLo i j ≤ 0 ∧ 0 ≤ GHi i j) :
-    ∀ i j, Odd ((i : ℕ) + (j : ℕ)) →
+    ∀ i j : Fin 8, Odd ((i : ℕ) + (j : ℕ)) →
       GLo i j ≤ classGramMatrix a ha i j ∧
         classGramMatrix a ha i j ≤ GHi i j := by
   intro i j hodd
@@ -124,7 +115,7 @@ theorem classGram_odd_bounds
 
 theorem q28_classGram_odd_bounds
     (a : ℝ) (ha : 0 < a) :
-    ∀ i j, Odd ((i : ℕ) + (j : ℕ)) →
+    ∀ i j : Fin 8, Odd ((i : ℕ) + (j : ℕ)) →
       GLo_q28 i j ≤ classGramMatrix a ha i j ∧
         classGramMatrix a ha i j ≤ GHi_q28 i j := by
   intro i j hodd
