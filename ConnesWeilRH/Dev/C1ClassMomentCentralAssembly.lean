@@ -62,8 +62,9 @@ theorem classMomentIntegrand_intervalIntegrable
 
 theorem classMomentIntegrand_neg_of_even {n : ℕ} (hn : Even n) (x : ℝ) :
     classMomentIntegrand n (-x) = classMomentIntegrand n x := by
-  rcases hn with ⟨k, rfl⟩
-  simp [classMomentIntegrand, classUnitWeight_neg, neg_pow, pow_add]
+  change (-x) ^ n * classUnitWeight (-x) =
+    x ^ n * classUnitWeight x
+  rw [hn.neg_pow x, classUnitWeight_neg]
 
 /-- Reflection identifies the left endpoint tail with the right tail for an
 even moment. -/
@@ -94,6 +95,7 @@ theorem classMoment_eq_three_interval (n : ℕ) :
     (-centralRadius) (1 : ℝ)
   rw [← intervalIntegral.integral_add_adjacent_intervals hleft hleftRest,
     ← intervalIntegral.integral_add_adjacent_intervals hmiddle hright]
+  ring
 
 /-! ## The central proof-carrying certificate -/
 
