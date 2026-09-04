@@ -75,9 +75,15 @@ theorem denominatorPower_intervalIntegrable (k : ℕ) :
     IntervalIntegrable (denominatorPower k) volume
       (-rationalRadius) rationalRadius := by
   apply ContinuousOn.intervalIntegrable
-  intro x hx
-  rw [uIcc_of_le (by linarith [rationalRadius_pos])] at hx
-  exact denominatorPower_continuousOn k x hx
+  rw [uIcc_of_le (by linarith [rationalRadius_pos])]
+  exact denominatorPower_continuousOn k
+
+private theorem const_denominatorPower_intervalIntegrable (k : ℕ) (c : ℝ) :
+    IntervalIntegrable (fun x : ℝ => c * denominatorPower k x) volume
+      (-rationalRadius) rationalRadius := by
+  apply ContinuousOn.intervalIntegrable
+  rw [uIcc_of_le (by linarith [rationalRadius_pos])]
+  exact continuousOn_const.mul (denominatorPower_continuousOn k)
 
 /-! ## The recursive primitive -/
 
@@ -99,10 +105,10 @@ theorem rationalPowerPrimitive_hasDerivAt {k : ℕ} {x : ℝ}
   | succ k ih =>
       cases k with
       | zero =>
-          have hplus : HasDerivAt (fun y : ℝ => 1 + y) 1 x :=
-            (hasDerivAt_const x (1 : ℝ)).add (hasDerivAt_id x)
-          have hminus : HasDerivAt (fun y : ℝ => 1 - y) (-1 : ℝ) x :=
-            (hasDerivAt_const x (1 : ℝ)).sub (hasDerivAt_id x)
+          have hplus : HasDerivAt (fun y : ℝ => 1 + y) 1 x := by
+            simpa using (hasDerivAt_const x (1 : ℝ)).add (hasDerivAt_id x)
+          have hminus : HasDerivAt (fun y : ℝ => 1 - y) (-1 : ℝ) x := by
+            simpa using (hasDerivAt_const x (1 : ℝ)).sub (hasDerivAt_id x)
           have hpluspos : 0 < 1 + x := by
             rw [abs_lt] at hx
             linarith
@@ -114,10 +120,11 @@ theorem rationalPowerPrimitive_hasDerivAt {k : ℕ} {x : ℝ}
           have hlogminus :=
             (Real.hasDerivAt_log (ne_of_gt hminuspos)).comp x hminus
           have hbase := (hlogplus.sub hlogminus).div_const (2 : ℝ)
-          have hvalue : (1 - x ^ 2)⁻¹ =
-              ((1 + x)⁻¹ - (-1 : ℝ) * (1 - x)⁻¹) / 2 := by
-            field_simp [hpluspos.ne', hminuspos.ne']
-            ring
+          have hvalue :
+              ((1 + x)⁻¹ * 1 - (1 - x)⁻¹ * (-1 : ℝ)) / 2 =
+                (1 - x ^ 2)⁻¹ := by
+            field_simp [hpluspos.ne', hminuspos.ne',
+              (one_sub_sq_pos_of_abs_lt_one hx).ne']; ring
           have hbase' := hbase.congr_deriv hvalue
           simpa [rationalPowerPrimitive, denominatorPower,
             Function.comp_apply] using hbase'
@@ -125,7 +132,7 @@ theorem rationalPowerPrimitive_hasDerivAt {k : ℕ} {x : ℝ}
           have hden : HasDerivAt (fun y : ℝ => 1 - y ^ 2)
               (-2 * x) x := by
             convert (hasDerivAt_const x (1 : ℝ)).sub
-              ((hasDerivAt_id x).pow 2) using 1 <;> ring
+              ((hasDerivAt_id x).pow 2) using 1; simp [id_eq]
           have hden_ne : 1 - x ^ 2 ≠ 0 :=
             (one_sub_sq_pos_of_abs_lt_one hx).ne'
           have hinv := hden.inv hden_ne
@@ -136,11 +143,10 @@ theorem rationalPowerPrimitive_hasDerivAt {k : ℕ} {x : ℝ}
           have hrec := ih.const_mul
             ((2 * (k : ℝ) + 1) / (2 * ((k : ℝ) + 1)))
           have hsum := hterm.add hrec
-          convert hsum using 1 <;>
-            simp [rationalPowerPrimitive, denominatorPower,
-              Function.comp_apply] <;>
-            field_simp [hden_ne] <;>
-            ring
+          convert hsum using 1
+          all_goals simp [denominatorPower]
+          all_goals field_simp [hden_ne]
+          all_goals ring
 
 /-! ## Endpoint recurrence -/
 
@@ -161,6 +167,7 @@ theorem rationalPowerPrimitive_endpoint_difference (k : ℕ) :
   induction k with
   | zero =>
       simp [rationalPowerPrimitive, rationalPowerIntervalValue]
+      ring
   | succ k ih =>
       cases k with
       | zero =>
@@ -174,13 +181,50 @@ theorem rationalPowerPrimitive_endpoint_difference (k : ℕ) :
                 (Real.log (1 + -rationalRadius) -
                   Real.log (1 - -rationalRadius)) / 2 =
                 Real.log (1 + rationalRadius) - Real.log (1 - rationalRadius) := by
-                  ring
+                  ring_nf
             _ = Real.log ((1 + rationalRadius) / (1 - rationalRadius)) := by
               rw [Real.log_div hp.ne' hm.ne']
       | succ k =>
           simp only [rationalPowerPrimitive, rationalPowerIntervalValue]
-          rw [ih]
-          ring
+          have hrad : 1 - (-rationalRadius) ^ 2 =
+              1 - rationalRadius ^ 2 := by ring
+          have hden : 1 - rationalRadius ^ 2 ≠ 0 := by
+            exact (one_sub_sq_pos_of_abs_lt_one (by
+              rw [abs_lt]
+              constructor <;> linarith [rationalRadius_pos,
+                rationalRadius_lt_one])).ne'
+          have hfirst :
+              rationalRadius * (1 - rationalRadius ^ 2)⁻¹ ^ (k + 1) /
+                    (2 * ((k : ℝ) + 1)) -
+                (-rationalRadius) * (1 - (-rationalRadius) ^ 2)⁻¹ ^ (k + 1) /
+                    (2 * ((k : ℝ) + 1)) =
+                rationalRadius /
+                    (((k : ℝ) + 1) *
+                      (1 - rationalRadius ^ 2) ^ (k + 1)) := by
+            rw [hrad]
+            rw [inv_pow]
+            field_simp [hden]
+            ring
+          calc
+            rationalRadius * (1 - rationalRadius ^ 2)⁻¹ ^ (k + 1) /
+                  (2 * ((k : ℝ) + 1)) +
+                ((2 * (k : ℝ) + 1) / (2 * ((k : ℝ) + 1))) *
+                    rationalPowerPrimitive (k + 1) rationalRadius -
+                ((-rationalRadius) * (1 - (-rationalRadius) ^ 2)⁻¹ ^ (k + 1) /
+                  (2 * ((k : ℝ) + 1)) +
+                ((2 * (k : ℝ) + 1) / (2 * ((k : ℝ) + 1))) *
+                    rationalPowerPrimitive (k + 1) (-rationalRadius)) =
+              (rationalRadius * (1 - rationalRadius ^ 2)⁻¹ ^ (k + 1) /
+                  (2 * ((k : ℝ) + 1)) -
+                (-rationalRadius) * (1 - (-rationalRadius) ^ 2)⁻¹ ^ (k + 1) /
+                  (2 * ((k : ℝ) + 1))) +
+                ((2 * (k : ℝ) + 1) / (2 * ((k : ℝ) + 1))) *
+                  (rationalPowerPrimitive (k + 1) rationalRadius -
+                    rationalPowerPrimitive (k + 1) (-rationalRadius)) := by
+              ring
+            _ = rationalPowerIntervalValue (k + 2) := by
+              rw [hfirst, ih]
+              rfl
 
 theorem intervalIntegral_denominatorPower (k : ℕ) :
     (∫ x in (-rationalRadius)..rationalRadius, denominatorPower k x) =
@@ -224,7 +268,7 @@ theorem intervalIntegral_finiteDenominatorPowerPolynomial
     rw [intervalIntegral.integral_const_mul,
       intervalIntegral_denominatorPower]
   · intro k hk
-    exact (denominatorPower_intervalIntegrable k).const_mul' (c k)
+    exact const_denominatorPower_intervalIntegrable k (c k)
 
 /-- The exact interval value of `x² (1-x²)⁻ᵏ`. -/
 noncomputable def denominatorPowerMomentValue : ℕ → ℝ
@@ -236,16 +280,25 @@ theorem denominatorPowerMoment_intervalIntegrable (k : ℕ) :
     IntervalIntegrable (fun x : ℝ => x ^ 2 * denominatorPower k x)
       volume (-rationalRadius) rationalRadius := by
   apply ContinuousOn.intervalIntegrable
-  intro x hx
-  rw [uIcc_of_le (by linarith [rationalRadius_pos])] at hx
-  exact (continuousOn_id.pow 2).mul (denominatorPower_continuousOn k) x hx
+  rw [uIcc_of_le (by linarith [rationalRadius_pos])]
+  exact (continuousOn_id.pow 2).mul (denominatorPower_continuousOn k)
+
+private theorem const_denominatorPowerMoment_intervalIntegrable
+    (k : ℕ) (c : ℝ) :
+    IntervalIntegrable
+      (fun x : ℝ => c * (x ^ 2 * denominatorPower k x)) volume
+      (-rationalRadius) rationalRadius := by
+  apply ContinuousOn.intervalIntegrable
+  rw [uIcc_of_le (by linarith [rationalRadius_pos])]
+  exact continuousOn_const.mul
+    ((continuousOn_id.pow 2).mul (denominatorPower_continuousOn k))
 
 theorem intervalIntegral_denominatorPowerMoment (k : ℕ) :
     (∫ x in (-rationalRadius)..rationalRadius,
       x ^ 2 * denominatorPower k x) = denominatorPowerMomentValue k := by
   cases k with
   | zero =>
-      simp only [denominatorPower, pow_zero, inv_one, mul_one,
+      simp only [denominatorPower, pow_zero, mul_one,
         denominatorPowerMomentValue]
       rw [integral_pow]
       norm_num [rationalRadius]
@@ -263,8 +316,30 @@ theorem intervalIntegral_denominatorPowerMoment (k : ℕ) :
         rw [uIcc_of_le (by linarith [rationalRadius_pos])] at hx
         have hne := one_sub_sq_ne_zero_of_mem_central hx
         unfold denominatorPower
-        field_simp [hne]
-        ring
+        have hbase : x ^ 2 * (1 - x ^ 2)⁻¹ =
+            (1 - x ^ 2)⁻¹ - 1 := by
+          field_simp [hne]
+          ring
+        change x ^ 2 * (1 - x ^ 2)⁻¹ ^ (k + 1) =
+          (1 - x ^ 2)⁻¹ ^ (k + 1) - (1 - x ^ 2)⁻¹ ^ k
+        have hpow_succ :
+            (1 - x ^ 2)⁻¹ ^ (k + 1) =
+              (1 - x ^ 2)⁻¹ ^ k * (1 - x ^ 2)⁻¹ := by
+          rw [pow_succ]
+        calc
+          x ^ 2 * (1 - x ^ 2)⁻¹ ^ (k + 1) =
+              x ^ 2 * ((1 - x ^ 2)⁻¹ ^ k * (1 - x ^ 2)⁻¹) := by
+            rw [hpow_succ]
+          _ =
+              (x ^ 2 * (1 - x ^ 2)⁻¹) * (1 - x ^ 2)⁻¹ ^ k := by ring
+          _ = ((1 - x ^ 2)⁻¹ - 1) * (1 - x ^ 2)⁻¹ ^ k := by
+            rw [hbase]
+          _ = (1 - x ^ 2)⁻¹ * (1 - x ^ 2)⁻¹ ^ k -
+              (1 - x ^ 2)⁻¹ ^ k := by ring
+          _ = (1 - x ^ 2)⁻¹ ^ (k + 1) -
+              (1 - x ^ 2)⁻¹ ^ k := by
+            rw [hpow_succ]
+            ring
       rw [hrewrite, intervalIntegral_denominatorPower,
         intervalIntegral_denominatorPower]
       rfl
@@ -292,7 +367,7 @@ theorem intervalIntegral_finiteDenominatorPowerMomentPolynomial
     rw [intervalIntegral.integral_const_mul,
       intervalIntegral_denominatorPowerMoment]
   · intro k hk
-    exact (denominatorPowerMoment_intervalIntegrable k).const_mul' (c k)
+    exact const_denominatorPowerMoment_intervalIntegrable k (c k)
 
 /-! ## Small symbolic checks -/
 
