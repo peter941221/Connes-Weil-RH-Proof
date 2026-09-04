@@ -39,6 +39,7 @@ noncomputable section
 /-- The real class-window core is smooth at every class scale. -/
 theorem classWindowFun_contDiff (a : ℝ) (ha : 0 < a) (i : ℕ) :
     ContDiff ℝ ∞ (classWindowFun a i) := by
+  let _ha := ha
   have hdiv : ContDiff ℝ ∞ (fun u : ℝ => u / a) := by
     fun_prop
   have hpoly : ContDiff ℝ ∞
