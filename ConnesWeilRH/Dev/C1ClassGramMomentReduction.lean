@@ -125,8 +125,8 @@ theorem hasDerivAt_classBump (x : ℝ) :
     HasDerivAt classBump
       ((-2 * x) * (1 - x ^ 2)⁻¹ ^ 2 * classBump x) x := by
   have harg : HasDerivAt (fun y : ℝ => 1 - y ^ 2) (-2 * x) x := by
-    convert (hasDerivAt_const x (1 : ℝ)).sub ((hasDerivAt_id x).pow 2) using 1 <;>
-      simp [id_eq] <;> ring
+    simpa [id_eq] using
+      (hasDerivAt_const x (1 : ℝ)).sub ((hasDerivAt_id x).pow 2)
   have hflat :=
     expNegInvGlue.hasDerivAt_polynomial_eval_inv_mul
       (1 : ℝ[X]) (1 - x ^ 2)
@@ -134,16 +134,16 @@ theorem hasDerivAt_classBump (x : ℝ) :
   change HasDerivAt (fun y : ℝ => expNegInvGlue (1 - y ^ 2))
     ((-2 * x) * (1 - x ^ 2)⁻¹ ^ 2 * classBump x) x
   convert hcomp using 1 <;>
-    simp [classBump, Function.comp_def, id_eq] <;>
+    simp [classBump, Function.comp_def] <;>
     ring
 
 theorem hasDerivAt_classUnitWeight (x : ℝ) :
     HasDerivAt classUnitWeight
       ((-4 * x) * (1 - x ^ 2)⁻¹ ^ 2 * classUnitWeight x) x := by
   have h := (hasDerivAt_classBump x).mul (hasDerivAt_classBump x)
-  convert h using 1 <;>
-    simp only [classUnitWeight, inv_pow] <;>
-    ring
+  convert h using 1
+  simp only [classUnitWeight, inv_pow]
+  ring
 
 /-! ## Integration-by-parts core -/
 
