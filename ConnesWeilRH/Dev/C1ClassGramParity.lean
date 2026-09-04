@@ -78,7 +78,7 @@ theorem classGramEntry_zero_of_odd_parity
           (classWindowFun a (i : ℕ) x * classWindowFun a (j : ℕ) x) := by
         rw [← pow_add]
       _ = -(classWindowFun a (i : ℕ) x * classWindowFun a (j : ℕ) x) := by
-        rw [hpow]
+        simp [hpow]
   have hsym : (∫ x : ℝ, f (-x)) = ∫ x : ℝ, f x :=
     integral_neg_eq_self f (volume : Measure ℝ)
   have hneg : (∫ x : ℝ, f (-x)) = -∫ x : ℝ, f x := by
@@ -100,6 +100,7 @@ theorem zero_mem_odd_box_q28 :
   fin_cases i <;> fin_cases j
   all_goals
     rcases hodd with ⟨k, hk⟩
+    norm_num at hk
     first
     | omega
     | norm_num [GLo_q28, GHi_q28]
@@ -111,6 +112,7 @@ theorem zero_mem_odd_box_q38 :
   fin_cases i <;> fin_cases j
   all_goals
     rcases hodd with ⟨k, hk⟩
+    norm_num at hk
     first
     | omega
     | norm_num [GLo_q38, GHi_q38]
@@ -122,6 +124,7 @@ theorem zero_mem_odd_box_q48 :
   fin_cases i <;> fin_cases j
   all_goals
     rcases hodd with ⟨k, hk⟩
+    norm_num at hk
     first
     | omega
     | norm_num [GLo_q48, GHi_q48]
