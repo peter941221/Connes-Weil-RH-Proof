@@ -80,13 +80,15 @@ theorem qform_norm_representative_sqrt {n : ℕ}
     (hpos : 0 < c ⬝ᵥ (G *ᵥ c)) :
     (fun i => (Real.sqrt (c ⬝ᵥ (G *ᵥ c)))⁻¹ * c i) ⬝ᵥ
         (G *ᵥ (fun i => (Real.sqrt (c ⬝ᵥ (G *ᵥ c)))⁻¹ * c i)) = 1 := by
-  rw [qform_smul_homogeneous]
+  rw [qform_smul_homogeneous, pow_two]
+  have hsq : Real.sqrt (c ⬝ᵥ (G *ᵥ c)) * Real.sqrt (c ⬝ᵥ (G *ᵥ c))
+      = c ⬝ᵥ (G *ᵥ c) := Real.mul_self_sqrt hpos.le
   have hne : Real.sqrt (c ⬝ᵥ (G *ᵥ c)) ≠ 0 :=
     (Real.sqrt_pos.mpr hpos).ne'
   have hinv : (Real.sqrt (c ⬝ᵥ (G *ᵥ c)))⁻¹ * (c ⬝ᵥ (G *ᵥ c))
       = Real.sqrt (c ⬝ᵥ (G *ᵥ c)) := by
-    field_simp
-  rw [pow_two, ← mul_assoc, hinv, mul_inv_cancel₀ hne]
+    rw [← hsq, ← mul_assoc, inv_mul_cancel₀ hne, one_mul]
+  rw [← mul_assoc, hinv, inv_mul_cancel₀ hne]
 
 /-- Normalization is WLOG: a positive-G-norm coefficient has a rescaled
 representative with unit G-norm. -/
@@ -151,7 +153,7 @@ theorem exists_certified_classWindow_q28 {w8 : Fin 8 → CompactLogTest}
       ∧ Function.support W.test ⊆ Ioo (-B) B := by
   obtain ⟨t, htnorm⟩ := qform_norm_representative G_true (Q28.K.mulVec y) hpos
   refine ⟨spanObj w8 (Q28.K.mulVec (fun i => t * y i)), ?_, ?_⟩
-  · refine absolute_spanK_q28 ?_ ?_ hbox
+  · refine absolute_spanK_q28 (y := fun i => t * y i) ?_ ?_ hbox
     · rw [gate_qform_span_free w8 (Q28.K.mulVec (fun i => t * y i)) hw8, hM]
     · have hmv := mulVec_smul_pointwise Q28.K y t
       rw [hmv]
@@ -170,7 +172,7 @@ theorem exists_certified_classWindow_q38 {w8 : Fin 8 → CompactLogTest}
       ∧ Function.support W.test ⊆ Ioo (-B) B := by
   obtain ⟨t, htnorm⟩ := qform_norm_representative G_true (Q38.K.mulVec y) hpos
   refine ⟨spanObj w8 (Q38.K.mulVec (fun i => t * y i)), ?_, ?_⟩
-  · refine absolute_spanK_q38 ?_ ?_ hbox
+  · refine absolute_spanK_q38 (y := fun i => t * y i) ?_ ?_ hbox
     · rw [gate_qform_span_free w8 (Q38.K.mulVec (fun i => t * y i)) hw8, hM]
     · have hmv := mulVec_smul_pointwise Q38.K y t
       rw [hmv]
@@ -189,7 +191,7 @@ theorem exists_certified_classWindow_q48 {w8 : Fin 8 → CompactLogTest}
       ∧ Function.support W.test ⊆ Ioo (-B) B := by
   obtain ⟨t, htnorm⟩ := qform_norm_representative G_true (Q48.K.mulVec y) hpos
   refine ⟨spanObj w8 (Q48.K.mulVec (fun i => t * y i)), ?_, ?_⟩
-  · refine absolute_spanK_q48 ?_ ?_ hbox
+  · refine absolute_spanK_q48 (y := fun i => t * y i) ?_ ?_ hbox
     · rw [gate_qform_span_free w8 (Q48.K.mulVec (fun i => t * y i)) hw8, hM]
     · have hmv := mulVec_smul_pointwise Q48.K y t
       rw [hmv]
@@ -236,7 +238,7 @@ noncomputable def stageBContraction_of_certifiedWindow (g W : CompactLogTest)
     (hcert : ICgate W.convolutionSquare ≤ -mu)
     (hdec : ICgate (ICdefect g.convolutionSquare {()}
       (fun _ => W.convolutionSquare) (fun _ => 1)) ≤ epsilon)
-    (hbudget : epsilon ≤ mu) :
+    (_hbudget : epsilon ≤ mu) :
     ICStageBContraction g where
   ι := Unit
   s := {()}
@@ -272,7 +274,7 @@ theorem orbitGate_of_certifiedWindow (g W : CompactLogTest)
   orbitWindowSemiLocalGate_of_contraction g
     (stageBContraction_of_certifiedWindow g W hgsupp hWsupp hcert hdec
       hbudget)
-    (by simpa using hbudget)
+    (by simpa [stageBContraction_of_certifiedWindow] using hbudget)
 
 end
 end C1T2Assembly
