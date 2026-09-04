@@ -24,12 +24,17 @@ open ConnesWeilRH Source C1GateMatrixRepresentation
 #print axioms pairIntegrand_integrable
 #print axioms pairTest_apply_of_abs_ge
 #print axioms pairTest_support
+#print axioms packedSum
+#print axioms packedSum_apply
+#print axioms packedSum_support
+#print axioms archimedeanIntegrand_packedSum
+#print axioms integrableOn_archimedeanIntegrand_packedSum
 #print axioms ICgate_zero_of_test_zero
-#print axioms support_sum_subset
-#print axioms archimedeanIntegrand_packTest_sum
-#print axioms integrableOn_archIntegrand_packTest_sum
-#print axioms ICgate_packTest_sum
+#print axioms ICgate_packedSum
 #print axioms convolutionSquare_spanObj_apply
+#print axioms pairPiece
+#print axioms gate_sum_span
+#print axioms pair_gate_sum_eq_qform
 #print axioms gate_qform_span
 #print axioms hrep_of_gateMatrix_eq
 
@@ -37,6 +42,7 @@ namespace ConnesWeilRH.Source.C1GateMatrixRepresentation
 
 open CCM25Concrete.CompactLogConvolution
 open C1LocalConfigurationDomination
+open Matrix
 open scoped BigOperators
 
 /-- Fidelity: `hrep_of_gateMatrix_eq` returns the literal representation slot
