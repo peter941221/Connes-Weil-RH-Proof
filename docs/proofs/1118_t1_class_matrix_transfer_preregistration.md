@@ -217,3 +217,71 @@ slacks of `docs/proofs/1115_qchain.json` as `hslack` (falsifier as booked
 in (a)); (iii) the s2 headline composition (ratio/absolute forms).
 Obligations (b) and (c) unchanged and unstarted. RH NOT claimed; no map
 change keyed.
+
+## 6. Post-run addendum (2026-09-04, owed list (i)-(iii) DISCHARGED)
+
+Scope landed this window, closing the section-5 owed list:
+
+(i) AUDIT: `ConnesWeilRH/Dev/C1GateLevelTransferAudit.lean` - the focused
+`#print axioms` sweep over the five kernel declarations plus all 17 new
+record headlines (22 prints total).
+
+(ii) PER-CLASS INSTANTIATION (falsifier check): generator
+`docs/proofs/1118_generate_classes.py` (committed; asserts at generation
+time, over exact `Fraction`s: `Lam*Dred*Lam^T = diag(Ldl_d)`, the
+kernel-form slack identity, all-slacks-positive, radp >= 0, and U equality
+against the committed `Q*.lean` literals) emits
+`ConnesWeilRH/Dev/C1GateLevelTransferClasses.lean` (220 KB). Per class
+a in {28, 38, 48}: committed data `radp_a` / `dd_a = Ldl_d` (the five LDL
+pivots; the whitened center `Lam Dred Lam^T` is EXACTLY diagonal), then
+`hradpos_a` (norm_num), `hslack_a` (norm_num over ~10^4-digit rational
+sums - the five committed slacks ARE these differences, all strictly
+positive: min slacks +1.8512872832557472e-08 / +3.468136203356025e-10 /
++1.3305376776557043e-11; FALSIFIER FIRED NOWHERE), and the box-robust
+instance `whitenedBox_a : for EVERY E with |E i j| <= radp_a i j,
+0 <= x . ((diagonal dd_a + E) . x)`.
+
+(iii) S2 HEADLINE COMPOSITION: general `ratio_headline` /
+`absolute_headline` with the record-1117 `ICgate` literally on the LHS
+(the 1089 gate body via `orbitWindowSemiLocalGate_iff : Iff.rfl`), plus
+per-class Tier-1 corollaries `ratio_a` / `absolute_a` consuming the
+committed `Q*.top` certificates (no hypothesis beyond the representation
+slot `hrep` and, for the absolute form, the L2-normalization slot
+`hnorm`) and named margins `mu_a := -Q*.U` with `mu_a_pos` proved.
+
+Build ledger: tactic-shape probe `_1118probe.lean` (2 runs; pins the hKV
+idiom - plain `simp` evaluates a univ-sum with a VARIABLE binder over a
+literal matrix - the `sdiff_sum_eq` route via the kernel `sumUnivSplit`,
+the full hslack chain, the mu-positivity pattern, and a Tier-1 headline
+against the real Q28 data). Official build 1: classes module GREEN FIRST
+TRY (37 s); audit failed on a missing `open Matrix` (vec notation without
+its open elaborates as a raw subscript token - "elaboration function for
+`Mathlib.Tactic.subscriptTerm` has not been implemented" at each notation
+site - with a knock-on PHANTOM `isDefEq` heartbeat timeout at the first
+example; gotcha banked in AGENTS 7b). Fix commit, build 2 FULL GREEN:
+`Build completed successfully (3650 jobs).`, `RESOURCE_RESULT exit=0`,
+zero `^error:` lines, zero warnings, zero `sorry`.
+
+GATES: G1 PASS (footer + exit 0). G2 PASS - 22/22 `#print axioms` lists
+exactly `[propext, Classical.choice, Quot.sound]` (regex-extracted across
+log line wraps; NON-STANDARD: none), 0 sorry. G3 PASS - the headline LHS
+elaborates as `ICgate w.convolutionSquare` with the 1117:73 functional,
+RHS `U * c . (G * . c)` resp. `-mu_a`; the audit re-prints both shapes as
+`example`s over `G_true`/`M_true` binder names. G4 PASS - staged-file
+hygiene greps 0 matches on every commit.
+
+Provenance erratum: the (3,8) `U` denominator printed in section 0 above
+is a transcription typo; the committed `C1WindowRationalIngestQ38.lean`
+literal `-3669237615059765/302231454903657293676544` (used here) matches
+`1115_qchain.json`.
+
+Honest status after closure: the REGISTERED owed list (i)-(iii) is
+discharged, so this record's verdict fires as booked - all three classes
+T-box-landable at the whitened level. Sub-obligations (b) and (c) of
+section 1 remain UNSTARTED as registered: nothing yet certifies that the
+TRUE Gram data lies inside the outward boxes ((b) `Hbox`; the §1b
+data+containment landing is part of that open obligation), and the
+whitened-to-(Gt, Mt) pull-through plus the matrix representation remain
+named-hypothesis slots (`ratio_headline`'s `hcert`/`hrep`). T2 (a Stage-B
+instance for the D1-pinned g) unchanged and open. RH NOT claimed; no map
+change keyed.
