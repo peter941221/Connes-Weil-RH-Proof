@@ -42,6 +42,7 @@ namespace ConnesWeilRH.Source.C1GateMatrixRepresentation
 
 open CCM25Concrete.CompactLogConvolution
 open C1LocalConfigurationDomination
+open C1SameOwnerWeil
 open Matrix
 open scoped BigOperators
 
