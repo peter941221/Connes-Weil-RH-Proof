@@ -27,6 +27,7 @@ namespace Source
 namespace C1ClassMomentIntegralCertificate
 
 open MeasureTheory Set
+open C1ClassWindowObjects
 open C1ClassGramMomentReduction
 open scoped BigOperators Interval
 
@@ -89,7 +90,7 @@ theorem classMoment_eq_intervalIntegral (n : ℕ) :
   symm
   apply intervalIntegral.integral_eq_integral_of_support_subset
   simpa [classMomentIntegrand] using
-    classMomentIntegrand_support_subset n
+    classMomentIntegrand_support_subset_Ioc n
 
 /-- A proof-carrying envelope for the actual order-`n` class moment yields the
 corresponding whole-line moment bounds. -/
