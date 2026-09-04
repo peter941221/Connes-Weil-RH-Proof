@@ -6,6 +6,8 @@ Released under the Apache 2.0 license as described in the file LICENSE.
 import ConnesWeilRH.Dev.C1GateLevelTransfer
 import ConnesWeilRH.Dev.C1GateLevelTransferClasses
 
+open Matrix
+
 /-!
 # Audit for record 1118 (T1 class==>matrix transfer)
 
