@@ -42,7 +42,8 @@ def rationalRadiusQ : ℚ := 97 / 100
 
 def taylorScaledPolynomialQ : ℚ[X] :=
   ∑ j ∈ Finset.range 20,
-    C (((-(2 / 35 : ℚ)) ^ j) / (j.factorial : ℚ)) * X ^ j
+    Polynomial.C (((-(2 / 35 : ℚ)) ^ j) / (j.factorial : ℚ)) *
+      Polynomial.X ^ j
 
 def rationalPowerPolynomialQ : ℚ[X] := taylorScaledPolynomialQ ^ 35
 
@@ -141,7 +142,8 @@ noncomputable section
 
 noncomputable def taylorScaledPolynomial : ℝ[X] :=
   ∑ j ∈ Finset.range 20,
-    C (((-(2 / 35 : ℝ)) ^ j) / (j.factorial : ℝ)) * X ^ j
+    Polynomial.C (((-(2 / 35 : ℝ)) ^ j) / (j.factorial : ℝ)) *
+      Polynomial.X ^ j
 
 noncomputable def rationalPowerPolynomial : ℝ[X] :=
   taylorScaledPolynomial ^ 35
@@ -152,9 +154,16 @@ noncomputable def rationalPowerCoefficient (k : ℕ) : ℝ :=
 theorem rationalPowerPolynomial_eq_map :
     rationalPowerPolynomial =
       rationalPowerPolynomialQ.map (algebraMap ℚ ℝ) := by
-  simp [rationalPowerPolynomial, taylorScaledPolynomial,
-    rationalPowerPolynomialQ, taylorScaledPolynomialQ]
-  norm_num
+  have hbase : taylorScaledPolynomial =
+      taylorScaledPolynomialQ.map (algebraMap ℚ ℝ) := by
+    unfold taylorScaledPolynomial taylorScaledPolynomialQ
+    rw [map_sum]
+    apply Finset.sum_congr rfl
+    intro j hj
+    simp only [map_mul, map_C, map_pow, map_X]
+    norm_num
+  unfold rationalPowerPolynomial rationalPowerPolynomialQ
+  rw [hbase, map_pow]
 
 theorem rationalPowerCoefficient_eq_cast (k : ℕ) :
     rationalPowerCoefficient k = (rationalPowerCoefficientQ k : ℝ) := by
@@ -167,7 +176,8 @@ private theorem taylorScaledPolynomial_natDegree_le :
   refine natDegree_sum_le_of_forall_le
     (s := Finset.range 20)
     (f := fun j =>
-      C (((-(2 / 35 : ℝ)) ^ j) / (j.factorial : ℝ)) * X ^ j)
+      Polynomial.C (((-(2 / 35 : ℝ)) ^ j) / (j.factorial : ℝ)) *
+        Polynomial.X ^ j)
     (n := 19) ?_
   intro j hj
   apply natDegree_le_iff_degree_le.mpr
@@ -215,10 +225,15 @@ theorem scaledClassWeightApprox_eq_finiteDenominatorPowerPolynomial
     field_simp [hden]
   unfold C1ScaledExpRationalEnvelope.scaledClassWeightApprox
   rw [hz]
-  rw [← taylorScaledPolynomial_eval (denominatorPower 1 x)]
-  rw [← eval_pow]
-  rw [rationalPowerPolynomial_eval_eq_finite]
-  rfl
+  calc
+    C1ScaledExpRationalEnvelope.expTaylor20
+        ((2 / 35 : ℝ) * denominatorPower 1 x) ^ 35 =
+        eval (denominatorPower 1 x) rationalPowerPolynomial := by
+          rw [rationalPowerPolynomial, eval_pow,
+            taylorScaledPolynomial_eval]
+    _ = finiteDenominatorPowerPolynomial (Finset.range 666)
+        rationalPowerCoefficient x :=
+      rationalPowerPolynomial_eval_eq_finite (denominatorPower 1 x)
 
 /-! ## Logarithm enclosure -/
 
@@ -235,16 +250,29 @@ private theorem log_two_lower : logTwoLower < Real.log 2 := by
   have h := Real.exp_bound (x := logTwoLower)
     (by norm_num [logTwoLower]) (n := 20) (by norm_num)
   have hupp := (abs_sub_le_iff.mp h).1
-  norm_num [logTwoLower, Finset.sum_range_succ] at hupp
-  nlinarith
+  calc
+    Real.exp logTwoLower ≤
+        (∑ m ∈ Finset.range 20,
+          logTwoLower ^ m / (m.factorial : ℝ)) +
+          |logTwoLower| ^ 20 *
+            ((↑(Nat.succ 20) : ℝ) /
+              ((Nat.factorial 20 : ℝ) * 20)) := hupp
+    _ < 2 := by norm_num [logTwoLower, Finset.sum_range_succ]
 
 private theorem log_two_upper : Real.log 2 < logTwoUpper := by
   rw [Real.log_lt_iff_lt_exp (by norm_num)]
   have h := Real.exp_bound (x := logTwoUpper)
     (by norm_num [logTwoUpper]) (n := 20) (by norm_num)
   have hlow := (abs_sub_le_iff.mp h).2
-  norm_num [logTwoUpper, Finset.sum_range_succ] at hlow
-  nlinarith
+  calc
+    2 <
+        (∑ m ∈ Finset.range 20,
+          logTwoUpper ^ m / (m.factorial : ℝ)) -
+          |logTwoUpper| ^ 20 *
+            ((↑(Nat.succ 20) : ℝ) /
+              ((Nat.factorial 20 : ℝ) * 20)) := by
+          norm_num [logTwoUpper, Finset.sum_range_succ]
+    _ ≤ Real.exp logTwoUpper := hlow
 
 private theorem log_small_lower :
     logSmallLower < Real.log (197 / 192) := by
@@ -252,8 +280,15 @@ private theorem log_small_lower :
   have h := Real.exp_bound (x := logSmallLower)
     (by norm_num [logSmallLower]) (n := 20) (by norm_num)
   have hupp := (abs_sub_le_iff.mp h).1
-  norm_num [logSmallLower, Finset.sum_range_succ] at hupp
-  nlinarith
+  calc
+    Real.exp logSmallLower ≤
+        (∑ m ∈ Finset.range 20,
+          logSmallLower ^ m / (m.factorial : ℝ)) +
+          |logSmallLower| ^ 20 *
+            ((↑(Nat.succ 20) : ℝ) /
+              ((Nat.factorial 20 : ℝ) * 20)) := hupp
+    _ < 197 / 192 := by
+          norm_num [logSmallLower, Finset.sum_range_succ]
 
 private theorem log_small_upper :
     Real.log (197 / 192) < logSmallUpper := by
@@ -261,8 +296,15 @@ private theorem log_small_upper :
   have h := Real.exp_bound (x := logSmallUpper)
     (by norm_num [logSmallUpper]) (n := 20) (by norm_num)
   have hlow := (abs_sub_le_iff.mp h).2
-  norm_num [logSmallUpper, Finset.sum_range_succ] at hlow
-  nlinarith
+  calc
+    197 / 192 <
+        (∑ m ∈ Finset.range 20,
+          logSmallUpper ^ m / (m.factorial : ℝ)) -
+          |logSmallUpper| ^ 20 *
+            ((↑(Nat.succ 20) : ℝ) /
+              ((Nat.factorial 20 : ℝ) * 20)) := by
+          norm_num [logSmallUpper, Finset.sum_range_succ]
+    _ ≤ Real.exp logSmallUpper := hlow
 
 private theorem log_197_div_3_identity :
     Real.log (197 / 3) = 6 * Real.log 2 + Real.log (197 / 192) := by
@@ -323,7 +365,7 @@ private theorem denominatorPowerMomentValue_linear (k : ℕ) :
   | succ k =>
       rw [denominatorPowerMomentValue, rationalPowerIntervalValue_linear,
         rationalPowerIntervalValue_linear]
-      rfl
+      simp [momentAQ, momentBQ]
 
 noncomputable def comparisonIntegral0 : ℝ :=
   finiteDenominatorPowerIntegralValue (Finset.range 666)
@@ -342,8 +384,7 @@ private theorem comparisonIntegral0_linear :
   intro k hk
   rw [rationalPowerCoefficient_eq_cast,
     rationalPowerIntervalValue_linear]
-  norm_num [comparisonIntegral0AQ, comparisonIntegral0BQ,
-    rationalPowerCoefficientQ, endpointAQ, endpointBQ]
+  simp only [comparisonIntegral0AQ, comparisonIntegral0BQ]
   ring
 
 private theorem comparisonIntegral2_linear :
@@ -355,9 +396,7 @@ private theorem comparisonIntegral2_linear :
   intro k hk
   rw [rationalPowerCoefficient_eq_cast,
     denominatorPowerMomentValue_linear]
-  norm_num [comparisonIntegral2AQ, comparisonIntegral2BQ,
-    rationalPowerCoefficientQ, momentAQ, momentBQ,
-    endpointAQ, endpointBQ]
+  simp only [comparisonIntegral2AQ, comparisonIntegral2BQ]
   ring
 
 end
