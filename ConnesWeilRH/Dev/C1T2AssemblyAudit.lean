@@ -45,7 +45,7 @@ open scoped BigOperators
 
 /-- Fidelity: the assembly returns a literal Stage-B contraction instance
 from a certified window, the defect bound, and the budget. -/
-example (g W : CompactLogTest) {b a mu epsilon : ℝ}
+noncomputable example (g W : CompactLogTest) {b a mu epsilon : ℝ}
     (hgsupp : Function.support g.test ⊆ Set.Ioo (-b) b)
     (hWsupp : Function.support W.test ⊆ Set.Ioo (-a) a)
     (hcert : ICgate W.convolutionSquare ≤ -mu)
