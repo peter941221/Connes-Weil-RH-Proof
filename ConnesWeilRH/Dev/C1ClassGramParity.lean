@@ -47,7 +47,10 @@ theorem classWindowFun_neg (a : ℝ) (ha : 0 < a) (i : Fin 8) (x : ℝ) :
     classWindowFun a (i : ℕ) (-x) =
       (-1 : ℝ) ^ (i : ℕ) * classWindowFun a (i : ℕ) x := by
   have hdiv : (-x) / a = -(x / a) := by ring
-  rw [classWindowFun, hdiv, legendrePoly_eval_neg_fin8, classBump_neg]
+  change eval ((-x) / a) (legendrePoly (i : ℕ)) * classBump ((-x) / a) =
+    (-1 : ℝ) ^ (i : ℕ) *
+      (eval (x / a) (legendrePoly (i : ℕ)) * classBump (x / a))
+  rw [hdiv, legendrePoly_eval_neg_fin8, classBump_neg]
   ring
 
 /-! ## Odd Gram entries -/
@@ -66,8 +69,16 @@ theorem classGramEntry_zero_of_odd_parity
     intro x
     dsimp [f]
     rw [classWindowFun_neg a ha i, classWindowFun_neg a ha j]
-    rw [← pow_add, hpow]
-    ring
+    calc
+      (-1 : ℝ) ^ (i : ℕ) * classWindowFun a (i : ℕ) x *
+          ((-1 : ℝ) ^ (j : ℕ) * classWindowFun a (j : ℕ) x) =
+        ((-1 : ℝ) ^ (i : ℕ) * (-1 : ℝ) ^ (j : ℕ)) *
+          (classWindowFun a (i : ℕ) x * classWindowFun a (j : ℕ) x) := by ring
+      _ = (-1 : ℝ) ^ ((i : ℕ) + (j : ℕ)) *
+          (classWindowFun a (i : ℕ) x * classWindowFun a (j : ℕ) x) := by
+        rw [← pow_add]
+      _ = -(classWindowFun a (i : ℕ) x * classWindowFun a (j : ℕ) x) := by
+        rw [hpow]
   have hsym : (∫ x : ℝ, f (-x)) = ∫ x : ℝ, f x :=
     integral_neg_eq_self f (volume : Measure ℝ)
   have hneg : (∫ x : ℝ, f (-x)) = -∫ x : ℝ, f x := by
@@ -86,19 +97,34 @@ theorem zero_mem_odd_box_q28 :
     ∀ i j : Fin 8, Odd ((i : ℕ) + (j : ℕ)) →
       GLo_q28 i j ≤ 0 ∧ 0 ≤ GHi_q28 i j := by
   intro i j hodd
-  fin_cases i <;> fin_cases j <;> norm_num [Odd] at hodd ⊢
+  fin_cases i <;> fin_cases j
+  all_goals
+    rcases hodd with ⟨k, hk⟩
+    first
+    | omega
+    | norm_num [GLo_q28, GHi_q28]
 
 theorem zero_mem_odd_box_q38 :
     ∀ i j : Fin 8, Odd ((i : ℕ) + (j : ℕ)) →
       GLo_q38 i j ≤ 0 ∧ 0 ≤ GHi_q38 i j := by
   intro i j hodd
-  fin_cases i <;> fin_cases j <;> norm_num [Odd] at hodd ⊢
+  fin_cases i <;> fin_cases j
+  all_goals
+    rcases hodd with ⟨k, hk⟩
+    first
+    | omega
+    | norm_num [GLo_q38, GHi_q38]
 
 theorem zero_mem_odd_box_q48 :
     ∀ i j : Fin 8, Odd ((i : ℕ) + (j : ℕ)) →
       GLo_q48 i j ≤ 0 ∧ 0 ≤ GHi_q48 i j := by
   intro i j hodd
-  fin_cases i <;> fin_cases j <;> norm_num [Odd] at hodd ⊢
+  fin_cases i <;> fin_cases j
+  all_goals
+    rcases hodd with ⟨k, hk⟩
+    first
+    | omega
+    | norm_num [GLo_q48, GHi_q48]
 
 /-! ## Hbox-facing partial discharge -/
 
