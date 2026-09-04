@@ -81,7 +81,6 @@ theorem tbox_of_identities
     (hM : ∀ i j, |Mt i j - M i j| ≤ radM i j)
     (c : Fin n → ℝ) (hc : R.mulVec c = 0) :
     c ⬝ᵥ (Mt *ᵥ c) ≤ U * c ⬝ᵥ (Gt *ᵥ c) := by
-  classical
   -- closure witness: c = K *ᵥ x
   obtain ⟨x, hx⟩ := exists_mulVec_eq_of_closure K V W R hKVW c hc
   set Δ : Matrix (Fin n) (Fin n) ℝ := (U • Gt - Mt) - (U • G - M) with hΔdef
@@ -89,27 +88,33 @@ theorem tbox_of_identities
   have hbΔ : ∀ i j, |Δ i j| ≤ mu * radG i j + radM i j := by
     intro i j
     rw [hΔdef]
-    simp only [Matrix.sub_apply, Matrix.smul_apply]
-    rw [abs_sub (U * Gt i j - Mt i j) (U * G i j - M i j), abs_mul, hUabs]
-    nlinarith [hG i j, hM i j, abs_nonneg (U * (Gt i j - G i j)),
-      abs_nonneg (Mt i j - M i j)]
+    simp only [Matrix.sub_apply, Matrix.smul_apply, smul_eq_mul]
+    have e1 : (U * Gt i j - Mt i j) - (U * G i j - M i j)
+        = U * (Gt i j - G i j) - (Mt i j - M i j) := by ring
+    rw [e1]
+    have hUd : |U * (Gt i j - G i j)| ≤ mu * radG i j := by
+      rw [abs_mul, hUabs]
+      nlinarith [hG i j, abs_nonneg U]
+    have tri := abs_sub (U * (Gt i j - G i j)) (Mt i j - M i j)
+    linarith [tri, hUd, hM i j]
   -- the form sees the symmetrization; symmetrized perturbation by 2(mu radG + radM)
   have hsplit : ((1 : ℝ) / 2) • ((U • Gt - Mt) + (U • Gt - Mt).transpose)
       = Dc + ((1 : ℝ) / 2) • (Δ + Δ.transpose) := by
     ext i j
-    simp only [Matrix.smul_apply, smul_add, Matrix.add_apply,
-      Matrix.sub_apply, Matrix.transpose_apply, smul_eq_mul]
-    have h2 := Matrix.ext_iff.mp hDtwo i j
-    simp only [Matrix.transpose_apply, Matrix.smul_apply, Matrix.sub_apply,
-      Matrix.add_apply] at h2
-    rw [hΔdef] at hbΔ i j
-    simp only [Matrix.sub_apply, Matrix.smul_apply] at hbΔ i j
+    simp only [Matrix.smul_apply, smul_add, Matrix.add_apply, Matrix.sub_apply,
+      Matrix.transpose_apply, smul_eq_mul]
+    have h3 : (Dc + Dc) i j = ((U • G - M) + (U • G - M).transpose) i j := by
+      rw [hDtwo]
+    simp only [Matrix.add_apply, Matrix.sub_apply, Matrix.smul_apply,
+      Matrix.transpose_apply, smul_eq_mul] at h3
+    rw [hΔdef]
+    simp only [Matrix.sub_apply, Matrix.smul_apply, smul_eq_mul]
     linarith
   have F1 : c ⬝ᵥ (((1 : ℝ) / 2) • ((U • Gt - Mt) + (U • Gt - Mt).transpose)).mulVec c
       = c ⬝ᵥ (Dc.mulVec c)
         + ((1 : ℝ) / 2) * c ⬝ᵥ ((Δ + Δ.transpose).mulVec c) := by
-    rw [hsplit, Matrix.add_mulVec, dotProduct_add, Matrix.smul_mulVec,
-      dotProduct_smul]
+    rw [hsplit, Matrix.add_mulVec, dotProduct_add, Matrix.smul_mulVec, dotProduct_smul]
+    ring
   -- center piece through closure + pencil
   have stepC : c ⬝ᵥ (Dc.mulVec c)
       = (L.transpose.mulVec x) ⬝ᵥ (Matrix.diagonal d *ᵥ (L.transpose.mulVec x)) := by
@@ -120,28 +125,29 @@ theorem tbox_of_identities
       = x ⬝ᵥ ((K.transpose * (Δ + Δ.transpose) * K).mulVec x) := by
     rw [← hx]
     exact qform_pull K (Δ + Δ.transpose) x
-  -- entrywise bound on N := Kᵀ (Δ + Δᵀ) K
-  have hbS0 : ∀ i j, |(Δ + Δ.transpose) i j|
-      ≤ (fun i j => 2 * (mu * radG i j + radM i j)) i j := by
-    intro i j
-    have h1 := hbΔ i j
-    have h2 := hbΔ j i
-    rw [Matrix.add_apply, Matrix.transpose_apply, abs_add]
-    linarith [hradGsym i j, hradMsym i j]
-  have hscaleK : (Matrix.transpose absK
-        * (fun i j => 2 * (mu * radG i j + radM i j)) * absK)
+  -- entrywise bound on N := Kᵀ (Δ + Δᵀ) K, via the (2 : ℝ)-scaled smul bookkeeping
+  have hscaleK : Matrix.transpose absK * ((2 : ℝ) • (mu • radG + radM)) * absK
       = (2 : ℝ) • (Matrix.transpose absK * (mu • radG + radM) * absK) := by
-    ext i j
-    simp [Matrix.mul_apply, Matrix.smul_apply, Matrix.add_apply,
-      Matrix.transpose_apply, Finset.mul_sum]
-    ring
+    rw [Matrix.mul_smul, Matrix.smul_mul]
   have hbN : ∀ i j, |(K.transpose * (Δ + Δ.transpose) * K) i j| ≤ 2 * DredRad i j := by
     intro i j
+    have hbS0 : ∀ i' j', |(Δ + Δ.transpose) i' j'|
+        ≤ ((2 : ℝ) • (mu • radG + radM)) i' j' := by
+      intro i' j'
+      have g1 := hbΔ i' j'
+      have g2 := hbΔ j' i'
+      have t2 : ((2 : ℝ) • (mu • radG + radM)) i' j'
+          = 2 * (mu * radG i' j' + radM i' j') := by
+        simp [Matrix.smul_apply, Matrix.add_apply, smul_eq_mul]
+      rw [Matrix.add_apply, Matrix.transpose_apply, t2, abs_le]
+      constructor <;> linarith [hradGsym i' j', hradMsym i' j']
+    have habsK' : ∀ i' j', |K i' j'| ≤ absK i' j' := fun i' j' => by
+      rw [habsK i' j']
     have h1 := entrywise_triple K K (Δ + Δ.transpose) absK absK
-      (fun i j => 2 * (mu * radG i j + radM i j)) i j habsK hbS0 habsK
-    rw [hscaleK, hDredRad, Matrix.smul_apply] at h1
-    simpa using h1
-  -- transport to whitened coordinates: x = Lamᵀ z with z = Lᵀ x
+      ((2 : ℝ) • (mu • radG + radM)) habsK' hbS0 habsK' i j
+    rw [hscaleK, hDredRad, Matrix.smul_apply, smul_eq_mul] at h1
+    exact h1
+  -- transport to whitened coordinates: z = Lᵀ x, x = Lamᵀ z
   have hxz : (Matrix.transpose Lam).mulVec (L.transpose.mulVec x) = x := by
     rw [Matrix.mulVec_mulVec, ← Matrix.transpose_mul, hLLam]
     simp
@@ -149,54 +155,60 @@ theorem tbox_of_identities
       = (L.transpose.mulVec x) ⬝ᵥ
         ((Lam * (K.transpose * (Δ + Δ.transpose) * K) * Lam.transpose).mulVec
           (L.transpose.mulVec x)) := by
-    rw [← hxz]
-    exact qform_pull (Matrix.transpose Lam) _ (L.transpose.mulVec x)
+    have h := qform_pull (Matrix.transpose Lam)
+      (K.transpose * (Δ + Δ.transpose) * K) (L.transpose.mulVec x)
+    rw [hxz] at h
+    rw [Matrix.transpose_transpose] at h
+    exact h
   -- entrywise bound on E := Lam * N * Lamᵀ
+  have hscaleLam : absLam * ((2 : ℝ) • DredRad) * Matrix.transpose absLam
+      = (2 : ℝ) • (absLam * DredRad * Matrix.transpose absLam) := by
+    rw [Matrix.mul_smul, Matrix.smul_mul]
   have hbE : ∀ i j,
       |(Lam * (K.transpose * (Δ + Δ.transpose) * K) * Lam.transpose) i j|
         ≤ 2 * radp i j := by
     intro i j
+    have hbN' : ∀ i' j', |(K.transpose * (Δ + Δ.transpose) * K) i' j'|
+        ≤ ((2 : ℝ) • DredRad) i' j' := by
+      intro i' j'
+      have g := hbN i' j'
+      rw [Matrix.smul_apply, smul_eq_mul]
+      exact g
     have hxb : ∀ i' j', |(Matrix.transpose Lam) i' j'|
         ≤ (Matrix.transpose absLam) i' j' := by
       intro i' j'
-      simpa [Matrix.transpose_apply] using habsLam j' i'
+      rw [Matrix.transpose_apply, Matrix.transpose_apply]
+      exact le_of_eq (habsLam j' i').symm
     have h1 := entrywise_triple (Matrix.transpose Lam) (Matrix.transpose Lam)
-      (K.transpose * (Δ + Δ.transpose) * K)
-      (Matrix.transpose absLam) (Matrix.transpose absLam)
-      (fun i' j' => 2 * DredRad i' j') i j hxb hbN hxb
-    rw [Matrix.transpose_transpose] at h1
-    have hscaleLam : (absLam * (fun i' j' => 2 * DredRad i' j')
-          * Matrix.transpose absLam)
-        = (2 : ℝ) • (absLam * DredRad * Matrix.transpose absLam) := by
-      ext i' j'
-      simp [Matrix.mul_apply, Matrix.smul_apply, Matrix.transpose_apply,
-        Finset.mul_sum]
-      ring
-    rw [hscaleLam, hRadp, Matrix.smul_apply] at h1
-    simpa using h1
-  -- assemble: F = Z-form of (diagonal d + (1/2) • E), closed by the kernel
+      (K.transpose * (Δ + Δ.transpose) * K) (Matrix.transpose absLam)
+      (Matrix.transpose absLam) ((2 : ℝ) • DredRad) hxb hbN' hxb i j
+    rw [Matrix.transpose_transpose, hscaleLam, hRadp, Matrix.smul_apply,
+      smul_eq_mul] at h1
+    exact h1
+  -- assemble: F = whitened form of (diagonal d + (1/2) • E)
   have Ffinal : c ⬝ᵥ ((U • Gt - Mt).mulVec c)
       = (L.transpose.mulVec x) ⬝ᵥ (Matrix.diagonal d *ᵥ (L.transpose.mulVec x))
         + (L.transpose.mulVec x) ⬝ᵥ
           ((((1 : ℝ) / 2) • (Lam * (K.transpose * (Δ + Δ.transpose) * K)
             * Lam.transpose)).mulVec (L.transpose.mulVec x)) := by
     rw [qform_sym_half (U • Gt - Mt) c, F1, stepC, stepD, stepE,
-      Matrix.smul_mulVec, dotProduct_smul]
+      Matrix.smul_mulVec, dotProduct_smul, smul_eq_mul]
   have heb' : ∀ i j,
       |(((1 : ℝ) / 2) • (Lam * (K.transpose * (Δ + Δ.transpose) * K)
         * Lam.transpose)) i j| ≤ radp i j := by
     intro i j
-    rw [Matrix.smul_apply, abs_mul]
+    rw [Matrix.smul_apply, smul_eq_mul, abs_mul]
     norm_num
     nlinarith [hbE i j]
   have hbig : 0 ≤ c ⬝ᵥ ((U • Gt - Mt).mulVec c) := by
     have hpos := qform_nonneg_whitenedBox radp hradpos hslack
       (E := ((1 : ℝ) / 2) • (Lam * (K.transpose * (Δ + Δ.transpose) * K)
         * Lam.transpose)) heb' (L.transpose.mulVec x)
+    rw [Matrix.add_mulVec, dotProduct_add] at hpos
     rw [Ffinal]
-    rw [Matrix.add_mulVec, dotProduct_add]
     exact hpos
-  rw [Matrix.sub_mulVec, Matrix.smul_mulVec, dotProduct_sub, dotProduct_smul] at hbig
+  rw [Matrix.sub_mulVec, Matrix.smul_mulVec, dotProduct_sub, dotProduct_smul,
+    smul_eq_mul] at hbig
   linarith
 
 theorem hUneg_q28 : Q28.U < 0 := by
@@ -251,8 +263,12 @@ theorem absolute_true_q28 {w : CompactLogTest} {G_true : Matrix (Fin 8) (Fin 8) 
     (hker : Q28.R.mulVec c = 0)
     (hnorm : c ⬝ᵥ (G_true *ᵥ c) = 1)
     (hbox : Hbox GLo_q28 GHi_q28 MLo_q28 MHi_q28 G_true M_true) :
-    ICgate w.convolutionSquare ≤ -mu_q28 :=
-  absolute_headline hrep (tbox_true_q28 G_true M_true hbox c hker) hnorm
+    ICgate w.convolutionSquare ≤ -mu_q28 := by
+  have h := tbox_true_q28 G_true M_true hbox c hker
+  have hmu : Q28.U = -mu_q28 := by
+    rw [show mu_q28 = -Q28.U from rfl, neg_neg]
+  rw [hmu] at h
+  exact absolute_headline hrep h hnorm
 
 theorem hUneg_q38 : Q38.U < 0 := by
   simp only [Q38.U]
@@ -302,8 +318,12 @@ theorem absolute_true_q38 {w : CompactLogTest} {G_true : Matrix (Fin 8) (Fin 8) 
     (hker : Q38.R.mulVec c = 0)
     (hnorm : c ⬝ᵥ (G_true *ᵥ c) = 1)
     (hbox : Hbox GLo_q38 GHi_q38 MLo_q38 MHi_q38 G_true M_true) :
-    ICgate w.convolutionSquare ≤ -mu_q38 :=
-  absolute_headline hrep (tbox_true_q38 G_true M_true hbox c hker) hnorm
+    ICgate w.convolutionSquare ≤ -mu_q38 := by
+  have h := tbox_true_q38 G_true M_true hbox c hker
+  have hmu : Q38.U = -mu_q38 := by
+    rw [show mu_q38 = -Q38.U from rfl, neg_neg]
+  rw [hmu] at h
+  exact absolute_headline hrep h hnorm
 
 theorem hUneg_q48 : Q48.U < 0 := by
   simp only [Q48.U]
@@ -353,8 +373,12 @@ theorem absolute_true_q48 {w : CompactLogTest} {G_true : Matrix (Fin 8) (Fin 8) 
     (hker : Q48.R.mulVec c = 0)
     (hnorm : c ⬝ᵥ (G_true *ᵥ c) = 1)
     (hbox : Hbox GLo_q48 GHi_q48 MLo_q48 MHi_q48 G_true M_true) :
-    ICgate w.convolutionSquare ≤ -mu_q48 :=
-  absolute_headline hrep (tbox_true_q48 G_true M_true hbox c hker) hnorm
+    ICgate w.convolutionSquare ≤ -mu_q48 := by
+  have h := tbox_true_q48 G_true M_true hbox c hker
+  have hmu : Q48.U = -mu_q48 := by
+    rw [show mu_q48 = -Q48.U from rfl, neg_neg]
+  rw [hmu] at h
+  exact absolute_headline hrep h hnorm
 
 end C1TboxPullthrough
 end Source
