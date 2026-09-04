@@ -208,13 +208,7 @@ theorem momentIBPCore_hasDerivAt (k : ℕ) (hk : 0 < k) (x : ℝ) :
         calc
           x ^ k = x ^ (k - 1 + 1) := by rw [Nat.sub_add_cancel hk]
           _ = x ^ (k - 1) * x := by simp [pow_add]
-      have hxpow1 : x * x ^ k = x ^ 2 * x ^ (k - 1) := by
-        rw [hxpow]
-        ring
-      have hxpow3 : x ^ 3 * x ^ k = x ^ 4 * x ^ (k - 1) := by
-        rw [hxpow]
-        ring
-      rw [hxpow1, hxpow3]
+      rw [hxpow]
       ring
 
 /-! ## Exact moment recurrence -/
