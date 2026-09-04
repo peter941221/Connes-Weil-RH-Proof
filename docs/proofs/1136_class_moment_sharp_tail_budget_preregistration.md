@@ -63,3 +63,28 @@ budget for the later q28 adapter.
   open if it is not instantiated.
 
 RH NOT claimed.
+
+## 5. Post-run addendum (2026-09-05, after build 1)
+
+VERDICT: SHARP TAIL BUDGET LANDED; CENTRAL ENVELOPE REMAINS OPEN.
+
+The preregistration commit `0dd6712` preceded implementation commit
+`5fe7886`.  The module `C1ClassMomentSharpTailBudget`, with its paired audit,
+proves both one-sided q99 tail norms below `1 / 10 ^ 40` from the explicit
+Taylor bound and rational arithmetic.  It also proves nonnegativity for every
+even class-moment integrand and uses that sign in the central-to-whole-line
+assembly.  The q28-facing declarations consume central envelopes with upper
+endpoint lowered by exactly `2 / 10 ^ 40`; they do not construct those
+envelopes.
+
+The canonical focused build log is `build-logs-1136_build1.log`:
+
+- `Build completed successfully (3665 jobs)`;
+- zero lines matching `^error:` and zero `sorryAx` occurrences;
+- no warnings attributable to either new module; and
+- all 8 audited declarations have exactly
+  `[propext, Classical.choice, Quot.sound]`.
+
+The true central `I_0`/`I_2` comparison envelopes, Hbox, `(iv)`,
+same-detector semi-local positivity, SourceRH, and RH remain open.  No
+route-map conclusion changes.
