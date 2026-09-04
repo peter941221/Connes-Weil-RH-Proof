@@ -43,10 +43,10 @@ example :
   ⟨classWindowTest 2 (by norm_num) 3, classWindowTest_support 2 (by norm_num) 3⟩
 
 /-- Fidelity: the (4, 8) class family object. -/
-example : Fin 8 → CompactLogTest := classTestFamily 4 (by norm_num)
+noncomputable example : Fin 8 → CompactLogTest := classTestFamily 4 (by norm_num)
 
 /-- Fidelity: the bump agrees with the pipeline formula inside the window. -/
 example : classBump (1 / 2) = Real.exp (-(1 / (1 - (1 / 2) ^ 2))) :=
-  classBump_eq_exp (by simp)
+  classBump_eq_exp (by norm_num)
 
 end ConnesWeilRH.Source.C1ClassWindowObjects
