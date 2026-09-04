@@ -100,10 +100,9 @@ theorem zero_mem_odd_box_q28 :
   fin_cases i <;> fin_cases j
   all_goals
     rcases hodd with ⟨k, hk⟩
-    norm_num at hk
-    first
-    | omega
-    | norm_num [GLo_q28, GHi_q28]
+    have hmod := congrArg (fun n : ℕ => n % 2) hk
+    norm_num [Nat.add_mod, Nat.mul_mod] at hmod
+    all_goals norm_num [GLo_q28, GHi_q28]
 
 theorem zero_mem_odd_box_q38 :
     ∀ i j : Fin 8, Odd ((i : ℕ) + (j : ℕ)) →
@@ -112,10 +111,9 @@ theorem zero_mem_odd_box_q38 :
   fin_cases i <;> fin_cases j
   all_goals
     rcases hodd with ⟨k, hk⟩
-    norm_num at hk
-    first
-    | omega
-    | norm_num [GLo_q38, GHi_q38]
+    have hmod := congrArg (fun n : ℕ => n % 2) hk
+    norm_num [Nat.add_mod, Nat.mul_mod] at hmod
+    all_goals norm_num [GLo_q38, GHi_q38]
 
 theorem zero_mem_odd_box_q48 :
     ∀ i j : Fin 8, Odd ((i : ℕ) + (j : ℕ)) →
@@ -124,10 +122,9 @@ theorem zero_mem_odd_box_q48 :
   fin_cases i <;> fin_cases j
   all_goals
     rcases hodd with ⟨k, hk⟩
-    norm_num at hk
-    first
-    | omega
-    | norm_num [GLo_q48, GHi_q48]
+    have hmod := congrArg (fun n : ℕ => n % 2) hk
+    norm_num [Nat.add_mod, Nat.mul_mod] at hmod
+    all_goals norm_num [GLo_q48, GHi_q48]
 
 /-! ## Hbox-facing partial discharge -/
 
