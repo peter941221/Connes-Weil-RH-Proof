@@ -29,7 +29,7 @@ open CCM25Concrete.CompactLogConvolution
 open C1ClassWindowObjects
 open C1HboxRationalData
 open Matrix
-open scoped BigOperators
+open scoped BigOperators ContDiff Topology Filter
 
 noncomputable section
 
@@ -149,7 +149,6 @@ private theorem classGram_double_sum_integral (a : ℝ) (ha : 0 < a)
       refine Finset.sum_congr rfl fun j _ => ?_
       rw [classGramEntry]
       rw [← MeasureTheory.integral_const_mul]
-      congr 1
     _ = ∫ x : ℝ, ∑ i : Fin 8, ∑ j : Fin 8,
         c i * c j * (classWindowFun a (i : ℕ) x *
           classWindowFun a (j : ℕ) x) := by
@@ -187,7 +186,7 @@ theorem classGramMatrix_quadratic_eq_integral_square
       congr 1
       funext x
       simp only [pow_two]
-      rw [Finset.sum_mul, Finset.mul_sum]
+      simp_rw [Finset.sum_mul, Finset.mul_sum]
       refine Finset.sum_congr rfl fun i _ => ?_
       refine Finset.sum_congr rfl fun j _ => ?_
       ring
