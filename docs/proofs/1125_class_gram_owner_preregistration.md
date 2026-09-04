@@ -96,3 +96,24 @@ Candidate bridge only, no route-map change.  If landed, 1125 makes the true
 Gram matrix a named same-owner Lean object and reduces the Hbox-G blocker to
 64 explicit analytic inequalities.  It does not close (iv), C2, detector
 specific semi-local positivity, `SourceRH`, or RH.
+
+## 6. Post-run addendum (2026-09-04)
+
+VERDICT: LANDED (owner/interface phase).
+
+The preregistration was committed first as `4248d51`.  The implementation and
+paired audit then landed through `350e266`, `2d5f3e1`, `e28306c`, `9e04c99`,
+and `be81bf4`.  The final focused log `1125_build5.log` reports
+`Build completed successfully (3654 jobs)`, with zero `error:` lines and zero
+`sorryAx` occurrences.  All 14 audit declarations print exactly
+`[propext, Classical.choice, Quot.sound]`; the new module has no warning.
+
+The landed owner proves smoothness, support, compact-support integrability,
+the real/complex integral bridge, Gram symmetry, and the identity of the
+quadratic form with the integral of a square, hence its nonnegativity.  It
+also exposes the explicit bounds-to-`Hbox` consumer socket.
+
+The 64 entrywise `Hbox-G` inequalities remain open analytic obligations.
+They were not inferred from floating-point tables or quadrature, and no route
+claim, detector-specific semi-local positivity theorem, `SourceRH`, or RH
+claim changes here.
