@@ -22,9 +22,9 @@ open C1ClassGramMomentReduction
 #print axioms ConnesWeilRH.Source.C1ClassGramMomentReduction.classMoment_even_step
 
 example :
-    classMoment_even_step 0 =
+    classMoment 4 =
       2 * classMoment 2 - ((1 : ℝ) / 5) * classMoment 0 := by
-  norm_num [classMoment_even_step]
+  simpa using classMoment_even_step 0
 
 example (n : ℕ) :
     classMoment (2 * n + 4) =
