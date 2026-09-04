@@ -55,6 +55,7 @@ theorem classBump_hasCompactSupport :
   have heq : (fun x : ℝ => classBump x) = classWindowFun 1 0 := by
     funext x
     simp [classWindowFun, legendrePoly]
+  change HasCompactSupport (fun x : ℝ => classBump x)
   rw [heq]
   exact h
 
@@ -125,8 +126,7 @@ theorem hasDerivAt_classBump (x : ℝ) :
       ((-2 * x) * (1 - x ^ 2)⁻¹ ^ 2 * classBump x) x := by
   have harg : HasDerivAt (fun y : ℝ => 1 - y ^ 2) (-2 * x) x := by
     convert (hasDerivAt_const x (1 : ℝ)).sub ((hasDerivAt_id x).pow 2) using 1 <;>
-      simp [id_eq]
-      ring
+      simp [id_eq] <;> ring
   have hflat :=
     expNegInvGlue.hasDerivAt_polynomial_eval_inv_mul
       (1 : ℝ[X]) (1 - x ^ 2)
@@ -140,8 +140,8 @@ theorem hasDerivAt_classUnitWeight (x : ℝ) :
       ((-4 * x) * (1 - x ^ 2)⁻¹ ^ 2 * classUnitWeight x) x := by
   have h := (hasDerivAt_classBump x).mul (hasDerivAt_classBump x)
   convert h using 1
-  · simp [classUnitWeight]
-  · dsimp [classUnitWeight]
+  · rfl
+  · simp only [classUnitWeight, inv_pow]
     ring
 
 /-! ## Integration-by-parts core -/
@@ -167,11 +167,20 @@ theorem momentIBPCore_integrable (k : ℕ) :
 theorem momentIBPDerivative_integrable (k : ℕ) :
     Integrable (momentIBPDerivative k) := by
   have hcont : Continuous (momentIBPDerivative k) := by
-    dsimp [momentIBPDerivative]
-    exact ((continuous_const.mul (continuous_pow (k - 1))).sub
-      ((continuous_const.mul (continuous_pow (k + 1))).add
-        (continuous_const.mul (continuous_pow (k + 3))))).mul
-      classUnitWeight_contDiff.continuous
+    have h1 : Continuous (fun x : ℝ => (k : ℝ) * x ^ (k - 1)) :=
+      continuous_const.mul (continuous_pow (k - 1))
+    have h2 : Continuous
+        (fun x : ℝ => (2 * (k : ℝ) + 8) * x ^ (k + 1)) :=
+      continuous_const.mul (continuous_pow (k + 1))
+    have h3 : Continuous
+        (fun x : ℝ => ((k : ℝ) + 4) * x ^ (k + 3)) :=
+      continuous_const.mul (continuous_pow (k + 3))
+    have hpoly : Continuous
+        (fun x : ℝ => (k : ℝ) * x ^ (k - 1) -
+          (2 * (k : ℝ) + 8) * x ^ (k + 1) +
+          ((k : ℝ) + 4) * x ^ (k + 3)) :=
+      (h1.sub h2).add h3
+    simpa [momentIBPDerivative] using hpoly.mul classUnitWeight_contDiff.continuous
   have hcompact : HasCompactSupport (momentIBPDerivative k) := by
     exact classUnitWeight_hasCompactSupport.mul_left
   exact hcont.integrable_of_hasCompactSupport hcompact
@@ -184,12 +193,11 @@ theorem momentIBPCore_hasDerivAt (k : ℕ) (hk : 0 < k) (x : ℝ) :
   have hpoly : HasDerivAt (fun y : ℝ => (1 - y ^ 2) ^ 2)
       (-4 * x * (1 - x ^ 2)) x := by
     convert ((hasDerivAt_const x (1 : ℝ)).sub ((hasDerivAt_id x).pow 2)).pow 2 using 1 <;>
-      simp [id_eq]
-      ring
+      simp [id_eq] <;> ring
   have hweight := hasDerivAt_classUnitWeight x
   have hprod := (hpow.mul hpoly).mul hweight
   convert hprod using 1
-  · simp [momentIBPCore]
+  · rfl
   · dsimp [momentIBPCore, momentIBPDerivative]
     by_cases hy : 1 - x ^ 2 = 0
     · have hb : classUnitWeight x = 0 := by
