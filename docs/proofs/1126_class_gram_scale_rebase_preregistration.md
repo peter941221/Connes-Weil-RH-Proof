@@ -71,3 +71,39 @@ one base-scale enclosure.  The `(iv)` defect certificate and the final
 detector-specific semi-local sign remain open.
 
 RH NOT claimed.
+
+## 6. Post-run addendum (2026-09-04, after builds 1-3)
+
+VERDICT: LANDED WITH THE REBASE OPTION REJECTED.
+
+The preregistration commit was `9d68423`, followed by the owner/audit module
+commit `e76335d`, comparison-direction correction `1ec17dd`, and audit-scope
+fix `779eb43`.  The final focused build used the ext4 build mirror and ended
+with `Build completed successfully (3655 jobs)`, zero `^error:` lines, zero
+`sorryAx`, and no warning originating in the new modules.  The audit printed
+the standard axiom triple for all audited declarations.
+
+The exact scale owner landed:
+
+* `classWindowFun_scale` proves the pointwise normalization;
+* `classGramEntry_scale` proves `G_a[i,j] = a * G_1[i,j]` by exact measure
+  change of variables;
+* `classGramMatrix_scale` and `classGramBounds_of_unitBounds` expose the
+  matrix-level and Hbox-facing interfaces.
+
+The optional q38/q48 rebase did not pass its registered direction.  Exact
+rational checking of all 64 entries showed that the committed boxes satisfy
+the nesting relations
+
+    (3/2) * GLo_q28 <= GLo_q38,
+    GHi_q38 <= (3/2) * GHi_q28,
+    2 * GLo_q28 <= GLo_q48,
+    GHi_q48 <= 2 * GHi_q28,
+
+not the reverse comparisons needed to infer the tighter q38/q48 boxes from
+q28.  The invalid transport theorems were removed before the final build.
+This is a data-consistency result only; it supplies no integral enclosure.
+
+Consequently the independent q28, q38, and q48 Hbox-G integral certificates
+remain open.  The healthy-`CompactLog` B5 consumer, the `(iv)` defect bound,
+and the detector-specific semi-local sign are unchanged.  RH NOT claimed.
