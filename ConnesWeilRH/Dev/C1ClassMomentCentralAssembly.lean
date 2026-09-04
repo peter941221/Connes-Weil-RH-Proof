@@ -58,6 +58,38 @@ theorem classMomentIntegrand_intervalIntegrable
     exact (continuous_pow n).mul classUnitWeight_contDiff.continuous
   exact hcont.intervalIntegrable a b
 
+/-! ## A coarse symbolic central certificate -/
+
+theorem classBump_nonneg (x : ℝ) : 0 ≤ classBump x := by
+  by_cases hx : |x| < 1
+  · exact (classBump_pos hx).le
+  · rw [classBump_eq_zero (le_of_not_gt hx)]
+    norm_num
+
+theorem classBump_le_one (x : ℝ) : classBump x ≤ 1 := by
+  by_cases hx : |x| < 1
+  · rw [classBump_eq_exp hx]
+    apply Real.exp_le_one_iff.mpr
+    have hsq : x ^ 2 < 1 := by
+      rcases abs_lt.mp hx with ⟨hlo, hhi⟩
+      nlinarith
+    have hden : 0 < 1 - x ^ 2 := by linarith
+    exact neg_nonpos.mpr (one_div_nonneg.mpr hden.le)
+  · rw [classBump_eq_zero (le_of_not_gt hx)]
+    norm_num
+
+theorem classUnitWeight_le_one (x : ℝ) : classUnitWeight x ≤ 1 := by
+  exact mul_le_one₀ (classBump_le_one x) (classBump_nonneg x)
+    (classBump_le_one x)
+
+theorem classMomentIntegrand_zero_nonneg (x : ℝ) :
+    0 ≤ classMomentIntegrand 0 x := by
+  simpa [classMomentIntegrand] using classUnitWeight_nonneg x
+
+theorem classMomentIntegrand_zero_le_one (x : ℝ) :
+    classMomentIntegrand 0 x ≤ 1 := by
+  simpa [classMomentIntegrand] using classUnitWeight_le_one x
+
 /-! ## Reflection and exact interval assembly -/
 
 theorem classMomentIntegrand_neg_of_even {n : ℕ} (hn : Even n) (x : ℝ) :
@@ -104,6 +136,30 @@ integrand.  Its comparison data, rather than a desired whole-line conclusion,
 is the producer interface. -/
 def centralMomentEnvelope (n : ℕ) (lo hi : ℝ) : Type :=
   IntegralEnvelope (classMomentIntegrand n) (-centralRadius) centralRadius lo hi
+
+/-- A deliberately coarse but fully symbolic central envelope.  It is a
+fidelity instance for the assembly layer, not the registered `I₀` producer. -/
+def symbolicCentralEnvelopeZero : centralMomentEnvelope 0 0 2 := by
+  unfold centralMomentEnvelope
+  refine
+    { lower := fun _ => 0
+      upper := fun _ => 1
+      lower_integrable := continuous_const.intervalIntegrable _ _
+      target_integrable := classMomentIntegrand_intervalIntegrable 0 _ _
+      upper_integrable := continuous_const.intervalIntegrable _ _
+      lower_le := ?_
+      upper_le := ?_
+      lower_value := ?_
+      upper_value := ?_ }
+  · intro x hx
+    exact classMomentIntegrand_zero_nonneg x
+  · intro x hx
+    exact classMomentIntegrand_zero_le_one x
+  · rw [intervalIntegral.integral_const]
+    simp
+  · rw [intervalIntegral.integral_const, smul_eq_mul]
+    unfold centralRadius
+    norm_num
 
 theorem centralMoment_bounds_of_centralEnvelope
     (n : ℕ) (lo hi : ℝ)
