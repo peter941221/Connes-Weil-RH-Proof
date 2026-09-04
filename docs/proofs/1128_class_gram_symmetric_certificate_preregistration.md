@@ -53,3 +53,25 @@ G4. Staged-diff hygiene finds no private paths, generated build artifacts,
 hidden proof terms, or stored numerical conclusions.
 
 RH NOT claimed.
+
+## 5. Post-run addendum (2026-09-04, after builds 1-2)
+
+VERDICT: LANDED.
+
+The preregistration commit was `75b541c`; the module and audit were added in
+`2ea39a5`, and the build-1 transpose-orientation fix was committed as
+`93b39ff` before the accepted run.  The final resource-runner log is
+`build-logs-1128_build2.log`.
+
+Build 2 completed successfully (3657 jobs), with zero `^error:` lines and no
+`sorryAx`.  The audit printed 9 declarations; after rejoining wrapped output,
+all 9 had the unique axiom set
+`[propext, Classical.choice, Quot.sound]`.  No declaration in the new module
+introduced a warning.
+
+The landed result is the exact Gram-entry symmetry, six q-endpoint symmetry
+lemmas, a generic upper-triangle-to-full transport theorem, and the q28
+Hbox-facing wrapper.  The wrapper leaves 20 same-parity upper-triangle
+integral bounds to be supplied by a future true-data certificate.  No
+integral enclosure, Hbox-G discharge, M-side result, defect estimate,
+semi-local positivity, SourceRH, or RH theorem was claimed.
