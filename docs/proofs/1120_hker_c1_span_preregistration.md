@@ -137,3 +137,38 @@ After (iii), the ABSOLUTE headline `ICgate <= -mu_a` holds on the
 D1-pinned g modulo exactly ONE numeric input (iv).  Bookkeeping note:
 (ii) scales y without changing the direction of any inequality (the
 bound is homogeneous of degree 2 in c on both sides).
+
+## 6. Post-run addendum (2026-09-04, after build 1)
+
+VERDICT: LANDED.  Probe (18/18 PASS) then Lean build 1 GREEN FIRST TRY:
+"Build completed successfully (3656 jobs)", zero `error:` lines, zero
+`sorry`, zero warnings on the two new modules.  The 153 warnings in the
+log are byte-identical to 1119's build 7 (pre-existing debt in old
+modules CC20Yoshida*/C1Xi*; not introduced by this record).
+
+G1 PASS (footer + zero error lines).  G2 PASS: 86/86 axiom records
+exactly `[propext, Classical.choice, Quot.sound]` (13 new C1HkerSpan +
+51 C1TboxPullthroughAudit + 22 C1GateLevelTransferAudit; long
+declaration names wrap across log lines - records rejoined by bracket
+matching before checking, zero non-standard).  G3 PASS: both fidelity
+`example`s compile (span T-box with literal radius hypotheses and
+conclusion on `Q28.K.mulVec y`; span absolute form with LHS literally
+`ICgate w.convolutionSquare`, RHS `-mu_q28`).  G4 PASS (staged-diff
+hygiene grep 0 matches on commits 50af5bb and 6302def).
+
+Probe outcome: all checks PASS on all three classes - R*K = 0 exact,
+rank(R) = 3 (det(R R^T) != 0), qchain R == F(cert R_mid) entrywise,
+K = canonical RREF nullspace basis (I_5 at free cols [3..7], pivot
+block = -A_rref), full chain E*R = A_rref and A_rref*K = 0.  Entry
+digits: R 122, K 275.  No data value touched.
+
+Consequence for the map: (c) Hker is CLOSED via mechanism C1 at span
+level - the T-box domain condition `R.mulVec c = 0` holds for EVERY
+c = K.mulVec y by the single rational identity RK0_q*; the class-
+certificate chain (a)+(b)+(c) is fully landed with `Hbox` as its only
+analytic named hypothesis plus the representation/normalization slots
+(hrep/hnorm, T2 side).  C2 (drift bound on the TRUE moment table) NOT
+invoked and stays booked as a named T2-side obligation per section 5.
+T2 assessment (section 5): GO, sequenced (iii) matrix-representation
+lemma (next Lean record, pure algebra) THEN (iv) real decay via the
+1116c contract.  RH NOT claimed.
