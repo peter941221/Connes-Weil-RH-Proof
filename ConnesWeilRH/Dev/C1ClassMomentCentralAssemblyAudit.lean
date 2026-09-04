@@ -38,6 +38,6 @@ example :
       classMoment 0 < 2 + (2 / 10 ^ 15 : ℝ) := by
   simpa using
     (classMoment_bounds_of_centralEnvelope_of_even
-      (n := 0) (lo := 0) (hi := 2) even_zero symbolicCentralEnvelopeZero)
+      (n := 0) (lo := 0) (hi := 2) ⟨0, rfl⟩ symbolicCentralEnvelopeZero)
 
 end ConnesWeilRH.Source.C1ClassMomentCentralAssembly
