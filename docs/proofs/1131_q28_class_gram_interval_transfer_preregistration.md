@@ -1,6 +1,7 @@
 # Record 1131: q28 class-Gram interval transfer preregistration
 
-Status: preregistered; implementation pending.
+Status: landed as a conditional interval-transfer consumer; the actual
+base-moment producer and M-side enclosure remain pending.
 
 Consumer: the healthy-`CompactLog`, B5-shaped detector-specific semi-local
 chain, through the true-data class-window `Hbox-G` input consumed by
@@ -79,3 +80,34 @@ G5. Staged-diff hygiene finds no private paths, generated build artifacts, or
 hidden proof terms.
 
 RH NOT claimed.
+
+## 5. Post-run addendum (2026-09-05, after build 4)
+
+VERDICT: LANDED (CONDITIONAL CONSUMER).
+
+The paired modules `C1Q28ClassGramIntervalTransfer.lean` and
+`C1Q28ClassGramIntervalTransferAudit.lean` implement all three registered
+consumer targets.  The model theorem proves the 64 q28 entrywise inequalities
+from the four explicit rational endpoint hypotheses.  The owner theorem then
+uses `classGramUnitMatrix_eq_classGramMomentModel` and
+`classGramMatrix_scale` at `a = 2` to transfer those bounds to the actual
+`classGramMatrix 2`; it does not substitute the committed `Q28.G` matrix.
+The Hbox adapter remains conditional on an independently supplied q28 M-side
+entrywise bound.
+
+Build-4 evidence is the ext4-mirror log `1131_build4.log`: success footer
+`Build completed successfully (3660 jobs)`, zero `^error:` lines, zero
+`sorryAx`, and zero warnings from the two 1131 modules.  The audit contains
+seven unique declaration records, all with exactly
+`[propext, Classical.choice, Quot.sound]`.
+
+The actual membership statements
+`q28Moment0Lo ≤ classMoment 0 ≤ q28Moment0Hi` and
+`q28Moment2Lo ≤ classMoment 2 ≤ q28Moment2Hi` are not proved here.  Therefore
+the q28 `Hbox-G` leg is still an open analytic producer obligation, as is the
+M-side enclosure.  The 1116c defect estimate, same-detector semi-local
+positivity, `SourceRH`, and RH remain open.
+
+The route boundary is unchanged: this is a conditional algebraic consumer
+for the healthy-`CompactLog` B5 chain, not a universal B1 result, density
+lift, ROOT-to-detector arrow, or RH claim.
