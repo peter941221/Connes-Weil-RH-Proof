@@ -70,3 +70,20 @@ with `r = 97/100`. The order-2 moment uses
 The post-run addendum will state whether this calculus engine landed. It will
 not state that the target moments, true-data Hbox, semi-local positivity, or RH
 are complete.
+
+## 5. Post-run addendum (2026-09-05, after builds 1-7)
+
+VERDICT: LANDED.
+
+The preregistration commit `3a322dd` preceded the implementation.  The final
+canonical ext4 build completed successfully with 3663 jobs, zero `^error:`
+lines, and zero `sorryAx` occurrences.  The paired audit printed five
+declarations, each with exactly `[propext, Classical.choice, Quot.sound]`.
+The final new-module warning count was zero.
+
+The landed API proves the recursive primitive derivative, the exact fixed-
+radius interval value for every denominator power, finite-sum linearity, and
+the order-2 identity reducing `x²(1-x²)⁻ᵏ` to adjacent denominator powers.
+The high-precision logarithm enclosure, concrete Taylor-power coefficient
+certificate, target moment boxes, true-data Hbox, defect contraction,
+same-detector semi-local positivity, and RH remain open.
