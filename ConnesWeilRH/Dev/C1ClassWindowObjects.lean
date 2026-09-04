@@ -133,11 +133,11 @@ theorem support_subset_Ioo (a : ℝ) (ha : 0 < a) (i : ℕ) :
     have h2 : u / a ≤ 0 := by linarith
     have hz : classBump (u / a) = 0 := classBump_eq_zero (by rw [abs_of_nonpos h2]; linarith)
     simp [classWindowFun, hz]
-  · have h1 : a ≤ u / a := by
+  · have h1 : 1 ≤ u / a := by
       rw [le_div_iff₀ ha]
       linarith
     have h2 : 0 ≤ u / a := by linarith
-    have hz : classBump (u / a) = 0 := classBump_eq_zero (by rw [abs_of_nonneg h2]; linarith)
+    have hz : classBump (u / a) = 0 := classBump_eq_zero (by rw [abs_of_nonneg h2]; exact h1)
     simp [classWindowFun, hz]
 
 /-- Closed-window twin for downstream consumers. -/
