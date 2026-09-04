@@ -9,6 +9,8 @@ namespace ConnesWeilRH
 namespace Source
 namespace C1ClassGramScale
 
+open C1ClassGramOwner
+
 #print axioms classGramUnitEntry
 #print axioms classGramUnitMatrix
 #print axioms classGramUnitEntry_apply
