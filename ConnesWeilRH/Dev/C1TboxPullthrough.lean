@@ -135,15 +135,16 @@ theorem tbox_of_identities
         ≤ ((2 : ℝ) • (mu • radG + radM)) i' j' := by
       intro i' j'
       have g1 := hbΔ i' j'
-      have g2 := hbΔ j' i'
+      have g2 : |Δ j' i'| ≤ mu * radG i' j' + radM i' j' := by
+        rw [hradGsym i' j', hradMsym i' j']
+        exact hbΔ j' i'
       have t2 : ((2 : ℝ) • (mu • radG + radM)) i' j'
           = 2 * (mu * radG i' j' + radM i' j') := by
         simp [Matrix.smul_apply, Matrix.add_apply, smul_eq_mul]
       rw [Matrix.add_apply, Matrix.transpose_apply, t2, abs_le]
       have p1 : -|Δ i' j'| ≤ Δ i' j' ∧ Δ i' j' ≤ |Δ i' j'| := abs_le.mp (le_refl _)
       have p2 : -|Δ j' i'| ≤ Δ j' i' ∧ Δ j' i' ≤ |Δ j' i'| := abs_le.mp (le_refl _)
-      constructor <;>
-        linarith [g1, g2, hradGsym i' j', hradMsym i' j', p1.1, p1.2, p2.1, p2.2]
+      constructor <;> linarith [g1, g2, p1.1, p1.2, p2.1, p2.2]
     have habsK' : ∀ i' j', |K i' j'| ≤ absK i' j' := fun i' j' => by
       rw [habsK i' j']
     have h1 := entrywise_triple K K (Δ + Δ.transpose) absK absK
