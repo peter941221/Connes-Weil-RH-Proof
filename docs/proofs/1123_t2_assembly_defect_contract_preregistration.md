@@ -179,3 +179,84 @@ inequality `ICgate gHead - ICgate W <= epsilon` on the TRUE correction
 data (the 1116c contract, fixed in Lean by D1+E1) — plus C2 on the
 true-table route only.  Hnorm CLOSED.  The numeric side receives a
 precise, standalone target.  RH NOT claimed; no map change keyed.
+
+## 6. Post-run addendum (2026-09-04, after builds 1-5)
+
+VERDICT: LANDED.  Chain: prereg `cbd184a` committed BEFORE any build ->
+module draft `69fa680` -> build 1 FAILED -> fix batch `1bb1a2e` -> build 2
+FAILED -> fix batch `9d7d69b` -> build 3 FAILED -> fix batch `472559e` ->
+build 4 FAILED (audit only) -> fix `141d510` -> build 5 FULL GREEN.
+
+Build 1 root causes (7 sites, 6 mechanisms, one batch):
+  (a)  missing `open C1WindowRationalIngest` - Q28/Q38/Q48 live inside
+       that namespace (file C1WindowRationalIngestQ28.lean); 12 unknown-
+       identifier sites are ONE root cause;
+  (b)  `field_simp` on the sqrt normalization leaves the residual goal
+       `s = Real.sqrt s ^ 2` (pow form vs mul form of Real.mul_self_sqrt);
+  (c)  the span-homogeneity chain needs `Finset.mul_sum` BEFORE
+       sum_congr - the RHS is still wrapped in `t ^ 2 * sum`;
+  (d)  `support_subset_Icc F hx` returns an opaque Set-membership atom;
+       `simp only [Set.mem_Icc] at hcc` before linarith;
+  (e)  `ICgate_ICdefect _ _ _ _` leaves s/lam as metavars - they appear
+       in no elaborated argument and `exact` does not back-propagate
+       them through the expected type; supply them explicitly;
+  (f)  `ICStageBContraction g` is a STRUCTURE, not a Prop - the E1
+       assembly is a `noncomputable def`, not a theorem ("type ... is
+       not a proposition").
+
+Build 2 root causes (7 sites, 4 mechanisms):
+  (a)  the sqrt chain: `rw [pow_two]` leaves a LEFT-associated product;
+       `rw [← mul_assoc]` looks for a RIGHT-associated one;
+  (b)  `absolute_spanK_q*`'s implicit `y` appears in NO conclusion
+       (only in hrep/hnorm), so `refine` cannot synthesize it; pin
+       `(y := fun i => t * y i)` explicitly - 3 sites;
+  (c)  the E1 budget slot is unused in the body (contract-only) ->
+       `_hbudget` (zero new warnings);
+  (d)  `simpa using hbudget` cannot reduce projections of an APPLIED
+       def without its equation lemmas: `simpa [def-name] using h`.
+
+Build 3 root causes (5 sites, 2 mechanisms):
+  (a)  `rw [← hsq]` rewrites EVERY occurrence of the dot product -
+       including the copies inside the two `Real.sqrt` applications -
+       nesting the square roots; `nth_rewrite 2 [← hsq]` targets only
+       the standalone multiply - 2 sites;
+  (b)  `mulVec_smul_pointwise` was specialized to SQUARE matrices but
+       `Q28/Q38/Q48.K : Matrix (Fin 8) (Fin 5) ℝ` is RECTANGULAR
+       (8 window tests, 5-dim class space); generalized to
+       `{m n}` - 3 sites.  Preregistered under R1 (proof-side helper).
+
+Build 4 root cause (1 site): the audit E1 fidelity `example` RETURNS
+the noncomputable def's output, so the example itself must be
+`noncomputable example`.
+
+Build 5: FULL GREEN - "Build completed successfully (3657 jobs)", zero
+`^error:` lines, zero `sorry`.  G1 PASS.  G2 PASS: 13/13 `#print axioms`
+records exactly `[propext, Classical.choice, Quot.sound]` (lines
+rejoined across wraps; 13 unique declarations, none missing, zero
+sorryAx).  G3 PASS: all three fidelity examples compile - (a) E1 applied
+at abstract data yields a literal `ICStageBContraction g` term, (b) C1
+(q28) yields a certified window with inherited support from a positive
+G-norm coefficient, (c) D1 reproduces the difference form.  G4 PASS:
+staged-diff hygiene grep on all six commits of this record, clean.
+Warnings: the pre-existing old-module warning set only; ZERO warnings
+on the two new modules.
+
+Deviations: NONE on the preregistered statement shapes.  Two
+preregistered-rule applications: R1 fired (the pointwise mulVec helper
+was proved in-house AND generalized to rectangular matrices), R2 did
+not fire (the `where`-literal typed fine once def-typed).  One
+additional generalization: N1-helper `mulVec_smul_pointwise` carries
+`{m n : ℕ}` instead of `{n}` - strictly more general, statement shapes
+above unchanged.
+
+Consequence: Hnorm CLOSED for all three certified classes - the 1120
+absolute headline now fires for EVERY coefficient with positive G-norm,
+with the window existential absorbing the normalization.  The 1116c
+consumption contract is FIXED in Lean as a single inequality:
+`ICgate gHead - ICgate W <= epsilon` (D1 gives the equality, E1
+consumes the inequality, the 1117 bridge returns the 1089 orbit gate).
+T2 named-obligation set after this record: EXACTLY
+  (iv)  the numeric certificate for `ICgate gHead - ICgate W <= epsilon`
+        on the TRUE correction data - a well-posed standalone task,
+  C2    drift bound on the TRUE moment table (true-table route only).
+RH NOT claimed; no map change keyed.
