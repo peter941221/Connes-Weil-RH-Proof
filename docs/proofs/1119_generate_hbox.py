@@ -217,7 +217,7 @@ theorem hrevG_{tag} : ∀ i j, {qmod}.G i j - radG_{tag} i j ≤ GLo_{tag} i j �
     GHi_{tag} i j ≤ {qmod}.G i j + radG_{tag} i j := by
   intro i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [radG_{tag}, GLo_{tag}, GHi_{tag}, {qmod}.G] <;> norm_num)
+  all_goals (simp [radG_{tag}, GLo_{tag}, GHi_{tag}, {qmod}.G]; norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 64 entrywise conjunctions over 4-6-term rational sums
@@ -225,7 +225,7 @@ theorem hrevM_{tag} : ∀ i j, {qmod}.M i j - radM_{tag} i j ≤ MLo_{tag} i j �
     MHi_{tag} i j ≤ {qmod}.M i j + radM_{tag} i j := by
   intro i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [radM_{tag}, MLo_{tag}, MHi_{tag}, {qmod}.M] <;> norm_num)
+  all_goals (simp [radM_{tag}, MLo_{tag}, MHi_{tag}, {qmod}.M]; norm_num)
 
 theorem habsK_{tag} : ∀ i j, absK_{tag} i j = |{qmod}.K i j| := by
   intro i j
@@ -260,7 +260,7 @@ theorem hDredRad_{tag} :
   fin_cases i <;> fin_cases j
   all_goals (simp [absK_{tag}, radG_{tag}, radM_{tag}, mu_{tag}, {qmod}.U,
     DredRad_{tag}, Matrix.mul_apply, Matrix.transpose_apply,
-    Fin.sum_univ_succ] <;> norm_num)
+    Fin.sum_univ_succ]; norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 25 entries x 125-term products of ~10^3-digit rationals

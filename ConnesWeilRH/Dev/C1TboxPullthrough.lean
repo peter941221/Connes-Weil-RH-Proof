@@ -140,7 +140,10 @@ theorem tbox_of_identities
           = 2 * (mu * radG i' j' + radM i' j') := by
         simp [Matrix.smul_apply, Matrix.add_apply, smul_eq_mul]
       rw [Matrix.add_apply, Matrix.transpose_apply, t2, abs_le]
-      constructor <;> linarith [hradGsym i' j', hradMsym i' j']
+      have p1 : -|Δ i' j'| ≤ Δ i' j' ∧ Δ i' j' ≤ |Δ i' j'| := abs_le.mp (le_refl _)
+      have p2 : -|Δ j' i'| ≤ Δ j' i' ∧ Δ j' i' ≤ |Δ j' i'| := abs_le.mp (le_refl _)
+      constructor <;>
+        linarith [g1, g2, hradGsym i' j', hradMsym i' j', p1.1, p1.2, p2.1, p2.2]
     have habsK' : ∀ i' j', |K i' j'| ≤ absK i' j' := fun i' j' => by
       rw [habsK i' j']
     have h1 := entrywise_triple K K (Δ + Δ.transpose) absK absK
@@ -182,8 +185,8 @@ theorem tbox_of_identities
     have h1 := entrywise_triple (Matrix.transpose Lam) (Matrix.transpose Lam)
       (K.transpose * (Δ + Δ.transpose) * K) (Matrix.transpose absLam)
       (Matrix.transpose absLam) ((2 : ℝ) • DredRad) hxb hbN' hxb i j
-    rw [Matrix.transpose_transpose, hscaleLam, hRadp, Matrix.smul_apply,
-      smul_eq_mul] at h1
+    simp only [Matrix.transpose_transpose] at h1
+    rw [hscaleLam, hRadp, Matrix.smul_apply, smul_eq_mul] at h1
     exact h1
   -- assemble: F = whitened form of (diagonal d + (1/2) • E)
   have Ffinal : c ⬝ᵥ ((U • Gt - Mt).mulVec c)

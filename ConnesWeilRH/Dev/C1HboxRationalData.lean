@@ -188,7 +188,7 @@ theorem hrevG_q28 : ∀ i j, Q28.G i j - radG_q28 i j ≤ GLo_q28 i j ∧
     GHi_q28 i j ≤ Q28.G i j + radG_q28 i j := by
   intro i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [radG_q28, GLo_q28, GHi_q28, Q28.G] <;> norm_num)
+  all_goals (simp [radG_q28, GLo_q28, GHi_q28, Q28.G]; norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 64 entrywise conjunctions over 4-6-term rational sums
@@ -196,7 +196,7 @@ theorem hrevM_q28 : ∀ i j, Q28.M i j - radM_q28 i j ≤ MLo_q28 i j ∧
     MHi_q28 i j ≤ Q28.M i j + radM_q28 i j := by
   intro i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [radM_q28, MLo_q28, MHi_q28, Q28.M] <;> norm_num)
+  all_goals (simp [radM_q28, MLo_q28, MHi_q28, Q28.M]; norm_num)
 
 theorem habsK_q28 : ∀ i j, absK_q28 i j = |Q28.K i j| := by
   intro i j
@@ -231,7 +231,7 @@ theorem hDredRad_q28 :
   fin_cases i <;> fin_cases j
   all_goals (simp [absK_q28, radG_q28, radM_q28, mu_q28, Q28.U,
     DredRad_q28, Matrix.mul_apply, Matrix.transpose_apply,
-    Fin.sum_univ_succ] <;> norm_num)
+    Fin.sum_univ_succ]; norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 25 entries x 125-term products of ~10^3-digit rationals
@@ -377,7 +377,7 @@ theorem hrevG_q38 : ∀ i j, Q38.G i j - radG_q38 i j ≤ GLo_q38 i j ∧
     GHi_q38 i j ≤ Q38.G i j + radG_q38 i j := by
   intro i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [radG_q38, GLo_q38, GHi_q38, Q38.G] <;> norm_num)
+  all_goals (simp [radG_q38, GLo_q38, GHi_q38, Q38.G]; norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 64 entrywise conjunctions over 4-6-term rational sums
@@ -385,7 +385,7 @@ theorem hrevM_q38 : ∀ i j, Q38.M i j - radM_q38 i j ≤ MLo_q38 i j ∧
     MHi_q38 i j ≤ Q38.M i j + radM_q38 i j := by
   intro i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [radM_q38, MLo_q38, MHi_q38, Q38.M] <;> norm_num)
+  all_goals (simp [radM_q38, MLo_q38, MHi_q38, Q38.M]; norm_num)
 
 theorem habsK_q38 : ∀ i j, absK_q38 i j = |Q38.K i j| := by
   intro i j
@@ -420,7 +420,7 @@ theorem hDredRad_q38 :
   fin_cases i <;> fin_cases j
   all_goals (simp [absK_q38, radG_q38, radM_q38, mu_q38, Q38.U,
     DredRad_q38, Matrix.mul_apply, Matrix.transpose_apply,
-    Fin.sum_univ_succ] <;> norm_num)
+    Fin.sum_univ_succ]; norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 25 entries x 125-term products of ~10^3-digit rationals
@@ -566,7 +566,7 @@ theorem hrevG_q48 : ∀ i j, Q48.G i j - radG_q48 i j ≤ GLo_q48 i j ∧
     GHi_q48 i j ≤ Q48.G i j + radG_q48 i j := by
   intro i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [radG_q48, GLo_q48, GHi_q48, Q48.G] <;> norm_num)
+  all_goals (simp [radG_q48, GLo_q48, GHi_q48, Q48.G]; norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 64 entrywise conjunctions over 4-6-term rational sums
@@ -574,7 +574,7 @@ theorem hrevM_q48 : ∀ i j, Q48.M i j - radM_q48 i j ≤ MLo_q48 i j ∧
     MHi_q48 i j ≤ Q48.M i j + radM_q48 i j := by
   intro i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [radM_q48, MLo_q48, MHi_q48, Q48.M] <;> norm_num)
+  all_goals (simp [radM_q48, MLo_q48, MHi_q48, Q48.M]; norm_num)
 
 theorem habsK_q48 : ∀ i j, absK_q48 i j = |Q48.K i j| := by
   intro i j
@@ -609,7 +609,7 @@ theorem hDredRad_q48 :
   fin_cases i <;> fin_cases j
   all_goals (simp [absK_q48, radG_q48, radM_q48, mu_q48, Q48.U,
     DredRad_q48, Matrix.mul_apply, Matrix.transpose_apply,
-    Fin.sum_univ_succ] <;> norm_num)
+    Fin.sum_univ_succ]; norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 25 entries x 125-term products of ~10^3-digit rationals
