@@ -44,11 +44,11 @@ theorem entrywise_mul {r s t : ℕ}
     (A : Matrix (Fin r) (Fin s) ℝ) (B : Matrix (Fin s) (Fin t) ℝ)
     (ab : Matrix (Fin r) (Fin s) ℝ) (p : Matrix (Fin s) (Fin t) ℝ)
     (ha : ∀ i j, |A i j| ≤ ab i j) (hb : ∀ i j, |B i j| ≤ p i j)
-    (k l : Fin t) :
+    (k : Fin r) (l : Fin t) :
     |(A * B) k l| ≤ (ab * p) k l := by
   rw [Matrix.mul_apply]
-  refine le_trans (abs_sum_le_sum_abs (s := Finset.univ)
-    (f := fun i => A k i * B i l)) ?_
+  refine le_trans (Finset.abs_sum_le_sum_abs (f := fun i => A k i * B i l)
+    (s := Finset.univ)) ?_
   refine Finset.sum_le_sum fun i _ => ?_
   rw [abs_mul]
   nlinarith [ha k i, hb i l, abs_nonneg (A k i), abs_nonneg (B i l)]
