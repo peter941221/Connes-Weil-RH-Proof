@@ -203,25 +203,29 @@ def build_section(tag, label, src, qmod, qc, ce):
     out.append("")
     out.append(f"""theorem hsymRadG_{tag} : ∀ i j, radG_{tag} i j = radG_{tag} j i := by
   intro i j
-  fin_cases i <;> fin_cases j <;> simp [radG_{tag}] <;> norm_num
+  fin_cases i <;> fin_cases j <;> simp [radG_{tag}]
 
 theorem hsymRadM_{tag} : ∀ i j, radM_{tag} i j = radM_{tag} j i := by
   intro i j
-  fin_cases i <;> fin_cases j <;> simp [radM_{tag}] <;> norm_num
+  fin_cases i <;> fin_cases j <;> simp [radM_{tag}]
 
 /-- REVERSE containment: the committed bundle box sits INSIDE the 1115
 radius box, so `Hbox` implies `|G_true - G| <= radG` entrywise. -/
+set_option maxHeartbeats 2000000000 in
+-- reason: 64 entrywise conjunctions over 4-6-term rational sums
 theorem hrevG_{tag} : ∀ i j, {qmod}.G i j - radG_{tag} i j ≤ GLo_{tag} i j ∧
     GHi_{tag} i j ≤ {qmod}.G i j + radG_{tag} i j := by
   intro i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [radG_{tag}, GLo_{tag}, GHi_{tag}, {qmod}.G] <;> norm_num)
+  all_goals (simp [radG_{tag}, GLo_{tag}, GHi_{tag}, {qmod}.G]; norm_num)
 
+set_option maxHeartbeats 2000000000 in
+-- reason: 64 entrywise conjunctions over 4-6-term rational sums
 theorem hrevM_{tag} : ∀ i j, {qmod}.M i j - radM_{tag} i j ≤ MLo_{tag} i j ∧
     MHi_{tag} i j ≤ {qmod}.M i j + radM_{tag} i j := by
   intro i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [radM_{tag}, MLo_{tag}, MHi_{tag}, {qmod}.M] <;> norm_num)
+  all_goals (simp [radM_{tag}, MLo_{tag}, MHi_{tag}, {qmod}.M]; norm_num)
 
 theorem habsK_{tag} : ∀ i j, absK_{tag} i j = |{qmod}.K i j| := by
   intro i j
@@ -236,15 +240,16 @@ theorem habsLam_{tag} : ∀ i j, absLam_{tag} i j = |Lam_{tag} i j| := by
 theorem hLamL_{tag} : Lam_{tag} * {qmod}.L = 1 := by
   ext i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [Lam_{tag}, {qmod}.L, Matrix.mul_apply, Matrix.one_apply,
-    Fin.sum_univ_succ] <;> norm_num)
+  all_goals (simp [Lam_{tag}, {qmod}.L, Matrix.mul_apply,
+    Fin.sum_univ_succ]; norm_num)
 
 set_option maxHeartbeats 2000000000 in
+-- reason: 25 entries x 5-term products of ~10^3-digit rationals
 theorem hLLam_{tag} : {qmod}.L * Lam_{tag} = 1 := by
   ext i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [Lam_{tag}, {qmod}.L, Matrix.mul_apply, Matrix.one_apply,
-    Fin.sum_univ_succ] <;> norm_num)
+  all_goals (simp [Lam_{tag}, {qmod}.L, Matrix.mul_apply,
+    Fin.sum_univ_succ]; norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 25 entries x 64-term sums of ~10^2-digit products
@@ -254,8 +259,8 @@ theorem hDredRad_{tag} :
   ext i j
   fin_cases i <;> fin_cases j
   all_goals (simp [absK_{tag}, radG_{tag}, radM_{tag}, mu_{tag}, {qmod}.U,
-    DredRad_{tag}, Matrix.mul_apply, Matrix.transpose_apply, Matrix.smul_apply,
-    Matrix.add_apply, Matrix.smul_add, Fin.sum_univ_succ] <;> norm_num)
+    DredRad_{tag}, Matrix.mul_apply, Matrix.transpose_apply,
+    Fin.sum_univ_succ]; norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 25 entries x 125-term products of ~10^3-digit rationals

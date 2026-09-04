@@ -97,7 +97,7 @@ theorem tbox_of_identities
   have hsplit : ((1 : ℝ) / 2) • ((U • Gt - Mt) + (U • Gt - Mt).transpose)
       = Dc + ((1 : ℝ) / 2) • (Δ + Δ.transpose) := by
     ext i j
-    simp only [Matrix.smul_apply, Matrix.smul_add, Matrix.add_apply,
+    simp only [Matrix.smul_apply, smul_add, Matrix.add_apply,
       Matrix.sub_apply, Matrix.transpose_apply, smul_eq_mul]
     have h2 := Matrix.ext_iff.mp hDtwo i j
     simp only [Matrix.transpose_apply, Matrix.smul_apply, Matrix.sub_apply,
@@ -133,7 +133,7 @@ theorem tbox_of_identities
       = (2 : ℝ) • (Matrix.transpose absK * (mu • radG + radM) * absK) := by
     ext i j
     simp [Matrix.mul_apply, Matrix.smul_apply, Matrix.add_apply,
-      Matrix.transpose_apply, Matrix.smul_add, Finset.mul_sum]
+      Matrix.transpose_apply, Finset.mul_sum]
     ring
   have hbN : ∀ i j, |(K.transpose * (Δ + Δ.transpose) * K) i j| ≤ 2 * DredRad i j := by
     intro i j
