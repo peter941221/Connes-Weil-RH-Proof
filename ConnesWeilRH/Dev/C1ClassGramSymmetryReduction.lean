@@ -33,7 +33,7 @@ theorem classGramMatrix_entry_symm (a : ℝ) (ha : 0 < a)
     classGramMatrix a ha i j = classGramMatrix a ha j i := by
   have h := congrArg (fun M : Matrix (Fin 8) (Fin 8) ℝ => M i j)
     (classGramMatrix_transpose a ha)
-  simpa using h
+  simpa using h.symm
 
 /-! ## Exact symmetry of the committed endpoint matrices -/
 
