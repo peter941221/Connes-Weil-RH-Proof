@@ -57,3 +57,22 @@ and the exact finite-sum comparison values.
 
 The post-run addendum will state whether the pointwise core landed.  It will
 not state that the central moments or RH are complete.
+
+## 5. Post-run addendum (2026-09-05, after builds 1-9)
+
+VERDICT: LANDED.
+
+The preregistration commit `c26fb25` preceded the implementation.  The final
+build used the canonical ext4 runner and completed successfully with 3666
+jobs.  The log has zero `^error:` lines and zero `sorryAx` occurrences.  The
+paired audit prints all five audited theorem declarations with exactly
+`[propext, Classical.choice, Quot.sound]`; the remaining warnings are
+pre-existing project or dependency warnings, with no warning from the new
+modules.
+
+The landed declarations are the pointwise degree-19 Taylor envelope, its
+35th-power error transport, the `97/100` central-interval argument bounds,
+and the resulting order-0 and order-2 class-moment integrand estimates.
+The central rational integral, logarithm enclosure, target moment intervals,
+true-data Hbox, the defect contraction, the same-detector semi-local gate,
+and RH remain open.
