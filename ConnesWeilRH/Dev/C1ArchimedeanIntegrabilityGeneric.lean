@@ -38,7 +38,8 @@ open CCM25Concrete.SelectedWeilSquare
 open C1GateMatrixRepresentation
 open C1LocalConfigurationDomination
 open C1SameOwnerWeil
-open scoped BigOperators ContDiff
+open Matrix
+open scoped BigOperators ContDiff Filter Topology
 
 noncomputable section
 
@@ -63,13 +64,18 @@ theorem archimedeanNumeratorIm_contDiff (F : CompactLogTest) :
     ContDiff ℝ ∞ (archimedeanNumeratorIm F) :=
   Complex.imCLM.contDiff.comp (archimedeanNumerator_contDiff F)
 
+theorem archimedeanNumerator_zero (F : CompactLogTest) :
+    archimedeanNumerator F 0 = 0 := by
+  simp [archimedeanNumerator]
+  ring
+
 @[simp] theorem archimedeanNumeratorRe_zero (F : CompactLogTest) :
     archimedeanNumeratorRe F 0 = 0 := by
-  simp [archimedeanNumeratorRe]
+  simp [archimedeanNumeratorRe, archimedeanNumerator_zero]
 
 @[simp] theorem archimedeanNumeratorIm_zero (F : CompactLogTest) :
     archimedeanNumeratorIm F 0 = 0 := by
-  simp [archimedeanNumeratorIm]
+  simp [archimedeanNumeratorIm, archimedeanNumerator_zero]
 
 /-! ## Continuity and the finite limit at `0+` -/
 
@@ -195,8 +201,9 @@ theorem eventually_archimedeanIntegrand_eq_tail (F : CompactLogTest) :
     linarith
   have hyzero : F.test y = 0 := by
     by_contra hne
-    exact hyR.not_le
-      (support_subset_Icc F (Function.mem_support.mpr hne)).2
+    have hle := (support_subset_Icc F
+      (Function.mem_support.mpr hne)).2
+    linarith
   have hnegzero : F.test (-y) = 0 := by
     by_contra hne
     have hge := (support_subset_Icc F
