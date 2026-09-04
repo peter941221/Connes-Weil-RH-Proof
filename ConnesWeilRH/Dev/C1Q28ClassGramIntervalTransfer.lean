@@ -62,8 +62,7 @@ theorem q28_classGramModel_bounds_of_baseMomentBounds
   intro i j
   fin_cases i <;> fin_cases j
   all_goals
-    simp [classGramMomentModel, GLo_q28, GHi_q28,
-      q28Moment0Lo, q28Moment0Hi, q28Moment2Lo, q28Moment2Hi] <;>
+    simp [classGramMomentModel, GLo_q28, GHi_q28] ;
       constructor <;> norm_num at * <;> linarith
 
 /-! ## Actual-owner and Hbox-facing adapters -/
