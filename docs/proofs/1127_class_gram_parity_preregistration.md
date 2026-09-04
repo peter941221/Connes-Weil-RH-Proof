@@ -57,3 +57,27 @@ G4. Staged-diff hygiene finds no private paths, generated build artifacts,
 hidden proof terms, or stored integral conclusions.
 
 RH NOT claimed.
+
+## 5. Post-run addendum (2026-09-04, after builds 1-6)
+
+VERDICT: LANDED.
+
+The preregistration was committed as `b6228bb`, followed by the module and
+audit `b28b1c8` and root-caused proof fixes through `26fe2b7`.  The final
+focused build ended with `Build completed successfully (3656 jobs)`, zero
+`^error:` lines, zero `sorryAx`, and no warning from the new parity module.
+The audit printed exactly the standard axiom triple for all 9 declarations.
+
+The landed declarations prove the evenness of the class bump, the parity of
+the first eight recursively defined Legendre polynomials, and the resulting
+parity of every class-window core.  Consequently
+`classGramEntry_zero_of_odd_parity` proves the real Gram entry is exactly zero
+for all 32 opposite-parity ordered pairs.  The q28, q38, and q48 endpoint
+checks prove that zero lies in the corresponding lower/upper interval for
+each of those pairs, and `classGram_odd_bounds` exposes the generic Hbox-G
+partial discharge.
+
+This closes the opposite-parity half of the Gram-entry obligation.  The
+32 same-parity entries still require genuine integral enclosures, and the
+M-side Hbox and 1116c `(iv)` defect bound are unaffected.  No route-map
+decision changes.  RH NOT claimed.
