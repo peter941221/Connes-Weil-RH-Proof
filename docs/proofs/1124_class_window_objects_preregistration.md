@@ -144,3 +144,29 @@ directly; the hrep instance (gateMatrix w8 = M_true) becomes a provable
 statement for the first time.  T2 named obligations UNCHANGED ((iv) + C2)
 - this record shrinks their BLOCKERS, not the obligations.  RH NOT
 claimed; no map change keyed.
+
+## 6. Post-run addendum (2026-09-04, after builds 1-4 and the probe)
+
+VERDICT: LANDED.
+
+The preregistration was committed as `dbd3177` before the first build.  The
+object and audit modules landed as `295031b`.  Three root-caused fix batches
+were required: `dd4b9b2` adapts the v4.30 polynomial and compact-support APIs,
+`0a3aeb1` corrects the scaled boundary inequality, and `15c399e` makes the
+audit fidelity examples elaborate.  The final focused build (`1124_build4`)
+has footer `Build completed successfully (2918 jobs)`, zero `^error:` lines,
+and zero `sorryAx` lines.  The audit contains 14 axiom records, all exactly
+`[propext, Classical.choice, Quot.sound]`; the only warning is the existing
+warning in the imported convolution source, with no warning from the new
+1124 modules.
+
+The preregistered exact convention probe was added as `9cf9c64` and run under
+the resource scheduler.  Its log reports
+`1124 exact convention check: PASS (P0..P7 recurrence tables)` and prints the
+report-only samples for `a = 2, 3, 4`, `i = 0..7`, at `0, ±a/2, ±a`.  It
+installs no enclosure, threshold, gate value, or sign claim.
+
+This record lands only the Lean-side class-window objects, their open/closed
+support lemmas, smoothness packaging, and convention fidelity.  T2 obligations
+((iv) and C2) remain unchanged; the true-data consumer is now unblocked at
+the object layer.  RH is not claimed and no route-map conclusion changes.
