@@ -64,7 +64,6 @@ theorem classBump_nonneg (x : ℝ) : 0 ≤ classBump x := by
   by_cases hx : |x| < 1
   · exact (classBump_pos hx).le
   · rw [classBump_eq_zero (le_of_not_gt hx)]
-    norm_num
 
 theorem classBump_le_one (x : ℝ) : classBump x ≤ 1 := by
   by_cases hx : |x| < 1
