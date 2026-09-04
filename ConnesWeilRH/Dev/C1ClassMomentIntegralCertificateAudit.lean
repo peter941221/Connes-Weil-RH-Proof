@@ -2,6 +2,8 @@ import ConnesWeilRH.Dev.C1ClassMomentIntegralCertificate
 
 namespace ConnesWeilRH.Source.C1ClassMomentIntegralCertificate
 
+open C1ClassGramMomentReduction
+
 #print axioms integral_bounds_of_integralEnvelope
 #print axioms classMomentIntegrand_support_subset_Ioc
 #print axioms classMoment_eq_intervalIntegral
