@@ -60,7 +60,7 @@ theorem tbox_of_identities
     (d : Fin k → ℝ)
     (radG radM : Matrix (Fin n) (Fin n) ℝ)
     (absK : Matrix (Fin n) (Fin k) ℝ)
-    (Lam absLam DredRad radp : Matrix (Fin k) (Fin k) ℝ) (dd : Fin k → ℝ)
+    (Lam absLam DredRad radp : Matrix (Fin k) (Fin k) ℝ)
     (mu : ℝ)
     (hKVW : K * V + W * R = 1)
     (hDtwo : Dc + Dc = (U • G - M) + (U • G - M).transpose)
@@ -70,7 +70,7 @@ theorem tbox_of_identities
     (hradMsym : ∀ i j, radM i j = radM j i)
     (habsK : ∀ i j, absK i j = |K i j|)
     (habsLam : ∀ i j, absLam i j = |Lam i j|)
-    (hLamL : Lam * L = 1) (hLLam : L * Lam = 1)
+    (hLLam : L * Lam = 1)
     (hDredRad : Matrix.transpose absK * (mu • radG + radM) * absK = DredRad)
     (hRadp : absLam * DredRad * Matrix.transpose absLam = radp)
     (hradpos : ∀ i j, 0 ≤ radp i j)
@@ -237,10 +237,10 @@ theorem tbox_q28 (Gt Mt : Matrix (Fin 8) (Fin 8) ℝ)
     (c : Fin 8 → ℝ) (hc : Q28.R.mulVec c = 0) :
     c ⬝ᵥ (Mt *ᵥ c) ≤ Q28.U * c ⬝ᵥ (Gt *ᵥ c) :=
   tbox_of_identities Q28.U Q28.G Q28.M Q28.R Q28.K Q28.V Q28.W Q28.Dc Q28.L Q28.d
-    radG_q28 radM_q28 absK_q28 Lam_q28 absLam_q28 DredRad_q28 radp_q28 dd_q28 mu_q28
+    radG_q28 radM_q28 absK_q28 Lam_q28 absLam_q28 DredRad_q28 radp_q28 mu_q28
     Q28.hclosure hDtwo_q28 Q28.hPencil hUabs_q28
     hsymRadG_q28 hsymRadM_q28 habsK_q28 habsLam_q28
-    hLamL_q28 hLLam_q28 hDredRad_q28 hRadp_q28
+    hLLam_q28 hDredRad_q28 hRadp_q28
     hradpos_q28 hslack_q28 Gt Mt hG hM c hc
 
 /-- **T-box true (2,8)**: `Hbox` (true data in the committed bundle boxes)
@@ -294,10 +294,10 @@ theorem tbox_q38 (Gt Mt : Matrix (Fin 8) (Fin 8) ℝ)
     (c : Fin 8 → ℝ) (hc : Q38.R.mulVec c = 0) :
     c ⬝ᵥ (Mt *ᵥ c) ≤ Q38.U * c ⬝ᵥ (Gt *ᵥ c) :=
   tbox_of_identities Q38.U Q38.G Q38.M Q38.R Q38.K Q38.V Q38.W Q38.Dc Q38.L Q38.d
-    radG_q38 radM_q38 absK_q38 Lam_q38 absLam_q38 DredRad_q38 radp_q38 dd_q38 mu_q38
+    radG_q38 radM_q38 absK_q38 Lam_q38 absLam_q38 DredRad_q38 radp_q38 mu_q38
     Q38.hclosure hDtwo_q38 Q38.hPencil hUabs_q38
     hsymRadG_q38 hsymRadM_q38 habsK_q38 habsLam_q38
-    hLamL_q38 hLLam_q38 hDredRad_q38 hRadp_q38
+    hLLam_q38 hDredRad_q38 hRadp_q38
     hradpos_q38 hslack_q38 Gt Mt hG hM c hc
 
 /-- **T-box true (3,8)**. -/
@@ -349,10 +349,10 @@ theorem tbox_q48 (Gt Mt : Matrix (Fin 8) (Fin 8) ℝ)
     (c : Fin 8 → ℝ) (hc : Q48.R.mulVec c = 0) :
     c ⬝ᵥ (Mt *ᵥ c) ≤ Q48.U * c ⬝ᵥ (Gt *ᵥ c) :=
   tbox_of_identities Q48.U Q48.G Q48.M Q48.R Q48.K Q48.V Q48.W Q48.Dc Q48.L Q48.d
-    radG_q48 radM_q48 absK_q48 Lam_q48 absLam_q48 DredRad_q48 radp_q48 dd_q48 mu_q48
+    radG_q48 radM_q48 absK_q48 Lam_q48 absLam_q48 DredRad_q48 radp_q48 mu_q48
     Q48.hclosure hDtwo_q48 Q48.hPencil hUabs_q48
     hsymRadG_q48 hsymRadM_q48 habsK_q48 habsLam_q48
-    hLamL_q48 hLLam_q48 hDredRad_q48 hRadp_q48
+    hLLam_q48 hDredRad_q48 hRadp_q48
     hradpos_q48 hslack_q48 Gt Mt hG hM c hc
 
 /-- **T-box true (4,8)**. -/
