@@ -65,7 +65,7 @@ theorem classGramEntry_scale (a : ℝ) (ha : 0 < a) (i j : Fin 8) :
     _ = |a| • ∫ y : ℝ, f y := hchange
     _ = a * classGramUnitEntry i j := by
       rw [abs_of_pos ha]
-      simp [f, classGramUnitEntry, smul_eq_mul]
+      simp [f, classGramUnitEntry, classGramEntry, smul_eq_mul]
 
 /-- The entire class Gram matrix is a scalar multiple of its unit owner. -/
 theorem classGramMatrix_scale (a : ℝ) (ha : 0 < a) :
@@ -90,77 +90,35 @@ theorem classGramBounds_of_unitBounds
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 64 exact rational comparisons for the q38 lower and upper boxes
-theorem q38_GLo_le_three_halves_q28_GLo :
-    ∀ i j, GLo_q38 i j ≤ (3 / 2 : ℝ) * GLo_q28 i j := by
+theorem three_halves_q28_GLo_le_q38_GLo :
+    ∀ i j, (3 / 2 : ℝ) * GLo_q28 i j ≤ GLo_q38 i j := by
   intro i j
   fin_cases i <;> fin_cases j
   all_goals (simp [GLo_q38, GLo_q28] <;> norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 64 exact rational comparisons for the q38 lower and upper boxes
-theorem three_halves_q28_GHi_le_q38_GHi :
-    ∀ i j, (3 / 2 : ℝ) * GHi_q28 i j ≤ GHi_q38 i j := by
+theorem q38_GHi_le_three_halves_q28_GHi :
+    ∀ i j, GHi_q38 i j ≤ (3 / 2 : ℝ) * GHi_q28 i j := by
   intro i j
   fin_cases i <;> fin_cases j
   all_goals (simp [GHi_q38, GHi_q28] <;> norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 64 exact rational comparisons for the q48 lower and upper boxes
-theorem q48_GLo_le_two_q28_GLo :
-    ∀ i j, GLo_q48 i j ≤ (2 : ℝ) * GLo_q28 i j := by
+theorem two_q28_GLo_le_q48_GLo :
+    ∀ i j, (2 : ℝ) * GLo_q28 i j ≤ GLo_q48 i j := by
   intro i j
   fin_cases i <;> fin_cases j
   all_goals (simp [GLo_q48, GLo_q28] <;> norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 64 exact rational comparisons for the q48 lower and upper boxes
-theorem two_q28_GHi_le_q48_GHi :
-    ∀ i j, (2 : ℝ) * GHi_q28 i j ≤ GHi_q48 i j := by
+theorem q48_GHi_le_two_q28_GHi :
+    ∀ i j, GHi_q48 i j ≤ (2 : ℝ) * GHi_q28 i j := by
   intro i j
   fin_cases i <;> fin_cases j
   all_goals (simp [GHi_q48, GHi_q28] <;> norm_num)
-
-/-- The q38 Gram enclosure follows from the q28 enclosure by exact scaling. -/
-theorem q38_GBounds_of_q28_GBounds
-    (hG : ∀ i j, GLo_q28 i j ≤ classGramMatrix 2 (by norm_num) i j ∧
-      classGramMatrix 2 (by norm_num) i j ≤ GHi_q28 i j) :
-    ∀ i j, GLo_q38 i j ≤ classGramMatrix 3 (by norm_num) i j ∧
-      classGramMatrix 3 (by norm_num) i j ≤ GHi_q38 i j := by
-  intro i j
-  have hscale : classGramMatrix 3 (by norm_num) i j =
-      (3 / 2 : ℝ) * classGramMatrix 2 (by norm_num) i j := by
-    rw [classGramMatrix_scale 3 (by norm_num),
-      classGramMatrix_scale 2 (by norm_num)]
-    simp [classGramUnitMatrix]
-    ring
-  rw [hscale]
-  constructor
-  · exact le_trans (q38_GLo_le_three_halves_q28_GLo i j)
-      (mul_le_mul_of_nonneg_left (hG i j).1 (by norm_num))
-  · exact le_trans
-      (mul_le_mul_of_nonneg_left (hG i j).2 (by norm_num))
-      (three_halves_q28_GHi_le_q38_GHi i j)
-
-/-- The q48 Gram enclosure follows from the q28 enclosure by exact scaling. -/
-theorem q48_GBounds_of_q28_GBounds
-    (hG : ∀ i j, GLo_q28 i j ≤ classGramMatrix 2 (by norm_num) i j ∧
-      classGramMatrix 2 (by norm_num) i j ≤ GHi_q28 i j) :
-    ∀ i j, GLo_q48 i j ≤ classGramMatrix 4 (by norm_num) i j ∧
-      classGramMatrix 4 (by norm_num) i j ≤ GHi_q48 i j := by
-  intro i j
-  have hscale : classGramMatrix 4 (by norm_num) i j =
-      (2 : ℝ) * classGramMatrix 2 (by norm_num) i j := by
-    rw [classGramMatrix_scale 4 (by norm_num),
-      classGramMatrix_scale 2 (by norm_num)]
-    simp [classGramUnitMatrix]
-    ring
-  rw [hscale]
-  constructor
-  · exact le_trans (q48_GLo_le_two_q28_GLo i j)
-      (mul_le_mul_of_nonneg_left (hG i j).1 (by norm_num))
-  · exact le_trans
-      (mul_le_mul_of_nonneg_left (hG i j).2 (by norm_num))
-      (two_q28_GHi_le_q48_GHi i j)
 
 end
 end C1ClassGramScale
