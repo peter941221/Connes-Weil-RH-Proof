@@ -61,3 +61,24 @@ G4. Staged-diff hygiene finds no private paths, generated build artifacts,
 or hidden proof terms.
 
 RH NOT claimed.
+
+## 5. Post-run addendum (2026-09-04, after build 16)
+
+VERDICT: LANDED.
+
+The preregistration commit `43bc633` preceded the implementation.  The
+moment-reduction module and paired audit landed through the implementation
+commit `e838008` and subsequent root-cause/style fixes through `e20e60c`.
+The final focused build log is `build-logs-1129_build16.log`:
+
+- `Build completed successfully (3657 jobs)`;
+- 0 lines matching `^error:` and 0 `sorryAx` occurrences;
+- 0 warnings attributable to either 1129 module;
+- all 9 audited declarations have the unique axiom set
+  `[propext, Classical.choice, Quot.sound]`.
+
+The landed content proves odd-moment cancellation, the exact four-term
+integration-by-parts recurrence, and the even-step form reducing all future
+even moments to `I_0` and `I_2`.  It does not certify either base moment or
+close `Hbox-G`; the next true-data brick is the rigorous interval certificate
+for those two base moments.  RH remains unclaimed.
