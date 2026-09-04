@@ -55,7 +55,7 @@ noncomputable section
 /-! ## Normalization layer -/
 
 /-- Pointwise rescaling commutes with `mulVec`. -/
-theorem mulVec_smul_pointwise {n : ℕ} (G : Matrix (Fin n) (Fin n) ℝ)
+theorem mulVec_smul_pointwise {m n : ℕ} (G : Matrix (Fin m) (Fin n) ℝ)
     (v : Fin n → ℝ) (t : ℝ) :
     G *ᵥ (fun i => t * v i) = fun j => t * (G *ᵥ v) j := by
   funext j
@@ -87,8 +87,9 @@ theorem qform_norm_representative_sqrt {n : ℕ}
     (Real.sqrt_pos.mpr hpos).ne'
   have hinv : (Real.sqrt (c ⬝ᵥ (G *ᵥ c)))⁻¹ * (c ⬝ᵥ (G *ᵥ c))
       = Real.sqrt (c ⬝ᵥ (G *ᵥ c)) := by
-    rw [← hsq, ← mul_assoc, inv_mul_cancel₀ hne, one_mul]
-  rw [← mul_assoc, hinv, inv_mul_cancel₀ hne]
+    nth_rewrite 2 [← hsq]
+    rw [← mul_assoc, inv_mul_cancel₀ hne, one_mul]
+  rw [mul_assoc, hinv, inv_mul_cancel₀ hne]
 
 /-- Normalization is WLOG: a positive-G-norm coefficient has a rescaled
 representative with unit G-norm. -/
