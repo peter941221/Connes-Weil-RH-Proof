@@ -25,12 +25,6 @@ namespace Source
 namespace C1ConcreteClassMomentCertificate
 
 open MeasureTheory Set
-open C1ClassWindowObjects
-open C1ClassGramMomentReduction
-open C1ClassMomentIntegralCertificate
-open C1ClassMomentTailCertificate
-open C1RationalPowerIntegral
-open C1Q28ClassGramIntervalTransfer
 open Polynomial
 open scoped BigOperators Interval
 
@@ -40,15 +34,48 @@ section Computable
 
 def rationalRadiusQ : ℚ := 97 / 100
 
-def taylorScaledPolynomialQ : ℚ[X] :=
+noncomputable def taylorScaledPolynomialQ : ℚ[X] :=
   ∑ j ∈ Finset.range 20,
     Polynomial.C (((-(2 / 35 : ℚ)) ^ j) / (j.factorial : ℚ)) *
       Polynomial.X ^ j
 
-def rationalPowerPolynomialQ : ℚ[X] := taylorScaledPolynomialQ ^ 35
+noncomputable def rationalPowerPolynomialQ : ℚ[X] :=
+  taylorScaledPolynomialQ ^ 35
+
+def taylorCoefficientQ (k : ℕ) : ℚ :=
+  if k < 20 then
+    ((-(2 / 35 : ℚ)) ^ k) / (k.factorial : ℚ)
+  else 0
+
+/-- Computable coefficient convolution used by the exact rational audit. -/
+def powerCoefficientQ : ℕ → ℕ → ℚ
+  | 0 => fun k => if k = 0 then 1 else 0
+  | n + 1 => fun k =>
+      ∑ x ∈ Finset.Nat.antidiagonal k,
+        powerCoefficientQ n x.1 * taylorCoefficientQ x.2
 
 def rationalPowerCoefficientQ (k : ℕ) : ℚ :=
-  rationalPowerPolynomialQ.coeff k
+  powerCoefficientQ 35 k
+
+theorem taylorScaledPolynomialQ_coeff (k : ℕ) :
+    taylorScaledPolynomialQ.coeff k = taylorCoefficientQ k := by
+  unfold taylorScaledPolynomialQ taylorCoefficientQ
+  rw [coeff_sum]
+  by_cases hk : k < 20
+  · simp [Finset.mem_range.mpr hk]
+  · simp [Finset.mem_range.not.mpr hk]
+
+theorem powerCoefficientQ_eq_polynomial_coeff (n k : ℕ) :
+    powerCoefficientQ n k =
+      (taylorScaledPolynomialQ ^ n).coeff k := by
+  induction n with
+  | zero =>
+      simp [powerCoefficientQ]
+  | succ n ih =>
+      rw [powerCoefficientQ, pow_succ, coeff_mul]
+      apply Finset.sum_congr rfl
+      intro x hx
+      rw [ih, taylorScaledPolynomialQ_coeff]
 
 def endpointAQ : ℕ → ℚ
   | 0 => 2 * rationalRadiusQ
@@ -135,6 +162,13 @@ private theorem q28Moment2_upper_Q :
   native_decide
 
 end Computable
+
+open C1ClassWindowObjects
+open C1ClassGramMomentReduction
+open C1ClassMomentIntegralCertificate
+open C1ClassMomentTailCertificate
+open C1RationalPowerIntegral
+open C1Q28ClassGramIntervalTransfer
 
 noncomputable section
 
@@ -250,13 +284,20 @@ private theorem log_two_lower : logTwoLower < Real.log 2 := by
   have h := Real.exp_bound (x := logTwoLower)
     (by norm_num [logTwoLower]) (n := 20) (by norm_num)
   have hupp := (abs_sub_le_iff.mp h).1
+  have hupp' : Real.exp logTwoLower ≤
+      (∑ m ∈ Finset.range 20,
+        logTwoLower ^ m / (m.factorial : ℝ)) +
+        |logTwoLower| ^ 20 *
+          ((↑(Nat.succ 20) : ℝ) /
+            ((Nat.factorial 20 : ℝ) * 20)) := by
+    linarith
   calc
     Real.exp logTwoLower ≤
         (∑ m ∈ Finset.range 20,
           logTwoLower ^ m / (m.factorial : ℝ)) +
           |logTwoLower| ^ 20 *
             ((↑(Nat.succ 20) : ℝ) /
-              ((Nat.factorial 20 : ℝ) * 20)) := hupp
+              ((Nat.factorial 20 : ℝ) * 20)) := hupp'
     _ < 2 := by norm_num [logTwoLower, Finset.sum_range_succ]
 
 private theorem log_two_upper : Real.log 2 < logTwoUpper := by
@@ -264,6 +305,14 @@ private theorem log_two_upper : Real.log 2 < logTwoUpper := by
   have h := Real.exp_bound (x := logTwoUpper)
     (by norm_num [logTwoUpper]) (n := 20) (by norm_num)
   have hlow := (abs_sub_le_iff.mp h).2
+  have hlow' :
+      (∑ m ∈ Finset.range 20,
+        logTwoUpper ^ m / (m.factorial : ℝ)) -
+          |logTwoUpper| ^ 20 *
+            ((↑(Nat.succ 20) : ℝ) /
+              ((Nat.factorial 20 : ℝ) * 20)) ≤
+        Real.exp logTwoUpper := by
+    linarith
   calc
     2 <
         (∑ m ∈ Finset.range 20,
@@ -272,7 +321,7 @@ private theorem log_two_upper : Real.log 2 < logTwoUpper := by
             ((↑(Nat.succ 20) : ℝ) /
               ((Nat.factorial 20 : ℝ) * 20)) := by
           norm_num [logTwoUpper, Finset.sum_range_succ]
-    _ ≤ Real.exp logTwoUpper := hlow
+    _ ≤ Real.exp logTwoUpper := hlow'
 
 private theorem log_small_lower :
     logSmallLower < Real.log (197 / 192) := by
@@ -280,13 +329,20 @@ private theorem log_small_lower :
   have h := Real.exp_bound (x := logSmallLower)
     (by norm_num [logSmallLower]) (n := 20) (by norm_num)
   have hupp := (abs_sub_le_iff.mp h).1
+  have hupp' : Real.exp logSmallLower ≤
+      (∑ m ∈ Finset.range 20,
+        logSmallLower ^ m / (m.factorial : ℝ)) +
+        |logSmallLower| ^ 20 *
+          ((↑(Nat.succ 20) : ℝ) /
+            ((Nat.factorial 20 : ℝ) * 20)) := by
+    linarith
   calc
     Real.exp logSmallLower ≤
         (∑ m ∈ Finset.range 20,
           logSmallLower ^ m / (m.factorial : ℝ)) +
           |logSmallLower| ^ 20 *
             ((↑(Nat.succ 20) : ℝ) /
-              ((Nat.factorial 20 : ℝ) * 20)) := hupp
+              ((Nat.factorial 20 : ℝ) * 20)) := hupp'
     _ < 197 / 192 := by
           norm_num [logSmallLower, Finset.sum_range_succ]
 
@@ -296,6 +352,14 @@ private theorem log_small_upper :
   have h := Real.exp_bound (x := logSmallUpper)
     (by norm_num [logSmallUpper]) (n := 20) (by norm_num)
   have hlow := (abs_sub_le_iff.mp h).2
+  have hlow' :
+      (∑ m ∈ Finset.range 20,
+        logSmallUpper ^ m / (m.factorial : ℝ)) -
+          |logSmallUpper| ^ 20 *
+            ((↑(Nat.succ 20) : ℝ) /
+              ((Nat.factorial 20 : ℝ) * 20)) ≤
+        Real.exp logSmallUpper := by
+    linarith
   calc
     197 / 192 <
         (∑ m ∈ Finset.range 20,
@@ -304,7 +368,8 @@ private theorem log_small_upper :
             ((↑(Nat.succ 20) : ℝ) /
               ((Nat.factorial 20 : ℝ) * 20)) := by
           norm_num [logSmallUpper, Finset.sum_range_succ]
-    _ ≤ Real.exp logSmallUpper := hlow
+    _ = _ := by ring
+    _ ≤ Real.exp logSmallUpper := hlow'
 
 private theorem log_197_div_3_identity :
     Real.log (197 / 3) = 6 * Real.log 2 + Real.log (197 / 192) := by
@@ -366,6 +431,7 @@ private theorem denominatorPowerMomentValue_linear (k : ℕ) :
       rw [denominatorPowerMomentValue, rationalPowerIntervalValue_linear,
         rationalPowerIntervalValue_linear]
       simp [momentAQ, momentBQ]
+      ring
 
 noncomputable def comparisonIntegral0 : ℝ :=
   finiteDenominatorPowerIntegralValue (Finset.range 666)
