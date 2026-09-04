@@ -29,6 +29,7 @@ open CCM25Concrete.CompactLogConvolution
 open C1ClassWindowObjects
 open C1HboxRationalData
 open Matrix
+open Polynomial
 open scoped BigOperators ContDiff Topology Filter
 
 noncomputable section
@@ -83,6 +84,7 @@ theorem classWindowProduct_integrable (a : ℝ) (ha : 0 < a) (i j : ℕ) :
 /-- The real Gram entry of two class-window cores. -/
 noncomputable def classGramEntry (a : ℝ) (ha : 0 < a)
     (i j : Fin 8) : ℝ :=
+  let _ha := ha
   ∫ x : ℝ, classWindowFun a (i : ℕ) x * classWindowFun a (j : ℕ) x
 
 /-- The `(a,8)` class-window Gram matrix. -/
