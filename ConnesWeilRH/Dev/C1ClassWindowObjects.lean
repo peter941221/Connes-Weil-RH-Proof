@@ -4,6 +4,7 @@ Released under the Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Source.CCM25Concrete.CompactLogConvolution
+import Mathlib.Analysis.Calculus.ContDiff.Polynomial
 import Mathlib.Analysis.SpecialFunctions.SmoothTransition
 
 /-!
@@ -60,9 +61,12 @@ theorem classBump_eq_exp {x : ℝ} (hx : |x| < 1) :
 
 /-- The class bump vanishes at and beyond the boundary. -/
 theorem classBump_eq_zero {x : ℝ} (hx : 1 ≤ |x|) : classBump x = 0 := by
-  have hsq : 1 ≤ x ^ 2 := by
-    rw [sq_abs]
+  have hsq_abs : 1 ≤ |x| ^ 2 := by
+    have hprod : 0 ≤ (|x| - 1) * (|x| + 1) := by
+      exact mul_nonneg (sub_nonneg.mpr hx) (by linarith [abs_nonneg x])
     nlinarith
+  have hsq : 1 ≤ x ^ 2 := by
+    simpa only [sq_abs] using hsq_abs
   exact expNegInvGlue.zero_of_nonpos (by linarith)
 
 /-- Smoothness of the class bump: one composition over Mathlib's flat
@@ -93,7 +97,7 @@ noncomputable def legendrePoly : ℕ → ℝ[X]
 /-- Polynomial evaluation is smooth. -/
 theorem contDiff_legendreEval (p : ℝ[X]) {n : WithTop ℕ∞} :
     ContDiff ℝ n (fun x : ℝ => eval x p) := by
-  have h : ContDiff ℝ n (fun x : ℝ => aeval x p) := contDiff_aeval p n
+  have h : ContDiff ℝ n (fun x : ℝ => aeval x p) := Polynomial.contDiff_aeval p n
   have hfe : (fun x : ℝ => eval x p) = (fun x : ℝ => aeval x p) := by
     funext x
     simp [aeval_def]
@@ -115,7 +119,14 @@ theorem support_subset_Ioo (a : ℝ) (ha : 0 < a) (i : ℕ) :
   rw [Function.mem_support] at hu
   by_contra hout
   apply hu
-  rcases Set.mem_Ioo.not.mp hout with h | h
+  have hout' : u ≤ -a ∨ a ≤ u := by
+    by_cases hleft : u ≤ -a
+    · exact Or.inl hleft
+    · right
+      by_contra hright
+      apply hout
+      exact ⟨lt_of_not_ge hleft, lt_of_not_ge hright⟩
+  rcases hout' with h | h
   · have h1 : u / a ≤ -1 := by
       rw [div_le_iff₀ ha]
       linarith
@@ -140,7 +151,7 @@ noncomputable def classWindowTest (a : ℝ) (ha : 0 < a) (i : ℕ) : CompactLogT
   have hsub := support_subset_Icc a ha i
   have hcompact : HasCompactSupport
       (fun u : ℝ => ((classWindowFun a i u : ℝ) : ℂ)) :=
-    ⟨isCompact_Icc.of_subset hsub⟩
+    HasCompactSupport.of_support_subset_isCompact isCompact_Icc hsub
   have hdiv : ContDiff ℝ ∞ (fun u : ℝ => u / a) := by fun_prop
   have hpoly : ContDiff ℝ ∞
       (fun u : ℝ => eval (u / a) (legendrePoly i)) :=
