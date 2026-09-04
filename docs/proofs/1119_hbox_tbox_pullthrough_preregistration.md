@@ -93,3 +93,60 @@ may be edited.
 Commit (prereg, generator, modules) BEFORE the first build; one
 root-caused fix commit per failing build; post-run addendum after G1-G4.
 RH NOT claimed; no map change keyed.
+
+## 5. Post-run addendum (2026-09-04, after build 7)
+
+VERDICT: LANDED.  Final focused build (1119_hbox_build7.log) = "Build
+completed successfully (3653 jobs)", zero `error:` lines, zero warnings on
+all four new modules.  Modules: `ConnesWeilRH/Dev/C1EntrywiseBound.lean`,
+`C1HboxRationalData.lean` (generated), `C1TboxPullthrough.lean`,
+`C1TboxPullthroughAudit.lean`.
+
+G1 PASS (footer + zero error lines).  G2 PASS: 51/51 audited declarations
+report exactly `[propext, Classical.choice, Quot.sound]` (2 EntrywiseBound
++ 30 HboxRationalData + 19 TboxPullthrough); zero `sorry` in the log.
+G3 PASS: the two audit `example`s compile - `tbox_q28` elaborates with
+hypotheses literally `|Gt i j - Q28.G i j| <= radG_q28 i j` (radius form)
+and `absolute_true_q28` with LHS literally `ICgate w.convolutionSquare` and
+RHS `-mu_q28`.  G4 PASS: per-commit staged-diff hygiene grep 0 matches
+(commits 52776b3, 3558dfd, 482f77f, 2922537, 300db83, 00c2b34, 5e3a1f9,
+8814d7f).
+
+Falsifier outcome: all 30 generation-time exact-Fraction checks PASS on
+all three classes (U literals, radius symmetry, REVERSE containment with
+worst clearances printed in the generated module, Lam unit-lower +
+two-sided inverse, |K|^T (mu radG + radM) |K| = DredRad,
+|Lam| DredRad |Lam|^T = radp).  The preregistered per-entry split
+fallback was NOT needed: every heavy norm_num identity closed at
+maxHeartbeats 2e9.  No box, radius, slack, or U value was edited;
+the record-1118 kernel data (radp/dd/slacks) is untouched.
+
+Registered deviations (statement-shape only, no analytic content):
+- `tbox_of_identities` does NOT take `dd` as an explicit parameter: the
+  whitened kernel's `d` is pinned by `hslack`'s type (the kernel call
+  consumes it there); likewise `hLamL` is not a hypothesis of the generic
+  theorem - the pull-through only needs the one-sided inverse `hLLam`
+  (x = Lam^T z).  `hLamL` remains a PROVEN 1a provenance identity in
+  `C1HboxRationalData` and stays under audit.
+- v4.30 API facts baked into the proofs: `abs_add`/`sub_neg` (old
+  meanings) do not exist (the subtraction triangle is `abs_sub : |a - b| <=
+  |a| + |b|`; `sub_neg` is now `a - b < 0`); `linarith` does not split
+  nonlinear atoms, so the transposed index bound is rewritten via the
+  symmetry hypotheses BEFORE linarith (`mu * radG j i` and
+  `mu * radG i j` are distinct atoms); `Matrix.ext_iff` points from
+  entrywise to equality (`.mpr`); `rw` rewrites only one instantiation at
+  a time (double transposes need `simp only`).
+
+Headline shapes landed per class a in {28, 38, 48}:
+- `tbox_a` (radius form): for ALL Gt/Mt with |Gt - Q*.G| <= radG_a,
+  |Mt - Q*.M| <= radM_a entrywise and c in ker R:
+  c.(Mt.c) <= U * c.(Gt.c) - the 1118 section 1a FULL box theorem.
+- `tbox_true_a`: `Hbox GLo GHi MLo MHi G_true M_true` => the same bound
+  for the TRUE data (bridge = reverse containment hrevG_a/hrevM_a).
+- `absolute_true_a`: hrep + hker + hnorm + `Hbox` =>
+  `ICgate w.convolutionSquare <= -mu_a` (1118 section 2 ABSOLUTE shape).
+
+Remaining after this record (unchanged map): (c) Hker (ker R_true vs
+ker R_mid: C1 exact annihilation / C2 drift bound) is the only missing
+named slot for the class-certificate chain; T2 (Stage-B instance for a
+D1-pinned g) open.  RH NOT claimed.
