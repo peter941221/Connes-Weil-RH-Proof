@@ -43,7 +43,7 @@ theorem legendrePoly_eval_neg_fin8 (i : Fin 8) (x : ℝ) :
   fin_cases i <;> simp [legendrePoly] <;> ring
 
 /-- The real class-window core has the corresponding parity. -/
-theorem classWindowFun_neg (a : ℝ) (ha : 0 < a) (i : Fin 8) (x : ℝ) :
+theorem classWindowFun_neg (a : ℝ) (i : Fin 8) (x : ℝ) :
     classWindowFun a (i : ℕ) (-x) =
       (-1 : ℝ) ^ (i : ℕ) * classWindowFun a (i : ℕ) x := by
   have hdiv : (-x) / a = -(x / a) := by ring
@@ -68,7 +68,7 @@ theorem classGramEntry_zero_of_odd_parity
   have hpoint : ∀ x : ℝ, f (-x) = -f x := by
     intro x
     dsimp [f]
-    rw [classWindowFun_neg a ha i, classWindowFun_neg a ha j]
+    rw [classWindowFun_neg a i, classWindowFun_neg a j]
     calc
       (-1 : ℝ) ^ (i : ℕ) * classWindowFun a (i : ℕ) x *
           ((-1 : ℝ) ^ (j : ℕ) * classWindowFun a (j : ℕ) x) =
