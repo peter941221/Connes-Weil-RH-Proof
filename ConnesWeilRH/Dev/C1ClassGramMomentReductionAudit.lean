@@ -9,6 +9,8 @@ namespace ConnesWeilRH
 namespace Source
 namespace C1ClassGramMomentReductionAudit
 
+open C1ClassGramMomentReduction
+
 #print axioms ConnesWeilRH.Source.C1ClassGramMomentReduction.classBump_hasCompactSupport
 #print axioms ConnesWeilRH.Source.C1ClassGramMomentReduction.classUnitWeight_contDiff
 #print axioms ConnesWeilRH.Source.C1ClassGramMomentReduction.classMoment_integrable
