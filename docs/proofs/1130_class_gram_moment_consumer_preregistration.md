@@ -1,6 +1,7 @@
 # Record 1130: class Gram moment-polynomial consumer preregistration
 
-Status: preregistered; implementation pending.
+Status: partial / landed for the algebraic consumer; the interval-transfer
+producer remains pending.
 
 Consumer: the healthy-`CompactLog`, B5-shaped detector-specific semi-local
 chain, through the true-data class-window `Hbox-G` input consumed by
@@ -73,3 +74,38 @@ G5. Staged-diff hygiene finds no private paths, generated build artifacts, or
 hidden proof terms.
 
 RH NOT claimed.
+
+## 5. Post-run addendum (2026-09-05, after build 39)
+
+VERDICT: PARTIAL / LANDED.
+
+Targets 1--3 are implemented in the paired modules
+`C1ClassGramMomentConsumer.lean` and `C1ClassGramMomentModel.lean`, with
+corresponding audit modules.  The landed declarations expose the weighted
+polynomial integral, its finite moment expansion and linearity bridges, the
+unit Gram-entry identity, and the exact first-eight class Gram matrix model
+in terms of `classMoment 0` and `classMoment 2`.  The even-moment recurrence
+is consumed explicitly; the model is not imported as stored numerical data.
+
+The initial hand-entered model table contained coefficient mistakes.  Exact
+rational reductions and the Lean residual goals detected them during the
+focused build sequence; the table was corrected before the accepted build,
+and no incorrect table was committed as the final implementation.
+
+Build-39 evidence is the ext4-mirror log `1130_build39.log`: success footer
+`Build completed successfully (3660 jobs)`, zero `^error:` lines, zero
+`sorryAx`, and zero warnings from the four 1130 modules.  The paired audits
+reported 36 unique declarations in total, each with exactly
+`[propext, Classical.choice, Quot.sound]`.
+
+Target 4 is deliberately not claimed.  No theorem
+`q28_classGram_bounds_of_baseMomentBounds` was installed, and this record
+does not assert that the committed q28 boxes contain the actual class Gram
+matrix.  The required exact base-moment interval producer is also absent.
+Accordingly, the true-data `Hbox-G` input, the M-side input, the 1116c defect
+estimate, the same-detector semi-local positivity step, `SourceRH`, and RH
+remain open.
+
+The integrity and route gates remain unchanged: this is an algebraic
+consumer for the healthy-`CompactLog` B5 chain, not a universal B1 result,
+not a density lemma, and not an RH claim.
