@@ -32,6 +32,7 @@ namespace C1ClassGramMomentReduction
 
 open MeasureTheory Set Filter
 open C1ClassWindowObjects
+open C1ClassGramOwner
 open C1ClassGramParity
 open scoped ContDiff Filter
 open Polynomial
@@ -73,8 +74,8 @@ theorem classUnitWeight_integrable :
 
 theorem classMoment_integrable (n : ℕ) :
     Integrable (fun x : ℝ => x ^ n * classUnitWeight x) := by
-  have hcont : Continuous (fun x : ℝ => x ^ n * classUnitWeight x) := by
-    fun_prop
+  have hcont : Continuous (fun x : ℝ => x ^ n * classUnitWeight x) :=
+    (continuous_pow n).mul classUnitWeight_contDiff.continuous
   have hcompact : HasCompactSupport
       (fun x : ℝ => x ^ n * classUnitWeight x) := by
     exact classUnitWeight_hasCompactSupport.mul_left
@@ -96,10 +97,12 @@ theorem classMoment_odd_zero {n : ℕ} (hn : Odd n) :
   have hpoint : ∀ x : ℝ, f (-x) = -f x := by
     intro x
     dsimp [f]
-    rw [neg_pow, classUnitWeight_neg]
+    rw [classUnitWeight_neg]
     calc
       (-x) ^ n * classUnitWeight x =
-          (-1 : ℝ) ^ n * (x ^ n * classUnitWeight x) := by ring
+          (-1 : ℝ) ^ n * (x ^ n * classUnitWeight x) := by
+            rw [neg_pow]
+            ring
       _ = -(x ^ n * classUnitWeight x) := by simp [hpow]
   have hsym : (∫ x : ℝ, f (-x)) = ∫ x : ℝ, f x :=
     integral_neg_eq_self f (volume : Measure ℝ)
@@ -122,19 +125,22 @@ theorem hasDerivAt_classBump (x : ℝ) :
       ((-2 * x) * (1 - x ^ 2)⁻¹ ^ 2 * classBump x) x := by
   have harg : HasDerivAt (fun y : ℝ => 1 - y ^ 2) (-2 * x) x := by
     convert (hasDerivAt_const x (1 : ℝ)).sub ((hasDerivAt_id x).pow 2) using 1 <;>
+      simp [id_eq]
       ring
   have hflat :=
     expNegInvGlue.hasDerivAt_polynomial_eval_inv_mul
       (1 : ℝ[X]) (1 - x ^ 2)
   have hcomp := hflat.comp x harg
-  convert hcomp using 1 <;> simp [classBump] <;> ring
+  convert hcomp using 1 <;>
+    simp [classBump, Function.comp_def, id_eq] <;>
+    ring
 
 theorem hasDerivAt_classUnitWeight (x : ℝ) :
     HasDerivAt classUnitWeight
       ((-4 * x) * (1 - x ^ 2)⁻¹ ^ 2 * classUnitWeight x) x := by
   have h := (hasDerivAt_classBump x).mul (hasDerivAt_classBump x)
   convert h using 1
-  · rfl
+  · simp [classUnitWeight]
   · dsimp [classUnitWeight]
     ring
 
@@ -150,7 +156,10 @@ noncomputable def momentIBPDerivative (k : ℕ) (x : ℝ) : ℝ :=
 theorem momentIBPCore_integrable (k : ℕ) :
     Integrable (momentIBPCore k) := by
   have hcont : Continuous (momentIBPCore k) := by
-    fun_prop
+    dsimp [momentIBPCore]
+    exact ((continuous_pow k).mul
+      ((continuous_const.sub (continuous_pow 2)).pow 2)).mul
+      classUnitWeight_contDiff.continuous
   have hcompact : HasCompactSupport (momentIBPCore k) := by
     exact classUnitWeight_hasCompactSupport.mul_left
   exact hcont.integrable_of_hasCompactSupport hcompact
@@ -158,7 +167,11 @@ theorem momentIBPCore_integrable (k : ℕ) :
 theorem momentIBPDerivative_integrable (k : ℕ) :
     Integrable (momentIBPDerivative k) := by
   have hcont : Continuous (momentIBPDerivative k) := by
-    fun_prop
+    dsimp [momentIBPDerivative]
+    exact ((continuous_const.mul (continuous_pow (k - 1))).sub
+      ((continuous_const.mul (continuous_pow (k + 1))).add
+        (continuous_const.mul (continuous_pow (k + 3))))).mul
+      classUnitWeight_contDiff.continuous
   have hcompact : HasCompactSupport (momentIBPDerivative k) := by
     exact classUnitWeight_hasCompactSupport.mul_left
   exact hcont.integrable_of_hasCompactSupport hcompact
@@ -171,11 +184,12 @@ theorem momentIBPCore_hasDerivAt (k : ℕ) (hk : 0 < k) (x : ℝ) :
   have hpoly : HasDerivAt (fun y : ℝ => (1 - y ^ 2) ^ 2)
       (-4 * x * (1 - x ^ 2)) x := by
     convert ((hasDerivAt_const x (1 : ℝ)).sub ((hasDerivAt_id x).pow 2)).pow 2 using 1 <;>
+      simp [id_eq]
       ring
   have hweight := hasDerivAt_classUnitWeight x
   have hprod := (hpow.mul hpoly).mul hweight
   convert hprod using 1
-  · rfl
+  · simp [momentIBPCore]
   · dsimp [momentIBPCore, momentIBPDerivative]
     by_cases hy : 1 - x ^ 2 = 0
     · have hb : classUnitWeight x = 0 := by
@@ -211,7 +225,7 @@ theorem classMoment_recurrence (k : ℕ) (hk : 0 < k) :
       dsimp [momentIBPDerivative]
       ring
     rw [hfun]
-    rw [integral_add (integral_sub hA hB) hC]
+    rw [integral_add (hA.sub hB) hC]
     rw [integral_sub hA hB]
     rw [integral_const_mul, integral_const_mul, integral_const_mul]
     rfl
