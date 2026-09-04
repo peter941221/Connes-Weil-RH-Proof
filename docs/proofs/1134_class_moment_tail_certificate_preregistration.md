@@ -60,3 +60,27 @@ exponential multiplication, yielding a tail bound below `10^-15`.
 
 The post-run addendum will state whether the generic and concrete tail
 certificates landed.  The central moment enclosure and RH remain open.
+
+## 5. Post-run addendum (2026-09-05, after builds 1-6)
+
+VERDICT: LANDED.
+
+The implementation is committed as `5795fd4`.  The final canonical focused
+build was `build-6`: `Build completed successfully (3663 jobs)`, with zero
+`^error:` lines, zero `sorryAx` occurrences, and zero warnings originating in
+the two new modules.  The paired audit printed all seven registered
+declarations, each with exactly `[propext, Classical.choice, Quot.sound]`.
+The evidence log is `build-logs-1134_build6.log`.
+
+The six-build sequence repaired only Lean elaboration/interface issues: an
+over-broad rewrite, a closed branch with an extra tactic, strict-versus-weak
+endpoint inequalities, negative-endpoint absolute-value normalization, the
+argument order of `pow_lt_pow_left₀`, and two omitted namespace opens in the
+audit.  No hypothesis was weakened and no numerical oracle was added.  The
+`99/100` certificate uses only the explicit `Real.exp_bound` Taylor estimate,
+exact rational arithmetic, and the proved exponential power identity.
+
+This record closes the endpoint-tail part of the true `classMoment 0`/`2`
+producer.  It does not close the central interval envelope, the M-side Hbox,
+the real `(iv)` defect contraction, detector-specific semi-local positivity,
+SourceRH, or RH.
