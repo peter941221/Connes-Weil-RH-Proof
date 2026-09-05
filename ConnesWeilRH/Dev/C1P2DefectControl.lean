@@ -154,6 +154,73 @@ theorem compactLogTest_norm_le_zeroSeminorm (F : CompactLogTest) :
   intro x
   exact SchwartzMap.norm_le_seminorm ℂ F.test x
 
+/-- An explicit support interval gives an explicit finite cutoff for every
+visible prime-power index.  This avoids the noncanonical `supportRadius`
+choice when a detector construction already exports its support endpoints. -/
+theorem index_lt_of_support_subset_Icc
+    (F : CompactLogTest) (a b : Real)
+    (hsupport : Function.support F.test ⊆ Set.Icc a b)
+    {n : Nat} (hprime : IsPrimePow n)
+    (hterm : finitePrimeTermComplex F n ≠ 0) :
+    n < Nat.ceil (Real.exp (max |a| |b|)) + 1 := by
+  have hsum : F.test (Real.log n) + F.test (-Real.log n) ≠ 0 := by
+    intro hzero
+    apply hterm
+    simp [finitePrimeTermComplex, hzero]
+  have hpoint : F.test (Real.log n) ≠ 0 ∨ F.test (-Real.log n) ≠ 0 := by
+    by_cases hleft : F.test (Real.log n) ≠ 0
+    · exact Or.inl hleft
+    by_cases hright : F.test (-Real.log n) ≠ 0
+    · exact Or.inr hright
+    exfalso
+    apply hsum
+    rw [not_ne_iff.mp hleft, not_ne_iff.mp hright]
+    simp
+  have hlogabs : |Real.log n| ≤ max |a| |b| := by
+    rcases hpoint with hleft | hright
+    · have hab := hsupport (Function.mem_support.mpr hleft)
+      rcases le_total 0 (Real.log n) with hnonneg | hnonpos
+      · rw [abs_of_nonneg hnonneg]
+        exact (hab.2.trans (le_abs_self b)).trans (le_max_right _ _)
+      · rw [abs_of_nonpos hnonpos]
+        have hneg : -Real.log n ≤ -a := by linarith [hab.1]
+        exact (hneg.trans (neg_le_abs a)).trans (le_max_left _ _)
+    · have hab := hsupport (Function.mem_support.mpr hright)
+      have hneglogabs : |-Real.log n| ≤ max |a| |b| := by
+        rcases le_total 0 (-Real.log n) with hnonneg | hnonpos
+        · rw [abs_of_nonneg hnonneg]
+          exact (hab.2.trans (le_abs_self b)).trans (le_max_right _ _)
+        · rw [abs_of_nonpos hnonpos]
+          have hneg : -(-Real.log n) ≤ -a := by linarith [hab.1]
+          exact (hneg.trans (neg_le_abs a)).trans (le_max_left _ _)
+      simpa only [abs_neg] using hneglogabs
+  have hnpos : (0 : Real) < n := by
+    exact_mod_cast (Nat.zero_lt_of_lt (IsPrimePow.one_lt hprime))
+  have hlogle : Real.log n ≤ max |a| |b| :=
+    (le_abs_self (Real.log n)).trans hlogabs
+  have hnexp : (n : Real) ≤ Real.exp (max |a| |b|) := by
+    have h := Real.exp_le_exp.mpr hlogle
+    simpa [Real.exp_log hnpos] using h
+  have hexpceil : Real.exp (max |a| |b|) ≤
+      (Nat.ceil (Real.exp (max |a| |b|)) : Real) :=
+    Nat.le_ceil (Real.exp (max |a| |b|))
+  have hnceil : n ≤ Nat.ceil (Real.exp (max |a| |b|)) := by
+    exact_mod_cast hnexp.trans hexpceil
+  exact Nat.lt_succ_iff.mpr hnceil
+
+/-- The exact visible-prime set is contained in the support-derived finite
+range, so a detector's exported support endpoints determine its arithmetic
+cutoff without changing the owner. -/
+theorem globalPrimeIndexSet_subset_range_of_support_subset_Icc
+    (F : CompactLogTest) (a b : Real)
+    (hsupport : Function.support F.test ⊆ Set.Icc a b) :
+    globalPrimeIndexSet F ⊆
+      Finset.range (Nat.ceil (Real.exp (max |a| |b|)) + 1) := by
+  intro n hn
+  have hmem := (mem_globalPrimeIndexSet_iff F n).mp hn
+  exact Finset.mem_range.mpr
+    (index_lt_of_support_subset_Icc F a b hsupport hmem.1 hmem.2)
+
 /-! ## Finite visible-prime triangle bound -/
 
 /-- The finite visible-prime contribution is bounded by any supplied

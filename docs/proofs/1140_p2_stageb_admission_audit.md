@@ -100,6 +100,11 @@ The generic supplier `compactLogTest_norm_le_zeroSeminorm` further provides a
 canonical uniform bound for every `CompactLogTest`, namely its zero-order
 Schwartz seminorm.  Concrete correction work can therefore target these
 seminorms directly.
+The support-side theorem `index_lt_of_support_subset_Icc` turns an exported
+support interval `[a,b]` into the explicit cutoff
+`ceil(exp(max(|a|,|b|))) + 1`; its companion set inclusion applies this cutoff
+to `globalPrimeIndexSet`.  This keeps the visible-prime owner finite and tied
+to the detector's actual support endpoints.
 The remaining P2 producer task is therefore to derive these concrete pointwise
 and integral bounds from the true correction construction.
 
@@ -107,7 +112,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3658 jobs)`, zero `error:` lines.  The audit
-includes all nine P2-α/β declarations; each uses only
+includes all eleven P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.

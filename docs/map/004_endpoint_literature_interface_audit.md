@@ -188,6 +188,9 @@ The generic theorem `compactLogTest_norm_le_zeroSeminorm` supplies a canonical
 uniform pointwise bound from the zero-order Schwartz seminorm, so the remaining
 correction estimate may focus on bounding those seminorms and the archimedean
 integral.
+The support bridge `index_lt_of_support_subset_Icc` and its set-inclusion
+companion now convert exported detector endpoints `[a,b]` into the explicit
+finite cutoff `ceil(exp(max(|a|,|b|))) + 1` for `globalPrimeIndexSet`.
 
 Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
 support chain's discharged primitive was re-adjudicated by the
