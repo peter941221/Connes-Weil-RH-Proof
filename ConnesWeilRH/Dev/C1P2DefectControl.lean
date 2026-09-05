@@ -139,6 +139,36 @@ theorem finitePrimeCoefficientSum_le_logSum
   exact mul_le_mul_of_nonneg_right (primeCoefficientNorm_le_log_of_nat n)
     (mul_nonneg (by norm_num) hA)
 
+/-! A finite logarithmic range sum admits a single cardinality-times-maximum
+  majorant.  The positivity hypothesis on `N` keeps the logarithmic maximum
+  on the positive half-line; the zero index contributes `log 0 = 0`. -/
+theorem finitePrimeLogSum_le_card_mul_log
+    (N : Nat) (C : Real) (hN : 1 ≤ N) (hC : 0 ≤ C) :
+    (∑ n ∈ Finset.range N, Real.log (n : Real) * C) ≤
+      (N : Real) * Real.log (N : Real) * C := by
+  have hlogN : 0 ≤ Real.log (N : Real) := by
+    exact Real.log_nonneg (by exact_mod_cast hN)
+  have hterm : ∀ n ∈ Finset.range N,
+      Real.log (n : Real) * C ≤ Real.log (N : Real) * C := by
+    intro n hn
+    have hnle : n ≤ N := Nat.le_of_lt (Finset.mem_range.1 hn)
+    by_cases hnzero : n = 0
+    · subst n
+      simp only [Nat.cast_zero, Real.log_zero, zero_mul]
+      exact mul_nonneg hlogN hC
+    · have hnpos : (0 : Real) < (n : Real) := by
+        exact_mod_cast (Nat.pos_of_ne_zero hnzero)
+      have hcast : (n : Real) ≤ (N : Real) := by exact_mod_cast hnle
+      exact mul_le_mul_of_nonneg_right
+        (Real.log_le_log hnpos hcast) hC
+  calc
+    (∑ n ∈ Finset.range N, Real.log (n : Real) * C) ≤
+        ∑ n ∈ Finset.range N, Real.log (N : Real) * C := by
+      exact Finset.sum_le_sum fun n hn => hterm n hn
+    _ = (N : Real) * Real.log (N : Real) * C := by
+      simp [Finset.sum_const, Finset.card_range]
+      ring
+
 /-- A logarithmic coefficient bound is enough to invoke the real-coefficient
 adapter.  This is the finite-prime producer shape used with a cutoff. -/
 theorem primeTermNormEnvelope_le_of_logBound
@@ -545,6 +575,42 @@ theorem abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_logRange
     (Finset.range (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1))
     (G + ∑ i ∈ s, |lam i| * H i) hA
   exact hbase.trans (by simpa using hlog)
+
+/-- The explicit support cutoff can be compressed to one scalar cardinality
+bound.  This is the arithmetic-facing form consumed by a concrete P2 budget
+certificate. -/
+theorem abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_logCard
+    (g : CompactLogTest) {ι : Type} (s : Finset ι)
+    (w : ι → CompactLogTest) (lam : ι → Real)
+    (G : Real) (H : ι → Real) (Bsupport : Real)
+    (hG : 0 ≤ G) (hH : ∀ i ∈ s, 0 ≤ H i)
+    (hg : ∀ x : Real, ‖g.test x‖ ≤ G)
+    (hw : ∀ i ∈ s, ∀ x : Real, ‖(w i).test x‖ ≤ H i)
+    (hgsupp : Function.support g.test ⊆ Set.Ioo (-Bsupport) Bsupport)
+    (hwsupp : ∀ i ∈ s,
+      Function.support (w i).test ⊆ Set.Ioo (-Bsupport) Bsupport) :
+    |finitePrimeSum (ICdefect g s w lam)| ≤
+      (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+        Real.log (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+          (2 * (G + ∑ i ∈ s, |lam i| * H i)) := by
+  let N : Nat := Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1
+  have hN : 1 ≤ N := by
+    dsimp [N]
+    omega
+  have hsumH : 0 ≤ ∑ i ∈ s, |lam i| * H i := by
+    exact Finset.sum_nonneg fun i hi => mul_nonneg (abs_nonneg _) (hH i hi)
+  have hA : 0 ≤ G + ∑ i ∈ s, |lam i| * H i :=
+    add_nonneg hG hsumH
+  have hbase := abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_logRange
+    g s w lam G H Bsupport hG hH hg hw hgsupp hwsupp
+  have hcompress := finitePrimeLogSum_le_card_mul_log N
+    (2 * (G + ∑ i ∈ s, |lam i| * H i)) hN
+    (mul_nonneg (by norm_num) hA)
+  have htotal : |finitePrimeSum (ICdefect g s w lam)| ≤
+      (N : Real) * Real.log (N : Real) *
+        (2 * (G + ∑ i ∈ s, |lam i| * H i)) := by
+    exact hbase.trans (by simpa [N] using hcompress)
+  simpa [N] using htotal
 
 /-- The same bound specialized to the one-window P2 defect.  This is the
 prime-side half of the future `|gate(defect)|` estimate; the archimedean half

@@ -162,6 +162,12 @@ The defect-level theorem
 `abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_logRange` combines
 the common support cutoff with the logarithmic sum, giving the producer a
 single explicit real finite-range bound for the defect's prime contribution.
+The follow-on theorem `finitePrimeLogSum_le_card_mul_log` bounds that range
+sum by `N * log N` times the common factor for every positive cutoff `N`.
+This is a symbolic cardinality bound and introduces no numerical estimate.
+The defect corollary `abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_logCard`
+then applies this compression directly to the support-derived cutoff, yielding
+one scalar finite-prime budget for the future P2 witness.
 Finally, the one-window consumers
 `stageBContraction_of_uniformSquareBounds_and_integralNorm_budget` and
 `orbitGate_of_uniformSquareBounds_and_integralNorm_budget` connect this
@@ -188,7 +194,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3659 jobs)`, zero `error:` lines.  The audit
-includes all forty-one P2-α/β declarations; each uses only
+includes all forty-three P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.

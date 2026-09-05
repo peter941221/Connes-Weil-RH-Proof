@@ -14,6 +14,7 @@ open ConnesWeilRH Source C1P2DefectControl
 #print axioms vonMangoldt_sqrtWeight_le_log_of_one_le
 #print axioms primeCoefficientNorm_le_log_of_nat
 #print axioms finitePrimeCoefficientSum_le_logSum
+#print axioms finitePrimeLogSum_le_card_mul_log
 #print axioms primeTermNormEnvelope_le_of_logBound
 #print axioms primeTermNormEnvelope_le_of_uniformTestBound
 #print axioms abs_archimedeanTerm_le_of_zeroAndIntegralBounds
@@ -30,6 +31,7 @@ open ConnesWeilRH Source C1P2DefectControl
 #print axioms defect_globalPrimeIndexSet_subset_range_of_common_Ioo_support
 #print axioms abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_commonSupport
 #print axioms abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_logRange
+#print axioms abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_logCard
 #print axioms abs_finitePrimeSum_defect_le_of_uniformSquareBounds
 #print axioms abs_finitePrimeSum_defect_le_of_zeroSeminorms
 #print axioms abs_finitePrimeSum_defect_le_of_termBounds
