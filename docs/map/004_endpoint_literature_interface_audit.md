@@ -217,6 +217,10 @@ The bridge `archimedeanIntegralNorm_le_of_pointwiseEnvelope` now turns any
 integrable positive-half-line majorant into that canonical bound, reducing the
 remaining archimedean producer task to an explicit pointwise envelope and its
 ordinary real integral.
+The adapters `integrableOn_const_mul_exp_neg` and
+`integral_const_mul_exp_neg` certify the standard exponential envelope
+`C·exp(-y)` and evaluate its positive-half-line integral as `C`, so a concrete
+tail estimate can discharge this interface with one scalar constant.
 The consumers
 `abs_ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm` and
 `ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm_budget` inline this

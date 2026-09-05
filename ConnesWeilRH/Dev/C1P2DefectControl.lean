@@ -359,6 +359,27 @@ theorem archimedeanIntegralNorm_le_of_pointwiseEnvelope
   unfold archimedeanIntegralNorm
   exact MeasureTheory.integral_mono_ae hF hE hpoint'
 
+/-! ## Explicit exponential tail envelope -/
+
+/-- A constant multiple of the exponential tail is integrable on the positive
+half-line.  This is the standard envelope shape supplied by a tail estimate. -/
+theorem integrableOn_const_mul_exp_neg (C : Real) :
+    IntegrableOn (fun y : Real => C * Real.exp (-y))
+      (Set.Ioi (0 : Real)) := by
+  have hbase : IntegrableOn (fun y : Real => Real.exp (-y))
+      (Set.Ioi (0 : Real)) :=
+    by
+      simpa only [neg_one_mul] using
+        (exp_neg_integrableOn_Ioi (a := (0 : Real)) (b := (1 : Real)) (by norm_num))
+  simpa [Function.comp_def] using hbase.const_mul C
+
+/-- The positive-half-line integral of the same envelope is exactly its
+constant coefficient. -/
+theorem integral_const_mul_exp_neg (C : Real) :
+    (∫ y in Set.Ioi (0 : Real), C * Real.exp (-y)) = C := by
+  rw [MeasureTheory.integral_const_mul, integral_exp_neg_Ioi_zero]
+  ring
+
 /-- Canonical specialization of the archimedean norm channel: the point value
 is controlled by the owner's zero-order Schwartz seminorm and the density is
 stored in `archimedeanIntegralNorm` on that same owner. -/
