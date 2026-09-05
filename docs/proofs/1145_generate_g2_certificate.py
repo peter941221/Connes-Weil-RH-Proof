@@ -355,7 +355,7 @@ def per_index_theorems():
                     base_lemmas += ", " + extra
                 parts.append(f"theorem {short}_at_0 : {fn_name} 0 =\n"
                              f"    {v} := by\n"
-                             f"  norm_num (config := {{ maxSteps := 20000000 }})\n"
+                             f"  norm_num (config := {{ maxSteps := 2000000000 }})\n"
                              f"    [{base_lemmas}]\n\n")
                 continue
             if j == 1 and short.startswith("endpoint"):
@@ -365,7 +365,7 @@ def per_index_theorems():
             if j == 1:
                 parts.append(f"theorem {short}_at_1 : {fn_name} 1 =\n"
                              f"    {v} := by\n"
-                             f"  norm_num (config := {{ maxSteps := 20000000 }})\n"
+                          f"  norm_num (config := {{ maxSteps := 2000000000 }})\n"
                              f"    [{fn_name}]\n\n")
                 continue
             if short.startswith("endpoint"):
@@ -377,9 +377,9 @@ def per_index_theorems():
                 bridge = (f"  show {fn_name} ({j - 2} + 1 + 1) = _\n"
                           f"  rw [{fn_name}_step]\n"
                           f"  rw [endpoint{src}_at_{j}, endpoint{src}_at_{j - 1}]\n")
-            tail = ("  norm_num (config := { maxSteps := 20000000 })\n"
+            tail = ("  norm_num (config := { maxSteps := 2000000000 })\n"
                     if not extra else
-                    "  norm_num (config := { maxSteps := 20000000 })\n"
+                    "  norm_num (config := { maxSteps := 2000000000 })\n"
                     f"    [{extra}]\n")
             parts.append(f"theorem {short}_at_{j} : {fn_name} {j} =\n"
                          f"    {v} := by\n" + bridge + tail + "\n")
@@ -418,7 +418,7 @@ def prefix_machinery():
                          f"  simp only [zGround_eq_35, bigQ, listCoeffQ,\n"
                          f"    List.getD_cons_zero, List.getD_cons_succ,\n"
                          f"    {short}_at_{j - 1}]\n"
-                         f"  norm_num (config := {{ maxSteps := 20000000 }})\n\n")
+                         f"  norm_num (config := {{ maxSteps := 2000000000 }})\n\n")
         cmp_lit = rat_lit(vals[666])
         parts.append(f"theorem comparison_{cmp_name}_eq :\n"
                      f"    (∑ k ∈ Finset.range 666, {term}) = {cmp_lit} := by\n"
