@@ -26,6 +26,7 @@ open ConnesWeilRH Source C1P2DefectControl
 #print axioms archimedeanIntegralNorm_le_of_pointwiseEnvelope
 #print axioms integrableOn_const_mul_exp_neg
 #print axioms integral_const_mul_exp_neg
+#print axioms archimedeanIntegralNorm_le_of_expNegEnvelope
 #print axioms abs_archimedeanTerm_le_of_zeroSeminorm_and_integralNorm
 #print axioms index_lt_of_support_subset_Icc
 #print axioms globalPrimeIndexSet_subset_range_of_support_subset_Icc

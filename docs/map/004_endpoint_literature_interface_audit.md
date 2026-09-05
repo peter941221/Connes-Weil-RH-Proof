@@ -221,6 +221,9 @@ The adapters `integrableOn_const_mul_exp_neg` and
 `integral_const_mul_exp_neg` certify the standard exponential envelope
 `C·exp(-y)` and evaluate its positive-half-line integral as `C`, so a concrete
 tail estimate can discharge this interface with one scalar constant.
+The composed bridge `archimedeanIntegralNorm_le_of_expNegEnvelope` turns the
+pointwise bound `‖archimedeanIntegrand F y‖ ≤ C·exp(-y)` directly into the
+scalar inequality `archimedeanIntegralNorm F ≤ C`.
 The consumers
 `abs_ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm` and
 `ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm_budget` inline this

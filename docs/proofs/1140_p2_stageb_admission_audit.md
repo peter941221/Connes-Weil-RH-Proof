@@ -138,6 +138,10 @@ The companion adapters `integrableOn_const_mul_exp_neg` and
 `integral_const_mul_exp_neg` certify the standard envelope `C * exp (-y)` and
 evaluate its positive-half-line integral as `C`, reducing an explicit tail
 proof to its scalar coefficient.
+The composed bridge `archimedeanIntegralNorm_le_of_expNegEnvelope` turns a
+pointwise bound by this envelope directly into
+`archimedeanIntegralNorm F ≤ C`, which is the scalar form needed by the P2
+budget consumer.
 The two same-owner consumers
 `abs_ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm` and
 `ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm_budget` inline this
@@ -198,7 +202,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3659 jobs)`, zero `error:` lines.  The audit
-includes all forty-five P2-α/β declarations; each uses only
+includes all forty-six P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.

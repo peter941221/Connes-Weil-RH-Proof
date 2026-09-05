@@ -380,6 +380,20 @@ theorem integral_const_mul_exp_neg (C : Real) :
   rw [MeasureTheory.integral_const_mul, integral_exp_neg_Ioi_zero]
   ring
 
+/-- An explicit exponential pointwise envelope collapses the canonical
+archimedean norm budget to its scalar coefficient. -/
+theorem archimedeanIntegralNorm_le_of_expNegEnvelope
+    (F : CompactLogTest) (C : Real)
+    (hpoint : ∀ y : Real, 0 < y →
+      ‖archimedeanIntegrand F y‖ ≤ C * Real.exp (-y)) :
+    archimedeanIntegralNorm F ≤ C := by
+  have hmajorant : IntegrableOn (fun y : Real => C * Real.exp (-y))
+      (Set.Ioi (0 : Real)) :=
+    integrableOn_const_mul_exp_neg C
+  have hbound := archimedeanIntegralNorm_le_of_pointwiseEnvelope F
+    (fun y : Real => C * Real.exp (-y)) hmajorant hpoint
+  simpa [integral_const_mul_exp_neg] using hbound
+
 /-- Canonical specialization of the archimedean norm channel: the point value
 is controlled by the owner's zero-order Schwartz seminorm and the density is
 stored in `archimedeanIntegralNorm` on that same owner. -/
