@@ -476,6 +476,56 @@ theorem ICgate_defect_le_of_uniformFamilyBounds_and_arch_budget
     g s w lam G H Aarch hG hH harch hg hw
   exact (le_abs_self _).trans (hbound.trans hbudget)
 
+/-- Full same-owner Stage-B estimate with the archimedean channel supplied by
+the canonical integral norm and the defect's zero-order Schwartz seminorm. -/
+theorem abs_ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm
+    (g : CompactLogTest) {ι : Type} (s : Finset ι)
+    (w : ι → CompactLogTest) (lam : ι → Real)
+    (G : Real) (H : ι → Real)
+    (hG : 0 ≤ G) (hH : ∀ i ∈ s, 0 ≤ H i)
+    (hg : ∀ x : Real, ‖g.test x‖ ≤ G)
+    (hw : ∀ i ∈ s, ∀ x : Real, ‖(w i).test x‖ ≤ H i) :
+    |ICgate (ICdefect g s w lam)| ≤
+      (|Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+          SchwartzMap.seminorm ℂ 0 0 (ICdefect g s w lam).test +
+        archimedeanIntegralNorm (ICdefect g s w lam)) +
+      ∑ n ∈ globalPrimeIndexSet (ICdefect g s w lam),
+        ‖(ArithmeticFunction.vonMangoldt n : Complex)‖ *
+          ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ *
+            (2 * (G + ∑ i ∈ s, |lam i| * H i)) := by
+  let D : CompactLogTest := ICdefect g s w lam
+  let Aarch : Real :=
+    |Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+        SchwartzMap.seminorm ℂ 0 0 D.test + archimedeanIntegralNorm D
+  have harch : |archimedeanTerm D| ≤ Aarch := by
+    dsimp [Aarch]
+    exact abs_archimedeanTerm_le_of_zeroSeminorm_and_integralNorm D
+  have hgate := abs_ICgate_defect_le_of_uniformFamilyBounds_and_arch
+    g s w lam G H Aarch hG hH harch hg hw
+  simpa [D, Aarch] using hgate
+
+/-- Direct Stage-B admission form using only the canonical same-owner
+archimedean norm and the explicit finite visible-prime budget. -/
+theorem ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm_budget
+    (g : CompactLogTest) {ι : Type} (s : Finset ι)
+    (w : ι → CompactLogTest) (lam : ι → Real)
+    (G : Real) (H : ι → Real) (epsilon : Real)
+    (hG : 0 ≤ G) (hH : ∀ i ∈ s, 0 ≤ H i)
+    (hg : ∀ x : Real, ‖g.test x‖ ≤ G)
+    (hw : ∀ i ∈ s, ∀ x : Real, ‖(w i).test x‖ ≤ H i)
+    (hbudget :
+      (|Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+          SchwartzMap.seminorm ℂ 0 0 (ICdefect g s w lam).test +
+        archimedeanIntegralNorm (ICdefect g s w lam)) +
+      ∑ n ∈ globalPrimeIndexSet (ICdefect g s w lam),
+        ‖(ArithmeticFunction.vonMangoldt n : Complex)‖ *
+          ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ *
+            (2 * (G + ∑ i ∈ s, |lam i| * H i)) ≤ epsilon) :
+    ICgate (ICdefect g s w lam) ≤ epsilon := by
+  have hbound := abs_ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm
+    g s w lam G H hG hH hg hw
+  exact (le_abs_self _).trans (hbound.trans hbudget)
+
 end C1P2DefectControl
 end Source
 end ConnesWeilRH

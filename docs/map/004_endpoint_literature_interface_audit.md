@@ -213,6 +213,11 @@ nonnegativity.  The specialization
 archimedean input to the detector's zero-order Schwartz seminorm plus this
 canonical integral norm; the remaining producer obligation is an actual bound
 on that integral, not a separately chosen representative.
+The consumers
+`abs_ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm` and
+`ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm_budget` inline this
+canonical archimedean channel into the full Stage-B estimate, so no independent
+`harch` hypothesis is needed at the final interface.
 
 Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
 support chain's discharged primitive was re-adjudicated by the
