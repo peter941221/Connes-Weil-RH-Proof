@@ -325,7 +325,7 @@ A proposed producer statement is schedulable only if all five hold:
 |    | (exponential independence |         | item 3): slices 12i -> Theorem 8 |
 |    | + Theorem-8 sign count)   |         | sign count.                     |
 +----+---------------------------+---------+---------------------------------+
-| B4 | True-correction mp-grade  | PREREG  | Line C + M-side/C2 (shared       |
+| B4 | True-correction mp-grade  | OPEN    | Line C + M-side/C2 (shared       |
 |    | numerics, pre-registered  |         | producer; the 1116c contract).  |
 +----+---------------------------+---------+---------------------------------+
 ```
@@ -352,6 +352,8 @@ M-side true-table interval or the detector-specific P2 budget.
 3. Evidence labels follow 004 section 1. Raw or unresolved numerical
    observations belong in `docs/proofs/` and do not by themselves change a
    map conclusion.
-4. Record 1145 closes only the G2 mechanical checkpoint; the M-side
-   interval work remains open, and the shared point with Line C is B4.
+4. Record 1145 closes only the G2 mechanical checkpoint. Record 1146 is a
+   FORMAL interface audit confirming that the M-side true-table interval is
+   still an independent producer obligation; the shared point with Line C is
+   B4.
 5. RH is not claimed.
