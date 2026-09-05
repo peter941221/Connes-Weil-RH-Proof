@@ -207,6 +207,10 @@ The pinned consumer
 `sourceRH_of_pinnedOrbitDetector_p2CanonicalOneWindowBudgetWitness` carries the
 formal orbit support interval and visible-prime cutoff alongside that canonical
 witness, so the remaining producer is attached to one explicit `g,n` owner.
+The consumer
+`ICgate_defect_le_of_uniformFamilyBounds_and_expNegEnvelope_logCard` performs
+the scalar reduction directly: an exponential pointwise envelope, common
+support, and the displayed scalar budget imply the defect-gate inequality.
 The remaining P2 producer task is therefore to derive these concrete pointwise
 and integral bounds from the true correction construction.
 
@@ -214,7 +218,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3659 jobs)`, zero `error:` lines.  The audit
-includes all fifty-one P2-α/β declarations; each uses only
+includes all fifty-two P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.

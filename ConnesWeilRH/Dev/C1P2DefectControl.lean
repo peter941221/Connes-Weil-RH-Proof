@@ -831,6 +831,76 @@ theorem abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_logCard
     exact hbase.trans (by simpa [N] using hcompress)
   simpa [N] using htotal
 
+/-- Stage-B consumer with an exponential archimedean envelope and the scalar
+finite-prime budget.  Once the producer supplies the pointwise tail bound,
+support, and displayed scalar inequality, the defect gate follows. -/
+theorem ICgate_defect_le_of_uniformFamilyBounds_and_expNegEnvelope_logCard
+    (g : CompactLogTest) {ι : Type} (s : Finset ι)
+    (w : ι → CompactLogTest) (lam : ι → Real)
+    (G : Real) (H : ι → Real) (Bsupport Carch epsilon : Real)
+    (hG : 0 ≤ G) (hH : ∀ i ∈ s, 0 ≤ H i)
+    (hg : ∀ x : Real, ‖g.test x‖ ≤ G)
+    (hw : ∀ i ∈ s, ∀ x : Real, ‖(w i).test x‖ ≤ H i)
+    (hpoint : ∀ y : Real, 0 < y →
+      ‖archimedeanIntegrand (ICdefect g s w lam) y‖ ≤
+        Carch * Real.exp (-y))
+    (hgsupp : Function.support g.test ⊆ Set.Ioo (-Bsupport) Bsupport)
+    (hwsupp : ∀ i ∈ s,
+      Function.support (w i).test ⊆ Set.Ioo (-Bsupport) Bsupport)
+    (hbudget :
+      (|Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+          SchwartzMap.seminorm ℂ 0 0 (ICdefect g s w lam).test + Carch) +
+        (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+          Real.log (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+            (2 * (G + ∑ i ∈ s, |lam i| * H i)) ≤ epsilon) :
+    ICgate (ICdefect g s w lam) ≤ epsilon := by
+  let D : CompactLogTest := ICdefect g s w lam
+  let Aarch : Real :=
+    |Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+        SchwartzMap.seminorm ℂ 0 0 D.test + Carch
+  have hInt : archimedeanIntegralNorm D ≤ Carch := by
+    apply archimedeanIntegralNorm_le_of_expNegEnvelope D Carch
+    intro y hy
+    simpa [D] using hpoint y hy
+  have harch : |archimedeanTerm D| ≤ Aarch := by
+    dsimp [Aarch]
+    calc
+      |archimedeanTerm D| ≤
+          |Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+              SchwartzMap.seminorm ℂ 0 0 D.test + archimedeanIntegralNorm D :=
+        abs_archimedeanTerm_le_of_zeroSeminorm_and_integralNorm D
+      _ ≤ |Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+            SchwartzMap.seminorm ℂ 0 0 D.test + Carch := by
+        simpa [add_comm] using add_le_add_left hInt
+          (|Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+            SchwartzMap.seminorm ℂ 0 0 D.test)
+  have hprime : |finitePrimeSum D| ≤
+      (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+        Real.log (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+          (2 * (G + ∑ i ∈ s, |lam i| * H i)) := by
+    simpa [D] using
+      (abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_logCard
+        g s w lam G H Bsupport hG hH hg hw hgsupp hwsupp)
+  have hgate : |ICgate D| ≤ Aarch +
+      (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+        Real.log (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+          (2 * (G + ∑ i ∈ s, |lam i| * H i)) := by
+    unfold ICgate
+    calc
+      |archimedeanTerm D + finitePrimeSum D| ≤
+          |archimedeanTerm D| + |finitePrimeSum D| := abs_add_le _ _
+      _ ≤ Aarch +
+          (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+            Real.log (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+              (2 * (G + ∑ i ∈ s, |lam i| * H i)) :=
+        add_le_add harch hprime
+  have hbudget' : Aarch +
+      (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+        Real.log (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+          (2 * (G + ∑ i ∈ s, |lam i| * H i)) ≤ epsilon := by
+    simpa [Aarch, D] using hbudget
+  exact (le_abs_self _).trans (hgate.trans hbudget')
+
 /-- The same bound specialized to the one-window P2 defect.  This is the
 prime-side half of the future `|gate(defect)|` estimate; the archimedean half
 must be supplied separately. -/

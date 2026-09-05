@@ -278,6 +278,11 @@ The one-window consumers
 canonical budget into the actual `ICStageBContraction` and
 `orbitWindowSemiLocalGate` route interfaces.  They remain conditional on the
 explicit budget and certified-window sign; no positivity is manufactured.
+The consumer `ICgate_defect_le_of_uniformFamilyBounds_and_expNegEnvelope_logCard`
+now combines the exponential archimedean scalar, the support-derived
+`N·log N` prime bound, and the full scalar budget into the exact defect-gate
+inequality.  Its hypotheses are precisely the remaining analytic producer
+inputs for a pinned owner.
 `P2OneWindowBudgetWitness` packs those inputs as a same-detector owner, and
 `sourceRH_of_healthyDetector_p2OneWindowBudgetWitness` composes the witness
 with the existing healthy-detector contradiction.  Thus the remaining P2
