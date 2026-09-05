@@ -233,6 +233,12 @@ The support bridge
 `defect_globalPrimeIndexSet_subset_range_of_common_Ioo_support` propagates a
 common open support interval through the finite family defect and then exposes
 an explicit finite arithmetic cutoff for its visible-prime owner.
+The companion readbacks `index_le_exp_of_support_subset_Icc` and
+`index_lt_exp_of_support_subset_Ioo_symmetric` retain the real exponential
+bound before integer rounding; the convolution-square specialization gives
+the strict `n < exp (2r)` cutoff required by the pinned orbit contract.
+The final adapter `pinned_visiblePrimeCutoff_of_support` instantiates this
+bound at the contract's radius `n+2`, matching its exact strict inequality.
 The finite-prime consumer
 `abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_commonSupport` enlarges
 the exact-set sum to that explicit range using nonnegativity of every norm

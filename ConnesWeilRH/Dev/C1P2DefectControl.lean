@@ -462,6 +462,117 @@ theorem index_lt_of_support_subset_Icc
     exact_mod_cast hnexp.trans hexpceil
   exact Nat.lt_succ_iff.mpr hnceil
 
+/-! The same support argument retains the real exponential bound before the
+integer ceiling is introduced. -/
+theorem index_le_exp_of_support_subset_Icc
+    (F : CompactLogTest) (a b : Real)
+    (hsupport : Function.support F.test ⊆ Set.Icc a b)
+    {n : Nat} (hprime : IsPrimePow n)
+    (hterm : finitePrimeTermComplex F n ≠ 0) :
+    (n : Real) ≤ Real.exp (max |a| |b|) := by
+  have hsum : F.test (Real.log n) + F.test (-Real.log n) ≠ 0 := by
+    intro hzero
+    apply hterm
+    simp [finitePrimeTermComplex, hzero]
+  have hpoint : F.test (Real.log n) ≠ 0 ∨ F.test (-Real.log n) ≠ 0 := by
+    by_cases hleft : F.test (Real.log n) ≠ 0
+    · exact Or.inl hleft
+    by_cases hright : F.test (-Real.log n) ≠ 0
+    · exact Or.inr hright
+    exfalso
+    apply hsum
+    rw [not_ne_iff.mp hleft, not_ne_iff.mp hright]
+    simp
+  have hlogabs : |Real.log n| ≤ max |a| |b| := by
+    rcases hpoint with hleft | hright
+    · have hab := hsupport (Function.mem_support.mpr hleft)
+      rcases le_total 0 (Real.log n) with hnonneg | hnonpos
+      · rw [abs_of_nonneg hnonneg]
+        exact (hab.2.trans (le_abs_self b)).trans (le_max_right _ _)
+      · rw [abs_of_nonpos hnonpos]
+        have hneg : -Real.log n ≤ -a := by linarith [hab.1]
+        exact (hneg.trans (neg_le_abs a)).trans (le_max_left _ _)
+    · have hab := hsupport (Function.mem_support.mpr hright)
+      have hneglogabs : |-Real.log n| ≤ max |a| |b| := by
+        rcases le_total 0 (-Real.log n) with hnonneg | hnonpos
+        · rw [abs_of_nonneg hnonneg]
+          exact (hab.2.trans (le_abs_self b)).trans (le_max_right _ _)
+        · rw [abs_of_nonpos hnonpos]
+          have hneg : -(-Real.log n) ≤ -a := by linarith [hab.1]
+          exact (hneg.trans (neg_le_abs a)).trans (le_max_left _ _)
+      simpa only [abs_neg] using hneglogabs
+  have hnpos : (0 : Real) < n := by
+    exact_mod_cast (Nat.zero_lt_of_lt (IsPrimePow.one_lt hprime))
+  have hlogle : Real.log n ≤ max |a| |b| :=
+    (le_abs_self (Real.log n)).trans hlogabs
+  have hnexp : (n : Real) ≤ Real.exp (max |a| |b|) := by
+    have h := Real.exp_le_exp.mpr hlogle
+    simpa [Real.exp_log hnpos] using h
+  exact hnexp
+
+/-- Open symmetric support gives a strict exponential cutoff for one visible
+prime-power term. -/
+theorem index_lt_exp_of_support_subset_Ioo_symmetric
+    (F : CompactLogTest) (r : Real) (hr : 0 < r)
+    (hsupport : Function.support F.test ⊆ Set.Ioo (-r) r)
+    {n : Nat} (hprime : IsPrimePow n)
+    (hterm : finitePrimeTermComplex F n ≠ 0) :
+    (n : Real) < Real.exp r := by
+  have hsum : F.test (Real.log n) + F.test (-Real.log n) ≠ 0 := by
+    intro hzero
+    apply hterm
+    simp [finitePrimeTermComplex, hzero]
+  have hpoint : F.test (Real.log n) ≠ 0 ∨ F.test (-Real.log n) ≠ 0 := by
+    by_cases hleft : F.test (Real.log n) ≠ 0
+    · exact Or.inl hleft
+    by_cases hright : F.test (-Real.log n) ≠ 0
+    · exact Or.inr hright
+    exfalso
+    apply hsum
+    rw [not_ne_iff.mp hleft, not_ne_iff.mp hright]
+    simp
+  have hlogabs : |Real.log n| < r := by
+    rcases hpoint with hleft | hright
+    · have hab := hsupport (Function.mem_support.mpr hleft)
+      rw [abs_lt]
+      constructor <;> linarith [hab.1, hab.2]
+    · have hab := hsupport (Function.mem_support.mpr hright)
+      have hneglog : -r < -Real.log n ∧ -Real.log n < r := hab
+      simpa only [abs_neg] using (show |-Real.log n| < r by
+        rw [abs_lt]
+        exact ⟨hneglog.1, hneglog.2⟩)
+  have hnpos : (0 : Real) < n := by
+    exact_mod_cast (Nat.zero_lt_of_lt (IsPrimePow.one_lt hprime))
+  have hloglt : Real.log n < r :=
+    (le_abs_self (Real.log n)).trans_lt hlogabs
+  have h := Real.exp_lt_exp.mpr hloglt
+  simpa [Real.exp_log hnpos] using h
+
+/-- The strict cutoff for an open symmetric convolution-square support. -/
+theorem convolutionSquare_index_lt_exp_of_support_subset_Ioo_symmetric
+    (g : CompactLogTest) (r : Real) (hr : 0 < r)
+    (hsupport : Function.support g.test ⊆ Set.Ioo (-r) r)
+    {n : Nat} (hn : n ∈ globalPrimeIndexSet g.convolutionSquare) :
+    (n : Real) < Real.exp (2 * r) := by
+  have hsq : Function.support g.convolutionSquare.test ⊆
+      Set.Ioo (-(2 * r)) (2 * r) :=
+    CompactLogTest.convolutionSquare_support_subset_two_mul_Ioo g
+      (hsupport.trans Set.Ioo_subset_Icc_self)
+  have hmem := (mem_globalPrimeIndexSet_iff g.convolutionSquare n).mp hn
+  exact index_lt_exp_of_support_subset_Ioo_symmetric
+    g.convolutionSquare (2 * r) (by linarith) hsq hmem.1 hmem.2
+
+/-- The exact visible-prime cutoff shape used by the pinned orbit contract. -/
+theorem pinned_visiblePrimeCutoff_of_support
+    (g : CompactLogTest) (n : Nat)
+    (hsupport : Function.support g.test ⊆
+      Set.Ioo (-((n + 2 : Nat) : Real)) (((n + 2 : Nat) : Real)))
+    {q : Nat} (hq : q ∈ globalPrimeIndexSet g.convolutionSquare) :
+    (q : Real) < Real.exp (2 * ((n + 2 : Nat) : Real)) := by
+  have hr : (0 : Real) < ((n + 2 : Nat) : Real) := by positivity
+  exact convolutionSquare_index_lt_exp_of_support_subset_Ioo_symmetric
+    g ((n + 2 : Nat) : Real) hr hsupport hq
+
 /-- The exact visible-prime set is contained in the support-derived finite
 range, so a detector's exported support endpoints determine its arithmetic
 cutoff without changing the owner. -/

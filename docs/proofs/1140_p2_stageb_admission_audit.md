@@ -156,6 +156,14 @@ The theorem
 replaces the exact-set prime sum by that explicit range, using only
 nonnegativity of the norm envelopes.  This is a finite-budget adapter and
 does not assert a sign for the gate.
+The support readbacks `index_le_exp_of_support_subset_Icc` and
+`index_lt_exp_of_support_subset_Ioo_symmetric` keep the real exponential
+cutoff before ceiling; `convolutionSquare_index_lt_exp_of_support_subset_Ioo_symmetric`
+then supplies the strict doubled-radius bound used by the pinned detector
+interface.
+The adapter `pinned_visiblePrimeCutoff_of_support` instantiates the same
+argument at the contract radius `n+2`, so the support and visible-prime fields
+now have a direct formal bridge.
 The coefficient readback `primeTermNormEnvelope_eq_realCoefficient_mul` and
 the arithmetic lemma `vonMangoldt_sqrtWeight_le_log_of_one_le` now reduce each
 positive-index envelope to the real `Λ(n)/√n` coefficient and then to `log n`.
@@ -202,7 +210,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3659 jobs)`, zero `error:` lines.  The audit
-includes all forty-six P2-α/β declarations; each uses only
+includes all fifty P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.
