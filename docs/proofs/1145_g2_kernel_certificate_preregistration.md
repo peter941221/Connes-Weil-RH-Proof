@@ -93,3 +93,55 @@ G4  Hygiene: no local paths, no private artifacts, no mojibake; the
   exact obstruction in the addendum and HOLD; do NOT weaken any
   statement, do NOT reintroduce `native_decide`, do NOT touch the q28
   boxes (1139 G4 clause).
+
+## 6. Addendum (2026-09-05, RED-5 post-mortem and the RED-6 fix batch)
+
+RED-5 (the first full-splice build) failed with two independent root
+causes, both fixed in this batch and validated on a small-shape scratch
+before this rebuild:
+
+```text
+F1  Chain bug: groundLayer_eq_35 referenced groundLayer_eq_33 (its
+    n-2 predecessor), but the even-layer emission schedule never
+    produced layer 33 -> Unknown identifier.
+F2  Step explosion: `simp only [groundLayer_eq_{base}, ...]` rewrote the
+    cached-layer occurrence inside the UNREDUCED inner map, inlining the
+    666-entry literal table at every (k, i) pair - 13320 copies per
+    grounding - exceeding the simp step budget on all 18 groundings.
+```
+
+The RED-6 design (this emission) replaces both:
+
+```text
+R1  Period-1 grounding: all 35 layers get literal tables and theorems
+    groundLayer_eq_n, each chaining from its n-1 predecessor; the
+    groundLayer_eq_35 consumer now chains from 34.
+R2  Single-inline grounding: `show` rewrites the goal once by
+    delta+zeta to expose exactly ONE syntactic occurrence of
+    powerCoefficientListQ (n-1) inside the map lambda; `rw` inlines the
+    previous table ONCE; the tables themselves are delta-unfolded by an
+    explicit `simp only [range_666_lit, groundLayer_{n-1},
+    groundLayer_{n}]` (measured: `norm_num [table, ...]` does NOT
+    delta-unfold a plain table constant); `norm_num
+    (config := { maxSteps := 20000000 })` then walks List.getD and
+    closes the 666-entry map equality by literal rational arithmetic.
+R3  Per-index endpoint/moment grounding (NEW machinery): the
+    endpointAQ/endpointBQ equation lemmas recurse on `k + 2`, which
+    does NOT match closed Nat literals under simp (measured RED-6:
+    `simp only [endpointAQ]` makes no progress on `endpointAQ 4`).
+    The generator emits, for each of the four tables, one step theorem
+    of arity `n + 1 + 1` (or `n + 1` for the moments) proved by
+    `rw`, and 666 per-index value theorems chained bottom-up through
+    explicit-index bridges.  4 + 2664 declarations total.
+R4  Checkpoint proof: `have h35 := groundLayer_eq_35` + one
+    `simp (config := { maxSteps := 20000000 }) only [...]` carrying the
+    2664 per-index lemmas + table/getD/sum lemmas, then one `norm_num`.
+    Statement unchanged; slacks ~7e-16 as probed (section 3).
+```
+
+Scratch validation (8-entry / 4-entry analogues, `lake env lean`, zero
+errors): grounding chain shape, single-inline closure, `n + 1 + 1`
+bridge, moment adapter, per-index lemma-list consumer - all green.
+G3 determinism re-verified on the regenerated 12.34 MB module (two
+generator runs, identical md5).  Payload now 7.3 MB of literal tables
+(period 1) plus the per-index value theorems.
