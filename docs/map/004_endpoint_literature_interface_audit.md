@@ -213,6 +213,10 @@ nonnegativity.  The specialization
 archimedean input to the detector's zero-order Schwartz seminorm plus this
 canonical integral norm; the remaining producer obligation is an actual bound
 on that integral, not a separately chosen representative.
+The bridge `archimedeanIntegralNorm_le_of_pointwiseEnvelope` now turns any
+integrable positive-half-line majorant into that canonical bound, reducing the
+remaining archimedean producer task to an explicit pointwise envelope and its
+ordinary real integral.
 The consumers
 `abs_ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm` and
 `ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm_budget` inline this

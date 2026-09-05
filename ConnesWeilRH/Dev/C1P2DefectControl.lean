@@ -34,6 +34,7 @@ open C1HealthyYoshidaDetector
 open C1HealthyYoshidaSpectralNegativity
 open C1OrbitWindowExitComposition
 open CCM25Concrete.CompactLogConvolution
+open MeasureTheory
 open scoped BigOperators
 
 /-! ## Per-index norm envelope -/
@@ -308,6 +309,25 @@ theorem archimedeanIntegralNorm_nonneg (F : CompactLogTest) :
     0 ≤ archimedeanIntegralNorm F := by
   unfold archimedeanIntegralNorm
   exact MeasureTheory.integral_nonneg fun y => norm_nonneg _
+
+/-- A concrete integrable pointwise majorant produces the canonical
+archimedean integral budget.  The producer only has to verify the bound on
+positive `y`; restriction to `Ioi 0` supplies the almost-everywhere premise. -/
+theorem archimedeanIntegralNorm_le_of_pointwiseEnvelope
+    (F : CompactLogTest) (E : Real → Real)
+    (hE : IntegrableOn E (Set.Ioi (0 : Real)))
+    (hpoint : ∀ y : Real, 0 < y →
+      ‖archimedeanIntegrand F y‖ ≤ E y) :
+    archimedeanIntegralNorm F ≤ ∫ y in Set.Ioi (0 : Real), E y := by
+  have hF : IntegrableOn (fun y : Real => ‖archimedeanIntegrand F y‖)
+      (Set.Ioi (0 : Real)) :=
+    (C1ArchimedeanIntegrabilityGeneric.integrableOn_archimedeanIntegrand F).norm
+  have hpoint' : ∀ᵐ y : Real ∂(volume.restrict (Set.Ioi (0 : Real))),
+      ‖archimedeanIntegrand F y‖ ≤ E y := by
+    filter_upwards [ae_restrict_mem measurableSet_Ioi] with y hy
+    exact hpoint y hy
+  unfold archimedeanIntegralNorm
+  exact MeasureTheory.integral_mono_ae hF hE hpoint'
 
 /-- Canonical specialization of the archimedean norm channel: the point value
 is controlled by the owner's zero-order Schwartz seminorm and the density is

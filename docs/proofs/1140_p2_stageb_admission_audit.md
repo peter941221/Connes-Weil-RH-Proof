@@ -130,6 +130,10 @@ The archimedean channel is now attached to the same owner as well:
 owner's zero-order Schwartz seminorm.  This removes the auxiliary integral
 variable from the canonical interface while leaving its concrete analytic
 upper bound as the genuine producer task.
+The theorem `archimedeanIntegralNorm_le_of_pointwiseEnvelope` supplies a
+strict bridge from an integrable pointwise majorant on `Ioi 0` to this canonical
+integral, so the remaining archimedean input is an explicit envelope rather
+than an opaque integral assertion.
 The two same-owner consumers
 `abs_ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm` and
 `ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm_budget` inline this
@@ -184,7 +188,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3659 jobs)`, zero `error:` lines.  The audit
-includes all forty P2-α/β declarations; each uses only
+includes all forty-one P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.
