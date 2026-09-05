@@ -111,6 +111,8 @@ theorem listCoeff_eq_zDiv (m k : ℕ) (hk : k < 666) :
                 (taylorCoefficientQ_mul_bigQ_eq_zCoeff i (by omega))
             rw [htc]
             field_simp [pow_succ, hQ0]
+            rw [pow_succ]
+            ring
           · simp only [if_neg hik, zero_mul, zero_div]
         _ = _ := by rw [Finset.sum_div]
 
