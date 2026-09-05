@@ -145,3 +145,46 @@ bridge, moment adapter, per-index lemma-list consumer - all green.
 G3 determinism re-verified on the regenerated 12.34 MB module (two
 generator runs, identical md5).  Payload now 7.3 MB of literal tables
 (period 1) plus the per-index value theorems.
+
+## 7. Addendum 2 (2026-09-05, RED-6 post-mortem and the RED-7 fix batch)
+
+RED-6 (period-1 grounding + 2664 per-index endpoint/moment theorems +
+one mega-simp checkpoint) was ABORTED at ~50 min wall: the lean process
+reached 36 GB RSS with swap 100% full and ~4e7 major page faults - it
+was swap-thrashing, not computing.  Root cause: the checkpoint's single
+`simp only` carried all 2664 per-index lemmas plus the table/getD walk
+over FOUR 666-term exact rational sums in ONE tactic, so every
+intermediate stayed alive simultaneously on top of the 36 literal
+tables and 35 grounding proofs already held by the environment.
+
+A second measured failure inside RED-6's chunk experiment: shifted
+indices from `Finset.sum_range_add` (`f (n + x)` with bound `x`) are
+NOT literalized by simp's arithmetic simprocs, so per-index lemmas
+cannot fire on shifted sums (small-scope probe, trace captured).
+
+RED-7 design (this emission) removes the mega-tactic entirely:
+
+```text
+R5  Prefix-sum functions: for each of the four comparison sums, a
+    private def sum<prefix> : Nat -> Q with
+    | 0 => 0 | j+1 => sum<prefix> j + coeff j * term j, a symbolic
+    bridge sum<prefix>_eq : (sum over range j) = sum<prefix> j proved
+    by induction + rfl, and 667 per-index value theorems
+    sum<prefix>_at_j, each proved by an explicit (j-1)+1 show-bridge,
+    one rw of the recursion, one rw of the predecessor value theorem,
+    a SINGLE getD walk, and one bignum norm_num.
+    Peak memory per declaration is trivial; every intermediate dies at
+    the end of its declaration.
+R6  Four consumption theorems comparison_<a0,b0,a2,b2>_eq : the exact
+    comparisonDataQ summand sums equal the generator's literals, each
+    by two rewrites.
+R7  Checkpoint proof: `simp only [comparisonDataQ]` (zeta + projection
+    iota), `rw` of the four comparison theorems, one small `norm_num`
+    over the five conjuncts.  No native_decide, no new axioms.
+```
+
+The generator now asserts the five conjuncts on the exact prefix-sum
+values before splicing (prereg section 3 slacks reproduced: a0 ~
+5.7711537437, b0 ~ -1.3473400459, a2 ~ 12.0107594822, b2 ~
+-2.8665795533), and byte-stability was verified by a double run
+(identical md5).  Module size ~21 MB source; ~6000 declarations.

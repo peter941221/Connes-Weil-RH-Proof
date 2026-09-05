@@ -148,6 +148,60 @@ def per_index_theorems():
     return "".join(parts)
 
 
+# ---------------------------------------------------------------------------
+# RED-7: prefix-sum machinery.  Every declaration stays small (peak memory
+# caps per declaration), and no shifted indices ever appear - the RED-6
+# checkpoint's single mega-simp over four 666-term sums thrashed the heap
+# (36 GB RSS, swap 100%, ~4e7 major faults) and never terminated.
+COEFF = LAYERS[35]
+
+TERMS = {"endpointA": endpointA, "endpointB": endpointB,
+         "momentA": momentA, "momentB": momentB}
+PREFIX = {}
+for _k, _tv in TERMS.items():
+    _p = [Fraction(0)] * 667
+    for _j in range(1, 667):
+        _p[_j] = _p[_j - 1] + COEFF[_j - 1] * _tv[_j - 1]
+    PREFIX[_k] = _p
+
+
+def prefix_machinery():
+    parts = ["-- RED-7 prefix-sum machinery: one tiny declaration per step;\n",
+             "-- no shifted indices, no mega-tactic.\n\n"]
+    fams = (("endpointA", "endpointAQ", "a0"), ("endpointB", "endpointBQ", "b0"),
+            ("momentA", "momentAQ", "a2"), ("momentB", "momentBQ", "b2"))
+    for short, fn, cmp_name in fams:
+        pre = f"sum{short}pref"
+        term = (f"listCoeffQ (powerCoefficientListQ 35) k * {fn} k")
+        parts.append(f"private def {pre} : ℕ → ℚ\n"
+                     f"  | 0 => 0\n"
+                     f"  | j + 1 =>\n"
+                     f"      {pre} j + {term.replace('k', 'j')}\n\n")
+        parts.append(f"private theorem {pre}_eq (j : ℕ) :\n"
+                     f"    (∑ k ∈ Finset.range j, {term}) = {pre} j := by\n"
+                     f"  induction j with\n"
+                     f"  | zero => simp [{pre}]\n"
+                     f"  | succ n ih =>\n"
+                     f"      rw [Finset.sum_range_succ, ih]\n"
+                     f"      rfl\n\n")
+        vals = PREFIX[short]
+        parts.append(f"private theorem {pre}_at_0 : {pre} 0 = 0 := by rfl\n\n")
+        for j in range(1, 667):
+            parts.append(f"private theorem {pre}_at_{j} : {pre} {j} =\n"
+                         f"    {rat_lit(vals[j])} := by\n"
+                         f"  show {pre} ({j - 1} + 1) = _\n"
+                         f"  rw [{pre}, {pre}_at_{j - 1}]\n"
+                         f"  simp only [groundLayer_eq_35, groundLayer_35,\n"
+                         f"    listCoeffQ, List.getD_cons_zero,\n"
+                         f"    List.getD_cons_succ, {short}_at_{j - 1}]\n"
+                         f"  norm_num (config := {{ maxSteps := 20000000 }})\n\n")
+        cmp_lit = rat_lit(vals[666])
+        parts.append(f"private theorem comparison_{cmp_name}_eq :\n"
+                     f"    (∑ k ∈ Finset.range 666, {term}) = {cmp_lit} := by\n"
+                     f"  rw [{pre}_eq, {pre}_at_666]\n\n")
+    return "".join(parts)
+
+
 def rat_lit(v):
     if v.denominator == 1:
         return str(v.numerator)
@@ -205,27 +259,17 @@ def generated_block():
         parts.append(ground_theorem(n))
         parts.append("\n")
     parts.append(per_index_theorems())
+    parts.append(prefix_machinery())
     parts.append("end GroundingLayers1145\n")
     parts.append("-- END 1145 GENERATED\n")
     return "".join(parts)
 
 
 def proof_body():
-    names = ["comparisonDataQ", "h35", "groundLayer_35", "listCoeffQ",
-             "Finset.sum_range_succ", "Finset.sum_empty",
-             "List.getD_cons_zero", "List.getD_cons_succ"]
-    for short in ("endpointA", "endpointB", "momentA", "momentB"):
-        names.extend(f"{short}_at_{j}" for j in range(666))
-    lines = []
-    cur = "  simp (config := { maxSteps := 20000000 }) only ["
-    for nm in names:
-        if len(cur) + len(nm) + 2 > 96:
-            lines.append(cur.rstrip())
-            cur = "    "
-        cur += nm + ", "
-    lines.append(cur.rstrip(", ") + "]")
-    lines.append("  norm_num (config := { maxSteps := 20000000 })")
-    return "  have h35 := groundLayer_eq_35\n" + "\n".join(lines) + "\n"
+    return ("  simp only [comparisonDataQ]\n"
+            "  rw [comparison_a0_eq, comparison_b0_eq, comparison_a2_eq,\n"
+            "    comparison_b2_eq]\n"
+            "  norm_num (config := { maxSteps := 20000000 })\n")
 
 ANCHOR = ("set_option maxRecDepth 1000000 in\n"
           "set_option maxHeartbeats 2000000000 in")
@@ -270,6 +314,16 @@ def strip_previous(text):
 
 def splice(text):
     text = strip_previous(text)
+    # structural restore of ANY previously generated checkpoint body (RED-5,
+    # RED-6 v1/v2): it always starts at the h35 have-line and ends at the
+    # trailing norm_num line.  (Groundings also contain that norm_num line,
+    # but only the checkpoint carries the h35 have-line.)
+    mark = "  have h35 := groundLayer_eq_35\n"
+    if mark in text:
+        start = text.index(mark)
+        tail = "  norm_num (config := { maxSteps := 20000000 })\n"
+        end = text.index(tail, start) + len(tail)
+        text = text[:start] + OLD_BODY + "\n" + text[end:]
     for old in OLD_PROOF_BODIES:
         if old in text:
             text = text.replace(old, OLD_BODY)
@@ -283,12 +337,31 @@ def splice(text):
 
 
 def main():
+    # sanity (prereg section 3): the five checkpoint conjuncts must hold on
+    # the exact prefix-sum values BEFORE any splicing or building.
+    a0 = PREFIX["endpointA"][666]
+    b0 = PREFIX["endpointB"][666]
+    a2 = PREFIX["momentA"][666]
+    b2 = PREFIX["momentB"][666]
+    log_lo = Fraction(41845914400698788, 10 ** 16)
+    log_hi = Fraction(41845914400698789, 10 ** 16)
+    central = 2 * R * (70 * (Fraction(21) / (Fraction(math.factorial(20)) * 20)))
+    tail = Fraction(1, 10 ** 16)
+    m0 = Fraction(2397466416982805, 18014398509481984)
+    m2 = Fraction(8817094793947821, 576460752303423488)
+    assert m0 - Fraction(1, 10 ** 15) + central <= a0 + b0 * log_hi
+    assert a0 + b0 * log_lo + central + 2 * tail <= m0 + Fraction(1, 10 ** 15)
+    assert m2 - Fraction(1, 10 ** 15) + central <= a2 + b2 * log_hi
+    assert a2 + b2 * log_lo + central + 2 * tail <= m2 + Fraction(1, 10 ** 15)
+    assert b0 < 0 and b2 < 0
     with open(TARGET, "r", encoding="utf-8") as f:
         text = f.read()
     out = splice(text)
     with open(TARGET, "w", encoding="utf-8", newline="\n") as f:
         f.write(out)
     print("spliced; file bytes:", len(out))
+    print("a0 ~", float(a0), " b0 ~", float(b0), " a2 ~", float(a2),
+          " b2 ~", float(b2))
 
 
 if __name__ == "__main__":
