@@ -114,24 +114,31 @@ DR2  Honest-envelope smallness is dead.  In the hypothetical off-line-zero
      through triangle estimates of the actual defect.
 ```
 
-### 2.2 The scale wall (NUMERICAL, design audit)
+### 2.2 The scale wall (QUANTIFIED, record 1142)
 
-The `hbudget` left side has an explicit floor once the support radius is
-pinned. At the `n = 1` orbit (support `Ioo (-(n+2)) (n+2) = Ioo (-3) 3`):
+Pre-brick B2 has landed as
+[`record 1142`](../proofs/1142_p2_scale_table.md); its exact table
+supersedes the sketch numbers this section first carried (which erred by
+using the test radius `n+2` instead of the square radius `2(n+2)` for
+`Bsupport`). The corrected floor:
 
 ```text
-N = ceil (exp 3) + 1 = 21,   N * log N ≈ 64
-prime-side floor ≈ 64 * 2 * (s0 g.convSq + s0 W.convSq)
-arch side        = |log (4π) + γ| * s0 (defect) + Carch
+N = ceil (exp Bsupport) + 1,  Bsupport = 2(n+2) for the detector square
+  n = 0:  N = 56,   2 N log N ≈ 450.8
+  n = 1:  N = 405,  2 N log N ≈ 4863.1
+operative margins (committed exact rationals):
+  mu_q28 = 1.0434e-06, mu_q38 = 1.2140e-08, mu_q48 = 1.5999e-10
+required uniform-square-seminorm scale (n = 1):
+  q28 2.15e-10, q38 2.50e-12, q48 3.29e-14
 ```
 
-The two comparison scales are the committed window margins
-`mu_q* = -Q*.U` (record 1118 whitened class data) and the detector's
-positive gate mass (record 1116 model twin: `GATE / f0 = +0.45698` at the
-true `delta = 0` configuration). Pre-brick B2 (section 6) tabulates the
-exact gap; the design-relevant fact is that the gap is expected to span
-several orders of magnitude, which no estimate-based mechanism can cross.
-This is the quantitative face of DR2.
+The two comparison scales are those margins and the detector's positive
+gate mass (record 1116 model twin: `GATE / f0 = +0.45698` at the true
+`delta = 0` configuration). The wall is worth 6 to 13 orders of
+magnitude depending on the cell: no estimate-based mechanism can cross
+it, and the honest-envelope route DR2 is killed quantitatively, not by
+slogan. Class selection is forced to q28; orbit selection prefers the
+smallest `n` the pinned export admits.
 
 ### 2.3 Logical status: the construction is RH-equivalent (FORMAL reading)
 
@@ -293,10 +300,10 @@ A proposed producer statement is schedulable only if all five hold:
 |    |                           |         | pin sign and normalization.     |
 +----+---------------------------+---------+---------------------------------+
 | B2 | Scale table: exact        | NUMERIC | All lines (feasibility datum).   |
-|    | mu_q28/q38/q48 from       |         | Pull -Q*.U from committed data; |
-|    | committed data; hbudget   |         | compute the section-2.2 floor   |
-|    | floor at n = 1; the       |         | at the pinned orbit; tabulate   |
-|    | detection-mass gap        |         | the detection-mass gap.         |
+|    | mu_q28/q38/q48 from       | LANDED  | DONE as record 1142: operative   |
+|    | committed data; hbudget   |         | margins, corrected N floor at    |
+|    | floor at n = 1; the       |         | n = 0/1, 6-13-order wall.        |
+|    | detection-mass gap        |         |                                  |
 +----+---------------------------+---------+---------------------------------+
 | B3 | Bombieri chain completion | FORMAL  | Line B + detector branch (freeze |
 |    | (exponential independence |         | item 3): slices 12i -> Theorem 8 |
