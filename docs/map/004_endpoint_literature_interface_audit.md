@@ -200,6 +200,9 @@ seminorms as concrete correction data.
 The family theorem `defect_test_norm_le_of_uniformFamilyBounds` extends this to
 the actual finite Stage-B sum, with defect norm bounded by
 `G + Σ |λᵢ| Hᵢ` under per-window pointwise bounds.
+The combined consumer `abs_ICgate_defect_le_of_uniformFamilyBounds_and_arch`
+now turns this into an explicit full defect-gate budget once an independent
+archimedean bound is supplied; it assumes no gate sign or `qw` positivity.
 
 Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
 support chain's discharged primitive was re-adjudicated by the

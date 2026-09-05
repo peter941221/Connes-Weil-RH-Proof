@@ -389,6 +389,45 @@ theorem abs_ICgate_le_of_archimedeanBound_and_termBounds
         |archimedeanTerm F| + |finitePrimeSum F| := abs_add_le _ _
     _ ≤ A + ∑ n ∈ globalPrimeIndexSet F, B n := by linarith
 
+/-- Feed the finite-family norm bridge into the full gate estimate.  The only
+analytic premise left here is the independent archimedean bound `harch`. -/
+theorem abs_ICgate_defect_le_of_uniformFamilyBounds_and_arch
+    (g : CompactLogTest) {ι : Type} (s : Finset ι)
+    (w : ι → CompactLogTest) (lam : ι → Real)
+    (G : Real) (H : ι → Real) (Aarch : Real)
+    (hG : 0 ≤ G) (hH : ∀ i ∈ s, 0 ≤ H i)
+    (harch : |archimedeanTerm (ICdefect g s w lam)| ≤ Aarch)
+    (hg : ∀ x : Real, ‖g.test x‖ ≤ G)
+    (hw : ∀ i ∈ s, ∀ x : Real, ‖(w i).test x‖ ≤ H i) :
+    |ICgate (ICdefect g s w lam)| ≤
+      Aarch + ∑ n ∈ globalPrimeIndexSet (ICdefect g s w lam),
+        ‖(ArithmeticFunction.vonMangoldt n : Complex)‖ *
+          ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ *
+            (2 * (G + ∑ i ∈ s, |lam i| * H i)) := by
+  let D : CompactLogTest := ICdefect g s w lam
+  let A : Real := G + ∑ i ∈ s, |lam i| * H i
+  have hsumH : 0 ≤ ∑ i ∈ s, |lam i| * H i := by
+    exact Finset.sum_nonneg fun i hi => mul_nonneg (abs_nonneg _) (hH i hi)
+  have hA : 0 ≤ A := by
+    exact add_nonneg hG hsumH
+  have hD : ∀ x : Real, ‖D.test x‖ ≤ A := by
+    intro x
+    exact defect_test_norm_le_of_uniformFamilyBounds g s w lam G H hg hw x
+  let B : Nat → Real := fun n =>
+    ‖(ArithmeticFunction.vonMangoldt n : Complex)‖ *
+      ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ * (2 * A)
+  have hBnonneg : ∀ n ∈ globalPrimeIndexSet D, 0 ≤ B n := by
+    intro n hn
+    dsimp [B]
+    positivity
+  have hB : ∀ n ∈ globalPrimeIndexSet D, |finitePrimeTerm D n| ≤ B n := by
+    intro n hn
+    exact (abs_finitePrimeTerm_le_primeTermNormEnvelope D n).trans
+      (primeTermNormEnvelope_le_of_uniformTestBound D n A hA hD)
+  have hgate := abs_ICgate_le_of_archimedeanBound_and_termBounds
+    D Aarch B harch hBnonneg hB
+  simpa [D, A, B] using hgate
+
 end C1P2DefectControl
 end Source
 end ConnesWeilRH

@@ -21,3 +21,4 @@ open ConnesWeilRH Source C1P2DefectControl
 #print axioms abs_finitePrimeSum_defect_le_of_zeroSeminorms
 #print axioms abs_finitePrimeSum_defect_le_of_termBounds
 #print axioms abs_ICgate_le_of_archimedeanBound_and_termBounds
+#print axioms abs_ICgate_defect_le_of_uniformFamilyBounds_and_arch
