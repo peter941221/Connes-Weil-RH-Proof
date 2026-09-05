@@ -3,6 +3,11 @@ Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
 Released under the Apache 2.0 license as described in the file LICENSE.
 -/
 
+import ConnesWeilRH.Dev.C1ScaledExpRationalEnvelope
+import ConnesWeilRH.Dev.C1RationalPowerIntegral
+import ConnesWeilRH.Dev.C1ConcreteClassMomentGroundingC
+import Mathlib.Algebra.Polynomial.Eval.Degree
+import Mathlib.Analysis.SpecialFunctions.Log.Basic
 
 /-!
 # Record 1139/1145: concrete class-moment certificate (numeric gate)
@@ -15,12 +20,6 @@ statements unchanged from 1139).
 
 RH is NOT claimed.
 -/
-
-import ConnesWeilRH.Dev.C1ScaledExpRationalEnvelope
-import ConnesWeilRH.Dev.C1RationalPowerIntegral
-import ConnesWeilRH.Dev.C1ConcreteClassMomentGroundingC
-import Mathlib.Algebra.Polynomial.Eval.Degree
-import Mathlib.Analysis.SpecialFunctions.Log.Basic
 
 namespace ConnesWeilRH
 namespace Source
@@ -50,6 +49,7 @@ private theorem q28_certificate_Q :
   rw [comparison_a0_eq, comparison_b0_eq, comparison_a2_eq,
     comparison_b2_eq]
   norm_num (config := { maxSteps := 20000000 })
+
 
 
 
