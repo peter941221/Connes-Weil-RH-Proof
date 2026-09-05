@@ -53,13 +53,12 @@ theorem taylorCoefficientQ_mul_bigQ_eq_zCoeff (i : ℕ) (hi : i < 20) :
     omega
   have hQ : (bigQ : ℚ) = (35 : ℚ) ^ 19 * (Nat.factorial 19 : ℚ) := by
     unfold bigQ
-    push_cast
-    rw [Nat.cast_mul]
+    norm_num [Nat.factorial]
   rw [taylorCoefficientQ, if_pos hi, hQ]
   simp only [zCoeff]
   push_cast
   rw [show (-(2 / 35 : ℚ)) = (-2 : ℚ) / 35 by norm_num, div_pow,
-    hcastdiv]
+    ← hcastdiv]
   field_simp [hpow, Nat.cast_pos.mpr i.factorial_pos]
 
 theorem getD_range_map_lt {α : Type*} [Inhabited α] (f : ℕ → α) (k : ℕ)
@@ -75,14 +74,17 @@ theorem listCoeff_eq_zDiv (m k : ℕ) (hk : k < 666) :
       = ((List.getD (zLayerList m) k 0 : ℤ) : ℚ) / (bigQ : ℚ) ^ m := by
   induction m generalizing k with
   | zero =>
-      change listCoeffQ zeroPowerCoefficientListQ k = _
-      rw [listCoeff_range_map _ k hk]
+      change listCoeffQ ((List.range 666).map (fun j => if j = 0 then 1 else 0)) k =
+        ((List.range 666).map (fun j => if j = 0 then 1 else 0)).getD k 0 /
+          (bigQ : ℚ) ^ 0
+      rw [listCoeff_range_map _ k hk, getD_range_map_lt _ k hk]
       by_cases h0 : k = 0
       · rw [if_pos h0, if_pos h0]
         norm_num
       · rw [if_neg h0, if_neg h0]
         norm_num
   | succ m ih =>
+      change powerCoefficientQ (m + 1) k = _
       rw [powerCoefficientQ_succ m k hk, zLayerList,
         listCoeff_range_map _ k hk]
       apply Finset.sum_congr rfl
