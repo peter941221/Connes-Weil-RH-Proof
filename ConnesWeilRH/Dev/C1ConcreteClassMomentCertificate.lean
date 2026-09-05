@@ -13,9 +13,11 @@ import Mathlib.Analysis.SpecialFunctions.Log.Basic
 
 This leaf assembles the scaled Taylor envelope and the rational-power
 integral engine into the concrete order-0 and order-2 class-moment producer.
-The coefficient and endpoint arithmetic is generated over `ℚ` and checked by
-`native_decide`; the real theorem only sees casts of those exact rational
-identities.  Endpoint tails are handled later in this file at radius `97/100`.
+The coefficient and endpoint arithmetic is generated over `ℚ`; the current
+closed-table checkpoint is evaluated by `native_decide`, while the public
+q28 conclusions remain provisional until that computation is replaced by a
+kernel-checked rational certificate.  Endpoint tails are handled later in
+this file at radius `97/100`.
 
 RH is NOT claimed.
 -/
@@ -48,34 +50,179 @@ def taylorCoefficientQ (k : ℕ) : ℚ :=
   else 0
 
 /-- Computable coefficient convolution used by the exact rational audit. -/
-def powerCoefficientQ : ℕ → ℕ → ℚ
+def listCoeffQ (xs : List ℚ) (k : ℕ) : ℚ :=
+  List.getD xs k 0
+
+def zeroPowerCoefficientListQ : List ℚ :=
+  (List.range 666).map fun k => if k = 0 then 1 else 0
+
+/-- A cached coefficient table: each power layer is computed once before the
+next layer is formed.  This keeps the exact rational decision procedure
+finite and independent of Polynomial's noncomputable ring implementation. -/
+def powerCoefficientListQ : ℕ → List ℚ
+  | 0 => zeroPowerCoefficientListQ
+  | n + 1 =>
+      let prev := powerCoefficientListQ n
+      (List.range 666).map fun k =>
+        ∑ i ∈ Finset.range 20,
+          if i ≤ k then
+            listCoeffQ prev (k - i) * taylorCoefficientQ i
+          else 0
+
+def powerCoefficientQ (n k : ℕ) : ℚ :=
+  listCoeffQ (powerCoefficientListQ n) k
+
+def powerCoefficientQSlow : ℕ → ℕ → ℚ
   | 0 => fun k => if k = 0 then 1 else 0
   | n + 1 => fun k =>
-      ∑ x ∈ Finset.Nat.antidiagonal k,
-        powerCoefficientQ n x.1 * taylorCoefficientQ x.2
+      ∑ x ∈ Finset.antidiagonal k,
+        powerCoefficientQSlow n x.1 * taylorCoefficientQ x.2
 
 def rationalPowerCoefficientQ (k : ℕ) : ℚ :=
+  powerCoefficientQSlow 35 k
+
+private def rationalPowerCoefficientQFast (k : ℕ) : ℚ :=
   powerCoefficientQ 35 k
+
+private theorem listCoeff_range_map (f : ℕ → ℚ) (k : ℕ) (hk : k < 666) :
+    listCoeffQ ((List.range 666).map f) k = f k := by
+  unfold listCoeffQ
+  rw [List.getD_eq_getElem _ _]
+  · rw [List.getElem_map]
+    simp
+  · simp [hk]
+
+private theorem powerCoefficientQ_succ (n k : ℕ) (hk : k < 666) :
+    powerCoefficientQ (n + 1) k =
+      ∑ i ∈ Finset.range 20,
+        if i ≤ k then powerCoefficientQ n (k - i) * taylorCoefficientQ i else 0 := by
+  change listCoeffQ (powerCoefficientListQ (n + 1)) k = _
+  rw [powerCoefficientListQ]
+  exact listCoeff_range_map _ k hk
+
+private theorem powerCoefficientQSlow_succ (n k : ℕ) :
+    powerCoefficientQSlow (n + 1) k =
+      ∑ i ∈ Finset.range (k + 1),
+        powerCoefficientQSlow n (k - i) * taylorCoefficientQ i := by
+  change (∑ x ∈ Finset.antidiagonal k,
+      powerCoefficientQSlow n x.1 * taylorCoefficientQ x.2) = _
+  rw [Finset.Nat.antidiagonal_eq_map']
+  simp
+
+private theorem sum_range_eq_trunc (f : ℕ → ℚ) (hf : ∀ i, 20 ≤ i → f i = 0) (k : ℕ) :
+    (∑ i ∈ Finset.range (k + 1), f i) =
+      ∑ i ∈ Finset.range 20, if i ≤ k then f i else 0 := by
+  classical
+  by_cases hk : k < 20
+  · have hsub : Finset.range (k + 1) ⊆ Finset.range 20 := by
+      intro i hi
+      have hik : i < k + 1 := Finset.mem_range.mp hi
+      have hkk : k + 1 ≤ 20 := by omega
+      exact Finset.mem_range.mpr (lt_of_lt_of_le hik hkk)
+    calc
+      (∑ i ∈ Finset.range (k + 1), f i) =
+          ∑ i ∈ Finset.range (k + 1), if i ≤ k then f i else 0 := by
+            apply Finset.sum_congr rfl
+            intro i hi
+            simp [Nat.le_of_lt_succ (Finset.mem_range.mp hi)]
+      _ = ∑ i ∈ Finset.range 20, if i ≤ k then f i else 0 := by
+        have hzero : ∀ i ∈ Finset.range 20, i ∉ Finset.range (k + 1) →
+            (if i ≤ k then f i else 0) = 0 := by
+          intro i hi hnot
+          have hik : k + 1 ≤ i := Nat.le_of_not_gt (Finset.mem_range.not.mp hnot)
+          simp [show ¬ i ≤ k by omega]
+        exact Finset.sum_subset hsub hzero
+  · have h20k : 20 ≤ k := Nat.le_of_not_gt hk
+    have hsub : Finset.range 20 ⊆ Finset.range (k + 1) := by
+      intro i hi
+      have hi20 : i < 20 := Finset.mem_range.mp hi
+      exact Finset.mem_range.mpr (by omega)
+    calc
+      (∑ i ∈ Finset.range (k + 1), f i) =
+          ∑ i ∈ Finset.range (k + 1), if i < 20 then f i else 0 := by
+            apply Finset.sum_congr rfl
+            intro i hi
+            by_cases hi20 : i < 20
+            · simp [hi20]
+            · rw [if_neg hi20, hf i (Nat.le_of_not_gt hi20)]
+      _ = ∑ i ∈ Finset.range 20, if i ≤ k then f i else 0 := by
+        have hsum :
+            (∑ i ∈ Finset.range 20, if i < 20 then f i else 0) =
+              ∑ i ∈ Finset.range (k + 1), if i < 20 then f i else 0 := by
+          apply Finset.sum_subset hsub
+          intro i hi hnot
+          have hi20 : ¬ i < 20 := Finset.mem_range.not.mp hnot
+          simp [hi20]
+        rw [← hsum]
+        apply Finset.sum_congr rfl
+        intro i hi
+        have hi20 : i < 20 := Finset.mem_range.mp hi
+        have hik : i ≤ k := by omega
+        simp [hi20, hik]
+
+private theorem powerCoefficientQ_eq_slow : ∀ n k, k < 666 →
+    powerCoefficientQ n k = powerCoefficientQSlow n k := by
+  intro n
+  induction n with
+  | zero =>
+      intro k hk
+      change listCoeffQ zeroPowerCoefficientListQ k = _
+      rw [show zeroPowerCoefficientListQ =
+        (List.range 666).map (fun j => if j = 0 then 1 else 0) by rfl]
+      rw [listCoeff_range_map _ k hk]
+      rfl
+  | succ n ih =>
+      intro k hk
+      rw [powerCoefficientQ_succ n k hk, powerCoefficientQSlow_succ]
+      have hzero : ∀ i, 20 ≤ i →
+          powerCoefficientQSlow n (k - i) * taylorCoefficientQ i = 0 := by
+        intro i hi
+        simp [taylorCoefficientQ, Nat.not_lt.mpr hi]
+      rw [sum_range_eq_trunc
+        (fun i => powerCoefficientQSlow n (k - i) * taylorCoefficientQ i)
+        hzero k]
+      apply Finset.sum_congr rfl
+      intro i hi
+      by_cases hik : i ≤ k
+      · rw [if_pos hik, if_pos hik,
+          ih (k - i) (lt_of_le_of_lt (Nat.sub_le k i) hk)]
+      · simp [hik]
+
+private theorem rationalPowerCoefficientQFast_eq_slow (k : ℕ) (hk : k < 666) :
+    rationalPowerCoefficientQFast k = rationalPowerCoefficientQ k := by
+  exact powerCoefficientQ_eq_slow 35 k hk
 
 theorem taylorScaledPolynomialQ_coeff (k : ℕ) :
     taylorScaledPolynomialQ.coeff k = taylorCoefficientQ k := by
+  classical
   unfold taylorScaledPolynomialQ taylorCoefficientQ
-  rw [coeff_sum]
+  rw [Polynomial.finsetSum_coeff]
   by_cases hk : k < 20
-  · simp [Finset.mem_range.mpr hk]
-  · simp [Finset.mem_range.not.mpr hk]
+  · rw [Finset.sum_eq_single k]
+    · simp [hk]
+    · intro j hj hjk
+      simp [hjk.symm]
+    · intro hnot
+      exact (hnot (Finset.mem_range.mpr hk)).elim
+  · simp only [if_neg hk]
+    apply Finset.sum_eq_zero
+    intro j hj
+    have hjk : k ≠ j := by
+      exact ne_of_gt (lt_of_lt_of_le (Finset.mem_range.mp hj)
+        (Nat.le_of_not_gt hk))
+    simp [hjk]
 
-theorem powerCoefficientQ_eq_polynomial_coeff (n k : ℕ) :
-    powerCoefficientQ n k =
+theorem powerCoefficientQSlow_eq_polynomial_coeff (n k : ℕ) :
+    powerCoefficientQSlow n k =
       (taylorScaledPolynomialQ ^ n).coeff k := by
-  induction n with
+  induction n generalizing k with
   | zero =>
-      simp [powerCoefficientQ]
+      simp [powerCoefficientQSlow, Polynomial.coeff_one]
   | succ n ih =>
-      rw [powerCoefficientQ, pow_succ, coeff_mul]
+      rw [powerCoefficientQSlow, pow_succ, coeff_mul]
       apply Finset.sum_congr rfl
       intro x hx
-      rw [ih, taylorScaledPolynomialQ_coeff]
+      rw [ih x.1, taylorScaledPolynomialQ_coeff]
 
 def endpointAQ : ℕ → ℚ
   | 0 => 2 * rationalRadiusQ
@@ -99,17 +246,27 @@ def momentBQ : ℕ → ℚ
   | 0 => 0
   | k + 1 => endpointBQ (k + 1) - endpointBQ k
 
-def comparisonIntegral0AQ : ℚ :=
-  ∑ k ∈ Finset.range 666, rationalPowerCoefficientQ k * endpointAQ k
+structure ComparisonDataQ where
+  a0 : ℚ
+  b0 : ℚ
+  a2 : ℚ
+  b2 : ℚ
 
-def comparisonIntegral0BQ : ℚ :=
-  ∑ k ∈ Finset.range 666, rationalPowerCoefficientQ k * endpointBQ k
+/-- The four exact comparison sums share one cached coefficient table. -/
+def comparisonDataQ : ComparisonDataQ :=
+  let coeffs := powerCoefficientListQ 35
+  { a0 := ∑ k ∈ Finset.range 666, listCoeffQ coeffs k * endpointAQ k
+    b0 := ∑ k ∈ Finset.range 666, listCoeffQ coeffs k * endpointBQ k
+    a2 := ∑ k ∈ Finset.range 666, listCoeffQ coeffs k * momentAQ k
+    b2 := ∑ k ∈ Finset.range 666, listCoeffQ coeffs k * momentBQ k }
 
-def comparisonIntegral2AQ : ℚ :=
-  ∑ k ∈ Finset.range 666, rationalPowerCoefficientQ k * momentAQ k
+def comparisonIntegral0AQ : ℚ := comparisonDataQ.a0
 
-def comparisonIntegral2BQ : ℚ :=
-  ∑ k ∈ Finset.range 666, rationalPowerCoefficientQ k * momentBQ k
+def comparisonIntegral0BQ : ℚ := comparisonDataQ.b0
+
+def comparisonIntegral2AQ : ℚ := comparisonDataQ.a2
+
+def comparisonIntegral2BQ : ℚ := comparisonDataQ.b2
 
 def logLowerQ : ℚ := 41845914400698788 / 10 ^ 16
 
@@ -133,33 +290,42 @@ def q28Moment2LoQ : ℚ :=
 def q28Moment2HiQ : ℚ :=
   8817094793947821 / 576460752303423488 + 1 / 10 ^ 15
 
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 2000000000 in
--- reason: exact rational evaluation of four 666-term comparison sums
+-- reason: executable checkpoint for the shared 666-term comparison table;
+-- the resulting native axiom is recorded in the 1139 post-run addendum.
+private theorem q28_certificate_Q :
+    let d := comparisonDataQ
+    (q28Moment0LoQ + centralErrorQ ≤ d.a0 + d.b0 * logUpperQ ∧
+      d.a0 + d.b0 * logLowerQ + centralErrorQ + 2 * tailBudgetQ ≤ q28Moment0HiQ) ∧
+    (q28Moment2LoQ + centralErrorQ ≤ d.a2 + d.b2 * logUpperQ ∧
+      d.a2 + d.b2 * logLowerQ + centralErrorQ + 2 * tailBudgetQ ≤ q28Moment2HiQ) ∧
+    (d.b0 < 0 ∧ d.b2 < 0) := by
+  native_decide
+
 private theorem q28Moment0_lower_Q :
     q28Moment0LoQ + centralErrorQ ≤
       comparisonIntegral0AQ + comparisonIntegral0BQ * logUpperQ := by
-  native_decide
+  simpa only [comparisonIntegral0AQ, comparisonIntegral0BQ] using q28_certificate_Q.1.1
 
-set_option maxHeartbeats 2000000000 in
--- reason: exact rational evaluation of four 666-term comparison sums
 private theorem q28Moment0_upper_Q :
     comparisonIntegral0AQ + comparisonIntegral0BQ * logLowerQ +
         centralErrorQ + 2 * tailBudgetQ ≤ q28Moment0HiQ := by
-  native_decide
+  simpa only [comparisonIntegral0AQ, comparisonIntegral0BQ] using q28_certificate_Q.1.2
 
-set_option maxHeartbeats 2000000000 in
--- reason: exact rational evaluation of four 666-term comparison sums
 private theorem q28Moment2_lower_Q :
     q28Moment2LoQ + centralErrorQ ≤
       comparisonIntegral2AQ + comparisonIntegral2BQ * logUpperQ := by
-  native_decide
+  simpa only [comparisonIntegral2AQ, comparisonIntegral2BQ] using q28_certificate_Q.2.1.1
 
-set_option maxHeartbeats 2000000000 in
--- reason: exact rational evaluation of four 666-term comparison sums
 private theorem q28Moment2_upper_Q :
     comparisonIntegral2AQ + comparisonIntegral2BQ * logLowerQ +
         centralErrorQ + 2 * tailBudgetQ ≤ q28Moment2HiQ := by
-  native_decide
+  simpa only [comparisonIntegral2AQ, comparisonIntegral2BQ] using q28_certificate_Q.2.1.2
+
+private theorem comparisonBQ_negative :
+    comparisonIntegral0BQ < 0 ∧ comparisonIntegral2BQ < 0 := by
+  simpa only [comparisonIntegral0BQ, comparisonIntegral2BQ] using q28_certificate_Q.2.2
 
 end Computable
 
@@ -167,8 +333,11 @@ open C1ClassWindowObjects
 open C1ClassGramMomentReduction
 open C1ClassMomentIntegralCertificate
 open C1ClassMomentTailCertificate
+open C1ClassMomentCentralAssembly
 open C1RationalPowerIntegral
 open C1Q28ClassGramIntervalTransfer
+open C1HboxRationalData
+open C1ClassGramOwner
 
 noncomputable section
 
@@ -191,18 +360,23 @@ theorem rationalPowerPolynomial_eq_map :
   have hbase : taylorScaledPolynomial =
       taylorScaledPolynomialQ.map (algebraMap ℚ ℝ) := by
     unfold taylorScaledPolynomial taylorScaledPolynomialQ
-    rw [map_sum]
+    rw [Polynomial.map_sum]
     apply Finset.sum_congr rfl
     intro j hj
-    simp only [map_mul, map_C, map_pow, map_X]
+    simp only [Polynomial.map_mul, Polynomial.map_C, Polynomial.map_pow, map_X]
     norm_num
   unfold rationalPowerPolynomial rationalPowerPolynomialQ
-  rw [hbase, map_pow]
+  rw [hbase, ← Polynomial.map_pow]
 
 theorem rationalPowerCoefficient_eq_cast (k : ℕ) :
     rationalPowerCoefficient k = (rationalPowerCoefficientQ k : ℝ) := by
   rw [rationalPowerCoefficient, rationalPowerPolynomial_eq_map]
-  simp [rationalPowerCoefficientQ]
+  rw [Polynomial.coeff_map]
+  change (algebraMap ℚ ℝ) ((taylorScaledPolynomialQ ^ 35).coeff k) =
+    (powerCoefficientQSlow 35 k : ℝ)
+  have h := powerCoefficientQSlow_eq_polynomial_coeff 35 k
+  rw [← h]
+  rfl
 
 private theorem taylorScaledPolynomial_natDegree_le :
     taylorScaledPolynomial.natDegree ≤ 19 := by
@@ -231,8 +405,8 @@ theorem taylorScaledPolynomial_eval (z : ℝ) :
     eval z taylorScaledPolynomial =
       C1ScaledExpRationalEnvelope.expTaylor20 ((2 / 35 : ℝ) * z) := by
   rw [taylorScaledPolynomial, eval_finsetSum]
-  simp [C1ScaledExpRationalEnvelope.expTaylor20]
-  apply Finset.sum_congr rfl
+  simp only [eval_mul, eval_C, eval_pow, eval_X]
+  refine Finset.sum_congr rfl ?_
   intro j hj
   ring
 
@@ -243,6 +417,7 @@ theorem rationalPowerPolynomial_eval_eq_finite (z : ℝ) :
   rw [eval_eq_sum_range' rationalPowerPolynomial_natDegree_lt]
   rfl
 
+set_option maxRecDepth 1000000 in
 theorem scaledClassWeightApprox_eq_finiteDenominatorPowerPolynomial
     (x : ℝ)
     (hx : x ∈ Icc (-(rationalRadius : ℝ)) (rationalRadius : ℝ)) :
@@ -267,7 +442,9 @@ theorem scaledClassWeightApprox_eq_finiteDenominatorPowerPolynomial
             taylorScaledPolynomial_eval]
     _ = finiteDenominatorPowerPolynomial (Finset.range 666)
         rationalPowerCoefficient x :=
-      rationalPowerPolynomial_eval_eq_finite (denominatorPower 1 x)
+      by
+        simpa [finiteDenominatorPowerPolynomial, denominatorPower] using
+          rationalPowerPolynomial_eval_eq_finite (denominatorPower 1 x)
 
 /-! ## Logarithm enclosure -/
 
@@ -377,7 +554,7 @@ private theorem log_197_div_3_identity :
   have hs : (0 : ℝ) < 197 / 192 := by norm_num
   calc
     Real.log (197 / 3) = Real.log ((2 : ℝ) ^ 6 * (197 / 192)) := by
-      congr 1 <;> norm_num
+      congr 1; norm_num
     _ = Real.log ((2 : ℝ) ^ 6) + Real.log (197 / 192) := by
       rw [Real.log_mul (pow_ne_zero 6 h2.ne') hs.ne']
     _ = 6 * Real.log 2 + Real.log (197 / 192) := by
@@ -441,29 +618,555 @@ noncomputable def comparisonIntegral2 : ℝ :=
   finiteDenominatorPowerMomentIntegralValue (Finset.range 666)
     rationalPowerCoefficient
 
+private theorem rationalPowerCoefficient_eq_cached (k : ℕ) (hk : k < 666) :
+    rationalPowerCoefficient k =
+      (powerCoefficientQ 35 k : ℝ) := by
+  rw [rationalPowerCoefficient_eq_cast]
+  change (powerCoefficientQSlow 35 k : ℝ) =
+    (powerCoefficientQ 35 k : ℝ)
+  rw [powerCoefficientQ_eq_slow 35 k hk]
+
+private theorem cast_cached_sum (f : ℕ → ℚ) :
+    ((∑ k ∈ Finset.range 666, powerCoefficientQ 35 k * f k : ℚ) : ℝ) =
+      ∑ k ∈ Finset.range 666,
+        (powerCoefficientQ 35 k : ℝ) * (f k : ℝ) := by
+  norm_cast
+
+private theorem comparisonIntegral0AQ_cast :
+    (comparisonIntegral0AQ : ℝ) =
+      ∑ k ∈ Finset.range 666,
+        (powerCoefficientQ 35 k : ℝ) * (endpointAQ k : ℝ) := by
+  simpa [comparisonIntegral0AQ, comparisonDataQ, powerCoefficientQ] using
+    (cast_cached_sum endpointAQ)
+
+private theorem comparisonIntegral0BQ_cast :
+    (comparisonIntegral0BQ : ℝ) =
+      ∑ k ∈ Finset.range 666,
+        (powerCoefficientQ 35 k : ℝ) * (endpointBQ k : ℝ) := by
+  simpa [comparisonIntegral0BQ, comparisonDataQ, powerCoefficientQ] using
+    (cast_cached_sum endpointBQ)
+
+private theorem comparisonIntegral2AQ_cast :
+    (comparisonIntegral2AQ : ℝ) =
+      ∑ k ∈ Finset.range 666,
+        (powerCoefficientQ 35 k : ℝ) * (momentAQ k : ℝ) := by
+  simpa [comparisonIntegral2AQ, comparisonDataQ, powerCoefficientQ] using
+    (cast_cached_sum momentAQ)
+
+private theorem comparisonIntegral2BQ_cast :
+    (comparisonIntegral2BQ : ℝ) =
+      ∑ k ∈ Finset.range 666,
+        (powerCoefficientQ 35 k : ℝ) * (momentBQ k : ℝ) := by
+  simpa [comparisonIntegral2BQ, comparisonDataQ, powerCoefficientQ] using
+    (cast_cached_sum momentBQ)
+
+private theorem sum_cached_linear (a b : ℕ → ℚ) (L : ℝ) :
+    (∑ k ∈ Finset.range 666,
+        (powerCoefficientQ 35 k : ℝ) *
+          ((a k : ℝ) + (b k : ℝ) * L)) =
+      (∑ k ∈ Finset.range 666,
+        (powerCoefficientQ 35 k : ℝ) * (a k : ℝ)) +
+      (∑ k ∈ Finset.range 666,
+        (powerCoefficientQ 35 k : ℝ) * (b k : ℝ)) * L := by
+  simp_rw [mul_add]
+  rw [Finset.sum_add_distrib]
+  have hsecond :
+      (∑ k ∈ Finset.range 666,
+        (powerCoefficientQ 35 k : ℝ) * ((b k : ℝ) * L)) =
+        (∑ k ∈ Finset.range 666,
+          (powerCoefficientQ 35 k : ℝ) * (b k : ℝ)) * L := by
+    rw [Finset.sum_mul]
+    apply Finset.sum_congr rfl
+    intro k hk
+    ring
+  rw [hsecond]
+
+set_option maxRecDepth 1000000 in
 private theorem comparisonIntegral0_linear :
     comparisonIntegral0 =
       (comparisonIntegral0AQ : ℝ) +
         (comparisonIntegral0BQ : ℝ) * Real.log (197 / 3) := by
   unfold comparisonIntegral0 finiteDenominatorPowerIntegralValue
-  apply Finset.sum_congr rfl
-  intro k hk
-  rw [rationalPowerCoefficient_eq_cast,
-    rationalPowerIntervalValue_linear]
-  simp only [comparisonIntegral0AQ, comparisonIntegral0BQ]
-  ring
+  calc
+    (∑ k ∈ Finset.range 666,
+        rationalPowerCoefficient k * rationalPowerIntervalValue k) =
+        ∑ k ∈ Finset.range 666, rationalPowerCoefficient k *
+          ((endpointAQ k : ℝ) + (endpointBQ k : ℝ) * Real.log (197 / 3)) := by
+      apply Finset.sum_congr rfl
+      intro k hk
+      rw [rationalPowerIntervalValue_linear]
+    _ = ∑ k ∈ Finset.range 666, (powerCoefficientQ 35 k : ℝ) *
+          ((endpointAQ k : ℝ) + (endpointBQ k : ℝ) * Real.log (197 / 3)) := by
+      apply Finset.sum_congr rfl
+      intro k hk
+      rw [rationalPowerCoefficient_eq_cached k (Finset.mem_range.mp hk)]
+    _ = (comparisonIntegral0AQ : ℝ) +
+          (comparisonIntegral0BQ : ℝ) * Real.log (197 / 3) := by
+      rw [sum_cached_linear, comparisonIntegral0AQ_cast,
+        comparisonIntegral0BQ_cast]
 
+set_option maxRecDepth 1000000 in
 private theorem comparisonIntegral2_linear :
     comparisonIntegral2 =
       (comparisonIntegral2AQ : ℝ) +
         (comparisonIntegral2BQ : ℝ) * Real.log (197 / 3) := by
   unfold comparisonIntegral2 finiteDenominatorPowerMomentIntegralValue
+  calc
+    (∑ k ∈ Finset.range 666,
+        rationalPowerCoefficient k * denominatorPowerMomentValue k) =
+        ∑ k ∈ Finset.range 666, rationalPowerCoefficient k *
+          ((momentAQ k : ℝ) + (momentBQ k : ℝ) * Real.log (197 / 3)) := by
+      apply Finset.sum_congr rfl
+      intro k hk
+      rw [denominatorPowerMomentValue_linear]
+    _ = ∑ k ∈ Finset.range 666, (powerCoefficientQ 35 k : ℝ) *
+          ((momentAQ k : ℝ) + (momentBQ k : ℝ) * Real.log (197 / 3)) := by
+      apply Finset.sum_congr rfl
+      intro k hk
+      rw [rationalPowerCoefficient_eq_cached k (Finset.mem_range.mp hk)]
+    _ = (comparisonIntegral2AQ : ℝ) +
+          (comparisonIntegral2BQ : ℝ) * Real.log (197 / 3) := by
+      rw [sum_cached_linear, comparisonIntegral2AQ_cast,
+        comparisonIntegral2BQ_cast]
+
+/-! ## Concrete central comparison functions -/
+
+private noncomputable def centralPointwiseError : ℝ :=
+  (70 : ℝ) * C1ScaledExpRationalEnvelope.expTaylor20Error
+
+private noncomputable def centralComparison0 (x : ℝ) : ℝ :=
+  finiteDenominatorPowerPolynomial (Finset.range 666)
+    rationalPowerCoefficient x
+
+private noncomputable def centralComparison2 (x : ℝ) : ℝ :=
+  finiteDenominatorPowerMomentPolynomial (Finset.range 666)
+    rationalPowerCoefficient x
+
+private theorem central_error_eq_cast :
+    (2 * rationalRadius) * centralPointwiseError = (centralErrorQ : ℝ) := by
+  norm_num [centralPointwiseError, centralErrorQ, rationalRadius,
+    rationalRadiusQ, C1ScaledExpRationalEnvelope.expTaylor20Error]
+
+private theorem centralComparison0_intervalIntegrable :
+    IntervalIntegrable centralComparison0 volume
+      (-rationalRadius) rationalRadius := by
+  unfold centralComparison0 finiteDenominatorPowerPolynomial
+  apply ContinuousOn.intervalIntegrable
+  rw [uIcc_of_le (by norm_num [rationalRadius])]
+  exact continuousOn_finsetSum _ (fun k hk =>
+    continuousOn_const.mul (denominatorPower_continuousOn k))
+
+private theorem centralComparison2_intervalIntegrable :
+    IntervalIntegrable centralComparison2 volume
+      (-rationalRadius) rationalRadius := by
+  unfold centralComparison2 finiteDenominatorPowerMomentPolynomial
+  apply ContinuousOn.intervalIntegrable
+  rw [uIcc_of_le (by norm_num [rationalRadius])]
+  exact continuousOn_finsetSum _ (fun k hk =>
+    continuousOn_const.mul ((continuousOn_id.pow 2).mul
+      (denominatorPower_continuousOn k)))
+
+private theorem centralComparison0_integral :
+    (∫ x in (-rationalRadius)..rationalRadius, centralComparison0 x) =
+      comparisonIntegral0 := by
+  simpa [centralComparison0, comparisonIntegral0] using
+    (intervalIntegral_finiteDenominatorPowerPolynomial
+      (Finset.range 666) rationalPowerCoefficient)
+
+private theorem centralComparison2_integral :
+    (∫ x in (-rationalRadius)..rationalRadius, centralComparison2 x) =
+      comparisonIntegral2 := by
+  simpa [centralComparison2, comparisonIntegral2] using
+    (intervalIntegral_finiteDenominatorPowerMomentPolynomial
+      (Finset.range 666) rationalPowerCoefficient)
+
+private theorem centralComparison0_lower_integral :
+    (∫ x in (-rationalRadius)..rationalRadius,
+      centralComparison0 x - centralPointwiseError) =
+      comparisonIntegral0 - (centralErrorQ : ℝ) := by
+  rw [intervalIntegral.integral_sub centralComparison0_intervalIntegrable
+      intervalIntegrable_const, centralComparison0_integral,
+    intervalIntegral.integral_const, smul_eq_mul]
+  rw [show rationalRadius - (-rationalRadius) = 2 * rationalRadius by ring,
+    central_error_eq_cast]
+
+private theorem centralComparison0_upper_integral :
+    (∫ x in (-rationalRadius)..rationalRadius,
+      centralComparison0 x + centralPointwiseError) =
+      comparisonIntegral0 + (centralErrorQ : ℝ) := by
+  rw [intervalIntegral.integral_add centralComparison0_intervalIntegrable
+      intervalIntegrable_const, centralComparison0_integral,
+    intervalIntegral.integral_const, smul_eq_mul]
+  rw [show rationalRadius - (-rationalRadius) = 2 * rationalRadius by ring,
+    central_error_eq_cast]
+
+private theorem centralComparison2_lower_integral :
+    (∫ x in (-rationalRadius)..rationalRadius,
+      centralComparison2 x - centralPointwiseError) =
+      comparisonIntegral2 - (centralErrorQ : ℝ) := by
+  rw [intervalIntegral.integral_sub centralComparison2_intervalIntegrable
+      intervalIntegrable_const, centralComparison2_integral,
+    intervalIntegral.integral_const, smul_eq_mul]
+  rw [show rationalRadius - (-rationalRadius) = 2 * rationalRadius by ring,
+    central_error_eq_cast]
+
+private theorem centralComparison2_upper_integral :
+    (∫ x in (-rationalRadius)..rationalRadius,
+      centralComparison2 x + centralPointwiseError) =
+      comparisonIntegral2 + (centralErrorQ : ℝ) := by
+  rw [intervalIntegral.integral_add centralComparison2_intervalIntegrable
+      intervalIntegrable_const, centralComparison2_integral,
+    intervalIntegral.integral_const, smul_eq_mul]
+  rw [show rationalRadius - (-rationalRadius) = 2 * rationalRadius by ring,
+    central_error_eq_cast]
+
+private theorem centralComparison0_error {x : ℝ}
+    (hx : x ∈ Icc (-rationalRadius) rationalRadius) :
+    |classMomentIntegrand 0 x - centralComparison0 x| ≤
+      centralPointwiseError := by
+  have hx' : x ∈ Icc (-(97 / 100 : ℝ)) (97 / 100) := by
+    simpa [rationalRadius] using hx
+  have h := C1ScaledExpRationalEnvelope.classMomentIntegrand_central_approx_error
+    0 x hx'
+  rw [scaledClassWeightApprox_eq_finiteDenominatorPowerPolynomial x hx] at h
+  simpa [centralComparison0, centralPointwiseError] using h
+
+private theorem scaledMomentApprox_eq_finiteMoment {x : ℝ}
+    (hx : x ∈ Icc (-rationalRadius) rationalRadius) :
+    x ^ 2 * C1ScaledExpRationalEnvelope.scaledClassWeightApprox x =
+      finiteDenominatorPowerMomentPolynomial (Finset.range 666)
+        rationalPowerCoefficient x := by
+  rw [scaledClassWeightApprox_eq_finiteDenominatorPowerPolynomial x hx]
+  unfold finiteDenominatorPowerMomentPolynomial
+    finiteDenominatorPowerPolynomial
+  rw [Finset.mul_sum]
   apply Finset.sum_congr rfl
   intro k hk
-  rw [rationalPowerCoefficient_eq_cast,
-    denominatorPowerMomentValue_linear]
-  simp only [comparisonIntegral2AQ, comparisonIntegral2BQ]
   ring
+
+private theorem centralComparison2_error {x : ℝ}
+    (hx : x ∈ Icc (-rationalRadius) rationalRadius) :
+    |classMomentIntegrand 2 x - centralComparison2 x| ≤
+      centralPointwiseError := by
+  have hx' : x ∈ Icc (-(97 / 100 : ℝ)) (97 / 100) := by
+    simpa [rationalRadius] using hx
+  have h := C1ScaledExpRationalEnvelope.classMomentIntegrand_central_approx_error
+    2 x hx'
+  rw [scaledMomentApprox_eq_finiteMoment hx] at h
+  simpa [centralComparison2, centralPointwiseError] using h
+
+/-! ## Transport of the exact rational certificate -/
+
+private theorem q28Moment0LoQ_cast :
+    (q28Moment0LoQ : ℝ) = q28Moment0Lo := by
+  norm_num [q28Moment0LoQ, q28Moment0Lo]
+
+private theorem q28Moment0HiQ_cast :
+    (q28Moment0HiQ : ℝ) = q28Moment0Hi := by
+  norm_num [q28Moment0HiQ, q28Moment0Hi]
+
+private theorem q28Moment2LoQ_cast :
+    (q28Moment2LoQ : ℝ) = q28Moment2Lo := by
+  norm_num [q28Moment2LoQ, q28Moment2Lo]
+
+private theorem q28Moment2HiQ_cast :
+    (q28Moment2HiQ : ℝ) = q28Moment2Hi := by
+  norm_num [q28Moment2HiQ, q28Moment2Hi]
+
+private theorem q28Moment0_lower_real :
+    (q28Moment0LoQ : ℝ) + (centralErrorQ : ℝ) ≤
+      (comparisonIntegral0AQ : ℝ) +
+        (comparisonIntegral0BQ : ℝ) * (logUpperQ : ℝ) := by
+  exact_mod_cast q28Moment0_lower_Q
+
+private theorem q28Moment0_upper_real :
+    (comparisonIntegral0AQ : ℝ) +
+        (comparisonIntegral0BQ : ℝ) * (logLowerQ : ℝ) +
+        (centralErrorQ : ℝ) + 2 * (tailBudgetQ : ℝ) ≤
+      (q28Moment0HiQ : ℝ) := by
+  exact_mod_cast q28Moment0_upper_Q
+
+private theorem q28Moment2_lower_real :
+    (q28Moment2LoQ : ℝ) + (centralErrorQ : ℝ) ≤
+      (comparisonIntegral2AQ : ℝ) +
+        (comparisonIntegral2BQ : ℝ) * (logUpperQ : ℝ) := by
+  exact_mod_cast q28Moment2_lower_Q
+
+private theorem q28Moment2_upper_real :
+    (comparisonIntegral2AQ : ℝ) +
+        (comparisonIntegral2BQ : ℝ) * (logLowerQ : ℝ) +
+        (centralErrorQ : ℝ) + 2 * (tailBudgetQ : ℝ) ≤
+      (q28Moment2HiQ : ℝ) := by
+  exact_mod_cast q28Moment2_upper_Q
+
+private theorem comparisonBQ_negative_real :
+    (comparisonIntegral0BQ : ℝ) < 0 ∧
+      (comparisonIntegral2BQ : ℝ) < 0 := by
+  exact_mod_cast comparisonBQ_negative
+
+private theorem centralComparison0_lower_value :
+  q28Moment0Lo ≤
+      ∫ x in (-rationalRadius)..rationalRadius,
+        centralComparison0 x - centralPointwiseError := by
+  rw [centralComparison0_lower_integral, ← q28Moment0LoQ_cast,
+    comparisonIntegral0_linear]
+  have hq := q28Moment0_lower_real
+  have hlog := log_197_div_3_upper
+  have hB := comparisonBQ_negative_real.1
+  have hprod :
+      (comparisonIntegral0BQ : ℝ) * (logUpperQ : ℝ) ≤
+        (comparisonIntegral0BQ : ℝ) * Real.log (197 / 3) :=
+    mul_le_mul_of_nonpos_left hlog (le_of_lt hB)
+  linarith
+
+private theorem centralComparison0_upper_value :
+    (∫ x in (-rationalRadius)..rationalRadius,
+      centralComparison0 x + centralPointwiseError) ≤
+      q28Moment0Hi - 2 * (tailBudgetQ : ℝ) := by
+  rw [centralComparison0_upper_integral, ← q28Moment0HiQ_cast,
+    comparisonIntegral0_linear]
+  have hq := q28Moment0_upper_real
+  have hlog := log_197_div_3_lower
+  have hB := comparisonBQ_negative_real.1
+  have hprod :
+      (comparisonIntegral0BQ : ℝ) * Real.log (197 / 3) ≤
+        (comparisonIntegral0BQ : ℝ) * (logLowerQ : ℝ) :=
+    mul_le_mul_of_nonpos_left hlog (le_of_lt hB)
+  linarith
+
+private theorem centralComparison2_lower_value :
+  q28Moment2Lo ≤
+      ∫ x in (-rationalRadius)..rationalRadius,
+        centralComparison2 x - centralPointwiseError := by
+  rw [centralComparison2_lower_integral, ← q28Moment2LoQ_cast,
+    comparisonIntegral2_linear]
+  have hq := q28Moment2_lower_real
+  have hlog := log_197_div_3_upper
+  have hB := comparisonBQ_negative_real.2
+  have hprod :
+      (comparisonIntegral2BQ : ℝ) * (logUpperQ : ℝ) ≤
+        (comparisonIntegral2BQ : ℝ) * Real.log (197 / 3) :=
+    mul_le_mul_of_nonpos_left hlog (le_of_lt hB)
+  linarith
+
+private theorem centralComparison2_upper_value :
+    (∫ x in (-rationalRadius)..rationalRadius,
+      centralComparison2 x + centralPointwiseError) ≤
+      q28Moment2Hi - 2 * (tailBudgetQ : ℝ) := by
+  rw [centralComparison2_upper_integral, ← q28Moment2HiQ_cast,
+    comparisonIntegral2_linear]
+  have hq := q28Moment2_upper_real
+  have hlog := log_197_div_3_lower
+  have hB := comparisonBQ_negative_real.2
+  have hprod :
+      (comparisonIntegral2BQ : ℝ) * Real.log (197 / 3) ≤
+        (comparisonIntegral2BQ : ℝ) * (logLowerQ : ℝ) :=
+    mul_le_mul_of_nonpos_left hlog (le_of_lt hB)
+  linarith
+
+private noncomputable def concreteCentralEnvelope0 :
+    IntegralEnvelope (classMomentIntegrand 0) (-rationalRadius) rationalRadius
+      q28Moment0Lo (q28Moment0Hi - 2 * (tailBudgetQ : ℝ)) := by
+  refine
+    { lower := fun x => centralComparison0 x - centralPointwiseError
+      upper := fun x => centralComparison0 x + centralPointwiseError
+      lower_integrable := centralComparison0_intervalIntegrable.sub
+        intervalIntegrable_const
+      target_integrable := classMomentIntegrand_intervalIntegrable 0 _ _
+      upper_integrable := centralComparison0_intervalIntegrable.add
+        intervalIntegrable_const
+      lower_le := ?_
+      upper_le := ?_
+      lower_value := centralComparison0_lower_value
+      upper_value := centralComparison0_upper_value }
+  · intro x hx
+    linarith [(abs_le.mp (centralComparison0_error hx)).1]
+  · intro x hx
+    linarith [(abs_le.mp (centralComparison0_error hx)).2]
+
+private noncomputable def concreteCentralEnvelope2 :
+    IntegralEnvelope (classMomentIntegrand 2) (-rationalRadius) rationalRadius
+      q28Moment2Lo (q28Moment2Hi - 2 * (tailBudgetQ : ℝ)) := by
+  refine
+    { lower := fun x => centralComparison2 x - centralPointwiseError
+      upper := fun x => centralComparison2 x + centralPointwiseError
+      lower_integrable := centralComparison2_intervalIntegrable.sub
+        intervalIntegrable_const
+      target_integrable := classMomentIntegrand_intervalIntegrable 2 _ _
+      upper_integrable := centralComparison2_intervalIntegrable.add
+        intervalIntegrable_const
+      lower_le := ?_
+      upper_le := ?_
+      lower_value := centralComparison2_lower_value
+      upper_value := centralComparison2_upper_value }
+  · intro x hx
+    linarith [(abs_le.mp (centralComparison2_error hx)).1]
+  · intro x hx
+    linarith [(abs_le.mp (centralComparison2_error hx)).2]
+
+/-! ## The `97/100` endpoint tail -/
+
+private lemma exp_neg_one_lt_three_eighths_97 :
+    Real.exp (-1) < (3 / 8 : ℝ) := by
+  have h := Real.exp_bound (x := (-1 : ℝ))
+    (by norm_num) (n := 7) (by norm_num)
+  have hup := (abs_sub_le_iff.mp h).1
+  norm_num [Finset.sum_range_succ] at hup
+  nlinarith
+
+private lemma exp_neg_nat_eq_pow_97 (n : ℕ) :
+    Real.exp (-(n : ℝ)) = Real.exp (-1) ^ n := by
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      rw [Nat.cast_succ]
+      have harg : -((n : ℝ) + 1) = -(n : ℝ) + (-1 : ℝ) := by ring
+      rw [harg, Real.exp_add, ih, pow_succ]
+
+private lemma tail_constant_97_lt :
+    (1 - (97 / 100 : ℝ)) *
+        Real.exp (-(2 / (1 - (97 / 100 : ℝ) ^ 2))) <
+      (tailBudgetQ : ℝ) := by
+  have hq : (169 / 5 : ℝ) ≤ 2 / (1 - (97 / 100 : ℝ) ^ 2) := by
+    norm_num
+  have hexp : Real.exp (-(2 / (1 - (97 / 100 : ℝ) ^ 2))) ≤
+      Real.exp (-(169 / 5 : ℝ)) := by
+    apply Real.exp_le_exp.mpr
+    linarith
+  have hexp_one : Real.exp (-1) < (3679 / 10000 : ℝ) := by
+    have h := Real.exp_bound (x := (-1 : ℝ))
+      (by norm_num) (n := 12) (by norm_num)
+    have hup := (abs_sub_le_iff.mp h).1
+    norm_num [Finset.sum_range_succ] at hup
+    linarith
+  have hexp_four_fifths : Real.exp (-(4 / 5 : ℝ)) <
+      (9 / 20 : ℝ) := by
+    have h := Real.exp_bound (x := (-(4 / 5 : ℝ)))
+      (by norm_num) (n := 7) (by norm_num)
+    have hup := (abs_sub_le_iff.mp h).1
+    norm_num [Finset.sum_range_succ] at hup
+    linarith
+  have hexp_split : Real.exp (-(169 / 5 : ℝ)) <
+      (3679 / 10000 : ℝ) ^ 33 * (9 / 20 : ℝ) := by
+    rw [show -(169 / 5 : ℝ) = -(33 : ℝ) + -(4 / 5 : ℝ) by norm_num,
+      Real.exp_add]
+    have h33 : Real.exp (-33 : ℝ) = Real.exp (-1) ^ 33 := by
+      exact exp_neg_nat_eq_pow_97 33
+    rw [h33]
+    have hpow := pow_lt_pow_left₀ hexp_one
+      (Real.exp_pos (-1)).le (n := 33) (by norm_num)
+    exact (mul_lt_mul_of_pos_right hpow
+      (Real.exp_pos (-(4 / 5 : ℝ)))).trans
+      (mul_lt_mul_of_pos_left hexp_four_fifths (by norm_num))
+  calc
+    (1 - (97 / 100 : ℝ)) *
+          Real.exp (-(2 / (1 - (97 / 100 : ℝ) ^ 2))) ≤
+        (1 - (97 / 100 : ℝ)) * Real.exp (-(169 / 5 : ℝ)) := by
+      exact mul_le_mul_of_nonneg_left hexp (by norm_num)
+    _ < (1 - (97 / 100 : ℝ)) *
+          ((3679 / 10000 : ℝ) ^ 33 * (9 / 20 : ℝ)) := by
+      exact mul_lt_mul_of_pos_left hexp_split (by norm_num)
+    _ < (1 / 10 ^ 16 : ℝ) := by norm_num
+    _ = (tailBudgetQ : ℝ) := by norm_num [tailBudgetQ]
+
+private theorem rightTail_97_lt (n : ℕ) :
+    ‖∫ x in rationalRadius..1, classMomentIntegrand n x‖ <
+      (tailBudgetQ : ℝ) := by
+  exact lt_of_le_of_lt
+    (norm_intervalIntegral_classMoment_rightTail_le n
+      (r := rationalRadius) rationalRadius_pos rationalRadius_lt_one)
+    (by simpa [rationalRadius] using tail_constant_97_lt)
+
+private theorem leftTail_97_lt (n : ℕ) :
+    ‖∫ x in (-1 : ℝ)..(-rationalRadius), classMomentIntegrand n x‖ <
+      (tailBudgetQ : ℝ) := by
+  exact lt_of_le_of_lt
+    (norm_intervalIntegral_classMoment_leftTail_le n
+      (r := rationalRadius) rationalRadius_pos rationalRadius_lt_one)
+    (by simpa [rationalRadius] using tail_constant_97_lt)
+
+private theorem classMoment_leftTail_eq_rightTail_97
+    {n : ℕ} (hn : Even n) :
+    (∫ x in (-1 : ℝ)..(-rationalRadius), classMomentIntegrand n x) =
+      ∫ x in rationalRadius..1, classMomentIntegrand n x := by
+  rw [← intervalIntegral.integral_comp_neg
+    (f := classMomentIntegrand n) (a := rationalRadius) (b := (1 : ℝ))]
+  refine intervalIntegral.integral_congr ?_
+  intro x hx
+  exact classMomentIntegrand_neg_of_even hn x
+
+private theorem classMoment_eq_three_interval_97 (n : ℕ) :
+    classMoment n =
+      (∫ x in (-1 : ℝ)..(-rationalRadius), classMomentIntegrand n x) +
+        (∫ x in (-rationalRadius)..rationalRadius,
+          classMomentIntegrand n x) +
+        (∫ x in rationalRadius..1, classMomentIntegrand n x) := by
+  rw [classMoment_eq_intervalIntegral]
+  have hleft := classMomentIntegrand_intervalIntegrable n
+    (-1 : ℝ) (-rationalRadius)
+  have hmiddle := classMomentIntegrand_intervalIntegrable n
+    (-rationalRadius) rationalRadius
+  have hright := classMomentIntegrand_intervalIntegrable n
+    rationalRadius 1
+  have hleftRest := classMomentIntegrand_intervalIntegrable n
+    (-rationalRadius) (1 : ℝ)
+  rw [← intervalIntegral.integral_add_adjacent_intervals hleft hleftRest,
+    ← intervalIntegral.integral_add_adjacent_intervals hmiddle hright]
+  ring
+
+private theorem rightTail_nonneg_97 {n : ℕ} (hn : Even n) :
+    0 ≤ ∫ x in rationalRadius..1, classMomentIntegrand n x := by
+  apply intervalIntegral.integral_nonneg_of_forall
+  · norm_num [rationalRadius]
+  · intro x
+    unfold classMomentIntegrand
+    exact mul_nonneg (Even.pow_nonneg hn x) (classUnitWeight_nonneg x)
+
+private theorem classMoment_bounds_of_concreteCentralEnvelope
+    {n : ℕ} (hn : Even n) {lo hi : ℝ}
+    (h : IntegralEnvelope (classMomentIntegrand n) (-rationalRadius)
+      rationalRadius lo hi) :
+    lo ≤ classMoment n ∧
+      classMoment n < hi + 2 * (tailBudgetQ : ℝ) := by
+  have hcentral := integral_bounds_of_integralEnvelope
+    (by norm_num [rationalRadius]) h
+  have htailAbs :
+      |∫ x in rationalRadius..1, classMomentIntegrand n x| <
+        (tailBudgetQ : ℝ) := by
+    simpa [Real.norm_eq_abs] using rightTail_97_lt n
+  have htailUpper := (abs_lt.mp htailAbs).2
+  have htailNonneg := rightTail_nonneg_97 hn
+  rw [classMoment_eq_three_interval_97 n,
+    classMoment_leftTail_eq_rightTail_97 hn]
+  constructor <;> linarith [hcentral.1, hcentral.2, htailUpper, htailNonneg]
+
+/-! ## Public G-side producer and Hbox consumer -/
+
+theorem q28_baseMoment_bounds_of_concrete_certificate :
+    (q28Moment0Lo ≤ classMoment 0 ∧
+      classMoment 0 ≤ q28Moment0Hi) ∧
+    (q28Moment2Lo ≤ classMoment 2 ∧
+      classMoment 2 ≤ q28Moment2Hi) := by
+  have h0 := classMoment_bounds_of_concreteCentralEnvelope
+    (n := 0) (lo := q28Moment0Lo)
+    (hi := q28Moment0Hi - 2 * (tailBudgetQ : ℝ))
+    (by exact ⟨0, by norm_num⟩) concreteCentralEnvelope0
+  have h2 := classMoment_bounds_of_concreteCentralEnvelope
+    (n := 2) (lo := q28Moment2Lo)
+    (hi := q28Moment2Hi - 2 * (tailBudgetQ : ℝ))
+    (by exact ⟨1, by norm_num⟩) concreteCentralEnvelope2
+  constructor
+  · exact ⟨h0.1, by linarith [h0.2]⟩
+  · exact ⟨h2.1, by linarith [h2.2]⟩
+
+theorem q28_hbox_of_concrete_certificate
+    (M_true : Matrix (Fin 8) (Fin 8) ℝ)
+    (hM : ∀ i j, MLo_q28 i j ≤ M_true i j ∧
+      M_true i j ≤ MHi_q28 i j) :
+    Hbox GLo_q28 GHi_q28 MLo_q28 MHi_q28
+      (classGramMatrix 2 (by norm_num)) M_true := by
+  have hMom := q28_baseMoment_bounds_of_concrete_certificate
+  exact q28_hbox_of_baseMomentBounds M_true hMom.1 hMom.2 hM
 
 end
 end C1ConcreteClassMomentCertificate
