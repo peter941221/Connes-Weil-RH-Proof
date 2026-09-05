@@ -194,6 +194,9 @@ finite cutoff `ceil(exp(max(|a|,|b|))) + 1` for `globalPrimeIndexSet`.
 The convolution-square specialization symmetrizes the source interval and
 transfers the same cutoff to `globalPrimeIndexSet g.convolutionSquare`, keeping
 the finite visible-prime owner tied to the selected detector's support.
+The canonical zero-seminorm specialization removes auxiliary pointwise-bound
+hypotheses from the prime-side estimate and leaves only the two square
+seminorms as concrete correction data.
 
 Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
 support chain's discharged primitive was re-adjudicated by the

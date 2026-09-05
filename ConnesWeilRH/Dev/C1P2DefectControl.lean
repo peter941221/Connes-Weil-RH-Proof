@@ -312,6 +312,33 @@ theorem abs_finitePrimeSum_defect_le_of_uniformSquareBounds
       (primeTermNormEnvelope_le_of_uniformTestBound D n (G + H) hGH hD)
   simpa [D] using hbound
 
+/-- Canonical specialization of the finite-prime bound using the zero-order
+Schwartz seminorms of the detector and window squares. -/
+theorem abs_finitePrimeSum_defect_le_of_zeroSeminorms
+    (g W : CompactLogTest) :
+    |finitePrimeSum (ICdefect g.convolutionSquare {()}
+      (fun _ => W.convolutionSquare) (fun _ => 1))| ≤
+      ∑ n ∈ globalPrimeIndexSet (ICdefect g.convolutionSquare {()}
+        (fun _ => W.convolutionSquare) (fun _ => 1)),
+        ‖(ArithmeticFunction.vonMangoldt n : Complex)‖ *
+          ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ *
+            (2 * (SchwartzMap.seminorm ℂ 0 0 g.convolutionSquare.test +
+              SchwartzMap.seminorm ℂ 0 0 W.convolutionSquare.test)) := by
+  let G : Real := SchwartzMap.seminorm ℂ 0 0 g.convolutionSquare.test
+  let H : Real := SchwartzMap.seminorm ℂ 0 0 W.convolutionSquare.test
+  have hG : 0 ≤ G := by
+    positivity
+  have hH : 0 ≤ H := by
+    positivity
+  have hg : ∀ x : Real, ‖g.convolutionSquare.test x‖ ≤ G := by
+    intro x
+    exact compactLogTest_norm_le_zeroSeminorm g.convolutionSquare x
+  have hW : ∀ x : Real, ‖W.convolutionSquare.test x‖ ≤ H := by
+    intro x
+    exact compactLogTest_norm_le_zeroSeminorm W.convolutionSquare x
+  simpa [G, H] using
+    abs_finitePrimeSum_defect_le_of_uniformSquareBounds g W G H hG hH hg hW
+
 /-- Assemble the two P2-alpha channels once an independent archimedean bound
 is supplied.  This is only a triangle-inequality consumer: the hypothesis
 `harch` is an analytic input and is not a reformulation of the gate sign. -/
