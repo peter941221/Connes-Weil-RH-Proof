@@ -283,7 +283,13 @@ BRIDGE_MACHINERY = (
     "      rw [powerCoefficientQ_succ m k hk, zLayerList,\n"
     "        getD_range_map_lt _ k hk]\n"
     "      push_cast\n"
-    "      rw [← Finset.sum_div]\n"
+    "      calc\n"
+    "        (∑ i ∈ Finset.range 20, if i ≤ k then powerCoefficientQ m (k - i) * taylorCoefficientQ i else 0) =\n"
+    "            ∑ i ∈ Finset.range 20, (if i ≤ k then powerCoefficientQ m (k - i) * taylorCoefficientQ i else 0) / (bigQ : ℚ) ^ (m + 1) := by\n"
+    "          apply Finset.sum_congr rfl\n"
+    "          intro i hi\n"
+    "          by_cases h : i ≤ k <;> simp [h]\n"
+    "        _ = _ := by rw [Finset.sum_div]\n"
     "      apply Finset.sum_congr rfl\n"
     "      intro i hi20\n"
     "      by_cases hik : i ≤ k\n"
@@ -312,9 +318,9 @@ PER_INDEX_STEPS = (
                    "((2 * (n : ℚ) + 1) / (2 * ((n : ℚ) + 1))) *\n"
                    "        endpointBQ (n + 1)")
     + step_theorem("momentAQ", "momentAQ_step",
-                   "endpointAQ (n + 1) - endpointAQ n")
+                   "endpointAQ (n + 1 + 1) - endpointAQ (n + 1)")
     + step_theorem("momentBQ", "momentBQ_step",
-                   "endpointBQ (n + 1) - endpointBQ n")
+                   "endpointBQ (n + 1 + 1) - endpointBQ (n + 1)")
 )
 
 
@@ -344,13 +350,10 @@ def per_index_theorems():
                              f"    {v} := by\n  rfl\n\n")
                 continue
             if j == 1:
-                src = short[-1].upper()
                 parts.append(f"theorem {short}_at_1 : {fn_name} 1 =\n"
                              f"    {v} := by\n"
-                             f"  show {fn_name} (0 + 1) = _\n"
-                             f"  rw [{fn_name}_step]\n"
-                             f"  rw [endpoint{src}_at_1, endpoint{src}_at_0]\n"
-                             f"  norm_num (config := {{ maxSteps := 20000000 }})\n\n")
+                             f"  norm_num (config := {{ maxSteps := 20000000 }})\n"
+                             f"    [{fn_name}]\n\n")
                 continue
             if short.startswith("endpoint"):
                 bridge = (f"  show {fn_name} ({j - 2} + 1 + 1) = _\n"
@@ -358,7 +361,7 @@ def per_index_theorems():
                           f"  rw [{short}_at_{j - 1}]\n")
             else:
                 src = short[-1].upper()
-                bridge = (f"  show {fn_name} ({j - 1} + 1) = _\n"
+                bridge = (f"  show {fn_name} ({j - 2} + 1 + 1) = _\n"
                           f"  rw [{fn_name}_step]\n"
                           f"  rw [endpoint{src}_at_{j}, endpoint{src}_at_{j - 1}]\n")
             tail = ("  norm_num (config := { maxSteps := 20000000 })\n"
