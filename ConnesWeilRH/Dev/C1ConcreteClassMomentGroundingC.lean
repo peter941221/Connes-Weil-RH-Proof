@@ -58,7 +58,7 @@ theorem taylorCoefficientQ_mul_bigQ_eq_zCoeff (i : ℕ) (hi : i < 20) :
   simp only [zCoeff]
   rw [show (-(2 / 35 : ℚ)) = (-2 : ℚ) / 35 by norm_num, div_pow]
   push_cast
-  rw [hcastdiv]
+  simp [hcastdiv]
   field_simp [hpow, Nat.cast_pos.mpr i.factorial_pos]
 
 theorem getD_range_map_lt {α : Type*} [Inhabited α] (f : ℕ → α) (k : ℕ)
@@ -88,21 +88,18 @@ theorem listCoeff_eq_zDiv (m k : ℕ) (hk : k < 666) :
       push_cast
       calc
         (∑ i ∈ Finset.range 20, if i ≤ k then powerCoefficientQ m (k - i) * taylorCoefficientQ i else 0) =
-            ∑ i ∈ Finset.range 20, (if i ≤ k then powerCoefficientQ m (k - i) * taylorCoefficientQ i else 0) / (bigQ : ℚ) ^ (m + 1) := by
+            ∑ i ∈ Finset.range 20, (if i ≤ k then ((zLayerList m).getD (k - i) 0 : ℚ) * (zCoeff i : ℚ) else 0) / (bigQ : ℚ) ^ (m + 1) := by
           apply Finset.sum_congr rfl
           intro i hi
-          by_cases h : i ≤ k <;> simp [h]
+          by_cases hik : i ≤ k
+          · rw [if_pos hik, if_pos hik, ih (k - i) (by omega),
+              taylorCoefficientQ_mul_bigQ_eq_zCoeff i (by omega)]
+            have hQ0 : (bigQ : ℚ) ≠ 0 :=
+              Nat.cast_ne_zero.mpr (Nat.ne_of_gt bigQ_pos)
+            push_cast
+            field_simp [pow_succ, hQ0]
+          · rw [if_neg hik, if_neg hik]
         _ = _ := by rw [Finset.sum_div]
-      apply Finset.sum_congr rfl
-      intro i hi20
-      by_cases hik : i ≤ k
-      · rw [if_pos hik, if_pos hik, ih (k - i) (by omega),
-          taylorCoefficientQ_mul_bigQ_eq_zCoeff i (by omega)]
-        have hQ0 : (bigQ : ℚ) ≠ 0 :=
-          Nat.cast_ne_zero.mpr (Nat.ne_of_gt bigQ_pos)
-        push_cast
-        field_simp [pow_succ, hQ0]
-      · rw [if_neg hik, if_neg hik]
 
 -- per-index value theorems: `k + 2` equation lemmas do not match
 -- closed Nat literals under simp, so each index is grounded
