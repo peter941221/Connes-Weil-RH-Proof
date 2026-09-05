@@ -93,7 +93,7 @@ def rationalPowerCoefficientQ (k : ℕ) : ℚ :=
 private def rationalPowerCoefficientQFast (k : ℕ) : ℚ :=
   powerCoefficientQ 35 k
 
-private theorem listCoeff_range_map (f : ℕ → ℚ) (k : ℕ) (hk : k < 666) :
+theorem listCoeff_range_map (f : ℕ → ℚ) (k : ℕ) (hk : k < 666) :
     listCoeffQ ((List.range 666).map f) k = f k := by
   unfold listCoeffQ
   rw [List.getD_eq_getElem _ _]
@@ -101,7 +101,7 @@ private theorem listCoeff_range_map (f : ℕ → ℚ) (k : ℕ) (hk : k < 666) :
     simp
   · simp [hk]
 
-private theorem powerCoefficientQ_succ (n k : ℕ) (hk : k < 666) :
+theorem powerCoefficientQ_succ (n k : ℕ) (hk : k < 666) :
     powerCoefficientQ (n + 1) k =
       ∑ i ∈ Finset.range 20,
         if i ≤ k then powerCoefficientQ n (k - i) * taylorCoefficientQ i else 0 := by

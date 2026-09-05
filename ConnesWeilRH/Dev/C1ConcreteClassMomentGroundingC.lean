@@ -45,7 +45,8 @@ theorem taylorCoefficientQ_mul_bigQ_eq_zCoeff (i : ℕ) (hi : i < 20) :
   have hdvd : i.factorial ∣ Nat.factorial 19 :=
     Nat.factorial_dvd_factorial (by omega)
   have hcastdiv : ((Nat.factorial 19 / i.factorial : ℕ) : ℚ)
-      = (Nat.factorial 19 : ℚ) / (i.factorial : ℚ) := Nat.cast_div hdvd
+      = (Nat.factorial 19 : ℚ) / (i.factorial : ℚ) :=
+    Nat.cast_div hdvd (by positivity)
   have hpow : (35 : ℚ) ^ i * (35 : ℚ) ^ (19 - i) = (35 : ℚ) ^ 19 := by
     rw [← pow_add]
     congr 1
@@ -74,8 +75,8 @@ theorem listCoeff_eq_zDiv (m k : ℕ) (hk : k < 666) :
       = ((List.getD (zLayerList m) k 0 : ℤ) : ℚ) / (bigQ : ℚ) ^ m := by
   induction m generalizing k with
   | zero =>
-      simp only [zeroPowerCoefficientListQ, zLayerList]
-      rw [getD_range_map_lt _ k hk, getD_range_map_lt _ k hk]
+      change listCoeffQ zeroPowerCoefficientListQ k = _
+      rw [listCoeff_range_map _ k hk]
       by_cases h0 : k = 0
       · rw [if_pos h0, if_pos h0]
         norm_num
@@ -83,7 +84,7 @@ theorem listCoeff_eq_zDiv (m k : ℕ) (hk : k < 666) :
         norm_num
   | succ m ih =>
       rw [powerCoefficientQ_succ m k hk, zLayerList,
-        getD_range_map_lt _ k hk]
+        listCoeff_range_map _ k hk]
       apply Finset.sum_congr rfl
       intro i hi20
       by_cases hik : i ≤ k
