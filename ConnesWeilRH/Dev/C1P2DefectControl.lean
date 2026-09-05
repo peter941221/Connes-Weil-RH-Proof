@@ -147,6 +147,13 @@ theorem defect_test_norm_le_of_uniformBounds
     ((norm_sub_le (g.convolutionSquare.test x) (W.convolutionSquare.test x)).trans
       (add_le_add (hg x) (hW x)))
 
+/-- Every compact-log test has a canonical uniform pointwise bound given by
+its zero-order Schwartz seminorm. -/
+theorem compactLogTest_norm_le_zeroSeminorm (F : CompactLogTest) :
+    ∀ x : Real, ‖F.test x‖ ≤ SchwartzMap.seminorm ℂ 0 0 F.test := by
+  intro x
+  exact SchwartzMap.norm_le_seminorm ℂ F.test x
+
 /-! ## Finite visible-prime triangle bound -/
 
 /-- The finite visible-prime contribution is bounded by any supplied

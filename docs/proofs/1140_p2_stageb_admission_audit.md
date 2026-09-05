@@ -96,6 +96,10 @@ The combined theorem
 `abs_finitePrimeSum_defect_le_of_uniformSquareBounds` now carries this bridge
 through the exact finite visible-prime sum, yielding the explicit coefficient
 bound with `2 * (G + H)`.
+The generic supplier `compactLogTest_norm_le_zeroSeminorm` further provides a
+canonical uniform bound for every `CompactLogTest`, namely its zero-order
+Schwartz seminorm.  Concrete correction work can therefore target these
+seminorms directly.
 The remaining P2 producer task is therefore to derive these concrete pointwise
 and integral bounds from the true correction construction.
 
@@ -103,7 +107,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3658 jobs)`, zero `error:` lines.  The audit
-includes all eight P2-α/β declarations; each uses only
+includes all nine P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.

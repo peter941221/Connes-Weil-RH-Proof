@@ -12,6 +12,7 @@ open ConnesWeilRH Source C1P2DefectControl
 #print axioms primeTermNormEnvelope_le_of_uniformTestBound
 #print axioms abs_archimedeanTerm_le_of_zeroAndIntegralBounds
 #print axioms defect_test_norm_le_of_uniformBounds
+#print axioms compactLogTest_norm_le_zeroSeminorm
 #print axioms abs_finitePrimeSum_defect_le_of_uniformSquareBounds
 #print axioms abs_finitePrimeSum_defect_le_of_termBounds
 #print axioms abs_ICgate_le_of_archimedeanBound_and_termBounds

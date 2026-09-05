@@ -184,6 +184,10 @@ interfaces only; the true correction must still supply the concrete `A`, `G`,
 The combined finite-prime theorem
 `abs_finitePrimeSum_defect_le_of_uniformSquareBounds` exposes the resulting
 coefficient sum with `2 * (G + H)` directly to the Stage-B consumer.
+The generic theorem `compactLogTest_norm_le_zeroSeminorm` supplies a canonical
+uniform pointwise bound from the zero-order Schwartz seminorm, so the remaining
+correction estimate may focus on bounding those seminorms and the archimedean
+integral.
 
 Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
 support chain's discharged primitive was re-adjudicated by the
