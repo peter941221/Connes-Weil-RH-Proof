@@ -1,38 +1,48 @@
 """1145 - emit the kernel-checked grounding machinery for the 1139
-checkpoint `q28_certificate_Q` (RED-8 five-module layout).
+checkpoint `q28_certificate_Q` (RED-9 integer lifting).
 
-Files owned by this generator (all byte-stable, deterministic Fractions):
+Files owned by this generator (all byte-stable, deterministic):
 
   ConnesWeilRH/Dev/C1ConcreteClassMomentGroundingA.lean
-      index-list literal + layer tables 0..17 + groundings 1..17
+      zCoeff + zLayerList defs, integer tables zTable_0..17, rfl
+      groundings 1..17, range_666_lit
   ConnesWeilRH/Dev/C1ConcreteClassMomentGroundingB.lean
-      layer tables + groundings 18..35
+      integer tables zTable_18..35 + rfl groundings 18..35
   ConnesWeilRH/Dev/C1ConcreteClassMomentGroundingC.lean
-      per-index endpoint/moment values + prefix sums + the four
+      bigQ + factorial-exactness + the symbolic Rat bridge
+      listCoeff_eq_zDiv + per-index endpoint/moment values + prefix
+      sums (coeff fed through the bridge) + the four
       comparison_a0/b0/a2/b2_eq consumption theorems
   ConnesWeilRH/Dev/C1ConcreteClassMomentCertificate.lean
       only the checkpoint proof is touched (mark-based restore)
 
 C1ConcreteClassMomentBase.lean holds the moved verbatim def block (created
-once by the RED-8 surgery; this generator asserts it exists).  The three
-grounding modules each stay under the ~36 GB single-process environment
-wall that killed RED-6/RED-7 (swap thrash, ~4e7 major faults): peak
-memory per build process is capped by splitting the environment mass.
+once by the RED-8 surgery; this generator asserts it exists).
 
-Kernel facts (measured, v4.30, RED-2..RED-7):
-* `List.range` / `List.map` / `if` over closed Nat reduce (simp-viable).
-* `Rat` arithmetic does NOT kernel-reduce: closure is simp + norm_num.
+WHY integer lifting (prereg addendum 5): three memory walls (RED-6/7/8d)
+isolated the mass as Rat gcd-normalization PROOF TERMS - 666 entries x
+20 products x layers, split-invariant, 34.5 GB for layers 0-17 alone.
+Nat/Int literal arithmetic IS kernel-reducible (GMP-backed), so every
+layer grounding closes by `rfl` after the established show-bridge +
+single `rw` inlines the previous LITERAL table: near-zero proof mass,
+seconds of evaluation.  The only Rat content is the fully symbolic
+bridge theorem listCoeff_eq_zDiv, over Q = 35^19 * 19!:
+
+    listCoeffQ (powerCoefficientListQ m) k
+      = (getD (zLayerList m) k 0 : Rat) / Q^m
+
+Kernel facts (measured, v4.30, RED-2..RED-8):
+* `List.range` / `List.map` / `if` over closed Nat reduce.
+* Nat/Int literal arithmetic and List.getD on literal lists reduce in
+  the kernel; `rfl` closes the 666-entry integer list equalities.
+* `Rat` arithmetic does NOT kernel-reduce: the Rat sums still close by
+  simp + norm_num, one tiny declaration per prefix step (RED-7 design).
 * the grounding theorems expose exactly ONE syntactic occurrence of the
   previous cached layer (`show` + delta/zeta) and inline the previous
-  table ONCE with `rw` (RED-5 lesson: rewriting inside the unreduced map
-  inlines the table at every (k, i) pair - 13320 copies).
-* `norm_num [table, ...]` does NOT delta-unfold a plain table constant;
-  tables go through an explicit `simp only [table, ...]` step.
+  table ONCE with `rw` (RED-5 lesson).
 * the `k + 2` equation lemmas of endpointAQ/endpointBQ do NOT match
   closed Nat literals under simp; values are grounded through `n + 1 + 1`
   step theorems and per-index bridges.
-* shifted indices (`f (n + x)`) are not literalized by simp simprocs
-  (RED-6 lesson); the RED-7 prefix-sum functions keep every index direct.
 """
 import math
 import os
@@ -47,7 +57,7 @@ TARGET_C = os.path.join(DEV, "C1ConcreteClassMomentGroundingC.lean")
 TARGET_BASE = os.path.join(DEV, "C1ConcreteClassMomentBase.lean")
 
 # ---------------------------------------------------------------------------
-# exact layer values
+# exact layer values (Fraction) and their integer lift over Q = 35^19 * 19!
 TC = [Fraction((-2) ** i, 35 ** i) / Fraction(math.factorial(i))
       for i in range(20)]
 
@@ -57,9 +67,26 @@ def conv_layer(prev):
             for k in range(666)]
 
 
-LAYERS = {0: [Fraction(1) if k == 0 else Fraction(0) for k in range(666)]}
+LAYERS = {0: [Fraction(1) if k == 0 else 0 for k in range(666)]}
 for _n in range(1, 36):
     LAYERS[_n] = conv_layer(LAYERS[_n - 1])
+
+Q = 35 ** 19 * math.factorial(19)
+ZC = [(-2) ** i * 35 ** (19 - i) * (math.factorial(19) // math.factorial(i))
+      for i in range(20)]
+
+ZLAYERS = {0: [1 if k == 0 else 0 for k in range(666)]}
+_QPOW = {0: 1}
+for _n in range(1, 36):
+    _prev = ZLAYERS[_n - 1]
+    ZLAYERS[_n] = [sum((_prev[k - i] * ZC[i] for i in range(20) if i <= k), 0)
+                   for k in range(666)]
+    _QPOW[_n] = _QPOW[_n - 1] * Q
+
+# lifting cross-check: layer n (k) == Z(n, k) / Q^n for EVERY entry
+for _n in range(36):
+    for _k in range(666):
+        assert Fraction(ZLAYERS[_n][_k], _QPOW[_n]) == LAYERS[_n][_k], (_n, _k)
 
 # ---------------------------------------------------------------------------
 # exact endpoint/moment tables (mirror of the module's recursions)
@@ -103,39 +130,35 @@ def rat_lit(v):
     return f"({sign}{abs(v.numerator)} / {abs(v.denominator)})"
 
 
-def list_def(name, values):
-    body = ",\n    ".join(rat_lit(v) for v in values)
-    return (f"-- 1145 generated: exact value of layer {name.split('_')[-1]} "
-            f"of the cached convolution (no semantic content).\n"
-            f"def {name} : List ℚ :=\n"
+def int_lit(v):
+    return str(v)
+
+
+def zlist_def(name, values):
+    body = ",\n    ".join(int_lit(v) for v in values)
+    n = name.split("_")[-1]
+    return (f"-- 1145 generated: Z({n}, k) = layer {n} (k) * Q^{n} of the\n"
+            f"-- cached convolution, Q = 35^19 * 19! (no semantic content).\n"
+            f"def {name} : List ℤ :=\n"
             f"  [{body}]\n")
 
 
 def ground_theorem(n):
     base = n - 1
-    inner_base = ("zeroPowerCoefficientListQ" if base == 0
-                  else f"powerCoefficientListQ {base}")
-    rewrite = ("groundLayer_eq_0" if base == 0 else f"groundLayer_eq_{base}")
     lam = ("(List.range 666).map fun k => ∑ i ∈ Finset.range 20, "
-           f"if i ≤ k then listCoeffQ ({inner_base}) (k - i) * "
-           "taylorCoefficientQ i else 0")
-    return (f"theorem groundLayer_eq_{n} :\n"
-            f"    powerCoefficientListQ {n} = groundLayer_{n} := by\n"
-            f"  show ({lam}) = groundLayer_{n}\n"
-            f"  rw [{rewrite}]\n"
-            f"  simp only [range_666_lit, groundLayer_{base}, groundLayer_{n}]\n"
-            f"  norm_num (config := {{ maxSteps := 20000000 }})\n"
-            f"    [listCoeffQ, taylorCoefficientQ, Finset.sum_range_succ,\n"
-            f"    Finset.sum_empty, List.getD_cons_zero, List.getD_cons_succ,\n"
-            f"    List.map_cons, List.map_nil]\n")
+           "if i ≤ k then List.getD (zLayerList "
+           f"{base}) (k - i) 0 * zCoeff i else 0")
+    return (f"theorem zGround_eq_{n} :\n"
+            f"    zLayerList {n} = zTable_{n} := by\n"
+            f"  show ({lam}) = zTable_{n}\n"
+            f"  rw [zGround_eq_{base}]\n"
+            f"  rfl\n\n")
 
 
 OPT_BLOCK = ("set_option linter.style.longLine false\n"
-             "set_option linter.style.maxHeartbeats false\n"
+             "set_option linter.style.setOption false\n"
              "set_option maxRecDepth 1000000\n"
-             "-- reason: kernel-checked 666-entry rational list evaluation\n"
-             "set_option maxHeartbeats 2000000000\n"
-             "-- reason: kernel-checked 666-entry rational list evaluation\n")
+             "set_option maxHeartbeats 2000000000\n\n")
 
 LICENSE = ("/-\n"
            "Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.\n"
@@ -149,7 +172,7 @@ def module_scaffold(ns, imports, doc):
             + "open scoped BigOperators\n\n")
 
 
-MODULE_END = "\nend\nend {ns}\nend Source\nend ConnesWeilRH\n"
+MODULE_END = "\nend {ns}\nend Source\nend ConnesWeilRH\n"
 
 
 def grounding_a():
@@ -158,18 +181,32 @@ def grounding_a():
             "theorem range_666_lit : (List.range 666 : List Nat) =\n"
             "    [" + ", ".join(str(i) for i in range(666)) + "] := by\n"
             "  decide\n\n",
-            list_def("groundLayer_0", LAYERS[0]),
-            "theorem groundLayer_eq_0 :\n"
-            "    zeroPowerCoefficientListQ = groundLayer_0 := by\n  rfl\n\n"]
+            "-- the integer lift of the Taylor coefficients over\n",
+            "-- Q = 35^19 * 19!:  taylorCoefficientQ i = zCoeff i / Q.\n",
+            "def zCoeff (i : ℕ) : ℤ :=\n"
+            "  (-2 : ℤ) ^ i * (35 : ℤ) ^ (19 - i) *\n"
+            "    ((Nat.factorial 19 / i.factorial : ℕ) : ℤ)\n\n",
+            "-- the same convolution as powerCoefficientListQ, in integers:\n",
+            "-- layer m (k) * Q^m.  Only its PER-LAYER literal values are\n",
+            "-- ever forced (one step at a time via the groundings below).\n",
+            "def zLayerList : ℕ → List ℤ\n"
+            "  | 0 => (List.range 666).map fun k => if k = 0 then 1 else 0\n"
+            "  | m + 1 =>\n"
+            "      (List.range 666).map fun k => ∑ i ∈ Finset.range 20,\n"
+            "        if i ≤ k then List.getD (zLayerList m) (k - i) 0 *\n"
+            "          zCoeff i else 0\n\n"]
+    body.append(zlist_def("zTable_0", ZLAYERS[0]))
+    body.append("theorem zGround_eq_0 :\n"
+                "    zLayerList 0 = zTable_0 := by\n  rfl\n\n")
     for n in range(1, 18):
-        body.append(list_def(f"groundLayer_{n}", LAYERS[n]))
+        body.append(zlist_def(f"zTable_{n}", ZLAYERS[n]))
         body.append(ground_theorem(n))
-        body.append("\n")
-    doc = ("# Record 1145 (RED-8): grounding layers 1-17\n\n"
-           "Literal tables for the cached convolution's low layers and their\n"
-           "kernel-checked grounding theorems.  Each grounding exposes ONE\n"
-           "syntactic occurrence of the previous layer and inlines its table\n"
-           "once.  Generated by docs/proofs/1145_generate_g2_certificate.py;\n"
+    doc = ("# Record 1145 (RED-9): integer grounding layers 0-17\n\n"
+           "The integer lift of the cached convolution: zCoeff, zLayerList,\n"
+           "literal tables Z(n, k) = layer n (k) * Q^n for n ≤ 17, and their\n"
+           "kernel-checked groundings (closed by `rfl`: Nat/Int literal\n"
+           "arithmetic is GMP-backed and kernel-reducible, unlike Rat).\n"
+           "Generated by docs/proofs/1145_generate_g2_certificate.py;\n"
            "rerunning reproduces this file byte-for-byte.  RH NOT claimed.")
     return (module_scaffold("C1ConcreteClassMomentCertificate",
                             ["import ConnesWeilRH.Dev.C1ConcreteClassMomentBase"],
@@ -181,20 +218,79 @@ def grounding_a():
 def grounding_b():
     body = [OPT_BLOCK, "\n"]
     for n in range(18, 36):
-        body.append(list_def(f"groundLayer_{n}", LAYERS[n]))
+        body.append(zlist_def(f"zTable_{n}", ZLAYERS[n]))
         body.append(ground_theorem(n))
-        body.append("\n")
-    doc = ("# Record 1145 (RED-8): grounding layers 18-35\n\n"
-           "High layers of the cached convolution; groundLayer_eq_35 is the\n"
-           "consumption root for the prefix sums.  Generated by\n"
-           "docs/proofs/1145_generate_g2_certificate.py; rerunning reproduces\n"
-           "this file byte-for-byte.  RH NOT claimed.")
+    doc = ("# Record 1145 (RED-9): integer grounding layers 18-35\n\n"
+           "High layers of the integer lift; zGround_eq_35 is the\n"
+           "consumption root for the Rat bridge and the prefix sums.\n"
+           "Generated by docs/proofs/1145_generate_g2_certificate.py;\n"
+           "rerunning reproduces this file byte-for-byte.  RH NOT claimed.")
     return (module_scaffold("C1ConcreteClassMomentCertificate",
                             ["import ConnesWeilRH.Dev.C1ConcreteClassMomentBase",
                              "import ConnesWeilRH.Dev.C1ConcreteClassMomentGroundingA"],
                             doc)
             + "section GroundingLayersB\n" + "".join(body) + "end GroundingLayersB\n"
             + MODULE_END.format(ns="C1ConcreteClassMomentCertificate"))
+
+
+BRIDGE_MACHINERY = (
+    "-- RED-9 bridge: the frozen Rat definition equals the integer lift\n"
+    "-- divided by Q^m.  Fully symbolic (no bignum content).\n\n"
+    "def bigQ : ℕ := 35 ^ 19 * Nat.factorial 19\n\n"
+    "theorem bigQ_pos : 0 < bigQ :=\n"
+    "  Nat.mul_pos (by positivity) (Nat.factorial_pos 19)\n\n"
+    "theorem taylorCoefficientQ_mul_bigQ_eq_zCoeff (i : ℕ) (hi : i < 20) :\n"
+    "    taylorCoefficientQ i * (bigQ : ℚ) = (zCoeff i : ℚ) := by\n"
+    "  have hdvd : i.factorial ∣ Nat.factorial 19 :=\n"
+    "    Nat.factorial_dvd_factorial (by omega)\n"
+    "  have hcastdiv : ((Nat.factorial 19 / i.factorial : ℕ) : ℚ)\n"
+    "      = (Nat.factorial 19 : ℚ) / (i.factorial : ℚ) := Nat.cast_div hdvd\n"
+    "  have hpow : (35 : ℚ) ^ i * (35 : ℚ) ^ (19 - i) = (35 : ℚ) ^ 19 := by\n"
+    "    rw [← pow_add]\n"
+    "    congr 1\n"
+    "    omega\n"
+    "  have hQ : (bigQ : ℚ) = (35 : ℚ) ^ 19 * (Nat.factorial 19 : ℚ) := by\n"
+    "    unfold bigQ\n"
+    "    push_cast\n"
+    "    rw [Nat.cast_mul]\n"
+    "  rw [taylorCoefficientQ, if_pos hi, hQ]\n"
+    "  simp only [zCoeff]\n"
+    "  push_cast\n"
+    "  rw [show (-(2 / 35 : ℚ)) = (-2 : ℚ) / 35 by norm_num, div_pow,\n"
+    "    hcastdiv]\n"
+    "  field_simp [hpow, Nat.cast_pos.mpr i.factorial_pos]\n\n"
+    "theorem getD_range_map_lt {α : Type*} [Inhabited α] (f : ℕ → α) (k : ℕ)\n"
+    "    (hk : k < 666) (z : α) :\n"
+    "    List.getD ((List.range 666).map f) k z = f k := by\n"
+    "  rw [List.getD_eq_getElem _ _]\n"
+    "  · rw [List.getElem_map]\n"
+    "    simp\n"
+    "  · simp [hk]\n\n"
+    "theorem listCoeff_eq_zDiv (m k : ℕ) (hk : k < 666) :\n"
+    "    listCoeffQ (powerCoefficientListQ m) k\n"
+    "      = ((List.getD (zLayerList m) k 0 : ℤ) : ℚ) / (bigQ : ℚ) ^ m := by\n"
+    "  induction m generalizing k with\n"
+    "  | zero =>\n"
+    "      simp only [zeroPowerCoefficientListQ, zLayerList]\n"
+    "      rw [getD_range_map_lt _ k hk, getD_range_map_lt _ k hk]\n"
+    "      by_cases h0 : k = 0\n"
+    "      · rw [if_pos h0, if_pos h0]\n"
+    "        norm_num\n"
+    "      · rw [if_neg h0, if_neg h0]\n"
+    "        norm_num\n"
+    "  | succ m ih =>\n"
+    "      rw [powerCoefficientQ_succ m k hk, zLayerList,\n"
+    "        getD_range_map_lt _ k hk]\n"
+    "      apply Finset.sum_congr rfl\n"
+    "      intro i hi20\n"
+    "      by_cases hik : i ≤ k\n"
+    "      · rw [if_pos hik, if_pos hik, ih (k - i) (by omega),\n"
+    "          taylorCoefficientQ_mul_bigQ_eq_zCoeff i (by omega)]\n"
+    "        have hQ0 : (bigQ : ℚ) ≠ 0 :=\n"
+    "          Nat.cast_ne_zero.mpr (Nat.ne_of_gt bigQ_pos)\n"
+    "        push_cast\n"
+    "        field_simp [pow_succ, hQ0]\n"
+    "      · rw [if_neg hik, if_neg hik]\n\n")
 
 
 def step_theorem(fn_name, step_name, rhs):
@@ -273,7 +369,9 @@ def per_index_theorems():
 
 def prefix_machinery():
     parts = ["-- RED-7 prefix-sum machinery: one tiny declaration per step;\n",
-             "-- no shifted indices, no mega-tactic.\n\n"]
+             "-- no shifted indices, no mega-tactic.  RED-9: the cached\n",
+             "-- coefficient enters through the symbolic Rat bridge, then the\n",
+             "-- literal integer table is inlined ONCE via zGround_eq_35.\n\n"]
     fams = (("endpointA", "endpointAQ", "a0"), ("endpointB", "endpointBQ", "b0"),
             ("momentA", "momentAQ", "a2"), ("momentB", "momentBQ", "b2"))
     for short, fn, cmp_name in fams:
@@ -297,9 +395,10 @@ def prefix_machinery():
                          f"    {rat_lit(vals[j])} := by\n"
                          f"  show {pre} ({j - 1} + 1) = _\n"
                          f"  rw [{pre}, {pre}_at_{j - 1}]\n"
-                         f"  simp only [groundLayer_eq_35, groundLayer_35,\n"
-                         f"    listCoeffQ, List.getD_cons_zero,\n"
-                         f"    List.getD_cons_succ, {short}_at_{j - 1}]\n"
+                         f"  rw [listCoeff_eq_zDiv 35 ({j - 1}) (by omega)]\n"
+                         f"  simp only [zGround_eq_35, bigQ, listCoeffQ,\n"
+                         f"    List.getD_cons_zero, List.getD_cons_succ,\n"
+                         f"    {short}_at_{j - 1}]\n"
                          f"  norm_num (config := {{ maxSteps := 20000000 }})\n\n")
         cmp_lit = rat_lit(vals[666])
         parts.append(f"theorem comparison_{cmp_name}_eq :\n"
@@ -309,8 +408,10 @@ def prefix_machinery():
 
 
 def grounding_c():
-    doc = ("# Record 1145 (RED-8): per-index values, prefix sums, comparisons\n\n"
-           "The endpoint/moment recursions are grounded per index (their\n"
+    doc = ("# Record 1145 (RED-9): bridge, per-index values, prefix sums\n\n"
+           "The symbolic Rat bridge listCoeff_eq_zDiv connects the frozen\n"
+           "Rat definition to the integer lift over Q = 35^19 * 19!; the\n"
+           "endpoint/moment recursions are grounded per index (their\n"
            "`k + 2` equation lemmas do not match closed Nat literals), the\n"
            "four comparison sums are grounded as prefix-sum functions (one\n"
            "tiny declaration per step - no mega-tactic), and the consumption\n"
@@ -322,7 +423,7 @@ def grounding_c():
                              "import ConnesWeilRH.Dev.C1ConcreteClassMomentGroundingB"],
                             doc)
             + OPT_BLOCK + "\n"
-            + per_index_theorems() + prefix_machinery()
+            + BRIDGE_MACHINERY + per_index_theorems() + prefix_machinery()
             + MODULE_END.format(ns="C1ConcreteClassMomentCertificate"))
 
 
