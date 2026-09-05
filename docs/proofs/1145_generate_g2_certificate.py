@@ -345,18 +345,18 @@ def per_index_theorems():
                 parts.append(f"theorem {short}_at_1 : {fn_name} 1 =\n"
                              f"    {v} := by\n"
                              f"  show {fn_name} (0 + 1) = _\n"
-                             f"  rw [{short}_step]\n"
+                             f"  rw [{fn_name}_step]\n"
                              f"  rw [endpoint{src}_at_1, endpoint{src}_at_0]\n"
                              f"  norm_num (config := {{ maxSteps := 20000000 }})\n\n")
                 continue
             if short.startswith("endpoint"):
                 bridge = (f"  show {fn_name} ({j - 2} + 1 + 1) = _\n"
-                          f"  rw [{short}_step]\n"
+                          f"  rw [{fn_name}_step]\n"
                           f"  rw [{short}_at_{j - 1}]\n")
             else:
                 src = short[-1].upper()
                 bridge = (f"  show {fn_name} ({j - 1} + 1) = _\n"
-                          f"  rw [{short}_step]\n"
+                          f"  rw [{fn_name}_step]\n"
                           f"  rw [endpoint{src}_at_{j}, endpoint{src}_at_{j - 1}]\n")
             tail = ("  norm_num (config := { maxSteps := 20000000 })\n"
                     if not extra else
