@@ -221,6 +221,29 @@ theorem globalPrimeIndexSet_subset_range_of_support_subset_Icc
   exact Finset.mem_range.mpr
     (index_lt_of_support_subset_Icc F a b hsupport hmem.1 hmem.2)
 
+/-- A support interval for a source test gives a concrete cutoff for the
+visible prime powers of its convolution square. -/
+theorem convolutionSquare_globalPrimeIndexSet_subset_range_of_support_subset_Icc
+    (g : CompactLogTest) (a b : Real)
+    (hsupport : Function.support g.test ⊆ Set.Icc a b) :
+    globalPrimeIndexSet g.convolutionSquare ⊆
+      Finset.range
+        (Nat.ceil (Real.exp (max |(-(2 * max |a| |b|))| |(2 * max |a| |b|)|)) + 1) := by
+  let R : Real := max |a| |b|
+  have hsymm : Function.support g.test ⊆ Set.Icc (-R) R := by
+    intro x hx
+    have hab := hsupport hx
+    constructor
+    · exact (neg_le_neg (le_max_left |a| |b|)).trans
+        ((neg_abs_le a).trans hab.1)
+    · exact hab.2.trans ((le_abs_self b).trans (le_max_right |a| |b|))
+  have hsq : Function.support g.convolutionSquare.test ⊆ Set.Icc (-(2 * R)) (2 * R) :=
+    CompactLogTest.convolutionSquare_support_subset_two_mul g
+      (by simpa [R] using hsymm)
+  simpa [R] using
+    globalPrimeIndexSet_subset_range_of_support_subset_Icc
+      g.convolutionSquare (-(2 * R)) (2 * R) hsq
+
 /-! ## Finite visible-prime triangle bound -/
 
 /-- The finite visible-prime contribution is bounded by any supplied

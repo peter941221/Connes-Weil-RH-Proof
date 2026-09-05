@@ -191,6 +191,9 @@ integral.
 The support bridge `index_lt_of_support_subset_Icc` and its set-inclusion
 companion now convert exported detector endpoints `[a,b]` into the explicit
 finite cutoff `ceil(exp(max(|a|,|b|))) + 1` for `globalPrimeIndexSet`.
+The convolution-square specialization symmetrizes the source interval and
+transfers the same cutoff to `globalPrimeIndexSet g.convolutionSquare`, keeping
+the finite visible-prime owner tied to the selected detector's support.
 
 Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
 support chain's discharged primitive was re-adjudicated by the

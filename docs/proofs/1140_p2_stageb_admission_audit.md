@@ -105,6 +105,9 @@ support interval `[a,b]` into the explicit cutoff
 `ceil(exp(max(|a|,|b|))) + 1`; its companion set inclusion applies this cutoff
 to `globalPrimeIndexSet`.  This keeps the visible-prime owner finite and tied
 to the detector's actual support endpoints.
+The convolution-square corollary first symmetrizes `[a,b]` to
+`[-R,R]`, `R = max(|a|,|b|)`, and then applies the exact square-support lemma;
+it gives the corresponding cutoff for `globalPrimeIndexSet g.convolutionSquare`.
 The remaining P2 producer task is therefore to derive these concrete pointwise
 and integral bounds from the true correction construction.
 
@@ -112,7 +115,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3658 jobs)`, zero `error:` lines.  The audit
-includes all eleven P2-α/β declarations; each uses only
+includes all thirteen P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.
