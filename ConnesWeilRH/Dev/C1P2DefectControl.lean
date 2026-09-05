@@ -26,6 +26,8 @@ open C1SameOwnerWeil
 open CC20YoshidaConvolution
 open CC20YoshidaConvolution.CompactLogTest
 open C1LocalConfigurationDomination
+open C1OrbitWindowSemiLocalGate
+open C1T2Assembly
 open CCM25Concrete.CompactLogConvolution
 open scoped BigOperators
 
@@ -590,6 +592,75 @@ theorem ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm_budget
   have hbound := abs_ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm
     g s w lam G H hG hH hg hw
   exact (le_abs_self _).trans (hbound.trans hbudget)
+
+/-- A canonical same-owner defect budget supplies the one-window Stage-B
+contraction required by the route assembly.  The certified-window sign and
+the scalar margin budget remain separate hypotheses. -/
+noncomputable def stageBContraction_of_uniformSquareBounds_and_integralNorm_budget
+    (g W : CompactLogTest) (G H mu epsilon b a : Real)
+    (hgsupp : Function.support g.test ⊆ Set.Ioo (-b) b)
+    (hWsupp : Function.support W.test ⊆ Set.Ioo (-a) a)
+    (hcert : ICgate W.convolutionSquare ≤ -mu)
+    (hG : 0 ≤ G) (hH : 0 ≤ H)
+    (hg : ∀ x : Real, ‖g.convolutionSquare.test x‖ ≤ G)
+    (hW : ∀ x : Real, ‖W.convolutionSquare.test x‖ ≤ H)
+    (hbudget :
+      (|Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+          SchwartzMap.seminorm ℂ 0 0
+            (ICdefect g.convolutionSquare {()}
+              (fun _ => W.convolutionSquare) (fun _ => 1)).test +
+        archimedeanIntegralNorm (ICdefect g.convolutionSquare {()}
+          (fun _ => W.convolutionSquare) (fun _ => 1))) +
+      ∑ n ∈ globalPrimeIndexSet (ICdefect g.convolutionSquare {()}
+          (fun _ => W.convolutionSquare) (fun _ => 1)),
+        ‖(ArithmeticFunction.vonMangoldt n : Complex)‖ *
+          ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ * (2 * (G + H)) ≤
+      epsilon)
+    (hmargin : epsilon ≤ mu) :
+    ICStageBContraction g := by
+  have hdec := ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm_budget
+    (g.convolutionSquare) {()} (fun _ => W.convolutionSquare) (fun _ => 1)
+    G (fun _ => H) epsilon hG
+    (by
+      intro i hi
+      simpa using hH)
+    hg
+    (by
+      intro i hi x
+      simpa using hW x)
+    (by simpa using hbudget)
+  exact stageBContraction_of_certifiedWindow g W hgsupp hWsupp hcert hdec hmargin
+
+/-- Direct orbit-window gate consumer for a one-window canonical P2 budget. -/
+theorem orbitGate_of_uniformSquareBounds_and_integralNorm_budget
+    (g W : CompactLogTest) (G H mu epsilon b a : Real)
+    (hgsupp : Function.support g.test ⊆ Set.Ioo (-b) b)
+    (hWsupp : Function.support W.test ⊆ Set.Ioo (-a) a)
+    (hcert : ICgate W.convolutionSquare ≤ -mu)
+    (hG : 0 ≤ G) (hH : 0 ≤ H)
+    (hg : ∀ x : Real, ‖g.convolutionSquare.test x‖ ≤ G)
+    (hW : ∀ x : Real, ‖W.convolutionSquare.test x‖ ≤ H)
+    (hbudget :
+      (|Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+          SchwartzMap.seminorm ℂ 0 0
+            (ICdefect g.convolutionSquare {()}
+              (fun _ => W.convolutionSquare) (fun _ => 1)).test +
+        archimedeanIntegralNorm (ICdefect g.convolutionSquare {()}
+          (fun _ => W.convolutionSquare) (fun _ => 1))) +
+      ∑ n ∈ globalPrimeIndexSet (ICdefect g.convolutionSquare {()}
+          (fun _ => W.convolutionSquare) (fun _ => 1)),
+        ‖(ArithmeticFunction.vonMangoldt n : Complex)‖ *
+          ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ * (2 * (G + H)) ≤
+      epsilon)
+    (hmargin : epsilon ≤ mu) :
+    orbitWindowSemiLocalGate g := by
+  exact orbitWindowSemiLocalGate_of_contraction g
+    (stageBContraction_of_uniformSquareBounds_and_integralNorm_budget
+      g W G H mu epsilon b a hgsupp hWsupp hcert hG hH hg hW hbudget hmargin)
+    (by
+      simpa [stageBContraction_of_uniformSquareBounds_and_integralNorm_budget,
+        stageBContraction_of_certifiedWindow]
+        using hmargin)
 
 end C1P2DefectControl
 end Source

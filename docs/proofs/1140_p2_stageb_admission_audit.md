@@ -144,6 +144,12 @@ The theorem
 replaces the exact-set prime sum by that explicit range, using only
 nonnegativity of the norm envelopes.  This is a finite-budget adapter and
 does not assert a sign for the gate.
+Finally, the one-window consumers
+`stageBContraction_of_uniformSquareBounds_and_integralNorm_budget` and
+`orbitGate_of_uniformSquareBounds_and_integralNorm_budget` connect this
+canonical budget to the actual Stage-B contraction and orbit-window gate
+interfaces.  Their explicit budget and certified-window hypotheses remain
+genuine producer obligations.
 The remaining P2 producer task is therefore to derive these concrete pointwise
 and integral bounds from the true correction construction.
 
@@ -151,7 +157,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3658 jobs)`, zero `error:` lines.  The audit
-includes all twenty-four P2-α/β declarations; each uses only
+includes all twenty-five P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.

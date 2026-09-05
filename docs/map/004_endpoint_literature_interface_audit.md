@@ -227,6 +227,12 @@ The finite-prime consumer
 the exact-set sum to that explicit range using nonnegativity of every norm
 envelope summand, making the cutoff directly usable in a numerical or analytic
 budget certificate without changing the owner.
+The one-window consumers
+`stageBContraction_of_uniformSquareBounds_and_integralNorm_budget` and
+`orbitGate_of_uniformSquareBounds_and_integralNorm_budget` now feed that
+canonical budget into the actual `ICStageBContraction` and
+`orbitWindowSemiLocalGate` route interfaces.  They remain conditional on the
+explicit budget and certified-window sign; no positivity is manufactured.
 
 Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
 support chain's discharged primitive was re-adjudicated by the
