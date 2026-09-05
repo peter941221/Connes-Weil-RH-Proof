@@ -195,7 +195,19 @@ may be scheduled without passing section 5.
 
 ### 4.1 Line S - spectral accounting on the defect
 
-Mechanism. Rewrite `ICgate (defect)` through Z3 into its zero-sum form.
+VERDICT (2026-09-05): REFUTED as stated, at identity level, armchair -
+[`record 1144`](../proofs/1144_line_s_verdict.md), backed by the landed
+record-1143 identity brick.  The defect gate is exactly the spectral
+difference `SW W.convSq - SW g.convSq` (one number; every channel
+decomposition sums to it), and on any negative detector the window
+certificate plus detector positivity force it above `mu >= epsilon`
+(`defectGate_gt_add_mu_of_qw_negative`, `no_stageB_budget_of_qw_negative`).
+No rearrangement can change the truth value of `hdec`; the registered
+falsifier resolves negatively without a probe.  Lines B/C below are
+unaffected.
+
+Mechanism (as registered, now historical). Rewrite `ICgate (defect)`
+through Z3 into its zero-sum form.
 The rho-term carries the detection mass, the on-line zero background is
 termwise nonnegative (record 1070 Weil-test dictionary:
 `f~(rho) = g~(rho) g~(1-rho)`, on-line terms are squares), the pole terms
@@ -293,11 +305,15 @@ A proposed producer statement is schedulable only if all five hold:
 +----+---------------------------+---------+---------------------------------+
 | ID | Brick                     | Level   | Consumer                        |
 +----+---------------------------+---------+---------------------------------+
-| B1 | Identity audit: exact     | FORMAL  | Line S. Verify the statement-   |
-|    | statement chain from      |         | level chain ICgate(defect) ->   |
-|    | ICgate(defect) to the     |         | zero-sum form via Z3 +          |
-|    | spectral/zero-sum form    |         | defectGate_singleton_eq_sub;    |
-|    |                           |         | pin sign and normalization.     |
+| B1 | Identity audit: exact     | FORMAL  | Line S. DONE as record 1143     |
+|    | statement chain from      | LANDED  | (module                         |
+|    | ICgate(defect) to the     |         | C1P2DefectZeroSumIdentity,      |
+|    | spectral/zero-sum form    |         | 5 declarations, standard        |
+|    |                           |         | axiom audit): the zero-sum      |
+|    |                           |         | form S3 and the positive-form   |
+|    |                           |         | wall S5 are named theorems.     |
+|    |                           |         | Fed the record-1144 Line-S      |
+|    |                           |         | REFUTED verdict.                |
 +----+---------------------------+---------+---------------------------------+
 | B2 | Scale table: exact        | NUMERIC | All lines (feasibility datum).   |
 |    | mu_q28/q38/q48 from       | LANDED  | DONE as record 1142: operative   |
@@ -314,9 +330,10 @@ A proposed producer statement is schedulable only if all five hold:
 +----+---------------------------+---------+---------------------------------+
 ```
 
-B1 and B2 are cheap and unblock the falsifiers of section 4; B4 is already
-owed by the window campaign; B3 is independent detector-branch
-strengthening.
+B1 and B2 have landed and consumed the Line-S falsifier (record 1144:
+REFUTED as stated).  B4 is already owed by the window campaign; B3 is
+independent detector-branch strengthening and now carries the Line-B
+falsifier's formal side alone.
 
 ## 7. Scope guards
 

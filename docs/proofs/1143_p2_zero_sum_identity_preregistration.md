@@ -1,6 +1,7 @@
 # Record 1143 - P2 zero-sum identity audit (pre-brick B1 of map 005)
 
-Date: 2026-09-05.  Status: pre-registration, committed BEFORE any build.
+Date: 2026-09-05.  Status: LANDED.  Pre-registration committed BEFORE any
+build (016325a); post-run addendum at the end of this file.
 
 Consumer: the healthy-`CompactLog`, B5-shaped detector-specific semi-local
 chain (map [`003`](../map/003_b1_b5_minimal_exit_route_selection.md)
@@ -102,3 +103,30 @@ so no channel decomposition of the spectral difference can re-derive the
 budget `D g W <= epsilon <= mu`; Line S dies as stated without a probe
 run (AGENTS rule 1: no substantively idle numerical experiment).  That
 verdict changes map 005 section 4/6 only.
+
+## 6. Post-run addendum (2026-09-05, after the build)
+
+Gates: G1 PASS - runner build of both targets green, footer
+`Build completed successfully (3658 jobs)`, zero `^error:` lines
+(log `build-logs/c1p2-zero-sum-identity.log`).  G2 PASS - all five
+declarations print exactly `[propext, Classical.choice, Quot.sound]`,
+zero `sorryAx`.  G3 PASS - the fidelity example compiled inside
+`C1P2DefectZeroSumIdentityAudit`.  G4 PASS - hygiene checked at commit.
+
+Registered implementation deviations (statement forms UNCHANGED):
+
+1. The 1123 identity is consumed fully qualified as
+   `C1T2Assembly.defectGate_singleton_eq_sub` - it is owned by the
+   namespace `C1T2Assembly`, not by the opened namespaces.  First build
+   failed on the bare name (unknown identifier); this is a naming fix,
+   not a statement change.
+2. The module carries no `noncomputable section` (it declares only
+   theorems), so the file ends with the three named `end`s - cosmetic.
+3. No statement was weakened; no proof needed more than `rw`/`linarith`
+   per section 3 (S3 additionally uses two one-line `have`s transporting
+   each `qw` through `qw_eq_psi_square` + `centerTwo_arithmetic_eq_spectral`).
+
+Consumers may now cite, in `ConnesWeilRH.Source.C1P2DefectZeroSumIdentity`:
+`icgate_convolutionSquare_eq_neg_qw`, `defectGate_eq_qw_sub`,
+`defectGate_eq_spectralValue_sub`, `defectGate_gt_add_mu`,
+`defectGate_gt_add_mu_of_qw_negative`.
