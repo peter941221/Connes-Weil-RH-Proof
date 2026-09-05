@@ -309,7 +309,7 @@ BRIDGE_MACHINERY = (
     "            rw [htc]\n"
     "            simp only [Int.cast_mul, Int.cast_pow, Int.cast_neg, Int.cast_natCast]\n"
     "            field_simp [pow_succ, hQ0]\n"
-    "          · simp [hik]\n"
+    "          · ring\n"
     "        _ = _ := by rw [Finset.sum_div]\n"
     "\n")
 

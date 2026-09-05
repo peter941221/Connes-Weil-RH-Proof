@@ -112,7 +112,7 @@ theorem listCoeff_eq_zDiv (m k : ℕ) (hk : k < 666) :
             rw [htc]
             simp only [Int.cast_mul, Int.cast_pow, Int.cast_neg, Int.cast_natCast]
             field_simp [pow_succ, hQ0]
-          · simp [hik]
+          · ring
         _ = _ := by rw [Finset.sum_div]
 
 -- per-index value theorems: `k + 2` equation lemmas do not match
