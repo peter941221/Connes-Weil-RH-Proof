@@ -19,12 +19,15 @@ traceability.
 | 002    | Supporting            | Paper-scale and quantifier boundary         |
 | 003    | Binding               | Healthy-CompactLog, B5-shaped route ruling  |
 | 004    | Binding companion     | Endpoint provenance and interface boundary  |
+| 005    | Supporting            | P2 producer attack-plan registry            |
 +--------+-----------------------+---------------------------------------------+
 ```
 
 `003` controls route choice. `004` controls the active endpoint-certificate
 scope. `001` and `002` supply the load-bearing architecture and dependency
 boundaries; neither authorizes a frozen B1 campaign or a separate RH route.
+`005` registers candidate producer designs for the P2 scalar witness under
+the 1140 admission constraints; it adds no authority.
 
 ## Mandatory preflight
 
@@ -71,6 +74,9 @@ Read the current records in this order for a full-map review:
 4. [004 - Record 1088: Endpoint literature interface audit](004_endpoint_literature_interface_audit.md)
    separates literature reconstruction from the project's remaining endpoint
    certificate bridges.
+5. [005 - Record 1141: P2 scalar witness zero-configuration design](005_p2_scalar_witness_zero_configuration_design.md)
+   registers the attack lines, anti-circularity checklist, and pre-bricks for
+   the remaining P2 producer.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
