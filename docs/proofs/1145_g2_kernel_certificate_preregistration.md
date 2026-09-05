@@ -188,3 +188,40 @@ values before splicing (prereg section 3 slacks reproduced: a0 ~
 5.7711537437, b0 ~ -1.3473400459, a2 ~ 12.0107594822, b2 ~
 -2.8665795533), and byte-stability was verified by a double run
 (identical md5).  Module size ~21 MB source; ~6000 declarations.
+
+## 8. Addendum 3 (2026-09-05, RED-7 post-mortem and the RED-8 module split)
+
+RED-7 (prefix-sum machinery, single certificate module) was ABORTED at
+~34 min wall with the SAME signature as RED-6: 36 GB RSS, swap 8192/8192
+MB full, CPU rate collapsing.  Root cause now isolated: the ENVIRONMENT
+mass itself - ~466000 bignum multiply-add proof terms for the 35-layer
+grounding chain plus 3666 table literals plus ~5344 small value
+theorems, all resident in one Lean process - exceeds the WSL2 guest's
+36 GB no matter how small each tactic is.  Host RAM is 63.4 GB with
+Windows-side headroom ~8 GB, so raising the guest limit cannot be the
+primary fix.
+
+RED-8 (this batch, approved by Peter) splits the module along its
+dependency chain so no single process ever holds the whole environment;
+Lean's mmapped oleans keep the imported-but-untouched grounding proofs
+file-backed and reclaimable:
+
+```text
+C1ConcreteClassMomentBase           the 1139 def block, moved VERBATIM;
+                                    namespace KEPT (all fully-qualified
+                                    names unchanged; zero downstream edits)
+C1ConcreteClassMomentGroundingA     index literal + layer tables 0..17
+                                    + groundings 1..17              ~1 MB
+C1ConcreteClassMomentGroundingB     layer tables + groundings 18..35 ~6.5 MB
+C1ConcreteClassMomentGroundingC     per-index endpoint/moment values
+                                    + prefix sums + the four
+                                    comparison_*_eq theorems        ~13.5 MB
+C1ConcreteClassMomentCertificate    checkpoint + public consumers   ~37 KB
+```
+
+Build-process peaks become roughly 15 GB (A), 15 GB (B, with A mmapped),
+4 GB (C), 1 GB (certificate).  Secondary win: any future edit to the
+checkpoint or consumers rebuilds in seconds instead of re-grinding the
+grounding chain.  Generated-file ownership moves to the generator, which
+now asserts the five checkpoint conjuncts (prereg section 3) and writes
+A/B/C byte-stably; the checkpoint statement is untouched.
