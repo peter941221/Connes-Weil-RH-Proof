@@ -147,6 +147,37 @@ theorem defect_test_norm_le_of_uniformBounds
     ((norm_sub_le (g.convolutionSquare.test x) (W.convolutionSquare.test x)).trans
       (add_le_add (hg x) (hW x)))
 
+/-- The same norm control for the full finite Stage-B window family. -/
+theorem defect_test_norm_le_of_uniformFamilyBounds
+    (g : CompactLogTest) {ι : Type} (s : Finset ι)
+    (w : ι → CompactLogTest) (lam : ι → Real)
+    (G : Real) (H : ι → Real)
+    (hg : ∀ x : Real, ‖g.test x‖ ≤ G)
+    (hH : ∀ i ∈ s, ∀ x : Real, ‖(w i).test x‖ ≤ H i) :
+    ∀ x : Real, ‖(ICdefect g s w lam).test x‖ ≤
+      G + ∑ i ∈ s, |lam i| * H i := by
+  intro x
+  rw [ICdefect_test]
+  have hsum :
+      ‖∑ i ∈ s, (lam i : ℂ) • (w i).test x‖ ≤
+        ∑ i ∈ s, ‖(lam i : ℂ) • (w i).test x‖ := by
+    exact norm_sum_le _ _
+  calc
+    ‖g.test x - ∑ i ∈ s, (lam i : ℂ) • (w i).test x‖ ≤
+        ‖g.test x‖ + ‖∑ i ∈ s, (lam i : ℂ) • (w i).test x‖ :=
+      norm_sub_le _ _
+    _ ≤ G + ∑ i ∈ s, ‖(lam i : ℂ) • (w i).test x‖ := by
+      linarith [hg x, hsum]
+    _ ≤ G + ∑ i ∈ s, |lam i| * H i := by
+      have hsum2 :
+          (∑ i ∈ s, ‖(lam i : ℂ) • (w i).test x‖) ≤
+            ∑ i ∈ s, |lam i| * H i := by
+        exact Finset.sum_le_sum fun i hi => by
+          rw [norm_smul]
+          simp only [Complex.norm_real, Real.norm_eq_abs]
+          exact mul_le_mul_of_nonneg_left (hH i hi x) (abs_nonneg (lam i))
+      exact add_le_add (le_refl G) hsum2
+
 /-- Every compact-log test has a canonical uniform pointwise bound given by
 its zero-order Schwartz seminorm. -/
 theorem compactLogTest_norm_le_zeroSeminorm (F : CompactLogTest) :

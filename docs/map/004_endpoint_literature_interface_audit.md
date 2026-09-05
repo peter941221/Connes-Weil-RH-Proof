@@ -197,6 +197,9 @@ the finite visible-prime owner tied to the selected detector's support.
 The canonical zero-seminorm specialization removes auxiliary pointwise-bound
 hypotheses from the prime-side estimate and leaves only the two square
 seminorms as concrete correction data.
+The family theorem `defect_test_norm_le_of_uniformFamilyBounds` extends this to
+the actual finite Stage-B sum, with defect norm bounded by
+`G + Σ |λᵢ| Hᵢ` under per-window pointwise bounds.
 
 Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
 support chain's discharged primitive was re-adjudicated by the

@@ -112,6 +112,9 @@ The canonical specialization
 `abs_finitePrimeSum_defect_le_of_zeroSeminorms` removes the auxiliary `G,H`
 assumptions entirely and expresses the prime-side budget using only the two
 zero-order Schwartz seminorms of the detector and window squares.
+For the full finite Stage-B family,
+`defect_test_norm_le_of_uniformFamilyBounds` proves the weighted bound
+`G + Σ |λᵢ| Hᵢ`; this is the norm shape consumed by multi-window contraction.
 The remaining P2 producer task is therefore to derive these concrete pointwise
 and integral bounds from the true correction construction.
 
@@ -119,7 +122,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3658 jobs)`, zero `error:` lines.  The audit
-includes all fourteen P2-α/β declarations; each uses only
+includes all fifteen P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.
