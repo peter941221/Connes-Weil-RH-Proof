@@ -254,3 +254,59 @@ comparison theorems), so the shared namespace has no collisions, and
 every declaration stays public (private does not cross modules).
 Validated pre-build: Base already green; A/B/C re-emitted with identical
 bodies, only the namespace lines differ.
+
+## 10. Addendum 5 (2026-09-05, RED-8d measurement and the RED-9 integer lifting)
+
+RED-8d (namespace fix landed, Base green in 1.8 s) was killed at ~29 min:
+GroundingA ALONE - the SMALLER grounding half, layers 0-17 - reached
+34.5 GB RSS with swap 7.7/8 GB and zero errors, i.e. the third memory
+wall (RED-6, RED-7, RED-8d).  The five-module split premise (per-process
+peaks ~15-20 GB) is measured FALSE: module splitting partitions which
+proofs are resident together, but the SUM of the grounding proof terms
+is invariant, and that sum is the mass.
+
+Root cause, isolated by three independent deaths: every Rat mult-add in
+a grounding's norm_num carries a gcd-normalization proof term on
+multi-thousand-digit numbers; 666 entries x 20 products x 17 layers =
+~226K such terms alive in one process.  GroundingB (layers 18-35, 6.5x
+the literal bytes, larger coefficients) is strictly heavier, so no
+module split of the Rat design fits 36 GB.
+
+Decision (approved by Peter, 2026-09-05, option A over per-layer splits
+and over raising WSL memory): RED-9 INTEGER LIFTING.  The Rat is in the
+recursion only because taylorCoefficientQ has denominators.
+
+```text
+Q       := 35^19 * 19! : Nat                    (positive)
+zCoeff i := (-2)^i * 35^(19-i) * (19!/i!) : Int  (exact for i < 20)
+zLayerList : Nat -> List Int, the SAME convolution shape with
+            zCoeff in place of taylorCoefficientQ, 0th layer delta_0
+Identity: layer n (k) = zLayerList n k / Q^n, hence
+          listCoeffQ (powerCoefficientListQ m) k
+            = (getD (zLayerList m) k 0 : Rat) / Q^m   (symbolic bridge)
+```
+
+Kernel facts used (all scratch-validated before landing): Nat/Int
+literal arithmetic IS kernel-reducible (GMP-backed), so each layer
+grounding closes by `rfl` after the established show-bridge + single
+`rw` inlines the previous LITERAL table - near-zero proof mass, seconds
+of evaluation.  Only the Rat bridge theorem is genuine algebra, and it
+is fully symbolic (no bignum).  Structure:
+
+```text
+A  zCoeff, zLayerList defs + zTable_0..17 literal tables + rfl
+   groundings 1..17 + range_666_lit                     (~2 MB, ~1 GB peak)
+B  zTable_18..35 + rfl groundings 18..35                (~5 MB, ~2 GB peak)
+C  Q + taylorCoefficientQ_mul_Q_eq_zCoeff (factorial
+   exactness) + listCoeff_eq_zDiv (symbolic induction)
+   + per-index endpoint/moment values + prefix sums
+   (coeff fed through the bridge) + the four
+   comparison_*_eq                                      (RED-7 C design kept)
+cert checkpoint + consumers UNTOUCHED (same splice marks)
+```
+
+All 1139 statements, both public producers, and gates G1-G4 are
+unchanged; this is a proof-machinery replacement only.  Falsifiers: if
+the symbolic bridge cannot close in scratch, or the prefix-sum module
+exceeds memory alone, HOLD and report - no statement weakening, no
+native_decide, no q28 box changes.
