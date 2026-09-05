@@ -124,6 +124,20 @@ theorem primeCoefficientNorm_le_log_of_nat (n : Nat) :
         abs_of_nonneg ArithmeticFunction.vonMangoldt_nonneg,
         abs_of_nonneg hs] using h
 
+/-- On any finite index set, the complex-norm coefficient sum is bounded by
+the corresponding real logarithmic sum once the common test factor is
+nonnegative. -/
+theorem finitePrimeCoefficientSum_le_logSum
+    (s : Finset Nat) (A : Real) (hA : 0 ≤ A) :
+    (∑ n ∈ s,
+      ‖(ArithmeticFunction.vonMangoldt n : Complex)‖ *
+        ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ * (2 * A)) ≤
+      ∑ n ∈ s, Real.log (n : Real) * (2 * A) := by
+  apply Finset.sum_le_sum
+  intro n hn
+  exact mul_le_mul_of_nonneg_right (primeCoefficientNorm_le_log_of_nat n)
+    (mul_nonneg (by norm_num) hA)
+
 /-- A logarithmic coefficient bound is enough to invoke the real-coefficient
 adapter.  This is the finite-prime producer shape used with a cutoff. -/
 theorem primeTermNormEnvelope_le_of_logBound

@@ -236,6 +236,9 @@ Together with Mathlib's `vonMangoldt_le_log`, the theorem
 real budget adapter.
 The all-index form `primeCoefficientNorm_le_log_of_nat` also handles `n = 0`
 and matches the exact complex-norm summand used by the explicit range budget.
+The finite-set adapter `finitePrimeCoefficientSum_le_logSum` lifts this
+pointwise inequality to any explicit cutoff range with a nonnegative common
+test factor, leaving the producer with a real logarithmic finite sum.
 The one-window consumers
 `stageBContraction_of_uniformSquareBounds_and_integralNorm_budget` and
 `orbitGate_of_uniformSquareBounds_and_integralNorm_budget` now feed that

@@ -13,6 +13,7 @@ open ConnesWeilRH Source C1P2DefectControl
 #print axioms primeTermNormEnvelope_le_of_realCoefficientBound
 #print axioms vonMangoldt_sqrtWeight_le_log_of_one_le
 #print axioms primeCoefficientNorm_le_log_of_nat
+#print axioms finitePrimeCoefficientSum_le_logSum
 #print axioms primeTermNormEnvelope_le_of_logBound
 #print axioms primeTermNormEnvelope_le_of_uniformTestBound
 #print axioms abs_archimedeanTerm_le_of_zeroAndIntegralBounds
