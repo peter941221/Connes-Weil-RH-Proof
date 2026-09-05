@@ -283,6 +283,17 @@ now combines the exponential archimedean scalar, the support-derived
 `N·log N` prime bound, and the full scalar budget into the exact defect-gate
 inequality.  Its hypotheses are precisely the remaining analytic producer
 inputs for a pinned owner.
+The one-window specialization
+`orbitGate_of_uniformSquareBounds_and_expNegEnvelope_logCard` now wires that
+scalar defect estimate into the concrete Stage-B contraction and orbit-window
+gate, retaining both original and square support on the same detector/window
+owner.  This is a formal consumer bridge only; it supplies no envelope or
+budget by itself.
+`P2ScalarOneWindowBudgetWitness` packages those remaining envelope, support,
+certificate, margin and scalar-budget fields, with
+`sourceRH_of_healthyDetector_p2ScalarOneWindowBudgetWitness` providing the
+corresponding same-detector exit.  The producer obligation is therefore an
+explicit scalar witness on each pinned orbit owner.
 `P2OneWindowBudgetWitness` packs those inputs as a same-detector owner, and
 `sourceRH_of_healthyDetector_p2OneWindowBudgetWitness` composes the witness
 with the existing healthy-detector contradiction.  Thus the remaining P2

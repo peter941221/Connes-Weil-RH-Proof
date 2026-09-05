@@ -901,6 +901,53 @@ theorem ICgate_defect_le_of_uniformFamilyBounds_and_expNegEnvelope_logCard
     simpa [Aarch, D] using hbudget
   exact (le_abs_self _).trans (hgate.trans hbudget')
 
+/-! ### Scalar exponential one-window consumer -/
+
+/- A one-window specialization of the scalar gate bridge.  The producer still
+supplies the certified window, the square-owner support and the exponential
+archimedean envelope; the finite-prime sum has been compressed to one scalar
+`N * log N` term. -/
+theorem orbitGate_of_uniformSquareBounds_and_expNegEnvelope_logCard
+    (g W : CompactLogTest) (G H mu epsilon b a Bsupport Carch : Real)
+    (hgsupp : Function.support g.test ⊆ Set.Ioo (-b) b)
+    (hWsupp : Function.support W.test ⊆ Set.Ioo (-a) a)
+    (hcert : ICgate W.convolutionSquare ≤ -mu)
+    (hG : 0 ≤ G) (hH : 0 ≤ H)
+    (hg : ∀ x : Real, ‖g.convolutionSquare.test x‖ ≤ G)
+    (hW : ∀ x : Real, ‖W.convolutionSquare.test x‖ ≤ H)
+    (hpoint : ∀ y : Real, 0 < y →
+      ‖archimedeanIntegrand
+          (ICdefect g.convolutionSquare {()}
+            (fun _ => W.convolutionSquare) (fun _ => 1)) y‖ ≤
+        Carch * Real.exp (-y))
+    (hgsquareSupp : Function.support g.convolutionSquare.test ⊆
+      Set.Ioo (-Bsupport) Bsupport)
+    (hWsquareSupp : Function.support W.convolutionSquare.test ⊆
+      Set.Ioo (-Bsupport) Bsupport)
+    (hbudget :
+      (|Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+          SchwartzMap.seminorm ℂ 0 0
+            (ICdefect g.convolutionSquare {()}
+              (fun _ => W.convolutionSquare) (fun _ => 1)).test + Carch) +
+        (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+          Real.log (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+            (2 * (G + H)) ≤ epsilon)
+    (hmargin : epsilon ≤ mu) :
+    orbitWindowSemiLocalGate g := by
+  have hdec := ICgate_defect_le_of_uniformFamilyBounds_and_expNegEnvelope_logCard
+    (g.convolutionSquare) {()} (fun _ => W.convolutionSquare) (fun _ => 1)
+    G (fun _ => H) Bsupport Carch epsilon hG
+    (by intro i hi; simpa using hH)
+    hg
+    (by intro i hi x; simpa using hW x)
+    (by simpa using hpoint)
+    hgsquareSupp
+    (by intro i hi; simpa using hWsquareSupp)
+    (by simpa using hbudget)
+  exact orbitWindowSemiLocalGate_of_contraction g
+    (stageBContraction_of_certifiedWindow g W hgsupp hWsupp hcert hdec hmargin)
+    (by simpa [stageBContraction_of_certifiedWindow] using hmargin)
+
 /-- The same bound specialized to the one-window P2 defect.  This is the
 prime-side half of the future `|gate(defect)|` estimate; the archimedean half
 must be supplied separately. -/
@@ -1232,6 +1279,74 @@ theorem sourceRH_of_healthyDetector_p2OneWindowBudgetWitness
   exact ⟨g, hdata,
     qw_nonneg_of_healthyDetectorData_of_orbitWindowSemiLocalGate hdata
       (orbitGate_of_p2OneWindowBudgetWitness g hp2)⟩
+
+/-! ## Scalar exponential producer contract -/
+
+/- The minimal producer payload after the scalar gate reduction.  The square
+owners carry their support and pointwise bounds, while the archimedean tail
+is represented by one explicit exponential envelope. -/
+structure P2ScalarOneWindowBudgetWitness (g : CompactLogTest) where
+  W : CompactLogTest
+  mu : Real
+  epsilon : Real
+  b : Real
+  a : Real
+  Bsupport : Real
+  Carch : Real
+  hgsupp : Function.support g.test ⊆ Set.Ioo (-b) b
+  hWsupp : Function.support W.test ⊆ Set.Ioo (-a) a
+  hcert : ICgate W.convolutionSquare ≤ -mu
+  hpoint : ∀ y : Real, 0 < y →
+    ‖archimedeanIntegrand
+        (ICdefect g.convolutionSquare {()}
+          (fun _ => W.convolutionSquare) (fun _ => 1)) y‖ ≤
+      Carch * Real.exp (-y)
+  hgsquareSupp : Function.support g.convolutionSquare.test ⊆
+    Set.Ioo (-Bsupport) Bsupport
+  hWsquareSupp : Function.support W.convolutionSquare.test ⊆
+    Set.Ioo (-Bsupport) Bsupport
+  hbudget :
+    (|Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+        SchwartzMap.seminorm ℂ 0 0
+          (ICdefect g.convolutionSquare {()}
+            (fun _ => W.convolutionSquare) (fun _ => 1)).test + Carch) +
+      (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+        Real.log (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1 : Real) *
+          (2 * (SchwartzMap.seminorm ℂ 0 0 g.convolutionSquare.test +
+            SchwartzMap.seminorm ℂ 0 0 W.convolutionSquare.test)) ≤
+    epsilon
+  hmargin : epsilon ≤ mu
+
+/- The scalar witness discharges all auxiliary square norm constants by the
+zero-order Schwartz seminorm bound and invokes the one-window gate consumer. -/
+theorem orbitGate_of_p2ScalarOneWindowBudgetWitness
+    (g : CompactLogTest) (p : P2ScalarOneWindowBudgetWitness g) :
+    orbitWindowSemiLocalGate g := by
+  exact orbitGate_of_uniformSquareBounds_and_expNegEnvelope_logCard
+    g p.W
+    (SchwartzMap.seminorm ℂ 0 0 g.convolutionSquare.test)
+    (SchwartzMap.seminorm ℂ 0 0 p.W.convolutionSquare.test)
+    p.mu p.epsilon p.b p.a p.Bsupport p.Carch
+    p.hgsupp p.hWsupp p.hcert
+    (by positivity) (by positivity)
+    (compactLogTest_norm_le_zeroSeminorm g.convolutionSquare)
+    (compactLogTest_norm_le_zeroSeminorm p.W.convolutionSquare)
+    p.hpoint p.hgsquareSupp p.hWsquareSupp p.hbudget p.hmargin
+
+/- Same-detector exit for the scalar producer contract. -/
+theorem sourceRH_of_healthyDetector_p2ScalarOneWindowBudgetWitness
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+            Nonempty (P2ScalarOneWindowBudgetWitness g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, hdata, ⟨hp2⟩⟩ := hproducer rho hright
+  exact ⟨g, hdata,
+    qw_nonneg_of_healthyDetectorData_of_orbitWindowSemiLocalGate hdata
+      (orbitGate_of_p2ScalarOneWindowBudgetWitness g hp2)⟩
 
 /-- Canonical producer contract: the pointwise constants `G` and `H` are
 chosen as the zero-order Schwartz seminorms of the two square owners, so the
