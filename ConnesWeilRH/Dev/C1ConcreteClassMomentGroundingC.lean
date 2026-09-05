@@ -102,13 +102,17 @@ theorem listCoeff_eq_zDiv (m k : ℕ) (hk : k < 666) :
           by_cases hik : i ≤ k
           · have hi20 : i < 20 := Finset.mem_range.mp hi
             rw [if_pos hik, if_pos hik, powerCoefficientQ,
-              ih (k - i) (by omega),
-              taylorCoefficientQ_mul_bigQ_eq_zCoeff i (by omega)]
+              ih (k - i) (by omega)]
             have hQ0 : (bigQ : ℚ) ≠ 0 :=
               Nat.cast_ne_zero.mpr (Nat.ne_of_gt bigQ_pos)
+            have htc : taylorCoefficientQ i = (zCoeff i : ℚ) / (bigQ : ℚ) := by
+              apply (eq_div_iff hQ0).2
+              simpa [mul_comm] using
+                (taylorCoefficientQ_mul_bigQ_eq_zCoeff i (by omega))
+            rw [htc]
             simp only [Int.cast_mul, Int.cast_pow, Int.cast_neg, Int.cast_natCast]
             field_simp [pow_succ, hQ0]
-          · rw [if_neg hik, if_neg hik]
+          · simp [hik]
         _ = _ := by rw [Finset.sum_div]
 
 -- per-index value theorems: `k + 2` equation lemmas do not match
