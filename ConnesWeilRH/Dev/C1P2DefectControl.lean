@@ -338,6 +338,57 @@ theorem abs_finitePrimeSum_le_of_termBounds
     _ ≤ ∑ n ∈ globalPrimeIndexSet F, B n := by
       exact Finset.sum_le_sum fun n hn => hB n hn
 
+/-! ## Explicit finite-range prime budget -/
+
+/-- Under a common support interval, the family defect's finite-prime budget
+can be enlarged from its exact visible set to the explicit support-derived
+`Finset.range`.  All summands are norm envelopes and hence nonnegative. -/
+theorem abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_commonSupport
+    (g : CompactLogTest) {ι : Type} (s : Finset ι)
+    (w : ι → CompactLogTest) (lam : ι → Real)
+    (G : Real) (H : ι → Real) (Bsupport : Real)
+    (hG : 0 ≤ G) (hH : ∀ i ∈ s, 0 ≤ H i)
+    (hg : ∀ x : Real, ‖g.test x‖ ≤ G)
+    (hw : ∀ i ∈ s, ∀ x : Real, ‖(w i).test x‖ ≤ H i)
+    (hgsupp : Function.support g.test ⊆ Set.Ioo (-Bsupport) Bsupport)
+    (hwsupp : ∀ i ∈ s,
+      Function.support (w i).test ⊆ Set.Ioo (-Bsupport) Bsupport) :
+    |finitePrimeSum (ICdefect g s w lam)| ≤
+      ∑ n ∈ Finset.range (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1),
+        ‖(ArithmeticFunction.vonMangoldt n : Complex)‖ *
+          ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ *
+            (2 * (G + ∑ i ∈ s, |lam i| * H i)) := by
+  let D : CompactLogTest := ICdefect g s w lam
+  let A : Real := G + ∑ i ∈ s, |lam i| * H i
+  let Bterm : Nat → Real := fun n =>
+    ‖(ArithmeticFunction.vonMangoldt n : Complex)‖ *
+      ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ * (2 * A)
+  have hsumH : 0 ≤ ∑ i ∈ s, |lam i| * H i := by
+    exact Finset.sum_nonneg fun i hi => mul_nonneg (abs_nonneg _) (hH i hi)
+  have hA : 0 ≤ A := add_nonneg hG hsumH
+  have hD : ∀ x : Real, ‖D.test x‖ ≤ A := by
+    intro x
+    exact defect_test_norm_le_of_uniformFamilyBounds g s w lam G H hg hw x
+  have hterm : ∀ n ∈ globalPrimeIndexSet D, |finitePrimeTerm D n| ≤ Bterm n := by
+    intro n hn
+    exact (abs_finitePrimeTerm_le_primeTermNormEnvelope D n).trans
+      (primeTermNormEnvelope_le_of_uniformTestBound D n A hA hD)
+  have hexact : |finitePrimeSum D| ≤
+      ∑ n ∈ globalPrimeIndexSet D, Bterm n :=
+    abs_finitePrimeSum_le_of_termBounds D Bterm hterm
+  have hcut := defect_globalPrimeIndexSet_subset_range_of_common_Ioo_support
+    g s w lam Bsupport hgsupp hwsupp
+  have hrange :
+      (∑ n ∈ globalPrimeIndexSet D, Bterm n) ≤
+        ∑ n ∈ Finset.range (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1),
+          Bterm n := by
+    apply Finset.sum_le_sum_of_subset_of_nonneg hcut
+    intro n hn hnot
+    dsimp [Bterm]
+    positivity
+  have htotal := hexact.trans hrange
+  simpa [D, A, Bterm] using htotal
+
 /-- The same bound specialized to the one-window P2 defect.  This is the
 prime-side half of the future `|gate(defect)|` estimate; the archimedean half
 must be supplied separately. -/

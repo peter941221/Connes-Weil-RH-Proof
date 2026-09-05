@@ -139,6 +139,11 @@ The support theorem
 `defect_globalPrimeIndexSet_subset_range_of_common_Ioo_support` also carries a
 common open support interval through the finite family defect and produces an
 explicit finite cutoff for its visible-prime set.
+The theorem
+`abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_commonSupport` then
+replaces the exact-set prime sum by that explicit range, using only
+nonnegativity of the norm envelopes.  This is a finite-budget adapter and
+does not assert a sign for the gate.
 The remaining P2 producer task is therefore to derive these concrete pointwise
 and integral bounds from the true correction construction.
 
@@ -146,7 +151,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3658 jobs)`, zero `error:` lines.  The audit
-includes all twenty-three P2-α/β declarations; each uses only
+includes all twenty-four P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.
