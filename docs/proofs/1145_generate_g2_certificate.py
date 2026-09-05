@@ -54,6 +54,10 @@ TARGET_CERT = os.path.join(DEV, "C1ConcreteClassMomentCertificate.lean")
 TARGET_A = os.path.join(DEV, "C1ConcreteClassMomentGroundingA.lean")
 TARGET_B = os.path.join(DEV, "C1ConcreteClassMomentGroundingB.lean")
 TARGET_C = os.path.join(DEV, "C1ConcreteClassMomentGroundingC.lean")
+TARGET_EA = os.path.join(DEV, "C1ConcreteClassMomentEndpointA.lean")
+TARGET_EB = os.path.join(DEV, "C1ConcreteClassMomentEndpointB.lean")
+TARGET_MA = os.path.join(DEV, "C1ConcreteClassMomentMomentA.lean")
+TARGET_MB = os.path.join(DEV, "C1ConcreteClassMomentMomentB.lean")
 TARGET_BASE = os.path.join(DEV, "C1ConcreteClassMomentBase.lean")
 
 # ---------------------------------------------------------------------------
@@ -91,6 +95,7 @@ for _n in range(36):
 # ---------------------------------------------------------------------------
 # exact endpoint/moment tables (mirror of the module's recursions)
 R = Fraction(97, 100)
+ENV_POW = [((1 - R * R) ** k) for k in range(665)]
 
 endpointA = [Fraction(0)] * 666
 endpointA[0] = 2 * R
@@ -337,7 +342,7 @@ PER_INDEX_STEPS = (
 )
 
 
-def per_index_theorems():
+def per_index_theorems(selected=None):
     parts = ["-- per-index value theorems: `k + 2` equation lemmas do not match\n",
              "-- closed Nat literals under simp, so each index is grounded\n",
              "-- through the step theorem with an explicit `n + 1 + 1` bridge.\n\n"]
@@ -346,6 +351,8 @@ def per_index_theorems():
             ("endpointB", "endpointBQ", endpointB, "rationalRadiusQ"),
             ("momentA", "momentAQ", momentA, ""),
             ("momentB", "momentBQ", momentB, ""))
+    if selected is not None:
+        fams = tuple(x for x in fams if x[0] == selected)
     for short, fn_name, vals, extra in fams:
         for j in range(666):
             v = rat_lit(vals[j])
@@ -377,10 +384,14 @@ def per_index_theorems():
                 bridge = (f"  show {fn_name} ({j - 2} + 1 + 1) = _\n"
                           f"  rw [{fn_name}_step]\n"
                           f"  rw [endpoint{src}_at_{j}, endpoint{src}_at_{j - 1}]\n")
-            tail = ("  norm_num (config := { maxSteps := 2000000000 }) <;> field_simp <;> norm_num\n"
-                    if not extra else
-                    "  norm_num (config := { maxSteps := 2000000000 }) <;> field_simp <;> norm_num\n"
-                    f"    [{extra}]\n")
+            if short.startswith("endpoint"):
+                tail = (f"  have hp : (1 - rationalRadiusQ ^ 2) ^ {j - 1} = {rat_lit(ENV_POW[j - 1])} := by\n"
+                        "    norm_num [rationalRadiusQ]\n"
+                        f"  rw [show (1 - rationalRadiusQ ^ 2) ^ ({j - 2} + 1) = _ by simpa using hp]\n"
+                        "  norm_num (config := { maxSteps := 2000000000 }) <;> field_simp <;> norm_num\n")
+            else:
+                tail = ("  norm_num (config := { maxSteps := 2000000000 }) <;> field_simp <;> norm_num\n"
+                        f"    [{extra}]\n")
             parts.append(f"theorem {short}_at_{j} : {fn_name} {j} =\n"
                          f"    {v} := by\n" + bridge + tail + "\n")
     return "".join(parts)
@@ -439,10 +450,22 @@ def grounding_c():
            "file is byte-stable.  RH NOT claimed.")
     return (module_scaffold("C1ConcreteClassMomentCertificate",
                             ["import ConnesWeilRH.Dev.C1ConcreteClassMomentBase",
-                             "import ConnesWeilRH.Dev.C1ConcreteClassMomentGroundingB"],
+                             "import ConnesWeilRH.Dev.C1ConcreteClassMomentGroundingB",
+                             "import ConnesWeilRH.Dev.C1ConcreteClassMomentEndpointA",
+                             "import ConnesWeilRH.Dev.C1ConcreteClassMomentEndpointB",
+                             "import ConnesWeilRH.Dev.C1ConcreteClassMomentMomentA",
+                             "import ConnesWeilRH.Dev.C1ConcreteClassMomentMomentB"],
                             doc)
             + OPT_BLOCK + "\n"
-            + BRIDGE_MACHINERY + per_index_theorems() + prefix_machinery()
+            + BRIDGE_MACHINERY + prefix_machinery()
+            + MODULE_END.format(ns="C1ConcreteClassMomentCertificate"))
+
+
+def value_module(short, imports):
+    doc = (f"# Record 1145 RED-9: isolated {short} rational value certificates.\n"
+           "Generated; RH NOT claimed.")
+    return (module_scaffold("C1ConcreteClassMomentCertificate", imports, doc)
+            + OPT_BLOCK + per_index_theorems(short)
             + MODULE_END.format(ns="C1ConcreteClassMomentCertificate"))
 
 
@@ -522,7 +545,11 @@ def main():
         cert = f.read()
     changed = [write_stable(TARGET_A, grounding_a()),
                write_stable(TARGET_B, grounding_b()),
-               write_stable(TARGET_C, grounding_c())]
+               write_stable(TARGET_C, grounding_c()),
+               write_stable(TARGET_EA, value_module("endpointA", ["import ConnesWeilRH.Dev.C1ConcreteClassMomentBase"])),
+               write_stable(TARGET_EB, value_module("endpointB", ["import ConnesWeilRH.Dev.C1ConcreteClassMomentBase"])),
+               write_stable(TARGET_MA, value_module("momentA", ["import ConnesWeilRH.Dev.C1ConcreteClassMomentEndpointA"])),
+               write_stable(TARGET_MB, value_module("momentB", ["import ConnesWeilRH.Dev.C1ConcreteClassMomentEndpointB"]))]
     new_cert = splice_certificate(cert)
     changed.append(new_cert == cert)
     with open(TARGET_CERT, "w", encoding="utf-8", newline="\n") as f:

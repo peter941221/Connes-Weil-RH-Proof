@@ -310,3 +310,13 @@ unchanged; this is a proof-machinery replacement only.  Falsifiers: if
 the symbolic bridge cannot close in scratch, or the prefix-sum module
 exceeds memory alone, HOLD and report - no statement weakening, no
 native_decide, no q28 box changes.
+## 11. Addendum 6 (2026-09-05, RED-10 family-module isolation)
+
+RED-9 integer grounding passed for A and B, but the single C module retained
+all four 666-entry rational endpoint/moment proof families and hit the WSL
+memory ceiling.  RED-10 isolates endpoint A, endpoint B, moment A, and
+moment B into four modules in the shared namespace; C now imports them and
+contains only the symbolic bridge, prefix sums, and comparison consumers.
+The endpoint power-cache attempt was rejected after live memory monitoring;
+it increased term size rather than reducing it.  Acceptance remains a
+kernel build with no `sorryAx` and the standard three axioms only.
