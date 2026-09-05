@@ -307,9 +307,8 @@ BRIDGE_MACHINERY = (
     "              simpa [mul_comm] using\n"
     "                (taylorCoefficientQ_mul_bigQ_eq_zCoeff i (by omega))\n"
     "            rw [htc]\n"
-    "            simp only [Int.cast_mul, Int.cast_pow, Int.cast_neg, Int.cast_natCast]\n"
     "            field_simp [pow_succ, hQ0]\n"
-    "          · ring\n"
+    "          · simp only [if_neg hik, zero_mul, zero_div]\n"
     "        _ = _ := by rw [Finset.sum_div]\n"
     "\n")
 
