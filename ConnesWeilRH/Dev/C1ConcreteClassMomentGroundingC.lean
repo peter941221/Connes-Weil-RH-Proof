@@ -54,7 +54,8 @@ theorem taylorCoefficientQ_mul_bigQ_eq_zCoeff (i : ℕ) (hi : i < 20) :
   have hQ : (bigQ : ℚ) = (35 : ℚ) ^ 19 * (Nat.factorial 19 : ℚ) := by
     unfold bigQ
     norm_num [Nat.factorial]
-  rw [taylorCoefficientQ, if_pos hi, hQ]
+  rw [taylorCoefficientQ, if_pos hi]
+  unfold bigQ
   simp only [zCoeff]
   rw [show (-(2 / 35 : ℚ)) = (-2 : ℚ) / 35 by norm_num, div_pow]
   simp only [Int.cast_mul, Int.cast_pow, Int.cast_neg, Int.cast_natCast]
@@ -99,7 +100,8 @@ theorem listCoeff_eq_zDiv (m k : ℕ) (hk : k < 666) :
           apply Finset.sum_congr rfl
           intro i hi
           by_cases hik : i ≤ k
-          · rw [if_pos hik, if_pos hik, powerCoefficientQ,
+          · have hi20 : i < 20 := Finset.mem_range.mp hi
+            rw [if_pos hik, if_pos hik, powerCoefficientQ,
               ih (k - i) (by omega),
               taylorCoefficientQ_mul_bigQ_eq_zCoeff i (by omega)]
             have hQ0 : (bigQ : ℚ) ≠ 0 :=
