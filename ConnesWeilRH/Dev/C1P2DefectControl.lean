@@ -428,6 +428,25 @@ theorem abs_ICgate_defect_le_of_uniformFamilyBounds_and_arch
     D Aarch B harch hBnonneg hB
   simpa [D, A, B] using hgate
 
+/-- The direct Stage-B admission form: once the explicit analytic budget is at
+most `epsilon`, the required defect gate inequality follows immediately. -/
+theorem ICgate_defect_le_of_uniformFamilyBounds_and_arch_budget
+    (g : CompactLogTest) {ι : Type} (s : Finset ι)
+    (w : ι → CompactLogTest) (lam : ι → Real)
+    (G : Real) (H : ι → Real) (Aarch epsilon : Real)
+    (hG : 0 ≤ G) (hH : ∀ i ∈ s, 0 ≤ H i)
+    (harch : |archimedeanTerm (ICdefect g s w lam)| ≤ Aarch)
+    (hg : ∀ x : Real, ‖g.test x‖ ≤ G)
+    (hw : ∀ i ∈ s, ∀ x : Real, ‖(w i).test x‖ ≤ H i)
+    (hbudget : Aarch + ∑ n ∈ globalPrimeIndexSet (ICdefect g s w lam),
+        ‖(ArithmeticFunction.vonMangoldt n : Complex)‖ *
+          ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ *
+            (2 * (G + ∑ i ∈ s, |lam i| * H i)) ≤ epsilon) :
+    ICgate (ICdefect g s w lam) ≤ epsilon := by
+  have hbound := abs_ICgate_defect_le_of_uniformFamilyBounds_and_arch
+    g s w lam G H Aarch hG hH harch hg hw
+  exact (le_abs_self _).trans (hbound.trans hbudget)
+
 end C1P2DefectControl
 end Source
 end ConnesWeilRH
