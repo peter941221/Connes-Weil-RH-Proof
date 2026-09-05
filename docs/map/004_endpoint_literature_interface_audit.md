@@ -239,6 +239,11 @@ and matches the exact complex-norm summand used by the explicit range budget.
 The finite-set adapter `finitePrimeCoefficientSum_le_logSum` lifts this
 pointwise inequality to any explicit cutoff range with a nonnegative common
 test factor, leaving the producer with a real logarithmic finite sum.
+The defect-level corollary
+`abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_logRange` now combines
+the support-derived cutoff, family norm bounds, and this logarithmic adapter on
+one owner, so the finite-prime part of the canonical budget is an explicit
+real `Finset.range` sum.
 The one-window consumers
 `stageBContraction_of_uniformSquareBounds_and_integralNorm_budget` and
 `orbitGate_of_uniformSquareBounds_and_integralNorm_budget` now feed that

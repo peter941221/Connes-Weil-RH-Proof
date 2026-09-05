@@ -498,6 +498,34 @@ theorem abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_commonSupport
   have htotal := hexact.trans hrange
   simpa [D, A, Bterm] using htotal
 
+/-- The same explicit-cutoff bound after replacing every complex coefficient by
+the real logarithmic coefficient.  This is the arithmetic-facing producer
+interface for a common-support defect. -/
+theorem abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_logRange
+    (g : CompactLogTest) {ι : Type} (s : Finset ι)
+    (w : ι → CompactLogTest) (lam : ι → Real)
+    (G : Real) (H : ι → Real) (Bsupport : Real)
+    (hG : 0 ≤ G) (hH : ∀ i ∈ s, 0 ≤ H i)
+    (hg : ∀ x : Real, ‖g.test x‖ ≤ G)
+    (hw : ∀ i ∈ s, ∀ x : Real, ‖(w i).test x‖ ≤ H i)
+    (hgsupp : Function.support g.test ⊆ Set.Ioo (-Bsupport) Bsupport)
+    (hwsupp : ∀ i ∈ s,
+      Function.support (w i).test ⊆ Set.Ioo (-Bsupport) Bsupport) :
+    |finitePrimeSum (ICdefect g s w lam)| ≤
+      ∑ n ∈ Finset.range (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1),
+        Real.log (n : Real) *
+          (2 * (G + ∑ i ∈ s, |lam i| * H i)) := by
+  have hsumH : 0 ≤ ∑ i ∈ s, |lam i| * H i := by
+    exact Finset.sum_nonneg fun i hi => mul_nonneg (abs_nonneg _) (hH i hi)
+  have hA : 0 ≤ G + ∑ i ∈ s, |lam i| * H i :=
+    add_nonneg hG hsumH
+  have hbase := abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_commonSupport
+    g s w lam G H Bsupport hG hH hg hw hgsupp hwsupp
+  have hlog := finitePrimeCoefficientSum_le_logSum
+    (Finset.range (Nat.ceil (Real.exp (max |(-Bsupport)| |Bsupport|)) + 1))
+    (G + ∑ i ∈ s, |lam i| * H i) hA
+  exact hbase.trans (by simpa using hlog)
+
 /-- The same bound specialized to the one-window P2 defect.  This is the
 prime-side half of the future `|gate(defect)|` estimate; the archimedean half
 must be supplied separately. -/
