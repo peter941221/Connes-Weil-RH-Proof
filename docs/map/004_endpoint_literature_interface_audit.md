@@ -233,6 +233,11 @@ The one-window consumers
 canonical budget into the actual `ICStageBContraction` and
 `orbitWindowSemiLocalGate` route interfaces.  They remain conditional on the
 explicit budget and certified-window sign; no positivity is manufactured.
+`P2OneWindowBudgetWitness` packs those inputs as a same-detector owner, and
+`sourceRH_of_healthyDetector_p2OneWindowBudgetWitness` composes the witness
+with the existing healthy-detector contradiction.  Thus the remaining P2
+producer obligation is now a single explicit witness for each right-oriented
+off-line zero.
 
 Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
 support chain's discharged primitive was re-adjudicated by the

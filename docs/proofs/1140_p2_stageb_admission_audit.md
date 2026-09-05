@@ -150,14 +150,19 @@ Finally, the one-window consumers
 canonical budget to the actual Stage-B contraction and orbit-window gate
 interfaces.  Their explicit budget and certified-window hypotheses remain
 genuine producer obligations.
+`P2OneWindowBudgetWitness` packages these fields on the same detector owner,
+and `sourceRH_of_healthyDetector_p2OneWindowBudgetWitness` composes the packed
+witness with the existing detector contradiction.  The open mathematical task
+is therefore isolated to constructing this witness for each right-oriented
+off-line zero.
 The remaining P2 producer task is therefore to derive these concrete pointwise
 and integral bounds from the true correction construction.
 
 ## Verification
 
 The owning and audit modules build successfully with the resource-aware runner:
-`Build completed successfully (3658 jobs)`, zero `error:` lines.  The audit
-includes all twenty-five P2-α/β declarations; each uses only
+`Build completed successfully (3659 jobs)`, zero `error:` lines.  The audit
+includes all twenty-eight P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.

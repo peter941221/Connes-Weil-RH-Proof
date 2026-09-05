@@ -32,3 +32,6 @@ open ConnesWeilRH Source C1P2DefectControl
 #print axioms ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm_budget
 #print axioms stageBContraction_of_uniformSquareBounds_and_integralNorm_budget
 #print axioms orbitGate_of_uniformSquareBounds_and_integralNorm_budget
+#print axioms P2OneWindowBudgetWitness
+#print axioms orbitGate_of_p2OneWindowBudgetWitness
+#print axioms sourceRH_of_healthyDetector_p2OneWindowBudgetWitness

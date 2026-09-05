@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Dev.C1T2Assembly
+import ConnesWeilRH.Dev.C1OrbitWindowExitComposition
 
 /-!
 # P2-α: finite visible-prime control for a defect
@@ -28,6 +29,10 @@ open CC20YoshidaConvolution.CompactLogTest
 open C1LocalConfigurationDomination
 open C1OrbitWindowSemiLocalGate
 open C1T2Assembly
+open CC20YoshidaNearZeros
+open C1HealthyYoshidaDetector
+open C1HealthyYoshidaSpectralNegativity
+open C1OrbitWindowExitComposition
 open CCM25Concrete.CompactLogConvolution
 open scoped BigOperators
 
@@ -661,6 +666,67 @@ theorem orbitGate_of_uniformSquareBounds_and_integralNorm_budget
       simpa [stageBContraction_of_uniformSquareBounds_and_integralNorm_budget,
         stageBContraction_of_certifiedWindow]
         using hmargin)
+
+/-! ## Minimal same-detector P2 producer contract -/
+
+/-- All analytic data needed by the one-window P2 consumer, packed with the
+same detector owner.  This is a data contract for a future producer: its
+budget field is an explicit inequality and carries no gate or `qw` conclusion.
+-/
+structure P2OneWindowBudgetWitness (g : CompactLogTest) where
+  W : CompactLogTest
+  G : Real
+  H : Real
+  mu : Real
+  epsilon : Real
+  b : Real
+  a : Real
+  hgsupp : Function.support g.test ⊆ Set.Ioo (-b) b
+  hWsupp : Function.support W.test ⊆ Set.Ioo (-a) a
+  hcert : ICgate W.convolutionSquare ≤ -mu
+  hG : 0 ≤ G
+  hH : 0 ≤ H
+  hg : ∀ x : Real, ‖g.convolutionSquare.test x‖ ≤ G
+  hW : ∀ x : Real, ‖W.convolutionSquare.test x‖ ≤ H
+  hbudget :
+    (|Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+        SchwartzMap.seminorm ℂ 0 0
+          (ICdefect g.convolutionSquare {()}
+            (fun _ => W.convolutionSquare) (fun _ => 1)).test +
+      archimedeanIntegralNorm (ICdefect g.convolutionSquare {()}
+        (fun _ => W.convolutionSquare) (fun _ => 1))) +
+    ∑ n ∈ globalPrimeIndexSet (ICdefect g.convolutionSquare {()}
+        (fun _ => W.convolutionSquare) (fun _ => 1)),
+      ‖(ArithmeticFunction.vonMangoldt n : Complex)‖ *
+        ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ * (2 * (G + H)) ≤
+    epsilon
+  hmargin : epsilon ≤ mu
+
+/-- A packed P2 witness produces the route's orbit-window gate for its owner. -/
+theorem orbitGate_of_p2OneWindowBudgetWitness
+    (g : CompactLogTest) (p : P2OneWindowBudgetWitness g) :
+    orbitWindowSemiLocalGate g := by
+  exact orbitGate_of_uniformSquareBounds_and_integralNorm_budget
+    g p.W p.G p.H p.mu p.epsilon p.b p.a p.hgsupp p.hWsupp p.hcert
+    p.hG p.hH p.hg p.hW p.hbudget p.hmargin
+
+/-- Same-detector exit contract: if every right-oriented off-line zero admits
+one healthy detector carrying a packed P2 witness, the existing contradiction
+consumer yields `SourceRH`.  The theorem deliberately leaves witness
+construction as the sole analytic producer obligation. -/
+theorem sourceRH_of_healthyDetector_p2OneWindowBudgetWitness
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+            Nonempty (P2OneWindowBudgetWitness g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, hdata, ⟨hp2⟩⟩ := hproducer rho hright
+  exact ⟨g, hdata,
+    qw_nonneg_of_healthyDetectorData_of_orbitWindowSemiLocalGate hdata
+      (orbitGate_of_p2OneWindowBudgetWitness g hp2)⟩
 
 end C1P2DefectControl
 end Source
