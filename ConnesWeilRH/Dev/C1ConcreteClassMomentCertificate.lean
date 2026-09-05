@@ -54,6 +54,7 @@ private theorem q28_certificate_Q :
 
 
 
+
 private theorem q28Moment0_lower_Q :
     q28Moment0LoQ + centralErrorQ ≤
       comparisonIntegral0AQ + comparisonIntegral0BQ * logUpperQ := by
@@ -77,8 +78,6 @@ private theorem q28Moment2_upper_Q :
 private theorem comparisonBQ_negative :
     comparisonIntegral0BQ < 0 ∧ comparisonIntegral2BQ < 0 := by
   simpa only [comparisonIntegral0BQ, comparisonIntegral2BQ] using q28_certificate_Q.2.2
-
-end Computable
 
 open C1ClassWindowObjects
 open C1ClassGramMomentReduction

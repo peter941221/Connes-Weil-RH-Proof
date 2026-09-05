@@ -299,7 +299,7 @@ def q28Moment2LoQ : ℚ :=
 def q28Moment2HiQ : ℚ :=
   8817094793947821 / 576460752303423488 + 1 / 10 ^ 15
 
-end
+end Computable
 end C1ConcreteClassMomentCertificate
 end Source
 end ConnesWeilRH
