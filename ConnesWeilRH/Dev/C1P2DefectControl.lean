@@ -728,6 +728,77 @@ theorem sourceRH_of_healthyDetector_p2OneWindowBudgetWitness
     qw_nonneg_of_healthyDetectorData_of_orbitWindowSemiLocalGate hdata
       (orbitGate_of_p2OneWindowBudgetWitness g hp2)⟩
 
+/-- Canonical producer contract: the pointwise constants `G` and `H` are
+chosen as the zero-order Schwartz seminorms of the two square owners, so the
+producer supplies only the genuine scalar budget and window certificate. -/
+structure P2CanonicalOneWindowBudgetWitness (g : CompactLogTest) where
+  W : CompactLogTest
+  mu : Real
+  epsilon : Real
+  b : Real
+  a : Real
+  hgsupp : Function.support g.test ⊆ Set.Ioo (-b) b
+  hWsupp : Function.support W.test ⊆ Set.Ioo (-a) a
+  hcert : ICgate W.convolutionSquare ≤ -mu
+  hbudget :
+    (|Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+        SchwartzMap.seminorm ℂ 0 0
+          (ICdefect g.convolutionSquare {()}
+            (fun _ => W.convolutionSquare) (fun _ => 1)).test +
+      archimedeanIntegralNorm (ICdefect g.convolutionSquare {()}
+        (fun _ => W.convolutionSquare) (fun _ => 1))) +
+    ∑ n ∈ globalPrimeIndexSet (ICdefect g.convolutionSquare {()}
+        (fun _ => W.convolutionSquare) (fun _ => 1)),
+      ‖(ArithmeticFunction.vonMangoldt n : Complex)‖ *
+        ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ *
+          (2 * (SchwartzMap.seminorm ℂ 0 0 g.convolutionSquare.test +
+            SchwartzMap.seminorm ℂ 0 0 W.convolutionSquare.test)) ≤
+      epsilon
+  hmargin : epsilon ≤ mu
+
+/-- Expand a canonical budget witness into the full pointwise P2 witness. -/
+noncomputable def P2CanonicalOneWindowBudgetWitness.toP2OneWindowBudgetWitness
+    (g : CompactLogTest) (p : P2CanonicalOneWindowBudgetWitness g) :
+    P2OneWindowBudgetWitness g :=
+  { W := p.W
+    G := SchwartzMap.seminorm ℂ 0 0 g.convolutionSquare.test
+    H := SchwartzMap.seminorm ℂ 0 0 p.W.convolutionSquare.test
+    mu := p.mu
+    epsilon := p.epsilon
+    b := p.b
+    a := p.a
+    hgsupp := p.hgsupp
+    hWsupp := p.hWsupp
+    hcert := p.hcert
+    hG := by positivity
+    hH := by positivity
+    hg := compactLogTest_norm_le_zeroSeminorm g.convolutionSquare
+    hW := compactLogTest_norm_le_zeroSeminorm p.W.convolutionSquare
+    hbudget := by simpa using p.hbudget
+    hmargin := p.hmargin }
+
+/-- A canonical one-window budget witness directly supplies the orbit gate. -/
+theorem orbitGate_of_p2CanonicalOneWindowBudgetWitness
+    (g : CompactLogTest) (p : P2CanonicalOneWindowBudgetWitness g) :
+    orbitWindowSemiLocalGate g := by
+  exact orbitGate_of_p2OneWindowBudgetWitness g
+    (P2CanonicalOneWindowBudgetWitness.toP2OneWindowBudgetWitness g p)
+
+/-- Same-detector exit using the canonical scalar P2 producer contract. -/
+theorem sourceRH_of_healthyDetector_p2CanonicalOneWindowBudgetWitness
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+            Nonempty (P2CanonicalOneWindowBudgetWitness g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, hdata, ⟨hp2⟩⟩ := hproducer rho hright
+  exact ⟨g, hdata,
+    qw_nonneg_of_healthyDetectorData_of_orbitWindowSemiLocalGate hdata
+      (orbitGate_of_p2CanonicalOneWindowBudgetWitness g hp2)⟩
+
 end C1P2DefectControl
 end Source
 end ConnesWeilRH

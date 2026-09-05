@@ -238,6 +238,11 @@ explicit budget and certified-window sign; no positivity is manufactured.
 with the existing healthy-detector contradiction.  Thus the remaining P2
 producer obligation is now a single explicit witness for each right-oriented
 off-line zero.
+`P2CanonicalOneWindowBudgetWitness` removes the auxiliary pointwise constants
+from that contract: a checked constructor fills them from the two square
+owners' zero-order Schwartz seminorms.  Its gate and `SourceRH` consumers leave
+only the canonical scalar budget, support, window certificate, and margin for
+the analytic producer.
 
 Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
 support chain's discharged primitive was re-adjudicated by the

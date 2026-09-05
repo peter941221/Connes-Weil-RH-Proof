@@ -155,6 +155,10 @@ and `sourceRH_of_healthyDetector_p2OneWindowBudgetWitness` composes the packed
 witness with the existing detector contradiction.  The open mathematical task
 is therefore isolated to constructing this witness for each right-oriented
 off-line zero.
+`P2CanonicalOneWindowBudgetWitness` further eliminates the auxiliary `G,H`
+pointwise fields by constructing them from the zero-order Schwartz seminorms;
+its consumers therefore require only the canonical scalar budget, support,
+window certificate, and margin.
 The remaining P2 producer task is therefore to derive these concrete pointwise
 and integral bounds from the true correction construction.
 
@@ -162,7 +166,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3659 jobs)`, zero `error:` lines.  The audit
-includes all twenty-eight P2-α/β declarations; each uses only
+includes all thirty-two P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.

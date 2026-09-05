@@ -35,3 +35,7 @@ open ConnesWeilRH Source C1P2DefectControl
 #print axioms P2OneWindowBudgetWitness
 #print axioms orbitGate_of_p2OneWindowBudgetWitness
 #print axioms sourceRH_of_healthyDetector_p2OneWindowBudgetWitness
+#print axioms P2CanonicalOneWindowBudgetWitness
+#print axioms P2CanonicalOneWindowBudgetWitness.toP2OneWindowBudgetWitness
+#print axioms orbitGate_of_p2CanonicalOneWindowBudgetWitness
+#print axioms sourceRH_of_healthyDetector_p2CanonicalOneWindowBudgetWitness
