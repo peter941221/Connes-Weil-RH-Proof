@@ -234,6 +234,8 @@ Together with Mathlib's `vonMangoldt_le_log`, the theorem
 `vonMangoldt_sqrtWeight_le_log_of_one_le` gives `Λ(n) / √n ≤ log n` for
 `1 ≤ n`; `primeTermNormEnvelope_le_of_logBound` exposes this as a cutoff-local
 real budget adapter.
+The all-index form `primeCoefficientNorm_le_log_of_nat` also handles `n = 0`
+and matches the exact complex-norm summand used by the explicit range budget.
 The one-window consumers
 `stageBContraction_of_uniformSquareBounds_and_integralNorm_budget` and
 `orbitGate_of_uniformSquareBounds_and_integralNorm_budget` now feed that

@@ -108,6 +108,22 @@ theorem vonMangoldt_sqrtWeight_le_log_of_one_le
     _ = ArithmeticFunction.vonMangoldt n := by ring
     _ ≤ Real.log (n : Real) := ArithmeticFunction.vonMangoldt_le_log
 
+/-- The same coefficient bound in the exact complex-norm spelling used by the
+explicit finite-range sum, including the harmless zero index. -/
+theorem primeCoefficientNorm_le_log_of_nat (n : Nat) :
+    ‖(ArithmeticFunction.vonMangoldt n : Complex)‖ *
+        ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ ≤
+      Real.log (n : Real) := by
+  cases n with
+  | zero =>
+      simp
+  | succ n =>
+      have h := vonMangoldt_sqrtWeight_le_log_of_one_le (n + 1) (by omega)
+      have hs : 0 ≤ (1 / Real.sqrt ((n + 1 : Nat) : Real)) := by positivity
+      simpa only [Complex.norm_real, Real.norm_eq_abs,
+        abs_of_nonneg ArithmeticFunction.vonMangoldt_nonneg,
+        abs_of_nonneg hs] using h
+
 /-- A logarithmic coefficient bound is enough to invoke the real-coefficient
 adapter.  This is the finite-prime producer shape used with a cutoff. -/
 theorem primeTermNormEnvelope_le_of_logBound

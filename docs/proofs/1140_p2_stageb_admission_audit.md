@@ -149,6 +149,8 @@ the arithmetic lemma `vonMangoldt_sqrtWeight_le_log_of_one_le` now reduce each
 positive-index envelope to the real `Λ(n)/√n` coefficient and then to `log n`.
 `primeTermNormEnvelope_le_of_logBound` exposes the resulting scalar adapter for
 a producer that supplies a cutoff-local logarithmic bound.
+The all-index corollary `primeCoefficientNorm_le_log_of_nat` matches the
+complex-norm coefficient in the explicit range sum, including the zero index.
 Finally, the one-window consumers
 `stageBContraction_of_uniformSquareBounds_and_integralNorm_budget` and
 `orbitGate_of_uniformSquareBounds_and_integralNorm_budget` connect this
@@ -175,7 +177,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3659 jobs)`, zero `error:` lines.  The audit
-includes all thirty-seven P2-α/β declarations; each uses only
+includes all thirty-eight P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.
