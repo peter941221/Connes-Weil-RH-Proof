@@ -27,9 +27,12 @@ ONE-inequality contract (docs/proofs/
   `ICgate gHead - ICgate W` - this fixes the 1116c consumption contract.
 * Assembly: one literal `ICStageBContraction g` (iota = Unit) consuming
   a certified window, the defect bound, and the budget; the 1117 bridge
-  then yields the 1089 orbit gate.
+  then yields the 1089 orbit gate.  This is an interface assembly only:
+  the defect inequality is not produced here.
 
-No sign theorem and no RH statement is asserted here.  RH NOT claimed.
+No sign theorem and no RH statement is asserted here.  The Stage-B structure
+is an interface for a future producer; it does not make that producer true.
+RH NOT claimed.
 -/
 
 namespace ConnesWeilRH
@@ -44,6 +47,7 @@ open C1HkerSpan
 open C1WindowRationalIngest
 open C1LocalConfigurationDomination
 open C1SameOwnerWeil
+open C1HealthyYoshidaDetector
 open C1GateMatrixRepresentation
 open C1ArchimedeanIntegrabilityGeneric
 open C1OrbitWindowSemiLocalGate
@@ -276,6 +280,34 @@ theorem orbitGate_of_certifiedWindow (g W : CompactLogTest)
     (stageBContraction_of_certifiedWindow g W hgsupp hWsupp hcert hdec
       hbudget)
     (by simpa [stageBContraction_of_certifiedWindow] using hbudget)
+
+/-! ## P2 admission check - the defect budget is not supplied by negativity -/
+
+/-- A strict negative detector and a negative certified window cannot satisfy
+the one-window defect budget.  This is the formal admission check for the
+Stage-B proposal: the detector branch gives `qw g < 0`, hence the gate of its
+square is strictly positive, while a budget `epsilon ≤ mu` together with
+`L(W) ≤ -mu` would force that same gate to be nonpositive.  Therefore the
+missing `hdec` inequality is genuine new mathematics; it cannot be obtained
+from the existing detector negativity and window certificate alone. -/
+theorem no_stageB_budget_of_qw_negative
+    (g W : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (hnegative : C1SameOwnerWeil.qw g < 0)
+    {mu epsilon : ℝ}
+    (hcert : ICgate W.convolutionSquare ≤ -mu)
+    (hdec : ICgate (ICdefect g.convolutionSquare {()}
+      (fun _ => W.convolutionSquare) (fun _ => 1)) ≤ epsilon)
+    (hbudget : epsilon ≤ mu) : False := by
+  have hqw :=
+    qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple
+      g hvanishes
+  have hgate : 0 < ICgate g.convolutionSquare := by
+    unfold ICgate
+    linarith [hqw, hnegative]
+  rw [defectGate_singleton_eq_sub g W] at hdec
+  linarith
 
 end
 end C1T2Assembly

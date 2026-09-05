@@ -28,6 +28,7 @@ open ConnesWeilRH Source C1T2Assembly
 #print axioms defectGate_singleton_eq_sub
 #print axioms stageBContraction_of_certifiedWindow
 #print axioms orbitGate_of_certifiedWindow
+#print axioms no_stageB_budget_of_qw_negative
 
 namespace ConnesWeilRH.Source.C1T2Assembly
 

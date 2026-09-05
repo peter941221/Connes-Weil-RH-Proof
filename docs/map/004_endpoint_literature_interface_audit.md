@@ -163,6 +163,28 @@ In particular:
 Thus P2, not the arithmetic coefficient bookkeeping, is the unresolved
 mathematical step.
 
+Formal admission audit (record 1140, 2026-09-05):
+`C1T2Assembly.no_stageB_budget_of_qw_negative` proves that the existing
+one-window Stage-B interface cannot manufacture its defect budget from the
+already-formal detector negativity and a negative window certificate.  Since
+`qw(g) < 0` gives `gate(g.square) > 0`, the assumptions
+`gate(W.square) ≤ -mu`, `gate(defect) ≤ epsilon`, and `epsilon ≤ mu` are
+inconsistent.  The theorem is FORMAL and uses the same-owner Weil identity
+and exact defect identity only.  Consequently Stage-B remains an assembly
+interface; P2 still needs an independent detector-specific defect inequality
+controlling the archimedean integral and visible prime evaluations.
+
+P2 control primitives (record 1140, extended 2026-09-05) are now FORMAL in
+`C1P2DefectControl`: the exact finite visible-prime sum has a per-term norm
+envelope, that envelope reduces to `2 * A` under a uniform defect-test bound,
+and the singleton defect inherits `G + H` from detector/window square bounds.
+An independent archimedean norm bound is also packaged.  These are producer
+interfaces only; the true correction must still supply the concrete `A`, `G`,
+`H`, zero-point, and integral bounds.
+The combined finite-prime theorem
+`abs_finitePrimeSum_defect_le_of_uniformSquareBounds` exposes the resulting
+coefficient sum with `2 * (G + H)` directly to the Stage-B consumer.
+
 Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
 support chain's discharged primitive was re-adjudicated by the
 pre-registered fork.  The record-1096 primitive A-in-HS (equivalently

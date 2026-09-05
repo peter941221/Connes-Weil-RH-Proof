@@ -1,0 +1,17 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1P2DefectControl
+
+open ConnesWeilRH Source C1P2DefectControl
+
+#print axioms abs_finitePrimeSum_le_of_termBounds
+#print axioms abs_finitePrimeTerm_le_primeTermNormEnvelope
+#print axioms primeTermNormEnvelope_le_of_uniformTestBound
+#print axioms abs_archimedeanTerm_le_of_zeroAndIntegralBounds
+#print axioms defect_test_norm_le_of_uniformBounds
+#print axioms abs_finitePrimeSum_defect_le_of_uniformSquareBounds
+#print axioms abs_finitePrimeSum_defect_le_of_termBounds
+#print axioms abs_ICgate_le_of_archimedeanBound_and_termBounds
