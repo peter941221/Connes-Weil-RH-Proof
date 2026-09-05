@@ -57,9 +57,16 @@ theorem taylorCoefficientQ_mul_bigQ_eq_zCoeff (i : ℕ) (hi : i < 20) :
   rw [taylorCoefficientQ, if_pos hi, hQ]
   simp only [zCoeff]
   rw [show (-(2 / 35 : ℚ)) = (-2 : ℚ) / 35 by norm_num, div_pow]
-  push_cast
-  simp [hcastdiv]
-  field_simp [hpow, Nat.cast_pos.mpr i.factorial_pos]
+  simp only [Int.cast_mul, Int.cast_pow, Int.cast_neg, Int.cast_natCast]
+  rw [hcastdiv]
+  field_simp [Nat.cast_pos.mpr i.factorial_pos]
+  norm_num only [Nat.cast_mul, Nat.cast_pow]
+  calc
+    (-2 : ℚ) ^ i * 26447672832002022437587219218750000000000000000 =
+        (-2 : ℚ) ^ i * ((35 : ℚ) ^ 19 * (Nat.factorial 19 : ℚ)) := by norm_num
+    _ = (-2 : ℚ) ^ i * ((35 : ℚ) ^ i * 35 ^ (19 - i)) *
+        (Nat.factorial 19 : ℚ) := by rw [hpow]; ring
+    _ = _ := by ring
 
 theorem getD_range_map_lt {α : Type*} [Inhabited α] (f : ℕ → α) (k : ℕ)
     (hk : k < 666) (z : α) :
@@ -92,11 +99,12 @@ theorem listCoeff_eq_zDiv (m k : ℕ) (hk : k < 666) :
           apply Finset.sum_congr rfl
           intro i hi
           by_cases hik : i ≤ k
-          · rw [if_pos hik, if_pos hik, ih (k - i) (by omega),
+          · rw [if_pos hik, if_pos hik, powerCoefficientQ,
+              ih (k - i) (by omega),
               taylorCoefficientQ_mul_bigQ_eq_zCoeff i (by omega)]
             have hQ0 : (bigQ : ℚ) ≠ 0 :=
               Nat.cast_ne_zero.mpr (Nat.ne_of_gt bigQ_pos)
-            push_cast
+            simp only [Int.cast_mul, Int.cast_pow, Int.cast_neg, Int.cast_natCast]
             field_simp [pow_succ, hQ0]
           · rw [if_neg hik, if_neg hik]
         _ = _ := by rw [Finset.sum_div]
