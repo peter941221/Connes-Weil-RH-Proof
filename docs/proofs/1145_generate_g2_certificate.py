@@ -377,9 +377,9 @@ def per_index_theorems():
                 bridge = (f"  show {fn_name} ({j - 2} + 1 + 1) = _\n"
                           f"  rw [{fn_name}_step]\n"
                           f"  rw [endpoint{src}_at_{j}, endpoint{src}_at_{j - 1}]\n")
-            tail = ("  norm_num (config := { maxSteps := 2000000000 })\n"
+            tail = ("  norm_num (config := { maxSteps := 2000000000 }) <;> field_simp <;> norm_num\n"
                     if not extra else
-                    "  norm_num (config := { maxSteps := 2000000000 })\n"
+                    "  norm_num (config := { maxSteps := 2000000000 }) <;> field_simp <;> norm_num\n"
                     f"    [{extra}]\n")
             parts.append(f"theorem {short}_at_{j} : {fn_name} {j} =\n"
                          f"    {v} := by\n" + bridge + tail + "\n")
