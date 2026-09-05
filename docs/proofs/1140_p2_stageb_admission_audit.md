@@ -164,6 +164,10 @@ interface.
 The adapter `pinned_visiblePrimeCutoff_of_support` instantiates the same
 argument at the contract radius `n+2`, so the support and visible-prime fields
 now have a direct formal bridge.
+The theorem `exists_healthyDetectorData_with_pinned_support` supplies those
+fields together with healthy detector data for every right-oriented
+off-line zero using the fixed-window construction.  Thus the pinned P2
+producer is reduced to the same-owner budget and certified window inputs.
 The coefficient readback `primeTermNormEnvelope_eq_realCoefficient_mul` and
 the arithmetic lemma `vonMangoldt_sqrtWeight_le_log_of_one_le` now reduce each
 positive-index envelope to the real `Λ(n)/√n` coefficient and then to `log n`.
@@ -210,7 +214,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3659 jobs)`, zero `error:` lines.  The audit
-includes all fifty P2-α/β declarations; each uses only
+includes all fifty-one P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.

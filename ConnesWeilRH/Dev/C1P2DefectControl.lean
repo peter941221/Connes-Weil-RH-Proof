@@ -31,9 +31,12 @@ open C1OrbitWindowSemiLocalGate
 open C1T2Assembly
 open CC20YoshidaNearZeros
 open C1HealthyYoshidaDetector
+open C1HealthyYoshidaUnscaledOrbit
 open C1HealthyYoshidaSpectralNegativity
+open C1SpectralTailBound
 open C1OrbitWindowExitComposition
 open CCM25Concrete.CompactLogConvolution
+open CCM25Concrete.UnscaledYoshidaSelectedOwner
 open MeasureTheory
 open scoped BigOperators
 
@@ -572,6 +575,76 @@ theorem pinned_visiblePrimeCutoff_of_support
   have hr : (0 : Real) < ((n + 2 : Nat) : Real) := by positivity
   exact convolutionSquare_index_lt_exp_of_support_subset_Ioo_symmetric
     g ((n + 2 : Nat) : Real) hr hsupport hq
+
+/-- The fixed-window Yoshida construction can retain the support index that
+generates its detector.  With the unit windows used here, that index supplies
+the exact `n+2` support radius and hence the pinned strict visible-prime bound.
+No budget or positivity claim is made by this construction. -/
+theorem exists_healthyDetectorData_with_pinned_support
+    (rho : sourceNontrivialZeroSet)
+    (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re) :
+    ∃ g : CompactLogTest, ∃ n : Nat,
+      HealthyYoshidaDetectorData rho.1 g ∧
+      Function.support g.test ⊆
+        Set.Ioo (-((n + 2 : Nat) : Real)) (((n + 2 : Nat) : Real)) ∧
+      (∀ q ∈ globalPrimeIndexSet g.convolutionSquare,
+        (q : Real) < Real.exp (2 * ((n + 2 : Nat) : Real))) := by
+  obtain ⟨base, T, _hbaseSupport, _hT, hconstruction⟩ :=
+    exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets
+      rho.1 rho.2 hoff ∅
+      (baseLower := -(1 : Real)) (baseUpper := 1)
+      (lower := -(1 : Real)) (upper := 1)
+      (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+      (1 : Real) (by norm_num)
+  obtain ⟨n0, hT, hrhoHeight, hsmall⟩ :=
+    exists_dyadic_tail_start_with_budget_lt_xiMultiplicity T (1 : Real) rho
+  let R : Real := (2 : Real) ^ (n0 + 1) + 2 + dist (2 : Complex) rho.1
+  have hR : 0 ≤ R := by
+    dsimp only [R]
+    positivity
+  obtain ⟨correction, _C, n, _hcorrectionSupport, hselectedSupport,
+      htargetValues, _hminimal, _horbitSum, hsquareZeros, _hC,
+      _hcenteredTail, hsquareTail⟩ :=
+    hconstruction R hR
+  have himLt : |rho.1.im| < (2 : Real) ^ (n0 + 1) := by
+    have hpow : 0 < (2 : Real) ^ (n0 + 1) := by positivity
+    have himNonneg : 0 ≤ |rho.1.im| := abs_nonneg _
+    nlinarith
+  have hrhoShell : dyadicShellIndex |rho.1.im| < n0 + 1 := by
+    have hminimal := Nat.find_min'
+      (exists_lt_two_pow_succ |rho.1.im|) himLt
+    rw [← dyadicShellIndex] at hminimal
+    omega
+  have hsquareZeros' :
+      ∀ w : FiniteMellinNode
+          (sourceNontrivialZerosInClosedBallFinset rho.1
+              ((2 : Real) ^ (n0 + 1) + 2 + dist (2 : Complex) rho.1) ∪
+            (∅ : Finset Complex)),
+        w.1 ∉ healthyUnscaledTargetNodes rho.1 →
+          laplaceAt (selectedOwner base correction n).convolutionSquare
+            (w.1 - 1 / 2) = 0 := by
+    simpa only [R] using hsquareZeros
+  have hdata : HealthyYoshidaDetectorData rho.1
+      (selectedOwner base correction n).sourceTest :=
+    selectedOwner_healthyDetectorData_of_closedBall_square_zero_control_and_fourthOrderTail
+      base correction n rho hoff hright T 1 hsquareTail n0 hT hrhoHeight
+      hrhoShell ∅ htargetValues hsquareZeros' hsmall
+  have hsupport : Function.support
+      (selectedOwner base correction n).sourceTest.test ⊆
+        Set.Ioo (-((n + 2 : Nat) : Real)) (((n + 2 : Nat) : Real)) := by
+    intro x hx
+    have h := hselectedSupport hx
+    rcases h with ⟨hl, hu⟩
+    constructor
+    · norm_num [Nat.cast_add, Nat.cast_one] at hl ⊢
+      linarith
+    · norm_num [Nat.cast_add, Nat.cast_one] at hu ⊢
+      linarith
+  refine ⟨(selectedOwner base correction n).sourceTest, n, hdata, hsupport, ?_⟩
+  intro q hq
+  exact pinned_visiblePrimeCutoff_of_support
+    (selectedOwner base correction n).sourceTest n hsupport hq
 
 /-- The exact visible-prime set is contained in the support-derived finite
 range, so a detector's exported support endpoints determine its arithmetic

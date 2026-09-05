@@ -239,6 +239,10 @@ bound before integer rounding; the convolution-square specialization gives
 the strict `n < exp (2r)` cutoff required by the pinned orbit contract.
 The final adapter `pinned_visiblePrimeCutoff_of_support` instantiates this
 bound at the contract's radius `n+2`, matching its exact strict inequality.
+The construction `exists_healthyDetectorData_with_pinned_support` now exports
+that radius and strict cutoff together with the formal healthy detector for
+every right-oriented off-line zero.  The pinned producer no longer owes these
+geometric fields; only the same-owner budget and certified window remain open.
 The finite-prime consumer
 `abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_commonSupport` enlarges
 the exact-set sum to that explicit range using nonnegativity of every norm
