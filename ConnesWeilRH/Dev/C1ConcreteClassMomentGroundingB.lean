@@ -17,7 +17,7 @@ this file byte-for-byte.  RH NOT claimed.
 
 namespace ConnesWeilRH
 namespace Source
-namespace C1ConcreteClassMomentGroundingB
+namespace C1ConcreteClassMomentCertificate
 
 open scoped BigOperators
 
@@ -12236,6 +12236,6 @@ theorem groundLayer_eq_35 :
 end GroundingLayersB
 
 end
-end C1ConcreteClassMomentGroundingB
+end C1ConcreteClassMomentCertificate
 end Source
 end ConnesWeilRH

@@ -20,7 +20,7 @@ file is byte-stable.  RH NOT claimed.
 
 namespace ConnesWeilRH
 namespace Source
-namespace C1ConcreteClassMomentGroundingC
+namespace C1ConcreteClassMomentCertificate
 
 open scoped BigOperators
 
@@ -44074,6 +44074,6 @@ theorem comparison_b2_eq :
 
 
 end
-end C1ConcreteClassMomentGroundingC
+end C1ConcreteClassMomentCertificate
 end Source
 end ConnesWeilRH

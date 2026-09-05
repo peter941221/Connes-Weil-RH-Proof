@@ -225,3 +225,32 @@ checkpoint or consumers rebuilds in seconds instead of re-grinding the
 grounding chain.  Generated-file ownership moves to the generator, which
 now asserts the five checkpoint conjuncts (prereg section 3) and writes
 A/B/C byte-stably; the checkpoint statement is untouched.
+
+## 9. Addendum 4 (2026-09-05, RED-8b/8c post-mortem and the RED-8d fix batch)
+
+RED-8b died at parse time on two section-pairing errors introduced by the
+surgery (`Missing name after 'end': Expected the current scope name
+'Computable'` in Base, orphaned `end Computable` in the certificate);
+lake built NOTHING because an unparseable file yields no import list.
+RED-8c fixed both (Base built in 1.8 s), then GroundingA failed fast and
+cheap (55 error lines, no memory pressure) with the REAL structural
+error of the split, which RED-8b had masked:
+
+```text
+F3  Namespace mismatch: the grounding modules declared
+    namespace ...Grounding{A,B,C}, so Base's short names
+    (powerCoefficientListQ, listCoeffQ, taylorCoefficientQ) did not
+    resolve inside the grounding theorems (Unknown identifier at every
+    grounding), and the checkpoint's unqualified consumption of
+    comparison_a0/b0/a2/b2_eq from C would have failed the same way.
+```
+
+RED-8d (this batch) moves A/B/C into the SHARED owning namespace
+`ConnesWeilRH.Source.C1ConcreteClassMomentCertificate` - module names
+unchanged, namespaces now span the four modules exactly as the original
+single-module design intended.  All generated names are distinct across
+A/B/C (groundLayer_{0..35} / per-index steps and values / prefix sums /
+comparison theorems), so the shared namespace has no collisions, and
+every declaration stays public (private does not cross modules).
+Validated pre-build: Base already green; A/B/C re-emitted with identical
+bodies, only the namespace lines differ.
