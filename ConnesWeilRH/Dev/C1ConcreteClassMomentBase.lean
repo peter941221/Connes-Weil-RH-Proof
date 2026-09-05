@@ -201,6 +201,10 @@ private theorem rationalPowerCoefficientQFast_eq_slow (k : ℕ) (hk : k < 666) :
     rationalPowerCoefficientQFast k = rationalPowerCoefficientQ k := by
   exact powerCoefficientQ_eq_slow 35 k hk
 
+theorem powerCoefficientQ_eq_slow_public (n k : ℕ) (hk : k < 666) :
+    powerCoefficientQ n k = powerCoefficientQSlow n k := by
+  exact powerCoefficientQ_eq_slow n k hk
+
 theorem taylorScaledPolynomialQ_coeff (k : ℕ) :
     taylorScaledPolynomialQ.coeff k = taylorCoefficientQ k := by
   classical

@@ -411,7 +411,7 @@ private theorem rationalPowerCoefficient_eq_cached (k : ℕ) (hk : k < 666) :
   rw [rationalPowerCoefficient_eq_cast]
   change (powerCoefficientQSlow 35 k : ℝ) =
     (powerCoefficientQ 35 k : ℝ)
-  rw [powerCoefficientQ_eq_slow 35 k hk]
+  rw [powerCoefficientQ_eq_slow_public 35 k hk]
 
 private theorem cast_cached_sum (f : ℕ → ℚ) :
     ((∑ k ∈ Finset.range 666, powerCoefficientQ 35 k * f k : ℚ) : ℝ) =
