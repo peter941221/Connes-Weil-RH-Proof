@@ -47,6 +47,78 @@ noncomputable def primeTermNormEnvelope
     ‖((1 / Real.sqrt (n : Real) : Real) : Complex)‖ *
       (‖F.test (Real.log n)‖ + ‖F.test (-Real.log n)‖)
 
+/-! The complex norm coefficient can be read back as a real coefficient. -/
+
+/-- The envelope's coefficient is exactly the real von Mangoldt weight times
+the reciprocal square-root weight.  This is a readback identity, not an
+estimate; it lets a producer work with real arithmetic on the finite cutoff. -/
+theorem primeTermNormEnvelope_eq_realCoefficient_mul
+    (F : CompactLogTest) (n : Nat) :
+    primeTermNormEnvelope F n =
+      ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+        (‖F.test (Real.log n)‖ + ‖F.test (-Real.log n)‖) := by
+  simp only [primeTermNormEnvelope, Complex.norm_real, Real.norm_eq_abs,
+    abs_of_nonneg ArithmeticFunction.vonMangoldt_nonneg]
+  have hs : 0 ≤ (1 / Real.sqrt (n : Real)) := by positivity
+  rw [abs_of_nonneg hs]
+
+/-- A real coefficient upper bound turns the envelope into the scalar `2*A`
+budget.  The coefficient bound is intentionally supplied by the producer,
+so this adapter does not hide any prime-growth or cutoff argument. -/
+theorem primeTermNormEnvelope_le_of_realCoefficientBound
+    (F : CompactLogTest) (n : Nat) (A K : Real)
+    (hA : 0 ≤ A)
+    (hF : ∀ x : Real, ‖F.test x‖ ≤ A)
+    (hcoef : ArithmeticFunction.vonMangoldt n *
+      (1 / Real.sqrt (n : Real)) ≤ K) :
+    primeTermNormEnvelope F n ≤ K * (2 * A) := by
+  rw [primeTermNormEnvelope_eq_realCoefficient_mul]
+  have hsum : ‖F.test (Real.log n)‖ + ‖F.test (-Real.log n)‖ ≤ 2 * A := by
+    linarith [hF (Real.log n), hF (-Real.log n)]
+  have hΛ : 0 ≤ ArithmeticFunction.vonMangoldt n :=
+    ArithmeticFunction.vonMangoldt_nonneg
+  have hs : 0 ≤ (1 / Real.sqrt (n : Real)) := by positivity
+  have hcoef0 : 0 ≤ ArithmeticFunction.vonMangoldt n *
+      (1 / Real.sqrt (n : Real)) := mul_nonneg hΛ hs
+  calc
+    ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+          (‖F.test (Real.log n)‖ + ‖F.test (-Real.log n)‖) ≤
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+          (2 * A) := mul_le_mul_of_nonneg_left hsum hcoef0
+    _ ≤ K * (2 * A) := by
+      exact mul_le_mul_of_nonneg_right hcoef (by positivity)
+
+/-- The standard von Mangoldt estimate gives a concrete coefficient bound on
+every positive index: `Λ(n)/√n ≤ log n`. -/
+theorem vonMangoldt_sqrtWeight_le_log_of_one_le
+    (n : Nat) (hn : 1 ≤ n) :
+    ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) ≤
+      Real.log (n : Real) := by
+  have hΛ : 0 ≤ ArithmeticFunction.vonMangoldt n :=
+    ArithmeticFunction.vonMangoldt_nonneg
+  have hnreal : (1 : Real) ≤ (n : Real) := by exact_mod_cast hn
+  have hsqrt : (1 : Real) ≤ Real.sqrt (n : Real) :=
+    (Real.one_le_sqrt).2 hnreal
+  have hinv : 1 / Real.sqrt (n : Real) ≤ (1 : Real) := by
+    simpa [one_div] using (inv_le_one_of_one_le₀ hsqrt)
+  calc
+    ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) ≤
+        ArithmeticFunction.vonMangoldt n * 1 :=
+      mul_le_mul_of_nonneg_left hinv hΛ
+    _ = ArithmeticFunction.vonMangoldt n := by ring
+    _ ≤ Real.log (n : Real) := ArithmeticFunction.vonMangoldt_le_log
+
+/-- A logarithmic coefficient bound is enough to invoke the real-coefficient
+adapter.  This is the finite-prime producer shape used with a cutoff. -/
+theorem primeTermNormEnvelope_le_of_logBound
+    (F : CompactLogTest) (n : Nat) (A K : Real)
+    (hn : 1 ≤ n) (hA : 0 ≤ A)
+    (hF : ∀ x : Real, ‖F.test x‖ ≤ A)
+    (hlog : Real.log (n : Real) ≤ K) :
+    primeTermNormEnvelope F n ≤ K * (2 * A) := by
+  apply primeTermNormEnvelope_le_of_realCoefficientBound F n A K hA hF
+  exact (vonMangoldt_sqrtWeight_le_log_of_one_le n hn).trans hlog
+
 /-- Every real prime-term readout is bounded by its explicit complex norm
 envelope.  No sign of the von Mangoldt coefficient is used. -/
 theorem abs_finitePrimeTerm_le_primeTermNormEnvelope

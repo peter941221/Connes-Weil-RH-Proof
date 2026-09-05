@@ -227,6 +227,13 @@ The finite-prime consumer
 the exact-set sum to that explicit range using nonnegativity of every norm
 envelope summand, making the cutoff directly usable in a numerical or analytic
 budget certificate without changing the owner.
+The coefficient readback
+`primeTermNormEnvelope_eq_realCoefficient_mul` is now FORMAL: the complex norm
+envelope is exactly the real `Λ(n) / √n` coefficient times the two test norms.
+Together with Mathlib's `vonMangoldt_le_log`, the theorem
+`vonMangoldt_sqrtWeight_le_log_of_one_le` gives `Λ(n) / √n ≤ log n` for
+`1 ≤ n`; `primeTermNormEnvelope_le_of_logBound` exposes this as a cutoff-local
+real budget adapter.
 The one-window consumers
 `stageBContraction_of_uniformSquareBounds_and_integralNorm_budget` and
 `orbitGate_of_uniformSquareBounds_and_integralNorm_budget` now feed that
