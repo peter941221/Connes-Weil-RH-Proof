@@ -162,6 +162,7 @@ def ground_theorem(n):
 
 OPT_BLOCK = ("set_option linter.style.longLine false\n"
              "set_option linter.style.setOption false\n"
+             "set_option exponentiation.threshold 1000\n"
              "set_option maxRecDepth 1000000\n"
              "set_option maxHeartbeats 2000000000\n\n")
 
@@ -346,7 +347,15 @@ def per_index_theorems(selected=None):
     parts = ["-- per-index value theorems: `k + 2` equation lemmas do not match\n",
              "-- closed Nat literals under simp, so each index is grounded\n",
              "-- through the step theorem with an explicit `n + 1 + 1` bridge.\n\n"]
-    parts.append(PER_INDEX_STEPS)
+    step_map = {
+        "endpointA": step_theorem("endpointAQ", "endpointAQ_step",
+                                   "rationalRadiusQ / (((n : ℚ) + 1) * (1 - rationalRadiusQ ^ 2) ^ (n + 1)) + ((2 * (n : ℚ) + 1) / (2 * ((n : ℚ) + 1))) * endpointAQ (n + 1)"),
+        "endpointB": step_theorem("endpointBQ", "endpointBQ_step",
+                                   "((2 * (n : ℚ) + 1) / (2 * ((n : ℚ) + 1))) * endpointBQ (n + 1)"),
+        "momentA": step_theorem("momentAQ", "momentAQ_step", "endpointAQ (n + 1 + 1) - endpointAQ (n + 1)"),
+        "momentB": step_theorem("momentBQ", "momentBQ_step", "endpointBQ (n + 1 + 1) - endpointBQ (n + 1)"),
+    }
+    parts.append(step_map[selected] if selected is not None else PER_INDEX_STEPS)
     fams = (("endpointA", "endpointAQ", endpointA, "rationalRadiusQ"),
             ("endpointB", "endpointBQ", endpointB, "rationalRadiusQ"),
             ("momentA", "momentAQ", momentA, ""),
@@ -358,6 +367,9 @@ def per_index_theorems(selected=None):
             v = rat_lit(vals[j])
             if j == 0:
                 base_lemmas = fn_name
+                if short.startswith("moment"):
+                    base_lemmas += ", endpointA" + "Q" if short == "momentA" else ", endpointB" + "Q"
+                    base_lemmas += ", rationalRadiusQ"
                 if extra:
                     base_lemmas += ", " + extra
                 parts.append(f"theorem {short}_at_0 : {fn_name} 0 =\n"
@@ -370,10 +382,11 @@ def per_index_theorems(selected=None):
                              f"    {v} := by\n  rfl\n\n")
                 continue
             if j == 1:
+                base_lemmas = fn_name + (", endpointAQ, rationalRadiusQ" if short == "momentA" else ", endpointBQ, rationalRadiusQ")
                 parts.append(f"theorem {short}_at_1 : {fn_name} 1 =\n"
                              f"    {v} := by\n"
                           f"  norm_num (config := {{ maxSteps := 2000000000 }})\n"
-                             f"    [{fn_name}]\n\n")
+                             f"    [{base_lemmas}]\n\n")
                 continue
             if short.startswith("endpoint"):
                 bridge = (f"  show {fn_name} ({j - 2} + 1 + 1) = _\n"
@@ -384,11 +397,21 @@ def per_index_theorems(selected=None):
                 bridge = (f"  show {fn_name} ({j - 2} + 1 + 1) = _\n"
                           f"  rw [{fn_name}_step]\n"
                           f"  rw [endpoint{src}_at_{j}, endpoint{src}_at_{j - 1}]\n")
-            if short.startswith("endpoint"):
+            if short == "endpointA":
+                ep = ENV_POW[j - 1]
+                num, den = ep.numerator, ep.denominator
                 tail = (f"  have hp : (1 - rationalRadiusQ ^ 2) ^ {j - 1} = {rat_lit(ENV_POW[j - 1])} := by\n"
-                        "    norm_num [rationalRadiusQ]\n"
-                        f"  rw [show (1 - rationalRadiusQ ^ 2) ^ ({j - 2} + 1) = _ by simpa using hp]\n"
-                        "  norm_num (config := { maxSteps := 2000000000 }) <;> field_simp <;> norm_num\n")
+                        "    norm_num [rationalRadiusQ, div_pow]\n"
+                        f"  rw [show (1 - rationalRadiusQ ^ 2) ^ ({j - 2} + 1) = {rat_lit(ENV_POW[j - 1])} by simpa using hp]\n"
+                        f"  have hn : 591 ^ {j - 1} = {num} := by decide\n"
+                        f"  have hd : 10000 ^ {j - 1} = {den} := by decide\n"
+                        f"  have hnr : (591 : ℚ) ^ {j - 1} = {num} := by exact_mod_cast hn\n"
+                        f"  have hdr : (10000 : ℚ) ^ {j - 1} = {den} := by exact_mod_cast hd\n"
+                        "  try rw [div_pow]\n"
+                        "  try rw [hnr, hdr]\n"
+                        "  norm_num (config := { maxSteps := 2000000000 }) [rationalRadiusQ]\n")
+            elif short == "endpointB":
+                tail = "  norm_num (config := { maxSteps := 2000000000 })\n"
             else:
                 tail = ("  norm_num (config := { maxSteps := 2000000000 }) <;> field_simp <;> norm_num\n"
                         f"    [{extra}]\n")
@@ -426,7 +449,7 @@ def prefix_machinery():
                          f"  show {pre} ({j - 1} + 1) = _\n"
                          f"  rw [{pre}, {pre}_at_{j - 1}]\n"
                          f"  rw [listCoeff_eq_zDiv 35 ({j - 1}) (by omega)]\n"
-                         f"  simp only [zGround_eq_35, bigQ, listCoeffQ,\n"
+                         f"  simp only [zGround_eq_35, zTable_35, bigQ, listCoeffQ,\n"
                          f"    List.getD_cons_zero, List.getD_cons_succ,\n"
                          f"    {short}_at_{j - 1}]\n"
                          f"  norm_num (config := {{ maxSteps := 2000000000 }})\n\n")

@@ -18,6 +18,7 @@ open scoped BigOperators
 
 set_option linter.style.longLine false
 set_option linter.style.setOption false
+set_option exponentiation.threshold 1000
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 2000000000
 
@@ -25,35 +26,19 @@ set_option maxHeartbeats 2000000000
 -- closed Nat literals under simp, so each index is grounded
 -- through the step theorem with an explicit `n + 1 + 1` bridge.
 
-theorem endpointAQ_step (n : ℕ) :
-    endpointAQ (n + 1 + 1) = rationalRadiusQ /
-        (((n : ℚ) + 1) * (1 - rationalRadiusQ ^ 2) ^ (n + 1)) +
-      ((2 * (n : ℚ) + 1) / (2 * ((n : ℚ) + 1))) *
-        endpointAQ (n + 1) := by
-  rw [endpointAQ]
-
-theorem endpointBQ_step (n : ℕ) :
-    endpointBQ (n + 1 + 1) = ((2 * (n : ℚ) + 1) / (2 * ((n : ℚ) + 1))) *
-        endpointBQ (n + 1) := by
-  rw [endpointBQ]
-
 theorem momentAQ_step (n : ℕ) :
     momentAQ (n + 1 + 1) = endpointAQ (n + 1 + 1) - endpointAQ (n + 1) := by
   rw [momentAQ]
 
-theorem momentBQ_step (n : ℕ) :
-    momentBQ (n + 1 + 1) = endpointBQ (n + 1 + 1) - endpointBQ (n + 1) := by
-  rw [momentBQ]
-
 theorem momentA_at_0 : momentAQ 0 =
     (912673 / 1500000) := by
   norm_num (config := { maxSteps := 2000000000 })
-    [momentAQ]
+    [momentAQ, endpointAQ, rationalRadiusQ]
 
 theorem momentA_at_1 : momentAQ 1 =
     (-97 / 50) := by
   norm_num (config := { maxSteps := 2000000000 })
-    [momentAQ]
+    [momentAQ, endpointAQ, rationalRadiusQ]
 
 theorem momentA_at_2 : momentAQ 2 =
     (9700 / 591) := by
