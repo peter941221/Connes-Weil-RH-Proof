@@ -185,6 +185,35 @@ theorem compactLogTest_norm_le_zeroSeminorm (F : CompactLogTest) :
   intro x
   exact SchwartzMap.norm_le_seminorm ℂ F.test x
 
+/-! ## Canonical archimedean budget -/
+
+/-- The direct norm budget for the archimedean density, attached to the same
+`CompactLogTest` owner as the gate.  A concrete producer may later bound this
+quantity analytically, but the Stage-B interface no longer needs a separately
+named integral expression. -/
+noncomputable def archimedeanIntegralNorm (F : CompactLogTest) : Real :=
+  ∫ y in Set.Ioi (0 : Real), ‖archimedeanIntegrand F y‖
+
+/-- The canonical archimedean integral budget is nonnegative. -/
+theorem archimedeanIntegralNorm_nonneg (F : CompactLogTest) :
+    0 ≤ archimedeanIntegralNorm F := by
+  unfold archimedeanIntegralNorm
+  exact MeasureTheory.integral_nonneg fun y => norm_nonneg _
+
+/-- Canonical specialization of the archimedean norm channel: the point value
+is controlled by the owner's zero-order Schwartz seminorm and the density is
+stored in `archimedeanIntegralNorm` on that same owner. -/
+theorem abs_archimedeanTerm_le_of_zeroSeminorm_and_integralNorm
+    (F : CompactLogTest) :
+    |archimedeanTerm F| ≤
+      |Real.log (4 * Real.pi) + Real.eulerMascheroniConstant| *
+          SchwartzMap.seminorm ℂ 0 0 F.test +
+        archimedeanIntegralNorm F := by
+  apply abs_archimedeanTerm_le_of_zeroAndIntegralBounds F
+    (SchwartzMap.seminorm ℂ 0 0 F.test) (archimedeanIntegralNorm F)
+  · exact compactLogTest_norm_le_zeroSeminorm F 0
+  · rfl
+
 /-- An explicit support interval gives an explicit finite cutoff for every
 visible prime-power index.  This avoids the noncanonical `supportRadius`
 choice when a detector construction already exports its support endpoints. -/

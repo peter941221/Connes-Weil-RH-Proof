@@ -14,6 +14,9 @@ open ConnesWeilRH Source C1P2DefectControl
 #print axioms defect_test_norm_le_of_uniformBounds
 #print axioms defect_test_norm_le_of_uniformFamilyBounds
 #print axioms compactLogTest_norm_le_zeroSeminorm
+#print axioms archimedeanIntegralNorm
+#print axioms archimedeanIntegralNorm_nonneg
+#print axioms abs_archimedeanTerm_le_of_zeroSeminorm_and_integralNorm
 #print axioms index_lt_of_support_subset_Icc
 #print axioms globalPrimeIndexSet_subset_range_of_support_subset_Icc
 #print axioms convolutionSquare_globalPrimeIndexSet_subset_range_of_support_subset_Icc

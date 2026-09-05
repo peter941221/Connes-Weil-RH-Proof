@@ -123,6 +123,13 @@ Its budget corollary
 `ICgate_defect_le_of_uniformFamilyBounds_and_arch_budget` has the exact
 Stage-B direction: an explicit budget below `epsilon` yields
 `ICgate(defect) ≤ epsilon`.
+The archimedean channel is now attached to the same owner as well:
+`archimedeanIntegralNorm` stores the integral of the density norm,
+`archimedeanIntegralNorm_nonneg` proves it is nonnegative, and
+`abs_archimedeanTerm_le_of_zeroSeminorm_and_integralNorm` combines it with the
+owner's zero-order Schwartz seminorm.  This removes the auxiliary integral
+variable from the canonical interface while leaving its concrete analytic
+upper bound as the genuine producer task.
 The remaining P2 producer task is therefore to derive these concrete pointwise
 and integral bounds from the true correction construction.
 
@@ -130,7 +137,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3658 jobs)`, zero `error:` lines.  The audit
-includes all seventeen P2-α/β declarations; each uses only
+includes all twenty P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.
