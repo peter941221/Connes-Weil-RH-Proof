@@ -335,6 +335,13 @@ REFUTED as stated).  B4 is already owed by the window campaign; B3 is
 independent detector-branch strengthening and now carries the Line-B
 falsifier's formal side alone.
 
+The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
+record 1145/RED-10.  The Rat certificate was split into four isolated value
+modules plus the bridge/prefix consumer; the certificate and audit builds
+are green, with only the standard three axioms and no `sorryAx`.  This
+unblocks the concrete q28 `hcert` input mechanically; it does not prove the
+M-side true-table interval or the detector-specific P2 budget.
+
 ## 7. Scope guards
 
 1. No route-selection change: [`003`](003_b1_b5_minimal_exit_route_selection.md)
@@ -345,6 +352,6 @@ falsifier's formal side alone.
 3. Evidence labels follow 004 section 1. Raw or unresolved numerical
    observations belong in `docs/proofs/` and do not by themselves change a
    map conclusion.
-4. The G2 repair of record 1139 and the M-side interval work are
-   unaffected by and independent of this record; the shared point is B4.
+4. Record 1145 closes only the G2 mechanical checkpoint; the M-side
+   interval work remains open, and the shared point with Line C is B4.
 5. RH is not claimed.
