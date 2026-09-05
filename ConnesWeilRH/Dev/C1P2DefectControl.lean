@@ -304,6 +304,20 @@ theorem convolutionSquare_globalPrimeIndexSet_subset_range_of_support_subset_Icc
     globalPrimeIndexSet_subset_range_of_support_subset_Icc
       g.convolutionSquare (-(2 * R)) (2 * R) hsq
 
+/-- A common open support interval for a finite Stage-B family gives an
+explicit arithmetic cutoff for the resulting defect. -/
+theorem defect_globalPrimeIndexSet_subset_range_of_common_Ioo_support
+    (g : CompactLogTest) {ι : Type} (s : Finset ι)
+    (w : ι → CompactLogTest) (lam : ι → Real) (B : Real)
+    (hg : Function.support g.test ⊆ Set.Ioo (-B) B)
+    (hw : ∀ i ∈ s, Function.support (w i).test ⊆ Set.Ioo (-B) B) :
+    globalPrimeIndexSet (ICdefect g s w lam) ⊆
+      Finset.range (Nat.ceil (Real.exp (max |(-B)| |B|)) + 1) := by
+  have hDoo : Function.support (ICdefect g s w lam).test ⊆ Set.Ioo (-B) B :=
+    support_ICdefect_subset hg hw
+  exact globalPrimeIndexSet_subset_range_of_support_subset_Icc
+    (ICdefect g s w lam) (-B) B (hDoo.trans Set.Ioo_subset_Icc_self)
+
 /-! ## Finite visible-prime triangle bound -/
 
 /-- The finite visible-prime contribution is bounded by any supplied

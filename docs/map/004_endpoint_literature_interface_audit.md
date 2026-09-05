@@ -218,6 +218,10 @@ The consumers
 `ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm_budget` inline this
 canonical archimedean channel into the full Stage-B estimate, so no independent
 `harch` hypothesis is needed at the final interface.
+The support bridge
+`defect_globalPrimeIndexSet_subset_range_of_common_Ioo_support` propagates a
+common open support interval through the finite family defect and then exposes
+an explicit finite arithmetic cutoff for its visible-prime owner.
 
 Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
 support chain's discharged primitive was re-adjudicated by the
