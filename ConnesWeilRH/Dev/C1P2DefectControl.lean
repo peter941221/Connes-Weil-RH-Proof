@@ -799,6 +799,29 @@ theorem sourceRH_of_healthyDetector_p2CanonicalOneWindowBudgetWitness
     qw_nonneg_of_healthyDetectorData_of_orbitWindowSemiLocalGate hdata
       (orbitGate_of_p2CanonicalOneWindowBudgetWitness g hp2)⟩
 
+/-- A pinned canonical producer contract keeps the detector, its orbit support,
+and the finite visible-prime cutoff on one explicit owner.  The support and
+cutoff fields are retained as audit data; the scalar budget and certified
+window remain the only analytic sign inputs consumed below. -/
+theorem sourceRH_of_pinnedOrbitDetector_p2CanonicalOneWindowBudgetWitness
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest, ∃ n : Nat,
+          HealthyYoshidaDetectorData rho.1 g ∧
+          Function.support g.test ⊆
+            Set.Ioo (-((n + 2 : ℕ) : Real)) (((n + 2 : ℕ) : Real)) ∧
+          (∀ q ∈ C1SameOwnerWeil.globalPrimeIndexSet g.convolutionSquare,
+            (q : Real) < Real.exp (2 * ((n + 2 : ℕ) : Real))) ∧
+          Nonempty (P2CanonicalOneWindowBudgetWitness g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, _n, hdata, _hsupport, _hvisible, ⟨hp2⟩⟩ :=
+    hproducer rho hright
+  exact ⟨g, hdata,
+    qw_nonneg_of_healthyDetectorData_of_orbitWindowSemiLocalGate hdata
+      (orbitGate_of_p2CanonicalOneWindowBudgetWitness g hp2)⟩
+
 end C1P2DefectControl
 end Source
 end ConnesWeilRH

@@ -243,6 +243,9 @@ from that contract: a checked constructor fills them from the two square
 owners' zero-order Schwartz seminorms.  Its gate and `SourceRH` consumers leave
 only the canonical scalar budget, support, window certificate, and margin for
 the analytic producer.
+`sourceRH_of_pinnedOrbitDetector_p2CanonicalOneWindowBudgetWitness` further
+binds that producer to the already-formal pinned orbit detector, retaining its
+explicit support interval and visible-prime cutoff on the same `g,n` owner.
 
 Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
 support chain's discharged primitive was re-adjudicated by the
