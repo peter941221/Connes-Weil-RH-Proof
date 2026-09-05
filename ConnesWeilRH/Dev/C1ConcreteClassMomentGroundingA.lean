@@ -25,6 +25,7 @@ open scoped BigOperators
 section GroundingLayersA
 set_option linter.style.longLine false
 set_option linter.style.setOption false
+set_option exponentiation.threshold 1000
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 2000000000
 

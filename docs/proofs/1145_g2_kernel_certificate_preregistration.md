@@ -320,3 +320,14 @@ contains only the symbolic bridge, prefix sums, and comparison consumers.
 The endpoint power-cache attempt was rejected after live memory monitoring;
 it increased term size rather than reducing it.  Acceptance remains a
 kernel build with no `sorryAx` and the standard three axioms only.
+
+## 12. Addendum 7 (2026-09-06, RED-10 acceptance)
+
+The four isolated rational-value modules and the reduced bridge/prefix
+consumer now elaborate successfully.  The final certificate and its audit
+also pass: `C1ConcreteClassMomentCertificate` completed in 3675 jobs and
+`C1ConcreteClassMomentCertificateAudit` completed in 3676 jobs, with zero
+`error:` lines.  The audit prints the standard axiom set
+`[propext, Classical.choice, Quot.sound]` for all nine checked declarations;
+no `sorryAx` occurs.  The generator was additionally run twice with
+identical MD5 output, so the accepted source is deterministic.

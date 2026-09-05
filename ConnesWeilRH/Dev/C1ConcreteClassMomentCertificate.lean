@@ -48,7 +48,12 @@ private theorem q28_certificate_Q :
   simp only [comparisonDataQ]
   rw [comparison_a0_eq, comparison_b0_eq, comparison_a2_eq,
     comparison_b2_eq]
-  norm_num (config := { maxSteps := 20000000 })
+  constructor
+  · constructor <;> norm_num (config := { maxSteps := 2000000000 }) [q28Moment0LoQ, q28Moment0HiQ, q28Moment2LoQ, q28Moment2HiQ, centralErrorQ, logLowerQ, logUpperQ, tailBudgetQ, rationalRadiusQ]
+  constructor
+  · constructor <;> norm_num (config := { maxSteps := 2000000000 }) [q28Moment0LoQ, q28Moment0HiQ, q28Moment2LoQ, q28Moment2HiQ, centralErrorQ, logLowerQ, logUpperQ, tailBudgetQ, rationalRadiusQ]
+  · constructor <;> norm_num (config := { maxSteps := 2000000000 }) [q28Moment0LoQ, q28Moment0HiQ, q28Moment2LoQ, q28Moment2HiQ, centralErrorQ, logLowerQ, logUpperQ, tailBudgetQ, rationalRadiusQ]
+
 
 
 

@@ -493,10 +493,16 @@ def value_module(short, imports):
 
 
 def proof_body():
+    defs = ("q28Moment0LoQ, q28Moment0HiQ, q28Moment2LoQ, q28Moment2HiQ, "
+            "centralErrorQ, logLowerQ, logUpperQ, tailBudgetQ, rationalRadiusQ")
     return ("  simp only [comparisonDataQ]\n"
             "  rw [comparison_a0_eq, comparison_b0_eq, comparison_a2_eq,\n"
             "    comparison_b2_eq]\n"
-            "  norm_num (config := { maxSteps := 20000000 })\n")
+            "  constructor\n"
+            f"  · constructor <;> norm_num (config := {{ maxSteps := 2000000000 }}) [{defs}]\n"
+            "  constructor\n"
+            f"  · constructor <;> norm_num (config := {{ maxSteps := 2000000000 }}) [{defs}]\n"
+            f"  · constructor <;> norm_num (config := {{ maxSteps := 2000000000 }}) [{defs}]\n")
 
 
 ANCHOR = ("set_option maxRecDepth 1000000 in\n"
@@ -505,11 +511,18 @@ OLD_BODY = "  native_decide"
 
 
 def splice_certificate(text):
+    # The current split-proof body is itself generated.  Restore it to the
+    # unique slot before applying the legacy mark-based recovery below.
+    current_body = proof_body()
+    if current_body in text:
+        text = text.replace(current_body, OLD_BODY, 1)
     # structural restore of ANY previously generated checkpoint body: it
     # starts at the h35 have-line (RED-5/6) or at the comparisonDataQ simp
     # (RED-7+), and ends at the trailing norm_num line.
     for mark, endmark in (("  have h35 := groundLayer_eq_35\n",
                            "  norm_num (config := { maxSteps := 20000000 })\n"),
+                          ("  simp only [comparisonDataQ]\n",
+                           "  · constructor <;> norm_num (config := { maxSteps := 2000000000 })\n"),
                           ("  simp only [comparisonDataQ]\n",
                            "  norm_num (config := { maxSteps := 20000000 })\n")):
         if mark in text:
