@@ -221,6 +221,11 @@ producer inputs, and `orbitGate_of_p2ScalarOneWindowBudgetWitness` plus
 `sourceRH_of_healthyDetector_p2ScalarOneWindowBudgetWitness` expose the direct
 same-detector exit contract.  The unresolved work is now construction of this
 scalar witness for each pinned healthy orbit detector.
+The pinned variant
+`sourceRH_of_pinnedOrbitDetector_p2ScalarOneWindowBudgetWitness` carries the
+formal `g,n` support and visible-prime ownership through the same exit, so the
+remaining producer quantifier is fully aligned with the pinned orbit
+construction.
 The remaining P2 producer task is therefore to derive these concrete pointwise
 and integral bounds from the true correction construction.
 
@@ -228,7 +233,7 @@ and integral bounds from the true correction construction.
 
 The owning and audit modules build successfully with the resource-aware runner:
 `Build completed successfully (3659 jobs)`, zero `error:` lines.  The audit
-includes all fifty-six P2-α/β declarations; each uses only
+includes all fifty-seven P2-α/β declarations; each uses only
 `[propext, Classical.choice, Quot.sound]`.  The attempted
 one-shot `norm_num` replacement for 1139 was reverted after it left the 666-term
 comparison goal unsolved; no compiler axiom is claimed as a fix.

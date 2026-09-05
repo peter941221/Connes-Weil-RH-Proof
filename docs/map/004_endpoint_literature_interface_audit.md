@@ -294,6 +294,10 @@ certificate, margin and scalar-budget fields, with
 `sourceRH_of_healthyDetector_p2ScalarOneWindowBudgetWitness` providing the
 corresponding same-detector exit.  The producer obligation is therefore an
 explicit scalar witness on each pinned orbit owner.
+The pinned companion
+`sourceRH_of_pinnedOrbitDetector_p2ScalarOneWindowBudgetWitness` carries the
+existing `g,n` support and visible-prime certificate through that same exit,
+aligning the producer quantifier with the formal orbit construction.
 `P2OneWindowBudgetWitness` packs those inputs as a same-detector owner, and
 `sourceRH_of_healthyDetector_p2OneWindowBudgetWitness` composes the witness
 with the existing healthy-detector contradiction.  Thus the remaining P2
