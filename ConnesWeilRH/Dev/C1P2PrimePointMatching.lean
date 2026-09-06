@@ -1,4 +1,5 @@
 import ConnesWeilRH.Dev.C1SameOwnerWeil
+import ConnesWeilRH.Dev.C1P2DefectZeroSumIdentity
 
 /-!
 # P2 prime-point matching
@@ -16,6 +17,9 @@ namespace Source
 namespace C1P2PrimePointMatching
 
 open C1SameOwnerWeil
+open C1HealthyYoshidaDetector
+open C1LocalConfigurationDomination
+open C1P2DefectZeroSumIdentity
 open CCM25Concrete.CompactLogConvolution
 open scoped BigOperators
 
@@ -83,6 +87,29 @@ theorem finitePrimeSum_eq_of_primePointMatch
   intro n hn
   exact finitePrimeTerm_eq_of_point_match F G
     (hmatch n (by simpa [S] using hn))
+
+/-- On triple-vanishing root owners, prime-point matching removes the entire
+finite-prime part of the one-window defect gate.  The exact defect identity
+therefore reduces to a difference of archimedean terms; no sign is asserted. -/
+theorem defectGate_eq_archimedean_sub_of_primePointMatch
+    (g W : CompactLogTest)
+    (hgv : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (hWv : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet W)
+    (hmatch : PrimePointMatch g.convolutionSquare W.convolutionSquare) :
+    ICgate (ICdefect g.convolutionSquare {()}
+      (fun _ => W.convolutionSquare) (fun _ => 1)) =
+      archimedeanTerm g.convolutionSquare -
+        archimedeanTerm W.convolutionSquare := by
+  rw [defectGate_eq_qw_sub g W hgv hWv,
+    qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple
+      g hgv,
+    qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple
+      W hWv,
+    finitePrimeSum_eq_of_primePointMatch g.convolutionSquare
+      W.convolutionSquare hmatch]
+  ring
 
 end C1P2PrimePointMatching
 end Source

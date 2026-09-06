@@ -25,6 +25,18 @@ owner's own visible set vanish by the formal characterization
 `mem_globalPrimeIndexSet_iff`; terms on the union agree by unfolding
 `finitePrimeTermComplex`.
 
+The direct Line-C consumer
+`defectGate_eq_archimedean_sub_of_primePointMatch` additionally combines this
+with the triple-vanishing `qw` readback and the exact one-window defect
+identity. It reduces the defect gate to
+
+```text
+archimedeanTerm(g.square) - archimedeanTerm(W.square)
+```
+
+under the same-owner point-match hypothesis, without asserting that this
+remaining difference has either sign.
+
 ## Why this matters for Line C
 
 For the one-window defect, take
@@ -48,6 +60,6 @@ by a low-rank residual identity, is the next genuine analytic producer task.
 ## Verification
 
 Owning and audit modules build with the resource-aware runner:
-`Build completed successfully (3477 jobs)`, zero `error:` lines. The audit
-prints exactly `[propext, Classical.choice, Quot.sound]` for the headline
-theorem; no `sorryAx` occurs.
+`Build completed successfully (3659 jobs)`, zero `error:` lines. Both headline
+theorems print exactly `[propext, Classical.choice, Quot.sound]`; no `sorryAx`
+occurs.
