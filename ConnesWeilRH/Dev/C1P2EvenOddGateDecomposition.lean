@@ -1,5 +1,6 @@
 import ConnesWeilRH.Dev.C1P2BilateralProfile
 import ConnesWeilRH.Dev.C1HealthyDetectorArchRescue
+import ConnesWeilRH.Dev.C1OrbitWindowExitComposition
 
 /-!
 # P2 even/odd gate decomposition
@@ -19,6 +20,8 @@ open C1HealthyDetectorArchRescue
 open C1P2BilateralProfile
 open C1LocalConfigurationDomination
 open C1HealthyYoshidaDetector
+open C1OrbitWindowExitComposition
+open C1OrbitWindowSemiLocalGate
 open C1SameOwnerWeil
 open CCM25Concrete.CompactLogConvolution
 
@@ -201,6 +204,29 @@ theorem qw_nonneg_of_diagonal_gate_nonpos_of_even_odd_of_vanishes
   rw [qw_eq_neg_diagonal_gate_sum_of_even_odd_of_vanishes
     f g hf hg hvanishes]
   linarith
+
+theorem orbitWindowSemiLocalGate_of_even_odd_of_diagonal_nonpos
+    (f g : CompactLogTest)
+    (hf : ∀ x : ℝ, f.test (-x) = f.test x)
+    (hg : ∀ x : ℝ, g.test (-x) = -g.test x)
+    (hfGate : ICgate f.convolutionSquare ≤ 0)
+    (hgGate : ICgate g.convolutionSquare ≤ 0) :
+    orbitWindowSemiLocalGate (sumTest f g) := by
+  rw [orbitWindowSemiLocalGate_iff,
+    ICgate_convolutionSquare_sumTest_eq_add_of_even_odd f g hf hg]
+  linarith
+
+theorem qw_nonneg_of_healthy_even_odd_of_diagonal_nonpos
+    {rho : ℂ} (f g : CompactLogTest)
+    (hf : ∀ x : ℝ, f.test (-x) = f.test x)
+    (hg : ∀ x : ℝ, g.test (-x) = -g.test x)
+    (hdata : HealthyYoshidaDetectorData rho (sumTest f g))
+    (hfGate : ICgate f.convolutionSquare ≤ 0)
+    (hgGate : ICgate g.convolutionSquare ≤ 0) :
+    0 ≤ C1SameOwnerWeil.qw (sumTest f g) := by
+  exact qw_nonneg_of_healthyDetectorData_of_orbitWindowSemiLocalGate
+    hdata (orbitWindowSemiLocalGate_of_even_odd_of_diagonal_nonpos
+      f g hf hg hfGate hgGate)
 
 end
 end C1P2EvenOddGateDecomposition

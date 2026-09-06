@@ -401,6 +401,10 @@ The same FORMAL brick now feeds back through the vanishing identity:
 `qw(f+g) = -(ICgate(f□) + ICgate(g□))`.  Its paired consumer shows that two
 nonpositive diagonal gates suffice for the desired `qw ≥ 0`; no such two-gate
 sign theorem is currently available for the pinned orbit detector.
+The B5 consumer is now explicit: the two diagonal inequalities imply the
+healthy summed-owner `orbitWindowSemiLocalGate`, and healthy detector data then
+feeds the existing `qw_nonneg` consumer.  This remains a producer contract;
+the diagonal inequalities for the pinned orbit detector are still OPEN.
 
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
