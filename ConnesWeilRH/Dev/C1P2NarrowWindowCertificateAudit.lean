@@ -11,6 +11,7 @@ namespace C1P2NarrowWindowCertificate
 #print axioms P2NarrowReferenceCanonicalWitness.toCanonical
 #print axioms orbitGate_of_p2NarrowReferenceCanonicalWitness
 #print axioms sourceRH_of_healthyDetector_p2NarrowReferenceCanonicalWitness
+#print axioms not_p2NarrowReferenceCanonicalWitness_of_healthyDetectorData
 
 end C1P2NarrowWindowCertificate
 end Source

@@ -18,6 +18,7 @@ namespace C1P2NarrowWindowCertificate
 open C1LaneRNarrowArch
 open C1LaneRStrictness
 open C1P2DefectControl
+open C1T2Assembly
 open C1OrbitWindowSemiLocalGate
 open C1HealthyYoshidaDetector
 open C1HealthyYoshidaSpectralNegativity
@@ -137,8 +138,49 @@ theorem sourceRH_of_healthyDetector_p2NarrowReferenceCanonicalWitness
   intro rho hright
   obtain ⟨g, hdata, ⟨hp2⟩⟩ := hproducer rho hright
   exact ⟨g, hdata,
-    qw_nonneg_of_healthyDetectorData_of_orbitWindowSemiLocalGate hdata
+      qw_nonneg_of_healthyDetectorData_of_orbitWindowSemiLocalGate hdata
       (orbitGate_of_p2NarrowReferenceCanonicalWitness g hp2)⟩
+
+/-- The fixed-window scalar budget is not a realizable producer for a healthy
+detector: its budget, margin, and negative reference gate would force the
+detector gate nonpositive, while healthy detector data forces `qw(g) < 0` and
+hence a strictly positive detector gate. -/
+theorem not_p2NarrowReferenceCanonicalWitness_of_healthyDetectorData
+    {rho : Complex} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    (p : P2NarrowReferenceCanonicalWitness g) : False := by
+  have hnegativeSpectral :
+      C1SpectralWeil.spectralWeilValue g.convolutionSquare < 0 :=
+    (weilSquareSumPositive_iff_spectralWeilValue_neg g).mp
+      hdata.weilSquareSumPositive
+  have hnegative : C1SameOwnerWeil.qw g < 0 := by
+    rw [C1CenterTwoCriterionBridge.qw_eq_spectralWeilValue_centerTwo]
+    exact hnegativeSpectral
+  have hdec :
+      ICgate (ICdefect g.convolutionSquare {()}
+        (fun _ => narrowArchRoot.convolutionSquare) (fun _ => 1)) ≤
+        p.epsilon := by
+    exact ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm_budget
+      (g.convolutionSquare) {()} (fun _ => narrowArchRoot.convolutionSquare)
+      (fun _ => 1)
+      (SchwartzMap.seminorm ℂ 0 0 g.convolutionSquare.test)
+      (fun _ => SchwartzMap.seminorm ℂ 0 0 narrowArchRoot.convolutionSquare.test)
+      p.epsilon
+      (by positivity)
+      (by intro i hi; positivity)
+      (by intro x; exact compactLogTest_norm_le_zeroSeminorm g.convolutionSquare x)
+      (by
+        intro i hi x
+        simpa using compactLogTest_norm_le_zeroSeminorm
+          narrowArchRoot.convolutionSquare x)
+      (by simpa using p.hbudget)
+  exact no_stageB_budget_of_qw_negative g narrowArchRoot hdata.vanishesOnF
+    hnegative
+    (by
+      simpa using
+        (narrowArchRoot_gate_certificate_of_margin (μ :=
+          -ICgate narrowArchRoot.convolutionSquare) le_rfl))
+    hdec p.hmargin
 
 end
 end C1P2NarrowWindowCertificate
