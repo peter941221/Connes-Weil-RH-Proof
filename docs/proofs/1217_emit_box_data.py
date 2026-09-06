@@ -177,11 +177,8 @@ theorem gateMatrix_mem_zero_box_of_odd (a : ℝ) (ha : 0 < a) (i j : Fin 8)
       gateMatrix (classTestFamily a ha) i j ≤ MHi_q28M i j := by
   rw [C1GateMatrixParity.gateMatrix_zero_of_odd a ha i j hodd]
   obtain ⟨h1, h2⟩ := zero_box_odd_data i j hodd
-  constructor
-  · rw [h1]
-    exact le_refl 0
-  · rw [h2]
-    exact le_refl 0
+  rw [h1, h2]
+  exact ⟨le_refl 0, le_refl 0⟩
 
 /-- D5 binding: given the same-parity enclosures (the registered
 follow-up campaign), the certified box contains the true gate matrix
