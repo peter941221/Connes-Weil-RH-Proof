@@ -83,6 +83,45 @@ theorem finitePrimeSum_nonneg_of_bilateralProfile_re_nonneg
   exact Finset.sum_nonneg (fun n hn =>
     finitePrimeTerm_nonneg_of_bilateralProfile_re_nonneg F (hprofile n hn))
 
+theorem finitePrimeTerm_nonpos_of_bilateralProfile_re_nonpos
+    (F : CompactLogTest) {n : ℕ}
+    (hprofile : (bilateralProfile F (Real.log n)).re ≤ 0) :
+    finitePrimeTerm F n ≤ 0 := by
+  rw [finitePrimeTerm_eq_realCoefficient_mul_bilateralProfile_re]
+  exact mul_nonpos_of_nonneg_of_nonpos
+    (mul_nonneg ArithmeticFunction.vonMangoldt_nonneg (by positivity))
+    hprofile
+
+theorem finitePrimeSum_nonpos_of_bilateralProfile_re_nonpos
+    (F : CompactLogTest)
+    (hprofile : ∀ n ∈ globalPrimeIndexSet F,
+      (bilateralProfile F (Real.log n)).re ≤ 0) :
+    finitePrimeSum F ≤ 0 := by
+  unfold finitePrimeSum
+  exact Finset.sum_nonpos (fun n hn =>
+    finitePrimeTerm_nonpos_of_bilateralProfile_re_nonpos F (hprofile n hn))
+
+/-! ### Direct same-owner P2 sign consumer -/
+
+/- A detector-specific producer may establish the archimedean sign and the
+   visible bilateral-profile sign independently.  The following consumer
+   combines exactly those two premises through the healthy-owner Weil
+   identity. -/
+theorem qw_nonneg_of_archimedean_nonpos_and_visible_bilateralProfile_nonpos
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (harch : archimedeanTerm g.convolutionSquare ≤ 0)
+    (hprofile : ∀ n ∈ globalPrimeIndexSet g.convolutionSquare,
+      (bilateralProfile g.convolutionSquare (Real.log n)).re ≤ 0) :
+    0 ≤ qw g := by
+  have hprime : finitePrimeSum g.convolutionSquare ≤ 0 :=
+    finitePrimeSum_nonpos_of_bilateralProfile_re_nonpos
+      g.convolutionSquare hprofile
+  rw [qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple
+    g hvanishes]
+  linarith
+
 theorem bilateralProfile_eq_zero_of_test_odd
     (F : CompactLogTest)
     (hodd : ∀ x : ℝ, F.test (-x) = -F.test x) (y : ℝ) :

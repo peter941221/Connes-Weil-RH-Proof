@@ -423,6 +423,13 @@ sum of the two archimedean diagonal terms rules out simultaneous
 `ICgate ≤ 0`.  Thus the ROOT-side positive-anchor pair cannot be silently
 reused as the P2 nonpositive-diagonal witness.
 
+Record 1153 adds a direct FORMAL same-owner consumer: archimedean nonpositivity
+plus nonpositivity of the real bilateral profile at every visible prime power
+forces the finite-prime sum nonpositive and hence `qw ≥ 0`.  The sign direction
+is material—profile nonnegativity would contribute with the opposite sign in
+`qw = -arch - finitePrimeSum`.  The pinned orbit detector is not yet shown to
+satisfy either premise, so P2 remains OPEN.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds
