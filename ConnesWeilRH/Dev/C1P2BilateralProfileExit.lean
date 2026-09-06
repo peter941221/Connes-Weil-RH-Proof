@@ -208,6 +208,19 @@ theorem P2BilateralProfileAggregateWitness.of_bombieriQuadraticSpectralTailP2Bri
       g hvanishes).mp
       (qw_nonneg_of_bombieriQuadraticSpectralTailP2BridgeData p)
 
+/-- The canonical-cutoff Bombieri contract feeds the same aggregate P2 owner.
+-/
+theorem P2BilateralProfileAggregateWitness.of_bombieriQuadraticCanonicalSpectralTailP2BridgeData
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (p : BombieriQuadraticCanonicalSpectralTailP2BridgeData g) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance :=
+    (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
+      g hvanishes).mp
+      (qw_nonneg_of_bombieriQuadraticCanonicalSpectralTailP2BridgeData p)
+
 theorem qw_nonneg_of_p2BilateralProfileSignWitness
     (g : CompactLogTest)
     (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
@@ -324,7 +337,28 @@ theorem sourceRH_of_pinnedOrbitDetector_p2BombieriQuadraticSpectralTailP2BridgeD
   obtain ⟨g, _n, hdata, _hsupport, _hvisible, ⟨hp2⟩⟩ :=
     hproducer rho hright
   exact ⟨g, hdata,
-    qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticSpectralTailP2BridgeData
+      qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticSpectralTailP2BridgeData
+      hdata hp2⟩
+
+/-- Pinned same-detector exit for the canonical-cutoff Bombieri contract. -/
+theorem sourceRH_of_pinnedOrbitDetector_p2BombieriQuadraticCanonicalSpectralTailP2BridgeData
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest, ∃ n : Nat,
+          HealthyYoshidaDetectorData rho.1 g ∧
+          Function.support g.test ⊆
+            Set.Ioo (-((n + 2 : Nat) : Real)) (((n + 2 : Nat) : Real)) ∧
+          (∀ q ∈ globalPrimeIndexSet g.convolutionSquare,
+            (q : Real) < Real.exp (2 * ((n + 2 : Nat) : Real))) ∧
+          Nonempty
+            (BombieriQuadraticCanonicalSpectralTailP2BridgeData g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, _n, hdata, _hsupport, _hvisible, ⟨hp2⟩⟩ :=
+    hproducer rho hright
+  exact ⟨g, hdata,
+    qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticCanonicalSpectralTailP2BridgeData
       hdata hp2⟩
 
 /-- Direct healthy-B5 exit for a fixed-basis self-pair trace producer. -/

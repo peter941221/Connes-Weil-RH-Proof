@@ -181,6 +181,85 @@ theorem exists_spectralTail_normTail_lt_bombieriQuadraticForm_of_eigen
     t ht gamma z Lam lam hz heigen hrecip
   exact exists_spectralHeightShell_normTail_lt F hmain
 
+/-- A canonical cutoff chosen from the positive finite Bombieri margin.  The
+choice is data-free: its specification is proved below, so a producer cannot
+silently choose a cutoff whose tail estimate is unavailable. -/
+noncomputable def bombieriSpectralTailCutoff
+    (g : CompactLogTest) {n : Nat} (t : Real) (ht : 0 < t)
+    (gamma : Fin n -> Real) (z : Fin n -> Complex) (Lam : Complex) (lam : Real)
+    (hz : z ≠ 0)
+    (heigen : bombieriWOfZ gamma z =
+      Lam • (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z))
+    (hrecip : (lam : Complex) * Lam = 1) : Nat :=
+  Classical.choose (exists_spectralTail_normTail_lt_bombieriQuadraticForm_of_eigen
+    g.convolutionSquare t ht gamma z Lam lam hz heigen hrecip)
+
+theorem spectralTail_normTail_lt_bombieriQuadraticForm_cutoff
+    (g : CompactLogTest) {n : Nat} (t : Real) (ht : 0 < t)
+    (gamma : Fin n -> Real) (z : Fin n -> Complex) (Lam : Complex) (lam : Real)
+    (hz : z ≠ 0)
+    (heigen : bombieriWOfZ gamma z =
+      Lam • (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z))
+    (hrecip : (lam : Complex) * Lam = 1) :
+    (∑' m : Nat, ∑' rho : spectralHeightShell
+        (m + bombieriSpectralTailCutoff g t ht gamma z Lam lam hz heigen hrecip),
+        ‖spectralTerm g.convolutionSquare rho.1‖) <
+      (star (bombieriWOfZ gamma z) ⬝ᵥ
+        (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re := by
+  exact Classical.choose_spec
+    (exists_spectralTail_normTail_lt_bombieriQuadraticForm_of_eigen
+      g.convolutionSquare t ht gamma z Lam lam hz heigen hrecip)
+
+/-- Canonical Bombieri residual data.  All quantitative tail inequalities are
+now derived from the canonical cutoff; the sole producer-facing analytic
+field is the same-owner `qw` decomposition at that cutoff. -/
+structure BombieriQuadraticCanonicalSpectralTailP2BridgeData
+    (g : CompactLogTest) where
+  n : Nat
+  t : Real
+  ht : 0 < t
+  gamma : Fin n -> Real
+  z : Fin n -> Complex
+  Lam : Complex
+  lam : Real
+  hz : z ≠ 0
+  heigen : bombieriWOfZ gamma z =
+    Lam • (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)
+  hrecip : (lam : Complex) * Lam = 1
+  qw_eq_quadratic_sub_spectralTail : C1SameOwnerWeil.qw g =
+    (star (bombieriWOfZ gamma z) ⬝ᵥ
+      (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re -
+      (∑' m : Nat, ∑' rho : spectralHeightShell
+          (m + bombieriSpectralTailCutoff g t ht gamma z Lam lam hz heigen hrecip),
+        spectralTerm g.convolutionSquare rho.1).re
+
+/-- The canonical contract discharges the generic residual socket using the
+cutoff specification and the two-sided shell-tail estimate. -/
+noncomputable def BombieriQuadraticCanonicalSpectralTailP2BridgeData.toResidual
+    {g : CompactLogTest}
+    (p : BombieriQuadraticCanonicalSpectralTailP2BridgeData g) :
+    BombieriQuadraticResidualP2BridgeData g := by
+  let N := bombieriSpectralTailCutoff g p.t p.ht p.gamma p.z p.Lam p.lam p.hz
+    p.heigen p.hrecip
+  refine
+    { n := p.n, t := p.t, ht := p.ht, gamma := p.gamma, z := p.z
+      residual :=
+        (∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+          spectralTerm g.convolutionSquare rho.1).re
+      tailBound :=
+        ∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+          ‖spectralTerm g.convolutionSquare rho.1‖
+      qw_eq_quadratic_sub_residual := by simpa [N] using
+        p.qw_eq_quadratic_sub_spectralTail
+      residual_abs_le := by
+        simpa [N] using
+          spectralHeightShellTail_abs_re_le_normTail g.convolutionSquare N
+      tailBound_le_quadratic := by
+        simpa [N] using
+          (spectralTail_normTail_lt_bombieriQuadraticForm_cutoff g p.t p.ht
+            p.gamma p.z p.Lam p.lam p.hz p.heigen p.hrecip).le }
+
+
 /-- Turn the explicit same-owner spectral tail into the generic residual
 socket.  The two-sided residual estimate is supplied by the shell partition,
 not stored as a positivity conclusion. -/
@@ -248,6 +327,13 @@ theorem qw_nonneg_of_bombieriQuadraticSpectralTailP2BridgeData
     0 <= C1SameOwnerWeil.qw g :=
   qw_nonneg_of_bombieriQuadraticResidualP2BridgeData p.toResidual
 
+/-- The canonical cutoff contract supplies the same finite-form positivity. -/
+theorem qw_nonneg_of_bombieriQuadraticCanonicalSpectralTailP2BridgeData
+    {g : CompactLogTest}
+    (p : BombieriQuadraticCanonicalSpectralTailP2BridgeData g) :
+    0 <= C1SameOwnerWeil.qw g :=
+  qw_nonneg_of_bombieriQuadraticResidualP2BridgeData p.toResidual
+
 /-- The direct quadratic-form contract cannot coexist with the already
 strictly negative healthy detector value.  This is a route guard, not an RH
 conclusion. -/
@@ -310,6 +396,14 @@ theorem qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticSpectralTailP2Bridg
     (p : BombieriQuadraticSpectralTailP2BridgeData g) :
     0 <= C1SameOwnerWeil.qw g :=
   qw_nonneg_of_bombieriQuadraticSpectralTailP2BridgeData p
+
+/-- Healthy-detector wrapper for the canonical spectral-tail contract. -/
+theorem qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticCanonicalSpectralTailP2BridgeData
+    {rho : Complex} {g : CompactLogTest}
+    (_hdata : HealthyYoshidaDetectorData rho g)
+    (p : BombieriQuadraticCanonicalSpectralTailP2BridgeData g) :
+    0 <= C1SameOwnerWeil.qw g :=
+  qw_nonneg_of_bombieriQuadraticCanonicalSpectralTailP2BridgeData p
 
 /-- If a Line-B producer supplies bridge data for one healthy detector at each
 right-oriented off-line zero, the existing contradiction consumer yields

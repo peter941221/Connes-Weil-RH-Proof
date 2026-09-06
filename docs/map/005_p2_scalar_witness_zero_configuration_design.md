@@ -679,6 +679,13 @@ main term.  Thus residual domination is no longer an independent producer
 field; the remaining Bombieri bottleneck is the exact `qw`–finite-form–tail
 decomposition at the chosen cutoff.
 
+Record 1188 packages that cutoff canonically.  The new
+`BombieriQuadraticCanonicalSpectralTailP2BridgeData` carries the finite
+eigen/reciprocal data and asks only for the same-owner `qw` decomposition at
+the cutoff selected from the proved positive main-term margin.  Its residual,
+aggregate, and pinned `SourceRH` consumers are FORMAL; the decomposition
+itself remains OPEN.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented
