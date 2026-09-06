@@ -391,6 +391,12 @@ profile and contributes zero to every finite-prime term and to the full
 finite-prime sum.  This identifies a genuine arithmetic-blind direction in
 the even/odd correction family, while leaving its archimedean anchor sign
 open.
+Record 1151 strengthens this to a FORMAL full-gate decomposition: finite-prime
+additivity holds for arbitrary compact-log sums after unioning visible-index
+sets, and for an even/odd pair the polarized cross is odd and disappears from
+both gate channels.  Hence `ICgate((f+g)□) = ICgate(f□) + ICgate(g□)`; the odd
+correction's own square remains arithmetic-visible, so the diagonal sign
+problem is not solved.
 
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value

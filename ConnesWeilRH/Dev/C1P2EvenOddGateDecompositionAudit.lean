@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1P2EvenOddGateDecomposition
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1P2EvenOddGateDecomposition
+
+#print axioms finitePrimeSum_congr
+#print axioms finitePrimeTermComplex_sumTest_add
+#print axioms finitePrimeTerm_sumTest_add
+#print axioms globalPrimeIndexSet_sumTest_subset_union
+#print axioms finitePrimeSum_sumTest_add
+#print axioms finitePrimeSum_crossTest_eq_zero_of_even_odd
+#print axioms finitePrimeSum_convolutionSquare_sumTest_eq_add_of_even_odd
+#print axioms ICgate_convolutionSquare_sumTest_eq_add_of_even_odd
+
+end C1P2EvenOddGateDecomposition
+end Source
+end ConnesWeilRH
