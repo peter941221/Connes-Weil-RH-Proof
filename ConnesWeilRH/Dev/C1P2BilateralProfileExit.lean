@@ -169,6 +169,28 @@ theorem qw_nonneg_of_p2BilateralProfileAggregateWitness
   exact qw_nonneg_of_archimedean_plus_bilateralProfile_weighted_sum_nonpos
     g hvanishes p.hbalance
 
+/-- Direct healthy-B5 exit for a fixed-basis self-pair trace producer. -/
+theorem sourceRH_of_healthyDetector_p2PositiveTracePairLimitFamily
+    {ι H G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    (basis : HilbertBasis ι ℂ H)
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+            Nonempty (PositiveTracePairLimitFamily (G := G) basis g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, hdata, ⟨htrace⟩⟩ := hproducer rho hright
+  have haggregate : P2BilateralProfileAggregateWitness g :=
+    P2BilateralProfileAggregateWitness.of_positiveTracePairLimitFamily
+      g hdata.vanishesOnF htrace
+  exact ⟨g, hdata,
+    qw_nonneg_of_p2BilateralProfileAggregateWitness g hdata.vanishesOnF
+      haggregate⟩
+
 /-- Pinned B5 exit for the explicit-range producer contract.  The detector's
 exported source support supplies the square support needed by the adapter. -/
 theorem sourceRH_of_pinnedOrbitDetector_p2BilateralProfileRangeWitness

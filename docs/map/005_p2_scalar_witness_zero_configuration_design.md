@@ -541,6 +541,12 @@ witness as the already wired self-pair family.  This broadens the producer
 socket without changing the owner or the quantifier: constructing either trace
 family for the pinned orbit is still open.
 
+Record 1170 gives the matching quantifier-level exit for the self-pair trace
+route.  A fixed-basis `PositiveTracePairLimitFamily` for each right-oriented
+off-line detector now implies `SourceRH` through the same aggregate socket.
+The pair/operator distinction is therefore purely a producer-construction
+choice; neither construction is presently available for the pinned orbit.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented
