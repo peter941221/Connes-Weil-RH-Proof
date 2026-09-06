@@ -1,6 +1,6 @@
 # Record 1218 - consumption-chain regeneration VERDICT
 
-Date: 2026-09-07.  Status: LANDED (pending final build evidence below).
+Date: 2026-09-07.  Status: LANDED.
 Prereg: 1218_consumption_chain_regen_preregistration.md (committed
 a51aa58 before any run; amendments sec. 7/8 each committed BEFORE the
 affected run, law 42).  Consumers: records 1215/1216/1217, 1219.
@@ -75,7 +75,13 @@ build7  FAILED   capstone: two missing opens (concrete certificate +
                  classes-Q28M namespaces)
 build8  FAILED   E1: Set open missing; capstone: classGram-transfer
                  namespace open missing
-build9  SEE LOG  build-logs/1218-q28m-build9.log
+build9  FAILED   E1: `Ioo (-2 * a)` vs `-(2 * a)` NOT defeq (numeral
+                 placement); audit: Q28M namespace path + open
+build10 GREEN    build-logs/1218-q28m-build10.log: footer
+                 "Build completed successfully (3707 jobs)",
+                 0 `^error:`, 0 sorryAx, 0 ofReduceBool, ALL SEVEN
+                 standard axiom lists
+                 [propext, Classical.choice, Quot.sound]
 ```
 
 No hand-widening anywhere; every retirement kept its log (law 42 +
@@ -106,11 +112,18 @@ committed.
 
 ## 5. Build evidence
 
-See build-logs/1218-q28m-build9.log (footer, error count, sorryAx /
-ofReduceBool counts, and the standard axiom lists of
-C1WindowRationalIngestQ28M.top, hslack_q28M, hrevM_q28M,
-tbox_true_q28M, absolute_true_q28M, q28_hbox_1218_of_sameParity,
-q28_absolute_1218_of_sameParity).
+build-logs/1218-q28m-build10.log: footer "Build completed
+successfully (3707 jobs)", 0 `^error:`, 0 sorryAx, 0
+ofReduceBool, and the standard axiom lists
+`[propext, Classical.choice, Quot.sound]` for ALL SEVEN audited
+declarations: C1WindowRationalIngest.Q28M.top,
+C1GateLevelTransferClassesQ28M.hslack_q28M,
+C1HboxRationalDataQ28M.hrevM_q28M,
+C1TboxPullthroughQ28M.tbox_true_q28M,
+C1TboxPullthroughQ28M.absolute_true_q28M,
+C1Q28MEntrywiseBinding.q28_hbox_1218_of_sameParity,
+C1Q28MEntrywiseBinding.q28_absolute_1218_of_sameParity.
+Record 1219 E1 (C1GateEntryCorrelation) built in the same run.
 
 ## 6. Honest scoping
 
