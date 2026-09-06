@@ -647,6 +647,15 @@ producer must return one `g,n` carrying healthy detector data, the exported
 Hermitian contract on that same `g`.  This is FORMAL quantifier tightening;
 the same-owner matrix equality remains the open analytic obligation.
 
+Record 1184 adds the residual-aware direct-form socket
+`BombieriQuadraticResidualP2BridgeData`.  It replaces an exact finite-form
+equality by an explicit real residual and the inequalities
+`|residual| ≤ tailBound ≤ Re⟨w,Hw⟩`; finite positivity then proves the desired
+`qw ≥ 0` without storing that conclusion.  The socket is wired to both the
+aggregate profile owner and the pinned detector exit.  This is the preferred
+finite-form interface if the spectral tail cannot be eliminated exactly; the
+residual readback and its domination remain OPEN analytic producer fields.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented
