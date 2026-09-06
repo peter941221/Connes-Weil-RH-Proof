@@ -567,6 +567,14 @@ Supplying those contracts for the pinned detector now gives the aggregate
 witness and `SourceRH` formally.  This is the live Stage-3 positive route; it
 does not reuse the refuted bare Hilbert--Schmidt premise.
 
+Record 1175 makes the first of those analytic obligations consumable without
+unfolding it: the formal theorem
+`tendsto_norm_cutoffKernelInsertionSandwich_zero_of_kernelCompatibility`
+maps `kernelCompatibilityAlongCutoffs` to `D₁,n → 0` in operator norm.  This is
+an interface-only implication; neither the compressed-kernel estimate nor the
+same-owner trace readback is proved.  The second defect remains subject to the
+existing unbounded-trace no-go for a fixed response.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented

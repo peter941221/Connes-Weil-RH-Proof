@@ -411,6 +411,20 @@ def kernelCompatibilityAlongCutoffs
       (cutoffLower g n) (cutoffUpper g n) lambda S‖)
     atTop (𝓝 (0 : ℝ))
 
+/-- The named kernel-compatibility obligation is exactly the sufficient input
+for the first projection defect to vanish in operator norm.  This wrapper is
+deliberately only an interface theorem: it unfolds no hidden decay estimate
+and does not assert `kernelCompatibilityAlongCutoffs` for any owner. -/
+theorem tendsto_norm_cutoffKernelInsertionSandwich_zero_of_kernelCompatibility
+    (g : CCM25Concrete.CompactLogConvolution.CompactLogTest)
+    (lambda : CCM24SoninScale) (S : List CCM24VisiblePrime)
+    (hcompat : kernelCompatibilityAlongCutoffs g lambda S) :
+    Tendsto
+      (fun n => ‖cutoffKernelInsertionSandwich g lambda S n‖)
+      atTop (𝓝 (0 : ℝ)) := by
+  exact tendsto_norm_cutoffKernelInsertionSandwich_zero_of_compressedDefect
+    g lambda S hcompat
+
 theorem norm_cutoffWindowToResponseDefect_le
     (owner : SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (S : List CCM24VisiblePrime) (n : Nat) :
