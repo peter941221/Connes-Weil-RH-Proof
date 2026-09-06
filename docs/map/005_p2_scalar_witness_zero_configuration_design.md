@@ -707,6 +707,56 @@ consumers remain available.  This is FORMAL owner alignment only; the
 finite-prefix-to-qIntegrand equality for the selected healthy detector is
 still OPEN.
 
+Record [1191](../proofs/1191_p2_spectral_horizontal_defect.md) derives the
+FORMAL same-owner identity `prefix = sum pairedMass - sum horizontalDefect`
+from the genuine square law, and retains the original shell tail in `qw`.
+The defect is the multiplicity-weighted square of the difference of Laplace
+values at `s` and `-star s`; its original-test exponential-difference integral
+is also formal. Actual zero frequencies are real exactly on the critical
+line. These facts expose what the real-Gamma identification must preserve;
+they do not identify the positive mass with the Bombieri form or refute an
+indirect real-Gamma construction. The producer must still construct the
+finite eigen-data. The existing tail cutoff theorem fixes those data first;
+a cutoff-dependent main term would need a separate relative-tail estimate.
+This is an auxiliary identity brick, with no change to the binding route or
+the OPEN status of P2.
+
+Record 1191 also fixes the selected-owner anchor defect exactly at
+`2 * xiMultiplicity rho` from the raw orbit values `1` and `-1`. This is a
+FORMAL zero-configuration constraint on any future finite-prefix/qIntegrand
+producer; it supplies no sign theorem by itself.
+
+The same record now gives a FORMAL readback for the Bombieri-native
+`BombieriQuadraticCanonicalQIntegrandPrefixP2BridgeData`: its endpoint-corrected
+`qIntegrand` prefix is exactly the selected-owner shell sum of paired mass minus
+horizontal defect. This closes the algebraic owner alignment at that interface;
+construction of the finite producer and its positivity budget remains OPEN.
+It also transports the existing nonpositive-prefix hypothesis to the exact
+negative anchor inequality on the endpoint-corrected `qIntegrand` value, so a
+future producer cannot hide this sign requirement behind the interface.
+Conversely, the formal Wirtinger remainder gives the necessary inequality
+`sum horizontalDefect ≤ sum pairedMass` for every such canonical producer.
+The same interface formally forces the canonical finite spectral prefix to be
+nonnegative (`canonicalQIntegrandPrefix_re_nonneg`), so a negative
+orbit-controlled prefix cannot be hidden inside this producer contract.
+It also gives a formal incompatibility guard against combining that contract
+with a prefix bound `≤ -xiMultiplicity rho`; the guard does not assert that
+the producer's canonical cutoff satisfies such a bound.
+Under the existing orbit-control hypotheses, the selected-owner specialization
+`no_selectedOwner_canonicalQIntegrandPrefix_of_orbit_control` now rules out a
+canonical cutoff that is exactly the already-negative shell prefix. This is a
+conditional interface guard only; it leaves the finite producer and the
+detector-specific P2 sign budget OPEN.
+The selected-owner anchor bookkeeping is now exact on both sides: paired mass
+is `xiMultiplicity rho`, horizontal defect is `2 * xiMultiplicity rho`, and
+the individual spectral summand is `-xiMultiplicity rho`, formalized by
+`selectedOwner_spectralTerm_re_anchor_eq_neg_multiplicity`. This is FORMAL
+local data; it does not supply the finite producer or the global P2 sign.
+Under the existing raw orbit-control hypotheses, the new formal theorem
+`selectedOwner_nonanchor_mass_le_defect_of_orbit_control` further bounds the
+paired mass by the horizontal defect after removing the anchor from any finite
+prefix. The finite producer and its global sign budget remain OPEN.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented
