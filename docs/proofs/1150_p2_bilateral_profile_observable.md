@@ -30,6 +30,12 @@ consumer: local profile matching implies `PrimePairMatch`, and therefore the
 triple-vanishing gate reduces exactly to the archimedean difference without
 any manual finite-set bookkeeping.
 
+Finally, each finite-prime term is read back as the real coefficient
+`Λ(n) / √n` times the real part of the bilateral profile.  Nonnegativity of
+that real part on the visible set is therefore a formally sufficient condition
+for a nonnegative finite-prime sum.  This is only a producer-side sign
+primitive; it does not assert that the orbit detector satisfies the premise.
+
 The Lean declarations and paired audit build use only
 `[propext, Classical.choice, Quot.sound]`; the focused build completed
 successfully in 3660 jobs with no `error:` lines and no `sorryAx`.

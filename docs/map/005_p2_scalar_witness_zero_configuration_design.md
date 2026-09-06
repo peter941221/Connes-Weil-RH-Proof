@@ -382,6 +382,10 @@ not provide the missing envelope or sign.
 The local-match theorem is now wired directly to the defect gate, so a future
 producer can state its finite arithmetic obligation as a profile condition
 without reopening the prime-index bookkeeping.
+The same module also reads each finite-prime term as the real weight
+`Λ(n)/√n` times the real bilateral profile and provides the corresponding
+nonnegative-sum adapter.  This is a FORMAL sign primitive only; the orbit
+detector has not been shown to satisfy its profile-positivity premise.
 
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value

@@ -55,6 +55,34 @@ theorem finitePrimeSum_eq_of_bilateralProfileMatchOn_visible
   exact finitePrimeSum_eq_of_primePairMatch F G
     (primePairMatch_of_bilateralProfileMatchOn_visible F G hprofile)
 
+theorem finitePrimeTerm_eq_realCoefficient_mul_bilateralProfile_re
+    (F : CompactLogTest) (n : ℕ) :
+    finitePrimeTerm F n =
+      ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+        (bilateralProfile F (Real.log n)).re := by
+  unfold finitePrimeTerm finitePrimeTermComplex bilateralProfile
+  simp only [Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
+    mul_zero, sub_zero, zero_mul, zero_sub]
+  ring
+
+theorem finitePrimeTerm_nonneg_of_bilateralProfile_re_nonneg
+    (F : CompactLogTest) {n : ℕ}
+    (hprofile : 0 ≤ (bilateralProfile F (Real.log n)).re) :
+    0 ≤ finitePrimeTerm F n := by
+  rw [finitePrimeTerm_eq_realCoefficient_mul_bilateralProfile_re]
+  exact mul_nonneg
+    (mul_nonneg ArithmeticFunction.vonMangoldt_nonneg (by positivity))
+    hprofile
+
+theorem finitePrimeSum_nonneg_of_bilateralProfile_re_nonneg
+    (F : CompactLogTest)
+    (hprofile : ∀ n ∈ globalPrimeIndexSet F,
+      0 ≤ (bilateralProfile F (Real.log n)).re) :
+    0 ≤ finitePrimeSum F := by
+  unfold finitePrimeSum
+  exact Finset.sum_nonneg (fun n hn =>
+    finitePrimeTerm_nonneg_of_bilateralProfile_re_nonneg F (hprofile n hn))
+
 theorem primePairMatch_of_bilateralProfile_eq
     (F G : CompactLogTest)
     (hprofile : ∀ y : ℝ, bilateralProfile F y = bilateralProfile G y) :
