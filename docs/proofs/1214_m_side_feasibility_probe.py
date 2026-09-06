@@ -140,13 +140,8 @@ def gate(i, j):
 # --- committed bundle ---
 import os
 
-_cert = None
-for cand in (os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                          "1112_cert.json"),
-             "/home/peter/rh/docs/proofs/1112_cert.json"):
-    if os.path.exists(cand):
-        _cert = cand
-        break
+_cert = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                     "1112_cert.json")
 d = json.load(open(_cert))
 cls = d["classes"][0]        # A_R = 2 class
 from fractions import Fraction
