@@ -553,12 +553,12 @@ socket.  Once `BombieriP2BridgeData` proves its owner equality
 aggregate witness and a direct healthy-B5 `SourceRH` exit.  The owner equality
 and per-zero finite data remain the open Line-B producer obligations.
 
-Record 1172 makes the Stage-3 frontier explicit at the P2 exit.  For each
-healthy pinned detector, the two facts
-`Summable ‖F_g(globalBasis i)‖²` (FRONTIER-HS) and
-`Re Tr(F_g†F_g)=qw(g)` (FRONTIER-CRUX) construct the existing positive-pair
-limit family and hence imply `SourceRH`.  This is a precise producer contract;
-neither frontier fact is being asserted or silently assumed.
+Record 1172 is superseded by the formal bare-convolution obstruction.  The
+Stage-3 factor used there is the whole-line translation-invariant convolution;
+`C1Stage3BareHSObstruction.bareHS_iff_zero_test` proves its Hilbert--Schmidt
+premise holds iff the test is zero.  Since a healthy detector is nontrivial,
+that FRONTIER-HS contract cannot be a P2 producer.  Any surviving Stage-3
+route must use a genuinely windowed or renormalized factor.
 
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
