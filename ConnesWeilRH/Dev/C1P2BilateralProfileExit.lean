@@ -169,6 +169,19 @@ theorem P2BilateralProfileAggregateWitness.of_bombieriP2BridgeData
     (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
       g hvanishes).mp (qw_nonneg_of_bombieriP2BridgeData p)
 
+/-- The direct finite Hermitian-form producer is another spelling of the same
+aggregate owner: its explicit `qw` readback supplies the aggregate inequality.
+-/
+theorem P2BilateralProfileAggregateWitness.of_bombieriQuadraticP2BridgeData
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (p : BombieriQuadraticP2BridgeData g) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance :=
+    (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
+      g hvanishes).mp (qw_nonneg_of_bombieriQuadraticP2BridgeData p)
+
 theorem qw_nonneg_of_p2BilateralProfileSignWitness
     (g : CompactLogTest)
     (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
@@ -201,6 +214,24 @@ theorem sourceRH_of_healthyDetector_p2BombieriP2BridgeData
   have haggregate : P2BilateralProfileAggregateWitness g :=
     P2BilateralProfileAggregateWitness.of_bombieriP2BridgeData
       g hdata.vanishesOnF hbridge
+  exact ⟨g, hdata,
+    qw_nonneg_of_p2BilateralProfileAggregateWitness g hdata.vanishesOnF
+      haggregate⟩
+
+/-- Direct healthy-B5 exit for the finite Hermitian-form producer contract. -/
+theorem sourceRH_of_healthyDetector_p2BombieriQuadraticP2BridgeData
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+            Nonempty (BombieriQuadraticP2BridgeData g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, hdata, ⟨hp2⟩⟩ := hproducer rho hright
+  have haggregate : P2BilateralProfileAggregateWitness g :=
+    P2BilateralProfileAggregateWitness.of_bombieriQuadraticP2BridgeData
+      g hdata.vanishesOnF hp2
   exact ⟨g, hdata,
     qw_nonneg_of_p2BilateralProfileAggregateWitness g hdata.vanishesOnF
       haggregate⟩

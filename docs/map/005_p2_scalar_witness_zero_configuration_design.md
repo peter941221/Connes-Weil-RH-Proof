@@ -611,6 +611,14 @@ This is FORMAL and removes an unnecessary detour through the raw Gram name.
 It still leaves the owner-changing equality `qw g = lam * mass` and the
 per-zero finite data as OPEN producer obligations.
 
+Record 1180 exposes a direct alternative producer contract,
+`BombieriQuadraticP2BridgeData`, whose sole owner-changing field is the
+explicit equality `qw g = Re⟨w,H(Γ;t)w⟩`.  The finite positivity theorem from
+records 1178–1179 then supplies `qw ≥ 0`; the contract is wired through the
+healthy B5 aggregate and `SourceRH` exits.  This is FORMAL interface work, not
+a new sign assumption: constructing the same-owner equality and the finite
+data for each pinned orbit detector remains OPEN.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented

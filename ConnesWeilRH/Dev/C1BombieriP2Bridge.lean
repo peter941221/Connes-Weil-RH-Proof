@@ -4,6 +4,7 @@ Released under the Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Dev.C1BombieriSection8LambdaSign
+import ConnesWeilRH.Dev.C1BombieriFiniteQuadraticBridge
 import ConnesWeilRH.Dev.C1HealthyYoshidaSpectralNegativity
 import ConnesWeilRH.Dev.C1SameOwnerWeil
 
@@ -27,6 +28,7 @@ namespace Source
 namespace C1BombieriP2Bridge
 
 open C1BombieriSection8LambdaSign
+open C1BombieriFiniteQuadraticBridge
 open C1BombieriSection7Gamma
 open C1BombieriSection7H
 open C1HealthyYoshidaDetector
@@ -58,6 +60,19 @@ structure BombieriP2BridgeData (g : CompactLogTest) where
   hrecip : (lam : Complex) * Lam = 1
   qw_eq_mass : C1SameOwnerWeil.qw g = lam * bombieriWMass gamma z
 
+/-- Direct finite-matrix form of the Line-B producer contract.  The only
+owner-changing datum is the explicit equality between the healthy-owner Weil
+value and the real part of the finite weighted Hermitian form. -/
+structure BombieriQuadraticP2BridgeData (g : CompactLogTest) where
+  n : Nat
+  t : Real
+  ht : 0 < t
+  gamma : Fin n -> Real
+  z : Fin n -> Complex
+  qw_eq_quadratic : C1SameOwnerWeil.qw g =
+    (star (bombieriWOfZ gamma z) ⬝ᵥ
+      (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re
+
 /-- The Bombieri finite chain supplies a nonnegative real for the mass
 product. -/
 theorem qw_nonneg_of_bombieriP2BridgeData
@@ -68,6 +83,16 @@ theorem qw_nonneg_of_bombieriP2BridgeData
   rw [p.qw_eq_mass, hmass]
   exact hS
 
+/-- The direct quadratic-form contract supplies the same healthy-owner sign
+without requiring a separate eigenvalue or reciprocal field. -/
+theorem qw_nonneg_of_bombieriQuadraticP2BridgeData
+    {g : CompactLogTest} (p : BombieriQuadraticP2BridgeData g) :
+    0 <= C1SameOwnerWeil.qw g := by
+  obtain ⟨S, hS, hform⟩ :=
+    bombieriHMatrix_quadraticForm_eq_ofReal_nonneg p.t p.ht p.gamma p.z
+  rw [p.qw_eq_quadratic, hform]
+  simpa using hS
+
 /-- Pointwise healthy-detector consumer for the Line-B bridge.  The healthy
 data is carried explicitly so the theorem is attached to the same B5 owner
 as the detector-specific contradiction. -/
@@ -77,6 +102,14 @@ theorem qw_nonneg_of_healthyDetectorData_of_bombieriP2BridgeData
     (p : BombieriP2BridgeData g) :
     0 <= C1SameOwnerWeil.qw g :=
   qw_nonneg_of_bombieriP2BridgeData p
+
+/-- Healthy-detector wrapper for the direct finite-matrix contract. -/
+theorem qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticP2BridgeData
+    {rho : Complex} {g : CompactLogTest}
+    (_hdata : HealthyYoshidaDetectorData rho g)
+    (p : BombieriQuadraticP2BridgeData g) :
+    0 <= C1SameOwnerWeil.qw g :=
+  qw_nonneg_of_bombieriQuadraticP2BridgeData p
 
 /-- If a Line-B producer supplies bridge data for one healthy detector at each
 right-oriented off-line zero, the existing contradiction consumer yields
@@ -94,6 +127,22 @@ theorem sourceRH_of_right_bombieriP2BridgeData
   obtain ⟨p⟩ := hp
   exact ⟨g, hdata, qw_nonneg_of_healthyDetectorData_of_bombieriP2BridgeData
     hdata p⟩
+
+/-- Direct healthy-B5 exit for a producer of the finite Hermitian-form
+contract. -/
+theorem sourceRH_of_right_bombieriQuadraticP2BridgeData
+    (hbridge : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+            Nonempty (BombieriQuadraticP2BridgeData g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, hdata, hp⟩ := hbridge rho hright
+  obtain ⟨p⟩ := hp
+  exact ⟨g, hdata,
+    qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticP2BridgeData hdata p⟩
 
 end
 end C1BombieriP2Bridge
