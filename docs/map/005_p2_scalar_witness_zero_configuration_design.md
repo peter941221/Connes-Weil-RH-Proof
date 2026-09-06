@@ -686,6 +686,17 @@ the cutoff selected from the proved positive main-term margin.  Its residual,
 aggregate, and pinned `SourceRH` consumers are FORMAL; the decomposition
 itself remains OPEN.
 
+Record 1189 corrects the sign/interface shape of that decomposition.  The
+formal shell identity is additive:
+`qw = finite spectral prefix + high-shell tail`.  The spectral-tail contracts
+therefore now expose `qw = quadratic + tail`; only the generic residual adapter
+negates the tail when using its subtractive convention.  A new split-prefix
+contract asks for the narrower producer equation that the finite spectral
+prefix at the canonical cutoff equals the Bombieri Hermitian quadratic form.
+The conversion to the canonical tail socket, its positivity consumer, and a
+pinned `SourceRH` exit are FORMAL.  The prefix-to-Bombieri identification is
+still OPEN; no sign conclusion or RH claim is added.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented

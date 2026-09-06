@@ -112,9 +112,11 @@ structure BombieriQuadraticResidualP2BridgeData (g : CompactLogTest) where
     (star (bombieriWOfZ gamma z) ⬝ᵥ
       (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re
 
-/-- A residual contract whose residual is the actual high-shell remainder of
-the same healthy `CompactLog` owner.  The only still-producer-facing field is
-the domination of that shell norm by the finite quadratic main term. -/
+/-- A residual contract whose residual is the negated high-shell remainder of
+the same healthy `CompactLog` owner.  The additive spectral tail is converted
+to the generic subtractive residual convention.  The only still-
+producer-facing field is the domination of that shell norm by the finite
+quadratic main term. -/
 structure BombieriQuadraticSpectralTailP2BridgeData (g : CompactLogTest) where
   n : Nat
   t : Real
@@ -122,9 +124,9 @@ structure BombieriQuadraticSpectralTailP2BridgeData (g : CompactLogTest) where
   gamma : Fin n -> Real
   z : Fin n -> Complex
   N : Nat
-  qw_eq_quadratic_sub_spectralTail : C1SameOwnerWeil.qw g =
+  qw_eq_quadratic_add_spectralTail : C1SameOwnerWeil.qw g =
     (star (bombieriWOfZ gamma z) ⬝ᵥ
-      (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re -
+      (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re +
       (∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
         spectralTerm g.convolutionSquare rho.1).re
   tailBound_le_quadratic :
@@ -210,9 +212,75 @@ theorem spectralTail_normTail_lt_bombieriQuadraticForm_cutoff
     (exists_spectralTail_normTail_lt_bombieriQuadraticForm_of_eigen
       g.convolutionSquare t ht gamma z Lam lam hz heigen hrecip)
 
+/-- The same-owner Weil value splits at every shell cutoff into a finite
+spectral prefix and the corresponding high-shell tail.  This is the formal
+spectral half of the Bombieri residual equation; no finite-form identification
+is used here. -/
+theorem qw_eq_spectralPrefix_add_spectralTail
+    (g : CompactLogTest) (N : Nat) :
+    C1SameOwnerWeil.qw g =
+      (∑ m ∈ Finset.range N, ∑' rho : spectralHeightShell m,
+        spectralTerm g.convolutionSquare rho.1).re +
+      (∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+        spectralTerm g.convolutionSquare rho.1).re := by
+  have hsum :
+      ∑' rho : sourceNontrivialZeroSet,
+          spectralTerm g.convolutionSquare rho =
+        (∑ m ∈ Finset.range N, ∑' rho : spectralHeightShell m,
+          spectralTerm g.convolutionSquare rho.1) +
+        (∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+          spectralTerm g.convolutionSquare rho.1) := by
+    exact (spectralHeightShellSum_eq_source_tsum g.convolutionSquare).symm.trans
+      (spectralHeightShellSum_split g.convolutionSquare N)
+  rw [C1CenterTwoCriterionBridge.qw_eq_spectralWeilValue_centerTwo,
+    C1SpectralWeil.spectralWeilValue, hsum, Complex.add_re]
+
+/-- A split producer contract whose only analytic Bombieri obligation is the
+identification of the finite spectral prefix with the finite Hermitian main
+term at the canonical cutoff.  The spectral-tail part of the `qw` equation is
+derived, rather than stored as an opaque equality. -/
+structure BombieriQuadraticCanonicalPrefixP2BridgeData
+    (g : CompactLogTest) where
+  n : Nat
+  t : Real
+  ht : 0 < t
+  gamma : Fin n -> Real
+  z : Fin n -> Complex
+  Lam : Complex
+  lam : Real
+  hz : z ≠ 0
+  heigen : bombieriWOfZ gamma z =
+    Lam • (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)
+  hrecip : (lam : Complex) * Lam = 1
+  finitePrefix_eq_quadratic :
+    (∑ m ∈ Finset.range
+        (bombieriSpectralTailCutoff g t ht gamma z Lam lam hz heigen hrecip),
+      ∑' rho : spectralHeightShell m,
+        spectralTerm g.convolutionSquare rho.1).re =
+      (star (bombieriWOfZ gamma z) ⬝ᵥ
+        (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re
+
+/-- The split prefix contract reconstructs the canonical same-owner
+`qw = quadratic + tail` equation from the established shell decomposition. -/
+theorem qw_eq_quadratic_add_spectralTail_of_bombieriQuadraticCanonicalPrefixP2BridgeData
+    {g : CompactLogTest}
+    (p : BombieriQuadraticCanonicalPrefixP2BridgeData g) :
+    C1SameOwnerWeil.qw g =
+      (star (bombieriWOfZ p.gamma p.z) ⬝ᵥ
+        (bombieriHMatrix p.gamma p.t).mulVec (bombieriWOfZ p.gamma p.z)).re +
+      (∑' m : Nat, ∑' rho : spectralHeightShell
+          (m + bombieriSpectralTailCutoff g p.t p.ht p.gamma p.z p.Lam p.lam
+            p.hz p.heigen p.hrecip),
+        spectralTerm g.convolutionSquare rho.1).re := by
+  have hsplit := qw_eq_spectralPrefix_add_spectralTail g
+    (bombieriSpectralTailCutoff g p.t p.ht p.gamma p.z p.Lam p.lam p.hz
+      p.heigen p.hrecip)
+  rw [p.finitePrefix_eq_quadratic] at hsplit
+  exact hsplit
+
 /-- Canonical Bombieri residual data.  All quantitative tail inequalities are
 now derived from the canonical cutoff; the sole producer-facing analytic
-field is the same-owner `qw` decomposition at that cutoff. -/
+field is the same-owner `qw = quadratic + tail` decomposition at that cutoff. -/
 structure BombieriQuadraticCanonicalSpectralTailP2BridgeData
     (g : CompactLogTest) where
   n : Nat
@@ -226,12 +294,26 @@ structure BombieriQuadraticCanonicalSpectralTailP2BridgeData
   heigen : bombieriWOfZ gamma z =
     Lam • (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)
   hrecip : (lam : Complex) * Lam = 1
-  qw_eq_quadratic_sub_spectralTail : C1SameOwnerWeil.qw g =
+  qw_eq_quadratic_add_spectralTail : C1SameOwnerWeil.qw g =
     (star (bombieriWOfZ gamma z) ⬝ᵥ
-      (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re -
+      (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re +
       (∑' m : Nat, ∑' rho : spectralHeightShell
           (m + bombieriSpectralTailCutoff g t ht gamma z Lam lam hz heigen hrecip),
         spectralTerm g.convolutionSquare rho.1).re
+
+/-- The split prefix contract packages into the canonical spectral-tail
+contract used by the existing residual, aggregate, and `SourceRH` consumers. -/
+noncomputable def BombieriQuadraticCanonicalPrefixP2BridgeData.toCanonicalSpectralTail
+    {g : CompactLogTest}
+    (p : BombieriQuadraticCanonicalPrefixP2BridgeData g) :
+    BombieriQuadraticCanonicalSpectralTailP2BridgeData g := by
+  refine
+    { n := p.n, t := p.t, ht := p.ht, gamma := p.gamma, z := p.z,
+      Lam := p.Lam, lam := p.lam, hz := p.hz, heigen := p.heigen,
+      hrecip := p.hrecip,
+      qw_eq_quadratic_add_spectralTail :=
+        qw_eq_quadratic_add_spectralTail_of_bombieriQuadraticCanonicalPrefixP2BridgeData
+          p }
 
 /-- The canonical contract discharges the generic residual socket using the
 cutoff specification and the two-sided shell-tail estimate. -/
@@ -244,14 +326,16 @@ noncomputable def BombieriQuadraticCanonicalSpectralTailP2BridgeData.toResidual
   refine
     { n := p.n, t := p.t, ht := p.ht, gamma := p.gamma, z := p.z
       residual :=
-        (∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+        -(∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
           spectralTerm g.convolutionSquare rho.1).re
       tailBound :=
         ∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
           ‖spectralTerm g.convolutionSquare rho.1‖
-      qw_eq_quadratic_sub_residual := by simpa [N] using
-        p.qw_eq_quadratic_sub_spectralTail
+      qw_eq_quadratic_sub_residual := by
+        simpa only [N, sub_neg_eq_add] using
+          p.qw_eq_quadratic_add_spectralTail
       residual_abs_le := by
+        simp only [abs_neg]
         simpa [N] using
           spectralHeightShellTail_abs_re_le_normTail g.convolutionSquare N
       tailBound_le_quadratic := by
@@ -269,15 +353,18 @@ noncomputable def BombieriQuadraticSpectralTailP2BridgeData.toResidual
   refine
     { n := p.n, t := p.t, ht := p.ht, gamma := p.gamma, z := p.z
       residual :=
-        (∑' m : Nat, ∑' rho : spectralHeightShell (m + p.N),
+        -(∑' m : Nat, ∑' rho : spectralHeightShell (m + p.N),
           spectralTerm g.convolutionSquare rho.1).re
       tailBound :=
         ∑' m : Nat, ∑' rho : spectralHeightShell (m + p.N),
           ‖spectralTerm g.convolutionSquare rho.1‖
-      qw_eq_quadratic_sub_residual := p.qw_eq_quadratic_sub_spectralTail
-      residual_abs_le := ?_
+      qw_eq_quadratic_sub_residual := by
+        simpa only [sub_neg_eq_add] using
+          p.qw_eq_quadratic_add_spectralTail
+      residual_abs_le := by
+        simp only [abs_neg]
+        exact spectralHeightShellTail_abs_re_le_normTail g.convolutionSquare p.N
       tailBound_le_quadratic := p.tailBound_le_quadratic }
-  exact spectralHeightShellTail_abs_re_le_normTail g.convolutionSquare p.N
 
 /-- The Bombieri finite chain supplies a nonnegative real for the mass
 product. -/
@@ -333,6 +420,13 @@ theorem qw_nonneg_of_bombieriQuadraticCanonicalSpectralTailP2BridgeData
     (p : BombieriQuadraticCanonicalSpectralTailP2BridgeData g) :
     0 <= C1SameOwnerWeil.qw g :=
   qw_nonneg_of_bombieriQuadraticResidualP2BridgeData p.toResidual
+
+theorem qw_nonneg_of_bombieriQuadraticCanonicalPrefixP2BridgeData
+    {g : CompactLogTest}
+    (p : BombieriQuadraticCanonicalPrefixP2BridgeData g) :
+    0 <= C1SameOwnerWeil.qw g :=
+  qw_nonneg_of_bombieriQuadraticCanonicalSpectralTailP2BridgeData
+    p.toCanonicalSpectralTail
 
 /-- The direct quadratic-form contract cannot coexist with the already
 strictly negative healthy detector value.  This is a route guard, not an RH
