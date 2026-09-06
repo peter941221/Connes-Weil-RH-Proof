@@ -244,6 +244,14 @@ section 6, equation (6.4); transcription certified in map 001 section 6y).
 Prerequisite: pre-brick B3 (exponential independence + sign count) is
 honest detector-branch work regardless of Line B's fate.
 
+Formal bridge brick (record 1147): `C1BombieriP2Bridge` now packages the
+finite eigen-relation, reciprocal identity, nonzero mass, and the explicit
+same-owner equality `qw g = lam * bombieriWMass gamma z`.  The existing
+Bombieri Wirtinger chain then supplies `0 ≤ qw g`, and
+`sourceRH_of_right_bombieriP2BridgeData` consumes the contract at `SourceRH`.
+No producer currently constructs this data for the pinned orbit detector;
+the owner equality and per-zero finite eigensystem remain OPEN.
+
 Falsifier: the fake-zero rig (Bombieri section 13, `N` up to 160). Measure
 whether the unique negative eigenvalue's magnitude at the window scale
 `t ~ log 2 / 2` is compatible with the `hmargin` scale required by the
@@ -334,6 +342,11 @@ B1 and B2 have landed and consumed the Line-S falsifier (record 1144:
 REFUTED as stated).  B4 is already owed by the window campaign; B3 is
 independent detector-branch strengthening and now carries the Line-B
 falsifier's formal side alone.
+
+Record 1147 lands the Line-B same-owner bridge contract and its `SourceRH`
+consumer.  This is a FORMAL narrowing of the producer obligation, not a sign
+theorem: the Bombieri-to-`qw` equality and finite per-zero eigensystem data
+are still OPEN.
 
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value

@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1BombieriP2Bridge
+
+namespace ConnesWeilRH.Source.C1BombieriP2Bridge
+
+#print axioms BombieriP2BridgeData
+#print axioms qw_nonneg_of_bombieriP2BridgeData
+#print axioms qw_nonneg_of_healthyDetectorData_of_bombieriP2BridgeData
+#print axioms sourceRH_of_right_bombieriP2BridgeData
+
+end ConnesWeilRH.Source.C1BombieriP2Bridge
