@@ -28,6 +28,7 @@ namespace Source
 namespace C1BombieriP2Bridge
 
 open C1BombieriSection8LambdaSign
+open C1BombieriSection8TotalAssembly
 open C1BombieriFiniteQuadraticBridge
 open C1BombieriSection7Gamma
 open C1BombieriSection7H
@@ -131,6 +132,37 @@ structure BombieriQuadraticSpectralTailP2BridgeData (g : CompactLogTest) where
       ‖spectralTerm g.convolutionSquare rho.1‖) ≤
       (star (bombieriWOfZ gamma z) ⬝ᵥ
         (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re
+
+/-- In the nonzero reciprocal-eigenvector branch, the finite Hermitian main
+term has a strictly positive real value.  This supplies the margin that a
+future same-owner tail producer must beat. -/
+theorem bombieriHMatrix_quadraticForm_pos_of_eigen
+    {n : Nat} (t : Real) (ht : 0 < t) (gamma : Fin n -> Real)
+    (z : Fin n -> Complex) (Lam : Complex) (lam : Real) (hz : z ≠ 0)
+    (heigen : bombieriWOfZ gamma z =
+      Lam • (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z))
+    (hrecip : (lam : Complex) * Lam = 1) :
+    0 < (star (bombieriWOfZ gamma z) ⬝ᵥ
+      (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re := by
+  have hlam : 0 < lam := lambda_pos_of_eigen t ht gamma z Lam lam hz heigen hrecip
+  have hmass : 0 < bombieriWMass gamma z :=
+    bombieriWMass_pos_of_ne_zero gamma z hz
+  have hprod : 0 < lam * bombieriWMass gamma z := mul_pos hlam hmass
+  have hform :
+      (star (bombieriWOfZ gamma z) ⬝ᵥ
+        (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re =
+        lam * bombieriWMass gamma z := by
+    calc
+      (star (bombieriWOfZ gamma z) ⬝ᵥ
+          (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re =
+          (bombieriKstarGram t gamma z).re := by
+            rw [bombieriHMatrix_quadraticForm_eq_KstarGram]
+      _ = ((lam : Complex) * Complex.ofReal (bombieriWMass gamma z)).re := by
+            rw [lambda_mass_eq_KstarGram t gamma z Lam lam heigen hrecip]
+      _ = lam * bombieriWMass gamma z := by
+            simp [Complex.mul_re]
+  rw [hform]
+  exact hprod
 
 /-- Turn the explicit same-owner spectral tail into the generic residual
 socket.  The two-sided residual estimate is supplied by the shell partition,

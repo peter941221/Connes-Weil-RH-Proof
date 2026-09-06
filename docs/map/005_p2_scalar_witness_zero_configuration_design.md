@@ -665,6 +665,13 @@ field.  Its same-owner decomposition and tail-to-main-term domination remain
 OPEN producer obligations, so this is a formal interface tightening, not a
 P2 closure.
 
+Record 1186 adds the FORMAL lemma
+`bombieriHMatrix_quadraticForm_pos_of_eigen`: in the nonzero reciprocal
+eigenvector branch, the finite Hermitian main term is strictly positive.  It
+provides the margin that a future same-owner spectral-tail producer must
+beat, but it does not select a cutoff or prove the Bombieri-to-`qw` residual
+identity.  P2 remains OPEN on those producer obligations.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented
