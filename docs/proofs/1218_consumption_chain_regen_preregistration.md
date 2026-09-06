@@ -176,3 +176,21 @@ CONSISTENCY instead (`|mid| <= budget` and `0 in box`), and the bundle
 EMITS exact `0` for mixed endpoints so the bundle M data is
 entry-identical to the committed Lean data the Lean reverse
 containment will be tied to.  Same-parity boxes unchanged.
+
+## 8. Amendment 2 (2026-09-07, committed BEFORE the emitter runs)
+
+The 1217 engine rounds each entry independently outward, so the
+bundle's M radius matrix is not EXACTLY symmetric: measured asymmetry
+1.0588e-22 on exactly four entries ((3,5), (3,7) and transposes) - a
+last-bit dyadic artifact.  The Lean chain needs `hsymRadM`
+(`tbox_of_identities` hypothesis `hradMsym`), and the parent 1119
+pipeline asserted `rad_M symmetric` as a generation check.  The fork
+therefore symmetrizes rad_M by ENTRYWISE MAX
+(`rad_M[i][j] = rad_M[j][i] = max(...)`, i < j) BEFORE the downstream
+Dred_rad / radp / slack computation - the same "the box side inherits
+the asymmetry as radius correction" principle the parent registered
+for the D centers (1115 registered finding).  Conservative: radii
+only grow; reverse containment is preserved; slack impact ~1e-22
+against a 1.9e-8 min slack.  The center `M` stays as computed
+(asymmetric at 5.7e-18 - allowed; the generic T-box needs no symmetry
+hypothesis on the center, only on the radii).

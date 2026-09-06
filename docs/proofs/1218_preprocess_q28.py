@@ -162,6 +162,20 @@ mid_M = [[(frac(c["M_lo"][i][j]) + frac(c["M_hi"][i][j])) / 2
           for j in range(n)] for i in range(n)]
 rad_M = [[(frac(c["M_hi"][i][j]) - frac(c["M_lo"][i][j])) / 2
           for j in range(n)] for i in range(n)]
+# prereg sec. 8: the 1217 engine rounds entries independently outward,
+# so rad_M is not EXACTLY symmetric (measured 1.0588e-22 on 4 entries).
+# Symmetrize by entrywise max (radii only grow) before any downstream
+# use - the same radius-inherits-asymmetry principle as the parent's
+# registered Dc finding.  The CENTER stays as computed.
+asym_radM = max(abs(rad_M[i][j] - rad_M[j][i]) for i in range(n)
+                for j in range(n))
+print(f"raw rad_M asymmetry: {float(asym_radM):.3e} "
+      f"(symmetrized by entrywise max, prereg sec. 8)")
+for i in range(n):
+    for j in range(i + 1, n):
+        r = max(rad_M[i][j], rad_M[j][i])
+        rad_M[i][j] = r
+        rad_M[j][i] = r
 for A in rad_G + rad_M:
     assert all(x >= 0 for x in A), "negative box radius"
 U = frac(c["U_outward"][1])
