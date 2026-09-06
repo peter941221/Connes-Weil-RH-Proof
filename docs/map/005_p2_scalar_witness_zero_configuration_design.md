@@ -379,6 +379,9 @@ difference is the weighted bilateral-profile difference minus the origin
 difference, and profile matching only on the visible-point image already
 implies finite-prime cancellation.  These are FORMAL interface facts; they do
 not provide the missing envelope or sign.
+The local-match theorem is now wired directly to the defect gate, so a future
+producer can state its finite arithmetic obligation as a profile condition
+without reopening the prime-index bookkeeping.
 
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value

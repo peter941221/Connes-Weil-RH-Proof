@@ -37,15 +37,23 @@ the whole real line. -/
 def BilateralProfileMatchOn (F G : CompactLogTest) (S : Set ℝ) : Prop :=
   ∀ y ∈ S, bilateralProfile F y = bilateralProfile G y
 
+theorem primePairMatch_of_bilateralProfileMatchOn_visible
+    (F G : CompactLogTest)
+    (hprofile : BilateralProfileMatchOn F G
+      ((fun n : ℕ => Real.log (n : ℝ)) ''
+        ((globalPrimeIndexSet F ∪ globalPrimeIndexSet G : Finset ℕ) : Set ℕ))) :
+    PrimePairMatch F G := by
+  intro n hn
+  exact hprofile (Real.log n) (by exact ⟨n, hn, rfl⟩)
+
 theorem finitePrimeSum_eq_of_bilateralProfileMatchOn_visible
     (F G : CompactLogTest)
     (hprofile : BilateralProfileMatchOn F G
       ((fun n : ℕ => Real.log (n : ℝ)) ''
         ((globalPrimeIndexSet F ∪ globalPrimeIndexSet G : Finset ℕ) : Set ℕ))) :
     finitePrimeSum F = finitePrimeSum G := by
-  apply finitePrimeSum_eq_of_primePairMatch F G
-  intro n hn
-  exact hprofile (Real.log n) (by exact ⟨n, hn, rfl⟩)
+  exact finitePrimeSum_eq_of_primePairMatch F G
+    (primePairMatch_of_bilateralProfileMatchOn_visible F G hprofile)
 
 theorem primePairMatch_of_bilateralProfile_eq
     (F G : CompactLogTest)
@@ -134,6 +142,25 @@ theorem defectGate_eq_zero_of_bilateralProfile_eq
   rw [archimedeanTerm_eq_of_bilateralProfile_eq
     g.convolutionSquare W.convolutionSquare h0 hprofile]
   ring
+
+theorem defectGate_eq_archimedean_sub_of_bilateralProfileMatchOn_visible
+    (g W : CompactLogTest)
+    (hgv : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (hWv : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet W)
+    (hprofile : BilateralProfileMatchOn g.convolutionSquare
+      W.convolutionSquare
+      ((fun n : ℕ => Real.log (n : ℝ)) ''
+        ((globalPrimeIndexSet g.convolutionSquare ∪
+          globalPrimeIndexSet W.convolutionSquare : Finset ℕ) : Set ℕ))) :
+    ICgate (ICdefect g.convolutionSquare {()}
+      (fun _ => W.convolutionSquare) (fun _ => 1)) =
+      archimedeanTerm g.convolutionSquare -
+        archimedeanTerm W.convolutionSquare := by
+  exact defectGate_eq_archimedean_sub_of_primePairMatch g W hgv hWv
+    (primePairMatch_of_bilateralProfileMatchOn_visible
+      g.convolutionSquare W.convolutionSquare hprofile)
 
 end
 end C1P2BilateralProfile

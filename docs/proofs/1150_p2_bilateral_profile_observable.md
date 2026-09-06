@@ -25,6 +25,11 @@ weighted profile difference minus the origin difference.  This is the exact
 residual expression to which a later endpoint or low-rank envelope may be
 applied.
 
+The visible-point theorem is also wired directly into the defect-gate
+consumer: local profile matching implies `PrimePairMatch`, and therefore the
+triple-vanishing gate reduces exactly to the archimedean difference without
+any manual finite-set bookkeeping.
+
 The Lean declarations and paired audit build use only
 `[propext, Classical.choice, Quot.sound]`; the focused build completed
 successfully in 3660 jobs with no `error:` lines and no `sorryAx`.
