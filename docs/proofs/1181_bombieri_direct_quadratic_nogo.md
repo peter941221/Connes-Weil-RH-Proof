@@ -2,6 +2,10 @@
 
 Date: 2026-09-06
 
+Status: the phrase “no-go” below refers only to conditional coexistence with
+healthy detector data.  Record 1182 corrects any reading of this guard as an
+independent refutation of the P2 producer interface.
+
 ## Formal contradiction
 
 For a healthy detector `HealthyYoshidaDetectorData rho g`, the existing
