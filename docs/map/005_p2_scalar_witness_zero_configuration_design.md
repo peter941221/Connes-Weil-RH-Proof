@@ -430,6 +430,13 @@ is material—profile nonnegativity would contribute with the opposite sign in
 `qw = -arch - finitePrimeSum`.  The pinned orbit detector is not yet shown to
 satisfy either premise, so P2 remains OPEN.
 
+Record 1154 packages those two signs as `P2BilateralProfileSignWitness` and
+composes it with the existing healthy-detector contradiction to `SourceRH`.
+This fixes the exact B5 producer quantifier: one witness on the same healthy
+detector owner for every right-oriented off-line zero.  Constructing that
+witness for the pinned orbit remains the sole open analytic task in this
+subroute.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds
