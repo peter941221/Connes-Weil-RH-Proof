@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Dev.C1BombieriSection8EndpointWirtinger
+import ConnesWeilRH.Dev.C1BombieriSection8LambdaSign
 
 /-!
 # Finite Bombieri quadratic-form bridge
@@ -27,6 +28,7 @@ open ConnesWeilRH.Source.C1BombieriSection7H
 open ConnesWeilRH.Source.C1BombieriSection7Readback
 open ConnesWeilRH.Source.C1BombieriSection8EigenGram
 open ConnesWeilRH.Source.C1BombieriSection8EndpointWirtinger
+open ConnesWeilRH.Source.C1BombieriSection8LambdaSign
 open ConnesWeilRH.Source.C1BombieriSection8TotalAssembly
 open scoped ComplexConjugate
 
@@ -80,6 +82,25 @@ theorem bombieriHMatrix_quadraticForm_eq_ofReal_nonneg (t : Real) (ht : 0 < t)
   refine ⟨S, hS, ?_⟩
   rw [bombieriHMatrix_quadraticForm_eq_KstarGram]
   exact hGram
+
+/-- Under the finite eigen-relation and reciprocal identity, the scalar
+`lambda * mass` is exactly the weighted Hermitian `H` quadratic form. -/
+theorem lambda_mass_eq_bombieriHMatrix_quadraticForm
+    (t : Real) (gamma : Fin n → Real) (z : Fin n → Complex)
+    (Lam : Complex) (lam : Real)
+    (h : bombieriWOfZ gamma z =
+      Lam • (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z))
+    (hrecip : (lam : Complex) * Lam = 1) :
+    (lam : Complex) * Complex.ofReal (bombieriWMass gamma z) =
+      star (bombieriWOfZ gamma z) ⬝ᵥ
+        (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z) := by
+  calc
+    (lam : Complex) * Complex.ofReal (bombieriWMass gamma z) =
+        bombieriKstarGram t gamma z :=
+      lambda_mass_eq_KstarGram t gamma z Lam lam h hrecip
+    _ = star (bombieriWOfZ gamma z) ⬝ᵥ
+        (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z) :=
+      (bombieriHMatrix_quadraticForm_eq_KstarGram t gamma z).symm
 
 end C1BombieriFiniteQuadraticBridge
 end Source

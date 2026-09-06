@@ -15,6 +15,7 @@ open ConnesWeilRH.Source.C1BombieriFiniteQuadraticBridge
 
 #print axioms bombieriHMatrix_quadraticForm_eq_KstarGram
 #print axioms bombieriHMatrix_quadraticForm_eq_ofReal_nonneg
+#print axioms lambda_mass_eq_bombieriHMatrix_quadraticForm
 
 end C1BombieriFiniteQuadraticBridgeAudit
 end Source

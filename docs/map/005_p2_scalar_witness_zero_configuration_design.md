@@ -603,6 +603,14 @@ finite positivity and allows repeated ordinates, but it still does not identify
 the form with `qw g`, construct the per-zero detector certificate, or close the
 healthy `CompactLog` P2 gate.  Those producer obligations remain OPEN.
 
+Record 1179 makes the finite eigenvalue readback speak directly in the new
+matrix owner: `lambda_mass_eq_bombieriHMatrix_quadraticForm` identifies
+`(lam : Complex) * ofReal (bombieriWMass gamma z)` with the weighted Hermitian
+`H` quadratic form under the finite eigen-relation and reciprocal identity.
+This is FORMAL and removes an unnecessary detour through the raw Gram name.
+It still leaves the owner-changing equality `qw g = lam * mass` and the
+per-zero finite data as OPEN producer obligations.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented
