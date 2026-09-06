@@ -640,6 +640,13 @@ real parts of `lambda_mass_eq_bombieriHMatrix_quadraticForm`.  The direct socket
 therefore remains a valid conditional interface; constructing its
 same-owner equality from the pinned detector is still OPEN.
 
+Record 1183 adds the pinned direct-quadratic exit
+`sourceRH_of_pinnedOrbitDetector_p2BombieriQuadraticP2BridgeData`.  Its
+producer must return one `g,n` carrying healthy detector data, the exported
+`n+2` support interval, the strict finite visible-prime cutoff, and the direct
+Hermitian contract on that same `g`.  This is FORMAL quantifier tightening;
+the same-owner matrix equality remains the open analytic obligation.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented

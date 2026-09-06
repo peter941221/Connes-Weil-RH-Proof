@@ -236,6 +236,28 @@ theorem sourceRH_of_healthyDetector_p2BombieriQuadraticP2BridgeData
     qw_nonneg_of_p2BilateralProfileAggregateWitness g hdata.vanishesOnF
       haggregate⟩
 
+/-- Pinned same-detector exit for the direct finite Hermitian-form contract.
+The support interval and visible-prime cutoff are retained on the same owner;
+they are audit data for the future producer, not extra sign assumptions. -/
+theorem sourceRH_of_pinnedOrbitDetector_p2BombieriQuadraticP2BridgeData
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest, ∃ n : Nat,
+          HealthyYoshidaDetectorData rho.1 g ∧
+          Function.support g.test ⊆
+            Set.Ioo (-((n + 2 : Nat) : Real)) (((n + 2 : Nat) : Real)) ∧
+          (∀ q ∈ globalPrimeIndexSet g.convolutionSquare,
+            (q : Real) < Real.exp (2 * ((n + 2 : Nat) : Real))) ∧
+          Nonempty (BombieriQuadraticP2BridgeData g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, _n, hdata, _hsupport, _hvisible, ⟨hp2⟩⟩ :=
+    hproducer rho hright
+  exact ⟨g, hdata,
+    qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticP2BridgeData
+      hdata hp2⟩
+
 /-- Direct healthy-B5 exit for a fixed-basis self-pair trace producer. -/
 theorem sourceRH_of_healthyDetector_p2PositiveTracePairLimitFamily
     {ι H G : Type*}
