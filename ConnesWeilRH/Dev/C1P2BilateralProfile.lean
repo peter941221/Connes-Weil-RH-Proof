@@ -31,6 +31,22 @@ parts of the same-owner Weil functional. -/
 def bilateralProfile (F : CompactLogTest) (y : ℝ) : ℂ :=
   F.test y + F.test (-y)
 
+/-- On a genuine convolution square, the bilateral observable is twice the
+real part of the positive-side value.  This is the Hermitian reduction used
+by the semi-local trace owner. -/
+theorem bilateralProfile_convolutionSquare_eq_two_re
+    (g : CompactLogTest) (y : ℝ) :
+    bilateralProfile g.convolutionSquare y =
+      ((2 * (g.convolutionSquare.test y).re : ℝ) : ℂ) := by
+  exact g.convolutionSquare_add_neg_eq_two_re y
+
+theorem bilateralProfile_convolutionSquare_re_eq_two_re
+    (g : CompactLogTest) (y : ℝ) :
+    (bilateralProfile g.convolutionSquare y).re =
+      2 * (g.convolutionSquare.test y).re := by
+  rw [bilateralProfile_convolutionSquare_eq_two_re]
+  simp
+
 /-- A profile equality restricted to a set of log-coordinates.  This is the
 finite-sample form used by the visible-prime sum, as opposed to equality on
 the whole real line. -/
@@ -113,6 +129,19 @@ theorem finitePrimeSum_eq_bilateralProfile_weighted_sum
   unfold finitePrimeSum
   exact Finset.sum_congr rfl fun n hn =>
     finitePrimeTerm_eq_realCoefficient_mul_bilateralProfile_re F n
+
+/-- The same readback with the Hermitian convolution-square profile written
+directly as twice a real evaluation. -/
+theorem finitePrimeSum_convolutionSquare_eq_two_re_weighted_sum
+    (g : CompactLogTest) :
+    finitePrimeSum g.convolutionSquare =
+      ∑ n ∈ globalPrimeIndexSet g.convolutionSquare,
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+          (2 * (g.convolutionSquare.test (Real.log n)).re) := by
+  rw [finitePrimeSum_eq_bilateralProfile_weighted_sum]
+  apply Finset.sum_congr rfl
+  intro n hn
+  rw [bilateralProfile_convolutionSquare_re_eq_two_re]
 
 /-! ### Minimal aggregate same-owner P2 sign consumer -/
 

@@ -62,6 +62,31 @@ theorem P2BilateralProfileAggregateWitness.of_orbitWindowSemiLocalGate
     rw [finitePrimeSum_eq_bilateralProfile_weighted_sum] at hgate'
     exact hgate'
 
+/-- A producer may use the real Hermitian evaluations directly instead of
+mentioning `bilateralProfile`; this is definitionally the same aggregate
+socket after the convolution-square identity. -/
+theorem P2BilateralProfileAggregateWitness.of_twoRealWeightedSum
+    (g : CompactLogTest)
+    (hbalance :
+      archimedeanTerm g.convolutionSquare +
+        ∑ n ∈ globalPrimeIndexSet g.convolutionSquare,
+          ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+            (2 * (g.convolutionSquare.test (Real.log n)).re) ≤ 0) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance := by
+    have hprofile :
+        (∑ n ∈ globalPrimeIndexSet g.convolutionSquare,
+          ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+            (bilateralProfile g.convolutionSquare (Real.log n)).re) =
+          ∑ n ∈ globalPrimeIndexSet g.convolutionSquare,
+            ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+              (2 * (g.convolutionSquare.test (Real.log n)).re) := by
+      apply Finset.sum_congr rfl
+      intro n hn
+      rw [bilateralProfile_convolutionSquare_re_eq_two_re]
+    rw [hprofile]
+    exact hbalance
+
 theorem qw_nonneg_of_p2BilateralProfileSignWitness
     (g : CompactLogTest)
     (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace

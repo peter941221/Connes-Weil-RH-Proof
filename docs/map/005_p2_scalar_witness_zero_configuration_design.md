@@ -498,6 +498,12 @@ for `g` constructs `P2BilateralProfileAggregateWitness g`.  This is an
 interface composition only; the Stage-B contraction fields and the
 detector-specific gate inequality remain unconstructed.
 
+Record 1162 adds the Hermitian real-value adapter: for every convolution
+square, `bilateralProfile(y) = 2 * Re(g²(y))`.  A producer may therefore
+submit the aggregate estimate using only real evaluations of the square; the
+formal exit converts it to the existing profile witness.  This is still an
+interface reduction, not the missing detector-specific sign estimate.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds
