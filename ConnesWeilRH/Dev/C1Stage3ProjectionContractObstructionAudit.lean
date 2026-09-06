@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1Stage3ProjectionContractObstruction
+
+namespace ConnesWeilRH.Source.Dev.C1Stage3ProjectionContractObstruction
+
+#print axioms not_projectionCutoffLimitContracts_of_fixedResponse_and_traceDefect_vanishing
+
+end ConnesWeilRH.Source.Dev.C1Stage3ProjectionContractObstruction

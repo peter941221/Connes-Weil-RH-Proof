@@ -40,6 +40,11 @@ The following are archival context only and receive no new theorem work:
   spectral nonnegativity.
 - The universal B1 globalization: positivity for all compact supports or a
   density/partition lift from the ROOT window.
+- The Line-B Bombieri finite-positive-owner campaign: all mass, Hermitian,
+  residual, spectral-tail, canonical-prefix, direct real-Gamma, and indirect
+  same-owner positive-readback variants are frozen by records 1192--1195.
+  No new Line-B producer, wrapper, coordinate transformation, or numerical
+  falsifier may be opened without Peter's explicit instruction.
 - New producer work on `normalizedCC20TestSpace` or the literal normalized B5
   coverage socket.  Its additive convolution fails the Mellin product law.
 - Nyman--Beurling, Mobius, Burnol, adelic, Clifford, and the historical
@@ -83,4 +88,6 @@ premise of the healthy detector-specific semi-local chain or proves `SourceRH`
 on the healthy owner.  The proof may not consume the normalized coverage
 socket, `SourceRH`, or an equivalent RH statement.  Record the theorem
 statement, assumptions, build evidence, and axiom audit in `MEMORY.md` before
-reactivation.
+reactivation.  For Line B specifically, Peter's explicit instruction is also
+required before any new work is opened, even if the proposed work satisfies
+the general consumer rule.

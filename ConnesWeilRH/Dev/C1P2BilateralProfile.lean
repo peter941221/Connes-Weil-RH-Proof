@@ -1,4 +1,5 @@
 import ConnesWeilRH.Dev.C1P2PrimePointMatching
+import ConnesWeilRH.Dev.C1GateMatrixRepresentation
 
 /-!
 # P2 bilateral observable profile
@@ -20,6 +21,8 @@ open C1HealthyYoshidaDetector
 open C1LocalConfigurationDomination
 open C1P2DefectZeroSumIdentity
 open C1P2PrimePointMatching
+open C1GateMatrixRepresentation
+open Matrix
 open CCM25Concrete.CompactLogConvolution
 open CCM25Concrete.SelectedWeilSquare
 open scoped BigOperators
@@ -30,6 +33,25 @@ noncomputable section
 parts of the same-owner Weil functional. -/
 def bilateralProfile (F : CompactLogTest) (y : ℝ) : ℂ :=
   F.test y + F.test (-y)
+
+/-! ### Canonical scalar for the aggregate producer -/
+
+/- The producer-facing scalar is named separately from its later sign
+   certificate.  This keeps the finite visible-prime owner fixed while
+   leaving the source of its nonpositivity open. -/
+noncomputable def p2AggregateValue (g : CompactLogTest) : ℝ :=
+  archimedeanTerm g.convolutionSquare +
+    ∑ n ∈ globalPrimeIndexSet g.convolutionSquare,
+      ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+        (bilateralProfile g.convolutionSquare (Real.log n)).re
+
+theorem p2AggregateValue_eq_archimedean_plus_finiteProfile (g : CompactLogTest) :
+    p2AggregateValue g =
+      archimedeanTerm g.convolutionSquare +
+        ∑ n ∈ globalPrimeIndexSet g.convolutionSquare,
+          ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+            (bilateralProfile g.convolutionSquare (Real.log n)).re := by
+  rfl
 
 /-- On a genuine convolution square, the bilateral observable is twice the
 real part of the positive-side value.  This is the Hermitian reduction used
@@ -130,6 +152,88 @@ theorem finitePrimeSum_eq_bilateralProfile_weighted_sum
   exact Finset.sum_congr rfl fun n hn =>
     finitePrimeTerm_eq_realCoefficient_mul_bilateralProfile_re F n
 
+theorem finitePrimeSum_eq_zero_of_visibleProfileMatch_to_primeFreeReference
+    (g W : CompactLogTest)
+    (hsupportW : Function.support W.convolutionSquare.test ⊆
+      Set.Ioo (-Real.log 2) (Real.log 2))
+    (hprofile : BilateralProfileMatchOn g.convolutionSquare
+      W.convolutionSquare
+      ((fun n : ℕ => Real.log (n : ℝ)) ''
+        ((globalPrimeIndexSet g.convolutionSquare ∪
+          globalPrimeIndexSet W.convolutionSquare : Finset ℕ) : Set ℕ))) :
+    finitePrimeSum g.convolutionSquare = 0 := by
+  have hmatch := finitePrimeSum_eq_of_bilateralProfileMatchOn_visible
+    g.convolutionSquare W.convolutionSquare hprofile
+  have hzero := finitePrimeSum_eq_zero_of_support_subset_open_log_two
+    W.convolutionSquare hsupportW
+  rw [hmatch, hzero]
+
+theorem p2AggregateValue_eq_archimedean_of_visibleProfileMatch_to_primeFreeReference
+    (g W : CompactLogTest)
+    (hsupportW : Function.support W.convolutionSquare.test ⊆
+      Set.Ioo (-Real.log 2) (Real.log 2))
+    (hprofile : BilateralProfileMatchOn g.convolutionSquare
+      W.convolutionSquare
+      ((fun n : ℕ => Real.log (n : ℝ)) ''
+        ((globalPrimeIndexSet g.convolutionSquare ∪
+          globalPrimeIndexSet W.convolutionSquare : Finset ℕ) : Set ℕ))) :
+    p2AggregateValue g = archimedeanTerm g.convolutionSquare := by
+  have hzero := finitePrimeSum_eq_zero_of_visibleProfileMatch_to_primeFreeReference
+    g W hsupportW hprofile
+  rw [p2AggregateValue_eq_archimedean_plus_finiteProfile,
+    ← finitePrimeSum_eq_bilateralProfile_weighted_sum, hzero, add_zero]
+
+theorem archimedeanTerm_pos_of_healthyDetector_and_visibleProfileMatch_to_primeFreeReference
+    {rho : Complex} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    (W : CompactLogTest)
+    (hsupportW : Function.support W.convolutionSquare.test ⊆
+      Set.Ioo (-Real.log 2) (Real.log 2))
+    (hprofile : BilateralProfileMatchOn g.convolutionSquare
+      W.convolutionSquare
+      ((fun n : ℕ => Real.log (n : ℝ)) ''
+        ((globalPrimeIndexSet g.convolutionSquare ∪
+          globalPrimeIndexSet W.convolutionSquare : Finset ℕ) : Set ℕ))) :
+    0 < archimedeanTerm g.convolutionSquare := by
+  have hzero := finitePrimeSum_eq_zero_of_visibleProfileMatch_to_primeFreeReference
+    g W hsupportW hprofile
+  have hnegativeSpectral :
+      C1SpectralWeil.spectralWeilValue g.convolutionSquare < 0 :=
+    (weilSquareSumPositive_iff_spectralWeilValue_neg g).mp
+      hdata.weilSquareSumPositive
+  have hnegative : C1SameOwnerWeil.qw g < 0 := by
+    rw [C1CenterTwoCriterionBridge.qw_eq_spectralWeilValue_centerTwo]
+    exact hnegativeSpectral
+  rw [qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple
+    g hdata.vanishesOnF, hzero] at hnegative
+  linarith
+
+theorem p2AggregateValue_eq_ICgate_convolutionSquare (g : CompactLogTest) :
+    p2AggregateValue g = ICgate g.convolutionSquare := by
+  unfold p2AggregateValue ICgate
+  rw [← finitePrimeSum_eq_bilateralProfile_weighted_sum]
+
+theorem p2AggregateValue_spanObj_eq_gate_qform
+    {k : ℕ} (w : Fin k → CompactLogTest) (y : Fin k → ℝ)
+    {B : ℝ} (hw : ∀ i, Function.support (w i).test ⊆ Set.Ioo (-B) B)
+    (hI : ∀ i j, IntegrableOn (archimedeanIntegrand (pairTest w i j))
+      (Set.Ioi (0 : ℝ))) :
+    p2AggregateValue (spanObj w y) =
+      y ⬝ᵥ (gateMatrix w *ᵥ y) := by
+  rw [p2AggregateValue_eq_ICgate_convolutionSquare]
+  exact gate_qform_span w y hw hI
+
+theorem p2AggregateValue_spanObj_nonpos_of_negGateMatrix_posSemidef
+    {k : ℕ} (w : Fin k → CompactLogTest) (y : Fin k → ℝ)
+    {B : ℝ} (hw : ∀ i, Function.support (w i).test ⊆ Set.Ioo (-B) B)
+    (hI : ∀ i j, IntegrableOn (archimedeanIntegrand (pairTest w i j))
+      (Set.Ioi (0 : ℝ)))
+    (hM : (-gateMatrix w).PosSemidef) :
+    p2AggregateValue (spanObj w y) ≤ 0 := by
+  rw [p2AggregateValue_spanObj_eq_gate_qform w y hw hI]
+  have hq := hM.dotProduct_mulVec_nonneg y
+  simpa [Matrix.mulVec, dotProduct] using hq
+
 /-- The same readback with the Hermitian convolution-square profile written
 directly as twice a real evaluation. -/
 theorem finitePrimeSum_convolutionSquare_eq_two_re_weighted_sum
@@ -187,6 +291,88 @@ theorem qw_nonneg_of_archimedean_plus_bilateralProfile_weighted_sum_nonpos
   rw [qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple
     g hvanishes, hprime]
   linarith
+
+/- The canonical scalar is exactly the negative of the same-owner Weil
+   quadratic form on the healthy triple-vanishing owner. -/
+theorem p2AggregateValue_eq_neg_qw_of_vanishes
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g) :
+    p2AggregateValue g = -qw g := by
+  rw [p2AggregateValue_eq_archimedean_plus_finiteProfile,
+    ← finitePrimeSum_eq_bilateralProfile_weighted_sum]
+  have hq := qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple
+    g hvanishes
+  linarith
+
+theorem p2AggregateValue_nonpos_iff_qw_nonneg_of_vanishes
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g) :
+    p2AggregateValue g ≤ 0 ↔ 0 ≤ qw g := by
+  rw [p2AggregateValue_eq_neg_qw_of_vanishes g hvanishes]
+  constructor <;> intro h <;> linarith
+
+theorem p2AggregateValue_sub_eq_archimedean_sub_of_visibleProfileMatch
+    (g W : CompactLogTest)
+    (hgv : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (hWv : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet W)
+    (hprofile : BilateralProfileMatchOn g.convolutionSquare
+      W.convolutionSquare
+      ((fun n : ℕ => Real.log (n : ℝ)) ''
+        ((globalPrimeIndexSet g.convolutionSquare ∪
+          globalPrimeIndexSet W.convolutionSquare : Finset ℕ) : Set ℕ))) :
+    p2AggregateValue g - p2AggregateValue W =
+      archimedeanTerm g.convolutionSquare -
+        archimedeanTerm W.convolutionSquare := by
+  have hq := defectGate_eq_qw_sub g W hgv hWv
+  have ha := defectGate_eq_archimedean_sub_of_primePairMatch
+    g W hgv hWv
+    (primePairMatch_of_bilateralProfileMatchOn_visible g.convolutionSquare
+      W.convolutionSquare hprofile)
+  calc
+    p2AggregateValue g - p2AggregateValue W =
+        C1SameOwnerWeil.qw W - C1SameOwnerWeil.qw g := by
+      rw [p2AggregateValue_eq_neg_qw_of_vanishes g hgv,
+        p2AggregateValue_eq_neg_qw_of_vanishes W hWv]
+      ring
+    _ = ICgate (ICdefect g.convolutionSquare {()}
+          (fun _ => W.convolutionSquare) (fun _ => 1)) := hq.symm
+    _ = archimedeanTerm g.convolutionSquare -
+        archimedeanTerm W.convolutionSquare := ha
+
+/-! The signed residual is available without cancelling the visible prime
+    profile.  This is the route-1 replacement for exact prime-free matching. -/
+
+theorem p2AggregateValue_sub_eq_defectGate
+    (g W : CompactLogTest) :
+    p2AggregateValue g - p2AggregateValue W =
+      ICgate (ICdefect g.convolutionSquare {()}
+        (fun _ => W.convolutionSquare) (fun _ => 1)) := by
+  have hq := C1T2Assembly.defectGate_singleton_eq_sub g W
+  calc
+    p2AggregateValue g - p2AggregateValue W =
+        ICgate g.convolutionSquare - ICgate W.convolutionSquare := by
+      rw [p2AggregateValue_eq_ICgate_convolutionSquare,
+        p2AggregateValue_eq_ICgate_convolutionSquare]
+    _ = ICgate (ICdefect g.convolutionSquare {()}
+          (fun _ => W.convolutionSquare) (fun _ => 1)) := hq.symm
+
+theorem p2AggregateValue_eq_archimedean_plus_rangeProfile
+    (g : CompactLogTest) {B : ℝ}
+    (hsupport : Function.support g.convolutionSquare.test ⊆
+      Set.Ioo (-B) B) :
+    p2AggregateValue g =
+      archimedeanTerm g.convolutionSquare +
+        ∑ n ∈ Finset.range (Nat.ceil (Real.exp B) + 1),
+          ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+            (2 * (g.convolutionSquare.test (Real.log n)).re) := by
+  unfold p2AggregateValue
+  rw [← finitePrimeSum_eq_bilateralProfile_weighted_sum,
+    finitePrimeSum_convolutionSquare_eq_two_re_weighted_sum_range_of_support
+      g hsupport]
 
 /-- The aggregate profile inequality is not merely sufficient: on a
 triple-vanishing owner it is exactly equivalent to the desired `qw ≥ 0`. -/

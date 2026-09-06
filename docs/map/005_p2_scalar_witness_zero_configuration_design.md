@@ -2,8 +2,8 @@
 
 Date: 2026-09-05.
 
-Status: attack-plan registry. This record proves no new theorem, closes no
-obligation, and claims no sign. RH is not claimed.
+Status: attack-plan registry; Line B is now frozen. This record proves no new
+RH theorem and claims no sign. RH is not claimed.
 
 Map role: supporting design record under the binding ruling
 [`003`](003_b1_b5_minimal_exit_route_selection.md). It registers the
@@ -11,6 +11,14 @@ producer-side design for the single open C3 obligation P2 (obligation table
 of [`004`](004_endpoint_literature_interface_audit.md) section 4) after
 record 1140 isolated the exit contract. It changes no route selection and
 no endpoint authority.
+
+Freeze ruling (2026-09-06): Line B means the finite-positive Bombieri owner
+with a same-owner `qw` readback. That campaign is closed and frozen by explicit
+user instruction. Records 1192--1195 cover the canonical cutoff, socket-family,
+direct real-frequency, and coordinate-free same-owner obstructions. No new
+Line-B producer, wrapper, coordinate transformation, or numerical falsifier
+may be opened without Peter's explicit instruction. The detector-only B3
+lemmas remain archival formal infrastructure and do not reopen Line B.
 
 ## 1. The producer contract (FORMAL, landed)
 
@@ -249,8 +257,27 @@ finite eigen-relation, reciprocal identity, nonzero mass, and the explicit
 same-owner equality `qw g = lam * bombieriWMass gamma z`.  The existing
 Bombieri Wirtinger chain then supplies `0 ≤ qw g`, and
 `sourceRH_of_right_bombieriP2BridgeData` consumes the contract at `SourceRH`.
-No producer currently constructs this data for the pinned orbit detector;
-the owner equality and per-zero finite eigensystem remain OPEN.
+Records 1193 and 1195 now show that every such positive finite-owner contract
+is only a conditional `SourceRH` consumer: on the already healthy detector it
+is incompatible with `qw g < 0`, independently of the coordinate packaging.
+It is therefore not a remaining standalone Line-B producer target.
+
+Record 1194 formally kills the direct real-frequency port: an off-line zero's
+actual frequency has nonzero imaginary part, so it cannot be inserted as a
+real `gamma` ordinate.  This is a formal owner obstruction, not a numerical
+falsifier.  Record 1195 then kills the remaining indirect positive finite-owner
+shape at the owner level: any transformation preserving the exact healthy
+`qw = Q` readback with `Q ≥ 0` is covered by the generic contradiction.  A
+route that changes this sign/owner contract is a signed semi-local route, not
+Line B.
+
+Record 1195 closes this remaining interface loophole at the owner level:
+`not_healthyDetectorData_of_sameOwner_nonneg_readback` covers any coordinate
+change or hidden finite parametrization that still supplies `qw g = Q` with
+`0 ≤ Q`. Such a construction is formally incompatible with the healthy
+detector's strict negative value. A route that abandons this positive
+same-owner finite owner is no longer Line B and belongs to the signed
+semi-local alternatives.
 
 Falsifier: the fake-zero rig (Bombieri section 13, `N` up to 160). Measure
 whether the unique negative eigenvalue's magnitude at the window scale
@@ -769,6 +796,120 @@ modules plus the bridge/prefix consumer; the certificate and audit builds
 are green, with only the standard three axioms and no `sorryAx`.  This
 unblocks the concrete q28 `hcert` input mechanically; it does not prove the
 M-side true-table interval or the detector-specific P2 budget.
+
+Record [1197](../proofs/1197_route1_global_matrix_certificate_guard.md) now
+formalizes the route-1 finite-matrix socket.  The canonical aggregate scalar
+is exactly the existing `ICgate`, and on a finite span it is the quadratic form
+of `gateMatrix`.  A negative-semidefinite certificate for that matrix would
+prove the aggregate sign.  The paired guard
+`not_negGateMatrix_posSemidef_of_healthyDetector_span` shows that this global
+certificate is incompatible with any span containing the pinned healthy
+detector, whose formal `qw` value is strictly negative.  This is a formal
+no-go only for the universal matrix shape; route 1 remains open for a
+detector-specific signed/defect certificate, while the windowed positive-trace
+route remains the separate alternative.
+
+Record [1198](../proofs/1198_route1_visible_profile_residual_identity.md) lands
+the first exact detector-specific residual interface: if the pinned owner and
+a reference owner match in bilateral profile on the union of visible-prime
+log points, then the aggregate difference is exactly the Archimedean-term
+difference.  This cancels the complete finite-prime contribution but supplies
+no sign.  The remaining route-1 producer task is therefore a genuine
+visible-profile matching or signed residual theorem; Mellin-node interpolation
+alone is not such a theorem.
+
+Record [1199](../proofs/1199_route1_reference_residual_consumer.md) packages
+the minimal reference-owner producer contract.  Visible bilateral matching
+plus the signed bound
+`arch(g²) - arch(W²) ≤ -p2AggregateValue(W)` now directly produces the
+aggregate witness.  This contract is formal and honest, but remains
+uninstantiated for both `narrowArchRoot` and the pinned orbit correction.
+
+Record [1200](../proofs/1200_route1_primefree_reference_reduction.md) gives a
+useful specialization: with a reference square supported in
+`(-log 2, log 2)`, visible bilateral matching forces the pinned detector's
+entire finite-prime sum to vanish.  The aggregate target then reduces exactly
+to `archimedeanTerm g.convolutionSquare ≤ 0`.  `narrowArchRoot` supplies the
+reference support/certificate, but neither the matching nor the detector
+Archimedean sign has been proved.
+
+Record [1201](../proofs/1201_route1_primefree_reference_wrong_sign.md) formally
+reverses this candidate: under healthy detector data, exact visible matching to
+that prime-free reference implies
+`0 < archimedeanTerm g.convolutionSquare`, hence the aggregate is strictly
+positive.  Therefore Route 1 must retain a signed finite-prime residual (or
+find a different Archimedean comparison); the exact prime-free matching shape
+is a no-go for the producer.
+
+Record [1202](../proofs/1202_route1_signed_defect_gate_contract.md) replaces
+that dead exact-match target with a signed-residual candidate.  For any two
+owners, the aggregate difference is exactly the same-owner
+`ICgate(ICdefect g² W²)`.  Thus it is enough to prove the single-sided bound
+`ICgate(ICdefect g² W²) ≤ -p2AggregateValue W`; the signed finite-prime residual
+is retained rather than cancelled.  The corresponding aggregate witness and
+healthy B5 `SourceRH` consumer are now formal; the bound itself remains open.
+
+Record [1203](../proofs/1203_route1_signed_reference_tautology.md) closes an
+important loophole in that contract: for every `W`, the signed bound is
+formally equivalent to the direct target
+`ICgate(g.convolutionSquare) ≤ 0`.  The reference-budget comparison therefore
+cannot be the producer; work must move to a direct same-owner semi-local gate
+estimate or a genuinely different inequality.
+
+Record [1204](../proofs/1204_route1_nonvanishing_reference_identity.md) retains
+the unconditional aggregate/defect identity as a bookkeeping tool, but records
+that non-vanishing `W` does not rescue the cancelled reference-budget bound.
+
+Record [1205](../proofs/1205_route1_reference_budget_healthy_nogo.md) closes the
+comparison family against the live owner: the reference-budget inequality is
+incompatible with `HealthyYoshidaDetectorData`, because that data formally
+forces `ICgate(g.convolutionSquare) > 0`.  The remaining producer is therefore
+genuinely a new detector-specific proof of `ICgate(g.convolutionSquare) ≤ 0`.
+
+Record [1206](../proofs/1206_route1_direct_gate_canonical_socket.md) packages
+that exact inequality as `P2DirectGateProducerData`.  Its adapter to the
+aggregate witness is formal and carries no stored `qw` conclusion; all remaining
+mathematics is concentrated in its single `hgate` field.
+
+Record [1207](../proofs/1207_route1_spectral_tail_repayment.md) isolates a
+necessary signed target for the Bombieri/trace realization of that field.  Once
+the formal orbit-controlled finite prefix is at most
+`-xiMultiplicity(rho)`, any successful direct sign must make the high-shell
+tail at least `xiMultiplicity(rho)`.  Norm-tail upper bounds alone cannot close
+this route; the missing input is a genuine positive tail readback/lower bound.
+
+Record [1208](../proofs/1208_route1_aggregate_bombieri_socket.md) packages
+that missing input as the aggregate Bombieri socket: retain the exact
+same-owner finite-quadratic-plus-signed-tail identity and require only
+`tail >= -quadratic`.  The finite quadratic term is already nonnegative, so
+this is sufficient for the direct `qw >= 0` producer while allowing the
+orbit-controlled finite prefix itself to be negative.
+
+Record [1209](../proofs/1209_route1_aggregate_fourth_order_tail_nogo.md) is a
+formal no-go for pairing this aggregate socket with the existing absolute
+fourth-order Yoshida tail estimate at the same cutoff: the latter forces the
+full `qw` negative once the orbit prefix is anchored.  The next live target is
+therefore a signed trace/tail lower bound or a genuinely different aggregate
+decomposition, not another norm-tail upper bound.
+
+Record [1210](../proofs/1210_positive_trace_plain_window_nogo.md) separately
+closes the plain-window positive-trace family: its exact trace is window
+length times fixed `L2` mass, so its remainder-corrected same-owner readback
+contract is empty for every nonzero test.  This does not affect the live
+projection-window owner from record 1174; it prevents that live route from
+being silently replaced by the already refuted plain window.
+
+Record [1211](../proofs/1211_projection_fixed_response_trace_obstruction.md)
+sharpens the live projection route: if the insertion defect's real trace were
+to vanish while the response stayed fixed, the cutoff contract would be
+impossible by the exact trace ledger and the cofinal window-bulk divergence.
+Thus the remaining projection producer must retain a divergent trace
+counterterm or use a moving/renormalized response; operator-norm decay alone
+does not close that gap.
+
+The socket is now connected to the healthy-detector and pinned same-detector
+`SourceRH` consumers in `C1P2BilateralProfileExit`; this is an interface
+integration, not a proof that the signed-tail field can be supplied.
 
 ## 7. Scope guards
 

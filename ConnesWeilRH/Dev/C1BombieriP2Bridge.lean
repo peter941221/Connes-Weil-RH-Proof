@@ -6,6 +6,7 @@ Released under the Apache 2.0 license as described in the file LICENSE.
 import ConnesWeilRH.Dev.C1BombieriSection8LambdaSign
 import ConnesWeilRH.Dev.C1BombieriFiniteQuadraticBridge
 import ConnesWeilRH.Dev.C1HealthyYoshidaSpectralNegativity
+import ConnesWeilRH.Dev.C1SpectralTailBound
 import ConnesWeilRH.Dev.C1SameOwnerWeil
 
 /-!
@@ -38,6 +39,8 @@ open C1BombieriSection7Gamma
 open C1BombieriSection7H
 open C1HealthyYoshidaDetector
 open C1HealthyYoshidaSpectralNegativity
+open C1SpectralTailBound
+open C1SpectralSummability
 open C1SpectralWeil
 open C1SameOwnerWeil
 open CC20YoshidaConvolution
@@ -139,6 +142,28 @@ structure BombieriQuadraticSpectralTailP2BridgeData (g : CompactLogTest) where
       (star (bombieriWOfZ gamma z) ⬝ᵥ
         (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re
 
+/-! An aggregate producer keeps the signed shell tail in the same equation as
+the finite quadratic term.  Its only analytic tail obligation is the lower
+bound needed to repay a possibly negative finite prefix; no conclusion about
+`qw` is stored in the data. -/
+structure BombieriQuadraticAggregateP2BridgeData (g : CompactLogTest) where
+  n : Nat
+  t : Real
+  ht : 0 < t
+  gamma : Fin n -> Real
+  z : Fin n -> Complex
+  N : Nat
+  qw_eq_quadratic_add_spectralTail : C1SameOwnerWeil.qw g =
+    (star (bombieriWOfZ gamma z) ⬝ᵥ
+      (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re +
+      (∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+        spectralTerm g.convolutionSquare rho.1).re
+  spectralTail_ge_neg_quadratic :
+    -(star (bombieriWOfZ gamma z) ⬝ᵥ
+      (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re ≤
+      (∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+        spectralTerm g.convolutionSquare rho.1).re
+
 /-- In the nonzero reciprocal-eigenvector branch, the finite Hermitian main
 term has a strictly positive real value.  This supplies the margin that a
 future same-owner tail producer must beat. -/
@@ -169,6 +194,16 @@ theorem bombieriHMatrix_quadraticForm_pos_of_eigen
             simp [Complex.mul_re]
   rw [hform]
   exact hprod
+
+theorem qw_nonneg_of_bombieriQuadraticAggregateP2BridgeData
+    {g : CompactLogTest} (p : BombieriQuadraticAggregateP2BridgeData g) :
+    0 ≤ C1SameOwnerWeil.qw g := by
+  obtain ⟨S, hS, hform⟩ := bombieriHMatrix_quadraticForm_eq_ofReal_nonneg
+    p.t p.ht p.gamma p.z
+  have htail := p.spectralTail_ge_neg_quadratic
+  rw [p.qw_eq_quadratic_add_spectralTail, hform]
+  rw [hform] at htail
+  linarith
 
 /-- The same nonzero reciprocal-eigenvector branch admits a shell cutoff whose
 spectral norm tail is strictly smaller than the finite Bombieri main term. -/
@@ -238,6 +273,54 @@ theorem qw_eq_spectralPrefix_add_spectralTail
       (spectralHeightShellSum_split g.convolutionSquare N)
   rw [C1CenterTwoCriterionBridge.qw_eq_spectralWeilValue_centerTwo,
     C1SpectralWeil.spectralWeilValue, hsum, Complex.add_re]
+
+/- A direct P2 sign cannot hide the negative finite prefix: whenever the
+   orbit-controlled prefix is at most the anchor multiplicity's negative,
+   the high-shell tail must repay at least that multiplicity. -/
+theorem spectralTail_re_ge_xiMultiplicity_of_qw_nonneg_and_prefix_anchor
+    (g : CompactLogTest) (N : Nat) (rho : sourceNontrivialZeroSet)
+    (hqw : 0 ≤ C1SameOwnerWeil.qw g)
+    (hprefix :
+      (∑ m ∈ Finset.range N, ∑' z : spectralHeightShell m,
+        spectralTerm g.convolutionSquare z.1).re ≤
+        -(xiMultiplicity rho : Real)) :
+    (xiMultiplicity rho : Real) ≤
+      (∑' m : Nat, ∑' z : spectralHeightShell (m + N),
+        spectralTerm g.convolutionSquare z.1).re := by
+  have hsplit := qw_eq_spectralPrefix_add_spectralTail g N
+  linarith
+
+theorem spectralTail_re_ge_xiMultiplicity_of_bombieriQuadraticAggregateP2BridgeData
+    {g : CompactLogTest} (p : BombieriQuadraticAggregateP2BridgeData g)
+    (rho : sourceNontrivialZeroSet)
+    (hprefix :
+      (∑ m ∈ Finset.range p.N, ∑' z : spectralHeightShell m,
+        spectralTerm g.convolutionSquare z.1).re ≤
+        -(xiMultiplicity rho : Real)) :
+    (xiMultiplicity rho : Real) ≤
+      (∑' m : Nat, ∑' z : spectralHeightShell (m + p.N),
+        spectralTerm g.convolutionSquare z.1).re := by
+  exact spectralTail_re_ge_xiMultiplicity_of_qw_nonneg_and_prefix_anchor
+    g p.N rho (qw_nonneg_of_bombieriQuadraticAggregateP2BridgeData p) hprefix
+
+theorem not_bombieriQuadraticAggregateP2BridgeData_of_fourthOrderTail_and_prefix
+    {g : CompactLogTest} (p : BombieriQuadraticAggregateP2BridgeData g)
+    (rho : sourceNontrivialZeroSet) (T epsilon : Real)
+    (htail : FourthOrderSpectralTail g.convolutionSquare rho.1 T epsilon)
+    (n0 : Nat) (hT : T ≤ (2 : Real) ^ (n0 + 1))
+    (hrhoHeight : 2 * |rho.1.im| ≤ (2 : Real) ^ (n0 + 1))
+    (hprefix :
+      (∑ k ∈ Finset.range (n0 + 1), ∑' z : spectralHeightShell k,
+        spectralTerm g.convolutionSquare z.1).re ≤
+        -(xiMultiplicity rho : Real))
+    (hsmall : 4 * epsilon ^ 2 * spectralMultiplicityConstant *
+        (3 / 4 : Real) ^ n0 < (xiMultiplicity rho : Real)) : False := by
+  have hneg := spectralWeilValue_neg_of_spectralHeightShellPrefix_and_fourthOrderTail
+    g.convolutionSquare rho T epsilon htail n0 hT hrhoHeight hprefix hsmall
+  have hqwneg : C1SameOwnerWeil.qw g < 0 := by
+    rw [C1CenterTwoCriterionBridge.qw_eq_spectralWeilValue_centerTwo]
+    exact hneg
+  exact (not_lt_of_ge (qw_nonneg_of_bombieriQuadraticAggregateP2BridgeData p)) hqwneg
 
 /-- A split producer contract whose only analytic Bombieri obligation is the
 identification of the finite spectral prefix with the finite Hermitian main
@@ -511,6 +594,71 @@ theorem not_nonempty_bombieriQuadraticP2BridgeData_of_healthyDetectorData
   obtain ⟨p⟩ := hp
   exact not_bombieriQuadraticP2BridgeData_of_healthyDetectorData hdata p
 
+/-- Any finite-form Line-B socket that already proves the healthy-owner sign
+is incompatible with the strict negative value carried by healthy detector
+data.  This common consumer keeps the following socket-family guards honest:
+they are conditional contradiction checks, not a claim that RH is proved. -/
+theorem not_healthyDetectorData_of_qw_nonneg
+    {rho : Complex} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    (hqw : 0 <= C1SameOwnerWeil.qw g) : False := by
+  have hnegativeSpectral :
+      C1SpectralWeil.spectralWeilValue g.convolutionSquare < 0 :=
+    (weilSquareSumPositive_iff_spectralWeilValue_neg g).mp
+      hdata.weilSquareSumPositive
+  have hnegative : C1SameOwnerWeil.qw g < 0 := by
+    rw [C1CenterTwoCriterionBridge.qw_eq_spectralWeilValue_centerTwo]
+    exact hnegativeSpectral
+  exact (not_lt_of_ge hqw) hnegative
+
+/- Any indirect finite-owner transformation is covered once it provides an
+exact same-owner readback to a nonnegative real finite form.  The statement
+deliberately abstracts away the choice of coordinates, Gamma parametrization,
+and residual packaging. -/
+theorem not_healthyDetectorData_of_sameOwner_nonneg_readback
+    {rho : Complex} {g : CompactLogTest} {Q : Real}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    (hreadback : C1SameOwnerWeil.qw g = Q)
+    (hQ : 0 <= Q) : False := by
+  apply not_healthyDetectorData_of_qw_nonneg hdata
+  rw [hreadback]
+  exact hQ
+
+theorem not_bombieriP2BridgeData_of_healthyDetectorData
+    {rho : Complex} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    (p : BombieriP2BridgeData g) : False :=
+  not_healthyDetectorData_of_qw_nonneg hdata
+    (qw_nonneg_of_bombieriP2BridgeData p)
+
+theorem not_bombieriQuadraticResidualP2BridgeData_of_healthyDetectorData
+    {rho : Complex} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    (p : BombieriQuadraticResidualP2BridgeData g) : False :=
+  not_healthyDetectorData_of_qw_nonneg hdata
+    (qw_nonneg_of_bombieriQuadraticResidualP2BridgeData p)
+
+theorem not_bombieriQuadraticSpectralTailP2BridgeData_of_healthyDetectorData
+    {rho : Complex} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    (p : BombieriQuadraticSpectralTailP2BridgeData g) : False :=
+  not_healthyDetectorData_of_qw_nonneg hdata
+    (qw_nonneg_of_bombieriQuadraticSpectralTailP2BridgeData p)
+
+theorem not_bombieriQuadraticCanonicalSpectralTailP2BridgeData_of_healthyDetectorData
+    {rho : Complex} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    (p : BombieriQuadraticCanonicalSpectralTailP2BridgeData g) : False :=
+  not_healthyDetectorData_of_qw_nonneg hdata
+    (qw_nonneg_of_bombieriQuadraticCanonicalSpectralTailP2BridgeData p)
+
+theorem not_bombieriQuadraticCanonicalPrefixP2BridgeData_of_healthyDetectorData
+    {rho : Complex} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    (p : BombieriQuadraticCanonicalPrefixP2BridgeData g) : False :=
+  not_healthyDetectorData_of_qw_nonneg hdata
+    (qw_nonneg_of_bombieriQuadraticCanonicalPrefixP2BridgeData p)
+
 /-- Pointwise healthy-detector consumer for the Line-B bridge.  The healthy
 data is carried explicitly so the theorem is attached to the same B5 owner
 as the detector-specific contradiction. -/
@@ -553,8 +701,17 @@ theorem qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticCanonicalSpectralTa
     {rho : Complex} {g : CompactLogTest}
     (_hdata : HealthyYoshidaDetectorData rho g)
     (p : BombieriQuadraticCanonicalSpectralTailP2BridgeData g) :
-    0 <= C1SameOwnerWeil.qw g :=
+  0 <= C1SameOwnerWeil.qw g :=
   qw_nonneg_of_bombieriQuadraticCanonicalSpectralTailP2BridgeData p
+
+/- The aggregate signed-tail socket is attached to the same healthy detector
+owner; its producer obligation remains the explicit tail lower bound. -/
+theorem qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticAggregateP2BridgeData
+    {rho : Complex} {g : CompactLogTest}
+    (_hdata : HealthyYoshidaDetectorData rho g)
+    (p : BombieriQuadraticAggregateP2BridgeData g) :
+    0 <= C1SameOwnerWeil.qw g :=
+  qw_nonneg_of_bombieriQuadraticAggregateP2BridgeData p
 
 /-- If a Line-B producer supplies bridge data for one healthy detector at each
 right-oriented off-line zero, the existing contradiction consumer yields
@@ -588,6 +745,21 @@ theorem sourceRH_of_right_bombieriQuadraticP2BridgeData
   obtain ⟨p⟩ := hp
   exact ⟨g, hdata,
     qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticP2BridgeData hdata p⟩
+
+theorem sourceRH_of_right_bombieriQuadraticAggregateP2BridgeData
+    (hbridge : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+            Nonempty (BombieriQuadraticAggregateP2BridgeData g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, hdata, hp⟩ := hbridge rho hright
+  obtain ⟨p⟩ := hp
+  exact ⟨g, hdata,
+    qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticAggregateP2BridgeData
+      hdata p⟩
 
 end
 end C1BombieriP2Bridge

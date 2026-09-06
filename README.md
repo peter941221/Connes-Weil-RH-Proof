@@ -553,6 +553,7 @@ proof campaigns:
 | B5 | Positivity for the detector selected against each hypothetical zero | Active healthy-owner mainline |
 | ROOT | A local CC20 support class with no visible prime powers | Shared base; not an RH exit |
 | Orbit | The selected detector's actual support and visible prime powers | C3 consumer; positivity open |
+| Line B | Finite-positive Bombieri owner and same-owner readback | Frozen; records 1192--1195; explicit re-open instruction required |
 
 The binding decision is record 1076:
 [003_b1_b5_minimal_exit_route_selection.md](docs/map/003_b1_b5_minimal_exit_route_selection.md).

@@ -17,6 +17,8 @@ namespace ConnesWeilRH
 namespace Source
 namespace C1P2BilateralProfileExit
 
+open MeasureTheory
+open C1GateMatrixRepresentation
 open C1HealthyYoshidaDetector
 open C1HealthyYoshidaSpectralNegativity
 open C1BombieriP2Bridge
@@ -52,8 +54,145 @@ structure P2BilateralProfileRangeWitness (g : CompactLogTest) (B : ℝ) where
   hbalance :
     archimedeanTerm g.convolutionSquare +
       ∑ n ∈ Finset.range (Nat.ceil (Real.exp B) + 1),
-        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+          ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
           (2 * (g.convolutionSquare.test (Real.log n)).re) ≤ 0
+
+/- Canonical direct-gate producer data.  This is the active Route-1 socket:
+   unlike reference contracts it contains exactly the detector-specific sign
+   still missing from the healthy CompactLog owner. -/
+structure P2DirectGateProducerData (g : CompactLogTest) where
+  hgate : ICgate g.convolutionSquare ≤ 0
+
+theorem P2BilateralProfileAggregateWitness.of_directGateProducerData
+    (g : CompactLogTest) (p : P2DirectGateProducerData g) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance := by
+    have hp2 : p2AggregateValue g ≤ 0 := by
+      rw [p2AggregateValue_eq_ICgate_convolutionSquare]
+      exact p.hgate
+    simpa [p2AggregateValue] using hp2
+
+/- A reference-owner producer contract for route 1.  The profile matching
+   cancels the visible-prime residual; `harch` is the remaining signed
+   Archimedean comparison and is intentionally an input, not a conclusion. -/
+theorem P2BilateralProfileAggregateWitness.of_visibleProfileReferenceResidual
+    (g W : CompactLogTest)
+    (hgv : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (hWv : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet W)
+    (hprofile : BilateralProfileMatchOn g.convolutionSquare
+      W.convolutionSquare
+      ((fun n : ℕ => Real.log (n : ℝ)) ''
+        ((globalPrimeIndexSet g.convolutionSquare ∪
+          globalPrimeIndexSet W.convolutionSquare : Finset ℕ) : Set ℕ)))
+    (harch : archimedeanTerm g.convolutionSquare -
+      archimedeanTerm W.convolutionSquare ≤ -p2AggregateValue W) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance := by
+    have hres := p2AggregateValue_sub_eq_archimedean_sub_of_visibleProfileMatch
+      g W hgv hWv hprofile
+    have haggregate : p2AggregateValue g ≤ 0 := by
+      linarith
+    simpa [p2AggregateValue] using haggregate
+
+/- A fully signed residual consumer.  Unlike the prime-free specialization,
+   it keeps the finite-prime defect gate and asks only for its one-sided bound. -/
+theorem P2BilateralProfileAggregateWitness.of_signedDefectGateResidual
+    (g W : CompactLogTest)
+    (hgate : ICgate (ICdefect g.convolutionSquare {()}
+        (fun _ => W.convolutionSquare) (fun _ => 1)) ≤
+      -p2AggregateValue W) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance := by
+    have hres := p2AggregateValue_sub_eq_defectGate g W
+    have haggregate : p2AggregateValue g ≤ 0 := by
+      linarith
+    simpa [p2AggregateValue] using haggregate
+
+/- The complete healthy-owner B5 consumer for the signed residual contract. -/
+theorem sourceRH_of_pinnedOrbitDetector_p2SignedDefectGateResidual
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g W : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+          ICgate (ICdefect g.convolutionSquare {()}
+              (fun _ => W.convolutionSquare) (fun _ => 1)) ≤
+            -p2AggregateValue W) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, W, hdata, hgate⟩ := hproducer rho hright
+  have haggregate : P2BilateralProfileAggregateWitness g :=
+    P2BilateralProfileAggregateWitness.of_signedDefectGateResidual
+      g W hgate
+  exact ⟨g, hdata,
+      qw_nonneg_of_archimedean_plus_bilateralProfile_weighted_sum_nonpos
+      g hdata.vanishesOnF haggregate.hbalance⟩
+
+/- The reference-budget contract contains no extra budget for any reference:
+   its gate contribution cancels exactly against `p2AggregateValue W`. -/
+theorem signedDefectGateResidual_iff_detectorGate_nonpos
+    (g W : CompactLogTest) :
+    (ICgate (ICdefect g.convolutionSquare {()}
+        (fun _ => W.convolutionSquare) (fun _ => 1)) ≤
+      -p2AggregateValue W) ↔
+      ICgate g.convolutionSquare ≤ 0 := by
+  rw [C1T2Assembly.defectGate_singleton_eq_sub,
+    p2AggregateValue_eq_ICgate_convolutionSquare]
+  constructor <;> intro h <;> linarith
+
+theorem not_signedDefectGateResidual_of_healthyDetectorData
+    {rho : Complex} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    (W : CompactLogTest)
+    (hgate : ICgate (ICdefect g.convolutionSquare {()}
+        (fun _ => W.convolutionSquare) (fun _ => 1)) ≤
+      -p2AggregateValue W) :
+    False := by
+  have hnonpos : ICgate g.convolutionSquare ≤ 0 :=
+    (signedDefectGateResidual_iff_detectorGate_nonpos g W).mp hgate
+  have hnegative : C1SameOwnerWeil.qw g < 0 := by
+    have hnegativeSpectral :
+        C1SpectralWeil.spectralWeilValue g.convolutionSquare < 0 :=
+      (weilSquareSumPositive_iff_spectralWeilValue_neg g).mp
+        hdata.weilSquareSumPositive
+    rw [C1CenterTwoCriterionBridge.qw_eq_spectralWeilValue_centerTwo]
+    exact hnegativeSpectral
+  have hpositive : 0 < ICgate g.convolutionSquare := by
+    rw [← p2AggregateValue_eq_ICgate_convolutionSquare,
+      p2AggregateValue_eq_neg_qw_of_vanishes g hdata.vanishesOnF]
+    linarith
+  exact (not_lt_of_ge hnonpos) hpositive
+
+/- A negative-semidefinite matrix certificate on a span containing the pinned
+   detector would already contradict the detector branch.  This guard keeps
+   route 1 focused on a genuinely detector-specific certificate rather than a
+   universal finite-span sign theorem. -/
+theorem not_negGateMatrix_posSemidef_of_healthyDetector_span
+    {rho : Complex} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    {k : ℕ} (w : Fin k → CompactLogTest) (y : Fin k → ℝ)
+    {B : ℝ} (hw : ∀ i, Function.support (w i).test ⊆ Set.Ioo (-B) B)
+    (hI : ∀ i j, IntegrableOn (archimedeanIntegrand (pairTest w i j))
+      (Set.Ioi (0 : ℝ)))
+    (hspan : spanObj w y = g)
+    (hM : (-gateMatrix w).PosSemidef) :
+    False := by
+  have hnonpos : p2AggregateValue (spanObj w y) ≤ 0 :=
+    p2AggregateValue_spanObj_nonpos_of_negGateMatrix_posSemidef
+      w y hw hI hM
+  have hnegativeSpectral :
+      C1SpectralWeil.spectralWeilValue g.convolutionSquare < 0 :=
+    (weilSquareSumPositive_iff_spectralWeilValue_neg g).mp
+      hdata.weilSquareSumPositive
+  have hnegative : C1SameOwnerWeil.qw g < 0 := by
+    rw [C1CenterTwoCriterionBridge.qw_eq_spectralWeilValue_centerTwo]
+    exact hnegativeSpectral
+  have hpositive : 0 < p2AggregateValue g := by
+    rw [p2AggregateValue_eq_neg_qw_of_vanishes g hdata.vanishesOnF]
+    linarith
+  exact (not_lt_of_ge (by simpa [hspan] using hnonpos)) hpositive
 
 /-- The earlier pointwise witness is a special case of the aggregate target. -/
 theorem P2BilateralProfileSignWitness.toAggregate
@@ -181,6 +320,19 @@ theorem P2BilateralProfileAggregateWitness.of_bombieriQuadraticP2BridgeData
   hbalance :=
     (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
       g hvanishes).mp (qw_nonneg_of_bombieriQuadraticP2BridgeData p)
+
+/-- The signed-tail aggregate contract feeds the same detector-specific
+profile owner without collapsing the tail into a norm budget. -/
+theorem P2BilateralProfileAggregateWitness.of_bombieriQuadraticAggregateP2BridgeData
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (p : BombieriQuadraticAggregateP2BridgeData g) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance :=
+    (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
+      g hvanishes).mp
+      (qw_nonneg_of_bombieriQuadraticAggregateP2BridgeData p)
 
 /-- Residual-aware finite Hermitian data feeds the same aggregate P2 owner;
 the residual domination has already been discharged by its own consumer. -/
@@ -321,7 +473,27 @@ theorem sourceRH_of_pinnedOrbitDetector_p2BombieriQuadraticP2BridgeData
   obtain ⟨g, _n, hdata, _hsupport, _hvisible, ⟨hp2⟩⟩ :=
     hproducer rho hright
   exact ⟨g, hdata,
-    qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticP2BridgeData
+      qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticP2BridgeData
+      hdata hp2⟩
+
+/-- Pinned same-detector exit for the signed-tail aggregate contract. -/
+theorem sourceRH_of_pinnedOrbitDetector_p2BombieriQuadraticAggregateP2BridgeData
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest, ∃ n : Nat,
+          HealthyYoshidaDetectorData rho.1 g ∧
+          Function.support g.test ⊆
+            Set.Ioo (-((n + 2 : Nat) : Real)) (((n + 2 : Nat) : Real)) ∧
+          (∀ q ∈ globalPrimeIndexSet g.convolutionSquare,
+            (q : Real) < Real.exp (2 * ((n + 2 : Nat) : Real))) ∧
+          Nonempty (BombieriQuadraticAggregateP2BridgeData g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, _n, hdata, _hsupport, _hvisible, ⟨hp2⟩⟩ :=
+    hproducer rho hright
+  exact ⟨g, hdata,
+    qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticAggregateP2BridgeData
       hdata hp2⟩
 
 /-- Pinned same-detector exit for the residual-aware direct quadratic

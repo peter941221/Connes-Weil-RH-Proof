@@ -44,6 +44,19 @@ theorem zeroFrequency_im_eq_zero_iff (rho : sourceNontrivialZeroSet) :
   rw [zeroFrequency_im]
   constructor <;> intro h <;> linarith
 
+/-- A direct real-Γ Bombieri port cannot identify a real ordinate with the
+actual frequency of an off-line zero.  This is an owner obstruction, not a
+numerical observation: equality to a real complex number forces zero
+imaginary part, hence the critical line. -/
+theorem no_direct_real_frequency_identification_of_off_line
+    (rho : sourceNontrivialZeroSet) (hoff : rho.1.re ≠ 1 / 2)
+    (gamma : Real) (hgamma : (gamma : Complex) = zeroFrequency rho) :
+    False := by
+  have him : (zeroFrequency rho).im = 0 := by
+    rw [← hgamma]
+    simp
+  exact hoff ((zeroFrequency_im_eq_zero_iff rho).mp him)
+
 theorem centeredXiCoordinate_eq_I_mul_frequency (rho : sourceNontrivialZeroSet) :
     centeredXiCoordinate rho = Complex.I * zeroFrequency rho := by
   unfold zeroFrequency
@@ -525,6 +538,44 @@ theorem no_selectedOwner_canonicalQIntegrandPrefix_of_orbit_control
   have hmult : 0 < (xiMultiplicity rho : Real) := by
     exact_mod_cast xiMultiplicity_pos rho
   linarith
+
+/-- The canonical cutoff itself determines the controlled finite prefix.  Thus
+the preceding obstruction does not need a separately supplied cutoff equality:
+if the selected square kills every source zero outside its orbit in that
+canonical prefix, a canonical qIntegrand producer is impossible. -/
+theorem no_selectedOwner_canonicalQIntegrandPrefix_of_orbit_control_at_cutoff
+    (base correction : CompactLogTest) (n : Nat)
+    (rho : sourceNontrivialZeroSet) (hoff : rho.1.re ≠ 1 / 2)
+    (htargets :
+      ∀ w : FiniteMellinNode (sourceFunctionalEquationOrbit rho.1),
+        laplaceAt ((convolutionIterate base n).convolution correction) w.1 =
+          negativeSourceOrbitValue rho.1 w)
+    (p : BombieriQuadraticCanonicalQIntegrandPrefixP2BridgeData
+      (selectedOwner base correction n).sourceTest)
+    (houtside : ∀ z : sourceNontrivialZeroSet,
+      z ∈ spectralHeightShellPrefix
+          (bombieriSpectralTailCutoff
+            (selectedOwner base correction n).sourceTest
+            p.t p.ht p.gamma p.z p.Lam p.lam p.hz p.heigen p.hrecip) →
+      z.1 ∉ sourceFunctionalEquationOrbit rho.1 →
+        laplaceAt (selectedOwner base correction n).convolutionSquare
+          (z.1 - 1 / 2) = 0)
+    (hrho : rho ∈ spectralHeightShellPrefix
+      (bombieriSpectralTailCutoff
+        (selectedOwner base correction n).sourceTest
+        p.t p.ht p.gamma p.z p.Lam p.lam p.hz p.heigen p.hrecip)) :
+    False := by
+  let N := bombieriSpectralTailCutoff
+    (selectedOwner base correction n).sourceTest
+    p.t p.ht p.gamma p.z p.Lam p.lam p.hz p.heigen p.hrecip
+  have hN :
+      bombieriSpectralTailCutoff
+          (selectedOwner base correction n).sourceTest
+          p.t p.ht p.gamma p.z p.Lam p.lam p.hz p.heigen p.hrecip = N := by
+    rfl
+  exact no_selectedOwner_canonicalQIntegrandPrefix_of_orbit_control
+    base correction n rho hoff htargets p N hrho (by
+      simpa only [N] using houtside) hN
 
 /-- The canonical qIntegrand contract cannot be combined with a negative
 finite prefix at the positive-multiplicity anchor. -/

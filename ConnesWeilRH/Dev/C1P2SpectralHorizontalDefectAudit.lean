@@ -4,6 +4,7 @@ namespace ConnesWeilRH.Source.C1P2SpectralHorizontalDefect
 
 #print axioms zeroFrequency_im
 #print axioms zeroFrequency_im_eq_zero_iff
+#print axioms no_direct_real_frequency_identification_of_off_line
 #print axioms centeredXiCoordinate_eq_I_mul_frequency
 #print axioms pairedMass_nonneg
 #print axioms horizontalDefect_nonneg
@@ -25,6 +26,7 @@ namespace ConnesWeilRH.Source.C1P2SpectralHorizontalDefect
 #print axioms canonicalQIntegrandPrefix_defect_le_mass
 #print axioms canonicalQIntegrandPrefix_re_nonneg
 #print axioms no_selectedOwner_canonicalQIntegrandPrefix_of_orbit_control
+#print axioms no_selectedOwner_canonicalQIntegrandPrefix_of_orbit_control_at_cutoff
 #print axioms not_canonicalQIntegrandPrefix_of_prefix_nonpos
 #print axioms laplaceAt_sub_reflected_eq_integral
 #print axioms horizontalDefect_eq_integral
