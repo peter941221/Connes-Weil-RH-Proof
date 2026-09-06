@@ -457,6 +457,14 @@ The adapter also exposes the exact same-owner `SourceRH` exit, so this fixed
 window is now a complete producer socket: only the detector-side budget and
 margin need an analytic construction.
 
+Record 1158 strengthens the no-go to the full formal `P2OneWindowBudgetWitness`
+contract, with arbitrary `W`, `mu`, and support radius.  Its own consumer
+would produce `orbitWindowSemiLocalGate` and hence `qw(g) ≥ 0`, contradicting
+the strict negative value carried by `HealthyYoshidaDetectorData`.  Therefore
+changing the reference window cannot rescue the absolute-value Stage-B
+budget; further scalar-budget variants are frozen.  Work now targets the
+signed bilateral-profile route or a genuinely new semi-local trace theorem.
+
 Record 1157 now gives the decisive FORMAL no-go for that scalar socket.  For
 any `HealthyYoshidaDetectorData rho g`, a
 `P2NarrowReferenceCanonicalWitness g` implies the defect gate bound through
