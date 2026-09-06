@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1P2NarrowWindowCertificate
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1P2NarrowWindowCertificate
+
+#print axioms narrowArchRoot_ICgate_neg
+#print axioms narrowArchRoot_exists_gate_certificate
+#print axioms narrowArchRoot_gate_certificate_of_margin
+
+end C1P2NarrowWindowCertificate
+end Source
+end ConnesWeilRH

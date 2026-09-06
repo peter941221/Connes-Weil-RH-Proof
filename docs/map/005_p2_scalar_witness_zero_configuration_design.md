@@ -437,6 +437,14 @@ detector owner for every right-oriented off-line zero.  Constructing that
 witness for the pinned orbit remains the sole open analytic task in this
 subroute.
 
+Record 1155 supplies a FORMAL fixed reference window for the scalar witness:
+the existing `narrowArchRoot` has strict negative `ICgate` because its square
+is prime-free and its archimedean term is strict negative.  Thus the window
+certificate and its positive margin can be instantiated exactly; the remaining
+P2 producer obligation is the detector-to-window defect budget (or an
+alternative direct profile sign), not construction of a negative reference
+gate.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds
