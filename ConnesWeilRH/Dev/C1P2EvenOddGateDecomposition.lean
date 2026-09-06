@@ -18,6 +18,7 @@ namespace C1P2EvenOddGateDecomposition
 open C1HealthyDetectorArchRescue
 open C1P2BilateralProfile
 open C1LocalConfigurationDomination
+open C1HealthyYoshidaDetector
 open C1SameOwnerWeil
 open CCM25Concrete.CompactLogConvolution
 
@@ -172,6 +173,34 @@ theorem ICgate_convolutionSquare_sumTest_eq_add_of_even_odd
   rw [archimedeanTerm_convolutionSquare_sumTest_of_even_odd f g hf hg,
     finitePrimeSum_convolutionSquare_sumTest_eq_add_of_even_odd f g hf hg]
   ring
+
+theorem qw_eq_neg_diagonal_gate_sum_of_even_odd_of_vanishes
+    (f g : CompactLogTest)
+    (hf : ∀ x : ℝ, f.test (-x) = f.test x)
+    (hg : ∀ x : ℝ, g.test (-x) = -g.test x)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet (sumTest f g)) :
+    C1SameOwnerWeil.qw (sumTest f g) =
+      -(ICgate f.convolutionSquare + ICgate g.convolutionSquare) := by
+  have hgate := ICgate_convolutionSquare_sumTest_eq_add_of_even_odd
+    f g hf hg
+  rw [qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple
+    (sumTest f g) hvanishes, ← hgate]
+  unfold ICgate
+  ring
+
+theorem qw_nonneg_of_diagonal_gate_nonpos_of_even_odd_of_vanishes
+    (f g : CompactLogTest)
+    (hf : ∀ x : ℝ, f.test (-x) = f.test x)
+    (hg : ∀ x : ℝ, g.test (-x) = -g.test x)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet (sumTest f g))
+    (hfGate : ICgate f.convolutionSquare ≤ 0)
+    (hgGate : ICgate g.convolutionSquare ≤ 0) :
+    0 ≤ C1SameOwnerWeil.qw (sumTest f g) := by
+  rw [qw_eq_neg_diagonal_gate_sum_of_even_odd_of_vanishes
+    f g hf hg hvanishes]
+  linarith
 
 end
 end C1P2EvenOddGateDecomposition

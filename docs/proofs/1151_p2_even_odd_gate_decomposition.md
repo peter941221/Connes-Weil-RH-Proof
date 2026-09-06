@@ -18,6 +18,16 @@ The existing archimedean odd-kill therefore yields the full gate identity
 ICgate((f + g)□) = ICgate(f□) + ICgate(g□).
 ```
 
+For a triple-vanishing total test, the same identity reads
+
+```text
+qw(f + g) = -(ICgate(f□) + ICgate(g□)).
+```
+
+The paired consumer proves that nonpositive diagonal gates suffice for
+`qw(f + g) ≥ 0`; the missing work is now two diagonal sign estimates, not a
+hidden cross-term estimate.
+
 The owning and audit modules build successfully in 3681 jobs.  The audited
 declarations use only `[propext, Classical.choice, Quot.sound]`; there are no
 `error:` lines and no `sorryAx`.

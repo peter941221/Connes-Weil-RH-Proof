@@ -12,6 +12,8 @@ namespace C1P2EvenOddGateDecomposition
 #print axioms finitePrimeSum_crossTest_eq_zero_of_even_odd
 #print axioms finitePrimeSum_convolutionSquare_sumTest_eq_add_of_even_odd
 #print axioms ICgate_convolutionSquare_sumTest_eq_add_of_even_odd
+#print axioms qw_eq_neg_diagonal_gate_sum_of_even_odd_of_vanishes
+#print axioms qw_nonneg_of_diagonal_gate_nonpos_of_even_odd_of_vanishes
 
 end C1P2EvenOddGateDecomposition
 end Source
