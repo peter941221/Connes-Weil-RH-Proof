@@ -3,7 +3,7 @@ fork of the committed record-1119 Hbox data (prereg 1218 section 3).
 
 Emits only the M-dependent slice: radM_q28M, Lam_q28M, absLam_q28M,
 DredRad_q28M + hsymRadM / hrevM / habsLam / hLamL / hLLam / hDredRad /
-hRadp.  The reverse containment hrevM ties Q28M.M +/- radM_q28M to the
+hRadp.  The reverse containment hrevM ties Q28M.M +- radM_q28M to the
 COMMITTED record-1217 Lean boxes C1GateMatrixBoxData.MLo_q28M/MHi_q28M.
 G-side data (radG_q28, GLo_q28, GHi_q28, absK_q28, hrevG_q28,
 hsymRadG_q28, habsK_q28) is reused from C1HboxRationalData by import.
@@ -113,7 +113,7 @@ record-1217 true gate boxes.
 
 - `hrevM_q28M`: the reverse containment tying the committed 1217 Lean
   boxes (C1GateMatrixBoxData.MLo_q28M / MHi_q28M, mixed entries exact
-  zeros) inside `Q28M.M +/- radM_q28M`;
+  zeros) inside `Q28M.M +- radM_q28M`;
 - G-side data is reused from the committed C1HboxRationalData (radG_q28,
   GLo_q28, GHi_q28, absK_q28, hrevG_q28, hsymRadG_q28, habsK_q28) -
   byte-equal underlying exact-Q data (1218 regression gate F3).
@@ -138,7 +138,7 @@ open C1GateLevelTransferClassesQ28M
 set_option linter.style.longLine false
 
 /-- REVERSE containment (falsifier, asserted at generation): worst M
-clearance = 0 (exact boxes; mid +/- rad = lo/hi exactly). -/
+clearance = 0 (exact boxes; mid +- rad = lo/hi exactly). -/
 {radM_def}
 
 {lam_def}
@@ -158,7 +158,7 @@ theorem hrevM_q28M : ∀ i j,
       MHi_q28M i j ≤ Q28M.M i j + radM_q28M i j := by
   intro i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [radM_q28M, MLo_q28M, MHi_q28M, Q28M.M]; norm_num)
+  all_goals (simp [radM_q28M, MLo_q28M, MHi_q28M, Q28M.M] <;> norm_num)
 
 theorem habsLam_q28M : ∀ i j, absLam_q28M i j = |Lam_q28M i j| := by
   intro i j
@@ -189,7 +189,7 @@ theorem hDredRad_q28M :
   fin_cases i <;> fin_cases j
   all_goals (simp [absK_q28, radG_q28, radM_q28M, mu_q28M, Q28.U,
     DredRad_q28M, Matrix.mul_apply, Matrix.transpose_apply,
-    Fin.sum_univ_succ]; norm_num)
+    Fin.sum_univ_succ] <;> norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 25 entries x 125-term products of ~10^3-digit rationals
