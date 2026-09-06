@@ -83,6 +83,30 @@ theorem finitePrimeSum_nonneg_of_bilateralProfile_re_nonneg
   exact Finset.sum_nonneg (fun n hn =>
     finitePrimeTerm_nonneg_of_bilateralProfile_re_nonneg F (hprofile n hn))
 
+theorem bilateralProfile_eq_zero_of_test_odd
+    (F : CompactLogTest)
+    (hodd : ∀ x : ℝ, F.test (-x) = -F.test x) (y : ℝ) :
+    bilateralProfile F y = 0 := by
+  unfold bilateralProfile
+  rw [hodd y]
+  ring
+
+theorem finitePrimeTerm_eq_zero_of_test_odd
+    (F : CompactLogTest)
+    (hodd : ∀ x : ℝ, F.test (-x) = -F.test x) (n : ℕ) :
+    finitePrimeTerm F n = 0 := by
+  rw [finitePrimeTerm_eq_realCoefficient_mul_bilateralProfile_re,
+    bilateralProfile_eq_zero_of_test_odd F hodd]
+  simp
+
+theorem finitePrimeSum_eq_zero_of_test_odd
+    (F : CompactLogTest)
+    (hodd : ∀ x : ℝ, F.test (-x) = -F.test x) :
+    finitePrimeSum F = 0 := by
+  unfold finitePrimeSum
+  exact Finset.sum_eq_zero (fun n hn =>
+    finitePrimeTerm_eq_zero_of_test_odd F hodd n)
+
 theorem primePairMatch_of_bilateralProfile_eq
     (F G : CompactLogTest)
     (hprofile : ∀ y : ℝ, bilateralProfile F y = bilateralProfile G y) :

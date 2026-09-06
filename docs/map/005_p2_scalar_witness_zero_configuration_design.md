@@ -386,6 +386,11 @@ The same module also reads each finite-prime term as the real weight
 `Λ(n)/√n` times the real bilateral profile and provides the corresponding
 nonnegative-sum adapter.  This is a FORMAL sign primitive only; the orbit
 detector has not been shown to satisfy its profile-positivity premise.
+The odd-profile corollary is also FORMAL: an odd correction has zero bilateral
+profile and contributes zero to every finite-prime term and to the full
+finite-prime sum.  This identifies a genuine arithmetic-blind direction in
+the even/odd correction family, while leaving its archimedean anchor sign
+open.
 
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value

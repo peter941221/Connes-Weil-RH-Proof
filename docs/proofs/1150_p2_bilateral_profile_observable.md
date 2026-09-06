@@ -36,6 +36,11 @@ that real part on the visible set is therefore a formally sufficient condition
 for a nonnegative finite-prime sum.  This is only a producer-side sign
 primitive; it does not assert that the orbit detector satisfies the premise.
 
+An odd test has identically zero bilateral profile.  The formal consequence is
+stronger than pointwise cancellation: every finite-prime term and the complete
+finite-prime sum vanish.  Thus an odd correction can change the Mellin-node
+construction without changing the arithmetic side of the Weil functional.
+
 The Lean declarations and paired audit build use only
 `[propext, Classical.choice, Quot.sound]`; the focused build completed
 successfully in 3660 jobs with no `error:` lines and no `sorryAx`.
