@@ -465,6 +465,15 @@ changing the reference window cannot rescue the absolute-value Stage-B
 budget; further scalar-budget variants are frozen.  Work now targets the
 signed bilateral-profile route or a genuinely new semi-local trace theorem.
 
+Record 1159 sharpens the signed route with a FORMAL aggregate socket.  The
+finite-prime sum is exactly the weighted sum of the real bilateral profile,
+so a producer need only prove one same-owner inequality
+`archimedeanTerm + weightedProfileSum ≤ 0`; pointwise signs at individual
+prime powers are optional.  This is a genuine weakening of the producer
+premise, not a stored `qw` conclusion, and its B5 `SourceRH` consumer is
+landed.  Constructing the aggregate inequality for the orbit detector remains
+OPEN.
+
 Record 1157 now gives the decisive FORMAL no-go for that scalar socket.  For
 any `HealthyYoshidaDetectorData rho g`, a
 `P2NarrowReferenceCanonicalWitness g` implies the defect gate bound through

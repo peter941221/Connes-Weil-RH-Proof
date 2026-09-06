@@ -28,6 +28,15 @@ structure P2BilateralProfileSignWitness (g : CompactLogTest) where
   hprofile : ∀ n ∈ globalPrimeIndexSet g.convolutionSquare,
     (bilateralProfile g.convolutionSquare (Real.log n)).re ≤ 0
 
+/-- Aggregate profile witness: the pointwise prime signs are compressed into
+the exact finite weighted sum seen by `qw`. -/
+structure P2BilateralProfileAggregateWitness (g : CompactLogTest) where
+  hbalance :
+    archimedeanTerm g.convolutionSquare +
+      ∑ n ∈ globalPrimeIndexSet g.convolutionSquare,
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+          (bilateralProfile g.convolutionSquare (Real.log n)).re ≤ 0
+
 theorem qw_nonneg_of_p2BilateralProfileSignWitness
     (g : CompactLogTest)
     (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
@@ -36,6 +45,15 @@ theorem qw_nonneg_of_p2BilateralProfileSignWitness
     0 ≤ qw g := by
   exact qw_nonneg_of_archimedean_nonpos_and_visible_bilateralProfile_nonpos
     g hvanishes p.harch p.hprofile
+
+theorem qw_nonneg_of_p2BilateralProfileAggregateWitness
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (p : P2BilateralProfileAggregateWitness g) :
+    0 ≤ qw g := by
+  exact qw_nonneg_of_archimedean_plus_bilateralProfile_weighted_sum_nonpos
+    g hvanishes p.hbalance
 
 theorem sourceRH_of_healthyDetector_p2BilateralProfileSignWitness
     (hproducer : ∀ rho : sourceNontrivialZeroSet,
@@ -48,7 +66,21 @@ theorem sourceRH_of_healthyDetector_p2BilateralProfileSignWitness
   intro rho hright
   obtain ⟨g, hdata, ⟨hp2⟩⟩ := hproducer rho hright
   exact ⟨g, hdata,
-    qw_nonneg_of_p2BilateralProfileSignWitness g hdata.vanishesOnF hp2⟩
+      qw_nonneg_of_p2BilateralProfileSignWitness g hdata.vanishesOnF hp2⟩
+
+/-- Same-owner B5 exit for the aggregate profile target. -/
+theorem sourceRH_of_healthyDetector_p2BilateralProfileAggregateWitness
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+            Nonempty (P2BilateralProfileAggregateWitness g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, hdata, ⟨hp2⟩⟩ := hproducer rho hright
+  exact ⟨g, hdata,
+    qw_nonneg_of_p2BilateralProfileAggregateWitness g hdata.vanishesOnF hp2⟩
 
 end
 end C1P2BilateralProfileExit

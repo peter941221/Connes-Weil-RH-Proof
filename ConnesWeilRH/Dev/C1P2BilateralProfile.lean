@@ -101,6 +101,41 @@ theorem finitePrimeSum_nonpos_of_bilateralProfile_re_nonpos
   exact Finset.sum_nonpos (fun n hn =>
     finitePrimeTerm_nonpos_of_bilateralProfile_re_nonpos F (hprofile n hn))
 
+/-- Exact finite-prime readback as one weighted bilateral-profile sum.  This
+is weaker than a pointwise profile sign and is the minimal aggregate target
+for a detector-specific producer. -/
+theorem finitePrimeSum_eq_bilateralProfile_weighted_sum
+    (F : CompactLogTest) :
+    finitePrimeSum F =
+      ∑ n ∈ globalPrimeIndexSet F,
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+          (bilateralProfile F (Real.log n)).re := by
+  unfold finitePrimeSum
+  exact Finset.sum_congr rfl fun n hn =>
+    finitePrimeTerm_eq_realCoefficient_mul_bilateralProfile_re F n
+
+/-! ### Minimal aggregate same-owner P2 sign consumer -/
+
+/-- The archimedean term plus the exact finite weighted profile sum is the
+minimal aggregate inequality implying `qw ≥ 0`.  No pointwise prime sign is
+assumed. -/
+theorem qw_nonneg_of_archimedean_plus_bilateralProfile_weighted_sum_nonpos
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (hbalance :
+      archimedeanTerm g.convolutionSquare +
+        ∑ n ∈ globalPrimeIndexSet g.convolutionSquare,
+          ArithmeticFunction.vonMangoldt n *
+              (1 / Real.sqrt (n : ℝ)) *
+            (bilateralProfile g.convolutionSquare (Real.log n)).re ≤ 0) :
+    0 ≤ qw g := by
+  have hprime := finitePrimeSum_eq_bilateralProfile_weighted_sum
+    g.convolutionSquare
+  rw [qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple
+    g hvanishes, hprime]
+  linarith
+
 /-! ### Direct same-owner P2 sign consumer -/
 
 /- A detector-specific producer may establish the archimedean sign and the

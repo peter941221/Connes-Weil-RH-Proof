@@ -6,6 +6,8 @@ namespace C1P2BilateralProfileExit
 
 #print axioms qw_nonneg_of_p2BilateralProfileSignWitness
 #print axioms sourceRH_of_healthyDetector_p2BilateralProfileSignWitness
+#print axioms qw_nonneg_of_p2BilateralProfileAggregateWitness
+#print axioms sourceRH_of_healthyDetector_p2BilateralProfileAggregateWitness
 
 end C1P2BilateralProfileExit
 end Source
