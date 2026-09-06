@@ -162,7 +162,7 @@ theorem hDK : Dc * Q28.K = DKc := by
   ext i j
   fin_cases i <;> fin_cases j
   all_goals (simp [Dc, Q28.K, DKc, Matrix.mul_apply,
-    Fin.sum_univ_succ]; norm_num)
+    Fin.sum_univ_succ] <;> norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 25 staged entries x 8-term products of ~10^3-digit rationals
@@ -170,7 +170,7 @@ theorem hKDK : Q28.K.transpose * DKc = Dredc := by
   ext i j
   fin_cases i <;> fin_cases j
   all_goals (simp [Q28.K, DKc, Dredc, Matrix.transpose_apply,
-    Matrix.mul_apply, Fin.sum_univ_succ]; norm_num)
+    Matrix.mul_apply, Fin.sum_univ_succ] <;> norm_num)
 
 set_option maxHeartbeats 2000000000 in
 -- reason: 25 staged entries x 5-term products of ~10^3-digit rationals
@@ -186,7 +186,7 @@ theorem hLdLt : Ld * L.transpose = Dredc := by
   ext i j
   fin_cases i <;> fin_cases j
   all_goals (simp [L, Ld, Dredc, Matrix.transpose_apply,
-    Matrix.mul_apply, Fin.sum_univ_succ]; norm_num)
+    Matrix.mul_apply, Fin.sum_univ_succ] <;> norm_num)
 
 /-- Reduced-pencil factorization, composed from the staged identities. -/
 theorem hPencil :
