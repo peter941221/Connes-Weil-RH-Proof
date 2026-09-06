@@ -87,3 +87,24 @@ the entrywise discharge is preregistered as the follow-up campaign
 (next record) and is NOT claimed here.  No statement of 1118-1121
 changes; no q28 G-side data changes; the 1215 falsifier discipline
 carries over verbatim.
+
+## 6. Budget-rule amendment (2026-09-07, BEFORE the official rerun)
+
+The first engine launch aborted (exit 5) on entry (0,0) with the FLAT
+budget interpretation: charging the registered per-point 1e-11 at
+every one of the ~6400 inner arch correlation points sums to
+6.9e-10 > the 5e-10 target regardless of the actual convergence.  The
+registered 1e-11 was meant as a per-VALUE ceiling, not an additive
+flat charge.  AMENDED budget rule (conservative, a-posteriori):
+
+```text
+per-point charged error perr(x) = max(2 * |GL_n - GL_{n/2}|(x), 1e-13)
+```
+
+i.e. twice the measured half-rule defect with a 1e-13 floor, fed into
+the same accumulation.  UNCHANGED: the gate |delta| <= 1e-12 (abort),
+the entry cap 5e-10, the width deliverable <= 1e-9, and falsifiers
+(a)/(b).  At the measured convergence (smoke: arch delta 1.8e-10 at
+the 16x-coarser 4x25 rule) the official-rule deltas are expected at
+the 1e-13..1e-15 level, so the amendment tightens, not loosens, the
+effective budgets.
