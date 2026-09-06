@@ -169,6 +169,33 @@ theorem qw_nonneg_of_p2BilateralProfileAggregateWitness
   exact qw_nonneg_of_archimedean_plus_bilateralProfile_weighted_sum_nonpos
     g hvanishes p.hbalance
 
+/-- Pinned B5 exit for the explicit-range producer contract.  The detector's
+exported source support supplies the square support needed by the adapter. -/
+theorem sourceRH_of_pinnedOrbitDetector_p2BilateralProfileRangeWitness
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest, ∃ n : Nat,
+          HealthyYoshidaDetectorData rho.1 g ∧
+          Function.support g.test ⊆
+            Set.Ioo (-((n + 2 : Nat) : Real)) (((n + 2 : Nat) : Real)) ∧
+          Nonempty
+            (P2BilateralProfileRangeWitness g
+              (2 * ((n + 2 : Nat) : Real)))) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, n, hdata, hsupport, ⟨hp2⟩⟩ := hproducer rho hright
+  have hsquare : Function.support g.convolutionSquare.test ⊆
+      Set.Ioo (-(2 * ((n + 2 : Nat) : Real)))
+        (2 * ((n + 2 : Nat) : Real)) := by
+    exact CompactLogTest.convolutionSquare_support_subset_two_mul_Ioo g
+      (hsupport.trans Set.Ioo_subset_Icc_self)
+  have haggregate : P2BilateralProfileAggregateWitness g :=
+    P2BilateralProfileRangeWitness.toAggregate g hsquare hp2
+  exact ⟨g, hdata,
+    qw_nonneg_of_p2BilateralProfileAggregateWitness g hdata.vanishesOnF
+      haggregate⟩
+
 theorem sourceRH_of_healthyDetector_p2BilateralProfileSignWitness
     (hproducer : ∀ rho : sourceNontrivialZeroSet,
       (1 / 2 : Real) < rho.1.re →

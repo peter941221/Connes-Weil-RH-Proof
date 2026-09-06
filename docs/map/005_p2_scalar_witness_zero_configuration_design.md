@@ -526,6 +526,14 @@ Record 1166 packages the explicit-cutoff producer contract
 For the pinned orbit, `B = 2(n+2)` is already exported by the support
 construction; only the signed range estimate remains analytic.
 
+Record 1167 wires that explicit-range contract into the pinned B5 exit
+quantifier.  For every right-oriented off-line zero, a same-owner detector
+with source support radius `n+2` and the range witness now yields `SourceRH`
+formally: source support gives square support `B = 2(n+2)`, then the range
+adapter gives the aggregate witness and the existing `qw ≥ 0` consumer.  The
+only remaining producer content is the signed finite-range inequality itself;
+P2/RH remain open.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds
