@@ -264,8 +264,14 @@ def qw_terms(g):
 # operator machinery on a centered box                               #
 # ------------------------------------------------------------------ #
 def scattering_phase(xi):
+    # unit-modulus phase Gamma(1/2 - 2 pi i xi) / conj(...): computed via
+    # exp(2i arg) because the raw quotient 0/0-overflows at fine grids
+    # (|Gamma| ~ e^{-pi |xi|} underflows below 1e-308 for |2 pi xi| >~ 400,
+    # i.e. exactly the official fine-ladder frequencies); there the
+    # detector's spectral weight is e^{-400}, so the angle(0)=0 -> phase 1
+    # convention is numerically inert.
     g = sp.gamma(0.5 - 2j * np.pi * np.asarray(xi, dtype=float))
-    return g / np.conj(g)
+    return np.exp(2j * np.angle(g))
 
 
 class Grid:
@@ -712,21 +718,27 @@ def main():
     del r24, r40
     wrap_gate = dict(n=8, N24=Nw_gate, N40=N40, dt24=dt24,
                      ratio24=ratio24, ratio40=ratio40, rel_drift=wrap_rel)
-    # ladder
+    # ladder: each registered rung is a dt-refinement PAIR (coarse,
+    # fine = coarse/2); both grades run at every n (the first official
+    # invocation iterated only the fine grade -- loop bug, disclosed in
+    # record 1213 -- and was completed by this corrected invocation).
     results = []
     for n in ns:
-        for tag, N in pairs:
-            t1 = time.time()
-            row = rung(n, N, sample, qwv["f0"])
-            secs = round(time.time() - t1, 1)
-            row.update(tag=tag, secs=secs)
-            results.append(row)
-            print(f"n={n:3d} {tag:6d} N={N:5d} bulk={row['bulk']:.6e} "
-                  f"gap={row['tail_gap']:.1e} term1/b={row['term1']/row['bulk']:.6f} "
-                  f"pv/b={row['term_pv']/row['bulk']:.6f} "
-                  f"Tn/b={row['Tn']/row['bulk']:+.6f} "
-                  f"sn_dt={row['sn_dt']:+.6e} "
-                  f"pv_rank={row['pv_rank']}/{row['pv_neg_dim']} [{secs}s]")
+        for c, f in pairs:
+            for N in (c, f):
+                t1 = time.time()
+                row = rung(n, N, sample, qwv["f0"])
+                secs = round(time.time() - t1, 1)
+                row.update(tag=c, secs=secs)
+                results.append(row)
+                print(f"n={n:3d} {c:6d} N={N:5d} bulk={row['bulk']:.6e} "
+                      f"gap={row['tail_gap']:.1e} "
+                      f"term1/b={row['term1']/row['bulk']:.6f} "
+                      f"pv/b={row['term_pv']/row['bulk']:.6f} "
+                      f"Tn/b={row['Tn']/row['bulk']:+.6f} "
+                      f"sn_dt={row['sn_dt']:+.6e} "
+                      f"pv_rank={row['pv_rank']}/{row['pv_neg_dim']} "
+                      f"[{secs}s]")
             out = "1212_probe_smoke.json" if smoke \
                 else "1212_probe_results.json"
             with open(os.path.join(HERE, out), "w") as fh:
