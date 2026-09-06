@@ -560,6 +560,13 @@ premise holds iff the test is zero.  Since a healthy detector is nontrivial,
 that FRONTIER-HS contract cannot be a P2 producer.  Any surviving Stage-3
 route must use a genuinely windowed or renormalized factor.
 
+Record 1174 wires the viable `ProjectionCutoffLimitContracts` owner into P2.
+The cutoff operator `C_n† K C_n` is already positive and trace-class; its two
+remaining fields are exactly remainder convergence and same-owner `qw` readback.
+Supplying those contracts for the pinned detector now gives the aggregate
+witness and `SourceRH` formally.  This is the live Stage-3 positive route; it
+does not reuse the refuted bare Hilbert--Schmidt premise.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented

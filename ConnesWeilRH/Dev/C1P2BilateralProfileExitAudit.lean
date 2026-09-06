@@ -20,6 +20,8 @@ namespace C1P2BilateralProfileExit
 #print axioms P2BilateralProfileAggregateWitness.of_positiveTraceOperatorLimitFamily
 #print axioms sourceRH_of_healthyDetector_p2BombieriP2BridgeData
 #print axioms sourceRH_of_healthyDetector_p2PositiveTraceOperatorLimitFamily
+#print axioms P2BilateralProfileAggregateWitness.of_projectionCutoffLimitContracts
+#print axioms sourceRH_of_healthyDetector_p2ProjectionCutoffLimitContracts
 
 end C1P2BilateralProfileExit
 end Source

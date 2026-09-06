@@ -2,6 +2,7 @@ import ConnesWeilRH.Dev.C1P2BilateralProfile
 import ConnesWeilRH.Dev.C1BombieriP2Bridge
 import ConnesWeilRH.Dev.C1HealthyYoshidaSpectralNegativity
 import ConnesWeilRH.Dev.C1PositiveTraceLimitBridge
+import ConnesWeilRH.Dev.C1Stage3ProjectionOperatorFamily
 
 /-!
 # P2 bilateral-profile same-detector exit
@@ -22,6 +23,7 @@ open C1BombieriP2Bridge
 open C1LocalConfigurationDomination
 open C1P2BilateralProfile
 open C1PositiveTraceLimitBridge
+open Dev.C1Stage3ProjectionOperatorFamily
 open C1SameOwnerWeil
 open CC20Concrete
 open CC20Concrete.PositiveTrace
@@ -267,6 +269,23 @@ theorem P2BilateralProfileAggregateWitness.of_positiveTraceOperatorLimitFamily
     (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
       g hvanishes).mp (qw_nonnegative_of_positiveTraceOperatorLimitFamily data)
 
+/-- The viable windowed projection-cutoff route supplies the same P2 socket;
+its remainder convergence and owner readback stay explicit in `contracts`. -/
+theorem P2BilateralProfileAggregateWitness.of_projectionCutoffLimitContracts
+    {ν : Type*}
+    (g : CompactLogTest) (lambda : CCM24SoninScale)
+    (S : List CCM24VisiblePrime)
+    (globalBasis : HilbertBasis ν ℂ projectionCarrier)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (contracts : ProjectionCutoffLimitContracts g lambda S globalBasis) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance :=
+    (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
+      g hvanishes).mp
+      (qw_nonnegative_of_projectionCutoffLimitContracts
+        g lambda S globalBasis contracts)
+
 /-- Direct healthy-B5 exit for a fixed-basis positive-operator producer. -/
 theorem sourceRH_of_healthyDetector_p2PositiveTraceOperatorLimitFamily
     {ι H : Type*}
@@ -284,6 +303,27 @@ theorem sourceRH_of_healthyDetector_p2PositiveTraceOperatorLimitFamily
   have haggregate : P2BilateralProfileAggregateWitness g :=
     P2BilateralProfileAggregateWitness.of_positiveTraceOperatorLimitFamily
       g hdata.vanishesOnF htrace
+  exact ⟨g, hdata,
+    qw_nonneg_of_p2BilateralProfileAggregateWitness g hdata.vanishesOnF
+      haggregate⟩
+
+/-- Direct healthy-B5 exit for the concrete windowed projection owner. -/
+theorem sourceRH_of_healthyDetector_p2ProjectionCutoffLimitContracts
+    {ν : Type*}
+    (lambda : CCM24SoninScale) (S : List CCM24VisiblePrime)
+    (globalBasis : HilbertBasis ν ℂ projectionCarrier)
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+            Nonempty (ProjectionCutoffLimitContracts g lambda S globalBasis)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, hdata, ⟨hcontracts⟩⟩ := hproducer rho hright
+  have haggregate : P2BilateralProfileAggregateWitness g :=
+    P2BilateralProfileAggregateWitness.of_projectionCutoffLimitContracts
+      g lambda S globalBasis hdata.vanishesOnF hcontracts
   exact ⟨g, hdata,
     qw_nonneg_of_p2BilateralProfileAggregateWitness g hdata.vanishesOnF
       haggregate⟩
