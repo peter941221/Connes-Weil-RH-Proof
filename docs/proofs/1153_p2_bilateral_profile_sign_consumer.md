@@ -34,4 +34,3 @@ It does not prove either sign for the pinned orbit detector, does not invoke
 ROOT positivity, and does not claim RH.  P2/C3 remains OPEN: the missing work
 is now an archimedean nonpositive estimate together with visible bilateral
 profile nonpositivity on the same healthy orbit owner.
-
