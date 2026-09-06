@@ -276,6 +276,14 @@ as the M-side/C2 gap of the moment campaign (record 1140 work order item
 1; the record-1116 abort finding named it "not scheduled"). Line C and the
 M-side route share this producer; building it serves both.
 
+Formal owner/gate boundary audit (record 1148): the existing selected-owner
+construction supplies finite raw `laplaceAt` node equations, support, square
+zeros, and tails, while `ICgate` is evaluated from the full archimedean and
+visible-prime test values. No current declaration transports those node
+equations into a gate sign or `hbudget`. Line C therefore needs a new
+gate-level cancellation identity on the same owner; interpolation alone is
+not a producer.
+
 Falsifier: record 1116's structural finding is the standing guard - the
 model-class sign is configuration-local, and any candidate derivation must
 reproduce the 13-constraint collision structure at `delta = 0` exactly
