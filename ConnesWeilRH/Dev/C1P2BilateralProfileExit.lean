@@ -182,6 +182,19 @@ theorem P2BilateralProfileAggregateWitness.of_bombieriQuadraticP2BridgeData
     (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
       g hvanishes).mp (qw_nonneg_of_bombieriQuadraticP2BridgeData p)
 
+/-- Residual-aware finite Hermitian data feeds the same aggregate P2 owner;
+the residual domination has already been discharged by its own consumer. -/
+theorem P2BilateralProfileAggregateWitness.of_bombieriQuadraticResidualP2BridgeData
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (p : BombieriQuadraticResidualP2BridgeData g) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance :=
+    (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
+      g hvanishes).mp
+      (qw_nonneg_of_bombieriQuadraticResidualP2BridgeData p)
+
 theorem qw_nonneg_of_p2BilateralProfileSignWitness
     (g : CompactLogTest)
     (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
@@ -256,6 +269,28 @@ theorem sourceRH_of_pinnedOrbitDetector_p2BombieriQuadraticP2BridgeData
     hproducer rho hright
   exact ⟨g, hdata,
     qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticP2BridgeData
+      hdata hp2⟩
+
+/-- Pinned same-detector exit for the residual-aware direct quadratic
+contract.  The finite visible-prime owner remains explicit in the producer
+quantifier, while the residual budget is consumed on the same `g`. -/
+theorem sourceRH_of_pinnedOrbitDetector_p2BombieriQuadraticResidualP2BridgeData
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest, ∃ n : Nat,
+          HealthyYoshidaDetectorData rho.1 g ∧
+          Function.support g.test ⊆
+            Set.Ioo (-((n + 2 : Nat) : Real)) (((n + 2 : Nat) : Real)) ∧
+          (∀ q ∈ globalPrimeIndexSet g.convolutionSquare,
+            (q : Real) < Real.exp (2 * ((n + 2 : Nat) : Real))) ∧
+          Nonempty (BombieriQuadraticResidualP2BridgeData g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, _n, hdata, _hsupport, _hvisible, ⟨hp2⟩⟩ :=
+    hproducer rho hright
+  exact ⟨g, hdata,
+    qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticResidualP2BridgeData
       hdata hp2⟩
 
 /-- Direct healthy-B5 exit for a fixed-basis self-pair trace producer. -/
