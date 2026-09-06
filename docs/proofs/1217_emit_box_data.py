@@ -58,6 +58,22 @@ for i in range(K):
 print(f"validation OK: worst same-parity width = {float(worst_width):.3e}")
 print(f"mixed consistency max |mid| = {float(mixed_consistency):.3e}")
 print(f"symmetry cross-check max |M_ij - M_ji| = {float(sym_worst):.3e}")
+
+# regression cross-check: record 1216 verified the certified formula
+# against the committed 1112 same-parity values to 1.4e-12; the engine
+# must reproduce them at the certified scale (catches domain/slip bugs
+# that convergence gates cannot see - e.g. the (0,8) domain slip).
+d1112 = json.load(open(os.path.join(HERE, "1112_cert.json")))["classes"][0]
+worst_reg = Fraction(0)
+for i in range(K):
+    for j in range(K):
+        if parity(i, j):
+            committed = Fraction(d1112["M_mid"][i][j])
+            dev = abs(Fraction(entries[f"{i},{j}"]["mid"]) - committed)
+            worst_reg = max(worst_reg, dev)
+            assert dev <= Fraction(5, 10 ** 9), (i, j, float(dev))
+print(f"regression cross-check vs 1112 M_mid: worst {float(worst_reg):.3e}")
+
 wh = cert.get("whitened_check", {})
 assert wh.get("pass") is True, f"falsifier B not PASSED: {wh}"
 print(f"falsifier B PASS: top + infl = {wh['top_plus_inflation']:.6e} "

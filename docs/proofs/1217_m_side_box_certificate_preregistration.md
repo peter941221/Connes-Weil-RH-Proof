@@ -108,3 +108,58 @@ the entry cap 5e-10, the width deliverable <= 1e-9, and falsifiers
 the 16x-coarser 4x25 rule) the official-rule deltas are expected at
 the 1e-13..1e-15 level, so the amendment tightens, not loosens, the
 effective budgets.
+
+## 7. Grid amendment (2026-09-07, BEFORE the official rerun; run 3 retired)
+
+Official run 3 (16 panels x 200 nodes, both grids) was stopped at the
+j=1 table build after 8/64 entries.  Evidence chain:
+
+```text
+run-3 measured        entry budgets 7.109e-12 .. 7.117e-12 (j=0 block),
+                      values reproduce committed 1112 M_mid at
+                      2.5e-13 / 5.6e-13 on (0,0) / (2,0)
+whitening replay      falsifier (b) replayed on the run-3 widths
+                      (dry-run harness, half-widths 7.1e-12): the
+                      whitening ported verbatim from the 1216 probe
+                      reproduces cert top_mid to 4.9e-16 (dim V = 5),
+                      inflation radius 6.428e-07, top + inflation
+                      -8.006e-07 > U - 1e-8 = -1.0534e-06 -> FAIL
+determinacy           the whitened inflation radius is linear in the
+                      entrywise half-widths and monotone entrywise
+                      (Perron-Frobenius), so the run-4-independent
+                      outcome of falsifier (b) on run 3 is determined
+                      by its own measured budgets: FAIL at any widths
+                      within 30 percent of 7.1e-12
+```
+
+Falsifier (b) semantics are unchanged and correct: the consumption is
+the Weyl bound top(M|V) <= top(M_mid|V) + sigma_max(whitened
+half-width matrix) against U.  The boxes are simply too wide for the
+4.0e-07 slack that separates committed top_mid from U: the run-3
+amplification factor is 6.428e-07 / 7.1e-12 = 9.05e4 (driven by
+lambda_min(Z^T G Z | V) = 4.24e-05), so half-widths must drop below
+about 4.3e-12.
+
+AMENDED engine config (single change):
+
+```text
+inner full rule     16 panels x 400 nodes  (was 200); half rule 200
+outer full rule     16 panels x 400 nodes  (was 200); half rule 200
+expected budgets    floor-dominated, ~2.4e-12 (the 1e-13 floors over
+                    48 prime points + outer arch accumulation);
+                    projected inflation ~2.2e-07 <= 3.90e-07 with
+                    margin ~1.7e-07
+new abort gate      any entry budget > 4.0e-12 -> ABORTED-
+                    UNINFORMATIVE (tighter than the registered 5e-10
+                    cap; catches a convergence regression early)
+```
+
+UNCHANGED: everything else - dps 45, panel count 16, the 1e-12
+half-rule gate, perr rule of section 6, constant enclosures, the
+5e-10 cap (now subsumed), the 1e-9 width deliverable, dyadic outward
+rounding, both falsifiers, the emitter validations and the regression
+cross-check against 1112 M_mid.  Run 3's checkpoint (8 entries) is
+kept on disk as evidence; its boxes are entrywise-certified but
+cannot support the margin consumption, so the run is retired as
+ABORTED-UNINFORMATIVE (falsifier b, determined pre-completion).
+No hand-narrowing anywhere.

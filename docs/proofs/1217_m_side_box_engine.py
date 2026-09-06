@@ -12,15 +12,17 @@ by D1 and take [0,0] boxes):
   C_ij(x) = int_{-2}^{2} w_i(s) w_j(x+s) ds,
   w_k(u) = P_k(u/2) exp(-1/(1-(u/2)^2)) on |u| < 2, else 0.
 
-Engine (registered): mpmath dps=45; inner correlation and outer arch
-composite Gauss-Legendre, 16 panels x 200 nodes (half rule 16x100 for
-the |GL_n - GL_{n/2}| <= 1e-12 gates at EVERY required point); the
-arch integrand is evaluated as the SINGLE expression (removable
-singularity at y=0 - no split-term cancellation); constants enclosed
-at +/-1e-14; per-entry error budget accumulated from registered
-per-point caps + measured half-rule deltas, asserted <= 5e-10; outward
-dyadic rounding at denominator 2^72; whitened-top inflation check
-against U = -1.043377e-06 with 1e-8 slack.
+Engine (registered + sec. 7 grid amendment): mpmath dps=45; inner
+correlation and outer arch composite Gauss-Legendre, 16 panels x 400
+nodes (half rule 16x200 for the |GL_n - GL_{n/2}| <= 1e-12 gates at
+EVERY required point); the arch integrand is evaluated as the SINGLE
+expression (removable singularity at y=0 - no split-term
+cancellation); constants enclosed at +/-1e-14; per-entry error
+budget accumulated from registered a-posteriori per-point errors
+(2x measured half-rule delta, floor 1e-13; prereg amendment
+sec. 6), gated at 4e-12 (sec. 7) and capped at 5e-10; outward
+dyadic rounding at denominator 2^72.  The whitened-top inflation
+check (falsifier b) is a post-step: 1217_whitened_check.py.
 
 Loop structure: per j, build the weighted inner tables T[l, x] =
 w_l * w_j(x + s_l) on both inner rules (shared across i); per (i, j)
@@ -48,10 +50,20 @@ CKPT = os.path.join(HERE, "1217_m_boxes_checkpoint.json")
 A = 2                      # window half-width a = 2
 K = 8
 PANELS = 4 if SMOKE else 16
-N_IN = 25 if SMOKE else 200        # inner nodes per panel (full rule)
-N_OUT = 25 if SMOKE else 200       # outer nodes per panel (full rule)
+N_IN = 25 if SMOKE else 400        # inner nodes per panel (full rule;
+                                   # grid amendment, prereg sec. 7)
+N_OUT = 25 if SMOKE else 400       # outer nodes per panel (full rule)
 GATE = mp.mpf("1e-12")
-PER_POINT = mp.mpf("1e-11")        # registered per-value budget
+PER_POINT = mp.mpf("1e-11")        # registered per-value ceiling (gate)
+ERR_FLOOR = mp.mpf("1e-13")        # amended budget floor (prereg sec. 6)
+BUDGET_GATE = mp.mpf("4e-12")      # sec. 7 early-abort (falsifier-b room)
+
+
+def perr(delta):
+    """Amended a-posteriori per-point charged error (prereg sec. 6):
+    twice the measured half-rule defect, floored at 1e-13."""
+    d = 2 * delta
+    return d if d > ERR_FLOOR else ERR_FLOOR
 CONST_EPS = mp.mpf("1e-14")        # constant enclosures
 ENTRY_BUDGET_CAP = mp.mpf("5e-10")
 DPS_DEN = 2 ** 72                  # outward dyadic grid
@@ -79,8 +91,9 @@ def gauss_legendre(n_per_panel, lo, hi):
 
 S_X, S_W = gauss_legendre(N_IN, -A, A)
 S_XH, S_WH = gauss_legendre(N_IN // 2, -A, A)
-Y_X, Y_W = gauss_legendre(N_OUT, 0, 4 * A)
-Y_XH, Y_WH = gauss_legendre(N_OUT // 2, 0, 4 * A)
+# arch domain is (0, 2a) = (0, 4): the pair support is |x| < 2a
+Y_X, Y_W = gauss_legendre(N_OUT, 0, 2 * A)
+Y_XH, Y_WH = gauss_legendre(N_OUT // 2, 0, 2 * A)
 
 PRIME_POWERS = []
 for n in range(2, 54):
@@ -163,7 +176,7 @@ def wi_vals(i, s_x):
     return [window(i, s) for s in s_x]
 
 
-def corr_dot(col, s_w, wiv):
+def corr_dot(col, _s_w, wiv):
     """corr(i, j, x) for one column: the column already carries the
     quadrature weight w_l, so fold in only w_i(s_l)."""
     acc = mp.mpf(0)
@@ -240,9 +253,8 @@ for j in range(K):
         for t in range(NP):
             ip, im = IDX_P + t, IDX_P + NP + t
             prime += PRIME_W[t] * (cf[ip] + cf[im])
-            prime_err += PRIME_W[t] * (
-                2 * PER_POINT + abs(cf[ip] - ch[ip])
-                + abs(cf[im] - ch[im]))
+            prime_err += PRIME_W[t] * (perr(abs(cf[ip] - ch[ip]))
+                                   + perr(abs(cf[im] - ch[im])))
             gate_data["parity_max"] = max(
                 gate_data["parity_max"],
                 float(abs(cf[ip] - cf[im])))
@@ -256,9 +268,8 @@ for j in range(K):
             arch += Y_W[t] * (mp.exp(y / 2) * (cf[ip] + cf[im]) - 2 * C0) \
                 / (mp.exp(y) - mp.exp(-y))
             arch_err += abs(Y_W[t]) * (
-                mp.exp(y / 2) * (2 * PER_POINT + d_pair)
-                + 2 * (PER_POINT + c0_delta)) / (mp.exp(y)
-                                                 - mp.exp(-y))
+                mp.exp(y / 2) * (perr(d_pair / 2) * 2)
+                + 2 * perr(c0_delta)) / (mp.exp(y) - mp.exp(-y))
         arch_h = mp.mpf(0)
         for t in range(NYH):
             y = Y_XH[t]
@@ -273,7 +284,7 @@ for j in range(K):
         gate_data["outer_max_delta"] = max(gate_data["outer_max_delta"],
                                            float(outer_delta))
 
-        c0_err = PER_POINT + c0_delta
+        c0_err = perr(c0_delta)
         budget = (mp.absmax(L4PG) * c0_err + arch_err
                   + 2 * sum(abs(w) / (mp.exp(Y_X[t]) - mp.exp(-Y_X[t]))
                             for t, w in enumerate(Y_W)) * c0_err
@@ -281,6 +292,10 @@ for j in range(K):
                   + abs(C0) * 2 * CONST_EPS + mp.absmax(L4PG) * CONST_EPS
                   + abs(C0) * CONST_EPS + CONST_EPS + prime_err)
         value = L4PG * C0 + arch + C0 * LT2 + prime
+        if budget > BUDGET_GATE:
+            print(f"BUDGET GATE FAIL i={i} j={j}: {mp.nstr(budget, 5)} "
+                  f"(sec. 7 gate 4e-12)", flush=True)
+            sys.exit(7)
         if budget > ENTRY_BUDGET_CAP:
             print(f"BUDGET FAIL i={i} j={j}: {mp.nstr(budget, 5)}",
                   flush=True)
@@ -324,49 +339,6 @@ cert = {
 with open(OUT_JSON, "w") as fh:
     json.dump(cert, fh, indent=1)
 print(f"WROTE {OUT_JSON}", flush=True)
-
-# --- whitened-top inflation check (float64, independent of quadrature)
-d = json.load(open(os.path.join(HERE, "1112_cert.json")))["classes"][0]
-
-
-def rat_matrix(rows):
-    return np.array([[float(Fraction(v)) for v in row] for row in rows])
-
-
-from scipy.linalg import null_space  # noqa: E402
-
-R = np.array(d["R_mid"], dtype=float)
-Zn = null_space(R)
-G = np.array(d["G_mid"], dtype=float)
-Mlo = np.array([[float(Fraction(results[f"{i},{j}"]["lo"]))
-                 for j in range(8)] for i in range(8)])
-Mhi = np.array([[float(Fraction(results[f"{i},{j}"]["hi"]))
-                 for j in range(8)] for i in range(8)])
-Mmid = np.array([[float(Fraction(results[f"{i},{j}"]["mid"]))
-                  for j in range(8)] for i in range(8)])
-Pz = Zn.T @ G @ Zn
-L = np.linalg.cholesky((Pz + Pz.T) / 2)
-Li = np.linalg.inv(L)
-
-
-def wtop(M):
-    ev = np.linalg.eigvalsh(Li @ Zn.T @ M @ Zn @ Li.T)
-    return float(ev[-1])
-
-
-Delta = (Mhi - Mlo) / 2
-infl = float(np.linalg.norm(
-    Li @ Zn.T @ Delta @ Zn @ Li.T, ord=2))
-top = wtop(Mmid)
-print(f"whitened top(mid) = {top:+.6e}; inflation radius = {infl:.3e}; "
-      f"top + infl = {top + infl:+.6e} vs U = {d['U']:+.6e} - 1e-8",
-      flush=True)
-cert["whitened_check"] = {"top_mid_recomputed": top,
-                          "inflation_radius": infl,
-                          "top_plus_inflation": top + infl,
-                          "U": d["U"],
-                          "pass": bool(top + infl <= d["U"] - 1e-8)}
-with open(OUT_JSON, "w") as fh:
-    json.dump(cert, fh, indent=1)
-print("FALSIFIER-B " + ("PASS" if top + infl <= d["U"] - 1e-8 else "FAIL"),
-      flush=True)
+# The whitened-top inflation check (falsifier b) lives in
+# 1217_whitened_check.py: the uv environment here carries numpy+mpmath
+# only, and the check is a float64 post-step on the finished JSON.
