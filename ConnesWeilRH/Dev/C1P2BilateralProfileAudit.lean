@@ -5,8 +5,11 @@ namespace Source
 namespace C1P2BilateralProfile
 
 #print axioms primePairMatch_of_bilateralProfile_eq
+#print axioms finitePrimeSum_eq_of_bilateralProfileMatchOn_visible
 #print axioms archimedeanNumerator_eq_of_bilateralProfile_eq
+#print axioms archimedeanNumerator_sub_eq_of_bilateralProfile
 #print axioms archimedeanIntegrand_eq_of_bilateralProfile_eq
+#print axioms archimedeanIntegrand_sub_eq_of_bilateralProfile
 #print axioms archimedeanTerm_eq_of_bilateralProfile_eq
 #print axioms finitePrimeSum_eq_of_bilateralProfile_eq
 #print axioms defectGate_eq_zero_of_bilateralProfile_eq

@@ -374,6 +374,11 @@ the archimedean terms equal as well.  The resulting defect-gate theorem says
 that complete profile matching yields exact zero, not a sign.  This sharpens
 the live Line-C producer target to finite bilateral samples with a genuine
 archimedean/low-rank residual estimate on the healthy owner; P2 remains OPEN.
+The same brick now exposes the residual identity itself: the numerator
+difference is the weighted bilateral-profile difference minus the origin
+difference, and profile matching only on the visible-point image already
+implies finite-prime cancellation.  These are FORMAL interface facts; they do
+not provide the missing envelope or sign.
 
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value

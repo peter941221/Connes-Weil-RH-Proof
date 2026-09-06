@@ -18,6 +18,13 @@ Consequently, equality of the full profile plus equality at zero implies
 equality of the archimedean term.  Combined with the prime-pair matching
 theorem, the corresponding triple-vanishing defect gate is exactly zero.
 
+The producer-facing refinement is explicit: a profile match restricted to the
+image of the union of visible prime-power indices already suffices for
+finite-prime cancellation, while the archimedean numerator difference is the
+weighted profile difference minus the origin difference.  This is the exact
+residual expression to which a later endpoint or low-rank envelope may be
+applied.
+
 The Lean declarations and paired audit build use only
 `[propext, Classical.choice, Quot.sound]`; the focused build completed
 successfully in 3660 jobs with no `error:` lines and no `sorryAx`.
