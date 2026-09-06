@@ -4,6 +4,7 @@ namespace ConnesWeilRH.Source.C1BombieriP2Bridge
 
 #print axioms BombieriP2BridgeData
 #print axioms BombieriQuadraticP2BridgeData
+#print axioms BombieriQuadraticP2BridgeData.of_bombieriP2BridgeData
 #print axioms qw_nonneg_of_bombieriP2BridgeData
 #print axioms qw_nonneg_of_bombieriQuadraticP2BridgeData
 #print axioms not_bombieriQuadraticP2BridgeData_of_healthyDetectorData

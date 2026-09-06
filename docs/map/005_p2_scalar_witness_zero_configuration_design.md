@@ -626,10 +626,19 @@ nonnegative, while `HealthyYoshidaDetectorData` forces the same `qw` strictly
 negative.  The new negative guards
 `not_bombieriQuadraticP2BridgeData_of_healthyDetectorData` and
 `not_nonempty_bombieriQuadraticP2BridgeData_of_healthyDetectorData` therefore
-classify the socket as NO-GO for P2.  Its conditional exits remain only as
-auditable logical interfaces; no producer may satisfy them on a healthy
-detector.  Active work returns to signed semi-local/profile or genuine
-renormalized trace readback routes.
+show that the socket cannot coexist with a healthy detector.  Record 1182
+corrects the resulting over-strong NO-GO wording: this is the expected
+conditional contradiction consumer for any successful P2 producer, not an
+independent route refutation.  Its conditional exits remain auditable
+interfaces, and active work may use them alongside the signed
+semi-local/profile or genuine renormalized trace routes.
+
+The record-1182 adapter
+`BombieriQuadraticP2BridgeData.of_bombieriP2BridgeData` transports any existing
+Line-B finite eigen/mass producer to the direct quadratic spelling by taking
+real parts of `lambda_mass_eq_bombieriHMatrix_quadraticForm`.  The direct socket
+therefore remains a valid conditional interface; constructing its
+same-owner equality from the pinned detector is still OPEN.
 
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy

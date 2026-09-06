@@ -73,6 +73,23 @@ structure BombieriQuadraticP2BridgeData (g : CompactLogTest) where
     (star (bombieriWOfZ gamma z) ⬝ᵥ
       (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re
 
+/-- The direct quadratic socket is a conservative re-expression of the
+Line-B mass socket: the finite eigen-relation identifies `lam * mass` with
+the complex quadratic form, and taking real parts supplies the required
+owner-changing equality.  This is an interface adapter, not a new producer.
+-/
+noncomputable def BombieriQuadraticP2BridgeData.of_bombieriP2BridgeData
+    {g : CompactLogTest} (p : BombieriP2BridgeData g) :
+    BombieriQuadraticP2BridgeData g := by
+  obtain hform := lambda_mass_eq_bombieriHMatrix_quadraticForm
+    p.t p.gamma p.z p.Lam p.lam p.heigen p.hrecip
+  have hreal := congrArg Complex.re hform
+  refine
+    { n := p.n, t := p.t, ht := p.ht, gamma := p.gamma, z := p.z
+      qw_eq_quadratic := ?_ }
+  rw [p.qw_eq_mass]
+  simpa [Complex.mul_re] using hreal
+
 /-- The Bombieri finite chain supplies a nonnegative real for the mass
 product. -/
 theorem qw_nonneg_of_bombieriP2BridgeData
@@ -109,8 +126,8 @@ theorem not_bombieriQuadraticP2BridgeData_of_healthyDetectorData
     exact hnegativeSpectral
   exact (not_lt_of_ge (qw_nonneg_of_bombieriQuadraticP2BridgeData p)) hnegative
 
-/-- No nonempty direct quadratic-form producer exists on a healthy detector;
-the equality field is therefore a formally identified dead route for P2. -/
+/-- A direct quadratic-form producer cannot coexist with a healthy detector;
+this is the expected contradiction consumer for a successful P2 proof. -/
 theorem not_nonempty_bombieriQuadraticP2BridgeData_of_healthyDetectorData
     {rho : Complex} {g : CompactLogTest}
     (hdata : HealthyYoshidaDetectorData rho g) :
