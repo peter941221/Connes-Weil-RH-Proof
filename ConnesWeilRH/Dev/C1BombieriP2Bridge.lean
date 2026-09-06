@@ -33,6 +33,7 @@ open C1BombieriSection7Gamma
 open C1BombieriSection7H
 open C1HealthyYoshidaDetector
 open C1HealthyYoshidaSpectralNegativity
+open C1SpectralWeil
 open C1SameOwnerWeil
 open CC20YoshidaConvolution
 open CC20YoshidaConvolution.CompactLogTest
@@ -110,6 +111,46 @@ structure BombieriQuadraticResidualP2BridgeData (g : CompactLogTest) where
     (star (bombieriWOfZ gamma z) ⬝ᵥ
       (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re
 
+/-- A residual contract whose residual is the actual high-shell remainder of
+the same healthy `CompactLog` owner.  The only still-producer-facing field is
+the domination of that shell norm by the finite quadratic main term. -/
+structure BombieriQuadraticSpectralTailP2BridgeData (g : CompactLogTest) where
+  n : Nat
+  t : Real
+  ht : 0 < t
+  gamma : Fin n -> Real
+  z : Fin n -> Complex
+  N : Nat
+  qw_eq_quadratic_sub_spectralTail : C1SameOwnerWeil.qw g =
+    (star (bombieriWOfZ gamma z) ⬝ᵥ
+      (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re -
+      (∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+        spectralTerm g.convolutionSquare rho.1).re
+  tailBound_le_quadratic :
+    (∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+      ‖spectralTerm g.convolutionSquare rho.1‖) ≤
+      (star (bombieriWOfZ gamma z) ⬝ᵥ
+        (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re
+
+/-- Turn the explicit same-owner spectral tail into the generic residual
+socket.  The two-sided residual estimate is supplied by the shell partition,
+not stored as a positivity conclusion. -/
+noncomputable def BombieriQuadraticSpectralTailP2BridgeData.toResidual
+    {g : CompactLogTest} (p : BombieriQuadraticSpectralTailP2BridgeData g) :
+    BombieriQuadraticResidualP2BridgeData g := by
+  refine
+    { n := p.n, t := p.t, ht := p.ht, gamma := p.gamma, z := p.z
+      residual :=
+        (∑' m : Nat, ∑' rho : spectralHeightShell (m + p.N),
+          spectralTerm g.convolutionSquare rho.1).re
+      tailBound :=
+        ∑' m : Nat, ∑' rho : spectralHeightShell (m + p.N),
+          ‖spectralTerm g.convolutionSquare rho.1‖
+      qw_eq_quadratic_sub_residual := p.qw_eq_quadratic_sub_spectralTail
+      residual_abs_le := ?_
+      tailBound_le_quadratic := p.tailBound_le_quadratic }
+  exact spectralHeightShellTail_abs_re_le_normTail g.convolutionSquare p.N
+
 /-- The Bombieri finite chain supplies a nonnegative real for the mass
 product. -/
 theorem qw_nonneg_of_bombieriP2BridgeData
@@ -150,6 +191,13 @@ theorem qw_nonneg_of_bombieriQuadraticResidualP2BridgeData
     simpa [hformReal] using p.tailBound_le_quadratic
   rw [p.qw_eq_quadratic_sub_residual, hformReal]
   linarith
+
+/-- The explicit spectral-tail producer closes the residual-aware finite
+chain once its same-owner decomposition and main-term domination are proved. -/
+theorem qw_nonneg_of_bombieriQuadraticSpectralTailP2BridgeData
+    {g : CompactLogTest} (p : BombieriQuadraticSpectralTailP2BridgeData g) :
+    0 <= C1SameOwnerWeil.qw g :=
+  qw_nonneg_of_bombieriQuadraticResidualP2BridgeData p.toResidual
 
 /-- The direct quadratic-form contract cannot coexist with the already
 strictly negative healthy detector value.  This is a route guard, not an RH
@@ -204,6 +252,15 @@ theorem qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticResidualP2BridgeDat
     (p : BombieriQuadraticResidualP2BridgeData g) :
     0 <= C1SameOwnerWeil.qw g :=
   qw_nonneg_of_bombieriQuadraticResidualP2BridgeData p
+
+/-- Healthy-detector wrapper for the explicit same-owner spectral-tail
+producer contract. -/
+theorem qw_nonneg_of_healthyDetectorData_of_bombieriQuadraticSpectralTailP2BridgeData
+    {rho : Complex} {g : CompactLogTest}
+    (_hdata : HealthyYoshidaDetectorData rho g)
+    (p : BombieriQuadraticSpectralTailP2BridgeData g) :
+    0 <= C1SameOwnerWeil.qw g :=
+  qw_nonneg_of_bombieriQuadraticSpectralTailP2BridgeData p
 
 /-- If a Line-B producer supplies bridge data for one healthy detector at each
 right-oriented off-line zero, the existing contradiction consumer yields

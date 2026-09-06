@@ -656,6 +656,15 @@ aggregate profile owner and the pinned detector exit.  This is the preferred
 finite-form interface if the spectral tail cannot be eliminated exactly; the
 residual readback and its domination remain OPEN analytic producer fields.
 
+Record 1185 makes the residual owner explicit.  The new theorem
+`spectralHeightShellTail_abs_re_le_normTail` gives a two-sided bound for the
+high-shell tail of the same `g.convolutionSquare`; the new
+`BombieriQuadraticSpectralTailP2BridgeData` sets the Bombieri residual to that
+tail and derives the generic residual socket without an arbitrary residual
+field.  Its same-owner decomposition and tail-to-main-term domination remain
+OPEN producer obligations, so this is a formal interface tightening, not a
+P2 closure.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented

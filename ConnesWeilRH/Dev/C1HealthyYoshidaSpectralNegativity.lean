@@ -204,6 +204,48 @@ theorem spectralHeightShellTail_re_le_normTail
         ‖spectralTerm F rho.1‖ :=
       htailTerms.norm.tsum_le_tsum hinner htailNorms
 
+/-- The absolute real part of the high-shell tail is bounded by the same
+tail of norms.  This is the two-sided form needed when a Bombieri finite
+quadratic form is separated from the full same-owner Weil value by an
+explicit spectral residual. -/
+theorem spectralHeightShellTail_abs_re_le_normTail
+    (F : CompactLogTest) (N : Nat) :
+    |(∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+      spectralTerm F rho.1).re| ≤
+      ∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+        ‖spectralTerm F rho.1‖ := by
+  have hterms := spectralHeightShellLayerSummable F
+  have htailTerms : Summable (fun m : Nat =>
+      ∑' rho : spectralHeightShell (m + N), spectralTerm F rho.1) :=
+    (summable_nat_add_iff
+      (f := fun k : Nat => ∑' rho : spectralHeightShell k,
+        spectralTerm F rho.1) N).mpr hterms
+  have hnorm : Summable (fun rho : sourceNontrivialZeroSet =>
+      ‖spectralTerm F rho‖) := (spectralSummable F).norm
+  have hpart := (summable_partition
+    (f := fun rho : sourceNontrivialZeroSet => ‖spectralTerm F rho‖)
+    (hf := fun rho => norm_nonneg _) spectralHeightShell_partition).mp hnorm
+  have htailNorms : Summable (fun m : Nat =>
+      ∑' rho : spectralHeightShell (m + N), ‖spectralTerm F rho.1‖) :=
+    (summable_nat_add_iff
+      (f := fun k : Nat => ∑' rho : spectralHeightShell k,
+        ‖spectralTerm F rho.1‖) N).mpr hpart.2
+  have hinner (m : Nat) :
+      ‖∑' rho : spectralHeightShell (m + N), spectralTerm F rho.1‖ ≤
+        ∑' rho : spectralHeightShell (m + N), ‖spectralTerm F rho.1‖ :=
+    norm_tsum_le_tsum_norm ((spectralSummable F).norm.subtype _)
+  calc
+    |(∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+        spectralTerm F rho.1).re| ≤
+        ‖∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+          spectralTerm F rho.1‖ := Complex.abs_re_le_norm _
+    _ ≤ ∑' m : Nat, ‖∑' rho : spectralHeightShell (m + N),
+        spectralTerm F rho.1‖ :=
+      norm_tsum_le_tsum_norm htailTerms.norm
+    _ ≤ ∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+        ‖spectralTerm F rho.1‖ :=
+      htailTerms.norm.tsum_le_tsum hinner htailNorms
+
 /-- A controlled low-shell prefix is at most the negative analytic
 multiplicity of the off-line anchor. -/
 theorem spectralHeightShellPrefix_re_le_neg_xiMultiplicity_of_closedBall_control
