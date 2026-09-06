@@ -163,3 +163,55 @@ kept on disk as evidence; its boxes are entrywise-certified but
 cannot support the margin consumption, so the run is retired as
 ABORTED-UNINFORMATIVE (falsifier b, determined pre-completion).
 No hand-narrowing anywhere.
+
+## 8. Floor amendment (2026-09-07, BEFORE the official rerun; run 4 retired)
+
+Official run 4 (16x400) died on the new section-7 gate at entry (0,0):
+budget 7.53e-12 at 16x400 versus 7.12e-12 at 16x200.  The budget went
+UP under grid refinement - the signature of a floor-dominated budget,
+not a delta-dominated one.  The diagnostic
+1217_budget_diagnostic.py (build-logs/1217-budget-diag.log) measured
+the decomposition on the registered 16x200 grid:
+
+```text
+inner max |GL_n - GL_{n/2}|   8.897e-17   (rule converged to the
+arch node max d_pair          1.779e-16    mpmath rounding level)
+floor-free budget             5.65e-14    (of which 4.9e-14 = the
+                                           1e-14 constant enclosures)
+budget @ floor 1e-13          7.1175e-12  (reproduces run 3's measured
+                                           7.117e-12 exactly - the
+                                           diagnostic is validated)
+budget @ floor 1e-15          1.1975e-13
+```
+
+Diagnosis: the 1e-13 floor of section 6 injects 7.1e-12 of pure
+floor charge (98.6 percent of the run-3 budget); the arch weight sum
+e^{y/2}/(e^y - e^-y) ~ 1/(2y) grows logarithmically toward the y=0
+endpoint, so the floored budget INCREASES with grid refinement and
+the section-7 grid escalation cannot help.  The floor's own
+justification - covering mpmath rounding noise - is overstated by
+~28 orders: at dps = 45 the per-value rounding is ~1e-45 and the
+accumulated effect over the engine is below 1e-41.
+
+AMENDED (single change, grid reverted):
+
+```text
+perr floor            1e-13 -> 1e-15  (still >= 10^24 above the
+                                       rounding noise it guards)
+inner/outer grids     back to the registered 16 panels x 200 nodes
+                      of section 3 (the section-7 escalation was
+                      motivated by a delta-dominance hypothesis that
+                      the measurement refutes; at 16x200 the deltas
+                      are 8.9e-17)
+expected budget       ~1.2e-13, half-widths ~1.2e-13, projected
+                      inflation ~1.1e-8 against the allowed 3.9e-7
+                      (falsifier b margin ~30x)
+```
+
+UNCHANGED: the section-7 entry-budget gate 4e-12 (now ~33x above the
+expected budget), dps 45, panels 16, the 1e-12 half-rule gate,
+constant enclosures 1e-14, the 5e-10 cap, the 1e-9 width
+deliverable, dyadic outward rounding, both falsifiers, the emitter
+validations and the 1112 regression cross-check.  Run 4 is retired as
+ABORTED-UNINFORMATIVE (section-7 gate, floor artifact); its log and
+the diagnostic log are the evidence.  No hand-narrowing anywhere.

@@ -12,15 +12,15 @@ by D1 and take [0,0] boxes):
   C_ij(x) = int_{-2}^{2} w_i(s) w_j(x+s) ds,
   w_k(u) = P_k(u/2) exp(-1/(1-(u/2)^2)) on |u| < 2, else 0.
 
-Engine (registered + sec. 7 grid amendment): mpmath dps=45; inner
-correlation and outer arch composite Gauss-Legendre, 16 panels x 400
-nodes (half rule 16x200 for the |GL_n - GL_{n/2}| <= 1e-12 gates at
+Engine (registered + sec. 8 floor amendment): mpmath dps=45; inner
+correlation and outer arch composite Gauss-Legendre, 16 panels x 200
+nodes (half rule 16x100 for the |GL_n - GL_{n/2}| <= 1e-12 gates at
 EVERY required point); the arch integrand is evaluated as the SINGLE
 expression (removable singularity at y=0 - no split-term
 cancellation); constants enclosed at +/-1e-14; per-entry error
 budget accumulated from registered a-posteriori per-point errors
-(2x measured half-rule delta, floor 1e-13; prereg amendment
-sec. 6), gated at 4e-12 (sec. 7) and capped at 5e-10; outward
+(2x measured half-rule delta, floor 1e-15; prereg amendment
+sec. 8), gated at 4e-12 (sec. 7) and capped at 5e-10; outward
 dyadic rounding at denominator 2^72.  The whitened-top inflation
 check (falsifier b) is a post-step: 1217_whitened_check.py.
 
@@ -50,12 +50,14 @@ CKPT = os.path.join(HERE, "1217_m_boxes_checkpoint.json")
 A = 2                      # window half-width a = 2
 K = 8
 PANELS = 4 if SMOKE else 16
-N_IN = 25 if SMOKE else 400        # inner nodes per panel (full rule;
-                                   # grid amendment, prereg sec. 7)
-N_OUT = 25 if SMOKE else 400       # outer nodes per panel (full rule)
+N_IN = 25 if SMOKE else 200        # inner nodes per panel (full rule;
+                                   # registered sec. 3 grid, restored by
+                                   # the sec. 8 floor amendment)
+N_OUT = 25 if SMOKE else 200       # outer nodes per panel (full rule)
 GATE = mp.mpf("1e-12")
 PER_POINT = mp.mpf("1e-11")        # registered per-value ceiling (gate)
-ERR_FLOOR = mp.mpf("1e-13")        # amended budget floor (prereg sec. 6)
+ERR_FLOOR = mp.mpf("1e-15")        # sec. 8 floor amendment (was 1e-13,
+                                   # sec. 6; 10^24 above dps-45 rounding)
 BUDGET_GATE = mp.mpf("4e-12")      # sec. 7 early-abort (falsifier-b room)
 
 
