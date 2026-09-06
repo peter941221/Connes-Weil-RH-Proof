@@ -162,3 +162,17 @@ Class (2,8) only.  The q38/q48 chains stay exactly as committed (their
 M-side boxes carry the same 1214 fracture; regenerating them is a
 mechanical follow-up once the entrywise campaign covers those classes'
 G sides).  RH NOT claimed.
+
+## 7. Amendment (2026-09-07, committed BEFORE the first green run)
+
+F1 as registered asserted `mixed box == exact [0, 0]` against the 1217
+CERT JSON.  First launch fired F1 at (0,1):
+`[-527801769/4722366482869645213696, +527801769/4722366482869645213696]`.
+Not a data problem: the 1217 engine writes every box as
+`mid +/- outward(budget)` uniformly (mixed mids are ~1e-47, budget
+~1.1e-13), while the COMMITTED Lean data (C1GateMatrixBoxData) and D1
+ownership use EXACT [0, 0] mixed boxes.  Amendment: F1 checks mixed
+CONSISTENCY instead (`|mid| <= budget` and `0 in box`), and the bundle
+EMITS exact `0` for mixed endpoints so the bundle M data is
+entry-identical to the committed Lean data the Lean reverse
+containment will be tied to.  Same-parity boxes unchanged.
