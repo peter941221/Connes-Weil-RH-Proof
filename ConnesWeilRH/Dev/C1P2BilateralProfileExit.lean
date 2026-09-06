@@ -196,6 +196,21 @@ theorem sourceRH_of_pinnedOrbitDetector_p2BilateralProfileRangeWitness
     qw_nonneg_of_p2BilateralProfileAggregateWitness g hdata.vanishesOnF
       haggregate⟩
 
+/-- A positive trace-class operator family on the same owner is an alternate
+producer route: its order-theoretic readback gives `qw ≥ 0`, which the exact
+aggregate equivalence re-expresses as the P2 witness. -/
+theorem P2BilateralProfileAggregateWitness.of_positiveTraceOperatorLimitFamily
+    {ι H : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    {basis : HilbertBasis ι ℂ H} (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (data : PositiveTraceOperatorLimitFamily basis g) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance :=
+    (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
+      g hvanishes).mp (qw_nonnegative_of_positiveTraceOperatorLimitFamily data)
+
 theorem sourceRH_of_healthyDetector_p2BilateralProfileSignWitness
     (hproducer : ∀ rho : sourceNontrivialZeroSet,
       (1 / 2 : Real) < rho.1.re →

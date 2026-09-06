@@ -534,6 +534,13 @@ adapter gives the aggregate witness and the existing `qw ≥ 0` consumer.  The
 only remaining producer content is the signed finite-range inequality itself;
 P2/RH remain open.
 
+Record 1168 adds the parallel positive-operator producer adapter.  A
+same-owner `PositiveTraceOperatorLimitFamily` (positive trace-class operators,
+vanishing remainder, and `qw` readback) now yields the identical aggregate P2
+witness as the already wired self-pair family.  This broadens the producer
+socket without changing the owner or the quantifier: constructing either trace
+family for the pinned orbit is still open.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds
