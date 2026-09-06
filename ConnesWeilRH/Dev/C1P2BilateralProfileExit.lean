@@ -16,6 +16,7 @@ namespace C1P2BilateralProfileExit
 
 open C1HealthyYoshidaDetector
 open C1HealthyYoshidaSpectralNegativity
+open C1LocalConfigurationDomination
 open C1P2BilateralProfile
 open C1SameOwnerWeil
 open CC20YoshidaNearZeros
@@ -35,7 +36,31 @@ structure P2BilateralProfileAggregateWitness (g : CompactLogTest) where
     archimedeanTerm g.convolutionSquare +
       ∑ n ∈ globalPrimeIndexSet g.convolutionSquare,
         ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
-          (bilateralProfile g.convolutionSquare (Real.log n)).re ≤ 0
+            (bilateralProfile g.convolutionSquare (Real.log n)).re ≤ 0
+
+/-- The earlier pointwise witness is a special case of the aggregate target. -/
+theorem P2BilateralProfileSignWitness.toAggregate
+    (g : CompactLogTest) (p : P2BilateralProfileSignWitness g) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance := by
+    have hprime := finitePrimeSum_nonpos_of_bilateralProfile_re_nonpos
+      g.convolutionSquare p.hprofile
+    have hread := finitePrimeSum_eq_bilateralProfile_weighted_sum
+      g.convolutionSquare
+    rw [← hread]
+    exact add_nonpos p.harch hprime
+
+/-- The orbit-window gate and the aggregate profile witness are the same
+inequality, with the finite-prime sum expressed in its exact profile form. -/
+theorem P2BilateralProfileAggregateWitness.of_orbitWindowSemiLocalGate
+    (g : CompactLogTest)
+    (hgate : C1OrbitWindowSemiLocalGate.orbitWindowSemiLocalGate g) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance := by
+    have hgate' := (orbitWindowSemiLocalGate_iff g).mp hgate
+    unfold ICgate at hgate'
+    rw [finitePrimeSum_eq_bilateralProfile_weighted_sum] at hgate'
+    exact hgate'
 
 theorem qw_nonneg_of_p2BilateralProfileSignWitness
     (g : CompactLogTest)

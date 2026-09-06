@@ -136,6 +136,24 @@ theorem qw_nonneg_of_archimedean_plus_bilateralProfile_weighted_sum_nonpos
     g hvanishes, hprime]
   linarith
 
+/-- The aggregate profile inequality is not merely sufficient: on a
+triple-vanishing owner it is exactly equivalent to the desired `qw ≥ 0`. -/
+theorem qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g) :
+    0 ≤ qw g ↔
+      archimedeanTerm g.convolutionSquare +
+        ∑ n ∈ globalPrimeIndexSet g.convolutionSquare,
+          ArithmeticFunction.vonMangoldt n *
+              (1 / Real.sqrt (n : ℝ)) *
+            (bilateralProfile g.convolutionSquare (Real.log n)).re ≤ 0 := by
+  have hprime := finitePrimeSum_eq_bilateralProfile_weighted_sum
+    g.convolutionSquare
+  rw [qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple
+    g hvanishes, hprime]
+  constructor <;> intro h <;> linarith
+
 /-! ### Direct same-owner P2 sign consumer -/
 
 /- A detector-specific producer may establish the archimedean sign and the

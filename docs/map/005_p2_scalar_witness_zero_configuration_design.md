@@ -484,6 +484,20 @@ premise, not a stored `qw` conclusion, and its B5 `SourceRH` consumer is
 landed.  Constructing the aggregate inequality for the orbit detector remains
 OPEN.
 
+Record 1160 proves the aggregate socket is exact: under triple vanishing,
+`qw(g) ≥ 0` is equivalent to
+`archimedeanTerm(g²) + Σ Λ(n)/√n·Re(profile(log n)) ≤ 0`.  The former
+pointwise profile witness is formally mapped into the aggregate witness, so
+the aggregate formulation is a true weakening of the producer interface and
+not a change of mathematical owner.  The orbit-detector inequality itself is
+still OPEN.
+
+Record 1161 formally identifies the existing `orbitWindowSemiLocalGate` with
+the aggregate profile witness: after the exact finite-prime readback, a gate
+for `g` constructs `P2BilateralProfileAggregateWitness g`.  This is an
+interface composition only; the Stage-B contraction fields and the
+detector-specific gate inequality remain unconstructed.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds

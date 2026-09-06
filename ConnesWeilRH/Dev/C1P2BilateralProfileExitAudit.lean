@@ -8,6 +8,8 @@ namespace C1P2BilateralProfileExit
 #print axioms sourceRH_of_healthyDetector_p2BilateralProfileSignWitness
 #print axioms qw_nonneg_of_p2BilateralProfileAggregateWitness
 #print axioms sourceRH_of_healthyDetector_p2BilateralProfileAggregateWitness
+#print axioms P2BilateralProfileSignWitness.toAggregate
+#print axioms P2BilateralProfileAggregateWitness.of_orbitWindowSemiLocalGate
 
 end C1P2BilateralProfileExit
 end Source
