@@ -84,6 +84,7 @@ namespace C1GateLevelTransferClassesQ28M
 
 open Matrix
 open C1GateLevelTransfer (sumUnivSplit qform_nonneg_whitenedBox)
+open C1GateLevelTransferClasses (ratio_headline absolute_headline)
 open C1LocalConfigurationDomination (ICgate)
 open C1WindowRationalIngest
 open CCM25Concrete.CompactLogConvolution
