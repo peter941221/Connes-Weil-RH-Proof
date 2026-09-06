@@ -93,6 +93,32 @@ theorem qw_nonneg_of_bombieriQuadraticP2BridgeData
   rw [p.qw_eq_quadratic, hform]
   simpa using hS
 
+/-- The direct quadratic-form contract cannot coexist with the already
+strictly negative healthy detector value.  This is a route guard, not an RH
+conclusion. -/
+theorem not_bombieriQuadraticP2BridgeData_of_healthyDetectorData
+    {rho : Complex} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    (p : BombieriQuadraticP2BridgeData g) : False := by
+  have hnegativeSpectral :
+      C1SpectralWeil.spectralWeilValue g.convolutionSquare < 0 :=
+    (weilSquareSumPositive_iff_spectralWeilValue_neg g).mp
+      hdata.weilSquareSumPositive
+  have hnegative : C1SameOwnerWeil.qw g < 0 := by
+    rw [C1CenterTwoCriterionBridge.qw_eq_spectralWeilValue_centerTwo]
+    exact hnegativeSpectral
+  exact (not_lt_of_ge (qw_nonneg_of_bombieriQuadraticP2BridgeData p)) hnegative
+
+/-- No nonempty direct quadratic-form producer exists on a healthy detector;
+the equality field is therefore a formally identified dead route for P2. -/
+theorem not_nonempty_bombieriQuadraticP2BridgeData_of_healthyDetectorData
+    {rho : Complex} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g) :
+    ¬ Nonempty (BombieriQuadraticP2BridgeData g) := by
+  intro hp
+  obtain ⟨p⟩ := hp
+  exact not_bombieriQuadraticP2BridgeData_of_healthyDetectorData hdata p
+
 /-- Pointwise healthy-detector consumer for the Line-B bridge.  The healthy
 data is carried explicitly so the theorem is attached to the same B5 owner
 as the detector-specific contradiction. -/

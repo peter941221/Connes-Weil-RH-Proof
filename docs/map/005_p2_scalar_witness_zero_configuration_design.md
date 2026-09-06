@@ -619,6 +619,18 @@ healthy B5 aggregate and `SourceRH` exits.  This is FORMAL interface work, not
 a new sign assumption: constructing the same-owner equality and the finite
 data for each pinned orbit detector remains OPEN.
 
+Record 1181 corrects the status of record 1180.  The direct quadratic socket is
+formally incompatible with the healthy detector branch: the finite theorem
+forces the matrix form, and hence `qw` under its equality field, to be
+nonnegative, while `HealthyYoshidaDetectorData` forces the same `qw` strictly
+negative.  The new negative guards
+`not_bombieriQuadraticP2BridgeData_of_healthyDetectorData` and
+`not_nonempty_bombieriQuadraticP2BridgeData_of_healthyDetectorData` therefore
+classify the socket as NO-GO for P2.  Its conditional exits remain only as
+auditable logical interfaces; no producer may satisfy them on a healthy
+detector.  Active work returns to signed semi-local/profile or genuine
+renormalized trace readback routes.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented
