@@ -19,6 +19,10 @@ open C1LaneRNarrowArch
 open C1LaneRStrictness
 open C1P2DefectControl
 open C1OrbitWindowSemiLocalGate
+open C1HealthyYoshidaDetector
+open C1HealthyYoshidaSpectralNegativity
+open C1OrbitWindowExitComposition
+open CC20YoshidaNearZeros
 open C1LocalConfigurationDomination
 open C1SameOwnerWeil
 open CCM25Concrete.CompactLogConvolution
@@ -120,6 +124,21 @@ theorem orbitGate_of_p2NarrowReferenceCanonicalWitness
     orbitWindowSemiLocalGate g := by
   exact orbitGate_of_p2CanonicalOneWindowBudgetWitness g
     (P2NarrowReferenceCanonicalWitness.toCanonical g p)
+
+/-- Same-owner B5 exit for the fixed-window producer contract. -/
+theorem sourceRH_of_healthyDetector_p2NarrowReferenceCanonicalWitness
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+            Nonempty (P2NarrowReferenceCanonicalWitness g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, hdata, ⟨hp2⟩⟩ := hproducer rho hright
+  exact ⟨g, hdata,
+    qw_nonneg_of_healthyDetectorData_of_orbitWindowSemiLocalGate hdata
+      (orbitGate_of_p2NarrowReferenceCanonicalWitness g hp2)⟩
 
 end
 end C1P2NarrowWindowCertificate

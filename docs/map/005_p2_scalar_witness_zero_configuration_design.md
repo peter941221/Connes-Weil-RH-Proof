@@ -453,6 +453,9 @@ producer payload is therefore reduced to detector support, the same-owner
 `ICdefect` budget, and its margin comparison.  This is contract compression,
 not a detector-to-window estimate; P2 remains OPEN and route authority is
 unchanged.
+The adapter also exposes the exact same-owner `SourceRH` exit, so this fixed
+window is now a complete producer socket: only the detector-side budget and
+margin need an analytic construction.
 
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value

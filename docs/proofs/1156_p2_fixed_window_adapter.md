@@ -12,6 +12,11 @@ support interval.  The resulting
 `orbitGate_of_p2NarrowReferenceCanonicalWitness` feeds the unchanged healthy
 `CompactLog` B5 consumer.
 
+The same module also exports
+`sourceRH_of_healthyDetector_p2NarrowReferenceCanonicalWitness`: the exact
+right-oriented-zero producer quantifier now composes directly with the
+existing `SourceRH` consumer.
+
 The new payload leaves only three producer inputs: detector support, the
 same-owner defect budget, and the scalar margin comparison.  No sign is stored
 in the payload and no detector/window comparison is inferred.
