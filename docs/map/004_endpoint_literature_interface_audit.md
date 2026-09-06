@@ -163,6 +163,14 @@ In particular:
 Thus P2, not the arithmetic coefficient bookkeeping, is the unresolved
 mathematical step.
 
+Current FORMAL status (records 1157--1159, 2026-09-06): the absolute-value
+`P2OneWindowBudgetWitness` family is refuted as a producer for the healthy
+detector branch, for arbitrary reference window.  Its gate consumer would
+force `qw(g) ≥ 0` while the detector data forces `qw(g) < 0`.  The remaining
+live target is instead the signed same-owner aggregate profile inequality
+`archimedeanTerm + Σ Λ(n)/√n·Re(profile(log n)) ≤ 0`, whose B5 exit is now
+formalized but whose detector-specific proof is still OPEN.
+
 Formal admission audit (record 1140, 2026-09-05):
 `C1T2Assembly.no_stageB_budget_of_qw_negative` proves that the existing
 one-window Stage-B interface cannot manufacture its defect budget from the
