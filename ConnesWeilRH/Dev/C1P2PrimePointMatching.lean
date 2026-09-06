@@ -31,6 +31,13 @@ def PrimePointMatch (F G : CompactLogTest) : Prop :=
     F.test (Real.log n) = G.test (Real.log n) ∧
       F.test (-Real.log n) = G.test (-Real.log n)
 
+/-- The weaker matching condition actually seen by one finite-prime term:
+only the bilateral pair sum at `± log n` matters. -/
+def PrimePairMatch (F G : CompactLogTest) : Prop :=
+  ∀ n ∈ globalPrimeIndexSet F ∪ globalPrimeIndexSet G,
+    F.test (Real.log n) + F.test (-Real.log n) =
+      G.test (Real.log n) + G.test (-Real.log n)
+
 private theorem finitePrimeTermComplex_eq_of_point_match
     (F G : CompactLogTest) {n : Nat}
     (hmatch : F.test (Real.log n) = G.test (Real.log n) ∧
@@ -47,6 +54,14 @@ private theorem finitePrimeTerm_eq_of_point_match
   unfold finitePrimeTerm
   rw [finitePrimeTermComplex_eq_of_point_match F G hmatch]
 
+private theorem finitePrimeTerm_eq_of_pair_match
+    (F G : CompactLogTest) {n : Nat}
+    (hmatch : F.test (Real.log n) + F.test (-Real.log n) =
+      G.test (Real.log n) + G.test (-Real.log n)) :
+    finitePrimeTerm F n = finitePrimeTerm G n := by
+  unfold finitePrimeTerm finitePrimeTermComplex
+  rw [hmatch]
+
 private theorem finitePrimeTerm_eq_zero_of_not_mem
     (F : CompactLogTest) {n : Nat}
     (hn : n ∉ globalPrimeIndexSet F) :
@@ -60,13 +75,10 @@ private theorem finitePrimeTerm_eq_zero_of_not_mem
   rw [hzero]
   rfl
 
-/-- Exact finite-prime cancellation from pointwise matching on the union of
-the visible prime-power owners.  This is the concrete finite target that a
-future Line-C correction may try to enforce; it carries no archimedean sign
-and no `qw` positivity. -/
-theorem finitePrimeSum_eq_of_primePointMatch
+private theorem finitePrimeSum_eq_of_term_match
     (F G : CompactLogTest)
-    (hmatch : PrimePointMatch F G) :
+    (hterm : ∀ n ∈ globalPrimeIndexSet F ∪ globalPrimeIndexSet G,
+      finitePrimeTerm F n = finitePrimeTerm G n) :
     finitePrimeSum F = finitePrimeSum G := by
   let S : Finset Nat := globalPrimeIndexSet F ∪ globalPrimeIndexSet G
   have hF : ∑ n ∈ globalPrimeIndexSet F, finitePrimeTerm F n =
@@ -85,8 +97,30 @@ theorem finitePrimeSum_eq_of_primePointMatch
   rw [hF, hG]
   apply Finset.sum_congr rfl
   intro n hn
-  exact finitePrimeTerm_eq_of_point_match F G
-    (hmatch n (by simpa [S] using hn))
+  exact hterm n (by simpa [S] using hn)
+
+/-- Exact finite-prime cancellation from pointwise matching on the union of
+the visible prime-power owners.  This is the concrete finite target that a
+future Line-C correction may try to enforce; it carries no archimedean sign
+and no `qw` positivity. -/
+theorem finitePrimeSum_eq_of_primePointMatch
+    (F G : CompactLogTest)
+    (hmatch : PrimePointMatch F G) :
+    finitePrimeSum F = finitePrimeSum G := by
+  apply finitePrimeSum_eq_of_term_match F G
+  intro n hn
+  exact finitePrimeTerm_eq_of_point_match F G (hmatch n hn)
+
+/-- Exact finite-prime cancellation under the minimal bilateral pair-sum
+condition.  This is weaker than `PrimePointMatch` and is the preferred target
+for a future correction producer. -/
+theorem finitePrimeSum_eq_of_primePairMatch
+    (F G : CompactLogTest)
+    (hmatch : PrimePairMatch F G) :
+    finitePrimeSum F = finitePrimeSum G := by
+  apply finitePrimeSum_eq_of_term_match F G
+  intro n hn
+  exact finitePrimeTerm_eq_of_pair_match F G (hmatch n hn)
 
 /-- On triple-vanishing root owners, prime-point matching removes the entire
 finite-prime part of the one-window defect gate.  The exact defect identity
@@ -108,6 +142,27 @@ theorem defectGate_eq_archimedean_sub_of_primePointMatch
     qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple
       W hWv,
     finitePrimeSum_eq_of_primePointMatch g.convolutionSquare
+      W.convolutionSquare hmatch]
+  ring
+
+/-- The direct gate reduction using only the weaker bilateral pair matching. -/
+theorem defectGate_eq_archimedean_sub_of_primePairMatch
+    (g W : CompactLogTest)
+    (hgv : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (hWv : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet W)
+    (hmatch : PrimePairMatch g.convolutionSquare W.convolutionSquare) :
+    ICgate (ICdefect g.convolutionSquare {()}
+      (fun _ => W.convolutionSquare) (fun _ => 1)) =
+      archimedeanTerm g.convolutionSquare -
+        archimedeanTerm W.convolutionSquare := by
+  rw [defectGate_eq_qw_sub g W hgv hWv,
+    qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple
+      g hgv,
+    qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple
+      W hWv,
+    finitePrimeSum_eq_of_primePairMatch g.convolutionSquare
       W.convolutionSquare hmatch]
   ring
 

@@ -37,11 +37,24 @@ archimedeanTerm(g.square) - archimedeanTerm(W.square)
 under the same-owner point-match hypothesis, without asserting that this
 remaining difference has either sign.
 
+The contract was then minimized: `PrimePairMatch` asks only for equality of
+the bilateral sums
+
+```text
+F(log n) + F(-log n) = G(log n) + G(-log n)
+```
+
+on the same union. The companion theorems
+`finitePrimeSum_eq_of_primePairMatch` and
+`defectGate_eq_archimedean_sub_of_primePairMatch` prove the identical
+cancellation and gate reduction. This is the preferred producer target since
+the Weil prime term never observes the two values separately.
+
 ## Why this matters for Line C
 
 For the one-window defect, take
 `F = g.convolutionSquare` and `G = W.convolutionSquare`. A future correction
-producer that establishes `PrimePointMatch F G` removes the entire finite-prime
+producer that establishes `PrimePairMatch F G` removes the entire finite-prime
 part of the exact identity
 
 ```text
@@ -53,13 +66,13 @@ archimedean/correction cancellation on the same owner.
 
 This does not yet construct the matching correction. The existing
 `exists_residualWindow_correction` theorem interpolates finitely many Mellin
-values, whereas `PrimePointMatch` asks for real point values of the
+values, whereas `PrimePairMatch` asks for bilateral real point sums of the
 convolution squares. Establishing that mixed interpolation, or replacing it
 by a low-rank residual identity, is the next genuine analytic producer task.
 
 ## Verification
 
 Owning and audit modules build with the resource-aware runner:
-`Build completed successfully (3659 jobs)`, zero `error:` lines. Both headline
-theorems print exactly `[propext, Classical.choice, Quot.sound]`; no `sorryAx`
-occurs.
+`Build completed successfully (3659 jobs)`, zero `error:` lines. All four
+headline theorems print exactly `[propext, Classical.choice, Quot.sound]`; no
+`sorryAx` occurs.

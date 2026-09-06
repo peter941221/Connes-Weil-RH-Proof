@@ -285,12 +285,13 @@ gate-level cancellation identity on the same owner; interpolation alone is
 not a producer.
 
 The first exact sub-target is now formal (record 1149):
-`finitePrimeSum_eq_of_primePointMatch` cancels the complete visible-prime sum
-when the two square owners match at `± log q` on the union of their visible
-sets. This is a genuine Line-C consumer, not a positivity premise. The open
-producer task is to obtain those real point values from the correction (or to
-replace them with an equivalent low-rank residual identity); the existing
-finite Mellin interpolation does not do so automatically.
+`finitePrimeSum_eq_of_primePairMatch` cancels the complete visible-prime sum
+when the two square owners match in the bilateral sum at `± log q` on the
+union of their visible sets. This is a genuine Line-C consumer, not a
+positivity premise. The open producer task is to obtain those real point
+sums from the correction (or to replace them with an equivalent low-rank
+residual identity); the existing finite Mellin interpolation does not do so
+automatically.
 
 Falsifier: record 1116's structural finding is the standing guard - the
 model-class sign is configuration-local, and any candidate derivation must

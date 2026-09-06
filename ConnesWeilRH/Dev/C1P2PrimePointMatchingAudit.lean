@@ -5,7 +5,9 @@ namespace Source
 namespace C1P2PrimePointMatching
 
 #print axioms finitePrimeSum_eq_of_primePointMatch
+#print axioms finitePrimeSum_eq_of_primePairMatch
 #print axioms defectGate_eq_archimedean_sub_of_primePointMatch
+#print axioms defectGate_eq_archimedean_sub_of_primePairMatch
 
 end C1P2PrimePointMatching
 end Source
