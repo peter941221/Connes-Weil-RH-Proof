@@ -64,6 +64,19 @@ theorem P2BilateralProfileAggregateWitness.of_orbitWindowSemiLocalGate
     rw [finitePrimeSum_eq_bilateralProfile_weighted_sum] at hgate'
     exact hgate'
 
+/-- Exact socket equivalence: the aggregate witness is precisely the existing
+orbit-window gate, with only the finite-prime expression changed by readback. -/
+theorem p2AggregateWitness_iff_orbitWindowSemiLocalGate
+    (g : CompactLogTest) :
+    P2BilateralProfileAggregateWitness g ↔
+      C1OrbitWindowSemiLocalGate.orbitWindowSemiLocalGate g := by
+  constructor
+  · intro p
+    unfold C1OrbitWindowSemiLocalGate.orbitWindowSemiLocalGate
+    rw [finitePrimeSum_eq_bilateralProfile_weighted_sum]
+    exact p.hbalance
+  · exact P2BilateralProfileAggregateWitness.of_orbitWindowSemiLocalGate g
+
 /-- A producer may use the real Hermitian evaluations directly instead of
 mentioning `bilateralProfile`; this is definitionally the same aggregate
 socket after the convolution-square identity. -/

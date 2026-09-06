@@ -510,6 +510,11 @@ the aggregate witness through the exact `qw` equivalence.  Thus Stage-3 and
 direct profile estimation are two producer interfaces for the same P2 owner;
 neither is populated for the pinned orbit detector yet.
 
+Record 1164 closes the interface audit with an `iff`: the aggregate witness
+and `orbitWindowSemiLocalGate` are exactly the same proposition after finite
+prime readback.  The live P2 obligation is therefore one gate producer, not a
+choice among inequivalent formulations.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds
