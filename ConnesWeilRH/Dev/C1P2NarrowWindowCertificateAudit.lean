@@ -7,6 +7,9 @@ namespace C1P2NarrowWindowCertificate
 #print axioms narrowArchRoot_ICgate_neg
 #print axioms narrowArchRoot_exists_gate_certificate
 #print axioms narrowArchRoot_gate_certificate_of_margin
+#print axioms narrowArchRoot_support_subset
+#print axioms P2NarrowReferenceCanonicalWitness.toCanonical
+#print axioms orbitGate_of_p2NarrowReferenceCanonicalWitness
 
 end C1P2NarrowWindowCertificate
 end Source

@@ -445,6 +445,15 @@ P2 producer obligation is the detector-to-window defect budget (or an
 alternative direct profile sign), not construction of a negative reference
 gate.
 
+Record 1156 adds a FORMAL fixed-window adapter.  The new
+`P2NarrowReferenceCanonicalWitness` expands to the existing canonical P2
+witness with `W = narrowArchRoot`, while the root support, gate certificate,
+and square-owner seminorm bounds are supplied by the shared owner.  The
+producer payload is therefore reduced to detector support, the same-owner
+`ICdefect` budget, and its margin comparison.  This is contract compression,
+not a detector-to-window estimate; P2 remains OPEN and route authority is
+unchanged.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds
