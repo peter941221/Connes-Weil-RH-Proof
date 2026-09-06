@@ -36,8 +36,8 @@ open scoped BigOperators Interval
 
 set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 2000000000 in
--- reason: executable checkpoint for the shared 666-term comparison table;
--- the resulting native axiom is recorded in the 1139 post-run addendum.
+-- reason: kernel-checked checkpoint over the shared 666-term comparison
+-- table; grounded by the record-1145 literal tables (no native axiom).
 private theorem q28_certificate_Q :
     let d := comparisonDataQ
     (q28Moment0LoQ + centralErrorQ ≤ d.a0 + d.b0 * logUpperQ ∧

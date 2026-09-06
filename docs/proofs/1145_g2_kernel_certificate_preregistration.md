@@ -331,3 +331,26 @@ also pass: `C1ConcreteClassMomentCertificate` completed in 3675 jobs and
 `[propext, Classical.choice, Quot.sound]` for all nine checked declarations;
 no `sorryAx` occurs.  The generator was additionally run twice with
 identical MD5 output, so the accepted source is deterministic.
+
+## 13. Addendum 8 (2026-09-06, HEAD re-verification and comment hygiene)
+
+Two closure items, no statement, proof, or option change:
+
+```text
+H1  Comment hygiene: the checkpoint's lead-in comment still read "the
+    resulting native axiom is recorded in the 1139 post-run addendum",
+    which has been false since the RED-10 acceptance.  Reworded to the
+    kernel-checked wording; the theorem statement, the proof, and both
+    set_option lines are byte-unchanged.
+H2  HEAD re-verification: both targets rebuilt from deleted oleans on the
+    WSL mirror (log build-logs-1145-reverify1.log): success footer
+    present, zero `error:` lines, zero `sorryAx`, zero `ofReduceBool`,
+    and all nine audit axiom lists exactly
+    `[propext, Classical.choice, Quot.sound]`, including the two public
+    q28 producers.  Gate G2 re-confirmed at the current frontier.
+```
+
+Wall-clock note for future planning: the checkpoint re-elaboration
+dominates a cold rebuild of this leaf (roughly twenty minutes, peak lean
+RSS about 10 GB, no swap pressure) - consistent with the RED-10
+acceptance behavior and far from the RED-6/RED-7 thrash signature.
