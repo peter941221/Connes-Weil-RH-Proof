@@ -504,6 +504,12 @@ submit the aggregate estimate using only real evaluations of the square; the
 formal exit converts it to the existing profile witness.  This is still an
 interface reduction, not the missing detector-specific sign estimate.
 
+Record 1163 also composes the Stage-3 positive-trace route with this socket:
+an actual `PositiveTracePairLimitFamily` on the same `CompactLogTest` yields
+the aggregate witness through the exact `qw` equivalence.  Thus Stage-3 and
+direct profile estimation are two producer interfaces for the same P2 owner;
+neither is populated for the pinned orbit detector yet.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds

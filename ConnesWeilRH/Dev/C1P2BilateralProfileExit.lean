@@ -1,5 +1,6 @@
 import ConnesWeilRH.Dev.C1P2BilateralProfile
 import ConnesWeilRH.Dev.C1HealthyYoshidaSpectralNegativity
+import ConnesWeilRH.Dev.C1PositiveTraceLimitBridge
 
 /-!
 # P2 bilateral-profile same-detector exit
@@ -18,6 +19,7 @@ open C1HealthyYoshidaDetector
 open C1HealthyYoshidaSpectralNegativity
 open C1LocalConfigurationDomination
 open C1P2BilateralProfile
+open C1PositiveTraceLimitBridge
 open C1SameOwnerWeil
 open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
@@ -86,6 +88,22 @@ theorem P2BilateralProfileAggregateWitness.of_twoRealWeightedSum
       rw [bilateralProfile_convolutionSquare_re_eq_two_re]
     rw [hprofile]
     exact hbalance
+
+/-- A genuine positive-trace limit family on the same owner is another
+producer route: its order-theoretic readback gives `qw ≥ 0`, which the exact
+aggregate equivalence then re-expresses as the P2 witness. -/
+theorem P2BilateralProfileAggregateWitness.of_positiveTracePairLimitFamily
+    {ι H G : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [NormedAddCommGroup G] [InnerProductSpace ℂ G] [CompleteSpace G]
+    {basis : HilbertBasis ι ℂ H} (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (data : PositiveTracePairLimitFamily (G := G) basis g) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance :=
+    (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
+      g hvanishes).mp (qw_nonnegative_of_positiveTracePairLimitFamily data)
 
 theorem qw_nonneg_of_p2BilateralProfileSignWitness
     (g : CompactLogTest)
