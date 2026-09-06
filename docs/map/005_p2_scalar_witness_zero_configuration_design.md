@@ -457,6 +457,16 @@ The adapter also exposes the exact same-owner `SourceRH` exit, so this fixed
 window is now a complete producer socket: only the detector-side budget and
 margin need an analytic construction.
 
+Record 1157 now gives the decisive FORMAL no-go for that scalar socket.  For
+any `HealthyYoshidaDetectorData rho g`, a
+`P2NarrowReferenceCanonicalWitness g` implies the defect gate bound through
+the canonical budget consumer; together with the fixed root certificate and
+margin, `no_stageB_budget_of_qw_negative` derives `False` from the detector's
+strictly negative `qw`.  Therefore this fixed-window triangle-budget contract
+cannot be a producer for the live detector.  The active P2 targets are the
+direct bilateral-profile sign witness or a genuinely signed semi-local trace
+comparison; the route authority is unchanged.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds
