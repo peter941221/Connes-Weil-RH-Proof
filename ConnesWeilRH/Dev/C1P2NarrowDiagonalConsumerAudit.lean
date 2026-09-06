@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1P2NarrowDiagonalConsumer
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1P2NarrowDiagonalConsumer
+
+#print axioms diagonalICgate_nonpos_of_primeFree_archimedean_nonpos
+#print axioms diagonalICgate_nonpos_of_narrowBudget
+#print axioms qw_nonneg_of_even_odd_narrow_diagonal
+
+end C1P2NarrowDiagonalConsumer
+end Source
+end ConnesWeilRH
