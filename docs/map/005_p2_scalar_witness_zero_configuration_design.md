@@ -594,6 +594,15 @@ positivity certificate.  It asserts no nonnegativity, no spectral lower bound,
 and no same-owner `qw` readback; the detector-specific P2 producer remains
 OPEN.
 
+Record 1178 completes that finite consumer step.  The new formal identity
+`bombieriHMatrix_quadraticForm_eq_KstarGram` rewrites the weighted finite
+`H(Γ;t)` quadratic form exactly as `bombieriKstarGram`; composing it with the
+existing 8.11–Wirtinger theorem yields
+`bombieriHMatrix_quadraticForm_eq_ofReal_nonneg` for `t > 0`.  This is genuine
+finite positivity and allows repeated ordinates, but it still does not identify
+the form with `qw g`, construct the per-zero detector certificate, or close the
+healthy `CompactLog` P2 gate.  Those producer obligations remain OPEN.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented
