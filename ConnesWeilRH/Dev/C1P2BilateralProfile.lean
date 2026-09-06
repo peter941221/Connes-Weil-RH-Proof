@@ -143,6 +143,29 @@ theorem finitePrimeSum_convolutionSquare_eq_two_re_weighted_sum
   intro n hn
   rw [bilateralProfile_convolutionSquare_re_eq_two_re]
 
+/-- Support-controlled version: the real aggregate can be evaluated on the
+explicit finite cutoff supplied by the common-window prime-sum lemma. -/
+theorem finitePrimeSum_convolutionSquare_eq_two_re_weighted_sum_range_of_support
+    (g : CompactLogTest) {B : ℝ}
+    (hsupport : Function.support g.convolutionSquare.test ⊆
+      Set.Ioo (-B) B) :
+    finitePrimeSum g.convolutionSquare =
+      ∑ n ∈ Finset.range (Nat.ceil (Real.exp B) + 1),
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+          (2 * (g.convolutionSquare.test (Real.log n)).re) := by
+  have hpack := finitePrimeSum_packTest_eq_sum_range
+    g.convolutionSquare.test g.convolutionSquare.compactSupport hsupport
+  have hpackEq :
+      packTest g.convolutionSquare.test g.convolutionSquare.compactSupport =
+        g.convolutionSquare := by
+    exact CompactLogTest.ext (by rfl)
+  rw [hpackEq] at hpack
+  rw [hpack]
+  apply Finset.sum_congr rfl
+  intro n hn
+  rw [finitePrimeTerm_eq_realCoefficient_mul_bilateralProfile_re,
+    bilateralProfile_convolutionSquare_re_eq_two_re]
+
 /-! ### Minimal aggregate same-owner P2 sign consumer -/
 
 /-- The archimedean term plus the exact finite weighted profile sum is the

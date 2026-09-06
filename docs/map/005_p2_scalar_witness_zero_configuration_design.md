@@ -515,6 +515,11 @@ and `orbitWindowSemiLocalGate` are exactly the same proposition after finite
 prime readback.  The live P2 obligation is therefore one gate producer, not a
 choice among inequivalent formulations.
 
+Record 1165 adds the support-controlled real readback: when the square is
+supported in `(-B,B)`, the aggregate finite-prime term is exactly a sum over
+`range (ceil(exp B)+1)`.  This exposes the detector's finite arithmetic owner
+as an explicit cutoff for the next analytic estimate; it proves no sign.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds
