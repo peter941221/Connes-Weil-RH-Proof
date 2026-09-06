@@ -672,6 +672,13 @@ provides the margin that a future same-owner spectral-tail producer must
 beat, but it does not select a cutoff or prove the Bombieri-to-`qw` residual
 identity.  P2 remains OPEN on those producer obligations.
 
+Record 1187 combines the strict finite-form margin with the exact shell-tail
+cutoff theorem.  `exists_spectralTail_normTail_lt_bombieriQuadraticForm_of_eigen`
+now supplies a cutoff whose same-owner spectral norm tail is below the finite
+main term.  Thus residual domination is no longer an independent producer
+field; the remaining Bombieri bottleneck is the exact `qw`–finite-form–tail
+decomposition at the chosen cutoff.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented

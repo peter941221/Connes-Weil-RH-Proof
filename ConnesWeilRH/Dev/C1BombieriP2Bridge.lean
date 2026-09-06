@@ -164,6 +164,23 @@ theorem bombieriHMatrix_quadraticForm_pos_of_eigen
   rw [hform]
   exact hprod
 
+/-- The same nonzero reciprocal-eigenvector branch admits a shell cutoff whose
+spectral norm tail is strictly smaller than the finite Bombieri main term. -/
+theorem exists_spectralTail_normTail_lt_bombieriQuadraticForm_of_eigen
+    (F : CompactLogTest) {n : Nat} (t : Real) (ht : 0 < t) (gamma : Fin n -> Real)
+    (z : Fin n -> Complex) (Lam : Complex) (lam : Real) (hz : z ≠ 0)
+    (heigen : bombieriWOfZ gamma z =
+      Lam • (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z))
+    (hrecip : (lam : Complex) * Lam = 1) :
+    ∃ N : Nat,
+      (∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+        ‖spectralTerm F rho.1‖) <
+      (star (bombieriWOfZ gamma z) ⬝ᵥ
+        (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re := by
+  have hmain := bombieriHMatrix_quadraticForm_pos_of_eigen
+    t ht gamma z Lam lam hz heigen hrecip
+  exact exists_spectralHeightShell_normTail_lt F hmain
+
 /-- Turn the explicit same-owner spectral tail into the generic residual
 socket.  The two-sided residual estimate is supplied by the shell partition,
 not stored as a positivity conclusion. -/

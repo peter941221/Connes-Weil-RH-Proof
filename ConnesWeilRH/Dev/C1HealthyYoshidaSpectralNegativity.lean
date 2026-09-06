@@ -246,6 +246,21 @@ theorem spectralHeightShellTail_abs_re_le_normTail
         ‖spectralTerm F rho.1‖ :=
       htailTerms.norm.tsum_le_tsum hinner htailNorms
 
+/-- Every same-owner norm tail is eventually below any prescribed positive
+margin.  The statement uses the exact shell-tail owner, so no shell boundary
+or zero can be silently dropped when choosing the cutoff. -/
+theorem exists_spectralHeightShell_normTail_lt
+    (F : CompactLogTest) {epsilon : Real} (hepsilon : 0 < epsilon) :
+    ∃ N : Nat,
+      (∑' m : Nat, ∑' rho : spectralHeightShell (m + N),
+        ‖spectralTerm F rho.1‖) < epsilon := by
+  let L : Nat → Real := fun k =>
+    ∑' rho : spectralHeightShell k, ‖spectralTerm F rho.1‖
+  have htail := tendsto_sum_nat_add L
+  obtain ⟨N, hN⟩ := ((tendsto_order.1 htail).2 epsilon hepsilon).exists
+  refine ⟨N, ?_⟩
+  simpa only [L] using hN
+
 /-- A controlled low-shell prefix is at most the negative analytic
 multiplicity of the off-line anchor. -/
 theorem spectralHeightShellPrefix_re_le_neg_xiMultiplicity_of_closedBall_control

@@ -9,6 +9,7 @@ namespace ConnesWeilRH.Source.C1BombieriP2Bridge
 #print axioms BombieriQuadraticSpectralTailP2BridgeData
 #print axioms BombieriQuadraticSpectralTailP2BridgeData.toResidual
 #print axioms bombieriHMatrix_quadraticForm_pos_of_eigen
+#print axioms exists_spectralTail_normTail_lt_bombieriQuadraticForm_of_eigen
 #print axioms qw_nonneg_of_bombieriP2BridgeData
 #print axioms qw_nonneg_of_bombieriQuadraticP2BridgeData
 #print axioms qw_nonneg_of_bombieriQuadraticResidualP2BridgeData
