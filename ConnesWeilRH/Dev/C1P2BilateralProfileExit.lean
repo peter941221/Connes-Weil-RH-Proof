@@ -40,6 +40,15 @@ structure P2BilateralProfileAggregateWitness (g : CompactLogTest) where
         ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
             (bilateralProfile g.convolutionSquare (Real.log n)).re ≤ 0
 
+/-- Range form of the P2 producer contract.  The cutoff is supplied
+separately by the detector's support certificate. -/
+structure P2BilateralProfileRangeWitness (g : CompactLogTest) (B : ℝ) where
+  hbalance :
+    archimedeanTerm g.convolutionSquare +
+      ∑ n ∈ Finset.range (Nat.ceil (Real.exp B) + 1),
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+          (2 * (g.convolutionSquare.test (Real.log n)).re) ≤ 0
+
 /-- The earlier pointwise witness is a special case of the aggregate target. -/
 theorem P2BilateralProfileSignWitness.toAggregate
     (g : CompactLogTest) (p : P2BilateralProfileSignWitness g) :
@@ -101,6 +110,30 @@ theorem P2BilateralProfileAggregateWitness.of_twoRealWeightedSum
       rw [bilateralProfile_convolutionSquare_re_eq_two_re]
     rw [hprofile]
     exact hbalance
+
+/-- A support certificate turns the explicit range producer into the exact
+aggregate owner without changing the finite visible-prime set. -/
+theorem P2BilateralProfileRangeWitness.toAggregate
+    (g : CompactLogTest) {B : ℝ}
+    (hsupport : Function.support g.convolutionSquare.test ⊆
+      Set.Ioo (-B) B) (p : P2BilateralProfileRangeWitness g B) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance := by
+    have hread := finitePrimeSum_eq_bilateralProfile_weighted_sum
+      g.convolutionSquare
+    have hrange :=
+      finitePrimeSum_convolutionSquare_eq_two_re_weighted_sum_range_of_support
+        g hsupport
+    have hprofile :
+        (∑ n ∈ globalPrimeIndexSet g.convolutionSquare,
+          ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+            (bilateralProfile g.convolutionSquare (Real.log n)).re) =
+          ∑ n ∈ Finset.range (Nat.ceil (Real.exp B) + 1),
+            ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+              (2 * (g.convolutionSquare.test (Real.log n)).re) := by
+      rw [← hread, hrange]
+    rw [hprofile]
+    exact p.hbalance
 
 /-- A genuine positive-trace limit family on the same owner is another
 producer route: its order-theoretic readback gives `qw ≥ 0`, which the exact

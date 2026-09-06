@@ -12,6 +12,7 @@ namespace C1P2BilateralProfileExit
 #print axioms P2BilateralProfileAggregateWitness.of_orbitWindowSemiLocalGate
 #print axioms p2AggregateWitness_iff_orbitWindowSemiLocalGate
 #print axioms P2BilateralProfileAggregateWitness.of_twoRealWeightedSum
+#print axioms P2BilateralProfileRangeWitness.toAggregate
 #print axioms P2BilateralProfileAggregateWitness.of_positiveTracePairLimitFamily
 
 end C1P2BilateralProfileExit

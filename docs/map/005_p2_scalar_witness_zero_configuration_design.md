@@ -520,6 +520,12 @@ supported in `(-B,B)`, the aggregate finite-prime term is exactly a sum over
 `range (ceil(exp B)+1)`.  This exposes the detector's finite arithmetic owner
 as an explicit cutoff for the next analytic estimate; it proves no sign.
 
+Record 1166 packages the explicit-cutoff producer contract
+`P2BilateralProfileRangeWitness`.  Given the detector square's support in
+`(-B,B)`, its range inequality converts exactly to the aggregate/gate socket.
+For the pinned orbit, `B = 2(n+2)` is already exported by the support
+construction; only the signed range estimate remains analytic.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds
