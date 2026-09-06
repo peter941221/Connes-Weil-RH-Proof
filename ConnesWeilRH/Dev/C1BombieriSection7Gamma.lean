@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 import ConnesWeilRH.Dev.C1BombieriSection7H
 
+import Mathlib.Analysis.Matrix.Hermitian
 import Mathlib.Data.Matrix.Basic
 import Mathlib.Data.Matrix.Mul
 import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
@@ -116,6 +117,15 @@ theorem bombieriHMatrix_isHermitian (gamma : Fin n → Real) (t : Real)
     exact bombieriH_star (gamma j) (gamma j) t
   · rw [hstar]
     exact bombieriH_symmetric (gamma j) (gamma i) t ht (Ne.symm hEq)
+
+/-- The finite Hermitian quadratic form has zero imaginary part.  This is the
+real-valued interface needed before any positivity or eigenvalue estimate;
+it does not assert that the form is nonnegative. -/
+theorem bombieriHMatrix_quadraticForm_im_zero (gamma : Fin n → Real) (t : Real)
+    (ht : t ≠ 0) (z : Fin n → Complex) :
+    Complex.im (star z ⬝ᵥ (bombieriHMatrix gamma t).mulVec z) = 0 := by
+  exact Matrix.IsHermitian.im_star_dotProduct_mulVec_self
+    (bombieriHMatrix_isHermitian gamma t ht) z
 
 /-- The per-entry ownership identity: the weight factors out of `H` and
 leaves `2 t K*`.  Stated in the left-associated shape that `simp` gives

@@ -586,6 +586,14 @@ not supply the same-owner equality `qw = λ · mass`, a per-zero finite
 certificate, or the detector-specific P2 sign.  Those remain OPEN producer
 obligations.
 
+Record 1177 adds the next finite consumer interface: from the Hermitian matrix
+ theorem, `bombieriHMatrix_quadraticForm_im_zero` proves that
+ `star z ⬝ᵥ (H Γ;t *ᵥ z)` has zero imaginary part for every finite vector `z`.
+This is FORMAL and makes “finite quadratic form is real” available to a future
+positivity certificate.  It asserts no nonnegativity, no spectral lower bound,
+and no same-owner `qw` readback; the detector-specific P2 producer remains
+OPEN.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented
