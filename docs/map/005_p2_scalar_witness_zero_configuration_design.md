@@ -697,6 +697,16 @@ The conversion to the canonical tail socket, its positivity consumer, and a
 pinned `SourceRH` exit are FORMAL.  The prefix-to-Bombieri identification is
 still OPEN; no sign conclusion or RH claim is added.
 
+Record 1190 aligns the remaining prefix socket with Bombieri's native
+`qIntegrand` owner.  The new
+`BombieriQuadraticCanonicalQIntegrandPrefixP2BridgeData` asks for equality of
+the finite same-owner spectral prefix with the `qIntegrand` interval integral
+minus `endpointCorrection`.  Existing formal readbacks then convert this to
+the `KstarGram` and Hermitian quadratic forms, and the aggregate/pinned B5
+consumers remain available.  This is FORMAL owner alignment only; the
+finite-prefix-to-qIntegrand equality for the selected healthy detector is
+still OPEN.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented

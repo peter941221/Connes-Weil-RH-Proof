@@ -1,5 +1,9 @@
 # 1188 — Canonical Bombieri spectral-tail cutoff contract
 
+> Amendment: record 1189 corrected the sign wording below.  The canonical
+> producer equation is `qw = Re⟨w,Hw⟩ + Re(tail)`; only the generic residual
+> adapter uses the negated tail.
+
 ## Status
 
 **FORMAL interface tightening; P2 remains open.**
@@ -13,7 +17,7 @@ Its specification proves that the norm tail at this cutoff is strictly below
 eigenvector, reciprocal relation, and one producer-facing equation:
 
 ```text
-qw(g) = Re⟨w,Hw⟩ − Re(high-shell spectral tail at canonical cutoff).
+qw(g) = Re⟨w,Hw⟩ + Re(high-shell spectral tail at canonical cutoff).
 ```
 
 The conversion to the residual socket, aggregate owner, and pinned healthy-B5

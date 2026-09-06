@@ -28,6 +28,10 @@ namespace Source
 namespace C1BombieriP2Bridge
 
 open C1BombieriSection8LambdaSign
+open C1BombieriSection8QForm
+open C1BombieriSection8ExpMass
+open C1BombieriSection8EndpointCorrection
+open C1BombieriSection8WirtingerSlice3
 open C1BombieriSection8TotalAssembly
 open C1BombieriFiniteQuadraticBridge
 open C1BombieriSection7Gamma
@@ -259,6 +263,59 @@ structure BombieriQuadraticCanonicalPrefixP2BridgeData
         spectralTerm g.convolutionSquare rho.1).re =
       (star (bombieriWOfZ gamma z) ⬝ᵥ
         (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)).re
+
+/-- A Bombieri-native spelling of the split prefix producer.  Its sole
+producer-facing equality identifies the finite same-owner spectral prefix
+with the already-established `qIntegrand` integral minus the endpoint
+correction.  The finite Hermitian form is recovered by the existing
+`KstarGram` readback, so no new positivity is stored here. -/
+structure BombieriQuadraticCanonicalQIntegrandPrefixP2BridgeData
+    (g : CompactLogTest) where
+  n : Nat
+  t : Real
+  ht : 0 < t
+  gamma : Fin n -> Real
+  z : Fin n -> Complex
+  Lam : Complex
+  lam : Real
+  hz : z ≠ 0
+  heigen : bombieriWOfZ gamma z =
+    Lam • (bombieriHMatrix gamma t).mulVec (bombieriWOfZ gamma z)
+  hrecip : (lam : Complex) * Lam = 1
+  finitePrefix_eq_qIntegrand :
+    (∑ m ∈ Finset.range
+        (bombieriSpectralTailCutoff g t ht gamma z Lam lam hz heigen hrecip),
+      ∑' rho : spectralHeightShell m,
+        spectralTerm g.convolutionSquare rho.1).re =
+      ((∫ x in -t..t,
+        qIntegrand (expSum gamma z) (expSum gamma (dcoef gamma z)) x) -
+        endpointCorrection t gamma z).re
+
+noncomputable def BombieriQuadraticCanonicalQIntegrandPrefixP2BridgeData.toCanonicalPrefix
+    {g : CompactLogTest}
+    (p : BombieriQuadraticCanonicalQIntegrandPrefixP2BridgeData g) :
+    BombieriQuadraticCanonicalPrefixP2BridgeData g := by
+  refine
+    { n := p.n, t := p.t, ht := p.ht, gamma := p.gamma, z := p.z,
+      Lam := p.Lam, lam := p.lam, hz := p.hz, heigen := p.heigen,
+      hrecip := p.hrecip, finitePrefix_eq_quadratic := ?_ }
+  calc
+    (∑ m ∈ Finset.range
+        (bombieriSpectralTailCutoff g p.t p.ht p.gamma p.z p.Lam p.lam p.hz
+          p.heigen p.hrecip),
+      ∑' rho : spectralHeightShell m,
+        spectralTerm g.convolutionSquare rho.1).re =
+        ((∫ x in -p.t..p.t,
+          qIntegrand (expSum p.gamma p.z)
+            (expSum p.gamma (dcoef p.gamma p.z)) x) -
+          endpointCorrection p.t p.gamma p.z).re :=
+      p.finitePrefix_eq_qIntegrand
+    _ = (bombieriKstarGram p.t p.gamma p.z).re := by
+      rw [← bombieriKstarGram_eq_qIntegrand_sub_endpointCorrection
+        p.t p.ht p.gamma p.z]
+    _ = (star (bombieriWOfZ p.gamma p.z) ⬝ᵥ
+        (bombieriHMatrix p.gamma p.t).mulVec (bombieriWOfZ p.gamma p.z)).re := by
+      rw [bombieriHMatrix_quadraticForm_eq_KstarGram]
 
 /-- The split prefix contract reconstructs the canonical same-owner
 `qw = quadratic + tail` equation from the established shell decomposition. -/
