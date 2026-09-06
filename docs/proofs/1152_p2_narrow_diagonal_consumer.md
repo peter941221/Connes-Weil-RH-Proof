@@ -27,6 +27,11 @@ repeated interface proof: oddness kills the zero node, while the supplied
 `qw_nonneg_of_even_odd_nodal_narrow_diagonal` consumes exactly those three
 node equations.
 
+The same module records the converse obstruction relevant to the ROOT branch:
+when both square supports are prime-free but the two archimedean diagonal
+terms have positive sum, `ICgate ≤ 0` cannot hold for both diagonals.  This is
+an exact sign contradiction, not a numerical probe.
+
 The owning and audit modules build successfully in 3685 jobs.  The audited
 declarations use only `[propext, Classical.choice, Quot.sound]`; there are no
 `error:` lines and no `sorryAx`.

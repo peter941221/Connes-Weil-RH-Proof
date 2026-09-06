@@ -418,6 +418,10 @@ The same FORMAL brick now derives `CC20VanishesOn` directly from oddness plus
 the three nodal equations, so future pair producers need not restate the
 vanishing predicate; this is bookkeeping/interface compression only, with no
 new detector sign.
+It also proves a FORMAL no-go: under prime-free square supports, a positive
+sum of the two archimedean diagonal terms rules out simultaneous
+`ICgate ≤ 0`.  Thus the ROOT-side positive-anchor pair cannot be silently
+reused as the P2 nonpositive-diagonal witness.
 
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value

@@ -38,6 +38,23 @@ theorem diagonalICgate_nonpos_of_primeFree_archimedean_nonpos
   rw [finitePrimeSum_eq_zero_of_support_subset_open_log_two F hsupport]
   linarith
 
+theorem not_both_diagonalICgate_nonpos_of_primeFree_positive_arch_sum
+    (f g : CompactLogTest)
+    (hsf : Function.support f.convolutionSquare.test ⊆
+      Set.Ioo (-Real.log 2) (Real.log 2))
+    (hsg : Function.support g.convolutionSquare.test ⊆
+      Set.Ioo (-Real.log 2) (Real.log 2))
+    (harch : archimedeanTerm f.convolutionSquare +
+      archimedeanTerm g.convolutionSquare > 0) :
+    ¬ (ICgate f.convolutionSquare ≤ 0 ∧ ICgate g.convolutionSquare ≤ 0) := by
+  intro hpair
+  unfold ICgate at hpair
+  rw [finitePrimeSum_eq_zero_of_support_subset_open_log_two
+      f.convolutionSquare hsf,
+    finitePrimeSum_eq_zero_of_support_subset_open_log_two
+      g.convolutionSquare hsg] at hpair
+  linarith
+
 theorem diagonalICgate_nonpos_of_narrowBudget
     (F : CompactLogTest) (R : ℝ)
     (hRpos : 0 < R) (hRlt : R < 1)

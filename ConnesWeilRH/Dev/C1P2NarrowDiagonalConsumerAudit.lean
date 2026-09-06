@@ -5,6 +5,7 @@ namespace Source
 namespace C1P2NarrowDiagonalConsumer
 
 #print axioms diagonalICgate_nonpos_of_primeFree_archimedean_nonpos
+#print axioms not_both_diagonalICgate_nonpos_of_primeFree_positive_arch_sum
 #print axioms diagonalICgate_nonpos_of_narrowBudget
 #print axioms cc20TripleVanishes_of_even_odd_nodal
 #print axioms qw_nonneg_of_even_odd_nodal_narrow_diagonal
