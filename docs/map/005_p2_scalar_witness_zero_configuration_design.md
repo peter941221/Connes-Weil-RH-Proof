@@ -365,6 +365,16 @@ consumer.  This is a FORMAL narrowing of the producer obligation, not a sign
 theorem: the Bombieri-to-`qw` equality and finite per-zero eigensystem data
 are still OPEN.
 
+Record 1150 adds a FORMAL bilateral-observable reduction.  For a same-owner
+formula test, both the finite-prime terms and the archimedean numerator see
+`F.test y + F.test (-y)`; the archimedean term additionally sees `F.test 0`.
+Thus bilateral profile equality gives the weaker `PrimePairMatch` needed for
+finite cancellation, while full profile equality plus the origin value makes
+the archimedean terms equal as well.  The resulting defect-gate theorem says
+that complete profile matching yields exact zero, not a sign.  This sharpens
+the live Line-C producer target to finite bilateral samples with a genuine
+archimedean/low-rank residual estimate on the healthy owner; P2 remains OPEN.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds

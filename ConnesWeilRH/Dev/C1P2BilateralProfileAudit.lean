@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1P2BilateralProfile
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1P2BilateralProfile
+
+#print axioms primePairMatch_of_bilateralProfile_eq
+#print axioms archimedeanNumerator_eq_of_bilateralProfile_eq
+#print axioms archimedeanIntegrand_eq_of_bilateralProfile_eq
+#print axioms archimedeanTerm_eq_of_bilateralProfile_eq
+#print axioms finitePrimeSum_eq_of_bilateralProfile_eq
+#print axioms defectGate_eq_zero_of_bilateralProfile_eq
+
+end C1P2BilateralProfile
+end Source
+end ConnesWeilRH
