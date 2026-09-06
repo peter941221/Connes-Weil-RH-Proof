@@ -8,6 +8,7 @@ import ConnesWeilRH.Dev.C1BombieriSection7H
 import Mathlib.Data.Matrix.Basic
 import Mathlib.Data.Matrix.Mul
 import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+import Mathlib.LinearAlgebra.Matrix.Hermitian
 import Mathlib.Tactic.FieldSimp
 import Mathlib.Tactic.Ring
 
@@ -97,6 +98,24 @@ theorem bombieriHMatrix_transpose (gamma : Fin n → Real) (t : Real) (ht : t �
   by_cases hEq : gamma i = gamma j
   · rw [hEq]
   · rw [bombieriH_symmetric (gamma j) (gamma i) t ht (Ne.symm hEq)]
+
+/-- The finite Bombieri matrix is Hermitian, including repeated ordinates.
+The diagonal case uses entry self-conjugacy; the off-diagonal case combines
+the entry fact with the already-proved symmetry of `H`. -/
+theorem bombieriHMatrix_isHermitian (gamma : Fin n → Real) (t : Real)
+    (ht : t ≠ 0) :
+    (bombieriHMatrix gamma t).IsHermitian := by
+  apply Matrix.IsHermitian.ext
+  intro i j
+  simp only [bombieriHMatrix, Matrix.of_apply]
+  change (starRingEnd ℂ) (bombieriH (gamma j) (gamma i) t) =
+    bombieriH (gamma i) (gamma j) t
+  have hstar := bombieriH_star (gamma j) (gamma i) t
+  by_cases hEq : gamma i = gamma j
+  · rw [hEq]
+    exact bombieriH_star (gamma j) (gamma j) t
+  · rw [hstar]
+    exact bombieriH_symmetric (gamma j) (gamma i) t ht (Ne.symm hEq)
 
 /-- The per-entry ownership identity: the weight factors out of `H` and
 leaves `2 t K*`.  Stated in the left-associated shape that `simp` gives

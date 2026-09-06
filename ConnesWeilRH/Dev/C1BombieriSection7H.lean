@@ -119,6 +119,13 @@ theorem bombieriH_symmetric (x y t : Real) (ht : t ≠ 0) (hxy : x ≠ y) :
       (((1 / 4 + x ^ 2 : Real) : Complex))] at m1
   exact mul_right_injective₀ (mul_ne_zero hwx hwy) m1
 
+/-- Every real-parameter entry of the normalized kernel is self-conjugate. -/
+theorem bombieriH_star (x y t : Real) :
+    (starRingEnd ℂ) (bombieriH x y t) = bombieriH x y t := by
+  unfold bombieriH
+  simp only [map_div₀, map_mul, map_ofNat, Complex.conj_ofReal,
+    bombieriKstar_star]
+
 end C1BombieriSection7H
 end Source
 end ConnesWeilRH

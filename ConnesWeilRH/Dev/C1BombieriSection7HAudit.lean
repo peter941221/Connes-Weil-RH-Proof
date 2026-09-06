@@ -19,6 +19,7 @@ namespace C1BombieriSection7HAudit
 #print axioms ConnesWeilRH.Source.C1BombieriSection7H.bombieriH
 #print axioms ConnesWeilRH.Source.C1BombieriSection7H.bombieriH_mul_weight_eq
 #print axioms ConnesWeilRH.Source.C1BombieriSection7H.bombieriH_symmetric
+#print axioms ConnesWeilRH.Source.C1BombieriSection7H.bombieriH_star
 
 end C1BombieriSection7HAudit
 end Source

@@ -18,6 +18,7 @@ namespace C1BombieriSection7GammaAudit
 #print axioms ConnesWeilRH.Source.C1BombieriSection7Gamma.bombieriWOfZ
 #print axioms ConnesWeilRH.Source.C1BombieriSection7Gamma.bombieriHMatrix
 #print axioms ConnesWeilRH.Source.C1BombieriSection7Gamma.bombieriHMatrix_transpose
+#print axioms ConnesWeilRH.Source.C1BombieriSection7Gamma.bombieriHMatrix_isHermitian
 #print axioms ConnesWeilRH.Source.C1BombieriSection7Gamma.bombieriHMatrix_mulVec_weight
 #print axioms ConnesWeilRH.Source.C1BombieriSection7Gamma.bombieriEigenvec_iff
 #print axioms ConnesWeilRH.Source.C1BombieriSection7Gamma.bombieriD

@@ -47,6 +47,49 @@ noncomputable def bombieriKstar (x y t : Real) : Complex :=
 theorem bombieriK_zero : bombieriK 0 = 1 := by
   simp [bombieriK]
 
+/-- The normalized sinc has real coefficients: conjugation commutes with
+`bombieriK`.  This is the star-compatibility needed when the two correction
+terms in `K*` are paired. -/
+theorem bombieriK_star (z : Complex) :
+    (starRingEnd ℂ) (bombieriK z) =
+      bombieriK ((starRingEnd ℂ) z) := by
+  unfold bombieriK
+  by_cases hz : z = 0
+  · simp [hz]
+  · have hsz : (starRingEnd ℂ) z ≠ 0 := star_ne_zero.mpr hz
+    rw [if_neg hz, if_neg hsz]
+    rw [map_div₀, ← Complex.sin_conj]
+
+/-- The normalized sinc is even. -/
+theorem bombieriK_neg (z : Complex) : bombieriK (-z) = bombieriK z := by
+  unfold bombieriK
+  by_cases hz : z = 0
+  · simp [hz]
+  · have hneg : -z ≠ 0 := neg_ne_zero.mpr hz
+    rw [if_neg hneg, if_neg hz, Complex.sin_neg]
+    simp
+
+/-- The corrected kernel `K*` is real on real arguments.  Conjugation swaps
+the two correction factors; the normalized sinc's evenness and
+star-compatibility close the swap exactly. -/
+theorem bombieriKstar_star (x y t : Real) :
+    (starRingEnd ℂ) (bombieriKstar x y t) = bombieriKstar x y t := by
+  unfold bombieriKstar
+  simp only [map_sub, map_mul, map_div₀, map_add, map_ofNat,
+    bombieriK_star, ← starRingEnd_apply, Complex.conj_ofReal, Complex.conj_I]
+  have h1 : (↑t : Complex) * (-Complex.I / 2 - (↑y : Complex)) =
+      -((↑t : Complex) * (Complex.I / 2 + (↑y : Complex))) := by ring
+  have h2 : (↑t : Complex) * (-Complex.I / 2 + (↑x : Complex)) =
+      -((↑t : Complex) * (Complex.I / 2 - (↑x : Complex))) := by ring
+  have h3 : (↑t : Complex) * (-Complex.I / 2 + (↑y : Complex)) =
+      -((↑t : Complex) * (Complex.I / 2 - (↑y : Complex))) := by ring
+  have h4 : (↑t : Complex) * (-Complex.I / 2 - (↑x : Complex)) =
+      -((↑t : Complex) * (Complex.I / 2 + (↑x : Complex))) := by ring
+  rw [h1, h2, h3, h4, bombieriK_neg, bombieriK_neg,
+    bombieriK_neg, bombieriK_neg]
+  simp only [map_one]
+  ring
+
 /-- Master readback: the kernel on a general `a + b * I` argument is the
 explicit real/imaginary pair obtained by multiplying `sin (a + b I)` by the
 inverse `(a - b I) / (a^2 + b^2)`.  Every later closed-form identity
@@ -134,4 +177,3 @@ theorem bombieriK_mul_I {b : Real} (hb : b ≠ 0) :
 end C1BombieriSection7Readback
 end Source
 end ConnesWeilRH
-

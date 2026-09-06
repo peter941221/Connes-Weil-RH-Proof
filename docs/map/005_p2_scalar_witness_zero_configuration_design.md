@@ -575,6 +575,17 @@ an interface-only implication; neither the compressed-kernel estimate nor the
 same-owner trace readback is proved.  The second defect remains subject to the
 existing unbounded-trace no-go for a fixed response.
 
+Record 1176 strengthens the Bombieri finite-certificate lane without changing
+the P2 owner.  The readback leaf now proves exact conjugation compatibility and
+evenness of the normalized sinc, then uses the paired correction terms to prove
+that `K* x y t` is self-conjugate for real parameters.  Consequently every
+finite entry `H x y t` is self-conjugate, and the Gamma matrix is Hermitian for
+arbitrary finite maps `gamma : Fin n → Real`, including repeated ordinates.
+This is FORMAL algebra and makes the finite spectral/Gram route honest; it does
+not supply the same-owner equality `qw = λ · mass`, a per-zero finite
+certificate, or the detector-specific P2 sign.  Those remain OPEN producer
+obligations.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented
