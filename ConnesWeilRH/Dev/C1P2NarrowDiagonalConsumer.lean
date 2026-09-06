@@ -24,6 +24,7 @@ open C1P2EvenOddGateDecomposition
 open C1OrbitWindowSemiLocalGate
 open C1SameOwnerWeil
 open CCM25Concrete.CompactLogConvolution
+open CC20YoshidaConvolution
 
 noncomputable section
 
@@ -53,6 +54,32 @@ theorem diagonalICgate_nonpos_of_narrowBudget
   · exact archimedeanTerm_nonpos_of_narrow_budget F R hRpos hRlt
       hsupport hbudget
 
+theorem cc20TripleVanishes_of_even_odd_nodal
+    (f g : CompactLogTest)
+    (hg : ∀ x : ℝ, g.test (-x) = -g.test x)
+    (hf0 : CompactLogTest.laplaceAt f 0 = 0)
+    (hhalf : CompactLogTest.laplaceAt f (1 / 2 : ℂ) +
+      CompactLogTest.laplaceAt g (1 / 2 : ℂ) = 0)
+    (hone : CompactLogTest.laplaceAt f 1 +
+      CompactLogTest.laplaceAt g 1 = 0) :
+    CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet (sumTest f g) := by
+  intro p _hp
+  change CompactLogTest.laplaceAt (sumTest f g)
+    (criticalVanishingPointValue p) = 0
+  rw [laplaceAt_sumTest]
+  cases p
+  · have hv : criticalVanishingPointValue CriticalVanishingPoint.zero = 0 := rfl
+    rw [hv, hf0, laplaceAt_eq_zero_of_test_odd g hg]
+    simp
+  · have hv : criticalVanishingPointValue CriticalVanishingPoint.half =
+      (1 / 2 : ℂ) := rfl
+    rw [hv]
+    exact hhalf
+  · have hv : criticalVanishingPointValue CriticalVanishingPoint.one = 1 := rfl
+    rw [hv]
+    exact hone
+
 theorem qw_nonneg_of_even_odd_narrow_diagonal
     (f g : CompactLogTest)
     (hf : ∀ x : ℝ, f.test (-x) = f.test x)
@@ -78,6 +105,32 @@ theorem qw_nonneg_of_even_odd_narrow_diagonal
       hRfpos hRf_lt hRf_log2 hsf hbf
   · exact diagonalICgate_nonpos_of_narrowBudget g Rg
       hRgpos hRg_lt hRg_log2 hsg hbg
+
+theorem qw_nonneg_of_even_odd_nodal_narrow_diagonal
+    (f g : CompactLogTest)
+    (hf : ∀ x : ℝ, f.test (-x) = f.test x)
+    (hg : ∀ x : ℝ, g.test (-x) = -g.test x)
+    (hf0 : CompactLogTest.laplaceAt f 0 = 0)
+    (hhalf : CompactLogTest.laplaceAt f (1 / 2 : ℂ) +
+      CompactLogTest.laplaceAt g (1 / 2 : ℂ) = 0)
+    (hone : CompactLogTest.laplaceAt f 1 +
+      CompactLogTest.laplaceAt g 1 = 0)
+    (Rf Rg : ℝ)
+    (hRfpos : 0 < Rf) (hRgpos : 0 < Rg)
+    (hRf_lt : Rf < 1) (hRg_lt : Rg < 1)
+    (hRf_log2 : Rf < Real.log 2) (hRg_log2 : Rg < Real.log 2)
+    (hsf : Function.support f.convolutionSquare.test ⊆ Set.Ioo (-Rf) Rf)
+    (hsg : Function.support g.convolutionSquare.test ⊆ Set.Ioo (-Rg) Rg)
+    (hbf :
+      Real.log (4 * Real.pi) + Real.eulerMascheroniConstant + Rf -
+          (1 / 2 : ℝ) * Real.log (1 / Rf) ≤ 0)
+    (hbg :
+      Real.log (4 * Real.pi) + Real.eulerMascheroniConstant + Rg -
+          (1 / 2 : ℝ) * Real.log (1 / Rg) ≤ 0) :
+    0 ≤ qw (sumTest f g) := by
+  apply qw_nonneg_of_even_odd_narrow_diagonal f g hf hg
+    (cc20TripleVanishes_of_even_odd_nodal f g hg hf0 hhalf hone)
+    Rf Rg hRfpos hRgpos hRf_lt hRg_lt hRf_log2 hRg_log2 hsf hsg hbf hbg
 
 end
 end C1P2NarrowDiagonalConsumer

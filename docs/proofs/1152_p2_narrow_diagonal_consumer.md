@@ -20,6 +20,13 @@ triple-vanishing hypothesis for `f + g`, feeds the existing even/odd gate
 consumer and proves `qw(f + g) ≥ 0` under the two narrow-support and budget
 contracts.
 
+The companion theorem `cc20TripleVanishes_of_even_odd_nodal` removes the
+repeated interface proof: oddness kills the zero node, while the supplied
+`1/2` and `1` nodal sums close the other two members of
+`cc20TripleFiniteVanishingSet`.  The resulting
+`qw_nonneg_of_even_odd_nodal_narrow_diagonal` consumes exactly those three
+node equations.
+
 The owning and audit modules build successfully in 3685 jobs.  The audited
 declarations use only `[propext, Classical.choice, Quot.sound]`; there are no
 `error:` lines and no `sorryAx`.

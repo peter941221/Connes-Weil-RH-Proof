@@ -414,6 +414,10 @@ even/odd consumer then yields `qw ≥ 0` for the summed healthy owner.  This is
 only a conditional interface: no result identifies the pinned orbit detector
 with either narrow-support class, so P2 remains OPEN and the route authority is
 unchanged.
+The same FORMAL brick now derives `CC20VanishesOn` directly from oddness plus
+the three nodal equations, so future pair producers need not restate the
+vanishing predicate; this is bookkeeping/interface compression only, with no
+new detector sign.
 
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
