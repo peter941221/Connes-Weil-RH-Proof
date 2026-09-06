@@ -67,7 +67,11 @@ Dred = mm(mt(K), mm(Dc, K))
 diagd = [[d[i] if i == j else F(0) for j in range(5)] for i in range(5)]
 assert mm(L, mm(diagd, mt(L))) == Dred, "L diag(d) L^T != K^T Dc K"
 assert all(x > 0 for x in d), "non-positive LDL pivot"
-print("F5 PASS: Dc symmetrization + exact LDL + positive pivots")
+DKc = mm(Dc, K)
+Dredc = Dred
+Ld = mm(L, diagd)
+assert DKc == mm(Dc, K) and Ld == mm(L, diagd)
+print("F5 PASS: Dc symmetrization + exact LDL + staged identities")
 
 D = [[str(U * mid_G[i][j] - mid_M[i][j]) for j in range(n)]
      for i in range(n)]
@@ -127,22 +131,67 @@ noncomputable section
 {min_slack} > 0 at generation time). -/
 def dd : Fin 5 → ℝ := ![{d_list}]
 
+/-- Staged: `Dc * K`. -/
+{dkc_def}
+
+/-- Staged: the reduced pencil `K^T * Dc * K`. -/
+{dredc_def}
+
+/-- Staged: `L * diagonal dd`. -/
+{ld_def}
+
+set_option maxHeartbeats 2000000000 in
+-- reason: RED-4 (parent record): kernel whnf of the numeral equality
+-- over the 10^2-10^3-digit center exceeds any smaller measured budget
 theorem hD : D = Q28.U • Q28.G - M := by
   ext i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [Q28.U, Q28.G, M, D, Matrix.sub_apply]; norm_num)
+  all_goals (simp [Q28.U, Q28.G, M, D, Matrix.sub_apply] <;> norm_num)
 
+set_option maxHeartbeats 2000000000 in
+-- reason: same RED-4 class as hD (mixed-parity foci closed by simp are
+-- vacuous under <;>; the same-parity foci carry the bignum arithmetic)
 theorem hDc : Dc + Dc = D + D.transpose := by
   ext i j
   fin_cases i <;> fin_cases j
   all_goals (simp [D, Dc, Matrix.transpose_apply] <;> norm_num)
 
-theorem hPencil :
-    Q28.K.transpose * Dc * Q28.K = L * diagonal dd * L.transpose := by
+set_option maxHeartbeats 2000000000 in
+-- reason: 40 staged entries x 8-term products of ~10^3-digit rationals
+theorem hDK : Dc * Q28.K = DKc := by
   ext i j
   fin_cases i <;> fin_cases j
-  all_goals (simp [Q28.K, Dc, L, dd, Matrix.transpose_apply,
+  all_goals (simp [Dc, Q28.K, DKc, Matrix.mul_apply,
+    Fin.sum_univ_succ]; norm_num)
+
+set_option maxHeartbeats 2000000000 in
+-- reason: 25 staged entries x 8-term products of ~10^3-digit rationals
+theorem hKDK : Q28.K.transpose * DKc = Dredc := by
+  ext i j
+  fin_cases i <;> fin_cases j
+  all_goals (simp [Q28.K, DKc, Dredc, Matrix.transpose_apply,
     Matrix.mul_apply, Fin.sum_univ_succ]; norm_num)
+
+set_option maxHeartbeats 2000000000 in
+-- reason: 25 staged entries x 5-term products of ~10^3-digit rationals
+theorem hLd : L * diagonal dd = Ld := by
+  ext i j
+  fin_cases i <;> fin_cases j
+  all_goals (simp [L, dd, Ld, Matrix.diagonal_apply,
+    Matrix.mul_apply] <;> norm_num)
+
+set_option maxHeartbeats 2000000000 in
+-- reason: 25 staged entries x 5-term products of ~10^3-digit rationals
+theorem hLdLt : Ld * L.transpose = Dredc := by
+  ext i j
+  fin_cases i <;> fin_cases j
+  all_goals (simp [L, Ld, Dredc, Matrix.transpose_apply,
+    Matrix.mul_apply, Fin.sum_univ_succ]; norm_num)
+
+/-- Reduced-pencil factorization, composed from the staged identities. -/
+theorem hPencil :
+    Q28.K.transpose * Dc * Q28.K = L * diagonal dd * L.transpose := by
+  rw [Matrix.mul_assoc, hDK, hKDK, ← hLdLt, ← hLd]
 
 theorem hdd : ∀ i : Fin 5, 0 ≤ dd i := by
   intro i
@@ -169,6 +218,13 @@ body = (header
                                     [[str(x) for x in r] for r in Dc]))
         .replace("{l_def}", matdef("L", 5, 5,
                                    [[str(x) for x in r] for r in L]))
+        .replace("{dkc_def}", matdef("DKc", 8, 5,
+                                     [[str(x) for x in r] for r in DKc]))
+        .replace("{dredc_def}",
+                 matdef("Dredc", 5, 5,
+                        [[str(x) for x in r] for r in Dredc]))
+        .replace("{ld_def}", matdef("Ld", 5, 5,
+                                    [[str(x) for x in r] for r in Ld]))
         .replace("{d_list}", ", ".join(lit(str(x)) for x in d))
         .replace("{min_slack}", f"{qc['min_slack_float']:.6e}"))
 
