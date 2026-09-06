@@ -541,6 +541,12 @@ witness as the already wired self-pair family.  This broadens the producer
 socket without changing the owner or the quantifier: constructing either trace
 family for the pinned orbit is still open.
 
+Record 1169 closes the quantifier-level exit for the general positive-operator
+route as well.  With one fixed Hilbert basis, a producer supplying a healthy
+detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented
+off-line zero now implies `SourceRH` by the same-owner consumer.  This is only
+an exit theorem: no such family has been constructed for the pinned orbit.
+
 The G2 repair of the 1139 concrete q28 moment checkpoint has now landed as
 record 1145/RED-10.  The Rat certificate was split into four isolated value
 modules plus the bridge/prefix consumer; the certificate and audit builds

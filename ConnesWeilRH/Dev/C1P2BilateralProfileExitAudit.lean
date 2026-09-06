@@ -16,6 +16,7 @@ namespace C1P2BilateralProfileExit
 #print axioms sourceRH_of_pinnedOrbitDetector_p2BilateralProfileRangeWitness
 #print axioms P2BilateralProfileAggregateWitness.of_positiveTracePairLimitFamily
 #print axioms P2BilateralProfileAggregateWitness.of_positiveTraceOperatorLimitFamily
+#print axioms sourceRH_of_healthyDetector_p2PositiveTraceOperatorLimitFamily
 
 end C1P2BilateralProfileExit
 end Source

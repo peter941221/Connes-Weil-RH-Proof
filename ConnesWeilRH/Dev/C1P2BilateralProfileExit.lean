@@ -211,6 +211,27 @@ theorem P2BilateralProfileAggregateWitness.of_positiveTraceOperatorLimitFamily
     (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
       g hvanishes).mp (qw_nonnegative_of_positiveTraceOperatorLimitFamily data)
 
+/-- Direct healthy-B5 exit for a fixed-basis positive-operator producer. -/
+theorem sourceRH_of_healthyDetector_p2PositiveTraceOperatorLimitFamily
+    {ι H : Type*}
+    [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    (basis : HilbertBasis ι ℂ H)
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+            Nonempty (PositiveTraceOperatorLimitFamily basis g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, hdata, ⟨htrace⟩⟩ := hproducer rho hright
+  have haggregate : P2BilateralProfileAggregateWitness g :=
+    P2BilateralProfileAggregateWitness.of_positiveTraceOperatorLimitFamily
+      g hdata.vanishesOnF htrace
+  exact ⟨g, hdata,
+    qw_nonneg_of_p2BilateralProfileAggregateWitness g hdata.vanishesOnF
+      haggregate⟩
+
 theorem sourceRH_of_healthyDetector_p2BilateralProfileSignWitness
     (hproducer : ∀ rho : sourceNontrivialZeroSet,
       (1 / 2 : Real) < rho.1.re →
