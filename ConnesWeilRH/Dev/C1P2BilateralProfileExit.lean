@@ -1,4 +1,5 @@
 import ConnesWeilRH.Dev.C1P2BilateralProfile
+import ConnesWeilRH.Dev.C1BombieriP2Bridge
 import ConnesWeilRH.Dev.C1HealthyYoshidaSpectralNegativity
 import ConnesWeilRH.Dev.C1PositiveTraceLimitBridge
 
@@ -17,6 +18,7 @@ namespace C1P2BilateralProfileExit
 
 open C1HealthyYoshidaDetector
 open C1HealthyYoshidaSpectralNegativity
+open C1BombieriP2Bridge
 open C1LocalConfigurationDomination
 open C1P2BilateralProfile
 open C1PositiveTraceLimitBridge
@@ -151,6 +153,18 @@ theorem P2BilateralProfileAggregateWitness.of_positiveTracePairLimitFamily
     (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
       g hvanishes).mp (qw_nonnegative_of_positiveTracePairLimitFamily data)
 
+/-- The finite Bombieri Line-B chain is another producer socket once its
+same-owner `qw_eq_mass` bridge is supplied. -/
+theorem P2BilateralProfileAggregateWitness.of_bombieriP2BridgeData
+    (g : CompactLogTest)
+    (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g)
+    (p : BombieriP2BridgeData g) :
+    P2BilateralProfileAggregateWitness g where
+  hbalance :=
+    (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
+      g hvanishes).mp (qw_nonneg_of_bombieriP2BridgeData p)
+
 theorem qw_nonneg_of_p2BilateralProfileSignWitness
     (g : CompactLogTest)
     (hvanishes : CC20VanishesOn C1.healthyCC20TestSpace
@@ -168,6 +182,24 @@ theorem qw_nonneg_of_p2BilateralProfileAggregateWitness
     0 ≤ qw g := by
   exact qw_nonneg_of_archimedean_plus_bilateralProfile_weighted_sum_nonpos
     g hvanishes p.hbalance
+
+/-- Direct healthy-B5 exit for a Bombieri finite-chain producer. -/
+theorem sourceRH_of_healthyDetector_p2BombieriP2BridgeData
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+            Nonempty (BombieriP2BridgeData g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, hdata, ⟨hbridge⟩⟩ := hproducer rho hright
+  have haggregate : P2BilateralProfileAggregateWitness g :=
+    P2BilateralProfileAggregateWitness.of_bombieriP2BridgeData
+      g hdata.vanishesOnF hbridge
+  exact ⟨g, hdata,
+    qw_nonneg_of_p2BilateralProfileAggregateWitness g hdata.vanishesOnF
+      haggregate⟩
 
 /-- Direct healthy-B5 exit for a fixed-basis self-pair trace producer. -/
 theorem sourceRH_of_healthyDetector_p2PositiveTracePairLimitFamily
@@ -188,8 +220,8 @@ theorem sourceRH_of_healthyDetector_p2PositiveTracePairLimitFamily
     P2BilateralProfileAggregateWitness.of_positiveTracePairLimitFamily
       g hdata.vanishesOnF htrace
   exact ⟨g, hdata,
-    qw_nonneg_of_p2BilateralProfileAggregateWitness g hdata.vanishesOnF
-      haggregate⟩
+    (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
+      g hdata.vanishesOnF).mpr haggregate.hbalance⟩
 
 /-- Pinned B5 exit for the explicit-range producer contract.  The detector's
 exported source support supplies the square support needed by the adapter. -/
