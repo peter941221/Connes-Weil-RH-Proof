@@ -2,6 +2,7 @@ import ConnesWeilRH.Dev.C1P2BilateralProfile
 import ConnesWeilRH.Dev.C1BombieriP2Bridge
 import ConnesWeilRH.Dev.C1HealthyYoshidaSpectralNegativity
 import ConnesWeilRH.Dev.C1PositiveTraceLimitBridge
+import ConnesWeilRH.Dev.C1Stage3RemainderFamily
 
 /-!
 # P2 bilateral-profile same-detector exit
@@ -22,7 +23,10 @@ open C1BombieriP2Bridge
 open C1LocalConfigurationDomination
 open C1P2BilateralProfile
 open C1PositiveTraceLimitBridge
+open C1Stage3RemainderFamily
 open C1SameOwnerWeil
+open CC20Concrete
+open CC20Concrete.PositiveTrace
 open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
 
@@ -222,6 +226,35 @@ theorem sourceRH_of_healthyDetector_p2PositiveTracePairLimitFamily
   exact ⟨g, hdata,
     (qw_nonneg_iff_archimedean_plus_bilateralProfile_weighted_sum_nonpos
       g hdata.vanishesOnF).mpr haggregate.hbalance⟩
+
+/-- Stage-3's two explicit frontier facts (Hilbert--Schmidt summability and
+same-owner trace readback) form a complete P2 producer contract. -/
+theorem sourceRH_of_healthyDetector_p2Stage3RemainderFacts
+    {ν : Type*}
+    (globalBasis : HilbertBasis ν ℂ cc20GlobalLogCrossingL2)
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          HealthyYoshidaDetectorData rho.1 g ∧
+            (Summable fun i =>
+              ‖stage3FamilyFactor g (globalBasis i)‖ ^ 2) ∧
+            ((ordinaryTraceAlong globalBasis
+                ((stage3FamilyFactor g).adjoint ∘L stage3FamilyFactor g)).re =
+              C1SameOwnerWeil.qw g)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, hdata, hHS, hcrux⟩ := hproducer rho hright
+  have hfamily :
+      PositiveTracePairLimitFamily (G := cc20GlobalLogCrossingL2)
+        globalBasis g :=
+    stage3Remainder_family_for_g globalBasis g hHS hcrux
+  have haggregate : P2BilateralProfileAggregateWitness g :=
+    P2BilateralProfileAggregateWitness.of_positiveTracePairLimitFamily
+      g hdata.vanishesOnF hfamily
+  exact ⟨g, hdata,
+    qw_nonneg_of_p2BilateralProfileAggregateWitness g hdata.vanishesOnF
+      haggregate⟩
 
 /-- Pinned B5 exit for the explicit-range producer contract.  The detector's
 exported source support supplies the square support needed by the adapter. -/

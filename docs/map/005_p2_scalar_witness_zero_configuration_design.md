@@ -553,6 +553,13 @@ socket.  Once `BombieriP2BridgeData` proves its owner equality
 aggregate witness and a direct healthy-B5 `SourceRH` exit.  The owner equality
 and per-zero finite data remain the open Line-B producer obligations.
 
+Record 1172 makes the Stage-3 frontier explicit at the P2 exit.  For each
+healthy pinned detector, the two facts
+`Summable ‖F_g(globalBasis i)‖²` (FRONTIER-HS) and
+`Re Tr(F_g†F_g)=qw(g)` (FRONTIER-CRUX) construct the existing positive-pair
+limit family and hence imply `SourceRH`.  This is a precise producer contract;
+neither frontier fact is being asserted or silently assumed.
+
 Record 1169 closes the quantifier-level exit for the general positive-operator
 route as well.  With one fixed Hilbert basis, a producer supplying a healthy
 detector and a `PositiveTraceOperatorLimitFamily` for every right-oriented
