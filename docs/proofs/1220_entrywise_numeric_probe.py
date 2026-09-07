@@ -1253,17 +1253,23 @@ def _checkpoint_write(path, payload):
     tmp.replace(target)
 
 
-def entry_box(i, j, kappa, log_ivals, ib, verbose=False):
-    """assemble the entry interval  kappa*C0 + int_0^4 H + C0*int B;
-    H-integral via the bracket form int W (C - C0) over a joint adaptive
-    (y, s) partition per (sign, s-band)."""
+def _ensure_models():
+    """lazy shared-model init (hoisted from entry_box for the parallel driver)."""
     global _S_BANDS, _RINGS_B2
     if _S_BANDS is None:
         _S_BANDS = build_s_bands()
     if _RINGS_B2 is None:
         _RINGS_B2 = bump2_rings([(0, S_MAX)])
         _RINGS_B2[0] = _RINGS_B2[0][:6] + (220,) + _RINGS_B2[0][7:]
-    bands = _S_BANDS
+
+
+def entry_box(i, j, kappa, log_ivals, ib, verbose=False, bands=None):
+    """assemble the entry interval  kappa*C0 + int_0^4 H + C0*int B;
+    H-integral via the bracket form int W (C - C0) over a joint adaptive
+    (y, s) partition per (sign, s-band).
+    bands=None -> all s-bands; else a caller-chosen slice (parallel driver)."""
+    _ensure_models()
+    bands = _S_BANDS if bands is None else bands
     C0 = _C0_CACHE.get((i, j))
     if C0 is None:
         C0 = gram_entry_C0(i, j, _RINGS_B2, S_MAX)
@@ -1446,6 +1452,101 @@ def main2():
         _checkpoint_write(checkpoint_path, checkpoint)
 
 
-if __name__ == "__main__":
+def _entry_worker(i, j, kappa, ib, band_slice, idx):
+    """pool task: full sign loop over one interleaved band slice."""
+    entry, C0, totalH, slack = entry_box(
+        i, j, kappa, None, ib, verbose=True, bands=band_slice)
+    return idx, totalH, slack
+
+
+def main3():
+    """parallel driver: fork-shared caches, workers per interleaved s-band
+    slice.  Interval/Fraction addition is exact-associative, so the
+    canonical-order sum of slice partials equals the sequential sum
+    bit-for-bit; the leaf machinery is untouched."""
+    import json
+    import multiprocessing as mp
+    from pathlib import Path
     sys.setrecursionlimit(100000)
-    main2()
+    print("== 1220 probe v3: parallel driver ==", flush=True)
+    init_models()
+    piv = pi_iv()
+    giv = gamma_iv()
+    q = exp_iv(IV(-4))
+    lt = IV(log_iv(1 - q.hi).lo - log_iv(1 + q.lo).hi,
+            log_iv(1 - q.lo).hi - log_iv(1 + q.hi).lo)
+    kappa = log_iv(4) + log_iv_of_iv(piv) + giv + lt
+    print("kappa mid %.15f width %.2e" % (float(kappa.mid()), float(kappa.width())),
+          flush=True)
+    _ensure_models()
+    bands = _S_BANDS
+    print("s-bands (both zones, one side): %d" % len(bands), flush=True)
+    with open("docs/proofs/1217_m_boxes_cert.json", encoding="utf-8") as f:
+        cert = json.load(f)
+    ib = I_B_global()
+    print("I_B mid %.15f width %.2e" % (float(ib.mid()), float(ib.width())),
+          flush=True)
+
+    import os
+    requested = os.environ.get("PROBE_ENTRY", "0,0;7,7")
+    entries = []
+    for token in requested.split(";"):
+        i_text, j_text = token.split(",")
+        entries.append((int(i_text), int(j_text)))
+    workers = int(os.environ.get("PROBE_WORKERS", "12"))
+    checkpoint_path = os.environ.get(
+        "PROBE_CHECKPOINT", "docs/proofs/1220_entrywise_checkpoint.json")
+    checkpoint = {"mode": "single-entry-checkpoint", "entries": {}}
+    if Path(checkpoint_path).exists():
+        with open(checkpoint_path, encoding="utf-8") as f:
+            checkpoint = json.load(f)
+
+    # prime C0 in the PARENT so fork shares it copy-on-write
+    C0s = {}
+    for (i, j) in entries:
+        if (i, j) not in _C0_CACHE:
+            _C0_CACHE[(i, j)] = gram_entry_C0(i, j, _RINGS_B2, S_MAX)
+        C0s[(i, j)] = _C0_CACHE[(i, j)]
+
+    slices = [bands[r::workers] for r in range(workers)]
+    pool = mp.Pool(workers)
+    print("pool: %d workers x %d slices" % (workers, len(slices)), flush=True)
+
+    for (i, j) in entries:
+        key = "%d,%d" % (i, j)
+        if key in checkpoint.get("entries", {}):
+            print("entry (%d,%d): cached checkpoint" % (i, j), flush=True)
+            continue
+        print("entry (%d,%d): begin (parallel)" % (i, j), flush=True)
+        items = [(i, j, kappa, ib, sl, r) for r, sl in enumerate(slices)]
+        totalH = IV(0)
+        slack = Fr(0)
+        for (idx, th, sk) in pool.imap_unordered(_entry_worker, items, chunksize=1):
+            print("  worker %2d done" % idx, flush=True)
+            totalH = totalH + th
+            slack = slack + sk
+        C0 = C0s[(i, j)]
+        entry = kappa * C0 + totalH + C0 * ib
+        box = cert["entries"][key]
+        lo = _frac_text(box["lo"])
+        hi = _frac_text(box["hi"])
+        ok = (entry.lo >= lo) and (entry.hi <= hi)
+        print("entry (%d,%d): [%.15f, %.15f] width %.3e" %
+              (i, j, float(entry.lo), float(entry.hi), float(entry.width())))
+        print("  box  (%s): [%.15f, %.15f] width %.3e  margin_in=%s" %
+              (key, float(lo), float(hi), float(hi - lo), ok))
+        print("  C0 mid %.15f  H mid %.15f" % (float(C0.mid()), float(totalH.mid())))
+        checkpoint.setdefault("entries", {})[key] = {
+            "lo": str(entry.lo), "hi": str(entry.hi),
+            "width": str(entry.width()), "target_lo": str(lo),
+            "target_hi": str(hi), "contained": ok,
+            "C0_mid": str(C0.mid()), "H_mid": str(totalH.mid()),
+            "slack": str(slack)
+        }
+        _checkpoint_write(checkpoint_path, checkpoint)
+    pool.close()
+    pool.join()
+
+
+if __name__ == "__main__":
+    main3()
