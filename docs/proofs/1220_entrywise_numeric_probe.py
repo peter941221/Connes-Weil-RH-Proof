@@ -794,6 +794,7 @@ def poly_deriv_sup(p, x0, x1):
 
 
 LEG_DER_SUP_CACHE = {}
+PB_DER_CACHE = {}
 
 
 def leg_der_sup(j, x0, x1):
@@ -809,6 +810,10 @@ def leg_der_sup(j, x0, x1):
 def pb_der_parts(j, n, u0, u1):
     """sup over [u0,u1] of each piece needed for |Pb_j^(n)|:
     returns sum_m binom(n,m) * sup|P_j^(m)| * bar{b}^{(n-m)}."""
+    key = (j, n, Fr(u0), Fr(u1))
+    cached = PB_DER_CACHE.get(key)
+    if cached is not None:
+        return cached
     tot = ZERO
     for m in range(n + 1):
         s_m = poly_deriv_sup(leg_der(LEG[j], m), u0, u1)
@@ -816,6 +821,7 @@ def pb_der_parts(j, n, u0, u1):
             continue
         b_nd = bump_D_bound(n - m, u0, u1)
         tot += Fr(binom(n, m)) * s_m * b_nd
+    PB_DER_CACHE[key] = tot
     return tot
 
 
@@ -1192,7 +1198,7 @@ P24 = [(2,2),(3,3),(4,2),(5,5),(7,7),(8,2),(9,3),(11,11),(13,13),
 
 NU_CAP = 22
 PAIR_SKIP = Fr(1, 10 ** 18)   # pair total-contribution below this: skipped
-REM_TARGET = Fr(1, 10 ** 18)  # per-leaf estimated u-Taylor remainder
+REM_TARGET = Fr(1, 10 ** 14)  # per-leaf estimated u-Taylor remainder
 
 
 def sqrt_iv(n, bits=100):
