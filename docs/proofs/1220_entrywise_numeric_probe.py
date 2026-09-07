@@ -1253,6 +1253,15 @@ def _checkpoint_write(path, payload):
     tmp.replace(target)
 
 
+def _unlock_int_str_digits():
+    # entry endpoints carry 1e4-1e6 digit denominators; CPython 3.11+ caps
+    # int->str at 4300 digits (CVE-2020-10735), so the exact-rational
+    # checkpoint serialization would raise ValueError at the print site.
+    # 0 disables the cap.  Serialization-only: no enclosure is affected.
+    if hasattr(sys, "set_int_max_str_digits"):
+        sys.set_int_max_str_digits(0)
+
+
 def _ensure_models():
     """lazy shared-model init (hoisted from entry_box for the parallel driver)."""
     global _S_BANDS, _RINGS_B2
@@ -1391,6 +1400,7 @@ _RBAND = {}
 
 def main2():
     import json
+    _unlock_int_str_digits()
     print("== 1220 probe v2: entry assembly ==")
     init_models()
     piv = pi_iv()
@@ -1472,6 +1482,7 @@ def main3():
     bit-for-bit; the leaf machinery is untouched."""
     import json
     import multiprocessing as mp
+    _unlock_int_str_digits()
     from pathlib import Path
     sys.setrecursionlimit(100000)
     print("== 1220 probe v3: parallel driver ==", flush=True)
