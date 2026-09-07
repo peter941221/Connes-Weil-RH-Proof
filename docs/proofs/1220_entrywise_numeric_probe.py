@@ -1459,6 +1459,12 @@ def _entry_worker(i, j, kappa, ib, band_slice, idx):
     return idx, totalH, slack
 
 
+def _entry_worker_star(task_tuple):
+    """imap_unordered passes ONE object per task; forward the unpacked
+    tuple to _entry_worker (starmap semantics with streaming results)."""
+    return _entry_worker(*task_tuple)
+
+
 def main3():
     """parallel driver: fork-shared caches, workers per interleaved s-band
     slice.  Interval/Fraction addition is exact-associative, so the
@@ -1521,7 +1527,8 @@ def main3():
         items = [(i, j, kappa, ib, sl, r) for r, sl in enumerate(slices)]
         totalH = IV(0)
         slack = Fr(0)
-        for (idx, th, sk) in pool.imap_unordered(_entry_worker, items, chunksize=1):
+        for (idx, th, sk) in pool.imap_unordered(
+                _entry_worker_star, items, chunksize=1):
             print("  worker %2d done" % idx, flush=True)
             totalH = totalH + th
             slack = slack + sk
