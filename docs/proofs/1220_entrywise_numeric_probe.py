@@ -1279,7 +1279,11 @@ def entry_box(i, j, kappa, log_ivals, ib, verbose=False):
     nu = NU_CAP
     for sign in (1, -1):
         for (a, b) in bands:
-            stack = [(Fr(0), Fr(4), Fr(a), Fr(b))]
+            # pre-split at Y_MAL: the Maclaurin branch of yw_moments_cell
+            # needs y1 <= Y_MAL and the geometric branch needs y0 > 0, so no
+            # cell may straddle Y_MAL (bisections preserve the invariant)
+            stack = [(Fr(0), Y_MAL, Fr(a), Fr(b)),
+                     (Y_MAL, Fr(4), Fr(a), Fr(b))]
             while stack:
                 y0, y1, s0, s1 = stack.pop()
                 ds = s1 - s0
