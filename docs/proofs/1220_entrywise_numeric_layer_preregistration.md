@@ -1,6 +1,8 @@
 # Record 1220 - numeric-layer probe for the 1219 entrywise campaign
 
 Pre-registration.  Committed BEFORE any run of this probe (law 42).
+Status: IMPLEMENTATION-INVALID (2026-09-08); see record 1222.  The run-4
+readout is not an F1/F2 verdict and cannot be used to choose a recovery.
 Parent: 1219_entrywise_envelope_preregistration.md (E2-E5).
 Consumers: records 1217 (boxes), 1218 (chain), 1219 (bricks).
 No P2, no SourceRH, no RH.
@@ -100,3 +102,24 @@ log-readout total, prime-sum accumulation, assembly total, margin vs
 the committed box for each probed entry.
 
 RH NOT claimed.
+
+## 5. Run-4 invalidation (2026-09-08)
+
+The first completed `(0,0)` assembly printed
+`H_mid = 1.2980715223869489e33`, while `C0`, `kappa`, and `I_B` remained
+order one.  This is not an honest budget failure: record 1222 identifies two
+implementation violations of the pinned reduction.
+
+1. The point-coefficient routine evaluated the analytic expression
+   `exp(-1/(1-u^2))` for `|u| >= 1`, although the compact bump is identically
+   zero there.  Cells crossing `u = +/-1` were not split, so a Taylor centre
+   could lie outside the support while its cell still met the support.
+2. The intended positive/negative `s` split was written as
+   `for sign in (1, -1)`, but `sign` never changed the interval endpoints;
+   the code duplicated the positive half-axis instead of integrating
+   `s in (-1,1)`.
+
+The interrupted run logs are retained as diagnostic evidence only.  A new
+pre-registration amendment must specify a support-boundary-respecting
+partition and the signed-half-axis substitution before any replacement probe
+or Lean consumer is run.  No box is widened and record 1221 remains dormant.
