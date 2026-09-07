@@ -1567,4 +1567,11 @@ def main3():
 
 
 if __name__ == "__main__":
-    main3()
+    # PROBE_DRIVER=seq selects the sequential v2 driver (S0 reference runs);
+    # default is the parallel v3 driver.  Driver choice only: identical
+    # per-entry numerics (bit-for-bit by exact-associativity of IV/Fr sums).
+    import os as _os
+    if _os.environ.get("PROBE_DRIVER", "par") == "seq":
+        main2()
+    else:
+        main3()
