@@ -152,6 +152,59 @@ NO-GO (V1 or V2 fires for both candidates) -> record and return to the
 1223 section 2 fork; no numerics escalation.
 ABORTED-UNINFORMATIVE -> 1097 protocol, no verdict either way.
 
+## 3a. Registered Stage B instantiation: model-level dial-sensitivity sweep
+(added BEFORE implementation and before any run; law 42)
+
+Context facts (all committed): (i) for any positive family, every finite
+trace is >= 0, so a convergent limit is >= 0; (ii) under the off-line-zero
+hypothesis the consumed healthy detectors have formal `qw g < 0`.  Hence no
+dial choice can make a positive-family contract converge to `qw g` on a
+negative-qw detector, and a model-level GO is structurally impossible.  The
+ONLY registered purpose of this sweep is a MECHANISM probe: whether and how
+the existing family's finite part FP(lambda, S) depends on the Sonin scale
+and the visible-prime list — this tells the Stage C value identity which
+dial-dependent ledger terms it must contain.  Detector g is
+dial-independent by construction (1116 twin: rho/gammas/NEXP only), so
+FP/qw sensitivity is entirely the kernel's.
+
+Dials: lambda in {0.5, 1.0, 2.0} x S in {{2}, {2,3,5}, {2,3,5,7,11,13}};
+grid = {(0.5,{2,3,5}), (1.0,{2,3,5}), (2.0,{2,3,5}), (1.0,{2}),
+(1.0,{2,3,5,7,11,13})}; the (1.0,{2,3,5}) entry is a baseline REPLAY and
+must reproduce record 1213's headline `sn_dt(n=64,fine) =
+-1.11622981e+37`-class values within the ~2e-4 registered stability
+(a regression gate on the edit itself).
+
+Implementation (minimal diff to the committed 1212 script):
+(a) `PROBE_LAMBDA` / `PROBE_S` env reads with 1213-registered defaults;
+(b) `P_r` threshold `t >= 0.0` becomes `t >= log lambda` in the grid's
+`pos` mask (single site; the S0.6 range gate follows it);
+(c) assertion that `qw_terms(g)` is bit-identical across all five dials;
+(d) ladder n in {8,16,32,64}, both grades (1212 settings unchanged);
+(e) every dial passes the full S0 gate set (S0.1-S0.6 + dense validation)
+before any ladder rung; an S0 failure on a dial is
+ABORTED-UNINFORMATIVE-for-that-dial (1097 protocol), not a candidate
+verdict;
+(f) output goes to NEW files `1224_dial_<lambda>_<S>.json` only; the
+committed official `1212_probe_results.json` is never written.
+
+Readouts: FP_dial = sn_dt at n=64 fine (the 1213 normalization);
+relative responses dFP(lambda) = (FP(2) - FP(0.5))/|FP(1)| and
+dFP(S) = (FP(S6) - FP(S1))/|FP(S3)|.
+
+Adjudication (pre-registered, no third branch):
+PINNED — all |dFP| < 1e-3: the existing family's limit is dial-invariant;
+the Cand-A value identity does not run through (lambda, S); the next probe
+must target the n-lever inside the Cand-B `M_n` shape (new prereg).
+MOVES — any |dFP| >= 1e-3: a dial-dependent term exists; a SECOND addendum
+(committed before any further run) does the algebraic identification of
+which ledger term matches the FP response shape.
+ABORTED-UNINFORMATIVE — baseline replay fails its regression gate or >= 2
+dials fail S0.
+
+Budget: 5 dials x ~20-25 min WSL2, MODEL-labeled (law 65), certifies
+nothing about the true owner, feeds only the 1224 Stage B adjudication.
+No large exact-Fraction grid anywhere in this sweep.
+
 ## 4. What this record does NOT claim
 
 It does not claim the required renormalized response exists (1223 section
