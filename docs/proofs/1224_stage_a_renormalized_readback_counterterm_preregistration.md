@@ -327,6 +327,70 @@ in the JSONs);
 (c) the lambda=2 fit-quality flag from 3b must be re-checked at the finer
 grades before its numbers are used quantitatively.
 
+## 3d. Registered follow-through: lambda=2 S-row completion and shape
+separation test (committed BEFORE the runs)
+
+Purpose.  The sec.3b dial set is a CROSS, not a grid: the lambda-axis was
+measured only at S3 and the S-axis only at lambda=1, so the separability
+structure of the FP response is undetermined.  Two new dials complete the
+lambda=2 row:
+
+```text
+  run L20_S2         lambda=2.0  S=2                 tag L20_S2
+  run L20_S23571113  lambda=2.0  S=2,3,5,7,11,13     tag L20_S23571113
+```
+
+Protocol identical to sec.3a (same script, same ladder n in {8,16,32,64}
+x {8192,16384}, full S0 gates per dial, new-file outputs
+`1224_dial_L20_S2.json` / `1224_dial_L20_S23571113.json`, the committed
+JSONs untouched, S0 failure = ABORTED-UNINFORMATIVE for that dial).
+
+Shape hypotheses with PRE-COMPUTED zero-parameter predictions for
+FP(2,S1) and FP(2,S6):
+
+```text
+  ADDITIVE   FP(lam,S) = gamma(lam) + delta(S):
+             increments S1->S3->S6 are lambda-independent
+             FP(2,S1) = FP(2,S3) - [FP(1,S3)-FP(1,S1)] = -0.005e+33
+             FP(2,S6) = FP(2,S3) + [FP(1,S6)-FP(1,S3)] = +2.402e+33
+
+  MULTIPLICATIVE  FP(lam,S) = alpha(lam) * Phi(S):
+             the increment ratio 0.4840 is preserved and absolute values
+             scale with alpha:
+             FP(2,S1) = FP(2,S3) * FP(1,S1)/FP(1,S3)   = +0.336e+33
+             FP(2,S6) = FP(2,S3) * FP(1,S6)/FP(1,S3)   = +1.698e+33
+```
+
+The two hypotheses differ by ~0.34e+33 at S1 and ~0.71e+33 at S6 — far
+above the registered per-dial fit uncertainty (sec.3b spreads 3.2e-5 to
+3.5e-3 relative, plus the lambda=2 fit-quality flag), so the two runs
+discriminate cleanly.
+
+Pre-registered adjudication (no third branch):
+ADDITIVE — both new points within 3x the lambda=2 fit-quality sigma of the
+additive predictions (equivalently the S1->S3 increment moves by less than
+its own uncertainty).
+MULTIPLICATIVE — both within 3x sigma of the multiplicative predictions.
+MIXED — otherwise: report the 2-parameter fit
+FP(lam,S) = alpha(lam)*(c + Phi(S)) with the two new points pinning
+(c, alpha-ratio); the MIXED outcome registers a FIFTH-dial follow-up and
+the band-functional identification of part (b) proceeds on the MIXED form.
+ABORTED-UNINFORMATIVE — either dial missing gates or baseline-quality S0
+failure.
+
+Fit-quality re-check (registered obligation from sec.3b note *): with the
+three lambda=2 dials in hand, re-report per-dial rung spread and fit-slope
+sign; if any spread exceeds 2e-3, the lambda=2 row is flagged UNCONFIRMED
+and the shape verdict is stated conditionally on it until a dt-refined
+lambda=2 ladder (new addendum) clears it.
+
+Part (b), closed-form only, no new runs: with all seven dials in place,
+correlate term1/b and pv/b against the band functionals already recorded
+(pf_cond_hint, pv_cond_hint, pv_rank, tail_gap columns) and the radial
+mass fraction of the model carrier at threshold log lambda (computed on
+the model grid, no eigsh).  Report the best-matching functional as a
+HYPOTHESIS for Stage C only; no identity is claimed.
+
 ## 4. What this record does NOT claim
 
 It does not claim the required renormalized response exists (1223 section
