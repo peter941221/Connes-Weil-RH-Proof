@@ -67,8 +67,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # ------------------------------------------------------------------ #
 # registered model dials                                             #
 # ------------------------------------------------------------------ #
-LAMBDA = 1.0
-S_PRIMES = [2, 3, 5]
+# defaults are the 1213 registered values; the 1224 sec.3a sweep overrides
+# them through PROBE_LAMBDA / PROBE_S (MODEL-labeled probe, law 65).
+LAMBDA = float(os.environ.get("PROBE_LAMBDA", "1.0"))
+S_PRIMES = [int(x) for x in os.environ.get("PROBE_S", "2,3,5").split(",")]
 LOG_P = [math.log(p) for p in S_PRIMES]
 C_P = [1.0 / math.sqrt(p) for p in S_PRIMES]
 
@@ -291,7 +293,9 @@ class Grid:
         self.dt = 2 * B / N
         self.t = (np.arange(N) - N // 2) * self.dt
         self.freq = np.fft.fftshift(np.fft.fftfreq(N, d=self.dt))
-        self.pos = self.t >= 0.0
+        # 1224 sec.3a: P_r = 1_{t >= log lambda}; at the 1213 registered
+        # lambda = 1.0 this is the committed t >= 0 threshold verbatim.
+        self.pos = self.t >= math.log(LAMBDA)
         self.neg = ~self.pos
         self.phase = scattering_phase(self.freq)
         e_mult = np.ones_like(self.freq, dtype=complex)
@@ -739,8 +743,12 @@ def main():
                       f"sn_dt={row['sn_dt']:+.6e} "
                       f"pv_rank={row['pv_rank']}/{row['pv_neg_dim']} "
                       f"[{secs}s]")
-            out = "1212_probe_smoke.json" if smoke \
-                else "1212_probe_results.json"
+            if smoke:
+                out = "1212_probe_smoke.json"
+            else:
+                # 1224 sec.3a(f): the sweep writes NEW files only; the
+                # committed official 1212 JSON is never overwritten.
+                out = os.environ.get("PROBE_OUT", "1212_probe_results.json")
             with open(os.path.join(HERE, out), "w") as fh:
                 json.dump(dict(record="1212", mode=mode, model=True,
                                lambda_=LAMBDA, S=S_PRIMES, qw=qwv,
