@@ -1,9 +1,13 @@
 # Record 1219 - entrywise envelope discharge of the 20 same-parity facts
 
 Pre-registration.  Committed BEFORE any certificate run of this
-campaign (law 42).  Status: REGISTERED, brick E1 in flight.  Consumers:
+campaign (law 42).  Status: SUSPENDED (2026-09-08).  Record 1222 invalidated
+the only numeric probe implementation; record 1223 further records that this
+ROOT/Hbox chain currently has no live healthy-`CompactLog`, B5-shaped consumer.
+It must not be restarted merely by repairing the probe.  Consumers if revived:
 records 1217 (boxes), 1218 (consumption chain,
-`q28_absolute_1218_of_sameParity`).  No P2, no SourceRH, no RH.
+`q28_absolute_1218_of_sameParity`), and a subsequently named B5 consumer.
+No P2, no SourceRH, no RH.
 
 ## 1. Target
 

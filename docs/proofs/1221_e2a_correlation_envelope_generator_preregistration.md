@@ -1,11 +1,12 @@
 # Record 1221 - E2a: correlation envelope generator (skeleton preregistration)
 
 Pre-registration, committed BEFORE any generator run of this brick
-(law 42).  Status: REGISTERED AS A SKELETON - the numeric parameters of
-sec. 4 are named sockets; they are pinned by the record-1220 GO
-addendum, whose commit precedes the first generator run.  Parents:
-1219 (brick E2), 1220 (numeric-layer probe, GO gate, falsifiers F1/F2).
-Consumers: 1219 bricks E3a/E4/E5, the landed record-1218 chain
+(law 42).  Status: DORMANT / SUSPENDED (2026-09-08).  Record 1222 invalidated
+the 1220 implementation, and record 1223 suspends its parent 1219 until a
+healthy-`CompactLog`, B5-shaped consumer is named.  No parameter addendum,
+generator run, or Lean consumer may be started from the present skeleton.
+Parents: 1219 (brick E2), 1220 (numeric-layer probe, GO gate, falsifiers F1/F2).
+Prospective consumers: 1219 bricks E3a/E4/E5 and the landed record-1218 chain
 (`q28_absolute_1218_of_sameParity`).  No P2, no SourceRH, no RH.
 
 ## 1. Target
