@@ -205,6 +205,128 @@ Budget: 5 dials x ~20-25 min WSL2, MODEL-labeled (law 65), certifies
 nothing about the true owner, feeds only the 1224 Stage B adjudication.
 No large exact-Fraction grid anywhere in this sweep.
 
+## 3b. sec.3a VERDICT: MOVES (official five-dial sweep, all gates green)
+
+Date 2026-09-08. Datasets: `1224_dial_*.json` + `1224_sweep_logs/`
+(committed). Extraction: `1224_dial_analysis.py`, the 1213 formula
+(least-squares Tn-cont vs Rn intercept, fine grade N=16384, four rungs
+n in {8,16,32,64}); the script was validated on the committed 1212 JSON
+before use (FP reproduces 1213 to 8.0e-5 relative).
+
+Per-dial readouts (MODEL; law 65; S0.1-S0.6 + dense gates green on every
+dial, 8/8 ladder rows each, zero exceptions):
+
+```text
+  dial               lambda   S                   FP           FP/qw      fit slope   spread
+  L10_S235  (base)     1.0   2,3,5          +1.379210e+33   -3.321331    +4.77e+28   3.2e-05
+  L05_S235             0.5   2,3,5          +1.622022e+33   -3.906057    -3.45e+27   1.0e-04
+  L20_S235             2.0   2,3,5          +7.801646e+32   -1.878746    -3.49e+28   3.5e-03  *
+  L10_S2               1.0   2              +5.942349e+32   -1.431001    +3.92e+28   2.0e-04
+  L10_S23571113        1.0   2,3,5,7,11,13  +3.001164e+33   -7.227224    -1.31e+28   7.8e-05
+```
+
+Registered gates: baseline replay vs 1213 FP_inf rel diff 7.98e-05
+(gate 2e-4) PASS — the edit is regression-clean at lambda = 1;
+qw dial-invariance across all five dials PASS (S0.3 confirms the
+detector side never sees the dials).
+* caveat: the lambda=2 rung spread 3.5e-3 is ~10-30x the other dials and
+above the 1213 eps_effective family, and its fit slope flipped sign;
+retained (ABORTED requires >= 2 incomplete dials), flagged for fit
+quality — do not read its value finely until confirmed.
+
+Adjudication per sec. 3a branches:
+dFP(lambda) = -6.104e-01, dFP(S) = +1.745e+00 — both ~1e3 x the 1e-3
+threshold.  VERDICT = MOVES: a dial-dependent term is present in the
+existing family's finite part.
+
+What MOVES does and does not say (positivity context of sec. 3a):
+(i) it does NOT revive Cand-A on the true owner — on a negative-qw
+detector no positive family can converge to qw regardless of dials;
+(ii) it DOES say the limit is not pinned to a dial-invariant functional:
+the value identity (Stage C target) must REPRODUCE the FP response
+structure, and that structure is now a measurement target;
+(iii) the strong S dependence with the FP/qw range -1.43 to -7.23 shows
+the visible-prime list enters FP with large per-prime weight.
+
+First-look response shape (HYPOTHESES for the next addendum, not
+verdicts): the S response is not per-prime constant — increments per
+carrier weight log p/sqrt(p): {3,5} -> 0.580e+33/unit, {7,11,13} ->
+0.748e+33/unit — consistent with a sum of log p/sqrt(p) * Fhat(log p)
+over the SELECTED primes (the selectedArithmeticCarrierSum /
+finitePrimeTerm shape), where Fhat is the model self-convolution read at
+the prime points; the lambda response is nonlinear in log lambda (unit-
+log-lambda differences 0.351e+33 vs 0.864e+33) — pointing at band-mass
+type dependence (the P_r threshold shift moves radial-support mass
+across a curved profile), not a linear counterterm.
+
+Next brick (registered obligation of this verdict): a second addendum,
+committed BEFORE any further run, does the closed-form ledger-term
+identification: evaluate Fhat(log p) for p in {2,3,5,7,11,13} and the
+band-mass functional of log lambda on the model grid (cheap, no eigsh),
+fit FP(dial) = a + b(log lambda) + sum_{p in S} (log p/sqrt p) Fhat(log p)
++ candidate interaction terms, and report which committed ledger term the
+FP response matches.  No larger grids, no Lean work until that
+identification is in.
+
+## 3c. sec.3b registered identification: the arithmetic-shape hypothesis is
+REJECTED; the FP response channels are the projection sandwiches
+
+Date 2026-09-08, same day as 3b.  No new ladder runs: everything here is
+closed-form on the committed model data (`1224_identify_fp_terms.py`,
+committed with this section) plus the sec.3b JSON columns.
+
+H1 (registered in 3b): the S-dependence of FP is the arithmetic carrier
+shape with UNIT coefficient,
+  FP(S-response) = sum_{p in S} (log p / sqrt p) * Fhat_pm(log p),
+Fhat from the model self-convolution (qw_terms machinery).
+Result: REJECTED, decisively.
+  measured  [FP(S3)-FP(S1)] / [FP(S6)-FP(S3)] = +0.4840
+  predicted [w3F3+w5F5] / [w7F7+w11F11+w13F13] = +0.2079   (rel mismatch 1.33)
+and the SIGNS OF THE INCREMENTS ARE OPPOSITE: FP grows with S
+(+0.785e33, +1.622e33) while the carrier sums for the added primes are
+NEGATIVE (-0.474e33, -2.281e33).  A sign-corrected linear fit is also
+excluded (effective coefficients -1.66 vs -0.71, non-constant).
+
+Channel separation (n=64, fine grade, from the committed JSONs; W = the
+window detector, term1 = tr(P_r P_f P_r W), term_pv = tr(P_V W),
+Tn = term1 - term_pv exactly):
+
+```text
+  dial             lambda  S                 term1/b   pv/b     Tn/b     pv_rank
+  L10_S235 base      1.0   2,3,5             +0.0116   +0.0015  +0.01014  7438
+  L05_S235           0.5   2,3,5             +0.0187   +0.0068  +0.01189  7381
+  L20_S235           2.0   2,3,5             +0.0058   +0.0001  +0.00570  7496
+  L10_S2             1.0   2                 +0.0051   +0.0007  +0.00438  7438
+  L10_S23571113      1.0   2,3,5,7,11,13     +0.0259   +0.0039  +0.02200  7438
+```
+
+Readings (all MODEL-level, structural hypotheses for Stage C, no theorem):
+(i) the S-channel is dominated by term1: the Tn/b S-responses
+(0.00438 -> 0.01014 -> 0.02200) reproduce the FP S-response exactly
+(bulk^cont = 2 R_n f0 is dial-invariant), and term1 grows SUPERLINEARLY
+in |S| (+0.0065 for two primes, +0.0143 for three) — a band-GEOMETRY
+effect of the P_f construction (S enters through
+the semilocal Fourier-support subspace), not a linear carrier weighting;
+pv_rank is constant 7438/16384 across all three S-dials (at the numeric
+PV_TAU = 1e-8 threshold — a numerical reading, not a rank theorem).
+(ii) the lambda-channel acts on BOTH terms, strongly and nonlinearly
+(term1/b 0.0187 -> 0.0116 -> 0.0058 across 0.5 -> 1 -> 2; pv nearly
+vanishes at lambda = 2; A(lambda) log-differences -2.43e+32 vs
+-5.99e+32).
+(iii) all five FP values are strictly POSITIVE across the whole dial box —
+consistent with the sec.3a positivity constraint; MOVES does not restore
+any model-level Cand-A GO.
+
+Registered follow-up (must be a new addendum BEFORE any further run):
+(a) dials (2.0,S1) and (2.0,S6) to separate term1(lambda,S) multiplicativity
+vs additivity (the 5-dial box is a cross, not a grid);
+(b) fit of term1/b against the natural band functionals: radial mass
+fraction of the carrier span at threshold log lambda and the P_f cond
+number / captured dimensions (columns pf_cond_hint, pv_cond_hint already
+in the JSONs);
+(c) the lambda=2 fit-quality flag from 3b must be re-checked at the finer
+grades before its numbers are used quantitatively.
+
 ## 4. What this record does NOT claim
 
 It does not claim the required renormalized response exists (1223 section
