@@ -391,6 +391,145 @@ mass fraction of the model carrier at threshold log lambda (computed on
 the model grid, no eigsh).  Report the best-matching functional as a
 HYPOTHESIS for Stage C only; no identity is claimed.
 
+## 3e. sec.3d VERDICT: MIXED — the FP response is non-separable in
+(lambda, S); both registered factorizations are decisively rejected
+
+Acceptance (log content, sec.3a/3d protocol): both dials exit 0, 8 S0
+lines + 8 fine rung lines each, 0 tracebacks;
+`SWEEP3D COMPLETE 2026-09-09T07:13:18+08:00`.  Anchor replay of the
+committed L20_S235 through the same extractor: rel diff 5.27e-08
+(gate 2e-4) PASS.  Data: `1224_dial_L20_S2.json`,
+`1224_dial_L20_S23571113.json`; extractor `1224_grid2_analysis.py`.
+
+Measured lambda=2 row (fine grade N=16384, ladder n in {8,16,32,64}):
+
+```text
+dial               lambda  S                 FP           FP/qw      spread   slope
+L20_S2                2.0  2              +3.028565e+32  -0.729321  6.6e-03  -2.194e+28
+L20_S235              2.0  2,3,5          +7.801646e+32  -1.878746  3.5e-03  -3.490e+28  (sec.3b)
+L20_S23571113         2.0  2,3,5,7,11,13  +2.352759e+33  -5.665774  2.7e-03  -8.453e+28
+```
+
+3-sigma adjudication against the sec.3d pre-computed predictions
+(sigma = per-dial rung spread x |FP|, floor 1e28):
+
+```text
+S1:  measured +3.028565e+32 (sigma 2.01e+30)
+     ADD +(-4.810e+30)  dev +152.9 sigma   (sign of the prediction itself wrong)
+     MUL +3.361352e+32  dev  -16.5 sigma
+S6:  measured +2.352759e+33 (sigma 6.42e+30)
+     ADD +2.402119e+33  dev   -7.7 sigma
+     MUL +1.697640e+33  dev +102.0 sigma
+```
+
+Both hypotheses fail on at least one point far beyond any plausible noise
+model (overturning ADD at S1 needs a 51x understatement of the rung
+spread; MUL fails both points, needing 5.5x/35x).  The registered branch
+is therefore MIXED, and per sec.3d the lambda=2 row carries the
+UNCONFIRMED fit-quality flag (spreads 2.7e-3 to 6.6e-3 > 2e-3): the
+QUALITATIVE verdict (no factorization) is robust to the flag, while the
+quantitative values below are stated conditionally on it.
+
+MIXED 2-parameter solve FP(2,S) = k*(c + FP(1,S)), pinned at S1, S6:
+k = +8.516671e-01, c = -2.386305e+32 (-0.173 * FP(1,S3)); anchor
+cross-check at S3 predicts +9.713940e+32 vs measured +7.801646e+32,
+dev -70.6 sigma.  The three measured points of the lambda=2 row are
+themselves not consistent with ANY 2-parameter alpha(lam)*(c+Phi(S))
+form: the failure is not just "cross terms of the two factorizations"
+but NON-SEPARABILITY of the FP response in (lambda, S).  Readout:
+alpha(S) := FP(2,S)/FP(1,S) = 0.5097 (S1), 0.5657 (S3), 0.7840 (S6) —
+the lambda-suppression weakens monotonically as prime support grows.
+Positivity of every FP is preserved (all three > 0).
+
+Part (b), band-functional correlation (committed data only, no new runs;
+finest rung n=64, N=16384, per-rung readouts from `1224_sweep_logs/`):
+
+```text
+lambda=2 vs lambda=1 ratios:
+channel        S1       S3       S6
+FP            0.5097   0.5657   0.7840
+Tn/b          0.5041   0.5621   0.7819    (within 1.1% of FP everywhere)
+term1/b       0.4371   0.4969   0.6673
+pv/b          0.0200   0.0425   0.0252    (25x-50x suppression at lambda=2)
+pv_rank       7496     7496     7496      (vs 7438 at lambda=1: +58, S-constant)
+```
+
+Findings (HYPOTHESIS-level for Stage C; no identity claimed):
+
+* The FP lambda-response tracks the raw finest-rung Tn/b lambda-response
+  to ~1%, i.e. the finite part inherits its lambda dependence from the
+  same term1-dominated sandwich channel it inherits its S dependence
+  from (sec.3c), NOT from any renormalization-cancellation shift.
+* The P_V channel is ruled out as the lambda-driver in two independent
+  ways: (i) pv/b is suppressed 25x-50x at lambda=2 while FP falls only
+  ~2x, and (ii) pv_rank moves LINEARLY and symmetrically in log lambda
+  (7381 / 7438 / 7496 for lambda = 0.5 / 1 / 2) and is S-CONSTANT at
+  each lambda, while the observed alpha(S) spans 0.51-0.78.
+* pf_cond_hint is saturated at 1.0 for every dial (no information);
+  tail_gap sits at the 6e-15..7e-15 noise floor; pv_rel was recorded
+  only in the S0 section (extractor column fix noted for sec.3f).
+
+Consequence for the counterterm program (Fork B).  No reading of the FP
+as alpha(lambda)*Phi(S) or gamma(lambda)+delta(S) exists; the moving
+counterterm must live INSIDE the sandwich with the same P_r(lambda) and
+P_f(S) geometry — i.e. any Cand-B candidate family has to reproduce the
+full 2D response surface, not a rank-1/rank-2 shadow of it.  This is a
+constraint on Stage C design, not yet a value identity.
+
+## 3f. Registered follow-through: lambda=0.5 row completion and the
+parameter-free rank-2 test of the FP grid (committed BEFORE the runs)
+
+Purpose.  The (lambda, S) FP grid is now 7 points: rows lambda in {0.5,
+1, 2} exist only at S3 for lambda=0.5.  Two further dials complete a
+3x3 grid and turn sec.3e's anchor-miss observation into a single
+parameter-free statistic.
+
+```text
+  run L05_S2         lambda=0.5  S=2                 tag L05_S2
+  run L05_S23571113  lambda=0.5  S=2,3,5,7,11,13     tag L05_S23571113
+```
+
+Protocol identical to sec.3a/3d (same script and ladder; S0 gates per
+dial; new-file outputs; committed JSONs untouched; ABORTED-UNINFORMATIVE
+rules as before).  Extractor adds one regression gate: the existing
+L05_S235 JSON must replay its committed FP +1.622022e+33 within 2e-4.
+
+Registered falsification predictions for the two dead-class hypotheses
+(expected to fail given sec.3e; recorded so any revival is a surprise):
+
+```text
+  ADDITIVE  FP(0.5,S) = FP(0.5,S3) + [FP(1,S)-FP(1,S3)]
+            FP(0.5,S1) = +0.837047e+33 ;  FP(0.5,S6) = +3.243976e+33
+  MULTIPLICATIVE  FP(0.5,S) = FP(0.5,S3) * FP(1,S)/FP(1,S3)
+            FP(0.5,S1) = +0.698853e+33 ;  FP(0.5,S6) = +3.529520e+33
+```
+
+Primary registered statistic (parameter-free): form the 3x3 matrix
+M[lambda,S] of FP values (rows lambda = 0.5, 1, 2; columns S1, S3, S6)
+and the normalized row-volume  v := |det M| / (||row(0.5)|| * ||row(1)||
+* ||row(2)||) with Euclidean norms.  Adjudication with sigma_i = per-
+dial rung-spread sigma (sec.3e convention, floor 1e28), propagated to v
+by the linear upper bound dv <= sum_i (3 sigma_i / |M_i|):
+
+  RANK-2   — v <= dv: the rows are linearly dependent within noise; the
+             FP surface lies in a 2-dimensional family; report the
+             global least-squares (c, k(0.5), k(2)) fit of the
+             alpha(lam)*(c + Phi(S)) form over all nine points and the
+             per-point residuals.
+  RANK-3   — v > dv: the FP surface is genuinely 3-dimensional in
+             (lambda, S); no separable or 2-parameter counterterm ansatz
+             can match it.  Stage C then proceeds ONLY through the
+             term1-sandwich route of sec.3e (the geometry must be inside
+             the family), and a structure-reading addendum (sec.3g, no
+             new runs) fits alpha(lam, S) against the term1/b column
+             ratios.
+  ABORTED-UNINFORMATIVE — any dial missing gates or the replay gate
+             failing.
+
+Positivity expectation (meta, not a branch): all nine FP values should
+remain > 0; any negative FP is a data red flag first, a math clue
+second.
+
 ## 4. What this record does NOT claim
 
 It does not claim the required renormalized response exists (1223 section
