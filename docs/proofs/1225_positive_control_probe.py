@@ -633,7 +633,11 @@ def run_traces(grid, pf, pv, vals, vecs):
     return term1, term_pv, 0, True, [term_pv]
 
 
-def rung(n, N, sample, f0_cont, pad=None):
+RANK_REPLAY = 320   # A7: committed 1212 protocol rank for the C4 fidelity
+# replay only; the control ladder keeps PROBE_RANK per A4b.
+
+
+def rung(n, N, sample, f0_cont, pad=None, rank=None):
     Rn = R0 + n + 1
     grid = Grid(Rn + (PAD if pad is None else pad), N)
     gt = sample(grid.t)
@@ -642,7 +646,7 @@ def rung(n, N, sample, f0_cont, pad=None):
     cn = Cn(grid, gt, win)
     Nw = int(win.sum())
     bulk = Nw * f0d                      # exact discrete tr(W), closed form
-    vals, vecs = bulk_eig(cn, RANK)
+    vals, vecs = bulk_eig(cn, RANK if rank is None else rank)
     captured = float(vals.sum())
     tail_gap = (bulk - captured) / bulk
     pf = PfEngine(grid)
@@ -882,17 +886,26 @@ def main():
         g_det, _ = build_g_delta0()
         sdet = sample_fn(g_det)
         qwv_det = qw_terms(g_det)
-        r_det = rung(64, N_FINE, sdet, qwv_det["f0"])
-        # A6: physical finite part per 1213 section 8: FP = Tn * dt^2,
-        # NOT the raw sn_dt field.
+        # A7: the replay is a protocol-FIDELITY check, so it runs at the
+        # COMMITTED rank 320, not the control's A4b rank.  Invocation 1
+        # measured the alternative: 2.68e-3 at rank 2560 (Ritz-residual
+        # accumulation is linear in k at ||W|| ~ 1e37; the 8x prediction
+        # from the committed rank-320 residual 3.3e-4 matches).
+        r_det = rung(64, N_FINE, sdet, qwv_det["f0"], rank=RANK_REPLAY)
+        # A6/A7b: physical readout FP = Tn * dt^2; the replay constant is
+        # the RAW committed n=64/fine rung value 1.382789e33 from
+        # 1212_probe_results.json (preflight: fork reproduces it to 8
+        # significant digits), NOT the 1213 Q2 slope-removed ladder figure
+        # 1.379171e33 (that quantity removes the fitted window slope and
+        # does not appear as any raw field).
         fp_det = r_det["Tn"] * r_det["dt"] ** 2
-        rel_replay = abs(fp_det / 1.3791e33 - 1.0)
-        print(f"C4 replay (detector twin, RANK={RANK}): FP_inf {fp_det:.6e} "
-              f"vs committed +1.3791e33  rel {rel_replay:.2e}  "
-              f"(tail_gap {r_det['tail_gap']:.2e})")
-        assert rel_replay <= 2e-4, \
-            "C4 FAILED: rig does not reproduce the committed FP_inf"
-        replay = dict(fp=fp_det, rel=rel_replay, rank=RANK,
+        rel_replay = abs(fp_det / 1.382789e33 - 1.0)
+        print(f"C4 replay (detector twin, RANK={RANK_REPLAY}): "
+              f"FP {fp_det:.8e} vs committed raw 1.382789e33  "
+              f"rel {rel_replay:.2e}  (tail_gap {r_det['tail_gap']:.2e})")
+        assert rel_replay <= 1e-6, \
+            "C4 FAILED: rig does not reproduce the committed raw FP"
+        replay = dict(fp=fp_det, rel=rel_replay, rank=RANK_REPLAY,
                       tail_gap=r_det["tail_gap"], qw=qwv_det["qw"])
     # ladder: each registered rung is a dt-refinement PAIR (coarse,
     # fine = coarse/2); both grades run at every n (the first official

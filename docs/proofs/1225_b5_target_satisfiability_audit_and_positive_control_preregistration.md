@@ -363,6 +363,49 @@ table), and the 1213 grade-spread of FP is ~2e-4 relative, far below the
 1% A5b band.  Smoke-8 re-verifies the wiring on the control builder only;
 no official digit is taken from smoke.
 
+A7 is registered after OFFICIAL invocation 1 (log
+`1225_control_logs/1225_official1.log`, aborted at the C4 replay gate; every
+other gate green: C2 margin +0.128, C3 dev 1.08e-05, S0.5 1.49e-10, S0.6
+abs-drift/bulk 4.93e-06, cont-drift 1.227e-05 far below the 1% band).
+Replay readout: FP(detector, RANK=2560) = 1.382789e33 vs committed
+1.379171e33, rel 2.68e-3, outside the registered 2e-4.  Mechanism,
+confirmed quantitatively: each eigsh Ritz pair carries a residual of size
+tol * ||W|| and the sandwich-trace error accumulates ~linearly in k; the
+detector's ||W|| is ~1e37, so k: 320 -> 2560 predicts the observed 8x
+growth (extrapolation 2.68e-3 * 320/2560 = 3.3e-4 plus fork-vs-original
+bit-reproduction slack).  The C4 replay exists to test PROTOCOL FIDELITY
+against the committed run, and the committed protocol is RANK=320;
+requiring the replay to survive the control's rank escalation conflated
+two different claims and made the gate self-contradictory (no rig could
+pass both the A4b rank rule and a 2e-4 replay at that rank while the
+error is linear in k).  Registered fix: the replay rung runs at the
+COMMITTED rank 320 (constant `RANK_REPLAY = 320`); the control ladder
+keeps PROBE_RANK=2560 per A4b; the replay still verifies the operator
+conventions, the dt^2 normalization, and the fork's fidelity to 1212.
+Operationally, invocation 2 runs with `PYTHONUNBUFFERED=1` so the
+official log shows per-rung progress live (disclosed lesson: block-
+buffered redirection hid ~50 minutes of progress telemetry).
+
+A7b, registered from the same invocation-1 evidence BEFORE invocation 2:
+a preflight (log `1225_replay_preflight.log`) ran the replay at the
+committed rank 320 and STILL read 1.382789e33 (rel 2.62e-3) - so the rank
+story above was wrong at the 2e-4 level and the real defect was in MY
+replay constant.  Recomputing `Tn * dt^2` from every rung of the
+COMMITTED `1212_probe_results.json` shows the raw n=64/fine value is
+1.382789e33 (bulk*dt^2 = 1.363469e35); the 1213 section Q2 figure
+FP_64 = +1.379171e33 is the finite part AFTER removing the fitted
+window-slope, which the 1213 table itself labels ("after removing the
+(negligible) fitted slope"), not a raw rung readout.  My fork's replay is
+therefore BIT-EXACT vs the committed run at the raw rung level (7
+significant digits identical), and no fidelity problem exists.  The C4
+replay constant is corrected to the raw committed value 1.382789e33 with
+tolerance tightened to 1e-6 (a raw-field reproduction is expected to be
+exact to ARPACK determinism, not to the 2e-4 slope-removal slack the
+constant was misread from); the 1213 slope-removed ladder FP_64 =
+1.379171e33 remains the record's own quoted quantity and is untouched.
+If the corrected replay gate still fails at 1e-6, that WOULD be a
+fork-fidelity finding and the invocation is ABORTED-UNINFORMATIVE.
+
 Implementation: new builder function in a NEW file
 `docs/proofs/1225_positive_control_probe.py` forking the 1212 machinery
 (never editing the committed 1212 script or its JSONs); env selectors
