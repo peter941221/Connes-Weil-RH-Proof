@@ -388,6 +388,31 @@ theorem g8SourceCutoffPairData_traceProduct_isTraceClassAlong
   rw [← g8SourceCutoffPairData_traceProduct_eq]
   exact (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct_isTraceClassAlong
 
+theorem g8SourceCutoffPairData_traceProduct_isPositive
+    {ν ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct.IsPositive := by
+  rw [g8SourceCutoffPairData_traceProduct_eq]
+  exact (g8CutoffPairData_traceProduct_isPositive owner lambda family globalBasis n).adjoint_conj _
+
+theorem g8SourceCutoffPairData_trace_re_nonnegative
+    {ν ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    0 ≤ (ordinaryTraceAlong sourceBasis
+      (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct).re := by
+  have htrace := (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct_isTraceClassAlong
+  rw [ordinaryTraceAlong]
+  rw [Complex.re_tsum htrace]
+  exact tsum_nonneg (fun i =>
+    (g8SourceCutoffPairData_traceProduct_isPositive owner lambda family globalBasis
+      sourceBasis n).re_inner_nonneg_right (sourceBasis i))
+
 set_option maxRecDepth 10000 in
 set_option maxHeartbeats 1000000 in
 theorem g8SourceCutoffPairData_trace_cycle

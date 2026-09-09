@@ -672,6 +672,13 @@ or claiming a `qw` readback/sign; the next gap is still the detector-specific
 finite-visible-prime `qw` ledger (proof record
 [`1249`](../proofs/1249_g8_source_trace_cycle.md)).
 
+Formal brick G8 source positivity (record 1250, 2026-09-10): the same
+source-precomposed pair is now proved positive, and its named source-basis
+ordinary trace has nonnegative real part.  This is a genuine finite-window
+source-owner sign certificate, not a projection-limit or `qw` theorem; the
+healthy `CompactLog` readback and finite-visible-prime sign remain open (proof
+record [`1250`](../proofs/1250_g8_source_trace_positive.md)).
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:
