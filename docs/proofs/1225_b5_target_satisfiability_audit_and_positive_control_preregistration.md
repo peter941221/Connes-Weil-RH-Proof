@@ -338,6 +338,31 @@ significance guard: print `dev3 = |pole - prime| / |arch|` and abort only if
 all.  The branch semantics of C5 (MATCH/MISMATCH on `sn_dt(fine, n=64)/qw`)
 are UNCHANGED.
 
+A6 is registered after smoke-7 (which traversed the full chain, 521 s) by
+comparing against the COMMITTED 1212 results JSON: sn_dt(n=64,fine) there
+is -1.1162e37, while the committed FP_inf is +1.3791e33 - because record
+1213 section 8 warns verbatim that "the sn_dt field in the JSON is the raw
+(T_n - bulk)*dt and is NOT the physical finite part" and all physical
+readouts use `Tn^cont = T_n * dt^2`.  My fork's C5 readout and the C4
+replay were wired to the wrong field (schema misread of 1212's JSON, the
+same class of slip the 1213 verdict itself discloses at its S0.1 note).
+Fix, before any official digit: the adjudicated statistic becomes
+
+```text
+  FP      = Tn(n=64, N=N_FINE) * dt_fine^2
+  spread  = |FP(coarse) - FP(fine)|                  (A5b statistic, same
+            cont units; gate vs 1% of |qw| unchanged)
+  replay  = same formula on the detector twin vs +1.3791e33, band 2e-4
+```
+
+with the branch semantics of C5 (MATCH at |FP/qw - 1| <= 0.01, MISMATCH
+otherwise) UNCHANGED, and A5's disclosure line recomputed in cont units.
+Cross-check that the fix is right before running: detector rung cont at
+n=64/fine from the committed numbers is Tn*dt^2 = +1.3791e33 (1213 Q2
+table), and the 1213 grade-spread of FP is ~2e-4 relative, far below the
+1% A5b band.  Smoke-8 re-verifies the wiring on the control builder only;
+no official digit is taken from smoke.
+
 Implementation: new builder function in a NEW file
 `docs/proofs/1225_positive_control_probe.py` forking the 1212 machinery
 (never editing the committed 1212 script or its JSONs); env selectors

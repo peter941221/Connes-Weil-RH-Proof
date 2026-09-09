@@ -862,10 +862,11 @@ def main():
     # ~ O(bulk) of Tn; the observed smooth P_V period-dependence is 3.7e-6
     # of bulk.  Cross-check: drift in sn_dt units vs the FP scale (1% band).
     assert abs_drift_bulk < 1e-3, "S0.6 wrap contamination FAILED (A5)"
-    # A5(b) disclosure: drift_sn_dt is dt-coupled (fixed-dt gate, bulk*dt
-    # grows as dt shrinks); it is PRINTED for audit, and the band check is
-    # re-anchored at the adjudication grade as A5b below the ladder.
-    print(f"S0.6 disclosure: drift in sn_dt units at dt24 = {drift_sn_dt:.3e} "
+    # A5(b)/A6 disclosure: drift in PHYSICAL cont units (Tn*dt^2, the
+    # adjudicated statistic); printed for audit, band check anchored at the
+    # ladder grade as A5b below.
+    drift_cont = abs(r24["Tn"] - r40["Tn"]) * dt24 ** 2
+    print(f"S0.6 disclosure: drift in cont units (Tn*dt^2) = {drift_cont:.3e} "
           f"(band re-anchored at ladder grade, A5b)")
     del r24, r40
     wrap_gate = dict(n=8, N24=Nw_gate, N40=N40, dt24=dt24,
@@ -882,7 +883,9 @@ def main():
         sdet = sample_fn(g_det)
         qwv_det = qw_terms(g_det)
         r_det = rung(64, N_FINE, sdet, qwv_det["f0"])
-        fp_det = r_det["sn_dt"]
+        # A6: physical finite part per 1213 section 8: FP = Tn * dt^2,
+        # NOT the raw sn_dt field.
+        fp_det = r_det["Tn"] * r_det["dt"] ** 2
         rel_replay = abs(fp_det / 1.3791e33 - 1.0)
         print(f"C4 replay (detector twin, RANK={RANK}): FP_inf {fp_det:.6e} "
               f"vs committed +1.3791e33  rel {rel_replay:.2e}  "
@@ -916,6 +919,7 @@ def main():
                       f"term1/b={row['term1']/row['bulk']:.6f} "
                       f"pv/b={row['term_pv']/row['bulk']:.6f} "
                       f"Tn/b={row['Tn']/row['bulk']:+.6f} "
+                      f"cont={row['Tn']*row['dt']**2:+.6e} "
                       f"sn_dt={row['sn_dt']:+.6e} "
                       f"pv_rank={row['pv_rank']}/{row['pv_neg_dim']} "
                       f"[{secs}s]")
@@ -934,11 +938,12 @@ def main():
                                results=results),
                           fh, indent=1)
     if not smoke:
-        # A5b: materiality of the dt machinery at the adjudication grade.
-        sc = [r for r in results
-              if r["n"] == 64 and r["N"] == N_COARSE][0]["sn_dt"]
-        fp64 = [r for r in results
-                if r["n"] == 64 and r["N"] == N_FINE][0]["sn_dt"]
+        # A5b/A6: materiality of the dt machinery at the adjudication
+        # grade, in PHYSICAL cont units (FP = Tn * dt^2).
+        sc = [r for r in results if r["n"] == 64 and r["N"] == N_COARSE][0]
+        fp64r = [r for r in results if r["n"] == 64 and r["N"] == N_FINE][0]
+        sc = sc["Tn"] * sc["dt"] ** 2
+        fp64 = fp64r["Tn"] * fp64r["dt"] ** 2
         dt_pair_spread = abs(sc - fp64)
         print(f"A5b dt-pair spread at n=64: coarse {sc:+.6e} fine {fp64:+.6e} "
               f"spread {dt_pair_spread:.3e} (gate 1% of |qw| = "
