@@ -629,6 +629,13 @@ identity for the leakage channel without a trace cycle.  Quantitative
 trace/readback and finite-prime sign remain open (proof record
 [`1244`](../proofs/1244_g8_internal_leakage_square.md)).
 
+Formal brick G8 adjoint cross channel (record 1245, 2026-09-10): taking the
+adjoint of the exact second-channel response identifies the third channel as
+the response adjoint, using detector self-adjointness and no trace cycle.
+The four source channels now have explicit structural owners; quantitative
+finite-prime/readback work remains open (proof record
+[`1245`](../proofs/1245_g8_adjoint_cross_channel.md)).
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:

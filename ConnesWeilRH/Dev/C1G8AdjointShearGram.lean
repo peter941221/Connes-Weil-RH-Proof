@@ -122,6 +122,21 @@ theorem sourceCompression_g8AdjointShearGram_cross_eq_targetResponse
   exact (finiteEulerTargetCommutatorResponse_eq_pulledObliqueShear
     owner lambda family).symm
 
+theorem sourceCompression_g8AdjointShearGram_adjointCross_eq_targetResponse_adjoint
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    (sourceInclusion lambda)† ∘L detectorOperator owner ∘L
+        (finiteEulerPulledObliqueShear lambda family)† ∘L
+          sourceInclusion lambda =
+      (finiteEulerTargetCommutatorResponse owner lambda family)† := by
+  have h := congrArg ContinuousLinearMap.adjoint
+    (sourceCompression_g8AdjointShearGram_cross_eq_targetResponse
+      owner lambda family)
+  simpa only [ContinuousLinearMap.adjoint_comp,
+    ContinuousLinearMap.adjoint_adjoint,
+    (detectorOperator_isSelfAdjoint owner).adjoint_eq,
+    ContinuousLinearMap.comp_assoc] using h
+
 /- The fourth source-compression channel is the internal physical leakage
 square.  The source inclusion is an isometry, so no trace cyclicity is used
 to identify this term. -/
