@@ -158,18 +158,22 @@ paired `...Audit.lean`.  Imports consume committed files read-only:
 Line-B file.  Declarations:
 
 ```text
-A1  not_healthy_of_bombieriQuadraticAggregateP2BridgeData
-      {rho g} (p : Nonempty (BombieriQuadraticAggregateP2BridgeData g))
-      (hg : HealthyYoshidaDetectorData rho g) : False
+A1  not_bombieriQuadraticAggregateP2BridgeData_of_healthyDetectorData
+      {rho g} (hdata : HealthyYoshidaDetectorData rho g)
+      (p : BombieriQuadraticAggregateP2BridgeData g) : False
+      -- house-family mirror of :574; the unconditional guard completing
+      -- the not_ family of :574-:660 (K3 superseded-in-context relation
+      -- to :306 recorded in the docstring)
+A1b not_nonempty_bombieriQuadraticAggregateP2BridgeData_of_healthyDetectorData
+      {rho g} (hdata : HealthyYoshidaDetectorData rho g) :
+      ¬ Nonempty (BombieriQuadraticAggregateP2BridgeData g)
+      -- house-family mirror of :589 (the draft's Nonempty-form A1/A3 pair
+      -- collapses to the family's two standard shapes; statement-shape
+      -- deviation only, registered before the build)
 A2  no_rightZero_aggregateProducer_witness
       (rho : sourceNontrivialZeroSet) (_hright : 1/2 < rho.1.re) :
       ¬ ∃ g, HealthyYoshidaDetectorData rho.1 g ∧
              Nonempty (BombieriQuadraticAggregateP2BridgeData g)
-A3  aggregateGuard_needs_no_spectralHypotheses
-      {g} (p : BombieriQuadraticAggregateP2BridgeData g) {rho}
-      (hg : HealthyYoshidaDetectorData rho g) : False
-      -- the unconditional guard completing the not_ family of :574-:660;
-      -- docstring records the K3 superseded-in-context relation to :306
 A4  sourceRH_of_all_vanishing_aggregateSockets
       (hsockets : ∀ g, CC20VanishesOn C1.healthyCC20TestSpace
           cc20TripleFiniteVanishingSet g →
@@ -177,8 +181,9 @@ A4  sourceRH_of_all_vanishing_aggregateSockets
       RHDefinitionBridge.standard.SourceRH
 ```
 
-Audit: `#print axioms` on A1-A4, each exactly
-`[propext, Classical.choice, Quot.sound]`, zero `sorryAx`.
+Audit: `#print axioms` on A1, A1b, A2, A4, each exactly
+`[propext, Classical.choice, Quot.sound]`, zero `sorryAx`; plus a `G3`
+fidelity example refuting the exact consumer conjunction of F-D.
 
 Build protocol: focused acceptance build of the two new modules on the warm
 mirror (`/home/peter/rh`, ext4), acceptance by LOG CONTENT (success footer,
@@ -199,13 +204,13 @@ F2 (audit falsifier): any audit line shows a nonstandard axiom or `sorryAx`
 => ABORT, fix root cause, rerun.
 
 Branches (no third branch beyond these):
-- FULL-LANDING: A1-A4 green + audit clean => verdict record 1226 with the
-  route ruling (exit (a) dead, exit (b) classified, A4 re-point marker) and
-  doc sync.
-- PARTIAL: A1-A3 green, A4 blocked => land A1-A3, register A4's blocker as
-  a finding, verdict records the same route ruling (A4 is a marker, not
-  load-bearing for K1-K3).
-- ABORTED-FINDING-INVALID: F1 fires on A1/A2/A3 => the kill algebra itself
+- FULL-LANDING: A1/A1b/A2/A4 green + audit clean => verdict record 1226
+  with the route ruling (exit (a) dead, exit (b) classified, A4 re-point
+  marker) and doc sync.
+- PARTIAL: A1/A1b/A2 green, A4 blocked => land the guards, register A4's
+  blocker as a finding, verdict records the same route ruling (A4 is a
+  marker, not load-bearing for K1-K3).
+- ABORTED-FINDING-INVALID: F1 fires on A1/A1b/A2 => the kill algebra itself
   is in question; full diagnosis record before any further step.
 
 ## 6. Budget
