@@ -20,6 +20,7 @@ traceability.
 | 003    | Binding               | Healthy-CompactLog, B5-shaped route ruling  |
 | 004    | Binding companion     | Endpoint provenance and interface boundary  |
 | 005    | Supporting            | P2 producer attack-plan registry            |
+| 006    | Binding (process)     | New-math creation workflow (NM loop)        |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -27,7 +28,10 @@ traceability.
 scope. `001` and `002` supply the load-bearing architecture and dependency
 boundaries; neither authorizes a frozen B1 campaign or a separate RH route.
 `005` registers candidate producer designs for the P2 scalar witness under
-the 1140 admission constraints; it adds no authority.
+the 1140 admission constraints; it adds no authority. `006` is binding on
+process, not on route: every new-math campaign opened from record 1227
+onward runs its sweep / screen / prototype / prereg beats through it and
+appends its candidate rows and kill-ledger rows to it.
 
 ## Mandatory preflight
 
@@ -42,8 +46,11 @@ numerical investigation, use this layered check:
    [`002`](002_one_shot_rh_route_verdict.md) when the work uses the
    ROOT-window local base, `gamma + alpha/beta + delta`, paper-scale Toeplitz
    work, or a quantifier boundary.
-4. Read all four current records in order when opening a new proof campaign or
+4. Read all current map records in order when opening a new proof campaign or
    after any change under `docs/map/`.
+5. Read [`006`](006_new_math_creation_workflow.md) when opening any new-math
+   campaign (a candidate mechanism outside the enumerated attack lines) or
+   appending to its candidate registry / kill ledger.
 
 The new work must name its healthy-`CompactLog`, B5-shaped consumer; otherwise
 it is out of scope and must not start.
@@ -77,6 +84,10 @@ Read the current records in this order for a full-map review:
 5. [005 - Record 1141: P2 scalar witness zero-configuration design](005_p2_scalar_witness_zero_configuration_design.md)
    registers the attack lines, anti-circularity checklist, and pre-bricks for
    the remaining P2 producer.
+6. [006 - Record 1227: New-math creation workflow (NM loop)](006_new_math_creation_workflow.md)
+   establishes the four-beat creation loop (sweep / screen / prototype /
+   prereg), the corridor spec distilled from the no-go ledger, and the living
+   candidate-mechanism registry.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).

@@ -72,6 +72,12 @@ direct consumer in the active healthy-owner chain.  The open consumers are:
    same healthy owner.
 4. Maintenance of the formal detector-specific contradiction interface to
    `SourceRH`.
+5. Read-only new-math idea generation under the record 1227 NM loop (map
+   document 006): literature and corpus sweeps, paper-only shape screens
+   against the committed corridor spec, and MODEL-labeled prototypes that
+   must reproduce the committed positive control before any detector
+   claim. The loop produces no Lean work by itself; any landing out of
+   the loop names its direct consumer under the rule above.
 
 Before editing, record which consumer is being advanced. A bound that ends at
 a physical trace, finite band, numerical scan, universal-B1 placeholder, or
