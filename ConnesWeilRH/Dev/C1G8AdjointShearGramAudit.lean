@@ -27,6 +27,11 @@ open C1G8AdjointShearGram
 #print axioms g8SourceCutoffPairData_traceProduct_isTraceClassAlong
 #print axioms g8SourceCutoffPairData_traceProduct_isPositive
 #print axioms g8SourceCutoffPairData_trace_re_nonnegative
+#print axioms g8SourceCutoffBaseOperator
+#print axioms g8SourceCutoffCrossOperator
+#print axioms g8SourceCutoffAdjointCrossOperator
+#print axioms g8SourceCutoffLeakageOperator
+#print axioms g8SourceCutoffPairData_traceProduct_eq_fourChannelLedger
 #print axioms g8SourceCutoffPairData_trace_cycle
 
 end C1G8AdjointShearGramAudit

@@ -679,6 +679,14 @@ source-owner sign certificate, not a projection-limit or `qw` theorem; the
 healthy `CompactLog` readback and finite-visible-prime sign remain open (proof
 record [`1250`](../proofs/1250_g8_source_trace_positive.md)).
 
+Formal brick G8 four-channel ledger (record 1251, 2026-09-10): the
+source-side finite-window trace product is exactly decomposed into basis-
+independent base, cross, adjoint-cross, and internal leakage operators.  The
+expansion is performed before tracing and keeps the cutoff and source
+inclusion in place.  This completes the structural four-channel ledger, but
+not any `qw` readback, L4 limit contract, or A4 sign theorem (proof record
+[`1251`](../proofs/1251_g8_four_channel_ledger.md)).
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:

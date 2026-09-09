@@ -396,6 +396,8 @@ theorem g8SourceCutoffPairData_traceProduct_isPositive
     (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
     (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct.IsPositive := by
   rw [g8SourceCutoffPairData_traceProduct_eq]
+  have hcut := g8CutoffPairData_traceProduct_eq owner lambda family globalBasis n
+  simp only [hcut]
   exact (g8CutoffPairData_traceProduct_isPositive owner lambda family globalBasis n).adjoint_conj _
 
 theorem g8SourceCutoffPairData_trace_re_nonnegative
@@ -412,6 +414,89 @@ theorem g8SourceCutoffPairData_trace_re_nonnegative
   exact tsum_nonneg (fun i =>
     (g8SourceCutoffPairData_traceProduct_isPositive owner lambda family globalBasis
       sourceBasis n).re_inner_nonneg_right (sourceBasis i))
+
+/-! ### Four-channel finite-window ledger -/
+
+noncomputable def g8SourceCutoffBaseOperator
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) (n : Nat) :
+    sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda :=
+  (sourceInclusion lambda)† ∘L
+    (fullBoundaryPositiveOperator owner.sourceTest
+      (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n))† ∘L
+    detectorOperator owner ∘L
+    fullBoundaryPositiveOperator owner.sourceTest
+      (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n) ∘L
+    sourceInclusion lambda
+
+noncomputable def g8SourceCutoffCrossOperator
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) (n : Nat) :
+    sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda :=
+  (sourceInclusion lambda)† ∘L
+    (fullBoundaryPositiveOperator owner.sourceTest
+      (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n))† ∘L
+    finiteEulerPulledObliqueShear lambda family ∘L detectorOperator owner ∘L
+    fullBoundaryPositiveOperator owner.sourceTest
+      (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n) ∘L
+    sourceInclusion lambda
+
+noncomputable def g8SourceCutoffAdjointCrossOperator
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) (n : Nat) :
+    sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda :=
+  (sourceInclusion lambda)† ∘L
+    (fullBoundaryPositiveOperator owner.sourceTest
+      (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n))† ∘L
+    detectorOperator owner ∘L (finiteEulerPulledObliqueShear lambda family)† ∘L
+    fullBoundaryPositiveOperator owner.sourceTest
+      (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n) ∘L
+    sourceInclusion lambda
+
+noncomputable def g8SourceCutoffLeakageOperator
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) (n : Nat) :
+    sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda :=
+  (sourceInclusion lambda)† ∘L
+    (fullBoundaryPositiveOperator owner.sourceTest
+      (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n))† ∘L
+    finiteEulerPulledObliqueShear lambda family ∘L detectorOperator owner ∘L
+    (finiteEulerPulledObliqueShear lambda family)† ∘L
+    fullBoundaryPositiveOperator owner.sourceTest
+      (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n) ∘L
+    sourceInclusion lambda
+
+theorem g8SourceCutoffPairData_traceProduct_eq_fourChannelLedger
+    {ν ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct =
+      g8SourceCutoffBaseOperator owner lambda family n +
+      g8SourceCutoffCrossOperator owner lambda family n +
+      g8SourceCutoffAdjointCrossOperator owner lambda family n +
+      g8SourceCutoffLeakageOperator owner lambda family n := by
+  rw [g8SourceCutoffPairData_traceProduct_eq]
+  have hcut := g8CutoffPairData_traceProduct_eq owner lambda family globalBasis n
+  simp only [hcut]
+  have hadjoint_add (A B : finiteSCarrier →L[ℂ] finiteSCarrier) :
+      (A + B)† = A† + B† := by
+    apply ContinuousLinearMap.ext
+    intro y
+    exact ext_inner_right ℂ fun z => by
+      simp only [ContinuousLinearMap.adjoint_inner_left,
+        ContinuousLinearMap.add_apply, inner_add_left, inner_add_right]
+  unfold g8AdjointShearGram
+  unfold g8SourceCutoffBaseOperator g8SourceCutoffCrossOperator
+    g8SourceCutoffAdjointCrossOperator g8SourceCutoffLeakageOperator
+  rw [hadjoint_add, ContinuousLinearMap.adjoint_adjoint,
+    ContinuousLinearMap.adjoint_id]
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.id_apply, ContinuousLinearMap.add_apply, map_add]
+  abel_nf
 
 set_option maxRecDepth 10000 in
 set_option maxHeartbeats 1000000 in
