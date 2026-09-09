@@ -2,7 +2,8 @@
 
 Date: 2026-09-09.
 
-Status: PREREGISTERED before any sweep run (law 42). RH is not claimed.
+Status: PREREGISTERED before any sweep run (law 42); prospectively amended
+after its post-run workflow-quality review. RH is not claimed.
 
 Authority: Peter's 2026-09-09 directive to open the new-math loop, to
 establish the creation workflow as a new map document, and to begin
@@ -20,7 +21,7 @@ untouched.
 
 ## 1. Deliverable 1 - workflow establishment (committed with this prereg)
 
-Map document 006: the four-beat NM loop (SWEEP / SCREEN / PROTOTYPE /
+Map document 006: the original four-beat NM loop (SWEEP / SCREEN / PROTOTYPE /
 PREREG), the corridor spec (universal U1-U4; moving-family route-specific
 S1-S5; each condition with its committed source), the seed candidate
 registry M1-M6, the kill-ledger format, and the promotion criteria. The
@@ -91,7 +92,7 @@ re-run in a later round.
 Branches:
 
 - YIELD: at least one category produces includable rows. The round-1
-  addendum lists them; screening (beat 2) of any survivor is a
+  addendum lists them; screening (then beat 2) of any survivor is a
   registered follow-up record, not part of this record.
 - THIN: every category ends EMPTY-WITH-QUERIES or TOOL-FAILURE. A
   query-broadening amendment (which may activate the extension seeds
@@ -150,10 +151,37 @@ arXiv:1705.06222, scaling Hamiltonian arXiv:1910.14368 - named programs
 found in round-1 retrieval but outside the seed categories, therefore
 logged, not registered).
 
-Next beat: screening (beat 2) of the ten SWEEPED rows against U1-U4
-(plus S1-S5 for rows aimed at the moving-operator route) is a registered
-follow-up record; it is paper-only and consumes no instrument time. No
-candidate survival is claimed by this record. The record 1225 sec. 4
-probe continued running untouched throughout the sweep.
+### 7a. Prospective process amendment (workflow-quality review, 2026-09-09)
+
+The round-1 sweep remains governed by the preregistered protocol above; its
+rows remain only `SWEEPED`. Before any row receives the originally planned
+screen, map 006 now inserts the prospective Beat 2 `PRIOR-ART + TRANSLATION`.
+This amendment adds no retrieval result and makes no survival claim. It
+requires a `PRIOR-ART-CARD` and `B5-TRANSLATION-CARD`, scopes U3 as U3-B5,
+and preserves the active healthy-`CompactLog` B5 route. It is committed before
+the first post-sweep screening action.
+
+Next beat: prior-art and same-owner B5 translation (beat 2) of the ten
+SWEEPED rows is a registered follow-up record. Only `READY-TO-SCREEN` rows
+then receive the paper-only screen against U1/U2/U3-B5/U4 (plus S1-S5 when
+applicable); it consumes no instrument time. No candidate survival is claimed
+by this record. The record 1225 sec. 4 probe continued running untouched
+throughout the sweep.
 
 RH is not claimed.
+
+### 7b. Creation-loop hardening (prospective for all post-sweep work, 2026-09-09)
+
+The completed round-1 retrieval remains evidence from the originally
+preregistered four-beat protocol; it is not retrospectively described as a
+six-beat run. Before any round-1 row is screened or prototyped, map 006 now
+adds Beat 0 `GENERATE`, a paper-only `INCUBATOR`, typed no-go evidence,
+two-control prototype calibration, and explicit detector/surrogate types.
+
+This amendment makes no candidate-survival claim and changes no round-1
+retrieval result. New generated candidates require a committed
+`GENERATION-CARD` before retrieval, numerics, Lean work, or formal status
+claims. Private paper-only scratch is exempt from law 42 only while it makes
+none of those moves. U2 is clarified as an exact family-specific
+anti-circularity guard, not a prohibition on deriving the final B5
+contradiction as a theorem. Route ruling 003 and every freeze remain intact.

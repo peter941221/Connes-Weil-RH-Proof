@@ -1,12 +1,13 @@
 # 1227 - New-math creation workflow (NM loop)
 
-Date: 2026-09-09.
+Date: 2026-09-09. Revised after the workflow-quality review, 2026-09-09.
 
-Status: PROCESS AUTHORITY, binding for every new-math campaign opened from
-this record onward. This record proves no new RH theorem, claims no sign,
+Status: BINDING PROCESS AUTHORITY, subordinate to route ruling 003, for
+every new-math campaign opened from this record onward. This record proves
+no new RH theorem, claims no sign,
 and registers no candidate survival. RH is not claimed.
 
-Map role: supporting process record under the binding ruling
+Map role: binding process record under the binding route ruling
 [`003`](003_b1_b5_minimal_exit_route_selection.md). It establishes the
 creation loop that complements the project's audit-and-falsify loop
 (records 1043-1226). It changes no route selection, no endpoint authority,
@@ -94,13 +95,47 @@ Honest constraints, registered so no round forgets them:
 ## 2. The loop
 
 ```text
-   (1) SWEEP            (2) SCREEN           (3) PROTOTYPE         (4) PREREG
-  literature      --->  shape filter    --->  MODEL dry-fire   --->  campaign
-  + corpus              (paper-only:          (positive control     record
-  mining                U1-U4 + the           first, then           (Stage-0
-  (read-only,           route-specific        detector)             audit +
-  queries registered)   spec)                                       law 42)
+ (0) GENERATE      (1) SWEEP       (2) PRIOR-ART +      (3) SCREEN
+ equation-led  --> literature  -->      TRANSLATION  --> typed falsification
+ conjectures       + corpus          (source map +       (hard no-go versus
+ + incubator       mining             same-owner B5)      route heuristic)
+       |                                                     |
+       +------------------> (4) PROTOTYPE -------------------+
+                             two-control MODEL dry-fire
+                                      |
+                                      v
+                              (5) PREREG + PROVE
+                              Stage-0 audit, campaign record,
+                              then analytic/Lean proof
 ```
+
+### Beat 0 - GENERATE
+
+Input: the exact open P2 equation, the healthy orbit-detector data, and the
+typed no-go ledger of section 3. Activity: generate conjectures from the
+mathematics rather than only retrieve named RH programs. Each generation
+round must use at least two of these operators: rewrite the target in a dual
+or spectral representation; expose an extremal/variational problem; seek a
+positive-kernel or Gram factorization; eliminate the finite visible-prime
+evaluations; minimize a known counterexample; or negate one scoped hypothesis
+of a family-specific no-go while preserving the B5 consumer.
+
+Paper-only scratch work may live temporarily in an `INCUBATOR` without a map
+row. It may not run numerics, open a Lean brick, change a route status, or make
+a survival claim. Promotion from the incubator requires a `GENERATION-CARD`
+with four fields:
+
+```text
+TARGET EQUATION | exact same-owner identity or inequality to be proved
+NOVEL MOVE      | which no-go hypothesis or missing bridge is changed
+SIGN SOURCE     | square / positive measure / monotonicity / extremality / cancellation
+CHEAP FALSIFIER | smallest symbolic, finite-rank, one-prime, or one-shell test
+```
+
+The card must name the healthy-`CompactLog` B5 consumer. Cards that cannot do
+so remain scratch and cannot trigger a campaign. Law 42 begins when a card is
+promoted for retrieval, computation, or formalization; it does not require a
+commit for private paper-only brainstorming.
 
 ### Beat 1 - SWEEP
 
@@ -112,30 +147,67 @@ applies to the sweep protocol itself. Kill rule: none; the sweep is
 additive. Absence of includable hits is recorded as EMPTY-WITH-QUERIES,
 which is itself evidence.
 
-### Beat 2 - SCREEN
+### Beat 2 - PRIOR-ART + TRANSLATION
 
-Input: registry rows. Activity: apply the universal spec U1-U4, then the
-route-specific spec of the targeted route, to each candidate as a
-paper-only exercise. Every candidate leaves the screen as SCREENED-DEAD,
-SCREENED-LIVE, or NEEDS-ANALYSIS, each with a one-line mechanism reason.
-Budget: hours per candidate. A screen that exceeds one day is itself a
-finding - the candidate is too vague to screen - and is parked as
-NEEDS-ANALYSIS with the blocking question named. Output: survivors plus
-kill-ledger rows (section 5).
+Input: registry rows. Activity: make a claim-level source map before judging
+the idea: synonym and author searches; backwards and forwards citation
+closure; the earliest source found; any published theorem, conditionality,
+or counterexample; and the precise delta between that work and the candidate.
+Then translate the candidate into one explicit obligation on the *same*
+healthy-`CompactLog` B5 consumer: owner, quantifiers, finite visible-prime
+set, claimed identity/inequality, and the one genuinely new lemma. The output
+is a `PRIOR-ART-CARD` and a `B5-TRANSLATION-CARD`. It may conclude
+`KNOWN`, `NOVEL-BUT-OUT-OF-CORRIDOR`, `ROUTE-MISMATCH`, or
+`READY-TO-SCREEN`; only the last enters beat 3. `NOVEL-BUT-OUT-OF-CORRIDOR` and
+`ROUTE-MISMATCH` are routing classifications, not mathematical deaths and
+cannot alter the binding route without a later map ruling.
 
-### Beat 3 - PROTOTYPE
+### Beat 3 - SCREEN
 
-Input: screen survivors. Activity: build the cheapest numerical twin
-(law 65, MODEL status). Order is mandatory: reproduce the committed
-positive control (root-supported triple-vanishing test, ground truth
+Input: `READY-TO-SCREEN` cards. Activity: apply U1, U2, U4, then the
+current-route criterion U3-B5 and the route-specific spec as a paper-only
+exercise. Every invoked condition must carry one of the evidence classes in
+section 3; only a matching `FORMAL-UNIVERSAL` or `FORMAL-FAMILY-SPECIFIC`
+result may kill a mathematical candidate. A `ROUTE-POLICY` or
+`MODEL-HEURISTIC` may park it, demand a bridge, or classify a route mismatch,
+but is not a death. A screen record must state the candidate's exact claim, its
+same-owner consumer map, its claimed new lemma, the applicable/no-longer-
+applicable no-go entries with reasons, and a named falsifier or minimal
+counterexample target. Every candidate leaves as `SCREENED-DEAD`,
+`SCREENED-LIVE`, or `NEEDS-ANALYSIS`; the registry may retain a one-line
+summary, but never substitutes for this record. Budget: hours per candidate.
+A screen that exceeds one day is parked as `NEEDS-ANALYSIS` with the blocking
+question named. Output: survivors plus kill-ledger rows (section 5).
+
+### Beat 4 - PROTOTYPE
+
+Input: screen survivors. Where a faithful finite numerical twin exists,
+build the cheapest one (law 65, MODEL status). Its order is mandatory:
+reproduce two controls where applicable. `C-LOCAL` is the committed positive
+control (root-supported triple-vanishing test, ground truth
 `qw = +1.895768e-02`) inside its registered band FIRST - instrument
-fidelity before any detector claim, the record 1225 sec. 4 lesson - and
-only then fire at the detector instance. Output: MATCH/MISMATCH. Verdict
-reading: a control MISMATCH kills the instrument, not the candidate; a
-detector MISMATCH kills the candidate's numerical form but leaves its
-analytic question open.
+fidelity before any detector claim, the record 1225 sec. 4 lesson.
+`C-STRUCTURAL` must share the candidate's dangerous feature: support scale,
+moving cutoff, counterterm, rank deficiency, oscillation, or finite-prime
+visibility. If no faithful structural control exists, the result is
+`CONTROL-PARTIAL`, never full `CONTROL-MATCH`.
 
-### Beat 4 - PREREG
+Only then fire at a precisely typed target: `SYNTHETIC-ZERO-CONFIG`,
+`PARAMETRIC-SURROGATE`, `FORMAL-DETECTOR-FORMULA(rho)`, or
+`ACTUAL-ZETA-DATA`. The report must state which type was used and which formal
+detector identities it preserves; evidence from one type cannot be described
+as evidence for another. A prototype report includes a refinement
+table (grid/cutoff/precision), an independent replay or a documented reason
+it is inapplicable, and a stated error model or interval enclosure. Output:
+`CONTROL-MATCH`, `CONTROL-PARTIAL`, `CONTROL-MISMATCH`, `MODEL-SUPPORT`, or
+`MODEL-INCONCLUSIVE`. A control mismatch kills the instrument, not the
+candidate. No finite numerical mismatch kills an analytic candidate: it can
+only reject the stated numerical realization. If no faithful twin exists, the
+screen record may grant an `ANALYTIC-ONLY` exemption, stating why discretizing
+would change the claim and what non-numerical falsifier replaces it. Numerics
+remain MODEL evidence under law 65.
+
+### Beat 5 - PREREG + PROVE
 
 Input: prototype survivors. Activity: a record-1225-style Stage-0
 target-satisfiability audit from committed sources FIRST - the
@@ -146,32 +218,75 @@ record. The Stage-0 audit can terminate a campaign in the same window
 (record 1226 precedent: a planned one-week recon was discharged from
 committed sources in hours).
 
+### Required card schemas
+
+Cards are compact proof obligations, not essays. Omitted fields block
+promotion:
+
+```text
+GENERATION-CARD
+  candidate/id; target equation; healthy CompactLog consumer; novel move;
+  sign source; no-go hypothesis changed; cheap falsifier
+
+PRIOR-ART-CARD
+  claim; earliest source; strongest known theorem; direction/conditionality;
+  counterexample/no-go; precise novelty delta; primary-source links
+
+B5-TRANSLATION-CARD
+  g/rho owner; quantifiers; support radius; finite visible-prime set;
+  exact identity/inequality; new lemma; downstream SourceRH declaration
+
+SCREEN-CARD
+  exact claim; evidence-classified matches with theorem quantifiers;
+  nonmatches and reasons; anti-circularity dependency graph; falsifier;
+  SCREENED-DEAD / SCREENED-LIVE / NEEDS-ANALYSIS
+
+PROTOTYPE-CARD
+  target type; preserved formal identities; C-LOCAL; C-STRUCTURAL or reason
+  absent; refinement table; error model/enclosure; independent replay;
+  MODEL verdict
+```
+
 ## 3. Corridor spec
 
-### Universal (any mechanism, any route)
+Every condition is typed. `FORMAL-UNIVERSAL` is owner-independent at the
+stated quantifiers. `FORMAL-FAMILY-SPECIFIC` applies only after an exact owner
+and hypothesis match. `ROUTE-POLICY` is a binding scheduling rule but not a
+mathematical impossibility theorem. `MODEL-HEURISTIC` is reconnaissance only.
+The screen must quote the matched quantifiers; adjacency or analogy is not a
+match.
+
+### Universal (any candidate admitted to the active B5 route)
 
 ```text
 +-----+-------------------------------------------------------------+---------------------------+
-| ID  | Necessary condition                                         | Committed source          |
+| ID  | Condition and evidence class                                | Committed source          |
 +-----+-------------------------------------------------------------+---------------------------+
-| U1  | Satisfiability-first: the target conjunction must admit a   | record 1225 sec. 1        |
-|     | witness by audit before construction. A target that carries | (C1B5TargetSatisfiability |
+| U1  | FORMAL-FAMILY-SPECIFIC. Satisfiability-first: the exact     | record 1225 sec. 1        |
+|     | target conjunction must admit a witness by audit before     | (C1B5TargetSatisfiability |
+|     | construction. A target that carries                        |                           |
 |     | both signs on one test is dead on arrival.                  | .lean:63-88)              |
 +-----+-------------------------------------------------------------+---------------------------+
-| U2  | Shape criterion: a producer bundled with healthiness on the | record 1226 sec. 2-3      |
-|     | same g and carrying an unconditional `producer => 0 <= qw   | (C1AggregateSocket        |
-|     | g` is formally empty. Surviving shapes: universal           | Satisfiability.lean,      |
-|     | non-bundled contracts (L4/A4), or positivity by             | A1/A1b/A2/A4)             |
-|     | construction on the triple-vanishing class.                 |                           |
+| U2  | FORMAL-FAMILY-SPECIFIC + anti-circularity policy. The       | record 1226 sec. 2-3      |
+|     | audited data bundles that store healthiness and an          | (C1AggregateSocket        |
+|     | unconditional same-g nonnegativity field are empty. This    | Satisfiability.lean,      |
+|     | forbids storing the conclusion or an equivalent premise as  | A1/A1b/A2/A4)             |
+|     | source data; it does NOT forbid a theorem deriving the two  |                           |
+|     | signs under an off-line-zero assumption and closing the B5  |                           |
+|     | contradiction. Exact structure/quantifier matching is      |                           |
+|     | required before this no-go may kill a candidate.            |                           |
 +-----+-------------------------------------------------------------+---------------------------+
-| U3  | Identity-level readback: positivity must arrive by          | records 1212/1213         |
-|     | construction (per-n positive operators + exact trace        | (verdict H2), 1223        |
-|     | identities + limit-of-nonnegatives), never by a             | sec. 3.1 (Fork B),        |
-|     | main-term-vs-tail estimation contest.                       | 1226 C1                   |
+| U3- | ROUTE-POLICY, backed by family-specific no-go evidence. A   | records 1212/1213         |
+| B5  | a positive-operator limit must obtain positivity by          | (verdict H2), 1223        |
+|     | construction (per-n positive operators + exact trace        | sec. 3.1 (Fork B),        |
+|     | identities + limit-of-nonnegatives), not by a main-term-vs-  | 1226 C1                   |
+|     | tail contest. It is a B5 corridor rule, not a theorem that  |                           |
+|     | excludes every possible future proof mechanism.              |                           |
 +-----+-------------------------------------------------------------+---------------------------+
-| U4  | Instrument calibration: a numerical prototype must          | record 1225 sec. 4 and    |
-|     | reproduce the committed positive control inside its         | addendum A8 (C4 replay    |
-|     | registered band before it may speak about the detector.     | rel 1.64e-07)             |
+| U4  | ROUTE-POLICY. A numerical prototype must pass C-LOCAL and,  | record 1225 sec. 4 and    |
+|     | where applicable, C-STRUCTURAL before detector claims.      | addendum A8 (C4 replay    |
+|     | Numerics remain MODEL evidence and never kill the analytic  | rel 1.64e-07)             |
+|     | candidate.                                                   |                           |
 +-----+-------------------------------------------------------------+---------------------------+
 ```
 
@@ -179,34 +294,47 @@ committed sources in hours).
 
 ```text
 +-----+-------------------------------------------------------------+---------------------------+
-| ID  | Necessary condition                                         | Committed source          |
+| ID  | Condition and evidence class                                | Committed source          |
 +-----+-------------------------------------------------------------+---------------------------+
-| S1  | Per-n operator positivity by construction, not estimation.  | record 1226 C1            |
+| S1  | ROUTE-POLICY for this family: per-n operator positivity by  | record 1226 C1            |
+|     | construction, not estimation.                              |                           |
 +-----+-------------------------------------------------------------+---------------------------+
-| S2  | Counterterm INSIDE the kernel: P~_n = C~_n^* K~_n C~_n      | record 1223 sec. 3.1      |
+| S2  | FORMAL-FAMILY-SPECIFIC. Counterterm INSIDE the kernel:      | record 1223 sec. 3.1      |
+|     | P~_n = C~_n^* K~_n C~_n                                    |                           |
 |     | form; external subtraction of a divergent bulk is formally  | (Fork B ruling; Fork A    |
 |     | dead (it breaks limit-of-nonnegatives).                     | dead)                     |
 +-----+-------------------------------------------------------------+---------------------------+
-| S3  | The kernel carries two interfering geometric modes; rank-1  | record 1224 sec. 3f/3g    |
+| S3  | FORMAL-FAMILY-SPECIFIC. The audited response has two        | record 1224 sec. 3f/3g    |
+|     | interfering geometric modes; rank-1                        |                           |
 |     | and affine corrections are formally excluded.               | (RANK-3 sealed)           |
 +-----+-------------------------------------------------------------+---------------------------+
-| S4  | Trace readback Re Tr(P~_n) -> qw g at identity level in n,  | records 1212/1213         |
+| S4  | ROUTE-POLICY for this family: trace readback                | records 1212/1213         |
+|     | Re Tr(P~_n) -> qw g at identity level in n,                 |                           |
 |     | not inequality level.                                       |                           |
 +-----+-------------------------------------------------------------+---------------------------+
-| S5  | The response family is not fixed/n-frozen: a bounded trace  | record 1211 (cofinality   |
+| S5  | FORMAL-FAMILY-SPECIFIC. The response family is not          | record 1211 (cofinality   |
+|     | fixed/n-frozen: a bounded trace                             |                           |
 |     | against a frozen kernel fires the obstruction.              | obstruction)              |
 +-----+-------------------------------------------------------------+---------------------------+
 ```
 
-A candidate aimed at a different route derives its own route-specific
-spec the same way: from that route's no-go ledger, not from taste.
+A candidate that does not map to the active healthy-`CompactLog` B5 consumer
+is classified at beat 2 as `ROUTE-MISMATCH`, not silently given a different
+route-specific spec. A different route needs an explicit later map ruling;
+the workflow has no authority to open it.
 
 ## 4. Candidate-mechanism registry (living)
 
-Seed categories registered by record 1227. Status vocabulary: SEEDED ->
-SWEEPED -> SCREENED-DEAD / SCREENED-LIVE / NEEDS-ANALYSIS -> PROTOTYPED ->
-PREREGGED. Only a sweep round's own committed preregistration (or
-amendment) may add seeds.
+Candidates may enter either from a promoted `GENERATION-CARD` or a
+preregistered sweep. Seed categories registered by record 1227. Status
+vocabulary: INCUBATING -> GENERATED, or SEEDED ->
+SWEEPED -> KNOWN / NOVEL-BUT-OUT-OF-CORRIDOR / ROUTE-MISMATCH /
+READY-TO-SCREEN -> SCREENED-DEAD / SCREENED-LIVE / NEEDS-ANALYSIS ->
+PROTOTYPED -> PREREGGED. `KNOWN` is not a death unless the candidate claims
+novelty; it records the source that already supplies the mechanism. A sweep
+round may add literature seeds only through its committed preregistration or
+amendment. A generated candidate may be added after its `GENERATION-CARD` is
+committed; exploratory incubator notes are neither registry rows nor claims.
 
 ```text
 +-----+--------------------------------+--------------------------------------+----------+
@@ -238,53 +366,55 @@ amendment) may add seeds.
 +-----+--------------------------------+--------------------------------------+----------+
 ```
 
-Sweep-round rows are appended below the seed table by each round's
-committed addendum, with fields: reference (title + arXiv id or URL),
-one-line mechanism, corridor-spec contact (which of U1-U4 / S1-S5 the
-mechanism addresses or threatens), status.
+Sweep-round rows are appended below the seed table by each round's committed
+addendum, with fields: reference (title + arXiv id or URL), one-line
+mechanism, corridor-spec contact (which of U1/U2/U3-B5/U4/S1-S5 the mechanism
+addresses or threatens), status. A `READY-TO-SCREEN` candidate additionally
+links its `PRIOR-ART-CARD` and `B5-TRANSLATION-CARD`.
 
 ### Round 1 (record 1227, 2026-09-09)
 
 Branch YIELD: four of the five queried categories produced includable
 rows; M2 ended EMPTY-WITH-QUERIES (queries retained in the record 1227
 preregistration section 2). A SWEEPED row is retrieval output, not an
-endorsement; screening (beat 2) is a registered follow-up record.
+endorsement; prior-art and translation (beat 2) are the registered follow-up
+record.
 
 ```text
 +-------+---------------------+--------------------------------------------+---------------------------+
 | row   | reference           | mechanism (one line)                       | corridor contact          |
 +-------+---------------------+--------------------------------------------+---------------------------+
-| R1.1  | arXiv:2108.04807    | truncated Hankel-matrix positivity           | U3, S1: finite-matrix     |
+| R1.1  | arXiv:2108.04807    | truncated Hankel-matrix positivity           | U3-B5, S1: finite-matrix  |
 |       | Bickel-Pascoe-      | conditions built from power-series           | positivity by             |
 |       | Sargent, "Zero-free | coefficients at each real point =>           | construction; Hankel      |
 |       | regions near a      | zero-free regions near the line; a family    | family is the closest     |
 |       | line"               | of relaxations of RH                         | published relative of     |
 |       |                     |                                            | the M6 engine             |
 +-------+---------------------+--------------------------------------------+---------------------------+
-| R3.1  | arXiv:2007.12889    | Schoenberg total positivity and its          | U3: structural            |
+| R3.1  | arXiv:2007.12889    | Schoenberg total positivity and its          | U3-B5: structural         |
 |       | "Schoenberg's       | Laguerre-Polya connection for zeta-related   | positivity <=> real-      |
 |       | theory of totally   | kernels (review)                             | zero entire functions     |
 |       | positive functions  |                                            |                           |
 |       | and the Riemann     |                                            |                           |
 |       | zeta function"      |                                            |                           |
 +-------+---------------------+--------------------------------------------+---------------------------+
-| R3.2  | arXiv:2602.20313    | Polya-frequency order of the de Bruijn-      | U3; S5-adjacent: the      |
+| R3.2  | arXiv:2602.20313    | Polya-frequency order of the de Bruijn-      | U3-B5; S5-adjacent: the   |
 |       | "On the Polya       | Newman kernel K(u) = Phi(|u|) (Feb 2026);    | DN deformation is a       |
 |       | frequency order of  | RH <=> Lambda <= 0 deformation context       | moving kernel family      |
 |       | the de Bruijn-      |                                            |                           |
 |       | Newman kernel"      |                                            |                           |
 +-------+---------------------+--------------------------------------------+---------------------------+
-| R4.1  | arXiv:2301.00421    | completion of C_c^inf(R) under the Weil-     | U3; direction is RH =>    |
+| R4.1  | arXiv:2301.00421    | completion of C_c^inf(R) under the Weil-     | U3-B5; direction is RH => |
 |       | Suzuki, "On the     | distribution hermitian form; positive        | positivity (converse is   |
 |       | Hilbert space       | definite UNDER RH (v3 2025)                  | the gate shape); map-004  |
 |       | derived from the    |                                            | endpoint-interface        |
 |       | Weil distribution"  |                                            | caution at screen         |
 +-------+---------------------+--------------------------------------------+---------------------------+
-| R4.2  | arXiv:2301.05779    | Li coefficients realized as norms in a       | U3: positivity by         |
+| R4.2  | arXiv:2301.05779    | Li coefficients realized as norms in a       | U3-B5: positivity by      |
 |       | "Li coefficients    | de Branges-type model space; norm            | construction (norms);     |
 |       | as norms of         | nonnegativity yields a necessary condition   | bridge to the Li-         |
-|       | functions in a      | for RH                                       | criterion seed (M8        |
-|       | model space"        |                                            | candidate)                |
+|       | functions in a      | for RH                                       | proposed extension seed   |
+|       | model space"        |                                            | M8; not registered yet    |
 +-------+---------------------+--------------------------------------------+---------------------------+
 | R4.3  | arXiv:1204.1827     | canonical system of differential equations   | S2/S5-adjacent: operator  |
 |       | "A canonical system | whose de Branges space is built from zeta    | families generated by a   |
@@ -292,7 +422,7 @@ endorsement; screening (beat 2) is a registered follow-up record.
 |       | equations arising   |                                            |                           |
 |       | from the ..."       |                                            |                           |
 +-------+---------------------+--------------------------------------------+---------------------------+
-| R4.4  | arXiv:2209.04658    | the screw line of zeta generates a de        | U3                        |
+| R4.4  | arXiv:2209.04658    | the screw line of zeta generates a de        | U3-B5                     |
 |       | "The screw line of  | Branges space H(E) isomorphic to a model     |                           |
 |       | the Riemann zeta-   | space                                        |                           |
 |       | function and its    |                                            |                           |
@@ -308,7 +438,7 @@ endorsement; screening (beat 2) is a registered follow-up record.
 |       | between the zero    | line; equivalence of zero distributions      | positivity property       |
 |       | distributions ..."  |                                            |                           |
 +-------+---------------------+--------------------------------------------+---------------------------+
-| R5.2  | arXiv:2211.16680    | new van Dantzig pairs (xi, eta) both real-   | U3                        |
+| R5.2  | arXiv:2211.16680    | new van Dantzig pairs (xi, eta) both real-   | U3-B5                     |
 |       | "A new class of     | rooted via the Lee-Yang property             |                           |
 |       | solutions to the    |                                            |                           |
 |       | van Dantzig         |                                            |                           |
@@ -333,7 +463,7 @@ round-2 seed), arXiv:2602.04022 (Feb 2026 survey - map context only).
 One row per death, appended where the candidate died:
 
 ```text
-date | candidate id | beat (2/3/4) | one-line mechanism reason | evidence pointer
+date | candidate id | beat (2/3/4/5) | one-line mechanism reason | evidence pointer
 ```
 
 Same function as the project's dead-route archive: nothing is
@@ -341,18 +471,24 @@ re-litigated without new committed evidence.
 
 ## 6. Discipline carried over
 
-1. Law 42: the sweep protocol, every screen amendment, every prototype
-   gate, and every campaign is committed before its run or build.
+1. Law 42: every promoted generation card, the sweep protocol, every
+   prior-art/translation card, every screen
+   amendment, every prototype gate, and every campaign is committed before
+   its run or build.
 2. Law 65: every number the loop produces is a MODEL twin until Lean
    certification.
 3. Stage-0 gate: no campaign-week is spent before the target-
    satisfiability audit.
 4. Kill accounting: every death takes a kill-ledger row in the same
    commit that records it.
-5. Promotion criteria: a candidate reaches beat 4 only with (a) a
-   SCREENED-LIVE row naming its corridor-spec contact points, (b) a
-   control-MATCH prototype, and (c) a Stage-0 audit that finds its
-   target conjunction witness-consistent.
+5. Promotion criteria: a candidate reaches beat 5 only with (a) a
+   `GENERATION-CARD` or registered sweep provenance, (b) a
+   `PRIOR-ART-CARD` that identifies the precise novelty delta, (c) a
+   `B5-TRANSLATION-CARD` naming the same-owner consumer and new lemma, (d) a
+   `SCREENED-LIVE` record with typed no-go applicability and falsifier, (e)
+   either a two-control `CONTROL-MATCH`, a documented `CONTROL-PARTIAL`, or an
+   `ANALYTIC-ONLY` exemption, and (f) a Stage-0 audit that finds its target
+   conjunction witness-consistent.
 
 ## 7. What this record does NOT change
 
