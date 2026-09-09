@@ -719,7 +719,29 @@ reduction only, not a positivity theorem or a `qw` readback; L4, A4, and the
 finite-visible-prime sign remain open (proof record
 [`1255`](../proofs/1255_g8_cross_trace_real_part.md)).
 
-## 5. Kill-ledger format
+## 5. G8 survivor/boundary split (2026-09-10)
+
+Record 1256 is formal Lean evidence on the active healthy-`CompactLog` B5
+consumer.  The G8 source compression is now rewritten exactly through two
+owner-local maps: the terminal Schur--polar survivor and the finite sum of
+visible-prime rectangular boundary outputs.  The identity is
+
+```text
+J† G8 J = (u · (survivor + boundarySum))† W_g
+              (u · (survivor + boundarySum)).
+```
+
+This changes the structural ledger only.  It supplies the precise object on
+which a future finite-visible-prime trace readback must act, but supplies no
+boundary sign, finite-prime trace identification, L4 limit, A4 inequality, or
+`qw` conclusion.  The next consumer remains detector-specific semi-local
+readback on this same owner; no generic interface or numerical substitute is
+authorized.  Evidence: proof record
+[`1256`](../proofs/1256_g8_survivor_boundary_split.md) and build log
+`1256_g8_survivor_boundary_retry7.log` (formal; standard axioms only; zero
+`sorryAx`).
+
+## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:
 
@@ -730,7 +752,7 @@ date | candidate id | beat (2/3/4/5) | one-line mechanism reason | evidence poin
 Same function as the project's dead-route archive: nothing is
 re-litigated without new committed evidence.
 
-## 6. Discipline carried over
+## 7. Discipline carried over
 
 1. Law 42: every promoted generation card, the sweep protocol, every
    prior-art/translation card, every screen
@@ -751,7 +773,7 @@ re-litigated without new committed evidence.
    `ANALYTIC-ONLY` exemption, and (f) a Stage-0 audit that finds its target
    conjunction witness-consistent.
 
-## 7. What this record does NOT change
+## 8. What this record does NOT change
 
 The running record 1225 sec. 4 positive-control probe is untouched; its
 verdict still governs the L4 numerical campaign. The `L4`/`A4` universal

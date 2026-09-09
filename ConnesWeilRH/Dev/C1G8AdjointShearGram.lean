@@ -1,5 +1,6 @@
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSGatePhysicalObliqueShearKernelReduction
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedMetricCoframeReadout
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSSchurPolarTelescoping
 import ConnesWeilRH.Dev.C1Stage3ProjectionWindow
 
 /-!
@@ -27,8 +28,11 @@ open CCM25Concrete.CCM24FiniteSCoframeResponse
 open CCM25Concrete.CCM24FiniteSCompletedMetricCoframeReadout
 open CCM25Concrete.CCM24FiniteSFixedSourcePolar
 open CCM24FiniteSGramOrderingBridge
+open CCM24FiniteSActualSchurCascade
 open CCM24FiniteSPhysicalLeakage
 open CCM24FiniteSGatePhysicalTargetCommutatorReduction
+open CCM24FiniteSSchurPolarTelescoping
+open CCM24FiniteSTransportBounds
 open CC20Concrete.PositiveTrace
 open Dev.C1PositiveTraceCutoffAdapter
 open Dev.C1PositiveTraceWindowProducer
@@ -274,6 +278,47 @@ theorem sourceCompression_g8AdjointShearGram_metricHistoryGram_isPositive
   rw [← sourceCompression_g8AdjointShearGram_eq_metricHistoryGram]
   rw [sourceCompression_g8AdjointShearGram_eq_metricCoframeGram]
   exact (detectorOperator_isPositive_for_g8 owner).adjoint_conj _
+
+/- The same-owner G8 compression admits the exact Schur--polar split into
+the terminal survivor and the finite visible-prime boundary sum.  This is an
+operator identity only: no sign is assigned to the individual boundary
+channels, and no `qw` readback is claimed here. -/
+noncomputable def g8MetricCoframeSurvivor
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    sourceSoninCarrier lambda →L[ℂ] finiteSCarrier :=
+  newSuffixFrame lambda [] ∘L
+    (suffixEulerTransitionProduct lambda family.visiblePrimes)† ∘L
+      parameterizedSoninGramInvSqrt lambda 1 family.visiblePrimes
+        (by norm_num)
+
+noncomputable def g8MetricCoframeBoundarySum
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    sourceSoninCarrier lambda →L[ℂ] finiteSCarrier :=
+  (finiteEulerMetricCoframeBoundaryMaps lambda family).sum
+
+theorem finiteEulerMetricCoframe_eq_g8Survivor_add_boundary
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    finiteEulerMetricCoframe lambda family =
+      (finiteEulerUpperFactor family.visiblePrimes : ℂ) •
+        (g8MetricCoframeSurvivor lambda family +
+          g8MetricCoframeBoundarySum lambda family) := by
+  exact finiteEulerMetricCoframe_eq_survivor_add_boundarySum lambda family
+
+theorem sourceCompression_g8AdjointShearGram_eq_survivorBoundaryGram
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    (sourceInclusion lambda)† ∘L
+        g8AdjointShearGram owner lambda family ∘L
+          sourceInclusion lambda =
+      ((finiteEulerUpperFactor family.visiblePrimes : ℂ) •
+        (g8MetricCoframeSurvivor lambda family +
+          g8MetricCoframeBoundarySum lambda family))† ∘L
+        detectorOperator owner ∘L
+          ((finiteEulerUpperFactor family.visiblePrimes : ℂ) •
+            (g8MetricCoframeSurvivor lambda family +
+              g8MetricCoframeBoundarySum lambda family)) := by
+  rw [sourceCompression_g8AdjointShearGram_eq_metricCoframeGram]
+  rw [finiteEulerMetricCoframe_eq_g8Survivor_add_boundary]
 
 /-! ### Same-owner finite-window trace carrier -/
 
