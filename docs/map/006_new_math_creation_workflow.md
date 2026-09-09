@@ -517,6 +517,66 @@ Record [`1231`](../proofs/1231_nm_finite_mellin_physical_separation_preregistrat
 contains the formal theorem and axiom-clean focused-build evidence; no numeric
 prototype opened.
 
+### API brick 1233 (2026-09-09)
+
+Record [`1233`](../proofs/1233_correction_family_profile_api_preregistration.md)
+records one landed focused formal interface brick below G4/G6: the existing
+residual-window interpolation existence theorem is packaged as a parameterized
+correction selector, and the same selected-owner physical bilateral profile
+and finite visible-prime weighted readback are exposed.  This is deliberately
+weaker than an affine/canonical family and does not assert any node-to-profile
+factorization or sign.  No numerical work was opened; the API audit is
+axiom-clean and the G4/G6 analytic bridge remains open.
+
+### API brick 1234 (2026-09-09)
+
+Record [`1234`](../proofs/1234_affine_mellin_correction_family_preregistration.md)
+records the landed focused source-family brick: the existing windowed Mellin
+span-top theorem is now a surjective linear map with a linear right inverse,
+and its support and node readback are transported through the compact-log
+conversion.  This is the first formal affine-family layer; it still makes no
+claim about the physical profile after convolution-square formation or about
+P2 positivity.  The resource-runner audit is axiom-clean with zero
+`sorryAx` (log `1234_affine_correction_retry10.log`).
+
+### Generation round G6 (record 1232, 2026-09-09)
+
+`G6`, two-channel internal-counterterm factorization, remains
+`NEEDS-ANALYSIS`, now with its Stage-B candidate class narrowed by record
+1224.  It reformulates the surviving L4/A4 paper obligation as a single
+possible engine: a per-cutoff positive kernel whose counterterm is internal
+and whose trace reads back to `qw(g)`.  It does not revive the parked
+fixed-rank G2 numerical campaign.  The screen imports the formal G1 guard (a
+universal negative gate Gram is impossible), the formal G5 node/physical
+separation, and G4's missing legal physical-profile API; the committed
+rank-three two-channel response now excludes bounded, external, rank-one,
+affine, and separable corrections at MODEL level.  No explicit analytic
+kernel formula supplies the first required field, so no Lean interface or
+numeric prototype is authorized.  Record
+[`1232`](../proofs/1232_nm_two_channel_internal_counterterm_generation.md)
+contains the card, exact falsifier, and the narrowed next paper brick.
+Record [`1236`](../proofs/1236_canonical_internal_identity_counterterm_no_go.md)
+now kills the canonical `M = I - K` identity-complement correction by the
+formal cofinal trace-growth theorem; it does not kill a genuinely
+operator-valued two-channel correction.
+Record [`1237`](../proofs/1237_window_to_response_defect_no_go.md) also closes
+the tempting `D₂ → 0` repair: the active C1 theorem proves the
+window-to-response defect has nonvanishing trace along the canonical cutoff
+for every nonzero source.
+
+### Literature translation closure (record 1238, 2026-09-09)
+
+Record [`1238`](../proofs/1238_semilocal_prolate_translation_gap.md) closes
+the direct citation path for G6 at the translation boundary.  The cited
+archimedean construction supplies a positive Sonin trace and a prolate
+two-projection mechanism, while the later semilocal prolate paper describes
+the finite-prime extension as a program rather than a completed same-owner
+positive kernel.  Therefore the next admissible paper brick is an explicit
+semilocal prolate owner (or equivalent positive block kernel) carrying the
+orbit detector, finite visible-prime shadow, internal correction, finite trace
+identity, and `qw` limit readback together.  Until that owner formula exists,
+no further Lean wrapper or fixed-rank numerical prototype is authorized.
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:

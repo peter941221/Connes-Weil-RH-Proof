@@ -1,0 +1,21 @@
+import ConnesWeilRH.Dev.C1HealthyYoshidaCorrectionFamily
+
+namespace ConnesWeilRH
+namespace Dev
+namespace C1HealthyYoshidaCorrectionFamilyAudit
+
+open Source.C1HealthyYoshidaCorrectionFamily
+
+#print axioms ResidualCorrectionFamily
+#print axioms residualCorrectionFamily
+#print axioms residualCorrectionFamily_value_support
+#print axioms residualCorrectionFamily_laplaceAt_value
+#print axioms selectedOwnerBilateralProfile
+#print axioms selectedOwnerBilateralProfile_eq
+#print axioms selectedOwnerVisiblePrimeSet
+#print axioms selectedOwnerVisiblePrimeProfileWeightedSum
+#print axioms selectedOwnerFinitePrimeSum_eq_visibleProfileWeightedSum
+
+end C1HealthyYoshidaCorrectionFamilyAudit
+end Dev
+end ConnesWeilRH

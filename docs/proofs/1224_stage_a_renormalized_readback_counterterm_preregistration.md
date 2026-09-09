@@ -1,10 +1,10 @@
 # Record 1224 — Stage A: counterterm specification for the projection-cutoff B5 producer
 
 Date: 2026-09-08.
-Status: PRE-REGISTRATION, committed BEFORE any new numerical run or Lean
-build in this campaign (law 42).  This is the Stage A brick of record 1223
-section 3/4.  RH is not claimed; no positivity, convergence, or
-value-match is asserted anywhere below.
+Status: STAGE-B CLOSED; Cand-B remains UNFORMED.  The record was committed
+before the registered runs (law 42); its Stage-B evidence is now complete.
+This is the Stage-A/B brick of record 1223 section 3/4.  RH is not claimed;
+no positivity, convergence, or value-match is asserted anywhere below.
 
 Consumer named (verbatim target):
 `sourceRH_of_healthyDetector_p2ProjectionCutoffLimitContracts`
@@ -614,3 +614,26 @@ kernel, and no contract instance.  The 1217 boxes, 1218 chain, and 1219
 E1 module are unchanged; the E2 entrywise campaign stays SUSPENDED — no
 output of this record feeds it.  The -3.321 ratio is MODEL-level (law 65)
 and is booked only as the registered warning F4.
+
+## 5. Stage-B route decision (2026-09-09)
+
+The committed 3x3 follow-through closes the registered model-level
+identification.  The finite-part response has genuine two-channel geometry:
+the `P_r(lambda)` sandwich and the `P_V(S)` shadow have different scalings,
+and their difference is rank-3 over the `(lambda,S)` grid.  Therefore the
+following candidate classes are rejected for Fork B: bounded or zero
+responses, external trace subtraction, rank-one corrections, affine
+corrections, and separable `alpha(lambda) * Phi(S)` corrections.  This is a
+MODEL-level structural falsifier, not a theorem about the true owner.
+
+The only surviving paper target is an operator-valued correction built inside
+the same two-channel kernel, schematically
+
+```text
+Q_n = C_n† (K_{lambda,S} + M_n[P_r(lambda), P_V(S)]) C_n,
+```
+
+with a fresh proof of positivity and an exact same-owner finite-part
+readback.  No Lean interface or numerical campaign is authorized until an
+explicit formula for `M_n` is supplied and its positivity admission check is
+passed.

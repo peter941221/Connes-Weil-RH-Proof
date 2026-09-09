@@ -1,0 +1,20 @@
+import ConnesWeilRH.Dev.C1HealthyYoshidaAffineCorrection
+
+namespace ConnesWeilRH
+namespace Dev
+namespace C1HealthyYoshidaAffineCorrectionAudit
+
+open Source.C1HealthyYoshidaAffineCorrection
+
+#print axioms windowedMellinEvaluationMap
+#print axioms windowedMellinEvaluationMap_apply
+#print axioms windowedMellinEvaluationMap_surjective
+#print axioms windowedMellinRightInverse
+#print axioms windowedMellinEvaluationMap_comp_rightInverse
+#print axioms affineResidualCorrection
+#print axioms affineResidualCorrection_support_subset
+#print axioms affineResidualCorrection_laplaceAt
+
+end C1HealthyYoshidaAffineCorrectionAudit
+end Dev
+end ConnesWeilRH
