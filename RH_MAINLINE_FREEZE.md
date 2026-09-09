@@ -29,6 +29,17 @@ equivalent no-off-line-zero premise.
 The repository does not contain an unconditional RH proof.  The ROOT-window
 base does not imply the detector-specific semi-local step.
 
+Producer-target state (2026-09-09, map record
+[`007`](docs/map/007_b5_quantifier_repair_and_target_ladder.md)): the B5
+producer obligation is the universal contracts L4 (projection-cutoff side,
+record 1225 re-point) and A4 (aggregate side, record 1226 re-point), each
+quantified over the healthy triple-vanishing class only.  Record 1225's
+positive-control instrument campaign is CLOSED (capture law: fixed-rank
+windows cannot certify exact trace capture from `n = 16` upward; no re-run
+authorized).  The remaining L4/A4 obligation is analytic construction
+(Fork B: counterterm inside the kernel, proved readback); numerical work
+for it requires a fresh preregistration and is not currently recommended.
+
 ## Frozen Routes
 
 The following are archival context only and receive no new theorem work:
@@ -68,8 +79,12 @@ direct consumer in the active healthy-owner chain.  The open consumers are:
 1. The paper-scale `gamma + alpha/beta + delta` ROOT-local certificate package.
 2. An explicit support radius and finite visible-prime set for the formal
    compact-log orbit detector.
-3. Semi-local positive-trace/readback data for that selected detector on the
-   same healthy owner.
+3. Semi-local positive-trace/readback data per VANISHING test `g` on the
+   same healthy owner - the universal contracts L4/A4 of map record 007.
+   The detector-bundled conjunction form is refuted (record 1225 F1-F3) and
+   may not be named as a producer target; the record 1225 numerical scout
+   closed with its capture law (section 8), so L4 is attacked as a
+   construction, not a measurement.
 4. Maintenance of the formal detector-specific contradiction interface to
    `SourceRH`.
 5. Read-only new-math idea generation under the record 1227 NM loop (map

@@ -21,6 +21,8 @@ traceability.
 | 004    | Binding companion     | Endpoint provenance and interface boundary  |
 | 005    | Supporting            | P2 producer attack-plan registry            |
 | 006    | Binding process       | NM creation workflow, subordinate to 003   |
+| 007    | Binding companion     | Producer-target quantifier repair and the  |
+|        |                       | surviving L4/A4 target ladder              |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -32,7 +34,12 @@ the 1140 admission constraints; it adds no authority. `006` is binding on
 process, not on route: every new-math campaign opened from record 1227
 onward runs its generate / sweep / prior-art-and-translation / typed screen /
 two-control prototype / prereg-and-prove beats through it and
-appends its candidate rows and kill-ledger rows to it.
+appends its candidate rows and kill-ledger rows to it. `007` is binding on
+producer-target selection: the bundled detector-and-contract conjunction is
+refuted (record 1225 F1-F3) and may not be named as a target; the surviving
+B5-side targets are the universal contracts L4 (projection-cutoff side) and
+A4 (aggregate side), whose numerical scout closed with the record 1225
+capture law and whose remaining obligation is analytic construction.
 
 ## Mandatory preflight
 
@@ -52,6 +59,10 @@ numerical investigation, use this layered check:
 5. Read [`006`](006_new_math_creation_workflow.md) when opening any new-math
    campaign (a candidate mechanism outside the enumerated attack lines) or
    appending to its candidate registry / kill ledger.
+6. Read [`007`](007_b5_quantifier_repair_and_target_ladder.md) whenever
+   selecting or naming a B5-side producer target, or when a design consumes
+   the universal contracts L4/A4; the bundled detector-and-contract
+   conjunction is refuted and the frozen universal-B1 lift stays closed.
 
 The new work must name its healthy-`CompactLog`, B5-shaped consumer; otherwise
 it is out of scope and must not start.
@@ -90,6 +101,11 @@ Read the current records in this order for a full-map review:
    prior-art-and-translation / typed screen / two-control prototype /
    prereg-and-prove), the corridor spec distilled from the no-go
    ledger, and the living candidate-mechanism registry.
+7. [007 - Records 1225/1226: B5 quantifier repair and target ladder](007_b5_quantifier_repair_and_target_ladder.md)
+   records the producer-target repair (bundled conjunction refuted; the
+   universal contracts L4/A4 survive as markers), the record 1225
+   instrument closure with its capture law, and the surviving ladder with
+   statuses.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).

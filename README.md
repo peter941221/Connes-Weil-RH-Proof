@@ -540,23 +540,30 @@ $$
 
 <br>
 
-The active P2 producer target is the windowed projection-cutoff positive-trace
-owner consumed by
-`sourceRH_of_healthyDetector_p2ProjectionCutoffLimitContracts`. It must keep a
-positive trace-class family at every cutoff and prove its same-owner trace
-readback converges to `q_w(g)`. The older ROOT/Hbox entrywise campaign is
-suspended: repairing it would not serve this B5 consumer. The fixed existing
-projection family has only MODEL-level evidence of a convergent finite part
-with the wrong value, so it does not instantiate the contract. The current
-Stage-A work is the preregistered operator-level counterterm/readback audit;
-any moving correction must preserve positivity internally and pass the
-finite-cutoff bulk and value checks before new Lean spine work.
+The active producer obligation is universal: per VANISHING test `g` on the
+healthy `CompactLog` owner, construct a positive trace-class family at every
+cutoff whose same-owner trace readback converges to `q_w(g)` - the contracts
+L4 (projection-cutoff side, record 1225) and A4 (aggregate side, record
+1226). The earlier producer premise bundled a healthy-detector certificate
+with the contract for the SAME `g`; record 1225 proves that conjunction has
+no witness (detector data forces `q_w(g) < 0` while the contract forces
+`0 <= q_w(g)`), and record 1226 formally kills the signed-tail escape.
+[Map record 007](docs/map/007_b5_quantifier_repair_and_target_ladder.md) is
+the authoritative target ladder. The record 1225 positive-control numerical
+campaign is CLOSED with its capture law - a fixed-rank window cannot
+certify exact trace capture from `n = 16` upward on the control family
+(MODEL numbers) - so the remaining work is analytic construction (the
+counterterm inside the kernel, proved rather than measured), not
+re-measurement. The older ROOT/Hbox entrywise campaign remains suspended
+(record 1223).
 
 The binding decision is [record 1076](docs/map/003_b1_b5_minimal_exit_route_selection.md);
-the endpoint and P2 status are maintained by
+the endpoint, producer, and process status are maintained by
 [map 004](docs/map/004_endpoint_literature_interface_audit.md),
+[map 006](docs/map/006_new_math_creation_workflow.md),
+[map 007](docs/map/007_b5_quantifier_repair_and_target_ladder.md),
 [record 1223](docs/proofs/1223_1219_suspension_and_b5_reentry_plan.md), and
-[record 1224](docs/proofs/1224_stage_a_renormalized_readback_counterterm_preregistration.md).
+[record 1225](docs/proofs/1225_b5_target_satisfiability_audit_and_positive_control_preregistration.md).
 
 ## 5. Frozen and deferred routes
 

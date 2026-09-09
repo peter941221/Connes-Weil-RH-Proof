@@ -142,7 +142,8 @@ committed theorems; only the producer campaign's target selection changes.  A
 companion map record `docs/map/007_b5_quantifier_repair_and_target_ladder.md`
 is registered to be written in this campaign's verdict phase (re-numbered in
 the A9 ledger pass: 006 was claimed by record 1227's NM-workflow map document
-before this wave reached it) (before any
+before this wave reached it; WRITTEN in the
+section 8 closure pass, 2026-09-09) (before any
 Stage-B escalation beyond the control run), synchronized per the map live
 update rule with README and RH_MAINLINE_FREEZE.md.  The frozen universal-B1
 route (positivity for ALL compact supports, density/partition lift) is NOT
@@ -619,5 +620,40 @@ the resource wrapper reported `official exit 1` after the intentional gate
 assertion.  No retry, rank increase, threshold change, or new numerical run
 is authorized by this addendum.  Any response requires a fresh preregistration
 with an explicit finite-part error budget and resource plan.
+
+## 8. Closure addendum (this session, 2026-09-09 evening): scout CLOSED, L4 becomes a purely analytic obligation
+
+Peter's branch decision of 2026-09-09: CLOSE the numerical scout on the
+section 7 yield and move the L4 obligation to the analytic (paper/Lean,
+Fork B) route. No re-run of the fixed-rank ladder is authorized, and none
+is planned; a rank-scaled recapture would need a fresh preregistration
+under law 42, and this ledger's evidence (rung determinism plus the
+control-magnitude pre-indication: bulk cont ~2.6e-04 = ~1.4% of the ground
+truth `qw = +1.895768e-02`, i.e. this family was MISMATCH-headed even had
+rung 4 passed) does not recommend spending it.
+
+The permanent yield of this instrument campaign, registered as route-level
+fact-with-source:
+
+```text
+CAPTURE LAW   fixed rank 2560 cannot certify exact W-trace capture from
+              n = 16 upward in the control family (A9 rule-1 firing;
+              observed scaling ~ x2.7 per dt-doubling, ~ x30 per
+              n-doubling; MODEL numbers, law 65).
+DETERMINISM   two byte-identical invocations reproduced rungs 1-3 to the
+              digit (C4 replay rel 1.64e-07 reconfirmed): future
+              discrepancies attribute to protocol change, not noise.
+SCOPE         none of the above refutes or proves L4; the L4 contract is
+              now attacked ONLY as a construction (positive family with
+              internal counterterm and proved trace readback), never as
+              a measurement.
+```
+
+Hand-over per A9: the 1225-lane documentation wave is map record
+`docs/map/007_b5_quantifier_repair_and_target_ladder.md` (written in this
+pass: quantifier repair F1-F4 + A4 re-point, target ladder with statuses,
+the capture-law closure), synchronized with the map README, the freeze
+card, and the repository README in the same commit. The NM lane (map 006;
+1228/1229) is unaffected and remains with the companion session.
 
 RH is not claimed.
