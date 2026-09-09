@@ -259,6 +259,22 @@ theorem sourceCompression_g8AdjointShearGram_eq_metricHistoryGram
       simpa only [ContinuousLinearMap.adjoint_comp,
         ContinuousLinearMap.comp_assoc]
 
+theorem sourceCompression_g8AdjointShearGram_metricHistoryGram_isPositive
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    ((finiteEulerMetricCoframeHistoryColumn lambda family.visiblePrimes ∘L
+        parameterizedSoninGramInvSqrt lambda 1 family.visiblePrimes
+          (by norm_num))† ∘L
+      (finiteEulerMetricCoframeHistoryReadout lambda family)† ∘L
+        detectorOperator owner ∘L
+          finiteEulerMetricCoframeHistoryReadout lambda family ∘L
+            finiteEulerMetricCoframeHistoryColumn lambda family.visiblePrimes ∘L
+              parameterizedSoninGramInvSqrt lambda 1 family.visiblePrimes
+                (by norm_num)).IsPositive := by
+  rw [← sourceCompression_g8AdjointShearGram_eq_metricHistoryGram]
+  rw [sourceCompression_g8AdjointShearGram_eq_metricCoframeGram]
+  exact (detectorOperator_isPositive_for_g8 owner).adjoint_conj _
+
 /-! ### Same-owner finite-window trace carrier -/
 
 /-- The concrete finite-window factor is inserted on both sides of the G8

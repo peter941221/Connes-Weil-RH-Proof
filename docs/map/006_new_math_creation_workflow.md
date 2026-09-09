@@ -655,6 +655,13 @@ readback.  This exposes the finite-visible channel owner but still does not
 provide the healthy `CompactLog` `qw` limit or the sign inequality (proof
 record [`1247`](../proofs/1247_g8_metric_history_gram.md)).
 
+Formal brick G8 metric-history positivity (record 1248, 2026-09-10): the
+history Gram from record 1247 is formally positive on the source carrier by
+the detector positivity and `adjoint_conj`.  This supplies the positive
+finite-visible history owner but does not add trace class, healthy `CompactLog`
+`qw` readback, or the finite-prime sign theorem (proof record
+[`1248`](../proofs/1248_g8_metric_history_positive.md)).
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:
