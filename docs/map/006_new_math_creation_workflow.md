@@ -577,6 +577,29 @@ orbit detector, finite visible-prime shadow, internal correction, finite trace
 identity, and `qw` limit readback together.  Until that owner formula exists,
 no further Lean wrapper or fixed-rank numerical prototype is authorized.
 
+### Generation round G7 (records 1239--1240, 2026-09-09)
+
+`G7`, the square-zero shear Gram completion, was the first concrete operator
+candidate after the literature screen.  It is now closed by the owner-level
+compression identity in records [`1239`](../proofs/1239_nm_square_zero_shear_gram_completion.md)
+and [`1240`](../proofs/1240_g7_owner_compression_no_go.md): the formal
+identities `N_S R=0` and `R J=J` imply `N_S J=0`, so
+`J^*(I+N_S)^*W_g(I+N_S)J = J^*W_gJ`.  The shear response disappears on the
+healthy source owner.  An ambient trace would change owners, so it is not a
+repair.  No Lean implementation or numerical prototype was opened.
+
+### Generation round G8 (record 1241, 2026-09-09)
+
+G8 moves the adjoint shear to the input side:
+`G^+_{g,S}=(I+N_S)W_g(I+N_S^*)`.  Because the formal physical factorization
+is `N_S=J L_S^*`, its source compression is
+`J^*W_gJ + J^*N_SW_gJ + J^*W_gN_S^*J + J^*N_SW_gN_S^*J`.
+The active oblique-shear response occurs in the second term, its adjoint in
+the third, and the final term is an internal leakage square.  G8 therefore
+survives the first symbolic screen as `SCREENED-LIVE`; the next brick is only
+the owner-level compression/readback lemma.  No numeric prototype or generic
+wrapper is authorized before the `qw` ledger is identified.
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:
