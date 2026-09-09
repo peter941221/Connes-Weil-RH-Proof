@@ -703,6 +703,15 @@ This makes the combined cross contribution self-adjoint but supplies no
 positivity or `qw` readback; the healthy-limit, L4, and A4 obligations remain
 open (proof record [`1253`](../proofs/1253_g8_cross_adjoint_relation.md)).
 
+Formal brick G8 traced channel ledger (record 1254, 2026-09-10): each of the
+four finite-window channel operators is given an independent
+`IsTraceClassAlong` witness by the Hilbert--Schmidt ideal, and the ordinary
+source trace is proved to split into the four channel traces.  This closes
+the legality of termwise trace bookkeeping on the same owner; it does not
+provide a finite-visible-prime or healthy-limit `qw` readback, and it does not
+assign a sign to the cross pair (proof record
+[`1254`](../proofs/1254_g8_channel_traceclass_and_trace_ledger.md)).
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:
