@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1G8AdjointShearGram
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8AdjointShearGramAudit
+
+open C1G8AdjointShearGram
+
+#print axioms g8AdjointShearGram
+#print axioms sourceCompression_g8AdjointShearGram_eq_fourTerms
+#print axioms sourceCompression_g8AdjointShearGram_cross_eq_targetResponse
+
+end C1G8AdjointShearGramAudit
+end Source
+end ConnesWeilRH
