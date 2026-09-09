@@ -93,3 +93,31 @@ Budget: one literature-and-paper window.  No Lean build, numerical run, route
 change, endpoint claim, or candidate survival claim occurs in this record.
 
 RH is not claimed.
+
+## 5. Post-run addendum: cards and NO-YIELD verdict
+
+Evidence level: LITERATURE-BACKED.  The primary sources below were reviewed
+at their current arXiv versions on 2026-09-09.  `KNOWN` records an existing
+mechanism or limitation, not a claim that the cited work is mathematically
+false.  No source supplies a same-owner B5 translation card, so no row is
+`READY-TO-SCREEN`.
+
+| row | PRIOR-ART-CARD: strongest relevant result | B5-TRANSLATION-CARD result | status |
+|---|---|---|---|
+| R1.1 | Bickel--Pascoe--Sargent, [arXiv:2108.04807](https://arxiv.org/abs/2108.04807), give truncated Hankel positivity conditions as relaxations of RH; their abstract notes that tightening them drives possible complex zeros farther from the line. | No theorem concerns `CompactLogTest`, its convolution square, or the finite visible-prime term. A new bridge would itself have to prove the missing same-owner `qw` identity. | KNOWN |
+| R3.1 | Gröchenig, [arXiv:2007.12889](https://arxiv.org/abs/2007.12889), derives an RH-equivalent condition from Schoenberg total positivity/Laguerre--Pólya theory; the earlier context is Katkova, [math/0505174](https://arxiv.org/abs/math/0505174). | Total positivity of a zeta-related kernel is not a sign theorem for the selected orbit square or its visible primes. The needed transfer is precisely an RH-level bridge. | KNOWN |
+| R3.2 | Michałowski, [arXiv:2602.20313](https://arxiv.org/abs/2602.20313), rigorously certifies that the de Bruijn--Newman kernel is not PF5. | The intended positive-kernel mechanism fails already at PF5 and has no stated `CompactLog`/`qw` readback. This is an external obstruction, not a B5 producer. | NOVEL-BUT-OUT-OF-CORRIDOR |
+| R4.1 | Suzuki, [arXiv:2301.00421](https://arxiv.org/abs/2301.00421), completes compactly supported tests in the Weil form *under RH* and states a further RH equivalence. | Direction is `RH =>` positive Hilbert structure/equivalence, not unconditional `qw(g(rho)) >= 0`; no finite-prime same-owner bridge. | KNOWN |
+| R4.2 | Suzuki, [arXiv:2301.05779](https://arxiv.org/abs/2301.05779), proves that all Li coefficients being norms is necessary and sufficient for RH. | A norm representation conditional/equivalent to RH does not furnish a selected detector's `qw` inequality. The Li-to-`CompactLog` and finite-prime bridge is absent. | KNOWN |
+| R4.3 | Suzuki, [arXiv:1204.1827](https://arxiv.org/abs/1204.1827), constructs a canonical system unconditionally only for parameter `omega > 1`; extension to all `omega > 0` would give an RH criterion. | The required extension is itself criterion-level and the canonical-system owner has no identified `CompactLog` square/visible-prime readback. | ROUTE-MISMATCH |
+| R4.4 | Suzuki, [arXiv:2209.04658](https://arxiv.org/abs/2209.04658), derives norm explanations of Weil-distribution nonnegativity *under RH* and RH-equivalent conditions. | Same conditional-direction barrier as R4.1; no same-owner semi-local identity. | KNOWN |
+| R4.5 | Suzuki, [arXiv:2012.11121](https://arxiv.org/abs/2012.11121), gives a general chain-of-RKHS construction from suitable unimodular functions, including a conditional inverse problem. | It is a structural technique, not an explicit-formula sign theorem on the selected owner; `g(rho)`, support, visible primes, and `qw` readback are all absent. | ROUTE-MISMATCH |
+| R5.1 | Zhang, [arXiv:2411.16777](https://arxiv.org/abs/2411.16777), claims a correspondence between a disordered 2D Ising model/Fisher zeros and zeta-zero distributions. | Regardless of the claim's status, no construction is supplied on the repository's `CompactLog` owner and no finite-prime `qw` identity is identified. The Ising partition-function owner is distinct. | ROUTE-MISMATCH |
+| R5.2 | Konstantopoulos--Patie--Sarkar, [arXiv:2211.16680](https://arxiv.org/abs/2211.16680), rephrases Lee--Yang and RH through the van Dantzig/Laguerre--Pólya framework and studies closure properties. | This is a reformulation of zero-location structure, not an unconditional same-owner semi-local positivity theorem. The required transfer would be a new RH-level result. | KNOWN |
+
+The registered branch is therefore `NO-YIELD`: all ten rows fail the
+same-owner translation before SCREEN.  No kill-ledger row is added because
+none died at Beat 3, and none is sent to prototype.  The mandated next action
+is Beat 0 GENERATE on the direct P2 gate, under a separate preregistration.
+
+RH is not claimed.
