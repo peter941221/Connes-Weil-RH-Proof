@@ -712,6 +712,13 @@ provide a finite-visible-prime or healthy-limit `qw` readback, and it does not
 assign a sign to the cross pair (proof record
 [`1254`](../proofs/1254_g8_channel_traceclass_and_trace_ledger.md)).
 
+Formal brick G8 cross real-part reduction (record 1255, 2026-09-10): after
+the trace-class and adjoint results, the traced cross plus adjoint-cross pair
+is exactly twice the real part of the cross trace.  This is a scalar-form
+reduction only, not a positivity theorem or a `qw` readback; L4, A4, and the
+finite-visible-prime sign remain open (proof record
+[`1255`](../proofs/1255_g8_cross_trace_real_part.md)).
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:

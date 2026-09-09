@@ -711,6 +711,25 @@ theorem g8SourceCutoffPairData_ordinaryTrace_eq_fourChannelLedger
   rw [ordinaryTraceAlong_add sourceBasis _ _ hbaseCross hadjoint]
   rw [ordinaryTraceAlong_add sourceBasis _ _ hbase hcross]
 
+theorem g8SourceCutoffCross_trace_add_adjointCross_eq_two_re
+    {ν ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    ordinaryTraceAlong sourceBasis
+        (g8SourceCutoffCrossOperator owner lambda family n +
+          g8SourceCutoffAdjointCrossOperator owner lambda family n) =
+      ((2 * (ordinaryTraceAlong sourceBasis
+        (g8SourceCutoffCrossOperator owner lambda family n)).re : ℝ) : ℂ) := by
+  have hcross := g8SourceCutoffCrossOperator_isTraceClassAlong
+    owner lambda family globalBasis sourceBasis n
+  have hadjoint := g8SourceCutoffAdjointCrossOperator_isTraceClassAlong
+    owner lambda family globalBasis sourceBasis n
+  rw [ordinaryTraceAlong_add sourceBasis _ _ hcross hadjoint]
+  rw [g8SourceCutoffAdjointCrossOperator_eq_crossOperator_adjoint]
+  rw [ordinaryTraceAlong_adjoint, Complex.star_def, Complex.add_conj]
+
 set_option maxRecDepth 10000 in
 set_option maxHeartbeats 1000000 in
 theorem g8SourceCutoffPairData_trace_cycle
