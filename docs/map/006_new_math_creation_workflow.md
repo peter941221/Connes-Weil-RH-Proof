@@ -501,6 +501,22 @@ canonical-family bridge.  Record
 contains the preregistered falsifier and the exact source witness.  No Lean or
 numeric prototype opened.
 
+### Generation round G5 (record 1231, 2026-09-09)
+
+`G5`, finite-Mellin versus physical-evaluation separation, is
+`SCREENED-LIVE` at its deliberately raw scope (FORMAL).  The new theorem
+`exists_laplace_vanishing_test_value_one` constructs, for every finite node
+set and every positive physical log coordinate `x`, a compact-log test with
+zero Laplace data on all those nodes but value one at `x`.  Thus finite raw
+rho-node equations alone cannot determine a P2-style physical sample.  It is
+not a full-orbit perturbation: tail estimates, zero-control, convolution,
+half-density shift, and the selected square's finite profile are not preserved
+or claimed.  Consequently G5 kills only node-only profile bridges and leaves
+the additional same-owner composition bridge as the sole admissible extension.
+Record [`1231`](../proofs/1231_nm_finite_mellin_physical_separation_preregistration.md)
+contains the formal theorem and axiom-clean focused-build evidence; no numeric
+prototype opened.
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:

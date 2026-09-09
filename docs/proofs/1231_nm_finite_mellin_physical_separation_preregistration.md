@@ -82,3 +82,38 @@ and its paired axiom audit.  No numerical run, endpoint work, or new owner is
 authorized.
 
 RH is not claimed.
+
+## 4. Post-run addendum: formal raw-layer separation
+
+Evidence level: FORMAL.  The `SEPARATED` branch is proved in
+`C1FiniteMellinPhysicalSeparation.lean`:
+`exists_laplace_vanishing_test_value_one` states that for every finite complex
+node set and every `x > 0`, there is a `CompactLogTest h` supported in
+`(-x, 2*x)` with
+
+```text
+laplaceAt h s = 0  for every registered node s,
+h.test x = 1.
+```
+
+The proof uses exactly the preregistered construction.  A positive-variable
+value-one bump supported around `exp x` becomes `h0`; the committed finite
+Mellin interpolator supplies `h1` in `(-x/4, x/4)` with the same node values;
+`h0 - h1` has zero node data and remains one at `x` because `h1` vanishes
+there.  It is a symbolic support/interpolation proof, not a rank computation.
+
+Focused WSL build:
+`C1FiniteMellinPhysicalSeparation` plus its Audit, 3652 jobs, completed
+successfully on 2026-09-09.  The audit prints exactly
+`[propext, Classical.choice, Quot.sound]`; the build log contains zero
+`error:` and zero `sorryAx`.
+
+Formal consequence: a claimed P2 visible-profile identity cannot be justified
+from the finite raw Laplace-node equations *alone*.  It must name additional
+same-owner data that crosses from the raw correction to convolution,
+half-density shift, convolution square, and the selected finite visible-prime
+profile.  The result does not construct a perturbation preserving the full
+orbit tail and zero-control package, so it is not the stronger G4 barrier and
+does not alter the healthy detector or B5 route.
+
+RH is not claimed.

@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1FiniteMellinPhysicalSeparation
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1FiniteMellinPhysicalSeparationAudit
+
+#print axioms C1FiniteMellinPhysicalSeparation.exists_laplace_vanishing_test_value_one
+
+end C1FiniteMellinPhysicalSeparationAudit
+end Source
+end ConnesWeilRH
