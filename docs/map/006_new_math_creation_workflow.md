@@ -458,6 +458,32 @@ scaling-Hamiltonian spectral programs - named RH programs found in
 round-1 retrieval but outside the seed categories, logged as a possible
 round-2 seed), arXiv:2602.04022 (Feb 2026 survey - map context only).
 
+### Round-1 Beat-2 closure (record 1228, 2026-09-09)
+
+Status: `NO-YIELD`, LITERATURE-BACKED. All ten SWEEPED rows received the
+registered primary-source `PRIOR-ART-CARD` and `B5-TRANSLATION-CARD`; none
+reached `READY-TO-SCREEN`. R1.1, R3.1, R4.1, R4.2, R4.4, and R5.2 are known
+RH relaxations, equivalences, or conditional directions; R3.2 is a certified
+PF5 failure; R4.3, R4.5, and R5.1 have distinct owners with no same-
+`CompactLog` finite-prime readback. This is not a death verdict for the
+papers; it is a closed translation round. The exact cards and primary-source
+links are record [`1228`](../proofs/1228_nm_round1_prior_art_translation_preregistration.md)
+section 5. Per Beat 0, the next action is equation-led generation rather than
+a numerical prototype.
+
+### Generation round G1 (record 1229, 2026-09-09)
+
+`G1`, finite-visible-prime Schur-complement identity, is `NEEDS-ANALYSIS`.
+The general span quadratic-form identity is FORMAL, but a universal negative
+gate-matrix/Gram certificate on a span containing the healthy detector is
+FORMALLY refuted. The remaining detector-specific variant has no current
+rho-to-visible-prime off-diagonal identity, so it cannot enter Lean or a
+prototype. Record [`1229`](../proofs/1229_nm_generate_direct_gate_preregistration.md)
+records the Generation Card, exact formal guard, and audit. G2 (moving
+finite-part trace) remains parked pending the registered 1225 control verdict;
+G3 (Herglotz/de Branges convention bridge) remains parked under Round-1
+NO-YIELD.
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:
