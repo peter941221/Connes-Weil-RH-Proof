@@ -139,8 +139,10 @@ zero" (the 1076/7g phrasing of B5) to "certificate per vanishing test, with
 the detector contradiction drawn OUTSIDE the premise in the capstone" changes
 which propositions may be named as producer targets.  Both forms are already
 committed theorems; only the producer campaign's target selection changes.  A
-companion map record `docs/map/006_b5_quantifier_repair_and_target_ladder.md`
-is registered to be written in this campaign's verdict phase (before any
+companion map record `docs/map/007_b5_quantifier_repair_and_target_ladder.md`
+is registered to be written in this campaign's verdict phase (re-numbered in
+the A9 ledger pass: 006 was claimed by record 1227's NM-workflow map document
+before this wave reached it) (before any
 Stage-B escalation beyond the control run), synchronized per the map live
 update rule with README and RH_MAINLINE_FREEZE.md.  The frozen universal-B1
 route (positivity for ALL compact supports, density/partition lift) is NOT
@@ -537,6 +539,16 @@ serializes against concurrent mirror builds. Registered acceptance rules:
    the ledger value; the response (rank re-calibration scaled to realized
    window dimension, or a verdict restricted to certifiable rungs) is a
    NEW amendment committed before any re-run (law 42). Not protocol death.
+   **Rule 1 FIRED (recorded by the companion lane in section 7, commit
+   `66a4b5f`):** 4b reproduced rungs 1-3 to the digit (gaps
+   3.1e-10/8.4e-10/9.4e-09; cont 2.623547/2.965071/2.639838e-04; timing
+   within ~2% of 4a - the rig is deterministic across invocations) and
+   asserted `A4b FAILED: tail_gap 5.40e-08 at n=16, N=16384` - same order
+   as A9's pre-registered prediction (~2.5e-8). `official exit 1` recorded.
+   Terminal state: ABORTED-UNINFORMATIVE, zero verdict weight, and NO text
+   in this record authorizes a re-run; the capture finding (fixed rank 2560
+   cannot certify exact capture from n=16 upward in this family) stands as
+   the run's information yield.
 2. If 4b clears rung 4, the 4a exit is reclassified UNKNOWN-CAUSE (to be
    diagnosed from 4b's own log if it recurs) and the ladder proceeds
    unchanged.
@@ -573,7 +585,7 @@ Turn rules (both lanes):
 
 RH is not claimed.
 
-## 6. Post-run addendum: official invocation 4
+## 7. Post-run addendum: official invocation 4 (companion lane, 2026-09-09 evening)
 
 Status: `ABORTED-UNINFORMATIVE`, MODEL rig finding, 2026-09-09.  The run used
 the preregistered A8 code and passed every pre-ladder gate:
