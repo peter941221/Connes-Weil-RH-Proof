@@ -687,6 +687,15 @@ inclusion in place.  This completes the structural four-channel ledger, but
 not any `qw` readback, L4 limit contract, or A4 sign theorem (proof record
 [`1251`](../proofs/1251_g8_four_channel_ledger.md)).
 
+Formal brick G8 diagonal-channel positivity (record 1252, 2026-09-10): the
+base and internal leakage operators in that same-owner ledger are each proved
+positive by writing them as `E† W E` for the already-positive detector `W`.
+The result is a genuine finite-window sign certificate for the two diagonal
+channels, not a generic interface or a `qw` claim.  Cross-channel signs,
+healthy-limit readback, the L4 projection-limit contract, and the A4
+finite-visible-prime inequality remain open (proof record
+[`1252`](../proofs/1252_g8_channel_positivity.md)).
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:

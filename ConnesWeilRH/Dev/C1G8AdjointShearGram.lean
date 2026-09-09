@@ -466,6 +466,33 @@ noncomputable def g8SourceCutoffLeakageOperator
       (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n) ∘L
     sourceInclusion lambda
 
+theorem g8SourceCutoffBaseOperator_isPositive
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) (n : Nat) :
+    (g8SourceCutoffBaseOperator owner lambda family n).IsPositive := by
+  let C := fullBoundaryPositiveOperator owner.sourceTest
+    (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n)
+  let J := sourceInclusion lambda
+  unfold g8SourceCutoffBaseOperator
+  change (((J)† ∘L C†) ∘L detectorOperator owner ∘L C ∘L J).IsPositive
+  have h := (detectorOperator_isPositive_for_g8 owner).adjoint_conj (C ∘L J)
+  simpa only [ContinuousLinearMap.adjoint_comp, ContinuousLinearMap.comp_assoc] using h
+
+theorem g8SourceCutoffLeakageOperator_isPositive
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) (n : Nat) :
+    (g8SourceCutoffLeakageOperator owner lambda family n).IsPositive := by
+  let C := fullBoundaryPositiveOperator owner.sourceTest
+    (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n)
+  let J := sourceInclusion lambda
+  let E := (finiteEulerPulledObliqueShear lambda family)† ∘L C ∘L J
+  unfold g8SourceCutoffLeakageOperator
+  change ((((J)† ∘L C†) ∘L finiteEulerPulledObliqueShear lambda family) ∘L
+      detectorOperator owner ∘L (finiteEulerPulledObliqueShear lambda family)† ∘L C ∘L J).IsPositive
+  have h := (detectorOperator_isPositive_for_g8 owner).adjoint_conj E
+  simpa only [E, ContinuousLinearMap.adjoint_comp,
+    ContinuousLinearMap.adjoint_adjoint, ContinuousLinearMap.comp_assoc] using h
+
 theorem g8SourceCutoffPairData_traceProduct_eq_fourChannelLedger
     {ν ρ : Type*}
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
