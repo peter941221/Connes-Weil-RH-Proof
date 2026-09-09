@@ -186,7 +186,7 @@ Audit: `#print axioms` on A1, A1b, A2, A4, each exactly
 fidelity example refuting the exact consumer conjunction of F-D.
 
 Build protocol: focused acceptance build of the two new modules on the warm
-mirror (`/home/peter/rh`, ext4), acceptance by LOG CONTENT (success footer,
+ext4 Linux mirror, acceptance by LOG CONTENT (success footer,
 zero `error:` lines, axiom prints), not exit code.  Resource note: the
 record 1225 section 4 official probe (invocation 3) may still be running on
 the same machine; the focused build is cache-warm and light, expected to
@@ -235,3 +235,55 @@ model-level statements quoted (the +1.895768e-02 control value) remain
 MODEL twins under law 65.  Line-B frozen modules stay frozen; this record
 acts on the Route-1 socket file only through Peter's 2026-09-09 recon
 directive and consumes it read-only.
+
+## 8. Post-run addendum: FULL-LANDING
+
+Build ledger: the registered focused build of the two new modules was GREEN
+FIRST TRY - log `build-1226-aggregate-guard.log`, footer
+`Build completed successfully (3760 jobs)`, zero `error:` lines, zero
+`sorryAx`, and all 4 `#print axioms` records in
+`C1AggregateSocketSatisfiabilityAudit` exactly
+[propext, Classical.choice, Quot.sound] (wrapped lines rejoined and
+verified).  The `G3` fidelity example compiled with the audit, confirming
+`A2` refutes the exact consumer conjunction of F-D.  No falsifier fired;
+branch = FULL-LANDING.
+
+G4 hygiene: the first commit of this file had leaked the local mirror path
+once in section 4; generalized to "warm ext4 Linux mirror" before any push;
+rescan shows zero matches across the record's artifacts.
+
+Landed declarations, names and statements exactly as registered:
+
+```text
+A1   not_bombieriQuadraticAggregateP2BridgeData_of_healthyDetectorData
+A1b  not_nonempty_bombieriQuadraticAggregateP2BridgeData_of_healthyDetectorData
+A2   no_rightZero_aggregateProducer_witness
+A4   sourceRH_of_all_vanishing_aggregateSockets
+```
+
+Route ruling (this record's decision):
+
+1. Record 1209's exit (a) - the genuine signed trace/tail lower bound into
+   the aggregate socket - is FORMALLY DEAD for every healthy detector and
+   every finite-parameter choice `(gamma, z, t, N)` (K1, now committed as
+   A1/A1b).  The recon planned to explore it for ~1 week was discharged by
+   this Stage-A audit in the same window, which is exactly the outcome the
+   1225 Stage-0 discipline exists to produce.
+2. The 1208 aggregate consumer premise is per-instance vacuous (A2), and
+   the 1209 fourth-order machinery is SUPERSEDED-IN-CONTEXT (K3): 1209's
+   theorem stands untouched as a standalone spectral result; its role as
+   the route ruling for the aggregate socket is retired.
+3. Exit (b) is classified (C1-C3): a NEW bundled socket cannot survive
+   (C1); the only surviving shapes are universal non-bundled contracts,
+   now available on BOTH sides - projection-side 1225 `L4`
+   `sourceRH_of_all_vanishing_projectionContracts` and Bombieri-side A4
+   `sourceRH_of_all_vanishing_aggregateSockets`.  Both are re-point
+   markers, not campaigns: A4's per-instance obligation instance-reduces
+   to the gate sign plus the unaudited field1 realizability plumbing (C3),
+   and L4's instrument question is the record 1225 section 4 positive
+   control, still running at the time of this addendum.
+4. The next decision is Peter's: which universal shape (if either) receives
+   a new preregistration, informed by the incoming 1225 section 4 probe
+   verdict.  E2/1219 stays SUSPENDED; Line B stays frozen.
+
+RH is not claimed.
