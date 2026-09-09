@@ -486,6 +486,21 @@ failed its exact capture gate at `n=16, N=16384` (`tail_gap 5.40e-08 >
 no trace-readback conclusion or new numeric campaign is authorized. G3
 (Herglotz/de Branges convention bridge) remains parked under Round-1 NO-YIELD.
 
+### Generation round G4 (record 1230, 2026-09-09)
+
+`G4`, orbit-node to finite visible-profile factorization, is
+`NEEDS-ANALYSIS` after a FORMAL interface audit.  The actual unscaled orbit
+construction exposes finite raw Laplace target values, but only through nested
+existentials for `correction` and `n`; it does not expose an affine correction
+family, a node-map kernel, or a physical visible-profile map.  P2 instead
+samples the convolution square at physical `log n` coordinates.  Hence neither
+a node-preserving profile perturbation nor a node-to-profile factorization is
+currently well typed.  This is an API/ownership stop, not a no-go for a later
+canonical-family bridge.  Record
+[`1230`](../proofs/1230_nm_node_visible_profile_rank_preregistration.md)
+contains the preregistered falsifier and the exact source witness.  No Lean or
+numeric prototype opened.
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:

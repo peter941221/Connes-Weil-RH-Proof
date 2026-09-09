@@ -6,6 +6,51 @@ Status: PREREGISTRATION.  This is a paper-and-formal-interface audit, committed
 before any new Lean declaration, numerical run, or candidate survival claim.
 RH is not claimed.
 
+## 5. Post-run addendum: source/API audit
+
+Evidence level: FORMAL interface audit.  Verdict: `NEEDS-ANALYSIS` (the
+`NO-API` branch), not a barrier theorem and not a live Lean brick.
+
+The audit identifies the genuine orbit-side finite data.  The target-node
+object `healthyUnscaledTargetNodes rho` and its prescribed raw values are
+defined in `C1HealthyYoshidaUnscaledOrbit.lean:31-43`; the selected owner is
+assembled in
+`exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets`
+at lines 492-660.  Its raw correction does realize those values.  Thus G4.1
+and the node portion of G4.2 are real formal interfaces, not an invented
+ansatz.
+
+But this theorem returns
+`exists base, exists T, ... forall R, exists correction, exists C, exists n`.
+It neither selects a correction as a function of `rho` nor exports an affine
+source family, a difference action, or a node map whose kernel can be formed.
+The lower interpolation supplier is likewise existential:
+`exists_residualWindow_correction` in
+`Source/CC20YoshidaConvolution.lean:295-319`, ultimately using finite Mellin
+surjectivity in `Source/CC20YoshidaNearZeros.lean:1153-1180`.  That proves
+that one may realize specified finite Mellin data, but gives no theorem about
+two realizers' difference at a physical-space coordinate.
+
+On the P2 side the required observable is explicitly a *physical* one:
+`bilateralProfile F y = F.test y + F.test (-y)` in
+`C1P2BilateralProfile.lean:34-35`, sampled at `y = log n` over the
+detector-square's own finite `globalPrimeIndexSet`.  The orbit theorem supplies
+a support bound and hence a cutoff, but no named vector-valued profile map and
+no identity relating these physical evaluations to the finite Laplace-node
+values.  Consequently G4.3 exists only as a scalar readback interface, while
+G4.4 cannot be stated for a legal perturbation family.
+
+No legal `N_rho`/`V_rho` pair is therefore available, so neither
+`ker N_rho ⊆ ker V_rho` nor a node-preserving profile-changing perturbation is
+currently a well-typed claim.  Constructing an arbitrary finite-dimensional
+ansatz would violate this record's same-construction rule.  The exact next
+admissible brick, if pursued, is narrower: expose a canonical or explicitly
+parameterized correction family *together with* its physical-test evaluation
+API, then repeat G4.  It still has no sign source, and no numerical work or
+RH claim is authorized.
+
+RH is not claimed.
+
 Authority: map record [`006`](../map/006_new_math_creation_workflow.md), Beat
 0, after the G1 audit in record
 [`1229`](1229_nm_generate_direct_gate_preregistration.md).  The consumer is
