@@ -427,6 +427,43 @@ log path advances to `1225_official3.log`.  Disclosed generalization:
 never fuse sync and launch into one `&`-terminated chain - a backgrounded
 compound hides which step died.
 
+A8, registered BEFORE invocation 4 (invocation 3 was a registered-gate
+abort, and the gate itself was miscalibrated): invocation 3
+(`1225_control_logs/1225_official3.log`) ran the verified committed code and
+every gate matched the invocation-1/2 greens (C2 margin +0.1278, C3
+1.08e-05, C5 qw +1.895768e-02, S0.2/S0.4/S0.5 1.49e-10, S0.6 abs-drift/bulk
+4.93e-06) and - first time - the C4 replay PASSED: FP(detector twin, rank
+320) = 1.38278923e+33 vs the committed raw constant, rel 1.64e-07, well
+inside the A7b 1e-6 band (protocol fidelity is now PROVEN, and the A7b
+diagnosis is confirmed).  The invocation then died at the FIRST official
+ladder rung (n=8, N=8192, rank 2560) on the A4b rung assert: tail_gap
+3.13e-10 against the registered 1e-10.  Per the A4b semantics that is
+ABORTED-UNINFORMATIVE and the invocation carries zero verdict weight.
+Calibration finding: `tail_gap = (bulk - captured)/bulk` is the RELATIVE
+uncaptured W-trace, and the statistic it protects is FP = Tn*dt^2: the
+truncation error is bounded by ‖K‖_op * tail_gap * bulk*dt^2 with
+‖K‖_op <= 2 (sum of two orthogonal projections) and bulk*dt^2 =
+bulk_cont = 2*Rn*f0_cont - for the control at n=8, 2*19.05*6.5479e-02 =
+2.50, so the FAILING 3.13e-10 corresponds to an FP error <= 1.6e-9, while
+the C5 MATCH band |FP/qw - 1| <= 1e-2 at qw = 1.8958e-02 requires accuracy
+only to Delta-FP <= 1.9e-4: the failed value sits ~1.2e5 below anything
+that could flip the verdict.  Source of the miscalibration, disclosed: the
+A4b rank/gate selection was measured at rank-diag on the DENSE_N=2048
+grid, but capture fraction at fixed rank varies with the window dimension
+(2*Rn/dt ~ 7250 at the n=8/8192 rung vs 1809 at 2048), and the control's
+smooth narrow bump has a much shallower spectral knee than the detector
+twin (replay tail_gap 2.69e-14 at rank 320) - extrapolating the 2048-grid
+safety margin to the 8192-grid rung set 1e-10 too tight.  Registered
+amendment: the official rung assert becomes tail_gap < 1e-8, still
+ABORTED-UNINFORMATIVE on breach (same branch semantics), with the quantity
+printed on every rung as before.  At the worst ladder window (n=64:
+bulk_cont = 9.83) the 1e-8 gate bounds FP error <= 2e-7, three orders
+below the band.  If a later invocation-4 rung breaches 1e-8 that is a REAL
+capture finding (rank 2560 insufficient at large windows for the control
+family), not a threshold artifact, and it gets its own registered response.
+Operationally: the invocation-4 log path advances to
+`1225_official4.log`; sync-then-verify and subshell detach per A7c.
+
 Implementation: new builder function in a NEW file
 `docs/proofs/1225_positive_control_probe.py` forking the 1212 machinery
 (never editing the committed 1212 script or its JSONs); env selectors

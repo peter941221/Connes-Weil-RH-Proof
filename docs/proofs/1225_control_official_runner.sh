@@ -13,5 +13,5 @@ mkdir -p "$LOGDIR"
 PYTHONUNBUFFERED=1 PROBE_RANK=2560 PROBE_OUT=1225_control_results.json \
   /home/peter/.local/bin/uv run --with numpy --with scipy --with mpmath \
   python "$PROOF/1225_positive_control_probe.py" \
-  > "$LOGDIR/1225_official3.log" 2>&1
+  > "$LOGDIR/1225_official4.log" 2>&1
 echo "official exit $?"
