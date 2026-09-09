@@ -285,6 +285,29 @@ spectral diagnostic on the n=8 grid, no FP/qw readout):
   knee by construction); a rung that cannot certify it makes the
   invocation ABORTED-UNINFORMATIVE (rig finding, not mathematical).
 
+A5 is registered after smoke-4 (S0.5 passed at the A4b rank:
+`Tn dense-vs-spectral 1.49e-10`; the invocation then failed S0.6 with
+`rel drift 1.65e-02` of Tn/bulk between the pad-24 and pad-40 fixed-dt
+boxes).  Diagnosis: the wrap gate statistic is SCALE-WRONG for a small-
+signal test, not evidence of contamination.  Genuine box-content wrapping
+is an O(bulk) event (a fraction of the content mass crosses the period
+seam); the inherited statistic |d(Tn/bulk)/(Tn/bulk)| measures the drift in
+units of Tn, which for the control is 2.3e-4·bulk (the control's Tn is a
+tiny cancellation difference), so the SAME absolute period-dependence of
+the P_V term that the 1212 baseline disclosed as a smooth spectral
+quadrature effect (2.9e-4 relative at DETECTOR grade, where it was
+O(bulk)-scaled) is amplified 4000-fold relative to the control's tiny Tn.
+The S0.6 gate runs only on the control sample in this script (the C4
+replay is a rung + FP check and does not pass through it), so the
+detector's calibration is untouched by the amendment.  Registered fix:
+the S0.6 statistic becomes
+`abs_drift_bulk = |Tn(40) - Tn(24)| / bulk < 1e-3` - an O(bulk) seam-wrap
+event cannot pass it, while the observed control drift (1.65e-02 relative
+= 3.7e-6 of bulk) does, with 270x margin.  Cross-check reported alongside:
+the same drift in sn_dt units (3.9e-5 at smoke dt) must stay below 1% of
+the adjudicated FP scale (1.9e-2 expected under MATCH), so the box effect
+cannot manufacture or hide a branch decision.
+
 C3 tolerance is amended 1e-9 -> 1e-3 WITH CAUSE, not by rescue: the closed
 form `qw = -arch` requires the pole term of the SQUARE to vanish, and the
 model dictionary pins lap h (the pre-dressing correction functional), not

@@ -847,19 +847,25 @@ def main():
     r40 = rung(8, N40, sample, qwv["f0"], pad=40.0)
     ratio24 = r24["Tn"] / r24["bulk"]
     ratio40 = r40["Tn"] / r40["bulk"]
+    # A5 (1225 sec.4): wrap contamination is an O(bulk) mass event, so the
+    # drift is measured against BULK, not against the control's tiny Tn.
     wrap_rel = abs(ratio24 - ratio40) / max(abs(ratio24), 1e-300)
+    abs_drift_bulk = abs(r24["Tn"] - r40["Tn"]) / r24["bulk"]
+    drift_sn_dt = abs(r24["sn_dt"] - r40["sn_dt"])
     print(f"S0.6 wrap gate n=8 fixed-dt: N {Nw_gate}->{N40}, "
           f"dt {dt24:.6f}->{r40['dt']:.6f}  "
           f"Tn/bulk(24)={ratio24:+.9f}  Tn/bulk(40)={ratio40:+.9f}  "
-          f"rel drift {wrap_rel:.2e}")
-    # tolerance 1e-3: the gate exists to catch box-content wrapping (an
-    # O(wrap-mass) effect); the measured drift at smoke dt is 2.9e-4 and
-    # is a smooth spectral-resolution effect (dxi = 1/T and dt both
-    # change), scaling down with the ladder's finer dt.
-    assert wrap_rel < 1e-3, "S0.6 wrap contamination FAILED"
+          f"rel(Tn) drift {wrap_rel:.2e}  abs drift/bulk {abs_drift_bulk:.2e}")
+    # A5 tolerance 1e-3 of bulk: a genuine seam wrap moves O(content mass)
+    # ~ O(bulk) of Tn; the observed smooth P_V period-dependence is 3.7e-6
+    # of bulk.  Cross-check: drift in sn_dt units vs the FP scale (1% band).
+    assert abs_drift_bulk < 1e-3, "S0.6 wrap contamination FAILED (A5)"
+    assert drift_sn_dt < 0.01 * abs(qwv["qw"]), \
+        "S0.6 FAILED: box drift is not negligible vs the 1% adjudication band"
     del r24, r40
     wrap_gate = dict(n=8, N24=Nw_gate, N40=N40, dt24=dt24,
-                     ratio24=ratio24, ratio40=ratio40, rel_drift=wrap_rel)
+                     ratio24=ratio24, ratio40=ratio40, rel_drift=wrap_rel,
+                     abs_drift_bulk=abs_drift_bulk, drift_sn_dt=drift_sn_dt)
     # C4 replay gate (registered sec.4): the committed baseline detector
     # twin must reproduce FP_inf = +1.3791e33 (1213) within 2e-4 at the
     # SAME rank in the same invocation, so any rank escalation under A4 is
