@@ -212,20 +212,20 @@ amendment) may add seeds.
 +-----+--------------------------------+--------------------------------------+----------+
 | id  | category                       | claimed positivity mechanism         | status   |
 +-----+--------------------------------+--------------------------------------+----------+
-| M1  | Pick/Nevanlinna (Herglotz)     | positive-measure representation of   | SEEDED   |
+| M1  | Pick/Nevanlinna (Herglotz)     | positive-measure representation of   | SWEEPED  |
 |     |                                | functions positive on a half-plane   |          |
 +-----+--------------------------------+--------------------------------------+----------+
-| M2  | complete monotonicity /        | CM <=> Laplace transform of a        | SEEDED   |
+| M2  | complete monotonicity /        | CM <=> Laplace transform of a        | SWEEPED  |
 |     | Bernstein                      | positive measure (Bernstein's        |          |
 |     |                                | theorem)                               |          |
 +-----+--------------------------------+--------------------------------------+----------+
-| M3  | total positivity / Schoenberg  | variation-diminishing kernels;       | SEEDED   |
+| M3  | total positivity / Schoenberg  | variation-diminishing kernels;       | SWEEPED  |
 |     |                                | real-zero entire functions           |          |
 +-----+--------------------------------+--------------------------------------+----------+
-| M4  | de Branges entire-function     | Hilbert-space positivity; a named    | SEEDED   |
+| M4  | de Branges entire-function     | Hilbert-space positivity; a named    | SWEEPED  |
 |     | spaces                         | RH program                             |          |
 +-----+--------------------------------+--------------------------------------+----------+
-| M5  | Lee-Yang / circle theorems     | positivity => zeros on the critical  | SEEDED   |
+| M5  | Lee-Yang / circle theorems     | positivity => zeros on the critical  | SWEEPED  |
 |     |                                | line (zero-repulsion idiom)          |          |
 +-----+--------------------------------+--------------------------------------+----------+
 | M6  | Bombieri quadratic form        | finite weighted Hermitian form =     | COMMITTED|
@@ -242,6 +242,91 @@ Sweep-round rows are appended below the seed table by each round's
 committed addendum, with fields: reference (title + arXiv id or URL),
 one-line mechanism, corridor-spec contact (which of U1-U4 / S1-S5 the
 mechanism addresses or threatens), status.
+
+### Round 1 (record 1227, 2026-09-09)
+
+Branch YIELD: four of the five queried categories produced includable
+rows; M2 ended EMPTY-WITH-QUERIES (queries retained in the record 1227
+preregistration section 2). A SWEEPED row is retrieval output, not an
+endorsement; screening (beat 2) is a registered follow-up record.
+
+```text
++-------+---------------------+--------------------------------------------+---------------------------+
+| row   | reference           | mechanism (one line)                       | corridor contact          |
++-------+---------------------+--------------------------------------------+---------------------------+
+| R1.1  | arXiv:2108.04807    | truncated Hankel-matrix positivity           | U3, S1: finite-matrix     |
+|       | Bickel-Pascoe-      | conditions built from power-series           | positivity by             |
+|       | Sargent, "Zero-free | coefficients at each real point =>           | construction; Hankel      |
+|       | regions near a      | zero-free regions near the line; a family    | family is the closest     |
+|       | line"               | of relaxations of RH                         | published relative of     |
+|       |                     |                                            | the M6 engine             |
++-------+---------------------+--------------------------------------------+---------------------------+
+| R3.1  | arXiv:2007.12889    | Schoenberg total positivity and its          | U3: structural            |
+|       | "Schoenberg's       | Laguerre-Polya connection for zeta-related   | positivity <=> real-      |
+|       | theory of totally   | kernels (review)                             | zero entire functions     |
+|       | positive functions  |                                            |                           |
+|       | and the Riemann     |                                            |                           |
+|       | zeta function"      |                                            |                           |
++-------+---------------------+--------------------------------------------+---------------------------+
+| R3.2  | arXiv:2602.20313    | Polya-frequency order of the de Bruijn-      | U3; S5-adjacent: the      |
+|       | "On the Polya       | Newman kernel K(u) = Phi(|u|) (Feb 2026);    | DN deformation is a       |
+|       | frequency order of  | RH <=> Lambda <= 0 deformation context       | moving kernel family      |
+|       | the de Bruijn-      |                                            |                           |
+|       | Newman kernel"      |                                            |                           |
++-------+---------------------+--------------------------------------------+---------------------------+
+| R4.1  | arXiv:2301.00421    | completion of C_c^inf(R) under the Weil-     | U3; direction is RH =>    |
+|       | Suzuki, "On the     | distribution hermitian form; positive        | positivity (converse is   |
+|       | Hilbert space       | definite UNDER RH (v3 2025)                  | the gate shape); map-004  |
+|       | derived from the    |                                            | endpoint-interface        |
+|       | Weil distribution"  |                                            | caution at screen         |
++-------+---------------------+--------------------------------------------+---------------------------+
+| R4.2  | arXiv:2301.05779    | Li coefficients realized as norms in a       | U3: positivity by         |
+|       | "Li coefficients    | de Branges-type model space; norm            | construction (norms);     |
+|       | as norms of         | nonnegativity yields a necessary condition   | bridge to the Li-         |
+|       | functions in a      | for RH                                       | criterion seed (M8        |
+|       | model space"        |                                            | candidate)                |
++-------+---------------------+--------------------------------------------+---------------------------+
+| R4.3  | arXiv:1204.1827     | canonical system of differential equations   | S2/S5-adjacent: operator  |
+|       | "A canonical system | whose de Branges space is built from zeta    | families generated by a   |
+|       | of differential     | data                                         | differential system       |
+|       | equations arising   |                                            |                           |
+|       | from the ..."       |                                            |                           |
++-------+---------------------+--------------------------------------------+---------------------------+
+| R4.4  | arXiv:2209.04658    | the screw line of zeta generates a de        | U3                        |
+|       | "The screw line of  | Branges space H(E) isomorphic to a model     |                           |
+|       | the Riemann zeta-   | space                                        |                           |
+|       | function and its    |                                            |                           |
+|       | applications"       |                                            |                           |
++-------+---------------------+--------------------------------------------+---------------------------+
+| R4.5  | arXiv:2012.11121    | chains of reproducing-kernel Hilbert spaces  | S5-adjacent: an indexed   |
+|       | "Chains of          | controlled by a first-order system           | chain of spaces is a      |
+|       | reproducing kernel  |                                            | moving-family idiom       |
+|       | Hilbert spaces ..." |                                            |                           |
++-------+---------------------+--------------------------------------------+---------------------------+
+| R5.1  | arXiv:2411.16777    | Lee-Yang theorem + Fisher zeros locate the   | U2 context: circle-       |
+|       | "Equivalence        | partner function's zeros on the critical     | theorem transfer of a     |
+|       | between the zero    | line; equivalence of zero distributions      | positivity property       |
+|       | distributions ..."  |                                            |                           |
++-------+---------------------+--------------------------------------------+---------------------------+
+| R5.2  | arXiv:2211.16680    | new van Dantzig pairs (xi, eta) both real-   | U3                        |
+|       | "A new class of     | rooted via the Lee-Yang property             |                           |
+|       | solutions to the    |                                            |                           |
+|       | van Dantzig         |                                            |                           |
+|       | problem ..."        |                                            |                           |
++-------+---------------------+--------------------------------------------+---------------------------+
+| M2    | EMPTY-WITH-QUERIES  | no complete-monotonicity/Bernstein hit       | round-2 refinement        |
+|       | (round 1)           | passed the inclusion rule                    | candidates listed in      |
+|       |                     |                                            | record 1227 sec. 7        |
++-------+---------------------+--------------------------------------------+---------------------------+
+```
+
+Retrieval log (NOT registry material, recorded for honesty and round-2
+planning): arXiv:2502.04962 (lecture notes - rejected at the inclusion
+rule), arXiv:2404.07832 (de Branges extremal-problem application, not a
+program), arXiv:1705.06222 and arXiv:1910.14368 (Polya-Hilbert /
+scaling-Hamiltonian spectral programs - named RH programs found in
+round-1 retrieval but outside the seed categories, logged as a possible
+round-2 seed), arXiv:2602.04022 (Feb 2026 survey - map context only).
 
 ## 5. Kill-ledger format
 

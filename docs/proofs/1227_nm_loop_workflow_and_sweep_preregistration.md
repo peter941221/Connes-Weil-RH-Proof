@@ -112,4 +112,48 @@ ground truth +1.895768e-02) remains a MODEL twin under law 65.
 
 ## 7. Post-run addendum: round-1 yield
 
-[To be appended after the sweep runs.]
+Branch: YIELD. The registered queries ran as committed (arXiv retrieval,
+one pass per category; no tool failure - F1 did not fire). Ten includable
+rows landed in map 006 section 4: M1 one row, M3 two rows, M4 five rows,
+M5 two rows. M2 = EMPTY-WITH-QUERIES (no complete-monotonicity/Bernstein
+hit passed the inclusion rule; the query is retained for round 2). M6
+unchanged (corpus-internal engine, no external query).
+
+Three borderline hits were adjudicated by abstract retrieval before the
+registry decision, inclusion rule applied strictly:
+
+- arXiv:2301.00421 (Suzuki, "On the Hilbert space derived from the Weil
+  distribution", v3 2025): ADOPTED. The completion of C_c^inf(R) under
+  the Weil-distribution hermitian form, positive definite UNDER RH - the
+  project's home explicit-formula idiom. The conditional direction is
+  recorded honestly (RH => positivity; the gate needs the converse
+  transfer), and the map-004 endpoint-interface caution applies at
+  screen time.
+- arXiv:2108.04807 (Bickel-Pascoe-Sargent, "Zero-free regions near a
+  line"): ADOPTED. Truncated Hankel-matrix positivity conditions built
+  from power-series coefficients yield zero-free regions near the line -
+  a family of relaxations of RH. Finite-matrix positivity by
+  construction; structurally the closest published relative of the M6
+  unconditional engine.
+- arXiv:2502.04962 (Pedersen, "Special Functions from a Complex
+  Viewpoint"): REJECTED. Mini-course lecture notes: neither a named RH
+  program nor a new mechanism.
+
+Round-2 amendment candidates (NOT registered; each needs a committed
+amendment to section 2 before its queries run, law 42): M2 refinements
+("Laguerre-Polya class" + xi function; "Bernstein function" + zeta);
+extension seeds M7 (Nyman-Beurling/Baez-Duarte Gram-matrix positivity -
+note the R1.1 Hankel adjacency), M8 (Li's criterion - note R4.2 already
+bridges to it), M9 (Burnol explicit-formula Hilbert spaces); and a
+possible M10 (spectral interpretation: Polya-Hilbert operators
+arXiv:1705.06222, scaling Hamiltonian arXiv:1910.14368 - named programs
+found in round-1 retrieval but outside the seed categories, therefore
+logged, not registered).
+
+Next beat: screening (beat 2) of the ten SWEEPED rows against U1-U4
+(plus S1-S5 for rows aimed at the moving-operator route) is a registered
+follow-up record; it is paper-only and consumes no instrument time. No
+candidate survival is claimed by this record. The record 1225 sec. 4
+probe continued running untouched throughout the sweep.
+
+RH is not claimed.
