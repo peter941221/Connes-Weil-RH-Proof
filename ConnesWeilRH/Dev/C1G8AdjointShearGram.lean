@@ -122,6 +122,40 @@ theorem sourceCompression_g8AdjointShearGram_cross_eq_targetResponse
   exact (finiteEulerTargetCommutatorResponse_eq_pulledObliqueShear
     owner lambda family).symm
 
+/- The fourth source-compression channel is the internal physical leakage
+square.  The source inclusion is an isometry, so no trace cyclicity is used
+to identify this term. -/
+theorem sourceCompression_g8AdjointShearGram_eq_leakageSquare
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    (sourceInclusion lambda)† ∘L
+        finiteEulerPulledObliqueShear lambda family ∘L
+          detectorOperator owner ∘L
+            (finiteEulerPulledObliqueShear lambda family)† ∘L
+              sourceInclusion lambda =
+      (sourcePhysicalCoframeLeakage lambda family)† ∘L
+        detectorOperator owner ∘L sourcePhysicalCoframeLeakage lambda family := by
+  rw [finiteEulerPulledObliqueShear_eq_inclusion_comp_physicalLeakageAdjoint]
+  rw [ContinuousLinearMap.adjoint_comp]
+  rw [ContinuousLinearMap.adjoint_adjoint]
+  let J := sourceInclusion lambda
+  let L := sourcePhysicalCoframeLeakage lambda family
+  let W := detectorOperator owner
+  have hJJ : J† ∘L J = ContinuousLinearMap.id ℂ (sourceSoninCarrier lambda) := by
+    dsimp [J]
+    exact sourceInclusion_adjoint_comp_self lambda
+  change ((J† ∘L J) ∘L (L† ∘L W ∘L L)) ∘L (J† ∘L J) =
+    L† ∘L W ∘L L
+  rw [hJJ]
+  simp only [ContinuousLinearMap.id_comp, ContinuousLinearMap.comp_id]
+
+theorem sourceCompression_g8AdjointShearGram_leakageSquare_isPositive
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    (((sourcePhysicalCoframeLeakage lambda family)†) ∘L
+        detectorOperator owner ∘L sourcePhysicalCoframeLeakage lambda family).IsPositive := by
+  exact (detectorOperator_isPositive_for_g8 owner).adjoint_conj _
+
 /-! ### Same-owner finite-window trace carrier -/
 
 /-- The concrete finite-window factor is inserted on both sides of the G8

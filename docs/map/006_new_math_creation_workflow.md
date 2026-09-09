@@ -622,6 +622,13 @@ This is a legal finite-window owner, but it has no `qw` readback or
 finite-visible-prime sign yet; the remaining obligation is the concrete
 four-channel ledger on this owner (proof record [`1243`](../proofs/1243_g8_finite_window_trace_carrier.md)).
 
+Formal brick G8 leakage channel (record 1244, 2026-09-10): the fourth source
+compression term is formally reduced to the internal physical leakage square
+`L_S† W_g L_S` using `N_S = J L_S†` and `J†J = I`.  This closes the structural
+identity for the leakage channel without a trace cycle.  Quantitative
+trace/readback and finite-prime sign remain open (proof record
+[`1244`](../proofs/1244_g8_internal_leakage_square.md)).
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:
