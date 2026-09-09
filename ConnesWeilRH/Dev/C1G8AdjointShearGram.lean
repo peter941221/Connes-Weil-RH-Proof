@@ -1,4 +1,5 @@
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSGatePhysicalObliqueShearKernelReduction
+import ConnesWeilRH.Dev.C1Stage3ProjectionWindow
 
 /-!
 # G8 adjoint-shear Gram compression
@@ -24,6 +25,10 @@ open CCM25Concrete.CCM24FiniteSPhysicalLeakage
 open CCM24FiniteSGramOrderingBridge
 open CCM24FiniteSPhysicalLeakage
 open CCM24FiniteSGatePhysicalTargetCommutatorReduction
+open CC20Concrete.PositiveTrace
+open Dev.C1PositiveTraceCutoffAdapter
+open Dev.C1PositiveTraceWindowProducer
+open Dev.C1Stage3ProjectionWindow
 open scoped InnerProduct InnerProductSpace
 
 noncomputable section
@@ -116,6 +121,69 @@ theorem sourceCompression_g8AdjointShearGram_cross_eq_targetResponse
   change finiteEulerPulledObliqueShearResponse owner lambda family = _
   exact (finiteEulerTargetCommutatorResponse_eq_pulledObliqueShear
     owner lambda family).symm
+
+/-! ### Same-owner finite-window trace carrier -/
+
+/-- The concrete finite-window factor is inserted on both sides of the G8
+Gram kernel.  This is the first traceable G8 owner: the window factor is
+Hilbert--Schmidt, while the middle G8 kernel is the already-proved positive
+ambient operator. -/
+noncomputable def g8CutoffPairData
+    {ν : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier) (n : Nat) :
+    BasisHilbertSchmidtPairData (G := finiteSCarrier) globalBasis :=
+  kernelSandwichPairData globalBasis
+    (fullBoundaryPositiveOperator owner.sourceTest
+      (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n))
+    (g8AdjointShearGram owner lambda family)
+    (fullBoundaryPositiveOperator_basis_normSq_summable
+      owner.sourceTest (cutoffLower owner.sourceTest n)
+      (cutoffUpper owner.sourceTest n)
+      (cutoffFullBasis owner.sourceTest n)
+      (cutoffOutputBasis owner.sourceTest n) globalBasis)
+
+theorem g8CutoffPairData_traceProduct_eq
+    {ν : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier) (n : Nat) :
+    (g8CutoffPairData owner lambda family globalBasis n).traceProduct =
+      (fullBoundaryPositiveOperator owner.sourceTest
+        (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n)).adjoint ∘L
+        g8AdjointShearGram owner lambda family ∘L
+          fullBoundaryPositiveOperator owner.sourceTest
+            (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n) := by
+  exact kernelSandwichPairData_traceProduct_eq _ _ _ _
+
+theorem g8CutoffPairData_traceProduct_isTraceClassAlong
+    {ν : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier) (n : Nat) :
+    IsTraceClassAlong globalBasis (g8CutoffPairData owner lambda family globalBasis n).traceProduct := by
+  exact kernelSandwichPairData_traceProduct_isTraceClassAlong _ _ _ _
+
+theorem g8CutoffPairData_traceProduct_isPositive
+    {ν : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier) (n : Nat) :
+    (g8CutoffPairData owner lambda family globalBasis n).traceProduct.IsPositive := by
+  exact kernelSandwichPairData_traceProduct_isPositive _ _ _ _
+    (g8AdjointShearGram_isPositive owner lambda family)
+
+theorem g8CutoffPairData_trace_re_nonnegative
+    {ν : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier) (n : Nat) :
+    0 ≤ (ordinaryTraceAlong globalBasis
+      (g8CutoffPairData owner lambda family globalBasis n).traceProduct).re := by
+  exact ordinaryTraceAlong_re_nonnegative_of_positive globalBasis _
+    (g8CutoffPairData_traceProduct_isPositive owner lambda family globalBasis n)
+    (g8CutoffPairData_traceProduct_isTraceClassAlong owner lambda family globalBasis n)
 
 end
 end C1G8AdjointShearGram

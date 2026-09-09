@@ -11,6 +11,11 @@ open C1G8AdjointShearGram
 #print axioms g8AdjointShearGram_isPositive
 #print axioms sourceCompression_g8AdjointShearGram_eq_fourTerms
 #print axioms sourceCompression_g8AdjointShearGram_cross_eq_targetResponse
+#print axioms g8CutoffPairData
+#print axioms g8CutoffPairData_traceProduct_eq
+#print axioms g8CutoffPairData_traceProduct_isTraceClassAlong
+#print axioms g8CutoffPairData_traceProduct_isPositive
+#print axioms g8CutoffPairData_trace_re_nonnegative
 
 end C1G8AdjointShearGramAudit
 end Source

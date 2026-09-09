@@ -613,6 +613,15 @@ This closes the algebraic screen, but not the trace-class or `qw` readback:
 the next work is a same-owner four-channel ledger, not another interface or
 numeric prototype.
 
+### Formal brick G8 finite-window carrier (record 1243, 2026-09-10)
+
+The existing test-owned Hilbert--Schmidt cutoff factor now sandwiches the G8
+kernel on the same whole-line carrier.  The resulting `g8CutoffPairData` is
+formally trace-class and positive, with nonnegative ordinary-trace real part.
+This is a legal finite-window owner, but it has no `qw` readback or
+finite-visible-prime sign yet; the remaining obligation is the concrete
+four-channel ledger on this owner (proof record [`1243`](../proofs/1243_g8_finite_window_trace_carrier.md)).
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:
