@@ -118,7 +118,9 @@ R0 = 10.05
 NS = [8, 16, 32, 64]
 N_COARSE, N_FINE = 8192, 16384
 PAD = 24.0
-RANK = 320                 # spectral-trace rank
+RANK = int(os.environ.get("PROBE_RANK", "320"))   # spectral-trace rank;
+# A4 (1225 sec.4): smallest rank of the registered ladder
+# {320,640,1280,2560,5120} passing the S0.5 fidelity gate at DENSE_N=2048.
 TRACE_TOL = 1e-10          # eigsh relative tolerance
 VN_TOL = 1e-11             # von Neumann trace stabilization (relative)
 VN_MAX = 60
@@ -717,9 +719,9 @@ def sample_fn(g):
 
 def main():
     smoke = os.environ.get("PROBE_SMOKE") == "1"
-    if smoke:
-        globals()["RANK"] = 96
-        globals()["DENSE_N"] = 512
+    # A4 (registered): smoke mode no longer downscales RANK or DENSE_N --
+    # the narrow-band control needs the official spectral rank to pass the
+    # S0.5 fidelity check; smoke still shortens the ladder and dt-pair.
     ns = [4] if smoke else NS
     pairs = [(1024, 2048)] if smoke else [(N_COARSE, N_FINE)]
     t0 = time.time()
@@ -853,6 +855,26 @@ def main():
     del r24, r40
     wrap_gate = dict(n=8, N24=Nw_gate, N40=N40, dt24=dt24,
                      ratio24=ratio24, ratio40=ratio40, rel_drift=wrap_rel)
+    # C4 replay gate (registered sec.4): the committed baseline detector
+    # twin must reproduce FP_inf = +1.3791e33 (1213) within 2e-4 at the
+    # SAME rank in the same invocation, so any rank escalation under A4 is
+    # shown to leave the committed convention untouched.  Official mode
+    # only (the committed number is the n=64/fine grade).
+    replay = None
+    if not smoke:
+        g_det, _ = build_g_delta0()
+        sdet = sample_fn(g_det)
+        qwv_det = qw_terms(g_det)
+        r_det = rung(64, N_FINE, sdet, qwv_det["f0"])
+        fp_det = r_det["sn_dt"]
+        rel_replay = abs(fp_det / 1.3791e33 - 1.0)
+        print(f"C4 replay (detector twin, RANK={RANK}): FP_inf {fp_det:.6e} "
+              f"vs committed +1.3791e33  rel {rel_replay:.2e}  "
+              f"(tail_gap {r_det['tail_gap']:.2e})")
+        assert rel_replay <= 2e-4, \
+            "C4 FAILED: rig does not reproduce the committed FP_inf"
+        replay = dict(fp=fp_det, rel=rel_replay, rank=RANK,
+                      tail_gap=r_det["tail_gap"], qw=qwv_det["qw"])
     # ladder: each registered rung is a dt-refinement PAIR (coarse,
     # fine = coarse/2); both grades run at every n (the first official
     # invocation iterated only the fine grade -- loop bug, disclosed in
@@ -884,7 +906,7 @@ def main():
                 json.dump(dict(record="1225", mode=mode, model=True,
                                control_eps=CONTROL_EPS, control=meta,
                                lambda_=LAMBDA, S=S_PRIMES, qw=qwv,
-                               c3_deviation=dev3,
+                               c3_deviation=dev3, rank=RANK, replay=replay,
                                dense_validation=dv, wrap_gate=wrap_gate,
                                results=results),
                           fh, indent=1)

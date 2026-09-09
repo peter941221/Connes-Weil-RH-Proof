@@ -229,6 +229,32 @@ therefore registered before any official digit:
       maximum of |g| outside [-0.347, 0.347] so the leak is auditable.
 ```
 
+A4 is registered after smoke-2 (which passed C2/C3/C5 but failed S0.5:
+`Tn dense-vs-spectral 5.6e-01, term1 rel 2.3` at the smoke override
+RANK=96/DENSE_N=512).  Root cause: the effective spectral rank of
+`W = C_n^* C_n` scales with the test's FREQUENCY bandwidth, which for the
+control bump is ~1/(10 eps) = one-tenth of the ROOT window, roughly two
+orders wider than the detector's (support 56); the smoke downscale, tuned to
+the detector's near-flat spectral tail, truncates ~80% of the control's
+trace mass at rank 96 of a 512-point spectrum.  Registered decision
+procedure BEFORE any further digit:
+
+```text
+  the official ladder runs at the smallest rank from the ladder
+      RANK in {320 (1212 default), 640, 1280, 2560, 5120}
+  selected by the S0.5 fidelity gate at the COMMITTED DENSE_N = 2048
+  validation grid (`dv.rel < 1e-6`, unchanged tolerance); every rung
+  reports its tail_gap = (bulk - captured)/bulk into the results JSON for
+  audit; if no rank <= 5120 reaches the committed fidelity at the ladder's
+  finest N = 16384, the campaign is ABORTED-UNINFORMATIVE (the instrument
+  cannot certify the readback on this test class - a rig finding, not a
+  mathematical one).
+  RANK is selected by PROBE_RANK (default 320); the SMOKE mode no longer
+  downscales RANK or DENSE_N (only the ladder n-list and dt-pair).
+  Detector-twin fidelity is protected by the registered C4 replay gate
+  (FP_inf = +1.3791e33 within 2e-4), which runs in the same invocation.
+```
+
 C3 tolerance is amended 1e-9 -> 1e-3 WITH CAUSE, not by rescue: the closed
 form `qw = -arch` requires the pole term of the SQUARE to vanish, and the
 model dictionary pins lap h (the pre-dressing correction functional), not
