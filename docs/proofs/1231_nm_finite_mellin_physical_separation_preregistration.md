@@ -2,9 +2,9 @@
 
 Date: 2026-09-09.
 
-Status: PREREGISTRATION.  This is a formal, analytic separation brick
-registered before any new Lean declaration or numerical run.  RH is not
-claimed.
+Status: `SCREENED-LIVE` at its deliberately raw scope after the formal proof
+in section 4.  The separation brick was registered before any new Lean
+declaration or numerical run.  RH is not claimed.
 
 Authority: map record [`006`](../map/006_new_math_creation_workflow.md),
 following G4's source/API stop in record

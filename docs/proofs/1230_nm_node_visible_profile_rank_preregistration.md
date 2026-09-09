@@ -2,9 +2,9 @@
 
 Date: 2026-09-09.
 
-Status: PREREGISTRATION.  This is a paper-and-formal-interface audit, committed
-before any new Lean declaration, numerical run, or candidate survival claim.
-RH is not claimed.
+Status: `NEEDS-ANALYSIS` after the formal source/API audit in section 5.  The
+preregistration was committed before any new Lean declaration, numerical run,
+or candidate survival claim.  RH is not claimed.
 
 ## 5. Post-run addendum: source/API audit
 
