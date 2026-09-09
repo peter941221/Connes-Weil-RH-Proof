@@ -17,6 +17,10 @@ open C1G8AdjointShearGram
 #print axioms sourceCompression_g8AdjointShearGram_eq_metricCoframeGram
 #print axioms sourceCompression_g8AdjointShearGram_eq_metricHistoryGram
 #print axioms sourceCompression_g8AdjointShearGram_metricHistoryGram_isPositive
+#print axioms g8PhysicalEndpointGram
+#print axioms g8InternalForwardCorrection
+#print axioms g8PhysicalEndpointGram_eq_metricGram_add_internalForwardCorrection
+#print axioms g8PhysicalEndpointGram_isPositive
 #print axioms g8MetricCoframeSurvivor
 #print axioms g8MetricCoframeBoundarySum
 #print axioms finiteEulerMetricCoframe_eq_g8Survivor_add_boundary

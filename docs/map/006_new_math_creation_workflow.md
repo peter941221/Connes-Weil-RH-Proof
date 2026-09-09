@@ -775,6 +775,19 @@ limit proof.  Evidence: proof record
 [`1258`](../proofs/1258_g8_readback_bridge_boundary.md) (formal boundary
 audit; no route change, no numerical campaign).
 
+### G8 internal forward correction (record 1259, 2026-09-10)
+
+The first concrete internal-correction candidate is now formal.  If `M` is
+the metric coframe and `F` the actual forward coframe, the physical endpoint
+`E = F + M` gives a positive same-owner kernel `E† W_g E`, and Lean proves
+`E† W_g E = M† W_g M + (F†W_gM + M†W_gF + F†W_gF)`.  Thus the compensation is
+inside the matrix kernel, as required; it is not an external subtraction.
+This remains structural: no finite-prime trace identification, cutoff limit,
+or `qw` sign is proved.  Evidence: proof record
+[`1259`](../proofs/1259_g8_internal_forward_correction.md) and build log
+`1259_g8_internal_correction_audit.log` (formal; standard axioms only; zero
+`sorryAx`).
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:
