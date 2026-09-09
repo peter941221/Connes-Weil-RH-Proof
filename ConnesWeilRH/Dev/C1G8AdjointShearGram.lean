@@ -1,4 +1,5 @@
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSGatePhysicalObliqueShearKernelReduction
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedMetricCoframeReadout
 import ConnesWeilRH.Dev.C1Stage3ProjectionWindow
 
 /-!
@@ -23,6 +24,8 @@ open CCM25Concrete.CCM24FiniteSGatePhysicalTargetCommutatorReduction
 open CCM25Concrete.CCM24FiniteSGramResponse
 open CCM25Concrete.CCM24FiniteSPhysicalLeakage
 open CCM25Concrete.CCM24FiniteSCoframeResponse
+open CCM25Concrete.CCM24FiniteSCompletedMetricCoframeReadout
+open CCM25Concrete.CCM24FiniteSFixedSourcePolar
 open CCM24FiniteSGramOrderingBridge
 open CCM24FiniteSPhysicalLeakage
 open CCM24FiniteSGatePhysicalTargetCommutatorReduction
@@ -222,6 +225,39 @@ theorem sourceCompression_g8AdjointShearGram_eq_metricCoframeGram
         finiteEulerMetricCoframe lambda family = _
   rw [← ContinuousLinearMap.adjoint_comp]
   rw [hTJ]
+
+theorem sourceCompression_g8AdjointShearGram_eq_metricHistoryGram
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    (sourceInclusion lambda)† ∘L
+        g8AdjointShearGram owner lambda family ∘L
+          sourceInclusion lambda =
+      (finiteEulerMetricCoframeHistoryColumn lambda family.visiblePrimes ∘L
+          parameterizedSoninGramInvSqrt lambda 1 family.visiblePrimes
+            (by norm_num))† ∘L
+        (finiteEulerMetricCoframeHistoryReadout lambda family)† ∘L
+          detectorOperator owner ∘L
+            finiteEulerMetricCoframeHistoryReadout lambda family ∘L
+              finiteEulerMetricCoframeHistoryColumn lambda family.visiblePrimes ∘L
+                parameterizedSoninGramInvSqrt lambda 1 family.visiblePrimes
+                  (by norm_num) := by
+  let C := finiteEulerMetricCoframeHistoryColumn lambda family.visiblePrimes ∘L
+    parameterizedSoninGramInvSqrt lambda 1 family.visiblePrimes (by norm_num)
+  let R := finiteEulerMetricCoframeHistoryReadout lambda family
+  let W := detectorOperator owner
+  have hRC : R ∘L C = finiteEulerMetricCoframe lambda family := by
+    dsimp [R, C]
+    exact finiteEulerMetricCoframeHistoryReadout_comp_column_eq lambda family
+  calc
+    (sourceInclusion lambda)† ∘L
+        g8AdjointShearGram owner lambda family ∘L sourceInclusion lambda =
+        (finiteEulerMetricCoframe lambda family)† ∘L
+          detectorOperator owner ∘L finiteEulerMetricCoframe lambda family :=
+      sourceCompression_g8AdjointShearGram_eq_metricCoframeGram owner lambda family
+    _ = (R ∘L C)† ∘L W ∘L (R ∘L C) := by rw [hRC]
+    _ = C† ∘L R† ∘L W ∘L R ∘L C := by
+      simpa only [ContinuousLinearMap.adjoint_comp,
+        ContinuousLinearMap.comp_assoc]
 
 /-! ### Same-owner finite-window trace carrier -/
 

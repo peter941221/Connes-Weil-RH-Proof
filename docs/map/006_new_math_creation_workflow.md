@@ -646,6 +646,15 @@ leaving open the same-owner finite-window/internal counterterm and its
 finite-visible-prime positivity (proof record
 [`1246`](../proofs/1246_g8_metric_coframe_identification.md)).
 
+Formal brick G8 metric-history Gram bridge (record 1247, 2026-09-10): the
+same-owner identity is now factored through the existing finite-visible-prime
+history column and readout.  With `C = historyColumn ∘
+parameterizedSoninGramInvSqrt` and `R = historyReadout`, Lean proves
+`J† G8 J = C† R† W_g R C` from the exact `R C = finiteEulerMetricCoframe`
+readback.  This exposes the finite-visible channel owner but still does not
+provide the healthy `CompactLog` `qw` limit or the sign inequality (proof
+record [`1247`](../proofs/1247_g8_metric_history_gram.md)).
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:

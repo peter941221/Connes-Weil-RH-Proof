@@ -15,6 +15,7 @@ open C1G8AdjointShearGram
 #print axioms sourceCompression_g8AdjointShearGram_eq_leakageSquare
 #print axioms sourceCompression_g8AdjointShearGram_leakageSquare_isPositive
 #print axioms sourceCompression_g8AdjointShearGram_eq_metricCoframeGram
+#print axioms sourceCompression_g8AdjointShearGram_eq_metricHistoryGram
 #print axioms g8CutoffPairData
 #print axioms g8CutoffPairData_traceProduct_eq
 #print axioms g8CutoffPairData_traceProduct_isTraceClassAlong
