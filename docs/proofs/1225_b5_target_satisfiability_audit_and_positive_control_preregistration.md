@@ -406,6 +406,27 @@ constant was misread from); the 1213 slope-removed ladder FP_64 =
 If the corrected replay gate still fails at 1e-6, that WOULD be a
 fork-fidelity finding and the invocation is ABORTED-UNINFORMATIVE.
 
+A7c, registered BEFORE invocation 3 (disclosing the invocation-2 failure):
+invocation 2 (`1225_control_logs/1225_official2.log`) aborted at the C4
+replay gate with the PRE-A7b assertion text (`rel_replay <= 2e-4` against
+the misread slope-removed constant), which is impossible under committed
+`49a85ed` - so the mirror was running a stale copy.  Root cause, verified
+by `grep -c '1.382789e33'` on the mirror (0 matches): the launch command
+was `bash -c "cp probe && cp runner && cd && setsid nohup ... &"`, and the
+trailing `&` backgrounds the ENTIRE `&&` chain including the sync cp's, so
+when the WSL instance was reclaimed within minutes (the documented
+first-launch death) the A7b file sync never completed; the relaunch then
+omitted the cp.  All invocation-2 gates up to C4 matched invocation 1's
+greens (C2 margin +0.1278, C3 dev 1.08e-05, S0.5 1.50e-10, S0.6
+abs-drift/bulk 4.93e-06) - but the invocation executed non-committed code,
+is a PROTOCOL VIOLATION not a datum, and is scored ABORTED-UNINFORMATIVE
+with zero verdict weight.  Registered remedy for invocation 3: the file
+sync runs as a separate FOREGROUND command, the mirror is verified by
+grep (new constant + 1e-6 tolerance present) before any launch, and the
+log path advances to `1225_official3.log`.  Disclosed generalization:
+never fuse sync and launch into one `&`-terminated chain - a backgrounded
+compound hides which step died.
+
 Implementation: new builder function in a NEW file
 `docs/proofs/1225_positive_control_probe.py` forking the 1212 machinery
 (never editing the committed 1212 script or its JSONs); env selectors
