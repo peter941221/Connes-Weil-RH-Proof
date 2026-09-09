@@ -479,10 +479,12 @@ gate-matrix/Gram certificate on a span containing the healthy detector is
 FORMALLY refuted. The remaining detector-specific variant has no current
 rho-to-visible-prime off-diagonal identity, so it cannot enter Lean or a
 prototype. Record [`1229`](../proofs/1229_nm_generate_direct_gate_preregistration.md)
-records the Generation Card, exact formal guard, and audit. G2 (moving
-finite-part trace) remains parked pending the registered 1225 control verdict;
-G3 (Herglotz/de Branges convention bridge) remains parked under Round-1
-NO-YIELD.
+records the Generation Card, exact formal guard, and audit. The registered
+1225 positive-control official4 verdict is `ABORTED-UNINFORMATIVE`: rank 2560
+failed its exact capture gate at `n=16, N=16384` (`tail_gap 5.40e-08 >
+1e-08`) after all pre-ladder calibration gates passed. Thus G2 remains parked;
+no trace-readback conclusion or new numeric campaign is authorized. G3
+(Herglotz/de Branges convention bridge) remains parked under Round-1 NO-YIELD.
 
 ## 5. Kill-ledger format
 

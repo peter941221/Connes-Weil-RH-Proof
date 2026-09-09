@@ -572,3 +572,40 @@ Turn rules (both lanes):
 ```
 
 RH is not claimed.
+
+## 6. Post-run addendum: official invocation 4
+
+Status: `ABORTED-UNINFORMATIVE`, MODEL rig finding, 2026-09-09.  The run used
+the preregistered A8 code and passed every pre-ladder gate:
+
+```text
+C2  support radius 0.218750 < 0.346574
+C3  deviation 1.08e-05 < 1e-3
+S0.2/S0.4/S0.5  operator/projection/dense-spectral checks passed
+S0.6  abs-drift/bulk 4.93e-06 < 1e-3
+C4  detector replay relative error 1.64e-07 < 1e-6
+```
+
+The official ladder then passed its first three rungs' A8 capture gates:
+
+```text
+n=8,  N=8192:  tail_gap 3.1e-10
+n=8,  N=16384: tail_gap 8.4e-10
+n=16, N=8192:  tail_gap 9.4e-09
+```
+
+At `n=16, N=16384`, the exact W-trace capture check returned
+`tail_gap = 5.40e-08`, exceeding the preregistered `1e-08` A8 gate.  The
+assertion fired before a finite-part comparison could be read, as required by
+the record: no C5 `MATCH`/`MISMATCH` verdict exists and this invocation has
+zero verdict weight.  The finding is strictly about the rank-2560 numerical
+realization on this control family.  It neither refutes the analytic L4
+contract nor supplies a positive-trace readback.
+
+Evidence: `1225_control_logs/1225_official4.log` on the WSL build mirror;
+the resource wrapper reported `official exit 1` after the intentional gate
+assertion.  No retry, rank increase, threshold change, or new numerical run
+is authorized by this addendum.  Any response requires a fresh preregistration
+with an explicit finite-part error budget and resource plan.
+
+RH is not claimed.
