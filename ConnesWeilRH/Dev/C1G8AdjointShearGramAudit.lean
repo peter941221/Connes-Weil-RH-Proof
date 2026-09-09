@@ -31,6 +31,9 @@ open C1G8AdjointShearGram
 #print axioms g8SourceCutoffPairData_traceProduct_isTraceClassAlong
 #print axioms g8SourceCutoffPairData_traceProduct_isPositive
 #print axioms g8SourceCutoffPairData_trace_re_nonnegative
+#print axioms G8SameOwnerReadbackData
+#print axioms g8PositiveTraceOperatorLimitFamily
+#print axioms qw_nonnegative_of_g8SameOwnerReadbackData
 #print axioms g8SourceCutoffBaseOperator
 #print axioms g8SourceCutoffCrossOperator
 #print axioms g8SourceCutoffAdjointCrossOperator

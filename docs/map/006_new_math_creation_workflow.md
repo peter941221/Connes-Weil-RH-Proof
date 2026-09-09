@@ -16,6 +16,25 @@ registered gates. The companion preregistration (workflow establishment +
 first sweep round) is record
 [`1227`](../proofs/1227_nm_loop_workflow_and_sweep_preregistration.md).
 
+## Live result — G8 same-owner readback consumer (2026-09-10)
+
+The formal G8 branch now has a concrete consumer-facing readback socket,
+record [`1257`](../proofs/1257_g8_same_owner_readback_consumer.md).  For one
+selected owner, Sonin scale, finite visible-prime family, and fixed source
+basis, `G8SameOwnerReadbackData` asks only for a real cutoff remainder tending
+to zero and convergence of the cutoff ordinary trace minus that remainder to
+`C1SameOwnerWeil.qw owner.sourceTest`.  The cutoff trace-class and positivity
+facts are proved by the G8 Gram/cutoff theorems and are not fields of the new
+contract.  The exact adapter to the existing
+`PositiveTraceOperatorLimitFamily` consumer proves
+`0 ≤ qw owner.sourceTest` from that data.
+
+Classification: formal Lean result; no sign producer, finite-prime readback,
+or RH conclusion.  The remaining P2 task is now specifically to construct
+this same-owner G8 readback for the pinned healthy orbit detector.  Evidence:
+the 1257 retry-2 audit build is green (3922 jobs), has no `error:` or
+`sorryAx`, and prints only the three standard axioms.
+
 ## 0. Why a creation workflow is needed now
 
 Records 1043-1226 built a complete audit-and-falsify machine: every route

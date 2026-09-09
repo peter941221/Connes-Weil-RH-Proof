@@ -1,6 +1,7 @@
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSGatePhysicalObliqueShearKernelReduction
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedMetricCoframeReadout
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSSchurPolarTelescoping
+import ConnesWeilRH.Dev.C1PositiveTraceLimitBridge
 import ConnesWeilRH.Dev.C1Stage3ProjectionWindow
 
 /-!
@@ -36,8 +37,10 @@ open CCM24FiniteSTransportBounds
 open CC20Concrete.PositiveTrace
 open Dev.C1PositiveTraceCutoffAdapter
 open Dev.C1PositiveTraceWindowProducer
+open C1PositiveTraceLimitBridge
 open Dev.C1Stage3ProjectionWindow
-open scoped InnerProduct InnerProductSpace
+open Filter
+open scoped InnerProduct InnerProductSpace Topology
 
 noncomputable section
 
@@ -459,6 +462,63 @@ theorem g8SourceCutoffPairData_trace_re_nonnegative
   exact tsum_nonneg (fun i =>
     (g8SourceCutoffPairData_traceProduct_isPositive owner lambda family globalBasis
       sourceBasis n).re_inner_nonneg_right (sourceBasis i))
+
+/-! ### G8-specific same-owner readback contract -/
+
+/-- The only analytic datum still needed by the G8 positive-trace route.
+Each cutoff operator is already tied to the fixed G8 owner and has a formal
+trace-class/positivity proof above; this contract records only the remainder
+and its same-owner limit readback. -/
+structure G8SameOwnerReadbackData
+    {ν ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) where
+  remainder : Nat → Real
+  remainder_tendsto_zero :
+    Tendsto remainder atTop (𝓝 (0 : Real))
+  readback_tendsto_qw :
+    Tendsto
+      (fun n =>
+        (ordinaryTraceAlong sourceBasis
+          (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct).re -
+            remainder n)
+      atTop (𝓝 (C1SameOwnerWeil.qw owner.sourceTest))
+
+/-- The concrete G8 cutoff family is accepted by the existing positive-trace
+consumer without changing its owner or quantifiers. -/
+noncomputable def g8PositiveTraceOperatorLimitFamily
+    {ν ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (data : G8SameOwnerReadbackData owner lambda family globalBasis sourceBasis) :
+    PositiveTraceOperatorLimitFamily sourceBasis owner.sourceTest :=
+  { traceOperator := fun n =>
+      (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct
+    traceClass := fun n => by
+      rw [g8SourceCutoffPairData_traceProduct_eq]
+      exact g8SourceCutoffPairData_traceProduct_isTraceClassAlong owner lambda family
+        globalBasis sourceBasis n
+    positive := fun n =>
+      g8SourceCutoffPairData_traceProduct_isPositive owner lambda family
+        globalBasis sourceBasis n
+    remainder := data.remainder
+    remainder_tendsto_zero := data.remainder_tendsto_zero
+    readback_tendsto_qw := data.readback_tendsto_qw }
+
+theorem qw_nonnegative_of_g8SameOwnerReadbackData
+    {ν ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (data : G8SameOwnerReadbackData owner lambda family globalBasis sourceBasis) :
+    0 ≤ C1SameOwnerWeil.qw owner.sourceTest := by
+  exact qw_nonnegative_of_positiveTraceOperatorLimitFamily
+    (g8PositiveTraceOperatorLimitFamily owner lambda family globalBasis sourceBasis data)
 
 /-! ### Four-channel finite-window ledger -/
 
