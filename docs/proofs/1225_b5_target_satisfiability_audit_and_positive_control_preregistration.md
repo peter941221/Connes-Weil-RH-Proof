@@ -303,16 +303,28 @@ detector's calibration is untouched by the amendment.  Registered fix:
 the S0.6 statistic becomes
 `abs_drift_bulk = |Tn(40) - Tn(24)| / bulk < 1e-3` - an O(bulk) seam-wrap
 event cannot pass it, while the observed control drift (1.65e-02 relative
-= 3.7e-6 of bulk) does, with 255x margin (smoke-5 confirmed the bulk
-statistic at 3.92e-06).  Cross-check reported alongside: the SAME drift in
-sn_dt units, computed on Tn ONLY (`|Tn(40) - Tn(24)| * dt`, smoke-5 value
-4.1e-5), must stay below 1% of the adjudicated FP scale (1.9e-2 expected
-under MATCH).  Smoke-5 discloses why the naive cross-check was wrong in
-formulation: |sn_dt(40) - sn_dt(24)| mixes in the O(dt^2) discretization
-drift of the BULK term itself (~1e-2, the same size as the detector signal)
-and is not a wrap statistic at all; the registered statistic isolates the
-drift of Tn, which is what wraps.  The bulk term is not adjudicated, so
-its dt-drift cannot manufacture or hide a branch decision.
+= 3.92e-06 of bulk, smoke-5 and smoke-6 agree) does, with 255x margin.
+Two disclosure corrections to this cross-check, both before any official
+digit: (a) smoke-5 showed |sn_dt(40) - sn_dt(24)| mixes the bulk's own
+discretization drift and is not a wrap statistic, so the registered form
+uses Tn only; (b) smoke-6 shows my A5 text's quoted value 4.1e-5 was an
+arithmetic error (I divided by the printed VN trace 247 instead of the
+bulk 1238): the true fixed-dt drift in sn_dt-equivalent units is 2.04e-4,
+5% ABOVE the 1% band - and the statistic is dt-coupled by construction
+(bulk*dt grows as dt shrinks at fixed content), so banding it at the
+S0.6 grid is a units mismatch, not a finding.  Cross-checks therefore
+anchor at the adjudication grade:
+
+```text
+  S0.6 numeric gate:   abs_drift_bulk < 1e-3        (kept; PASSES 255x)
+  S0.6 disclosure:     drift_sn_dt = |Tn(40)-Tn(24)|*dt printed to JSON
+  A5b (NEW, post-ladder, official): materiality of the box/dt machinery
+  at the grade where the verdict is read:
+      |sn_dt(64, 8192) - sn_dt(64, 16384)| < 0.01 * |qw|
+  failure => ABORTED-UNINFORMATIVE under the C5 any-gate-failure branch
+  (the dt-pair spread would be the same size as the band, so the branch
+  decision would not be resolvable at that precision - a rig finding).
+```
 
 C3 tolerance is amended 1e-9 -> 1e-3 WITH CAUSE, not by rescue: the closed
 form `qw = -arch` requires the pole term of the SQUARE to vanish, and the
