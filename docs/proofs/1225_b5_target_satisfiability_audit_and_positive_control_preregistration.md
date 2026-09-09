@@ -303,10 +303,16 @@ detector's calibration is untouched by the amendment.  Registered fix:
 the S0.6 statistic becomes
 `abs_drift_bulk = |Tn(40) - Tn(24)| / bulk < 1e-3` - an O(bulk) seam-wrap
 event cannot pass it, while the observed control drift (1.65e-02 relative
-= 3.7e-6 of bulk) does, with 270x margin.  Cross-check reported alongside:
-the same drift in sn_dt units (3.9e-5 at smoke dt) must stay below 1% of
-the adjudicated FP scale (1.9e-2 expected under MATCH), so the box effect
-cannot manufacture or hide a branch decision.
+= 3.7e-6 of bulk) does, with 255x margin (smoke-5 confirmed the bulk
+statistic at 3.92e-06).  Cross-check reported alongside: the SAME drift in
+sn_dt units, computed on Tn ONLY (`|Tn(40) - Tn(24)| * dt`, smoke-5 value
+4.1e-5), must stay below 1% of the adjudicated FP scale (1.9e-2 expected
+under MATCH).  Smoke-5 discloses why the naive cross-check was wrong in
+formulation: |sn_dt(40) - sn_dt(24)| mixes in the O(dt^2) discretization
+drift of the BULK term itself (~1e-2, the same size as the detector signal)
+and is not a wrap statistic at all; the registered statistic isolates the
+drift of Tn, which is what wraps.  The bulk term is not adjudicated, so
+its dt-drift cannot manufacture or hide a branch decision.
 
 C3 tolerance is amended 1e-9 -> 1e-3 WITH CAUSE, not by rescue: the closed
 form `qw = -arch` requires the pole term of the SQUARE to vanish, and the

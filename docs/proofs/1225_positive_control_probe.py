@@ -851,7 +851,9 @@ def main():
     # drift is measured against BULK, not against the control's tiny Tn.
     wrap_rel = abs(ratio24 - ratio40) / max(abs(ratio24), 1e-300)
     abs_drift_bulk = abs(r24["Tn"] - r40["Tn"]) / r24["bulk"]
-    drift_sn_dt = abs(r24["sn_dt"] - r40["sn_dt"])
+    # A5 cross-check on Tn ONLY: sn_dt mixes the bulk dt^2 discretization
+    # drift (~1e-2), which is not a wrap statistic (disclosed at smoke-5).
+    drift_sn_dt = abs(r24["Tn"] - r40["Tn"]) * dt24
     print(f"S0.6 wrap gate n=8 fixed-dt: N {Nw_gate}->{N40}, "
           f"dt {dt24:.6f}->{r40['dt']:.6f}  "
           f"Tn/bulk(24)={ratio24:+.9f}  Tn/bulk(40)={ratio40:+.9f}  "
