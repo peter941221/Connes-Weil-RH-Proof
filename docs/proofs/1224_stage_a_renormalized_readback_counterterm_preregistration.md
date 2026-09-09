@@ -530,6 +530,82 @@ Positivity expectation (meta, not a branch): all nine FP values should
 remain > 0; any negative FP is a data red flag first, a math clue
 second.
 
+## 3g. sec.3f VERDICT: the 3x3 grid is RANK-3 — non-separability is a
+sealed fact; structure reading (no new runs)
+
+Acceptance (log content): both dials exit 0, 8 S0 + 8 rung lines each,
+0 tracebacks; SWEEP3F COMPLETE 2026-09-09T08:20:05+08:00; all three
+registered replay gates PASS (L05_S235 2.5e-07, L20_S235 5.3e-08,
+L10_S235 6.7e-08, each vs gate 2e-4).  Positivity meta-check: ALL 9 FP
+> 0.  dense_validation.pv_rel < 1e-9 on all nine dials (max 1.0e-10).
+
+Full 3x3 grid, FP in e+32, with per-cell sigma in e+30:
+
+```text
+             S1             S3             S6
+lam=0.5   8.4034(.085)   16.2202(.017)  26.8353(.210)
+lam=1.0   5.9423(.012)   13.7921(.004)  30.0116(.023)
+lam=2.0   3.0286(.201)    7.8016(.271)  23.5276(.642)
+
+increments FP(lam,S) - FP(1,S):
+lam=0.5:  +2.4611  +2.4281  -3.1763      <-- S6 FLIPS SIGN
+lam=2.0:  -2.9138  -5.9905  -6.4840
+
+ratios FP(lam,S)/FP(1,S):
+lam=0.5:  +1.4142  +1.1761  +0.8942
+lam=2.0:  +0.5097  +0.5657  +0.7839
+```
+
+Registered primary statistic.  v = 3.272e-03 vs the registered
+angle-style bound dv = 9.873e-03 -> nominally RANK-2.  The registered
+RANK-2 branch MANDATES the global alpha(lam)*(c + Phi(S)) fit and its
+per-point residuals, and that output refutes its own branch: per-row
+affine fits leave residuals S1 -125.1 / S3 +36.1 / S6 -149.9 sigma at
+lam=0.5 and +19.1 / -38.2 / +29.5 sigma at lam=2.0, and the full-rank
+reconstruction of each row from the other two leaves 921.5 / 2307.1 /
+71.0-sigma residuals.  The registered dv is an ANGLE bound (max sigma
+per row / row norm) and overstates the erasable volume: recomputed as a
+true per-element 3-sigma propagation through the cross-product normal
+(`1224_grid3_tightdv.py`), dv_tight = 8.114e-04, so v > dv_tight and
+the correct adjudication is RANK-3.  This is a registered-statistic
+defect report, not a rescoping: the mandated follow-up evidence and the
+tight bound agree, and the two dead-class falsifications confirm the
+pattern (ADD misses S6 by -266 sigma at a near-miss on S1, +3.9; MUL
+misses both, +166.4 / -402.0).
+
+VERDICT: RANK-3.  The FP surface is genuinely 3-dimensional in
+(lambda, S); no separable, affine, or 2-parameter counterterm class can
+match it.  The lambda=2 UNCONFIRMED fit flag does not rescue rank 2: it
+CONTRIBUTES 83% of the loose dv, and removing it entirely still leaves
+v > dv_tight.
+
+Structure reading (MODEL; hypothesis-level inputs for Stage C):
+
+1. Channel decomposition.  At lam=0.5 the pv channel is NO LONGER small:
+   pv/b = 0.005575 (S1) and 0.015163 (S6) vs 0.000701/0.003928 at
+   lam=1 — a 8.0x/3.9x growth where term1/b grows only 2.3x/1.34x.  The
+   FP lam-increments inherit sign from Tn = term1 - pv, so the S6 sign
+   flip is pv growing faster than term1 as the band widens downward.
+   Non-separability has a concrete mechanism: the two FP channels have
+   DIFFERENT lambda-scalings AND different S-scalings, and FP is their
+   difference.
+2. The sec.3e identification survives the new row: FP lam-ratios track
+   raw Tn/b lam-ratios within 0.07-1.1% across all six (lam,S) ratio
+   pairs (e.g. 1.4142 vs 1.4055, 0.8942 vs 0.8936).  The lambda channel
+   runs entirely through the Tn sandwich, confirmed in both directions
+   of the dial.
+3. Consequence.  Any K̃ = K - M design must reproduce a surface generated
+   by TWO interfering geometric modes (P_r-sandwich minus P_V shadow),
+   each with its own (lambda, S) response — a rank-1 or affine-M ansatz
+   is now formally excluded on data, not just heuristically.  Natural
+   candidates must therefore be operator-valued in the same two-channel
+   geometry (e.g. M built from the same P_r(lambda) and P_V(S) data but
+   reweighted in the band t in [log lam, 0)); no such formula is known
+   yet.  Per the Stage B protocol, the identification campaign CLOSES
+   here at MODEL level: no further dials are registered, and the next
+   decision point is Peter's (Cand-B brief vs the 1209 signed-tail
+   recon; see record 1223 sec.5 route ledger).
+
 ## 4. What this record does NOT claim
 
 It does not claim the required renormalized response exists (1223 section
