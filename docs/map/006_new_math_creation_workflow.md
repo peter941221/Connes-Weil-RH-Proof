@@ -760,6 +760,21 @@ authorized.  Evidence: proof record
 `1256_g8_survivor_boundary_retry7.log` (formal; standard axioms only; zero
 `sorryAx`).
 
+### G8 readback bridge boundary (record 1258, 2026-09-10)
+
+The existing G8 ledger and the existing finite-visible-prime ledger are now
+compared at the level of their actual operators.  G8 supplies the cutoff
+source expression `J† C_n† (I+N_S) W_g (I+N_S†) C_n J`, while the finite-prime
+trace theorem supplies `projectionResponse = EulerBoundary + residual` on a
+different owner expression.  No theorem identifies these expressions or
+proves the required cutoff limit.  Thus the two fields of
+`G8SameOwnerReadbackData` remain genuinely analytic obligations; another
+adapter would only duplicate the gap.  The next admissible brick is an
+internal correction plus a same-owner finite-cutoff trace identity and its
+limit proof.  Evidence: proof record
+[`1258`](../proofs/1258_g8_readback_bridge_boundary.md) (formal boundary
+audit; no route change, no numerical campaign).
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:
