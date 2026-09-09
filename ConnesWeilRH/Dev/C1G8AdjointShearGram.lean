@@ -338,6 +338,117 @@ theorem g8CutoffPairData_trace_re_nonnegative
     (g8CutoffPairData_traceProduct_isPositive owner lambda family globalBasis n)
     (g8CutoffPairData_traceProduct_isTraceClassAlong owner lambda family globalBasis n)
 
+/-! ### Source/ambient trace transport -/
+
+noncomputable def g8SourceCutoffPairData
+    {ν ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    BasisHilbertSchmidtPairData (G := finiteSCarrier) sourceBasis :=
+  let data := g8CutoffPairData owner lambda family globalBasis n
+  { left := data.left ∘L sourceInclusion lambda
+    right := data.right ∘L sourceInclusion lambda
+    left_summable_normSq :=
+      PositiveTrace.summable_normSq_precomp globalBasis globalBasis sourceBasis
+        data.left (sourceInclusion lambda) data.left_summable_normSq
+    right_summable_normSq :=
+      PositiveTrace.summable_normSq_precomp globalBasis globalBasis sourceBasis
+        data.right (sourceInclusion lambda) data.right_summable_normSq }
+
+theorem g8SourceCutoffPairData_traceProduct_eq
+    {ν ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct =
+      (sourceInclusion lambda)† ∘L
+        (g8CutoffPairData owner lambda family globalBasis n).traceProduct ∘L
+          sourceInclusion lambda := by
+  unfold g8SourceCutoffPairData
+  dsimp
+  rw [BasisHilbertSchmidtPairData.traceProduct,
+    ContinuousLinearMap.adjoint_comp]
+  apply ContinuousLinearMap.ext
+  intro u
+  rfl
+
+theorem g8SourceCutoffPairData_traceProduct_isTraceClassAlong
+    {ν ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    IsTraceClassAlong sourceBasis
+      ((sourceInclusion lambda)† ∘L
+        (g8CutoffPairData owner lambda family globalBasis n).traceProduct ∘L
+          sourceInclusion lambda) := by
+  rw [← g8SourceCutoffPairData_traceProduct_eq]
+  exact (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct_isTraceClassAlong
+
+set_option maxRecDepth 10000 in
+set_option maxHeartbeats 1000000 in
+theorem g8SourceCutoffPairData_trace_cycle
+    {ν ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    ordinaryTraceAlong sourceBasis
+        ((sourceInclusion lambda)† ∘L
+          (g8CutoffPairData owner lambda family globalBasis n).traceProduct ∘L
+            sourceInclusion lambda) =
+      ordinaryTraceAlong globalBasis
+        ((g8CutoffPairData owner lambda family globalBasis n).traceProduct ∘L
+          sourceInclusion lambda ∘L (sourceInclusion lambda)†) := by
+  let data := g8CutoffPairData owner lambda family globalBasis n
+  let sourceData :=
+    g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n
+  let ambientData := data.boundedSandwich globalBasis
+    (ContinuousLinearMap.id ℂ finiteSCarrier)
+      (sourceInclusion lambda ∘L (sourceInclusion lambda)†)
+  have hsource : sourceData.traceProduct =
+      (sourceInclusion lambda)† ∘L data.traceProduct ∘L
+        sourceInclusion lambda := by
+    exact g8SourceCutoffPairData_traceProduct_eq owner lambda family
+      globalBasis sourceBasis n
+  have hambient : ambientData.traceProduct =
+      data.traceProduct ∘L sourceInclusion lambda ∘L
+        (sourceInclusion lambda)† := by
+    dsimp only [ambientData]
+    rw [BasisHilbertSchmidtPairData.boundedSandwich_traceProduct_eq]
+    apply ContinuousLinearMap.ext
+    intro u
+    rfl
+  have htarget : sourceData.right ∘L sourceData.left† =
+      ambientData.right ∘L ambientData.left† := by
+    dsimp [data, sourceData, ambientData, g8SourceCutoffPairData,
+      BasisHilbertSchmidtPairData.boundedSandwich]
+    rw [ContinuousLinearMap.adjoint_comp, ContinuousLinearMap.adjoint_comp]
+    simp only [ContinuousLinearMap.adjoint_id,
+      ContinuousLinearMap.id_comp, ContinuousLinearMap.comp_id,
+      ContinuousLinearMap.comp_assoc]
+  calc
+    ordinaryTraceAlong sourceBasis
+        ((sourceInclusion lambda)† ∘L data.traceProduct ∘L
+          sourceInclusion lambda) =
+        ordinaryTraceAlong sourceBasis sourceData.traceProduct := by
+      rw [hsource]
+    _ = ordinaryTraceAlong globalBasis
+        (sourceData.right ∘L sourceData.left†) :=
+      sourceData.ordinaryTraceAlong_traceProduct_eq_cyclic globalBasis
+    _ = ordinaryTraceAlong globalBasis
+        (ambientData.right ∘L ambientData.left†) := by
+      rw [htarget]
+    _ = ordinaryTraceAlong globalBasis ambientData.traceProduct :=
+      (ambientData.ordinaryTraceAlong_traceProduct_eq_cyclic globalBasis).symm
+    _ = ordinaryTraceAlong globalBasis
+        (data.traceProduct ∘L sourceInclusion lambda ∘L
+          (sourceInclusion lambda)†) := by
+      rw [hambient]
+
 end
 end C1G8AdjointShearGram
 end Source

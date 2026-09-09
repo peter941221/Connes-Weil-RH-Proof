@@ -662,6 +662,16 @@ finite-visible history owner but does not add trace class, healthy `CompactLog`
 `qw` readback, or the finite-prime sign theorem (proof record
 [`1248`](../proofs/1248_g8_metric_history_positive.md)).
 
+Formal brick G8 source/ambient trace transport (record 1249, 2026-09-10):
+precomposing the two Hilbert--Schmidt legs with the healthy source inclusion
+is formally legal by square-summability transport.  Lean proves the source
+trace product is `J† T J` and cycles it to the ambient `T J J†` using a
+bounded-sandwich pair on the same owner.  This closes a genuine trace-class
+transport obligation without changing owners, subtracting an external term,
+or claiming a `qw` readback/sign; the next gap is still the detector-specific
+finite-visible-prime `qw` ledger (proof record
+[`1249`](../proofs/1249_g8_source_trace_cycle.md)).
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:

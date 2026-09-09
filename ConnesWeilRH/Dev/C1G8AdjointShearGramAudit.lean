@@ -22,6 +22,10 @@ open C1G8AdjointShearGram
 #print axioms g8CutoffPairData_traceProduct_isTraceClassAlong
 #print axioms g8CutoffPairData_traceProduct_isPositive
 #print axioms g8CutoffPairData_trace_re_nonnegative
+#print axioms g8SourceCutoffPairData
+#print axioms g8SourceCutoffPairData_traceProduct_eq
+#print axioms g8SourceCutoffPairData_traceProduct_isTraceClassAlong
+#print axioms g8SourceCutoffPairData_trace_cycle
 
 end C1G8AdjointShearGramAudit
 end Source
