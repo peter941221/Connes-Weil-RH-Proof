@@ -696,6 +696,13 @@ healthy-limit readback, the L4 projection-limit contract, and the A4
 finite-visible-prime inequality remain open (proof record
 [`1252`](../proofs/1252_g8_channel_positivity.md)).
 
+Formal brick G8 cross-adjoint relation (record 1253, 2026-09-10): the
+adjoint-cross operator is formally equal to the continuous-linear-map adjoint
+of the cross operator, by detector self-adjointness and adjoint composition.
+This makes the combined cross contribution self-adjoint but supplies no
+positivity or `qw` readback; the healthy-limit, L4, and A4 obligations remain
+open (proof record [`1253`](../proofs/1253_g8_cross_adjoint_relation.md)).
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:

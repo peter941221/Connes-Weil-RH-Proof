@@ -493,6 +493,17 @@ theorem g8SourceCutoffLeakageOperator_isPositive
   simpa only [E, ContinuousLinearMap.adjoint_comp,
     ContinuousLinearMap.adjoint_adjoint, ContinuousLinearMap.comp_assoc] using h
 
+theorem g8SourceCutoffAdjointCrossOperator_eq_crossOperator_adjoint
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) (n : Nat) :
+    g8SourceCutoffAdjointCrossOperator owner lambda family n =
+      (g8SourceCutoffCrossOperator owner lambda family n)† := by
+  unfold g8SourceCutoffCrossOperator g8SourceCutoffAdjointCrossOperator
+  simp only [ContinuousLinearMap.adjoint_comp,
+    ContinuousLinearMap.adjoint_adjoint,
+    (detectorOperator_isSelfAdjoint owner).adjoint_eq,
+    ContinuousLinearMap.comp_assoc]
+
 theorem g8SourceCutoffPairData_traceProduct_eq_fourChannelLedger
     {ν ρ : Type*}
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
