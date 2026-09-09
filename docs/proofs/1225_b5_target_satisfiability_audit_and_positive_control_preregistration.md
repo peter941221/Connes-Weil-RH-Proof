@@ -206,6 +206,41 @@ Control design (MODEL rig = 1212 pipeline, law 65 labels everywhere):
                    way; 1097 protocol.
 ```
 
+Registered amendment to section 4, committed after smoke-1 and BEFORE the
+official run (law 42).  Smoke-1 fired the C2 gate (realized support 27.998
+= torus noise, not physics): with the normalization target written as
+`v / B(z)^NEXP` the coefficients reached |a|max = 1.17e31, and the e^{x/2}
+dressing amplified the float64 FFT noise floor by e^{+14} over the far
+support of the period-56 torus.  Three implementation decisions are
+therefore registered before any official digit:
+
+```text
+  A1  the normalization row's rhs is the raw value 1 in the MOMENT
+      partition function (no B^NEXP division): the enforced conditions are
+      exactly lap-corr(1/2) = lap-corr(1) = lap-corr(3/2) = 0 and
+      lap-corr(2) = 1, so lap h vanishes at the three nodes for the SAME
+      reason as the baseline (vanishing of the correction functional, the
+      base^{*NEXP} factor being nonzero on the grid) while coefficients
+      stay O(1e6) instead of O(1e31);
+  A2  the assembled g is rescaled to peak 1 before sampling (all adjudicated
+      ratios are scale-invariant: FP and qw both scale quadratically);
+  A3  support is REPORTED at three relative floors (1e-4, 1e-6, 1e-8) and
+      the C2 gate reads the 1e-8 floor; C2 additionally prints the raw
+      maximum of |g| outside [-0.347, 0.347] so the leak is auditable.
+```
+
+C3 tolerance is amended 1e-9 -> 1e-3 WITH CAUSE, not by rescue: the closed
+form `qw = -arch` requires the pole term of the SQUARE to vanish, and the
+model dictionary pins lap h (the pre-dressing correction functional), not
+lap g of the square, at the node set; the committed baseline itself shows an
+unforced pole residue `pole/arch = 8.7e-5` (1213 JSON).  The registered
+comparison target stays exactly the 1213 statistic `qw_model = pole - arch -
+prime` (the committed 1116-convention arithmetic readout); C3 becomes a
+significance guard: print `dev3 = |pole - prime| / |arch|` and abort only if
+`dev3 >= 1e-3`, i.e. if the ROOT-window prime-free regime is not realized at
+all.  The branch semantics of C5 (MATCH/MISMATCH on `sn_dt(fine, n=64)/qw`)
+are UNCHANGED.
+
 Implementation: new builder function in a NEW file
 `docs/proofs/1225_positive_control_probe.py` forking the 1212 machinery
 (never editing the committed 1212 script or its JSONs); env selectors
