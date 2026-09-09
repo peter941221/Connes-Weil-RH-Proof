@@ -487,3 +487,88 @@ does not re-claim, retract, or edit any 1212/1213/1217/1218/1222/1223/1224
 number.  It does not touch E2/1219, Line B (frozen), or the normalized
 sockets.  All section-4 numerics are MODEL-twin statements (law 65) until a
 Lean owner exists.
+
+## 6. Amendment A9 - invocation-4 ledger split (4a/4b), evidence custody, and the alternating-lane protocol (2026-09-09)
+
+Law-42 note: invocation 4b was started at 17:41 by the companion session
+without a prior ledger amendment. This A9 backfills the ledger BEFORE 4b
+reaches its decisive rung, so 4b's rung-4 value is adjudicated rather than
+interpreted, and registers the two-session turn protocol Peter directed the
+same day (act in alternation on this shared working copy).
+
+### 6.1 Invocation 4a ledger (launched 15:41 this session, A7c protocol)
+
+```text
+gates     S0.1-S0.5, C2, C3, C5 all green (control qw = +1.895768e-02;
+          C2 margin +0.1278; C3 deviation 1.08e-05; S0.5 N=2048 clean)
+S0.6      PASS: wrap gate n=8 fixed-dt, N 16384->22474, rel(Tn) drift
+          4.14e-02, abs drift/bulk 4.93e-06; disclosure: cont-unit drift
+          1.227e-05, band re-anchored at ladder grade (A5b)
+C4        PASS (reconfirmed): replay FP 1.38278923e+33 vs committed
+          1.382789e33, rel 1.64e-07, tail_gap 2.67e-14 - bit-stable across
+          invocations 3 and 4a
+ladder    rung n=8  N= 8192  gap 3.1e-10  PASS  [ 671 s]  cont +2.6235e-04
+          rung n=8  N=16384  gap 8.4e-10  PASS  [1159 s]  cont +2.9651e-04
+          rung n=16 N= 8192  gap 9.4e-09  PASS (6% margin) [718 s]  cont +2.6398e-04
+          rung n=16 N=16384  NOT CAPTURED - 4a terminated ~17:38
+termination  runner recorded "official exit 1" (uncaught Python exception;
+          prime suspect the A4b assert at rung 4 - the observed scaling,
+          gap x2.7 per dt-doubling and x30 per n-doubling, predicts
+          ~2.5e-8 against the 1e-8 gate). The exact breach value is NOT in
+          evidence: the 4b restart reused the same log path with a
+          truncating redirect and the rung 3/4 lines were lost.
+evidence  rungs 1-2 exact fields survive in the results JSON (written
+          17:04); rung 3 survives verbatim in the 17:19 monitoring
+          checkpoint quoted above; the runner exit line survives.
+```
+
+### 6.2 Invocation 4b registration (companion restart, 17:41)
+
+Byte-identical probe script (md5 `210d139bcfb487504fc4c883819f9b66`, equal
+to the committed file - zero protocol drift; the runner edit in the same
+companion commit was header-comment-only, 1e-10 to 1e-8, syncing the stale
+A8 comment), launched under the repository resource-lock wrapper
+(`scripts/run_resource_aware_task.sh --class heavy`) so the probe
+serializes against concurrent mirror builds. Registered acceptance rules:
+
+1. If 4b reproduces `tail_gap >= 1e-8` at rung 4, that CONFIRMS the REAL
+   capture finding reserved by A8: `PROBE_RANK=2560` is insufficient for
+   the n>=16 window geometries of the control family. 4b's number is then
+   the ledger value; the response (rank re-calibration scaled to realized
+   window dimension, or a verdict restricted to certifiable rungs) is a
+   NEW amendment committed before any re-run (law 42). Not protocol death.
+2. If 4b clears rung 4, the 4a exit is reclassified UNKNOWN-CAUSE (to be
+   diagnosed from 4b's own log if it recurs) and the ladder proceeds
+   unchanged.
+3. In either branch, the three captured cont readings (~1.4% of qw, stable
+   across n=8..16) pre-indicate a MISMATCH-class magnitude outcome against
+   the |FP/qw - 1| <= 0.01 band; no verdict is declared until the script's
+   own VERDICT line lands. The reader does not adjudicate; the rig does.
+
+### 6.3 Alternating-lane protocol (Peter directive, 2026-09-09)
+
+```text
++---------------------------+------------------------------------------------+
+| Lane                      | Owner / scope                                    |
++---------------------------+------------------------------------------------+
+| 1225 probe lane           | this session: monitoring checkpoints,            |
+|                           | invocation ledger (sections 4, A7c, A8, this     |
+|                           | A9), verdict addendum + the docs-sync wave       |
+|                           | (map, README, freeze card, AGENTS, memory)       |
++---------------------------+------------------------------------------------+
+| NM-loop lane              | companion session: map 006, record 1227        |
+|                           | addenda, records 1228/1229+ (generation and      |
+|                           | translation rounds, commits 0efbc6f..e719746)    |
++---------------------------+------------------------------------------------+
+
+Turn rules (both lanes):
+1. Neither lane restarts, kills, or re-points a LIVE official invocation.
+2. Any necessary restart writes to a NEW log path BEFORE launch; a live
+   invocation's log is never truncated (the 4a evidence loss is the reason).
+3. A lane does not edit the other lane's files while a run of the other
+   lane is in flight.
+4. The hand-over point is this ledger section: whoever finishes a turn
+   appends here before the other lane acts.
+```
+
+RH is not claimed.
