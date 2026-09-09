@@ -255,6 +255,36 @@ procedure BEFORE any further digit:
   (FP_inf = +1.3791e33 within 2e-4), which runs in the same invocation.
 ```
 
+A4b closes the gap smoke-3 exposed (S0.5 STILL failing at 2048/320, now with
+the rank-diagnostic measurement `1225_rankdiag1.log`, a pure Stage-A
+spectral diagnostic on the n=8 grid, no FP/qw readout):
+
+```text
+  TRUE dense spectrum of W at DENSE_N=2048 (control): capture fraction is
+  0.763 at rank 320, 0.993 at 640, 0.99996 at 800, and EXACTLY 1.0000000000
+  at 1024 (full rank 907 = window dimension); eigsh is EXONERATED (its
+  top-320 agrees with the true top-320 to 3.6e-14).  The control spectrum
+  is Slepian-shaped: a flat plateau out to the bump's Shannon knee at
+  index ~ xi_knee * T / (2 pi), xi_knee ~ 50, then collapse.  The detector
+  twin contrast: capture 1.0000000000 at rank 100 on the same grid, which
+  is why the 1212 rig was faithful at RANK=320 for the DETECTOR.
+```
+
+  Consequences, registered before the next digit: (i) the A4 selection
+  criterion is widened - a rank must pass the fidelity gate at the n=8
+  S0.5 grid AND carry tail_gap < 1e-10 on EVERY official rung (the knee
+  index scales with the period, so n=64/fine needs ~2x the n=8 rank);
+  (ii) the official run uses PROBE_RANK=2560 with `bulk_eig` clamping
+  k <= N//2 (keeps ARPACK's Krylov space 2k+1 <= N feasible; the measured
+  true capture at 1024 = 2048//2 is exactly 1.0000000000, and the official
+  grades N=8192/16384 use the full 2560); the S0.5 validation grid uses
+  the fixed DV_RANK=1280, which the clamp renders as 1024 on its
+  registered grid (measured exact capture there); (iii) `maxiter` scales
+  as max(5000, 4*k); (iv) every OFFICIAL rung asserts tail_gap < 1e-10 at
+  fail-fast (smoke rungs print only - the smoke dt-pair sits below the
+  knee by construction); a rung that cannot certify it makes the
+  invocation ABORTED-UNINFORMATIVE (rig finding, not mathematical).
+
 C3 tolerance is amended 1e-9 -> 1e-3 WITH CAUSE, not by rescue: the closed
 form `qw = -arch` requires the pole term of the SQUARE to vanish, and the
 model dictionary pins lap h (the pre-dressing correction functional), not

@@ -119,8 +119,10 @@ NS = [8, 16, 32, 64]
 N_COARSE, N_FINE = 8192, 16384
 PAD = 24.0
 RANK = int(os.environ.get("PROBE_RANK", "320"))   # spectral-trace rank;
-# A4 (1225 sec.4): smallest rank of the registered ladder
-# {320,640,1280,2560,5120} passing the S0.5 fidelity gate at DENSE_N=2048.
+# A4/A4b (1225 sec.4): smallest rank of the registered ladder
+# {320,640,1280,2560,5120} passing S0.5 at DENSE_N=2048 AND carrying
+# tail_gap < 1e-10 on every official rung (measured rank-diag: use 2560).
+DV_RANK = 1280   # A4b: fixed validation-grid rank (exact capture at 1024)
 TRACE_TOL = 1e-10          # eigsh relative tolerance
 VN_TOL = 1e-11             # von Neumann trace stabilization (relative)
 VN_MAX = 60
@@ -605,13 +607,16 @@ class PvEngine:
 
 
 def bulk_eig(cn, rank):
-    """Top-rank eigenpairs of the PSD sandwich operator W."""
+    """Top-rank eigenpairs of the PSD sandwich operator W.  A4b: k is
+    clamped to N-16 and maxiter scales with the requested rank."""
     N = cn.grid.N
+    k = min(rank, N // 2)   # A4b: ARPACK space 2k+1 <= N stays feasible
 
     def mv(v):
         return cn.Wmv(v.reshape(N, -1)).ravel()
     op = LinearOperator((N, N), mv, dtype=complex)
-    vals, vecs = eigsh(op, k=rank, which="LA", tol=TRACE_TOL, maxiter=5000)
+    vals, vecs = eigsh(op, k=k, which="LA", tol=TRACE_TOL,
+                       maxiter=max(5000, 4 * k))
     order = np.argsort(vals.real)[::-1]
     return vals.real[order], vecs[:, order]
 
@@ -673,7 +678,7 @@ def dense_validation(sample, f0_cont):
                  / max(float(np.abs(Wd).max()), 1e-300))
     pf = PfEngine(grid)
     pv = PvEngine(grid)
-    vals, vecs = bulk_eig(cn, RANK)
+    vals, vecs = bulk_eig(cn, DV_RANK)   # A4b: validation grid has its own rank
     term1, term_pv, _, _, _ = run_traces(grid, pf, pv, vals, vecs)
     Tn_spec = term1 - term_pv
     # dense DIRECT P_V trace and dense term1
@@ -887,6 +892,13 @@ def main():
                 row = rung(n, N, sample, qwv["f0"])
                 secs = round(time.time() - t1, 1)
                 row.update(tag=c, secs=secs)
+                # A4b(iv): every OFFICIAL rung must certify spectral capture
+                # (smoke rungs print only - below the knee by construction);
+                # failure is ABORTED-UNINFORMATIVE (rig finding).
+                if not smoke:
+                    assert row["tail_gap"] < 1e-10, \
+                        f"A4b FAILED: tail_gap {row['tail_gap']:.2e} " \
+                        f"at n={n}, N={N}"
                 results.append(row)
                 print(f"n={n:3d} {c:6d} N={N:5d} bulk={row['bulk']:.6e} "
                       f"gap={row['tail_gap']:.1e} "
@@ -924,5 +936,5 @@ def main():
           "RH NOT claimed)")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # importable guard added for the 1225 rank diagnostic
     main()
