@@ -45,8 +45,23 @@ noncomputable def g8AdjointShearGram
   (ContinuousLinearMap.id ℂ finiteSCarrier +
       (finiteEulerPulledObliqueShear lambda family)†)† ∘L
     detectorOperator owner ∘L
-      (ContinuousLinearMap.id ℂ finiteSCarrier +
-        (finiteEulerPulledObliqueShear lambda family)†)
+        (ContinuousLinearMap.id ℂ finiteSCarrier +
+          (finiteEulerPulledObliqueShear lambda family)†)
+
+/-- The selected convolution detector is positive on the ambient carrier. -/
+theorem detectorOperator_isPositive_for_g8
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner) :
+    (detectorOperator owner).IsPositive := by
+  unfold detectorOperator
+  exact ContinuousLinearMap.isPositive_adjoint_comp_self _
+
+/-- G8 is positive before any trace or readback is introduced. -/
+theorem g8AdjointShearGram_isPositive
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    (g8AdjointShearGram owner lambda family).IsPositive := by
+  unfold g8AdjointShearGram
+  exact (detectorOperator_isPositive_for_g8 owner).adjoint_conj _
 
 /-- Compression of G8 to the healthy source owner keeps all four Gram terms.
 The second term is the active oblique-shear response orientation. -/

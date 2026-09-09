@@ -7,6 +7,8 @@ namespace C1G8AdjointShearGramAudit
 open C1G8AdjointShearGram
 
 #print axioms g8AdjointShearGram
+#print axioms detectorOperator_isPositive_for_g8
+#print axioms g8AdjointShearGram_isPositive
 #print axioms sourceCompression_g8AdjointShearGram_eq_fourTerms
 #print axioms sourceCompression_g8AdjointShearGram_cross_eq_targetResponse
 

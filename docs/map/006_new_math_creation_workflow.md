@@ -606,7 +606,8 @@ The owner-level algebraic step is now formal. Dev leaf
 `C1G8AdjointShearGram` defines `G^+_{g,S}=(I+N_S)W_g(I+N_S^*)` and proves its
 four-term compression to the source carrier; a second theorem identifies the
 cross term with the existing `finiteEulerTargetCommutatorResponse` in the
-correct orientation. The paired audit is axiom-clean (record
+correct orientation, and proves positivity of the detector and completed
+Gram kernel before tracing. The paired audit is axiom-clean (record
 [`1242`](../proofs/1242_g8_adjoint_shear_gram_lean.md), logs cited there).
 This closes the algebraic screen, but not the trace-class or `qw` readback:
 the next work is a same-owner four-channel ledger, not another interface or
