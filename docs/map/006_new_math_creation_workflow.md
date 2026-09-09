@@ -636,6 +636,16 @@ The four source channels now have explicit structural owners; quantitative
 finite-prime/readback work remains open (proof record
 [`1245`](../proofs/1245_g8_adjoint_cross_channel.md)).
 
+Formal brick G8 metric-coframe identification (record 1246, 2026-09-10): the
+entire source compression is exactly
+`finiteEulerMetricCoframe† W_g finiteEulerMetricCoframe`.  The proof uses
+`N_S = J L_S†`, `J†J = I`, and the existing coframe decomposition
+`D = J + L`.  This is a structural equivalence, not a `qw` readback or sign
+theorem; it removes any claim that G8 is a new source-side kernel while
+leaving open the same-owner finite-window/internal counterterm and its
+finite-visible-prime positivity (proof record
+[`1246`](../proofs/1246_g8_metric_coframe_identification.md)).
+
 ## 5. Kill-ledger format
 
 One row per death, appended where the candidate died:

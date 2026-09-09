@@ -22,6 +22,7 @@ open CCM25Concrete.CCM24FiniteSGatePhysicalObliqueShearKernelReduction
 open CCM25Concrete.CCM24FiniteSGatePhysicalTargetCommutatorReduction
 open CCM25Concrete.CCM24FiniteSGramResponse
 open CCM25Concrete.CCM24FiniteSPhysicalLeakage
+open CCM25Concrete.CCM24FiniteSCoframeResponse
 open CCM24FiniteSGramOrderingBridge
 open CCM24FiniteSPhysicalLeakage
 open CCM24FiniteSGatePhysicalTargetCommutatorReduction
@@ -170,6 +171,57 @@ theorem sourceCompression_g8AdjointShearGram_leakageSquare_isPositive
     (((sourcePhysicalCoframeLeakage lambda family)†) ∘L
         detectorOperator owner ∘L sourcePhysicalCoframeLeakage lambda family).IsPositive := by
   exact (detectorOperator_isPositive_for_g8 owner).adjoint_conj _
+
+theorem sourceCompression_g8AdjointShearGram_eq_metricCoframeGram
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    (sourceInclusion lambda)† ∘L
+        g8AdjointShearGram owner lambda family ∘L
+          sourceInclusion lambda =
+      (finiteEulerMetricCoframe lambda family)† ∘L
+        detectorOperator owner ∘L finiteEulerMetricCoframe lambda family := by
+  let J := sourceInclusion lambda
+  let L := sourcePhysicalCoframeLeakage lambda family
+  let N := finiteEulerPulledObliqueShear lambda family
+  let W := detectorOperator owner
+  have hN : N = J ∘L L† := by
+    dsimp [N, J, L]
+    exact finiteEulerPulledObliqueShear_eq_inclusion_comp_physicalLeakageAdjoint
+      lambda family
+  have hNAdj : N† = L ∘L J† := by
+    rw [hN, ContinuousLinearMap.adjoint_comp,
+      ContinuousLinearMap.adjoint_adjoint]
+  have hCoframe :
+      finiteEulerMetricCoframe lambda family = J + L := by
+    dsimp [J, L]
+    rw [← sourceSoninCoframeLeakage_eq_physical,
+      sourceSoninCoframeLeakage_eq_coframe_sub_inclusion]
+    abel
+  have hTJ :
+      (ContinuousLinearMap.id ℂ finiteSCarrier + N†) ∘L J =
+        finiteEulerMetricCoframe lambda family := by
+    rw [hNAdj, hCoframe]
+    apply ContinuousLinearMap.ext
+    intro u
+    simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.add_apply,
+      ContinuousLinearMap.id_apply]
+    have hIso : (J†) (J u) = u := by
+      have h := congrArg (fun T : sourceSoninCarrier lambda →L[ℂ]
+          sourceSoninCarrier lambda => T u)
+        (sourceInclusion_adjoint_comp_self lambda)
+      simpa only [J, ContinuousLinearMap.comp_apply,
+        ContinuousLinearMap.id_apply] using h
+    rw [hIso]
+  unfold g8AdjointShearGram
+  change J† ∘L
+      ((ContinuousLinearMap.id ℂ finiteSCarrier + N†)†) ∘L W ∘L
+        ((ContinuousLinearMap.id ℂ finiteSCarrier + N†) ∘L J) = _
+  rw [hTJ]
+  change (J† ∘L
+      ((ContinuousLinearMap.id ℂ finiteSCarrier + N†)†)) ∘L W ∘L
+        finiteEulerMetricCoframe lambda family = _
+  rw [← ContinuousLinearMap.adjoint_comp]
+  rw [hTJ]
 
 /-! ### Same-owner finite-window trace carrier -/
 
