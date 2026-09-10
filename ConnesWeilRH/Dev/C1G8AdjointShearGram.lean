@@ -571,6 +571,87 @@ theorem g8SourceCutoffPairData_trace_re_nonnegative
     (g8SourceCutoffPairData_traceProduct_isPositive owner lambda family globalBasis
       sourceBasis n).re_inner_nonneg_right (sourceBasis i))
 
+/-! ### Physical-endpoint source cutoff carrier -/
+
+/-- A source-level finite-window pair for the corrected physical endpoint
+Gram.  The left leg is the adjoint source inclusion applied to the existing
+G8 window leg; the physical endpoint Gram is kept as the middle owner. -/
+noncomputable def g8PhysicalEndpointSourceCutoffPairData
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    BasisHilbertSchmidtPairData (G := sourceSoninCarrier lambda) sourceBasis := by
+  let sourceData := g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n
+  let F := ContinuousLinearMap.adjoint (sourceInclusion lambda) ∘L sourceData.left
+  have hF : Summable fun i => ‖F (sourceBasis i)‖ ^ 2 := by
+    exact PositiveTrace.summable_normSq_postcomp sourceBasis sourceData.left
+      (ContinuousLinearMap.adjoint (sourceInclusion lambda))
+      sourceData.left_summable_normSq
+  exact
+    { left := F
+      right := g8PhysicalEndpointGram owner lambda family ∘L F
+      left_summable_normSq := hF
+      right_summable_normSq :=
+        PositiveTrace.summable_normSq_postcomp sourceBasis F
+          (g8PhysicalEndpointGram owner lambda family) hF }
+
+theorem g8PhysicalEndpointSourceCutoffPairData_traceProduct_eq
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    (g8PhysicalEndpointSourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct =
+      ContinuousLinearMap.adjoint
+          (ContinuousLinearMap.adjoint (sourceInclusion lambda) ∘L
+            (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left) ∘L
+        g8PhysicalEndpointGram owner lambda family ∘L
+      (ContinuousLinearMap.adjoint (sourceInclusion lambda) ∘L
+        (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left) := by
+  simp only [g8PhysicalEndpointSourceCutoffPairData,
+    BasisHilbertSchmidtPairData.traceProduct]
+
+theorem g8PhysicalEndpointSourceCutoffPairData_traceProduct_isTraceClassAlong
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    IsTraceClassAlong sourceBasis
+      (g8PhysicalEndpointSourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct := by
+  exact (g8PhysicalEndpointSourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct_isTraceClassAlong
+
+theorem g8PhysicalEndpointSourceCutoffPairData_traceProduct_isPositive
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    (g8PhysicalEndpointSourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct.IsPositive := by
+  let sourceData := g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n
+  let C := ContinuousLinearMap.adjoint (sourceInclusion lambda) ∘L sourceData.left
+  rw [BasisHilbertSchmidtPairData.traceProduct]
+  exact (g8PhysicalEndpointGram_isPositive owner lambda family).adjoint_conj C
+
+theorem g8PhysicalEndpointSourceCutoffPairData_trace_re_nonnegative
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    0 ≤ (ordinaryTraceAlong sourceBasis
+      (g8PhysicalEndpointSourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct).re := by
+  have htrace :=
+    g8PhysicalEndpointSourceCutoffPairData_traceProduct_isTraceClassAlong
+      owner lambda family globalBasis sourceBasis n
+  rw [ordinaryTraceAlong]
+  rw [Complex.re_tsum htrace]
+  exact tsum_nonneg (fun i =>
+    (g8PhysicalEndpointSourceCutoffPairData_traceProduct_isPositive
+      owner lambda family globalBasis sourceBasis n).re_inner_nonneg_right (sourceBasis i))
+
 /-! ### G8-specific same-owner readback contract -/
 
 /-- The only analytic datum still needed by the G8 positive-trace route.

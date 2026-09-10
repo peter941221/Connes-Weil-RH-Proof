@@ -800,6 +800,19 @@ RH conclusion.  Evidence: proof record
 `1260_g8_selfadjoint_main.log`, `1260_g8_selfadjoint_audit.log` (formal;
 standard axioms only; zero `sorryAx`).
 
+### G8 physical endpoint cutoff trace carrier (record 1261, 2026-09-10)
+
+The corrected physical endpoint Gram is now placed in a source-level finite
+window pair.  Lean proves its exact trace-product form, trace-classness,
+positivity, and nonnegative real trace at every finite cutoff.  This is the
+first concrete trace carrier for the internal correction itself; it does not
+prove convergence of the cutoff family or identify its limit with the finite
+visible-prime ledger.  Evidence: proof record
+[`1261`](../proofs/1261_g8_physical_endpoint_cutoff_trace_carrier.md) and build
+logs `1261_physical_endpoint_cutoff_main.log`,
+`1261_physical_endpoint_cutoff_audit.log` (formal; standard axioms only; zero
+`sorryAx`).
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:
