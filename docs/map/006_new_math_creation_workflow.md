@@ -835,6 +835,57 @@ cutoff convergence or `qw` readback is supplied.  Evidence: proof record
 `1263_physical_cutoff_trace_real_audit.log` (formal; standard axioms only;
 zero `sorryAx`).
 
+### G8 physical cutoff metric/internal split (record 1265, 2026-09-10)
+
+The physical-endpoint finite-cutoff trace product is now exactly decomposed on
+the same source owner as
+
+```text
+  C_n† (M† W_g M) C_n + C_n† K_forward C_n,
+```
+
+with `C_n` the literal cutoff leg, `M` the finite Euler metric coframe, and
+`K_forward` the internal forward correction from `E = F + M`. The theorem
+`g8PhysicalEndpointSourceCutoffPairData_traceProduct_eq_metric_add_internal`
+is FORMAL and axiom-clean (3922-job owning/audit build, zero `error:` and
+`sorryAx`). This is a substantive finite-cutoff algebraic bridge, not a new
+interface: it retains the correction inside the positive kernel. It does not
+identify a finite-visible-prime trace, prove a cutoff limit, or establish
+`qw >= 0`. Record 1267 now closes the carrier-alignment part; the next
+admissible brick is P1 control of its three named complement channels, followed
+by the finite-prime comparison from record 1264 G8-P1.
+
+Implementation note (2026-09-10): a direct projection expansion that unfolded
+`g8SourceCutoffPairData.left` hit a Lean kernel deterministic timeout after
+648 seconds.  This is not a mathematical kill.  The next proof attempt must
+keep that finite-window leg opaque and route through the existing concrete
+channel-pair and trace-cycle owners; no generic projection adapter is
+promoted solely to avoid elaboration cost.
+
+### G8 P0 carrier alignment (record 1267, 2026-09-10)
+
+The literal source cutoff leg is now decomposed on the same healthy owner as
+`A = J C + D`, with `J = sourceInclusion`, `C = J† A`, and `D` the named
+complement leg.  The physical-endpoint trace product is formally equal to the
+original G8 trace product plus `C† K_forward C`, minus exactly the three
+complement channels `C† J† G D`, `D† G J C`, and `D† G D`.  The theorem
+`g8PhysicalEndpointSourceCutoffPairData_traceProduct_eq_g8_add_internal_sub_complement`
+is FORMAL and axiom-clean (owning/audit logs
+`1266_g8_p0_alignment_retry23.log` and `1266_g8_p0_audit.log`; zero
+`error:`/`sorryAx`).  P0 is therefore complete.  The three complement channels
+are an explicit P1 obligation; no positivity or `qw` readback follows yet.
+
+### G8 P1 complement-leg control (record 1269, 2026-09-10)
+
+The named complement leg `D_n = A_n - J J† A_n` is now formally proved
+Hilbert–Schmidt on the source basis by bounded postcomposition and the
+existing sum-of-squares lemma.  This is a substantive same-owner legality
+brick for the three P0 complement channels, with no unfolding of the concrete
+cutoff and no new interface.  Owning/Audit build
+`1268_g8_p1_complement_leg.log` is green (3922 jobs, standard axioms only,
+zero `sorryAx`).  The finite-visible-prime comparison and any vanishing or
+sign estimate for these channels remain OPEN.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:

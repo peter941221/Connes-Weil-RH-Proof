@@ -613,6 +613,165 @@ theorem g8PhysicalEndpointSourceCutoffPairData_traceProduct_eq
   simp only [g8PhysicalEndpointSourceCutoffPairData,
     BasisHilbertSchmidtPairData.traceProduct]
 
+/- The finite-cutoff physical endpoint keeps the internal correction inside
+the same source sandwich.  This is the first cutoff-level algebraic bridge
+for the readback: no scalar counterterm or separate owner is introduced. -/
+theorem g8PhysicalEndpointSourceCutoffPairData_traceProduct_eq_metric_add_internal
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    (g8PhysicalEndpointSourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct =
+      let C := ContinuousLinearMap.adjoint (sourceInclusion lambda) ∘L
+        (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left
+      C† ∘L ((finiteEulerMetricCoframe lambda family)† ∘L
+        detectorOperator owner ∘L finiteEulerMetricCoframe lambda family) ∘L C +
+      C† ∘L (g8InternalForwardCorrection owner lambda family) ∘L C := by
+  rw [g8PhysicalEndpointSourceCutoffPairData_traceProduct_eq]
+  rw [g8PhysicalEndpointGram_eq_metricGram_add_internalForwardCorrection]
+  dsimp
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [ContinuousLinearMap.adjoint_comp, ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.add_apply, map_add]
+
+/-- The part of the literal G8 cutoff leg outside the healthy source image.
+This is an actual same-owner cutoff defect, not an auxiliary interface: it is
+forced by decomposing the existing G8 leg through `sourceInclusion`. -/
+noncomputable def g8SourceCutoffComplementLeg
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    sourceSoninCarrier lambda →L[ℂ] finiteSCarrier :=
+  let A := (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left
+  A - sourceInclusion lambda ∘L (sourceInclusion lambda)† ∘L A
+
+/- The P1 complement is itself a genuine Hilbert--Schmidt leg.  This is the
+first analytic control on the three forced remainder channels: it is proved
+from the existing cutoff leg by bounded postcomposition, not by unfolding the
+large cutoff construction. -/
+theorem g8SourceCutoffComplementLeg_summable_normSq
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    Summable fun i => ‖g8SourceCutoffComplementLeg owner lambda family globalBasis
+      sourceBasis n (sourceBasis i)‖ ^ 2 := by
+  let A := (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left
+  have hA := (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left_summable_normSq
+  have hPA := PositiveTrace.summable_normSq_postcomp sourceBasis A
+    (sourceInclusion lambda ∘L (sourceInclusion lambda)†) hA
+  have hneg : Summable fun i => ‖(-(sourceInclusion lambda ∘L
+      (sourceInclusion lambda)†) ∘L A) (sourceBasis i)‖ ^ 2 := by
+    simpa only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.neg_apply,
+      norm_neg] using hPA
+  have hadd := PositiveTrace.summable_normSq_add sourceBasis A
+    (-(sourceInclusion lambda ∘L (sourceInclusion lambda)†) ∘L A) hA hneg
+  simpa only [g8SourceCutoffComplementLeg, sub_eq_add_neg] using hadd
+
+/- Exact P0 carrier alignment.  The physical cutoff is the original G8
+cutoff plus the internal forward correction, minus the three terms forced by
+the literal cutoff leg's complement to the healthy source image.  Thus a
+future zero-remainder argument must control these named complement channels;
+it may not pretend that `P_n` and `T_n` differ only by `K_forward`. -/
+/- The proof expands a concrete Hilbert-space Gram after the named source
+projection split; the larger budget is confined to this actual P0 algebra. -/
+set_option maxHeartbeats 1000000 in
+theorem g8PhysicalEndpointSourceCutoffPairData_traceProduct_eq_g8_add_internal_sub_complement
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    (g8PhysicalEndpointSourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct =
+      (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct +
+        let A := (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left
+        let J := sourceInclusion lambda
+        let C := J† ∘L A
+        let D := g8SourceCutoffComplementLeg owner lambda family globalBasis sourceBasis n
+        C† ∘L g8InternalForwardCorrection owner lambda family ∘L C -
+          (C† ∘L J† ∘L g8AdjointShearGram owner lambda family ∘L D +
+            D† ∘L g8AdjointShearGram owner lambda family ∘L J ∘L C +
+            D† ∘L g8AdjointShearGram owner lambda family ∘L D) := by
+  let A := (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left
+  let J := sourceInclusion lambda
+  let G := g8AdjointShearGram owner lambda family
+  let C := J† ∘L A
+  let D := g8SourceCutoffComplementLeg owner lambda family globalBasis sourceBasis n
+  let K := g8InternalForwardCorrection owner lambda family
+  have hA : A = J ∘L C + D := by
+    dsimp [A, J, C, D, g8SourceCutoffComplementLeg]
+    apply ContinuousLinearMap.ext
+    intro u
+    simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.sub_apply,
+      ContinuousLinearMap.add_apply]
+    abel
+  have hmetric : C† ∘L ((finiteEulerMetricCoframe lambda family)† ∘L
+      detectorOperator owner ∘L finiteEulerMetricCoframe lambda family) ∘L C =
+      (J ∘L C)† ∘L G ∘L (J ∘L C) := by
+    rw [← sourceCompression_g8AdjointShearGram_eq_metricCoframeGram]
+    change C† ∘L ((sourceInclusion lambda)† ∘L
+      g8AdjointShearGram owner lambda family ∘L sourceInclusion lambda) ∘L C = _
+    simp only [ContinuousLinearMap.adjoint_comp, ContinuousLinearMap.comp_assoc]
+    dsimp only [J, G]
+  have hmetricExpanded :
+      (ContinuousLinearMap.adjoint
+          (ContinuousLinearMap.adjoint (sourceInclusion lambda) ∘L
+            (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left) ∘L
+        (finiteEulerMetricCoframe lambda family)† ∘L
+          detectorOperator owner ∘L finiteEulerMetricCoframe lambda family ∘L
+      (ContinuousLinearMap.adjoint (sourceInclusion lambda) ∘L
+        (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left)) =
+      (J ∘L C)† ∘L G ∘L (J ∘L C) := by
+    simpa only [A, J, C] using hmetric
+  let B := fullBoundaryPositiveOperator owner.sourceTest
+    (cutoffLower owner.sourceTest n) (cutoffUpper owner.sourceTest n)
+  have hA_eq : A = B ∘L J := by
+    rfl
+  have hTA :
+      (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct =
+        A† ∘L G ∘L A := by
+    rw [g8SourceCutoffPairData_traceProduct_eq]
+    rw [g8CutoffPairData_traceProduct_eq]
+    rw [hA_eq]
+    rw [ContinuousLinearMap.adjoint_comp]
+    apply ContinuousLinearMap.ext
+    intro u
+    rfl
+  have hadjoint_add
+      (X Y : sourceSoninCarrier lambda →L[ℂ] finiteSCarrier) :
+      (X + Y)† = X† + Y† := by
+    apply ContinuousLinearMap.ext
+    intro y
+    exact ext_inner_right ℂ fun z => by
+      simp only [ContinuousLinearMap.adjoint_inner_left,
+        ContinuousLinearMap.add_apply, inner_add_left, inner_add_right]
+  have hT :
+      (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct =
+        (J ∘L C)† ∘L G ∘L (J ∘L C) +
+          ((J ∘L C)† ∘L G ∘L D + D† ∘L G ∘L (J ∘L C) + D† ∘L G ∘L D) := by
+    rw [hTA]
+    rw [hA]
+    rw [hadjoint_add]
+    apply ContinuousLinearMap.ext
+    intro u
+    simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.add_apply,
+      map_add]
+    abel
+  rw [g8PhysicalEndpointSourceCutoffPairData_traceProduct_eq_metric_add_internal]
+  simp (config := { zeta := true }) only [ContinuousLinearMap.comp_assoc]
+  rw [hmetricExpanded, hT]
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.sub_apply, ContinuousLinearMap.adjoint_comp,
+    J, C, D, G, neg_smul, one_smul, neg_one_smul, smul_eq_mul]
+  module
+
 theorem g8PhysicalEndpointSourceCutoffPairData_traceProduct_isTraceClassAlong
     {ι ρ : Type*}
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
