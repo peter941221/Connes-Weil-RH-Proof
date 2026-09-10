@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1G8P1ProjectionDefectRealLedger
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1ProjectionDefectRealLedgerAudit
+
+open C1G8P1ProjectionDefectRealLedger
+
+#print axioms g8ProjectionDefectSecond_eq_first_adjoint
+#print axioms ordinaryTraceAlong_g8ProjectionDefectCrossPair_eq_two_re
+#print axioms g8ProjectionDefectDiagonal_trace_re_nonnegative
+
+end C1G8P1ProjectionDefectRealLedgerAudit
+end Source
+end ConnesWeilRH

@@ -1534,6 +1534,21 @@ rebuilt the projection-defect trace ledger, all P1 trace-class/factorization
 leaves, diagonal trace positivity, canonical P2 residual, and P3 contradiction
 together (3985 jobs; zero `error:`/`sorryAx`; standard three axioms).
 
+### G8 P1 projection-defect real ledger (record 1318, 2026-09-11)
+
+The import-facing leaf `C1G8P1ProjectionDefectRealLedger` proves that the two
+ordered projected--complement defect channels are adjoints on the same healthy
+source owner. Their ordinary-trace sum is therefore exactly twice the real
+part of one named cross trace; the remaining complement--complement channel is
+positive and has nonnegative trace real part. This is FORMAL evidence that P1
+has one genuinely signed projection-defect scalar, not two independent complex
+channels. It does **not** bound that scalar, identify the metric boundary with
+the radial prime-power boundary, or establish a cutoff limit. Evidence:
+`1524_g8_p1_projection_defect_real_ledger_clean.log` (3930 jobs, zero
+`error:`/`sorryAx`, standard three axioms). Status: **formal real defect
+reduction; the cross-real-part bound, transport, endpoint, P2, and P3 remain
+open**.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:
