@@ -648,6 +648,28 @@ theorem g8PhysicalEndpointSourceCutoffPairData_traceProduct_isSelfAdjoint
   rw [g8PhysicalEndpointSourceCutoffPairData_traceProduct_eq]
   exact (g8PhysicalEndpointGram_isPositive owner lambda family).adjoint_conj C |>.isSelfAdjoint
 
+theorem g8PhysicalEndpointSourceCutoffPairData_trace_im_eq_zero
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    (ordinaryTraceAlong sourceBasis
+      (g8PhysicalEndpointSourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct).im = 0 := by
+  let T := g8PhysicalEndpointSourceCutoffPairData owner lambda family globalBasis sourceBasis n
+  have hself := g8PhysicalEndpointSourceCutoffPairData_traceProduct_isSelfAdjoint
+    owner lambda family globalBasis sourceBasis n
+  have htrace := ordinaryTraceAlong_adjoint sourceBasis T.traceProduct
+  rw [hself.adjoint_eq] at htrace
+  have him := congrArg Complex.im htrace
+  have him' :
+      (ordinaryTraceAlong sourceBasis
+        (g8PhysicalEndpointSourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct).im =
+        -(ordinaryTraceAlong sourceBasis
+          (g8PhysicalEndpointSourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct).im := by
+    simpa [Complex.star_def, T] using him
+  linarith
+
 theorem g8PhysicalEndpointSourceCutoffPairData_trace_re_nonnegative
     {ι ρ : Type*}
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)

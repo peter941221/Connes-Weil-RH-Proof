@@ -824,6 +824,17 @@ build logs `1262_physical_cutoff_selfadjoint_main.log`,
 `1262_physical_cutoff_selfadjoint_audit.log` (formal; standard axioms only;
 zero `sorryAx`).
 
+### G8 physical cutoff trace is real (record 1263, 2026-09-10)
+
+The finite-cutoff physical trace product is self-adjoint, and its ordinary
+complex trace is now formally proved to have zero imaginary part.  This is a
+small but exact scalar-side bridge for the future finite-prime comparison; no
+cutoff convergence or `qw` readback is supplied.  Evidence: proof record
+[`1263`](../proofs/1263_g8_physical_cutoff_trace_real.md) and build logs
+`1263_physical_cutoff_trace_real_main.log`,
+`1263_physical_cutoff_trace_real_audit.log` (formal; standard axioms only;
+zero `sorryAx`).
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:
