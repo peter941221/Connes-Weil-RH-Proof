@@ -673,6 +673,66 @@ theorem g8SourceCutoffComplementLeg_summable_normSq
     (-(sourceInclusion lambda ∘L (sourceInclusion lambda)†) ∘L A) hA hneg
   simpa only [g8SourceCutoffComplementLeg, sub_eq_add_neg] using hadd
 
+/- A concrete cross-channel owner for the P1 ledger.  Its left leg is the
+named complement D_n and its right leg is G J C_n, so its trace product is
+exactly D_n† G J C_n.  The adjoint cross term is obtained by the existing
+pair swap, rather than by an ambient-owner cyclicity shortcut. -/
+noncomputable def g8SourceCutoffComplementCrossPairData
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    BasisHilbertSchmidtPairData (G := finiteSCarrier) sourceBasis := by
+  let sourceData :=
+    g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n
+  let A := sourceData.left
+  let J := sourceInclusion lambda
+  let C := J† ∘L A
+  let D := g8SourceCutoffComplementLeg owner lambda family globalBasis sourceBasis n
+  let G := g8AdjointShearGram owner lambda family
+  let R := G ∘L J ∘L C
+  have hD := g8SourceCutoffComplementLeg_summable_normSq owner lambda family
+    globalBasis sourceBasis n
+  have hR : Summable fun i => ‖R (sourceBasis i)‖ ^ 2 := by
+    have hA := sourceData.left_summable_normSq
+    have hpost := PositiveTrace.summable_normSq_postcomp sourceBasis A
+      (G ∘L J ∘L J†) hA
+    simpa only [R, C, ContinuousLinearMap.comp_apply,
+      ContinuousLinearMap.comp_assoc] using hpost
+  exact
+    { left := D
+      right := R
+      left_summable_normSq := hD
+      right_summable_normSq := hR }
+
+theorem g8SourceCutoffComplementCrossPairData_traceProduct_eq
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    (g8SourceCutoffComplementCrossPairData owner lambda family globalBasis
+      sourceBasis n).traceProduct =
+      (g8SourceCutoffComplementLeg owner lambda family globalBasis sourceBasis n)† ∘L
+        g8AdjointShearGram owner lambda family ∘L sourceInclusion lambda ∘L
+          (sourceInclusion lambda)† ∘L
+            (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left := by
+  simp only [g8SourceCutoffComplementCrossPairData,
+    BasisHilbertSchmidtPairData.traceProduct]
+
+theorem g8SourceCutoffComplementCrossPairData_isTraceClassAlong
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    IsTraceClassAlong sourceBasis
+      (g8SourceCutoffComplementCrossPairData owner lambda family globalBasis
+        sourceBasis n).traceProduct := by
+  exact (g8SourceCutoffComplementCrossPairData owner lambda family globalBasis
+    sourceBasis n).traceProduct_isTraceClassAlong
+
 /- Exact P0 carrier alignment.  The physical cutoff is the original G8
 cutoff plus the internal forward correction, minus the three terms forced by
 the literal cutoff leg's complement to the healthy source image.  Thus a

@@ -886,6 +886,17 @@ cutoff and no new interface.  Owning/Audit build
 zero `sorryAx`).  The finite-visible-prime comparison and any vanishing or
 sign estimate for these channels remain OPEN.
 
+### G8 P1 complement cross-channel owner (record 1271, 2026-09-10)
+
+The complement cross term now has a concrete same-owner
+`BasisHilbertSchmidtPairData` with left leg `D_n` and right leg `G J C_n`.
+Its trace product is formally `D_n† G J C_n`, and the pair is trace-class on
+the named source basis; the swapped pair supplies the adjoint mixed channel.
+Evidence is the green owning/Audit build `1270_g8_p1_cross_channel.log`
+(3922 jobs, standard axioms only, zero `sorryAx`).  This closes the P1
+trace-legality owner, while finite-visible-prime comparison and channel sign
+or vanishing remain OPEN.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:

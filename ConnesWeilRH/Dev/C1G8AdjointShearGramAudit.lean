@@ -66,6 +66,9 @@ open C1G8AdjointShearGram
 #print axioms g8SourceCutoffPairData_traceProduct_eq_fourChannelLedger
 #print axioms g8SourceCutoffPairData_trace_cycle
 #print axioms g8SourceCutoffComplementLeg_summable_normSq
+#print axioms g8SourceCutoffComplementCrossPairData
+#print axioms g8SourceCutoffComplementCrossPairData_traceProduct_eq
+#print axioms g8SourceCutoffComplementCrossPairData_isTraceClassAlong
 
 end C1G8AdjointShearGramAudit
 end Source
