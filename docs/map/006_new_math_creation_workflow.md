@@ -813,6 +813,17 @@ logs `1261_physical_endpoint_cutoff_main.log`,
 `1261_physical_endpoint_cutoff_audit.log` (formal; standard axioms only; zero
 `sorryAx`).
 
+### G8 physical cutoff trace self-adjointness (record 1262, 2026-09-10)
+
+The trace product of the physical-endpoint cutoff carrier is now formally
+self-adjoint, by its `C† K_phys C` form and positivity of `K_phys`.  This is the
+real-scalar side condition for a later finite-prime comparison.  The cutoff
+limit and the finite-visible-prime/`qw` readback remain open.  Evidence: proof
+record [`1262`](../proofs/1262_g8_physical_cutoff_trace_selfadjoint.md) and
+build logs `1262_physical_cutoff_selfadjoint_main.log`,
+`1262_physical_cutoff_selfadjoint_audit.log` (formal; standard axioms only;
+zero `sorryAx`).
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:

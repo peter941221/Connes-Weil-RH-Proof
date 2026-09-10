@@ -635,6 +635,19 @@ theorem g8PhysicalEndpointSourceCutoffPairData_traceProduct_isPositive
   rw [BasisHilbertSchmidtPairData.traceProduct]
   exact (g8PhysicalEndpointGram_isPositive owner lambda family).adjoint_conj C
 
+theorem g8PhysicalEndpointSourceCutoffPairData_traceProduct_isSelfAdjoint
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    IsSelfAdjoint
+      (g8PhysicalEndpointSourceCutoffPairData owner lambda family globalBasis sourceBasis n).traceProduct := by
+  let sourceData := g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n
+  let C := ContinuousLinearMap.adjoint (sourceInclusion lambda) ∘L sourceData.left
+  rw [g8PhysicalEndpointSourceCutoffPairData_traceProduct_eq]
+  exact (g8PhysicalEndpointGram_isPositive owner lambda family).adjoint_conj C |>.isSelfAdjoint
+
 theorem g8PhysicalEndpointSourceCutoffPairData_trace_re_nonnegative
     {ι ρ : Type*}
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
