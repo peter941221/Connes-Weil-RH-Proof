@@ -310,6 +310,46 @@ noncomputable def g8InternalForwardCorrection
     (sourceActualBandForwardCoframe lambda family)† ∘L detectorOperator owner ∘L
       sourceActualBandForwardCoframe lambda family
 
+/- The internal correction is self-adjoint: the two mixed channels are
+adjoints of one another, and the forward Gram channel is self-adjoint. -/
+set_option maxHeartbeats 800000 in
+theorem g8InternalForwardCorrection_isSelfAdjoint
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    IsSelfAdjoint (g8InternalForwardCorrection owner lambda family) := by
+  have hadjoint_add
+      (A B : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda) :
+      (A + B)† = A† + B† := by
+    apply ContinuousLinearMap.ext
+    intro y
+    exact ext_inner_right ℂ fun z => by
+      simp only [ContinuousLinearMap.adjoint_inner_left,
+        ContinuousLinearMap.add_apply, inner_add_left, inner_add_right]
+  have hW := detectorOperator_isSelfAdjoint owner
+  let F := sourceActualBandForwardCoframe lambda family
+  let M := finiteEulerMetricCoframe lambda family
+  let W := detectorOperator owner
+  have hW' : W† = W := by
+    dsimp [W]
+    exact hW.adjoint_eq
+  have hFM : (F† ∘L W ∘L M)† = M† ∘L W ∘L F := by
+    simp only [ContinuousLinearMap.adjoint_comp,
+      ContinuousLinearMap.adjoint_adjoint, hW',
+      ContinuousLinearMap.comp_assoc]
+  have hMF : (M† ∘L W ∘L F)† = F† ∘L W ∘L M := by
+    simp only [ContinuousLinearMap.adjoint_comp,
+      ContinuousLinearMap.adjoint_adjoint, hW',
+      ContinuousLinearMap.comp_assoc]
+  have hFF : (F† ∘L W ∘L F)† = F† ∘L W ∘L F := by
+    simp only [ContinuousLinearMap.adjoint_comp,
+      ContinuousLinearMap.adjoint_adjoint, hW',
+      ContinuousLinearMap.comp_assoc]
+  change ((F† ∘L W ∘L M + M† ∘L W ∘L F) +
+      F† ∘L W ∘L F)† =
+    (F† ∘L W ∘L M + M† ∘L W ∘L F) + F† ∘L W ∘L F
+  rw [hadjoint_add, hadjoint_add, hFM, hMF, hFF]
+  abel
+
 /-- Exact internal-correction expansion: the physical endpoint Gram is the
 G8 metric Gram plus the three forward-channel terms.  This is the algebraic
 location where a future finite-prime readback correction must live. -/

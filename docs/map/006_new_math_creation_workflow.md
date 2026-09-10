@@ -788,6 +788,18 @@ or `qw` sign is proved.  Evidence: proof record
 `1259_g8_internal_correction_audit.log` (formal; standard axioms only; zero
 `sorryAx`).
 
+### G8 correction self-adjointness (record 1260, 2026-09-10)
+
+The internal correction is now formally self-adjoint.  The proof uses the
+self-adjointness of the selected detector to pair the two mixed channels and
+to close the forward Gram channel.  This supplies the operator-domain fact
+needed before comparing a finite-cutoff trace with a real finite-prime scalar.
+It still supplies no finite-prime trace identity, cutoff limit, `qw` sign, or
+RH conclusion.  Evidence: proof record
+[`1260`](../proofs/1260_g8_internal_correction_selfadjoint.md) and build logs
+`1260_g8_selfadjoint_main.log`, `1260_g8_selfadjoint_audit.log` (formal;
+standard axioms only; zero `sorryAx`).
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:

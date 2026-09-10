@@ -19,6 +19,7 @@ open C1G8AdjointShearGram
 #print axioms sourceCompression_g8AdjointShearGram_metricHistoryGram_isPositive
 #print axioms g8PhysicalEndpointGram
 #print axioms g8InternalForwardCorrection
+#print axioms g8InternalForwardCorrection_isSelfAdjoint
 #print axioms g8PhysicalEndpointGram_eq_metricGram_add_internalForwardCorrection
 #print axioms g8PhysicalEndpointGram_isPositive
 #print axioms g8MetricCoframeSurvivor
