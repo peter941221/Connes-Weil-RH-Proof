@@ -733,6 +733,107 @@ theorem g8SourceCutoffComplementCrossPairData_isTraceClassAlong
   exact (g8SourceCutoffComplementCrossPairData owner lambda family globalBasis
     sourceBasis n).traceProduct_isTraceClassAlong
 
+/- The diagonal complement channel in the P0 identity has its own concrete
+Hilbert--Schmidt pair.  Together with the preceding mixed pair (and its
+swap), this keeps every forced complement term on the literal cutoff/source
+owner before any finite-prime readback is attempted. -/
+noncomputable def g8SourceCutoffComplementLeakagePairData
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    BasisHilbertSchmidtPairData (G := finiteSCarrier) sourceBasis := by
+  let D := g8SourceCutoffComplementLeg owner lambda family globalBasis sourceBasis n
+  let G := g8AdjointShearGram owner lambda family
+  have hD := g8SourceCutoffComplementLeg_summable_normSq owner lambda family
+    globalBasis sourceBasis n
+  have hGD : Summable fun i => ‖(G ∘L D) (sourceBasis i)‖ ^ 2 := by
+    exact PositiveTrace.summable_normSq_postcomp sourceBasis D G hD
+  exact
+    { left := D
+      right := G ∘L D
+      left_summable_normSq := hD
+      right_summable_normSq := hGD }
+
+theorem g8SourceCutoffComplementLeakagePairData_traceProduct_eq
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    (g8SourceCutoffComplementLeakagePairData owner lambda family globalBasis
+      sourceBasis n).traceProduct =
+      (g8SourceCutoffComplementLeg owner lambda family globalBasis sourceBasis n)† ∘L
+        g8AdjointShearGram owner lambda family ∘L
+          g8SourceCutoffComplementLeg owner lambda family globalBasis sourceBasis n := by
+  simp only [g8SourceCutoffComplementLeakagePairData,
+    BasisHilbertSchmidtPairData.traceProduct]
+
+theorem g8SourceCutoffComplementLeakagePairData_isTraceClassAlong
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    IsTraceClassAlong sourceBasis
+      (g8SourceCutoffComplementLeakagePairData owner lambda family globalBasis
+        sourceBasis n).traceProduct := by
+  exact (g8SourceCutoffComplementLeakagePairData owner lambda family globalBasis
+    sourceBasis n).traceProduct_isTraceClassAlong
+
+/- The P0 internal forward correction is retained as a Hilbert--Schmidt
+source sandwich.  This is the only positive correction permitted by the G8
+route: it stays inside the finite-cutoff kernel rather than becoming an
+external scalar subtraction. -/
+noncomputable def g8SourceCutoffInternalCorrectionPairData
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    BasisHilbertSchmidtPairData (G := sourceSoninCarrier lambda) sourceBasis := by
+  let A := (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left
+  let C := (sourceInclusion lambda)† ∘L A
+  let K := g8InternalForwardCorrection owner lambda family
+  have hA := (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left_summable_normSq
+  have hC : Summable fun i => ‖C (sourceBasis i)‖ ^ 2 := by
+    exact PositiveTrace.summable_normSq_postcomp sourceBasis A
+      ((sourceInclusion lambda)†) hA
+  have hKC : Summable fun i => ‖(K ∘L C) (sourceBasis i)‖ ^ 2 := by
+    exact PositiveTrace.summable_normSq_postcomp sourceBasis C K hC
+  exact
+    { left := C
+      right := K ∘L C
+      left_summable_normSq := hC
+      right_summable_normSq := hKC }
+
+theorem g8SourceCutoffInternalCorrectionPairData_traceProduct_eq
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    (g8SourceCutoffInternalCorrectionPairData owner lambda family globalBasis
+      sourceBasis n).traceProduct =
+      let C := (sourceInclusion lambda)† ∘L
+        (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left
+      C† ∘L g8InternalForwardCorrection owner lambda family ∘L C := by
+  simp only [g8SourceCutoffInternalCorrectionPairData,
+    BasisHilbertSchmidtPairData.traceProduct]
+
+theorem g8SourceCutoffInternalCorrectionPairData_isTraceClassAlong
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    IsTraceClassAlong sourceBasis
+      (g8SourceCutoffInternalCorrectionPairData owner lambda family globalBasis
+        sourceBasis n).traceProduct := by
+  exact (g8SourceCutoffInternalCorrectionPairData owner lambda family globalBasis
+    sourceBasis n).traceProduct_isTraceClassAlong
+
 /- Exact P0 carrier alignment.  The physical cutoff is the original G8
 cutoff plus the internal forward correction, minus the three terms forced by
 the literal cutoff leg's complement to the healthy source image.  Thus a

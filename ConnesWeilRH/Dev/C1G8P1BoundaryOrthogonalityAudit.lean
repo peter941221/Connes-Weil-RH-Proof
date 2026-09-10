@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1G8P1BoundaryOrthogonality
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1BoundaryOrthogonalityAudit
+
+open CCM25Concrete
+open C1G8P1BoundaryOrthogonality
+
+#print axioms suffixEulerFrameSchurStep_newFrame_adjoint_comp_boundaryDagger_eq_zero
+#print axioms suffixEulerTerminalFrame_adjoint_comp_boundarySum_eq_zero
+#print axioms suffixEulerTerminalFrame_adjoint_comp_g8MetricVisibleBoundaryCoframe_eq_zero
+
+end C1G8P1BoundaryOrthogonalityAudit
+end Source
+end ConnesWeilRH

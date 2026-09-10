@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1G8P1MetricPositiveTrace
+
+namespace ConnesWeilRH.Dev.C1G8P1MetricPositiveTraceAudit
+
+open ConnesWeilRH.Source.C1G8P1MetricPositiveTrace
+
+#print axioms g8PhysicalMetricCutoffOperator_trace_re_nonnegative
+
+end ConnesWeilRH.Dev.C1G8P1MetricPositiveTraceAudit

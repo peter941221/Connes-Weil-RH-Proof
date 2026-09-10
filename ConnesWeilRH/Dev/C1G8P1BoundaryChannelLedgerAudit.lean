@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1G8P1BoundaryChannelLedger
+
+namespace ConnesWeilRH.Source.C1G8P1BoundaryChannelLedgerAudit
+
+#print axioms ConnesWeilRH.Source.C1G8P1BoundaryChannelLedger.g8MetricCutoffSurvivorVisibleBoundary_eq_boundarySum
+
+end ConnesWeilRH.Source.C1G8P1BoundaryChannelLedgerAudit

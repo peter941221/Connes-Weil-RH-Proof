@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8P1CoframePythagorean
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1CoframePythagoreanAudit
+
+open C1G8P1CoframePythagorean
+
+#print axioms g8MetricSurvivor_adjoint_comp_visibleBoundary_eq_zero
+#print axioms finiteEulerMetricCoframe_adjoint_comp_eq_survivor_add_boundary
+
+end C1G8P1CoframePythagoreanAudit
+end Source
+end ConnesWeilRH

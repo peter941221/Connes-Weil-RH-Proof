@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1G8P1TraceLedger
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1TraceLedgerAudit
+
+open C1G8P1TraceLedger
+
+#print axioms g8P0ComplementOperator
+#print axioms g8PhysicalEndpoint_traceProduct_eq_g8_add_internal_sub_complement
+#print axioms g8P0ComplementOperator_isTraceClassAlong
+#print axioms ordinaryTraceAlong_g8PhysicalEndpoint_eq_g8_add_internal_sub_complement
+
+end C1G8P1TraceLedgerAudit
+end Source
+end ConnesWeilRH

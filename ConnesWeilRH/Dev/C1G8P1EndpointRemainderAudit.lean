@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1G8P1EndpointRemainder
+
+namespace ConnesWeilRH.Source.C1G8P1EndpointRemainderAudit
+
+#print axioms ConnesWeilRH.Source.C1G8P1EndpointRemainder.ordinaryTraceAlong_g8MetricLeakageSourceCross_eq_neg_star_first_sub_remainder
+
+end ConnesWeilRH.Source.C1G8P1EndpointRemainderAudit

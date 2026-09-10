@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1G8P1MetricProjectionDefectTraceLedger
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1MetricProjectionDefectTraceLedgerAudit
+
+open C1G8P1MetricProjectionDefectTraceLedger
+
+#print axioms ordinaryTraceAlong_g8SourceCutoffPairData_traceProduct_eq_metric_add_projectionDefect
+
+end C1G8P1MetricProjectionDefectTraceLedgerAudit
+end Source
+end ConnesWeilRH

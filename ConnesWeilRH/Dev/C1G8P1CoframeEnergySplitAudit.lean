@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1G8P1CoframeEnergySplit
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1CoframeEnergySplitAudit
+
+open C1G8P1CoframeEnergySplit
+
+#print axioms finiteEulerMetricCoframe_apply_normSq_eq_survivor_add_boundary
+
+end C1G8P1CoframeEnergySplitAudit
+end Source
+end ConnesWeilRH

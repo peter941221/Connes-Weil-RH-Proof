@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1G8P1FinitePrimeAssembly
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1FinitePrimeAssemblyAudit
+
+open C1G8P1FinitePrimeAssembly
+
+#print axioms familyVisiblePrimePowerTerms
+#print axioms familyVisiblePrimePowerTerms_natTerms_eq
+#print axioms ordinaryTraceAlong_g8FamilyVisibleBoundary_eq_finitePrimeTerm_sum
+
+end C1G8P1FinitePrimeAssemblyAudit
+end Source
+end ConnesWeilRH

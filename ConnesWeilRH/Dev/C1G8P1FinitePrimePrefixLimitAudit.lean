@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8P1FinitePrimePrefixLimit
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1FinitePrimePrefixLimitAudit
+
+open C1G8P1FinitePrimePrefixLimit
+
+#print axioms g8VisibleBoundaryOperator_eq_arithmeticOperator
+#print axioms tendsto_g8VisibleBoundaryPrefixTrace_eq_finitePrimeSum
+
+end C1G8P1FinitePrimePrefixLimitAudit
+end Source
+end ConnesWeilRH

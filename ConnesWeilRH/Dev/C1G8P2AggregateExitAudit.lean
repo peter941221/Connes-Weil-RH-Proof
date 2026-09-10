@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8P2AggregateExit
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P2AggregateExitAudit
+
+open C1G8P2AggregateExit
+
+#check @p2Aggregate_nonpos_of_g8SameOwnerReadbackData
+#print axioms p2Aggregate_nonpos_of_g8SameOwnerReadbackData
+
+end C1G8P2AggregateExitAudit
+end Source
+end ConnesWeilRH

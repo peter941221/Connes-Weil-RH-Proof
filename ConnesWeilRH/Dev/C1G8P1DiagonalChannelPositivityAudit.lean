@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8P1DiagonalChannelPositivity
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1DiagonalChannelPositivityAudit
+
+open C1G8P1DiagonalChannelPositivity
+
+#print axioms g8MetricCutoffChannel_self_isPositive
+#print axioms g8MetricCutoffChannel_self_trace_re_nonnegative
+
+end C1G8P1DiagonalChannelPositivityAudit
+end Source
+end ConnesWeilRH

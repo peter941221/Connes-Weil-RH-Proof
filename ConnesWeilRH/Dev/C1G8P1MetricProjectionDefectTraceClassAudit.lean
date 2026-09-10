@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1G8P1MetricProjectionDefectTraceClass
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1MetricProjectionDefectTraceClassAudit
+
+open C1G8P1MetricProjectionDefectTraceClass
+
+#print axioms g8SourceCutoffProjectedComplementCrossPairData_traceProduct_eq
+#print axioms g8SourceCutoffProjectedComplementCrossPairData_isTraceClassAlong
+#print axioms g8ProjectionDefectChannels_isTraceClassAlong
+
+end C1G8P1MetricProjectionDefectTraceClassAudit
+end Source
+end ConnesWeilRH

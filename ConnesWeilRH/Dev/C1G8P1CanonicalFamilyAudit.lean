@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1G8P1CanonicalFamily
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1CanonicalFamilyAudit
+
+open C1G8P1CanonicalFamily
+
+#print axioms g8CanonicalFamily_pow_mem_iff
+#print axioms g8CanonicalFamily_visiblePrime_iff
+#print axioms g8CanonicalFamily_visiblePrime_lt_globalIndexBound
+#print axioms ordinaryTraceAlong_g8CanonicalFamilyVisibleBoundary_eq_selectedSupport_sum
+
+end C1G8P1CanonicalFamilyAudit
+end Source
+end ConnesWeilRH

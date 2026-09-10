@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1G8P1EndpointOrientation
+
+namespace ConnesWeilRH.Source.C1G8P1EndpointOrientationAudit
+
+#print axioms ConnesWeilRH.Source.C1G8P1EndpointOrientation.g8MetricLeakageSourceCross_eq_neg_sourceBandGramResponse_adjoint
+#print axioms ConnesWeilRH.Source.C1G8P1EndpointOrientation.ordinaryTraceAlong_g8MetricLeakageSourceCross_eq_neg_star_sourceBand
+
+end ConnesWeilRH.Source.C1G8P1EndpointOrientationAudit

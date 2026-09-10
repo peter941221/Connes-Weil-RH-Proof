@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8P3Contradiction
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P3ContradictionAudit
+
+open C1G8P3Contradiction
+
+#check @false_of_g8SameOwnerReadbackData_and_healthyDetector
+#print axioms false_of_g8SameOwnerReadbackData_and_healthyDetector
+
+end C1G8P3ContradictionAudit
+end Source
+end ConnesWeilRH

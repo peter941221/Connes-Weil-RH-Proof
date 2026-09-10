@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1G8P1MetricBoundary
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1MetricBoundaryAudit
+
+open C1G8P1MetricBoundary
+
+#print axioms g8PhysicalMetricCutoffOperator
+#print axioms g8PhysicalMetricCutoffOperator_isPositive
+#print axioms g8PhysicalMetricCutoffOperator_eq_survivorBoundaryGram
+
+end C1G8P1MetricBoundaryAudit
+end Source
+end ConnesWeilRH

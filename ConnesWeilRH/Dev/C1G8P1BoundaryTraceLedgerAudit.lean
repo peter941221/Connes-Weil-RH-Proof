@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8P1BoundaryTraceLedger
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1BoundaryTraceLedgerAudit
+
+open C1G8P1BoundaryTraceLedger
+
+#check @ordinaryTraceAlong_g8MetricCutoffSurvivorVisibleBoundary_eq_upperFactor_sum
+#print axioms ordinaryTraceAlong_g8MetricCutoffSurvivorVisibleBoundary_eq_upperFactor_sum
+
+end C1G8P1BoundaryTraceLedgerAudit
+end Source
+end ConnesWeilRH

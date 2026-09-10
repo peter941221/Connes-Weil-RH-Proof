@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1G8P2CanonicalResidual
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P2CanonicalResidualAudit
+
+open C1G8P2CanonicalResidual
+
+#print axioms g8VisibleEulerResidual_eq_sameObjectResidual
+#print axioms g8VisibleEulerResidual_isTraceClassAlong
+#print axioms ordinaryTraceAlong_projectionResponse_eq_selectedSupport_sum_add_g8Residual
+#print axioms tendsto_g8CompletedResidualPrefix_eq_routeTrace_sub_selectedSupport
+#print axioms projectionResponse_eq_g8VisibleBoundary_add_residual
+#print axioms ordinaryTraceAlong_projectionResponse_eq_g8VisibleBoundary_sum_add_residual
+
+end C1G8P2CanonicalResidualAudit
+end Source
+end ConnesWeilRH

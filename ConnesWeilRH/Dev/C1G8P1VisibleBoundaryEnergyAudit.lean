@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8P1VisibleBoundaryEnergy
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1VisibleBoundaryEnergyAudit
+
+open C1G8P1VisibleBoundaryEnergy
+
+#print axioms g8MetricVisibleBoundaryCoframe_comp_summable_normSq
+#print axioms g8MetricVisibleBoundaryCoframe_comp_sourceProlateFactor_summable_normSq
+
+end C1G8P1VisibleBoundaryEnergyAudit
+end Source
+end ConnesWeilRH

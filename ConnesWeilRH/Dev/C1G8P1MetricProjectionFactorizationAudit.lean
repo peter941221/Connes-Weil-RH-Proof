@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8P1MetricProjectionFactorization
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1MetricProjectionFactorizationAudit
+
+open C1G8P1MetricProjectionFactorization
+
+#print axioms g8PhysicalMetricCutoffOperator_eq_projectedLeg_adjoint_gram_projectedLeg
+#print axioms g8SourceCutoffPairData_left_eq_projected_add_complement
+
+end C1G8P1MetricProjectionFactorizationAudit
+end Source
+end ConnesWeilRH

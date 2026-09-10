@@ -897,6 +897,643 @@ Evidence is the green owning/Audit build `1270_g8_p1_cross_channel.log`
 trace-legality owner, while finite-visible-prime comparison and channel sign
 or vanishing remain OPEN.
 
+### G8 P1 complement diagonal trace owner (record 1272, 2026-09-10)
+
+The third P0 complement channel now also has a concrete same-owner
+`BasisHilbertSchmidtPairData`: its legs are the literal complement `D_n` and
+`G D_n`, so its trace product is exactly `D_n† G D_n`.  Together with the
+mixed pair of record 1271 and its swap, all three forced P0 complement
+channels have trace-class owners on the named source basis, without unfolding
+the cutoff leg.  This is FORMAL Lean evidence, not a finite-visible-prime
+identity, a channel sign/vanishing theorem, or a `qw` readback.  Evidence:
+green owning/Audit build `1272_g8_p1_complement_leakage_pair.log` (3922 jobs,
+zero `error:`/`sorryAx`, standard three axioms).  The remaining P1 task is the
+literal-cutoff finite visible-prime comparison.
+
+### G8 P1 internal-correction trace owner (record 1273, 2026-09-10)
+
+The positive P0 forward correction now has its own same-owner
+`BasisHilbertSchmidtPairData`: with `C_n = J† A_n`, its legs are `C_n` and
+`K_forward C_n`, so its trace product is exactly `C_n† K_forward C_n` and is
+trace class on the named source basis.  Thus the original G8 term, the
+kernel-internal correction, and all three forced complement terms can be
+traced separately without changing owner or placing a counterterm outside the
+kernel.  This is FORMAL Lean evidence only; it supplies neither a
+finite-visible-prime equality nor a complement limit/sign or `qw` readback.
+Evidence: green owning/Audit retry build
+`1273_g8_p1_internal_correction_pair_retry.log` (3922 jobs, zero
+`error:`/`sorryAx`, standard three axioms).  Next: the P0 operator equality
+must be taken to an exact ordinary-trace scalar ledger before the literal
+cutoff's finite visible-prime comparison.
+
+### G8 P1 ordinary-trace P0 ledger (record 1274, 2026-09-10)
+
+The P0 operator alignment is now an exact ordinary-trace equality on the
+same named source basis.  The new `g8P0ComplementOperator` is the literal sum
+of the three forced complement channels and is trace class; Lean proves
+
+```text
+Tr(P_n) = Tr(T_n) + (Tr(C_n† K_forward C_n) - Tr(complement_n)).
+```
+
+All terms retain the selected owner, cutoff, scale, and finite family.  This
+is FORMAL Lean evidence (green `1274_g8_p1_trace_ledger_retry3.log`, 3923
+jobs, zero `error:`/`sorryAx`, standard three axioms).  It does not identify
+any trace with a finite visible-prime sum, prove the complement tends to zero,
+or give a `qw` readback.  The next P1 brick is therefore sharply the
+literal-cutoff metric/Euler boundary comparison.
+
+### G8 P1 literal metric survivor/boundary Gram (record 1275, 2026-09-10)
+
+The literal-cutoff physical metric operator is now exactly rewritten through
+the finite Euler Schur--polar survivor plus the finite rectangular boundary
+sum, inside the same detector Gram and with the same source cutoff.  This is
+FORMAL Lean evidence (green
+`1275_g8_p1_metric_boundary_retry4.log`, 3924 jobs, zero `error:`/`sorryAx`,
+standard three axioms).  It identifies the precise operator whose trace must
+be compared to the selected finite visible-prime boundary scalar.  It does
+not itself prove that comparison, a channel sign or limit, or `qw` readback.
+
+### G8 P1 literal metric four-channel ledger (record 1276, 2026-09-10)
+
+The literal-cutoff metric sandwich has now been expanded exactly into its
+survivor-square, two survivor/boundary cross, and boundary-square channels,
+all on the selected source carrier with the same cutoff, scale, detector, and
+family. This is FORMAL Lean evidence (green
+`1276_g8_p1_metric_channels_retry.log`, 3925 jobs, zero `error:`/`sorryAx`,
+standard three axioms). It also fixes the exact next endpoint supplier: the
+new bridge must compare an *aggregate* visible-prime boundary channel to the
+existing finite prime-power scalar sum, because the coframe boundary list is
+indexed by deduplicated `visiblePrimes` while the scalar theorem is indexed by
+`terms : Finset (prime, exponent)`. No termwise reuse of the old readback and
+no uncut projection-response substitution is licensed. The aggregate
+same-owner cutoff trace comparison remains OPEN; no sign, limit, or `qw`
+readback follows here.
+
+### G8 P1 metric-channel trace owners (record 1277, 2026-09-10)
+
+Each ordered channel in the literal four-channel metric expansion now has a
+concrete same-owner Hilbert--Schmidt pair: its legs are the channel's coframe
+postcomposed with the literal cutoff and the detector applied to the other
+coframe postcomposed with that cutoff.  Lean identifies the pair trace product
+with the named channel and proves trace-classness on the source basis. This is
+FORMAL Lean evidence (green
+`1277_g8_p1_metric_channel_pairs_retry2.log`, 3925 jobs, zero
+`error:`/`sorryAx`, standard three axioms). It supplies the trace legality for
+the next comparison but no finite-prime scalar identity, sign, limit, or
+`qw` readback. The remaining P1 target is still the aggregate
+visible-prime-boundary to prime-power trace bridge.
+
+### G8 P1 ordinary-trace metric channel ledger (record 1278, 2026-09-10)
+
+The literal four-channel metric identity has now been lifted to an exact
+ordinary-trace equality on the same source basis. This uses the independent
+Hilbert--Schmidt owner for each ordered channel, so termwise trace operations
+are legal without changing owner or cutoff. This is FORMAL Lean evidence
+(green `1278_g8_p1_metric_trace_channels.log`, 3925 jobs, zero
+`error:`/`sorryAx`, standard three axioms). The aggregate
+visible-prime-boundary-to-prime-power scalar comparison remains OPEN; no limit,
+sign, P2 remainder, or P3 readback is supplied.
+
+### G8 P1 leakage/source Euler cross owner (record 1279, 2026-09-10)
+
+The metric coframe is now split into the source inclusion `J` and its physical
+leakage `L = finiteEulerMetricCoframe - J`. Lean identifies `L` with the
+existing `sourcePhysicalCoframeLeakage` and proves the uncut finite-Euler target
+response is exactly `L† W_g J`. This is FORMAL Lean evidence (green
+`1282_g8_p1_leakage_cross_owner_retry3.log`, 3925 jobs, zero
+`error:`/`sorryAx`, standard three axioms). It identifies the correct
+finite-prime cross-term owner, but the literal cutoff sandwich
+`C_n† L† W_g J C_n` still lacks its cutoff-to-endpoint trace comparison; no
+P2 remainder, P3 limit, sign, or `qw` readback follows.
+
+### G8 P1 literal-cutoff leakage/source cross (record 1280, 2026-09-10)
+
+The same generic cutoff-channel owner now instantiates the physical leakage
+cross as the literal operator `C_n† L† W_g J C_n`, with `L` the
+`finiteEulerMetricCoframe - sourceInclusion` coframe already identified with
+`sourcePhysicalCoframeLeakage`. Lean also supplies the matching transpose
+channel and a concrete Hilbert--Schmidt trace-class owner for both on the same
+source basis. This is FORMAL Lean evidence (green
+`1284_g8_p1_cutoff_leakage_cross_retry.log`, 3925 jobs, zero
+`error:`/`sorryAx`, standard three axioms). The cutoff-to-uncut trace
+comparison remains the open P1/P3 endpoint; no P2 remainder, sign, or `qw`
+readback is supplied.
+
+### G8 P1 metric-minus-source cross expansion (record 1281, 2026-09-10)
+
+The literal cutoff leakage/source channel is now expanded exactly as the
+metric/source channel minus the source/source channel, using
+`L = finiteEulerMetricCoframe - sourceInclusion` under the adjoint.  The
+identity keeps the same cutoff leg and detector owner and uses no external
+remainder.  This is FORMAL Lean evidence (green
+`1287_g8_p1_metric_sub_source_retry2.log`, 3925 jobs, zero
+`error:`/`sorryAx`, standard three axioms).  It is an algebraic P1 alignment
+only; the finite-prime scalar comparison, cutoff endpoint, P2 remainder, and
+P3 `qw` readback remain OPEN.
+
+### G8 P1 literal metric cutoff positivity (record 1282, 2026-09-10)
+
+For every fixed cutoff, the physical metric operator is now formally shown to
+be a positive conjugation `(E C_n)† W_g (E C_n)` of the selected positive
+detector.  This is FORMAL Lean evidence (green
+`1288_g8_p1_metric_positive.log`, 3926 jobs, zero `error:`/`sorryAx`, standard
+three axioms).  It closes only the fixed-cutoff positivity side of the P1
+ledger; finite-prime scalar comparison, endpoint convergence, P2 remainder,
+and P3 readback remain OPEN.
+
+### G8 P1 metric cutoff trace-class owner (record 1283, 2026-09-10)
+
+The four-channel Hilbert--Schmidt owners now close under addition to give a
+trace-class certificate for every literal physical metric cutoff on the same
+source basis.  This is FORMAL Lean evidence (green
+`1292_g8_p1_metric_traceclass_green.log`, 3925 jobs, zero
+`error:`/`sorryAx`, standard three axioms).  Combined with record 1282 this
+establishes fixed-cutoff positivity plus trace legality, but not the
+finite-prime comparison, endpoint convergence, P2 remainder, or P3 readback.
+
+### G8 P1 metric cutoff nonnegative trace (record 1284, 2026-09-10)
+
+An import-facing leaf now combines fixed-cutoff metric positivity with the
+same-owner trace-class certificate to prove nonnegativity of the real ordinary
+trace for every cutoff.  This is FORMAL Lean evidence (green
+`1294_g8_p1_metric_positive_trace_retry.log`, 3926 jobs, zero
+`error:`/`sorryAx`, standard three axioms).  It completes the fixed-cutoff
+positivity/trace side of this P1 ledger only; the finite-prime comparison,
+cutoff endpoint, P2 remainder, and P3 readback remain OPEN.
+
+### G8 P1 survivor--boundary channel ledger (record 1285, 2026-09-10)
+
+The import-facing leaf `C1G8P1BoundaryChannelLedger` now expands the linear
+survivor/aggregate-boundary literal-cutoff channel into the ordered sum of its
+visible-prime boundary maps, with the exact real upper Euler scalar outside the
+sum. This is FORMAL Lean evidence (green
+`1307_g8_p1_boundary_channel_final.log`, 3926 jobs, zero `error:`/`sorryAx`, standard
+three axioms). It preserves the healthy `CompactLog` owner, detector, source
+basis, and cutoff. It is an aggregate operator interface only: no boundary
+map is yet identified with the finite prime-power radial crossing, and no
+finite-prime comparison, sign, endpoint limit, P2 remainder, or P3 readback is
+closed.
+
+### G8 P1 endpoint orientation bridge (record 1286, 2026-09-10)
+
+The import-facing leaf `C1G8P1EndpointOrientation` formally aligns the uncut
+G8 leakage/source response with the finite-S source-band owner:
+`L† W_g J = −(sourceBandGramResponse)†`, with `L` the same physical leakage
+coframe used by the G8 ledger. This is FORMAL Lean evidence (green
+`1311_g8_p1_endpoint_orientation.log`, 3926 jobs, zero `error:`/`sorryAx`,
+standard three axioms). It is a genuine owner/orientation bridge, but it does
+not supply the finite prime-power scalar trace, cutoff convergence, P2
+aggregate inequality, or P3 `qw` readback.
+
+### G8 P1 endpoint trace orientation (record 1287, 2026-09-10)
+
+The same endpoint bridge now has an ordinary-trace form on any named source
+basis: `Tr(L† W_g J) = −star(Tr(sourceBandGramResponse))`. This is FORMAL Lean
+evidence (green `1314_g8_p1_endpoint_trace_orientation.log`, 3926 jobs, zero
+`error:`/`sorryAx`, standard three axioms). It is a scalar orientation handoff
+only; the finite prime-power trace value, cutoff convergence, P2 aggregate
+inequality, and P3 `qw` readback remain OPEN.
+
+### G8 P1 endpoint remainder handoff (record 1288, 2026-09-10)
+
+The import-facing leaf `C1G8P1EndpointRemainder` now combines the G8 endpoint
+trace orientation with the existing same-owner finite-S decomposition, giving
+`Tr(L† W_g J) = −star(Tr(first) − Tr(remainder))` with all boundary-pair,
+support, basis, and finite-family data explicit. This is FORMAL Lean evidence
+(green `1317_g8_p1_endpoint_remainder.log`, 3927 jobs, zero
+`error:`/`sorryAx`, standard three axioms). The named remainder is not assumed
+to vanish or have a sign; prime-power identification, endpoint convergence, P2
+inequality, and P3 readback remain OPEN.
+
+### G8 P1 aggregate boundary trace ledger (record 1289, 2026-09-11)
+
+The import-facing leaf `C1G8P1BoundaryTraceLedger` lifts the exact
+survivor--aggregate-boundary channel identity to an ordinary trace on the
+same source basis.  Lean proves that the literal cutoff trace is the real
+upper Euler scalar times the finite ordered sum of the traces of the visible
+boundary-map channels, with trace-class witnesses for every summand.  This is
+FORMAL Lean evidence (green `1321_g8_p1_boundary_trace_ledger.log`, 3927
+jobs, zero `error:`/`sorryAx`, standard three axioms).  It closes the finite
+list trace bookkeeping only; no individual boundary-map/radial-crossing
+identification, finite prime-power scalar equality, cutoff convergence, sign,
+P2 inequality, or P3 `qw` readback is supplied.
+
+### G8 P2 aggregate exit consumer (record 1290, 2026-09-11)
+
+The import-facing leaf `C1G8P2AggregateExit` connects the concrete G8
+same-owner readback contract to the exact signed P2 aggregate target.  Given
+`G8SameOwnerReadbackData` and the healthy detector's triple-vanishing field,
+Lean derives
+`archimedeanTerm + Σ Λ(n)/√n · Re(bilateralProfile(log n)) ≤ 0` from the
+already-proved `0 ≤ qw`.  This is FORMAL Lean evidence (green
+`1325_g8_p2_aggregate_exit.log`, 3958 jobs, zero `error:`/`sorryAx`, standard
+three axioms).  It is a consumer only: the G8 readback data, its remainder
+limit, and hence the detector-specific P2 producer remain OPEN.
+
+### G8 P3 same-detector contradiction (record 1291, 2026-09-11)
+
+The import-facing leaf `C1G8P3Contradiction` composes the G8 same-owner
+readback consumer with `HealthyYoshidaDetectorData` on the identical selected
+owner.  Lean derives `False` from the resulting `0 ≤ qw(g)` and the existing
+strict detector negativity `qw(g) < 0`.  This is FORMAL Lean evidence (green
+`1328_g8_p3_contradiction.log`, 3959 jobs, zero `error:`/`sorryAx`, standard
+three axioms).  It closes only the logical P3 capstone; the readback producer,
+remainder limit, and detector-specific P2 inequality remain OPEN.
+
+### G8 P1 same-owner boundary type audit (record 1292, 2026-09-11)
+
+Inspection of the completed metric coframe and the existing radial
+prime-power trace owner confirms a typed translation boundary: the metric
+boundary outputs are `sourceSoninCarrier → finiteSCarrier`, while the radial
+crossing theorem is an operator on `cc20GlobalLogCrossingL2`.  The physical
+history records likewise keep raw boundary-dagger outputs separate from the
+metric suffix outputs.  This is FORMAL-TYPE-AUDIT evidence, not a no-go for a
+future transport theorem.  A generic adapter is disallowed; the next P1
+brick must prove the actual same-owner transport, finite-cutoff trace
+identity, and remainder/limit.  Evidence is proof 1292 and the green batch
+`1331_g8_p1_p2_p3_batch.log` (3966 jobs, zero `error:`/`sorryAx`, standard
+three axioms).  P2 producer and the analytic readback remain OPEN.
+
+### G8 P1 canonical radial-boundary bound (record 1293, 2026-09-11)
+
+The import-facing leaf `C1G8P1CanonicalRadialBoundaryBound` specializes the
+existing canonical first-coordinate source-column factorization. It proves
+the explicit same-source-frame estimate
+`‖R_p(newSuffixFrame_S x)‖ ≤ 32 · ‖q_p⁻¹‖ · ‖newFrameAntiresonantColumn_{p,S} x‖`,
+and its squared form, with no hidden uniformization of the inverse Euler
+coefficient. This is FORMAL Lean evidence (green
+`1338_g8_p1_canonical_radial_bound.log`, 3463 jobs, zero `error:`/`sorryAx`,
+standard three axioms). It is only a quantitative source-restriction input;
+the metric-boundary-to-radial same-owner transport, finite-prime trace
+comparison, remainder limit, and P2 producer remain OPEN.
+
+### G8 P1 metric-boundary column energy (record 1294, 2026-09-11)
+
+The import-facing leaf `C1G8P1BoundaryColumnEnergy` proves the literal metric
+boundary column estimate
+`‖finiteEulerMetricBoundaryColumn λ S x‖² ≤
+juliaDefectEnergy (suffixEulerFrameSchurSteps λ S) x ≤ ‖x‖²`.
+The proof is formal Lean evidence (green
+`1347_g8_p1_boundary_energy.log`, 3464 jobs, zero `error:`/`sorryAx`, standard
+three axioms): the ambient adjoint suffix is contractive, each rectangular
+boundary dagger is bounded by its local Julia defect, and the Julia energy
+telescope closes the sum.  This is a genuine consumer-side P1 bound on the
+metric owner.  It does not identify metric outputs with radial Sonin crossings
+and supplies neither the finite-prime trace comparison nor the cutoff-limit
+remainder; the same-owner transport producer remains open under record 1292.
+
+Status: **formal, consumer-side P1 bound; no P2/P3 closure**.
+
+### G8 P1 metric-history energy extension (record 1295, 2026-09-11)
+
+The same leaf now lifts the metric boundary-column estimate to the completed
+metric coframe history.  Lean proves
+`‖finiteEulerMetricCoframeHistoryColumn λ S x‖² ≤ ‖x‖²` and proves the
+corresponding summability and basis-level `tsum` inequality for every
+Hilbert–Schmidt input with summable source-basis energy.  This is FORMAL
+consumer-side evidence (green `1357_g8_p1_history_generalized.log` and
+`1358_g8_p1_history_generalized_audit.log`, 3464/3465 jobs, zero
+`error:`/`sorryAx`, standard three axioms).  It gives quantitative control for
+a future finite-cutoff trace argument on the metric owner, but does not supply
+metric-to-radial same-owner transport, finite-prime trace comparison,
+remainder convergence, or the detector-specific P2 producer.  Status:
+**formal P1 energy extension; P2/P3 remain open**.
+
+### G8 P1 prolate-history energy consumer (record 1296, 2026-09-11)
+
+The import-facing leaf `C1G8P1BoundaryColumnEnergy` now specializes the
+history contraction to the genuine source-prolate Hilbert--Schmidt factor
+`Q₀(E−R₀)`, transported only by the existing source inclusion and its
+adjoint.  Formally,
+`∑ ‖History_S (J† · Q₀(E−R₀) · J)eᵢ‖² ≤ ∑ ‖Q₀(E−R₀)bᵢ‖²`.
+This is FORMAL same-owner P1 consumer evidence (green
+`1369_g8_p1_prolate_history.log` and
+`1370_g8_p1_prolate_history_audit.log`, 3464/3465 jobs, zero
+`error:`/`sorryAx`, standard three axioms).  It supplies a quantitative
+Hilbert--Schmidt budget for a future cutoff trace argument.  It does not
+construct metric-to-radial transport, the finite-prime trace comparison, the
+remainder limit, or the detector-specific P2 producer.  The six-target
+P1/P2/P3 import batch `1371_g8_p1_p2_p3_batch.log` is also green (4082 jobs,
+zero `error:`/`sorryAx`).  Status:
+**formal P1 prolate-history consumer; P2/P3 remain open**.
+
+### G8 P1 boundary-column/history projection (record 1297, 2026-09-11)
+
+The import-facing leaf `C1G8P1BoundaryEnergyExtension` adds the exact
+same-owner projection estimate
+`‖finiteEulerMetricBoundaryColumn λ S x‖ ≤
+‖finiteEulerMetricCoframeHistoryColumn λ S x‖` by applying the `WithLp`
+second-coordinate contraction to the completed metric history.  This is
+FORMAL P1 consumer evidence (green `1393_g8_boundary_energy_extension.log`,
+zero `error:`/`sorryAx`, standard three axioms).  It sharpens the existing
+history energy budget for a future trace estimate on the literal boundary
+column.  It does not identify the column with the radial crossing owner and
+does not provide finite-prime comparison, remainder convergence, P2, or P3.
+Status: **formal P1 projection consumer; P2/P3 remain open**.
+
+### G8 P1 boundary-column energy summability (record 1298, 2026-09-11)
+
+The same import-facing leaf now lifts the pointwise `WithLp` projection to
+generic Hilbert-basis summability and a `tsum` inequality:
+the squared norm sum of the literal `finiteEulerMetricBoundaryColumn` is at
+most the corresponding completed-history sum whenever the source input has
+summable energy.  This is FORMAL same-owner P1 consumer evidence (green
+`1399_g8_boundary_column_prolate.log`, zero `error:`/`sorryAx`, standard three
+axioms).  It supplies the exact column-level budget needed before a finite
+cutoff trace comparison, including the genuine source-prolate input;
+metric-to-radial transport, finite-prime equality, remainder convergence, P2,
+and P3 remain open.
+Status: **formal P1 column-energy consumer; P2/P3 remain open**.
+
+### G8 P1 visible-boundary coframe energy (record 1299, 2026-09-11)
+
+The import-facing leaf `C1G8P1VisibleBoundaryEnergy` proves that the concrete
+metric visible-boundary coframe preserves Hilbert--Schmidt basis summability
+for every summable source input, and specializes this to the genuine
+source-prolate factor transported by the Sonin inclusion/adjoint.  This is
+FORMAL same-owner P1 energy evidence (green `1401_g8_visible_boundary_energy.log`,
+zero `error:`/`sorryAx`, standard three axioms).  It strengthens the finite
+cutoff boundary-channel budget but does not provide metric-to-radial transport,
+finite-prime equality, remainder convergence, P2, or P3.
+Status: **formal P1 visible-boundary energy consumer; P2/P3 remain open**.
+
+### G8 P1 finite-prime visible assembly (record 1300, 2026-09-11)
+
+The import-facing leaf `C1G8P1FinitePrimeAssembly` converts every owned
+`FinitePrimePowerFamily` into a `VisiblePrimePowerTerms family.visiblePrimes`
+assembly.  The theorem `familyVisiblePrimePowerTerms_natTerms_eq` proves that
+the proof-erased natural terms are exactly the original family finset, and
+`ordinaryTraceAlong_g8FamilyVisibleBoundary_eq_finitePrimeTerm_sum` reads the
+selected-Euler boundary trace back to the original finite prime-power sum using
+explicit per-term `GlobalPrimePowerTraceBasisData`.  This is FORMAL arithmetic
+P1 consumer evidence (green `1408_g8_finite_prime_assembly.log`, 3164 jobs,
+zero `error:`/`sorryAx`, standard three axioms).  It closes finite visible-place
+ownership and trace bookkeeping only; it does not identify the metric boundary
+column with the radial crossing owner, prove remainder convergence, or supply
+the detector-specific P2 inequality.  Status: **formal P1 finite-prime
+assembly consumer; metric transport, P2, and P3 remain open**.
+
+### G8 P1 visible-boundary prefix limit (record 1301, 2026-09-11)
+
+The leaf `C1G8P1FinitePrimePrefixLimit` proves that the selected visible Euler
+boundary assembly is exactly the existing `arithmeticOperator` for the same
+`FinitePrimePowerFamily`, then transports the finite-prefix ordinary-trace
+limit to that visible assembly.  Formally its prefix traces converge to the
+original finite prime-power sum, with support, basis, and per-term
+`GlobalPrimePowerTraceBasisData` explicit.  This is FORMAL arithmetic P1
+consumer evidence (green `1410_g8_finite_prime_prefix_limit.log`, 3300 jobs,
+zero `error:`/`sorryAx`, standard three axioms).  It remains independent of
+the physical metric boundary column: no metric-to-radial identity, remainder
+limit, P2 inequality, or P3 contradiction is supplied.  Status: **formal P1
+visible-prefix limit consumer; metric transport, P2, and P3 remain open**.
+
+### G8 P2 canonical visible-Euler residual (record 1302, 2026-09-11)
+
+The leaf `C1G8P2CanonicalResidual` binds the G8 visible-Euler residual to the
+existing same-owner `sameObjectResidual` rather than introducing an external
+scalar counterterm.  It proves the exact operator decomposition
+`projectionResponse = visible Euler boundary assembly + residual` and the
+named-basis trace identity whose first term is the finite prime-power sum.
+This is FORMAL P2 identity/consumer evidence (green
+`1414_g8_p2_canonical_residual.log`, 3301 jobs, zero `error:`/`sorryAx`,
+standard three axioms).  The residual-limit theorem and detector-specific P2
+sign remain open; P3 remains open.  Status: **formal P2 canonical-residual
+identity; limit, sign, and P3 remain open**.
+
+### G8 P2 canonical residual trace-class interface (record 1303, 2026-09-11)
+
+The same leaf adds `g8VisibleEulerResidual_isTraceClassAlong`, a direct G8
+specialization of the existing same-owner residual legality theorem. The
+support interval, named basis, and termwise prime-power trace data remain
+explicit, and the only response-side input is the fixed G8 projection
+response's trace-class witness. This is FORMAL P2 interface evidence (green
+`1419_g8_p2_residual_trace_class.log`, 3301 jobs, zero `error:`/`sorryAx`,
+standard three axioms). It makes the residual trace legal for the eventual
+remainder limit but supplies neither that limit nor the detector-specific P2
+sign; P1 metric-to-radial transport and P3 remain open. Status: **formal P2
+residual trace-class interface; limit, sign, and P3 remain open**.
+
+### G8 P1 canonical exact-support family (record 1304, 2026-09-11)
+
+The import-facing leaf `C1G8P1CanonicalFamily` specializes the finite visible
+Euler assembly to `g8CanonicalFamily owner := ofSelectedOwner owner`.  It
+formally proves that powered terms are exactly the selected owner's nonzero
+prime-power atoms, that a visible place is exactly a genuinely prime base
+with a nonzero power term, and that every visible prime lies below the owner's
+support-derived `globalIndexBound`.  The same leaf also reads the
+visible-boundary trace exactly as a sum over the selected owner's canonical
+exact-support index set.  This is FORMAL same-owner P1 finite-support/readback
+evidence (green `1430_g8_p1_canonical_family_trace.log` and
+`1431_g8_p1_canonical_family_audit.log`, 3705 jobs, zero `error:`/`sorryAx`,
+standard three axioms).  It closes the finite-set ownership/readback
+specialization but does not provide metric-to-radial transport, finite metric
+trace equality, the P2 remainder/sign, or P3.  Status: **formal P1 canonical
+finite-support/readback consumer; transport, P2, and P3 remain open**.
+
+### G8 P2 selected-support residual readback (record 1305, 2026-09-11)
+
+The import-facing leaf `C1G8P2CanonicalResidual` now combines the canonical
+same-owner family with the existing residual decomposition.  The theorem
+`ordinaryTraceAlong_projectionResponse_eq_selectedSupport_sum_add_g8Residual`
+reads the named-basis G8 projection-response trace exactly as the selected
+owner's canonical nonzero prime-power support sum plus
+`ordinaryTraceAlong g8VisibleEulerResidual` for that same owner.  This is
+FORMAL same-owner P2 identity/readback evidence (green
+`1438_g8_p2_selected_support_residual.log`, 3827 jobs, zero
+`error:`/`sorryAx`, standard three axioms).  It supplies neither the residual
+limit nor its sign, and does not provide metric-to-radial transport, a finite
+metric trace equality, or P3.  Status: **formal P2 selected-support
+readback; residual limit/sign, transport, and P3 remain open**.
+
+### G8 P2 completed-residual prefix limit (record 1306, 2026-09-11)
+
+The import-facing leaf `C1G8P2CanonicalResidual` specializes the existing
+endpoint arithmetic-prefix limit to `g8CanonicalFamily owner`.  The theorem
+`tendsto_g8CompletedResidualPrefix_eq_routeTrace_sub_selectedSupport` proves
+that the completed residual prefix converges along the same named global
+basis to the route trace minus the exact canonical nonzero prime-power
+support sum.  This is FORMAL same-owner P2 endpoint-limit evidence (green
+`1444_g8_p2_residual_prefix_limit.log`, 3827 jobs, zero
+`error:`/`sorryAx`, standard three axioms).  It is a genuine prefix limit but
+does not yet prove the analytic remainder tends to zero or has the required
+sign, and it does not supply metric-to-radial transport or P3.  Status:
+**formal P2 prefix-limit consumer; remainder zero/sign, transport, and P3
+remain open**.
+
+### G8 P1 local Schur boundary orthogonality (record 1307, 2026-09-11)
+
+The import-facing leaf `C1G8P1BoundaryOrthogonality` proves, for every
+visible-prime Schur step, the exact same-owner relation
+`newFrame† ∘ boundaryDagger = 0`. This follows by unfolding the rectangular
+boundary dagger and applying the new-frame isometry, so it is a genuine
+geometric property of the existing metric boundary output rather than a
+carrier-changing adapter. FORMAL evidence: green
+`1450_g8_p1_boundary_orthogonality.log` (3246 jobs, zero `error:`/`sorryAx`,
+standard three axioms). It supplies an orthogonality sub-lemma for the P1
+transport consumer, but not metric-to-radial identification, finite metric
+trace equality, the P2 remainder/sign, or P3. Status: **formal P1 local
+orthogonality brick; transport and all endpoint consumers remain open**.
+
+### G8 P1 survivor--boundary orthogonality (record 1308, 2026-09-11)
+
+The same import-facing leaf now proves the aggregate telescope consequence
+`newSuffixFrame(λ, [])† ∘ (suffixEulerBoundaryOutputMaps λ S).sum = 0`.
+This is derived from the exact ambient-product intertwining, terminal-frame
+isometries, and the full Schur boundary telescope, so it is a genuine
+same-owner orthogonality relation between the terminal survivor and aggregate
+metric boundary output. FORMAL evidence: green
+`1461_g8_p1_boundary_sum_orthogonality_audit.log` (3247 jobs, zero
+`error:`/`sorryAx`, standard three axioms in both audit prints). It gives a
+structural P1 sub-lemma but does not identify metric outputs with radial
+crossings, prove finite metric trace equality, or close P2/P3. Status:
+**formal P1 survivor--boundary orthogonality brick; transport and endpoint
+producers remain open**.
+
+### G8 P1 visible-boundary coframe orthogonality (record 1309, 2026-09-11)
+
+The same leaf now transports aggregate Schur orthogonality through the actual
+metric visible-boundary coframe, proving
+`newSuffixFrame(λ, [])† ∘ g8MetricVisibleBoundaryCoframe(λ, family) = 0`.
+The inverse-Gram square-root source factor remains explicit and the upper
+Euler scalar is retained, so this is a genuine same-owner coframe statement.
+FORMAL evidence: owning build `1465_g8_p1_visible_boundary_orthogonality.log`
+and complete audit re-readback `1476_g8_p1_boundary_orthogonality_audit.log`
+(zero `error:`/`sorryAx`, standard three axioms). It is a structural P1
+orthogonality consumer only; metric-to-radial identification, finite metric
+trace equality, P2 remainder/sign, and P3 remain open. Status: **formal P1
+visible-boundary orthogonality brick; transport and endpoint producers remain
+open**.
+
+### G8 P1 survivor--boundary coframe Pythagorean identity (record 1310, 2026-09-11)
+
+The import-facing leaf `C1G8P1CoframePythagorean` proves the concrete
+same-owner orthogonality
+`g8MetricSurvivorCoframe(λ,family)† ∘
+g8MetricVisibleBoundaryCoframe(λ,family) = 0` and, by taking the adjoint and
+expanding the existing coframe split, the exact unweighted Gram identity
+`finiteEulerMetricCoframe† ∘ finiteEulerMetricCoframe = survivor† ∘ survivor +
+boundary† ∘ boundary`. This is FORMAL P1 energy/Gram evidence (green
+`1475_g8_p1_coframe_pythagorean.log`, 3927 jobs, zero `error:`/`sorryAx`,
+standard three axioms). It does not cancel detector-weighted channels,
+identify metric boundaries with radial crossings, prove finite metric trace
+equality, or advance P2/P3. Status: **formal P1 coframe Gram consumer;
+transport and endpoint producers remain open**.
+
+### G8 P1 pointwise coframe energy split (record 1311, 2026-09-11)
+
+The import-facing leaf `C1G8P1CoframeEnergySplit` specializes the formal
+survivor--boundary orthogonality to each source vector and proves the exact
+norm-square identity
+`‖finiteEulerMetricCoframe x‖² = ‖survivor x‖² + ‖visibleBoundary x‖²`.
+This is a FORMAL same-owner P1 energy consumer (green
+`1482_g8_p1_coframe_energy_split.log`, 3928 jobs, zero `error:`/`sorryAx`,
+standard three axioms). It is still unweighted: it does not cancel
+detector-weighted channels or identify the boundary with radial crossings.
+Metric-to-radial transport, finite metric trace equality, P2 remainder/sign,
+and P3 remain open. Status: **formal P1 pointwise energy identity; transport
+and endpoint producers remain open**.
+
+### G8 P1 diagonal channel positivity (record 1312, 2026-09-11)
+
+The import-facing leaf `C1G8P1DiagonalChannelPositivity` proves that each
+same-leg metric cutoff channel is an adjoint conjugation `C† W C` of the
+fixed detector-positive operator. Hence the survivor-survivor and
+boundary-boundary terms in the four-channel ledger are positive, leaving only
+the mixed channels as potentially signed. This is FORMAL same-owner P1
+positivity evidence (green `1486_g8_p1_diagonal_channel_positivity.log`,
+3926 jobs, zero `error:`/`sorryAx`, standard three axioms). It does not give
+detector-weighted mixed-channel cancellation, metric-to-radial transport,
+finite metric trace equality, P2 remainder/sign, or P3. Status: **formal P1
+diagonal positivity consumer; transport and endpoint producers remain open**.
+
+### G8 P1 metric projection factorization (record 1313, 2026-09-11)
+
+The import-facing leaf `C1G8P1MetricProjectionFactorization` rewrites the
+literal metric cutoff operator exactly as `K† G K`, with the ambient
+`g8AdjointShearGram` `G` and the source-projected cutoff leg
+`K = sourceInclusion ∘ (sourceInclusion† ∘ rawCutoff)`. This is a genuine
+same-owner factorization and isolates the remaining P1 comparison to the
+projection defect between `K` and the raw cutoff leg. FORMAL evidence:
+`1490_g8_p1_metric_projection_factorization.log` (green owning/audit targets,
+zero `error:`/`sorryAx`, standard three axioms). No finite-trace equality or
+metric-to-radial transport is inferred. Status: **formal P1 projection-owner
+alignment; projection-defect control, transport, endpoint, P2, and P3 remain
+open**.
+
+The cross-import batch `1491_g8_p1_p2_p3_cross_import.log` also rebuilt this
+leaf with the diagonal P1, canonical P2, and same-detector P3 consumers (3979
+jobs; zero `error:`/`sorryAx`).
+
+### G8 P1 metric projection-defect ledger (record 1314, 2026-09-11)
+
+The import-facing leaf `C1G8P1MetricProjectionDefectLedger` cancels the common
+same-owner internal correction in the existing endpoint identities and proves
+the exact ledger `raw cutoff trace product = literal metric cutoff + three
+projection-defect channels`. The channels are the projected--complement,
+complement--projected, and complement--complement terms; no sign or vanishing
+is inferred. FORMAL evidence: `1494_g8_p1_metric_projection_defect_ledger.log`
+(3926 jobs, zero `error:`/`sorryAx`, standard three axioms). This fixes the
+finite-trace comparison target but does not provide metric-to-radial transport,
+endpoint production, P2 remainder/sign, or P3. Status: **formal P1 defect
+ledger; defect control, transport, endpoint, P2, and P3 remain open**.
+
+The cross-import batch `1495_g8_p1_p2_p3_cross_import_defect.log` rebuilt this
+ledger together with the P1/P2/P3 consumers (3981 jobs; zero
+`error:`/`sorryAx`).
+
+### G8 P1 projected--complement trace-class owner (record 1315, 2026-09-11)
+
+The import-facing leaf `C1G8P1MetricProjectionDefectTraceClass` gives the
+projected--complement defect channel an explicit Hilbert--Schmidt pair owner
+and proves its trace product and trace-class legality on the same source basis;
+it also packages trace-class legality for all three defect channels.
+FORMAL evidence: `1498_g8_p1_projection_defect_trace_class.log` (3927 jobs,
+zero `error:`/`sorryAx`, standard three axioms). This is legal trace handling
+only; it does not prove a sign or limit, metric-to-radial transport, endpoint,
+P2, or P3. Status: **formal P1 mixed-channel trace-class brick; defect control,
+transport, endpoint, P2, and P3 remain open**.
+
+The cross-import batch `1499_g8_p1_p2_p3_projection_trace_cross.log` rebuilt
+this owner together with the P1/P2/P3 consumers (3983 jobs; zero
+`error:`/`sorryAx`).
+
+Aggregate audit `1503_g8_p1_projection_defect_all_trace_class.log` is green
+(3927 jobs, zero `error:`/`sorryAx`).
+
+The final consumer batch `1504_g8_p1_p2_p3_full_consumer_batch.log` rebuilt
+this owner with the P1/P2/P3 leaves (3983 jobs; zero `error:`/`sorryAx`).
+
+### G8 P1 ordinary trace projection-defect ledger (record 1316, 2026-09-11)
+
+The import-facing leaf `C1G8P1MetricProjectionDefectTraceLedger` transports
+the exact raw-cutoff = metric + three-defect operator ledger to the named
+source-basis ordinary trace, using explicit trace-class owners for every
+summand. FORMAL evidence: `1514_g8_p1_projection_defect_trace_ledger.log`
+(3929 jobs, zero `error:`/`sorryAx`, standard three axioms). This remains a
+finite-cutoff identity only: no defect sign, cutoff limit, metric-to-radial
+transport, endpoint, P2, or P3 conclusion is inferred. Status: **formal P1
+ordinary-trace ledger; analytic defect control, transport, endpoint, P2, and
+P3 remain open**.
+
+### G8 P1 diagonal metric-channel trace positivity (record 1317, 2026-09-11)
+
+The import-facing leaf `C1G8P1DiagonalChannelPositivity` now proves that the
+ordinary trace of every literal cutoff self-channel has nonnegative real part,
+for either metric coframe leg, using the same-owner trace-class witness and
+adjoint-conjugation positivity. FORMAL evidence:
+`1518_g8_p1_diagonal_trace_positive.log` (3926 jobs, zero
+`error:`/`sorryAx`, standard three axioms). This isolates the mixed channels
+and projection defects as the remaining signed P1 terms; no transport,
+endpoint, P2, or P3 conclusion is inferred. Status: **formal diagonal trace
+positivity; mixed/defect control, transport, endpoint, P2, and P3 remain
+open**.
+
+Final cross-consumer evidence `1519_g8_p1_p2_p3_final_trace_positive_batch.log`
+rebuilt the projection-defect trace ledger, all P1 trace-class/factorization
+leaves, diagonal trace positivity, canonical P2 residual, and P3 contradiction
+together (3985 jobs; zero `error:`/`sorryAx`; standard three axioms).
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:
