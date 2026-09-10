@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1G8P1ProjectionDefectCommutator
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1ProjectionDefectCommutatorAudit
+
+open C1G8P1ProjectionDefectCommutator
+
+#print axioms sourceInclusion_adjoint_comp_g8SourceCutoffComplementLeg_eq_zero
+#print axioms sourceSoninProjection_comp_g8SourceCutoffComplementLeg_eq_zero
+#print axioms g8ProjectionDefectCross_eq_sourceProjection_commutator
+
+end C1G8P1ProjectionDefectCommutatorAudit
+end Source
+end ConnesWeilRH

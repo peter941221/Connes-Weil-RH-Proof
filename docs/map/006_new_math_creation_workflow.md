@@ -1549,6 +1549,18 @@ the radial prime-power boundary, or establish a cutoff limit. Evidence:
 reduction; the cross-real-part bound, transport, endpoint, P2, and P3 remain
 open**.
 
+### G8 P1 projection-defect commutator localization (record 1319, 2026-09-11)
+
+The import-facing leaf `C1G8P1ProjectionDefectCommutator` proves on the same
+healthy source owner that the literal cutoff complement `D` satisfies
+`J† D = 0` and `P D = 0`, then identifies the sole signed channel from record
+1318 exactly as `C† J† [P, G] D`. FORMAL evidence:
+`1531_g8_p1_projection_defect_commutator_retry6.log` (3931 jobs, zero
+`error:`/`sorryAx`, standard three axioms). This is a localization, not a
+commutator bound: the required same-owner real-trace estimate, cutoff/radial
+transport, endpoint, P2, and P3 remain open. Status: **formal P1 signed-defect
+localization; no finite-cutoff sign or limit is inferred**.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:
