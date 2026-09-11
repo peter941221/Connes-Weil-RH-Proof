@@ -1691,6 +1691,37 @@ RH-level content of P1. Status: **formal P1 energy alignment complete;
 column-energy summability (the analytic gate), metric-to-radial cutoff
 identification, endpoint, P2, and P3 remain open**.
 
+### G8 P1 quantitative column-energy ledger (record 1328, 2026-09-11)
+
+1327 transferred *finiteness* only; the P2 aggregate inequality needs
+*constants*, and this record lands them. The new engine is the classical
+Hilbert-Schmidt norm adjoint invariance along arbitrary Hilbert bases,
+`∑_j ‖T b_j‖² = ∑_i ‖T† u_i‖²` (`hsNormSq_adjoint_invariance`), proved in
+the all-ℝ fragment: one shared nonnegative coefficient matrix, both
+Parseval links (`realParseval`), the finite/infinite exchange via
+`(Summable.tsum_finsetSum ·).symm` and `Summable.sum_le_tsum` partial-sum
+bounds, antisymmetry. Consequences, all conditional on the same named
+premise `hcolumn`:
+`comp_normSq_le_of_contractive_pull` (precomposition costs `‖pull‖²`),
+`metricBoundaryComposite_normSq_le_fullCarrierColumnEnergy`
+(`E_metric ≤ ‖oldFrame‖² E_col`), its contractive corollary
+(`E_metric ≤ E_col`), and the two-channel P1 ledger
+`p1BoundaryEnergyLedger_of_fullCarrierColumnEnergy`:
+radial-after-oldFrame energy + metric boundary energy
+`≤ (1 + (32‖q_p⁻¹‖)²) · ‖oldFrame‖² · E_col`. Both P1 channels now have
+ONE closed constant times ONE energy. FORMAL evidence:
+`1541_g8_p1_quantitative_alignment_batch.log` (3490 jobs, zero
+`error:`/`sorryAx`; all 14 axiom prints — 6 new + 8 regression — standard
+three). Stage-0 probe finding recorded with the proof doc: instantiating
+`antiCol = loss† ∘L newFrame` and `newFrame ∘L newFrame† = P_S`, the
+premise is exactly `‖(I + U_{-log p}) ∘ P_S‖²_HS < ∞` up to
+`lossScale p = √q_p/(1+q_p)`; since `P_S` has infinite rank, the premise
+holds iff the frame range is asymptotically `p`-antiperiodic — a sharp
+falsifiable analytic claim, now the explicit target of the workflow-C
+plausibility probe. Status: **quantitative P1 conditional ledger complete;
+column-energy summability (the analytic gate = HS/antiperiodicity claim),
+cutoff identification, endpoint, P2, P3 remain open**.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:

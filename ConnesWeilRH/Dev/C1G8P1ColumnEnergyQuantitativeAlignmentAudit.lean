@@ -1,0 +1,31 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8P1ColumnEnergyQuantitativeAlignment
+
+/-!
+# Audit for the G8 P1 quantitative column-energy alignment
+
+Verification batch: `1541_g8_p1_quantitative_alignment_batch.log`.
+-/
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1ColumnEnergyQuantitativeAlignmentAudit
+
+open scoped InnerProduct InnerProductSpace
+
+open ConnesWeilRH.Source.C1G8P1ColumnEnergyQuantitativeAlignment
+
+#print axioms ConnesWeilRH.Source.C1G8P1ColumnEnergyQuantitativeAlignment.realParseval
+#print axioms ConnesWeilRH.Source.C1G8P1ColumnEnergyQuantitativeAlignment.hsNormSq_adjoint_invariance
+#print axioms ConnesWeilRH.Source.C1G8P1ColumnEnergyQuantitativeAlignment.comp_normSq_le_of_contractive_pull
+#print axioms ConnesWeilRH.Source.C1G8P1ColumnEnergyQuantitativeAlignment.metricBoundaryComposite_normSq_le_fullCarrierColumnEnergy
+#print axioms ConnesWeilRH.Source.C1G8P1ColumnEnergyQuantitativeAlignment.metricBoundaryComposite_normSq_le_fullCarrierColumnEnergyContractive
+#print axioms ConnesWeilRH.Source.C1G8P1ColumnEnergyQuantitativeAlignment.p1BoundaryEnergyLedger_of_fullCarrierColumnEnergy
+
+end C1G8P1ColumnEnergyQuantitativeAlignmentAudit
+end Source
+end ConnesWeilRH
