@@ -96,22 +96,50 @@ G1  diagonal machinery exactness (all cells): K_full = D/N witness
 G2  sharp cliff: sigma_{r}/sigma_{r+1} positions per 1334 A2   [as 1334]
 G3  rank sharpness of F: ranks at {1e-8,1e-6}·sigma_0 differ   [new]
     by at most 2% of r; else ABORT
-G4  evaluation-path cross-check: the trial space is exactly the D = N/2
-    Fourier modes m = 1..D on the period-2L grid, so the sector basis
-    functions can be evaluated at any real x by TWO independent paths:
-    (P1) trig coefficients: phi_x = evec(x) @ (h Eb^H V);
-    (P2) periodic-Dirichlet kernel from grid values:
-         v_j(x) = sum_k V[k,j] D(x - x_k), D(u) = sin(pi u/h)/
-         (N sin(pi u/(N h))) times the (-1)^m-shift bookkeeping folded as
-         evec-phase (the code implements P2 as exact band-limited
-         periodic interpolation of the D-mode space).
-    Witness: at every constraint point x and the FIRST sector vector
-    j = 1, |P1 - P2| <= 1e-10 * max(1, |P1|). This validates the whole
-    coefficient/evaluation machinery on exactly the points that enter F.
-G5  zero-data fidelity: first 10 gamma_n match the committed     [new]
-    table 14.134725, 21.022040, 25.010858, 30.424876, 32.935062,
-    36.822281, 37.680407, 41.058034, 43.327073, 48.005151
-    to 6 decimals (mpmath version + dps recorded).
+G4  evaluation-path cross-check (AMENDED inv5, see ledger): the trial
+    space is exactly the D = N/2 Fourier modes m = 1..D on the period-2L
+    grid. Two independent evaluation paths:
+    (P1) trig coefficients at any real x: evec(x) @ V;
+    (P2) OVERSAMPLED band-limited interpolation on an ODD grid: M = 2N+1
+         points of period 2L, values obtained by zero-padding the
+         coefficient vector to length M and applying an FFT, then the
+         Dirichlet kernel d(u) = sin(pi M u / (2L)) / (M sin(pi u / (2L))).
+    WHY the amendments (inv5 + inv7): (inv5) mode m = D = N/2 is the
+    NYQUIST bin of the N-point grid, where the originally preregistered
+    N-sample Dirichlet formula aliases (smoke disagreement 2.8e-04..
+    9.4e-02); (inv7, caught by the SECOND smoke at residual 1e-5..1e-7)
+    the sin(pi M u / P)/(M sin(pi u / P)) formula reproduces the symmetric
+    band EXACTLY only for ODD M — an even-M grid needs 2K+1 = M-1 — so P2
+    uses M = 2N+1, where the identity is exact and d(0) = 1. After the
+    fix, standalone P1 vs P2 agreement is ~2e-13 relative, and the
+    kernel reproduces constants exactly (row sums = 1). All modes
+    m <= N/2 are strictly interior to the |m| <= N band.
+    Witness: at every constraint point and THREE sector vectors
+    (j in {0, r/2, r-1}): |P1 - P2| <= 1e-9 * max(1, |P1|). This
+    validates the coefficient/evaluation machinery on exactly the points
+    that enter F, through two separately-coded implementations.
+G7  constrained-sector trace (AMENDED inv6, machinery gate, both smoke
+    and official): sum_k K'(x_k) h = r' to 1e-8 relative. This is the
+    witness that caught the thin-SVD null-space defect (inv4): an
+    all-zero "sector" is instantly visible as trace deviation O(1).
+SMOKE POLICY (amendment inv6): with P_SMOKE=1 the two RESOLUTION-LIMITED
+    gates G2 (cliff > 10) and G3 (soft rank) are downgraded to WARN and
+    the cell is recorded incomplete; every other gate still aborts. At
+    the official N = 8192 the policy is off and 1334's measured cliffs
+    (376x / 143x / 70x per L) make G2's margin comfortable. No official
+    verdict is ever produced under SMOKE mode (script prints
+    SMOKE-MACHINERY-GREEN and writes no license reading).
+G5  zero-data fidelity (AMENDED pre-smoke, see section 6 ledger):     [new]
+    (i) |zeta(1/2 + i gamma_n)| <= 1e-3 for EVERY gamma_n used;
+    (ii) strict monotonicity of the gamma list;
+    (iii) first 10 gammas match the anchor table 14.134725, 21.022040,
+    25.010858, 30.424876, 32.935062, 37.586178, 40.918719, 43.327073,
+    48.005151, 49.773832 to 1e-4. Anchor table is mpmath-generated and
+    residual-verified THIS session; the original hand-typed table (three
+    fabricated entries: 36.822281/37.680407/41.058034 at ranks 6/7/8) was
+    REFUTED by the residual witness before any cell ran — G5 exists for
+    exactly this failure mode; the smoke caught it. mpmath version + dps
+    recorded in the JSON.
 ```
 
 ## 4. Verdict bands (pre-committed; applied only if all gates pass)
@@ -163,5 +191,49 @@ Smoke first at N=1024 (all gates must be green or the smoke fails loudly);
 official at N=8192, cells L in {32,48,64}, per-cell wall budget 580 s.
 Outputs: `docs/proofs/1338_probe_results.json` + run log. Zero data cached
 in the JSON (list actually used) for independent replay.
+
+## 6. Invocation / amendment ledger (pre-run)
+
+```text
+inv1  AttributeError mp.mp.dps — mpmath context fixed directly. script fix.
+inv2  zetazero returns mpc — im() extraction. script fix.
+inv3  G5 FIRED on the smoke (exit 1, zero cells executed): the hand-typed
+      anchor table contained three fabricated gammas (ranks 6-8); residual
+      witness |zeta| at the mpmath values <= 3.1e-7, at the fabricated
+      values O(1). Anchor table replaced by residual-verified values; G5
+      rewritten to include the residual witness for every used gamma.
+      This is the KSHAPE pattern (1329 A1) recurring: plausible constants
+      from an unverified source; the data-fidelity gate is now MANDATORY
+      for any probe consuming external tables.
+corr  SECTOR DEFECT (section 0): Vh.conj().T[:, :r] -> [:, D-r:]; record
+      1334's capacity statistic was on the wrong singular block; S0unc
+      control added to re-measure it correctly. Pre-run, committed.
+inv4  thin-SVD NULL-SPACE defect (smoke N=1024): np.linalg.svd(F1,
+      full_matrices=False) on a 2M x r matrix (2M < r) returns only the
+      2M row-space vectors, so VhF.conj().T[:, rk:] is the WRONG slice —
+      at L=32 it was a 0-column "null basis" (phantom A_tau = 0.000), at
+      L=48 it silently mixed 28 row-space vectors in (A = [1.17, 1.32]
+      were NOT constrained-sector numbers). Fixed: full_matrices=True.
+      Detected by the new G7 trace witness, NOT by any A value — smoke
+      machinery controls earn their cost. SMOKE-ONLY defect: no official
+      digit was ever produced under the bug; the smoke A readings are
+      VOID and were never recorded anywhere as findings.
+inv5  G4 P2 Nyquist aliasing (see section 3): replaced the N-sample
+      Dirichlet path by the exact 2N oversampled FFT path. Amendment
+      before any official cell; P1 (the production evaluation path)
+      unchanged and is the basis of F.
+inv6  SMOKE gate policy (see section 3): G2/G3 downgraded to WARN under
+      P_SMOKE=1 only; G7 (constrained-sector trace) added as machinery
+      gate at every resolution. Official discipline unchanged.
+inv7  SECOND smoke (P_SMOKE=1, N=1024): machinery ran end-to-end, G4
+      still 1e-5..1e-7 -> root-caused as EVEN-M parity in the P2
+      Dirichlet kernel (the sin(pi M u/P) form is the exact symmetric-
+      band kernel only for odd M). Fixed: M = 2N+1. Third smoke:
+      SMOKE-MACHINERY-GREEN, G4 ~ 2e-13 all cells, G7 trk ~ 1e-16,
+      LR windings match the 1337 section 6 closed form 2 L (ln L - 1)
+      (157.6 vs 157.8 at L=32). Smoke f/A digits remain NON-
+      REPRESENTATIVE (N=1024 under-resolves the cliff: LC L=48 r=279
+      vs official target 658) and are excluded from any verdict.
+```
 
 RH is not claimed.

@@ -36,9 +36,19 @@ MARGIN = 3.0
 TOL_RANKS = [1e-8, 1e-6]
 BUDGET_S = 580.0
 OUT = os.environ.get("P_OUT", "1338_probe_results.json")
+# Amendment inv6: P_SMOKE=1 downgrades ONLY the resolution-limited gates
+# G2 (cliff) and G3 (soft rank) to WARN (1334 precedent: both are sharp at
+# N=8192, soft at 1024). Machinery gates G0/G1/G4/G5/G7 stay ABORT.
+# Official runs never set P_SMOKE; there the gates abort as preregistered.
+SMOKE = os.environ.get("P_SMOKE") == "1"
 
+# Anchors for G5: verified by residual gate |zeta(1/2+i gamma)| <= 1e-3
+# plus the table below (the ORIGINAL hand-typed table here contained three
+# fabricated values, caught by the pre-run smoke; replaced by values
+# produced by mpmath zetazero and independently verified against zeta
+# residuals this session — lesson: never hand-type published constants).
 FIRST10 = [14.134725, 21.022040, 25.010858, 30.424876, 32.935062,
-           36.822281, 37.680407, 41.058034, 43.327073, 48.005151]
+           37.586178, 40.918719, 43.327073, 48.005151, 49.773832]
 # 1334 continuity targets (N=8192 only): rank cliff counts per L.
 LC_R_TARGET = {32: 387, 48: 658, 64: 952}
 
@@ -85,26 +95,51 @@ def eval_trig_rows(points, L):
     return ph * np.exp(2j * math.pi * m[None, :] * (x + L) / (2 * L)) / math.sqrt(2 * L)
 
 
-def eval_dirichlet_weights(points, xs):
-    """P2: periodic Dirichlet kernel weights B[2M, N]: v(x) = sum_k v(x_k) d(x-x_k)."""
-    h = xs[1] - xs[0]
-    u = np.asarray(points)[:, None] - xs[None, :]
-    num = np.sin(math.pi * u / h)
-    den = N * np.sin(math.pi * u / (N * h))
+def eval_dirichlet2n_weights(points, L):
+    """P2 (amendments inv5 + inv7): Dirichlet kernel of an ODD oversampled
+    grid, M = 2N+1 points of period 2L.
+
+    Why odd M: the kernel (1/M) sum_{|k|<=(M-1)/2} exp(2 pi i k u / P) =
+    sin(pi M u / P) / (M sin(pi u / P)) reproduces the band |m| <=
+    (M-1)/2 = N EXACTLY only for odd M; for even M the symmetric band sum
+    is 2K+1 = M-1, not M (the second smoke G4 mismatch, ~1e-5, was this
+    parity bug). The trial space modes m = 1..N/2 sit strictly interior
+    to the band, and d(0) = 1 makes the coincidence mask exact.
+    Deliberately implemented via a fresh kernel formula + FFT path
+    (below), independent of P1's direct evec evaluation.
+    """
+    M = 2 * N + 1
+    hs = 2 * L / M
+    xs2 = -L + np.arange(M) * hs
+    u = np.asarray(points)[:, None] - xs2[None, :]
+    num = np.sin(math.pi * M * u / (2 * L))
+    den = M * np.sin(math.pi * u / (2 * L))
     with np.errstate(divide="ignore", invalid="ignore"):
-        w = np.where(np.abs(u) < 1e-14 * h, 1.0, num / den)
+        w = np.where(np.abs(u) < 1e-14 * hs, 1.0, num / den)
     return w
 
 
+def eval_grid2n(Vcols, L):
+    """Sector-function values on the M = 2N+1 oversampled grid (FFT path)."""
+    M = 2 * N + 1
+    mm = np.arange(1, D + 1)
+    A = Vcols * np.where(mm % 2 == 0, 1.0, -1.0)[:, None] / math.sqrt(2 * L)
+    b = np.zeros((M, Vcols.shape[1]), dtype=complex)
+    b[1:D + 1] = A
+    return M * np.fft.ifft(b, axis=0)
+
+
 def zeta_gammas(Tmax):
+    """gammas up to Tmax + residuals |zeta(1/2+i g)| (independent witness)."""
     from mpmath import mp
-    mp.mp.dps = 25
-    gs, n = [], 1
+    mp.dps = 25
+    gs, resid, n = [], [], 1
     while True:
-        g = float(mp.zetazero(n))
+        g = float(mp.im(mp.zetazero(n)))
         if g > Tmax:
-            return gs, n - 1
+            return gs, resid
         gs.append(g)
+        resid.append(float(abs(mp.zeta(0.5 + mp.j * mp.mpf(repr(g))))))
         n += 1
 
 
@@ -125,11 +160,17 @@ def main():
            "gates": {}, "cells": {}, "verdict": {}}
     import mpmath
     res["mpmath"] = mpmath.__version__
-    gs, _ = zeta_gammas(2 * math.pi * (max(LS) - 1))
+    gs, resid = zeta_gammas(2 * math.pi * (max(LS) - 1))
     res["zeta_gamma_first10"] = [round(g, 6) for g in gs[:10]]
-    res["gates"]["G5_zero_data"] = all(
-        abs(a - b) < 1e-4 for a, b in zip(gs[:10], FIRST10))
+    res["zeta_gammas"] = gs
+    res["zeta_resid_max"] = max(resid)
+    res["gates"]["G5_zero_data"] = bool(
+        abs(res["zeta_resid_max"]) <= 1e-3
+        and all(b > a for a, b in zip(gs, gs[1:]))
+        and all(abs(a - b) < 1e-4 for a, b in zip(gs[:10], FIRST10)))
     res["n_zeros_total"] = len(gs)
+    print(f"G5 zeros n={len(gs)} max|zeta|={res['zeta_resid_max']:.2e} "
+          f"gate={res['gates']['G5_zero_data']}", flush=True)
     if not res["gates"]["G5_zero_data"]:
         print("ABORTED-UNINFORMATIVE: G5", flush=True)
         sys.exit(1)
@@ -181,23 +222,36 @@ def main():
             pts = [g / (2 * math.pi) for g in gs if g / (2 * math.pi) < L - MARGIN]
             pts = sorted(set([p for p in pts] + [-p for p in pts]))
             cell["2M"] = len(pts)
-            # P1 functionals
-            A = h * (Eb.conj().T @ V)                      # D x r
-            F1 = eval_trig_rows(pts, L) @ A                 # 2M x r
-            # P2 cross-check (G4) on 3 sector vectors
-            B = eval_dirichlet_weights(np.asarray(pts), xs)  # 2M x N
-            F2 = B @ V
+            # P1 functionals: V already holds ORTHONORMAL trig coefficients
+            # (columns of the D x D right-singular matrix; Eb^H Eb h = I),
+            # so evaluation is directly Evals @ V.
+            Vf = Eb @ V                                     # N x r grid values
+            F1 = eval_trig_rows(pts, L) @ V                 # 2M x r
+            # P2 cross-check (G4) on 3 sector vectors, 2N oversampled path
             idx = [0, r // 2, r - 1]
+            B2 = eval_dirichlet2n_weights(np.asarray(pts), L)   # 2M x 2N
+            F2 = B2 @ eval_grid2n(V[:, idx], L)                 # 2M x 3
             g4 = float(max(
-                np.max(np.abs(F2[:, j] - F1[:, j])) /
-                max(1e-30, np.max(np.abs(F1[:, j]))) for j in idx))
+                np.max(np.abs(F2[:, t] - F1[:, idx[t]])) /
+                max(1e-30, np.max(np.abs(F1[:, idx[t]])))
+                for t in range(3)))
             cell["G4_eval_crosscheck"] = g4
-            # rank / survivors
-            _, sv, VhF = np.linalg.svd(F1, full_matrices=False)
+            del B2, F2
+            # rank / survivors.  full_matrices=True REQUIRED (inv4): a thin
+            # SVD of the 2M x r matrix returns only min(2M,r) right vectors,
+            # silently truncating the null space (smoke produced a 0-column
+            # "null basis" -> phantom A_tau = 0.000).
+            _, sv, VhF = np.linalg.svd(F1, full_matrices=True)
             rk = rank_pair(sv, r, cell)
             if rk is None:
+                cell["soft_rank"] = True
                 cell["secs"] = round(time.time() - t1, 1)
                 res["cells"][f"{flavor}_L{L}"] = cell
+                if SMOKE:
+                    print(f"CELL {flavor} L={L}: SOFT RANK -> WARN (smoke)",
+                          flush=True)
+                    del Eb, V, Vf, K, F1, s, xs, VhF, sv
+                    continue
                 print(f"CELL {flavor} L={L}: SOFT RANK -> ABORT", flush=True)
                 json.dump(res, open(OUT, "w"), indent=1)
                 print("ABORTED-UNINFORMATIVE: G3", flush=True)
@@ -206,8 +260,8 @@ def main():
             cell["f"] = (r - rk) / r
             cell["f0"] = 1 - len(pts) / r
             if cell["r_prime"] >= 3:
-                Cn = VhF.conj().T[rk:, :]                   # null basis r' x r
-                Vc = V @ Cn.T.conj().T
+                Cc = VhF.conj().T[:, rk:]                   # r x r' coeffs
+                Vc = Vf @ Cc                                # N x r' grid vals
                 Kc = np.sum(np.abs(Vc) ** 2, axis=1) * h
                 cell["trace_dev_c"] = abs(float(Kc.sum()) - cell["r_prime"]) \
                     / cell["r_prime"]
@@ -225,26 +279,41 @@ def main():
                   f"rankE={rk} f={cell['f']:.3f} f0={cell['f0']:.3f} "
                   f"cliff={cg} Aunc=[{cell['Aunc_min']:.3f},"
                   f"{cell['Aunc_max']:.3f}] A=[{cell.get('A_min', -1):.3f},"
-                  f"{cell.get('A_max', -1):.3f}] G4={g4:.1e} ({cell['secs']}s)",
+                  f"{cell.get('A_max', -1):.3f}] trk={cell.get('trace_dev_c', -1):.1e} "
+                  f"G4={g4:.1e} ({cell['secs']}s)",
                   flush=True)
             if cell["secs"] > BUDGET_S:
                 print(f"WARN budget breach {flavor} L={L}", flush=True)
-            del Eb, V, K, A, F1, F2, B, s, xs, VhF, sv
+            del Eb, V, Vf, K, F1, s, xs, VhF, sv
     # ---- gates ----
-    ok = all(c["G1_kfull_max_err"] < 1e-10 and c["trace_dev"] < 1e-8
-             and (c["cliff_gap"] is None or c["cliff_gap"] > 10)
-             and c["G4_eval_crosscheck"] < 1e-9
-             for c in res["cells"].values())
+    def cell_ok(c):
+        v = (c["G1_kfull_max_err"] < 1e-10 and c["trace_dev"] < 1e-8
+             and c["G4_eval_crosscheck"] < 1e-9)
+        # G7 (amendment inv6): constrained-sector kernel trace = r' to 1e-8
+        if c.get("trace_dev_c") is not None:
+            v = v and c["trace_dev_c"] < 1e-8
+        # G2 cliff: official only (resolution-limited at smoke, inv6)
+        if not SMOKE:
+            v = v and (c["cliff_gap"] is None or c["cliff_gap"] > 10)
+        return v
+    ok = all(cell_ok(c) for c in res["cells"].values())
     # G6 LC continuity (only at official N)
     g6 = True
     if N == 8192:
         g6 = all(abs(res["cells"][f"LC_L{L}"]["rank_eps"] - t) <=
                  max(2, 0.01 * t) for L, t in LC_R_TARGET.items())
-    res["gates"]["G1_G2_G4_G6_all"] = bool(ok and g6)
+    res["gates"]["G1_G2_G4_G6_G7_all"] = bool(ok and g6)
     if not (ok and g6):
-        print("ABORTED-UNINFORMATIVE: G1/G2/G4/G6", flush=True)
+        print("ABORTED-UNINFORMATIVE: G1/G2/G4/G6/G7", flush=True)
         json.dump(res, open(OUT, "w"), indent=1)
         sys.exit(1)
+    if SMOKE:
+        res["verdict"]["NOTE"] = "SMOKE: machinery only, no verdict digits"
+        res["total_secs"] = round(time.time() - t0, 1)
+        json.dump(res, open(OUT, "w"), indent=1)
+        print("SMOKE-MACHINERY-GREEN (no license reading)", flush=True)
+        print("DONE 1338", flush=True)
+        return
     # ---- verdicts (decisive cell L=48 per flavor) ----
     def s1(c):
         f = c["f"]
