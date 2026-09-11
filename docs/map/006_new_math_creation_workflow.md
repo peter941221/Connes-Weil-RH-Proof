@@ -1578,6 +1578,21 @@ cross-energy reduction; analytic energy control remains the active gap**.
 
 `C1G8P1ProjectionDefectEnergyReduction` reduces the record-1320 derived energies to the literal cutoff-leg energy through the `J J†` contraction and to `||G||²` times the literal complement energy through bounded Gram postcomposition. FORMAL evidence: batch `1535_g8_p1_energy_reduction_retry6.log` (3983 jobs, zero `error:`/`sorryAx`, standard axioms). No cutoff bound or vanishing is proved. Status: **formal P1 primitive-energy reduction; analytic complement-energy control, metric-to-radial transport, endpoint, P2, and P3 remain open**.
 
+### G8 P1 complement-energy reduction to the raw cutoff leg (record 1322, 2026-09-11)
+
+On the same healthy source owner, `C1G8P1ProjectionDefectEnergyReduction` now
+proves `E_D(n) ≤ 4 E_A(n)` for the literal complement
+`D_n = A_n - J J† A_n`.  The proof uses only the contraction of the source
+inclusion and the triangle inequality for `1 - J J†`; it deliberately does
+not assert a sharper orthogonal-complement identity. FORMAL evidence:
+`1536_g8_p1_complement_energy_batch_retry2.log` (3983 jobs, zero
+`error:`/`sorryAx`, standard three axioms). This removes complement energy as
+an independent boundedness input, but supplies neither a small factor nor a
+cutoff limit; consequently it does **not** bound the signed cross term to
+zero, identify the metric and radial boundaries, or advance endpoint, P2, or
+P3. Status: **formal P1 finite-cutoff energy comparison; analytic signed-term
+control, transport, endpoint, P2, and P3 remain open**.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:

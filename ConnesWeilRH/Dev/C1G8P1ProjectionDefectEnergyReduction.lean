@@ -138,6 +138,54 @@ theorem g8ProjectionDefectCrossRightEnergy_le_gram_norm_sq_mul_complementEnergy
     ‖G‖ ^ 2 * (∑' i, ‖D (sourceBasis i)‖ ^ 2)
   exact tsum_normSq_postcomp_le sourceBasis D hD G
 
+/-- The literal source-complement leg costs at most four times the raw cutoff
+leg energy.  This is a finite-cutoff contraction estimate only. -/
+theorem g8SourceCutoffComplementEnergy_le_four_mul_sourceCutoffLegEnergy
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    g8SourceCutoffComplementEnergy owner lambda family globalBasis sourceBasis n ≤
+      4 * g8SourceCutoffLegEnergy owner lambda family globalBasis sourceBasis n := by
+  let A := (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left
+  let J := CCM24FiniteSGramResponse.sourceInclusion lambda
+  let Q : finiteSCarrier →L[ℂ] finiteSCarrier :=
+    ContinuousLinearMap.id ℂ finiteSCarrier - J ∘L J†
+  have hA :=
+    (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left_summable_normSq
+  have hJ : ‖J‖ ≤ (1 : ℝ) := Submodule.norm_subtypeL_le _
+  have hJadj : ‖J†‖ ≤ (1 : ℝ) := by
+    calc
+      ‖J†‖ = ‖J‖ := ContinuousLinearMap.adjoint.norm_map J
+      _ ≤ 1 := hJ
+  have hprojection : ‖J ∘L J†‖ ≤ (1 : ℝ) := by
+    calc
+      ‖J ∘L J†‖ ≤ ‖J‖ * ‖J†‖ := ContinuousLinearMap.opNorm_comp_le _ _
+      _ ≤ 1 * 1 := mul_le_mul hJ hJadj (norm_nonneg _) (by norm_num)
+      _ = 1 := by norm_num
+  have hQ : ‖Q‖ ≤ (2 : ℝ) := by
+    calc
+      ‖Q‖ ≤ ‖ContinuousLinearMap.id ℂ finiteSCarrier‖ + ‖J ∘L J†‖ := norm_sub_le _ _
+      _ ≤ 1 + 1 := add_le_add ContinuousLinearMap.norm_id_le hprojection
+      _ = 2 := by norm_num
+  have hpost := tsum_normSq_postcomp_le sourceBasis A hA Q
+  have henergyNonneg : 0 ≤ ∑' i, ‖A (sourceBasis i)‖ ^ 2 :=
+    tsum_nonneg fun i => sq_nonneg _
+  have hsq : ‖Q‖ ^ 2 ≤ (4 : ℝ) := by
+    calc
+      ‖Q‖ ^ 2 ≤ (2 : ℝ) ^ 2 :=
+        (sq_le_sq₀ (norm_nonneg _) (by norm_num)).mpr hQ
+      _ = 4 := by norm_num
+  change (∑' i, ‖Q (A (sourceBasis i))‖ ^ 2) ≤
+    4 * (∑' i, ‖A (sourceBasis i)‖ ^ 2)
+  calc
+    (∑' i, ‖Q (A (sourceBasis i))‖ ^ 2) =
+        ∑' i, ‖(Q ∘L A) (sourceBasis i)‖ ^ 2 := by rfl
+    _ ≤ ‖Q‖ ^ 2 * (∑' i, ‖A (sourceBasis i)‖ ^ 2) := hpost
+    _ ≤ 4 * (∑' i, ‖A (sourceBasis i)‖ ^ 2) :=
+      mul_le_mul_of_nonneg_right hsq henergyNonneg
+
 end
 end C1G8P1ProjectionDefectEnergyReduction
 end Source

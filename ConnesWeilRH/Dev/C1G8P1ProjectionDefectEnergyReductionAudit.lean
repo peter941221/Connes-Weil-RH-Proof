@@ -9,6 +9,7 @@ open C1G8P1ProjectionDefectEnergyReduction
 #print axioms tsum_normSq_postcomp_le
 #print axioms g8ProjectionDefectCrossLeftEnergy_le_sourceCutoffLegEnergy
 #print axioms g8ProjectionDefectCrossRightEnergy_le_gram_norm_sq_mul_complementEnergy
+#print axioms g8SourceCutoffComplementEnergy_le_four_mul_sourceCutoffLegEnergy
 
 end C1G8P1ProjectionDefectEnergyReductionAudit
 end Source
