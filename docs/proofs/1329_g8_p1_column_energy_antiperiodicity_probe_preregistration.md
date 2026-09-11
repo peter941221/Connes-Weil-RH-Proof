@@ -1,8 +1,10 @@
 # Record 1329 — G8 P1 column-energy premise: antiperiodicity probe (preregistration)
 
 Date: 2026-09-11.
-Status: PRE-REGISTRATION, committed BEFORE any numerical run in this
-campaign (law 42).  Peter's A+C decision of 2026-09-11 authorizes route A
+Status: CLOSED-COMPLETE.  Pre-registration committed BEFORE any numerical
+run (law 42); official invocation 3 verdict in section 8:
+**LINEAR-DIVERGENT** (premise not plausible at finite density; necessary
+condition registered).  Peter's A+C decision of 2026-09-11 authorizes route A
 (continue the conditional mainline chain) and route C (this cheap
 plausibility probe of the single named analytic premise).  RH is not
 claimed anywhere below; nothing in this record proves or refutes the Lean
@@ -270,3 +272,70 @@ A2x   the run prints per-cell wall time to the log and an explicit
 Adjudication material is unchanged (prereg sections 2-4): the
 invocation-1/2 captured cells are anchor evidence only.  Invocation 3
 writes `1329_probe_results_inv3.log`.  RH is not claimed.
+
+## 8. Verdict addendum: invocation 3 official run (2026-09-11)
+
+**VERDICT: LINEAR-DIVERGENT.**  The premise-shape is NOT plausible in any
+finite-density vanishing twin; the registered necessary condition below
+is now the analytic demand on any attack on `hcolumn`.
+
+Official invocation 3 (code `f9fdd5e`, md5-verified mirror copy, log
+`1329_probe_results_inv3.log`, JSON `1329_probe_results.json` committed
+alongside this record): 120/120 cells completed, explicit DONE marker,
+`gates_failed: []` — KSHAPE guard green on every cell, G1-G5 all green
+(worst G3 delta 5.5e-12, G2 paths agree to 1e-9 absolute at E=8188,
+anchors exact: M0 = 2M, M2 = 0 through K=2048).  Wall 569.6 s inside the
+570 s cap; the runtime is dominated by the four dense full-matrix SVD
+cells of M2 (dt up to 93.5 s at M=4096) — disclosed rig note, not a
+verdict issue.
+
+Top-dyadic fitted exponent gamma (adjudicated cells, prereg section 4
+bands 0.15 / 0.85):
+
+```text
+model   gamma (every prime p in {2,3,5,7,11}; values IDENTICAL across p, see
+                  disclosure)
+M1      1.00106        M3-3    1.00070
+M3-9    1.00354        M3-33   1.01213
+J1      -> 1.00106     (two-prime joint M1 twin, no summable joint defect)
+ALL 20 repo-lineage cells: gamma >= 0.85  ->  LINEAR-DIVERGENT branch fires.
+```
+
+Disclosure (model limitation, not a finding): the per-prime torus
+L_p = 2 log p makes the discretized shift the same half-turn roll for
+every p, so p-dependence enters ONLY through lossScale p (a finite
+positive scalar, dropped by construction) and through the true `ran P_S`
+(not modeled).  The p-identity of gamma is by design of the twin class.
+
+Registered consequence (prereg section 4, LINEAR-DIVERGENT branch, verbatim
+effect):
+
+```text
+1. E_col ~ 2 x (rank truncated at resolution M) in EVERY finite-K vanishing
+   twin, at EVERY tested prime and lattice: the identity part is NOT
+   cancelled by any finite-density vanishing condition.
+2. The premise therefore requires, as a NECESSARY condition: vanishing
+   exclusion whose capacity asymptotically covers ALL non-antiperiodic
+   directions (M2 achieves E = 0 only by excluding a parity HALF of the
+   spectrum; M3-33, a 33-mode resonant lattice, moves E by 30 out of 8192).
+   Quantitatively: summable defect demands a vanishing set whose
+   counting function dominates the mode count at every scale - a
+   zero-density-like profile (N(T) ~ T log T dominates T/2 at all large T;
+   capacity EXISTS - whether it is FILLED by the real Sonin vanishing is
+   exactly the open analytic question this probe cannot answer).
+3. The freeze card marks `hcolumn` "probe-negative at finite density;
+   necessary condition: density-selective parity vanishing".  Any formal
+   falsification attempt or structural attack on the premise is a NEW
+   preregistration; nothing is authorized by this addendum.
+```
+
+What this record does NOT claim (law 65, final): no statement about the
+formal `ran P_S`, the Lean premise, `qw`, positivity, or RH.  The probes
+measured vanishing-condition twins in a 1212-lineage window model.  The
+conditional chain of records 1324-1328 (transport, ledger, and the route-A
+continuation) stands UNCHANGED by this verdict: a conditional theorem with
+an implausible-looking hypothesis is still a theorem; what changes is
+WHERE the analytic effort must go (infinite-density parity-selective
+structure, or falsification of the premise).
+
+RH is not claimed.
