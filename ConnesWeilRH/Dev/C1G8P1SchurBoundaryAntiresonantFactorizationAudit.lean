@@ -1,0 +1,25 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8P1SchurBoundaryAntiresonantFactorization
+
+/-!
+# Audit for the G8 P1 Schur boundary antiresonant factorization
+
+Every owner declaration must print exactly `[propext, Classical.choice,
+Quot.sound]`.
+
+Verification batch: `1539_g8_p1_schur_boundary_antiresonant_batch.log`.
+-/
+
+#print axioms ConnesWeilRH.Source.C1G8P1SchurBoundaryAntiresonantFactorization.norm_id_sub_newSuffixRangeProjection_apply_le
+#print axioms ConnesWeilRH.Source.C1G8P1SchurBoundaryAntiresonantFactorization.id_sub_newSuffixRangeProjection_apply_newSuffixFrame
+#print axioms ConnesWeilRH.Source.C1G8P1SchurBoundaryAntiresonantFactorization.normalizedPrimeEulerFrameTransport_adjoint_eq_id_sub_sqrtCoeff_smul_lossFactorAdjoint
+#print axioms ConnesWeilRH.Source.C1G8P1SchurBoundaryAntiresonantFactorization.normalizedPrimeEulerFrameTransport_adjoint_apply
+#print axioms ConnesWeilRH.Source.C1G8P1SchurBoundaryAntiresonantFactorization.norm_normalizedPrimeEulerFrameTransport_adjoint_le_one
+#print axioms ConnesWeilRH.Source.C1G8P1SchurBoundaryAntiresonantFactorization.norm_oldSuffixFrame_le_one
+#print axioms ConnesWeilRH.Source.C1G8P1SchurBoundaryAntiresonantFactorization.suffixEulerFrameSchurStep_boundaryDagger_apply_eq_interior_add_antiresonant
+#print axioms ConnesWeilRH.Source.C1G8P1SchurBoundaryAntiresonantFactorization.norm_suffixEulerFrameSchurStep_boundaryDagger_apply_le_twoChannel
+#print axioms ConnesWeilRH.Source.C1G8P1SchurBoundaryAntiresonantFactorization.norm_suffixEulerFrameSchurStep_boundaryDagger_le

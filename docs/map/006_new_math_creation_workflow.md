@@ -1637,6 +1637,33 @@ small and no term vanishes. Status: **formal P1 two-channel radial ledger;
 both sides now reduce to one named energy input each; the metric-to-radial
 transport, endpoint, P2, and P3 remain open**.
 
+### G8 P1 Schur boundary antiresonant factorization (record 1326, 2026-09-11)
+
+The metric side of P1 is now reduced to the same named antiresonant column
+as the radial side. The one-step rectangular Schur boundary dagger
+`(I - newFrame newFrame†) ∘L transport† ∘L oldFrame` carries the exact
+scalar identity `transport† = I - √q_p • (primeEulerAmbientLossFactor p)†`
+(the Euler factor `(1 - q_p p^{-s})` and the antiresonant factor
+`(1 + p^{-s})` differ by the visible `√q_p` and the identity channel), the
+exact split
+
+```text
+boundaryDagger x = (I - P_S)(transport†((I - P_S)(oldFrame x)))
+                   - √q_p • (I - P_S)(antiCol(newFrame†(oldFrame x))),
+```
+
+the pointwise ledger `‖boundaryDagger x‖ ≤ ‖x‖ + √q_p ‖antiCol(newFrame†
+(oldFrame x))‖`, and the operator-norm corollary
+`‖boundaryDagger‖ ≤ 1 + √q_p ‖antiCol ∘L newFrame† ∘L oldFrame‖`. Together
+with records 1324-1325 both sides of P1 are fed by one named antiresonant
+column family; the remaining transport is the comparison of the two pullback
+prefixes (`frame†` radial-side vs `newFrame† ∘L oldFrame` metric-side) at a
+common cutoff. FORMAL evidence: `1539_g8_p1_schur_boundary_antiresonant_batch.log`
+(3460 jobs, zero `error:`/`sorryAx`, standard three axioms). No channel is
+small and no term vanishes. Status: **formal P1 metric-side boundary
+antiresonant factorization; column-energy summability, metric-to-radial
+cutoff identification, endpoint, P2, and P3 remain open**.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:
