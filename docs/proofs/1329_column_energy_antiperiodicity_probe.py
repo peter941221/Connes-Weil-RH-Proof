@@ -60,7 +60,7 @@ def constraint_rows(model, M, rng):
     if model == "M2":
         return fourier_rows(list(range(0, M, 2)), M)  # exclude all even modes
     if model.startswith("M3"):
-        m = (int(model[2:]) - 1) // 2
+        m = (int(model.split("-")[1]) - 1) // 2  # inv1 defect: model[2:] kept the dash
         ids = [0] + [s for n in range(1, m + 1) for s in (n, -n)]
         return fourier_rows(ids, M)
     raise ValueError(model)
@@ -119,6 +119,11 @@ for p in PRIMES:
             rows = constraint_rows(model, M, rng)
             r = energies(rows, M)
             K = rows.shape[0]
+            # registered-shape guard (inv1 defect class: silently wrong K)
+            want_K = {"M0": 0, "M1": 3, "M2": M // 2}.get(
+                model, int(model.split("-")[1]) if model.startswith("M3") else None)
+            if want_K is not None and K != want_K:
+                failures.append(f"KSHAPE {model} p={p} M={M}: K={K} registered={want_K}")
             E = r["E_plus"]
             tol = TOL_REL * max(1.0, abs(E))
             if r["g1"] > TOL_G1:

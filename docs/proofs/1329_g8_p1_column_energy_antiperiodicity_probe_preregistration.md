@@ -188,3 +188,43 @@ lane with the companion session is untouched.  Route A continuation
 does not wait on this probe.
 
 RH is not claimed.
+
+## 6. Amendment A1 - invocation-1 ledger and registered code fix (2026-09-11, BEFORE invocation 2)
+
+Invocation 1 ran committed code `c50bb5b` (log
+`1329_probe_results.log`, mirror side) and DIED SILENTLY mid-run: the log
+stops after 20 lines (inside M3-9 at p=2, M=2048), no verdict line, no
+results JSON, while the wrapping shell reported exit 0.  This matches the
+documented WSL-instance first-run death class (1225 A7c).  Score:
+ABORTED-UNINFORMATIVE, zero verdict weight.  Post-run audit of the
+invocation-1 log found a second, independent DEFECT (caught before any
+number was adjudicated): the M3 cell names were parsed with
+`model[2:]`, which keeps the dash — `int("-3") = -3` yields an empty
+symmetric-mode list, so every M3 run silently executed K=1 (mode-0
+exclusion only) instead of the registered K in {3, 9, 33}.  M0/M1/M2
+cells were correctly shaped in the captured lines (M1 K=3, M2 K=M/2,
+E values matching the closed forms 2M-6+tiny, 0, 2M-4).
+
+Registered fixes before invocation 2 (law-42 compliant: fixes make the
+code implement the ALREADY-committed prereg section 2; no registered
+quantity, band, gate, or branch is changed):
+
+```text
+F1  M3 parsing: model.split("-")[1]; the K in {3,9,33} cells now run the
+    registered symmetric resonant-lattice mode sets {0,+-1}, {0,..,+-4},
+    {0,..,+-16}.
+F2  new KSHAPE guard (the invocation-1 defect class is promoted to a
+    gate): every cell asserts the realized K equals the registered K
+    (M0:0, M1:3, M2:M/2, M3-K:K) before energies are used; a breach is
+    an ABORTED-UNINFORMATIVE gate failure.
+F3  A9 rule-2 hygiene: invocation 2 writes to a NEW log path
+    1329_probe_results_inv2.log; the invocation-1 log is preserved
+    untruncated as the defect evidence; launch is detached and polled
+    rather than foreground-coupled.
+```
+
+Invocation-1 numbers carry no weight, but their captured cells
+independently confirm the rig's closed-form behavior (M0 anchor exact at
+2M, M1 2M-6+O(1) at p=2, M2 positive control exact 0 through K=2048, G3
+basis-invariance deltas <= 1.6e-10 on every captured cell).  RH is not
+claimed.
