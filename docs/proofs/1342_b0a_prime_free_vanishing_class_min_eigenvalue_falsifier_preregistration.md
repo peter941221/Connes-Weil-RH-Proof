@@ -144,6 +144,60 @@ active, G1/G4 anchor-only-scaled, `lambda` band NOT adjudicated,
 `SMOKE-MACHINERY-GREEN` line) exercises machinery only; smoke digits are
 non-representative (law 7c(69)).
 
+## 6a. Registered amendments (committed BEFORE any official digit)
+
+- inv8 (smoke-phase machinery, zero official digits under it):
+  (a) reduced-form convention fixed to `Gm = Z^T B Z` for the
+  column-basis nullspace `Z` (the section 3 line `Gm = Z B Z^T` was a
+  transcription slip of the same statement); (b) G3a's `s4/s1` reading is
+  VACUOUS for a 3 x m matrix (`s4 == 0` by shape, not by mathematics); the
+  operative gate is therefore `rk == 3` AND non-degeneracy `s3/s1 > 1e-12`
+  (the three vanishing functionals are independent on the span) AND
+  `s_{rk+1}/s1 < 1e-10` as printed for audit; (c) the G1 anchor is
+  evaluated at the 1225 committed resolution `NQ = 2^15` even in official
+  mode (the committed digit is grid-dependent; constants are DATA).
+- inv9 (RIG DEFECT, discovered smoke-phase by a unit test BEFORE any
+  official digit - zero official digits are contaminated): the 1116-era
+  hand-rolled `simpson_uniform` is a WRONG composite rule - disjoint
+  `(y[3k], y[3k+1], y[3k+2])` triples skip every third subinterval; the
+  sin-on-[0,pi] unit test returns exactly 2/3 of the true value. The rule
+  shipped into `1116_d1_model_probe.py`, `1212_projection_trace_probe.py`,
+  `1225_positive_control_probe.py` (and this probe's verbatim copy); the
+  committed 1225 control "ground truth" +1.895768e-02 is a broken-rule
+  number (corrected value, registered by the run: +0.1302074 - same SIGN,
+  so every 1225 adjudication that keyed on positivity survives; the 1213
+  H2 coefficient -3.321 is a broken-scale model constant whose
+  qualitative verdict `FP != qw` is robust to the scale). NO Lean object
+  is affected (the integrals there are definitions), and no 1330-1338 G8
+  probe digit is affected (grep: the rule appears in exactly the four
+  files above). The probe kernel is switched to `simpson_fixed` (standard
+  composite Simpson + end-trapezoid for even point counts); the broken
+  function is RETAINED under its old name for the provenance gate G1a.
+- inv10 (anchor re-keying + fidelity gate, consequence of inv9):
+  (a) G1 splits: G1a reproduces the committed broken-rule control digit
+  (+1.895768e-02, rel < 1e-6) using the retained broken function - this
+  proves the copied kernel is the 1225 kernel; G1b registers the CORRECTED
+  control value computed by two independent paths inside the run
+  (`simpson_fixed` vs `scipy.integrate.simpson` avg-mode; agreement <
+  1e-10) - the corrected digit becomes the committed anchor in the JSON;
+  (b) NEW gate G8 (dictionary fidelity - the check the 1212-era rig never
+  had): for the control AND the witness, compare the geometric side
+  `pole - arch_fixed - prime` against the spectral side
+  `2 * sum_{0 < gamma_n <= T} |DQ * sum(g * exp(i*gamma_n*x))|^2`
+  (multiplicity-1 zeros, both signs, mpmath `zetazero`, T ladder
+  {300, 400} - corrected at registration time: the bump FT decay
+  e^{-pi*w*gamma} with the official w ~ 0.021 makes T=150 tails ~3e-3,
+  while at T=400 the remainder is ~3e-9; the T=300-vs-400 drift must be
+  < 1e-6 AND the |geom - spect(300)| gap must be < max(1e-6,
+  1e-5*|geom|) for BOTH tests). G8 failure is ABORTED-UNINFORMATIVE: it
+  would mean the pole/arch/prime/square dictionary is unfaithful at some
+  point beyond the quadrature fix, and no band verdict would then mean
+  anything. G8 passing is the affirmative evidence that the FIRE/NO-FIRE
+  sign reading is trustworthy on this span (it is the explicit-formula
+  fidelity check the 1212-era rig never had);
+  (c) the G4 doubling no longer needs the mod-3 length constraint (the
+  fixed rule works for any grid).
+
 ## 6. What this record does NOT establish
 
 No Lean theorem, no sign statement, no claim about the full function
