@@ -225,6 +225,48 @@ F3  A9 rule-2 hygiene: invocation 2 writes to a NEW log path
 
 Invocation-1 numbers carry no weight, but their captured cells
 independently confirm the rig's closed-form behavior (M0 anchor exact at
-2M, M1 2M-6+O(1) at p=2, M2 positive control exact 0 through K=2048, G3
+2M, M1 2M-6+o(1) at p=2, M2 positive control exact 0 through K=2048, G3
 basis-invariance deltas <= 1.6e-10 on every captured cell).  RH is not
 claimed.
+
+## 7. Amendment A2 - invocation-2 wall death root-caused; bounded G3 (2026-09-11, BEFORE invocation 3)
+
+Invocation 2 (fixed M3 cells; mirror md5 verified; log
+`1329_probe_results_inv2.log`, preserved) printed 20 cells with the
+CORRECT registered shapes (KSHAPE guard green: M3-3 K=3, M3-9 K=9;
+closed forms exact: M3-3@4096 = 8188 = 2M-4, M3-9@512 = 1004 = 2M-2K-2)
+and then stopped at the same wall as invocation 1: inside M3-9 at
+p=2, M=4096.  Both shells reported exit 0.
+
+Root cause, established by two controlled experiments, not inference:
+
+```text
+R1  timed repro of the exact M3-9@4096 G3 step: a single dense complex
+    QR of the 4087 x 4087 random matrix took MINUTES under this WSL
+    configuration; the full ladder needs ~2 such QRs per prime
+    (M3-9@4096, M3-33@4096) plus the M2 cells: total ~25 min, far over
+    the 580 s registered wall -> both runs were TIMEOUT KILLS.
+R2  semantics probe: `timeout 2 python3 -c sleep(10)` in this WSL
+    returns 0 (T_EXIT:0), i.e. THIS timeout invocation's kill code
+    reaches the shell as 0 (build logs are already accepted by
+    log-not-exit-code per house rule; recorded as the probe-side
+    instance of the same trap class).
+```
+
+Registered fix (implementation only; the G3 AUDIT SEMANTICS and
+tolerance are unchanged from section 3):
+
+```text
+G3v2  basis rebasing by 64 random Givens pair-mixings of the null-space
+      ONB (orthonormality-preserving, O(64 M) work) instead of one
+      dense (M-K)^2 random unitary.  "E recomputed over an
+      independently rebased ONB of ker A" holds verbatim; the random
+      seed is unchanged (SEED 1329, derived stream).
+A2x   the run prints per-cell wall time to the log and an explicit
+      DONE marker; the verdict requires the DONE marker, so a future
+      truncated log can never be misread as complete.
+```
+
+Adjudication material is unchanged (prereg sections 2-4): the
+invocation-1/2 captured cells are anchor evidence only.  Invocation 3
+writes `1329_probe_results_inv3.log`.  RH is not claimed.

@@ -20,7 +20,8 @@ Registered design (section numbers cite the prereg):
              J1 = M1 at p=2 plus M1 at p=3 (derived report).
   gamma      dyadic exponent log2(E_{2M}/E_M); bands 0.15 / 0.85 (prereg 4)
   gates      G1 unitarity 1e-12; G2 two trace paths 1e-8*max(1,E);
-             G3 basis-invariance (QR random-unitary re-basing) 1e-8;
+             G3v2 basis-invariance (64 random Givens pair-mixings of the
+                null ONB; amendment A2) 1e-8;
              G4 anchors M0 2M, M2 0; G5 shift-sign agreement 1e-8.
              any breach -> ABORTED-UNINFORMATIVE (exit 1 before verdict).
 """
@@ -87,13 +88,24 @@ def energies(rows, M):
     E["path2"] = 2.0 * (M - K) - 2.0 * float(trU_rows.real)
     # G1: unitarity of U (roll) on the basis
     g1 = float(np.max(np.abs(np.linalg.norm(np.roll(N, -(M // 2), axis=1), axis=1) - 1.0)))
-    # G3: rebasing null @ Q with random unitary Q (skip degenerate K=0 and K=M)
+    # G3v2 (amendment A2): rebasing by 64 random Givens pair-mixings of the
+    # null-space ONB rows (each a 2x2 unitary action; orthonormality
+    # preserved; audit semantics and tolerance unchanged from prereg sec 3;
+    # the dense (M-K)^2 unitary QR was the invocation-1/2 wall-killer).
     g3 = None
     if 0 < K < M:
         dim = M - K
-        qg = rng_global.standard_normal((dim, dim)) + 1j * rng_global.standard_normal((dim, dim))
-        Q, _ = np.linalg.qr(qg)
-        N2 = (nullb @ Q).conj().T
+        N2 = N.copy()
+        for _ in range(64):
+            i, j = int(rng_global.integers(dim)), int(rng_global.integers(dim))
+            if i == j:
+                continue
+            z = rng_global.standard_normal(2) + 1j * rng_global.standard_normal(2)
+            nrm = math.sqrt(float((z.real ** 2 + z.imag ** 2).sum()))
+            a, b = z[0] / nrm, z[1] / nrm
+            ri, rj = N2[i].copy(), N2[j].copy()
+            N2[i] = a * ri + b * rj
+            N2[j] = -np.conj(b) * ri + np.conj(a) * rj
         D2 = N2 + np.roll(N2, -(M // 2), axis=1)
         E2 = float(np.sum(np.abs(D2) ** 2).real)
         g3 = abs(E2 - E["plus"])
@@ -116,8 +128,10 @@ for p in PRIMES:
         rng = np.random.default_rng(SEED)  # M1 rows identical across cells (fixed functional twin)
         series = []
         for M in MS:
+            tc = time.time()
             rows = constraint_rows(model, M, rng)
             r = energies(rows, M)
+            dt = time.time() - tc
             K = rows.shape[0]
             # registered-shape guard (inv1 defect class: silently wrong K)
             want_K = {"M0": 0, "M1": 3, "M2": M // 2}.get(
@@ -141,7 +155,8 @@ for p in PRIMES:
             series.append({"M": M, "K": K, "L": 2 * logp, **r})
             print(f"[1329] {model} p={p} M={M:5d} K={K:5d} E_plus={E:.6f} "
                   f"E_path2={r['E_path2']:.6f} g1={r['g1']:.1e} "
-                  f"g3={'-' if r['g3'] is None else format(r['g3'], '.1e')}", flush=True)
+                  f"g3={'-' if r['g3'] is None else format(r['g3'], '.1e')} "
+                  f"dt={dt:.1f}s", flush=True)
         gam = [None] + [math.log2(s2["E_plus"] / s1["E_plus"]) if s1["E_plus"] > 0
                         else (0.0 if s2["E_plus"] <= 1e-10 else None)
                         for s1, s2 in zip(series, series[1:])]
@@ -192,3 +207,4 @@ with open("docs/proofs/1329_probe_results.json", "w") as f:
 print(f"[1329] GAMMAS {json.dumps(adjudicated)}", flush=True)
 print(f"[1329] J1     {j1_gam}", flush=True)
 print(f"[1329] VERDICT: {verdict}  (runtime {out['runtime_s']} s)", flush=True)
+print("[1329] DONE", flush=True)
