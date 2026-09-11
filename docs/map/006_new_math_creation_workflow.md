@@ -1574,6 +1574,10 @@ the trace-to-energy reduction: neither energy has a cutoff bound or vanishing
 theorem, so transport, endpoint, P2, and P3 remain open. Status: **formal P1
 cross-energy reduction; analytic energy control remains the active gap**.
 
+### G8 P1 projection-defect primitive-energy reduction (record 1321, 2026-09-11)
+
+`C1G8P1ProjectionDefectEnergyReduction` reduces the record-1320 derived energies to the literal cutoff-leg energy through the `J J†` contraction and to `||G||²` times the literal complement energy through bounded Gram postcomposition. FORMAL evidence: batch `1535_g8_p1_energy_reduction_retry6.log` (3983 jobs, zero `error:`/`sorryAx`, standard axioms). No cutoff bound or vanishing is proved. Status: **formal P1 primitive-energy reduction; analytic complement-energy control, metric-to-radial transport, endpoint, P2, and P3 remain open**.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:
