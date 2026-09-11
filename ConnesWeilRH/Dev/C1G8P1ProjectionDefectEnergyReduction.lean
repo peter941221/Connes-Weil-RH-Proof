@@ -19,6 +19,7 @@ open CCM25Concrete
 open CCM25Concrete.CCM24FiniteSFrameGramCalculus
 open CCM25Concrete.CCM24FiniteSProjectionTrace
 open C1G8AdjointShearGram
+open C1G8P1MetricProjectionFactorization
 open C1G8P1MetricProjectionDefectTraceClass
 open C1G8P1ProjectionDefectEnergyBound
 open scoped InnerProduct InnerProductSpace
@@ -185,6 +186,47 @@ theorem g8SourceCutoffComplementEnergy_le_four_mul_sourceCutoffLegEnergy
     _ ≤ ‖Q‖ ^ 2 * (∑' i, ‖A (sourceBasis i)‖ ^ 2) := hpost
     _ ≤ 4 * (∑' i, ‖A (sourceBasis i)‖ ^ 2) :=
       mul_le_mul_of_nonneg_right hsq henergyNonneg
+
+/-- The unique signed projection-defect trace has a single primitive-energy
+bound.  This is a finite-cutoff estimate and contains no cutoff limit. -/
+theorem abs_re_ordinaryTraceAlong_g8ProjectionDefectCross_le_primitiveEnergy
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : Nat) :
+    |(ordinaryTraceAlong sourceBasis
+      ((g8MetricCutoffProjectedLeg owner lambda family globalBasis sourceBasis n)† ∘L
+        g8AdjointShearGram owner lambda family ∘L
+          g8SourceCutoffComplementLeg owner lambda family globalBasis sourceBasis n)).re| ≤
+      Real.sqrt (g8SourceCutoffLegEnergy owner lambda family globalBasis sourceBasis n) *
+        Real.sqrt (4 * ‖g8AdjointShearGram owner lambda family‖ ^ 2 *
+          g8SourceCutoffLegEnergy owner lambda family globalBasis sourceBasis n) := by
+  have hleft := g8ProjectionDefectCrossLeftEnergy_le_sourceCutoffLegEnergy owner lambda
+    family globalBasis sourceBasis n
+  have hcomplement :=
+    g8SourceCutoffComplementEnergy_le_four_mul_sourceCutoffLegEnergy owner lambda family
+      globalBasis sourceBasis n
+  have hright0 := g8ProjectionDefectCrossRightEnergy_le_gram_norm_sq_mul_complementEnergy
+    owner lambda family globalBasis sourceBasis n
+  have hright :
+      g8ProjectionDefectCrossRightEnergy owner lambda family globalBasis sourceBasis n ≤
+        4 * ‖g8AdjointShearGram owner lambda family‖ ^ 2 *
+          g8SourceCutoffLegEnergy owner lambda family globalBasis sourceBasis n := by
+    calc
+      g8ProjectionDefectCrossRightEnergy owner lambda family globalBasis sourceBasis n ≤
+          ‖g8AdjointShearGram owner lambda family‖ ^ 2 *
+            g8SourceCutoffComplementEnergy owner lambda family globalBasis sourceBasis n :=
+        hright0
+      _ ≤ ‖g8AdjointShearGram owner lambda family‖ ^ 2 *
+          (4 * g8SourceCutoffLegEnergy owner lambda family globalBasis sourceBasis n) :=
+        mul_le_mul_of_nonneg_left hcomplement (sq_nonneg _)
+      _ = 4 * ‖g8AdjointShearGram owner lambda family‖ ^ 2 *
+          g8SourceCutoffLegEnergy owner lambda family globalBasis sourceBasis n := by ring
+  exact (abs_re_ordinaryTraceAlong_g8ProjectionDefectCross_le_geometricEnergy owner lambda
+    family globalBasis sourceBasis n).trans
+      (mul_le_mul (Real.sqrt_le_sqrt hleft) (Real.sqrt_le_sqrt hright)
+        (Real.sqrt_nonneg _) (Real.sqrt_nonneg _))
 
 end
 end C1G8P1ProjectionDefectEnergyReduction

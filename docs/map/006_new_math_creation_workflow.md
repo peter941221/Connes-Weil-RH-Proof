@@ -1593,6 +1593,19 @@ zero, identify the metric and radial boundaries, or advance endpoint, P2, or
 P3. Status: **formal P1 finite-cutoff energy comparison; analytic signed-term
 control, transport, endpoint, P2, and P3 remain open**.
 
+### G8 P1 signed cross term in one primitive energy (record 1323, 2026-09-11)
+
+The unique signed projection-defect trace is now bounded directly by
+`sqrt(E_A(n)) * sqrt(4 ||G||² E_A(n))`, where `E_A` is the literal raw
+source-cutoff-leg energy and `G` is the fixed same-owner Gram operator.  This
+is the formal composition of records 1320--1322; no extra analytic premise is
+introduced. FORMAL evidence: `1537_g8_p1_primitive_cross_batch_retry1.log`
+(3983 jobs, zero `error:`/`sorryAx`, standard three axioms). The bound has no
+small cutoff factor and therefore does **not** establish a sign or a vanishing
+limit for the cross term. Status: **formal P1 one-energy cross bound; genuine
+analytic signed-term control, metric-to-radial transport, endpoint, P2, and P3
+remain open**.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:
