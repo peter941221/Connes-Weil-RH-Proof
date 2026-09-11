@@ -200,7 +200,30 @@ verify the forced lower-lattice zeros numerically, and evaluate the corridor
 integral `sum_tau integral (2+2cos(2*pi*tau*xi)) |what(xi)|^2 dxi` for
 tau = log p, p in {2,3,5,7,11} as a capacity test of L1.
 
-## 5. Authorization
+## 5. Amendment A1 (same day, committed before any cell executes)
+
+Section 4's control C1 is internally inconsistent with the operator fixed in
+the same section and is corrected here: for `phi = 1` the registered operator
+is `T w = P_+(1 * w) = w`, the IDENTITY on the trial space — kernel {0}, all
+singular values 1 — NOT the vanishing operator. The `sigma < 1e-10`
+expectation was a residue of a `P_-`-convention that section 4's own operator
+description (`ker T = W`) already rejects.
+
+```text
+Corrected C1 gate: phi = 1  =>  sigma_min >= 1 - 1e-10  (T = identity).
+C2 gate unchanged: unit mode shift => exactly one sigma <= 1e-10 (edge column
+  pushed out of the positive band) and all remaining sigmas >= 1 - 1e-10.
+C3/C4 gates unchanged: smooth 0.1-radian Helson-Szego symbols => sigma_min
+  >= 0.5.
+```
+
+With A1, C1 doubles as the normalization/orientation witness: a flipped
+`P_+/P_-` convention or a broken `sqrt(2L)` factor makes C1 fail instead of
+silently inverting the statistic. All main-cell protocol, thresholds, and the
+verdict rule are otherwise UNCHANGED. Execution below proceeds against
+section 4 + A1.
+
+## 6. Authorization
 
 ```text
 paper sections 1-3            committed by this record (done at commit)
