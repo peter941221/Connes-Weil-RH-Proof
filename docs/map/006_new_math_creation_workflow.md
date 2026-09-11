@@ -1664,6 +1664,33 @@ small and no term vanishes. Status: **formal P1 metric-side boundary
 antiresonant factorization; column-energy summability, metric-to-radial
 cutoff identification, endpoint, P2, and P3 remain open**.
 
+### G8 P1 column energy alignment (record 1327, 2026-09-11)
+
+The prefix comparison flagged open by 1326 turned out to be vacuous — both
+P1 channels already eat the same composite
+`antiCol ∘L newFrame† ∘L oldFrame`, so the real remaining transport was
+*energy alignment*, and this record lands it. The engine is a generic
+two-line lemma: Hilbert-Schmidt summability survives precomposition with a
+contraction (`summable_comp_normSq_of_contractive_pull`), proved by applying
+the existing adjoint-summability theorem twice — `C` HS along `{u_i}` gives
+`C†` HS along `{u_i}`; the composite adjoint is dominated pointwise because
+`‖pull‖ ≤ 1`; a second application then reads the result on an *arbitrary*
+source basis, so no Parseval-Tonelli-Bessel exchange is ever touched. From
+the single full-carrier column-energy premise of 1324 this yields: the
+metric boundary composite basis energy `∑_j ‖B b_j‖²` on any source basis,
+the same-input radial ledger `‖radial(oldFrame x)‖ ≤ 32 ‖q_p⁻¹‖ ‖B x‖` with
+its `∑_j ‖radial(oldFrame b_j)‖² < ∞` corollary, the positive boundary
+energy operator `B† B`, and an explicit owning pair
+(`metricBoundaryCauchyPairData`) whose trace product is exactly `B† B` and
+is trace-class along the source basis. Both P1 channels are now fed by ONE
+named analytic input. FORMAL evidence:
+`1540_g8_p1_column_energy_alignment_batch.log` (3488 jobs, zero
+`error:`/`sorryAx`, standard three axioms). The column-energy summability
+premise itself is NOT proved — it is the shared analytic input and the
+RH-level content of P1. Status: **formal P1 energy alignment complete;
+column-energy summability (the analytic gate), metric-to-radial cutoff
+identification, endpoint, P2, and P3 remain open**.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:
