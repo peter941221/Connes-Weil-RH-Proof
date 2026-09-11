@@ -88,15 +88,17 @@ by an eps^{k-1}-type factor at resolution eps.
 Consequence for the record-1334 verdict. The joint corridor is a SUBSET of
 every single corridor, so IF the Γ-only model's single-corridor capacity
 reading of record 1334 (`A_tau ≈ 2.0`) stands, the joint condition fails a
-fortiori as well. IMPORTANT QUALIFICATION added the same day: during
-record-1338 implementation it was found that 1334's capacity block was
-selected from the WRONG end of the singular-vector list (largest-`sigma`
+fortiori as well. QUALIFICATION (added the same day) — NOW DISCHARGED:
+during record-1338 implementation it was found that 1334's capacity block
+was selected from the WRONG end of the singular-vector list (largest-`sigma`
 sector instead of the preregistered `sigma < 1e-6` near-kernel sector; full
 corrigendum in record 1338 section 0), so the `A_tau ≈ 2.0` number was
-measured on a generic span where 2.0 is trivial. The a-fortiori force of
-this paragraph is therefore CONDITIONAL on record 1338's corrected control
-statistic S0unc; the KERNEL-count parts of 1334/1335 are unaffected.
-The two-prime analysis itself is independent of that defect and stands.
+measured on a generic span where 2.0 is trivial, making this paragraph's
+force conditional. Record 1338's control statistic S0unc RE-MEASURED the
+capacity on the CORRECT near-kernel block at N = 8192 and got
+`A_tau in [1.997, 2.013]` (FALSIFIES at every cell and both flavors;
+record 1339 section 2): the condition is satisfied, the a-fortiori force
+of this paragraph stands, and 1335's headline survives the corrigendum.
 
 ## 3. The relativization reading (what C4 must survive logically)
 
