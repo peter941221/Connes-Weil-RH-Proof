@@ -1561,6 +1561,19 @@ commutator bound: the required same-owner real-trace estimate, cutoff/radial
 transport, endpoint, P2, and P3 remain open. Status: **formal P1 signed-defect
 localization; no finite-cutoff sign or limit is inferred**.
 
+### G8 P1 projection-defect energy reduction (record 1320, 2026-09-11)
+
+The import-facing leaf `C1G8P1ProjectionDefectEnergyBound` applies the
+existing Hilbert--Schmidt Cauchy--Schwarz theorem to the literal projected--
+complement pair and names its two same-owner squared energies. It proves that
+the absolute real ordinary trace of the unique cross channel, equivalently of
+the commutator-localized channel from record 1319, is at most their geometric
+mean. FORMAL evidence: `1534_g8_p1_projection_defect_energy_bound_retry2.log`
+(3932 jobs, zero `error:`/`sorryAx`, standard three axioms). This closes only
+the trace-to-energy reduction: neither energy has a cutoff bound or vanishing
+theorem, so transport, endpoint, P2, and P3 remain open. Status: **formal P1
+cross-energy reduction; analytic energy control remains the active gap**.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:

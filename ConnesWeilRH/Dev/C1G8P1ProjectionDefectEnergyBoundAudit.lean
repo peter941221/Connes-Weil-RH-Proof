@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8P1ProjectionDefectEnergyBound
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1ProjectionDefectEnergyBoundAudit
+
+open C1G8P1ProjectionDefectEnergyBound
+
+#print axioms abs_re_ordinaryTraceAlong_g8ProjectionDefectCross_le_geometricEnergy
+#print axioms abs_re_ordinaryTraceAlong_g8ProjectionDefectCommutator_le_geometricEnergy
+
+end C1G8P1ProjectionDefectEnergyBoundAudit
+end Source
+end ConnesWeilRH
