@@ -1,0 +1,17 @@
+import ConnesWeilRH.Dev.C1G8P1RadialCommutatorChannelLedger
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1RadialCommutatorChannelLedgerAudit
+
+open C1G8P1RadialCommutatorChannelLedger
+
+#print axioms norm_radialCompressedPositiveTranslation_le_one
+#print axioms norm_radialInteriorSoninCommutator_le_two
+#print axioms norm_radialSoninBoundaryCrossing_apply_le_canonical_antiresonantColumn
+#print axioms norm_suffixPrimeTranslationProjectionCommutator_apply_le_twoChannel
+#print axioms norm_suffixPrimeTranslationProjectionCommutator_le_twoChannel
+
+end C1G8P1RadialCommutatorChannelLedgerAudit
+end Source
+end ConnesWeilRH

@@ -1606,6 +1606,37 @@ limit for the cross term. Status: **formal P1 one-energy cross bound; genuine
 analytic signed-term control, metric-to-radial transport, endpoint, P2, and P3
 remain open**.
 
+### G8 P1 radial crossing energy transport (record 1324, 2026-09-11)
+
+On the radial side the conditional chain left open by the full-carrier
+extension is now closed down to one named premise. If the pulled-back
+antiresonant-column basis energy `sum_i || antiCol(frame† e_i)||^2` is
+summable, then the radial crossing basis energy is summable (visible
+`(32 ||q_p^{-1}||)^2` termwise cost), the positive Cauchy defect `C†C` is
+trace-class along the chosen basis, and an explicit Hilbert--Schmidt pair
+owns `C†C` exactly. FORMAL evidence:
+`1538_g8_p1_radial_transport_batch_retry11.log`
+(4074 jobs, zero `error:`/`sorryAx`, standard three axioms). The summability
+of the column energy itself is **not** proved; the radial side therefore
+still lacks the same kind of analytic input as the metric-side raw cutoff-leg
+energy `E_A(n)`. Status: **formal P1 conditional radial transport; column
+energy summability, metric-to-radial transport, endpoint, P2, and P3 remain
+open**.
+
+### G8 P1 radial commutator channel ledger (record 1325, 2026-09-11)
+
+The exact radial split `[U_p, P_S] = [E U_p E, P_S] + (I - E) U_p P_S` now
+has closed per-channel constants: interior `<= 2` in operator norm, boundary
+pointwise `<= (32 ||q_p^{-1}||) * ||antiCol(frame† u)||`, ledger
+`||[U_p, P_S] u|| <= 2||u|| + boundary term`, and operator-norm corollary
+`||[U_p, P_S]|| <= 2 + (32 ||q_p^{-1}||) * ||antiCol ∘L frame†||`. This is
+the radial-side dual of the metric projection-defect ledger (records
+1318-1323). FORMAL evidence: `1538_g8_p1_radial_transport_batch_retry11.log`
+(4074 jobs, zero `error:`/`sorryAx`, standard three axioms). No channel is
+small and no term vanishes. Status: **formal P1 two-channel radial ledger;
+both sides now reduce to one named energy input each; the metric-to-radial
+transport, endpoint, P2, and P3 remain open**.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:

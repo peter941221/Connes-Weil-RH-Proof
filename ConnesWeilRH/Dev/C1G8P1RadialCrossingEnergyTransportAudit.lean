@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1G8P1RadialCrossingEnergyTransport
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P1RadialCrossingEnergyTransportAudit
+
+open C1G8P1RadialCrossingEnergyTransport
+
+#print axioms normSq_radialSoninBoundaryCrossing_apply_le_canonical_antiresonantColumn
+#print axioms summable_radialSoninBoundaryCrossing_normSq_of_antiresonantColumnEnergy
+#print axioms isTraceClassAlong_radialSoninBoundaryCauchyDefect_of_antiresonantColumnEnergy
+#print axioms radialCauchyPairDataOfAntiresonantColumnEnergy_traceProduct_eq_defect
+
+end C1G8P1RadialCrossingEnergyTransportAudit
+end Source
+end ConnesWeilRH
