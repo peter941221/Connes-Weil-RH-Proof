@@ -362,8 +362,9 @@ def main():
     g_ctrl, ctrl_meta = build_g_control(0.03)
     qw_ctrl = qw_terms(g_ctrl, fixed=False)["qw"]      # G1a: broken path
     qw_ctrl_fix = qw_terms(g_ctrl)["qw"]               # corrected kernel
-    if not SMOKE:
-        _set_grid(g_official_nq)
+    # (inv11b) the grid stays at the 1225 anchor resolution through G1b and
+    # G8c: both cross-check the ANCHOR-GRID control, so the restore to the
+    # official grid happens only after them (crash fix, see prereg md).
     rel_anchor = abs(qw_ctrl / committed - 1.0) if committed \
         else float("nan")
     gate_g1a = committed is not None and rel_anchor < 1e-6
@@ -406,6 +407,8 @@ def main():
     print(f"G8 control: geom {qw_ctrl_fix:+.9e} vs spect({T_G8_LO:.0f}) "
           f"{s800c:+.9e} gap {abs(qw_ctrl_fix - s800c):.2e} "
           f"drift {abs(s1200c-s800c):.2e} [{'PASS' if g8c_ok else 'FAIL'}]")
+    if not SMOKE:
+        _set_grid(g_official_nq)
 
     # ---------- main pipeline at official grid ---------- #
     gates: dict = {}

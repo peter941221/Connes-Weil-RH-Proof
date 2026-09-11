@@ -224,6 +224,22 @@ non-representative (law 7c(69)).
   gate, not a FIRE/NO-FIRE band; no official digit had been produced; the
   amendment is calibrated on measured decay, not on a band outcome
   (law-42 spirit: the verdict bands of section 5 are untouched).
+- inv11b (official-path machinery crash, discovered on the FIRST official
+  launch attempt BEFORE any digit was printed - the run died with an
+  IndexError in the G1b block, zero official digits exist): the grid
+  restore from the 1225 anchor resolution (NQ=2^15, inv8c) back to the
+  official resolution happened immediately after `qw_terms`, but the G1b
+  independent-quadrature cross-check and the G8-control block index
+  `g_ctrl` against the CURRENT grid globals - in official mode `g_ctrl`
+  (length 2^15) met a 2^17 `QS`/`DQ` and crashed. Smoke never exposed it
+  (single grid throughout). FIX (registered, no band/gate semantics
+  touched): the anchor-window blocks G1a/G1b/G8c all execute at the
+  anchor resolution, and the restore to the official grid happens after
+  G8c - which is also the semantically correct reading: G1b cross-checks
+  and G8c compare against `qw_ctrl_fix` COMPUTED AT THE ANCHOR GRID, so
+  comparing them on the anchor grid is self-consistent (the witness-side
+  G8w continues to run on the official grid, on the official-grid
+  witness). Section 5 bands and every gate threshold are unchanged.
 
 ## 6. What this record does NOT establish
 
