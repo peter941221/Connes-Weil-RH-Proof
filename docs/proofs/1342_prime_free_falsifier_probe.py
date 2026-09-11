@@ -247,13 +247,37 @@ def psi_spectral(g, T: float) -> float:
     return tot
 
 
-# G8 truncation ladder (prereg inv11): the band (drift < 1e-6 AND gap <
-# max(1e-6, 1e-5*|geom|)) is UNCHANGED from inv10; only the T pair moved
-# {300,400} -> {800,1200}, justified by the smoke-measured decay profile
-# (witness residual +6.2e-5 at T=300 -> +2.5e-7 at T=800; control was
-# already sub-budget at 300).  Evidence table in the prereg md.
-T_G8_LO = 800.0
-T_G8_HI = 1200.0
+# G8 self-calibrating truncation ladder (prereg inv12, superseding the
+# hand-picked inv11 pair): the band (drift < 1e-6 AND gap <
+# max(1e-6, 1e-5*|geom|)) is UNCHANGED from inv10.  The pair (T, 2T) is
+# taken as the FIRST one in the geometric ladder whose measured drift is
+# below the band's drift budget; if none qualifies up to the cap (6400),
+# the gate FAILS honestly.  No hand-tuned T remains, so the fidelity gate
+# cannot be tuned toward the adjudicated object.
+G8_T_LADDER = (800.0, 1600.0, 3200.0)     # top T used: 6400
+G8_DRIFT_BUDGET = 1e-6
+
+
+def g8_gate(g, geom, tag):
+    """Explicit-formula fidelity gate (inv10b/11/12) for one test vector."""
+    chosen = (G8_T_LADDER[-1], 2.0 * G8_T_LADDER[-1], 0.0, float("inf"))
+    for Tlo in G8_T_LADDER:
+        Thi = 2.0 * Tlo
+        s_lo = psi_spectral(g, Tlo)
+        s_hi = psi_spectral(g, Thi)
+        drift = abs(s_hi - s_lo)
+        chosen = (Tlo, Thi, s_lo, drift)
+        if drift < G8_DRIFT_BUDGET:
+            break
+    Tlo, Thi, s_lo, drift = chosen
+    gap = abs(geom - s_lo)
+    gate = (drift < G8_DRIFT_BUDGET
+            and gap < max(1e-6, 1e-5 * abs(geom)))
+    print(f"G8 {tag}: geom {geom:+.9e} vs spect({Tlo:.0f}) {s_lo:+.9e} "
+          f"gap {gap:.2e} drift {drift:.2e} "
+          f"(ladder {Tlo:.0f}/{Thi:.0f}) [{'PASS' if gate else 'FAIL'}]")
+    return bool(gate), dict(T_lo=Tlo, T_hi=Thi, gap=float(gap),
+                            drift=float(drift))
 
 
 # ---------------- 1342 pipeline (prereg sections 2-3) ---------------- #
@@ -400,13 +424,8 @@ def main():
                                   else float("nan")),
                control_rel=rel_anchor, ctrl_meta=ctrl_meta,
                G1b_arch_dev=g1b_dev)
-    # G8 on the control (inv10b + inv11): geometric (corrected) vs spectral
-    s800c, s1200c = psi_spectral(g_ctrl, T_G8_LO), psi_spectral(g_ctrl, T_G8_HI)
-    g8c_ok = (abs(s1200c - s800c) < 1e-6
-              and abs(qw_ctrl_fix - s800c) < max(1e-6, 1e-5 * abs(qw_ctrl_fix)))
-    print(f"G8 control: geom {qw_ctrl_fix:+.9e} vs spect({T_G8_LO:.0f}) "
-          f"{s800c:+.9e} gap {abs(qw_ctrl_fix - s800c):.2e} "
-          f"drift {abs(s1200c-s800c):.2e} [{'PASS' if g8c_ok else 'FAIL'}]")
+    # G8 on the control (inv10b + inv12): geometric (corrected) vs spectral
+    g8c_ok, g8c_info = g8_gate(g_ctrl, qw_ctrl_fix, "control")
     if not SMOKE:
         _set_grid(g_official_nq)
 
@@ -467,16 +486,9 @@ def main():
           f"{'PASS' if gate_g6 else 'FAIL'}   "
           f"G7 prime-free {'PASS' if gate_g7 else 'FAIL'}")
 
-    # G8 on the witness (inv10b + inv11): explicit-formula fidelity of the
+    # G8 on the witness (inv10b + inv12): explicit-formula fidelity of the
     # corrected dictionary on the ACTUAL adjudicated object
-    s800w, s1200w = psi_spectral(gstar, T_G8_LO), psi_spectral(gstar, T_G8_HI)
-    g8w_gap = abs(wqw["qw"] - s800w)
-    g8w_drift = abs(s1200w - s800w)
-    gate_g8w = (g8w_drift < 1e-6
-                and g8w_gap < max(1e-6, 1e-5 * abs(wqw["qw"])))
-    print(f"G8 witness: geom {wqw['qw']:+.9e} vs spect({T_G8_LO:.0f}) "
-          f"{s800w:+.9e} gap {g8w_gap:.2e} drift {g8w_drift:.2e} "
-          f"[{'PASS' if gate_g8w else 'FAIL'}]")
+    gate_g8w, g8w_info = g8_gate(gstar, wqw["qw"], "witness")
 
     # ---------- G4 resolution doubling ---------- #
     _set_grid(2 * g_official_nq)
@@ -501,11 +513,9 @@ def main():
                 G3b=gate_g3b, G4=gate_g4, G5=gate_g5, G6=gate_g6,
                 G7=gate_g7, G8c=g8c_ok, G8w=gate_g8w)
     out["gates"] = {k: bool(v) for k, v in allg.items()}
-    out["G8"] = dict(T_lo=T_G8_LO, T_hi=T_G8_HI,
-                     control_gap=float(abs(qw_ctrl_fix - s800c)),
-                     control_drift=float(abs(s1200c - s800c)),
-                     witness_gap=float(g8w_gap),
-                     witness_drift=float(g8w_drift))
+    out["G8"] = dict(ladder=list(G8_T_LADDER),
+                     drift_budget=G8_DRIFT_BUDGET,
+                     control=g8c_info, witness=g8w_info)
     print("gates " + " ".join(f"{k}={'T' if v else 'F'}"
                               for k, v in allg.items()))
 

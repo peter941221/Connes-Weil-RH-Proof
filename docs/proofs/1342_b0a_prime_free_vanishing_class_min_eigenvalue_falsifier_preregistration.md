@@ -241,6 +241,54 @@ non-representative (law 7c(69)).
   G8w continues to run on the official grid, on the official-grid
   witness). Section 5 bands and every gate threshold are unchanged.
 
+## 5a. Attempt-1 official disclosure (ABORTED-UNINFORMATIVE, consumed)
+
+The first COMPLETED official launch (batch 1544, m=24, NQ=2^17, 959.9 s
+wall; log and JSON preserved verbatim as `*_attempt1`) produced:
+
+```text
+gates G1a=T G1b=T G2=T G3a=T G3b=T G4=T G5=T G6=T G7=T G8c=T G8w=F
+VERDICT: ABORTED-UNINFORMATIVE            (G8w breach, per section 5)
+lambda_min(Gm)   = +3.083243887e-03       lambda_2 = +3.787179e-03
+G4 delta         =  3.85e-11              null-res = 2.51e-17
+witness direct qw = +2.070736544e-01      prime +6.23e-16  radius 0.323
+G8 control: gap 2.10e-07 drift 0.00e+00   [PASS]
+G8 witness: gap 3.95e-05 drift 2.69e-05   [FAIL] at ladder {800,1200}
+```
+
+Attempt-1 is adjudicated exactly as preregistered: the G8 witness gate
+breached => ABORTED-UNINFORMATIVE; no band verdict is issued for it and
+none is extracted post hoc. The failure mechanism is fully diagnosed: the
+official 21-dimensional minimum-eigenvector witness has a Gevrey tail
+~160x slower than the 5-dimensional smoke witness (residual +3.95e-05 at
+T=800 vs +2.47e-07), so the inv11 fixed pair {800,1200} still truncated
+too early. The breach lives entirely in the mpmath/spectral fidelity path;
+the adjudicated object (the Gram-minimum eigenvalue) was computed by the
+fully-gated independent path (G2-G7 all green, G4 delta 3.85e-11).
+
+## 6b. inv12 - self-calibrating G8 ladder and attempt-2 authorization
+
+- inv12 (registered AFTER attempt-1's digits are disclosed in section 5a,
+  BEFORE any attempt-2 digit): the G8 T selection is removed from human
+  choice.  The pair (T, 2T) is the FIRST T in the geometric ladder
+  {800, 1600, 3200} whose measured drift < 1e-6 (the band's own drift
+  budget); if none qualifies by cap T=6400 the gate FAILS honestly.  The
+  band semantics (drift < 1e-6 AND gap < max(1e-6, 1e-5*|geom|)) are
+  UNCHANGED from inv10; the section 5 verdict bands are UNCHANGED.  The
+  ladder is chosen by the gate's own budget, so it cannot be tuned toward
+  the adjudicated sign; and because attempt-1's deterministic lambda_min
+  is already on the record above, attempt-2 has zero selection freedom
+  over the verdict object.
+- Attempt-2 (batch 1545, log `1545_1342_official_attempt2.log`) is the
+  OFFICIAL adjudicating run.  Justification for a second official launch
+  under the one-shot discipline: attempt-1's consumed verdict was produced
+  by a rig-fidelity breach, not by the object; the corrected machine path
+  is anchored by the CONTROL passing G8 on the same code (gap 2.10e-07,
+  drift 0).  This follows the established rig-defect pattern (inv9: fix
+  the defect, re-run, disclose the failed attempt fully) and does NOT
+  authorize any further official launch: after attempt-2 this probe is
+  spent regardless of outcome.
+
 ## 6. What this record does NOT establish
 
 No Lean theorem, no sign statement, no claim about the full function
