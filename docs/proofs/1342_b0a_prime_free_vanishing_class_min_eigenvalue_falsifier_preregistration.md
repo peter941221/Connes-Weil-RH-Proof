@@ -197,6 +197,33 @@ non-representative (law 7c(69)).
   fidelity check the 1212-era rig never had);
   (c) the G4 doubling no longer needs the mod-3 length constraint (the
   fixed rule works for any grid).
+- inv11 (G8 truncation ladder, smoke-phase calibration BEFORE any official
+  digit - the inv10 {300,400} estimate "remainder ~3e-9 at T=400" was
+  wrong): a smoke diagnostic measured the witness spectral-side tail
+  convergence profile (peak-rescaled 5-dim nullspace witness, geometric
+  value +2.324308785e-01):
+
+  ```text
+  T        spect(T)          band(T-prev)   resid = geom - spect(T)
+  300      +2.323691480e-01  -              +6.17e-05
+  400      +2.324162655e-01  +4.71e-05      +1.46e-05
+  600      +2.324293196e-01  +1.31e-05      +1.56e-06
+  800      +2.324306314e-01  +1.31e-06      +2.47e-07
+  1200     +2.324308523e-01  +2.21e-07      +2.62e-08
+  ```
+
+  The bump Fourier tail decays sub-exponentially (Gevrey-2 bump), so the
+  T=300-vs-400 drift (4.7e-5) exceeded the (unchanged) 1e-6 drift budget.
+  AMENDMENT: the G8 T ladder becomes {800, 1200} for BOTH the control and
+  the witness; the BAND (drift < 1e-6 AND gap < max(1e-6, 1e-5*|geom|))
+  is UNCHANGED - only the truncation pair moves, chosen from the measured
+  profile so the residual (+2.5e-7 at 800) and the drift (+2.2e-7 from
+  800 to 1200) both sit more than one order below budget. The control was
+  already sub-budget at {300,400} (gap 2.1e-07, drift 0) and remains so
+  a fortiori. Justification of legitimacy: G8 is a dictionary-FIDELITY
+  gate, not a FIRE/NO-FIRE band; no official digit had been produced; the
+  amendment is calibrated on measured decay, not on a band outcome
+  (law-42 spirit: the verdict bands of section 5 are untouched).
 
 ## 6. What this record does NOT establish
 

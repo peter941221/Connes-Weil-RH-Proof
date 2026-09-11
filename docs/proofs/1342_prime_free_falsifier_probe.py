@@ -247,6 +247,15 @@ def psi_spectral(g, T: float) -> float:
     return tot
 
 
+# G8 truncation ladder (prereg inv11): the band (drift < 1e-6 AND gap <
+# max(1e-6, 1e-5*|geom|)) is UNCHANGED from inv10; only the T pair moved
+# {300,400} -> {800,1200}, justified by the smoke-measured decay profile
+# (witness residual +6.2e-5 at T=300 -> +2.5e-7 at T=800; control was
+# already sub-budget at 300).  Evidence table in the prereg md.
+T_G8_LO = 800.0
+T_G8_HI = 1200.0
+
+
 # ---------------- 1342 pipeline (prereg sections 2-3) ---------------- #
 R_ROOT = math.log(2.0) / 2.0
 DELTA = 0.01
@@ -390,13 +399,13 @@ def main():
                                   else float("nan")),
                control_rel=rel_anchor, ctrl_meta=ctrl_meta,
                G1b_arch_dev=g1b_dev)
-    # G8 on the control (inv10b): geometric (corrected) vs spectral side
-    s300c, s400c = psi_spectral(g_ctrl, 300.0), psi_spectral(g_ctrl, 400.0)
-    g8c_ok = (abs(s400c - s300c) < 1e-6
-              and abs(qw_ctrl_fix - s300c) < max(1e-6, 1e-5 * abs(qw_ctrl_fix)))
-    print(f"G8 control: geom {qw_ctrl_fix:+.9e} vs spect(300) {s300c:+.9e} "
-          f"gap {abs(qw_ctrl_fix - s300c):.2e} drift {abs(s400c-s300c):.2e} "
-          f"[{'PASS' if g8c_ok else 'FAIL'}]")
+    # G8 on the control (inv10b + inv11): geometric (corrected) vs spectral
+    s800c, s1200c = psi_spectral(g_ctrl, T_G8_LO), psi_spectral(g_ctrl, T_G8_HI)
+    g8c_ok = (abs(s1200c - s800c) < 1e-6
+              and abs(qw_ctrl_fix - s800c) < max(1e-6, 1e-5 * abs(qw_ctrl_fix)))
+    print(f"G8 control: geom {qw_ctrl_fix:+.9e} vs spect({T_G8_LO:.0f}) "
+          f"{s800c:+.9e} gap {abs(qw_ctrl_fix - s800c):.2e} "
+          f"drift {abs(s1200c-s800c):.2e} [{'PASS' if g8c_ok else 'FAIL'}]")
 
     # ---------- main pipeline at official grid ---------- #
     gates: dict = {}
@@ -455,15 +464,15 @@ def main():
           f"{'PASS' if gate_g6 else 'FAIL'}   "
           f"G7 prime-free {'PASS' if gate_g7 else 'FAIL'}")
 
-    # G8 on the witness (inv10b): explicit-formula fidelity of the
+    # G8 on the witness (inv10b + inv11): explicit-formula fidelity of the
     # corrected dictionary on the ACTUAL adjudicated object
-    s300w, s400w = psi_spectral(gstar, 300.0), psi_spectral(gstar, 400.0)
-    g8w_gap = abs(wqw["qw"] - s300w)
-    g8w_drift = abs(s400w - s300w)
+    s800w, s1200w = psi_spectral(gstar, T_G8_LO), psi_spectral(gstar, T_G8_HI)
+    g8w_gap = abs(wqw["qw"] - s800w)
+    g8w_drift = abs(s1200w - s800w)
     gate_g8w = (g8w_drift < 1e-6
                 and g8w_gap < max(1e-6, 1e-5 * abs(wqw["qw"])))
-    print(f"G8 witness: geom {wqw['qw']:+.9e} vs spect(300) {s300w:+.9e} "
-          f"gap {g8w_gap:.2e} drift {g8w_drift:.2e} "
+    print(f"G8 witness: geom {wqw['qw']:+.9e} vs spect({T_G8_LO:.0f}) "
+          f"{s800w:+.9e} gap {g8w_gap:.2e} drift {g8w_drift:.2e} "
           f"[{'PASS' if gate_g8w else 'FAIL'}]")
 
     # ---------- G4 resolution doubling ---------- #
@@ -489,8 +498,9 @@ def main():
                 G3b=gate_g3b, G4=gate_g4, G5=gate_g5, G6=gate_g6,
                 G7=gate_g7, G8c=g8c_ok, G8w=gate_g8w)
     out["gates"] = {k: bool(v) for k, v in allg.items()}
-    out["G8"] = dict(control_gap=float(abs(qw_ctrl_fix - s300c)),
-                     control_drift=float(abs(s400c - s300c)),
+    out["G8"] = dict(T_lo=T_G8_LO, T_hi=T_G8_HI,
+                     control_gap=float(abs(qw_ctrl_fix - s800c)),
+                     control_drift=float(abs(s1200c - s800c)),
                      witness_gap=float(g8w_gap),
                      witness_drift=float(g8w_drift))
     print("gates " + " ".join(f"{k}={'T' if v else 'F'}"
