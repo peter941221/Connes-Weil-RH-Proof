@@ -18,3 +18,7 @@ s3 (increments A / A' / A''); three standard axioms, zero sorryAx.
 #print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.selectedOwner_convolutionSquare_heightQuadraticTail
 #print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.selectedOwner_convolutionSquare_heightTail_raw
 #print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.spectralNormTerm_shell_instance_of_heightTail
+#print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.spectralNormTerm_shellSum_le_of_heightTail
+#print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.spectralWeilValue_neg_of_prefix_and_heightTail
+#print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.exists_nearbyZero_targetValues_assembly_anyIterate
+#print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.exists_smallSupport_healthyDetectorData_of_quadraticBounds_and_heightBudget

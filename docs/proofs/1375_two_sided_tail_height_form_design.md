@@ -251,3 +251,123 @@ bridges (the `_right` variant puts the shared factor on the right).
 Increment C next: sum the instance over all shells into the explicit
 budget `K(n) * (shell summation constant) < xiMultiplicity rho`, mirroring
 the geometric internals of `spectralTail_norm_shellSum_le_of_fourthOrderTail`.
+
+## 8. Increment C GREEN (2026-09-13, try-2) and D GREEN (try-4)
+
+`spectralNormTerm_shellSum_le_of_heightTail`: the per-shell instance summed
+over every dyadic shell above the start `N + 1` gives the explicit geometric
+budget
+
+```
+Σ' m, Σ' shell (m+N+1), spectralNormTerm square σ
+    ≤ spectralMultiplicityConstant * Kc * r^N / (2^(4*(n+2)) - 3),
+Kc = C_b^(2*(n+1)) * C_c^2 * (2*π)^(4*(n+2)),  r = 3 / 2^(4*(n+2)) ≤ 3/256.
+```
+
+Mirror of `spectralTail_norm_shellSum_le_of_fourthOrderTail`
+(C1SpectralTailBound.lean:147-268) with NO `epsilon`, NO `T`, NO `rho`.  The
+closing identity is `Σ r^m = 1/(1-r)` composed with
+`2^{-4(n+2)}/(1-3/2^{4(n+2)}) = 1/(2^{4(n+2)}-3)`.  Build try-2: footer
+`Build completed successfully (3545 jobs)`, zero `^error:`, three-standard-
+axiom print, zero sorryAx.
+
+`spectralWeilValue_neg_of_prefix_and_heightTail`: the composition lemma —
+unchanged kill-based prefix accounting (`hprefix`) plus the height budget
+(`hnb` explicit strict inequality) yields `spectralWeilValue square < 0`.
+Height-tail mirror of
+`spectralWeilValue_neg_of_spectralHeightShellPrefix_and_fourthOrderTail`
+(C1HealthyYoshidaSpectralNegativity.lean:353-373); the `N+1` tail-start
+bridge needs `simpa only [Nat.add_assoc, norm_spectralTerm]` because the
+budget is stated in `spectralNormTerm` form while the consumer wants
+`‖spectralTerm‖`.  Build try-4: `Build completed successfully (3634 jobs)`.
+
+API notes hit in tries 1-4 (Lean v4.30 toolchain):
+
+1. `pow_mul` in this Mathlib is `a ^ (m * n) = (a ^ m) ^ n`.  To convert
+   `(x^a)^b = (x^b)^a` write `rw [← pow_mul, ← pow_mul]` then a targeted
+   `mul_comm` on the exponents; a forward `rw [pow_mul]` rewrites the
+   EXPONENT product of the composite base instead and silently changes the
+   goal shape.
+2. `summable_geometric_of_lt_one` / `tsum_geometric_of_lt_one` take
+   `(0 ≤ r)` (NOT `-1 < r`), and the `tsum` form concludes `(1-r)⁻¹` —
+   after `rw` into a `1 / (1-r)` goal, close with `ring`.
+3. `Summable.of_le` does not exist in v4.30.  Use
+   `Summable.of_nonneg_of_le (hg : ∀ b, 0 ≤ g b) (hgf : ∀ b, g b ≤ f b)
+   (hf : Summable f)`; per-shell nonnegativity via `tsum_nonneg` with the
+   `spectralNormTerm` rfl-unfold and `mul_nonneg`.
+4. `field_simp` cancels NUMERAL-base factors (`3^m`, `(2*π)^k`) on its own
+   and leaves a `pow_add`-shaped residual (`W^(m+N+1) = W * W^(m+N)`);
+   close with an exponent-ring rewrite, `pow_add`, `pow_one`, `ring`.
+
+## 9. Increments E1 + E3 GREEN (2026-09-13, try-6) — the N0' wrapper closes
+
+Two recon facts reshaped the E ladder (both readbacks, no new analysis):
+
+- The base quadratic bound is FREE:
+  `exists_uniform_compactLog_laplaceAt_vertical_quadratic_decay`
+  (C1SpectralWeil.lean:154-160) gives `∃ C, 0 ≤ C ∧ ∀ σ ∈ Icc 0 1, ∀ t,
+  ‖t/(2π)‖²·‖laplaceAt F (σ + t·I)‖ ≤ C` for EVERY `CompactLogTest F` —
+  no assembly change needed to export `C_b`; the correction's bound is
+  exported verbatim by
+  `exists_residualWindow_correction_with_quadratic_decay`
+  (CC20YoshidaConvolution.lean:323-333, last conjunct exactly the `hC`
+  shape).
+- The half-density multiplier preserves support EXACTLY:
+  `halfDensityShift_support_subset` (UnscaledYoshidaSelectedOwner.lean:64-67)
+  — `exp(x/2)` has no zeros, so the detector's support clause is the
+  assembled `(n+1)`-fold window with no shift term.
+
+E1 `exists_nearbyZero_targetValues_assembly_anyIterate`: the target/kill
+interpolation holds at ANY construction iterate — the assembled value is
+`laplaceAt(base^n)(w) * laplaceAt(correction)(w)`, the base factor is
+`1^(n+1)` at targets, and the correction vanishes at every non-target node
+regardless of `n`.  The distance-form tail and its `T`/half-contraction
+premises are dropped; the correction's quadratic bound is exported.  This is
+the theorem that decouples `n` from the height of `rho`.
+
+E3 `exists_smallSupport_healthyDetectorData_of_quadraticBounds_and_heightBudget`:
+THE N0' WRAPPER.  Premises: healthy construction data (target values, square
+kills over the `2^(N+1)`-ball plus route nodes), explicit quadratic bounds
+`hB hC`, prefix coverage `hrhoShell : dyadicShellIndex |rho.1.im| < N + 1`,
+and the budget `hnb`.  Conclusion:
+
+```
+∃ g, HealthyYoshidaDetectorData rho.1 g ∧
+  support g.test ⊆ Ioo ((n+1)*baseLower + lower) ((n+1)*baseUpper + upper)
+```
+
+with NO `2 * |rho.im|` and NO `T` anywhere.  `n` is chosen by the budget;
+`N` only covers the prefix.  Detector bookkeeping mirrors
+:473-514 (`healthyUnscaledTargetValue_*` raw values), the negativity comes
+from D via the unchanged prefix lemma
+`spectralHeightShellPrefix_re_le_neg_xiMultiplicity_of_closedBall_square_zero_control`
+(:298-327), and the support clause is
+`halfDensityShift_support_subset ∘ convolution_support_subset_add_Ioo`.
+Build try-6: `Build completed successfully (3634 jobs)`, zero `^error:`,
+all NINE prints `[propext, Classical.choice, Quot.sound]`, zero sorryAx,
+byte-identity verified.
+
+E3 API traps (try-5, six errors):
+
+1. Premise ORDER is semantics: referencing `N` in `hsquareZeros` BEFORE the
+   `(N : ℕ)` binder made Lean auto-bind a DIFFERENT variable (`N✝`) — the
+   application then failed with two visibly distinct `N`/`N✝`.  Bind `N`
+   first.
+2. `healthyDetectorData_halfDensityShift_of_raw_values_of_spectral_neg`
+   takes the detection value in `bne` form; bridge with
+   `(bne_iff_ne).mpr hdetect` (as the existing wrapper does at :509).
+3. In the any-iterate assembly the intro'd kill hypothesis is a plain
+   nonmembership (`↑z ∉ targetNodes`), NOT a subtype membership — no `.1/.2`
+   projections; the node itself is already `FiniteMellinNode selectedNodes`
+   up to let-zeta.
+
+E2 deferred (next increment): the budget-discharge leaf
+`∃ n, budget(n, N) < xiMult ρ` from the decay hypothesis
+`C_b^2 * (2*π)^4 < 2^(4*(N+1))`.  Plan: `q := C_b^2 * (2*π)^4 /
+2^(4*(N+1)) < 1`, per-n majorization `budget(n) ≤ c₀ * q^n` (uses
+`1/(W-3) ≤ 2/W` for `W ≥ 6`), then `tendsto_pow_atTop_nhds_0` +
+`Filter.Tendsto.eventually_lt_const`.  Power splits go through an
+exponent-ring rewrite + `pow_add` (never a first-match `pow_mul` on
+composite atoms).  hLow stays an ALTERNATIVE kill-free lane (D7/N4); the
+wrapper above achieves `n`-only support with the prefix/kill accounting
+unchanged.  Falsifiers F-1375-1/2/3: all survived.

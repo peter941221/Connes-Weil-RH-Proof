@@ -6,6 +6,7 @@ Authors: ConnesWeilRH contributors
 
 import ConnesWeilRH.Source.CCM25Concrete.UnscaledYoshidaSelectedOwner
 import ConnesWeilRH.Dev.C1SpectralTailBound
+import ConnesWeilRH.Dev.C1HealthyYoshidaSpectralNegativity
 
 /-!
 # C1SelectedSquareHeightTail - two-sided height-form tail for the selected square
@@ -44,6 +45,9 @@ open C1SpectralSummability
 open C1SpectralTailBound
 open C1SpectralWeil
 open C1XiGlobalZeroSum
+open C1HealthyYoshidaSpectralNegativity
+open C1HealthyYoshidaUnscaledOrbit
+open C1HealthyYoshidaDetector
 
 noncomputable section
 
@@ -250,6 +254,414 @@ theorem spectralNormTerm_shell_instance_of_heightTail
     _ ≤ (xiMultiplicity sigma.1 : ℝ) *
           (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) :=
         mul_le_mul_of_nonneg_left hraw (Nat.cast_nonneg _)
+
+/-- Shell-summation of the height-form instance: above any dyadic start the
+multiplicity-weighted norm term of the selected square sums to an explicit
+geometric budget with ratio `3 / 2^(4*(n+2))`, closing value
+`1 / (2^(4*(n+2)) - 3)`.  This is the height-form mirror of
+`spectralTail_norm_shellSum_le_of_fourthOrderTail` with no `epsilon`, no
+`T`, and no `rho` anywhere.  The shell start `N` is the wrapper's knob: the
+low-height hypothesis empties the shells below the certificate height, and
+larger `N` only shrinks the constant. -/
+theorem spectralNormTerm_shellSum_le_of_heightTail
+    (base correction : CompactLogTest) (n : ℕ) {C_b C_c : ℝ}
+    (hB : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt base ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C_b)
+    (hC : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt correction ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C_c)
+    (N : ℕ) :
+    (∑' m : Nat, ∑' sigma : spectralHeightShell (m + N + 1),
+        spectralNormTerm (selectedOwner base correction n).convolutionSquare
+          sigma.1) ≤
+      spectralMultiplicityConstant *
+        (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+        ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N /
+        ((2 : Real) ^ (4 * (n + 2)) - 3) := by
+  have h2pi : 0 < 2 * Real.pi := by positivity
+  have hzre : (0 : ℝ) ∈ Set.Icc (0 : ℝ) 1 := ⟨by norm_num, by norm_num⟩
+  have hCb : 0 ≤ C_b :=
+    le_trans (mul_nonneg (sq_nonneg _) (norm_nonneg _)) (hB 0 hzre 1)
+  have hCc : 0 ≤ C_c :=
+    le_trans (mul_nonneg (sq_nonneg _) (norm_nonneg _)) (hC 0 hzre 1)
+  have hKc : 0 ≤ C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2)) :=
+    mul_nonneg (mul_nonneg (pow_nonneg hCb (2 * (n + 1))) (sq_nonneg C_c))
+      (pow_nonneg (le_of_lt h2pi) (4 * (n + 2)))
+  have hWpos : 0 < (2 : Real) ^ (4 * (n + 2)) := pow_pos (by norm_num) _
+  have hWne : (2 : Real) ^ (4 * (n + 2)) ≠ 0 := ne_of_gt hWpos
+  have h8 : 8 ≤ 4 * (n + 2) := by omega
+  have hW3 : (3 : Real) < (2 : Real) ^ (4 * (n + 2)) :=
+    calc (3 : Real) < (2 : Real) ^ 8 := by norm_num
+      _ ≤ (2 : Real) ^ (4 * (n + 2)) := pow_le_pow_right₀ (by norm_num) h8
+  have hW3ne : (2 : Real) ^ (4 * (n + 2)) - 3 ≠ 0 := ne_of_gt (by linarith)
+  have hr0 : 0 ≤ (3 : Real) / (2 : Real) ^ (4 * (n + 2)) :=
+    le_of_lt (div_pos (by norm_num) hWpos)
+  have hr1 : (3 : Real) / (2 : Real) ^ (4 * (n + 2)) < 1 := by
+    rw [div_lt_iff₀ hWpos]
+    linarith
+  have hperM : ∀ m : ℕ,
+      (∑' sigma : spectralHeightShell (m + N + 1),
+          spectralNormTerm (selectedOwner base correction n).convolutionSquare
+            sigma.1) ≤
+        spectralMultiplicityConstant *
+          (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) /
+          (2 : Real) ^ (4 * (n + 2)) *
+          ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ (m + N) := by
+    intro m
+    letI := (spectralHeightShell_finite (m + N + 1)).fintype
+    have hmassN' :
+        (∑' sigma : spectralHeightShell (m + N + 1),
+            (xiMultiplicity sigma.1 : Real)) ≤
+          spectralMultiplicityConstant * (3 : Real) ^ (m + N) := by
+      simpa [spectralHeightMultiplicity] using
+        spectralHeightMultiplicity_geometric_bound (m + N)
+    have hmassN :
+        (∑ sigma : spectralHeightShell (m + N + 1),
+            (xiMultiplicity sigma.1 : Real)) ≤
+          spectralMultiplicityConstant * (3 : Real) ^ (m + N) := by
+      rw [tsum_fintype] at hmassN'
+      exact hmassN'
+    have hPpow : ((2 : Real) ^ (m + N + 1)) ^ (4 * (n + 2)) =
+        ((2 : Real) ^ (4 * (n + 2))) ^ (m + N + 1) := by
+      rw [← pow_mul, ← pow_mul]
+      rw [mul_comm (m + N + 1) (4 * (n + 2))]
+    have hsum :
+        (∑ sigma : spectralHeightShell (m + N + 1),
+            spectralNormTerm (selectedOwner base correction n).convolutionSquare
+              sigma.1) *
+          ((2 : Real) ^ (4 * (n + 2))) ^ (m + N + 1) ≤
+        spectralMultiplicityConstant *
+          (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+          (3 : Real) ^ (m + N) := by
+      rw [Finset.sum_mul]
+      calc (∑ sigma : spectralHeightShell (m + N + 1),
+              spectralNormTerm (selectedOwner base correction n).convolutionSquare
+                sigma.1 * ((2 : Real) ^ (4 * (n + 2))) ^ (m + N + 1)) ≤
+          (∑ sigma : spectralHeightShell (m + N + 1),
+              (xiMultiplicity sigma.1 : Real) *
+                (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2)))) :=
+        Finset.sum_le_sum (fun sigma _sigma => by
+          rw [← hPpow]
+          exact spectralNormTerm_shell_instance_of_heightTail base correction n
+            hB hC (m + N) sigma)
+      _ = (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+            (∑ sigma : spectralHeightShell (m + N + 1),
+              (xiMultiplicity sigma.1 : Real)) := by
+        rw [Finset.mul_sum]
+        exact Finset.sum_congr rfl (fun sigma _ => mul_comm _ _)
+      _ ≤ (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+            (spectralMultiplicityConstant * (3 : Real) ^ (m + N)) :=
+        mul_le_mul_of_nonneg_left hmassN hKc
+      _ = spectralMultiplicityConstant *
+            (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+            (3 : Real) ^ (m + N) := by ring
+    have hkey : spectralMultiplicityConstant *
+          (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) /
+          (2 : Real) ^ (4 * (n + 2)) *
+          ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ (m + N) *
+          ((2 : Real) ^ (4 * (n + 2))) ^ (m + N + 1) =
+        spectralMultiplicityConstant *
+          (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+          (3 : Real) ^ (m + N) := by
+      have hWpowne : ((2 : Real) ^ (4 * (n + 2))) ^ (m + N) ≠ 0 :=
+        pow_ne_zero _ hWne
+      rw [div_pow, pow_add]
+      field_simp
+      rw [pow_add, pow_one]
+      ring
+    have hPPos : 0 < ((2 : Real) ^ (4 * (n + 2))) ^ (m + N + 1) :=
+      pow_pos hWpos _
+    rw [tsum_fintype]
+    refine le_of_mul_le_mul_right ?_ hPPos
+    calc (∑ sigma : spectralHeightShell (m + N + 1),
+            spectralNormTerm (selectedOwner base correction n).convolutionSquare
+              sigma.1) *
+          ((2 : Real) ^ (4 * (n + 2))) ^ (m + N + 1) ≤
+        spectralMultiplicityConstant *
+          (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+          (3 : Real) ^ (m + N) := hsum
+      _ = spectralMultiplicityConstant *
+            (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) /
+            (2 : Real) ^ (4 * (n + 2)) *
+            ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ (m + N) *
+            ((2 : Real) ^ (4 * (n + 2))) ^ (m + N + 1) := hkey.symm
+  have hgeoConst : Summable (fun m : Nat =>
+      spectralMultiplicityConstant *
+        (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) /
+        (2 : Real) ^ (4 * (n + 2)) *
+        ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ (m + N)) := by
+    have hgeo : Summable (fun m : Nat =>
+        ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ m) :=
+      summable_geometric_of_lt_one hr0 hr1
+    refine (hgeo.mul_left (spectralMultiplicityConstant *
+      (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) /
+      (2 : Real) ^ (4 * (n + 2)) *
+      ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N)).congr ?_
+    intro m
+    rw [pow_add]
+    ring
+  have hsummable : Summable (fun m : Nat =>
+      ∑' sigma : spectralHeightShell (m + N + 1),
+        spectralNormTerm (selectedOwner base correction n).convolutionSquare
+          sigma.1) :=
+    Summable.of_nonneg_of_le
+      (fun m => tsum_nonneg (fun sigma => by
+        have hterm : spectralNormTerm
+            (selectedOwner base correction n).convolutionSquare sigma.1 =
+            (xiMultiplicity sigma.1 : ℝ) *
+              ‖laplaceAt (selectedOwner base correction n).convolutionSquare
+                (sigma.1.1 - 1 / 2)‖ := rfl
+        rw [hterm]
+        exact mul_nonneg (Nat.cast_nonneg _) (norm_nonneg _)))
+      (fun m => hperM m) hgeoConst
+  calc (∑' m : Nat, ∑' sigma : spectralHeightShell (m + N + 1),
+        spectralNormTerm (selectedOwner base correction n).convolutionSquare
+          sigma.1) ≤
+      ∑' m : Nat, spectralMultiplicityConstant *
+        (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) /
+        (2 : Real) ^ (4 * (n + 2)) *
+        ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ (m + N) :=
+    hsummable.tsum_le_tsum (fun m => hperM m) hgeoConst
+  _ = ∑' m : Nat, (spectralMultiplicityConstant *
+        (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) /
+        (2 : Real) ^ (4 * (n + 2)) *
+        ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N) *
+        ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ m := by
+    refine tsum_congr (fun m => ?_)
+    rw [pow_add]
+    ring
+  _ = spectralMultiplicityConstant *
+        (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) /
+        (2 : Real) ^ (4 * (n + 2)) *
+        ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N *
+        ∑' m : Nat, ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ m := by
+    rw [tsum_mul_left]
+  _ = spectralMultiplicityConstant *
+        (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) /
+        (2 : Real) ^ (4 * (n + 2)) *
+        ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N *
+        (1 / (1 - (3 : Real) / (2 : Real) ^ (4 * (n + 2)))) := by
+    rw [tsum_geometric_of_lt_one hr0 hr1]
+    ring
+  _ = spectralMultiplicityConstant *
+        (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+        ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N /
+        ((2 : Real) ^ (4 * (n + 2)) - 3) := by
+    field_simp
+
+/-- The height-form budget composes with the shell-prefix anchor accounting:
+a controlled low-shell prefix plus the explicit geometric height budget give
+the strictly negative spectral value, with no `2 * |rho.im|` height floor and
+no `T` anywhere.  This is the height-tail mirror of
+`spectralWeilValue_neg_of_spectralHeightShellPrefix_and_fourthOrderTail`; the
+budget inequality is an explicit hypothesis, so the wrapper discharges it by
+choosing the construction iterate `n` large enough. -/
+theorem spectralWeilValue_neg_of_prefix_and_heightTail
+    (base correction : CompactLogTest) (n : ℕ) {C_b C_c : ℝ}
+    (hB : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt base ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C_b)
+    (hC : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt correction ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C_c)
+    (rho : sourceNontrivialZeroSet) (N : ℕ)
+    (hprefix :
+      (∑ k ∈ Finset.range (N + 1), ∑' z : spectralHeightShell k,
+          spectralTerm (selectedOwner base correction n).convolutionSquare
+            z.1).re ≤
+        -(xiMultiplicity rho : Real))
+    (hsmall : spectralMultiplicityConstant *
+        (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+        ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N /
+        ((2 : Real) ^ (4 * (n + 2)) - 3) <
+          (xiMultiplicity rho : Real)) :
+    spectralWeilValue (selectedOwner base correction n).convolutionSquare < 0 := by
+  have htail := spectralNormTerm_shellSum_le_of_heightTail base correction n hB hC N
+  have htail' :
+      (∑' m : Nat, ∑' z : spectralHeightShell (m + (N + 1)),
+          ‖spectralTerm (selectedOwner base correction n).convolutionSquare
+            z.1‖) ≤
+        spectralMultiplicityConstant *
+          (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+          ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N /
+          ((2 : Real) ^ (4 * (n + 2)) - 3) := by
+    simpa only [Nat.add_assoc, norm_spectralTerm] using htail
+  exact spectralWeilValue_neg_of_spectralHeightShellPrefix_and_tail
+    (selectedOwner base correction n).convolutionSquare rho (N + 1) hprefix
+    (htail'.trans_lt hsmall)
+
+/-- The N0' assembly variant: the same target and kill interpolation is
+available at ANY construction iterate `n` — the base transform is one at
+every target and the correction vanishes at every non-target node, so the
+assembled values do not depend on `n`.  The distance-form tail is dropped
+entirely, and the correction's quadratic frequency bound is exported so the
+height-form tail can consume it. -/
+theorem exists_nearbyZero_targetValues_assembly_anyIterate
+    (base : CompactLogTest) {baseLower baseUpper : ℝ}
+    (hbaseSupport : Function.support base.test ⊆ Set.Ioo baseLower baseUpper)
+    (targetNodes : Finset ℂ)
+    (hbaseTargets : ∀ w : FiniteMellinNode targetNodes,
+      laplaceAt base w.1 = 1)
+    (targetValues : FiniteMellinNode targetNodes → ℂ)
+    (rho : ℂ) (routeNodes : Finset ℂ)
+    {lower upper : ℝ} (hlower : lower < 0) (hupper : 0 < upper)
+    (R : ℝ) (n : ℕ) :
+    ∃ correction : CompactLogTest, ∃ C : ℝ,
+      Function.support correction.test ⊆ Set.Ioo lower upper ∧
+      Function.support
+          ((convolutionIterate base n).convolution correction).test ⊆
+        Set.Ioo (((n + 1 : ℕ) : ℝ) * baseLower + lower)
+          (((n + 1 : ℕ) : ℝ) * baseUpper + upper) ∧
+      (∀ w : FiniteMellinNode targetNodes,
+        laplaceAt ((convolutionIterate base n).convolution correction) w.1 =
+          targetValues w) ∧
+      (∀ z : FiniteMellinNode
+          (sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes),
+        z.1 ∉ targetNodes →
+          laplaceAt ((convolutionIterate base n).convolution correction) z.1 = 0) ∧
+      0 ≤ C ∧
+      (∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+        ‖t / (2 * Real.pi)‖ ^ 2 *
+          ‖laplaceAt correction ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C) := by
+  let selectedNodes : Finset ℂ :=
+    sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes
+  let nodes : Finset ℂ := selectedNodes ∪ targetNodes
+  let y : FiniteMellinNode nodes → ℂ := fun z =>
+    if hz : z.1 ∈ targetNodes then targetValues ⟨z.1, hz⟩ else 0
+  obtain ⟨correction, C, hcorrectionSupport, hvalues, hC, hquadratic⟩ :=
+    exists_residualWindow_correction_with_quadratic_decay nodes hlower hupper y
+  have hassembledSupport := convolution_support_subset_add_Ioo
+    (convolutionIterate base n) correction
+    (convolutionIterate_support_subset_Ioo base hbaseSupport n)
+    hcorrectionSupport
+  have hassembledTargets :
+      ∀ w : FiniteMellinNode targetNodes,
+        laplaceAt
+          ((convolutionIterate base n).convolution correction) w.1 =
+            targetValues w := by
+    intro w
+    let wNode : FiniteMellinNode nodes :=
+      ⟨w.1, Finset.mem_union_right selectedNodes w.2⟩
+    have hcorrectionTarget :
+        laplaceAt correction w.1 = targetValues w := by
+      simpa [y, wNode, w.2] using hvalues wNode
+    rw [laplaceAt_convolution, laplaceAt_convolutionIterate,
+      hbaseTargets w, hcorrectionTarget]
+    simp
+  have hassembledZeros :
+      ∀ z : FiniteMellinNode selectedNodes, z.1 ∉ targetNodes →
+        laplaceAt
+          ((convolutionIterate base n).convolution correction) z.1 = 0 := by
+    intro z hz
+    let zNode : FiniteMellinNode nodes :=
+      ⟨z.1, Finset.mem_union_left targetNodes z.2⟩
+    have hcorrectionZero : laplaceAt correction z.1 = 0 := by
+      simpa [y, zNode, hz] using hvalues zNode
+    rw [laplaceAt_convolution, laplaceAt_convolutionIterate,
+      hcorrectionZero]
+    simp
+  refine ⟨correction, C, hcorrectionSupport, hassembledSupport,
+    hassembledTargets, ?_, hC, hquadratic⟩
+  intro z hz
+  exact hassembledZeros z hz
+
+/-- The N0' small-support wrapper: a healthy construction carrying explicit
+quadratic frequency bounds and the height-form budget produces healthy
+detector data whose support is the assembled `(n+1)`-fold window.  There is
+no `2 * |rho.im|` height floor and no `T` anywhere: the construction iterate
+`n` is chosen by the budget, and the prefix kills cover exactly the dyadic
+shells below `N + 1`. -/
+theorem exists_smallSupport_healthyDetectorData_of_quadraticBounds_and_heightBudget
+    (base correction : CompactLogTest) (n : ℕ)
+    {baseLower baseUpper lower upper : ℝ}
+    (hbaseSupport : Function.support base.test ⊆ Set.Ioo baseLower baseUpper)
+    (hcorrSupport : Function.support correction.test ⊆ Set.Ioo lower upper)
+    (rho : sourceNontrivialZeroSet) (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re)
+    (routeNodes : Finset Complex)
+    (N : ℕ) (hrhoShell : dyadicShellIndex |rho.1.im| < N + 1)
+    (htargetValues :
+      ∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho.1),
+        laplaceAt ((convolutionIterate base n).convolution correction) w.1 =
+          healthyUnscaledTargetValue rho.1 w)
+    (hsquareZeros :
+      ∀ w : FiniteMellinNode
+          (sourceNontrivialZerosInClosedBallFinset rho.1
+              ((2 : Real) ^ (N + 1) + 2 + dist (2 : Complex) rho.1) ∪ routeNodes),
+        w.1 ∉ healthyUnscaledTargetNodes rho.1 →
+          laplaceAt (selectedOwner base correction n).convolutionSquare
+            (w.1 - 1 / 2) = 0)
+    {C_b C_c : ℝ}
+    (hB : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt base ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C_b)
+    (hC : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt correction ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C_c)
+    (hnb : spectralMultiplicityConstant *
+        (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+        ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N /
+        ((2 : Real) ^ (4 * (n + 2)) - 3) <
+        (xiMultiplicity rho : Real)) :
+    ∃ g : CompactLogTest, HealthyYoshidaDetectorData rho.1 g ∧
+      Function.support g.test ⊆
+        Set.Ioo (((n + 1 : ℕ) : ℝ) * baseLower + lower)
+          (((n + 1 : ℕ) : ℝ) * baseUpper + upper) := by
+  refine ⟨(selectedOwner base correction n).sourceTest, ?_, ?_⟩
+  · have hhalf :
+        laplaceAt ((convolutionIterate base n).convolution correction)
+            (1 / 2 : Complex) = 0 := by
+      calc laplaceAt ((convolutionIterate base n).convolution correction)
+            (1 / 2 : Complex) =
+          healthyUnscaledTargetValue rho.1
+            ⟨1 / 2, mem_healthyUnscaledTargetNodes_half rho.1⟩ :=
+            htargetValues ⟨1 / 2, mem_healthyUnscaledTargetNodes_half rho.1⟩
+        _ = 0 := healthyUnscaledTargetValue_half rho.2 hoff
+    have hone :
+        laplaceAt ((convolutionIterate base n).convolution correction) 1 = 0 := by
+      calc laplaceAt ((convolutionIterate base n).convolution correction) 1 =
+          healthyUnscaledTargetValue rho.1
+            ⟨1, mem_healthyUnscaledTargetNodes_one rho.1⟩ :=
+            htargetValues ⟨1, mem_healthyUnscaledTargetNodes_one rho.1⟩
+        _ = 0 := healthyUnscaledTargetValue_one rho.2 hoff
+    have hthreeHalf :
+        laplaceAt ((convolutionIterate base n).convolution correction)
+            (3 / 2 : Complex) = 0 := by
+      calc laplaceAt ((convolutionIterate base n).convolution correction)
+            (3 / 2 : Complex) =
+          healthyUnscaledTargetValue rho.1
+            ⟨3 / 2, mem_healthyUnscaledTargetNodes_threeHalf rho.1⟩ :=
+            htargetValues
+              ⟨3 / 2, mem_healthyUnscaledTargetNodes_threeHalf rho.1⟩
+        _ = 0 := healthyUnscaledTargetValue_threeHalf rho.2
+    have hdetect :
+        laplaceAt ((convolutionIterate base n).convolution correction)
+          (rho.1 + 1 / 2) ≠ 0 := by
+      rw [htargetValues
+        ⟨rho.1 + 1 / 2, mem_healthyUnscaledTargetNodes_detector rho.1⟩]
+      exact healthyUnscaledTargetValue_detector_ne_zero rho.1 hoff
+    have hneg :
+        spectralWeilValue (selectedOwner base correction n).convolutionSquare <
+          0 := by
+      have hprefix :=
+        spectralHeightShellPrefix_re_le_neg_xiMultiplicity_of_closedBall_square_zero_control
+          base correction n rho hoff hright (N + 1) hrhoShell routeNodes
+          htargetValues hsquareZeros
+      exact spectralWeilValue_neg_of_prefix_and_heightTail base correction n
+        hB hC rho N hprefix hnb
+    show HealthyYoshidaDetectorData rho.1
+      (halfDensityShift ((convolutionIterate base n).convolution correction))
+    refine healthyDetectorData_halfDensityShift_of_raw_values_of_spectral_neg
+      hhalf hone hthreeHalf ((bne_iff_ne).mpr hdetect) ?_
+    change spectralWeilValue
+      (selectedOwner base correction n).convolutionSquare < 0
+    exact hneg
+  · simp only [selectedOwner_sourceTest]
+    exact halfDensityShift_support_subset _
+      (convolution_support_subset_add_Ioo (convolutionIterate base n)
+        correction (convolutionIterate_support_subset_Ioo base hbaseSupport n)
+        hcorrSupport)
 
 end
 
