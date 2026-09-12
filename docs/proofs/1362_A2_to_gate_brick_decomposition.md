@@ -79,6 +79,35 @@ measurability/summability API fights back harder than expected,
 fallback = Nat-indexed half-line windows (k >= 0 and k < 0 leaves) -
 same content, uglier statement; outcome note goes in s4 honestly.
 
+## 3a. AMENDMENT, pre-build (law-42 correction BEFORE any log exists; F5)
+
+Caught on implementation recon; no digit existed when this edit was
+committed, so the lock is being FIXED, not moved:
+
+  (a) Type name: the committed index type is
+      `sourceNontrivialZeroSet` (CC20YoshidaNearZeros.lean:31, a Set ℂ
+      subtype); s3's "XiZero" was prose. No semantic change.
+  (b) REAL DEFECT: s3 wrote windows as closed `Set.Icc (k*W) ((k+1)*W)`
+      - closed windows OVERLAP at endpoints, so they do NOT partition
+      and the split T1/T2 would double-count any zero with ordinate
+      exactly on a window edge (boundary zeros are not excluded
+      anywhere). Replacement: the partition by FIBERS of
+      `windowIndex W rho := Int.floor (rho.1.im / W)` - these fibers
+      are exactly the half-open intervals [kW, (k+1)W) and tile by
+      construction. Added T0 (statement-preserving):
+      `windowSet_mem (hW : 0 < W) : rho ∈ windowSet W k <->
+        (k:Real)*W <= rho.1.im /\ rho.1.im < (k+1:Real)*W`
+      - so the "ordinate interval" meaning of s3 is RESTORED as a
+      theorem, with the correct half-open shape.
+  (c) s3's `def onLineWindowSet (g : CompactLogTest) ...` carries an
+      unused `g`: the window is geometry of zeros, not of tests.
+      Retired; the def is `windowSet (W : Real) (k : Int)` (also
+      avoids unused-variable lint). T1-T4 keep their locked signatures
+      `(g : CompactLogTest) (W : Real)`.
+  Theorem NAMES are preserved verbatim from s3: windowMass_split_on /
+  windowMass_split_off / qw_window_assembly /
+  contestForm_windowwise_iff, plus the new T0 windowSet_mem.
+
 ## 4. Acceptance contract (locked now)
 
 Batch number assigned at launch; build Dev.C1A2WindowSplit +
@@ -118,3 +147,45 @@ wall has one face, not three.
 4. After L1: attempt L2c-formal only (definitions-side: realize
    A(I)/N(I) for our kernel - may be partially doable without new
    analysis; adjudicate after L1 lands).
+
+## 7. ITERATION LEDGER (leaf build session; appended before any batch log - source-level API facts only, no build digits)
+
+Name reconnaissance via `lake env lean` probes on this fork's Mathlib
+snapshot ("API names are DATA"), plus three compiler iterations on
+Dev/C1A2WindowSplit.lean. Facts that changed the design:
+
+1. DESIGN SHRINK (F5-style admission): the planned ENNReal descent
+   (tsum_fiberwise_ennreal + ofReal pull-in/pull-out + outer-summability
+   fight) is DEAD BEFORE BIRTH: this fork has
+   `HasSum.sigma : HasSum f a -> (forall b, HasSum (fun c => f <-b, c->)
+   (g b)) -> HasSum g a` (AddCommMonoid + ContinuousAdd + RegularSpace
+   hypotheses) - unconditional-fiber Fubini directly over R. No sign
+   hypothesis is needed at all, so the pos/neg decomposition of the
+   signed off-line family is also unnecessary. The brick's core is one
+   `hasSum_fiberwise` lemma; summability of the window-mass function
+   (needed by T3) comes free as `HasSum.summable`.
+2. Value-level reindexing along equivalences is STILL absent in this
+   snapshot (probed unknown: HasSum.comp_equiv, tsum_sigma, tsum_sigma',
+   summable_sigma, summable_sigma', HasSum.comp_injective,
+   tsum_comp_injective, Summable.comp_surjective) - hence the one
+   hand-rolled infrastructure lemma `hasSum_comp_equiv` (Finset-net
+   argument; cofinality witness `t.image e.symm`).
+3. Compiler-verified environment facts for the next builder
+   (candidates for AGENTS 7b):
+   (a) `(SummationFilter.unconditional L).filter` is DEFEQ to
+       `Filter.atTop` on `Finset L` - a `show` passes, so net arguments
+       can be written atTop-style after `unfold HasSum`.
+   (b) `le_div_iff0`/`div_lt_iff0` in this snapshot are stated with the
+       DIVISION form on the LEFT (a <= b / c <-> a * c <= b): proving
+       the multiplication form from the division form needs `.mp`,
+       the opposite of the usual memorized direction.
+   (c) `Finset.sum_image` takes an explicit `Set.InjOn g (s : Set _)`
+       proof, and dot-resolving `hf.injective.injOn s` mis-elaborates;
+       pass `(show Set.InjOn e (↑s) from fun x _ y _ h => e.injective h)`.
+   (d) `rw` closes `t subset t` via the @[refl]-tagged subset lemma, so
+       a trailing `exact` after such an rw errors "No goals".
+4. Pre-green state: leaf + audit compile with ZERO errors in the mirror
+   environment (iteration 3); `grep -c sorry` = 0; audit leaf prints 12
+   fully-qualified `#print axioms`. Official batch: 1558
+   (lake build Dev.C1A2WindowSplit + Dev.C1A2WindowSplitAudit); the
+   batch log remains the only digit-bearing artifact, per s4.
