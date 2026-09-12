@@ -192,3 +192,32 @@ committed equivalence, and claims no new direction. RH NOT claimed.
 
 Acceptance: same contract as s2 (footer green, zero error lines,
 every B4 #print axioms = the three standard, zero sorryAx).
+
+## 6. B4 outcome: GREEN (batch 1557b, log 1557b_b4_brick_green.log)
+
+| check | contract (s5) | observed |
+|---|---|---|
+| footer | green | "Build completed successfully (3712 jobs)." |
+| error lines | zero | zero (grep 'error' whole-file count = 0) |
+| B4 axiom prints | 3, all standard | contest_balance_iff_qw_nonneg / contestForm_iff_weilCriterion / contestForm_iff_sourceRH each [propext, Classical.choice, Quot.sound]; B1's nine re-printed identically in the same log |
+| sorryAx | zero | zero |
+
+Iteration ledger (s5 statements NEVER touched; proofs only):
+1557 red with exactly ONE error: B4.2's forall₂_congr argument needs
+the pointwise iff in CONTEST-first orientation while B4.1 is written
+gate-first - fixed with `.symm`, a proof-level re-orientation, not a
+statement change. 1557b green first try thereafter.
+
+Byte-identity of the committed files with the built mirror copies
+verified by cmp before committing (lesson from this session: any
+post-build edit, even a comment, is reverted rather than drifting
+the verified bytes).
+
+What the brick now holds (all C6-free, 1351 green core COMPLETE):
+  B1a-B1d  quartet pair-split algebra + contest-reusable bound;
+  B4.1     unconditional per-test balance iff;
+  B4.2     total-contest form <=> surviving gate (pointwise congruence);
+  B4.3     total-contest form <=> SourceRH (transitivity over d767a1d).
+Not included (by design, owner-gated): B2/B3 windowwise reading,
+which is where C6/NLLE-v2 enters. The 1356 leaf is 12 declarations,
+all axiom-clean.

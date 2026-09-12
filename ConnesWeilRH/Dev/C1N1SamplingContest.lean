@@ -5,13 +5,15 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Dev.C1SpectralOfflinePairing
+import ConnesWeilRH.Dev.C1WeilCriterionEquivalence
 
 /-!
 # C1N1SamplingContest - the (star) sampling-contest brick, B1 leg
 
 Build preregistration: docs/proofs/1356_brick_build_prg.md (statements
 LOCKED there before any build log, law-42 discipline). This leaf carries
-ONLY the B1 quartet-algebra leg: pure bookkeeping of the committed
+the B1 quartet-algebra leg and the B4 total-contest iff wiring
+(s5): pure bookkeeping of the committed
 spectral-side dictionary terms (spectralTerm, centeredXiCoordinate,
 conjugateXiZero, hermitianPartner, oneSubXiZero, the committed
 `laplaceAt_convolutionSquare` product identity of
@@ -41,6 +43,8 @@ open C1SpectralWeil
 open C1SpectralOnlineSplit
 open C1SpectralHermitianPartner
 open C1HealthyYoshidaDetector
+open C1SpectralQwAssembly
+open C1SpectralSummability
 
 noncomputable section
 
@@ -205,6 +209,57 @@ theorem conj_pair_onLine (rho : sourceNontrivialZeroSet)
     (h : rho ∈ onLineZeroSet) :
     conjugateXiZero rho ∈ onLineZeroSet :=
   conjugateXiZero_mem_onLineZeroSet rho h
+
+/-! ### B4: the gate IS the total on-line-vs-off-line contest (1356 s5)
+
+Window-free by design: the per-window (star) of record 1345 is B2/B3
+science and needs C6/NLLE-v2 (1353 two-limb grading). Nothing below
+adds analysis - the balance equality and the on-line nonnegativity are
+committed (C1SpectralQwAssembly.lean:65-66,
+C1SpectralOnlineSplit.lean:88-90), and B4.3 is a transitivity over the
+committed d767a1d equivalence. -/
+
+/-- **B4.1 (per-test contest balance, unconditional).** The Weil value
+of a test is nonnegative iff its on-line gain covers its off-line loss. -/
+theorem contest_balance_iff_qw_nonneg (g : CompactLogTest) :
+    0 ≤ C1SameOwnerWeil.qw g ↔
+      onLineSpectralMass g ≥ max 0 (- offLineSpectralMass g) := by
+  have hnonneg : 0 ≤ onLineSpectralMass g :=
+    onLineSpectralMass_nonnegative_of_summable g
+      (spectralSummableProp g.convolutionSquare)
+  rw [qw_eq_onLineSpectralMass_add_offLineSpectralMass]
+  rcases lt_trichotomy (offLineSpectralMass g) 0 with hlt | heq | hgt
+  · rw [max_eq_right (show (0 : ℝ) ≤ -offLineSpectralMass g by linarith)]
+    exact ⟨fun e => by linarith, fun e => by linarith⟩
+  · rw [heq, show (-0 : ℝ) = 0 by norm_num, max_eq_left (le_refl 0)]
+    exact ⟨fun _ => by linarith, fun _ => by linarith⟩
+  · rw [max_eq_left (show (- offLineSpectralMass g) ≤ 0 by linarith)]
+    exact ⟨fun _ => by linarith, fun _ => by linarith⟩
+
+/-- **B4.2 (class iff).** The total-contest form IS the surviving gate
+of record 1341, pointwise through B4.1. -/
+theorem contestForm_iff_weilCriterion :
+    (∀ g : CompactLogTest,
+        CC20VanishesOn C1.healthyCC20TestSpace
+          cc20TripleFiniteVanishingSet g →
+          onLineSpectralMass g ≥ max 0 (- offLineSpectralMass g)) ↔
+      (∀ g : CompactLogTest,
+        CC20VanishesOn C1.healthyCC20TestSpace
+          cc20TripleFiniteVanishingSet g →
+          0 ≤ C1SameOwnerWeil.qw g) :=
+  forall₂_congr (fun g _hg => (contest_balance_iff_qw_nonneg g).symm)
+
+/-- **B4.3 (contest iff SourceRH).** Reassembly only: B4.2 composed
+with the committed Weil-criterion equivalence (d767a1d). No new
+direction, no inequality about zeta, RH not claimed. -/
+theorem contestForm_iff_sourceRH :
+    (∀ g : CompactLogTest,
+        CC20VanishesOn C1.healthyCC20TestSpace
+          cc20TripleFiniteVanishingSet g →
+          onLineSpectralMass g ≥ max 0 (- offLineSpectralMass g)) ↔
+      RHDefinitionBridge.standard.SourceRH :=
+  contestForm_iff_weilCriterion.trans
+    C1WeilCriterionEquivalence.weilCriterion_iff_sourceRH
 
 end
 end C1N1SamplingContest
