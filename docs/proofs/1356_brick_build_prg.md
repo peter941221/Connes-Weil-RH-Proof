@@ -137,3 +137,58 @@ Files: ConnesWeilRH/Dev/C1N1SamplingContest.lean (new leaf, 9
 declarations) + C1N1SamplingContestAudit.lean (9 uncommented
 #print axioms). Dev leaves stay OUT of the root aggregate (explicit
 targeting, AGENTS s2 rule).
+
+## 5. B4 LOCKED STATEMENTS (committed before any B4 build output, law-42)
+
+Session: same Dev leaf (B4 section appended to
+C1N1SamplingContest.lean) + Audit extended to every B4 declaration.
+Extra import: C1WeilCriterionEquivalence (pulls the whole committed
+gate chain; the leaf reuses, never reproves, d767a1d legs).
+
+Grounding read for this lock (all committed, verified line-by-line
+today): C1SpectralQwAssembly.lean:65-66 (qw = onLineSpectralMass +
+offLineSpectralMass, UNCONDITIONAL); C1SpectralOnlineSplit.lean:57-62
+(both masses are Real: the .re of the indicator tsums), :88-90 (W1
+nonneg under summability), and spectralSummable for every owner
+(C1SpectralSummability); C1CenterTwoCriterionBridge.lean:28-30 (qw =
+spectralWeilValue, unconditional); C1WeilCriterionEquivalence.lean:
+118-141 (both gate legs, d767a1d).
+
+Design note (F5-honest): B4 wires the TOTAL contest form
+("on-line gain covers off-line loss") to the surviving gate. The
+WINDOWWISE (star) of record 1345 - per-Nyquist-window sampling energy
+vs per-window quartet loss - is B2/B3 science and NEEDS C6/NLLE-v2
+(1353 two-limb correction stands). B4 deliberately carries NO
+window quantifier, which is exactly why 1351 graded the iff-core
+C6-free.
+
+B4.1 contest_balance_iff_qw_nonneg (g : CompactLogTest) - UNCONDITIONAL
+per-test balance (no vanishing hypothesis; the class enters at B4.2):
+  0 <= qw g  <->  onLineSpectralMass g >= max 0 (- offLineSpectralMass g)
+
+B4.2 contestForm_iff_weilCriterion - the total-contest form IS the
+surviving gate (pointwise via B4.1, forall2 congruence):
+  (forall g, CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g ->
+      onLineSpectralMass g >= max 0 (- offLineSpectralMass g))
+  <->
+  (forall g, CC20VanishesOn C1.healthyCC20TestSpace
+      cc20TripleFiniteVanishingSet g -> 0 <= qw g)
+
+B4.3 contestForm_iff_sourceRH - reassembly only:
+  contestForm <-> RHDefinitionBridge.standard.SourceRH
+  via B4.2.trans C1WeilCriterionEquivalence.weilCriterion_iff_sourceRH
+
+B4.4 REJECTED as redundant (recorded so it is not re-litigated): the
+per-quartet reading combines B1a (quartet re-sum = 2*Re t rho +
+2*Re t (conj rho)) with the committed
+C1SpectralOfflinePairing.offLineSpectralMass_eq_two_mul_re_tsum_rightHalf
+(:209); no new theorem is needed to bridge them, and tsum
+re-enumeration per quartet orbit is B2/B3 (window) science.
+
+Non-claims for B4: B4.3 is an IFF about a restated form; it proves no
+inequality about zeta, certifies nothing toward the gate beyond the
+committed equivalence, and claims no new direction. RH NOT claimed.
+
+Acceptance: same contract as s2 (footer green, zero error lines,
+every B4 #print axioms = the three standard, zero sorryAx).
