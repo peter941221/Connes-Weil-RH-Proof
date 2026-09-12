@@ -84,7 +84,56 @@ lines AND audit reads (never exit codes).
 B1 is bookkeeping algebra over committed dictionary terms: it proves
 no inequality about zeta and certifies nothing toward the gate. The
 (★) <-> gate iff (B4) is a SEPARATE locked statement to be appended
-to this file (s4 addendum) before its code lands - it will read the
-pair-split quartet side (0 s b) and the committed W3/W4b masses, not
-the 1345 shorthand. The N1 lane stays PENDING-unfunded for ANYTHING
+to this file as a LATER addendum before its code lands - it will read
+the pair-split quartet side (0 s b) and the committed W3/W4b masses,
+not the 1345 shorthand. The N1 lane stays PENDING-unfunded for ANYTHING
 beyond this green core (1353 census correction stands).
+(Section numbering note, F5: s4 below is the B1 OUTCOME log-summary;
+the B4 locked statements will be s5.)
+
+## 4. B1 outcome: GREEN (batch 1556c, log 1556c_b1_brick_green.log)
+
+Acceptance read FROM THE LOG, never the exit code (house law):
+
+| check | contract (s2) | observed |
+|---|---|---|
+| footer | "Build completed successfully (N jobs)" | "Build completed successfully (3613 jobs)." |
+| error lines | zero `^error:` | zero (grep 'error' count = 0 whole-file) |
+| axiom prints | 3 standard, 9 declarations | 9/9 print [propext, Classical.choice, Quot.sound] |
+| sorryAx | zero | zero |
+
+Iteration ledger (law-42 compliant: statements locked at s1 BEFORE
+any log existed; only PROOFS were revised across 1556 -> 1556b -> 1556c):
+
+1. 1556 red: rw direction into hpair2 (:86), `abs_add` unqualified
+   (repo uses `abs_add_le`, precedent C1HealthyNarrowPlateau.lean:275),
+   `re_centeredXiCoordinate` unknown (exists in C1SpectralOfflinePairing
+   but namespace not opened - B1d re-proved from the definitions
+   instead of reaching for it), unused simp args (:119).
+2. 1556b red, three residuals, each a REAL Lean-culture trap worth
+   banking:
+   - (a) ASSOC after `simp [Complex.add_re]`: the 4-vs-2+2 regroup is
+     associativity over ℝ, which simp normalizes into different
+     parenthesizations - closes with `ring`, not more simp args.
+   - (b) PARTNER-FIRST ORDER: the committed W4a lemma reads
+     `(t (part rho) + t rho).re = 2 * (t rho).re`
+     (C1SpectralHermitianPartner.lean:171-176) - the partner on the
+     LEFT. Both pair instances in B1a need a prior `rw [add_comm]`;
+     the second additionally passes through the heq transport
+     (`congrArg` of B1-partner-conj) before the committed match fires.
+     Locked statements unchanged.
+   - (c) RW INSTANTIATES ONCE: `rw [abs_mul]` rewrote only the FIRST
+     `|2 * x|` occurrence (the two summands are different terms); my
+     earlier "dedup" of the doubled rw pair had deleted a needed
+     instantiation. General fix = `simp only [abs_mul,
+     abs_of_pos (0 < 2)]` which rewrites ALL matches.
+3. 1556c GREEN as tabled; B1d now: `have hline ... by simpa
+   [onLineZeroSet] using h` (same reduction as the compiled mem
+   lemma), then `simp only [centeredXiCoordinate, Complex.sub_re];
+   rw [hline]; norm_num` - no dependence on the offline-pairing
+   namespace at all.
+
+Files: ConnesWeilRH/Dev/C1N1SamplingContest.lean (new leaf, 9
+declarations) + C1N1SamplingContestAudit.lean (9 uncommented
+#print axioms). Dev leaves stay OUT of the root aggregate (explicit
+targeting, AGENTS s2 rule).
