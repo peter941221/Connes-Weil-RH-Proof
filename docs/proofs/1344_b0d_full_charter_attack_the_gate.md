@@ -146,6 +146,48 @@ pointless by its own admission.
   re-estimate: ~60-100 min (m=24 verbatim ~25 min + doubling ~25 min +
   fast m=48/96 ~5 min + G9 ~1 min + anchor/G8c ~3 min).
 
+### 3b. Fusion interpretation pre-declaration (committed 2026-09-12, BEFORE the A1 digits land; law 42)
+
+Context (deep read, same day): arXiv:2608.13637v2 (Alpoege-Furman; proof
+discovered by Claude, Lean 4 verified, Aug 2026) proves >=2/3 of zeros
+simple+on-line by a RANK-TRACE inequality on a FINITE COMPRESSION of Weil's
+Hermitian form with Sylvester inertia counting the off-line pairs; their
+Appendix B records that the negative index of any finite compression of the
+form is identically zero (all negativity comes from off-line zeros) and
+that the route was found by DUALIZING an empty index-bound attack into a
+positive-eigenvalue count. This is the same object species as our G8
+dictionary + 1342 nullspace Gram: A1's lambda_min(m) is the capacity
+spectrum of that species restricted to the GATE observable (positivity on
+the vanishing class). Their ceiling is a proportion; the field's open
+question at the method level is why not ALL. The fusion branches, declared
+HERE, before any alpha digit exists:
+
+- alpha > 1 (section-3 CAPACITY-DEAD-MAP branch): register at MODEL grade
+  "compression-capacity obstruction on the gate class": no bump-net
+  compression of the vanishing class carries a uniform positivity constant;
+  within this species the proportion->ALL gap is NOT attributable to
+  bookkeeping slack on our subclass. Feeds directly into any follow-up on
+  the 2608.13637 method ceiling.
+- alpha <= 1 (section-3 NET-PROGRAM-ALIVE branch): register the NEGATIVE of
+  that statement: the capacity obstruction is absent on our dictionary and
+  subclass; the gap is then bookkeeping/analysis slack, and the
+  uniform-constant proof route is the justified next prereg.
+- Escalation clause (3a sign-flip) overrides both: no fusion reading until
+  the verbatim-path recheck settles the digits.
+
+Honesty rails (part of the declaration, not caveats added later):
+(i) their compression lives on ALL even test functions with support <= log X
+and a height sample grid; ours is the vanishing class via the 3m moment
+constraints (nullspace Z). A capacity fact about one does NOT transfer as a
+theorem to the other; the fusion is species-level MAP evidence, MODEL grade,
+never a statement about their Lean-verified theorem, whose validity is not
+touched in either direction. (ii) No RH claim; no implication from their
+proportion result to our gate or back is asserted here.
+Consequence for portfolio ORDER (owner decision input, 7k F6 taxonomy): the
+fusion reading of A1 supersedes the 1346 H1/H2 harvest and the arXiv:
+1703.03827 A3 audit as the next commitment; harvest and audit move to
+backlog, not archive.
+
 ## 4. What this charter does NOT claim
 
 - Not that RH will be proved here; not that proportion/bound lanes can close
