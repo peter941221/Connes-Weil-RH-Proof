@@ -367,3 +367,21 @@ its R-dependence is LINEAR, beating the MODEL's quadratic
 localization: the off-band coupling is `‖g‖²`-dependent, so N1b/N1c must
 be derived jointly with the 1371 norm floor (the §8.5 designed-together
 clause). Plan N1a–N1e in 1376 s2d; paper beat next.
+
+### 9.2 N1a done at paper level (record 1377, 2026-09-13)
+
+The global mass bridge is now a paper lemma with exact constants
+([1377](../proofs/1377_n1a_global_mass_bridge.md)): general-window form
+`|G(d+it0)|^2 <= e^(2dm) sinh(dW)/d * ||g||^2` (Cauchy–Schwarz against the
+character's modulus squared — exact antiderivative, no slack), mass form
+`C_bridge(d; a, b) = e^(2dm) sinh(dW)/(2πd)`, `d → 0` limit `W/(2π)`
+matching the σ-line constant. Two load-bearing additions over the 1376
+recon: (1) SHARPNESS — the constant is the operator norm of point
+evaluation on `L²` of the window, so no support-only argument can improve
+it; all future gain is priced through band localization (N1b) or the open
+spline-subfamily evaluation norm; (2) the register window is NOT
+symmetric (F3 delivers `(a_n, b_n)` with undetermined center `m_n`), so
+the center factor `e^(2dm_n)` is a construction-side lever (window
+centering), not a fixed penalty. N1b (band kernel + `K_loc` from N2) and
+N1c (joint inequality with the 1371 `‖g‖²` floor) are next; N1d formal
+leaf pending an `L²` interface export.

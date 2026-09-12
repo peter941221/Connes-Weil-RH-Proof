@@ -141,6 +141,11 @@ Read the current records in this order for a full-map review:
     N1 vertical-bridge recon: pointwise MODEL bridge dead, mass-form
     deliverable with the explicit linear-in-R constant
     `sinh(2dR)/(2πd)`, and the N1a-N1e attack plan.
+11. [1377](../proofs/1377_n1a_global_mass_bridge.md): the N1a paper
+    beat — the global mass bridge with exact general-window constants
+    and its sharpness lemma (the constant is an operator norm, so
+    support-only improvement is impossible), the `d → 0` consistency
+    limit, and the N1c coupling interface.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
