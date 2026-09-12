@@ -404,3 +404,24 @@ reappearing — no kernel refinement removes it. All regime numbers are
 MODEL-lane arithmetic. N1c (joint inequality with the 1371 `‖g‖²` floor
 + density race) is the next paper beat; N2's `K_loc` plugs into the
 window-moment terms of both couplings.
+
+### 9.4 N1c done at paper level — falsifier resolution (record 1379, 2026-09-13)
+
+The [1376] falsifier is resolved into an exact feasibility theorem
+([1379](../proofs/1379_n1c_joint_feasibility.md)): Lemma E shows the
+constrained vertical ratio is `x* = 1/(y*Γ⁻¹y)` — the Schur complement of
+the Laplace reproducing-kernel Gram over the register's actual node list
+(four-point functional-equation orbit + healthy targets,
+CC20YoshidaFullProduct.lean:52-61; value pattern `ρ→1, 1−ρ̄→−1, else 0`),
+reducing to [1377] A′ (`x* = K_A`) when unconstrained. The joint
+feasibility conditions are (J1) `x* > 2C_min/δ` (the [1378] ratio map)
+and (J2) `δ·B_R(d) > 8·C_min` — the latter a NORM-BUDGET squeeze
+`4/B_R(d) ≤ ‖g‖² ≤ δ/(2C_min)` against the 1371 floor. MODEL-lane
+verdict: in the killed-prefix class (floor binds) the global band bridge
+delivers nothing at small d — the falsifier FIRES (it is the
+invisible-anchor fact seen from the bridge side); in a budget-controlled
+class (J2) drops and the bridge is executable in the near-line band
+`dR ≲ 0.53`. Campaign directive: (A) visible-anchor family with explicit
+norm budget (new target N2-beta), or (B) near-line-band restriction.
+N2 retargeted: `K_loc := y*Γ⁻¹y`; N1d upgraded (finite Gram, formalizable
+after the L² export).

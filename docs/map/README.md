@@ -151,6 +151,11 @@ Read the current records in this order for a full-map review:
     (damping-split Lemma D and band-average Lemma C), the informative
     `dR`/`δ` regime map at the extremal ceiling, and the N2/N1c
     coupling interfaces.
+13. [1379](../proofs/1379_n1c_joint_feasibility.md): the N1c paper
+    beat — the joint feasibility theorem (kernel Gram `y*Γ⁻¹y`, Schur
+    form), the norm-budget squeeze against the 1371 floor, and the
+    falsifier resolution: killed-prefix class blocked at small `d`,
+    budget-controlled class executable in the near-line band.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
