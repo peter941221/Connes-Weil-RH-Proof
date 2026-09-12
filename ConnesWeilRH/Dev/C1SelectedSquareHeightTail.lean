@@ -819,6 +819,143 @@ theorem exists_iterate_heightTail_budget_lt_xiMultiplicity
   obtain ⟨n, hn⟩ := (hzero.eventually_lt_const hxipos).exists
   exact ⟨n, lt_of_le_of_lt (hmajor n) hn⟩
 
+/-- F1 (orbit package, preregistered in 1375 s11): the N0' end-to-end
+instantiation.  The raw construction data — a base hitting `1` on the
+healthy target nodes with quadratic bound `C_b`, and a correction realizing
+the healthy target values and killing every non-target node of the
+`2^(N+1)`-ball plus the route nodes, with quadratic bound `C_c` — together
+with the height-decay hypothesis produces healthy detector data whose
+support is the assembled `(n+1)`-fold window.  E2 picks `n`; the assembled
+values and the square kills are rebuilt at that `n` from the raw node data
+via the product identity `laplaceAt_convolution` / `laplaceAt_convolutionIterate`
+and the Hermitian bridge
+`selectedOwner_laplaceAt_convolutionSquare_eq_zero_of_source_eq_zero`; E3
+closes.  No `2 * |rho.im|`, no `T`, no `epsilon` anywhere. -/
+theorem exists_smallSupport_healthyDetectorData_of_heightDecay
+    (rho : sourceNontrivialZeroSet) (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re)
+    (routeNodes : Finset Complex)
+    {baseLower baseUpper lower upper : ℝ}
+    (hlower : lower < 0) (hupper : 0 < upper)
+    (N : ℕ) (hrhoShell : dyadicShellIndex |rho.1.im| < N + 1)
+    {C_b C_c : ℝ} (hCb : 0 ≤ C_b) (hCc : 0 ≤ C_c)
+    (hdecay : C_b ^ 2 * (2 * Real.pi) ^ 4 < (2 : Real) ^ (4 * (N + 1)))
+    (hbaseData : ∃ base : CompactLogTest,
+      Function.support base.test ⊆ Set.Ioo baseLower baseUpper ∧
+      (∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho.1),
+        laplaceAt base w.1 = 1) ∧
+      ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+        ‖t / (2 * Real.pi)‖ ^ 2 *
+            ‖laplaceAt base ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C_b)
+    (hcorrData : ∃ correction : CompactLogTest,
+      Function.support correction.test ⊆ Set.Ioo lower upper ∧
+      (∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho.1),
+        laplaceAt correction w.1 = healthyUnscaledTargetValue rho.1 w) ∧
+      (∀ z : FiniteMellinNode
+          (sourceNontrivialZerosInClosedBallFinset rho.1
+              ((2 : Real) ^ (N + 1) + 2 + dist (2 : Complex) rho.1) ∪
+            routeNodes),
+        z.1 ∉ healthyUnscaledTargetNodes rho.1 →
+          laplaceAt correction z.1 = 0) ∧
+      ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+        ‖t / (2 * Real.pi)‖ ^ 2 *
+            ‖laplaceAt correction ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤
+          C_c) :
+    ∃ n : ℕ, ∃ g : CompactLogTest, HealthyYoshidaDetectorData rho.1 g ∧
+      Function.support g.test ⊆
+        Set.Ioo (((n + 1 : ℕ) : ℝ) * baseLower + lower)
+          (((n + 1 : ℕ) : ℝ) * baseUpper + upper) := by
+  obtain ⟨base, hbaseSupport, hbaseTargets, hB⟩ := hbaseData
+  obtain ⟨correction, hcorrSupport, hcorrTargets, hcorrKills, hC⟩ := hcorrData
+  obtain ⟨n, hn⟩ :=
+    exists_iterate_heightTail_budget_lt_xiMultiplicity rho N hCb hCc hdecay
+  have htargetValues :
+      ∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho.1),
+        laplaceAt ((convolutionIterate base n).convolution correction) w.1 =
+          healthyUnscaledTargetValue rho.1 w := by
+    intro w
+    rw [laplaceAt_convolution, laplaceAt_convolutionIterate, hbaseTargets w,
+      hcorrTargets w]
+    simp
+  have hsquareZeros :
+      ∀ w : FiniteMellinNode
+          (sourceNontrivialZerosInClosedBallFinset rho.1
+              ((2 : Real) ^ (N + 1) + 2 + dist (2 : Complex) rho.1) ∪
+            routeNodes),
+        w.1 ∉ healthyUnscaledTargetNodes rho.1 →
+          laplaceAt (selectedOwner base correction n).convolutionSquare
+            (w.1 - 1 / 2) = 0 := by
+    intro w hw
+    refine selectedOwner_laplaceAt_convolutionSquare_eq_zero_of_source_eq_zero
+      base correction n w.1 ?_
+    rw [laplaceAt_convolution, laplaceAt_convolutionIterate, hcorrKills w hw]
+    simp
+  exact ⟨n,
+    exists_smallSupport_healthyDetectorData_of_quadraticBounds_and_heightBudget
+      base correction n hbaseSupport hcorrSupport rho hoff hright routeNodes
+      N hrhoShell htargetValues hsquareZeros hB hC hn⟩
+
+/-- F2 (1375 s11): the self-contained instantiation.  The correction engine
+`exists_residualWindow_correction_with_quadratic_decay` takes only
+n-free inputs — the base is built with value `1` on the healthy targets, the
+correction with the healthy values and zero kills over
+`killSet ∪ healthyTargets` — so the whole package reduces to the decay
+antecedent on the constructed constants.  That antecedent is the open
+science interface (the constructed `C_b` versus `16^(N+1)`); nothing
+numerical is claimed. -/
+theorem exists_smallSupport_healthyDetectorData_heightDecay_construction
+    (rho : sourceNontrivialZeroSet) (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re)
+    (routeNodes : Finset Complex)
+    {baseLower baseUpper lower upper : ℝ}
+    (hbaseLower : baseLower < 0) (hbaseUpper : 0 < baseUpper)
+    (hlower : lower < 0) (hupper : 0 < upper)
+    (N : ℕ) (hrhoShell : dyadicShellIndex |rho.1.im| < N + 1) :
+    ∃ C_b C_c : ℝ, 0 ≤ C_b ∧ 0 ≤ C_c ∧
+      (C_b ^ 2 * (2 * Real.pi) ^ 4 < (2 : Real) ^ (4 * (N + 1)) →
+        ∃ n : ℕ, ∃ g : CompactLogTest, HealthyYoshidaDetectorData rho.1 g ∧
+        Function.support g.test ⊆
+          Set.Ioo (((n + 1 : ℕ) : ℝ) * baseLower + lower)
+            (((n + 1 : ℕ) : ℝ) * baseUpper + upper)) := by
+  obtain ⟨base, C_b, hbaseSupport, hbaseVals, hCb, hbaseB⟩ :=
+    exists_residualWindow_correction_with_quadratic_decay
+      (healthyUnscaledTargetNodes rho.1) hbaseLower hbaseUpper (fun _ => 1)
+  have hbaseTargets :
+      ∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho.1),
+        laplaceAt base w.1 = 1 := by
+    intro w
+    simpa using hbaseVals w
+  let killSet : Finset ℂ :=
+    sourceNontrivialZerosInClosedBallFinset rho.1
+        ((2 : Real) ^ (N + 1) + 2 + dist (2 : Complex) rho.1) ∪ routeNodes
+  let y : FiniteMellinNode (killSet ∪ healthyUnscaledTargetNodes rho.1) → ℂ :=
+    fun z =>
+      if hz : z.1 ∈ healthyUnscaledTargetNodes rho.1 then
+        healthyUnscaledTargetValue rho.1 ⟨z.1, hz⟩ else 0
+  obtain ⟨correction, C_c, hcorrSupport, hvals, hCc, hcorrB⟩ :=
+    exists_residualWindow_correction_with_quadratic_decay
+      (killSet ∪ healthyUnscaledTargetNodes rho.1) hlower hupper y
+  have hcorrTargets :
+      ∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho.1),
+        laplaceAt correction w.1 = healthyUnscaledTargetValue rho.1 w := by
+    intro w
+    have hwBig : w.1 ∈ killSet ∪ healthyUnscaledTargetNodes rho.1 :=
+      Finset.mem_union_right _ w.2
+    simpa [y, hwBig, w.2] using hvals ⟨w.1, hwBig⟩
+  have hcorrKills :
+      ∀ z : FiniteMellinNode killSet,
+        z.1 ∉ healthyUnscaledTargetNodes rho.1 →
+          laplaceAt correction z.1 = 0 := by
+    intro z hz
+    have hwBig : z.1 ∈ killSet ∪ healthyUnscaledTargetNodes rho.1 :=
+      Finset.mem_union_left _ z.2
+    simpa [y, hwBig, hz] using hvals ⟨z.1, hwBig⟩
+  refine ⟨C_b, C_c, hCb, hCc, fun hdecay => ?_⟩
+  exact exists_smallSupport_healthyDetectorData_of_heightDecay
+    rho hoff hright routeNodes hlower hupper N hrhoShell hCb hCc hdecay
+    ⟨base, hbaseSupport, hbaseTargets, hbaseB⟩
+    ⟨correction, hcorrSupport, hcorrTargets, hcorrKills, hcorrB⟩
+
 end
 
 end C1SelectedSquareHeightTail

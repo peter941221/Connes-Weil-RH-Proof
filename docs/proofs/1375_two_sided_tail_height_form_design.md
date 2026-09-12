@@ -465,3 +465,93 @@ interface is the `hdecay` discharge — `C_b` from
 `exists_uniform_compactLog_laplaceAt_vertical_quadratic_decay` vs
 `16^(N+1)` — then back to N1 (vertical bridge, `rho_b`) per the 1374
 ranking.  Falsifiers F-1375-1/2/3: all survived (budget shape unchanged).
+
+## 11. Increment F prereg: the orbit package (E1+E2+E3 wired end-to-end)
+
+Composition analysis (register readbacks only, no new analysis): E3's four
+`n`-dependent premises decompose as `hnb` = E2's discharge; `hB hC` =
+constants (n-free); `htargetValues`/`hsquareZeros` = RAW node data plus the
+assembly identity `laplaceAt (convolutionIterate base n .convolution c) w =
+(laplaceAt base w)^(n+1) * laplaceAt correction w` (laplaceAt_convolution +
+laplaceAt_convolutionIterate, CC20YoshidaConvolution.lean:465) and the
+Hermitian bridge
+`selectedOwner_laplaceAt_convolutionSquare_eq_zero_of_source_eq_zero`
+(UnscaledYoshidaSelectedOwner.lean:336).
+
+CIRCULARITY VERDICT: E2 fixes `(C_b, C_c)` before choosing `n`, so the
+correction must exist ONCE, n-independently, before E2 runs — E1's
+`exists correction AFTER n` interface cannot close the loop.  The correction
+engine `exists_residualWindow_correction_with_quadratic_decay`
+(CC20YoshidaConvolution.lean:323) takes only `(nodes, lower, upper, y)` —
+all n-free — so the package is stated on RAW data.  FALSIFIER F-1375-4
+pre-registered: the package fails if the assembly identity needs `n`-shaped
+corrections (it does not: y is n-free).  Note `epsilon` is obsolete on this
+route: the package carries no `T`/`epsilon` anywhere (both died with the
+distance form); the MODEL-digits clause of law 65 has nothing to bind.
+
+Two theorems, same leaf, added after E2:
+
+F1 `exists_smallSupport_healthyDetectorData_of_heightDecay` — premises:
+`rho` (+`hoff hright`), `routeNodes`, windows with `hlower hupper`,
+`N` + `hrhoShell`, `{C_b C_c}` nonneg, `hdecay`, and two raw-data packages:
+`hbaseData : exists base, support in (baseLower,baseUpper) AND base = 1 on
+healthy targets AND quadratic bound <= C_b`; `hcorrData : exists correction,
+support in (lower,upper) AND correction = healthyUnscaledTargetValue on
+healthy targets AND correction = 0 at every node of
+`sourceNontrivialZerosInClosedBallFinset rho.1 (2^(N+1)+2+dist 2 rho.1) UNION
+routeNodes` outside the healthy targets AND quadratic bound <= C_c`.
+Conclusion: `exists n g, HealthyYoshidaDetectorData rho.1 g AND support
+g.test in the (n+1)-window`.  Proof: E2 picks `n`; raw->assembled targets via
+the product identity; raw->square kills via the :336 bridge; E3 closes.
+
+F2 `exists_smallSupport_healthyDetectorData_heightDecay_construction` — the
+fully self-contained corollary: builds base (values `1` on healthy targets)
+and correction (healthy values on `killSet UNION healthyTargets`, `y` the
+dependent-if value function exactly as E1's) from the correction engine, and
+concludes `exists C_b C_c, 0 <= C_b AND 0 <= C_c AND (C_b^2 (2pi)^4 <
+2^(4(N+1)) -> exists n g, ...)`.  The exported decay antecedent IS the open
+science interface (C_b vs 16^(N+1)); nothing numerical is claimed.
+
+Acceptance gates: try-N green with 3634+ jobs, 0 errors, 12 axiom prints
+(10 old + F1 + F2) all `[propext, Classical.choice, Quot.sound]`, 0 sorryAx,
+byte-identity; no numerical prereg needed (pure formal increment).
+
+F1+F2 OUTCOME (2026-09-13, try-2): both GREEN in one build.
+`Build completed successfully (3634 jobs)`, zero `^error:`, all TWELVE
+prints `[propext, Classical.choice, Quot.sound]`, zero sorryAx,
+byte-identity verified.  The falsifier F-1375-4 did not fire.
+
+What F1+F2 give the register: the N0' ladder A→E3 now has a SINGLE
+entry point — F2 takes only `(rho, hoff, hright, routeNodes, windows, N,
+hrhoShell)` and returns `(C_b, C_c, decay → ∃ n g, HealthyYoshidaDetectorData
+∧ support ⊆ (n+1)-window)`.  The correction engine's inputs are n-free, so
+the circularity feared in the prereg (E2 fixes constants before choosing n)
+never materializes: base and correction are built ONCE, E2 picks n, and F1
+rebuilds the assembled values and square kills at that n from the raw node
+data.  The decay antecedent on the CONSTRUCTED `C_b` is the open science
+interface (C_b vs 16^(N+1)); nothing numerical is claimed.
+
+Try-1 errors (three roots, all shallow):
+
+1. The Hermitian bridge consumes ASSEMBLED kills, not raw kills — its `hz`
+   is `laplaceAt ((convolutionIterate base n).convolution correction) z = 0`.
+   Raw correction kills transfer in two lines via the product identity
+   (`rw [laplaceAt_convolution, laplaceAt_convolutionIterate, hcorrKills w
+   hw]; simp`) — a zero factor kills the product, so NO base-value
+   hypothesis is needed at the kill nodes.
+2. Anonymous-constructor flattening: `⟨n, _, proofOfExistsG⟩` against
+   `∃ n, ∃ g, P ∧ Q` mis-parses (three components read as n/g/P).  Give the
+   nested ∃ value directly: `⟨n, proofOfExistsG⟩`.
+3. PRECEDENCE: `∧` binds tighter than `→` — `0 ≤ C_b ∧ 0 ≤ C_c ∧ decay → D`
+   parses as `(0 ≤ C_b ∧ (0 ≤ C_c ∧ decay)) → D`.  Parenthesize the arrow
+   tail: `... ∧ (decay → D)`, and close the paren at the statement end.
+
+Log-verification note: the axiom-print lists WRAP across log lines, so a
+single-line pattern like `propext, Classical.choice, Quot.sound]` finds
+nothing.  Check instead that (a) `depends on axioms` count = expected
+prints, (b) every `-A1` continuation line is the SAME class (`uniq -c` size
+1), (c) `Quot.sound]` appears exactly once per print.
+
+The orbit package is CLOSED formal-side.  Remaining: the hdecay discharge
+(open science, C_b vs 16^(N+1)), then back to N1 (vertical bridge, rho_b)
+per the 1374 ranking.  RH NOT claimed.

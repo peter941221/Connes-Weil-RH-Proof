@@ -23,3 +23,5 @@ s3 (increments A / A' / A''); three standard axioms, zero sorryAx.
 #print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.exists_nearbyZero_targetValues_assembly_anyIterate
 #print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.exists_smallSupport_healthyDetectorData_of_quadraticBounds_and_heightBudget
 #print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.exists_iterate_heightTail_budget_lt_xiMultiplicity
+#print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.exists_smallSupport_healthyDetectorData_of_heightDecay
+#print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.exists_smallSupport_healthyDetectorData_heightDecay_construction
