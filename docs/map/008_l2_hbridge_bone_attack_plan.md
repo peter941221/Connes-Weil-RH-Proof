@@ -425,3 +425,22 @@ class (J2) drops and the bridge is executable in the near-line band
 norm budget (new target N2-beta), or (B) near-line-band restriction.
 N2 retargeted: `K_loc := y*Γ⁻¹y`; N1d upgraded (finite Gram, formalizable
 after the L² export).
+
+### 9.5 N2β prerequisite recon (record 1380, 2026-09-13)
+
+Source readback
+([1380](../proofs/1380_n2beta_prerequisite_recon.md)): the correction
+engine is a span/separation argument (`fixed_window_finite_mellin_surjective`,
+CC20YoshidaNearZeros.lean:1153-1182) — it proves surjectivity, not
+boundedness; no coefficient control, hence the [1379] norm budget is NOT
+extractable from the current chain (F3 unaffected: it consumes C_b only
+existentially). The pullback `laplaceAt(pullback h) = mellin h` has NO
+shift (CC20YoshidaConvolution.lean:60-71) and is an exact isometry
+`L²(du/u) ≅ L²(dx)` — the budget is coordinate-invariant. Design spec:
+the budget producer is a quantitative interpolation theorem — realize
+`K_loc = y*Γ⁻¹y` up to `(1+ε)` with explicit Gram entries
+`(B^{w_i+w̄_j} − A^{w_i+w̄_j})/(w_i+w̄_j)`, smooth tapers, and Young
+convolution bounds for the assembled detector; and (J1) of [1379] is
+EXACTLY `K_loc < δ/(2C_min)` — branch A's whole content is one theorem.
+Formalization componentized (L² export, Gram, taper, Young, F1/F2 recast
+as an addition); numeric budget-fit deferred to N1e-with-prereg.

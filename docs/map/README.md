@@ -156,6 +156,11 @@ Read the current records in this order for a full-map review:
     form), the norm-budget squeeze against the 1371 floor, and the
     falsifier resolution: killed-prefix class blocked at small `d`,
     budget-controlled class executable in the near-line band.
+14. [1380](../proofs/1380_n2beta_prerequisite_recon.md): the N2β
+    prerequisite recon — source verdict that the correction engine
+    has no norm control, the `L²(du/u) ≅ L²(dx)` isometry, and the
+    design spec for the budget producer: a `(1+ε)`-optimal
+    quantitative interpolation theorem realizing `K_loc`.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
