@@ -112,6 +112,21 @@ Consequences, each load-bearing for the owner's Q1:
 - **Equivalence-to-RH is the honest price**: (★) is as hard as RH.  The
   route does not dissolve the difficulty; it RELOCATES it to a single
   named input (s3) plus constant bookkeeping (s4).
+- **Conrey-Li kill-vector audit** (added same day, second search round):
+  formulation-level barrier theorems are real - Conrey-Li 1998
+  (arXiv:math/9812166) REFUTED de Branges's positivity conditions by
+  exhibiting defining functions for which they fail, killing that route
+  while RH stayed open.  That kill vector applies to SUFFICIENT-ONLY
+  conditions.  (★) is machine-verified EQUIVALENT to RH (chain above):
+  under RH-true it is true, so no counterexample can kill it - the route
+  cannot be wrong, only hard, and hardness is what s5.1 measures.
+  Second check, same round: no impossibility/obstruction theorem exists
+  against Nyman-Beurling-type formulations (family still active:
+  arXiv:2607.12084, Jul 2026); 75-yr non-closure is hardness evidence,
+  not impossibility evidence.  Independence wildcard (RH is Pi_1; if
+  ZFC-independent then true in the standard model - MoE 79685,
+  n-Category Cafe 2019-09-07) applies equally to every route and is not
+  measurable in advance; it changes no decision below.
 
 ## 3. Q2 verification - the crack, and the one named missing input
 
