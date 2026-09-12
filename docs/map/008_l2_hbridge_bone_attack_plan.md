@@ -385,3 +385,22 @@ the center factor `e^(2dm_n)` is a construction-side lever (window
 centering), not a fixed penalty. N1b (band kernel + `K_loc` from N2) and
 N1c (joint inequality with the 1371 `‖g‖²` floor) are next; N1d formal
 leaf pending an `L²` interface export.
+
+### 9.3 N1b done at paper level (record 1378, 2026-09-13)
+
+The local band bridge is now a pair of complementary paper lemmas with
+fully explicit constants
+([1378](../proofs/1378_n1b_band_bridge.md)): for the band mass
+`B_δ = ∫_{t0±δ}|G(it)|²dt` on the `(n+1)`-window, Lemma D
+(damping-split + continuity floor) gives
+`B_δ ≥ (δ/2)e^{−2dm}|G(d+it0)|² − [2Rδ(e^{dR}−1)² + (4/3)δ³R³]‖g‖²`
+(symmetric window), and Lemma C (band-average kernel) gives the
+shift-clean alternative with coupling
+`2π(e^{db}−e^{da})² + δ³W(max|x|e^{dx})²`. Informative regimes at the
+[1377] extremal ceiling: D carries signal for `dR < ln(1+2^{−1/2}) ≈
+0.53, δ ≲ 0.61/R`; C for `dR ≲ 0.10` with a δ-free leading term. The
+damping coupling term is the [1377] A′ operator-norm obstruction
+reappearing — no kernel refinement removes it. All regime numbers are
+MODEL-lane arithmetic. N1c (joint inequality with the 1371 `‖g‖²` floor
++ density race) is the next paper beat; N2's `K_loc` plugs into the
+window-moment terms of both couplings.

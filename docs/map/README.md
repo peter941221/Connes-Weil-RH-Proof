@@ -146,6 +146,11 @@ Read the current records in this order for a full-map review:
     and its sharpness lemma (the constant is an operator norm, so
     support-only improvement is impossible), the `d → 0` consistency
     limit, and the N1c coupling interface.
+12. [1378](../proofs/1378_n1b_band_bridge.md): the N1b paper beat —
+    the local band bridge in two complementary explicit forms
+    (damping-split Lemma D and band-average Lemma C), the informative
+    `dR`/`δ` regime map at the extremal ceiling, and the N2/N1c
+    coupling interfaces.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
