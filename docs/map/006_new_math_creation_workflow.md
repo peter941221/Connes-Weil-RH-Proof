@@ -1762,6 +1762,24 @@ zeta discrepancy/counting, compatible detector concentration and a summable
 signed budget remain open. CB-HB1 stays NEEDS-ANALYSIS; full P0 and beats
 4/5 have not been cleared, and no frozen route is reopened.
 
+### CB-PD1 candidate registration (record 1372 / map 008 s9, 2026-09-12)
+
+Opened after the owner's "全部做完，开干" instruction. Candidate `CB-PD1`:
+TOTAL-VARIANT phase-diagram offensive — same selected-detector
+`spectralWeilValue >= 0` consumer, assembled over height bands with the
+spline-family detector, R optimized as a free lever, absorption absorbed by
+n-exponential vertical decay, low heights by exact certificates. Step-0
+source readbacks (1372 s1): the B5 exit needs only the spectral side; the
+neg-construction wrapper pins R ~ 2|Im rho| ONLY through its upward-only
+tail theorem, so the load-bearing new formal task is N0', the two-sided
+tail leaf; N1 (vertical bridge coefficient rho_b), N2 (sharp localized
+PW_R constant), N3 (windowless density adapter), N4 (certificate
+interface) complete the ledger. Status: GENERATION-side, ANALYTIC-ONLY,
+NEEDS-ANALYSIS. Instrument: the 1373 phase calculator (MODEL mapping rig,
+bands preregistered; mapping only, no candidate kill-power; G1-G3 are
+instrument-validity gates). No mechanism is certified feasible; no closure
+region is claimed; RH is not claimed; stop word unchanged.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:

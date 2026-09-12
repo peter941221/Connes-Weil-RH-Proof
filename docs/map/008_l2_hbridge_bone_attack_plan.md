@@ -313,3 +313,32 @@ constant-function discrepancy identity, and d=0/h=0 specializations) are
 recorded with proofs in 1371. They validate these auxiliary shapes only.
 Full P0, D2/D3, D6/D8 and unconditional RH remain open; no new numerical or
 Lean campaign is promoted by this section.
+
+## 9. Total-variant phase-diagram offensive (record 1372, 2026-09-12/13)
+
+Evidence: [1372 step-0 verdicts, corrected anatomy, chain](../proofs/1372_phase_diagram_total_variant_attack.md);
+mapping rig preregistered in [1373](../proofs/1373_phase_rig_prereg.md).
+
+Strategy change, binding for this offensive: the B5 exit consumes
+`spectralWeilValue >= 0` for ONE selected detector (source readback,
+1372 s1a), so the campaign targets the TOTAL variant; the per-window A2
+schema stays an audit interface and is not the budget. Step-0 readbacks:
+the detector family is a SPLINE (`corr * base^(ast n)`, supports (-1,1),
+R = n+2 free per construction family); the spectral-negativity WRAPPER
+pins R ~ 2|Im rho| only because its tail theorem is upward-only; a
+two-sided tail leaf (N0') unlocks the R-lever. Named tasks: N0' two-sided
+tail leaf (formal), N1 vertical bridge coefficient rho_b (analytic),
+N2 sharp localized PW_R evaluation constant, N3 windowless density
+adapter (Simonic/GM, multiplicity convention), N4 low-height certificate
+interface. The model race, with all constants placeholder-in-band, is
+
+```text
+log(t0/2pi) >= 4 pi * 1.5 * 2.13 * R * m * exp(2 d (1 + rho_b (n+1) R))
+```
+
+and the scoreboard concentrates the entire risk in N0'/N1/N2. Absorption
+is negligible in the spline family (n-exponential vertical decay); the
+1371 killed-prefix see-saw is bypassed by the two-sided tail, not by
+sampling. CB-PD1 is registered in 006 s5 as GENERATION-side,
+ANALYTIC-ONLY, NEEDS-ANALYSIS; the rig's digits are MODEL mapping, and
+no closure region is claimed until N0'-N3 are theorems.

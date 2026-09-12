@@ -130,6 +130,10 @@ Read the current records in this order for a full-map review:
 8. [008 - Record 1369: L2/hBridge conditional completion plan](008_l2_hbridge_bone_attack_plan.md)
    lists all required proof obligations, the paper-only admission checks,
    and the final unconditional Lean acceptance contract.
+9. [1372](../proofs/1372_phase_diagram_total_variant_attack.md) +
+   [1373](../proofs/1373_phase_rig_prereg.md): the total-variant
+   phase-diagram offensive (CB-PD1) with step-0 source verdicts, the
+   named N0'-N4 task ledger, and the preregistered MODEL mapping rig.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
