@@ -1724,21 +1724,43 @@ cutoff identification, endpoint, P2, P3 remain open**.
 
 ### CB-HB1 candidate registration (record 1369 / map 008, 2026-09-12)
 
-Campaign OPENED by owner commission ("self-create; gnaw the bone").
-Candidate `CB-HB1`: prolate frame lower bound with explicit spread
-functional (B1) + subharmonic off-line theft bound on the vanishing
-class (B2) + sinc² gluing (B3), consumed by
-`C1H2Corridor.sourceRH_of_A2Bridge` (batch 1560 green). Beat status:
-0-3 cards filed in map
-[`008`](008_l2_hbridge_bone_attack_plan.md) s5 (PRIOR-ART-CARD
-provisional until beat-1 retrieval at P1 entry); beat 4 = P0 two-control
-MODEL dry-fire, controls fixed to the committed 1353 rig digits
-(positive: spread I∖J, λ₁ ≈ 0.781, must pass; negative: cluster J,
-λ₁ ≈ 0.011, must fail at the registered 70.6x/145.7x scale; a rig
-reproducing neither is INVALID-INSTRUMENT). Beat 5 gated by the Stage-0
-audit before analytic campaign weeks. P0 prereg = record 1370 (bands
-locked before any digit, law 42). Kill accounting: any P0 FAIL takes a
-kill-ledger row here in the same commit. Full plan: map 008.
+Opened by owner commission; revised on 2026-09-12 after the
+[1370 source review](../proofs/1370_hbridge_plan_completeness_review.md).
+Candidate `CB-HB1` is **NEEDS-ANALYSIS**, not SCREENED-LIVE. The corrected
+mechanism is a precisely restricted or remainder-bearing sampling estimate,
+complex off-line pair control, independent actual-zero geometry/counting
+theorems, and a complete signed residual budget. D0-D9 in
+[`008`](008_l2_hbridge_bone_attack_plan.md) record the dependencies.
+The consumer is the same selected healthy B5 detector's `qw >= 0`, followed
+by its existing contradiction exit. `sourceRH_of_A2Bridge` is retained as
+an audit interface requiring BOTH `hBridge` and `hA2`, not as a producer.
+
+Beat 0 is revised; beats 1-3 require exact space/quantifier translation and
+the paper-only Stage-0 checks in 008 before promotion. In particular, finite
+sampling cannot give positive coercivity on the entire infinite-dimensional
+vanishing class (paper argument, not a new Lean theorem). The alternative
+finite-space/complement mechanism remains unproved, not formally killed.
+Beat 4 is NOT OPENED: the historical 1353 maximum-concentration readings
+are withdrawn as lower-bound controls. Any future numerical prototype needs
+a faithful structural control, a new preregistration and MODEL labeling;
+finite failure alone cannot kill an analytic candidate. An ANALYTIC-ONLY
+exemption follows section 2. Beat 5 retains all section 7 gates. Record 1370
+now holds the review, not a numerical preregistration. No change to 003/007,
+no universal-B1 campaign, no RH claim, and no analytic producer is supplied.
+
+On the owner's subsequent "execute and update 008" instruction, the first
+paper-only P0 subpass derived the residual sampling formula, the normalized
+anchor's sharp support-dependent L2 cost, and a signed Plancherel/discrepancy
+comparison with explicit horizontal-bin error. Evidence and proofs are
+[1371](../proofs/1371_hbridge_sampling_residual_and_scale_paper.md);
+[008 section 8](008_l2_hbridge_bone_attack_plan.md#8-first-paper-analysis-results-and-the-sharpened-attack)
+records the exact same-detector consumers and next tasks. These are PAPER
+DERIVATIONS / PROJECT CANDIDATE inputs, not new Lean or numerical evidence.
+The killed-prefix specialization requires `eta*theta_I(g) <= 2*R*Delta`,
+so a finite-range certificate cannot ignore the invisible anchor. Actual
+zeta discrepancy/counting, compatible detector concentration and a summable
+signed budget remain open. CB-HB1 stays NEEDS-ANALYSIS; full P0 and beats
+4/5 have not been cleared, and no frozen route is reopened.
 
 ## 6. Kill-ledger format
 

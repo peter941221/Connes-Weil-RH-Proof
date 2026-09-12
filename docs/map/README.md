@@ -23,8 +23,8 @@ traceability.
 | 006    | Binding process       | NM creation workflow, subordinate to 003   |
 | 007    | Binding companion     | Producer-target quantifier repair and the  |
 |        |                       | surviving L4/A4 target ladder              |
-| 008    | Binding companion     | L2/hBridge bone attack plan (record 1369): |
-|        |                       | B1/B2/B3 anatomy, NM-006 beat map, P0-P4   |
+| 008    | Binding companion     | Conditional completion plan (1369):        |
+|        |                       | D0-D9 obligations; paper-only P0 audit      |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -42,11 +42,25 @@ refuted (record 1225 F1-F3) and may not be named as a target; the surviving
 B5-side targets are the universal contracts L4 (projection-cutoff side) and
 A4 (aggregate side), whose numerical scout closed with the record 1225
 capture law and whose remaining obligation is analytic construction.
-`008` is binding on the L2/hBridge attack: the missing bridge of the
-1368 corridor is decomposed into B1 (spread-to-frame lower bound),
-B2 (off-line theft bound), and B3 (gluing); its P0-P4 phases run through
-the `006` beats as candidate CB-HB1, and no phase may produce digits
-before its own prereg record (law 42).
+`008` is binding on the L2/hBridge plan. Its D0-D9 ledger includes actual
+zero geometry, the independent A2/counting premise, admissible sampling
+estimates, every residual and region, and the unconditional Lean exit.
+Candidate CB-HB1 is NEEDS-ANALYSIS: P0 is now a paper-only shape audit,
+including the finite-sampling kernel obstruction. The former numerical
+P0 controls and success prior are withdrawn. Completion of every required
+proof would imply RH; no feasibility guarantee or producer is claimed.
+The existing A2 all-test implication is an audit interface; analytic work
+must serve the selected healthy B5 detector under `003`. See the
+[1370 source review](../proofs/1370_hbridge_plan_completeness_review.md).
+
+The first paper-analysis subpass is now documented in
+[1371](../proofs/1371_hbridge_sampling_residual_and_scale_paper.md) and
+[008 section 8](008_l2_hbridge_bone_attack_plan.md#8-first-paper-analysis-results-and-the-sharpened-attack):
+residual sampling, exact anchor normalization cost, and signed
+continuous/discrete estimates with all stated errors. Evidence is PAPER,
+not new Lean certification. Actual-zero discrepancy/counting, compatible
+detector concentration and a summable signed budget remain open;
+CB-HB1 remains NEEDS-ANALYSIS and full P0 has not passed.
 
 ## Mandatory preflight
 
@@ -113,6 +127,9 @@ Read the current records in this order for a full-map review:
    universal contracts L4/A4 survive as markers), the record 1225
    instrument closure with its capture law, and the surviving ladder with
    statuses.
+8. [008 - Record 1369: L2/hBridge conditional completion plan](008_l2_hbridge_bone_attack_plan.md)
+   lists all required proof obligations, the paper-only admission checks,
+   and the final unconditional Lean acceptance contract.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
