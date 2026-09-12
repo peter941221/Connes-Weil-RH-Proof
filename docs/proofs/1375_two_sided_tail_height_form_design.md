@@ -218,3 +218,36 @@ the weights are supplied entirely by the tail premise
 B (per-shell height instance) is unblocked. Next: B, then C (shell-sum
 budget), D (anchor without kills), E (wrapper with exported quadratic
 bounds + hLow + hnBudget).
+
+## 7. Increment B GREEN (2026-09-13)
+
+Two theorems appended to the same module; shell build try-5: footer
+`Build completed successfully (3545 jobs)`, zero `^error:`, five prints
+all `[propext, Classical.choice, Quot.sound]`, zero sorryAx, byte-identity
+verified.
+
+- `selectedOwner_convolutionSquare_heightTail_raw`: raw-height restatement
+  `‖square(z−1/2)‖ * |Im z|^(4*(n+2)) <= C_b^(2*(n+1)) * C_c^2 *
+  (2*π)^(4*(n+2))` — the global frequency factor is traded for an explicit
+  `(2*π)` power so the statement compares `|Im z|` DIRECTLY against dyadic
+  shell heights. Bridge lemma `‖z.im/(2π)‖ * (2π) = |z.im|` proved once and
+  reused (`field_simp` with a `2*π ≠ 0` hypothesis in context).
+- `spectralNormTerm_shell_instance_of_heightTail`: for
+  `sigma : spectralHeightShell (k+1)`,
+  `spectralNormTerm square sigma.1 * ((2:Real)^(k+1))^(4*(n+2)) <=
+  xiMultiplicity sigma.1 * (constant)` — the height-form mirror of
+  `spectralTerm_norm_tail_instance_of_fourthOrderTail` with the three
+  distance hypotheses (`T`, `1 <=`, `2*|rho.im| <=`) replaced by NOTHING.
+  `spectralTerm`/`spectralNormTerm` carry no distance weights
+  (C1SpectralWeil.lean:112-121); the shell instance is pure height
+  geometry via `shell_lower_im`.
+
+API notes: `spectralNormTerm` unfolds by `rfl`; after that rewrite the goal
+is LEFT-associated `(xi * ‖·‖) * pow`, so pre-empt with `rw [hterm,
+mul_assoc]` and state the calc steps right-associated;
+`mul_le_mul_of_nonneg_left hpow (norm_nonneg _)` for shared-factor-on-LEFT
+bridges (the `_right` variant puts the shared factor on the right).
+
+Increment C next: sum the instance over all shells into the explicit
+budget `K(n) * (shell summation constant) < xiMultiplicity rho`, mirroring
+the geometric internals of `spectralTail_norm_shellSum_le_of_fourthOrderTail`.

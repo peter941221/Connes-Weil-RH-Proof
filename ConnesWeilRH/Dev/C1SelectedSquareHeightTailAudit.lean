@@ -16,3 +16,5 @@ s3 (increments A / A' / A''); three standard axioms, zero sorryAx.
 #print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.laplaceAt_heightQuadratic_le_of_quadraticBound
 #print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.convolved_laplaceAt_heightQuadratic_le
 #print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.selectedOwner_convolutionSquare_heightQuadraticTail
+#print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.selectedOwner_convolutionSquare_heightTail_raw
+#print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.spectralNormTerm_shell_instance_of_heightTail

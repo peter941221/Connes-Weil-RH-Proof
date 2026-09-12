@@ -5,6 +5,7 @@ Authors: ConnesWeilRH contributors
 -/
 
 import ConnesWeilRH.Source.CCM25Concrete.UnscaledYoshidaSelectedOwner
+import ConnesWeilRH.Dev.C1SpectralTailBound
 
 /-!
 # C1SelectedSquareHeightTail - two-sided height-form tail for the selected square
@@ -22,6 +23,11 @@ summation:
     * ‖z.im / (2*π)‖^(4*(n+2))  <=  C_b^(2*(n+1)) * C_c^2
 ```
 
+The closing section converts this into the spectral currency: a
+multiplicity-weighted `spectralNormTerm` bound on every dyadic height shell,
+mirroring the fourth-order instance of `C1SpectralTailBound` with the
+`2 * |rho.im|` hypothesis replaced by nothing at all.
+
 Design record: docs/proofs/1375_two_sided_tail_height_form_design.md.
 -/
 
@@ -31,8 +37,13 @@ namespace C1SelectedSquareHeightTail
 
 open CC20YoshidaConvolution
 open CC20YoshidaConvolution.CompactLogTest
+open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
 open CCM25Concrete.UnscaledYoshidaSelectedOwner
+open C1SpectralSummability
+open C1SpectralTailBound
+open C1SpectralWeil
+open C1XiGlobalZeroSum
 
 noncomputable section
 
@@ -153,6 +164,92 @@ theorem selectedOwner_convolutionSquare_heightQuadraticTail
       exact hz2'
   _ = C_b ^ (2 * (n + 1)) * C_c ^ 2 := by
       ring
+
+/-- Raw-height restatement of the two-sided tail: the global frequency
+factor is traded for an explicit `(2*π)` power on the constant, so the
+statement compares `|Im z|` directly against dyadic shell heights. -/
+theorem selectedOwner_convolutionSquare_heightTail_raw
+    (base correction : CompactLogTest) (n : ℕ) {C_b C_c : ℝ}
+    (hB : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt base ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C_b)
+    (hC : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt correction ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C_c)
+    (z : ℂ) (hzre : z.re ∈ Set.Icc (0 : ℝ) 1) :
+    ‖laplaceAt (selectedOwner base correction n).convolutionSquare
+        (z - 1 / 2)‖ * |z.im| ^ (4 * (n + 2)) ≤
+      C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2)) := by
+  have h2pi : 0 < 2 * Real.pi := by positivity
+  have h2ne : (2 : ℝ) * Real.pi ≠ 0 := ne_of_gt h2pi
+  have hprod : ‖z.im / (2 * Real.pi)‖ * (2 * Real.pi) = |z.im| := by
+    rw [Real.norm_eq_abs, abs_div, abs_of_pos h2pi]
+    field_simp
+  have hfreq : |z.im| ^ (4 * (n + 2)) =
+      ‖z.im / (2 * Real.pi)‖ ^ (4 * (n + 2)) *
+        (2 * Real.pi) ^ (4 * (n + 2)) := by
+    rw [← hprod, mul_pow]
+  calc ‖laplaceAt (selectedOwner base correction n).convolutionSquare
+          (z - 1 / 2)‖ * |z.im| ^ (4 * (n + 2))
+    = ‖laplaceAt (selectedOwner base correction n).convolutionSquare
+          (z - 1 / 2)‖ * ‖z.im / (2 * Real.pi)‖ ^ (4 * (n + 2)) *
+        (2 * Real.pi) ^ (4 * (n + 2)) := by
+        rw [hfreq]
+        ring
+  _ ≤ C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2)) :=
+      mul_le_mul_of_nonneg_right
+        (selectedOwner_convolutionSquare_heightQuadraticTail base correction n
+          hB hC z hzre)
+        (pow_nonneg (le_of_lt h2pi) (4 * (n + 2)))
+
+/-- Spectral currency of the height tail: on dyadic height shell `k + 1`
+the multiplicity-weighted norm term of the selected square is bounded by
+the explicit constant times the shell height decay, with NO `2 * |rho.im|`
+hypothesis.  This is the height-form mirror of
+`spectralTerm_norm_tail_instance_of_fourthOrderTail`. -/
+theorem spectralNormTerm_shell_instance_of_heightTail
+    (base correction : CompactLogTest) (n : ℕ) {C_b C_c : ℝ}
+    (hB : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt base ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C_b)
+    (hC : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ,
+      ‖t / (2 * Real.pi)‖ ^ 2 *
+        ‖laplaceAt correction ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ C_c)
+    (k : ℕ) (sigma : spectralHeightShell (k + 1)) :
+    spectralNormTerm (selectedOwner base correction n).convolutionSquare
+        sigma.1 *
+      ((2 : Real) ^ (k + 1)) ^ (4 * (n + 2)) ≤
+      (xiMultiplicity sigma.1 : ℝ) *
+        (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) := by
+  have hstrip : sigma.1.1.re ∈ Set.Icc (0 : ℝ) 1 :=
+    ⟨(sourceNontrivialZero_zero_lt_re sigma.1.2).le,
+      (sourceNontrivialZero_re_lt_one sigma.1.2).le⟩
+  have hraw := selectedOwner_convolutionSquare_heightTail_raw base correction
+    n hB hC sigma.1.1 hstrip
+  have hshell : (2 : Real) ^ (k + 1) ≤ |sigma.1.1.im| := shell_lower_im sigma.2
+  have hpow : ((2 : Real) ^ (k + 1)) ^ (4 * (n + 2)) ≤
+      |sigma.1.1.im| ^ (4 * (n + 2)) :=
+    pow_le_pow_left₀ (by norm_num) hshell (4 * (n + 2))
+  have hterm :
+      spectralNormTerm (selectedOwner base correction n).convolutionSquare
+          sigma.1 =
+        (xiMultiplicity sigma.1 : ℝ) *
+          ‖laplaceAt (selectedOwner base correction n).convolutionSquare
+            (sigma.1.1 - 1 / 2)‖ :=
+    rfl
+  rw [hterm, mul_assoc]
+  calc (xiMultiplicity sigma.1 : ℝ) *
+        (‖laplaceAt (selectedOwner base correction n).convolutionSquare
+            (sigma.1.1 - 1 / 2)‖ * ((2 : Real) ^ (k + 1)) ^ (4 * (n + 2)))
+    _ ≤ (xiMultiplicity sigma.1 : ℝ) *
+          (‖laplaceAt (selectedOwner base correction n).convolutionSquare
+            (sigma.1.1 - 1 / 2)‖ * |sigma.1.1.im| ^ (4 * (n + 2))) :=
+        mul_le_mul_of_nonneg_left
+          (mul_le_mul_of_nonneg_left hpow (norm_nonneg _))
+          (Nat.cast_nonneg _)
+    _ ≤ (xiMultiplicity sigma.1 : ℝ) *
+          (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) :=
+        mul_le_mul_of_nonneg_left hraw (Nat.cast_nonneg _)
 
 end
 
