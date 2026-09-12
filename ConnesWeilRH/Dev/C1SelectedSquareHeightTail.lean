@@ -956,6 +956,85 @@ theorem exists_smallSupport_healthyDetectorData_heightDecay_construction
     ⟨base, hbaseSupport, hbaseTargets, hbaseB⟩
     ⟨correction, hcorrSupport, hcorrTargets, hcorrKills, hcorrB⟩
 
+/-- F3 (hdecay discharge at the formal level, preregistered in 1375 s12):
+the constructed `C_b` comes from the base, which is built from the healthy
+target nodes only and does not depend on `N`, so `N` can be chosen large
+enough to cover both the dyadic-shell prefix and the decay inequality
+(`k < 2 ^ k <= 2 ^ (4 * (N + 1))` with `N := shell + k`).  The whole N0'
+package therefore collapses to a hypothesis-free existence statement: every
+off-line source zero admits healthy detector data whose support is an
+`(n+1)`-fold window.  No rate on `N` or `n` is claimed; the quantitative
+sanity of the constructed constants is the MODEL-digits lane. -/
+theorem exists_smallSupport_healthyDetectorData_unconditional
+    (rho : sourceNontrivialZeroSet) (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re)
+    (routeNodes : Finset Complex)
+    {baseLower baseUpper lower upper : ℝ}
+    (hbaseLower : baseLower < 0) (hbaseUpper : 0 < baseUpper)
+    (hlower : lower < 0) (hupper : 0 < upper) :
+    ∃ N : ℕ, dyadicShellIndex |rho.1.im| < N + 1 ∧
+      ∃ n : ℕ, ∃ g : CompactLogTest, HealthyYoshidaDetectorData rho.1 g ∧
+        Function.support g.test ⊆
+          Set.Ioo (((n + 1 : ℕ) : ℝ) * baseLower + lower)
+            (((n + 1 : ℕ) : ℝ) * baseUpper + upper) := by
+  obtain ⟨base, C_b, hbaseSupport, hbaseVals, hCb, hbaseB⟩ :=
+    exists_residualWindow_correction_with_quadratic_decay
+      (healthyUnscaledTargetNodes rho.1) hbaseLower hbaseUpper (fun _ => 1)
+  have hbaseTargets :
+      ∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho.1),
+        laplaceAt base w.1 = 1 := by
+    intro w
+    simpa using hbaseVals w
+  obtain ⟨k, hk⟩ := exists_nat_gt (C_b ^ 2 * (2 * Real.pi) ^ 4)
+  refine ⟨dyadicShellIndex |rho.1.im| + k, by omega, ?_⟩
+  have hNbig : k ≤ 4 * (dyadicShellIndex |rho.1.im| + k + 1) := by omega
+  have hdecay : C_b ^ 2 * (2 * Real.pi) ^ 4 <
+      (2 : Real) ^ (4 * (dyadicShellIndex |rho.1.im| + k + 1)) := by
+    have h2k : (k : ℕ) < (2 : ℕ) ^ k := Nat.lt_pow_self (by norm_num)
+    have hpow : (k : ℕ) < (2 : ℕ) ^ (4 * (dyadicShellIndex |rho.1.im| + k + 1)) :=
+      Nat.lt_of_lt_of_le h2k (Nat.pow_le_pow_right (by norm_num) hNbig)
+    have hcast : (k : ℝ) <
+        ((2 ^ (4 * (dyadicShellIndex |rho.1.im| + k + 1)) : ℕ) : ℝ) :=
+      Nat.cast_lt.mpr hpow
+    rw [Nat.cast_pow, Nat.cast_ofNat] at hcast
+    calc (C_b ^ 2 * (2 * Real.pi) ^ 4 : ℝ) < (k : ℝ) := hk
+      _ < (2 : Real) ^ (4 * (dyadicShellIndex |rho.1.im| + k + 1)) := hcast
+  let killSet : Finset ℂ :=
+    sourceNontrivialZerosInClosedBallFinset rho.1
+        ((2 : Real) ^ (dyadicShellIndex |rho.1.im| + k + 1) + 2 +
+          dist (2 : Complex) rho.1) ∪ routeNodes
+  obtain ⟨correction, C_c, hcorrSupport, hvals, hCc, hcorrB⟩ :=
+    exists_residualWindow_correction_with_quadratic_decay
+      (killSet ∪ healthyUnscaledTargetNodes rho.1) hlower hupper
+      (fun z =>
+        if hz : z.1 ∈ healthyUnscaledTargetNodes rho.1 then
+          healthyUnscaledTargetValue rho.1 ⟨z.1, hz⟩ else 0)
+  have hcorrTargets :
+      ∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho.1),
+        laplaceAt correction w.1 = healthyUnscaledTargetValue rho.1 w := by
+    intro w
+    have hwBig : w.1 ∈ killSet ∪ healthyUnscaledTargetNodes rho.1 :=
+      Finset.mem_union_right _ w.2
+    have hval := hvals ⟨w.1, hwBig⟩
+    simpa [hwBig, w.2] using hval
+  have hcorrKills :
+      ∀ z : FiniteMellinNode killSet,
+        z.1 ∉ healthyUnscaledTargetNodes rho.1 →
+          laplaceAt correction z.1 = 0 := by
+    intro z hz
+    have hwBig : z.1 ∈ killSet ∪ healthyUnscaledTargetNodes rho.1 :=
+      Finset.mem_union_left _ z.2
+    have hval := hvals ⟨z.1, hwBig⟩
+    simpa [hwBig, hz] using hval
+  exact exists_smallSupport_healthyDetectorData_of_heightDecay
+    rho hoff hright routeNodes hlower hupper
+    (dyadicShellIndex |rho.1.im| + k)
+    (by omega : dyadicShellIndex |rho.1.im| <
+      dyadicShellIndex |rho.1.im| + k + 1)
+    hCb hCc hdecay
+    ⟨base, hbaseSupport, hbaseTargets, hbaseB⟩
+    ⟨correction, hcorrSupport, hcorrTargets, hcorrKills, hcorrB⟩
+
 end
 
 end C1SelectedSquareHeightTail

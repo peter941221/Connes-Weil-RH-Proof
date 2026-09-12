@@ -555,3 +555,70 @@ prints, (b) every `-A1` continuation line is the SAME class (`uniq -c` size
 The orbit package is CLOSED formal-side.  Remaining: the hdecay discharge
 (open science, C_b vs 16^(N+1)), then back to N1 (vertical bridge, rho_b)
 per the 1374 ranking.  RH NOT claimed.
+
+## 12. Increment F3 prereg: the hdecay discharge (unconditional package)
+
+Structural verdict that makes this a THEOREM, not science: in F2 the
+exported `C_b` comes from the base, and the base is built from the four
+healthy target nodes ONLY — before and independent of `N`.  The decay
+inequality `C_b^2 (2pi)^4 < 2^(4(N+1))` and the shell coverage
+`dyadicShellIndex |rho.im| < N + 1` are BOTH eventually-true in `N`, so one
+`N` serves both: choose `k` with `C_b^2 (2pi)^4 < k` (exists_nat_gt) and
+`N := dyadicShellIndex |rho.im| + k`; then `k <= 4*(N+1)` gives
+`k < 2^k <= 2^(4*(N+1))` (Nat.lt_pow_self + Nat.pow_le_pow_right, the
+Mathlib Data/Nat/Log.lean:394 usage pattern), and the correction is built
+with the kill ball at that `N`.
+
+F3 `exists_smallSupport_healthyDetectorData_unconditional`: premises only
+`(rho, hoff, hright, routeNodes, windows)`; conclusion
+`exists N, dyadicShellIndex |rho.1.im| < N + 1 AND exists n g,
+HealthyYoshidaDetectorData rho.1 g AND support g.test in the (n+1)-window`.
+Hypothesis-free detector existence for every off-line source zero — the B5
+premise producer closes formal-side.
+
+HONESTY LEDGER (what F3 does NOT claim): no rate on `N` or `n` (the
+constructed constants may force astronomically large windows — that is the
+MODEL-digits lane, law 65); no negativity number; RH NOT claimed.  The
+scientific residue of hdecay is exactly the RATE question (how large the
+constructed `C_b` is relative to `16^(shell+1)`), which numerical work on
+the N1/N0' scoreboard prices separately.
+
+Acceptance gates: try-N green, 3634+ jobs, 0 errors, 13 axiom prints
+(12 + F3), 0 sorryAx, byte-identity.
+
+F3 OUTCOME (2026-09-13, try-4): GREEN.
+`Build completed successfully (3634 jobs)`, zero `^error:`, all THIRTEEN
+prints `[propext, Classical.choice, Quot.sound]`, zero sorryAx,
+byte-identity verified.  The prereg's structural verdict held: the base is
+N-free, so `N := dyadicShellIndex |rho.1.im| + k` (with `k` from
+`exists_nat_gt` applied to the constructed `C_b ^ 2 * (2 * pi) ^ 4`) serves
+both the shell coverage and the decay inequality via
+`k < 2 ^ k <= 2 ^ (4 * (N + 1))`.
+
+THE N0' PILLAR IS NOW HYPOTHESIS-FREE: F3
+`exists_smallSupport_healthyDetectorData_unconditional` takes only
+`(rho, hoff, hright, routeNodes, windows)` and returns
+`∃ N, dyadicShellIndex |rho.1.im| < N + 1 ∧ ∃ n g, HealthyYoshidaDetectorData
+rho.1 g ∧ support g.test ⊆ (n+1)-window`.  Every off-line source zero admits
+healthy detector data whose support is an `(n+1)`-fold window — the B5
+premise producer closes formal-side.  Honesty ledger unchanged: no rate on
+`N`/`n` (the constructed constants may force huge windows — MODEL-digits
+lane, law 65), no negativity number, RH NOT claimed.
+
+Try-1..3 errors (three roots, all in the new decay arithmetic):
+
+1. `Nat.lt_pow_self` in this Mathlib is `(hb : 1 < b) {n : ℕ} : n < b ^ n` —
+   `n` is IMPLICIT and comes from the expected type; feeding `k` explicitly
+   made Lean try to apply the PROOF to `k` ("Function expected").
+2. `have hcast := Nat.cast_lt.mpr hpow` with NO type annotation left the
+   cast typeclass argument as a metavariable: "typeclass instance problem
+   is stuck, CharZero ?m".  Cast lemmas need a fully annotated `have`.
+3. Even annotated, the annotation's own elaboration NORMALIZES
+   `((2 : ℕ) ^ E : ℝ)` to `(↑2) ^ E`, which mismatches `Nat.cast_lt.mpr`'s
+   output `↑(2 ^ E)`.  Annotate in the lemma's OWN output shape
+   (`((2 ^ E : ℕ) : ℝ)`), then `rw [Nat.cast_pow, Nat.cast_ofNat] at hcast`
+   to normalize after the fact.
+
+NEXT: per the 1374 ranking, back to N1 (vertical bridge, `rho_b`) — the
+last wall-facing science lane on the scoreboard; N0' formal work is DONE
+down to the B5 producer.  RH NOT claimed; stop word = gate certificate.
