@@ -91,6 +91,61 @@ pointless by its own admission.
 - Budget: three official runs <= ~4h total compute + analysis; kill = if
   the m=24 reproduce gate fails, abort, fix rig, rerun reproduce, THEN m.
 
+### 3a. A1 implementation amendment (committed BEFORE launch, law 42; section-3 object, bands, and branches UNCHANGED)
+
+- **NQ rule computed, not assumed.** From committed constants (R = log2/2 -
+  0.01, QL = 28): w_b(m) = 1.6*R/(m+1.6), DX = 2*QL/NQ. Requiring
+  w_b >= 10*DX at the 2^17 floor: margins 2.46x (m=24), 2.54x (m=48),
+  1.29x (m=96) => all three run at NQ = 2^17; the doubling check runs at
+  m=24, NQ = 2^18. The rule is recomputed in-script from the imported 1342
+  module constants (constants are DATA).
+- **Cost structure and the two-path split.** 1342 measured 2682.9 s wall
+  for one m=24 official pass; the per-call cost is dominated by the prime
+  term (qmax = e^(2*A_DET) ~ 4.85e8, ~2.4e7 primes x 2 np.interp ~ 2 s per
+  qw call). Gram needs m + m(m-1) calls => 576 / 2304 / 9216 for
+  m = 24/48/96; the verbatim path at m=96 alone would cost ~5-6 h,
+  violating the section-3 4 h budget. Resolution: m=24 (reproduce) and the
+  doubling check run the 1342 module VERBATIM (importlib import; zero
+  copied arithmetic); m in {48, 96} run an ALGEBRAICALLY IDENTICAL refactor
+  of the prime term only: psum = c . F.real with c the per-grid sparse
+  accumulation of the SAME interpolation stencils (same qmax, same
+  coefficients log(q)/sqrt(q) and log(p)/sqrt(p^k), same linear weights on
+  the same QS grid); equality up to FP summation order only (~1e-16 rel).
+- **New gate G9 (path equivalence).** At m=24, NQ=2^17: the FULL Gram is
+  built by both paths; PASS = max|dB|/(1+|B|) < 1e-12 AND
+  |dlambda|/(1+|lambda|) < 1e-12. G9 FAIL => fast-path digits INADMISSIBLE
+  => ABORTED-UNINFORMATIVE before m=48/96 (gate breach is never arbitrated
+  post-hoc).
+- **REPRODUCE gate operationalized.** Committed lambda_min is parsed at
+  runtime from 1342_falsifier_results.json (never hand-typed); PASS =
+  relative difference < 5e-13, i.e. the committed display digits
+  +3.083243887e-03 are retained. FAIL => abort; no new-m digit is trusted
+  (section 3).
+- **Fidelity pins.** Runner pins numpy==2.5.3 and mpmath==1.4.1 (the
+  versions that produced the committed 1342 digits, per its results JSON);
+  environment drift would attack the REPRODUCE gate itself.
+- **Anchor provenance + control.** G1a/G1b carried verbatim (aborting);
+  the G8 control is m-independent (inv11b anchor-grid control) => run ONCE
+  per official process; inv12 ladder and band unchanged. No witness/G8w
+  (section 3).
+- **Sign-flip escalation (estimation class; no verdict band).** If
+  lambda_min <= -1e-8 at any m on the fast path: digit is flagged
+  ESCALATION-CANDIDATE and the Gram is re-run on the VERBATIM path before
+  any trust (this re-run may exceed the 4 h budget; authorized here as the
+  rare branch). First hypothesis = rig artifact (1342 section-5 clause, by
+  analogy); adjudicating a class extension belongs to a NEW prereg, not to
+  A1. Confirmed-negative-on-both-paths => digits reported, branch
+  SIGN-UNSTABLE, no alpha verdict.
+- **Smoke policy.** P_SMOKE=1: m in {4,6}, module grid 2^15, SMOKE-ONLY
+  reduced G8 ladder (400/800) that never touches official digits, and a
+  quick two-path qw cross-check on 3 random span vectors (< 1e-12 rel).
+  Smoke output is machinery evidence only.
+- **Batch/log/sentinel.** Batch 1547; log
+  docs/proofs/1344_logs/1547_1344_a1_official.log (mirror side); sentinel
+  "DONE 1344-A1"; acceptance by LOG CONTENT, not exit code. Budget
+  re-estimate: ~60-100 min (m=24 verbatim ~25 min + doubling ~25 min +
+  fast m=48/96 ~5 min + G9 ~1 min + anchor/G8c ~3 min).
+
 ## 4. What this charter does NOT claim
 
 - Not that RH will be proved here; not that proportion/bound lanes can close
