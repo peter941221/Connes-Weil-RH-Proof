@@ -371,3 +371,97 @@ exponent-ring rewrite + `pow_add` (never a first-match `pow_mul` on
 composite atoms).  hLow stays an ALTERNATIVE kill-free lane (D7/N4); the
 wrapper above achieves `n`-only support with the prefix/kill accounting
 unchanged.  Falsifiers F-1375-1/2/3: all survived.
+
+## 10. Increment E2 GREEN (2026-09-13, try-15) — the budget leaf discharges
+
+`exists_iterate_heightTail_budget_lt_xiMultiplicity` (the s9-preregistered
+leaf, inserted after the E3 wrapper) is GREEN: under
+`hdecay : C_b ^ 2 * (2 * π) ^ 4 < 2 ^ (4 * (N + 1))` there EXISTS `n` with
+
+```
+K · (C_b^(2(n+1)) · C_c² · (2π)^(4(n+2))) · (3/2^(4(n+2)))^N
+    / (2^(4(n+2)) − 3)  <  xiMult ρ
+```
+
+i.e. the explicit geometric budget of `spectralNormTerm_shellSum_le_of_heightTail`
+falls below the fixed positive constant `xiMultiplicity rho`.  The E3
+wrapper's `hnb` premise is now dischargeable conditional on `hdecay`, and the
+N0' ladder A→E3 is CLOSED at the formal level.  Build try-15:
+`Build completed successfully (3634 jobs)`, zero `^error:`, all TEN prints
+`[propext, Classical.choice, Quot.sound]`, zero sorryAx, byte-identity
+verified.
+
+Proof route (as preregistered, with two refinements):
+
+1. `q := C_b²·(2π)⁴ / 2^(4(N+1)) < 1` (from `hdecay` via
+   `div_lt_iff₀ hqden` + `linarith`), `c₀ := 2K·(C_b²C_c²(2π)⁸)·3^N /
+   2^(8(N+1))`.
+2. Per-`n` majorization `budget n ≤ c₀ · q^n`, `W := 2^(4(n+2)) ≥ 256`:
+   step 1 is `1/(W−3) ≤ 2/W`, proved MULTIPLICATIVELY — `X·W ≤ X·2(W−3)`
+   via `mul_le_mul_of_nonneg_left` (X ≥ 0) and `X·W ≤ 2X(W−3) ≤ 2X·(W−3)`
+   — then converted to the quotient form inside
+   `le_of_mul_le_mul_right ?_ (mul_pos hD1 hWpos)` with two `field_simp`
+   equality rewrites `e1 e2`.
+3. The bookkeeping equality `2X/W = c₀ · q^n` is a single deterministic
+   20-step `rw` chain: `div_pow` ×2 + `mul_pow` to explode the pow-of-div
+   terms, `← pow_mul` ×3 to flatten `C_b^(2n)`/`(2π)^(4n)`/`2^(4(N+1)n)`,
+   `← mul_div_mul_comm` to merge the two divs of `q^n`, `← pow_add` for
+   `2^(8(N+1) + 4(N+1)n)`, then the exponent identities `he1 he2 he3`
+   (`ring`-closed haves).  ORDER MATTERS: the R-side merge steps run
+   BEFORE the L-side `mul_div_assoc` chain — after the assoc steps the
+   `q^n` div is nested inside R's numerator and `← mul_div_mul_comm` no
+   longer matches.  Closed by `field_simp [hDne] <;> ring`.
+4. Decay: `summable_geometric_of_lt_one hq0 hqlt` → `Summable.mul_left c0`
+   → `.tendsto_atTop_zero` → `(hzero.eventually_lt_const hxipos).exists`
+   → `lt_of_le_of_lt (hmajor n) hn`.  `xiMult ρ > 0` needs
+   `Nat.cast_pos.mpr` (see trap 1).
+
+API/trap ledger (tries 7-15, nine builds, Lean v4.30):
+
+1. `exact_mod_cast` does NOT exist in this Mathlib — `Unknown identifier`.
+   `0 < (↑k : ℝ)` from `0 < k` goes through `Nat.cast_pos.mpr`.
+2. BY-BLOCK GARBAGE LAW (cost four builds): a `by tac` in an ARGUMENT
+   position whose expected type still has unassigned metavars (e.g. first
+   arg of `mul_le_mul_of_nonneg_right (by linarith) hX`, or
+   `le_of_eq (by ring)` inside `le_trans`) elaborates the tactic against
+   GARBAGE instantiations — here it manufactured a monster `K²·r^(2N)`
+   polynomial goal and also splattered phantom failures onto unrelated
+   lines (a `linarith failed` on a hypothesis whose own context was
+   correct).  Fix: state the inequality/equality as a separate `have`
+   with a FULLY CONCRETE type, then pass it; or `refine ... ?_` so later
+   arguments fix the metavars first.
+3. `mul_le_mul_of_nonneg_left (h : a ≤ b) (hc : 0 ≤ c) : c * a ≤ c * b`;
+   `_right` multiplies on the right.  `_right (by linarith) hX` was both
+   the wrong direction AND a by-block (trap 2).
+4. `ring`/`ring_nf` CANNOT flatten `(x^a)^b` for VARIABLE exponents, nor
+   equate numeral-base variants (`2^(8(N+1))` vs `256^N`).  All pow-pow
+   forms must be rewritten via `← pow_mul` / `pow_add` BEFORE `ring`.
+5. `field_simp` may close a simple equality completely; a trailing `ring`
+   then errors `No goals to be solved`.  The robust idiom is
+   `field_simp ... <;> ring` (fires only if goals remain).
+6. A FAILED composite tactic rolls back, and the residual state it
+   DISPLAYS is `ring_nf`-NORMALIZED — try-11's displayed
+   `2 ^ (N * 8)` vs `256 ^ N` was an artifact; the TRUE post-`field_simp`
+   residual (revealed in try-12 when `rw [h256]` could not find `256`)
+   contains `2 ^ (8 * (N + 1))` and `(2 ^ (4*(n+2))) ^ N` unexpanded.
+   Never write the next fix against the displayed form of a rolled-back
+   state; probe with an identity `rw` first.
+7. This Mathlib's `mul_div_mul_comm : a * b / (c * d) = a / c * (b / d)`
+   — the ← direction MERGES a product of divs into one div.  In a long
+   div-normalization chain, run every ← merge step while the target div
+   is still CLEAN (top-level), before `mul_div_assoc` steps nest it.
+8. Ops law re-confirmed (violation in try-8):
+   `cp … && cmp … && nohup … & echo` — `&` binds looser than `&&`, so the
+   WHOLE chain backgrounded and wsl.exe killed it; the build ran on the
+   STALE file.  Sync (foreground, with `cmp` + marker `grep`) and the
+   build launch are separate harness calls, never one `&`-chain.
+9. `grep '\b…'` fails to match after a multibyte char (`₀`): `\b` is
+   byte-oriented.  Use prefix matching (`error` not `\berror`) in
+   log-greps over Lean identifiers.
+
+Next: wire E1+E2+E3 into the orbit package (end-to-end instantiation,
+ε = 1, `N = shell(ρ)+1`, MODEL digits only per law 65); the open science
+interface is the `hdecay` discharge — `C_b` from
+`exists_uniform_compactLog_laplaceAt_vertical_quadratic_decay` vs
+`16^(N+1)` — then back to N1 (vertical bridge, `rho_b`) per the 1374
+ranking.  Falsifiers F-1375-1/2/3: all survived (budget shape unchanged).

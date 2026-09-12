@@ -663,6 +663,162 @@ theorem exists_smallSupport_healthyDetectorData_of_quadraticBounds_and_heightBud
         correction (convolutionIterate_support_subset_Ioo base hbaseSupport n)
         hcorrSupport)
 
+/-- E2 (budget discharge, preregistered in 1375 s9): under the height-decay
+hypothesis `C_b ^ 2 * (2 * π) ^ 4 < 2 ^ (4 * (N + 1))` the explicit geometric
+budget of `spectralNormTerm_shellSum_le_of_heightTail` falls below
+`xiMultiplicity rho` for some iterate count `n`.  Route: `budget n ≤ c₀ * q ^ n`
+with `q = C_b ^ 2 * (2 * π) ^ 4 / 2 ^ (4 * (N + 1)) < 1` (the `2 / W` fold-in
+plus exact exponent bookkeeping), then geometric decay to `0` beats the fixed
+positive constant `xiMultiplicity rho`. -/
+theorem exists_iterate_heightTail_budget_lt_xiMultiplicity
+    (rho : sourceNontrivialZeroSet) (N : ℕ) {C_b C_c : ℝ}
+    (hCb : 0 ≤ C_b) (hCc : 0 ≤ C_c)
+    (hdecay : C_b ^ 2 * (2 * Real.pi) ^ 4 < (2 : Real) ^ (4 * (N + 1))) :
+    ∃ n : ℕ,
+      spectralMultiplicityConstant *
+        (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+        ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N /
+        ((2 : Real) ^ (4 * (n + 2)) - 3) <
+        (xiMultiplicity rho : Real) := by
+  have h2pi : 0 < 2 * Real.pi := by positivity
+  have hqden : 0 < (2 : Real) ^ (4 * (N + 1)) := pow_pos (by norm_num) _
+  set q : ℝ := C_b ^ 2 * (2 * Real.pi) ^ 4 / (2 : Real) ^ (4 * (N + 1)) with hqdef
+  set c0 : ℝ := 2 * spectralMultiplicityConstant *
+    (C_b ^ 2 * C_c ^ 2 * (2 * Real.pi) ^ 8) * (3 : Real) ^ N /
+    (2 : Real) ^ (8 * (N + 1)) with hc0def
+  have hq0 : 0 ≤ q :=
+    div_nonneg (mul_nonneg (pow_nonneg hCb 2) (pow_nonneg (le_of_lt h2pi) 4))
+      (le_of_lt hqden)
+  have hqlt : q < 1 := by
+    rw [hqdef, div_lt_iff₀ hqden]
+    linarith
+  have hgeo : Summable fun m : ℕ => q ^ m :=
+    summable_geometric_of_lt_one hq0 hqlt
+  have hzero : Filter.Tendsto (fun m : ℕ => c0 * q ^ m) Filter.atTop (nhds 0) :=
+    (hgeo.mul_left c0).tendsto_atTop_zero
+  have hxi := xiMultiplicity_pos rho
+  have hxipos : (0 : ℝ) < (xiMultiplicity rho : Real) :=
+    Nat.cast_pos.mpr hxi
+  have hmajor : ∀ n : ℕ,
+      spectralMultiplicityConstant *
+        (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+        ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N /
+        ((2 : Real) ^ (4 * (n + 2)) - 3) ≤
+        c0 * q ^ n := by
+    intro n
+    have hWpos : 0 < (2 : Real) ^ (4 * (n + 2)) := pow_pos (by norm_num) _
+    have hWne : (2 : Real) ^ (4 * (n + 2)) ≠ 0 := ne_of_gt hWpos
+    have h8 : 8 ≤ 4 * (n + 2) := by omega
+    have hW3 : (3 : Real) < (2 : Real) ^ (4 * (n + 2)) :=
+      calc (3 : Real) < (2 : Real) ^ 8 := by norm_num
+        _ ≤ (2 : Real) ^ (4 * (n + 2)) := pow_le_pow_right₀ (by norm_num) h8
+    have hD1 : 0 < (2 : Real) ^ (4 * (n + 2)) - 3 := by linarith
+    have hD1ne : (2 : Real) ^ (4 * (n + 2)) - 3 ≠ 0 := ne_of_gt hD1
+    have hW6 : (6 : Real) ≤ (2 : Real) ^ (4 * (n + 2)) := by
+      have h1 : (2 : Real) ^ 8 ≤ (2 : Real) ^ (4 * (n + 2)) :=
+        pow_le_pow_right₀ (by norm_num) h8
+      have h2 : (2 : Real) ^ 8 = 256 := by norm_num
+      linarith
+    have hK : 0 ≤ spectralMultiplicityConstant :=
+      spectralMultiplicityConstant_nonneg
+    have hP : 0 ≤ C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2)) :=
+      mul_nonneg (mul_nonneg (pow_nonneg hCb (2 * (n + 1))) (sq_nonneg C_c))
+        (pow_nonneg (le_of_lt h2pi) (4 * (n + 2)))
+    have hrn : 0 ≤ ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N :=
+      pow_nonneg (div_nonneg (by norm_num) (le_of_lt hWpos)) N
+    have hX : 0 ≤ spectralMultiplicityConstant *
+        (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+        ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N :=
+      mul_nonneg (mul_nonneg hK hP) hrn
+    have hDle0 : (2 : Real) ^ (4 * (n + 2)) ≤ 2 * ((2 : Real) ^ (4 * (n + 2)) - 3) := by
+      linarith
+    have hDle1 :
+        spectralMultiplicityConstant *
+            (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+            ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N *
+          (2 : Real) ^ (4 * (n + 2)) ≤
+          spectralMultiplicityConstant *
+            (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+            ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N *
+            (2 * ((2 : Real) ^ (4 * (n + 2)) - 3)) :=
+      mul_le_mul_of_nonneg_left hDle0 hX
+    have hDle :
+        spectralMultiplicityConstant *
+            (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+            ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N *
+          (2 : Real) ^ (4 * (n + 2)) ≤
+          2 * (spectralMultiplicityConstant *
+            (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+            ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N) *
+            ((2 : Real) ^ (4 * (n + 2)) - 3) :=
+      hDle1.trans (le_of_eq (by ring))
+    have hstep1 :
+        spectralMultiplicityConstant *
+            (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+            ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N /
+          ((2 : Real) ^ (4 * (n + 2)) - 3) ≤
+          2 * (spectralMultiplicityConstant *
+            (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+            ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N) /
+          (2 : Real) ^ (4 * (n + 2)) := by
+      have e1 :
+          (spectralMultiplicityConstant *
+              (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+              ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N /
+            ((2 : Real) ^ (4 * (n + 2)) - 3)) *
+            (((2 : Real) ^ (4 * (n + 2)) - 3) * (2 : Real) ^ (4 * (n + 2))) =
+            spectralMultiplicityConstant *
+              (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+              ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N *
+            (2 : Real) ^ (4 * (n + 2)) := by
+        field_simp
+      have e2 :
+          (2 * (spectralMultiplicityConstant *
+              (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+              ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N) /
+            (2 : Real) ^ (4 * (n + 2))) *
+            (((2 : Real) ^ (4 * (n + 2)) - 3) * (2 : Real) ^ (4 * (n + 2))) =
+            2 * (spectralMultiplicityConstant *
+              (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+              ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N) *
+            ((2 : Real) ^ (4 * (n + 2)) - 3) := by
+        field_simp
+      refine le_of_mul_le_mul_right ?_ (mul_pos hD1 hWpos)
+      rw [e1, e2]
+      exact hDle
+    have he1 : 2 * (n + 1) = 2 * n + 2 := by ring
+    have he2 : 4 * (n + 2) = 4 * n + 8 := by ring
+    have he3 : 4 * (n + 2) * N + 4 * (n + 2) = 8 * (N + 1) + 4 * (N + 1) * n := by
+      ring
+    have hDne : (2 : Real) ^ (8 * (N + 1) + 4 * (N + 1) * n) ≠ 0 :=
+      pow_ne_zero _ (by norm_num)
+    have heq :
+        2 * (spectralMultiplicityConstant *
+            (C_b ^ (2 * (n + 1)) * C_c ^ 2 * (2 * Real.pi) ^ (4 * (n + 2))) *
+            ((3 : Real) / (2 : Real) ^ (4 * (n + 2))) ^ N) /
+          (2 : Real) ^ (4 * (n + 2)) =
+        c0 * q ^ n := by
+      rw [hc0def, hqdef,
+        div_pow (3 : Real) ((2 : Real) ^ (4 * (n + 2))) N,
+        div_pow (C_b ^ 2 * (2 * Real.pi) ^ 4) ((2 : Real) ^ (4 * (N + 1))) n,
+        mul_pow (C_b ^ 2) ((2 * Real.pi) ^ 4) n,
+        ← pow_mul C_b 2 n,
+        ← pow_mul (2 * Real.pi) 4 n,
+        ← pow_mul (2 : Real) (4 * (N + 1)) n,
+        ← mul_div_mul_comm,
+        ← pow_add (2 : Real) (8 * (N + 1)) (4 * (N + 1) * n),
+        mul_div_assoc, mul_div_assoc, mul_div_assoc, div_div,
+        ← mul_div_assoc, ← mul_div_assoc, ← mul_div_assoc,
+        ← pow_mul (2 : Real) (4 * (n + 2)) N,
+        ← pow_add (2 : Real) (4 * (n + 2) * N) (4 * (n + 2)),
+        he3,
+        he1, pow_add C_b (2 * n) 2,
+        he2, pow_add (2 * Real.pi) (4 * n) 8]
+      field_simp [hDne] <;> ring
+    exact hstep1.trans (le_of_eq heq)
+  obtain ⟨n, hn⟩ := (hzero.eventually_lt_const hxipos).exists
+  exact ⟨n, lt_of_le_of_lt (hmajor n) hn⟩
+
 end
 
 end C1SelectedSquareHeightTail
