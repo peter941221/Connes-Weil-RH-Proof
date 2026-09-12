@@ -134,6 +134,13 @@ Read the current records in this order for a full-map review:
    [1373](../proofs/1373_phase_rig_prereg.md): the total-variant
    phase-diagram offensive (CB-PD1) with step-0 source verdicts, the
    named N0'-N4 task ledger, and the preregistered MODEL mapping rig.
+10. [1375](../proofs/1375_two_sided_tail_height_form_design.md) +
+    [1376](../proofs/1376_n0p_closure_and_n1_recon.md): the N0'
+    height-form two-sided tail closed formally through the orbit
+    package and the unconditional F3 producer (13 theorems), and the
+    N1 vertical-bridge recon: pointwise MODEL bridge dead, mass-form
+    deliverable with the explicit linear-in-R constant
+    `sinh(2dR)/(2πd)`, and the N1a-N1e attack plan.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).

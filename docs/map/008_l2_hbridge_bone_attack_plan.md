@@ -342,3 +342,28 @@ is negligible in the spline family (n-exponential vertical decay); the
 sampling. CB-PD1 is registered in 006 s5 as GENERATION-side,
 ANALYTIC-ONLY, NEEDS-ANALYSIS; the rig's digits are MODEL mapping, and
 no closure region is claimed until N0'-N3 are theorems.
+
+### 9.1 N0' closure and the N1 recon (records 1375-1376, 2026-09-13)
+
+N0' is FORMAL-DONE: the height-form two-sided tail closed ladder A→E3, and
+the orbit package F1/F2 plus the late-N-choice theorem F3 reduced the whole
+pillar to `exists_smallSupport_healthyDetectorData_unconditional` — premises
+`(rho, hoff, hright, routeNodes, windows)` only, conclusion
+`∃ N n g, dyadicShellIndex |rho.im| < N+1 ∧ HealthyYoshidaDetectorData ρ g ∧
+support ⊆ (n+1)-window`, 13 theorems, three standard axioms, zero sorryAx
+(commits 9b69df9…59800f8; see
+[1375](../proofs/1375_two_sided_tail_height_form_design.md) and
+[1376](../proofs/1376_n0p_closure_and_n1_recon.md) s1). No rate on N/n is
+claimed.
+
+N1 recon verdict ([1376](../proofs/1376_n0p_closure_and_n1_recon.md) s2):
+the pointwise MODEL bridge is dead (Fourier values of `g` and `g e^{d·}`
+are pointwise unrelated); the deliverable is the MASS form S5 already
+consumes. The global mass bridge is a two-line classical estimate with
+explicit constant `C_bridge(d, R) = sinh(2dR)/(2πd)` (Cauchy–Schwarz +
+Plancherel + support width; `d → 0` limit `R/π` recovers S4's constant) —
+its R-dependence is LINEAR, beating the MODEL's quadratic
+`e^{2d(1+(n+1)R)}` by orders of magnitude at large n. The honest cost is
+localization: the off-band coupling is `‖g‖²`-dependent, so N1b/N1c must
+be derived jointly with the 1371 norm floor (the §8.5 designed-together
+clause). Plan N1a–N1e in 1376 s2d; paper beat next.

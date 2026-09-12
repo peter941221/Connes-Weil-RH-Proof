@@ -557,6 +557,18 @@ counterterm inside the kernel, proved rather than measured), not
 re-measurement. The older ROOT/Hbox entrywise campaign remains suspended
 (record 1223).
 
+On the detector side of the B5 cut, the premise producer is now formal and
+hypothesis-free: under a hypothetical off-line zero ρ (Re ρ > 1/2),
+`exists_smallSupport_healthyDetectorData_unconditional`
+(ConnesWeilRH/Dev/C1SelectedSquareHeightTail.lean; records
+[1375](docs/proofs/1375_two_sided_tail_height_form_design.md) and
+[1376](docs/proofs/1376_n0p_closure_and_n1_recon.md)) constructs, from the
+zero alone, a healthy detector supported in a single `(n+1)`-window with
+kills at every source-orbit node. No rate on `N` or `n` is claimed; the
+strict spectral negativity at that detector - the vertical bridge and its
+norm coupling - remains the open analytic content of the N0'-N4 ledger
+(records 1372-1376).
+
 The binding decision is [record 1076](docs/map/003_b1_b5_minimal_exit_route_selection.md);
 the endpoint, producer, and process status are maintained by
 [map 004](docs/map/004_endpoint_literature_interface_audit.md),
