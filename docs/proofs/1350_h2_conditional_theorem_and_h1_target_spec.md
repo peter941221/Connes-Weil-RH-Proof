@@ -1,5 +1,15 @@
 # Record 1350 (DRAFT HARVEST) - H2 conditional theorem + H1 target-spec annex
 
+> **1353 correction pointer (2026-09-12):** legs L3/L4 are the only C6
+> consumers and are correctly marked OPEN - but [`1353`](1353_c6_placement_audit_and_nlle_spec_repair.md)
+> re-grades their input: C6 is not an explicit-constant leg, the
+> count->energy step itself FAILS for clusterable on-line sets
+> (placement-dominated, ~70-150x information asymmetry vs the allowed
+> factor <= 2). The H1 spec must read NLLE-v2 (count + spread); H2's
+> hypothesis strengthens to "majority-or-clustered configuration". No
+> count-assembly of a future v1-style NLLE proof can discharge L3 as
+> drafted.
+
 ```text
 +---------------------------------------------------------------------+
 | DRAFT ASSEMBLY, not a probe. No new digits, no prereg bands, no     |

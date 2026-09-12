@@ -1,5 +1,16 @@
 # Record 1351 (DESIGN-ONLY) - the (star) <-> SourceRH Lean brick: decomposition, inventory, build order
 
+> **1353 correction pointer (2026-09-12):** this decomposition is
+> CONFIRMED by [`1353`](1353_c6_placement_audit_and_nlle_spec_repair.md)
+> and gets one strengthening: B2's "window-wise counts" leg cannot be
+> carried by an explicit frame-bound HYPOTHESIS alone - a count
+> hypothesis is FALSE as a sufficiency (clustered on-line sets defeat
+> the energy step). B2 must carry the NLLE-v2 two-limb hypothesis
+> (count + spread, 1353 s5), or the windowwise reading stays out of the
+> brick. The iff core B1+B4 is C6-free exactly as designed here - the
+> 1353 audit touches only the advertised WINDOWWISE side, never the
+> equivalence wiring.
+
 ```text
 +---------------------------------------------------------------------+
 | DESIGN PREREGISTRATION for a future build, NOT a funding request    |

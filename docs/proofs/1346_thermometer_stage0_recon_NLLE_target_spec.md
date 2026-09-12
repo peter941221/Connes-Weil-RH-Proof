@@ -1,5 +1,16 @@
 # Record 1346 - Thermometer STAGE-0 recon: the C7 bone census and the NLLE target spec
 
+> **1353 correction pointer (2026-09-12):** the s1 bone census ("C7 is
+> the only MISSING bone; C6 = explicitness, not existence") and the s2
+> "(★) is O(1)-robust" claim are SUPERSEDED by
+> [`1353`](1353_c6_placement_audit_and_nlle_spec_repair.md): the
+> count->energy conversion is placement-dominated (measured ~70-150x
+> information asymmetry against the allowed factor <= 2), so C6 is a
+> second missing limb, and the s4 spec must be read as NLLE-v2
+> (count + spread). The factor-4 algebra (s2) and the cold/hot verdict
+> logic are untouched; the assault re-grades COLDER, not warmer.
+> (Record number 1349 stays reserved for the batch-1548 A1b verdict.)
+
 ```text
 +---------------------------------------------------------------------+
 | VERDICT QUALITY: STAGE-0 RECONNAISSANCE (paper-only, MODEL grade).   |

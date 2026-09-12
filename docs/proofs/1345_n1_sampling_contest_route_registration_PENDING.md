@@ -1,5 +1,15 @@
 # Record 1345 - N1 sampling-contest route: VERIFIED, REGISTERED, PENDING (待打)
 
+> **1353 correction pointer (2026-09-12):** the s3 difficulty
+> isolation to "one named missing input (NLLE)" and the s4 grading of
+> the frame-bound input as "mechanical explicit-constant synthesis" are
+> superseded by
+> [`1353`](1353_c6_placement_audit_and_nlle_spec_repair.md):
+> NLLE must be read as NLLE-v2 (two limbs: local count + local
+> SPREAD; a count-only condition does not control the energy step).
+> The s1-s2 algebra (lossless + non-circular equivalence legs) is
+> untouched by 1353.
+
 ```text
 +---------------------------------------------------------------------+
 | VERDICT QUALITY: ROUTE REGISTRATION - paper-only. No digits          |
