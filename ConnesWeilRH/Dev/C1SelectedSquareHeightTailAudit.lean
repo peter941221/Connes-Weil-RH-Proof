@@ -1,0 +1,18 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: ConnesWeilRH contributors
+-/
+
+import ConnesWeilRH.Dev.C1SelectedSquareHeightTail
+
+/-!
+# C1SelectedSquareHeightTailAudit - axiom prints for the N0' height-tail brick
+
+Build preregistration: docs/proofs/1375_two_sided_tail_height_form_design.md
+s3 (increments A / A' / A''); three standard axioms, zero sorryAx.
+-/
+
+#print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.laplaceAt_heightQuadratic_le_of_quadraticBound
+#print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.convolved_laplaceAt_heightQuadratic_le
+#print axioms ConnesWeilRH.Source.C1SelectedSquareHeightTail.selectedOwner_convolutionSquare_heightQuadraticTail
