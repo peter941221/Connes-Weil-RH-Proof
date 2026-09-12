@@ -1722,6 +1722,24 @@ plausibility probe. Status: **quantitative P1 conditional ledger complete;
 column-energy summability (the analytic gate = HS/antiperiodicity claim),
 cutoff identification, endpoint, P2, P3 remain open**.
 
+### CB-HB1 candidate registration (record 1369 / map 008, 2026-09-12)
+
+Campaign OPENED by owner commission ("self-create; gnaw the bone").
+Candidate `CB-HB1`: prolate frame lower bound with explicit spread
+functional (B1) + subharmonic off-line theft bound on the vanishing
+class (B2) + sinc² gluing (B3), consumed by
+`C1H2Corridor.sourceRH_of_A2Bridge` (batch 1560 green). Beat status:
+0-3 cards filed in map
+[`008`](008_l2_hbridge_bone_attack_plan.md) s5 (PRIOR-ART-CARD
+provisional until beat-1 retrieval at P1 entry); beat 4 = P0 two-control
+MODEL dry-fire, controls fixed to the committed 1353 rig digits
+(positive: spread I∖J, λ₁ ≈ 0.781, must pass; negative: cluster J,
+λ₁ ≈ 0.011, must fail at the registered 70.6x/145.7x scale; a rig
+reproducing neither is INVALID-INSTRUMENT). Beat 5 gated by the Stage-0
+audit before analytic campaign weeks. P0 prereg = record 1370 (bands
+locked before any digit, law 42). Kill accounting: any P0 FAIL takes a
+kill-ledger row here in the same commit. Full plan: map 008.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:

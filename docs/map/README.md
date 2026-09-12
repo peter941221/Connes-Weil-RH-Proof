@@ -23,6 +23,8 @@ traceability.
 | 006    | Binding process       | NM creation workflow, subordinate to 003   |
 | 007    | Binding companion     | Producer-target quantifier repair and the  |
 |        |                       | surviving L4/A4 target ladder              |
+| 008    | Binding companion     | L2/hBridge bone attack plan (record 1369): |
+|        |                       | B1/B2/B3 anatomy, NM-006 beat map, P0-P4   |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -40,6 +42,11 @@ refuted (record 1225 F1-F3) and may not be named as a target; the surviving
 B5-side targets are the universal contracts L4 (projection-cutoff side) and
 A4 (aggregate side), whose numerical scout closed with the record 1225
 capture law and whose remaining obligation is analytic construction.
+`008` is binding on the L2/hBridge attack: the missing bridge of the
+1368 corridor is decomposed into B1 (spread-to-frame lower bound),
+B2 (off-line theft bound), and B3 (gluing); its P0-P4 phases run through
+the `006` beats as candidate CB-HB1, and no phase may produce digits
+before its own prereg record (law 42).
 
 ## Mandatory preflight
 
