@@ -548,6 +548,30 @@ Read the current records in this order for a full-map review:
     witness shape). No sign theorem, no positivity, RH not claimed; the
     wall's truth is untouched. Next: brick 3 (square-class sector split
     completing kill (a) formally), then brick 4 (the dictionary).
+40. [1414](../proofs/1414_psi_sector_split_brick_reflection_invariance_machine_checked.md)
+    — FORMAL CAMPAIGN BRICK 3 GREEN: `C1PsiSectorSplit` completes the
+    1406 kill (a) as machine fact: `psi` is UNCONDITIONALLY invariant
+    under reflection in the additive log coordinate
+    (`psi_reflection : psi f.reflection = psi f`), because every
+    readout's kernel is symmetric by construction (pole pair `±1/2`
+    swapped by `laplaceAt_reflection`; prime kernel and archimedean
+    numerator pointwise fixed; index set equal), so no `IntegrableOn`
+    bookkeeping is needed for the invariance bundle. Sector
+    corollaries in doubled forms (no scalar layer): the doubled odd
+    part is annihilated (`psi_oddDiff2_eq_zero`, brick 1 consuming
+    `oddDiff2_odd`), `evenSym2 + oddDiff2 = f + f`, and
+    `psi (evenSym2 f) = psi f + psi f` under exactly the hypotheses
+    `psi_testAdd` carries. 19 declarations, try4 GREEN (3479 jobs,
+    17/17 standard-axiom trios, 0 error, 0 `sorryAx`, 0 new-file
+    warnings); five failure classes registered — including the
+    missing-import cascade (67 errors, ONE root) and the
+    numeral-negation normal-form trap (`(-1)/2` vs `-(1/2)`; `neg_div`
+    must fire before `neg_neg`). Consequence: psi is determined by the
+    reflection-even coset of its test; odd perturbations vanish; sums
+    decompose — the kill-(a) prose of 1406 now rests on three machine
+    legs. The owner-specific identification of the Chuk cross term
+    belongs to brick 4's consumer statement; wall untouched; no sign,
+    no positivity, RH not claimed.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
