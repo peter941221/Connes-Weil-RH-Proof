@@ -1,0 +1,10 @@
+[     0.0s] decode 1393 cells artifact
+[     0.2s] decoded 96000 rows
+[     0.2s] candidate geometries with >=1 PASS row: 1700
+[     6.7s] GI done
+[    27.0s] tier-1 A=-8.8195254969e+01 S=1.289e+02 F0=1.721589e+01+5.180435e-17j lap+1=2.28e-07 gates={'GI': 'PASS', 'G0': 'PASS', 'GS': 'PASS', 'GT': 'PASS', 'GF': 'FAIL', 'GD': 'PASS', 'GR': 'FAIL', 'GQ': 'PASS'}
+[    27.0s] tier-1 extras: A64=-8.819520e+01 A2v=-3.527810e+02 gt=(1.2e-60,6.8e-17,3.4e-17) A_alpha2=-8.819525e+01
+VERDICT jointWitness=NONE cells=VOID
+DONE gates=G0:PASS,GI:PASS,GS:PASS,GT:PASS,GF:FAIL,GD:PASS,GR:FAIL,GQ:PASS
+sha256 docs/proofs/1398_rig_results.json = 7495cf8d7aacbb012b66381ff19eb69c048489de36a961b07e6498147ae4903c
+sha256 docs/proofs/1398_rig_cells.tsv.gz = d2e18946a8e6bc52d2e7b789793b7e0d6ababc08c294711993d30fc238ff7521

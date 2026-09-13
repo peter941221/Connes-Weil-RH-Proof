@@ -335,6 +335,33 @@ Read the current records in this order for a full-map review:
     one-sided by construction, F10/F11-class gates (scale-invariance gate;
     1086 cross-instrument continuity check; quadrature error in the
     tolerance budget). RH not claimed.
+29. [1398 v1](../proofs/1398_rung3_joint_witness_prereg.md) ->
+    [v2](../proofs/1398_rung3_joint_witness_prereg_v2_gateS_fix.md) ->
+    [v3](../proofs/1398_rung3_joint_witness_prereg_v3_precision_class_fix.md):
+    the joint-witness prereg chain, model VERBATIM across all three
+    versions (v2 fixed the GV tie scale's divergent integral pre-run; v3
+    fixed the GF/GR precision classes AFTER two gate-caught VOID runs —
+    inv1 mpmath zero-fill recurrence, inv2 unattainable 1e-8 convergence
+    class, first-order `C/npw` law measured at tier-1); instrument
+    `scripts/run_1398_rig.py` = mp-200 factor layer + float64
+    critical-point-segmented closed-piecewise evaluator for
+    `g = u * f`, `F = g~ * g`, `A(g)`, with positional decode + recompute
+    integrity of the committed 1393 artifact as gates. RH not claimed.
+30. [1399](../proofs/1399_rung3_joint_witness_outcome_all_negative.md):
+    VALID rung-3 run, `DONE gates=...:PASS x8`,
+    `VERDICT jointWitness=NONE cells=POS:0,NEG:41,TIE:0,BAD:0`. First
+    measurement of `A(g)` on the COMPLEX route-alpha owner family:
+    all 41 (J1)-head geometries NEG at `A/S ~ -0.68..-0.61`, margin
+    ~7 orders over the tie band; tier-1 `A = -88.1952`,
+    detector condition reproduced at 2.3e-7, `A(2g) = 4A` exactly,
+    GS residuals ~1e-56. Kills NOTHING (sup-lower-bound law, one-sided
+    scope); retires the real-slice excuse of 1397 s3; measures the eps/
+    epsp levers DEAD for rung 3 on this grid (delta ~ 1e-33 below float64)
+    and localizes the negativity to the central integral (~-86.3 of
+    -88.2) = forced high-frequency content against the `1/(2 sinh y)`
+    weight. Live directions named by the data: low-height candidate
+    mining of the 1700-geometry PASS-band census (only 41 evaluated), and
+    the route-beta 7-node shape class as a FORMAL task. RH not claimed.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
