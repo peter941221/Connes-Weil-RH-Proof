@@ -362,6 +362,35 @@ Read the current records in this order for a full-map review:
     weight. Live directions named by the data: low-height candidate
     mining of the 1700-geometry PASS-band census (only 41 evaluated), and
     the route-beta 7-node shape class as a FORMAL task. RH not claimed.
+31. [1400](../proofs/1400_rung3_lowheight_joint_witness_prereg.md):
+    low-height rung-3 joint-witness prereg — the 1399 §8 item-1 surface.
+    Model + instrument BYTE-IDENTICAL to 1398 v3 by import (anti-drift);
+    changes are the cell selection (heights im in {14.134725, 21.022040,
+    25.010858} — the three actual zeta-zero ordinates, never evaluated
+    before; im=1054 excluded), a law-F12 instrument-VISIBILITY filter on
+    rung-2 conditioning (alpha >= 1e-11 and delta >= 100*eps64*R; 820
+    visible / 380 excluded-and-disclosed), A-blind stratified tiering
+    (head + 20 + 10 + 10 = 41), a locked SELECTION ASSERTION for the
+    expected tier-1 geometry and stratum sizes, and the VERBATIM 1e-5
+    gate classes whose achievability is PROVEN PRE-RUN from the measured
+    1398 noise scaled by the conditioning table. RH not claimed.
+32. [1401](../proofs/1401_rung3_lowheight_outcome_all_negative_first_zero.md):
+    VALID FIRST INVOCATION (the F12 audit's payoff; first clean run of
+    the line): all 8 gates PASS, `VERDICT jointWitness=NONE
+    cells=POS:0,NEG:41,TIE:0,BAD:0`. A(g) is now measured at the ACTUAL
+    zeta-zero heights INCLUDING THE FIRST ZERO: A = -36.0..-23.8 at
+    im=14.134725, -9.2 at 21.02, -5.9 at 25.01 (margins 1e5-1.5e5 band
+    widths; GD 1e-9-class; A32=A64=A96=A_R to 7+ digits). THE KEY
+    FINDING (law F14: visibility is not sensitivity): even where delta
+    is float64-representable, eps/epsp do not move A — the locked budget
+    formula `delta = eps*alpha/(4(1+eps)TB^2)` STRUCTURALLY caps
+    delta/R ~ 1e-12 on every (J1)-feasible geometry, so the rung-2
+    construction forbids an aggressive taper and the 4-node family's
+    A-sign is fixed by its UNTAPERED content. 82/82 negatives (1399+1401)
+    are ONE mechanism: further grid search of this family for rung 3 is
+    no longer justified; the live levers are the route-beta shape class
+    (FORMAL task) and the rung-5 proof. Kill scope honored; nothing was
+    falsified. RH not claimed.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
