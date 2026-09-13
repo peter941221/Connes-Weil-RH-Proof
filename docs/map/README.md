@@ -161,6 +161,10 @@ Read the current records in this order for a full-map review:
     has no norm control, the `L²(du/u) ≅ L²(dx)` isometry, and the
     design spec for the budget producer: a `(1+ε)`-optimal
     quantitative interpolation theorem realizing `K_loc`.
+15. [1381](../proofs/1381_l2_export_and_lemma_a.md): the first N2β
+    formal component — the `‖·‖₂` accessor `compactLogL2sq`, the
+    from-scratch discriminant Cauchy-Schwarz on a window, and
+    `laplaceAt_sq_le` = the [1377] Lemma A bound, all axiom-clean.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).

@@ -444,3 +444,25 @@ convolution bounds for the assembled detector; and (J1) of [1379] is
 EXACTLY `K_loc < δ/(2C_min)` — branch A's whole content is one theorem.
 Formalization componentized (L² export, Gram, taper, Young, F1/F2 recast
 as an addition); numeric budget-fit deferred to N1e-with-prereg.
+
+### 9.6 N2β component #1 formal (record 1381, 2026-09-13)
+
+The N1d/N2β formal lane is OPEN: new Dev leaf
+`ConnesWeilRH/Dev/C1CompactLogL2Export.lean` (+ paired Audit), green on
+try 9 (3476 jobs, 0 errors, 0 leaf warnings; all three declarations depend
+only on `propext, Classical.choice, Quot.sound`, zero `sorryAx`):
+
+- `compactLogL2sq f = ∫‖f.test x‖²` — the first `‖·‖₂` accessor on the
+  B5 path (the [1380] §1 gap is closed at the interface level);
+- `intervalIntegral_cauchySchwarz` — window Cauchy-Schwarz by the
+  discriminant argument, formalized from scratch with no Lp/MemLp API;
+- `laplaceAt_sq_le` — the [1377] Lemma A bound verbatim:
+  `‖laplaceAt f s‖² ≤ (∫_{a..b} exp(2·s.re·x)) · compactLogL2sq f`,
+  the exact antiderivative in division-free integral form
+  (`s.re = 0` reads `b − a`).
+
+Remaining N2β components (the [1380] §4 ladder): Gram machinery, taper
+construction, Young assembly, F1/F2 quantitative recast.  Build-loop trap
+ledger forwarded to the project AGENTS (§7a environment law: `/tmp` is
+wiped between wsl.exe invocations — logs at `/home/peter/buildlogs/`,
+foreground flock+timeout; §7b nine Lean/Mathlib v4.30 entries).
