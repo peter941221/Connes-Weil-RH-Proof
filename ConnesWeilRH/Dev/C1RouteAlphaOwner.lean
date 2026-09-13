@@ -1,0 +1,319 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: ConnesWeilRH contributors
+-/
+
+import ConnesWeilRH.Dev.C1WindowTaperAssembly
+import ConnesWeilRH.Dev.C1QuantitativeConsumer
+import ConnesWeilRH.Dev.C1HealthyYoshidaMinimalInterpolation
+import ConnesWeilRH.Dev.C1HealthyDetectorPinning
+
+/-!
+# C1RouteAlphaOwner - R1: the route-alpha owner, funded L2 budget
+
+(N2beta component 5, discharge)
+
+Record 1389 section 7 re-scoped the component-5 discharge onto the route-alpha
+register: the four-node family `healthyDetectorNodeSet rho = {0, 1/2, 1, rho}`
+whose vanishings sit on the owner itself, the ROOT pinning window
+`Icc (-(log 2 / 2)) (log 2 / 2)`, and the IFF
+`healthyDetectorData_iff_selectedDetectorArchimedeanGate` that collapses the
+whole healthy-data package to one scalar sign.
+
+This leaf builds the owner that items (a)-(d) of that section require — ONE
+assembled `CompactLogTest` carrying simultaneously:
+
+- the minimal healthy data: `HealthyMinimalLaplaceRealizes rho g` with the
+  normalization `laplaceAt g rho = -1` (the two record-1385 taper owners are
+  realized through the record-1389 value split: the xi-side factor `u` carries
+  the all-ones pattern and the taper factor `f` carries the concentrated
+  `(0, 0, 0, -1)` pattern, so the multiplicative value law of record 1386
+  reproduces `healthyDetectorNodeTarget rho` exactly);
+- the pinning support: `support g.test` inside `Icc (-(log 2 / 2)) (log 2 / 2)`,
+  discharged by the single numeric side condition `Ru + Rf ≤ log 2 / 2` on the
+  record-1386 summed window (1389 section 4);
+- the funded budget: `compactLogL2sq g ≤ (2 * Ru) · ((1 + ε') · K_loc_u) ·
+  ((1 + ε) · K_loc_f)` — the record-1379 Lemma-E quantities at the two value
+  patterns on the two symmetric windows — which is the explicit `hfit`
+  discharge the record-1387 consumer demanded (1388 section 0's R1 commitment,
+  now on the correct 4-node register).
+
+Deliverables, in dependency order:
+
+- `windowGramInverse_cost_re_nonneg`: the inverse-solve cost
+  `y* G⁻¹ y` is nonnegative — at the solved vector the record-1383 quadratic
+  identity is a window integral of a squared modulus (this is the side fact
+  that lets the record-1386 budget be multiplied through `(1 + ε) · K_loc`);
+- `exists_routeAlphaOwner`: the owner — realization, normalization, pinning
+  support, and closed-form budget, all on ONE `CompactLogTest`;
+- `exists_routeAlphaOwner_margin_pos`: the same owner through the record-1387
+  consumer — FIT and (J1) compose with the healthy-data realization on one
+  owner, yielding `0 < δ / 2 - C_min · compactLogL2sq g`;
+- `healthyDetectorData_of_routeAlphaOwner`: the 009 §5 item 4 wiring — the
+  record-1375 promotion template consumed under the ROOT pinning lemma,
+  conditional on the archimedean gate `0 < archimedeanTerm g.convolutionSquare`
+  that records 1080/1081 carry as the open sign, which this leaf does NOT
+  claim.
+
+Lane discipline: FORMAL only. No archimedean-gate proof, no decay rate, no
+numeric digit, no `C_min` or `δ` value, no `HealthyYoshidaDetectorData` field
+is produced unconditionally, no N3/N4 input, no RH-adjacent conclusion. The
+gate `harch` and the budget premises `hfit`/`hJ1` remain hypotheses; their
+discharge is governed by the record-1390 prereg.
+
+Design record: docs/map/009_n2beta_core_bone_completion_contract.md item 5;
+recon record docs/proofs/1389_component5_recon_route_alpha_collapse.md.
+-/
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteAlphaOwner
+
+open MeasureTheory
+open scoped Topology
+open scoped ContDiff
+open CCM25Concrete.CompactLogConvolution
+open CC20YoshidaConvolution.CompactLogTest
+open C1CompactLogL2Export
+open C1WindowMellinGram
+open C1WindowMellinIndependence
+open C1WindowTaperLift
+open C1WindowTaperAssembly
+open C1QuantitativeConsumer
+open CC20YoshidaNearZeros
+open CC20YoshidaConvolution
+open C1HealthyYoshidaDetector
+open C1HealthyYoshidaMinimalInterpolation
+open C1HealthyDetectorPinning
+
+/-! ### The route-alpha register instantiation -/
+
+/-- The route-alpha index type: the four nodes of the register's own minimal
+family, as the subtype the correction interfaces already speak.  Node
+distinctness is NOT needed for this type — the Finset deduplicates — but the
+interpolation wrapper needs an injective enumeration, which the subtype value
+map provides unconditionally. -/
+abbrev routeAlphaIndex (rho : ℂ) : Type :=
+  FiniteMellinNode (healthyDetectorNodeSet rho)
+
+/-- The node map: the subtype value, i.e. the node itself. -/
+def routeAlphaNodes (rho : ℂ) : routeAlphaIndex rho → ℂ := Subtype.val
+
+/-- The xi-side value pattern of the record-1389 split: all-ones on the four
+nodes, so the assembled owner's values are exactly the taper factor's. -/
+noncomputable def routeAlphaBaseValue (rho : ℂ) : routeAlphaIndex rho → ℂ :=
+  fun _ => 1
+
+instance routeAlphaIndex_nonempty (rho : ℂ) :
+    Nonempty (routeAlphaIndex rho) :=
+  ⟨⟨(0 : ℂ), by simp [healthyDetectorNodeSet]⟩⟩
+
+/-! ### The nonnegativity side fact -/
+
+/-- The inverse-solve cost is nonnegative.  At the solved vector `coeff = G⁻¹ y`
+the record-1383 quadratic identity reads `(star coeff) ⬝ᵥ y` as the window
+integral of a squared modulus, and taking real parts (via `congrArg`) already
+presents the right-hand side as the real window integral, which is
+nonnegative.  The solve `G (G⁻¹ y) = y` is record 1384's pinned
+`Matrix.mulVec_mulVec` computation.  This is the side fact that lets the
+record-1386 factorized budget be multiplied through `(1 + ε) · K_loc` in the
+R1 chain. -/
+theorem windowGramInverse_cost_re_nonneg {ι : Type*} [Fintype ι]
+    [DecidableEq ι] {a b : ℝ}
+    (hab : a < b) (nodes : ι → ℂ) (hne : Function.Injective nodes) (y : ι → ℂ) :
+    0 ≤ (dotProduct (star (Matrix.mulVec
+        ↑(windowExpGramMatrix_isUnit_of_injective hab nodes hne).unit⁻¹
+        y)) y).re := by
+  classical
+  let G := windowExpGramMatrix a b nodes
+  let hG := windowExpGramMatrix_isUnit_of_injective hab nodes hne
+  have hsolve : Matrix.mulVec G (Matrix.mulVec (↑hG.unit⁻¹ : Matrix ι ι ℂ) y) =
+      y := by
+    calc Matrix.mulVec G (Matrix.mulVec (↑hG.unit⁻¹ : Matrix ι ι ℂ) y)
+        = Matrix.mulVec (G * (↑hG.unit⁻¹ : Matrix ι ι ℂ)) y :=
+            -- 1384's pin: explicit matrix arguments; the stated direction is
+            -- `M.mulVec (N.mulVec v) = (M * N).mulVec v` (no `.symm`).
+            Matrix.mulVec_mulVec y G (↑hG.unit⁻¹ : Matrix ι ι ℂ)
+      _ = Matrix.mulVec (1 : Matrix ι ι ℂ) y := by rw [hG.mul_val_inv]
+      _ = y := Matrix.one_mulVec y
+  have hqz : (∫ x : ℝ in a..b, ‖∑ i : ι,
+        Matrix.mulVec (↑hG.unit⁻¹ : Matrix ι ι ℂ) y i
+        * Complex.exp (star (nodes i) * (x : ℂ))‖ ^ 2 ∂volume : ℂ)
+      = dotProduct (star (Matrix.mulVec (↑hG.unit⁻¹ : Matrix ι ι ℂ) y)) y := by
+    have := windowExpGram_quadratic_eq_integral a b nodes
+      (Matrix.mulVec (↑hG.unit⁻¹ : Matrix ι ι ℂ) y)
+    rw [hsolve] at this
+    exact this
+  -- 1385's working idiom: orient the quadratic identity integral = dot, rewrite
+  -- the dot away, then collapse the squared-modulus integral's real part with
+  -- `integral_norm_sq_re` (matching `↑(‖W x‖ ^ 2)` up to `ofReal_pow` defeq).
+  rw [← hqz, integral_norm_sq_re]
+  refine intervalIntegral.integral_nonneg hab.le ?_
+  intro x _
+  exact sq_nonneg _
+
+/-! ### The R1 owner -/
+
+/-- R1 (record 1389 section 7, items a-d): ONE compact-log owner on the
+route-alpha register.  Under the numeric pinning side condition
+`Ru + Rf ≤ log 2 / 2`, the record-1385/1386 assembly of the all-ones xi-side
+taper owner with the concentrated `(0, 0, 0, -1)` taper owner realizes the
+minimal healthy data (`HealthyMinimalLaplaceRealizes` with the normalization
+`laplaceAt g rho = -1`), sits in the pinning window, and pays at most the
+closed-form factorized budget `(2 * Ru) · ((1 + ε') · K_loc_u) · ((1 + ε) ·
+K_loc_f)`.  The budget right-hand side is spelled exactly in the record-1387
+`hfit` template shape so the consumer chains by plain `le_trans` (1387's
+byte-identical mirroring law). -/
+theorem exists_routeAlphaOwner
+    (rho : ℂ)
+    (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho)
+    (hoff : rho.re ≠ 1 / 2)
+    {Rf Ru : ℝ} (hRf : 0 < Rf) (hRu : 0 < Ru)
+    (hsum : Ru + Rf ≤ Real.log 2 / 2)
+    {ε ε' : ℝ} (hε : 0 < ε) (hε' : 0 < ε') :
+    ∃ g : CompactLogTest,
+      HealthyMinimalLaplaceRealizes rho g ∧
+        laplaceAt g rho = -1 ∧
+        Function.support g.test ⊆
+          Set.Icc (-(Real.log 2 / 2)) (Real.log 2 / 2) ∧
+        compactLogL2sq g ≤ (2 * Ru)
+          * ((1 + ε') * (dotProduct (star (Matrix.mulVec
+              ↑(windowExpGramMatrix_isUnit_of_injective (neg_lt_self hRu)
+                (routeAlphaNodes rho) Subtype.coe_injective).unit⁻¹
+              (routeAlphaBaseValue rho))) (routeAlphaBaseValue rho)).re)
+          * ((1 + ε) * (dotProduct (star (Matrix.mulVec
+              ↑(windowExpGramMatrix_isUnit_of_injective (neg_lt_self hRf)
+                (routeAlphaNodes rho) Subtype.coe_injective).unit⁻¹
+              (healthyDetectorNodeTarget rho)))
+              (healthyDetectorNodeTarget rho)).re) := by
+  -- (a) the two record-1385 taper owners, one per value pattern.
+  obtain ⟨u, husupp, huval, hucost⟩ :=
+    exists_windowTaperCorrection_cost_le_one_plus_eps (neg_lt_self hRu)
+      (routeAlphaNodes rho) Subtype.coe_injective (routeAlphaBaseValue rho) hε'
+  obtain ⟨g, hgsupp, hgval, hgcost⟩ :=
+    exists_assembledOwner_cost_le (neg_lt_self hRf) (neg_lt_self hRu)
+      (routeAlphaNodes rho) Subtype.coe_injective
+      (healthyDetectorNodeTarget rho) u husupp hε
+  -- (b) the multiplicative value law reproduces the register's target.
+  have hvalues : ∀ z : FiniteMellinNode (healthyDetectorNodeSet rho),
+      laplaceAt g z.1 = healthyDetectorNodeTarget rho z := by
+    intro z
+    have h1 := hgval z
+    have h2 := huval z
+    simp only [routeAlphaNodes, routeAlphaBaseValue] at h1 h2 ⊢
+    rw [h2, one_mul] at h1
+    exact h1
+  have hreal : HealthyMinimalLaplaceRealizes rho g :=
+    healthyMinimalLaplaceRealizes_of_node_values hrho hoff hvalues
+  have hrhoval : laplaceAt g rho = -1 := by
+    have h := hvalues (⟨rho, by simp [healthyDetectorNodeSet]⟩ :
+      FiniteMellinNode (healthyDetectorNodeSet rho))
+    simpa [healthyDetectorNodeTarget] using h
+  -- (c) the summed window lands inside the pinning window under `hsum`.
+  rw [show ((-Ru) + (-Rf) : ℝ) = -(Ru + Rf) by ring] at hgsupp
+  have hsumL : -(Real.log 2 / 2) ≤ -(Ru + Rf) := by linarith
+  have hsupp : Function.support g.test ⊆
+      Set.Icc (-(Real.log 2 / 2)) (Real.log 2 / 2) := by
+    refine Set.Subset.trans hgsupp ?_
+    refine Set.Subset.trans Set.Ioo_subset_Icc_self ?_
+    exact Set.Icc_subset_Icc hsumL hsum
+  -- (d) the closed-form budget: multiply the two funded cost bounds.
+  have h2Ru : (Ru : ℝ) - -Ru = 2 * Ru := by ring
+  rw [h2Ru] at hgcost
+  have hW0 : (0 : ℝ) ≤ 2 * Ru := by linarith
+  have hEf : 0 ≤ (1 + ε) * (dotProduct (star (Matrix.mulVec
+        ↑(windowExpGramMatrix_isUnit_of_injective (neg_lt_self hRf)
+          (routeAlphaNodes rho) Subtype.coe_injective).unit⁻¹
+        (healthyDetectorNodeTarget rho)))
+        (healthyDetectorNodeTarget rho)).re :=
+    mul_nonneg (by linarith : (0 : ℝ) ≤ 1 + ε)
+      (windowGramInverse_cost_re_nonneg (neg_lt_self hRf)
+        (routeAlphaNodes rho) Subtype.coe_injective
+        (healthyDetectorNodeTarget rho))
+  have hstep1 : (2 * Ru) * compactLogL2sq u ≤
+      (2 * Ru) * ((1 + ε') * (dotProduct (star (Matrix.mulVec
+          ↑(windowExpGramMatrix_isUnit_of_injective (neg_lt_self hRu)
+            (routeAlphaNodes rho) Subtype.coe_injective).unit⁻¹
+          (routeAlphaBaseValue rho))) (routeAlphaBaseValue rho)).re) :=
+    mul_le_mul_of_nonneg_left hucost hW0
+  have hstep2 : (2 * Ru) * compactLogL2sq u * ((1 + ε) * (dotProduct (star
+          (Matrix.mulVec
+            ↑(windowExpGramMatrix_isUnit_of_injective (neg_lt_self hRf)
+              (routeAlphaNodes rho) Subtype.coe_injective).unit⁻¹
+            (healthyDetectorNodeTarget rho)))
+            (healthyDetectorNodeTarget rho)).re) ≤
+      (2 * Ru) * ((1 + ε') * (dotProduct (star (Matrix.mulVec
+          ↑(windowExpGramMatrix_isUnit_of_injective (neg_lt_self hRu)
+            (routeAlphaNodes rho) Subtype.coe_injective).unit⁻¹
+          (routeAlphaBaseValue rho))) (routeAlphaBaseValue rho)).re)
+        * ((1 + ε) * (dotProduct (star (Matrix.mulVec
+            ↑(windowExpGramMatrix_isUnit_of_injective (neg_lt_self hRf)
+              (routeAlphaNodes rho) Subtype.coe_injective).unit⁻¹
+            (healthyDetectorNodeTarget rho)))
+            (healthyDetectorNodeTarget rho)).re) :=
+    mul_le_mul_of_nonneg_right hstep1 hEf
+  exact ⟨g, hreal, hrhoval, hsupp, le_trans hgcost hstep2⟩
+
+/-- 009 §5 items 2-3 composed on one owner: the record-1387 margin consumer
+`margin_pos_of_owner_cost_fits` applied to the R1 owner's funded budget — if
+the closed-form ceiling fits (`hfit`, now an assumption about real numbers to
+be confirmed by the record-1390 rig) and obeys (J1), the SAME owner that
+carries the minimal healthy data and the pinning support also carries the
+strictly positive local-mass margin `0 < δ / 2 - C_min · compactLogL2sq g`.
+-/
+theorem exists_routeAlphaOwner_margin_pos
+    (rho : ℂ)
+    (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho)
+    (hoff : rho.re ≠ 1 / 2)
+    {Rf Ru : ℝ} (hRf : 0 < Rf) (hRu : 0 < Ru)
+    (hsum : Ru + Rf ≤ Real.log 2 / 2)
+    {ε ε' : ℝ} (hε : 0 < ε) (hε' : 0 < ε')
+    {δ Cmin ceiling : ℝ} (hC : 0 < Cmin)
+    (hfit : (2 * Ru)
+        * ((1 + ε') * (dotProduct (star (Matrix.mulVec
+            ↑(windowExpGramMatrix_isUnit_of_injective (neg_lt_self hRu)
+              (routeAlphaNodes rho) Subtype.coe_injective).unit⁻¹
+            (routeAlphaBaseValue rho))) (routeAlphaBaseValue rho)).re)
+        * ((1 + ε) * (dotProduct (star (Matrix.mulVec
+            ↑(windowExpGramMatrix_isUnit_of_injective (neg_lt_self hRf)
+              (routeAlphaNodes rho) Subtype.coe_injective).unit⁻¹
+            (healthyDetectorNodeTarget rho)))
+            (healthyDetectorNodeTarget rho)).re) ≤ ceiling)
+    (hJ1 : ceiling < δ / (2 * Cmin)) :
+    ∃ g : CompactLogTest,
+      HealthyMinimalLaplaceRealizes rho g ∧
+        laplaceAt g rho = -1 ∧
+        Function.support g.test ⊆
+          Set.Icc (-(Real.log 2 / 2)) (Real.log 2 / 2) ∧
+        0 < δ / 2 - Cmin * compactLogL2sq g := by
+  obtain ⟨g, hreal, hrhoval, hsupp, hcost⟩ :=
+    exists_routeAlphaOwner rho hrho hoff hRf hRu hsum hε hε'
+  exact ⟨g, hreal, hrhoval, hsupp,
+    margin_pos_of_owner_cost_fits hC g (le_trans hcost hfit) hJ1⟩
+
+/-! ### The gate-conditional healthy-data wiring (009 §5 item 4) -/
+
+/-- The wiring, conditional on the gate: the record-1375 promotion template
+consumed through the ROOT pinning lemma
+`convolutionSquare_support_logTwo_of_rootSupport_logTwoHalf`.  The hypothesis
+`harch` is the open sign that records 1080/1081 carry
+(`selectedDetectorArchimedeanGate`); this leaf does NOT claim it, and by the
+record-1389 IFF nothing else about the owner is missing — the support,
+vanishings, detection, and smoothness sides are all already discharged by
+`exists_routeAlphaOwner` plus `healthyCC20CompactSupportSmooth`. -/
+theorem healthyDetectorData_of_routeAlphaOwner
+    {rho : ℂ} {g : CompactLogTest}
+    (hreal : HealthyMinimalLaplaceRealizes rho g)
+    (hsupp : Function.support g.test ⊆
+      Set.Icc (-(Real.log 2 / 2)) (Real.log 2 / 2))
+    (harch : 0 < C1SameOwnerWeil.archimedeanTerm g.convolutionSquare) :
+    HealthyYoshidaDetectorData rho g :=
+  healthyDetectorData_of_HealthyMinimalLaplaceRealizes_of_archimedeanTerm_pos
+    hreal
+    (convolutionSquare_support_logTwo_of_rootSupport_logTwoHalf g hsupp)
+    harch
+
+end C1RouteAlphaOwner
+end Source
+end ConnesWeilRH
