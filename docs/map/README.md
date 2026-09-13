@@ -434,7 +434,43 @@ Read the current records in this order for a full-map review:
     CONSTRUCTION: rungs 1-4 closed/frozen, rung 5 (B0b-iff-SourceRH)
     needs a proof idea, which no rig or brick can supply. Nothing was
     falsified (kill scope honored); RH not claimed, in either
-    direction.
+    direction. (Scope correction by 1405 §1: "empty" meant the
+    rig/brick queue; the 004 endpoint audit's OPEN external bridges
+    M1-M6 were executable paper surface all along.)
+35. [1405](../proofs/1405_chuk_pillarB_bridge_recon_and_cross_term_probe_prereg.md)
+    → [1406](../proofs/1406_chuk_bridge_probe_outcome_covers_owner.md):
+    THE CHUK BRIDGE CROSS-TERM PROBE — VERDICT COVERS_OWNER, by DOUBLE
+    STRUCTURAL KILL, escalated as a dictionary triangle, not consumed.
+    F15 applied to 1404's "queue empty" verdict located the live
+    external obligation (arXiv:2608.24827, Thm 1.2 Q >= 8.9e-18||f||^2
+    on supp <= 0.8, complex "no parity or reality restriction" via
+    sector definition; classical real case Yoshida 1992 on
+    +-(log2)/2). Probe = one cell (tier-1 beta owner), psi(F_h) vs
+    psi(F_r)+psi(F_m) vs cross. Invocation ledger 5 deep (3 crashes,
+    1 G0-FAIL of a reconstructed functional, 1 valid) — the G0
+    convention gate caught its own host's dropped tail term
+    reF0*log(tanh(Rg)) (= 1404's own lntanh line, closed loop) for four
+    runs until the transcription law (F17) was obeyed. inv5 VALID:
+    G0..G4 all PASS, P_h = +17.34310991158 (instrument to 2.07e-12),
+    P_x = 1.16e-16. Kill (a): psi's kernels all read the even part of F
+    (`C1SameOwnerWeil.lean:31-52,36-41`), so the imaginary-odd cross is
+    annihilated identically for ANY owner — Chuk's sector definition
+    reaches psi's full sight. Kill (b): the EvenOddPair solve data is
+    odd-equivariant (targets (1,-1,0x5)), so tier-1 h is exactly odd
+    (defects 0.0), F_h itself real-even; owners are genuinely complex
+    (phase-degeneracy ruled out at 0.23 deviation) yet invisible to
+    psi beyond sector norms. Prereg EXCLUDES branch was UNREACHABLE by
+    construction — F16 born (branches must be able to fire).
+    Escalation (prereg COVERS reading, no silent fix): triangle
+    {machine-checked chain not-RH ==> psi<0 on windowed owners} x
+    {Yoshida/Chuk Q>=0 on the same window} x {dictionary psi = Q}
+    cannot all hold; by kernel soundness the dictionary must fail
+    somewhere (pole convention `+2c^2-2s^2` vs paired `laplaceAt`
+    looks prima facie different) — the residual M2 content is now ONE
+    scalar double-evaluation on a real test (1407 candidate), and even
+    a + outcome would leave rung 5 (B0b-iff-SourceRH) formally open
+    (law 65: all numbers MODEL). Nothing falsified; RH not claimed in
+    either direction.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).

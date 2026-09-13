@@ -1,10 +1,16 @@
 # 1405 probe: Chuk arXiv:2608.24827 pillar-B dictionary -> cross-term test.
+# Rev2: inv1's A-functional was reconstructed from the 1397 derivation and
+# dropped the analytic tail term + the owner.Cg kink grid -> G0 FAIL ->
+# invocation VOID (law 7j: artifacts renamed *.inv1.*, disclosed in 1406).
+# The functional is now a VERBATIM transcription of run_1398_rig.compute_A
+# with only the F call site substituted. Prereg file UNTOUCHED; gate
+# classes UNCHANGED (law 42: this rev enforces the prereg's own section 4).
 # ONE cell (tier-1 beta owner). Instruments imported VERBATIM from
 # run_1403_rig (solve/owner/gd_lap) and run_1398_rig (_S_np, _panels,
 # compute_A). Prereg: docs/proofs/1405_chuk_pillarB_bridge_recon_and_
 # cross_term_probe_prereg.md sections 4-5. Model-level only (law 65).
 # No Lean touched. RH not claimed.
-import sys, os, time, json, hashlib
+import sys, os, time, json, math, hashlib
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import mpmath as mp
 import numpy as np
@@ -93,49 +99,81 @@ def F_d(y):
                            - r_np(u_y) * r_np(xs) - m_np(u_y) * m_np(xs)))
     return acc
 
-# ------------------------------------------------------- generic arch (mp)
-LOG4PI_G = mp.log(4 * mp.pi) + mp.euler
+# ------------------------------------------- arch functional: VERBATIM 1398
+# Rev2 (disclosed 1406): inv1 violated this file's own prereg section 4
+# ("No reimplementation of the ... A-functional") by reconstructing the
+# functional from the 1397 paper derivation. The reconstruction dropped
+# (i) the analytic tail term reF0 * log(tanh(Rg)) - the closed-form
+# int_{2Rg}^inf of -2F0/(2 sinh y) beyond the support of F - and (ii) the
+# owner.Cg kink grid, and integrated to 2*rOut instead of 2*Rg. G0 caught
+# it (FAIL at 2.5e1), exactly the gate's purpose. The functions below are
+# line-by-line transcriptions of run_1398_rig.compute_A; the ONLY edit is
+# replacing the F_at(owner, y, npw) call site by an evaluator argument, so
+# sector and cross autocorrelations pass through the same functional.
+# A_float is the instrument's own float64 path; A_mp replicates its grid
+# with 200-bit summation arithmetic (F values remain float64-sourced:
+# G1 audits the summation class, not the integrand class).
+def _agrid():
+    """compute_A's breakpoint grid, verbatim."""
+    Rg = own.Rg
+    ks = set()
+    for c1 in own.Cg:
+        for c2 in own.Cg:
+            for v in (abs(c1 + c2), abs(c1 - c2)):
+                if 1e-9 < v < 2 * Rg:
+                    ks.add(v)
+    for c in own.Cg:
+        if 1e-9 < abs(c) < 2 * Rg:
+            ks.add(abs(c))
+    ys = sorted(ks)
+    ys = [0.0] + [y for y in ys if y > R.Y0] + [2.0 * Rg]
+    if R.Y0 < 2 * Rg:
+        ys = sorted(set(ys) | {R.Y0})
+    freq = 2.0 * abs(np.imag(own.nodes[3])) + 2.0
+    return Rg, freq, ys
 
-# mpmath 1.4.1 has no leggauss: float64 GL-24 nodes/weights (exact to
-# ~1e-16, the panel error is far below every tie class since the F
-# values feeding the integrand are float64-sourced anyway), lifted to
-# mp for the arithmetic.
-_glx, _glw = np.polynomial.legendre.leggauss(24)
-_XG = [M(str(float(v))) for v in _glx]
-_WG = [M(str(float(v))) for v in _glw]
 
-def A_of(F, panels=32):
-    """archimedeanTerm of a test F, FIXED mp Gauss-Legendre panels over
-    float-sourced F values (adaptive mp.quad over float64 data spins:
-    its 200-digit error controller chases 16-digit noise - inv2 stall).
-    int_0^supp [e^{y/2}(F(y)+F(-y)) - 2F(0)]/(2 sinh y) dy; nodes are
-    strictly interior, y = 0 never sampled."""
+def A_float(F):
+    """compute_A float64, verbatim, with F evaluator substituted."""
+    Rg, freq, ys = _agrid()
     F0 = complex(F(0.0))
-    end = 2 * rOut
+    reF0 = F0.real
+    integ = 0.0 + 0.0j
+    for a, b in zip(ys[:-1], ys[1:]):
+        xn, wn = R._panels([a, b], freq, R.NPW_DEFAULT)
+        if xn.size == 0:
+            continue
+        Fy = np.array([complex(F(float(t))) for t in xn])
+        num = np.exp(xn / 2) * 2 * np.real(Fy) - 2 * reF0
+        den = np.exp(xn) - np.exp(-xn)
+        integ += complex(np.sum(wn * num / den))
+    A = complex(R.LOG4PI_G * F0 + integ
+                + reF0 * math.log(math.tanh(Rg)))
+    return float(A.real)
+
+
+LOG4PI_G = M(str(R.LOG4PI_G))
+
+
+def A_mp(F):
+    """Same grid, 200-bit summation arithmetic."""
+    Rg, freq, ys = _agrid()
+    F0 = complex(F(0.0))
+    reF0 = M(str(F0.real))
+    mn = lambda v: M(str(float(v)))
     total = M(0)
-    half = end / panels
-    for k in range(panels):
-        a = end * M(k) / panels; b = a + half
-        mid = (a + b) / 2
-        for xi, wi in zip(_XG, _WG):
-            y = half * xi + mid
-            num = mp.re(mp.exp(y / 2) * (MC(F(y)) + MC(F(-y)))
-                        - 2 * MC(F0))
-            total += half * wi * num / (mp.e ** y - mp.e ** (-y))
-    return LOG4PI_G * M(str(F0.real)) + total
-
-def A_trapz(F):
-    """float dense-grid mirror for G1."""
-    end = 2 * own.rOut
-    ys = np.linspace(1e-9, end, 131072)
-    F0 = complex(F(0.0))
-    Fy = np.array([F(y) for y in ys[:-1]])
-    Fneg = np.array([F(-y) for y in ys[:-1]])
-    g = np.real(np.exp(ys[:-1] / 2) * (Fy + Fneg) - 2 * F0) \
-        / (2.0 * np.sinh(ys[:-1]))
-    dy = np.diff(ys[:-1])
-    integral = float(np.sum(0.5 * (g[:-1] + g[1:]) * dy))
-    return float((np.log(4 * np.pi) + np.euler_gamma) * F0.real) + integral
+    for a, b in zip(ys[:-1], ys[1:]):
+        xn, wn = R._panels([a, b], freq, R.NPW_DEFAULT)
+        if xn.size == 0:
+            continue
+        for t, w in zip(xn, wn):
+            yt = mn(t)
+            Fy = MC(F(float(t)))
+            num = mp.exp(yt / 2) * 2 * mp.re(Fy) - 2 * reF0
+            den = mp.exp(yt) - mp.exp(-yt)
+            total += mn(w) * num / den
+    tail = reF0 * mp.log(mp.tanh(mn(Rg)))
+    return LOG4PI_G * reF0 + total + tail
 
 # ------------------------------------------------------------ gates / run
 def main():
@@ -143,22 +181,29 @@ def main():
     # committed-instrument cross-check (G0 + convention alignment)
     A1398, F01398, S1398 = R.compute_A(own)
     res['A_instrument'] = float(A1398)
+    res['F0_instrument_re'] = float(np.real(F01398))
     res['probe_vs_instrument_F'] = [
         float(abs(complex(F_h(y)) - complex(R.F_at(own, y, 24))))
-        for y in (0.0, 0.05, 0.2, 0.4)]
-    A_h = A_of(F_h)
+        for y in (0.0, 0.05, 0.2, 0.4, 0.55, 0.65)]
+    A_h = A_float(F_h)
     res['A_h'] = str(A_h); res['A_h_f'] = float(A_h)
-    res['G0'] = bool(abs(A_h - REF_A) <= G0_TIE)
-    # G1: mp-vs-float-mirror per quantity
-    A_r = A_of(F_r); A_m = A_of(F_m); A_d = A_of(F_d)
+    res['G0'] = bool(abs(M(str(A_h)) - REF_A) <= G0_TIE)
+    # per-quantity mp-vs-float summation agreement (G1)
+    A_r = A_float(F_r); A_m = A_float(F_m); A_d = A_float(F_d)
     res.update({'A_r': str(A_r), 'A_m': str(A_m), 'A_d': str(A_d),
                 'A_r_f': float(A_r), 'A_m_f': float(A_m), 'A_d_f': float(A_d)})
-    res['G1'] = max(abs(float(A_h) - A_trapz(F_h)),
-                    abs(float(A_r) - A_trapz(F_r)),
-                    abs(float(A_m) - A_trapz(F_m)),
-                    abs(float(A_d) - A_trapz(F_d))) \
-        / max(1.0, abs(float(A_h)))
+    res['A_mp_vs_float'] = [
+        abs(A_mp(F) - M(str(A_float(F)))) / max(M(1), abs(M(str(A_float(F)))))
+        for F in (F_h, F_r, F_m, F_d)]
+    res['G1'] = float(max(res['A_mp_vs_float']))
     res['G1_ok'] = bool(res['G1'] <= G1_TIE)
+    # inv1 forensics: split the VOID run's G0 gap (INV1_A_H from the
+    # renamed artifact docs/proofs/1405_probe_results.inv1.json) into the
+    # dropped analytic tail vs the grid/domain transcription residue.
+    tail_term = complex(F_h(0.0)).real * math.log(math.tanh(own.Rg))
+    res['forensic_tail_term'] = tail_term
+    res['forensic_inv1_gap'] = -42.7645220321604053 - A_h
+    res['forensic_grid_residue'] = res['forensic_inv1_gap'] - tail_term
     # poles: |lapAt h(+-1/2)|^2 sums (real/Hermitian tests), primes = 0
     Lp = B.gd_lap(own, complex(0.5)); Lm = B.gd_lap(own, complex(-0.5))
     res['pole_terms_max'] = float(abs(Lp) ** 2 + abs(Lm) ** 2)
