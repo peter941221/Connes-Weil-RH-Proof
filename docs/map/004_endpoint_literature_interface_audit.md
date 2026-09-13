@@ -450,3 +450,42 @@ route change. The active route remains the healthy-`CompactLog`, B5-shaped
 route selected by record 003. New work must target P2 directly or prove a
 support-and-convention bridge that lets a valid compact-window theorem supply
 P2 for the selected detector.
+
+## 8. Addendum 2026-09-14: the wall anatomy after records 1402/1408/1411/1415
+
+The sections above predate the wall re-partition of record 1402 and the F2
+formal campaign (records 1412-1415). The unresolved face, in its current
+exact form, is the surviving gate
+
+    forall healthy-vanishing g,  0 <= C1SameOwnerWeil.qw g
+
+which is machine-equivalent to `SourceRH` (`weilCriterion_iff_sourceRH`,
+`ConnesWeilRH/Dev/C1WeilCriterionEquivalence.lean:136`): the wall IS the
+Riemann hypothesis in normal form. What any proof must overcome is now a
+finite, evidenced list:
+
+| # | obstacle | content | evidence |
+| :-- | :-- | :-- | :-- |
+| O1 | quantifier scale | no decomposition below full strength exists: pillar A (anchor sign) closed at MODEL, pillar B (universal endpoint certificates) is the gate itself | 1402 recon; 1415 campaign closure |
+| O2 | radius gap | positivity certificates live at fixed windows (support <= 0.8 / <= log2/2); tower-forced counterexample owners have height-dominated support (R >= 2^(n0+1) + 2 + dist(2,rho)); the paper's own equivalence: positivity for every L <=> RH | 1408 verbatim premises (C1HealthyYoshidaSpectralNegativity.lean:535,543,568-571; C1HealthyDetectorRootSupportExit.lean:78-81); 1411 closure |
+| O3 | content-fixed sign mechanism | the archimedean functional on solved interpolants measured 107/107 negative across both natural content classes; no taper lever (delta/R <= ~1e-12 on the (J1)-feasible region) | 1399/1401/1404 outcomes; law F14 |
+| O4 | citation leg | the formal identity `psi F = spectralWeilValue F` (arithmetic = our zero-spectral sum) is landed and unconditional for every test; the step "our spectral value = the paper's classical Q" is a definitions-citation claim, MODEL-verified PLUS_ONE cellwise, never a Lean Prop | 1415 recon (C1SpectralSummability.lean:372; C1XiCenterTwoArithmeticAssembly.lean:232,240); 1407/1410 cells |
+| O5 | blindness saturation | `psi` annihilates odd tests, splits sums, and is unconditionally reflection-invariant: the psi-side cannot see more than the even-real sector, so no richer sector decomposition of the test can change its value | 1412/1413/1414 leaves + audits |
+
+Attack classes spent on this face (each closed with a verdict, none
+silently): B0a no-fire probe (1343); the A-series literature screen - every
+candidate positivity theorem encountered was the same Weil-Bombieri wall in
+different clothes (1342-1353); Connes 9811068-era operator positivity and
+Maynard-Pratt (1355-1364, COLD); rung-3 measurement families (1397-1404);
+route-beta (1402-1404); the Chuk certificate species end-to-end
+(1405-1411); the F2 formal bridge campaign (1412-1415, product: 51
+declarations, all standard-axiom, none carrying a sign claim).
+
+Operational conclusion: no mechanical or measurement work remains that
+touches the gate. What could change the state is analytic content of
+strength comparable to RH itself (O2's propagation from fixed windows to
+all supports being the canonical form), supplied as an idea, at which point
+this register's formal surface - tower, B0b equivalence, dictionary
+identity, and psi-blindness bundle, all committed and standard-axiom - is
+in its strongest-ever state to receive and machine-check it. The default
+posture remains the freeze recommended by records 1411 and 1415.

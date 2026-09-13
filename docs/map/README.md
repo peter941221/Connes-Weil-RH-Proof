@@ -30,7 +30,10 @@ traceability.
 ```
 
 `003` controls route choice. `004` controls the active endpoint-certificate
-scope. `001` and `002` supply the load-bearing architecture and dependency
+scope and, via its section 8 addendum (2026-09-14), carries the current wall
+anatomy: the finite obstacle ledger O1-O5 and the registry of spent attack
+classes that any future proof attempt against the gate `0 <= qw` must
+confront. `001` and `002` supply the load-bearing architecture and dependency
 boundaries; neither authorizes a frozen B1 campaign or a separate RH route.
 `005` registers candidate producer designs for the P2 scalar witness under
 the 1140 admission constraints; it adds no authority. `006` is binding on
@@ -600,6 +603,24 @@ Read the current records in this order for a full-map review:
     face; remaining toward RH = the wall (proof idea, owner
     decision) or certificate imports assessed as consumable by
     nothing (1408 radius disjointness unchanged). RH not claimed.
+42. [004 section 8](004_endpoint_literature_interface_audit.md) — WALL
+    ANATOMY ADDENDUM (2026-09-14, no new math): the post-1402/1415 state of
+    the unresolved face in one table. The gate `0 <= qw` is machine-equivalent
+    to SourceRH (`weilCriterion_iff_sourceRH`,
+    `C1WeilCriterionEquivalence.lean:136`); what any proof must overcome is
+    the finite ledger O1 (quantifier scale: no decomposition below full
+    strength), O2 (radius gap: fixed-window certificates versus
+    height-dominated counterexample supports; the paper's own equivalence
+    "positivity for every L <=> RH"), O3 (content-fixed sign: 107/107
+    negative measurements, no taper lever), O4 (citation leg: the landed
+    identity `psi = spectralWeilValue` versus the MODEL-only agreement with
+    the paper's Q), O5 (blindness saturation: the psi-side cannot see more
+    than the even-real sector). Attack classes spent on the face are listed
+    with verdicts; the operational conclusion is unchanged: further progress
+    requires analytic content of RH strength, supplied as an idea, which
+    this register - tower, equivalence, dictionary identity, blindness
+    bundle, all standard-axiom - is ready to receive and machine-check. RH
+    not claimed.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
