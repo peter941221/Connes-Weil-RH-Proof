@@ -111,7 +111,9 @@ N2beta component 2c-core: actual Mellin representer instantiation,
 N2beta component 2c-tail: window independence of the actual
   exponential family, Gram trivial-kernel/invertibility for
   distinct nodes, K_loc inverse-solve cost instance       FORMAL DONE
-N2beta component 3: taper and inverse stability                  OPEN
+N2beta component 3: smooth taper lift to the one-plus-eps local
+  budget, with the perturbed-Gram inverse consumed through the
+  trivial-kernel law                                     FORMAL DONE
 N2beta component 4: Young/convolution final-owner budget         OPEN
 N2beta component 5: quantitative F1/F2 and N1c consumption      OPEN
 N3/N4 total-budget closure                                       OPEN
@@ -181,10 +183,32 @@ lower bound of `compactLogL2sq f` for every supported test realizing the
 target values on distinct nodes. The rank-deficient branch is characterized:
 it occurs only for coinciding nodes.
 
-What remains of 009 is components 3–5: the smooth taper with its perturbed
-Gram stability, the Young/convolution same-owner budget, and the quantitative
-F1/F2 recast that assembles one healthy detector and presents its `K_loc` to
-the N1c budget digit-by-digit. The value-realization interface
-(`laplaceAt f (node i) = y i`) is still the open analytic input the assembly
-must supply; no orbit is instantiated and no numeric margin is registered in
-the formal lane.
+**Component 3 is now FORMAL.** The leaves
+`ConnesWeilRH/Dev/C1WindowTaperCore.lean` (paired Audit; taper Gram
+identities, per-node trivial-kernel invertibility of the tapered Gram for
+distinct nodes, and the solve lemma) and
+`ConnesWeilRH/Dev/C1WindowTaperLift.lean` (paired Audit; WSL build
+`009_taperlift_accept.log`: zero errors, zero `sorryAx`, all 17 audit
+prints exactly `[propext, Classical.choice, Quot.sound]`) realize the
+smooth-taper lane end to end. The lift leaf proves the uniform bound of a
+representer combination on the window, the strict positivity of the
+untapered energy off the origin, its continuity and the sphere-minimum
+spectral gap `α > 0` with `α ‖v‖² ≤ v* G v`, the sliver estimate for a
+taper equal to one on a sub-window, and the `windowTaperCorrection` owner:
+an actual `CompactLogTest` built from a `ContDiffBump` taper (support in
+the open window, exact `laplaceAt` realization of every node value through
+the SOLVED tapered system, cost at most the tapered quadratic). The budget
+theorem squeezes the owner cost between the two solves,
+`(α - η) · compactLogL2sq f ≤ α · (star z ⬝ᵥ y).re`, and the wrapper
+delivers the contract quantity: for every `ε > 0` there exists a supported
+owner realizing every node value with
+`compactLogL2sq f ≤ (1 + ε) * K_loc`. The perturbed-Gram inverse is
+consumed through the 1384 trivial-kernel law, so inverse stability is
+machine-checked rather than assumed. No decay rate, no orbit instantiation,
+and no numeric margin is registered on the formal lane.
+
+What remains of 009 is components 4–5: the Young/convolution same-owner
+budget, and the quantitative F1/F2 recast that assembles one healthy
+detector and presents its `K_loc` to the N1c budget digit-by-digit. No
+orbit is instantiated and no numeric margin is registered in the formal
+lane.

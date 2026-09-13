@@ -180,8 +180,18 @@ Read the current records in this order for a full-map review:
     closed-form entries — and its tail: window independence of the
     exponential family, trivial Gram kernel and invertibility for
     distinct nodes, and the `K_loc = y* G⁻¹ y` inverse-solve lower bound
-    for the N1c interface. Components 3–5 (taper, Young budget,
-    quantitative F1/F2) remain open.
+    for the N1c interface.
+17. [1385](../proofs/1385_component3_taper_lift.md): N2β component 3 FORMAL
+    — the smooth taper lift. Uniform combination bound, strict positivity
+    and continuity of the untapered energy, the sphere-minimum spectral
+    gap `α`, the sliver estimate for a taper flat on a sub-window, and the
+    `windowTaperCorrection` owner: an actual `CompactLogTest` from a
+    `ContDiffBump` taper, supported in the open window, realizing every
+    node value through the SOLVED tapered system, with the machine-checked
+    squeeze `(α - η) · cost ≤ α · (star z ⬝ᵥ y).re` and the contract
+    wrapper `∃ f, support ⊆ Ioo a b ∧ ∀ i, laplaceAt f (nodes i) = y i ∧
+    compactLogL2sq f ≤ (1 + ε) * K_loc` for every `ε > 0`. Components 4–5
+    (Young budget, quantitative F1/F2) remain open.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
