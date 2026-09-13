@@ -572,6 +572,34 @@ Read the current records in this order for a full-map review:
     legs. The owner-specific identification of the Chuk cross term
     belongs to brick 4's consumer statement; wall untouched; no sign,
     no positivity, RH not claimed.
+41. [1415](../proofs/1415_brick4_phantom_dictionary_already_landed_campaign_closed.md)
+    — FORMAL CAMPAIGN BRICK 4 IS A PHANTOM - THE DICTIONARY WAS
+    ALREADY LANDED; F2 CAMPAIGN CLOSED. Prereg recon (zero code)
+    found the dictionary proposition `gate2ExplicitFormula F`
+    (SpectralSummable AND `psi F = spectralWeilValue F`) fully
+    machine-checked for EVERY test, unconditionally: summability via
+    the geometric height-multiplicity bound
+    (`C1SpectralSummability.lean:372`), identity via the proved
+    half-anchor Gauss contract (`centerTwo_arithmetic_eq_spectral`,
+    `C1XiCenterTwoArithmeticAssembly.lean:232`), full Prop
+    `gate2ExplicitFormula_centerTwo` (:240), and the wall itself
+    consumes the same bridge
+    (`qw_eq_spectralWeilValue_centerTwo`,
+    `C1CenterTwoCriterionBridge.lean:28`); fresh probe re-run prints
+    4/4 standard-axiom trios. Honest boundary: the INTERNAL
+    dictionary (arithmetic functional = zero-spectral sum, both
+    ours) is machine fact; the EXTERNAL dictionary (our spectral
+    value = the paper's classical Q, sign and normalization) is a
+    definitions-citation claim verified cellwise by 1407/1410
+    MODEL measurements - the two now cross-validate. Kill (a)
+    end-to-end is fully formal (1412+1413+1414+landed identity).
+    Mispricing diagnosis: law F8 (recon the register first) recurring
+    at campaign-planning scale - caught at prereg by law F15, saving
+    days of duplication. Campaign product: 51 declarations, 3 GREEN
+    leaves + audits. Queue after closure: empty on every executable
+    face; remaining toward RH = the wall (proof idea, owner
+    decision) or certificate imports assessed as consumable by
+    nothing (1408 radius disjointness unchanged). RH not claimed.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
