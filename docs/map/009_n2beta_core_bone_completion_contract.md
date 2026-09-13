@@ -118,8 +118,11 @@ N2beta component 4: Young/convolution final-owner budget         FORMAL DONE
 N2beta component 5-shape: route-(A) margin consumer,
   (FIT) + (J1) as separate named premises, Lemma-D bridge
   consumption, F1/F2 value hooks                                 FORMAL DONE
-N2beta component 5-discharge: orbit instantiation (hfit),
-  rig-confirmed digits (hJ1), healthy-data wiring                OPEN
+N2beta component 5-discharge: R1 leaf on the route-alpha
+  4-node register (hfit), rig-confirmed digits (hJ1),
+  healthy-data wiring                                            OPEN
+Archimedean gate: 0 < archimedeanTerm g.convolutionSquare
+  (records 1080/1081; inherited, not an N2beta obligation)       OPEN
 N3/N4 total-budget closure                                       OPEN
 ```
 
@@ -294,19 +297,41 @@ nonvanishing target keeps it detecting), the consumer deliverable
 window and node values, now carrying `0 < δ/2 − C_min · compactLogL2sq g`), and
 the shape-layer endpoint `exists_assembledOwner_bandBridge_pos` (`0 < B_δ`).
 
-**Component 5 discharge layer is OPEN**, and is all that remains of 009. Its
-content is exactly four items, in this order:
+**Component 5 discharge layer is OPEN**, and is all that remains of 009. A
+source recon (record
+[1389](../proofs/1389_component5_recon_route_alpha_collapse.md)) re-scoped it
+before any digit was computed and corrected two locks in the first prereg. Its
+content is now exactly five items:
 
-1. the prereg document fixing `δ`, the window `(a, b)`, `d = Re s_v`, the node
-   family and the value pattern `y` BEFORE any digit is computed — COMMITTED as
-   [1388](../proofs/1388_component5_route_A_prereg.md) under the
-   record-1373 protocol; its section 7 names the run precondition that is not
+1. the prereg document fixing `δ`, the window radii, `d = Re s_v`, the node
+   family and the value pattern BEFORE any digit is computed — first committed
+   as [1388](../proofs/1388_component5_route_A_prereg.md), now **SUPERSEDED**
+   by [1390](../proofs/1390_component5_route_A_prereg_v2.md) under the
+   record-1373 protocol (a model revision requires a new record and a new
+   prereg, not an edit). 1390 section 5 names the run precondition that is not
    yet satisfied;
-2. the orbit instantiation discharging `hfit`;
-3. the rig-confirmed digits discharging `hJ1`;
-4. the healthy-data wiring through the two value hooks — note that the register
-   kill set `cc20TripleFiniteVanishingSet` is FIXED, so the node family must
-   contain it rather than be chosen freely.
+2. the **R1 leaf**: one owner `g = u.convolution f` on the route-alpha register
+   discharging `hfit`. Recon verdict — items (a), (b), (d) of 1389 section 7 are
+   wiring over the green record-1385/1386/1387 components, and item (c) is the
+   single numeric side condition `Ru + Rf ≤ log(2)/2`;
+3. the rig-confirmed digits discharging `hJ1`, gated by 1390;
+4. the healthy-data wiring. The register kill set
+   `cc20TripleFiniteVanishingSet` is FIXED, so the node family must contain it
+   rather than be chosen freely. On the route-alpha register the family is the
+   4-node `healthyDetectorNodeSet rho = {0, 1/2, 1, rho}` with the vanishings on
+   `g` itself, and
+   `healthyDetectorData_iff_selectedDetectorArchimedeanGate` makes the whole
+   package **equivalent** to one scalar sign;
+5. **that sign**: `0 < archimedeanTerm g.convolutionSquare`. This is a
+   PRE-EXISTING open item from records 1080/1081 (`selectedDetectorArchimedeanGate`),
+   not an N2beta creation, and it is not closed by any of items 1--4. It is
+   scale-invariant (1389 section 6), so it constrains the owner's shape while
+   (J1) constrains its magnitude.
+
+Items 1--4 are N2beta obligations. Item 5 is register-level open science that
+009 inherits rather than owns; route beta (`C1SelectedSquareHeightTail`)
+discharges positivity differently, through the height-tail budget, at the cost
+of an `(n+1)`-fold iterate, two decay constants, and a growing support window.
 
 No orbit is instantiated and no numeric margin is registered in the formal
 lane. No `HealthyYoshidaDetectorData` field is produced by the shape layer.

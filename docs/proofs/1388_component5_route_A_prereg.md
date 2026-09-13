@@ -1,5 +1,33 @@
 # 1388 — Preregistration: N2beta component 5 discharge rig (route A, MODEL evidence)
 
+```text
+STATUS: SUPERSEDED — DO NOT RUN.  Superseded the same day, before any digit,
+by [1390](1390_component5_route_A_prereg_v2.md).  Two locked items were wrong,
+found by the source recon recorded in
+[1389](1389_component5_recon_route_alpha_collapse.md):
+
+  (1) section 1 locked the orbit package's 7-node family
+      `sourceFunctionalEquationOrbit rho`.  The route-alpha register that this
+      prereg's own R1 commitment targets uses the 4-node family
+      `healthyDetectorNodeSet rho = {0, 1/2, 1, rho}`
+      (`C1HealthyYoshidaMinimalInterpolation.lean:27-28`), with the vanishings
+      on `g` itself rather than on its square.
+
+  (2) section 2 locked `Rf, Ru` in {0.05, 0.1, 0.25, 0.5, 1.0}.  Route alpha
+      forces `Rf + Ru <= log(2)/2 ~= 0.34657`
+      (`C1HealthyDetectorPinning.lean:42-47`), which 19 of those 25 cells
+      violate.
+
+  (3) section 0's claim that R1 closes `(FIT)` "with ZERO new analysis" is an
+      over-claim: true for the budget side, false for the healthy-data side,
+      which terminates at the pre-existing archimedean sign of records
+      1080/1081 (1389 section 6).
+
+The route-(A) ruling, the exact `C_C`/`C_D`/`C_min` couplings, the Gram closed
+forms, the verdict bands, and the kill scope all carry over unchanged and are
+re-locked in 1390.  This file is retained for the law-42 audit trail only.
+```
+
 Date: 2026-09-13. Law 42: this file is committed BEFORE any digit. Law 65:
 every number a future run produces under this prereg is MODEL. Instrument
 class: VERDICT-capable inside a locked scope — unlike the record-1373 mapping

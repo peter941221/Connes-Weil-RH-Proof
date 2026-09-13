@@ -222,17 +222,51 @@ Read the current records in this order for a full-map review:
     record-1386 owner, and the endpoint
     `exists_assembledOwner_bandBridge_pos` (`0 < B_δ`). Component 5
     DISCHARGE remains open.
-21. [1388](../proofs/1388_component5_route_A_prereg.md): the
+21. [1388](../proofs/1388_component5_route_A_prereg.md): the first
     component-5 discharge prereg, committed BEFORE any digit (law 42).
-    Locks the symmetric-window model, the register-determined node family
-    `sourceFunctionalEquationOrbit` and value pattern
-    `negativeSourceOrbitValue`, the exact `C_C`/`C_D`/`C_min` couplings
-    with their small-`d` cross-checks, the PASS/MARGINAL/FAIL bands, four
-    instrument gates, the 009 §3 kill scope, and the **R1 construction
-    commitment**: `u` must itself be a record-1385 taper owner, because
-    the correction engine exports only a vertical decay bound and no
-    existing orbit-package owner carries an L2 bound. Section 7 names the
-    unmet run precondition.
+    **SUPERSEDED by 1390 the same day, still pre-digit.** It locks the
+    symmetric-window model, the exact `C_C`/`C_D`/`C_min` couplings with
+    their small-`d` cross-checks, the PASS/MARGINAL/FAIL bands, the 009 §3
+    kill scope, and the **R1 construction commitment** (`u` must itself be
+    a record-1385 taper owner, because the correction engine exports only a
+    vertical decay bound and no existing orbit-package owner carries an L2
+    bound) — all of which carry over. Two locks did not survive recon: the
+    7-node family `sourceFunctionalEquationOrbit` and a radius grid of which
+    19 of 25 cells violate route alpha's support constraint. Retained for the
+    law-42 audit trail; must not be run.
+22. [1389](../proofs/1389_component5_recon_route_alpha_collapse.md): the
+    pre-digit source recon that re-scoped the component-5 discharge. Three
+    verdicts. **Recon A**: membership in `C1.healthyCC20TestSpace` is
+    unconditional in `g`, so a taper owner qualifies by typing alone — the
+    feared obstacle does not exist. **Recon B**: the route-alpha register uses
+    the 4-node family `healthyDetectorNodeSet rho = {0, 1/2, 1, rho}` with the
+    vanishings on `g` itself, not the 7-node orbit with a half-density shift on
+    the square; node distinctness is already funded in source. **Recon C**:
+    `healthyDetectorData_iff_selectedDetectorArchimedeanGate` collapses the
+    entire `HealthyYoshidaDetectorData` package to ONE scalar sign on a
+    ROOT-pinned test, and route alpha needs no iterate, no decay constant, no
+    height tail and no `n`. Also derives the hard support constraint
+    `Ru + Rf <= log(2)/2`, shows the (J1) asymptotics run *toward* PASS as the
+    windows shrink, and corrects 1388's "ZERO new analysis" over-claim: true
+    for the budget side, false for the healthy-data side, which terminates at
+    the pre-existing archimedean sign of records 1080/1081. That sign is
+    scale-invariant, so it constrains the owner's *shape* while (J1) constrains
+    its *magnitude* — which is what licenses running the (J1) rig with the gate
+    still open.
+23. [1390](../proofs/1390_component5_route_A_prereg_v2.md): the corrected
+    component-5 discharge prereg (route A, route-alpha register), committed
+    BEFORE any digit. Re-locks the 4-node family with the value pattern SPLIT
+    across the two convolution factors (`u` all-ones, `f` the concentrated
+    `(0,0,0,-1)`) so the record-1387 multiplicative hook reproduces
+    `healthyDetectorNodeTarget` exactly; re-locks the radius grid so that all
+    25 cells are admissible by construction (largest radius `log(2)/4`
+    truncated down); replaces 1388's out-of-regime discount with a regime
+    ASSERTION (the whole grid now sits inside record 1378's near-line regime);
+    and adds gates G0 admissibility, G3 positivity/invertibility, G5 regime,
+    G6 window-balance (informational only — its predicted `Rf = Ru` minimum
+    rests on a low-frequency heuristic that 1389 flags as unreliable at
+    `|Im rho| ~ 14`). Section 5 names the R1 run precondition; the archimedean
+    gate is explicitly NOT a rig precondition and NOT decided by any verdict.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
