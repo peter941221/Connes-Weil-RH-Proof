@@ -390,7 +390,51 @@ Read the current records in this order for a full-map review:
     are ONE mechanism: further grid search of this family for rung 3 is
     no longer justified; the live levers are the route-beta shape class
     (FORMAL task) and the rung-5 proof. Kill scope honored; nothing was
-    falsified. RH not claimed.
+    falsified. RH not claimed. (The "FORMAL task" reading of route beta
+    is superseded by 1402 §5 — see item 33.)
+33. [1402](../proofs/1402_route_beta_zero_digit_recon_wall_repartition.md):
+    ZERO-DIGIT ROUTE-BETA RECON — the beta campaign cannot breach the
+    wall; it RE-PARTITIONS it, and one piece IS the wall. Source
+    readback: the 1083 pair existence, the 1084 anchor collapse
+    (`pair anchor = 4 * arch h.convSq` on the 7-node root-window
+    interpolant — audit GREEN, standard axioms), the 1085 bridge (the
+    1080 scalar gate IS that Prop), and the 1081 two-pillar RH exit —
+    whose pillar A (anchor positivity per off-line zero) is the one
+    open inequality and whose pillar B (endpoint certificates) carries
+    the same content as the B0b gate, machine-checked
+    `weilCriterion_iff_sourceRH`. The live mainline consumes NO beta
+    sign: `exists_healthyDetectorData_of_sourceNontrivialZero_right`
+    is UNCONDITIONAL. F14 transfers to beta at its strongest: window
+    LOCKED at log2/2, no taper DOF, only rho is a parameter. Verdict:
+    no formal brick pending; the one legitimate remainder is a single
+    exact-complex model probe of the 1085 object (1086/1087 history:
+    negatives, never clean-complex). RH not claimed.
+34. [1403](../proofs/1403_beta_anchor_exact_probe_prereg.md) +
+    [v2](../proofs/1403_beta_anchor_exact_probe_prereg_v2_gi_band_fix.md)
+    → [1404](../proofs/1404_beta_anchor_outcome_all_negative_model_level_closure.md):
+    THE BETA ANCHOR PROBE — 25/25 NEGATIVE, rung 3 closed as science.
+    n=7 transcription of the certified 1398 v3 instrument (pairing
+    identity derived symbolically in the prereg; GI-beta instantiates
+    it against convention bugs; F12 audit locked every class from
+    rung-2 numbers: lammin ~ 4e-11 height-flat, delta sub-ulp
+    EVERYWHERE — F14-beta empirically confirmed: A(eps=0.1) = A(eps=0.01)
+    to 13 digits). Invocation chain, all disclosed: inv1 VOID on the
+    NEW gate's own un-audited class (F12 recurrence #4 — its failure
+    numbers sat in my own audit table), v2 prereg re-locks 1e-30 →
+    1e-15; inv2 VALID but 5 BADCELLs at im=1054 — per-node errors
+    localized the cause to CHECKER aliasing (3e-16 at ±rho, 7.7e-2 at
+    the REAL nodes, scaling with |s_j|), rig-only fix under the
+    pre-written v2 §5 triage path; inv3 VALID: `POS:0,NEG:25,TIE:0,
+    BAD:0`, GD 1e-15..1e-13 everywhere, A = -17.8..-17.3 at the FIRST
+    ZERO, non-monotone |A| in height (3.9 at 21.02 → 14.4 at 1054)
+    with |A|/S GROWING, margins 1.3e5-5.3e5 tie-widths. Cumulative
+    rung-3 census BOTH families: 107 cells, 107 NEG, 0 POS. Pillar A
+    of the 1081 exit is dead at model level on the natural class;
+    pillar B is the wall. THE CAMPAIGN QUEUE IS NOW EMPTY BY
+    CONSTRUCTION: rungs 1-4 closed/frozen, rung 5 (B0b-iff-SourceRH)
+    needs a proof idea, which no rig or brick can supply. Nothing was
+    falsified (kill scope honored); RH not claimed, in either
+    direction.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
