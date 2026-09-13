@@ -241,7 +241,7 @@ def main():
     res['D1_rel'] = d1
     # D2: dual paths
     dp = dual_paths()
-    _, Qv_mp = q_chuk(mp_mode=True)
+    Qv_mp, _info_mp = q_chuk(mp_mode=True)
     def rel(mp_v, f_v):
         return float(abs(mp_v - M(str(f_v))) / max(M(1), abs(M(str(f_v)))))
     res['D2_rel'] = dict(arch=rel(dp['arch_mp'], side['arch']),
