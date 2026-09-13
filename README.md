@@ -569,6 +569,41 @@ strict spectral negativity at that detector - the vertical bridge and its
 norm coupling - remains the open analytic content of the N0'-N4 ledger
 (records 1372-1376).
 
+The 2026-09-13/14 wave closed three further faces. The rung-3 sign
+falsification campaign measured the archimedean functional
+[1397](docs/proofs/1397_rung3_archimedean_sign_recon.md) on solved
+owners across 107 cells in both natural content classes
+([1399](docs/proofs/1399_rung3_joint_witness_outcome_all_negative.md),
+[1401](docs/proofs/1401_rung3_lowheight_outcome_all_negative_first_zero.md),
+[1404](docs/proofs/1404_beta_anchor_outcome_all_negative_model_level_closure.md)):
+every value negative, the gate `0 <= q_w` surviving every probe aimed
+at it (numbers MODEL-level, non-falsifying by their own
+supremum-lower-bound law). The external positivity-certificates route
+([1405](docs/proofs/1405_chuk_pillarB_bridge_recon_and_cross_term_probe_prereg.md)
+through
+[1411](docs/proofs/1411_odd_sector_plus_one_and_route_radius_shrink_closed.md))
+was fully adjudicated: the functional `psi` is blind to the sector
+these certificates vary over, the register `psi` matches the classical
+explicit-formula value with sign `+` and factor `1` on measured cells,
+and certificate windows are disjoint from counterexample supports -
+so no fixed-window positivity theorem reaches the full-quantifier
+criterion. On the formal side, a three-leaf bridge campaign
+machine-checked the blindness structure end-to-end: odd tests
+annihilate
+([1412](docs/proofs/1412_psi_blindness_brick_odd_annihilation_machine_checked.md)),
+pointwise sums split
+([1413](docs/proofs/1413_psi_linearity_brick_psi_additivity_machine_checked.md)),
+and `psi` is unconditionally reflection-invariant
+([1414](docs/proofs/1414_psi_sector_split_brick_reflection_invariance_machine_checked.md));
+the arithmetic-versus-spectral identity its consumer statement needs
+proved already landed and audited
+([1415](docs/proofs/1415_brick4_phantom_dictionary_already_landed_campaign_closed.md)).
+All new declarations standard-axiom, none carrying a sign claim. With
+these closures the executable queue is empty on every face: what the
+open gate still requires is classical analytic content, not
+construction work. None of the above claims the Riemann hypothesis or
+alters the tower's single open obligation.
+
 The binding decision is [record 1076](docs/map/003_b1_b5_minimal_exit_route_selection.md);
 the endpoint, producer, and process status are maintained by
 [map 004](docs/map/004_endpoint_literature_interface_audit.md),
