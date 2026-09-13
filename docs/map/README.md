@@ -307,6 +307,20 @@ Read the current records in this order for a full-map review:
     remaining obligation is only the inherited archimedean gate (item 5).
     Nothing here discharges `hfit`/`hJ1` in Lean, produces detector data, or
     claims RH.
+27. [1395](../proofs/1395_009_contract_closed_ledger_state.md) +
+    [1396](../proofs/1396_witness_cell_rational_certificate.md): **009
+    CLOSED** as a construction/budget contract (rung table to RH included),
+    and the 1394 witness cell now carries an **exact-rational certificate**
+    — dyadic `C_UP = 99529719269116324599/2^60 >= ceiling` and
+    `D_HIq = 135283503/2^60 >= C_min` with
+    `C_UP < (1/200)/D_HIq = 144115188075855872/3382087575` verified over
+    `Fraction` (`scripts/certify_1396_witness.py`; mpmath `iv` rejected —
+    no complex intervals; the 7i int->str landmine fired for real and is
+    handled). Arithmetic doubt at that cell retired to 62-digit-deep
+    enclosures; residual honest doubt is transcription, not computation.
+    Next executable surface per 1395 section 4: the rung-3 archimedean-sign
+    rig on the route-alpha owner (prereg 1397+ under the 1373 protocol).
+    RH not claimed.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).

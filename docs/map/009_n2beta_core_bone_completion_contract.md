@@ -2,6 +2,16 @@
 
 Date: 2026-09-13.
 
+**CONTRACT CLOSED (2026-09-13, record
+[1395](../proofs/1395_009_contract_closed_ledger_state.md)).** Every
+obligation this contract owns is discharged: components 1-4 and the
+component-5 shape layer FORMAL, the R1 leaf (hfit) and healthy-data wiring
+FORMAL (1391), the (J1) digits gate-green MODEL (1393/1394) with an
+exact-rational witness certificate (1396). The two OPEN lines left in section
+4 are, by this contract's own rulings, not owned here: the archimedean sign
+is inherited open science (1389 section 6) and N3/N4 belong to
+[008](008_l2_hbridge_bone_attack_plan.md). RH is not claimed.
+
 Authority: supporting status and dependency clarification. This record does
 not replace the healthy-`CompactLog`, B5-shaped ruling in
 [003](003_b1_b5_minimal_exit_route_selection.md), the producer-target ruling
