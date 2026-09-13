@@ -133,7 +133,7 @@ def A_trapz(F):
     Fneg = np.array([F(-y) for y in ys[:-1]])
     g = np.real(np.exp(ys[:-1] / 2) * (Fy + Fneg) - 2 * F0) \
         / (2.0 * np.sinh(ys[:-1]))
-    dy = np.diff(ys)
+    dy = np.diff(ys[:-1])
     integral = float(np.sum(0.5 * (g[:-1] + g[1:]) * dy))
     return float((np.log(4 * np.pi) + np.euler_gamma) * F0.real) + integral
 
