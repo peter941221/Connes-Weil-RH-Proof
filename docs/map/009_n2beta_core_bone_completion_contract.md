@@ -107,15 +107,19 @@ N2beta component 2b: finite Gram abstract core (positivity,
   moments identification, minimum-norm inequality)               FORMAL DONE
 N2beta component 2c-core: actual Mellin representer instantiation,
   window Gram identities, same-owner cost comparison,
-  closed-form entries                                      FORMAL DONE
+  closed-form entries                                            FORMAL DONE
 N2beta component 2c-tail: window independence of the actual
   exponential family, Gram trivial-kernel/invertibility for
-  distinct nodes, K_loc inverse-solve cost instance       FORMAL DONE
+  distinct nodes, K_loc inverse-solve cost instance              FORMAL DONE
 N2beta component 3: smooth taper lift to the one-plus-eps local
   budget, with the perturbed-Gram inverse consumed through the
-  trivial-kernel law                                     FORMAL DONE
-N2beta component 4: Young/convolution final-owner budget   FORMAL DONE
-N2beta component 5: quantitative F1/F2 and N1c consumption      OPEN
+  trivial-kernel law                                             FORMAL DONE
+N2beta component 4: Young/convolution final-owner budget         FORMAL DONE
+N2beta component 5-shape: route-(A) margin consumer,
+  (FIT) + (J1) as separate named premises, Lemma-D bridge
+  consumption, F1/F2 value hooks                                 FORMAL DONE
+N2beta component 5-discharge: orbit instantiation (hfit),
+  rig-confirmed digits (hJ1), healthy-data wiring                OPEN
 N3/N4 total-budget closure                                       OPEN
 ```
 
@@ -150,7 +154,8 @@ at most any moment-matching vector on the supplied family (abstract
 Pythagoras). The ladder's "minimum L2 cost" item is therefore a precise
 machine-checked statement — relative to an abstract representer family.
 
-**Component 2c core is now FORMAL.** The leaf
+**Component 2c core is now FORMAL**
+(record [1383](../proofs/1383_component2c_window_gram.md)). The leaf
 `ConnesWeilRH/Dev/C1WindowMellinGram.lean` (paired Audit; WSL build
 `009_window_gram_build1.log`: `Build completed successfully (3548 jobs)`,
 zero errors, zero `sorryAx`, zero Dev warnings, all 14 audit prints exactly
@@ -170,7 +175,8 @@ diagonal of 1382). The path uses no `Lp`/`MemLp` API, keeps every damped
 mass window-side as a genuine `ℝ`-valued integral, and registers no
 independence, existence, invertibility, or feasibility claim.
 
-**Component 2c is now complete, tail included.** The leaf
+**Component 2c is now complete, tail included**
+(record [1384](../proofs/1384_component2c_independence.md)). The leaf
 `ConnesWeilRH/Dev/C1WindowMellinIndependence.lean` (paired Audit; WSL build
 `009_independence_build2.log`: `Build completed successfully (3549 jobs)`,
 zero errors, zero `sorryAx`, all 7 audit prints exactly
@@ -203,7 +209,10 @@ theorem squeezes the owner cost between the two solves,
 delivers the contract quantity: for every `ε > 0` there exists a supported
 owner realizing every node value with
 `compactLogL2sq f ≤ (1 + ε) * K_loc`. The perturbed-Gram inverse is
-consumed through the 1384 trivial-kernel law, so inverse stability is
+consumed through the
+[1384](../proofs/1384_component2c_independence.md) trivial-kernel law
+(`windowExpGramMatrix_mulVec_eq_zero` ⇒
+`windowExpGramMatrix_isUnit_of_injective`), so inverse stability is
 machine-checked rather than assumed. No decay rate, no orbit instantiation,
 and no numeric margin is registered on the formal lane.
 
@@ -239,7 +248,65 @@ laplaceAt u (nodes i) * y i` at every node, lives in the summed window
 record-1379 quantity `K_loc = y* G⁻¹ y`. No decay rate, no orbit
 instantiation, and no numeric margin is registered on the formal lane.
 
-What remains of 009 is component 5: the quantitative F1/F2 recast that
-assembles one healthy detector and presents its `K_loc` to the N1c budget
-digit-by-digit. No orbit is instantiated and no numeric margin is registered
-in the formal lane.
+## 5. Route ruling and the component 5 split
+
+Record [1379](../proofs/1379_n1c_joint_feasibility.md) section 4 reduced the
+vertical bridge to a construction-class question and left two branches as an
+explicit owner-facing decision. That decision is now made.
+
+```text
+RULING (owner, 2026-09-13): route (A).
+  Design a visible-anchor family carrying an EXPLICIT NORM BUDGET
+  ‖g‖² ≤ δ/(2·C_min), so the [1371] invisible-anchor floor never binds,
+  condition (J2) drops, and (J1) alone decides.
+```
+
+Why (A) and not (B): components 1–4 already produce precisely what (A)
+consumes — an UPPER bound on `compactLogL2sq` of the assembled owner — and
+nothing that (B) needs. Route (B) never consumes an upper bound, so choosing it
+would strand four green components; and (B) survives only inside the
+MODEL-lane near-line regime `dR ≲ 0.53`, which is a regime restriction rather
+than a theorem. Route (A) also keeps the falsifier honest: it produces a budget
+that can fail against real digits.
+
+Consequence: component 5 splits into a digit-free SHAPE layer and a
+digit-bearing DISCHARGE layer.
+
+**Component 5 shape layer is FORMAL**
+(record [1387](../proofs/1387_component5_shape_consumer.md)). The leaf
+`ConnesWeilRH/Dev/C1QuantitativeConsumer.lean` (paired Audit; WSL acceptance
+build `009_consumer_try2.log`: `Build completed successfully (3553 jobs)`,
+zero errors, zero `sorryAx`, zero leaf warnings, all 7 audit prints exactly
+`[propext, Classical.choice, Quot.sound]`) builds the route-(A) consumption
+chain. It separates the two inputs route (A) needs into two named premises:
+`hfit` (FIT — the record-1386 factorized budget
+`(d − c) · ‖u‖₂² · ((1 + ε) · K_loc)` fits under a ceiling; the construction
+side, where the orbit and the digits will land) and `hJ1` (J1 — that ceiling
+sits strictly below `δ / (2 · C_min)`; the analysis side, the single inequality
+the branch hangs on). The leaf proves the abstract (J1) consumer
+`margin_pos_of_cost_le_ceiling`, its owner-level form on the genuine
+`compactLogL2sq` accessor, the record-1378 Lemma-D consumption step
+`bandBridge_pos_of_margin_pos` (the bridge inequality itself stays a PAPER-lane
+hypothesis), the two F1/F2 recast hooks on the multiplicative value law (a zero
+target kills the assembled owner at that node; a nonvanishing base times a
+nonvanishing target keeps it detecting), the consumer deliverable
+`exists_assembledOwner_margin_pos` (the SAME record-1386 owner, with its summed
+window and node values, now carrying `0 < δ/2 − C_min · compactLogL2sq g`), and
+the shape-layer endpoint `exists_assembledOwner_bandBridge_pos` (`0 < B_δ`).
+
+**Component 5 discharge layer is OPEN**, and is all that remains of 009. Its
+content is exactly four items, in this order:
+
+1. the prereg document fixing `δ`, the window `(a, b)`, `d = Re s_v`, the node
+   family and the value pattern `y` BEFORE any digit is computed — COMMITTED as
+   [1388](../proofs/1388_component5_route_A_prereg.md) under the
+   record-1373 protocol; its section 7 names the run precondition that is not
+   yet satisfied;
+2. the orbit instantiation discharging `hfit`;
+3. the rig-confirmed digits discharging `hJ1`;
+4. the healthy-data wiring through the two value hooks — note that the register
+   kill set `cc20TripleFiniteVanishingSet` is FIXED, so the node family must
+   contain it rather than be chosen freely.
+
+No orbit is instantiated and no numeric margin is registered in the formal
+lane. No `HealthyYoshidaDetectorData` field is produced by the shape layer.

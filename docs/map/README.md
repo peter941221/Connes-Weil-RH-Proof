@@ -165,11 +165,11 @@ Read the current records in this order for a full-map review:
     has no norm control, the `L²(du/u) ≅ L²(dx)` isometry, and the
     design spec for the budget producer: a `(1+ε)`-optimal
     quantitative interpolation theorem realizing `K_loc`.
-15. [1381](../proofs/1381_l2_export_and_lemma_a.md): the first N2β
+16. [1381](../proofs/1381_l2_export_and_lemma_a.md): the first N2β
     formal component — the `‖·‖₂` accessor `compactLogL2sq`, the
     from-scratch discriminant Cauchy-Schwarz on a window, and
     `laplaceAt_sq_le` = the [1377] Lemma A bound, all axiom-clean.
-16. [1382](../proofs/1382_one_node_quantitative_mellin_gram.md): the
+17. [1382](../proofs/1382_one_node_quantitative_mellin_gram.md): the
     FORMAL finite-Gram line — one-node diagonal lower cost with the
     critical-line width identity, complex quadratic-form positivity and
     its strict branch, kernel compatibility, the abstract minimum-norm
@@ -180,8 +180,15 @@ Read the current records in this order for a full-map review:
     closed-form entries — and its tail: window independence of the
     exponential family, trivial Gram kernel and invertibility for
     distinct nodes, and the `K_loc = y* G⁻¹ y` inverse-solve lower bound
-    for the N1c interface.
-17. [1385](../proofs/1385_component3_taper_lift.md): N2β component 3 FORMAL
+    for the N1c interface. The two halves of that concrete window line
+    have their own records:
+    [1383](../proofs/1383_component2c_window_gram.md) (2c core: concrete
+    window Gram, quadratic identity, solved-system cost comparison, both
+    closed forms) and
+    [1384](../proofs/1384_component2c_independence.md) (2c tail:
+    from-scratch independence, `IsUnit` for distinct nodes, the `K_loc`
+    instantiation, and the whnf-safe invertibility-as-hypothesis law).
+18. [1385](../proofs/1385_component3_taper_lift.md): N2β component 3 FORMAL
     — the smooth taper lift. Uniform combination bound, strict positivity
     and continuity of the untapered energy, the sphere-minimum spectral
     gap `α`, the sliver estimate for a taper flat on a sub-window, and the
@@ -192,7 +199,7 @@ Read the current records in this order for a full-map review:
     wrapper `∃ f, support ⊆ Ioo a b ∧ ∀ i, laplaceAt f (nodes i) = y i ∧
     compactLogL2sq f ≤ (1 + ε) * K_loc` for every `ε > 0`. Components 4–5
     (Young budget, quantitative F1/F2) remain open.
-18. [1386](../proofs/1386_component4_young_assembly.md): N2β component 4
+19. [1386](../proofs/1386_component4_young_assembly.md): N2β component 4
     FORMAL — the Young/convolution final-owner budget. L1 accessor,
     full-line weighted discriminant Cauchy-Schwarz, kernel Young
     `∫‖F ⋆ G‖² ≤ (∫‖F‖)² ∫‖G‖²` via `integral_mono` against the real
@@ -201,8 +208,31 @@ Read the current records in this order for a full-map review:
     compactLogL1 f² * compactLogL2sq g`, and the assembly
     `exists_assembledOwner_cost_le`: one owner `u.convolution f` in the
     summed window realizing `laplaceAt u (nodes i) * y i` with budget
-    `(d - c) * compactLogL2sq u * ((1 + ε) * K_loc)`. Component 5
-    (quantitative F1/F2) remains open.
+    `(d - c) * compactLogL2sq u * ((1 + ε) * K_loc)`.
+20. [1387](../proofs/1387_component5_shape_consumer.md): N2β component 5
+    SHAPE layer FORMAL, and the route-(A) ruling. The consumption chain
+    is cut into two named premises — `hfit` (the record-1386 factorized
+    budget fits under a ceiling: the construction side) and `hJ1` (that
+    ceiling obeys `ceiling < δ/(2·C_min)`: the analysis side) — and the
+    leaf proves the abstract (J1) consumer
+    `margin_pos_of_cost_le_ceiling`, its `compactLogL2sq` form, the
+    record-1378 Lemma-D consumption step (bridge inequality stays a
+    PAPER hypothesis), the two F1/F2 value hooks on the multiplicative
+    law, the deliverable `exists_assembledOwner_margin_pos` on the SAME
+    record-1386 owner, and the endpoint
+    `exists_assembledOwner_bandBridge_pos` (`0 < B_δ`). Component 5
+    DISCHARGE remains open.
+21. [1388](../proofs/1388_component5_route_A_prereg.md): the
+    component-5 discharge prereg, committed BEFORE any digit (law 42).
+    Locks the symmetric-window model, the register-determined node family
+    `sourceFunctionalEquationOrbit` and value pattern
+    `negativeSourceOrbitValue`, the exact `C_C`/`C_D`/`C_min` couplings
+    with their small-`d` cross-checks, the PASS/MARGINAL/FAIL bands, four
+    instrument gates, the 009 §3 kill scope, and the **R1 construction
+    commitment**: `u` must itself be a record-1385 taper owner, because
+    the correction engine exports only a vertical decay bound and no
+    existing orbit-package owner carries an L2 bound. Section 7 names the
+    unmet run precondition.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
