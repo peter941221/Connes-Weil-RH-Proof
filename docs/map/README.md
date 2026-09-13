@@ -498,6 +498,25 @@ Read the current records in this order for a full-map review:
     pre-audit) + F18 born (cite form premises verbatim, especially your
     own). Chuk species FULLY ADJUDICATED (1405-1408). Queue empty by
     law F15, with stronger grounds. Nothing falsified; RH not claimed.
+37. [1410](../proofs/1410_odd_sector_dictionary_cell_prereg.md)
+    + [1411](../proofs/1411_odd_sector_plus_one_and_route_radius_shrink_closed.md)
+    — odd-sector dictionary cell: **PLUS_ONE, VALID FIRST INVOCATION**
+    (all O-gates PASS at 1407 rev3 classes; Q_o/psi_o = 1 - 1.3e-8;
+    odd pole measured NEGATIVE — the paper's section-4 sign flip
+    confirmed on both sides to 1e-12; g_o(log2) < 0 primes channel
+    live; O0 re-tied the transcription). This closes the LAST proposed
+    shortcut into the wall: the radius-shrink route (attack (a) at the
+    1408 close) is dead by measurement + published theorems — a
+    root-supported owner with `qw < 0` cannot coexist with
+    {dictionary both parities (1407/1410), odd-equivalence of owners
+    (1406 kill (b)), Yoshida `2L <= log 2` positivity (closed window
+    contains `L = log2/2)`}. The wall, `B0b`, is the classical Weil
+    criterion in full-quantifier normal form: no fixed-L certificate
+    can supply it (paper's own equivalence sentence), so "打通RH" from
+    this register = new mathematics, not an executable backlog. Chuk
+    species SEALED (1405-1411). Queue empty by mathematical necessity.
+    Model level only (law 65); nothing falsified; RH not claimed in
+    either direction.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
