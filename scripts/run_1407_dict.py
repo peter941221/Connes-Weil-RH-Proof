@@ -5,6 +5,17 @@
 # transcription (F17) generalized to (evaluator, Rg, breaks); gate D0
 # ties it to the committed tier-1 number BEFORE any dictionary digit.
 # Model-level only (law 65). No Lean. RH not claimed.
+# REV3 (rig-only, gate classes UNCHANGED, law-42 compliant): inv2 failed
+# D1 at rel 1.74e-5 and the two pole paths at rel 1.76e-6; a quadrature
+# diagnostic (mp 50-bit reference) showed R._panels' purely
+# oscillation-density rule gives ONE 16-node GL panel to the flat bump on
+# [0,L] (rel error: C 8.8e-7, fhat(11) 5.4e-6) while the register-side
+# g_of was already accurate (identity check: register pole vs mp 2C^2
+# agree to 3e-17 - no convention error). Fix: bump_edges() panels resolve
+# BOTH amplitude (<=0.005) and half-period oscillation; and the
+# TERM-DECOMP chuk prime/arch channels now print from the D1 t-integral
+# (planch), not the y-side g_log2 substitution, so the decomposition is
+# honest by construction.
 import sys, os, time, json, math, hashlib
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import mpmath as mp
@@ -44,9 +55,19 @@ def f_np_v(xs):
 _GL16X, _GL16W = np.polynomial.legendre.leggauss(16)
 
 
+def bump_edges(t):
+    """Panel edges on [0,L] resolving BOTH the flat-bump amplitude
+    (width <= 0.005; feature scale ~0.1 left the 1-panel rule at 1e-6)
+    and the cos(t u) oscillation (half-period). REV3 rig fix, diagnostic
+    above."""
+    h = min(0.005, math.pi / max(abs(float(t)), 1.0))
+    n = max(1, int(math.ceil(L / h)))
+    return [i * L / n for i in range(n + 1)]
+
+
 def fhat(t):
-    """Fhat(t) = 2 int_0^L f(u) cos(tu) du, freq-adaptive 16-node panels."""
-    xn, wn = R._panels([0.0, L], float(abs(t)) + 1.0, 16)
+    """Fhat(t) = 2 int_0^L f(u) cos(tu) du, rev3 bump+oscillation panels."""
+    xn, wn = R._panels(bump_edges(t), 0.0, 16)
     if xn.size == 0:
         return 0.0
     return 2.0 * float(np.sum(wn * f_np_v(xn) * np.cos(t * xn)))
@@ -75,7 +96,7 @@ def psi_symbol_f(t):
 def q_chuk(mp_mode):
     """Q(f) = 2 Fhat(i/2)^2 + (1/pi) int_0^T Fhat^2 Psi_L, adaptive T
     with D3 tail audit. mp_mode: 200-bit summation on the same nodes."""
-    xp, wp = R._panels([0.0, L], 3.0, 16)
+    xp, wp = R._panels(bump_edges(0.0), 0.0, 16)   # rev3: amplitude panels
     C = 2.0 * float(np.sum(wp * f_np_v(xp) * np.cosh(xp / 2.0)))
     pole = 2.0 * C * C
     T = 50.0
@@ -280,9 +301,9 @@ def main():
     print("TERM-DECOMP register: pole=%.12g arch=%.12g primes=%.12g | "
           "chuk: pole=%.12g prime_channel=%.12g arch_channel=%.12g"
           % (side['pole'], side['arch'], side['primes'],
-             qinfo['pole'], -(2 * math.log(2) / math.sqrt(2)) * side['g_log2'],
+             qinfo['pole'], -(2 * math.log(2) / math.sqrt(2)) * planch,
              float(Qv) - qinfo['pole']
-             + (2 * math.log(2) / math.sqrt(2)) * side['g_log2']),
+             + (2 * math.log(2) / math.sqrt(2)) * planch),
           flush=True)
     path = os.path.join('docs', 'proofs', '1407_dict_results.json')
     with open(path, 'w') as fh:
