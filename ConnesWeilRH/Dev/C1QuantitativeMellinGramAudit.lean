@@ -1,0 +1,36 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: ConnesWeilRH contributors
+-/
+
+import ConnesWeilRH.Dev.C1QuantitativeMellinGram
+
+namespace ConnesWeilRH.Source.C1QuantitativeMellinGram
+
+#print axioms oneNodeGramWeight
+#print axioms oneNodeRequiredCost
+#print axioms FiniteMellinInterpolationConfig
+#print axioms finiteMellinGram
+#print axioms finiteMellinGram_isHermitian
+#print axioms finiteMellinGram_quadratic_eq_inner
+#print axioms finiteMellinGram_quadratic_re_nonneg
+#print axioms finiteMellinGram_quadratic_re_pos_of_linearIndependent
+#print axioms FiniteMellinKernelCompatible
+#print axioms FiniteMellinGramSolvable
+#print axioms FiniteMellinGramSolvable.kernelCompatible
+#print axioms finiteMellinSynthesis
+#print axioms FiniteMellinMomentMatches
+#print axioms finiteMellinGram_mulVec_apply
+#print axioms finiteMellinSynthesis_momentMatches_of_isSolution
+#print axioms norm_sq_finiteMellinSynthesis_le
+#print axioms FiniteMellinInterpolationConfig.correctionTarget
+#print axioms FiniteMellinInterpolationConfig.correctionTarget_mul_baseFactor
+#print axioms FiniteMellinInterpolationConfig.no_correction_of_baseFactor_zero
+#print axioms oneNodeGramWeight_eq_width_of_re_zero
+#print axioms oneNodeGramWeight_pos_of_re_zero
+#print axioms oneNodeRequiredCost_le_compactLogL2sq
+#print axioms oneNode_noGo_of_budget_lt_requiredCost
+#print axioms oneNode_noGo_of_regime
+
+end ConnesWeilRH.Source.C1QuantitativeMellinGram

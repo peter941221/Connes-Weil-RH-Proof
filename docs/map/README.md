@@ -25,6 +25,7 @@ traceability.
 |        |                       | surviving L4/A4 target ladder              |
 | 008    | Binding companion     | Conditional completion plan (1369):        |
 |        |                       | D0-D9 obligations; paper-only P0 audit      |
+| 009    | Supporting            | N2beta core-bone completion contract         |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -130,33 +131,36 @@ Read the current records in this order for a full-map review:
 8. [008 - Record 1369: L2/hBridge conditional completion plan](008_l2_hbridge_bone_attack_plan.md)
    lists all required proof obligations, the paper-only admission checks,
    and the final unconditional Lean acceptance contract.
-9. [1372](../proofs/1372_phase_diagram_total_variant_attack.md) +
+9. [009 - N2beta core-bone completion contract](009_n2beta_core_bone_completion_contract.md)
+   distinguishes the same-owner quantitative construction/budget obligation
+   from its N1c, N3, and N4 consumers; it adds no route authority.
+10. [1372](../proofs/1372_phase_diagram_total_variant_attack.md) +
    [1373](../proofs/1373_phase_rig_prereg.md): the total-variant
    phase-diagram offensive (CB-PD1) with step-0 source verdicts, the
    named N0'-N4 task ledger, and the preregistered MODEL mapping rig.
-10. [1375](../proofs/1375_two_sided_tail_height_form_design.md) +
+11. [1375](../proofs/1375_two_sided_tail_height_form_design.md) +
     [1376](../proofs/1376_n0p_closure_and_n1_recon.md): the N0'
     height-form two-sided tail closed formally through the orbit
     package and the unconditional F3 producer (13 theorems), and the
     N1 vertical-bridge recon: pointwise MODEL bridge dead, mass-form
     deliverable with the explicit linear-in-R constant
     `sinh(2dR)/(2πd)`, and the N1a-N1e attack plan.
-11. [1377](../proofs/1377_n1a_global_mass_bridge.md): the N1a paper
+12. [1377](../proofs/1377_n1a_global_mass_bridge.md): the N1a paper
     beat — the global mass bridge with exact general-window constants
     and its sharpness lemma (the constant is an operator norm, so
     support-only improvement is impossible), the `d → 0` consistency
     limit, and the N1c coupling interface.
-12. [1378](../proofs/1378_n1b_band_bridge.md): the N1b paper beat —
+13. [1378](../proofs/1378_n1b_band_bridge.md): the N1b paper beat —
     the local band bridge in two complementary explicit forms
     (damping-split Lemma D and band-average Lemma C), the informative
     `dR`/`δ` regime map at the extremal ceiling, and the N2/N1c
     coupling interfaces.
-13. [1379](../proofs/1379_n1c_joint_feasibility.md): the N1c paper
+14. [1379](../proofs/1379_n1c_joint_feasibility.md): the N1c paper
     beat — the joint feasibility theorem (kernel Gram `y*Γ⁻¹y`, Schur
     form), the norm-budget squeeze against the 1371 floor, and the
     falsifier resolution: killed-prefix class blocked at small `d`,
     budget-controlled class executable in the near-line band.
-14. [1380](../proofs/1380_n2beta_prerequisite_recon.md): the N2β
+15. [1380](../proofs/1380_n2beta_prerequisite_recon.md): the N2β
     prerequisite recon — source verdict that the correction engine
     has no norm control, the `L²(du/u) ≅ L²(dx)` isometry, and the
     design spec for the budget producer: a `(1+ε)`-optimal
@@ -165,6 +169,13 @@ Read the current records in this order for a full-map review:
     formal component — the `‖·‖₂` accessor `compactLogL2sq`, the
     from-scratch discriminant Cauchy-Schwarz on a window, and
     `laplaceAt_sq_le` = the [1377] Lemma A bound, all axiom-clean.
+16. [1382](../proofs/1382_one_node_quantitative_mellin_gram.md): the
+    FORMAL finite-Gram line — one-node diagonal lower cost with the
+    critical-line width identity, complex quadratic-form positivity and
+    its strict branch, kernel compatibility, and the abstract
+    minimum-norm theorem (solved Gram synthesis ≤ every moment-matching
+    vector); actual Mellin representer instantiation and the upper
+    construction remain open.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).

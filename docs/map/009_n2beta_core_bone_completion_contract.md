@@ -1,0 +1,156 @@
+# 009 — N2beta core-bone completion contract
+
+Date: 2026-09-13.
+
+Authority: supporting status and dependency clarification. This record does
+not replace the healthy-`CompactLog`, B5-shaped ruling in
+[003](003_b1_b5_minimal_exit_route_selection.md), the producer-target ruling
+in [007](007_b5_quantifier_repair_and_target_ladder.md), or the D0--D9
+acceptance requirements in [008](008_l2_hbridge_bone_attack_plan.md). RH is
+not claimed.
+
+Evidence: formal source readback in record
+[1380](../proofs/1380_n2beta_prerequisite_recon.md), the paper feasibility
+analysis in [1379](../proofs/1379_n1c_joint_feasibility.md), and the
+machine-checked first component in
+[1381](../proofs/1381_l2_export_and_lemma_a.md).
+
+## 1. What the current core bone is
+
+The live total-variant offensive in [008 section 9](008_l2_hbridge_bone_attack_plan.md#9-total-variant-phase-diagram-offensive-record-1372-2026-09-1213)
+needs nonnegativity of `spectralWeilValue` for the SAME healthy detector that
+the formal orbit package makes strictly negative under a hypothetical
+off-line zero. The pointwise vertical bridge is dead; the usable N1 object is
+a local critical-line mass estimate with an error proportional to the final
+detector's L2 cost.
+
+The existing correction engine proves finite Mellin/Laplace interpolation by
+surjectivity only. It exports neither a coefficient bound nor an L2 bound.
+Consequently it cannot discharge the N1c norm-budget condition. The current
+N2beta core bone is the following quantitative upgrade:
+
+```text
+For the actual finite orbit, vanishing, and target-value constraints, build
+one smooth compactly supported correction whose assembled healthy detector
+has an explicit L2 upper bound close enough to the constrained Gram optimum
+to leave the N1c local-mass budget strictly positive.
+```
+
+This is a construction-and-budget obligation. It is not a new universal B1
+positivity target, a producer on the rejected normalized owner, or a claim
+that every finite interpolation problem has an affordable solution.
+
+## 2. Completion ladder
+
+The required objects must remain on one owner and one parameter choice.
+
+1. **Finite Hilbert interpolation.** On the selected support window, identify
+   the evaluation representers and prove the minimum L2 cost for the actual
+   value vector. Use an inverse only after proving the Gram matrix is
+   nonsingular; otherwise use a correctly stated rank/pseudoinverse result.
+2. **Feasibility margin.** Compare that minimum cost with the N1c allowed
+   budget for the same band and detector data. A strict margin is required;
+   numerical sampling alone is not a producer.
+3. **Smooth compact-support lift.** Taper the raw representers, control the
+   perturbed Gram matrix and its inverse, solve the corrected finite system
+   exactly, and retain a quantitative `(1 + eps)`-type L2 cost bound.
+4. **Same-owner assembly.** Transfer the correction through the established
+   multiplicative/log-coordinate isometry and convolution assembly. Young
+   bounds must control the final assembled `CompactLogTest`, not an unrelated
+   auxiliary interpolant.
+5. **Quantitative consumer.** Recast the F1/F2 construction with the same
+   detector's support, healthy data, values, and L2 upper bound; substitute it
+   into N1c and prove a positive local-mass margin.
+
+Record 1381 closes only the first analytic interface needed by this ladder:
+`compactLogL2sq`, window Cauchy--Schwarz, and the support-weighted Laplace
+evaluation bound are FORMAL and axiom-clean. That bound formalizes a necessary
+anchor-cost lower bound; it does not construct an affordable correction,
+prove Plancherel/localization, or prove spectral nonnegativity.
+
+Record [1382](../proofs/1382_one_node_quantitative_mellin_gram.md) now closes
+the one-node diagonal subcase of item 1: the required L2 cost lower bound,
+the exact critical-line diagonal weight, and a strictly scoped budget no-go
+consumer are FORMAL. It is not a multi-node Gram inverse or a feasibility
+certificate for the orbit problem.
+
+The same leaf also formalizes the configuration boundary for item 1: a
+deduplicated finite-node owner carries only window/node/target/base-factor
+data; exact division needs an explicit nonzero proof, and a zero factor with
+nonzero target has a scoped no-correction theorem. This prevents an
+unjustified inverse from entering the later multi-node construction.
+
+## 3. What success would and would not close
+
+If all five items above hold for one parameter choice and N1c consumes the
+strict margin, then the central construction/budget obstacle for the CB-PD1
+mechanism is closed: the route has a same-detector source of local
+critical-line mass that survives its L2-coupled error.
+
+This is still not an RH theorem. N3 must supply the actual-zero counting and
+total signed-budget adapter, and N4 must cover the low-height/remainder
+region. Only after those inputs yield nonnegative `spectralWeilValue` for the
+same formal negative detector does the existing B5 contradiction interface
+produce `SourceRH`.
+
+Conversely, failure of a fixed Gram/budget comparison can formally kill that
+specified support window, node family, bridge, and parameter range. It does
+not kill B5, healthy `CompactLog`, or every future detector family unless its
+no-go theorem quantifies over those larger classes.
+
+## 4. Immediate work status
+
+```text
+N2beta component 1: L2 accessor and Lemma-A evaluation bound     FORMAL DONE
+N2beta component 2a: one-node diagonal lower cost/no-go          FORMAL DONE
+N2beta component 2b: finite Gram abstract core (positivity,
+  moments identification, minimum-norm inequality)               FORMAL DONE
+N2beta component 2c: actual Mellin representer instantiation,
+  independence/kernel split, same-owner cost comparison          OPEN
+N2beta component 3: taper and inverse stability                  OPEN
+N2beta component 4: Young/convolution final-owner budget         OPEN
+N2beta component 5: quantitative F1/F2 and N1c consumption      OPEN
+N3/N4 total-budget closure                                       OPEN
+```
+
+The finite-node leaf now has the correct complex-Hilbert quadratic-form
+interface: a Gram quadratic expression is exactly the inner product of the
+corresponding representer sum with itself, and its real part is nonnegative.
+Under a linear-independence proof for that family, every nonzero coefficient
+has strictly positive real quadratic cost. This is FORMAL (WSL try16, 3547
+jobs, zero errors, clean audit). It removes the invalid ordered-complex-matrix
+shortcut, but does not yet establish the actual representer independence,
+inverse, kernel-consistency, or minimum-cost branches.
+
+The rank-deficient branch now has a typed compatibility boundary:
+`FiniteMellinKernelCompatible` requires each right Gram-kernel vector to
+annihilate the same configuration's target vector. This is FORMAL (WSL
+try19, 3547 jobs, zero errors, clean audit). It is a necessary-condition API,
+not a pseudoinverse, a feasibility theorem, or a claim that the actual Mellin
+representers are rank-deficient.
+
+The converse direction needed for a legitimate singular solve now begins with
+a formal theorem: solvability of the finite Gram normal equations implies
+`FiniteMellinKernelCompatible` (WSL try23, 3547 jobs, zero errors, clean
+audit). This is still abstract finite-Hilbert machinery. An actual orbit must
+separately supply the normal-equation solution or an independent reduction.
+
+The abstract minimum-cost half of item 1 is now FORMAL (WSL try30, 3547
+jobs, zero errors, zero `sorryAx`, all 24 audit prints on exactly the
+standard three axioms): the Gram normal-equation row at a node is exactly
+that node's inner product against the synthesized combination, every solved
+system realizes all target moments, and the solved synthesis has squared norm
+at most any moment-matching vector on the supplied family (abstract
+Pythagoras). The ladder's "minimum L2 cost" item is therefore a precise
+machine-checked statement — relative to an abstract representer family. What
+remains is component 2c: instantiate the actual windowed Mellin representers
+on the `CompactLogTest` owner (the lightest candidate path feeds each nodal
+dual bound through the 1381 window Cauchy–Schwarz brick and avoids the `Lp`
+a.e.-quotient API), resolve the independence versus rank-deficient split for
+that family, and compare the resulting minimum cost with the N1c budget on
+the same owner.
+
+The next mathematical decision is not a broad numerical hunt. It is exactly
+that component 2c instantiation; the taper (component 3) may not start
+before the abstract cost statement has a concrete owner-side instance to
+perturb.
