@@ -183,7 +183,13 @@ def solve_factor(R, eps, pattern, rho_mpc, alpha_scale=1):
                 T[i, j] = (2 * mp.sinh(A * rIn) / A
                            + (delta / 2) * (mp.e ** (A * rIn) * jc[b1]
                                             + mp.e ** (-A * rIn) * jc[b2]))
-    coeff = mp.lu_solve(T, mp.matrix(4, 1, p))
+    # Guard: mpmath's THREE-ARG mp.matrix(m, n, list) silently zero-fills
+    # (the 1393 inv1 VOID cause, re-encountered by 1398 inv1).  The nested
+    # form below is the verified-correct constructor; the assert makes any
+    # regression fail HERE, not at a downstream gate 100 lines away.
+    rhs = mp.matrix([[v] for v in p])
+    assert all(rhs[i, 0] == p[i] for i in range(4)), "rhs construction lost p"
+    coeff = mp.lu_solve(T, rhs)
     resid = max(abs(sum(T[i, j] * coeff[j, 0] for j in range(4)) - p[i])
                 for i in range(4))
     return dict(nodes=nodes, G=G, alpha=alpha, TB=TB, Delta=Delta,
