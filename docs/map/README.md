@@ -192,6 +192,17 @@ Read the current records in this order for a full-map review:
     wrapper `∃ f, support ⊆ Ioo a b ∧ ∀ i, laplaceAt f (nodes i) = y i ∧
     compactLogL2sq f ≤ (1 + ε) * K_loc` for every `ε > 0`. Components 4–5
     (Young budget, quantitative F1/F2) remain open.
+18. [1386](../proofs/1386_component4_young_assembly.md): N2β component 4
+    FORMAL — the Young/convolution final-owner budget. L1 accessor,
+    full-line weighted discriminant Cauchy-Schwarz, kernel Young
+    `∫‖F ⋆ G‖² ≤ (∫‖F‖)² ∫‖G‖²` via `integral_mono` against the real
+    convolution majorant and the packaged `integral_convolution` Fubini
+    swap, the same-owner law `compactLogL2sq (f.convolution g) ≤
+    compactLogL1 f² * compactLogL2sq g`, and the assembly
+    `exists_assembledOwner_cost_le`: one owner `u.convolution f` in the
+    summed window realizing `laplaceAt u (nodes i) * y i` with budget
+    `(d - c) * compactLogL2sq u * ((1 + ε) * K_loc)`. Component 5
+    (quantitative F1/F2) remains open.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).

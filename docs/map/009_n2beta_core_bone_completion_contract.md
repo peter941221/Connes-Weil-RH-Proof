@@ -114,7 +114,7 @@ N2beta component 2c-tail: window independence of the actual
 N2beta component 3: smooth taper lift to the one-plus-eps local
   budget, with the perturbed-Gram inverse consumed through the
   trivial-kernel law                                     FORMAL DONE
-N2beta component 4: Young/convolution final-owner budget         OPEN
+N2beta component 4: Young/convolution final-owner budget   FORMAL DONE
 N2beta component 5: quantitative F1/F2 and N1c consumption      OPEN
 N3/N4 total-budget closure                                       OPEN
 ```
@@ -207,8 +207,39 @@ consumed through the 1384 trivial-kernel law, so inverse stability is
 machine-checked rather than assumed. No decay rate, no orbit instantiation,
 and no numeric margin is registered on the formal lane.
 
-What remains of 009 is components 4–5: the Young/convolution same-owner
-budget, and the quantitative F1/F2 recast that assembles one healthy
-detector and presents its `K_loc` to the N1c budget digit-by-digit. No
-orbit is instantiated and no numeric margin is registered in the formal
-lane.
+**Component 4 is now FORMAL.** The leaf
+`ConnesWeilRH/Dev/C1WindowTaperAssembly.lean` (paired Audit; WSL build
+`009_taperassembly_accept.log`: `Build completed successfully (3552 jobs)`,
+zero errors, zero `sorryAx`, zero Dev warnings, all 9 audit prints exactly
+`[propext, Classical.choice, Quot.sound]`) puts the Young/convolution budget
+on the FINAL assembled owner, not an auxiliary interpolant. It defines the
+L1 accessor `compactLogL1 f = ∫ x, ‖f.test x‖`, proves the full-line
+weighted discriminant Cauchy–Schwarz `(∫ W b)² ≤ (∫ W)(∫ W b²)` from
+scratch (quadratic expansion via `integral_add`/`integral_smul`, the
+`∫ W = 0` case killed by affine nonnegativity, the positive case read at
+the vertex), and then the kernel Young law
+`∫ x, ‖∫ t, F t * G (x - t)‖² ≤ (∫ ‖F‖)² * ∫ ‖G‖²` for continuous
+compactly supported functions: pointwise at `x` via the triangle bound and
+the weighted Cauchy–Schwarz at the weight `t ↦ ‖F t‖`, the line bound via
+`integral_mono` against the REAL convolution majorant (continuous and
+compactly supported by `HasCompactSupport.contDiff_convolution_right` at
+`n = 0` and `HasCompactSupport.convolution`), and the Fubini swap packaged
+by `integral_convolution`. Boundedness of `‖G‖` is read at the supremum
+`⨆ i, ‖G i‖` through `Continuous.bddAbove_range_of_hasCompactSupport`, so
+no support-window extraction enters the chain. The same-owner budget
+`compactLogL2sq (f.convolution g) ≤ compactLogL1 f ^ 2 * compactLogL2sq g`
+follows, the L1 factor is traded against width via the record-1381 window
+Cauchy–Schwarz at the constant one (`compactLogL1_sq_le_of_window`), and the
+assembly deliverable `exists_assembledOwner_cost_le` states: for any window
+`Ioo c d` and any supported test `u`, the single owner `u.convolution f`
+built from the record-1385 taper owner realizes `laplaceAt g (nodes i) =
+laplaceAt u (nodes i) * y i` at every node, lives in the summed window
+`Ioo (c + a) (d + b)`, and pays at most
+`compactLogL2sq g ≤ (d - c) * compactLogL2sq u * ((1 + ε) * K_loc)` for the
+record-1379 quantity `K_loc = y* G⁻¹ y`. No decay rate, no orbit
+instantiation, and no numeric margin is registered on the formal lane.
+
+What remains of 009 is component 5: the quantitative F1/F2 recast that
+assembles one healthy detector and presents its `K_loc` to the N1c budget
+digit-by-digit. No orbit is instantiated and no numeric margin is registered
+in the formal lane.
