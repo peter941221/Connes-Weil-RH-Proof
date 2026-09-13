@@ -267,6 +267,21 @@ Read the current records in this order for a full-map review:
     rests on a low-frequency heuristic that 1389 flags as unreliable at
     `|Im rho| ~ 14`). Section 5 names the R1 run precondition; the archimedean
     gate is explicitly NOT a rig precondition and NOT decided by any verdict.
+24. [1391](../proofs/1391_r1_route_alpha_owner_leaf_green.md): the R1 leaf is
+    **FORMAL DONE** — record 1390 section 5's run precondition is met and the
+    rig is now runnable as prereg'd. `C1RouteAlphaOwner` builds ONE owner on
+    the 4-node register carrying minimal healthy data, normalization
+    `laplaceAt g rho = -1`, the ROOT pinning support under the single side
+    condition `Ru + Rf <= log(2)/2`, and the closed-form factorized budget
+    `(2*Ru) * ((1+e')*K_u) * ((1+e)*K_f)` — the exact `hfit` shape the 1387
+    consumer chains by plain `le_trans`; `exists_routeAlphaOwner_margin_pos`
+    composes FIT+(J1) on the same owner, and the healthy-data wiring is a
+    gate-conditional application of the 1375 promotion template. Acceptance
+    WSL try5: `Build completed successfully (3686 jobs)`, 0 error, 0 `sorryAx`,
+    7/7 axiom prints at `[propext, Classical.choice, Quot.sound]`, no warning
+    attributable to the leaf. No gate sign, no rig digit, no `C_min`/`delta`
+    value is claimed there; the only remaining executable N2beta obligation is
+    the 1390 rig itself.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
