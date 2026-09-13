@@ -105,8 +105,11 @@ N2beta component 1: L2 accessor and Lemma-A evaluation bound     FORMAL DONE
 N2beta component 2a: one-node diagonal lower cost/no-go          FORMAL DONE
 N2beta component 2b: finite Gram abstract core (positivity,
   moments identification, minimum-norm inequality)               FORMAL DONE
-N2beta component 2c: actual Mellin representer instantiation,
-  independence/kernel split, same-owner cost comparison          OPEN
+N2beta component 2c-core: actual Mellin representer instantiation,
+  window Gram identities, same-owner cost comparison,
+  closed-form entries                                      FORMAL DONE
+N2beta component 2c-tail: independence/kernel split for the
+  actual family, cfg-specialized application                         OPEN
 N2beta component 3: taper and inverse stability                  OPEN
 N2beta component 4: Young/convolution final-owner budget         OPEN
 N2beta component 5: quantitative F1/F2 and N1c consumption      OPEN
@@ -142,15 +145,34 @@ that node's inner product against the synthesized combination, every solved
 system realizes all target moments, and the solved synthesis has squared norm
 at most any moment-matching vector on the supplied family (abstract
 Pythagoras). The ladder's "minimum L2 cost" item is therefore a precise
-machine-checked statement — relative to an abstract representer family. What
-remains is component 2c: instantiate the actual windowed Mellin representers
-on the `CompactLogTest` owner (the lightest candidate path feeds each nodal
-dual bound through the 1381 window Cauchy–Schwarz brick and avoids the `Lp`
-a.e.-quotient API), resolve the independence versus rank-deficient split for
-that family, and compare the resulting minimum cost with the N1c budget on
-the same owner.
+machine-checked statement — relative to an abstract representer family.
 
-The next mathematical decision is not a broad numerical hunt. It is exactly
-that component 2c instantiation; the taper (component 3) may not start
-before the abstract cost statement has a concrete owner-side instance to
-perturb.
+**Component 2c core is now FORMAL.** The leaf
+`ConnesWeilRH/Dev/C1WindowMellinGram.lean` (paired Audit; WSL build
+`009_window_gram_build1.log`: `Build completed successfully (3548 jobs)`,
+zero errors, zero `sorryAx`, zero Dev warnings, all 14 audit prints exactly
+`[propext, Classical.choice, Quot.sound]`) instantiates the exponential
+window representers `r_s(x) = e^{conj(s) x}` on the genuine `CompactLogTest`
+owner. It proves the Hermitian law of the concrete window Gram,
+the `laplaceAt` window-restriction identity, the concrete quadratic identity
+(the Gram quadratic is exactly the window integral of the squared modulus of
+the representer combination), the raw-interval Cauchy–Schwarz dual bound,
+and the deliverable `windowExpGram_cost_le_compactLogL2sq`: every test whose
+moments factor through a solved Gram system pays at least the real Gram
+quadratic cost `(star coeff ⬝ᵥ y).re ≤ compactLogL2sq f`. Both closed forms
+of a window Gram entry are machine-checked: nonzero frequency
+`(e^{(s+conj t)b} - e^{(s+conj t)a}) / (s+conj t)` under the explicit
+nonzero premise, zero frequency the width `b - a` (the critical-line
+diagonal of 1382). The path uses no `Lp`/`MemLp` API, keeps every damped
+mass window-side as a genuine `ℝ`-valued integral, and registers no
+independence, existence, invertibility, or feasibility claim.
+
+What remains of 2c is the tail: proving linear independence (or the
+rank-deficient branch) for the actual exponential family on distinct nodes,
+and the configuration-specialized application that feeds a concrete orbit's
+solved system into this cost comparison. Only after that can the resulting
+minimum cost be compared digit-by-digit with the N1c budget on one assembled
+detector. The taper (component 3) still may not start before the concrete
+owner-side instance exists — it now does; the remaining 2c tail does not
+block starting component 3's formal lane, but it does block consuming any
+number.

@@ -137,3 +137,53 @@ or pseudoinverse, and claims no feasibility. The next brick is that
 instantiation — the lightest candidate path routes each nodal dual bound
 through the 1381 window Cauchy–Schwarz brick and avoids the `Lp`
 a.e.-quotient API.
+
+## Concrete window Mellin representers (component 2c core, FORMAL)
+
+That instantiation now exists in the paired leaf
+`ConnesWeilRH/Dev/C1WindowMellinGram.lean` with
+`ConnesWeilRH/Dev/C1WindowMellinGramAudit.lean`. For a window `(a,b)` and a
+finite node family `nodes : ι → ℂ`, the representer of node `s` is
+`x ↦ exp(conj(s) · x)` and the concrete Gram entry is the window integral
+
+```text
+windowExpGram a b s t = ∫ x in a..b, exp((s + conj t) * x) ∂volume
+```
+
+of the pairing exponent. The leaf proves, on the genuine `CompactLogTest`
+owner and with no `Lp`/`MemLp` API:
+
+- the Hermitian law `star (windowExpGram a b s t) = windowExpGram a b t s`;
+- the `laplaceAt` window-restriction identity (indicator trim under
+  `a < b` and `Function.support f.test ⊆ Ioo a b`);
+- the concrete quadratic identity: the cast window integral of
+  `‖∑ i, coeff i * exp(conj(node i) · x)‖²` is exactly the plain-bilinear
+  Gram quadratic `star coeff ⬝ᵥ (windowExpGramMatrix a b nodes).mulVec
+  coeff` — the owner-side instance of `finiteMellinGram_quadratic_eq_inner`;
+- the dual bound `‖∑ i, star(coeff i) * laplaceAt f (node i)‖² ≤
+  (that real window integral) * compactLogL2sq f`, assembled through the
+  1381 raw-interval Cauchy–Schwarz brick;
+- the deliverable cost comparison `windowExpGram_cost_le_compactLogL2sq`:
+  whenever `laplaceAt f (node i) = y i` for all `i` and the coefficient
+  vector solves the normal system `G · coeff = y`, then
+  `(star coeff ⬝ᵥ y).re ≤ compactLogL2sq f` — the concrete shadow of the
+  abstract minimum-norm theorem above;
+- both closed forms of a window Gram entry: under the explicit
+  nonzero-frequency premise the exact quotient
+  `(exp((s+conj t)·b) - exp((s+conj t)·a)) / (s + conj t)` (fundamental
+  theorem via `integral_eq_sub_of_hasDerivAt`), and under the zero-frequency
+  premise the window width `b - a` — the critical-line diagonal.
+
+Evidence: `009_window_gram_build1.log` — `Build completed successfully
+(3548 jobs)`, zero `error:` lines, zero `sorryAx`, zero Dev warnings; all
+14 audit prints are exactly `[propext, Classical.choice, Quot.sound]`.
+
+Scope: this states no linear independence or rank fact for the exponential
+family, constructs no inverse or pseudoinverse, asserts no existence of a
+solved system for any actual orbit, and registers no numeric margin. The 2c
+tail — Vandermonde-style independence of the exponentials for distinct nodes
+(or the rank-deficient branch), the configuration-specialized application
+feeding one assembled detector's solved system through this comparison, and
+the abstract/concrete identification — remains before component 3 may
+consume any number. The N1c joint-feasibility interface (1379) can now
+quote a machine-checked concrete lower cost.

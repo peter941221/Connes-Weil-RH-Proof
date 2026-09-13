@@ -172,10 +172,13 @@ Read the current records in this order for a full-map review:
 16. [1382](../proofs/1382_one_node_quantitative_mellin_gram.md): the
     FORMAL finite-Gram line — one-node diagonal lower cost with the
     critical-line width identity, complex quadratic-form positivity and
-    its strict branch, kernel compatibility, and the abstract
-    minimum-norm theorem (solved Gram synthesis ≤ every moment-matching
-    vector); actual Mellin representer instantiation and the upper
-    construction remain open.
+    its strict branch, kernel compatibility, the abstract minimum-norm
+    theorem (solved Gram synthesis ≤ every moment-matching vector), and
+    the concrete window-Mellin instantiation: window Gram Hermitian law,
+    `laplaceAt` restriction, concrete quadratic identity, solved-system
+    cost comparison `(star coeff ⬝ᵥ y).re ≤ compactLogL2sq f`, and both
+    closed-form entries; the independence/kernel split for the actual
+    family and the configuration-specialized application remain open.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
