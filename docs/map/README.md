@@ -471,6 +471,33 @@ Read the current records in this order for a full-map review:
     a + outcome would leave rung 5 (B0b-iff-SourceRH) formally open
     (law 65: all numbers MODEL). Nothing falsified; RH not claimed in
     either direction.
+36. [1407](../proofs/1407_chuk_psi_Q_dictionary_double_evaluation_prereg.md)
+    + [1408](../proofs/1408_chuk_psi_Q_dictionary_plus_one_and_triangle_resolves_by_support.md)
+    — dictionary double-evaluation: **PLUS_ONE**, and the 1406 triangle
+    DISSOLVES by support radius. inv1 crash (VOID, rig-only `6a3b80c`);
+    inv2 false-FAIL: D1 rel 1.74e-5 traced by an mpmath-50bit diagnostic
+    to `R._panels` oscillation-only density giving the flat bump ONE
+    16-node GL panel (C err 8.8e-7); register side was accurate and the
+    pole identity `4 int g cosh = 2C^2` holds to 3e-17 — no convention
+    error ever existed. inv3 (rev3 `8779337`, gate classes untouched):
+    all gates PASS, Q/psi = 1 + 2.2e-9 at the locked L=1/2 cell with the
+    n=2 comb channel live (D1 rel 9.1e-15): the register's psi IS the
+    classical Q, sign +, factor 1 (MODEL, one cell). Prereg PLUS_ONE
+    reading = formal-side duty, executed: 1406's T1 was OVERSTATED —
+    `exists_healthyDetectorData_of_sourceNontrivialZero_right`
+    (`C1HealthyYoshidaSpectralNegativity.lean:568-571`) carries NO
+    support bound; the produced radius is
+    `R = 2^(n0+1) + 2 + dist(2,rho) > 2^|Im rho|-scale` (`:535,:543`),
+    and `C1HealthyDetectorRootSupportExit.lean:78-81` says the orbit
+    theorem does not supply the root window. Certificate windows
+    (<= 0.8) and counterexample supports (height-dominated) are
+    DISJOINT — no collision; Chuk coexists with the chain; rung 5
+    restated precisely as the radius-shrink step, which no fixed-L
+    certificate can supply by the paper's own equivalence sentence.
+    Laws: F17 recurrence inside our own instrument (achievable-noise
+    pre-audit) + F18 born (cite form premises verbatim, especially your
+    own). Chuk species FULLY ADJUDICATED (1405-1408). Queue empty by
+    law F15, with stronger grounds. Nothing falsified; RH not claimed.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
