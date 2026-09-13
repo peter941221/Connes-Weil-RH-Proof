@@ -96,20 +96,33 @@ def F_d(y):
 # ------------------------------------------------------- generic arch (mp)
 LOG4PI_G = mp.log(4 * mp.pi) + mp.euler
 
-def A_of(F, split=16):
-    """archimedeanTerm of a test F (mp outer quadrature over float F):
-    Re[ (log4pi+gamma) F(0) + int_0^supp [e^{y/2}(F(y)+F(-y)) - 2F(0)]
-        / (2 sinh y) dy ]."""
+# mpmath 1.4.1 has no leggauss: float64 GL-24 nodes/weights (exact to
+# ~1e-16, the panel error is far below every tie class since the F
+# values feeding the integrand are float64-sourced anyway), lifted to
+# mp for the arithmetic.
+_glx, _glw = np.polynomial.legendre.leggauss(24)
+_XG = [M(str(float(v))) for v in _glx]
+_WG = [M(str(float(v))) for v in _glw]
+
+def A_of(F, panels=32):
+    """archimedeanTerm of a test F, FIXED mp Gauss-Legendre panels over
+    float-sourced F values (adaptive mp.quad over float64 data spins:
+    its 200-digit error controller chases 16-digit noise - inv2 stall).
+    int_0^supp [e^{y/2}(F(y)+F(-y)) - 2F(0)]/(2 sinh y) dy; nodes are
+    strictly interior, y = 0 never sampled."""
     F0 = complex(F(0.0))
-    I = M(0)
-    end = float(2 * rOut)
-    edges = [i * end / split for i in range(split + 1)]
-    for l, h in zip(edges[:-1], edges[1:]):
-        f = lambda y: mp.re(mp.exp(y / 2) * (MC(F(y)) + MC(F(-y)))
-                             - 2 * MC(F0)) / (mp.e ** y - mp.e ** (-y))
-        I += mp.quad(f, [mp.mpf(l) + mp.mpf(h - l) * 1e-14,
-                         mp.mpf(h)] if l == 0 else [mp.mpf(l), mp.mpf(h)])
-    return LOG4PI_G * M(str(F0.real)) + I
+    end = 2 * rOut
+    total = M(0)
+    half = end / panels
+    for k in range(panels):
+        a = end * M(k) / panels; b = a + half
+        mid = (a + b) / 2
+        for xi, wi in zip(_XG, _WG):
+            y = half * xi + mid
+            num = mp.re(mp.exp(y / 2) * (MC(F(y)) + MC(F(-y)))
+                        - 2 * MC(F0))
+            total += half * wi * num / (mp.e ** y - mp.e ** (-y))
+    return LOG4PI_G * M(str(F0.real)) + total
 
 def A_trapz(F):
     """float dense-grid mirror for G1."""
@@ -119,7 +132,7 @@ def A_trapz(F):
     Fy = np.array([F(y) for y in ys[:-1]])
     Fneg = np.array([F(-y) for y in ys[:-1]])
     g = np.real(np.exp(ys[:-1] / 2) * (Fy + Fneg) - 2 * F0) \
-        / (np.sinh(ys[:-1]))
+        / (2.0 * np.sinh(ys[:-1]))
     dy = np.diff(ys)
     integral = float(np.sum(0.5 * (g[:-1] + g[1:]) * dy))
     return float((np.log(4 * np.pi) + np.euler_gamma) * F0.real) + integral
