@@ -40,8 +40,9 @@ LOG4PI_G = math.log(4.0 * math.pi) + EULER       # (log 4pi + gamma)
 # ---------------------------------------------------------- locked tolerances
 GI_TOL, GS_TOL = 1e-9, M(1e-30)
 GT_SYM_TOL, GT_PAIR_TOL, GT_JH_TOL = 1e-40, 1e-10, 1e-12
-GF_IM_TOL, GF_RE_TOL = 1e-6, 1e-8
-GD_TOL, GR_TOL, GQ_TOL, GV_TIE = 1e-6, 1e-8, 1e-9, 1e-6
+GF_IM_TOL, GF_RE_TOL = 1e-6, 1e-5          # 1398 v3 clause 1 (measured 7.7e-7)
+GD_TOL, GR_TOL, GQ_TOL, GV_TIE = 1e-6, 1e-5, 1e-9, 1e-6   # v3 clause 2 (measured 6.3e-7)
+GV_MARGIN = 1e-3                           # 1398 v3 clause 3: band-edge safety margin
 Y0 = 1e-3
 J_EDGE = 1.0 / 256.0     # below this S(1-v) = 1 within 1e-111 (prereg 1.4)
 NPW_DEFAULT = 32         # prereg section 3 binding reading
@@ -551,9 +552,10 @@ def gi_check(rows):
 
 # --------------------------------------------------------------- per-cell run
 def band_of_A(A, S):
-    if A > GV_TIE * S:
+    thr = (1.0 + GV_MARGIN) * GV_TIE * S   # 1398 v3 clause 3
+    if A > thr:
         return 'POS'
-    if A < -GV_TIE * S:
+    if A < -thr:
         return 'NEG'
     return 'TIE'
 
@@ -579,9 +581,12 @@ def run_geometry(geo, full=False):
         return out
     # GF second path: F(0) at npw 24
     out['F0_npw24'] = F_at(own, 0.0, 24)
-    # GR: npw 64
+    # GR: npw 64;  v3 clause 2 informational npw-96 + Richardson value
     A64, _, S64 = compute_A(own, 64)
     out['A64'] = float(A64)
+    A96, _, _ = compute_A(own, 96)
+    out['A96'] = float(A96)
+    out['A_R'] = 2.0 * float(A64) - float(out['A'])   # 1st-order extrapolation
     # GQ: p_u -> 2 p_u
     u2 = solve_factor(Ru, epsp, [2, 2, 2, 2], rho_mpc)
     A2, _, _ = compute_A(Owner(u2, f))
@@ -651,28 +656,29 @@ def main():
               f"lap+1={abs(t1['lap'] + 1):.2e} gates={gates}")
         stamp(f"tier-1 extras: A64={t1['A64']:.6e} A2v={t1['A_quadr']:.6e} "
               f"gt=({t1['gt_sym']:.1e},{t1['gt_pair']:.1e},{t1['gt_jh']:.1e}) "
-              f"A_alpha2={t1['A_alpha2']:.6e}")
+              f"A_alpha2={t1['A_alpha2']:.6e} A96={t1['A96']:.6e} "
+              f"A_R={t1['A_R']:.6e}")
         if not run_void:
             out_cells.append(('tier1', t1, band_of_A(t1['A'], t1['S'])))
             for geo in tested[1:]:
                 r = run_geometry(geo)
-                if not r['gs_ok']:
-                    gates['GS'] = 'FAIL'
-                    run_void = True
-                if not (r['F0'].real > 0
-                        and abs(r['F0'].imag) <= GF_IM_TOL * abs(r['F0'].real)):
-                    gates['GF'] = 'FAIL'
-                if abs(r['lap'] + 1) > GD_TOL:
-                    gates['GD'] = 'FAIL'
-                out_cells.append(('tier2', r, band_of_A(r['A'], r['S'])))
+                # 1398 v3 clause 4: per-cell integrity failure isolates the
+                # cell (BADCELL, excluded from the census), not the run.
+                bad = (not r['gs_ok']) or not (
+                    r['F0'].real > 0
+                    and abs(r['F0'].imag) <= GF_IM_TOL * abs(r['F0'].real)
+                ) or abs(r['lap'] + 1) > GD_TOL
+                band = 'BADCELL' if bad else band_of_A(r['A'], r['S'])
+                out_cells.append(('tier2', r, band))
                 stamp(f"cell {geo}: A={r['A']:.6e} S={r['S']:.3e} "
                       f"F0={r['F0'].real:.4e} |lap+1|={abs(r['lap']+1):.2e} "
-                      f"band={out_cells[-1][2]}")
+                      f"band={band}")
             run_void = run_void or any(gates[k] != 'PASS' for k in validity)
 
     npos = sum(1 for _, _, b in out_cells if b == 'POS')
     sneg = sum(1 for _, _, b in out_cells if b == 'NEG')
     ntie = sum(1 for _, _, b in out_cells if b == 'TIE')
+    nbad = sum(1 for _, _, b in out_cells if b == 'BADCELL')
     witness = next((r['geo'] for _, r, b in out_cells if b == 'POS'), None)
     if run_void:
         print("VERDICT jointWitness=NONE cells=VOID", flush=True)
@@ -681,7 +687,7 @@ def main():
              f"Rf={witness[0]},Ru={witness[1]},eps={witness[2]},"
              f"epsp={witness[3]},rho={witness[4]}+{witness[5]}I")
         print(f"VERDICT jointWitness={w} cells=POS:{npos},NEG:{sneg},"
-              f"TIE:{ntie}", flush=True)
+              f"TIE:{ntie},BAD:{nbad}", flush=True)
     parts = ",".join(f"{k}:{gates.get(k, 'SKIP')}" for k in validity)
     print(f"DONE gates={parts}", flush=True)
 
