@@ -517,6 +517,20 @@ Read the current records in this order for a full-map review:
     species SEALED (1405-1411). Queue empty by mathematical necessity.
     Model level only (law 65); nothing falsified; RH not claimed in
     either direction.
+38. [1412](../proofs/1412_psi_blindness_brick_odd_annihilation_machine_checked.md)
+    — FORMAL CAMPAIGN BRICK 1 GREEN (`C1PsiBlindness`, commit-lineage
+    003add1 + fix): the odd-annihilation half of 1406 kill (a) is now a
+    machine fact — `psi f = 0` for every negation-odd `CompactLogTest`,
+    with `poleTerm`/`finitePrimeSum`/`archimedeanTerm` each annihilated
+    and `laplaceAt f (-s) = -laplaceAt f s` as the engine. try3: 3477
+    jobs, 0 errors, 9/9 axiom trios, no `sorryAx`. Law F19 (transcribe
+    proven in-repo proof skeletons; F17's duty covers Lean tactics) and
+    three Lean traps (all-occurrence `rw`, beta-redex blocking
+    `integral_neg_eq_self` matching, `add_left_neg` being a class field
+    not a global theorem) recorded. Scope: annihilation half only —
+    psi-linearity and the `convolutionSquare` sector split are bricks
+    2-3; the dictionary bridge `psi = Q` is a long brick. No sign, no
+    positivity, RH not claimed; the wall's truth is untouched.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).

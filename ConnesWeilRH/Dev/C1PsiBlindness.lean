@@ -32,45 +32,54 @@ namespace C1PsiBlindness
 
 open MeasureTheory
 open CC20YoshidaConvolution
+open CC20YoshidaConvolution.CompactLogTest
+open CCM25Concrete.CompactLogConvolution
 open C1SameOwnerWeil
 
 /-- An odd test vanishes at the origin. -/
 theorem test_eq_zero_of_odd (f : CompactLogTest)
     (hodd : ∀ x : Real, f.test (-x) = -f.test x) : f.test 0 = 0 := by
   have h : f.test 0 = -f.test 0 := by simpa using hodd 0
-  exact eq_neg_self_iff.mp h
+  have h1 : f.test 0 + f.test 0 = 0 :=
+    (congr_arg (fun t => f.test 0 + t) h).trans
+      (by abel : f.test 0 + -f.test 0 = 0)
+  have h2 : (2 : ℂ) * f.test 0 = 0 := by rwa [two_mul]
+  exact (mul_eq_zero.mp h2).resolve_left two_ne_zero
 
 /-- Oddness reflected through the bilateral Laplace transform:
 `laplaceAt f (-s) = -laplaceAt f s`. This is the additive-coordinate twin
-of `laplaceAt_involution` for the odd sector. -/
+of `laplaceAt_involution` for the odd sector; the `let`-bound helper is
+what makes the negation substitution a first-order rewrite (same shape as
+`CC20YoshidaFullProduct.laplaceAt_involution`). -/
 theorem laplaceAt_neg_eq_neg_of_odd (f : CompactLogTest)
     (hodd : ∀ x : Real, f.test (-x) = -f.test x) (s : ℂ) :
     laplaceAt f (-s) = -laplaceAt f s := by
   unfold laplaceAt
   simp only [exponentialWeight_apply]
-  have hflip : (fun x : Real => Complex.exp (-s * (x : ℂ)) * f.test x) =
-      fun x : Real =>
-        (fun y : Real => Complex.exp (s * (y : ℂ)) * f.test (-y)) (-x) := by
+  let paired : ℝ → ℂ := fun x => Complex.exp (s * (x : ℂ)) * f.test (-x)
+  have hrewrite : (fun x : ℝ => Complex.exp (-s * (x : ℂ)) * f.test x) =
+      fun x => paired (-x) := by
     funext x
-    show Complex.exp (-s * (x : ℂ)) * f.test x =
-        Complex.exp (s * ((-x : Real) : ℂ)) * f.test (-(-x))
-    simp
-    ring
-  rw [hflip, integral_neg_eq_self]
-  have hneg : (fun x : Real => Complex.exp (s * (x : ℂ)) * f.test (-x)) =
-      fun x : Real => -(Complex.exp (s * (x : ℂ)) * f.test x) := by
-    funext x
-    rw [hodd x]
-  rw [hneg, integral_neg]
+    dsimp [paired]
+    have harg : (s : ℂ) * Complex.ofReal (-x) = (-s) * Complex.ofReal x := by
+      push_cast
+      ring
+    rw [harg, neg_neg]
+  rw [hrewrite, integral_neg_eq_self]
+  rw [← integral_neg]
+  apply integral_congr_ae
+  filter_upwards with x
+  dsimp [paired]
+  rw [hodd x]
+  simp only [mul_neg]
 
 /-- The pole functional annihilates odd tests. -/
 theorem poleTerm_eq_zero_of_odd (f : CompactLogTest)
     (hodd : ∀ x : Real, f.test (-x) = -f.test x) : poleTerm f = 0 := by
   have h := laplaceAt_neg_eq_neg_of_odd f hodd ((1 : ℂ) / 2)
   unfold poleTerm
-  have hnegarg : (-(1 : ℂ) / 2 : ℂ) = -((1 : ℂ) / 2) := by ring
+  have hnegarg : ((-1 : ℂ) / 2 : ℂ) = -((1 : ℂ) / 2) := by ring
   rw [show ((-1 : ℂ) / 2 : ℂ) = -((1 : ℂ) / 2) from hnegarg, h]
-  rw [add_left_neg]
   simp
 
 /-- The complex prime-power term annihilates odd tests. -/
@@ -78,7 +87,7 @@ theorem finitePrimeTermComplex_eq_zero_of_odd (f : CompactLogTest)
     (hodd : ∀ x : Real, f.test (-x) = -f.test x) (n : Nat) :
     finitePrimeTermComplex f n = 0 := by
   unfold finitePrimeTermComplex
-  rw [hodd (Real.log n), add_left_neg]
+  rw [hodd (Real.log n)]
   simp
 
 /-- The full finite prime-power sum annihilates odd tests. -/
@@ -99,7 +108,6 @@ theorem archimedeanNumerator_eq_zero_of_odd (f : CompactLogTest)
   have h0 := test_eq_zero_of_odd f hodd
   unfold archimedeanNumerator
   rw [hodd y, h0]
-  rw [add_left_neg]
   simp
 
 /-- The direct archimedean integrand of an odd test is pointwise zero. -/
@@ -116,8 +124,10 @@ theorem archimedeanTerm_eq_zero_of_odd (f : CompactLogTest)
     archimedeanTerm f = 0 := by
   have h0 := test_eq_zero_of_odd f hodd
   have hint : (∫ y in Set.Ioi (0 : Real), archimedeanIntegrand f y) = 0 := by
-    simp_rw [archimedeanIntegrand_eq_zero_of_odd f hodd]
-    exact integral_zero _ _
+    have heq : (fun y : Real => archimedeanIntegrand f y) = fun _ => 0 :=
+      funext fun y => archimedeanIntegrand_eq_zero_of_odd f hodd y
+    rw [heq]
+    simp
   unfold archimedeanTerm
   rw [h0, hint]
   simp
