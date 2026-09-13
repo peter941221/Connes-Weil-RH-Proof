@@ -282,6 +282,31 @@ Read the current records in this order for a full-map review:
     attributable to the leaf. No gate sign, no rig digit, no `C_min`/`delta`
     value is claimed there; the only remaining executable N2beta obligation is
     the 1390 rig itself.
+25. [1392](../proofs/1392_rig_run_void_G1G3_pregate_defects.md) +
+    [1393](../proofs/1393_component5_route_A_prereg_v3_instrument_fix.md): the
+    1390 run executed and came back **VOID** on its own gates — G1 was
+    unsatisfiable-by-construction at the locked FAIL-band reference (a prereg
+    defect), G3 caught float64 ill-conditioning where the MODEL is exact (a
+    precision-class omission). Per the record-1373 protocol the fix is a NEW
+    prereg, not an edit: 1393 re-locks model, grids, bands and kill scope
+    VERBATIM and revises only the two instrument sections (G1 band-universal
+    control: strict ratio drop + exact 10x shortfall identity within 1e-9 +
+    band-rank non-increase; G3 mpmath 200-bit with 1e-30 residual/imaginary
+    classes). No verdict from the v2 run has evidentiary status.
+26. [1394](../proofs/1394_component5_rig_v3_valid_j1_realizable.md): the 1393
+    run is **VALID and VERDICT-BEARING** — sentinel
+    `DONE gates=G0:PASS,G1:PASS,G2:PASS,G3:PASS,G4:PASS,G5:PASS`, zero tie
+    cells, min K_loc = 2.831. **(J1) is MODEL-realizable on the route-alpha
+    register**: 45,915/96,000 cells PASS-band, at EVERY locked `d`, up to
+    `delta = 1.0` on 10–11 of 14 frontier entries per `d`, with fully
+    specified witnesses at every node height including the first zero
+    (`ratio = 0.999773` at `Rf = 0.1732, Ru = 0.02`). The prereg'd reference
+    geometry itself is FAIL-band (ratio -0.8539) — the FAIL region is real
+    and height-dominated, but interior: no locked height makes (J1)
+    unattainable. 009 section 5 item 3 is RIG DONE (MODEL); the contract's
+    remaining obligation is only the inherited archimedean gate (item 5).
+    Nothing here discharges `hfit`/`hJ1` in Lean, produces detector data, or
+    claims RH.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).

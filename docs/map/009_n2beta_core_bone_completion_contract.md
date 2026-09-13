@@ -120,7 +120,7 @@ N2beta component 5-shape: route-(A) margin consumer,
   consumption, F1/F2 value hooks                                 FORMAL DONE
 N2beta component 5-discharge: R1 leaf on the route-alpha
   4-node register (hfit) + healthy-data wiring                   FORMAL DONE
-  rig-confirmed digits (hJ1) per prereg 1390                     OPEN
+  rig digits (hJ1): v3 run VALID, all gates PASS                 RIG DONE (MODEL)
 Archimedean gate: 0 < archimedeanTerm g.convolutionSquare
   (records 1080/1081; inherited, not an N2beta obligation)       OPEN
 N3/N4 total-budget closure                                       OPEN
@@ -299,8 +299,10 @@ the shape-layer endpoint `exists_assembledOwner_bandBridge_pos` (`0 < B_δ`).
 
 **Component 5 discharge layer was OPEN** — its formal half (items 2 and 4) is
 now FORMAL DONE (record
-[1391](../proofs/1391_r1_route_alpha_owner_leaf_green.md)) and the one
-remaining executable obligation is the 1390 rig digits (item 3). A source
+[1391](../proofs/1391_r1_route_alpha_owner_leaf_green.md)) and its executable
+half (item 3) is RIG DONE (MODEL, records
+[1392](../proofs/1392_rig_run_void_G1G3_pregate_defects.md)/[1393](../proofs/1393_component5_route_A_prereg_v3_instrument_fix.md)/[1394](../proofs/1394_component5_rig_v3_valid_j1_realizable.md)).
+A source
 recon (record
 [1389](../proofs/1389_component5_recon_route_alpha_collapse.md)) re-scoped it
 before any digit was computed and corrected two locks in the first prereg. Its
@@ -313,15 +315,27 @@ content was exactly five items:
    record-1373 protocol (a model revision requires a new record and a new
    prereg, not an edit). 1390 section 5 named the run precondition — the green
    R1 leaf — which is satisfied by record
-   [1391](../proofs/1391_r1_route_alpha_owner_leaf_green.md); the rig is
-   therefore runnable as prereg'd;
+   [1391](../proofs/1391_r1_route_alpha_owner_leaf_green.md). The 1390 run
+   executed and was VOIDED on its own G1/G3 gates (instrument defects; record
+   [1392](../proofs/1392_rig_run_void_G1G3_pregate_defects.md)); the
+   continuation prereg [1393](../proofs/1393_component5_route_A_prereg_v3_instrument_fix.md)
+   revised only those two instrument sections, re-locking model, grids, bands
+   and kill scope VERBATIM;
 2. the **R1 leaf**: one owner `g = u.convolution f` on the route-alpha register
    discharging `hfit`. Recon verdict — items (a), (b), (d) of 1389 section 7 are
    wiring over the green record-1385/1386/1387 components, and item (c) is the
    single numeric side condition `Ru + Rf ≤ log(2)/2`. **FORMAL DONE** (record
    1391, `C1RouteAlphaOwner`, WSL try5: 3686 jobs, 0 error, 7/7 axiom prints);
-3. the rig-confirmed digits discharging `hJ1`, gated by 1390 — the only
-   remaining executable N2beta obligation;
+3. the rig-confirmed digits discharging `hJ1`, gated by 1390 (v2) and 1393
+   (v3). **RIG DONE (MODEL)** — record
+   [1394](../proofs/1394_component5_rig_v3_valid_j1_realizable.md): the v3
+   run is valid (G0–G5 all PASS at 200-bit precision, zero tie cells), and
+   (J1) is REALIZABLE on the route-alpha register — 45,915/96,000 cells
+   PASS-band at every locked `d`, up to `delta = 1.0` on most frontier
+   entries, with fully specified witness cells at every node height
+   including the first zero. The digits do not discharge `hJ1` in Lean
+   (1393 section 0) — they retire the contract's last executable
+   obligation;
 4. the healthy-data wiring. **FORMAL DONE** as a gate-conditional theorem
    (`healthyDetectorData_of_routeAlphaOwner`, record 1391). The register kill set
    `cc20TripleFiniteVanishingSet` is FIXED, so the node family must contain it

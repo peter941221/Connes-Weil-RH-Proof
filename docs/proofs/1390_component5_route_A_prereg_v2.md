@@ -1,5 +1,15 @@
 # 1390 — Preregistration v2: N2beta component 5 discharge rig (route A, route-alpha register, MODEL evidence)
 
+> **RUN-OUTCOME HEADER (2026-09-13, added after execution; original body
+> untouched).** The precondition of section 5 was met (record 1391) and the
+> run executed; it came back **VOID** on this file's own gates G1 and G3 —
+> diagnostics and the 1373-protocol path in record
+> [1392](1392_rig_run_void_G1G3_pregate_defects.md). The model sections
+> (1, 2, 1.7, 6) are re-locked VERBATIM by the continuation prereg
+> [1393](1393_component5_route_A_prereg_v3_instrument_fix.md), which revises
+> only the two instrument sections (G1 control form, G3 precision class). No
+> verdict from any run under this file's G1/G3 has evidentiary status.
+
 Date: 2026-09-13. Law 42: committed BEFORE any digit. Law 65: every number a
 future run produces under this prereg is MODEL.
 
