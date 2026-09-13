@@ -531,6 +531,23 @@ Read the current records in this order for a full-map review:
     psi-linearity and the `convolutionSquare` sector split are bricks
     2-3; the dictionary bridge `psi = Q` is a long brick. No sign, no
     positivity, RH not claimed; the wall's truth is untouched.
+39. [1413](../proofs/1413_psi_linearity_brick_psi_additivity_machine_checked.md)
+    — FORMAL CAMPAIGN BRICK 2 GREEN: `C1PsiLinearity` machine-checks the
+    additive structure of `psi` that brick 1's kill-(a) MODEL argument
+    assumed: pointwise `testAdd`/`testNeg` on `CompactLogTest`,
+    additivity and oddness of `laplaceAt`, pole, both prime readouts,
+    the prime sum (union-superset `Finset.sum_subset` argument, since
+    the summation set itself depends on the test) and the archimedean
+    functional — the functional-level additivity conditional on explicit
+    `IntegrableOn` hypotheses, with a hypothesis-free square-class
+    corollary `psi_testAdd_convolutionSquare` via the existing selected
+    -owner integrability lemma. 23 declarations, try2 GREEN (3478 jobs,
+    23/23 standard-axiom trios, 0 error, 0 `sorryAx`); four try1 failure
+    classes registered (push_neg implication trap, sum_congr direction,
+    metavariable-bearing `simp only` vs `rw`, single-lambda integrand
+    witness shape). No sign theorem, no positivity, RH not claimed; the
+    wall's truth is untouched. Next: brick 3 (square-class sector split
+    completing kill (a) formally), then brick 4 (the dictionary).
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
