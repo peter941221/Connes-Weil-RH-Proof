@@ -43,6 +43,7 @@ IMS = (14.134725, 21.022040, 25.010858, 100.0, 1054.0)
 TIER1 = (0.99, 14.134725)
 BATTERY = {(0.99, 100.0), (0.99, 1054.0)}   # tier-3 cells
 TARGETS = [MC(0), MC(0), MC(0), MC(1), MC(-1), MC(0), MC(0)]
+GI_MP_TOL = 1e-15                    # 1403 v2 clause (was 1e-30 in v1)
 N = 7
 T0 = time.time()
 
@@ -249,9 +250,10 @@ def main():
         gd = t1['gdmax'] <= R.GD_TOL
         gr = abs(t1['A64'] - t1['A']) <= R.GR_TOL * abs(t1['A'])
         gq = abs(t1['A_quadr'] - 4 * t1['A']) <= R.GQ_TOL * abs(4 * t1['A'])
-        # both GI clauses are O(1) lap-value differences: the GD class
-        # applies as an absolute bound (1403 prereg section 3)
-        gi = t1['gi_mp'] <= 1e-30 and t1['gi_fl'] <= R.GD_TOL
+        # 1403 v2: clause-1 class 1e-15 (band-term bound delta*||c||*R
+        # <= 5.6e-15 from the v1 audit table; convention errors enter at
+        # O(1)).  Clause 2 is an O(1) lap difference: the GD class.
+        gi = t1['gi_mp'] <= GI_MP_TOL and t1['gi_fl'] <= R.GD_TOL
         for name, ok in (('GI', gi), ('GS', t1['gs_ok']), ('GT', gt),
                          ('GF', gf_ok(t1)), ('GD', gd), ('GR', gr),
                          ('GQ', gq)):
