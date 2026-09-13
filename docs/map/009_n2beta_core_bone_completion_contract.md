@@ -108,8 +108,9 @@ N2beta component 2b: finite Gram abstract core (positivity,
 N2beta component 2c-core: actual Mellin representer instantiation,
   window Gram identities, same-owner cost comparison,
   closed-form entries                                      FORMAL DONE
-N2beta component 2c-tail: independence/kernel split for the
-  actual family, cfg-specialized application                         OPEN
+N2beta component 2c-tail: window independence of the actual
+  exponential family, Gram trivial-kernel/invertibility for
+  distinct nodes, K_loc inverse-solve cost instance       FORMAL DONE
 N2beta component 3: taper and inverse stability                  OPEN
 N2beta component 4: Young/convolution final-owner budget         OPEN
 N2beta component 5: quantitative F1/F2 and N1c consumption      OPEN
@@ -167,12 +168,23 @@ diagonal of 1382). The path uses no `Lp`/`MemLp` API, keeps every damped
 mass window-side as a genuine `ℝ`-valued integral, and registers no
 independence, existence, invertibility, or feasibility claim.
 
-What remains of 2c is the tail: proving linear independence (or the
-rank-deficient branch) for the actual exponential family on distinct nodes,
-and the configuration-specialized application that feeds a concrete orbit's
-solved system into this cost comparison. Only after that can the resulting
-minimum cost be compared digit-by-digit with the N1c budget on one assembled
-detector. The taper (component 3) still may not start before the concrete
-owner-side instance exists — it now does; the remaining 2c tail does not
-block starting component 3's formal lane, but it does block consuming any
-number.
+**Component 2c is now complete, tail included.** The leaf
+`ConnesWeilRH/Dev/C1WindowMellinIndependence.lean` (paired Audit; WSL build
+`009_independence_build2.log`: `Build completed successfully (3549 jobs)`,
+zero errors, zero `sorryAx`, all 7 audit prints exactly
+`[propext, Classical.choice, Quot.sound]`) proves from scratch the linear
+independence of the exponential family on any open window, derives the
+trivial-kernel law and hence invertibility of the concrete window Gram for
+distinct nodes, and instantiates the 2c cost comparison at the inverse solve,
+certifying the record-1379 quantity `K_loc = y* G⁻¹ y` as a machine-checked
+lower bound of `compactLogL2sq f` for every supported test realizing the
+target values on distinct nodes. The rank-deficient branch is characterized:
+it occurs only for coinciding nodes.
+
+What remains of 009 is components 3–5: the smooth taper with its perturbed
+Gram stability, the Young/convolution same-owner budget, and the quantitative
+F1/F2 recast that assembles one healthy detector and presents its `K_loc` to
+the N1c budget digit-by-digit. The value-realization interface
+(`laplaceAt f (node i) = y i`) is still the open analytic input the assembly
+must supply; no orbit is instantiated and no numeric margin is registered in
+the formal lane.

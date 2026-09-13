@@ -187,3 +187,68 @@ feeding one assembled detector's solved system through this comparison, and
 the abstract/concrete identification — remains before component 3 may
 consume any number. The N1c joint-feasibility interface (1379) can now
 quote a machine-checked concrete lower cost.
+
+## Independence and the K_loc inverse solve (component 2c tail, FORMAL)
+
+The tail closed in the paired leaf
+`ConnesWeilRH/Dev/C1WindowMellinIndependence.lean` with its Audit. Seven
+declarations, all axiom-clean:
+
+- `hasDerivAt_exp_mul_coe`: the pointwise derivative
+  `d/dx exp(μx) = μ·exp(μx)` along the real axis, built from
+  `Complex.ofRealCLM.hasDerivAt`, `const_smul`, and
+  `Complex.hasDerivAt_exp`.
+- `finiteExp_windowComb_eq_zero`: linear independence of the exponential
+  family on any open window, proved from scratch by `Finset.induction_on`.
+  At each step the vanishing combination is multiplied by
+  `exp(-nodesⱼ·x)` (never zero), so the identity becomes
+  `cⱼ + Σᵢ cᵢ exp((nodesᵢ - nodesⱼ)x) = 0` on the window; differentiating
+  at any interior point (uniqueness of the derivative against the constant
+  function) yields the differentiated identity, which is the induction
+  hypothesis applied to the pairwise-distinct difference family; the
+  removed coefficient then dies from the value identity. No Mathlib
+  `linearIndependent_exp` is used (none exists), and no Vandermonde
+  determinant route (window Gram entries are integrals, not powers).
+- `continuous_nonneg_windowIntegral_zero`: a continuous nonnegative
+  integrand with zero window integral vanishes at every interior point —
+  the engine is `intervalIntegral.integral_pos`.
+- `windowExpGramMatrix_mulVec_eq_zero`: trivial kernel for distinct nodes.
+  A right-null vector's Gram quadratic form is, via the 2c-core concrete
+  quadratic identity, the cast window integral of a squared modulus; real
+  parts reduce it to a null nonnegative integral, hence the combination
+  vanishes pointwise on the window, and the independence lemma at the
+  family `star ∘ nodes` forces the vector to zero.
+- `windowExpGramMatrix_isUnit_of_injective`: invertibility via
+  `Matrix.mulVec_injective_iff_isUnit` (trivial kernel is injectivity of
+  `mulVec` by linearity).
+- `solvedWindowGram_cost_le_compactLogL2sq` and its corollary
+  `windowGramInverse_cost_le_compactLogL2sq`: the N1c `K_loc` instantiation.
+  Substituting the inverse solve `coeff = G⁻¹ y` into the 2c-core cost
+  comparison certifies, for distinct nodes and every supported test with
+  `laplaceAt f (node i) = y i`,
+
+  ```text
+  (star (G⁻¹ y) ⬝ᵥ y).re ≤ compactLogL2sq f
+  ```
+
+  — exactly the record-1379 Lemma E quantity `y*Γ⁻¹y` as a machine-checked
+  lower bound on the genuine `CompactLogTest` owner. Invertibility is a
+  hypothesis in the main form (never a `let` binding: a proof term inside
+  the statement type forces heartbeats to explode); the corollary derives
+  it from node injectivity.
+
+Evidence: `009_independence_build2.log` — `Build completed successfully
+(3549 jobs)`, zero `error:` lines, zero `sorryAx`, zero Dev warnings
+(probe6 single-file run likewise clean); all 7 audit prints exactly
+`[propext, Classical.choice, Quot.sound]`.
+
+Scope: the rank-deficient branch is now characterized (it can only occur
+for coinciding nodes), no feasibility is asserted, no orbit is instantiated
+(the value-realization hypothesis `hvalues` remains the open analytic
+interface), no numeric margin is registered, and the
+abstract-configuration-to-concrete-matrix identification of 1382's
+`FiniteMellinInterpolationConfig` is not claimed. Components 3-5 (taper
+stability, Young budget, quantitative F1/F2 feeding N1c) are the remaining
+009 work; the 2c lane no longer blocks any number consumption — what does
+is now component 4's same-owner budget and component 5's assembled
+detector.

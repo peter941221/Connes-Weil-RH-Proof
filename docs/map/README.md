@@ -177,8 +177,11 @@ Read the current records in this order for a full-map review:
     the concrete window-Mellin instantiation: window Gram Hermitian law,
     `laplaceAt` restriction, concrete quadratic identity, solved-system
     cost comparison `(star coeff ⬝ᵥ y).re ≤ compactLogL2sq f`, and both
-    closed-form entries; the independence/kernel split for the actual
-    family and the configuration-specialized application remain open.
+    closed-form entries — and its tail: window independence of the
+    exponential family, trivial Gram kernel and invertibility for
+    distinct nodes, and the `K_loc = y* G⁻¹ y` inverse-solve lower bound
+    for the N1c interface. Components 3–5 (taper, Young budget,
+    quantitative F1/F2) remain open.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
