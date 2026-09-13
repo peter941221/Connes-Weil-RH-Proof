@@ -131,7 +131,7 @@ def main():
     A1398, F01398, S1398 = R.compute_A(own)
     res['A_instrument'] = float(A1398)
     res['probe_vs_instrument_F'] = [
-        float(abs(complex(F_h(y)) - complex(R.F_at(own, y))))
+        float(abs(complex(F_h(y)) - complex(R.F_at(own, y, 24))))
         for y in (0.0, 0.05, 0.2, 0.4)]
     A_h = A_of(F_h)
     res['A_h'] = str(A_h); res['A_h_f'] = float(A_h)
