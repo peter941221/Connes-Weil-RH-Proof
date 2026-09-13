@@ -321,6 +321,20 @@ Read the current records in this order for a full-map review:
     Next executable surface per 1395 section 4: the rung-3 archimedean-sign
     rig on the route-alpha owner (prereg 1397+ under the 1373 protocol).
     RH not claimed.
+28. [1397](../proofs/1397_rung3_archimedean_sign_recon.md): rung-3 recon
+    (source-only, zero digits): the gate `0 < A(g)` reads a CLOSED-FORM
+    Hermitian-quadratic functional (`F = g~ * g`, kernel
+    `[e^{y/2}(F(y)+F(-y)) - 2F(0)]/(2 sinh y)`, proper at 0, exp-tail, and
+    the finite-prime sum is EMPTY on the owner class since
+    `2(Ru+Rf) <= 0.6928 < log 2`); the 1086/1087 evidence (all-negative,
+    168 compressions) covers only the REAL slice with approximate
+    nullspaces, and its own sup-lower-bound law says negatives CANNOT kill
+    the route; the 1391 owner is complex and exactly vanishing by solve,
+    and 1083's reflection identity is the unused algebraic handle. Next:
+    1398 prereg = JOINT-WITNESS rig ((J1) PASS from 1394's grid x `A > 0`),
+    one-sided by construction, F10/F11-class gates (scale-invariance gate;
+    1086 cross-instrument continuity check; quadrature error in the
+    tolerance budget). RH not claimed.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
