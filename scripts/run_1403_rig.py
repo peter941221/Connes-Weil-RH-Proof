@@ -159,11 +159,27 @@ class SingleOwner:
 
 
 # ------------------------------------------------------------- cell runner
+def gd_lap(own, s):
+    """GD integrator at node s: the SAME integrand, panel machinery and
+    npw as the imported laplace_g, but the panel density uses
+    max(|im s|, |im rho_owner|) — the 3|im target|+2 proxy under-
+    resolves the owner's oscillation at REAL target nodes (inv2 root
+    cause of the five im=1054 BADCELLs: 7.6e-2 at the real nodes vs
+    3e-16 at +-rho; error scaled with |s_j| = aliasing signature).
+    Prereg 1403 v2 section 5 rig-only fix path: model untouched, no
+    class changed, the checked value is the identical integral."""
+    Rs = own.Rs
+    bps = sorted({-Rs, Rs} | {float(c) for c in own.Cg if -Rs < c < Rs})
+    freq = 3.0 * max(abs(float(np.imag(s))), abs(float(np.imag(own.nodes[3])))) + 2.0
+    xn, wn = R._panels(bps, freq, R.NPW_DEFAULT)
+    return complex(np.sum(wn * own.g(xn) * np.exp(s * xn)))
+
+
 def gd_errors(own):
     """GD-beta: |lap h(s_j) - target_j| at ALL SEVEN nodes."""
     errs = []
     for j in range(N):
-        lv = R.laplace_g(own, complex(own.nodes[j]))
+        lv = gd_lap(own, complex(own.nodes[j]))
         errs.append(abs(lv - complex(TARGETS[j])))
     return max(errs), errs
 
@@ -177,7 +193,7 @@ def gi_check7(own, fac):
     for j in range(N):
         Lj = sum(c[i, 0] * R_W(mp.conj(s[i]) + s[j]) for i in range(N))
         worst_mp = max(worst_mp, abs(Lj - TARGETS[j]))
-        worst_fl = max(worst_fl, abs(R.laplace_g(own, complex(s[j]))
+        worst_fl = max(worst_fl, abs(gd_lap(own, complex(s[j]))
                                      - complex(Lj)))
     return float(worst_mp), worst_fl
 
