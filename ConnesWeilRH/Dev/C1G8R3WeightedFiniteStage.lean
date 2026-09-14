@@ -96,6 +96,25 @@ theorem doubledShiftAlternatingProduct_isSelfAdjoint (b : ℝ) :
     IsSelfAdjoint (doubledShiftAlternatingProduct b) := by
   exact (doubledShiftAlternatingProduct_isPositive b).isSelfAdjoint
 
+theorem doubledShiftAlternatingProduct_norm_le_one (b : ℝ) :
+    ‖doubledShiftAlternatingProduct b‖ ≤ 1 := by
+  let p : Op := doubledShiftRadialProjection b
+  let q : Op := sourceFourierSupportProjection unitSoninScale
+  have hp : ‖p‖ ≤ 1 :=
+    IsStarProjection.norm_le _ (doubledShiftRadialProjection_isStarProjection b)
+  have hq : ‖q‖ ≤ 1 :=
+    IsStarProjection.norm_le _
+      (sourceFourierSupportProjection_isStarProjection unitSoninScale)
+  calc
+    ‖doubledShiftAlternatingProduct b‖ = ‖p * q * p‖ := by
+      rfl
+    _ ≤ ‖p * q‖ * ‖p‖ := norm_mul_le _ _
+    _ ≤ (‖p‖ * ‖q‖) * ‖p‖ := by
+      gcongr
+      exact norm_mul_le _ _
+    _ ≤ (1 * 1) * 1 := by gcongr
+    _ = 1 := by norm_num
+
 theorem doubledShiftAlternatingProduct_commutator_stage
     (b : ℝ) (D : Op) (n : ℕ) :
     ((doubledShiftAlternatingProduct b) ^ n) * D -

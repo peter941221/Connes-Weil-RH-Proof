@@ -20,6 +20,8 @@ namespace ConnesWeilRH.Dev.C1G8R3WeightedFiniteStageAudit
 #print axioms doubledShiftAlternatingProduct_isPositive
 #check doubledShiftAlternatingProduct_isSelfAdjoint
 #print axioms doubledShiftAlternatingProduct_isSelfAdjoint
+#check doubledShiftAlternatingProduct_norm_le_one
+#print axioms doubledShiftAlternatingProduct_norm_le_one
 #check doubledShiftAlternatingProduct_commutator_stage
 #print axioms doubledShiftAlternatingProduct_commutator_stage
 

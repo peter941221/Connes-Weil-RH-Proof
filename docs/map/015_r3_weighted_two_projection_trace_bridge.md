@@ -191,8 +191,9 @@ unknown theorem must show that the pairing produces a summable defect, rather
 than merely restating that `K_b` is an involution.
 
 The finite-stage source ledger now also has the lower-data spectral facts
-needed before an endpoint argument: `p_b q p_b` is formally positive and
-self-adjoint for every `b`, because `p_b` and `q` are orthogonal projections.
+needed before an endpoint argument: `p_b q p_b` is formally positive,
+self-adjoint, and contractive for every `b`, because `p_b` and `q` are
+orthogonal projections.
 These facts are recorded in [1432](../proofs/1432_r3_weighted_finite_stage_commutator.md).
 They do not imply a spectral gap, a trace estimate, or convergence to the
 intersection projection.
