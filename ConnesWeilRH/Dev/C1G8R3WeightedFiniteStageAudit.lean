@@ -1,0 +1,26 @@
+import ConnesWeilRH.Dev.C1G8R3WeightedFiniteStage
+
+namespace ConnesWeilRH.Dev.C1G8R3WeightedFiniteStageAudit
+
+#check operatorCommutator
+#print axioms operatorCommutator
+#check weightedCommutatorStage
+#print axioms weightedCommutatorStage
+#check weightedCommutatorStage_succ
+#print axioms weightedCommutatorStage_succ
+#check operator_pow_commutator_eq_weightedStage
+#print axioms operator_pow_commutator_eq_weightedStage
+#check doubledShiftRadialProjection
+#print axioms doubledShiftRadialProjection
+#check doubledShiftRadialProjection_isStarProjection
+#print axioms doubledShiftRadialProjection_isStarProjection
+#check doubledShiftAlternatingProduct
+#print axioms doubledShiftAlternatingProduct
+#check doubledShiftAlternatingProduct_isPositive
+#print axioms doubledShiftAlternatingProduct_isPositive
+#check doubledShiftAlternatingProduct_isSelfAdjoint
+#print axioms doubledShiftAlternatingProduct_isSelfAdjoint
+#check doubledShiftAlternatingProduct_commutator_stage
+#print axioms doubledShiftAlternatingProduct_commutator_stage
+
+end ConnesWeilRH.Dev.C1G8R3WeightedFiniteStageAudit

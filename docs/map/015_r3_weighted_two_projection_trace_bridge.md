@@ -9,7 +9,8 @@ authority, and makes no RH claim.
 
 This record is the next refinement of
 [014](014_r3_doubled_shift_sonin_transport.md).  It is written after the
-formal T1 result in [1430](../proofs/1430_r3_doubled_shift_sonin_transport_t1.md).
+formal T1 results in [1430](../proofs/1430_r3_doubled_shift_sonin_transport_t1.md)
+and [1431](../proofs/1431_r3_doubled_shift_projection_transport.md).
 The aim is to attack the actual moving-scale R3 obstruction with a theorem
 that can still be connected to the existing G8 readback owner.
 
@@ -22,10 +23,10 @@ map U_b ( U_(-2*b) Ran(E_1) intersect Ran(Q_1) )
   = Ran(E_lambda) intersect Ran(Q_lambda).
 ```
 
-This is now a formal closed-subspace identity.  It proves that the opposite
-scale orientations are compatible after a relative doubled shift.  It does
-not prove that the corresponding orthogonal projections are conjugate, and it
-does not prove trace-classness of their commutator with the detector.
+This is now a formal closed-subspace identity, and the corresponding
+orthogonal projection transport is formal in [1431](../proofs/1431_r3_doubled_shift_projection_transport.md).
+Neither result proves trace-classness of the projection commutator with the
+detector.
 
 The next tempting move is a uniform Friedrichs-angle bound for the two
 subspaces.  That move is not accepted as a premise.  The unit-scale
@@ -37,7 +38,7 @@ the smoothing factors supplied by the positive convolution-square detector.
 
 ```text
 T1 subspace transport       FORMAL GREEN
-T1 projection transport     OPEN, likely API/uniqueness work
+T1 projection transport     FORMAL GREEN
 T2 weighted trace bridge    OPEN, genuine new mathematics
 T3 basis witness             OPEN
 T4 G8 reconnect              OPEN
@@ -189,6 +190,13 @@ is the candidate supplier for pairing the opposite boundary terms.  The
 unknown theorem must show that the pairing produces a summable defect, rather
 than merely restating that `K_b` is an involution.
 
+The finite-stage source ledger now also has the lower-data spectral facts
+needed before an endpoint argument: `p_b q p_b` is formally positive and
+self-adjoint for every `b`, because `p_b` and `q` are orthogonal projections.
+These facts are recorded in [1432](../proofs/1432_r3_weighted_finite_stage_commutator.md).
+They do not imply a spectral gap, a trace estimate, or convergence to the
+intersection projection.
+
 ## 5. Projection step before the trace step
 
 The formal T1 theorem is about closed subspaces.  Before using `r_b`, prove a
@@ -256,7 +264,8 @@ anti-circularity
 ```text
 015-A  prove the abstract projection-map uniqueness lemma
 015-B  derive the exact r_b conjugacy from T1
-015-C  derive a source-owned finite-stage commutator identity
+015-C  derive a source-owned finite-stage commutator identity and lower-data
+             positivity facts                         FORMAL PASS (batch 1432)
 015-D  prove the detector-weighted alternating/resolvent trace estimate
 015-E  construct the same global-basis IsTraceClassAlong witness
 015-F  reconnect the signed limit to the G8 source/cutoff ledger
@@ -293,3 +302,9 @@ weighted Sonin trace bridge
 The conditional chain is logically valid, but the weighted trace estimate is
 not yet proved.  Thus this record is a sharpened attack plan, not a claim that
 R3 or RH has been completed.
+
+The finite-stage algebraic entry point is now explicit in the candidate
+module `C1G8R3WeightedFiniteStage.lean`: the recursively accumulated
+`weightedCommutatorStage T D n` is proved equal to
+`T^n D - D T^n`, and it is instantiated with the doubled-shift alternating
+product `p_b q p_b`.  The paired audit passed in batch 1432; see [1432](../proofs/1432_r3_weighted_finite_stage_commutator.md).  This is only the exact finite-stage ledger; it does not provide the weighted trace-norm summability or the limit at the intersection endpoint.
