@@ -31,6 +31,10 @@ self-adjoint for every `b`, and its operator norm is at most one.  The proof
 uses only positivity of an orthogonal projection, the adjoint-conjugation
 rule, and norm submultiplicativity; it does not assume a spectral gap.
 
+The endpoint follow-up is recorded separately in [1433](1433_r3_endpoint_fixed_vectors_and_stage_bound.md):
+intersection vectors are fixed by every finite power, and the contraction
+hypothesis gives a linear norm bound for the weighted commutator stage.
+
 ## Formal artifacts
 
 - `ConnesWeilRH/Dev/C1G8R3WeightedFiniteStage.lean`
@@ -47,14 +51,14 @@ rule, and norm submultiplicativity; it does not assume a spectral gap.
 ## Acceptance evidence
 
 Build log:
-`build-logs/1432_weighted_finite_stage_try5.log` in the standard WSL build
+`build-logs/1433_endpoint_fixed_stage_try4.log` in the standard WSL build
 mirror.
 
 ```text
 Build completed successfully (3177 jobs).
 ^error: count = 0
 sorryAx count = 0
-11 audited declarations, all [propext, Classical.choice, Quot.sound]
+15 audited declarations, all [propext, Classical.choice, Quot.sound]
 ```
 
 ## Scope judgment

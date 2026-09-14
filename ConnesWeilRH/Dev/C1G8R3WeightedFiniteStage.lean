@@ -115,6 +115,73 @@ theorem doubledShiftAlternatingProduct_norm_le_one (b : ℝ) :
     _ ≤ (1 * 1) * 1 := by gcongr
     _ = 1 := by norm_num
 
+theorem doubledShiftAlternatingProduct_fixed_of_mem_intersection
+    (b : ℝ) {v : Carrier}
+    (hv : v ∈ doubledShiftSoninClosedSubspace b) :
+    doubledShiftAlternatingProduct b v = v := by
+  change v ∈ doubledShiftRadialClosedSubspace b ∧
+    v ∈ ccm24ArchimedeanFourierSupportClosedSubspace unitSoninScale at hv
+  have hp : doubledShiftRadialProjection b v = v :=
+    (Submodule.starProjection_eq_self_iff).mpr hv.1
+  have hq : sourceFourierSupportProjection unitSoninScale v = v :=
+    (Submodule.starProjection_eq_self_iff).mpr hv.2
+  simp only [doubledShiftAlternatingProduct,
+    ContinuousLinearMap.mul_apply]
+  rw [hp, hq, hp]
+
+theorem doubledShiftAlternatingProduct_pow_apply_of_mem_intersection
+    (b : ℝ) {v : Carrier}
+    (hv : v ∈ doubledShiftSoninClosedSubspace b) (n : ℕ) :
+    ((doubledShiftAlternatingProduct b) ^ n) v = v := by
+  have hfixed := doubledShiftAlternatingProduct_fixed_of_mem_intersection b hv
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      rw [pow_succ']
+      simp only [ContinuousLinearMap.mul_apply, ih, hfixed]
+
+theorem norm_pow_le_one_of_norm_le_one
+    {T : Op} (hT : ‖T‖ ≤ 1) : ∀ n : ℕ, ‖T ^ n‖ ≤ 1
+  | 0 => by
+      change ‖(ContinuousLinearMap.id ℂ Carrier)‖ ≤ 1
+      exact ContinuousLinearMap.norm_id_le
+  | n + 1 => by
+      rw [pow_succ']
+      calc
+        ‖T * T ^ n‖ ≤ ‖T‖ * ‖T ^ n‖ := norm_mul_le _ _
+        _ ≤ 1 * 1 := by
+          exact mul_le_mul hT (norm_pow_le_one_of_norm_le_one hT n)
+            (norm_nonneg _) zero_le_one
+        _ = 1 := by norm_num
+
+theorem weightedCommutatorStage_norm_le_of_contraction
+    (T D : Op) (hT : ‖T‖ ≤ 1) (n : ℕ) :
+    ‖weightedCommutatorStage T D n‖ ≤
+      n * ‖operatorCommutator T D‖ := by
+  induction n with
+  | zero => simp [weightedCommutatorStage]
+  | succ n ih =>
+      rw [weightedCommutatorStage_succ]
+      calc
+        ‖T * weightedCommutatorStage T D n +
+            operatorCommutator T D * T ^ n‖ ≤
+            ‖T * weightedCommutatorStage T D n‖ +
+              ‖operatorCommutator T D * T ^ n‖ := norm_add_le _ _
+        _ ≤ ‖T‖ * ‖weightedCommutatorStage T D n‖ +
+              ‖operatorCommutator T D‖ * ‖T ^ n‖ := by
+          exact add_le_add (norm_mul_le _ _)
+            (norm_mul_le _ _)
+        _ ≤ 1 * (n * ‖operatorCommutator T D‖) +
+              ‖operatorCommutator T D‖ * 1 := by
+          exact add_le_add
+            (mul_le_mul hT ih (norm_nonneg _) zero_le_one)
+            (mul_le_mul_of_nonneg_left
+              (norm_pow_le_one_of_norm_le_one hT n)
+              (norm_nonneg _))
+        _ = (Nat.succ n : ℝ) * ‖operatorCommutator T D‖ := by
+          norm_num [Nat.cast_succ]
+          ring
+
 theorem doubledShiftAlternatingProduct_commutator_stage
     (b : ℝ) (D : Op) (n : ℕ) :
     ((doubledShiftAlternatingProduct b) ^ n) * D -

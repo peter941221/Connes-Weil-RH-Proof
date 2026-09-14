@@ -417,3 +417,21 @@ remainder, the Sonin leakage estimate, and the signed same-owner readback are
 still open. The operator `K_b` is a new organizing object for those estimates,
 not a positivity theorem and not an RH proof. The B5 consumer remains
 `0 <= C1SameOwnerWeil.qw g` for the tower-selected detector.
+
+### R3-F7 finite endpoint ledger (record 1433, 2026-09-14)
+
+The doubled-shift alternating product now has a formal finite-stage endpoint
+ledger in
+[`C1G8R3WeightedFiniteStage.lean`](../../ConnesWeilRH/Dev/C1G8R3WeightedFiniteStage.lean):
+
+```text
+v in the doubled-shift Sonin intersection -> T_b v = v
+                                      -> T_b^n v = v for every n
+||T|| <= 1 -> ||weightedCommutatorStage T D n||
+             <= n * ||[T,D]||
+```
+
+This is a lower-data reduction, not the missing endpoint theorem. It
+identifies the spectral value `1` exactly and bounds the algebraic finite
+stage, but supplies no summable detector-weighted tail. R3 remains open at
+the trace-norm limit and same-owner readback; RH is not claimed.

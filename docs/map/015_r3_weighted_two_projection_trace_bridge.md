@@ -198,6 +198,17 @@ These facts are recorded in [1432](../proofs/1432_r3_weighted_finite_stage_commu
 They do not imply a spectral gap, a trace estimate, or convergence to the
 intersection projection.
 
+The next finite-stage block is now formal in [1433](../proofs/1433_r3_endpoint_fixed_vectors_and_stage_bound.md):
+every vector in the doubled-shift Sonin intersection is fixed by `p_b q p_b`,
+and hence by every finite power.  Independently, for any contraction `T`, the
+weighted commutator stage satisfies the explicit lower-data estimate
+`||weightedCommutatorStage T D n|| <= n * ||[T,D]||`.
+This is the correct endpoint ledger: it identifies the spectral value `1`
+without assuming a gap and prevents finite-stage commutators from being
+treated as uncontrolled algebraic remainders.  It is still insufficient for
+R3, because the required detector-weighted trace-norm tail must be summable;
+the linear bound alone does not provide that decay.
+
 ## 5. Projection step before the trace step
 
 The formal T1 theorem is about closed subspaces.  Before using `r_b`, prove a
