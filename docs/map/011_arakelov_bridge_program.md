@@ -1,10 +1,23 @@
-# 011 — the Arakelov bridge program: attacking the gate from outside its category
+# 011 — the Arakelov bridge program: audited category-change experiment
 
 Binding preregistration, opened 2026-09-14 by owner decision. This document
 supersedes, **for this face only**, the freeze posture recommended by records
 1411 and 1415. Nothing else is superseded: the Lean mainline, the tower, the
 B0b equivalence and the psi-bundle keep their committed status and their
 acceptance discipline.
+
+**AUDIT OUTCOME — same day, read this before spending.** Record
+[`1418`](../proofs/1418_arakelov_path_reachability_audit.md) was commissioned
+to answer one question: does this program reach RH? The answer is **no**, on
+two independent grounds. (R1) The bridge *re-encodes* the gate instead of
+reducing it: given `phi` the last three steps are free, so all of RH's
+difficulty sits inside "does `phi` exist", and identity (i) is exactly the
+EXTERNAL-dictionary kind of claim 1415 §3 already ruled can never be a machine
+fact. (R2) A4's Lean leg is not statable in the pinned library: a grep of
+Mathlib v4.30 returns **zero** occurrences of Arakelov, adelic, arithmetic
+Chow, Hodge index, arithmetic surface, `WeilDivisor` or any intersection
+pairing. The milestones below are kept, not deleted; the **spend order is
+reversed** and section 7 restates the shape.
 
 Companion records: the mathematical derivation and the reason this category
 was selected is proof record
@@ -138,6 +151,23 @@ failure mode records 1407/1408 were created to punish.
 **A2 is the gate on all further BRIDGE spend.** It is one symbol. Nothing beyond
 A2 is authorized until it reports.
 
+**The A table is ordered by headline, not by spend. Corrected spend order
+(1418 §6): `W0` -> `A2` -> `W1` -> `A3`.** `W0` runs first because it is
+derivable from definitions already committed in this repository, needs no
+external paper, and is a precondition of Track A's own arithmetic: `A1` and
+`W0` are the *same* symbolic computation (pin `C'` under the repository's
+Fourier convention), so running them as two milestones double-books a one-day
+job. Merge them: the single task is "pin `Phi` exactly, from committed
+definitions", filed under `W0`, satisfying `A1`.
+
+**A4's Lean leg is blocked as written (1418 §3).** "Discharge the citation leg
+O4 with a Lean formalization of the translation" presupposes that the pinned
+library can state an arithmetic Hodge index theorem. It cannot - the five-level
+prerequisite chain (intersection pairing -> Chow groups -> arithmetic surfaces
+-> arithmetic degree/nef -> adelic line bundles) is absent at every level. Any
+future authorization of A3/A4 must either budget that formalization separately
+or declare the program paper-first and say so in the same breath.
+
 ### Track W: the window theorem (added 2026-09-14, from 1417 section 3b)
 
 Reading the committed brick pinned the obligation's direction, and it exposed a
@@ -149,27 +179,49 @@ control and the whole gate reduces to
 
 ```text
   (OB)   archimedeanTerm (g * g~) <= 0
-     <=> lambda_max( T_K_eff restricted to L2(-log2/2, log2/2) ) <= 0
+    ?==  sup { <g0, T_K_eff g0> : g0 in PW_R, ||g0||_2 = 1 } <= 0      R = log2/2
      K_eff = (1/2) e^{|y|/2}/sinh|y|  (renormalized)  +  (log(4pi)+gamma) delta_0
 ```
 
-one explicit truncated convolution operator, one number.
+one explicit truncated convolution **form**, over an explicit Paley-Wiener class.
+
+**The `?==` is deliberate; 1418 section 5 explains it.** This box first read
+`<=> lambda_max( T_K_eff restricted to L2(-log2/2, log2/2) ) <= 0` and the line
+below it said "one number". Both were wrong, in the same direction.
+`Phi(r) = -Re psi(1/4 + i r/2) + C' ~ -log|r/2| + C' -> -infinity`, so
+`T_K_eff` is an **unbounded** multiplier: `lambda_max` on a window is not a
+well-formed quantity until a form domain is named; and because the kernel is
+not in `L1` (the `1/|y|` singularity at the origin), `T` is not Hilbert-Schmidt,
+so whether the supremum is attained is itself a question. Independently, `C'` is
+unpinned and it shifts the whole form by `C' * ||g||_2^2`, i.e. by `C'` on the
+unit sphere - so the head term `3.1083...` does not yet have a numeric rival.
+The eigenvalue phrasing also quietly invites a finite discretization, and a
+mesh's top eigenvalue is a proxy with no a priori relation to the supremum;
+this kernel family has already produced a negative direction of exactly this
+shape (263 section 8, `det = -0.707084047558...`).
+
+So W0's job is threefold, not one: **pin `C'`, name the form domain, and
+rewrite `(OB)` as the supremum above.** Until W0 reports, the operator form of
+`(OB)` carries no numeric content at all.
 
 ```text
 +-----+-------------------------------------+------------+------------------+
-| W0  | Re-derive A(F) = <g0, T_K_eff g0>   | 1 day      | operator form    |
-|     | from the committed definitions,     | paper +    | confirmed, or a  |
-|     | pin K_eff and the head coefficient  | sympy      | mismatch named   |
-|     | exactly, and fix the 2*pi           |            | (then A1)        |
-|     | convention. Do NOT trust 1417 s2.   |            |                  |
+| W0  | FIRST SPEND OF THE PROGRAM. Pin C', | 1 day      | C' pinned, form  |
+|     | name the form domain, and rewrite   | paper +    | domain named and |
+|     | (OB) as a supremum of a quadratic   | sympy,     | sup decided, or  |
+|     | form over PW_R, from the committed  | zero Lean  | a mismatch named |
+|     | definitions. This satisfies A1 as   |            | (then A2)        |
+|     | the same computation. Do NOT trust  |            |                  |
+|     | 1417 s2 or s3b's operator wording.  |            |                  |
 +-----+-------------------------------------+------------+------------------+
-| W1  | Prove or refute one inequality:     | 1-3 weeks  | PROVED: first    |
-|     |   lambda_max( T_K_eff on                |            | unconditional    |
-|     |     L2(-log2/2, log2/2)  )  <=  0       |            | archimedean sign |
-|     |                                         |            | theorem          |
-|     | A test g with A > 0 is a counterexample |            | REFUTED: (OB)    |
-|     | to (OB) ONLY, not to RH: it leaves the  |            | closed, 125's    |
-|     | all-supports scope untouched.           |            | demand stays open|
+| W1  | Prove or refute: the sup of the     | 1-3 weeks  | PROVED: first    |
+|     | archimedean form over PW_R with     |            | unconditional    |
+|     | ||g0||_2 = 1 is <= 0. NOT an eigen- |            | archimedean sign |
+|     | value - 1418 s5. A test g with      |            | theorem          |
+|     | A > 0 falsifies (OB) ONLY, not RH:  |            | REFUTED: (OB)    |
+|     |                                     |            | closed, 125's    |
+|     | it leaves the all-supports scope    |            | demand stays open|
+|     | untouched.                          |            |                  |
 +-----+-------------------------------------+------------+------------------+
 ```
 
@@ -279,7 +331,61 @@ Yuan-Zhang theorem has anything to do with zeta - that connection is precisely
 the open question milestone A3 asks. It registers no numerical result, proves
 no sign, and changes no committed Lean state.
 
-What it does claim is narrower and is the point: **this is the first attempt on
-this face whose target-side theorem is already proved rather than sought.**
+What it does claim is narrower and is the point: **this is a paper-only
+category-change experiment whose target-side theorem is already proved rather
+than sought.** It is not an RH route unless a future construction supplies a
+genuinely independent bridge map; the present program does not.
+
+RH is not claimed, and this document does not register Track A as a reachable
+RH proof route.
+
+## 7. Reachability verdict (added the same day, from 1418)
+
+The owner's question was whether the program reaches RH. It does not, and the
+two reasons are of different kinds, which matters because they fail
+differently.
+
+```text
++-----------+--------------------------------------+------------------------------+
+| reason    | statement                            | dissolvable by work?         |
++-----------+--------------------------------------+------------------------------+
+| R1        |                                      |                              |
+| structural| Condition (i) is an identity whose   | only by building phi itself, |
+|           | verification implies the sign, so    | which IS the proof of RH in  |
+|           | "does phi exist" carries RH's WHOLE  | another vocabulary: the far- |
+|           | difficulty, not a share of it. 011   | side theorem then contributes|
+|           | moved the wall; it did not shrink it.| nothing the identity did not |
+|           | In Weil's function-field case the    | already assume.              |
+|           | bridge exists for reasons independent|                              |
+|           | of RH; here it would have to be built|                              |
+|           | to order.                            |                              |
++-----------+--------------------------------------+------------------------------+
+| R2        |                                      |                              |
+| mechanical| A4's exit is a Lean citation, and the| no, not by this project; yes,|
+|           | pinned library cannot STATE an adelic| eventually, by someone       |
+|           | line bundle: zero occurrences of     | formalizing arithmetic       |
+|           | Arakelov, adelic, Chow, Hodge index, | intersection theory first - a|
+|           | arithmetic surface, WeilDivisor or   | program unrelated to RH.     |
+|           | any intersection pairing.            |                              |
++-----------+--------------------------------------+------------------------------+
+```
+
+The consequence for how this program is run: **Track A is a paper route, and
+this repository registers nothing that is not certified in Lean.** That is not
+a reason to abandon A2 - A2 is one symbol, it is cheap, and its negative branch
+is a typed impossibility that would close a class for everyone. It is a reason
+to stop describing Track A as an attack on RH.
+
+The realistic deliverables of the program as amended are, in order:
+
+1. `W0` - an exactly pinned archimedean symbol `Phi` with a named `C'` and a
+   named form domain. One day, no external reading, no Lean. This is a new
+   constant this face has never produced.
+2. `W1` - one sign decided for one window. The first unconditional archimedean
+   sign theorem this face would own, and the "strictly lower property" record
+   125 demanded for reopening the Suzuki route. **Does not imply RH.**
+3. `A2` - a coincidence test on one symbol, whose failure is a result.
+4. Anything beyond that requires a new owner decision, informed by R1 and R2
+   rather than by the headline of section 0.
 
 RH is not claimed.

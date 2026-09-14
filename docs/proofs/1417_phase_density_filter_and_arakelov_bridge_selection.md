@@ -9,31 +9,47 @@ Depends on: 1416 (minimal normal form), 125 (Suzuki screw-kernel screen),
 Status: **no Lean built, no digits produced, no sign claim made. RH is not
 claimed.** Everything analytic in sections 2-4 is PAPER evidence under law 65.
 
+**AUDITED BY [`1418`](1418_arakelov_path_reachability_audit.md) THE SAME DAY.**
+Two corrections and one confirmation, applied in place below: section 2's
+"with `g` real" hypothesis is unnecessary (1418 §4 proves `qw` factors through
+`Re F`, so the cone `F-hat = |g-hat|^2 >= 0` is exactly right as used in
+section 3b); section 3b's `lambda_max` is the wrong object, because `Phi` is
+unbounded below and `C'` is unpinned (1418 §5); and section 5's framing of the
+bridge as a route that reaches RH is NOT supported - condition (i) re-encodes
+the gate, and A4's Lean leg is blocked by an absent library (1418 §§2-3).
+
 +========================================================================+
-| [1] VERDICT                                                             |
+| [1] VERDICT                                                            |
 +========================================================================+
 
 ```text
 +---------------------------------------------------------------------+
 | 1. Three promising "new math" cards were killed by the F8 grep      |
-|    BEFORE any spend, because the repo had already buried them:      |
-|    total positivity (263 s8, explicit minor), the Bohr-compactification|
-|    geometric kernel (263 (Z.30), same object, derived here           |
-|    independently), Beurling-Malliavin (1332:96 already the frame).   |
+|   BEFORE any spend, because the repo had already buried them: total |
+|   positivity (263 s8, explicit minor), the Bohr-compactification    |
+|   geometric kernel (263 (Z.30), same object, derived here           |
+|   independently), Beurling-Malliavin (1332:96 already the frame).   |
 |                                                                     |
-| 2. Those kills forced a structural finding: the wall is a PHASE-level|
-|    statement and every input the project currently owns is           |
-|    DENSITY-level. This is now O3's typed form (section 3).           |
+| 2. Those kills forced a structural finding: the wall is a           |
+|   PHASE-level statement and every input the project currently owns  |
+|   is DENSITY-level. This is now O3's typed form (section 3).        |
 |                                                                     |
-| 3. That filter kills "generate another bone inside the same category"|
-|    as a strategy, and selects path A: rebuild the wall as a          |
-|    regularized arithmetic self-intersection, where the target-side   |
-|    theorem (Yuan-Zhang arithmetic Hodge index) is ALREADY PROVED.    |
+| 3. That filter kills "generate another bone inside the same         |
+|   category" as a strategy, and selects path A: rebuild the wall as a|
+|   regularized arithmetic self-intersection, where the target-side   |
+|   theorem (Yuan-Zhang arithmetic Hodge index) is ALREADY PROVED.    |
 |                                                                     |
-| 4. The program is registered with a sharp first milestone (A2): an   |
-|    identity test between the arithmetic degree's constant part and   |
-|    the committed head coefficient log(4*pi) + gamma. One symbol      |
-|    either matches or it does not.                                    |
+| 4. The program is registered with a sharp first milestone (A2): an  |
+|   identity test between the arithmetic degree's constant part and   |
+|   the committed head coefficient log(4*pi) + gamma. One symbol      |
+|   either matches or it does not.                                    |
+|                                                                     |
+| 5. AUDIT, same day (1418): path A does NOT reach RH. Condition (i)  |
+|   re-encodes the gate rather than reducing it, and A4's Lean leg is |
+|   not statable in the pinned library (zero occurrences of Arakelov /|
+|   adelic / Chow / Hodge index vocabulary). Items 3-4 stand as the   |
+|   selection argument; the headline attached to them does not. First |
+|   spend is now W0.                                                  |
 +---------------------------------------------------------------------+
 ```
 
@@ -76,8 +92,18 @@ noncomputable def archimedeanDenominator (y : ℝ) : ℝ :=
   Real.exp y - Real.exp (-y)
 ```
 
-For the convolution square `F = g * g~` with `g` real, `F` is even and real, so
-`F y + F (-y) = 2 * F y`, the `Re` is a no-op, and `e^y - e^{-y} = 2 sinh y`:
+For the convolution square `F = g * g~`, `F y + F (-y)` is `2 * (F y).re` and
+`e^y - e^{-y} = 2 sinh y`, so for real `g` the `Re` is a no-op and `(D1)`
+follows. **The reality hypothesis is unnecessary**, and this record's first
+draft did not know that: `convolutionSquare` uses `involution`, which
+conjugates (`CompactLogConvolution.lean:114-119`, `star (g.test (-t)) * g.test
+(x - t)`), which makes `F` Hermitian (`:122-124`, `F(-x) = star (F x)`), and
+both readouts of the gate consume `F` only through `F x + F (-x) = 2 * (F x).re`
+(`C1SameOwnerWeil.lean:36-45`, `:48-52`, `:61-64`). So `qw` factors through
+`Re F` for complex `g` too, `F(0)` is real and nonnegative, and
+`F-hat = |g-hat|^2 >= 0` holds as an identity about a nonnegative function. The
+cone used in section 3b and 4 is therefore the true cone - established in
+1418 §4 from committed source rather than assumed here.
 
 ```text
   (D1)   A(F) = (log 4pi + gamma) * F(0)
@@ -130,7 +156,7 @@ deliberately deferred: naming a constant before pinning `C'` would violate
 law F18.
 
 +========================================================================+
-| [3] THE PHASE/DENSITY FILTER, AND THE MECHANISM BEHIND LAW F14          |
+| [3] THE PHASE/DENSITY FILTER, AND THE MECHANISM BEHIND LAW F14         |
 +========================================================================+
 
 By 1416 Part 4 the gate on the certificate class is
@@ -163,10 +189,10 @@ support radius.** Therefore:
 +--------------------+---------------------+--------------------------------+
 | unbounded          | ~ e^{R/2}           | no - the available input is    |
 |                    | oscillating         |    density-level (PNT, Q-linear|
-|                    |                     |    independence of {log p},     |
-|                    |                     |    Gamma-only Phi); a density   |
-|                    |                     |    cannot fix the sign of an    |
-|                    |                     |    exponentially long           |
+|                    |                     |    independence of {log p},    |
+|                    |                     |    Gamma-only Phi); a density  |
+|                    |                     |    cannot fix the sign of an   |
+|                    |                     |    exponentially long          |
 |                    |                     |    oscillating sum             |
 +--------------------+---------------------+--------------------------------+
 ```
@@ -205,7 +231,7 @@ supply the missing input, which is exactly the reason 1342-1353 kept finding
 and the reason to change category instead of generating another bone.
 
 +========================================================================+
-| [3b] THE SIGN, PINNED FROM COMMITTED SOURCE, AND THE WINDOW EXCEPTION   |
+| [3b] THE SIGN, PINNED FROM COMMITTED SOURCE, AND THE WINDOW EXCEPTION  |
 +========================================================================+
 
 The 1214/1216 sign-convention fracture made the direction of every statement
@@ -287,11 +313,22 @@ Consequences, stated without inflation:
 
   R = log 2 / 2
 
-  (OB)   <=>   lambda_max( T_{K_eff} restricted to L2(-R, R) )  <=  0
+  (OB)   ?==   sup { <g0, T_K_eff g0> : g0 in PW_R, ||g0||_2 = 1 }  <=  0
 ```
 
-So the whole window obligation is the top of the spectrum of ONE explicit
-truncated convolution operator with ONE explicit delta term. Two things follow
+**Corrected by 1418 §5: this is a supremum of a quadratic form, not an
+eigenvalue, and the `?==` is not cosmetic.** `T_K_eff` is the multiplier by
+`Phi`, and `Phi(r) ~ -log|r/2| + C' -> -infinity`, so it is an UNBOUNDED
+self-adjoint operator: compressing it to `L2(-R,R)` is undefined until a form
+domain is named, and `lambda_max` of something unbounded below is not a
+quantity. The kernel is also not in `L1` (the `1/|y|` singularity), so `T` is
+not Hilbert-Schmidt and attainment of the sup is open. And `C'` is unpinned
+while it shifts the form by `C' * ||g||_2^2` - so on the unit sphere the
+quantity under test moves with `C'`, and the `<= 0` above has no numeric
+content until W0 fixes it.
+
+So the window obligation is ONE explicit truncated convolution **form** with
+ONE explicit delta term, over an explicit Paley-Wiener class. Two things follow
 that matter for pricing.
 
 * The sign check against history: record 1398 measured `A = -88.1952` at
@@ -299,10 +336,13 @@ that matter for pricing.
   is consistent, and it is a data point supporting `lambda_max <= 0` rather
   than contradicting it. (Under the stale 1389 sign it would have looked
   backwards; that is what the 1214/1216 fracture was.)
-* The head term is a positive scalar `3.1083... * I`, so `(OB)` is equivalent
-  to the truncated integral part having top spectrum at most `-3.1083...`.
-  The competition is therefore a NUMBER, not a mood: how negative can the
-  `1/sinh` part be on an interval of half-width `log 2 / 2`.
+* The head term is a positive scalar `3.1083... * I`, so `(OB)` would be
+  equivalent to the `1/sinh` part having form-supremum at most `-3.1083...`
+  **once `C'` is pinned**; as written the rival is `-(3.1083... + C')`, i.e.
+  one number plus one unknown constant (1418 §5, defect 5b). The competition is
+  still a quantity rather than a mood - how negative can the `1/sinh` part be
+  on an interval of half-width `log 2 / 2` - but it is not yet ONE number, and
+  W0 must not be priced as if it were.
 
 This is a Selberg/Beurling-Slepian extremal problem in its standard shape -
 truncated convolution operator, explicit even kernel - a class with a large
@@ -310,7 +350,7 @@ literature and sharp asymptotics, and it is the one item on the board that is
 plausibly closable rather than only statable.
 
 +========================================================================+
-| [4] WHAT CHANGED CATEGORY, AND WHY THE TARGET SIDE IS A THEOREM         |
+| [4] WHAT CHANGED CATEGORY, AND WHY THE TARGET SIDE IS A THEOREM        |
 +========================================================================+
 
 Weil's function-field proof of the *same* positivity criterion runs through
@@ -356,7 +396,7 @@ place where the *right* surface is proposed - but they propose, they do not
 prove. Path A is deliberately built on the proved side.
 
 +========================================================================+
-| [5] THE BRIDGE, AND THE ONE-SYMBOL TEST THAT DECIDES IT                 |
+| [5] THE BRIDGE, AND THE ONE-SYMBOL TEST THAT DECIDES IT                |
 +========================================================================+
 
 The program's entire content is the existence of a map `phi` from the test
@@ -374,6 +414,20 @@ inequality into `0 <= qw(g)`, and 1416's committed
 `weilGate_unconditional_iff_sourceRH` closes to `SourceRH`. **That would be a
 proof of RH from a 2013 theorem plus a construction.** The prior on the
 construction is low and is stated as low in the registration.
+
+**What the audit (1418 §2) adds to that sentence.** Reading the display in the
+direction of difficulty rather than of proof, the last three lines are free
+given `phi`, so *all* of the difficulty is inside the existential "does `phi`
+exist". That is not a reduction of RH unless the existence is easier than the
+sign, and 1418's three tests say it is not: in Weil's function-field case the
+bridge (`C x C`, its divisors, its signature) exists for reasons independent of
+RH, whereas over `Spec Z` the bridge must be manufactured to satisfy an identity
+whose consequence is exactly the sign being sought; and condition (i) is, in
+this repository's own 1415 §3 taxonomy, an EXTERNAL dictionary claim - a
+normalization-and-sign coincidence that can never become a machine fact without
+importing the source as a formal theory. **This record selected the category
+correctly against the phase/density filter and incorrectly inferred that
+changing category therefore shrinks the problem.**
 
 Why 1416 is what makes this testable rather than vague: because the gate is
 side-condition-free, `(ii)` cannot be arranged by restricting the test class.
@@ -405,7 +459,7 @@ that is evidence the bridge is the right one, and if it does not, the mismatch
 is a concrete obstruction rather than a mood.
 
 +========================================================================+
-| [6] WHAT THIS RECORD DOES NOT CLAIM                                     |
+| [6] WHAT THIS RECORD DOES NOT CLAIM                                    |
 +========================================================================+
 
 * No Lean was built. The repository is unchanged by this record: the last

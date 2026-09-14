@@ -29,10 +29,10 @@ traceability.
 | 010    | Binding companion     | Bone foundry (1416): generation from the    |
 |        |                       | O1-O5 ledger, BONE-A screen verdict, and    |
 |        |                       | the wall's minimal normal form              |
-| 011    | Binding program       | Arakelov bridge (1417): category change out |
-|        |                       | of CompactLogTest, milestones A0-A4 with    |
-|        |                       | prices fixed, and the A2 one-symbol gate on |
-|        |                       | all further spend                           |
+| 011    | Binding program       | Audited Arakelov category-change experiment |
+|        |                       | (1417/1418): A0-A4 bridge milestones and    |
+|        |                       | independent W0-W1 window track; not a       |
+|        |                       | reachable RH route as currently registered  |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -46,18 +46,20 @@ is vestigial in the equivalence, and the structural node is the `xi` pole
 image `half`, which no transform of the test can move), and the wall has a
 committed side-condition-free normal form
 `(forall g : CompactLogTest, 0 <= qw g) <-> SourceRH`
-(`ConnesWeilRH/Dev/C1MinimalWeilCriterion.lean`). `011` is the current
-frontier document and the only one that lifts the 1411/1415 freeze, for this
-face alone: since record 1417 the O3 obstacle is typed as a phase/density
-mismatch, which rules out further generation inside `CompactLogTest` as a
-strategy, so the attempt moves to arithmetic Hodge index theory for adelic line
+(`ConnesWeilRH/Dev/C1MinimalWeilCriterion.lean`). `011` is the current audited
+frontier document for this face. Since record 1417 the O3 obstacle is typed as
+a phase/density mismatch, which rules out further generation inside
+`CompactLogTest` as a strategy. The category-change experiment moves to
+arithmetic Hodge index theory for adelic line
 bundles (Yuan-Zhang, arXiv:1304.3538) and asks for a bridge map `phi` with
 `widehat{deg}(phi(g)^2) = -c * qw g` and `widehat{deg}(phi(g)) = 0`
-identically. It runs two tracks: A0-A4 (the bridge, gated on a one-symbol
-identity test at A2) and W0-W1 (the window theorem, `lambda_max` of an explicit
-truncated convolution operator on `L2(-log 2/2, log 2/2)` at most zero, which
-needs no bridge). No Lean spend is authorized before A3. RH is not claimed on
-either track. `001` and `002` supply the load-bearing architecture and
+identically. Record 1418 showed that this is a re-encoding obligation, not a
+reduction of RH's difficulty, and that the A4 Lean leg is absent from pinned
+Mathlib. The independent W0-W1 track remains a paper-only local-window sign
+experiment; its corrected target is a supremum over an explicitly named form
+domain, not `lambda_max` of an unbounded multiplier. No RH route is currently
+registered by 011, and no Lean spend is authorized before a future A3 decision.
+`001` and `002` supply the load-bearing architecture and
 dependency boundaries; neither authorizes a frozen B1 campaign or a separate RH
 route.
 `005` registers candidate producer designs for the P2 scalar witness under
