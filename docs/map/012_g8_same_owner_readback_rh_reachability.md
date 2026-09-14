@@ -172,6 +172,32 @@ universal gate.
    and return to the current freeze; do not repair it by changing the
    detector, its square, or its finite-prime family.
 
+### R3 audit update (record 1419, 2026-09-14)
+
+The source audit now fixes the R3 decomposition. The G8 source cutoff has a
+formal four-channel trace ledger (`C1G8AdjointShearGram.lean:1297-1360`), and
+the physical endpoint has a formal internal-correction/complement identity
+(`C1G8AdjointShearGram.lean:845-935`). P1 and P2 separately have endpoint and
+visible-residual identities, but their current limits are for
+`sourceBandGramResponse` and `rootSandwichedBandResponse`/`projectionResponse`,
+not for `g8SourceCutoffPairData`.
+
+Thus R3 is refined, not completed:
+
+```text
+G8 source four-channel trace
+  -> metric/radial cutoff compatibility       OPEN
+  -> endpoint/readback-owner identification    OPEN
+  -> vanishing remainder                      OPEN
+  -> G8SameOwnerReadbackData                  OPEN
+```
+
+The exact audit is [proof record 1419](../proofs/1419_r3_same_owner_limit_audit.md).
+This update is formal source evidence and does not change the conditional
+RH-reachability judgment in this map. The next admissible brick is R3-COMPAT,
+an operator identity or trace-norm convergence theorem independent of every
+sign conclusion, `SourceRH`, and universal Weil positivity.
+
 The healthy-`CompactLog` B5 consumer for every stage is unchanged:
 `0 <= C1SameOwnerWeil.qw g` for the detector `g` selected against a
 hypothetical off-line zero, followed by the existing `SourceRH` contradiction.
