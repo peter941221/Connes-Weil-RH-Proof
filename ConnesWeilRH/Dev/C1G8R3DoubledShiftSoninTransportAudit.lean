@@ -10,5 +10,13 @@ namespace ConnesWeilRH.Dev.C1G8R3DoubledShiftSoninTransportAudit
 #print axioms globalTranslationEquiv_symm_apply
 #check doubledShiftSoninClosedSubspace_map_eq_source
 #print axioms doubledShiftSoninClosedSubspace_map_eq_source
+#check doubledShiftSoninProjection
+#print axioms doubledShiftSoninProjection
+#check doubledShiftSoninProjection_isStarProjection
+#print axioms doubledShiftSoninProjection_isStarProjection
+#check doubledShiftSoninProjection_range_eq_source
+#print axioms doubledShiftSoninProjection_range_eq_source
+#check doubledShiftSoninProjection_map_eq_source
+#print axioms doubledShiftSoninProjection_map_eq_source
 
 end ConnesWeilRH.Dev.C1G8R3DoubledShiftSoninTransportAudit

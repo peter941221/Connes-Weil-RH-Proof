@@ -1,8 +1,9 @@
 # 014 — R3 doubled-shift Sonin transport and the moving-scale trace bridge
 
 **Date:** 2026-09-14
-**Status:** supporting route candidate; unit-scale base and T1 closed-subspace
-transport are formal, moving-scale projection/trace bridge OPEN.
+**Status:** supporting route candidate; unit-scale base, T1 closed-subspace
+transport, and T1 projection transport are formal; the moving-scale trace
+bridge remains OPEN.
 **Consumer:** the healthy-CompactLog, B5-shaped statement “0 <= C1SameOwnerWeil.qw g” for the exact tower-selected detector, followed by the existing same-detector contradiction and SourceRH wrapper.
 
 This record refines [012](012_g8_same_owner_readback_rh_reachability.md) and [013](013_r3_sonin_detector_commutator_cancellation.md). It is not a new route authority, does not reopen B1, and does not claim RH. It states the next new mathematics after the half-line model and the fixed unit-scale trace theorem have both been checked.
@@ -25,7 +26,7 @@ Current status:
     half-line boundary model              PAPER PASS
     unit-scale coupled trace legality     FORMAL PASS
     T1 closed-subspace transport         FORMAL PASS
-    T1 projection transport              OPEN
+    T1 projection transport              FORMAL PASS
     moving-scale Sonin transport         OPEN
     basis-compatible trace witness        OPEN
     G8 cutoff/readback identification     OPEN
@@ -171,7 +172,8 @@ Use the transported signed trace together with the existing outer-pair identity 
 
     014-A  formalize the two opposite scale laws in one operator notation
     014-B  prove the closed-subspace pullback and T1                 FORMAL PASS
-    014-B' prove transport of starProjection from the T1 range identity OPEN
+    014-B' prove transport of starProjection from the T1 range identity
+             FORMAL PASS (batch 1431)
     014-C  derive the doubled-shift commutator identity
     014-D  prove the S1/nuclear or two-HS estimate
     014-E  build the IsTraceClassAlong/BasisHilbertSchmidtPairData witness
@@ -183,6 +185,16 @@ The next attack coordinate is recorded in
 detector-weighted alternating-projection/resolvent estimate.  A uniform
 Friedrichs-angle gap is not a standing assumption and is a kill candidate,
 not a hidden premise.
+
+The current formal result extends T1 with the conjugated orthogonal
+projection
+`doubledShiftSoninProjection b = U_b R_b U_(-b)`, proves it is a star
+projection, and states its equality with the source projection at
+`b = log lambda`.  The paired audit module now builds with zero errors and
+only the three standard axioms; see proof record
+[1431](../proofs/1431_r3_doubled_shift_projection_transport.md).  This closes
+the projection-transport sub-obligation only; no trace estimate or G8
+readback has been proved.
 
 Kill the candidate if:
 

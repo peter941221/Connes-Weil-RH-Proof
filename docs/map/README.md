@@ -40,8 +40,8 @@ traceability.
 |        |                       | candidate; signed trace-first route with    |
 |        |                       | typed falsifiers                            |
 | 014    | Supporting            | R3 doubled-shift Sonin transport: unit     |
-|        |                       | scale is formal; moving-scale trace bridge  |
-|        |                       | remains an explicit new-math target       |
+|        |                       | closed-subspace and projection transport   |
+|        |                       | formal; trace bridge remains OPEN          |
 | 015    | Supporting            | R3 weighted two-projection trace bridge:   |
 |        |                       | angle-free detector-weighted endpoint      |
 |        |                       | calculus; trace estimate remains OPEN      |
@@ -129,10 +129,10 @@ commutator is already trace-class formally, but the radial and Fourier/Hardy
 projections move in opposite translation directions. Hence the moving-scale
 problem is not a trivial unitary conjugation. The proposed object is a
 doubled-shift intersection projection, together with a basis-compatible
-trace-class witness. Its T1 closed-subspace transport is now formal in
-`C1G8R3DoubledShiftSoninTransport.lean`; projection transport and trace
-estimates remain open. This is a supporting candidate, not a completed R3
-producer and not an RH claim. `015` records the next attack coordinate: use
+trace-class witness. Its T1 closed-subspace and projection transports are now
+formal in `C1G8R3DoubledShiftSoninTransport.lean`; trace estimates remain
+open. This is a supporting candidate, not a completed R3 producer and not an
+RH claim. `015` records the next attack coordinate: use
 alternating projections or a resolvent at the intersection spectral endpoint,
 with detector smoothing supplying the trace-class weight. A uniform
 Friedrichs-angle gap is explicitly not assumed.

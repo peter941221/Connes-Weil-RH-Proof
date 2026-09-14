@@ -201,5 +201,100 @@ theorem doubledShiftSoninClosedSubspace_map_eq_source
         exact (cc20GlobalLogTranslation_neg_apply b u).symm
       exact (hQ0 _).2 hfourierFixed0
 
+noncomputable def doubledShiftSoninProjection (b : ℝ) :
+    Carrier →L[ℂ] Carrier :=
+  (cc20GlobalLogTranslationEquiv b : Carrier →L[ℂ] Carrier).comp
+    ((doubledShiftSoninClosedSubspace b).toSubmodule.starProjection.comp
+      ((cc20GlobalLogTranslationEquiv b).symm : Carrier →L[ℂ] Carrier))
+
+theorem doubledShiftSoninProjection_isStarProjection (b : ℝ) :
+    IsStarProjection (doubledShiftSoninProjection b) := by
+  let e : Carrier ≃ₗᵢ[ℂ] Carrier := cc20GlobalLogTranslationEquiv b
+  let U : Carrier →L[ℂ] Carrier :=
+    (e : Carrier →L[ℂ] Carrier)
+  let V : Carrier →L[ℂ] Carrier :=
+    (e.symm : Carrier →L[ℂ] Carrier)
+  let R : Carrier →L[ℂ] Carrier :=
+    (doubledShiftSoninClosedSubspace b).toSubmodule.starProjection
+  let S : Carrier →L[ℂ] Carrier := U.comp (R.comp V)
+  have hR : IsIdempotentElem R :=
+    (doubledShiftSoninClosedSubspace b).toSubmodule.isIdempotentElem_starProjection
+  have hRself : IsSelfAdjoint R :=
+    isSelfAdjoint_starProjection _
+  have hS_idem : IsIdempotentElem S := by
+    change (U.comp (R.comp V)).comp
+        (U.comp (R.comp V)) = U.comp (R.comp V)
+    apply ContinuousLinearMap.ext
+    intro u
+    have hVU (x : Carrier) : V (U x) = x := by
+      change e.symm (e x) = x
+      exact e.symm_apply_apply x
+    have hR_apply := congrArg (fun A : Carrier →L[ℂ] Carrier => A (V u)) hR
+    simp only [ContinuousLinearMap.comp_apply] at hR_apply ⊢
+    rw [hVU]
+    simpa using congrArg U hR_apply
+  have hS_self : IsSelfAdjoint S := by
+    have h := hRself.adjoint_conj V
+    simpa only [S, R, U, V, e,
+      LinearIsometryEquiv.adjoint_eq_symm] using h
+  have hS : IsStarProjection S := ⟨hS_idem, hS_self⟩
+  simpa only [doubledShiftSoninProjection, S, R, U, V, e] using hS
+
+theorem doubledShiftSoninProjection_range_eq_source
+    (lambda : CCM24SoninScale) :
+    (doubledShiftSoninProjection (Real.log lambda)).range =
+      (sourceSoninProjection lambda).range := by
+  let b : ℝ := Real.log lambda
+  let e : Carrier ≃ₗᵢ[ℂ] Carrier := cc20GlobalLogTranslationEquiv b
+  let U : Carrier →L[ℂ] Carrier :=
+    (e : Carrier →L[ℂ] Carrier)
+  let V : Carrier →L[ℂ] Carrier :=
+    (e.symm : Carrier →L[ℂ] Carrier)
+  let R : ClosedSubmodule ℂ Carrier := doubledShiftSoninClosedSubspace b
+  let P : Carrier →L[ℂ] Carrier := R.toSubmodule.starProjection
+  have hmap := doubledShiftSoninClosedSubspace_map_eq_source lambda
+  have hmap' :
+      (ClosedSubmodule.mapEquiv e.toContinuousLinearEquiv R).toSubmodule =
+        (ccm24ArchimedeanSoninClosedSubspace lambda).toSubmodule := by
+    exact congrArg ClosedSubmodule.toSubmodule hmap
+  unfold sourceSoninProjection
+  rw [Submodule.range_starProjection]
+  apply SetLike.ext
+  intro u
+  have hrange : u ∈ (U.comp (P.comp V)).range ↔
+      u ∈ (ccm24ArchimedeanSoninClosedSubspace lambda).toSubmodule := by
+    have hVU (x : Carrier) : V (U x) = x := by
+      change e.symm (e x) = x
+      exact e.symm_apply_apply x
+    constructor
+    · rintro ⟨v, rfl⟩
+      rw [← hmap']
+      apply (ClosedSubmodule.mem_mapEquiv_iff
+        e.toContinuousLinearEquiv R (U (P (V v)))).2
+      change e.symm (e (P (V v))) ∈ R
+      rw [e.symm_apply_apply]
+      exact R.toSubmodule.starProjection_apply_mem (V v)
+    · intro hu
+      rw [← hmap'] at hu
+      have hmem := (ClosedSubmodule.mem_mapEquiv_iff
+        e.toContinuousLinearEquiv R u).1 hu
+      refine ⟨u, ?_⟩
+      have hP : P (V u) = V u := by
+        change R.toSubmodule.starProjection (V u) = V u
+        exact Submodule.starProjection_eq_self_iff.mpr hmem
+      change U (P (V u)) = u
+      rw [hP]
+      exact e.apply_symm_apply u
+  simpa only [doubledShiftSoninProjection, b, U, P, V, e] using hrange
+
+theorem doubledShiftSoninProjection_map_eq_source
+    (lambda : CCM24SoninScale) :
+    doubledShiftSoninProjection (Real.log lambda) =
+      sourceSoninProjection lambda := by
+  apply ContinuousLinearMap.IsStarProjection.ext
+    (doubledShiftSoninProjection_isStarProjection (Real.log lambda))
+    (sourceSoninProjection_isStarProjection lambda)
+  exact doubledShiftSoninProjection_range_eq_source lambda
+
 end Dev
 end ConnesWeilRH
