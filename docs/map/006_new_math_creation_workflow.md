@@ -1879,15 +1879,30 @@ two outer branches already have same-owner trace-class theorems. The new
 analytic target is a direct signed trace-ideal estimate for the Sonin
 commutator, or a proved cancellation estimate for the complete remainder.
 
-This is **PROMISING-BUT-UNSCREENED / PAPER-ONLY**. The detector factorization
-`D = C†C` is an algebraic search coordinate, not a trace theorem; an HS
-estimate does not count unless the required second HS factor, nuclear-kernel
-bound, or signed cancellation is supplied. The first falsifier is the exact
-half-line smooth-convolution kernel model. A model failure kills the
-unqualified candidate before Lean work. If SC1 survives, SC2--SC5 are the
-Sonin lift, signed source remainder, cutoff/source transport, and formal G8
-readback composition. The conditional RH reachability is unchanged; no new
-RH result is claimed.
+The first gate has now passed on paper in [1429](../proofs/1429_r3_sonin_commutator_halfline_model.md):
+the half-line commutator of a compact smooth convolution is a sum of two
+smooth compact-corner Hankel operators and is trace class. This does not prove
+the actual Sonin commutator, whose interior Hardy/prolate correction remains
+open.
+
+The candidate is now **SC1-PASS / SC2(unit)-FORMAL / SC2(scale)-OPEN**. The
+detector factorization `D = C†C` is an algebraic search coordinate, not a trace
+theorem; an HS estimate does not count unless the required second HS factor,
+nuclear-kernel bound, or signed cancellation is supplied. The first falsifier
+is the exact half-line smooth-convolution kernel model, which has passed. The
+next Sonin-lift stage must still be completed before any Lean work is promoted.
+
+The status is refined by the fixed-scale source theorem: the committed
+`sourceThreeBranchCommutator_unit_isTraceClassAlong` result gives a formal
+unit-scale trace-class instance, but does not transport the theorem to the
+moving Sonin scale. The next candidate is therefore the doubled-shift,
+basis-compatible transport recorded in [014](../map/014_r3_doubled_shift_sonin_transport.md),
+not a claim that unitary conjugation automatically preserves the project's
+`IsTraceClassAlong` witness.
+
+SC2--SC5 are the Sonin lift, signed source remainder, cutoff/source transport,
+and formal G8 readback composition. The conditional RH reachability is
+unchanged; no new RH result is claimed.
 
 R3-F0 has now been opened as the first operator-level falsifier (record 1420).
 Because `finiteSCarrier` is the full global logarithmic `L2` carrier, the

@@ -39,6 +39,9 @@ traceability.
 | 013    | Supporting            | R3 Sonin–detector commutator-cancellation   |
 |        |                       | candidate; signed trace-first route with    |
 |        |                       | typed falsifiers                            |
+| 014    | Supporting            | R3 doubled-shift Sonin transport: unit     |
+|        |                       | scale is formal; moving-scale trace bridge  |
+|        |                       | remains an explicit new-math target       |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -117,6 +120,14 @@ followed by the existing G8 readback interface. `013` explicitly forbids the
 invalid shortcut that Hilbert--Schmidt control alone implies trace-classness.
 Its first gate is a paper-only half-line kernel falsifier. R3 and RH remain
 open until the signed estimate and cutoff/source transport are proved.
+
+`014` records the next refinement. The fixed unit-scale three-branch
+commutator is already trace-class formally, but the radial and Fourier/Hardy
+projections move in opposite translation directions. Hence the moving-scale
+problem is not a trivial unitary conjugation. The proposed object is a
+doubled-shift intersection projection, together with a basis-compatible
+trace-class witness. This is a supporting candidate, not a completed R3
+producer and not an RH claim.
 
 ## Mandatory preflight
 
