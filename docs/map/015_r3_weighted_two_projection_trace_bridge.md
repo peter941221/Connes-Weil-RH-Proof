@@ -209,6 +209,14 @@ treated as uncontrolled algebraic remainders.  It is still insufficient for
 R3, because the required detector-weighted trace-norm tail must be summable;
 the linear bound alone does not provide that decay.
 
+The first analytic transfer lemma is now formal in
+`C1G8R3WeightedStrongToHS.lean`: strong convergence of the endpoint operators
+on each detector-root column, a uniform operator-norm bound, and one
+Hilbert--Schmidt square-sum imply convergence of the weighted square energy.
+This does not assume operator-norm convergence or a Friedrichs-angle gap.  It
+does not yet provide the strong convergence of `T_b^n` to the intersection
+projection; that remains the genuinely spectral R3 obligation.
+
 ## 5. Projection step before the trace step
 
 The formal T1 theorem is about closed subspaces.  Before using `r_b`, prove a

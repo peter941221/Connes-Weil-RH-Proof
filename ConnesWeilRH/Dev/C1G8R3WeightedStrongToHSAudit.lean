@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1G8R3WeightedStrongToHS
+
+namespace ConnesWeilRH.Dev.C1G8R3WeightedStrongToHSAudit
+
+#check tendsto_hilbertSchmidt_energy_of_strong_convergence
+#print axioms tendsto_hilbertSchmidt_energy_of_strong_convergence
+
+end ConnesWeilRH.Dev.C1G8R3WeightedStrongToHSAudit

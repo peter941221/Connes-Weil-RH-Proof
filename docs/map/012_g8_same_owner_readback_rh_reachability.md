@@ -435,3 +435,15 @@ This is a lower-data reduction, not the missing endpoint theorem. It
 identifies the spectral value `1` exactly and bounds the algebraic finite
 stage, but supplies no summable detector-weighted tail. R3 remains open at
 the trace-norm limit and same-owner readback; RH is not claimed.
+
+### R3-F8 strong-to-HS endpoint transfer (record 1434, 2026-09-14)
+
+The new formal lemma
+[`C1G8R3WeightedStrongToHS.lean`](../../ConnesWeilRH/Dev/C1G8R3WeightedStrongToHS.lean)
+proves that strong convergence on every detector-root column, together with
+uniform contraction bounds and one Hilbert--Schmidt square-sum, forces the
+weighted square energy to converge to zero.  This removes one false choice:
+R3 does not need operator-norm convergence if the detector root supplies the
+Hilbert--Schmidt weight.  The missing spectral theorem is now explicit:
+prove strong convergence of `(p_b q p_b)^n` to the intersection projection.
+The transfer lemma itself is lower-data only; R3 and RH remain open.
