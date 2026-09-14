@@ -33,6 +33,9 @@ traceability.
 |        |                       | (1417/1418): A0-A4 bridge milestones and    |
 |        |                       | independent W0-W1 window track; not a       |
 |        |                       | reachable RH route as currently registered  |
+| 012    | Supporting            | G8 same-owner readback reachability audit:  |
+|        |                       | conditional B5 RH exit, with an explicit    |
+|        |                       | non-circular analytic producer contract     |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -93,6 +96,15 @@ not new Lean certification. Actual-zero discrepancy/counting, compatible
 detector concentration and a summable signed budget remain open;
 CB-HB1 remains NEEDS-ANALYSIS and full P0 has not passed.
 
+`012` is a supporting audit of the already-existing G8 branch, not a new
+route choice and not a rebuttal of the 011/1418 audit. It verifies the
+conditional B5 exit exactly: a detector-independent same-owner G8 readback
+theorem would give `qw >= 0` on the selected detector and hence `SourceRH`.
+It also records the crucial restriction that the readback theorem must be
+proved from raw orbit geometry, not by assuming healthy-detector/sign data.
+The missing work is the analytic trace/remainder theorem; no feasibility or
+RH result is claimed.
+
 ## Mandatory preflight
 
 For each new substantive proof brick, Lean theorem, carrier-family design, or
@@ -136,6 +148,12 @@ numerical investigation, use this layered check:
    reported as a typed obstruction that closes the Arakelov transport and
    returns this face to the 1411/1415 freeze. Do not cite `010` as authority
    for rejecting a category change, or `011` as authority for skipping F8.
+9. Read [`012`](012_g8_same_owner_readback_rh_reachability.md) before work on
+   G8 same-owner traces, residuals, cutoff transport, or a proposed B5
+   trace-limit producer. It is binding on the owner and anti-circularity
+   checks: the output must be `G8SameOwnerReadbackData` for the canonical
+   owner of the selected detector, and the analytic producer may not assume
+   healthy-detector data, any `qw` sign, `SourceRH`, or an all-tests gate.
 
 The new work must name its healthy-`CompactLog`, B5-shaped consumer; otherwise
 it is out of scope and must not start. An `011` milestone is exempt from that

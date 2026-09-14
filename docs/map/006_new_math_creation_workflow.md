@@ -1852,6 +1852,22 @@ bands preregistered; mapping only, no candidate kill-power; G1-G3 are
 instrument-validity gates). No mechanism is certified feasible; no closure
 region is claimed; RH is not claimed; stop word unchanged.
 
+### G8 same-owner RH reachability audit (map 012, 2026-09-14)
+
+Map [`012`](012_g8_same_owner_readback_rh_reachability.md) runs the missing
+global-quantifier audit for the G8 positive-trace family. The result is
+conditional but genuine: the formal theorem
+`qw_nonnegative_of_g8SameOwnerReadbackData`, composed with the formal
+same-detector contradiction, reaches the binding B5 `SourceRH` consumer once
+an independent readback producer is supplied for the tower-selected owner.
+This is not a separate P2 trace-compensation campaign: G8 already is the
+concrete same-owner trace/remainder formulation. The remaining producer must
+be split into raw orbit geometry and a detector-independent G8 readback
+theorem; a bundled healthy-detector-plus-readback existential is refuted as a
+target by map 007. No analytic readback, compatibility package, or RH theorem
+has been added. Status: **RH-reachable conditionally; analytic producer and
+R0 owner/geometry packaging remain open**.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:

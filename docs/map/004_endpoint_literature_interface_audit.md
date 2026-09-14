@@ -545,3 +545,14 @@ further spend. The lift is narrow and does not authorize numerical campaigns
 does not touch the Lean mainline (no Lean spend is authorized before A3), and
 does not survive a failure of A2 - at which point the transport is registered
 closed and the freeze posture returns.
+
+**G8 qualification, 2026-09-14 (map 012).** This addendum's no-new-
+universal-in-category conclusion does not erase the selected B5 G8 branch.
+`C1G8AdjointShearGram` already gives positive trace-class cutoffs and a
+same-owner readback contract; `C1G8P3Contradiction` formally consumes that
+contract with healthy detector data on the identical owner. Map
+[`012`](012_g8_same_owner_readback_rh_reachability.md) audits the exact
+conditional RH exit and the remaining analytic theorem. It does not change
+the O3 verdict: the required readback must be proved from raw orbit geometry,
+not from a universal gate, a sign assumption, or the later healthy-detector
+contradiction.
