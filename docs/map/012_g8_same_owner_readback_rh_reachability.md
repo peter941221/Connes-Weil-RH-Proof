@@ -209,3 +209,29 @@ this is the same antiresonant column-energy gate already recorded in [006].
 The healthy-`CompactLog` B5 consumer for every stage is unchanged:
 `0 <= C1SameOwnerWeil.qw g` for the detector `g` selected against a
 hypothetical off-line zero, followed by the existing `SourceRH` contradiction.
+
+### R3-F0 start (record 1420, 2026-09-14)
+
+The first falsifier is now stated as an operator-level obligation rather than
+a generic warning. `finiteSCarrier` is definitionally the global
+`cc20GlobalLogCrossingL2` carrier (`CCM24FiniteSProjectionTrace.lean:73`), and
+the finite cutoff factor is a reflected-window restriction of the global root
+convolution (`CompactRootHalfLinePair.lean:563-581`). Therefore the finite
+Hilbert--Schmidt proof does not produce a Hilbert--Schmidt limit when the
+window expands.
+
+R3-F0 asks for a named limiting source leg and either a summable source-column
+bound or a typed lower-energy orthonormal source sequence that refutes its
+trace-classness. The exact target and stop rule are recorded in
+[proof record 1420](../proofs/1420_r3_global_source_leg_falsifier.md). Until
+F0 is discharged, a window-to-trace limit cannot be treated as ordinary
+convergence. The healthy-`CompactLog` B5 consumer remains
+`0 <= C1SameOwnerWeil.qw g` for the tower-selected detector.
+
+The first paper-level obstruction is now explicit: a nonzero compactly
+supported global convolution is not compact, by translating one compact test
+and its nonzero convolution output to mutually disjoint locations. Therefore
+F0 can succeed only through a genuine antiresonance theorem supplied by the
+Sonin source compression; the finite-window factor alone cannot supply it.
+This is a structural reduction, not a closure or a no-go for the compressed
+G8 owner.

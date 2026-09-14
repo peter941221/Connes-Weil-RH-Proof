@@ -1868,6 +1868,17 @@ target by map 007. No analytic readback, compatibility package, or RH theorem
 has been added. Status: **RH-reachable conditionally; analytic producer and
 R0 owner/geometry packaging remain open**.
 
+R3-F0 has now been opened as the first operator-level falsifier (record 1420).
+Because `finiteSCarrier` is the full global logarithmic `L2` carrier, the
+finite-window Hilbert--Schmidt facts do not imply a trace-class uncut source
+leg. The admissible next input is either a summable global source-column
+estimate or a lower-energy orthonormal source sequence proving divergence;
+pointwise window convergence and the existing plain-window trace-growth
+theorem are insufficient by themselves. This is analytic source evidence,
+not a numerical verdict and not a route closure.
+
+The first paper-level obstruction is also recorded in [1420](../proofs/1420_r3_global_source_leg_falsifier.md): a nonzero compactly supported global convolution is not compact under separated translations. Thus any successful F0 proof must show that the Sonin source compression supplies genuine antiresonance; finite-window Hilbert--Schmidt facts alone cannot do so.
+
 ## 6. Kill-ledger format
 
 One row per death, appended where the candidate died:
