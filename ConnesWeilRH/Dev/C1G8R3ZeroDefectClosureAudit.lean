@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1G8R3ZeroDefectClosure
+
+namespace ConnesWeilRH.Dev.C1G8R3ZeroDefectClosureAudit
+
+#check hardyTranslationRightDefect_eq_zero
+#print axioms hardyTranslationRightDefect_eq_zero
+#check hardyTranslationLeftDefect_eq_zero
+#print axioms hardyTranslationLeftDefect_eq_zero
+#check sourceFourierSupportProjection_eq_scale_conjugate_of_zero_defects
+#print axioms sourceFourierSupportProjection_eq_scale_conjugate_of_zero_defects
+
+end ConnesWeilRH.Dev.C1G8R3ZeroDefectClosureAudit

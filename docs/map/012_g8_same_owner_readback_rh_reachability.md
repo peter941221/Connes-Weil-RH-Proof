@@ -353,3 +353,37 @@ integral API contains translation covariance, but the Hardy operator acts on
 the global L2 carrier; the L2 extension is the next new-mathematics target.
 Even after zero defect, transport of the Sonin intersection projection and
 the G8 cutoff-to-source readback remain open. R3 and RH are not claimed.
+
+### R3-F5 zero-defect closure (record 1427, 2026-09-14)
+
+The anticipated L2 extension is now connected to the R3 defects. The new
+formal leaf
+[`C1G8R3ZeroDefectClosure.lean`](../../ConnesWeilRH/Dev/C1G8R3ZeroDefectClosure.lean)
+imports the already landed global L2 Hardy translation theorem and its
+self-adjointness theorem, and proves for every `b`:
+
+```text
+hardyTranslationRightDefect b = 0
+hardyTranslationLeftDefect b = 0
+```
+
+The exact F4 decomposition therefore yields
+
+```text
+sourceFourierSupportProjection lambda
+  = logTranslation (log lambda)
+      * sourceFourierSupportProjection unitSoninScale
+      * logTranslation (-log lambda).
+```
+
+Here `*` denotes composition in the displayed operator identity. The paired
+audit is green in [proof record 1427](../proofs/1427_r3_zero_defect_scale_transport.md)
+with zero `error:` lines, zero `sorryAx`, and three standard axiom prints.
+This closes the exact scale-defect branch only; it does not prove any trace
+limit or Weil sign.
+
+The R3 bottleneck is consequently not Hardy covariance. It is still the
+cutoff/source-ledger compatibility and the summable source second-support
+prolate remainder (including the Sonin leakage channel) identified in F3 and
+F2. The healthy-`CompactLog` B5 consumer remains
+`0 <= C1SameOwnerWeil.qw g` for the tower-selected detector.
