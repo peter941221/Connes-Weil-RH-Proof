@@ -26,6 +26,9 @@ traceability.
 | 008    | Binding companion     | Conditional completion plan (1369):        |
 |        |                       | D0-D9 obligations; paper-only P0 audit      |
 | 009    | Supporting            | N2beta core-bone completion contract         |
+| 010    | Binding companion     | Bone foundry (1416): generation from the     |
+|        |                       | O1-O5 ledger, BONE-A screen verdict, and     |
+|        |                       | the wall's minimal normal form               |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -33,7 +36,13 @@ traceability.
 scope and, via its section 8 addendum (2026-09-14), carries the current wall
 anatomy: the finite obstacle ledger O1-O5 and the registry of spent attack
 classes that any future proof attempt against the gate `0 <= qw` must
-confront. `001` and `002` supply the load-bearing architecture and dependency
+confront. `010` is its companion for generation: since record 1416 the O1/O2
+entries are typed rather than prose (the gate's Mellin vanishing hypothesis
+is vestigial in the equivalence, and the structural node is the `xi` pole
+image `half`, which no transform of the test can move), and the wall has a
+committed side-condition-free normal form
+`(forall g : CompactLogTest, 0 <= qw g) <-> SourceRH`
+(`ConnesWeilRH/Dev/C1MinimalWeilCriterion.lean`). `001` and `002` supply the load-bearing architecture and dependency
 boundaries; neither authorizes a frozen B1 campaign or a separate RH route.
 `005` registers candidate producer designs for the P2 scalar witness under
 the 1140 admission constraints; it adds no authority. `006` is binding on
@@ -88,6 +97,14 @@ numerical investigation, use this layered check:
    selecting or naming a B5-side producer target, or when a design consumes
    the universal contracts L4/A4; the bundled detector-and-contract
    conjunction is refuted and the frozen universal-B1 lift stays closed.
+7. Read [`010`](010_bone_foundry.md) before proposing ANY new attack on the
+   gate `0 <= qw g`. It is binding on three points: the generation procedure
+   (cross an `O1`-`O5` obstacle with a beat-0 operator, then clear the three
+   admission gates), the two grep prerequisites F8/F20 that must run before
+   any spend, and the rule that a dead attack enters the ledger only with a
+   typed reason. Its section 3 records why no scale transform of the test can
+   cross O2, so scale/dilation/dictionary-reset proposals are pre-emptively
+   out of scope.
 
 The new work must name its healthy-`CompactLog`, B5-shaped consumer; otherwise
 it is out of scope and must not start.

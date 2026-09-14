@@ -466,8 +466,8 @@ finite, evidenced list:
 
 | # | obstacle | content | evidence |
 | :-- | :-- | :-- | :-- |
-| O1 | quantifier scale | no decomposition below full strength exists: pillar A (anchor sign) closed at MODEL, pillar B (universal endpoint certificates) is the gate itself | 1402 recon; 1415 campaign closure |
-| O2 | radius gap | positivity certificates live at fixed windows (support <= 0.8 / <= log2/2); tower-forced counterexample owners have height-dominated support (R >= 2^(n0+1) + 2 + dist(2,rho)); the paper's own equivalence: positivity for every L <=> RH | 1408 verbatim premises (C1HealthyYoshidaSpectralNegativity.lean:535,543,568-571; C1HealthyDetectorRootSupportExit.lean:78-81); 1411 closure |
+| O1 | quantifier scale | no decomposition below full strength exists: pillar A (anchor sign) closed at MODEL, pillar B (universal endpoint certificates) is the gate itself. Record 1416 SHARPENED this: the gate's three-point Mellin vanishing hypothesis is vestigial in the equivalence, so the full-strength form is literally side-condition-free - `(forall g : CompactLogTest, 0 <= qw g) <-> SourceRH` - and every weakening attempt by shrinking the node set makes the obligation STRONGER, not easier | 1402 recon; 1415 campaign closure; 1416 `C1MinimalWeilCriterion.lean` (`weilGate_unconditional_iff_sourceRH`, `weilGate_iff_sourceRH_of_subset_triple`) |
+| O2 | radius gap | positivity certificates live at fixed windows (support <= 0.8 / <= log2/2); tower-forced counterexample owners have height-dominated support (R >= 2^(n0+1) + 2 + dist(2,rho)); the paper's own equivalence: positivity for every L <=> RH. Record 1416 gave this its TYPED form: the gap cannot be crossed by any scale transform of the test, because the only node the certificate chain reads is `half`, and `half` is the right image of the xi pole pair `+-1/2` - a property of xi, not of g. Dilation rigidity: `laplaceAt (D_lambda g) s = (1/lambda) * laplaceAt g (s/lambda)`, so preserving vanishing at `1/2` forces `lambda = 1` | 1408 verbatim premises (C1HealthyYoshidaSpectralNegativity.lean:535,543,568-571; C1HealthyDetectorRootSupportExit.lean:78-81); 1411 closure; 1416 `poleTerm_convolutionSquare_of_vanishesOn_cc20Triple` (C1HealthyYoshidaDetector.lean:102-110, reads `half` only) + `C1MinimalWeilCriterion` Part 4 |
 | O3 | content-fixed sign mechanism | the archimedean functional on solved interpolants measured 107/107 negative across both natural content classes; no taper lever (delta/R <= ~1e-12 on the (J1)-feasible region) | 1399/1401/1404 outcomes; law F14 |
 | O4 | citation leg | the formal identity `psi F = spectralWeilValue F` (arithmetic = our zero-spectral sum) is landed and unconditional for every test; the step "our spectral value = the paper's classical Q" is a definitions-citation claim, MODEL-verified PLUS_ONE cellwise, never a Lean Prop | 1415 recon (C1SpectralSummability.lean:372; C1XiCenterTwoArithmeticAssembly.lean:232,240); 1407/1410 cells |
 | O5 | blindness saturation | `psi` annihilates odd tests, splits sums, and is unconditionally reflection-invariant: the psi-side cannot see more than the even-real sector, so no richer sector decomposition of the test can change its value | 1412/1413/1414 leaves + audits |
@@ -479,13 +479,49 @@ different clothes (1342-1353); Connes 9811068-era operator positivity and
 Maynard-Pratt (1355-1364, COLD); rung-3 measurement families (1397-1404);
 route-beta (1402-1404); the Chuk certificate species end-to-end
 (1405-1411); the F2 formal bridge campaign (1412-1415, product: 51
-declarations, all standard-axiom, none carrying a sign claim).
+declarations, all standard-axiom, none carrying a sign claim); the BONE-A
+scale-covariant producer screen (1416, SCREENED-DEAD at paper stage - see
+[`010`](010_bone_foundry.md) and proof record
+[`1416`](../proofs/1416_bone_foundry_bone_a_dead_minimal_weil_criterion.md),
+no Lean spent on the attack itself).
+
+Record 1416 also produced the wall's minimal normal form
+(`ConnesWeilRH/Dev/C1MinimalWeilCriterion.lean`, 13 declarations, green on
+try2, all standard axioms, zero `sorryAx`). The committed gate carries a
+three-point Mellin vanishing hypothesis
+(`cc20TripleFiniteVanishingSet = {zero, half, one}`, `CC20RHExit.lean:21`);
+that hypothesis is vestigial in the equivalence, because the reverse leg
+`qw_nonneg_of_sourceRH` (`C1WeilCriterionEquivalence.lean:103-109`) takes no
+vanishing argument at all - it splits `qw` into on-line and off-line
+spectral mass, kills the off-line part under `SourceRH`, and keeps the
+on-line part nonnegative. The committed `iff` already discarded it (`fun
+hRH g _hg => ...`, `:140`) and the file header said so in prose (`:20-24`);
+what was missing was the statement. Since the gate family is monotone in
+the node set (`weilGate_of_subset`), every sub-triple `F` yields an
+`SourceRH`-equivalent gate, and the two extremes are now committed:
+
+```text
+  (forall g : CompactLogTest, 0 <= qw g)                          <-> SourceRH
+  (forall g, laplaceAt g (1/2) = 0 -> 0 <= qw g)                  <-> SourceRH
+  (forall g, vanishesOn {zero,half,one} g -> 0 <= qw g)           <-> SourceRH
+```
+
+Smaller `F` means MORE tests in scope, so this is a sharpening, not a
+shortcut: nothing here makes the wall easier, and the apparent
+"vanishing-set degree of freedom" is vacuous for the equivalence. Where the
+nodes are NOT vacuous is the certificate route: Part 4 of the same module
+restates `qw = -archimedean - finitePrime`, and its root-support
+specialization `qw = -archimedean`, from the singleton `{half}` hypothesis
+alone - which is the minimality witness that `zero` and `one` are never
+read by any certificate argument.
 
 Operational conclusion: no mechanical or measurement work remains that
 touches the gate. What could change the state is analytic content of
 strength comparable to RH itself (O2's propagation from fixed windows to
-all supports being the canonical form), supplied as an idea, at which point
-this register's formal surface - tower, B0b equivalence, dictionary
-identity, and psi-blindness bundle, all committed and standard-axiom - is
-in its strongest-ever state to receive and machine-check it. The default
-posture remains the freeze recommended by records 1411 and 1415.
+all supports being the canonical form, and 1416 having shown that no scale
+transform of the test can supply it), supplied as an idea, at which point
+this register's formal surface - tower, B0b equivalence in its minimal
+side-condition-free form, dictionary identity, and psi-blindness bundle,
+all committed and standard-axiom - is in its strongest-ever state to receive
+and machine-check it. The default posture remains the freeze recommended by
+records 1411 and 1415.

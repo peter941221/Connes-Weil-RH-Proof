@@ -604,6 +604,38 @@ open gate still requires is classical analytic content, not
 construction work. None of the above claims the Riemann hypothesis or
 alters the tower's single open obligation.
 
+Record [1416](docs/map/010_bone_foundry.md) then removed the residual
+slack from the *statement* of that obligation. The gate was committed
+with a three-point Mellin vanishing hypothesis on the test, but the
+reverse leg of the equivalence never reads it: it splits `q_w` into
+on-line and off-line spectral mass, the off-line part vanishing under
+`SourceRH` and the on-line part being nonnegative. So the criterion has
+a side-condition-free normal form, now machine-checked:
+
+<br>
+
+$$
+\boxed{
+\Bigl(\ \forall\, g \text{ compactly supported log test},\quad
+0 \le q_w(g)\ \Bigr)
+\ \Longleftrightarrow\
+\mathrm{SourceRH}
+}
+$$
+
+<br>
+
+The parameterized family `weilGate F` is monotone in the node set `F`
+in the strengthening direction - a smaller `F` admits more tests and so
+states more - and every sub-triple `F` is `SourceRH`-equivalent. The
+nodes are not vacuous on the certificate side, where exactly one of
+them is read: `half`, the right image of the `xi` pole pair `+-1/2`,
+which is fixed by `xi` rather than by the test. That is why no scale
+transform of a test can move the certificate window, and it is the
+typed form of the radius gap above
+(`C1MinimalWeilCriterion.lean`, 13 declarations, standard axioms).
+This sharpens the open problem; it does not advance it.
+
 The binding decision is [record 1076](docs/map/003_b1_b5_minimal_exit_route_selection.md);
 the endpoint, producer, and process status are maintained by
 [map 004](docs/map/004_endpoint_literature_interface_audit.md),
