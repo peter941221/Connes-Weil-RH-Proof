@@ -387,3 +387,33 @@ cutoff/source-ledger compatibility and the summable source second-support
 prolate remainder (including the Sonin leakage channel) identified in F3 and
 F2. The healthy-`CompactLog` B5 consumer remains
 `0 <= C1SameOwnerWeil.qw g` for the tower-selected detector.
+
+### R3-F6 doubled-shift Hardy involution (record 1428, 2026-09-14)
+
+The opposite scale motion of the radial and Fourier projections leaves a
+relative displacement of twice the logarithmic scale. The new formal leaf
+[`C1G8R3DoubledShiftNormalForm.lean`](../../ConnesWeilRH/Dev/C1G8R3DoubledShiftNormalForm.lean)
+defines
+
+```text
+K_b = T_(2*b) H
+```
+
+on the committed `finiteSCarrier`, where `T` is global logarithmic
+translation and `H` is the global Hardy--Titchmarsh operator, and proves
+
+```text
+K_b * K_b = id
+```
+
+for every real `b`. This is a formal algebraic normal form, using the already
+formal Hardy translation reversal, Hardy involutivity, and translation
+composition. The paired audit is green in [proof record 1428](../proofs/1428_r3_doubled_shift_hardy_involution.md)
+with zero `error:` lines, zero `sorryAx`, and only the three standard axioms.
+
+This does not close R3. It removes no trace-class or summability obligation:
+the cutoff/source-ledger compatibility, the source second-support prolate
+remainder, the Sonin leakage estimate, and the signed same-owner readback are
+still open. The operator `K_b` is a new organizing object for those estimates,
+not a positivity theorem and not an RH proof. The B5 consumer remains
+`0 <= C1SameOwnerWeil.qw g` for the tower-selected detector.
