@@ -262,9 +262,19 @@ and is independent of every detector sign, `SourceRH`, and universal Weil
 positivity.  The derivation and exact source evidence are in
 [proof record 1421](../proofs/1421_sonin_compressed_translation_antiresonance.md).
 
-This is a new `R3-F1` candidate, not an F0 completion.  Pointwise strong
-decay for each source vector does not imply Hilbert--Schmidt or trace-class
-convergence on the infinite-dimensional source carrier.  The remaining
-target is the collective source-energy estimate over an orthonormal source
-basis and the actual prime-power coefficients.  Until that upgrade is
-proved, `G8SameOwnerReadbackData` remains OPEN and RH remains unclaimed.
+This is a new `R3-F1` geometric premise, not an F0 completion.  A subsequent
+interface audit found that the actual G8 source leg is
+`G_S^(1/2) * B_infinity * J`, with no established output projection back to
+the Sonin carrier.  Therefore pointwise decay of `P_S T_(-n*a) u` cannot be
+promoted directly to Hilbert--Schmidt control of the G8 leg.  The corrected
+two-channel target is
+
+```text
+B_infinity J = P_S B_infinity J + (I - P_S) B_infinity J,
+```
+
+with a collective source-energy estimate for the first channel and an
+independent boundary/commutator trace-ideal estimate for the leakage channel.
+The correction is recorded in [proof record 1422](../proofs/1422_r3_f1_interface_correction_and_leakage_target.md).
+Until both channels are controlled, `G8SameOwnerReadbackData` remains OPEN
+and RH remains unclaimed.

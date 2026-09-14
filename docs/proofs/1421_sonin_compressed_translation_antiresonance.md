@@ -198,3 +198,42 @@ mechanism rather than another convergence assumption.  But it is not yet a
 proof of RH.  The next honest move is to derive the collective source-energy
 bound from the same Sonin geometry, not to declare the pointwise tail lemma a
 trace theorem.
+
+## 7. Interface correction
+
+The preceding conclusion must be read with one important operator-level
+qualification.  The pointwise lemma controls
+
+```text
+P_S T_(-n*a) J,
+```
+
+or a source-compressed translation, while the first F0 factor in the actual
+G8 trace is of the form
+
+```text
+G_S^(1/2) * B_infinity * J.
+```
+
+The output of `B_infinity` is in the ambient global carrier; it is not known
+to be followed by `P_S`.  Therefore the pointwise lemma alone does **not**
+prove that the actual G8 source leg is Hilbert--Schmidt.  In particular, the
+sentence in the earlier version that this already “blocks the ambient
+translated-input escape after Sonin compression” was too strong when applied
+to the full G8 source leg.
+
+The valid use is the following conditional decomposition.  If the actual
+limiting source leg admits a translation expansion compatible with the source
+projection, split it as
+
+```text
+B_infinity J
+  = P_S B_infinity J + (I - P_S) B_infinity J.
+```
+
+The first term is a legitimate consumer of the new antiresonance lemma.  The
+second term is an ambient Sonin-leakage term and needs an independent
+commutator, boundary, or trace-ideal estimate.  No such factorization for the
+current `B_infinity` has yet been proved.  Thus the lemma remains a valid
+geometric result, but its direct F0 status is downgraded to `INTERFACE
+PREMISE`, not `F0 GREEN`.
