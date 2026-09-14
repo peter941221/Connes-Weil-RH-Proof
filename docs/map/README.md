@@ -36,6 +36,9 @@ traceability.
 | 012    | Supporting            | G8 same-owner readback reachability audit:  |
 |        |                       | conditional B5 RH exit, with an explicit    |
 |        |                       | non-circular analytic producer contract     |
+| 013    | Supporting            | R3 Sonin–detector commutator-cancellation   |
+|        |                       | candidate; signed trace-first route with    |
+|        |                       | typed falsifiers                            |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -104,6 +107,16 @@ It also records the crucial restriction that the readback theorem must be
 proved from raw orbit geometry, not by assuming healthy-detector/sign data.
 The missing work is the analytic trace/remainder theorem; no feasibility or
 RH result is claimed.
+
+`013` is a supporting candidate below `012`, not a new route authority. It
+uses the committed exact decomposition of the coupled source second-support /
+prolate remainder into a Sonin commutator minus two outer branches. The outer
+branches already have same-owner trace-class theorems; the new target is a
+direct signed trace-ideal or cancellation estimate for the Sonin commutator,
+followed by the existing G8 readback interface. `013` explicitly forbids the
+invalid shortcut that Hilbert--Schmidt control alone implies trace-classness.
+Its first gate is a paper-only half-line kernel falsifier. R3 and RH remain
+open until the signed estimate and cutoff/source transport are proved.
 
 ## Mandatory preflight
 

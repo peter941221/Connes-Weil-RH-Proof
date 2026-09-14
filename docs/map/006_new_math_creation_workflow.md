@@ -1868,6 +1868,27 @@ target by map 007. No analytic readback, compatibility package, or RH theorem
 has been added. Status: **RH-reachable conditionally; analytic producer and
 R0 owner/geometry packaging remain open**.
 
+### R3-SC1 candidate registration (record 1429 / map 013, 2026-09-14)
+
+Candidate `R3-SC1` is the Sonin--detector commutator-cancellation route. It
+serves the same healthy-`CompactLog` B5 consumer as map 012:
+`0 <= C1SameOwnerWeil.qw g` for the tower-selected detector. The candidate is
+opened because committed source already proves the exact identity
+`sourceSecondSupportProlateRemainder = Sonin commutator - outer pair`, and the
+two outer branches already have same-owner trace-class theorems. The new
+analytic target is a direct signed trace-ideal estimate for the Sonin
+commutator, or a proved cancellation estimate for the complete remainder.
+
+This is **PROMISING-BUT-UNSCREENED / PAPER-ONLY**. The detector factorization
+`D = C†C` is an algebraic search coordinate, not a trace theorem; an HS
+estimate does not count unless the required second HS factor, nuclear-kernel
+bound, or signed cancellation is supplied. The first falsifier is the exact
+half-line smooth-convolution kernel model. A model failure kills the
+unqualified candidate before Lean work. If SC1 survives, SC2--SC5 are the
+Sonin lift, signed source remainder, cutoff/source transport, and formal G8
+readback composition. The conditional RH reachability is unchanged; no new
+RH result is claimed.
+
 R3-F0 has now been opened as the first operator-level falsifier (record 1420).
 Because `finiteSCarrier` is the full global logarithmic `L2` carrier, the
 finite-window Hilbert--Schmidt facts do not imply a trace-class uncut source
