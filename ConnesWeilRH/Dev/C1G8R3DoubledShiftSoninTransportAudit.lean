@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8R3DoubledShiftSoninTransport
+
+namespace ConnesWeilRH.Dev.C1G8R3DoubledShiftSoninTransportAudit
+
+#check doubledShiftRadialClosedSubspace
+#print axioms doubledShiftRadialClosedSubspace
+#check doubledShiftSoninClosedSubspace
+#print axioms doubledShiftSoninClosedSubspace
+#check globalTranslationEquiv_symm_apply
+#print axioms globalTranslationEquiv_symm_apply
+#check doubledShiftSoninClosedSubspace_map_eq_source
+#print axioms doubledShiftSoninClosedSubspace_map_eq_source
+
+end ConnesWeilRH.Dev.C1G8R3DoubledShiftSoninTransportAudit

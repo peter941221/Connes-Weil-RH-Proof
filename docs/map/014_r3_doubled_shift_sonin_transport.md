@@ -1,7 +1,8 @@
 # 014 — R3 doubled-shift Sonin transport and the moving-scale trace bridge
 
 **Date:** 2026-09-14
-**Status:** supporting route candidate; formal unit-scale base, moving-scale transport OPEN.
+**Status:** supporting route candidate; unit-scale base and T1 closed-subspace
+transport are formal, moving-scale projection/trace bridge OPEN.
 **Consumer:** the healthy-CompactLog, B5-shaped statement “0 <= C1SameOwnerWeil.qw g” for the exact tower-selected detector, followed by the existing same-detector contradiction and SourceRH wrapper.
 
 This record refines [012](012_g8_same_owner_readback_rh_reachability.md) and [013](013_r3_sonin_detector_commutator_cancellation.md). It is not a new route authority, does not reopen B1, and does not claim RH. It states the next new mathematics after the half-line model and the fixed unit-scale trace theorem have both been checked.
@@ -23,7 +24,9 @@ Current status:
 
     half-line boundary model              PAPER PASS
     unit-scale coupled trace legality     FORMAL PASS
-    moving-scale Sonin transport          OPEN
+    T1 closed-subspace transport         FORMAL PASS
+    T1 projection transport              OPEN
+    moving-scale Sonin transport         OPEN
     basis-compatible trace witness        OPEN
     G8 cutoff/readback identification     OPEN
     R3                                   OPEN
@@ -58,6 +61,8 @@ Evidence locations:
 - [CCM24RadialBoundaryPairTransport.lean](../../ConnesWeilRH/Source/CCM25Concrete/CCM24RadialBoundaryPairTransport.lean)
 - [C1G8R3ZeroDefectClosure.lean](../../ConnesWeilRH/Dev/C1G8R3ZeroDefectClosure.lean)
 - [C1G8R3DoubledShiftNormalForm.lean](../../ConnesWeilRH/Dev/C1G8R3DoubledShiftNormalForm.lean)
+- [C1G8R3DoubledShiftSoninTransport.lean](../../ConnesWeilRH/Dev/C1G8R3DoubledShiftSoninTransport.lean)
+- [1430 T1 verification record](../proofs/1430_r3_doubled_shift_sonin_transport_t1.md)
 
 The unit theorem is a real advance over the original paper model, but its source comment limits it to the fixed source endpoint. It cannot be used as a moving-scale theorem without a transport proof.
 
@@ -97,7 +102,14 @@ Prove, first at the continuous-operator level,
 
     P_lambda = U_b starProjection(Rspace(b)) U_(-b).
 
-This must use the committed star-projection API and the two opposite scale laws. It may not assert the conclusion by unfolding a desired formula.
+The closed-subspace transport half is now formal:
+
+    map U_b Rspace(b) = Ran(E_lambda) intersect Ran(Q_lambda)
+
+by `doubledShiftSoninClosedSubspace_map_eq_source` in the new Dev leaf.  The
+projection equality remains a separate API/uniqueness obligation.  It must use
+the committed star-projection API and the two opposite scale laws; it may not
+assert the conclusion by unfolding a desired formula.
 
 ### T2 — doubled-shift Hankel/Sonin trace estimate
 
@@ -158,12 +170,19 @@ Use the transported signed trace together with the existing outer-pair identity 
 ## 6. Staged work and stop rules
 
     014-A  formalize the two opposite scale laws in one operator notation
-    014-B  prove the closed-subspace pullback and T1
+    014-B  prove the closed-subspace pullback and T1                 FORMAL PASS
+    014-B' prove transport of starProjection from the T1 range identity OPEN
     014-C  derive the doubled-shift commutator identity
     014-D  prove the S1/nuclear or two-HS estimate
     014-E  build the IsTraceClassAlong/BasisHilbertSchmidtPairData witness
     014-F  identify the signed limit with the exact G8 ledger
     014-G  produce G8SameOwnerReadbackData and invoke the existing wrapper
+
+The next attack coordinate is recorded in
+[015](015_r3_weighted_two_projection_trace_bridge.md): an angle-free,
+detector-weighted alternating-projection/resolvent estimate.  A uniform
+Friedrichs-angle gap is not a standing assumption and is a kill candidate,
+not a hidden premise.
 
 Kill the candidate if:
 
