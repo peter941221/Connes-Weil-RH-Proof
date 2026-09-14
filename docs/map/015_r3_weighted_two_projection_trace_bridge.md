@@ -328,3 +328,28 @@ module `C1G8R3WeightedFiniteStage.lean`: the recursively accumulated
 `weightedCommutatorStage T D n` is proved equal to
 `T^n D - D T^n`, and it is instantiated with the doubled-shift alternating
 product `p_b q p_b`.  The paired audit passed in batch 1432; see [1432](../proofs/1432_r3_weighted_finite_stage_commutator.md).  This is only the exact finite-stage ledger; it does not provide the weighted trace-norm summability or the limit at the intersection endpoint.
+
+## 9. New endpoint bridge (batch 1435)
+
+The next obstruction has now been given an exact operator socket in
+`C1G8R3PowerProjectionBridge.lean`. Define `r_b` to be the orthogonal
+projection onto the doubled-shift Sonin intersection. The formal source facts
+include `T_b r_b = r_b` for `T_b = p_b q_1 p_b`, because every vector in the
+intersection is fixed by the alternating product.
+
+The new abstract lemma proves the geometric endpoint statement:
+
+```text
+T P = P,  P T = P,  P^2 = P,  ||T - P|| < rho < 1
+  ==>  T^(n+1) -> P  in operator norm.
+```
+
+The proof is the exact identity `T^(n+1) - P = (T - P)^(n+1)` followed by
+the norm-power limit. This is not the R3 conclusion: the remaining target is
+the explicit defect-gap estimate `||T_b - r_b|| < 1`, together with the
+opposite product identity `r_b T_b = r_b`. These are now named obligations
+rather than hidden inside “alternating projections converge”.
+
+If a strict gap is false at moving scale, its failure is a typed obstruction
+to the geometric route and forces an angle-free spectral/weighted estimate.
+No trace classness, G8 readback, R3 sign, or RH conclusion is claimed.

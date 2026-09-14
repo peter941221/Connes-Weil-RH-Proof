@@ -44,7 +44,8 @@ traceability.
 |        |                       | formal; trace bridge remains OPEN          |
 | 015    | Supporting            | R3 weighted two-projection trace bridge:   |
 |        |                       | angle-free detector-weighted endpoint      |
-|        |                       | calculus; trace estimate remains OPEN      |
+|        |                       | calculus; 1435 adds a conditional power/   |
+|        |                       | projection gap bridge; trace estimate OPEN |
 +--------+-----------------------+---------------------------------------------+
 ```
 

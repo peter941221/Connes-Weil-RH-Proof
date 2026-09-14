@@ -312,3 +312,8 @@ audit in [014](014_r3_doubled_shift_sonin_transport.md): express the actual
 intersection-projection commutator as the passed half-line pieces plus the
 Hardy-transport correction, then test the correction for an S1 estimate in the
 project's basis-compatible trace witness. No R3 or RH result is claimed.
+
+The power-limit subproblem is now separately typed. Batch 1435 supplies an
+abstract projection-gap bridge and the concrete doubled-shift intersection
+projection. It does not close SC2–SC4: the defect bound is still open, and
+the signed source remainder remains the actual R3 bottleneck.
