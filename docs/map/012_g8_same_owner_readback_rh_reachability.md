@@ -198,6 +198,14 @@ RH-reachability judgment in this map. The next admissible brick is R3-COMPAT,
 an operator identity or trace-norm convergence theorem independent of every
 sign conclusion, `SourceRH`, and universal Weil positivity.
 
+**Correction to the proposed shortcut:** the source Sonin carrier is not known
+to be finite-dimensional. Its committed definition is a closed subspace of
+the global logarithmic `L2` carrier cut out by a translated half-line and a
+Hardy--Titchmarsh support condition. Therefore strong convergence of expanding
+window restrictions does not by itself imply trace convergence. The required
+replacement is a summable source-basis column tail / Hilbert--Schmidt estimate;
+this is the same antiresonant column-energy gate already recorded in [006].
+
 The healthy-`CompactLog` B5 consumer for every stage is unchanged:
 `0 <= C1SameOwnerWeil.qw g` for the detector `g` selected against a
 hypothetical off-line zero, followed by the existing `SourceRH` contradiction.

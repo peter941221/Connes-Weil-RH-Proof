@@ -124,3 +124,38 @@ the detector or its finite-prime family.
 No numerical sign experiment can discharge R3-COMPAT. The proof must give an
 operator identity or a norm/trace convergence theorem, followed by the
 vanishing remainder and the exact `qw` endpoint identity.
+
+## 6. Correction to the first proposed shortcut
+
+The initial brainstorming suggested using finite-dimensionality of the source
+carrier to upgrade strong window convergence to uniform convergence. The
+source definitions do not support that shortcut. In
+`CCM24HardyTitchmarsh.lean:376-379`, the source is the closed subspace
+
+```text
+ccm24LogRadialSupportClosedSubspace lambda
+  intersect
+ccm24ArchimedeanFourierSupportClosedSubspace lambda
+```
+
+of the global logarithmic `L2` carrier. The radial component is the kernel of
+restriction to a translated half-line (`CCM24LogRadialSupport.lean:30-55`),
+not a finite-dimensional space. No finite-dimensional instance or theorem for
+`sourceSoninCarrier` was found in the committed source.
+
+The valid replacement is stronger and more expensive: prove a basis-level
+Hilbert--Schmidt tail estimate, for example a summable majorant for
+
+```text
+sum_i || (C_n - C_infinity) (sourceInclusion (sourceBasis i)) ||^2
+```
+
+and then pass the trace limit through that summable tail. This is precisely the
+kind of global column-energy/antiresonance input already marked open in map
+006 records 1327--1328. Pointwise strong convergence of interval restrictions
+alone is insufficient.
+
+Consequently the proposed R3-A is only a valid *conditional reduction*, not a
+credible claim that R3 is nearly solved. The first honest falsifier is whether
+the global G8 source leg is trace class on the source basis at all. If that
+fails, the present cutoff route needs renormalization or must be closed.
