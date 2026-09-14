@@ -25,10 +25,14 @@ traceability.
 |        |                       | surviving L4/A4 target ladder              |
 | 008    | Binding companion     | Conditional completion plan (1369):        |
 |        |                       | D0-D9 obligations; paper-only P0 audit      |
-| 009    | Supporting            | N2beta core-bone completion contract         |
-| 010    | Binding companion     | Bone foundry (1416): generation from the     |
-|        |                       | O1-O5 ledger, BONE-A screen verdict, and     |
-|        |                       | the wall's minimal normal form               |
+| 009    | Supporting            | N2beta core-bone completion contract        |
+| 010    | Binding companion     | Bone foundry (1416): generation from the    |
+|        |                       | O1-O5 ledger, BONE-A screen verdict, and    |
+|        |                       | the wall's minimal normal form              |
+| 011    | Binding program       | Arakelov bridge (1417): category change out |
+|        |                       | of CompactLogTest, milestones A0-A4 with    |
+|        |                       | prices fixed, and the A2 one-symbol gate on |
+|        |                       | all further spend                           |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -42,8 +46,20 @@ is vestigial in the equivalence, and the structural node is the `xi` pole
 image `half`, which no transform of the test can move), and the wall has a
 committed side-condition-free normal form
 `(forall g : CompactLogTest, 0 <= qw g) <-> SourceRH`
-(`ConnesWeilRH/Dev/C1MinimalWeilCriterion.lean`). `001` and `002` supply the load-bearing architecture and dependency
-boundaries; neither authorizes a frozen B1 campaign or a separate RH route.
+(`ConnesWeilRH/Dev/C1MinimalWeilCriterion.lean`). `011` is the current
+frontier document and the only one that lifts the 1411/1415 freeze, for this
+face alone: since record 1417 the O3 obstacle is typed as a phase/density
+mismatch, which rules out further generation inside `CompactLogTest` as a
+strategy, so the attempt moves to arithmetic Hodge index theory for adelic line
+bundles (Yuan-Zhang, arXiv:1304.3538) and asks for a bridge map `phi` with
+`widehat{deg}(phi(g)^2) = -c * qw g` and `widehat{deg}(phi(g)) = 0`
+identically. It runs two tracks: A0-A4 (the bridge, gated on a one-symbol
+identity test at A2) and W0-W1 (the window theorem, `lambda_max` of an explicit
+truncated convolution operator on `L2(-log 2/2, log 2/2)` at most zero, which
+needs no bridge). No Lean spend is authorized before A3. RH is not claimed on
+either track. `001` and `002` supply the load-bearing architecture and
+dependency boundaries; neither authorizes a frozen B1 campaign or a separate RH
+route.
 `005` registers candidate producer designs for the P2 scalar witness under
 the 1140 admission constraints; it adds no authority. `006` is binding on
 process, not on route: every new-math campaign opened from record 1227
@@ -105,9 +121,25 @@ numerical investigation, use this layered check:
    typed reason. Its section 3 records why no scale transform of the test can
    cross O2, so scale/dilation/dictionary-reset proposals are pre-emptively
    out of scope.
+8. Read [`011`](011_arakelov_bridge_program.md) before proposing any attack
+   that leaves the `CompactLogTest` category. Since record 1417 the O3 entry
+   in `004` section 8 is typed as a phase/density mismatch: the gate is an
+   exponentially long oscillating sum while every in-category input (`Phi`,
+   exponential type from support, `{log p}` independence plus PNT) is
+   density-level, so `010`-style in-category generation is ruled out as a
+   strategy and `011` supersedes `010` for this face. `011` is binding on two
+   points: milestones A0-A2 must run in order and **A2 (a one-symbol identity
+   test against the committed head coefficient `log(4*pi) + gamma`) gates all
+   further spend, with no Lean authorized before A3**; and a failed A2 must be
+   reported as a typed obstruction that closes the Arakelov transport and
+   returns this face to the 1411/1415 freeze. Do not cite `010` as authority
+   for rejecting a category change, or `011` as authority for skipping F8.
 
 The new work must name its healthy-`CompactLog`, B5-shaped consumer; otherwise
-it is out of scope and must not start.
+it is out of scope and must not start. An `011` milestone is exempt from that
+sentence only while it stays paper-only: the bridge requirement (i) in `011`
+section 1 is precisely the obligation to reconnect to that consumer later, and
+A3 is where the exemption ends.
 
 ## Live update rule
 

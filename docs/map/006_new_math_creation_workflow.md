@@ -383,6 +383,26 @@ committed; exploratory incubator notes are neither registry rows nor claims.
 |     |                                | the universal A4 shape (record 1226  |          |
 |     |                                | C3)                                  |          |
 +-----+--------------------------------+--------------------------------------+----------+
+| M7  | arithmetic Hodge index /       | NOT a positivity statement about     | OPENED   |
+|     | adelic line-bundle             | zeta: a SIGNATURE theorem for        | 2026-09- |
+|     | intersection (Yuan-Zhang,      | adelic line bundles on a fixed       | 14,      |
+|     | arXiv:1304.3538)               | variety X. Negative definiteness on  | program  |
+|     |                                | the degree-zero ("vertical")         | in 011;  |
+|     |                                | hyperplane. Becomes the gate ONLY    | A0-A2    |
+|     |                                | through a bridge map phi with        | pending  |
+|     |                                | widehat{deg}(phi(g)^2) = -c*qw(g)    |          |
+|     |                                | and widehat{deg}(phi(g)) = 0         |          |
+|     |                                | identically. The adelic metric       |          |
+|     |                                | component is the substitute for the  |          |
+|     |                                | missing second factor                |          |
+|     |                                | Spec Z x Spec Z = Spec Z. Entered    |          |
+|     |                                | as a CATEGORY CHANGE, not a bone:    |          |
+|     |                                | O3's phase/density filter (1417 s3)  |          |
+|     |                                | rules out further in-category        |          |
+|     |                                | generation. Chosen because the       |          |
+|     |                                | target-side theorem is PROVED, not   |          |
+|     |                                | sought - first such case on face.    |          |
++-----+--------------------------------+--------------------------------------+----------+
 ```
 
 Sweep-round rows are appended below the seed table by each round's committed

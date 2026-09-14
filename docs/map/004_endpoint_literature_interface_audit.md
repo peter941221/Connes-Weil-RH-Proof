@@ -468,7 +468,7 @@ finite, evidenced list:
 | :-- | :-- | :-- | :-- |
 | O1 | quantifier scale | no decomposition below full strength exists: pillar A (anchor sign) closed at MODEL, pillar B (universal endpoint certificates) is the gate itself. Record 1416 SHARPENED this: the gate's three-point Mellin vanishing hypothesis is vestigial in the equivalence, so the full-strength form is literally side-condition-free - `(forall g : CompactLogTest, 0 <= qw g) <-> SourceRH` - and every weakening attempt by shrinking the node set makes the obligation STRONGER, not easier | 1402 recon; 1415 campaign closure; 1416 `C1MinimalWeilCriterion.lean` (`weilGate_unconditional_iff_sourceRH`, `weilGate_iff_sourceRH_of_subset_triple`) |
 | O2 | radius gap | positivity certificates live at fixed windows (support <= 0.8 / <= log2/2); tower-forced counterexample owners have height-dominated support (R >= 2^(n0+1) + 2 + dist(2,rho)); the paper's own equivalence: positivity for every L <=> RH. Record 1416 gave this its TYPED form: the gap cannot be crossed by any scale transform of the test, because the only node the certificate chain reads is `half`, and `half` is the right image of the xi pole pair `+-1/2` - a property of xi, not of g. Dilation rigidity: `laplaceAt (D_lambda g) s = (1/lambda) * laplaceAt g (s/lambda)`, so preserving vanishing at `1/2` forces `lambda = 1` | 1408 verbatim premises (C1HealthyYoshidaSpectralNegativity.lean:535,543,568-571; C1HealthyDetectorRootSupportExit.lean:78-81); 1411 closure; 1416 `poleTerm_convolutionSquare_of_vanishesOn_cc20Triple` (C1HealthyYoshidaDetector.lean:102-110, reads `half` only) + `C1MinimalWeilCriterion` Part 4 |
-| O3 | content-fixed sign mechanism | the archimedean functional on solved interpolants measured 107/107 negative across both natural content classes; no taper lever (delta/R <= ~1e-12 on the (J1)-feasible region) | 1399/1401/1404 outcomes; law F14 |
+| O3 | content-fixed sign mechanism | the archimedean functional on solved interpolants measured 107/107 negative across both natural content classes; no taper lever (delta/R <= ~1e-12 on the (J1)-feasible region). Record 1417 gave this its TYPED form: `A(F) = (1/2pi) integral |g-hat|^2 Phi` with `Phi(r) = -Re psi(1/4 + i r/2) + C'` (Gamma-only, no zeros), while the prime measure `nu([0,u]) ~ 2 e^{u/2}` grows exponentially in the support radius - so the obligation is PHASE-level (an exponentially long oscillating sum) while every input the category owns (`Phi`, exponential type from support, `{log p}` independence + PNT) is DENSITY-level. Law F14's dead taper is the visible symptom: a taper moves mass at density level and cannot address a phase-level sum. Consequence: no theorem with hypotheses inside this category can conclude the gate; this is why 1342-1353 kept finding the same wall in different clothes | 1399/1401/1404 outcomes; law F14; 1417 sections 2-3 (`C1SameOwnerWeil.lean:48-52,60-64`; `SelectedWeilFormula.lean:102-104`), PAPER under law 65, `C'` unpinned |
 | O4 | citation leg | the formal identity `psi F = spectralWeilValue F` (arithmetic = our zero-spectral sum) is landed and unconditional for every test; the step "our spectral value = the paper's classical Q" is a definitions-citation claim, MODEL-verified PLUS_ONE cellwise, never a Lean Prop | 1415 recon (C1SpectralSummability.lean:372; C1XiCenterTwoArithmeticAssembly.lean:232,240); 1407/1410 cells |
 | O5 | blindness saturation | `psi` annihilates odd tests, splits sums, and is unconditionally reflection-invariant: the psi-side cannot see more than the even-real sector, so no richer sector decomposition of the test can change its value | 1412/1413/1414 leaves + audits |
 
@@ -483,7 +483,14 @@ declarations, all standard-axiom, none carrying a sign claim); the BONE-A
 scale-covariant producer screen (1416, SCREENED-DEAD at paper stage - see
 [`010`](010_bone_foundry.md) and proof record
 [`1416`](../proofs/1416_bone_foundry_bone_a_dead_minimal_weil_criterion.md),
-no Lean spent on the attack itself).
+no Lean spent on the attack itself); and, in record 1417's pre-spend F8 sweep,
+three further candidates killed without work because the face had already
+buried them - one-sided archimedean positivity from the `Phi` symbol (cannot
+conclude: the prime term is not in it, and `qw = -A - prime` is committed),
+the Bohr-compactification geometric kernel (the object is already 263 (Z.30),
+and 263 section 8 disproves its total positivity by the explicit minor
+`det = -0.707084047558...`), and Beurling-Malliavin completeness (already
+1332's declared "correct literature frame").
 
 Record 1416 also produced the wall's minimal normal form
 (`ConnesWeilRH/Dev/C1MinimalWeilCriterion.lean`, 13 declarations, green on
@@ -523,5 +530,18 @@ transform of the test can supply it), supplied as an idea, at which point
 this register's formal surface - tower, B0b equivalence in its minimal
 side-condition-free form, dictionary identity, and psi-blindness bundle,
 all committed and standard-axiom - is in its strongest-ever state to receive
-and machine-check it. The default posture remains the freeze recommended by
-records 1411 and 1415.
+and machine-check it.
+
+**Posture amendment, 2026-09-14 (record 1417).** The freeze recommended by
+records 1411 and 1415 is LIFTED for this face only, by owner decision, on the
+strength of O3's typed form above: because the obligation is phase-level and
+every in-category input is density-level, further bone generation inside
+`CompactLogTest` cannot reach it, so the attempt moves category. The
+substitute program is preregistered in
+[`011`](011_arakelov_bridge_program.md) with milestones A0-A4, prices fixed in
+advance, and a single deciding gate (A2, a one-symbol identity test) on all
+further spend. The lift is narrow and does not authorize numerical campaigns
+(1228's "equation-led generation rather than a numerical prototype" stands),
+does not touch the Lean mainline (no Lean spend is authorized before A3), and
+does not survive a failure of A2 - at which point the transport is registered
+closed and the freeze posture returns.
