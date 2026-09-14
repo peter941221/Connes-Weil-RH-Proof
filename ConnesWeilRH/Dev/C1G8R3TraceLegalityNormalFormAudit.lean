@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3TraceLegalityNormalForm
+
+namespace ConnesWeilRH.Source.C1G8R3TraceLegalityNormalFormAudit
+
+open C1G8R3TraceLegalityNormalForm
+
+#check sourceThreeBranchCommutator_isTraceClassAlong_iff_remainder
+#print axioms sourceThreeBranchCommutator_isTraceClassAlong_iff_remainder
+
+end ConnesWeilRH.Source.C1G8R3TraceLegalityNormalFormAudit

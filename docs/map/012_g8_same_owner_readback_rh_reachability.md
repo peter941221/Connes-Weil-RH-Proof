@@ -299,3 +299,57 @@ in [proof record 1423](../proofs/1423_r3_radial_boundary_capture_and_prolate_gap
 This does not close F0.  It changes the next proof obligation from an
 unstructured global source-leg estimate to one finite boundary identity plus
 one decisive prolate-gap trace-ideal theorem.
+
+### R3-F3 trace-legality normal form (record 1424, 2026-09-14)
+
+The source-side reduction has now been sharpened to an iff.  The new formal
+leaf
+[`C1G8R3TraceLegalityNormalForm.lean`](../../ConnesWeilRH/Dev/C1G8R3TraceLegalityNormalForm.lean)
+proves
+
+```text
+IsTraceClassAlong globalBasis completeThreeBranch(owner, lambda)
+  <->
+IsTraceClassAlong globalBasis sourceSecondSupportProlateRemainder(owner, lambda).
+```
+
+The forward direction subtracts the already formal compact-root outer pair;
+the reverse direction is the existing outer-pair-plus-remainder theorem.
+The paired audit is green in [proof record 1424](../proofs/1424_r3_trace_legality_normal_form.md)
+with zero `error:`, zero `sorryAx`, and only the three standard axioms.
+
+This is a real R3 reduction, but its scope is exact: it closes trace legality
+for the formal source three-branch ledger, not the G8 cutoff-to-`qw` limit.
+The decisive remainder is therefore an exact iff obstruction, while the
+G8 cutoff/source-ledger transport and the signed trace readback remain open.
+No sign, detector health, `SourceRH`, or universal Weil positivity is used.
+
+### R3-F4 scale-defect normal form (record 1425, 2026-09-14)
+
+The next scale-reduction idea has now been made exact. Let `T_b` be global
+logarithmic translation, `H` the Hardy--Titchmarsh isometry, and `P_+` the
+fixed positive-half-line projection. Define the two defects
+
+```text
+D^R_b = T_b H - H T_(-b)
+D^L_b = H* T_(-b) - T_b H*
+```
+
+For `b = log(lambda)`, the new formal leaf proves
+
+```text
+Q_lambda - T_b Q_1 T_(-b)
+  = D^L_b P_+ T_b H + T_b H* P_+ D^R_b,
+```
+
+where `Q_lambda` is the actual source Fourier-support projection. Hence the
+unit-scale reduction is valid exactly when the two defects vanish (or when
+their displayed terms admit a suitable trace-ideal bound). The paired audit
+is green in [proof record 1425](../proofs/1425_r3_hardy_translation_defect.md)
+with the three standard axioms and no `sorryAx`.
+
+This is not yet a proof of the zero-defect equation. The committed L1 Fourier
+integral API contains translation covariance, but the Hardy operator acts on
+the global L2 carrier; the L2 extension is the next new-mathematics target.
+Even after zero defect, transport of the Sonin intersection projection and
+the G8 cutoff-to-source readback remain open. R3 and RH are not claimed.
