@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1G8RadialLeakageSplit
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8RadialLeakageSplitAudit
+
+open C1G8RadialLeakageSplit
+
+#print axioms source_leakage_eq_radial_boundary_add_prolate_gap
+
+end C1G8RadialLeakageSplitAudit
+end Source
+end ConnesWeilRH

@@ -278,3 +278,24 @@ independent boundary/commutator trace-ideal estimate for the leakage channel.
 The correction is recorded in [proof record 1422](../proofs/1422_r3_f1_interface_correction_and_leakage_target.md).
 Until both channels are controlled, `G8SameOwnerReadbackData` remains OPEN
 and RH remains unclaimed.
+
+### R3-F2 candidate (record 1423, 2026-09-14)
+
+The leakage channel now has an exact two-level operator reduction.  With `P`
+the source Sonin projection and `E` the radial-support projection, the source
+geometry gives `P E = P`, hence for every ambient operator `B`,
+
+```text
+(I - P) B J = (I - E) B J + (E - P) E B J.
+```
+
+For the compactly supported global root convolution, the first term is a
+finite-width radial boundary crossing and is a candidate for the existing
+`CompactRootHalfLinePair` Hilbert--Schmidt owner.  The second term is the
+internal prolate gap, controlled only if a square-summable estimate can be
+factored through `sourceProlateRemainder`.  Details and exact stop rules are
+in [proof record 1423](../proofs/1423_r3_radial_boundary_capture_and_prolate_gap.md).
+
+This does not close F0.  It changes the next proof obligation from an
+unstructured global source-leg estimate to one finite boundary identity plus
+one decisive prolate-gap trace-ideal theorem.
