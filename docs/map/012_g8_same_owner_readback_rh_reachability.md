@@ -235,3 +235,36 @@ F0 can succeed only through a genuine antiresonance theorem supplied by the
 Sonin source compression; the finite-window factor alone cannot supply it.
 This is a structural reduction, not a closure or a no-go for the compressed
 G8 owner.
+
+### R3-F1 candidate (record 1421, 2026-09-14)
+
+The first new mathematical mechanism for F0 is now isolated as a paper-level
+Sonin antiresonance lemma.  With `T_b u(t) = u(t+b)`, the committed source
+facts are
+
+```text
+T_b(R_lambda) subset R_lambda       for b <= 0
+H T_b = T_(-b) H
+S_lambda = R_lambda intersect H^(-1)(R_lambda)
+```
+
+Consequently, for `u in S_lambda` and `a > 0`,
+
+```text
+||P_S T_(-n*a) u||
+  <= ||P_R T_(n*a) H u||
+  -> 0.
+```
+
+The right side is the `L2` tail of `H u` above `log(lambda) + n*a`.  This
+blocks the ambient translated-input escape mechanism after Sonin compression
+and is independent of every detector sign, `SourceRH`, and universal Weil
+positivity.  The derivation and exact source evidence are in
+[proof record 1421](../proofs/1421_sonin_compressed_translation_antiresonance.md).
+
+This is a new `R3-F1` candidate, not an F0 completion.  Pointwise strong
+decay for each source vector does not imply Hilbert--Schmidt or trace-class
+convergence on the infinite-dimensional source carrier.  The remaining
+target is the collective source-energy estimate over an orthonormal source
+basis and the actual prime-power coefficients.  Until that upgrade is
+proved, `G8SameOwnerReadbackData` remains OPEN and RH remains unclaimed.
