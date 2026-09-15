@@ -673,3 +673,15 @@ not a counterexample to the actual G8 energy estimates: those columns first
 pass through the same-owner compressed convolution/coframe. A valid witness
 must be constructed through that interface. See
 [proof record 1490](../proofs/1490_g8_source_projection_translated_orbit_decay.md).
+
+### R3-F19 source-prolate boundary pullback is zero (record 1491, 2026-09-16)
+
+The pre-existing G8 visible-boundary energy lemma uses the operator
+`sourceInclusion† * sourceProlateFactor * sourceInclusion` as its input. Record
+1491 proves that this pullback, and hence its visible-boundary coframe image,
+is identically zero: the prolate factor acts on the quotient band, while the
+source inclusion lies in the orthogonal source-Sonin subspace. Thus that
+summability result is valid but vacuous as evidence for the actual
+same-basis `hBoundary` condition. It does not refute `hBoundary`; a nonzero
+root/coframe estimate is still open. See
+[proof record 1491](../proofs/1491_g8_source_prolate_pullback_zero.md).

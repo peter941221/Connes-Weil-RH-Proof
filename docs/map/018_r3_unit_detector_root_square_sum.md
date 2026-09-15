@@ -107,3 +107,12 @@ does not bound or refute either actual G8 diagonal energy sum. The next
 producer must use the source-carrier columns after the actual compressed
 convolution/coframe, rather than an ambient orbit projection. See
 [proof record 1490](../proofs/1490_g8_source_projection_translated_orbit_decay.md).
+
+Record 1491 audits one proposed source-carrier estimate. The existing G8
+visible-boundary summability lemma precomposes the coframe with the pullback
+`sourceInclusion† * sourceProlateFactor * sourceInclusion`; that operator is
+formally zero because the prolate factor is supported on the quotient band
+annihilated by the source-Sonin inclusion. The lemma therefore supplies no
+bound for the actual `hBoundary` columns. This does not refute `hBoundary`;
+that genuine same-basis root/coframe estimate remains open. See
+[proof record 1491](../proofs/1491_g8_source_prolate_pullback_zero.md).
