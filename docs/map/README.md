@@ -1039,7 +1039,9 @@ Read the current records in this order for a full-map review:
     projection tends to zero, so normalization does not transfer that lower
     bound. The existing boundary energy input is also a formally zero
     prolate pullback. The aggregate boundary energy reduces to finitely many
-    rooted output energies and now feeds the trace consumer, but those output
+    rooted output energies and now feeds the trace consumer. Record 1494
+    formalizes the selected-root radial-boundary/internal-gap cancellation,
+    but gives no support identification or energy estimate; rooted output
     estimates, actual G8 diagonal energies, and trace/readback remain open.
 46. [019 - R3 leakage doubled-shift normal form](019_r3_leakage_doubled_shift_normal_form.md)
     — the source leakage leg is exactly the selected root conjugated against

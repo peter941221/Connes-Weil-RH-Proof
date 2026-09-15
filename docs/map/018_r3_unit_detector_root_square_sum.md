@@ -125,3 +125,11 @@ Neither record estimates the individual rooted outputs, so the actual
 boundary energy and unconditional trace limit remain open. See [proof record
 1492](../proofs/1492_g8_boundary_energy_finite_output_reduction.md) and
 [proof record 1493](../proofs/1493_g8_boundary_output_trace_consumer.md).
+
+Record 1494 formally decomposes the selected-root source-Sonin leakage into
+the radial-support complement and the internal radial-but-non-Sonin gap, on
+the same `finiteSCarrier` owner. This is the exact cancellation identity
+proposed in record 1423, not a support theorem or an energy estimate. The
+finite-width boundary identification, both trace-ideal estimates, the actual
+G8 diagonal energy sums, and trace/readback remain open. See [proof record
+1494](../proofs/1494_r3_radial_boundary_internal_gap_split.md).

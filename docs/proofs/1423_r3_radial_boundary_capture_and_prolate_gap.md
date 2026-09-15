@@ -2,8 +2,10 @@
 
 Date: 2026-09-14.
 
-Status: `PAPER / NEW OPERATOR REDUCTION`.  This record is a refinement of the
-R3-F1 correction.  It does not claim that F0 or RH is complete.
+Status: `PARTIALLY FORMAL / PRODUCER OPEN`. This record refines the R3-F1
+correction. The two-channel operator identity is now formal in Lean (proof
+record 1494); the finite-width support identification and both trace-ideal
+estimates remain open. It does not claim that F0 or RH is complete.
 
 Consumer: the same-owner healthy-`CompactLog` B5 statement
 `0 <= C1SameOwnerWeil.qw g`.
@@ -38,9 +40,13 @@ The proof is only cancellation:
 
 using `P E = P`.  No sign, detector property, or RH premise occurs.
 
-This is the correct refinement of record 1422's two-channel split.  It
+This is the correct refinement of record 1422's two-channel split. It
 separates an actual geometric boundary from the internal failure of the two
-support projections to coincide.
+support projections to coincide. The generic identity and its specialization
+to the selected root convolution and actual source inclusion are formally
+proved in `C1G8R3RadialBoundaryGapSplit.lean`, theorem
+`selectedRoot_sourceSoninLeakage_eq_radialBoundary_add_internalGap`; see
+[proof record 1494](1494_r3_radial_boundary_internal_gap_split.md).
 
 ## 2. Channel B: radial boundary capture
 
@@ -143,7 +149,8 @@ would complete the only newly exposed source-leakage channel.
 ```text
 1421 pointwise Sonin antiresonance       valid paper lemma
 1422 direct F0 interpretation             rejected by interface audit
-1423 radial-boundary capture              PAPER-GREEN candidate
+1494 generic and selected-root split       FORMAL
+1423 finite-width radial support identity OPEN
 1423 prolate-gap trace estimate           OPEN, decisive
 F0 Hilbert--Schmidt limit                OPEN
 G8SameOwnerReadbackData                  NOT CONSTRUCTED

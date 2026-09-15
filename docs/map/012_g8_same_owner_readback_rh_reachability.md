@@ -330,9 +330,11 @@ The correction is recorded in [proof record 1422](../proofs/1422_r3_f1_interface
 Until both channels are controlled, `G8SameOwnerReadbackData` remains OPEN
 and RH remains unclaimed.
 
-### R3-F2 candidate (record 1423, 2026-09-14)
+### R3-F2 radial-boundary/internal-gap split (records 1423 and 1494)
 
-The leakage channel now has an exact two-level operator reduction.  With `P`
+The leakage channel has an exact two-level operator reduction, now formal in
+Lean for the selected root convolution and actual source inclusion (proof
+record 1494). With `P`
 the source Sonin projection and `E` the radial-support projection, the source
 geometry gives `P E = P`, hence for every ambient operator `B`,
 
@@ -347,9 +349,13 @@ internal prolate gap, controlled only if a square-summable estimate can be
 factored through `sourceProlateRemainder`.  Details and exact stop rules are
 in [proof record 1423](../proofs/1423_r3_radial_boundary_capture_and_prolate_gap.md).
 
-This does not close F0.  It changes the next proof obligation from an
-unstructured global source-leg estimate to one finite boundary identity plus
-one decisive prolate-gap trace-ideal theorem.
+The formal result is only the cancellation identity. It does not identify the
+radial crossing with a translated finite-window boundary factor, and estimates
+neither term in the relevant trace ideal. It therefore does not close F0.
+The next obligations remain the finite boundary support identity and the
+decisive prolate-gap trace-ideal theorem. See [proof records
+1423](../proofs/1423_r3_radial_boundary_capture_and_prolate_gap.md) and
+[1494](../proofs/1494_r3_radial_boundary_internal_gap_split.md).
 
 ### R3-F3 trace-legality normal form (record 1424, 2026-09-14)
 
