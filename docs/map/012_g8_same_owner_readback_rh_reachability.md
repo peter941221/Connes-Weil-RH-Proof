@@ -1,7 +1,8 @@
 # 012 — G8 same-owner readback: conditional RH reachability audit
 
 **Status:** supporting technical route audit, updated 2026-09-15 (R0 formal;
-actual paired cross-channel and signed source-remainder trace limits formal).
+actual paired leakage/source and signed source-remainder trace limits formal;
+survivor/boundary mixed channels paired at finite cutoff).
 It does not alter the binding route ruling in
 [003](003_b1_b5_minimal_exit_route_selection.md),
 does not reopen universal B1, and does not claim RH. It answers a narrower
@@ -169,7 +170,7 @@ step remains open.
 | R0 | Define raw `OrbitG8Geometry g` and prove that the pinned tower construction exports it without mentioning a sign conclusion | FORMAL: record 1464 packages the selected-owner factorization, raw interpolation/orbit/zero/tail data, support, and visible-prime cutoff without a health/sign field | If the only available source for a required field is a healthy/sign proposition, the producer is circular and stops |
 | R1 | Instantiate the canonical owner and `g8CanonicalFamily` on the raw geometry; state all scale and basis choices explicitly | owner equality and canonical family are formal | If a cutoff construction changes `sourceTest`, square, or prime family, it is a route mismatch and stops |
 | R2 | Prove a finite-cutoff same-owner trace identity with a named remainder | positive cutoff and selected-support residual decompositions are formal | An identity that reads a different response, basis, or prime support does not count |
-| R3 | Prove remainder convergence and the trace-to-`qw` limit, giving `G8SameOwnerReadbackData` | PARTIAL FORMAL: records 1479 and 1481 close both actual leakage/source cross-channel orientations and their real paired limit; record 1480 closes the same-owner signed source-remainder sandwich limit. The three other coframe channels, remainder decay/full readback identity, and endpoint/P2 limits remain open | A bound that uses a pre-assumed `qw` sign, RH, or a universal gate is circular and stops |
+| R3 | Prove remainder convergence and the trace-to-`qw` limit, giving `G8SameOwnerReadbackData` | PARTIAL FORMAL: records 1479 and 1481 close both actual leakage/source cross-channel orientations and their real paired limit; record 1480 closes the same-owner signed source-remainder sandwich limit; record 1482 pairs the two survivor/boundary orientations at each finite cutoff. The survivor-survivor and boundary-boundary cutoff limits, survivor/boundary pair limit, remainder decay/full readback identity, and endpoint/P2 limits remain open | A bound that uses a pre-assumed `qw` sign, RH, or a universal gate is circular and stops |
 | R4 | Add the short formal wrapper from R0--R3 to `healthy_sourceRH_of_right_detector_specific_qw_nonneg` and audit its axioms | D1--G5 are formal | No theorem may be advertised as RH until this wrapper builds and audits green |
 
 R0--R1 are type/owner audits. R2--R3 are the new mathematics. R4 is
@@ -573,3 +574,16 @@ cutoff. The three other survivor/boundary coframe channels, remainder
 decay/readback, and trace-to-`qw` identification remain open. See
 [proof record 1479](../proofs/1479_r3_actual_cutoff_cross_trace_limit.md) and
 [supporting record 034](034_r3_actual_cutoff_cross_trace_limit.md).
+
+### R3-F13 survivor/boundary mixed-channel pairing (record 1482, 2026-09-15)
+
+The survivor/boundary and boundary/survivor channels of the separate G8 metric
+four-channel ledger are formal adjoints at every literal cutoff. Their
+ordinary traces therefore combine into one real sequence, exactly twice the
+real part of either ordered trace. This removes one redundant orientation
+from the mixed-channel limit problem, but supplies no limit, prime-power
+readback, or sign. The survivor-survivor and boundary-boundary limits, the
+mixed-pair limit, the signed remainder/full-readback identity, and
+`G8SameOwnerReadbackData` remain open. See [proof record
+1482](../proofs/1482_r3_actual_cutoff_survivor_boundary_pair.md) and
+[supporting map record 037](037_r3_actual_cutoff_survivor_boundary_pair.md).

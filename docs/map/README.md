@@ -122,6 +122,9 @@ traceability.
 | 036    | Supporting            | R3 actual-cutoff paired leakage/source  |
 |        |                       | cross traces have a real limit; other   |
 |        |                       | coframe channels and readback stay open |
+| 037    | Supporting            | R3 survivor/boundary mixed channels are |
+|        |                       | adjoints at finite cutoff; their trace  |
+|        |                       | limit and full readback remain open     |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -1112,6 +1115,11 @@ Read the current records in this order for a full-map review:
     pair has a real ordinary-trace limit. The three other survivor/boundary
     coframe channels and the full trace-to-`qw` readback remain open. See
     [1481](../proofs/1481_r3_actual_cutoff_paired_cross_trace_limit.md).
+64. [037 - R3 actual-cutoff survivor/boundary channel pairing](037_r3_actual_cutoff_survivor_boundary_pair.md)
+    — the two survivor/boundary mixed channels are adjoints at every finite
+    cutoff, reducing their trace sum to one real sequence. Its limit, the two
+    diagonal channel limits, and full trace-to-`qw` readback remain open. See
+    [1482](../proofs/1482_r3_actual_cutoff_survivor_boundary_pair.md).
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
