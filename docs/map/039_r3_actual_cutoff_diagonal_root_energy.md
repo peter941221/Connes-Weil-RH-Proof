@@ -3,8 +3,9 @@
 **Authority:** supporting.
 
 **Status:** formal positive-square and same-basis trace-energy identities for
-each diagonal G8 metric channel at every finite cutoff. No diagonal cutoff
-limit is established.
+each diagonal G8 metric channel at every finite cutoff. A conditional
+diagonal cutoff limit follows from the root-column square-sum hypothesis;
+that estimate remains open.
 
 **Consumer:** the same-owner G8 trace ledger for the detector-selected
 semi-local B5 readback on a healthy `CompactLog` owner and its finite
@@ -20,13 +21,15 @@ exactly `sum_i ||A_n e_i||^2`. See [proof record
 1484](../proofs/1484_r3_actual_cutoff_diagonal_root_energy.md).
 
 The survivor and boundary energy sums are only known finite separately at
-each cutoff. Their uniform domination and convergence remain open; records
+each cutoff. Their uniform domination and unconditional convergence remain
+open; records
 [018](018_r3_unit_detector_root_square_sum.md),
 [022](022_r3_common_right_causal_telescope.md), and
 [028](028_r3_moving_scale_detector_root_range_energy.md) identify the
 remaining leakage/common-right square-sum work. Record
 [1485](../proofs/1485_r3_diagonal_trace_limit_energy_constraint.md) formally
-shows that any finite real diagonal trace limit would force square-summability
-of the uncut same-owner root columns. It does not provide that estimate or a
-trace limit. The total G8 readback, signed remainder decay, `qw` identification
-and sign, P2, C3, and RH remain open.
+shows that any finite real diagonal trace limit is equivalent to
+square-summability of the uncut same-owner root columns: the necessary and
+conditional-limit directions are formal, while the estimate remains open.
+The total G8 readback, signed remainder decay, `qw` identification and sign,
+P2, C3, and RH remain open.

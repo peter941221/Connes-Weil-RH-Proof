@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Dev.C1G8R3DiagonalRootLegNormalForm
+import ConnesWeilRH.Dev.C1G8R3StrongTracePairTransfer
 
 /-!
 # Necessary energy bound for a finite G8 diagonal trace limit
@@ -145,6 +146,121 @@ theorem summable_normSq_g8MetricGlobalDetectorRootLeg_of_tendsto_diagonal_trace_
         exact hsum.sum_le_tsum s (fun i _ => sq_nonneg _)
       _ ≤ L + ε := htrace_le
   exact summable_of_sum_le (fun i => sq_nonneg _) hfinite_bound
+
+set_option maxHeartbeats 1000000 in
+-- The actual G8 pair-sandwich instantiation needs the full owner context.
+/-- If the fixed selected detector-root/coframe leg is Hilbert--Schmidt on the
+source basis, the actual-cutoff diagonal trace has a finite limit equal to
+the energy of its uncut compressed-source columns. This conditional theorem
+uses the literal G8 physical cutoff and same detector owner. -/
+theorem tendsto_ordinaryTraceAlong_g8MetricCutoffDiagonal_of_rootLeg_summable
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (leg : sourceSoninCarrier lambda →L[ℂ] finiteSCarrier)
+    (hfactor : Summable fun i =>
+      ‖(rootConvolution owner ∘L leg) (sourceBasis i)‖ ^ 2) :
+    Tendsto
+      (fun n => ordinaryTraceAlong sourceBasis
+        (g8MetricCutoffChannel owner lambda family globalBasis sourceBasis n
+          leg leg))
+      atTop
+      (𝓝 (ordinaryTraceAlong sourceBasis
+        ((g8MetricGlobalDetectorRootLeg owner lambda leg).adjoint ∘L
+          g8MetricGlobalDetectorRootLeg owner lambda leg))) := by
+  let cutoff : ℕ → sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda :=
+    g8SourceCompressedPhysicalCutoff owner lambda
+  let limitCutoff : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda :=
+    g8SourceCompressedGlobalConvolution lambda owner.sourceTest
+  let rootLeg : sourceSoninCarrier lambda →L[ℂ] finiteSCarrier :=
+    rootConvolution owner ∘L leg
+  let pair : BasisHilbertSchmidtPairData (G := finiteSCarrier) sourceBasis :=
+    { left := rootLeg
+      right := rootLeg
+      left_summable_normSq := hfactor
+      right_summable_normSq := hfactor }
+  have hfactorize : rootLeg.adjoint ∘L rootLeg =
+      leg.adjoint ∘L detectorOperator owner ∘L leg := by
+    dsimp [rootLeg]
+    rw [ContinuousLinearMap.adjoint_comp,
+      detectorOperator_eq_rootConvolution_adjoint_comp_rootConvolution]
+    simp only [ContinuousLinearMap.comp_assoc]
+  have hcutoff_bound : ∀ n, ‖cutoff n‖ ≤
+      ‖cc20GlobalLogConvolution owner.sourceTest.involution.test‖ := by
+    intro n
+    exact g8SourceCompressedPhysicalCutoff_norm_le owner lambda n
+  have hcutoff_strong : ∀ x,
+      Tendsto (fun n => cutoff n x) atTop (𝓝 (limitCutoff x)) := by
+    intro x
+    exact tendsto_g8SourceCompressedPhysicalCutoff_apply owner lambda x
+  have hadjoint_strong : ∀ x,
+      Tendsto (fun n => (cutoff n).adjoint x) atTop
+        (𝓝 (limitCutoff.adjoint x)) := by
+    intro x
+    exact tendsto_g8SourceCompressedPhysicalCutoff_adjoint_apply owner lambda x
+  have hdouble := tendsto_comp_adjoint_apply_of_strong cutoff limitCutoff
+    ‖cc20GlobalLogConvolution owner.sourceTest.involution.test‖
+    hcutoff_bound hcutoff_strong hadjoint_strong
+  have hdouble_norm : ∀ n,
+      ‖cutoff n ∘L (cutoff n).adjoint‖ ≤
+        ‖cc20GlobalLogConvolution owner.sourceTest.involution.test‖ ^ 2 := by
+    intro n
+    calc
+      ‖cutoff n ∘L (cutoff n).adjoint‖ ≤
+          ‖cutoff n‖ * ‖(cutoff n).adjoint‖ :=
+        ContinuousLinearMap.opNorm_comp_le _ _
+      _ = ‖cutoff n‖ ^ 2 := by
+        rw [show ‖(cutoff n).adjoint‖ = ‖cutoff n‖ from
+          ContinuousLinearMap.adjoint.norm_map (cutoff n)]
+        ring
+      _ ≤ ‖cc20GlobalLogConvolution owner.sourceTest.involution.test‖ ^ 2 :=
+        (sq_le_sq₀ (norm_nonneg _) (norm_nonneg _)).2 (hcutoff_bound n)
+  have hpairLimit := tendsto_ordinaryTraceAlong_pairSandwich_of_strong
+    sourceBasis globalBasis pair cutoff limitCutoff
+    (‖cc20GlobalLogConvolution owner.sourceTest.involution.test‖ ^ 2)
+    (sq_nonneg _) hdouble_norm hdouble
+  have hchannel (n : ℕ) :
+      g8MetricCutoffChannel owner lambda family globalBasis sourceBasis n leg leg =
+        (cutoff n).adjoint ∘L pair.traceProduct ∘L cutoff n := by
+    rw [g8MetricCutoffChannel]
+    have hC :
+        (sourceInclusion lambda).adjoint ∘L
+          (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left =
+        cutoff n := by
+      simp [cutoff, g8SourceCompressedPhysicalCutoff, g8SourceCutoffPairData,
+        g8CutoffPairData,
+        Source.Dev.C1Stage3ProjectionWindow.kernelSandwichPairData]
+    rw [hC]
+    calc
+      _ = (cutoff n).adjoint ∘L
+          (leg.adjoint ∘L detectorOperator owner ∘L leg) ∘L cutoff n := by
+        simp only [ContinuousLinearMap.comp_assoc]
+      _ = (cutoff n).adjoint ∘L
+          (rootLeg.adjoint ∘L rootLeg) ∘L cutoff n := by
+        rw [← hfactorize]
+      _ = (cutoff n).adjoint ∘L pair.traceProduct ∘L cutoff n := by
+        simp [pair, BasisHilbertSchmidtPairData.traceProduct]
+  have hsequence :
+      (fun n => ordinaryTraceAlong sourceBasis
+        (g8MetricCutoffChannel owner lambda family globalBasis sourceBasis n
+          leg leg)) =
+      (fun n => ordinaryTraceAlong sourceBasis
+        ((pair.boundedSandwich globalBasis (cutoff n).adjoint
+          (cutoff n)).traceProduct)) := by
+    funext n
+    rw [hchannel n, pair.boundedSandwich_traceProduct_eq]
+  have hlimit :
+      (pair.boundedSandwich globalBasis limitCutoff.adjoint limitCutoff).traceProduct =
+        (g8MetricGlobalDetectorRootLeg owner lambda leg).adjoint ∘L
+          g8MetricGlobalDetectorRootLeg owner lambda leg := by
+    rw [pair.boundedSandwich_traceProduct_eq]
+    change limitCutoff.adjoint ∘L (rootLeg.adjoint ∘L rootLeg) ∘L limitCutoff = _
+    simp only [g8MetricGlobalDetectorRootLeg, rootLeg, limitCutoff,
+      ContinuousLinearMap.adjoint_comp, ContinuousLinearMap.comp_assoc]
+  rw [hsequence]
+  simpa only [hlimit] using hpairLimit
 
 end Dev
 end ConnesWeilRH

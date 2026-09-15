@@ -132,9 +132,12 @@ traceability.
 | 039    | Supporting            | R3 actual-cutoff diagonal channels have |
 |        |                       | formal detector-root energy identities;|
 |        |                       | their limits and full readback are open|
-| 040    | Supporting            | R3 finite diagonal trace limits force  |
-|        |                       | same-owner uncut root-column energy;   |
-|        |                       | estimate and limits remain open       |
+| 040    | Supporting            | R3 diagonal trace limit is equivalent |
+|        |                       | to same-owner root-column square-sum;  |
+|        |                       | the estimate remains open              |
+| 041    | Supporting            | R3 total four-channel cutoff trace     |
+|        |                       | converges under both diagonal energy   |
+|        |                       | hypotheses; estimates remain open      |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -1140,15 +1143,22 @@ Read the current records in this order for a full-map review:
 66. [039 - R3 actual-cutoff diagonal detector-root energy](039_r3_actual_cutoff_diagonal_root_energy.md)
     — both diagonal channels are exact positive squares at finite cutoff, and
     their ordinary traces equal the selected detector-root column-energy
-    sums on the named source basis. Uniform bounds, diagonal limits, and the
-    total G8 readback remain open. See
+    sums on the named source basis. Their limits are conditional on the
+    uncut root-column square-sum; the estimate and total G8 readback remain
+    open. See
     [1484](../proofs/1484_r3_actual_cutoff_diagonal_root_energy.md).
 67. [040 - R3 diagonal trace-limit energy constraint](040_r3_diagonal_trace_limit_energy_constraint.md)
-    — a finite real limit of an actual-cutoff diagonal trace formally forces
-    square-summability of the uncut same-owner detector-root columns on the
-    same basis. This necessary condition supplies no energy estimate or trace
-    limit. See
+    — the diagonal limit is equivalent to square-summability of the uncut
+    same-owner detector-root columns on the named basis: the necessary and
+    conditional-limit directions are formal, while the estimate remains
+    open. See
     [1485](../proofs/1485_r3_diagonal_trace_limit_energy_constraint.md).
+68. [041 - R3 total metric cutoff trace limit](041_r3_total_metric_cutoff_trace_limit.md)
+    — the actual four-channel metric cutoff trace converges if both
+    same-basis diagonal detector-root columns are square-summable. It assembles
+    the conditional diagonal limits and the formal mixed-pair limit, but
+    supplies neither energy estimate nor trace-to-`qw` identification. See
+    [1486](../proofs/1486_r3_total_metric_cutoff_trace_limit.md).
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).

@@ -2,7 +2,8 @@
 
 **Status:** supporting technical route audit, updated 2026-09-15 (R0 formal;
 actual paired leakage/source and signed source-remainder trace limits formal;
-survivor/boundary mixed channels paired at finite cutoff).
+survivor/boundary mixed channels paired and limited; total metric trace limit
+formal under the two diagonal energy hypotheses).
 It does not alter the binding route ruling in
 [003](003_b1_b5_minimal_exit_route_selection.md),
 does not reopen universal B1, and does not claim RH. It answers a narrower
@@ -170,7 +171,7 @@ step remains open.
 | R0 | Define raw `OrbitG8Geometry g` and prove that the pinned tower construction exports it without mentioning a sign conclusion | FORMAL: record 1464 packages the selected-owner factorization, raw interpolation/orbit/zero/tail data, support, and visible-prime cutoff without a health/sign field | If the only available source for a required field is a healthy/sign proposition, the producer is circular and stops |
 | R1 | Instantiate the canonical owner and `g8CanonicalFamily` on the raw geometry; state all scale and basis choices explicitly | owner equality and canonical family are formal | If a cutoff construction changes `sourceTest`, square, or prime family, it is a route mismatch and stops |
 | R2 | Prove a finite-cutoff same-owner trace identity with a named remainder | positive cutoff and selected-support residual decompositions are formal | An identity that reads a different response, basis, or prime support does not count |
-| R3 | Prove remainder convergence and the trace-to-`qw` limit, giving `G8SameOwnerReadbackData` | PARTIAL FORMAL: records 1479 and 1481 close both actual leakage/source cross-channel orientations and their real paired limit; record 1480 closes the same-owner signed source-remainder sandwich limit; records 1482–1483 pair the survivor/boundary orientations and prove their mixed-channel limit; record 1484 identifies the two diagonal traces as actual detector-root column energies at each cutoff; record 1485 proves that a finite real diagonal trace limit requires the uncut same-owner root columns to be square-summable. The square-sum estimates and diagonal limits, remainder decay/full readback identity, and endpoint/P2 limits remain open | A bound that uses a pre-assumed `qw` sign, RH, or a universal gate is circular and stops |
+| R3 | Prove remainder convergence and the trace-to-`qw` limit, giving `G8SameOwnerReadbackData` | PARTIAL FORMAL: records 1479 and 1481 close both actual leakage/source cross-channel orientations and their real paired limit; record 1480 closes the same-owner signed source-remainder sandwich limit; records 1482–1483 pair the survivor/boundary orientations and prove their mixed-channel limit; record 1484 identifies the two diagonal traces as actual detector-root column energies at each cutoff; record 1485 proves both that a finite real diagonal limit requires the uncut same-owner root columns to be square-summable and that this square-sum suffices for the conditional actual-cutoff limit. The square-sum estimates, diagonal limits, remainder decay/full readback identity, and endpoint/P2 limits remain open | A bound that uses a pre-assumed `qw` sign, RH, or a universal gate is circular and stops |
 | R4 | Add the short formal wrapper from R0--R3 to `healthy_sourceRH_of_right_detector_specific_qw_nonneg` and audit its axioms | D1--G5 are formal | No theorem may be advertised as RH until this wrapper builds and audits green |
 
 R0--R1 are type/owner audits. R2--R3 are the new mathematics. R4 is
@@ -612,12 +613,26 @@ and route records [018](018_r3_unit_detector_root_square_sum.md),
 ### R3-F15 diagonal trace-limit energy constraint (record 1485, 2026-09-15)
 
 The actual-cutoff selected detector-root columns converge pointwise to the
-uncut same-owner columns. If the real parts of a diagonal trace sequence had a
-finite limit, the finite-cutoff energy identities and finite-partial-sum
-bounds would force the uncut columns to be square-summable on that same source
-basis. This is a necessary condition, not a construction of the square-sum or
-the trace limit. The survivor-survivor and boundary-boundary limits, full G8
-readback, signed remainder decay, endpoint/P2 signs, and same-owner `qw`
-identification remain open. See [proof record
+uncut same-owner columns. A finite real limit forces those columns to be
+square-summable by the finite-cutoff energy identities and finite-partial-sum
+bounds. Conversely, that same-basis square-summability gives the actual
+cutoff trace limit by the fixed-HS-pair strong-sandwich theorem. The estimate
+is still open, so neither diagonal limit has been established unconditionally.
+The full G8 readback, signed remainder decay, endpoint/P2 signs, and same-owner
+`qw` identification remain open. See [proof record
 1485](../proofs/1485_r3_diagonal_trace_limit_energy_constraint.md) and
 [supporting map record 040](040_r3_diagonal_trace_limit_energy_constraint.md).
+
+### R3-F16 conditional total metric trace limit (record 1486, 2026-09-16)
+
+Record 1486 assembles all four channels of the literal physical G8 metric
+cutoff. The survivor/boundary mixed pair has its formal limit; each positive
+diagonal channel has a formal limit under its same-basis root-column
+square-summability hypothesis. Therefore both diagonal energy hypotheses
+together imply convergence of the complete four-channel metric trace to the
+sum of the two uncut root-energy traces and the mixed-pair limit. This is not
+an unconditional estimate and does not identify the limit with `qw`; the
+signed endpoint remainder, its vanishing, the full readback identity, and
+endpoint/P2 signs remain open. See [proof record
+1486](../proofs/1486_r3_total_metric_cutoff_trace_limit.md) and
+[supporting map record 041](041_r3_total_metric_cutoff_trace_limit.md).
