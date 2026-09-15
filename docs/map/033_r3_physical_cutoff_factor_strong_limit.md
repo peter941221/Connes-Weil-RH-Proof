@@ -5,8 +5,8 @@
 **Status:** the support-owned physical G8 cutoff factor, its adjoint, and the
 source Sonin compression with its adjoint converge strongly. Record 1479 adds
 the uniform source-compression bound, doubled strong limit, and ordinary-trace
-limit for the actual leakage/source cross channel; full G8 readback remains
-open.
+limit for the actual leakage/source cross channel. Record 1481 closes the
+adjoint orientation and real paired limit; full G8 readback remains open.
 
 **Consumer:** the actual G8 leakage/source-cross channel on the healthy
 `CompactLog` owner, downstream of which the active B5 sign consumer is
@@ -25,7 +25,8 @@ adjoint. The declarations and acceptance evidence are recorded in
 This closes the operator-level compatibility named by the previous projection
 record 032. Record 1479 establishes the doubled cutoff limit and transfers the
 trace for the literal leakage/source cross channel using the fixed
-three-branch source pair. That one-channel limit still contains the global
-convolution compression. The other metric channels, full G8 trace comparison,
-remainder, same-owner `qw` readback, detector semi-local sign, C3, and RH
-remain open. The binding healthy-`CompactLog`, B5 route does not change.
+three-branch source pair. Record 1481 closes its adjoint orientation and real
+paired limit. These limits still contain the global convolution compression.
+The three other coframe channels, full G8 trace comparison, remainder decay,
+same-owner `qw` readback, detector semi-local sign, C3, and RH remain open. The
+binding healthy-`CompactLog`, B5 route does not change.

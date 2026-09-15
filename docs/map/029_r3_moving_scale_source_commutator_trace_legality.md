@@ -1,8 +1,9 @@
 # 029 — R3 moving-scale source commutator trace legality
 
 **Date:** 2026-09-15.
-**Status:** FORMAL source-side trace legality at every selected scale;
-G8 cutoff transport and same-owner readback remain OPEN.
+**Status:** FORMAL source-side trace legality at every selected scale and
+ordinary-trace convergence of the same-owner signed source remainder through
+the actual G8 cutoff; remainder decay and same-owner readback remain OPEN.
 **Consumer:** healthy-`CompactLog`, B5 detector-specific `qw >= 0` for the
 same tower-selected test, followed by the existing `SourceRH` contradiction.
 
@@ -19,11 +20,14 @@ See [1466](../proofs/1466_r3_moving_scale_source_commutator_trace_legality.md).
 
 This is a trace-ideal and trace-ledger theorem for the complete signed source
 commutator. It does not assert an isolated leakage estimate or a positivity
-result. The following are still required to reach `G8SameOwnerReadbackData`:
+result. Record [1480](../proofs/1480_r3_actual_cutoff_signed_remainder_limit.md)
+now proves cutoff transport for the finite-Euler signed source remainder by
+transferring its first-jet and source-band terms separately. The following
+are still required to reach `G8SameOwnerReadbackData`:
 
 ```text
-G8 cutoff/source compatibility
-  -> same-owner signed remainder convergence
+remaining G8 metric channels and full cutoff/source comparison
+  -> vanishing or readback identity for the signed remainder
   -> trace-to-qw readback
   -> detector-specific semi-local positivity
 ```

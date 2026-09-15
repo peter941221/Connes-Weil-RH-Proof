@@ -105,17 +105,23 @@ traceability.
 |        |                       | trace formal at every selected scale;    |
 |        |                       | G8 cutoff/readback remains open          |
 | 031    | Supporting            | R3 fixed-HS-pair trace transfer under    |
-|        |                       | a bounded strong sandwich; one actual    |
-|        |                       | G8 cross-channel trace limit now formal  |
+|        |                       | a bounded strong sandwich; actual G8     |
+|        |                       | cross-channel pair limit now formal      |
 | 032    | Supporting            | R3 expanding output projections converge |
 |        |                       | strongly on the global L2 carrier; the   |
 |        |                       | physical factor also covered by 033      |
 | 033    | Supporting            | R3 physical cutoff factor and source     |
-|        |                       | compression converge strongly; record   |
-|        |                       | 1479 closes one channel's trace limit    |
+|        |                       | compression converge strongly; records  |
+|        |                       | 1479/1481 close the cross-channel pair   |
 | 034    | Supporting            | R3 actual cutoff leakage/source cross   |
-|        |                       | channel has an ordinary-trace limit;    |
+|        |                       | channel pair has an ordinary-trace limit;|
 |        |                       | full G8 readback remains open            |
+| 035    | Supporting            | R3 actual-cutoff same-owner signed      |
+|        |                       | remainder trace has a limit; decay and  |
+|        |                       | full G8 readback remain open             |
+| 036    | Supporting            | R3 actual-cutoff paired leakage/source  |
+|        |                       | cross traces have a real limit; other   |
+|        |                       | coframe channels and readback stay open |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -1078,20 +1084,34 @@ Read the current records in this order for a full-map review:
 59. [032 - R3 expanding output-projection strong limit](032_r3_expanding_output_projection_strong_limit.md)
     — the symmetric output-window projections converge strongly to identity
     on the global logarithmic L2 carrier; record 1478 carries this to the
-    physical factor and source compression, and record 1479 closes one
-    cross-channel trace limit. Full G8 readback remains open. See
+    physical factor and source compression, and records 1479/1481 close the
+    paired cross-channel trace limit. Full G8 readback remains open. See
     [1477](../proofs/1477_r3_expanding_output_projection_strong_limit.md).
 60. [033 - R3 physical cutoff factor strong limit](033_r3_physical_cutoff_factor_strong_limit.md)
     — the actual support-owned physical factor and its adjoint, plus the source
-    compression and its adjoint, converge strongly. Record 1479 proves a
-    uniform source-compression bound and the ordinary-trace limit for the
-    actual leakage/source cross channel; full G8 readback remains open. See
+    compression and its adjoint, converge strongly. Records 1479/1481 prove
+    a uniform source-compression bound and the paired ordinary-trace limit for
+    the actual leakage/source channels; full G8 readback remains open. See
     [1478](../proofs/1478_r3_physical_cutoff_factor_strong_limit.md).
 61. [034 - R3 actual cutoff cross-channel trace limit](034_r3_actual_cutoff_cross_trace_limit.md)
     — the literal leakage/source cross-channel trace converges to its explicit
-    same-detector source response between compressed global convolutions.
-    The remaining G8 channels, remainder, and trace-to-`qw` readback stay open.
-    See [1479](../proofs/1479_r3_actual_cutoff_cross_trace_limit.md).
+    same-detector source response between compressed global convolutions;
+    record 1481 closes its adjoint orientation and real paired sum.
+    Record 1480 also proves a limit for the same-owner signed source-remainder
+    sandwich under this cutoff. The other metric channels, remainder decay,
+    and trace-to-`qw` readback stay open. See
+    [1479](../proofs/1479_r3_actual_cutoff_cross_trace_limit.md).
+62. [035 - R3 actual-cutoff signed remainder limit](035_r3_actual_cutoff_signed_remainder_limit.md)
+    — the first-jet and source-band terms separately have ordinary-trace
+    limits through the actual cutoff, so their signed same-owner remainder
+    does too. Its limit is not shown to vanish, and full G8 trace-to-`qw`
+    readback remains open. See
+    [1480](../proofs/1480_r3_actual_cutoff_signed_remainder_limit.md).
+63. [036 - R3 actual-cutoff paired cross-channel trace limit](036_r3_actual_cutoff_paired_cross_trace_limit.md)
+    — the source/leakage channel is the adjoint of leakage/source, and the
+    pair has a real ordinary-trace limit. The three other survivor/boundary
+    coframe channels and the full trace-to-`qw` readback remain open. See
+    [1481](../proofs/1481_r3_actual_cutoff_paired_cross_trace_limit.md).
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
