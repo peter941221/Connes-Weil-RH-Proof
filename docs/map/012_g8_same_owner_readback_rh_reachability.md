@@ -3,7 +3,8 @@
 **Status:** supporting technical route audit, updated 2026-09-16 (R0 formal;
 actual paired leakage/source and signed source-remainder trace limits formal;
 survivor/boundary mixed channels paired and limited; total metric trace limit
-formal under the two diagonal energy hypotheses).
+formal under the two diagonal energy hypotheses; radial-boundary finite-window
+support and translation identities formal).
 It does not alter the binding route ruling in
 [003](003_b1_b5_minimal_exit_route_selection.md),
 does not reopen universal B1, and does not claim RH. It answers a narrower
@@ -349,13 +350,15 @@ internal prolate gap, controlled only if a square-summable estimate can be
 factored through `sourceProlateRemainder`.  Details and exact stop rules are
 in [proof record 1423](../proofs/1423_r3_radial_boundary_capture_and_prolate_gap.md).
 
-The formal result is only the cancellation identity. It does not identify the
-radial crossing with a translated finite-window boundary factor, and estimates
-neither term in the relevant trace ideal. It therefore does not close F0.
-The next obligations remain the finite boundary support identity and the
-decisive prolate-gap trace-ideal theorem. See [proof records
-1423](../proofs/1423_r3_radial_boundary_capture_and_prolate_gap.md) and
-[1494](../proofs/1494_r3_radial_boundary_internal_gap_split.md).
+The cancellation identity alone does not estimate either term in the relevant
+trace ideal, so it does not close F0. Record 1495 now formally identifies the
+zero-boundary crossing with the finite compact-output factor and transports
+that factor to the actual radial cutoff on the same source inclusion. The
+source-basis boundary estimate and the decisive prolate-gap trace-ideal
+theorem remain open. See [proof records
+1423](../proofs/1423_r3_radial_boundary_capture_and_prolate_gap.md),
+[1494](../proofs/1494_r3_radial_boundary_internal_gap_split.md), and
+[1495](../proofs/1495_r3_radial_boundary_finite_window_identity.md).
 
 ### R3-F3 trace-legality normal form (record 1424, 2026-09-14)
 
@@ -710,3 +713,17 @@ premise, while the mixed survivor/boundary limit stays formal. Individual
 rooted boundary-output estimates, the unconditional trace limit, signed
 readback, and detector-specific positivity remain open. See
 [proof record 1493](../proofs/1493_g8_boundary_output_trace_consumer.md).
+
+### R3-F22 radial-boundary finite-window support and transport (record 1495, 2026-09-16)
+
+Lean now proves that the selected root's positive-to-negative crossing at
+zero is exactly the zero extension of its compact-output factor on the finite
+window determined by the selected test's support. It also proves that the
+actual radial source leakage is this same window operator translated to
+`log(lambda)`, composed with the actual source inclusion. This closes the
+support/transport identity in record 1423; it does not give a source-basis
+Hilbert--Schmidt bound for the window factor or an estimate for the internal
+prolate gap. The G8 diagonal energies, trace/readback, detector-specific
+positivity, C3, and RH remain open. See [proof record
+1495](../proofs/1495_r3_radial_boundary_finite_window_identity.md) and [map
+record 018](018_r3_unit_detector_root_square_sum.md).

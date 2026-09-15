@@ -63,8 +63,9 @@ traceability.
 |        |                       | leakage obstruction/source projection   |
 |        |                       | decay formal; boundary prolate pullback  |
 |        |                       | zero; finite boundary-output reduction   |
-|        |                       | wired into trace consumer; individual   |
-|        |                       | rooted outputs/G8 readback remain open  |
+|        |                       | wired into trace consumer; radial        |
+|        |                       | finite-window support/transport formal;  |
+|        |                       | rooted estimates/G8 readback remain open |
 | 019    | Supporting            | R3 leakage doubled-shift normal form:    |
 |        |                       | exact same-carrier projection-defect     |
 |        |                       | identity; estimate/trace/readback open   |
@@ -212,8 +213,11 @@ Record 1464 now formally packages and exports that raw geometry as
 `OrbitG8Geometry rho g`, with the selected-owner factorization, raw
 interpolation/orbit/zero/tail data, support, and finite visible-prime cutoff;
 the producer does not invoke the healthy-sign theorem. Thus R0 is formal.
-The missing work is still the R2/R3 cutoff compatibility, analytic remainder,
-and same-owner trace-to-`qw` theorem; no feasibility or RH result is claimed.
+Record 1495 further formalizes the selected-root radial boundary's exact
+finite-window support identity and its translation to the actual source
+inclusion. Other R2/R3 cutoff compatibility, the analytic remainder, and the
+same-owner trace-to-`qw` theorem remain open; no feasibility or RH result is
+claimed.
 See [1464](../proofs/1464_g8_r0_raw_orbit_geometry.md).
 
 `013` is a supporting candidate below `012`, not a new route authority. It
@@ -1040,8 +1044,9 @@ Read the current records in this order for a full-map review:
     bound. The existing boundary energy input is also a formally zero
     prolate pullback. The aggregate boundary energy reduces to finitely many
     rooted output energies and now feeds the trace consumer. Record 1494
-    formalizes the selected-root radial-boundary/internal-gap cancellation,
-    but gives no support identification or energy estimate; rooted output
+    formalizes the selected-root radial-boundary/internal-gap cancellation;
+    record 1495 proves the finite-window support identity and actual radial
+    translation on the source inclusion. The source-basis boundary and gap
     estimates, actual G8 diagonal energies, and trace/readback remain open.
 46. [019 - R3 leakage doubled-shift normal form](019_r3_leakage_doubled_shift_normal_form.md)
     — the source leakage leg is exactly the selected root conjugated against

@@ -29,13 +29,14 @@ with `B = rootConvolution owner` and the actual source inclusion in
 
 ## Limits
 
-This is a formal operator identity only. It does not prove that the first
-summand is supported in a finite radial rectangle, identify it with a
-translated `CompactRootHalfLinePair` boundary factor, or show either summand
-is Hilbert--Schmidt or trace class. It also does not estimate the internal
-prolate gap, prove `hBoundary`, close the G8 trace/readback, establish
-detector-specific semi-local positivity, or prove RH. The remaining analytic
-targets are those in [record 1423](1423_r3_radial_boundary_capture_and_prolate_gap.md).
+This is a formal operator identity only. The support and translation
+identification of its first summand is proved separately in [proof record
+1495](1495_r3_radial_boundary_finite_window_identity.md). Neither that
+identity nor this split proves a Hilbert--Schmidt or trace-class estimate for
+either summand. This record also does not estimate the internal prolate gap,
+prove `hBoundary`, close the G8 trace/readback, establish detector-specific
+semi-local positivity, or prove RH. The remaining analytic targets are those
+in [record 1423](1423_r3_radial_boundary_capture_and_prolate_gap.md).
 
 The paired audit prints the axioms for both declarations. Acceptance log:
 `0916_r3_radial_gap_split_try2.log` — `Build completed successfully (3211

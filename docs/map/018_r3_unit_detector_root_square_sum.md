@@ -128,8 +128,10 @@ boundary energy and unconditional trace limit remain open. See [proof record
 
 Record 1494 formally decomposes the selected-root source-Sonin leakage into
 the radial-support complement and the internal radial-but-non-Sonin gap, on
-the same `finiteSCarrier` owner. This is the exact cancellation identity
-proposed in record 1423, not a support theorem or an energy estimate. The
-finite-width boundary identification, both trace-ideal estimates, the actual
-G8 diagonal energy sums, and trace/readback remain open. See [proof record
-1494](../proofs/1494_r3_radial_boundary_internal_gap_split.md).
+the same `finiteSCarrier` owner. Record 1495 then proves the exact support
+identity for the zero-boundary crossing and its translation to the actual
+radial cutoff after composing with the actual source inclusion. The finite
+window factor's source-basis trace-ideal estimate, the internal-gap estimate,
+the actual G8 diagonal energies, and trace/readback remain open. See [proof
+records 1494](../proofs/1494_r3_radial_boundary_internal_gap_split.md) and
+[1495](../proofs/1495_r3_radial_boundary_finite_window_identity.md).

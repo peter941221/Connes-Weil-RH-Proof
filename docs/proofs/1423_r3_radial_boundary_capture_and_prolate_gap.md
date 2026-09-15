@@ -3,8 +3,9 @@
 Date: 2026-09-14.
 
 Status: `PARTIALLY FORMAL / PRODUCER OPEN`. This record refines the R3-F1
-correction. The two-channel operator identity is now formal in Lean (proof
-record 1494); the finite-width support identification and both trace-ideal
+correction. The two-channel operator identity is formal in Lean (proof record
+1494), and the finite-width boundary support and radial translation identities
+are formal in proof record 1495. The boundary and internal-gap trace-ideal
 estimates remain open. It does not claim that F0 or RH is complete.
 
 Consumer: the same-owner healthy-`CompactLog` B5 statement
@@ -60,34 +61,37 @@ input  s in [A, A + R]
 output t in [A - R, A]
 ```
 
-can contribute.  Thus the apparently infinite ambient boundary channel is in
-fact a finite rectangle in the `(t,s)` plane.  Its kernel is square
-integrable, and the corresponding operator is Hilbert--Schmidt.
+can contribute. Thus the apparently infinite ambient boundary channel is in
+fact a finite rectangle in the `(t,s)` plane. The formal support and
+translation identity is now established in proof record 1495.
 
-The repository already contains the exact finite-window ingredients:
+The formal finite-window identities are:
 
 ```text
-fullBoundaryRootKernel
-fullBoundaryRootFactor
-fullBoundaryRootFactor_eq_globalConvolution
-pairData_traceProduct_eq_orientedBoundaryCrossing
+selectedRoot_zeroBoundaryCrossing_eq_finiteWindow
+selectedRoot_radialSourceLeakage_eq_translatedFiniteWindow
 ```
 
-in `CC20Concrete/CompactRootHalfLinePair.lean:133-1417`.  The missing theorem
-is not a new global convolution estimate.  It is a support-identification
-lemma showing that the global radial crossing equals one of these finite
-boundary factors after translating the boundary from `0` to `A`.
+The first identifies the zero-boundary positive-to-negative crossing with the
+zero extension of the compact-output root factor on `[-R, 0]`. The second
+identifies the actual radial crossing, composed with the source inclusion, as
+the translate of that same finite-window operator. The proof uses the selected
+owner's compact support and the translation covariance of the global root
+convolution. See [proof record
+1495](1495_r3_radial_boundary_finite_window_identity.md).
 
 The target is therefore:
 
 ```text
 RB-boundary:
-  (I-E) B J = finiteBoundaryFactor(A,R) J,
-  and finiteBoundaryFactor(A,R) is Hilbert--Schmidt.
+  (I-E) B J = translatedFiniteBoundaryFactor(A,R) T_A J,
+  and prove the needed trace-ideal estimate.
 ```
 
-This is a sharply typed, lower-data target.  It uses only compact support of
-the selected test and the existing boundary-kernel owner.
+The identity is formal, but no Hilbert--Schmidt estimate is proved for the
+finite-window factor in the actual source basis. This remains a sharply typed,
+lower-data target using the selected test's compact support and the existing
+boundary-kernel owner.
 
 ## 3. Channel K: internal prolate gap
 
@@ -157,6 +161,6 @@ G8SameOwnerReadbackData                  NOT CONSTRUCTED
 RH                                      NOT CLAIMED
 ```
 
-The next implementation target is the translation/support identity for the
-radial boundary factor.  Only after that identity builds should effort be
-spent on the prolate-gap Hilbert--Schmidt estimate.
+The next implementation target is a source-basis trace-ideal estimate for the
+translated finite-window factor, followed by the decisive prolate-gap
+Hilbert--Schmidt estimate. The identities alone imply neither bound.
