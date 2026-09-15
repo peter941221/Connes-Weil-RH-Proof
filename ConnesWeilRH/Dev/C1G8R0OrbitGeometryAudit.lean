@@ -1,0 +1,25 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R0OrbitGeometry
+
+namespace ConnesWeilRH.Source.C1G8R0OrbitGeometry
+
+#check OrbitG8Geometry
+#check OrbitG8Geometry.base
+#check OrbitG8Geometry.correction
+#check OrbitG8Geometry.orbitIndex
+#check OrbitG8Geometry.selected_owner_test
+#check OrbitG8Geometry.raw_target_values
+#check OrbitG8Geometry.minimal_interpolation
+#check OrbitG8Geometry.centered_orbit_sum
+#check OrbitG8Geometry.square_zero_control
+#check OrbitG8Geometry.raw_square_tail
+#check OrbitG8Geometry.support_bound
+#check OrbitG8Geometry.visible_prime_cutoff
+
+#print axioms exists_orbitG8Geometry_of_sourceNontrivialZero_right
+
+end ConnesWeilRH.Source.C1G8R0OrbitGeometry

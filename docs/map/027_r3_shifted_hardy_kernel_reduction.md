@@ -2,8 +2,9 @@
 
 **Date:** 2026-09-15.
 
-**Status:** formal conditional interface; supporting route record, not an RH
-claim.
+**Status:** moving-scale strict angle, relative-factor HS square-sum, and its
+same-basis positive-composition trace class are formal; G8 readback and R3
+positivity remain open. Supporting route record, not an RH claim.
 
 **Consumer:** the healthy CompactLog, B5-shaped detector-specific statement
 `0 <= C1SameOwnerWeil.qw g`.
@@ -79,22 +80,48 @@ The actual shifted relative prolate factor is also formally unitarily
 conjugate to the standard `prolateFactor` for
 `doubledShiftHardyTranslationEquiv b`; the conjugating coordinate map is the
 Hardy involution followed by the exact translation.  Its operator norm is
-therefore exactly the norm of that standard factor.  This normalizes the
-strict-angle question to the standard model at the translated parameter; it
-does not prove the required strict inequality.
+therefore exactly the norm of that standard factor.  The strict angle is now
+formal at every real detector scale.  The compact moving-scale Hardy
+compression has norm below one: a hypothetical extremizer would force compact
+physical/Fourier support, then exterior-ray Fourier vanishing and moment
+uniqueness force it to be zero.  For the relative prolate factor, the leakage
+map `L_b = M * U_b * B` has zero kernel on the support-complement range.
+Invertibility of `I - C_b^2`, with `C_b = M * U_b * M`, reconstructs vectors
+from their leakage and supplies a uniform positive leakage lower bound.
+Pythagoras then gives a strict contraction angle.  The full proof and
+seven-declaration axiom audit are in
+[1463](../proofs/1463_r3_moving_scale_prolate_strict_angle.md).
+
+Combining this angle with the existing interior-compression column square-sum
+and exact defect identity proves square-summability of the actual relative
+Hilbert--Schmidt factor along every named basis.  Its positive composition is
+`IsTraceClassAlong` along that same basis.
 
 ## Remaining boundary
 
 The compact-kernel square-sum and its transfer to the actual additive and
-shifted-Hardy interior compressions are formal.  The remaining independent
-analytic brick is the strict norm bound for the relative prolate factor at
-every selected detector scale, now reduced by exact unitary conjugacy to the
-standard-model formulation.  Positive trace, same-basis G8 readback, the R3
-detector sign, and RH remain open.
+shifted-Hardy interior compressions, the relative-factor strict norm bound,
+and the factor's same-basis HS/positive-composition trace-class conclusions
+are formal.  This is not the G8 cutoff remainder/readback: its vanishing
+remainder and trace limit to the same owner's `qw` remain open, as do the R3
+detector sign, same-detector semi-local positivity, C3, and RH.
+
+## Latest acceptance
+
+    20260915_scale_prolate_strict_angle_audit_try2.log
+
+The moving-scale strict-angle leaf plus paired audit completed successfully
+with 3286 jobs, zero error lines, zero `sorryAx`, and seven `Quot.sound]`
+terminators for seven axiom-print audits.  These audit prints use only
+`[propext, Classical.choice, Quot.sound]`.  The declaration set includes the
+strict norm bound for the actual relative factor, its all-basis HS square-sum,
+and the same-basis positive-composition trace-class owner.  Full design and
+boundary details are in
+[1463](../proofs/1463_r3_moving_scale_prolate_strict_angle.md).
 
 ## Acceptance
 
-    /home/peter/rh/build-logs/1477_conjugation_main_audit_try1.log
+    1477_conjugation_main_audit_try1.log
 
 The updated module plus paired audit completed successfully with 3284 jobs,
 zero error lines, zero `sorryAx`, and fifty-four `Quot.sound]` audit
@@ -102,7 +129,7 @@ terminators.  The new audited declarations include the shifted-factor
 conjugacy and exact operator-norm equality.  Every audited declaration has
 only `[propext, Classical.choice, Quot.sound]`.
 
-    /home/peter/rh/build-logs/1475_hs_transfer_audit_try1.log
+    1475_hs_transfer_audit_try1.log
 
 The 1475 module plus paired audit completed successfully with 3284 jobs,
 zero error lines, zero `sorryAx`, and forty `Quot.sound]` audit terminators.
@@ -122,3 +149,7 @@ Every audited declaration has only `[propext, Classical.choice, Quot.sound]`.
 
     ConnesWeilRH/Dev/C1G8R3ShiftedHardyKernelReduction.lean
     ConnesWeilRH/Dev/C1G8R3ShiftedHardyKernelReductionAudit.lean
+    ConnesWeilRH/Dev/C1G8R3ScaleStrictAngle.lean
+    ConnesWeilRH/Dev/C1G8R3ScaleStrictAngleAudit.lean
+    ConnesWeilRH/Dev/C1G8R3ScaleProlateStrictAngle.lean
+    ConnesWeilRH/Dev/C1G8R3ScaleProlateStrictAngleAudit.lean

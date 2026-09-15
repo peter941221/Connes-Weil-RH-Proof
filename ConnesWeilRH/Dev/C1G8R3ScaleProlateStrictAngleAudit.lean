@@ -1,0 +1,30 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3ScaleProlateStrictAngle
+
+namespace ConnesWeilRH.Dev
+
+open Source
+open Source.CC20Concrete
+open Source.CCM25Concrete
+open Source.CCM25Concrete.CCM24FiniteSProjectionTrace
+
+#check doubledShiftHardyTranslationEquiv_involutive
+#print axioms doubledShiftHardyTranslationEquiv_involutive
+#check doubledShiftHardyInteriorCompression_norm_eq_evenAdditive
+#print axioms doubledShiftHardyInteriorCompression_norm_eq_evenAdditive
+#check doubledShiftHardyInteriorCompression_norm_lt_one
+#print axioms doubledShiftHardyInteriorCompression_norm_lt_one
+#check doubledShiftHardyStandardProlateFactor_norm_lt_one
+#print axioms doubledShiftHardyStandardProlateFactor_norm_lt_one
+#check doubledShiftProlateHilbertSchmidtFactor_norm_lt_one
+#print axioms doubledShiftProlateHilbertSchmidtFactor_norm_lt_one
+#check doubledShiftProlateHilbertSchmidtFactor_summable
+#print axioms doubledShiftProlateHilbertSchmidtFactor_summable
+#check doubledShiftProlatePositiveComposition_isTraceClassAlong
+#print axioms doubledShiftProlatePositiveComposition_isTraceClassAlong
+
+end ConnesWeilRH.Dev

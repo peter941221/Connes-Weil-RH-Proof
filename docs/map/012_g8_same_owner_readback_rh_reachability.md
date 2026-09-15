@@ -1,7 +1,8 @@
 # 012 — G8 same-owner readback: conditional RH reachability audit
 
-**Status:** supporting technical route audit, 2026-09-14. This record does
-not alter the binding route ruling in [003](003_b1_b5_minimal_exit_route_selection.md),
+**Status:** supporting technical route audit, updated 2026-09-15 (R0 formal).
+It does not alter the binding route ruling in
+[003](003_b1_b5_minimal_exit_route_selection.md),
 does not reopen universal B1, and does not claim RH. It answers a narrower
 question: whether the existing G8 positive-trace program has a genuine,
 non-circular path to the selected healthy-`CompactLog` B5 exit.
@@ -117,17 +118,28 @@ combine raw geometry with health data, but the analytic theorem that creates
 the readback must stand independently of the contradiction it will later
 consume.
 
-At present the tower exports the healthy test, support window, and visible
-prime cutoff (`C1P2DefectControl.lean:644-647`), but it does not export a
-named lower-data G8 geometry package. Defining that package and proving its
-projection from the existing orbit construction is the first formal
-packaging task. It is a compatibility task, not the missing sign theorem.
+Record [1464](../proofs/1464_g8_r0_raw_orbit_geometry.md) completes the first
+formal packaging task. The leaf
+`C1G8R0OrbitGeometry.lean` defines `OrbitG8Geometry rho g` with the raw
+selected-owner factorization, orbit interpolation values, centered orbit
+identity, finite zero control, fourth-order tail, support interval, and
+visible-prime cutoff. Its producer is proved directly from the raw-target
+orbit construction plus the tail-start construction; it does not invoke the
+theorem that constructs `HealthyYoshidaDetectorData`. This is the R0
+compatibility export, not the missing sign theorem.
+
+The exact producer type is packaged existentially as
+`∃ g, Nonempty (OrbitG8Geometry rho g)`: the geometry is Type-valued because
+it retains the orbit base, correction, and iteration index. The paired audit
+reports only `[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.
+This closes R0 only. It does not itself instantiate the G8 cutoff trace on
+that owner, prove the R2 same-owner trace identity, or supply any R3 limit.
 
 ## 4. Milestones and stop rules
 
 | Stage | Required delivery | Current evidence | Stop rule |
 | :-- | :-- | :-- | :-- |
-| R0 | Define raw `OrbitG8Geometry g` and prove that the pinned tower construction exports it without mentioning a sign conclusion | support/visible-prime fields are formal; the geometry package is absent | If the only available source for a required field is a healthy/sign proposition, the producer is circular and stops |
+| R0 | Define raw `OrbitG8Geometry g` and prove that the pinned tower construction exports it without mentioning a sign conclusion | FORMAL: record 1464 packages the selected-owner factorization, raw interpolation/orbit/zero/tail data, support, and visible-prime cutoff without a health/sign field | If the only available source for a required field is a healthy/sign proposition, the producer is circular and stops |
 | R1 | Instantiate the canonical owner and `g8CanonicalFamily` on the raw geometry; state all scale and basis choices explicitly | owner equality and canonical family are formal | If a cutoff construction changes `sourceTest`, square, or prime family, it is a route mismatch and stops |
 | R2 | Prove a finite-cutoff same-owner trace identity with a named remainder | positive cutoff and selected-support residual decompositions are formal | An identity that reads a different response, basis, or prime support does not count |
 | R3 | Prove remainder convergence and the trace-to-`qw` limit, giving `G8SameOwnerReadbackData` | open; P1 column-energy, transport, endpoint, and P2 residual limits are the recorded dependencies | A bound that uses a pre-assumed `qw` sign, RH, or a universal gate is circular and stops |

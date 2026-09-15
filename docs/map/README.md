@@ -35,7 +35,9 @@ traceability.
 |        |                       | reachable RH route as currently registered  |
 | 012    | Supporting            | G8 same-owner readback reachability audit:  |
 |        |                       | conditional B5 RH exit, with an explicit    |
-|        |                       | non-circular analytic producer contract     |
+|        |                       | non-circular analytic producer contract;    |
+|        |                       | raw R0 orbit-geometry export formal, while  |
+|        |                       | the R2/R3 readback remains open             |
 | 013    | Supporting            | R3 Sonin–detector commutator-cancellation   |
 |        |                       | candidate; signed trace-first route with    |
 |        |                       | typed falsifiers                            |
@@ -83,13 +85,13 @@ traceability.
 |        |                       | translation formal; HS/trace bridge open |
 | 027    | Supporting            | R3 shifted Hardy kernel reduction:       |
 |        |                       | shifted-factor standard-model conjugacy  |
-|        |                       | and exact norm equality, conditional HS  |
+|        |                       | and strict angle; actual factor HS and   |
+|        |                       | positive-composition trace class formal  |
 |        |                       | interface, zero-shift anchor, additive   |
-|        |                       | transport, bundled dilation, and scaled |
-|        |                       | kernel readback green; full-carrier      |
-|        |                       | actual/model equality and interior HS   |
-|        |                       | transfer green; strict angle and trace  |
-|        |                       | remain open                             |
+|        |                       | transport, bundled dilation, scaled     |
+|        |                       | kernel readback, full-carrier            |
+|        |                       | actual/model equality, and interior HS  |
+|        |                       | transfer green; G8 readback remains open |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -156,8 +158,13 @@ conditional B5 exit exactly: a detector-independent same-owner G8 readback
 theorem would give `qw >= 0` on the selected detector and hence `SourceRH`.
 It also records the crucial restriction that the readback theorem must be
 proved from raw orbit geometry, not by assuming healthy-detector/sign data.
-The missing work is the analytic trace/remainder theorem; no feasibility or
-RH result is claimed.
+Record 1464 now formally packages and exports that raw geometry as
+`OrbitG8Geometry rho g`, with the selected-owner factorization, raw
+interpolation/orbit/zero/tail data, support, and finite visible-prime cutoff;
+the producer does not invoke the healthy-sign theorem. Thus R0 is formal.
+The missing work is still the R2/R3 cutoff compatibility, analytic remainder,
+and same-owner trace-to-`qw` theorem; no feasibility or RH result is claimed.
+See [1464](../proofs/1464_g8_r0_raw_orbit_geometry.md).
 
 `013` is a supporting candidate below `012`, not a new route authority. It
 uses the committed exact decomposition of the coupled source second-support /
@@ -260,14 +267,17 @@ square-sum, an HS/trace estimate, or the cutoff/source transport needed by
 the G8 readback.  See [024](024_r3_source_leakage_translated_decay.md) and
 [1458](../proofs/1458_r3_source_leakage_translated_decay.md).
 
- Record 1459 fixes the moving-scale prolate coordinate.  The source factor is
+Record 1459 fixes the moving-scale prolate coordinate.  The source factor is
 exactly a global-log conjugate of the relative-motion factor
 `Q_0 * (p_b - r_b)`, and bounded ideal calculus proves named-basis
 square-summability in one coordinate if and only if it holds in the other.
-This does not transfer the unit-scale strict-angle theorem to nonzero `b`:
-the relative-motion factor still needs its own square-sum or positive-trace
-estimate.  See [025](025_r3_prolate_relative_normal_form.md) and
-[1459](../proofs/1459_r3_prolate_relative_normal_form.md).
+The 1459 conjugacy alone did not transfer the unit-scale strict-angle theorem
+to nonzero `b`; record 1463 now proves the moving-scale strict angle by the
+compact-compression/leakage-reconstruction argument and supplies the factor
+square-sum and positive-composition trace-class conclusion.  See
+[025](025_r3_prolate_relative_normal_form.md),
+[1459](../proofs/1459_r3_prolate_relative_normal_form.md), and
+[1463](../proofs/1463_r3_moving_scale_prolate_strict_angle.md).
 
 Record 1460 makes the next relative-motion obstruction explicit.  The
 defect factor is exactly the raw support crossing
@@ -277,12 +287,15 @@ Hardy crossing is the negative compressed window
 half-line projection, and `M = 1 - P`.  The radial conjugacy, unit Fourier/
 Hardy conjugacy, the window identity, and the full translation bridge are now
 machine-checked with the standard axiom set.  The bridge is proved by
-vector-level rewriting to avoid the old large-operator kernel timeout.  The
-relative HS estimate, positive trace, G8 readback, R3 positivity, and RH
-conclusion remain open.  See
+vector-level rewriting to avoid the old large-operator kernel timeout.  At
+that record's scope the relative HS estimate, positive trace, G8 readback, R3
+positivity, and RH were still open.  Record 1463 now closes the relative-factor
+HS and positive-composition trace-class steps; G8 readback, R3 positivity,
+and RH remain open.  See
 [026](026_r3_relative_defect_crossing.md) and
 [1460](../proofs/1460_r3_relative_defect_crossing.md) and
-[1461](../proofs/1461_r3_shifted_hardy_translation_bridge.md).
+[1461](../proofs/1461_r3_shifted_hardy_translation_bridge.md) and
+[1463](../proofs/1463_r3_moving_scale_prolate_strict_angle.md).
 
 Record 1462 reduces the shifted relative crossing to the compact interior
 Hardy compression and supplies the conditional Hilbert--Schmidt interface.
@@ -294,12 +307,13 @@ Record 1470 identifies the transported literal operator with that model on
 the bundled bump-Schwartz core, and record 1473 extends the equality to the
 full healthy even additive carrier using interval density plus the projection
 image.  Record 1475 transfers the compact-kernel square-sum to the actual
-interior compression.  The latest audit proves exact unitary conjugacy of the
-shifted relative factor to its standard prolate model and equality of their
-operator norms; the strict norm bound itself, trace bridge, and G8 readback
-remain open.  See
-[027](027_r3_shifted_hardy_kernel_reduction.md) and
-[1462](../proofs/1462_r3_shifted_hardy_kernel_reduction.md).
+interior compression.  Record 1463 proves strict contraction of the shifted
+relative factor, its all-basis HS column square-sum, and trace-class status of
+its positive composition along the same basis.  The G8 cutoff remainder,
+vanishing remainder limit, and same-owner trace-to-`qw` readback remain open.
+See [027](027_r3_shifted_hardy_kernel_reduction.md),
+[1462](../proofs/1462_r3_shifted_hardy_kernel_reduction.md), and
+[1463](../proofs/1463_r3_moving_scale_prolate_strict_angle.md).
 
 ## Mandatory preflight
 
@@ -972,12 +986,13 @@ Read the current records in this order for a full-map review:
 54. [027 - R3 shifted Hardy kernel reduction](027_r3_shifted_hardy_kernel_reduction.md)
      — the shifted raw crossing is reduced to an interior Hardy compression;
      bounded translation transport and the exact relative defect identity give
-     a conditional HS interface.  The actual shifted factor's standard-model
-     conjugacy and exact norm equality, additive carrier transport, and the
-     Schwartz-core model-kernel readback, bundled bump-Schwartz actual/model
-     equality, its full-carrier extension, and interior HS transfer are formal;
-     strict relative-angle bound and trace bridge remain open.  See
-     [1462](../proofs/1462_r3_shifted_hardy_kernel_reduction.md).
+     the HS interface.  The actual shifted factor's strict angle, all-basis
+     HS square-sum and positive-composition trace-class owner, additive
+     carrier transport, Schwartz-core model-kernel readback, bundled
+     bump-Schwartz actual/model equality, its full-carrier extension, and
+     interior HS transfer are formal; G8 readback remains open.  See
+     [1462](../proofs/1462_r3_shifted_hardy_kernel_reduction.md) and
+     [1463](../proofs/1463_r3_moving_scale_prolate_strict_angle.md).
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
