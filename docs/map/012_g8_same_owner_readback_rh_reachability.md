@@ -277,6 +277,16 @@ Sonin source compression; the finite-window factor alone cannot supply it.
 This is a structural reduction, not a closure or a no-go for the compressed
 G8 owner.
 
+The formal R3-F0 translation test in [proof record
+1487](../proofs/1487_r3_actual_leakage_translated_source_test_lower_bound.md)
+now gives a positive eventual lower bound for the actual unit-scale leakage
+leg on right translates of its own compact source test, provided that test
+detects a Laplace value. This is a lower-energy orbit on the ambient global
+`L2` carrier. The current theorem does not prove that the inputs form a
+normalized orthonormal sequence, so it is not yet an HS or trace-class
+contradiction. It also does not transfer the orbit to the source-compressed
+G8 diagonal leg. R3-F0 and the G8 readback therefore remain open.
+
 ### R3-F1 candidate (record 1421, 2026-09-14)
 
 The first new mathematical mechanism for F0 is now isolated as a paper-level
@@ -636,3 +646,17 @@ signed endpoint remainder, its vanishing, the full readback identity, and
 endpoint/P2 signs remain open. See [proof record
 1486](../proofs/1486_r3_total_metric_cutoff_trace_limit.md) and
 [supporting map record 041](041_r3_total_metric_cutoff_trace_limit.md).
+
+### R3-F17 ambient leakage energy obstruction (records 1488–1489, 2026-09-16)
+
+The actual unit-scale leakage leg has a normalized orthonormal input sequence
+in the ambient `finiteSCarrier` on which its squared output norms are not
+summable. This is formal evidence against seeking a Hilbert--Schmidt bound for
+the uncompressed ambient leg. It does not supply a counterexample to the G8
+diagonal energy claims: those use root-leg columns after the literal source
+compression and sum over a basis of `sourceSoninCarrier`. The transfer from
+the ambient orbit to that compressed same-basis sum is still missing, as are
+both diagonal energy estimates and the full trace-to-`qw` readback. See
+[1488](../proofs/1488_r3_leakage_orthonormal_translation_orbit.md),
+[1489](../proofs/1489_r3_leakage_orthonormal_orbit_energy_obstruction.md), and
+[supporting map record 018](018_r3_unit_detector_root_square_sum.md).

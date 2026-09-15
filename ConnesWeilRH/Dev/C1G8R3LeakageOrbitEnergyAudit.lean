@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8R3LeakageOrbitEnergy
+
+namespace ConnesWeilRH.Dev
+
+#check normalizedSelectedSourceTranslationLeakageColumn
+#check normalizedSelectedSourceTranslationLeakageColumn_eq_actual
+#check normalizedSelectedSourceTranslationLeakageColumn_norm_lowerBound
+#check normalizedSelectedSourceTranslationLeakageColumn_energy_not_summable
+
+#print axioms normalizedSelectedSourceTranslationLeakageColumn_eq_actual
+#print axioms normalizedSelectedSourceTranslationLeakageColumn_norm_lowerBound
+#print axioms normalizedSelectedSourceTranslationLeakageColumn_energy_not_summable
+
+end ConnesWeilRH.Dev

@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8R3LeakageOrthonormalOrbit
+
+namespace ConnesWeilRH.Dev
+
+#check selectedSourceTranslationSpacing
+#check selectedSourceTranslationOrbit
+#check normalizedSelectedSourceTranslationOrbit
+#check selectedSourceTestLp_norm_pos
+#check normalizedSelectedSourceTranslationOrbit_orthonormal
+
+#print axioms selectedSourceTestLp_norm_pos
+#print axioms normalizedSelectedSourceTranslationOrbit_orthonormal
+
+end ConnesWeilRH.Dev

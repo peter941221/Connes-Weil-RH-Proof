@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1G8R3LeakageTranslateLowerBound
+
+namespace ConnesWeilRH.Dev
+
+#check selectedOwnerSourceTest_ne_zero_of_laplaceAt_ne_zero
+#check sourceTestRootImageNorm_pos
+#check sourceRootCompletedRightCommutatorLeftLeg_sourceTest_translate_norm_lowerBound
+
+#print axioms selectedOwnerSourceTest_ne_zero_of_laplaceAt_ne_zero
+#print axioms sourceTestRootImageNorm_pos
+#print axioms sourceRootCompletedRightCommutatorLeftLeg_sourceTest_translate_norm_lowerBound
+
+end ConnesWeilRH.Dev

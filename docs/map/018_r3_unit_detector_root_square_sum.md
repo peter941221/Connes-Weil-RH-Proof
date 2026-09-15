@@ -83,3 +83,16 @@ ordinary trace as the same-basis column-energy sum. This identifies the
 uniform square-sum/convergence required by the two diagonal limits; it does
 not supply that estimate. The survivor/boundary mixed trace limit is formal
 in record 1483, but does not imply either diagonal bound.
+
+Record 1487 adds a formal lower bound on the separate unit-scale leakage leg
+along right translates of its own compact source test: when the test detects
+a Laplace value, the leakage output norm is eventually at least half the
+nonzero selected-root output norm. This is ambient `finiteSCarrier` evidence
+for a lower-energy orbit. Record 1488 now formalizes a normalized orthonormal
+subsequence of separated translates. Record 1489 combines that sequence with
+the lower bound and proves that the actual ambient leakage outputs have a
+non-summable squared-norm sequence. This rules out using an ambient
+Hilbert--Schmidt estimate for this raw leg as the missing argument. The orbit
+is still not identified with the named source basis or the source-compressed
+G8 diagonal leg, so both diagonal estimates, the cutoff-to-trace readback, and
+the full same-owner trace estimate remain open.
