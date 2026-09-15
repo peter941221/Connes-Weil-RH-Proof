@@ -24,5 +24,9 @@ each cutoff. Their uniform domination and convergence remain open; records
 [018](018_r3_unit_detector_root_square_sum.md),
 [022](022_r3_common_right_causal_telescope.md), and
 [028](028_r3_moving_scale_detector_root_range_energy.md) identify the
-remaining leakage/common-right square-sum work. The total G8 readback, signed
-remainder decay, `qw` identification and sign, P2, C3, and RH remain open.
+remaining leakage/common-right square-sum work. Record
+[1485](../proofs/1485_r3_diagonal_trace_limit_energy_constraint.md) formally
+shows that any finite real diagonal trace limit would force square-summability
+of the uncut same-owner root columns. It does not provide that estimate or a
+trace limit. The total G8 readback, signed remainder decay, `qw` identification
+and sign, P2, C3, and RH remain open.

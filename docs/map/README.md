@@ -132,6 +132,9 @@ traceability.
 | 039    | Supporting            | R3 actual-cutoff diagonal channels have |
 |        |                       | formal detector-root energy identities;|
 |        |                       | their limits and full readback are open|
+| 040    | Supporting            | R3 finite diagonal trace limits force  |
+|        |                       | same-owner uncut root-column energy;   |
+|        |                       | estimate and limits remain open       |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -1140,6 +1143,12 @@ Read the current records in this order for a full-map review:
     sums on the named source basis. Uniform bounds, diagonal limits, and the
     total G8 readback remain open. See
     [1484](../proofs/1484_r3_actual_cutoff_diagonal_root_energy.md).
+67. [040 - R3 diagonal trace-limit energy constraint](040_r3_diagonal_trace_limit_energy_constraint.md)
+    — a finite real limit of an actual-cutoff diagonal trace formally forces
+    square-summability of the uncut same-owner detector-root columns on the
+    same basis. This necessary condition supplies no energy estimate or trace
+    limit. See
+    [1485](../proofs/1485_r3_diagonal_trace_limit_energy_constraint.md).
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
