@@ -151,6 +151,14 @@ readback along the same named basis. This is a source-corner result; it does
 not identify the corner with `g8SourceCutoffPairData` or supply the G8 cutoff
 limit. The source/G8 comparison and R3 readback remain open.
 
+Record [1479](../proofs/1479_r3_actual_cutoff_cross_trace_limit.md) now proves
+the uniformly bounded doubled strong limit for the actual source-compressed
+physical cutoff and transfers ordinary-trace convergence for the literal
+leakage/source cross channel. Its limit is the same-detector source response
+between two compressed global convolutions. This is one ordered channel only:
+it does not establish the full G8 ledger's limit, the signed remainder limit,
+or `G8SameOwnerReadbackData`; the trace-to-`qw` step remains open.
+
 ## 4. Milestones and stop rules
 
 | Stage | Required delivery | Current evidence | Stop rule |
@@ -158,7 +166,7 @@ limit. The source/G8 comparison and R3 readback remain open.
 | R0 | Define raw `OrbitG8Geometry g` and prove that the pinned tower construction exports it without mentioning a sign conclusion | FORMAL: record 1464 packages the selected-owner factorization, raw interpolation/orbit/zero/tail data, support, and visible-prime cutoff without a health/sign field | If the only available source for a required field is a healthy/sign proposition, the producer is circular and stops |
 | R1 | Instantiate the canonical owner and `g8CanonicalFamily` on the raw geometry; state all scale and basis choices explicitly | owner equality and canonical family are formal | If a cutoff construction changes `sourceTest`, square, or prime family, it is a route mismatch and stops |
 | R2 | Prove a finite-cutoff same-owner trace identity with a named remainder | positive cutoff and selected-support residual decompositions are formal | An identity that reads a different response, basis, or prime support does not count |
-| R3 | Prove remainder convergence and the trace-to-`qw` limit, giving `G8SameOwnerReadbackData` | open; P1 column-energy, transport, endpoint, and P2 residual limits are the recorded dependencies | A bound that uses a pre-assumed `qw` sign, RH, or a universal gate is circular and stops |
+| R3 | Prove remainder convergence and the trace-to-`qw` limit, giving `G8SameOwnerReadbackData` | PARTIAL FORMAL: record 1479 closes the actual leakage/source cross-channel trace limit; full four-channel readback, signed remainder convergence, and endpoint/P2 limits remain open | A bound that uses a pre-assumed `qw` sign, RH, or a universal gate is circular and stops |
 | R4 | Add the short formal wrapper from R0--R3 to `healthy_sourceRH_of_right_detector_specific_qw_nonneg` and audit its axioms | D1--G5 are formal | No theorem may be advertised as RH until this wrapper builds and audits green |
 
 R0--R1 are type/owner audits. R2--R3 are the new mathematics. R4 is
@@ -513,11 +521,11 @@ and supporting route record
 Record 1478 now composes the projection limit with the fixed global
 convolution and source inclusion, proving strong convergence of the actual
 physical factor and its adjoint, including the source compression and its
-adjoint. This is only operator-level compatibility. A uniform bound on the
-doubled source sequence and a summable source-column estimate are still
-required before a trace transfer applies to the literal G8 channel; the other
-metric channels, analytic remainder, same-owner `qw` readback, detector
-semi-local sign, C3, and RH remain open.
+adjoint. Record 1479 supplies the source-compression uniform bound and doubled
+strong convergence, then proves ordinary-trace convergence for the literal
+leakage/source cross channel using the fixed source three-branch HS pair. The
+other metric channels, the signed analytic remainder, same-owner `qw`
+readback, detector semi-local sign, C3, and RH remain open.
 
 ### R3-F11 physical cutoff factor strong limit (record 1478, 2026-09-15)
 
@@ -526,9 +534,27 @@ reflected physical output projection composed with the fixed global detector
 convolution. Its projection tails vanish in L2, yielding pointwise strong
 limits for the factor and its adjoint. The same result passes through the
 actual Sonin inclusion on both sides, including the adjoint compression. This
-is formal operator compatibility for the literal G8 owner, not a trace limit;
-the uniform doubled bound and source-column summability are still open. See
+is formal operator compatibility for the literal G8 owner. Record 1479 adds a
+uniform doubled bound and trace limit for the leakage/source cross channel,
+but the full G8 readback still requires its other channels and signed
+remainder. See
 [proof record 1478](../proofs/1478_r3_physical_cutoff_factor_strong_limit.md)
 and supporting route record
-[033](033_r3_physical_cutoff_factor_strong_limit.md). The healthy-`CompactLog`
-B5 consumer and binding route are unchanged.
+[033](033_r3_physical_cutoff_factor_strong_limit.md). Record 1479 separately
+closes one actual cross-channel trace limit; it does not read that limit back
+as `qw`. The healthy-`CompactLog` B5 consumer and binding route are unchanged.
+
+### R3-F12 actual cutoff cross-channel trace limit (record 1479, 2026-09-15)
+
+The physical source compression is uniformly bounded by the fixed global
+detector-convolution norm. Combined with the factor and adjoint strong limits
+from record 1478, the new general doubled-product lemma proves strong
+convergence of `C_n * C_n†`. The literal finite-window leakage/source channel
+is exactly `C_n† * (-sourceBandGramResponse†) * C_n`. The fixed source
+three-branch Hilbert--Schmidt pair from the existing source trace ledger and
+the transfer theorem from record 1476 therefore give its ordinary-trace limit.
+The limit remains the same-detector source response between two compressed
+global convolutions. The other ordered metric channels, full G8 readback,
+signed remainder, and trace-to-`qw` identification remain open. See
+[proof record 1479](../proofs/1479_r3_actual_cutoff_cross_trace_limit.md) and
+[supporting record 034](034_r3_actual_cutoff_cross_trace_limit.md).

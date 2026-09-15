@@ -3,8 +3,9 @@
 **Authority:** supporting.
 
 **Status:** expanding interval projections and the support-owned physical G8
-factor/source compression are formally strongly convergent. Uniform doubled
-bounds and trace/readback remain open.
+factor/source compression are formally strongly convergent. Record 1479 proves
+the doubled strong limit and ordinary-trace limit for the actual
+leakage/source cross channel; full G8 trace/readback remains open.
 
 **Consumer:** the literal output-window factor in the leakage/source cross
 channel of the healthy-`CompactLog`, detector-selected B5 G8 route. The
@@ -22,10 +23,12 @@ has only the three standard axioms; see
 The physical factor is `P_n F_g`, with `P_n` this interval projection and
 `F_g` the fixed global convolution. Record 1478 now composes the projection
 limit through `F_g` and the source inclusion, including the adjoint-side
-strong limit, for the actual support-owned cutoff sequence. The uniformly
-bounded doubled source limit and source-column summability needed for trace
-transfer remain open; see supporting record
-[033](033_r3_physical_cutoff_factor_strong_limit.md). This record does not
-assert any `qw` sign, positivity, C3, or RH.
+strong limit, for the actual support-owned cutoff sequence. Record 1479 proves
+the uniform bound, doubled strong limit, and trace transfer for the ordered
+leakage/source cross channel using the fixed three-branch source pair. Other
+metric channels and the full G8 trace-to-`qw` readback remain open; see
+supporting records [033](033_r3_physical_cutoff_factor_strong_limit.md) and
+[034](034_r3_actual_cutoff_cross_trace_limit.md). This record does not assert
+any `qw` sign, positivity, C3, or RH.
 
 No binding route ruling changes.

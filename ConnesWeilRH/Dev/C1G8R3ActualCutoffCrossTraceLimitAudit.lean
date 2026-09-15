@@ -1,0 +1,23 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3ActualCutoffCrossTraceLimit
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @tendsto_comp_adjoint_apply_of_strong
+#print axioms tendsto_comp_adjoint_apply_of_strong
+#check @g8SourceCompressedPhysicalCutoff_norm_le
+#print axioms g8SourceCompressedPhysicalCutoff_norm_le
+#check @tendsto_g8SourceCompressedPhysicalCutoff_apply
+#print axioms tendsto_g8SourceCompressedPhysicalCutoff_apply
+#check @tendsto_g8SourceCompressedPhysicalCutoff_adjoint_apply
+#print axioms tendsto_g8SourceCompressedPhysicalCutoff_adjoint_apply
+#check @tendsto_ordinaryTraceAlong_g8MetricLeakageSourceCross_actualCutoff
+#print axioms tendsto_ordinaryTraceAlong_g8MetricLeakageSourceCross_actualCutoff
+
+end Dev
+end ConnesWeilRH
