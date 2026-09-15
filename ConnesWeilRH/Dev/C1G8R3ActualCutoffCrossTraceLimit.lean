@@ -65,6 +65,41 @@ noncomputable def g8SourceCompressedGlobalConvolution
   (sourceInclusion lambda).adjoint ∘L
     cc20GlobalLogConvolution g.involution.test ∘L sourceInclusion lambda
 
+/-- Before taking any limit, the literal G8 leakage/source channel is the
+source-band response sandwiched by the actual compressed physical cutoff.
+This exposes the same-owner cutoff compatibility used in the trace limit. -/
+theorem g8MetricCutoffLeakageSourceCrossOperator_eq_sourceBandSandwich
+    {ι ρ : Type*}
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    (globalBasis : HilbertBasis ι ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) (n : ℕ) :
+    g8MetricCutoffLeakageSourceCrossOperator owner lambda family
+        globalBasis sourceBasis n =
+    (g8SourceCompressedPhysicalCutoff owner lambda n).adjoint ∘L
+        (-(sourceBandGramResponse owner lambda family).adjoint) ∘L
+          g8SourceCompressedPhysicalCutoff owner lambda n := by
+  let cutoffFactor := (sourceInclusion lambda).adjoint ∘L
+    (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left
+  have hcutoffFactor : cutoffFactor =
+      g8SourceCompressedPhysicalCutoff owner lambda n := by
+    simp [cutoffFactor, g8SourceCompressedPhysicalCutoff,
+      g8SourceCutoffPairData, g8CutoffPairData,
+      Source.Dev.C1Stage3ProjectionWindow.kernelSandwichPairData]
+  calc
+    _ = cutoffFactor.adjoint ∘L
+          ((g8MetricLeakageCoframe lambda family).adjoint ∘L
+            detectorOperator owner ∘L sourceInclusion lambda) ∘L cutoffFactor := by
+      rw [g8MetricCutoffLeakageSourceCrossOperator_eq_literal_sandwich]
+      apply ContinuousLinearMap.ext
+      intro x
+      rfl
+    _ = (g8SourceCompressedPhysicalCutoff owner lambda n).adjoint ∘L
+          (-(sourceBandGramResponse owner lambda family).adjoint) ∘L
+            g8SourceCompressedPhysicalCutoff owner lambda n := by
+      rw [hcutoffFactor,
+        g8MetricLeakageSourceCross_eq_neg_sourceBandGramResponse_adjoint]
+
 /-- A uniformly bounded strongly convergent family and its adjoints have a
 strongly convergent doubled product. -/
 theorem tendsto_comp_adjoint_apply_of_strong
@@ -292,27 +327,12 @@ theorem tendsto_ordinaryTraceAlong_g8MetricLeakageSourceCross_actualCutoff
     sourceBasis boundaryBasis pair cutoff limitCutoff
       (‖cc20GlobalLogConvolution owner.sourceTest.involution.test‖ ^ 2)
       (sq_nonneg _) hdouble_norm hdouble
-  have hC (n : ℕ) :
-      (sourceInclusion lambda).adjoint ∘L
-        (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left = cutoff n := by
-    simp [cutoff, g8SourceCompressedPhysicalCutoff, g8SourceCutoffPairData,
-      g8CutoffPairData, Source.Dev.C1Stage3ProjectionWindow.kernelSandwichPairData]
   have hchannel (n : ℕ) :
       g8MetricCutoffLeakageSourceCrossOperator owner lambda family
           globalBasis sourceBasis n =
         (cutoff n).adjoint ∘L pair.traceProduct ∘L cutoff n := by
-    calc
-      _ = ((sourceInclusion lambda).adjoint ∘L
-            (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left).adjoint ∘L
-          ((g8MetricLeakageCoframe lambda family).adjoint ∘L
-            detectorOperator owner ∘L sourceInclusion lambda) ∘L
-          ((sourceInclusion lambda).adjoint ∘L
-            (g8SourceCutoffPairData owner lambda family globalBasis sourceBasis n).left) := by
-        rw [g8MetricCutoffLeakageSourceCrossOperator_eq_literal_sandwich]
-        rfl
-      _ = (cutoff n).adjoint ∘L pair.traceProduct ∘L cutoff n := by
-        rw [hC n, g8MetricLeakageSourceCross_eq_neg_sourceBandGramResponse_adjoint,
-          ← hpair]
+    rw [g8MetricCutoffLeakageSourceCrossOperator_eq_sourceBandSandwich,
+      ← hpair]
   have htraceSequence :
       (fun n => ordinaryTraceAlong sourceBasis
         (g8MetricCutoffLeakageSourceCrossOperator owner lambda family
