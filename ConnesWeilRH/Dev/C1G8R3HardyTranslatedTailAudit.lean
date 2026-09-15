@@ -1,0 +1,21 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3HardyTranslatedTail
+
+namespace ConnesWeilRH
+namespace Dev
+namespace C1G8R3HardyTranslatedTailAudit
+
+#check cc20PositiveHalfLineProjection_globalLogTranslation_tendsto_zero
+#check cc20PositiveHalfLineProjection_globalLogTranslation_neg_eq_self_of_support
+#check sourceFourierSupportProjection_unit_globalLogTranslation_neg_tendsto_zero
+#print axioms cc20PositiveHalfLineProjection_globalLogTranslation_tendsto_zero
+#print axioms cc20PositiveHalfLineProjection_globalLogTranslation_neg_eq_self_of_support
+#print axioms sourceFourierSupportProjection_unit_globalLogTranslation_neg_tendsto_zero
+
+end C1G8R3HardyTranslatedTailAudit
+end Dev
+end ConnesWeilRH
