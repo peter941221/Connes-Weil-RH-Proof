@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3LeakageDoubledShift
+
+namespace ConnesWeilRH.Dev.C1G8R3LeakageDoubledShiftAudit
+
+#print axioms doubledShiftRadialClosedSubspace_eq_transportedHalfLineClosedRange
+#print axioms doubledShiftRadialProjection_eq_translatedHalfLineProjection
+#print axioms rootConvolution_comp_globalLogTranslation
+#print axioms sourceRootCompletedRightCommutatorLeftLeg_eq_translated_doubledShift_defect
+
+end ConnesWeilRH.Dev.C1G8R3LeakageDoubledShiftAudit

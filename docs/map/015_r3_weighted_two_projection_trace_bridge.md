@@ -1,9 +1,10 @@
 # 015 — R3 weighted two-projection trace bridge
 
 **Date:** 2026-09-14
-**Status:** new-math candidate; T1 closed-subspace transport is formal, the
-weighted trace bridge is unproved.  This record is supporting, not a route
-authority, and makes no RH claim.
+**Status:** new-math candidate; T1 closed-subspace transport and the actual
+angle-free strong power limit are formal, while the weighted trace bridge is
+unproved.  This record is supporting, not a route authority, and makes no RH
+claim.
 **Consumer:** the healthy-`CompactLog`, B5-shaped statement
 `0 <= C1SameOwnerWeil.qw g` for the same tower-selected detector.
 
@@ -39,6 +40,7 @@ the smoothing factors supplied by the positive convolution-square detector.
 ```text
 T1 subspace transport       FORMAL GREEN
 T1 projection transport     FORMAL GREEN
+T1 angle-free power limit   FORMAL GREEN
 T2 weighted trace bridge    OPEN, genuine new mathematics
 T3 basis witness             OPEN
 T4 G8 reconnect              OPEN
@@ -96,13 +98,15 @@ There are two equivalent search coordinates.
 ### 3.1 Alternating-projection coordinate
 
 The powers of the positive contraction `T_b` approach the intersection
-projection strongly:
+projection strongly without a uniform angle gap.  This is now formal for the
+actual `finiteSCarrier` in `C1G8R3PowerProjectionBridge.lean`, theorem
+`doubledShiftAlternatingProduct_tendsto_intersectionProjection_no_gap`:
 
 ```text
 T_b^n  ->  r_b.
 ```
 
-The required theorem is not operator-norm convergence.  It is the weighted
+The remaining theorem is not operator-norm convergence.  It is the weighted
 limit
 
 ```text
@@ -213,9 +217,10 @@ The first analytic transfer lemma is now formal in
 `C1G8R3WeightedStrongToHS.lean`: strong convergence of the endpoint operators
 on each detector-root column, a uniform operator-norm bound, and one
 Hilbert--Schmidt square-sum imply convergence of the weighted square energy.
-This does not assume operator-norm convergence or a Friedrichs-angle gap.  It
-does not yet provide the strong convergence of `T_b^n` to the intersection
-projection; that remains the genuinely spectral R3 obligation.
+This does not assume operator-norm convergence or a Friedrichs-angle gap.  The
+strong-convergence premise is now supplied by the no-gap bridge above; the
+remaining obligations are the exact detector-root square-sum and the
+same-owner trace/readback estimate.
 
 ## 5. Projection step before the trace step
 
@@ -346,10 +351,94 @@ T P = P,  P T = P,  P^2 = P,  ||T - P|| < rho < 1
 
 The proof is the exact identity `T^(n+1) - P = (T - P)^(n+1)` followed by
 the norm-power limit. This is not the R3 conclusion: the remaining target is
-the explicit defect-gap estimate `||T_b - r_b|| < 1`, together with the
-opposite product identity `r_b T_b = r_b`. These are now named obligations
-rather than hidden inside “alternating projections converge”.
+the explicit defect-gap estimate `||T_b - r_b|| < 1`. Record 1436 formally
+discharged the opposite product identity `r_b T_b = r_b` by taking the
+adjoint of the already-formal identity `T_b r_b = r_b`; it adds no spectral
+gap or trace estimate. The gap remains a named analytic obligation rather
+than a hidden assumption inside “alternating projections converge”.
 
 If a strict gap is false at moving scale, its failure is a typed obstruction
 to the geometric route and forces an angle-free spectral/weighted estimate.
 No trace classness, G8 readback, R3 sign, or RH conclusion is claimed.
+
+Record 1437 now formalizes the non-gap prerequisite on the actual carrier:
+the fixed vectors of `T_b = p_b q p_b` are exactly the doubled-shift Sonin
+intersection.  Its forward implication uses only projection absorption and
+the norm characterization of an orthogonal projection's range.  It does not
+give the von Neumann strong limit of the powers, a rate, or a trace estimate;
+the remaining endpoint theorem is therefore sharply separated from the
+already-closed fixed-space algebra.
+
+Record 1438 adds the first scalar energy ledger for the same operator. It
+proves contraction of every power, antitonicity of
+`n |-> ||(p_b q p_b)^n v||`, and convergence of that scalar sequence to its
+explicit infimum. This is a formal lower-data result, not the von Neumann
+strong limit: the vector endpoint and its equality with `r_b v` remain open.
+It also proves the exact Pythagorean drop on `Ran(p_b)`: one step loses the
+sum of the `q`-orthogonal defect of `v` and the `p`-orthogonal defect of
+`q v`. The remaining analytic task is to show that this cumulative defect
+loss exhausts the non-intersection component.
+
+Record 1439 proves the finite cumulative version exactly: the defect sum
+through stage `n` is `||v||^2 - ||T_b^n v||^2` for every radial input. This
+is the budget identity that an eventual infinite-stage strong-limit or
+spectral-measure argument must consume. The same audited leaf proves that
+each nonnegative defect term tends to zero by summability. The vector limit,
+identification with `r_b`, and any detector-weighted trace estimate remain
+open; the two component defect energies now also vanish separately by
+squeezing, which is only asymptotic regularity. Record 1440 adds the exact
+triangle bound from those two orthogonal residuals and proves the adjacent
+power iterates have norm difference tending to zero. This still supplies no
+Cauchy estimate or trace-class tail. Record 1441 now proves that any strong
+limit, if it exists, is exactly `r_b v`; only existence of the no-gap limit
+and the detector-weighted trace tail remain. Record 1442 supplies the
+Fejér-distance formulation of that existence problem: the orbit distance to
+each intersection vector is monotone with a named infimum endpoint. Its
+consumer theorem shows that a zero infimum for the intersection projection is
+already sufficient for strong convergence; the unresolved input is exactly
+the zero-infimum/exhaustion estimate.
+Record 1443 sharpens that estimate to the exact scalar identity relating the
+distance to `r_b v` and the norm-energy drop, so only the scalar endpoint
+equality and the detector-weighted trace tail remain.
+Record 1444 proves the automatic lower half of that equality:
+`||r_b v|| <= ciInf_n ||T_b^n v||`, by projection contractivity at every
+finite stage. The remaining scalar endpoint bone is therefore only the reverse
+inequality, equivalently exhaustion of the finite defect budget or zero Fejer
+distance to `r_b v`.
+Record 1445 closes the consumer side of that reverse inequality: convergence of
+the squared orbit norms to `||r_b v||^2` implies
+`ciInf_n ||T_b^n v|| <= ||r_b v||`. Thus the remaining analytic input is one
+named squared-norm exhaustion statement, with both scalar inequalities and the
+strong-limit consumer formal.
+Record 1446 lowers that input to the finite-defect ledger itself: the single
+`tsum` equality `sum'_k defect(T_b^k v) = ||v||^2 - ||r_b v||^2` implies the
+squared-norm exhaustion. The live R3 analytic bone is now exactly this
+defect-series equality (plus the separate detector-weighted trace tail).
+Record 1447 proves the converse as well: the defect-series equality is
+equivalent to the scalar endpoint equality `ciInf_n ||T_b^n v|| = ||r_b v||`.
+Thus the no-gap strong-limit obstruction has one exact scalar formulation; no
+second hidden endpoint estimate remains.
+Record 1448 closes the endpoint consumer itself conditionally: the same
+defect-series equality is equivalent to strong convergence `T_b^n v -> r_b v`.
+Record 1450 then proves the missing no-gap existence theorem directly from
+self-adjointness, contraction, and asymptotic regularity: the range of `T-I`
+is dense in the fixed-space complement, and telescoping kills that dense
+range. The explicit defect-series exhaustion is therefore no longer a live
+existence premise for the actual operator. The remaining R3 analysis is the
+detector-root square-sum and the separate same-owner detector-weighted trace
+tail.
+Record 1449 wires this endpoint into the existing strong-to-Hilbert–Schmidt
+transfer: columnwise defect exhaustion plus a square-summable detector factor
+implies the weighted square energy tends to zero. The remaining trace issue is
+now only the actual columnwise exhaustion and the same-basis trace/readback.
+Record 1451 makes the first exact factor split concrete. The raw selected
+convolution root is not an HS factor on the whole-line multiplier carrier; the
+unit-scale `sourceRootCompletedRangeLeftLeg` is the legal source-owned factor.
+Its column square-sum and its no-gap weighted energy limit are formal. This is
+only one of the independent root legs: the band-minus-prolate leakage leg and
+the common-right finite-Euler leg remain open, as does the same-basis signed
+trace witness. Record 1452 gives the leakage leg an exact same-carrier normal
+form: the source root leakage is the selected root conjugated against the
+doubled-shift projection defect `p_b - T_b`, where `T_b = p_b * q_1 * p_b`.
+This is a structural identity only; the defect estimate and the common-right
+leg remain open.

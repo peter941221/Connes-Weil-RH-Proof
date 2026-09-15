@@ -44,8 +44,52 @@ traceability.
 |        |                       | formal; trace bridge remains OPEN          |
 | 015    | Supporting            | R3 weighted two-projection trace bridge:   |
 |        |                       | angle-free detector-weighted endpoint      |
-|        |                       | calculus; 1435 adds a conditional power/   |
-|        |                       | projection gap bridge; trace estimate OPEN |
+|        |                       | calculus; 1435/1436 close the algebraic    |
+|        |                       | power bridge; 1439--1449 close the scalar  |
+|        |                       | defect, Fejér, energy, and conditional-limit|
+|        |                       | ledgers; 1450 closes no-gap existence;    |
+|        |                       | trace estimate OPEN                        |
+| 016    | Supporting            | R3 endpoint spectral-measure audit: 015's |
+|        |                       | weighted endpoint target is clarified;     |
+|        |                       | fixed-space and strong-limit formal;       |
+|        |                       | spectral/trace closure remains open       |
+| 017    | Supporting            | R3 no-gap alternating-power limit:        |
+|        |                       | actual strong convergence formal on       |
+|        |                       | finiteSCarrier; trace/readback still open |
+| 018    | Supporting            | R3 unit-scale detector-root square-sum:  |
+|        |                       | prolate-range leg formal; leakage/common  |
+|        |                       | leg and trace/readback remain open        |
+| 019    | Supporting            | R3 leakage doubled-shift normal form:    |
+|        |                       | exact same-carrier projection-defect     |
+|        |                       | identity; estimate/trace/readback open   |
+| 020    | Supporting            | R3 leakage defect order: positive        |
+|        |                       | complementary-Fourier contraction and    |
+|        |                       | exact quadratic energy; trace still open |
+| 021    | Supporting            | R3 leakage defect telescoping: adjacent  |
+|        |                       | alternating-power difference; HS/trace   |
+|        |                       | estimate still open                       |
+| 022    | Supporting            | R3 common-right telescope; signed paired  |
+|        |                       | corner trace formal; single-leg HS and    |
+|        |                       | G8 transport still open                   |
+| 023    | Supporting            | R3 leakage root pointwise decay; basis    |
+|        |                       | energy/trace upgrade still open           |
+| 024    | Supporting            | R3 source leakage translated pointwise    |
+|        |                       | decay; energy/trace and G8 transport open |
+| 025    | Supporting            | R3 prolate relative-motion normal form:  |
+|        |                       | exact moving-scale factor conjugacy;     |
+|        |                       | relative-factor HS estimate still open   |
+| 026    | Supporting            | R3 relative defect crossing: exact       |
+|        |                       | defect cancellation and shifted Hardy    |
+|        |                       | translation formal; HS/trace bridge open |
+| 027    | Supporting            | R3 shifted Hardy kernel reduction:       |
+|        |                       | shifted-factor standard-model conjugacy  |
+|        |                       | and exact norm equality, conditional HS  |
+|        |                       | interface, zero-shift anchor, additive   |
+|        |                       | transport, bundled dilation, and scaled |
+|        |                       | kernel readback green; full-carrier      |
+|        |                       | actual/model equality and interior HS   |
+|        |                       | transfer green; strict angle and trace  |
+|        |                       | remain open                             |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -136,7 +180,126 @@ open. This is a supporting candidate, not a completed R3 producer and not an
 RH claim. `015` records the next attack coordinate: use
 alternating projections or a resolvent at the intersection spectral endpoint,
 with detector smoothing supplying the trace-class weight. A uniform
-Friedrichs-angle gap is explicitly not assumed.
+Friedrichs-angle gap is explicitly not assumed. Records 1439--1449 now close
+the finite defect budget and prove asymptotic regularity of the alternating
+powers, and identify any strong limit conditionally with the intersection
+projection. They also reduce no-gap existence to the named Fejér endpoint
+exhaustion condition, and 1443--1446 rewrite it as a scalar norm endpoint
+equality with both inequality consumers formal; 1446--1448 show that the
+remaining premise is exactly one defect-series exhaustion equality equivalent
+to strong convergence; 1449 wires it to the detector HS-energy consumer.
+Record 1450 then closes actual no-gap strong convergence by the self-adjoint
+dense-range argument, without a Friedrichs gap. The exact detector-root
+square-sum, same-basis trace witness, and G8 readback reconnection remain
+open. Record 1451 closes the unit-scale prolate-range leg of that square-sum
+using the existing fixed-source prolate Hilbert--Schmidt theorem and wires its
+columns directly into the no-gap energy limit. It does not control the
+independent band-minus-prolate leakage leg or the common-right finite-Euler
+leg; those are the live detector-weighted trace obligations. Record 1452 now
+puts the leakage leg into an exact doubled-shift normal form on the same
+carrier: the source root leakage is the selected root conjugated against
+`p_b - T_b`, where `T_b = p_b * q_1 * p_b`. This is a formal structural
+identity only; it supplies no Hilbert--Schmidt or trace estimate and leaves the
+common-right leg and G8 readback open.
+
+Record 1453 proves the next order-theoretic brick for that same defect.  It
+identifies `p_b - T_b` with the complementary-Fourier compression
+`p_b * (1-q_1) * p_b`, then with an adjoint-square.  Hence the defect is
+positive, bounded above by `p_b` and by the identity, contractive in norm, and
+has an exact complementary-leakage quadratic form.  The leaf also gives the
+corresponding bounded postcomposition square-sum inequality for the named
+unit-scale range leg.  This is still not the missing estimate for `C_g D_b`:
+boundedness is not Hilbert--Schmidt smoothing, and the common-right leg and
+same-basis G8 readback remain open.  See [020](020_r3_leakage_defect_positive_contraction.md)
+and [1453](../proofs/1453_r3_leakage_defect_positive_contraction.md).
+
+Record 1454 now closes the next algebraic bridge.  For the first positive
+alternating powers, the doubled-shift radial projection is absorbed on both
+sides, so the static defect `p_b - T_b` is exactly the adjacent power
+difference `T_b^(n+1) - T_b^(n+2)`.  This connects the leakage normal form to
+the existing step-energy and strong-limit ledger.  It remains only a
+telescoping identity: the selected root applied to those differences is not
+yet shown Hilbert--Schmidt, the source translation conjugation is retained,
+and the common-right/G8 obligations remain open.  See
+[021](021_r3_leakage_defect_telescoping.md) and
+[1454](../proofs/1454_r3_leakage_defect_telescoping.md).
+
+Record 1455 now opens the second independent R3 leg at its actual arithmetic
+interface.  The centered normalized finite Euler inverse is exactly a finite
+telescoping sum of prefixed one-prime translation coboundaries.  After the
+source Sonin and band projections are restored, the common-right leg is the
+selected root applied to that finite list on the same carrier.  This removes
+the identity mass and exposes the visible-prime terms, but it is still only
+an operator identity: finiteness of the list does not give global HS or trace
+control.  See [022](022_r3_common_right_causal_telescope.md) and
+[1455](../proofs/1455_r3_common_right_causal_telescope.md).
+
+Record 1456 closes the correct signed interface for that leg.  The telescope
+is paired with the left root to form the complete finite-Euler corner, and the
+existing physical three-branch owner proves trace-classness for that paired
+operator under the source prolate square-sum hypothesis.  This does not prove
+Hilbert--Schmidt control of the common-right leg in isolation.  The remaining
+live obligations are the leakage root-side estimate and the cutoff/source
+transport that identifies the paired trace with the same-owner G8 readback.
+See [1456](../proofs/1456_r3_signed_common_right_trace_bridge.md).
+
+Record 1457 consumes the actual no-gap strong limit and the 1454 defect
+telescoping identity.  It proves pointwise decay after the selected root for
+every adjacent alternating-power defect step on every carrier vector.  This
+is a genuine root-side leakage consequence, but pointwise decay is not a
+same-basis square-sum or trace-class estimate.  The next live target is the
+energy/kernel upgrade together with the existing G8 cutoff transport.  See
+[023](023_r3_leakage_root_pointwise_decay.md) and
+[1457](../proofs/1457_r3_leakage_root_pointwise_decay.md).
+
+Record 1458 transports that pointwise result through the exact translation
+conjugation of the actual source leakage owner.  Thus the source-side
+leakage itself vanishes on the translated alternating-power steps.  The
+result is still pointwise: it does not provide a uniform rate, a basis
+square-sum, an HS/trace estimate, or the cutoff/source transport needed by
+the G8 readback.  See [024](024_r3_source_leakage_translated_decay.md) and
+[1458](../proofs/1458_r3_source_leakage_translated_decay.md).
+
+ Record 1459 fixes the moving-scale prolate coordinate.  The source factor is
+exactly a global-log conjugate of the relative-motion factor
+`Q_0 * (p_b - r_b)`, and bounded ideal calculus proves named-basis
+square-summability in one coordinate if and only if it holds in the other.
+This does not transfer the unit-scale strict-angle theorem to nonzero `b`:
+the relative-motion factor still needs its own square-sum or positive-trace
+estimate.  See [025](025_r3_prolate_relative_normal_form.md) and
+[1459](../proofs/1459_r3_prolate_relative_normal_form.md).
+
+Record 1460 makes the next relative-motion obstruction explicit.  The
+defect factor is exactly the raw support crossing
+`(1 - p_b) * Q_0 * p_b`, and after the fixed radial translation the associated
+Hardy crossing is the negative compressed window
+`-M * K_b * M * K_b * P`, where `K_b = T_(2b) * H`, `P` is the positive
+half-line projection, and `M = 1 - P`.  The radial conjugacy, unit Fourier/
+Hardy conjugacy, the window identity, and the full translation bridge are now
+machine-checked with the standard axiom set.  The bridge is proved by
+vector-level rewriting to avoid the old large-operator kernel timeout.  The
+relative HS estimate, positive trace, G8 readback, R3 positivity, and RH
+conclusion remain open.  See
+[026](026_r3_relative_defect_crossing.md) and
+[1460](../proofs/1460_r3_relative_defect_crossing.md) and
+[1461](../proofs/1461_r3_shifted_hardy_translation_bridge.md).
+
+Record 1462 reduces the shifted relative crossing to the compact interior
+Hardy compression and supplies the conditional Hilbert--Schmidt interface.
+The zero-scale anchor and the exact additive-carrier transport are formal.
+The scaled compact kernel is formally read back on the Schwartz core, and
+record 1468 additionally proves the exact bundled even-Schwartz dilation
+transport with its `exp b` half-density and `exp (2*b)` argument factor.
+Record 1470 identifies the transported literal operator with that model on
+the bundled bump-Schwartz core, and record 1473 extends the equality to the
+full healthy even additive carrier using interval density plus the projection
+image.  Record 1475 transfers the compact-kernel square-sum to the actual
+interior compression.  The latest audit proves exact unitary conjugacy of the
+shifted relative factor to its standard prolate model and equality of their
+operator norms; the strict norm bound itself, trace bridge, and G8 readback
+remain open.  See
+[027](027_r3_shifted_hardy_kernel_reduction.md) and
+[1462](../proofs/1462_r3_shifted_hardy_kernel_reduction.md).
 
 ## Mandatory preflight
 
@@ -187,6 +350,46 @@ numerical investigation, use this layered check:
    checks: the output must be `G8SameOwnerReadbackData` for the canonical
    owner of the selected detector, and the analytic producer may not assume
    healthy-detector data, any `qw` sign, `SourceRH`, or an all-tests gate.
+10. Read [`016`](016_r3_endpoint_spectral_measure_audit.md) before proposing
+    a spectral-gap, resolvent, Hankel, or prolate-asymptotic solution of the
+    R3 endpoint. It records which formulations are already registered and the
+    paper test that distinguishes a new theorem from a renaming of the
+    existing column-energy gate.
+11. Read [`017`](017_r3_no_gap_alternating_power_limit.md) before consuming
+    the actual no-gap power limit. It records the formal dense-range proof and
+    the remaining detector-root/trace obligations; strong convergence is not
+    a trace-class or Weil-sign conclusion.
+12. Read [`018`](018_r3_unit_detector_root_square_sum.md) before treating any
+    detector root as Hilbert--Schmidt. It records the one unit-scale
+    prolate-range leg that is formal and the independent leakage/common-right
+    legs that remain open.
+13. Read [`019`](019_r3_leakage_doubled_shift_normal_form.md) before estimating
+    the source leakage leg. It fixes the exact same-carrier defect
+    `p_b - T_b`; the normal form is not itself an HS, trace, or positivity
+    theorem.
+14. Read [`020`](020_r3_leakage_defect_positive_contraction.md) before using
+    the defect in an energy or trace estimate. It supplies positivity and
+    contraction, but does not turn the selected root times the defect into an
+    HS operator.
+15. Read [`021`](021_r3_leakage_defect_telescoping.md) before consuming the
+    defect through alternating powers. It identifies the defect with an
+    adjacent power difference, but does not supply the root-side HS estimate.
+16. Read [`022`](022_r3_common_right_causal_telescope.md) before estimating
+    the common-right finite-Euler leg. It exposes the finite visible-prime
+    coboundaries and the signed paired trace interface; it does not make the
+    individual root-applied terms HS or close the G8 transport.
+17. Read [023](023_r3_leakage_root_pointwise_decay.md) before consuming the
+    root-side leakage decay. It supplies
+    pointwise vanishing of the rooted defect steps, but not a basis
+    square-sum, trace-class estimate, or G8 readback.
+18. Read [024](024_r3_source_leakage_translated_decay.md) before consuming
+    the source-side translated leakage decay. It transports the pointwise
+    result to the actual source owner, but still supplies no energy,
+    trace-class estimate, or G8 readback.
+19. Read [025](025_r3_prolate_relative_normal_form.md) before estimating the
+    moving-scale source prolate factor. It identifies the exact relative-
+    motion factor and the HS summability equivalence, but does not supply
+    the nonzero-scale estimate itself.
 
 The new work must name its healthy-`CompactLog`, B5-shaped consumer; otherwise
 it is out of scope and must not start. An `011` milestone is exempt from that
@@ -723,6 +926,58 @@ Read the current records in this order for a full-map review:
     this register - tower, equivalence, dictionary identity, blindness
     bundle, all standard-axiom - is ready to receive and machine-check. RH
     not claimed.
+43. [016 - R3 endpoint spectral-measure audit](016_r3_endpoint_spectral_measure_audit.md)
+    — clarification of map 015's existing detector-weighted endpoint target.
+    It opens no additional route: a proposed spectral-measure theorem must be
+    compared against the already-named full-carrier antiresonant column-energy
+    gate before any candidate can be promoted.
+44. [017 - R3 no-gap alternating-power limit](017_r3_no_gap_alternating_power_limit.md)
+    — formal dense-range proof of strong convergence on the actual carrier,
+    without a uniform spectral gap; trace/readback remains open.
+45. [018 - R3 unit-scale detector-root square-sum partial closure](018_r3_unit_detector_root_square_sum.md)
+    — the unit-scale prolate-range root leg is formally square-summable and
+    feeds the strong-limit energy consumer; the leakage/common-right legs and
+    trace/readback remain open.
+46. [019 - R3 leakage doubled-shift normal form](019_r3_leakage_doubled_shift_normal_form.md)
+    — the source leakage leg is exactly the selected root conjugated against
+    the doubled-shift projection defect `p_b - T_b`; its estimate, the
+    common-right leg, and trace/readback remain open.
+47. [020 - R3 leakage defect positive contraction](020_r3_leakage_defect_positive_contraction.md)
+    — the defect is a positive contraction with an exact complementary-
+    Fourier quadratic form; boundedness does not supply HS smoothing.
+48. [021 - R3 leakage defect telescoping](021_r3_leakage_defect_telescoping.md)
+    — the defect is the adjacent alternating-power difference after the first
+    step on either side; the root-side estimate and trace/readback remain open.
+49. [022 - R3 common-right causal telescope](022_r3_common_right_causal_telescope.md)
+    — the centered finite-Euler inverse is a finite prefixed translation-
+    coboundary telescope; the signed paired corner is trace-class under the
+    physical factor hypothesis, while single-leg HS and G8 transport remain
+    open.  Record [1456](../proofs/1456_r3_signed_common_right_trace_bridge.md)
+    is the interface update.
+50. [023 - R3 leakage root pointwise decay](023_r3_leakage_root_pointwise_decay.md)
+    — the selected root sends every adjacent alternating-power defect step to
+    zero on each carrier vector; basis energy, trace, and G8 readback remain
+    open.  See [1457](../proofs/1457_r3_leakage_root_pointwise_decay.md).
+51. [024 - R3 source leakage translated pointwise decay](024_r3_source_leakage_translated_decay.md)
+52. [025 - R3 prolate relative-motion normal form](025_r3_prolate_relative_normal_form.md)
+     — the actual source leakage owner inherits the pointwise decay after its
+     exact translation conjugation; energy, trace, and G8 readback remain
+     open.  See [1458](../proofs/1458_r3_source_leakage_translated_decay.md).
+53. [026 - R3 relative defect crossing](026_r3_relative_defect_crossing.md)
+     — the relative defect reduces exactly to a raw support crossing and an
+     explicit shifted Hardy window; the translation bridge is formal, while
+     the HS/trace estimate remains open.  See
+     [1460](../proofs/1460_r3_relative_defect_crossing.md) and
+     [1461](../proofs/1461_r3_shifted_hardy_translation_bridge.md).
+54. [027 - R3 shifted Hardy kernel reduction](027_r3_shifted_hardy_kernel_reduction.md)
+     — the shifted raw crossing is reduced to an interior Hardy compression;
+     bounded translation transport and the exact relative defect identity give
+     a conditional HS interface.  The actual shifted factor's standard-model
+     conjugacy and exact norm equality, additive carrier transport, and the
+     Schwartz-core model-kernel readback, bundled bump-Schwartz actual/model
+     equality, its full-carrier extension, and interior HS transfer are formal;
+     strict relative-angle bound and trace bridge remain open.  See
+     [1462](../proofs/1462_r3_shifted_hardy_kernel_reduction.md).
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).

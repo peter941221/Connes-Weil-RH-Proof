@@ -1,0 +1,27 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3ProlateRelativeNormalForm
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check doubledShiftProlateHilbertSchmidtFactor
+#print axioms doubledShiftProlateHilbertSchmidtFactor
+#check sourceRadialProjection_eq_translated_doubledShift
+#print axioms sourceRadialProjection_eq_translated_doubledShift
+#check sourceSoninProjection_eq_translated_intersectionProjection
+#print axioms sourceSoninProjection_eq_translated_intersectionProjection
+#check sourceProlateHilbertSchmidtFactor_eq_translated_relativeFactor
+#print axioms sourceProlateHilbertSchmidtFactor_eq_translated_relativeFactor
+#check sourceProlateHilbertSchmidtFactor_summable_of_relativeFactor
+#print axioms sourceProlateHilbertSchmidtFactor_summable_of_relativeFactor
+#check relativeFactor_summable_of_sourceProlateHilbertSchmidtFactor
+#print axioms relativeFactor_summable_of_sourceProlateHilbertSchmidtFactor
+#check sourceProlateHilbertSchmidtFactor_summable_iff_relativeFactor
+#print axioms sourceProlateHilbertSchmidtFactor_summable_iff_relativeFactor
+
+end Dev
+end ConnesWeilRH

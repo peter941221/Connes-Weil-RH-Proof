@@ -1,0 +1,23 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3LeakageDefectTelescoping
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check doubledShiftRadialProjection_comp_doubledShiftAlternatingProduct_pow_succ
+#print axioms doubledShiftRadialProjection_comp_doubledShiftAlternatingProduct_pow_succ
+#check doubledShiftRadialProjection_sub_alternatingProduct_comp_pow_succ
+#print axioms doubledShiftRadialProjection_sub_alternatingProduct_comp_pow_succ
+#check doubledShiftAlternatingProduct_pow_succ_comp_radialProjection
+#print axioms doubledShiftAlternatingProduct_pow_succ_comp_radialProjection
+#check doubledShiftAlternatingProduct_pow_succ_comp_sub_defect
+#print axioms doubledShiftAlternatingProduct_pow_succ_comp_sub_defect
+#check doubledShiftRadialProjection_sub_alternatingProduct_apply_pow_succ_eq_step
+#print axioms doubledShiftRadialProjection_sub_alternatingProduct_apply_pow_succ_eq_step
+
+end Dev
+end ConnesWeilRH

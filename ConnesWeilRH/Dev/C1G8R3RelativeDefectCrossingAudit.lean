@@ -1,0 +1,27 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3RelativeDefectCrossing
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check doubledShiftProlateDefectFactor
+#check doubledShiftRawSupportCrossing
+#check doubledShiftHardyRawSupportCrossing
+#check doubledShiftProlateDefectFactor_eq_rawSupportCrossing
+#check doubledShiftRawSupportCrossing_eq_negative_shiftedHardyWindow
+#check doubledShiftRawSupportCrossing_conjugate_eq_shiftedHardyCrossing
+#check doubledShiftRadialProjection_conjugate
+#check sourceFourierSupportProjection_unit_eq_hardy_conjugation
+
+#print axioms doubledShiftProlateDefectFactor_eq_rawSupportCrossing
+#print axioms doubledShiftRawSupportCrossing_eq_negative_shiftedHardyWindow
+#print axioms doubledShiftRawSupportCrossing_conjugate_eq_shiftedHardyCrossing
+#print axioms doubledShiftRadialProjection_conjugate
+#print axioms sourceFourierSupportProjection_unit_eq_hardy_conjugation
+
+end Dev
+end ConnesWeilRH

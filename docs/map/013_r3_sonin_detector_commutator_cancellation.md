@@ -315,5 +315,6 @@ project's basis-compatible trace witness. No R3 or RH result is claimed.
 
 The power-limit subproblem is now separately typed. Batch 1435 supplies an
 abstract projection-gap bridge and the concrete doubled-shift intersection
-projection. It does not close SC2–SC4: the defect bound is still open, and
-the signed source remainder remains the actual R3 bottleneck.
+projection; record 1436 discharges its second-sided fixing identity by
+self-adjointness. It does not close SC2–SC4: the defect bound is still open,
+and the signed source remainder remains the actual R3 bottleneck.

@@ -1,0 +1,21 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3DetectorRootSquareSum
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check sourceRootCompletedRangeLeftLeg_unit_summable
+#print axioms sourceRootCompletedRangeLeftLeg_unit_summable
+#check sourceRootCompletedRangeLeftLeg_unit_basisEnergy_le
+#print axioms sourceRootCompletedRangeLeftLeg_unit_basisEnergy_le
+#check doubledShiftAlternatingProduct_weighted_hs_energy_tendsto_zero_of_strong_limit
+#print axioms doubledShiftAlternatingProduct_weighted_hs_energy_tendsto_zero_of_strong_limit
+#check sourceRootCompletedRangeLeftLeg_unit_weighted_hs_energy_tendsto_zero
+#print axioms sourceRootCompletedRangeLeftLeg_unit_weighted_hs_energy_tendsto_zero
+
+end Dev
+end ConnesWeilRH

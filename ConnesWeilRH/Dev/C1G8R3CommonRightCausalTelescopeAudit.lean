@@ -1,0 +1,21 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3CommonRightCausalTelescope
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check normalizedFiniteEulerInverseList_coboundaryTelescope
+#print axioms normalizedFiniteEulerInverseList_coboundaryTelescope
+#check normalizedFiniteEulerInverseList_nil_eq_id
+#print axioms normalizedFiniteEulerInverseList_nil_eq_id
+#check normalizedFiniteEulerInverseList_sub_id_eq_coboundaryTelescope
+#print axioms normalizedFiniteEulerInverseList_sub_id_eq_coboundaryTelescope
+#check sourceRootCompletedFiniteEulerCommonRightLeg_eq_coboundaryTelescope
+#print axioms sourceRootCompletedFiniteEulerCommonRightLeg_eq_coboundaryTelescope
+
+end Dev
+end ConnesWeilRH

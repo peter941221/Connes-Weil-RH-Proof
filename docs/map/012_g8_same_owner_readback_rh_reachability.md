@@ -444,6 +444,10 @@ proves that strong convergence on every detector-root column, together with
 uniform contraction bounds and one Hilbert--Schmidt square-sum, forces the
 weighted square energy to converge to zero.  This removes one false choice:
 R3 does not need operator-norm convergence if the detector root supplies the
-Hilbert--Schmidt weight.  The missing spectral theorem is now explicit:
+Hilbert--Schmidt weight. Record 1436 also discharges the second-sided fixing
+identity of the intersection projection. The missing strong-limit theorem is
+the classical no-gap alternating-projection theorem on the actual carrier:
 prove strong convergence of `(p_b q p_b)^n` to the intersection projection.
-The transfer lemma itself is lower-data only; R3 and RH remain open.
+It is open as a Lean/formalization and source-API task, not a license to
+assume a spectral gap. The transfer lemma itself is lower-data only; R3 and RH
+remain open.
