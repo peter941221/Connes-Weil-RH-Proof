@@ -1,0 +1,15 @@
+/-
+Copyright (c) 2026 Connes-WeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3ActualCutoffSurvivorBoundaryTraceLimit
+
+open ConnesWeilRH.Dev
+
+#check @g8MetricSurvivorBoundaryFixedPairData_traceProduct_eq
+#print axioms g8MetricSurvivorBoundaryFixedPairData_traceProduct_eq
+#check @tendsto_ordinaryTraceAlong_g8MetricSurvivorVisibleBoundary_actualCutoff
+#print axioms tendsto_ordinaryTraceAlong_g8MetricSurvivorVisibleBoundary_actualCutoff
+#check @tendsto_ordinaryTraceAlong_g8MetricPairedSurvivorBoundary_actualCutoff
+#print axioms tendsto_ordinaryTraceAlong_g8MetricPairedSurvivorBoundary_actualCutoff

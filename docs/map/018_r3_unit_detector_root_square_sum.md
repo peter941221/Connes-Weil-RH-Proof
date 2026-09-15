@@ -76,3 +76,10 @@ positive contraction and gives its exact complementary-leakage energy, but
 does not supply HS smoothing for the selected root times the defect.  A proof
 that simply declares the raw convolution root Hilbert--Schmidt is rejected by
 this record.
+
+Record 1484 formally factors each actual-cutoff G8 diagonal channel as the
+positive square of its selected detector-root/coframe/cutoff leg and reads its
+ordinary trace as the same-basis column-energy sum. This identifies the
+uniform square-sum/convergence required by the two diagonal limits; it does
+not supply that estimate. The survivor/boundary mixed trace limit is formal
+in record 1483, but does not imply either diagonal bound.

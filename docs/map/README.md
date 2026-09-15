@@ -124,7 +124,14 @@ traceability.
 |        |                       | coframe channels and readback stay open |
 | 037    | Supporting            | R3 survivor/boundary mixed channels are |
 |        |                       | adjoints at finite cutoff; their trace  |
-|        |                       | limit and full readback remain open     |
+|        |                       | limit is formal; full readback remains  |
+|        |                       | open                                    |
+| 038    | Supporting            | R3 actual-cutoff survivor/boundary      |
+|        |                       | mixed-channel trace limit formal;      |
+|        |                       | diagonal channels and full readback open|
+| 039    | Supporting            | R3 actual-cutoff diagonal channels have |
+|        |                       | formal detector-root energy identities;|
+|        |                       | their limits and full readback are open|
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -1117,9 +1124,22 @@ Read the current records in this order for a full-map review:
     [1481](../proofs/1481_r3_actual_cutoff_paired_cross_trace_limit.md).
 64. [037 - R3 actual-cutoff survivor/boundary channel pairing](037_r3_actual_cutoff_survivor_boundary_pair.md)
     — the two survivor/boundary mixed channels are adjoints at every finite
-    cutoff, reducing their trace sum to one real sequence. Its limit, the two
-    diagonal channel limits, and full trace-to-`qw` readback remain open. See
+    cutoff, reducing their trace sum to one real sequence. The mixed-pair
+    limit is formal; the two diagonal limits and full trace-to-`qw` readback
+    remain open. See
     [1482](../proofs/1482_r3_actual_cutoff_survivor_boundary_pair.md).
+65. [038 - R3 actual-cutoff survivor/boundary trace limit](038_r3_actual_cutoff_survivor_boundary_trace_limit.md)
+    — proved the actual-cutoff ordinary-trace limit for the ordered mixed
+    channel and its real adjoint pair on the same selected detector owner. The
+    diagonal channels, total four-channel readback, signed remainder decay,
+    endpoint/P2 sign obligations, and `qw` identification remain open. See
+    [1483](../proofs/1483_r3_actual_cutoff_survivor_boundary_trace_limit.md).
+66. [039 - R3 actual-cutoff diagonal detector-root energy](039_r3_actual_cutoff_diagonal_root_energy.md)
+    — both diagonal channels are exact positive squares at finite cutoff, and
+    their ordinary traces equal the selected detector-root column-energy
+    sums on the named source basis. Uniform bounds, diagonal limits, and the
+    total G8 readback remain open. See
+    [1484](../proofs/1484_r3_actual_cutoff_diagonal_root_energy.md).
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
