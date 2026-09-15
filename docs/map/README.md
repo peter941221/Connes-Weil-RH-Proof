@@ -62,8 +62,9 @@ traceability.
 |        |                       | prolate-range leg and translated-test     |
 |        |                       | leakage obstruction/source projection   |
 |        |                       | decay formal; boundary prolate pullback  |
-|        |                       | zero; G8 diagonal legs/readback open     |
-|        |                       | remain open                              |
+|        |                       | zero; finite boundary-output reduction   |
+|        |                       | wired into trace consumer; individual   |
+|        |                       | rooted outputs/G8 readback remain open  |
 | 019    | Supporting            | R3 leakage doubled-shift normal form:    |
 |        |                       | exact same-carrier projection-defect     |
 |        |                       | identity; estimate/trace/readback open   |
@@ -1037,8 +1038,9 @@ Read the current records in this order for a full-map review:
     formal non-summable orthonormal orbit, while its source-compressed G8
     projection tends to zero, so normalization does not transfer that lower
     bound. The existing boundary energy input is also a formally zero
-    prolate pullback; actual G8 diagonal energies and trace/readback remain
-    open.
+    prolate pullback. The aggregate boundary energy reduces to finitely many
+    rooted output energies and now feeds the trace consumer, but those output
+    estimates, actual G8 diagonal energies, and trace/readback remain open.
 46. [019 - R3 leakage doubled-shift normal form](019_r3_leakage_doubled_shift_normal_form.md)
     — the source leakage leg is exactly the selected root conjugated against
     the doubled-shift projection defect `p_b - T_b`; its estimate, the

@@ -116,3 +116,12 @@ annihilated by the source-Sonin inclusion. The lemma therefore supplies no
 bound for the actual `hBoundary` columns. This does not refute `hBoundary`;
 that genuine same-basis root/coframe estimate remains open. See
 [proof record 1491](../proofs/1491_g8_source_prolate_pullback_zero.md).
+
+Record 1492 formally splits the aggregate G8 boundary root energy through the
+finite visible-prime Schur--polar outputs: square-summability of each rooted
+output on the same source basis implies `hBoundary`. Record 1493 wires this
+condition into the actual four-channel physical metric trace-limit consumer.
+Neither record estimates the individual rooted outputs, so the actual
+boundary energy and unconditional trace limit remain open. See [proof record
+1492](../proofs/1492_g8_boundary_energy_finite_output_reduction.md) and
+[proof record 1493](../proofs/1493_g8_boundary_output_trace_consumer.md).

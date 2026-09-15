@@ -685,3 +685,22 @@ summability result is valid but vacuous as evidence for the actual
 same-basis `hBoundary` condition. It does not refute `hBoundary`; a nonzero
 root/coframe estimate is still open. See
 [proof record 1491](../proofs/1491_g8_source_prolate_pullback_zero.md).
+
+### R3-F20 finite visible-prime boundary-energy reduction (record 1492, 2026-09-16)
+
+The actual aggregate `hBoundary` is the selected root convolution applied to
+the exact finite Schur--polar sum of visible-prime boundary outputs. Lean now
+proves that if each rooted output has square-summable columns on the same
+source basis, then their finite sum satisfies `hBoundary`. This isolates the
+remaining producer work to the individual rooted boundary outputs; it does
+not estimate any of them. See
+[proof record 1492](../proofs/1492_g8_boundary_energy_finite_output_reduction.md).
+
+### R3-F21 per-output boundary energies wired into the trace consumer (record 1493, 2026-09-16)
+
+The per-output sufficient condition now feeds the actual four-channel G8
+physical metric trace-limit theorem. The survivor diagonal energy remains a
+premise, while the mixed survivor/boundary limit stays formal. Individual
+rooted boundary-output estimates, the unconditional trace limit, signed
+readback, and detector-specific positivity remain open. See
+[proof record 1493](../proofs/1493_g8_boundary_output_trace_consumer.md).
