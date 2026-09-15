@@ -1,12 +1,12 @@
 # 014 — R3 doubled-shift Sonin transport and the moving-scale trace bridge
 
-**Date:** 2026-09-14
+**Date:** 2026-09-15
 **Status:** supporting route candidate; unit-scale base, T1 closed-subspace
-transport, and T1 projection transport are formal; the moving-scale trace
-bridge remains OPEN.
+transport, T1 projection transport, and actual source-side moving-scale
+commutator trace legality are FORMAL; G8 cutoff transport/readback remain OPEN.
 **Consumer:** the healthy-CompactLog, B5-shaped statement “0 <= C1SameOwnerWeil.qw g” for the exact tower-selected detector, followed by the existing same-detector contradiction and SourceRH wrapper.
 
-This record refines [012](012_g8_same_owner_readback_rh_reachability.md) and [013](013_r3_sonin_detector_commutator_cancellation.md). It is not a new route authority, does not reopen B1, and does not claim RH. It states the next new mathematics after the half-line model and the fixed unit-scale trace theorem have both been checked.
+This record refines [012](012_g8_same_owner_readback_rh_reachability.md) and [013](013_r3_sonin_detector_commutator_cancellation.md). It is not a new route authority, does not reopen B1, and does not claim RH. The source-side moving-scale trace witness is now formal; the remaining work is the cutoff/readback connection.
 
 ## 1. Review verdict
 
@@ -27,8 +27,8 @@ Current status:
     unit-scale coupled trace legality     FORMAL PASS
     T1 closed-subspace transport         FORMAL PASS
     T1 projection transport              FORMAL PASS
-    moving-scale Sonin transport         OPEN
-    basis-compatible trace witness        OPEN
+    moving-scale source commutator        FORMAL TRACE LEGALITY
+    source same-basis trace witness       FORMAL
     G8 cutoff/readback identification     OPEN
     R3                                   OPEN
     RH                                  not claimed
@@ -65,7 +65,12 @@ Evidence locations:
 - [C1G8R3DoubledShiftSoninTransport.lean](../../ConnesWeilRH/Dev/C1G8R3DoubledShiftSoninTransport.lean)
 - [1430 T1 verification record](../proofs/1430_r3_doubled_shift_sonin_transport_t1.md)
 
-The unit theorem is a real advance over the original paper model, but its source comment limits it to the fixed source endpoint. It cannot be used as a moving-scale theorem without a transport proof.
+The unit theorem is a real advance over the original paper model, but its
+source comment limits it to the fixed source endpoint. The new all-scale
+source-side theorem supplies the moving-scale trace witness directly rather
+than inferring it from abstract unitary invariance; see
+[029](029_r3_moving_scale_source_commutator_trace_legality.md) and
+[1466](../proofs/1466_r3_moving_scale_source_commutator_trace_legality.md).
 
 ## 3. Why naive scale transport is false
 
@@ -103,18 +108,21 @@ Prove, first at the continuous-operator level,
 
     P_lambda = U_b starProjection(Rspace(b)) U_(-b).
 
-The closed-subspace transport half is now formal:
+The closed-subspace transport and projection equality are now formal:
 
     map U_b Rspace(b) = Ran(E_lambda) intersect Ran(Q_lambda)
 
-by `doubledShiftSoninClosedSubspace_map_eq_source` in the new Dev leaf.  The
-projection equality remains a separate API/uniqueness obligation.  It must use
-the committed star-projection API and the two opposite scale laws; it may not
-assert the conclusion by unfolding a desired formula.
+by `doubledShiftSoninClosedSubspace_map_eq_source` and
+`doubledShiftSoninProjection_map_eq_source` in the Dev leaves. The latter uses the
+committed star-projection API and the two opposite scale laws; see proof record
+[1431](../proofs/1431_r3_doubled_shift_projection_transport.md).
 
 ### T2 — doubled-shift Hankel/Sonin trace estimate
 
-Prove a uniform or summable estimate for [starProjection(Rspace(b)), D] using the half-line Hankel pieces plus the Hardy transport represented by K_b.
+The actual source-side commutator now has the required trace-class conclusion
+at every selected scale. The direct theorem is for `sourceSoninProjection`
+and `detectorOperator` on the source carrier; it does not separately estimate
+each doubled-shift branch or claim an isolated leakage bound.
 
 Acceptable outputs are:
 
@@ -126,12 +134,14 @@ The estimate must be independent of any qw sign, RH, healthy-detector propositio
 
 ### T3 — repository-level trace witness
 
-The project uses PositiveTrace.IsTraceClassAlong along a named basis. Unitary conjugation does not automatically preserve this predicate along the same arbitrary basis. The proof must either:
-
-1. prove a basis-compatible transport lemma for the exact witness; or
-2. construct an explicit transported BasisHilbertSchmidtPairData and prove its two square-summability fields in the target basis.
-
-“Schatten class is invariant under unitaries” stated abstractly is not enough for the current Lean API.
+The project uses PositiveTrace.IsTraceClassAlong along a named basis. Unitary
+conjugation does not automatically preserve this predicate along the same
+arbitrary basis. Record 1466 now proves the required witness directly for the
+actual source commutator at every selected scale, without relying on abstract
+unitary invariance. It also gives the exact same-basis ordinary-trace split
+into the outer pair and coupled source remainder; see
+[029](029_r3_moving_scale_source_commutator_trace_legality.md). This still
+does not identify that trace with the G8 response.
 
 ### T4 — reconnect to R3
 
@@ -175,16 +185,16 @@ Use the transported signed trace together with the existing outer-pair identity 
     014-B' prove transport of starProjection from the T1 range identity
              FORMAL PASS (batch 1431)
     014-C  derive the doubled-shift commutator identity
-    014-D  prove the S1/nuclear or two-HS estimate
-    014-E  build the IsTraceClassAlong/BasisHilbertSchmidtPairData witness
+    014-D  prove source-side moving-scale trace legality       FORMAL (1466)
+    014-E  build the named-basis IsTraceClassAlong witness    FORMAL (1466)
     014-F  identify the signed limit with the exact G8 ledger
     014-G  produce G8SameOwnerReadbackData and invoke the existing wrapper
 
-The next attack coordinate is recorded in
-[015](015_r3_weighted_two_projection_trace_bridge.md): an angle-free,
-detector-weighted alternating-projection/resolvent estimate.  A uniform
-Friedrichs-angle gap is not a standing assumption and is a kill candidate,
-not a hidden premise.
+The weighted two-projection attack coordinate remains documented in
+[015](015_r3_weighted_two_projection_trace_bridge.md), with no uniform
+Friedrichs-angle gap assumed. The immediate R3 obligation after the source
+trace theorem is instead the exact source/G8 cutoff compatibility and signed
+remainder limit.
 
 The current formal result extends T1 with the conjugated orthogonal
 projection
@@ -193,8 +203,16 @@ projection, and states its equality with the source projection at
 `b = log lambda`.  The paired audit module now builds with zero errors and
 only the three standard axioms; see proof record
 [1431](../proofs/1431_r3_doubled_shift_projection_transport.md).  This closes
-the projection-transport sub-obligation only; no trace estimate or G8
-readback has been proved.
+the projection-transport sub-obligation. Record 1466 separately proves the
+actual source commutator trace witness at every selected scale. Neither result
+identifies the signed trace limit with the G8 cutoff or proves G8 readback.
+
+Record 1467 supplies an additional source-side trace owner: the exact
+canonical finite-Euler corner is trace class at every selected scale and has
+an ordered renewal readback along the named global basis. It still does not
+identify that trace with the G8 cutoff ledger or its `qw` limit; the T4
+source/G8 comparison remains open. See
+[030](030_r3_canonical_finite_euler_corner_trace.md).
 
 Kill the candidate if:
 
@@ -218,4 +236,6 @@ If 014-A through 014-F are proved, they can discharge the commutator part of R3.
       -> SourceRH
       -> project RH output
 
-Therefore this is a genuine RH-reaching subroute, but it is not yet a proof of RH and it is not even a complete R3 proof. The exact new bottleneck is now smaller and sharper: a doubled-shift Sonin intersection with a basis-compatible trace witness.
+Therefore this is a genuine RH-reaching subroute, but it is not yet a proof
+of RH or a complete R3 proof. The exact remaining bottleneck is the signed
+same-owner source/G8 cutoff identification and its vanishing remainder limit.

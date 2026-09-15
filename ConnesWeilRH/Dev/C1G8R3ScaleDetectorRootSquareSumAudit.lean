@@ -1,0 +1,23 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3ScaleDetectorRootSquareSum
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check sourceProlateHilbertSchmidtFactor_summable_all_scales
+#print axioms sourceProlateHilbertSchmidtFactor_summable_all_scales
+#check sourceRootCompletedRangeLeftLeg_summable_all_scales
+#print axioms sourceRootCompletedRangeLeftLeg_summable_all_scales
+#check sourceRootCompletedRangeLeftLeg_basisEnergy_le_all_scales
+#print axioms sourceRootCompletedRangeLeftLeg_basisEnergy_le_all_scales
+#check sourceRootCompletedRangeLeftLeg_weighted_hs_energy_tendsto_zero_all_scales
+#print axioms sourceRootCompletedRangeLeftLeg_weighted_hs_energy_tendsto_zero_all_scales
+#check sourceRootCompletedRangeLeftLeg_positiveComposition_isTraceClassAlong_all_scales
+#print axioms sourceRootCompletedRangeLeftLeg_positiveComposition_isTraceClassAlong_all_scales
+
+end Dev
+end ConnesWeilRH

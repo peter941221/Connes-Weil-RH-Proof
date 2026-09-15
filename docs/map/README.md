@@ -39,11 +39,11 @@ traceability.
 |        |                       | raw R0 orbit-geometry export formal, while  |
 |        |                       | the R2/R3 readback remains open             |
 | 013    | Supporting            | R3 Sonin–detector commutator-cancellation   |
-|        |                       | candidate; signed trace-first route with    |
-|        |                       | typed falsifiers                            |
+|        |                       | candidate; moving-scale source commutator  |
+|        |                       | trace legality formal; G8 limit open       |
 | 014    | Supporting            | R3 doubled-shift Sonin transport: unit     |
-|        |                       | closed-subspace and projection transport   |
-|        |                       | formal; trace bridge remains OPEN          |
+|        |                       | closed-subspace/projection transport and   |
+|        |                       | source trace witness formal; G8 open       |
 | 015    | Supporting            | R3 weighted two-projection trace bridge:   |
 |        |                       | angle-free detector-weighted endpoint      |
 |        |                       | calculus; 1435/1436 close the algebraic    |
@@ -92,6 +92,27 @@ traceability.
 |        |                       | kernel readback, full-carrier            |
 |        |                       | actual/model equality, and interior HS  |
 |        |                       | transfer green; G8 readback remains open |
+| 028    | Supporting            | R3 moving-scale completed detector-root |
+|        |                       | range leg: same-basis HS sum, weighted   |
+|        |                       | no-gap energy limit, and positive-      |
+|        |                       | composition trace class formal; leakage, |
+|        |                       | common-right, and G8 readback remain open|
+| 029    | Supporting            | R3 moving-scale source commutator trace   |
+|        |                       | legality: complete signed source          |
+|        |                       | commutator formal; G8 cutoff/readback     |
+|        |                       | remains open                              |
+| 030    | Supporting            | R3 canonical finite-Euler source-corner   |
+|        |                       | trace formal at every selected scale;    |
+|        |                       | G8 cutoff/readback remains open          |
+| 031    | Supporting            | R3 fixed-HS-pair trace transfer under    |
+|        |                       | a bounded strong sandwich; literal G8    |
+|        |                       | cutoff hypotheses remain open            |
+| 032    | Supporting            | R3 expanding output projections converge |
+|        |                       | strongly on the global L2 carrier; the   |
+|        |                       | physical factor also covered by 033      |
+| 033    | Supporting            | R3 physical cutoff factor and source     |
+|        |                       | compression converge strongly; uniform  |
+|        |                       | doubled bound/trace/readback remain open |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -315,6 +336,34 @@ See [027](027_r3_shifted_hardy_kernel_reduction.md),
 [1462](../proofs/1462_r3_shifted_hardy_kernel_reduction.md), and
 [1463](../proofs/1463_r3_moving_scale_prolate_strict_angle.md).
 
+Record 1465 extends the completed detector-root prolate-range leg from unit
+scale to every selected Sonin scale.  It combines the all-scale relative
+factor estimate with the source-coordinate conjugacy and the no-gap strong
+limit, yielding a same-basis square-sum, weighted energy convergence, and
+positive-composition trace class for the actual completed range leg.  The
+independent leakage and common-right legs and the G8 remainder/readback remain
+open.  See [028](028_r3_moving_scale_detector_root_range_energy.md) and
+[1465](../proofs/1465_r3_moving_scale_detector_root_range_energy.md).
+
+Record 1466 proves trace-class legality of the complete source
+Sonin-detector commutator along any named global basis at every selected
+scale, using the all-scale prolate-factor square-sum and the exact source
+three-branch identity. It also splits the ordinary trace exactly into the
+outer pair and the coupled source remainder on that same basis. G8
+cutoff/source compatibility, the signed remainder limit, and same-owner
+trace-to-`qw` readback remain open. See
+[029](029_r3_moving_scale_source_commutator_trace_legality.md) and
+[1466](../proofs/1466_r3_moving_scale_source_commutator_trace_legality.md).
+
+Record 1467 specializes the paired finite-Euler source-corner trace theorem
+to the exact canonical visible-prime family of the selected owner. The
+all-scale prolate-factor witness now supplies its trace-class certificate
+along the named global basis, with the existing ordered renewal readback. This
+source corner is not the G8 cutoff pair; its identification with the G8 trace,
+the vanishing remainder, and trace-to-`qw` readback remain open. See
+[030](030_r3_canonical_finite_euler_corner_trace.md) and
+[1467](../proofs/1467_r3_canonical_finite_euler_corner_trace.md).
+
 ## Mandatory preflight
 
 For each new substantive proof brick, Lean theorem, carrier-family design, or
@@ -404,6 +453,12 @@ numerical investigation, use this layered check:
     moving-scale source prolate factor. It identifies the exact relative-
     motion factor and the HS summability equivalence, but does not supply
     the nonzero-scale estimate itself.
+20. Read [028](028_r3_moving_scale_detector_root_range_energy.md) before
+    consuming the all-scale completed detector-root range-leg estimate. It
+    closes only that leg; leakage, common-right, and G8 readback remain open.
+21. Read [029](029_r3_moving_scale_source_commutator_trace_legality.md) before
+    consuming the all-scale source commutator trace witness. It closes source
+    trace legality only; G8 cutoff transport and readback remain open.
 
 The new work must name its healthy-`CompactLog`, B5-shaped consumer; otherwise
 it is out of scope and must not start. An `011` milestone is exempt from that
@@ -993,6 +1048,41 @@ Read the current records in this order for a full-map review:
      interior HS transfer are formal; G8 readback remains open.  See
      [1462](../proofs/1462_r3_shifted_hardy_kernel_reduction.md) and
      [1463](../proofs/1463_r3_moving_scale_prolate_strict_angle.md).
+55. [028 - R3 moving-scale detector-root range energy](028_r3_moving_scale_detector_root_range_energy.md)
+     — the actual completed range leg has a same-basis square-sum, weighted
+     no-gap energy limit, and positive-composition trace class at every
+     selected scale. Leakage, common-right, and G8 readback remain open. See
+     [1465](../proofs/1465_r3_moving_scale_detector_root_range_energy.md).
+56. [029 - R3 moving-scale source commutator trace legality](029_r3_moving_scale_source_commutator_trace_legality.md)
+     — the complete signed source commutator is trace class along every named
+     global basis at every selected scale, with an exact same-basis trace split
+     into outer pair plus coupled remainder. G8 cutoff transport, signed
+     remainder convergence, and same-owner trace-to-`qw` readback remain open.
+     See
+     [1466](../proofs/1466_r3_moving_scale_source_commutator_trace_legality.md).
+57. [030 - R3 canonical finite-Euler source-corner trace](030_r3_canonical_finite_euler_corner_trace.md)
+    — the selected owner's canonical finite-prime source corner is trace class
+      along the named global basis at every selected scale and has an exact
+      ordered renewal readback. The G8 cutoff comparison and `qw` readback
+      remain open. See
+      [1467](../proofs/1467_r3_canonical_finite_euler_corner_trace.md).
+58. [031 - R3 strong-sandwich trace transfer](031_r3_strong_pair_sandwich_trace_transfer.md)
+    — a fixed HS pair has trace convergence under a uniformly bounded,
+      pointwise-convergent doubled cutoff; the theorem is instantiated for the
+     P1 source-band response. The literal G8 cutoff hypotheses and readback
+     remain open. See
+     [1476](../proofs/1476_r3_strong_pair_sandwich_trace_transfer.md).
+59. [032 - R3 expanding output-projection strong limit](032_r3_expanding_output_projection_strong_limit.md)
+    — the symmetric output-window projections converge strongly to identity
+      on the global logarithmic L2 carrier; record 1478 carries this to the
+      physical factor and source compression. Doubled-limit hypotheses and
+      trace/readback remain open. See
+      [1477](../proofs/1477_r3_expanding_output_projection_strong_limit.md).
+60. [033 - R3 physical cutoff factor strong limit](033_r3_physical_cutoff_factor_strong_limit.md)
+    — the actual support-owned physical factor and its adjoint, plus the source
+      compression and its adjoint, converge strongly. Uniform doubled bounds,
+      source-column summability, and trace/readback remain open. See
+      [1478](../proofs/1478_r3_physical_cutoff_factor_strong_limit.md).
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).

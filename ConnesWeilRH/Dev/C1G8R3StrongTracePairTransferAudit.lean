@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1G8R3StrongTracePairTransfer
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @tendsto_ordinaryTraceAlong_pairSandwich_of_strong
+#print axioms tendsto_ordinaryTraceAlong_pairSandwich_of_strong
+#check @tendsto_ordinaryTraceAlong_sourceBandGramResponse_sandwich
+#print axioms tendsto_ordinaryTraceAlong_sourceBandGramResponse_sandwich
+
+end Dev
+end ConnesWeilRH

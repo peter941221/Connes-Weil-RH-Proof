@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3OutputProjectionStrongLimit
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @tendsto_kernelIntervalProjection_symmetric_apply
+#print axioms tendsto_kernelIntervalProjection_symmetric_apply
+
+end Dev
+end ConnesWeilRH

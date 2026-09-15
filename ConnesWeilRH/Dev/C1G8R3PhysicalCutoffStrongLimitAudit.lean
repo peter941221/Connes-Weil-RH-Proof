@@ -1,0 +1,25 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3PhysicalCutoffStrongLimit
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @tendsto_physicalCutoffProjection_apply
+#print axioms tendsto_physicalCutoffProjection_apply
+#check @fullBoundaryPositiveOperator_cutoff_eq_projection_comp_globalConvolution
+#print axioms fullBoundaryPositiveOperator_cutoff_eq_projection_comp_globalConvolution
+#check @tendsto_fullBoundaryPositiveOperator_cutoff_apply
+#print axioms tendsto_fullBoundaryPositiveOperator_cutoff_apply
+#check @tendsto_fullBoundaryPositiveOperator_adjoint_cutoff_apply
+#print axioms tendsto_fullBoundaryPositiveOperator_adjoint_cutoff_apply
+#check @tendsto_sourceCompressedPhysicalCutoff_apply
+#print axioms tendsto_sourceCompressedPhysicalCutoff_apply
+#check @tendsto_sourceCompressedPhysicalCutoff_adjoint_apply
+#print axioms tendsto_sourceCompressedPhysicalCutoff_adjoint_apply
+
+end Dev
+end ConnesWeilRH

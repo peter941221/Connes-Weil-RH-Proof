@@ -1,4 +1,4 @@
-# 018 — R3 unit-scale detector-root square-sum partial closure
+# 018 — R3 detector-root range square-sum partial closure
 
 **Date:** 2026-09-14.
 
@@ -23,13 +23,28 @@ sum'_i ||sourceRootCompletedRangeLeftLeg owner unitSoninScale (e_i)||^2 < infini
 The same bridge proves the corresponding energy majorant and, using the actual
 no-gap strong limit from [017](017_r3_no_gap_alternating_power_limit.md), proves
 that the alternating-power defect energy on these columns tends to zero.  The
-new declarations are in
+unit-scale result is now extended to every selected scale: the source prolate
+square-sum transfers from the relative factor through the exact translation
+conjugacy, and the actual completed range leg gets the same-basis square-sum,
+weighted energy limit, and positive-composition trace-class conclusion.  See
+[028](028_r3_moving_scale_detector_root_range_energy.md) and
+[1465](../proofs/1465_r3_moving_scale_detector_root_range_energy.md).  The
+unit-scale declarations are in
 `ConnesWeilRH/Dev/C1G8R3DetectorRootSquareSum.lean`:
 
 - `sourceRootCompletedRangeLeftLeg_unit_summable`;
 - `sourceRootCompletedRangeLeftLeg_unit_basisEnergy_le`;
 - `doubledShiftAlternatingProduct_weighted_hs_energy_tendsto_zero_of_strong_limit`;
 - `sourceRootCompletedRangeLeftLeg_unit_weighted_hs_energy_tendsto_zero`.
+
+The all-scale declarations are in
+`ConnesWeilRH/Dev/C1G8R3ScaleDetectorRootSquareSum.lean`:
+
+- `sourceProlateHilbertSchmidtFactor_summable_all_scales`;
+- `sourceRootCompletedRangeLeftLeg_summable_all_scales`;
+- `sourceRootCompletedRangeLeftLeg_basisEnergy_le_all_scales`;
+- `sourceRootCompletedRangeLeftLeg_weighted_hs_energy_tendsto_zero_all_scales`;
+- `sourceRootCompletedRangeLeftLeg_positiveComposition_isTraceClassAlong_all_scales`.
 
 This is a formal result, not a numerical observation.  Batch acceptance is
 `build-logs/1451_detector_root_try2.log`: `Build completed successfully

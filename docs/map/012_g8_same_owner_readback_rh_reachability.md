@@ -135,6 +135,22 @@ reports only `[propext, Classical.choice, Quot.sound]`, with zero `sorryAx`.
 This closes R0 only. It does not itself instantiate the G8 cutoff trace on
 that owner, prove the R2 same-owner trace identity, or supply any R3 limit.
 
+Record [1466](../proofs/1466_r3_moving_scale_source_commutator_trace_legality.md)
+now proves trace-class legality of the complete source Sonin-detector
+commutator at every selected scale, along the explicitly named global basis.
+It also splits that same-basis ordinary trace exactly into the outer pair and
+the coupled second-support/prolate remainder. This uses the all-scale
+prolate-factor square-sum but still does not identify the source commutator
+with the G8 cutoff ledger or prove a vanishing remainder and same-owner `qw`
+readback. R2/R3 readback therefore remains open.
+
+Record [1467](../proofs/1467_r3_canonical_finite_euler_corner_trace.md) also
+closes trace legality for the source root-completed corner at the selected
+owner's exact canonical finite-prime family, and gives its ordered renewal
+readback along the same named basis. This is a source-corner result; it does
+not identify the corner with `g8SourceCutoffPairData` or supply the G8 cutoff
+limit. The source/G8 comparison and R3 readback remain open.
+
 ## 4. Milestones and stop rules
 
 | Stage | Required delivery | Current evidence | Stop rule |
@@ -463,3 +479,56 @@ prove strong convergence of `(p_b q p_b)^n` to the intersection projection.
 It is open as a Lean/formalization and source-API task, not a license to
 assume a spectral gap. The transfer lemma itself is lower-data only; R3 and RH
 remain open.
+
+### R3-F9 conditional HS-pair trace transfer (record 1476, 2026-09-15)
+
+The new generic theorem
+[`tendsto_ordinaryTraceAlong_pairSandwich_of_strong`](../../ConnesWeilRH/Dev/C1G8R3StrongTracePairTransfer.lean)
+proves trace convergence for a fixed Hilbert--Schmidt pair under a uniformly
+bounded, pointwise-convergent doubled cutoff. Its summable diagonal majorant
+comes from the two fixed adjoint HS column sequences. The theorem is also
+instantiated on the existing three-branch `sourceBandGramResponse` owner, so
+the P1 source-band trace can use this conditional continuity step. See
+[proof record 1476](../proofs/1476_r3_strong_pair_sandwich_trace_transfer.md).
+
+This does not instantiate the hypotheses on the literal G8 window sequence:
+that factor varies with the window and surrounds `g8AdjointShearGram` on the
+ambient carrier, rather than sandwiching a fixed P1 HS pair on the source
+carrier. G8 cutoff/source compatibility, remainder convergence,
+`G8SameOwnerReadbackData`, the detector-specific semi-local sign, C3, and RH
+remain open. This is a formal conditional trace lemma, not a change to the
+route status.
+
+### R3-F10 expanding output-window strong limit (record 1477, 2026-09-15)
+
+The symmetric output-interval projections now formally converge strongly to
+the identity on the global logarithmic L2 carrier. The proof identifies each
+projection with its AE interval indicator and sends the squared tail integral
+to zero by monotone convergence; the paired audit prints only the three
+standard axioms. See
+[proof record 1477](../proofs/1477_r3_expanding_output_projection_strong_limit.md)
+and supporting route record
+[032](032_r3_expanding_output_projection_strong_limit.md).
+
+Record 1478 now composes the projection limit with the fixed global
+convolution and source inclusion, proving strong convergence of the actual
+physical factor and its adjoint, including the source compression and its
+adjoint. This is only operator-level compatibility. A uniform bound on the
+doubled source sequence and a summable source-column estimate are still
+required before a trace transfer applies to the literal G8 channel; the other
+metric channels, analytic remainder, same-owner `qw` readback, detector
+semi-local sign, C3, and RH remain open.
+
+### R3-F11 physical cutoff factor strong limit (record 1478, 2026-09-15)
+
+The actual support-owned finite factor is now identified exactly as the
+reflected physical output projection composed with the fixed global detector
+convolution. Its projection tails vanish in L2, yielding pointwise strong
+limits for the factor and its adjoint. The same result passes through the
+actual Sonin inclusion on both sides, including the adjoint compression. This
+is formal operator compatibility for the literal G8 owner, not a trace limit;
+the uniform doubled bound and source-column summability are still open. See
+[proof record 1478](../proofs/1478_r3_physical_cutoff_factor_strong_limit.md)
+and supporting route record
+[033](033_r3_physical_cutoff_factor_strong_limit.md). The healthy-`CompactLog`
+B5 consumer and binding route are unchanged.

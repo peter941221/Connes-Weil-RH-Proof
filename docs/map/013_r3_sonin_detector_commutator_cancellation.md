@@ -137,6 +137,9 @@ R3-F4  scale-defect normal form                   FORMAL
 R3-F5  Hardy defects vanish                      FORMAL
 R3-F6  doubled-shift Hardy involution             FORMAL
 R3-SC1 Sonin–detector commutator cancellation     THIS RECORD, OPEN
+R3-SC2 moving-scale source commutator trace       FORMAL (1466)
+R3-SC3 same-basis signed source trace ledger      FORMAL (1466)
+R3-SC4 G8 cutoff and remainder limit              OPEN
 ```
 
 F6 is useful here but not sufficient. The involution
@@ -241,30 +244,40 @@ formal unit-scale summability theorem for
 Weil sign or RH.
 
 Thus the unit-scale instance of the coupled commutator is no longer an open
-trace-legality question. This does **not** prove the moving-scale theorem: the
-unit result is explicitly a fixed-source endpoint, while R3 needs the scale and
-cutoff/source transport used by the G8 ledger.
+trace-legality question. The moving-scale source theorem is now also formal:
+record 1466 combines the all-scale prolate-factor square-sum with the exact
+three-branch source identity. It still does not prove the cutoff/source
+transport or identify the signed trace limit with the G8 ledger.
 
-### SC2 — moving-scale Sonin lift
+### SC2 — moving-scale Sonin lift — FORMAL TRACE LEGALITY
 
-Transfer the model estimate and the formal unit-scale theorem to the actual
-source Sonin carrier at moving scale. The lift must
-use the committed Hardy/Sonin geometry and the source support hypotheses. F1's
-tail estimate is only a starting antiresonance inequality; it is not yet a
-collective trace-ideal estimate.
+The actual source Sonin-detector commutator is now trace class at every
+selected scale along each named global basis. The proof combines the
+all-scale prolate-factor square-sum with the exact source three-branch
+identity; see [029](029_r3_moving_scale_source_commutator_trace_legality.md)
+and [1466](../proofs/1466_r3_moving_scale_source_commutator_trace_legality.md).
+This is a formal source-side trace theorem, not a claim that the doubled-shift
+leakage branch is trace class by itself.
 
-### SC3 — signed source remainder
+### SC3 — same-basis signed source trace ledger — FORMAL
 
-Prove either direct trace-classness of the Sonin commutator or a complete
-signed estimate for the full remainder. Then combine it with the formal outer
-pair identity. This is the first stage that can legitimately replace the
-current raw `sourceProlateHilbertSchmidtFactor` summability gate.
+The complete source commutator and its coupled second-support/prolate
+remainder are now trace class along the same named global basis at every
+selected scale. The ordinary trace splits exactly as the outer pair plus that
+coupled remainder; see [1466](../proofs/1466_r3_moving_scale_source_commutator_trace_legality.md).
+This is source trace bookkeeping, not convergence to a G8 cutoff limit.
 
 ### SC4 — cutoff/source transport
 
 Identify the resulting signed trace with the exact G8 cutoff ledger, including
 the canonical finite-prime family and the same-owner endpoint. A trace theorem
 for the wrong response or a different basis is not an R3 result.
+
+Record 1467 adds a formal trace-class and ordered-renewal readback for the
+source root-completed finite-Euler corner at the selected owner's canonical
+family. It supplies a same-owner source-side trace object but does not identify
+it with the G8 cutoff ledger. SC4 remains open; see
+[030](030_r3_canonical_finite_euler_corner_trace.md).
 
 ### SC5 — readback and RH composition
 
@@ -301,20 +314,21 @@ SC1-SC4
 ```
 
 That is a logical reachability statement, not a feasibility claim. The
-candidate removes one structural obstacle — treating a coupled signed object
-as a positive square — but it does not yet supply the decisive trace estimate.
-The global source-leg issue, cutoff/source compatibility, and the final
-trace-to-`qw` readback remain open until SC3–SC5 are actually proved.
+all-scale trace-legality obstacle for the complete source commutator is now
+closed, but the source/cutoff compatibility, signed remainder convergence,
+and final trace-to-`qw` readback remain open until SC3–SC5 are proved.
 
 **Current verdict:** `SC1-PASS / SC2(unit)-FORMAL /
-SC2(scale)-OPEN`. The next allowed action is the doubled-shift transport
-audit in [014](014_r3_doubled_shift_sonin_transport.md): express the actual
-intersection-projection commutator as the passed half-line pieces plus the
-Hardy-transport correction, then test the correction for an S1 estimate in the
-project's basis-compatible trace witness. No R3 or RH result is claimed.
+SC2(scale)-FORMAL / SC3-TRACE-LEDGER-FORMAL / SC4-SC5-OPEN`. The next action
+is source-to-G8 cutoff compatibility and signed remainder convergence. The
+trace witness and source decomposition are available in one named basis; the
+cutoff/readback identification remains a separate obligation. No R3 or RH
+result is claimed.
 
 The power-limit subproblem is now separately typed. Batch 1435 supplies an
 abstract projection-gap bridge and the concrete doubled-shift intersection
 projection; record 1436 discharges its second-sided fixing identity by
-self-adjointness. It does not close SC2–SC4: the defect bound is still open,
-and the signed source remainder remains the actual R3 bottleneck.
+self-adjointness. Record 1466 closes moving-scale trace legality and the
+same-basis source trace decomposition, but it does not close the G8 cutoff
+transport, vanishing signed remainder, or trace-to-`qw` readback; these remain
+the R3 bottleneck.
