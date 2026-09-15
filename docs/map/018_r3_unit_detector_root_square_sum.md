@@ -96,3 +96,14 @@ Hilbert--Schmidt estimate for this raw leg as the missing argument. The orbit
 is still not identified with the named source basis or the source-compressed
 G8 diagonal leg, so both diagonal estimates, the cutoff-to-trace readback, and
 the full same-owner trace estimate remain open.
+
+Record 1490 sharpens this interface boundary. The source-Sonin projection of
+the separated ambient orbit itself tends to zero in norm, because the unit
+Fourier-support projection decays along right translations and the complete
+source projection is absorbed by it. Therefore projecting these ambient
+vectors and renormalizing cannot transfer their leakage lower bound to the
+G8 source-carrier columns. This closes that direct transfer attempt only; it
+does not bound or refute either actual G8 diagonal energy sum. The next
+producer must use the source-carrier columns after the actual compressed
+convolution/coframe, rather than an ambient orbit projection. See
+[proof record 1490](../proofs/1490_g8_source_projection_translated_orbit_decay.md).

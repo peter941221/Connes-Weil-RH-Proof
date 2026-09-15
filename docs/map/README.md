@@ -60,8 +60,9 @@ traceability.
 |        |                       | finiteSCarrier; trace/readback still open |
 | 018    | Supporting            | R3 unit-scale detector-root square-sum:  |
 |        |                       | prolate-range leg and translated-test     |
-|        |                       | leakage lower bound formal; ON basis,     |
-|        |                       | common leg, and trace/readback open       |
+|        |                       | leakage orbit and source projection      |
+|        |                       | decay formal; G8 diagonal legs/readback  |
+|        |                       | remain open                              |
 | 019    | Supporting            | R3 leakage doubled-shift normal form:    |
 |        |                       | exact same-carrier projection-defect     |
 |        |                       | identity; estimate/trace/readback open   |
@@ -1033,7 +1034,8 @@ Read the current records in this order for a full-map review:
     — the unit-scale prolate-range root leg is formally square-summable and
     feeds the strong-limit energy consumer; the raw ambient leakage leg has a
     formal non-summable orthonormal orbit, while its source-compressed G8
-    energy, the common-right leg, and trace/readback remain open.
+    projection tends to zero, so normalization does not transfer that lower
+    bound; the actual G8 diagonal energies and trace/readback remain open.
 46. [019 - R3 leakage doubled-shift normal form](019_r3_leakage_doubled_shift_normal_form.md)
     — the source leakage leg is exactly the selected root conjugated against
     the doubled-shift projection defect `p_b - T_b`; its estimate, the

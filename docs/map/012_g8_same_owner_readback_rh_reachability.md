@@ -1,6 +1,6 @@
 # 012 — G8 same-owner readback: conditional RH reachability audit
 
-**Status:** supporting technical route audit, updated 2026-09-15 (R0 formal;
+**Status:** supporting technical route audit, updated 2026-09-16 (R0 formal;
 actual paired leakage/source and signed source-remainder trace limits formal;
 survivor/boundary mixed channels paired and limited; total metric trace limit
 formal under the two diagonal energy hypotheses).
@@ -660,3 +660,16 @@ both diagonal energy estimates and the full trace-to-`qw` readback. See
 [1488](../proofs/1488_r3_leakage_orthonormal_translation_orbit.md),
 [1489](../proofs/1489_r3_leakage_orthonormal_orbit_energy_obstruction.md), and
 [supporting map record 018](018_r3_unit_detector_root_square_sum.md).
+
+### R3-F18 source projection of the ambient orbit vanishes (record 1490, 2026-09-16)
+
+The direct candidate transfer, projecting the R3-F17 ambient orbit into the
+unit-scale `sourceSoninCarrier` and then renormalizing, is now ruled out by a
+formal norm limit. The source Fourier-support projection of those separated
+right translates tends to zero by the Hardy translated-tail theorem; the
+complete Sonin projection factors through that Fourier-support projection
+and is contractive. Thus the projected vectors tend to zero as well. This is
+not a counterexample to the actual G8 energy estimates: those columns first
+pass through the same-owner compressed convolution/coframe. A valid witness
+must be constructed through that interface. See
+[proof record 1490](../proofs/1490_g8_source_projection_translated_orbit_decay.md).
