@@ -39,6 +39,7 @@ open Source.CC20Concrete
 open Source.CC20Concrete.PositiveTrace
 open Source.CCM25Concrete
 open Source.CCM25Concrete.CCM24FiniteSProjectionTrace
+open Source.CCM25Concrete.CCM24FiniteSCausalSupport
 open Source.CCM25Concrete.CCM24FiniteSGramResponse
 open Source.CCM25Concrete.CCM24FiniteSActualBandQuadraticCycle
 open Source.CCM25Concrete.CCM24FiniteSBandTrace
@@ -268,6 +269,48 @@ theorem sourceSoninComplement_comp_commutator_sourceOrthogonal_eq
     ContinuousLinearMap.id_apply, map_sub] at hMpoint hJpoint ⊢
   rw [hJpoint, hMpoint]
   simp
+
+/- The source inclusion lies in both actual support spaces.  This is the
+missing companion to the radial-support identity and lets the outer pair be
+read as genuine radial leakage columns. -/
+theorem sourceFourierSupportProjection_comp_sourceInclusion_eq_self
+    (lambda : CCM24SoninScale) :
+    sourceFourierSupportProjection lambda ∘L sourceInclusion lambda =
+      sourceInclusion lambda := by
+  apply ContinuousLinearMap.ext
+  intro u
+  unfold sourceFourierSupportProjection sourceInclusion
+  exact Submodule.starProjection_eq_self_iff.mpr u.property.2
+
+/- The signed outer pair has this exact four-term expansion after the source
+inclusion.  The terms `M E Q J` and `E Q M J` expose the non-commutation
+obstruction: a two-term radial-leakage reduction would require an additional
+compatibility theorem between `E` and `Q`. -/
+theorem sourceSoninOuterPair_comp_sourceInclusion_expanded
+    (lambda : CCM24SoninScale) (Q M : finiteSCarrier →L[ℂ] finiteSCarrier) :
+    (cc20OuterCommutatorBranch (radialSupportProjection lambda) Q M +
+        cc20ReflectedOuterCommutatorBranch
+          (radialSupportProjection lambda) Q M) ∘L
+        sourceInclusion lambda =
+      radialSupportProjection lambda ∘L Q ∘L radialSupportProjection lambda ∘L
+          M ∘L sourceInclusion lambda -
+        radialSupportProjection lambda ∘L Q ∘L M ∘L sourceInclusion lambda +
+        radialSupportProjection lambda ∘L M ∘L Q ∘L sourceInclusion lambda -
+        M ∘L radialSupportProjection lambda ∘L Q ∘L
+          sourceInclusion lambda := by
+  have hEJ : radialSupportProjection lambda ∘L sourceInclusion lambda =
+      sourceInclusion lambda := radialSupportProjection_comp_sourceInclusion lambda
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [cc20OuterCommutatorBranch, cc20ReflectedOuterCommutatorBranch,
+    cc20Commutator, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.neg_apply, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.comp_apply, ContinuousLinearMap.id_apply,
+    map_sub] at *
+  have hEJu := DFunLike.congr_fun hEJ u
+  simp only [ContinuousLinearMap.comp_apply] at hEJu
+  rw [hEJu]
+  abel
 
 /- The actual Sonin commutator inherits the existing outer/second-support/
 prolate owner, so the open estimate can be split along those four branches. -/

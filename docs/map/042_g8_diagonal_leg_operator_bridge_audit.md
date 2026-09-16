@@ -487,3 +487,13 @@ remainder.  This follows the existing trace owner and preserves its
 cancellation.  The physical-factor instantiation of these two estimates is
 still open, so WO-B remains OPEN but now has the same two-block shape as the
 completed source trace ledger.
+
+Record 1528 adds an exact Fourier-support fixing identity for the source
+inclusion and expands the signed outer pair on that inclusion as
+`E Q E M J - E Q M J + E M Q J - M E Q J`.  The surviving `M E Q J` term
+shows that a two-term radial-leakage rewrite would require a new compatibility
+theorem between the radial and Fourier projections.  No such theorem is
+available on the healthy carrier, so the proposed generic two-term shortcut is
+rejected.  The two-block consumer remains valid, while its physical-factor
+instantiation still requires the full non-commuting outer-pair estimate; WO-B
+is OPEN.
