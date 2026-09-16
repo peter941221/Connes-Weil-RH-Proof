@@ -445,3 +445,11 @@ Record 1521 proves the exact Leibniz rule `[A B, P] = A [B, P] + [A, P] B`.
 The remaining B4 commutator-root estimate can therefore be attacked by finite
 induction over the actual Euler boundary factorization, with only atomic
 transport/projection commutators requiring analytic estimates.
+
+Record 1522 adds the matching Hilbert--Schmidt induction consumer: if the two
+atomic commutator families are square-summable on one source basis, then the
+product commutator family is square-summable after any bounded surrounding
+factor.  This is a whole-basis `PositiveTrace.summable_normSq_add` argument,
+so the remaining B4 target is now explicitly the finite list of atomic
+commutator-root estimates.  No atomic estimate is supplied by this formal
+consumer; WO-B, S3, G8, and C3 remain open.

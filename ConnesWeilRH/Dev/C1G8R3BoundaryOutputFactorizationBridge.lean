@@ -246,6 +246,48 @@ theorem ambientProduct_commutator_eq_leibniz_sum
     ContinuousLinearMap.add_apply, map_sub]
   abel
 
+/-- Hilbert--Schmidt induction consumer for the commutator Leibniz rule. -/
+theorem ambientProduct_commutator_sourceBasis_normSq_summable_of_leibniz
+    (lambda : CCM24SoninScale)
+    (A B D : finiteSCarrier →L[ℂ] finiteSCarrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (hleft : Summable fun i : ρ =>
+      ‖(D ∘L A ∘L (B ∘L sourceSoninProjection lambda -
+          sourceSoninProjection lambda ∘L B) ∘L sourceInclusion lambda ∘L N)
+        (sourceBasis i)‖ ^ 2)
+    (hright : Summable fun i : ρ =>
+      ‖(D ∘L (A ∘L sourceSoninProjection lambda -
+          sourceSoninProjection lambda ∘L A) ∘L B ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2) :
+    Summable fun i : ρ =>
+      ‖(D ∘L (A ∘L B ∘L sourceSoninProjection lambda -
+          sourceSoninProjection lambda ∘L A ∘L B) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2 := by
+  have hsum := PositiveTrace.summable_normSq_add sourceBasis
+    (D ∘L A ∘L (B ∘L sourceSoninProjection lambda -
+      sourceSoninProjection lambda ∘L B) ∘L sourceInclusion lambda ∘L N)
+    (D ∘L (A ∘L sourceSoninProjection lambda -
+      sourceSoninProjection lambda ∘L A) ∘L B ∘L sourceInclusion lambda ∘L N)
+    hleft hright
+  have hEq :
+      (D ∘L (A ∘L B ∘L sourceSoninProjection lambda -
+          sourceSoninProjection lambda ∘L A ∘L B) ∘L
+        sourceInclusion lambda ∘L N) =
+      (D ∘L A ∘L (B ∘L sourceSoninProjection lambda -
+          sourceSoninProjection lambda ∘L B) ∘L sourceInclusion lambda ∘L N) +
+      (D ∘L (A ∘L sourceSoninProjection lambda -
+          sourceSoninProjection lambda ∘L A) ∘L B ∘L
+        sourceInclusion lambda ∘L N) := by
+    rw [ambientProduct_commutator_eq_leibniz_sum]
+    apply ContinuousLinearMap.ext
+    intro x
+    simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.add_apply,
+      map_add]
+  refine hsum.congr (fun i => ?_)
+  exact congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2)
+    (DFunLike.congr_fun hEq (sourceBasis i)).symm
+
 /-- Real algebra: from the exact split, the in-Sonin term is dominated by the
 full term. -/
 private theorem inLeg_le_of_split {a b c : ℝ} (hsplit : c = a + b)
