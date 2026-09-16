@@ -31,3 +31,32 @@ results in record 1512 remain active and are not used as a substitute.
 **Acceptance:** `1612_gate_source_energy.log` has a successful footer, zero
 `error:` lines, zero `sorryAx`, and the audit prints only
 `[propext, Classical.choice, Quot.sound]`.
+
+## Hardy compression reduction
+
+The same leaf now exports
+`ConnesWeilRH.Dev.sourceGate_squareSum_iff_hardyCompressedRootEnergy`.
+Writing `E` for the radial projection, `Q` for the archimedean Fourier
+projection, and `R` for the source prolate remainder, it gives the exact
+reduction
+
+```text
+Summable || J† C J e_i ||^2
+  iff
+Summable || E Q E C J e_i ||^2.
+```
+
+The identity `P = E Q E - R` is used pointwise.  The correction `R C J` is
+already square-summable: its factor `K C J` is obtained from the all-scale
+prolate HS witness by bounded source precomposition, and `R = K† K` then
+supplies the second bounded postcomposition.  Summable addition and
+subtraction remove this known correction in both directions.
+
+This leaves one analytic S3 bone: the Hardy-compressed root energy
+`E Q E C J`.  The ambient leakage and full band-root no-go results still
+exclude the larger ambient shortcuts; they do not obstruct this compressed
+Hardy target.
+
+**Updated acceptance:** `1629_gate_hardy_reduction.log` has a successful
+footer, zero `error:` lines, zero `sorryAx`, and four standard audit
+`Quot.sound` markers.

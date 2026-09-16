@@ -389,3 +389,9 @@ leakage square-sum; it does not invoke the impossible ambient leakage or
 band-root Hilbert--Schmidt shortcuts.  Thus S3 is now isolated as the full
 detector energy on included source vectors, with the source projection retained
 in the exact equivalence to the ambient `P C P` gate.
+
+The same record further reduces this source-input energy to the single
+Hardy-compressed root `E Q E C J`: the prolate remainder `R C J` is formally
+HS from the all-scale prolate factor and the identity `R = K† K`.  Hence the
+remaining S3 estimate is precisely the square-sum of `E Q E C J`; no ambient
+HS shortcut is available or needed.
