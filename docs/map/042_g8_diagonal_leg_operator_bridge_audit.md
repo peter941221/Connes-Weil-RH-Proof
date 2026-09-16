@@ -1,0 +1,246 @@
+# 042 — G8 diagonal leg operator-bridge audit: what record 1497 supplies, what it does not, and the two remaining work orders
+
+Date: 2026-09-16.
+
+**Authority:** supporting.
+
+**Status:** source-level interface audit. Zero new Lean, zero digits. The
+complete selected-root source-Sonin leakage square-sum (record 1497) does
+**not** supply either G8 diagonal energy hypothesis (`hSurvivor`,
+`hBoundary`); the two operators share an owner and a word ("leakage") but
+differ in left factor, input map, and an inserted ambient factor. The audit
+fixes the exact committed operator chains, derives from committed
+definitions that **every actual G8 metric coframe is of the form
+`ambient ∘L sourceInclusion λ ∘L sourceSide`**, and uses that to split each
+diagonal obligation into an **in-Sonin family** and a **leakage-band
+family** on the source carrier. One consequence is ready for immediate
+formalization: the survivor leg's out-of-Sonin half is already dominated by
+record 1497 through bounded right precomposition. Both diagonal energy
+obligations remain open; no estimate is claimed.
+
+**Consumer:** the same-owner healthy-`CompactLog` B5 statement
+`0 <= C1SameOwnerWeil.qw g` through `G8SameOwnerReadbackData`
+([012](012_g8_same_owner_readback_rh_reachability.md)); the binding route in
+[003](003_b1_b5_minimal_exit_route_selection.md) is unchanged.
+
+## 1. The compared objects, quoted from committed source
+
+Throughout, `C = rootConvolution owner`
+(`CCM24FiniteSBandTrace.lean:36-39`), `J = sourceInclusion λ`
+(`CCM24FiniteSGramResponse.lean:41-43`), `P = sourceSoninProjection λ`,
+`E = radialSupportProjection λ`, `Q = sourceFourierSupportProjection λ`
+(`CCM24FiniteSProjectionTrace.lean:94-103,230-238`), and `sourceBasis` is a
+Hilbert basis of `sourceSoninCarrier λ`.
+
+| Tag | Object | Committed shape | Site |
+| :-- | :-- | :-- | :-- |
+| O1 | record-1497 source-Sonin leakage | `Summable i, ‖((I − P) ∘L C ∘L J)(e_i)‖²` | `C1G8R3InternalProlateGapEnergy.lean:523-528` |
+| O2 | survivor diagonal premise `hSurvivor` | `Summable i, ‖(C ∘L g8MetricSurvivorCoframe λ family)(e_i)‖²` | `C1G8R3PhysicalMetricCutoffTotalTraceLimit.lean:66-68` |
+| O3 | boundary diagonal premise `hBoundary` | `Summable i, ‖(C ∘L g8MetricVisibleBoundaryCoframe λ family)(e_i)‖²` | `C1G8R3PhysicalMetricCutoffTotalTraceLimit.lean:69-71` |
+| O4 | necessary-direction uncut compressed leg | `g8MetricGlobalDetectorRootLeg = C ∘L leg ∘L g8SourceCompressedGlobalConvolution λ owner.sourceTest` | `C1G8R3DiagonalRootEnergyLimitConstraint.lean:42-48` |
+
+The conditional-limit target of [1485](../proofs/1485_r3_diagonal_trace_limit_energy_constraint.md)
+is the cutoff-free form `Summable i, ‖(C ∘L leg)(e_i)‖²` for the two legs
+`leg ∈ {survivor coframe, visible-boundary coframe}`
+(`C1G8R3DiagonalRootEnergyLimitConstraint.lean:163-164`). O4 differs from it
+only by the source-side right factor
+`g8SourceCompressedGlobalConvolution`, so everything below applies to O4
+with that factor absorbed into the source-side operators.
+
+## 2. Verdict: three position mismatches, one non-mismatch
+
+Comparing O1 with O2/O3 position by position:
+
+```text
+O1 (1497):            (I - P) ∘L C ∘L J
+G8 survivor (O2):      C ∘L S ,   S = u • J ∘L s_S              (see §3, B1)
+G8 boundary (O3):      C ∘L B ,   B = u • Σ_p M_p ∘L J ∘L N_p    (see §3, B2)
+```
+
+1. **Left factor.** O1 ends in the projection `I − P`; the G8 obligations
+   take the full norm of `C`. Since `P` is an orthogonal projection,
+   `‖C x‖² = ‖P C x‖² + ‖(I − P) C x‖²`. O1 controls only the second
+   summand. The first summand is not error mass: it is the in-Sonin
+   response, i.e. the signal the G8 trace reads out. No leakage estimate
+   can dominate it in principle, and none is needed — it has its own
+   family (§4).
+2. **Input map.** O1 is fed by `J` alone. The survivor leg is fed by
+   `J ∘L s_S` with a nontrivial Schur source-side operator `s_S`
+   (transition adjoint and Gram inverse-sqrts); the boundary legs are fed
+   by `M_p ∘L J ∘L N_p` with ambient factors `M_p` built from prime Euler
+   transports and rectangular boundary projections. Neither input is
+   `J` verbatim, so O1's series cannot be instantiated on them directly.
+3. **Ambient factor.** For the boundary legs an ambient `M_p` sits between
+   `C` and `J`. Boundedness of `M_p` does not transfer O1: `(I − P) C M_p J`
+   is not `(I − P) C J` composed with anything on either side; the ambient
+   factor must enter the estimate itself.
+
+The one thing that does match: the sufficient-direction target is the
+**uncut** `C ∘L leg` on the **same** owner, scale, family, and basis — no
+cutoff bookkeeping stands between O1 and the obligations. The failure is
+exactly items 1–3.
+
+## 3. Bridge facts (consequences of committed definitions)
+
+**B0 (frames factor through `J`).** By definition,
+
+```text
+parameterizedSoninFrame λ α S
+  = parameterizedFiniteEulerFactor α S ∘L sourceInclusion λ
+```
+
+(`CCM24FiniteSFrameGramCalculus.lean:113-118`); `sourceInclusion` is
+literally the same `subtypeL` used there
+(`CCM24FiniteSGramResponse.lean:41-43`). Both `oldSuffixFrame` and
+`newSuffixFrame` are `parameterizedSoninPolarFrame λ 1 S = frame ∘L GramInvSqrt`
+(`CCM24FiniteSActualSchurCascade.lean:48-57`,
+`CCM24FiniteSFixedSourcePolar.lean:230-235`), hence of the form
+`ambient ∘L J ∘L sourceSide`. For the empty list the Euler factor is the
+identity (`CCM24FiniteSParameterizedEulerProduct.lean:32-37`, `| _, [] => 1`).
+
+**B1 (survivor factorization).** Unfolding
+`g8MetricSurvivorCoframe` (`C1G8P1MetricChannels.lean:43-49`) with B0 and
+the empty-list identity:
+
+```text
+g8MetricSurvivorCoframe λ V
+  = (finiteEulerUpperFactor V : ℂ) • J ∘L s_S ,
+  s_S = parameterizedSoninGramInvSqrt λ 1 []
+        ∘L (suffixEulerTransitionProduct λ V)†
+        ∘L parameterizedSoninGramInvSqrt λ 1 V .
+```
+
+`s_S : sourceSoninCarrier λ →L[ℂ] sourceSoninCarrier λ` is bounded. One
+rewrite lemma; no new analysis.
+
+**B2 (boundary factorization).** `g8MetricVisibleBoundaryCoframe`
+(`C1G8P1MetricChannels.lean:53-57`) is the upper-factor scalar times the
+sum of `finiteEulerMetricCoframeBoundaryMaps`
+(`CCM24FiniteSSchurPolarTelescoping.lean:394-400`): each summand is a
+`suffixEulerBoundaryOutputMaps` output composed with the source-side Gram
+inverse-sqrt. The outputs are built recursively
+(`CCM24FiniteSSchurPolarTelescoping.lean:235-245`) from
+
+```text
+boundaryDagger = (I − newFrame ∘L newFrame†) ∘L transport† ∘L oldFrame
+```
+
+(`CCM24FiniteSJuliaCoDefect.lean:255-262, 67-75`). Since `oldFrame` and
+`newFrame` are B0-factors and the ambient product / transition factors are
+ambient-side / source-side respectively
+(`CCM24FiniteSSchurPolarTelescoping.lean:52-65`), induction over the
+visible-prime list proves every boundary output, hence every summand, has
+the form
+
+```text
+b_p = M_p ∘L J ∘L N_p ,
+M_p : finiteSCarrier →L[ℂ] finiteSCarrier ,  N_p : source-side bounded .
+```
+
+One structural induction; no new analysis. Note `M_p` is genuinely
+non-identity for `p ∈ V`: the rectangular projection
+`(I − newFrame ∘L newFrame†)` does not act trivially on the old frame's
+image — that defect is the boundary content of the Schur step.
+
+## 4. Consequences: the two remaining estimate families
+
+Using `‖C x‖² = ‖P C x‖² + ‖(I − P) C x‖²` and the isometry of `J`
+(`J† ∘L J = id`, `CCM24FiniteSGramResponse.lean:46-48`; on range-`J` inputs
+`P = J ∘L J†`, the closed-subspace projection identity to be cited or added
+in the bridge brick):
+
+```text
+‖(C ∘L leg)(e_i)‖²  =  ‖(I − P) C (leg e_i)‖²  +  ‖J† C (leg e_i)‖²
+                     (leakage band, OUT)          (in-Sonin response, IN)
+```
+
+**Family OUT** — `(I − P) C (ambient ∘L J ∘L sourceSide)` applied to the
+basis. By the record-1494 identity `(I − P) B J = (I − E) B J + (E − P) E B J`
+(valid for every ambient `B` because `P E = P`), the boundary cases split
+further into a radial-boundary leg `(I − E) C M_p J` and an internal-gap
+leg `(E − P) E C M_p J`. Records 1495/1496/1497 prove these legs for the
+bare root (`M = I`); the boundary cases carry the extra `M_p` and need the
+same two estimates adapted to it. In particular the record-1495
+finite-window support identity used the root's compact support; the
+composite window must combine the root window with the visible-prime
+transport range, which is exactly the data `OrbitG8Geometry` exports
+([1464](../proofs/1464_g8_r0_raw_orbit_geometry.md)).
+
+**Family IN** — `J† C (ambient ∘L J ∘L sourceSide)` columns. For the
+survivor (`ambient = I`) this is the moving-scale compressed detector on
+the source carrier: the range-leg square-sum is formal
+([028](028_r3_moving_scale_detector_root_range_energy.md), record 1465) and
+the leakage/common-right detector-root legs are the long-open obligations
+([019](019_r3_leakage_doubled_shift_normal_form.md)–[024](024_r3_source_leakage_translated_decay.md),
+[022](022_r3_common_right_causal_telescope.md)). The boundary cases carry
+`M_p` inside the sandwich and are strictly harder.
+
+**Free corollary (formalize now).** For the survivor leg, the OUT half is
+already dominated: record 1497 states O1 for an *arbitrary* source basis,
+and `PositiveTrace.summable_normSq_precomp` (used inside 1497 itself)
+preserves column square-sums under bounded right precomposition. Hence
+`Σ_i ‖((I − P) C J) (s_S e_i)‖² < ∞` is a two-line corollary of committed
+material. Combined with B1, this reduces the survivor obligation exactly
+to `Σ_i ‖J† C J (s_S e_i)‖² < ∞` on the named basis.
+
+## 5. The two work orders
+
+### WO-S (survivor diagonal energy)
+
+| Brick | Content | Type |
+| :-- | :-- | :-- |
+| S1 | B1 factorization lemma `g8MetricSurvivorCoframe λ V = u • J ∘L s_S` | definitional rewrite |
+| S2 | orthogonal split + the free OUT corollary of §4; conclusion `hSurvivor ↔ Summable i, ‖J† C J (s_S e_i)‖²` (given 1497) | assembly from committed material |
+| S3 | the IN estimate: moving-scale in-Sonin compressed-detector square-sum `J† C J ∘L s_S` — continue the 018/022/028 partition (range leg formal; leakage/common-right legs open) | the open mathematics |
+
+Stop rule ([012](012_g8_same_owner_readback_rh_reachability.md) §3): any S3
+bound that presumes a `qw` sign, `SourceRH`, or a universal gate is
+circular and stops.
+
+### WO-B (boundary diagonal energy, per visible prime)
+
+| Brick | Content | Type |
+| :-- | :-- | :-- |
+| B1 | B2 factorization induction: every boundary output is `M_p ∘L J ∘L N_p` | structural induction |
+| B2 | per-output split into IN/OUT families; per-output OUT split into radial-boundary and internal-gap legs via the record-1494 identity applied to `B = C ∘L M_p` | assembly |
+| B3 | composite radial-boundary estimate `(I − E) C M_p J` — record-1495-analog window/support identity for the composite, then the 1496 transfer | open, 1495/1496-pattern |
+| B4 | composite internal-gap estimate `(E − P) E C M_p J` — record-1497-analog absorption with `M_p` inside | open, 1497-pattern |
+
+Per-output B3/B4 results feed the existing consumers unchanged:
+[1492](../proofs/1492_g8_boundary_energy_finite_output_reduction.md)
+(`g8MetricVisibleBoundary_root_energy_summable_of_each_output`) and
+[1493](../proofs/1493_g8_boundary_output_trace_consumer.md)’s Lean twin
+(`C1G8R3BoundaryOutputTraceConsumer.lean`), then the conditional total
+trace limit [1486](../proofs/1486_r3_total_metric_cutoff_trace_limit.md).
+
+Hard constraints on both work orders:
+
+- Ambient Hilbert–Schmidt shortcuts are formally blocked: the ambient
+  leakage leg has a non-summable orthonormal orbit
+  ([1488](../proofs/1488_r3_leakage_orthonormal_translation_orbit.md),
+  [1489](../proofs/1489_r3_leakage_orthonormal_orbit_energy_obstruction.md)),
+  and projecting that orbit into the source carrier destroys it
+  ([1490](../proofs/1490_g8_source_projection_translated_orbit_decay.md)).
+- Any new boundary estimate must not factor through
+  `sourceInclusion† ∘L sourceProlateFactor ∘L sourceInclusion`: that
+  pullback is identically zero
+  ([1491](../proofs/1491_g8_source_prolate_pullback_zero.md)), which is
+  what voided the earlier visible-boundary energy lemma.
+- Hilbert–Schmidt does not upgrade to trace-class by itself; the G8 trace
+  consumer needs the trace-class owners already wired in the cutoff ledger.
+
+Recommended order: S1, S2, B1, B2 first (cheap, converts both obligations
+into source-carrier normal forms and pins the estimate targets); then S3
+and B3/B4. S3 shares its open core (leakage/common-right detector-root
+legs) with the long-running 018–028 program; B3/B4 are new estimates in the
+1495/1497 patterns.
+
+## 6. What this audit does not do
+
+It proves nothing new in Lean, supplies neither energy estimate, does not
+touch the mixed channels (closed by
+[1483](../proofs/1483_r3_actual_cutoff_survivor_boundary_trace_limit.md)),
+does not change the conditional assemblies of [040](040_r3_diagonal_trace_limit_energy_constraint.md)/[041](041_r3_total_metric_cutoff_trace_limit.md),
+and does not alter the binding route [003](003_b1_b5_minimal_exit_route_selection.md),
+the R2/R3 readback obligations, endpoint/P2 signs, C3, or RH. No RH result
+is claimed in either direction.

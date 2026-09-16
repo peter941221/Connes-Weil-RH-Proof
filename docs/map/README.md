@@ -144,6 +144,11 @@ traceability.
 | 041    | Supporting            | R3 total four-channel cutoff trace     |
 |        |                       | converges under both diagonal energy   |
 |        |                       | hypotheses; estimates remain open      |
+| 042    | Supporting            | G8 diagonal leg operator-bridge audit: |
+|        |                       | every coframe is ambient ∘L J ∘L       |
+|        |                       | source-side; 1497 supplies neither     |
+|        |                       | diagonal energy; survivor OUT half     |
+|        |                       | already dominated; WO-S/WO-B split     |
 +--------+-----------------------+---------------------------------------------+
 ```
 
@@ -226,6 +231,11 @@ visible-prime output energies. Other R2/R3 cutoff compatibility, the analytic
 remainder, and the same-owner trace-to-`qw` theorem remain open; no feasibility
 or RH result is claimed. See [1464](../proofs/1464_g8_r0_raw_orbit_geometry.md)
 and [1497](../proofs/1497_r3_internal_prolate_gap_source_energy.md).
+Map [042](042_g8_diagonal_leg_operator_bridge_audit.md) now fixes the exact
+bridge: both diagonal coframes factor through `sourceInclusion λ`, so
+record 1497 dominates only the survivor leg's out-of-Sonin half, and the
+two remaining obligations are the in-Sonin compressed-detector square-sums
+and the `M_p`-adapted leakage legs registered there as WO-S/WO-B.
 
 `013` is a supporting candidate below `012`, not a new route authority. It
 uses the committed exact decomposition of the coupled source second-support /
@@ -1185,6 +1195,18 @@ Read the current records in this order for a full-map review:
     the conditional diagonal limits and the formal mixed-pair limit, but
     supplies neither energy estimate nor trace-to-`qw` identification. See
     [1486](../proofs/1486_r3_total_metric_cutoff_trace_limit.md).
+69. [042 - G8 diagonal leg operator-bridge audit](042_g8_diagonal_leg_operator_bridge_audit.md)
+    — quoted from committed definitions: every actual G8 metric coframe is
+    `ambient ∘L sourceInclusion λ ∘L sourceSide`; record 1497's
+    source-Sonin leakage `(I−P) C J` supplies neither `hSurvivor` nor
+    `hBoundary` (left-projection, input-map, and ambient-factor
+    mismatches). The survivor obligation reduces exactly to the in-Sonin
+    square-sum `Σ‖J† C J s_S e_i‖²` (its out-of-Sonin half is already
+    dominated by 1497 + bounded precomposition); the boundary obligation
+    reduces to per-output IN/OUT estimates `J† C M_p J N_p` and the
+    1494-split legs `(I−E) C M_p J`, `(E−P) E C M_p J`, feeding the
+    unchanged 1492/1493 interfaces. Work orders WO-S (S1-S3) and WO-B
+    (B1-B4) registered with stop rules; no estimate proved.
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).

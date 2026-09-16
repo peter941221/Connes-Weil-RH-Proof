@@ -5,7 +5,9 @@ actual paired leakage/source and signed source-remainder trace limits formal;
 survivor/boundary mixed channels paired and limited; total metric trace limit
 formal under the two diagonal energy hypotheses; radial-boundary finite-window
 support, translation, and source-basis energy formal; internal-gap and full
-source-Sonin leakage same-basis energy formal).
+source-Sonin leakage same-basis energy formal; diagonal leg operator-bridge
+audit registered as map 042, splitting both diagonal obligations into
+in-Sonin and leakage-band families on the source carrier).
 It does not alter the binding route ruling in
 [003](003_b1_b5_minimal_exit_route_selection.md),
 does not reopen universal B1, and does not claim RH. It answers a narrower
@@ -754,3 +756,27 @@ and same-owner trace-to-`qw` readback remain open; detector-specific
 semi-local positivity, C3, and RH are not claimed. See [proof record
 1497](../proofs/1497_r3_internal_prolate_gap_source_energy.md) and
 [supporting map record 018](018_r3_unit_detector_root_square_sum.md).
+
+### R3-F25 diagonal leg operator-bridge audit (map 042, 2026-09-16)
+
+A source-level audit (zero new Lean) fixes what record 1497 does and does
+not supply for the two diagonal energy hypotheses `hSurvivor`/`hBoundary`
+consumed by records 1485/1486/1493. Quoted from committed definitions:
+every actual G8 metric coframe factors as
+`ambient ∘L sourceInclusion λ ∘L sourceSide` (the survivor coframe has
+ambient factor `I` because the empty Euler product is the identity), while
+record 1497's object is `(I − P) ∘L C ∘L J`. The two obligations are
+therefore NOT supplied: the left projection removes the in-Sonin (signal)
+half of the norm, the input maps differ, and the boundary legs insert an
+ambient factor between root and inclusion. The bridge converts both
+obligations into source-carrier normal forms: the survivor energy reduces
+exactly to the in-Sonin square-sum `Σ‖J† C J s_S e_i‖²` (its out-of-Sonin
+half is a free corollary of 1497 via bounded right precomposition), and
+each boundary output `M_p ∘L J ∘L N_p` splits into an in-Sonin family
+`J† C M_p J N_p` plus the record-1494 leakage legs `(I−E) C M_p J` and
+`(E−P) E C M_p J`, which need `M_p`-adapted versions of the record
+1495/1496 window identity and the record 1497 prolate absorption. Work
+orders WO-S (S1–S3) and WO-B (B1–B4), with stop rules and the ambient
+shortcut blocks (records 1488–1491), are registered in
+[map 042](042_g8_diagonal_leg_operator_bridge_audit.md). No estimate is
+proved; R3, the trace-to-`qw` readback, and RH remain open.
