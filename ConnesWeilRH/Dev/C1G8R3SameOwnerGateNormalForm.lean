@@ -209,7 +209,7 @@ theorem g8R5_aggregateLimit_eq_qw_of_sameOwnerReadbackData
       atTop
       (𝓝 ((ordinaryTraceAlong sourceBasis
         (g8EndpointSourceCutoffLimitOperator owner lambda family)).re)) := by
-    rw [← hpt, hfold]
+    rw [← hpt]
     exact hlim
   have hsplit : Tendsto
       (fun n : ℕ =>

@@ -895,3 +895,15 @@ tail composition, and the form iterates; the tail gate is the minimal
 irreducible remainder, still phase-typed per the Hardy-pressure finding.
 See [1504](../proofs/1504_r5_same_owner_gate_normal_form.md) and
 [1505](../proofs/1505_route_w_window_tail_normal_form.md).
+
+### ρ5 Euler bridge isolated (record 1507, 2026-09-16)
+
+The formal gate now builds cleanly, but the Euler identification remains a
+genuine object-level problem. The available arithmetic ledger identifies the
+ordinary trace of the separate arithmetic operator with the finite visible
+prime-power sum. The G8 endpoint aggregate is instead the source trace of
+`J† C† G C J`; the existing source-compression identity for `G` cannot be
+applied to the ambient vectors `C (J u)`. Record [1507](../proofs/1507_r5_euler_content_bridge_target.md)
+pins the required bridge and explicitly records this type/owner mismatch.
+This is an open mathematical target, not a formal consequence of ρ4 or the
+ρ5 iff.

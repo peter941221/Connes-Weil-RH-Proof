@@ -1,0 +1,47 @@
+# 1507 — ρ5 Euler-content bridge: exact target and current obstruction
+
+**Status: OPEN, target formalized at the interface level.** This record
+separates the arithmetic theorem already available from the missing
+identification of the G8 endpoint aggregate. It does not turn the ρ5 iff
+normal form into an Euler formula.
+
+The compiled G8 endpoint limit is the source trace of
+
+```text
+J† C† G C J
+```
+
+where `C` is the selected global root convolution and `G` is the fixed
+adjoint-shear Gram. Record 1504 proves that the same-owner readback reaches
+`qw` exactly when the real part of this aggregate equals `qw`.
+
+Independently, `CCM24FiniteSEndpointArithmeticLimit` proves that the
+arithmetic operator has ordinary trace equal to the finite visible
+prime-power sum, and that the completed residual is the route trace minus
+that sum. This is the available Euler consumer.
+
+The missing theorem is therefore an object-level bridge of the following
+shape, with all terms defined from the selected owner and finite family:
+
+```text
+realTrace(J† C† G C J)
+  = finitePrimeTermSum(family) + residualLimit
+```
+
+followed by the proof that `residualLimit` is exactly the archimedean/P2
+part in the definition of `qw`. Neither equality follows from positivity,
+trace convergence, or the formal ρ5 iff. In particular, the existing
+identity
+
+```text
+sourceCompression(G) = metricCoframe† detector metricCoframe
+```
+
+does not rewrite the inserted vectors `C (J u)` as source vectors; applying
+it there would be a type error and would silently erase the Euler content.
+
+The rho5 gate is consequently not closed by this record. The next valid
+brick must prove the displayed object-level bridge (or a stronger explicit
+P2 decomposition) from the committed arithmetic ledger, without taking
+`qw` or its sign as input.
+
