@@ -245,6 +245,65 @@ theorem wideRadial_absorption_of_sourceHardyRadialSupport
     _ = archimedeanHardyTitchmarshOperator
         (M (sourceInclusion lambda u)) := hMat
 
+/-! A source-range column has an automatic Hardy radial-support certificate.
+The Sonin range is contained in the genuine Fourier-support range; applying
+the Hardy involution therefore returns to the original radial half-line. -/
+theorem sourceSoninProjection_hardy_radialSupport
+    (lambda : CCM24SoninScale) :
+    radialSupportProjection lambda ∘L
+        archimedeanHardyTitchmarshOperator ∘L
+          sourceSoninProjection lambda =
+      archimedeanHardyTitchmarshOperator ∘L
+        sourceSoninProjection lambda := by
+  letI : CompleteSpace
+      ((ccm24LogRadialSupportClosedSubspace lambda).toSubmodule ⊓
+        (ccm24ArchimedeanFourierSupportClosedSubspace lambda).toSubmodule :
+        Submodule ℂ Carrier) :=
+    (ccm24ArchimedeanSoninClosedSubspace lambda).isClosed.completeSpace_coe
+  have hQP : sourceFourierSupportProjection lambda ∘L
+      sourceSoninProjection lambda = sourceSoninProjection lambda := by
+    have hmul : sourceFourierSupportProjection lambda *
+        sourceSoninProjection lambda = sourceSoninProjection lambda := by
+      simpa [sourceFourierSupportProjection, sourceSoninProjection,
+        ccm24ArchimedeanSoninClosedSubspace,
+        ContinuousLinearMap.mul_def] using
+        (_root_.ConnesWeilRH.CC20Concrete.right_starProjection_absorbs_intersection
+          (ccm24LogRadialSupportClosedSubspace lambda).toSubmodule
+          (ccm24ArchimedeanFourierSupportClosedSubspace lambda).toSubmodule)
+    simpa only [ContinuousLinearMap.mul_def] using hmul
+  apply ContinuousLinearMap.ext
+  intro u
+  have hAt := congrArg archimedeanHardyTitchmarshOperator
+    (DFunLike.congr_fun hQP u)
+  simp only [ContinuousLinearMap.comp_apply] at hAt
+  rw [sourceFourierSupportProjection_eq_hardyTitchmarsh_conjugation] at hAt
+  simp only [ContinuousLinearMap.comp_apply] at hAt
+  rw [archimedeanHardyTitchmarshOperator_involutive] at hAt
+  simpa only [ContinuousLinearMap.comp_apply] using hAt
+
+theorem wideRadial_absorption_of_sourceSoninRangeHardy
+    (lambda : CCM24SoninScale) (s : ℝ) (hs : 0 ≤ s)
+    (M : Carrier →L[ℂ] Carrier)
+    (hM : sourceSoninProjection lambda ∘L M ∘L sourceInclusion lambda =
+      M ∘L sourceInclusion lambda) :
+    radialSupportProjection (wideRadialScale lambda s) ∘L
+        archimedeanHardyTitchmarshOperator ∘L M ∘L sourceInclusion lambda =
+      archimedeanHardyTitchmarshOperator ∘L M ∘L sourceInclusion lambda := by
+  have hbase : radialSupportProjection lambda ∘L
+      archimedeanHardyTitchmarshOperator ∘L M ∘L sourceInclusion lambda =
+      archimedeanHardyTitchmarshOperator ∘L M ∘L sourceInclusion lambda := by
+    apply ContinuousLinearMap.ext
+    intro u
+    have hsonin := congrArg
+      (fun T : Carrier →L[ℂ] Carrier => T (M (sourceInclusion lambda u)))
+      (sourceSoninProjection_hardy_radialSupport lambda)
+    have hMAt := congrArg
+      (fun T : sourceSoninCarrier lambda →L[ℂ] Carrier => T u) hM
+    simp only [ContinuousLinearMap.comp_apply] at hsonin hMAt ⊢
+    rw [hMAt] at hsonin
+    exact hsonin
+  exact wideRadial_absorption_of_sourceHardyRadialSupport lambda s hs M hbase
+
 /-! The genuine forward one-prime Euler transport supplies the original-scale
 radial premise needed by the wider-scale consumer.  This is the first
 concrete instance of `hwide`: the source inclusion is radial and the forward

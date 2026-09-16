@@ -402,3 +402,9 @@ leg `P C J`. This sharpens the consumer: the prolate remainder is already
 controlled, while the sole analytic target is `P C J` (equivalently the source
 gate lift). The controlled complementary band leg `B C J` is not substituted
 for it; the operators are distinct. Status remains S3 OPEN.
+
+Record 1515 proves the source-range Hardy support bridge `E H P = H P` and
+its widened-scale consequence: any column satisfying `P M J = M J` meets the
+B4 Hardy support premise automatically. This is a genuine conditional split;
+the physical ambient-loss and Schur boundary columns are not yet known to be
+source-range, so WO-B and S3 remain open.
