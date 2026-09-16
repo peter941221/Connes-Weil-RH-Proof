@@ -131,3 +131,15 @@ unconditional formal theorem
 Thus the root-convolved radial OUT energy of the actual ambient-loss column is
 now closed.  The theorem is a square-sum transfer only; the coupled inner
 metric/projection channel and B4 remain open.
+
+## 2026-09-17 B3 transfer through arbitrary source columns (record 1560)
+
+The B3 reducer now has a source-column interface
+`compositeRadialLeg_sourceColumn_normSq_summable`: for any bounded
+`A : sourceSoninCarrier lambda ->L Carrier`, the proof realizes `A` as
+`A ∘L J† ∘L J` and transfers the existing composite estimate.  A direct
+postcomposition lemma then gives the same square-sum after any bounded
+ambient readout.  Together with record 1555 this closes the radial OUT
+energy of the actual ambient-loss physical channel, including bounded
+ambient-row readouts.  No claim is made for the inner metric/projection or
+Hardy-conjugated channel.

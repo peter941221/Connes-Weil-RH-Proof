@@ -355,3 +355,9 @@ then instantiates the composite reducer; the actual column supplies its
 canonical wide-support premise at `s = log p`.  WO-B is therefore reduced to
 its coupled inner metric/projection channel (B4/Hardy side still open), while
 S3 remains the independent survivor IN estimate.
+
+Record 1560 adds the generic source-column B3 transfer and its postcomposition
+form, then instantiates both on the actual ambient-loss column.  The radial
+OUT square-sum is now available after arbitrary bounded ambient rows; the
+remaining boundary work is the inner metric/projection channel and the B4
+Hardy side.  WO-S remains open.

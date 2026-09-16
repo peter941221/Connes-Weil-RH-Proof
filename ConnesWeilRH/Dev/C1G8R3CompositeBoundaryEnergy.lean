@@ -958,6 +958,25 @@ theorem suffixEulerFrameAmbientLossColumn_compositeRadialLeg_sourceBasis_normSq_
     (Real.log p) hlogp (suffixEulerFrameAmbientLossColumn lambda p S) N
     sourceBasis (suffixEulerFrameAmbientLossColumn_wideRadialSupport lambda p S)
 
+theorem suffixEulerFrameAmbientLossColumn_compositeRadialLeg_postcomp_sourceBasis_normSq_summable
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (p : CCM24VisiblePrime) (S : List CCM24VisiblePrime)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    (ambientRow : Carrier →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) :
+    Summable fun i : ρ =>
+      ‖(ambientRow ∘L
+          (((ContinuousLinearMap.id ℂ Carrier - radialSupportProjection lambda) ∘L
+            rootConvolution owner ∘L
+              suffixEulerFrameAmbientLossColumn lambda p S) ∘L N))
+        (sourceBasis i)‖ ^ 2 := by
+  exact PositiveTrace.summable_normSq_postcomp sourceBasis
+    ((((ContinuousLinearMap.id ℂ Carrier - radialSupportProjection lambda) ∘L
+      rootConvolution owner ∘L suffixEulerFrameAmbientLossColumn lambda p S) ∘L N))
+    ambientRow
+    (suffixEulerFrameAmbientLossColumn_compositeRadialLeg_sourceBasis_normSq_summable
+      owner lambda p S N sourceBasis)
+
 /-! ## The composite internal-gap leg (B4) -/
 
 /- The deep operator reassociation used by B4 is kept as a separate
