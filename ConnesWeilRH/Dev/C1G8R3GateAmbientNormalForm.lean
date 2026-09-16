@@ -281,5 +281,91 @@ theorem sourceGate_squareSum_iff_hardyCompressedRootEnergy
           (DFunLike.congr_fun hcancel (sourceBasis i)))
   simpa only [gate, hardy] using hgate_projected.trans hprojected_hardy
 
+set_option maxHeartbeats 1000000 in
+/-- The Hardy-compressed root is exactly the lifted source-gate root plus the
+prolate remainder.  This is an operator identity, so the remaining analytic
+obligation is visibly the source-projection leg; the already square-summable
+remainder cannot be mistaken for that leg. -/
+theorem hardyCompressedRootEnergy_eq_sourceProjection_add_prolateRemainder
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale) :
+    radialSupportProjection lambda ∘L
+        sourceFourierSupportProjection lambda ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L
+            sourceInclusion lambda =
+      sourceSoninProjection lambda ∘L rootConvolution owner ∘L
+          sourceInclusion lambda +
+        sourceProlateRemainder lambda ∘L rootConvolution owner ∘L
+          sourceInclusion lambda := by
+  rw [sourceSoninProjection_eq_compression_sub_prolate lambda]
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.sub_apply]
+  abel
+
+set_option maxHeartbeats 1000000 in
+/-- After removing the prolate remainder, the Hardy-compressed square-sum is
+equivalent to the lifted source-projection root square-sum. -/
+theorem hardyCompressedRootEnergy_squareSum_iff_sourceProjectionRootEnergy
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    {ρ : Type*}
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) :
+    (Summable fun i : ρ =>
+      ‖(radialSupportProjection lambda ∘L
+          sourceFourierSupportProjection lambda ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L
+          sourceInclusion lambda) (sourceBasis i)‖ ^ 2) ↔
+    (Summable fun i : ρ =>
+      ‖(sourceSoninProjection lambda ∘L rootConvolution owner ∘L
+          sourceInclusion lambda) (sourceBasis i)‖ ^ 2) := by
+  let globalBasisIndex := Classical.choose (exists_hilbertBasis ℂ finiteSCarrier)
+  let globalBasis :=
+    Classical.choose (Classical.choose_spec (exists_hilbertBasis ℂ finiteSCarrier))
+  let C := rootConvolution owner
+  let J := sourceInclusion lambda
+  let K := sourceProlateHilbertSchmidtFactor lambda
+  let remainder := sourceProlateRemainder lambda ∘L C ∘L J
+  have hfactorLeg : Summable fun i : ρ =>
+      ‖(K ∘L C ∘L J) (sourceBasis i)‖ ^ 2 := by
+    exact PositiveTrace.summable_normSq_precomp globalBasis globalBasis
+      sourceBasis K (C ∘L J)
+      (sourceProlateHilbertSchmidtFactor_summable_all_scales globalBasis lambda)
+  have hremainder : Summable fun i : ρ => ‖remainder (sourceBasis i)‖ ^ 2 := by
+    have hpost := PositiveTrace.summable_normSq_postcomp sourceBasis
+      (K ∘L C ∘L J) K.adjoint hfactorLeg
+    simpa only [remainder, K, C, J,
+      ← sourceProlateHilbertSchmidtFactor_adjoint_comp_self lambda,
+      ContinuousLinearMap.comp_assoc] using hpost
+  let hardy := radialSupportProjection lambda ∘L
+    sourceFourierSupportProjection lambda ∘L radialSupportProjection lambda ∘L
+      C ∘L J
+  let projected := sourceSoninProjection lambda ∘L C ∘L J
+  have hdecomp : hardy = projected + remainder := by
+    simpa only [hardy, projected, remainder] using
+      hardyCompressedRootEnergy_eq_sourceProjection_add_prolateRemainder owner lambda
+  constructor
+  · intro h
+    have hneg : Summable fun i : ρ => ‖(-remainder) (sourceBasis i)‖ ^ 2 := by
+      simpa only [ContinuousLinearMap.neg_apply, norm_neg] using hremainder
+    have hsum := PositiveTrace.summable_normSq_add sourceBasis hardy
+      (-remainder) h hneg
+    have hcancel : hardy + (-remainder) = projected := by
+      apply ContinuousLinearMap.ext
+      intro u
+      have hu := DFunLike.congr_fun hdecomp u
+      simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.neg_apply,
+        sub_eq_add_neg] at hu ⊢
+      calc
+        hardy u + -remainder u = (projected u + remainder u) + -remainder u := by
+          rw [hu]
+        _ = projected u := by abel
+    exact hsum.congr (fun i => congrArg (fun v : finiteSCarrier => ‖v‖ ^ 2)
+      (DFunLike.congr_fun hcancel (sourceBasis i)))
+  · intro h
+    have hsum := PositiveTrace.summable_normSq_add sourceBasis projected
+      remainder h hremainder
+    exact hsum.congr (fun i => congrArg (fun v : finiteSCarrier => ‖v‖ ^ 2)
+      (DFunLike.congr_fun hdecomp (sourceBasis i)).symm)
+
 end Dev
 end ConnesWeilRH

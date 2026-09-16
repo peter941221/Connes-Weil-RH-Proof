@@ -395,3 +395,10 @@ Hardy-compressed root `E Q E C J`: the prolate remainder `R C J` is formally
 HS from the all-scale prolate factor and the identity `R = K† K`.  Hence the
 remaining S3 estimate is precisely the square-sum of `E Q E C J`; no ambient
 HS shortcut is available or needed.
+
+Record 1514 exports the exact identity `E Q E C J = P C J + R C J` and the
+resulting square-sum equivalence between `E Q E C J` and the source-projection
+leg `P C J`. This sharpens the consumer: the prolate remainder is already
+controlled, while the sole analytic target is `P C J` (equivalently the source
+gate lift). The controlled complementary band leg `B C J` is not substituted
+for it; the operators are distinct. Status remains S3 OPEN.
