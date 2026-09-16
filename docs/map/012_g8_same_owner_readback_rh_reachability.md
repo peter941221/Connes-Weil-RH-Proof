@@ -14,6 +14,13 @@ does not reopen universal B1, and does not claim RH. It answers a narrower
 question: whether the existing G8 positive-trace program has a genuine,
 non-circular path to the selected healthy-`CompactLog` B5 exit.
 
+**Bookkeeping correction (2026-09-16):** the previously listed S3, B3/B4,
+`rho5`, and C3 are not four independent gates. S3 and B3/B4 are the two
+currently open components of one total diagonal-energy package (possibly
+proved by one stronger Hilbert--Schmidt theorem); `rho5` is the separate
+same-object arithmetic bridge. C3, namely `qw >= 0`, is already the formal
+consumer of `G8SameOwnerReadbackData` and is not an additional producer goal.
+
 **Answer:** yes, conditionally. A detector-independent same-owner readback
 theorem for the G8 cutoff family would imply `SourceRH` through already
 formal theorems. No such analytic theorem is presently proved, and this

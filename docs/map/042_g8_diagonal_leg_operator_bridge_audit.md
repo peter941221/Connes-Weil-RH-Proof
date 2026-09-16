@@ -46,6 +46,13 @@ this is a reduction, not an S3 closure.
 ([012](012_g8_same_owner_readback_rh_reachability.md)); the binding route in
 [003](003_b1_b5_minimal_exit_route_selection.md) is unchanged.
 
+**Independence audit (2026-09-16):** S3 and B3/B4 are best treated as one
+total diagonal-energy producer with two currently separate estimates. The
+same-owner positivity conclusion C3 is a downstream theorem of the readback
+consumer, not a fourth independent analytic obligation. The remaining
+independent producer obligations are therefore the total energy package and
+the `rho5` aggregate-to-`qw` bridge.
+
 ## 1. The compared objects, quoted from committed source
 
 Throughout, `C = rootConvolution owner`

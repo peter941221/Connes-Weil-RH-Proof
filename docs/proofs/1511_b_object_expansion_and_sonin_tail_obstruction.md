@@ -258,3 +258,23 @@ sum_{|xi|>R} E_R(xi)^2 * column_weight(xi) < infinity,
 
 本记录没有改变绑定路线，也没有把 ROOT 窗口正性、coverage root 或 ambient
 leakage 反例提升为 Sonin 正性结论。
+
+## 8. “四个骨头”不是四个独立门
+
+此前把 S3、B3/B4、`rho5`、C3 并列，会高估独立义务。严格按
+`G8SameOwnerReadbackData` 的字段，真正需要的只有三个证明包：
+
+1. **总对角能量包**：survivor 的 in-Sonin square-sum，以及 visible-boundary
+   输出的有限族 square-sum。它们可以由一个更强的统一 Hilbert--Schmidt
+   定理一起供应；目前没有已知定理说明 survivor 能量会推出 boundary 能量，
+   所以不能在数学上直接删掉后者。
+2. **同对象聚合桥**：`rho5`，把 `J* C* G C J` 的迹与素数幂、阿基米德和
+   P2 余项放到同一个 owner 上。它是代数/算术识别义务，不是新的正性门。
+3. **最终 readback**：将前两包组装成 `G8SameOwnerReadbackData`。这一步已有
+   正迹消费者；因此 C3 的 `qw >= 0` 不是独立数学骨头，而是该数据结构被
+   `qw_nonnegative_of_g8SameOwnerReadbackData` 消费后的形式化推论。
+
+所以当前最小的独立障碍数是 **两个生产器**（总对角能量、`rho5`），外加
+一个已经写好的组装接口。若把 survivor/boundary 的能量证明合并成一个主定理，
+甚至可以只留下两个待证定理；把整个 readback 一次性证明也可以只写一个目标，
+但不会减少其中的数学内容。
