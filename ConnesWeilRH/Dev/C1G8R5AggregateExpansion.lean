@@ -46,6 +46,13 @@ noncomputable def g8AmbientRootAggregate
   (rootConvolution owner).adjoint ∘L
     g8AdjointShearGram owner lambda family ∘L rootConvolution owner
 
+theorem g8AmbientRootAggregate_isPositive
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    (g8AmbientRootAggregate owner lambda family).IsPositive := by
+  unfold g8AmbientRootAggregate
+  exact (g8AdjointShearGram_isPositive owner lambda family).adjoint_conj _
+
 theorem g8EndpointSourceCutoffLimitOperator_eq_sourceCompression_ambientRootAggregate
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
@@ -53,6 +60,13 @@ theorem g8EndpointSourceCutoffLimitOperator_eq_sourceCompression_ambientRootAggr
       (sourceInclusion lambda).adjoint ∘L
         g8AmbientRootAggregate owner lambda family ∘L sourceInclusion lambda := by
   rfl
+
+theorem g8EndpointSourceCutoffLimitOperator_isPositive
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    (g8EndpointSourceCutoffLimitOperator owner lambda family).IsPositive := by
+  rw [g8EndpointSourceCutoffLimitOperator_eq_sourceCompression_ambientRootAggregate]
+  exact (g8AmbientRootAggregate_isPositive owner lambda family).adjoint_conj _
 
 set_option maxHeartbeats 1000000 in
 theorem g8EndpointSourceCutoffLimitOperator_eq_fourTerms

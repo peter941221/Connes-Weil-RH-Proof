@@ -109,3 +109,7 @@ bridge target: compare the ambient operator `A_G8` (and only then compress by
 `J`) with the finite arithmetic response. The declaration does not identify
 `A_G8` with `rootSandwichedBandResponse`; that equality, or an explicit
 correction decomposition, remains the open rho5 producer.
+
+The same module now proves `A_G8.IsPositive` and positivity of its source
+compression. This is an internal Gram fact only: it supplies no trace
+convergence and no equality with the arithmetic operator.
