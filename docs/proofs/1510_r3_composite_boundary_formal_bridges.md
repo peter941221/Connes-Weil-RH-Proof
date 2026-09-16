@@ -42,3 +42,10 @@ The same monotonicity argument is now exposed for the Hardy-Titchmarsh
 channel: `wideRadial_absorption_of_hardyRadialSupport` reduces `hwideHT` to
 the original-scale radial support of `H ∘L M`. The actual conjugated boundary
 factors still require that original-scale support input.
+
+The support consumer now matches the B3/B4 interfaces exactly. The source
+variants `wideRadial_absorption_of_sourceRadialSupport` and
+`wideRadial_absorption_of_sourceHardyRadialSupport` require only the original
+scale identities for `M ∘L sourceInclusion` and
+`H ∘L M ∘L sourceInclusion`, respectively. No global range hypothesis is
+needed. The visible-prime factors still need these original-scale identities.

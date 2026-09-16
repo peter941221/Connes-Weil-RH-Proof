@@ -14,6 +14,10 @@ namespace Dev
 #print axioms wideRadial_absorption_of_radialSupport
 #check @wideRadial_absorption_of_hardyRadialSupport
 #print axioms wideRadial_absorption_of_hardyRadialSupport
+#check @wideRadial_absorption_of_sourceRadialSupport
+#print axioms wideRadial_absorption_of_sourceRadialSupport
+#check @wideRadial_absorption_of_sourceHardyRadialSupport
+#print axioms wideRadial_absorption_of_sourceHardyRadialSupport
 #check @compositeStripWindowOperator_basis_normSq_summable
 #print axioms compositeStripWindowOperator_basis_normSq_summable
 #check @compositeGapLeg_secondIdentity

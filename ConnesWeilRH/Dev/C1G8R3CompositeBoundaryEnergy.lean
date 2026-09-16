@@ -136,6 +136,79 @@ theorem wideRadial_absorption_of_hardyRadialSupport
   exact wideRadial_absorption_of_radialSupport lambda s hs
     (archimedeanHardyTitchmarshOperator ∘L M) hM
 
+theorem wideRadial_absorption_of_sourceRadialSupport
+    (lambda : CCM24SoninScale) (s : ℝ) (hs : 0 ≤ s)
+    (M : Carrier →L[ℂ] Carrier)
+    (hM : radialSupportProjection lambda ∘L M ∘L
+        sourceInclusion lambda = M ∘L sourceInclusion lambda) :
+    radialSupportProjection (wideRadialScale lambda s) ∘L M ∘L
+        sourceInclusion lambda = M ∘L sourceInclusion lambda := by
+  have hexp : Real.exp (-s) ≤ (1 : ℝ) :=
+    Real.exp_le_one_iff.mpr (by linarith)
+  have hle : (wideRadialScale lambda s).1 ≤ lambda.1 := by
+    dsimp [wideRadialScale]
+    calc
+      lambda.val * Real.exp (-s) ≤ lambda.val * 1 :=
+        mul_le_mul_of_nonneg_left hexp (le_of_lt lambda.2)
+      _ = lambda.val := by ring
+  have hproj := radialProjector_comp_of_le (wideRadialScale lambda s) hle
+  apply ContinuousLinearMap.ext
+  intro u
+  have hMat := congrArg
+    (fun T : sourceSoninCarrier lambda →L[ℂ] Carrier => T u) hM
+  have hprojAt := congrArg (fun T : Carrier →L[ℂ] Carrier =>
+      T ((M ∘L sourceInclusion lambda) u)) hproj
+  simp only [ContinuousLinearMap.comp_apply] at hMat hprojAt ⊢
+  calc
+    radialSupportProjection (wideRadialScale lambda s)
+        (M (sourceInclusion lambda u)) =
+        radialSupportProjection (wideRadialScale lambda s)
+          (radialSupportProjection lambda (M (sourceInclusion lambda u))) := by
+      rw [hMat]
+    _ = radialSupportProjection lambda (M (sourceInclusion lambda u)) := hprojAt
+    _ = M (sourceInclusion lambda u) := hMat
+
+theorem wideRadial_absorption_of_sourceHardyRadialSupport
+    (lambda : CCM24SoninScale) (s : ℝ) (hs : 0 ≤ s)
+    (M : Carrier →L[ℂ] Carrier)
+    (hM : radialSupportProjection lambda ∘L
+        archimedeanHardyTitchmarshOperator ∘L M ∘L sourceInclusion lambda =
+      archimedeanHardyTitchmarshOperator ∘L M ∘L sourceInclusion lambda) :
+    radialSupportProjection (wideRadialScale lambda s) ∘L
+        archimedeanHardyTitchmarshOperator ∘L M ∘L sourceInclusion lambda =
+      archimedeanHardyTitchmarshOperator ∘L M ∘L sourceInclusion lambda := by
+  have hexp : Real.exp (-s) ≤ (1 : ℝ) :=
+    Real.exp_le_one_iff.mpr (by linarith)
+  have hle : (wideRadialScale lambda s).1 ≤ lambda.1 := by
+    dsimp [wideRadialScale]
+    calc
+      lambda.val * Real.exp (-s) ≤ lambda.val * 1 :=
+        mul_le_mul_of_nonneg_left hexp (le_of_lt lambda.2)
+      _ = lambda.val := by ring
+  have hproj := radialProjector_comp_of_le (wideRadialScale lambda s) hle
+  apply ContinuousLinearMap.ext
+  intro u
+  have hMat := congrArg
+    (fun T : sourceSoninCarrier lambda →L[ℂ] Carrier => T u) hM
+  have hprojAt := congrArg (fun T : Carrier →L[ℂ] Carrier =>
+      T ((archimedeanHardyTitchmarshOperator ∘L M ∘L sourceInclusion lambda) u))
+    hproj
+  simp only [ContinuousLinearMap.comp_apply] at hMat hprojAt ⊢
+  calc
+    radialSupportProjection (wideRadialScale lambda s)
+        (archimedeanHardyTitchmarshOperator
+          (M (sourceInclusion lambda u))) =
+        radialSupportProjection (wideRadialScale lambda s)
+          (radialSupportProjection lambda
+            (archimedeanHardyTitchmarshOperator
+              (M (sourceInclusion lambda u)))) := by
+      rw [hMat]
+    _ = radialSupportProjection lambda
+        (archimedeanHardyTitchmarshOperator
+          (M (sourceInclusion lambda u))) := hprojAt
+    _ = archimedeanHardyTitchmarshOperator
+        (M (sourceInclusion lambda u)) := hMat
+
 /-- Membership in the positive half-line. -/
 theorem mem_cc20PositiveHalfLine_iff (x : ℝ) :
     x ∈ cc20PositiveHalfLine ↔ 0 ≤ x := by

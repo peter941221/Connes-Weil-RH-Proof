@@ -301,6 +301,9 @@ Record 1530 adds a reusable monotonicity lemma: if an ambient factor `M` is
 already fixed by the original radial projection, then it is fixed by every
 wider radial projection. Thus `hwide` is discharged for that subclass of
 factors. Its Hardy variant reduces `hwideHT` in the same way for `H ∘L M`.
+Record 1533 strengthens both declarations to the exact source-composed forms,
+so only `M ∘L J` (or `H ∘L M ∘L J`) needs the original-scale support identity;
+no global range condition is required.
 The actual visible-prime factors `M_p` and their Hardy conjugates are not yet
 shown to satisfy the original radial-support premise, so the analytic inputs
 remain open for the boundary outputs and WO-B is not closed. RH is not
