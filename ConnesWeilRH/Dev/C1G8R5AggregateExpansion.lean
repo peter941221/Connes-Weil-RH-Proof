@@ -7,6 +7,7 @@ import ConnesWeilRH.Dev.C1G8R3ActualEndpointTraceLimit
 import ConnesWeilRH.Dev.C1G8R3SameOwnerGateNormalForm
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSEndpointArithmeticLedger
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSMovingBandSelfAdjointTrace
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSMovingBandMatrixCancellation
 
 /-!
 # Exact four-channel expansion of the endpoint aggregate
@@ -32,6 +33,7 @@ open Source.CCM25Concrete.CCM24FiniteSMovingBandPrefixCompression
 open Source.CCM25Concrete.CCM24FiniteSRectangularPrefixCycle
 open Source.CCM25Concrete.CCM24FiniteSEndpointArithmeticLedger
 open Source.CCM25Concrete.CCM24FiniteSMovingBandSelfAdjointTrace
+open Source.CCM25Concrete.CCM24FiniteSMovingBandMatrixCancellation
 open Source.CCM25Concrete.CCM24FiniteSGatePhysicalObliqueShearReduction
 open Source.C1G8AdjointShearGram
 open scoped InnerProduct InnerProductSpace Topology
@@ -137,6 +139,32 @@ theorem g8AmbientArithmeticCorrection_adjoint_eq
   rw [g8AmbientArithmeticCorrection, hadjoint_sub,
     (g8AmbientRootAggregate_isPositive owner lambda family).isSelfAdjoint.adjoint_eq,
     rootSandwichedBandResponse_adjoint_eq]
+
+theorem trace_basisPrefixMatrix_g8AmbientArithmeticCorrection_im_eq_zero
+    (basis : HilbertBasis ℕ ℂ finiteSCarrier) (N : ℕ)
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    (Matrix.trace (basisPrefixMatrix basis N
+      (g8AmbientArithmeticCorrection owner lambda family))).im = 0 := by
+  have hmatrix := basisPrefixMatrix_adjoint_eq_conjTranspose basis N
+    (g8AmbientArithmeticCorrection owner lambda family)
+  rw [g8AmbientArithmeticCorrection_adjoint_eq] at hmatrix
+  have htrace : Matrix.trace (basisPrefixMatrix basis N
+      (g8AmbientArithmeticCorrection owner lambda family)) =
+      star (Matrix.trace (basisPrefixMatrix basis N
+        (g8AmbientArithmeticCorrection owner lambda family))) := by
+    calc
+      Matrix.trace (basisPrefixMatrix basis N
+          (g8AmbientArithmeticCorrection owner lambda family)) =
+          Matrix.trace (Matrix.conjTranspose (basisPrefixMatrix basis N
+            (g8AmbientArithmeticCorrection owner lambda family))) := by
+        rw [← hmatrix]
+      _ = star (Matrix.trace (basisPrefixMatrix basis N
+          (g8AmbientArithmeticCorrection owner lambda family))) := by
+        exact Matrix.trace_conjTranspose _
+  have him := congrArg Complex.im htrace
+  rw [Complex.star_def, Complex.conj_im] at him
+  linarith
 
 theorem g8AmbientRootAggregate_eq_rootSandwiched_add_correction
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)

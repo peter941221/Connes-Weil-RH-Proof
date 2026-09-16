@@ -160,3 +160,8 @@ finite oblique shear and `W` the detector. This is an operator identity before
 source compression, so the correction estimate can be split into the two cross
 channels, the leakage square, and the difference between the base channel and
 the arithmetic response.
+
+Because `Delta_G8` is self-adjoint, its finite-prefix matrix is Hermitian and
+its matrix trace has zero imaginary part. This is now a formal Lean theorem.
+The result only removes a complex-valued bookkeeping nuisance; it supplies no
+bound, positivity, or convergence of the correction trace.
