@@ -1381,4 +1381,50 @@ theorem compositeGapLeg_sourceBasis_normSq_summable
   rw [hBE, hsplitPt, ContinuousLinearMap.add_apply,
     ContinuousLinearMap.add_apply, hSecondPt]
 
+set_option maxHeartbeats 20000000 in
+theorem compositeGapLeg_sourceColumn_normSq_summable
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale) (s : ℝ)
+    (hs : 0 ≤ s)
+    (A : sourceSoninCarrier lambda →L[ℂ] Carrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (hwideHT : radialSupportProjection (wideRadialScale lambda s) ∘L
+        archimedeanHardyTitchmarshOperator ∘L A =
+      archimedeanHardyTitchmarshOperator ∘L A) :
+    Summable fun i : ρ =>
+      ‖(((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L A) ∘L N)
+        (sourceBasis i)‖ ^ 2 := by
+  let J := sourceInclusion lambda
+  let M := A ∘L ContinuousLinearMap.adjoint J
+  have hMJ : M ∘L J = A := by
+    apply ContinuousLinearMap.ext
+    intro x
+    simp only [M, ContinuousLinearMap.comp_apply]
+    have hJ := DFunLike.congr_fun
+      (sourceInclusion_adjoint_comp_self lambda) x
+    simp only [ContinuousLinearMap.comp_apply] at hJ
+    exact congrArg A hJ
+  have hwideM : radialSupportProjection (wideRadialScale lambda s) ∘L
+      archimedeanHardyTitchmarshOperator ∘L M ∘L J =
+      archimedeanHardyTitchmarshOperator ∘L M ∘L J := by
+    simpa only [hMJ] using hwideHT
+  have hgeneric := compositeGapLeg_sourceBasis_normSq_summable
+    owner lambda s hs M N sourceBasis hwideM
+  have hchain :
+      (((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L M ∘L J) ∘L N) =
+        (((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L A) ∘L N) := by
+    apply ContinuousLinearMap.ext
+    intro x
+    have h := congrArg
+      (fun T : sourceSoninCarrier lambda →L[ℂ] Carrier => T (N x)) hMJ
+    simp only [ContinuousLinearMap.comp_apply] at h ⊢
+    rw [h]
+  refine hgeneric.congr ?_
+  intro i
+  rw [congrArg (fun T : sourceSoninCarrier lambda →L[ℂ] Carrier =>
+    T (sourceBasis i)) hchain]
+
 end ConnesWeilRH.Dev

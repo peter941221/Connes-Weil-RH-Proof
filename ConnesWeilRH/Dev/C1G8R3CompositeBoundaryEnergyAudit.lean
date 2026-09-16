@@ -60,5 +60,7 @@ namespace Dev
 #print axioms compositeRadialLeg_sourceBasis_normSq_summable
 #check @compositeGapLeg_sourceBasis_normSq_summable
 #print axioms compositeGapLeg_sourceBasis_normSq_summable
+#check @compositeGapLeg_sourceColumn_normSq_summable
+#print axioms compositeGapLeg_sourceColumn_normSq_summable
 
 end ConnesWeilRH.Dev

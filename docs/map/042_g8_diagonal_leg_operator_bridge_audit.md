@@ -369,3 +369,10 @@ range projection and complement, stays in the widened radial subspace at
 OUT square-sum for the boundary dagger as well, including bounded ambient-row
 postcomposition.  Both physical boundary coordinates now have radial OUT B3;
 the Hardy-conjugated B4 input and the survivor IN/S3 estimate remain open.
+
+Record 1562 adds the matching B4 source-column interface.  For any bounded
+source column `A`, the existing internal-gap reducer can be invoked after
+factoring `A` through `J† ∘L J`; its only analytic premise is the exact
+source-composed Hardy support identity for `H ∘L A`.  This does not yet prove
+that identity for either physical boundary column, so WO-B remains open at
+the Hardy side.

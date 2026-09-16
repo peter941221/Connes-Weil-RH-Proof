@@ -156,3 +156,13 @@ gives source-basis square-summability for the root-convolved boundary dagger,
 and a postcomposition form for bounded ambient rows.  Thus both physical
 boundary coordinates have their radial OUT B3 estimate.  The Hardy-conjugated
 B4 estimate and the survivor IN estimate remain open.
+
+## 2026-09-17 Source-column interface for B4 (record 1562)
+
+The B4 internal-gap reducer now also has a source-column interface
+`compositeGapLeg_sourceColumn_normSq_summable`.  It represents an arbitrary
+bounded source column `A` as `A ∘L J† ∘L J`, exactly as in B3, and reduces the
+Hardy support premise to the source-composed identity
+`E_(lambda exp(-s)) H A = H A`.  This is a formal interface reduction only;
+no Hardy support theorem for the actual ambient-loss or boundary-dagger
+columns has been claimed.
