@@ -44,3 +44,30 @@ The rho5 gate is consequently not closed by this record. The next valid
 brick must prove the displayed object-level bridge (or a stronger explicit
 P2 decomposition) from the committed arithmetic ledger, without taking
 `qw` or its sign as input.
+
+## 2026-09-16 object audit: the available arithmetic response is a different
+## root sandwich
+
+The committed arithmetic endpoint ledger is not an unlabelled version of the
+G8 aggregate. Its root response is
+
+```text
+rootSandwichedBandResponse = C * soninBandDifference * C†
+```
+
+and its finite-prefix theorem rewrites that response as the arithmetic
+operator plus the completed root-cycle residual. The G8 endpoint aggregate is
+
+```text
+J† * C† * G * C * J
+```
+
+with the adjoint-shear Gram `G`. The order of `C` and `C†`, the source
+compression by `J`, and the middle operator (`G` versus
+`soninBandDifference`) are all different. The physical-endpoint ledger adds
+further internal-forward and complement channels before it reaches the G8
+cutoff object. Therefore the existing arithmetic prefix theorem cannot be
+instantiated by rewriting names; a bridge must either prove these correction
+channels cancel in the selected limit or introduce the correctly corrected
+G8 arithmetic response. This is a structural audit result, not a numerical
+no-go and not a claim that no bridge can exist.
