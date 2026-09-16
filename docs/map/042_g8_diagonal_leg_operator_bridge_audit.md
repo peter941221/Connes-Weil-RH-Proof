@@ -510,3 +510,16 @@ precomposition from the single raw radial leakage square-sum
 analytic estimate for the raw leakage of the actual boundary factors has been
 proved, so WO-B remains OPEN.  Record 1528's arbitrary-`Q` obstruction remains
 valid outside this fixed-support specialization.
+
+Record 1530 closes the strategy audit for the new consumer.  The committed
+orthonormal-orbit theorem
+`sourceRootCompletedRightCommutatorLeftLeg_not_hilbertSchmidt`, together with
+`sourceRootCompletedBandRoot_not_hilbertSchmidt`, rules out an independent
+Hilbert--Schmidt estimate for the unit-scale root-completed leakage branch:
+the leakage remains uniformly nonzero on a separated translation orbit while
+the prolate range leg vanishes there.  Hence record 1529 is retained as a
+conditional algebraic interface only; its raw-leakage premise cannot be the
+physical producer target under the present root ordering.  The next viable
+work order must preserve the signed cancellation with the second/prolate or
+common-right block, or prove a new compactifying factor before readback.  The
+independent outer-pair split is NO-GO, and WO-B remains OPEN.
