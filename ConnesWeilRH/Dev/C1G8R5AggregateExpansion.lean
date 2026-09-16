@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 import ConnesWeilRH.Dev.C1G8R3ActualEndpointTraceLimit
 import ConnesWeilRH.Dev.C1G8R3SameOwnerGateNormalForm
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSEndpointArithmeticLedger
 
 /-!
 # Exact four-channel expansion of the endpoint aggregate
@@ -26,6 +27,9 @@ open Source.CCM25Concrete.CCM24FiniteSProjectionTrace
 open Source.CCM25Concrete.CCM24FiniteSGramResponse
 open Source.CCM25Concrete.CCM24FiniteSCoframeResponse
 open Source.CCM25Concrete.CCM24FiniteSBandTrace
+open Source.CCM25Concrete.CCM24FiniteSMovingBandPrefixCompression
+open Source.CCM25Concrete.CCM24FiniteSRectangularPrefixCycle
+open Source.CCM25Concrete.CCM24FiniteSEndpointArithmeticLedger
 open Source.CCM25Concrete.CCM24FiniteSGatePhysicalObliqueShearReduction
 open Source.C1G8AdjointShearGram
 open scoped InnerProduct InnerProductSpace Topology
@@ -100,6 +104,37 @@ theorem g8EndpointSourceCutoffLimitOperator_eq_sourceCompression_rootResponse_ad
             sourceInclusion lambda := by
   rw [g8EndpointSourceCutoffLimitOperator_eq_sourceCompression_ambientRootAggregate,
     g8AmbientRootAggregate_eq_rootSandwiched_add_correction]
+
+theorem trace_basisPrefixMatrix_g8AmbientRootAggregate_eq_rootResponse_add_correction
+    (basis : HilbertBasis ℕ ℂ finiteSCarrier) (N : ℕ)
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    Matrix.trace (basisPrefixMatrix basis N
+        (g8AmbientRootAggregate owner lambda family)) =
+      Matrix.trace (basisPrefixMatrix basis N
+        (rootSandwichedBandResponse owner lambda family)) +
+        Matrix.trace (basisPrefixMatrix basis N
+          (g8AmbientArithmeticCorrection owner lambda family)) := by
+  rw [g8AmbientRootAggregate_eq_rootSandwiched_add_correction,
+    basisPrefixMatrix_add, Matrix.trace_add]
+
+/-! Combining the correction split with the committed arithmetic ledger gives
+the exact finite-prefix bookkeeping needed by the endpoint bridge.  No limit
+or sign assertion is hidden here: the completed residual and `Delta_G8` both
+remain explicit obligations. -/
+theorem trace_basisPrefixMatrix_g8AmbientRootAggregate_eq_arithmetic_add_residual_add_correction
+    (basis : HilbertBasis ℕ ℂ finiteSCarrier) (N : ℕ)
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    Matrix.trace (basisPrefixMatrix basis N
+        (g8AmbientRootAggregate owner lambda family)) =
+      Matrix.trace (basisPrefixMatrix basis N
+        (arithmeticOperator owner family)) +
+        actualBandEndpointCompletedResidualTrace basis N owner lambda family +
+        Matrix.trace (basisPrefixMatrix basis N
+          (g8AmbientArithmeticCorrection owner lambda family)) := by
+  rw [trace_basisPrefixMatrix_g8AmbientRootAggregate_eq_rootResponse_add_correction,
+    trace_targetPrefixRootResponse_eq_arithmetic_add_completedResidual]
 
 set_option maxHeartbeats 1000000 in
 theorem g8EndpointSourceCutoffLimitOperator_eq_fourTerms
