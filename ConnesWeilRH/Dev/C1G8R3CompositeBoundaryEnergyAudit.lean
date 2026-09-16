@@ -22,6 +22,10 @@ namespace Dev
 #print axioms normalizedPrimeEulerFrameTransport_sourceRadialSupport
 #check @normalizedPrimeEulerFrameTransport_sourceWideRadialSupport
 #print axioms normalizedPrimeEulerFrameTransport_sourceWideRadialSupport
+#check @finiteEulerTransport_sourceRadialSupport
+#print axioms finiteEulerTransport_sourceRadialSupport
+#check @finiteEulerTransport_sourceWideRadialSupport
+#print axioms finiteEulerTransport_sourceWideRadialSupport
 #check @compositeStripWindowOperator_basis_normSq_summable
 #print axioms compositeStripWindowOperator_basis_normSq_summable
 #check @compositeGapLeg_secondIdentity

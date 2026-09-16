@@ -64,3 +64,8 @@ the factor immediately before the source inclusion. It does not discharge the
 actual boundary factor, which contains adjoint transport and projection
 blocks; those can leave the radial half-line and still require a separate
 support or leakage estimate.
+
+The same bridge is now proved for the complete finite forward transport
+`finiteEulerTransportOperator family`, including its wider-scale corollary.
+Thus any boundary factorization that exposes the full forward Euler product at
+the source edge can use the consumer without an additional support premise.

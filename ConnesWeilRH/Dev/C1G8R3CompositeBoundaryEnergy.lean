@@ -247,6 +247,35 @@ theorem normalizedPrimeEulerFrameTransport_sourceWideRadialSupport
     (normalizedPrimeEulerFrameTransport p)
     (normalizedPrimeEulerFrameTransport_sourceRadialSupport lambda p)
 
+/-! The same source-column support statement holds for the complete finite
+forward Euler transport used by the arithmetic family. -/
+theorem finiteEulerTransport_sourceRadialSupport
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    radialSupportProjection lambda ∘L
+        finiteEulerTransportOperator family ∘L sourceInclusion lambda =
+      finiteEulerTransportOperator family ∘L sourceInclusion lambda := by
+  apply ContinuousLinearMap.ext
+  intro u
+  have htransport :=
+    congrArg (fun T : Carrier →L[ℂ] Carrier => T
+      (sourceInclusion lambda u))
+      (radialSupportProjection_comp_transport_comp_self lambda family)
+  have hsource := congrArg (fun T : sourceSoninCarrier lambda →L[ℂ] Carrier => T u)
+    (radialSupportProjection_comp_sourceInclusion lambda)
+  simp only [ContinuousLinearMap.comp_apply] at htransport hsource ⊢
+  rw [← hsource]
+  exact htransport
+
+theorem finiteEulerTransport_sourceWideRadialSupport
+    (lambda : CCM24SoninScale) (s : ℝ) (hs : 0 ≤ s)
+    (family : FinitePrimePowerFamily) :
+    radialSupportProjection (wideRadialScale lambda s) ∘L
+        finiteEulerTransportOperator family ∘L sourceInclusion lambda =
+      finiteEulerTransportOperator family ∘L sourceInclusion lambda := by
+  exact wideRadial_absorption_of_sourceRadialSupport lambda s hs
+    (finiteEulerTransportOperator family)
+    (finiteEulerTransport_sourceRadialSupport lambda family)
+
 /-- Membership in the positive half-line. -/
 theorem mem_cc20PositiveHalfLine_iff (x : ℝ) :
     x ∈ cc20PositiveHalfLine ↔ 0 ≤ x := by

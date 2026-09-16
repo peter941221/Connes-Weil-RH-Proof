@@ -315,3 +315,7 @@ support identities after `sourceInclusion`. This is formal and feeds the same
 `hwide` consumer when that forward factor is exposed at the right edge. The
 actual boundary head still contains adjoint transport/projection blocks, so
 this instance does not close B3/B4 or change the WO-B status.
+The complete finite forward Euler transport now has the same source-composed
+original and wider support identities. This covers a factorization exposing
+the full forward product at the source edge; adjoint/projection remainder
+blocks remain the unresolved boundary input.
