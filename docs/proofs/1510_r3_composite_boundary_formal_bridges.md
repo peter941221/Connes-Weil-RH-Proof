@@ -166,3 +166,10 @@ Hardy support premise to the source-composed identity
 `E_(lambda exp(-s)) H A = H A`.  This is a formal interface reduction only;
 no Hardy support theorem for the actual ambient-loss or boundary-dagger
 columns has been claimed.
+
+The two concrete source-column instances are now named as well:
+`suffixEulerFrameAmbientLossColumn_compositeGapLeg_sourceBasis_normSq_summable`
+and
+`suffixEulerFrameSchurStep_boundaryDagger_compositeGapLeg_sourceBasis_normSq_summable`.
+They remain conditional exactly on their respective source-composed Hardy
+support identities.

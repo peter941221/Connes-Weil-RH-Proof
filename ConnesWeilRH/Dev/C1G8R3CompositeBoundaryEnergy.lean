@@ -1427,4 +1427,42 @@ theorem compositeGapLeg_sourceColumn_normSq_summable
   rw [congrArg (fun T : sourceSoninCarrier lambda →L[ℂ] Carrier =>
     T (sourceBasis i)) hchain]
 
+theorem suffixEulerFrameAmbientLossColumn_compositeGapLeg_sourceBasis_normSq_summable
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (p : CCM24VisiblePrime) (S : List CCM24VisiblePrime)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (hwideHT : radialSupportProjection (wideRadialScale lambda (Real.log p)) ∘L
+        archimedeanHardyTitchmarshOperator ∘L
+          suffixEulerFrameAmbientLossColumn lambda p S =
+      archimedeanHardyTitchmarshOperator ∘L
+        suffixEulerFrameAmbientLossColumn lambda p S) :
+    Summable fun i : ρ =>
+      ‖(((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L
+            suffixEulerFrameAmbientLossColumn lambda p S) ∘L N)
+        (sourceBasis i)‖ ^ 2 := by
+  exact compositeGapLeg_sourceColumn_normSq_summable owner lambda
+    (Real.log p) (Real.log_nonneg (by exact_mod_cast p.property.le))
+    (suffixEulerFrameAmbientLossColumn lambda p S) N sourceBasis hwideHT
+
+theorem suffixEulerFrameSchurStep_boundaryDagger_compositeGapLeg_sourceBasis_normSq_summable
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (p : CCM24VisiblePrime) (S : List CCM24VisiblePrime)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (hwideHT : radialSupportProjection (wideRadialScale lambda (Real.log p)) ∘L
+        archimedeanHardyTitchmarshOperator ∘L
+          (suffixEulerFrameSchurStep lambda p S).boundaryDagger =
+      archimedeanHardyTitchmarshOperator ∘L
+        (suffixEulerFrameSchurStep lambda p S).boundaryDagger) :
+    Summable fun i : ρ =>
+      ‖(((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L
+            (suffixEulerFrameSchurStep lambda p S).boundaryDagger) ∘L N)
+        (sourceBasis i)‖ ^ 2 := by
+  exact compositeGapLeg_sourceColumn_normSq_summable owner lambda
+    (Real.log p) (Real.log_nonneg (by exact_mod_cast p.property.le))
+    (suffixEulerFrameSchurStep lambda p S).boundaryDagger N sourceBasis hwideHT
+
 end ConnesWeilRH.Dev
