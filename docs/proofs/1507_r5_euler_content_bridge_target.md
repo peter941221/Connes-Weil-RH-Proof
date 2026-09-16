@@ -113,3 +113,23 @@ correction decomposition, remains the open rho5 producer.
 The same module now proves `A_G8.IsPositive` and positivity of its source
 compression. This is an internal Gram fact only: it supplies no trace
 convergence and no equality with the arithmetic operator.
+
+## 2026-09-16 explicit correction normal form
+
+The ambient difference is now named without any assumption that it vanishes:
+
+```text
+Delta_G8 = A_G8 - rootSandwichedBandResponse.
+```
+
+Lean proves the exact decomposition
+
+```text
+A_G8 = rootSandwichedBandResponse + Delta_G8
+J† A_G8 J = J† (rootSandwichedBandResponse + Delta_G8) J.
+```
+
+Thus the unresolved finite-level bridge is concretely the trace contribution
+of `Delta_G8`, together with the source/ambient trace transport. Any future
+claim that the correction disappears must provide its own operator or trace
+estimate; the definition is not a stored conclusion.

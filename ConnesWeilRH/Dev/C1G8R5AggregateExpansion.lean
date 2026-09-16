@@ -68,6 +68,39 @@ theorem g8EndpointSourceCutoffLimitOperator_isPositive
   rw [g8EndpointSourceCutoffLimitOperator_eq_sourceCompression_ambientRootAggregate]
   exact (g8AmbientRootAggregate_isPositive owner lambda family).adjoint_conj _
 
+/-! The arithmetic bridge must carry the difference between the ambient G8
+aggregate and the already-defined root response as an actual operator.  This
+definition is an obligation marker, not a vanishing assumption. -/
+noncomputable def g8AmbientArithmeticCorrection
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    finiteSCarrier →L[ℂ] finiteSCarrier :=
+  g8AmbientRootAggregate owner lambda family -
+    rootSandwichedBandResponse owner lambda family
+
+theorem g8AmbientRootAggregate_eq_rootSandwiched_add_correction
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    g8AmbientRootAggregate owner lambda family =
+      rootSandwichedBandResponse owner lambda family +
+        g8AmbientArithmeticCorrection owner lambda family := by
+  unfold g8AmbientArithmeticCorrection
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply]
+  abel
+
+theorem g8EndpointSourceCutoffLimitOperator_eq_sourceCompression_rootResponse_add_correction
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    g8EndpointSourceCutoffLimitOperator owner lambda family =
+      (sourceInclusion lambda).adjoint ∘L
+        (rootSandwichedBandResponse owner lambda family +
+          g8AmbientArithmeticCorrection owner lambda family) ∘L
+            sourceInclusion lambda := by
+  rw [g8EndpointSourceCutoffLimitOperator_eq_sourceCompression_ambientRootAggregate,
+    g8AmbientRootAggregate_eq_rootSandwiched_add_correction]
+
 set_option maxHeartbeats 1000000 in
 theorem g8EndpointSourceCutoffLimitOperator_eq_fourTerms
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
