@@ -248,6 +248,27 @@ theorem sourceSoninComplement_comp_commutator_sourceRange_eq_zero
   simp only [hJpoint, hMpoint, sub_self, map_zero,
     ContinuousLinearMap.zero_apply]
 
+/- The orthogonal branch has an exact complementary-column normal form. -/
+theorem sourceSoninComplement_comp_commutator_sourceOrthogonal_eq
+    (lambda : CCM24SoninScale) (M : finiteSCarrier →L[ℂ] finiteSCarrier)
+    (hM : sourceSoninProjection lambda ∘L M ∘L sourceInclusion lambda = 0) :
+    (ContinuousLinearMap.id ℂ finiteSCarrier - sourceSoninProjection lambda) ∘L
+        (M ∘L sourceSoninProjection lambda -
+          sourceSoninProjection lambda ∘L M) ∘L sourceInclusion lambda =
+      (ContinuousLinearMap.id ℂ finiteSCarrier - sourceSoninProjection lambda) ∘L
+        M ∘L sourceInclusion lambda := by
+  apply ContinuousLinearMap.ext
+  intro x
+  have hMpoint := DFunLike.congr_fun hM x
+  have hJpoint := DFunLike.congr_fun
+    (sourceSoninProjection_comp_sourceInclusion_eq_self lambda) x
+  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.zero_apply]
+    at hMpoint hJpoint
+  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.id_apply, map_sub] at hMpoint hJpoint ⊢
+  rw [hJpoint, hMpoint]
+  simp
+
 /-- Leibniz rule for the source-projection commutator.  It is the induction
 step for expanding a finite Euler boundary factor into atomic factors. -/
 theorem ambientProduct_commutator_eq_leibniz_sum

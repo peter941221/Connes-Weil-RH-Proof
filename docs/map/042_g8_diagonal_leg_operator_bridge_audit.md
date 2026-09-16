@@ -459,3 +459,10 @@ Record 1523 closes the zero branch for any source-range factor: from
 `(I - P) (M P - P M) J = 0`.  The physical Euler transport and Schur factors
 are not yet certified source-range, so this sharpens the atomic checklist but
 does not change WO-B's OPEN status.
+
+Record 1524 closes the complementary branch algebraically: if `P M J = 0`,
+then `(I - P) (M P - P M) J = (I - P) M J`.  Thus the finite induction now
+has a three-way exact classification for each factor: source-range gives zero,
+source-orthogonal gives the existing complementary column, and only a mixed
+source projection needs a new commutator estimate.  The physical factors have
+not yet been classified, so WO-B remains OPEN.
