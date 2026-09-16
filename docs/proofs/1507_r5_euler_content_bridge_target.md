@@ -165,3 +165,69 @@ Because `Delta_G8` is self-adjoint, its finite-prefix matrix is Hermitian and
 its matrix trace has zero imaginary part. This is now a formal Lean theorem.
 The result only removes a complex-valued bookkeeping nuisance; it supplies no
 bound, positivity, or convergence of the correction trace.
+
+## 2026-09-17 exact supplier ledger for the B object (record 1563)
+
+The paper object is now fixed at the ambient carrier before any source
+compression.  Write
+
+```text
+J = sourceInclusion lambda
+C = rootConvolution owner
+W = detectorOperator owner
+N = finiteEulerPulledObliqueShear lambda family
+G = (I + N†) W (I + N)
+A_G8 = C† G C
+R = C (soninBandDifference lambda family) C†
+Delta_G8 = A_G8 - R.
+```
+
+The exact endpoint object is
+
+```text
+J† A_G8 J = J† C† G C J
+```
+
+and its four-channel expansion is
+
+```text
+J† C† W C J
++ J† C† N W C J
++ J† C† W N† C J
++ J† C† N W N† C J.
+```
+
+For every ambient basis prefix `(basis,N)`, the exact trace ledger is
+
+```text
+tr_prefix(A_G8)
+ = tr_prefix(arithmeticOperator)
+ + tr_prefix(sameObjectResidual)
+ + tr_prefix(actualBandEndpointRootCycleDefect)
+ + tr_prefix(Delta_G8).
+```
+
+The four summands have distinct suppliers:
+
+| term | supplier | status |
+| --- | --- | --- |
+| `tr_prefix(arithmeticOperator)` | `SelectedCrossingOperatorBridge.ordinaryTraceAlong_eulerLogWeightedGlobalPairTraceOperatorSum_eq_finitePrimeTerm_pow_sum`; under its support and basis-data premises this is the finite sum of `owner.finitePrimeTerm (p^m)` | formal arithmetic theorem, full trace transport still conditional |
+| `tr_prefix(sameObjectResidual)` | `CCM24FiniteSProjectionTrace.sameObjectResidual`; exact three-part split is `sameObjectResidual_eq_threePartLedger`, namely `(W prolateDifference - arithmeticOperator) - W compressionDifference` | formal residual definition, no sign/decay |
+| `tr_prefix(actualBandEndpointRootCycleDefect)` | `CCM24FiniteSEndpointArithmeticLedger.actualBandEndpointRootCycleDefect`; supplied by the finite prefix cycle boundary identity | formal finite-prefix error, no limit estimate |
+| `tr_prefix(Delta_G8)` | `C1G8R5AggregateExpansion.g8AmbientArithmeticCorrection`; this is the difference between the actual G8 ambient sandwich and `R` | formal correction, self-adjoint only; no vanishing or sign |
+
+Thus the current formal object has **four** trace-level rows, but only two
+independent analytic producer packages remain: (i) the total survivor plus
+visible-boundary diagonal energy, and (ii) one rho5 bridge controlling the
+arithmetic/residual/correction transport.  The apparent extra rows are
+bookkeeping suppliers, not separate RH proofs.
+
+The obstruction in record 1507 is therefore resolved at the object level:
+`C (J u)` is kept on the ambient carrier, `A_G8` is formed there, and only
+then is `J† A_G8 J` taken.  No source-compression identity is applied to
+`C (J u)`.  What remains open is precisely an equality or estimate for
+`Delta_G8` together with the residual/cycle trace transport; positivity of
+`A_G8` does not provide that equality.
+
+This is a formal interface audit, not an arithmetic identification and not
+an RH claim.
