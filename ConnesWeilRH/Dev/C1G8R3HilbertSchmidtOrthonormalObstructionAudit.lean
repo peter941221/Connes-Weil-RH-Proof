@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1G8R3HilbertSchmidtOrthonormalObstruction
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check summable_normSq_of_orthonormal
+#check sourceRootCompletedRightCommutatorLeftLeg_not_hilbertSchmidt
+#print axioms summable_normSq_of_orthonormal
+#print axioms sourceRootCompletedRightCommutatorLeftLeg_not_hilbertSchmidt
+
+end Dev
+end ConnesWeilRH

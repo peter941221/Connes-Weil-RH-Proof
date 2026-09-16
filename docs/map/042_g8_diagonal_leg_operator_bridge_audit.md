@@ -46,6 +46,8 @@ this is a reduction, not an S3 closure.
 ([012](012_g8_same_owner_readback_rh_reachability.md)); the binding route in
 [003](003_b1_b5_minimal_exit_route_selection.md) is unchanged.
 
+**Status update (2026-09-17, formal no-go):** record [1512](../proofs/1512_hs_orthonormal_obstruction.md) and `C1G8R3HilbertSchmidtOrthonormalObstruction.lean` prove that the unprojected ambient leakage operator `sourceRootCompletedRightCommutatorLeftLeg` is not Hilbert--Schmidt on any Hilbert basis whenever the selected source Laplace value is nonzero. The proof transports any basis square-sum to the separated orthonormal translation orbit, whose leakage columns have a uniform positive lower bound. This removes the shortcut of feeding the ambient leakage operator directly as an S3 Hilbert--Schmidt factor. It does not close S3: the live target remains the Sonin-compressed gate `P C P`, and the projection may destroy the ambient obstruction.
+
 **Independence audit (2026-09-16):** S3 and B3/B4 are best treated as one
 total diagonal-energy producer with two currently separate estimates. The
 same-owner positivity conclusion C3 is a downstream theorem of the readback
