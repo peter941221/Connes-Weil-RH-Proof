@@ -231,3 +231,15 @@ then is `J† A_G8 J` taken.  No source-compression identity is applied to
 
 This is a formal interface audit, not an arithmetic identification and not
 an RH claim.
+
+## 2026-09-17 active arithmetic supplier theorem (record 1564)
+
+`C1G8R5AggregateExpansion.ordinaryTraceAlong_g8ArithmeticOperator_eq_finitePrimeTerm_sum`
+now exports the arithmetic row directly on the active G8 module.  Given the
+same support inclusion and `GlobalPrimePowerTraceBasisData` premises as the
+selected crossing theorem, it identifies the ordinary trace of
+`arithmeticOperator owner family` with
+`sum pm in family.terms, owner.finitePrimeTerm (pm.1 ^ pm.2)`.  The paired audit
+prints the standard three axioms only.  This closes the naming/interface gap
+for the finite prime-power supplier; it does not estimate the residual,
+root-cycle, or `Delta_G8` rows.

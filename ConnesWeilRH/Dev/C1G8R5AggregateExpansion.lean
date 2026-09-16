@@ -35,6 +35,7 @@ open Source.CCM25Concrete.CCM24FiniteSEndpointArithmeticLedger
 open Source.CCM25Concrete.CCM24FiniteSMovingBandSelfAdjointTrace
 open Source.CCM25Concrete.CCM24FiniteSMovingBandMatrixCancellation
 open Source.CCM25Concrete.CCM24FiniteSGatePhysicalObliqueShearReduction
+open Source.CCM25Concrete.SelectedCrossingOperatorBridge
 open Source.C1G8AdjointShearGram
 open scoped InnerProduct InnerProductSpace Topology
 
@@ -219,6 +220,26 @@ theorem trace_basisPrefixMatrix_g8AmbientRootAggregate_eq_arithmetic_add_residua
           (g8AmbientArithmeticCorrection owner lambda family)) := by
   rw [trace_basisPrefixMatrix_g8AmbientRootAggregate_eq_rootResponse_add_correction,
     trace_targetPrefixRootResponse_eq_arithmetic_add_completedResidual]
+
+/-! The arithmetic supplier is exposed directly at the active G8 interface.
+The hypotheses are exactly the support and per-prime-power trace data required
+by the selected crossing theorem; no G8 positivity or correction estimate is
+used. -/
+theorem ordinaryTraceAlong_g8ArithmeticOperator_eq_finitePrimeTerm_sum
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (family : FinitePrimePowerFamily)
+    (a c : ℝ)
+    (hsupp : Function.support owner.sourceTest.test ⊆ Set.Icc a c)
+    {ν : Type*} (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (basisData : ∀ pm : {pm // pm ∈ family.terms},
+      GlobalPrimePowerTraceBasisData a c pm.1.1 pm.1.2) :
+    PositiveTrace.ordinaryTraceAlong globalBasis
+        (arithmeticOperator owner family) =
+      ∑ pm ∈ family.terms, owner.finitePrimeTerm (pm.1 ^ pm.2) := by
+  rw [arithmeticOperator]
+  exact ordinaryTraceAlong_eulerLogWeightedGlobalPairTraceOperatorSum_eq_finitePrimeTerm_pow_sum
+    owner a c family.terms family.prime family.exponent_ne_zero hsupp
+      globalBasis basisData
 
 set_option maxHeartbeats 1000000 in
 theorem g8EndpointSourceCutoffLimitOperator_eq_fourTerms
