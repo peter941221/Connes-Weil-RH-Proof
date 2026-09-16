@@ -269,6 +269,22 @@ theorem sourceSoninComplement_comp_commutator_sourceOrthogonal_eq
   rw [hJpoint, hMpoint]
   simp
 
+/- The actual Sonin commutator inherits the existing outer/second-support/
+prolate owner, so the open estimate can be split along those four branches. -/
+theorem sourceSoninCommutator_eq_threeBranch
+    (lambda : CCM24SoninScale) (M : finiteSCarrier →L[ℂ] finiteSCarrier) :
+    cc20Commutator (sourceSoninProjection lambda) M =
+      cc20ThreeBranchCommutator
+        (radialSupportProjection lambda)
+        (sourceFourierSupportProjection lambda)
+        (sourceProlateRemainder lambda) M := by
+  exact cc20Commutator_eq_threeBranch_of_eq
+    (radialSupportProjection lambda)
+    (sourceFourierSupportProjection lambda)
+    (sourceSoninProjection lambda)
+    (sourceProlateRemainder lambda) M
+    (sourceSoninProjection_eq_compression_sub_prolate lambda)
+
 /-- Leibniz rule for the source-projection commutator.  It is the induction
 step for expanding a finite Euler boundary factor into atomic factors. -/
 theorem ambientProduct_commutator_eq_leibniz_sum

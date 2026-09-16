@@ -466,3 +466,10 @@ has a three-way exact classification for each factor: source-range gives zero,
 source-orthogonal gives the existing complementary column, and only a mixed
 source projection needs a new commutator estimate.  The physical factors have
 not yet been classified, so WO-B remains OPEN.
+
+Record 1525 identifies the source commutator with the committed signed
+three-branch owner `E Q [E,M] + E [Q,M] E + [E,M] Q E - [K,M]`.  The B4
+commutator-root target can therefore reuse the existing outer, second-support,
+reflected-outer, and prolate branch interfaces while keeping the physical
+factor `M` on the ambient side.  This is an exact algebraic rewrite; no branch
+estimate or route closure follows yet.
