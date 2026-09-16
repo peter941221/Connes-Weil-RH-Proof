@@ -229,6 +229,25 @@ theorem sourceSoninComplement_comp_ambientFactor_comp_sourceInclusion_eq_commuta
   rw [hPJx, hP2x]
   abel
 
+/- A source-range ambient factor contributes no complementary commutator.
+This is the zero branch for the atomic estimates in the finite induction. -/
+theorem sourceSoninComplement_comp_commutator_sourceRange_eq_zero
+    (lambda : CCM24SoninScale) (M : finiteSCarrier →L[ℂ] finiteSCarrier)
+    (hM : sourceSoninProjection lambda ∘L M ∘L sourceInclusion lambda =
+      M ∘L sourceInclusion lambda) :
+    (ContinuousLinearMap.id ℂ finiteSCarrier - sourceSoninProjection lambda) ∘L
+        (M ∘L sourceSoninProjection lambda -
+          sourceSoninProjection lambda ∘L M) ∘L sourceInclusion lambda = 0 := by
+  apply ContinuousLinearMap.ext
+  intro x
+  have hMpoint := DFunLike.congr_fun hM x
+  have hJpoint := DFunLike.congr_fun
+    (sourceSoninProjection_comp_sourceInclusion_eq_self lambda) x
+  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.id_apply, map_sub] at hMpoint hJpoint ⊢
+  simp only [hJpoint, hMpoint, sub_self, map_zero,
+    ContinuousLinearMap.zero_apply]
+
 /-- Leibniz rule for the source-projection commutator.  It is the induction
 step for expanding a finite Euler boundary factor into atomic factors. -/
 theorem ambientProduct_commutator_eq_leibniz_sum

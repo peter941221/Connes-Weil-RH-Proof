@@ -453,3 +453,9 @@ factor.  This is a whole-basis `PositiveTrace.summable_normSq_add` argument,
 so the remaining B4 target is now explicitly the finite list of atomic
 commutator-root estimates.  No atomic estimate is supplied by this formal
 consumer; WO-B, S3, G8, and C3 remain open.
+
+Record 1523 closes the zero branch for any source-range factor: from
+`P M J = M J` it derives the exact vanishing
+`(I - P) (M P - P M) J = 0`.  The physical Euler transport and Schur factors
+are not yet certified source-range, so this sharpens the atomic checklist but
+does not change WO-B's OPEN status.
