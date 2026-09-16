@@ -267,3 +267,21 @@ does not change the conditional assemblies of [040](040_r3_diagonal_trace_limit_
 and does not alter the binding route [003](003_b1_b5_minimal_exit_route_selection.md),
 the R2/R3 readback obligations, endpoint/P2 signs, C3, or RH. No RH result
 is claimed in either direction.
+
+## Work-order status (updated 2026-09-16, records 1508–1509)
+
+```text
+  WO-S:  S1 LANDED (1498)   S2 LANDED (1498)   S3 = (★), OPEN
+         (1508: (★) ⟺ ambient P C P Hilbert–Schmidt, any named bases)
+  WO-B:  B1 LANDED (1499)   B2 LANDED (1499)   B3/B4 OPEN
+         (1509: the strip mechanism formal at EVERY window placement;
+          the M_p-adapted composite still open, 1491 guard active)
+```
+
+Record [1508](../proofs/1508_r3_gate_ambient_normal_form.md) lands the
+1503 §2 normal form: the sole survivor obligation (★) is HS membership of
+the ambient projection-conjugate `P ∘L C ∘L P`. Record
+[1509](../proofs/1509_route_w_strip_hs.md) lands the 1503 §3 Route W strip
+lemma with free window parameters; the tail composition stays the
+phase-typed irreducible remainder. The estimates remain open; RH not
+claimed.

@@ -907,3 +907,26 @@ applied to the ambient vectors `C (J u)`. Record [1507](../proofs/1507_r5_euler_
 pins the required bridge and explicitly records this type/owner mismatch.
 This is an open mathematical target, not a formal consequence of ρ4 or the
 ρ5 iff.
+
+### Gate normal form and Route W strip landed (records 1508–1509, 2026-09-16)
+
+Two formal bricks execute the formal layer of the preregistered order of
+battle in record 1503 section 6. Record [1508](../proofs/1508_r3_gate_ambient_normal_form.md)
+(`C1G8R3GateAmbientNormalForm`) proves the gate normal form: the single
+square-sum `(★) Summable ‖(J† C J)(e_i)‖²` is equivalent, for any named
+pair of bases, to Hilbert–Schmidt columns of the ambient
+projection-conjugate `P ∘L C ∘L P` — by `P = J J†` the conjugate is the
+lifted detector precomposed by `J†`, and both directions are single
+applications of the committed square-sum transfer. The gate is now one
+explicit ambient operator's HS membership. Record [1509](../proofs/1509_route_w_strip_hs.md)
+(`C1G8R3RouteWStripHilbertSchmidt`) proves the Route W strip lemma: for
+every bounded window placement the compressed strip operator (the
+record-1495 mechanism with free parameters `(A, C, d, e)`) has
+square-summable columns on any ambient basis, and the `P`-post-composed
+strip keeps them. The tail composition remains the irreducible phase-typed
+remainder (record 1505); the Hardy-pressure finding of record 1503 governs
+any tail estimate. Acceptance logs `0916_gate_ambient_try3.log` (3956 jobs)
+and `0916_route_w_strip_try2.log` (3213 jobs), both zero-error with the
+three standard axioms and zero `sorryAx`. The gate, ρ4 GIVEN (★), the ρ5
+iff GIVEN (★), the ρ5 Euler-content bridge, and RH remain open. RH not
+claimed.
