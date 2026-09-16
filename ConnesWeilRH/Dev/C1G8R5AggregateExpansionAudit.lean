@@ -20,6 +20,7 @@ namespace C1G8R5AggregateExpansionAudit
 #print axioms ordinaryTraceAlong_g8ArithmeticOperator_eq_finitePrimeTerm_sum
 #print axioms g8EndpointSourceCutoffLimitOperator_eq_fourTerms
 #print axioms qw_nonnegative_of_g8_survivorCore_and_aggregate_eq
+#print axioms qw_nonnegative_of_g8_ambientGate_and_aggregate_eq
 
 end C1G8R5AggregateExpansionAudit
 end Dev

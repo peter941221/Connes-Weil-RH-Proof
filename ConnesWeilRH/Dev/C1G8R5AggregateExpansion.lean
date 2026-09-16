@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Dev.C1G8R3ActualEndpointTraceLimit
+import ConnesWeilRH.Dev.C1G8R3GateAmbientNormalForm
 import ConnesWeilRH.Dev.C1G8R3SameOwnerGateNormalForm
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSEndpointArithmeticLedger
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSMovingBandSelfAdjointTrace
@@ -331,6 +332,27 @@ theorem qw_nonnegative_of_g8_survivorCore_and_aggregate_eq
     globalBasis sourceBasis
     (g8R5ZeroRemainderReadbackData owner lambda family globalBasis sourceBasis
       hcore heq)
+
+/-- The same R5 sign consumer with the S3 gate stated on the ambient carrier.
+The gate-ambient equivalence transfers this square-sum to the source basis;
+the arithmetic/correction ledger is unchanged. -/
+theorem qw_nonnegative_of_g8_ambientGate_and_aggregate_eq
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    {ν ρ : Type*}
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (hambient : Summable fun j : ν =>
+      ‖(sourceSoninProjection lambda ∘L rootConvolution owner ∘L
+          sourceSoninProjection lambda) (globalBasis j)‖ ^ 2)
+    (heq : (ordinaryTraceAlong sourceBasis
+          (g8EndpointSourceCutoffLimitOperator owner lambda family)).re
+        = Source.C1SameOwnerWeil.qw owner.sourceTest) :
+    0 ≤ Source.C1SameOwnerWeil.qw owner.sourceTest := by
+  have hcore := (gateAmbient_iff_sourceGate_squareSum owner lambda
+    sourceBasis globalBasis).2 hambient
+  exact qw_nonnegative_of_g8_survivorCore_and_aggregate_eq owner lambda family
+    globalBasis sourceBasis hcore heq
 
 end
 end Dev

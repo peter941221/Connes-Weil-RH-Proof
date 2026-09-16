@@ -254,3 +254,27 @@ square, with `J` retained only in the final source compression theorem.  The
 proof is the checked operator expansion followed by finite matrix additivity;
 it introduces no trace-cycle, positivity, or limiting premise.  Audit build
 1576 is green with the standard axiom set and no `sorryAx`.
+
+## 2026-09-17 source/ambient gate boundary (record 1566)
+
+A proposed shortcut from the S3 leakage energy to the R5 survivor gate was
+checked and rejected at the type level.  The S3 assembly controls the ambient
+columns
+
+```text
+|| (rootConvolution owner oL sourceBandProjection lambda) (globalBasis j) ||^2,
+```
+
+whereas the R5 readback requires the source-compressed columns
+
+```text
+|| ((sourceInclusion lambda)† oL rootConvolution owner oL
+    sourceInclusion lambda) (sourceBasis i) ||^2.
+```
+
+The source band projection is `E - P` and annihilates the included Sonin
+carrier (`(E - P) J = 0`), so its ambient square-sum cannot be substituted for
+the compressed `P C P` gate.  The correct ambient form is the committed
+equivalence `gateAmbient_iff_sourceGate_squareSum`, with columns of
+`P oL C oL P`.  This is a structural carrier boundary, not a failed
+estimate; no new bridge or sign claim is admitted.
