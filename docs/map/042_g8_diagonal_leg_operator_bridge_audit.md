@@ -422,3 +422,9 @@ leg into the `P ∘L M ∘L J` source-range term plus the
 `(id - P) ∘L M ∘L J` complement.  Together with 1516, this removes the
 source-range term from the analytic obligation.  The sole remaining B4 gap
 target is the complement square-sum; no route status changes.
+
+Record 1518 packages the reduction as a single consumer theorem: a
+square-sum estimate for the complement input implies the full physical gap
+square-sum.  The B4 gap work order is now exactly the complement estimate for
+the finite visible-prime boundary factors; the source-range term is discharged
+and no other hidden gap is introduced.

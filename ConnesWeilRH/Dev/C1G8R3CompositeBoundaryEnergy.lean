@@ -1553,6 +1553,42 @@ theorem compositeGapLeg_sourceRangeColumn_normSq_summable
   rw [congrArg (fun T : sourceSoninCarrier lambda →L[ℂ] Carrier =>
     T (sourceBasis i)) hchain]
 
+set_option maxHeartbeats 20000000 in
+/-- The physical internal-gap square-sum follows once the complementary
+source-Sonin input is controlled.  The source-range summand is supplied by
+`compositeGapLeg_sourceRangeColumn_normSq_summable`; the split itself is the
+exact bridge identity from the boundary-factorization module. -/
+theorem compositeGapLeg_sourceColumn_normSq_summable_of_complement
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (M : Carrier →L[ℂ] Carrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (hcomp : Summable fun i : ρ =>
+      ‖(((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L
+        (ContinuousLinearMap.id ℂ Carrier - sourceSoninProjection lambda) ∘L
+          M ∘L sourceInclusion lambda ∘L N) (sourceBasis i))‖ ^ 2) :
+    Summable fun i : ρ =>
+      ‖(((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L M ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i))‖ ^ 2 := by
+  let P := sourceSoninProjection lambda
+  let A := M ∘L sourceInclusion lambda
+  have hrange := compositeGapLeg_sourceRangeColumn_normSq_summable
+    owner lambda 0 (by norm_num) A N sourceBasis
+  have hsum := PositiveTrace.summable_normSq_add sourceBasis
+    (((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+        radialSupportProjection lambda ∘L rootConvolution owner ∘L
+      sourceSoninProjection lambda ∘L M ∘L sourceInclusion lambda) ∘L N)
+    (((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+        radialSupportProjection lambda ∘L rootConvolution owner ∘L
+      (ContinuousLinearMap.id ℂ Carrier - sourceSoninProjection lambda) ∘L
+        M ∘L sourceInclusion lambda) ∘L N) hrange hcomp
+  refine hsum.congr (fun i => ?_)
+  have hsplit := g8AmbientSourceLeg_gapLeg_pointwise_eq_sourceRange_add_complement
+    owner lambda M N (sourceBasis i)
+  simpa only [P, A] using congrArg (fun z : Carrier => ‖z‖ ^ 2) hsplit.symm
+
 theorem suffixEulerFrameAmbientLossColumn_compositeGapLeg_sourceBasis_normSq_summable
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
     (p : CCM24VisiblePrime) (S : List CCM24VisiblePrime)
