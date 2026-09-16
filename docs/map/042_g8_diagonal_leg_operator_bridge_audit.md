@@ -18,6 +18,15 @@ formalization: the survivor leg's out-of-Sonin half is already dominated by
 record 1497 through bounded right precomposition. Both diagonal energy
 obligations remain open; no estimate is claimed.
 
+**Status update (2026-09-16, same day):** bricks S1, S2, B1, B2 are now
+LANDED — S1/S2 in [1498](../proofs/1498_r3_survivor_coframe_source_bridge.md)
+(`C1G8R3SurvivorCoframeBridge.lean`, unconditional
+`hSurvivor ↔ in-Sonin square-sum`, OUT leg free via 1497), B1/B2 in
+[1499](../proofs/1499_r3_boundary_output_factorization_bridge.md)
+(`C1G8R3BoundaryOutputFactorizationBridge.lean`, exact per-output three-leg
+split feeding the 1492 consumer unchanged). S3 and B3/B4 remain open; the
+audit below is unchanged except for the §5 row markers.
+
 **Consumer:** the same-owner healthy-`CompactLog` B5 statement
 `0 <= C1SameOwnerWeil.qw g` through `G8SameOwnerReadbackData`
 ([012](012_g8_same_owner_readback_rh_reachability.md)); the binding route in
@@ -187,11 +196,11 @@ to `Σ_i ‖J† C J (s_S e_i)‖² < ∞` on the named basis.
 
 ### WO-S (survivor diagonal energy)
 
-| Brick | Content | Type |
-| :-- | :-- | :-- |
-| S1 | B1 factorization lemma `g8MetricSurvivorCoframe λ V = u • J ∘L s_S` | definitional rewrite |
-| S2 | orthogonal split + the free OUT corollary of §4; conclusion `hSurvivor ↔ Summable i, ‖J† C J (s_S e_i)‖²` (given 1497) | assembly from committed material |
-| S3 | the IN estimate: moving-scale in-Sonin compressed-detector square-sum `J† C J ∘L s_S` — continue the 018/022/028 partition (range leg formal; leakage/common-right legs open) | the open mathematics |
+| Brick | Content | Type | Status |
+| :-- | :-- | :-- | :-- |
+| S1 | B1 factorization lemma `g8MetricSurvivorCoframe λ V = u • J ∘L s_S` | definitional rewrite | **LANDED** [1498](../proofs/1498_r3_survivor_coframe_source_bridge.md) |
+| S2 | orthogonal split + the free OUT corollary of §4; conclusion `hSurvivor ↔ Summable i, ‖J† C J (s_S e_i)‖²` (given 1497) | assembly from committed material | **LANDED** [1498](../proofs/1498_r3_survivor_coframe_source_bridge.md) |
+| S3 | the IN estimate: moving-scale in-Sonin compressed-detector square-sum `J† C J ∘L s_S` — continue the 018/022/028 partition (range leg formal; leakage/common-right legs open) | the open mathematics | **OPEN** (sole survivor obligation) |
 
 Stop rule ([012](012_g8_same_owner_readback_rh_reachability.md) §3): any S3
 bound that presumes a `qw` sign, `SourceRH`, or a universal gate is
@@ -199,12 +208,12 @@ circular and stops.
 
 ### WO-B (boundary diagonal energy, per visible prime)
 
-| Brick | Content | Type |
-| :-- | :-- | :-- |
-| B1 | B2 factorization induction: every boundary output is `M_p ∘L J ∘L N_p` | structural induction |
-| B2 | per-output split into IN/OUT families; per-output OUT split into radial-boundary and internal-gap legs via the record-1494 identity applied to `B = C ∘L M_p` | assembly |
-| B3 | composite radial-boundary estimate `(I − E) C M_p J` — record-1495-analog window/support identity for the composite, then the 1496 transfer | open, 1495/1496-pattern |
-| B4 | composite internal-gap estimate `(E − P) E C M_p J` — record-1497-analog absorption with `M_p` inside | open, 1497-pattern |
+| Brick | Content | Type | Status |
+| :-- | :-- | :-- | :-- |
+| B1 | B2 factorization induction: every boundary output is `M_p ∘L J ∘L N_p` | structural induction | **LANDED** [1499](../proofs/1499_r3_boundary_output_factorization_bridge.md) |
+| B2 | per-output split into IN/OUT families; per-output OUT split into radial-boundary and internal-gap legs via the record-1494 identity applied to `B = C ∘L M_p` | assembly | **LANDED** [1499](../proofs/1499_r3_boundary_output_factorization_bridge.md) |
+| B3 | composite radial-boundary estimate `(I − E) C M_p J` — record-1495-analog window/support identity for the composite, then the 1496 transfer | open, 1495/1496-pattern | **OPEN** |
+| B4 | composite internal-gap estimate `(E − P) E C M_p J` — record-1497-analog absorption with `M_p` inside | open, 1497-pattern | **OPEN** |
 
 Per-output B3/B4 results feed the existing consumers unchanged:
 [1492](../proofs/1492_g8_boundary_energy_finite_output_reduction.md)

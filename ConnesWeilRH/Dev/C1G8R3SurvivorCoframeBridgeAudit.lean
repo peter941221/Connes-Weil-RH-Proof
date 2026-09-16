@@ -1,0 +1,31 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3SurvivorCoframeBridge
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @g8SurvivorSourceLeg
+#print axioms g8SurvivorSourceLeg
+#check @g8BridgeSourceInclusion_norm_map
+#print axioms g8BridgeSourceInclusion_norm_map
+#check @g8BridgeSoninCarrier_normSq_split
+#print axioms g8BridgeSoninCarrier_normSq_split
+#check @g8MetricSurvivorCoframe_eq_smul_sourceInclusion_comp_survivorSourceLeg
+#print axioms g8MetricSurvivorCoframe_eq_smul_sourceInclusion_comp_survivorSourceLeg
+#check @g8SurvivorCoframe_normSq_pointwise_split
+#print axioms g8SurvivorCoframe_normSq_pointwise_split
+#check @g8SurvivorSourceLeg_outLeg_normSq_summable_of_sourceSoninLeakage
+#print axioms g8SurvivorSourceLeg_outLeg_normSq_summable_of_sourceSoninLeakage
+#check @g8SurvivorSourceLeg_inLeg_normSq_summable_of_coframe_energy
+#print axioms g8SurvivorSourceLeg_inLeg_normSq_summable_of_coframe_energy
+#check @g8SurvivorCoframe_energy_summable_of_inLeg
+#print axioms g8SurvivorCoframe_energy_summable_of_inLeg
+#check @g8SurvivorCoframe_energy_iff_sourceCarrier_inLeg
+#print axioms g8SurvivorCoframe_energy_iff_sourceCarrier_inLeg
+
+end Dev
+end ConnesWeilRH

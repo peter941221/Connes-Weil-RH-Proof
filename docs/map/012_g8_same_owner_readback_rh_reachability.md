@@ -780,3 +780,55 @@ orders WO-S (S1–S3) and WO-B (B1–B4), with stop rules and the ambient
 shortcut blocks (records 1488–1491), are registered in
 [map 042](042_g8_diagonal_leg_operator_bridge_audit.md). No estimate is
 proved; R3, the trace-to-`qw` readback, and RH remain open.
+
+### R3-F26 survivor coframe source bridge, WO-S S1+S2 landed (record 1498, 2026-09-16)
+
+[`C1G8R3SurvivorCoframeBridge.lean`](../../ConnesWeilRH/Dev/C1G8R3SurvivorCoframeBridge.lean)
+lands bricks S1 and S2 as exact operator identities: the survivor coframe is
+`u • (J ∘L s_S)` with `s_S` purely source-side, and on the ambient carrier
+`‖v‖² = ‖J† v‖² + ‖(I − P) v‖²` holds by Pythagoras at the projection
+`P = J J†` alone (no operator-norm input). Consequences: the OUT leg is free
+by record 1497 plus bounded right precomposition, and the survivor energy is
+UNCONDITIONALLY equivalent to the single in-Sonin square-sum
+`Σ‖J† C J (s_S e_i)‖²` on any named source basis. S3 (that square-sum) is
+now the sole survivor obligation and stays open. See [proof record
+1498](../proofs/1498_r3_survivor_coframe_source_bridge.md).
+
+### R3-F27 boundary output factorization bridge, WO-B B1+B2 landed (record 1499, 2026-09-16)
+
+[`C1G8R3BoundaryOutputFactorizationBridge.lean`](../../ConnesWeilRH/Dev/C1G8R3BoundaryOutputFactorizationBridge.lean)
+lands bricks B1 and B2: by structural induction over the visible-prime
+suffix, every actual boundary output of `suffixEulerBoundaryOutputMaps` —
+hence every summand of `finiteEulerMetricCoframeBoundaryMaps` — factors
+exactly as `M_p ∘L J ∘L N_p`, and each composed diagonal energy splits
+exactly into the in-Sonin leg plus the record-1494 radial-boundary and
+internal-gap legs with `M_p` inside. Sufficiency recombines the legs, so
+per-output three-leg square-summability feeds the record-1492 consumer
+unchanged. B3/B4 (`M_p`-adapted estimates) remain open — the committed
+1495/1496/1497 windows are owner-root only. See [proof record
+1499](../proofs/1499_r3_boundary_output_factorization_bridge.md).
+
+### R2 full readback identity preregistered (record 1500, 2026-09-16)
+
+The one readback identity is now pinned in a single statement: at every
+cutoff stage `n` the actual total trace splits exactly (four-channel ledger)
+as `t_n = b_n + 2·x_n + l_n`; `x_n → X` and `l_n → L` are FORMAL (records
+1479/1480/1481), `b_n → B` is OPEN (ρ4), and the readback contract holds iff
+`B + 2·X + L = qw(owner.sourceTest)` (ρ5). The substantive gate is ρ5 — the
+same-owner signed value identification, i.e. the Euler/prime-power readback
+— not the existence of the remainders' limits. The work-order energies
+(WO-S/WO-B) route into the endpoint channel only through the committed
+metric-split identity at `C1G8AdjointShearGram.lean:845-935`; any estimate
+that does not land there is attached to the wrong endpoint. See [proof
+record 1500](../proofs/1500_r2_full_readback_identity.md).
+
+### R4 packaging pre-audit checklist (record 1501, 2026-09-16)
+
+Before any R4 attempt, the composition chain (D1/D2 → G1–G5 → R0, with file
+and line citations), the five anti-circularity audits (statement purity,
+same-owner pinning, proof-input allowlist, parameter hygiene, composition
+minimality), and the final-claims audit (axiom print, Mathlib RH statement
+verbatim, "RH-reachable, ANALYTIC-OPEN" until the wrapper is green) are
+registered as a blocking checklist. Both ρ4 and ρ5 of record 1500 must be
+discharged before the audits can run on a real producer. See [proof record
+1501](../proofs/1501_r4_packaging_audit_checklist.md).

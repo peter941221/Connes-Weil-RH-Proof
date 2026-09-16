@@ -1,0 +1,29 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3BoundaryOutputFactorizationBridge
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @suffixEulerBoundaryOutputMaps_cons_head_factorization
+#print axioms suffixEulerBoundaryOutputMaps_cons_head_factorization
+#check @suffixEulerBoundaryOutputMaps_factorization
+#print axioms suffixEulerBoundaryOutputMaps_factorization
+#check @finiteEulerMetricCoframeBoundaryMaps_factorization
+#print axioms finiteEulerMetricCoframeBoundaryMaps_factorization
+#check @g8AmbientSourceLeg_energy_normSq_split
+#print axioms g8AmbientSourceLeg_energy_normSq_split
+#check @g8AmbientSourceLeg_outLeg_pointwise_eq_boundary_add_gap
+#print axioms g8AmbientSourceLeg_outLeg_pointwise_eq_boundary_add_gap
+#check @g8AmbientSourceLeg_inLeg_normSq_summable_of_energy
+#print axioms g8AmbientSourceLeg_inLeg_normSq_summable_of_energy
+#check @g8AmbientSourceLeg_energy_normSq_summable_of_legs
+#print axioms g8AmbientSourceLeg_energy_normSq_summable_of_legs
+#check @g8MetricVisibleBoundary_root_energy_summable_of_legs
+#print axioms g8MetricVisibleBoundary_root_energy_summable_of_legs
+
+end Dev
+end ConnesWeilRH
