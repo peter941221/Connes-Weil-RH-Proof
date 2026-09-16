@@ -1589,6 +1589,45 @@ theorem compositeGapLeg_sourceColumn_normSq_summable_of_complement
     owner lambda M N (sourceBasis i)
   simpa only [P, A] using congrArg (fun z : Carrier => ‖z‖ ^ 2) hsplit.symm
 
+set_option maxHeartbeats 20000000 in
+/-- Commutator form of the B4 consumer.  The physical gap is square-summable
+if the root-gap operator applied to the source-projection commutator is
+square-summable on the source basis. -/
+theorem compositeGapLeg_sourceColumn_normSq_summable_of_commutator
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (M : Carrier →L[ℂ] Carrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (hcomm : Summable fun i : ρ =>
+      ‖(((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L
+        (ContinuousLinearMap.id ℂ Carrier - sourceSoninProjection lambda) ∘L
+          (M ∘L sourceSoninProjection lambda -
+            sourceSoninProjection lambda ∘L M) ∘L sourceInclusion lambda ∘L N)
+        (sourceBasis i))‖ ^ 2) :
+    Summable fun i : ρ =>
+      ‖(((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L M ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i))‖ ^ 2 := by
+  have hcomp : Summable fun i : ρ =>
+      ‖(((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L
+        (ContinuousLinearMap.id ℂ Carrier - sourceSoninProjection lambda) ∘L
+          M ∘L sourceInclusion lambda ∘L N) (sourceBasis i))‖ ^ 2 := by
+    refine hcomm.congr (fun i => ?_)
+    have hcommOp :=
+      sourceSoninComplement_comp_ambientFactor_comp_sourceInclusion_eq_commutator
+        lambda M
+    have hpoint := congrArg
+      (fun T : sourceSoninCarrier lambda →L[ℂ] Carrier =>
+        (((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+            radialSupportProjection lambda ∘L rootConvolution owner) ∘L T ∘L N)
+          (sourceBasis i)) hcommOp
+    simpa only [ContinuousLinearMap.comp_assoc] using
+      congrArg (fun z : Carrier => ‖z‖ ^ 2) hpoint.symm
+  exact compositeGapLeg_sourceColumn_normSq_summable_of_complement
+    owner lambda M N sourceBasis hcomp
+
 theorem suffixEulerFrameAmbientLossColumn_compositeGapLeg_sourceBasis_normSq_summable
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
     (p : CCM24VisiblePrime) (S : List CCM24VisiblePrime)

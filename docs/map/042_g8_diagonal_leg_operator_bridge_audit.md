@@ -434,3 +434,9 @@ Record 1519 identifies that complement exactly as
 source-projection commutator estimate for each ambient boundary factor,
 followed by the root-gap operator.  This is a sharper target than an
 arbitrary complement-column bound, but it remains open.
+
+Record 1520 wires that commutator normal form directly into the complete B4
+consumer.  It is now sufficient to prove square-summability of
+`(E - P) E C (id - P) (M P - P M) J N` for each actual factor.  All projection
+and source-range bookkeeping is discharged; the commutator-root estimate is
+the only remaining analytic statement in this branch.
