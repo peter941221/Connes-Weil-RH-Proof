@@ -24,6 +24,7 @@ open Source.CC20Concrete.PositiveTrace
 open Source.CCM25Concrete
 open Source.CCM25Concrete.CCM24FiniteSProjectionTrace
 open Source.CCM25Concrete.CCM24FiniteSGramResponse
+open Source.CCM25Concrete.CCM24FiniteSCoframeResponse
 open Source.CCM25Concrete.CCM24FiniteSBandTrace
 open Source.CCM25Concrete.CCM24FiniteSGatePhysicalObliqueShearReduction
 open Source.C1G8AdjointShearGram

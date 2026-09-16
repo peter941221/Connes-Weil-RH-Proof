@@ -71,3 +71,20 @@ instantiated by rewriting names; a bridge must either prove these correction
 channels cancel in the selected limit or introduce the correctly corrected
 G8 arithmetic response. This is a structural audit result, not a numerical
 no-go and not a claim that no bridge can exist.
+
+## 2026-09-16 type check: the tempting metric root sandwich is ill-typed
+
+A candidate shortcut would replace the actual aggregate by a root sandwich
+of the source-compressed metric Gram. That would require composing
+
+```text
+(J† G J)  : sourceSoninCarrier -> sourceSoninCarrier
+C J       : sourceSoninCarrier -> finiteSCarrier
+```
+
+on the same side. The composition is impossible: `J† G J` consumes a source
+vector, while `C J` produces an ambient vector. Lean rejects this candidate
+at the composition boundary. This confirms that the `C(Ju)` obstruction is a
+genuine carrier mismatch, not a missing simp lemma. A valid `rho5` bridge must
+keep `C` and `C†` on the ambient carrier and compare the resulting scalar
+trace by a new finite-level identity.
