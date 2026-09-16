@@ -416,3 +416,9 @@ premise and the composite internal-gap reducer gives the full square-sum.
 Thus the `P` component of each physical boundary column is formally covered.
 The `(I - P)` complement and the source-range decomposition of the actual
 boundary columns remain open, so WO-B and S3 are unchanged.
+
+Record 1517 supplies the exact pointwise split of every factored physical gap
+leg into the `P ∘L M ∘L J` source-range term plus the
+`(id - P) ∘L M ∘L J` complement.  Together with 1516, this removes the
+source-range term from the analytic obligation.  The sole remaining B4 gap
+target is the complement square-sum; no route status changes.

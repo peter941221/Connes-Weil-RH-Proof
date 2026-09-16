@@ -173,6 +173,36 @@ theorem g8AmbientSourceLeg_outLeg_pointwise_eq_boundary_add_gap
     ContinuousLinearMap.add_apply] at hpoint ⊢
   exact hpoint
 
+/- The internal-gap output splits along the source Sonin projection.  The
+remaining complementary input is the only part not covered by the generic
+source-range B4 estimate. -/
+theorem g8AmbientSourceLeg_gapLeg_pointwise_eq_sourceRange_add_complement
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (M : finiteSCarrier →L[ℂ] finiteSCarrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    (w : sourceSoninCarrier lambda) :
+    (((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+        radialSupportProjection lambda ∘L rootConvolution owner ∘L M ∘L
+      sourceInclusion lambda ∘L N) w) =
+      (((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L
+        sourceSoninProjection lambda ∘L M ∘L sourceInclusion lambda ∘L N) w) +
+      (((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L
+        (ContinuousLinearMap.id ℂ finiteSCarrier -
+          sourceSoninProjection lambda) ∘L M ∘L sourceInclusion lambda ∘L N) w) := by
+  let D := (radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+    radialSupportProjection lambda ∘L rootConvolution owner
+  let y := (M ∘L sourceInclusion lambda ∘L N) w
+  have hy : y = sourceSoninProjection lambda y +
+      (ContinuousLinearMap.id ℂ finiteSCarrier -
+        sourceSoninProjection lambda) y := by
+    simp only [y, ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply]
+    abel
+  have hD := congrArg D hy
+  simpa only [D, y, ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.map_add] using hD
+
 /-- Real algebra: from the exact split, the in-Sonin term is dominated by the
 full term. -/
 private theorem inLeg_le_of_split {a b c : ℝ} (hsplit : c = a + b)
