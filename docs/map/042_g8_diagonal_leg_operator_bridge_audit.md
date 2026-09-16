@@ -473,3 +473,10 @@ commutator-root target can therefore reuse the existing outer, second-support,
 reflected-outer, and prolate branch interfaces while keeping the physical
 factor `M` on the ambient side.  This is an exact algebraic rewrite; no branch
 estimate or route closure follows yet.
+
+Record 1526 adds the corresponding four-branch Hilbert--Schmidt consumer.
+Square-summability of the four signed branch columns, after bounded ambient
+postcomposition and source-side precomposition, now implies the complete
+source-commutator square-sum.  The analytic obligation is therefore exactly
+the four branch estimates for each mixed physical factor; the recombination
+and sign bookkeeping are closed.

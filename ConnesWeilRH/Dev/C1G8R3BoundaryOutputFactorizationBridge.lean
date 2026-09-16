@@ -285,6 +285,102 @@ theorem sourceSoninCommutator_eq_threeBranch
     (sourceProlateRemainder lambda) M
     (sourceSoninProjection_eq_compression_sub_prolate lambda)
 
+/- Generic four-term Hilbert--Schmidt recombination, with the last branch
+carrying the signed minus from the three-branch ledger. -/
+theorem sourceBasis_normSq_summable_of_three_add_sub
+    {H G : Type*} [NormedAddCommGroup H] [NormedAddCommGroup G]
+    [InnerProductSpace ℂ H] [InnerProductSpace ℂ G]
+    {ρ : Type*} (basis : HilbertBasis ρ ℂ H)
+    (A B C D : H →L[ℂ] G)
+    (hA : Summable fun i : ρ => ‖A (basis i)‖ ^ 2)
+    (hB : Summable fun i : ρ => ‖B (basis i)‖ ^ 2)
+    (hC : Summable fun i : ρ => ‖C (basis i)‖ ^ 2)
+    (hD : Summable fun i : ρ => ‖D (basis i)‖ ^ 2) :
+    Summable fun i : ρ => ‖(A + B + C - D) (basis i)‖ ^ 2 := by
+  have hneg : Summable fun i : ρ => ‖(-D) (basis i)‖ ^ 2 := by
+    simpa only [ContinuousLinearMap.neg_apply, norm_neg] using hD
+  have hAB := PositiveTrace.summable_normSq_add basis A B hA hB
+  have hABC := PositiveTrace.summable_normSq_add basis (A + B) C hAB hC
+  have hsum := PositiveTrace.summable_normSq_add basis (A + B + C) (-D)
+    hABC hneg
+  simpa only [sub_eq_add_neg] using hsum
+
+set_option maxHeartbeats 1000000 in
+/- The B4 source commutator now has a direct four-branch square-sum
+consumer. -/
+theorem sourceSoninCommutator_sourceBasis_normSq_summable_of_threeBranch
+    (lambda : CCM24SoninScale) (M D : finiteSCarrier →L[ℂ] finiteSCarrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (houter : Summable fun i : ρ =>
+      ‖(D ∘L cc20OuterCommutatorBranch
+          (radialSupportProjection lambda)
+          (sourceFourierSupportProjection lambda) M ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2)
+    (hsecond : Summable fun i : ρ =>
+      ‖(D ∘L cc20SecondSupportCommutatorBranch
+          (radialSupportProjection lambda)
+          (sourceFourierSupportProjection lambda) M ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2)
+    (hreflected : Summable fun i : ρ =>
+      ‖(D ∘L cc20ReflectedOuterCommutatorBranch
+          (radialSupportProjection lambda)
+          (sourceFourierSupportProjection lambda) M ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2)
+    (hprolate : Summable fun i : ρ =>
+      ‖(D ∘L cc20ProlateCommutatorBranch
+          (sourceProlateRemainder lambda) M ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2) :
+    Summable fun i : ρ =>
+      ‖(D ∘L cc20Commutator (sourceSoninProjection lambda) M ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2 := by
+  have hsum := sourceBasis_normSq_summable_of_three_add_sub sourceBasis
+    (D ∘L cc20OuterCommutatorBranch
+      (radialSupportProjection lambda)
+      (sourceFourierSupportProjection lambda) M ∘L
+      sourceInclusion lambda ∘L N)
+    (D ∘L cc20SecondSupportCommutatorBranch
+      (radialSupportProjection lambda)
+      (sourceFourierSupportProjection lambda) M ∘L
+      sourceInclusion lambda ∘L N)
+    (D ∘L cc20ReflectedOuterCommutatorBranch
+      (radialSupportProjection lambda)
+      (sourceFourierSupportProjection lambda) M ∘L
+      sourceInclusion lambda ∘L N)
+    (D ∘L cc20ProlateCommutatorBranch
+      (sourceProlateRemainder lambda) M ∘L
+      sourceInclusion lambda ∘L N) houter hsecond hreflected hprolate
+  have hEq :
+      D ∘L cc20Commutator (sourceSoninProjection lambda) M ∘L
+          sourceInclusion lambda ∘L N =
+        (D ∘L cc20OuterCommutatorBranch
+          (radialSupportProjection lambda)
+          (sourceFourierSupportProjection lambda) M ∘L
+          sourceInclusion lambda ∘L N) +
+        (D ∘L cc20SecondSupportCommutatorBranch
+          (radialSupportProjection lambda)
+          (sourceFourierSupportProjection lambda) M ∘L
+          sourceInclusion lambda ∘L N) +
+        (D ∘L cc20ReflectedOuterCommutatorBranch
+          (radialSupportProjection lambda)
+          (sourceFourierSupportProjection lambda) M ∘L
+          sourceInclusion lambda ∘L N) -
+        (D ∘L cc20ProlateCommutatorBranch
+          (sourceProlateRemainder lambda) M ∘L
+          sourceInclusion lambda ∘L N) := by
+    rw [sourceSoninCommutator_eq_threeBranch lambda M]
+    apply ContinuousLinearMap.ext
+    intro x
+    simp only [cc20ThreeBranchCommutator, cc20OuterCommutatorBranch,
+      cc20SecondSupportCommutatorBranch,
+      cc20ReflectedOuterCommutatorBranch, cc20ProlateCommutatorBranch,
+      ContinuousLinearMap.comp_apply, ContinuousLinearMap.add_apply,
+      ContinuousLinearMap.sub_apply, ContinuousLinearMap.neg_apply,
+      map_add, map_sub, map_neg]
+  refine hsum.congr (fun i => ?_)
+  exact congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2)
+    (DFunLike.congr_fun hEq (sourceBasis i)).symm
+
 /-- Leibniz rule for the source-projection commutator.  It is the induction
 step for expanding a finite Euler boundary factor into atomic factors. -/
 theorem ambientProduct_commutator_eq_leibniz_sum
