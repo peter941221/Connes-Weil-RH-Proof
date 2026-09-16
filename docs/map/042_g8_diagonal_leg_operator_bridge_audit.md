@@ -342,3 +342,9 @@ The old-frame radial support fact is now a named theorem rather than a local
 proof detail.  It can be reused when proving source-basis energy for the
 root-convolved actual column, while the ambient-loss leakage identity remains
 an exact structural bridge with no Hilbert--Schmidt estimate.
+
+Record 1555 supplies the missing wide-radial support for the actual ambient-loss
+column at the canonical shift `s = log p`.  Thus the composite B3 radial
+reduction can be instantiated for this outer column without a caller-supplied
+support premise.  The source-basis square-sum and the inner metric/projection
+channel remain open; B4 for the Hardy-conjugated factor is unchanged.

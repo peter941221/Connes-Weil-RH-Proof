@@ -108,6 +108,25 @@ theorem realLog_wideRadialScale (lambda : CCM24SoninScale) (s : ℝ) :
   rw [Real.log_mul (ne_of_gt lambda.2) (Real.exp_ne_zero (-s)), Real.log_exp]
   ring
 
+/-! A translation toward larger logarithmic coordinates shifts an upper
+radial support edge to the wider scale. -/
+theorem cc20GlobalLogTranslation_mem_wideRadialSupport
+    (lambda : CCM24SoninScale) (b : ℝ) (hb : 0 ≤ b)
+    {u : finiteSCarrier}
+    (hu : u ∈ ccm24LogRadialSupportClosedSubspace lambda) :
+    cc20GlobalLogTranslation b u ∈
+      ccm24LogRadialSupportClosedSubspace (wideRadialScale lambda b) := by
+  rw [mem_ccm24LogRadialSupportClosedSubspace_iff] at hu ⊢
+  have hshift :=
+    (measurePreserving_add_right volume b).quasiMeasurePreserving.ae hu
+  have hlog := realLog_wideRadialScale lambda b
+  filter_upwards [cc20GlobalLogTranslation_coeFn b u, hshift] with t
+      htranslationAt hzeroAt
+  intro ht
+  rw [htranslationAt]
+  apply hzeroAt
+  linarith
+
 /-! A support factor already contained in the original radial half-line is
 automatically contained in every wider half-line.  This is the reusable
 support consumer for composite boundary inputs; it does not assert that an
@@ -360,6 +379,62 @@ theorem suffixEulerFrameSchurStep_oldFrame_radialSupport
   apply (ccm24LogRadialSupportProjection_eq_self_iff lambda _).2
   simpa only [suffixEulerFrameSchurStep, oldSuffixFrame] using
     (newSuffixFrame_mem lambda (p :: S) x).1
+
+theorem suffixEulerFrameAmbientLossColumn_wideRadialSupport
+    (lambda : CCM24SoninScale) (p : CCM24VisiblePrime)
+    (S : List CCM24VisiblePrime) :
+    radialSupportProjection (wideRadialScale lambda (Real.log p)) ∘L
+        suffixEulerFrameAmbientLossColumn lambda p S =
+      suffixEulerFrameAmbientLossColumn lambda p S := by
+  have hlogp : 0 ≤ Real.log (p : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast p.property.le)
+  have hle : (wideRadialScale lambda (Real.log p)).1 ≤ lambda.1 := by
+    dsimp [wideRadialScale]
+    calc
+      lambda.val * Real.exp (-Real.log p) ≤ lambda.val * 1 := by
+        exact mul_le_mul_of_nonneg_left
+          (Real.exp_le_one_iff.mpr (by linarith)) (le_of_lt lambda.2)
+      _ = lambda.val := by ring
+  have hproj := radialProjector_comp_of_le
+    (wideRadialScale lambda (Real.log p)) hle
+  apply ContinuousLinearMap.ext
+  intro x
+  have hOld := suffixEulerFrameSchurStep_oldFrame_radialSupport lambda p S
+  have hOldPoint := DFunLike.congr_fun hOld x
+  simp only [ContinuousLinearMap.comp_apply] at hOldPoint
+  have hOldMem : (suffixEulerFrameSchurStep lambda p S).oldFrame x ∈
+      ccm24LogRadialSupportClosedSubspace lambda := by
+    exact (ccm24LogRadialSupportProjection_eq_self_iff lambda _).1 hOldPoint
+  have hOldWide : (suffixEulerFrameSchurStep lambda p S).oldFrame x ∈
+      ccm24LogRadialSupportClosedSubspace
+        (wideRadialScale lambda (Real.log p)) := by
+    apply (ccm24LogRadialSupportProjection_eq_self_iff
+      (wideRadialScale lambda (Real.log p)) _).1
+    have hprojPoint := congrArg
+      (fun T : finiteSCarrier →L[ℂ] finiteSCarrier =>
+        T ((suffixEulerFrameSchurStep lambda p S).oldFrame x)) hproj
+    simp only [ContinuousLinearMap.comp_apply] at hprojPoint
+    calc
+      radialSupportProjection (wideRadialScale lambda (Real.log p))
+          ((suffixEulerFrameSchurStep lambda p S).oldFrame x) =
+          radialSupportProjection (wideRadialScale lambda (Real.log p))
+            (radialSupportProjection lambda
+              ((suffixEulerFrameSchurStep lambda p S).oldFrame x)) := by
+            rw [hOldPoint]
+      _ = radialSupportProjection lambda
+          ((suffixEulerFrameSchurStep lambda p S).oldFrame x) := hprojPoint
+      _ = (suffixEulerFrameSchurStep lambda p S).oldFrame x := hOldPoint
+  have htranslated := cc20GlobalLogTranslation_mem_wideRadialSupport
+    lambda (Real.log p) hlogp hOldMem
+  rw [suffixEulerFrameAmbientLossColumn,
+    primeEulerAmbientLossFactor_adjoint_eq]
+  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.smul_apply]
+  apply (ccm24LogRadialSupportProjection_eq_self_iff
+    (wideRadialScale lambda (Real.log p)) _).2
+  exact (ccm24LogRadialSupportClosedSubspace
+    (wideRadialScale lambda (Real.log p))).smul_mem _
+    ((ccm24LogRadialSupportClosedSubspace
+      (wideRadialScale lambda (Real.log p))).add_mem hOldWide htranslated)
 
 /-! The preceding global identity now reaches the actual Schur column.  The
 old suffix frame is itself radially supported, so the radial complement sees

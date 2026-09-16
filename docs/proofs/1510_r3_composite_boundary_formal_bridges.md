@@ -107,3 +107,14 @@ The same file exports `suffixEulerFrameSchurStep_oldFrame_radialSupport`,
 separating the actual frame support fact from the ambient-loss leakage
 calculation.  This is a reusable formal premise for any later root-window
 energy transfer through the actual old frame.
+
+## 2026-09-16 wide-scale support for the actual loss column (record 1555)
+
+A new exact support theorem proves
+`suffixEulerFrameAmbientLossColumn_wideRadialSupport` at the canonical width
+`s = log p`.  The proof transports the old-frame support from `lambda` to
+`wideRadialScale lambda (log p)`, then uses the shifted support lemma for the
+positive translation in the antiresonant loss factor.  Consequently the
+`hwide` premise of the composite radial B3 reducer is no longer an external
+assumption for this ambient-loss column at that width.  The resulting compact
+window estimate and the coupled inner channel are still separate obligations.
