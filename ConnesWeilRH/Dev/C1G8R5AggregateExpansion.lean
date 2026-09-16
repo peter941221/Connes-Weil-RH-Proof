@@ -6,6 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 import ConnesWeilRH.Dev.C1G8R3ActualEndpointTraceLimit
 import ConnesWeilRH.Dev.C1G8R3SameOwnerGateNormalForm
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSEndpointArithmeticLedger
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSMovingBandSelfAdjointTrace
 
 /-!
 # Exact four-channel expansion of the endpoint aggregate
@@ -30,6 +31,7 @@ open Source.CCM25Concrete.CCM24FiniteSBandTrace
 open Source.CCM25Concrete.CCM24FiniteSMovingBandPrefixCompression
 open Source.CCM25Concrete.CCM24FiniteSRectangularPrefixCycle
 open Source.CCM25Concrete.CCM24FiniteSEndpointArithmeticLedger
+open Source.CCM25Concrete.CCM24FiniteSMovingBandSelfAdjointTrace
 open Source.CCM25Concrete.CCM24FiniteSGatePhysicalObliqueShearReduction
 open Source.C1G8AdjointShearGram
 open scoped InnerProduct InnerProductSpace Topology
@@ -81,6 +83,22 @@ noncomputable def g8AmbientArithmeticCorrection
     finiteSCarrier →L[ℂ] finiteSCarrier :=
   g8AmbientRootAggregate owner lambda family -
     rootSandwichedBandResponse owner lambda family
+
+theorem g8AmbientArithmeticCorrection_adjoint_eq
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    (g8AmbientArithmeticCorrection owner lambda family).adjoint =
+      g8AmbientArithmeticCorrection owner lambda family := by
+  have hadjoint_sub (A B : finiteSCarrier →L[ℂ] finiteSCarrier) :
+      (A - B)† = A† - B† := by
+    apply ContinuousLinearMap.ext
+    intro y
+    exact ext_inner_right ℂ fun z => by
+      simp only [ContinuousLinearMap.adjoint_inner_left,
+        ContinuousLinearMap.sub_apply, inner_sub_left, inner_sub_right]
+  rw [g8AmbientArithmeticCorrection, hadjoint_sub,
+    (g8AmbientRootAggregate_isPositive owner lambda family).isSelfAdjoint.adjoint_eq,
+    rootSandwichedBandResponse_adjoint_eq]
 
 theorem g8AmbientRootAggregate_eq_rootSandwiched_add_correction
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
