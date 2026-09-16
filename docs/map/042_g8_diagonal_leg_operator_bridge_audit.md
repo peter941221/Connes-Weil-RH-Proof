@@ -319,3 +319,10 @@ The complete finite forward Euler transport now has the same source-composed
 original and wider support identities. This covers a factorization exposing
 the full forward product at the source edge; adjoint/projection remainder
 blocks remain the unresolved boundary input.
+
+Record 1540 adds a formal adjoint leakage identity: the radial-complement
+part of the adjoint normalized one-prime transport is exactly a scalar multiple
+of the committed `primeEulerRadialBoundaryStep`. This identifies the outer
+adjoint channel structurally, but supplies no square-sum estimate and does not
+control the inner radial or metric/projection factors. WO-B therefore remains
+open with a narrower, explicit leakage target.

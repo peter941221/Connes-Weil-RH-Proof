@@ -69,3 +69,18 @@ The same bridge is now proved for the complete finite forward transport
 `finiteEulerTransportOperator family`, including its wider-scale corollary.
 Thus any boundary factorization that exposes the full forward Euler product at
 the source edge can use the consumer without an additional support premise.
+
+## 2026-09-16 adjoint radial leakage bridge (record 1540)
+
+The owning file now proves the exact operator identity
+`normalizedPrimeEulerFrameTransport_adjoint_radialLeakage`: after the radial
+cutoff, the adjoint one-prime transport equals
+`-(q * (1+q)^(-1))` times `primeEulerRadialBoundaryStep`, where `q` is the
+visible-prime Euler coefficient. The proof expands the normalized adjoint,
+uses idempotence of the radial projection, and identifies the remaining
+positive-translation complement with the committed boundary step.
+
+This removes the support mystery for the outer part of the actual adjoint
+transport: it is exactly an existing radial boundary channel. The estimate,
+the inner radial part, and the remaining metric/projection factors are still
+open, so B3/B4 and the G8 readback remain conditional.

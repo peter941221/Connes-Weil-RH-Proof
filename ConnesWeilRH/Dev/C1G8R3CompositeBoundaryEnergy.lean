@@ -9,6 +9,8 @@ import ConnesWeilRH.Dev.ELambdaFamilyProjectorProbe
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualBandFirstJetTrace
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurCascade
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalSupport
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaAmbientDefectFactorization
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialBlockRecurrence
 
 /-!
 # Composite boundary OUT legs at a wider radial scale
@@ -57,6 +59,8 @@ open Source.CCM25Concrete.CCM24FiniteSFixedQuotientCarrier
 open Source.CCM25Concrete.CCM24FiniteSActualBandFirstJetTrace
 open Source.CCM25Concrete.CCM24FiniteSActualSchurCascade
 open Source.CCM25Concrete.CCM24FiniteSCausalSupport
+open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaAmbientDefectFactorization
+open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialBlockRecurrence
 open Source.CCM25Concrete.CCM24FiniteSRootCompletedFirstJet
 open Source.CCM25Concrete.CCM24RadialBoundaryPairTransport
 open Source.CCM25Concrete.CCM24SourceProlateTrace
@@ -275,6 +279,34 @@ theorem finiteEulerTransport_sourceWideRadialSupport
   exact wideRadial_absorption_of_sourceRadialSupport lambda s hs
     (finiteEulerTransportOperator family)
     (finiteEulerTransport_sourceRadialSupport lambda family)
+
+/-! The adjoint one-prime transport has an exact radial leakage channel.  The
+identity is the operator-level bridge from the actual Schur boundary head to
+the already owned `primeEulerRadialBoundaryStep`; it makes no estimate. -/
+theorem normalizedPrimeEulerFrameTransport_adjoint_radialLeakage
+    (lambda : CCM24SoninScale) (p : CCM24VisiblePrime) :
+    radialComplement lambda ∘L
+        ContinuousLinearMap.adjoint (normalizedPrimeEulerFrameTransport p) ∘L
+          radialSupportProjection lambda =
+      (-((ccm24PrimeEulerCoefficient p : ℂ) *
+          (1 + (ccm24PrimeEulerCoefficient p : ℂ))⁻¹)) •
+        primeEulerRadialBoundaryStep lambda p := by
+  apply ContinuousLinearMap.ext
+  intro x
+  have hfixed : radialSupportProjection lambda
+      (radialSupportProjection lambda x) =
+        radialSupportProjection lambda x := by
+    exact (ccm24LogRadialSupportProjection_eq_self_iff lambda _).2
+      (Submodule.starProjection_apply_mem _ _)
+  have hzero : radialComplement lambda
+      (radialSupportProjection lambda x) = 0 :=
+    radialComplement_apply_eq_zero_of_fixed lambda hfixed
+  rw [normalizedPrimeEulerFrameTransport_adjoint_eq]
+  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.smul_apply,
+    ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply,
+    radialComplement, primeEulerRadialBoundaryStep,
+    map_sub, map_smul, hfixed, hzero, zero_sub]
+  module
 
 /-- Membership in the positive half-line. -/
 theorem mem_cc20PositiveHalfLine_iff (x : ℝ) :
