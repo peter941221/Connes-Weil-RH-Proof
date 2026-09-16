@@ -133,3 +133,23 @@ Thus the unresolved finite-level bridge is concretely the trace contribution
 of `Delta_G8`, together with the source/ambient trace transport. Any future
 claim that the correction disappears must provide its own operator or trace
 estimate; the definition is not a stored conclusion.
+
+## 2026-09-16 finite-prefix arithmetic-plus-correction ledger
+
+The correction is now integrated with the existing endpoint arithmetic ledger.
+For every ambient Hilbert basis and finite prefix N, Lean proves the exact
+identity
+
+```text
+trace(prefix A_G8)
+ = trace(prefix arithmeticOperator)
+ + actualBandEndpointCompletedResidualTrace
+ + trace(prefix Delta_G8).
+```
+
+The completed residual is the previously committed same-object residual plus
+finite root-cycle defect. Separately, `Delta_G8` is proved self-adjoint, using
+positivity of `A_G8` and self-adjointness of the root response. This makes its
+finite-prefix trace real, but gives no sign or decay. The remaining rho5 work
+is therefore an actual estimate for this correction and the source/ambient
+transport.
