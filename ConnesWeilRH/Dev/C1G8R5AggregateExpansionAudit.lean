@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1G8R5AggregateExpansion
+
+namespace ConnesWeilRH
+namespace Dev
+namespace C1G8R5AggregateExpansionAudit
+
+#print axioms g8EndpointSourceCutoffLimitOperator_eq_fourTerms
+
+end C1G8R5AggregateExpansionAudit
+end Dev
+end ConnesWeilRH
