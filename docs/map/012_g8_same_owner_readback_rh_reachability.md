@@ -4,7 +4,8 @@
 actual paired leakage/source and signed source-remainder trace limits formal;
 survivor/boundary mixed channels paired and limited; total metric trace limit
 formal under the two diagonal energy hypotheses; radial-boundary finite-window
-support, translation, and source-basis energy formal).
+support, translation, and source-basis energy formal; internal-gap and full
+source-Sonin leakage same-basis energy formal).
 It does not alter the binding route ruling in
 [003](003_b1_b5_minimal_exit_route_selection.md),
 does not reopen universal B1, and does not claim RH. It answers a narrower
@@ -734,8 +735,22 @@ The compact-output kernel's basis square-sum now passes through the actual
 source inclusion and radial translation. Lean proves that the selected-root
 radial-boundary outputs are square-summable on any named `sourceSoninCarrier`
 basis. This closes the radial-boundary summand in the leakage split as one
-Hilbert--Schmidt factor. The internal prolate gap and the separate G8
-visible-prime boundary-output energies remain open; the result does not by
-itself give a G8 trace-to-`qw` limit. See [proof record
+Hilbert--Schmidt factor. The internal prolate gap is closed by record 1497;
+the separate G8 visible-prime boundary-output energies remain open, and the
+result does not by itself give a G8 trace-to-`qw` limit. See [proof record
 1496](../proofs/1496_r3_radial_boundary_source_energy.md), [1423](../proofs/1423_r3_radial_boundary_capture_and_prolate_gap.md),
 and [map record 018](018_r3_unit_detector_root_square_sum.md).
+
+### R3-F24 internal prolate-gap source-basis energy (record 1497, 2026-09-16)
+
+The internal radial-but-non-Sonin gap is now square-summable on any named
+source basis. The proof combines the all-scale prolate-factor adjoint with the
+reflected compact-root crossing, yielding an exact two-term decomposition of
+the selected-root source-band leg. Together with record 1496 and the exact
+record-1494 split, Lean now proves the complete selected-root source-Sonin
+leakage is square-summable on any named source basis. The separate
+finite visible-prime G8 boundary-output energies, actual diagonal energies,
+and same-owner trace-to-`qw` readback remain open; detector-specific
+semi-local positivity, C3, and RH are not claimed. See [proof record
+1497](../proofs/1497_r3_internal_prolate_gap_source_energy.md) and
+[supporting map record 018](018_r3_unit_detector_root_square_sum.md).

@@ -1,9 +1,11 @@
 # 018 — R3 detector-root range square-sum partial closure
 
-**Date:** 2026-09-14.
+**Date:** 2026-09-14; updated 2026-09-16.
 
-**Status:** formal partial analytic brick; supporting route record, not an RH
-claim.
+**Status:** formal partial analytic brick; both selected-root source-leakage
+channels and their full sum now have same-basis Hilbert--Schmidt energy. The separate finite
+visible-prime G8 boundary outputs and trace/readback remain open; this is not
+an RH claim.
 
 **Consumer:** the healthy-`CompactLog`, B5-shaped statement
 `0 <= C1SameOwnerWeil.qw g` for the same tower-selected detector.
@@ -132,9 +134,14 @@ the same `finiteSCarrier` owner. Record 1495 then proves the exact support
 identity for the zero-boundary crossing and its translation to the actual
 radial cutoff after composing with the actual source inclusion. Record 1496
 proves square-summability of the actual radial-boundary outputs on any named
-source basis. The internal-gap estimate, the separate finite visible-prime
-G8 boundary-output energies, actual G8 diagonal energies, and trace/readback
+source basis. Record 1497 proves the internal-gap source-leg square-sum by
+combining the all-scale prolate-factor adjoint with the reflected compact-root
+crossing, on that same arbitrary source basis. Thus both root-leakage
+channels and the complete source-Sonin leakage are Hilbert--Schmidt. The
+separate finite visible-prime G8
+boundary-output energies, actual G8 diagonal energies, and trace/readback
 remain open. See [proof records
 1494](../proofs/1494_r3_radial_boundary_internal_gap_split.md),
-[1495](../proofs/1495_r3_radial_boundary_finite_window_identity.md), and
-[1496](../proofs/1496_r3_radial_boundary_source_energy.md).
+[1495](../proofs/1495_r3_radial_boundary_finite_window_identity.md),
+[1496](../proofs/1496_r3_radial_boundary_source_energy.md), and
+[1497](../proofs/1497_r3_internal_prolate_gap_source_energy.md).

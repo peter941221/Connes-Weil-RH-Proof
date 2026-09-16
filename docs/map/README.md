@@ -64,8 +64,9 @@ traceability.
 |        |                       | decay formal; boundary prolate pullback  |
 |        |                       | zero; finite boundary-output reduction   |
 |        |                       | wired into trace consumer; radial        |
-|        |                       | window/support/source HS formal; G8      |
-|        |                       | rooted estimates/readback remain open    |
+|        |                       | window/support and full source-leakage  |
+|        |                       | HS formal; G8 rooted estimates/readback |
+|        |                       | remain open                               |
 | 019    | Supporting            | R3 leakage doubled-shift normal form:    |
 |        |                       | exact same-carrier projection-defect     |
 |        |                       | identity; estimate/trace/readback open   |
@@ -216,11 +217,15 @@ the producer does not invoke the healthy-sign theorem. Thus R0 is formal.
 Record 1495 further formalizes the selected-root radial boundary's exact
 finite-window support identity and its translation to the actual source
 inclusion. Record 1496 proves square-summability of this radial-boundary
-channel on any named source basis. This does not supply the separate G8
+channel on any named source basis. Record 1497 proves square-summability of
+the internal-gap source leg on that same arbitrary source basis by combining
+the all-scale prolate adjoint with the reflected compact-root crossing.
+Together, records 1496 and 1497 prove the full selected-root source-Sonin
+leakage is Hilbert--Schmidt on any named source basis. This does not supply the separate G8
 visible-prime output energies. Other R2/R3 cutoff compatibility, the analytic
 remainder, and the same-owner trace-to-`qw` theorem remain open; no feasibility
-or RH result is claimed.
-See [1464](../proofs/1464_g8_r0_raw_orbit_geometry.md).
+or RH result is claimed. See [1464](../proofs/1464_g8_r0_raw_orbit_geometry.md)
+and [1497](../proofs/1497_r3_internal_prolate_gap_source_energy.md).
 
 `013` is a supporting candidate below `012`, not a new route authority. It
 uses the committed exact decomposition of the coupled source second-support /
@@ -1038,7 +1043,7 @@ Read the current records in this order for a full-map review:
 44. [017 - R3 no-gap alternating-power limit](017_r3_no_gap_alternating_power_limit.md)
     — formal dense-range proof of strong convergence on the actual carrier,
     without a uniform spectral gap; trace/readback remains open.
-45. [018 - R3 unit-scale detector-root square-sum partial closure](018_r3_unit_detector_root_square_sum.md)
+45. [018 - R3 detector-root square-sum partial closure](018_r3_unit_detector_root_square_sum.md)
     — the unit-scale prolate-range root leg is formally square-summable and
     feeds the strong-limit energy consumer; the raw ambient leakage leg has a
     formal non-summable orthonormal orbit, while its source-compressed G8
@@ -1049,9 +1054,10 @@ Read the current records in this order for a full-map review:
     formalizes the selected-root radial-boundary/internal-gap cancellation;
     record 1495 proves the finite-window support identity and actual radial
     translation on the source inclusion, and record 1496 proves the radial
-    boundary source-basis square-sum. The internal-gap estimate, individual
-    G8 boundary outputs, actual diagonal energies, and trace/readback remain
-    open.
+    boundary source-basis square-sum. Record 1497 closes the internal-gap
+    source-leg square-sum and hence the full source-Sonin leakage on the same
+    arbitrary basis. Individual G8 boundary outputs, actual diagonal energies,
+    and trace/readback remain open.
 46. [019 - R3 leakage doubled-shift normal form](019_r3_leakage_doubled_shift_normal_form.md)
     — the source leakage leg is exactly the selected root conjugated against
     the doubled-shift projection defect `p_b - T_b`; its estimate, the
