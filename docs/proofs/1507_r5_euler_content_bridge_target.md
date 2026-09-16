@@ -153,3 +153,10 @@ positivity of `A_G8` and self-adjointness of the root response. This makes its
 finite-prefix trace real, but gives no sign or decay. The remaining rho5 work
 is therefore an actual estimate for this correction and the source/ambient
 transport.
+
+The ambient aggregate also has a formally checked four-channel expansion:
+`C† W C + C† N W C + C† W N† C + C† N W N† C`, where `N` is the
+finite oblique shear and `W` the detector. This is an operator identity before
+source compression, so the correction estimate can be split into the two cross
+channels, the leakage square, and the difference between the base channel and
+the arithmetic response.

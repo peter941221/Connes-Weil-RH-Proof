@@ -67,6 +67,44 @@ theorem g8EndpointSourceCutoffLimitOperator_eq_sourceCompression_ambientRootAggr
         g8AmbientRootAggregate owner lambda family ∘L sourceInclusion lambda := by
   rfl
 
+set_option maxHeartbeats 1000000 in
+theorem g8AmbientRootAggregate_eq_fourTerms
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    g8AmbientRootAggregate owner lambda family =
+      (rootConvolution owner).adjoint ∘L detectorOperator owner ∘L
+          rootConvolution owner +
+        (rootConvolution owner).adjoint ∘L
+          finiteEulerPulledObliqueShear lambda family ∘L
+            detectorOperator owner ∘L rootConvolution owner +
+        (rootConvolution owner).adjoint ∘L detectorOperator owner ∘L
+          (finiteEulerPulledObliqueShear lambda family).adjoint ∘L
+            rootConvolution owner +
+        (rootConvolution owner).adjoint ∘L
+          finiteEulerPulledObliqueShear lambda family ∘L
+            detectorOperator owner ∘L
+              (finiteEulerPulledObliqueShear lambda family).adjoint ∘L
+                rootConvolution owner := by
+  let C := rootConvolution owner
+  let N := finiteEulerPulledObliqueShear lambda family
+  let W := detectorOperator owner
+  have hadjoint_add (A B : finiteSCarrier →L[ℂ] finiteSCarrier) :
+      (A + B)† = A† + B† := by
+    apply ContinuousLinearMap.ext
+    intro y
+    exact ext_inner_right ℂ fun z => by
+      simp only [ContinuousLinearMap.adjoint_inner_left,
+        ContinuousLinearMap.add_apply, inner_add_left, inner_add_right]
+  change C† ∘L ((ContinuousLinearMap.id ℂ finiteSCarrier + N†)† ∘L W ∘L
+      (ContinuousLinearMap.id ℂ finiteSCarrier + N†)) ∘L C = _
+  rw [hadjoint_add, ContinuousLinearMap.adjoint_adjoint,
+    ContinuousLinearMap.adjoint_id]
+  apply ContinuousLinearMap.ext
+  intro x
+  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.id_apply, map_add]
+  abel
+
 theorem g8EndpointSourceCutoffLimitOperator_isPositive
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
     (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :

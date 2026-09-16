@@ -7,6 +7,7 @@ namespace C1G8R5AggregateExpansionAudit
 #print axioms g8AmbientRootAggregate
 #print axioms g8AmbientRootAggregate_isPositive
 #print axioms g8EndpointSourceCutoffLimitOperator_eq_sourceCompression_ambientRootAggregate
+#print axioms g8AmbientRootAggregate_eq_fourTerms
 #print axioms g8EndpointSourceCutoffLimitOperator_isPositive
 #print axioms g8AmbientArithmeticCorrection
 #print axioms g8AmbientArithmeticCorrection_adjoint_eq
