@@ -243,3 +243,14 @@ selected crossing theorem, it identifies the ordinary trace of
 prints the standard three axioms only.  This closes the naming/interface gap
 for the finite prime-power supplier; it does not estimate the residual,
 root-cycle, or `Delta_G8` rows.
+
+## 2026-09-17 finite-prefix four-channel trace theorem (record 1565)
+
+The active G8 leaf now exports
+`trace_basisPrefixMatrix_g8AmbientRootAggregate_eq_fourChannel_sum`.  For
+every ambient Hilbert basis prefix it rewrites the trace of `A_G8` as the
+sum of the base channel, the two adjoint cross channels, and the leakage
+square, with `J` retained only in the final source compression theorem.  The
+proof is the checked operator expansion followed by finite matrix additivity;
+it introduces no trace-cycle, positivity, or limiting premise.  Audit build
+1576 is green with the standard axiom set and no `sorryAx`.

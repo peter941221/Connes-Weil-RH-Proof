@@ -221,6 +221,33 @@ theorem trace_basisPrefixMatrix_g8AmbientRootAggregate_eq_arithmetic_add_residua
   rw [trace_basisPrefixMatrix_g8AmbientRootAggregate_eq_rootResponse_add_correction,
     trace_targetPrefixRootResponse_eq_arithmetic_add_completedResidual]
 
+set_option maxHeartbeats 1000000 in
+theorem trace_basisPrefixMatrix_g8AmbientRootAggregate_eq_fourChannel_sum
+    (basis : HilbertBasis ℕ ℂ finiteSCarrier) (N : ℕ)
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    Matrix.trace (basisPrefixMatrix basis N
+        (g8AmbientRootAggregate owner lambda family)) =
+      Matrix.trace (basisPrefixMatrix basis N
+        ((rootConvolution owner).adjoint ∘L detectorOperator owner ∘L
+          rootConvolution owner)) +
+      Matrix.trace (basisPrefixMatrix basis N
+        ((rootConvolution owner).adjoint ∘L
+          finiteEulerPulledObliqueShear lambda family ∘L
+            detectorOperator owner ∘L rootConvolution owner)) +
+      Matrix.trace (basisPrefixMatrix basis N
+        ((rootConvolution owner).adjoint ∘L detectorOperator owner ∘L
+          (finiteEulerPulledObliqueShear lambda family).adjoint ∘L
+            rootConvolution owner)) +
+      Matrix.trace (basisPrefixMatrix basis N
+        ((rootConvolution owner).adjoint ∘L
+          finiteEulerPulledObliqueShear lambda family ∘L
+            detectorOperator owner ∘L
+              (finiteEulerPulledObliqueShear lambda family).adjoint ∘L
+                rootConvolution owner)) := by
+  rw [g8AmbientRootAggregate_eq_fourTerms]
+  simp only [basisPrefixMatrix_add, Matrix.trace_add]
+
 /-! The arithmetic supplier is exposed directly at the active G8 interface.
 The hypotheses are exactly the support and per-prime-power trace data required
 by the selected crossing theorem; no G8 positivity or correction estimate is
