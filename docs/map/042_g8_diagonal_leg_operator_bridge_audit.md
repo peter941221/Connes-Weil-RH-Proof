@@ -380,3 +380,12 @@ factoring `A` through `J† ∘L J`; its only analytic premise is the exact
 source-composed Hardy support identity for `H ∘L A`.  This does not yet prove
 that identity for either physical boundary column, so WO-B remains open at
 the Hardy side.
+
+Record 1513 adds the exact S3 input-energy reduction.  On every named source
+basis, the compressed gate `J† ∘L C ∘L J` has a square-summable diagonal if
+and only if the full source-input leg `C ∘L J` does.  The proof uses the
+pointwise Sonin Pythagoras identity and the already formal source-Sonin
+leakage square-sum; it does not invoke the impossible ambient leakage or
+band-root Hilbert--Schmidt shortcuts.  Thus S3 is now isolated as the full
+detector energy on included source vectors, with the source projection retained
+in the exact equivalence to the ambient `P C P` gate.

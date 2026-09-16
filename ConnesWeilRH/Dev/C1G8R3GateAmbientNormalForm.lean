@@ -144,5 +144,44 @@ theorem gateAmbient_iff_sourceGate_squareSum
       gateAmbient_projection_apply_inclusion]
     rw [gateAmbient_norm_projection_eq_norm_adjoint]
 
+set_option maxHeartbeats 1000000 in
+-- reason: the projection split is transported through several composed maps
+/-- The source-compressed gate is equivalent to the full detector energy on
+  the included source carrier once the already-controlled Sonin leakage is
+  supplied.  This is the live S3 reduction; it does not assert either side. -/
+theorem sourceGate_squareSum_iff_sourceInputEnergy
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    {ρ : Type*}
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) :
+    (Summable fun i : ρ =>
+      ‖((sourceInclusion lambda).adjoint ∘L rootConvolution owner ∘L
+          sourceInclusion lambda) (sourceBasis i)‖ ^ 2) ↔
+    (Summable fun i : ρ =>
+      ‖(rootConvolution owner ∘L sourceInclusion lambda)
+        (sourceBasis i)‖ ^ 2) := by
+  let gate := (sourceInclusion lambda).adjoint ∘L
+    rootConvolution owner ∘L sourceInclusion lambda
+  let full := rootConvolution owner ∘L sourceInclusion lambda
+  let leak := (ContinuousLinearMap.id ℂ finiteSCarrier -
+    sourceSoninProjection lambda) ∘L full
+  have hleak : Summable fun i : ρ => ‖leak (sourceBasis i)‖ ^ 2 := by
+    simpa only [leak, full] using
+      (selectedRoot_sourceSoninLeakage_sourceBasis_normSq_summable
+        owner lambda sourceBasis)
+  have hsplit (i : ρ) :
+      ‖full (sourceBasis i)‖ ^ 2 =
+        ‖gate (sourceBasis i)‖ ^ 2 + ‖leak (sourceBasis i)‖ ^ 2 := by
+    simpa only [gate, full, leak, ContinuousLinearMap.comp_apply] using
+      (g8BridgeSoninCarrier_normSq_split lambda
+        (rootConvolution owner (sourceInclusion lambda (sourceBasis i))))
+  constructor
+  · intro hgate
+    have hsum := hgate.add hleak
+    exact hsum.congr (fun i => (hsplit i).symm)
+  · intro hfull
+    apply Summable.of_nonneg_of_le (fun i => sq_nonneg _) (fun i => ?_) hfull
+    rw [hsplit i]
+    exact le_add_of_nonneg_right (sq_nonneg _)
+
 end Dev
 end ConnesWeilRH

@@ -12,6 +12,8 @@ namespace Dev
 #print axioms gateAmbient_iff_sourceGate_squareSum
 #check gateAmbient_projectionConjugate_eq_lifted_comp_adjoint
 #print axioms gateAmbient_projectionConjugate_eq_lifted_comp_adjoint
+#check sourceGate_squareSum_iff_sourceInputEnergy
+#print axioms sourceGate_squareSum_iff_sourceInputEnergy
 
 end Dev
 end ConnesWeilRH
