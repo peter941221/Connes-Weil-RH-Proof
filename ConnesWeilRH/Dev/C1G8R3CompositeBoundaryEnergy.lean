@@ -13,6 +13,7 @@ import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaAmbientDefect
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialBlockRecurrence
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantExteriorAdjointRadialFactorization
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantGeometricBoundaryResolvent
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialSplit
 
 /-!
 # Composite boundary OUT legs at a wider radial scale
@@ -65,6 +66,7 @@ open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaAmbientDefectFactorization
 open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialBlockRecurrence
 open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantExteriorAdjointRadial
 open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantGeometricBoundaryResolvent
+open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialSplit
 open Source.CCM25Concrete.CCM24FiniteSRootCompletedFirstJet
 open Source.CCM25Concrete.CCM24RadialBoundaryPairTransport
 open Source.CCM25Concrete.CCM24SourceProlateTrace
@@ -346,6 +348,51 @@ theorem primeEulerAmbientLossFactor_adjoint_radialLeakage
     simpa only [ContinuousLinearMap.comp_apply,
       ContinuousLinearMap.smul_apply] using hfactor
   rw [hfactor', map_smul, hcore, hboundary]
+
+/-! The preceding global identity now reaches the actual Schur column.  The
+old suffix frame is itself radially supported, so the radial complement sees
+exactly the same boundary step after the frame pullback. -/
+theorem suffixEulerFrameAmbientLossColumn_radialLeakage
+    (lambda : CCM24SoninScale) (p : CCM24VisiblePrime)
+    (S : List CCM24VisiblePrime) :
+    radialComplement lambda ∘L
+        suffixEulerFrameAmbientLossColumn lambda p S =
+      (primeEulerAmbientLossScale p : ℂ) •
+        (primeEulerRadialBoundaryStep lambda p ∘L
+          (suffixEulerFrameSchurStep lambda p S).oldFrame) := by
+  have hold : radialSupportProjection lambda ∘L
+      (suffixEulerFrameSchurStep lambda p S).oldFrame =
+      (suffixEulerFrameSchurStep lambda p S).oldFrame := by
+    apply ContinuousLinearMap.ext
+    intro x
+    apply (ccm24LogRadialSupportProjection_eq_self_iff lambda _).2
+    simpa only [suffixEulerFrameSchurStep, oldSuffixFrame] using
+      (newSuffixFrame_mem lambda (p :: S) x).1
+  rw [suffixEulerFrameAmbientLossColumn]
+  calc
+    radialComplement lambda ∘L
+          ContinuousLinearMap.adjoint (primeEulerAmbientLossFactor p) ∘L
+        (suffixEulerFrameSchurStep lambda p S).oldFrame =
+      (radialComplement lambda ∘L
+          ContinuousLinearMap.adjoint (primeEulerAmbientLossFactor p) ∘L
+          radialSupportProjection lambda) ∘L
+        (suffixEulerFrameSchurStep lambda p S).oldFrame := by
+      apply ContinuousLinearMap.ext
+      intro x
+      have hhold := DFunLike.congr_fun hold x
+      simp only [ContinuousLinearMap.comp_apply] at hhold ⊢
+      rw [hhold]
+    _ = ((primeEulerAmbientLossScale p : ℂ) •
+          primeEulerRadialBoundaryStep lambda p) ∘L
+        (suffixEulerFrameSchurStep lambda p S).oldFrame := by
+      rw [primeEulerAmbientLossFactor_adjoint_radialLeakage]
+    _ = (primeEulerAmbientLossScale p : ℂ) •
+        (primeEulerRadialBoundaryStep lambda p ∘L
+          (suffixEulerFrameSchurStep lambda p S).oldFrame) := by
+      apply ContinuousLinearMap.ext
+      intro x
+      simp only [ContinuousLinearMap.comp_apply,
+        ContinuousLinearMap.smul_apply, map_smul]
 
 /-- Membership in the positive half-line. -/
 theorem mem_cc20PositiveHalfLine_iff (x : ℝ) :

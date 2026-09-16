@@ -91,3 +91,14 @@ complement of the adjoint loss factor with
 `primeEulerAmbientLossScale p` times the same boundary step. This matches the
 ambient-loss column used by the actual Schur boundary owner and isolates its
 outer channel without introducing a new estimate.
+
+## 2026-09-16 actual Schur-column leakage (record 1545)
+
+The owning file now proves
+`suffixEulerFrameAmbientLossColumn_radialLeakage`.  Since the old suffix
+frame is radially supported, the radial complement of the actual ambient-loss
+column is exactly
+`primeEulerAmbientLossScale p • (primeEulerRadialBoundaryStep lambda p ∘L oldFrame)`.
+This is the first bridge from the abstract adjoint leakage identity to the
+actual physical Schur column.  It is an exact equality only; no Hilbert--Schmidt
+or source-basis square-sum estimate follows from it.

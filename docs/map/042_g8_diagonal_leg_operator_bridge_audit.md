@@ -330,3 +330,10 @@ The matching ambient-loss factor identity is now formal as well, so the
 `suffixEulerFrameAmbientLossColumn` outer component has the same boundary-step
 normal form. The remaining task is its source-basis energy bound and the
 coupled inner component.
+
+Record 1545 closes the actual-column interface: the old suffix frame is shown
+radially supported, and the radial complement of
+`suffixEulerFrameAmbientLossColumn` is identified exactly with the scaled
+`primeEulerRadialBoundaryStep` pulled back through that frame.  This narrows
+WO-B to the source-basis energy of this explicit outer channel together with
+the coupled inner metric/projection channel; no B3/B4 estimate is claimed.
