@@ -34,6 +34,13 @@ the Route-W window/tail decomposition, but its tail square-sum is still the
 actual S3 mathematics. These bricks narrow the live obligations; they do not
 prove the survivor or boundary estimates.
 
+**Status update (2026-09-16, S3 assembly):** record 1506 formally removes
+the already-controlled prolate-range leg from S3. The exact range-plus-
+Fourier-leakage identity now supplies the full band-root square-sum from one
+remaining hypothesis: square-summability of
+`sourceRootCompletedRightCommutatorLeftLeg`. That hypothesis is still OPEN;
+this is a reduction, not an S3 closure.
+
 **Consumer:** the same-owner healthy-`CompactLog` B5 statement
 `0 <= C1SameOwnerWeil.qw g` through `G8SameOwnerReadbackData`
 ([012](012_g8_same_owner_readback_rh_reachability.md)); the binding route in
