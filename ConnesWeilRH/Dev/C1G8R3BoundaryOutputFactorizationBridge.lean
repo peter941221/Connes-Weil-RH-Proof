@@ -381,6 +381,80 @@ theorem sourceSoninCommutator_sourceBasis_normSq_summable_of_threeBranch
   exact congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2)
     (DFunLike.congr_fun hEq (sourceBasis i)).symm
 
+set_option maxHeartbeats 1000000 in
+/- The signed structure permits the outer pair and the coupled
+second-support/prolate remainder to be estimated as two collective objects. -/
+theorem sourceSoninCommutator_sourceBasis_normSq_summable_of_outerPair_remainder
+    (lambda : CCM24SoninScale) (M D : finiteSCarrier →L[ℂ] finiteSCarrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (houterPair : Summable fun i : ρ =>
+      ‖(D ∘L
+          (cc20OuterCommutatorBranch
+            (radialSupportProjection lambda)
+            (sourceFourierSupportProjection lambda) M +
+           cc20ReflectedOuterCommutatorBranch
+            (radialSupportProjection lambda)
+            (sourceFourierSupportProjection lambda) M) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2)
+    (hremainder : Summable fun i : ρ =>
+      ‖(D ∘L
+          (cc20SecondSupportCommutatorBranch
+            (radialSupportProjection lambda)
+            (sourceFourierSupportProjection lambda) M -
+           cc20ProlateCommutatorBranch
+            (sourceProlateRemainder lambda) M) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2) :
+    Summable fun i : ρ =>
+      ‖(D ∘L cc20Commutator (sourceSoninProjection lambda) M ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2 := by
+  have hsum := PositiveTrace.summable_normSq_add sourceBasis
+    (D ∘L
+      (cc20OuterCommutatorBranch
+        (radialSupportProjection lambda)
+        (sourceFourierSupportProjection lambda) M +
+       cc20ReflectedOuterCommutatorBranch
+        (radialSupportProjection lambda)
+        (sourceFourierSupportProjection lambda) M) ∘L
+      sourceInclusion lambda ∘L N)
+    (D ∘L
+      (cc20SecondSupportCommutatorBranch
+        (radialSupportProjection lambda)
+        (sourceFourierSupportProjection lambda) M -
+       cc20ProlateCommutatorBranch
+        (sourceProlateRemainder lambda) M) ∘L
+      sourceInclusion lambda ∘L N) houterPair hremainder
+  have hEq :
+      D ∘L cc20Commutator (sourceSoninProjection lambda) M ∘L
+          sourceInclusion lambda ∘L N =
+        (D ∘L
+          (cc20OuterCommutatorBranch
+            (radialSupportProjection lambda)
+            (sourceFourierSupportProjection lambda) M +
+           cc20ReflectedOuterCommutatorBranch
+            (radialSupportProjection lambda)
+            (sourceFourierSupportProjection lambda) M) ∘L
+          sourceInclusion lambda ∘L N) +
+        (D ∘L
+          (cc20SecondSupportCommutatorBranch
+            (radialSupportProjection lambda)
+            (sourceFourierSupportProjection lambda) M -
+           cc20ProlateCommutatorBranch
+            (sourceProlateRemainder lambda) M) ∘L
+          sourceInclusion lambda ∘L N) := by
+    rw [sourceSoninCommutator_eq_threeBranch lambda M]
+    apply ContinuousLinearMap.ext
+    intro x
+    simp only [cc20ThreeBranchCommutator, cc20OuterCommutatorBranch,
+      cc20SecondSupportCommutatorBranch,
+      cc20ReflectedOuterCommutatorBranch, cc20ProlateCommutatorBranch,
+      ContinuousLinearMap.comp_apply, ContinuousLinearMap.add_apply,
+      ContinuousLinearMap.sub_apply, map_add, map_sub]
+    abel
+  refine hsum.congr (fun i => ?_)
+  exact congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2)
+    (DFunLike.congr_fun hEq (sourceBasis i)).symm
+
 /-- Leibniz rule for the source-projection commutator.  It is the induction
 step for expanding a finite Euler boundary factor into atomic factors. -/
 theorem ambientProduct_commutator_eq_leibniz_sum

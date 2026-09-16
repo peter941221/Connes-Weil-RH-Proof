@@ -480,3 +480,10 @@ postcomposition and source-side precomposition, now implies the complete
 source-commutator square-sum.  The analytic obligation is therefore exactly
 the four branch estimates for each mixed physical factor; the recombination
 and sign bookkeeping are closed.
+
+Record 1527 compresses that obligation to two collective estimates: the
+outer-plus-reflected-outer pair and the signed second-support-minus-prolate
+remainder.  This follows the existing trace owner and preserves its
+cancellation.  The physical-factor instantiation of these two estimates is
+still open, so WO-B remains OPEN but now has the same two-block shape as the
+completed source trace ledger.
