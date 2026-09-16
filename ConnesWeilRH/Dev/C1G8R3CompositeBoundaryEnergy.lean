@@ -1486,6 +1486,73 @@ theorem compositeGapLeg_sourceColumn_normSq_summable
   rw [congrArg (fun T : sourceSoninCarrier lambda →L[ℂ] Carrier =>
     T (sourceBasis i)) hchain]
 
+set_option maxHeartbeats 20000000 in
+/-- The source-Sonin part of any source column has an automatic B4 Hardy
+support certificate.  Thus its composite gap leg is square-summable without
+an analytic support premise; only the complementary column remains. -/
+theorem compositeGapLeg_sourceRangeColumn_normSq_summable
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale) (s : ℝ)
+    (hs : 0 ≤ s)
+    (A : sourceSoninCarrier lambda →L[ℂ] Carrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) :
+    Summable fun i : ρ =>
+      ‖(((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L
+            sourceSoninProjection lambda ∘L A) ∘L N)
+        (sourceBasis i)‖ ^ 2 := by
+  let J := sourceInclusion lambda
+  let P := sourceSoninProjection lambda
+  let A0 := P ∘L A
+  let M := A0 ∘L ContinuousLinearMap.adjoint J
+  have hJJ : ContinuousLinearMap.adjoint J ∘L J =
+      ContinuousLinearMap.id ℂ (sourceSoninCarrier lambda) := by
+    exact sourceInclusion_adjoint_comp_self lambda
+  have hMJ : M ∘L J = A0 := by
+    apply ContinuousLinearMap.ext
+    intro x
+    simp only [M, ContinuousLinearMap.comp_apply]
+    have hJ := DFunLike.congr_fun hJJ x
+    simp only [ContinuousLinearMap.comp_apply] at hJ
+    exact congrArg A0 hJ
+  have hP2 : P ∘L P = P := by
+    simpa only [ContinuousLinearMap.mul_def] using
+      (sourceSoninProjection_isStarProjection lambda).isIdempotentElem
+  have hProj : P ∘L M ∘L J = M ∘L J := by
+    apply ContinuousLinearMap.ext
+    intro x
+    have hMAt := DFunLike.congr_fun hMJ x
+    have hP2At := DFunLike.congr_fun hP2 (A x)
+    simp only [ContinuousLinearMap.comp_apply] at hMAt hP2At ⊢
+    change P (M (J x)) = M (J x)
+    rw [hMAt]
+    exact hP2At
+  have hwide := wideRadial_absorption_of_sourceSoninRangeHardy
+    lambda s hs M hProj
+  have hwideA : radialSupportProjection (wideRadialScale lambda s) ∘L
+      archimedeanHardyTitchmarshOperator ∘L A0 =
+      archimedeanHardyTitchmarshOperator ∘L A0 := by
+    apply ContinuousLinearMap.ext
+    intro x
+    have h := DFunLike.congr_fun hwide x
+    have hm := DFunLike.congr_fun hMJ x
+    simp only [ContinuousLinearMap.comp_apply] at h hm ⊢
+    rw [hm] at h
+    exact h
+  have hgeneric := compositeGapLeg_sourceColumn_normSq_summable
+    owner lambda s hs A0 N sourceBasis hwideA
+  have hchain :
+      (((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L A0) ∘L N) =
+        (((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L
+            P ∘L A) ∘L N) := by
+    simp only [A0]
+  refine hgeneric.congr ?_
+  intro i
+  rw [congrArg (fun T : sourceSoninCarrier lambda →L[ℂ] Carrier =>
+    T (sourceBasis i)) hchain]
+
 theorem suffixEulerFrameAmbientLossColumn_compositeGapLeg_sourceBasis_normSq_summable
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
     (p : CCM24VisiblePrime) (S : List CCM24VisiblePrime)

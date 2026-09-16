@@ -408,3 +408,11 @@ its widened-scale consequence: any column satisfying `P M J = M J` meets the
 B4 Hardy support premise automatically. This is a genuine conditional split;
 the physical ambient-loss and Schur boundary columns are not yet known to be
 source-range, so WO-B and S3 remain open.
+
+Record 1516 proves the corresponding generic B4 square-summability theorem
+for the source-range component.  After factoring a bounded source column
+through `J† ∘L J`, the source projection `P` supplies the Hardy support
+premise and the composite internal-gap reducer gives the full square-sum.
+Thus the `P` component of each physical boundary column is formally covered.
+The `(I - P)` complement and the source-range decomposition of the actual
+boundary columns remain open, so WO-B and S3 are unchanged.
