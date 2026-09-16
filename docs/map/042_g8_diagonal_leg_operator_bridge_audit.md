@@ -268,14 +268,14 @@ and does not alter the binding route [003](003_b1_b5_minimal_exit_route_selectio
 the R2/R3 readback obligations, endpoint/P2 signs, C3, or RH. No RH result
 is claimed in either direction.
 
-## Work-order status (updated 2026-09-16, records 1508–1509)
+## Work-order status (updated 2026-09-16, records 1508–1510)
 
 ```text
   WO-S:  S1 LANDED (1498)   S2 LANDED (1498)   S3 = (★), OPEN
          (1508: (★) ⟺ ambient P C P Hilbert–Schmidt, any named bases)
-  WO-B:  B1 LANDED (1499)   B2 LANDED (1499)   B3/B4 OPEN
-         (1509: the strip mechanism formal at EVERY window placement;
-          the M_p-adapted composite still open, 1491 guard active)
+  WO-B:  B1 LANDED (1499)   B2 LANDED (1499)   B3/B4 FORMAL REDUCTION LANDED
+         (1510: composite radial/internal-gap reductions under hwide/hwideHT;
+          analytic support inputs remain open, 1491 guard active)
 ```
 
 Record [1508](../proofs/1508_r3_gate_ambient_normal_form.md) lands the
@@ -285,3 +285,10 @@ the ambient projection-conjugate `P ∘L C ∘L P`. Record
 lemma with free window parameters; the tail composition stays the
 phase-typed irreducible remainder. The estimates remain open; RH not
 claimed.
+
+Record [1510](../proofs/1510_r3_composite_boundary_formal_bridges.md) lands
+the formal B3/B4 composite reductions. The wider-half-line difference, strip
+HS columns, radial OUT leg, Hardy conjugation bridge, and internal-gap OUT
+leg are machine-checked under the caller-supplied composite support facts.
+The analytic inputs `hwide` and `hwideHT` remain open; WO-B is reduced but
+not analytically closed, and RH is not claimed.
