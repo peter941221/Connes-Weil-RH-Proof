@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Dev.C1G8R3ActualEndpointTraceLimit
+import ConnesWeilRH.Dev.C1G8R3SameOwnerGateNormalForm
 
 /-!
 # Exact four-channel expansion of the endpoint aggregate
@@ -19,6 +20,7 @@ namespace ConnesWeilRH
 namespace Dev
 
 open Source.CC20Concrete
+open Source.CC20Concrete.PositiveTrace
 open Source.CCM25Concrete
 open Source.CCM25Concrete.CCM24FiniteSProjectionTrace
 open Source.CCM25Concrete.CCM24FiniteSGramResponse
@@ -74,6 +76,28 @@ theorem g8EndpointSourceCutoffLimitOperator_eq_fourTerms
   simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.add_apply,
     ContinuousLinearMap.id_apply, map_add]
   abel
+
+/-! The positive-trace sign is a downstream consumer: once the survivor
+square-sum and the single aggregate equality are supplied, the existing
+same-owner readback constructor produces the sign without a new C3 estimate.
+-/
+theorem qw_nonnegative_of_g8_survivorCore_and_aggregate_eq
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily)
+    {ν ρ : Type*}
+    (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (hcore : Summable fun i : ρ =>
+      ‖((sourceInclusion lambda).adjoint ∘L rootConvolution owner ∘L
+        sourceInclusion lambda) (sourceBasis i)‖ ^ 2)
+    (heq : (ordinaryTraceAlong sourceBasis
+          (g8EndpointSourceCutoffLimitOperator owner lambda family)).re
+        = Source.C1SameOwnerWeil.qw owner.sourceTest) :
+    0 ≤ Source.C1SameOwnerWeil.qw owner.sourceTest := by
+  exact qw_nonnegative_of_g8SameOwnerReadbackData owner lambda family
+    globalBasis sourceBasis
+    (g8R5ZeroRemainderReadbackData owner lambda family globalBasis sourceBasis
+      hcore heq)
 
 end
 end Dev
