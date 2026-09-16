@@ -28,6 +28,8 @@ namespace Dev
 #print axioms finiteEulerTransport_sourceWideRadialSupport
 #check @normalizedPrimeEulerFrameTransport_adjoint_radialLeakage
 #print axioms normalizedPrimeEulerFrameTransport_adjoint_radialLeakage
+#check @primeEulerAmbientLossFactor_adjoint_radialLeakage
+#print axioms primeEulerAmbientLossFactor_adjoint_radialLeakage
 #check @compositeStripWindowOperator_basis_normSq_summable
 #print axioms compositeStripWindowOperator_basis_normSq_summable
 #check @compositeGapLeg_secondIdentity

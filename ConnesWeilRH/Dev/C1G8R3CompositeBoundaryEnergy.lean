@@ -11,6 +11,8 @@ import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurCascade
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalSupport
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaAmbientDefectFactorization
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialBlockRecurrence
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantExteriorAdjointRadialFactorization
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantGeometricBoundaryResolvent
 
 /-!
 # Composite boundary OUT legs at a wider radial scale
@@ -61,6 +63,8 @@ open Source.CCM25Concrete.CCM24FiniteSActualSchurCascade
 open Source.CCM25Concrete.CCM24FiniteSCausalSupport
 open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaAmbientDefectFactorization
 open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialBlockRecurrence
+open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantExteriorAdjointRadial
+open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantGeometricBoundaryResolvent
 open Source.CCM25Concrete.CCM24FiniteSRootCompletedFirstJet
 open Source.CCM25Concrete.CCM24RadialBoundaryPairTransport
 open Source.CCM25Concrete.CCM24SourceProlateTrace
@@ -307,6 +311,41 @@ theorem normalizedPrimeEulerFrameTransport_adjoint_radialLeakage
     radialComplement, primeEulerRadialBoundaryStep,
     map_sub, map_smul, hfixed, hzero, zero_sub]
   module
+
+theorem primeEulerAmbientLossFactor_adjoint_radialLeakage
+    (lambda : CCM24SoninScale) (p : CCM24VisiblePrime) :
+    radialComplement lambda ∘L
+        ContinuousLinearMap.adjoint (primeEulerAmbientLossFactor p) ∘L
+          radialSupportProjection lambda =
+      (primeEulerAmbientLossScale p : ℂ) •
+        primeEulerRadialBoundaryStep lambda p := by
+  apply ContinuousLinearMap.ext
+  intro x
+  have hfixed : radialSupportProjection lambda
+      (radialSupportProjection lambda x) =
+        radialSupportProjection lambda x := by
+    exact (ccm24LogRadialSupportProjection_eq_self_iff lambda _).2
+      (Submodule.starProjection_apply_mem _ _)
+  have hfactor := DFunLike.congr_fun
+    (primeEulerAmbientLossFactor_adjoint_comp_radialSupport lambda p) x
+  have hcore := radialComplement_antiresonantCore_apply_of_fixed
+    lambda p hfixed
+  have hboundary := DFunLike.congr_fun
+    (primeEulerRadialBoundaryStep_comp_radialSupportProjection lambda p) x
+  simp only [ContinuousLinearMap.comp_apply] at hboundary
+  change radialComplement lambda
+      (ContinuousLinearMap.adjoint (primeEulerAmbientLossFactor p)
+        (radialSupportProjection lambda x)) =
+    (primeEulerAmbientLossScale p : ℂ) •
+      primeEulerRadialBoundaryStep lambda p x
+  have hfactor' :
+      ContinuousLinearMap.adjoint (primeEulerAmbientLossFactor p)
+          (radialSupportProjection lambda x) =
+        (primeEulerAmbientLossScale p : ℂ) •
+          primeEulerAntiresonantCore p (radialSupportProjection lambda x) := by
+    simpa only [ContinuousLinearMap.comp_apply,
+      ContinuousLinearMap.smul_apply] using hfactor
+  rw [hfactor', map_smul, hcore, hboundary]
 
 /-- Membership in the positive half-line. -/
 theorem mem_cc20PositiveHalfLine_iff (x : ℝ) :

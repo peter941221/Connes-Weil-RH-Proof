@@ -84,3 +84,10 @@ This removes the support mystery for the outer part of the actual adjoint
 transport: it is exactly an existing radial boundary channel. The estimate,
 the inner radial part, and the remaining metric/projection factors are still
 open, so B3/B4 and the G8 readback remain conditional.
+
+The corresponding ambient-loss form is also formal:
+`primeEulerAmbientLossFactor_adjoint_radialLeakage` identifies the radial
+complement of the adjoint loss factor with
+`primeEulerAmbientLossScale p` times the same boundary step. This matches the
+ambient-loss column used by the actual Schur boundary owner and isolates its
+outer channel without introducing a new estimate.

@@ -326,3 +326,7 @@ of the committed `primeEulerRadialBoundaryStep`. This identifies the outer
 adjoint channel structurally, but supplies no square-sum estimate and does not
 control the inner radial or metric/projection factors. WO-B therefore remains
 open with a narrower, explicit leakage target.
+The matching ambient-loss factor identity is now formal as well, so the
+`suffixEulerFrameAmbientLossColumn` outer component has the same boundary-step
+normal form. The remaining task is its source-basis energy bound and the
+coupled inner component.
