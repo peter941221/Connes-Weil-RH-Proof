@@ -27,6 +27,13 @@ LANDED — S1/S2 in [1498](../proofs/1498_r3_survivor_coframe_source_bridge.md)
 split feeding the 1492 consumer unchanged). S3 and B3/B4 remain open; the
 audit below is unchanged except for the §5 row markers.
 
+**Status update (2026-09-16, second wave):** endpoint limit ρ4 is now
+FORMAL GIVEN the survivor core (record 1502), and record 1504 makes the
+remaining ρ5 identification an exact iff normal form. Record 1505 supplies
+the Route-W window/tail decomposition, but its tail square-sum is still the
+actual S3 mathematics. These bricks narrow the live obligations; they do not
+prove the survivor or boundary estimates.
+
 **Consumer:** the same-owner healthy-`CompactLog` B5 statement
 `0 <= C1SameOwnerWeil.qw g` through `G8SameOwnerReadbackData`
 ([012](012_g8_same_owner_readback_rh_reachability.md)); the binding route in

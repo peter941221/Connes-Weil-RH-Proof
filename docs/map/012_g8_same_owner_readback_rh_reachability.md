@@ -832,3 +832,66 @@ verbatim, "RH-reachable, ANALYTIC-OPEN" until the wrapper is green) are
 registered as a blocking checklist. Both ρ4 and ρ5 of record 1500 must be
 discharged before the audits can run on a real producer. See [proof record
 1501](../proofs/1501_r4_packaging_audit_checklist.md).
+
+### R2 ρ4 endpoint channel limit discharged conditionally (record 1502, 2026-09-16)
+
+[`C1G8R3ActualEndpointTraceLimit.lean`](../../ConnesWeilRH/Dev/C1G8R3ActualEndpointTraceLimit.lean)
+identifies the readback trace as the endpoint channel operator
+`J† ∘L Wₙ† ∘L G ∘L Wₙ ∘L J` (fixed adjoint-shear Gram `G`, moving expanding
+window `Wₙ`) and proves `t_n → B := tr(J† ∘L C† ∘L G ∘L C ∘L J)` by
+source-basis dominated diagonal convergence, using the record-1478 strong
+limit and the window factorization `Wₙ = (norm-one projection) ∘L C` for
+the domination. The summable majorant is exactly the gate
+`Summable ‖C(J e_i)‖²`, which is UNCONDITIONALLY equivalent to the in-Sonin
+survivor core `Summable ‖(J† C J)(e_i)‖²` (exact Sonin split + record 1497
+leakage): **one square-sum now gates both the survivor energy and the
+endpoint limit**. ρ4 is FORMAL GIVEN the gate; the gate itself is open. See
+[proof record 1502](../proofs/1502_r3_actual_endpoint_trace_limit.md).
+
+### R3 gate attack wave preregistered; carrier geometry typed (record 1503, 2026-09-16)
+
+The Sonin carrier is committed to be
+`radial-support ⊓ comap(HT) radial-support` — a two-sided (time-band)
+limiting configuration of infinite measure, so no finite-window collapse is
+available. New structural findings: (i) the gate is exactly "P C P is
+Hilbert–Schmidt on the ambient"; (ii) HT-conjugation never turns C into a
+window (reflection-plus-multiplier sandwiches keep convolutions
+convolutions), so no conjugation formality exists; (iii) **Hardy-pressure
+finding** — at the classical (phase-free) limit the two-sided condition is
+the Hardy-uniqueness regime, so the entire nontriviality of the carrier and
+of the gate is carried by the scattering multiplier phase: any proof of the
+gate must read the phase of `m`, the mechanism behind law F21. Attack
+routes preregistered: W (compressed window-strip HS, formalizable), T
+(aggregate tail decay through the multiplier phase; open mathematics), AO
+(almost-orthogonality with phase-derived constants); B3 composite window
+(log-shift unions stay compact — 1495 mechanism applies, transfer
+unchanged), B4 prolate absorption with `M_p` ambient-side (1491 guard);
+ρ5 one-theorem statement + P2 sub-limit split with the record-1501 A1
+circularity guard. See [proof record
+1503](../proofs/1503_r3_gate_attack_wave_prereg.md).
+
+### ρ4 landed; the gate is now a named iff theorem (records 1504/1505, 2026-09-16)
+
+ρ4 is FORMAL GIVEN (★) as a green Lean brick
+(`C1G8R3ActualEndpointTraceLimit`, 11 decls): the literal readback trace
+`t_n` converges to the named aggregate limit
+`ordinaryTraceAlong sourceBasis (J† ∘L C† ∘L G ∘L C ∘L J)` under the
+survivor core square-sum, via engine-level dominated diagonal convergence
+(record-1478 strong limit + window factorization for domination; the
+record-1476 transfer does not apply — cutoff sits inside, per F24 slot
+analysis). Record 1504 then turns the substantive gate into ONE
+machine-checked equivalence (`C1G8R3SameOwnerGateNormalForm`, 5 decls):
+given (★), the zero-remainder readback holds iff `B.re = qw` — forward
+direction (necessity) works for ANY readback data with arbitrary
+remainder; backward direction CONSTRUCTS the zero-remainder
+`G8SameOwnerReadbackData` from the single real equation, feeding the
+committed positive-trace consumer unchanged. No `qw` sign anywhere in any
+premise (record-1501 guard satisfied). ρ5 is thereby reduced to the
+Euler-content identification of `B` — the P2 sub-limit program. Record 1505
+lands Route W's abstract core (`C1G8R3RouteWWindowTailNormalForm`, 2
+decls): the window/tail decomposition normal form — the gate for `T`
+follows from a free window-strip square-sum plus the SAME gate for the
+tail composition, and the form iterates; the tail gate is the minimal
+irreducible remainder, still phase-typed per the Hardy-pressure finding.
+See [1504](../proofs/1504_r5_same_owner_gate_normal_form.md) and
+[1505](../proofs/1505_route_w_window_tail_normal_form.md).
