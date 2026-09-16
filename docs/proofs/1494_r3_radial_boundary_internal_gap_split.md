@@ -29,12 +29,13 @@ with `B = rootConvolution owner` and the actual source inclusion in
 
 ## Limits
 
-This is a formal operator identity only. The support and translation
+This record gives the formal operator split. The support and translation
 identification of its first summand is proved separately in [proof record
-1495](1495_r3_radial_boundary_finite_window_identity.md). Neither that
-identity nor this split proves a Hilbert--Schmidt or trace-class estimate for
-either summand. This record also does not estimate the internal prolate gap,
-prove `hBoundary`, close the G8 trace/readback, establish detector-specific
+1495](1495_r3_radial_boundary_finite_window_identity.md), and [record
+1496](1496_r3_radial_boundary_source_energy.md) proves its source-basis
+Hilbert--Schmidt energy. No trace-class estimate is claimed for that single
+channel. This record also does not estimate the internal prolate gap, prove
+`hBoundary`, close the G8 trace/readback, establish detector-specific
 semi-local positivity, or prove RH. The remaining analytic targets are those
 in [record 1423](1423_r3_radial_boundary_capture_and_prolate_gap.md).
 

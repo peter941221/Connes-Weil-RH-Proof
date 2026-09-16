@@ -5,8 +5,9 @@ Date: 2026-09-14.
 Status: `PARTIALLY FORMAL / PRODUCER OPEN`. This record refines the R3-F1
 correction. The two-channel operator identity is formal in Lean (proof record
 1494), and the finite-width boundary support and radial translation identities
-are formal in proof record 1495. The boundary and internal-gap trace-ideal
-estimates remain open. It does not claim that F0 or RH is complete.
+are formal in proof record 1495. The source-basis Hilbert--Schmidt energy of
+the radial-boundary channel is formal in proof record 1496. The internal-gap
+trace-ideal estimate remains open. It does not claim that F0 or RH is complete.
 
 Consumer: the same-owner healthy-`CompactLog` B5 statement
 `0 <= C1SameOwnerWeil.qw g`.
@@ -62,8 +63,10 @@ output t in [A - R, A]
 ```
 
 can contribute. Thus the apparently infinite ambient boundary channel is in
-fact a finite rectangle in the `(t,s)` plane. The formal support and
-translation identity is now established in proof record 1495.
+fact a finite rectangle in the `(t,s)` plane. Proof record 1495 establishes
+its formal support and translation identity, and record 1496 proves that the
+actual source-inclusion boundary outputs have square-summable energy on any
+named source basis.
 
 The formal finite-window identities are:
 
@@ -85,13 +88,15 @@ The target is therefore:
 ```text
 RB-boundary:
   (I-E) B J = translatedFiniteBoundaryFactor(A,R) T_A J,
-  and prove the needed trace-ideal estimate.
+  sum_i ||((I-E) B J)(sourceBasis i)||^2 < infinity.
+  [FORMAL: proof record 1496]
 ```
 
-The identity is formal, but no Hilbert--Schmidt estimate is proved for the
-finite-window factor in the actual source basis. This remains a sharply typed,
-lower-data target using the selected test's compact support and the existing
-boundary-kernel owner.
+The formal identity and the actual source-basis Hilbert--Schmidt energy are
+now proved. This closes the radial-boundary summand as a single HS factor, not
+as a trace-class operator by itself. Its pairing with the rest of the G8
+ledger is not automatic; the separate G8 visible-prime outputs retain their
+own energy obligations.
 
 ## 3. Channel K: internal prolate gap
 
@@ -154,13 +159,15 @@ would complete the only newly exposed source-leakage channel.
 1421 pointwise Sonin antiresonance       valid paper lemma
 1422 direct F0 interpretation             rejected by interface audit
 1494 generic and selected-root split       FORMAL
-1423 finite-width radial support identity OPEN
+1495 finite-window and radial transport    FORMAL
+1496 radial-boundary source HS energy      FORMAL
 1423 prolate-gap trace estimate           OPEN, decisive
 F0 Hilbert--Schmidt limit                OPEN
 G8SameOwnerReadbackData                  NOT CONSTRUCTED
 RH                                      NOT CLAIMED
 ```
 
-The next implementation target is a source-basis trace-ideal estimate for the
-translated finite-window factor, followed by the decisive prolate-gap
-Hilbert--Schmidt estimate. The identities alone imply neither bound.
+The next implementation target is the decisive source-basis Hilbert--Schmidt
+estimate for the internal prolate-gap channel. Separately, the G8 diagonal
+readback still needs the individual visible-prime boundary-output energies
+and the survivor energy on their named source basis.

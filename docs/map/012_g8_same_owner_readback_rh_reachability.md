@@ -4,7 +4,7 @@
 actual paired leakage/source and signed source-remainder trace limits formal;
 survivor/boundary mixed channels paired and limited; total metric trace limit
 formal under the two diagonal energy hypotheses; radial-boundary finite-window
-support and translation identities formal).
+support, translation, and source-basis energy formal).
 It does not alter the binding route ruling in
 [003](003_b1_b5_minimal_exit_route_selection.md),
 does not reopen universal B1, and does not claim RH. It answers a narrower
@@ -727,3 +727,15 @@ prolate gap. The G8 diagonal energies, trace/readback, detector-specific
 positivity, C3, and RH remain open. See [proof record
 1495](../proofs/1495_r3_radial_boundary_finite_window_identity.md) and [map
 record 018](018_r3_unit_detector_root_square_sum.md).
+
+### R3-F23 radial-boundary source-basis energy (record 1496, 2026-09-16)
+
+The compact-output kernel's basis square-sum now passes through the actual
+source inclusion and radial translation. Lean proves that the selected-root
+radial-boundary outputs are square-summable on any named `sourceSoninCarrier`
+basis. This closes the radial-boundary summand in the leakage split as one
+Hilbert--Schmidt factor. The internal prolate gap and the separate G8
+visible-prime boundary-output energies remain open; the result does not by
+itself give a G8 trace-to-`qw` limit. See [proof record
+1496](../proofs/1496_r3_radial_boundary_source_energy.md), [1423](../proofs/1423_r3_radial_boundary_capture_and_prolate_gap.md),
+and [map record 018](018_r3_unit_detector_root_square_sum.md).

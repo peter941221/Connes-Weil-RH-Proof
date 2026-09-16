@@ -48,13 +48,14 @@ in the Sonin subspace fixed by the radial projection.
 
 ## Limits
 
-This is an exact support and transport identity. It does not prove that the
-finite-window factor or its composition with the source inclusion is
-Hilbert--Schmidt, nor does it estimate the internal prolate-gap channel from
-record 1494. The selected support radius depends on the owner. The G8 diagonal
-root energies, full trace/readback, detector-specific semi-local positivity,
-C3, and RH therefore remain open. The binding route and its healthy-
-`CompactLog` B5 consumer are unchanged.
+This record proves exact support and transport identities only. Proof record
+1496 separately proves square-summability of the translated radial-boundary
+outputs on any named source basis. Neither record estimates the internal
+prolate-gap channel from record 1494 or the distinct finite visible-prime G8
+boundary coframe outputs. The selected support radius depends on the owner.
+The G8 diagonal root energies, full trace/readback, detector-specific
+semi-local positivity, C3, and RH therefore remain open. The binding route and
+its healthy-`CompactLog` B5 consumer are unchanged.
 
 The paired audit prints both theorem declarations. Acceptance log:
 `0916_r3_boundary_support_try13.log` — `Build completed successfully (3211

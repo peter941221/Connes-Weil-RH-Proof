@@ -130,8 +130,11 @@ Record 1494 formally decomposes the selected-root source-Sonin leakage into
 the radial-support complement and the internal radial-but-non-Sonin gap, on
 the same `finiteSCarrier` owner. Record 1495 then proves the exact support
 identity for the zero-boundary crossing and its translation to the actual
-radial cutoff after composing with the actual source inclusion. The finite
-window factor's source-basis trace-ideal estimate, the internal-gap estimate,
-the actual G8 diagonal energies, and trace/readback remain open. See [proof
-records 1494](../proofs/1494_r3_radial_boundary_internal_gap_split.md) and
-[1495](../proofs/1495_r3_radial_boundary_finite_window_identity.md).
+radial cutoff after composing with the actual source inclusion. Record 1496
+proves square-summability of the actual radial-boundary outputs on any named
+source basis. The internal-gap estimate, the separate finite visible-prime
+G8 boundary-output energies, actual G8 diagonal energies, and trace/readback
+remain open. See [proof records
+1494](../proofs/1494_r3_radial_boundary_internal_gap_split.md),
+[1495](../proofs/1495_r3_radial_boundary_finite_window_identity.md), and
+[1496](../proofs/1496_r3_radial_boundary_source_energy.md).
