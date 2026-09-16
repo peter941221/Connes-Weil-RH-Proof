@@ -35,3 +35,20 @@ obstruction, so no implication between the two estimates is asserted.
 `1598_hs_obstruction_audit.log` for the audit leaf. Both have a successful
 footer, zero `error:` lines, zero `sorryAx`, and the audit prints only
 `[propext, Classical.choice, Quot.sound]`.
+
+## Second obstruction: the full ambient band-root
+
+The same argument also proves
+`sourceRootCompletedBandRoot_not_hilbertSchmidt`: for every Hilbert basis of
+`finiteSCarrier`, the squared columns of
+`rootConvolution owner ∘L sourceBandProjection unitSoninScale` are not
+summable under the same nonzero-Laplace hypothesis.
+
+Here the exact decomposition is the committed identity
+`sourceRootCompletedRangeLeftLeg + sourceRootCompletedRightCommutatorLeftLeg
+= rootConvolution owner ∘L sourceBandProjection`. The range leg is already
+Hilbert--Schmidt, hence tends to zero on the separated orbit. The leakage leg
+has the established eventual lower bound, so the band-root output retains a
+positive eventual lower bound. This rules out replacing the source-compressed
+`P C P` target by the full ambient band-root. The source projection remains an
+essential part of the live S3 problem.

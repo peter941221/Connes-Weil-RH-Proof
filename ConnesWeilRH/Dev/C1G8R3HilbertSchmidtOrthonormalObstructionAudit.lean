@@ -7,6 +7,8 @@ namespace Dev
 #check sourceRootCompletedRightCommutatorLeftLeg_not_hilbertSchmidt
 #print axioms summable_normSq_of_orthonormal
 #print axioms sourceRootCompletedRightCommutatorLeftLeg_not_hilbertSchmidt
+#check sourceRootCompletedBandRoot_not_hilbertSchmidt
+#print axioms sourceRootCompletedBandRoot_not_hilbertSchmidt
 
 end Dev
 end ConnesWeilRH
