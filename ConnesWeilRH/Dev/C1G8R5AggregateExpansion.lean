@@ -36,6 +36,24 @@ noncomputable local instance g8R5SourceSoninCarrierCompleteSpace
     (lambda : CCM24SoninScale) : CompleteSpace (sourceSoninCarrier lambda) :=
   (ccm24ArchimedeanSoninClosedSubspace lambda).isClosed.completeSpace_coe
 
+/-! The only type-correct way to expose the root convolution is to keep the
+whole aggregate on the ambient carrier first, and compress it by `J` only at
+the end. -/
+noncomputable def g8AmbientRootAggregate
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    finiteSCarrier →L[ℂ] finiteSCarrier :=
+  (rootConvolution owner).adjoint ∘L
+    g8AdjointShearGram owner lambda family ∘L rootConvolution owner
+
+theorem g8EndpointSourceCutoffLimitOperator_eq_sourceCompression_ambientRootAggregate
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    g8EndpointSourceCutoffLimitOperator owner lambda family =
+      (sourceInclusion lambda).adjoint ∘L
+        g8AmbientRootAggregate owner lambda family ∘L sourceInclusion lambda := by
+  rfl
+
 set_option maxHeartbeats 1000000 in
 theorem g8EndpointSourceCutoffLimitOperator_eq_fourTerms
     (owner : SelectedWeilSquare.SelectedWeilSquareOwner)

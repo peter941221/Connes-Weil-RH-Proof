@@ -4,6 +4,8 @@ namespace ConnesWeilRH
 namespace Dev
 namespace C1G8R5AggregateExpansionAudit
 
+#print axioms g8AmbientRootAggregate
+#print axioms g8EndpointSourceCutoffLimitOperator_eq_sourceCompression_ambientRootAggregate
 #print axioms g8EndpointSourceCutoffLimitOperator_eq_fourTerms
 #print axioms qw_nonnegative_of_g8_survivorCore_and_aggregate_eq
 

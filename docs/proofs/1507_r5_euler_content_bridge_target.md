@@ -88,3 +88,24 @@ at the composition boundary. This confirms that the `C(Ju)` obstruction is a
 genuine carrier mismatch, not a missing simp lemma. A valid `rho5` bridge must
 keep `C` and `C†` on the ambient carrier and compare the resulting scalar
 trace by a new finite-level identity.
+
+## 2026-09-16 corrected ambient normal form
+
+The type-correct aggregate can be named before attempting the arithmetic
+comparison. Define
+
+```text
+A_G8 = C† * G * C : finiteSCarrier -> finiteSCarrier.
+```
+
+Then the endpoint source operator is definitionally its source compression:
+
+```text
+J† * A_G8 * J = J† * C† * G * C * J.
+```
+
+This is now formal in `C1G8R5AggregateExpansion`. It isolates the actual
+bridge target: compare the ambient operator `A_G8` (and only then compress by
+`J`) with the finite arithmetic response. The declaration does not identify
+`A_G8` with `rootSandwichedBandResponse`; that equality, or an explicit
+correction decomposition, remains the open rho5 producer.
