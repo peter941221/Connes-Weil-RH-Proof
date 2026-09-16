@@ -312,6 +312,98 @@ theorem sourceSoninOuterPair_comp_sourceInclusion_expanded
   rw [hEJu]
   abel
 
+/- For the actual outer ledger, `Q` is the Fourier-support projection.  Since
+the source inclusion is fixed by both `E` and `Q`, the four-term expansion
+collapses to two radial-leakage columns. -/
+theorem sourceSoninOuterPair_comp_sourceInclusion_eq_radialLeakage
+    (lambda : CCM24SoninScale) (M : finiteSCarrier →L[ℂ] finiteSCarrier) :
+    (cc20OuterCommutatorBranch (radialSupportProjection lambda)
+        (sourceFourierSupportProjection lambda) M +
+      cc20ReflectedOuterCommutatorBranch
+        (radialSupportProjection lambda)
+        (sourceFourierSupportProjection lambda) M) ∘L
+        sourceInclusion lambda =
+      -(radialSupportProjection lambda ∘L
+          sourceFourierSupportProjection lambda ∘L
+          (ContinuousLinearMap.id ℂ finiteSCarrier -
+            radialSupportProjection lambda) ∘L M ∘L
+          sourceInclusion lambda) -
+        ((ContinuousLinearMap.id ℂ finiteSCarrier -
+            radialSupportProjection lambda) ∘L M ∘L
+          sourceInclusion lambda) := by
+  rw [sourceSoninOuterPair_comp_sourceInclusion_expanded]
+  have hEJ := radialSupportProjection_comp_sourceInclusion lambda
+  have hQJ := sourceFourierSupportProjection_comp_sourceInclusion_eq_self lambda
+  apply ContinuousLinearMap.ext
+  intro u
+  have hEJu := DFunLike.congr_fun hEJ u
+  have hQJu := DFunLike.congr_fun hQJ u
+  simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.neg_apply, ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.id_apply, map_sub] at ⊢
+  simp only [ContinuousLinearMap.comp_apply] at hEJu hQJu
+  rw [hQJu, hEJu]
+  simp only [neg_sub]
+  abel
+
+/- The outer-pair square-sum consumer: one radial-leakage column estimate is
+enough after arbitrary bounded ambient postcomposition and source-side
+precomposition. -/
+set_option maxHeartbeats 1000000 in
+theorem sourceSoninOuterPair_sourceBasis_normSq_summable_of_radialLeakage
+    (lambda : CCM24SoninScale) (M D : finiteSCarrier →L[ℂ] finiteSCarrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (hleak : Summable fun i : ρ =>
+      ‖(((ContinuousLinearMap.id ℂ finiteSCarrier -
+          radialSupportProjection lambda) ∘L M ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i))‖ ^ 2) :
+    Summable fun i : ρ =>
+      ‖(D ∘L
+          (cc20OuterCommutatorBranch
+            (radialSupportProjection lambda)
+            (sourceFourierSupportProjection lambda) M +
+           cc20ReflectedOuterCommutatorBranch
+            (radialSupportProjection lambda)
+            (sourceFourierSupportProjection lambda) M) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2 := by
+  let L := ((ContinuousLinearMap.id ℂ finiteSCarrier -
+      radialSupportProjection lambda) ∘L M ∘L sourceInclusion lambda) ∘L N
+  let A := D ∘L radialSupportProjection lambda ∘L
+    sourceFourierSupportProjection lambda
+  have hA : Summable fun i : ρ => ‖(A ∘L L) (sourceBasis i)‖ ^ 2 := by
+    exact PositiveTrace.summable_normSq_postcomp sourceBasis L A hleak
+  have hD : Summable fun i : ρ => ‖(D ∘L L) (sourceBasis i)‖ ^ 2 := by
+    exact PositiveTrace.summable_normSq_postcomp sourceBasis L D hleak
+  have hAneg : Summable fun i : ρ => ‖(-A ∘L L) (sourceBasis i)‖ ^ 2 := by
+    simpa only [ContinuousLinearMap.neg_apply, norm_neg] using hA
+  have hDneg : Summable fun i : ρ => ‖(-D ∘L L) (sourceBasis i)‖ ^ 2 := by
+    simpa only [ContinuousLinearMap.neg_apply, norm_neg] using hD
+  have hsum := PositiveTrace.summable_normSq_add sourceBasis
+    (-A ∘L L) (-D ∘L L) hAneg hDneg
+  have hEq :
+      D ∘L
+          (cc20OuterCommutatorBranch
+            (radialSupportProjection lambda)
+            (sourceFourierSupportProjection lambda) M +
+           cc20ReflectedOuterCommutatorBranch
+            (radialSupportProjection lambda)
+            (sourceFourierSupportProjection lambda) M) ∘L
+          sourceInclusion lambda ∘L N =
+        (-A ∘L L) + (-D ∘L L) := by
+    have hpair := sourceSoninOuterPair_comp_sourceInclusion_eq_radialLeakage
+      lambda M
+    apply ContinuousLinearMap.ext
+    intro x
+    have hpoint := congrArg D (DFunLike.congr_fun hpair (N x))
+    simp only [A, L, ContinuousLinearMap.comp_apply,
+      ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+      ContinuousLinearMap.neg_apply, map_add, map_neg, sub_eq_add_neg] at hpoint ⊢
+    exact hpoint
+  refine hsum.congr (fun i => ?_)
+  exact congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2)
+    (DFunLike.congr_fun hEq (sourceBasis i)).symm
+
 /- The actual Sonin commutator inherits the existing outer/second-support/
 prolate owner, so the open estimate can be split along those four branches. -/
 theorem sourceSoninCommutator_eq_threeBranch

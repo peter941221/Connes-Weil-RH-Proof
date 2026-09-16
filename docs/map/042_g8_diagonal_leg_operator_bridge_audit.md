@@ -497,3 +497,16 @@ available on the healthy carrier, so the proposed generic two-term shortcut is
 rejected.  The two-block consumer remains valid, while its physical-factor
 instantiation still requires the full non-commuting outer-pair estimate; WO-B
 is OPEN.
+
+Record 1529 qualifies the preceding no-go at the actual ledger interface.  The
+Fourier support projection is not arbitrary there: it fixes the source
+inclusion, `Q J = J`.  Substituting this proved compatibility into the exact
+four-term expansion yields the specialized identity
+`(outer + reflected outer) J = - E Q (I - E) M J - (I - E) M J`.
+The paired consumer now formally proves whole-source-basis square-summability
+of this outer pair after bounded ambient postcomposition and source-side
+precomposition from the single raw radial leakage square-sum
+`sum ||(I - E) M J N e_i||^2`.  This is a conditional reduction only: no
+analytic estimate for the raw leakage of the actual boundary factors has been
+proved, so WO-B remains OPEN.  Record 1528's arbitrary-`Q` obstruction remains
+valid outside this fixed-support specialization.
