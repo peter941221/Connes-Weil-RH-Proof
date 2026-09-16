@@ -440,3 +440,8 @@ consumer.  It is now sufficient to prove square-summability of
 `(E - P) E C (id - P) (M P - P M) J N` for each actual factor.  All projection
 and source-range bookkeeping is discharged; the commutator-root estimate is
 the only remaining analytic statement in this branch.
+
+Record 1521 proves the exact Leibniz rule `[A B, P] = A [B, P] + [A, P] B`.
+The remaining B4 commutator-root estimate can therefore be attacked by finite
+induction over the actual Euler boundary factorization, with only atomic
+transport/projection commutators requiring analytic estimates.

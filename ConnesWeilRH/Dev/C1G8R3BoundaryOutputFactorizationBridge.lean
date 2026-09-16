@@ -229,6 +229,23 @@ theorem sourceSoninComplement_comp_ambientFactor_comp_sourceInclusion_eq_commuta
   rw [hPJx, hP2x]
   abel
 
+/-- Leibniz rule for the source-projection commutator.  It is the induction
+step for expanding a finite Euler boundary factor into atomic factors. -/
+theorem ambientProduct_commutator_eq_leibniz_sum
+    (lambda : CCM24SoninScale)
+    (A B : finiteSCarrier →L[ℂ] finiteSCarrier) :
+    A ∘L B ∘L sourceSoninProjection lambda -
+        sourceSoninProjection lambda ∘L A ∘L B =
+      A ∘L (B ∘L sourceSoninProjection lambda -
+          sourceSoninProjection lambda ∘L B) +
+        (A ∘L sourceSoninProjection lambda -
+          sourceSoninProjection lambda ∘L A) ∘L B := by
+  apply ContinuousLinearMap.ext
+  intro x
+  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.add_apply, map_sub]
+  abel
+
 /-- Real algebra: from the exact split, the in-Sonin term is dominated by the
 full term. -/
 private theorem inLeg_le_of_split {a b c : ℝ} (hsplit : c = a + b)
