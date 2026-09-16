@@ -12,6 +12,8 @@ namespace Dev
 #print axioms radialProjection_sub_eq_translatedInterval
 #check @wideRadial_absorption_of_radialSupport
 #print axioms wideRadial_absorption_of_radialSupport
+#check @wideRadial_absorption_of_hardyRadialSupport
+#print axioms wideRadial_absorption_of_hardyRadialSupport
 #check @compositeStripWindowOperator_basis_normSq_summable
 #print axioms compositeStripWindowOperator_basis_normSq_summable
 #check @compositeGapLeg_secondIdentity

@@ -124,6 +124,18 @@ theorem wideRadial_absorption_of_radialSupport
     _ = radialSupportProjection lambda (M u) := hprojAt
     _ = M u := hMat
 
+theorem wideRadial_absorption_of_hardyRadialSupport
+    (lambda : CCM24SoninScale) (s : ℝ) (hs : 0 ≤ s)
+    (M : Carrier →L[ℂ] Carrier)
+    (hM : radialSupportProjection lambda ∘L
+        archimedeanHardyTitchmarshOperator ∘L M =
+      archimedeanHardyTitchmarshOperator ∘L M) :
+    radialSupportProjection (wideRadialScale lambda s) ∘L
+        archimedeanHardyTitchmarshOperator ∘L M =
+      archimedeanHardyTitchmarshOperator ∘L M := by
+  exact wideRadial_absorption_of_radialSupport lambda s hs
+    (archimedeanHardyTitchmarshOperator ∘L M) hM
+
 /-- Membership in the positive half-line. -/
 theorem mem_cc20PositiveHalfLine_iff (x : ℝ) :
     x ∈ cc20PositiveHalfLine ↔ 0 ≤ x := by

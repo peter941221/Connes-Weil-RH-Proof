@@ -37,3 +37,8 @@ family makes it fixed by `wideRadialScale lambda s` for every `s >= 0`.
 This removes the `hwide` premise for that subclass. It does not establish the
 premise for the actual visible-prime factors `M_p`, nor for their
 Hardy-Titchmarsh conjugates; B3/B4 remain open there.
+
+The same monotonicity argument is now exposed for the Hardy-Titchmarsh
+channel: `wideRadial_absorption_of_hardyRadialSupport` reduces `hwideHT` to
+the original-scale radial support of `H ∘L M`. The actual conjugated boundary
+factors still require that original-scale support input.
