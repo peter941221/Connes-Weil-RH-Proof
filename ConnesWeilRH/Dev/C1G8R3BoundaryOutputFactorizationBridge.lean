@@ -40,6 +40,7 @@ open Source.CC20Concrete.PositiveTrace
 open Source.CCM25Concrete
 open Source.CCM25Concrete.CCM24FiniteSProjectionTrace
 open Source.CCM25Concrete.CCM24FiniteSGramResponse
+open Source.CCM25Concrete.CCM24FiniteSActualBandQuadraticCycle
 open Source.CCM25Concrete.CCM24FiniteSBandTrace
 open Source.CCM25Concrete.CCM24FiniteSFixedSourcePolar
 open Source.CCM25Concrete.CCM24FiniteSActualSchurCascade
@@ -202,6 +203,31 @@ theorem g8AmbientSourceLeg_gapLeg_pointwise_eq_sourceRange_add_complement
   have hD := congrArg D hy
   simpa only [D, y, ContinuousLinearMap.comp_apply,
     ContinuousLinearMap.map_add] using hD
+
+/- The unresolved complement is exactly the source-projection commutator of
+the ambient factor with the inclusion. -/
+theorem sourceSoninComplement_comp_ambientFactor_comp_sourceInclusion_eq_commutator
+    (lambda : CCM24SoninScale) (M : finiteSCarrier →L[ℂ] finiteSCarrier) :
+    (ContinuousLinearMap.id ℂ finiteSCarrier - sourceSoninProjection lambda) ∘L
+        M ∘L sourceInclusion lambda =
+      (ContinuousLinearMap.id ℂ finiteSCarrier - sourceSoninProjection lambda) ∘L
+        (M ∘L sourceSoninProjection lambda -
+          sourceSoninProjection lambda ∘L M) ∘L sourceInclusion lambda := by
+  have hPJ : sourceSoninProjection lambda ∘L sourceInclusion lambda =
+      sourceInclusion lambda := by
+    exact sourceSoninProjection_comp_sourceInclusion_eq_self lambda
+  have hP2 : sourceSoninProjection lambda ∘L sourceSoninProjection lambda =
+      sourceSoninProjection lambda := by
+    simpa only [ContinuousLinearMap.mul_def] using
+      (sourceSoninProjection_isStarProjection lambda).isIdempotentElem
+  apply ContinuousLinearMap.ext
+  intro x
+  have hPJx := DFunLike.congr_fun hPJ x
+  have hP2x := DFunLike.congr_fun hP2 (M (sourceInclusion lambda x))
+  simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.id_apply, map_sub] at hPJx hP2x ⊢
+  rw [hPJx, hP2x]
+  abel
 
 /-- Real algebra: from the exact split, the in-Sonin term is dominated by the
 full term. -/

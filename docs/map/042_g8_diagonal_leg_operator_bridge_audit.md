@@ -428,3 +428,9 @@ square-sum estimate for the complement input implies the full physical gap
 square-sum.  The B4 gap work order is now exactly the complement estimate for
 the finite visible-prime boundary factors; the source-range term is discharged
 and no other hidden gap is introduced.
+
+Record 1519 identifies that complement exactly as
+`(id - P) (M P - P M) J`.  The remaining B4 analytic target is therefore a
+source-projection commutator estimate for each ambient boundary factor,
+followed by the root-gap operator.  This is a sharper target than an
+arbitrary complement-column bound, but it remains open.
