@@ -237,8 +237,8 @@ circular and stops.
 | :-- | :-- | :-- | :-- |
 | B1 | B2 factorization induction: every boundary output is `M_p ∘L J ∘L N_p` | structural induction | **LANDED** [1499](../proofs/1499_r3_boundary_output_factorization_bridge.md) |
 | B2 | per-output split into IN/OUT families; per-output OUT split into radial-boundary and internal-gap legs via the record-1494 identity applied to `B = C ∘L M_p` | assembly | **LANDED** [1499](../proofs/1499_r3_boundary_output_factorization_bridge.md) |
-| B3 | composite radial-boundary estimate `(I − E) C M_p J` — record-1495-analog window/support identity for the composite, then the 1496 transfer | open, 1495/1496-pattern | **OPEN** |
-| B4 | composite internal-gap estimate `(E − P) E C M_p J` — record-1497-analog absorption with `M_p` inside | open, 1497-pattern | **OPEN** |
+| B3 | composite radial-boundary estimate `(I − E) C M_p J` — record-1495-analog window/support identity for the composite, then the 1496 transfer | actual physical columns closed; generic reduction formal | **LANDED** (records 1558, 1561) |
+| B4 | composite internal-gap estimate `(E − P) E C M_p J` — source-range split and commutator reduction, with `M_p` inside | formal reduction landed; commutator-root square-sum open | **OPEN** [1520](../proofs/1520_commutator_form_b4_consumer.md) |
 
 Per-output B3/B4 results feed the existing consumers unchanged:
 [1492](../proofs/1492_g8_boundary_energy_finite_output_reduction.md)
@@ -263,11 +263,11 @@ Hard constraints on both work orders:
 - Hilbert–Schmidt does not upgrade to trace-class by itself; the G8 trace
   consumer needs the trace-class owners already wired in the cutoff ledger.
 
-Recommended order: S1, S2, B1, B2 first (cheap, converts both obligations
-into source-carrier normal forms and pins the estimate targets); then S3
-and B3/B4. S3 shares its open core (leakage/common-right detector-root
-legs) with the long-running 018–028 program; B3/B4 are new estimates in the
-1495/1497 patterns.
+Recommended order: S3 and the B4 commutator-root estimate are now the active
+analytic targets. B3 is closed for the actual physical columns. S3 shares its
+open core (leakage/common-right detector-root legs) with the long-running
+018–028 program; B4 now requires the corresponding atomic commutator estimates
+for the finite Euler factors.
 
 ## 6. What this audit does not do
 
