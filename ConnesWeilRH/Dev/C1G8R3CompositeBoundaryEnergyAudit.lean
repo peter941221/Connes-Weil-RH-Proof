@@ -10,6 +10,8 @@ namespace Dev
 
 #check @radialProjection_sub_eq_translatedInterval
 #print axioms radialProjection_sub_eq_translatedInterval
+#check @wideRadial_absorption_of_radialSupport
+#print axioms wideRadial_absorption_of_radialSupport
 #check @compositeStripWindowOperator_basis_normSq_summable
 #print axioms compositeStripWindowOperator_basis_normSq_summable
 #check @compositeGapLeg_secondIdentity

@@ -27,3 +27,13 @@ The open inputs remain exactly the composite support facts `hwide` and
 the source inclusion throughout; no invalid bounded-right-precomposition
 shortcut is used. Thus this record closes the formal B3/B4 reduction layer,
 not the analytic square-summability obligations themselves.
+
+## 2026-09-16 wider-radial support absorption (record 1530)
+
+`C1G8R3CompositeBoundaryEnergy.lean` now proves
+`wideRadial_absorption_of_radialSupport`: if an ambient factor `M` is fixed by
+the original radial projection, then monotonicity of the radial projector
+family makes it fixed by `wideRadialScale lambda s` for every `s >= 0`.
+This removes the `hwide` premise for that subclass. It does not establish the
+premise for the actual visible-prime factors `M_p`, nor for their
+Hardy-Titchmarsh conjugates; B3/B4 remain open there.

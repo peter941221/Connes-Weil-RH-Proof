@@ -297,5 +297,10 @@ Record [1510](../proofs/1510_r3_composite_boundary_formal_bridges.md) lands
 the formal B3/B4 composite reductions. The wider-half-line difference, strip
 HS columns, radial OUT leg, Hardy conjugation bridge, and internal-gap OUT
 leg are machine-checked under the caller-supplied composite support facts.
-The analytic inputs `hwide` and `hwideHT` remain open; WO-B is reduced but
-not analytically closed, and RH is not claimed.
+Record 1530 adds a reusable monotonicity lemma: if an ambient factor `M` is
+already fixed by the original radial projection, then it is fixed by every
+wider radial projection. Thus `hwide` is discharged for that subclass of
+factors. The actual visible-prime factors `M_p` and their Hardy conjugates
+are not yet shown to satisfy the original radial-support premise, so the
+analytic inputs remain open for the boundary outputs and WO-B is not closed.
+RH is not claimed.

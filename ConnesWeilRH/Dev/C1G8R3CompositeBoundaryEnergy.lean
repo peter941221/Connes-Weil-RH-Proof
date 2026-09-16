@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 import ConnesWeilRH.Dev.C1G8R3InternalProlateGapEnergy
 import ConnesWeilRH.Dev.C1G8R3BoundaryOutputFactorizationBridge
+import ConnesWeilRH.Dev.ELambdaFamilyProjectorProbe
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualBandFirstJetTrace
 
 /-!
@@ -57,6 +58,7 @@ open Source.CCM25Concrete.CCM24RadialBoundaryPairTransport
 open Source.CCM25Concrete.CCM24SourceProlateTrace
 open Source.CCM25Concrete.SelectedCrossingOperatorBridge
 open Source.CCM25Concrete.SelectedWeilSquare
+open Source.CC20Concrete.ELambdaProjector
 open scoped ENNReal InnerProduct InnerProductSpace
 
 local notation "Carrier" => finiteSCarrier
@@ -91,6 +93,36 @@ theorem realLog_wideRadialScale (lambda : CCM24SoninScale) (s : ℝ) :
   unfold wideRadialScale
   rw [Real.log_mul (ne_of_gt lambda.2) (Real.exp_ne_zero (-s)), Real.log_exp]
   ring
+
+/-! A support factor already contained in the original radial half-line is
+automatically contained in every wider half-line.  This is the reusable
+support consumer for composite boundary inputs; it does not assert that an
+arbitrary Euler boundary factor has the premise. -/
+theorem wideRadial_absorption_of_radialSupport
+    (lambda : CCM24SoninScale) (s : ℝ) (hs : 0 ≤ s)
+    (M : Carrier →L[ℂ] Carrier)
+    (hM : radialSupportProjection lambda ∘L M = M) :
+    radialSupportProjection (wideRadialScale lambda s) ∘L M = M := by
+  have hexp : Real.exp (-s) ≤ (1 : ℝ) :=
+    Real.exp_le_one_iff.mpr (by linarith)
+  have hle : (wideRadialScale lambda s).1 ≤ lambda.1 := by
+    dsimp [wideRadialScale]
+    calc
+      lambda.val * Real.exp (-s) ≤ lambda.val * 1 :=
+        mul_le_mul_of_nonneg_left hexp (le_of_lt lambda.2)
+      _ = lambda.val := by ring
+  have hproj := radialProjector_comp_of_le (wideRadialScale lambda s) hle
+  apply ContinuousLinearMap.ext
+  intro u
+  have hMat := congrArg (fun T : Carrier →L[ℂ] Carrier => T u) hM
+  have hprojAt := congrArg (fun T : Carrier →L[ℂ] Carrier => T (M u)) hproj
+  simp only [ContinuousLinearMap.comp_apply] at hMat hprojAt ⊢
+  calc
+    radialSupportProjection (wideRadialScale lambda s) (M u) =
+        radialSupportProjection (wideRadialScale lambda s)
+          (radialSupportProjection lambda (M u)) := by rw [hMat]
+    _ = radialSupportProjection lambda (M u) := hprojAt
+    _ = M u := hMat
 
 /-- Membership in the positive half-line. -/
 theorem mem_cc20PositiveHalfLine_iff (x : ℝ) :
