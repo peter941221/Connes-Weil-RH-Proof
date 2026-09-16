@@ -143,3 +143,16 @@ ambient readout.  Together with record 1555 this closes the radial OUT
 energy of the actual ambient-loss physical channel, including bounded
 ambient-row readouts.  No claim is made for the inner metric/projection or
 Hardy-conjugated channel.
+
+## 2026-09-17 Boundary-dagger wide support and radial OUT transfer (record 1561)
+
+The actual rectangular Schur boundary dagger now has a formal wide-radial
+support identity at `s = log p`:
+`suffixEulerFrameSchurStep_boundaryDagger_wideRadialSupport`.  The proof uses
+the positive translation in the adjoint normalized Euler transport, monotonicity
+of the radial projection, and containment of the new Schur range in the
+original radial half-line.  Instantiating the generic source-column B3 wrapper
+gives source-basis square-summability for the root-convolved boundary dagger,
+and a postcomposition form for bounded ambient rows.  Thus both physical
+boundary coordinates have their radial OUT B3 estimate.  The Hardy-conjugated
+B4 estimate and the survivor IN estimate remain open.

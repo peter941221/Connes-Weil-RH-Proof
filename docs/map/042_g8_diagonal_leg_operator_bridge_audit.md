@@ -361,3 +361,11 @@ form, then instantiates both on the actual ambient-loss column.  The radial
 OUT square-sum is now available after arbitrary bounded ambient rows; the
 remaining boundary work is the inner metric/projection channel and the B4
 Hardy side.  WO-S remains open.
+
+Record 1561 adds the matching wide-radial support theorem for the actual
+Schur boundary dagger.  Its positive adjoint transport, followed by the new
+range projection and complement, stays in the widened radial subspace at
+`s = log p`.  The generic B3 source-column wrapper therefore closes the radial
+OUT square-sum for the boundary dagger as well, including bounded ambient-row
+postcomposition.  Both physical boundary coordinates now have radial OUT B3;
+the Hardy-conjugated B4 input and the survivor IN/S3 estimate remain open.

@@ -11,6 +11,7 @@ import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurCascade
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalSupport
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaAmbientDefectFactorization
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialBlockRecurrence
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorFrameLossRadialReduction
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantExteriorAdjointRadialFactorization
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantGeometricBoundaryResolvent
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialSplit
@@ -64,6 +65,8 @@ open Source.CCM25Concrete.CCM24FiniteSActualSchurCascade
 open Source.CCM25Concrete.CCM24FiniteSCausalSupport
 open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaAmbientDefectFactorization
 open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialBlockRecurrence
+open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantInteriorAdjacentProjectionGap
+open Source.CCM25Concrete.AntiresonantFrameLossRadialReduction
 open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantExteriorAdjointRadial
 open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantGeometricBoundaryResolvent
 open Source.CCM25Concrete.CCM24FiniteSCompletedJuliaRawPhysicalOldCarrierAntiresonantRadialSplit
@@ -432,9 +435,117 @@ theorem suffixEulerFrameAmbientLossColumn_wideRadialSupport
   apply (ccm24LogRadialSupportProjection_eq_self_iff
     (wideRadialScale lambda (Real.log p)) _).2
   exact (ccm24LogRadialSupportClosedSubspace
-    (wideRadialScale lambda (Real.log p))).smul_mem _
+      (wideRadialScale lambda (Real.log p))).smul_mem _
     ((ccm24LogRadialSupportClosedSubspace
       (wideRadialScale lambda (Real.log p))).add_mem hOldWide htranslated)
+
+/-! The same wider radial support is available for the actual boundary
+dagger.  The proof keeps the rectangular Schur definition visible: the old
+frame is widened by the positive adjoint transport, and both the new-range
+projection and its complement stay in that widened subspace. -/
+theorem suffixEulerFrameSchurStep_boundaryDagger_wideRadialSupport
+    (lambda : CCM24SoninScale) (p : CCM24VisiblePrime)
+    (S : List CCM24VisiblePrime) :
+    radialSupportProjection (wideRadialScale lambda (Real.log p)) ∘L
+        (suffixEulerFrameSchurStep lambda p S).boundaryDagger =
+      (suffixEulerFrameSchurStep lambda p S).boundaryDagger := by
+  have hlogp : 0 ≤ Real.log (p : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast p.property.le)
+  have hle : (wideRadialScale lambda (Real.log p)).1 ≤ lambda.1 := by
+    dsimp [wideRadialScale]
+    calc
+      lambda.val * Real.exp (-Real.log p) ≤ lambda.val * 1 := by
+        exact mul_le_mul_of_nonneg_left
+          (Real.exp_le_one_iff.mpr (by linarith)) (le_of_lt lambda.2)
+      _ = lambda.val := by ring
+  have hproj := radialProjector_comp_of_le
+    (wideRadialScale lambda (Real.log p)) hle
+  have hold := suffixEulerFrameSchurStep_oldFrame_radialSupport lambda p S
+  have hnew := radialSupportProjection_comp_newSuffixRangeProjection lambda S
+  apply ContinuousLinearMap.ext
+  intro x
+  have holdPoint := DFunLike.congr_fun hold x
+  simp only [ContinuousLinearMap.comp_apply] at holdPoint
+  have holdMem : (suffixEulerFrameSchurStep lambda p S).oldFrame x ∈
+      ccm24LogRadialSupportClosedSubspace lambda := by
+    exact (ccm24LogRadialSupportProjection_eq_self_iff lambda _).1 holdPoint
+  have holdWide : (suffixEulerFrameSchurStep lambda p S).oldFrame x ∈
+      ccm24LogRadialSupportClosedSubspace
+        (wideRadialScale lambda (Real.log p)) := by
+    apply (ccm24LogRadialSupportProjection_eq_self_iff
+      (wideRadialScale lambda (Real.log p)) _).1
+    have hp := congrArg
+      (fun T : finiteSCarrier →L[ℂ] finiteSCarrier =>
+        T ((suffixEulerFrameSchurStep lambda p S).oldFrame x)) hproj
+    simp only [ContinuousLinearMap.comp_apply] at hp
+    calc
+      radialSupportProjection (wideRadialScale lambda (Real.log p))
+          ((suffixEulerFrameSchurStep lambda p S).oldFrame x) =
+          radialSupportProjection (wideRadialScale lambda (Real.log p))
+            (radialSupportProjection lambda
+              ((suffixEulerFrameSchurStep lambda p S).oldFrame x)) := by
+        rw [holdPoint]
+      _ = radialSupportProjection lambda
+          ((suffixEulerFrameSchurStep lambda p S).oldFrame x) := hp
+      _ = (suffixEulerFrameSchurStep lambda p S).oldFrame x := holdPoint
+  have htransWide :
+      (cc20GlobalLogTranslation (Real.log p)
+        ((suffixEulerFrameSchurStep lambda p S).oldFrame x)) ∈
+        ccm24LogRadialSupportClosedSubspace
+          (wideRadialScale lambda (Real.log p)) :=
+    cc20GlobalLogTranslation_mem_wideRadialSupport lambda
+      (Real.log p) hlogp holdMem
+  have htransportWide :
+      ContinuousLinearMap.adjoint (normalizedPrimeEulerFrameTransport p)
+          ((suffixEulerFrameSchurStep lambda p S).oldFrame x) ∈
+        ccm24LogRadialSupportClosedSubspace
+          (wideRadialScale lambda (Real.log p)) := by
+    rw [normalizedPrimeEulerFrameTransport_adjoint_eq]
+    simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.sub_apply,
+      ContinuousLinearMap.id_apply, ContinuousLinearMap.map_smul]
+    exact (ccm24LogRadialSupportClosedSubspace
+      (wideRadialScale lambda (Real.log p))).smul_mem _
+      ((ccm24LogRadialSupportClosedSubspace
+        (wideRadialScale lambda (Real.log p))).sub_mem holdWide
+        ((ccm24LogRadialSupportClosedSubspace
+          (wideRadialScale lambda (Real.log p))).smul_mem _ htransWide))
+  have hnewWide :
+      newSuffixRangeProjection lambda S
+        (ContinuousLinearMap.adjoint (normalizedPrimeEulerFrameTransport p)
+          ((suffixEulerFrameSchurStep lambda p S).oldFrame x)) ∈
+        ccm24LogRadialSupportClosedSubspace
+          (wideRadialScale lambda (Real.log p)) := by
+    apply (ccm24LogRadialSupportProjection_eq_self_iff
+      (wideRadialScale lambda (Real.log p)) _).1
+    have hp := congrArg
+      (fun T : finiteSCarrier →L[ℂ] finiteSCarrier =>
+        T (newSuffixRangeProjection lambda S
+          (ContinuousLinearMap.adjoint (normalizedPrimeEulerFrameTransport p)
+            ((suffixEulerFrameSchurStep lambda p S).oldFrame x)))) hproj
+    have hn := congrArg
+      (fun T : finiteSCarrier →L[ℂ] finiteSCarrier =>
+        T (ContinuousLinearMap.adjoint (normalizedPrimeEulerFrameTransport p)
+          ((suffixEulerFrameSchurStep lambda p S).oldFrame x))) hnew
+    simp only [ContinuousLinearMap.comp_apply] at hp hn
+    rw [← hn]
+    exact hp
+  have hcompWide :
+      (ContinuousLinearMap.id ℂ finiteSCarrier -
+          newSuffixRangeProjection lambda S)
+        (ContinuousLinearMap.adjoint (normalizedPrimeEulerFrameTransport p)
+          ((suffixEulerFrameSchurStep lambda p S).oldFrame x)) ∈
+        ccm24LogRadialSupportClosedSubspace
+          (wideRadialScale lambda (Real.log p)) := by
+    simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply]
+    exact (ccm24LogRadialSupportClosedSubspace
+      (wideRadialScale lambda (Real.log p))).sub_mem htransportWide hnewWide
+  change radialSupportProjection (wideRadialScale lambda (Real.log p))
+      ((ContinuousLinearMap.id ℂ finiteSCarrier -
+          newSuffixRangeProjection lambda S)
+        (ContinuousLinearMap.adjoint (normalizedPrimeEulerFrameTransport p)
+          ((suffixEulerFrameSchurStep lambda p S).oldFrame x))) = _
+  exact (ccm24LogRadialSupportProjection_eq_self_iff
+    (wideRadialScale lambda (Real.log p)) _).2 hcompWide
 
 /-! The preceding global identity now reaches the actual Schur column.  The
 old suffix frame is itself radially supported, so the radial complement sees
@@ -974,7 +1085,44 @@ theorem suffixEulerFrameAmbientLossColumn_compositeRadialLeg_postcomp_sourceBasi
     ((((ContinuousLinearMap.id ℂ Carrier - radialSupportProjection lambda) ∘L
       rootConvolution owner ∘L suffixEulerFrameAmbientLossColumn lambda p S) ∘L N))
     ambientRow
-    (suffixEulerFrameAmbientLossColumn_compositeRadialLeg_sourceBasis_normSq_summable
+      (suffixEulerFrameAmbientLossColumn_compositeRadialLeg_sourceBasis_normSq_summable
+      owner lambda p S N sourceBasis)
+
+theorem suffixEulerFrameSchurStep_boundaryDagger_compositeRadialLeg_sourceBasis_normSq_summable
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (p : CCM24VisiblePrime) (S : List CCM24VisiblePrime)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) :
+    Summable fun i : ρ =>
+      ‖(((ContinuousLinearMap.id ℂ Carrier - radialSupportProjection lambda) ∘L
+          rootConvolution owner ∘L
+            (suffixEulerFrameSchurStep lambda p S).boundaryDagger) ∘L N)
+        (sourceBasis i)‖ ^ 2 := by
+  have hlogp : 0 ≤ Real.log (p : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast p.property.le)
+  exact compositeRadialLeg_sourceColumn_normSq_summable owner lambda
+    (Real.log p) hlogp (suffixEulerFrameSchurStep lambda p S).boundaryDagger
+    N sourceBasis
+    (suffixEulerFrameSchurStep_boundaryDagger_wideRadialSupport lambda p S)
+
+theorem suffixEulerFrameSchurStep_boundaryDagger_compositeRadialLeg_postcomp_sourceBasis_normSq_summable
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (p : CCM24VisiblePrime) (S : List CCM24VisiblePrime)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    (ambientRow : Carrier →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) :
+    Summable fun i : ρ =>
+      ‖(ambientRow ∘L
+          (((ContinuousLinearMap.id ℂ Carrier - radialSupportProjection lambda) ∘L
+            rootConvolution owner ∘L
+              (suffixEulerFrameSchurStep lambda p S).boundaryDagger) ∘L N))
+        (sourceBasis i)‖ ^ 2 := by
+  exact PositiveTrace.summable_normSq_postcomp sourceBasis
+    ((((ContinuousLinearMap.id ℂ Carrier - radialSupportProjection lambda) ∘L
+      rootConvolution owner ∘L
+        (suffixEulerFrameSchurStep lambda p S).boundaryDagger) ∘L N))
+    ambientRow
+    (suffixEulerFrameSchurStep_boundaryDagger_compositeRadialLeg_sourceBasis_normSq_summable
       owner lambda p S N sourceBasis)
 
 /-! ## The composite internal-gap leg (B4) -/
