@@ -308,3 +308,10 @@ The actual visible-prime factors `M_p` and their Hardy conjugates are not yet
 shown to satisfy the original radial-support premise, so the analytic inputs
 remain open for the boundary outputs and WO-B is not closed. RH is not
 claimed.
+
+Record 1535 adds the first concrete source-composed instance: the normalized
+forward one-prime Euler transport satisfies both the original and wider radial
+support identities after `sourceInclusion`. This is formal and feeds the same
+`hwide` consumer when that forward factor is exposed at the right edge. The
+actual boundary head still contains adjoint transport/projection blocks, so
+this instance does not close B3/B4 or change the WO-B status.

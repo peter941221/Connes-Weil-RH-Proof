@@ -49,3 +49,18 @@ variants `wideRadial_absorption_of_sourceRadialSupport` and
 scale identities for `M ∘L sourceInclusion` and
 `H ∘L M ∘L sourceInclusion`, respectively. No global range hypothesis is
 needed. The visible-prime factors still need these original-scale identities.
+
+## 2026-09-16 concrete forward transport instance (record 1535)
+
+The owning file now proves `normalizedPrimeEulerFrameTransport_sourceRadialSupport`
+and its wider-scale corollary
+`normalizedPrimeEulerFrameTransport_sourceWideRadialSupport`. The proof uses
+the committed causal theorem for `ccm24PrimeEulerTransportEquiv` together with
+radial membership of `sourceInclusion`; scalar normalization preserves the
+closed radial subspace, and record 1530 supplies the wider-scale step.
+
+This discharges `hwide` for the genuine forward one-prime transport when it is
+the factor immediately before the source inclusion. It does not discharge the
+actual boundary factor, which contains adjoint transport and projection
+blocks; those can leave the radial half-line and still require a separate
+support or leakage estimate.

@@ -7,6 +7,8 @@ import ConnesWeilRH.Dev.C1G8R3InternalProlateGapEnergy
 import ConnesWeilRH.Dev.C1G8R3BoundaryOutputFactorizationBridge
 import ConnesWeilRH.Dev.ELambdaFamilyProjectorProbe
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualBandFirstJetTrace
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurCascade
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSCausalSupport
 
 /-!
 # Composite boundary OUT legs at a wider radial scale
@@ -53,6 +55,8 @@ open Source.CCM25Concrete.CCM24FiniteSGramResponse
 open Source.CCM25Concrete.CCM24FiniteSBandTrace
 open Source.CCM25Concrete.CCM24FiniteSFixedQuotientCarrier
 open Source.CCM25Concrete.CCM24FiniteSActualBandFirstJetTrace
+open Source.CCM25Concrete.CCM24FiniteSActualSchurCascade
+open Source.CCM25Concrete.CCM24FiniteSCausalSupport
 open Source.CCM25Concrete.CCM24FiniteSRootCompletedFirstJet
 open Source.CCM25Concrete.CCM24RadialBoundaryPairTransport
 open Source.CCM25Concrete.CCM24SourceProlateTrace
@@ -208,6 +212,40 @@ theorem wideRadial_absorption_of_sourceHardyRadialSupport
           (M (sourceInclusion lambda u))) := hprojAt
     _ = archimedeanHardyTitchmarshOperator
         (M (sourceInclusion lambda u)) := hMat
+
+/-! The genuine forward one-prime Euler transport supplies the original-scale
+radial premise needed by the wider-scale consumer.  This is the first
+concrete instance of `hwide`: the source inclusion is radial and the forward
+transport is causal, so no wider support theorem is needed for this factor. -/
+theorem normalizedPrimeEulerFrameTransport_sourceRadialSupport
+    (lambda : CCM24SoninScale) (p : CCM24VisiblePrime) :
+    radialSupportProjection lambda ∘L
+        normalizedPrimeEulerFrameTransport p ∘L sourceInclusion lambda =
+      normalizedPrimeEulerFrameTransport p ∘L sourceInclusion lambda := by
+  apply ContinuousLinearMap.ext
+  intro u
+  have hsource := sourceInclusion_mem_radialSupport lambda u
+  have htransport := ccm24PrimeEulerTransportEquiv_mem_logRadialSupport
+    lambda p hsource
+  have hscaled :
+      ((1 + (ccm24PrimeEulerCoefficient p : ℂ))⁻¹) •
+          ccm24PrimeEulerTransportEquiv p (sourceInclusion lambda u) ∈
+        ccm24LogRadialSupportClosedSubspace lambda :=
+    (ccm24LogRadialSupportClosedSubspace lambda).smul_mem _ htransport
+  have hfixed :=
+    (ccm24LogRadialSupportProjection_eq_self_iff lambda _).2 hscaled
+  simpa only [normalizedPrimeEulerFrameTransport,
+    ContinuousLinearMap.comp_apply, ContinuousLinearMap.smul_apply] using hfixed
+
+theorem normalizedPrimeEulerFrameTransport_sourceWideRadialSupport
+    (lambda : CCM24SoninScale) (s : ℝ) (hs : 0 ≤ s)
+    (p : CCM24VisiblePrime) :
+    radialSupportProjection (wideRadialScale lambda s) ∘L
+        normalizedPrimeEulerFrameTransport p ∘L sourceInclusion lambda =
+      normalizedPrimeEulerFrameTransport p ∘L sourceInclusion lambda := by
+  exact wideRadial_absorption_of_sourceRadialSupport lambda s hs
+    (normalizedPrimeEulerFrameTransport p)
+    (normalizedPrimeEulerFrameTransport_sourceRadialSupport lambda p)
 
 /-- Membership in the positive half-line. -/
 theorem mem_cc20PositiveHalfLine_iff (x : ℝ) :
