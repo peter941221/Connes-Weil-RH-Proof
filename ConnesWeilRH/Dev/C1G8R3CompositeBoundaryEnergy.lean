@@ -349,6 +349,18 @@ theorem primeEulerAmbientLossFactor_adjoint_radialLeakage
       ContinuousLinearMap.smul_apply] using hfactor
   rw [hfactor', map_smul, hcore, hboundary]
 
+theorem suffixEulerFrameSchurStep_oldFrame_radialSupport
+    (lambda : CCM24SoninScale) (p : CCM24VisiblePrime)
+    (S : List CCM24VisiblePrime) :
+    radialSupportProjection lambda ∘L
+        (suffixEulerFrameSchurStep lambda p S).oldFrame =
+      (suffixEulerFrameSchurStep lambda p S).oldFrame := by
+  apply ContinuousLinearMap.ext
+  intro x
+  apply (ccm24LogRadialSupportProjection_eq_self_iff lambda _).2
+  simpa only [suffixEulerFrameSchurStep, oldSuffixFrame] using
+    (newSuffixFrame_mem lambda (p :: S) x).1
+
 /-! The preceding global identity now reaches the actual Schur column.  The
 old suffix frame is itself radially supported, so the radial complement sees
 exactly the same boundary step after the frame pullback. -/
@@ -360,14 +372,7 @@ theorem suffixEulerFrameAmbientLossColumn_radialLeakage
       (primeEulerAmbientLossScale p : ℂ) •
         (primeEulerRadialBoundaryStep lambda p ∘L
           (suffixEulerFrameSchurStep lambda p S).oldFrame) := by
-  have hold : radialSupportProjection lambda ∘L
-      (suffixEulerFrameSchurStep lambda p S).oldFrame =
-      (suffixEulerFrameSchurStep lambda p S).oldFrame := by
-    apply ContinuousLinearMap.ext
-    intro x
-    apply (ccm24LogRadialSupportProjection_eq_self_iff lambda _).2
-    simpa only [suffixEulerFrameSchurStep, oldSuffixFrame] using
-      (newSuffixFrame_mem lambda (p :: S) x).1
+  have hold := suffixEulerFrameSchurStep_oldFrame_radialSupport lambda p S
   rw [suffixEulerFrameAmbientLossColumn]
   calc
     radialComplement lambda ∘L

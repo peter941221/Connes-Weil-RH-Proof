@@ -102,3 +102,8 @@ column is exactly
 This is the first bridge from the abstract adjoint leakage identity to the
 actual physical Schur column.  It is an exact equality only; no Hilbert--Schmidt
 or source-basis square-sum estimate follows from it.
+
+The same file exports `suffixEulerFrameSchurStep_oldFrame_radialSupport`,
+separating the actual frame support fact from the ambient-loss leakage
+calculation.  This is a reusable formal premise for any later root-window
+energy transfer through the actual old frame.

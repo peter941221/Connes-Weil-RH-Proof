@@ -30,6 +30,8 @@ namespace Dev
 #print axioms normalizedPrimeEulerFrameTransport_adjoint_radialLeakage
 #check @primeEulerAmbientLossFactor_adjoint_radialLeakage
 #print axioms primeEulerAmbientLossFactor_adjoint_radialLeakage
+#check @suffixEulerFrameSchurStep_oldFrame_radialSupport
+#print axioms suffixEulerFrameSchurStep_oldFrame_radialSupport
 #check @suffixEulerFrameAmbientLossColumn_radialLeakage
 #print axioms suffixEulerFrameAmbientLossColumn_radialLeakage
 #check @compositeStripWindowOperator_basis_normSq_summable

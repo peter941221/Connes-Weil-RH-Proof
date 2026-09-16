@@ -337,3 +337,8 @@ radially supported, and the radial complement of
 `primeEulerRadialBoundaryStep` pulled back through that frame.  This narrows
 WO-B to the source-basis energy of this explicit outer channel together with
 the coupled inner metric/projection channel; no B3/B4 estimate is claimed.
+
+The old-frame radial support fact is now a named theorem rather than a local
+proof detail.  It can be reused when proving source-basis energy for the
+root-convolved actual column, while the ambient-loss leakage identity remains
+an exact structural bridge with no Hilbert--Schmidt estimate.
