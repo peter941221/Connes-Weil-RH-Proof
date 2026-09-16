@@ -44,4 +44,3 @@ The rho5 gate is consequently not closed by this record. The next valid
 brick must prove the displayed object-level bridge (or a stronger explicit
 P2 decomposition) from the committed arithmetic ledger, without taking
 `qw` or its sign as input.
-
