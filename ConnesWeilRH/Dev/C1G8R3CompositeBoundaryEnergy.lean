@@ -898,6 +898,66 @@ theorem compositeRadialLeg_sourceBasis_normSq_summable
   rw [congrArg (fun T : sourceSoninCarrier lambda →L[ℂ] Carrier =>
     T (sourceBasis i)) hOp]
 
+/-! The B3 reducer can be fed any source-to-ambient column.  We realize such
+a column as `(A ∘L J†) ∘L J`, using the isometric source inclusion. -/
+set_option maxHeartbeats 20000000 in
+theorem compositeRadialLeg_sourceColumn_normSq_summable
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale) (s : ℝ)
+    (hs : 0 ≤ s)
+    (A : sourceSoninCarrier lambda →L[ℂ] Carrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (hwide : radialSupportProjection (wideRadialScale lambda s) ∘L A = A) :
+    Summable fun i : ρ =>
+      ‖(((ContinuousLinearMap.id ℂ Carrier - radialSupportProjection lambda) ∘L
+          rootConvolution owner ∘L A) ∘L N) (sourceBasis i)‖ ^ 2 := by
+  let J := sourceInclusion lambda
+  let M := A ∘L ContinuousLinearMap.adjoint J
+  have hMJ : M ∘L J = A := by
+    apply ContinuousLinearMap.ext
+    intro x
+    simp only [M, ContinuousLinearMap.comp_apply]
+    have hJ := DFunLike.congr_fun
+      (sourceInclusion_adjoint_comp_self lambda) x
+    simp only [ContinuousLinearMap.comp_apply] at hJ
+    exact congrArg A hJ
+  have hwideM : radialSupportProjection (wideRadialScale lambda s) ∘L M ∘L J =
+      M ∘L J := by
+    simpa only [hMJ] using hwide
+  have hgeneric := compositeRadialLeg_sourceBasis_normSq_summable
+    owner lambda s hs M N sourceBasis hwideM
+  have hchain :
+      (((ContinuousLinearMap.id ℂ Carrier - radialSupportProjection lambda) ∘L
+          rootConvolution owner ∘L M ∘L J) ∘L N) =
+        (((ContinuousLinearMap.id ℂ Carrier - radialSupportProjection lambda) ∘L
+          rootConvolution owner ∘L A) ∘L N) := by
+    apply ContinuousLinearMap.ext
+    intro x
+    have h := congrArg
+      (fun T : sourceSoninCarrier lambda →L[ℂ] Carrier => T (N x)) hMJ
+    simp only [ContinuousLinearMap.comp_apply] at h ⊢
+    rw [h]
+  refine hgeneric.congr ?_
+  intro i
+  rw [congrArg (fun T : sourceSoninCarrier lambda →L[ℂ] Carrier =>
+    T (sourceBasis i)) hchain]
+
+theorem suffixEulerFrameAmbientLossColumn_compositeRadialLeg_sourceBasis_normSq_summable
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (p : CCM24VisiblePrime) (S : List CCM24VisiblePrime)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) :
+    Summable fun i : ρ =>
+      ‖(((ContinuousLinearMap.id ℂ Carrier - radialSupportProjection lambda) ∘L
+          rootConvolution owner ∘L
+            suffixEulerFrameAmbientLossColumn lambda p S) ∘L N)
+        (sourceBasis i)‖ ^ 2 := by
+  have hlogp : 0 ≤ Real.log (p : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast p.property.le)
+  exact compositeRadialLeg_sourceColumn_normSq_summable owner lambda
+    (Real.log p) hlogp (suffixEulerFrameAmbientLossColumn lambda p S) N
+    sourceBasis (suffixEulerFrameAmbientLossColumn_wideRadialSupport lambda p S)
+
 /-! ## The composite internal-gap leg (B4) -/
 
 /- The deep operator reassociation used by B4 is kept as a separate

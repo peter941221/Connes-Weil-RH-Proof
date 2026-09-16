@@ -348,3 +348,10 @@ column at the canonical shift `s = log p`.  Thus the composite B3 radial
 reduction can be instantiated for this outer column without a caller-supplied
 support premise.  The source-basis square-sum and the inner metric/projection
 channel remain open; B4 for the Hardy-conjugated factor is unchanged.
+
+Record 1558 closes the B3 radial OUT estimate for the actual ambient-loss
+column.  A generic source-column wrapper realizes `A` as `A ∘L J† ∘L J`,
+then instantiates the composite reducer; the actual column supplies its
+canonical wide-support premise at `s = log p`.  WO-B is therefore reduced to
+its coupled inner metric/projection channel (B4/Hardy side still open), while
+S3 remains the independent survivor IN estimate.

@@ -118,3 +118,16 @@ positive translation in the antiresonant loss factor.  Consequently the
 `hwide` premise of the composite radial B3 reducer is no longer an external
 assumption for this ambient-loss column at that width.  The resulting compact
 window estimate and the coupled inner channel are still separate obligations.
+
+## 2026-09-17 B3 radial energy for the actual ambient-loss column (record 1558)
+
+The owning file now adds a source-column form of the composite radial reducer.
+Any bounded column `A : sourceSoninCarrier lambda ->L Carrier` is represented as
+`(A ∘L J†) ∘L J`, using the isometric source inclusion `J`; the existing B3
+proof then transfers verbatim.  Combining this wrapper with
+`suffixEulerFrameAmbientLossColumn_wideRadialSupport` at `s = log p` gives the
+unconditional formal theorem
+`suffixEulerFrameAmbientLossColumn_compositeRadialLeg_sourceBasis_normSq_summable`.
+Thus the root-convolved radial OUT energy of the actual ambient-loss column is
+now closed.  The theorem is a square-sum transfer only; the coupled inner
+metric/projection channel and B4 remain open.
