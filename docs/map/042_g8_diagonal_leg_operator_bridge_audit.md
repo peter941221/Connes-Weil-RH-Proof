@@ -523,3 +523,13 @@ physical producer target under the present root ordering.  The next viable
 work order must preserve the signed cancellation with the second/prolate or
 common-right block, or prove a new compactifying factor before readback.  The
 independent outer-pair split is NO-GO, and WO-B remains OPEN.
+
+Record 1531 adds the cancellation-preserving normal form for the actual
+source inclusion.  Keeping outer, second-support, and reflected branches
+together gives
+`(E Q [E,M] + E [Q,M] E + [E,M] Q E) J = (E Q E M - M) J`,
+using the formally proved `E J = J` and `Q J = J`.  This cancels the middle
+noncommuting terms before any Schatten estimate and is the correct signed
+block to pair with the prolate branch.  It introduces no energy estimate or
+positivity; the source-compressed root/cancellation producer remains OPEN,
+while the independent outer-pair HS split remains the NO-GO recorded in 1530.

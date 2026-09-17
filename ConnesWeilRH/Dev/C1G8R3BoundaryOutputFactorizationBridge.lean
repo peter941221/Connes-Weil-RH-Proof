@@ -404,6 +404,40 @@ theorem sourceSoninOuterPair_sourceBasis_normSq_summable_of_radialLeakage
   exact congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2)
     (DFunLike.congr_fun hEq (sourceBasis i)).symm
 
+/- The outer, second-support, and reflected branches must be retained as one
+signed block on the actual source inclusion.  Their six noncommuting terms
+cancel exactly to the Hardy-compressed-minus-identity column. -/
+theorem sourceSoninOuterSecondReflected_comp_sourceInclusion_eq_hardySubId
+    (lambda : CCM24SoninScale) (M : finiteSCarrier →L[ℂ] finiteSCarrier) :
+    (cc20OuterCommutatorBranch (radialSupportProjection lambda)
+        (sourceFourierSupportProjection lambda) M +
+      cc20SecondSupportCommutatorBranch
+        (radialSupportProjection lambda)
+        (sourceFourierSupportProjection lambda) M +
+      cc20ReflectedOuterCommutatorBranch
+        (radialSupportProjection lambda)
+        (sourceFourierSupportProjection lambda) M) ∘L
+        sourceInclusion lambda =
+      (radialSupportProjection lambda ∘L
+          sourceFourierSupportProjection lambda ∘L
+          radialSupportProjection lambda ∘L M - M) ∘L
+        sourceInclusion lambda := by
+  have hEJ := radialSupportProjection_comp_sourceInclusion lambda
+  have hQJ := sourceFourierSupportProjection_comp_sourceInclusion_eq_self lambda
+  apply ContinuousLinearMap.ext
+  intro u
+  have hEJu := DFunLike.congr_fun hEJ u
+  have hQJu := DFunLike.congr_fun hQJ u
+  simp only [cc20OuterCommutatorBranch,
+    cc20SecondSupportCommutatorBranch,
+    cc20ReflectedOuterCommutatorBranch, cc20Commutator,
+    ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.comp_apply, ContinuousLinearMap.neg_apply,
+    ContinuousLinearMap.id_apply, map_sub] at ⊢
+  simp only [ContinuousLinearMap.comp_apply] at hEJu hQJu
+  simp only [hEJu, hQJu]
+  abel
+
 /- The actual Sonin commutator inherits the existing outer/second-support/
 prolate owner, so the open estimate can be split along those four branches. -/
 theorem sourceSoninCommutator_eq_threeBranch
