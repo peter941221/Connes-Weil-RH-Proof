@@ -557,3 +557,9 @@ The physical factor remains inside both terms and no projection commutation is
 used.  The radial finite-window theorem does not yet instantiate this identity
 for arbitrary actual `M`; the Fourier-gap defect is also unestimated.  This is
 an object-level sharpening only, so WO-B stays OPEN.
+
+Record 1534 adds the square-sum consumer for this split.  The two explicit
+defect columns, after arbitrary bounded ambient/source factors, imply the
+Hardy column square-sum.  Combined with the formal prolate-column result,
+the physical B4 producer is now exactly the pair of defect estimates shown in
+proof record 1534; no hidden third commutator estimate remains.

@@ -471,6 +471,86 @@ theorem sourceSoninHardySubId_comp_sourceInclusion_eq_radial_fourierDefect
   rw [hEu]
   abel
 
+/- Square-summability consumer for the two exact Hardy defects. -/
+set_option maxHeartbeats 1000000 in
+theorem sourceSoninHardySubId_sourceBasis_normSq_summable_of_radial_fourierDefects
+    (lambda : CCM24SoninScale) (M D : finiteSCarrier →L[ℂ] finiteSCarrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (hradial : Summable fun i : ρ =>
+      ‖(D ∘L
+          ((ContinuousLinearMap.id ℂ finiteSCarrier -
+            radialSupportProjection lambda) ∘L M) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2)
+    (hgap : Summable fun i : ρ =>
+      ‖(D ∘L
+          (radialSupportProjection lambda ∘L
+            (ContinuousLinearMap.id ℂ finiteSCarrier -
+              sourceFourierSupportProjection lambda) ∘L
+            radialSupportProjection lambda ∘L M) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2) :
+    Summable fun i : ρ =>
+      ‖(D ∘L
+          (radialSupportProjection lambda ∘L
+            sourceFourierSupportProjection lambda ∘L
+            radialSupportProjection lambda ∘L M - M) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2 := by
+  have hnegRadial : Summable fun i : ρ =>
+      ‖(- (D ∘L
+          ((ContinuousLinearMap.id ℂ finiteSCarrier -
+            radialSupportProjection lambda) ∘L M) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i))‖ ^ 2 := by
+    simpa only [norm_neg] using hradial
+  have hnegGap : Summable fun i : ρ =>
+      ‖(- (D ∘L
+          (radialSupportProjection lambda ∘L
+            (ContinuousLinearMap.id ℂ finiteSCarrier -
+              sourceFourierSupportProjection lambda) ∘L
+            radialSupportProjection lambda ∘L M) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i))‖ ^ 2 := by
+    simpa only [norm_neg] using hgap
+  have hsum := PositiveTrace.summable_normSq_add sourceBasis
+    (- (D ∘L
+        ((ContinuousLinearMap.id ℂ finiteSCarrier -
+          radialSupportProjection lambda) ∘L M) ∘L
+      sourceInclusion lambda ∘L N))
+    (- (D ∘L
+        (radialSupportProjection lambda ∘L
+          (ContinuousLinearMap.id ℂ finiteSCarrier -
+            sourceFourierSupportProjection lambda) ∘L
+          radialSupportProjection lambda ∘L M) ∘L
+      sourceInclusion lambda ∘L N)) hnegRadial hnegGap
+  have hEq :
+      D ∘L
+          (radialSupportProjection lambda ∘L
+            sourceFourierSupportProjection lambda ∘L
+            radialSupportProjection lambda ∘L M - M) ∘L
+        sourceInclusion lambda ∘L N =
+      (- (D ∘L
+          ((ContinuousLinearMap.id ℂ finiteSCarrier -
+            radialSupportProjection lambda) ∘L M) ∘L
+        sourceInclusion lambda ∘L N)) +
+      (- (D ∘L
+          (radialSupportProjection lambda ∘L
+            (ContinuousLinearMap.id ℂ finiteSCarrier -
+              sourceFourierSupportProjection lambda) ∘L
+            radialSupportProjection lambda ∘L M) ∘L
+        sourceInclusion lambda ∘L N)) := by
+    apply ContinuousLinearMap.ext
+    intro x
+    have h := DFunLike.congr_fun
+      (sourceSoninHardySubId_comp_sourceInclusion_eq_radial_fourierDefect
+        lambda M) (N x)
+    have h' := congrArg D h
+    simp only [ContinuousLinearMap.comp_apply,
+      ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+      ContinuousLinearMap.neg_apply, map_add, map_sub, map_neg,
+      sub_eq_add_neg] at h' ⊢
+    exact h'
+  refine hsum.congr (fun i => ?_)
+  exact congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2)
+    (DFunLike.congr_fun hEq (sourceBasis i)).symm
+
 /- The complete source commutator is the signed Hardy-sub-identity block
 followed by the prolate commutator.  This is the cancellation-preserving
 consumer interface; no branchwise Schatten estimate is built into it. -/
