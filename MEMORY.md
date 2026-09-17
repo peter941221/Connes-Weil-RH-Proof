@@ -37,6 +37,13 @@ normalized the B4 tail consumer to the exact reflected-radial operator
 formal acceptance is record 1598, with the reflected radial-complement
 square-sum still open.
 
+2026-09-18 B4 route audit : established from committed definitions that
+`I - E_w` is an unbounded lower-half-line complement, not a finite window;
+the Hardy--prolate Gram identity also forbids splitting its Hardy and prolate
+pieces into standalone HS estimates.  Record 1599 marks the resulting
+analytic stop rule: B4 needs half-line decay/cancellation, while S3 needs
+source-compressed cancellation.
+
 2026-09-17 GapFreeEndpointMoment : extended the finite endpoint-moment bound
 to a countable `tsum` under explicit summability of the zeroth moment, first
 defect, and endpoint-mass sequence. The Lean audit is green; this is the
