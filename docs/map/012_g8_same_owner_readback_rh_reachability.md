@@ -903,6 +903,20 @@ irreducible remainder, still phase-typed per the Hardy-pressure finding.
 See [1504](../proofs/1504_r5_same_owner_gate_normal_form.md) and
 [1505](../proofs/1505_route_w_window_tail_normal_form.md).
 
+### ρ5 target pinned as one theorem (record 1567, 2026-09-17)
+
+The preregistered one-theorem statement landed (`C1G8R5EulerContentBridgeTarget`
++Audit, try3 GREEN 3972 jobs, standard axioms): the gate is now the named
+`Prop` `g8R5EulerContentBridge`, right side expanded through the committed
+`pole - arch - prime` components, left side expanded through the four
+channels, and the canonical-family arithmetic row transported to
+`finitePrimeSum owner.sourceTest.convolutionSquare`.  The pinned ledger
+precludes row-by-row vanishing allocations (the prime sum appears with both
+signs inside the ambient ledger), so the open producer obligation is one
+combined-rows identity plus the source/ambient transport; see
+[1567](../proofs/1567_rho5_one_theorem_statement_and_prime_row_transport.md).
+No estimate, no sign premise, no RH conclusion.
+
 ### ρ5 Euler bridge isolated (record 1507, 2026-09-16)
 
 The formal gate now builds cleanly, but the Euler identification remains a

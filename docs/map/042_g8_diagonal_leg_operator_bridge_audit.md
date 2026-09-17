@@ -578,3 +578,21 @@ Hardy–Titchmarsh radial tail:
 stated as a quantitative radial-tail estimate for the Hardy-transformed
 physical column.  The identity is formal and does not supply that estimate;
 WO-B remains OPEN.
+
+Record 1567 executes preregistered order-of-battle item 6 on the ρ5
+obligation (independent of WO-S and WO-B): the ρ5 gate is stated ONCE as the
+named proposition
+`g8R5EulerContentBridge` in `C1G8R5EulerContentBridgeTarget`, its right side
+pinned to the committed `poleTerm - archimedeanTerm - finitePrimeSum` split
+on the half-density square, its left side pinned to the four compiled
+channels, and the canonical-family arithmetic row transported to read exactly
+`finitePrimeSum owner.sourceTest.convolutionSquare` (same detector, same
+prime set, zero estimate input).  The pinned ledger exposes the sign
+mechanism: the visible prime-power sum occurs twice in the ambient prefix
+ledger with opposite signs (row `arithmeticOperator` plus the definition
+`sameObjectResidual := projectionResponse - arithmeticOperator`), so
+row-by-row vanishing allocations are precluded and the producer must control
+the combined rows.  The ρ5 obligation becomes a pinned-target statement; the
+estimate itself, the source/ambient trace transport, and the P2 connector from
+`sourceBandGramResponse_eq_soninFirstJet_sub_remainder` to the leakage limit
+remain OPEN.  WO-S and WO-B statuses are unchanged.  RH not claimed.
