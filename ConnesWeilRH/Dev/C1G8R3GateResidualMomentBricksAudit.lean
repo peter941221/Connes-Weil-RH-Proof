@@ -1,0 +1,23 @@
+import ConnesWeilRH.Dev.C1G8R3GateResidualMomentBricks
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+namespace CCM24FiniteSGateResidualMomentBricksAudit
+
+open CCM24FiniteSGateResidualMomentBricks
+
+#print axioms sourceSoninProjection_le_radialSupportProjection
+#print axioms sourceSoninProjection_le_sourceFourierSupportProjection
+#print axioms radialSupportProjection_comp_sourceSoninProjection
+#print axioms sourceSoninProjection_comp_radialSupportProjection
+#print axioms radialSupportProjection_fixes_of_support_subset
+#print axioms norm_sq_sub_starProjection_eq_add
+#print axioms norm_sq_sub_sourceSoninProjection_eq_add
+#print axioms starProjection_eq_self_of_re_inner_eq_normSq
+#print axioms norm_sq_sub_starProjection_le_of_quadraticFormGap
+
+end CCM24FiniteSGateResidualMomentBricksAudit
+end CCM25Concrete
+end Source
+end ConnesWeilRH
