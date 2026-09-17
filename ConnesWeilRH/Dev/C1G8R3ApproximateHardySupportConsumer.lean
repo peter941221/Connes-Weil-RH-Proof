@@ -133,5 +133,30 @@ theorem compositeGapLeg_sourceColumn_normSq_summable_of_approximateHardySupport
   simpa only [D, ContinuousLinearMap.comp_apply] using
     congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2) hD
 
+set_option maxHeartbeats 20000000 in
+theorem compositeGapLeg_sourceColumn_normSq_summable_of_approximateHardyRadialTail
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale) (s : ℝ)
+    (hs : 0 ≤ s)
+    (A : sourceSoninCarrier lambda →L[ℂ] finiteSCarrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*}
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (htail : Summable fun i : ρ =>
+      ‖(((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner) ∘L
+        (archimedeanHardyTitchmarshOperator ∘L
+          (ContinuousLinearMap.id ℂ finiteSCarrier -
+            radialSupportProjection (wideRadialScale lambda s)) ∘L
+          archimedeanHardyTitchmarshOperator ∘L A) ∘L N)
+        (sourceBasis i)‖ ^ 2) :
+    Summable fun i : ρ =>
+      ‖(((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner) ∘L A ∘L N)
+        (sourceBasis i)‖ ^ 2 := by
+  apply compositeGapLeg_sourceColumn_normSq_summable_of_approximateHardySupport
+    owner lambda s hs A N sourceBasis
+  refine htail.congr (fun i => ?_)
+  rw [sourceColumn_sub_hardyWide_eq_hardy_radialTail lambda s A]
+
 end Dev
 end ConnesWeilRH

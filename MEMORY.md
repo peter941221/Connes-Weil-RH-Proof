@@ -31,6 +31,12 @@ G8 visible boundary energy.  B4 is now exposed at the actual ledger boundary
 as per-output Hardy-tail square summability; no analytic tail estimate is
 claimed.
 
+2026-09-18 C1G8R3ApproximateHardySupportConsumer.lean + BoundaryConsumer :
+normalized the B4 tail consumer to the exact reflected-radial operator
+`H (I - E_w) H A` and rewired the boundary consumer to that interface;
+formal acceptance is record 1598, with the reflected radial-complement
+square-sum still open.
+
 2026-09-17 GapFreeEndpointMoment : extended the finite endpoint-moment bound
 to a countable `tsum` under explicit summability of the zeroth moment, first
 defect, and endpoint-mass sequence. The Lean audit is green; this is the

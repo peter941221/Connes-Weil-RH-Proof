@@ -54,11 +54,11 @@ theorem g8MetricVisibleBoundary_root_energy_summable_of_approximateHardy_tail
         Summable (fun i : ρ =>
           ‖(((radialSupportProjection lambda - sourceSoninProjection lambda) ∘L
               radialSupportProjection lambda ∘L rootConvolution owner) ∘L
-            ((M ∘L sourceInclusion lambda) -
+            (archimedeanHardyTitchmarshOperator ∘L
+              (ContinuousLinearMap.id ℂ finiteSCarrier -
+                radialSupportProjection (wideRadialScale lambda s)) ∘L
               archimedeanHardyTitchmarshOperator ∘L
-                radialSupportProjection (wideRadialScale lambda s) ∘L
-                archimedeanHardyTitchmarshOperator ∘L M ∘L
-                sourceInclusion lambda) ∘L N) (sourceBasis i)‖ ^ 2)) :
+              M ∘L sourceInclusion lambda) ∘L N) (sourceBasis i)‖ ^ 2)) :
     Summable fun i : ρ =>
       ‖(rootConvolution owner ∘L
           g8MetricVisibleBoundaryCoframe lambda family) (sourceBasis i)‖ ^ 2 := by
@@ -68,7 +68,7 @@ theorem g8MetricVisibleBoundary_root_energy_summable_of_approximateHardy_tail
   refine ⟨M, N, hout, hin, ?_, ?_⟩
   · exact compositeRadialLeg_sourceBasis_normSq_summable owner lambda s hs M N
       sourceBasis hwide
-  · exact compositeGapLeg_sourceColumn_normSq_summable_of_approximateHardySupport
+  · exact compositeGapLeg_sourceColumn_normSq_summable_of_approximateHardyRadialTail
       owner lambda s hs (M ∘L sourceInclusion lambda) N sourceBasis htail
 
 end Dev
