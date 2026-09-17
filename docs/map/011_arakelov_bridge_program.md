@@ -443,6 +443,22 @@ The realistic deliverables of the program as amended are, in order:
    archimedean sign theorem this face would own, and the "strictly lower
    property" record 125 demanded for reopening the Suzuki route. **Does not
    imply RH.** (Its NEGATION does - see the falsifier correction above.)
+   **OPENED by 1580**: the escape-form equivalence `(OB) <=> int |g-hat|^2 H
+   >= Phi(0)||g||^2` with `H = Phi(0) - Phi(2pi .)` is hand-verified; two
+   naive attacks are typed-dead (multiplier-only escape fails because `Phi(0)`
+   lies below the crossing of `H` itself, so a leakage floor near 100% would
+   be needed and the constraint never enters; termwise positive-kernel
+   splitting diverges - the counter-term is non-LOCAL, third manifestation of
+   the 1578 s1 structural fact). The live handle is variation-diminishing of
+   the RENORMALIZED window kernel (a different object from the 263 s8 kernel
+   whose total positivity was refuted), and the row splits into sub-milestones
+   `W1a` (write `K(x-y)` on the window square from the committed spatial form,
+   counter-term included), `W1b` (2x2 minor sign test - falsifiable, finite
+   computation), `W1c` (comparison theorem + one 1-D inequality at the first
+   mode). Registered gap for any future formal pass: the Gauss value
+   `psi(1/4) = -gamma - pi/2 - 3 log 2` is a CONTRACT
+   (`HalfAnchorGaussContract`, `C1XiCenterTwoGamma.lean:932-934`), not a
+   committed theorem.
 3. `A2` - a coincidence test on one symbol, whose failure is a result.
 4. Anything beyond that requires a new owner decision, informed by R1 and R2
    rather than by the headline of section 0.
