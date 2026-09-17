@@ -19,7 +19,7 @@ RH NOT claimed.
 | acceptance item                    | value                                 |
 +------------------------------------+---------------------------------------+
 | targets                            | Dev.C1G8R3GateResidualMomentBricks    |
-|                                    | Dev.C1G8R3GateResidualMomentBricksAudit|
+|                                    | and its paired axiom-audit module     |
 | build footer                       | "Build completed successfully" x1     |
 | lines matching "error:"            | 0                                     |
 | lines matching "sorryAx"           | 0                                     |
@@ -51,7 +51,7 @@ in the project's Lean hazards list.
 |                                                    | range(P) <= range(E)        |
 +----------------------------------------------------+-----------------------------+
 | sourceSoninProjection_le_sourceFourierSupport-     | the other half of           |
-| Projection                                         | range(P) = range(E) & range(Q)|
+| Projection                                         | range(P) = range(E and Q)   |
 +----------------------------------------------------+-----------------------------+
 | radialSupportProjection_comp_sourceSoninProjection | E P = P, the order the      |
 |                                                    | wide-radial absorption      |
@@ -188,26 +188,26 @@ third layer.
 ## 6. Ledger
 
 ```text
-+--------------------------------------+------------------------------------+
-| item                                 | status after this record           |
-+--------------------------------------+------------------------------------+
++--------------------------------------+-------------------------------------+
+| item                                 | status after this record            |
++--------------------------------------+-------------------------------------+
 | nested split (1587 section 2.1)       | MACHINE-CHECKED, abstract + at     |
-|                                      | the project pair                   |
+|                                      | the project pair                    |
 | projection ordering P <= E, P <= Q    | MACHINE-CHECKED                    |
 | equality case (1586 section 1)        | MACHINE-CHECKED                    |
 | moment conversion (1587 section 3)    | MACHINE-CHECKED as a per-vector    |
-|                                      | lemma with the gap as hypothesis   |
+|                                      | lemma with the gap as hypothesis    |
 | hradial pointwise support half        | MACHINE-CHECKED                    |
 | hradial absorption half               | WAS ALREADY COMMITTED (4.1)        |
 | local projection-composition copies   | DUPLICATE OF MATHLIB (4.2), not    |
-|                                      | refactored                         |
+|                                      | refactored                          |
 | StripDensity(Lambda)                  | OPEN (unchanged)                   |
 | EndpointMass(epsilon)                 | OPEN (unchanged)                   |
 | gap / (GAP)                           | OPEN, and now a hypothesis of a    |
-|                                      | machine-checked conversion         |
+|                                      | machine-checked conversion          |
 | (star)/B4/rho5/R4/(OB)/W1             | OPEN                               |
 | RH                                    | NOT claimed                        |
-+--------------------------------------+------------------------------------+
++--------------------------------------+-------------------------------------+
 ```
 
 ## 7. Boundary
