@@ -49,6 +49,7 @@ open Source.CCM25Concrete.CCM24FiniteSSchurPolarTelescoping
 open Source.CCM25Concrete.CCM24FiniteSTransportBounds
 open Source.CCM25Concrete.CCM24FiniteSParameterizedEulerProduct
 open Source.CCM25Concrete.CCM24SourceProlateTrace
+open Source.CCM25Concrete.CCM24RadialBoundaryPairTransport
 open Source.CCM25Concrete.SelectedWeilSquare
 open Source.C1G8P1MetricChannels
 open scoped ENNReal InnerProduct InnerProductSpace
@@ -470,6 +471,39 @@ theorem sourceSoninHardySubId_comp_sourceInclusion_eq_radial_fourierDefect
   simp only [ContinuousLinearMap.comp_apply] at hEu
   rw [hEu]
   abel
+
+/- The Fourier-gap defect is exactly a radial-complement defect after the
+Hardy--Titchmarsh involution.  This exposes the analytic tail object without
+introducing a commutation assumption on the physical factor. -/
+theorem sourceSoninHardyFourierGap_comp_sourceInclusion_eq_hardyRadialLeakage
+    (lambda : CCM24SoninScale) (M : finiteSCarrier →L[ℂ] finiteSCarrier) :
+    (radialSupportProjection lambda ∘L
+        (ContinuousLinearMap.id ℂ finiteSCarrier -
+          sourceFourierSupportProjection lambda) ∘L
+        radialSupportProjection lambda ∘L M) ∘L sourceInclusion lambda =
+      (radialSupportProjection lambda ∘L
+        archimedeanHardyTitchmarshOperator ∘L
+        (ContinuousLinearMap.id ℂ finiteSCarrier -
+          radialSupportProjection lambda) ∘L
+        archimedeanHardyTitchmarshOperator ∘L
+        radialSupportProjection lambda ∘L M) ∘L sourceInclusion lambda := by
+  have hH : archimedeanHardyTitchmarshOperator ∘L
+      archimedeanHardyTitchmarshOperator =
+        ContinuousLinearMap.id ℂ finiteSCarrier := by
+    apply ContinuousLinearMap.ext
+    intro u
+    simp only [ContinuousLinearMap.comp_apply,
+      ContinuousLinearMap.id_apply]
+    exact archimedeanHardyTitchmarshOperator_involutive u
+  rw [sourceFourierSupportProjection_eq_hardyTitchmarsh_conjugation]
+  apply ContinuousLinearMap.ext
+  intro u
+  have hHu := DFunLike.congr_fun hH
+    (radialSupportProjection lambda (M (sourceInclusion lambda u)))
+  simp only [ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply,
+    map_sub] at hHu ⊢
+  rw [hHu]
 
 /- Square-summability consumer for the two exact Hardy defects. -/
 set_option maxHeartbeats 1000000 in

@@ -571,3 +571,10 @@ commutator column is reduced to the single Fourier-gap square-sum, with the
 prolate commutator already formal from record 1532.  This is a formal
 consumer bridge only; the physical visible-prime boundary factors still lack
 the needed Fourier-gap estimate and WO-B remains OPEN.
+
+Record 1536 rewrites the remaining Fourier-gap column exactly as a
+Hardy–Titchmarsh radial tail:
+`E (I-Q) E M J = E H (I-E) H E M J`.  Thus the next analytic producer can be
+stated as a quantitative radial-tail estimate for the Hardy-transformed
+physical column.  The identity is formal and does not supply that estimate;
+WO-B remains OPEN.
