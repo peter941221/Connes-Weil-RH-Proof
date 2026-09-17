@@ -738,3 +738,13 @@ boundary theorem now takes, per actual output, the radial support identity and
 the explicit Hardy-tail square sum (plus the existing IN leg). This is FORMAL
 consumer composition; the analytic tail producer remains open and the WO-S /
 WO-B route statuses are unchanged.
+
+Record 1612/1613 further specializes this interface to the actual source
+column type.  The formal theorem
+`wideHardySupport_sourceColumn_iff_wideFourierSupport` proves that the B4
+Hardy premise is equivalent to the same-scale Fourier projection equality for
+`A : sourceSoninCarrier λ →L Carrier`; record 1613 then exposes the B4 gap
+consumer directly from that Fourier equality.  This is a formal consumer
+rewiring, not an analytic producer: the actual Fourier-defect square-sum for
+the visible-prime boundary columns, and the S3 source-compressed root energy,
+remain OPEN.  Evidence: accepted build log `1613_fourier_gap_consumer_retry`.
