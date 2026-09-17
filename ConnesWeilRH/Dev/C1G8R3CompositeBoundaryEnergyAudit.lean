@@ -78,5 +78,4 @@ namespace Dev
 #print axioms suffixEulerFrameAmbientLossColumn_compositeGapLeg_sourceBasis_normSq_summable
 #check @suffixEulerFrameSchurStep_boundaryDagger_compositeGapLeg_sourceBasis_normSq_summable
 #print axioms suffixEulerFrameSchurStep_boundaryDagger_compositeGapLeg_sourceBasis_normSq_summable
-
 end ConnesWeilRH.Dev

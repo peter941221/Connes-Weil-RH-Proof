@@ -479,3 +479,4 @@ at the gate; law F30; P1/P2 two-brick program (both now paid).
   wsl-windows-toolbox, lean-mathlib-gotchas; grants = push-authorization;
   dormant = external-ai-prompt-packs; historical verdicts =
   probe-1213-verdict-h2, f1-crux-verdict-1063, rh-direct-attack-charter-1358.
+2026-09-18 ConnesWeilRH/Dev/C1G8R3JointHardySubIdConsumer.lean : added and audited a generic Hardy-sub-identity consumer; the arbitrary finite-S factor D plus the existing prolate square-sum now imply the source-Sonin commutator square-sum used jointly by S3/B4. The analytic Hardy producer remains open; accepted by build log 1606.
