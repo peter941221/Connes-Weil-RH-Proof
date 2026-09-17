@@ -48,6 +48,7 @@ open Source.CCM25Concrete.CCM24FiniteSActualSchurCascade
 open Source.CCM25Concrete.CCM24FiniteSSchurPolarTelescoping
 open Source.CCM25Concrete.CCM24FiniteSTransportBounds
 open Source.CCM25Concrete.CCM24FiniteSParameterizedEulerProduct
+open Source.CCM25Concrete.CCM24SourceProlateTrace
 open Source.CCM25Concrete.SelectedWeilSquare
 open Source.C1G8P1MetricChannels
 open scoped ENNReal InnerProduct InnerProductSpace
@@ -559,6 +560,81 @@ theorem sourceSoninCommutator_sourceBasis_normSq_summable_of_hardySubId_prolate
           -D ((cc20ProlateCommutatorBranch
             (sourceProlateRemainder lambda) M)
             (sourceInclusion lambda (N x))) := by rw [sub_eq_add_neg]
+  refine hsum.congr (fun i => ?_)
+  exact congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2)
+    (DFunLike.congr_fun hEq (sourceBasis i)).symm
+
+/- The prolate column is already an actual Hilbert--Schmidt ideal column.
+The positive-square factor A gives K_prol = A† A; bounded pre- and
+postcomposition then supplies the commutator column for arbitrary M,D,N. -/
+set_option maxHeartbeats 1000000 in
+theorem sourceProlateCommutator_sourceBasis_normSq_summable_of_factor
+    (lambda : CCM24SoninScale)
+    {ν ρ : Type*} (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (M D : finiteSCarrier →L[ℂ] finiteSCarrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    (hfactor : Summable fun i : ν =>
+      ‖sourceProlateHilbertSchmidtFactor lambda (globalBasis i)‖ ^ 2) :
+    Summable fun i : ρ =>
+      ‖(D ∘L cc20ProlateCommutatorBranch
+          (sourceProlateRemainder lambda) M ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2 := by
+  let A := sourceProlateHilbertSchmidtFactor lambda
+  have hKglobal' := PositiveTrace.summable_normSq_postcomp globalBasis A
+    A.adjoint hfactor
+  have hKglobal : Summable fun i : ν =>
+      ‖sourceProlateRemainder lambda (globalBasis i)‖ ^ 2 := by
+    simpa only [A, ContinuousLinearMap.comp_assoc,
+      sourceProlateHilbertSchmidtFactor_adjoint_comp_self] using hKglobal'
+  have hAinput := PositiveTrace.summable_normSq_precomp globalBasis globalBasis
+    sourceBasis A (sourceInclusion lambda ∘L N) hfactor
+  have hKinput' := PositiveTrace.summable_normSq_postcomp sourceBasis
+    (A ∘L sourceInclusion lambda ∘L N) A.adjoint hAinput
+  have hKinput : Summable fun i : ρ =>
+      ‖(sourceProlateRemainder lambda ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2 := by
+    rw [← sourceProlateHilbertSchmidtFactor_adjoint_comp_self lambda]
+    simpa only [A, ContinuousLinearMap.comp_assoc] using hKinput'
+  have hKM' := PositiveTrace.summable_normSq_precomp globalBasis globalBasis
+    sourceBasis (sourceProlateRemainder lambda)
+      (M ∘L sourceInclusion lambda ∘L N) hKglobal
+  have hKM : Summable fun i : ρ =>
+      ‖(sourceProlateRemainder lambda ∘L M ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2 := by
+    simpa only [ContinuousLinearMap.comp_assoc] using hKM'
+  have hMK' := PositiveTrace.summable_normSq_postcomp sourceBasis
+    (sourceProlateRemainder lambda ∘L sourceInclusion lambda ∘L N) M hKinput
+  have hKMpost := PositiveTrace.summable_normSq_postcomp sourceBasis
+    (sourceProlateRemainder lambda ∘L M ∘L
+      sourceInclusion lambda ∘L N) D hKM
+  have hMKpost := PositiveTrace.summable_normSq_postcomp sourceBasis
+    (M ∘L sourceProlateRemainder lambda ∘L
+      sourceInclusion lambda ∘L N) D hMK'
+  have hneg : Summable fun i : ρ =>
+      ‖(- (D ∘L M ∘L sourceProlateRemainder lambda ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i))‖ ^ 2 := by
+    simpa only [norm_neg] using hMKpost
+  have hsum := PositiveTrace.summable_normSq_add sourceBasis
+    (D ∘L sourceProlateRemainder lambda ∘L M ∘L
+      sourceInclusion lambda ∘L N)
+    (- (D ∘L M ∘L sourceProlateRemainder lambda ∘L
+      sourceInclusion lambda ∘L N)) hKMpost hneg
+  have hEq :
+      D ∘L cc20ProlateCommutatorBranch
+          (sourceProlateRemainder lambda) M ∘L
+        sourceInclusion lambda ∘L N =
+      (D ∘L sourceProlateRemainder lambda ∘L M ∘L
+        sourceInclusion lambda ∘L N) +
+      (- (D ∘L M ∘L sourceProlateRemainder lambda ∘L
+        sourceInclusion lambda ∘L N)) := by
+    apply ContinuousLinearMap.ext
+    intro x
+    simp only [cc20ProlateCommutatorBranch, cc20Commutator,
+      ContinuousLinearMap.comp_apply, ContinuousLinearMap.sub_apply,
+      ContinuousLinearMap.add_apply, ContinuousLinearMap.neg_apply,
+      map_sub]
+    abel
   refine hsum.congr (fun i => ?_)
   exact congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2)
     (DFunLike.congr_fun hEq (sourceBasis i)).symm

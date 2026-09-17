@@ -540,3 +540,11 @@ The paired square-sum consumer is also formal: summability of the two signed
 columns after bounded ambient postcomposition and source-side precomposition
 implies the full source-commutator square-sum.  This closes only the consumer
 interface; the two physical energy premises remain OPEN.
+
+Record 1532 discharges one of those two premises.  Since the source prolate
+remainder is `A† A` and the all-scale factor `A` is square-summable, ideal
+closure under bounded pre- and postcomposition proves the prolate commutator
+column square-summable for every bounded physical `M,D,N`.  Thus the only
+remaining B4 producer obligation at this interface is the signed
+Hardy-sub-identity column `((E Q E) M - M) J`; the prolate leg is FORMAL and
+WO-B remains OPEN solely on that Hardy column and its G8 readback.
