@@ -563,3 +563,11 @@ defect columns, after arbitrary bounded ambient/source factors, imply the
 Hardy column square-sum.  Combined with the formal prolate-column result,
 the physical B4 producer is now exactly the pair of defect estimates shown in
 proof record 1534; no hidden third commutator estimate remains.
+
+Record 1535 specializes the consumer to any source-composed radial factor:
+`E M J = M J` makes the radial defect vanish exactly.  The complete forward
+finite Euler transport satisfies this support identity, so its source
+commutator column is reduced to the single Fourier-gap square-sum, with the
+prolate commutator already formal from record 1532.  This is a formal
+consumer bridge only; the physical visible-prime boundary factors still lack
+the needed Fourier-gap estimate and WO-B remains OPEN.

@@ -367,6 +367,38 @@ theorem finiteEulerTransport_sourceWideRadialSupport
     (finiteEulerTransportOperator family)
     (finiteEulerTransport_sourceRadialSupport lambda family)
 
+/- The complete forward Euler transport is a concrete consumer of the
+source-radial specialization: its Hardy column has no radial defect, leaving
+only the Fourier-gap square-sum as an analytic premise. -/
+set_option maxHeartbeats 1000000 in
+theorem finiteEulerTransport_sourceSoninCommutator_sourceBasis_normSq_summable_of_fourierDefect
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (family : FinitePrimePowerFamily)
+    {ν ρ : Type*} (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (D : finiteSCarrier →L[ℂ] finiteSCarrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    (hfactor : Summable fun i : ν =>
+      ‖sourceProlateHilbertSchmidtFactor lambda (globalBasis i)‖ ^ 2)
+    (hgap : Summable fun i : ρ =>
+      ‖(D ∘L
+          (radialSupportProjection lambda ∘L
+            (ContinuousLinearMap.id ℂ finiteSCarrier -
+              sourceFourierSupportProjection lambda) ∘L
+            radialSupportProjection lambda ∘L
+            finiteEulerTransportOperator family) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2) :
+    Summable fun i : ρ =>
+      ‖(D ∘L cc20Commutator (sourceSoninProjection lambda)
+          (finiteEulerTransportOperator family) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2 := by
+  exact sourceSoninCommutator_sourceBasis_normSq_summable_of_hardySubId_factor
+    lambda globalBasis sourceBasis (finiteEulerTransportOperator family) D N
+    hfactor
+    (sourceSoninHardySubId_sourceBasis_normSq_summable_of_sourceRadialSupport
+      lambda (finiteEulerTransportOperator family) D N sourceBasis
+      (finiteEulerTransport_sourceRadialSupport lambda family) hgap)
+
 /-! The adjoint one-prime transport has an exact radial leakage channel.  The
 identity is the operator-level bridge from the actual Schur boundary head to
 the already owned `primeEulerRadialBoundaryStep`; it makes no estimate. -/

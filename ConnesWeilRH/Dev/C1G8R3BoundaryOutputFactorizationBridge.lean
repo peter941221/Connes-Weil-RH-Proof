@@ -551,6 +551,61 @@ theorem sourceSoninHardySubId_sourceBasis_normSq_summable_of_radial_fourierDefec
   exact congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2)
     (DFunLike.congr_fun hEq (sourceBasis i)).symm
 
+/- A source-composed radial-support certificate removes the radial defect
+exactly.  This is the reusable specialization for causal factors: only the
+Fourier-gap column remains to be estimated. -/
+set_option maxHeartbeats 1000000 in
+theorem sourceSoninHardySubId_sourceBasis_normSq_summable_of_sourceRadialSupport
+    (lambda : CCM24SoninScale) (M D : finiteSCarrier →L[ℂ] finiteSCarrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (hM : radialSupportProjection lambda ∘L M ∘L sourceInclusion lambda =
+      M ∘L sourceInclusion lambda)
+    (hgap : Summable fun i : ρ =>
+      ‖(D ∘L
+          (radialSupportProjection lambda ∘L
+            (ContinuousLinearMap.id ℂ finiteSCarrier -
+              sourceFourierSupportProjection lambda) ∘L
+            radialSupportProjection lambda ∘L M) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2) :
+    Summable fun i : ρ =>
+      ‖(D ∘L
+          (radialSupportProjection lambda ∘L
+            sourceFourierSupportProjection lambda ∘L
+            radialSupportProjection lambda ∘L M - M) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2 := by
+  have hzero :
+      ((ContinuousLinearMap.id ℂ finiteSCarrier -
+          radialSupportProjection lambda) ∘L M) ∘L
+        sourceInclusion lambda = 0 := by
+    apply ContinuousLinearMap.ext
+    intro u
+    have hMu := DFunLike.congr_fun hM u
+    simp only [ContinuousLinearMap.comp_apply,
+      ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply,
+      map_sub] at hMu ⊢
+    rw [hMu]
+    simp
+  have hzero' :
+      D ∘L ((ContinuousLinearMap.id ℂ finiteSCarrier -
+          radialSupportProjection lambda) ∘L M) ∘L
+        sourceInclusion lambda ∘L N = 0 := by
+    apply ContinuousLinearMap.ext
+    intro x
+    have hz := DFunLike.congr_fun hzero (N x)
+    simp only [ContinuousLinearMap.comp_apply] at hz ⊢
+    rw [hz]
+    simp
+  have hradial : Summable fun i : ρ =>
+      ‖(D ∘L
+          ((ContinuousLinearMap.id ℂ finiteSCarrier -
+            radialSupportProjection lambda) ∘L M) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2 := by
+    rw [hzero']
+    simp
+  exact sourceSoninHardySubId_sourceBasis_normSq_summable_of_radial_fourierDefects
+    lambda M D N sourceBasis hradial hgap
+
 /- The complete source commutator is the signed Hardy-sub-identity block
 followed by the prolate commutator.  This is the cancellation-preserving
 consumer interface; no branchwise Schatten estimate is built into it. -/
