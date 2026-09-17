@@ -225,6 +225,58 @@ rewrite `(OB)` as the supremum above.** Until W0 reports, the operator form of
 +-----+-------------------------------------+------------+------------------+
 ```
 
+**W0 LANDED 2026-09-17 — [1578](../proofs/1578_w0_archimedean_symbol_pinned_and_window_class_correction.md),
+and it found a third defect in the 1417 §3b box.**
+
+```text
+  C' = log pi = 1.1447298858494001741...          (five-step hand derivation,
+                                                   no quadrature, from
+                                                   SelectedWeilFormula:96-109 +
+                                                   C1SameOwnerWeil:61-64 +
+                                                   psi(1/2) = -gamma - 2 log 2)
+  symbol   Phi(r) = log pi - Re psi(1/4 + i r/2)
+  max      Phi(0) = log pi + gamma + pi/2 + 3 log 2 = 5.37218341922566558
+  first 0  r_0 = 6.28983598883690278  (1417 s2's deferred constant, now named;
+                                       within 0.1% of 2 pi)
+  head     log(4pi)+gamma = 3.108239911870824  -> CANCELLS against the -gamma
+                                                 inside psi(1/2); it never
+                                                 reaches the final symbol, so
+                                                 the "one number plus one
+                                                 unknown constant" worry of
+                                                 1418 s5 (defect 5b) is closed
+                                                 in favour of ONE number
+  domain   D = {g in L2 : supp g ⊆ [-R,R], int |g-hat|^2 log(1+|xi|) < ∞}
+
+  THIRD DEFECT IN 1417 s3b (in addition to lambda_max and unpinned C'):
+  the box maximizes over PW_R, but the committed theorems that own the window
+  (C1MinimalWeilCriterion.lean:263-271) carry TWO hypotheses - support AND
+  `CC20VanishesOn ... {half}`, which unfolds through CC20TestSpace:28-34 +
+  CC20RHExit:28 + C1HealthyTestSpace:44-47 + CC20YoshidaConvolution:35-56 to
+
+       laplaceAt g (1/2) = 0   <=>   int g(x) e^{x/2} dx = 0
+                                <=>   g-hat(i/4pi) = 0.
+
+  So (OB) is a supremum over a codimension-one COMPLEX subspace of PW_R, and
+  the constraint sits exactly on the unique maximum of Phi. 1417 s3b's
+  "uncertainty principle as positivity source" therefore has a much sharper
+  mechanism than the support-width argument it was given: the admissible g must
+  change sign (e^{x/2} varies only over [2^{-1/4}, 2^{1/4}] on the window).
+```
+
+**Correction to the W1 row's falsifier claim.** The row says "A test g with
+`A > 0` falsifies (OB) ONLY, not RH". As written that is unsound in BOTH
+directions, and the direction matters: a `g` that lies in the committed window
+class (support AND vanishing) with `A(g) > 0` gives `qw g = -A < 0` by
+`qw_eq_neg_archimedeanTerm_of_vanishesOn_halfOnly_of_rootSupport_logTwoHalf`
+(the prime sum vanishes there), and the gate `(∀ g, 0 ≤ qw g) ⟺ SourceRH` is
+machine-checked side-condition-free (1416/B0b) - so a VALID falsifier refutes
+RH, not merely `(OB)`. Conversely a `g` outside the class refutes nothing at
+all, including `(OB)`. There is no middle tier: **on this face the only
+interesting falsifier is an RH disproof, which is why any positive extremum is
+first evidence of a scoping error in the computation (law F28).** A
+Galerkin pass over unconstrained `PW_R` returning a positive maximum is in that
+second, worthless tier - see 1578 §2 and §6.
+
 W1 is the deliverable with the best ratio on the board: it is a **consequence
 of RH that can be proved without RH**, it lives entirely in the repository's
 committed vocabulary (`archimedeanTerm`, `convolutionSquare`,
@@ -378,12 +430,19 @@ to stop describing Track A as an attack on RH.
 
 The realistic deliverables of the program as amended are, in order:
 
-1. `W0` - an exactly pinned archimedean symbol `Phi` with a named `C'` and a
-   named form domain. One day, no external reading, no Lean. This is a new
-   constant this face has never produced.
-2. `W1` - one sign decided for one window. The first unconditional archimedean
-   sign theorem this face would own, and the "strictly lower property" record
-   125 demanded for reopening the Suzuki route. **Does not imply RH.**
+1. ~~`W0`~~ **LANDED (1578)** - `Phi` pinned with `C' = log pi`, form domain
+   named, and the class corrected to include the committed
+   `g-hat(i/4pi) = 0` constraint. New constants this face now owns: `log pi`
+   and `r_0 = 6.28983598883690278`.
+2. `W1` - one sign decided for one window, NOW STATED CORRECTLY as a
+   **constrained** Slepian/reproducing-kernel extremum over
+   `PW_R ∩ {h(i/4pi) = 0}`, not an unconstrained truncated-convolution maximum.
+   The technique handle changes accordingly: the constraint is quotiented out by
+   the Paley-Wiener reproducing kernel at `i/4pi`, and `A` restricted to its
+   orthogonal complement is the object to bound. The first unconditional
+   archimedean sign theorem this face would own, and the "strictly lower
+   property" record 125 demanded for reopening the Suzuki route. **Does not
+   imply RH.** (Its NEGATION does - see the falsifier correction above.)
 3. `A2` - a coincidence test on one symbol, whose failure is a result.
 4. Anything beyond that requires a new owner decision, informed by R1 and R2
    rather than by the headline of section 0.

@@ -94,6 +94,21 @@ preregs next to F21).
 
 ## 4. What the re-pricing leaves alive
 
+> **AMENDED 2026-09-17 by [1577](1577_b3_composite_phantom_verdict_and_card_repricing.md)
+> and [1578](1578_w0_archimedean_symbol_pinned_and_window_class_correction.md).**
+> Item 1 below is a PHANTOM: B3's radial OUT leg was already proven
+> unconditionally for both physical boundary columns at
+> `C1G8R3CompositeBoundaryEnergy.lean:1147-1200` (records 1555/1558/1560/1561),
+> with the wide-radial support discharged internally at the one-step shift
+> `Real.log p`; no committed consumer awaits a `Lambda_max` composite window.
+> 1575's `Lambda(p::S)` belongs to B4's `hradial` strip leg, not to B3. Item 2
+> (`hradial`) is real but CAPPED: the B4 consumer needs `hradial` AND `hgap`
+> together (`C1G8R3BoundaryOutputFactorizationBridge.lean:509-527`), and `hgap`
+> is the very column this record's stop covers - so closing `hradial` closes
+> nothing on its own. The decision card at §5 is decided there; option (iv) was
+> owner-selected and is executed in 1578. Text retained unmodified for the
+> pre-registration trail.
+
 The exhaustion is of the PHASE-EXPONENT class. Two non-phase classes remain,
 one of them made concrete by the 1575 ledger:
 

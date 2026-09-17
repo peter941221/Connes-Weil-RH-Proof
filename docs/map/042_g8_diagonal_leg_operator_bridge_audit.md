@@ -665,3 +665,26 @@ a strip-restricted composition - unpriced, outside both dead classes); and
 the only live almost-orthogonality target is the visible-prime sum inside
 hBoundary/rho5 at NUCLEAR level (unnamed, unregistered for spend).  WO-S
 status unchanged; WO-B legs re-typed, not closed.  RH not claimed.
+
+Record [1577](../proofs/1577_b3_composite_phantom_verdict_and_card_repricing.md)
+audits that entry against committed source and CORRECTS it on B3. The
+"composite window becomes explicit / one cheap support-propagation lemma
+uncommitted" framing is a phantom: B3's radial OUT leg is already unconditional
+for both physical boundary columns at
+`C1G8R3CompositeBoundaryEnergy.lean:1147-1200` (`..._compositeRadialLeg_sourceBasis_normSq_summable`
+and the `boundaryDagger`/postcomp twins), where the wide-radial support is
+discharged INTERNALLY at the one-step shift `Real.log p` by
+`..._wideRadialSupport`, the file contains zero `sorry`, and no consumer awaits
+a `Lambda_max` composite window (workspace grep over `ConnesWeilRH/` finds
+none). The reason is structural: the landed columns are one-step Schur objects
+whose only support mover is the single adjoint transport at `p`, whereas 1575's
+`Lambda(p::S) = log prod q` measures the FOUR-factor chain, whose consumer is
+B4's `hradial` strip leg. B3's table row ("actual physical columns closed;
+generic reduction formal, LANDED 1558/1561") is therefore RE-AFFIRMED, not
+extended. Same record: B4's remaining obligation is TWO simultaneous premises
+read verbatim from
+`C1G8R3BoundaryOutputFactorizationBridge.lean:509-527` - `hradial` (support
+side, strip-confined, unpriced) and `hgap` (Fourier side, the column the 1576
+typed stop covers) - so `hradial` alone closes nothing and is DEFERRED rather
+than funded. WO-S and WO-B statuses are unchanged; nothing is proved here, no
+Lean is built. RH not claimed.
