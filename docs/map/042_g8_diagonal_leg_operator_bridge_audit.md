@@ -626,3 +626,20 @@ The ρ5 producer obligation is thereby anchored to NAMED channels: the prime
 residual content must come out of the remainder-channel trace combination,
 consistent with the 1567 dual-sign preclusion.  The estimates themselves,
 the source/ambient transport, WO-S, and WO-B remain OPEN.  RH not claimed.
+
+Record 1575 adjudicates the Q-hM question of the 1573/1574 chain from the
+primitive translation convention (`GlobalLogCrossing.lean:145-150`:
+`Translation b u (t) = u (t + b)`; carrier columns supported on
+`[log lambda, ∞)`).  The four-factor ledger of the actual ambient factor
+`M_p` (the `Bridge:74-79` witness) shows only the adjoint Euler transports
+move support, each leaking leftward by its `log q`; the total leak is
+`Lambda(p::S) = log prod_{q in p::S} q`.  Consequences for this map's
+IN/OUT split: fixed-scale `hM` fails on the OUT side (1574's mechanism
+re-confirmed with the exact value replacing the `lambda/p^k` placeholder),
+the scale-adapted `hM'` holds as pure support identity but cannot feed the
+scale-faithful 1535 shortcut consumer, and the radial defect leg becomes
+explicitly STRIP-CONFINED: `D o (I - E) M_p J N` factors through
+multiplication by the indicator of `[tau - Lambda, tau)`.  A
+strip-confinement Lean brick (pure a.e. indicator arithmetic from
+committed coeFn lemmas) is registered for the next formal wave; WO-S and
+WO-B statuses are unchanged.  RH not claimed.

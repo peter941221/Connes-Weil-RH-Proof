@@ -903,7 +903,7 @@ irreducible remainder, still phase-typed per the Hardy-pressure finding.
 See [1504](../proofs/1504_r5_same_owner_gate_normal_form.md) and
 [1505](../proofs/1505_route_w_window_tail_normal_form.md).
 
-### Stage-2 modulation verdict, B4 chain wired, channel cycles landed (records 1572-1574, 2026-09-17)
+### Stage-2 modulation verdict, B4 chain wired, channel cycles landed (records 1572-1575, 2026-09-17)
 
 Record [1572](../proofs/1572_T1_exponent_ledger_stage2.md) adjudicates the
 stage-2 (★)-tail question against the committed definitions: the modulation
@@ -933,6 +933,24 @@ note, not a formal no-go); B4 keeps both 1534 premises unless the registered
 scale-adapted `hM'` (finite `lambda`-shift, permitted by the consumer's
 quantifier) is formalized. No estimate moved anywhere; (★), B4, ρ5,
 transport, R4 all OPEN. RH not claimed.
+
+Record [1575](../proofs/1575_Mp_support_ledger_hM_prime_verdict.md) then
+settles Q-hM from the primitives: the translation convention
+(`GlobalLogCrossing.lean:145-150`) pins carrier columns on `[tau, ∞)` with
+`tau = log lambda`, and the four-factor ledger of the actual `M_p`
+(`Bridge:74-79`) shows the ONLY support movers are the adjoint Euler
+transports, leaking leftward by `log q` each: total leak
+`Lambda(p::S) = log prod_{q in p::S} q`. Fixed-scale `hM` fails (1574
+re-confirmed from the definitions; its `lambda/p^k` placeholder is replaced
+by the exact coarser scale `lambda' = lambda / prod q`); the scale-adapted
+`hM'` HOLDS as pure indicator arithmetic but is NOT slot-(3)-usable because
+the 1535 consumer is scale-faithful - B4 keeps both premises. The
+constructive prize: the radial defect is STRIP-CONFINED -
+`D o (I - E) M_p J N = D o 1_{[tau-Lambda, tau)} o M_p J N` - a finite
+strip of explicit width (`theta(X) ~ X` for the canonical family), the
+precise form of 1534's warning. Registered: strip-confinement Lean brick
+(pure a.e. indicator arithmetic, committed inputs; spend gated on the T2
+verdict or an owner route-B order). RH not claimed.
 
 ### P2 connector landed; phase wave entry fee paid (records 1569-1571, 2026-09-17)
 
