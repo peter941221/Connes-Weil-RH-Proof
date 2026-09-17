@@ -31,5 +31,11 @@ Thus a future energy producer can consume the two signed columns directly;
 it need not reconstruct the three-branch ledger or estimate the isolated
 outer pair.
 
+The paired square-sum consumer is now formal as well: summability of the
+Hardy-sub-identity column and of the prolate commutator column implies the
+full source-commutator square-sum after arbitrary bounded ambient/source
+factors.  This is a consumer theorem only; both analytic premises remain
+open for the physical boundary factors.
+
 Owning declaration: `ConnesWeilRH.Dev.C1G8R3BoundaryOutputFactorizationBridge`.
 Audit: `...BoundaryOutputFactorizationBridgeAudit`.

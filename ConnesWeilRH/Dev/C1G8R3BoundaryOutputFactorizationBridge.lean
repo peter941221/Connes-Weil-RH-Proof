@@ -401,8 +401,9 @@ theorem sourceSoninOuterPair_sourceBasis_normSq_summable_of_radialLeakage
       ContinuousLinearMap.neg_apply, map_add, map_neg, sub_eq_add_neg] at hpoint ⊢
     exact hpoint
   refine hsum.congr (fun i => ?_)
-  exact congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2)
-    (DFunLike.congr_fun hEq (sourceBasis i)).symm
+  simpa only [ContinuousLinearMap.neg_apply, norm_neg, sub_eq_add_neg] using
+    congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2)
+      (DFunLike.congr_fun hEq (sourceBasis i)).symm
 
 /- The outer, second-support, and reflected branches must be retained as one
 signed block on the actual source inclusion.  Their six noncommuting terms
@@ -471,6 +472,96 @@ theorem sourceSoninCommutator_comp_sourceInclusion_eq_hardySubId_sub_prolate
       (cc20ProlateCommutatorBranch
         (sourceProlateRemainder lambda) M)
         (sourceInclusion lambda u)) hblock
+
+/- Direct two-column consumer for the signed source commutator.  The first
+column is the Hardy-sub-identity block; the second is the prolate commutator.
+This keeps the cancellation visible at the square-summability interface. -/
+set_option maxHeartbeats 1000000 in
+theorem sourceSoninCommutator_sourceBasis_normSq_summable_of_hardySubId_prolate
+    (lambda : CCM24SoninScale) (M D : finiteSCarrier →L[ℂ] finiteSCarrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (hhardy : Summable fun i : ρ =>
+      ‖(D ∘L
+          (radialSupportProjection lambda ∘L
+            sourceFourierSupportProjection lambda ∘L
+            radialSupportProjection lambda ∘L M - M) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2)
+    (hprolate : Summable fun i : ρ =>
+      ‖(D ∘L cc20ProlateCommutatorBranch
+          (sourceProlateRemainder lambda) M ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2) :
+    Summable fun i : ρ =>
+      ‖(D ∘L cc20Commutator (sourceSoninProjection lambda) M ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2 := by
+  have hneg : Summable fun i : ρ =>
+      ‖(-((D ∘L cc20ProlateCommutatorBranch
+          (sourceProlateRemainder lambda) M ∘L
+          sourceInclusion lambda ∘L N) (sourceBasis i)))‖ ^ 2 := by
+    simpa only [norm_neg] using hprolate
+  have hsum := PositiveTrace.summable_normSq_add sourceBasis
+    (D ∘L
+      (radialSupportProjection lambda ∘L
+        sourceFourierSupportProjection lambda ∘L
+        radialSupportProjection lambda ∘L M - M) ∘L
+      sourceInclusion lambda ∘L N)
+    (- (D ∘L cc20ProlateCommutatorBranch
+      (sourceProlateRemainder lambda) M ∘L
+      sourceInclusion lambda ∘L N)) hhardy hneg
+  have hEq :
+      D ∘L cc20Commutator (sourceSoninProjection lambda) M ∘L
+          sourceInclusion lambda ∘L N =
+        (D ∘L
+          (radialSupportProjection lambda ∘L
+            sourceFourierSupportProjection lambda ∘L
+            radialSupportProjection lambda ∘L M - M) ∘L
+          sourceInclusion lambda ∘L N) +
+        (- (D ∘L cc20ProlateCommutatorBranch
+          (sourceProlateRemainder lambda) M ∘L
+          sourceInclusion lambda ∘L N)) := by
+    apply ContinuousLinearMap.ext
+    intro x
+    have hfull := DFunLike.congr_fun
+      (sourceSoninCommutator_comp_sourceInclusion_eq_hardySubId_sub_prolate
+        lambda M) (N x)
+    have hfull' := congrArg D hfull
+    simp only [ContinuousLinearMap.comp_apply] at hfull'
+    change D ((cc20Commutator (sourceSoninProjection lambda) M)
+      (sourceInclusion lambda (N x))) =
+      D ((radialSupportProjection lambda ∘L
+        sourceFourierSupportProjection lambda ∘L
+        radialSupportProjection lambda ∘L M - M)
+        (sourceInclusion lambda (N x))) +
+        -D ((cc20ProlateCommutatorBranch
+          (sourceProlateRemainder lambda) M)
+          (sourceInclusion lambda (N x)))
+    calc
+      D ((cc20Commutator (sourceSoninProjection lambda) M)
+          (sourceInclusion lambda (N x))) =
+          D (((radialSupportProjection lambda ∘L
+            sourceFourierSupportProjection lambda ∘L
+            radialSupportProjection lambda ∘L M - M)
+            (sourceInclusion lambda (N x))) -
+            (cc20ProlateCommutatorBranch
+              (sourceProlateRemainder lambda) M)
+              (sourceInclusion lambda (N x))) := hfull'
+      _ = D ((radialSupportProjection lambda ∘L
+          sourceFourierSupportProjection lambda ∘L
+          radialSupportProjection lambda ∘L M - M)
+          (sourceInclusion lambda (N x))) -
+          D ((cc20ProlateCommutatorBranch
+            (sourceProlateRemainder lambda) M)
+            (sourceInclusion lambda (N x))) := by rw [map_sub]
+      _ = D ((radialSupportProjection lambda ∘L
+          sourceFourierSupportProjection lambda ∘L
+          radialSupportProjection lambda ∘L M - M)
+          (sourceInclusion lambda (N x))) +
+          -D ((cc20ProlateCommutatorBranch
+            (sourceProlateRemainder lambda) M)
+            (sourceInclusion lambda (N x))) := by rw [sub_eq_add_neg]
+  refine hsum.congr (fun i => ?_)
+  exact congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2)
+    (DFunLike.congr_fun hEq (sourceBasis i)).symm
 
 /- The actual Sonin commutator inherits the existing outer/second-support/
 prolate owner, so the open estimate can be split along those four branches. -/

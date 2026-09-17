@@ -536,3 +536,7 @@ while the independent outer-pair HS split remains the NO-GO recorded in 1530.
 The owning bridge also now exposes the complete identity
 `[P,M] J = ((E Q E) M - M) J - [K_prol,M] J`,
 so the next analytic consumer may target these two signed columns directly.
+The paired square-sum consumer is also formal: summability of the two signed
+columns after bounded ambient postcomposition and source-side precomposition
+implies the full source-commutator square-sum.  This closes only the consumer
+interface; the two physical energy premises remain OPEN.
