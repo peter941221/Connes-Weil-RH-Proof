@@ -50,6 +50,8 @@ this is a reduction, not an S3 closure.
 
 **Status update (2026-09-17, second formal no-go):** the same orbit argument now proves `sourceRootCompletedBandRoot_not_hilbertSchmidt`: the full ambient `rootConvolution owner ∘L sourceBandProjection unitSoninScale` cannot have a square-summable diagonal on any Hilbert basis. Its committed range-plus-leakage decomposition has an HS range leg, which tends to zero on the separated orbit, and a leakage leg with a uniform positive lower bound. Thus the full ambient band-root cannot replace the source-compressed `P C P` target; the source projection remains essential for S3.
 
+**Status update (2026-09-18, exact target audit):** record [1614](../proofs/1614_s3_operator_target_boundary.md) checks the definitions themselves: the ambient right-leg consumer is `C ∘ E ∘ (I − Q) ∘ E`, whereas the live survivor gate is the source-compressed `J† C J` completed Gram. The ambient non-Hilbert--Schmidt obstruction therefore blocks only the ambient shortcut; it neither closes nor refutes the source-compressed gate. The existing source-basis theorem for `((I − P) C J)` is also a different operator and cannot be substituted for the ambient right-leg consumer. S3 remains **OPEN**.
+
 **Independence audit (2026-09-16):** S3 and B3/B4 are best treated as one
 total diagonal-energy producer with two currently separate estimates. The
 same-owner positivity conclusion C3 is a downstream theorem of the readback
