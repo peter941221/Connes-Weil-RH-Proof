@@ -903,6 +903,29 @@ irreducible remainder, still phase-typed per the Hardy-pressure finding.
 See [1504](../proofs/1504_r5_same_owner_gate_normal_form.md) and
 [1505](../proofs/1505_route_w_window_tail_normal_form.md).
 
+### P2 connector landed; phase wave entry fee paid (records 1569-1571, 2026-09-17)
+
+The named follow-up of record 1567 executed: `C1G8R5LeakageChannelPSplit`
++Audit (try4 GREEN 3956 jobs, standard axioms) pins the three channels of the
+1480 leakage limit operator, proves all three trace-class along the source
+basis via `boundedSandwich` transports of the committed pair owners, and
+restates the proven limit as the difference of the NAMED remainder-channel
+and response-channel traces. The `finitePrimeSum` content of the pinned ρ5
+target must therefore attach through the named remainder channel trace (or a
+combination of the two), never rowwise alone. No estimate, no sign premise
+(see [1569](../proofs/1569_p2_connector_leakage_channel_split.md)).
+
+In parallel the phase wave consumed its pre-registered entry fee: record
+[1570](../proofs/1570_T0_digamma_quantitative_asymptotics.md) delivers T0a/T0b
+with explicit constants (`|theta' + 2*pi*log|xi|| <= 0.1138/xi^2`,
+`|theta'' + 2*pi/xi| <= 0.3067/|xi|^3` for `|xi| >= 2`, DLMF-cited with the
+complex sec-factor paid, corrected sign against 1568, exact-Fraction sentinel
+8/8 PASS), and record [1571](../proofs/1571_T1_exponent_ledger_stage1.md)
+opens the T1 exponent ledger: the two classical levers price the positive
+off-diagonal ray at `beta = 5/2 > 1` but pin `beta = 1/2 < 1` on the negative
+ray for ANY symbol decay, reducing the whole (★)-tail question to the
+projection-modulation third source (stage 2; verdict OPEN). RH not claimed.
+
 ### ρ5 target pinned as one theorem (record 1567, 2026-09-17)
 
 The preregistered one-theorem statement landed (`C1G8R5EulerContentBridgeTarget`

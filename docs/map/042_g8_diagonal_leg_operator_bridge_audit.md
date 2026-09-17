@@ -596,3 +596,15 @@ the combined rows.  The ρ5 obligation becomes a pinned-target statement; the
 estimate itself, the source/ambient trace transport, and the P2 connector from
 `sourceBandGramResponse_eq_soninFirstJet_sub_remainder` to the leakage limit
 remain OPEN.  WO-S and WO-B statuses are unchanged.  RH not claimed.
+
+Record 1569 then lands exactly that P2 connector:
+`C1G8R5LeakageChannelPSplit` pins the 1480 limit operator as
+`g8R5LeakageTotalChannel = g8R5LeakageRemainderChannel -
+g8R5LeakageResponseChannel`, discharges all three diagonal summabilities by
+`boundedSandwich` transports of the committed three-branch and Sonin pair
+owners, and restates the proven limit as the difference of the two named
+channel traces (try4 GREEN 3956 jobs, standard axioms, no new premises).
+The ρ5 producer obligation is thereby anchored to NAMED channels: the prime
+residual content must come out of the remainder-channel trace combination,
+consistent with the 1567 dual-sign preclusion.  The estimates themselves,
+the source/ambient transport, WO-S, and WO-B remain OPEN.  RH not claimed.
