@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8R3SourceCompressedRootKernel
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @sourceCompressedRoot
+#check @sourceCompressedRoot_inner_eq_ambient
+#check @sourceCompressedRoot_normSq_eq_ambient_inner
+
+#print axioms sourceCompressedRoot_inner_eq_ambient
+#print axioms sourceCompressedRoot_normSq_eq_ambient_inner
+
+end Dev
+end ConnesWeilRH

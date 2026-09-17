@@ -52,6 +52,8 @@ this is a reduction, not an S3 closure.
 
 **Status update (2026-09-18, exact target audit):** record [1614](../proofs/1614_s3_operator_target_boundary.md) checks the definitions themselves: the ambient right-leg consumer is `C ∘ E ∘ (I − Q) ∘ E`, whereas the live survivor gate is the source-compressed `J† C J` completed Gram. The ambient non-Hilbert--Schmidt obstruction therefore blocks only the ambient shortcut; it neither closes nor refutes the source-compressed gate. The existing source-basis theorem for `((I − P) C J)` is also a different operator and cannot be substituted for the ambient right-leg consumer. S3 remains **OPEN**.
 
+**Status update (2026-09-18, direct-kernel interface):** record [1615](../proofs/1615_source_compressed_root_kernel.md) introduces the actual source-carrier operator `J† C J` and its exact ambient matrix-coefficient readback. This is the chosen direct-kernel route for S3; it supplies no energy estimate, so S3 and B4 remain **OPEN**.
+
 **Independence audit (2026-09-16):** S3 and B3/B4 are best treated as one
 total diagonal-energy producer with two currently separate estimates. The
 same-owner positivity conclusion C3 is a downstream theorem of the readback
