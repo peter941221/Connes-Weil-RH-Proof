@@ -3,6 +3,8 @@ import ConnesWeilRH.Dev.C1G8R3ApproximateHardySupportConsumer
 namespace ConnesWeilRH
 namespace Dev
 
+#check @sourceColumn_sub_hardyWide_eq_hardy_radialTail
+#print axioms sourceColumn_sub_hardyWide_eq_hardy_radialTail
 #check @compositeGapLeg_sourceColumn_normSq_summable_of_approximateHardySupport
 #print axioms compositeGapLeg_sourceColumn_normSq_summable_of_approximateHardySupport
 

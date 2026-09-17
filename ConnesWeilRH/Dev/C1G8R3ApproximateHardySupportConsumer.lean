@@ -33,6 +33,36 @@ noncomputable local instance approximateHardySupportCompleteSpace
     (lambda : CCM24SoninScale) : CompleteSpace (sourceSoninCarrier lambda) :=
   (ccm24ArchimedeanSoninClosedSubspace lambda).isClosed.completeSpace_coe
 
+theorem sourceColumn_sub_hardyWide_eq_hardy_radialTail
+    (lambda : CCM24SoninScale) (s : ℝ)
+    (A : sourceSoninCarrier lambda →L[ℂ] finiteSCarrier) :
+    A - archimedeanHardyTitchmarshOperator ∘L
+          radialSupportProjection (wideRadialScale lambda s) ∘L
+          archimedeanHardyTitchmarshOperator ∘L A =
+      archimedeanHardyTitchmarshOperator ∘L
+        (ContinuousLinearMap.id ℂ finiteSCarrier -
+          radialSupportProjection (wideRadialScale lambda s)) ∘L
+        archimedeanHardyTitchmarshOperator ∘L A := by
+  let H := archimedeanHardyTitchmarshOperator
+  let Ewide := radialSupportProjection (wideRadialScale lambda s)
+  have hHH : H ∘L H = ContinuousLinearMap.id ℂ finiteSCarrier := by
+    apply ContinuousLinearMap.ext
+    intro u
+    simp only [H, ContinuousLinearMap.comp_apply,
+      ContinuousLinearMap.id_apply]
+    exact archimedeanHardyTitchmarshOperator_involutive u
+  apply ContinuousLinearMap.ext
+  intro u
+  have hHHu := DFunLike.congr_fun hHH (A u)
+  simp only [H, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.comp_apply, ContinuousLinearMap.id_apply,
+    map_sub] at hHHu ⊢
+  rw [← hHHu]
+  have hHHu2 := congrArg (fun z : finiteSCarrier => H (H z)) hHHu
+  have hHHu2' : H (H (H (H (A u)))) = H (H (A u)) := by
+    simpa only [H] using hHHu2
+  rw [hHHu2']
+
 set_option maxHeartbeats 20000000 in
 theorem compositeGapLeg_sourceColumn_normSq_summable_of_approximateHardySupport
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale) (s : ℝ)
