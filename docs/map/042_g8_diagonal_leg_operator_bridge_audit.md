@@ -708,3 +708,10 @@ confinement contributes no singular-value content (law F29). Funding
 caps it regardless. WO-S and WO-B statuses are unchanged; B4 remains open on
 `hgap` inside the 1576 typed stop; nothing is proved here, no Lean is built.
 RH not claimed.
+
+Record 1592 changes the B4 consumer interface without changing the route
+status: the exact wide-Hardy support premise can be replaced by the formal
+decomposition `A = H E_w H A + (A - H E_w H A)`. The first term is handled by
+the existing composite gap theorem; the remaining producer obligation is the
+explicit Hardy-tail square-sum after the root-gap operator. This is FORMAL
+consumer algebra, not an estimate for the actual visible-prime outputs.
