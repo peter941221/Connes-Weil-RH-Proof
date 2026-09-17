@@ -2,14 +2,14 @@
 
 ## Verdict
 
-Formal B4 normalization brick. For every source column `A`, the involution law
-for the Hardy--Titchmarsh operator gives
+Formal B4 normalization brick. The Hardy involution gives, for every source
+column A and every wide radial projection E_w,
 
 `A - H E_w H A = H (I - E_w) H A`.
 
-Thus the approximate B4 tail is not an unspecified error: it is the radial
-complement of the Hardy-transformed column, transported by the same involution
-that already relates the selected root to its reflected owner.
+Thus the approximate B4 tail is a transported radial complement, rather than
+an unspecified error term. It has the operator shape needed for comparison
+with the reflected-root radial chain.
 
 ## Evidence
 
@@ -21,6 +21,6 @@ that already relates the selected root to its reflected owner.
 
 ## Boundary
 
-The identity does not prove square summability. The remaining B4 producer is a
+The identity supplies no square-summability. The remaining B4 producer is a
 radial-complement estimate for the Hardy-transformed actual Schur columns,
 with the root-gap operator and source-side factors attached.

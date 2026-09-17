@@ -727,6 +727,11 @@ proves the exact normalization of the approximate B4 tail as a Hardy-
 transported radial complement. This identifies the next producer target with
 the reflected radial chain, but supplies no estimate; B4 remains open.
 
+Record [1597](../proofs/1597_hardy_tail_reflected_radial_normal_form.md)
+proves the exact normalization of the approximate B4 tail as a Hardy-
+transported radial complement. This identifies the next producer target with
+the reflected radial chain, but supplies no estimate; B4 remains open.
+
 Record [1594](../proofs/1594_approximate_hardy_boundary_consumer.md) wires that
 approximate gap consumer into the full G8 visible-boundary energy ledger. The
 boundary theorem now takes, per actual output, the radial support identity and

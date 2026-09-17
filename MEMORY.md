@@ -46,6 +46,11 @@ B4 Hardy tail as `A - H E_w H A = H (I - E_w) H A` using Hardy involutivity.
 The remaining analytic task is now a reflected radial-complement estimate for
 the actual Schur columns; no square-summability claim is made here.
 
+2026-09-18 C1G8R3ApproximateHardySupportConsumer : formally normalized the
+B4 Hardy tail as `A - H E_w H A = H (I - E_w) H A` using Hardy involutivity.
+The remaining analytic task is now a reflected radial-complement estimate for
+the actual Schur columns; no square-summability claim is made here.
+
 ## CURRENT FRONTIER (2026-09-17, record 1590)
 
 Tower: off-line zero ⇒ qw(g)<0 [formal] ⇒ 0≤qw(g) [THE open gate = classical
