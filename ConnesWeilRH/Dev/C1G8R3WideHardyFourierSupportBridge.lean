@@ -54,4 +54,37 @@ theorem wideHardySupport_iff_wideFourierSupport
     simpa only [ContinuousLinearMap.comp_apply,
       archimedeanHardyTitchmarshOperator_involutive] using hAt
 
+set_option maxHeartbeats 1000000 in
+/-- The same support equivalence for a source column.  This is the form used
+by the B4 consumers: the column need only have source-Sonin domain, not an
+ambient-domain extension. -/
+theorem wideHardySupport_sourceColumn_iff_wideFourierSupport
+    (lambda : CCM24SoninScale) (s : ℝ)
+    (A : sourceSoninCarrier lambda →L[ℂ] Carrier) :
+    radialSupportProjection (wideRadialScale lambda s) ∘L
+        archimedeanHardyTitchmarshOperator ∘L A =
+      archimedeanHardyTitchmarshOperator ∘L A ↔
+    sourceFourierSupportProjection (wideRadialScale lambda s) ∘L A = A := by
+  constructor
+  · intro h
+    apply ContinuousLinearMap.ext
+    intro u
+    have hAt := congrArg archimedeanHardyTitchmarshOperator
+      (DFunLike.congr_fun h u)
+    have hAt' : archimedeanHardyTitchmarshOperator
+          (radialSupportProjection (wideRadialScale lambda s)
+            (archimedeanHardyTitchmarshOperator (A u))) = A u := by
+      simpa only [ContinuousLinearMap.comp_apply,
+        archimedeanHardyTitchmarshOperator_involutive] using hAt
+    rw [sourceFourierSupportProjection_eq_hardyTitchmarsh_conjugation]
+    simpa only [ContinuousLinearMap.comp_apply] using hAt'
+  · intro h
+    apply ContinuousLinearMap.ext
+    intro u
+    have hAt := congrArg archimedeanHardyTitchmarshOperator
+      (DFunLike.congr_fun h u)
+    rw [sourceFourierSupportProjection_eq_hardyTitchmarsh_conjugation] at hAt
+    simpa only [ContinuousLinearMap.comp_apply,
+      archimedeanHardyTitchmarshOperator_involutive] using hAt
+
 end ConnesWeilRH.Dev

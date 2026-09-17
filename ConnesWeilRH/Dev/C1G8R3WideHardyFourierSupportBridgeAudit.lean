@@ -10,5 +10,7 @@ namespace Dev
 
 #check @wideHardySupport_iff_wideFourierSupport
 #print axioms wideHardySupport_iff_wideFourierSupport
+#check @wideHardySupport_sourceColumn_iff_wideFourierSupport
+#print axioms wideHardySupport_sourceColumn_iff_wideFourierSupport
 
 end ConnesWeilRH.Dev

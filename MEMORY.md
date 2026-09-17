@@ -481,3 +481,4 @@ at the gate; law F30; P1/P2 two-brick program (both now paid).
   probe-1213-verdict-h2, f1-crux-verdict-1063, rh-direct-attack-charter-1358.
 2026-09-18 ConnesWeilRH/Dev/C1G8R3JointHardySubIdConsumer.lean : added and audited a generic Hardy-sub-identity consumer; the arbitrary finite-S factor D plus the existing prolate square-sum now imply the source-Sonin commutator square-sum used jointly by S3/B4. The analytic Hardy producer remains open; accepted by build log 1606.
 2026-09-18 ConnesWeilRH/Dev/C1G8R3WideHardyFourierSupportBridge.lean : formalized the exact equivalence between wide Hardy radial support and same-scale Fourier support, giving B4 a shorter Fourier-defect producer interface; accepted by build log 1609.
+2026-09-18 ConnesWeilRH/Dev/C1G8R3WideHardyFourierSupportBridge.lean : added the source-column form of the wide Hardy/Fourier support equivalence, matching the actual B4 column type; the producer estimate remains open, accepted by build log 1612.
