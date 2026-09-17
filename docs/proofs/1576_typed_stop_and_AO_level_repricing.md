@@ -108,6 +108,19 @@ preregs next to F21).
 > nothing on its own. The decision card at §5 is decided there; option (iv) was
 > owner-selected and is executed in 1578. Text retained unmodified for the
 > pre-registration trail.
+>
+> FINAL ADJUDICATION [1579](1579_g8_survivors_adjudicated_hradial_priced_and_support_lemma_committed.md),
+> 2026-09-17: item 1's "NOT committed yet" support-propagation lemma was
+> already committed at `CC20YoshidaConvolution.lean:386`
+> (`convolution_support_subset_add_Ioo`, plus the shape-free
+> `MeasureTheory.support_convolution_subset` beneath it), and the 1495 pattern
+> needed no shifted-union check because it is an exact translation conjugation
+> - item 1's prereq was itself doubly phantom. Item 2 is now PRICED CLOSED:
+> both committed radial/gap summability generics hardwire `rootConvolution`
+> and draw all compactness from it (law F29: support is location, summability
+> is volume), and the physical B4 chain has no kernel slot - so the support-
+> combinatorial route this item advertised cannot reach it, independently of
+> the 1577(ii) cap. The §4 survivor queue is exhausted at paper level.
 
 The exhaustion is of the PHASE-EXPONENT class. Two non-phase classes remain,
 one of them made concrete by the 1575 ledger:

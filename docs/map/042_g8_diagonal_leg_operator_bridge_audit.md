@@ -688,3 +688,23 @@ side, strip-confined, unpriced) and `hgap` (Fourier side, the column the 1576
 typed stop covers) - so `hradial` alone closes nothing and is DEFERRED rather
 than funded. WO-S and WO-B statuses are unchanged; nothing is proved here, no
 Lean is built. RH not claimed.
+
+Record [1579](../proofs/1579_g8_survivors_adjudicated_hradial_priced_and_support_lemma_committed.md)
+exhausts the 1576 section-4 survivor queue at paper level against committed
+source. The item-1 prereq is a double phantom: the "not committed yet"
+support-propagation lemma is `convolution_support_subset_add_Ioo`
+(`CC20YoshidaConvolution.lean:386`, ten-plus callers, engine
+`MeasureTheory.support_convolution_subset`), and 1495's exact translation
+conjugation never required a shifted-half-line-union check. The item-2 object
+`hradial` is PRICED CLOSED: the physical B4 chain
+`D E H (I-E) H E M_p J` (record 1568 section 1) has NO root-kernel slot, while
+both committed square-summability generics
+(`C1G8R3CompositeBoundaryEnergy.lean:911` and `:1287`) hardwire
+`rootConvolution owner` in the conclusion and draw all compactness from it -
+:911 via the 1495/1496 window mechanism, :1287 via
+`sourceProlateHilbertSchmidtFactor` plus the reflected B3 leg; strip
+confinement contributes no singular-value content (law F29). Funding
+`hradial` would be a new carrier-level compactness estimate, and 1577(ii)
+caps it regardless. WO-S and WO-B statuses are unchanged; B4 remains open on
+`hgap` inside the 1576 typed stop; nothing is proved here, no Lean is built.
+RH not claimed.

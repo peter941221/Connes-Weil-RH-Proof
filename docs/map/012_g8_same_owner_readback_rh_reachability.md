@@ -974,6 +974,20 @@ uncommitted support-propagation lemma stands between it and a brick), and
 hradial is a strip object (unpriced). Owner decision card: B3 paper-verify +
 brick / hradial screening / rho5 face / map 011 track W. RH not claimed.
 
+**Subsequent adjudication (1577/1579, same day):** the B3 composite window was
+adjudicated PHANTOM - its radial OUT leg is already committed unconditional at
+`C1G8R3CompositeBoundaryEnergy.lean:1147-1200`, and the "one cheap uncommitted
+support-propagation lemma" is itself committed
+(`convolution_support_subset_add_Ioo`, `CC20YoshidaConvolution.lean:386`, plus
+the shape-free `MeasureTheory.support_convolution_subset` beneath it), while
+1495 is an exact translation conjugation needing no shifted-union check. The
+hradial strip object is now PRICED CLOSED: both committed summability generics
+(:911, :1287) hardwire the root kernel and draw all compactness from it, and
+the physical B4 chain `D E H (I-E) H E M_p J` has no kernel slot - law F29
+(support is location, summability is volume). Option (iv) was owner-selected;
+track W W0 landed (1578). The paper survivor queue on this face is empty;
+(★), B4, rho4, rho5 remain OPEN. RH not claimed.
+
 ### P2 connector landed; phase wave entry fee paid (records 1569-1571, 2026-09-17)
 
 The named follow-up of record 1567 executed: `C1G8R5LeakageChannelPSplit`
