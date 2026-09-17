@@ -36,6 +36,11 @@ to a countable `tsum` under explicit summability of the zeroth moment, first
 defect, and endpoint-mass sequence. The Lean audit is green; this is the
 limit-exchange interface for S3, not an actual Sonin spectral-measure estimate.
 
+2026-09-17 GapFreeEndpointMoment : formally reduced endpoint-mass summability
+to convergence of the endpoint diagonal values to zero; the threshold
+indicator is eventually zero. The actual Sonin spectral-tail convergence
+remains the open S3 producer.
+
 ## CURRENT FRONTIER (2026-09-17, record 1590)
 
 Tower: off-line zero ⇒ qw(g)<0 [formal] ⇒ 0≤qw(g) [THE open gate = classical

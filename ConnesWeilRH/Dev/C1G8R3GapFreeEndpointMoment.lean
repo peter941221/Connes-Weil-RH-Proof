@@ -20,6 +20,7 @@ namespace ConnesWeilRH
 namespace Dev
 
 open scoped BigOperators
+open scoped Topology
 
 theorem sum_le_gapFree_endpointMoment
     {ι : Type*} (s : Finset ι) (m : ι → ℝ) {epsilon : ℝ}
@@ -99,6 +100,22 @@ theorem tsum_le_gapFree_endpointMoment
       tsum_mul_left]
   rw [hrewrite] at hle
   exact hle
+
+theorem summable_gapFree_endpointMass_of_tendsto_zero
+    (m : ℕ → ℝ) {epsilon : ℝ} (hepsilon : epsilon < 1)
+    (hm : Filter.Tendsto m Filter.atTop (𝓝 0)) :
+    Summable (fun n : ℕ =>
+      if 1 - epsilon ≤ m n then (1 : ℝ) else 0) := by
+  have hthreshold : 0 < 1 - epsilon := sub_pos.mpr hepsilon
+  have hbelow : ∀ᶠ n : ℕ in Filter.atTop, m n < 1 - epsilon := by
+    exact (tendsto_order.1 hm).2 (1 - epsilon) hthreshold
+  obtain ⟨N, hN⟩ := (Filter.eventually_atTop.1 hbelow)
+  apply summable_of_ne_finset_zero (s := Finset.range N)
+  intro n hn
+  have hnN : N ≤ n := by
+    simpa only [Finset.mem_range, not_lt] using hn
+  have hmn := hN n hnN
+  simp only [if_neg (not_le.mpr hmn)]
 
 end Dev
 end ConnesWeilRH

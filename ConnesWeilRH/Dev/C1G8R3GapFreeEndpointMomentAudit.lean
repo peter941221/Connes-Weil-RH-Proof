@@ -12,6 +12,8 @@ namespace Dev
 #print axioms sum_le_gapFree_endpointMoment
 #check @tsum_le_gapFree_endpointMoment
 #print axioms tsum_le_gapFree_endpointMoment
+#check @summable_gapFree_endpointMass_of_tendsto_zero
+#print axioms summable_gapFree_endpointMass_of_tendsto_zero
 
 end Dev
 end ConnesWeilRH

@@ -716,6 +716,12 @@ the existing composite gap theorem; the remaining producer obligation is the
 explicit Hardy-tail square-sum after the root-gap operator. This is FORMAL
 consumer algebra, not an estimate for the actual visible-prime outputs.
 
+Record [1595](../proofs/1595_gap_free_endpoint_mass_from_spectral_tail.md)
+supplies the S3-side endpoint-mass reduction: convergence of the actual
+endpoint diagonal values to zero makes every subunit threshold mass finite.
+This is FORMAL bookkeeping; the Sonin spectral-tail convergence itself is
+still open, and it does not alter the B4 WO-S / WO-B status.
+
 Record [1594](../proofs/1594_approximate_hardy_boundary_consumer.md) wires that
 approximate gap consumer into the full G8 visible-boundary energy ledger. The
 boundary theorem now takes, per actual output, the radial support identity and
