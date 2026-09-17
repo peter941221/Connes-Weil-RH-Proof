@@ -761,3 +761,13 @@ This is a formal algebraic narrowing, not an energy estimate: the central
 corner square-sum is still the sole S3 producer target, while the B4 Fourier
 defect producer remains OPEN. Evidence: paired audit build log
 `1616_source_compressed_kernel_split_retry13.log`.
+
+**Status update (2026-09-18, one-sided source reduction):** record [1617](../proofs/1617_source_compressed_root_kernel_one_sided.md)
+uses `J† P = J†` before expanding `P = E Q E − R`, giving the sharper exact
+identity `J† C J = J† (E Q E) C J − J† R C J`. The first term is the
+existing Hardy-compressed root-energy interface pulled back by the bounded
+adjoint inclusion; the second is a pure prolate-remainder term. This removes
+the unnecessary right Hardy corner from the active producer target. It is
+still a formal reduction: the central energy estimate and B4 producer remain
+OPEN. Evidence: paired audit build log
+`1617_source_compressed_kernel_one_sided_retry3.log`.

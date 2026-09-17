@@ -125,5 +125,41 @@ theorem sourceCompressedRoot_eq_hardyCorner_add_prolate_terms
   dsimp [J]
   abel_nf
 
+/-! The one-sided form is the useful energy reduction: the source inclusion
+already lands in the Sonin projection, so no second Hardy corner is needed. -/
+theorem sourceCompressedRoot_eq_hardyCorner_sub_prolate_term
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale) :
+    sourceCompressedRoot owner lambda =
+      (sourceInclusion lambda).adjoint ∘L
+          (radialSupportProjection lambda ∘L
+            sourceFourierSupportProjection lambda ∘L
+            radialSupportProjection lambda) ∘L
+          rootConvolution owner ∘L sourceInclusion lambda -
+        (sourceInclusion lambda).adjoint ∘L sourceProlateRemainder lambda ∘L
+          rootConvolution owner ∘L sourceInclusion lambda := by
+  let J := sourceInclusion lambda
+  let P := sourceSoninProjection lambda
+  let A := radialSupportProjection lambda ∘L
+    sourceFourierSupportProjection lambda ∘L radialSupportProjection lambda
+  let R := sourceProlateRemainder lambda
+  have hleft : J.adjoint ∘L P = J.adjoint := by
+    simpa only [J] using sourceInclusionAdjoint_comp_sourceProjection lambda
+  have hP : P = A - R := by
+    simpa only [P, A, R] using
+      sourceSoninProjection_eq_compression_sub_prolate lambda
+  have hbase : sourceCompressedRoot owner lambda =
+      J.adjoint ∘L P ∘L rootConvolution owner ∘L J := by
+    have hleft_apply (x : Carrier) : J.adjoint (P x) = J.adjoint x :=
+      congrArg (fun f => f x) hleft
+    apply ContinuousLinearMap.ext
+    intro u
+    change J.adjoint (rootConvolution owner (J u)) =
+      J.adjoint (P (rootConvolution owner (J u)))
+    exact (hleft_apply _).symm
+  rw [hbase, hP]
+  apply ContinuousLinearMap.ext
+  intro u
+  simp [ContinuousLinearMap.comp_apply, J, A, R]
+
 end Dev
 end ConnesWeilRH
