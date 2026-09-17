@@ -171,3 +171,58 @@ one of them made concrete by the 1575 ledger:
   (iii) rho5 combined-row face (independent of this wave);
   (iv) map 011 track W face (the 1417 category-change line).
   RH not claimed.
+
+## 6. AMENDMENT (2026-09-17, after wave V records 1581-1586)
+
+File text above retained unmodified (pre-registration trail). The amendment
+records that the stop's DRIVING PREMISE has been withdrawn and that the
+surviving content has been re-typed; the stop's statement about the
+pre-registered lever class stands as a statement about that class only.
+
+```text
++---------------------------------+------------------------------------------+
+| element of the original filing  | state after 1581-1586                    |
++---------------------------------+------------------------------------------+
+| driving data beta_- = 1/2 on    | WITHDRAWN (1581): the saddle eta* = e^u   |
+| the negative ray ("for ANY      | < 1 lies outside the declared T0 zone     |
+| symbol decay k")                | (|xi| >= 2) whose curvature was used; the |
+|                                 | compact-zone phase is C^infinity (psi      |
+|                                 | analytic at 1/4) so there is NO            |
+|                                 | stationary point and the true envelope is  |
+|                                 | O(|u|^{-N}) — paid at N = 2 in 1582        |
+|                                 | (|K(u)| <= 43 (1+|u|)^{-2}, u <= -20.7)    |
++---------------------------------+------------------------------------------+
+| modulation loophole (1572)      | SUPERSEDED IN KIND (1581): carrier        |
+|                                 | vacuity E = Q = I on the Sonin carrier    |
+|                                 | makes modulation zero-leverage at the     |
+|                                 | gate (algebraic, not asymptotic)          |
++---------------------------------+------------------------------------------+
+| class = multiplier-phase        | the class is not reopened as such: the    |
+|                                 | remaining content is NOT phase (1583)     |
+|                                 | and NOT symbol asymptotics; it is carrier |
+|                                 | geometry (1585-1586)                      |
++---------------------------------+------------------------------------------+
+| item 2 of section 4 (hradial    | status unchanged (CLOSED-PENDING-ONE-     |
+| as a strip object)              | BRICK); its 1584 "strip trick" mechanism  |
+|                                 | and constant-Lambda bound are RETRACTED   |
+|                                 | (1585, indicator multiplication is not    |
+|                                 | HS); the committed compact-kernel route + |
+|                                 | transport => hwide at lambda e^{-Lambda}  |
+|                                 | carries it                                |
++---------------------------------+------------------------------------------+
+| item 3 (prime-aggregation AO)   | unchanged: registered, not scheduled      |
+|                                 | (the one live AO slot)                    |
++---------------------------------+------------------------------------------+
+| gate's remaining content        | re-priced onto the source-side strip      |
+|                                 | (1586): residual <= (2/delta) *           |
+|                                 | StripDensity(Lambda), with (GAP) the      |
+|                                 | angle gap at 1 and StripDensity the local |
+|                                 | carrier count — both OPEN, both named     |
++---------------------------------+------------------------------------------+
+```
+
+Consequence for the decision card: option (ii) ("hradial strip screening") is
+discharged (1585+1586) and option (i) is closed as a phantom (1577/1579); the
+live face is now the 1586 pair ((GAP), StripDensity) plus the one owed
+transport => hwide Lean brick. No mathematical negation of any gate is
+asserted; RH not claimed.
