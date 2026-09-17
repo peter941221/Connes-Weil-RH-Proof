@@ -903,7 +903,7 @@ irreducible remainder, still phase-typed per the Hardy-pressure finding.
 See [1504](../proofs/1504_r5_same_owner_gate_normal_form.md) and
 [1505](../proofs/1505_route_w_window_tail_normal_form.md).
 
-### Stage-2 modulation verdict, B4 chain wired, channel cycles landed (records 1572-1575, 2026-09-17)
+### Stage-2 modulation verdict, B4 chain wired, channel cycles landed (records 1572-1576, 2026-09-17)
 
 Record [1572](../proofs/1572_T1_exponent_ledger_stage2.md) adjudicates the
 stage-2 (★)-tail question against the committed definitions: the modulation
@@ -951,6 +951,28 @@ strip of explicit width (`theta(X) ~ X` for the canonical family), the
 precise form of 1534's warning. Registered: strip-confinement Lean brick
 (pure a.e. indicator arithmetic, committed inputs; spend gated on the T2
 verdict or an owner route-B order). RH not claimed.
+
+Record [1576](../proofs/1576_typed_stop_and_AO_level_repricing.md) executes
+1568's own last obligations. The T2 entry condition ("only if T1 > 1") never
+fired (beta_- = 1/2 for every k at 1571; modulation typed dead at 1572), so
+the PRE-REGISTERED TYPED STOP is filed: no (★)/B4-gap estimate exists inside
+the preregistered lever class {vdc/T0b exponent, root-symbol decay,
+modulation reading, prolate subtraction, exact hM, AO} through the
+translation-invariant screening model - scope-guarded as a verdict on ROUTES,
+not on the gate, which stays OPEN. The AO re-pricing (§5's ordered
+"re-price from remaining routes before any further spend") finds a LEVEL
+mismatch: (★) is Hilbert-Schmidt while Cotlar-Stein/Knapp bounds operator
+norms; frequency-annuli decompositions make cross terms vanish exactly
+(AO = Pythagoras = the same per-annulus ledger), support-annuli decompositions
+make the cross blocks the same divergent off-diagonal sum - so AO cannot
+feed (★); the only well-posed AO target left is the visible-prime sum in
+hBoundary/rho5 at NUCLEAR level (1575's shift calculus as candidate input),
+registered unnamed. What survives the exhaustion is support-combinatorial:
+B3's composite window is now explicit (`[tau - Lambda_max - R, tau)` from
+the committed kernel support data + 1575's closed-form shifts; one cheap
+uncommitted support-propagation lemma stands between it and a brick), and
+hradial is a strip object (unpriced). Owner decision card: B3 paper-verify +
+brick / hradial screening / rho5 face / map 011 track W. RH not claimed.
 
 ### P2 connector landed; phase wave entry fee paid (records 1569-1571, 2026-09-17)
 

@@ -643,3 +643,25 @@ multiplication by the indicator of `[tau - Lambda, tau)`.  A
 strip-confinement Lean brick (pure a.e. indicator arithmetic from
 committed coeFn lemmas) is registered for the next formal wave; WO-S and
 WO-B statuses are unchanged.  RH not claimed.
+
+Record 1576 files the phase wave's pre-registered typed stop: the 1568 T2
+entry condition never fired (negative-ray beta = 1/2 for every symbol decay,
+modulation branch typed dead), so the multiplier-phase lever class {vdc,
+root-symbol, modulation, prolate subtraction, exact hM} has no admitted
+route to (star) or to the B4 gap column - a verdict on routes, NOT on the
+gate (which stays OPEN).  The ordered AO re-pricing shows the almost-
+orthogonality hope was level-mis-specified: (star) asks Hilbert-Schmidt
+while Cotlar bounds operator norms, and both natural decompositions either
+collapse to exact Pythagoras (frequency annuli: disjoint multipliers, cross
+terms zero) or rename the same divergent off-diagonal sum (support annuli).
+Consequences for the WO-B legs: B3's composite window becomes explicit -
+committed kernel support data (`rootConvolution = cc20GlobalLogConvolution
+involution.test`, BandTrace:36-39, plus bundle hsupp) and 1575's closed-form
+shifts place `(I - E) C M_p J` inside a fixed compact window
+[tau - Lambda_max - R, tau), with only the cheap half-line
+support-propagation lemma uncommitted before the 1495/1496 assembly can
+consume it; hradial is now a strip-restricted object (square-summability of
+a strip-restricted composition - unpriced, outside both dead classes); and
+the only live almost-orthogonality target is the visible-prime sum inside
+hBoundary/rho5 at NUCLEAR level (unnamed, unregistered for spend).  WO-S
+status unchanged; WO-B legs re-typed, not closed.  RH not claimed.
