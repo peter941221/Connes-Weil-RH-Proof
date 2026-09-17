@@ -533,3 +533,6 @@ noncommuting terms before any Schatten estimate and is the correct signed
 block to pair with the prolate branch.  It introduces no energy estimate or
 positivity; the source-compressed root/cancellation producer remains OPEN,
 while the independent outer-pair HS split remains the NO-GO recorded in 1530.
+The owning bridge also now exposes the complete identity
+`[P,M] J = ((E Q E) M - M) J - [K_prol,M] J`,
+so the next analytic consumer may target these two signed columns directly.

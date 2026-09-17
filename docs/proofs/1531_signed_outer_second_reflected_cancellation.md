@@ -25,5 +25,11 @@ does not claim square-summability or positivity.  The prolate commutator must
 still be combined with this block, and the resulting source-compressed root
 object remains the analytic target.  WO-B stays OPEN.
 
+The same file now records the direct completion identity
+`[P,M] J = ((E Q E) M - M) J - [K_prol,M] J`.
+Thus a future energy producer can consume the two signed columns directly;
+it need not reconstruct the three-branch ledger or estimate the isolated
+outer pair.
+
 Owning declaration: `ConnesWeilRH.Dev.C1G8R3BoundaryOutputFactorizationBridge`.
 Audit: `...BoundaryOutputFactorizationBridgeAudit`.

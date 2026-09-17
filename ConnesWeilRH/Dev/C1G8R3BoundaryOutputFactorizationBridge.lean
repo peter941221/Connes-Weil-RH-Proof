@@ -438,6 +438,40 @@ theorem sourceSoninOuterSecondReflected_comp_sourceInclusion_eq_hardySubId
   simp only [hEJu, hQJu]
   abel
 
+/- The complete source commutator is the signed Hardy-sub-identity block
+followed by the prolate commutator.  This is the cancellation-preserving
+consumer interface; no branchwise Schatten estimate is built into it. -/
+theorem sourceSoninCommutator_comp_sourceInclusion_eq_hardySubId_sub_prolate
+    (lambda : CCM24SoninScale) (M : finiteSCarrier →L[ℂ] finiteSCarrier) :
+    cc20Commutator (sourceSoninProjection lambda) M ∘L
+        sourceInclusion lambda =
+      (radialSupportProjection lambda ∘L
+          sourceFourierSupportProjection lambda ∘L
+          radialSupportProjection lambda ∘L M - M) ∘L
+            sourceInclusion lambda -
+        cc20ProlateCommutatorBranch
+          (sourceProlateRemainder lambda) M ∘L
+            sourceInclusion lambda := by
+  rw [cc20Commutator_eq_threeBranch_of_eq
+    (radialSupportProjection lambda)
+    (sourceFourierSupportProjection lambda)
+    (sourceSoninProjection lambda)
+    (sourceProlateRemainder lambda) M
+    (sourceSoninProjection_eq_compression_sub_prolate lambda)]
+  apply ContinuousLinearMap.ext
+  intro u
+  have hblock := DFunLike.congr_fun
+    (sourceSoninOuterSecondReflected_comp_sourceInclusion_eq_hardySubId
+      lambda M) u
+  simp only [cc20ThreeBranchCommutator,
+    ContinuousLinearMap.sub_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.comp_apply] at ⊢
+  simpa only [ContinuousLinearMap.comp_apply] using congrArg
+    (fun z : finiteSCarrier => z -
+      (cc20ProlateCommutatorBranch
+        (sourceProlateRemainder lambda) M)
+        (sourceInclusion lambda u)) hblock
+
 /- The actual Sonin commutator inherits the existing outer/second-support/
 prolate owner, so the open estimate can be split along those four branches. -/
 theorem sourceSoninCommutator_eq_threeBranch
