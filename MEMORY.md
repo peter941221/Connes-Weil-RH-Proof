@@ -13,6 +13,12 @@ the B4 wide-radial/Hardy-wide-radial support-certificate consumer; it reduces
 the complete boundary energy to the two actual support identities plus the
 already-open survivor IN leg, without asserting either analytic estimate.
 
+2026-09-17 C1G8R3GapFreeEndpointMoment.lean + Audit : formally verified the
+finite-spectral gap-free endpoint-moment inequality used by S3; it converts
+the zeroth moment into a first-moment term plus explicit endpoint mass, with
+no Friedrichs-gap premise. This is an interface brick only: the actual Sonin
+spectral measure, strip-density bound, and endpoint-mass estimate remain open.
+
 ## CURRENT FRONTIER (2026-09-17, record 1590)
 
 Tower: off-line zero ⇒ qw(g)<0 [formal] ⇒ 0≤qw(g) [THE open gate = classical
