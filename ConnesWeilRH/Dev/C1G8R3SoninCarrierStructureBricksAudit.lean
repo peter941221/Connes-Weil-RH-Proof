@@ -1,0 +1,35 @@
+import ConnesWeilRH.Dev.C1G8R3SoninCarrierStructureBricks
+
+namespace ConnesWeilRH
+namespace Source
+
+namespace CCM25Concrete
+namespace CCM24FiniteSSoninCarrierStructureAudit
+
+open CCM24FiniteSSoninCarrierStructure
+
+#print axioms starProjection_comp_apply_eq_self_iff
+#print axioms radialSupport_comp_fourierSupport_apply_eq_self_iff
+#print axioms sourceSoninProjection_eq_self_iff_mem_radial_and_fourier
+#print axioms sub_sourceSoninProjection_eq_add_defect
+#print axioms norm_sq_sub_sourceSoninProjection_eq_radial_add_defect
+#print axioms sum_norm_sq_sub_starProjection_le_of_quadraticFormGap
+#print axioms radialSupportProjection_eq_self_of_mem_sonin
+#print axioms sourceFourierSupportProjection_eq_self_of_mem_sonin
+#print axioms radialSupportProjection_comp_apply_eq_of_mem_sonin
+
+end CCM24FiniteSSoninCarrierStructureAudit
+end CCM25Concrete
+
+namespace CC20Concrete
+namespace CCM24SoninCarrierInvarianceAudit
+
+open CCM24SoninCarrierInvariance
+
+#print axioms ccm24ArchimedeanHardyTitchmarsh_mem_sonin_iff
+
+end CCM24SoninCarrierInvarianceAudit
+end CC20Concrete
+
+end Source
+end ConnesWeilRH
