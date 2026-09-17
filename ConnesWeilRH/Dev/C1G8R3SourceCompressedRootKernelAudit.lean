@@ -6,9 +6,11 @@ namespace Dev
 #check @sourceCompressedRoot
 #check @sourceCompressedRoot_inner_eq_ambient
 #check @sourceCompressedRoot_normSq_eq_ambient_inner
+#check @sourceCompressedRoot_eq_hardyCorner_add_prolate_terms
 
 #print axioms sourceCompressedRoot_inner_eq_ambient
 #print axioms sourceCompressedRoot_normSq_eq_ambient_inner
+#print axioms sourceCompressedRoot_eq_hardyCorner_add_prolate_terms
 
 end Dev
 end ConnesWeilRH

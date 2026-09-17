@@ -752,3 +752,12 @@ consumer directly from that Fourier equality.  This is a formal consumer
 rewiring, not an analytic producer: the actual Fourier-defect square-sum for
 the visible-prime boundary columns, and the S3 source-compressed root energy,
 remain OPEN.  Evidence: accepted build log `1613_fourier_gap_consumer_retry`.
+
+**Status update (2026-09-18, source-kernel split):** record [1616](../proofs/1616_source_compressed_root_kernel_split.md)
+formally expands the live S3 gate `J† C J` using the exact source identity
+`P = E Q E − R`. The three terms containing the prolate remainder `R` are
+now separated from the central Hardy-corner term `J† (E Q E) C (E Q E) J`.
+This is a formal algebraic narrowing, not an energy estimate: the central
+corner square-sum is still the sole S3 producer target, while the B4 Fourier
+defect producer remains OPEN. Evidence: paired audit build log
+`1616_source_compressed_kernel_split_retry13.log`.
