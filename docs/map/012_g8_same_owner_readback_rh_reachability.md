@@ -903,6 +903,37 @@ irreducible remainder, still phase-typed per the Hardy-pressure finding.
 See [1504](../proofs/1504_r5_same_owner_gate_normal_form.md) and
 [1505](../proofs/1505_route_w_window_tail_normal_form.md).
 
+### Stage-2 modulation verdict, B4 chain wired, channel cycles landed (records 1572-1574, 2026-09-17)
+
+Record [1572](../proofs/1572_T1_exponent_ledger_stage2.md) adjudicates the
+stage-2 (★)-tail question against the committed definitions: the modulation
+`E` is a SHARP half-line indicator (no window symbol to decay), `Q = H E H`
+makes the (★) tail and the B4 obligation ONE operator family, and the
+symbol-decay reading of the modulation is typed dead (edge contributions at
+most `1/log|xi|` by T0a - a logarithmic gain can never cross the power
+threshold `beta > 1`). Surviving mechanisms: positive-ray stationary phase,
+prolate absorption, the `hM` identity, Cotlar T2. Record
+[1573](../proofs/1573_T_B4_instantiation_chain.md) wires the instantiated
+1536 consumer chain for the ACTUAL boundary columns slot by slot (five named
+theorems with line numbers), reducing B4 to exactly one square-sum
+`B4_actual(M, D, N)` PLUS one identity question `Q-hM`; no implicit
+instantiation remains, and B4's shared fate with (★) is now structural.
+Record [1574](../proofs/1574_rho5_channel_cycles_and_qhm_recon.md) lands the
+formal companion leaf `C1G8R5LeakageChannelCycles` (+Audit, try11 GREEN 3957
+jobs, standard axioms): all three named leakage channels of record 1569
+cycle from the source basis onto the BOUNDARY carriers (response onto the
+actual-band pair carrier, total onto the common boundary carrier with its
+minus carried as an operator `Neg`, remainder as the pair sum), giving the
+ρ5 producer its OUT-side interface at the map-042 carrier split. Same
+record delivers the Q-hM verdict: the Sonin carrier is radial by committed
+definition, the Euler transport is a support-preserving DELAY but the actual
+`M_p` contains its adjoint = an ADVANCE by `log p` per prime factor, so the
+FIXED-scale `hM` shortcut is blocked for the actual columns (paper mechanism
+note, not a formal no-go); B4 keeps both 1534 premises unless the registered
+scale-adapted `hM'` (finite `lambda`-shift, permitted by the consumer's
+quantifier) is formalized. No estimate moved anywhere; (★), B4, ρ5,
+transport, R4 all OPEN. RH not claimed.
+
 ### P2 connector landed; phase wave entry fee paid (records 1569-1571, 2026-09-17)
 
 The named follow-up of record 1567 executed: `C1G8R5LeakageChannelPSplit`

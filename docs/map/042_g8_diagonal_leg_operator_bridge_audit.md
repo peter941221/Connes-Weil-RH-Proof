@@ -597,6 +597,24 @@ estimate itself, the source/ambient trace transport, and the P2 connector from
 `sourceBandGramResponse_eq_soninFirstJet_sub_remainder` to the leakage limit
 remain OPEN.  WO-S and WO-B statuses are unchanged.  RH not claimed.
 
+Record 1574 transports the three named channels through committed cyclicity
+(`C1G8R5LeakageChannelCycles`, try11 GREEN 3957 jobs, standard axioms): each
+channel trace indexed on the source basis is restated on the BOUNDARY side -
+response on the actual-band pair carrier, total on the common boundary
+carrier (its sign carried as an operator `Neg` of the cycled endo), remainder
+as the pair sum of the two.  The cycled operands are exactly the pair-leg
+transports `data.left oL K`, `data.right oL K` living on the same carriers as
+the 1492/1493/1495 boundary-leg machinery, which is the formal OUT-side
+interface the rho5 combined-row producer must consume (this IN/OUT split).
+Pure bookkeeping: no estimate, no sign premise, no component identification.
+The same record adjudicates the Q-hM identity question of the 1573 B4 chain:
+the actual `M_p` contains adjoint Euler transports, which are advances across
+the log-radial boundary, so the fixed-scale radial self-adaptation shortcut
+is blocked for the actual columns (paper mechanism note against committed
+definitions, not a formal no-go); B4 keeps both 1534 defect premises pending
+a scale-adapted `hM'` formalization or the honest both-columns estimate.
+WO-S and WO-B statuses are unchanged.  RH not claimed.
+
 Record 1569 then lands exactly that P2 connector:
 `C1G8R5LeakageChannelPSplit` pins the 1480 limit operator as
 `g8R5LeakageTotalChannel = g8R5LeakageRemainderChannel -
