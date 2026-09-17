@@ -10,6 +10,8 @@ namespace Dev
 
 #check @sum_le_gapFree_endpointMoment
 #print axioms sum_le_gapFree_endpointMoment
+#check @tsum_le_gapFree_endpointMoment
+#print axioms tsum_le_gapFree_endpointMoment
 
 end Dev
 end ConnesWeilRH

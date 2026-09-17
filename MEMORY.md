@@ -25,6 +25,11 @@ The wide-supported Hardy component uses the existing composite gap theorem;
 the only new producer input is square-summability of the explicit Hardy tail.
 This replaces the over-strong exact-support premise without closing that tail.
 
+2026-09-17 GapFreeEndpointMoment : extended the finite endpoint-moment bound
+to a countable `tsum` under explicit summability of the zeroth moment, first
+defect, and endpoint-mass sequence. The Lean audit is green; this is the
+limit-exchange interface for S3, not an actual Sonin spectral-measure estimate.
+
 ## CURRENT FRONTIER (2026-09-17, record 1590)
 
 Tower: off-line zero ⇒ qw(g)<0 [formal] ⇒ 0≤qw(g) [THE open gate = classical

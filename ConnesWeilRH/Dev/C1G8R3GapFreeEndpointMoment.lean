@@ -54,5 +54,51 @@ theorem sum_le_gapFree_endpointMoment
           s.sum (fun i => if 1 - epsilon ≤ m i then (1 : ℝ) else 0) := by
       rw [Finset.sum_add_distrib, Finset.mul_sum]
 
+theorem tsum_le_gapFree_endpointMoment
+    (m : ℕ → ℝ) {epsilon : ℝ}
+    (hepsilon : 0 < epsilon) (hepsilon_le : epsilon ≤ 1)
+    (hm_nonneg : ∀ n, 0 ≤ m n)
+    (hm_le_one : ∀ n, m n ≤ 1)
+    (hm_summable : Summable m)
+    (hdefect : Summable (fun n => 1 - m n))
+    (hendpoint : Summable (fun n =>
+      if 1 - epsilon ≤ m n then (1 : ℝ) else 0)) :
+    tsum m ≤
+      (1 + epsilon⁻¹) * tsum (fun n : ℕ => 1 - m n) +
+        tsum (fun n : ℕ => if 1 - epsilon ≤ m n then (1 : ℝ) else 0) := by
+  have hpoint : ∀ n, m n ≤
+      (1 + epsilon⁻¹) * (1 - m n) +
+        (if 1 - epsilon ≤ m n then (1 : ℝ) else 0) := by
+    intro n
+    by_cases hend : 1 - epsilon ≤ m n
+    · simp only [if_pos hend]
+      have hdefectN : 0 ≤ 1 - m n := by linarith [hm_le_one n]
+      have hinv : 0 ≤ epsilon⁻¹ := le_of_lt (inv_pos.mpr hepsilon)
+      nlinarith
+    · have hbelow : m n < 1 - epsilon := lt_of_not_ge hend
+      have hprod : m n * epsilon ≤ 1 - m n := by
+        nlinarith [hm_nonneg n, hm_le_one n, hbelow]
+      have hdiv : m n ≤ (1 - m n) / epsilon :=
+        (le_div_iff₀ hepsilon).2 (by simpa [mul_comm] using hprod)
+      have hquot : m n ≤ epsilon⁻¹ * (1 - m n) := by
+        simpa [div_eq_mul_inv, mul_comm] using hdiv
+      simp only [if_neg hend]
+      have hinv : 0 ≤ epsilon⁻¹ := le_of_lt (inv_pos.mpr hepsilon)
+      nlinarith
+  have hsum : Summable (fun n =>
+      (1 + epsilon⁻¹) * (1 - m n) +
+        (if 1 - epsilon ≤ m n then (1 : ℝ) else 0)) := by
+    exact (hdefect.mul_left (1 + epsilon⁻¹)).add hendpoint
+  have hle := hm_summable.tsum_le_tsum hpoint hsum
+  have hrewrite : tsum (fun n : ℕ =>
+      (1 + epsilon⁻¹) * (1 - m n) +
+        (if 1 - epsilon ≤ m n then (1 : ℝ) else 0)) =
+      (1 + epsilon⁻¹) * tsum (fun n : ℕ => 1 - m n) +
+        tsum (fun n : ℕ => if 1 - epsilon ≤ m n then (1 : ℝ) else 0) := by
+    rw [(hdefect.mul_left (1 + epsilon⁻¹)).tsum_add hendpoint,
+      tsum_mul_left]
+  rw [hrewrite] at hle
+  exact hle
+
 end Dev
 end ConnesWeilRH
