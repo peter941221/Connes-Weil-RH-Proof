@@ -25,6 +25,12 @@ The wide-supported Hardy component uses the existing composite gap theorem;
 the only new producer input is square-summability of the explicit Hardy tail.
 This replaces the over-strong exact-support premise without closing that tail.
 
+2026-09-17 C1G8R3ApproximateHardyBoundaryConsumer.lean + Audit : formally
+assembled the approximate Hardy-tail gap leg with the radial leg for the full
+G8 visible boundary energy.  B4 is now exposed at the actual ledger boundary
+as per-output Hardy-tail square summability; no analytic tail estimate is
+claimed.
+
 2026-09-17 GapFreeEndpointMoment : extended the finite endpoint-moment bound
 to a countable `tsum` under explicit summability of the zeroth moment, first
 defect, and endpoint-mass sequence. The Lean audit is green; this is the

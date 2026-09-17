@@ -715,3 +715,10 @@ decomposition `A = H E_w H A + (A - H E_w H A)`. The first term is handled by
 the existing composite gap theorem; the remaining producer obligation is the
 explicit Hardy-tail square-sum after the root-gap operator. This is FORMAL
 consumer algebra, not an estimate for the actual visible-prime outputs.
+
+Record [1594](../proofs/1594_approximate_hardy_boundary_consumer.md) wires that
+approximate gap consumer into the full G8 visible-boundary energy ledger. The
+boundary theorem now takes, per actual output, the radial support identity and
+the explicit Hardy-tail square sum (plus the existing IN leg). This is FORMAL
+consumer composition; the analytic tail producer remains open and the WO-S /
+WO-B route statuses are unchanged.
