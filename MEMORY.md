@@ -19,6 +19,12 @@ the zeroth moment into a first-moment term plus explicit endpoint mass, with
 no Friedrichs-gap premise. This is an interface brick only: the actual Sonin
 spectral measure, strip-density bound, and endpoint-mass estimate remain open.
 
+2026-09-17 C1G8R3ApproximateHardySupportConsumer.lean + Audit : formally
+verified the B4 truncation consumer `A = H E_w H A + (A - H E_w H A)`.
+The wide-supported Hardy component uses the existing composite gap theorem;
+the only new producer input is square-summability of the explicit Hardy tail.
+This replaces the over-strong exact-support premise without closing that tail.
+
 ## CURRENT FRONTIER (2026-09-17, record 1590)
 
 Tower: off-line zero ⇒ qw(g)<0 [formal] ⇒ 0≤qw(g) [THE open gate = classical

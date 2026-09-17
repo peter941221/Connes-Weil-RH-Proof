@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3ApproximateHardySupportConsumer
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @compositeGapLeg_sourceColumn_normSq_summable_of_approximateHardySupport
+#print axioms compositeGapLeg_sourceColumn_normSq_summable_of_approximateHardySupport
+
+end Dev
+end ConnesWeilRH
