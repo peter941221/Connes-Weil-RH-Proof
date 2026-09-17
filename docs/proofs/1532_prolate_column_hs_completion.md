@@ -22,5 +22,10 @@ two-column consumer now has only one unresolved analytic premise: the signed
 Hardy-sub-identity column `((E Q E) M - M) J` for the actual physical factors.
 No positivity or RH conclusion is asserted.
 
+The corollary
+`sourceSoninCommutator_sourceBasis_normSq_summable_of_hardySubId_factor`
+packages this with the signed consumer of record 1531.  Its sole analytic
+premise is the Hardy-sub-identity column for the actual factorization.
+
 Owning declaration: `ConnesWeilRH.Dev.C1G8R3BoundaryOutputFactorizationBridge`.
 Audit: `...BoundaryOutputFactorizationBridgeAudit`.

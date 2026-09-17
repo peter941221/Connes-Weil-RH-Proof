@@ -548,3 +548,5 @@ column square-summable for every bounded physical `M,D,N`.  Thus the only
 remaining B4 producer obligation at this interface is the signed
 Hardy-sub-identity column `((E Q E) M - M) J`; the prolate leg is FORMAL and
 WO-B remains OPEN solely on that Hardy column and its G8 readback.
+The final reduction theorem packages this as one premise, so no separate
+prolate estimate is needed in future physical-factor consumers.

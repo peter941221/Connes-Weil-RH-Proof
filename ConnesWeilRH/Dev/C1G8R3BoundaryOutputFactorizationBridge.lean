@@ -639,6 +639,32 @@ theorem sourceProlateCommutator_sourceBasis_normSq_summable_of_factor
   exact congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2)
     (DFunLike.congr_fun hEq (sourceBasis i)).symm
 
+/- Final reduction of the B4 square-sum obligation: after the prolate ideal
+leg is discharged by the preceding theorem, only the Hardy-sub-identity
+column remains as an analytic premise. -/
+set_option maxHeartbeats 1000000 in
+theorem sourceSoninCommutator_sourceBasis_normSq_summable_of_hardySubId_factor
+    (lambda : CCM24SoninScale)
+    {ν ρ : Type*} (globalBasis : HilbertBasis ν ℂ finiteSCarrier)
+    (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda))
+    (M D : finiteSCarrier →L[ℂ] finiteSCarrier)
+    (N : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda)
+    (hfactor : Summable fun i : ν =>
+      ‖sourceProlateHilbertSchmidtFactor lambda (globalBasis i)‖ ^ 2)
+    (hhardy : Summable fun i : ρ =>
+      ‖(D ∘L
+          (radialSupportProjection lambda ∘L
+            sourceFourierSupportProjection lambda ∘L
+            radialSupportProjection lambda ∘L M - M) ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2) :
+    Summable fun i : ρ =>
+      ‖(D ∘L cc20Commutator (sourceSoninProjection lambda) M ∘L
+        sourceInclusion lambda ∘L N) (sourceBasis i)‖ ^ 2 := by
+  exact sourceSoninCommutator_sourceBasis_normSq_summable_of_hardySubId_prolate
+    lambda M D N sourceBasis hhardy
+    (sourceProlateCommutator_sourceBasis_normSq_summable_of_factor
+      lambda globalBasis sourceBasis M D N hfactor)
+
 /- The actual Sonin commutator inherits the existing outer/second-support/
 prolate owner, so the open estimate can be split along those four branches. -/
 theorem sourceSoninCommutator_eq_threeBranch
