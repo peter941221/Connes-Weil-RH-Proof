@@ -550,3 +550,10 @@ Hardy-sub-identity column `((E Q E) M - M) J`; the prolate leg is FORMAL and
 WO-B remains OPEN solely on that Hardy column and its G8 readback.
 The final reduction theorem packages this as one premise, so no separate
 prolate estimate is needed in future physical-factor consumers.
+
+Record 1533 gives the remaining Hardy column its exact two-defect normal form:
+`((E Q E) M - M) J = -(I-E) M J - E (I-Q) E M J`.
+The physical factor remains inside both terms and no projection commutation is
+used.  The radial finite-window theorem does not yet instantiate this identity
+for arbitrary actual `M`; the Fourier-gap defect is also unestimated.  This is
+an object-level sharpening only, so WO-B stays OPEN.

@@ -440,6 +440,37 @@ theorem sourceSoninOuterSecondReflected_comp_sourceInclusion_eq_hardySubId
   simp only [hEJu, hQJu]
   abel
 
+/- The remaining Hardy-sub-identity column has an exact radial/Fourier-gap
+decomposition.  The physical factor stays inside both defects. -/
+theorem sourceSoninHardySubId_comp_sourceInclusion_eq_radial_fourierDefect
+    (lambda : CCM24SoninScale) (M : finiteSCarrier →L[ℂ] finiteSCarrier) :
+    (radialSupportProjection lambda ∘L
+          sourceFourierSupportProjection lambda ∘L
+          radialSupportProjection lambda ∘L M - M) ∘L
+        sourceInclusion lambda =
+      -((ContinuousLinearMap.id ℂ finiteSCarrier -
+          radialSupportProjection lambda) ∘L M) ∘L
+        sourceInclusion lambda -
+      (radialSupportProjection lambda ∘L
+          (ContinuousLinearMap.id ℂ finiteSCarrier -
+            sourceFourierSupportProjection lambda) ∘L
+          radialSupportProjection lambda ∘L M) ∘L
+        sourceInclusion lambda := by
+  have hE : radialSupportProjection lambda ∘L
+      radialSupportProjection lambda = radialSupportProjection lambda := by
+    simpa only [ContinuousLinearMap.mul_def] using
+      (radialSupportProjection_isStarProjection lambda).isIdempotentElem
+  apply ContinuousLinearMap.ext
+  intro u
+  have hEu := DFunLike.congr_fun hE
+    (M (sourceInclusion lambda u))
+  simp only [ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.sub_apply, ContinuousLinearMap.neg_apply,
+    ContinuousLinearMap.id_apply, map_sub] at ⊢
+  simp only [ContinuousLinearMap.comp_apply] at hEu
+  rw [hEu]
+  abel
+
 /- The complete source commutator is the signed Hardy-sub-identity block
 followed by the prolate commutator.  This is the cancellation-preserving
 consumer interface; no branchwise Schatten estimate is built into it. -/
