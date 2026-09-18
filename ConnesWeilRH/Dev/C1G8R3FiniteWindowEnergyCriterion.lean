@@ -25,18 +25,18 @@ theorem summable_normSq_of_uniform_finite_window_energy
     [InnerProductSpace ℂ H]
     [NormedAddCommGroup G] [NormedSpace ℂ G]
     (basis : HilbertBasis ι ℂ H) (T : H →L[ℂ] G)
-    (window : ℕ → G →L[ℂ] G)
-    (hstrong : ∀ x, Tendsto (fun n => window n (T x)) atTop (𝓝 (T x)))
+    (approximant : ℕ → H →L[ℂ] G)
+    (hstrong : ∀ x, Tendsto (fun n => approximant n x) atTop (𝓝 (T x)))
     {B : ℝ}
     (hbound : ∀ n (s : Finset ι),
-      ∑ i ∈ s, ‖window n (T (basis i))‖ ^ 2 ≤ B) :
+      ∑ i ∈ s, ‖approximant n (basis i)‖ ^ 2 ≤ B) :
     Summable (fun i => ‖T (basis i)‖ ^ 2) := by
   apply summable_of_sum_le
   · intro i
     positivity
   · intro s
     have hsum : Tendsto
-        (fun n => ∑ i ∈ s, ‖window n (T (basis i))‖ ^ 2)
+        (fun n => ∑ i ∈ s, ‖approximant n (basis i)‖ ^ 2)
         atTop (𝓝 (∑ i ∈ s, ‖T (basis i)‖ ^ 2)) := by
       apply tendsto_finsetSum
       intro i hi

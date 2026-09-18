@@ -1,0 +1,16 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3SourceRootFiniteWindowCriterion
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @sourceCompressedRootFiniteWindow
+#check @sourceCompressedRoot_squareSum_of_uniform_finite_window_energy
+#print axioms sourceCompressedRoot_squareSum_of_uniform_finite_window_energy
+
+end Dev
+end ConnesWeilRH
