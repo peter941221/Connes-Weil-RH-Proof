@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1CarrierCompactObservableWitness
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @not_injective_of_compact_observable_survives_approximate_kernel
+#print axioms not_injective_of_compact_observable_survives_approximate_kernel
+
+end Dev
+end ConnesWeilRH
