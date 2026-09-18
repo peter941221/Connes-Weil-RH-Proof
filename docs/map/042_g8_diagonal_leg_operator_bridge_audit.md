@@ -940,6 +940,16 @@ Round acceptance: `build-logs/sonin_window_transport.log` — recorded in the
 
 ---
 
+**Status update (2026-09-19, conditional endpoint sign):** record
+[1659](../proofs/1659_endpoint_limit_positive_trace_from_survivor_core.md) and
+`Dev/C1G8R3EndpointPositiveTrace.lean` identify the endpoint limit operator
+exactly as `F† ∘L F` with `F = C ∘L (I + N†) ∘L C ∘L J`.  Using the existing
+`g8EndpointGate_iff_survivorCore` equivalence, the survivor-core premise gives
+square-summable columns for `F`, so the endpoint ordinary trace is formally
+nonnegative.  Thus the endpoint sign/readback is no longer an independent
+producer obligation; S3 remains **OPEN** only at the source-compressed
+survivor-core energy estimate.  This is conditional and does not claim RH.
+
 **1629 note (navigation only).** The route map has been redrawn as
 [043](043_route_map_to_rh_after_1629.md). This file's operator-bridge audit
 stands unchanged; what changed is the base's status: the 1628 redirect to
