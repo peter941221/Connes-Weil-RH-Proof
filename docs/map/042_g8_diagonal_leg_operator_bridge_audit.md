@@ -935,3 +935,12 @@ legs unchanged and OPEN; no witness; RH not claimed.**
 
 Round acceptance: `build-logs/sonin_window_transport.log` — recorded in the
 1628 record; the 1626 monotonicity brick remains the standing accepted module.
+
+---
+
+**1629 note (navigation only).** The route map has been redrawn as
+[043](043_route_map_to_rh_after_1629.md). This file's operator-bridge audit
+stands unchanged; what changed is the base's status: the 1628 redirect to
+`D⁺_BM(Λ(m))` is withdrawn as a class misapplication (law F40), the carrier's
+Toeplitz form is now exact and model-checked (`m(−ξ)`, shift `ã = 4π log(1/λ)`),
+and the base is recorded as a Hardy-only phenomenon (`H² \ N⁺`).
