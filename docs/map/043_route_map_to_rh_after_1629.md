@@ -118,6 +118,33 @@ big multiplier theorem (MP 2010, Thm 8.5) is now retrieved *and* audited
 (`l ≳ d` against our `d = 0`, and `p < 1` against `p = 2`), so the criterion
 route to the base is closed for the retrieved theorem, not for the base.
 
+**1632 (the inventory completed).**  MP 2010 was retrieved a second time from
+its **arXiv e-print** (`math/0702497`, the same TeX file as the pinned
+`MIF2.dvi`), so the criteria are verbatim instead of DVI-damaged: the
+Smirnov-Nevanlinna criterion `N^+[e^{i gamma}] != 0 <=> gamma = -alpha + ht`
+with a smooth increasing `alpha`; the Hardy criterion with **`alpha` the
+argument of some inner function** (`Q1` answered: inner, not meromorphic) and
+`e^{-h} in L^{p/2}(R)` (`Q2` answered: one L-1 condition at `p = 2`); Theorem A
+needs `kappa >= 0`, `gamma' >~ -|x|^kappa`, `sigma' >~ |x|^kappa` and gives
+`p < 1/3` (`Q5`, Erratum E: 1631's `p < 1/2` was unsourced); the eps-gap is
+removed only in the corollary's sharp transition at `c`, or in Theorem B
+(all `p <= infinity`) for symbols `J Sbar^a` with `J` **meromorphic inner**, or
+when `U` is inner.  Both all-`p` cases are **out of class**, and now with a
+certificate rather than a phrase: at `z = i(8n+1)/(4 pi)` one orientation of
+`m` has a zero (`|m| ~ 0.314 d`) and the other a pole (`|m| ~ 318/d`) while
+`|m(iy) m(-iy)| = 1`, so the symbol is not inner in either orientation and no
+entire factor cancels the pole.  The quantitative layer is MP 2010 section 2
+(Lemmas 1-5: `ht' <~ |x|^kappa, kappa >= 0 ==> ht = o(|x|^{1+kappa})`; weighted
+version for `kappa in [-1,0)`): **Erratum D** - 1631's "a conjugate can carry at
+most exponent `beta < 1`, our phase is outside" is refuted; density exponent
+`beta` and conjugate exponent `1 + kappa` are different slots coupled by
+`beta < 1 + kappa`, and our phase has `kappa = 0+` with no growth obstruction.
+So the remaining content of `Q3` is a joint density/atoms condition on the BM
+intervals (the shortness sum, critical scaling `l ~ d^{(1-kappa)/2}`), not a
+pointwise ceiling.  Net: the single live route is unchanged - an infinite-type
+witness or a `p = 2` criterion, the latter now known to require a genuinely new
+theorem about symbols with interlaced poles and zeros (F48-F51).
+
 **The inventory (1631).**  "No theorem decides the base" is now a 15-row
 checklist with named sources rather than an assertion: three tools apply as
 stated (MP 2010 Thm A(ii) + Corollary at `p < 1/2`; §4.1's little-multiplier
@@ -280,6 +307,19 @@ F47  a re-typing must be tested at the DEGENERATE parameter and on an
      ASYMMETRIC model: 1630's two-tap form passed its m = 1 check only because
      delta is even; lambda = 1 and a shifted-tap model (mu != 0) separate the
      correct pullback from the wrong one (Erratum C, 1631 sec 7).
+F48  the conjugate slot of a criterion is bounded by the ONE-SIDED LIPSCHITZ
+     exponent, not by the density's power: h in L^1(dPi) gives no pointwise
+     control (ramp: ht(T+d) = (T/pi) log(1/d) + C); with ht' <~ |x|^kappa,
+     kappa >= 0 the ceiling is o(|x|^{1+kappa}), and density exponent beta and
+     conjugate exponent 1 + kappa are different slots coupled by beta < 1+kappa.
+F49  quote the exponent from the primary source: p < 1/3 (not 1/2) in Theorem
+     A(ii), the corollary and Theorem C; the eps-gap is removed only in the
+     meromorphic-inner class (Thm B) or when U is inner.
+F50  prefer the arXiv e-print LaTeX of a paper over its DVI when both exist
+     (MIF2.dvi <-> math/0702497); a DVI-only fallback needs a GLOBAL font scan,
+     since TeX writes each fnt_def once and an isolated page renders nothing.
+F51  "unimodular on R + decaying along one ray" does not make a symbol inner:
+     locate the poles.  Both orientations of m have poles at z = i(8n+1)/(4 pi).
 Stop word: a gate certificate, or a proved refutation of the base.
 ```
 
@@ -293,4 +333,9 @@ retrieved criterion (MP 2010 Thm 8.5 audited out of class at `p = 2`), NOT
 witnessed by any finite-type function (1627 + 1630 §11, defect decaying in `λ`
 from 0.41 to the calibrated floor), and NOT bypassable by a re-decomposition
 (B3 struck, 1630 §8).  The single live route is an infinite-type witness or a
-criterion at `p = 2`. RH not claimed; no gap premise introduced.
+criterion at `p = 2`.  After 1632 the criterion side is sharpened, not opened:
+the criteria are verbatim from the arXiv e-print, the failing slots are exactly
+class (an inner-symbol criterion is structurally closed — pole/zero certificate)
+and exponent (`p < 1/3` against our `p = 2`), the growth and one-sided-Lipschitz
+slots are satisfied (Erratum D), so the remaining content is the density/atoms
+condition on the BM intervals.  RH not claimed; no gap premise introduced.
