@@ -233,5 +233,24 @@ theorem sourceCompressedRoot_squareSum_of_eventual_annular_energy
     exact h
   refine sourceCompressedRoot_squareSum_of_eventual_uniform_finite_window_energy
     owner lambda sourceBasis N hsum
+
+theorem sourceCompressedRoot_squareSum_of_eventual_annular_tsum_energy
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    {ι : Type*}
+    (sourceBasis : HilbertBasis ι ℂ (sourceSoninCarrier lambda))
+    (N : ℕ) (hN : selectedRootSupportRadius owner ≤ (N : ℝ))
+    {B : ℝ}
+    (hannular : ∀ n, N ≤ n →
+      ∑' i, ‖sourceCompressedRootAnnularWindow owner lambda N n
+        (sourceBasis i)‖ ^ 2 ≤ B) :
+    Summable fun i => ‖sourceCompressedRoot owner lambda
+      (sourceBasis i)‖ ^ 2 := by
+  apply sourceCompressedRoot_squareSum_of_eventual_annular_energy
+    owner lambda sourceBasis N hN
+  intro n hn s
+  have hsummable := sourceCompressedRootAnnularWindow_sourceBasis_normSq_summable
+    owner lambda N n hN (le_trans hN (Nat.cast_le.mpr hn)) sourceBasis
+  have hle := hsummable.sum_le_tsum s (fun i _ => sq_nonneg _)
+  exact hle.trans (hannular n hn)
 end Dev
 end ConnesWeilRH
