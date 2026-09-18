@@ -282,5 +282,49 @@ theorem sourceRootCompletedRightCommutatorLeftLeg_eq_translated_doubledShift_def
       simpa only [U, C, Q, b, ContinuousLinearMap.mul_def,
         ContinuousLinearMap.comp_assoc]
 
+/-! The same defect in its projection-complement form.  This spelling is
+useful because it distinguishes the live S3 block from the already controlled
+interior-compression block in the shifted-Hardy reduction. -/
+theorem sourceRootCompletedRightCommutatorLeftLeg_eq_translated_complement_corner
+    (owner : SelectedWeilSquare.SelectedWeilSquareOwner)
+    (lambda : CCM24SoninScale) :
+    sourceRootCompletedRightCommutatorLeftLeg owner lambda =
+      (cc20GlobalLogTranslation (Real.log lambda)).toContinuousLinearMap ∘L
+        rootConvolution owner ∘L
+          (doubledShiftRadialProjection (Real.log lambda) ∘L
+            (ContinuousLinearMap.id ℂ Carrier -
+              sourceFourierSupportProjection unitSoninScale) ∘L
+            doubledShiftRadialProjection (Real.log lambda)) ∘L
+      (cc20GlobalLogTranslation (-Real.log lambda)).toContinuousLinearMap := by
+  rw [sourceRootCompletedRightCommutatorLeftLeg_eq_translated_doubledShift_defect]
+  have hAlt : doubledShiftAlternatingProduct (Real.log lambda) =
+      doubledShiftRadialProjection (Real.log lambda) ∘L
+        sourceFourierSupportProjection unitSoninScale ∘L
+          doubledShiftRadialProjection (Real.log lambda) := by
+    rfl
+  rw [hAlt]
+  have hR :
+      doubledShiftRadialProjection (Real.log lambda) ∘L
+          doubledShiftRadialProjection (Real.log lambda) =
+        doubledShiftRadialProjection (Real.log lambda) := by
+    exact (doubledShiftRadialProjection_isStarProjection
+      (Real.log lambda)).isIdempotentElem
+  have hcorner :
+      doubledShiftRadialProjection (Real.log lambda) -
+          doubledShiftRadialProjection (Real.log lambda) ∘L
+            sourceFourierSupportProjection unitSoninScale ∘L
+              doubledShiftRadialProjection (Real.log lambda) =
+        doubledShiftRadialProjection (Real.log lambda) ∘L
+          (ContinuousLinearMap.id ℂ Carrier -
+            sourceFourierSupportProjection unitSoninScale) ∘L
+            doubledShiftRadialProjection (Real.log lambda) := by
+    apply ContinuousLinearMap.ext
+    intro u
+    have hRu := congrArg (fun L : Carrier →L[ℂ] Carrier => L u) hR
+    simp only [ContinuousLinearMap.comp_apply, ContinuousLinearMap.sub_apply,
+      ContinuousLinearMap.id_apply, map_sub] at hRu ⊢
+    rw [hRu]
+  rw [hcorner]
+
 end Dev
 end ConnesWeilRH
