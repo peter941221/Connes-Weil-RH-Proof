@@ -54,6 +54,8 @@ this is a reduction, not an S3 closure.
 
 **Status update (2026-09-18, direct-kernel interface):** record [1615](../proofs/1615_source_compressed_root_kernel.md) introduces the actual source-carrier operator `J† C J` and its exact ambient matrix-coefficient readback. This is the chosen direct-kernel route for S3; it supplies no energy estimate, so S3 and B4 remain **OPEN**.
 
+**Status update (2026-09-19, Hardy bridge and no-go):** records [1653](../proofs/1653_hardy_off_diagonal_hankel_factor.md) and [1654](../proofs/1654_hardy_off_diagonal_column_consumer.md) formally factor the Hardy defect and give a conditional bridge from off-diagonal columns to the ambient leakage consumer. Record [1655](../proofs/1655_hardy_off_diagonal_full_basis_no_go.md) then proves that the corresponding full-basis estimate is impossible at unit scale whenever the selected source Laplace value is nonzero, using the existing ambient non-Hilbert--Schmidt obstruction. This closes the global-HS shortcut; the live S3 producer remains the detector-specific source-compressed quadratic-energy estimate, and S3 is still **OPEN**.
+
 **Independence audit (2026-09-16):** S3 and B3/B4 are best treated as one
 total diagonal-energy producer with two currently separate estimates. The
 same-owner positivity conclusion C3 is a downstream theorem of the readback

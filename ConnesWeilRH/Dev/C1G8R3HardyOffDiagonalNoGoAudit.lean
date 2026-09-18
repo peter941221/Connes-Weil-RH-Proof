@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3HardyOffDiagonalNoGo
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @not_hardyOffDiagonal_at_unitScale_of_nonzero_sourceLaplace
+#print axioms not_hardyOffDiagonal_at_unitScale_of_nonzero_sourceLaplace
+
+end Dev
+end ConnesWeilRH
