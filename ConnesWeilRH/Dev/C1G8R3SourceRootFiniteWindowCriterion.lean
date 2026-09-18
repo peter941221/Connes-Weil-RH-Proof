@@ -71,6 +71,27 @@ noncomputable def sourceRootAnnularGram
   (sourceRootAnnularOutputWindow owner lambda N n).adjoint ∘L
     sourceRootAnnularOutputWindow owner lambda N n
 
+noncomputable def sourceCompressedRootAnnularGram
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (N n : ℕ) : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda :=
+  (sourceCompressedRootAnnularWindow owner lambda N n).adjoint ∘L
+    sourceCompressedRootAnnularWindow owner lambda N n
+
+theorem sourceCompressedRootAnnularGram_trace_eq_column_energy
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (N n : ℕ) {ι : Type*}
+    (sourceBasis : HilbertBasis ι ℂ (sourceSoninCarrier lambda)) :
+    Source.CC20Concrete.PositiveTrace.ordinaryTraceAlong sourceBasis
+        (sourceCompressedRootAnnularGram owner lambda N n) =
+      ∑' i, ((‖sourceCompressedRootAnnularWindow owner lambda N n
+        (sourceBasis i)‖ ^ 2 : ℝ) : ℂ) := by
+  rw [Source.CC20Concrete.PositiveTrace.ordinaryTraceAlong]
+  apply tsum_congr
+  intro i
+  rw [sourceCompressedRootAnnularGram, ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.adjoint_inner_right, inner_self_eq_norm_sq_to_K]
+  norm_cast
+
 theorem sourceRootAnnularGram_trace_eq_column_energy
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
     (N n : ℕ) {ι : Type*}
