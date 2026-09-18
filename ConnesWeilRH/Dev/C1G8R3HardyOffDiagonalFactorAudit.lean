@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1G8R3HardyOffDiagonalFactor
+
+namespace ConnesWeilRH.Dev
+
+#print axioms doubledShiftHardyDefect_eq_offDiagonal_adjoint_comp_self
+
+end ConnesWeilRH.Dev
