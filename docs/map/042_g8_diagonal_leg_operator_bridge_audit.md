@@ -870,3 +870,31 @@ legs unchanged and OPEN; no witness; RH not claimed.**
 Round acceptance: `build-logs/sonin_scale_monotonicity2.log` — 3319 jobs, zero
 `error:`, zero `sorryAx`, five standard axiom prints, no warning in the two new
 modules.
+
+**Status update (2026-09-18, entire-`W` round; record 1627).**
+[1627](../proofs/1627_entire_w_obligations_two_corrections.md) gives the
+elementary face of the carrier base — `(T')`: one nonzero `g` with
+`supp g ⊆ [0,∞)` and `supp (U_m g) ⊆ (−∞,0]`, i.e. exactly `V_arch(1) ≠ {0}`,
+stated in committed vocabulary with no H² layer — and proves one obstruction:
+**no witness can have finite exponential type.** Reason: `W/A ∈ H²(ℂ₊)` forces
+(pointwise, via the weighted boundary `L²` bound plus subharmonicity) the
+decay `|W(x)| ≲ e^{−π²|x|/2}`, and a finite-type entire function decaying
+exponentially on `ℝ` has compactly supported transform that extends
+analytically across the real axis, hence vanishes identically. So every
+band-limited / Paley–Wiener / finite-type construction is excluded and the
+witness must be of infinite type (the Γ-factor/prolate class). The record also
+files two corrections: **(i)** the carrier is a *conjunction* of two half-line
+support conditions on the same vector and is genuinely scale-dependent (in the
+model `m = 1`, `V_arch(λ) ≠ {0}` exactly for `λ < 1`; no translation moves it
+to `λ = 1`), so 1624 §4's "WO-B premise and carrier base are one analytic
+object" is withdrawn in its equivalence form — they share the multiplier only;
+**(ii)** a drafted closed form `A·B = √π/sin(π/4 − π²iz)` is **false**
+(counterexample `Γ_ℝ(1/2)² = 7.4163 ≠ √(2π) = 2.5066`; the slip is
+`Γ((1−s)/2) ≠ Γ(1−s/2)`), the correct elementary statements being
+`A·B = π^{−1/2}Γ(1/4−πiz)Γ(1/4+πiz)` (so `1/(A B)` is entire with zeros at the
+poles of `A` and `B`) and `Γ_ℝ(s)Γ_ℝ(−s) = −2π/(s sin(πs/2))` (verified at
+`s = 1/2`). **Carrier base OPEN; T4/B4/S3/WO legs unchanged and OPEN; no
+witness; RH not claimed.**
+
+Round acceptance: no build (no new Lean this round); the standing brick is the
+1626 scale-monotonicity module.
