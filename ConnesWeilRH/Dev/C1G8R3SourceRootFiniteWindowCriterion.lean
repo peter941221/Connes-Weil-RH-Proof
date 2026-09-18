@@ -41,6 +41,27 @@ noncomputable def sourceCompressedRootFiniteWindow
     kernelIntervalProjection (-(n : ℝ)) (n : ℝ) 0 ∘L
     rootConvolution owner ∘L sourceInclusion lambda
 
+noncomputable def sourceCompressedRootAnnularWindow
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (N n : ℕ) : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda :=
+  (sourceInclusion lambda).adjoint ∘L
+    (kernelIntervalProjection (-(n : ℝ)) (n : ℝ) 0 -
+      kernelIntervalProjection (-(N : ℝ)) (N : ℝ) 0) ∘L
+    rootConvolution owner ∘L sourceInclusion lambda
+
+theorem sourceCompressedRootFiniteWindow_sub_eq_annularWindow
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (N n : ℕ) :
+    sourceCompressedRootFiniteWindow owner lambda n -
+        sourceCompressedRootFiniteWindow owner lambda N =
+      sourceCompressedRootAnnularWindow owner lambda N n := by
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [sourceCompressedRootFiniteWindow,
+    sourceCompressedRootAnnularWindow, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.comp_apply]
+  exact ((sourceInclusion lambda).adjoint.map_sub _ _).symm
+
 set_option maxHeartbeats 1000000 in
 theorem sourceCompressedRootFiniteWindow_sourceBasis_normSq_summable
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
@@ -99,7 +120,36 @@ theorem sourceCompressedRootFiniteWindow_sourceBasis_normSq_summable
       (sourceInclusion lambda).adjoint z) hi
   simpa only [sourceCompressedRootFiniteWindow, neg_neg,
     ContinuousLinearMap.comp_apply] using congrArg (fun z : sourceSoninCarrier lambda =>
-      ‖z‖ ^ 2) hi'
+    ‖z‖ ^ 2) hi'
+
+theorem sourceCompressedRootAnnularWindow_sourceBasis_normSq_summable
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (N n : ℕ) (hN : selectedRootSupportRadius owner ≤ (N : ℝ))
+    (hn : selectedRootSupportRadius owner ≤ (n : ℝ))
+    {ι : Type*}
+    (sourceBasis : HilbertBasis ι ℂ (sourceSoninCarrier lambda)) :
+    Summable fun i =>
+      ‖sourceCompressedRootAnnularWindow owner lambda N n
+        (sourceBasis i)‖ ^ 2 := by
+  have hN' := sourceCompressedRootFiniteWindow_sourceBasis_normSq_summable
+    owner lambda N hN sourceBasis
+  have hn' := sourceCompressedRootFiniteWindow_sourceBasis_normSq_summable
+    owner lambda n hn sourceBasis
+  have hneg : Summable fun i =>
+      ‖(-sourceCompressedRootFiniteWindow owner lambda N)
+        (sourceBasis i)‖ ^ 2 := by
+    simpa only [ContinuousLinearMap.neg_apply, norm_neg] using hN'
+  have hsum := PositiveTrace.summable_normSq_add sourceBasis
+    (sourceCompressedRootFiniteWindow owner lambda n)
+    (-sourceCompressedRootFiniteWindow owner lambda N) hn' hneg
+  refine hsum.congr (fun i => ?_)
+  have hi := congrArg (fun T : sourceSoninCarrier lambda →L[ℂ]
+      sourceSoninCarrier lambda => T (sourceBasis i))
+    (sourceCompressedRootFiniteWindow_sub_eq_annularWindow owner lambda N n)
+  simpa only [ContinuousLinearMap.add_apply, ContinuousLinearMap.neg_apply,
+    ContinuousLinearMap.sub_apply, sub_eq_add_neg,
+    sourceCompressedRootAnnularWindow] using
+    congrArg (fun z : sourceSoninCarrier lambda => ‖z‖ ^ 2) hi
 
 theorem sourceCompressedRoot_squareSum_of_uniform_finite_window_energy
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
@@ -147,8 +197,8 @@ theorem sourceCompressedRoot_squareSum_of_eventual_annular_energy
     (N : ℕ) (hN : selectedRootSupportRadius owner ≤ (N : ℝ))
     {B : ℝ}
     (hannular : ∀ n, N ≤ n → ∀ s : Finset ι,
-      ∑ i ∈ s, ‖(sourceCompressedRootFiniteWindow owner lambda n -
-        sourceCompressedRootFiniteWindow owner lambda N) (sourceBasis i)‖ ^ 2 ≤ B) :
+      ∑ i ∈ s, ‖sourceCompressedRootAnnularWindow owner lambda N n
+        (sourceBasis i)‖ ^ 2 ≤ B) :
     Summable fun i => ‖sourceCompressedRoot owner lambda (sourceBasis i)‖ ^ 2 := by
   let head := sourceCompressedRootFiniteWindow owner lambda N
   let tail := fun n : ℕ =>
@@ -160,7 +210,10 @@ theorem sourceCompressedRoot_squareSum_of_eventual_annular_energy
   have htail : ∀ n, N ≤ n → ∀ s : Finset ι,
       ∑ i ∈ s, ‖tail n (sourceBasis i)‖ ^ 2 ≤ B := by
     intro n hn s
-    simpa only [tail, head] using hannular n hn s
+    have h := hannular n hn s
+    rw [← sourceCompressedRootFiniteWindow_sub_eq_annularWindow
+      owner lambda N n] at h
+    simpa only [tail, head] using h
   have hwindow := eventual_uniform_finite_window_energy_of_fixed_plus_tail
     sourceBasis head tail hhead N htail
   have hsum : ∀ n, N ≤ n → ∀ s : Finset ι,
