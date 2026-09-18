@@ -102,12 +102,21 @@ What is *known* about it:
 +---------------------------------------+--------------------------------------------------+
 ```
 
-The honest reading: **no theorem decides the base**; it is a Hardy-only
-phenomenon (`H² \ N⁺`), and both model computations that exist (m ≡ 1;
-the shortness diagnostic of 1629 §3) suggest the trivial/benign regime, while
-nothing constructs a witness. 1628's "one decisive number `D⁺_BM`" is
-withdrawn; the remaining candidate criterion is the *big* multiplier theorem
-(Hartmann–Mitkovsky §8, Thm 8.5), whose statement is not yet retrieved.
+The honest reading: **no theorem decides the base**.  The phrase "Hardy-only
+(`H² \ N⁺`)" carried by 1629 §3 is retracted in 1630 §6 (Erratum A) - it is
+vacuous, because `H^p ⊂ N⁺` for every `p` and `N⁺ ∩ L² = H²` (Smirnov), so the
+`p = 2` case *is* the Hardy kernel and needs no exclusion; what survives of the
+phrase is the *correct* content that the base is the `p = 2` endpoint of the
+`N_p` scale (law F42).  Model computations: `m ≡ 1` gives nontrivial iff
+`λ < 1`; the 1630 §11 finite-section probe shows the real symbol has
+`sigma_min(K)` saturating in `K` and decaying in `λ` (`0.4125, 0.0682, 0.0260,
+2.99e-6` at `λ = 1, 1/2, 1/e, 0.1`), i.e. the base is approximable by
+finite-type data but not attained by it, while nothing constructs an
+infinite-type witness. 1628's "one decisive number `D⁺_BM`" is withdrawn.  The
+big multiplier theorem (MP 2010, Thm 8.5) is now retrieved *and* audited
+(1630 §2, §4): its hypotheses put it outside our symbol's class at `p = 2`
+(`l ≳ d` against our `d = 0`, and `p < 1` against `p = 2`), so the criterion
+route to the base is closed for the retrieved theorem, not for the base.
 
 ## 5. Decision tree — the four ways forward
 
@@ -162,6 +171,55 @@ Cost ordering (what to spend next, in order):
 +----+------------------------------------------------------------+-----------+---------------------+
 ```
 
+**1630 execution (the whole batch of the table above is DONE).**  Records:
+1630 (`docs/proofs/1630_mp2010_primary_source_bm_interval_and_shortness_direction.md`),
+sections 3, 10, 11 for rows 1, 2, 4 respectively; the Lean brick
+`Dev/StripDensityTraceLedger` + audit for row 3; section 8 of the record for
+row 5.
+
+```text
++----+---------------------------+--------------------------------------------------+
+| #  | row                       | outcome                                          |
++----+---------------------------+--------------------------------------------------+
+| 1  | MP 2010 classification    | BM(phase) is ONE interval with d = 0, so the      |
+|    |                           | shortness sum is VACUOUS for every beta, lambda;  |
+|    |                           | the direction is short => NONTRIVIAL (Erratum A); |
+|    |                           | in class only for p < 1/2, not p = 2 (the gap)    |
+| 2  | B4-scalar per column      | the literal premise FAILS for all three column    |
+|    |                           | classes; mechanism |m| ~ |x|^{2 pi y} vs decay,   |
+|    |                           | threshold y = 1/(4 pi); support algebra makes the |
+|    |                           | literal line degenerate -> orientation flag       |
+| 3  | StripDensity trace layer  | brick landed (2662 jobs, standard axioms, zero    |
+|    |                           | warnings in the new modules); 1625's operator     |
+|    |                           | sandwich refuted by an explicit C^2 witness       |
+| 4  | Toeplitz kernel probe     | no finite-type witness at any lambda (1627        |
+|    |                           | confirmed numerically); sigma_min saturates in K  |
+|    |                           | and decays in lambda: 0.4125, 0.0682, 0.0260,     |
+|    |                           | 2.99e-6 (0.1), <= 1.8e-11 (0.01) - approximable   |
+|    |                           | but not attained                                  |
+| 5  | B3 re-decomposition       | STRUCK: no provably nonempty substitute exists    |
+|    |                           | (inside = base in disguise, larger kills the      |
+|    |                           | distance terms, other skeleton = rename)          |
++----+---------------------------+--------------------------------------------------+
+```
+
+New laws from this batch:
+
+```text
+F41  read the DIRECTION and the exponent off the primary source: "shortness"
+     in the BM sense is a nonvanishing mechanism (short => kernel != 0), and
+     the criterion's p-range is part of its hypotheses.
+F42  name the kernel class and the exponent before invoking a criterion:
+     H^p subset N^+ makes "outside N^+" vacuous, and N^+ cap L^2 = H^2 makes
+     the p = 2 case exactly the Hardy kernel (Smirnov).
+F43  a numeric floor is a property of the rig, not of the object: calibrate it
+     on a case with a known exact answer, and quote every reading against it
+     (here: window-edge leakage, 4.1e-8 at |xi| <= 64, 1.8e-11 at 128).
+F44  a committed formula can be degenerate by its own support algebra (B4-scalar
+     with K and the columns on one half-line): check the formula's own support
+     before treating its failure as evidence.
+```
+
 ## 6. Guardrails carried forward
 
 ```text
@@ -173,12 +231,28 @@ F38  audit cited criteria's HYPOTHESES against the actual symbol.
 F39  check growth constants numerically at one point (pi^{s/2} bookkeeping).
 F40  audit the criterion's MODEL CLASS, not only the phase hypotheses:
      a node sequence is not a symbol.
+F41  read the DIRECTION and the exponent off the primary source: shortness in
+     the BM sense is a NONVANISHING mechanism (short => kernel != 0), and the
+     criterion's p-range is part of its hypotheses.
+F42  name the kernel class and the exponent before invoking a criterion:
+     H^p subset N^+ makes "outside N^+" vacuous; N^+ cap L^2 = H^2 makes the
+     p = 2 case exactly the Hardy kernel (Smirnov).
+F43  a numeric floor is a property of the rig, not of the object: calibrate it
+     on a case with a known exact answer and quote every reading against it.
+F44  a committed formula can be degenerate by its own support algebra
+     (B4-scalar with K and the columns on one half-line): check the formula's
+     own support before treating its failure as evidence.
 Stop word: a gate certificate, or a proved refutation of the base.
 ```
 
 ## 7. One-line status
 
 Tower formal; gate = `0 ≤ qw(g)` = `(★)` = `P C P` HS; residual skeleton exact
-and closed except `StripDensity` content and the carrier distances; both WO legs
-rest on a base that 1629 places outside every classical criterion. RH not
-claimed; no gap premise introduced.
+and closed except `StripDensity` content and the carrier distances; the
+`StripDensity` trace layer is landed (brick + refutation of 1625's sandwich);
+both WO legs rest on the carrier base, which after 1630 is: NOT decided by any
+retrieved criterion (MP 2010 Thm 8.5 audited out of class at `p = 2`), NOT
+witnessed by any finite-type function (1627 + 1630 §11, defect decaying in `λ`
+from 0.41 to the calibrated floor), and NOT bypassable by a re-decomposition
+(B3 struck, 1630 §8).  The single live route is an infinite-type witness or a
+criterion at `p = 2`. RH not claimed; no gap premise introduced.
