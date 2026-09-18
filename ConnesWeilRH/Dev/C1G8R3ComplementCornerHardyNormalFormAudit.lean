@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1G8R3ComplementCornerHardyNormalForm
+
+namespace ConnesWeilRH.Dev
+
+#print axioms doubledShiftComplementCorner_conjugate_eq_hardyDefect
+
+end ConnesWeilRH.Dev
