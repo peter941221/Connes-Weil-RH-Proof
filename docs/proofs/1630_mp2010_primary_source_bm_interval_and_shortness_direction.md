@@ -74,8 +74,9 @@ Consumer (named, unchanged): the healthy-`CompactLog` B5 statement
                      of the carrier base (section 10).
 (I) TOEPLITZ PROBE (4)  the finite section of T_U = P_+ M_U P_+ on the
                      translate family of one bump: sigma_min(K) SATURATES in K
-                     from K = 2 on (enlarging the finite-type section buys
-                     nothing) and depends only on lambda:
+                     (total drift below 0.5% from K = 1 to K = 16: enlarging
+                     the finite-type section buys nothing) and depends only on
+                     lambda:
                      0.4125 (lambda = 1), 0.06824 (1/2), 0.02600 (1/e),
                      2.991e-6 (0.1), <= floor (0.01).  No finite-type witness
                      exists at any lambda (consistent with 1627), and the
