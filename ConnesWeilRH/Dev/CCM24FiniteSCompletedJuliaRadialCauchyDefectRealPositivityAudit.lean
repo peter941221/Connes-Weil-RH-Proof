@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.CCM24FiniteSCompletedJuliaRadialCauchyDefectRealPositivity
+
+namespace ConnesWeilRH
+namespace Source
+namespace CCM25Concrete
+namespace CCM24FiniteSCompletedJuliaRadialCauchyDefectRealPositivity
+
+#check @radialSoninBoundaryCauchyDefect_trace_re_nonnegative
+#print axioms radialSoninBoundaryCauchyDefect_trace_re_nonnegative
+
+end CCM24FiniteSCompletedJuliaRadialCauchyDefectRealPositivity
+end CCM25Concrete
+end Source
+end ConnesWeilRH
