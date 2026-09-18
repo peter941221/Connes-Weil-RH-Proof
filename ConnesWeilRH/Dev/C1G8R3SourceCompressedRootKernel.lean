@@ -66,6 +66,51 @@ theorem sourceCompressedRoot_normSq_eq_ambient_inner
   exact (inner_self_eq_norm_sq (𝕜 := ℂ)
     (sourceCompressedRoot owner lambda u)).symm
 
+/-! The compressed output is the Sonin projection output viewed in the
+source carrier.  This is the norm-preserving bridge needed to transport the
+S3 square-sum to the Hardy-corner formulation below. -/
+theorem sourceInclusion_sourceCompressedRoot_eq_projectedRoot
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (u : sourceSoninCarrier lambda) :
+    sourceInclusion lambda (sourceCompressedRoot owner lambda u) =
+      sourceSoninProjection lambda
+        (rootConvolution owner (sourceInclusion lambda u)) := by
+  change ((sourceInclusion lambda) ∘L
+      (sourceInclusion lambda).adjoint)
+      (rootConvolution owner (sourceInclusion lambda u)) = _
+  rw [sourceInclusion_comp_adjoint]
+
+theorem sourceCompressedRoot_norm_eq_projectedRoot
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (u : sourceSoninCarrier lambda) :
+    ‖sourceCompressedRoot owner lambda u‖ =
+      ‖sourceSoninProjection lambda
+        (rootConvolution owner (sourceInclusion lambda u))‖ := by
+  have h := sourceInclusion_sourceCompressedRoot_eq_projectedRoot owner lambda u
+  calc
+    ‖sourceCompressedRoot owner lambda u‖ =
+        ‖sourceInclusion lambda (sourceCompressedRoot owner lambda u)‖ := by
+          rfl
+    _ = ‖sourceSoninProjection lambda
+        (rootConvolution owner (sourceInclusion lambda u))‖ := by
+          rw [h]
+
+theorem sourceCompressedRoot_squareSum_iff_projectedRoot_squareSum
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) :
+    (Summable fun i : ρ =>
+      ‖sourceCompressedRoot owner lambda (sourceBasis i)‖ ^ 2) ↔
+    (Summable fun i : ρ =>
+      ‖sourceSoninProjection lambda
+        (rootConvolution owner (sourceInclusion lambda (sourceBasis i)))‖ ^ 2) := by
+  constructor
+  · intro h
+    exact h.congr (fun i => congrArg (fun r : ℝ => r ^ 2)
+      (sourceCompressedRoot_norm_eq_projectedRoot owner lambda (sourceBasis i)))
+  · intro h
+    exact h.congr (fun i => congrArg (fun r : ℝ => r ^ 2)
+      (sourceCompressedRoot_norm_eq_projectedRoot owner lambda (sourceBasis i)).symm)
+
 /-- Exact four-term expansion of the source-compressed root.  Here `A = E Q E`
 is the Hardy-compressed ambient corner and `R` is the committed prolate
 remainder.  Thus the only term not containing the already controlled prolate

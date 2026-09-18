@@ -6,11 +6,17 @@ namespace Dev
 #check @sourceCompressedRoot
 #check @sourceCompressedRoot_inner_eq_ambient
 #check @sourceCompressedRoot_normSq_eq_ambient_inner
+#check @sourceInclusion_sourceCompressedRoot_eq_projectedRoot
+#check @sourceCompressedRoot_norm_eq_projectedRoot
+#check @sourceCompressedRoot_squareSum_iff_projectedRoot_squareSum
 #check @sourceCompressedRoot_eq_hardyCorner_add_prolate_terms
 #check @sourceCompressedRoot_eq_hardyCorner_sub_prolate_term
 
 #print axioms sourceCompressedRoot_inner_eq_ambient
 #print axioms sourceCompressedRoot_normSq_eq_ambient_inner
+#print axioms sourceInclusion_sourceCompressedRoot_eq_projectedRoot
+#print axioms sourceCompressedRoot_norm_eq_projectedRoot
+#print axioms sourceCompressedRoot_squareSum_iff_projectedRoot_squareSum
 #print axioms sourceCompressedRoot_eq_hardyCorner_add_prolate_terms
 #print axioms sourceCompressedRoot_eq_hardyCorner_sub_prolate_term
 
