@@ -9,6 +9,7 @@ namespace ConnesWeilRH
 namespace Dev
 
 #check @sourceCompressedRootFiniteWindow
+#check @sourceCompressedRootFiniteWindow_sourceBasis_normSq_summable
 #check @sourceCompressedRoot_squareSum_of_uniform_finite_window_energy
 #print axioms sourceCompressedRoot_squareSum_of_uniform_finite_window_energy
 

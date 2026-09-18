@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 import ConnesWeilRH.Dev.C1G8R3FiniteWindowEnergyCriterion
 import ConnesWeilRH.Dev.C1G8R3SourceCompressedRootKernel
+import ConnesWeilRH.Dev.C1G8R3CompactRootWindowEnergy
 
 /-!
 # Finite-window criterion specialized to the source-compressed root
@@ -19,8 +20,11 @@ namespace ConnesWeilRH
 namespace Dev
 
 open Filter
+open MeasureTheory
 open Source.CC20Concrete
+open Source.CC20Concrete.CompactRootHalfLinePair
 open Source.CCM25Concrete.CCM24FiniteSGramResponse
+open Source.CCM25Concrete.CCM24FiniteSProjectionTrace
 open Source.CCM25Concrete.CCM24FiniteSBandTrace
 open Source.CCM25Concrete.SelectedCrossingOperatorBridge
 open Source.CCM25Concrete.SelectedWeilSquare
@@ -36,6 +40,66 @@ noncomputable def sourceCompressedRootFiniteWindow
   (sourceInclusion lambda).adjoint ∘L
     kernelIntervalProjection (-(n : ℝ)) (n : ℝ) 0 ∘L
     rootConvolution owner ∘L sourceInclusion lambda
+
+set_option maxHeartbeats 1000000 in
+theorem sourceCompressedRootFiniteWindow_sourceBasis_normSq_summable
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (n : ℕ) (hn : selectedRootSupportRadius owner ≤ (n : ℝ))
+    {ι : Type*}
+    (sourceBasis : HilbertBasis ι ℂ (sourceSoninCarrier lambda)) :
+    Summable fun i =>
+      ‖sourceCompressedRootFiniteWindow owner lambda n (sourceBasis i)‖ ^ 2 := by
+  obtain ⟨κ, inputBasis, _⟩ :=
+    exists_hilbertBasis (𝕜 := ℂ)
+      (E := Lp ℂ 2 (volume : Measure
+        (BoundaryFullInputInterval (-(n : ℝ)) (n : ℝ))))
+  obtain ⟨τ, outputBasis, _⟩ :=
+    exists_hilbertBasis (𝕜 := ℂ)
+      (E := Lp ℂ 2 (volume : Measure
+        (BoundaryOutputInterval (-(n : ℝ)) (n : ℝ))))
+  let F := fullBoundaryRootFactor owner.sourceTest (-(n : ℝ)) (n : ℝ)
+  let FJ := F ∘L sourceInclusion lambda
+  have hsupp : Function.support owner.sourceTest.test ⊆
+      Set.Icc (-(n : ℝ)) (n : ℝ) := by
+    intro x hx
+    have hroot := selectedRoot_sourceTest_support_subset owner hx
+    constructor <;> linarith [hn, hroot.1, hroot.2]
+  have hF : Summable fun i =>
+      ‖F (sourceInclusion lambda (sourceBasis i))‖ ^ 2 := by
+    exact selectedRoot_fullWindowFactor_sourceBasis_normSq_summable
+      owner lambda (-(n : ℝ)) (n : ℝ) inputBasis outputBasis sourceBasis
+  have hFJ : Summable fun i => ‖FJ (sourceBasis i)‖ ^ 2 := by
+    simpa only [FJ, ContinuousLinearMap.comp_apply] using hF
+  let Z := kernelIntervalL2ZeroExtension (-(n : ℝ))
+    (-(-(n : ℝ))) 0
+  have hZF : Summable fun i =>
+      ‖Z (FJ (sourceBasis i))‖ ^ 2 := by
+    exact PositiveTrace.summable_normSq_postcomp sourceBasis FJ Z hFJ
+  have hZFp : Summable fun i =>
+      ‖(sourceInclusion lambda).adjoint
+        (Z (FJ (sourceBasis i)))‖ ^ 2 := by
+    exact PositiveTrace.summable_normSq_postcomp sourceBasis (Z ∘L FJ)
+      (sourceInclusion lambda).adjoint hZF
+  refine hZFp.congr (fun i => ?_)
+  have hfactor : Z ∘L FJ =
+      kernelIntervalProjection (-(n : ℝ)) (-(-(n : ℝ))) 0 ∘L
+        rootConvolution owner ∘L sourceInclusion lambda := by
+    dsimp [Z, FJ, F, rootConvolution]
+    rw [fullBoundaryRootFactor_eq_globalConvolution owner.sourceTest
+      (-(n : ℝ)) (n : ℝ) hsupp]
+    unfold kernelIntervalProjection
+    simp only [kernelIntervalL2ZeroExtension_eq_adjoint_globalL2ToKernelInterval,
+      ContinuousLinearMap.adjoint_adjoint, ContinuousLinearMap.comp_assoc]
+  have hi : (Z ∘L FJ) (sourceBasis i) =
+      (kernelIntervalProjection (-(n : ℝ)) (-(-(n : ℝ))) 0 ∘L
+        rootConvolution owner ∘L sourceInclusion lambda) (sourceBasis i) :=
+    congrArg (fun A : sourceSoninCarrier lambda →L[ℂ] finiteSCarrier =>
+      A (sourceBasis i)) hfactor
+  have hi' := congrArg (fun z : finiteSCarrier =>
+      (sourceInclusion lambda).adjoint z) hi
+  simpa only [sourceCompressedRootFiniteWindow, neg_neg,
+    ContinuousLinearMap.comp_apply] using congrArg (fun z : sourceSoninCarrier lambda =>
+      ‖z‖ ^ 2) hi'
 
 theorem sourceCompressedRoot_squareSum_of_uniform_finite_window_energy
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
