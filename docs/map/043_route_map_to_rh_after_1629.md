@@ -118,6 +118,32 @@ big multiplier theorem (MP 2010, Thm 8.5) is now retrieved *and* audited
 (`l ≳ d` against our `d = 0`, and `p < 1` against `p = 2`), so the criterion
 route to the base is closed for the retrieved theorem, not for the base.
 
+**The inventory (1631).**  "No theorem decides the base" is now a 15-row
+checklist with named sources rather than an assertion: three tools apply as
+stated (MP 2010 Thm A(ii) + Corollary at `p < 1/2`; §4.1's little-multiplier
+proposition with the `d = 0` transfer gap; the maximal-vector structure theorem
+of Câmara–Partington), six are out of class with one named failing hypothesis
+each (Thm B; §5.1's big multiplier — `γ` of bounded variation and `γ′` bounded
+below; the "crucial part" sub-problem `h̃′ ≲ 1`; the BM density criterion,
+which needs a meromorphic-inner symbol; the classical `|Ψ′| ≲ 1` multiplier;
+de Branges' classical machinery, dead because `A` is not Hermite–Biehler), and
+the target is MP 2010 (1.6)'s Hardy clause at `p = 2`.  The five open questions
+(`Q1` inner-vs-meromorphic `Θ`; `Q2` `e^h ∈ L¹(ℝ)` vs `L²(ℝ)`; `Q3` the joint
+`h̃` ceiling; `Q4` transfer to `d = 0`; `Q5` removability of the `ε`-gap) and
+the five retrieval targets are in
+[1631](../proofs/1631_base_weapon_inventory_and_erratum_c.md) §8.
+
+Two quantitative facts from 1631 that bound the route: the committed phase is
+`ψ(x) ~ +2πx log|x|` with `|γ′| ~ 2π log|x|` (logarithmic, *below* every
+polynomial — hence inside the survey's generalized multiplier form, see the flag
+in 1631 §8), and the two growth budgets differ by one power: an `L¹(dΠ)`
+conjugate can carry exponent `< 1`, an inner-function argument can carry `< 2`,
+while our phase sits at `1 + o(1)`.  So the growth must come from `Θ` (the
+measure side) and the criterion is *not* obstructed by a crude growth count —
+the obstruction, if any, is the joint density/atoms constraint (`Q3`).  Also
+recorded: **Erratum C** — 1630 §8's two-tap form reads `w(−·) * h(· + c) = w * g`
+with `c = 2 log λ`, not `w(· − ã/2π) * h = w * g` (three checks in 1631 §7).
+
 ## 5. Decision tree — the four ways forward
 
 ```text
@@ -242,6 +268,18 @@ F43  a numeric floor is a property of the rig, not of the object: calibrate it
 F44  a committed formula can be degenerate by its own support algebra
      (B4-scalar with K and the columns on one half-line): check the formula's
      own support before treating its failure as evidence.
+F45  an inventory row IS its hypotheses: a tool is listed only with (statement
+     verbatim, source, hypothesis list, the single failing hypothesis when out
+     of class); a row without a retrieved statement is a POINTER and carries no
+     verdict (1631 row B2).
+F46  class, exponent and eps-gap are part of a statement: "short" drives
+     nontriviality in N_p (p < 1/2), representability up to eps x in N^+, and
+     triviality of the PERTURBED symbol in H^2; quoting the word across classes
+     is quoting a theorem without its exponent (1631 sec 5).
+F47  a re-typing must be tested at the DEGENERATE parameter and on an
+     ASYMMETRIC model: 1630's two-tap form passed its m = 1 check only because
+     delta is even; lambda = 1 and a shifted-tap model (mu != 0) separate the
+     correct pullback from the wrong one (Erratum C, 1631 sec 7).
 Stop word: a gate certificate, or a proved refutation of the base.
 ```
 
