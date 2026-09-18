@@ -5,6 +5,8 @@ namespace Dev
 
 #check @not_injective_of_compact_observable_survives_approximate_kernel
 #print axioms not_injective_of_compact_observable_survives_approximate_kernel
+#check @exists_ne_zero_mem_kernel_of_compact_observable_survives_approximate_kernel
+#print axioms exists_ne_zero_mem_kernel_of_compact_observable_survives_approximate_kernel
 
 end Dev
 end ConnesWeilRH

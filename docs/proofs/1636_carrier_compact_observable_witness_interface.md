@@ -32,10 +32,12 @@ uniform lower bound, a spectral gap, or a weakly convergent subsequence.
 ## 2. Formal artifact
 
 `ConnesWeilRH/Dev/C1CarrierCompactObservableWitness.lean` adds
-`not_injective_of_compact_observable_survives_approximate_kernel`, with the
-paired audit module. The proof is a direct contrapositive use of the already
-formalized compact-output theorem, so no analytic conclusion is hidden in the
-interface.
+`not_injective_of_compact_observable_survives_approximate_kernel` and the
+consumer-facing
+`exists_ne_zero_mem_kernel_of_compact_observable_survives_approximate_kernel`,
+with the paired audit module. The proofs are a direct contrapositive use of
+the already formalized compact-output theorem, so no analytic conclusion is
+hidden in the interface.
 
 Owning and audit build:
 

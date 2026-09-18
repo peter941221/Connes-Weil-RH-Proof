@@ -50,5 +50,25 @@ theorem not_injective_of_compact_observable_survives_approximate_kernel
     (compact_output_tendsto_zero_of_injective_approximate_kernel
       D K hD hK x hbounded hzero)
 
+/-- The non-injectivity conclusion is exactly a nonzero kernel vector. -/
+theorem exists_ne_zero_mem_kernel_of_compact_observable_survives_approximate_kernel
+    (D : H →L[ℂ] G) (K : H →L[ℂ] J)
+    (hK : IsCompactOperator K)
+    (x : ℕ → H)
+    (hbounded : Bornology.IsBounded (Set.range x))
+    (hzero : Tendsto (fun n ↦ D (x n)) atTop (nhds 0))
+    (hsurvives : ¬ Tendsto (fun n ↦ K (x n)) atTop (nhds 0)) :
+    ∃ y : H, y ≠ 0 ∧ D y = 0 := by
+  have hnot : ¬ Function.Injective D :=
+    not_injective_of_compact_observable_survives_approximate_kernel
+      D K hK x hbounded hzero hsurvives
+  by_contra h
+  apply hnot
+  intro a b hab
+  by_contra hne
+  apply h
+  refine ⟨a - b, sub_ne_zero.mpr hne, ?_⟩
+  rw [map_sub, hab, sub_self]
+
 end Dev
 end ConnesWeilRH
