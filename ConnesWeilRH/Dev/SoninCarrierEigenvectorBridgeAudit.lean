@@ -1,0 +1,25 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.SoninCarrierEigenvectorBridge
+
+namespace ConnesWeilRH
+namespace Dev
+namespace SoninCarrierEigenvectorBridge
+
+#check @archimedeanSoninCarrier_nontrivial_iff_radial_eigenvector
+#print axioms archimedeanSoninCarrier_nontrivial_iff_radial_eigenvector
+#check @exists_radial_eigenvector_of_carrier_ne_zero
+#print axioms exists_radial_eigenvector_of_carrier_ne_zero
+#check @archimedeanSoninCarrier_nontrivial_of_fixed_radial
+#print axioms archimedeanSoninCarrier_nontrivial_of_fixed_radial
+#check @archimedeanSoninCarrier_nontrivial_of_antifixed_radial
+#print axioms archimedeanSoninCarrier_nontrivial_of_antifixed_radial
+#check @radial_eigenvector_mem_carrier
+#print axioms radial_eigenvector_mem_carrier
+
+end SoninCarrierEigenvectorBridge
+end Dev
+end ConnesWeilRH

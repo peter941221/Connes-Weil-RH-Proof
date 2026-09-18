@@ -1,0 +1,31 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3StripConfinement
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @wideRadialScale_add
+#print axioms wideRadialScale_add
+#check @wideRadial_support_comp
+#print axioms wideRadial_support_comp
+#check @radialComplement_comp_eq_wideProjection_sub
+#print axioms radialComplement_comp_eq_wideProjection_sub
+#check @radialComplement_comp_eq_stripProjection
+#print axioms radialComplement_comp_eq_stripProjection
+#check @radialComplement_comp_comp_eq_stripProjection
+#print axioms radialComplement_comp_comp_eq_stripProjection
+#check @radialComplement_apply_eq_strip_of_mem_wideRadial
+#print axioms radialComplement_apply_eq_strip_of_mem_wideRadial
+#check @suffixEulerFrameAmbientLossColumn_radialDefect_eq_strip
+#print axioms suffixEulerFrameAmbientLossColumn_radialDefect_eq_strip
+#check @suffixEulerFrameSchurStep_boundaryDagger_radialDefect_eq_strip
+#print axioms suffixEulerFrameSchurStep_boundaryDagger_radialDefect_eq_strip
+#check @hardyColumn_radialDefect_eq_strip_of_wideHardySupport
+#print axioms hardyColumn_radialDefect_eq_strip_of_wideHardySupport
+
+end Dev
+end ConnesWeilRH

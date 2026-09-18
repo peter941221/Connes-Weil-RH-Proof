@@ -771,3 +771,44 @@ the unnecessary right Hardy corner from the active producer target. It is
 still a formal reduction: the central energy estimate and B4 producer remain
 OPEN. Evidence: paired audit build log
 `1617_source_compressed_kernel_one_sided_retry3.log`.
+
+**Status update (2026-09-18, wave preflight + strip brick + carrier bridge):**
+route re-review [1618](../proofs/1618_route_rereview_s3_b4_carrier.md) found
+the registered S3 brick already landed, so the S3 spend is zero and the
+five-form equivalence table is filed as
+[1620](../proofs/1620_s3_reduction_layer_complete.md): the open estimate is
+one analytic statement in the equivalent forms ambient `P C P`, source gate
+`J† C J`, source input `C J`, Hardy-compressed root `E Q E C J`, and source
+projection `P C J` (`C1G8R3GateAmbientNormalForm.lean`, links 1–5). **S3
+remains OPEN**; the guardrails (no Friedrichs gap, no ambient HS shortcut, no
+`qw`-sign premise) are unchanged.
+
+B4 side: [1619](../proofs/1619_strip_confinement_landed_signed_b4_target.md)
+lands record 1575 section 3.3 as support algebra in
+`ConnesWeilRH/Dev/C1G8R3StripConfinement.lean` (+ audit), nine declarations:
+the radial defect of any wide-certified operator is the translated finite
+strip projection on `[log λ − s, log λ)`, with additive scale composition and
+no caller premise for the two committed physical columns at width exactly
+`log p`. The signed corollary
+`hardyColumn_radialDefect_eq_strip_of_wideHardySupport` shows that under the
+wide Hardy certificate (the premise the 1612/1613 consumers take) the
+unbounded reach of `1 − E_λ` of record [1599](../proofs/1599_b4_unbounded_reflected_tail_boundary.md)
+collapses to that finite strip. This is support algebra only (law F29): no
+decay, no Hilbert–Schmidt, no trace statement; the certificate for actual
+columns and the `hgap` Fourier leg remain the open B4 producer. **WO-B
+unchanged, B4 OPEN.**
+
+Carrier side: [1621](../proofs/1621_carrier_eigenvector_bridge_and_t4_route.md)
+machine-checks that carrier nonemptiness is exactly the existence of a
+nonzero radial `±1` eigenvector of the committed Hardy–Titchmarsh involution
+(`SoninCarrierEigenvectorBridge.lean` + audit, five declarations), and files
+the paper-level half-phase computation `U H U⁻¹ = R` for
+`U = F⁻¹ M_{m^{-1/2}} F`. The base obligation `archimedeanSoninCarrier_nontrivial`
+is still a `def`, not a theorem (law F33), so records 1586–1589 stay
+CONDITIONAL and the de Branges existence reading of
+[1590](../proofs/1590_carrier_base_obligation_is_a_de_branges_existence_and_1331_erratum.md)
+is unchanged; T4 of `docs/proofs/1003` remains the productive route.
+
+Wave acceptance: `build-logs/1618_strip_confinement_carrier_bridge.log` — 4076
+jobs, zero `error:`, zero `sorryAx`, 14 standard axiom prints, no warning in
+the new modules. RH not claimed.
