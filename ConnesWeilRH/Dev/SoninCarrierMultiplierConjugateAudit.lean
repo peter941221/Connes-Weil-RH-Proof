@@ -1,0 +1,34 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.SoninCarrierMultiplierConjugate
+
+/-!
+Audit for `SoninCarrierMultiplierConjugate.lean`: print the statements and the
+axiom footprint of every declaration.
+-/
+
+open ConnesWeilRH.Dev.SoninCarrierMultiplierConjugate
+
+#check @ccm24LogSpectralReflection_apply_involutive
+#print axioms ccm24LogSpectralReflection_apply_involutive
+#check @archimedeanMultiplierConjugate
+#print axioms archimedeanMultiplierConjugate
+#check @archimedeanMultiplierConjugate_apply
+#print axioms archimedeanMultiplierConjugate_apply
+#check @ccm24ArchimedeanHardyTitchmarsh_apply_eq_reflection_multiplierConjugate
+#print axioms ccm24ArchimedeanHardyTitchmarsh_apply_eq_reflection_multiplierConjugate
+#check @ccm24ArchimedeanHardyTitchmarsh_eq_multiplierConjugate_trans_reflection
+#print axioms ccm24ArchimedeanHardyTitchmarsh_eq_multiplierConjugate_trans_reflection
+#check @archimedeanMultiplierConjugate_eq_reflection_apply
+#print axioms archimedeanMultiplierConjugate_eq_reflection_apply
+#check @hardyTitchmarsh_fixed_iff
+#print axioms hardyTitchmarsh_fixed_iff
+#check @hardyTitchmarsh_antifixed_iff
+#print axioms hardyTitchmarsh_antifixed_iff
+#check @mem_sonin_iff_radial_and_multiplierConjugate_mem_map
+#print axioms mem_sonin_iff_radial_and_multiplierConjugate_mem_map
+#check @archimedeanSoninCarrier_nontrivial_iff_multiplierConjugate_reflection
+#print axioms archimedeanSoninCarrier_nontrivial_iff_multiplierConjugate_reflection

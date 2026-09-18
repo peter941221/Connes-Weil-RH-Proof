@@ -812,3 +812,36 @@ is unchanged; T4 of `docs/proofs/1003` remains the productive route.
 Wave acceptance: `build-logs/1618_strip_confinement_carrier_bridge.log` — 4076
 jobs, zero `error:`, zero `sorryAx`, 14 standard axiom prints, no warning in
 the new modules. RH not claimed.
+
+**Status update (2026-09-18, multiplier-conjugate wave; records 1622–1625).**
+[1622](../proofs/1622_multiplier_conjugate_factorization_and_1621_erratum.md)
+lands the factorization `H = R ∘L U_m` with `U_m = F ∘L M_m ∘L F⁻¹` for the
+Hardy–Titchmarsh involution (`SoninCarrierMultiplierConjugate.lean` + audit,
+ten declarations, standard axioms), together with the fixed/anti-fixed forms
+`U_m u = ±R u` and the carrier characterization as radial `u` with `U_m u` in
+the reflected radial subspace; it also carries the erratum withdrawing 1621's
+"covariance not committed" caveat and its half-phase square root (the
+covariance is `CCM24ArchimedeanCarrier.lean:863`, the factorization is free).
+[1623](../proofs/1623_t4_prolate_attack_four_obligations_and_two_mismatches.md)
+types the four T4 obligations (domain / spectral sign / carrier transport /
+window restriction) against the source (PNAS 2022, PMC9295779, Corollary 2.2),
+records that the tree's own "prolate" naming is the finite-S strict-angle
+band-crossing layer and not the CCM prolate operator, and files two
+mismatches: the one-sided committed carrier versus the paper's two-sided
+Sonin space, and the fact that a bounded multiplier would force an empty
+carrier. [1624](../proofs/1624_b4_certificate_and_carrier_are_one_toeplitz_condition.md)
+identifies the B4 wide certificate and the carrier base as one and the same
+Toeplitz condition `P_+(e^{2πi c xi} m · R(F v)) = 0`: WO-B's producer premise
+and the base of both WO legs are one analytic object, governed by the
+multiplier's half-plane growth `(πx)^{2πy}` (paper-level, unformalized).
+[1625](../proofs/1625_s3_form_selection_and_strip_density_bound.md) selects
+form v `P ∘L C ∘L J` as the S3 attack surface (fewest layers, carrier-visible,
+same Toeplitz object as 1624) and closes the StripDensity finiteness fork of
+1589 §6 at the trivial bound `Tr(P M_Δ P) ≤ Λ` from the committed `P ≤ E` and
+the committed indicator readback (brick specified; the missing layer is a
+basis-to-measure trace identity). **WO-S/WO-B/B4 unchanged and OPEN; S3 OPEN
+in form v; carrier base still a `def` (law F33); RH not claimed.**
+
+Wave acceptance: `build-logs/1622_multiplier_conjugate.log` — 3322 jobs, zero
+`error:`, zero `sorryAx`, ten standard axiom prints, no warning in the two new
+modules.
