@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1G8R3HardyOffDiagonalColumnConsumer
+
+namespace ConnesWeilRH.Dev
+
+#print axioms sourceRootCompletedRightCommutatorLeftLeg_sourceBasis_normSq_summable_of_hardyOffDiagonal
+
+end ConnesWeilRH.Dev
