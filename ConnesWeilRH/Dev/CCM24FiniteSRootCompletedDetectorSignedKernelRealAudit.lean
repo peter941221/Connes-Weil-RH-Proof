@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.CCM24FiniteSRootCompletedDetectorSignedKernelReal
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRootCompletedDetectorSignedKernelReal
+
+#check @sourceCompactRootSignedKernelOperator_trace_re_eq_zero
+#print axioms sourceCompactRootSignedKernelOperator_trace_re_eq_zero
