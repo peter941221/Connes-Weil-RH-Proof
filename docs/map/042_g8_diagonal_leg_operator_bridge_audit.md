@@ -898,3 +898,40 @@ witness; RH not claimed.**
 
 Round acceptance: no build (no new Lean this round); the standing brick is the
 1626 scale-monotonicity module.
+
+**Status update (2026-09-18, MP-criterion round; record 1628).**
+[1628](../proofs/1628_mp_criterion_shortness_b4_scalar_form_transport_brick_ledger_erratum.md)
+lands the **window-transport brick** (`Dev/SoninWindowTransport.lean` + audit:
+`IsWindowWitness T u` and `carrier_nontrivial_of_window_witness` — any nonzero
+window witness with vanishing `u` and `H u` outside `(-T,T)` witnesses the
+one-sided carrier at every scale `λ ≤ e^{−T}`; this formalizes the direction of
+the 1623 one-sided/two-sided mismatch: the tree's obligation is the *weaker*
+relaxation of any bounded-window Sonin existence), and records three route
+results: **(N5)** the Makarov–Poltoratski criterion's real form is a *shortness*
+condition on a set `Σ(γ)` built from the argument (failure form
+`Σ|I_n|²/(1+dist(0,I_n)²) = ∞`, Hartmann–Mitkovski arXiv:1511.08326 §8), with a
+Beurling–Malliavin-density threshold form
+`inf{a : Ker T_{conj(S)^a Θ} ≠ {0}} = D⁺_BM(Λ)`; our `m` is a **meromorphic
+inner function** (MP's own class), its phase is computed to two terms
+`γ(ξ) = −2πξlog|ξ| + 2πξ + (π/4)sgn(ξ) + O(1/|ξ|)`, `γ' = −2πlog|ξ| + O(1/|ξ|)`,
+so the criterion's stated hypotheses (**γ' bounded below**, **γ of bounded
+variation**) both FAIL and the obligation redirects to the single number
+`D⁺_BM(Λ(m))` of the node sequence `Λ(m) = {γ ∈ πℤ}` (counting `≈ 4R log R`),
+with both branches mapped to route consequences (small density ⟹ carrier
+nonempty below the critical scale; infinite density ⟹ empty at every scale);
+**(N6)** the classical Krasichkov–Tumarkin criterion independently confirms the
+1627 finite-type obstruction, and no infinite-type construction is available;
+**(B4)** the premise now has a single-column scalar form
+`ξ ↦ e^{2πi(log λ'')ξ}m(ξ)ψ(ξ) ∈ H²(ℂ₊)` with `ψ = F⁻¹v`, and support algebra
+provably cannot deliver it (the kernel `K = F⁻¹(m)` sits on `[0,∞)`, so the
+*lower* edge of `U_m v` is controlled by the *upper* edge of `v`: B4's premise
+is a cancellation, not a support condition). Also carries the **numerically
+confirmed ledger erratum**: `|A(x+iy)| ≍ |x|^{πy−1/4}e^{−π²|x|/2}` and
+`|m(x+iy)| ≍ |x|^{2πy}` (the `π^{−s/2}` prefactor cancels the `π` inside
+Stirling's `(π|T|)^{σ−1/2}`; mpmath: `|m(5+0.3i)| = 20.796183` vs `|x|^{2πy} =
+20.774349`, while `(πx)^{2πy} = 179.73508`; `|A(5)| = 1.8196985e−11` vs
+`√2·5^{−1/4}e^{−π²·5/2} = 1.8196408e−11`). **Carrier base OPEN; T4/B4/S3/WO
+legs unchanged and OPEN; no witness; RH not claimed.**
+
+Round acceptance: `build-logs/sonin_window_transport.log` — recorded in the
+1628 record; the 1626 monotonicity brick remains the standing accepted module.
