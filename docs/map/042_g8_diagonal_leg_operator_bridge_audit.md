@@ -845,3 +845,28 @@ in form v; carrier base still a `def` (law F33); RH not claimed.**
 Wave acceptance: `build-logs/1622_multiplier_conjugate.log` — 3322 jobs, zero
 `error:`, zero `sorryAx`, ten standard axiom prints, no warning in the two new
 modules.
+
+**Status update (2026-09-18, infrastructure round; records 1626).**
+[1626](../proofs/1626_infrastructure_verdict_toeplitz_form_and_scale_monotonicity.md)
+lands the scale-monotonicity brick
+(`Dev/SoninScaleMonotonicity.lean` + audit: `Radial`, `FourierSupport` and the
+carrier are antitone in `lambda`, so carrier nonemptiness propagates downward
+in the scale and triviality propagates upward — the base obligation is a
+sharp-threshold statement) and closes the infrastructure question of 1623 §5:
+everything on the critical path is already stateable in committed vocabulary
+(no H² layer needed to *state*; the missing layer is needed only to *prove*).
+It fixes the explicit symbol form `m(xi) = Gamma_R(1/2 - 2 pi I xi) /
+Gamma_R(1/2 + 2 pi I xi)` with its zero/pole ledger, re-types the carrier base
+as the de Branges-pattern obligation `W/A in H^2(C_+)`, `W/B in H^2(C_-)` for
+one entire `W != 0`, records that `A` is not Hermite-Biehler (so the textbook
+de Branges theory does not literally apply), and **withdraws the 1624 §5
+"cheap scalar test"**: the symbol's argument has no limit at infinity, the
+continuous-symbol index theory is unavailable, and the applicable criterion is
+the Makarov-Poltoratski one for real-analytic unimodular symbols
+(arXiv:1711.04511 §2.3), which lands back in model-space/uniqueness-set
+territory. **Carrier base (now in `(T)`/de Branges form) OPEN; T4/B4/S3/WO
+legs unchanged and OPEN; no witness; RH not claimed.**
+
+Round acceptance: `build-logs/sonin_scale_monotonicity2.log` — 3319 jobs, zero
+`error:`, zero `sorryAx`, five standard axiom prints, no warning in the two new
+modules.
