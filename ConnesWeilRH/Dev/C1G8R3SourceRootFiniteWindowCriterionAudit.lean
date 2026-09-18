@@ -16,6 +16,10 @@ namespace Dev
 #check @sourceRootAnnularGram_trace_eq_column_energy
 #check @sourceCompressedRootAnnularGram
 #check @sourceCompressedRootAnnularGram_trace_eq_column_energy
+#check @sourceCompressedRootAnnularGram_isTraceClassAlong
+#print axioms sourceCompressedRootAnnularGram_isTraceClassAlong
+#check @sourceRootAnnularGram_isTraceClassAlong
+#print axioms sourceRootAnnularGram_isTraceClassAlong
 #check @sourceCompressedRootFiniteWindow_sub_eq_annularWindow
 #check @sourceCompressedRootFiniteWindow_eq_adjoint_comp_output
 #check @sourceCompressedRootAnnularWindow_norm_le_annularOutput_norm

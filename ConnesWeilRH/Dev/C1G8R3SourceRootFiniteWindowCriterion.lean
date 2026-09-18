@@ -335,6 +335,49 @@ theorem sourceRootAnnularOutputWindow_sourceBasis_normSq_summable
     ContinuousLinearMap.sub_apply, sub_eq_add_neg, norm_neg] using
     congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2) hi
 
+theorem sourceCompressedRootAnnularGram_isTraceClassAlong
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (N n : ℕ) (hN : selectedRootSupportRadius owner ≤ (N : ℝ))
+    (hn : selectedRootSupportRadius owner ≤ (n : ℝ))
+    {ι : Type*}
+    (sourceBasis : HilbertBasis ι ℂ (sourceSoninCarrier lambda)) :
+    Source.CC20Concrete.PositiveTrace.IsTraceClassAlong sourceBasis
+      (sourceCompressedRootAnnularGram owner lambda N n) := by
+  let data : Source.CC20Concrete.PositiveTrace.BasisHilbertSchmidtData sourceBasis :=
+    { operator := sourceCompressedRootAnnularWindow owner lambda N n
+      summable_normSq :=
+        sourceCompressedRootAnnularWindow_sourceBasis_normSq_summable
+          owner lambda N n hN hn sourceBasis }
+  simpa only [data,
+    Source.CC20Concrete.PositiveTrace.BasisHilbertSchmidtData.positiveComposition,
+    sourceCompressedRootAnnularGram] using
+    Source.CC20Concrete.PositiveTrace.BasisHilbertSchmidtData.positiveComposition_isTraceClassAlong
+      data
+
+theorem sourceRootAnnularGram_isTraceClassAlong
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (N n : ℕ) (hN : selectedRootSupportRadius owner ≤ (N : ℝ))
+    (hn : selectedRootSupportRadius owner ≤ (n : ℝ))
+    {ι : Type*}
+    (sourceBasis : HilbertBasis ι ℂ (sourceSoninCarrier lambda)) :
+    Source.CC20Concrete.PositiveTrace.IsTraceClassAlong sourceBasis
+      (sourceRootAnnularGram owner lambda N n) := by
+  let data : Source.CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData
+      (G := finiteSCarrier) sourceBasis :=
+    { left := sourceRootAnnularOutputWindow owner lambda N n
+      right := sourceRootAnnularOutputWindow owner lambda N n
+      left_summable_normSq :=
+        sourceRootAnnularOutputWindow_sourceBasis_normSq_summable
+          owner lambda N n hN hn sourceBasis
+      right_summable_normSq :=
+        sourceRootAnnularOutputWindow_sourceBasis_normSq_summable
+          owner lambda N n hN hn sourceBasis }
+  simpa only [data,
+    Source.CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData.traceProduct,
+    sourceRootAnnularGram] using
+    Source.CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData.traceProduct_isTraceClassAlong
+      data
+
 theorem sourceCompressedRoot_squareSum_of_uniform_finite_window_energy
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
     {ι : Type*}
