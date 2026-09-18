@@ -41,6 +41,12 @@ noncomputable def sourceCompressedRootFiniteWindow
     kernelIntervalProjection (-(n : ℝ)) (n : ℝ) 0 ∘L
     rootConvolution owner ∘L sourceInclusion lambda
 
+noncomputable def sourceRootFiniteWindowOutput
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale) (n : ℕ) :
+    sourceSoninCarrier lambda →L[ℂ] finiteSCarrier :=
+  kernelIntervalProjection (-(n : ℝ)) (n : ℝ) 0 ∘L
+    rootConvolution owner ∘L sourceInclusion lambda
+
 noncomputable def sourceCompressedRootAnnularWindow
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
     (N n : ℕ) : sourceSoninCarrier lambda →L[ℂ] sourceSoninCarrier lambda :=
@@ -101,6 +107,14 @@ theorem sourceCompressedRootFiniteWindow_sub_eq_annularWindow
     ContinuousLinearMap.comp_apply]
   exact ((sourceInclusion lambda).adjoint.map_sub _ _).symm
 
+theorem sourceCompressedRootFiniteWindow_eq_adjoint_comp_output
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (n : ℕ) :
+    sourceCompressedRootFiniteWindow owner lambda n =
+      (sourceInclusion lambda).adjoint ∘L
+        sourceRootFiniteWindowOutput owner lambda n := by
+  rfl
+
 set_option maxHeartbeats 1000000 in
 theorem sourceCompressedRootFiniteWindow_sourceBasis_normSq_summable
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
@@ -108,7 +122,7 @@ theorem sourceCompressedRootFiniteWindow_sourceBasis_normSq_summable
     {ι : Type*}
     (sourceBasis : HilbertBasis ι ℂ (sourceSoninCarrier lambda)) :
     Summable fun i =>
-      ‖sourceCompressedRootFiniteWindow owner lambda n (sourceBasis i)‖ ^ 2 := by
+    ‖sourceCompressedRootFiniteWindow owner lambda n (sourceBasis i)‖ ^ 2 := by
   obtain ⟨κ, inputBasis, _⟩ :=
     exists_hilbertBasis (𝕜 := ℂ)
       (E := Lp ℂ 2 (volume : Measure
@@ -161,6 +175,56 @@ theorem sourceCompressedRootFiniteWindow_sourceBasis_normSq_summable
     ContinuousLinearMap.comp_apply] using congrArg (fun z : sourceSoninCarrier lambda =>
     ‖z‖ ^ 2) hi'
 
+set_option maxHeartbeats 1000000 in
+theorem sourceRootFiniteWindowOutput_sourceBasis_normSq_summable
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (n : ℕ) (hn : selectedRootSupportRadius owner ≤ (n : ℝ))
+    {ι : Type*}
+    (sourceBasis : HilbertBasis ι ℂ (sourceSoninCarrier lambda)) :
+    Summable fun i =>
+      ‖sourceRootFiniteWindowOutput owner lambda n (sourceBasis i)‖ ^ 2 := by
+  obtain ⟨κ, inputBasis, _⟩ :=
+    exists_hilbertBasis (𝕜 := ℂ)
+      (E := Lp ℂ 2 (volume : Measure
+        (BoundaryFullInputInterval (-(n : ℝ)) (n : ℝ))))
+  obtain ⟨τ, outputBasis, _⟩ :=
+    exists_hilbertBasis (𝕜 := ℂ)
+      (E := Lp ℂ 2 (volume : Measure
+        (BoundaryOutputInterval (-(n : ℝ)) (n : ℝ))))
+  let F := fullBoundaryRootFactor owner.sourceTest (-(n : ℝ)) (n : ℝ)
+  let FJ := F ∘L sourceInclusion lambda
+  have hsupp : Function.support owner.sourceTest.test ⊆
+      Set.Icc (-(n : ℝ)) (n : ℝ) := by
+    intro x hx
+    have hroot := selectedRoot_sourceTest_support_subset owner hx
+    constructor <;> linarith [hn, hroot.1, hroot.2]
+  have hF : Summable fun i =>
+      ‖F (sourceInclusion lambda (sourceBasis i))‖ ^ 2 := by
+    exact selectedRoot_fullWindowFactor_sourceBasis_normSq_summable
+      owner lambda (-(n : ℝ)) (n : ℝ) inputBasis outputBasis sourceBasis
+  have hFJ : Summable fun i => ‖FJ (sourceBasis i)‖ ^ 2 := by
+    simpa only [FJ, ContinuousLinearMap.comp_apply] using hF
+  let Z := kernelIntervalL2ZeroExtension (-(n : ℝ))
+    (-(-(n : ℝ))) 0
+  have hZF : Summable fun i =>
+      ‖Z (FJ (sourceBasis i))‖ ^ 2 := by
+    exact PositiveTrace.summable_normSq_postcomp sourceBasis FJ Z hFJ
+  have hfactor : Z ∘L FJ =
+      kernelIntervalProjection (-(n : ℝ)) (-(-(n : ℝ))) 0 ∘L
+        rootConvolution owner ∘L sourceInclusion lambda := by
+    dsimp [Z, FJ, F, rootConvolution]
+    rw [fullBoundaryRootFactor_eq_globalConvolution owner.sourceTest
+      (-(n : ℝ)) (n : ℝ) hsupp]
+    unfold kernelIntervalProjection
+    simp only [kernelIntervalL2ZeroExtension_eq_adjoint_globalL2ToKernelInterval,
+      ContinuousLinearMap.adjoint_adjoint, ContinuousLinearMap.comp_assoc]
+  refine hZF.congr (fun i => ?_)
+  have hi := congrArg (fun A : sourceSoninCarrier lambda →L[ℂ] finiteSCarrier =>
+      A (sourceBasis i)) hfactor
+  simpa only [sourceRootFiniteWindowOutput, neg_neg,
+    ContinuousLinearMap.comp_apply] using congrArg (fun z : finiteSCarrier =>
+    ‖z‖ ^ 2) hi
+
 theorem sourceCompressedRootAnnularWindow_sourceBasis_normSq_summable
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
     (N n : ℕ) (hN : selectedRootSupportRadius owner ≤ (N : ℝ))
@@ -189,6 +253,45 @@ theorem sourceCompressedRootAnnularWindow_sourceBasis_normSq_summable
     ContinuousLinearMap.sub_apply, sub_eq_add_neg,
     sourceCompressedRootAnnularWindow] using
     congrArg (fun z : sourceSoninCarrier lambda => ‖z‖ ^ 2) hi
+
+theorem sourceRootAnnularOutputWindow_eq_output_sub
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (N n : ℕ) :
+    sourceRootAnnularOutputWindow owner lambda N n =
+      sourceRootFiniteWindowOutput owner lambda n -
+        sourceRootFiniteWindowOutput owner lambda N := by
+  apply ContinuousLinearMap.ext
+  intro u
+  simp only [sourceRootAnnularOutputWindow, sourceRootFiniteWindowOutput,
+    ContinuousLinearMap.sub_apply, ContinuousLinearMap.comp_apply]
+
+theorem sourceRootAnnularOutputWindow_sourceBasis_normSq_summable
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (N n : ℕ) (hN : selectedRootSupportRadius owner ≤ (N : ℝ))
+    (hn : selectedRootSupportRadius owner ≤ (n : ℝ))
+    {ι : Type*}
+    (sourceBasis : HilbertBasis ι ℂ (sourceSoninCarrier lambda)) :
+    Summable fun i =>
+      ‖sourceRootAnnularOutputWindow owner lambda N n
+        (sourceBasis i)‖ ^ 2 := by
+  have hn' := sourceRootFiniteWindowOutput_sourceBasis_normSq_summable
+    owner lambda n hn sourceBasis
+  have hN' := sourceRootFiniteWindowOutput_sourceBasis_normSq_summable
+    owner lambda N hN sourceBasis
+  have hneg : Summable fun i =>
+      ‖(-sourceRootFiniteWindowOutput owner lambda N)
+        (sourceBasis i)‖ ^ 2 := by
+    simpa only [ContinuousLinearMap.neg_apply, norm_neg] using hN'
+  have hsum := PositiveTrace.summable_normSq_add sourceBasis
+    (sourceRootFiniteWindowOutput owner lambda n)
+    (-sourceRootFiniteWindowOutput owner lambda N) hn' hneg
+  refine hsum.congr (fun i => ?_)
+  have hi := congrArg (fun T : sourceSoninCarrier lambda →L[ℂ] finiteSCarrier =>
+      T (sourceBasis i))
+    (sourceRootAnnularOutputWindow_eq_output_sub owner lambda N n)
+  simpa only [ContinuousLinearMap.add_apply, ContinuousLinearMap.neg_apply,
+    ContinuousLinearMap.sub_apply, sub_eq_add_neg, norm_neg] using
+    congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2) hi
 
 theorem sourceCompressedRoot_squareSum_of_uniform_finite_window_energy
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
@@ -299,8 +402,6 @@ theorem sourceCompressedRoot_squareSum_of_eventual_ambient_annular_tsum_energy
     (N : ℕ) (hN : selectedRootSupportRadius owner ≤ (N : ℝ))
     {B : ℝ}
     (hannular : ∀ n, N ≤ n →
-      Summable (fun i => ‖sourceRootAnnularOutputWindow owner lambda N n
-        (sourceBasis i)‖ ^ 2) ∧
       ∑' i, ‖sourceRootAnnularOutputWindow owner lambda N n
         (sourceBasis i)‖ ^ 2 ≤ B) :
     Summable fun i => ‖sourceCompressedRoot owner lambda
@@ -328,7 +429,9 @@ theorem sourceCompressedRoot_squareSum_of_eventual_ambient_annular_tsum_energy
           (sourceBasis i)‖ ^ 2 := hsumle
     _ ≤ ∑' i, ‖sourceRootAnnularOutputWindow owner lambda N n
         (sourceBasis i)‖ ^ 2 := by
-      exact (hannular n hn).1.sum_le_tsum s (fun i _ => sq_nonneg _)
-    _ ≤ B := (hannular n hn).2
+      exact (sourceRootAnnularOutputWindow_sourceBasis_normSq_summable
+        owner lambda N n hN (le_trans hN (Nat.cast_le.mpr hn)) sourceBasis).sum_le_tsum
+        s (fun i _ => sq_nonneg _)
+    _ ≤ B := hannular n hn
 end Dev
 end ConnesWeilRH
