@@ -49,6 +49,45 @@ noncomputable def sourceCompressedRootAnnularWindow
       kernelIntervalProjection (-(N : ℝ)) (N : ℝ) 0) ∘L
     rootConvolution owner ∘L sourceInclusion lambda
 
+/-! The corresponding rectangular ambient-output annulus.  Keeping the
+source adjoint outside this operator exposes the genuinely analytic kernel
+estimate needed by the root consumer. -/
+noncomputable def sourceRootAnnularOutputWindow
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (N n : ℕ) : sourceSoninCarrier lambda →L[ℂ] finiteSCarrier :=
+  (kernelIntervalProjection (-(n : ℝ)) (n : ℝ) 0 -
+      kernelIntervalProjection (-(N : ℝ)) (N : ℝ) 0) ∘L
+    rootConvolution owner ∘L sourceInclusion lambda
+
+theorem sourceCompressedRootAnnularWindow_eq_adjoint_comp_annularOutput
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (N n : ℕ) :
+    sourceCompressedRootAnnularWindow owner lambda N n =
+      (sourceInclusion lambda).adjoint ∘L
+        sourceRootAnnularOutputWindow owner lambda N n := by
+  rfl
+
+theorem sourceCompressedRootAnnularWindow_norm_le_annularOutput_norm
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (N n : ℕ) (u : sourceSoninCarrier lambda) :
+    ‖sourceCompressedRootAnnularWindow owner lambda N n u‖ ≤
+      ‖sourceRootAnnularOutputWindow owner lambda N n u‖ := by
+  rw [sourceCompressedRootAnnularWindow_eq_adjoint_comp_annularOutput]
+  simp only [ContinuousLinearMap.comp_apply]
+  have hJ : ‖(sourceInclusion lambda).adjoint‖ ≤ (1 : ℝ) := by
+    calc
+      ‖(sourceInclusion lambda).adjoint‖ = ‖sourceInclusion lambda‖ :=
+        ContinuousLinearMap.adjoint.norm_map _
+      _ ≤ (1 : ℝ) := Submodule.norm_subtypeL_le _
+  calc
+    ‖(sourceInclusion lambda).adjoint
+        (sourceRootAnnularOutputWindow owner lambda N n u)‖ ≤
+        ‖(sourceInclusion lambda).adjoint‖ *
+          ‖sourceRootAnnularOutputWindow owner lambda N n u‖ :=
+      (sourceInclusion lambda).adjoint.le_opNorm _
+    _ ≤ ‖sourceRootAnnularOutputWindow owner lambda N n u‖ := by
+      exact mul_le_of_le_one_left (norm_nonneg _) hJ
+
 theorem sourceCompressedRootFiniteWindow_sub_eq_annularWindow
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
     (N n : ℕ) :
@@ -245,12 +284,51 @@ theorem sourceCompressedRoot_squareSum_of_eventual_annular_tsum_energy
         (sourceBasis i)‖ ^ 2 ≤ B) :
     Summable fun i => ‖sourceCompressedRoot owner lambda
       (sourceBasis i)‖ ^ 2 := by
-  apply sourceCompressedRoot_squareSum_of_eventual_annular_energy
-    owner lambda sourceBasis N hN
+  refine sourceCompressedRoot_squareSum_of_eventual_annular_energy
+    owner lambda sourceBasis N hN (B := B) ?_
   intro n hn s
   have hsummable := sourceCompressedRootAnnularWindow_sourceBasis_normSq_summable
     owner lambda N n hN (le_trans hN (Nat.cast_le.mpr hn)) sourceBasis
   have hle := hsummable.sum_le_tsum s (fun i _ => sq_nonneg _)
   exact hle.trans (hannular n hn)
+
+theorem sourceCompressedRoot_squareSum_of_eventual_ambient_annular_tsum_energy
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    {ι : Type*}
+    (sourceBasis : HilbertBasis ι ℂ (sourceSoninCarrier lambda))
+    (N : ℕ) (hN : selectedRootSupportRadius owner ≤ (N : ℝ))
+    {B : ℝ}
+    (hannular : ∀ n, N ≤ n →
+      Summable (fun i => ‖sourceRootAnnularOutputWindow owner lambda N n
+        (sourceBasis i)‖ ^ 2) ∧
+      ∑' i, ‖sourceRootAnnularOutputWindow owner lambda N n
+        (sourceBasis i)‖ ^ 2 ≤ B) :
+    Summable fun i => ‖sourceCompressedRoot owner lambda
+      (sourceBasis i)‖ ^ 2 := by
+  refine sourceCompressedRoot_squareSum_of_eventual_annular_energy
+    owner lambda sourceBasis N hN (B := B) ?_
+  intro n hn s
+  have hpoint : ∀ i, ‖sourceCompressedRootAnnularWindow owner lambda N n
+      (sourceBasis i)‖ ^ 2 ≤
+      ‖sourceRootAnnularOutputWindow owner lambda N n
+        (sourceBasis i)‖ ^ 2 := by
+    intro i
+    exact (sq_le_sq₀ (norm_nonneg _) (norm_nonneg _)).mpr
+      (sourceCompressedRootAnnularWindow_norm_le_annularOutput_norm
+        owner lambda N n (sourceBasis i))
+  have hsumle : (∑ i ∈ s, ‖sourceCompressedRootAnnularWindow owner lambda N n
+      (sourceBasis i)‖ ^ 2) ≤
+      ∑ i ∈ s, ‖sourceRootAnnularOutputWindow owner lambda N n
+        (sourceBasis i)‖ ^ 2 := by
+    exact Finset.sum_le_sum fun i hi => hpoint i
+  calc
+    ∑ i ∈ s, ‖sourceCompressedRootAnnularWindow owner lambda N n
+        (sourceBasis i)‖ ^ 2 ≤
+        ∑ i ∈ s, ‖sourceRootAnnularOutputWindow owner lambda N n
+          (sourceBasis i)‖ ^ 2 := hsumle
+    _ ≤ ∑' i, ‖sourceRootAnnularOutputWindow owner lambda N n
+        (sourceBasis i)‖ ^ 2 := by
+      exact (hannular n hn).1.sum_le_tsum s (fun i _ => sq_nonneg _)
+    _ ≤ B := (hannular n hn).2
 end Dev
 end ConnesWeilRH
