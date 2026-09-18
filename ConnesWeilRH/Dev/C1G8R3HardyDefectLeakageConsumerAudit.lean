@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1G8R3HardyDefectLeakageConsumer
+
+namespace ConnesWeilRH.Dev
+
+#print axioms sourceRootCompletedRightCommutatorLeftLeg_sourceBasis_normSq_summable_of_hardyDefect
+
+end ConnesWeilRH.Dev
