@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.CCM24FiniteSSecondSupportRemainderRealLedger
+
+open ConnesWeilRH
+open ConnesWeilRH.Source
+open ConnesWeilRH.Source.CCM25Concrete
+open ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSSecondSupportRemainderRealLedger
+
+#check @sourceSecondSupportProlateRemainder_trace_re_eq_zero
+#print axioms sourceSecondSupportProlateRemainder_trace_re_eq_zero
