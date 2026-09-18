@@ -139,5 +139,46 @@ theorem sourceCompressedRoot_squareSum_of_eventual_uniform_finite_window_energy
     have hpost := ((sourceInclusion lambda).adjoint.continuous.tendsto _).comp hproj
     simpa only [sourceCompressedRootFiniteWindow, sourceCompressedRoot,
       ContinuousLinearMap.comp_apply] using hpost
+
+theorem sourceCompressedRoot_squareSum_of_eventual_annular_energy
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    {ι : Type*}
+    (sourceBasis : HilbertBasis ι ℂ (sourceSoninCarrier lambda))
+    (N : ℕ) (hN : selectedRootSupportRadius owner ≤ (N : ℝ))
+    {B : ℝ}
+    (hannular : ∀ n, N ≤ n → ∀ s : Finset ι,
+      ∑ i ∈ s, ‖(sourceCompressedRootFiniteWindow owner lambda n -
+        sourceCompressedRootFiniteWindow owner lambda N) (sourceBasis i)‖ ^ 2 ≤ B) :
+    Summable fun i => ‖sourceCompressedRoot owner lambda (sourceBasis i)‖ ^ 2 := by
+  let head := sourceCompressedRootFiniteWindow owner lambda N
+  let tail := fun n : ℕ =>
+    sourceCompressedRootFiniteWindow owner lambda n - head
+  have hhead : Summable fun i => ‖head (sourceBasis i)‖ ^ 2 := by
+    simpa only [head] using
+      sourceCompressedRootFiniteWindow_sourceBasis_normSq_summable
+        owner lambda N hN sourceBasis
+  have htail : ∀ n, N ≤ n → ∀ s : Finset ι,
+      ∑ i ∈ s, ‖tail n (sourceBasis i)‖ ^ 2 ≤ B := by
+    intro n hn s
+    simpa only [tail, head] using hannular n hn s
+  have hwindow := eventual_uniform_finite_window_energy_of_fixed_plus_tail
+    sourceBasis head tail hhead N htail
+  have hsum : ∀ n, N ≤ n → ∀ s : Finset ι,
+      ∑ i ∈ s, ‖sourceCompressedRootFiniteWindow owner lambda n
+        (sourceBasis i)‖ ^ 2 ≤
+        2 * ((∑' i, ‖head (sourceBasis i)‖ ^ 2) + B) := by
+    intro n hn s
+    have hop : head + tail n =
+        sourceCompressedRootFiniteWindow owner lambda n := by
+      apply ContinuousLinearMap.ext
+      intro u
+      simp only [head, tail, ContinuousLinearMap.add_apply,
+        ContinuousLinearMap.sub_apply]
+      abel
+    have h := hwindow n hn s
+    rw [hop] at h
+    exact h
+  refine sourceCompressedRoot_squareSum_of_eventual_uniform_finite_window_energy
+    owner lambda sourceBasis N hsum
 end Dev
 end ConnesWeilRH

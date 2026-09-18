@@ -72,5 +72,55 @@ theorem summable_normSq_of_eventual_uniform_finite_window_energy
   intro n s
   exact hbound (n + N) (by omega) s
 
+/-
+A fixed finite window is already a square-summable operator.  Consequently,
+the only genuinely new estimate needed for an expanding family is a uniform
+finite-set estimate for its annular difference from that fixed window.  This
+lemma records the quantitative two-term estimate used below.
+-/
+theorem eventual_uniform_finite_window_energy_of_fixed_plus_tail
+    {ι H G : Type*} [NormedAddCommGroup H] [NormedSpace ℂ H]
+    [InnerProductSpace ℂ H]
+    [NormedAddCommGroup G] [NormedSpace ℂ G]
+    (basis : HilbertBasis ι ℂ H)
+    (head : H →L[ℂ] G) (tail : ℕ → H →L[ℂ] G)
+    (hhead : Summable fun i => ‖head (basis i)‖ ^ 2)
+    {C : ℝ} (N : ℕ)
+    (htail : ∀ n, N ≤ n → ∀ s : Finset ι,
+      ∑ i ∈ s, ‖tail n (basis i)‖ ^ 2 ≤ C) :
+    ∀ n, N ≤ n → ∀ s : Finset ι,
+      ∑ i ∈ s, ‖(head + tail n) (basis i)‖ ^ 2 ≤
+        2 * ((∑' i, ‖head (basis i)‖ ^ 2) + C) := by
+  intro n hn s
+  have hhead_sum : ∑ i ∈ s, ‖head (basis i)‖ ^ 2 ≤
+      ∑' i, ‖head (basis i)‖ ^ 2 :=
+    hhead.sum_le_tsum s (fun i _ => sq_nonneg _)
+  have htail_sum := htail n hn s
+  have hterm (i : ι) :
+      ‖(head + tail n) (basis i)‖ ^ 2 ≤
+        2 * ‖head (basis i)‖ ^ 2 + 2 * ‖tail n (basis i)‖ ^ 2 := by
+    simp only [ContinuousLinearMap.add_apply]
+    calc
+      ‖head (basis i) + tail n (basis i)‖ ^ 2 ≤
+          (‖head (basis i)‖ + ‖tail n (basis i)‖) ^ 2 := by
+            exact (sq_le_sq₀ (norm_nonneg _)
+              (add_nonneg (norm_nonneg _) (norm_nonneg _))).mpr
+              (norm_add_le _ _)
+      _ ≤ 2 * ‖head (basis i)‖ ^ 2 +
+          2 * ‖tail n (basis i)‖ ^ 2 := by
+            nlinarith [sq_nonneg
+              (‖head (basis i)‖ - ‖tail n (basis i)‖)]
+  calc
+    ∑ i ∈ s, ‖(head + tail n) (basis i)‖ ^ 2 ≤
+        ∑ i ∈ s, (2 * ‖head (basis i)‖ ^ 2 +
+          2 * ‖tail n (basis i)‖ ^ 2) := by
+            exact Finset.sum_le_sum fun i hi => hterm i
+    _ = 2 * (∑ i ∈ s, ‖head (basis i)‖ ^ 2) +
+        2 * (∑ i ∈ s, ‖tail n (basis i)‖ ^ 2) := by
+          simp only [Finset.sum_add_distrib, Finset.mul_sum]
+    _ ≤ 2 * (∑' i, ‖head (basis i)‖ ^ 2) + 2 * C := by
+      gcongr
+    _ = 2 * ((∑' i, ‖head (basis i)‖ ^ 2) + C) := by ring
+
 end Dev
 end ConnesWeilRH
