@@ -12,6 +12,8 @@ namespace Dev
 #check @sourceRootFiniteWindowOutput
 #check @sourceCompressedRootAnnularWindow
 #check @sourceRootAnnularOutputWindow
+#check @sourceRootAnnularGram
+#check @sourceRootAnnularGram_trace_eq_column_energy
 #check @sourceCompressedRootFiniteWindow_sub_eq_annularWindow
 #check @sourceCompressedRootFiniteWindow_eq_adjoint_comp_output
 #check @sourceCompressedRootAnnularWindow_norm_le_annularOutput_norm
