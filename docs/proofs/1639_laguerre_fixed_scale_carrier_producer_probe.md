@@ -2,7 +2,10 @@
 
 Date: 2026-09-18
 
-Status: strong numerical producer candidate, not a theorem. This record serves
+Status: superseded numerical draft. The tables in section 3 were computed
+with a non-nested globally orthogonalized basis and must not be used as
+evidence. The corrected nested-prefix readback is in record 1640. This record
+serves
 the formal compact-observable interface of 1636 and the healthy-CompactLog B5
 carrier consumer. The carrier base remains formally open; RH is not claimed.
 
@@ -37,7 +40,7 @@ alone. At model `m=1, lambda=0.2`, the same Laguerre family reaches
 `sigma_min = 7.73e-4` at dimension 14, matching the known nonempty finite-window
 model behavior.
 
-## 3. Actual-symbol readback
+## 3. Actual-symbol readback (superseded)
 
 At resolution `N=32768`, the fixed-scale results are:
 

@@ -14,6 +14,7 @@ import math
 
 import numpy as np
 from scipy.special import eval_laguerre
+from scipy.linalg import eigh
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rh_symbol_num import m_of_real  # noqa: E402
@@ -26,7 +27,7 @@ DXI = 1.0 / (N * DU)
 XI = np.fft.fftfreq(N, d=DU)
 ETA = np.fft.fftfreq(N, d=DXI)
 POS = ETA > 0
-DEGREES = (0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 25, 30)
+DEGREES = tuple(range(31))
 
 
 def inner(f, g):
@@ -67,7 +68,15 @@ def orthonormal_columns(H):
 def main():
     x = -N * DU / 2.0 + np.arange(N) * DU
     Hraw = np.column_stack([fourier(h_laguerre(x, n)) for n in DEGREES])
-    H, gram_vals = orthonormal_columns(Hraw)
+    # Preserve literal degree-prefix spaces. A global orthogonalization
+    # followed by slicing would make dimension d depend on higher degrees.
+    gram_vals = np.linalg.eigvalsh(
+        0.5 * (np.array([[inner(Hraw[:, i], Hraw[:, j])
+                          for j in range(Hraw.shape[1])]
+                         for i in range(Hraw.shape[1])]) +
+              np.array([[inner(Hraw[:, i], Hraw[:, j])
+                         for j in range(Hraw.shape[1])]
+                        for i in range(Hraw.shape[1])]).conj().T))
     qraw = np.column_stack([fourier(h_rational(x, 3)),
                             fourier(h_rational(x, 4))])
     Q, _ = orthonormal_columns(qraw)
@@ -85,20 +94,27 @@ def main():
         for lam in lambdas:
             c = 2.0 * np.log(lam)
             U = np.exp(2j * np.pi * c * XI) * symbol
-            P = np.column_stack([proj_pos(U * H[:, i]) for i in range(H.shape[1])])
+            P = np.column_stack([proj_pos(U * Hraw[:, i])
+                                  for i in range(Hraw.shape[1])])
             for dim in (1, 2, 3, 4, 5, 6, 8, 10, 12, 14):
-                M = np.array([[inner(P[:, i], P[:, j]) for j in range(dim)]
-                              for i in range(dim)])
-                M = 0.5 * (M + M.conj().T)
-                vals, vecs = np.linalg.eigh(M)
+                Hk = Hraw[:, :dim]
+                Pk = P[:, :dim]
+                G = np.array([[inner(Hk[:, i], Hk[:, j])
+                               for j in range(dim)] for i in range(dim)])
+                M = np.array([[inner(Pk[:, i], Pk[:, j])
+                               for j in range(dim)] for i in range(dim)])
+                vals, vecs = eigh(0.5 * (M + M.conj().T),
+                                  0.5 * (G + G.conj().T),
+                                  subset_by_index=[0, 0])
                 coeff = vecs[:, 0]
-                xv = H[:, :dim] @ coeff
+                xv = Hk @ coeff
                 overlaps = np.array([inner(Q[:, i], xv) for i in range(Q.shape[1])])
+                gram_min = float(np.min(np.linalg.eigvalsh(
+                    0.5 * (G + G.conj().T))))
                 print("| %6.3f | %4d | %12.4e | %12.4e | %12.4e | %12.4e |"
                       % (lam, dim, np.sqrt(max(float(vals[0]), 0.0)),
                          float(np.real(np.vdot(overlaps, overlaps))),
-                         float(np.max(np.abs(overlaps))),
-                         float(np.min(gram_vals[:dim]))))
+                         float(np.max(np.abs(overlaps))), gram_min))
             print("+--------+------+--------------+--------------+--------------+--------------+")
 
 
