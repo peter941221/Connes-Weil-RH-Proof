@@ -44,5 +44,33 @@ theorem summable_normSq_of_uniform_finite_window_energy
         (hstrong (basis i))
     exact le_of_tendsto hsum (Filter.Eventually.of_forall (fun n => hbound n s))
 
+/-
+The finite-window estimate is only needed on the eventual tail of the
+expanding family.  This is the form consumed by source-compressed root
+windows: the selected-root support theorem supplies a threshold, while the
+finitely many smaller windows have no bearing on the reverse-limit argument.
+-/
+theorem summable_normSq_of_eventual_uniform_finite_window_energy
+    {ι H G : Type*} [NormedAddCommGroup H] [NormedSpace ℂ H]
+    [InnerProductSpace ℂ H]
+    [NormedAddCommGroup G] [NormedSpace ℂ G]
+    (basis : HilbertBasis ι ℂ H) (T : H →L[ℂ] G)
+    (approximant : ℕ → H →L[ℂ] G)
+    (hstrong : ∀ x, Tendsto (fun n => approximant n x) atTop (𝓝 (T x)))
+    {B : ℝ} (N : ℕ)
+    (hbound : ∀ n, N ≤ n → ∀ s : Finset ι,
+      ∑ i ∈ s, ‖approximant n (basis i)‖ ^ 2 ≤ B) :
+    Summable (fun i => ‖T (basis i)‖ ^ 2) := by
+  let tailApproximant : ℕ → H →L[ℂ] G := fun n => approximant (n + N)
+  have htailStrong : ∀ x, Tendsto (fun n => tailApproximant n x)
+      atTop (𝓝 (T x)) := by
+    intro x
+    simpa [tailApproximant, Nat.add_comm] using
+      (hstrong x).comp (Filter.tendsto_add_atTop_nat N)
+  apply summable_normSq_of_uniform_finite_window_energy basis T tailApproximant
+    htailStrong
+  intro n s
+  exact hbound (n + N) (by omega) s
+
 end Dev
 end ConnesWeilRH

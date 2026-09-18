@@ -10,6 +10,8 @@ namespace Dev
 
 #check @summable_normSq_of_uniform_finite_window_energy
 #print axioms summable_normSq_of_uniform_finite_window_energy
+#check @summable_normSq_of_eventual_uniform_finite_window_energy
+#print axioms summable_normSq_of_eventual_uniform_finite_window_energy
 
 end Dev
 end ConnesWeilRH

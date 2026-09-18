@@ -121,5 +121,23 @@ theorem sourceCompressedRoot_squareSum_of_uniform_finite_window_energy
       ContinuousLinearMap.comp_apply] using hpost
   · exact hbound
 
+theorem sourceCompressedRoot_squareSum_of_eventual_uniform_finite_window_energy
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    {ι : Type*}
+    (sourceBasis : HilbertBasis ι ℂ (sourceSoninCarrier lambda))
+    {B : ℝ} (N : ℕ)
+    (hbound : ∀ n, N ≤ n → ∀ s : Finset ι,
+      ∑ i ∈ s, ‖sourceCompressedRootFiniteWindow owner lambda n
+        (sourceBasis i)‖ ^ 2 ≤ B) :
+    Summable fun i => ‖sourceCompressedRoot owner lambda (sourceBasis i)‖ ^ 2 := by
+  refine summable_normSq_of_eventual_uniform_finite_window_energy
+    (B := B) sourceBasis (sourceCompressedRoot owner lambda)
+    (sourceCompressedRootFiniteWindow owner lambda) ?_ N hbound
+  · intro u
+    have hproj := tendsto_kernelIntervalProjection_symmetric_apply
+      (rootConvolution owner (sourceInclusion lambda u))
+    have hpost := ((sourceInclusion lambda).adjoint.continuous.tendsto _).comp hproj
+    simpa only [sourceCompressedRootFiniteWindow, sourceCompressedRoot,
+      ContinuousLinearMap.comp_apply] using hpost
 end Dev
 end ConnesWeilRH

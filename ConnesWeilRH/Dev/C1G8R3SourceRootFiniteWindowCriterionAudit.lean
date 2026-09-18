@@ -12,6 +12,8 @@ namespace Dev
 #check @sourceCompressedRootFiniteWindow_sourceBasis_normSq_summable
 #check @sourceCompressedRoot_squareSum_of_uniform_finite_window_energy
 #print axioms sourceCompressedRoot_squareSum_of_uniform_finite_window_energy
+#check @sourceCompressedRoot_squareSum_of_eventual_uniform_finite_window_energy
+#print axioms sourceCompressedRoot_squareSum_of_eventual_uniform_finite_window_energy
 
 end Dev
 end ConnesWeilRH
