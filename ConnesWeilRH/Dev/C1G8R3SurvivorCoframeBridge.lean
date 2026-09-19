@@ -8,6 +8,7 @@ import ConnesWeilRH.Dev.C1G8P1MetricChannels
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSFixedSourcePolar
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSActualSchurCascade
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSSchurPolarTelescoping
+import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSSchurMarkovPairing
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSTransportBounds
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSParameterizedEulerProduct
 
@@ -46,6 +47,7 @@ open Source.CCM25Concrete.CCM24FiniteSBandTrace
 open Source.CCM25Concrete.CCM24FiniteSFixedSourcePolar
 open Source.CCM25Concrete.CCM24FiniteSActualSchurCascade
 open Source.CCM25Concrete.CCM24FiniteSSchurPolarTelescoping
+open Source.CCM25Concrete.CCM24FiniteSSchurMarkovPairing
 open Source.CCM25Concrete.CCM24FiniteSParameterizedEulerProduct
 open Source.CCM25Concrete.CCM24FiniteSTransportBounds
 open Source.CCM25Concrete.SelectedWeilSquare
@@ -77,6 +79,52 @@ noncomputable def g8SurvivorSourceLeg
   parameterizedSoninGramInvSqrt lambda 1 [] (by norm_num) ∘L
     (suffixEulerTransitionProduct lambda family.visiblePrimes)† ∘L
       parameterizedSoninGramInvSqrt lambda 1 family.visiblePrimes (by norm_num)
+
+/-! The source-side Schur leg is not merely contractive: every finite
+visible-prime instance is invertible.  The inverse is supplied by the
+reverse Schur product, with the positive Schur--Markov scalar removed, and
+the two Gram inverse square roots are units. -/
+
+theorem g8SurvivorSourceLeg_isUnit
+    (lambda : CCM24SoninScale) (family : FinitePrimePowerFamily) :
+    IsUnit (g8SurvivorSourceLeg lambda family) := by
+  have hscalar :
+      (suffixEulerSchurMarkovScalar family.visiblePrimes : ℂ) ≠ 0 := by
+    exact Complex.ofReal_ne_zero.mpr
+      (ne_of_gt (suffixEulerSchurMarkovScalar_pos family.visiblePrimes))
+  have htransition :
+      IsUnit (suffixEulerTransitionProduct lambda family.visiblePrimes) := by
+    refine isUnit_iff_exists.mpr ⟨
+      (suffixEulerSchurMarkovScalar family.visiblePrimes : ℂ)⁻¹ •
+        suffixEulerReverseTransitionProduct lambda family.visiblePrimes, ?_, ?_⟩
+    · calc
+        suffixEulerTransitionProduct lambda family.visiblePrimes *
+            ((suffixEulerSchurMarkovScalar family.visiblePrimes : ℂ)⁻¹ •
+              suffixEulerReverseTransitionProduct lambda family.visiblePrimes) =
+            (suffixEulerSchurMarkovScalar family.visiblePrimes : ℂ)⁻¹ •
+              (suffixEulerTransitionProduct lambda family.visiblePrimes ∘L
+                suffixEulerReverseTransitionProduct lambda family.visiblePrimes) := by
+          simp [ContinuousLinearMap.mul_def, ContinuousLinearMap.smul_def, mul_assoc]
+        _ = 1 := by
+          rw [suffixEulerTransitionProduct_comp_reverse]
+          rw [smul_smul, inv_mul_cancel₀ hscalar, one_smul]
+          rfl
+    · calc
+        ((suffixEulerSchurMarkovScalar family.visiblePrimes : ℂ)⁻¹ •
+            suffixEulerReverseTransitionProduct lambda family.visiblePrimes) *
+            suffixEulerTransitionProduct lambda family.visiblePrimes =
+            (suffixEulerSchurMarkovScalar family.visiblePrimes : ℂ)⁻¹ •
+              (suffixEulerReverseTransitionProduct lambda family.visiblePrimes ∘L
+                suffixEulerTransitionProduct lambda family.visiblePrimes) := by
+          simp [ContinuousLinearMap.mul_def, ContinuousLinearMap.smul_def, mul_assoc]
+        _ = 1 := by
+          rw [suffixEulerReverseProduct_comp_transition]
+          rw [smul_smul, inv_mul_cancel₀ hscalar, one_smul]
+          rfl
+  have hleft := parameterizedSoninGramInvSqrt_isUnit lambda 1 [] (by norm_num)
+  have hright := parameterizedSoninGramInvSqrt_isUnit lambda 1
+    family.visiblePrimes (by norm_num)
+  exact hleft.mul ((htransition.star).mul hright)
 
 /-- The source inclusion is isometric. -/
 theorem g8BridgeSourceInclusion_norm_map (lambda : CCM24SoninScale)

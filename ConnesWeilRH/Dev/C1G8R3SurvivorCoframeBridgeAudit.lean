@@ -10,6 +10,8 @@ namespace Dev
 
 #check @g8SurvivorSourceLeg
 #print axioms g8SurvivorSourceLeg
+#check @g8SurvivorSourceLeg_isUnit
+#print axioms g8SurvivorSourceLeg_isUnit
 #check @g8BridgeSourceInclusion_norm_map
 #print axioms g8BridgeSourceInclusion_norm_map
 #check @g8BridgeSoninCarrier_normSq_split
