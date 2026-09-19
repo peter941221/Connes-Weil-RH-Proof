@@ -956,3 +956,14 @@ stands unchanged; what changed is the base's status: the 1628 redirect to
 `D⁺_BM(Λ(m))` is withdrawn as a class misapplication (law F40), the carrier's
 Toeplitz form is now exact and model-checked (`m(−ξ)`, shift `ã = 4π log(1/λ)`),
 and the base is recorded as a Hardy-only phenomenon (`H² \ N⁺`).
+
+**Status update (2026-09-19, record 1702).** The named StripDensity
+compression obligation is now discharged for every positive operator presented
+as a Hilbert–Schmidt factor `A†A`: `Dev/StripDensityTraceLedger.lean`
+proves the trace inequality for a self-adjoint contraction by factoring the
+compressed operator as `(A P)†(A P)` and applying the committed
+Hilbert–Schmidt precomposition bound. This is a formal partial closure of the
+1625 basis-to-measure fork, not the general positive-operator theorem; WO-S,
+WO-B, the source-projection energy estimate, and the carrier base remain OPEN.
+Evidence: [1702](../proofs/1702_strip_density_hilbert_schmidt_compression_trace_lemma.md),
+focused 2664-job build, zero `error:`/`sorryAx`, standard axioms only.

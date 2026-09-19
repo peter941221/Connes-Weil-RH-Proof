@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Source.CC20Concrete.PositiveTrace
+import ConnesWeilRH.Source.CC20Concrete.HilbertSchmidtIdeal
 import Mathlib.Analysis.InnerProductSpace.Positive
 
 /-!
@@ -50,7 +51,7 @@ namespace StripDensityTraceLedger
 open scoped ComplexConjugate InnerProduct InnerProductSpace
 open ConnesWeilRH.Source.CC20Concrete.PositiveTrace
 
-variable {ι H : Type*}
+variable {ι κ H : Type*}
 variable [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
 
 /-! ## Real part of the diagonal series -/
@@ -132,6 +133,94 @@ def StripDensityCompressionObligation (basis : HilbertBasis ι ℂ H)
     (projection operator : H →L[ℂ] H) : Prop :=
   (ordinaryTraceAlong basis (projection ∘L operator ∘L projection)).re
     ≤ (ordinaryTraceAlong basis operator).re
+
+/-- Compression cannot increase the trace of a positive composition when the
+positive operator is presented by a Hilbert--Schmidt factor.  This is the
+factorization form of the missing compression obligation: no operator square
+root is required, and the proof uses the established Hilbert--Schmidt ideal
+estimate for precomposition by a bounded map. -/
+theorem stripDensity_compression_of_positiveComposition
+    {G : Type*} [NormedAddCommGroup G] [InnerProductSpace ℂ G]
+    [CompleteSpace G]
+    (basis : HilbertBasis ι ℂ H)
+    (targetBasis : HilbertBasis κ ℂ G)
+    (factor : H →L[ℂ] G) (projection : H →L[ℂ] H)
+    (hself : projection.adjoint = projection)
+    (hnorm : ‖projection‖ ≤ 1)
+    (hfactor : Summable fun i => ‖factor (basis i)‖ ^ 2) :
+    StripDensityCompressionObligation basis projection
+      (factor.adjoint ∘L factor) := by
+  let compressed : H →L[ℂ] G := factor ∘L projection
+  have hcompressed : Summable fun i => ‖compressed (basis i)‖ ^ 2 := by
+    exact Source.CC20Concrete.PositiveTrace.summable_normSq_precomp basis targetBasis basis
+      factor projection hfactor
+  let data : Source.CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData
+      (G := G) basis :=
+    { left := factor
+      right := factor
+      left_summable_normSq := hfactor
+      right_summable_normSq := hfactor }
+  let compressedData : Source.CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData
+      (G := G) basis :=
+    { left := compressed
+      right := compressed
+      left_summable_normSq := hcompressed
+      right_summable_normSq := hcompressed }
+  have hcompressedOperator : compressedData.traceProduct =
+      projection ∘L (factor.adjoint ∘L factor) ∘L projection := by
+    dsimp [compressedData, compressed,
+      Source.CC20Concrete.PositiveTrace.BasisHilbertSchmidtPairData.traceProduct]
+    rw [ContinuousLinearMap.adjoint_comp, hself]
+    simp only [ContinuousLinearMap.comp_assoc]
+  have htrace_data :
+      (ordinaryTraceAlong basis data.traceProduct).re =
+        ∑' i, ‖factor (basis i)‖ ^ 2 := by
+    rw [ordinaryTraceAlong]
+    have hdiag : (fun i => ⟪basis i, data.traceProduct (basis i)⟫_ℂ) =
+        (fun i => ((‖factor (basis i)‖ ^ 2 : ℝ) : ℂ)) := by
+      funext i
+      rw [data.traceProduct_diagonal]
+      simpa only [data, Complex.ofReal_pow] using
+        (inner_self_eq_norm_sq_to_K (𝕜 := ℂ) (factor (basis i)))
+    rw [hdiag]
+    have hmap :
+        ((∑' i, ‖factor (basis i)‖ ^ 2 : ℝ) : ℂ) =
+          ∑' i, ((‖factor (basis i)‖ ^ 2 : ℝ) : ℂ) := by
+      exact Complex.ofRealCLM.map_tsum hfactor
+    rw [← hmap]
+    simp
+  have htrace_compressed :
+      (ordinaryTraceAlong basis compressedData.traceProduct).re =
+        ∑' i, ‖compressed (basis i)‖ ^ 2 := by
+    rw [ordinaryTraceAlong]
+    have hdiag : (fun i =>
+        ⟪basis i, compressedData.traceProduct (basis i)⟫_ℂ) =
+        (fun i => ((‖compressed (basis i)‖ ^ 2 : ℝ) : ℂ)) := by
+      funext i
+      rw [compressedData.traceProduct_diagonal]
+      simpa only [compressedData, Complex.ofReal_pow] using
+        (inner_self_eq_norm_sq_to_K (𝕜 := ℂ) (compressed (basis i)))
+    rw [hdiag]
+    have hmap :
+        ((∑' i, ‖compressed (basis i)‖ ^ 2 : ℝ) : ℂ) =
+          ∑' i, ((‖compressed (basis i)‖ ^ 2 : ℝ) : ℂ) := by
+      exact Complex.ofRealCLM.map_tsum hcompressed
+    rw [← hmap]
+    simp
+  unfold StripDensityCompressionObligation
+  have hdataOperator : data.traceProduct = factor.adjoint ∘L factor := by
+    rfl
+  rw [← hcompressedOperator, htrace_compressed, ← hdataOperator, htrace_data]
+  have hbound :=
+    Source.CC20Concrete.PositiveTrace.tsum_normSq_precomp_le basis targetBasis basis
+      factor projection hfactor
+  calc
+    ∑' i, ‖compressed (basis i)‖ ^ 2 ≤
+        ‖projection‖ ^ 2 * (∑' i, ‖factor (basis i)‖ ^ 2) := hbound
+    _ ≤ 1 * (∑' i, ‖factor (basis i)‖ ^ 2) := by
+      gcongr
+      simpa using ((sq_le_sq₀ (norm_nonneg _) (by norm_num)).mpr hnorm)
+    _ = ∑' i, ‖factor (basis i)‖ ^ 2 := by ring
 
 omit [CompleteSpace H] in
 /-- **1625's chain, repaired.**  If `P` is a projection below `E` (so that

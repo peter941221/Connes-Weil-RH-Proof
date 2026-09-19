@@ -147,6 +147,9 @@ end TwoDimensional
 #print axioms ConnesWeilRH.Dev.StripDensityTraceLedger.ordinaryTraceAlong_re_nonneg
 #print axioms ConnesWeilRH.Dev.StripDensityTraceLedger.ordinaryTraceAlong_re_mono
 #print axioms ConnesWeilRH.Dev.StripDensityTraceLedger.stripDensity_trace_le_of_compression
+#check @ConnesWeilRH.Dev.StripDensityTraceLedger.stripDensity_compression_of_positiveComposition
+#print axioms
+  ConnesWeilRH.Dev.StripDensityTraceLedger.stripDensity_compression_of_positiveComposition
 #print axioms ConnesWeilRH.Dev.StripDensityTraceLedgerAudit.rankOne_compression_not_le
 #print axioms
   ConnesWeilRH.Dev.StripDensityTraceLedgerAudit.TwoDimensional.rankOne_compression_counterexample
