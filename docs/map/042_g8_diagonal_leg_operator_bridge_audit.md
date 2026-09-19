@@ -967,3 +967,14 @@ Hilbert–Schmidt precomposition bound. This is a formal partial closure of the
 WO-B, the source-projection energy estimate, and the carrier base remain OPEN.
 Evidence: [1702](../proofs/1702_strip_density_hilbert_schmidt_compression_trace_lemma.md),
 focused 2664-job build, zero `error:`/`sorryAx`, standard axioms only.
+
+**Status update (2026-09-19, record 1703).** The theorem
+`sourceCompressedRootAnnularGram_trace_re_le_sourceRootAnnularGram_trace_re`
+now proves that the source-compressed annular Gram trace is bounded by the
+ambient annular Gram trace.  It is the trace-level form of the contractivity of
+the source-inclusion adjoint, using the exact column-energy identities and
+their summability.  Therefore an ambient annular upper bound transports
+directly to the compressed S3 consumer; the compressed trace is no longer an
+independent analytic target.  The ambient annular bound, WO-S/WO-B, and the
+source-projection root square-sum remain OPEN.  Evidence: [1703](../proofs/1703_source_compressed_annular_trace_dominated_by_ambient.md),
+focused 3962-job build, zero `error:`/`sorryAx`, standard axioms only.

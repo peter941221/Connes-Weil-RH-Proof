@@ -15,6 +15,8 @@ namespace Dev
 #check @sourceRootAnnularGram
 #check @sourceRootAnnularGram_trace_eq_column_energy
 #check @sourceCompressedRootAnnularGram_trace_re_nonnegative
+#check @sourceCompressedRootAnnularGram_trace_re_le_sourceRootAnnularGram_trace_re
+#print axioms sourceCompressedRootAnnularGram_trace_re_le_sourceRootAnnularGram_trace_re
 #check @sourceRootAnnularGram_trace_re_nonnegative
 #check @sourceCompressedRootAnnularGram
 #check @sourceCompressedRootAnnularGram_trace_eq_column_energy
