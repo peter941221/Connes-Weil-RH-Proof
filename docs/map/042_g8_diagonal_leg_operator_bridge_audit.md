@@ -1074,3 +1074,14 @@ new mathematical brick is therefore a source-Sonin density lemma with the
 same healthy owner; ambient projection substitutions are out of route.  The
 uniform annular trace bound remains the direct consumer target.
 Evidence: [1718](../proofs/1718_fourier_side_source_sonin_density_lemma_is_the_new_s3_bone.md).
+
+**Status update (2026-09-20, record 1719).** Existing formal decay now gives
+the first usable sublemma for the source-Sonin density route:
+`sourceFourierSupportProjection_unit_globalLogTranslation_neg_tendsto_zero`,
+and hence source-Sonin projection decay on the selected translated orbit.
+This is only qualitative.  The new minimal analytic target is a quantitative
+tail-rate estimate for the compact root multiplier, sufficient for
+`sum_n ||P_Sonin T_(-n) k_g||^2 < infinity` (or its continuous weighted
+analogue).  That rate upgrade would feed the already-formal Tonelli and
+annular-trace consumers; it is still OPEN.
+Evidence: [1719](../proofs/1719_source_fourier_tail_decay_reduces_s3_density_to_quantitative_rate.md).
