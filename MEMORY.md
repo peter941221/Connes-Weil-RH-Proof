@@ -1,6 +1,7 @@
 # MEMORY.MD
 
 2026-09-20 ConnesWeilRH/Dev/C1G8R3AnnularKernelDiagonalMass.lean + Audit + docs/proofs/1723_annular_kernel_diagonal_mass_identity.md : exact Tonelli/L2 identity converts the S3 annular column square-sum into the actual pointwise root-kernel diagonal integral; focused 3969-job build clean with standard axioms and no sorryAx.
+2026-09-20 docs/proofs/1724_hardy_transform_regularization_is_the_live_s3_bridge.md : audited the committed Hardy-Titchmarsh definition; it is only an L2 Fourier/reflection/scattering composition, so the quadratic decay brick still needs a concrete Hardy-transform regularity theorem for the selected compact root input.
 
 Project narrative ledger — CURRENT FRONTIER + wave digest + archive
 pointers. Compressed 2026-09-17: per-record narratives live in the committed

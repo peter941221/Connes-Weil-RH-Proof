@@ -1124,3 +1124,13 @@ identifies the annular column square-sum with the pointwise kernel diagonal
 integral by the existing L2 readback and Tonelli theorem. The remaining
 producer is therefore exactly a cutoff-uniform integrable upper bound for
 that diagonal; no basis regularity or finite-dimensional shortcut is allowed.
+
+**Status update (2026-09-20, record 1724):** the next operator-level bridge
+was audited against the committed Hardy definition. The Hardy--Titchmarsh
+owner is currently only an L2 Fourier/reflection/scattering composition; the
+tree has no theorem giving integrable first/second derivatives or a pointwise
+kernel diagonal for the selected root input. Thus records 1720–1721 cannot
+yet be applied to arbitrary source-carrier basis vectors. The preferred next
+brick is concrete Hardy-transform regularity for the compact root input (or,
+as a fallback, a direct integrable diagonal majorant). Evidence: record
+1724; route unchanged.
