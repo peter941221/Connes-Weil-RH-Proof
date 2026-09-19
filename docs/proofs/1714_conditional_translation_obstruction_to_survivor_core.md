@@ -56,6 +56,19 @@ particular, the open carrier-witness problem means that the antecedent may be
 empty.  The record therefore does not alter `docs/map/042` or declare S3
 dead.
 
+## Direction audit
+
+The Hardy covariance law is already present in the tree:
+`H(U_b u) = U_{-b}(H u)`.  Therefore the radial support preservation for
+`b <= 0` does not by itself preserve the Fourier-support half: the Hardy image
+is translated in the opposite direction.  In fact, invariance under every
+right translation would force the Hardy image to vanish on arbitrarily long
+initial intervals and is incompatible with a nonzero carrier element.  The
+conditional obstruction must therefore not be used as a blanket claim that
+the actual carrier is translation invariant.  The live question is whether a
+finite or one-sided translated tail supplies enough separated vectors for a
+noncompactness argument without assuming the false full invariance.
+
 ## Consequence for the fastest route
 
 Before attempting a pointwise diagonal estimate, discharge or refute the
