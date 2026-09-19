@@ -1160,8 +1160,9 @@ direct diagonal-majorant interface. Evidence: formal record 1726, focused
 archimedean factor and its scattering quotient now have formal first-order
 real differentiability on the real frequency axis
 (`differentiable_ccm24ArchimedeanFactor` and
-`differentiable_ccm24ArchimedeanScatteringPhase`). This removes the bare
-continuity gap in the multiplier interface, but supplies no derivative-growth
+`differentiable_ccm24ArchimedeanScatteringPhase`, together with the conjugate
+inverse phase theorem). This removes the bare continuity gap in the multiplier
+interface for both directions, but supplies no derivative-growth
 bound and no Schwartz-multiplier theorem. The Hardy-output identification,
 quantitative decay, and cutoff-uniform kernel-diagonal majorant remain OPEN;
 S3 and the healthy CompactLog B5 route are unchanged. FORMAL evidence:

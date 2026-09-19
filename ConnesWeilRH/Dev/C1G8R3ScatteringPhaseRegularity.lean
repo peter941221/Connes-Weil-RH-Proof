@@ -19,6 +19,7 @@ namespace Dev
 
 open Source
 open Source.CC20Concrete
+open scoped ComplexConjugate
 
 private theorem criticalGamma_argument_avoids_poles (xi : ℝ) :
     ∀ m : ℕ,
@@ -107,6 +108,15 @@ theorem differentiable_ccm24ArchimedeanScatteringPhase :
   · exact Complex.conjCLE.differentiableAt.comp xi
       (differentiable_ccm24ArchimedeanFactor xi)
   · simpa using (ccm24ArchimedeanFactor_ne_zero xi)
+
+theorem differentiable_ccm24ArchimedeanScatteringPhase_inverse :
+    Differentiable ℝ
+      (fun xi => conj (ccm24ArchimedeanScatteringPhase xi)) := by
+  intro xi
+  change DifferentiableAt ℝ
+    (fun x => conj (ccm24ArchimedeanScatteringPhase x)) xi
+  exact Complex.conjCLE.differentiableAt.comp xi
+    (differentiable_ccm24ArchimedeanScatteringPhase xi)
 
 end Dev
 end ConnesWeilRH

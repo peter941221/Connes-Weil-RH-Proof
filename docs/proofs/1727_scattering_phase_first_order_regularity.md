@@ -7,10 +7,14 @@ formal first-order real differentiability on the full real frequency axis:
 
 - `differentiable_ccm24ArchimedeanFactor`
 - `differentiable_ccm24ArchimedeanScatteringPhase`
+- `differentiable_ccm24ArchimedeanScatteringPhase_inverse`
 
 The proof uses the committed `Gammaℝ` definition, nonvanishing on the critical
 line, Mathlib's complex Gamma differentiability away from its poles, real
 restriction of complex derivatives, and conjugation/division calculus.
+
+The inverse multiplier is the conjugate phase, so its first-order regularity
+is obtained from the same real-linear conjugation map.
 
 ## Boundary
 
