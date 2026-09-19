@@ -151,6 +151,22 @@ F55/F58  Gram weight dxi not du; translate families in the favourable
 
 Stop word unchanged: a gate certificate, or a proved refutation of the base.
 
+## 7. Execution note (2026-09-19, record 1675)
+
+Section 4 item 1 (rig first) resolved NEGATIVELY and is superseded:
+`scripts/annular_gram_trace_1675.py` proved that the truncated-grid carrier
+meet is DIMENSION-FORCED (`dim >= 2a/du` for ANY involutive unitary
+conjugation; generic-random-phase control identical to the committed
+symbol), so B(N)'s decay law cannot be read on any truncated rig. The
+decision gate of section 4 is replaced by: attack the uniform annular Gram
+upper bound ANALYTICALLY via the kernel-diagonal / local-trace route (the
+1625 basis-to-measure trace identity, double consumer with StripDensity
+content), calibrating against the m = 1 exact answers (carrier = L^2[-a,a],
+B = 0 exactly for N >= a + R, one-sided bounds diverge linearly). Base
+numerics remain on front B only, as trend quantities against the forced
+count. Laws F59 (the 1655 no-go, numbered) and F60 (the forced-meet law)
+are filed in record 1675.
+
 ## 6. One-line status
 
 Tower formal; gate = 0 <= qw(g) iff SourceRH; endpoint face = ONE open
