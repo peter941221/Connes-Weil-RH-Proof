@@ -1,0 +1,136 @@
+{
+ "lambda": 0.36787944117144233,
+ "a": 1.0,
+ "grids": [
+  {
+   "M": 4096,
+   "du": 0.01953125,
+   "dimE": 2099,
+   "dimQ": 2100,
+   "forced_exact": 103,
+   "block_dim": 163,
+   "iters": 500,
+   "model_accepted": 103,
+   "model_accepted_tol1e6": 103,
+   "model_excess": 0,
+   "model_sigma_top": 1.0,
+   "model_sigma_at_forced": 3.65e-08,
+   "model_tail_past_forced": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "model_drift_last100": 0.0,
+   "real_accepted": 103,
+   "real_accepted_tol1e6": 103,
+   "real_excess": 0,
+   "real_sigma_top": 1.0,
+   "real_sigma_at_forced": 3.44e-08,
+   "real_tail_past_forced": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "real_drift_last100": 0.0,
+   "random_accepted": 103,
+   "random_accepted_tol1e6": 103,
+   "random_excess": 0,
+   "random_sigma_top": 1.0,
+   "random_sigma_at_forced": 3.38e-08,
+   "random_tail_past_forced": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_drift_last100": 0.0
+  },
+  {
+   "M": 8192,
+   "du": 0.009765625,
+   "dimE": 4198,
+   "dimQ": 4199,
+   "forced_exact": 205,
+   "block_dim": 265,
+   "iters": 250,
+   "model_accepted": 205,
+   "model_accepted_tol1e6": 205,
+   "model_excess": 0,
+   "model_sigma_top": 1.0,
+   "model_sigma_at_forced": 3.95e-08,
+   "model_tail_past_forced": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "model_drift_last100": 0.0,
+   "real_accepted": 205,
+   "real_accepted_tol1e6": 205,
+   "real_excess": 0,
+   "real_sigma_top": 1.0,
+   "real_sigma_at_forced": 3.94e-08,
+   "real_tail_past_forced": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "real_drift_last100": 0.0,
+   "random_accepted": 205,
+   "random_accepted_tol1e6": 205,
+   "random_excess": 0,
+   "random_sigma_top": 1.0,
+   "random_sigma_at_forced": 3.38e-08,
+   "random_tail_past_forced": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "random_drift_last100": 0.0
+  }
+ ],
+ "verdict": [
+  {
+   "M": 4096,
+   "forced": 103,
+   "excess_model": 0,
+   "excess_real": 0,
+   "excess_random": 0
+  },
+  {
+   "M": 8192,
+   "forced": 205,
+   "excess_model": 0,
+   "excess_real": 0,
+   "excess_random": 0
+  }
+ ]
+}
