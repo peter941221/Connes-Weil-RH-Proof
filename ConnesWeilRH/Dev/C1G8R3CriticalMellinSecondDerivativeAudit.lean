@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3CriticalMellinSecondDerivative
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check hasDerivAt_ccm24CriticalMellinLogProfileFirstDeriv_formula
+#print axioms hasDerivAt_ccm24CriticalMellinLogProfileFirstDeriv_formula
+
+end Dev
+end ConnesWeilRH

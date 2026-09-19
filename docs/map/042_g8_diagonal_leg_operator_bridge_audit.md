@@ -1176,3 +1176,13 @@ factor. This is a genuine algebraic bridge for any future derivative-growth
 estimate; it does not assert such a bound and does not close the Hardy-output
 or kernel-diagonal obligation. S3 remains OPEN. FORMAL evidence: record 1728,
 focused 2964-job build, zero `error:`/`sorryAx`, standard axioms only.
+
+**Status update (2026-09-20, record 1730):** the concrete critical Mellin
+profile now has a formal exact second chain rule on the Schwartz core. The
+second derivative is decomposed into the weighted first-derivative term, the
+weighted second-derivative term, and the weighted profile term. This is the
+correct input shape for the existing quadratic Fourier-tail consumer, but no
+integrability majorant has yet been claimed. The Hardy-output identification
+and S3 kernel-diagonal bound remain OPEN. FORMAL evidence: record 1730 and
+its paired Audit leaf, focused 2967-job build, zero `error:`/`sorryAx`,
+standard axioms only.
