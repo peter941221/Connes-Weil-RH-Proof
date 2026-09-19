@@ -192,11 +192,8 @@ theorem integrable_ccm24CriticalMellinLogProfileFirstDerivFormula
 theorem differentiable_ccm24CriticalMellinLogProfileFirstDerivFormula
     (f : SchwartzMap ℝ ℂ) :
     Differentiable ℝ (ccm24CriticalMellinLogProfileFirstDerivFormula f) := by
+  unfold ccm24CriticalMellinLogProfileFirstDerivFormula
   intro t
-  change DifferentiableAt ℝ
-    (fun u : ℝ =>
-      ccm24CriticalMellinLogProfileChainDeriv f u +
-        ((-1 / 2 : ℝ) * Real.exp (-u / 2)) • f (Real.exp (-u))) t
   exact (hasDerivAt_ccm24CriticalMellinLogProfileFirstDeriv_formula f t).differentiableAt
 
 theorem integrable_deriv_ccm24CriticalMellinLogProfileFirstDerivFormula
@@ -205,10 +202,7 @@ theorem integrable_deriv_ccm24CriticalMellinLogProfileFirstDerivFormula
   have hsecond := integrable_ccm24CriticalMellinLogProfileSecondDerivFormula f
   apply hsecond.congr
   filter_upwards [] with t
-  change ccm24CriticalMellinLogProfileSecondDerivFormula f t =
-    deriv (fun u : ℝ =>
-      ccm24CriticalMellinLogProfileChainDeriv f u +
-        ((-1 / 2 : ℝ) * Real.exp (-u / 2)) • f (Real.exp (-u))) t
+  unfold ccm24CriticalMellinLogProfileFirstDerivFormula
   rw [(hasDerivAt_ccm24CriticalMellinLogProfileFirstDeriv_formula f t).deriv]
 
 theorem memLp_two_fourier_ccm24CriticalMellinLogProfileFirstDerivFormula
