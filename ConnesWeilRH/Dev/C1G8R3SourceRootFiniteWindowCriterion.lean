@@ -335,6 +335,46 @@ theorem sourceRootAnnularOutputWindow_sourceBasis_normSq_summable
     ContinuousLinearMap.sub_apply, sub_eq_add_neg, norm_neg] using
     congrArg (fun z : finiteSCarrier => ‖z‖ ^ 2) hi
 
+theorem sourceCompressedRootAnnularGram_trace_re_nonnegative
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (N n : ℕ) (hN : selectedRootSupportRadius owner ≤ (N : ℝ))
+    (hn : selectedRootSupportRadius owner ≤ (n : ℝ)) {ι : Type*}
+    (sourceBasis : HilbertBasis ι ℂ (sourceSoninCarrier lambda)) :
+    0 ≤ (Source.CC20Concrete.PositiveTrace.ordinaryTraceAlong sourceBasis
+      (sourceCompressedRootAnnularGram owner lambda N n)).re := by
+  rw [sourceCompressedRootAnnularGram_trace_eq_column_energy]
+  have hs := sourceCompressedRootAnnularWindow_sourceBasis_normSq_summable
+    owner lambda N n hN hn sourceBasis
+  have hcast :
+      (∑' i, ((‖sourceCompressedRootAnnularWindow owner lambda N n
+        (sourceBasis i)‖ ^ 2 : ℝ) : ℂ)) =
+        ((∑' i, ‖sourceCompressedRootAnnularWindow owner lambda N n
+          (sourceBasis i)‖ ^ 2 : ℝ) : ℂ) :=
+    (Complex.ofRealCLM.map_tsum hs).symm
+  rw [hcast]
+  simp only [Complex.ofReal_re]
+  exact tsum_nonneg (fun i => sq_nonneg _)
+
+theorem sourceRootAnnularGram_trace_re_nonnegative
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (N n : ℕ) (hN : selectedRootSupportRadius owner ≤ (N : ℝ))
+    (hn : selectedRootSupportRadius owner ≤ (n : ℝ)) {ι : Type*}
+    (sourceBasis : HilbertBasis ι ℂ (sourceSoninCarrier lambda)) :
+    0 ≤ (Source.CC20Concrete.PositiveTrace.ordinaryTraceAlong sourceBasis
+      (sourceRootAnnularGram owner lambda N n)).re := by
+  rw [sourceRootAnnularGram_trace_eq_column_energy]
+  have hs := sourceRootAnnularOutputWindow_sourceBasis_normSq_summable
+    owner lambda N n hN hn sourceBasis
+  have hcast :
+      (∑' i, ((‖sourceRootAnnularOutputWindow owner lambda N n
+        (sourceBasis i)‖ ^ 2 : ℝ) : ℂ)) =
+        ((∑' i, ‖sourceRootAnnularOutputWindow owner lambda N n
+          (sourceBasis i)‖ ^ 2 : ℝ) : ℂ) :=
+    (Complex.ofRealCLM.map_tsum hs).symm
+  rw [hcast]
+  simp only [Complex.ofReal_re]
+  exact tsum_nonneg (fun i => sq_nonneg _)
+
 theorem sourceCompressedRootAnnularGram_isTraceClassAlong
     (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
     (N n : ℕ) (hN : selectedRootSupportRadius owner ≤ (N : ℝ))

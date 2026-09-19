@@ -14,6 +14,8 @@ namespace Dev
 #check @sourceRootAnnularOutputWindow
 #check @sourceRootAnnularGram
 #check @sourceRootAnnularGram_trace_eq_column_energy
+#check @sourceCompressedRootAnnularGram_trace_re_nonnegative
+#check @sourceRootAnnularGram_trace_re_nonnegative
 #check @sourceCompressedRootAnnularGram
 #check @sourceCompressedRootAnnularGram_trace_eq_column_energy
 #check @sourceCompressedRootAnnularGram_isTraceClassAlong
