@@ -1,0 +1,21 @@
+import ConnesWeilRH.Dev.C1LaneRD3Detects
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1LaneRD3DetectsAudit
+
+open C1LaneRD3Detects
+
+#check @exists_compactLogTest_laplaceAt_ne_zero
+#check @tripleVanishingRoot_laplaceAt_ne_zero
+#check @healthyDetectorData_of_rootFrame_and_arch_pos
+#check @CC20YoshidaDetectorExists_of_existsFrame_and_arch_pos
+
+#print axioms exists_compactLogTest_laplaceAt_ne_zero
+#print axioms tripleVanishingRoot_laplaceAt_ne_zero
+#print axioms healthyDetectorData_of_rootFrame_and_arch_pos
+#print axioms CC20YoshidaDetectorExists_of_existsFrame_and_arch_pos
+
+end C1LaneRD3DetectsAudit
+end Source
+end ConnesWeilRH
