@@ -19,5 +19,12 @@ This closes the bookkeeping interface and leaves one genuine S3 producer:
 an integrable, cutoff-uniform upper bound for the displayed pointwise kernel
 diagonal. The theorem is not itself that bound and does not claim RH.
 
+The same leaf now also proves the consumer theorem
+`sourceCompressedRoot_squareSum_of_kernelDiagonal_lintegral_bound`: any such
+diagonal bound, with a nonnegative real constant, immediately yields the
+source-compressed-root square-summability required by S3. The compressed
+annular window is inserted only through the already proved contractive
+pointwise comparison.
+
 Evidence: focused build log `1723_annular_kernel_diagonal_mass_v4.log`,
 3969 jobs, success footer, zero `error:` and zero `sorryAx`.

@@ -5,6 +5,8 @@ namespace Dev
 
 #check @sourceRootAnnularOutputWindow_normSq_tsum_eq_kernelDiagonal_lintegral
 #print axioms sourceRootAnnularOutputWindow_normSq_tsum_eq_kernelDiagonal_lintegral
+#check @sourceCompressedRoot_squareSum_of_kernelDiagonal_lintegral_bound
+#print axioms sourceCompressedRoot_squareSum_of_kernelDiagonal_lintegral_bound
 
 end Dev
 end ConnesWeilRH
