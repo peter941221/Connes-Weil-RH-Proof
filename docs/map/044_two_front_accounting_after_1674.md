@@ -167,6 +167,17 @@ numerics remain on front B only, as trend quantities against the forced
 count. Laws F59 (the 1655 no-go, numbered) and F60 (the forced-meet law)
 are filed in record 1675.
 
+Addendum (record 1676): row 1 of the section-3 table is now stateable and
+consumable ENTIRELY IN TRACE FORM — `Dev/C1G8R3AnnularTraceConsumer.lean`
+wires `forall n >= N, Re tr Gram(N,n) <= B` formally through to the
+survivor-core square-sum and hence (1659) the endpoint gate, so the open
+front-A object is exactly that one Pi statement and nothing else.  The F60
+trend rig (`scripts/annular_gram_trace_1676_trend.py`) adds law F61: at
+saturated blocks the grid meet sits exactly at the forced count with a
+machine-zero gap past it for committed/model/random phases alike — no
+grid-scale footprint, no near-meet directions; base numerics live only
+inside fixed ansatz subspaces (1640 style).
+
 ## 6. One-line status
 
 Tower formal; gate = 0 <= qw(g) iff SourceRH; endpoint face = ONE open

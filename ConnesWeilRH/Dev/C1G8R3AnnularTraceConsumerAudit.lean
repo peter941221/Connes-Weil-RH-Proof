@@ -1,0 +1,21 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1G8R3AnnularTraceConsumer
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @sourceRootAnnularGram_column_energy_tsum_le_of_trace_le
+#print axioms sourceRootAnnularGram_column_energy_tsum_le_of_trace_le
+#check @sourceCompressedRootAnnularGram_column_energy_tsum_le_of_trace_le
+#print axioms sourceCompressedRootAnnularGram_column_energy_tsum_le_of_trace_le
+#check @sourceCompressedRoot_squareSum_of_eventual_ambient_annular_trace_bound
+#print axioms sourceCompressedRoot_squareSum_of_eventual_ambient_annular_trace_bound
+#check @sourceCompressedRoot_squareSum_of_eventual_annular_trace_bound
+#print axioms sourceCompressedRoot_squareSum_of_eventual_annular_trace_bound
+
+end Dev
+end ConnesWeilRH
