@@ -1186,3 +1186,13 @@ integrability majorant has yet been claimed. The Hardy-output identification
 and S3 kernel-diagonal bound remain OPEN. FORMAL evidence: record 1730 and
 its paired Audit leaf, focused 2967-job build, zero `error:`/`sorryAx`,
 standard axioms only.
+
+**Status update (2026-09-20, record 1731):** the concrete critical Mellin
+profile now has a formally integrable explicit second-derivative formula on
+the Schwartz core. The positive logarithmic tail uses the zeroth Schwartz
+seminorm and the negative tail uses the third seminorm; existing profile and
+chain-term integrability supplies the remaining summands. This is a formal
+Sobolev input for the quadratic Fourier-tail consumer, but it still does not
+identify the arbitrary source-carrier Hardy output with the concrete
+Schwartz profile and therefore does not close S3. The source-carrier
+regularity transfer or an independent kernel-diagonal majorant remains OPEN.

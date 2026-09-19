@@ -5,6 +5,8 @@ namespace Dev
 
 #check hasDerivAt_ccm24CriticalMellinLogProfileFirstDeriv_formula
 #print axioms hasDerivAt_ccm24CriticalMellinLogProfileFirstDeriv_formula
+#check integrable_ccm24CriticalMellinLogProfileSecondDerivFormula
+#print axioms integrable_ccm24CriticalMellinLogProfileSecondDerivFormula
 
 end Dev
 end ConnesWeilRH
