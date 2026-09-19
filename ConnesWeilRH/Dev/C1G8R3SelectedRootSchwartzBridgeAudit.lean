@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8R3SelectedRootSchwartzBridge
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check rootConvolution_apply_schwartz
+#print axioms rootConvolution_apply_schwartz
+#check rootConvolution_schwartz_quadratic_decay
+#print axioms rootConvolution_schwartz_quadratic_decay
+#check rootConvolution_schwartz_fourier_normSq_summable
+#print axioms rootConvolution_schwartz_fourier_normSq_summable
+
+end Dev
+end ConnesWeilRH

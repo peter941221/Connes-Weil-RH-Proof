@@ -1146,3 +1146,12 @@ basis vectors. S3 remains OPEN; the exact missing interface is the
 identification/regularity of the selected Hardy output, or an independent
 pointwise diagonal majorant. Evidence: formal record 1725, focused 2968-job
 build, zero `error:`/`sorryAx`, standard axioms only.
+
+**Status update (2026-09-20, record 1726):** the Schwartz-core estimate is
+now attached to the actual selected root. `rootConvolution_apply_schwartz`
+identifies the root output on `u.toLp 2` with the concrete Schwartz
+convolution by the involuted compact root, and the 1725 decay/summability
+consumer applies to that output. This closes no arbitrary-basis or
+Hardy-output step: S3 remains OPEN at the Hardy multiplier regularity or
+direct diagonal-majorant interface. Evidence: formal record 1726, focused
+3167-job build, zero `error:`/`sorryAx`, standard axioms only.
