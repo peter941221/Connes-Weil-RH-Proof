@@ -1027,3 +1027,15 @@ the remaining S3 producer is isolated after the exchange as a pointwise
 kernel-diagonal bound; no finite bound, summability, or sign has been assumed.
 FORMAL evidence: paired Audit leaf, focused 3968-job build, zero `error:` and
 `sorryAx`, standard axioms only.
+
+**Status update (2026-09-20, record 1715).** The attempted full-translation
+noncompactness shortcut is now formally audited and rejected. At unit scale,
+`sourceSonin_nonzero_not_closed_under_all_right_translations` shows that a
+source-carrier vector whose entire right-translated orbit remains in the
+carrier must be zero: the Fourier-support projection is identity on the
+carrier, its translated-orbit norm tends to zero, and translation is an
+isometry. This removes the full-orbit obstruction as a proof of S3 failure;
+it does not provide S3. The remaining producer is still the post-Tonelli
+pointwise kernel-diagonal bound, possibly with finite-tail or cutoff structure.
+FORMAL evidence: paired Audit leaf, focused 3285-job build, zero `error:` and
+`sorryAx`, standard axioms only.

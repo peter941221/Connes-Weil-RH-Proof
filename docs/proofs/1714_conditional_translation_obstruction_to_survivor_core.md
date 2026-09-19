@@ -69,6 +69,10 @@ the actual carrier is translation invariant.  The live question is whether a
 finite or one-sided translated tail supplies enough separated vectors for a
 noncompactness argument without assuming the false full invariance.
 
+Record 1715 formally settles the strongest version: a nonzero source-carrier
+vector cannot have its entire right-translated orbit in the carrier.  The
+finite-tail and pointwise-kernel alternatives remain open.
+
 ## Consequence for the fastest route
 
 Before attempting a pointwise diagonal estimate, discharge or refute the
