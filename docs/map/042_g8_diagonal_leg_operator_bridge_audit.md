@@ -1187,6 +1187,15 @@ and S3 kernel-diagonal bound remain OPEN. FORMAL evidence: record 1730 and
 its paired Audit leaf, focused 2967-job build, zero `error:`/`sorryAx`,
 standard axioms only.
 
+**Status update (2026-09-20, record 1732):** the second-derivative
+integrability from 1731 now feeds the existing one-dimensional Sobolev
+consumer. The concrete first-derivative critical Mellin profile is
+differentiable with integrable derivative, so its classical Fourier transform
+is formally in `MemLp 2`. This closes the concrete Schwartz-core Fourier-L2
+consumer only; the arbitrary source-carrier Hardy-output transfer and the
+uniform kernel-diagonal bound remain OPEN, so S3 is unchanged. FORMAL
+evidence: record 1732 and its paired Audit leaf.
+
 **Status update (2026-09-20, record 1731):** the concrete critical Mellin
 profile now has a formally integrable explicit second-derivative formula on
 the Schwartz core. The positive logarithmic tail uses the zeroth Schwartz

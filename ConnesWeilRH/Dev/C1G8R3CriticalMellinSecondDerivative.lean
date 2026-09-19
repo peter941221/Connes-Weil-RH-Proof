@@ -20,6 +20,7 @@ namespace Dev
 open Source
 open Source.CC20Concrete
 open MeasureTheory Set Filter
+open scoped FourierTransform
 
 noncomputable def ccm24CriticalMellinLogProfileSecondDerivFormula
     (f : SchwartzMap ℝ ℂ) (t : ℝ) : ℂ :=
@@ -29,6 +30,11 @@ noncomputable def ccm24CriticalMellinLogProfileSecondDerivFormula
       (SchwartzMap.derivCLM ℝ ℂ (SchwartzMap.derivCLM ℝ ℂ f))
         (Real.exp (-t)) +
     ((1 / 4 : ℝ) * Real.exp (-t / 2)) • f (Real.exp (-t))
+
+noncomputable def ccm24CriticalMellinLogProfileFirstDerivFormula
+    (f : SchwartzMap ℝ ℂ) (t : ℝ) : ℂ :=
+  ccm24CriticalMellinLogProfileChainDeriv f t +
+    ((-1 / 2 : ℝ) * Real.exp (-t / 2)) • f (Real.exp (-t))
 
 theorem hasDerivAt_ccm24CriticalMellinLogProfileFirstDeriv_formula
     (f : SchwartzMap ℝ ℂ) (t : ℝ) :
@@ -169,6 +175,50 @@ theorem integrable_ccm24CriticalMellinLogProfileSecondDerivFormula
     ccm24CriticalMellinLogProfileChainDeriv, middle, df, ddf]
   simp [ccm24CriticalMellinLogProfile, smul_eq_mul, mul_assoc, mul_left_comm,
     mul_comm] <;> ring
+
+theorem integrable_ccm24CriticalMellinLogProfileFirstDerivFormula
+    (f : SchwartzMap ℝ ℂ) :
+    Integrable (ccm24CriticalMellinLogProfileFirstDerivFormula f) volume := by
+  have hchain := integrable_ccm24CriticalMellinLogProfileChainDeriv f
+  have hprofile := (integrable_ccm24CriticalMellinLogProfile f).const_mul
+    ((-1 / 2 : ℝ) : ℂ)
+  have hsum := hchain.add hprofile
+  apply hsum.congr
+  filter_upwards [] with t
+  simp [ccm24CriticalMellinLogProfileFirstDerivFormula,
+    ccm24CriticalMellinLogProfile, ccm24CriticalMellinLogProfileChainDeriv,
+    smul_eq_mul, mul_assoc, mul_left_comm, mul_comm]
+
+theorem differentiable_ccm24CriticalMellinLogProfileFirstDerivFormula
+    (f : SchwartzMap ℝ ℂ) :
+    Differentiable ℝ (ccm24CriticalMellinLogProfileFirstDerivFormula f) := by
+  intro t
+  change DifferentiableAt ℝ
+    (fun u : ℝ =>
+      ccm24CriticalMellinLogProfileChainDeriv f u +
+        ((-1 / 2 : ℝ) * Real.exp (-u / 2)) • f (Real.exp (-u))) t
+  exact (hasDerivAt_ccm24CriticalMellinLogProfileFirstDeriv_formula f t).differentiableAt
+
+theorem integrable_deriv_ccm24CriticalMellinLogProfileFirstDerivFormula
+  (f : SchwartzMap ℝ ℂ) :
+    Integrable (deriv (ccm24CriticalMellinLogProfileFirstDerivFormula f)) volume := by
+  have hsecond := integrable_ccm24CriticalMellinLogProfileSecondDerivFormula f
+  apply hsecond.congr
+  filter_upwards [] with t
+  change ccm24CriticalMellinLogProfileSecondDerivFormula f t =
+    deriv (fun u : ℝ =>
+      ccm24CriticalMellinLogProfileChainDeriv f u +
+        ((-1 / 2 : ℝ) * Real.exp (-u / 2)) • f (Real.exp (-u))) t
+  rw [(hasDerivAt_ccm24CriticalMellinLogProfileFirstDeriv_formula f t).deriv]
+
+theorem memLp_two_fourier_ccm24CriticalMellinLogProfileFirstDerivFormula
+    (f : SchwartzMap ℝ ℂ) :
+    MemLp (𝓕 (ccm24CriticalMellinLogProfileFirstDerivFormula f)) 2 volume :=
+  memLp_two_fourier_of_integrable_deriv
+    (ccm24CriticalMellinLogProfileFirstDerivFormula f)
+    (integrable_ccm24CriticalMellinLogProfileFirstDerivFormula f)
+    (differentiable_ccm24CriticalMellinLogProfileFirstDerivFormula f)
+    (integrable_deriv_ccm24CriticalMellinLogProfileFirstDerivFormula f)
 
 end Dev
 end ConnesWeilRH
