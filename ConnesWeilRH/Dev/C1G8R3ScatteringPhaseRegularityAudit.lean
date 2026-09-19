@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1G8R3ScatteringPhaseRegularity
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check differentiable_ccm24ArchimedeanFactor
+#print axioms differentiable_ccm24ArchimedeanFactor
+#check differentiable_ccm24ArchimedeanScatteringPhase
+#print axioms differentiable_ccm24ArchimedeanScatteringPhase
+
+end Dev
+end ConnesWeilRH

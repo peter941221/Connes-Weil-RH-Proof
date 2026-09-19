@@ -1155,3 +1155,15 @@ consumer applies to that output. This closes no arbitrary-basis or
 Hardy-output step: S3 remains OPEN at the Hardy multiplier regularity or
 direct diagonal-majorant interface. Evidence: formal record 1726, focused
 3167-job build, zero `error:`/`sorryAx`, standard axioms only.
+
+**Status update (2026-09-20, record 1727):** the committed Gamma
+archimedean factor and its scattering quotient now have formal first-order
+real differentiability on the real frequency axis
+(`differentiable_ccm24ArchimedeanFactor` and
+`differentiable_ccm24ArchimedeanScatteringPhase`). This removes the bare
+continuity gap in the multiplier interface, but supplies no derivative-growth
+bound and no Schwartz-multiplier theorem. The Hardy-output identification,
+quantitative decay, and cutoff-uniform kernel-diagonal majorant remain OPEN;
+S3 and the healthy CompactLog B5 route are unchanged. FORMAL evidence:
+record 1727 and its paired Audit leaf, focused 2965-job build, zero
+`error:`/`sorryAx`, standard axioms only.
