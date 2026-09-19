@@ -62,6 +62,8 @@ this is a reduction, not an S3 closure.
 
 **Status update (2026-09-20, projected-root endpoint):** record [1706](../proofs/1706_survivor_to_source_projection_endpoint.md) composes the bare source-compressed consumer with the Hardy/prolate normal forms. The survivor obligation is now exactly the square-summability of `P C J`, where `P` is the source Sonin projection; the Hardy compression and prolate remainder are equivalent bookkeeping layers, with the remainder already controlled. S3 remains **OPEN** at this projected-root estimate.
 
+**Status update (2026-09-20, finite-window no-go):** record [1707](../proofs/1707_annular_trace_compact_window_bound_no_go.md) combines the projected-root finite-window criterion with the committed compact-kernel trace-growth theorem. Fixed-window Hilbert--Schmidt energy is available for every `n`, but its compact-kernel bound grows with window length and cannot supply the required uniform annular trace bound. The remaining producer must use the source carrier's coupled radial/Fourier geometry; an ambient compact-kernel or unwindowed norm bound is not a valid substitute. S3 remains **OPEN**.
+
 **Independence audit (2026-09-16):** S3 and B3/B4 are best treated as one
 total diagonal-energy producer with two currently separate estimates. The
 same-owner positivity conclusion C3 is a downstream theorem of the readback
