@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1G8R3AnnularL2EnergyReadback
+
+namespace ConnesWeilRH.Dev
+
+#check @sourceRootAnnularOutputWindow_normSq_eq_annulus_integral
+#print axioms sourceRootAnnularOutputWindow_normSq_eq_annulus_integral
+
+end ConnesWeilRH.Dev

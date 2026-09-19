@@ -1008,3 +1008,13 @@ estimate; it supplies no upper bound, summability, or sign.  The S3 Hardy
 corner energy estimate therefore remains OPEN.  FORMAL evidence: record 1711
 and the paired Audit leaf, focused 3963-job build, zero `error:` and
 `sorryAx`, standard axioms only.
+
+**Status update (2026-09-20, record 1712).** The pointwise readback is now
+lifted to the exact L2 energy identity
+`sourceRootAnnularOutputWindow_normSq_eq_annulus_integral`: each annular
+column norm squared equals the integral of the squared norm of the explicit
+annulus-restricted root-convolution output.  This is the kernel-diagonal
+representation needed by WO-S; it is still only an identity and proves no
+uniform bound or summability.  The Hardy-corner energy estimate remains OPEN.
+FORMAL evidence: paired Audit leaf, focused 3967-job build, zero `error:` and
+`sorryAx`, standard axioms only.
