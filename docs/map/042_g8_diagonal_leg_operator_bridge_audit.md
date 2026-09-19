@@ -1064,3 +1064,13 @@ remaining producer is the post-exchange pointwise kernel-diagonal bound (or
 an equivalent uniform annular trace bound).  This is a formal interface audit,
 not a no-go theorem and does not change the healthy-CompactLog B5 route.
 Evidence: [1717](../proofs/1717_shifted_hardy_not_s3_transfer_exact_kernel_diagonal_gap.md).
+
+**Status update (2026-09-20, record 1718).** A Fourier-side audit confirms
+that `rootConvolution` is already a Plancherel multiplier, but the source
+Sonin projection currently exposes only its closed-subspace/projection
+definition.  No committed theorem gives the diagonal density of
+`C ∘ sourceSoninProjection ∘ C†` or an annular integrable majorant.  The next
+new mathematical brick is therefore a source-Sonin density lemma with the
+same healthy owner; ambient projection substitutions are out of route.  The
+uniform annular trace bound remains the direct consumer target.
+Evidence: [1718](../proofs/1718_fourier_side_source_sonin_density_lemma_is_the_new_s3_bone.md).
