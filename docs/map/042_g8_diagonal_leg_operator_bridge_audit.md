@@ -1085,3 +1085,13 @@ tail-rate estimate for the compact root multiplier, sufficient for
 analogue).  That rate upgrade would feed the already-formal Tonelli and
 annular-trace consumers; it is still OPEN.
 Evidence: [1719](../proofs/1719_source_fourier_tail_decay_reduces_s3_density_to_quantitative_rate.md).
+
+**Status update (2026-09-20, record 1720).** The first quantitative rate
+brick is now formal: `fourier_norm_mul_sq_le_integral_norm_second_deriv`
+proves quadratic Fourier decay from two integrable derivatives.  This is the
+correct rate scale for square-summable unit-translation tails.  It does not
+yet close S3 because the live source-Sonin root multiplier has not been shown
+to satisfy the stated Sobolev hypotheses; the remaining bridge is now a
+concrete weighted-L2/second-derivative statement rather than an unspecified
+qualitative tail estimate.  FORMAL evidence: record 1720 and its paired Audit,
+focused 2967-job build, zero `error:`/`sorryAx`, standard axioms only.
