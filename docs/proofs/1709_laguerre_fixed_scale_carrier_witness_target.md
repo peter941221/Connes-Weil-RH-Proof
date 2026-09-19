@@ -31,9 +31,13 @@ there exist normalized v_d in span{H_0,...,H_(d-1)} such that
   and a fixed finite-rank observable K has liminf ||K v_d|| > 0.
 ```
 
-The compact-observable lower bound prevents weak escape to zero. Completeness
-then yields a nonzero Toeplitz-kernel vector, hence a nontrivial source Sonin
-carrier for the healthy B5 consumer.
+The compact-observable lower bound prevents weak escape to zero. The transport
+from such a kernel vector into the carrier is already formal: the committed
+multiplier-conjugate equivalence identifies carrier nontriviality with a
+nonzero radial vector satisfying the reflected multiplier equation, and the
+compact-observable consumer upgrades the approximate kernel to an actual
+nonzero kernel. Thus the remaining work is producer-side analysis, not a new
+Lean transport brick.
 
 ## 2. Continuous, non-grid formulation
 
@@ -62,8 +66,10 @@ multiplier.
 2. Prove the fixed-scale Gamma-symbol finite-section defect tends to zero,
    without FFT or finite-grid limits.
 3. Prove the fixed-observable lower bound for normalized minimizers.
-4. Prove the compact-observable limit and transport the resulting kernel into
-   `sourceSoninCarrier`.
+4. Prove the compact-observable limit for the same fixed observable. The
+   resulting kernel-to-carrier transport is already supplied by
+   `SoninCarrierMultiplierConjugate` and
+   `C1CarrierCompactObservableWitness`.
 
 Finite-dimensional tables from records 1639--1642 discharge none of these
 obligations; they remain candidate evidence only.
@@ -71,8 +77,10 @@ obligations; they remain candidate evidence only.
 ## 4. Route status
 
 This record does not change the binding route map. It names the next concrete
-carrier-base producer target. If obligations 2--4 are proved, the existing
-S3/B5 consumers can be used. If they fail analytically, the remaining route
-is direct spectral positivity, which is RH-equivalent.
+carrier-base producer target. The live analytic target is now exactly
+obligations 2--3 plus the fixed-observable limit in 4; no additional carrier
+transport theorem is needed. If these are proved, the existing S3/B5
+consumers can be used. If they fail analytically, the remaining route is
+direct spectral positivity, which is RH-equivalent.
 
 No carrier nontriviality, S3 estimate, SourceRH, or RH conclusion is claimed.
