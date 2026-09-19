@@ -1117,3 +1117,10 @@ identifies or bounds these operators. The exact remaining producer is the
 uniform annular root-kernel diagonal bound exposed by the Tonelli and L2
 readback modules. Record 1722 documents the evidence. Status: formal audit;
 S3 remains open at this producer, with no route change.
+
+**Status update (2026-09-20, record 1723):** the bookkeeping bridge is now
+formal. `sourceRootAnnularOutputWindow_normSq_tsum_eq_kernelDiagonal_lintegral`
+identifies the annular column square-sum with the pointwise kernel diagonal
+integral by the existing L2 readback and Tonelli theorem. The remaining
+producer is therefore exactly a cutoff-uniform integrable upper bound for
+that diagonal; no basis regularity or finite-dimensional shortcut is allowed.

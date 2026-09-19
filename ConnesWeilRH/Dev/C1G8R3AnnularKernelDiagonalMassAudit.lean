@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3AnnularKernelDiagonalMass
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @sourceRootAnnularOutputWindow_normSq_tsum_eq_kernelDiagonal_lintegral
+#print axioms sourceRootAnnularOutputWindow_normSq_tsum_eq_kernelDiagonal_lintegral
+
+end Dev
+end ConnesWeilRH
