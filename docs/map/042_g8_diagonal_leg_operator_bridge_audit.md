@@ -1168,3 +1168,11 @@ quantitative decay, and cutoff-uniform kernel-diagonal majorant remain OPEN;
 S3 and the healthy CompactLog B5 route are unchanged. FORMAL evidence:
 record 1727 and its paired Audit leaf, focused 2965-job build, zero
 `error:`/`sorryAx`, standard axioms only.
+
+**Status update (2026-09-20, record 1728):** the same module now proves the
+exact real-frequency quotient derivative formula for the scattering phase,
+using the real-linear conjugation equivalence and the nonvanishing Gamma
+factor. This is a genuine algebraic bridge for any future derivative-growth
+estimate; it does not assert such a bound and does not close the Hardy-output
+or kernel-diagonal obligation. S3 remains OPEN. FORMAL evidence: record 1728,
+focused 2964-job build, zero `error:`/`sorryAx`, standard axioms only.

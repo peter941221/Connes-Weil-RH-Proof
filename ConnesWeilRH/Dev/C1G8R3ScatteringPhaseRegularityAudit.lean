@@ -9,6 +9,8 @@ namespace Dev
 #print axioms differentiable_ccm24ArchimedeanScatteringPhase
 #check differentiable_ccm24ArchimedeanScatteringPhase_inverse
 #print axioms differentiable_ccm24ArchimedeanScatteringPhase_inverse
+#check deriv_ccm24ArchimedeanScatteringPhase_formula
+#print axioms deriv_ccm24ArchimedeanScatteringPhase_formula
 
 end Dev
 end ConnesWeilRH
