@@ -1106,3 +1106,14 @@ quadratic bound, or an equivalent integrable kernel diagonal; arbitrary L2
 basis-vector smoothness is not assumed.  FORMAL evidence: record 1721,
 paired Audit, focused 2967-job build, zero `error:`/`sorryAx`, standard axioms
 only.
+## 2026-09-20 operator-bridge audit (record 1722)
+
+The existing `sourceActualBandFiniteEulerPairedResponse_isTraceClassAlong`
+family was audited as a possible S3 producer. It is not one: that response
+contains finite-Euler and detector factors and is controlled by the physical
+boundary pair, whereas S3 is the column square-sum of
+`sourceInclusion† * rootConvolution * sourceInclusion`. No committed theorem
+identifies or bounds these operators. The exact remaining producer is the
+uniform annular root-kernel diagonal bound exposed by the Tonelli and L2
+readback modules. Record 1722 documents the evidence. Status: formal audit;
+S3 remains open at this producer, with no route change.
