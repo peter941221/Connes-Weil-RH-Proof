@@ -1018,3 +1018,12 @@ representation needed by WO-S; it is still only an identity and proves no
 uniform bound or summability.  The Hardy-corner energy estimate remains OPEN.
 FORMAL evidence: paired Audit leaf, focused 3967-job build, zero `error:` and
 `sorryAx`, standard axioms only.
+
+**Status update (2026-09-20, record 1713).** Tonelli now formally exchanges
+the nonnegative annular column-energy sum with the spatial lintegral:
+`sourceRootAnnularOutputWindow_lintegral_tsum_eq_tsum_lintegral`.  The Lp
+representatives provide the required a.e. measurability automatically.  Thus
+the remaining S3 producer is isolated after the exchange as a pointwise
+kernel-diagonal bound; no finite bound, summability, or sign has been assumed.
+FORMAL evidence: paired Audit leaf, focused 3968-job build, zero `error:` and
+`sorryAx`, standard axioms only.

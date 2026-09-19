@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1G8R3AnnularKernelDiagonalTonelli
+
+namespace ConnesWeilRH.Dev
+
+#check @sourceRootAnnularOutputWindow_lintegral_tsum_eq_tsum_lintegral
+#print axioms sourceRootAnnularOutputWindow_lintegral_tsum_eq_tsum_lintegral
+
+end ConnesWeilRH.Dev
