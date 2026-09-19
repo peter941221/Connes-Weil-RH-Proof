@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3SourceGateHardyProjectionBridge
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @sourceGate_squareSum_iff_sourceProjectionRootEnergy
+#print axioms sourceGate_squareSum_iff_sourceProjectionRootEnergy
+
+end Dev
+end ConnesWeilRH
