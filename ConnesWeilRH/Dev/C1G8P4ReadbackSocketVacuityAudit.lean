@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8P4ReadbackSocketVacuity
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1G8P4ReadbackSocketVacuityAudit
+
+open C1G8P4ReadbackSocketVacuity
+
+#check @false_of_survivorCore_aggregateEq_and_healthyDetector
+#print axioms false_of_survivorCore_aggregateEq_and_healthyDetector
+
+end C1G8P4ReadbackSocketVacuityAudit
+end Source
+end ConnesWeilRH
