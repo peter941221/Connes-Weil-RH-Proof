@@ -1051,3 +1051,16 @@ it does not provide S3. The remaining producer is still the post-Tonelli
 pointwise kernel-diagonal bound, possibly with finite-tail or cutoff structure.
 FORMAL evidence: paired Audit leaf, focused 3285-job build, zero `error:` and
 `sorryAx`, standard axioms only.
+
+**Status update (2026-09-20, record 1717).** The shifted-Hardy consumer has
+been audited against the live S3 operator.  The committed theorem
+`doubledShiftHardyInteriorCompression_summable` concerns the defect block
+`(I-P) K_b (I-P)`, while S3 is the source-compressed Hardy corner
+`J† (E Q E) C J`.  The exact shifted conjugations and the exact prolate
+decomposition do not supply an equality or bounded-ideal transfer between
+these operators.  Therefore no S3 estimate is claimed from the shifted-Hardy
+result.  After the formal annular readback and Tonelli exchange, the minimum
+remaining producer is the post-exchange pointwise kernel-diagonal bound (or
+an equivalent uniform annular trace bound).  This is a formal interface audit,
+not a no-go theorem and does not change the healthy-CompactLog B5 route.
+Evidence: [1717](../proofs/1717_shifted_hardy_not_s3_transfer_exact_kernel_diagonal_gap.md).
