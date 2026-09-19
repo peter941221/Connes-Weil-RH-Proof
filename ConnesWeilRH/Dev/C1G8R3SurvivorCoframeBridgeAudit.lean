@@ -12,6 +12,10 @@ namespace Dev
 #print axioms g8SurvivorSourceLeg
 #check @g8SurvivorSourceLeg_isUnit
 #print axioms g8SurvivorSourceLeg_isUnit
+#check @summable_normSq_comp_iff_of_isUnit
+#print axioms summable_normSq_comp_iff_of_isUnit
+#check @g8SurvivorCoframe_energy_iff_bareSourceCompressed_energy
+#print axioms g8SurvivorCoframe_energy_iff_bareSourceCompressed_energy
 #check @g8BridgeSourceInclusion_norm_map
 #print axioms g8BridgeSourceInclusion_norm_map
 #check @g8BridgeSoninCarrier_normSq_split

@@ -126,6 +126,31 @@ theorem g8SurvivorSourceLeg_isUnit
     family.visiblePrimes (by norm_num)
   exact hleft.mul ((htransition.star).mul hright)
 
+/-! A bounded source-side unit does not change the Hilbert--Schmidt
+square-summability question on a fixed source basis.  This is the exact
+consumer form needed for the survivor IN leg. -/
+
+theorem summable_normSq_comp_iff_of_isUnit
+    {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+    [CompleteSpace H] {ι : Type*}
+    (basis : HilbertBasis ι ℂ H) (operator leg : H →L[ℂ] H)
+    (hleg : IsUnit leg) :
+    (Summable fun i => ‖operator (basis i)‖ ^ 2) ↔
+      Summable fun i => ‖(operator ∘L leg) (basis i)‖ ^ 2 := by
+  constructor
+  · intro hoperator
+    exact PositiveTrace.summable_normSq_precomp basis basis basis operator leg
+      hoperator
+  · intro hcomposed
+    obtain ⟨inverse, hleft, _⟩ := isUnit_iff_exists.mp hleg
+    have hinverse : leg ∘L inverse = ContinuousLinearMap.id ℂ H := by
+      simpa only [ContinuousLinearMap.mul_def] using hleft
+    have hreturned :=
+      PositiveTrace.summable_normSq_precomp basis basis basis
+        (operator ∘L leg) inverse hcomposed
+    simpa only [ContinuousLinearMap.comp_assoc, hinverse,
+      ContinuousLinearMap.comp_id] using hreturned
+
 /-- The source inclusion is isometric. -/
 theorem g8BridgeSourceInclusion_norm_map (lambda : CCM24SoninScale)
     (z : sourceSoninCarrier lambda) :
@@ -351,7 +376,30 @@ theorem g8SurvivorCoframe_energy_iff_sourceCarrier_inLeg
   ⟨fun h => g8SurvivorSourceLeg_inLeg_normSq_summable_of_coframe_energy owner
     lambda family sourceBasis h,
    fun h => g8SurvivorCoframe_energy_summable_of_inLeg owner lambda family
-    sourceBasis h⟩
+   sourceBasis h⟩
+
+/-! Since the survivor source leg is a unit, the preceding exact energy
+consumer can be stated without the moving Schur coframe.  This is the sharp
+S3 normal form: only the bare source-compressed detector remains. -/
+
+set_option maxHeartbeats 1000000 in
+theorem g8SurvivorCoframe_energy_iff_bareSourceCompressed_energy
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (family : FinitePrimePowerFamily)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) :
+    (Summable fun i : ρ =>
+      ‖(rootConvolution owner ∘L g8MetricSurvivorCoframe lambda family)
+        (sourceBasis i)‖ ^ 2) ↔
+    Summable fun i : ρ =>
+      ‖((sourceInclusion lambda)† ∘L rootConvolution owner ∘L
+        sourceInclusion lambda) (sourceBasis i)‖ ^ 2 := by
+  rw [g8SurvivorCoframe_energy_iff_sourceCarrier_inLeg]
+  simpa only [ContinuousLinearMap.comp_apply] using
+    (summable_normSq_comp_iff_of_isUnit sourceBasis
+      ((sourceInclusion lambda)† ∘L rootConvolution owner ∘L
+        sourceInclusion lambda)
+      (g8SurvivorSourceLeg lambda family)
+      (g8SurvivorSourceLeg_isUnit lambda family)).symm
 
 end Dev
 end ConnesWeilRH

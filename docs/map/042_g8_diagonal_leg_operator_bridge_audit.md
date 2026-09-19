@@ -58,6 +58,8 @@ this is a reduction, not an S3 closure.
 
 **Status update (2026-09-19, source-Schur transport):** record [1704](../proofs/1704_survivor_source_leg_is_unit_s3_transport.md) and `g8SurvivorSourceLeg_isUnit` prove that the finite source-side Schur leg in the survivor coframe is an algebraic unit. The forward and reverse transition products multiply in both orders to the positive Schur--Markov scalar, while both Gram inverse-square-root factors are units. Thus the coframe transport is reversible at finite visible-prime level. This removes algebraic kernel-loss as an explanation for S3, but supplies no analytic square-summability estimate; S3 remains **OPEN**.
 
+**Status update (2026-09-20, sharp S3 normal form):** record [1705](../proofs/1705_survivor_energy_iff_bare_source_compressed_energy.md) proves the coframe energy is equivalent, in both directions, to the bare source-compressed square-sum `sum ||J† C J e_i||²`. The equivalence uses the finite source-Schur unit and the existing bounded-precomposition transport, so no Schur/coframe factor remains in the analytic target. S3 remains **OPEN**, with only the detector-specific bare source-compressed energy estimate left.
+
 **Independence audit (2026-09-16):** S3 and B3/B4 are best treated as one
 total diagonal-energy producer with two currently separate estimates. The
 same-owner positivity conclusion C3 is a downstream theorem of the readback
