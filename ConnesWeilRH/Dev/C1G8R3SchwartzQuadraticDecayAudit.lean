@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1G8R3SchwartzQuadraticDecay
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check fourier_norm_mul_sq_le_schwartz_second_deriv
+#print axioms fourier_norm_mul_sq_le_schwartz_second_deriv
+#check summable_schwartz_fourier_normSq_on_unit_annuli
+#print axioms summable_schwartz_fourier_normSq_on_unit_annuli
+
+end Dev
+end ConnesWeilRH

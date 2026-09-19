@@ -1134,3 +1134,15 @@ yet be applied to arbitrary source-carrier basis vectors. The preferred next
 brick is concrete Hardy-transform regularity for the compact root input (or,
 as a fallback, a direct integrable diagonal majorant). Evidence: record
 1724; route unchanged.
+
+**Status update (2026-09-20, record 1725):** the Schwartz-core part of the
+regularity bridge is now formal. `fourier_norm_mul_sq_le_schwartz_second_deriv`
+uses `SchwartzMap.derivCLM` to discharge the two integrable-derivative
+hypotheses of the quadratic Fourier estimate, and
+`summable_schwartz_fourier_normSq_on_unit_annuli` converts it to square
+summability. This applies to an actual Schwartz representative, not
+automatically to the L2 Hardy--Titchmarsh quotient or arbitrary source-carrier
+basis vectors. S3 remains OPEN; the exact missing interface is the
+identification/regularity of the selected Hardy output, or an independent
+pointwise diagonal majorant. Evidence: formal record 1725, focused 2968-job
+build, zero `error:`/`sorryAx`, standard axioms only.
