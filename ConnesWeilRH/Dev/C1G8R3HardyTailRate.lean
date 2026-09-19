@@ -77,5 +77,44 @@ theorem fourier_norm_mul_sq_le_integral_norm_second_deriv
   dsimp [C2] at hsecond_norm ⊢
   exact hscale.trans hsecond_norm
 
+theorem summable_normSq_of_quadratic_decay
+    {E : Type*} [SeminormedAddCommGroup E]
+    (u : ℕ → E) {C : ℝ} (hC : 0 ≤ C)
+    (hdecay : ∀ n : ℕ,
+      ‖u n‖ ≤ C * (((n + 1 : ℕ) : ℝ) ^ (-2 : ℝ))) :
+    Summable (fun n : ℕ => ‖u n‖ ^ 2) := by
+  have hnat : Summable (fun n : ℕ => (n : ℝ) ^ (-2 : ℝ)) := by
+    apply Real.summable_nat_rpow.mpr
+    norm_num
+  have hshift : Summable
+      (fun n : ℕ => ((n + 1 : ℕ) : ℝ) ^ (-2 : ℝ)) := by
+    simpa using
+      (summable_nat_add_iff
+        (f := fun n : ℕ => (n : ℝ) ^ (-2 : ℝ)) 1).mpr hnat
+  have hmajor : Summable (fun n : ℕ =>
+      C ^ 2 * (((n + 1 : ℕ) : ℝ) ^ (-2 : ℝ))) :=
+    hshift.mul_left (C ^ 2)
+  refine Summable.of_nonneg_of_le
+    (fun n => sq_nonneg (‖u n‖)) ?_ hmajor
+  intro n
+  let z : ℝ := (((n + 1 : ℕ) : ℝ) ^ (-2 : ℝ))
+  have hz0 : 0 ≤ z := by
+    dsimp [z]
+    positivity
+  have hz1 : z ≤ 1 := by
+    dsimp [z]
+    exact Real.rpow_le_one_of_one_le_of_nonpos
+      (by exact_mod_cast (Nat.succ_le_succ (Nat.zero_le n))) (by norm_num)
+  have hsq : z ^ 2 ≤ z := by nlinarith
+  have hscaled : C ^ 2 * z ^ 2 ≤ C ^ 2 * z :=
+    mul_le_mul_of_nonneg_left hsq (sq_nonneg C)
+  have hnorm : ‖u n‖ ^ 2 ≤ (C * z) ^ 2 := by
+    exact (sq_le_sq₀ (norm_nonneg _) (mul_nonneg hC hz0)).2 (hdecay n)
+  calc
+    ‖u n‖ ^ 2 ≤ (C * z) ^ 2 := hnorm
+    _ = C ^ 2 * z ^ 2 := by ring
+    _ ≤ C ^ 2 * z := hscaled
+    _ = C ^ 2 * (((n + 1 : ℕ) : ℝ) ^ (-2 : ℝ)) := by rfl
+
 end Dev
 end ConnesWeilRH

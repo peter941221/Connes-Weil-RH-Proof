@@ -1095,3 +1095,14 @@ to satisfy the stated Sobolev hypotheses; the remaining bridge is now a
 concrete weighted-L2/second-derivative statement rather than an unspecified
 qualitative tail estimate.  FORMAL evidence: record 1720 and its paired Audit,
 focused 2967-job build, zero `error:`/`sorryAx`, standard axioms only.
+
+**Status update (2026-09-20, record 1721).** The abstract quantitative
+interface is now complete: a quadratic unit-translation decay bound implies
+the required square-summable column tail via
+`summable_normSq_of_quadratic_decay`.  This removes the rate bookkeeping from
+the remaining S3 producer.  The unresolved obligation is solely the
+operator-level bridge from the actual source-Sonin projected root to that
+quadratic bound, or an equivalent integrable kernel diagonal; arbitrary L2
+basis-vector smoothness is not assumed.  FORMAL evidence: record 1721,
+paired Audit, focused 2967-job build, zero `error:`/`sorryAx`, standard axioms
+only.
