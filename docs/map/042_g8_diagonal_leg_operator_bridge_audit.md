@@ -997,3 +997,14 @@ calculus.  The iff
 survivor obligation exactly to the Hardy corner
 `J† (E Q E) C J`.  Thus the prolate correction is CLOSED; the Hardy-corner
 carrier estimate remains OPEN.  This is FORMAL and does not claim RH.
+
+**Status update (2026-09-20, record 1711).** The remaining annular output now
+has an exact pointwise readback.  The theorem
+`sourceRootAnnularOutputWindow_coeFn_eq_annulus_indicator` identifies the
+output, almost everywhere, with the indicator of
+`Icc (-n) n \ Icc (-N) N` multiplied by the same root-convolution output.
+This closes the representation/readback step needed before a kernel-diagonal
+estimate; it supplies no upper bound, summability, or sign.  The S3 Hardy
+corner energy estimate therefore remains OPEN.  FORMAL evidence: record 1711
+and the paired Audit leaf, focused 3963-job build, zero `error:` and
+`sorryAx`, standard axioms only.
