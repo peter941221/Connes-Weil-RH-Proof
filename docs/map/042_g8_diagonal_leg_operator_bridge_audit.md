@@ -1009,6 +1009,18 @@ corner energy estimate therefore remains OPEN.  FORMAL evidence: record 1711
 and the paired Audit leaf, focused 3963-job build, zero `error:` and
 `sorryAx`, standard axioms only.
 
+**Status update (2026-09-20, record 1716).** The existing formal theorem
+`sourceRootCompletedBandRoot_not_hilbertSchmidt` is scoped to the ambient
+`rootConvolution ∘L sourceBandProjection` complement channel. It does not
+apply to the live S3 source-compressed target
+`sourceSoninProjection ∘L rootConvolution ∘L sourceInclusion`. The distinction
+is now recorded explicitly: the full ambient-HS shortcut is closed, but S3 is
+not a no-go. The current producer remains a uniform annular Gram-trace upper
+bound / equivalent pointwise kernel-diagonal estimate, consumed by
+`sourceCompressedRoot_squareSum_of_eventual_ambient_annular_trace_bound`.
+FORMAL evidence: records 1708, 1711–1713, 1715–1716 and the cited Lean
+declarations; no route status change.
+
 **Status update (2026-09-20, record 1712).** The pointwise readback is now
 lifted to the exact L2 energy identity
 `sourceRootAnnularOutputWindow_normSq_eq_annulus_integral`: each annular
