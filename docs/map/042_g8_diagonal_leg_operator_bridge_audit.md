@@ -986,3 +986,14 @@ directly to the compressed S3 consumer; the compressed trace is no longer an
 independent analytic target.  The ambient annular bound, WO-S/WO-B, and the
 source-projection root square-sum remain OPEN.  Evidence: [1703](../proofs/1703_source_compressed_annular_trace_dominated_by_ambient.md),
 focused 3962-job build, zero `error:`/`sorryAx`, standard axioms only.
+
+**Status update (2026-09-20, record 1708).** The direct source-compressed
+root decomposition now has a formal basis-energy reduction.  The theorem
+`sourceCompressedRoot_prolateTerm_sourceBasis_normSq_summable` proves that
+the prolate correction `J† R C J` is square-summable on every named source
+basis, using the all-scale prolate Hilbert--Schmidt factor and bounded ideal
+calculus.  The iff
+`sourceCompressedRoot_squareSum_iff_hardyCorner_squareSum` reduces the S3
+survivor obligation exactly to the Hardy corner
+`J† (E Q E) C J`.  Thus the prolate correction is CLOSED; the Hardy-corner
+carrier estimate remains OPEN.  This is FORMAL and does not claim RH.
