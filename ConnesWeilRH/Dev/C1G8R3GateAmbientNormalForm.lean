@@ -39,6 +39,7 @@ open Source.CCM25Concrete.CCM24FiniteSActualBandQuadraticCycle
 open Source.CCM25Concrete.CCM24FiniteSRootCompletedFirstJet
 open Source.CCM25Concrete.CCM24SourceProlateTrace
 open Source.CCM25Concrete.SelectedWeilSquare
+open Source.C1G8P1MetricChannels
 open scoped InnerProduct InnerProductSpace
 
 noncomputable local instance gateAmbientSoninCarrierCompleteSpace
@@ -366,6 +367,43 @@ theorem hardyCompressedRootEnergy_squareSum_iff_sourceProjectionRootEnergy
       remainder h hremainder
     exact hsum.congr (fun i => congrArg (fun v : finiteSCarrier => ‖v‖ ^ 2)
       (DFunLike.congr_fun hdecomp (sourceBasis i)).symm)
+
+/-! Direct S3 endpoint consumers: the survivor coframe now reaches the
+already-proved Hardy and prolate normal forms without exposing the finite
+Schur coframe in the remaining target. -/
+
+set_option maxHeartbeats 1000000 in
+theorem g8SurvivorCoframe_energy_iff_hardyCompressedRootEnergy
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (family : FinitePrimePowerFamily)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) :
+    (Summable fun i : ρ =>
+      ‖(rootConvolution owner ∘L g8MetricSurvivorCoframe lambda family)
+        (sourceBasis i)‖ ^ 2) ↔
+    (Summable fun i : ρ =>
+      ‖(radialSupportProjection lambda ∘L
+          sourceFourierSupportProjection lambda ∘L
+          radialSupportProjection lambda ∘L rootConvolution owner ∘L
+          sourceInclusion lambda) (sourceBasis i)‖ ^ 2) := by
+  exact (g8SurvivorCoframe_energy_iff_bareSourceCompressed_energy owner
+    lambda family sourceBasis).trans
+    (sourceGate_squareSum_iff_hardyCompressedRootEnergy owner lambda sourceBasis)
+
+set_option maxHeartbeats 1000000 in
+theorem g8SurvivorCoframe_energy_iff_sourceProjectionRootEnergy
+    (owner : SelectedWeilSquareOwner) (lambda : CCM24SoninScale)
+    (family : FinitePrimePowerFamily)
+    {ρ : Type*} (sourceBasis : HilbertBasis ρ ℂ (sourceSoninCarrier lambda)) :
+    (Summable fun i : ρ =>
+      ‖(rootConvolution owner ∘L g8MetricSurvivorCoframe lambda family)
+        (sourceBasis i)‖ ^ 2) ↔
+    (Summable fun i : ρ =>
+      ‖(sourceSoninProjection lambda ∘L rootConvolution owner ∘L
+          sourceInclusion lambda) (sourceBasis i)‖ ^ 2) := by
+  exact (g8SurvivorCoframe_energy_iff_hardyCompressedRootEnergy owner
+    lambda family sourceBasis).trans
+    (hardyCompressedRootEnergy_squareSum_iff_sourceProjectionRootEnergy owner
+      lambda sourceBasis)
 
 end Dev
 end ConnesWeilRH

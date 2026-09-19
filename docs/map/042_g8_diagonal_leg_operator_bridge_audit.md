@@ -60,6 +60,8 @@ this is a reduction, not an S3 closure.
 
 **Status update (2026-09-20, sharp S3 normal form):** record [1705](../proofs/1705_survivor_energy_iff_bare_source_compressed_energy.md) proves the coframe energy is equivalent, in both directions, to the bare source-compressed square-sum `sum ||J† C J e_i||²`. The equivalence uses the finite source-Schur unit and the existing bounded-precomposition transport, so no Schur/coframe factor remains in the analytic target. S3 remains **OPEN**, with only the detector-specific bare source-compressed energy estimate left.
 
+**Status update (2026-09-20, projected-root endpoint):** record [1706](../proofs/1706_survivor_to_source_projection_endpoint.md) composes the bare source-compressed consumer with the Hardy/prolate normal forms. The survivor obligation is now exactly the square-summability of `P C J`, where `P` is the source Sonin projection; the Hardy compression and prolate remainder are equivalent bookkeeping layers, with the remainder already controlled. S3 remains **OPEN** at this projected-root estimate.
+
 **Independence audit (2026-09-16):** S3 and B3/B4 are best treated as one
 total diagonal-energy producer with two currently separate estimates. The
 same-owner positivity conclusion C3 is a downstream theorem of the readback
