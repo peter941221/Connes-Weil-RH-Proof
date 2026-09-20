@@ -692,3 +692,4 @@ at the gate; law F30; P1/P2 two-brick program (both now paid).
 2026-09-21 ConnesWeilRH/Dev/C1DigammaDerivativeSeries.lean : identified the differentiated reciprocal series with Complex.digamma and proved the explicit uniform derivative bound <= 20 by telescoping; paired audit green
 2026-09-21 ConnesWeilRH/Dev/C1DigammaDerivativeSeries.lean : added canonical anchored digamma-series absolute convergence and norm-series M-test interface; paired audit green
 2026-09-21 ConnesWeilRH/Dev/C1G8R3CriticalProfileTwoIBP.lean : instantiated the concrete CCM24 critical Mellin profile in the annular two-IBP tail consumer; paired audit green
+2026-09-21 ConnesWeilRH/Dev/C1G8R3ScatteringPhaseDigamma.lean : read back the critical GammaR logarithmic derivative as digamma at the quarter-line argument; paired audit green

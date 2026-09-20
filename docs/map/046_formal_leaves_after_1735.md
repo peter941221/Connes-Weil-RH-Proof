@@ -137,3 +137,15 @@ axioms and no `sorryAx`.
 This is FORMAL evidence for the profile leg only. It does not assert the
 scattering multiplier product; the next shortest brick is its second-derivative
 and weighted-Schwartz product readback.
+
+## Formal update 1783 (2026-09-21)
+
+`ccm24CriticalGammaRLogDeriv_eq_digamma` now gives the exact CCM24 critical
+line readback of the GammaR logarithmic derivative at `1/2 - 2*pi*i*xi` as
+the digamma value at `1/4 - pi*i*xi`. The proof uses the existing GammaR
+identity and exact complex arithmetic; its paired Audit build is green with
+the standard three axioms and no `sorryAx`.
+
+This is FORMAL interface evidence, not yet the phase second-derivative bound.
+The next brick differentiates this readback using the already landed digamma
+derivative series.
