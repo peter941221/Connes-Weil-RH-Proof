@@ -27,6 +27,11 @@ the raw `OrbitG8Geometry` support cutoff is now also an explicit finite
 only finite-domain representation; the detector-specific aggregate sign and
 semi-local gate remain open.
 
+[051](051_orbit_finite_sign_budget_profile.md) records formal theorem 1743:
+the open gate is now an exact finite-range bilateral-profile inequality on
+that same owner. This removes representation ambiguity; it does not prove the
+aggregate sign.
+
 ## Current authority
 
 ```text
