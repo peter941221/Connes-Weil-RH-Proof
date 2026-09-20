@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1G8R3AnnularMassConsumer
+
+namespace ConnesWeilRH.Dev.C1G8R3AnnularMassConsumerAudit
+
+#check @sourceCompressedRoot_squareSum_of_annular_wing_majorant
+#print axioms sourceCompressedRoot_squareSum_of_annular_wing_majorant
+
+end ConnesWeilRH.Dev.C1G8R3AnnularMassConsumerAudit
