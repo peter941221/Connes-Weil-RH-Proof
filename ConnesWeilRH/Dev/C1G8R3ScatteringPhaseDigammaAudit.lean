@@ -5,6 +5,10 @@ namespace Dev
 
 #check ccm24CriticalGammaRLogDeriv_eq_digamma
 #print axioms ccm24CriticalGammaRLogDeriv_eq_digamma
+#check hasDerivAt_digamma_criticalQuarterLine
+#print axioms hasDerivAt_digamma_criticalQuarterLine
+#check hasDerivAt_ccm24CriticalGammaRLogDeriv
+#print axioms hasDerivAt_ccm24CriticalGammaRLogDeriv
 
 end Dev
 end ConnesWeilRH

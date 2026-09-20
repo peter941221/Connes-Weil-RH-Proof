@@ -149,3 +149,17 @@ the standard three axioms and no `sorryAx`.
 This is FORMAL interface evidence, not yet the phase second-derivative bound.
 The next brick differentiates this readback using the already landed digamma
 derivative series.
+
+## Formal update 1784 (2026-09-21)
+
+The apparent endpoint mismatch is now closed formally. The theorem
+`hasDerivAt_digamma_criticalQuarterLine` reaches the actual line
+`Re z = 1/4` by applying the digamma recurrence once, differentiating at
+`z + 1` where the strict quarter-half-plane theorem applies, and reading the
+inverse correction back. Consequently
+`hasDerivAt_ccm24CriticalGammaRLogDeriv` gives the real-frequency derivative
+of the GammaR log symbol in terms of `digamma'` on the critical line.
+
+The paired Audit build is green with only the standard three axioms and no
+`sorryAx`. This is still a symbol derivative interface; the phase product's
+weighted W2,1 estimate and the S3 sign remain open.
