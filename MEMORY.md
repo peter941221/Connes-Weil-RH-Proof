@@ -683,3 +683,4 @@ at the gate; law F30; P1/P2 two-brick program (both now paid).
 2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelRowL2Lipschitz.lean : proved fixed-output Holder(2,2) Lipschitz bound for honest root-kernel row integrals in the L2 input norm; global output-L2 extension remains open
 2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelRowPointwiseTendsto.lean : converted the fixed-t Holder majorant into pointwise row-integral convergence along an L2 input sequence; global output-L2 reconciliation remains open
 2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelL2LimitAeIdentification.lean : proved a.e. equality of L2 and pointwise limits via convergence in measure subsequence and metric-limit uniqueness; ready to consume for global row readback
+2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelReadbackL2Limit.lean : combined L2 operator convergence, a.e. approximant readback, and pointwise row convergence into the limiting kernel readback socket for S3
