@@ -59,6 +59,11 @@ the genuine `CompactLogTest` owner now has an axiom-clean local physical bump
 at any interior log point. This is the first input toward finite constrained
 profile interpolation; it is not a signed-budget or positivity theorem.
 
+[057](057_two_point_physical_profile_interpolation.md) records formal theorem
+1749: two non-overlapping physical log points can receive arbitrary prescribed
+values on the genuine owner. The required Mellin-constrained interpolation
+and signed budget remain open.
+
 ## Current authority
 
 ```text
