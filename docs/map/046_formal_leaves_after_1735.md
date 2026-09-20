@@ -75,3 +75,9 @@ Schwartz L2 approximation
 This is FORMAL evidence only.  The Schwartz approximation sequence still has
 to be instantiated for the selected source owner, and the uniform annular
 kernel-diagonal majorant and S3 positivity remain open.
+
+Record 1776 now composes the 1774 and 1775 interfaces into
+`sourceKernelReadback_ae_of_schwartz_l2_tendsto`; the consumer no longer
+requires a separately supplied pointwise-row hypothesis.  The remaining S3
+formal wiring is therefore the selected-owner approximation instantiation and
+the annular kernel-diagonal majorant.

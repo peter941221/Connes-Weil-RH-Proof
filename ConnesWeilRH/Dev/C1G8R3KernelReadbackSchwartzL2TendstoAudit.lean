@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3KernelReadbackSchwartzL2Tendsto
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @sourceKernelReadback_ae_of_schwartz_l2_tendsto
+#print axioms sourceKernelReadback_ae_of_schwartz_l2_tendsto
+
+end Dev
+end ConnesWeilRH
