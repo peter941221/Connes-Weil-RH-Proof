@@ -37,6 +37,12 @@ the pointwise nonpositive-profile shortcut is impossible for any healthy
 detector, since it contradicts the detector's already formal `qw < 0`.
 Aggregate signed compensation is now the only live profile producer shape.
 
+[053](053_orbit_signed_credit_deficit_budget.md) records formal theorem 1745:
+the same-owner finite-range gate is exactly `archimedeanTerm + credit <=
+deficit`, with credit and deficit defined termwise by positive and negative
+parts of the actual visible-prime profile. This is an auditable producer
+socket only; the signed balance remains open.
+
 ## Current authority
 
 ```text
