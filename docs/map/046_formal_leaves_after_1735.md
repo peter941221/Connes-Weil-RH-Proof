@@ -54,3 +54,24 @@ the `X⁻²` envelope is a worst-case bound, not a decay law.
    bound and the decreasing-series integral comparison — no new machinery.
 2. Lemma A (absolute convergence) — same M-test face.
 3. Assemble `θ ∈ W^{2,1} ∩ C₀` and push the 1723 consumer.
+
+## Formal update 1775 (2026-09-21)
+
+The row-interface part of the remaining kernel readback is now formally
+closed for Schwartz L2 approximations.  The theorem
+`sourceKernelRow_integral_tendsto_of_schwartz_l2_tendsto` converts L2
+convergence into the exact real square-root integral majorant using the
+existing `frontierLp2normEqIntegralSqrt` and `frontierLp2normToReal` identities,
+then applies the Holder row estimate.  Together with records 1773 and 1774,
+the live readback chain is now:
+
+```text
+Schwartz L2 approximation
+  -> pointwise kernel-row convergence
+  -> a.e. limiting kernel readback
+  -> annular kernel-diagonal / Tonelli consumer
+```
+
+This is FORMAL evidence only.  The Schwartz approximation sequence still has
+to be instantiated for the selected source owner, and the uniform annular
+kernel-diagonal majorant and S3 positivity remain open.

@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3KernelRowL2Convergence
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @sourceKernelRow_integral_tendsto_of_schwartz_l2_tendsto
+#print axioms sourceKernelRow_integral_tendsto_of_schwartz_l2_tendsto
+
+end Dev
+end ConnesWeilRH
