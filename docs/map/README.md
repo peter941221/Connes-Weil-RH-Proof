@@ -1265,3 +1265,10 @@ Read the current records in this order for a full-map review:
 
 The current mathematical owner and active status remain in the repository
 [`README`](../../README.md).
+
+70. [058 - Finite physical combination Mellin readback](058_finite_physical_combination_mellin_readback.md)
+    — finite genuine `CompactLogTest` combinations now have an exact Laplace
+    readback, supplying the coefficient-to-Mellin matrix interface for the
+    active detector-specific B5 producer. Rank, constrained interpolation,
+    signed budget, and semi-local positivity remain open. See
+    [1750](../proofs/1750_finite_physical_combination_laplace_readback.md).
