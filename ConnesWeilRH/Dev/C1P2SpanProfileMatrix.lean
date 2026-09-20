@@ -16,11 +16,13 @@ namespace Source
 namespace C1P2SpanProfileMatrix
 
 open C1GateMatrixRepresentation
+open C1G8R0OrbitGeometry
 open C1OrbitWindowSemiLocalGate
 open C1P2BilateralProfile
 open C1P2SignedBudget
 open C1SameOwnerWeil
 open C1ArchimedeanIntegrabilityGeneric
+open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
 open Matrix
 open MeasureTheory
@@ -62,6 +64,29 @@ theorem orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos_of_support
       y ⬝ᵥ (gateMatrix w *ᵥ y) ≤ 0 := by
   exact orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos w y hw
     (fun i j => pairTest_legality w i j)
+
+theorem sourceRH_of_right_orbitGeometry_spanGateCertificate
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ (k : ℕ) (w : Fin k → CompactLogTest) (y : Fin k → ℝ) (B : ℝ),
+              g = spanObj w y ∧
+              (∀ i, Function.support (w i).test ⊆ Set.Ioo (-B) B) ∧
+              y ⬝ᵥ (gateMatrix w *ᵥ y) ≤ 0) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_right_orbitGeometry_signedBudget
+  intro rho hright
+  obtain ⟨g, geometry, k, w, y, B, howner, hw, hq⟩ := hproducer rho hright
+  have hspanGate : orbitWindowSemiLocalGate (spanObj w y) :=
+    (orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos_of_support
+      w y hw).mpr hq
+  have hgate : orbitWindowSemiLocalGate g := by
+    rw [howner]
+    exact hspanGate
+  have hbudget := (orbitWindowSemiLocalGate_iff_signedBudget geometry).mp hgate
+  refine ⟨g, geometry, ?_⟩
+  simpa [orbitVisiblePrimeRange] using hbudget
 
 end
 end C1P2SpanProfileMatrix

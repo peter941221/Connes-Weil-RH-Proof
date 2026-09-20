@@ -1304,3 +1304,9 @@ The current mathematical owner and active status remain in the repository
     premises, leaving only basis support before the finite matrix reduction.
     The actual owner and sign certificate remain open. See
     [1755](../proofs/1755_orbit_span_gate_matrix_legality_discharge.md).
+
+76. [064 - Span gate certificate to RH consumer](064_span_gate_certificate_to_rh_consumer.md)
+    — the same-owner OrbitG8 finite-span certificate now feeds the existing
+    signed-budget and SourceRH exit in one theorem. The producer certificate
+    itself remains open. See
+    [1756](../proofs/1756_span_gate_certificate_to_rh_consumer.md).
