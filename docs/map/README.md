@@ -21,6 +21,12 @@ The route and the S3 status in 045/046 are unchanged.
 
 ## Orbit visible-prime owner, 2026-09-20
 
+[069](069_two_span_four_profile_channels.md) records formal theorem 1761:
+each finite visible-prime term of the two-span owner is now decomposed into
+the four same-owner pair channels AA, AB, BA, and BB with coefficients
+`1`, `-lam`, `-lam`, and `lam^2`. The two directed cross channels remain the
+next signed-estimate target.
+
 [068](068_two_span_finite_range_profile_readback.md) records formal theorem
 1760: the exact two-span `p2AggregateValue` is now read back on the same owner
 as an Archimedean term plus the explicit finite range

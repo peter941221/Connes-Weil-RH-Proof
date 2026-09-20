@@ -44,6 +44,21 @@ theorem signedProfileTerm_spanObj_eq_pair_profile_quadratic
   simp_rw [mul_add]
   simp_rw [Finset.sum_add_distrib]
 
+theorem signedProfileTerm_twoSpan_eq_four_pair_profiles
+    (A B : CompactLogTest) (lam : ℝ) (n : ℕ) :
+    signedProfileTerm (spanObj ![A, B] ![(1 : ℝ), -lam]) n =
+      ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+        (bilateralProfile (pairTest ![A, B] 0 0) (Real.log n)).re -
+      lam * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+        (bilateralProfile (pairTest ![A, B] 0 1) (Real.log n)).re) -
+      lam * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+        (bilateralProfile (pairTest ![A, B] 1 0) (Real.log n)).re) +
+      lam ^ 2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+        (bilateralProfile (pairTest ![A, B] 1 1) (Real.log n)).re) := by
+  rw [signedProfileTerm_spanObj_eq_pair_profile_quadratic]
+  simp [Fin.sum_univ_two]
+  ring
+
 theorem orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos
     {k : ℕ} (w : Fin k → CompactLogTest) (y : Fin k → ℝ)
     {B : ℝ} (hw : ∀ i, Function.support (w i).test ⊆ Set.Ioo (-B) B)
