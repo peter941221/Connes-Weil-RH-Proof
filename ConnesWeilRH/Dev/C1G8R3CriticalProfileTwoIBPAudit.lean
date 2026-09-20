@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3CriticalProfileTwoIBP
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check annular_ccm24CriticalMellinLogProfile_v_tail_le
+#print axioms annular_ccm24CriticalMellinLogProfile_v_tail_le
+
+end Dev
+end ConnesWeilRH

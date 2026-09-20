@@ -25,8 +25,8 @@ the map-047 two-premise exit; `0 ≤ qw` untouched; RH not claimed; stop word
                   |                          |
     +-------------v--------------------------v-------------+
     |  STILL OWED (in dependency order)                    |
-    |  1. assemble theta-W^{2,1} from the landed A/C      |
-    |     series interfaces and symbol/Schwartz data;      |
+    |  1. scattering-symbol x profile product in W^{2,1}; |
+    |     the bare CCM24 profile is now an actual consumer |
     |  2. translation-tail integral identities             |
     |  3. 1723-consumer instantiation (blocked on 1)       |
     |  4. v-representative outside Schwartz class          |
@@ -50,7 +50,8 @@ the `X⁻²` envelope is a worst-case bound, not a decay law.
 
 ## Order of attack (next waves)
 
-1. Assemble `theta in W^{2,1} intersect C_0` from the landed A/C interfaces.
+1. Assemble the scattering-symbol times critical-profile `theta` in
+   `W^{2,1} intersect C_0`; the bare profile consumer is now landed.
 2. Prove the translation-tail integral identities.
 3. Instantiate and push the 1723 consumer.
 
@@ -123,3 +124,16 @@ Record 1778 packages that chain as
 `sourceKernelReadback_ae_arbitrary_l2`, so the actual root convolution has the
 honest kernel-row formula for every `MemLp` input.  The readback interface is
 now closed independently of the annular estimate.
+
+## Formal update 1782 (2026-09-21)
+
+`annular_ccm24CriticalMellinLogProfile_v_tail_le` instantiates the already
+proved two-integration-by-parts tail bound with the concrete CCM24 critical
+Mellin profile. Its first derivative is read back from the carrier, its second
+derivative from the formal chain-rule formula, and all three profiles are
+integrable. The paired Audit build is green with exactly the standard three
+axioms and no `sorryAx`.
+
+This is FORMAL evidence for the profile leg only. It does not assert the
+scattering multiplier product; the next shortest brick is its second-derivative
+and weighted-Schwartz product readback.
