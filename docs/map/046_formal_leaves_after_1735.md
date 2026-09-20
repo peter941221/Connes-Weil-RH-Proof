@@ -81,3 +81,16 @@ Record 1776 now composes the 1774 and 1775 interfaces into
 requires a separately supplied pointwise-row hypothesis.  The remaining S3
 formal wiring is therefore the selected-owner approximation instantiation and
 the annular kernel-diagonal majorant.
+
+Record 1777 discharges the approximation instantiation at the ambient L2
+level: `exists_schwartz_l2_tendsto` selects a Schwartz sequence converging to
+every global L2 input from the committed dense-range theorem.  Thus the
+formal readback chain is complete for arbitrary L2 inputs; the remaining
+obligation is now the annular kernel-diagonal majorant and its selected-owner
+S3 consumer instantiation.  This is FORMAL evidence and does not prove S3
+positivity or RH.
+
+Record 1778 packages that chain as
+`sourceKernelReadback_ae_arbitrary_l2`, so the actual root convolution has the
+honest kernel-row formula for every `MemLp` input.  The readback interface is
+now closed independently of the annular estimate.

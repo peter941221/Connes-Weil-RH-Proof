@@ -686,3 +686,5 @@ at the gate; law F30; P1/P2 two-brick program (both now paid).
 2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelReadbackL2Limit.lean : combined L2 operator convergence, a.e. approximant readback, and pointwise row convergence into the limiting kernel readback socket for S3
 2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelRowL2Convergence.lean : converted Schwartz L2 convergence to pointwise kernel-row convergence via exact L2 square-root readback and the Holder row estimate for the active S3 consumer
 2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelReadbackSchwartzL2Tendsto.lean : composed the Schwartz L2 row convergence and approximant readback into the complete a.e. kernel readback socket
+2026-09-21 ConnesWeilRH/Dev/C1G8R3SchwartzApproximation.lean : converted Schwartz dense range into an explicit sequential L2 approximation for every global L2 input, completing the readback approximation instantiation
+2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelReadbackArbitraryL2.lean : composed sequential Schwartz approximation with complete readback into the arbitrary-L2 kernel formula consumed by S3
