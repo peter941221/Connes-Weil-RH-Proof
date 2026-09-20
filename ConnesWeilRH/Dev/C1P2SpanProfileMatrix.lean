@@ -22,6 +22,7 @@ open C1P2BilateralProfile
 open C1P2SignedBudget
 open C1SameOwnerWeil
 open C1ArchimedeanIntegrabilityGeneric
+open C1LocalConfigurationDomination
 open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
 open Matrix
@@ -87,6 +88,15 @@ theorem sourceRH_of_right_orbitGeometry_spanGateCertificate
   have hbudget := (orbitWindowSemiLocalGate_iff_signedBudget geometry).mp hgate
   refine ⟨g, geometry, ?_⟩
   simpa [orbitVisiblePrimeRange] using hbudget
+
+theorem oneWindowICdefect_eq_twoSpan
+    (g W : CompactLogTest) (lam : ℝ) :
+    ICdefect g ({()} : Finset Unit) (fun _ => W) (fun _ => lam) =
+      spanObj ![g, W] ![(1 : ℝ), -lam] := by
+  apply CompactLogTest.ext
+  ext x
+  simp [ICdefect_test, spanObj]
+  ring
 
 end
 end C1P2SpanProfileMatrix

@@ -1310,3 +1310,9 @@ The current mathematical owner and active status remain in the repository
     signed-budget and SourceRH exit in one theorem. The producer certificate
     itself remains open. See
     [1756](../proofs/1756_span_gate_certificate_to_rh_consumer.md).
+
+77. [065 - One-window defect two-span bridge](065_one_window_defect_two_span_bridge.md)
+    — every one-window Stage-B defect is exactly a genuine two-element
+    `CompactLogTest` span, connecting defect control to the same matrix owner.
+    The independent defect budget remains open. See
+    [1757](../proofs/1757_one_window_defect_two_span_bridge.md).
