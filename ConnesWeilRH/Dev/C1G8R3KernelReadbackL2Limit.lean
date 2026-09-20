@@ -78,5 +78,39 @@ theorem sourceKernelReadback_ae_of_l2_limit
     (hread := hread)
     (hpoint := hpoint)
 
+theorem sourceKernelReadback_ae_of_schwartz_l2_limit
+    (g : CompactLogTest) {u : ℝ → ℂ}
+    (hu : MemLp u 2 (volume : Measure ℝ))
+    (u_seq : ℕ → SchwartzMap ℝ ℂ)
+    (hLp : Tendsto
+      (fun n => (u_seq n).toLp 2) atTop (𝓝 (hu.toLp u)))
+    (hpoint : ∀ t, Tendsto
+      (fun n => ∫ x : ℝ, u_seq n x * star (g.test (x - t))) atTop
+        (𝓝 (∫ x : ℝ, u x * star (g.test (x - t))))) :
+    (cc20GlobalLogConvolution g.involution.test
+      (hu.toLp u) : ℝ → ℂ) =ᵐ[volume]
+      (fun t : ℝ => ∫ x : ℝ, u x * star (g.test (x - t))) := by
+  apply ae_eq_of_lp_operator_tendsto_of_ae_readback
+    (hLp :=
+      ((cc20GlobalLogConvolution g.involution.test).continuous.tendsto _).comp
+        hLp)
+    (hread := by
+      intro n
+      have hresult :
+          (cc20GlobalLogConvolution g.involution.test
+            ((u_seq n).toLp 2) : ℝ → ℂ) =ᵐ[volume]
+            (fun t : ℝ => ∫ x : ℝ,
+              u_seq n x * star (g.test (x - t))) := by
+        have hcore := sourceKernelReadback_ae_toLp_core g (u_seq n)
+        have hrep :=
+          (SchwartzMap.memLp (u_seq n) (ENNReal.ofReal 2)).coeFn_toLp
+        filter_upwards [hcore, hrep] with t ht hrep_t
+        rw [ht]
+        apply integral_congr_ae
+        filter_upwards [hrep] with x hx
+        rw [hx]
+      simpa only [Function.comp_apply] using hresult)
+    (hpoint := hpoint)
+
 end Dev
 end ConnesWeilRH

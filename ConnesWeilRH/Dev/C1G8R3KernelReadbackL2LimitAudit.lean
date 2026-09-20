@@ -7,6 +7,8 @@ namespace Dev
 #print axioms ae_eq_of_lp_operator_tendsto_of_ae_readback
 #check @sourceKernelReadback_ae_of_l2_limit
 #print axioms sourceKernelReadback_ae_of_l2_limit
+#check @sourceKernelReadback_ae_of_schwartz_l2_limit
+#print axioms sourceKernelReadback_ae_of_schwartz_l2_limit
 
 end Dev
 end ConnesWeilRH
