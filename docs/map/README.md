@@ -43,6 +43,11 @@ deficit`, with credit and deficit defined termwise by positive and negative
 parts of the actual visible-prime profile. This is an auditable producer
 socket only; the signed balance remains open.
 
+[054](054_orbit_signed_budget_source_rh_exit.md) records formal theorem 1746:
+the exact per-right-zero producer quantifier now feeds `SourceRH`. The only
+remaining live producer is the same-owner signed budget for the actual orbit
+geometry; the theorem is conditional and does not prove RH.
+
 ## Current authority
 
 ```text

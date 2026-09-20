@@ -21,6 +21,8 @@ open C1OrbitWindowSemiLocalGate
 open C1P2BilateralProfile
 open C1P2BilateralProfileExit
 open C1SameOwnerWeil
+open C1HealthyYoshidaDetector
+open C1HealthyYoshidaSpectralNegativity
 open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
 open scoped BigOperators
@@ -36,6 +38,12 @@ def signedProfileCredit (g : CompactLogTest) (S : Finset ℕ) : ℝ :=
 
 def signedProfileDeficit (g : CompactLogTest) (S : Finset ℕ) : ℝ :=
   ∑ n ∈ S, max 0 (-signedProfileTerm g n)
+
+def orbitVisiblePrimeRange {rho : sourceNontrivialZeroSet}
+    {g : CompactLogTest} (geometry : OrbitG8Geometry rho g) : Finset ℕ :=
+  Finset.range
+    (Nat.ceil (Real.exp
+      (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1)
 
 theorem sum_signedProfileTerm_eq_credit_sub_deficit
     (g : CompactLogTest) (S : Finset ℕ) :
@@ -84,6 +92,31 @@ theorem orbitWindowSemiLocalGate_iff_signedBudget
           signedProfileTerm g n := by
     rfl
   constructor <;> intro h <;> linarith [hsum, hterm]
+
+/- The exact remaining B5 producer contract now feeds the existing SourceRH
+   consumer.  All data stay on the same selected orbit owner; no universal
+   positivity or normalized carrier is introduced. -/
+theorem sourceRH_of_right_orbitGeometry_signedBudget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            HealthyYoshidaDetectorData rho.1 g ∧
+            archimedeanTerm g.convolutionSquare +
+                signedProfileCredit g (orbitVisiblePrimeRange geometry) ≤
+              signedProfileDeficit g (orbitVisiblePrimeRange geometry)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
+  intro rho hright
+  obtain ⟨g, geometry, hdata, hbudget⟩ := hproducer rho hright
+  have hgate : orbitWindowSemiLocalGate g := by
+    apply (orbitWindowSemiLocalGate_iff_signedBudget geometry).mpr
+    simpa [orbitVisiblePrimeRange] using hbudget
+  have haggregate : P2BilateralProfileAggregateWitness g :=
+    P2BilateralProfileAggregateWitness.of_orbitWindowSemiLocalGate g hgate
+  exact ⟨g, hdata,
+    qw_nonneg_of_archimedean_plus_bilateralProfile_weighted_sum_nonpos
+      g hdata.vanishesOnF haggregate.hbalance⟩
 
 end
 end C1P2SignedBudget
