@@ -163,3 +163,16 @@ of the GammaR log symbol in terms of `digamma'` on the critical line.
 The paired Audit build is green with only the standard three axioms and no
 `sorryAx`. This is still a symbol derivative interface; the phase product's
 weighted W2,1 estimate and the S3 sign remain open.
+
+## Formal update 1785 (2026-09-21)
+
+`hasDerivAt_ccm24ArchimedeanFactor_logDeriv` now differentiates the actual
+CCM24 archimedean factor along the real frequency axis and reads its
+logarithmic derivative back through the GammaR symbol. The proof uses the
+nonvanishing of GammaR on the positive-real-part line and the previously
+closed critical GammaR log-derivative interface. The paired Audit build is
+green with only the standard three axioms and no `sorryAx`.
+
+This is FORMAL evidence for the first factor derivative in the scattering
+phase product. The weighted product estimate, S3 positivity, and RH remain
+open.

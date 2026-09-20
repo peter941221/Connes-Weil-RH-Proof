@@ -114,5 +114,46 @@ theorem hasDerivAt_ccm24CriticalGammaRLogDeriv (xi : ℝ) :
   simpa [z, mul_comm, mul_left_comm, mul_assoc] using
     hscaled.add_const (-((Complex.log (Real.pi : ℂ)) / 2))
 
+theorem hasDerivAt_ccm24ArchimedeanFactor_logDeriv (xi : ℝ) :
+    HasDerivAt Source.CC20Concrete.ccm24ArchimedeanFactor
+      ((-Complex.I * (2 * Real.pi : ℂ)) *
+        ccm24CriticalGammaRLogDeriv xi *
+        Source.CC20Concrete.ccm24ArchimedeanFactor xi) xi := by
+  let s : ℝ → ℂ := fun x =>
+    (1 / 2 : ℂ) - Complex.I * (2 * Real.pi * x : ℝ)
+  have hs : HasDerivAt s (-Complex.I * (2 * Real.pi : ℂ)) xi := by
+    let a : ℂ := -Complex.I * (2 * Real.pi : ℂ)
+    have hlin : HasDerivAt (fun x : ℝ => a * (x : ℂ)) a xi := by
+      simpa using ((hasDerivAt_id (xi : ℂ)).const_mul a).comp_ofReal
+    have hsum := (hasDerivAt_const (x := xi) (c := (1 / 2 : ℂ))).add hlin
+    convert hsum using 1
+    · funext x
+      simp [s, a]
+      ring
+    · simpa [a]
+  have hpos : 0 < (s xi).re := by simp [s, Complex.mul_re]
+  have hzero : Complex.Gammaℝ (s xi) ≠ 0 :=
+    Complex.Gammaℝ_ne_zero_of_re_pos hpos
+  have hdiff : DifferentiableAt ℂ Complex.Gammaℝ (s xi) := by
+    have hinv : DifferentiableAt ℂ (fun z : ℂ => (Complex.Gammaℝ z)⁻¹)
+        (s xi) := Complex.differentiable_Gammaℝ_inv.differentiableAt
+    have h := hinv.inv (inv_ne_zero hzero)
+    change DifferentiableAt ℂ (fun z : ℂ => ((Complex.Gammaℝ z)⁻¹)⁻¹)
+      (s xi) at h
+    simpa only [inv_inv] using h
+  have hcomp := hdiff.hasDerivAt.complexToReal_fderiv.comp_hasDerivAt xi hs
+  have hlog : deriv Complex.Gammaℝ (s xi) =
+      logDeriv Complex.Gammaℝ (s xi) * Complex.Gammaℝ (s xi) := by
+    rw [logDeriv_apply]
+    field_simp
+  rw [hlog] at hcomp
+  change HasDerivAt
+    (fun x : ℝ => Complex.Gammaℝ
+      ((1 / 2 : ℂ) - Complex.I * (2 * Real.pi * x : ℝ))) _ _
+  simpa [ccm24CriticalGammaRLogDeriv,
+    Source.CC20Concrete.ccm24ArchimedeanFactor, s, Function.comp_def,
+    mul_assoc, mul_left_comm, mul_comm]
+    using hcomp
+
 end Dev
 end ConnesWeilRH

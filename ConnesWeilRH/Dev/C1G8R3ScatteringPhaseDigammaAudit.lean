@@ -9,6 +9,8 @@ namespace Dev
 #print axioms hasDerivAt_digamma_criticalQuarterLine
 #check hasDerivAt_ccm24CriticalGammaRLogDeriv
 #print axioms hasDerivAt_ccm24CriticalGammaRLogDeriv
+#check hasDerivAt_ccm24ArchimedeanFactor_logDeriv
+#print axioms hasDerivAt_ccm24ArchimedeanFactor_logDeriv
 
 end Dev
 end ConnesWeilRH
