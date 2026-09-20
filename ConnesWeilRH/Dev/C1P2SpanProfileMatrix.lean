@@ -98,6 +98,21 @@ theorem oneWindowICdefect_eq_twoSpan
   simp [ICdefect_test, spanObj]
   ring
 
+theorem oneWindowICdefect_gate_iff_twoSpan_qform_nonpos
+    (g W : CompactLogTest) (lam B : ℝ)
+    (hg : Function.support g.test ⊆ Set.Ioo (-B) B)
+    (hW : Function.support W.test ⊆ Set.Ioo (-B) B) :
+    orbitWindowSemiLocalGate
+        (ICdefect g ({()} : Finset Unit) (fun _ => W) (fun _ => lam)) ↔
+      (![1, -lam] : Fin 2 → ℝ) ⬝ᵥ
+          (gateMatrix ![g, W] *ᵥ (![1, -lam] : Fin 2 → ℝ)) ≤ 0 := by
+  rw [oneWindowICdefect_eq_twoSpan]
+  apply orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos_of_support
+  intro i
+  fin_cases i
+  · simpa using hg
+  · simpa using hW
+
 end
 end C1P2SpanProfileMatrix
 end Source

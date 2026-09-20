@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-21 docs/proofs/1758_one_window_defect_gate_matrix_readback.md + docs/map/066_one_window_defect_gate_matrix_readback.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED the exact one-window defect gate as a two-by-two gateMatrix quadratic form on coefficients `[1, -lam]` under common support. This isolates the remaining signed cross-term budget for the actual OrbitG8 owner. Build 3784 jobs clean, zero error/sorryAx, standard axioms; no RH claim.
+
 2026-09-21 docs/proofs/1757_one_window_defect_two_span_bridge.md + docs/map/065_one_window_defect_two_span_bridge.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED the exact one-window Stage-B defect as the genuine two-element CompactLog span `[g, W]` with coefficients `[1, -lam]`. This connects defect control to the finite gate-matrix owner; the independent defect budget and same-owner sign remain open. Build 3784 jobs clean, zero error/sorryAx, standard axioms.
 
 2026-09-21 docs/proofs/1756_span_gate_certificate_to_rh_consumer.md + docs/map/064_span_gate_certificate_to_rh_consumer.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED the end-to-end detector-specific finite-span producer contract: same-owner OrbitG8 geometry, finite span representation, support, and nonpositive gate-matrix quadratic form now imply SourceRH. Build 3784 jobs clean, zero error/sorryAx, standard axioms. The actual OrbitG8 span and signed certificate remain the sole open producer; no RH claim.

@@ -12,5 +12,7 @@ namespace ConnesWeilRH.Source.C1P2SpanProfileMatrix
 #print axioms sourceRH_of_right_orbitGeometry_spanGateCertificate
 #check oneWindowICdefect_eq_twoSpan
 #print axioms oneWindowICdefect_eq_twoSpan
+#check oneWindowICdefect_gate_iff_twoSpan_qform_nonpos
+#print axioms oneWindowICdefect_gate_iff_twoSpan_qform_nonpos
 
 end ConnesWeilRH.Source.C1P2SpanProfileMatrix

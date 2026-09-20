@@ -1316,3 +1316,8 @@ The current mathematical owner and active status remain in the repository
     `CompactLogTest` span, connecting defect control to the same matrix owner.
     The independent defect budget remains open. See
     [1757](../proofs/1757_one_window_defect_two_span_bridge.md).
+
+78. [066 - One-window defect gate matrix readback](066_one_window_defect_gate_matrix_readback.md)
+    — the one-window defect gate is exactly the two-span matrix quadratic form
+    on `[1, -lam]`; the signed cross-term budget remains open. See
+    [1758](../proofs/1758_one_window_defect_gate_matrix_readback.md).
