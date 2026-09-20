@@ -680,3 +680,4 @@ at the gate; law F30; P1/P2 two-brick program (both now paid).
 2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelRowRepresentative.lean : proved root-kernel row integral is invariant under replacement by the canonical MemLp.toLp representative; arbitrary-L2 Plancherel readback remains open
 2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelReadbackLpCore.lean : composed Schwartz Plancherel readback with canonical MemLp.toLp row formula; dense-core socket for the still-open arbitrary-L2 extension
 2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelOperatorDensityUniqueness.lean : proved continuous L2 operator equality from Schwartz-toLp core agreement; isolates the final operator-identification step for row readback
+2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelRowL2Lipschitz.lean : proved fixed-output Holder(2,2) Lipschitz bound for honest root-kernel row integrals in the L2 input norm; global output-L2 extension remains open
