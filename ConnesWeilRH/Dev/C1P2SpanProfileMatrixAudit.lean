@@ -10,6 +10,14 @@ namespace ConnesWeilRH.Source.C1P2SpanProfileMatrix
 #print axioms bilateralProfile_pairTest_swap_re
 #check archimedeanTerm_pairTest_swap
 #print axioms archimedeanTerm_pairTest_swap
+#check finitePrimeTermComplex_pairTest_swap
+#print axioms finitePrimeTermComplex_pairTest_swap
+#check globalPrimeIndexSet_pairTest_swap
+#print axioms globalPrimeIndexSet_pairTest_swap
+#check finitePrimeSum_pairTest_swap
+#print axioms finitePrimeSum_pairTest_swap
+#check ICgate_pairTest_swap
+#print axioms ICgate_pairTest_swap
 #check orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos
 #print axioms orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos
 #check orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos_of_support

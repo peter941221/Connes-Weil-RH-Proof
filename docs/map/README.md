@@ -21,6 +21,11 @@ The route and the S3 status in 045/046 are unchanged.
 
 ## Orbit visible-prime owner, 2026-09-20
 
+[072](072_full_icgate_cross_swap_symmetry.md) records formal theorem 1764:
+the AB/BA pair swap now preserves the complete same-owner `ICgate`, including
+complex visible-index-set transport and the finite-prime sum. The two-span
+producer therefore has one cross gate; only its signed estimate remains.
+
 [071](071_archimedean_cross_swap_symmetry.md) records formal theorem 1763:
 the Archimedean terms of the two directed pair convolutions are exactly equal
 under input swap. Combined with 070, only complex visible-index-set transport

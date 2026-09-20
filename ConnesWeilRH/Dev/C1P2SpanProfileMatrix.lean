@@ -141,6 +141,64 @@ theorem archimedeanTerm_pairTest_swap
   rw [hI, hswap 0]
   simp [Complex.star_def]
 
+theorem finitePrimeTermComplex_pairTest_swap
+    (f g : CompactLogTest) (n : ℕ) :
+    finitePrimeTermComplex (g.involution.convolution f) n =
+      star (finitePrimeTermComplex (f.involution.convolution g) n) := by
+  have hswap (x : ℝ) :
+      (g.involution.convolution f).test x =
+        star ((f.involution.convolution g).test (-x)) := by
+    rw [CompactLogTest.convolution_apply, CompactLogTest.convolution_apply]
+    simp only [CompactLogTest.involution_apply, Complex.star_def]
+    rw [← integral_conj]
+    let reflected : ℝ → ℂ := fun t =>
+      star (g.test (-t)) * f.test (x - t)
+    calc
+      (∫ t : ℝ, star (g.test (-t)) * f.test (x - t)) =
+          ∫ t : ℝ, reflected t := rfl
+      _ = ∫ t : ℝ, reflected (t + x) := by
+        symm
+        exact integral_add_right_eq_self reflected x
+      _ = ∫ t : ℝ,
+          star (star (f.test (-t)) * g.test (-x - t)) := by
+        apply integral_congr_ae
+        filter_upwards with t
+        simp only [reflected, star_mul, star_star]
+        congr 1 <;> ring
+  unfold finitePrimeTermComplex
+  rw [hswap (Real.log n), hswap (-Real.log n)]
+  simp [Complex.star_def, add_comm]
+
+theorem globalPrimeIndexSet_pairTest_swap
+    (f g : CompactLogTest) :
+    globalPrimeIndexSet (g.involution.convolution f) =
+      globalPrimeIndexSet (f.involution.convolution g) := by
+  apply Finset.ext
+  intro n
+  rw [mem_globalPrimeIndexSet_iff, mem_globalPrimeIndexSet_iff]
+  rw [finitePrimeTermComplex_pairTest_swap]
+  simp
+
+theorem finitePrimeSum_pairTest_swap
+    (f g : CompactLogTest) :
+    finitePrimeSum (g.involution.convolution f) =
+      finitePrimeSum (f.involution.convolution g) := by
+  unfold finitePrimeSum
+  rw [globalPrimeIndexSet_pairTest_swap]
+  apply Finset.sum_congr rfl
+  intro n hn
+  unfold finitePrimeTerm
+  rw [finitePrimeTermComplex_pairTest_swap]
+  simp
+
+theorem ICgate_pairTest_swap
+    (f g : CompactLogTest) :
+    ICgate (f.involution.convolution g) =
+      ICgate (g.involution.convolution f) := by
+  unfold ICgate
+  rw [archimedeanTerm_pairTest_swap,
+    finitePrimeSum_pairTest_swap]
+
 theorem orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos
     {k : ℕ} (w : Fin k → CompactLogTest) (y : Fin k → ℝ)
     {B : ℝ} (hw : ∀ i, Function.support (w i).test ⊆ Set.Ioo (-B) B)
