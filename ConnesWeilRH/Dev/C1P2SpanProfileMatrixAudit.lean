@@ -14,5 +14,7 @@ namespace ConnesWeilRH.Source.C1P2SpanProfileMatrix
 #print axioms oneWindowICdefect_eq_twoSpan
 #check oneWindowICdefect_gate_iff_twoSpan_qform_nonpos
 #print axioms oneWindowICdefect_gate_iff_twoSpan_qform_nonpos
+#check twoSpan_gate_qform_expand
+#print axioms twoSpan_gate_qform_expand
 
 end ConnesWeilRH.Source.C1P2SpanProfileMatrix

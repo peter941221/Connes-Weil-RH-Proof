@@ -1321,3 +1321,8 @@ The current mathematical owner and active status remain in the repository
     — the one-window defect gate is exactly the two-span matrix quadratic form
     on `[1, -lam]`; the signed cross-term budget remains open. See
     [1758](../proofs/1758_one_window_defect_gate_matrix_readback.md).
+
+79. [067 - Two-span gate cross-term expansion](067_two_span_gate_cross_term_expansion.md)
+    — the two-span form is expanded into head, reference, and both directed
+    cross gates. The signed cross-term estimate remains open. See
+    [1759](../proofs/1759_two_span_gate_cross_term_expansion.md).

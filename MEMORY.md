@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-21 docs/proofs/1759_two_span_gate_cross_term_expansion.md + docs/map/067_two_span_gate_cross_term_expansion.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED the two-span gate quadratic form as head square gate + lam^2 reference square gate - lam times the two directed cross gates. No cross-term symmetry or sign was assumed. Build 3784 jobs clean, zero error/sorryAx, standard axioms; the cross-term estimate remains the live producer gap.
+
 2026-09-21 docs/proofs/1758_one_window_defect_gate_matrix_readback.md + docs/map/066_one_window_defect_gate_matrix_readback.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED the exact one-window defect gate as a two-by-two gateMatrix quadratic form on coefficients `[1, -lam]` under common support. This isolates the remaining signed cross-term budget for the actual OrbitG8 owner. Build 3784 jobs clean, zero error/sorryAx, standard axioms; no RH claim.
 
 2026-09-21 docs/proofs/1757_one_window_defect_two_span_bridge.md + docs/map/065_one_window_defect_two_span_bridge.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED the exact one-window Stage-B defect as the genuine two-element CompactLog span `[g, W]` with coefficients `[1, -lam]`. This connects defect control to the finite gate-matrix owner; the independent defect budget and same-owner sign remain open. Build 3784 jobs clean, zero error/sorryAx, standard axioms.

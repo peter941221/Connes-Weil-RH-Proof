@@ -113,6 +113,17 @@ theorem oneWindowICdefect_gate_iff_twoSpan_qform_nonpos
   · simpa using hg
   · simpa using hW
 
+theorem twoSpan_gate_qform_expand
+    (A B : CompactLogTest) (lam : ℝ) :
+    (![1, -lam] : Fin 2 → ℝ) ⬝ᵥ
+          (gateMatrix ![A, B] *ᵥ (![1, -lam] : Fin 2 → ℝ)) =
+      ICgate A.convolutionSquare + lam ^ 2 * ICgate B.convolutionSquare -
+        lam * (ICgate (A.involution.convolution B) +
+          ICgate (B.involution.convolution A)) := by
+  simp [gateMatrix, Matrix.mulVec, dotProduct, pairTest,
+    CompactLogTest.convolutionSquare]
+  ring
+
 end
 end C1P2SpanProfileMatrix
 end Source
