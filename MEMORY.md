@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-21 docs/proofs/1753_span_prime_profile_quadratic_readback.md + docs/map/061_span_prime_profile_quadratic_readback.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED the actual convolution-square prime-log profile term of a finite root span as an exact pair-basis quadratic expression. Build 3784 jobs clean, zero error/sorryAx, standard axioms. The OrbitG8 finite-span representation and signed certificate remain open.
+
 2026-09-20 docs/proofs/1752_finite_profile_mellin_interpolation_interface.md + docs/map/060_finite_profile_mellin_interpolation_interface.md + ConnesWeilRH/Dev/C1P2PhysicalMellinInterpolation.lean + Audit : FORMALIZED the finite multi-point extension: explicit Kronecker physical basis coefficients and arbitrary finite Laplace data coexist in one genuine CompactLogTest. Build 3657 jobs clean, zero error/sorryAx, standard axioms. Actual orbit-basis existence and the signed budget remain open.
 
 2026-09-20 docs/proofs/1751_physical_point_mellin_interpolation.md + docs/map/059_physical_point_mellin_interpolation.md + ConnesWeilRH/Dev/C1P2PhysicalMellinInterpolation.lean + Audit : FORMALIZED one genuine CompactLogTest with a prescribed positive physical log value and arbitrary finite Laplace data, by adding a separated residual-window correction. Build 3653 jobs clean, zero error/sorryAx, standard axioms. Multi-point actual-profile control and the signed budget remain open.

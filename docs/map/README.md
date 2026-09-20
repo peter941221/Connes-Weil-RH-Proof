@@ -1286,3 +1286,9 @@ The current mathematical owner and active status remain in the repository
     realized by one genuine test. The actual orbit basis and signed budget
     remain open. See
     [1752](../proofs/1752_finite_profile_mellin_interpolation_interface.md).
+
+73. [061 - Finite-span prime-profile quadratic readback](061_span_prime_profile_quadratic_readback.md)
+    — every actual signed prime-log profile term of a finite root span is now
+    an exact pair-basis quadratic expression. The actual OrbitG8 span and the
+    signed certificate remain open. See
+    [1753](../proofs/1753_span_prime_profile_quadratic_readback.md).

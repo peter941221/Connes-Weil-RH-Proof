@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1P2SpanProfileMatrix
+
+namespace ConnesWeilRH.Source.C1P2SpanProfileMatrix
+
+#check signedProfileTerm_spanObj_eq_pair_profile_quadratic
+#print axioms signedProfileTerm_spanObj_eq_pair_profile_quadratic
+
+end ConnesWeilRH.Source.C1P2SpanProfileMatrix
