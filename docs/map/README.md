@@ -21,6 +21,11 @@ The route and the S3 status in 045/046 are unchanged.
 
 ## Orbit visible-prime owner, 2026-09-20
 
+[071](071_archimedean_cross_swap_symmetry.md) records formal theorem 1763:
+the Archimedean terms of the two directed pair convolutions are exactly equal
+under input swap. Combined with 070, only complex visible-index-set transport
+and the signed estimate remain before a full `ICgate` cross symmetry.
+
 [070](070_cross_profile_swap_symmetry.md) records formal theorem 1762:
 swapping the two inputs of a pair convolution preserves the real bilateral
 profile, so the arithmetic AB and BA channels are identical pointwise. This

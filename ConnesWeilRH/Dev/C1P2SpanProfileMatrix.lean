@@ -88,6 +88,59 @@ theorem bilateralProfile_pairTest_swap_re
   rw [hswap y, hswap (-y)]
   simp [Complex.star_def, add_comm]
 
+theorem archimedeanTerm_pairTest_swap
+    (f g : CompactLogTest) :
+    archimedeanTerm (f.involution.convolution g) =
+      archimedeanTerm (g.involution.convolution f) := by
+  have hswap (x : ℝ) :
+      (g.involution.convolution f).test x =
+        star ((f.involution.convolution g).test (-x)) := by
+    rw [CompactLogTest.convolution_apply, CompactLogTest.convolution_apply]
+    simp only [CompactLogTest.involution_apply, Complex.star_def]
+    rw [← integral_conj]
+    let reflected : ℝ → ℂ := fun t =>
+      star (g.test (-t)) * f.test (x - t)
+    calc
+      (∫ t : ℝ, star (g.test (-t)) * f.test (x - t)) =
+          ∫ t : ℝ, reflected t := rfl
+      _ = ∫ t : ℝ, reflected (t + x) := by
+        symm
+        exact integral_add_right_eq_self reflected x
+      _ = ∫ t : ℝ,
+          star (star (f.test (-t)) * g.test (-x - t)) := by
+        apply integral_congr_ae
+        filter_upwards with t
+        simp only [reflected, star_mul, star_star]
+        congr 1 <;> ring
+  have hnum (y : ℝ) :
+      archimedeanNumerator (g.involution.convolution f) y =
+        star (archimedeanNumerator (f.involution.convolution g) y) := by
+    unfold archimedeanNumerator
+    rw [hswap y, hswap (-y), hswap 0]
+    have hexp : star (Complex.exp ((y : ℂ) / 2)) =
+        Complex.exp ((y : ℂ) / 2) := by
+      apply Complex.ext <;> simp [Complex.exp_re, Complex.exp_im]
+    simp [Complex.star_def, hexp, add_comm]
+  have hint (y : ℝ) :
+      archimedeanIntegrand (g.involution.convolution f) y =
+        star (archimedeanIntegrand (f.involution.convolution g) y) := by
+    unfold archimedeanIntegrand
+    rw [hnum]
+    simp [Complex.star_def]
+  unfold archimedeanTerm
+  have hI :
+      (∫ y in Set.Ioi (0 : ℝ),
+          archimedeanIntegrand (g.involution.convolution f) y) =
+        star (∫ y in Set.Ioi (0 : ℝ),
+          archimedeanIntegrand (f.involution.convolution g) y) := by
+    simp only [Complex.star_def]
+    rw [← integral_conj]
+    apply integral_congr_ae
+    filter_upwards with y
+    exact hint y
+  rw [hI, hswap 0]
+  simp [Complex.star_def]
+
 theorem orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos
     {k : ℕ} (w : Fin k → CompactLogTest) (y : Fin k → ℝ)
     {B : ℝ} (hw : ∀ i, Function.support (w i).test ⊆ Set.Ioo (-B) B)

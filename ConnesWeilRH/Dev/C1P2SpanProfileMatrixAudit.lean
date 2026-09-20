@@ -8,6 +8,8 @@ namespace ConnesWeilRH.Source.C1P2SpanProfileMatrix
 #print axioms signedProfileTerm_twoSpan_eq_four_pair_profiles
 #check bilateralProfile_pairTest_swap_re
 #print axioms bilateralProfile_pairTest_swap_re
+#check archimedeanTerm_pairTest_swap
+#print axioms archimedeanTerm_pairTest_swap
 #check orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos
 #print axioms orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos
 #check orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos_of_support

@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-21 docs/proofs/1763_archimedean_cross_swap_symmetry.md + docs/map/071_archimedean_cross_swap_symmetry.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED exact Archimedean equality under pair-input swap, completing the Archimedean half of AB/BA channel merge. Complex visible-index-set transport and signed C3 estimate remain open. Build 3784 jobs clean, zero error/sorryAx, standard axioms.
+
 2026-09-21 docs/proofs/1762_cross_profile_swap_symmetry.md + docs/map/070_cross_profile_swap_symmetry.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED reflection-conjugation symmetry of pair convolutions, proving the real bilateral profiles of AB and BA coincide pointwise. This merges only the finite-prime arithmetic channels; Archimedean cross equality and signed gate estimate remain open. Build 3784 jobs clean, zero error/sorryAx, standard axioms.
 
 2026-09-21 docs/proofs/1761_two_span_four_profile_channels.md + docs/map/069_two_span_four_profile_channels.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED the exact four-channel finite profile expansion for the same two-span owner: AA, AB, BA, BB carry coefficients 1, -lam, -lam, lam^2. Directed cross channels remain distinct and unsigned; build 3784 jobs clean, zero error/sorryAx, standard axioms.
