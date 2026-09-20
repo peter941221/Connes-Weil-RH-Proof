@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1G8R3KernelRowIntegrability
+
+namespace ConnesWeilRH.Dev.C1G8R3KernelRowIntegrabilityAudit
+
+#check @sourceKernelRow_integrable_of_memLp
+#print axioms sourceKernelRow_integrable_of_memLp
+
+end ConnesWeilRH.Dev.C1G8R3KernelRowIntegrabilityAudit
