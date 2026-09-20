@@ -677,3 +677,4 @@ at the gate; law F30; P1/P2 two-brick program (both now paid).
 2026-09-21 ConnesWeilRH/Dev/C1G8R3AnnularMassConsumer.lean : connected the two-wing annular majorant assembly to the same-owner S3 square-sum consumer; analytic majorant remains an explicit premise
 2026-09-21 ConnesWeilRH/Dev/C1G8R3AnnularKernelDiagonalBessel.lean : proved the pointwise ENNReal annular diagonal bound from inner-kernel columns and a carrier-projection norm majorant; kept Schwartz-to-Lp density extension explicit
 2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelRowIntegrability.lean : proved genuine Bochner integrability of every reflected root-kernel row against arbitrary L2 inputs; full Plancherel-to-row readback remains open
+2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelRowRepresentative.lean : proved root-kernel row integral is invariant under replacement by the canonical MemLp.toLp representative; arbitrary-L2 Plancherel readback remains open
