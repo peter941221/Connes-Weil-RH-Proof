@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1G8R3AnnularKernelDiagonalBessel
+
+namespace ConnesWeilRH.Dev.C1G8R3AnnularKernelDiagonalBesselAudit
+
+#check @annular_kernelDiagonal_le_of_inner_kernel_projection_majorant
+#print axioms annular_kernelDiagonal_le_of_inner_kernel_projection_majorant
+
+end ConnesWeilRH.Dev.C1G8R3AnnularKernelDiagonalBesselAudit
