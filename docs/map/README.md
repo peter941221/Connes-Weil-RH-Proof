@@ -21,6 +21,13 @@ The route and the S3 status in 045/046 are unchanged.
 
 ## Orbit visible-prime owner, 2026-09-20
 
+[068](068_two_span_finite_range_profile_readback.md) records formal theorem
+1760: the exact two-span `p2AggregateValue` is now read back on the same owner
+as an Archimedean term plus the explicit finite range
+`range (ceil(exp(2R)) + 1)` after support propagation through the convolution
+square. This is only a finite-domain representation result; the signed
+aggregate inequality for the actual OrbitG8 owner remains open.
+
 [050](050_orbit_visible_prime_range_owner.md) records formal theorem 1742:
 the raw `OrbitG8Geometry` support cutoff is now also an explicit finite
 `Finset.range` owner for the same detector's visible prime powers. This closes

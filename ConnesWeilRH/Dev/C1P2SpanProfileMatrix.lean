@@ -124,6 +124,38 @@ theorem twoSpan_gate_qform_expand
     CompactLogTest.convolutionSquare]
   ring
 
+theorem twoSpan_p2Aggregate_eq_archimedean_plus_rangeProfile
+    (A B : CompactLogTest) (lam R : ℝ)
+    (hA : Function.support A.test ⊆ Set.Ioo (-R) R)
+    (hB : Function.support B.test ⊆ Set.Ioo (-R) R) :
+    p2AggregateValue (spanObj ![A, B] ![(1 : ℝ), -lam]) =
+      archimedeanTerm (spanObj ![A, B] ![(1 : ℝ), -lam]).convolutionSquare +
+        ∑ n ∈ Finset.range (Nat.ceil (Real.exp (2 * R)) + 1),
+          ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+            (2 * ((spanObj ![A, B] ![(1 : ℝ), -lam]).convolutionSquare.test
+              (Real.log n)).re) := by
+  have hspan : Function.support (spanObj ![A, B] ![(1 : ℝ), -lam]).test ⊆
+      Set.Ioo (-R) R := by
+    intro x hx
+    by_contra hout
+    rw [Function.mem_support] at hx
+    apply hx
+    have hA0 : A.test x = 0 := by
+      by_contra hne
+      exact hout (hA (Function.mem_support.mpr hne))
+    have hB0 : B.test x = 0 := by
+      by_contra hne
+      exact hout (hB (Function.mem_support.mpr hne))
+    simp [spanObj_apply, hA0, hB0]
+  have hsq : Function.support
+      (spanObj ![A, B] ![(1 : ℝ), -lam]).convolutionSquare.test ⊆
+      Set.Ioo (-(2 * R)) (2 * R) := by
+    exact CompactLogTest.convolutionSquare_support_subset_two_mul_Ioo
+      (spanObj ![A, B] ![(1 : ℝ), -lam])
+      (fun x hx => Set.Ioo_subset_Icc_self (hspan hx))
+  exact p2AggregateValue_eq_archimedean_plus_rangeProfile
+    (spanObj ![A, B] ![(1 : ℝ), -lam]) hsq
+
 end
 end C1P2SpanProfileMatrix
 end Source

@@ -16,5 +16,7 @@ namespace ConnesWeilRH.Source.C1P2SpanProfileMatrix
 #print axioms oneWindowICdefect_gate_iff_twoSpan_qform_nonpos
 #check twoSpan_gate_qform_expand
 #print axioms twoSpan_gate_qform_expand
+#check twoSpan_p2Aggregate_eq_archimedean_plus_rangeProfile
+#print axioms twoSpan_p2Aggregate_eq_archimedean_plus_rangeProfile
 
 end ConnesWeilRH.Source.C1P2SpanProfileMatrix
