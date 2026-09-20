@@ -4,5 +4,7 @@ namespace ConnesWeilRH.Source.C1P2PhysicalMellinInterpolation
 
 #check exists_physicalPoint_mellinInterpolation
 #print axioms exists_physicalPoint_mellinInterpolation
+#check exists_finitePhysical_mellinInterpolation_of_kronecker
+#print axioms exists_finitePhysical_mellinInterpolation_of_kronecker
 
 end ConnesWeilRH.Source.C1P2PhysicalMellinInterpolation

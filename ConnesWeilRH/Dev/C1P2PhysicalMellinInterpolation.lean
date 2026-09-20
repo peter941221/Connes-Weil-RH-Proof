@@ -1,4 +1,5 @@
 import ConnesWeilRH.Dev.C1P2PhysicalPointBump
+import ConnesWeilRH.Dev.C1P2FinitePhysicalCombination
 import ConnesWeilRH.Dev.C1HealthyDetectorEvenOddPair
 
 /-!
@@ -21,6 +22,7 @@ open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
 open C1HealthyDetectorArchRescue
 open C1HealthyDetectorEvenOddPair
+open C1P2FinitePhysicalCombination
 open C1P2PhysicalPointBump
 
 noncomputable section
@@ -67,6 +69,56 @@ theorem exists_physicalPoint_mellinInterpolation
     ring
   · dsimp [g]
     simp [hpValue, hcx]
+
+theorem exists_finitePhysical_mellinInterpolation_of_kronecker
+    {ι : Type*} (S : Finset ι) (nodes : Finset Complex)
+    (x : ι → Real) (coeff : ι → Complex)
+    (basis : ι → CompactLogTest)
+    {lower upper : Real} (hlower : lower < 0) (hupper : 0 < upper)
+    (houtside : ∀ i ∈ S, x i ∉ Set.Ioo lower upper)
+    (hdiag : ∀ i ∈ S, (basis i).test (x i) = 1)
+    (hoffdiag : ∀ i ∈ S, ∀ j ∈ S, i ≠ j →
+      (basis j).test (x i) = 0)
+    (y : FiniteMellinNode nodes → Complex) :
+    ∃ g : CompactLogTest,
+      (∀ i ∈ S, g.test (x i) = coeff i) ∧
+        (∀ z : FiniteMellinNode nodes,
+          laplaceAt g z.1 = y z) := by
+  let p : CompactLogTest := finitePhysicalCombination S coeff basis
+  let target : FiniteMellinNode nodes → Complex := fun z =>
+    y z - laplaceAt p z.1
+  obtain ⟨c, hcSupport, hcValues⟩ :=
+    exists_residualWindow_correction nodes hlower hupper target
+  let g : CompactLogTest := sumTest p c
+  have hpValue : ∀ i ∈ S, p.test (x i) = coeff i := by
+    intro i hi
+    dsimp [p]
+    rw [finitePhysicalCombination_apply]
+    calc
+      (∑ j ∈ S, coeff j * (basis j).test (x i)) =
+          coeff i * (basis i).test (x i) := by
+        refine Finset.sum_eq_single i ?_ ?_
+        · intro j hj hji
+          rw [hoffdiag i hi j hj (Ne.symm hji)]
+          simp
+        · intro hnot
+          exact (hnot hi).elim
+      _ = coeff i := by rw [hdiag i hi, mul_one]
+  have hcValue : ∀ i ∈ S, c.test (x i) = 0 := by
+    intro i hi
+    by_contra hne
+    have hmem : x i ∈ Function.support c.test :=
+      Function.mem_support.mpr hne
+    exact houtside i hi (hcSupport hmem)
+  refine ⟨g, ?_, ?_⟩
+  · intro i hi
+    dsimp [g]
+    simp [hpValue i hi, hcValue i hi]
+  · intro z
+    dsimp [g]
+    rw [laplaceAt_sumTest, hcValues]
+    dsimp [target]
+    ring
 
 end
 end C1P2PhysicalMellinInterpolation

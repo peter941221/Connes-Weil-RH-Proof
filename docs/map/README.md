@@ -1279,3 +1279,10 @@ The current mathematical owner and active status remain in the repository
     bridges one actual profile coordinate to the Mellin-vanishing constraint;
     multi-point profile control and the signed budget remain open. See
     [1751](../proofs/1751_physical_point_mellin_interpolation.md).
+
+72. [060 - Finite profile and Mellin interpolation interface](060_finite_profile_mellin_interpolation_interface.md)
+    — under explicit Kronecker physical-basis hypotheses, all coefficients on
+    a finite physical profile and arbitrary finite Laplace data can be
+    realized by one genuine test. The actual orbit basis and signed budget
+    remain open. See
+    [1752](../proofs/1752_finite_profile_mellin_interpolation_interface.md).

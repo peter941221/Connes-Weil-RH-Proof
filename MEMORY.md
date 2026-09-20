@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-20 docs/proofs/1752_finite_profile_mellin_interpolation_interface.md + docs/map/060_finite_profile_mellin_interpolation_interface.md + ConnesWeilRH/Dev/C1P2PhysicalMellinInterpolation.lean + Audit : FORMALIZED the finite multi-point extension: explicit Kronecker physical basis coefficients and arbitrary finite Laplace data coexist in one genuine CompactLogTest. Build 3657 jobs clean, zero error/sorryAx, standard axioms. Actual orbit-basis existence and the signed budget remain open.
+
 2026-09-20 docs/proofs/1751_physical_point_mellin_interpolation.md + docs/map/059_physical_point_mellin_interpolation.md + ConnesWeilRH/Dev/C1P2PhysicalMellinInterpolation.lean + Audit : FORMALIZED one genuine CompactLogTest with a prescribed positive physical log value and arbitrary finite Laplace data, by adding a separated residual-window correction. Build 3653 jobs clean, zero error/sorryAx, standard axioms. Multi-point actual-profile control and the signed budget remain open.
 
 2026-09-20 docs/proofs/1750_finite_physical_combination_laplace_readback.md + docs/map/058_finite_physical_combination_mellin_readback.md + ConnesWeilRH/Dev/C1P2FinitePhysicalCombination.lean + Audit : FORMALIZED finite linear combinations of genuine CompactLog tests and their exact Laplace readback. Build 3481 jobs clean, zero error/sorryAx, standard axioms. This is the coefficient-to-Mellin matrix interface for constrained physical interpolation; rank, signed budget, semi-local positivity, and RH remain open.
