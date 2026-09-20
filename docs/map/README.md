@@ -54,6 +54,11 @@ remaining producer contract is therefore only existence of a geometry whose
 actual finite-range signed budget holds; no independent health witness is
 needed.
 
+[056](056_compact_log_physical_point_bump.md) records formal theorem 1748:
+the genuine `CompactLogTest` owner now has an axiom-clean local physical bump
+at any interior log point. This is the first input toward finite constrained
+profile interpolation; it is not a signed-budget or positivity theorem.
+
 ## Current authority
 
 ```text
