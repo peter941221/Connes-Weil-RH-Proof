@@ -21,6 +21,11 @@ The route and the S3 status in 045/046 are unchanged.
 
 ## Orbit visible-prime owner, 2026-09-20
 
+[070](070_cross_profile_swap_symmetry.md) records formal theorem 1762:
+swapping the two inputs of a pair convolution preserves the real bilateral
+profile, so the arithmetic AB and BA channels are identical pointwise. This
+does not yet merge the full Archimedean cross gates.
+
 [069](069_two_span_four_profile_channels.md) records formal theorem 1761:
 each finite visible-prime term of the two-span owner is now decomposed into
 the four same-owner pair channels AA, AB, BA, and BB with coefficients

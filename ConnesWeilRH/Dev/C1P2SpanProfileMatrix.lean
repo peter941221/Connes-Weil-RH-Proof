@@ -59,6 +59,35 @@ theorem signedProfileTerm_twoSpan_eq_four_pair_profiles
   simp [Fin.sum_univ_two]
   ring
 
+theorem bilateralProfile_pairTest_swap_re
+    (f g : CompactLogTest) (y : ℝ) :
+    (bilateralProfile (f.involution.convolution g) y).re =
+      (bilateralProfile (g.involution.convolution f) y).re := by
+  have hswap (x : ℝ) :
+      (g.involution.convolution f).test x =
+        star ((f.involution.convolution g).test (-x)) := by
+    rw [CompactLogTest.convolution_apply, CompactLogTest.convolution_apply]
+    simp only [CompactLogTest.involution_apply]
+    simp only [Complex.star_def]
+    rw [← integral_conj]
+    let reflected : ℝ → ℂ := fun t =>
+      star (g.test (-t)) * f.test (x - t)
+    calc
+      (∫ t : ℝ, star (g.test (-t)) * f.test (x - t)) =
+          ∫ t : ℝ, reflected t := rfl
+      _ = ∫ t : ℝ, reflected (t + x) := by
+        symm
+        exact integral_add_right_eq_self reflected x
+      _ = ∫ t : ℝ,
+          star (star (f.test (-t)) * g.test (-x - t)) := by
+        apply integral_congr_ae
+        filter_upwards with t
+        simp only [reflected, star_mul, star_star]
+        congr 1 <;> ring
+  unfold bilateralProfile
+  rw [hswap y, hswap (-y)]
+  simp [Complex.star_def, add_comm]
+
 theorem orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos
     {k : ℕ} (w : Fin k → CompactLogTest) (y : Fin k → ℝ)
     {B : ℝ} (hw : ∀ i, Function.support (w i).test ⊆ Set.Ioo (-B) B)

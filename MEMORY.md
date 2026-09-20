@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-21 docs/proofs/1762_cross_profile_swap_symmetry.md + docs/map/070_cross_profile_swap_symmetry.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED reflection-conjugation symmetry of pair convolutions, proving the real bilateral profiles of AB and BA coincide pointwise. This merges only the finite-prime arithmetic channels; Archimedean cross equality and signed gate estimate remain open. Build 3784 jobs clean, zero error/sorryAx, standard axioms.
+
 2026-09-21 docs/proofs/1761_two_span_four_profile_channels.md + docs/map/069_two_span_four_profile_channels.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED the exact four-channel finite profile expansion for the same two-span owner: AA, AB, BA, BB carry coefficients 1, -lam, -lam, lam^2. Directed cross channels remain distinct and unsigned; build 3784 jobs clean, zero error/sorryAx, standard axioms.
 
 2026-09-21 docs/proofs/1760_two_span_finite_range_profile_readback.md + docs/map/068_two_span_finite_range_profile_readback.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED the exact finite-range profile readback for the two-span owner `[A,B]` with coefficients `[1,-lam]`: common support `(-R,R)` propagates to square support `(-2R,2R)`, yielding range `ceil(exp(2R))+1`. This fixes the finite visible-prime domain for the next signed estimate; no sign or RH claim. Build 3784 jobs clean, zero error/sorryAx, standard axioms.
