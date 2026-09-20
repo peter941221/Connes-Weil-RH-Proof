@@ -166,6 +166,30 @@ theorem hasDerivAt_ccm24CriticalGammaRLogDeriv (xi : ℝ) :
   simpa [z, mul_comm, mul_left_comm, mul_assoc] using
     hscaled.add_const (-((Complex.log (Real.pi : ℂ)) / 2))
 
+theorem hasDerivAt_deriv_ccm24CriticalGammaRLogDeriv (xi : ℝ) :
+    HasDerivAt (deriv ccm24CriticalGammaRLogDeriv)
+      (((-Complex.I * (Real.pi : ℂ)) * (1 / 2 : ℂ)) *
+        (((∑' n : ℕ, (-2 : ℂ) *
+            ((1 / 4 : ℂ) - Complex.I * (Real.pi * xi : ℝ) + 1 +
+              (n : ℂ))⁻¹ ^ (3 : ℕ)) -
+          2 * ((1 / 4 : ℂ) - Complex.I * (Real.pi * xi : ℝ))⁻¹ ^ (3 : ℕ)) *
+          (-Complex.I * (Real.pi : ℂ)))) xi := by
+  let z : ℝ → ℂ := fun x =>
+    (1 / 4 : ℂ) - Complex.I * (Real.pi * x : ℝ)
+  have hcrit := hasDerivAt_deriv_digamma_criticalQuarterLine xi
+  have hscaled := hcrit.const_mul
+    ((-Complex.I * (Real.pi : ℂ)) * (1 / 2 : ℂ))
+  have hfun : (fun x : ℝ => deriv ccm24CriticalGammaRLogDeriv x) =
+      (fun x : ℝ =>
+        ((-Complex.I * (Real.pi : ℂ)) * (1 / 2 : ℂ)) *
+          deriv Complex.digamma (z x)) := by
+    funext x
+    simpa [z] using (hasDerivAt_ccm24CriticalGammaRLogDeriv x).deriv
+  change HasDerivAt (fun x : ℝ => deriv ccm24CriticalGammaRLogDeriv x) _ _
+  rw [hfun]
+  dsimp [z] at hscaled ⊢
+  simpa [mul_assoc, mul_left_comm, mul_comm] using hscaled
+
 theorem hasDerivAt_ccm24ArchimedeanFactor_logDeriv (xi : ℝ) :
     HasDerivAt Source.CC20Concrete.ccm24ArchimedeanFactor
       ((-Complex.I * (2 * Real.pi : ℂ)) *

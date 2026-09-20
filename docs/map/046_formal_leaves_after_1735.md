@@ -203,3 +203,15 @@ This closes the critical-line special-function leg needed for a second
 GammaR-log-derivative estimate. The Archimedean scattering product's full
 W2,1 bound, the S3 kernel-diagonal majorant, semi-local positivity, and RH
 remain open.
+
+## Formal update 1788 (2026-09-21)
+
+`hasDerivAt_deriv_ccm24CriticalGammaRLogDeriv` now composes the critical-line
+second Digamma derivative with the exact GammaR logarithmic-derivative
+readback. Thus the real-frequency derivative of the GammaR log symbol's
+derivative is available in explicit cubic-series form. The paired Audit build
+is green with only the standard three axioms and no `sorryAx`.
+
+This closes the second-order GammaR-log-symbol interface. The actual
+Archimedean scattering-factor W2,1 product estimate, S3 kernel-diagonal
+majorant, semi-local positivity, and RH remain open.
