@@ -25,8 +25,8 @@ the map-047 two-premise exit; `0 ≤ qw` untouched; RH not claimed; stop word
                   |                          |
     +-------------v--------------------------v-------------+
     |  STILL OWED (in dependency order)                    |
-    |  1. theta-W^{2,1} page: Lemma A (abs conv) +         |
-    |     identify the differentiated series with psi';    |
+    |  1. assemble theta-W^{2,1} from the landed A/C      |
+    |     series interfaces and symbol/Schwartz data;      |
     |  2. translation-tail integral identities             |
     |  3. 1723-consumer instantiation (blocked on 1)       |
     |  4. v-representative outside Schwartz class          |
@@ -50,10 +50,9 @@ the `X⁻²` envelope is a worst-case bound, not a decay law.
 
 ## Order of attack (next waves)
 
-1. Lemma C first (uniform `ψ' ≤ 20`): it needs only the termwise square
-   bound and the decreasing-series integral comparison — no new machinery.
-2. Lemma A (absolute convergence) — same M-test face.
-3. Assemble `θ ∈ W^{2,1} ∩ C₀` and push the 1723 consumer.
+1. Assemble `theta in W^{2,1} intersect C_0` from the landed A/C interfaces.
+2. Prove the translation-tail integral identities.
+3. Instantiate and push the 1723 consumer.
 
 ## Formal update 1779 (2026-09-21)
 
@@ -69,8 +68,21 @@ telescoping adjacent-reciprocal comparison proves
 `sum (n + 1/4)^(-2) <= 20`.  Consequently the derivative norm is bounded by
 20 on the quarter half-plane.
 
-This is FORMAL evidence for Lemma C.  The next consumer is the M-test/
-absolute-convergence face and the `theta in W^{2,1}` assembly.
+This is FORMAL evidence for Lemma C.  The next consumer is the actual
+scattering-symbol and `theta in W^{2,1}` assembly.
+
+## Formal update 1781 (2026-09-21)
+
+Lemma A is now also formal.  The theorem
+`summable_digamma_canonical_series_of_re_ge_quarter` derives the canonical
+series with anchor 1 by adding the existing half-anchor series at 1 and at
+`z`; its norm-series corollary supplies the absolute-convergence interface.
+The paired audit for the combined A/C module is green with standard axioms
+only.
+
+The remaining mass-face work is the actual scattering-symbol derivative
+formula, Schwartz weighted-integrability, and the `theta` assembly consumed
+by the annular tail bound.
 
 ## Formal update 1775 (2026-09-21)
 

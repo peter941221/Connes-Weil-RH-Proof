@@ -258,5 +258,28 @@ theorem norm_digamma_deriv_le_twenty
   rw [(hasDerivAt_digamma_of_re_ge_quarter hz).deriv]
   exact hnorm.trans quarter_series_tsum_le_twenty
 
+theorem summable_digamma_canonical_series_of_re_ge_quarter
+    {z : ℂ} (hz : z ∈ quarterHalfPlane) :
+    Summable (fun n : ℕ =>
+      ((n : ℂ) + 1)⁻¹ - ((n : ℂ) + z)⁻¹) := by
+  have hanchor : Summable (fun n : ℕ =>
+      ((n : ℂ) + (1 / 2 : ℂ))⁻¹ - ((n : ℂ) + (1 : ℂ))⁻¹) := by
+    simpa using
+      (Source.C1XiCenterTwoGamma.summable_halfAnchorGaussReciprocalSeries
+        (z := (1 : ℂ)) (by norm_num))
+  have hzpos : 0 < z.re := lt_trans (by norm_num) hz
+  have hzseries :=
+    Source.C1XiCenterTwoGamma.summable_halfAnchorGaussReciprocalSeries
+      (z := z) hzpos
+  have hsum := hanchor.neg.add hzseries
+  refine hsum.congr ?_
+  intro n
+  ring
+
+theorem summable_norm_digamma_canonical_series_of_re_ge_quarter
+    {z : ℂ} (hz : z ∈ quarterHalfPlane) :
+    Summable (fun n : ℕ => ‖((n : ℂ) + 1)⁻¹ - ((n : ℂ) + z)⁻¹‖) :=
+  (summable_digamma_canonical_series_of_re_ge_quarter hz).norm
+
 end Dev
 end ConnesWeilRH

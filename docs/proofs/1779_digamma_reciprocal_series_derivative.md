@@ -38,8 +38,15 @@ The owning module and paired audit both built successfully (3539 jobs) in
 `/home/peter/rh/build-logs/digamma-bound-audit-v2.log`.  The audit remains
 axiom-clean with no `sorryAx`.
 
+## Formal extension 1781
+
+The module also proves absolute convergence of the canonical anchored series
+`sum ((n + 1)^(-1) - (n + z)^(-1))` throughout `Re z > 1/4`, by combining
+the existing half-anchor series at `z` and at `1`.  Its norm-series corollary
+is the direct M-test input for the later symbol construction.
+
 ## Boundary of the result
 
-This closes Lemma C, but does not yet assemble the `W^{2,1}` kernel
+This closes Lemmas A and C, but does not yet assemble the `W^{2,1}` kernel
 certificate, prove the translation-tail identities, or prove S3
 positivity/RH.  Those remain the live downstream obligations.

@@ -11,6 +11,10 @@ namespace Dev
 #check @norm_digamma_deriv_le_twenty
 #print axioms quarter_series_tsum_le_twenty
 #print axioms norm_digamma_deriv_le_twenty
+#check @summable_digamma_canonical_series_of_re_ge_quarter
+#check @summable_norm_digamma_canonical_series_of_re_ge_quarter
+#print axioms summable_digamma_canonical_series_of_re_ge_quarter
+#print axioms summable_norm_digamma_canonical_series_of_re_ge_quarter
 
 end Dev
 end ConnesWeilRH
