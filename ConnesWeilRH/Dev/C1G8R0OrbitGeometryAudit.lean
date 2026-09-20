@@ -19,7 +19,11 @@ namespace ConnesWeilRH.Source.C1G8R0OrbitGeometry
 #check OrbitG8Geometry.raw_square_tail
 #check OrbitG8Geometry.support_bound
 #check OrbitG8Geometry.visible_prime_cutoff
+#check visiblePrimeSet_subset_range_of_orbitG8Geometry
+#check finitePrimeSum_eq_sum_range_of_orbitG8Geometry
 
 #print axioms exists_orbitG8Geometry_of_sourceNontrivialZero_right
+#print axioms visiblePrimeSet_subset_range_of_orbitG8Geometry
+#print axioms finitePrimeSum_eq_sum_range_of_orbitG8Geometry
 
 end ConnesWeilRH.Source.C1G8R0OrbitGeometry

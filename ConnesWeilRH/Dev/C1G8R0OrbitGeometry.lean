@@ -97,6 +97,57 @@ structure OrbitG8Geometry
     ∀ q ∈ globalPrimeIndexSet g.convolutionSquare,
       (q : Real) < Real.exp (2 * ((orbitIndex + 2 : Nat) : Real))
 
+/-! ### The finite owner in executable range form -/
+
+/-- The support-derived visible-prime cutoff is an actual finite-range
+owner, not only a real inequality.  This is the form consumed by finite
+prime-power sums in the semi-local sign branch. -/
+theorem visiblePrimeSet_subset_range_of_orbitG8Geometry
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    globalPrimeIndexSet g.convolutionSquare ⊆
+      Finset.range
+        (Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1) := by
+  intro q hq
+  have hqexp := geometry.visible_prime_cutoff q hq
+  have hceil :
+      Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real)) ≤
+        (Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) : Real) :=
+    Nat.le_ceil _
+  have hqceil :
+      (q : Real) <
+        (Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) : Real) :=
+    hqexp.trans_le hceil
+  have hqnat :
+      q < Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) := by
+    exact_mod_cast hqceil
+  exact Finset.mem_range.mpr (by omega)
+
+/-- The same owner can be used to rewrite the finite prime contribution over
+the explicit range supplied by the orbit geometry. -/
+theorem finitePrimeSum_eq_sum_range_of_orbitG8Geometry
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+  finitePrimeSum g.convolutionSquare =
+      ∑ n ∈ Finset.range
+        (Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1),
+        finitePrimeTerm g.convolutionSquare n := by
+  unfold finitePrimeSum
+  apply Finset.sum_subset
+    (visiblePrimeSet_subset_range_of_orbitG8Geometry geometry)
+  intro n _hnRange hnNotMem
+  by_contra hterm
+  apply hnNotMem
+  have hcomplex : finitePrimeTermComplex g.convolutionSquare n ≠ 0 := by
+    intro hzero
+    apply hterm
+    change (finitePrimeTermComplex g.convolutionSquare n).re = 0
+    rw [hzero]
+    simp
+  exact (mem_globalPrimeIndexSet_iff g.convolutionSquare n).mpr
+    ⟨finitePrimeTermComplex_nonzero_primePower
+        g.convolutionSquare hcomplex, hcomplex⟩
+
 /-- The pinned orbit construction exports the raw G8 geometry package.
 
 The proof uses only the unscaled orbit interpolation, the fourth-order tail,

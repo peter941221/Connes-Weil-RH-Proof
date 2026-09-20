@@ -19,6 +19,14 @@ integrand changes sign already at the prime powers through 5. These results
 do not refute the support-dependent B5 target or supply its nonnegativity.
 The route and the S3 status in 045/046 are unchanged.
 
+## Orbit visible-prime owner, 2026-09-20
+
+[050](050_orbit_visible_prime_range_owner.md) records formal theorem 1742:
+the raw `OrbitG8Geometry` support cutoff is now also an explicit finite
+`Finset.range` owner for the same detector's visible prime powers. This closes
+only finite-domain representation; the detector-specific aggregate sign and
+semi-local gate remain open.
+
 ## Current authority
 
 ```text
