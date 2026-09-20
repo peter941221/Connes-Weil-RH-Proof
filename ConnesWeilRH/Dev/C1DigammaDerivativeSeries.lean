@@ -242,6 +242,104 @@ theorem hasDerivAt_digamma_of_re_ge_quarter
   have hfull := hminus.add_const (Complex.digamma (1 / 2 : ℂ))
   simpa [sub_add_cancel] using hfull
 
+private theorem quarter_series_cubic_summable :
+    Summable (fun n : ℕ => ((n : ℝ) + 1 / 4)⁻¹ ^ (3 : ℕ)) := by
+  refine (quarter_series_summable.mul_left 4).of_nonneg_of_le
+    (fun n => by positivity) ?_
+  intro n
+  have hn : 0 < (n : ℝ) + 1 / 4 := by positivity
+  have hinv : ((n : ℝ) + 1 / 4)⁻¹ ≤ (4 : ℝ) := by
+    calc
+      ((n : ℝ) + 1 / 4)⁻¹ ≤ (1 / 4 : ℝ)⁻¹ := by
+        exact (inv_le_inv₀ hn (by norm_num)).2 (by nlinarith)
+      _ = 4 := by norm_num
+  calc
+    ((n : ℝ) + 1 / 4)⁻¹ ^ (3 : ℕ) =
+        ((n : ℝ) + 1 / 4)⁻¹ ^ (2 : ℕ) *
+          ((n : ℝ) + 1 / 4)⁻¹ := by ring
+    _ ≤ ((n : ℝ) + 1 / 4)⁻¹ ^ (2 : ℕ) * 4 := by
+      exact mul_le_mul_of_nonneg_left hinv (by positivity)
+    _ = 4 * ((n : ℝ) + 1 / 4)⁻¹ ^ (2 : ℕ) := by ring
+
+theorem hasDerivAt_digamma_deriv_of_re_ge_quarter
+    {z : ℂ} (hz : z ∈ quarterHalfPlane) :
+    HasDerivAt (deriv Complex.digamma)
+      (∑' n : ℕ, (-2 : ℂ) * (z + (n : ℂ))⁻¹ ^ (3 : ℕ)) z := by
+  let g : ℕ → ℂ → ℂ := fun n w => (w + (n : ℂ))⁻¹ ^ (2 : ℕ)
+  let g' : ℕ → ℂ → ℂ := fun n w =>
+    (-2 : ℂ) * (w + (n : ℂ))⁻¹ ^ (3 : ℕ)
+  have hbase : Summable (fun n : ℕ => g n (1 : ℂ)) := by
+    apply Summable.of_norm
+    have hreal : Summable (fun n : ℕ => ((n : ℝ) + 1)⁻¹ ^ (2 : ℕ)) := by
+      refine quarter_series_summable.of_nonneg_of_le
+        (fun n => by positivity) ?_
+      intro n
+      have h₁ : 0 < (n : ℝ) + 1 := by positivity
+      have h₂ : 0 < (n : ℝ) + 1 / 4 := by positivity
+      exact (sq_le_sq₀ (inv_nonneg.mpr h₁.le) (inv_nonneg.mpr h₂.le)).mpr
+        ((inv_le_inv₀ h₁ h₂).2 (by linarith))
+    have hcomplex := summable_ofReal.mpr hreal
+    refine hcomplex.norm.congr ?_
+    intro n
+    simp [g, add_comm, norm_pow, norm_inv, Complex.normSq]
+  have hderiv : ∀ n w, w ∈ quarterHalfPlane → HasDerivAt (g n) (g' n w) w := by
+    intro n w hw
+    have hne : w + (n : ℂ) ≠ 0 := by
+      intro h
+      have hre : (w + (n : ℂ)).re = (n : ℝ) + w.re := by simp; ring
+      rw [h, Complex.zero_re] at hre
+      have hw' : (1 / 4 : ℝ) < w.re := hw
+      nlinarith [show (0 : ℝ) ≤ (n : ℝ) from Nat.cast_nonneg n]
+    have hi := (hasDerivAt_id w).add_const (n : ℂ)
+    have hinv := hi.inv hne
+    have hpow := hinv.pow 2
+    convert hpow using 1
+    simp [Function.comp_def, id_eq, g, g', inv_pow, mul_assoc,
+      mul_left_comm, mul_comm]
+    field_simp [hne] <;> ring
+  have hbound : ∀ n w, w ∈ quarterHalfPlane → ‖g' n w‖ ≤
+      2 * ((n : ℝ) + 1 / 4)⁻¹ ^ (3 : ℕ) := by
+    intro n w hw
+    dsimp [g']
+    calc
+      ‖(-2 : ℂ) * (w + (n : ℂ))⁻¹ ^ (3 : ℕ)‖ =
+          2 * ‖(w + (n : ℂ))⁻¹ ^ (3 : ℕ)‖ := by
+            rw [norm_mul, norm_neg, norm_ofNat]
+      _ ≤ 2 * ((n : ℝ) + 1 / 4)⁻¹ ^ (3 : ℕ) := by
+        gcongr
+        rw [norm_pow, norm_inv]
+        have hreal : (1 / 4 : ℝ) < w.re := hw
+        have hnorm : (n : ℝ) + 1 / 4 ≤ ‖w + (n : ℂ)‖ := by
+          have hre : (n : ℝ) + 1 / 4 < (w + (n : ℂ)).re := by
+            simp [Complex.add_re]
+            linarith
+          exact hre.le.trans (le_trans (le_abs_self _) (Complex.abs_re_le_norm _))
+        have hne : w + (n : ℂ) ≠ 0 := by
+          intro h
+          have hre : (w + (n : ℂ)).re = (n : ℝ) + w.re := by simp; ring
+          rw [h, Complex.zero_re] at hre
+          have hreal : (1 / 4 : ℝ) < w.re := hw
+          nlinarith [show (0 : ℝ) ≤ (n : ℝ) from Nat.cast_nonneg n]
+        have hnormpos : 0 < ‖w + (n : ℂ)‖ := norm_pos_iff.mpr hne
+        have hrealpos : 0 < (n : ℝ) + 1 / 4 := by positivity
+        have hinvle : ‖w + (n : ℂ)‖⁻¹ ≤
+            ((n : ℝ) + 1 / 4)⁻¹ :=
+          (inv_le_inv₀ hnormpos hrealpos).2 hnorm
+        exact pow_le_pow_left₀ (by positivity) hinvle 3
+  have hpoint : (1 : ℂ) ∈ quarterHalfPlane := by norm_num [quarterHalfPlane]
+  have hsum := hasDerivAt_tsum_of_isPreconnected
+    (u := fun n : ℕ => 2 * ((n : ℝ) + 1 / 4)⁻¹ ^ (3 : ℕ))
+    (g := g) (g' := g') (quarter_series_cubic_summable.mul_left 2)
+    quarterHalfPlane_isOpen quarterHalfPlane_isPreconnected hderiv hbound
+    hpoint hbase hz
+  have heq : (fun w : ℂ => deriv Complex.digamma w) =ᶠ[𝓝 z]
+      (fun w : ℂ => ∑' n : ℕ, g n w) := by
+    filter_upwards [quarterHalfPlane_isOpen.mem_nhds hz] with w hw
+    rw [(hasDerivAt_digamma_of_re_ge_quarter hw).deriv]
+  have hsum' := hsum.congr_of_eventuallyEq heq
+  dsimp [g, g'] at hsum'
+  simpa [mul_assoc, mul_left_comm, mul_comm] using hsum'
+
 theorem norm_digamma_deriv_le_twenty
     {z : ℂ} (hz : z ∈ quarterHalfPlane) :
     ‖deriv Complex.digamma z‖ ≤ 20 := by

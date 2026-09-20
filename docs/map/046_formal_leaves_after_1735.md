@@ -176,3 +176,17 @@ green with only the standard three axioms and no `sorryAx`.
 This is FORMAL evidence for the first factor derivative in the scattering
 phase product. The weighted product estimate, S3 positivity, and RH remain
 open.
+
+## Formal update 1786 (2026-09-21)
+
+`hasDerivAt_digamma_deriv_of_re_ge_quarter` now differentiates the already
+read-back reciprocal series once more on the strict quarter half-plane. The
+new cubic majorant is summable, and the result identifies the derivative of
+`deriv Complex.digamma` with the explicit negative cubic reciprocal series.
+The paired Audit build is green with only the standard three axioms and no
+`sorryAx`.
+
+This is FORMAL evidence for the second-order special-function interface that
+the scattering-factor W2,1 assembly needs. It does not yet prove the weighted
+product estimate, the S3 kernel-diagonal majorant, semi-local positivity, or
+RH.

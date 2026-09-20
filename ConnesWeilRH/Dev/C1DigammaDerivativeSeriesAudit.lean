@@ -7,6 +7,8 @@ namespace Dev
 #print axioms hasDerivAt_halfAnchorReciprocalSeries_of_re_ge_quarter
 #check @hasDerivAt_digamma_of_re_ge_quarter
 #print axioms hasDerivAt_digamma_of_re_ge_quarter
+#check @hasDerivAt_digamma_deriv_of_re_ge_quarter
+#print axioms hasDerivAt_digamma_deriv_of_re_ge_quarter
 #check @quarter_series_tsum_le_twenty
 #check @norm_digamma_deriv_le_twenty
 #print axioms quarter_series_tsum_le_twenty
