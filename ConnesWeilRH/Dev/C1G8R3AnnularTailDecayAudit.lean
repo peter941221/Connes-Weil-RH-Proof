@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8R3AnnularTailDecay
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check lintegral_sq_moment_le_of_quadratic_decay
+#print axioms lintegral_sq_moment_le_of_quadratic_decay
+#check lintegral_sq_tail_le_of_cubic_decay
+#print axioms lintegral_sq_tail_le_of_cubic_decay
+#check annular_weighted_tail_tendsto_zero
+#print axioms annular_weighted_tail_tendsto_zero
+
+end Dev
+end ConnesWeilRH
