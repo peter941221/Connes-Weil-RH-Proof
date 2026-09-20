@@ -1272,3 +1272,10 @@ The current mathematical owner and active status remain in the repository
     active detector-specific B5 producer. Rank, constrained interpolation,
     signed budget, and semi-local positivity remain open. See
     [1750](../proofs/1750_finite_physical_combination_laplace_readback.md).
+
+71. [059 - Physical point with finite Mellin interpolation](059_physical_point_mellin_interpolation.md)
+    — one genuine physical log sample can now be retained while arbitrary
+    finite Laplace data are imposed by a separated residual correction. This
+    bridges one actual profile coordinate to the Mellin-vanishing constraint;
+    multi-point profile control and the signed budget remain open. See
+    [1751](../proofs/1751_physical_point_mellin_interpolation.md).

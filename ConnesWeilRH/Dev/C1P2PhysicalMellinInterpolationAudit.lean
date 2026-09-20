@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1P2PhysicalMellinInterpolation
+
+namespace ConnesWeilRH.Source.C1P2PhysicalMellinInterpolation
+
+#check exists_physicalPoint_mellinInterpolation
+#print axioms exists_physicalPoint_mellinInterpolation
+
+end ConnesWeilRH.Source.C1P2PhysicalMellinInterpolation
