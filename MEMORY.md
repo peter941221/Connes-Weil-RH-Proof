@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-20 docs/proofs/1744_pointwise_profile_sign_no_go.md + docs/map/052_pointwise_profile_sign_no_go.md + ConnesWeilRH/Dev/C1P2PointwiseProfileNoGo.lean + Audit : FORMALIZED the pointwise bilateral-profile no-go: a healthy detector cannot satisfy nonpositive archimedean plus nonpositive visible profile terms, because the existing consumer gives `qw >= 0` while detector data gives `qw < 0`. The live producer is therefore aggregate signed compensation only; no RH claim.
+
 2026-09-20 docs/proofs/1743_orbit_finite_sign_budget_profile.md + docs/map/051_orbit_finite_sign_budget_profile.md + ConnesWeilRH/Dev/C1OrbitFiniteSignBudget.lean + Audit : FORMALIZED the exact selected-owner reduction `orbitWindowSemiLocalGate_iff_finiteRangeBilateralProfile`; the open gate is now archimedean term plus the same detector's explicit finite range weighted bilateral-profile sum. Build 3664 jobs clean, zero error/sorryAx, standard axioms. No sign or RH claim.
 
 2026-09-20 docs/proofs/1742_orbit_visible_prime_range_owner.md + docs/map/050_orbit_visible_prime_range_owner.md + ConnesWeilRH/Dev/C1G8R0OrbitGeometry.lean + Audit : FORMALIZED the raw OrbitG8Geometry visible-prime cutoff as an explicit Finset.range owner via `visiblePrimeSet_subset_range_of_orbitG8Geometry`, plus the exact finite-sum rewrite `finitePrimeSum_eq_sum_range_of_orbitG8Geometry`; owning and audit build 3660 jobs clean, zero error/sorryAx, standard axioms. This is finite-domain ownership only; detector-specific semi-local positivity remains open.

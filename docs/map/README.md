@@ -32,6 +32,11 @@ the open gate is now an exact finite-range bilateral-profile inequality on
 that same owner. This removes representation ambiguity; it does not prove the
 aggregate sign.
 
+[052](052_pointwise_profile_sign_no_go.md) records formal theorem 1744:
+the pointwise nonpositive-profile shortcut is impossible for any healthy
+detector, since it contradicts the detector's already formal `qw < 0`.
+Aggregate signed compensation is now the only live profile producer shape.
+
 ## Current authority
 
 ```text
