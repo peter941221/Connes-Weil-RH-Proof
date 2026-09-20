@@ -696,3 +696,4 @@ at the gate; law F30; P1/P2 two-brick program (both now paid).
 2026-09-21 ConnesWeilRH/Dev/C1G8R3ScatteringPhaseDigamma.lean : closed the Re=1/4 digamma endpoint by recurrence and differentiated the GammaR log symbol along the critical line; paired audit green
 2026-09-21 ConnesWeilRH/Dev/C1G8R3ScatteringPhaseDigamma.lean : differentiated the concrete CCM24 archimedean factor through the GammaR log symbol; paired audit green
 2026-09-21 ConnesWeilRH/Dev/C1DigammaDerivativeSeries.lean : differentiated the quarter-half-plane digamma derivative series once more and read back the explicit cubic reciprocal series; paired audit green
+2026-09-21 ConnesWeilRH/Dev/C1G8R3ScatteringPhaseDigamma.lean : transported the second digamma derivative through the recurrence to the actual critical quarter-line; paired audit green

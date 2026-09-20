@@ -7,6 +7,8 @@ namespace Dev
 #print axioms ccm24CriticalGammaRLogDeriv_eq_digamma
 #check hasDerivAt_digamma_criticalQuarterLine
 #print axioms hasDerivAt_digamma_criticalQuarterLine
+#check hasDerivAt_deriv_digamma_criticalQuarterLine
+#print axioms hasDerivAt_deriv_digamma_criticalQuarterLine
 #check hasDerivAt_ccm24CriticalGammaRLogDeriv
 #print axioms hasDerivAt_ccm24CriticalGammaRLogDeriv
 #check hasDerivAt_ccm24ArchimedeanFactor_logDeriv

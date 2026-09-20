@@ -190,3 +190,16 @@ This is FORMAL evidence for the second-order special-function interface that
 the scattering-factor W2,1 assembly needs. It does not yet prove the weighted
 product estimate, the S3 kernel-diagonal majorant, semi-local positivity, or
 RH.
+
+## Formal update 1787 (2026-09-21)
+
+`hasDerivAt_deriv_digamma_criticalQuarterLine` transports the new cubic
+digamma series through the one-step recurrence to the actual line
+`Re z = 1/4`, then differentiates it along the real frequency parameter.
+The paired Audit build is green with only the standard three axioms and no
+`sorryAx`.
+
+This closes the critical-line special-function leg needed for a second
+GammaR-log-derivative estimate. The Archimedean scattering product's full
+W2,1 bound, the S3 kernel-diagonal majorant, semi-local positivity, and RH
+remain open.

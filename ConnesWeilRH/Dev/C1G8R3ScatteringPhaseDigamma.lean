@@ -79,6 +79,58 @@ theorem hasDerivAt_digamma_criticalQuarterLine (xi : ℝ) :
   rw [← hderiv] at hfinal
   simpa [z, div_eq_mul_inv, mul_comm, mul_left_comm, mul_assoc] using hfinal
 
+theorem hasDerivAt_deriv_digamma_criticalQuarterLine (xi : ℝ) :
+    HasDerivAt
+      (fun x : ℝ => deriv Complex.digamma
+        ((1 / 4 : ℂ) - Complex.I * (Real.pi * x : ℝ)))
+      (((∑' n : ℕ, (-2 : ℂ) *
+          ((1 / 4 : ℂ) - Complex.I * (Real.pi * xi : ℝ) + 1 +
+            (n : ℂ))⁻¹ ^ (3 : ℕ)) -
+        2 * ((1 / 4 : ℂ) - Complex.I * (Real.pi * xi : ℝ))⁻¹ ^ (3 : ℕ)) *
+        (-Complex.I * (Real.pi : ℂ))) xi := by
+  let z : ℝ → ℂ := fun x =>
+    (1 / 4 : ℂ) - Complex.I * (Real.pi * x : ℝ)
+  have hz : HasDerivAt z (-Complex.I * (Real.pi : ℂ)) xi := by
+    let a : ℂ := -Complex.I * (Real.pi : ℂ)
+    have hlin : HasDerivAt (fun x : ℝ => a * (x : ℂ)) a xi := by
+      simpa using ((hasDerivAt_id (xi : ℂ)).const_mul a).comp_ofReal
+    have hsum := (hasDerivAt_const (x := xi) (c := (1 / 4 : ℂ))).add hlin
+    convert hsum using 1
+    · funext x
+      simp [z, a]
+      ring
+    · simpa [a]
+  have hzpos : 0 < (z xi).re := by simp [z, Complex.mul_re]
+  have hz0 : z xi ≠ 0 := by
+    intro h
+    have := congrArg Complex.re h
+    simp [z, Complex.mul_re] at this
+  have hzplus : HasDerivAt (fun x : ℝ => z x + 1)
+      (-Complex.I * (Real.pi : ℂ)) xi := by
+    simpa using hz.add_const (1 : ℂ)
+  have hplus :=
+    (hasDerivAt_digamma_deriv_of_re_ge_quarter
+      (z := z xi + 1) (by
+        change (1 / 4 : ℝ) < (z xi + 1).re
+        simp [z, Complex.mul_re])).complexToReal_fderiv.comp_hasDerivAt xi hzplus
+  have hinv := (hasDerivAt_id (z xi)).inv hz0
+  have hpow := hinv.pow 2
+  have hcorr : HasDerivAt (fun x : ℝ => (z x)⁻¹ ^ (2 : ℕ))
+      ((-2 : ℂ) * (z xi)⁻¹ ^ (3 : ℕ) *
+        (-Complex.I * (Real.pi : ℂ))) xi := by
+    have hcomp := hpow.complexToReal_fderiv.comp_hasDerivAt xi hz
+    convert hcomp using 1
+    simp [Function.comp_def, inv_pow, mul_assoc, mul_left_comm, mul_comm]
+    field_simp [hz0] <;> ring
+  have hsum := hplus.add hcorr
+  have hfun : (fun x : ℝ => deriv Complex.digamma (z x)) =
+      (fun x : ℝ => deriv Complex.digamma (z x + 1) + (z x)⁻¹ ^ (2 : ℕ)) := by
+    funext x
+    simpa [z] using (hasDerivAt_digamma_criticalQuarterLine x).deriv
+  rw [hfun]
+  convert hsum using 1
+  simp [z, Function.comp_def, mul_assoc, mul_left_comm, mul_comm] <;> ring
+
 theorem hasDerivAt_ccm24CriticalGammaRLogDeriv (xi : ℝ) :
     HasDerivAt ccm24CriticalGammaRLogDeriv
       ((-Complex.I * (Real.pi : ℂ)) * (1 / 2 : ℂ) *
