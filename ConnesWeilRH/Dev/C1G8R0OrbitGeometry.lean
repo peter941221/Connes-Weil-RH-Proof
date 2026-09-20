@@ -239,6 +239,38 @@ theorem exists_orbitG8Geometry_of_sourceNontrivialZero_right
       support_bound := hgSupport
       visible_prime_cutoff := hprimeCutoff }
 
+/-- The raw orbit geometry and the strict healthy-detector package can be
+    attached to the same selected owner.  This removes the possible mismatch
+    between two separate existential constructions; it still supplies no
+    semi-local sign. -/
+theorem healthyDetectorData_of_orbitG8Geometry
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re) :
+    HealthyYoshidaDetectorData rho.1 g := by
+  rw [geometry.selected_owner_test]
+  apply selectedOwner_healthyDetectorData_of_closedBall_square_zero_control_and_fourthOrderTail
+    geometry.base geometry.correction geometry.orbitIndex rho hoff hright
+    geometry.tailThreshold geometry.tailAccuracy geometry.raw_square_tail
+    geometry.tailStart geometry.threshold_le_dyadic geometry.zero_height_le_dyadic
+    geometry.zero_shell_before_tail (∅ : Finset Complex)
+    geometry.raw_target_values
+  · intro w hw
+    simpa using geometry.square_zero_control w hw
+  · exact geometry.tail_budget_below_multiplicity
+
+theorem exists_healthyOrbitG8Geometry_of_sourceNontrivialZero_right
+    (rho : sourceNontrivialZeroSet)
+    (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re) :
+    ∃ g : CompactLogTest, ∃ geometry : OrbitG8Geometry rho g,
+      HealthyYoshidaDetectorData rho.1 g := by
+  obtain ⟨g, ⟨geometry⟩⟩ :=
+    exists_orbitG8Geometry_of_sourceNontrivialZero_right rho hoff hright
+  refine ⟨g, geometry, ?_⟩
+  exact healthyDetectorData_of_orbitG8Geometry geometry hoff hright
+
 end C1G8R0OrbitGeometry
 end Source
 end ConnesWeilRH

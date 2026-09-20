@@ -8,8 +8,9 @@ unchanged.
 Record 1746 closes the logical consumer for the shortest live route. The
 remaining producer obligation is exactly: for every right-hand off-line zero,
 construct one same-owner `OrbitG8Geometry` and prove its actual finite-range
-signed budget. That budget immediately supplies `qw >= 0` for the healthy
-detector and then `SourceRH`.
+signed budget. Record 1747 reconstructs health from that same geometry, so no
+independent health witness is needed; the budget then supplies `qw >= 0` and
+`SourceRH`.
 
 The formal theorem is conditional and makes no RH claim. The actual signed
 balance remains open; pointwise signs, frozen prime sets, and normalized B5

@@ -101,14 +101,15 @@ theorem sourceRH_of_right_orbitGeometry_signedBudget
       (1 / 2 : Real) < rho.1.re →
         ∃ g : CompactLogTest,
           ∃ geometry : OrbitG8Geometry rho g,
-            HealthyYoshidaDetectorData rho.1 g ∧
             archimedeanTerm g.convolutionSquare +
                 signedProfileCredit g (orbitVisiblePrimeRange geometry) ≤
               signedProfileDeficit g (orbitVisiblePrimeRange geometry)) :
     RHDefinitionBridge.standard.SourceRH := by
   apply healthy_sourceRH_of_right_detector_specific_qw_nonneg
   intro rho hright
-  obtain ⟨g, geometry, hdata, hbudget⟩ := hproducer rho hright
+  obtain ⟨g, geometry, hbudget⟩ := hproducer rho hright
+  have hdata : HealthyYoshidaDetectorData rho.1 g :=
+    healthyDetectorData_of_orbitG8Geometry geometry (ne_of_gt hright) hright
   have hgate : orbitWindowSemiLocalGate g := by
     apply (orbitWindowSemiLocalGate_iff_signedBudget geometry).mpr
     simpa [orbitVisiblePrimeRange] using hbudget

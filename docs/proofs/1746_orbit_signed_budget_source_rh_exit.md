@@ -5,13 +5,14 @@ Date: 2026-09-20.
 Status: FORMAL consumer closure; the producer inequality remains open.
 
 The exact B5 quantifier is now wired in Lean. If, for every hypothetical
-right-hand off-line zero `rho`, there exist a test `g`, an
-`OrbitG8Geometry rho g`, healthy detector data for the same `g`, and
+right-hand off-line zero `rho`, there exist a test `g` and an
+`OrbitG8Geometry rho g` whose raw data restore health for the same `g`, and
 
 `archimedeanTerm + signedProfileCredit <= signedProfileDeficit`
 
 on that geometry's actual finite visible-prime range, then the existing
-healthy-owner contradiction yields `SourceRH`.
+healthy-owner contradiction yields `SourceRH`. The health restoration is
+formalized separately in record 1747.
 
 This theorem does not prove the signed budget. It removes the remaining
 consumer ambiguity: future work must supply that one same-owner inequality,

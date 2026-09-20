@@ -48,6 +48,12 @@ the exact per-right-zero producer quantifier now feeds `SourceRH`. The only
 remaining live producer is the same-owner signed budget for the actual orbit
 geometry; the theorem is conditional and does not prove RH.
 
+[055](055_orbit_geometry_health_alignment.md) records formal theorem 1747:
+raw orbit geometry reconstructs health for its exact selected owner. The
+remaining producer contract is therefore only existence of a geometry whose
+actual finite-range signed budget holds; no independent health witness is
+needed.
+
 ## Current authority
 
 ```text
