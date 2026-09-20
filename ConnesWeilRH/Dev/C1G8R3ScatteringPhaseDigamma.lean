@@ -20,6 +20,10 @@ namespace Dev
 
 open Source
 open Source.CC20Concrete
+open scoped ComplexConjugate
+
+open Source
+open Source.CC20Concrete
 open Filter Topology
 open scoped Topology
 
@@ -256,6 +260,90 @@ theorem hasDerivAt_deriv_ccm24ArchimedeanFactor (xi : ℝ) :
   rw [hfun]
   rw [(hasDerivAt_ccm24CriticalGammaRLogDeriv xi).deriv]
   simpa [a, F, mul_assoc, mul_left_comm, mul_comm] using hprod
+
+theorem differentiable_ccm24ArchimedeanScatteringPhase_deriv :
+    Differentiable ℝ (deriv Source.CC20Concrete.ccm24ArchimedeanScatteringPhase) := by
+  intro xi
+  let f : ℝ → ℂ := Source.CC20Concrete.ccm24ArchimedeanFactor
+  have hf : HasDerivAt f (deriv f xi) xi := by
+    simpa [f] using
+      (differentiable_ccm24ArchimedeanFactor xi).hasDerivAt
+  have hdf : HasDerivAt (deriv f) (deriv (deriv f) xi) xi := by
+    have hd2 : deriv (deriv f) xi =
+        ((-Complex.I * (2 * Real.pi : ℂ)) *
+          (deriv ccm24CriticalGammaRLogDeriv xi * f xi +
+            ccm24CriticalGammaRLogDeriv xi *
+              ((-Complex.I * (2 * Real.pi : ℂ)) *
+                ccm24CriticalGammaRLogDeriv xi * f xi))) := by
+      simpa [f] using (hasDerivAt_deriv_ccm24ArchimedeanFactor xi).deriv
+    rw [hd2]
+    simpa [f] using hasDerivAt_deriv_ccm24ArchimedeanFactor xi
+  have hcf : HasDerivAt (fun x : ℝ => conj (f x))
+      (conj (deriv f xi)) xi := by
+    have hcomp :
+        fderiv ℝ (⇑Complex.conjCLE ∘ f) xi =
+          (Complex.conjCLE : ℂ →L[ℝ] ℂ) ∘SL fderiv ℝ f xi :=
+      Complex.conjCLE.comp_fderiv
+    have heq :
+        fderiv ℝ (⇑Complex.conjCLE ∘ f) xi =
+          ContinuousLinearMap.toSpanSingleton ℝ (conj (deriv f xi)) := by
+      rw [hcomp]
+      apply ContinuousLinearMap.ext
+      intro y
+      change Complex.conjCLE (fderiv ℝ f xi y) = _
+      rw [fderiv_eq_smul_deriv]
+      simp [Complex.conjCLE_apply, smul_eq_mul]
+    have hfd :=
+      (Complex.conjCLE.differentiableAt.comp xi hf.differentiableAt).hasFDerivAt
+    have hfd' : HasFDerivAt (⇑Complex.conjCLE ∘ f)
+        (ContinuousLinearMap.toSpanSingleton ℝ (conj (deriv f xi))) xi := by
+      rw [← heq]
+      exact hfd
+    apply (hasDerivAt_iff_hasFDerivAt).2
+    simpa [Function.comp_def, Complex.conjCLE_apply] using hfd'
+  have hcdf : HasDerivAt (fun x : ℝ => conj (deriv f x))
+      (conj (deriv (deriv f) xi)) xi := by
+    have hcomp :
+        fderiv ℝ (⇑Complex.conjCLE ∘ deriv f) xi =
+          (Complex.conjCLE : ℂ →L[ℝ] ℂ) ∘SL fderiv ℝ (deriv f) xi :=
+      Complex.conjCLE.comp_fderiv
+    have heq :
+        fderiv ℝ (⇑Complex.conjCLE ∘ deriv f) xi =
+          ContinuousLinearMap.toSpanSingleton ℝ (conj (deriv (deriv f) xi)) := by
+      rw [hcomp]
+      apply ContinuousLinearMap.ext
+      intro y
+      change Complex.conjCLE (fderiv ℝ (deriv f) xi y) = _
+      rw [fderiv_eq_smul_deriv]
+      simp [Complex.conjCLE_apply, smul_eq_mul]
+    have hfd :=
+      (Complex.conjCLE.differentiableAt.comp xi hdf.differentiableAt).hasFDerivAt
+    have hfd' : HasFDerivAt (⇑Complex.conjCLE ∘ deriv f)
+        (ContinuousLinearMap.toSpanSingleton ℝ (conj (deriv (deriv f) xi))) xi := by
+      rw [← heq]
+      exact hfd
+    apply (hasDerivAt_iff_hasFDerivAt).2
+    simpa [Function.comp_def, Complex.conjCLE_apply] using hfd'
+  have hnum := (hdf.mul hcf).sub (hf.mul hcdf)
+  have hden := hcf.pow 2
+  have hfactor0 : f xi ≠ 0 := by
+    simpa [f] using ccm24ArchimedeanFactor_ne_zero xi
+  have hconj0 : conj (f xi) ≠ 0 := by
+    intro h
+    apply hfactor0
+    have := congrArg conj h
+    simpa using this
+  have hquot := hnum.div hden (pow_ne_zero 2 hconj0)
+  have hfun : (fun x : ℝ => deriv Source.CC20Concrete.ccm24ArchimedeanScatteringPhase x) =
+      (fun x : ℝ =>
+        (deriv f x * conj (f x) - f x * conj (deriv f x)) /
+          (conj (f x)) ^ 2) := by
+    funext x
+    simpa [f] using deriv_ccm24ArchimedeanScatteringPhase_formula x
+  change DifferentiableAt ℝ
+    (fun x : ℝ => deriv Source.CC20Concrete.ccm24ArchimedeanScatteringPhase x) xi
+  rw [hfun]
+  exact hquot.differentiableAt
 
 end Dev
 end ConnesWeilRH

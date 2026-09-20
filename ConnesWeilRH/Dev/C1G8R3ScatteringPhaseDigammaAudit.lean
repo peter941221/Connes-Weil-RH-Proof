@@ -17,6 +17,8 @@ namespace Dev
 #print axioms hasDerivAt_ccm24ArchimedeanFactor_logDeriv
 #check hasDerivAt_deriv_ccm24ArchimedeanFactor
 #print axioms hasDerivAt_deriv_ccm24ArchimedeanFactor
+#check differentiable_ccm24ArchimedeanScatteringPhase_deriv
+#print axioms differentiable_ccm24ArchimedeanScatteringPhase_deriv
 
 end Dev
 end ConnesWeilRH
