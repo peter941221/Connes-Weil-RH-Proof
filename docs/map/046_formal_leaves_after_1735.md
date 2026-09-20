@@ -228,3 +228,16 @@ The paired Audit build is green with only the standard three axioms and no
 This closes the actual factor-level second-order interface. The full
 scattering-product W2,1 estimate, S3 kernel-diagonal majorant,
 detector-specific semi-local positivity, and RH remain open.
+
+## Formal update 1789 (2026-09-21)
+
+`hasDerivAt_deriv_ccm24ArchimedeanFactor` now differentiates the derivative
+of the actual CCM24 Archimedean factor. It combines the GammaR log-symbol
+derivative and the factor's first derivative by the product rule, preserving
+the exact factor owner and avoiding any unproved division or growth claim.
+The paired Audit build is green with only the standard three axioms and no
+`sorryAx`.
+
+This closes the actual factor-level second-order interface. The full
+scattering-product W2,1 estimate, S3 kernel-diagonal majorant,
+detector-specific semi-local positivity, and RH remain open.
