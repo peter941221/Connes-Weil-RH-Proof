@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-21 docs/proofs/1754_orbit_span_gate_matrix_certificate_socket.md + docs/map/062_orbit_span_gate_matrix_certificate_socket.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED the active orbit-window gate as an exact finite gate-matrix quadratic-form socket on the same CompactLog owner. Build 3784 jobs clean, zero error/sorryAx, standard axioms. The remaining shortest producer step is an actual OrbitG8 finite-span owner plus the `-gateMatrix` semidefinite certificate; no RH claim.
+
 2026-09-21 docs/proofs/1753_span_prime_profile_quadratic_readback.md + docs/map/061_span_prime_profile_quadratic_readback.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED the actual convolution-square prime-log profile term of a finite root span as an exact pair-basis quadratic expression. Build 3784 jobs clean, zero error/sorryAx, standard axioms. The OrbitG8 finite-span representation and signed certificate remain open.
 
 2026-09-20 docs/proofs/1752_finite_profile_mellin_interpolation_interface.md + docs/map/060_finite_profile_mellin_interpolation_interface.md + ConnesWeilRH/Dev/C1P2PhysicalMellinInterpolation.lean + Audit : FORMALIZED the finite multi-point extension: explicit Kronecker physical basis coefficients and arbitrary finite Laplace data coexist in one genuine CompactLogTest. Build 3657 jobs clean, zero error/sorryAx, standard axioms. Actual orbit-basis existence and the signed budget remain open.

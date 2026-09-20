@@ -1292,3 +1292,9 @@ The current mathematical owner and active status remain in the repository
     an exact pair-basis quadratic expression. The actual OrbitG8 span and the
     signed certificate remain open. See
     [1753](../proofs/1753_span_prime_profile_quadratic_readback.md).
+
+74. [062 - Orbit-span gate matrix certificate socket](062_orbit_span_gate_matrix_certificate_socket.md)
+    — for a finite real span, the same-owner orbit-window gate is exactly
+    equivalent to nonpositivity of the finite gate-matrix quadratic form.
+    The actual OrbitG8 span and its matrix sign certificate remain open. See
+    [1754](../proofs/1754_orbit_span_gate_matrix_certificate_socket.md).

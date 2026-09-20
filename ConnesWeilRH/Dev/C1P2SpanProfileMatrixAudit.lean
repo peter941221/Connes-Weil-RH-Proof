@@ -4,5 +4,7 @@ namespace ConnesWeilRH.Source.C1P2SpanProfileMatrix
 
 #check signedProfileTerm_spanObj_eq_pair_profile_quadratic
 #print axioms signedProfileTerm_spanObj_eq_pair_profile_quadratic
+#check orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos
+#print axioms orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos
 
 end ConnesWeilRH.Source.C1P2SpanProfileMatrix

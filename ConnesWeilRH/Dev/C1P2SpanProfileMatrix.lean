@@ -15,9 +15,13 @@ namespace Source
 namespace C1P2SpanProfileMatrix
 
 open C1GateMatrixRepresentation
+open C1OrbitWindowSemiLocalGate
 open C1P2BilateralProfile
 open C1P2SignedBudget
+open C1SameOwnerWeil
 open CCM25Concrete.CompactLogConvolution
+open Matrix
+open MeasureTheory
 open scoped BigOperators
 
 noncomputable section
@@ -34,6 +38,20 @@ theorem signedProfileTerm_spanObj_eq_pair_profile_quadratic
   rw [convolutionSquare_spanObj_apply, convolutionSquare_spanObj_apply]
   simp_rw [mul_add]
   simp_rw [Finset.sum_add_distrib]
+
+theorem orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos
+    {k : ℕ} (w : Fin k → CompactLogTest) (y : Fin k → ℝ)
+    {B : ℝ} (hw : ∀ i, Function.support (w i).test ⊆ Set.Ioo (-B) B)
+    (hI : ∀ i j, IntegrableOn (archimedeanIntegrand (pairTest w i j))
+      (Set.Ioi (0 : ℝ))) :
+    orbitWindowSemiLocalGate (spanObj w y) ↔
+      y ⬝ᵥ (gateMatrix w *ᵥ y) ≤ 0 := by
+  have hgate :
+      orbitWindowSemiLocalGate (spanObj w y) ↔
+        p2AggregateValue (spanObj w y) ≤ 0 := by
+    unfold orbitWindowSemiLocalGate p2AggregateValue
+    rw [← finitePrimeSum_eq_bilateralProfile_weighted_sum]
+  rw [hgate, p2AggregateValue_spanObj_eq_gate_qform w y hw hI]
 
 end
 end C1P2SpanProfileMatrix
