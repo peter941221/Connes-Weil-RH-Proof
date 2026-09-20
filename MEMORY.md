@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-20 docs/proofs/1733_two_sided_cosine_rule_annular_bound.md + C1G8R3AnnularTailCosineRule.lean + Audit : paper proof that the S3 uniform annular kernel-diagonal bound reduces to ONE classical first moment (the digamma/Stirling growth of the committed scattering phase), via the two-sided cosine rule `||Wu|| <= min(||Eu||,||Qu||)` on the translated kernel family — right annulus wing priced by the fixed tail of `v = Ht(conj h(-.))`, left wing by the tail of `h` itself; the formal skeleton (cosine rule + Hilbert-basis Bessel + annulus-split assembly in the 1723 `hdiag` shape) landed and audited, 2449-job focused build clean, standard axioms only. Mass face only; RH not claimed; the sign face stays on the map-047 two-premise exit.
+
 2026-09-20 ConnesWeilRH/Dev/C1G8R3AnnularKernelDiagonalMass.lean + Audit + docs/proofs/1723_annular_kernel_diagonal_mass_identity.md : exact Tonelli/L2 identity converts the S3 annular column square-sum into the actual pointwise root-kernel diagonal integral; focused 3969-job build clean with standard axioms and no sorryAx.
 2026-09-20 docs/proofs/1724_hardy_transform_regularization_is_the_live_s3_bridge.md : audited the committed Hardy-Titchmarsh definition; it is only an L2 Fourier/reflection/scattering composition, so the quadratic decay brick still needs a concrete Hardy-transform regularity theorem for the selected compact root input.
 

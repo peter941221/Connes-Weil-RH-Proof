@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8R3AnnularTailCosineRule
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check norm_starProjection_le_of_submodule_le
+#print axioms norm_starProjection_le_of_submodule_le
+#check tsum_norm_inner_sq_eq_starProjection_normSq
+#print axioms tsum_norm_inner_sq_eq_starProjection_normSq
+#check annular_lintegral_le_of_pointwise
+#print axioms annular_lintegral_le_of_pointwise
+
+end Dev
+end ConnesWeilRH
