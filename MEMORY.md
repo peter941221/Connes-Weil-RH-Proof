@@ -698,3 +698,4 @@ at the gate; law F30; P1/P2 two-brick program (both now paid).
 2026-09-21 ConnesWeilRH/Dev/C1DigammaDerivativeSeries.lean : differentiated the quarter-half-plane digamma derivative series once more and read back the explicit cubic reciprocal series; paired audit green
 2026-09-21 ConnesWeilRH/Dev/C1G8R3ScatteringPhaseDigamma.lean : transported the second digamma derivative through the recurrence to the actual critical quarter-line; paired audit green
 2026-09-21 ConnesWeilRH/Dev/C1G8R3ScatteringPhaseDigamma.lean : composed the critical-line second digamma derivative into the GammaR logarithmic-derivative second-order interface; paired audit green
+2026-09-21 ConnesWeilRH/Dev/C1G8R3ScatteringPhaseDigamma.lean : differentiated the actual CCM24 Archimedean factor by the GammaR-log product rule; paired audit green

@@ -231,5 +231,31 @@ theorem hasDerivAt_ccm24ArchimedeanFactor_logDeriv (xi : ℝ) :
     mul_assoc, mul_left_comm, mul_comm]
     using hcomp
 
+theorem hasDerivAt_deriv_ccm24ArchimedeanFactor (xi : ℝ) :
+    HasDerivAt (deriv Source.CC20Concrete.ccm24ArchimedeanFactor)
+      ((-Complex.I * (2 * Real.pi : ℂ)) *
+        (deriv ccm24CriticalGammaRLogDeriv xi *
+            Source.CC20Concrete.ccm24ArchimedeanFactor xi +
+          ccm24CriticalGammaRLogDeriv xi *
+            ((-Complex.I * (2 * Real.pi : ℂ)) *
+              ccm24CriticalGammaRLogDeriv xi *
+              Source.CC20Concrete.ccm24ArchimedeanFactor xi))) xi := by
+  let a : ℂ := -Complex.I * (2 * Real.pi : ℂ)
+  let F : ℝ → ℂ := Source.CC20Concrete.ccm24ArchimedeanFactor
+  have hF : HasDerivAt F
+      (a * ccm24CriticalGammaRLogDeriv xi * F xi) xi := by
+    simpa [a, F] using hasDerivAt_ccm24ArchimedeanFactor_logDeriv xi
+  have hprod :=
+    (hasDerivAt_ccm24CriticalGammaRLogDeriv xi).mul hF |>.const_mul a
+  have hfun : (fun x : ℝ => deriv F x) =
+      (fun x : ℝ => a * (ccm24CriticalGammaRLogDeriv x * F x)) := by
+    funext x
+    simpa [a, F, mul_assoc, mul_left_comm, mul_comm] using
+      (hasDerivAt_ccm24ArchimedeanFactor_logDeriv x).deriv
+  change HasDerivAt (fun x : ℝ => deriv F x) _ _
+  rw [hfun]
+  rw [(hasDerivAt_ccm24CriticalGammaRLogDeriv xi).deriv]
+  simpa [a, F, mul_assoc, mul_left_comm, mul_comm] using hprod
+
 end Dev
 end ConnesWeilRH

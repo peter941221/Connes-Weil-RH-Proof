@@ -15,6 +15,8 @@ namespace Dev
 #print axioms hasDerivAt_deriv_ccm24CriticalGammaRLogDeriv
 #check hasDerivAt_ccm24ArchimedeanFactor_logDeriv
 #print axioms hasDerivAt_ccm24ArchimedeanFactor_logDeriv
+#check hasDerivAt_deriv_ccm24ArchimedeanFactor
+#print axioms hasDerivAt_deriv_ccm24ArchimedeanFactor
 
 end Dev
 end ConnesWeilRH
