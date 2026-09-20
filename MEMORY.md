@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-21 docs/proofs/1755_orbit_span_gate_matrix_legality_discharge.md + docs/map/063_orbit_span_gate_matrix_legality_discharge.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED automatic pairwise archimedean legality for the orbit finite-span gate socket. The support-only theorem now reduces the matrix interface to the actual owner data. Build 3784 jobs clean, zero error/sorryAx, standard axioms. The selected OrbitG8 span and signed matrix certificate remain open; no RH claim.
+
 2026-09-21 docs/proofs/1754_orbit_span_gate_matrix_certificate_socket.md + docs/map/062_orbit_span_gate_matrix_certificate_socket.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED the active orbit-window gate as an exact finite gate-matrix quadratic-form socket on the same CompactLog owner. Build 3784 jobs clean, zero error/sorryAx, standard axioms. The remaining shortest producer step is an actual OrbitG8 finite-span owner plus the `-gateMatrix` semidefinite certificate; no RH claim.
 
 2026-09-21 docs/proofs/1753_span_prime_profile_quadratic_readback.md + docs/map/061_span_prime_profile_quadratic_readback.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED the actual convolution-square prime-log profile term of a finite root span as an exact pair-basis quadratic expression. Build 3784 jobs clean, zero error/sorryAx, standard axioms. The OrbitG8 finite-span representation and signed certificate remain open.

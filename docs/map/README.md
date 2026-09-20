@@ -1298,3 +1298,9 @@ The current mathematical owner and active status remain in the repository
     equivalent to nonpositivity of the finite gate-matrix quadratic form.
     The actual OrbitG8 span and its matrix sign certificate remain open. See
     [1754](../proofs/1754_orbit_span_gate_matrix_certificate_socket.md).
+
+75. [063 - Orbit-span gate matrix legality discharge](063_orbit_span_gate_matrix_legality_discharge.md)
+    — generic archimedean integrability discharges all pairwise legality
+    premises, leaving only basis support before the finite matrix reduction.
+    The actual owner and sign certificate remain open. See
+    [1755](../proofs/1755_orbit_span_gate_matrix_legality_discharge.md).

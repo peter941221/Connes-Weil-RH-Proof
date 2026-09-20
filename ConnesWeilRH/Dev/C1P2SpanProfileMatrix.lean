@@ -1,5 +1,6 @@
 import ConnesWeilRH.Dev.C1P2SignedBudget
 import ConnesWeilRH.Dev.C1GateMatrixRepresentation
+import ConnesWeilRH.Dev.C1ArchimedeanIntegrabilityGeneric
 
 /-!
 # Finite-span readback of the selected prime profile
@@ -19,6 +20,7 @@ open C1OrbitWindowSemiLocalGate
 open C1P2BilateralProfile
 open C1P2SignedBudget
 open C1SameOwnerWeil
+open C1ArchimedeanIntegrabilityGeneric
 open CCM25Concrete.CompactLogConvolution
 open Matrix
 open MeasureTheory
@@ -52,6 +54,14 @@ theorem orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos
     unfold orbitWindowSemiLocalGate p2AggregateValue
     rw [← finitePrimeSum_eq_bilateralProfile_weighted_sum]
   rw [hgate, p2AggregateValue_spanObj_eq_gate_qform w y hw hI]
+
+theorem orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos_of_support
+    {k : ℕ} (w : Fin k → CompactLogTest) (y : Fin k → ℝ)
+    {B : ℝ} (hw : ∀ i, Function.support (w i).test ⊆ Set.Ioo (-B) B) :
+    orbitWindowSemiLocalGate (spanObj w y) ↔
+      y ⬝ᵥ (gateMatrix w *ᵥ y) ≤ 0 := by
+  exact orbitWindowSemiLocalGate_spanObj_iff_gate_qform_nonpos w y hw
+    (fun i j => pairTest_legality w i j)
 
 end
 end C1P2SpanProfileMatrix
