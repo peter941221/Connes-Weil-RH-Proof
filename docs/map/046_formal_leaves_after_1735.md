@@ -26,7 +26,7 @@ the map-047 two-premise exit; `0 ≤ qw` untouched; RH not claimed; stop word
     +-------------v--------------------------v-------------+
     |  STILL OWED (in dependency order)                    |
     |  1. theta-W^{2,1} page: Lemma A (abs conv) +         |
-    |     Lemma C (psi' <= 20 uniform); M-test face        |
+    |     identify the differentiated series with psi';    |
     |  2. translation-tail integral identities             |
     |  3. 1723-consumer instantiation (blocked on 1)       |
     |  4. v-representative outside Schwartz class          |
@@ -54,6 +54,19 @@ the `X⁻²` envelope is a worst-case bound, not a decay law.
    bound and the decreasing-series integral comparison — no new machinery.
 2. Lemma A (absolute convergence) — same M-test face.
 3. Assemble `θ ∈ W^{2,1} ∩ C₀` and push the 1723 consumer.
+
+## Formal update 1779 (2026-09-21)
+
+The first half of Lemma C is now formal: `hasDerivAt_halfAnchorReciprocalSeries_of_re_ge_quarter`
+proves termwise differentiation of the half-anchor reciprocal series on
+`Re z > 1/4`, with the summable uniform majorant
+`(n + 1/4)^(-2)`.  The paired audit builds with only
+`[propext, Classical.choice, Quot.sound]` and no `sorryAx`.
+
+This is FORMAL evidence for the differentiated reciprocal series, not yet the
+identification with `Complex.digamma` or the numerical bound `ψ' ≤ 20`.
+The next consumer is that identification, followed by the M-test/absolute
+convergence face and the `θ ∈ W^{2,1}` assembly.
 
 ## Formal update 1775 (2026-09-21)
 

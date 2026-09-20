@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1DigammaDerivativeSeries
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @hasDerivAt_halfAnchorReciprocalSeries_of_re_ge_quarter
+#print axioms hasDerivAt_halfAnchorReciprocalSeries_of_re_ge_quarter
+
+end Dev
+end ConnesWeilRH
