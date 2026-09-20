@@ -9,6 +9,16 @@ Map filenames use consecutive `001_`, `002_`, ... reading-order prefixes.
 Their document titles retain the original proof-record identifiers for source
 traceability.
 
+## Selected-detector sign audit, 2026-09-20
+
+[047](047_detector_sign_energy_and_discrepancy_audit.md) records the PAPER
+screen in proof 1736. The exact difference-energy formula retains a negative
+mass charge. An exact triple-vanishing wide-test family refutes the frozen
+prime-set and continuous-prime-main-term shortcuts; the actual prime-error
+integrand changes sign already at the prime powers through 5. These results
+do not refute the support-dependent B5 target or supply its nonnegativity.
+The route and the S3 status in 045/046 are unchanged.
+
 ## Current authority
 
 ```text
