@@ -689,3 +689,4 @@ at the gate; law F30; P1/P2 two-brick program (both now paid).
 2026-09-21 ConnesWeilRH/Dev/C1G8R3SchwartzApproximation.lean : converted Schwartz dense range into an explicit sequential L2 approximation for every global L2 input, completing the readback approximation instantiation
 2026-09-21 ConnesWeilRH/Dev/C1G8R3KernelReadbackArbitraryL2.lean : composed sequential Schwartz approximation with complete readback into the arbitrary-L2 kernel formula consumed by S3
 2026-09-21 ConnesWeilRH/Dev/C1DigammaDerivativeSeries.lean : formally differentiated the half-anchor reciprocal series on Re z > 1/4 with a summable uniform square majorant; paired audit green
+2026-09-21 ConnesWeilRH/Dev/C1DigammaDerivativeSeries.lean : identified the differentiated reciprocal series with Complex.digamma and proved the explicit uniform derivative bound <= 20 by telescoping; paired audit green

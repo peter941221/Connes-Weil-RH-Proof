@@ -23,9 +23,23 @@ The owning module and paired audit both built successfully (3539 jobs).  The
 audit reports exactly `[propext, Classical.choice, Quot.sound]`; no `sorryAx`
 was reported.
 
+## Formal extension 1780
+
+The same module now also proves the local-equality derivative transfer
+`hasDerivAt_digamma_of_re_ge_quarter`, and the explicit telescoping estimate
+`quarter_series_tsum_le_twenty`.  Together they give
+`norm_digamma_deriv_le_twenty` on `Re z > 1/4`.
+
+The tail comparison is exact: the first reciprocal-square term contributes
+16, and every shifted tail term is bounded by the adjacent reciprocal
+difference; that difference series telescopes to 4.
+
+The owning module and paired audit both built successfully (3539 jobs) in
+`/home/peter/rh/build-logs/digamma-bound-audit-v2.log`.  The audit remains
+axiom-clean with no `sorryAx`.
+
 ## Boundary of the result
 
-This closes only the differentiated reciprocal-series interface.  It does not
-yet identify that series with `Complex.digamma`'s derivative, prove the sharp
-numeric bound `ψ' ≤ 20`, assemble the `W^{2,1}` kernel certificate, or prove
-S3 positivity/RH.  Those remain the live downstream obligations.
+This closes Lemma C, but does not yet assemble the `W^{2,1}` kernel
+certificate, prove the translation-tail identities, or prove S3
+positivity/RH.  Those remain the live downstream obligations.

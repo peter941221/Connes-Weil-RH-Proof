@@ -20,6 +20,8 @@ namespace ConnesWeilRH
 namespace Dev
 
 open Complex
+open Filter
+open scoped Topology
 
 private def quarterHalfPlane : Set ℂ := {z | (1 / 4 : ℝ) < z.re}
 
@@ -85,6 +87,93 @@ private theorem quarter_series_deriv_bound
   have hnb : 0 ≤ ((n : ℝ) + 1 / 4)⁻¹ := le_of_lt (inv_pos.mpr hpos)
   exact (sq_le_sq₀ hna hnb).mpr hinv
 
+private theorem quarter_series_reciprocal_difference_hasSum :
+    HasSum (fun n : ℕ =>
+      ((n : ℝ) + 1 / 4)⁻¹ - ((n : ℝ) + 1 + 1 / 4)⁻¹) 4 := by
+  have hnonneg : ∀ n : ℕ,
+      0 ≤ ((n : ℝ) + 1 / 4)⁻¹ - ((n : ℝ) + 1 + 1 / 4)⁻¹ := by
+    intro n
+    have h₁ : 0 < (n : ℝ) + 1 / 4 := by positivity
+    have h₂ : 0 < (n : ℝ) + 1 + 1 / 4 := by positivity
+    have hle : (n : ℝ) + 1 / 4 ≤ (n : ℝ) + 1 + 1 / 4 := by linarith
+    exact sub_nonneg.mpr ((inv_le_inv₀ h₂ h₁).2 hle)
+  have hpartial : ∀ N : ℕ,
+      (∑ n ∈ Finset.range N,
+        (((n : ℝ) + 1 / 4)⁻¹ - ((n : ℝ) + 1 + 1 / 4)⁻¹)) =
+        4 - ((N : ℝ) + 1 / 4)⁻¹ := by
+    intro N
+    induction N with
+    | zero => norm_num
+    | succ N ih =>
+        rw [Finset.sum_range_succ, ih]
+        have hcast : ((N.succ : ℕ) : ℝ) + 1 / 4 =
+            (N : ℝ) + 1 + 1 / 4 := by
+          push_cast
+          ring
+        rw [hcast]
+        ring
+  have hzero : Tendsto (fun N : ℕ => ((N : ℝ) + 1 / 4)⁻¹)
+      atTop (𝓝 (0 : ℝ)) := by
+    exact tendsto_inv_atTop_zero.comp
+      (tendsto_atTop_add_const_right atTop (1 / 4 : ℝ)
+        tendsto_natCast_atTop_atTop)
+  apply (hasSum_iff_tendsto_nat_of_nonneg hnonneg 4).mpr
+  have hlim : Tendsto (fun N : ℕ =>
+      ∑ n ∈ Finset.range N,
+        (((n : ℝ) + 1 / 4)⁻¹ - ((n : ℝ) + 1 + 1 / 4)⁻¹))
+      atTop (𝓝 (4 : ℝ)) := by
+    have heq : (fun N : ℕ =>
+        ∑ n ∈ Finset.range N,
+          (((n : ℝ) + 1 / 4)⁻¹ - ((n : ℝ) + 1 + 1 / 4)⁻¹)) =
+        (fun N : ℕ => 4 - ((N : ℝ) + 1 / 4)⁻¹) := by
+      funext N
+      exact hpartial N
+    rw [heq]
+    have hc : Tendsto (fun _ : ℕ => (4 : ℝ)) atTop (𝓝 (4 : ℝ)) :=
+      tendsto_const_nhds
+    simpa using hc.sub hzero
+  exact hlim
+
+private theorem quarter_series_tail_bound :
+    ∑' n : ℕ, ((n : ℝ) + 1 + 1 / 4)⁻¹ ^ (2 : ℕ) ≤ 4 := by
+  have hd := quarter_series_reciprocal_difference_hasSum.summable
+  have hcomp : ∀ n : ℕ,
+      ((n : ℝ) + 1 + 1 / 4)⁻¹ ^ (2 : ℕ) ≤
+        ((n : ℝ) + 1 / 4)⁻¹ - ((n : ℝ) + 1 + 1 / 4)⁻¹ := by
+    intro n
+    have h₁ : 0 < (n : ℝ) + 1 / 4 := by positivity
+    have h₂ : 0 < (n : ℝ) + 1 + 1 / 4 := by positivity
+    have hle : (n : ℝ) + 1 / 4 ≤ (n : ℝ) + 1 + 1 / 4 := by linarith
+    have hinv : ((n : ℝ) + 1 + 1 / 4)⁻¹ ≤
+        ((n : ℝ) + 1 / 4)⁻¹ := (inv_le_inv₀ h₂ h₁).2 hle
+    have hdiff : ((n : ℝ) + 1 / 4)⁻¹ - ((n : ℝ) + 1 + 1 / 4)⁻¹ =
+        ((n : ℝ) + 1 / 4)⁻¹ * ((n : ℝ) + 1 + 1 / 4)⁻¹ := by
+      field_simp
+      ring
+    rw [hdiff]
+    simpa [pow_two] using
+      (mul_le_mul_of_nonneg_right hinv (inv_nonneg.mpr h₂.le))
+  have htailSummable : Summable (fun n : ℕ =>
+      ((n : ℝ) + 1 + 1 / 4)⁻¹ ^ (2 : ℕ)) :=
+    hd.of_nonneg_of_le (fun n => by positivity) hcomp
+  exact (htailSummable.tsum_le_tsum hcomp hd).trans_eq
+    quarter_series_reciprocal_difference_hasSum.tsum_eq
+
+theorem quarter_series_tsum_le_twenty :
+    ∑' n : ℕ, ((n : ℝ) + 1 / 4)⁻¹ ^ (2 : ℕ) ≤ 20 := by
+  have hsplit := quarter_series_summable.sum_add_tsum_nat_add 1
+  have htail : ∑' n : ℕ, ((n : ℝ) + 1 + 1 / 4)⁻¹ ^ (2 : ℕ) ≤ 4 :=
+    quarter_series_tail_bound
+  have hsum :
+      ∑' n : ℕ, ((n : ℝ) + 1 / 4)⁻¹ ^ (2 : ℕ) =
+        ((0 : ℝ) + 1 / 4)⁻¹ ^ (2 : ℕ) +
+          ∑' n : ℕ, ((n : ℝ) + 1 + 1 / 4)⁻¹ ^ (2 : ℕ) := by
+    simpa [Finset.sum_range_succ, add_comm, add_left_comm, add_assoc] using hsplit.symm
+  rw [hsum]
+  have hzero : ((0 : ℝ) + 1 / 4)⁻¹ ^ (2 : ℕ) = 16 := by norm_num
+  rw [hzero]
+  linarith
+
 theorem hasDerivAt_halfAnchorReciprocalSeries_of_re_ge_quarter
     {z : ℂ} (hz : z ∈ quarterHalfPlane) :
     HasDerivAt
@@ -134,6 +223,40 @@ theorem hasDerivAt_halfAnchorReciprocalSeries_of_re_ge_quarter
       (((n : ℂ) + (1 / 2 : ℂ))⁻¹ - (w + (n : ℂ))⁻¹))
     (∑' n : ℕ, (z + (n : ℂ))⁻¹ ^ (2 : ℕ)) z at hsum
   exact hsum
+
+theorem hasDerivAt_digamma_of_re_ge_quarter
+    {z : ℂ} (hz : z ∈ quarterHalfPlane) :
+    HasDerivAt Complex.digamma
+      (∑' n : ℕ, (z + (n : ℂ))⁻¹ ^ (2 : ℕ)) z := by
+  have hseries := hasDerivAt_halfAnchorReciprocalSeries_of_re_ge_quarter hz
+  have heq :
+      (fun w : ℂ => Complex.digamma w - Complex.digamma (1 / 2 : ℂ)) =ᶠ[𝓝 z]
+        (fun w : ℂ => ∑' n : ℕ,
+          (((n : ℂ) + (1 / 2 : ℂ))⁻¹ - (w + (n : ℂ))⁻¹)) := by
+    filter_upwards [quarterHalfPlane_isOpen.mem_nhds hz] with w hw
+    have hwpos : 0 < w.re := lt_trans (by norm_num) hw
+    simpa only [add_comm] using
+      (Source.C1XiCenterTwoGamma.halfAnchorGaussReciprocalSeries_eq_digamma_sub_half_of_pos
+        hwpos).symm
+  have hminus := hseries.congr_of_eventuallyEq heq
+  have hfull := hminus.add_const (Complex.digamma (1 / 2 : ℂ))
+  simpa [sub_add_cancel] using hfull
+
+theorem norm_digamma_deriv_le_twenty
+    {z : ℂ} (hz : z ∈ quarterHalfPlane) :
+    ‖deriv Complex.digamma z‖ ≤ 20 := by
+  have hsum : Summable (fun n : ℕ =>
+      ‖(z + (n : ℂ))⁻¹ ^ (2 : ℕ)‖) :=
+    quarter_series_summable.of_nonneg_of_le
+      (fun n => norm_nonneg _)
+      (fun n => quarter_series_deriv_bound hz n)
+  have hnorm : ‖∑' n : ℕ, (z + (n : ℂ))⁻¹ ^ (2 : ℕ)‖ ≤
+      ∑' n : ℕ, ((n : ℝ) + 1 / 4)⁻¹ ^ (2 : ℕ) := by
+    exact (norm_tsum_le_tsum_norm hsum).trans
+      (hsum.tsum_le_tsum (fun n => quarter_series_deriv_bound hz n)
+        quarter_series_summable)
+  rw [(hasDerivAt_digamma_of_re_ge_quarter hz).deriv]
+  exact hnorm.trans quarter_series_tsum_le_twenty
 
 end Dev
 end ConnesWeilRH

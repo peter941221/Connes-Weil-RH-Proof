@@ -63,10 +63,14 @@ proves termwise differentiation of the half-anchor reciprocal series on
 `(n + 1/4)^(-2)`.  The paired audit builds with only
 `[propext, Classical.choice, Quot.sound]` and no `sorryAx`.
 
-This is FORMAL evidence for the differentiated reciprocal series, not yet the
-identification with `Complex.digamma` or the numerical bound `ψ' ≤ 20`.
-The next consumer is that identification, followed by the M-test/absolute
-convergence face and the `θ ∈ W^{2,1}` assembly.
+Record 1780 completes the same Lemma-C leaf.  The reciprocal series is now
+identified with `Complex.digamma` by local equality on `Re z > 0`, and the
+telescoping adjacent-reciprocal comparison proves
+`sum (n + 1/4)^(-2) <= 20`.  Consequently the derivative norm is bounded by
+20 on the quarter half-plane.
+
+This is FORMAL evidence for Lemma C.  The next consumer is the M-test/
+absolute-convergence face and the `theta in W^{2,1}` assembly.
 
 ## Formal update 1775 (2026-09-21)
 
