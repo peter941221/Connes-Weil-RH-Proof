@@ -145,3 +145,10 @@ consumer
 that raw producer obligation to the signed-integral consumer and then to
 `SourceRH`. This is a formal interface reduction, not a positivity result;
 the raw integral estimate for the selected detector remains open.
+
+The raw integrand now also has an exact support cutoff: outside the raw-factor
+window supplied by `OrbitG8Geometry`, every t-integrand vanishes pointwise,
+and so does the finite summed owner `orbitFinitePhysicalKernelIntegrand`.
+Together with the existing doubled-support theorem for the physical kernel,
+this is a formal domain reduction for the next analytic estimate; it is not a
+sign or positivity result.

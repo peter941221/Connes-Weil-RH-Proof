@@ -51,6 +51,23 @@ theorem orbitWeightedKernelIntegrand_integrable
   rw [hrewrite]
   exact hconv.const_mul _
 
+theorem orbitWeightedKernelIntegrand_eq_zero_of_not_mem_raw_support_window
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (x t : Real)
+    (ht : t ∉ Set.Ioo
+      (-((geometry.orbitIndex + 2 : Nat) : Real))
+      (((geometry.orbitIndex + 2 : Nat) : Real))) :
+    orbitWeightedKernelIntegrand geometry x t = 0 := by
+  let raw := orbitRawFactor geometry
+  have hneg : raw.test (-t) = 0 := by
+    by_contra hne
+    have hmem : -t ∈ Function.support raw.test :=
+      Function.mem_support.mpr hne
+    have hwindow := orbitRawFactor_support_subset geometry hmem
+    apply ht
+    constructor <;> linarith [hwindow.1, hwindow.2]
+  simp [orbitWeightedKernelIntegrand, raw, hneg]
+
 theorem orbitPhysicalKernel_re_le_integral_of_integrand_bound
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) (x : Real) (E : Real → Real)
@@ -345,6 +362,20 @@ def orbitFinitePhysicalKernelIntegrand
   fun t => Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
     ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
       (2 * (orbitWeightedKernelIntegrand geometry (Real.log n) t).re))
+
+theorem orbitFinitePhysicalKernelIntegrand_eq_zero_of_not_mem_raw_support_window
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (t : Real)
+    (ht : t ∉ Set.Ioo
+      (-((geometry.orbitIndex + 2 : Nat) : Real))
+      (((geometry.orbitIndex + 2 : Nat) : Real))) :
+    orbitFinitePhysicalKernelIntegrand geometry t = 0 := by
+  unfold orbitFinitePhysicalKernelIntegrand
+  apply Finset.sum_eq_zero
+  intro n hn
+  rw [orbitWeightedKernelIntegrand_eq_zero_of_not_mem_raw_support_window
+    geometry (Real.log n) t ht]
+  simp
 
 theorem orbitFinitePhysicalKernelIntegrand_eq_signed
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
