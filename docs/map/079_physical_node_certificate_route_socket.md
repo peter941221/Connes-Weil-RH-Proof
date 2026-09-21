@@ -208,3 +208,10 @@ norm of the finite-prime phase profile via
 `norm_orbitFiniteComplexPhysicalKernelIntegrand_eq_common_factor_profile`.
 This is the first quantitative interface that preserves the aggregate profile
 before any later estimate; it still supplies no sign by itself.
+
+The aggregate now yields the cancellation-preserving scalar estimate
+`finitePrimeSum_le_integral_common_factor_profile_norm`: the finite prime face
+is bounded by one integral of the common raw norm times the norm of the full
+phase profile. This is strictly a post-aggregation bound, distinct from the
+earlier sum of channelwise absolute budgets; it remains an upper bound rather
+than the required signed gain.

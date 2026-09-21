@@ -642,6 +642,26 @@ theorem finitePrimeSum_eq_re_integral_orbitFiniteComplexPhysicalKernelIntegrand
     (Complex.reCLM.integral_comp_comm
       (orbitFiniteComplexPhysicalKernelIntegrand_integrable geometry))
 
+theorem finitePrimeSum_le_integral_common_factor_profile_norm
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    finitePrimeSum g.convolutionSquare ≤
+      ∫ t, ‖(orbitRawFactor geometry).test (-t)‖ *
+        ‖orbitFiniteComplexPhysicalKernelProfile geometry t‖ := by
+  rw [finitePrimeSum_eq_re_integral_orbitFiniteComplexPhysicalKernelIntegrand geometry]
+  calc
+    (∫ t, orbitFiniteComplexPhysicalKernelIntegrand geometry t).re ≤
+        ‖∫ t, orbitFiniteComplexPhysicalKernelIntegrand geometry t‖ :=
+      Complex.re_le_norm _
+    _ ≤ ∫ t, ‖orbitFiniteComplexPhysicalKernelIntegrand geometry t‖ :=
+      norm_integral_le_integral_norm _
+    _ = ∫ t, ‖(orbitRawFactor geometry).test (-t)‖ *
+          ‖orbitFiniteComplexPhysicalKernelProfile geometry t‖ := by
+      apply integral_congr_ae
+      filter_upwards with t
+      exact norm_orbitFiniteComplexPhysicalKernelIntegrand_eq_common_factor_profile
+        geometry t
+
 theorem finitePrimeSum_eq_intervalIntegral_finitePhysicalKernelIntegrand
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) :
