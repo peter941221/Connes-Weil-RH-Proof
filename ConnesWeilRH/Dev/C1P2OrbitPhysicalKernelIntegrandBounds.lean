@@ -400,6 +400,31 @@ theorem sourceRH_of_right_orbitGeometry_positivePartBudget
     arch_bound := hbudget
   }⟩⟩
 
+theorem sourceRH_of_right_orbitGeometry_signedIntegralBudget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            archimedeanTerm g.convolutionSquare +
+                Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+                  ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+                    (2 * ((∫ t, orbitPositiveIntegrandMajorant geometry n t) -
+                      ∫ t, orbitNegativeIntegrandMajorant geometry n t))) ≤ 0) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_right_orbitGeometry_physicalKernel_nodeBounds
+  intro rho hright
+  obtain ⟨g, geometry, hbudget⟩ := hproducer rho hright
+  let nodeBound : Nat → Real := fun n =>
+    ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+      (2 * ((∫ t, orbitPositiveIntegrandMajorant geometry n t) -
+        ∫ t, orbitNegativeIntegrandMajorant geometry n t))
+  refine ⟨g, geometry, nodeBound, ?_, ?_⟩
+  · simpa [nodeBound] using hbudget
+  · intro n _hn
+    exact le_of_eq (by
+      simpa [nodeBound] using
+        (orbitPhysicalKernel_nodeTerm_eq_positive_sub_negative geometry n))
+
 end
 end C1P2OrbitPhysicalKernelIntegrandBounds
 end Source

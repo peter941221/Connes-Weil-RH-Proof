@@ -116,3 +116,10 @@ The exact gate consumer is now also rewritten by
 same-owner semi-local gate is equivalent to the Archimedean term plus the
 finite weighted positive-integral mass minus negative-integral mass being at
 most zero. This is the final integral-level sign target for the live route.
+
+The direct consumer
+`sourceRH_of_right_orbitGeometry_signedIntegralBudget` now accepts exactly
+that signed integral budget and feeds `SourceRH` without an auxiliary upper
+bound. The remaining producer obligation is therefore the exact finite
+positive-minus-negative physical integral inequality for each hypothetical
+right zero.
