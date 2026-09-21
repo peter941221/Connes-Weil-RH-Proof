@@ -50,6 +50,9 @@ formal bridge: an almost-everywhere real majorant for the weighted physical
 kernel integrand yields an integral upper bound, and paired majorants at
 `+log n` and `-log n` yield the signed finite node bound after multiplication
 by the nonnegative von Mangoldt coefficient. This is formal infrastructure,
-not the analytic certificate itself. The remaining producer obligation is to
-construct explicit same-owner integrable majorants for the selected orbit
-correction and to bound the Archimedean remainder.
+not the analytic certificate itself. The same module now proves that the
+weighted kernel integrand is integrable for every selected geometry by reducing
+it to an exponential-weighted compact convolution. Thus the remaining
+producer obligation is only to construct explicit same-owner integrable
+majorants for the selected orbit correction and to bound the Archimedean
+remainder.
