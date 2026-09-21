@@ -54,3 +54,9 @@ GammaR kernel/sigma estimate, not carrier bookkeeping.
 vertical-line estimate through the exact GammaR formula. This controls the
 kernel magnitude for the future remainder estimate; it is not a real-part
 sign theorem.
+
+Formal follow-up: `C1C3SigmaKernel.lean` defines the paper sigma profile on
+the same GammaR owner and proves its exact identity with minus twice the real
+part of `logDeriv GammaR` at `1/2 - xi*I`. This is formal route evidence for
+the coordinate identity only; sigma negativity and the full signed budget
+remain open.
