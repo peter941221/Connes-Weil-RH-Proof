@@ -592,6 +592,16 @@ theorem c3Sigma_neg_at_exp_ceiling :
   have hneg := c3Sigma_neg_of_harmonic_certificate hharmonic
   simpa [K] using hneg
 
+theorem c3Sigma_neg_of_height_above_exp_ceiling {xi : Real}
+    (hxi : 2 * ((Nat.ceil (Real.exp 25) : Nat) + 1) ≤ xi) :
+    c3Sigma xi < 0 := by
+  have hthreshold : (0 : Real) ≤
+      2 * ((Nat.ceil (Real.exp 25) : Real) + 1) := by
+    positivity
+  exact lt_of_le_of_lt
+    (c3Sigma_antitone_of_nonneg hthreshold hxi)
+    c3Sigma_neg_at_exp_ceiling
+
 theorem exists_c3Sigma_neg : ∃ xi : Real, c3Sigma xi < 0 := by
   obtain ⟨N, hN⟩ := exists_nat_gt (c3Sigma 0)
   have hdiv :=

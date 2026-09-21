@@ -17,6 +17,7 @@ namespace Dev
 #print axioms c3Sigma_le_at_zero_sub_finite_sum
 #print axioms c3Sigma_neg_of_harmonic_certificate
 #print axioms c3Sigma_neg_at_exp_ceiling
+#print axioms c3Sigma_neg_of_height_above_exp_ceiling
 #print axioms exists_c3Sigma_neg
 #print axioms exists_c3Sigma_negative_tail
 #print axioms c3Sigma_neg_eq

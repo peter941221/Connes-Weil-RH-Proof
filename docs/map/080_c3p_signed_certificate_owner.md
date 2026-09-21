@@ -131,6 +131,11 @@ That supplier is now instantiated formally by
 `c3Sigma_neg_at_exp_ceiling`: with `K = Nat.ceil (Real.exp 25)`, the harmonic
 lower bound gives a concrete exact negative height
 `2 * (Nat.ceil (exp 25) + 1)`. This closes the Archimedean sigma-sign
-certificate on its own owner. It still does not prove that a hypothetical
-off-line zero has this height, and it does not close the detector-specific
-visible-prime signed budget.
+certificate on its own owner.
+
+The monotonicity theorem now packages the usable conditional height gate:
+`c3Sigma_neg_of_height_above_exp_ceiling` proves negativity for every real
+height at least that exact threshold. This is intentionally conditional: the
+project has not proved that an arbitrary hypothetical off-line zero reaches
+this height, so the theorem is not presented as a universal zero-height lower
+bound. The detector-specific visible-prime signed budget remains open.
