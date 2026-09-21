@@ -687,6 +687,29 @@ theorem finitePrimeSum_le_l2_common_factor_profile_mass
     MeasureTheory.integral_mul_norm_le_Lp_mul_Lq hholder hraw hprofile
   exact (finitePrimeSum_le_integral_common_factor_profile_norm geometry).trans hcs
 
+theorem orbitRawFactor_reflected_memLp_two
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    MemLp (fun t : Real => (orbitRawFactor geometry).test (-t))
+      (ENNReal.ofReal 2) := by
+  have htest : MemLp ((orbitRawFactor geometry).test) (ENNReal.ofReal 2) := by
+    simpa using (SchwartzMap.memLp (orbitRawFactor geometry).test 2)
+  simpa [Function.comp_def] using
+    htest.comp_measurePreserving (Measure.measurePreserving_neg volume)
+
+theorem finitePrimeSum_le_l2_common_factor_profile_mass_of_profile
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (hprofile : MemLp (orbitFiniteComplexPhysicalKernelProfile geometry)
+      (ENNReal.ofReal 2)) :
+    finitePrimeSum g.convolutionSquare ≤
+      (∫ t, ‖(orbitRawFactor geometry).test (-t)‖ ^ (2 : Real)) ^
+          (1 / (2 : Real)) *
+        (∫ t, ‖orbitFiniteComplexPhysicalKernelProfile geometry t‖ ^ (2 : Real)) ^
+          (1 / (2 : Real)) := by
+  exact finitePrimeSum_le_l2_common_factor_profile_mass geometry
+    (orbitRawFactor_reflected_memLp_two geometry) hprofile
+
 theorem finitePrimeSum_le_intervalIntegral_common_factor_profile_norm
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) :
