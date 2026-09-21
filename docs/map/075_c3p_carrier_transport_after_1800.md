@@ -101,6 +101,12 @@ prime phase sum has absolute value at most `delta`, then the same-owner
 consumer and may close before the two-span determinant, but both margin
 estimates remain to be proved for the selected detector.
 
+Formal follow-up (1893): the one-span prime obligation is now reduced to a
+finite cell-norm budget. The phase sum is bounded by the sum of cell absolute
+values, each cell by `|Lambda(n) * 2/sqrt(n)|` times the envelope convolution
+norm at `log n`. This preserves the exact visible-prime owner and is the
+first quantitative interface below the abstract `hprime` margin assumption.
+
 - **Carrier transport (formal)**: same-carrier pair tests transport the
   carrier exactly; the square channel and the Weil pair sum collapse to
   `2·Re[e^{-iγy}·G(y)]`; every prime cell reads `Λ(n)·2/√n·Re[e^{-iγ log

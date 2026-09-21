@@ -850,6 +850,70 @@ noncomputable def carrierSquarePrimePhaseSum
   ∑ n ∈ globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare),
     carrierSquarePhaseTerm γ u n
 
+theorem carrierSquarePrimePhaseSum_abs_le_cell_abs_sum
+    (γ : Real) (u : CompactLogTest) :
+    |carrierSquarePrimePhaseSum γ u| ≤
+      ∑ n ∈ globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare),
+        |carrierSquarePhaseTerm γ u n| := by
+  unfold carrierSquarePrimePhaseSum
+  exact Finset.abs_sum_le_sum_abs
+    (s := globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare))
+    (f := fun n => carrierSquarePhaseTerm γ u n)
+
+theorem carrierSquarePhaseTerm_abs_le_weighted_cell_norm
+    (γ : Real) (u : CompactLogTest) (n : ℕ) :
+    |carrierSquarePhaseTerm γ u n| ≤
+      |(ArithmeticFunction.vonMangoldt n : Real) *
+          (2 / Real.sqrt (n : Real))| *
+        ‖u.convolutionSquare.test (Real.log n)‖ := by
+  unfold carrierSquarePhaseTerm
+  have hphase :
+      Real.cos (γ * Real.log n) *
+            (u.convolutionSquare.test (Real.log n)).re +
+          Real.sin (γ * Real.log n) *
+            (u.convolutionSquare.test (Real.log n)).im =
+        (carrierExp γ (Real.log n) *
+          u.convolutionSquare.test (Real.log n)).re := by
+    symm
+    exact carrierExp_mul_re γ (Real.log n)
+      (u.convolutionSquare.test (Real.log n))
+  rw [hphase, abs_mul]
+  have hnorm :
+      ‖carrierExp γ (Real.log n) *
+          u.convolutionSquare.test (Real.log n)‖ =
+        ‖u.convolutionSquare.test (Real.log n)‖ := by
+    rw [norm_mul, carrierExp_norm, one_mul]
+  calc
+    |(ArithmeticFunction.vonMangoldt n : Real) *
+          (2 / Real.sqrt (n : Real))| *
+        |(carrierExp γ (Real.log n) *
+          u.convolutionSquare.test (Real.log n)).re| ≤
+      |(ArithmeticFunction.vonMangoldt n : Real) *
+          (2 / Real.sqrt (n : Real))| *
+        ‖carrierExp γ (Real.log n) *
+          u.convolutionSquare.test (Real.log n)‖ := by
+      exact mul_le_mul_of_nonneg_left
+        (Complex.abs_re_le_norm _) (abs_nonneg _)
+    _ = |(ArithmeticFunction.vonMangoldt n : Real) *
+          (2 / Real.sqrt (n : Real))| *
+        ‖u.convolutionSquare.test (Real.log n)‖ := by rw [hnorm]
+
+theorem carrierSquarePrimePhaseSum_abs_le_weighted_cell_norm_sum
+    (γ : Real) (u : CompactLogTest) :
+    |carrierSquarePrimePhaseSum γ u| ≤
+      ∑ n ∈ globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare),
+        |(ArithmeticFunction.vonMangoldt n : Real) *
+            (2 / Real.sqrt (n : Real))| *
+          ‖u.convolutionSquare.test (Real.log n)‖ := by
+  calc
+    |carrierSquarePrimePhaseSum γ u| ≤
+        ∑ n ∈ globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare),
+          |carrierSquarePhaseTerm γ u n| :=
+      carrierSquarePrimePhaseSum_abs_le_cell_abs_sum γ u
+    _ ≤ _ := by
+      exact Finset.sum_le_sum fun n hn =>
+        carrierSquarePhaseTerm_abs_le_weighted_cell_norm γ u n
+
 theorem orbitWindowSemiLocalGate_carrierSquare_of_margin_bounds
     (γ : Real) (u : CompactLogTest) (δ : Real)
     (harch : archimedeanTerm (carrierModulate γ u).convolutionSquare ≤ -δ)
