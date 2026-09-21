@@ -177,3 +177,8 @@ The channelwise bound is now summed on the exact visible-prime owner:
 `abs_orbitFinitePhysicalKernelIntegrand_le_seminorm_budget` gives a pointwise
 absolute finite-channel budget on the raw window. This retains no cancellation,
 so it is a quantitative diagnostic and not yet the required signed estimate.
+
+The pointwise budget now feeds an interval-integral upper bound through
+`intervalIntegral_orbitFinitePhysicalKernelIntegrand_le_seminorm_budget`.
+This is the exact scalar socket for testing the absolute budget against the
+Archimedean margin; it still does not establish the required signed gain.

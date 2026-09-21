@@ -526,6 +526,32 @@ theorem orbitFinitePhysicalKernelIntegrand_integrable
   rw [orbitFinitePhysicalKernelIntegrand_eq_signed geometry]
   exact orbitFiniteSignedPhysicalIntegrand_integrable geometry
 
+theorem intervalIntegral_orbitFinitePhysicalKernelIntegrand_le_seminorm_budget
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    ∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+        (((geometry.orbitIndex + 2 : Nat) : Real)),
+        orbitFinitePhysicalKernelIntegrand geometry t ≤
+      ∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+        (((geometry.orbitIndex + 2 : Nat) : Real)),
+        Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+          2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) *
+            (Real.exp (Real.log n / 2 +
+              ((geometry.orbitIndex + 2 : Nat) : Real)) *
+              (SchwartzMap.seminorm ℂ 0 0 (orbitRawFactor geometry).test) ^ 2)) := by
+  apply intervalIntegral.integral_mono_on_of_le_Ioo
+    (a := -((geometry.orbitIndex + 2 : Nat) : Real))
+    (b := ((geometry.orbitIndex + 2 : Nat) : Real))
+  all_goals first
+    | positivity
+    | exact (orbitFinitePhysicalKernelIntegrand_integrable geometry).intervalIntegrable
+    | exact intervalIntegrable_const
+    | (have hidx : 0 ≤ ((geometry.orbitIndex + 2 : Nat) : Real) := by positivity
+       linarith)
+    | (intro t ht
+       exact (le_abs_self _).trans
+         (abs_orbitFinitePhysicalKernelIntegrand_le_seminorm_budget geometry t ht))
+
 theorem finitePrimeSum_eq_integral_finitePhysicalKernelIntegrand
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) :
