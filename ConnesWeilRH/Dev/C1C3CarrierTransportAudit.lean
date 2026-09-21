@@ -68,6 +68,8 @@ namespace C1C3CarrierTransport
 #print axioms carrier_twoSpan_signed_budget_iff_optimal_nonpos
 #print axioms carrier_twoSpan_phase_budget_iff_optimal_nonpos
 #print axioms orbitWindowSemiLocalGate_carrier_twoSpan_of_optimal_determinant
+#print axioms CarrierTwoSpanDeterminantCertificate
+#print axioms CarrierTwoSpanDeterminantCertificate.gate
 #print axioms finitePrimeTerm_carrierPair_swap
 
 end C1C3CarrierTransport

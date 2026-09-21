@@ -1297,6 +1297,35 @@ theorem finitePrimeTerm_carrierPair_swap
   rw [h]
   simp [Complex.star_def]
 
+/-- The remaining C3' producer input, with its carrier and visible owner
+bound together so an estimate cannot mix different phase channels. -/
+structure CarrierTwoSpanDeterminantCertificate
+    (γ : Real) (u v : CompactLogTest) (B : Real) where
+  support_u : Function.support (carrierModulate γ u).test ⊆ Set.Ioo (-B) B
+  support_v : Function.support (carrierModulate γ v).test ⊆ Set.Ioo (-B) B
+  pivot_pos : 0 < ICgate (carrierModulate γ v).convolutionSquare
+  phase_budget :
+    carrierArchimedeanDeterminantPhase γ u v +
+      carrierMixedDeterminantPhase γ u v +
+        carrierPrimeDeterminantPhase γ u v ≤ 0
+
+theorem CarrierTwoSpanDeterminantCertificate.gate
+    {γ : Real} {u v : CompactLogTest} {B : Real}
+    (certificate : CarrierTwoSpanDeterminantCertificate γ u v B) :
+    orbitWindowSemiLocalGate
+        (spanObj ![carrierModulate γ u, carrierModulate γ v]
+          ![(1 : Real), -(
+            ICgate
+                ((carrierModulate γ u).involution.convolution
+                  (carrierModulate γ v)) /
+              ICgate (carrierModulate γ v).convolutionSquare)]) := by
+  apply orbitWindowSemiLocalGate_carrier_twoSpan_of_optimal_determinant
+    γ u v B certificate.support_u certificate.support_v certificate.pivot_pos
+  apply (carrier_twoSpan_signed_budget_iff_optimal_nonpos γ u v
+    certificate.pivot_pos).mp
+  exact (carrier_twoSpan_phase_budget_iff_optimal_nonpos γ u v
+    certificate.pivot_pos).mpr certificate.phase_budget
+
 end C1C3CarrierTransport
 end Dev
 end ConnesWeilRH
