@@ -246,6 +246,28 @@ theorem orbitWindowSemiLocalGate_of_physicalKernel_nodeBounds
   have hsum := Finset.sum_le_sum (fun n hn => hnode n hn)
   linarith
 
+/-- Data-bearing owner for a finite physical-kernel certificate.  Keeping the
+geometry and its node bounds together prevents a later producer from mixing
+the prime range of one detector with the kernel of another. -/
+structure OrbitPhysicalKernelNodeCertificate
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) where
+  nodeBound : Nat → Real
+  arch_bound : archimedeanTerm g.convolutionSquare +
+      Finset.sum (orbitVisiblePrimeRange geometry) nodeBound ≤ 0
+  node_bound : ∀ n ∈ orbitVisiblePrimeRange geometry,
+    ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+        (orbitPhysicalKernel geometry (Real.log n) +
+          orbitPhysicalKernel geometry (-Real.log n)).re ≤ nodeBound n
+
+theorem orbitWindowSemiLocalGate_of_physicalKernel_certificate
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (certificate : OrbitPhysicalKernelNodeCertificate geometry) :
+    C1OrbitWindowSemiLocalGate.orbitWindowSemiLocalGate g :=
+  orbitWindowSemiLocalGate_of_physicalKernel_nodeBounds geometry
+    certificate.nodeBound certificate.arch_bound certificate.node_bound
+
 /-! The physical-kernel and credit/deficit views are two exact readbacks of
 the same selected-owner gate.  This is the handoff point for an analytic
 estimate stated in whichever coordinates control the actual correction. -/
@@ -312,6 +334,19 @@ theorem sourceRH_of_right_orbitGeometry_physicalKernel_nodeBounds
     geometry nodeBound harch hnode
   exact ⟨g, geometry,
     (orbitWindowSemiLocalGate_iff_physicalKernelBudget geometry).mp hgate⟩
+
+theorem sourceRH_of_right_orbitGeometry_physicalKernel_certificate
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            Nonempty (OrbitPhysicalKernelNodeCertificate geometry)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_right_orbitGeometry_physicalKernel_nodeBounds
+  intro rho hright
+  obtain ⟨g, geometry, ⟨certificate⟩⟩ := hproducer rho hright
+  exact ⟨g, geometry, certificate.nodeBound,
+    certificate.arch_bound, certificate.node_bound⟩
 
 end
 end C1P2OrbitPhysicalProfileReadback
