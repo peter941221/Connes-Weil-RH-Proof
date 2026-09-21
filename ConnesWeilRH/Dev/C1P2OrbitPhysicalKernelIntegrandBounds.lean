@@ -406,6 +406,38 @@ def orbitFinitePhysicalKernelIntegrand
     ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
       (2 * (orbitWeightedKernelIntegrand geometry (Real.log n) t).re))
 
+def orbitFiniteComplexPhysicalKernelIntegrand
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) : Real → Complex :=
+  fun t => Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+    ((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+      orbitWeightedKernelIntegrand geometry (Real.log n) t)
+
+theorem orbitFinitePhysicalKernelIntegrand_eq_re_complex
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (t : Real) :
+    orbitFinitePhysicalKernelIntegrand geometry t =
+      (orbitFiniteComplexPhysicalKernelIntegrand geometry t).re := by
+  unfold orbitFinitePhysicalKernelIntegrand orbitFiniteComplexPhysicalKernelIntegrand
+  change _ = Complex.reCLM (Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+    ((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+      orbitWeightedKernelIntegrand geometry (Real.log n) t))
+  rw [map_sum]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  simp only [Complex.reCLM_apply, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
+    mul_zero, sub_zero]
+  ring
+
+theorem orbitFiniteComplexPhysicalKernelIntegrand_integrable
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    Integrable (orbitFiniteComplexPhysicalKernelIntegrand geometry) := by
+  unfold orbitFiniteComplexPhysicalKernelIntegrand
+  apply MeasureTheory.integrable_finsetSum
+  intro n _hn
+  exact (orbitWeightedKernelIntegrand_integrable geometry (Real.log n)).const_mul _
+
 theorem abs_orbitFinitePhysicalKernelIntegrand_le_seminorm_budget
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) (t : Real)
@@ -559,6 +591,20 @@ theorem finitePrimeSum_eq_integral_finitePhysicalKernelIntegrand
       ∫ t, orbitFinitePhysicalKernelIntegrand geometry t := by
   rw [orbitFinitePhysicalKernelIntegrand_eq_signed geometry]
   exact finitePrimeSum_eq_integral_finiteSignedPhysicalIntegrand geometry
+
+theorem finitePrimeSum_eq_re_integral_orbitFiniteComplexPhysicalKernelIntegrand
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    finitePrimeSum g.convolutionSquare =
+      (∫ t, orbitFiniteComplexPhysicalKernelIntegrand geometry t).re := by
+  rw [finitePrimeSum_eq_integral_finitePhysicalKernelIntegrand geometry]
+  rw [show (fun t => orbitFinitePhysicalKernelIntegrand geometry t) =
+      (fun t => (orbitFiniteComplexPhysicalKernelIntegrand geometry t).re) by
+    funext t
+    exact (orbitFinitePhysicalKernelIntegrand_eq_re_complex geometry t)]
+  simpa only [Complex.reCLM_apply] using
+    (Complex.reCLM.integral_comp_comm
+      (orbitFiniteComplexPhysicalKernelIntegrand_integrable geometry))
 
 theorem finitePrimeSum_eq_intervalIntegral_finitePhysicalKernelIntegrand
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}

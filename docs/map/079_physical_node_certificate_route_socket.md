@@ -182,3 +182,16 @@ The pointwise budget now feeds an interval-integral upper bound through
 `intervalIntegral_orbitFinitePhysicalKernelIntegrand_le_seminorm_budget`.
 This is the exact scalar socket for testing the absolute budget against the
 Archimedean margin; it still does not establish the required signed gain.
+
+The finite visible-prime kernel now also has a same-owner complex aggregate
+`orbitFiniteComplexPhysicalKernelIntegrand`, with the existing real integrand
+proved to be its real part by
+`orbitFinitePhysicalKernelIntegrand_eq_re_complex`. This preserves the full
+cross-prime phase sum for the next estimate; it is a representation bridge,
+not yet a signed-gain or positivity theorem.
+
+The complex aggregate is also formally integrable, and
+`finitePrimeSum_eq_re_integral_orbitFiniteComplexPhysicalKernelIntegrand`
+reads the complete finite prime face as the real part of its single complex
+integral. This is the cancellation-preserving integral owner for the next
+analytic estimate; it remains an identity, not a sign result.
