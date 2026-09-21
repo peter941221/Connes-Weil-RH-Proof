@@ -68,6 +68,49 @@ theorem orbitWeightedKernelIntegrand_eq_zero_of_not_mem_raw_support_window
     constructor <;> linarith [hwindow.1, hwindow.2]
   simp [orbitWeightedKernelIntegrand, raw, hneg]
 
+theorem norm_orbitWeightedKernelIntegrand_le_seminorm_majorant
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (x t : Real)
+    (ht : t ∈ Set.Ioo
+      (-((geometry.orbitIndex + 2 : Nat) : Real))
+      (((geometry.orbitIndex + 2 : Nat) : Real))) :
+    ‖orbitWeightedKernelIntegrand geometry x t‖ ≤
+      Real.exp (x / 2 + ((geometry.orbitIndex + 2 : Nat) : Real)) *
+        (SchwartzMap.seminorm ℂ 0 0 (orbitRawFactor geometry).test) ^ 2 := by
+  let raw := orbitRawFactor geometry
+  let S : Real := SchwartzMap.seminorm ℂ 0 0 raw.test
+  have hleft : ‖raw.test (-t)‖ ≤ S := by
+    exact SchwartzMap.norm_le_seminorm ℂ raw.test (-t)
+  have hright : ‖raw.test (x - t)‖ ≤ S := by
+    exact SchwartzMap.norm_le_seminorm ℂ raw.test (x - t)
+  have hexp : Real.exp (x / 2 - t) ≤
+      Real.exp (x / 2 + ((geometry.orbitIndex + 2 : Nat) : Real)) := by
+    apply Real.exp_le_exp.mpr
+    linarith [ht.1]
+  have hscale : ‖Complex.exp (((x / 2 - t : Real) : Complex))‖ =
+      Real.exp (x / 2 - t) := by
+    rw [Complex.norm_exp]
+    simp
+  have hS : 0 ≤ S := by
+    dsimp [S]
+    positivity
+  calc
+    ‖orbitWeightedKernelIntegrand geometry x t‖ =
+        Real.exp (x / 2 - t) * ‖raw.test (-t)‖ * ‖raw.test (x - t)‖ := by
+      rw [orbitWeightedKernelIntegrand, norm_mul, norm_mul, norm_star,
+        Complex.norm_exp]
+      simpa [raw]
+    _ ≤ Real.exp (x / 2 - t) * S * S := by
+      simpa only [mul_assoc] using
+        (mul_le_mul_of_nonneg_left
+          (mul_le_mul hleft hright (norm_nonneg _) hS) (Real.exp_pos _).le)
+    _ ≤ Real.exp (x / 2 + ((geometry.orbitIndex + 2 : Nat) : Real)) * S * S := by
+      simpa only [mul_assoc] using
+        (mul_le_mul_of_nonneg_right hexp (mul_nonneg hS hS))
+    _ = Real.exp (x / 2 + ((geometry.orbitIndex + 2 : Nat) : Real)) *
+        (SchwartzMap.seminorm ℂ 0 0 raw.test) ^ 2 := by
+      simp [S, pow_two, mul_assoc]
+
 theorem orbitPhysicalKernel_re_le_integral_of_integrand_bound
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) (x : Real) (E : Real → Real)

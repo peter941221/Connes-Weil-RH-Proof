@@ -166,3 +166,9 @@ corresponding gate equivalence, and
 `sourceRH_of_right_orbitGeometry_finitePhysicalKernelIntervalBudget` is the
 direct conditional consumer. The remaining obligation is now a genuine
 finite-interval signed estimate, not a whole-line representation artifact.
+
+The first quantitative window estimate is now formal: each weighted kernel
+integrand is bounded in norm by an explicit exponential factor times the
+square of the raw factor's zero-order Schwartz seminorm. This is an owner-
+preserving absolute majorant only; its comparison with the Archimedean margin
+is still open and must not be treated as the signed producer.
