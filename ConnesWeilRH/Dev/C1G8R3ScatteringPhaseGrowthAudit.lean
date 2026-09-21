@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3ScatteringPhaseGrowth
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check norm_ccm24CriticalGammaRLogDeriv_le_linear
+#print axioms norm_ccm24CriticalGammaRLogDeriv_le_linear
+
+end Dev
+end ConnesWeilRH

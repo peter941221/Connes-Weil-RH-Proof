@@ -229,6 +229,17 @@ This closes the actual factor-level second-order interface. The full
 scattering-product W2,1 estimate, S3 kernel-diagonal majorant,
 detector-specific semi-local positivity, and RH remain open.
 
+## Formal update 1793 (2026-09-21)
+
+`norm_ccm24CriticalGammaRLogDeriv_le_linear` integrates the formal global
+derivative bound and supplies linear growth for the actual critical GammaR
+logarithmic derivative. This is the first polynomial growth estimate needed
+to make the scattering-phase product's four-term L1 estimate concrete.
+The paired Audit build is green with no `sorryAx`.
+
+The scattering-phase L1 estimate, S3 kernel-diagonal majorant,
+detector-specific semi-local positivity, and RH remain open.
+
 ## Formal update 1792 (2026-09-21)
 
 `norm_deriv_ccm24CriticalGammaRLogDeriv_le` proves a global bound for the
