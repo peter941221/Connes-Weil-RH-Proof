@@ -229,6 +229,23 @@ theorem orbitWindowSemiLocalGate_iff_physicalKernelBudget
   rw [C1OrbitWindowSemiLocalGate.orbitWindowSemiLocalGate,
     finitePrimeSum_eq_orbitPhysicalKernel_range geometry]
 
+/-- A finite, auditable sufficient certificate for the actual physical-kernel
+budget. The node bounds may be signed and therefore preserve cancellation; no
+pointwise sign of the physical kernel is assumed. -/
+theorem orbitWindowSemiLocalGate_of_physicalKernel_nodeBounds
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (nodeBound : Nat → Real)
+    (harch : archimedeanTerm g.convolutionSquare +
+        Finset.sum (orbitVisiblePrimeRange geometry) nodeBound ≤ 0)
+    (hnode : ∀ n ∈ orbitVisiblePrimeRange geometry,
+      ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+          (orbitPhysicalKernel geometry (Real.log n) +
+            orbitPhysicalKernel geometry (-Real.log n)).re ≤ nodeBound n) :
+    C1OrbitWindowSemiLocalGate.orbitWindowSemiLocalGate g := by
+  apply (orbitWindowSemiLocalGate_iff_physicalKernelBudget geometry).mpr
+  have hsum := Finset.sum_le_sum (fun n hn => hnode n hn)
+  linarith
+
 /-! The physical-kernel and credit/deficit views are two exact readbacks of
 the same selected-owner gate.  This is the handoff point for an analytic
 estimate stated in whichever coordinates control the actual correction. -/

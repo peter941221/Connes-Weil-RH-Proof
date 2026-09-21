@@ -13,6 +13,7 @@ namespace ConnesWeilRH.Source.C1P2OrbitPhysicalProfileReadback
 #print axioms bilateralProfile_eq_orbitPhysicalKernel_add_neg
 #print axioms finitePrimeSum_eq_orbitPhysicalKernel_range
 #print axioms orbitWindowSemiLocalGate_iff_physicalKernelBudget
+#print axioms orbitWindowSemiLocalGate_of_physicalKernel_nodeBounds
 #print axioms physicalKernelBudget_iff_signedBudget
 #print axioms sourceRH_of_right_orbitGeometry_physicalKernelBudget
 
