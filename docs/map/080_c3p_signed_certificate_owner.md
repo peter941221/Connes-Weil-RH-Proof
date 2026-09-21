@@ -76,3 +76,9 @@ For `xi != 0`, the same positive first term gives the strict inequality
 `c3Sigma xi < c3Sigma 0`. The remaining sign task is therefore an explicit
 lower bound on the accumulated reciprocal series strong enough to overcome
 the anchor value, followed by the detector-specific signed prime budget.
+
+The leaf now also proves the finite partial-sum form: for every natural `N`,
+`c3Sigma xi` is at most `c3Sigma 0` minus the first `N` explicit nonnegative
+rational terms. This is the formal finite-threshold socket for a future
+certified zero-crossing bound; it does not itself choose a numerical `N` or
+prove the C3 prime budget.
