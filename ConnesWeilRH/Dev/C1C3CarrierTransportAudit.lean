@@ -62,6 +62,8 @@ namespace C1C3CarrierTransport
 #print axioms carrierArchimedeanDeterminantPhase
 #print axioms carrierMixedDeterminantPhase
 #print axioms carrierPrimeDeterminantPhase
+#print axioms carrierPrimeDeterminantPhase_le_abs_product
+#print axioms carrierMixedDeterminantPhase_le_abs_products
 #print axioms carrierSquarePrimePhaseSum_eq_credit_sub_deficit
 #print axioms carrierPairPrimePhaseSum_eq_credit_sub_deficit
 #print axioms carrierPrimeDeterminantPhase_signed_expansion

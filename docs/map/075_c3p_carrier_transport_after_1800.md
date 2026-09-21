@@ -87,6 +87,13 @@ determinant is at most `-delta`, while the mixed and prime determinants are at
 most `mu` and `pi`, the budget follows from `mu + pi <= delta`. This is an
 estimate interface, not an estimate: the three analytic bounds remain open.
 
+Formal follow-up (1891): the same owner now proves absolute-value envelopes
+for the two non-Archimedean consumers. The prime determinant is at most the
+product of the two diagonal prime magnitudes, and the mixed discrepancy is at
+most the sum of its three absolute product terms. These are rigorous upper
+bounds that can feed the negative Archimedean margin; they do not assert the
+needed margin or any RH conclusion.
+
 - **Carrier transport (formal)**: same-carrier pair tests transport the
   carrier exactly; the square channel and the Weil pair sum collapse to
   `2·Re[e^{-iγy}·G(y)]`; every prime cell reads `Λ(n)·2/√n·Re[e^{-iγ log

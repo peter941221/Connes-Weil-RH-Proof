@@ -925,6 +925,58 @@ noncomputable def carrierPrimeDeterminantPhase
   carrierSquarePrimePhaseSum γ u * carrierSquarePrimePhaseSum γ v -
   (carrierPairPrimePhaseSum γ u v) ^ 2
 
+theorem carrierPrimeDeterminantPhase_le_abs_product
+    (γ : Real) (u v : CompactLogTest) :
+    carrierPrimeDeterminantPhase γ u v ≤
+      |carrierSquarePrimePhaseSum γ u| *
+        |carrierSquarePrimePhaseSum γ v| := by
+  unfold carrierPrimeDeterminantPhase
+  have hab : carrierSquarePrimePhaseSum γ u *
+        carrierSquarePrimePhaseSum γ v ≤
+      |carrierSquarePrimePhaseSum γ u| *
+        |carrierSquarePrimePhaseSum γ v| := by
+    simpa [abs_mul] using
+      (le_abs_self
+        (carrierSquarePrimePhaseSum γ u * carrierSquarePrimePhaseSum γ v))
+  linarith [sq_nonneg (carrierPairPrimePhaseSum γ u v)]
+
+theorem carrierMixedDeterminantPhase_le_abs_products
+    (γ : Real) (u v : CompactLogTest) :
+    carrierMixedDeterminantPhase γ u v ≤
+      |carrierSquareArchimedeanTermPhase γ u| *
+          |carrierSquarePrimePhaseSum γ v| +
+        |carrierSquareArchimedeanTermPhase γ v| *
+          |carrierSquarePrimePhaseSum γ u| +
+        2 * |carrierPairArchimedeanTermPhase γ u v| *
+          |carrierPairPrimePhaseSum γ u v| := by
+  unfold carrierMixedDeterminantPhase
+  have h₁ : carrierSquareArchimedeanTermPhase γ u *
+        carrierSquarePrimePhaseSum γ v ≤
+      |carrierSquareArchimedeanTermPhase γ u| *
+        |carrierSquarePrimePhaseSum γ v| := by
+    simpa [abs_mul] using
+      (le_abs_self
+        (carrierSquareArchimedeanTermPhase γ u *
+          carrierSquarePrimePhaseSum γ v))
+  have h₂ : carrierSquareArchimedeanTermPhase γ v *
+        carrierSquarePrimePhaseSum γ u ≤
+      |carrierSquareArchimedeanTermPhase γ v| *
+        |carrierSquarePrimePhaseSum γ u| := by
+    simpa [abs_mul] using
+      (le_abs_self
+        (carrierSquareArchimedeanTermPhase γ v *
+          carrierSquarePrimePhaseSum γ u))
+  have h₃ : -(2 * carrierPairArchimedeanTermPhase γ u v *
+        carrierPairPrimePhaseSum γ u v) ≤
+      2 * |carrierPairArchimedeanTermPhase γ u v| *
+        |carrierPairPrimePhaseSum γ u v| := by
+    have h := neg_le_abs
+      (carrierPairArchimedeanTermPhase γ u v *
+        carrierPairPrimePhaseSum γ u v)
+    rw [abs_mul] at h
+    nlinarith
+  linarith
+
 theorem carrierPrimeDeterminantPhase_signed_expansion
     (γ : Real) (u v : CompactLogTest) :
     carrierPrimeDeterminantPhase γ u v =
