@@ -19,6 +19,16 @@ integrand changes sign already at the prime powers through 5. These results
 do not refute the support-dependent B5 target or supply its nonnegativity.
 The route and the S3 status in 045/046 are unchanged.
 
+## Orbit-sum pin realized, 2026-09-21
+
+[074](074_orbit_sum_pin_after_1799.md) records the orbit-sum pin (record
+1799): the committed interpolation system and centered orbit sum = −2 are
+realized exactly by an explicit compactly-supported family at off-line
+zeros, and the gate at the pinned head is a multi-frequency phase balance —
+prime-dominated, sign-flipping in the zero height, with a small stable
+Archimedean face. The C3 signed estimate must be phase-locked (carrier-locked
+cross channel or θ-regularized). No positivity or RH statement.
+
 ## Cross gate first pricing, 2026-09-21
 
 [073](073_cross_gate_first_pricing_after_1798.md) records the first
