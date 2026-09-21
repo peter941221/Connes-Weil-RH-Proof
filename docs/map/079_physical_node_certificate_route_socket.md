@@ -44,3 +44,12 @@ Any proposed bound must be same-owner, finite-range, and compatible with the
 correction's zero/tail data. Mellin interpolation alone is excluded by
 [078](078_mellin_physical_separation.md), and pointwise profile negativity is
 excluded by the earlier sign audit.
+
+The new module `C1P2OrbitPhysicalKernelIntegrandBounds` supplies the next
+formal bridge: an almost-everywhere real majorant for the weighted physical
+kernel integrand yields an integral upper bound, and paired majorants at
+`+log n` and `-log n` yield the signed finite node bound after multiplication
+by the nonnegative von Mangoldt coefficient. This is formal infrastructure,
+not the analytic certificate itself. The remaining producer obligation is to
+construct explicit same-owner integrable majorants for the selected orbit
+correction and to bound the Archimedean remainder.

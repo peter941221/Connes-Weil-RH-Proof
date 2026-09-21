@@ -1,0 +1,8 @@
+import ConnesWeilRH.Dev.C1P2OrbitPhysicalKernelIntegrandBounds
+
+namespace ConnesWeilRH.Dev.C1P2OrbitPhysicalKernelIntegrandBoundsAudit
+
+#print axioms Source.C1P2OrbitPhysicalKernelIntegrandBounds.orbitPhysicalKernel_re_le_integral_of_integrand_bound
+#print axioms Source.C1P2OrbitPhysicalKernelIntegrandBounds.orbitPhysicalKernel_nodeTerm_le_of_integrand_bounds
+
+end ConnesWeilRH.Dev.C1P2OrbitPhysicalKernelIntegrandBoundsAudit
