@@ -76,3 +76,10 @@ That reduction is now data-bearing:
 per visible node, its integrability and a.e. signed majorant, plus the finite
 budget with the symmetry factor two. Its constructor directly yields the node
 certificate consumed by the existing SourceRH socket.
+
+The end-to-end theorem
+`sourceRH_of_right_orbitGeometry_oneSidedIntegrandCertificate` now consumes
+this one-sided certificate directly for every hypothetical right zero and
+feeds the existing `SourceRH` implication. The remaining open producer is
+therefore exactly the construction of that certificate, not any further route
+conversion.

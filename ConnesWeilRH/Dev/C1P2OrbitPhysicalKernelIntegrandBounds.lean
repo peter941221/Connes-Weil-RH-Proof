@@ -193,6 +193,20 @@ def orbitPhysicalKernelNodeCertificate_of_oneSidedIntegrandCertificate
     exact orbitPhysicalKernel_nodeTerm_le_of_plus_integrand_bound geometry n
       (certificate.E n) (certificate.integrable n hn) (certificate.pointwise n hn)
 
+theorem sourceRH_of_right_orbitGeometry_oneSidedIntegrandCertificate
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            Nonempty (OrbitPhysicalKernelOneSidedIntegrandCertificate geometry)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_right_orbitGeometry_physicalKernel_certificate
+  intro rho hright
+  obtain ⟨g, geometry, ⟨certificate⟩⟩ := hproducer rho hright
+  exact ⟨g, geometry, ⟨
+    orbitPhysicalKernelNodeCertificate_of_oneSidedIntegrandCertificate
+      geometry certificate⟩⟩
+
 end
 end C1P2OrbitPhysicalKernelIntegrandBounds
 end Source
