@@ -248,6 +248,15 @@ The paired Audit build is green with no `sorryAx`.
 The scattering-phase L1 estimate, S3 kernel-diagonal majorant,
 detector-specific semi-local positivity, and RH remain open.
 
+## Formal update 1796 (2026-09-21)
+
+`integrableOn_sq_mul_exp_neg_mul` and its negated-tail companion now provide
+the explicit quadratic-weight exponential integrability needed by the
+scattering W2,1 route. This is a reusable scalar tail interface, not yet the
+weighted integrability theorem for the actual critical Mellin profile. The
+profile consumer, S3 kernel-diagonal majorant, detector-specific semi-local
+positivity, and RH remain open.
+
 ## Formal update 1794 (2026-09-21)
 
 `norm_deriv_ccm24ArchimedeanScatteringPhase_le_linear` transfers the GammaR
