@@ -229,6 +229,17 @@ This closes the actual factor-level second-order interface. The full
 scattering-product W2,1 estimate, S3 kernel-diagonal majorant,
 detector-specific semi-local positivity, and RH remain open.
 
+## Formal update 1792 (2026-09-21)
+
+`norm_deriv_ccm24CriticalGammaRLogDeriv_le` proves a global bound for the
+real-frequency derivative of the critical GammaR logarithmic derivative. The
+bound is derived from the formal quarter-line digamma derivative series and
+the exact recurrence, with a green paired Audit build and no `sorryAx`.
+
+This is the first quantitative growth input for the actual scattering-phase
+product. The remaining W2,1 L1 estimate, S3 kernel-diagonal majorant,
+detector-specific semi-local positivity, and RH remain open.
+
 ## Formal update 1789 (2026-09-21)
 
 `hasDerivAt_deriv_ccm24ArchimedeanFactor` now differentiates the derivative

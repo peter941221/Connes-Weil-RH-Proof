@@ -699,6 +699,7 @@ at the gate; law F30; P1/P2 two-brick program (both now paid).
 2026-09-21 ConnesWeilRH/Dev/C1G8R3ScatteringPhaseDigamma.lean : transported the second digamma derivative through the recurrence to the actual critical quarter-line; paired audit green
 2026-09-21 ConnesWeilRH/Dev/C1G8R3ScatteringPhaseDigamma.lean : composed the critical-line second digamma derivative into the GammaR logarithmic-derivative second-order interface; paired audit green
 2026-09-21 ConnesWeilRH/Dev/C1G8R3ScatteringPhaseDigamma.lean : differentiated the actual CCM24 Archimedean factor by the GammaR-log product rule; paired audit green
+2026-09-21 ConnesWeilRH/Dev/C1G8R3ScatteringPhaseDerivativeBound.lean : proved the global real-frequency bound for the derivative of the critical GammaR logarithmic derivative from the quarter-line digamma series; paired audit green
 2026-09-21 ConnesWeilRH/Dev/C1G8R3ScatteringPhaseDigamma.lean : proved differentiability of the derivative of the actual CCM24 Archimedean scattering phase by the quotient and conjugation rules; paired audit green
 2026-09-21 ConnesWeilRH/Dev/C1G8R3ScatteringMellinSecondRegularity.lean : combined actual scattering-phase and critical Mellin-profile second regularity into the product interface for the annular two-IBP consumer; paired audit green
 2026-09-21 ConnesWeilRH/Dev/C1G8R3ScatteringPhaseDigamma.lean : differentiated the actual CCM24 Archimedean factor by the GammaR-log product rule; paired audit green

@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3ScatteringPhaseDerivativeBound
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check norm_deriv_ccm24CriticalGammaRLogDeriv_le
+#print axioms norm_deriv_ccm24CriticalGammaRLogDeriv_le
+
+end Dev
+end ConnesWeilRH
