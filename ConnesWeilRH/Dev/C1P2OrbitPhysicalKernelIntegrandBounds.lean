@@ -440,6 +440,15 @@ theorem orbitFiniteComplexPhysicalKernelIntegrand_eq_common_factor_profile
       ring
     _ = _ := by rw [Finset.mul_sum]
 
+theorem norm_orbitFiniteComplexPhysicalKernelIntegrand_eq_common_factor_profile
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (t : Real) :
+    ‖orbitFiniteComplexPhysicalKernelIntegrand geometry t‖ =
+      ‖(orbitRawFactor geometry).test (-t)‖ *
+        ‖orbitFiniteComplexPhysicalKernelProfile geometry t‖ := by
+  rw [orbitFiniteComplexPhysicalKernelIntegrand_eq_common_factor_profile geometry t]
+  rw [norm_mul, norm_star]
+
 theorem orbitFinitePhysicalKernelIntegrand_eq_re_complex
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) (t : Real) :

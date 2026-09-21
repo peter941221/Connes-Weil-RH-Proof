@@ -202,3 +202,9 @@ The complex aggregate now factors exactly as the common reflected raw factor
 `orbitFiniteComplexPhysicalKernelIntegrand_eq_common_factor_profile` keeps all
 visible-prime phases inside that profile, supplying the direct correlation
 owner for the next signed estimate. No sign or positivity is inferred.
+
+Its norm also factors exactly into the norm of the common raw factor and the
+norm of the finite-prime phase profile via
+`norm_orbitFiniteComplexPhysicalKernelIntegrand_eq_common_factor_profile`.
+This is the first quantitative interface that preserves the aggregate profile
+before any later estimate; it still supplies no sign by itself.
