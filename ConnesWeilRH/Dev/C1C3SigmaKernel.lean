@@ -578,5 +578,20 @@ theorem c3Sigma_neg_eq (xi : Real) :
   rw [hreal] at hneg'
   linarith
 
+theorem exists_c3Sigma_negative_tail :
+    ∃ T : Real, 0 ≤ T ∧ ∀ xi : Real, T ≤ xi → c3Sigma xi < 0 := by
+  obtain ⟨t, ht⟩ := exists_c3Sigma_neg
+  refine ⟨|t|, abs_nonneg t, ?_⟩
+  have hT : c3Sigma |t| < 0 := by
+    by_cases hnonneg : 0 ≤ t
+    · simpa [abs_of_nonneg hnonneg] using ht
+    · have hneg : t < 0 := lt_of_not_ge hnonneg
+      rw [abs_of_neg hneg]
+      rw [c3Sigma_neg_eq t]
+      exact ht
+  intro xi hxi
+  exact lt_of_le_of_lt
+    (c3Sigma_antitone_of_nonneg (abs_nonneg t) hxi) hT
+
 end Dev
 end ConnesWeilRH

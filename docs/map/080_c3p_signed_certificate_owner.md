@@ -107,3 +107,9 @@ negative sigma. The construction is exact and axiom-clean, with no numerical
 approximation. This closes only existential Archimedean sign; it does not give
 an explicit threshold for a hypothetical zero height, nor the same-owner
 detector-specific signed prime budget required by the B5 producer.
+
+Using evenness and global antitonicity, this is now packaged as
+`exists_c3Sigma_negative_tail`: there is a nonnegative threshold `T` such that
+every `xi >= T` has negative sigma. The threshold is still existential rather
+than a concrete certificate, so the hypothetical-zero height lower bound and
+the detector-specific signed prime budget remain the active producer gates.
