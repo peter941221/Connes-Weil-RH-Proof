@@ -300,5 +300,86 @@ theorem c3Sigma_le_at_zero_sub_finite_sum (xi : Real) (N : Nat) :
       _ ≤ _ := hfinite
   linarith
 
+theorem c3Sigma_neg_eq (xi : Real) :
+    c3Sigma (-xi) = c3Sigma xi := by
+  let zpos : Complex :=
+    (((1 / 4 : Real) : Complex) - ((xi : Complex) * Complex.I) / 2)
+  let zneg : Complex :=
+    (((1 / 4 : Real) : Complex) - ((-xi : Complex) * Complex.I) / 2)
+  let z0 : Complex := ((1 / 4 : Real) : Complex)
+  have hzpos : 0 < zpos.re := by
+    dsimp [zpos]
+    norm_num [Complex.div_re, Complex.mul_re]
+  have hzneg : 0 < zneg.re := by
+    dsimp [zneg]
+    norm_num [Complex.div_re, Complex.mul_re]
+  have hz0 : 0 < z0.re := by
+    dsimp [z0]
+    norm_num
+  have hsp : Summable (fun n : Nat =>
+      ((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + zpos)⁻¹) -
+        (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + z0)⁻¹))) := by
+    exact
+      (Source.C1XiCenterTwoGamma.summable_halfAnchorGaussReciprocalSeries hzpos).sub
+        (Source.C1XiCenterTwoGamma.summable_halfAnchorGaussReciprocalSeries hz0)
+  have hsn : Summable (fun n : Nat =>
+      ((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + zneg)⁻¹) -
+        (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + z0)⁻¹))) := by
+    exact
+      (Source.C1XiCenterTwoGamma.summable_halfAnchorGaussReciprocalSeries hzneg).sub
+        (Source.C1XiCenterTwoGamma.summable_halfAnchorGaussReciprocalSeries hz0)
+  have hreal :
+      (∑' n : Nat,
+          (((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + zneg)⁻¹) -
+            (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + z0)⁻¹))).re) =
+        ∑' n : Nat,
+          (((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + zpos)⁻¹) -
+            (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + z0)⁻¹))).re := by
+    apply tsum_congr
+    intro n
+    dsimp [zneg, zpos, z0]
+    calc
+      _ = ((-xi) / 2) ^ 2 /
+          (((n : Real) + 1 / 4) *
+            (((n : Real) + 1 / 4) ^ 2 + ((-xi) / 2) ^ 2)) := by
+        simpa only [Complex.sub_re, Complex.ofReal_neg] using
+          (re_c3Sigma_reciprocalDifferenceTerm (-xi) n)
+      _ = (xi / 2) ^ 2 /
+          (((n : Real) + 1 / 4) *
+            (((n : Real) + 1 / 4) ^ 2 + (xi / 2) ^ 2)) := by ring
+      _ = _ := by
+        simpa only [Complex.sub_re] using
+          (re_c3Sigma_reciprocalDifferenceTerm xi n).symm
+  have hneg := c3Sigma_sub_zero_eq_neg_re_reciprocalDifferenceSeries (-xi)
+  have hpos := c3Sigma_sub_zero_eq_neg_re_reciprocalDifferenceSeries xi
+  have hneg' :
+      c3Sigma (-xi) - c3Sigma 0 =
+        -((∑' n : Nat,
+          ((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + zneg)⁻¹) -
+            (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + z0)⁻¹))).re) := by
+    simpa only [zneg, z0, Complex.ofReal_neg] using hneg
+  have hpos' :
+      c3Sigma xi - c3Sigma 0 =
+        -((∑' n : Nat,
+          ((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + zpos)⁻¹) -
+            (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + z0)⁻¹))).re) := by
+    simpa only [zpos, z0] using hpos
+  rw [Complex.re_tsum hsn] at hneg'
+  rw [Complex.re_tsum hsp] at hpos'
+  rw [hreal] at hneg'
+  linarith
+
 end Dev
 end ConnesWeilRH

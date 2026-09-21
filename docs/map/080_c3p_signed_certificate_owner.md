@@ -82,3 +82,8 @@ The leaf now also proves the finite partial-sum form: for every natural `N`,
 rational terms. This is the formal finite-threshold socket for a future
 certified zero-crossing bound; it does not itself choose a numerical `N` or
 prove the C3 prime budget.
+
+Finally, the same series proof gives the exact symmetry
+`c3Sigma (-xi) = c3Sigma xi`. The remaining profile-sign work may therefore
+be restricted to nonnegative heights, while the detector-specific signed
+budget remains unchanged and open.
