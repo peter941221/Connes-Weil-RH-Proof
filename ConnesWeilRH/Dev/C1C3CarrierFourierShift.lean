@@ -21,6 +21,7 @@ namespace C1C3CarrierTransport
 
 open MeasureTheory
 open ConnesWeilRH.Source.C1XiArithmeticPrimePowerReadback
+open ConnesWeilRH.Source.CC20YoshidaConvolution
 open ConnesWeilRH.Source.CCM25Concrete.CompactLogConvolution
 
 noncomputable def c3FourierIntegral
@@ -94,6 +95,24 @@ theorem c3CarrierFourierIntegral_eq_fourierLaplace_shift
         (-2 * Real.pi * (ξ + γ / (2 * Real.pi))) := by
   rw [c3CarrierFourierIntegral_eq_frequency_shift,
     c3FourierIntegral_eq_fourierLaplace]
+
+theorem laplaceAt_carrierModulate_eq_shift
+    (γ : Real) (f : CompactLogTest) (s : Complex) :
+    CompactLogTest.laplaceAt (carrierModulate γ f) s =
+      CompactLogTest.laplaceAt f (s - (γ : Complex) * Complex.I) := by
+  unfold CompactLogTest.laplaceAt
+  simp only [CompactLogTest.exponentialWeight_apply, carrierModulate_apply]
+  apply integral_congr_ae
+  filter_upwards with x
+  unfold carrierExp
+  have hphase :
+      (s - (γ : Complex) * Complex.I) * (x : Complex) =
+        s * (x : Complex) +
+          ((-γ * x : Real) : Complex) * Complex.I := by
+    push_cast
+    ring
+  rw [hphase, Complex.exp_add]
+  ring
 
 end C1C3CarrierTransport
 end Dev

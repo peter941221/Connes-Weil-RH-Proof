@@ -33,3 +33,9 @@ The same file also identifies this integral with the existing
 `C1XiArithmeticPrimePowerReadback.fourierLaplace` owner, so the shift is now
 usable by the vertical Gamma/Xi readback rather than being an isolated
 auxiliary transform.
+
+Further formal follow-up: `laplaceAt_carrierModulate_eq_shift` proves the
+same transport in the bilateral Laplace owner,
+`Laplace(carrierModulate gamma f, s) = Laplace(f, s - gamma*i)`. This is the
+coordinate identity needed before defining and estimating the sigma weight;
+the sigma identity and its negative sign remain open.
