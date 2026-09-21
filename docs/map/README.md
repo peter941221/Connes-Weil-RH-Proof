@@ -19,6 +19,16 @@ integrand changes sign already at the prime powers through 5. These results
 do not refute the support-dependent B5 target or supply its nonnegativity.
 The route and the S3 status in 045/046 are unchanged.
 
+## C3' carrier transport, 2026-09-21
+
+[075](075_c3p_carrier_transport_after_1800.md) records the analytic opening
+of the two-span producer (record 1800, one formal brick + one paper page):
+carrier transport is a theorem — every prime cell of a carrier square reads
+through one real phase factor `e^{-iγ log n}` — and the carrier-square
+Archimedean face is `σ(−γ)·‖u‖² + O(1/γ)` with a theorem-grade negative
+symbol past ξ*. The C3' producer reduces to an envelope-level inequality at
+fixed γ; the phase dimension is eliminated. No positivity or RH statement.
+
 ## Orbit-sum pin realized, 2026-09-21
 
 [074](074_orbit_sum_pin_after_1799.md) records the orbit-sum pin (record
