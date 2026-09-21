@@ -60,3 +60,8 @@ the same GammaR owner and proves its exact identity with minus twice the real
 part of `logDeriv GammaR` at `1/2 - xi*I`. This is formal route evidence for
 the coordinate identity only; sigma negativity and the full signed budget
 remain open.
+
+The same leaf now proves `c3Sigma xi - c3Sigma 0` as the real part of an
+explicit convergent reciprocal-difference series. This is the formal series
+owner for a future tail/sign certificate; it still supplies no numerical
+threshold and no aggregate C3 inequality.

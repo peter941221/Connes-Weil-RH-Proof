@@ -46,5 +46,64 @@ theorem c3Sigma_eq_neg_two_re_logDeriv_GammaR (xi : Real) :
   norm_num [Complex.div_re, Complex.mul_re, Complex.log_re]
   ring_nf
 
+theorem c3Sigma_sub_zero_eq_neg_re_reciprocalDifferenceSeries (xi : Real) :
+    c3Sigma xi - c3Sigma 0 =
+      -((∑' n : Nat,
+          ((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) +
+                (((1 / 4 : Real) : Complex) - ((xi : Complex) * Complex.I) / 2))⁻¹) -
+            (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + ((1 / 4 : Real) : Complex))⁻¹))).re) := by
+  let z : Complex :=
+    (((1 / 4 : Real) : Complex) - ((xi : Complex) * Complex.I) / 2)
+  let z0 : Complex := ((1 / 4 : Real) : Complex)
+  have hz : 0 < z.re := by
+    dsimp [z]
+    norm_num [Complex.div_re, Complex.mul_re]
+  have hz0 : 0 < z0.re := by
+    dsimp [z0]
+    norm_num
+  have hsix : Summable (fun n : Nat =>
+      ((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + z)⁻¹) :=
+    Source.C1XiCenterTwoGamma.summable_halfAnchorGaussReciprocalSeries hz
+  have hs0 : Summable (fun n : Nat =>
+      ((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + z0)⁻¹) :=
+    Source.C1XiCenterTwoGamma.summable_halfAnchorGaussReciprocalSeries hz0
+  have hxi :=
+    Source.C1XiCenterTwoGamma.halfAnchorGaussReciprocalSeries_eq_digamma_sub_half_of_pos hz
+  have hzero :=
+    Source.C1XiCenterTwoGamma.halfAnchorGaussReciprocalSeries_eq_digamma_sub_half_of_pos hz0
+  have hdiff : Complex.digamma z - Complex.digamma z0 =
+      ∑' n : Nat,
+        ((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+            ((n : Complex) + z)⁻¹) -
+          (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+            ((n : Complex) + z0)⁻¹)) := by
+    calc
+      Complex.digamma z - Complex.digamma z0 =
+          (Complex.digamma z - Complex.digamma (1 / 2 : Complex)) -
+            (Complex.digamma z0 - Complex.digamma (1 / 2 : Complex)) := by
+        ring
+      _ = (∑' n : Nat,
+          (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+            ((n : Complex) + z)⁻¹)) -
+          (∑' n : Nat,
+            (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + z0)⁻¹)) := by
+        rw [hxi, hzero]
+      _ = ∑' n : Nat,
+          ((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + z)⁻¹) -
+            (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + z0)⁻¹)) := by
+        exact (hsix.tsum_sub hs0).symm
+  have hreal := congrArg Complex.re hdiff
+  dsimp [c3Sigma, z, z0]
+  dsimp [z, z0] at hreal
+  simp only [mul_zero, zero_mul, zero_div, sub_zero]
+  linarith
+
 end Dev
 end ConnesWeilRH
