@@ -129,6 +129,51 @@ theorem orbitPhysicalKernel_nodeTerm_le_of_plus_integrand_bound
     exact mul_nonneg ArithmeticFunction.vonMangoldt_nonneg (by positivity)
   exact mul_le_mul_of_nonneg_left hsum hcoeff
 
+def orbitPositiveIntegrandMajorant
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : Nat) : Real → Real :=
+  fun t => max
+    (orbitWeightedKernelIntegrand geometry (Real.log n) t).re 0
+
+theorem orbitPositiveIntegrandMajorant_integrable
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : Nat) :
+    Integrable (orbitPositiveIntegrandMajorant geometry n) := by
+  have hreal : Integrable (fun t =>
+      (orbitWeightedKernelIntegrand geometry (Real.log n) t).re) :=
+    Complex.reCLM.integrable_comp
+      (orbitWeightedKernelIntegrand_integrable geometry (Real.log n))
+  have hmax := hreal.norm.mono_nonneg
+    (by fun_prop : AEStronglyMeasurable
+      (fun t : Real => max
+        (orbitWeightedKernelIntegrand geometry (Real.log n) t).re 0) volume)
+    (Filter.Eventually.of_forall (fun t => le_max_right _ _))
+    (Filter.Eventually.of_forall (fun t =>
+      max_le (le_abs_self _) (abs_nonneg _)))
+  simpa [orbitPositiveIntegrandMajorant, Real.norm_eq_abs] using hmax
+
+theorem orbitPositiveIntegrandMajorant_pointwise
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : Nat) :
+    ∀ᵐ t ∂(volume : Measure Real),
+      (orbitWeightedKernelIntegrand geometry (Real.log n) t).re ≤
+        orbitPositiveIntegrandMajorant geometry n t := by
+  filter_upwards with t
+  exact le_max_left _ _
+
+theorem orbitPhysicalKernel_nodeTerm_le_of_positivePart
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : Nat) :
+    ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+        (orbitPhysicalKernel geometry (Real.log n) +
+          orbitPhysicalKernel geometry (-Real.log n)).re ≤
+      ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+        (2 * (∫ t, orbitPositiveIntegrandMajorant geometry n t)) := by
+  exact orbitPhysicalKernel_nodeTerm_le_of_plus_integrand_bound geometry n
+    (orbitPositiveIntegrandMajorant geometry n)
+    (orbitPositiveIntegrandMajorant_integrable geometry n)
+    (orbitPositiveIntegrandMajorant_pointwise geometry n)
+
 structure OrbitPhysicalKernelIntegrandCertificate
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) where

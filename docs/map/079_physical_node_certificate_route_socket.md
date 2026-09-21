@@ -83,3 +83,11 @@ this one-sided certificate directly for every hypothetical right zero and
 feeds the existing `SourceRH` implication. The remaining open producer is
 therefore exactly the construction of that certificate, not any further route
 conversion.
+
+The canonical choice
+`orbitPositiveIntegrandMajorant geometry n := max (Re I(log n, t)) 0` is now
+formal: it is integrable, pointwise dominates the real integrand, and yields a
+node bound with the reflection factor two. Hence the unresolved finite estimate
+can be stated without arbitrary auxiliary functions: it is exactly the
+positive-part integral budget for the actual physical kernel plus the
+Archimedean term. This remains an open signed estimate, not a positivity claim.
