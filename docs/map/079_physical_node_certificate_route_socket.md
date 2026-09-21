@@ -223,13 +223,17 @@ face is bounded by the product of their two square-root masses. This separates
 the remaining analytic work into two energy obligations without changing the
 detector owner or claiming a sign.
 
-The raw obligation is now formally discharged by
+Both integrability obligations are now formally discharged. The raw
+obligation is handled by
 `orbitRawFactor_reflected_memLp_two`: the orbit raw test is Schwartz, and
 reflection through `t |-> -t` preserves Lebesgue measure. The reduced socket
-`finitePrimeSum_le_l2_common_factor_profile_mass_of_profile` therefore needs
-only the same-owner MemLp(2) certificate for the finite-prime phase profile;
-the corresponding profile energy bound remains open. This is a formal
-functional-analytic reduction, not a positivity result.
+`orbitFiniteComplexPhysicalKernelProfile_memLp_two` handles the finite-prime
+profile by expressing every summand as a translated/reflected exponentially
+weighted Schwartz test and closing under finite sums. Thus
+`finitePrimeSum_le_l2_common_factor_profile_mass_of_profile` is now a fully
+typed same-owner L2 socket. The remaining obligation is quantitative: bound
+the profile square-root mass strongly enough against the Archimedean term.
+This is a formal functional-analytic reduction, not a positivity result.
 
 Using the raw-factor support, the same estimate is now localized to the exact
 finite window by

@@ -697,6 +697,78 @@ theorem orbitRawFactor_reflected_memLp_two
   simpa [Function.comp_def] using
     htest.comp_measurePreserving (Measure.measurePreserving_neg volume)
 
+theorem orbitFiniteComplexPhysicalKernelProfile_memLp_two
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    MemLp (orbitFiniteComplexPhysicalKernelProfile geometry)
+      (ENNReal.ofReal 2) := by
+  let raw := orbitRawFactor geometry
+  let weighted : SchwartzMap ℝ ℂ :=
+    (CompactLogTest.exponentialWeight raw (1 : Complex)).test
+  have hterm : ∀ n ∈ orbitVisiblePrimeRange geometry,
+      MemLp (fun t : Real =>
+        ((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+          Complex.exp (((Real.log n / 2 - t : Real) : Complex)) * raw.test (Real.log n - t))
+        (ENNReal.ofReal 2) := by
+    intro n hn
+    let shifted : SchwartzMap ℝ ℂ :=
+      SchwartzMap.compCLMOfContinuousLinearEquiv ℂ
+        (LinearIsometryEquiv.neg ℝ (E := ℝ))
+        (SchwartzMap.compSubConstCLM ℂ (-Real.log n) weighted)
+    have hs : MemLp (shifted : Real → Complex) (ENNReal.ofReal 2) := by
+      simpa using (SchwartzMap.memLp shifted 2)
+    have hc := hs.const_mul
+      (((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+        Complex.exp (((-Real.log n / 2 : Real) : Complex)))
+    convert hc using 1
+    funext t
+    simp only [shifted, weighted,
+      SchwartzMap.compCLMOfContinuousLinearEquiv_apply,
+      SchwartzMap.compSubConstCLM_apply, Function.comp_apply,
+      CompactLogTest.exponentialWeight_apply, one_mul]
+    simp [LinearIsometryEquiv.neg, LinearEquiv.neg, Complex.natCast_log]
+    have hlog : (Real.log (n : Real) : Complex) = Complex.log (n : Complex) := by
+      exact Complex.natCast_log
+    rw [← hlog]
+    have harg : -t + Real.log n = Real.log n - t := by ring
+    have hcoeff :
+        (2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) =
+          ArithmeticFunction.vonMangoldt n * (Real.sqrt (n : Real))⁻¹ * 2 := by
+      simp only [one_div]
+      ring
+    rw [harg]
+    have he :
+        Complex.exp (-((Real.log n : Real) : Complex) / 2) *
+            Complex.exp (-(t : Complex) + ((Real.log n : Real) : Complex)) =
+          Complex.exp (((Real.log n : Real) : Complex) / 2 - (t : Complex)) := by
+      rw [← Complex.exp_add]
+      congr 1
+      ring
+    have he_target :
+        Complex.exp (((Real.log n : Real) : Complex) / 2 - (t : Complex)) =
+          Complex.exp (((-Real.log n / 2 : Real) : Complex)) *
+            Complex.exp (((-t + Real.log n : Real) : Complex)) := by
+      simpa using he.symm
+    calc
+      _ = ((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+          (Complex.exp (((-Real.log n / 2 : Real) : Complex)) *
+          Complex.exp (((-t + Real.log n : Real) : Complex))) *
+          raw.test (Real.log n - t) := by
+        rw [he_target]
+        rw [hcoeff]
+        norm_num [Complex.ofReal_mul, Complex.ofReal_inv]
+        ring_nf <;> simp
+      _ = _ := by
+        rw [hcoeff]
+        norm_num [Complex.ofReal_mul, Complex.ofReal_inv]
+        ring
+  unfold orbitFiniteComplexPhysicalKernelProfile
+  have hsum :=
+    MeasureTheory.memLp_finsetSum' (orbitVisiblePrimeRange geometry) hterm
+  convert hsum using 1
+  ext t
+  simp [Finset.sum_apply, raw]
+
 theorem finitePrimeSum_le_l2_common_factor_profile_mass_of_profile
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g)
