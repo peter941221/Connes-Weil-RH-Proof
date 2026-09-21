@@ -126,3 +126,11 @@ The finite arithmetic interface is now explicit in
 exceeds 24 gives a strict negative sigma at height `2*(K+1)`. The proof is
 parameterized and never unfolds the range, so a later `ceil(exp 25)` or other
 exact harmonic certificate can instantiate it without large-range recursion.
+
+That supplier is now instantiated formally by
+`c3Sigma_neg_at_exp_ceiling`: with `K = Nat.ceil (Real.exp 25)`, the harmonic
+lower bound gives a concrete exact negative height
+`2 * (Nat.ceil (exp 25) + 1)`. This closes the Archimedean sigma-sign
+certificate on its own owner. It still does not prove that a hypothetical
+off-line zero has this height, and it does not close the detector-specific
+visible-prime signed budget.

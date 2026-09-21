@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 import ConnesWeilRH.Dev.C1C3GammaRBound
 import Mathlib.Analysis.Real.Pi.Bounds
+import Mathlib.NumberTheory.Harmonic.Bounds
 
 /-!
 # C3' sigma kernel
@@ -562,6 +563,34 @@ theorem c3Sigma_neg_of_harmonic_certificate {K : Nat}
                 (((n : Real) + 1 / 4) ^ 2 +
                   ((2 * ((K : Real) + 1)) / 2) ^ 2))) := hfinite
     _ < 0 := by linarith [c3Sigma_zero_lt_twelve, hsum']
+
+theorem c3Sigma_neg_at_exp_ceiling :
+    c3Sigma (2 * ((Nat.ceil (Real.exp 25) : Nat) + 1)) < 0 := by
+  let K : Nat := Nat.ceil (Real.exp 25)
+  have hceil : Real.exp 25 ≤ (K : Real) := by
+    dsimp [K]
+    exact Nat.le_ceil _
+  have hKpos : 0 < (K : Real) := by
+    have hexp : 0 < Real.exp 25 := Real.exp_pos _
+    linarith
+  have hlogK : 25 ≤ Real.log (K : Real) := by
+    have hlog := Real.log_le_log (Real.exp_pos 25) hceil
+    simpa using hlog
+  have hlogK1 : (24 : Real) < Real.log ((K : Real) + 1) := by
+    have hloglt : Real.log (K : Real) < Real.log ((K : Real) + 1) :=
+      Real.log_lt_log hKpos (by linarith)
+    linarith
+  have hharmonic : (24 : Real) <
+      ∑ n ∈ Finset.range K, (1 / ((n : Real) + 1) : Real) := by
+    have hlog := log_add_one_le_harmonic K
+    have hlog' : Real.log ((K : Real) + 1) ≤ (harmonic K : Real) := by
+      simpa only [Nat.cast_add, Nat.cast_one] using hlog
+    have hsum_eq : (harmonic K : Real) =
+        ∑ n ∈ Finset.range K, (1 / ((n : Real) + 1) : Real) := by
+      simp [harmonic]
+    exact lt_of_lt_of_le hlogK1 (hsum_eq ▸ hlog')
+  have hneg := c3Sigma_neg_of_harmonic_certificate hharmonic
+  simpa [K] using hneg
 
 theorem exists_c3Sigma_neg : ∃ xi : Real, c3Sigma xi < 0 := by
   obtain ⟨N, hN⟩ := exists_nat_gt (c3Sigma 0)
