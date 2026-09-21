@@ -6,8 +6,10 @@ namespace C1C3CarrierTransport
 
 #print axioms c3FourierIntegral
 #print axioms c3CarrierFourierIntegral
+#print axioms c3FourierIntegral_eq_fourierLaplace
 #print axioms c3CarrierFourierIntegral_eq_frequency_shift
 #print axioms c3CarrierFourierIntegral_zero_frequency_shift
+#print axioms c3CarrierFourierIntegral_eq_fourierLaplace_shift
 
 end C1C3CarrierTransport
 end Dev

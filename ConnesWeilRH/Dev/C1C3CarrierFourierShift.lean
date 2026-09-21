@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Dev.C1C3CarrierTransport
+import ConnesWeilRH.Dev.C1XiArithmeticPrimePowerReadback
 
 /-!
 # C3' carrier Fourier shift
@@ -19,6 +20,7 @@ namespace Dev
 namespace C1C3CarrierTransport
 
 open MeasureTheory
+open ConnesWeilRH.Source.C1XiArithmeticPrimePowerReadback
 open ConnesWeilRH.Source.CCM25Concrete.CompactLogConvolution
 
 noncomputable def c3FourierIntegral
@@ -30,6 +32,21 @@ noncomputable def c3FourierIntegral
 noncomputable def c3CarrierFourierIntegral
     (γ : Real) (f : CompactLogTest) (ξ : Real) : Complex :=
   c3FourierIntegral (carrierModulate γ f) ξ
+
+theorem c3FourierIntegral_eq_fourierLaplace
+    (f : CompactLogTest) (ξ : Real) :
+    c3FourierIntegral f ξ =
+      fourierLaplace f.test (-2 * Real.pi * ξ) := by
+  unfold c3FourierIntegral fourierLaplace
+  apply integral_congr_ae
+  filter_upwards with x
+  have hphase :
+      -(((2 * Real.pi * ξ * x : Real) : Complex) * Complex.I) =
+        (((-2 * Real.pi * ξ : Real) : Complex) * (x : Complex) * Complex.I) := by
+    push_cast
+    ring
+  rw [hphase]
+  ring
 
 theorem c3CarrierFourierIntegral_eq_frequency_shift
     (γ : Real) (f : CompactLogTest) (ξ : Real) :
@@ -69,6 +86,14 @@ theorem c3CarrierFourierIntegral_zero_frequency_shift
     c3CarrierFourierIntegral γ f 0 =
       c3FourierIntegral f (γ / (2 * Real.pi)) := by
   simpa using c3CarrierFourierIntegral_eq_frequency_shift γ f 0
+
+theorem c3CarrierFourierIntegral_eq_fourierLaplace_shift
+    (γ : Real) (f : CompactLogTest) (ξ : Real) :
+    c3CarrierFourierIntegral γ f ξ =
+      fourierLaplace f.test
+        (-2 * Real.pi * (ξ + γ / (2 * Real.pi))) := by
+  rw [c3CarrierFourierIntegral_eq_frequency_shift,
+    c3FourierIntegral_eq_fourierLaplace]
 
 end C1C3CarrierTransport
 end Dev

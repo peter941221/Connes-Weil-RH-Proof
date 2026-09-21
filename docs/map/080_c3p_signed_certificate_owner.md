@@ -28,3 +28,8 @@ frequency transport
 including the zero-frequency specialization. This is the algebraic front of
 the paper sigma-shift argument; it does not prove a sigma identity, a sign,
 or the phase budget.
+
+The same file also identifies this integral with the existing
+`C1XiArithmeticPrimePowerReadback.fourierLaplace` owner, so the shift is now
+usable by the vertical Gamma/Xi readback rather than being an isolated
+auxiliary transform.
