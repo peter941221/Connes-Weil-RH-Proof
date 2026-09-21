@@ -129,3 +129,10 @@ The finite owner now also has a single signed-integrand representation:
 the finite prime face. This permits estimates after summing the visible prime
 channels pointwise, retaining cross-prime cancellation before the final
 Archimedean comparison.
+
+For direct kernel estimates, the equivalent raw owner
+`orbitFinitePhysicalKernelIntegrand` is now formal and integrable:
+`finitePrimeSum` is exactly its integral, with integrand
+`Σ 2 * Λ(n)/sqrt(n) * Re I(log n,t)`. The positive/negative split remains
+available as an exact proof of the same identity, while estimates may now act
+on the summed oscillatory kernel itself.
