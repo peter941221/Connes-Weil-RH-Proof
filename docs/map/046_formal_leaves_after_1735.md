@@ -240,6 +240,15 @@ The paired Audit build is green with no `sorryAx`.
 The scattering-phase L1 estimate, S3 kernel-diagonal majorant,
 detector-specific semi-local positivity, and RH remain open.
 
+## Formal update 1794 (2026-09-21)
+
+`norm_deriv_ccm24ArchimedeanScatteringPhase_le_linear` transfers the GammaR
+logarithmic derivative's linear growth to the actual unit-modulus scattering
+phase. The exact quotient identity removes the factor-size dependence. This
+is formal quantitative evidence for the W2,1 product route; the phase
+second-derivative bound, full L1 estimate, S3 majorant, semi-local positivity,
+and RH remain open.
+
 ## Formal update 1792 (2026-09-21)
 
 `norm_deriv_ccm24CriticalGammaRLogDeriv_le` proves a global bound for the

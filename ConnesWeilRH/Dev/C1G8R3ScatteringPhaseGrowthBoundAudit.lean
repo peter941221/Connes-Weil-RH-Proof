@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3ScatteringPhaseGrowthBound
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check norm_deriv_ccm24ArchimedeanScatteringPhase_le_linear
+#print axioms norm_deriv_ccm24ArchimedeanScatteringPhase_le_linear
+
+end Dev
+end ConnesWeilRH
