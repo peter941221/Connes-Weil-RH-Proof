@@ -14,6 +14,7 @@ namespace Dev
 #print axioms re_c3Sigma_reciprocalDifferenceTerm_pos_of_ne_zero
 #print axioms c3Sigma_lt_at_zero_of_ne_zero
 #print axioms c3Sigma_le_at_zero_sub_finite_sum
+#print axioms exists_c3Sigma_neg
 #print axioms c3Sigma_neg_eq
 
 end Dev

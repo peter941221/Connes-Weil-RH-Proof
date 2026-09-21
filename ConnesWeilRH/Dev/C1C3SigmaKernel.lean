@@ -411,6 +411,92 @@ theorem c3Sigma_le_at_zero_sub_finite_sum (xi : Real) (N : Nat) :
       _ ≤ _ := hfinite
   linarith
 
+theorem exists_c3Sigma_neg : ∃ xi : Real, c3Sigma xi < 0 := by
+  obtain ⟨N, hN⟩ := exists_nat_gt (c3Sigma 0)
+  have hdiv :=
+    Real.tendsto_sum_range_one_div_nat_succ_atTop.eventually
+      (Filter.eventually_gt_atTop (2 * (N : Real)))
+  obtain ⟨K, hK⟩ := hdiv.exists
+  let xi : Real := 2 * (K + 1)
+  have hterm : ∀ n ∈ Finset.range K,
+      (1 / 2 : Real) * (1 / ((n : Real) + 1)) ≤
+        (xi / 2) ^ 2 /
+          (((n : Real) + 1 / 4) *
+            (((n : Real) + 1 / 4) ^ 2 + (xi / 2) ^ 2)) := by
+    intro n hn
+    have hnK : n < K := Finset.mem_range.mp hn
+    let a : Real := (n : Real) + 1 / 4
+    let b : Real := (n : Real) + 1
+    let x : Real := xi / 2
+    have ha : 0 < a := by
+      dsimp [a]
+      positivity
+    have hb : 0 < b := by
+      dsimp [b]
+      positivity
+    have hxab : a ≤ b := by
+      dsimp [a, b]
+      norm_num
+    have hnb : b ≤ x := by
+      dsimp [b, x, xi]
+      have hcast : (n : Real) + 1 ≤ (K : Real) + 1 := by
+        exact_mod_cast Nat.succ_le_succ (Nat.le_of_lt hnK)
+      linarith
+    have hax : a ≤ x := hxab.trans hnb
+    have hsq : a ^ 2 ≤ x ^ 2 := by
+      nlinarith [sq_nonneg (x - a)]
+    have hden₁ : 0 < 2 * b := by positivity
+    have hden₂ : 0 < a * (a ^ 2 + x ^ 2) := by positivity
+    have hrewrite : (1 / 2 : Real) * (1 / b) = 1 / (2 * b) := by
+      field_simp
+    rw [hrewrite]
+    change 1 / (2 * b) ≤ x ^ 2 / (a * (a ^ 2 + x ^ 2))
+    apply (div_le_div_iff₀ hden₁ hden₂).2
+    calc
+      1 * (a * (a ^ 2 + x ^ 2)) ≤
+          1 * (b * (a ^ 2 + x ^ 2)) := by
+        gcongr
+      _ ≤ 1 * (b * (2 * x ^ 2)) := by
+        gcongr
+        nlinarith
+      _ = x ^ 2 * (2 * b) := by ring
+  have hsum :
+      (∑ n ∈ Finset.range K, (1 / 2 : Real) * (1 / ((n : Real) + 1))) ≤
+        ∑ n ∈ Finset.range K,
+          (xi / 2) ^ 2 /
+            (((n : Real) + 1 / 4) *
+              (((n : Real) + 1 / 4) ^ 2 + (xi / 2) ^ 2)) := by
+    exact Finset.sum_le_sum (fun n hn => hterm n hn)
+  have hhalf : (N : Real) <
+      ∑ n ∈ Finset.range K, (1 / 2 : Real) * (1 / ((n : Real) + 1)) := by
+    have hK' : 2 * (N : Real) <
+        ∑ n ∈ Finset.range K, (1 / ((n : Real) + 1) : Real) := by
+      simpa using hK
+    have heq :
+        (∑ n ∈ Finset.range K, (1 / 2 : Real) * (1 / ((n : Real) + 1))) =
+            (1 / 2 : Real) *
+            (∑ n ∈ Finset.range K, (1 / ((n : Real) + 1) : Real)) := by
+      rw [Finset.mul_sum]
+    rw [heq]
+    nlinarith [hK']
+  have hfinite := c3Sigma_le_at_zero_sub_finite_sum xi K
+  dsimp [xi] at hfinite hterm hsum
+  have hsum' : (N : Real) <
+      ∑ n ∈ Finset.range K,
+        ((2 * (K + 1) / 2) ^ 2 /
+          (((n : Real) + 1 / 4) *
+            (((n : Real) + 1 / 4) ^ 2 + (2 * (K + 1) / 2) ^ 2))) := by
+    exact lt_of_lt_of_le hhalf hsum
+  refine ⟨2 * (K + 1), ?_⟩
+  calc
+    c3Sigma (2 * (K + 1)) ≤
+        c3Sigma 0 -
+          ∑ n ∈ Finset.range K,
+            ((2 * (K + 1) / 2) ^ 2 /
+              (((n : Real) + 1 / 4) *
+                (((n : Real) + 1 / 4) ^ 2 + (2 * (K + 1) / 2) ^ 2))) := hfinite
+    _ < 0 := by linarith [hN, hsum']
+
 theorem c3Sigma_neg_eq (xi : Real) :
     c3Sigma (-xi) = c3Sigma xi := by
   let zpos : Complex :=

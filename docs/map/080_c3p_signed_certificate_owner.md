@@ -100,3 +100,10 @@ owner, yielding the global theorem `c3Sigma_antitone_of_nonneg`: for
 negative point propagates to every higher nonnegative height. This remains a
 formal propagation result only; it supplies neither the first negative point
 nor the detector-specific signed prime budget.
+
+The finite-sum certificate has now been combined with divergence of the
+harmonic series to prove `exists_c3Sigma_neg`: some real height has strictly
+negative sigma. The construction is exact and axiom-clean, with no numerical
+approximation. This closes only existential Archimedean sign; it does not give
+an explicit threshold for a hypothetical zero height, nor the same-owner
+detector-specific signed prime budget required by the B5 producer.
