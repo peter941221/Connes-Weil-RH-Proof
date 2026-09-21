@@ -967,6 +967,34 @@ theorem sourceRH_of_right_orbitGeometry_finitePhysicalKernelIntervalBudget
   rw [hrewrite] at hbudget
   exact hbudget
 
+theorem sourceRH_of_right_orbitGeometry_interval_common_factor_profile_norm_budget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            archimedeanTerm g.convolutionSquare +
+                ∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+                  (((geometry.orbitIndex + 2 : Nat) : Real)),
+                  ‖(orbitRawFactor geometry).test (-t)‖ *
+                    ‖orbitFiniteComplexPhysicalKernelProfile geometry t‖ ≤ 0) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_right_orbitGeometry_finitePhysicalKernelIntervalBudget
+  intro rho hright
+  obtain ⟨g, geometry, hbudget⟩ := hproducer rho hright
+  have hle := finitePrimeSum_le_intervalIntegral_common_factor_profile_norm geometry
+  have hraw :
+      (∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+          (((geometry.orbitIndex + 2 : Nat) : Real)),
+          orbitFinitePhysicalKernelIntegrand geometry t) ≤
+        ∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+          (((geometry.orbitIndex + 2 : Nat) : Real)),
+          ‖(orbitRawFactor geometry).test (-t)‖ *
+            ‖orbitFiniteComplexPhysicalKernelProfile geometry t‖ := by
+    rw [← finitePrimeSum_eq_intervalIntegral_finitePhysicalKernelIntegrand geometry]
+    exact hle
+  refine ⟨g, geometry, ?_⟩
+  linarith
+
 end
 end C1P2OrbitPhysicalKernelIntegrandBounds
 end Source

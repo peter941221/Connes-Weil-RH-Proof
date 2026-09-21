@@ -223,6 +223,13 @@ current scalar comparison socket against the Archimedean window term; it
 retains the aggregate profile but still does not prove its required negative
 signed balance.
 
+The full conditional route is now composed by
+`sourceRH_of_right_orbitGeometry_interval_common_factor_profile_norm_budget`.
+For every hypothetical right zero, the remaining analytic producer obligation
+is exactly one actual-geometry Archimedean-plus-profile-window inequality;
+that inequality implies the same-owner gate and then `SourceRH`. No such
+inequality has yet been proved.
+
 The profile-window budget is now consumed by
 `orbitWindowSemiLocalGate_of_interval_common_factor_profile_norm_budget`:
 an Archimedean-plus-profile-norm inequality is sufficient for the actual
