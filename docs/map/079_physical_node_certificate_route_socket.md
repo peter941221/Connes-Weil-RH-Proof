@@ -110,3 +110,9 @@ The split is now summed over the exact finite visible-prime owner by
 therefore an exact sum of weighted positive integrals minus weighted negative
 integrals, with no replacement by a continuous density, frozen prime set, or
 absolute-value envelope.
+
+The exact gate consumer is now also rewritten by
+`orbitWindowSemiLocalGate_iff_positive_sub_negative_integral_budget`: the
+same-owner semi-local gate is equivalent to the Archimedean term plus the
+finite weighted positive-integral mass minus negative-integral mass being at
+most zero. This is the final integral-level sign target for the live route.

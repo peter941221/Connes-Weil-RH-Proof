@@ -263,6 +263,30 @@ theorem finitePrimeSum_eq_positive_sub_negative_integrals
   intro n _hn
   exact orbitPhysicalKernel_nodeTerm_eq_positive_sub_negative geometry n
 
+theorem orbitWindowSemiLocalGate_iff_positive_sub_negative_integral_budget
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    C1OrbitWindowSemiLocalGate.orbitWindowSemiLocalGate g ↔
+      archimedeanTerm g.convolutionSquare +
+          Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+            ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+              (2 * ((∫ t, orbitPositiveIntegrandMajorant geometry n t) -
+                ∫ t, orbitNegativeIntegrandMajorant geometry n t))) ≤ 0 := by
+  rw [orbitWindowSemiLocalGate_iff_physicalKernelBudget geometry]
+  have hsum :
+      Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+          (orbitPhysicalKernel geometry (Real.log n) +
+            orbitPhysicalKernel geometry (-Real.log n)).re) =
+      Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+          (2 * ((∫ t, orbitPositiveIntegrandMajorant geometry n t) -
+            ∫ t, orbitNegativeIntegrandMajorant geometry n t))) := by
+    apply Finset.sum_congr rfl
+    intro n _hn
+    exact orbitPhysicalKernel_nodeTerm_eq_positive_sub_negative geometry n
+  rw [hsum]
+
 theorem orbitPhysicalKernel_nodeTerm_le_of_positivePart
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) (n : Nat) :
