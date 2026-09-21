@@ -129,6 +129,11 @@ without changing the carrier or visible-prime owner. This closes the
 representation bridge to the selected detector; the quantitative margin
 comparison remains open.
 
+The same adapter now feeds the actual `orbitWindowSemiLocalGate`: under the
+Archimedean bound `arch <= -delta`, it is enough to prove one scalar inequality
+that the cutoff budget is at most `delta`. This is the current detector-specific
+producer socket; no budget sign or RH conclusion is asserted.
+
 - **Carrier transport (formal)**: same-carrier pair tests transport the
   carrier exactly; the square channel and the Weil pair sum collapse to
   `2·Re[e^{-iγy}·G(y)]`; every prime cell reads `Λ(n)·2/√n·Re[e^{-iγ log
