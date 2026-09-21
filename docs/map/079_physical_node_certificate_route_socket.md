@@ -97,3 +97,10 @@ The final producer socket is now explicit in
 geometry satisfying the canonical positive-part finite budget directly implies
 `SourceRH`. All auxiliary certificate packaging has been eliminated from the
 statement of the remaining mathematical target.
+
+To preserve cancellation, the same owner now has an exact positive/negative
+physical-integrand split: both parts are integrable, their difference is the
+real integrand pointwise, and the bilateral node equals twice the difference
+of their integrals. This replaces any forced absolute-value reading by an
+exact signed integral identity; the remaining estimate may bound positive and
+negative masses separately.

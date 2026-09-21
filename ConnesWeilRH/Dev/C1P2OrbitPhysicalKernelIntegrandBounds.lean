@@ -161,6 +161,95 @@ theorem orbitPositiveIntegrandMajorant_pointwise
   filter_upwards with t
   exact le_max_left _ _
 
+def orbitNegativeIntegrandMajorant
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : Nat) : Real → Real :=
+  fun t => max
+    (-(orbitWeightedKernelIntegrand geometry (Real.log n) t).re) 0
+
+theorem orbitNegativeIntegrandMajorant_integrable
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : Nat) :
+    Integrable (orbitNegativeIntegrandMajorant geometry n) := by
+  have hreal : Integrable (fun t =>
+      (orbitWeightedKernelIntegrand geometry (Real.log n) t).re) :=
+    Complex.reCLM.integrable_comp
+      (orbitWeightedKernelIntegrand_integrable geometry (Real.log n))
+  have hneg := hreal.neg
+  have hmax := hneg.norm.mono_nonneg
+    (by fun_prop : AEStronglyMeasurable
+      (fun t : Real => max
+        (-(orbitWeightedKernelIntegrand geometry (Real.log n) t).re) 0) volume)
+    (Filter.Eventually.of_forall (fun t => le_max_right _ _))
+    (Filter.Eventually.of_forall (fun t =>
+      max_le (le_abs_self _) (abs_nonneg _)))
+  simpa [orbitNegativeIntegrandMajorant, Real.norm_eq_abs, abs_neg] using hmax
+
+theorem orbitPositive_sub_negative_eq_integrand_re
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : Nat) (t : Real) :
+    orbitPositiveIntegrandMajorant geometry n t -
+        orbitNegativeIntegrandMajorant geometry n t =
+      (orbitWeightedKernelIntegrand geometry (Real.log n) t).re := by
+  by_cases h : 0 ≤ (orbitWeightedKernelIntegrand geometry (Real.log n) t).re
+  · have hneg : -(orbitWeightedKernelIntegrand geometry (Real.log n) t).re ≤ 0 :=
+      neg_nonpos.mpr h
+    simp [orbitPositiveIntegrandMajorant, orbitNegativeIntegrandMajorant,
+      max_eq_left h, max_eq_right hneg]
+  · have hnonpos : (orbitWeightedKernelIntegrand geometry (Real.log n) t).re ≤ 0 :=
+      le_of_not_ge h
+    have hneg : 0 ≤ -(orbitWeightedKernelIntegrand geometry (Real.log n) t).re :=
+      neg_nonneg.mpr hnonpos
+    simp [orbitPositiveIntegrandMajorant, orbitNegativeIntegrandMajorant,
+      max_eq_right hnonpos, max_eq_left hneg]
+
+theorem orbitPhysicalKernel_re_eq_positive_sub_negative
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : Nat) :
+    (orbitPhysicalKernel geometry (Real.log n)).re =
+      (∫ t, orbitPositiveIntegrandMajorant geometry n t) -
+        ∫ t, orbitNegativeIntegrandMajorant geometry n t := by
+  have hpos := orbitPositiveIntegrandMajorant_integrable geometry n
+  have hneg := orbitNegativeIntegrandMajorant_integrable geometry n
+  have hreal : Integrable (fun t =>
+      (orbitWeightedKernelIntegrand geometry (Real.log n) t).re) :=
+    Complex.reCLM.integrable_comp
+      (orbitWeightedKernelIntegrand_integrable geometry (Real.log n))
+  have hsum :
+      (∫ t, orbitPositiveIntegrandMajorant geometry n t) -
+        ∫ t, orbitNegativeIntegrandMajorant geometry n t =
+      ∫ t, (orbitWeightedKernelIntegrand geometry (Real.log n) t).re := by
+    rw [← integral_sub hpos hneg]
+    apply integral_congr_ae
+    filter_upwards with t
+    exact orbitPositive_sub_negative_eq_integrand_re geometry n t
+  have hre : (orbitPhysicalKernel geometry (Real.log n)).re =
+      ∫ t, (orbitWeightedKernelIntegrand geometry (Real.log n) t).re := by
+    rw [orbitPhysicalKernel_eq_integral_weightedKernel geometry (Real.log n)]
+    symm
+    simpa only [Complex.reCLM_apply] using
+      (Complex.reCLM.integral_comp_comm
+        (orbitWeightedKernelIntegrand_integrable geometry (Real.log n)))
+  exact hre.trans hsum.symm
+
+theorem orbitPhysicalKernel_nodeTerm_eq_positive_sub_negative
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : Nat) :
+    ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+        (orbitPhysicalKernel geometry (Real.log n) +
+          orbitPhysicalKernel geometry (-Real.log n)).re =
+      ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+        (2 * ((∫ t, orbitPositiveIntegrandMajorant geometry n t) -
+          ∫ t, orbitNegativeIntegrandMajorant geometry n t)) := by
+  have hconj : orbitPhysicalKernel geometry (Real.log n) +
+      star (orbitPhysicalKernel geometry (Real.log n)) =
+      ((2 * (orbitPhysicalKernel geometry (Real.log n)).re : Real) : Complex) := by
+    rw [Complex.star_def]
+    exact Complex.add_conj _
+  rw [orbitPhysicalKernel_neg_eq_star geometry (Real.log n), hconj]
+  simp only [Complex.ofReal_re]
+  rw [orbitPhysicalKernel_re_eq_positive_sub_negative geometry n]
+
 theorem orbitPhysicalKernel_nodeTerm_le_of_positivePart
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) (n : Nat) :
