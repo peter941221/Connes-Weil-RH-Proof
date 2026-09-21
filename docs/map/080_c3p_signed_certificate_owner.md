@@ -39,3 +39,8 @@ same transport in the bilateral Laplace owner,
 `Laplace(carrierModulate gamma f, s) = Laplace(f, s - gamma*i)`. This is the
 coordinate identity needed before defining and estimating the sigma weight;
 the sigma identity and its negative sign remain open.
+
+The transport is now lifted further through the existing centered and
+symmetrized Xi weights. Thus a fixed C3 carrier frequency is represented in
+the same vertical-functional owner used by the Gamma readback; this remains
+an exact coordinate theorem, not an Archimedean sign theorem.

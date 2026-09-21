@@ -11,6 +11,8 @@ namespace C1C3CarrierTransport
 #print axioms c3CarrierFourierIntegral_zero_frequency_shift
 #print axioms c3CarrierFourierIntegral_eq_fourierLaplace_shift
 #print axioms laplaceAt_carrierModulate_eq_shift
+#print axioms centeredLaplaceWeight_carrierModulate_eq_shift
+#print axioms symmetrizedLaplaceWeight_carrierModulate_eq_shift
 
 end C1C3CarrierTransport
 end Dev

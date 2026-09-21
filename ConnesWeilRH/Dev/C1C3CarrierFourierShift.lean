@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 import ConnesWeilRH.Dev.C1C3CarrierTransport
 import ConnesWeilRH.Dev.C1XiArithmeticPrimePowerReadback
+import ConnesWeilRH.Dev.C1XiVerticalFunctional
 
 /-!
 # C3' carrier Fourier shift
@@ -113,6 +114,29 @@ theorem laplaceAt_carrierModulate_eq_shift
     ring
   rw [hphase, Complex.exp_add]
   ring
+
+theorem centeredLaplaceWeight_carrierModulate_eq_shift
+    (γ : Real) (f : CompactLogTest) (s : Complex) :
+    ConnesWeilRH.Source.C1XiVerticalFunctional.centeredLaplaceWeight
+        (carrierModulate γ f) s =
+      ConnesWeilRH.Source.C1XiVerticalFunctional.centeredLaplaceWeight f
+        (s - (γ : Complex) * Complex.I) := by
+  unfold ConnesWeilRH.Source.C1XiVerticalFunctional.centeredLaplaceWeight
+  rw [laplaceAt_carrierModulate_eq_shift]
+  congr 1
+  ring
+
+theorem symmetrizedLaplaceWeight_carrierModulate_eq_shift
+    (γ : Real) (f : CompactLogTest) (s : Complex) :
+    ConnesWeilRH.Source.C1XiVerticalFunctional.symmetrizedLaplaceWeight
+        (carrierModulate γ f) s =
+      ConnesWeilRH.Source.C1XiVerticalFunctional.centeredLaplaceWeight f
+        (s - (γ : Complex) * Complex.I) +
+        ConnesWeilRH.Source.C1XiVerticalFunctional.centeredLaplaceWeight f
+          ((1 : Complex) - s - (γ : Complex) * Complex.I) := by
+  unfold ConnesWeilRH.Source.C1XiVerticalFunctional.symmetrizedLaplaceWeight
+  rw [centeredLaplaceWeight_carrierModulate_eq_shift,
+    centeredLaplaceWeight_carrierModulate_eq_shift]
 
 end C1C3CarrierTransport
 end Dev
