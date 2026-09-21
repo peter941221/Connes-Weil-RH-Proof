@@ -30,6 +30,15 @@ surrogate-family measurements only. The active target is again the actual
 constructor-selected correction's detector-specific B5 signed budget. No
 positivity or RH statement.
 
+## Mellin/physical separation, 2026-09-21
+
+[078](078_mellin_physical_separation.md) records formal theorem 1803:
+finite Mellin data can vanish at every selected node while a prescribed
+positive physical coordinate remains equal to one. Therefore Mellin
+interpolation alone cannot determine the visible prime-log bilateral profile.
+The active producer still needs a same-owner physical-profile bridge or a
+signed kernel estimate. No positivity or RH statement.
+
 ## C3' carrier transport, 2026-09-21
 
 [075](075_c3p_carrier_transport_after_1800.md) records the analytic opening

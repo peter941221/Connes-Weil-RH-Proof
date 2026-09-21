@@ -1,0 +1,12 @@
+import ConnesWeilRH.Dev.C1P2MellinPhysicalSeparation
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1P2MellinPhysicalSeparation
+
+#check exists_zero_finiteMellin_data_nonzero_physical_value
+#print axioms exists_zero_finiteMellin_data_nonzero_physical_value
+
+end C1P2MellinPhysicalSeparation
+end Source
+end ConnesWeilRH
