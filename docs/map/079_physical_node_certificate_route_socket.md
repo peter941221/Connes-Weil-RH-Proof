@@ -195,3 +195,10 @@ The complex aggregate is also formally integrable, and
 reads the complete finite prime face as the real part of its single complex
 integral. This is the cancellation-preserving integral owner for the next
 analytic estimate; it remains an identity, not a sign result.
+
+The complex aggregate now factors exactly as the common reflected raw factor
+`star(raw(-t))` times the same-owner profile
+`orbitFiniteComplexPhysicalKernelProfile`. The theorem
+`orbitFiniteComplexPhysicalKernelIntegrand_eq_common_factor_profile` keeps all
+visible-prime phases inside that profile, supplying the direct correlation
+owner for the next signed estimate. No sign or positivity is inferred.

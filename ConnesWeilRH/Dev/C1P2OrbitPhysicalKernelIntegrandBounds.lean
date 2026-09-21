@@ -413,6 +413,33 @@ def orbitFiniteComplexPhysicalKernelIntegrand
     ((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
       orbitWeightedKernelIntegrand geometry (Real.log n) t)
 
+def orbitFiniteComplexPhysicalKernelProfile
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) : Real → Complex :=
+  fun t => Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+    ((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+      Complex.exp (((Real.log n / 2 - t : Real) : Complex)) *
+        (orbitRawFactor geometry).test (Real.log n - t))
+
+theorem orbitFiniteComplexPhysicalKernelIntegrand_eq_common_factor_profile
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (t : Real) :
+    orbitFiniteComplexPhysicalKernelIntegrand geometry t =
+      star ((orbitRawFactor geometry).test (-t)) *
+        orbitFiniteComplexPhysicalKernelProfile geometry t := by
+  unfold orbitFiniteComplexPhysicalKernelIntegrand
+    orbitFiniteComplexPhysicalKernelProfile orbitWeightedKernelIntegrand
+  calc
+    _ = Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+        star ((orbitRawFactor geometry).test (-t)) *
+          (((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+            Complex.exp (((Real.log n / 2 - t : Real) : Complex)) *
+              (orbitRawFactor geometry).test (Real.log n - t))) := by
+      apply Finset.sum_congr rfl
+      intro n _hn
+      ring
+    _ = _ := by rw [Finset.mul_sum]
+
 theorem orbitFinitePhysicalKernelIntegrand_eq_re_complex
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) (t : Real) :
