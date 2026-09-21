@@ -145,6 +145,15 @@ the remaining producer obligation is exactly the displayed scalar inequality
 against `delta`, together with the Archimedean bound, with no hidden owner
 cardinality or support-to-range step.
 
+Route correction after the raw-owner audit: `OrbitG8Geometry` exports support,
+zero, tail, and visible-cutoff data, but no envelope seminorm/energy certificate.
+Consequently the absolute-value `N * log(N)` budget cannot be discharged from
+the current geometry fields and is retained as a diagnostic upper-bound socket
+only. The fastest live producer is the signed same-owner physical-kernel node
+certificate of records [079](079_physical_node_certificate_route_socket.md) and
+[080](080_c3p_signed_certificate_owner.md), which preserves cancellation and
+must supply the actual Archimedean remainder together with signed node bounds.
+
 - **Carrier transport (formal)**: same-carrier pair tests transport the
   carrier exactly; the square channel and the Weil pair sum collapse to
   `2·Re[e^{-iγy}·G(y)]`; every prime cell reads `Λ(n)·2/√n·Re[e^{-iγ log
