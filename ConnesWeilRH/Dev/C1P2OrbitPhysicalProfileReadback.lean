@@ -251,6 +251,26 @@ theorem physicalKernelBudget_iff_signedBudget
     exact (orbitWindowSemiLocalGate_iff_physicalKernelBudget geometry).mp
       ((orbitWindowSemiLocalGate_iff_signedBudget geometry).mpr h)
 
+/-- The physical-kernel form is already sufficient for the existing B5 exit.
+This is only a consumer bridge: the required physical-kernel inequality is
+still an analytic producer obligation. -/
+theorem sourceRH_of_right_orbitGeometry_physicalKernelBudget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            archimedeanTerm g.convolutionSquare +
+                Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+                  ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+                    (orbitPhysicalKernel geometry (Real.log n) +
+                      orbitPhysicalKernel geometry (-Real.log n)).re) ≤ 0) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_right_orbitGeometry_signedBudget
+  intro rho hright
+  obtain ⟨g, geometry, hbudget⟩ := hproducer rho hright
+  refine ⟨g, geometry, ?_⟩
+  exact (physicalKernelBudget_iff_signedBudget geometry).mp hbudget
+
 end
 end C1P2OrbitPhysicalProfileReadback
 end Source
