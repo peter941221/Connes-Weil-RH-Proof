@@ -377,6 +377,25 @@ theorem orbitFinitePhysicalKernelIntegrand_eq_zero_of_not_mem_raw_support_window
     geometry (Real.log n) t ht]
   simp
 
+theorem integral_orbitFinitePhysicalKernelIntegrand_eq_interval
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    ∫ t, orbitFinitePhysicalKernelIntegrand geometry t =
+      ∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+        (((geometry.orbitIndex + 2 : Nat) : Real)),
+          orbitFinitePhysicalKernelIntegrand geometry t := by
+  symm
+  apply intervalIntegral.integral_eq_integral_of_support_subset
+  intro t ht
+  have ht_window : t ∈ Set.Ioo
+      (-((geometry.orbitIndex + 2 : Nat) : Real))
+      (((geometry.orbitIndex + 2 : Nat) : Real)) := by
+    by_contra hnot
+    have hzero := orbitFinitePhysicalKernelIntegrand_eq_zero_of_not_mem_raw_support_window
+      geometry t hnot
+    exact (Function.mem_support.mp ht) hzero
+  exact ⟨ht_window.1, le_of_lt ht_window.2⟩
+
 theorem orbitFinitePhysicalKernelIntegrand_eq_signed
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) :

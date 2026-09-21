@@ -152,3 +152,8 @@ and so does the finite summed owner `orbitFinitePhysicalKernelIntegrand`.
 Together with the existing doubled-support theorem for the physical kernel,
 this is a formal domain reduction for the next analytic estimate; it is not a
 sign or positivity result.
+
+The summed raw integral is now exactly equal to its interval integral over the
+raw-factor window, by a support-subset theorem. The next estimate can
+therefore work on this finite interval without changing the detector owner or
+the visible-prime range.
