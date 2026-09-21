@@ -250,6 +250,19 @@ theorem orbitPhysicalKernel_nodeTerm_eq_positive_sub_negative
   simp only [Complex.ofReal_re]
   rw [orbitPhysicalKernel_re_eq_positive_sub_negative geometry n]
 
+theorem finitePrimeSum_eq_positive_sub_negative_integrals
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    finitePrimeSum g.convolutionSquare =
+      Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+          (2 * ((∫ t, orbitPositiveIntegrandMajorant geometry n t) -
+            ∫ t, orbitNegativeIntegrandMajorant geometry n t))) := by
+  rw [finitePrimeSum_eq_orbitPhysicalKernel_range geometry]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  exact orbitPhysicalKernel_nodeTerm_eq_positive_sub_negative geometry n
+
 theorem orbitPhysicalKernel_nodeTerm_le_of_positivePart
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) (n : Nat) :

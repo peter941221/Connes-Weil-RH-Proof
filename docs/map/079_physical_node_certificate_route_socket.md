@@ -104,3 +104,9 @@ real integrand pointwise, and the bilateral node equals twice the difference
 of their integrals. This replaces any forced absolute-value reading by an
 exact signed integral identity; the remaining estimate may bound positive and
 negative masses separately.
+
+The split is now summed over the exact finite visible-prime owner by
+`finitePrimeSum_eq_positive_sub_negative_integrals`. The finite prime face is
+therefore an exact sum of weighted positive integrals minus weighted negative
+integrals, with no replacement by a continuous density, frozen prime set, or
+absolute-value envelope.
