@@ -98,6 +98,37 @@ theorem orbitPhysicalKernel_nodeTerm_le_of_integrand_bounds
     exact mul_nonneg ArithmeticFunction.vonMangoldt_nonneg (by positivity)
   exact mul_le_mul_of_nonneg_left hsum hcoeff
 
+theorem orbitPhysicalKernel_nodeTerm_le_of_plus_integrand_bound
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : Nat) (E : Real → Real)
+    (hE : Integrable E)
+    (hpoint : ∀ᵐ t ∂(volume : Measure Real),
+      (orbitWeightedKernelIntegrand geometry (Real.log n) t).re ≤ E t) :
+    ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+        (orbitPhysicalKernel geometry (Real.log n) +
+          orbitPhysicalKernel geometry (-Real.log n)).re ≤
+      ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+        (2 * (∫ t, E t)) := by
+  have hplus := orbitPhysicalKernel_re_le_integral_of_integrand_bound
+    geometry (Real.log n) E hE hpoint
+  have hsum :
+      (orbitPhysicalKernel geometry (Real.log n) +
+        orbitPhysicalKernel geometry (-Real.log n)).re ≤
+        2 * (∫ t, E t) := by
+    rw [orbitPhysicalKernel_neg_eq_star geometry (Real.log n)]
+    have hconj : orbitPhysicalKernel geometry (Real.log n) +
+        star (orbitPhysicalKernel geometry (Real.log n)) =
+        ((2 * (orbitPhysicalKernel geometry (Real.log n)).re : Real) : Complex) := by
+      rw [Complex.star_def]
+      exact Complex.add_conj _
+    rw [hconj]
+    norm_num
+    linarith
+  have hcoeff : (0 : Real) ≤
+      ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) := by
+    exact mul_nonneg ArithmeticFunction.vonMangoldt_nonneg (by positivity)
+  exact mul_le_mul_of_nonneg_left hsum hcoeff
+
 structure OrbitPhysicalKernelIntegrandCertificate
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) where

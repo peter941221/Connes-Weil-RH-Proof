@@ -64,3 +64,9 @@ and one finite Archimedean budget. Its constructor produces the existing
 `OrbitPhysicalKernelNodeCertificate` without changing owners. This is the
 current fastest producer socket; the stored inequalities and budget are still
 open mathematics, not assumptions discharged by the route.
+
+The exact kernel symmetry `K(-x) = star(K(x))` is now also consumed by
+`orbitPhysicalKernel_nodeTerm_le_of_plus_integrand_bound`: a single majorant at
+`+log n` controls the bilateral node with the factor two. The analytic target
+can therefore be formulated with one physical integrand majorant per visible
+node, while preserving the same-owner signed cancellation boundary.
