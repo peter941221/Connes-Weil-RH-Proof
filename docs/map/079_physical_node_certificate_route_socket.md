@@ -56,3 +56,11 @@ it to an exponential-weighted compact convolution. Thus the remaining
 producer obligation is only to construct explicit same-owner integrable
 majorants for the selected orbit correction and to bound the Archimedean
 remainder.
+
+The same module now packages the remaining analytic input as the
+data-bearing `OrbitPhysicalKernelIntegrandCertificate`: per visible node it
+stores plus/minus integrable majorants, almost-everywhere signed inequalities,
+and one finite Archimedean budget. Its constructor produces the existing
+`OrbitPhysicalKernelNodeCertificate` without changing owners. This is the
+current fastest producer socket; the stored inequalities and budget are still
+open mathematics, not assumptions discharged by the route.

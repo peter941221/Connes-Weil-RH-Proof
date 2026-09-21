@@ -9,6 +9,7 @@ open CC20YoshidaConvolution
 open CC20YoshidaNearZeros
 open C1G8R0OrbitGeometry
 open C1P2OrbitPhysicalProfileReadback
+open C1P2SignedBudget
 open C1SameOwnerWeil
 open CCM25Concrete.CompactLogConvolution
 
@@ -96,6 +97,42 @@ theorem orbitPhysicalKernel_nodeTerm_le_of_integrand_bounds
       ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) := by
     exact mul_nonneg ArithmeticFunction.vonMangoldt_nonneg (by positivity)
   exact mul_le_mul_of_nonneg_left hsum hcoeff
+
+structure OrbitPhysicalKernelIntegrandCertificate
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) where
+  Eplus : Nat → Real → Real
+  Eminus : Nat → Real → Real
+  integrable_plus : ∀ n ∈ orbitVisiblePrimeRange geometry,
+    Integrable (Eplus n)
+  integrable_minus : ∀ n ∈ orbitVisiblePrimeRange geometry,
+    Integrable (Eminus n)
+  pointwise_plus : ∀ n ∈ orbitVisiblePrimeRange geometry,
+    ∀ᵐ t ∂(volume : Measure Real),
+      (orbitWeightedKernelIntegrand geometry (Real.log n) t).re ≤ Eplus n t
+  pointwise_minus : ∀ n ∈ orbitVisiblePrimeRange geometry,
+    ∀ᵐ t ∂(volume : Measure Real),
+      (orbitWeightedKernelIntegrand geometry (-Real.log n) t).re ≤ Eminus n t
+  arch_bound : archimedeanTerm g.convolutionSquare +
+      Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+          ((∫ t, Eplus n t) + ∫ t, Eminus n t)) ≤ 0
+
+def orbitPhysicalKernelNodeCertificate_of_integrandCertificate
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (certificate : OrbitPhysicalKernelIntegrandCertificate geometry) :
+    OrbitPhysicalKernelNodeCertificate geometry := by
+  let nodeBound : Nat → Real := fun n =>
+    ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+      ((∫ t, certificate.Eplus n t) + ∫ t, certificate.Eminus n t)
+  refine ⟨nodeBound, ?_, ?_⟩
+  · simpa [nodeBound] using certificate.arch_bound
+  · intro n hn
+    exact orbitPhysicalKernel_nodeTerm_le_of_integrand_bounds geometry n
+      (certificate.Eplus n) (certificate.Eminus n)
+      (certificate.integrable_plus n hn) (certificate.integrable_minus n hn)
+      (certificate.pointwise_plus n hn) (certificate.pointwise_minus n hn)
 
 end
 end C1P2OrbitPhysicalKernelIntegrandBounds
