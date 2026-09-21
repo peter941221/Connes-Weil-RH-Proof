@@ -70,3 +70,9 @@ The exact kernel symmetry `K(-x) = star(K(x))` is now also consumed by
 `+log n` controls the bilateral node with the factor two. The analytic target
 can therefore be formulated with one physical integrand majorant per visible
 node, while preserving the same-owner signed cancellation boundary.
+
+That reduction is now data-bearing:
+`OrbitPhysicalKernelOneSidedIntegrandCertificate` stores exactly one `E n`
+per visible node, its integrability and a.e. signed majorant, plus the finite
+budget with the symmetry factor two. Its constructor directly yields the node
+certificate consumed by the existing SourceRH socket.

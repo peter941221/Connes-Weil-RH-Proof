@@ -165,6 +165,34 @@ def orbitPhysicalKernelNodeCertificate_of_integrandCertificate
       (certificate.integrable_plus n hn) (certificate.integrable_minus n hn)
       (certificate.pointwise_plus n hn) (certificate.pointwise_minus n hn)
 
+structure OrbitPhysicalKernelOneSidedIntegrandCertificate
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) where
+  E : Nat → Real → Real
+  integrable : ∀ n ∈ orbitVisiblePrimeRange geometry,
+    Integrable (E n)
+  pointwise : ∀ n ∈ orbitVisiblePrimeRange geometry,
+    ∀ᵐ t ∂(volume : Measure Real),
+      (orbitWeightedKernelIntegrand geometry (Real.log n) t).re ≤ E n t
+  arch_bound : archimedeanTerm g.convolutionSquare +
+      Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+          (2 * (∫ t, E n t))) ≤ 0
+
+def orbitPhysicalKernelNodeCertificate_of_oneSidedIntegrandCertificate
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (certificate : OrbitPhysicalKernelOneSidedIntegrandCertificate geometry) :
+    OrbitPhysicalKernelNodeCertificate geometry := by
+  let nodeBound : Nat → Real := fun n =>
+    ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+      (2 * (∫ t, certificate.E n t))
+  refine ⟨nodeBound, ?_, ?_⟩
+  · simpa [nodeBound] using certificate.arch_bound
+  · intro n hn
+    exact orbitPhysicalKernel_nodeTerm_le_of_plus_integrand_bound geometry n
+      (certificate.E n) (certificate.integrable n hn) (certificate.pointwise n hn)
+
 end
 end C1P2OrbitPhysicalKernelIntegrandBounds
 end Source
