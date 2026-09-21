@@ -275,9 +275,91 @@ theorem twoSpan_gate_qform_expand
       ICgate A.convolutionSquare + lam ^ 2 * ICgate B.convolutionSquare -
         lam * (ICgate (A.involution.convolution B) +
           ICgate (B.involution.convolution A)) := by
-  simp [gateMatrix, Matrix.mulVec, dotProduct, pairTest,
-    CompactLogTest.convolutionSquare]
+  change
+    (![1, -lam] : Fin 2 → ℝ) ⬝ᵥ
+          (gateMatrix ![A, B] *ᵥ (![1, -lam] : Fin 2 → ℝ)) =
+      ICgate (A.involution.convolution A) + lam ^ 2 *
+          ICgate (B.involution.convolution B) -
+        lam * (ICgate (A.involution.convolution B) +
+          ICgate (B.involution.convolution A))
+  simp [gateMatrix, Matrix.mulVec, dotProduct, pairTest]
   ring
+
+theorem exists_quadratic_nonpos_iff_discriminant
+    (a b c : ℝ) (hc : 0 < c) :
+      (∃ lam : ℝ, a + c * lam ^ 2 - 2 * b * lam ≤ 0) ↔
+        a * c ≤ b ^ 2 := by
+    constructor
+    · rintro ⟨lam, hlam⟩
+      have hmul : c * (a + c * lam ^ 2 - 2 * b * lam) ≤ 0 :=
+        mul_nonpos_of_nonneg_of_nonpos (le_of_lt hc) hlam
+      have hsquare : 0 ≤ (c * lam - b) ^ 2 := sq_nonneg (c * lam - b)
+      nlinarith
+    · intro hab
+      have hcne : c ≠ 0 := ne_of_gt hc
+      refine ⟨b / c, ?_⟩
+      have hidentity :
+          a + c * (b / c) ^ 2 - 2 * b * (b / c) = (a * c - b ^ 2) / c := by
+        field_simp [hcne]
+        ring
+      rw [hidentity]
+      exact div_nonpos_of_nonpos_of_nonneg (sub_nonpos.mpr hab) (le_of_lt hc)
+
+theorem exists_twoSpan_gate_qform_nonpos_of_discriminant
+    (A B : CompactLogTest)
+    (hC : 0 < ICgate B.convolutionSquare)
+    (hdisc :
+      ICgate A.convolutionSquare * ICgate B.convolutionSquare ≤
+        ((ICgate (A.involution.convolution B) +
+            ICgate (B.involution.convolution A)) / 2) ^ 2) :
+    ∃ lam : ℝ,
+      (![1, -lam] : Fin 2 → ℝ) ⬝ᵥ
+          (gateMatrix ![A, B] *ᵥ (![1, -lam] : Fin 2 → ℝ)) ≤ 0 := by
+  have hq :=
+    (exists_quadratic_nonpos_iff_discriminant
+      (ICgate A.convolutionSquare)
+      ((ICgate (A.involution.convolution B) +
+        ICgate (B.involution.convolution A)) / 2)
+      (ICgate B.convolutionSquare) hC).mpr hdisc
+  rcases hq with ⟨lam, hlam⟩
+  refine ⟨lam, ?_⟩
+  rw [twoSpan_gate_qform_expand]
+  nlinarith
+
+theorem twoSpan_gate_qform_expand_symmetric
+    (A B : CompactLogTest) (lam : ℝ) :
+    (![1, -lam] : Fin 2 → ℝ) ⬝ᵥ
+          (gateMatrix ![A, B] *ᵥ (![1, -lam] : Fin 2 → ℝ)) =
+      ICgate A.convolutionSquare + lam ^ 2 * ICgate B.convolutionSquare -
+        2 * lam * ICgate (A.involution.convolution B) := by
+  rw [twoSpan_gate_qform_expand, ICgate_pairTest_swap A B]
+  ring
+
+theorem exists_twoSpan_gate_qform_nonpos_iff_symmetric_discriminant
+    (A B : CompactLogTest) (hC : 0 < ICgate B.convolutionSquare) :
+    (∃ lam : ℝ,
+      (![1, -lam] : Fin 2 → ℝ) ⬝ᵥ
+          (gateMatrix ![A, B] *ᵥ (![1, -lam] : Fin 2 → ℝ)) ≤ 0) ↔
+      ICgate A.convolutionSquare * ICgate B.convolutionSquare ≤
+        ICgate (A.involution.convolution B) ^ 2 := by
+  constructor
+  · rintro ⟨lam, hlam⟩
+    apply (exists_quadratic_nonpos_iff_discriminant
+      (ICgate A.convolutionSquare)
+      (ICgate (A.involution.convolution B))
+      (ICgate B.convolutionSquare) hC).mp
+    refine ⟨lam, ?_⟩
+    rw [twoSpan_gate_qform_expand_symmetric] at hlam
+    simpa [mul_comm, mul_left_comm, mul_assoc] using hlam
+  · intro hdisc
+    have hq := (exists_quadratic_nonpos_iff_discriminant
+      (ICgate A.convolutionSquare)
+      (ICgate (A.involution.convolution B))
+      (ICgate B.convolutionSquare) hC).mpr hdisc
+    rcases hq with ⟨lam, hlam⟩
+    refine ⟨lam, ?_⟩
+    rw [twoSpan_gate_qform_expand_symmetric]
+    simpa [mul_comm, mul_left_comm, mul_assoc] using hlam
 
 theorem twoSpan_p2Aggregate_eq_archimedean_plus_rangeProfile
     (A B : CompactLogTest) (lam R : ℝ)

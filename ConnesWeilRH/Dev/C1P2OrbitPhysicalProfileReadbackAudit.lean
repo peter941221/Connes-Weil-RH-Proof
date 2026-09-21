@@ -1,0 +1,18 @@
+import ConnesWeilRH.Dev.C1P2OrbitPhysicalProfileReadback
+
+namespace ConnesWeilRH.Source.C1P2OrbitPhysicalProfileReadback
+
+#print axioms convolutionSquare_eq_orbitPhysicalKernel
+#print axioms orbitRawFactor_support_subset
+#print axioms orbitPhysicalKernel_eq_integral_weightedKernel
+#print axioms orbitPhysicalKernel_eq_zero_of_not_mem_doubled_support
+#print axioms orbitPhysicalKernel_neg_eq_star
+#print axioms bilateralProfile_eq_two_re_orbitPhysicalKernel
+#print axioms orbitPhysicalKernel_zero_re_nonnegative
+#print axioms finitePrimeTerm_eq_orbitPhysicalKernel_re
+#print axioms bilateralProfile_eq_orbitPhysicalKernel_add_neg
+#print axioms finitePrimeSum_eq_orbitPhysicalKernel_range
+#print axioms orbitWindowSemiLocalGate_iff_physicalKernelBudget
+#print axioms physicalKernelBudget_iff_signedBudget
+
+end ConnesWeilRH.Source.C1P2OrbitPhysicalProfileReadback

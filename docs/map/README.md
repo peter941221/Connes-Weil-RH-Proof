@@ -42,12 +42,22 @@ signed kernel estimate. No positivity or RH statement.
 ## C3' carrier transport, 2026-09-21
 
 [075](075_c3p_carrier_transport_after_1800.md) records the analytic opening
-of the two-span producer (record 1800, one formal brick + one paper page):
-carrier transport is a theorem — every prime cell of a carrier square reads
-through one real phase factor `e^{-iγ log n}` — and the carrier-square
-Archimedean face is `σ(−γ)·‖u‖² + O(1/γ)` with a theorem-grade negative
-symbol past ξ*. The C3' producer reduces to an envelope-level inequality at
-fixed γ; the phase dimension is eliminated. No positivity or RH statement.
+of the two-span producer (record 1800 plus formal follow-ups 1873/1876): carrier
+transport is a theorem — every prime cell of a carrier square reads through
+one real phase factor `e^{-iγ log n}` — and the carrierized diagonal and
+directed cross gates now both read back on the same envelope-level owner.
+The carrier-square Archimedean face is `σ(−γ)·‖u‖² + O(1/γ)` with a
+theorem-grade negative symbol past ξ*. The C3' producer reduces to the
+envelope-level determinant signed inequality at fixed γ; the phase/readback,
+optimal coefficient, gate-consumer, and three-term determinant-split
+interfaces are closed, and the cross finite-prime sum has both phase and
+signed-part readbacks through a named phase-cell owner, but the sign estimate
+for all AA/AB/BB prime consumers is not. The Archimedean numerators,
+denominator-level integrands, full Archimedean terms, and all three
+determinant-budget consumers are now named on the same phase owner. No sign,
+positivity, or RH statement follows; the optimal q-form is formally equivalent
+to the unresolved nonpositivity of their sum. The prime determinant is also
+expanded on named credit/deficit owners, still without a sign conclusion.
 
 ## Orbit-sum pin realized, 2026-09-21
 
