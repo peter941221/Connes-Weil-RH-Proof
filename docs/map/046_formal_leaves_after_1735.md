@@ -229,6 +229,14 @@ This closes the actual factor-level second-order interface. The full
 scattering-product W2,1 estimate, S3 kernel-diagonal majorant,
 detector-specific semi-local positivity, and RH remain open.
 
+## Formal update 1795 (2026-09-21)
+
+The actual scattering phase now has an exact second-derivative factorization
+`phase * (Q^2 + Q')`, and its norm is bounded by an explicit quadratic
+majorant. This completes the phase-growth subchain needed for the scattering
+weighted Mellin W2,1 consumer. The four-term L1 estimate, S3 kernel-diagonal
+majorant, detector-specific semi-local positivity, and RH remain open.
+
 ## Formal update 1793 (2026-09-21)
 
 `norm_ccm24CriticalGammaRLogDeriv_le_linear` integrates the formal global

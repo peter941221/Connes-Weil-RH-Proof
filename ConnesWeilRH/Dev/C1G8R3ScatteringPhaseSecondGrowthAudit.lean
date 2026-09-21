@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1G8R3ScatteringPhaseSecondGrowth
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check deriv_ccm24ArchimedeanScatteringPhase_factorized
+#print axioms deriv_ccm24ArchimedeanScatteringPhase_factorized
+#check deriv_deriv_ccm24ArchimedeanScatteringPhase_factorized
+#print axioms deriv_deriv_ccm24ArchimedeanScatteringPhase_factorized
+#check norm_deriv_deriv_ccm24ArchimedeanScatteringPhase_le_quadratic
+#print axioms norm_deriv_deriv_ccm24ArchimedeanScatteringPhase_le_quadratic
+
+end Dev
+end ConnesWeilRH
