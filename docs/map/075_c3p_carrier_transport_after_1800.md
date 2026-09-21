@@ -123,6 +123,12 @@ The same owner now admits a cutoff adapter: if every visible index is at most
 is the direct interface for consuming the orbit geometry's support-derived
 finite cutoff; it still supplies no margin or sign by itself.
 
+The cutoff adapter is now instantiated on the raw `OrbitG8Geometry` owner:
+its support-derived `Nat.ceil(exp(...)) + 1` range supplies the exact `hcut`
+without changing the carrier or visible-prime owner. This closes the
+representation bridge to the selected detector; the quantitative margin
+comparison remains open.
+
 - **Carrier transport (formal)**: same-carrier pair tests transport the
   carrier exactly; the square channel and the Weil pair sum collapse to
   `2·Re[e^{-iγy}·G(y)]`; every prime cell reads `Λ(n)·2/√n·Re[e^{-iγ log
