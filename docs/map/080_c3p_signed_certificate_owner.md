@@ -65,3 +65,9 @@ The same leaf now proves `c3Sigma xi - c3Sigma 0` as the real part of an
 explicit convergent reciprocal-difference series. This is the formal series
 owner for a future tail/sign certificate; it still supplies no numerical
 threshold and no aggregate C3 inequality.
+
+The series has also been reduced termwise to a nonnegative rational expression
+and summed through `Complex.re_tsum`, yielding the formal global bound
+`c3Sigma xi <= c3Sigma 0`. This establishes monotonicity away from the
+zero-height anchor in the required owner, but does not prove that the profile
+has crossed zero at any explicit height.
