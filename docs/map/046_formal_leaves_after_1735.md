@@ -257,6 +257,14 @@ weighted integrability theorem for the actual critical Mellin profile. The
 profile consumer, S3 kernel-diagonal majorant, detector-specific semi-local
 positivity, and RH remain open.
 
+## Formal update 1797 (2026-09-21)
+
+The actual critical Mellin profile now has a formal quadratic-weight
+integrability theorem on the positive logarithmic half-line. This is the
+first direct profile consumer of the 1796 tail interface. The negative tail,
+weighted chain terms, full W2,1 product estimate, S3 kernel-diagonal
+majorant, detector-specific semi-local positivity, and RH remain open.
+
 ## Formal update 1794 (2026-09-21)
 
 `norm_deriv_ccm24ArchimedeanScatteringPhase_le_linear` transfers the GammaR

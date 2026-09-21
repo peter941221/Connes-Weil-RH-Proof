@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3CriticalProfileWeightedTail
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check integrableOn_sq_mul_ccm24CriticalMellinLogProfile_Ioi
+#print axioms integrableOn_sq_mul_ccm24CriticalMellinLogProfile_Ioi
+
+end Dev
+end ConnesWeilRH
