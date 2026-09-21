@@ -288,6 +288,31 @@ theorem sourceRH_of_right_orbitGeometry_physicalKernelBudget
   refine ⟨g, geometry, ?_⟩
   exact (physicalKernelBudget_iff_signedBudget geometry).mp hbudget
 
+/-- End-to-end certificate socket for the fastest B5 route.  The only
+remaining input is the finite signed node certificate for each selected
+orbit owner. -/
+theorem sourceRH_of_right_orbitGeometry_physicalKernel_nodeBounds
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ nodeBound : Nat → Real,
+              (archimedeanTerm g.convolutionSquare +
+                  Finset.sum (orbitVisiblePrimeRange geometry) nodeBound ≤ 0) ∧
+              (∀ n ∈ orbitVisiblePrimeRange geometry,
+                ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+                    (orbitPhysicalKernel geometry (Real.log n) +
+                      orbitPhysicalKernel geometry (-Real.log n)).re ≤
+                  nodeBound n)) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_right_orbitGeometry_physicalKernelBudget
+  intro rho hright
+  obtain ⟨g, geometry, nodeBound, harch, hnode⟩ := hproducer rho hright
+  have hgate := orbitWindowSemiLocalGate_of_physicalKernel_nodeBounds
+    geometry nodeBound harch hnode
+  exact ⟨g, geometry,
+    (orbitWindowSemiLocalGate_iff_physicalKernelBudget geometry).mp hgate⟩
+
 end
 end C1P2OrbitPhysicalProfileReadback
 end Source
