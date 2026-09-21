@@ -912,6 +912,54 @@ theorem orbitFiniteComplexPhysicalKernelProfile_term_lpNorm_eq_common
       ‖((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
           Complex.exp (((-Real.log n / 2 : Real) : Complex))‖ * x) hshift
 
+theorem orbitFiniteComplexPhysicalKernelProfile_lpNorm_le_common_weighted_raw_mass
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (hterm : ∀ n ∈ orbitVisiblePrimeRange geometry,
+      MemLp (fun t : Real =>
+        ((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+          Complex.exp (((Real.log n / 2 - t : Real) : Complex)) *
+            (orbitRawFactor geometry).test (Real.log n - t))
+        (ENNReal.ofReal 2)) :
+    MeasureTheory.lpNorm (orbitFiniteComplexPhysicalKernelProfile geometry)
+        (ENNReal.ofReal 2) (MeasureTheory.volume : Measure Real) ≤
+      (∑ n ∈ orbitVisiblePrimeRange geometry,
+        ‖((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+            Complex.exp (((-Real.log n / 2 : Real) : Complex))‖) *
+        MeasureTheory.lpNorm
+          ((CompactLogTest.exponentialWeight (orbitRawFactor geometry) (1 : Complex)).test :
+            Real → Complex)
+          (ENNReal.ofReal 2) (MeasureTheory.volume : Measure Real) := by
+  calc
+    MeasureTheory.lpNorm (orbitFiniteComplexPhysicalKernelProfile geometry)
+        (ENNReal.ofReal 2) (MeasureTheory.volume : Measure Real) ≤
+        ∑ n ∈ orbitVisiblePrimeRange geometry,
+          MeasureTheory.lpNorm (fun t : Real =>
+            ((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+              Complex.exp (((Real.log n / 2 - t : Real) : Complex)) *
+                (orbitRawFactor geometry).test (Real.log n - t))
+            (ENNReal.ofReal 2) (MeasureTheory.volume : Measure Real) :=
+      orbitFiniteComplexPhysicalKernelProfile_lpNorm_le_sum_of_memLp geometry
+        hterm
+    _ = ∑ n ∈ orbitVisiblePrimeRange geometry,
+          ‖((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+              Complex.exp (((-Real.log n / 2 : Real) : Complex))‖ *
+            MeasureTheory.lpNorm
+              ((CompactLogTest.exponentialWeight (orbitRawFactor geometry) (1 : Complex)).test :
+                Real → Complex)
+              (ENNReal.ofReal 2) (MeasureTheory.volume : Measure Real) := by
+      apply Finset.sum_congr rfl
+      intro n hn
+      exact orbitFiniteComplexPhysicalKernelProfile_term_lpNorm_eq_common geometry n hn
+    _ = (∑ n ∈ orbitVisiblePrimeRange geometry,
+        ‖((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+            Complex.exp (((-Real.log n / 2 : Real) : Complex))‖) *
+          MeasureTheory.lpNorm
+            ((CompactLogTest.exponentialWeight (orbitRawFactor geometry) (1 : Complex)).test :
+              Real → Complex)
+            (ENNReal.ofReal 2) (MeasureTheory.volume : Measure Real) := by
+      rw [Finset.sum_mul]
+
 theorem finitePrimeSum_le_intervalIntegral_common_factor_profile_norm
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) :

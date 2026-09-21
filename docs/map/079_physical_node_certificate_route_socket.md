@@ -250,6 +250,13 @@ remaining quantitative task is therefore an explicit coefficient sum times
 one common weighted-raw L2 mass, followed by comparison with the Archimedean
 negative term. This remains an open signed estimate.
 
+The aggregate form is now packaged as
+`orbitFiniteComplexPhysicalKernelProfile_lpNorm_le_common_weighted_raw_mass`.
+Given the already available per-term MemLp certificates, it bounds the whole
+profile mass by one explicit coefficient sum times one common weighted-raw
+mass. This is still a conditional norm reduction: it discards phase
+cancellation and therefore cannot itself close the signed B5 budget.
+
 Using the raw-factor support, the same estimate is now localized to the exact
 finite window by
 `finitePrimeSum_le_intervalIntegral_common_factor_profile_norm`. This is the
