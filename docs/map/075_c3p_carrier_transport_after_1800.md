@@ -117,6 +117,12 @@ For every actual visible prime power, the coefficient is further bounded by
 square-root weight. The resulting log-weighted seminorm sum is now formal on
 the exact visible owner; it remains an upper bound, not a sign certificate.
 
+The same owner now admits a cutoff adapter: if every visible index is at most
+`N`, the phase magnitude is bounded by the owner cardinality times
+`2 * log(N)` times the envelope convolution-square zero-order seminorm. This
+is the direct interface for consuming the orbit geometry's support-derived
+finite cutoff; it still supplies no margin or sign by itself.
+
 - **Carrier transport (formal)**: same-carrier pair tests transport the
   carrier exactly; the square channel and the Weil pair sum collapse to
   `2·Re[e^{-iγy}·G(y)]`; every prime cell reads `Λ(n)·2/√n·Re[e^{-iγ log

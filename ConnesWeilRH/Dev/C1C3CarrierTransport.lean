@@ -992,6 +992,55 @@ theorem carrierSquarePrimePhaseSum_abs_le_log_weighted_seminorm_sum
         positivity
       exact mul_le_mul_of_nonneg_right hcoef hsemi
 
+theorem carrierSquarePrimePhaseSum_abs_le_card_log_cutoff
+    (γ : Real) (u : CompactLogTest) (N : ℕ) (hN : 1 ≤ N)
+    (hcut : ∀ n ∈ globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare),
+      n ≤ N) :
+    |carrierSquarePrimePhaseSum γ u| ≤
+      ((globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare)).card : Real) *
+        (2 * Real.log (N : Real)) *
+        SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test := by
+  have hsemi :
+      0 ≤ SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test := by
+    positivity
+  have hNpos : (0 : Real) < N := by
+    exact_mod_cast (Nat.zero_lt_of_lt hN)
+  have hNone : (1 : Real) ≤ N := by
+    exact_mod_cast hN
+  have hlogN : 0 ≤ Real.log (N : Real) :=
+    Real.log_nonneg hNone
+  calc
+    |carrierSquarePrimePhaseSum γ u| ≤
+        ∑ n ∈ globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare),
+          (2 * Real.log (n : Real)) *
+            SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test :=
+      carrierSquarePrimePhaseSum_abs_le_log_weighted_seminorm_sum γ u
+    _ ≤
+        ∑ n ∈ globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare),
+          (2 * Real.log (N : Real)) *
+            SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test := by
+      apply Finset.sum_le_sum
+      intro n hn
+      have hprime : IsPrimePow n :=
+        (mem_globalPrimeIndexSet_iff
+          ((carrierModulate γ u).convolutionSquare) n).mp hn |>.1
+      have hnpos : (0 : Real) < n := by
+        exact_mod_cast (Nat.zero_lt_of_lt hprime.one_lt)
+      have hnN : (n : Real) ≤ N := by
+        exact_mod_cast hcut n hn
+      have hlog : Real.log (n : Real) ≤ Real.log (N : Real) :=
+        Real.log_le_log hnpos hnN
+      have hscaled : 2 * Real.log (n : Real) ≤
+          2 * Real.log (N : Real) := by
+        nlinarith [hlogN]
+      exact mul_le_mul_of_nonneg_right hscaled hsemi
+    _ =
+        ((globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare)).card : Real) *
+          (2 * Real.log (N : Real)) *
+          SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test := by
+      simp [Finset.sum_const]
+      ring
+
 theorem orbitWindowSemiLocalGate_carrierSquare_of_margin_bounds
     (γ : Real) (u : CompactLogTest) (δ : Real)
     (harch : archimedeanTerm (carrierModulate γ u).convolutionSquare ≤ -δ)
