@@ -48,3 +48,9 @@ an exact coordinate theorem, not an Archimedean sign theorem.
 The actual `gammaRIntegrand` now has the corresponding shifted centered-weight
 readback on this owner. The next missing step is therefore genuinely the
 GammaR kernel/sigma estimate, not carrier bookkeeping.
+
+`C1C3GammaRBound.lean` now proves an explicit norm upper bound for
+`logDeriv GammaR` on `Re(s) >= 1/2`, by transporting the existing digamma
+vertical-line estimate through the exact GammaR formula. This controls the
+kernel magnitude for the future remainder estimate; it is not a real-part
+sign theorem.
