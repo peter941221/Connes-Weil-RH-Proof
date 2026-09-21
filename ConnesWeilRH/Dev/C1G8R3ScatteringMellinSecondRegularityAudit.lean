@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1G8R3ScatteringMellinSecondRegularity
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check differentiable_deriv_ccm24ScatteringMellinProfile
+#print axioms differentiable_deriv_ccm24ScatteringMellinProfile
+
+end Dev
+end ConnesWeilRH
