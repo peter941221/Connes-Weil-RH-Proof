@@ -93,3 +93,10 @@ The individual rational summands are now formally monotone in height: for
 the comparison mechanism needed to propagate one certified negative sigma
 value to all higher nonnegative heights; the first certified negative point
 and the C3 signed budget are still open.
+
+The comparison has now been summed on the same convergent reciprocal-series
+owner, yielding the global theorem `c3Sigma_antitone_of_nonneg`: for
+`0 <= xi <= eta`, `c3Sigma eta <= c3Sigma xi`. Thus a future certified
+negative point propagates to every higher nonnegative height. This remains a
+formal propagation result only; it supplies neither the first negative point
+nor the detector-specific signed prime budget.

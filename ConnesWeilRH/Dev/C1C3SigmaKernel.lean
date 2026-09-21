@@ -174,6 +174,78 @@ theorem re_c3Sigma_reciprocalDifferenceTerm_mono_of_nonneg
       nlinarith
     _ = y ^ 2 * (a * (a ^ 2 + x ^ 2)) := by ring
 
+theorem c3Sigma_antitone_of_nonneg
+    {xi eta : Real} (hxi : 0 ≤ xi) (hle : xi ≤ eta) :
+    c3Sigma eta ≤ c3Sigma xi := by
+  let zxi : Complex :=
+    (((1 / 4 : Real) : Complex) - ((xi : Complex) * Complex.I) / 2)
+  let zeta : Complex :=
+    (((1 / 4 : Real) : Complex) - ((eta : Complex) * Complex.I) / 2)
+  let z0 : Complex := ((1 / 4 : Real) : Complex)
+  have hzxi : 0 < zxi.re := by
+    dsimp [zxi]
+    norm_num [Complex.div_re, Complex.mul_re]
+  have hzeta : 0 < zeta.re := by
+    dsimp [zeta]
+    norm_num [Complex.div_re, Complex.mul_re]
+  have hz0 : 0 < z0.re := by
+    dsimp [z0]
+    norm_num
+  have hsxi : Summable (fun n : Nat =>
+      ((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + zxi)⁻¹) -
+        (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + z0)⁻¹))) := by
+    exact
+      (Source.C1XiCenterTwoGamma.summable_halfAnchorGaussReciprocalSeries hzxi).sub
+        (Source.C1XiCenterTwoGamma.summable_halfAnchorGaussReciprocalSeries hz0)
+  have hseta : Summable (fun n : Nat =>
+      ((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + zeta)⁻¹) -
+        (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + z0)⁻¹))) := by
+    exact
+      (Source.C1XiCenterTwoGamma.summable_halfAnchorGaussReciprocalSeries hzeta).sub
+        (Source.C1XiCenterTwoGamma.summable_halfAnchorGaussReciprocalSeries hz0)
+  have hsum :
+      (∑' n : Nat,
+          (((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + zxi)⁻¹) -
+            (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + z0)⁻¹))).re) ≤
+        ∑' n : Nat,
+          (((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + zeta)⁻¹) -
+            (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + z0)⁻¹))).re := by
+    refine (Complex.reCLM.summable hsxi).tsum_le_tsum ?_
+      (Complex.reCLM.summable hseta)
+    intro n
+    dsimp [zxi, zeta, z0]
+    simpa only [Complex.sub_re] using
+      (re_c3Sigma_reciprocalDifferenceTerm_mono_of_nonneg hxi hle n)
+  have hxi0 := c3Sigma_sub_zero_eq_neg_re_reciprocalDifferenceSeries xi
+  have heta0 := c3Sigma_sub_zero_eq_neg_re_reciprocalDifferenceSeries eta
+  have hxi0' :
+      c3Sigma xi - c3Sigma 0 =
+        -((∑' n : Nat,
+          ((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + zxi)⁻¹) -
+            (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + z0)⁻¹))).re) := by
+    simpa only [zxi, z0] using hxi0
+  have heta0' :
+      c3Sigma eta - c3Sigma 0 =
+        -((∑' n : Nat,
+          ((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + zeta)⁻¹) -
+            (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+              ((n : Complex) + z0)⁻¹))).re) := by
+    simpa only [zeta, z0] using heta0
+  rw [Complex.re_tsum hsxi] at hxi0'
+  rw [Complex.re_tsum hseta] at heta0'
+  linarith
+
 theorem c3Sigma_le_at_zero (xi : Real) :
     c3Sigma xi ≤ c3Sigma 0 := by
   suffices hsub : c3Sigma xi - c3Sigma 0 ≤ 0 by linarith
