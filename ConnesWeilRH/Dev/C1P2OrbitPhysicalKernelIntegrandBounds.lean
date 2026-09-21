@@ -406,6 +406,75 @@ def orbitFinitePhysicalKernelIntegrand
     ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
       (2 * (orbitWeightedKernelIntegrand geometry (Real.log n) t).re))
 
+theorem abs_orbitFinitePhysicalKernelIntegrand_le_seminorm_budget
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (t : Real)
+    (ht : t ∈ Set.Ioo
+      (-((geometry.orbitIndex + 2 : Nat) : Real))
+      (((geometry.orbitIndex + 2 : Nat) : Real))) :
+    |orbitFinitePhysicalKernelIntegrand geometry t| ≤
+      Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+        2 * (ArithmeticFunction.vonMangoldt n *
+          (1 / Real.sqrt (n : Real))) *
+          (Real.exp (Real.log n / 2 +
+            ((geometry.orbitIndex + 2 : Nat) : Real)) *
+            (SchwartzMap.seminorm ℂ 0 0 (orbitRawFactor geometry).test) ^ 2)) := by
+  unfold orbitFinitePhysicalKernelIntegrand
+  calc
+    |(∑ n ∈ orbitVisiblePrimeRange geometry,
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+          (2 * (orbitWeightedKernelIntegrand geometry (Real.log n) t).re))| ≤
+        ∑ n ∈ orbitVisiblePrimeRange geometry,
+          |ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+            (2 * (orbitWeightedKernelIntegrand geometry (Real.log n) t).re)| :=
+      Finset.abs_sum_le_sum_abs
+        (s := orbitVisiblePrimeRange geometry)
+        (f := fun n => ArithmeticFunction.vonMangoldt n *
+          (1 / Real.sqrt (n : Real)) *
+            (2 * (orbitWeightedKernelIntegrand geometry (Real.log n) t).re))
+    _ ≤ ∑ n ∈ orbitVisiblePrimeRange geometry,
+        2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) *
+          (Real.exp (Real.log n / 2 +
+            ((geometry.orbitIndex + 2 : Nat) : Real)) *
+            (SchwartzMap.seminorm ℂ 0 0 (orbitRawFactor geometry).test) ^ 2) := by
+      apply Finset.sum_le_sum
+      intro n hn
+      have hcoeff : 0 ≤ ArithmeticFunction.vonMangoldt n *
+          (1 / Real.sqrt (n : Real)) := by
+        exact mul_nonneg ArithmeticFunction.vonMangoldt_nonneg (by positivity)
+      have hreal : |(orbitWeightedKernelIntegrand geometry (Real.log n) t).re| ≤
+          ‖orbitWeightedKernelIntegrand geometry (Real.log n) t‖ :=
+        Complex.abs_re_le_norm _
+      have htwo : |2 * (orbitWeightedKernelIntegrand
+          geometry (Real.log n) t).re| ≤
+          2 * ‖orbitWeightedKernelIntegrand geometry (Real.log n) t‖ := by
+        rw [abs_mul, abs_of_nonneg (by norm_num)]
+        exact mul_le_mul_of_nonneg_left hreal (by norm_num)
+      have hnorm := norm_orbitWeightedKernelIntegrand_le_seminorm_majorant
+        geometry (Real.log n) t ht
+      calc
+        |ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+            (2 * (orbitWeightedKernelIntegrand geometry (Real.log n) t).re)| =
+            (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) *
+              |2 * (orbitWeightedKernelIntegrand geometry
+                (Real.log n) t).re| := by
+          rw [abs_mul, abs_of_nonneg hcoeff]
+        _ ≤ (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) *
+            (2 * ‖orbitWeightedKernelIntegrand geometry (Real.log n) t‖) :=
+          mul_le_mul_of_nonneg_left htwo hcoeff
+        _ ≤ (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) *
+            (2 * (Real.exp (Real.log n / 2 +
+              ((geometry.orbitIndex + 2 : Nat) : Real)) *
+              (SchwartzMap.seminorm ℂ 0 0 (orbitRawFactor geometry).test) ^ 2)) := by
+          exact mul_le_mul_of_nonneg_left
+            (mul_le_mul_of_nonneg_left hnorm (by norm_num)) hcoeff
+        _ = 2 * (ArithmeticFunction.vonMangoldt n *
+              (1 / Real.sqrt (n : Real))) *
+            (Real.exp (Real.log n / 2 +
+              ((geometry.orbitIndex + 2 : Nat) : Real)) *
+              (SchwartzMap.seminorm ℂ 0 0 (orbitRawFactor geometry).test) ^ 2) := by
+          ring
+
 theorem orbitFinitePhysicalKernelIntegrand_eq_zero_of_not_mem_raw_support_window
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) (t : Real)

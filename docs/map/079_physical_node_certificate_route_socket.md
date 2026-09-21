@@ -172,3 +172,8 @@ integrand is bounded in norm by an explicit exponential factor times the
 square of the raw factor's zero-order Schwartz seminorm. This is an owner-
 preserving absolute majorant only; its comparison with the Archimedean margin
 is still open and must not be treated as the signed producer.
+
+The channelwise bound is now summed on the exact visible-prime owner:
+`abs_orbitFinitePhysicalKernelIntegrand_le_seminorm_budget` gives a pointwise
+absolute finite-channel budget on the raw window. This retains no cancellation,
+so it is a quantitative diagnostic and not yet the required signed estimate.
