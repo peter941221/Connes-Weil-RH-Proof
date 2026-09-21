@@ -372,6 +372,23 @@ theorem finitePrimeSum_eq_integral_finitePhysicalKernelIntegrand
   rw [orbitFinitePhysicalKernelIntegrand_eq_signed geometry]
   exact finitePrimeSum_eq_integral_finiteSignedPhysicalIntegrand geometry
 
+theorem orbitWindowSemiLocalGate_iff_finitePhysicalKernelIntegralBudget
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    C1OrbitWindowSemiLocalGate.orbitWindowSemiLocalGate g ↔
+      archimedeanTerm g.convolutionSquare +
+          ∫ t, orbitFinitePhysicalKernelIntegrand geometry t ≤ 0 := by
+  rw [orbitWindowSemiLocalGate_iff_physicalKernelBudget geometry]
+  have hsum :
+      Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+          (orbitPhysicalKernel geometry (Real.log n) +
+            orbitPhysicalKernel geometry (-Real.log n)).re) =
+      ∫ t, orbitFinitePhysicalKernelIntegrand geometry t := by
+    exact (finitePrimeSum_eq_orbitPhysicalKernel_range geometry).symm.trans
+      (finitePrimeSum_eq_integral_finitePhysicalKernelIntegrand geometry)
+  rw [hsum]
+
 theorem orbitPhysicalKernel_nodeTerm_le_of_positivePart
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) (n : Nat) :
@@ -509,6 +526,29 @@ theorem sourceRH_of_right_orbitGeometry_signedIntegralBudget
     exact le_of_eq (by
       simpa [nodeBound] using
         (orbitPhysicalKernel_nodeTerm_eq_positive_sub_negative geometry n))
+
+theorem sourceRH_of_right_orbitGeometry_finitePhysicalKernelIntegralBudget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            archimedeanTerm g.convolutionSquare +
+                ∫ t, orbitFinitePhysicalKernelIntegrand geometry t ≤ 0) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_right_orbitGeometry_signedIntegralBudget
+  intro rho hright
+  obtain ⟨g, geometry, hbudget⟩ := hproducer rho hright
+  have hrewrite :
+      (∫ t, orbitFinitePhysicalKernelIntegrand geometry t) =
+        Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+          ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+            (2 * ((∫ t, orbitPositiveIntegrandMajorant geometry n t) -
+              ∫ t, orbitNegativeIntegrandMajorant geometry n t))) := by
+    exact (finitePrimeSum_eq_integral_finitePhysicalKernelIntegrand geometry).symm.trans
+      (finitePrimeSum_eq_positive_sub_negative_integrals geometry)
+  refine ⟨g, geometry, ?_⟩
+  rw [hrewrite] at hbudget
+  exact hbudget
 
 end
 end C1P2OrbitPhysicalKernelIntegrandBounds

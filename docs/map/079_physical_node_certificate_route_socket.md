@@ -136,3 +136,12 @@ For direct kernel estimates, the equivalent raw owner
 `Σ 2 * Λ(n)/sqrt(n) * Re I(log n,t)`. The positive/negative split remains
 available as an exact proof of the same identity, while estimates may now act
 on the summed oscillatory kernel itself.
+
+The gate is now exactly equivalent to the Archimedean term plus this single
+raw summed-kernel integral being nonpositive, via
+`orbitWindowSemiLocalGate_iff_finitePhysicalKernelIntegralBudget`. The direct
+consumer
+`sourceRH_of_right_orbitGeometry_finitePhysicalKernelIntegralBudget` converts
+that raw producer obligation to the signed-integral consumer and then to
+`SourceRH`. This is a formal interface reduction, not a positivity result;
+the raw integral estimate for the selected detector remains open.
