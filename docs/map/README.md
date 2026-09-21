@@ -19,6 +19,15 @@ integrand changes sign already at the prime powers through 5. These results
 do not refute the support-dependent B5 target or supply its nonnegativity.
 The route and the S3 status in 045/046 are unchanged.
 
+## Cross gate first pricing, 2026-09-21
+
+[073](073_cross_gate_first_pricing_after_1798.md) records the first
+instrument-valid pricing of the two-span C3 cross gate (record 1798, four
+engines). The cross gate vanishes against triple-vanishing references; on
+positive-reference pairs the gate Gram is barely indefinite and a toy
+interpolation pin lands outside the feasible λ-window. The orbit-sum pin is
+the next active target. No positivity or RH statement.
+
 ## Orbit visible-prime owner, 2026-09-20
 
 [072](072_full_icgate_cross_swap_symmetry.md) records formal theorem 1764:
