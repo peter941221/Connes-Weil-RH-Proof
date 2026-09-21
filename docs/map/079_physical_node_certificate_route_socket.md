@@ -216,6 +216,13 @@ phase profile. This is strictly a post-aggregation bound, distinct from the
 earlier sum of channelwise absolute budgets; it remains an upper bound rather
 than the required signed gain.
 
+The post-aggregation bound now has an L2 reduction,
+`finitePrimeSum_le_l2_common_factor_profile_mass`: under same-owner MemLp(2)
+certificates for the raw factor and the finite-prime phase profile, the prime
+face is bounded by the product of their two square-root masses. This separates
+the remaining analytic work into two energy obligations without changing the
+detector owner or claiming a sign.
+
 Using the raw-factor support, the same estimate is now localized to the exact
 finite window by
 `finitePrimeSum_le_intervalIntegral_common_factor_profile_norm`. This is the
