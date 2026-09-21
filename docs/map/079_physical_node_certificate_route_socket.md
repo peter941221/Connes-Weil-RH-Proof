@@ -233,6 +233,11 @@ weighted Schwartz test and closing under finite sums. Thus
 `finitePrimeSum_le_l2_common_factor_profile_mass_of_profile` is now a fully
 typed same-owner L2 socket. The remaining obligation is quantitative: bound
 the profile square-root mass strongly enough against the Archimedean term.
+The auxiliary theorem
+`orbitFiniteComplexPhysicalKernelProfile_lpNorm_le_sum_of_memLp` reduces that
+mass to the sum of the individual visible-prime term masses, so the next
+estimate can be local in the prime-power index rather than treating the
+profile as an opaque finite sum.
 This is a formal functional-analytic reduction, not a positivity result.
 
 Using the raw-factor support, the same estimate is now localized to the exact

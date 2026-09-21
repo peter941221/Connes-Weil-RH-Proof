@@ -782,6 +782,36 @@ theorem finitePrimeSum_le_l2_common_factor_profile_mass_of_profile
   exact finitePrimeSum_le_l2_common_factor_profile_mass geometry
     (orbitRawFactor_reflected_memLp_two geometry) hprofile
 
+theorem orbitFiniteComplexPhysicalKernelProfile_lpNorm_le_sum_of_memLp
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (hterm : ∀ n ∈ orbitVisiblePrimeRange geometry,
+      MemLp (fun t : Real =>
+        ((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+          Complex.exp (((Real.log n / 2 - t : Real) : Complex)) *
+            (orbitRawFactor geometry).test (Real.log n - t))
+        (ENNReal.ofReal 2)) :
+    MeasureTheory.lpNorm (orbitFiniteComplexPhysicalKernelProfile geometry) (ENNReal.ofReal 2)
+        (MeasureTheory.volume : Measure Real) ≤
+      ∑ n ∈ orbitVisiblePrimeRange geometry,
+        MeasureTheory.lpNorm (fun t : Real =>
+          ((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+            Complex.exp (((Real.log n / 2 - t : Real) : Complex)) *
+              (orbitRawFactor geometry).test (Real.log n - t))
+          (ENNReal.ofReal 2) (MeasureTheory.volume : Measure Real) := by
+  have hsum := MeasureTheory.lpNorm_sum_le hterm (by norm_num : (1 : ENNReal) ≤ ENNReal.ofReal 2)
+  have hprofile_eq :
+      orbitFiniteComplexPhysicalKernelProfile geometry =
+        ∑ n ∈ orbitVisiblePrimeRange geometry, (fun t : Real =>
+          ((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+            Complex.exp (((Real.log n / 2 - t : Real) : Complex)) *
+              (orbitRawFactor geometry).test (Real.log n - t)) := by
+    funext t
+    simp [orbitFiniteComplexPhysicalKernelProfile, Finset.sum_apply,
+      Complex.natCast_log, Complex.ofReal_mul, Complex.ofReal_inv]
+  rw [hprofile_eq]
+  exact hsum
+
 theorem finitePrimeSum_le_intervalIntegral_common_factor_profile_norm
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) :
