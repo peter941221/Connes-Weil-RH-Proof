@@ -287,6 +287,58 @@ theorem orbitWindowSemiLocalGate_iff_positive_sub_negative_integral_budget
     exact orbitPhysicalKernel_nodeTerm_eq_positive_sub_negative geometry n
   rw [hsum]
 
+def orbitFiniteSignedPhysicalIntegrand
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) : Real → Real :=
+  fun t => Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+    ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+      (2 * (orbitPositiveIntegrandMajorant geometry n t -
+        orbitNegativeIntegrandMajorant geometry n t)))
+
+theorem orbitFiniteSignedPhysicalIntegrand_integrable
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    Integrable (orbitFiniteSignedPhysicalIntegrand geometry) := by
+  unfold orbitFiniteSignedPhysicalIntegrand
+  apply MeasureTheory.integrable_finsetSum
+  intro n _hn
+  have hdiff :=
+    (orbitPositiveIntegrandMajorant_integrable geometry n).sub
+      (orbitNegativeIntegrandMajorant_integrable geometry n)
+  have h := hdiff.const_mul
+    (2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))))
+  convert h using 1
+  funext t
+  simp only [Pi.sub_apply]
+  ring
+
+theorem finitePrimeSum_eq_integral_finiteSignedPhysicalIntegrand
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    finitePrimeSum g.convolutionSquare =
+      ∫ t, orbitFiniteSignedPhysicalIntegrand geometry t := by
+  rw [finitePrimeSum_eq_positive_sub_negative_integrals geometry]
+  unfold orbitFiniteSignedPhysicalIntegrand
+  symm
+  rw [MeasureTheory.integral_finsetSum]
+  · apply Finset.sum_congr rfl
+    intro n _hn
+    rw [MeasureTheory.integral_const_mul]
+    rw [MeasureTheory.integral_const_mul]
+    rw [MeasureTheory.integral_sub
+      (orbitPositiveIntegrandMajorant_integrable geometry n)
+      (orbitNegativeIntegrandMajorant_integrable geometry n)]
+  · intro n _hn
+    have hdiff :=
+      (orbitPositiveIntegrandMajorant_integrable geometry n).sub
+        (orbitNegativeIntegrandMajorant_integrable geometry n)
+    have h := hdiff.const_mul
+      (2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))))
+    convert h using 1
+    funext t
+    simp only [Pi.sub_apply]
+    ring
+
 theorem orbitPhysicalKernel_nodeTerm_le_of_positivePart
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) (n : Nat) :

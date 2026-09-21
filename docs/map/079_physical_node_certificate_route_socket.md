@@ -123,3 +123,9 @@ that signed integral budget and feeds `SourceRH` without an auxiliary upper
 bound. The remaining producer obligation is therefore the exact finite
 positive-minus-negative physical integral inequality for each hypothetical
 right zero.
+
+The finite owner now also has a single signed-integrand representation:
+`orbitFiniteSignedPhysicalIntegrand` is integrable and its integral is exactly
+the finite prime face. This permits estimates after summing the visible prime
+channels pointwise, retaining cross-prime cancellation before the final
+Archimedean comparison.
