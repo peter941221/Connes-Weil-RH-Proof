@@ -21,3 +21,10 @@ Evidence: `ConnesWeilRH/Dev/C1C3CarrierTransport.lean`, theorem
 `CarrierTwoSpanDeterminantCertificate.gate` (formal, project candidate
 owner); prior exact determinant split and phase readbacks are recorded in
 `docs/map/075_c3p_carrier_transport_after_1800.md`.
+
+Formal follow-up: `C1C3CarrierFourierShift.lean` proves the exact same-owner
+frequency transport
+`Fourier(carrierModulate gamma f, xi) = Fourier(f, xi + gamma/(2*pi))`,
+including the zero-frequency specialization. This is the algebraic front of
+the paper sigma-shift argument; it does not prove a sigma identity, a sign,
+or the phase budget.
