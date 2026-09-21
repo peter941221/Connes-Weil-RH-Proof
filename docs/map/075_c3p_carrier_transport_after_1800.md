@@ -134,6 +134,12 @@ Archimedean bound `arch <= -delta`, it is enough to prove one scalar inequality
 that the cutoff budget is at most `delta`. This is the current detector-specific
 producer socket; no budget sign or RH conclusion is asserted.
 
+The finite owner cardinality is now also bounded by the same explicit cutoff,
+and the phase budget consequently has the fully explicit majorant
+`N * 2 * log(N) * seminorm`, where `N = ceil(exp(2*(orbitIndex+2))) + 1`.
+This removes the remaining abstract owner-cardinality factor; it is still a
+majorant only, so the signed margin comparison remains the live obligation.
+
 - **Carrier transport (formal)**: same-carrier pair tests transport the
   carrier exactly; the square channel and the Weil pair sum collapse to
   `2·Re[e^{-iγy}·G(y)]`; every prime cell reads `Λ(n)·2/√n·Re[e^{-iγ log

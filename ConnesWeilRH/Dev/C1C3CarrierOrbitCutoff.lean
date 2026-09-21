@@ -28,6 +28,19 @@ open ConnesWeilRH.Source.CCM25Concrete.CompactLogConvolution
 
 noncomputable section
 
+theorem orbitG8_visible_owner_card_le_cutoff
+    {rho : sourceNontrivialZeroSet} (γ : Real) (u : CompactLogTest)
+    (geometry : OrbitG8Geometry rho (carrierModulate γ u)) :
+    (globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare)).card ≤
+      Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1 := by
+  let N : ℕ :=
+    Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1
+  have hsubset := visiblePrimeSet_subset_range_of_orbitG8Geometry geometry
+  have hcard :
+      (globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare)).card ≤
+        (Finset.range N).card := Finset.card_le_card (by simpa [N] using hsubset)
+  simpa [N] using hcard
+
 theorem carrierSquarePrimePhaseSum_abs_le_orbitG8_cutoff
     {rho : sourceNontrivialZeroSet} (γ : Real) (u : CompactLogTest)
     (geometry : OrbitG8Geometry rho (carrierModulate γ u)) :
@@ -66,6 +79,70 @@ theorem orbitWindowSemiLocalGate_of_orbitG8_cutoff_margin
     orbitWindowSemiLocalGate (carrierModulate γ u) := by
   apply orbitWindowSemiLocalGate_carrierSquare_of_margin_bounds γ u δ harch
   exact (carrierSquarePrimePhaseSum_abs_le_orbitG8_cutoff γ u geometry).trans hbudget
+
+theorem carrierSquarePrimePhaseSum_abs_le_orbitG8_range_budget
+    {rho : sourceNontrivialZeroSet} (γ : Real) (u : CompactLogTest)
+    (geometry : OrbitG8Geometry rho (carrierModulate γ u)) :
+    |carrierSquarePrimePhaseSum γ u| ≤
+      (Nat.ceil
+          (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1 : Real) *
+        (2 * Real.log
+          (Nat.ceil
+            (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1 : Real)) *
+        SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test := by
+  let N : ℕ :=
+    Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1
+  have hN : 1 ≤ N := by
+    dsimp [N]
+    omega
+  have hcard :
+      ((globalPrimeIndexSet
+          ((carrierModulate γ u).convolutionSquare)).card : Real) ≤ N := by
+    have hcardNat :
+        (globalPrimeIndexSet
+            ((carrierModulate γ u).convolutionSquare)).card ≤ N := by
+      simpa [N] using orbitG8_visible_owner_card_le_cutoff γ u geometry
+    exact_mod_cast hcardNat
+  have hfactor :
+      0 ≤ (2 * Real.log (N : Real)) *
+        SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test := by
+    have hlog : 0 ≤ Real.log (N : Real) := by
+      exact Real.log_nonneg (by exact_mod_cast hN)
+    positivity
+  calc
+    |carrierSquarePrimePhaseSum γ u| ≤
+        ((globalPrimeIndexSet
+            ((carrierModulate γ u).convolutionSquare)).card : Real) *
+          (2 * Real.log (N : Real)) *
+          SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test :=
+      carrierSquarePrimePhaseSum_abs_le_card_log_cutoff γ u N hN (by
+        intro n hn
+        have hsubset := visiblePrimeSet_subset_range_of_orbitG8Geometry geometry
+        exact Nat.le_of_lt (Finset.mem_range.mp (hsubset hn)))
+    _ ≤ (N : Real) * (2 * Real.log (N : Real)) *
+          SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test := by
+      calc
+        ((globalPrimeIndexSet
+            ((carrierModulate γ u).convolutionSquare)).card : Real) *
+            (2 * Real.log (N : Real)) *
+            SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test =
+          ((globalPrimeIndexSet
+            ((carrierModulate γ u).convolutionSquare)).card : Real) *
+            ((2 * Real.log (N : Real)) *
+              SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test) := by ring
+        _ ≤ (N : Real) * ((2 * Real.log (N : Real)) *
+              SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test) :=
+          mul_le_mul_of_nonneg_right hcard hfactor
+        _ = (N : Real) * (2 * Real.log (N : Real)) *
+              SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test := by ring
+    _ =
+        (Nat.ceil
+            (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1 : Real) *
+          (2 * Real.log
+            (Nat.ceil
+              (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1 : Real)) *
+          SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test := by
+      simp [N]
 
 end
 end C1C3CarrierOrbitCutoff

@@ -9,6 +9,10 @@ namespace ConnesWeilRH.Dev.C1C3CarrierOrbitCutoff
 
 #check carrierSquarePrimePhaseSum_abs_le_orbitG8_cutoff
 #print axioms carrierSquarePrimePhaseSum_abs_le_orbitG8_cutoff
+#check orbitG8_visible_owner_card_le_cutoff
+#print axioms orbitG8_visible_owner_card_le_cutoff
+#check carrierSquarePrimePhaseSum_abs_le_orbitG8_range_budget
+#print axioms carrierSquarePrimePhaseSum_abs_le_orbitG8_range_budget
 #check orbitWindowSemiLocalGate_of_orbitG8_cutoff_margin
 #print axioms orbitWindowSemiLocalGate_of_orbitG8_cutoff_margin
 
