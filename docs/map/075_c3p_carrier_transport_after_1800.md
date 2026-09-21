@@ -112,6 +112,11 @@ times the zero-order Schwartz seminorm of the envelope convolution square.
 This is still an owner-preserving upper bound; no continuous-prime or frozen
 prime-set replacement is made.
 
+For every actual visible prime power, the coefficient is further bounded by
+`2 * log(n)` using the exact von Mangoldt inequality and positivity of the
+square-root weight. The resulting log-weighted seminorm sum is now formal on
+the exact visible owner; it remains an upper bound, not a sign certificate.
+
 - **Carrier transport (formal)**: same-carrier pair tests transport the
   carrier exactly; the square channel and the Weil pair sum collapse to
   `2·Re[e^{-iγy}·G(y)]`; every prime cell reads `Λ(n)·2/√n·Re[e^{-iγ log

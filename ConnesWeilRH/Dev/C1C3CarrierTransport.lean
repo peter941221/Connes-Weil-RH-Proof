@@ -934,6 +934,64 @@ theorem carrierSquarePrimePhaseSum_abs_le_zeroSeminorm_sum
           (SchwartzMap.norm_le_seminorm ℂ u.convolutionSquare.test
             (Real.log n)) (abs_nonneg _)
 
+theorem carrierSquarePhaseCoefficient_abs_le_two_log
+    (n : ℕ) (hprime : IsPrimePow n) :
+    |(ArithmeticFunction.vonMangoldt n : Real) *
+        (2 / Real.sqrt (n : Real))| ≤
+      2 * Real.log (n : Real) := by
+  have hnlt : 1 < n := hprime.one_lt
+  have hn : 1 ≤ n := by omega
+  have hΛ : (0 : Real) ≤ ArithmeticFunction.vonMangoldt n :=
+    ArithmeticFunction.vonMangoldt_nonneg
+  have hsqrt : (1 : Real) ≤ Real.sqrt (n : Real) := by
+    apply (Real.one_le_sqrt).2
+    exact_mod_cast hn
+  have hinv : 1 / Real.sqrt (n : Real) ≤ (1 : Real) := by
+    simpa [one_div] using (inv_le_one_of_one_le₀ hsqrt)
+  have hbound :
+      ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) ≤
+        Real.log (n : Real) := by
+    calc
+      ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) ≤
+          ArithmeticFunction.vonMangoldt n * 1 :=
+        mul_le_mul_of_nonneg_left hinv hΛ
+      _ = ArithmeticFunction.vonMangoldt n := by ring
+      _ ≤ Real.log (n : Real) := ArithmeticFunction.vonMangoldt_le_log
+  have hcoef : (0 : Real) ≤
+      ArithmeticFunction.vonMangoldt n * (2 / Real.sqrt (n : Real)) := by
+    positivity
+  rw [abs_of_nonneg hcoef]
+  calc
+    ArithmeticFunction.vonMangoldt n * (2 / Real.sqrt (n : Real)) =
+        2 * (ArithmeticFunction.vonMangoldt n *
+          (1 / Real.sqrt (n : Real))) := by ring
+    _ ≤ 2 * Real.log (n : Real) := by nlinarith
+
+theorem carrierSquarePrimePhaseSum_abs_le_log_weighted_seminorm_sum
+    (γ : Real) (u : CompactLogTest) :
+    |carrierSquarePrimePhaseSum γ u| ≤
+      ∑ n ∈ globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare),
+        (2 * Real.log (n : Real)) *
+          SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test := by
+  calc
+    |carrierSquarePrimePhaseSum γ u| ≤
+        ∑ n ∈ globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare),
+          |(ArithmeticFunction.vonMangoldt n : Real) *
+              (2 / Real.sqrt (n : Real))| *
+            SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test :=
+      carrierSquarePrimePhaseSum_abs_le_zeroSeminorm_sum γ u
+    _ ≤ _ := by
+      apply Finset.sum_le_sum
+      intro n hn
+      have hprime : IsPrimePow n :=
+        (mem_globalPrimeIndexSet_iff
+          ((carrierModulate γ u).convolutionSquare) n).mp hn |>.1
+      have hcoef := carrierSquarePhaseCoefficient_abs_le_two_log n hprime
+      have hsemi :
+          0 ≤ SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test := by
+        positivity
+      exact mul_le_mul_of_nonneg_right hcoef hsemi
+
 theorem orbitWindowSemiLocalGate_carrierSquare_of_margin_bounds
     (γ : Real) (u : CompactLogTest) (δ : Real)
     (harch : archimedeanTerm (carrierModulate γ u).convolutionSquare ≤ -δ)
