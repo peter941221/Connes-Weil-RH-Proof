@@ -812,6 +812,106 @@ theorem orbitFiniteComplexPhysicalKernelProfile_lpNorm_le_sum_of_memLp
   rw [hprofile_eq]
   exact hsum
 
+theorem orbitFiniteComplexPhysicalKernelProfile_term_lpNorm_eq_common
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (n : Nat) (hn : n ∈ orbitVisiblePrimeRange geometry) :
+    MeasureTheory.lpNorm (fun t : Real =>
+      ((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+        Complex.exp (((Real.log n / 2 - t : Real) : Complex)) *
+          (orbitRawFactor geometry).test (Real.log n - t))
+      (ENNReal.ofReal 2) (MeasureTheory.volume : Measure Real) =
+      ‖((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+          Complex.exp (((-Real.log n / 2 : Real) : Complex))‖ *
+        MeasureTheory.lpNorm
+          ((CompactLogTest.exponentialWeight (orbitRawFactor geometry) (1 : Complex)).test : Real → Complex)
+          (ENNReal.ofReal 2) (MeasureTheory.volume : Measure Real) := by
+  let raw := orbitRawFactor geometry
+  let weighted : SchwartzMap ℝ ℂ :=
+    (CompactLogTest.exponentialWeight raw (1 : Complex)).test
+  let shifted : SchwartzMap ℝ ℂ :=
+    SchwartzMap.compCLMOfContinuousLinearEquiv ℂ
+      (LinearIsometryEquiv.neg ℝ (E := ℝ))
+      (SchwartzMap.compSubConstCLM ℂ (-Real.log n) weighted)
+  have hshift :
+      MeasureTheory.lpNorm (shifted : Real → Complex) (ENNReal.ofReal 2)
+          (MeasureTheory.volume : Measure Real) =
+        MeasureTheory.lpNorm (weighted : Real → Complex) (ENNReal.ofReal 2)
+          (MeasureTheory.volume : Measure Real) := by
+    have hw : AEStronglyMeasurable (weighted : Real → Complex) volume :=
+      (SchwartzMap.memLp weighted 2).aestronglyMeasurable
+    have hmp := Measure.measurePreserving_sub_left (volume : Measure Real) (Real.log n)
+    have hcomp : (shifted : Real → Complex) = fun x : Real => weighted (Real.log n - x) := by
+      funext x
+      simp [shifted, Function.comp_def,
+        SchwartzMap.compCLMOfContinuousLinearEquiv_apply,
+        SchwartzMap.compSubConstCLM_apply, LinearIsometryEquiv.neg, LinearEquiv.neg]
+      congr 1
+      ring
+    rw [hcomp]
+    have hleft : AEStronglyMeasurable
+        (fun x : Real => weighted (Real.log n - x)) volume := by
+      exact (hmp.map_eq ▸ hw).comp_aemeasurable hmp.aemeasurable
+    calc
+      MeasureTheory.lpNorm (fun x : Real => weighted (Real.log n - x))
+          (ENNReal.ofReal 2) volume =
+          (MeasureTheory.eLpNorm (fun x : Real => weighted (Real.log n - x))
+            (ENNReal.ofReal 2) volume).toReal :=
+        (MeasureTheory.toReal_eLpNorm hleft).symm
+      _ = (MeasureTheory.eLpNorm (weighted : Real → Complex)
+            (ENNReal.ofReal 2) volume).toReal :=
+        congrArg ENNReal.toReal (MeasureTheory.eLpNorm_comp_measurePreserving hw hmp)
+      _ = MeasureTheory.lpNorm (weighted : Real → Complex)
+          (ENNReal.ofReal 2) volume := MeasureTheory.toReal_eLpNorm hw
+  have hfactor :
+      (fun t : Real =>
+        ((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+          Complex.exp (((Real.log n / 2 - t : Real) : Complex)) * raw.test (Real.log n - t)) =
+        (fun t : Real =>
+          (((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+            Complex.exp (((-Real.log n / 2 : Real) : Complex))) • shifted t) := by
+    funext t
+    simp only [shifted, weighted,
+      SchwartzMap.compCLMOfContinuousLinearEquiv_apply,
+      SchwartzMap.compSubConstCLM_apply, Function.comp_apply,
+      CompactLogTest.exponentialWeight_apply, one_mul]
+    simp [LinearIsometryEquiv.neg, LinearEquiv.neg, Complex.natCast_log]
+    have hlog : (Real.log (n : Real) : Complex) = Complex.log (n : Complex) := by
+      exact Complex.natCast_log
+    rw [← hlog]
+    have harg : -t + Real.log n = Real.log n - t := by ring
+    have hcoeff :
+        (2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) =
+          ArithmeticFunction.vonMangoldt n * (Real.sqrt (n : Real))⁻¹ * 2 := by
+      simp only [one_div]
+      ring
+    rw [harg]
+    have he :
+        Complex.exp (-((Real.log n : Real) : Complex) / 2) *
+            Complex.exp (-(t : Complex) + ((Real.log n : Real) : Complex)) =
+          Complex.exp (((Real.log n : Real) : Complex) / 2 - (t : Complex)) := by
+      rw [← Complex.exp_add]
+      congr 1
+      ring
+    have he_target :
+        Complex.exp (((Real.log n : Real) : Complex) / 2 - (t : Complex)) =
+          Complex.exp (((-Real.log n / 2 : Real) : Complex)) *
+            Complex.exp (((-t + Real.log n : Real) : Complex)) := by
+      simpa using he.symm
+    rw [he_target]
+    norm_num [Complex.ofReal_mul, Complex.ofReal_inv]
+    ring_nf <;> simp [smul_eq_mul]
+  rw [hfactor]
+  change MeasureTheory.lpNorm
+      ((((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+        Complex.exp (((-Real.log n / 2 : Real) : Complex))) • (shifted : Real → Complex))
+      (ENNReal.ofReal 2) (MeasureTheory.volume : Measure Real) = _
+  rw [MeasureTheory.lpNorm_const_smul]
+  exact congrArg
+    (fun x : Real =>
+      ‖((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+          Complex.exp (((-Real.log n / 2 : Real) : Complex))‖ * x) hshift
+
 theorem finitePrimeSum_le_intervalIntegral_common_factor_profile_norm
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) :

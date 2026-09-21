@@ -240,6 +240,16 @@ estimate can be local in the prime-power index rather than treating the
 profile as an opaque finite sum.
 This is a formal functional-analytic reduction, not a positivity result.
 
+The individual term is now normalized exactly by
+`orbitFiniteComplexPhysicalKernelProfile_term_lpNorm_eq_common`: each visible
+prime-power summand has L2 norm equal to the modulus of its explicit scalar
+coefficient times the common norm of the same-owner exponential-weighted raw
+test. The proof uses the measure-preserving affine reflection
+`t |-> log(n) - t`; it introduces no new owner or support assumption. The
+remaining quantitative task is therefore an explicit coefficient sum times
+one common weighted-raw L2 mass, followed by comparison with the Archimedean
+negative term. This remains an open signed estimate.
+
 Using the raw-factor support, the same estimate is now localized to the exact
 finite window by
 `finitePrimeSum_le_intervalIntegral_common_factor_profile_norm`. This is the
