@@ -120,3 +120,9 @@ norm bound, the exact half-point digamma value, and Mathlib's rational bounds
 for log 2, pi, and the Euler constant. This makes the remaining threshold
 certificate purely a finite harmonic lower-bound problem; it does not yet
 close the hypothetical-zero height quantifier or the visible-prime budget.
+
+The finite arithmetic interface is now explicit in
+`c3Sigma_neg_of_harmonic_certificate`: any finite `K` whose reciprocal sum
+exceeds 24 gives a strict negative sigma at height `2*(K+1)`. The proof is
+parameterized and never unfolds the range, so a later `ceil(exp 25)` or other
+exact harmonic certificate can instantiate it without large-range recursion.
