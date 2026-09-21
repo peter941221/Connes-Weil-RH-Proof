@@ -1,7 +1,28 @@
-# 077 — Producer anatomy: gate vs window, the width tension
+# 076 — Producer anatomy: gate measurement, with tail-window correction
 
-Status: the producer behind the exit theorem is fully anatomized and its
-obstacle is quantified as a width tension (2026-09-21).
+Correction, 2026-09-21 (record 1802): the ``tailStart window`` conclusion
+from record 1801 is withdrawn. Its Cartwright/Riemann--von Mangoldt cap was
+an external paper-side heuristic, but it is not a constraint of the committed
+owner constructor. The actual order is:
+
+```text
+choose tailStart from the tail budget
+    -> set R = 2^(tailStart + 1) + 2 + dist(2, rho)
+    -> for that arbitrary finite R construct correction and orbitIndex
+       with square_zero_control and raw_square_tail.
+```
+
+The quantified theorem
+`exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets`
+(`C1HealthyYoshidaUnscaledOrbit.lean:504-505`) is consumed verbatim by
+`exists_orbitG8Geometry_of_sourceNontrivialZero_right`
+(`C1G8R0OrbitGeometry.lean:169-178`). Therefore neither an ``empty window``
+nor a width tension has been established. The gate measurements below remain
+numerical evidence about their explicitly constructed surrogate family only.
+They do not instantiate the constructor's full ball-zero and tail data.
+
+Status: the producer's gate is anatomized at the surrogate-family level; the
+former width-tension conclusion is withdrawn (2026-09-21).
 
 Record [1801](../proofs/1801_envelope_qform_and_window.md) lands two rigs
 and one collapse:
@@ -14,20 +35,16 @@ and one collapse:
   cancellation risk). At γ = 40 the pinned head's own gate is ≤ 0 (the
   W2 trough). At γ = 14.13 the head reads +1.9e4…+7.4e4 and the
   feasible-λ corrections (λ ≲ O(10), see below) cannot dent it.
-- **The committed tailStart window is measured EMPTY at all 8 cases**:
-  zero-height floor vs Cartwright zero-budget cap (ball formula grows with
-  γ via `+2+dist(2,ρ)`), and the tail sup S(T) falls ~10³ per doubling
-  while the budget ε²(tS) grows only 4/3 per level. Closing the window
-  needs support(g²) ≳ 5 — allowed by the committed structure
-  (orbitIndex free, supports ⊆ (−1,1)) but not realized by the narrow
-  1799 owners.
-- **The exact tension**: gate ⟶ narrow (small prime book), window ⟶
-  wide (large support). The producer = does some intermediate width host
-  a test with gate ≤ 0 under the full geometry.
+- **The 1801b tail-window verdict is not route evidence**: it imposed a
+  Cartwright cap absent from the formal constructor. It is retained only as
+  a diagnostic of its surrogate family, not as a feasibility screen.
+- **The remaining actual question**: can the constructor-selected correction,
+  which already supplies every finite ball-zero and fourth-order-tail field,
+  be shown to have `ICgate(g.convolutionSquare) <= 0`? This is the C3/B5
+  signed estimate, unchanged in logical strength.
 
-Next active target: the wide owner (k = 2–3, full-width corrections,
-a ≈ 6) — measure its window (should close) AND its gate; then the gate
-minimization over the window-feasible family is the concrete form of the
-remaining problem. Cross-domination (maximize |G_AB|) is the parallel
-route. A committed-definition revision (ball radius decoupled from
-tailStart) is on the table but needs approval.
+Next active target: an analytic readback of the actual constructor-selected
+correction into the finite prime profile and `ICgate` budget. A numerical
+surrogate may guide that work only after it represents the same finite
+ball-zero and fourth-order-tail data. No committed-definition revision is
+indicated by the withdrawn cap.

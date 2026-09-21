@@ -19,17 +19,16 @@ integrand changes sign already at the prime powers through 5. These results
 do not refute the support-dependent B5 target or supply its nonnegativity.
 The route and the S3 status in 045/046 are unchanged.
 
-## Producer anatomy: gate vs window, 2026-09-21
+## TailStart quantifier correction, 2026-09-21
 
-[076](076_producer_anatomy_after_1801.md) anatomizes the exit producer
-(record 1801, two rigs, no Lean brick): the span format collapses to
-`∃ g: geometry ∧ ICgate(g²) ≤ 0`; the gate quadratic form is measured
-INDEFINITE on the geometry-preserving family (and the γ = 40 heads already
-read ≤ 0); but the committed tailStart window is measured EMPTY at all 8
-zero cases — the Cartwright zero-budget cap vs the tail budget's (4/3)
-race. The obstacle is now an exact width tension: the gate wants narrow
-tests, the window wants wide ones (support(g²) ≳ 5 closes the window and
-is allowed by the committed structure). No positivity or RH statement.
+[077](077_tailstart_quantifier_correction.md) corrects the route status
+after record 1801. The ``empty tailStart window`` was inferred from an
+uncommitted Cartwright cap and is withdrawn: the Lean construction first
+selects `tailStart`, then constructs the correction and every required
+finite ball zero for the resulting radius. The gate diagnostics remain
+surrogate-family measurements only. The active target is again the actual
+constructor-selected correction's detector-specific B5 signed budget. No
+positivity or RH statement.
 
 ## C3' carrier transport, 2026-09-21
 

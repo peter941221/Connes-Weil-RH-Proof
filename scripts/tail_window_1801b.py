@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
-# tail_window_1801b.py — record 1801 addendum (the tS-window measurement)
+# tail_window_1801b.py — record 1801b surrogate diagnostic (withdrawn as a route screen)
+#
+# Record 1802 established that this script's Cartwright/Riemann--von Mangoldt
+# cap is NOT a constraint of the committed OrbitG8Geometry constructor. Do
+# not use an EMPTY verdict here to reject tailStart, an owner, or the B5
+# route. The constructor selects tailStart first and then supplies arbitrary
+# finite ball-zero data. This file is retained only to reproduce the stated
+# surrogate-family diagnostic from record 1801.
 #
 # The 1801 rig measured the gate quadratic form on the geometry-preserving
 # family (indefinite; G_BB sign = prime-face sign).  This addendum measures
-# whether the committed OrbitG8Geometry parameter window for tailStart is
-# NONEMPTY at the pinned heads:
+# a surrogate family's tail profile under an additional, uncommitted
+# Cartwright capacity heuristic:
 #
 #   floor(tS)  : zero_height_le_dyadic   2|Im rho| <= 2^(tS+1)
 #   cap(tS)    : square_zero_control demands L[g^2] = 0 at all zeros in the
