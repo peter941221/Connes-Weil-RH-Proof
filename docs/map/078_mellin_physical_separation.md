@@ -23,4 +23,3 @@ a quantitative physical-kernel estimate.
 
 This is a no-go for a shortcut, not a route no-go. The B5 signed budget and
 RH remain open.
-
