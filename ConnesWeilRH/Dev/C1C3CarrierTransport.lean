@@ -1014,6 +1014,20 @@ theorem carrier_twoSpan_phase_budget_iff_optimal_nonpos
     rw [carrier_twoSpan_determinant_split_phase]
     exact h
 
+/-- A margin-form sufficient condition for the signed budget.  The three
+phase-owner estimates remain separate: a negative Archimedean margin absorbs
+the mixed and prime upper bounds. -/
+theorem carrier_twoSpan_phase_budget_of_margin_bounds
+    (γ : Real) (u v : CompactLogTest) (δ μ π : Real)
+    (harch : carrierArchimedeanDeterminantPhase γ u v ≤ -δ)
+    (hmixed : carrierMixedDeterminantPhase γ u v ≤ μ)
+    (hprime : carrierPrimeDeterminantPhase γ u v ≤ π)
+    (hmargin : μ + π ≤ δ) :
+    carrierArchimedeanDeterminantPhase γ u v +
+      carrierMixedDeterminantPhase γ u v +
+        carrierPrimeDeterminantPhase γ u v ≤ 0 := by
+  linarith
+
 theorem orbitWindowSemiLocalGate_carrier_twoSpan_of_optimal_determinant
     (γ : Real) (u v : CompactLogTest) (B : Real)
     (hAu : Function.support (carrierModulate γ u).test ⊆ Set.Ioo (-B) B)

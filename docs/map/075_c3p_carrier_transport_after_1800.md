@@ -81,6 +81,12 @@ named square and directed-pair phase credits and deficits. This exposes the
 positive/negative cross terms needed by a future signed estimate, without
 assuming any of their signs.
 
+Formal follow-up (1890): `carrier_twoSpan_phase_budget_of_margin_bounds` adds
+the margin-form sufficient condition on the same owner. If the Archimedean
+determinant is at most `-delta`, while the mixed and prime determinants are at
+most `mu` and `pi`, the budget follows from `mu + pi <= delta`. This is an
+estimate interface, not an estimate: the three analytic bounds remain open.
+
 - **Carrier transport (formal)**: same-carrier pair tests transport the
   carrier exactly; the square channel and the Weil pair sum collapse to
   `2·Re[e^{-iγy}·G(y)]`; every prime cell reads `Λ(n)·2/√n·Re[e^{-iγ log
