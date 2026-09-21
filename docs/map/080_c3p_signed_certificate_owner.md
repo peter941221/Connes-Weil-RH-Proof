@@ -71,3 +71,8 @@ and summed through `Complex.re_tsum`, yielding the formal global bound
 `c3Sigma xi <= c3Sigma 0`. This establishes monotonicity away from the
 zero-height anchor in the required owner, but does not prove that the profile
 has crossed zero at any explicit height.
+
+For `xi != 0`, the same positive first term gives the strict inequality
+`c3Sigma xi < c3Sigma 0`. The remaining sign task is therefore an explicit
+lower bound on the accumulated reciprocal series strong enough to overcome
+the anchor value, followed by the detector-specific signed prime budget.

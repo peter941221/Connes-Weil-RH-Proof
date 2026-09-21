@@ -172,5 +172,60 @@ theorem c3Sigma_le_at_zero (xi : Real) :
       exact re_c3Sigma_reciprocalDifferenceTerm_nonneg xi n)
   linarith
 
+theorem re_c3Sigma_reciprocalDifferenceTerm_pos_of_ne_zero
+    {xi : Real} (hxi : xi ≠ 0) (n : Nat) :
+    0 <
+      (((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) +
+            (((1 / 4 : Real) : Complex) - ((xi : Complex) * Complex.I) / 2))⁻¹) -
+        (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + ((1 / 4 : Real) : Complex))⁻¹))).re := by
+  rw [re_c3Sigma_reciprocalDifferenceTerm]
+  have hxi' : xi / 2 ≠ 0 := div_ne_zero hxi (by norm_num)
+  have hsq : 0 < (xi / 2) ^ 2 := sq_pos_of_ne_zero hxi'
+  positivity
+
+theorem c3Sigma_lt_at_zero_of_ne_zero {xi : Real} (hxi : xi ≠ 0) :
+    c3Sigma xi < c3Sigma 0 := by
+  suffices hsub : c3Sigma xi - c3Sigma 0 < 0 by linarith
+  rw [c3Sigma_sub_zero_eq_neg_re_reciprocalDifferenceSeries]
+  let z : Complex :=
+    (((1 / 4 : Real) : Complex) - ((xi : Complex) * Complex.I) / 2)
+  let z0 : Complex := ((1 / 4 : Real) : Complex)
+  have hz : 0 < z.re := by
+    dsimp [z]
+    norm_num [Complex.div_re, Complex.mul_re]
+  have hz0 : 0 < z0.re := by
+    dsimp [z0]
+    norm_num
+  have hsix : Summable (fun n : Nat =>
+      ((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + z)⁻¹) :=
+    Source.C1XiCenterTwoGamma.summable_halfAnchorGaussReciprocalSeries hz
+  have hs0 : Summable (fun n : Nat =>
+      ((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + z0)⁻¹) :=
+    Source.C1XiCenterTwoGamma.summable_halfAnchorGaussReciprocalSeries hz0
+  have hsum : Summable (fun n : Nat =>
+      ((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + z)⁻¹) -
+        (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + z0)⁻¹))) := hsix.sub hs0
+  rw [Complex.re_tsum hsum]
+  have hsumreal : Summable (fun n : Nat =>
+      (((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + z)⁻¹) -
+        (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+          ((n : Complex) + z0)⁻¹))).re) :=
+    Complex.reCLM.summable hsum
+  have hpos := hsumreal.tsum_pos
+    (fun n => by
+      dsimp [z, z0]
+      exact re_c3Sigma_reciprocalDifferenceTerm_nonneg xi n)
+    0 (by
+      dsimp [z, z0]
+      exact re_c3Sigma_reciprocalDifferenceTerm_pos_of_ne_zero hxi 0)
+  linarith
+
 end Dev
 end ConnesWeilRH
