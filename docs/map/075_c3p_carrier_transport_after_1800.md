@@ -94,6 +94,13 @@ most the sum of its three absolute product terms. These are rigorous upper
 bounds that can feed the negative Archimedean margin; they do not assert the
 needed margin or any RH conclusion.
 
+Formal follow-up (1892): a faster one-span socket is now formal. If one
+carrier square has Archimedean term at most `-delta` and its complete finite
+prime phase sum has absolute value at most `delta`, then the same-owner
+`orbitWindowSemiLocalGate` follows directly. This is a valid B5-shaped
+consumer and may close before the two-span determinant, but both margin
+estimates remain to be proved for the selected detector.
+
 - **Carrier transport (formal)**: same-carrier pair tests transport the
   carrier exactly; the square channel and the Weil pair sum collapse to
   `2·Re[e^{-iγy}·G(y)]`; every prime cell reads `Λ(n)·2/√n·Re[e^{-iγ log

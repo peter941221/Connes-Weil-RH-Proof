@@ -36,6 +36,7 @@ namespace C1C3CarrierTransport
 #print axioms finitePrimeSum_carrierSquare_phase_split
 #print axioms p2AggregateValue_carrierSquare_phase_split
 #print axioms orbitWindowSemiLocalGate_carrierSquare_phase_split
+#print axioms orbitWindowSemiLocalGate_carrierSquare_of_margin_bounds
 #print axioms finitePrimeTermComplex_carrierPair
 #print axioms finitePrimeTerm_carrierPair_phase_split
 #print axioms twoSpan_gate_qform_expand_carrier

@@ -850,6 +850,31 @@ noncomputable def carrierSquarePrimePhaseSum
   ∑ n ∈ globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare),
     carrierSquarePhaseTerm γ u n
 
+theorem orbitWindowSemiLocalGate_carrierSquare_of_margin_bounds
+    (γ : Real) (u : CompactLogTest) (δ : Real)
+    (harch : archimedeanTerm (carrierModulate γ u).convolutionSquare ≤ -δ)
+    (hprime : |carrierSquarePrimePhaseSum γ u| ≤ δ) :
+    orbitWindowSemiLocalGate (carrierModulate γ u) := by
+  rw [orbitWindowSemiLocalGate_carrierSquare_phase_split]
+  have hsum :
+      (∑ n ∈ globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare),
+          (ArithmeticFunction.vonMangoldt n : Real) *
+            (2 / Real.sqrt (n : Real)) *
+            (Real.cos (γ * Real.log n) *
+                (u.convolutionSquare.test (Real.log n)).re +
+              Real.sin (γ * Real.log n) *
+                (u.convolutionSquare.test (Real.log n)).im)) =
+        carrierSquarePrimePhaseSum γ u := by
+    calc
+      _ = finitePrimeSum ((carrierModulate γ u).convolutionSquare) :=
+        (finitePrimeSum_carrierSquare_phase_split γ u).symm
+      _ = carrierSquarePrimePhaseSum γ u :=
+        finitePrimeSum_carrierSquare_eq_phaseTerm_sum γ u
+  rw [hsum]
+  have hprime' : carrierSquarePrimePhaseSum γ u ≤ δ :=
+    le_trans (le_abs_self _) hprime
+  linarith
+
 noncomputable def carrierPairPrimePhaseSum
     (γ : Real) (u v : CompactLogTest) : Real :=
   ∑ n ∈ globalPrimeIndexSet
