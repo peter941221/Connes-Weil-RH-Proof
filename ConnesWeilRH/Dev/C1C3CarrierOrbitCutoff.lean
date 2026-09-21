@@ -144,6 +144,21 @@ theorem carrierSquarePrimePhaseSum_abs_le_orbitG8_range_budget
           SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test := by
       simp [N]
 
+theorem orbitWindowSemiLocalGate_of_orbitG8_range_margin
+    {rho : sourceNontrivialZeroSet} (γ : Real) (u : CompactLogTest)
+    (geometry : OrbitG8Geometry rho (carrierModulate γ u)) (δ : Real)
+    (harch : archimedeanTerm (carrierModulate γ u).convolutionSquare ≤ -δ)
+    (hbudget :
+      (Nat.ceil
+          (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1 : Real) *
+          (2 * Real.log
+            (Nat.ceil
+              (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1 : Real)) *
+          SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test ≤ δ) :
+    orbitWindowSemiLocalGate (carrierModulate γ u) := by
+  apply orbitWindowSemiLocalGate_carrierSquare_of_margin_bounds γ u δ harch
+  exact (carrierSquarePrimePhaseSum_abs_le_orbitG8_range_budget γ u geometry).trans hbudget
+
 end
 end C1C3CarrierOrbitCutoff
 end Dev

@@ -15,5 +15,7 @@ namespace ConnesWeilRH.Dev.C1C3CarrierOrbitCutoff
 #print axioms carrierSquarePrimePhaseSum_abs_le_orbitG8_range_budget
 #check orbitWindowSemiLocalGate_of_orbitG8_cutoff_margin
 #print axioms orbitWindowSemiLocalGate_of_orbitG8_cutoff_margin
+#check orbitWindowSemiLocalGate_of_orbitG8_range_margin
+#print axioms orbitWindowSemiLocalGate_of_orbitG8_range_margin
 
 end ConnesWeilRH.Dev.C1C3CarrierOrbitCutoff

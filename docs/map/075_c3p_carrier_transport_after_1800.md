@@ -140,6 +140,11 @@ and the phase budget consequently has the fully explicit majorant
 This removes the remaining abstract owner-cardinality factor; it is still a
 majorant only, so the signed margin comparison remains the live obligation.
 
+That fully explicit range majorant now feeds a second gate socket directly;
+the remaining producer obligation is exactly the displayed scalar inequality
+against `delta`, together with the Archimedean bound, with no hidden owner
+cardinality or support-to-range step.
+
 - **Carrier transport (formal)**: same-carrier pair tests transport the
   carrier exactly; the square channel and the Weil pair sum collapse to
   `2·Re[e^{-iγy}·G(y)]`; every prime cell reads `Λ(n)·2/√n·Re[e^{-iγ log
