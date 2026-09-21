@@ -422,6 +422,37 @@ theorem finitePrimeSum_eq_integral_finitePhysicalKernelIntegrand
   rw [orbitFinitePhysicalKernelIntegrand_eq_signed geometry]
   exact finitePrimeSum_eq_integral_finiteSignedPhysicalIntegrand geometry
 
+theorem finitePrimeSum_eq_intervalIntegral_finitePhysicalKernelIntegrand
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    finitePrimeSum g.convolutionSquare =
+      ∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+        (((geometry.orbitIndex + 2 : Nat) : Real)),
+          orbitFinitePhysicalKernelIntegrand geometry t := by
+  exact (finitePrimeSum_eq_integral_finitePhysicalKernelIntegrand geometry).trans
+    (integral_orbitFinitePhysicalKernelIntegrand_eq_interval geometry)
+
+theorem orbitWindowSemiLocalGate_iff_finitePhysicalKernelIntervalBudget
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    C1OrbitWindowSemiLocalGate.orbitWindowSemiLocalGate g ↔
+      archimedeanTerm g.convolutionSquare +
+          ∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+            (((geometry.orbitIndex + 2 : Nat) : Real)),
+              orbitFinitePhysicalKernelIntegrand geometry t ≤ 0 := by
+  rw [orbitWindowSemiLocalGate_iff_physicalKernelBudget geometry]
+  have hsum :
+      Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+          (orbitPhysicalKernel geometry (Real.log n) +
+            orbitPhysicalKernel geometry (-Real.log n)).re) =
+      ∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+        (((geometry.orbitIndex + 2 : Nat) : Real)),
+          orbitFinitePhysicalKernelIntegrand geometry t := by
+    exact (finitePrimeSum_eq_orbitPhysicalKernel_range geometry).symm.trans
+      (finitePrimeSum_eq_intervalIntegral_finitePhysicalKernelIntegrand geometry)
+  rw [hsum]
+
 theorem orbitWindowSemiLocalGate_iff_finitePhysicalKernelIntegralBudget
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) :
@@ -596,6 +627,29 @@ theorem sourceRH_of_right_orbitGeometry_finitePhysicalKernelIntegralBudget
               ∫ t, orbitNegativeIntegrandMajorant geometry n t))) := by
     exact (finitePrimeSum_eq_integral_finitePhysicalKernelIntegrand geometry).symm.trans
       (finitePrimeSum_eq_positive_sub_negative_integrals geometry)
+  refine ⟨g, geometry, ?_⟩
+  rw [hrewrite] at hbudget
+  exact hbudget
+
+theorem sourceRH_of_right_orbitGeometry_finitePhysicalKernelIntervalBudget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            archimedeanTerm g.convolutionSquare +
+                ∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+                  (((geometry.orbitIndex + 2 : Nat) : Real)),
+                  orbitFinitePhysicalKernelIntegrand geometry t ≤ 0) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_right_orbitGeometry_finitePhysicalKernelIntegralBudget
+  intro rho hright
+  obtain ⟨g, geometry, hbudget⟩ := hproducer rho hright
+  have hrewrite :
+      (∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+          (((geometry.orbitIndex + 2 : Nat) : Real)),
+          orbitFinitePhysicalKernelIntegrand geometry t) =
+        ∫ t, orbitFinitePhysicalKernelIntegrand geometry t :=
+    (integral_orbitFinitePhysicalKernelIntegrand_eq_interval geometry).symm
   refine ⟨g, geometry, ?_⟩
   rw [hrewrite] at hbudget
   exact hbudget

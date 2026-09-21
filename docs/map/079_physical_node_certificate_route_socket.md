@@ -157,3 +157,12 @@ The summed raw integral is now exactly equal to its interval integral over the
 raw-factor window, by a support-subset theorem. The next estimate can
 therefore work on this finite interval without changing the detector owner or
 the visible-prime range.
+
+The finite-window form is now wired into the route itself:
+`finitePrimeSum_eq_intervalIntegral_finitePhysicalKernelIntegrand` gives the
+exact prime-face readback,
+`orbitWindowSemiLocalGate_iff_finitePhysicalKernelIntervalBudget` is the
+corresponding gate equivalence, and
+`sourceRH_of_right_orbitGeometry_finitePhysicalKernelIntervalBudget` is the
+direct conditional consumer. The remaining obligation is now a genuine
+finite-interval signed estimate, not a whole-line representation artifact.
