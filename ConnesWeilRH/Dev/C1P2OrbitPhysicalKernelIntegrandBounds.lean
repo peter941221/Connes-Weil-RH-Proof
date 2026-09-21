@@ -252,6 +252,28 @@ theorem sourceRH_of_right_orbitGeometry_oneSidedIntegrandCertificate
     orbitPhysicalKernelNodeCertificate_of_oneSidedIntegrandCertificate
       geometry certificate⟩⟩
 
+theorem sourceRH_of_right_orbitGeometry_positivePartBudget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            archimedeanTerm g.convolutionSquare +
+                Finset.sum (orbitVisiblePrimeRange geometry) (fun n =>
+                  ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real)) *
+                    (2 * (∫ t, orbitPositiveIntegrandMajorant geometry n t))) ≤ 0) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_right_orbitGeometry_oneSidedIntegrandCertificate
+  intro rho hright
+  obtain ⟨g, geometry, hbudget⟩ := hproducer rho hright
+  refine ⟨g, geometry, ⟨{
+    E := orbitPositiveIntegrandMajorant geometry
+    integrable := fun n _hn =>
+      orbitPositiveIntegrandMajorant_integrable geometry n
+    pointwise := fun n _hn =>
+      orbitPositiveIntegrandMajorant_pointwise geometry n
+    arch_bound := hbudget
+  }⟩⟩
+
 end
 end C1P2OrbitPhysicalKernelIntegrandBounds
 end Source

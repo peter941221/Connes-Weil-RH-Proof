@@ -91,3 +91,9 @@ node bound with the reflection factor two. Hence the unresolved finite estimate
 can be stated without arbitrary auxiliary functions: it is exactly the
 positive-part integral budget for the actual physical kernel plus the
 Archimedean term. This remains an open signed estimate, not a positivity claim.
+
+The final producer socket is now explicit in
+`sourceRH_of_right_orbitGeometry_positivePartBudget`: a per-zero actual
+geometry satisfying the canonical positive-part finite budget directly implies
+`SourceRH`. All auxiliary certificate packaging has been eliminated from the
+statement of the remaining mathematical target.
