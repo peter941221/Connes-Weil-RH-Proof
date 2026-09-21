@@ -215,3 +215,10 @@ is bounded by one integral of the common raw norm times the norm of the full
 phase profile. This is strictly a post-aggregation bound, distinct from the
 earlier sum of channelwise absolute budgets; it remains an upper bound rather
 than the required signed gain.
+
+Using the raw-factor support, the same estimate is now localized to the exact
+finite window by
+`finitePrimeSum_le_intervalIntegral_common_factor_profile_norm`. This is the
+current scalar comparison socket against the Archimedean window term; it
+retains the aggregate profile but still does not prove its required negative
+signed balance.

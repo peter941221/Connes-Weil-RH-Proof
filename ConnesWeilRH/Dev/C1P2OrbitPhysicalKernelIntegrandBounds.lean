@@ -662,6 +662,56 @@ theorem finitePrimeSum_le_integral_common_factor_profile_norm
       exact norm_orbitFiniteComplexPhysicalKernelIntegrand_eq_common_factor_profile
         geometry t
 
+theorem finitePrimeSum_le_intervalIntegral_common_factor_profile_norm
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    finitePrimeSum g.convolutionSquare ≤
+      ∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+        (((geometry.orbitIndex + 2 : Nat) : Real)),
+        ‖(orbitRawFactor geometry).test (-t)‖ *
+          ‖orbitFiniteComplexPhysicalKernelProfile geometry t‖ := by
+  let F : Real → Real := fun t =>
+    ‖(orbitRawFactor geometry).test (-t)‖ *
+      ‖orbitFiniteComplexPhysicalKernelProfile geometry t‖
+  have hF : Integrable F := by
+    have hEq : F = fun t =>
+        ‖orbitFiniteComplexPhysicalKernelIntegrand geometry t‖ := by
+      funext t
+      exact (norm_orbitFiniteComplexPhysicalKernelIntegrand_eq_common_factor_profile
+        geometry t).symm
+    rw [hEq]
+    exact (orbitFiniteComplexPhysicalKernelIntegrand_integrable geometry).norm
+  have hsupport : Function.support F ⊆ Set.Ioc
+      (-((geometry.orbitIndex + 2 : Nat) : Real))
+      (((geometry.orbitIndex + 2 : Nat) : Real)) := by
+    intro t ht
+    by_contra hnot
+    have ht' : t ∉ Set.Ioo
+        (-((geometry.orbitIndex + 2 : Nat) : Real))
+        (((geometry.orbitIndex + 2 : Nat) : Real)) := by
+      intro hmem
+      exact hnot ⟨hmem.1, le_of_lt hmem.2⟩
+    have hraw : (orbitRawFactor geometry).test (-t) = 0 := by
+      by_contra hne
+      have hmem : -t ∈ Function.support (orbitRawFactor geometry).test :=
+        Function.mem_support.mpr hne
+      have hwindow := orbitRawFactor_support_subset geometry hmem
+      apply ht'
+      constructor <;> linarith [hwindow.1, hwindow.2]
+    apply (Function.mem_support.mp ht)
+    simp [F, hraw]
+  have hinterval : (∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+      (((geometry.orbitIndex + 2 : Nat) : Real)), F t) = ∫ t, F t :=
+    intervalIntegral.integral_eq_integral_of_support_subset hsupport
+  change finitePrimeSum g.convolutionSquare ≤
+    ∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+      (((geometry.orbitIndex + 2 : Nat) : Real)), F t
+  calc
+    finitePrimeSum g.convolutionSquare ≤ ∫ t, F t := by
+      exact finitePrimeSum_le_integral_common_factor_profile_norm geometry
+    _ = ∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+        (((geometry.orbitIndex + 2 : Nat) : Real)), F t := hinterval.symm
+
 theorem finitePrimeSum_eq_intervalIntegral_finitePhysicalKernelIntegrand
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) :
