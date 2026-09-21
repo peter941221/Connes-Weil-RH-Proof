@@ -107,6 +107,11 @@ values, each cell by `|Lambda(n) * 2/sqrt(n)|` times the envelope convolution
 norm at `log n`. This preserves the exact visible-prime owner and is the
 first quantitative interface below the abstract `hprime` margin assumption.
 
+The same budget is also bounded by the exact visible-prime coefficient sum
+times the zero-order Schwartz seminorm of the envelope convolution square.
+This is still an owner-preserving upper bound; no continuous-prime or frozen
+prime-set replacement is made.
+
 - **Carrier transport (formal)**: same-carrier pair tests transport the
   carrier exactly; the square channel and the Weil pair sum collapse to
   `2·Re[e^{-iγy}·G(y)]`; every prime cell reads `Λ(n)·2/√n·Re[e^{-iγ log

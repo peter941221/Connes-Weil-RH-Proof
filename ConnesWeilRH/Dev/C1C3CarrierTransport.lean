@@ -914,6 +914,26 @@ theorem carrierSquarePrimePhaseSum_abs_le_weighted_cell_norm_sum
       exact Finset.sum_le_sum fun n hn =>
         carrierSquarePhaseTerm_abs_le_weighted_cell_norm γ u n
 
+theorem carrierSquarePrimePhaseSum_abs_le_zeroSeminorm_sum
+    (γ : Real) (u : CompactLogTest) :
+    |carrierSquarePrimePhaseSum γ u| ≤
+      ∑ n ∈ globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare),
+        |(ArithmeticFunction.vonMangoldt n : Real) *
+            (2 / Real.sqrt (n : Real))| *
+          SchwartzMap.seminorm ℂ 0 0 u.convolutionSquare.test := by
+  calc
+    |carrierSquarePrimePhaseSum γ u| ≤
+        ∑ n ∈ globalPrimeIndexSet ((carrierModulate γ u).convolutionSquare),
+          |(ArithmeticFunction.vonMangoldt n : Real) *
+              (2 / Real.sqrt (n : Real))| *
+            ‖u.convolutionSquare.test (Real.log n)‖ :=
+      carrierSquarePrimePhaseSum_abs_le_weighted_cell_norm_sum γ u
+    _ ≤ _ := by
+      exact Finset.sum_le_sum fun n hn => by
+        exact mul_le_mul_of_nonneg_left
+          (SchwartzMap.norm_le_seminorm ℂ u.convolutionSquare.test
+            (Real.log n)) (abs_nonneg _)
+
 theorem orbitWindowSemiLocalGate_carrierSquare_of_margin_bounds
     (γ : Real) (u : CompactLogTest) (δ : Real)
     (harch : archimedeanTerm (carrierModulate γ u).convolutionSquare ≤ -δ)
