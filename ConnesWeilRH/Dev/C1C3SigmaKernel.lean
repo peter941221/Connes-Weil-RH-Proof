@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Dev.C1C3GammaRBound
+import Mathlib.Analysis.Real.Pi.Bounds
 
 /-!
 # C3' sigma kernel
@@ -24,6 +25,81 @@ noncomputable def c3Sigma (xi : Real) : Real :=
   Real.log Real.pi -
     (Complex.digamma
       (((1 / 4 : Real) : Complex) - ((xi : Complex) * Complex.I) / 2)).re
+
+theorem c3Sigma_zero_lt_twelve : c3Sigma 0 < 12 := by
+  have hlog2nonneg : 0 ≤ Real.log 2 := Real.log_nonneg (by norm_num)
+  have hgamma_pos : 0 < Real.eulerMascheroniConstant :=
+    lt_trans (by norm_num) Real.one_half_lt_eulerMascheroniConstant
+  have hdig := abs_digamma_le_of_re_ge_quarter
+    (w := ((1 / 4 : Real) : Complex)) (by norm_num)
+  have hhalf : ‖Complex.digamma ((1 / 2 : Real) : Complex)‖ ≤
+      2 * Real.log 2 + Real.eulerMascheroniConstant := by
+    rw [show ((1 / 2 : Real) : Complex) = (1 / 2 : Complex) by norm_num,
+      Complex.digamma_one_half]
+    have hlog2c : Complex.log (2 : Complex) = (Real.log 2 : Complex) := by
+      simpa using (Complex.natCast_log (n := 2)).symm
+    rw [hlog2c]
+    have hnorm2 : ‖(2 * Real.log 2 : Complex)‖ = 2 * Real.log 2 := by
+      calc
+        ‖(2 * Real.log 2 : Complex)‖ =
+            ‖(2 : Complex)‖ * ‖(Real.log 2 : Complex)‖ := by rw [norm_mul]
+        _ = 2 * Real.log 2 := by
+          calc
+            ‖(2 : Complex)‖ * ‖(Real.log 2 : Complex)‖ =
+                (2 : Real) * |Real.log 2| := by
+              simp only [Complex.norm_real, Real.norm_eq_abs]
+              norm_num
+            _ = 2 * Real.log 2 := by rw [abs_of_nonneg hlog2nonneg]
+    have hnormg : ‖(Real.eulerMascheroniConstant : Complex)‖ =
+        Real.eulerMascheroniConstant := by
+      rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hgamma_pos.le]
+    calc
+      ‖-2 * (Real.log 2 : Complex) -
+          (Real.eulerMascheroniConstant : Complex)‖ ≤
+          ‖-(2 * Real.log 2 : Complex)‖ +
+            ‖-(Real.eulerMascheroniConstant : Complex)‖ := by
+        convert norm_add_le (-(2 * Real.log 2 : Complex))
+          (-(Real.eulerMascheroniConstant : Complex)) using 1 <;> ring_nf
+      _ = 2 * Real.log 2 + Real.eulerMascheroniConstant := by
+        rw [norm_neg, norm_neg, hnorm2, hnormg]
+  have hlogpi : Real.log Real.pi < 4 := by
+    have hlog := Real.log_le_sub_one_of_pos Real.pi_pos
+    nlinarith [Real.pi_lt_four]
+  have hreal :
+      -((Complex.digamma ((1 / 4 : Real) : Complex)).re) ≤
+        ‖Complex.digamma ((1 / 4 : Real) : Complex)‖ := by
+    exact le_trans (neg_le_abs _) (Complex.abs_re_le_norm _)
+  have hreal' : -(Complex.digamma (1 / 4 : Complex)).re ≤
+      ‖Complex.digamma (1 / 4 : Complex)‖ := by
+    simpa only [show ((1 / 4 : Real) : Complex) = (1 / 4 : Complex) by norm_num]
+      using hreal
+  have hlog2 : Real.log 2 < (7 : Real) / 10 := by
+    nlinarith [Real.log_two_lt_d9]
+  have hgamma : Real.eulerMascheroniConstant < (2 : Real) / 3 :=
+    Real.eulerMascheroniConstant_lt_two_thirds
+  have hhalf' : ‖Complex.digamma (1 / 2 : Complex)‖ ≤
+      2 * Real.log 2 + Real.eulerMascheroniConstant := by
+    simpa only [show ((1 / 2 : Real) : Complex) = (1 / 2 : Complex) by norm_num]
+      using hhalf
+  have hdig' : ‖Complex.digamma ((1 / 4 : Real) : Complex)‖ ≤
+      (2 * Real.log 2 + Real.eulerMascheroniConstant) + 4 + 6 / 5 + 3 / 5 := by
+    calc
+      ‖Complex.digamma ((1 / 4 : Real) : Complex)‖ ≤
+          ‖Complex.digamma (1 / 2 : Complex)‖ + 4 + 6 / 5 +
+            (12 / 5 : Real) * ‖((1 / 4 : Real) : Complex)‖ := hdig
+      _ = ‖Complex.digamma (1 / 2 : Complex)‖ + 4 + 6 / 5 + 3 / 5 := by
+        norm_num [Complex.norm_real]
+      _ ≤ _ := by gcongr
+  have hdig'' : ‖Complex.digamma (1 / 4 : Complex)‖ ≤
+      (2 * Real.log 2 + Real.eulerMascheroniConstant) + 4 + 6 / 5 + 3 / 5 := by
+    simpa only [show ((1 / 4 : Real) : Complex) = (1 / 4 : Complex) by norm_num]
+      using hdig'
+  have hbound : c3Sigma 0 ≤ Real.log Real.pi +
+      (2 * Real.log 2 + Real.eulerMascheroniConstant) + 4 + 6 / 5 + 3 / 5 := by
+    unfold c3Sigma
+    norm_num
+    linarith [hreal', hdig'']
+  nlinarith [hbound, hlogpi, hlog2, hgamma]
 
 theorem c3Sigma_eq_neg_two_re_logDeriv_GammaR (xi : Real) :
     c3Sigma xi =

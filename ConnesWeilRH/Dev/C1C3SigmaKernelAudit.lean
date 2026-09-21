@@ -4,6 +4,7 @@ namespace ConnesWeilRH
 namespace Dev
 
 #print axioms c3Sigma
+#print axioms c3Sigma_zero_lt_twelve
 #print axioms c3Sigma_eq_neg_two_re_logDeriv_GammaR
 #print axioms c3Sigma_sub_zero_eq_neg_re_reciprocalDifferenceSeries
 #print axioms re_c3Sigma_reciprocalDifferenceTerm

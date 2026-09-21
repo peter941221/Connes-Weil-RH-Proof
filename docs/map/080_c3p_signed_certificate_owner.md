@@ -113,3 +113,10 @@ Using evenness and global antitonicity, this is now packaged as
 every `xi >= T` has negative sigma. The threshold is still existential rather
 than a concrete certificate, so the hypothetical-zero height lower bound and
 the detector-specific signed prime budget remain the active producer gates.
+
+The anchor has now received an explicit rational ceiling:
+`c3Sigma_zero_lt_twelve`. Its proof uses the committed quarter-line digamma
+norm bound, the exact half-point digamma value, and Mathlib's rational bounds
+for log 2, pi, and the Euler constant. This makes the remaining threshold
+certificate purely a finite harmonic lower-bound problem; it does not yet
+close the hypothetical-zero height quantifier or the visible-prime budget.
