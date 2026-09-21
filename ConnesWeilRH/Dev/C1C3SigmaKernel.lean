@@ -135,6 +135,45 @@ theorem re_c3Sigma_reciprocalDifferenceTerm_nonneg (xi : Real) (n : Nat) :
   rw [re_c3Sigma_reciprocalDifferenceTerm]
   positivity
 
+theorem re_c3Sigma_reciprocalDifferenceTerm_mono_of_nonneg
+    {xi eta : Real} (hxi : 0 ≤ xi) (hle : xi ≤ eta) (n : Nat) :
+    (((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) +
+          (((1 / 4 : Real) : Complex) - ((xi : Complex) * Complex.I) / 2))⁻¹) -
+      (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + ((1 / 4 : Real) : Complex))⁻¹))).re ≤
+    (((((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) +
+          (((1 / 4 : Real) : Complex) - ((eta : Complex) * Complex.I) / 2))⁻¹) -
+      (((n : Complex) + (1 / 2 : Complex))⁻¹ -
+        ((n : Complex) + ((1 / 4 : Real) : Complex))⁻¹))).re := by
+  rw [re_c3Sigma_reciprocalDifferenceTerm,
+    re_c3Sigma_reciprocalDifferenceTerm]
+  let a : Real := (n : Real) + 1 / 4
+  let x : Real := xi / 2
+  let y : Real := eta / 2
+  have ha : 0 < a := by
+    dsimp [a]
+    positivity
+  have hxy : 0 ≤ x ∧ x ≤ y := by
+    dsimp [x, y]
+    constructor <;> linarith
+  have hsq : x ^ 2 ≤ y ^ 2 := by
+    nlinarith [sq_nonneg (y - x)]
+  have hdx : 0 < a * (a ^ 2 + x ^ 2) := by positivity
+  have hdy : 0 < a * (a ^ 2 + y ^ 2) := by positivity
+  change x ^ 2 / (a * (a ^ 2 + x ^ 2)) ≤
+    y ^ 2 / (a * (a ^ 2 + y ^ 2))
+  apply (div_le_div_iff₀ hdx hdy).2
+  calc
+    x ^ 2 * (a * (a ^ 2 + y ^ 2)) =
+        a ^ 3 * x ^ 2 + a * x ^ 2 * y ^ 2 := by ring
+    _ ≤ a ^ 3 * y ^ 2 + a * x ^ 2 * y ^ 2 := by
+      have hmul : a ^ 3 * x ^ 2 ≤ a ^ 3 * y ^ 2 :=
+        mul_le_mul_of_nonneg_left hsq (by positivity : 0 ≤ a ^ 3)
+      nlinarith
+    _ = y ^ 2 * (a * (a ^ 2 + x ^ 2)) := by ring
+
 theorem c3Sigma_le_at_zero (xi : Real) :
     c3Sigma xi ≤ c3Sigma 0 := by
   suffices hsub : c3Sigma xi - c3Sigma 0 ≤ 0 by linarith

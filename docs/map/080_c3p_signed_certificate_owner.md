@@ -87,3 +87,9 @@ Finally, the same series proof gives the exact symmetry
 `c3Sigma (-xi) = c3Sigma xi`. The remaining profile-sign work may therefore
 be restricted to nonnegative heights, while the detector-specific signed
 budget remains unchanged and open.
+
+The individual rational summands are now formally monotone in height: for
+`0 <= xi <= eta`, the eta summand is at least the xi summand. This supplies
+the comparison mechanism needed to propagate one certified negative sigma
+value to all higher nonnegative heights; the first certified negative point
+and the C3 signed budget are still open.
