@@ -36,3 +36,20 @@ Archimedean term plus this explicit finite physical-kernel budget.
 
 This is formal, axiom-clean, and only a representation identity.  It does
 not supply the signed inequality, a Mellin-to-profile implication, or RH.
+
+## Finite signed node certificate, 2026-09-21
+
+The follow-up module `C1P2OrbitPhysicalProfileReadback` now proves two
+consumer theorems. First, explicit signed upper bounds at every member of
+the finite `orbitVisiblePrimeRange`, together with an Archimedean-plus-bound
+sum at most zero, imply the same-owner orbit gate. Second,
+`sourceRH_of_right_orbitGeometry_physicalKernel_nodeBounds` feeds that finite
+certificate directly through the existing `SourceRH` consumer.
+
+This is a formal interface tightening, not a sign proof. The node bounds may
+be positive or negative, so cancellation is retained; no pointwise
+nonpositive-profile shortcut is introduced. The raw `OrbitG8Geometry`
+fields (`support_bound`, `visible_prime_cutoff`, zero control, and fourth-order
+tail) do not themselves supply these bounds. The remaining producer is
+therefore exactly the per-zero finite signed certificate on the actual
+physical-kernel owner.

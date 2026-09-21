@@ -39,6 +39,15 @@ interpolation alone cannot determine the visible prime-log bilateral profile.
 The active producer still needs a same-owner physical-profile bridge or a
 signed kernel estimate. No positivity or RH statement.
 
+## Finite physical-kernel certificate socket, 2026-09-21
+
+[079](079_physical_node_certificate_route_socket.md) records the formal
+end-to-end socket from a finite signed node certificate for the actual
+physical kernel to `SourceRH`. This preserves signed cancellation and does
+not claim that the `OrbitG8Geometry` support, zero, or tail fields imply the
+certificate. The active producer remains the actual per-zero finite signed
+estimate.
+
 ## C3' carrier transport, 2026-09-21
 
 [075](075_c3p_carrier_transport_after_1800.md) records the analytic opening
