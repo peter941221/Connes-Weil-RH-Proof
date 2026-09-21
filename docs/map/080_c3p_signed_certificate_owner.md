@@ -44,3 +44,7 @@ The transport is now lifted further through the existing centered and
 symmetrized Xi weights. Thus a fixed C3 carrier frequency is represented in
 the same vertical-functional owner used by the Gamma readback; this remains
 an exact coordinate theorem, not an Archimedean sign theorem.
+
+The actual `gammaRIntegrand` now has the corresponding shifted centered-weight
+readback on this owner. The next missing step is therefore genuinely the
+GammaR kernel/sigma estimate, not carrier bookkeeping.

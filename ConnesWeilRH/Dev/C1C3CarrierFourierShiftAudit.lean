@@ -13,6 +13,7 @@ namespace C1C3CarrierTransport
 #print axioms laplaceAt_carrierModulate_eq_shift
 #print axioms centeredLaplaceWeight_carrierModulate_eq_shift
 #print axioms symmetrizedLaplaceWeight_carrierModulate_eq_shift
+#print axioms gammaRIntegrand_carrierModulate_eq_shiftedWeight
 
 end C1C3CarrierTransport
 end Dev
