@@ -222,3 +222,9 @@ finite window by
 current scalar comparison socket against the Archimedean window term; it
 retains the aggregate profile but still does not prove its required negative
 signed balance.
+
+The profile-window budget is now consumed by
+`orbitWindowSemiLocalGate_of_interval_common_factor_profile_norm_budget`:
+an Archimedean-plus-profile-norm inequality is sufficient for the actual
+same-owner semi-local gate. This is a genuine producer socket, although the
+profile inequality itself remains the open analytic obligation.

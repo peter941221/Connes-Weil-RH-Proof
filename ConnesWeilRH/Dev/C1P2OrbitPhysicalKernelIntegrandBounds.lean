@@ -743,6 +743,29 @@ theorem orbitWindowSemiLocalGate_iff_finitePhysicalKernelIntervalBudget
       (finitePrimeSum_eq_intervalIntegral_finitePhysicalKernelIntegrand geometry)
   rw [hsum]
 
+theorem orbitWindowSemiLocalGate_of_interval_common_factor_profile_norm_budget
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (hbudget : archimedeanTerm g.convolutionSquare +
+        ∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+          (((geometry.orbitIndex + 2 : Nat) : Real)),
+          ‖(orbitRawFactor geometry).test (-t)‖ *
+            ‖orbitFiniteComplexPhysicalKernelProfile geometry t‖ ≤ 0) :
+    C1OrbitWindowSemiLocalGate.orbitWindowSemiLocalGate g := by
+  apply (orbitWindowSemiLocalGate_iff_finitePhysicalKernelIntervalBudget geometry).mpr
+  have hle := finitePrimeSum_le_intervalIntegral_common_factor_profile_norm geometry
+  have hraw :
+      (∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+          (((geometry.orbitIndex + 2 : Nat) : Real)),
+          orbitFinitePhysicalKernelIntegrand geometry t) ≤
+        ∫ t in (-((geometry.orbitIndex + 2 : Nat) : Real))..
+          (((geometry.orbitIndex + 2 : Nat) : Real)),
+          ‖(orbitRawFactor geometry).test (-t)‖ *
+            ‖orbitFiniteComplexPhysicalKernelProfile geometry t‖ := by
+    rw [← finitePrimeSum_eq_intervalIntegral_finitePhysicalKernelIntegrand geometry]
+    exact hle
+  linarith
+
 theorem orbitWindowSemiLocalGate_iff_finitePhysicalKernelIntegralBudget
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) :
