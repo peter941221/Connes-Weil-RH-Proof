@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Dev.C1P2DefectControl
+import ConnesWeilRH.Dev.C1P2BaseSeminormBound
 
 /-!
 # G8 R0: raw orbit geometry for the selected healthy-owner chain
@@ -33,6 +34,7 @@ open C1HealthyYoshidaMinimalInterpolation
 open C1HealthyYoshidaUnscaledOrbit
 open C1HealthyYoshidaSpectralNegativity
 open C1P2DefectControl
+open C1P2BaseSeminormBound
 open C1SameOwnerWeil
 open C1SpectralSummability
 open C1SpectralTailBound
@@ -303,13 +305,21 @@ theorem exists_indexed_orbitG8Geometry_of_sourceNontrivialZero_right
         ∀ orbitIndex : Nat,
           (6 * Real.pi) ^ 2 * ((1 / 2 : Real) ^ (orbitIndex + 1) * C) < 1 →
           ∃ g : CompactLogTest, Nonempty (OrbitG8Geometry rho g) := by
-  obtain ⟨base, T, hbaseSupport, hT, hconstruction⟩ :=
-    exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets_all_indices
+  obtain ⟨base, hbaseSupport, hbaseTargets, baseC, hbaseC, hbaseDecay⟩ :=
+    exists_affine_base_with_unit_targets_and_quadratic_decay
+      (healthyUnscaledTargetNodes rho.1)
+      (lower := -(1 : Real)) (upper := 1) (by norm_num) (by norm_num)
+  obtain ⟨T, hT, hbase⟩ :=
+    exists_laplaceAt_vertical_half_contraction_of_quadratic_bound
+      base baseC hbaseC hbaseDecay
+  have hconstruction :=
+    exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets_all_indices_of_base_data
       rho.1 rho.2 hoff ∅
       (baseLower := -(1 : Real)) (baseUpper := 1)
       (lower := -(1 : Real)) (upper := 1)
       (by norm_num) (by norm_num) (by norm_num) (by norm_num)
       (1 : Real) (by norm_num)
+      base T hbaseSupport hbaseTargets hbase
   obtain ⟨tailStart, hTailThreshold, hrhoHeight, hTailBudget⟩ :=
     exists_dyadic_tail_start_with_budget_lt_xiMultiplicity T (1 : Real) rho
   let R : Real :=

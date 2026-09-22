@@ -223,9 +223,11 @@ the affine right inverse, with support and quadratic tail in one owner. This is
 the producer replacement point; its finite coefficient budget and the later
 same-owner signed positivity are still open.
 
-## 17. Explicit unit-target base package (record 1862)
+## 18. Explicit affine base in the healthy all-index producer (record 1863)
 
-The finite-node base with unit Mellin targets is now packaged directly from
-the affine right inverse, with support and quadratic tail in one owner. This is
-the producer replacement point; its finite coefficient budget and the later
-same-owner signed positivity are still open.
+The all-index healthy unscaled assembly now has a base-data consumer, while
+the former existential base theorem remains as a compatibility wrapper. The
+indexed G8 producer consumes the explicit affine unit-target base package,
+including its support, target equations, and quadratic tail. This is formal
+same-owner producer wiring; the finite coefficient/basis contraction budget
+and detector-specific signed semi-local positivity remain open.

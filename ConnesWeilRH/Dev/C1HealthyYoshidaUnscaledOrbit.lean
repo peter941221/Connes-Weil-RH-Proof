@@ -664,7 +664,7 @@ theorem exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_r
 tail condition is kept as a hypothesis on `n`, because the same count must
 also satisfy the producer's other budgets. -/
 theorem
-    exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets_all_indices
+    exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets_all_indices_of_base_data
     (rho : Complex)
     (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho)
     (hoff : rho.re ≠ 1 / 2)
@@ -673,10 +673,15 @@ theorem
     (hbaseLower : baseLower < 0) (hbaseUpper : 0 < baseUpper)
     (hlower : lower < 0) (hupper : 0 < upper)
     (epsilon : Real) (hepsilon : 0 < epsilon) :
-    ∃ base : CompactLogTest, ∃ T : Real,
-      Function.support base.test ⊆ Set.Ioo baseLower baseUpper ∧
-      0 ≤ T ∧
-      ∀ R : Real, 0 ≤ R →
+    (base : CompactLogTest) →
+    (T : Real) →
+    Function.support base.test ⊆ Set.Ioo baseLower baseUpper →
+    (∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho),
+      laplaceAt base w.1 = 1) →
+    (∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real, T ≤ |t| →
+      ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤
+        1 / 2) →
+    ∀ R : Real, 0 ≤ R →
         ∃ correction : CompactLogTest, ∃ C : Real,
           Function.support correction.test ⊆ Set.Ioo lower upper ∧
           0 ≤ C ∧
@@ -709,23 +714,10 @@ theorem
                     ‖laplaceAt
                       (selectedOwner base correction n).convolutionSquare
                       (z - 1 / 2)‖ < epsilon ^ 2 := by
+  intro base T hbaseSupport hbaseTargets hbase
   have hrhoStrip : rho.re ∈ Set.Icc (0 : Real) 1 :=
     ⟨(sourceNontrivialZero_zero_lt_re hrho).le,
       (sourceNontrivialZero_re_lt_one hrho).le⟩
-  let baseValues :
-      FiniteMellinNode (healthyUnscaledTargetNodes rho) -> Complex :=
-    fun _ => 1
-  obtain ⟨base, baseC, hbaseSupport, hbaseValues, hbaseC, hbaseDecay⟩ :=
-    exists_residualWindow_correction_with_quadratic_decay
-      (healthyUnscaledTargetNodes rho) hbaseLower hbaseUpper baseValues
-  have hbaseTargets : ∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho),
-      laplaceAt base w.1 = 1 := by
-    intro w
-    simpa [baseValues] using hbaseValues w
-  obtain ⟨T, hT, hbase⟩ :=
-    exists_laplaceAt_vertical_half_contraction_of_quadratic_bound
-      base baseC hbaseC hbaseDecay
-  refine ⟨base, T, hbaseSupport, hT, ?_⟩
   intro R hR
   obtain ⟨correction, C, hcorrectionSupport, hC, halln⟩ :=
     exists_nearbyZero_unscaled_targetValues_assembly_with_fixedCorrection
@@ -848,6 +840,71 @@ theorem
     hsquareZeros, ?_, ?_⟩
   · exact hcenteredTail
   · exact hsquareTail
+
+/-! Compatibility wrapper for the former existential-base interface. -/
+theorem
+    exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets_all_indices
+    (rho : Complex)
+    (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho)
+    (hoff : rho.re ≠ 1 / 2)
+    (routeNodes : Finset Complex)
+    {baseLower baseUpper lower upper : Real}
+    (hbaseLower : baseLower < 0) (hbaseUpper : 0 < baseUpper)
+    (hlower : lower < 0) (hupper : 0 < upper)
+    (epsilon : Real) (hepsilon : 0 < epsilon) :
+    ∃ base : CompactLogTest, ∃ T : Real,
+      Function.support base.test ⊆ Set.Ioo baseLower baseUpper ∧
+      0 ≤ T ∧
+      ∀ R : Real, 0 ≤ R →
+        ∃ correction : CompactLogTest, ∃ C : Real,
+          Function.support correction.test ⊆ Set.Ioo lower upper ∧
+          0 ≤ C ∧
+          ∀ n : Nat,
+            (6 * Real.pi) ^ 2 * ((1 / 2 : Real) ^ (n + 1) * C) < epsilon →
+            Function.support (selectedOwner base correction n).sourceTest.test ⊆
+              Set.Ioo (((n + 1 : Nat) : Real) * baseLower + lower)
+                (((n + 1 : Nat) : Real) * baseUpper + upper) ∧
+            (∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho),
+              laplaceAt ((convolutionIterate base n).convolution correction) w.1 =
+                healthyUnscaledTargetValue rho w) ∧
+            HealthyMinimalLaplaceRealizes rho
+              (selectedOwner base correction n).sourceTest ∧
+            (∑ u ∈ centeredFunctionalEquationOrbit rho,
+              laplaceAt (selectedOwner base correction n).convolutionSquare u) =
+                -2 ∧
+            (∀ z : FiniteMellinNode
+                (sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes),
+              z.1 ∉ healthyUnscaledTargetNodes rho →
+                laplaceAt (selectedOwner base correction n).convolutionSquare
+                  (z.1 - 1 / 2) = 0) ∧
+            (∀ z : Complex, z.re ∈ Set.Icc (0 : Real) 1 →
+              T ≤ |z.im| → 1 ≤ |z.im| → 2 * |rho.im| ≤ |z.im| →
+              ‖z - rho‖ ^ 2 *
+                  ‖laplaceAt (selectedOwner base correction n).sourceTest
+                    (z - 1 / 2)‖ < epsilon) ∧
+            ∀ z : Complex, z.re ∈ Set.Icc (0 : Real) 1 →
+              T ≤ |z.im| → 1 ≤ |z.im| → 2 * |rho.im| ≤ |z.im| →
+              ‖z - rho‖ ^ 2 * ‖(1 - star z) - rho‖ ^ 2 *
+                  ‖laplaceAt
+                    (selectedOwner base correction n).convolutionSquare
+                    (z - 1 / 2)‖ < epsilon ^ 2 := by
+  let baseValues :
+      FiniteMellinNode (healthyUnscaledTargetNodes rho) -> Complex :=
+    fun _ => 1
+  obtain ⟨base, baseC, hbaseSupport, hbaseValues, hbaseC, hbaseDecay⟩ :=
+    exists_residualWindow_correction_with_quadratic_decay
+      (healthyUnscaledTargetNodes rho) hbaseLower hbaseUpper baseValues
+  have hbaseTargets : ∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho),
+      laplaceAt base w.1 = 1 := by
+    intro w
+    simpa [baseValues] using hbaseValues w
+  obtain ⟨T, hT, hbase⟩ :=
+    exists_laplaceAt_vertical_half_contraction_of_quadratic_bound
+      base baseC hbaseC hbaseDecay
+  refine ⟨base, T, hbaseSupport, hT, ?_⟩
+  exact exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets_all_indices_of_base_data
+    rho hrho hoff routeNodes hbaseLower hbaseUpper hlower hupper epsilon hepsilon
+    base T hbaseSupport hbaseTargets hbase
 
 /-- The compatibility projection of the raw-target construction keeps the
 previous finite-prefix and tail interface available to existing consumers. -/
