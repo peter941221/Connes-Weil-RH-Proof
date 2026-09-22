@@ -18,6 +18,13 @@ rawFactorSeminorm geometry <=
     SchwartzMap.seminorm C 0 0 geometry.correction.test
 ```
 
+and explicit geometric power contraction:
+
+```text
+rawFactorSeminorm geometry <=
+  2 * ((2 * seminorm(base))^n * seminorm(base)) * seminorm(correction)
+```
+
 Connecting this contraction with the canonical harmonic budget:
 
 ```text
@@ -25,13 +32,19 @@ harmonicBudgetSeminorm geometry delta =
   sqrt(delta / (2 * exp(L) * (visibleHarmonicChebyshevSum + 1)))
 ```
 
-produces the unified master exit:
+produces the unified master exits:
 
 ```text
 riemannHypothesis_of_iteratedBase_decay_and_harmonicBudget :
   (For each off-line zero rho, 1/2 < Re(rho), exists g, geometry, delta with:
      1. delta <= -archimedeanTerm g.convolutionSquare
      2. ||base^{*(n+1)}||_{L1} * seminorm(correction) <= harmonicBudgetSeminorm geometry delta)
+  ==> _root_.RiemannHypothesis
+
+riemannHypothesis_of_geometric_contraction_and_harmonicBudget :
+  (For each off-line zero rho, 1/2 < Re(rho), exists g, geometry, delta with:
+     1. delta <= -archimedeanTerm g.convolutionSquare
+     2. 2 * ((2 * S_base)^n * S_base) * S_corr <= harmonicBudgetSeminorm geometry delta)
   ==> _root_.RiemannHypothesis
 ```
 
@@ -49,6 +62,8 @@ riemannHypothesis_of_iteratedBase_decay_and_harmonicBudget :
 | 4. Unconditional prime sum dominance (all geom)     | Formal (Closed) |
 | 5. Canonical harmonic budget spec (unconditional)    | Formal (Closed) |
 | 6. L^1 to L^infty convolution seminorm contraction   | Formal (Closed) |
-| 7. Iterated base decay master exit for RH            | Formal (Closed) |
+| 7. Geometric power decay bound (2*S_base)^n          | Formal (Closed) |
+| 8. Iterated base decay master exit for RH            | Formal (Closed) |
+| 9. Geometric contraction master exit for RH          | Formal (Closed) |
 +------------------------------------------------------------------------+
 ```

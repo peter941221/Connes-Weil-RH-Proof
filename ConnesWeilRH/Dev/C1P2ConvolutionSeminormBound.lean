@@ -134,6 +134,112 @@ theorem seminorm_convolution_le_supportLength_mul_seminorm
     linarith
   exact hsem.trans hstep
 
+/-- Pointwise commutativity of the log-coordinate convolution. -/
+theorem convolution_apply_comm (f g : CompactLogTest) (x : ℝ) :
+    (f.convolution g).test x = (g.convolution f).test x := by
+  rw [CompactLogTest.convolution_apply, CompactLogTest.convolution_apply]
+  have h_sub := (integral_sub_left_eq_self (fun t : ℝ => f.test t * g.test (x - t)) volume x).symm
+  rw [h_sub]
+  apply integral_congr_ae
+  filter_upwards with t
+  simp only [sub_sub_cancel]
+  ring
+
+/-- Commutativity of the L^∞ order 0-0 Schwartz seminorm of a convolution. -/
+theorem seminorm_convolution_comm (f g : CompactLogTest) :
+    SchwartzMap.seminorm ℂ 0 0 (f.convolution g).test =
+      SchwartzMap.seminorm ℂ 0 0 (g.convolution f).test := by
+  have heq : (f.convolution g).test = (g.convolution f).test := by
+    ext x
+    exact convolution_apply_comm f g x
+  rw [heq]
+
+/-- When the right factor has compact support in `[a, c]`, the convolution seminorm
+    satisfies the same support-length bound by commutativity. -/
+theorem seminorm_convolution_le_supportLength_mul_seminorm_right
+    (f g : CompactLogTest) (a c : ℝ) (hac : a ≤ c)
+    (hsupp : Function.support g.test ⊆ Set.Icc a c) :
+    SchwartzMap.seminorm ℂ 0 0 (f.convolution g).test ≤
+      (c - a) * SchwartzMap.seminorm ℂ 0 0 g.test *
+        SchwartzMap.seminorm ℂ 0 0 f.test := by
+  rw [seminorm_convolution_comm]
+  exact seminorm_convolution_le_supportLength_mul_seminorm g f a c hac hsupp
+
+/-- The order 0-0 Schwartz seminorm of an iterated convolution contracts
+    geometrically with contraction factor `(c - a) * seminorm(f)`. -/
+theorem seminorm_convolutionIterate_le_pow
+    (f : CompactLogTest) (a c : ℝ) (hac : a ≤ c)
+    (hsupp : Function.support f.test ⊆ Set.Icc a c) (n : ℕ) :
+    SchwartzMap.seminorm ℂ 0 0 (convolutionIterate f n).test ≤
+      ((c - a) * SchwartzMap.seminorm ℂ 0 0 f.test) ^ n *
+        SchwartzMap.seminorm ℂ 0 0 f.test := by
+  induction n with
+  | zero =>
+    simp only [convolutionIterate_zero, pow_zero, one_mul, le_refl]
+  | succ n ih =>
+    rw [convolutionIterate_succ]
+    have hstep := seminorm_convolution_le_supportLength_mul_seminorm_right
+      (convolutionIterate f n) f a c hac hsupp
+    have hih : (c - a) * SchwartzMap.seminorm ℂ 0 0 f.test *
+        SchwartzMap.seminorm ℂ 0 0 (convolutionIterate f n).test ≤
+      ((c - a) * SchwartzMap.seminorm ℂ 0 0 f.test) ^ (n + 1) *
+        SchwartzMap.seminorm ℂ 0 0 f.test := by
+      calc
+        (c - a) * SchwartzMap.seminorm ℂ 0 0 f.test *
+            SchwartzMap.seminorm ℂ 0 0 (convolutionIterate f n).test ≤
+          (c - a) * SchwartzMap.seminorm ℂ 0 0 f.test *
+            (((c - a) * SchwartzMap.seminorm ℂ 0 0 f.test) ^ n *
+              SchwartzMap.seminorm ℂ 0 0 f.test) :=
+          mul_le_mul_of_nonneg_left ih (by positivity)
+        _ = ((c - a) * SchwartzMap.seminorm ℂ 0 0 f.test) ^ (n + 1) *
+              SchwartzMap.seminorm ℂ 0 0 f.test := by
+          rw [pow_succ]
+          ring
+    exact hstep.trans hih
+
+/-- The raw factor seminorm of an OrbitG8Geometry contracts geometrically in the
+    orbit index `n`, bounded by `2 * ((2 * S_base) ^ n * S_base) * S_corr`. -/
+theorem rawFactorSeminorm_le_geometric_bound
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    rawFactorSeminorm geometry ≤
+      (2 : ℝ) *
+        (((2 : ℝ) * SchwartzMap.seminorm ℂ 0 0 geometry.base.test) ^ geometry.orbitIndex *
+          SchwartzMap.seminorm ℂ 0 0 geometry.base.test) *
+        SchwartzMap.seminorm ℂ 0 0 geometry.correction.test := by
+  unfold rawFactorSeminorm orbitRawFactor
+  have hbase_supp : Function.support geometry.base.test ⊆ Set.Icc (-1 : ℝ) 1 :=
+    geometry.base_support.trans Set.Ioo_subset_Icc_self
+  have hbase_len : (1 : ℝ) - (-1) = 2 := by ring
+  have hcorr_supp : Function.support geometry.correction.test ⊆ Set.Icc (-1 : ℝ) 1 :=
+    geometry.correction_support.trans Set.Ioo_subset_Icc_self
+  have hcorr_len : (1 : ℝ) - (-1) = 2 := by ring
+  have hbound := seminorm_convolution_le_supportLength_mul_seminorm_right
+    (convolutionIterate geometry.base geometry.orbitIndex) geometry.correction
+    (-1) 1 (by norm_num) hcorr_supp
+  rw [hcorr_len] at hbound
+  have hiter := seminorm_convolutionIterate_le_pow
+    geometry.base (-1) 1 (by norm_num) hbase_supp geometry.orbitIndex
+  rw [hbase_len] at hiter
+  have hmul : (2 : ℝ) * SchwartzMap.seminorm ℂ 0 0 geometry.correction.test *
+      SchwartzMap.seminorm ℂ 0 0 (convolutionIterate geometry.base geometry.orbitIndex).test ≤
+    (2 : ℝ) *
+      (((2 : ℝ) * SchwartzMap.seminorm ℂ 0 0 geometry.base.test) ^ geometry.orbitIndex *
+        SchwartzMap.seminorm ℂ 0 0 geometry.base.test) *
+      SchwartzMap.seminorm ℂ 0 0 geometry.correction.test := by
+    calc
+      (2 : ℝ) * SchwartzMap.seminorm ℂ 0 0 geometry.correction.test *
+          SchwartzMap.seminorm ℂ 0 0 (convolutionIterate geometry.base geometry.orbitIndex).test ≤
+        (2 : ℝ) * SchwartzMap.seminorm ℂ 0 0 geometry.correction.test *
+          (((2 : ℝ) * SchwartzMap.seminorm ℂ 0 0 geometry.base.test) ^ geometry.orbitIndex *
+            SchwartzMap.seminorm ℂ 0 0 geometry.base.test) :=
+        mul_le_mul_of_nonneg_left hiter (by positivity)
+      _ = (2 : ℝ) *
+            (((2 : ℝ) * SchwartzMap.seminorm ℂ 0 0 geometry.base.test) ^ geometry.orbitIndex *
+              SchwartzMap.seminorm ℂ 0 0 geometry.base.test) *
+            SchwartzMap.seminorm ℂ 0 0 geometry.correction.test := by ring
+  exact hbound.trans hmul
+
 /-- The raw factor seminorm of an OrbitG8Geometry is bounded by the product of the
     iterated base L¹ norm and the correction seminorm. -/
 theorem rawFactorSeminorm_le_toLp_one_mul_seminorm
@@ -145,6 +251,49 @@ theorem rawFactorSeminorm_le_toLp_one_mul_seminorm
   unfold rawFactorSeminorm orbitRawFactor
   exact seminorm_convolution_le_toLp_one_mul_seminorm
     (convolutionIterate geometry.base geometry.orbitIndex) geometry.correction
+
+/-- Full exit connecting geometric decay of the raw factor seminorm to SourceRH. -/
+theorem sourceRH_of_geometric_contraction_and_harmonicBudget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ delta : Real,
+              0 ≤ delta ∧
+              delta ≤ -archimedeanTerm g.convolutionSquare ∧
+              (2 : ℝ) *
+                (((2 : ℝ) * SchwartzMap.seminorm ℂ 0 0 geometry.base.test) ^ geometry.orbitIndex *
+                  SchwartzMap.seminorm ℂ 0 0 geometry.base.test) *
+                SchwartzMap.seminorm ℂ 0 0 geometry.correction.test ≤
+                  harmonicBudgetSeminorm geometry delta) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_harmonicBudgetSeminorm
+  intro rho hright
+  obtain ⟨g, geometry, delta, hdelta, hmargin, hgeom⟩ := hproducer rho hright
+  have hS := (rawFactorSeminorm_le_geometric_bound geometry).trans hgeom
+  exact ⟨g, geometry, delta, hdelta, hmargin, hS⟩
+
+/-- Full exit connecting geometric decay of the raw factor seminorm to Mathlib canonical
+    RiemannHypothesis. -/
+theorem riemannHypothesis_of_geometric_contraction_and_harmonicBudget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ delta : Real,
+              0 ≤ delta ∧
+              delta ≤ -archimedeanTerm g.convolutionSquare ∧
+              (2 : ℝ) *
+                (((2 : ℝ) * SchwartzMap.seminorm ℂ 0 0 geometry.base.test) ^ geometry.orbitIndex *
+                  SchwartzMap.seminorm ℂ 0 0 geometry.base.test) *
+                SchwartzMap.seminorm ℂ 0 0 geometry.correction.test ≤
+                  harmonicBudgetSeminorm geometry delta) :
+    _root_.RiemannHypothesis := by
+  apply riemannHypothesis_of_harmonicBudgetSeminorm
+  intro rho hright
+  obtain ⟨g, geometry, delta, hdelta, hmargin, hgeom⟩ := hproducer rho hright
+  have hS := (rawFactorSeminorm_le_geometric_bound geometry).trans hgeom
+  exact ⟨g, geometry, delta, hdelta, hmargin, hS⟩
 
 /-- Full exit connecting L¹ toLp decay of the iterated base to SourceRH. -/
 theorem sourceRH_of_iteratedBase_decay_and_harmonicBudget

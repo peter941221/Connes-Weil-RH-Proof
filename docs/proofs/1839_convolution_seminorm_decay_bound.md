@@ -20,14 +20,22 @@ seminorm(f * g) <= ||f||_{L1} * seminorm(g)
 
 where `Function.support f.test ⊆ Set.Icc a c`.
 
+Applied to the iterated base `base^{*(n+1)}` on `[-1, 1]` with support length `2`:
+
+```text
+seminorm(base^{*n}) <= ((c - a) * seminorm(base))^n * seminorm(base)
+```
+
 Applied to the selected healthy-owner unscaled orbit factor
-`orbitRawFactor geometry = (convolutionIterate base n).convolution correction`,
-this proves:
+`orbitRawFactor geometry = (convolutionIterate base n).convolution correction`:
 
 ```text
 rawFactorSeminorm geometry <=
   ||(convolutionIterate geometry.base geometry.orbitIndex).test.toLp 1|| *
     SchwartzMap.seminorm C 0 0 geometry.correction.test
+
+rawFactorSeminorm geometry <=
+  2 * ((2 * seminorm(base))^n * seminorm(base)) * seminorm(correction)
 ```
 
 Connecting this bound with the canonical harmonic budget seminorm threshold
@@ -35,6 +43,8 @@ Connecting this bound with the canonical harmonic budget seminorm threshold
 theorems:
 - `sourceRH_of_iteratedBase_decay_and_harmonicBudget`
 - `riemannHypothesis_of_iteratedBase_decay_and_harmonicBudget`
+- `sourceRH_of_geometric_contraction_and_harmonicBudget`
+- `riemannHypothesis_of_geometric_contraction_and_harmonicBudget`
 
 ---
 
@@ -50,9 +60,16 @@ theorems:
 | seminorm_convolution_le_integral_mul_seminorm          | Formal Lean 4 |
 | seminorm_convolution_le_toLp_one_mul_seminorm          | Formal Lean 4 |
 | seminorm_convolution_le_supportLength_mul_seminorm     | Formal Lean 4 |
+| convolution_apply_comm                                 | Formal Lean 4 |
+| seminorm_convolution_comm                              | Formal Lean 4 |
+| seminorm_convolution_le_supportLength_mul_seminorm_right | Formal Lean 4 |
+| seminorm_convolutionIterate_le_pow                     | Formal Lean 4 |
 | rawFactorSeminorm_le_toLp_one_mul_seminorm             | Formal Lean 4 |
+| rawFactorSeminorm_le_geometric_bound                   | Formal Lean 4 |
 | sourceRH_of_iteratedBase_decay_and_harmonicBudget      | Formal Lean 4 |
 | riemannHypothesis_of_iteratedBase_decay_and_harmonicBudget | Formal Lean 4 |
+| sourceRH_of_geometric_contraction_and_harmonicBudget   | Formal Lean 4 |
+| riemannHypothesis_of_geometric_contraction_and_harmonicBudget | Formal Lean 4 |
 +------------------------------------------------------------------------+
 ```
 
