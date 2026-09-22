@@ -270,6 +270,50 @@ theorem riemannHypothesis_of_supportOverlap_seminorm_budget
                 2 * Real.exp (rawFactorSupportRadius geometry) * S_max ^ 2 *
                   visibleHarmonicChebyshevSum geometry ≤ delta) :
     _root_.RiemannHypothesis
+
+theorem sourceRH_of_mass_scaled_prefix_and_seminorm_budget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ (C : Real) (N : Nat) (delta : Real) (S_max : Real),
+              0 ≤ C ∧ 0 < N ∧
+              (∀ (n : Nat) {y : Real},
+                0 < y → y ≤ supportRadius g.convolutionSquare + 1 →
+                  ‖gammaRArchProfileTerm g.convolutionSquare n y‖ ≤
+                    C * (g.convolutionSquare.test 0).re * y *
+                      Real.exp (-(2 * (n : Real) * y))) ∧
+              (((((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) *
+                  g.convolutionSquare.test 0).re) +
+                (∑ n ∈ Finset.range N,
+                  gammaRArchProfileIntegral g.convolutionSquare n).re ≤
+                  -(gammaRArchProfileTailMassRate g C N + delta)) ∧
+              rawFactorSeminorm geometry ≤ S_max ∧
+              2 * Real.exp (rawFactorSupportRadius geometry) * S_max ^ 2 *
+                visibleHarmonicChebyshevSum geometry ≤ delta) :
+    RHDefinitionBridge.standard.SourceRH
+
+theorem riemannHypothesis_of_mass_scaled_prefix_and_seminorm_budget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ (C : Real) (N : Nat) (delta : Real) (S_max : Real),
+              0 ≤ C ∧ 0 < N ∧
+              (∀ (n : Nat) {y : Real},
+                0 < y → y ≤ supportRadius g.convolutionSquare + 1 →
+                  ‖gammaRArchProfileTerm g.convolutionSquare n y‖ ≤
+                    C * (g.convolutionSquare.test 0).re * y *
+                      Real.exp (-(2 * (n : Real) * y))) ∧
+              (((((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) *
+                  g.convolutionSquare.test 0).re) +
+                (∑ n ∈ Finset.range N,
+                  gammaRArchProfileIntegral g.convolutionSquare n).re ≤
+                  -(gammaRArchProfileTailMassRate g C N + delta)) ∧
+              rawFactorSeminorm geometry ≤ S_max ∧
+              2 * Real.exp (rawFactorSupportRadius geometry) * S_max ^ 2 *
+                visibleHarmonicChebyshevSum geometry ≤ delta) :
+    _root_.RiemannHypothesis
 ```
 
 This decouples the remaining analysis into two independent, quantitative tasks:

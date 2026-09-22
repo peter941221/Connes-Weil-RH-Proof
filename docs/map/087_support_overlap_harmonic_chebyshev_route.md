@@ -105,6 +105,18 @@ The support-overlap harmonic Chebyshev route achieves a major asymptotic reducti
     ```
     supplying the exact Archimedean positive margin witness directly from the finite profile prefix and mass-scaled tail bound.
 
+12. **Unified Mass-Scaled Prefix and Seminorm Budget Exit**:
+    Formally proved in `C1P2DirectSupportOverlapDecoupling`:
+    ```text
+    sourceRH_of_mass_scaled_prefix_and_seminorm_budget
+    riemannHypothesis_of_mass_scaled_prefix_and_seminorm_budget:
+      (finite profile prefix bound with mass tail rate) ->
+      (rawFactorSeminorm geometry <= S_max) ->
+      (2 * exp(L) * S_max^2 * H <= delta) ->
+      RiemannHypothesis
+    ```
+    joining the Archimedean profile margin and the harmonic support-overlap budget into a single top-level exit theorem.
+
 ## 2. Formal Exit Chain
 
 ```text

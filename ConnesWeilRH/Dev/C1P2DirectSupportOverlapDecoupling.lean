@@ -14,6 +14,7 @@ import ConnesWeilRH.Dev.C1P2SignedBudget
 import ConnesWeilRH.Dev.C1SameOwnerWeil
 import ConnesWeilRH.Dev.C1HealthyYoshidaDetector
 import ConnesWeilRH.Dev.C1HealthyYoshidaSpectralNegativity
+import ConnesWeilRH.Dev.C1XiCenterTwoGammaMassRelativeTail
 
 namespace ConnesWeilRH
 namespace Source
@@ -35,6 +36,10 @@ open C1P2SignedBudget
 open C1SameOwnerWeil
 open C1HealthyYoshidaDetector
 open C1HealthyYoshidaSpectralNegativity
+open C1XiCenterTwoGamma
+open C1XiCenterTwoGammaSummedKernel
+open C1XiCenterTwoGammaPrefixTailConsumer
+open C1XiCenterTwoGammaMassRelativeTail
 open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
 open scoped BigOperators
@@ -737,6 +742,69 @@ theorem riemannHypothesis_of_supportOverlap_seminorm_budget
   obtain ⟨g, geometry, delta, S_max, hmargin, hS, hbudget⟩ := hproducer rho hright
   have hsmall := orbitSupportOverlapBound_le_of_seminorm_le geometry delta S_max hS hbudget
   exact ⟨g, geometry, delta, hmargin, hsmall⟩
+
+/-- Full exit theorem: combining the mass-scaled Archimedean prefix/tail bound
+    with the support-overlap seminorm budget directly implies SourceRH. -/
+theorem sourceRH_of_mass_scaled_prefix_and_seminorm_budget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ (C : Real) (N : Nat) (delta : Real) (S_max : Real),
+              0 ≤ C ∧ 0 < N ∧
+              (∀ (n : Nat) {y : Real},
+                0 < y → y ≤ supportRadius g.convolutionSquare + 1 →
+                  ‖gammaRArchProfileTerm g.convolutionSquare n y‖ ≤
+                    C * (g.convolutionSquare.test 0).re * y *
+                      Real.exp (-(2 * (n : Real) * y))) ∧
+              (((((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) *
+                  g.convolutionSquare.test 0).re) +
+                (∑ n ∈ Finset.range N,
+                  gammaRArchProfileIntegral g.convolutionSquare n).re ≤
+                  -(gammaRArchProfileTailMassRate g C N + delta)) ∧
+              rawFactorSeminorm geometry ≤ S_max ∧
+              2 * Real.exp (rawFactorSupportRadius geometry) * S_max ^ 2 *
+                visibleHarmonicChebyshevSum geometry ≤ delta) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_supportOverlap_seminorm_budget
+  intro rho hright
+  obtain ⟨g, geometry, C, N, delta, S_max, hC, hN, hhead, hprefix, hS, hbudget⟩ :=
+    hproducer rho hright
+  have hmargin := delta_le_neg_archimedeanTerm_of_mass_scaled_prefix_bound
+    g C N delta hC hN hhead hprefix
+  exact ⟨g, geometry, delta, S_max, hmargin, hS, hbudget⟩
+
+/-- Full exit theorem: combining the mass-scaled Archimedean prefix/tail bound
+    with the support-overlap seminorm budget directly implies Mathlib canonical
+    RiemannHypothesis. -/
+theorem riemannHypothesis_of_mass_scaled_prefix_and_seminorm_budget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ (C : Real) (N : Nat) (delta : Real) (S_max : Real),
+              0 ≤ C ∧ 0 < N ∧
+              (∀ (n : Nat) {y : Real},
+                0 < y → y ≤ supportRadius g.convolutionSquare + 1 →
+                  ‖gammaRArchProfileTerm g.convolutionSquare n y‖ ≤
+                    C * (g.convolutionSquare.test 0).re * y *
+                      Real.exp (-(2 * (n : Real) * y))) ∧
+              (((((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) *
+                  g.convolutionSquare.test 0).re) +
+                (∑ n ∈ Finset.range N,
+                  gammaRArchProfileIntegral g.convolutionSquare n).re ≤
+                  -(gammaRArchProfileTailMassRate g C N + delta)) ∧
+              rawFactorSeminorm geometry ≤ S_max ∧
+              2 * Real.exp (rawFactorSupportRadius geometry) * S_max ^ 2 *
+                visibleHarmonicChebyshevSum geometry ≤ delta) :
+    _root_.RiemannHypothesis := by
+  apply riemannHypothesis_of_supportOverlap_seminorm_budget
+  intro rho hright
+  obtain ⟨g, geometry, C, N, delta, S_max, hC, hN, hhead, hprefix, hS, hbudget⟩ :=
+    hproducer rho hright
+  have hmargin := delta_le_neg_archimedeanTerm_of_mass_scaled_prefix_bound
+    g C N delta hC hN hhead hprefix
+  exact ⟨g, geometry, delta, S_max, hmargin, hS, hbudget⟩
 
 end
 end C1P2DirectSupportOverlapDecoupling
