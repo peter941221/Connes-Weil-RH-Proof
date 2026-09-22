@@ -960,6 +960,28 @@ theorem orbitFiniteComplexPhysicalKernelProfile_lpNorm_le_common_weighted_raw_ma
             (ENNReal.ofReal 2) (MeasureTheory.volume : Measure Real) := by
       rw [Finset.sum_mul]
 
+theorem orbitFiniteComplexPhysicalKernelProfile_term_coefficient_norm_le
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : Nat) (hn : 1 ≤ n) :
+    ‖((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+        Complex.exp (((-Real.log n / 2 : Real) : Complex))‖ ≤
+      2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) := by
+  have hnreal : (1 : Real) ≤ n := by exact_mod_cast hn
+  have hlog : 0 ≤ Real.log (n : Real) := Real.log_nonneg hnreal
+  have hcoeff : 0 ≤
+      2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) := by
+    exact mul_nonneg (by norm_num)
+      (mul_nonneg ArithmeticFunction.vonMangoldt_nonneg (by positivity))
+  rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hcoeff,
+    Complex.norm_exp]
+  have hexp : Real.exp (-Real.log (n : Real) / 2) ≤ 1 := by
+    rw [Real.exp_le_one_iff]
+    linarith
+  have hexp' : Real.exp (((-Real.log (n : Real) / 2 : Real) : Complex).re) ≤ 1 := by
+    rw [Real.exp_le_one_iff]
+    simpa only [Complex.ofReal_re] using (show -Real.log (n : Real) / 2 ≤ 0 by linarith)
+  nlinarith [mul_le_mul_of_nonneg_left hexp' hcoeff]
+
 theorem finitePrimeSum_le_intervalIntegral_common_factor_profile_norm
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) :

@@ -257,6 +257,12 @@ profile mass by one explicit coefficient sum times one common weighted-raw
 mass. This is still a conditional norm reduction: it discards phase
 cancellation and therefore cannot itself close the signed B5 budget.
 
+For positive indices, `orbitFiniteComplexPhysicalKernelProfile_term_coefficient_norm_le`
+further bounds the explicit scalar by `2 * vonMangoldt(n) / sqrt(n)` (in
+the repository's multiplicative notation), because the real exponential
+factor has modulus at most one for `n >= 1`. This is only a coefficient
+majorant; it does not alter the exact signed profile or prove the gate.
+
 Using the raw-factor support, the same estimate is now localized to the exact
 finite window by
 `finitePrimeSum_le_intervalIntegral_common_factor_profile_norm`. This is the
