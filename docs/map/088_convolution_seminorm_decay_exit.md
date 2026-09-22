@@ -79,3 +79,28 @@ existence theorem. The actual geometry constructor still has to realize the
 chosen index and its interpolation, tail, square-zero, support, and
 Archimedean-margin fields. The strict base contraction inequality remains
 open for the constructor-selected owner.
+
+## 4. Orbit-index quantifier boundary (record 1841)
+
+The eventual-budget lemma is not yet directly consumable by the existing
+geometry producer. `exists_orbitG8Geometry_of_sourceNontrivialZero_right`
+constructs `OrbitG8Geometry rho g` with an existentially selected
+`geometry.orbitIndex`; it does not accept a prescribed index from the caller.
+Therefore the implication
+
+```text
+2 * seminorm(base) < 1
+  -> choose a large index
+  -> satisfy the harmonic budget
+```
+
+is not valid for the current owner without an additional theorem. The live
+producer obligation is now one of:
+
+1. strengthen the constructor to realize a caller-supplied orbit index while
+   preserving interpolation, tail, square-zero, and margin fields; or
+2. prove that a constructed owner can be lifted to larger orbit index with all
+   those fields preserved.
+
+This is a FORMAL quantifier/interface finding, not a no-go theorem and not an
+RH result.
