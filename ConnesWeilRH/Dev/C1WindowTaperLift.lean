@@ -480,6 +480,81 @@ theorem windowTaperCorrection_seminorm_zero_zero_le
         exact windowTaperComb_norm_bound a b nodes coeff x hxIcc
       _ = ‖coeff‖ * windowTaperBound a b nodes := by ring
 
+/-- A finite matrix's entrywise norm sum bounds its action on the sup norm. -/
+noncomputable def matrixEntryNormSum {ι κ : Type*} [Fintype ι] [Fintype κ]
+    (A : Matrix ι κ ℂ) : ℝ :=
+  ∑ i : ι, ∑ j : κ, ‖A i j‖
+
+theorem matrix_mulVec_norm_le_entryNormSum
+    {ι κ : Type*} [Fintype ι] [Fintype κ]
+    (A : Matrix ι κ ℂ) (y : κ → ℂ) :
+    ‖Matrix.mulVec A y‖ ≤ matrixEntryNormSum A * ‖y‖ := by
+  classical
+  have hsum_nonneg : 0 ≤ matrixEntryNormSum A := by
+    unfold matrixEntryNormSum
+    positivity
+  refine (pi_norm_le_iff_of_nonneg
+    (mul_nonneg hsum_nonneg (norm_nonneg y))).mpr ?_
+  intro i
+  have hrow : (∑ j : κ, ‖A i j‖) ≤ matrixEntryNormSum A := by
+    unfold matrixEntryNormSum
+    exact Finset.single_le_sum
+      (s := (Finset.univ : Finset ι))
+      (f := fun k : ι => ∑ j : κ, ‖A k j‖)
+      (fun k _ => by positivity) (Finset.mem_univ i)
+  calc
+    ‖(Matrix.mulVec A y) i‖ = ‖∑ j : κ, A i j * y j‖ := by
+      rfl
+    _ ≤ ∑ j : κ, ‖A i j * y j‖ :=
+      norm_sum_le (Finset.univ : Finset κ) (fun j => A i j * y j)
+    _ = ∑ j : κ, ‖A i j‖ * ‖y j‖ := by
+      simp only [norm_mul]
+    _ ≤ ∑ j : κ, ‖A i j‖ * ‖y‖ := by
+      apply Finset.sum_le_sum
+      intro j _
+      have hyj : ‖y j‖ ≤ ‖y‖ := by
+        rw [Pi.norm_def]
+        exact mod_cast Finset.le_sup
+          (f := fun k : κ => ‖y k‖₊) (Finset.mem_univ j)
+      exact mul_le_mul_of_nonneg_left hyj (norm_nonneg _)
+    _ = (∑ j : κ, ‖A i j‖) * ‖y‖ := by
+      rw [Finset.sum_mul]
+    _ ≤ matrixEntryNormSum A * ‖y‖ :=
+      mul_le_mul_of_nonneg_right hrow (norm_nonneg _)
+
+theorem windowTaperCorrection_seminorm_zero_zero_le_inverse_entryNormSum
+    {ι : Type*} [Fintype ι] [DecidableEq ι] {a b : ℝ} (hab : a < b)
+    (nodes : ι → ℂ) (τ : ℝ → ℝ)
+    (hτc : HasCompactSupport τ) (hτs : ContDiff ℝ ∞ τ)
+    (hsupp : Function.support τ ⊆ Set.Ioo a b)
+    (hτ0 : ∀ x, 0 ≤ τ x) (hτ1 : ∀ x, τ x ≤ 1)
+    (hT : IsUnit (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes))
+    (y : ι → ℂ) :
+    SchwartzMap.seminorm ℂ 0 0
+        (windowTaperCorrection nodes
+          (Matrix.mulVec (↑hT.unit⁻¹ : Matrix ι ι ℂ) y) τ hτc hτs).test ≤
+      matrixEntryNormSum (↑hT.unit⁻¹ : Matrix ι ι ℂ) * ‖y‖ *
+        windowTaperBound a b nodes := by
+  have hB : 0 ≤ windowTaperBound a b nodes := by
+    unfold windowTaperBound
+    positivity
+  have hseminorm := windowTaperCorrection_seminorm_zero_zero_le
+    hab nodes (Matrix.mulVec (↑hT.unit⁻¹ : Matrix ι ι ℂ) y) τ hτc hτs
+    hsupp hτ0 hτ1
+  have hcoeff := matrix_mulVec_norm_le_entryNormSum
+    (↑hT.unit⁻¹ : Matrix ι ι ℂ) y
+  calc
+    SchwartzMap.seminorm ℂ 0 0
+        (windowTaperCorrection nodes
+          (Matrix.mulVec (↑hT.unit⁻¹ : Matrix ι ι ℂ) y) τ hτc hτs).test ≤
+        ‖Matrix.mulVec (↑hT.unit⁻¹ : Matrix ι ι ℂ) y‖ *
+          windowTaperBound a b nodes := hseminorm
+    _ ≤ (matrixEntryNormSum (↑hT.unit⁻¹ : Matrix ι ι ℂ) * ‖y‖) *
+          windowTaperBound a b nodes :=
+      mul_le_mul_of_nonneg_right hcoeff hB
+    _ = matrixEntryNormSum (↑hT.unit⁻¹ : Matrix ι ι ℂ) * ‖y‖ *
+          windowTaperBound a b nodes := by ring
+
 /-- The tapered owner realizes the solved system's values: `laplaceAt f sⱼ`
 is the `j`-th entry of the tapered Gram applied to the coefficients. -/
 theorem windowTaperCorrection_laplaceAt {ι : Type*} [Fintype ι] {a b : ℝ}

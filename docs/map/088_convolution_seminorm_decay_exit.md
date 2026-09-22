@@ -321,3 +321,13 @@ the geometric contraction consumer, alongside the unit-bounded source basis.
 The remaining input is the quantitative norm bound for the explicit Gram
 inverse coefficient vector; no strict budget or positivity is claimed.  See
 proof record 1875 and `taper-seminorm-1875d.log`.
+
+## 26. Taper inverse entry-budget reduction (record 1876)
+
+The explicit taper route now has a finite-matrix coefficient estimate:
+`matrix_mulVec_norm_le_entryNormSum` bounds the inverse coefficient vector by
+the absolute entry sum of the inverse Gram matrix times the target sup norm.
+Combined with the taper seminorm bridge, the remaining budget is an explicit
+finite inverse-matrix inequality.  The entry sum itself is not yet bounded
+below the strict-contraction threshold; detector-specific positivity and RH
+remain open.  See proof record 1876 and `taper-inverse-budget-1876b.log`.

@@ -30,6 +30,9 @@ open ConnesWeilRH.Source.C1WindowTaperLift
 #print axioms windowTaperCorrection_apply
 #print axioms windowTaperCorrection_support
 #print axioms windowTaperCorrection_seminorm_zero_zero_le
+#print axioms matrixEntryNormSum
+#print axioms matrix_mulVec_norm_le_entryNormSum
+#print axioms windowTaperCorrection_seminorm_zero_zero_le_inverse_entryNormSum
 #print axioms windowTaperCorrection_laplaceAt
 #print axioms windowTaperCorrection_cost_le
 #print axioms windowTaperCorrection_budget
