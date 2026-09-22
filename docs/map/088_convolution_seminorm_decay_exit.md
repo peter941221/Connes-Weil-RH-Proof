@@ -185,3 +185,11 @@ contraction to the explicit finite inequality
 This is formal interface progress, not a proof that the right-inverse
 coefficients satisfy the budget. The remaining quantitative task is to
 certify that finite coefficient/basis sum for the selected Mellin targets.
+
+## 13. Preserve the base window width (record 1858)
+
+The geometric raw-factor estimate now accepts the actual base support window
+`[a,b]` and uses `(b-a) * seminorm(base)` as the power-contraction factor. The
+former length-2 estimate remains available for compatibility. This is formal
+route progress; the selected finite-window coefficient budget and the
+detector-specific semi-local positivity are still open.

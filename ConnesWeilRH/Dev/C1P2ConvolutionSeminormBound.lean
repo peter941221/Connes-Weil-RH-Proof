@@ -241,6 +241,52 @@ theorem rawFactorSeminorm_le_geometric_bound
             SchwartzMap.seminorm ℂ 0 0 geometry.correction.test := by ring
   exact hbound.trans hmul
 
+/-! The same estimate retains an explicit base support window.  This is the
+    consumer needed by the finite-window quantitative base construction. -/
+
+theorem rawFactorSeminorm_le_geometric_bound_of_base_window
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    {a b : ℝ} (hab : a ≤ b)
+    (hbase_window : Function.support geometry.base.test ⊆ Set.Ioo a b) :
+    rawFactorSeminorm geometry ≤
+      (2 : ℝ) *
+        (((b - a) * SchwartzMap.seminorm ℂ 0 0 geometry.base.test) ^ geometry.orbitIndex *
+          SchwartzMap.seminorm ℂ 0 0 geometry.base.test) *
+        SchwartzMap.seminorm ℂ 0 0 geometry.correction.test := by
+  unfold rawFactorSeminorm orbitRawFactor
+  have hbase_supp : Function.support geometry.base.test ⊆ Set.Icc a b :=
+    hbase_window.trans Set.Ioo_subset_Icc_self
+  have hbase_len : b - a = b - a := rfl
+  have hcorr_supp : Function.support geometry.correction.test ⊆ Set.Icc (-1 : ℝ) 1 :=
+    geometry.correction_support.trans Set.Ioo_subset_Icc_self
+  have hcorr_len : (1 : ℝ) - (-1) = 2 := by ring
+  have hbound := seminorm_convolution_le_supportLength_mul_seminorm_right
+    (convolutionIterate geometry.base geometry.orbitIndex) geometry.correction
+    (-1) 1 (by norm_num) hcorr_supp
+  rw [hcorr_len] at hbound
+  have hiter := seminorm_convolutionIterate_le_pow
+    geometry.base a b hab hbase_supp geometry.orbitIndex
+  rw [hbase_len] at hiter
+  have hmul : (2 : ℝ) * SchwartzMap.seminorm ℂ 0 0 geometry.correction.test *
+      SchwartzMap.seminorm ℂ 0 0 (convolutionIterate geometry.base geometry.orbitIndex).test ≤
+    (2 : ℝ) *
+      (((b - a) * SchwartzMap.seminorm ℂ 0 0 geometry.base.test) ^ geometry.orbitIndex *
+        SchwartzMap.seminorm ℂ 0 0 geometry.base.test) *
+      SchwartzMap.seminorm ℂ 0 0 geometry.correction.test := by
+    calc
+      (2 : ℝ) * SchwartzMap.seminorm ℂ 0 0 geometry.correction.test *
+          SchwartzMap.seminorm ℂ 0 0 (convolutionIterate geometry.base geometry.orbitIndex).test ≤
+        (2 : ℝ) * SchwartzMap.seminorm ℂ 0 0 geometry.correction.test *
+          (((b - a) * SchwartzMap.seminorm ℂ 0 0 geometry.base.test) ^ geometry.orbitIndex *
+            SchwartzMap.seminorm ℂ 0 0 geometry.base.test) :=
+        mul_le_mul_of_nonneg_left hiter (by positivity)
+      _ = (2 : ℝ) *
+            (((b - a) * SchwartzMap.seminorm ℂ 0 0 geometry.base.test) ^ geometry.orbitIndex *
+              SchwartzMap.seminorm ℂ 0 0 geometry.base.test) *
+            SchwartzMap.seminorm ℂ 0 0 geometry.correction.test := by ring
+  exact hbound.trans hmul
+
 /-! A quantitative producer-side reduction: once the base seminorm has a
 strict contraction factor, increasing the orbit index can meet any positive
 budget. This is deliberately separate from the geometry constructor: the
