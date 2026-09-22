@@ -9,6 +9,8 @@ namespace ConnesWeilRH.Dev.C1C3CarrierOrbitCutoff
 
 #check orbitG8Geometry_carrier_reparam
 #print axioms orbitG8Geometry_carrier_reparam
+#check finitePrimeSum_eq_carrierPhase_sum_of_orbitG8Geometry
+#print axioms finitePrimeSum_eq_carrierPhase_sum_of_orbitG8Geometry
 #check carrierSquarePrimePhaseSum_abs_le_orbitG8_cutoff
 #print axioms carrierSquarePrimePhaseSum_abs_le_orbitG8_cutoff
 #check orbitG8_visible_owner_card_le_cutoff

@@ -38,6 +38,18 @@ theorem orbitG8Geometry_carrier_reparam
   rw [hu]
   exact geometry
 
+theorem finitePrimeSum_eq_carrierPhase_sum_of_orbitG8Geometry
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (γ : Real) :
+    ∃ u : CompactLogTest,
+      finitePrimeSum g.convolutionSquare =
+        ∑ n ∈ globalPrimeIndexSet g.convolutionSquare,
+          carrierSquarePhaseTerm γ u n := by
+  obtain ⟨u, geometry', hu⟩ := orbitG8Geometry_carrier_reparam geometry γ
+  refine ⟨u, ?_⟩
+  rw [← hu]
+  exact finitePrimeSum_carrierSquare_eq_phaseTerm_sum γ u
+
 theorem orbitG8_visible_owner_card_le_cutoff
     {rho : sourceNontrivialZeroSet} (γ : Real) (u : CompactLogTest)
     (geometry : OrbitG8Geometry rho (carrierModulate γ u)) :
