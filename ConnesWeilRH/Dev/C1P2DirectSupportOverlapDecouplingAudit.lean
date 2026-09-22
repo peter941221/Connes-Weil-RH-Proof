@@ -3,6 +3,8 @@ import ConnesWeilRH.Dev.C1P2DirectSupportOverlapDecoupling
 open ConnesWeilRH.Source.C1P2DirectSupportOverlapDecoupling
 
 #print axioms orbitWeightedKernelIntegrand_eq_zero_of_lt_sub
+#print axioms orbitFinitePhysicalKernelIntegrand_eq_zero_of_lt_log2_sub
+#print axioms integral_orbitFinitePhysicalKernelIntegrand_eq_log2_sub_interval
 #print axioms integral_scaled_expNeg_overlap
 #print axioms cancellation_identity_overlap
 #print axioms visibleHarmonicChebyshevSum_nonneg

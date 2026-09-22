@@ -19,6 +19,7 @@ namespace ConnesWeilRH
 namespace Source
 namespace C1P2DirectSupportOverlapDecoupling
 
+open MeasureTheory
 open C1G8R0OrbitGeometry
 open C1OrbitFiniteSignBudget
 open C1OrbitWindowSemiLocalGate
@@ -59,6 +60,65 @@ theorem orbitWeightedKernelIntegrand_eq_zero_of_lt_sub
     exact hnot (hsupp (Function.mem_support.mpr hne))
   unfold orbitWeightedKernelIntegrand
   simp [raw, hzero]
+
+/-- The finite physical kernel integrand vanishes identically for all `t ≤ log 2 - L`,
+    because every prime power satisfies `n ≥ 2`, hence `log n ≥ log 2`, which places
+    `log n - t ≥ L` strictly outside the support `(-L, L)` of `orbitRawFactor`. -/
+theorem orbitFinitePhysicalKernelIntegrand_eq_zero_of_lt_log2_sub
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (t : ℝ)
+    (ht : t ≤ Real.log 2 - rawFactorSupportRadius geometry) :
+    orbitFinitePhysicalKernelIntegrand geometry t = 0 := by
+  unfold orbitFinitePhysicalKernelIntegrand
+  apply Finset.sum_eq_zero
+  intro n _hn
+  by_cases hvm : ArithmeticFunction.vonMangoldt n = 0
+  · simp [hvm]
+  · have h2 : 2 ≤ n := by
+      by_contra hlt
+      have : n = 0 ∨ n = 1 := by omega
+      rcases this with rfl | rfl
+      · simp at hvm
+      · simp at hvm
+    have hn2 : (2 : ℝ) ≤ (n : ℝ) := by exact_mod_cast h2
+    have hlog2_le : Real.log 2 ≤ Real.log (n : ℝ) :=
+      Real.log_le_log (by norm_num) hn2
+    have ht_le : t ≤ Real.log (n : ℝ) - rawFactorSupportRadius geometry := by
+      linarith
+    have hzero := orbitWeightedKernelIntegrand_eq_zero_of_lt_sub geometry (Real.log (n : ℝ)) t ht_le
+    simp [hzero]
+
+/-- The integral of the physical kernel integrand over `[-L, L]` reduces to the
+    restricted interval `[log 2 - L, L]` because the integrand vanishes on `[-L, log 2 - L]`. -/
+theorem integral_orbitFinitePhysicalKernelIntegrand_eq_log2_sub_interval
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    (∫ t in (-rawFactorSupportRadius geometry)..
+        (rawFactorSupportRadius geometry),
+        orbitFinitePhysicalKernelIntegrand geometry t) =
+      ∫ t in (Real.log 2 - rawFactorSupportRadius geometry)..
+        (rawFactorSupportRadius geometry),
+        orbitFinitePhysicalKernelIntegrand geometry t := by
+  let L := rawFactorSupportRadius geometry
+  have hA : IntervalIntegrable (orbitFinitePhysicalKernelIntegrand geometry)
+      volume (-L) (Real.log 2 - L) :=
+    (orbitFinitePhysicalKernelIntegrand_integrable geometry).intervalIntegrable
+  have hB : IntervalIntegrable (orbitFinitePhysicalKernelIntegrand geometry)
+      volume (Real.log 2 - L) L :=
+    (orbitFinitePhysicalKernelIntegrand_integrable geometry).intervalIntegrable
+  rw [← intervalIntegral.integral_add_adjacent_intervals hA hB]
+  have hzero :
+      (∫ t in (-L)..(Real.log 2 - L), orbitFinitePhysicalKernelIntegrand geometry t) = 0 := by
+    have hlog2_pos : 0 ≤ Real.log 2 := Real.log_nonneg (by norm_num)
+    have hle : -L ≤ Real.log 2 - L := by linarith
+    have hcongr : (∫ t in (-L)..(Real.log 2 - L), orbitFinitePhysicalKernelIntegrand geometry t) =
+        ∫ t in (-L)..(Real.log 2 - L), (0 : ℝ) := by
+      apply intervalIntegral.integral_congr
+      intro t ht
+      rw [Set.uIcc_of_le hle] at ht
+      exact orbitFinitePhysicalKernelIntegrand_eq_zero_of_lt_log2_sub geometry t ht.2
+    rw [hcongr, intervalIntegral.integral_zero]
+  rw [hzero, zero_add]
 
 /-- The integral of `exp(-t)` over the restricted overlap window `[x - L, L]`. -/
 theorem integral_expNeg_overlap (L x : ℝ) :

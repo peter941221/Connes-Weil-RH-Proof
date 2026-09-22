@@ -44,6 +44,26 @@ theorem orbitWeightedKernelIntegrand_eq_zero_of_lt_sub
 ```
 For $t \le x - L$, $x - t \ge L$, so $x - t \notin (-L, L)$ and $\phi(x - t) = 0$.
 
+Furthermore, summing over all visible primes $n \ge 2$ yields uniform vanishing on the left interval:
+```lean
+theorem orbitFinitePhysicalKernelIntegrand_eq_zero_of_lt_log2_sub
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (t : ℝ)
+    (ht : t ≤ Real.log 2 - rawFactorSupportRadius geometry) :
+    orbitFinitePhysicalKernelIntegrand geometry t = 0
+
+theorem integral_orbitFinitePhysicalKernelIntegrand_eq_log2_sub_interval
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    (∫ t in (-rawFactorSupportRadius geometry)..
+        (rawFactorSupportRadius geometry),
+        orbitFinitePhysicalKernelIntegrand geometry t) =
+      ∫ t in (Real.log 2 - rawFactorSupportRadius geometry)..
+        (rawFactorSupportRadius geometry),
+        orbitFinitePhysicalKernelIntegrand geometry t
+```
+The integration domain shrinks from $[-L, L]$ (length $2L$) to $[\log 2 - L, L]$ (length $2L - \log 2$).
+
 ---
 
 ## 3. The Scaled Overlap Integral

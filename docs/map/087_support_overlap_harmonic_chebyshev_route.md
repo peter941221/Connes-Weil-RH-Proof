@@ -43,6 +43,14 @@ The support-overlap harmonic Chebyshev route achieves a major asymptotic reducti
    ```
    establishing that the harmonic overlap bound is strictly sharper than the Chebyshev sharpened bound across all geometries.
 
+6. **Left-Interval Vanishing and Domain Reduction**:
+   Formally proved:
+   ```text
+   orbitFinitePhysicalKernelIntegrand geometry t = 0  for all t <= log 2 - L
+   integral_{[-L, L]} = integral_{[log 2 - L, L]}
+   ```
+   The entire left interval `[-L, log 2 - L]` of length `log 2 ~ 0.693` vanishes completely because every visible prime has `n >= 2`, hence `log n >= log 2`.
+
 ## 2. Formal Exit Chain
 
 ```text
