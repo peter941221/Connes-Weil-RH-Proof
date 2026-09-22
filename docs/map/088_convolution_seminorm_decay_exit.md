@@ -241,3 +241,13 @@ indexed G8 producer consumes the explicit affine unit-target base package,
 including its support, target equations, and quadratic tail. This is formal
 same-owner producer wiring; the finite coefficient/basis contraction budget
 and detector-specific signed semi-local positivity remain open.
+
+## 20. Target-vector sparse span certificate (record 1865)
+
+Finite-dimensional span extraction now gives, for every target assignment, a
+Finsupp over the target-vector space whose support has cardinality at most the
+number of Mellin nodes and whose support lies in the range of genuine
+windowed test vectors. This is the correct finite-dimensional statement; it
+does not yet identify the Finsupp with source-test indices. The remaining
+adapter must choose one source preimage per selected vector and transport the
+certificate through `Finsupp.embDomain`.

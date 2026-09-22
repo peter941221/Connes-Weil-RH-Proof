@@ -66,6 +66,29 @@ theorem windowedMellinEvaluationMap_surjective
   have hpoint := congr_fun hc z
   simpa [Finsupp.sum, Pi.smul_apply, smul_eq_mul] using hpoint
 
+/-! The finite-dimensional reduction is stated first on target vectors.  The
+support subset records that every selected vector still comes from a genuine
+windowed test; a later adapter may choose one source preimage per vector. -/
+theorem exists_windowedMellin_target_vector_sparse_coefficients
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex) :
+    ∃ d : (FiniteMellinNode nodes → Complex) →₀ Complex,
+      d.support.card ≤ nodes.card ∧
+      (↑d.support : Set (FiniteMellinNode nodes → Complex)) ⊆
+        Set.range (windowedFiniteMellinVector nodes a b) ∧
+      d.sum (fun v r => r • v) = y := by
+  have hspan := windowedFiniteMellinVector_span_top nodes ha ha_one hone_b
+  have hy_mem : y ∈ Submodule.span Complex
+      (Set.range (windowedFiniteMellinVector nodes a b)) := by
+    rw [hspan]
+    exact Submodule.mem_top
+  rcases Submodule.mem_span_set_iff_exists_finsupp_le_finrank.mp hy_mem with
+    ⟨d, hcard, hsupport, hsum⟩
+  refine ⟨d, ?_, hsupport, hsum⟩
+  rw [hspan] at hcard
+  simpa using hcard
+
 /-- A linear right inverse of the finite-node evaluation map.  Its existence
 uses only surjectivity and the projectivity of finite function spaces over the
 field `Complex`; it does not use any sign conclusion. -/
