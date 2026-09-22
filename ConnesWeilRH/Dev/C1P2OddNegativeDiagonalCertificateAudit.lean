@@ -5,5 +5,7 @@ namespace ConnesWeilRH.Source.C1P2OddNegativeDiagonalCertificateAudit
 open ConnesWeilRH.Source.C1P2OddNegativeDiagonalCertificate
 
 #print axioms odd_ICgate_neg_of_narrow_budget
+#print axioms oddPart_negative_gate_of_symmetric_node_data
+#print axioms exists_odd_negative_diagonal_of_offLineZero
 
 end ConnesWeilRH.Source.C1P2OddNegativeDiagonalCertificateAudit

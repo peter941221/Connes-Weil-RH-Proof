@@ -116,6 +116,23 @@ Evidence: `ConnesWeilRH/Dev/C1P2OddNegativeDiagonalCertificate.lean`, theorem
 `odd_ICgate_neg_of_narrow_budget`; build log
 `build-logs/1813_odd_negative.log` (formal, project candidate certificate).
 
+## Round 2G constructed odd component (2026-09-22)
+
+The public theorem `exists_pairNode_correction_of_offLineZero` exposes the
+exact seven-node residual owner. Consuming it with
+`oddPart_negative_gate_of_symmetric_node_data` yields
+`exists_odd_negative_diagonal_of_offLineZero`: for every right-oriented
+hypothetical off-line zero, there is an odd component with zero half/one
+nodes, nonzero detection at rho, and strict negative complete `ICgate`.
+This is a formal closure of the negative-component preservation sub-obligation
+for the parity branch. It does not prove the even companion's nonpositive
+gate, nor the selected healthy orbit detector's same-owner signed budget.
+
+Evidence: `ConnesWeilRH/Dev/C1HealthyDetectorEvenOddPair.lean` and
+`ConnesWeilRH/Dev/C1P2OddNegativeDiagonalCertificate.lean`; paired audits and
+build log `build-logs/1826_odd_component_audits.log` (formal, project
+candidate construction).
+
 Formal follow-up: `C1C3CarrierFourierShift.lean` proves the exact same-owner
 frequency transport
 `Fourier(carrierModulate gamma f, xi) = Fourier(f, xi + gamma/(2*pi))`,

@@ -333,6 +333,58 @@ private theorem pairNodeTarget_at_neg_one
   dsimp [pairNodeTarget]
   rw [if_neg (Ne.symm (pair_ne_neg_one hrho)), if_neg (negOne_ne_neg_rho hrho)]
 
+/-! ### Public residual data for parity-compatible consumers -/
+
+/-- A symmetric residual correction realizes the signed detector values and
+the five criterion-node zeros in any nonempty window around the origin. -/
+theorem exists_pairNode_correction_of_offLineZero
+    {rho : ℂ} (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho)
+    (hoff : rho.re ≠ 1 / 2) {lower upper : ℝ}
+    (hlower : lower < 0) (hupper : 0 < upper) :
+    ∃ h : CompactLogTest,
+      Function.support h.test ⊆ Set.Ioo lower upper ∧
+        CompactLogTest.laplaceAt h rho = 1 ∧
+        CompactLogTest.laplaceAt h (-rho) = -1 ∧
+        CompactLogTest.laplaceAt h 0 = 0 ∧
+        CompactLogTest.laplaceAt h (1 / 2 : ℂ) = 0 ∧
+        CompactLogTest.laplaceAt h (-(1 / 2 : ℂ)) = 0 ∧
+        CompactLogTest.laplaceAt h 1 = 0 ∧
+        CompactLogTest.laplaceAt h (-1) = 0 := by
+  classical
+  have hrho0 : rho ≠ 0 := pair_ne_zero hrho
+  rcases CompactLogTest.exists_residualWindow_correction (pairNodeSet rho)
+      hlower hupper (pairNodeTarget rho) with ⟨h, hwin, hvalues⟩
+  refine ⟨h, hwin, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · have hv := hvalues
+      (⟨rho, by simp [pairNodeSet]⟩ : FiniteMellinNode (pairNodeSet rho))
+    rw [pairNodeTarget_at_rho] at hv
+    exact hv
+  · have hv := hvalues
+      (⟨-rho, by simp [pairNodeSet]⟩ : FiniteMellinNode (pairNodeSet rho))
+    rw [pairNodeTarget_at_neg_rho hrho0] at hv
+    exact hv
+  · have hv := hvalues
+      (⟨0, by simp [pairNodeSet]⟩ : FiniteMellinNode (pairNodeSet rho))
+    rw [pairNodeTarget_at_zero hrho] at hv
+    exact hv
+  · have hv := hvalues
+      (⟨1 / 2, by simp [pairNodeSet]⟩ : FiniteMellinNode (pairNodeSet rho))
+    rw [pairNodeTarget_at_half hrho hoff] at hv
+    exact hv
+  · have hv := hvalues
+      (⟨-(1 / 2 : ℂ), by simp [pairNodeSet]⟩ : FiniteMellinNode (pairNodeSet rho))
+    rw [pairNodeTarget_at_neg_half hrho hoff] at hv
+    exact hv
+  · have hv := hvalues
+      (⟨1, by simp [pairNodeSet]⟩ : FiniteMellinNode (pairNodeSet rho))
+    rw [pairNodeTarget_at_one hrho] at hv
+    exact hv
+  · have hv := hvalues
+      (⟨-1, by simp [pairNodeSet]⟩ : FiniteMellinNode (pairNodeSet rho))
+    rw [pairNodeTarget_at_neg_one hrho] at hv
+    exact hv
+
 /-! ### The main theorem: the explicit even/odd pair exists -/
 
 /-- THE EXPLICIT EVEN/ODD PAIR.  For every off-line source zero there is a

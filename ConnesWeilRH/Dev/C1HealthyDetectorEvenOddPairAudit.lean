@@ -31,6 +31,7 @@ open ConnesWeilRH.Source.C1HealthyDetectorEvenOddPair
 #check @C1HealthyDetectorEvenOddPair.support_oddPart_subset_Icc
 #check @C1HealthyDetectorEvenOddPair.pairNodeSet
 #check @C1HealthyDetectorEvenOddPair.pairNodeTarget
+#check @C1HealthyDetectorEvenOddPair.exists_pairNode_correction_of_offLineZero
 #check @C1HealthyDetectorEvenOddPair.exists_evenOddPair_of_offLineZero
 
 -- axiom pins
@@ -40,5 +41,6 @@ open ConnesWeilRH.Source.C1HealthyDetectorEvenOddPair
 #print axioms C1HealthyDetectorEvenOddPair.test_neg_oddPart
 #print axioms C1HealthyDetectorEvenOddPair.support_oddPart_subset_Icc
 #print axioms C1HealthyDetectorEvenOddPair.exists_evenOddPair_of_offLineZero
+#print axioms C1HealthyDetectorEvenOddPair.exists_pairNode_correction_of_offLineZero
 
 end ConnesWeilRH.Source.C1HealthyDetectorEvenOddPairAudit

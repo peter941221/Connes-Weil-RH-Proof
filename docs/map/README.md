@@ -122,6 +122,18 @@ existing even/odd two-span consumer. It does not prove the required nodal
 equations, detector preservation, or the actual orbit-owner budget; Round 2
 therefore remains open.
 
+## C3' Round 2F constructed odd component, 2026-09-22
+
+The public seven-node correction owner and the theorem
+`exists_odd_negative_diagonal_of_offLineZero` now combine to construct, for
+every hypothetical off-line zero, an odd compact-log component that has zero
+values at the half and one nodes, nonzero detection at the zero, and a strict
+negative complete gate. The construction is exact and uses a sufficiently
+narrow residual window, so its visible-prime sum is zero. This closes the
+negative-component node/detection-preservation obligation for the parity
+branch. The even companion's required sign and the actual healthy orbit
+detector's same-owner signed budget remain open; Round 2 is not complete.
+
 ## Orbit-sum pin realized, 2026-09-21
 
 [074](074_orbit_sum_pin_after_1799.md) records the orbit-sum pin (record
