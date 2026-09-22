@@ -152,6 +152,17 @@ The derivative identity and endpoint boundary conditions are formal for
 `Q(t) = t * F(t)` and `residual(t) = -t * F'(t)`. The residual signed budget
 remains the open obligation; no sign or RH claim.
 
+## Chebyshev sharpened integral decoupling (Option A), 2026-09-22
+
+[086](086_chebyshev_sharpened_integral_decoupling.md) records the formal sharpened
+decoupled bound via exact reflected exponential integration:
+`C1P2DirectChebyshevSharpenedDecoupling.lean` proves that
+`∫ x in (-L)..L, Real.exp (-x) = Real.exp L - Real.exp (-L) = 2 * sinh(L)`,
+eliminating the polynomial $2L$ factor from 085 and proving
+`finitePrimeSum g.convolutionSquare <= visibleChebyshevPrimeSum * (2 * (exp(L) - exp(-L)) * S^2)`.
+Existence of an orbit geometry satisfying `visibleChebyshevPrimeSum * (2 * (exp(L) - exp(-L)) * S^2) <= - archimedeanTerm`
+directly implies `SourceRH` and Mathlib's canonical `RiemannHypothesis`.
+
 ## Chebyshev decoupling and seminorm-bounded absorption (Option A), 2026-09-22
 
 [085](085_chebyshev_decoupling_route.md) records the formal pointwise cancellation

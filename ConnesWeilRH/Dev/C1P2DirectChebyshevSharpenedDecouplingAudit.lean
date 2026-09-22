@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1P2DirectChebyshevSharpenedDecoupling
+
+open ConnesWeilRH.Source.C1P2DirectChebyshevSharpenedDecoupling
+
+#print axioms integral_expNeg_symm
+#print axioms orbitChebyshevSharpenedBound_nonneg
+#print axioms orbitChebyshevSharpenedBound_le_decoupledBound
+#print axioms finitePrimeSum_le_chebyshev_sharpened_bound
+#print axioms sourceRH_of_chebyshev_sharpened_bounds
+#print axioms riemannHypothesis_of_chebyshev_sharpened_bounds
