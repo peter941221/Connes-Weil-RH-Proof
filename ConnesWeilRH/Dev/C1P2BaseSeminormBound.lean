@@ -99,6 +99,38 @@ theorem source_combination_seminorm_zero_zero_le_coeff_weighted_sum
           (normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test) x)
         (norm_nonneg _)
 
+/-! A uniform coefficient and basis bound converts the exact finite budget into
+an explicit cardinality product.  This is still a quantitative premise for the
+selected right inverse, but it exposes the remaining obligation term by term. -/
+theorem source_combination_seminorm_zero_zero_le_card_mul_uniform_budget
+    {a b : Real}
+    (c : WindowedPositiveIntervalCompactTest a b →₀ Complex)
+    {coeffBound basisBound : Real}
+    (hcoeff_nonneg : 0 ≤ coeffBound)
+    (hbasis_nonneg : 0 ≤ basisBound)
+    (hcoeff : ∀ p ∈ c.support, ‖c p‖ ≤ coeffBound)
+    (hbasis : ∀ p ∈ c.support,
+      SchwartzMap.seminorm Complex 0 0
+        (normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test) ≤ basisBound) :
+    (∑ p ∈ c.support,
+      ‖c p‖ *
+        SchwartzMap.seminorm Complex 0 0
+          (normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test)) ≤
+      (c.support.card : Real) * coeffBound * basisBound := by
+  calc
+    (∑ p ∈ c.support,
+      ‖c p‖ *
+        SchwartzMap.seminorm Complex 0 0
+          (normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test)) ≤
+        ∑ p ∈ c.support, coeffBound * basisBound := by
+      apply Finset.sum_le_sum
+      intro p hp
+      exact mul_le_mul (hcoeff p hp) (hbasis p hp)
+        (by positivity) hcoeff_nonneg
+    _ = (c.support.card : Real) * coeffBound * basisBound := by
+      simp [Finset.sum_const]
+      ring
+
 theorem compactLogTestOfWindow_combination_seminorm_zero_zero_le_coeff_weighted_sum
     {a b : Real} (ha : 0 < a) (hb : 0 < b)
     (c : WindowedPositiveIntervalCompactTest a b →₀ Complex) :
@@ -144,6 +176,40 @@ theorem strict_base_contraction_of_coeff_weighted_budget
         budget := by
     exact hscaled.trans_lt hbudget
   linarith
+
+theorem strict_base_contraction_of_uniform_coeff_basis_budget
+    {a b : Real} (ha : 0 < a) (hb : 0 < b)
+    (c : WindowedPositiveIntervalCompactTest a b →₀ Complex)
+    {coeffBound basisBound budget : Real}
+    (hcoeff_nonneg : 0 ≤ coeffBound)
+    (hbasis_nonneg : 0 ≤ basisBound)
+    (hcoeff : ∀ p ∈ c.support, ‖c p‖ ≤ coeffBound)
+    (hbasis : ∀ p ∈ c.support,
+      SchwartzMap.seminorm Complex 0 0
+        (normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test) ≤ basisBound)
+    (hbudget :
+      2 * (c.support.card : Real) * coeffBound * basisBound < budget)
+    (hbudget_half : budget ≤ 1 / 2) :
+    2 * SchwartzMap.seminorm Complex 0 0
+        (compactLogTestOfWindow
+          (windowedPositiveIntervalCompactTestCombination c) ha hb
+          (windowedPositiveIntervalCompactTestCombination_support_subset c)).test <
+      1 := by
+  have hsum := source_combination_seminorm_zero_zero_le_card_mul_uniform_budget
+    c hcoeff_nonneg hbasis_nonneg hcoeff hbasis
+  have hscaled := mul_le_mul_of_nonneg_left hsum
+    (by norm_num : (0 : Real) ≤ 2)
+  have hfinite :
+      2 * (∑ p ∈ c.support,
+        ‖c p‖ *
+          SchwartzMap.seminorm Complex 0 0
+            (normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test)) < budget := by
+    have hbudget' :
+        2 * ((c.support.card : Real) * coeffBound * basisBound) < budget := by
+      convert hbudget using 1 <;> ring
+    exact hscaled.trans_lt hbudget'
+  exact strict_base_contraction_of_coeff_weighted_budget
+    ha hb c hfinite hbudget_half
 
 theorem affineResidualCorrection_seminorm_le_rightInverse_budget
     (nodes : Finset Complex) {lower upper : Real}

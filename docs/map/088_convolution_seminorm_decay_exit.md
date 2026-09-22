@@ -223,6 +223,16 @@ the affine right inverse, with support and quadratic tail in one owner. This is
 the producer replacement point; its finite coefficient budget and the later
 same-owner signed positivity are still open.
 
+## 19. Uniform finite coefficient/basis budget (record 1864)
+
+The exact coefficient-weighted seminorm sum now has a uniform finite bound:
+if every coefficient is at most `coeffBound` and every selected basis seminorm
+is at most `basisBound`, then the sum is bounded by
+`card(support) * coeffBound * basisBound`. A direct strict-contraction
+consumer accepts the corresponding finite inequality. This is a formal
+termwise reduction only; the required small bounds for the actual
+`windowedMellinRightInverse` remain open.
+
 ## 18. Explicit affine base in the healthy all-index producer (record 1863)
 
 The all-index healthy unscaled assembly now has a base-data consumer, while
