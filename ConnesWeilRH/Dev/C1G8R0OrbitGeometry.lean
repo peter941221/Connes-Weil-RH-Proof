@@ -148,6 +148,87 @@ theorem finitePrimeSum_eq_sum_range_of_orbitG8Geometry
     ⟨finitePrimeTermComplex_nonzero_primePower
         g.convolutionSquare hcomplex, hcomplex⟩
 
+/-! Package an already indexed raw construction.  The index is an input to
+this constructor; all interpolation and tail data therefore remain attached
+to the same selected owner. -/
+theorem orbitG8Geometry_of_indexed_raw_construction
+    (rho : sourceNontrivialZeroSet)
+    (base correction : CompactLogTest) (orbitIndex : Nat)
+    (tailThreshold tailAccuracy : Real) (tailStart : Nat)
+    (hbaseSupport : Function.support base.test ⊆ Set.Ioo (-1 : Real) 1)
+    (hcorrectionSupport : Function.support correction.test ⊆
+      Set.Ioo (-1 : Real) 1)
+    (hselectedSupport : Function.support
+        (selectedOwner base correction orbitIndex).sourceTest.test ⊆
+      Set.Ioo (-((orbitIndex + 2 : Nat) : Real))
+        (((orbitIndex + 2 : Nat) : Real)))
+    (hthreshold : tailThreshold ≤ (2 : Real) ^ (tailStart + 1))
+    (hzeroHeight : 2 * |rho.1.im| ≤ (2 : Real) ^ (tailStart + 1))
+    (htailBudget :
+      4 * tailAccuracy ^ 2 * spectralMultiplicityConstant *
+          (3 / 4 : Real) ^ tailStart < (xiMultiplicity rho : Real))
+    (hrawSquareTail : FourthOrderSpectralTail
+      (selectedOwner base correction orbitIndex).convolutionSquare
+        rho.1 tailThreshold tailAccuracy)
+    (hrawTargetValues :
+      ∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho.1),
+        laplaceAt ((convolutionIterate base orbitIndex).convolution correction)
+          w.1 = healthyUnscaledTargetValue rho.1 w)
+    (hminimal : HealthyMinimalLaplaceRealizes rho.1
+      (selectedOwner base correction orbitIndex).sourceTest)
+    (horbitSum :
+      (∑ u ∈ centeredFunctionalEquationOrbit rho.1,
+        laplaceAt (selectedOwner base correction orbitIndex).convolutionSquare u)
+        = -2)
+    (hsquareZeros :
+      ∀ w : FiniteMellinNode
+          (sourceNontrivialZerosInClosedBallFinset rho.1
+              ((2 : Real) ^ (tailStart + 1) + 2 + dist (2 : Complex) rho.1) ∪
+            (∅ : Finset Complex)),
+        w.1 ∉ healthyUnscaledTargetNodes rho.1 →
+          laplaceAt (selectedOwner base correction orbitIndex).convolutionSquare
+            (w.1 - 1 / 2) = 0) :
+    Nonempty (OrbitG8Geometry rho
+      (selectedOwner base correction orbitIndex).sourceTest) := by
+  have himLt : |rho.1.im| < (2 : Real) ^ (tailStart + 1) := by
+    have hpow : 0 < (2 : Real) ^ (tailStart + 1) := by positivity
+    have himNonneg : 0 ≤ |rho.1.im| := abs_nonneg _
+    nlinarith
+  have hrhoShell : dyadicShellIndex |rho.1.im| < tailStart + 1 := by
+    have hminimal := Nat.find_min'
+      (exists_lt_two_pow_succ |rho.1.im|) himLt
+    rw [← dyadicShellIndex] at hminimal
+    omega
+  let g : CompactLogTest :=
+    (selectedOwner base correction orbitIndex).sourceTest
+  have hprimeCutoff :
+      ∀ q ∈ globalPrimeIndexSet g.convolutionSquare,
+        (q : Real) < Real.exp (2 * ((orbitIndex + 2 : Nat) : Real)) := by
+    intro q hq
+    exact pinned_visiblePrimeCutoff_of_support g orbitIndex hselectedSupport hq
+  refine ⟨?_⟩
+  exact
+    { base := base
+      base_support := hbaseSupport
+      correction := correction
+      correction_support := hcorrectionSupport
+      orbitIndex := orbitIndex
+      selected_owner_test := rfl
+      tailThreshold := tailThreshold
+      tailAccuracy := tailAccuracy
+      tailStart := tailStart
+      threshold_le_dyadic := hthreshold
+      zero_height_le_dyadic := hzeroHeight
+      zero_shell_before_tail := hrhoShell
+      tail_budget_below_multiplicity := htailBudget
+      raw_square_tail := hrawSquareTail
+      raw_target_values := hrawTargetValues
+      minimal_interpolation := hminimal
+      centered_orbit_sum := horbitSum
+      square_zero_control := hsquareZeros
+      support_bound := hselectedSupport
+      visible_prime_cutoff := hprimeCutoff }
+
 /-- The pinned orbit construction exports the raw G8 geometry package.
 
 The proof uses only the unscaled orbit interpolation, the fourth-order tail,

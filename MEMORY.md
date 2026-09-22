@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-23 ConnesWeilRH/Dev/C1G8R0OrbitGeometry.lean + Audit + docs/proofs/1853_indexed_orbit_geometry_packaging.md : FORMALIZED `orbitG8Geometry_of_indexed_raw_construction`, an explicit-index constructor for the same-owner `OrbitG8Geometry` package. It preserves raw support/interpolation/tail/square-zero fields and derives the visible-prime cutoff from that support. This closes packaging, not raw producer existence, strict contraction, or semi-local positivity.
+
 2026-09-22 ConnesWeilRH/Dev/C1P2ConvolutionSeminormBound.lean + Audit + docs/proofs/1852_common_index_budget_and_tail.md : FORMALIZED `exists_nat_geometric_budget_and_quadratic_tail`, intersecting the eventual geometric harmonic-budget bound with the all-index quadratic-tail bound to obtain one shared n. This closes the pure common-index quantifier step; strict base contraction and detector-specific positivity remain open.
 
 2026-09-22 ConnesWeilRH/Dev/C1HealthyYoshidaUnscaledOrbit.lean + Probe + docs/proofs/1851_all_index_healthy_orbit_assembly.md : FORMALIZED `exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets_all_indices`. After choosing base, threshold, radius-dependent correction, and C, any later n satisfying the explicit quadratic tail bound reconstructs the same-owner support, raw target values, minimal interpolation, centered orbit sum, square-zero control, and source/square tails. This closes the producer's existential-index mismatch at the healthy-orbit assembly layer, but not strict contraction or semi-local positivity.

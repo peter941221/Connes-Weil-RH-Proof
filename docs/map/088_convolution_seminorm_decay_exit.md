@@ -135,3 +135,12 @@ geometric budget and quadratic-tail convergence conditions and produces one
 shared orbit index. This closes the remaining pure quantifier-combination
 step between the all-index healthy assembly and the harmonic budget. The
 strict contraction and detector-specific signed positivity are still open.
+
+## 8. Indexed OrbitG8 packaging (record 1853)
+
+The theorem `orbitG8Geometry_of_indexed_raw_construction` now accepts the
+orbit index explicitly when packaging same-owner raw construction data into
+`OrbitG8Geometry`. Support-derived visible-prime cutoff is reconstructed on
+that exact owner. This closes the geometry packaging boundary; the raw
+construction still has to supply the indexed data, and strict contraction and
+semi-local positivity remain open.
