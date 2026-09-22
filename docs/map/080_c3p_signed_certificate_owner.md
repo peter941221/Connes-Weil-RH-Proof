@@ -17,6 +17,25 @@ target is to construct this record for the detector selected by the healthy
 `CompactLog` B5 route. The remaining obligation is exactly its `phase_budget`;
 no pointwise sign of the three summands is assumed.
 
+## Round 1 closure (2026-09-22)
+
+Round 1 is complete at the formal owner-and-consumer boundary, not as the
+analytic sign proof. The committed `C1C3CarrierTransport` leaf now has one
+exact same-owner phase budget for the selected carrier pair:
+
+```text
+Archimedean determinant
++ mixed Archimedean/prime discrepancy
++ prime determinant
+<= 0
+```
+
+The phase-cell readbacks, positive/negative decompositions, determinant split,
+optimal-coefficient consumer, and `CarrierTwoSpanDeterminantCertificate.gate`
+are formal interfaces. The paired Audit module is the axiom evidence for this
+boundary. Round 2 must prove the actual inequality; the existing sigma-tail
+results do not by themselves imply the detector-specific phase budget.
+
 Evidence: `ConnesWeilRH/Dev/C1C3CarrierTransport.lean`, theorem
 `CarrierTwoSpanDeterminantCertificate.gate` (formal, project candidate
 owner); prior exact determinant split and phase readbacks are recorded in

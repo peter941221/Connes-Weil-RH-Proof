@@ -68,6 +68,15 @@ positivity, or RH statement follows; the optimal q-form is formally equivalent
 to the unresolved nonpositivity of their sum. The prime determinant is also
 expanded on named credit/deficit owners, still without a sign conclusion.
 
+## C3' Round 1 closure, 2026-09-22
+
+Record 1804 closes the first planned C3' round at the formal owner boundary:
+the selected carrier pair, visible-prime phase cells, three determinant
+consumers, and the `CarrierTwoSpanDeterminantCertificate` gate are now one
+same-owner interface. This is formal project evidence, not a positivity
+result. Round 2 is the genuine signed phase-budget estimate; the C3' sign and
+RH remain open.
+
 ## Orbit-sum pin realized, 2026-09-21
 
 [074](074_orbit_sum_pin_after_1799.md) records the orbit-sum pin (record
