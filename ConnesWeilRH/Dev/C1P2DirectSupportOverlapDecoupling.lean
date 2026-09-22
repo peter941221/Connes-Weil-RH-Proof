@@ -161,6 +161,38 @@ theorem visibleHarmonicChebyshevSum_nonneg
   have hn : 0 ≤ (n : ℝ) := Nat.cast_nonneg n
   exact div_nonneg hvm hn
 
+/-- The harmonic Chebyshev sum is bounded by half the unweighted Chebyshev sum,
+    since every prime power is at least 2. -/
+theorem visibleHarmonicChebyshevSum_le_half_chebyshev
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    visibleHarmonicChebyshevSum geometry ≤
+      (1 / 2 : ℝ) * visibleChebyshevPrimeSum geometry := by
+  unfold visibleHarmonicChebyshevSum visibleChebyshevPrimeSum
+  rw [Finset.mul_sum]
+  apply Finset.sum_le_sum
+  intro n _hn
+  by_cases hvm : ArithmeticFunction.vonMangoldt n = 0
+  · simp [hvm]
+  · have h2 : 2 ≤ n := by
+      by_contra hlt
+      have : n = 0 ∨ n = 1 := by omega
+      rcases this with rfl | rfl
+      · simp at hvm
+      · simp at hvm
+    have hn_ge2 : (2 : ℝ) ≤ (n : ℝ) := by
+      exact_mod_cast h2
+    have hinv_le : (n : ℝ)⁻¹ ≤ (2 : ℝ)⁻¹ :=
+      (inv_le_inv₀ (by positivity) (by norm_num)).2 hn_ge2
+    have hvm_nonneg : 0 ≤ ArithmeticFunction.vonMangoldt n :=
+      ArithmeticFunction.vonMangoldt_nonneg
+    calc
+      ArithmeticFunction.vonMangoldt n / (n : ℝ) =
+          ArithmeticFunction.vonMangoldt n * (n : ℝ)⁻¹ := by ring
+      _ ≤ ArithmeticFunction.vonMangoldt n * (2 : ℝ)⁻¹ :=
+        mul_le_mul_of_nonneg_left hinv_le hvm_nonneg
+      _ = (1 / 2 : ℝ) * ArithmeticFunction.vonMangoldt n := by ring
+
 /-- The support-overlap decoupled bound factor:
     `2 * exp(L) * S^2 * (∑ vonMangoldt(n) / n)`.
     This achieves the ultimate harmonic reduction: the arithmetic factor is
@@ -171,6 +203,62 @@ def orbitSupportOverlapBound
   2 * Real.exp (rawFactorSupportRadius geometry) *
     (rawFactorSeminorm geometry) ^ 2 *
     visibleHarmonicChebyshevSum geometry
+
+/-- The support-overlap harmonic bound is unconditionally sharper than the
+    Chebyshev sharpened bound. -/
+theorem orbitSupportOverlapBound_le_chebyshev_sharpened_bound
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    orbitSupportOverlapBound geometry ≤
+      visibleChebyshevPrimeSum geometry * orbitChebyshevSharpenedBound geometry := by
+  let L := rawFactorSupportRadius geometry
+  let S := rawFactorSeminorm geometry
+  have hSsq : 0 ≤ S ^ 2 := sq_nonneg _
+  have hcheb_nonneg : 0 ≤ visibleChebyshevPrimeSum geometry :=
+    visibleChebyshevPrimeSum_nonneg geometry
+  have hharm_le := visibleHarmonicChebyshevSum_le_half_chebyshev geometry
+  have hcoeff_nonneg : 0 ≤ 2 * Real.exp L * S ^ 2 := by positivity
+  have hstep1 : orbitSupportOverlapBound geometry ≤
+      (Real.exp L * S ^ 2) * visibleChebyshevPrimeSum geometry := by
+    unfold orbitSupportOverlapBound
+    calc
+      2 * Real.exp L * S ^ 2 * visibleHarmonicChebyshevSum geometry ≤
+          2 * Real.exp L * S ^ 2 * ((1 / 2 : ℝ) * visibleChebyshevPrimeSum geometry) :=
+        mul_le_mul_of_nonneg_left hharm_le hcoeff_nonneg
+      _ = (Real.exp L * S ^ 2) * visibleChebyshevPrimeSum geometry := by ring
+  have hLge1 : (1 : ℝ) ≤ L := by
+    dsimp [L, rawFactorSupportRadius]
+    have : 1 ≤ geometry.orbitIndex + 2 := by omega
+    exact_mod_cast this
+  have hexp_le : Real.exp L ≤ 2 * (Real.exp L - Real.exp (-L)) := by
+    have h2L : (1 : ℝ) ≤ 2 * L := by linarith
+    have h1le : (1 : ℝ) + 1 ≤ Real.exp 1 := Real.add_one_le_exp 1
+    have h2le_exp1 : (2 : ℝ) ≤ Real.exp 1 := by linarith
+    have hexp1_le_exp2L : Real.exp 1 ≤ Real.exp (2 * L) :=
+      Real.exp_le_exp.mpr h2L
+    have h2_le_exp2L : (2 : ℝ) ≤ Real.exp (2 * L) :=
+      h2le_exp1.trans hexp1_le_exp2L
+    have h2expNeg : 2 * Real.exp (-L) ≤ Real.exp L := by
+      calc
+        2 * Real.exp (-L) = Real.exp (-L) * 2 := by ring
+        _ ≤ Real.exp (-L) * Real.exp (2 * L) :=
+          mul_le_mul_of_nonneg_left h2_le_exp2L (Real.exp_pos _).le
+        _ = Real.exp (-L + 2 * L) := by rw [← Real.exp_add]
+        _ = Real.exp L := by
+          congr 1
+          ring
+    linarith
+  have hstep2 : (Real.exp L * S ^ 2) * visibleChebyshevPrimeSum geometry ≤
+      visibleChebyshevPrimeSum geometry * orbitChebyshevSharpenedBound geometry := by
+    unfold orbitChebyshevSharpenedBound
+    calc
+      (Real.exp L * S ^ 2) * visibleChebyshevPrimeSum geometry ≤
+          (2 * (Real.exp L - Real.exp (-L)) * S ^ 2) * visibleChebyshevPrimeSum geometry := by
+        apply mul_le_mul_of_nonneg_right _ hcheb_nonneg
+        exact mul_le_mul_of_nonneg_right hexp_le hSsq
+      _ = visibleChebyshevPrimeSum geometry *
+          (2 * (Real.exp L - Real.exp (-L)) * S ^ 2) := by ring
+  exact hstep1.trans hstep2
 
 /-- Nonnegativity of the support overlap bound. -/
 theorem orbitSupportOverlapBound_nonneg

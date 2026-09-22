@@ -87,6 +87,21 @@ def orbitSupportOverlapBound
     visibleHarmonicChebyshevSum geometry
 ```
 
+We establish the unconditional sharpening hierarchy:
+```lean
+theorem visibleHarmonicChebyshevSum_le_half_chebyshev
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    visibleHarmonicChebyshevSum geometry ≤
+      (1 / 2 : ℝ) * visibleChebyshevPrimeSum geometry
+
+theorem orbitSupportOverlapBound_le_chebyshev_sharpened_bound
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    orbitSupportOverlapBound geometry ≤
+      visibleChebyshevPrimeSum geometry * orbitChebyshevSharpenedBound geometry
+```
+
 And formally prove:
 ```lean
 theorem sourceRH_of_overlap_bounds

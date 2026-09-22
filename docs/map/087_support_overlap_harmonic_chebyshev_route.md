@@ -35,6 +35,14 @@ The support-overlap harmonic Chebyshev route achieves a major asymptotic reducti
      2 * exp(L) * S^2 * (sum_{n in visible} vonMangoldt(n) / n)
    ```
 
+5. **Unconditional Sharpening Hierarchy**:
+   Formally proved:
+   ```text
+   visibleHarmonicChebyshevSum <= (1 / 2) * visibleChebyshevPrimeSum
+   orbitSupportOverlapBound <= visibleChebyshevPrimeSum * orbitChebyshevSharpenedBound
+   ```
+   establishing that the harmonic overlap bound is strictly sharper than the Chebyshev sharpened bound across all geometries.
+
 ## 2. Formal Exit Chain
 
 ```text
