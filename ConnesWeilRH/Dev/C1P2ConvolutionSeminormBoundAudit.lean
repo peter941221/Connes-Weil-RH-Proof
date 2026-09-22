@@ -1,0 +1,26 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+-/
+
+import ConnesWeilRH.Dev.C1P2ConvolutionSeminormBound
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1P2ConvolutionSeminormBoundAudit
+
+open ConnesWeilRH.Source.C1P2ConvolutionSeminormBound
+
+#print axioms norm_convolution_integrand_le_seminorm
+#print axioms integrable_convolution_integrand
+#print axioms norm_convolution_apply_le_seminorm
+#print axioms seminorm_convolution_le_integral_mul_seminorm
+#print axioms seminorm_convolution_le_toLp_one_mul_seminorm
+#print axioms seminorm_convolution_le_supportLength_mul_seminorm
+#print axioms rawFactorSeminorm_le_toLp_one_mul_seminorm
+#print axioms sourceRH_of_iteratedBase_decay_and_harmonicBudget
+#print axioms riemannHypothesis_of_iteratedBase_decay_and_harmonicBudget
+
+end C1P2ConvolutionSeminormBoundAudit
+end Source
+end ConnesWeilRH
