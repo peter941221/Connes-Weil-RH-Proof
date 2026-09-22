@@ -10,6 +10,10 @@ namespace C1C3CarrierTransport
 #print axioms carrierExp_norm
 #print axioms carrierExp_zero
 #print axioms carrierModulate_support_eq
+#print axioms carrierExp_neg_mul
+#print axioms carrierModulate_neg_apply
+#print axioms carrierModulate_neg
+#print axioms carrierModulate_surjective
 #print axioms carrierModulate_norm_apply
 #print axioms convolutionSquare_carrier_apply
 #print axioms convolutionSquare_carrier_norm_apply

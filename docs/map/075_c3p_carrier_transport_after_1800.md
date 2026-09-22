@@ -112,6 +112,16 @@ times the zero-order Schwartz seminorm of the envelope convolution square.
 This is still an owner-preserving upper bound; no continuous-prime or frozen
 prime-set replacement is made.
 
+Formal follow-up: `C1C3CarrierTransport` now proves the exact inverse
+modulation identities
+`carrierModulate (-gamma) (carrierModulate gamma f) = f` and the resulting
+surjectivity of `carrierModulate gamma` on `CompactLogTest`; the support is
+unchanged. Thus any actual compact-log detector can be represented as a
+carrierized envelope at a chosen fixed frequency, and the existing phase-law
+readbacks can be applied without changing the detector owner. This is a
+coordinate/owner bridge only: the envelope depends on the chosen frequency,
+and the signed determinant or prime-budget estimate remains open.
+
 For every actual visible prime power, the coefficient is further bounded by
 `2 * log(n)` using the exact von Mangoldt inequality and positivity of the
 square-root weight. The resulting log-weighted seminorm sum is now formal on

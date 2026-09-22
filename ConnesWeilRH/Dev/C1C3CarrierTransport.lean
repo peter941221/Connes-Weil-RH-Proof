@@ -100,6 +100,41 @@ noncomputable def carrierModulate (γ : Real) (f : CompactLogTest) : CompactLogT
     (carrierModulate γ f).test x = carrierExp γ x * f.test x :=
   rfl
 
+theorem carrierExp_neg_mul (γ x : Real) :
+    carrierExp (-γ) x * carrierExp γ x = 1 := by
+  unfold carrierExp
+  rw [← Complex.exp_add]
+  congr 1
+  rw [show -(-γ) * x = γ * x by ring,
+    show -γ * x = -(γ * x) by ring, Complex.ofReal_neg]
+  ring
+  simp
+
+theorem carrierModulate_neg_apply (γ : Real) (f : CompactLogTest) (x : ℝ) :
+    (carrierModulate (-γ) (carrierModulate γ f)).test x = f.test x := by
+  rw [carrierModulate_apply, carrierModulate_apply, ← mul_assoc,
+    carrierExp_neg_mul]
+  simp
+
+theorem carrierModulate_neg (γ : Real) (f : CompactLogTest) :
+    carrierModulate (-γ) (carrierModulate γ f) = f := by
+  apply CompactLogTest.ext
+  ext x
+  exact carrierModulate_neg_apply γ f x
+
+theorem carrierModulate_surjective (γ : Real) (f : CompactLogTest) :
+    ∃ u : CompactLogTest, carrierModulate γ u = f := by
+  refine ⟨carrierModulate (-γ) f, ?_⟩
+  apply CompactLogTest.ext
+  ext x
+  rw [carrierModulate_apply, carrierModulate_apply, ← mul_assoc]
+  have h := carrierExp_neg_mul γ x
+  have h' : carrierExp γ x * carrierExp (-γ) x = 1 := by
+    rw [mul_comm]
+    exact h
+  rw [h']
+  simp
+
 theorem carrierModulate_support_eq (γ : Real) (f : CompactLogTest) :
     Function.support (carrierModulate γ f).test = Function.support f.test := by
   ext x
