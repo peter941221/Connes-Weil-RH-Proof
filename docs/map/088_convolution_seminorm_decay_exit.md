@@ -294,3 +294,20 @@ The remaining quantitative gate is still the actual coefficient/basis
 seminorm bound strong enough for strict contraction. Detector-specific signed
 semi-local positivity and RH remain open. Verification is in proof record 1868
 and `sparse-base-1868b.log`.
+
+## 24. Unit-bounded sparse contraction consumer (record 1874)
+
+The source bump construction now exposes a unit-bounded basis family.  The
+new theorem `strict_base_contraction_of_sparse_unitBounded_correction` proves
+that its selected sparse correction has strict base contraction whenever the
+actual coefficients satisfy the explicit scalar budget
+
+```text
+2 * nodes.card * coeffBound < budget <= 1/2.
+```
+
+The theorem is same-owner and formally audited; the unit basis seminorm bound
+is no longer an open premise.  The remaining quantitative task is the actual
+coefficient bound for the selected sparse correction.  Detector-specific
+signed semi-local positivity and RH remain open.  See proof record 1874 and
+`unit-bounded-contraction-1874a.log`.

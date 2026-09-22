@@ -253,6 +253,87 @@ theorem sparseWindowedMellinCorrection_weighted_budget_le_node_card
     _ ≤ (nodes.card : Real) * coeffBound * basisBound := by
       gcongr
 
+theorem sparse_unitBounded_correction_weighted_budget_le_node_card
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex)
+    {coeffBound : Real} (hcoeff_nonneg : 0 ≤ coeffBound)
+    (hcoeff : ∀ p ∈
+        (sparseUnitBoundedWindowedMellinCorrection nodes a b ha ha_one hone_b y).support,
+        ‖(sparseUnitBoundedWindowedMellinCorrection nodes a b ha ha_one hone_b y) p‖ ≤
+          coeffBound) :
+    (∑ p ∈
+        (sparseUnitBoundedWindowedMellinCorrection nodes a b ha ha_one hone_b y).support,
+        ‖(sparseUnitBoundedWindowedMellinCorrection nodes a b ha ha_one hone_b y) p‖ *
+          SchwartzMap.seminorm Complex 0 0
+            (normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test)) ≤
+      (nodes.card : Real) * coeffBound * 1 := by
+  let c := sparseUnitBoundedWindowedMellinCorrection nodes a b ha ha_one hone_b y
+  have hsum := source_combination_seminorm_zero_zero_le_card_mul_uniform_budget
+    c hcoeff_nonneg (by norm_num : (0 : Real) ≤ 1) hcoeff (by
+      intro p hp
+      rcases sparseUnitBoundedWindowedMellinCorrection_source_bound
+        nodes a b ha ha_one hone_b y p hp with ⟨q, hqp, hqbound⟩
+      apply SchwartzMap.seminorm_le_bound Complex 0 0 _ (by positivity)
+      intro x
+      simp only [pow_zero, one_mul, norm_iteratedFDeriv_zero]
+      simpa [hqp] using hqbound x)
+  have hcard : (c.support.card : Real) ≤ (nodes.card : Real) := by
+    exact_mod_cast sparseUnitBoundedWindowedMellinCorrection_support_card
+      nodes a b ha ha_one hone_b y
+  calc
+    (∑ p ∈ c.support,
+        ‖c p‖ *
+          SchwartzMap.seminorm Complex 0 0
+            (normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test)) ≤
+        (c.support.card : Real) * coeffBound * 1 := hsum
+    _ ≤ (nodes.card : Real) * coeffBound * 1 := by
+      have hfactor : 0 ≤ coeffBound * 1 := by positivity
+      gcongr
+
+theorem strict_base_contraction_of_sparse_unitBounded_correction
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex)
+    {coeffBound budget : Real} (hcoeff_nonneg : 0 ≤ coeffBound)
+    (hcoeff : ∀ p ∈
+        (sparseUnitBoundedWindowedMellinCorrection nodes a b ha ha_one hone_b y).support,
+        ‖(sparseUnitBoundedWindowedMellinCorrection nodes a b ha ha_one hone_b y) p‖ ≤
+          coeffBound)
+    (hbudget : 2 * (nodes.card : Real) * coeffBound < budget)
+    (hbudget_half : budget ≤ 1 / 2) :
+    2 * SchwartzMap.seminorm Complex 0 0
+        (compactLogTestOfWindow
+          (windowedPositiveIntervalCompactTestCombination
+            (sparseUnitBoundedWindowedMellinCorrection nodes a b ha ha_one hone_b y))
+          ha (lt_trans (by norm_num) hone_b)
+          (windowedPositiveIntervalCompactTestCombination_support_subset _)).test <
+      1 := by
+  let c := sparseUnitBoundedWindowedMellinCorrection nodes a b ha ha_one hone_b y
+  have hb : 0 < b := lt_trans (by norm_num) hone_b
+  have hcard : (c.support.card : Real) ≤ (nodes.card : Real) := by
+    exact_mod_cast sparseUnitBoundedWindowedMellinCorrection_support_card
+      nodes a b ha ha_one hone_b y
+  have hbasis : ∀ p ∈ c.support,
+      SchwartzMap.seminorm Complex 0 0
+        (normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test) ≤ 1 := by
+    intro p hp
+    rcases sparseUnitBoundedWindowedMellinCorrection_source_bound
+      nodes a b ha ha_one hone_b y p hp with ⟨q, hqp, hqbound⟩
+    apply SchwartzMap.seminorm_le_bound Complex 0 0 _ (by positivity)
+    intro x
+    simp only [pow_zero, one_mul, norm_iteratedFDeriv_zero]
+    simpa [hqp] using hqbound x
+  have hbudget' : 2 * (c.support.card : Real) * coeffBound * 1 < budget := by
+    calc
+      2 * (c.support.card : Real) * coeffBound * 1 ≤
+          2 * (nodes.card : Real) * coeffBound * 1 := by
+        gcongr
+      _ < budget := by simpa using hbudget
+  dsimp [c] at hbasis hbudget' ⊢
+  exact strict_base_contraction_of_uniform_coeff_basis_budget
+    ha hb _ hcoeff_nonneg (by norm_num) hcoeff hbasis hbudget' hbudget_half
+
 theorem exists_sparse_base_with_unit_targets_and_quadratic_decay
     (nodes : Finset Complex) {lower upper : Real}
     (hlower : lower < 0) (hupper : 0 < upper) :

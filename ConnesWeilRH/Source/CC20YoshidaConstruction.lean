@@ -737,6 +737,8 @@ theorem exists_positive_interval_compact_test_real_bump
         0 ≤
           (normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x).re) ∧
       (∀ x : ℝ,
+        (normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x).re ≤ 1) ∧
+      (∀ x : ℝ,
         (normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x).im = 0) ∧
       normalizedCC20ConcreteTestAlgebra.legacy.encode p.test t = 1 := by
   obtain ⟨u, htsupp, hcompact, hsmooth, hrange, hut⟩ :=
@@ -783,10 +785,13 @@ theorem exists_positive_interval_compact_test_real_bump
         lower_pos := ha
         compactSupportSmooth := hcompactSmooth
         support_subset := hsupport },
-      hsupportIoo, ?_, ?_, ?_⟩
+      hsupportIoo, ?_, ?_, ?_, ?_⟩
   · intro x
     have hxrange : u x ∈ Set.Icc (0 : ℝ) 1 := hrange ⟨x, rfl⟩
     simpa [test, g, v] using hxrange.1
+  · intro x
+    have hxrange : u x ∈ Set.Icc (0 : ℝ) 1 := hrange ⟨x, rfl⟩
+    simpa [test, g, v] using hxrange.2
   · intro x
     simp [test, g, v]
   · simp [test, g, v, hut]
@@ -1163,7 +1168,7 @@ theorem weightedMellinKernel_strict_phase_bump_detection_of_interval
               normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x)).re := by
   have ht : 0 < t := ha.trans hat
   rcases exists_positive_interval_compact_test_real_bump hat htb ha with
-    ⟨p, hsuppIoo, hnonneg, him, htone⟩
+    ⟨p, hsuppIoo, hnonneg, _hupper, him, htone⟩
   let phase : ℂ := star (weightedMellinKernel rho coeff t)
   let realIntegrand : ℝ → ℝ :=
     fun x =>

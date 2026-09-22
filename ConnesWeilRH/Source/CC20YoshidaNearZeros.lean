@@ -827,6 +827,13 @@ theorem exists_windowed_test_with_finite_kernel_integral_ne_zero
     (coeff : FiniteMellinNode nodes → ℂ) (hcoeff : coeff ≠ 0) :
     ∃ p : PositiveIntervalCompactTest,
       p.IsSupportedIn a b ∧
+      (∀ x : ℝ,
+        0 ≤
+          (normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x).re) ∧
+      (∀ x : ℝ,
+        (normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x).re ≤ 1) ∧
+      (∀ x : ℝ,
+        (normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x).im = 0) ∧
       (∫ x : ℝ in Set.Ioi 0,
         finiteWeightedMellinKernel nodes coeff x *
           normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x) ≠ 0 := by
@@ -865,7 +872,7 @@ theorem exists_windowed_test_with_finite_kernel_integral_ne_zero
       lt_of_lt_of_le hx.2 (min_le_left localB b)⟩
   rcases exists_positive_interval_compact_test_real_bump
       hclippedA_t ht_clippedB hclippedA_pos with
-    ⟨p, hsuppClipped, hnonneg, him, htone⟩
+    ⟨p, hsuppClipped, hnonneg, hupper, him, htone⟩
   let phase : ℂ := star (finiteWeightedMellinKernel nodes coeff t)
   let realIntegrand : ℝ → ℝ := fun x =>
     (phase *
@@ -973,11 +980,14 @@ theorem exists_windowed_test_with_finite_kernel_integral_ne_zero
     simp only [mul_zero, Complex.zero_re] at hphaseIntegral
     rw [← hphaseIntegral] at hpos
     exact lt_irrefl 0 hpos
-  refine ⟨p, ?_, hintegral⟩
-  intro x hx
-  have hxClipped := hsuppClipped hx
-  exact ⟨lt_of_le_of_lt (le_max_right localA a) hxClipped.1,
-    lt_of_lt_of_le hxClipped.2 (min_le_right localB b)⟩
+  refine ⟨p, ?_, ?_, ?_, ?_, hintegral⟩
+  · intro x hx
+    have hxClipped := hsuppClipped hx
+    exact ⟨lt_of_le_of_lt (le_max_right localA a) hxClipped.1,
+      lt_of_lt_of_le hxClipped.2 (min_le_right localB b)⟩
+  · exact hnonneg
+  · exact hupper
+  · exact him
 
 theorem finite_mellin_sum_eq_kernel_integral
     (nodes : Finset ℂ) (p : PositiveIntervalCompactTest)
@@ -1127,7 +1137,7 @@ theorem windowedFiniteMellinVector_span_top
       finiteLinearFunctionalCoordinates_ne_zero hL
     rcases exists_windowed_test_with_finite_kernel_integral_ne_zero
         nodes ha ha_one hone_b coeff hcoeff with
-      ⟨p, hsupp, hintegral⟩
+      ⟨p, hsupp, _hnonneg, _hupper, _him, hintegral⟩
     let windowed : WindowedPositiveIntervalCompactTest a b := ⟨p, hsupp⟩
     refine ⟨windowed, ?_⟩
     rw [finiteLinearFunctional_apply_eq_sum_coordinates]

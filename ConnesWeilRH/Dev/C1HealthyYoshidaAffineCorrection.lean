@@ -24,6 +24,211 @@ open CC20YoshidaInterpolationNode.CC20YoshidaExpandedMomentNode
 
 noncomputable section
 
+def WindowedPositiveIntervalCompactTest.IsUnitBounded
+    (p : WindowedPositiveIntervalCompactTest a b) : Prop :=
+  ∀ x : Real,
+    ‖normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test x‖ ≤ 1
+
+abbrev UnitBoundedWindowedPositiveIntervalCompactTest (a b : Real) :=
+  {p : WindowedPositiveIntervalCompactTest a b //
+    WindowedPositiveIntervalCompactTest.IsUnitBounded p}
+
+noncomputable def unitBoundedWindowedFiniteMellinVector
+    (nodes : Finset Complex) (a b : Real)
+    (p : UnitBoundedWindowedPositiveIntervalCompactTest a b) :
+    FiniteMellinNode nodes → Complex :=
+  windowedFiniteMellinVector nodes a b p.1
+
+theorem unitBoundedWindowedFiniteMellinVector_span_top
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b) :
+    Submodule.span Complex
+        (Set.range (unitBoundedWindowedFiniteMellinVector nodes a b)) = ⊤ := by
+  classical
+  have hsep :
+      ∀ L : (FiniteMellinNode nodes → Complex) →ₗ[Complex] Complex,
+        L ≠ 0 →
+          ∃ p : UnitBoundedWindowedPositiveIntervalCompactTest a b,
+            L (unitBoundedWindowedFiniteMellinVector nodes a b p) ≠ 0 := by
+    intro L hL
+    let coeff := finiteLinearFunctionalCoordinates L
+    have hcoeff : coeff ≠ 0 :=
+      finiteLinearFunctionalCoordinates_ne_zero hL
+    rcases exists_windowed_test_with_finite_kernel_integral_ne_zero
+        nodes ha ha_one hone_b coeff hcoeff with
+      ⟨p, hsupp, hnonneg, hupper, him, hintegral⟩
+    let windowed : WindowedPositiveIntervalCompactTest a b := ⟨p, hsupp⟩
+    have hbound : WindowedPositiveIntervalCompactTest.IsUnitBounded windowed := by
+      intro x
+      have hx :
+          normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x =
+            ((normalizedCC20ConcreteTestAlgebra.legacy.encode p.test x).re : Complex) := by
+        apply Complex.ext
+        · simp
+        · simp [him x]
+      rw [hx, Complex.norm_real, Real.norm_eq_abs,
+        abs_of_nonneg (hnonneg x)]
+      exact hupper x
+    let bounded : UnitBoundedWindowedPositiveIntervalCompactTest a b :=
+      ⟨windowed, hbound⟩
+    refine ⟨bounded, ?_⟩
+    rw [finiteLinearFunctional_apply_eq_sum_coordinates]
+    change
+      (∑ z : FiniteMellinNode nodes,
+        finiteMellinVector nodes p z * coeff z) ≠ 0
+    rw [finite_mellin_sum_eq_kernel_integral]
+    exact hintegral
+  by_contra htop
+  let P : Submodule Complex (FiniteMellinNode nodes → Complex) :=
+    Submodule.span Complex
+      (Set.range (unitBoundedWindowedFiniteMellinVector nodes a b))
+  have hproper : P < ⊤ := (show P ≠ ⊤ from htop).lt_top
+  rcases Submodule.exists_le_ker_of_lt_top P hproper with
+    ⟨L, hL_ne, hP_le_ker⟩
+  rcases hsep L hL_ne with ⟨p, hp⟩
+  have hp_mem : unitBoundedWindowedFiniteMellinVector nodes a b p ∈ P :=
+    Submodule.subset_span (Set.mem_range_self p)
+  exact hp (hP_le_ker hp_mem)
+
+theorem exists_unitBounded_target_vector_sparse_coefficients
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex) :
+    ∃ d : (FiniteMellinNode nodes → Complex) →₀ Complex,
+      d.support.card ≤ nodes.card ∧
+      (↑d.support : Set (FiniteMellinNode nodes → Complex)) ⊆
+        Set.range (unitBoundedWindowedFiniteMellinVector nodes a b) ∧
+      d.sum (fun v r => r • v) = y := by
+  have hspan := unitBoundedWindowedFiniteMellinVector_span_top
+    nodes a b ha ha_one hone_b
+  have hy_mem : y ∈ Submodule.span Complex
+      (Set.range (unitBoundedWindowedFiniteMellinVector nodes a b)) := by
+    rw [hspan]
+    exact Submodule.mem_top
+  rcases Submodule.mem_span_set_iff_exists_finsupp_le_finrank.mp hy_mem with
+    ⟨d, hcard, hsupport, hsum⟩
+  refine ⟨d, ?_, hsupport, hsum⟩
+  rw [hspan] at hcard
+  simpa using hcard
+
+theorem exists_unitBounded_source_sparse_coefficients
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex) :
+    ∃ c : WindowedPositiveIntervalCompactTest a b →₀ Complex,
+      c.support.card ≤ nodes.card ∧
+      (∀ z : FiniteMellinNode nodes,
+        c.sum (fun p coefficient =>
+          coefficient * windowedFiniteMellinVector nodes a b p z) = y z) ∧
+      ∀ p ∈ c.support,
+        ∃ q : UnitBoundedWindowedPositiveIntervalCompactTest a b,
+          q.1.1 = p ∧ WindowedPositiveIntervalCompactTest.IsUnitBounded q.1 := by
+  classical
+  obtain ⟨d, hdcard, hdsource, hdsum⟩ :=
+    exists_unitBounded_target_vector_sparse_coefficients
+      nodes a b ha ha_one hone_b y
+  let α := d.support
+  let p : α → UnitBoundedWindowedPositiveIntervalCompactTest a b := fun v =>
+    Classical.choose (hdsource v.property)
+  have hp : ∀ v : α,
+      unitBoundedWindowedFiniteMellinVector nodes a b (p v) =
+        (v : FiniteMellinNode nodes → Complex) := by
+    intro v
+    exact Classical.choose_spec (hdsource v.property)
+  have hp_inj : Function.Injective p := by
+    intro v w hpvw
+    apply Subtype.ext
+    calc
+      (v : FiniteMellinNode nodes → Complex) =
+          unitBoundedWindowedFiniteMellinVector nodes a b (p v) := (hp v).symm
+      _ = unitBoundedWindowedFiniteMellinVector nodes a b (p w) := by rw [hpvw]
+      _ = (w : FiniteMellinNode nodes → Complex) := hp w
+  let e : α ↪ UnitBoundedWindowedPositiveIntervalCompactTest a b :=
+    ⟨p, hp_inj⟩
+  have hf_bij : Set.BijOn (fun v : α => (v : FiniteMellinNode nodes → Complex))
+      ((fun v : α => (v : FiniteMellinNode nodes → Complex)) ⁻¹'
+        (↑d.support : Set (FiniteMellinNode nodes → Complex)))
+      (↑d.support : Set (FiniteMellinNode nodes → Complex)) := by
+    refine ⟨?_, ?_, ?_⟩
+    · intro v hv
+      exact v.property
+    · intro v hv w hw hvw
+      exact Subtype.ext hvw
+    · intro v hv
+      exact ⟨⟨v, hv⟩, hv, rfl⟩
+  let l : α →₀ Complex :=
+    Finsupp.comapDomain (fun v : α => (v : FiniteMellinNode nodes → Complex)) d
+      hf_bij.injOn
+  let cb : UnitBoundedWindowedPositiveIntervalCompactTest a b →₀ Complex :=
+    Finsupp.embDomain e l
+  let s : UnitBoundedWindowedPositiveIntervalCompactTest a b ↪
+      WindowedPositiveIntervalCompactTest a b := Function.Embedding.subtype _
+  let c : WindowedPositiveIntervalCompactTest a b →₀ Complex :=
+    cb.mapDomain s
+  have hlcard : l.support.card = d.support.card := by
+    change (d.support.preimage (fun v : α => (v : FiniteMellinNode nodes → Complex))
+      hf_bij.injOn).card = d.support.card
+    rw [Finset.card_preimage _ _ hf_bij.injOn]
+    have hfilter : {x ∈ d.support | x ∈ Set.range
+        (fun v : α => (v : FiniteMellinNode nodes → Complex))} = d.support := by
+      ext x
+      simp only [Finset.mem_filter]
+      constructor
+      · intro hx
+        exact hx.1
+      · intro hx
+        exact ⟨hx, ⟨⟨x, hx⟩, rfl⟩⟩
+    rw [hfilter]
+  have hcbcard : cb.support.card = l.support.card := by
+    dsimp [cb]
+    simpa using (Finset.card_map (s := l.support) e)
+  have hccard : c.support.card = cb.support.card := by
+    dsimp [c]
+    rw [Finsupp.mapDomain_support_of_injective s.injective]
+    exact Finset.card_image_of_injective cb.support s.injective
+  refine ⟨c, ?_, ?_, ?_⟩
+  · rw [hccard, hcbcard, hlcard]
+    exact hdcard
+  · intro z
+    dsimp [c]
+    rw [Finsupp.sum_mapDomain_index_inj s.injective]
+    dsimp [cb]
+    rw [Finsupp.embDomain_eq_mapDomain,
+      Finsupp.sum_mapDomain_index_inj e.injective]
+    have htransport :=
+      Finsupp.sum_comapDomain
+        (fun v : α => (v : FiniteMellinNode nodes → Complex)) d
+        (fun v coefficient => coefficient • v) hf_bij
+    have htransport_z := congrArg (fun q => q z) htransport
+    have hsource_to_target :
+        l.sum (fun v coefficient =>
+          coefficient * windowedFiniteMellinVector nodes a b (e v).1 z) =
+          l.sum (fun v coefficient => (coefficient • (v : FiniteMellinNode nodes → Complex)) z) := by
+      refine Finsupp.sum_congr ?_
+      intro v coefficient
+      change l v * windowedFiniteMellinVector nodes a b (p v).1 z =
+        (l v • (v : FiniteMellinNode nodes → Complex)) z
+      rw [show windowedFiniteMellinVector nodes a b (p v).1 =
+          unitBoundedWindowedFiniteMellinVector nodes a b (p v) from rfl, hp]
+      simp [smul_eq_mul]
+    have htransport_z' :
+        l.sum (fun v coefficient => (coefficient • (v : FiniteMellinNode nodes → Complex)) z) =
+          d.sum (fun v coefficient => (coefficient • v) z) := by
+      simpa [l, α, Finsupp.sum, smul_eq_mul, Function.comp_def] using htransport_z
+    calc
+      l.sum (fun v coefficient =>
+          coefficient * windowedFiniteMellinVector nodes a b (e v).1 z) =
+          l.sum (fun v coefficient => (coefficient • (v : FiniteMellinNode nodes → Complex)) z) :=
+        hsource_to_target
+      _ = d.sum (fun v coefficient => (coefficient • v) z) := htransport_z'
+      _ = y z := by
+        simpa only [Finsupp.sum_apply'] using congrArg (fun q => q z) hdsum
+  · intro q hq
+    have hmem : q ∈ cb.support.map s := by
+      simpa [c, Finsupp.mapDomain_support_of_injective s.injective] using hq
+    rcases Finset.mem_map.mp hmem with ⟨r, hr, rfl⟩
+    exact ⟨r, rfl, r.2⟩
+
 /-- The finite-node evaluation map on finitely supported windowed test
 combinations. -/
 noncomputable def windowedMellinEvaluationMap
@@ -46,6 +251,63 @@ noncomputable def windowedMellinEvaluationMap
   simp only [windowedMellinEvaluationMap, Finsupp.lsum_apply,
     Finsupp.sum, LinearMap.toSpanSingleton, LinearMap.coe_smulRight,
     LinearMap.id_coe, id_eq, Finset.sum_apply, smul_eq_mul, Pi.smul_apply]
+
+theorem exists_unitBounded_source_sparse_coefficients_evaluation
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex) :
+    ∃ c : WindowedPositiveIntervalCompactTest a b →₀ Complex,
+      c.support.card ≤ nodes.card ∧
+      windowedMellinEvaluationMap nodes a b ha ha_one hone_b c = y ∧
+      ∀ p ∈ c.support,
+        ∃ q : UnitBoundedWindowedPositiveIntervalCompactTest a b,
+          q.1.1 = p ∧ WindowedPositiveIntervalCompactTest.IsUnitBounded q.1 := by
+  obtain ⟨c, hcard, hcoords, hbounded⟩ :=
+    exists_unitBounded_source_sparse_coefficients nodes a b ha ha_one hone_b y
+  refine ⟨c, hcard, ?_, hbounded⟩
+  funext z
+  rw [windowedMellinEvaluationMap_apply]
+  exact hcoords z
+
+noncomputable def sparseUnitBoundedWindowedMellinCorrection
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex) :
+    WindowedPositiveIntervalCompactTest a b →₀ Complex :=
+  Classical.choose
+    (exists_unitBounded_source_sparse_coefficients_evaluation
+      nodes a b ha ha_one hone_b y)
+
+theorem sparseUnitBoundedWindowedMellinCorrection_support_card
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex) :
+    (sparseUnitBoundedWindowedMellinCorrection nodes a b ha ha_one hone_b y).support.card ≤
+      nodes.card := by
+  exact (Classical.choose_spec
+    (exists_unitBounded_source_sparse_coefficients_evaluation
+      nodes a b ha ha_one hone_b y)).1
+
+theorem sparseUnitBoundedWindowedMellinCorrection_evaluation
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex) :
+    windowedMellinEvaluationMap nodes a b ha ha_one hone_b
+        (sparseUnitBoundedWindowedMellinCorrection nodes a b ha ha_one hone_b y) = y := by
+  exact (Classical.choose_spec
+    (exists_unitBounded_source_sparse_coefficients_evaluation
+      nodes a b ha ha_one hone_b y)).2.1
+
+theorem sparseUnitBoundedWindowedMellinCorrection_source_bound
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex) :
+    ∀ p ∈ (sparseUnitBoundedWindowedMellinCorrection nodes a b ha ha_one hone_b y).support,
+      ∃ q : UnitBoundedWindowedPositiveIntervalCompactTest a b,
+        q.1.1 = p ∧ WindowedPositiveIntervalCompactTest.IsUnitBounded q.1 := by
+  exact (Classical.choose_spec
+    (exists_unitBounded_source_sparse_coefficients_evaluation
+      nodes a b ha ha_one hone_b y)).2.2
 
 theorem windowedMellinEvaluationMap_surjective
     (nodes : Finset Complex) (a b : Real)
