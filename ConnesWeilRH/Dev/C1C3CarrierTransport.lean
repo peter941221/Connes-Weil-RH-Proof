@@ -1191,6 +1191,20 @@ theorem carrierPrimeDeterminantPhase_le_abs_product
         (carrierSquarePrimePhaseSum γ u * carrierSquarePrimePhaseSum γ v))
   linarith [sq_nonneg (carrierPairPrimePhaseSum γ u v)]
 
+/- A detector-specific sign branch for the prime determinant.  The two
+   diagonal phase sums are still the exact visible-prime owner; no absolute
+   majorant or frozen prime set is introduced. -/
+theorem carrierPrimeDeterminantPhase_nonpos_of_opposite_sign
+    (γ : Real) (u v : CompactLogTest)
+    (hu : carrierSquarePrimePhaseSum γ u ≤ 0)
+    (hv : 0 ≤ carrierSquarePrimePhaseSum γ v) :
+    carrierPrimeDeterminantPhase γ u v ≤ 0 := by
+  unfold carrierPrimeDeterminantPhase
+  have hprod : carrierSquarePrimePhaseSum γ u *
+        carrierSquarePrimePhaseSum γ v ≤ 0 := by
+    exact mul_nonpos_of_nonpos_of_nonneg hu hv
+  nlinarith [sq_nonneg (carrierPairPrimePhaseSum γ u v)]
+
 theorem carrierMixedDeterminantPhase_le_abs_products
     (γ : Real) (u v : CompactLogTest) :
     carrierMixedDeterminantPhase γ u v ≤
@@ -1225,6 +1239,30 @@ theorem carrierMixedDeterminantPhase_le_abs_products
       (carrierPairArchimedeanTermPhase γ u v *
         carrierPairPrimePhaseSum γ u v)
     rw [abs_mul] at h
+    nlinarith
+  linarith
+
+/- The mixed determinant is nonpositive on the compatible real-sign branch:
+   both Archimedean diagonal terms are nonpositive, both prime diagonal
+   terms are nonnegative, and the directed pair product has nonnegative sign. -/
+theorem carrierMixedDeterminantPhase_nonpos_of_signs
+    (γ : Real) (u v : CompactLogTest)
+    (hAu : carrierSquareArchimedeanTermPhase γ u ≤ 0)
+    (hAv : carrierSquareArchimedeanTermPhase γ v ≤ 0)
+    (hPu : 0 ≤ carrierSquarePrimePhaseSum γ u)
+    (hPv : 0 ≤ carrierSquarePrimePhaseSum γ v)
+    (hcross : 0 ≤ carrierPairArchimedeanTermPhase γ u v *
+      carrierPairPrimePhaseSum γ u v) :
+    carrierMixedDeterminantPhase γ u v ≤ 0 := by
+  unfold carrierMixedDeterminantPhase
+  have h₁ : carrierSquareArchimedeanTermPhase γ u *
+        carrierSquarePrimePhaseSum γ v ≤ 0 :=
+    mul_nonpos_of_nonpos_of_nonneg hAu hPv
+  have h₂ : carrierSquareArchimedeanTermPhase γ v *
+        carrierSquarePrimePhaseSum γ u ≤ 0 :=
+    mul_nonpos_of_nonpos_of_nonneg hAv hPu
+  have h₃ : -(2 * carrierPairArchimedeanTermPhase γ u v *
+        carrierPairPrimePhaseSum γ u v) ≤ 0 := by
     nlinarith
   linarith
 
@@ -1362,6 +1400,42 @@ theorem carrier_twoSpan_phase_budget_of_margin_bounds
       carrierMixedDeterminantPhase γ u v +
         carrierPrimeDeterminantPhase γ u v ≤ 0 := by
   linarith
+
+/- Direct same-owner sign consumer for the two-span budget.  The only prime
+   input is the detector-specific opposite-sign branch above. -/
+theorem carrier_twoSpan_phase_budget_of_opposite_prime_signs
+    (γ : Real) (u v : CompactLogTest)
+    (harch : carrierArchimedeanDeterminantPhase γ u v ≤ 0)
+    (hmixed : carrierMixedDeterminantPhase γ u v ≤ 0)
+    (hu : carrierSquarePrimePhaseSum γ u ≤ 0)
+    (hv : 0 ≤ carrierSquarePrimePhaseSum γ v) :
+    carrierArchimedeanDeterminantPhase γ u v +
+      carrierMixedDeterminantPhase γ u v +
+        carrierPrimeDeterminantPhase γ u v ≤ 0 := by
+  have hprime := carrierPrimeDeterminantPhase_nonpos_of_opposite_sign γ u v hu hv
+  linarith
+
+theorem carrier_twoSpan_optimal_nonpos_of_opposite_prime_signs
+    (γ : Real) (u v : CompactLogTest)
+    (hB : 0 < ICgate (carrierModulate γ v).convolutionSquare)
+    (harch : carrierArchimedeanDeterminantPhase γ u v ≤ 0)
+    (hmixed : carrierMixedDeterminantPhase γ u v ≤ 0)
+    (hu : carrierSquarePrimePhaseSum γ u ≤ 0)
+    (hv : 0 ≤ carrierSquarePrimePhaseSum γ v) :
+    ((![1, -(
+        ICgate
+            ((carrierModulate γ u).involution.convolution
+              (carrierModulate γ v)) /
+          ICgate (carrierModulate γ v).convolutionSquare)] : Fin 2 → Real) ⬝ᵥ
+        (gateMatrix ![carrierModulate γ u, carrierModulate γ v] *ᵥ
+          (![1, -(
+              ICgate
+                  ((carrierModulate γ u).involution.convolution
+                    (carrierModulate γ v)) /
+                ICgate (carrierModulate γ v).convolutionSquare)] : Fin 2 → Real)) ≤ 0) := by
+  apply (carrier_twoSpan_phase_budget_iff_optimal_nonpos γ u v hB).mpr
+  exact carrier_twoSpan_phase_budget_of_opposite_prime_signs γ u v
+    harch hmixed hu hv
 
 theorem orbitWindowSemiLocalGate_carrier_twoSpan_of_optimal_determinant
     (γ : Real) (u v : CompactLogTest) (B : Real)

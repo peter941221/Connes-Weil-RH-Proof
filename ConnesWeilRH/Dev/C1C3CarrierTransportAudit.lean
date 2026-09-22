@@ -75,7 +75,9 @@ namespace C1C3CarrierTransport
 #print axioms carrierMixedDeterminantPhase
 #print axioms carrierPrimeDeterminantPhase
 #print axioms carrierPrimeDeterminantPhase_le_abs_product
+#print axioms carrierPrimeDeterminantPhase_nonpos_of_opposite_sign
 #print axioms carrierMixedDeterminantPhase_le_abs_products
+#print axioms carrierMixedDeterminantPhase_nonpos_of_signs
 #print axioms carrierSquarePrimePhaseSum_eq_credit_sub_deficit
 #print axioms carrierPairPrimePhaseSum_eq_credit_sub_deficit
 #print axioms carrierPrimeDeterminantPhase_signed_expansion
@@ -84,6 +86,8 @@ namespace C1C3CarrierTransport
 #print axioms carrier_twoSpan_signed_budget_iff_optimal_nonpos
 #print axioms carrier_twoSpan_phase_budget_iff_optimal_nonpos
 #print axioms carrier_twoSpan_phase_budget_of_margin_bounds
+#print axioms carrier_twoSpan_phase_budget_of_opposite_prime_signs
+#print axioms carrier_twoSpan_optimal_nonpos_of_opposite_prime_signs
 #print axioms orbitWindowSemiLocalGate_carrier_twoSpan_of_optimal_determinant
 #print axioms CarrierTwoSpanDeterminantCertificate
 #print axioms CarrierTwoSpanDeterminantCertificate.gate

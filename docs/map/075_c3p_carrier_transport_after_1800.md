@@ -107,6 +107,16 @@ values, each cell by `|Lambda(n) * 2/sqrt(n)|` times the envelope convolution
 norm at `log n`. This preserves the exact visible-prime owner and is the
 first quantitative interface below the abstract `hprime` margin assumption.
 
+Formal follow-up (1894): a detector-specific opposite-sign branch is now
+formal. If the two square prime phase sums satisfy `P_u <= 0 <= P_v`, then
+the prime determinant is nonpositive. A compatible sign branch also makes the
+mixed determinant nonpositive when both Archimedean diagonal terms are
+nonpositive, both prime diagonal terms are nonnegative, and the directed
+Archimedean/prime product is nonnegative. Together with a nonpositive
+Archimedean determinant, this gives the complete two-span budget and the
+optimal q-form consumer. This is a conditional sign socket only: the actual
+selected detector still needs those sign certificates.
+
 The same budget is also bounded by the exact visible-prime coefficient sum
 times the zero-order Schwartz seminorm of the envelope convolution square.
 This is still an owner-preserving upper bound; no continuous-prime or frozen
