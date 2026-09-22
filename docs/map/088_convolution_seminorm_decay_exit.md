@@ -104,3 +104,15 @@ producer obligation is now one of:
 
 This is a FORMAL quantifier/interface finding, not a no-go theorem and not an
 RH result.
+
+## 5. Fixed-correction all-index assembly (record 1850)
+
+The source theorem
+`exists_nearbyZero_unscaled_targetValues_assembly_with_fixedCorrection` now
+chooses the residual correction and its nonnegative quadratic constant before
+the convolution count, then exposes the assembled support, interpolation,
+zero constraints, and explicit quadratic tail bound for every `n`. This closes
+the immediate quantifier mismatch at the assembly layer: a later producer may
+choose `n` after reading `C` from the correction. The theorem is FORMAL
+interface progress only. The orbit geometry constructor still must consume it,
+and the strict contraction and same-owner positivity obligations remain open.

@@ -1093,6 +1093,104 @@ theorem exists_nearbyZero_unscaled_targetValues_assembly_of_fixedThreshold
   exact ⟨correction, C, n, hcorrectionSupport, hassembledSupport,
     hassembledTargets, hassembledZeros, hC, hdistance⟩
 
+/-! The correction is chosen before the convolution count.  This variant
+keeps that quantifier order and exposes the all-`n` quadratic tail bound, so a
+later producer may choose `n` from a budget after seeing the correction
+constant. -/
+theorem exists_nearbyZero_unscaled_targetValues_assembly_with_fixedCorrection
+    (base : CompactLogTest) {baseLower baseUpper : ℝ}
+    (hbaseSupport : Function.support base.test ⊆
+      Set.Ioo baseLower baseUpper)
+    (targetNodes : Finset ℂ)
+    (hbaseTargets : ∀ w : FiniteMellinNode targetNodes,
+      laplaceAt base w.1 = 1)
+    (targetValues : FiniteMellinNode targetNodes → ℂ)
+    (rho : ℂ) (hrho : rho.re ∈ Set.Icc (0 : ℝ) 1)
+    (_hrhoTarget : rho ∈ targetNodes)
+    (T : ℝ)
+    (hbase : ∀ sigma ∈ Set.Icc (0 : ℝ) 1, ∀ t : ℝ, T ≤ |t| →
+      ‖laplaceAt base ((sigma : ℂ) + (t : ℂ) * Complex.I)‖ ≤ 1 / 2)
+    (routeNodes : Finset ℂ)
+    {lower upper : ℝ} (hlower : lower < 0) (hupper : 0 < upper) :
+    ∀ R : ℝ, 0 ≤ R →
+      ∃ correction : CompactLogTest, ∃ C : ℝ,
+        Function.support correction.test ⊆ Set.Ioo lower upper ∧
+        0 ≤ C ∧
+        ∀ n : ℕ,
+          Function.support
+              ((convolutionIterate base n).convolution correction).test ⊆
+            Set.Ioo (((n + 1 : ℕ) : ℝ) * baseLower + lower)
+              (((n + 1 : ℕ) : ℝ) * baseUpper + upper) ∧
+          (∀ w : FiniteMellinNode targetNodes,
+            laplaceAt
+              ((convolutionIterate base n).convolution correction) w.1 =
+                targetValues w) ∧
+          (∀ z : FiniteMellinNode
+              (sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes),
+            z.1 ∉ targetNodes →
+              laplaceAt
+                ((convolutionIterate base n).convolution correction) z.1 = 0) ∧
+          (∀ z : ℂ, z.re ∈ Set.Icc (0 : ℝ) 1 →
+            T ≤ |z.im| → 1 ≤ |z.im| → 2 * |rho.im| ≤ |z.im| →
+              ‖z - rho‖ ^ 2 *
+                  ‖laplaceAt
+                    ((convolutionIterate base n).convolution correction) z‖ ≤
+                (6 * Real.pi) ^ 2 * ((1 / 2 : ℝ) ^ (n + 1) * C)) := by
+  intro R _hR
+  let selectedNodes : Finset ℂ :=
+    sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes
+  let nodes : Finset ℂ := selectedNodes ∪ targetNodes
+  let y : FiniteMellinNode nodes → ℂ := fun z =>
+    if hz : z.1 ∈ targetNodes then targetValues ⟨z.1, hz⟩ else 0
+  obtain ⟨correction, C, hcorrectionSupport, hvalues, hC,
+      hcorrectionDecay⟩ :=
+    exists_residualWindow_correction_with_quadratic_decay
+      nodes hlower hupper y
+  refine ⟨correction, C, hcorrectionSupport, hC, ?_⟩
+  intro n
+  have hassembledSupport := convolution_support_subset_add_Ioo
+    (convolutionIterate base n) correction
+    (convolutionIterate_support_subset_Ioo base hbaseSupport n)
+    hcorrectionSupport
+  have hassembledTargets :
+      ∀ w : FiniteMellinNode targetNodes,
+        laplaceAt
+          ((convolutionIterate base n).convolution correction) w.1 =
+            targetValues w := by
+    intro w
+    let wNode : FiniteMellinNode nodes :=
+      ⟨w.1, Finset.mem_union_right selectedNodes w.2⟩
+    have hcorrectionTarget :
+        laplaceAt correction w.1 = targetValues w := by
+      simpa [y, wNode, w.2] using hvalues wNode
+    rw [laplaceAt_convolution, laplaceAt_convolutionIterate,
+      hbaseTargets w, hcorrectionTarget]
+    simp
+  have hassembledZeros :
+      ∀ z : FiniteMellinNode selectedNodes, z.1 ∉ targetNodes →
+        laplaceAt
+          ((convolutionIterate base n).convolution correction) z.1 = 0 := by
+    intro z hz
+    let zNode : FiniteMellinNode nodes :=
+      ⟨z.1, Finset.mem_union_left targetNodes z.2⟩
+    have hcorrectionZero : laplaceAt correction z.1 = 0 := by
+      simpa [y, zNode, hz] using hvalues zNode
+    rw [laplaceAt_convolution, laplaceAt_convolutionIterate,
+      hcorrectionZero]
+    simp
+  have htail :
+      ∀ z : ℂ, z.re ∈ Set.Icc (0 : ℝ) 1 →
+        T ≤ |z.im| → 1 ≤ |z.im| → 2 * |rho.im| ≤ |z.im| →
+          ‖z - rho‖ ^ 2 *
+              ‖laplaceAt
+                ((convolutionIterate base n).convolution correction) z‖ ≤
+            (6 * Real.pi) ^ 2 * ((1 / 2 : ℝ) ^ (n + 1) * C) := by
+    intro z hz hheight hone hrhoHeight
+    exact convolutionIterate_convolution_distance_quadratic_bound
+      base correction (1 / 2) C T n (by norm_num) hbase hcorrectionDecay
+      rho z hrho hz hheight hone hrhoHeight
+  exact ⟨hassembledSupport, hassembledTargets, hassembledZeros, htail⟩
+
 /-- Assemble an unscaled base which is normalized on a finite target set. The
 same correction takes value one on every target and zero on every selected
 nearby or route node outside the target set. -/
