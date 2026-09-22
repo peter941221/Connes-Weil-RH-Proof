@@ -193,3 +193,11 @@ The geometric raw-factor estimate now accepts the actual base support window
 former length-2 estimate remains available for compatibility. This is formal
 route progress; the selected finite-window coefficient budget and the
 detector-specific semi-local positivity are still open.
+
+## 14. Windowed common-index theorem (record 1859)
+
+The producer-side common-index reduction now accepts an arbitrary contraction
+factor `q < 1`, while retaining the independent quadratic tail condition. The
+planned instantiation is the actual base-window factor from record 1858. This
+closes only the quantifier algebra; the finite coefficient budget remains the
+next quantitative obligation.

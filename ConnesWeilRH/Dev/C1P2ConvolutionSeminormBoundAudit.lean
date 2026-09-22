@@ -19,6 +19,7 @@ open ConnesWeilRH.Source.C1P2ConvolutionSeminormBound
 #print axioms seminorm_convolution_le_supportLength_mul_seminorm
 #print axioms rawFactorSeminorm_le_toLp_one_mul_seminorm
 #print axioms rawFactorSeminorm_le_geometric_bound_of_base_window
+#print axioms exists_nat_windowed_geometric_budget_and_quadratic_tail
 #print axioms convolution_apply_comm
 #print axioms seminorm_convolution_comm
 #print axioms seminorm_convolution_le_supportLength_mul_seminorm_right

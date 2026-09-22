@@ -354,6 +354,40 @@ theorem exists_nat_geometric_budget_and_quadratic_tail
   obtain ⟨n, hnBase, hnTail⟩ := (hbaseEventually.and htailEventually).exists
   exact ⟨n, hnBase.le, hnTail⟩
 
+theorem exists_nat_windowed_geometric_budget_and_quadratic_tail
+    {q sBase sCorrection budget C epsilon : ℝ}
+    (hqNonneg : 0 ≤ q)
+    (hsBaseNonneg : 0 ≤ sBase)
+    (hsCorrectionNonneg : 0 ≤ sCorrection)
+    (hqContract : q < 1)
+    (hBudget : 0 < budget)
+    (hC : 0 ≤ C)
+    (hEpsilon : 0 < epsilon) :
+    ∃ n : ℕ,
+      2 * (q ^ n * sBase) * sCorrection ≤ budget ∧
+      (6 * Real.pi) ^ 2 * ((1 / 2 : ℝ) ^ (n + 1) * C) < epsilon := by
+  have hpowQ : Filter.Tendsto (fun n : ℕ => q ^ n)
+      Filter.atTop (nhds 0) :=
+    tendsto_pow_atTop_nhds_zero_of_lt_one hqNonneg hqContract
+  have hbudgetLimit :
+      Filter.Tendsto (fun n : ℕ => 2 * (q ^ n * sBase) * sCorrection)
+        Filter.atTop (nhds 0) := by
+    have h := hpowQ.mul_const (2 * sBase * sCorrection)
+    simpa [mul_assoc, mul_left_comm, mul_comm] using h
+  have hpowHalf : Filter.Tendsto (fun n : ℕ => (1 / 2 : ℝ) ^ n)
+      Filter.atTop (nhds 0) :=
+    tendsto_pow_atTop_nhds_zero_of_lt_one (by norm_num) (by norm_num)
+  have htailLimit :
+      Filter.Tendsto
+        (fun n : ℕ => (6 * Real.pi) ^ 2 * ((1 / 2 : ℝ) ^ (n + 1) * C))
+        Filter.atTop (nhds 0) := by
+    have h := hpowHalf.mul_const ((6 * Real.pi) ^ 2 * ((1 / 2 : ℝ) * C))
+    simpa [pow_succ, mul_assoc, mul_left_comm, mul_comm] using h
+  have hbudgetEventually := hbudgetLimit.eventually_lt_const hBudget
+  have htailEventually := htailLimit.eventually_lt_const hEpsilon
+  obtain ⟨n, hnBudget, hnTail⟩ := (hbudgetEventually.and htailEventually).exists
+  exact ⟨n, hnBudget.le, hnTail⟩
+
 /-- The raw factor seminorm of an OrbitG8Geometry is bounded by the product of the
     iterated base L¹ norm and the correction seminorm. -/
 theorem rawFactorSeminorm_le_toLp_one_mul_seminorm
