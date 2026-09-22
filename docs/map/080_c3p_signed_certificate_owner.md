@@ -81,6 +81,26 @@ the selected detector is on the positive-gate side of the parity split. A
 future negative component may still be useful, but it must be constructed
 with its own three-node vanishing and detection-preservation proof.
 
+## Round 2E negative diagonal certificate (2026-09-22)
+
+The new formal leaf `C1P2NegativeDiagonalCertificate` proves an actual
+owner-preserving negative complete gate for the narrow D3 root:
+
+`ICgate (tripleVanishingRoot h).convolutionSquare < 0`
+
+under the narrow support hypothesis and the exact nonzero Laplace-at-2
+hypothesis. The proof combines the strict negative Archimedean term from
+`C1LaneRStrictness` with the public support theorem from `C1LaneRD3Root`,
+which makes the finite visible-prime sum exactly zero. The paired audit is
+axiom-clean. This is formal route evidence, not yet the selected-orbit
+producer: the mixed gate, three-node/detection compatibility with the actual
+healthy detector, and the full detector-specific signed budget remain open.
+
+Evidence: `ConnesWeilRH/Dev/C1P2NegativeDiagonalCertificate.lean`, theorem
+`tripleVanishingRoot_ICgate_neg_of_narrow_base_of_laplaceAt_two_ne_zero`;
+build log `build-logs/1812_negative_diagonal_final.log` (formal, project
+candidate certificate).
+
 Formal follow-up: `C1C3CarrierFourierShift.lean` proves the exact same-owner
 frequency transport
 `Fourier(carrierModulate gamma f, xi) = Fourier(f, xi + gamma/(2*pi))`,

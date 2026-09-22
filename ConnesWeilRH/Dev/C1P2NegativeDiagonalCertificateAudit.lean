@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1P2NegativeDiagonalCertificate
+
+namespace ConnesWeilRH.Source.C1P2NegativeDiagonalCertificateAudit
+
+open ConnesWeilRH.Source.C1P2NegativeDiagonalCertificate
+
+#print axioms tripleVanishingRoot_ICgate_neg_of_narrow_base_of_laplaceAt_two_ne_zero
+
+end ConnesWeilRH.Source.C1P2NegativeDiagonalCertificateAudit
