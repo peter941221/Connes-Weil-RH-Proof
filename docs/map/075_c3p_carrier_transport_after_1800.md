@@ -122,6 +122,13 @@ readbacks can be applied without changing the detector owner. This is a
 coordinate/owner bridge only: the envelope depends on the chosen frequency,
 and the signed determinant or prime-budget estimate remains open.
 
+The bridge is now consumed by `orbitG8Geometry_carrier_reparam`: every actual
+`OrbitG8Geometry rho g` admits, for any fixed carrier frequency, a same-owner
+`OrbitG8Geometry rho (carrierModulate gamma u)` together with the equality back
+to `g`. Thus the raw orbit cutoff and the carrier phase consumers can be
+composed on the selected detector. This closes representation only; it does
+not supply the Archimedean margin or the signed prime estimate.
+
 For every actual visible prime power, the coefficient is further bounded by
 `2 * log(n)` using the exact von Mangoldt inequality and positivity of the
 square-root weight. The resulting log-weighted seminorm sum is now formal on

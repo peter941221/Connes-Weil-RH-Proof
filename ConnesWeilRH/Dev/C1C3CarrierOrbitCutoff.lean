@@ -28,6 +28,16 @@ open ConnesWeilRH.Source.CCM25Concrete.CompactLogConvolution
 
 noncomputable section
 
+theorem orbitG8Geometry_carrier_reparam
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (γ : Real) :
+    ∃ u : CompactLogTest, ∃ geometry' : OrbitG8Geometry rho (carrierModulate γ u),
+      carrierModulate γ u = g := by
+  obtain ⟨u, hu⟩ := carrierModulate_surjective γ g
+  refine ⟨u, ?_, hu⟩
+  rw [hu]
+  exact geometry
+
 theorem orbitG8_visible_owner_card_le_cutoff
     {rho : sourceNontrivialZeroSet} (γ : Real) (u : CompactLogTest)
     (geometry : OrbitG8Geometry rho (carrierModulate γ u)) :
