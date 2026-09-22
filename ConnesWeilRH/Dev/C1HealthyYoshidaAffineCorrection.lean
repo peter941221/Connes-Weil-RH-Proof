@@ -89,6 +89,107 @@ theorem exists_windowedMellin_target_vector_sparse_coefficients
   rw [hspan] at hcard
   simpa using hcard
 
+/-! Transport the target-vector certificate back to source-test indices.  One
+source preimage is chosen for each selected target vector; injectivity follows
+because the selected target vectors are distinct. -/
+theorem exists_windowedMellin_source_sparse_coefficients
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex) :
+    ∃ c : WindowedPositiveIntervalCompactTest a b →₀ Complex,
+      c.support.card ≤ nodes.card ∧
+      windowedMellinEvaluationMap nodes a b ha ha_one hone_b c = y := by
+  classical
+  obtain ⟨d, hdcard, hdsource, hdsum⟩ :=
+    exists_windowedMellin_target_vector_sparse_coefficients
+      nodes a b ha ha_one hone_b y
+  let α := d.support
+  let p : α → WindowedPositiveIntervalCompactTest a b := fun v =>
+    Classical.choose (hdsource v.property)
+  have hp : ∀ v : α,
+      windowedFiniteMellinVector nodes a b (p v) = (v : FiniteMellinNode nodes → Complex) := by
+    intro v
+    exact Classical.choose_spec (hdsource v.property)
+  have hp_inj : Function.Injective p := by
+    intro v w hpvw
+    apply Subtype.ext
+    calc
+      (v : FiniteMellinNode nodes → Complex) =
+          windowedFiniteMellinVector nodes a b (p v) := (hp v).symm
+      _ = windowedFiniteMellinVector nodes a b (p w) := by rw [hpvw]
+      _ = (w : FiniteMellinNode nodes → Complex) := hp w
+  let e : α ↪ WindowedPositiveIntervalCompactTest a b :=
+    ⟨p, hp_inj⟩
+  have hf_bij : Set.BijOn (fun v : α => (v : FiniteMellinNode nodes → Complex))
+      ((fun v : α => (v : FiniteMellinNode nodes → Complex)) ⁻¹'
+        (↑d.support : Set (FiniteMellinNode nodes → Complex)))
+      (↑d.support : Set (FiniteMellinNode nodes → Complex)) := by
+    refine ⟨?_, ?_, ?_⟩
+    · intro v hv
+      exact v.property
+    · intro v hv w hw hvw
+      exact Subtype.ext hvw
+    · intro v hv
+      exact ⟨⟨v, hv⟩, hv, rfl⟩
+  let l : α →₀ Complex :=
+    Finsupp.comapDomain (fun v : α => (v : FiniteMellinNode nodes → Complex)) d
+      hf_bij.injOn
+  let c : WindowedPositiveIntervalCompactTest a b →₀ Complex :=
+    Finsupp.embDomain e l
+  have hlcard : l.support.card = d.support.card := by
+    change (d.support.preimage (fun v : α => (v : FiniteMellinNode nodes → Complex))
+      hf_bij.injOn).card =
+      d.support.card
+    rw [Finset.card_preimage _ _ hf_bij.injOn]
+    have hfilter : {x ∈ d.support | x ∈ Set.range
+        (fun v : α => (v : FiniteMellinNode nodes → Complex))} = d.support := by
+      ext x
+      simp only [Finset.mem_filter]
+      constructor
+      · intro hx
+        exact hx.1
+      · intro hx
+        exact ⟨hx, ⟨⟨x, hx⟩, rfl⟩⟩
+    rw [hfilter]
+  have hccard : c.support.card = l.support.card := by
+    dsimp [c]
+    simpa using (Finset.card_map e l.support)
+  refine ⟨c, ?_, ?_⟩
+  · rw [hccard, hlcard]
+    exact hdcard
+  · funext z
+    rw [windowedMellinEvaluationMap_apply]
+    dsimp [c]
+    rw [Finsupp.embDomain_eq_mapDomain,
+      Finsupp.sum_mapDomain_index_inj e.injective]
+    have htransport :=
+      Finsupp.sum_comapDomain
+        (fun v : α => (v : FiniteMellinNode nodes → Complex)) d
+        (fun v coefficient => coefficient • v) hf_bij
+    have htransport_z := congrArg (fun q => q z) htransport
+    have hsource_to_target :
+        l.sum (fun v coefficient =>
+          coefficient * windowedFiniteMellinVector nodes a b (e v) z) =
+          l.sum (fun v coefficient => (coefficient • (v : FiniteMellinNode nodes → Complex)) z) := by
+      refine Finsupp.sum_congr ?_
+      intro v coefficient
+      change l v * windowedFiniteMellinVector nodes a b (p v) z =
+        (l v • (v : FiniteMellinNode nodes → Complex)) z
+      rw [hp]
+      simp [smul_eq_mul]
+    have htransport_z' :
+        l.sum (fun v coefficient => (coefficient • (v : FiniteMellinNode nodes → Complex)) z) =
+          d.sum (fun v coefficient => (coefficient • v) z) := by
+      simpa [l, α, Finsupp.sum, smul_eq_mul, Function.comp_def] using htransport_z
+    calc
+      l.sum (fun v coefficient =>
+          coefficient * windowedFiniteMellinVector nodes a b (e v) z) =
+          l.sum (fun v coefficient => (coefficient • (v : FiniteMellinNode nodes → Complex)) z) :=
+        hsource_to_target
+      _ = d.sum (fun v coefficient => (coefficient • v) z) := htransport_z'
+      _ = y z := by
+        simpa only [Finsupp.sum_apply'] using congrArg (fun q => q z) hdsum
+
 /-- A linear right inverse of the finite-node evaluation map.  Its existence
 uses only surjectivity and the projectivity of finite function spaces over the
 field `Complex`; it does not use any sign conclusion. -/

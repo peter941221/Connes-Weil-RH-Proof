@@ -251,3 +251,19 @@ windowed test vectors. This is the correct finite-dimensional statement; it
 does not yet identify the Finsupp with source-test indices. The remaining
 adapter must choose one source preimage per selected vector and transport the
 certificate through `Finsupp.embDomain`.
+
+## 21. Source-indexed sparse transport (record 1866)
+
+The theorem `exists_windowedMellin_source_sparse_coefficients` now completes
+that adapter on the genuine source-test index type. It chooses one source
+preimage for each selected target vector, proves injectivity from equality of
+the target vectors, and transports the sparse Finsupp through
+`Finsupp.comapDomain` and `Finsupp.embDomain`. The source support cardinality
+remains at most the Mellin-node count, so the uniform finite budget can now
+consume a source-indexed certificate.
+
+This is formal transport only. The actual right-inverse coefficient bound,
+the selected basis seminorm bound, strict base contraction, and the
+detector-specific signed semi-local positivity remain open. Verification is
+recorded in proof record 1866 (`source-sparse-1866e.log`); the Audit uses only
+`[propext, Classical.choice, Quot.sound]` and has no `sorryAx`.

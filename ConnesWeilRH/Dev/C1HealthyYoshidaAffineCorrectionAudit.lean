@@ -11,6 +11,7 @@ open Source.C1HealthyYoshidaAffineCorrection
 #print axioms windowedMellinEvaluationMap_surjective
 #print axioms windowedMellinRightInverse
 #print axioms exists_windowedMellin_target_vector_sparse_coefficients
+#print axioms exists_windowedMellin_source_sparse_coefficients
 #print axioms windowedMellinEvaluationMap_comp_rightInverse
 #print axioms affineResidualCorrection
 #print axioms affineResidualCorrection_support_subset
