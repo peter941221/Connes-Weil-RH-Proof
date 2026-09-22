@@ -152,6 +152,18 @@ The derivative identity and endpoint boundary conditions are formal for
 `Q(t) = t * F(t)` and `residual(t) = -t * F'(t)`. The residual signed budget
 remains the open obligation; no sign or RH claim.
 
+## Support-overlap harmonic Chebyshev decoupling (Option A), 2026-09-22
+
+[087](087_support_overlap_harmonic_chebyshev_route.md) records the formal harmonic
+Chebyshev bound via exact support overlap restriction:
+`C1P2DirectSupportOverlapDecoupling.lean` proves that the physical kernel integrand
+vanishes for $t \le x - L$, producing a factor of $1/n$ inside the arithmetic sum:
+`(1 / Real.sqrt n) * (exp(L - log(n)/2) - exp(-(L - log(n)/2))) = exp(L)/n - exp(-L)`.
+This reduces the arithmetic growth from exponential Chebyshev $\sum \Lambda(n) \sim e^{2L}$
+to linear harmonic Chebyshev $\sum \Lambda(n)/n \sim 2L$, yielding
+`orbitSupportOverlapBound geometry = 2 * exp(L) * S^2 * (∑ vonMangoldt(n) / n)`.
+Existence of an orbit geometry satisfying this bound directly implies `SourceRH` and Mathlib's canonical `RiemannHypothesis`.
+
 ## Chebyshev sharpened integral decoupling (Option A), 2026-09-22
 
 [086](086_chebyshev_sharpened_integral_decoupling.md) records the formal sharpened

@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1P2DirectSupportOverlapDecoupling
+
+open ConnesWeilRH.Source.C1P2DirectSupportOverlapDecoupling
+
+#print axioms orbitWeightedKernelIntegrand_eq_zero_of_lt_sub
+#print axioms integral_scaled_expNeg_overlap
+#print axioms cancellation_identity_overlap
+#print axioms visibleHarmonicChebyshevSum_nonneg
+#print axioms orbitSupportOverlapBound_nonneg
+#print axioms sourceRH_of_overlap_bounds
+#print axioms riemannHypothesis_of_overlap_bounds
