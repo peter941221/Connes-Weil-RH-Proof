@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1P2DirectChebyshevDecoupling
+
+open ConnesWeilRH.Source.C1P2DirectChebyshevDecoupling
+
+#print axioms cancellation_identity
+#print axioms sum_seminorm_budget_eq_chebyshev_mul
+#print axioms finitePrimeSum_le_chebyshev_seminorm_bound
+#print axioms absorptionWitness_of_chebyshev_seminorm_bound
+#print axioms sourceRH_of_chebyshev_seminorm_bounds
+#print axioms riemannHypothesis_of_chebyshev_seminorm_bounds

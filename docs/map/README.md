@@ -152,6 +152,15 @@ The derivative identity and endpoint boundary conditions are formal for
 `Q(t) = t * F(t)` and `residual(t) = -t * F'(t)`. The residual signed budget
 remains the open obligation; no sign or RH claim.
 
+## Chebyshev decoupling and seminorm-bounded absorption (Option A), 2026-09-22
+
+[085](085_chebyshev_decoupling_route.md) records the formal pointwise cancellation
+and seminorm-decoupled bound: `C1P2DirectChebyshevDecoupling.lean` proves that
+evaluating the physical kernel cancels `1 / Real.sqrt n` against `exp(log(n)/2) = Real.sqrt n`
+pointwise for every natural $n$, yielding `finitePrimeSum g.convolutionSquare <= visibleChebyshevPrimeSum * (4 * L * exp(L) * S^2)`.
+Existence of an orbit geometry satisfying `visibleChebyshevPrimeSum * (4 * L * exp(L) * S^2) <= - archimedeanTerm`
+directly implies `SourceRH` and Mathlib's `RiemannHypothesis`.
+
 ## Direct absorption majorant and prime weight factoring (Option A), 2026-09-22
 
 [084](084_direct_absorption_majorant_factoring.md) records the formal
