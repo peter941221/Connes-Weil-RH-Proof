@@ -250,3 +250,16 @@ height at least that exact threshold. This is intentionally conditional: the
 project has not proved that an arbitrary hypothetical off-line zero reaches
 this height, so the theorem is not presented as a universal zero-height lower
 bound. The detector-specific visible-prime signed budget remains open.
+## Round 2G: even negative companion, 2026-09-22
+
+`C1P2EvenNegativeDiagonalCertificate.lean` now proves
+`exists_even_negative_diagonal_of_offLineZero`. Under the explicit narrow
+Archimedean budget, finite Mellin interpolation followed by even projection
+produces a compact-log component with the zero, half, and one nodes, positive
+square mass, and strict negative `ICgate`. The paired audit has only the
+three standard axioms and no `sorryAx`.
+
+This is construction-layer evidence only. The component is not the selected
+`HealthyYoshidaDetectorData` owner, and no support or visible-prime signed
+estimate transfers its negative gate to that owner. Actual C3' positivity
+and the detector-specific semi-local gate remain open.

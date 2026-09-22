@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1P2EvenNegativeDiagonalCertificate
+
+namespace ConnesWeilRH.Source.C1P2EvenNegativeDiagonalCertificateAudit
+
+open ConnesWeilRH.Source.C1P2EvenNegativeDiagonalCertificate
+
+#print axioms exists_even_negative_diagonal_of_offLineZero
+
+end ConnesWeilRH.Source.C1P2EvenNegativeDiagonalCertificateAudit

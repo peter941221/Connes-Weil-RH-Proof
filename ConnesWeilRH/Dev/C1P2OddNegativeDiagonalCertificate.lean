@@ -25,9 +25,8 @@ open CC20YoshidaConvolution
 open CCM25Concrete.CompactLogConvolution
 open Set
 
-theorem odd_ICgate_neg_of_narrow_budget
+theorem ICgate_neg_of_narrow_budget
     (g : CompactLogTest)
-    (hodd : ∀ x : ℝ, g.test (-x) = -g.test x)
     (R : ℝ)
     (hRpos : 0 < R) (hRlt : R < 1) (hRlog2 : R < Real.log 2)
     (hsupport : Function.support g.convolutionSquare.test ⊆ Ioo (-R) R)
@@ -49,6 +48,19 @@ theorem odd_ICgate_neg_of_narrow_budget
   rw [hprime]
   simpa using harch
 
+theorem odd_ICgate_neg_of_narrow_budget
+    (g : CompactLogTest)
+    (hodd : ∀ x : ℝ, g.test (-x) = -g.test x)
+    (R : ℝ)
+    (hRpos : 0 < R) (hRlt : R < 1) (hRlog2 : R < Real.log 2)
+    (hsupport : Function.support g.convolutionSquare.test ⊆ Ioo (-R) R)
+    (hbudget :
+      Real.log (4 * Real.pi) + Real.eulerMascheroniConstant + R -
+          (1 / 2 : ℝ) * Real.log (1 / R) < 0)
+    (hmass : 0 < (g.convolutionSquare.test 0).re) :
+    ICgate g.convolutionSquare < 0 := by
+  exact ICgate_neg_of_narrow_budget g R hRpos hRlt hRlog2 hsupport hbudget hmass
+
 private theorem oddPart_test_ne_zero_of_asymmetric_laplace_data
     (h : CompactLogTest) (rho : ℂ)
     (hrho : CompactLogTest.laplaceAt h rho = 1)
@@ -64,7 +76,7 @@ private theorem oddPart_test_ne_zero_of_asymmetric_laplace_data
     C1HealthyDetectorEvenOddPair.laplaceAt_reflection, hrho, hneg] at hzeroLap
   norm_num at hzeroLap
 
-private theorem convolutionSquare_mass_pos_of_test_ne_zero
+theorem convolutionSquare_mass_pos_of_test_ne_zero
     (g : CompactLogTest) (hg : g.test ≠ 0) :
     0 < (g.convolutionSquare.test 0).re := by
   rw [g.convolutionSquare_zero_eq_integral_normSq]

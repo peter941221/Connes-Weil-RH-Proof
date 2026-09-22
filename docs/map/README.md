@@ -134,6 +134,16 @@ negative-component node/detection-preservation obligation for the parity
 branch. The even companion's required sign and the actual healthy orbit
 detector's same-owner signed budget remain open; Round 2 is not complete.
 
+## C3' Round 2G even companion, 2026-09-22
+
+The theorem `exists_even_negative_diagonal_of_offLineZero` constructs the
+matching even compact-log component by finite residual interpolation. It
+preserves the zero, half, and one nodal equations, has positive square mass,
+and has a strict negative complete gate under the same narrow Archimedean
+budget. This closes the two artificial parity-component signs, but it does
+not transfer either component to the actual healthy orbit owner or prove its
+detector-specific finite visible-prime signed budget. Round 2 remains open.
+
 ## Orbit-sum pin realized, 2026-09-21
 
 [074](074_orbit_sum_pin_after_1799.md) records the orbit-sum pin (record
