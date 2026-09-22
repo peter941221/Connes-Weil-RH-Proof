@@ -127,3 +127,11 @@ transport. After choosing the correction and its constant, every orbit count
 raw targets, minimal interpolation, centered orbit sum, square-zero control,
 and both tail certificates. This is FORMAL producer-interface progress; strict
 base contraction and the detector-specific signed budget remain open.
+
+## 7. Common budget/tail index (record 1852)
+
+The theorem `exists_nat_geometric_budget_and_quadratic_tail` intersects the
+geometric budget and quadratic-tail convergence conditions and produces one
+shared orbit index. This closes the remaining pure quantifier-combination
+step between the all-index healthy assembly and the harmonic budget. The
+strict contraction and detector-specific signed positivity are still open.

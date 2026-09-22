@@ -270,6 +270,44 @@ theorem exists_nat_geometric_budget_of_base_contraction
         (2 * sBase) ^ n * (2 * sBase * sCorrection) := by ring
     _ ≤ budget := hn.le
 
+/-! The budget and the remote quadratic tail can be chosen with one common
+index.  This is the producer-facing form of the two independent geometric
+limits. -/
+theorem exists_nat_geometric_budget_and_quadratic_tail
+    {sBase sCorrection budget C epsilon : ℝ}
+    (hBaseNonneg : 0 ≤ sBase)
+    (hCorrectionNonneg : 0 ≤ sCorrection)
+    (hContract : 2 * sBase < 1)
+    (hBudget : 0 < budget)
+    (hC : 0 ≤ C)
+    (hEpsilon : 0 < epsilon) :
+    ∃ n : ℕ,
+      2 * ((2 * sBase) ^ n * sBase) * sCorrection ≤ budget ∧
+      (6 * Real.pi) ^ 2 * ((1 / 2 : ℝ) ^ (n + 1) * C) < epsilon := by
+  have hfactor_nonneg : 0 ≤ 2 * sBase := by positivity
+  have hpowBase : Filter.Tendsto (fun n : ℕ => (2 * sBase) ^ n)
+      Filter.atTop (nhds 0) :=
+    tendsto_pow_atTop_nhds_zero_of_lt_one hfactor_nonneg hContract
+  have hbaseLimit :
+      Filter.Tendsto
+        (fun n : ℕ => 2 * ((2 * sBase) ^ n * sBase) * sCorrection)
+        Filter.atTop (nhds 0) := by
+    have h := hpowBase.mul_const (2 * sBase * sCorrection)
+    simpa [mul_assoc, mul_left_comm, mul_comm] using h
+  have hpowHalf : Filter.Tendsto (fun n : ℕ => (1 / 2 : ℝ) ^ n)
+      Filter.atTop (nhds 0) :=
+    tendsto_pow_atTop_nhds_zero_of_lt_one (by norm_num) (by norm_num)
+  have htailLimit :
+      Filter.Tendsto
+        (fun n : ℕ => (6 * Real.pi) ^ 2 * ((1 / 2 : ℝ) ^ (n + 1) * C))
+        Filter.atTop (nhds 0) := by
+    have h := hpowHalf.mul_const ((6 * Real.pi) ^ 2 * ((1 / 2 : ℝ) * C))
+    simpa [pow_succ, mul_assoc, mul_left_comm, mul_comm] using h
+  have hbaseEventually := hbaseLimit.eventually_lt_const hBudget
+  have htailEventually := htailLimit.eventually_lt_const hEpsilon
+  obtain ⟨n, hnBase, hnTail⟩ := (hbaseEventually.and htailEventually).exists
+  exact ⟨n, hnBase.le, hnTail⟩
+
 /-- The raw factor seminorm of an OrbitG8Geometry is bounded by the product of the
     iterated base L¹ norm and the correction seminorm. -/
 theorem rawFactorSeminorm_le_toLp_one_mul_seminorm
