@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-22 ConnesWeilRH/Dev/C1P2DirectSemiLocalGate.lean + Audit + docs/proofs/1832_p2_direct_semilocal_gate_producer.md + docs/map/082_direct_semilocal_gate_assault.md : FORMALIZED the direct Option A producer contract (Bone 4 unadorned exit); connects orbitWindowSemiLocalGate, Archimedean prime absorption, componentwise nonpositivity, pointwise bilateral nonpositivity, margin transfer, signed credit/deficit budget, norm-level absorption, and finite-range absolute majorants directly to SourceRH with zero auxiliary matrix or coboundary packaging. Build 3784 jobs clean, zero error/sorryAx, standard axioms (log 1833).
+
 2026-09-22 ConnesWeilRH/Dev/C1P2EvenOddGateDecomposition.lean + Audit + docs/map/README.md + docs/map/080_c3p_signed_certificate_owner.md : formally read the strict healthy detector local-sum positivity back as `0 < ICgate g.convolutionSquare` on the same triple-vanishing owner. This fixes the selected detector's gate orientation for the parity branch; build 3807 jobs clean, zero error/sorryAx, standard axioms.
 
 2026-09-22 ConnesWeilRH/Dev/C1P2EvenOddGateDecomposition.lean + Audit + docs/map/README.md + docs/map/080_c3p_signed_certificate_owner.md + docs/proofs/1808_c3p_even_odd_opposite_sign_branch.md : formally added the opposite-sign even/odd C3 branch; zero cross gate plus positive/negative diagonals gives a strict negative discriminant and a nonpositive two-span quadratic form. Build 3807 jobs clean, zero error/sorryAx, standard axioms; selected-detector sign and detection preservation remain open.

@@ -144,6 +144,24 @@ budget. This closes the two artificial parity-component signs, but it does
 not transfer either component to the actual healthy orbit owner or prove its
 detector-specific finite visible-prime signed budget. Round 2 remains open.
 
+## Same-owner physical-kernel coboundary certificate, 2026-09-22
+
+[081](081_orbit_physical_kernel_coboundary_certificate.md) records the formal
+reduction from an `OrbitPhysicalKernelCoboundaryCertificate` to `SourceRH`.
+The derivative identity and endpoint boundary conditions are formal for
+`Q(t) = t * F(t)` and `residual(t) = -t * F'(t)`. The residual signed budget
+remains the open obligation; no sign or RH claim.
+
+## Direct semi-local gate assault (Option A), 2026-09-22
+
+[082](082_direct_semilocal_gate_assault.md) records the direct unadorned
+producer contract for Bone 4: `C1P2DirectSemiLocalGate.lean` proves that
+existence of an `OrbitG8Geometry` whose selected test satisfies
+`orbitWindowSemiLocalGate` (or where the finite prime sum is absorbed by the
+negative Archimedean margin) directly implies `SourceRH`. No intermediate span
+matrix, coboundary primitive, or credit/deficit decomposition is required.
+The analytic existence of the witness geometry remains open.
+
 ## Orbit-sum pin realized, 2026-09-21
 
 [074](074_orbit_sum_pin_after_1799.md) records the orbit-sum pin (record
