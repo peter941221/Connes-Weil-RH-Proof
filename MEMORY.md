@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-22 ConnesWeilRH/Dev/C1P2EvenOddGateDecomposition.lean + Audit + docs/map/README.md + docs/map/080_c3p_signed_certificate_owner.md : formally read the strict healthy detector local-sum positivity back as `0 < ICgate g.convolutionSquare` on the same triple-vanishing owner. This fixes the selected detector's gate orientation for the parity branch; build 3807 jobs clean, zero error/sorryAx, standard axioms.
+
 2026-09-22 ConnesWeilRH/Dev/C1P2EvenOddGateDecomposition.lean + Audit + docs/map/README.md + docs/map/080_c3p_signed_certificate_owner.md + docs/proofs/1808_c3p_even_odd_opposite_sign_branch.md : formally added the opposite-sign even/odd C3 branch; zero cross gate plus positive/negative diagonals gives a strict negative discriminant and a nonpositive two-span quadratic form. Build 3807 jobs clean, zero error/sorryAx, standard axioms; selected-detector sign and detection preservation remain open.
 
 2026-09-22 ConnesWeilRH/Dev/C1P2EvenOddGateDecomposition.lean + Audit + docs/proofs/1807_c3p_even_odd_discriminant_route_audit.md : formally ruled out an unconstrained two-test C3 determinant estimate via even/odd cross cancellation and positive diagonal gates; selected-detector phase-lock remains open. Build 3807 jobs clean, zero error/sorryAx, standard axioms.

@@ -102,6 +102,16 @@ quadratic form. This is a genuine route condition, but the existing orbit
 detector does not yet prove the required opposite signs or that the resulting
 combination retains detection. The C3 sign and RH remain open.
 
+## C3' Round 2D detector gate orientation, 2026-09-22
+
+The actual `HealthyYoshidaDetectorData` owner now formally implies a strict
+positive complete `ICgate` for its convolution square. This is the direct
+same-owner readback of its already formal strict negative `qw`; it is not a
+new sign assumption. Consequently, parity decomposition cannot obtain the
+needed C3 producer by treating the selected detector itself as a negative
+diagonal. The remaining parity possibility is an independently certified
+negative odd/even component together with node and detection preservation.
+
 ## Orbit-sum pin realized, 2026-09-21
 
 [074](074_orbit_sum_pin_after_1799.md) records the orbit-sum pin (record

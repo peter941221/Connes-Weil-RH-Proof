@@ -72,6 +72,15 @@ This is formal route evidence, not a sign result for the selected orbit
 detector: opposite diagonal signs and preservation of the detector's zero and
 detection data are still unproved.
 
+## Round 2D detector gate orientation (2026-09-22)
+
+The declaration `ICgate_pos_of_healthyDetectorData` now reads the strict
+positive healthy local sum back through the triple-vanishing identity and
+proves `0 < ICgate g.convolutionSquare` for the actual detector owner. Thus
+the selected detector is on the positive-gate side of the parity split. A
+future negative component may still be useful, but it must be constructed
+with its own three-node vanishing and detection-preservation proof.
+
 Formal follow-up: `C1C3CarrierFourierShift.lean` proves the exact same-owner
 frequency transport
 `Fourier(carrierModulate gamma f, xi) = Fourier(f, xi + gamma/(2*pi))`,

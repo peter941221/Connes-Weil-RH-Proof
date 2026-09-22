@@ -221,6 +221,17 @@ theorem exists_twoSpan_gate_qform_nonpos_of_even_odd_opposite_sign
   simp [hcrossfg, hcrossgf]
   nlinarith [hdisc0]
 
+theorem ICgate_pos_of_healthyDetectorData
+    {rho : ℂ} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g) :
+    0 < ICgate g.convolutionSquare := by
+  have hpositive := hdata.weilSquareSumPositive
+  rw [C1.healthyWeilSquareReadoff] at hpositive
+  rw [qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple
+    g hdata.vanishesOnF] at hpositive
+  unfold ICgate
+  linarith
+
 theorem finitePrimeSum_convolutionSquare_sumTest_eq_add_of_even_odd
     (f g : CompactLogTest)
     (hf : ∀ x : ℝ, f.test (-x) = f.test x)
