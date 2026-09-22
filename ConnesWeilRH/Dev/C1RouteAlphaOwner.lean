@@ -134,6 +134,44 @@ theorem routeAlpha_target_card_norm_le_four (rho : ℂ) :
     Nat.cast_nonneg _
   nlinarith [hcard0]
 
+/-- The real-part envelope on the route-alpha register is controlled by the
+real strip of the selected zero, with no dependence on its imaginary height. -/
+theorem routeAlphaRealPartBound_le_four_exp
+    (rho : ℂ) (a b : ℝ) (hrho0 : 0 ≤ rho.re) (hrho1 : rho.re ≤ 1) :
+    windowTaperRealPartBound a b (routeAlphaNodes rho) ≤
+      4 * Real.exp (max |a| |b|) := by
+  have hnode : ∀ z : routeAlphaIndex rho,
+      |(routeAlphaNodes rho z).re| ≤ 1 := by
+    intro z
+    have hz : z.1 = 0 ∨ z.1 = (1 / 2 : ℂ) ∨ z.1 = 1 ∨ z.1 = rho := by
+      simpa [routeAlphaIndex, healthyDetectorNodeSet] using z.2
+    change |z.1.re| ≤ 1
+    rcases hz with h | h | h | h
+    · rw [h]
+      simp
+    · rw [h]
+      norm_num
+    · rw [h]
+      norm_num
+    · rw [h, abs_of_nonneg hrho0]
+      exact hrho1
+  unfold windowTaperRealPartBound
+  calc
+    ∑ i : routeAlphaIndex rho,
+        Real.exp (|(routeAlphaNodes rho i).re| * max |a| |b|)
+        ≤ ∑ i : routeAlphaIndex rho, Real.exp (1 * max |a| |b|) := by
+          apply Finset.sum_le_sum
+          intro i hi
+          exact Real.exp_le_exp.mpr (mul_le_mul_of_nonneg_right
+            (hnode i) (by positivity))
+    _ = (Fintype.card (routeAlphaIndex rho) : ℝ) *
+        Real.exp (max |a| |b|) := by
+          simp [Finset.sum_const, Finset.card_univ]
+    _ ≤ 4 * Real.exp (max |a| |b|) := by
+          exact mul_le_mul_of_nonneg_right
+            (by exact_mod_cast routeAlphaIndex_card_le_four rho)
+            (Real.exp_pos _).le
+
 instance routeAlphaIndex_nonempty (rho : ℂ) :
     Nonempty (routeAlphaIndex rho) :=
   ⟨⟨(0 : ℂ), by simp [healthyDetectorNodeSet]⟩⟩

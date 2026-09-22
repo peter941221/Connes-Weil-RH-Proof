@@ -379,3 +379,19 @@ paired-audited, and preserves the remaining obligation as an explicit
 threshold certificate.  No threshold supplier, detector-specific positivity,
 or RH conclusion has been added.  See proof record 1880 and
 `taper-threshold-20260923a.log`.
+
+## 31. Real-part taper envelope (record 1883)
+
+The taper branch now also exposes the exact real-axis exponential envelope:
+`windowTaperRealPartBound` uses `abs (Re node)` instead of `||node||`, and
+`windowTaperComb_norm_bound_of_realPart` proves the corresponding pointwise
+bound.  The same-owner gap budget and strict-contraction consumers are
+available through the `_realPart` declarations.  This removes an avoidable
+dependence on the imaginary height of an off-line zero.
+
+For route-alpha's four-node family, under the standard strip conditions
+`0 <= Re rho <= 1`, record 1883 proves the explicit bound
+`windowTaperRealPartBound <= 4 * exp(max(|a|, |b|))`.  This is FORMAL and
+paired-audited.  It still supplies no lower bound for `alpha`, no verified
+strict threshold, no detector-specific semi-local positivity, and no RH.
+See proof record 1883 and `realpart-routealpha-1883d.log`.

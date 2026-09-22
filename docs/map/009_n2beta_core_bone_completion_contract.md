@@ -392,3 +392,14 @@ This is FORMAL target-side bookkeeping only.  It does not supply a positive
 lower bound for `alpha`, a small enough `windowTaperBound`, the open
 archimedean gate, detector-specific semi-local positivity, or RH.  See proof
 record 1882 and `route-target-card-20260923c.log`.
+
+## Real-part taper threshold input (record 1883)
+
+The taper owner now has a sharper real-axis envelope based on `abs (Re node)`
+rather than the full complex norm.  On route-alpha, the formal strip-side
+conditions `0 <= Re rho <= 1` imply
+`windowTaperRealPartBound <= 4 * exp(max(|a|, |b|))`.  This removes imaginary
+height from this particular envelope and is a FORMAL input to the `_realPart`
+strict-contraction consumer.  It does not prove the Gram-gap lower bound,
+the threshold, the open gate sign, detector-specific semi-local positivity,
+or RH.  See proof record 1883 and `realpart-routealpha-1883d.log`.

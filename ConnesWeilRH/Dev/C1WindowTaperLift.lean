@@ -384,6 +384,12 @@ noncomputable def windowTaperBound {ι : Type*} [Fintype ι]
     (a b : ℝ) (nodes : ι → ℂ) : ℝ :=
   ∑ i : ι, Real.exp (‖nodes i‖ * max |a| |b|)
 
+/-- A sharper representer envelope on the real axis.  The modulus of
+`exp (conj z * x)` depends on `Re z`, not on the imaginary height of `z`. -/
+noncomputable def windowTaperRealPartBound {ι : Type*} [Fintype ι]
+    (a b : ℝ) (nodes : ι → ℂ) : ℝ :=
+  ∑ i : ι, Real.exp (|(nodes i).re| * max |a| |b|)
+
 /-- The representer combination is uniformly bounded on the window by
 `‖coeff‖ * windowTaperBound`. -/
 theorem windowTaperComb_norm_bound {ι : Type*} [Fintype ι] (a b : ℝ)
@@ -421,6 +427,45 @@ theorem windowTaperComb_norm_bound {ι : Type*} [Fintype ι] (a b : ℝ)
     show ∑ i : ι, ‖coeff‖ * Real.exp (‖nodes i‖ * max |a| |b|)
         = ‖coeff‖ * windowTaperBound a b nodes
     rw [windowTaperBound, ← Finset.mul_sum]
+
+/-- A real-part version of the representer bound, avoiding imaginary-height
+inflation in the exponential envelope. -/
+theorem windowTaperComb_norm_bound_of_realPart
+    {ι : Type*} [Fintype ι] (a b : ℝ) (nodes : ι → ℂ)
+    (coeff : ι → ℂ) (x : ℝ) (hx : x ∈ Set.Icc a b) :
+    ‖windowTaperComb nodes coeff x‖
+      ≤ ‖coeff‖ * windowTaperRealPartBound a b nodes := by
+  classical
+  refine (norm_sum_le Finset.univ
+      fun i => coeff i * Complex.exp (star (nodes i) * (x : ℂ))).trans
+    ((Finset.sum_le_sum (g := fun i =>
+        ‖coeff‖ * Real.exp (|(nodes i).re| * max |a| |b|)) fun i _ => ?_).trans ?_)
+  · have h1 : ‖coeff i‖ ≤ ‖coeff‖ := by
+      rw [Pi.norm_def]
+      exact mod_cast (Finset.le_sup (f := fun b : ι => ‖coeff b‖₊)
+        (Finset.mem_univ i))
+    have he : ‖Complex.exp (star (nodes i) * (x : ℂ))‖
+        = Real.exp ((nodes i).re * x) := by
+      rw [Complex.norm_exp]
+      have hre : (star (nodes i) * (x : ℂ)).re = (nodes i).re * x := by
+        simp [Complex.mul_re]
+      rw [hre]
+    have hre : (nodes i).re * x ≤ |(nodes i).re| * max |a| |b| := by
+      calc (nodes i).re * x ≤ |(nodes i).re * x| := le_abs_self _
+        _ = |(nodes i).re| * |x| := abs_mul _ _
+        _ ≤ |(nodes i).re| * max |a| |b| :=
+          mul_le_mul_of_nonneg_left (abs_le_max_abs a b x hx)
+            (abs_nonneg _)
+    calc ‖coeff i * Complex.exp (star (nodes i) * (x : ℂ))‖
+        = ‖coeff i‖ * ‖Complex.exp (star (nodes i) * (x : ℂ))‖ := norm_mul _ _
+      _ = ‖coeff i‖ * Real.exp ((nodes i).re * x) := by rw [he]
+      _ ≤ ‖coeff‖ * Real.exp (|(nodes i).re| * max |a| |b|) :=
+        mul_le_mul h1 (Real.exp_le_exp.mpr hre)
+          (Real.exp_pos _).le (norm_nonneg _)
+  · refine le_of_eq ?_
+    show ∑ i : ι, ‖coeff‖ * Real.exp (|(nodes i).re| * max |a| |b|)
+        = ‖coeff‖ * windowTaperRealPartBound a b nodes
+    rw [windowTaperRealPartBound, ← Finset.mul_sum]
 
 /-- Strict positivity of the untapered Gram energy off the origin: the
 pointwise bridge and the window independence of the exponential family. -/
@@ -722,6 +767,44 @@ theorem windowTaperCorrection_seminorm_zero_zero_le
         exact windowTaperComb_norm_bound a b nodes coeff x hxIcc
       _ = ‖coeff‖ * windowTaperBound a b nodes := by ring
 
+/-- The same seminorm estimate with the sharp real-part envelope. -/
+theorem windowTaperCorrection_seminorm_zero_zero_le_of_realPart
+    {ι : Type*} [Fintype ι] {a b : ℝ} (hab : a < b)
+    (nodes : ι → ℂ) (coeff : ι → ℂ) (τ : ℝ → ℝ)
+    (hτc : HasCompactSupport τ) (hτs : ContDiff ℝ ∞ τ)
+    (hsupp : Function.support τ ⊆ Set.Ioo a b)
+    (hτ0 : ∀ x, 0 ≤ τ x) (hτ1 : ∀ x, τ x ≤ 1) :
+    SchwartzMap.seminorm ℂ 0 0
+        (windowTaperCorrection nodes coeff τ hτc hτs).test ≤
+      ‖coeff‖ * windowTaperRealPartBound a b nodes := by
+  have hB : 0 ≤ windowTaperRealPartBound a b nodes := by
+    unfold windowTaperRealPartBound
+    positivity
+  apply SchwartzMap.seminorm_le_bound ℂ 0 0 _
+    (mul_nonneg (norm_nonneg coeff) hB)
+  intro x
+  simp only [pow_zero, one_mul, norm_iteratedFDeriv_zero]
+  by_cases hτx : τ x = 0
+  · rw [windowTaperCorrection_apply, hτx, Complex.ofReal_zero, zero_mul]
+    simpa using mul_nonneg (norm_nonneg coeff) hB
+  · have hxmem : x ∈ Function.support τ := by
+      simpa [Function.mem_support] using hτx
+    have hxIoo : x ∈ Set.Ioo a b := hsupp hxmem
+    have hxIcc : x ∈ Set.Icc a b := ⟨hxIoo.1.le, hxIoo.2.le⟩
+    have hτabs : |τ x| ≤ 1 := by
+      exact abs_le.mpr ⟨by linarith [hτ0 x], hτ1 x⟩
+    have hτnorm : ‖(τ x : ℂ)‖ ≤ 1 := by
+      simpa [Complex.norm_real] using hτabs
+    calc
+      ‖(windowTaperCorrection nodes coeff τ hτc hτs).test x‖ =
+          ‖(τ x : ℂ) * windowTaperComb nodes coeff x‖ := by
+            rw [windowTaperCorrection_apply]
+      _ = ‖(τ x : ℂ)‖ * ‖windowTaperComb nodes coeff x‖ := norm_mul _ _
+      _ ≤ 1 * (‖coeff‖ * windowTaperRealPartBound a b nodes) := by
+        gcongr
+        exact windowTaperComb_norm_bound_of_realPart a b nodes coeff x hxIcc
+      _ = ‖coeff‖ * windowTaperRealPartBound a b nodes := by ring
+
 /-- Same-owner seminorm budget obtained by combining the tapered Gram gap with
 the explicit taper representer bound. -/
 theorem windowTaperCorrection_seminorm_zero_zero_le_of_gap
@@ -756,6 +839,40 @@ theorem windowTaperCorrection_seminorm_zero_zero_le_of_gap
     _ ≤ ((Fintype.card ι : ℝ) * ‖y‖) * windowTaperBound a b nodes :=
           mul_le_mul_of_nonneg_right hcoeff hB
     _ = (Fintype.card ι : ℝ) * ‖y‖ * windowTaperBound a b nodes := by ring
+
+/-- Gap-weighted seminorm budget using the real-part envelope. -/
+theorem windowTaperCorrection_seminorm_zero_zero_le_of_gap_realPart
+    {ι : Type*} [Fintype ι] {a b : ℝ} (hab : a < b)
+    (nodes : ι → ℂ) (coeff y : ι → ℂ) (τ : ℝ → ℝ)
+    (hτc : HasCompactSupport τ) (hτs : ContDiff ℝ ∞ τ)
+    (hsupp : Function.support τ ⊆ Set.Ioo a b)
+    (hτ0 : ∀ x, 0 ≤ τ x) (hτ1 : ∀ x, τ x ≤ 1)
+    (α : ℝ) (hα : 0 < α)
+    (hgap : ∀ v : ι → ℂ, α * ‖v‖ ^ 2 ≤
+      (dotProduct (star v)
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v)).re)
+    (hsolve : Matrix.mulVec
+      (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) coeff = y) :
+    α * SchwartzMap.seminorm ℂ 0 0
+        (windowTaperCorrection nodes coeff τ hτc hτs).test ≤
+      (Fintype.card ι : ℝ) * ‖y‖ * windowTaperRealPartBound a b nodes := by
+  have hcoeff := windowTaperGram_solve_norm_le_of_gap τ nodes α hα hgap
+    coeff y hsolve
+  have hseminorm := windowTaperCorrection_seminorm_zero_zero_le_of_realPart
+    hab nodes coeff τ hτc hτs hsupp hτ0 hτ1
+  have hB : 0 ≤ windowTaperRealPartBound a b nodes := by
+    unfold windowTaperRealPartBound
+    positivity
+  calc
+    α * SchwartzMap.seminorm ℂ 0 0
+          (windowTaperCorrection nodes coeff τ hτc hτs).test
+        ≤ α * (‖coeff‖ * windowTaperRealPartBound a b nodes) := by
+          exact mul_le_mul_of_nonneg_left hseminorm hα.le
+    _ = (α * ‖coeff‖) * windowTaperRealPartBound a b nodes := by ring
+    _ ≤ ((Fintype.card ι : ℝ) * ‖y‖) * windowTaperRealPartBound a b nodes :=
+          mul_le_mul_of_nonneg_right hcoeff hB
+    _ = (Fintype.card ι : ℝ) * ‖y‖ * windowTaperRealPartBound a b nodes := by ring
 
 /-- Package the flat-taper hypotheses into the explicit inverse-solve owner and
 its gap-weighted seminorm budget. -/
@@ -814,6 +931,31 @@ theorem strict_taper_correction_of_gap_budget
     2 * SchwartzMap.seminorm ℂ 0 0
         (windowTaperCorrection nodes coeff τ hτc hτs).test < 1 := by
   have hsem := windowTaperCorrection_seminorm_zero_zero_le_of_gap
+    hab nodes coeff y τ hτc hτs hsupp hτ0 hτ1 α hα hgap hsolve
+  have hnonneg : 0 ≤ SchwartzMap.seminorm ℂ 0 0
+      (windowTaperCorrection nodes coeff τ hτc hτs).test := by
+    positivity
+  nlinarith [hsem, hbudget, hα]
+
+/-- Strict contraction from the sharper real-part envelope. -/
+theorem strict_taper_correction_of_gap_budget_realPart
+    {ι : Type*} [Fintype ι] {a b : ℝ} (hab : a < b)
+    (nodes : ι → ℂ) (coeff y : ι → ℂ) (τ : ℝ → ℝ)
+    (hτc : HasCompactSupport τ) (hτs : ContDiff ℝ ∞ τ)
+    (hsupp : Function.support τ ⊆ Set.Ioo a b)
+    (hτ0 : ∀ x, 0 ≤ τ x) (hτ1 : ∀ x, τ x ≤ 1)
+    (α : ℝ) (hα : 0 < α)
+    (hgap : ∀ v : ι → ℂ, α * ‖v‖ ^ 2 ≤
+      (dotProduct (star v)
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v)).re)
+    (hsolve : Matrix.mulVec
+      (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) coeff = y)
+    (hbudget : 2 * ((Fintype.card ι : ℝ) * ‖y‖ *
+        windowTaperRealPartBound a b nodes) < α) :
+    2 * SchwartzMap.seminorm ℂ 0 0
+        (windowTaperCorrection nodes coeff τ hτc hτs).test < 1 := by
+  have hsem := windowTaperCorrection_seminorm_zero_zero_le_of_gap_realPart
     hab nodes coeff y τ hτc hτs hsupp hτ0 hτ1 α hα hgap hsolve
   have hnonneg : 0 ≤ SchwartzMap.seminorm ℂ 0 0
       (windowTaperCorrection nodes coeff τ hτc hτs).test := by
