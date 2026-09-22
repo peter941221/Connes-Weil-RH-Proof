@@ -1,0 +1,38 @@
+import ConnesWeilRH.Dev.C1P2DirectAbsorptionMajorant
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1P2DirectAbsorptionMajorantAudit
+
+open C1P2DirectAbsorptionMajorant
+
+#check @visiblePrimeWeightTerm_nonneg
+#print axioms visiblePrimeWeightTerm_nonneg
+
+#check @visiblePrimeWeightSum_nonneg
+#print axioms visiblePrimeWeightSum_nonneg
+
+#check @visibleChebyshevPrimeSum_nonneg
+#print axioms visibleChebyshevPrimeSum_nonneg
+
+#check @sum_weighted_profile_le_weightSum_mul_bound
+#print axioms sum_weighted_profile_le_weightSum_mul_bound
+
+#check @absorptionWitness_of_uniform_profile_bound
+#print axioms absorptionWitness_of_uniform_profile_bound
+
+#check @riemannHypothesis_of_uniform_profile_bounds
+#print axioms riemannHypothesis_of_uniform_profile_bounds
+
+#check @visiblePrimeWeightSum_le_chebyshev
+#print axioms visiblePrimeWeightSum_le_chebyshev
+
+#check @absorptionWitness_of_chebyshev_bound
+#print axioms absorptionWitness_of_chebyshev_bound
+
+#check @riemannHypothesis_of_chebyshev_bounds
+#print axioms riemannHypothesis_of_chebyshev_bounds
+
+end C1P2DirectAbsorptionMajorantAudit
+end Source
+end ConnesWeilRH

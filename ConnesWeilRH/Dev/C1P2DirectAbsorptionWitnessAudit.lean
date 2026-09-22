@@ -1,0 +1,44 @@
+import ConnesWeilRH.Dev.C1P2DirectAbsorptionWitness
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1P2DirectAbsorptionWitnessAudit
+
+open C1P2DirectAbsorptionWitness
+
+#check @absorption_iff_weilGeometricEnergy_nonpos
+#print axioms absorption_iff_weilGeometricEnergy_nonpos
+
+#check @orbitWindowSemiLocalGate_of_absorptionWitness
+#print axioms orbitWindowSemiLocalGate_of_absorptionWitness
+
+#check @sourceRH_of_absorptionWitnesses
+#print axioms sourceRH_of_absorptionWitnesses
+
+#check @riemannHypothesis_of_absorptionWitnesses
+#print axioms riemannHypothesis_of_absorptionWitnesses
+
+#check @absorptionWitness_of_margin
+#print axioms absorptionWitness_of_margin
+
+#check @absorptionWitness_of_norm_absorption
+#print axioms absorptionWitness_of_norm_absorption
+
+#check @absorptionWitness_of_range_majorant
+#print axioms absorptionWitness_of_range_majorant
+
+#check @absorptionWitness_of_signedBudget
+#print axioms absorptionWitness_of_signedBudget
+
+#check @absorptionWitness_of_componentwise_nonpos
+#print axioms absorptionWitness_of_componentwise_nonpos
+
+#check @riemannHypothesis_of_marginWitnesses
+#print axioms riemannHypothesis_of_marginWitnesses
+
+#check @riemannHypothesis_of_rangeMajorantWitnesses
+#print axioms riemannHypothesis_of_rangeMajorantWitnesses
+
+end C1P2DirectAbsorptionWitnessAudit
+end Source
+end ConnesWeilRH

@@ -152,6 +152,24 @@ The derivative identity and endpoint boundary conditions are formal for
 `Q(t) = t * F(t)` and `residual(t) = -t * F'(t)`. The residual signed budget
 remains the open obligation; no sign or RH claim.
 
+## Direct absorption majorant and prime weight factoring (Option A), 2026-09-22
+
+[084](084_direct_absorption_majorant_factoring.md) records the formal
+factoring of the finite visible-prime majorant into an arithmetic prime weight
+sum and a uniform profile bound `B`: `C1P2DirectAbsorptionMajorant.lean` proves
+that existence of a uniform profile bound satisfying
+`visiblePrimeWeightSum * B <= - archimedeanTerm` (or Chebyshev bound) for each
+hypothetical right zero directly implies Mathlib's canonical `RiemannHypothesis`.
+
+## Direct absorption witness architecture (Option A), 2026-09-22
+
+[083](083_direct_absorption_witness_architecture.md) records the formal
+packaged witness contract `OrbitG8AbsorptionWitness` for Option A:
+`C1P2DirectAbsorptionWitness.lean` proves that existence of absorption
+witnesses (or margin witnesses, or range profile majorant witnesses) for each
+hypothetical right zero directly implies Mathlib's canonical `RiemannHypothesis`.
+
+
 ## Direct semi-local gate assault (Option A), 2026-09-22
 
 [082](082_direct_semilocal_gate_assault.md) records the direct unadorned
@@ -161,6 +179,7 @@ existence of an `OrbitG8Geometry` whose selected test satisfies
 negative Archimedean margin) directly implies `SourceRH`. No intermediate span
 matrix, coboundary primitive, or credit/deficit decomposition is required.
 The analytic existence of the witness geometry remains open.
+
 
 ## Orbit-sum pin realized, 2026-09-21
 
