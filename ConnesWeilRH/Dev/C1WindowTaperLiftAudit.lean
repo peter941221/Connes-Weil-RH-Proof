@@ -29,6 +29,7 @@ open ConnesWeilRH.Source.C1WindowTaperLift
 #print axioms windowTaperSliver_bound
 #print axioms windowTaperCorrection_apply
 #print axioms windowTaperCorrection_support
+#print axioms windowTaperCorrection_seminorm_zero_zero_le
 #print axioms windowTaperCorrection_laplaceAt
 #print axioms windowTaperCorrection_cost_le
 #print axioms windowTaperCorrection_budget

@@ -439,6 +439,47 @@ theorem windowTaperCorrection_support {ι : Type*} [Fintype ι]
   rw [hz, Complex.ofReal_zero, zero_mul] at hne
   exact hne rfl
 
+/-! The explicit taper owner has a zero-order seminorm bound in terms of its
+coefficient vector.  This is the bridge from the Gram-selected owner to the
+existing strict base-contraction consumers. -/
+theorem windowTaperCorrection_seminorm_zero_zero_le
+    {ι : Type*} [Fintype ι] {a b : ℝ} (hab : a < b)
+    (nodes : ι → ℂ) (coeff : ι → ℂ) (τ : ℝ → ℝ)
+    (hτc : HasCompactSupport τ) (hτs : ContDiff ℝ ∞ τ)
+    (hsupp : Function.support τ ⊆ Set.Ioo a b)
+    (hτ0 : ∀ x, 0 ≤ τ x) (hτ1 : ∀ x, τ x ≤ 1) :
+    SchwartzMap.seminorm ℂ 0 0
+        (windowTaperCorrection nodes coeff τ hτc hτs).test ≤
+      ‖coeff‖ * windowTaperBound a b nodes := by
+  have hB : 0 ≤ windowTaperBound a b nodes := by
+    unfold windowTaperBound
+    positivity
+  apply SchwartzMap.seminorm_le_bound ℂ 0 0 _
+    (mul_nonneg (norm_nonneg coeff) hB)
+  intro x
+  simp only [pow_zero, one_mul, norm_iteratedFDeriv_zero]
+  by_cases hτx : τ x = 0
+  ·
+    rw [windowTaperCorrection_apply, hτx, Complex.ofReal_zero, zero_mul]
+    simpa using mul_nonneg (norm_nonneg coeff) hB
+  · have hxmem : x ∈ Function.support τ := by
+      simpa [Function.mem_support] using hτx
+    have hxIoo : x ∈ Set.Ioo a b := hsupp hxmem
+    have hxIcc : x ∈ Set.Icc a b := ⟨hxIoo.1.le, hxIoo.2.le⟩
+    have hτabs : |τ x| ≤ 1 := by
+      exact abs_le.mpr ⟨by linarith [hτ0 x], hτ1 x⟩
+    have hτnorm : ‖(τ x : ℂ)‖ ≤ 1 := by
+      simpa [Complex.norm_real] using hτabs
+    calc
+      ‖(windowTaperCorrection nodes coeff τ hτc hτs).test x‖ =
+          ‖(τ x : ℂ) * windowTaperComb nodes coeff x‖ := by
+            rw [windowTaperCorrection_apply]
+      _ = ‖(τ x : ℂ)‖ * ‖windowTaperComb nodes coeff x‖ := norm_mul _ _
+      _ ≤ 1 * (‖coeff‖ * windowTaperBound a b nodes) := by
+        gcongr
+        exact windowTaperComb_norm_bound a b nodes coeff x hxIcc
+      _ = ‖coeff‖ * windowTaperBound a b nodes := by ring
+
 /-- The tapered owner realizes the solved system's values: `laplaceAt f sⱼ`
 is the `j`-th entry of the tapered Gram applied to the coefficients. -/
 theorem windowTaperCorrection_laplaceAt {ι : Type*} [Fintype ι] {a b : ℝ}

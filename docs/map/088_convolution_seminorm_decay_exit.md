@@ -311,3 +311,13 @@ is no longer an open premise.  The remaining quantitative task is the actual
 coefficient bound for the selected sparse correction.  Detector-specific
 signed semi-local positivity and RH remain open.  See proof record 1874 and
 `unit-bounded-contraction-1874a.log`.
+
+## 25. Explicit taper-owner seminorm bridge (record 1875)
+
+The existing Gram/taper owner now has a formal zero-order seminorm estimate:
+`windowTaperCorrection_seminorm_zero_zero_le` bounds its seminorm by
+`||coeff|| * windowTaperBound`.  This provides a second same-owner route to
+the geometric contraction consumer, alongside the unit-bounded source basis.
+The remaining input is the quantitative norm bound for the explicit Gram
+inverse coefficient vector; no strict budget or positivity is claimed.  See
+proof record 1875 and `taper-seminorm-1875d.log`.
