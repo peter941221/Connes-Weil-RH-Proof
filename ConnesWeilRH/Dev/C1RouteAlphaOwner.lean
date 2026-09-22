@@ -79,6 +79,7 @@ open C1CompactLogL2Export
 open C1WindowMellinGram
 open C1WindowMellinIndependence
 open C1WindowTaperLift
+open C1WindowTaperCore
 open C1WindowTaperAssembly
 open C1QuantitativeConsumer
 open CC20YoshidaNearZeros
@@ -183,6 +184,69 @@ theorem routeAlphaRealPartBound_le_four_exp_of_sourceNontrivialZero
   exact routeAlphaRealPartBound_le_four_exp rho a b
     (sourceNontrivialZero_zero_lt_re hrho).le
     (sourceNontrivialZero_re_lt_one hrho).le
+
+/-- The current real-part strict-budget shape cannot fit a route-alpha owner
+on an interval of length at most one: the zero-node Gram upper ceiling forces
+`alpha <= b - a`, while the target and nonempty index already force the budget
+to demand `alpha > 2`. -/
+theorem routeAlpha_realPart_gap_budget_impossible_of_interval_length_le_one
+    (rho : ℂ) {a b : ℝ} (hab : a < b) (hwidth : b - a ≤ 1)
+    (τ : ℝ → ℝ) (hτc : Continuous τ) (hτ1 : ∀ x, τ x ≤ 1)
+    (α : ℝ)
+    (hgap : ∀ v : routeAlphaIndex rho → ℂ, α * ‖v‖ ^ 2 ≤
+      (dotProduct (star v)
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ))
+            (routeAlphaNodes rho)) v)).re)
+    (hbudget : 2 * ((Fintype.card (routeAlphaIndex rho) : ℝ) *
+        ‖healthyDetectorNodeTarget rho‖ *
+          windowTaperRealPartBound a b (routeAlphaNodes rho)) < α) :
+    False := by
+  let i₀ : routeAlphaIndex rho :=
+    ⟨(0 : ℂ), by simp [healthyDetectorNodeSet]⟩
+  letI : Nonempty (routeAlphaIndex rho) := ⟨i₀⟩
+  have hgapUpper : α ≤ b - a :=
+    windowTaperGram_gap_le_interval_length_of_zero_node hab τ hτc hτ1
+      (routeAlphaNodes rho) i₀ (by simp [routeAlphaNodes, i₀]) α hgap
+  have hcard : (1 : ℝ) ≤ Fintype.card (routeAlphaIndex rho) := by
+    have hpos : 0 < Fintype.card (routeAlphaIndex rho) :=
+      Fintype.card_pos_iff.mpr inferInstance
+    exact_mod_cast hpos
+  let irho : routeAlphaIndex rho :=
+    ⟨rho, by simp [healthyDetectorNodeSet]⟩
+  have htarget : (1 : ℝ) ≤ ‖healthyDetectorNodeTarget rho‖ := by
+    have hpoint : ‖healthyDetectorNodeTarget rho irho‖ = 1 := by
+      simp [healthyDetectorNodeTarget, irho]
+    have hpoint_le :=
+      norm_le_pi_norm (f := healthyDetectorNodeTarget rho) irho
+    rw [hpoint] at hpoint_le
+    exact hpoint_le
+  have hbound : (1 : ℝ) ≤ windowTaperRealPartBound a b
+      (routeAlphaNodes rho) := by
+    unfold windowTaperRealPartBound
+    have hterm : (1 : ℝ) ≤
+        Real.exp (|(routeAlphaNodes rho i₀).re| * max |a| |b|) := by
+      apply Real.one_le_exp
+      positivity
+    exact hterm.trans (Finset.single_le_sum (s := (Finset.univ :
+      Finset (routeAlphaIndex rho))) (f := fun i =>
+        Real.exp (|(routeAlphaNodes rho i).re| * max |a| |b|))
+      (fun i _ => (Real.exp_pos _).le) (Finset.mem_univ i₀))
+  have hcardNorm : (1 : ℝ) ≤
+      (Fintype.card (routeAlphaIndex rho) : ℝ) *
+        ‖healthyDetectorNodeTarget rho‖ := by
+    simpa using (mul_le_mul hcard htarget (by norm_num) (by positivity))
+  have hprod : (1 : ℝ) ≤
+      (Fintype.card (routeAlphaIndex rho) : ℝ) *
+        ‖healthyDetectorNodeTarget rho‖ *
+          windowTaperRealPartBound a b (routeAlphaNodes rho) := by
+    simpa using (mul_le_mul hcardNorm hbound (by positivity) (by positivity))
+  have htwo : (2 : ℝ) ≤ 2 * ((Fintype.card (routeAlphaIndex rho) : ℝ) *
+      ‖healthyDetectorNodeTarget rho‖ *
+        windowTaperRealPartBound a b (routeAlphaNodes rho)) := by
+    nlinarith
+  have hgt : (2 : ℝ) < α := lt_of_le_of_lt htwo hbudget
+  linarith
 
 instance routeAlphaIndex_nonempty (rho : ℂ) :
     Nonempty (routeAlphaIndex rho) :=

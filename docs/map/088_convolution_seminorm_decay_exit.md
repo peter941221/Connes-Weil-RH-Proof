@@ -407,3 +407,17 @@ contains this node, so this is a genuine constraint on any future threshold
 supplier.  It is an upper ceiling only; no positive lower bound, strict
 contraction, detector-specific positivity, or RH conclusion follows.  See
 proof record 1885 and `taper-gap-upper-1885c.log`.
+
+## 33. Route-alpha taper threshold no-go (record 1886)
+
+The current real-part strict budget is now formally ruled out on intervals of
+length at most one.  The zero-node Gram ceiling gives `alpha <= b - a`, while
+the nonempty route-alpha index, the target value at `rho`, and the positive
+real-part envelope force the strict budget to require `alpha > 2`.  Hence the
+two conditions cannot coexist when `b - a <= 1`.
+
+This is a scoped FORMAL no-go for this taper consumer, not an RH result and
+not a no-go for the healthy B5 route.  Further taper threshold work on this
+narrow owner is stopped; the live producer target returns to the C3' signed
+phase/physical-kernel budget.  See proof record 1886 and
+`route-alpha-threshold-nogo-1886d.log`.

@@ -414,3 +414,15 @@ the same `4 * exp(max(|a|, |b|))` bound without caller-side strip premises.
 This is FORMAL and audited only; alpha, the strict threshold, the gate sign,
 detector-specific semi-local positivity, and RH remain open.  See proof record
 1884 and `route-alpha-strip-1884a.log`.
+
+## Route-alpha taper threshold no-go (record 1886)
+
+The formal theorem
+`routeAlpha_realPart_gap_budget_impossible_of_interval_length_le_one` now
+shows that the real-part strict budget cannot hold on any interval with
+`b - a <= 1`: the zero-node gap ceiling forces `alpha <= b - a`, while the
+same-owner target and envelope factors force `alpha > 2`.  This is a scoped
+FORMAL no-go for the current taper consumer, not for the healthy B5 route as a
+whole.  Route-alpha taper work is therefore not a viable producer on the
+narrow ROOT window; the remaining N2beta sign and C3' signed-budget work stays
+open.  See proof record 1886 and `route-alpha-threshold-nogo-1886d.log`.
