@@ -67,3 +67,15 @@ riemannHypothesis_of_geometric_contraction_and_harmonicBudget :
 | 9. Geometric contraction master exit for RH          | Formal (Closed) |
 +------------------------------------------------------------------------+
 ```
+
+## 3. Producer-side reduction (record 1840)
+
+The new theorem `exists_nat_geometric_budget_of_base_contraction` formally
+reduces the orbit-index part of the budget obligation: if the selected base
+satisfies `2 * seminorm(base) < 1`, then its geometric upper bound eventually
+falls below every positive budget after multiplication by a fixed nonnegative
+correction seminorm. This is a FORMAL conditional reduction, not a producer
+existence theorem. The actual geometry constructor still has to realize the
+chosen index and its interpolation, tail, square-zero, support, and
+Archimedean-margin fields. The strict base contraction inequality remains
+open for the constructor-selected owner.

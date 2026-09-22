@@ -7,6 +7,7 @@ import ConnesWeilRH.Source.RHDefinition
 import ConnesWeilRH.Source.CC20YoshidaConvolution
 import ConnesWeilRH.Source.CCM25Concrete.CompactLogConvolution
 import ConnesWeilRH.Source.CCM25Concrete.CCM24FiniteSRootConvolutionNorm
+import Mathlib.Analysis.SpecificLimits.Basic
 import ConnesWeilRH.Dev.C1G8R0OrbitGeometry
 import ConnesWeilRH.Dev.C1P2OrbitPhysicalProfileReadback
 import ConnesWeilRH.Dev.C1P2DirectChebyshevDecoupling
@@ -239,6 +240,35 @@ theorem rawFactorSeminorm_le_geometric_bound
               SchwartzMap.seminorm ℂ 0 0 geometry.base.test) *
             SchwartzMap.seminorm ℂ 0 0 geometry.correction.test := by ring
   exact hbound.trans hmul
+
+/-! A quantitative producer-side reduction: once the base seminorm has a
+strict contraction factor, increasing the orbit index can meet any positive
+budget. This is deliberately separate from the geometry constructor: the
+constructor must still realize the chosen index together with its node and
+tail obligations. -/
+
+theorem exists_nat_geometric_budget_of_base_contraction
+    {sBase sCorrection budget : ℝ}
+    (hBaseNonneg : 0 ≤ sBase)
+    (hCorrectionNonneg : 0 ≤ sCorrection)
+    (hContract : 2 * sBase < 1)
+    (hBudget : 0 < budget) :
+    ∃ n : ℕ,
+      2 * ((2 * sBase) ^ n * sBase) * sCorrection ≤ budget := by
+  have hfactor_nonneg : 0 ≤ 2 * sBase := by positivity
+  have hpow : Filter.Tendsto (fun n : ℕ => (2 * sBase) ^ n)
+      Filter.atTop (nhds 0) :=
+    tendsto_pow_atTop_nhds_zero_of_lt_one hfactor_nonneg hContract
+  have hscaled :
+      Filter.Tendsto (fun n : ℕ => (2 * sBase) ^ n * (2 * sBase * sCorrection))
+        Filter.atTop (nhds 0) :=
+    by simpa using hpow.mul_const (2 * sBase * sCorrection)
+  obtain ⟨n, hn⟩ := (hscaled.eventually_lt_const hBudget).exists
+  refine ⟨n, ?_⟩
+  calc
+    2 * ((2 * sBase) ^ n * sBase) * sCorrection =
+        (2 * sBase) ^ n * (2 * sBase * sCorrection) := by ring
+    _ ≤ budget := hn.le
 
 /-- The raw factor seminorm of an OrbitG8Geometry is bounded by the product of the
     iterated base L¹ norm and the correction seminorm. -/
