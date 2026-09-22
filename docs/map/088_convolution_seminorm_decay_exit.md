@@ -208,3 +208,10 @@ The actual `affineResidualCorrection` now has a formal seminorm bound in
 terms of the finite support and coefficients of `windowedMellinRightInverse`.
 The remaining quantitative obligation is exactly the bound on that finite
 coefficient/basis sum; no hidden seminorm or tail constant is substituted.
+
+## 16. Explicit affine tail API (record 1861)
+
+The affine right-inverse correction now exports the same quadratic vertical-tail
+bound used by the existing producer. The explicit family can therefore replace
+the classical existential correction without losing the tail consumer. The
+finite coefficient/basis budget remains the quantitative gate.

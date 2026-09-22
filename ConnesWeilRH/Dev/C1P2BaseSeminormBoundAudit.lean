@@ -7,5 +7,6 @@ namespace ConnesWeilRH.Source.C1P2BaseSeminormBound
 #print axioms compactLogTestOfWindow_combination_seminorm_zero_zero_le_coeff_weighted_sum
 #print axioms strict_base_contraction_of_coeff_weighted_budget
 #print axioms affineResidualCorrection_seminorm_le_rightInverse_budget
+#print axioms affineResidualCorrection_with_quadratic_decay
 
 end ConnesWeilRH.Source.C1P2BaseSeminormBound

@@ -21,6 +21,7 @@ namespace Source
 namespace C1P2BaseSeminormBound
 
 open CC20YoshidaConvolution
+open CC20YoshidaConvolution.CompactLogTest
 open CC20YoshidaNearZeros
 open CC20YoshidaInterpolationNode
 open CC20YoshidaInterpolationNode.CC20YoshidaExpandedMomentNode
@@ -164,6 +165,37 @@ theorem affineResidualCorrection_seminorm_le_rightInverse_budget
     (windowedMellinRightInverse nodes (Real.exp lower) (Real.exp upper)
       (Real.exp_pos lower) (Real.exp_lt_one_iff.mpr hlower)
       (Real.one_lt_exp_iff.mpr hupper) y)
+
+theorem affineResidualCorrection_with_quadratic_decay
+    (nodes : Finset Complex) {lower upper : Real}
+    (hlower : lower < 0) (hupper : 0 < upper)
+    (y : FiniteMellinNode nodes → Complex) :
+    ∃ C : Real, 0 ≤ C ∧
+      ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+        ‖t / (2 * Real.pi)‖ ^ 2 *
+            ‖laplaceAt (affineResidualCorrection nodes hlower hupper y)
+              ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C := by
+  let a : Real := Real.exp lower
+  let b : Real := Real.exp upper
+  let ha : 0 < a := Real.exp_pos lower
+  let hb : 0 < b := Real.exp_pos upper
+  let ha_one : a < 1 := Real.exp_lt_one_iff.mpr hlower
+  let hone_b : 1 < b := Real.one_lt_exp_iff.mpr hupper
+  let coeffs := windowedMellinRightInverse nodes a b ha ha_one hone_b y
+  let source := windowedPositiveIntervalCompactTestCombination coeffs
+  have hsource_support :
+      Function.support
+          (fun x : Real =>
+            normalizedCC20ConcreteTestAlgebra.legacy.encode source x) ⊆
+        Set.Ioo a b := by
+    exact windowedPositiveIntervalCompactTestCombination_support_subset coeffs
+  obtain ⟨C, hC, hdecay⟩ :=
+    exists_uniform_laplaceAt_vertical_quadratic_decay source ha hb hsource_support
+  refine ⟨C, hC, ?_⟩
+  intro sigma hsigma t
+  have h := hdecay sigma hsigma t
+  simpa [affineResidualCorrection, a, b, ha, hb, ha_one, hone_b, coeffs, source]
+    using h
 
 end
 end C1P2BaseSeminormBound
