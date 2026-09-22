@@ -1266,6 +1266,27 @@ theorem carrierMixedDeterminantPhase_nonpos_of_signs
     nlinarith
   linarith
 
+theorem carrierMixedDeterminantPhase_nonpos_of_opposite_diagonal_signs
+    (γ : Real) (u v : CompactLogTest)
+    (hAu : carrierSquareArchimedeanTermPhase γ u ≤ 0)
+    (hAv : 0 ≤ carrierSquareArchimedeanTermPhase γ v)
+    (hPu : carrierSquarePrimePhaseSum γ u ≤ 0)
+    (hPv : 0 ≤ carrierSquarePrimePhaseSum γ v)
+    (hcross : 0 ≤ carrierPairArchimedeanTermPhase γ u v *
+      carrierPairPrimePhaseSum γ u v) :
+    carrierMixedDeterminantPhase γ u v ≤ 0 := by
+  unfold carrierMixedDeterminantPhase
+  have h₁ : carrierSquareArchimedeanTermPhase γ u *
+        carrierSquarePrimePhaseSum γ v ≤ 0 :=
+    mul_nonpos_of_nonpos_of_nonneg hAu hPv
+  have h₂ : carrierSquareArchimedeanTermPhase γ v *
+        carrierSquarePrimePhaseSum γ u ≤ 0 :=
+    mul_nonpos_of_nonneg_of_nonpos hAv hPu
+  have h₃ : -(2 * carrierPairArchimedeanTermPhase γ u v *
+        carrierPairPrimePhaseSum γ u v) ≤ 0 := by
+    nlinarith
+  linarith
+
 theorem carrierPrimeDeterminantPhase_signed_expansion
     (γ : Real) (u v : CompactLogTest) :
     carrierPrimeDeterminantPhase γ u v =
@@ -1436,6 +1457,52 @@ theorem carrier_twoSpan_optimal_nonpos_of_opposite_prime_signs
   apply (carrier_twoSpan_phase_budget_iff_optimal_nonpos γ u v hB).mpr
   exact carrier_twoSpan_phase_budget_of_opposite_prime_signs γ u v
     harch hmixed hu hv
+
+theorem carrier_twoSpan_phase_budget_of_opposite_diagonal_signs
+    (γ : Real) (u v : CompactLogTest)
+    (hAu : carrierSquareArchimedeanTermPhase γ u ≤ 0)
+    (hAv : 0 ≤ carrierSquareArchimedeanTermPhase γ v)
+    (hPu : carrierSquarePrimePhaseSum γ u ≤ 0)
+    (hPv : 0 ≤ carrierSquarePrimePhaseSum γ v)
+    (hcross : 0 ≤ carrierPairArchimedeanTermPhase γ u v *
+      carrierPairPrimePhaseSum γ u v) :
+    carrierArchimedeanDeterminantPhase γ u v +
+      carrierMixedDeterminantPhase γ u v +
+        carrierPrimeDeterminantPhase γ u v ≤ 0 := by
+  have harch : carrierArchimedeanDeterminantPhase γ u v ≤ 0 := by
+    unfold carrierArchimedeanDeterminantPhase
+    have hprod : carrierSquareArchimedeanTermPhase γ u *
+          carrierSquareArchimedeanTermPhase γ v ≤ 0 :=
+      mul_nonpos_of_nonpos_of_nonneg hAu hAv
+    nlinarith [sq_nonneg (carrierPairArchimedeanTermPhase γ u v)]
+  have hmixed := carrierMixedDeterminantPhase_nonpos_of_opposite_diagonal_signs
+    γ u v hAu hAv hPu hPv hcross
+  have hprime := carrierPrimeDeterminantPhase_nonpos_of_opposite_sign γ u v hPu hPv
+  linarith
+
+theorem carrier_twoSpan_optimal_nonpos_of_opposite_diagonal_signs
+    (γ : Real) (u v : CompactLogTest)
+    (hB : 0 < ICgate (carrierModulate γ v).convolutionSquare)
+    (hAu : carrierSquareArchimedeanTermPhase γ u ≤ 0)
+    (hAv : 0 ≤ carrierSquareArchimedeanTermPhase γ v)
+    (hPu : carrierSquarePrimePhaseSum γ u ≤ 0)
+    (hPv : 0 ≤ carrierSquarePrimePhaseSum γ v)
+    (hcross : 0 ≤ carrierPairArchimedeanTermPhase γ u v *
+      carrierPairPrimePhaseSum γ u v) :
+    ((![1, -(
+        ICgate
+            ((carrierModulate γ u).involution.convolution
+              (carrierModulate γ v)) /
+          ICgate (carrierModulate γ v).convolutionSquare)] : Fin 2 → Real) ⬝ᵥ
+        (gateMatrix ![carrierModulate γ u, carrierModulate γ v] *ᵥ
+          (![1, -(
+              ICgate
+                  ((carrierModulate γ u).involution.convolution
+                    (carrierModulate γ v)) /
+                ICgate (carrierModulate γ v).convolutionSquare)] : Fin 2 → Real)) ≤ 0) := by
+  apply (carrier_twoSpan_phase_budget_iff_optimal_nonpos γ u v hB).mpr
+  exact carrier_twoSpan_phase_budget_of_opposite_diagonal_signs γ u v
+    hAu hAv hPu hPv hcross
 
 theorem orbitWindowSemiLocalGate_carrier_twoSpan_of_optimal_determinant
     (γ : Real) (u v : CompactLogTest) (B : Real)

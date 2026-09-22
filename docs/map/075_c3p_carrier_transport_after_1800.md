@@ -117,6 +117,13 @@ Archimedean determinant, this gives the complete two-span budget and the
 optimal q-form consumer. This is a conditional sign socket only: the actual
 selected detector still needs those sign certificates.
 
+The same record's stronger branch is now formal as well: `A_u <= 0 <= A_v`,
+`P_u <= 0 <= P_v`, and `0 <= A_pair * P_pair` imply the Archimedean,
+mixed, and prime determinant consumers are each nonpositive.  Hence the full
+two-span budget and optimal q-form follow without a separate determinant or
+mixed-margin premise.  The selected detector still has to supply these sign
+conditions.
+
 The same budget is also bounded by the exact visible-prime coefficient sum
 times the zero-order Schwartz seminorm of the envelope convolution square.
 This is still an owner-preserving upper bound; no continuous-prime or frozen
