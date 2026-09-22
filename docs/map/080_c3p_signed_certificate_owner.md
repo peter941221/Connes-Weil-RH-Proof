@@ -101,6 +101,21 @@ Evidence: `ConnesWeilRH/Dev/C1P2NegativeDiagonalCertificate.lean`, theorem
 build log `build-logs/1812_negative_diagonal_final.log` (formal, project
 candidate certificate).
 
+## Round 2F parity-compatible odd certificate (2026-09-22)
+
+The formal theorem `odd_ICgate_neg_of_narrow_budget` proves strict negativity
+of the complete gate for an explicitly odd `CompactLogTest` under a narrow
+support/mass/budget certificate. Unlike the D3-root certificate above, this
+socket carries the parity field consumed by the even/odd two-span route. Its
+prime term is zero by the same open log-2 support argument. Nodal vanishing,
+detection preservation, and the actual orbit detector's support/budget remain
+open, so this is a parity-compatible producer component rather than the C3'
+sign theorem.
+
+Evidence: `ConnesWeilRH/Dev/C1P2OddNegativeDiagonalCertificate.lean`, theorem
+`odd_ICgate_neg_of_narrow_budget`; build log
+`build-logs/1813_odd_negative.log` (formal, project candidate certificate).
+
 Formal follow-up: `C1C3CarrierFourierShift.lean` proves the exact same-owner
 frequency transport
 `Fourier(carrierModulate gamma f, xi) = Fourier(f, xi + gamma/(2*pi))`,

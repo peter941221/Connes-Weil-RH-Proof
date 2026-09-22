@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1P2OddNegativeDiagonalCertificate
+
+namespace ConnesWeilRH.Source.C1P2OddNegativeDiagonalCertificateAudit
+
+open ConnesWeilRH.Source.C1P2OddNegativeDiagonalCertificate
+
+#print axioms odd_ICgate_neg_of_narrow_budget
+
+end ConnesWeilRH.Source.C1P2OddNegativeDiagonalCertificateAudit

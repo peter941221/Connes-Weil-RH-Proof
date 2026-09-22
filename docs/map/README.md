@@ -112,6 +112,16 @@ needed C3 producer by treating the selected detector itself as a negative
 diagonal. The remaining parity possibility is an independently certified
 negative odd/even component together with node and detection preservation.
 
+## C3' Round 2E parity-compatible negative diagonal, 2026-09-22
+
+The formal theorem `odd_ICgate_neg_of_narrow_budget` now supplies a strict
+negative complete gate for any odd compact-log owner whose square is narrowly
+supported, has positive mass, and satisfies the narrow Archimedean budget.
+The proof is same-owner and prime-free, so it is directly compatible with the
+existing even/odd two-span consumer. It does not prove the required nodal
+equations, detector preservation, or the actual orbit-owner budget; Round 2
+therefore remains open.
+
 ## Orbit-sum pin realized, 2026-09-21
 
 [074](074_orbit_sum_pin_after_1799.md) records the orbit-sum pin (record
