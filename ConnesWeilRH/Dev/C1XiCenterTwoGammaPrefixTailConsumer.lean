@@ -58,6 +58,22 @@ theorem archimedeanTerm_neg_of_profilePrefix_bound_and_tailNorm_bound
     (profileTail_re_le_tailNorm F N).trans htail
   linarith
 
+/-- A strict finite-prefix margin provides an explicit lower bound on the negative
+    Archimedean term: `delta ≤ -archimedeanTerm F`. -/
+theorem delta_le_neg_archimedeanTerm_of_profilePrefix_bound_and_tailNorm_bound
+    (F : CompactLogTest) (N : Nat) (budget delta : Real)
+    (hprefix :
+      ((((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) *
+          F.test 0).re) +
+        (∑ n ∈ Finset.range N, gammaRArchProfileIntegral F n).re ≤
+          -(budget + delta))
+    (htail : gammaRArchProfileTailNorm F N ≤ budget) :
+    delta ≤ -C1SameOwnerWeil.archimedeanTerm F := by
+  rw [archimedeanTerm_eq_constant_add_profilePrefix_add_tail_re F N]
+  have htailRe : (gammaRArchProfileTail F N).re ≤ budget :=
+    (profileTail_re_le_tailNorm F N).trans htail
+  linarith
+
 end
 end C1XiCenterTwoGammaPrefixTailConsumer
 end Source

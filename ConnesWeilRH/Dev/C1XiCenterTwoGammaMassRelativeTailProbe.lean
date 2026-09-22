@@ -13,6 +13,7 @@ open CCM25Concrete.CompactLogConvolution
 #print axioms gammaRArchProfileTailNorm_le_mass_scaled_rate_of_support_lipschitz
 #print axioms archimedeanTerm_nonpos_of_mass_scaled_prefix_bound
 #print axioms archimedeanTerm_neg_of_mass_scaled_prefix_bound
+#print axioms delta_le_neg_archimedeanTerm_of_mass_scaled_prefix_bound
 
 example (g : CompactLogTest) :
     ‖g.convolutionSquare.test 0‖ =

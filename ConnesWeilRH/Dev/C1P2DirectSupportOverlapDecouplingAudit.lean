@@ -27,3 +27,5 @@ open ConnesWeilRH.Source.C1P2DirectSupportOverlapDecoupling
 #print axioms supportOverlapAbsorption_of_margin
 #print axioms sourceRH_of_supportOverlap_margin
 #print axioms riemannHypothesis_of_supportOverlap_margin
+#print axioms sourceRH_of_supportOverlap_seminorm_budget
+#print axioms riemannHypothesis_of_supportOverlap_seminorm_budget

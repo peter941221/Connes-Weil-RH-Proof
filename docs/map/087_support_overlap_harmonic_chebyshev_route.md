@@ -85,12 +85,36 @@ The support-overlap harmonic Chebyshev route achieves a major asymptotic reducti
      (delta <= -archimedeanTerm /\ orbitSupportOverlapBound <= delta) => RiemannHypothesis
    ```
 
+10. **Explicit Seminorm Budget Exit**:
+    Formally proved:
+    ```text
+    sourceRH_of_supportOverlap_seminorm_budget
+    riemannHypothesis_of_supportOverlap_seminorm_budget:
+      rawFactorSeminorm geometry <= S_max ->
+      2 * exp(L) * S_max^2 * visibleHarmonicChebyshevSum geometry <= delta ->
+      delta <= -archimedeanTerm g.convolutionSquare ->
+      RiemannHypothesis
+    ```
+
+11. **Mass-Scaled Archimedean Margin Producer**:
+    Formally proved in `C1XiCenterTwoGammaMassRelativeTail`:
+    ```text
+    delta_le_neg_archimedeanTerm_of_mass_scaled_prefix_bound:
+      prefix <= -(tailRate + delta) ->
+      delta <= -archimedeanTerm g.convolutionSquare
+    ```
+    supplying the exact Archimedean positive margin witness directly from the finite profile prefix and mass-scaled tail bound.
+
 ## 2. Formal Exit Chain
 
 ```text
-[Archimedean Positive Margin delta <= -archimedeanTerm]
+[Mass-Scaled Prefix/Tail Margin delta <= -archimedeanTerm]
            +
-[Seminorm Budget: orbitSupportOverlapBound <= delta]
+[Seminorm S <= S_max  /\  2 exp(L) S_max^2 H <= delta]
+           |
+           | (orbitSupportOverlapBound_le_of_seminorm_le)
+           v
+[orbitSupportOverlapBound <= delta]
            |
            | (supportOverlapAbsorption_of_margin)
            v

@@ -244,10 +244,36 @@ theorem riemannHypothesis_of_supportOverlap_margin
               delta ≤ -archimedeanTerm g.convolutionSquare ∧
               orbitSupportOverlapBound geometry ≤ delta) :
     _root_.RiemannHypothesis
+
+theorem sourceRH_of_supportOverlap_seminorm_budget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ delta : Real,
+              ∃ S_max : Real,
+                delta ≤ -archimedeanTerm g.convolutionSquare ∧
+                rawFactorSeminorm geometry ≤ S_max ∧
+                2 * Real.exp (rawFactorSupportRadius geometry) * S_max ^ 2 *
+                  visibleHarmonicChebyshevSum geometry ≤ delta) :
+    RHDefinitionBridge.standard.SourceRH
+
+theorem riemannHypothesis_of_supportOverlap_seminorm_budget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ delta : Real,
+              ∃ S_max : Real,
+                delta ≤ -archimedeanTerm g.convolutionSquare ∧
+                rawFactorSeminorm geometry ≤ S_max ∧
+                2 * Real.exp (rawFactorSupportRadius geometry) * S_max ^ 2 *
+                  visibleHarmonicChebyshevSum geometry ≤ delta) :
+    _root_.RiemannHypothesis
 ```
 
 This decouples the remaining analysis into two independent, quantitative tasks:
-1. Provide an Archimedean positive lower bound $\delta \le -\text{archimedeanTerm}(g \ast g)$ (guaranteed by frequency localization at $|\operatorname{Im} \rho| \ge 14.13 > \xi^*$, where the symbol $\sigma < 0$).
+1. Provide an Archimedean positive lower bound $\delta \le -\text{archimedeanTerm}(g \ast g)$ (formally supplied by `delta_le_neg_archimedeanTerm_of_mass_scaled_prefix_bound` in `C1XiCenterTwoGammaMassRelativeTail`).
 2. Bound the raw factor seminorm $S \le S_{\max}$ such that $2 e^L S_{\max}^2 \sum \frac{\Lambda(n)}{n} \le \delta$ (guaranteed by geometric decay of the $n$-fold convolution iterate).
 
 ---

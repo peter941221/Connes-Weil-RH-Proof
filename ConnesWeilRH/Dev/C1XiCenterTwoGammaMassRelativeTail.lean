@@ -172,6 +172,28 @@ theorem archimedeanTerm_neg_of_mass_scaled_prefix_bound
   exact gammaRArchProfileTailNorm_le_mass_scaled_rate g C hC hhead N
     hN
 
+/-- Strict lower bound on the negative Archimedean term from the mass-scaled prefix/tail assembly:
+    `delta ≤ -archimedeanTerm g.convolutionSquare`. -/
+theorem delta_le_neg_archimedeanTerm_of_mass_scaled_prefix_bound
+    (g : CompactLogTest) (C : Real) (N : Nat) (delta : Real)
+    (hC : 0 ≤ C) (hN : 0 < N)
+    (hhead :
+      ∀ (n : Nat) {y : Real},
+        0 < y → y ≤ supportRadius g.convolutionSquare + 1 →
+          ‖gammaRArchProfileTerm g.convolutionSquare n y‖ ≤
+            C * (g.convolutionSquare.test 0).re * y *
+              Real.exp (-(2 * (n : Real) * y)))
+    (hprefix :
+      ((((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) *
+          g.convolutionSquare.test 0).re) +
+        (∑ n ∈ Finset.range N,
+          gammaRArchProfileIntegral g.convolutionSquare n).re ≤
+          -(gammaRArchProfileTailMassRate g C N + delta)) :
+    delta ≤ -C1SameOwnerWeil.archimedeanTerm g.convolutionSquare := by
+  apply delta_le_neg_archimedeanTerm_of_profilePrefix_bound_and_tailNorm_bound
+    g.convolutionSquare N (gammaRArchProfileTailMassRate g C N) delta hprefix
+  exact gammaRArchProfileTailNorm_le_mass_scaled_rate g C hC hhead N hN
+
 end
 end C1XiCenterTwoGammaMassRelativeTail
 end Source

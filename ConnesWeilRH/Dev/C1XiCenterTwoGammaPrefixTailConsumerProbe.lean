@@ -7,6 +7,7 @@ open CCM25Concrete.CompactLogConvolution
 
 #print axioms archimedeanTerm_nonpos_of_profilePrefix_bound_and_tailNorm_bound
 #print axioms archimedeanTerm_neg_of_profilePrefix_bound_and_tailNorm_bound
+#print axioms delta_le_neg_archimedeanTerm_of_profilePrefix_bound_and_tailNorm_bound
 
 example (F : CompactLogTest) (N : Nat) (budget : Real)
     (hprefix :

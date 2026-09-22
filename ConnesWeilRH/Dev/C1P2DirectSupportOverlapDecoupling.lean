@@ -697,6 +697,47 @@ theorem riemannHypothesis_of_supportOverlap_margin
   obtain ⟨g, geometry, delta, hmargin, hsmall⟩ := hproducer rho hright
   exact ⟨g, geometry, hsmall.trans hmargin⟩
 
+/-- Master theorem with explicit seminorm budget: bounding the raw factor
+    seminorm below S_max and the S_max budget below delta implies SourceRH. -/
+theorem sourceRH_of_supportOverlap_seminorm_budget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ delta : Real,
+              ∃ S_max : Real,
+                delta ≤ -archimedeanTerm g.convolutionSquare ∧
+                rawFactorSeminorm geometry ≤ S_max ∧
+                2 * Real.exp (rawFactorSupportRadius geometry) * S_max ^ 2 *
+                  visibleHarmonicChebyshevSum geometry ≤ delta) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_supportOverlap_margin
+  intro rho hright
+  obtain ⟨g, geometry, delta, S_max, hmargin, hS, hbudget⟩ := hproducer rho hright
+  have hsmall := orbitSupportOverlapBound_le_of_seminorm_le geometry delta S_max hS hbudget
+  exact ⟨g, geometry, delta, hmargin, hsmall⟩
+
+/-- Master theorem with explicit seminorm budget: bounding the raw factor
+    seminorm below S_max and the S_max budget below delta implies Mathlib canonical
+    RiemannHypothesis. -/
+theorem riemannHypothesis_of_supportOverlap_seminorm_budget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ delta : Real,
+              ∃ S_max : Real,
+                delta ≤ -archimedeanTerm g.convolutionSquare ∧
+                rawFactorSeminorm geometry ≤ S_max ∧
+                2 * Real.exp (rawFactorSupportRadius geometry) * S_max ^ 2 *
+                  visibleHarmonicChebyshevSum geometry ≤ delta) :
+    _root_.RiemannHypothesis := by
+  apply riemannHypothesis_of_supportOverlap_margin
+  intro rho hright
+  obtain ⟨g, geometry, delta, S_max, hmargin, hS, hbudget⟩ := hproducer rho hright
+  have hsmall := orbitSupportOverlapBound_le_of_seminorm_le geometry delta S_max hS hbudget
+  exact ⟨g, geometry, delta, hmargin, hsmall⟩
+
 end
 end C1P2DirectSupportOverlapDecoupling
 end Source
