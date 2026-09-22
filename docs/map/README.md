@@ -77,6 +77,13 @@ same-owner interface. This is formal project evidence, not a positivity
 result. Round 2 is the genuine signed phase-budget estimate; the C3' sign and
 RH remain open.
 
+## C3' Round 2A signed-balance reduction, 2026-09-22
+
+The formal theorem `carrier_twoSpan_phase_budget_signed_balance` now expands
+the complete C3' budget into the same-owner Archimedean determinant and the
+explicit square/pair credit-deficit terms. This removes the remaining
+algebraic ambiguity but proves no sign; the genuine estimate is still open.
+
 ## Orbit-sum pin realized, 2026-09-21
 
 [074](074_orbit_sum_pin_after_1799.md) records the orbit-sum pin (record

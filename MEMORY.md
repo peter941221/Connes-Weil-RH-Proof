@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-22 ConnesWeilRH/Dev/C1C3CarrierTransport.lean + Audit + docs/proofs/1805_c3p_round2a_signed_balance.md : proved the full same-owner C3 phase-budget credit-deficit expansion; 3785-job focused build clean, zero error/sorryAx, standard axioms. The actual signed estimate remains open.
+
 2026-09-22 docs/proofs/1804_c3p_round1_owner_closure.md + docs/map/080_c3p_signed_certificate_owner.md + docs/map/README.md : closed C3' Round 1 at the same-owner formal interface; the exact three-term phase budget and gate are wired, while the signed estimate remains open.
 
 2026-09-21 docs/proofs/1764_full_icgate_cross_swap_symmetry.md + docs/map/072_full_icgate_cross_swap_symmetry.md + ConnesWeilRH/Dev/C1P2SpanProfileMatrix.lean + Audit : FORMALIZED full same-owner pair-gate symmetry, including complex finite-prime conjugation, visible index-set equality, finite-prime sum equality, and Archimedean equality. The two-span cross target is now one ICgate; signed C3 estimate remains open. Build 3784 jobs clean, zero error/sorryAx, standard axioms.

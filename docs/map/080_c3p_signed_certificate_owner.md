@@ -36,6 +36,15 @@ are formal interfaces. The paired Audit module is the axiom evidence for this
 boundary. Round 2 must prove the actual inequality; the existing sigma-tail
 results do not by themselves imply the detector-specific phase budget.
 
+## Round 2A signed-balance reduction (2026-09-22)
+
+The formal leaf now proves `carrier_twoSpan_phase_budget_signed_balance`.
+Together with the existing prime credit-deficit expansion, this rewrites the
+complete budget on one owner as the Archimedean determinant plus the two
+square credit-deficit terms, the pair credit-deficit term, and the residual
+prime determinant square. This is the exact estimate target for Round 2B; no
+term has been assigned a sign by this reduction.
+
 Evidence: `ConnesWeilRH/Dev/C1C3CarrierTransport.lean`, theorem
 `CarrierTwoSpanDeterminantCertificate.gate` (formal, project candidate
 owner); prior exact determinant split and phase readbacks are recorded in

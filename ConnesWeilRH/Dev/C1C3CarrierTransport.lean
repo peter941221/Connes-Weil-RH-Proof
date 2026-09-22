@@ -1239,6 +1239,38 @@ theorem carrierPrimeDeterminantPhase_signed_expansion
     carrierSquarePrimePhaseSum_eq_credit_sub_deficit,
     carrierPairPrimePhaseSum_eq_credit_sub_deficit]
 
+theorem carrierMixedDeterminantPhase_signed_expansion
+    (γ : Real) (u v : CompactLogTest) :
+    carrierMixedDeterminantPhase γ u v =
+      carrierSquareArchimedeanTermPhase γ u *
+          (carrierSquarePrimeCredit γ v - carrierSquarePrimeDeficit γ v) +
+        carrierSquareArchimedeanTermPhase γ v *
+          (carrierSquarePrimeCredit γ u - carrierSquarePrimeDeficit γ u) -
+        2 * carrierPairArchimedeanTermPhase γ u v *
+          (carrierPairPrimeCredit γ u v - carrierPairPrimeDeficit γ u v) := by
+  unfold carrierMixedDeterminantPhase
+  rw [carrierSquarePrimePhaseSum_eq_credit_sub_deficit,
+    carrierSquarePrimePhaseSum_eq_credit_sub_deficit,
+    carrierPairPrimePhaseSum_eq_credit_sub_deficit]
+
+theorem carrier_twoSpan_phase_budget_signed_balance
+    (γ : Real) (u v : CompactLogTest) :
+    carrierArchimedeanDeterminantPhase γ u v +
+      carrierMixedDeterminantPhase γ u v +
+        carrierPrimeDeterminantPhase γ u v =
+      carrierArchimedeanDeterminantPhase γ u v +
+        (carrierSquareArchimedeanTermPhase γ u *
+            (carrierSquarePrimeCredit γ v - carrierSquarePrimeDeficit γ v) +
+          carrierSquareArchimedeanTermPhase γ v *
+            (carrierSquarePrimeCredit γ u - carrierSquarePrimeDeficit γ u) -
+          2 * carrierPairArchimedeanTermPhase γ u v *
+            (carrierPairPrimeCredit γ u v - carrierPairPrimeDeficit γ u v)) +
+        ((carrierSquarePrimeCredit γ u - carrierSquarePrimeDeficit γ u) *
+            (carrierSquarePrimeCredit γ v - carrierSquarePrimeDeficit γ v) -
+          (carrierPairPrimeCredit γ u v - carrierPairPrimeDeficit γ u v) ^ 2) := by
+  rw [carrierMixedDeterminantPhase_signed_expansion,
+    carrierPrimeDeterminantPhase_signed_expansion]
+
 theorem carrier_twoSpan_determinant_split_phase
     (γ : Real) (u v : CompactLogTest) :
     ICgate (carrierModulate γ u).convolutionSquare *
