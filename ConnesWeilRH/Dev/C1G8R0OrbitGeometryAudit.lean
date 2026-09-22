@@ -23,6 +23,7 @@ namespace ConnesWeilRH.Source.C1G8R0OrbitGeometry
 #check finitePrimeSum_eq_sum_range_of_orbitG8Geometry
 #check orbitG8Geometry_of_indexed_raw_construction
 #check exists_healthyOrbitG8Geometry_of_sourceNontrivialZero_right
+#check exists_indexed_orbitG8Geometry_of_sourceNontrivialZero_right
 #check healthyDetectorData_of_orbitG8Geometry
 
 #print axioms exists_orbitG8Geometry_of_sourceNontrivialZero_right
@@ -30,6 +31,7 @@ namespace ConnesWeilRH.Source.C1G8R0OrbitGeometry
 #print axioms finitePrimeSum_eq_sum_range_of_orbitG8Geometry
 #print axioms orbitG8Geometry_of_indexed_raw_construction
 #print axioms exists_healthyOrbitG8Geometry_of_sourceNontrivialZero_right
+#print axioms exists_indexed_orbitG8Geometry_of_sourceNontrivialZero_right
 #print axioms healthyDetectorData_of_orbitG8Geometry
 
 end ConnesWeilRH.Source.C1G8R0OrbitGeometry

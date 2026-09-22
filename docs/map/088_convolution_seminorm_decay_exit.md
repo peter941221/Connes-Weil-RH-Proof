@@ -152,3 +152,12 @@ through the explicit-index theorem from record 1853. This confirms the
 indexed interface is live in the producer path; it does not yet replace the
 internal existential choice of n or prove the strict contraction and signed
 positivity obligations.
+
+## 10. Indexed OrbitG8 producer (record 1855)
+
+The theorem `exists_indexed_orbitG8Geometry_of_sourceNontrivialZero_right`
+now lifts the all-index healthy assembly all the way to complete
+`OrbitG8Geometry` objects. After base, correction, and C are fixed, every n
+meeting the explicit quadratic tail condition is realized on the same owner.
+The remaining live obligations are strict base contraction and the
+detector-specific signed semi-local positivity.

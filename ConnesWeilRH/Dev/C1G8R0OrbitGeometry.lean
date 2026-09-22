@@ -238,7 +238,7 @@ input to this package producer. -/
 theorem exists_orbitG8Geometry_of_sourceNontrivialZero_right
     (rho : sourceNontrivialZeroSet)
     (hoff : rho.1.re ≠ 1 / 2)
-    (hright : (1 / 2 : Real) < rho.1.re) :
+    (_hright : (1 / 2 : Real) < rho.1.re) :
     ∃ g : CompactLogTest, Nonempty (OrbitG8Geometry rho g) := by
   obtain ⟨base, T, hbaseSupport, _hT, hconstruction⟩ :=
     exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets
@@ -286,6 +286,76 @@ theorem exists_orbitG8Geometry_of_sourceNontrivialZero_right
     hbaseSupport hcorrectionSupport hsupport hT hrhoHeight
     (by simpa using hsmall) hsquareTail htargetValues hminimal horbitSum
     hsquareZeros'
+
+/-! The all-index healthy assembly can now feed the indexed geometry package
+directly.  The correction and its tail constant are fixed before the caller
+chooses an orbit count; only the explicit remote-tail condition remains on n. -/
+theorem exists_indexed_orbitG8Geometry_of_sourceNontrivialZero_right
+    (rho : sourceNontrivialZeroSet)
+    (hoff : rho.1.re ≠ 1 / 2)
+    (_hright : (1 / 2 : Real) < rho.1.re) :
+    ∃ base : CompactLogTest, ∃ T : Real,
+      Function.support base.test ⊆ Set.Ioo (-1 : Real) 1 ∧
+      0 ≤ T ∧
+      ∃ correction : CompactLogTest, ∃ C : Real,
+        Function.support correction.test ⊆ Set.Ioo (-1 : Real) 1 ∧
+        0 ≤ C ∧
+        ∀ orbitIndex : Nat,
+          (6 * Real.pi) ^ 2 * ((1 / 2 : Real) ^ (orbitIndex + 1) * C) < 1 →
+          ∃ g : CompactLogTest, Nonempty (OrbitG8Geometry rho g) := by
+  obtain ⟨base, T, hbaseSupport, hT, hconstruction⟩ :=
+    exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets_all_indices
+      rho.1 rho.2 hoff ∅
+      (baseLower := -(1 : Real)) (baseUpper := 1)
+      (lower := -(1 : Real)) (upper := 1)
+      (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+      (1 : Real) (by norm_num)
+  obtain ⟨tailStart, hTailThreshold, hrhoHeight, hTailBudget⟩ :=
+    exists_dyadic_tail_start_with_budget_lt_xiMultiplicity T (1 : Real) rho
+  let R : Real :=
+    (2 : Real) ^ (tailStart + 1) + 2 + dist (2 : Complex) rho.1
+  have hR : 0 ≤ R := by
+    dsimp only [R]
+    positivity
+  obtain ⟨correction, C, hcorrectionSupport, hC, halln⟩ :=
+    hconstruction R hR
+  refine ⟨base, T, hbaseSupport, hT, correction, C,
+    hcorrectionSupport, hC, ?_⟩
+  intro orbitIndex hTail
+  obtain ⟨hselectedSupport, htargetValues, hminimal, horbitSum, hrawZeros,
+      htailSource, htailSquare⟩ := halln orbitIndex hTail
+  have hsupport : Function.support
+      (selectedOwner base correction orbitIndex).sourceTest.test ⊆
+        Set.Ioo (-((orbitIndex + 2 : Nat) : Real))
+          (((orbitIndex + 2 : Nat) : Real)) := by
+    intro x hx
+    have h := hselectedSupport hx
+    rcases h with ⟨hl, hu⟩
+    constructor
+    · norm_num [Nat.cast_add, Nat.cast_one] at hl ⊢
+      linarith
+    · norm_num [Nat.cast_add, Nat.cast_one] at hu ⊢
+      linarith
+  have hsquareZeros :
+      ∀ w : FiniteMellinNode
+          (sourceNontrivialZerosInClosedBallFinset rho.1
+              ((2 : Real) ^ (tailStart + 1) + 2 + dist (2 : Complex) rho.1) ∪
+            (∅ : Finset Complex)),
+        w.1 ∉ healthyUnscaledTargetNodes rho.1 →
+          laplaceAt (selectedOwner base correction orbitIndex).convolutionSquare
+            (w.1 - 1 / 2) = 0 := by
+    simpa only [R] using hrawZeros
+  have hsquareTail : FourthOrderSpectralTail
+      (selectedOwner base correction orbitIndex).convolutionSquare
+        rho.1 T 1 := htailSquare
+  let g : CompactLogTest :=
+    (selectedOwner base correction orbitIndex).sourceTest
+  refine ⟨g, ?_⟩
+  exact orbitG8Geometry_of_indexed_raw_construction
+    rho base correction orbitIndex T 1 tailStart
+    hbaseSupport hcorrectionSupport hsupport hTailThreshold hrhoHeight
+    (by simpa using hTailBudget) hsquareTail htargetValues hminimal horbitSum
+    hsquareZeros
 
 /-- The raw orbit geometry and the strict healthy-detector package can be
     attached to the same selected owner.  This removes the possible mismatch
