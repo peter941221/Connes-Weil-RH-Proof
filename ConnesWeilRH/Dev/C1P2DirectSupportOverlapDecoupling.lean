@@ -631,6 +631,72 @@ theorem riemannHypothesis_of_supportOverlapAbsorption
   obtain ⟨g, geometry, habsorb⟩ := hproducer rho hright
   exact ⟨g, geometry, habsorb, finitePrimeSum_le_orbitSupportOverlapBound geometry⟩
 
+/-- Factoring: the support overlap bound is bounded by delta if the raw factor
+    seminorm is bounded by S_max and the S_max budget is bounded by delta. -/
+theorem orbitSupportOverlapBound_le_of_seminorm_le
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (delta : Real) (S_max : Real)
+    (hS : rawFactorSeminorm geometry ≤ S_max)
+    (hbudget : 2 * Real.exp (rawFactorSupportRadius geometry) * S_max ^ 2 *
+      visibleHarmonicChebyshevSum geometry ≤ delta) :
+    orbitSupportOverlapBound geometry ≤ delta := by
+  unfold orbitSupportOverlapBound
+  have hS_nonneg : 0 ≤ rawFactorSeminorm geometry := rawFactorSeminorm_nonneg geometry
+  have hSsq : (rawFactorSeminorm geometry) ^ 2 ≤ S_max ^ 2 := by
+    nlinarith [hS, hS_nonneg]
+  have hcoeff : 0 ≤ 2 * Real.exp (rawFactorSupportRadius geometry) := by positivity
+  have hharm : 0 ≤ visibleHarmonicChebyshevSum geometry :=
+    visibleHarmonicChebyshevSum_nonneg geometry
+  have hstep : 2 * Real.exp (rawFactorSupportRadius geometry) *
+      (rawFactorSeminorm geometry) ^ 2 * visibleHarmonicChebyshevSum geometry ≤
+      2 * Real.exp (rawFactorSupportRadius geometry) * S_max ^ 2 *
+      visibleHarmonicChebyshevSum geometry := by
+    apply mul_le_mul_of_nonneg_right _ hharm
+    apply mul_le_mul_of_nonneg_left hSsq hcoeff
+  exact hstep.trans hbudget
+
+/-- Absorption follows from a positive Archimedean margin `delta` that dominates
+    the support overlap bound. -/
+theorem supportOverlapAbsorption_of_margin
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (delta : Real)
+    (hmargin : delta ≤ -archimedeanTerm g.convolutionSquare)
+    (hsmall : orbitSupportOverlapBound geometry ≤ delta) :
+    orbitSupportOverlapBound geometry ≤ -archimedeanTerm g.convolutionSquare :=
+  hsmall.trans hmargin
+
+/-- Master theorem with margin factoring: an Archimedean positive margin `delta`
+    dominating the support overlap bound implies SourceRH. -/
+theorem sourceRH_of_supportOverlap_margin
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ delta : Real,
+              delta ≤ -archimedeanTerm g.convolutionSquare ∧
+              orbitSupportOverlapBound geometry ≤ delta) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_supportOverlapAbsorption
+  intro rho hright
+  obtain ⟨g, geometry, delta, hmargin, hsmall⟩ := hproducer rho hright
+  exact ⟨g, geometry, hsmall.trans hmargin⟩
+
+/-- Master theorem with margin factoring: an Archimedean positive margin `delta`
+    dominating the support overlap bound implies Mathlib canonical RiemannHypothesis. -/
+theorem riemannHypothesis_of_supportOverlap_margin
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ delta : Real,
+              delta ≤ -archimedeanTerm g.convolutionSquare ∧
+              orbitSupportOverlapBound geometry ≤ delta) :
+    _root_.RiemannHypothesis := by
+  apply riemannHypothesis_of_supportOverlapAbsorption
+  intro rho hright
+  obtain ⟨g, geometry, delta, hmargin, hsmall⟩ := hproducer rho hright
+  exact ⟨g, geometry, hsmall.trans hmargin⟩
+
 end
 end C1P2DirectSupportOverlapDecoupling
 end Source

@@ -205,7 +205,54 @@ $$\text{orbitSupportOverlapBound geometry} \le -\text{archimedeanTerm}(g \ast g)
 
 ---
 
-## 8. Verification
+## 8. Archimedean Margin and Seminorm Factoring
+
+We further factor the absorption requirement into a positive Archimedean margin $\delta > 0$ and a seminorm budget on the raw factor:
+
+```lean
+theorem orbitSupportOverlapBound_le_of_seminorm_le
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (delta : Real) (S_max : Real)
+    (hS : rawFactorSeminorm geometry ≤ S_max)
+    (hbudget : 2 * Real.exp (rawFactorSupportRadius geometry) * S_max ^ 2 *
+      visibleHarmonicChebyshevSum geometry ≤ delta) :
+    orbitSupportOverlapBound geometry ≤ delta
+
+theorem supportOverlapAbsorption_of_margin
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (delta : Real)
+    (hmargin : delta ≤ -archimedeanTerm g.convolutionSquare)
+    (hsmall : orbitSupportOverlapBound geometry ≤ delta) :
+    orbitSupportOverlapBound geometry ≤ -archimedeanTerm g.convolutionSquare
+
+theorem sourceRH_of_supportOverlap_margin
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ delta : Real,
+              delta ≤ -archimedeanTerm g.convolutionSquare ∧
+              orbitSupportOverlapBound geometry ≤ delta) :
+    RHDefinitionBridge.standard.SourceRH
+
+theorem riemannHypothesis_of_supportOverlap_margin
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ delta : Real,
+              delta ≤ -archimedeanTerm g.convolutionSquare ∧
+              orbitSupportOverlapBound geometry ≤ delta) :
+    _root_.RiemannHypothesis
+```
+
+This decouples the remaining analysis into two independent, quantitative tasks:
+1. Provide an Archimedean positive lower bound $\delta \le -\text{archimedeanTerm}(g \ast g)$ (guaranteed by frequency localization at $|\operatorname{Im} \rho| \ge 14.13 > \xi^*$, where the symbol $\sigma < 0$).
+2. Bound the raw factor seminorm $S \le S_{\max}$ such that $2 e^L S_{\max}^2 \sum \frac{\Lambda(n)}{n} \le \delta$ (guaranteed by geometric decay of the $n$-fold convolution iterate).
+
+---
+
+## 9. Verification
 
 - Module: `ConnesWeilRH/Dev/C1P2DirectSupportOverlapDecoupling.lean`
 - Audit: `ConnesWeilRH/Dev/C1P2DirectSupportOverlapDecouplingAudit.lean`

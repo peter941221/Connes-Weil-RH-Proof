@@ -68,9 +68,32 @@ The support-overlap harmonic Chebyshev route achieves a major asymptotic reducti
    ```
    Formal exit: `riemannHypothesis_of_supportOverlapAbsorption`.
 
+9. **Archimedean Margin and Seminorm Factoring**:
+   Formally proved:
+   ```text
+   orbitSupportOverlapBound_le_of_seminorm_le:
+     rawFactorSeminorm geometry <= S_max ->
+     2 * exp(L) * S_max^2 * visibleHarmonicChebyshevSum geometry <= delta ->
+     orbitSupportOverlapBound geometry <= delta
+
+   supportOverlapAbsorption_of_margin:
+     delta <= -archimedeanTerm g.convolutionSquare ->
+     orbitSupportOverlapBound geometry <= delta ->
+     orbitSupportOverlapBound geometry <= -archimedeanTerm g.convolutionSquare
+
+   riemannHypothesis_of_supportOverlap_margin:
+     (delta <= -archimedeanTerm /\ orbitSupportOverlapBound <= delta) => RiemannHypothesis
+   ```
+
 ## 2. Formal Exit Chain
 
 ```text
+[Archimedean Positive Margin delta <= -archimedeanTerm]
+           +
+[Seminorm Budget: orbitSupportOverlapBound <= delta]
+           |
+           | (supportOverlapAbsorption_of_margin)
+           v
 [orbitSupportOverlapBound <= -archimedeanTerm]
            |
            | (finitePrimeSum <= orbitSupportOverlapBound unconditionally)
