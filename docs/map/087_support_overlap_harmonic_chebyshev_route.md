@@ -57,13 +57,23 @@ The support-overlap harmonic Chebyshev route achieves a major asymptotic reducti
    orbitWeightedKernelIntegrand geometry (log n) t = 0  for all n with log n >= 2L
    orbitPhysicalKernel geometry (log n) = 0             for all n with log n >= 2L
    ```
-   All primes with `n >= exp(2L)` contribute identically 0 to the physical kernel everywhere on `R`, establishing that the infinite Weil prime sum truncates naturally at `log n < 2L`.
+8. **Unconditional Arithmetic Dominance Discharged**:
+   Formally proved:
+   ```text
+   finitePrimeSum g.convolutionSquare <= orbitSupportOverlapBound geometry
+   ```
+   for all geometries! This completely eliminates the prime sum hypothesis from the exit theorem, reducing the entire RH proof to single Archimedean positivity absorption:
+   ```text
+   orbitSupportOverlapBound geometry <= -archimedeanTerm g.convolutionSquare
+   ```
+   Formal exit: `riemannHypothesis_of_supportOverlapAbsorption`.
 
 ## 2. Formal Exit Chain
 
 ```text
-[Support-Overlap Bound]
+[orbitSupportOverlapBound <= -archimedeanTerm]
            |
+           | (finitePrimeSum <= orbitSupportOverlapBound unconditionally)
            v
 [OrbitG8AbsorptionWitness rho]
            |

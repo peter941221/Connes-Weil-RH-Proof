@@ -171,7 +171,41 @@ This establishes that all prime powers $n \ge \exp(2L)$ contribute identically z
 
 ---
 
-## 7. Verification
+## 7. Unconditional Arithmetic Dominance Discharged
+
+By decomposing the physical kernel into node bounds on each prime power $n$, we formally establish that the arithmetic prime sum is unconditionally bounded by the support-overlap bound across all geometries:
+
+```lean
+theorem finitePrimeSum_le_orbitSupportOverlapBound
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    finitePrimeSum g.convolutionSquare ≤ orbitSupportOverlapBound geometry
+
+theorem sourceRH_of_supportOverlapAbsorption
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            orbitSupportOverlapBound geometry ≤
+              -archimedeanTerm g.convolutionSquare) :
+    RHDefinitionBridge.standard.SourceRH
+
+theorem riemannHypothesis_of_supportOverlapAbsorption
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            orbitSupportOverlapBound geometry ≤
+              -archimedeanTerm g.convolutionSquare) :
+    _root_.RiemannHypothesis
+```
+
+This completely eliminates the arithmetic prime sum conjunct from the RH hypothesis, reducing the entire RH proof to single Archimedean positivity absorption:
+$$\text{orbitSupportOverlapBound geometry} \le -\text{archimedeanTerm}(g \ast g)$$
+
+---
+
+## 8. Verification
 
 - Module: `ConnesWeilRH/Dev/C1P2DirectSupportOverlapDecoupling.lean`
 - Audit: `ConnesWeilRH/Dev/C1P2DirectSupportOverlapDecouplingAudit.lean`

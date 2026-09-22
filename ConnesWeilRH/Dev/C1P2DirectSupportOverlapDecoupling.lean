@@ -367,6 +367,195 @@ theorem orbitSupportOverlapBound_nonneg
   have hharm := visibleHarmonicChebyshevSum_nonneg geometry
   positivity
 
+/-- Identity relating the real part of `K(x) + K(-x)` to `2 * (K(x)).re`. -/
+theorem orbitPhysicalKernel_add_neg_re_eq_two_mul
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (x : ℝ) :
+    (orbitPhysicalKernel geometry x + orbitPhysicalKernel geometry (-x)).re =
+      2 * (orbitPhysicalKernel geometry x).re := by
+  rw [orbitPhysicalKernel_neg_eq_star geometry x]
+  have hconj : orbitPhysicalKernel geometry x + star (orbitPhysicalKernel geometry x) =
+      ((2 * (orbitPhysicalKernel geometry x).re : ℝ) : ℂ) := by
+    rw [Complex.star_def]
+    exact Complex.add_conj _
+  rw [hconj]
+  simp only [Complex.ofReal_re]
+
+/-- The real part of the physical kernel equals the integral of the real part
+    of the weighted integrand. -/
+theorem orbitPhysicalKernel_re_eq_integral_weightedKernel_re
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (x : ℝ) :
+    (orbitPhysicalKernel geometry x).re =
+      ∫ t, (orbitWeightedKernelIntegrand geometry x t).re := by
+  rw [orbitPhysicalKernel_eq_integral_weightedKernel geometry x]
+  symm
+  simpa only [Complex.reCLM_apply] using
+    (Complex.reCLM.integral_comp_comm
+      (orbitWeightedKernelIntegrand_integrable geometry x))
+
+/-- The support of the real part of the weighted kernel integrand is contained in `(x - L, L]`. -/
+theorem orbitWeightedKernelIntegrand_re_support_subset
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (x : ℝ) :
+    Function.support (fun t => (orbitWeightedKernelIntegrand geometry x t).re) ⊆
+      Set.Ioc (x - rawFactorSupportRadius geometry) (rawFactorSupportRadius geometry) := by
+  let L := rawFactorSupportRadius geometry
+  intro t ht
+  have hne : (orbitWeightedKernelIntegrand geometry x t).re ≠ 0 :=
+    Function.mem_support.mp ht
+  have hintegrand_ne : orbitWeightedKernelIntegrand geometry x t ≠ 0 := by
+    intro hzero
+    rw [hzero] at hne
+    simp at hne
+  have hnot_le : ¬ t ≤ x - L := by
+    intro hle
+    have hzero := orbitWeightedKernelIntegrand_eq_zero_of_lt_sub geometry x t hle
+    exact hintegrand_ne hzero
+  have hgt : x - L < t := lt_of_not_ge hnot_le
+  have hnot_ge : ¬ L ≤ t := by
+    intro hge
+    have hnot_mem : t ∉ Set.Ioo (-L) L := by
+      intro hmem
+      linarith [hmem.2]
+    have hwindow : Set.Ioo (-((geometry.orbitIndex + 2 : Nat) : Real))
+        (((geometry.orbitIndex + 2 : Nat) : Real)) = Set.Ioo (-L) L := rfl
+    have hzero := orbitWeightedKernelIntegrand_eq_zero_of_not_mem_raw_support_window geometry x t
+    rw [hwindow] at hzero
+    exact hintegrand_ne (hzero hnot_mem)
+  have hle : t ≤ L := le_of_not_gt (by intro hlt; exact hnot_ge (le_of_lt hlt))
+  exact ⟨hgt, hle⟩
+
+/-- For `x < 2L`, the full-line integral of the real part of the weighted integrand reduces
+    to the restricted overlap interval `[x - L, L]`. -/
+theorem integral_orbitWeightedKernelIntegrand_re_eq_overlap_interval
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (x : ℝ) :
+    (∫ t, (orbitWeightedKernelIntegrand geometry x t).re) =
+      ∫ t in (x - rawFactorSupportRadius geometry)..(rawFactorSupportRadius geometry),
+        (orbitWeightedKernelIntegrand geometry x t).re := by
+  symm
+  apply intervalIntegral.integral_eq_integral_of_support_subset
+  exact orbitWeightedKernelIntegrand_re_support_subset geometry x
+
+/-- Bound on the real part of the physical kernel by the exact overlap integral. -/
+theorem orbitPhysicalKernel_re_le_overlap_bound
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (x : ℝ)
+    (hx : x < 2 * rawFactorSupportRadius geometry) :
+    (orbitPhysicalKernel geometry x).re ≤
+      (Real.exp (rawFactorSupportRadius geometry - x / 2) -
+        Real.exp (-(rawFactorSupportRadius geometry - x / 2))) *
+        (rawFactorSeminorm geometry) ^ 2 := by
+  let L := rawFactorSupportRadius geometry
+  let S := rawFactorSeminorm geometry
+  rw [orbitPhysicalKernel_re_eq_integral_weightedKernel_re geometry x]
+  rw [integral_orbitWeightedKernelIntegrand_re_eq_overlap_interval geometry x]
+  have hle_xL : x - L ≤ L := by linarith
+  have hcont : Continuous (fun t : ℝ => Real.exp (x / 2 - t) * S ^ 2) :=
+    (Real.continuous_exp.comp (continuous_const.sub continuous_id)).mul continuous_const
+  have hint_mono := intervalIntegral.integral_mono_on_of_le_Ioo
+    (a := x - L) (b := L) hle_xL
+    ((Complex.reCLM.integrable_comp
+      (orbitWeightedKernelIntegrand_integrable geometry x)).intervalIntegrable)
+    (hcont.intervalIntegrable (x - L) L)
+    (by
+      intro t _ht
+      have habs := abs_orbitWeightedKernelIntegrand_re_le geometry x t
+      exact (le_abs_self _).trans habs)
+  have heval : (∫ t in (x - L)..L, Real.exp (x / 2 - t) * S ^ 2) =
+      (Real.exp (L - x / 2) - Real.exp (-(L - x / 2))) * S ^ 2 := by
+    rw [intervalIntegral.integral_mul_const]
+    rw [integral_scaled_expNeg_overlap L x]
+  rw [heval] at hint_mono
+  exact hint_mono
+
+/-- Pointwise node bound on the physical kernel contribution at each prime power `n`. -/
+theorem orbitPhysicalKernel_nodeTerm_le_overlap
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : ℕ) :
+    ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+        (orbitPhysicalKernel geometry (Real.log (n : ℝ)) +
+          orbitPhysicalKernel geometry (-Real.log (n : ℝ))).re ≤
+      2 * Real.exp (rawFactorSupportRadius geometry) *
+        (rawFactorSeminorm geometry) ^ 2 *
+        (ArithmeticFunction.vonMangoldt n / (n : ℝ)) := by
+  let L := rawFactorSupportRadius geometry
+  let S := rawFactorSeminorm geometry
+  rw [orbitPhysicalKernel_add_neg_re_eq_two_mul geometry (Real.log (n : ℝ))]
+  by_cases hn : Real.log (n : ℝ) < 2 * L
+  · have hbound := orbitPhysicalKernel_re_le_overlap_bound geometry (Real.log (n : ℝ)) hn
+    have htwo_bound : 2 * (orbitPhysicalKernel geometry (Real.log (n : ℝ))).re ≤
+        2 * ((Real.exp (L - Real.log (n : ℝ) / 2) -
+          Real.exp (-(L - Real.log (n : ℝ) / 2))) * S ^ 2) := by
+      linarith [hbound]
+    have hvm_nonneg : 0 ≤ ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) :=
+      mul_nonneg ArithmeticFunction.vonMangoldt_nonneg (by positivity)
+    have hstep1 : ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+        (2 * (orbitPhysicalKernel geometry (Real.log (n : ℝ))).re) ≤
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+          (2 * ((Real.exp (L - Real.log (n : ℝ) / 2) -
+            Real.exp (-(L - Real.log (n : ℝ) / 2))) * S ^ 2)) :=
+      mul_le_mul_of_nonneg_left htwo_bound hvm_nonneg
+    have hcancel := cancellation_identity_overlap n L S
+    have hstep2 : ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+        (2 * ((Real.exp (L - Real.log (n : ℝ) / 2) -
+          Real.exp (-(L - Real.log (n : ℝ) / 2))) * S ^ 2)) =
+        2 * (ArithmeticFunction.vonMangoldt n *
+          ((Real.exp L / (n : ℝ) - Real.exp (-L)) * S ^ 2)) := by
+      calc
+        ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+            (2 * ((Real.exp (L - Real.log (n : ℝ) / 2) -
+              Real.exp (-(L - Real.log (n : ℝ) / 2))) * S ^ 2)) =
+          2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+            ((Real.exp (L - Real.log (n : ℝ) / 2) -
+              Real.exp (-(L - Real.log (n : ℝ) / 2))) * S ^ 2)) := by ring
+        _ = 2 * (ArithmeticFunction.vonMangoldt n *
+            ((Real.exp L / (n : ℝ) - Real.exp (-L)) * S ^ 2)) := by rw [hcancel]
+    have hstep3 : 2 * (ArithmeticFunction.vonMangoldt n *
+        ((Real.exp L / (n : ℝ) - Real.exp (-L)) * S ^ 2)) ≤
+        2 * Real.exp L * S ^ 2 * (ArithmeticFunction.vonMangoldt n / (n : ℝ)) := by
+      have hsub_le : (Real.exp L / (n : ℝ) - Real.exp (-L)) * S ^ 2 ≤
+          (Real.exp L / (n : ℝ)) * S ^ 2 := by
+        have hexp_neg_pos : 0 ≤ Real.exp (-L) := (Real.exp_pos _).le
+        have hSsq : 0 ≤ S ^ 2 := sq_nonneg _
+        have : Real.exp (-L) * S ^ 2 ≥ 0 := mul_nonneg hexp_neg_pos hSsq
+        linarith
+      have hvm : 0 ≤ ArithmeticFunction.vonMangoldt n := ArithmeticFunction.vonMangoldt_nonneg
+      have hle_vm : ArithmeticFunction.vonMangoldt n *
+          ((Real.exp L / (n : ℝ) - Real.exp (-L)) * S ^ 2) ≤
+          ArithmeticFunction.vonMangoldt n * ((Real.exp L / (n : ℝ)) * S ^ 2) :=
+        mul_le_mul_of_nonneg_left hsub_le hvm
+      calc
+        2 * (ArithmeticFunction.vonMangoldt n *
+            ((Real.exp L / (n : ℝ) - Real.exp (-L)) * S ^ 2)) ≤
+          2 * (ArithmeticFunction.vonMangoldt n * ((Real.exp L / (n : ℝ)) * S ^ 2)) :=
+          mul_le_mul_of_nonneg_left hle_vm (by norm_num)
+        _ = 2 * Real.exp L * S ^ 2 * (ArithmeticFunction.vonMangoldt n / (n : ℝ)) := by ring
+    exact hstep1.trans (by rw [hstep2]; exact hstep3)
+  · have hge : 2 * L ≤ Real.log (n : ℝ) := le_of_not_gt hn
+    have hzero := orbitPhysicalKernel_eq_zero_of_ge_two_L geometry n hge
+    rw [hzero]
+    simp only [Complex.zero_re, mul_zero]
+    have hexp : 0 ≤ Real.exp L := (Real.exp_pos _).le
+    have hSsq : 0 ≤ S ^ 2 := sq_nonneg _
+    have hvm_div : 0 ≤ ArithmeticFunction.vonMangoldt n / (n : ℝ) :=
+      div_nonneg ArithmeticFunction.vonMangoldt_nonneg (Nat.cast_nonneg n)
+    positivity
+
+/-- Master theorem: the finite visible prime sum of the genuine convolution square
+    is unconditionally bounded by the support-overlap harmonic Chebyshev bound. -/
+theorem finitePrimeSum_le_orbitSupportOverlapBound
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    finitePrimeSum g.convolutionSquare ≤ orbitSupportOverlapBound geometry := by
+  rw [finitePrimeSum_eq_orbitPhysicalKernel_range geometry]
+  unfold orbitSupportOverlapBound visibleHarmonicChebyshevSum
+  rw [Finset.mul_sum]
+  apply Finset.sum_le_sum
+  intro n _hn
+  exact orbitPhysicalKernel_nodeTerm_le_overlap geometry n
+
 /-- Construction of an absorption witness from a support overlap bound. -/
 def absorptionWitness_of_overlap_bound
     (rho : sourceNontrivialZeroSet) (g : CompactLogTest)
@@ -411,6 +600,36 @@ theorem riemannHypothesis_of_overlap_bounds
   intro rho hright
   obtain ⟨g, geometry, habsorb, hdominate⟩ := hproducer rho hright
   exact ⟨absorptionWitness_of_overlap_bound rho g geometry habsorb hdominate⟩
+
+/-- Master theorem with arithmetic dominance discharged: existence of an Archimedean
+    absorption witness alone directly implies SourceRH. -/
+theorem sourceRH_of_supportOverlapAbsorption
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            orbitSupportOverlapBound geometry ≤
+              -archimedeanTerm g.convolutionSquare) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_overlap_bounds
+  intro rho hright
+  obtain ⟨g, geometry, habsorb⟩ := hproducer rho hright
+  exact ⟨g, geometry, habsorb, finitePrimeSum_le_orbitSupportOverlapBound geometry⟩
+
+/-- Master theorem with arithmetic dominance discharged: existence of an Archimedean
+    absorption witness alone directly implies Mathlib canonical RiemannHypothesis. -/
+theorem riemannHypothesis_of_supportOverlapAbsorption
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            orbitSupportOverlapBound geometry ≤
+              -archimedeanTerm g.convolutionSquare) :
+    _root_.RiemannHypothesis := by
+  apply riemannHypothesis_of_overlap_bounds
+  intro rho hright
+  obtain ⟨g, geometry, habsorb⟩ := hproducer rho hright
+  exact ⟨g, geometry, habsorb, finitePrimeSum_le_orbitSupportOverlapBound geometry⟩
 
 end
 end C1P2DirectSupportOverlapDecoupling
