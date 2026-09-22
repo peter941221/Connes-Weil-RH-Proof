@@ -22,6 +22,9 @@ open ConnesWeilRH.Source.C1RouteAlphaOwner
 
 #print axioms routeAlphaNodes
 #print axioms routeAlphaBaseValue
+#print axioms healthyDetectorNodeTarget_norm_le_one
+#print axioms routeAlphaIndex_card_le_four
+#print axioms routeAlpha_target_card_norm_le_four
 #print axioms routeAlphaIndex_nonempty
 #print axioms windowGramInverse_cost_re_nonneg
 #print axioms exists_routeAlphaOwner

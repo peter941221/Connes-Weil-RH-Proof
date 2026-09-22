@@ -105,6 +105,35 @@ nodes, so the assembled owner's values are exactly the taper factor's. -/
 noncomputable def routeAlphaBaseValue (rho : ℂ) : routeAlphaIndex rho → ℂ :=
   fun _ => 1
 
+/-- The minimal healthy target is pointwise either zero or minus one, hence its
+sup norm is at most one. -/
+theorem healthyDetectorNodeTarget_norm_le_one (rho : ℂ) :
+    ‖healthyDetectorNodeTarget rho‖ ≤ 1 := by
+  refine (pi_norm_le_iff_of_nonneg (by norm_num : (0 : ℝ) ≤ 1)).mpr ?_
+  intro z
+  by_cases h : z.1 = rho
+  · simp [healthyDetectorNodeTarget, h]
+  · simp [healthyDetectorNodeTarget, h]
+
+/-- The route-alpha subtype has at most the four displayed nodes. -/
+theorem routeAlphaIndex_card_le_four (rho : ℂ) :
+    Fintype.card (routeAlphaIndex rho) ≤ 4 := by
+  simpa [routeAlphaIndex, healthyDetectorNodeSet] using
+    (Finset.card_le_four (a := (0 : ℂ)) (b := (1 / 2 : ℂ))
+      (c := (1 : ℂ)) (d := rho))
+
+/-- The route-alpha target contributes at most four to the conservative
+cardinality-times-sup-norm budget. -/
+theorem routeAlpha_target_card_norm_le_four (rho : ℂ) :
+    (Fintype.card (routeAlphaIndex rho) : ℝ) *
+        ‖healthyDetectorNodeTarget rho‖ ≤ 4 := by
+  have hcard : (Fintype.card (routeAlphaIndex rho) : ℝ) ≤ 4 := by
+    exact_mod_cast routeAlphaIndex_card_le_four rho
+  have hnorm := healthyDetectorNodeTarget_norm_le_one rho
+  have hcard0 : 0 ≤ (Fintype.card (routeAlphaIndex rho) : ℝ) :=
+    Nat.cast_nonneg _
+  nlinarith [hcard0]
+
 instance routeAlphaIndex_nonempty (rho : ℂ) :
     Nonempty (routeAlphaIndex rho) :=
   ⟨⟨(0 : ℂ), by simp [healthyDetectorNodeSet]⟩⟩

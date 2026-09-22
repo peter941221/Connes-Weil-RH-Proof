@@ -367,3 +367,28 @@ of an `(n+1)`-fold iterate, two decay constants, and a growing support window.
 
 No orbit is instantiated and no numeric margin is registered in the formal
 lane. No `HealthyYoshidaDetectorData` field is produced by the shape layer.
+
+## Target-side threshold input (record 1881)
+
+The route-alpha target now has a formal norm bound:
+`healthyDetectorNodeTarget_norm_le_one` proves that the actual four-node
+target `{0, 1/2, 1, rho}` has sup norm at most one because every entry is
+either zero or minus one.  This is a FORMAL target-side input for the taper
+strict-contraction threshold, not a sign or Gram-gap result.  The alpha lower
+bound, taper bound, and gate sign remain open.  See proof record 1881 and
+`route-target-norm-20260923c.log`.
+
+## Target-side cardinality budget (record 1882)
+
+The same route-alpha register now has a formal finite-dimensional target
+budget.  `routeAlphaIndex_card_le_four` proves that the deduplicated four-node
+family has cardinality at most four, and
+`routeAlpha_target_card_norm_le_four` combines this with record 1881 to give
+`card(routeAlphaIndex rho) * ||healthyDetectorNodeTarget rho|| <= 4`.
+When inserted into the taper threshold from record 1880, the conservative
+condition is `8 * windowTaperBound < alpha`.
+
+This is FORMAL target-side bookkeeping only.  It does not supply a positive
+lower bound for `alpha`, a small enough `windowTaperBound`, the open
+archimedean gate, detector-specific semi-local positivity, or RH.  See proof
+record 1882 and `route-target-card-20260923c.log`.
