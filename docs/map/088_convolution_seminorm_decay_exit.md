@@ -161,3 +161,27 @@ now lifts the all-index healthy assembly all the way to complete
 meeting the explicit quadratic tail condition is realized on the same owner.
 The remaining live obligations are strict base contraction and the
 detector-specific signed semi-local positivity.
+
+## 11. Base seminorm quantitative boundary (record 1856)
+
+The current finite-window/surjectivity APIs provide support, interpolation, and
+the quadratic vertical tail constant C, but no quantitative
+`SchwartzMap.seminorm` upper bound for the selected base. C is not a seminorm
+bound and must not be substituted for one. The next quantitative brick is an
+explicit seminorm witness for the base construction; this is an interface
+boundary, not a no-go result.
+
+## 12. Finite coefficient budget interface (record 1857)
+
+The new leaf `C1P2BaseSeminormBound.lean` formally bounds the zero-order
+seminorm of a compact-log window pullback by the coefficient-weighted sum of
+the source basis seminorms. Its consumer theorem reduces the required strict
+contraction to the explicit finite inequality
+
+```text
+2 * sum_(p in coeff.support) ||coeff p|| * seminorm(basis_p) <= 1.
+```
+
+This is formal interface progress, not a proof that the right-inverse
+coefficients satisfy the budget. The remaining quantitative task is to
+certify that finite coefficient/basis sum for the selected Mellin targets.

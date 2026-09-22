@@ -1,0 +1,10 @@
+import ConnesWeilRH.Dev.C1P2BaseSeminormBound
+
+namespace ConnesWeilRH.Source.C1P2BaseSeminormBound
+
+#print axioms compactLogTestOfWindow_seminorm_zero_zero_le_source
+#print axioms source_combination_seminorm_zero_zero_le_coeff_weighted_sum
+#print axioms compactLogTestOfWindow_combination_seminorm_zero_zero_le_coeff_weighted_sum
+#print axioms strict_base_contraction_of_coeff_weighted_budget
+
+end ConnesWeilRH.Source.C1P2BaseSeminormBound

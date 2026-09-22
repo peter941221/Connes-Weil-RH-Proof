@@ -1,5 +1,9 @@
 # MEMORY.MD
 
+2026-09-23 ConnesWeilRH/Dev/C1P2BaseSeminormBound.lean + Audit + docs/proofs/1857_base_seminorm_weighted_budget.md + docs/map/088_convolution_seminorm_decay_exit.md : FORMALIZED the finite-window zero-order seminorm upper bound through compact-log pullback and coefficient-weighted basis sum; added strict contraction consumer reducing 2*seminorm(base)<1 to an explicit finite coefficient budget. Build 3476 jobs clean, standard axioms, zero sorryAx. The coefficient budget itself remains unproved.
+
+2026-09-23 docs/proofs/1856_base_seminorm_quantitative_boundary.md + docs/map/088_convolution_seminorm_decay_exit.md : AUDITED the strict-contraction input boundary. The current finite-window surjectivity and residual quadratic-decay APIs expose support/interpolation/C but no zero-order Schwartz seminorm upper bound. C must not be used as a seminorm substitute; the next brick requires an explicit quantitative base witness.
+
 2026-09-23 ConnesWeilRH/Dev/C1G8R0OrbitGeometry.lean + Audit + docs/proofs/1855_indexed_orbit_geometry_producer.md : FORMALIZED `exists_indexed_orbitG8Geometry_of_sourceNontrivialZero_right`. It fixes base/threshold/correction/C before n and realizes every n satisfying the explicit quadratic tail as a complete same-owner `OrbitG8Geometry`. Strict base contraction and detector-specific semi-local positivity remain open.
 
 2026-09-23 ConnesWeilRH/Dev/C1G8R0OrbitGeometry.lean + docs/proofs/1854_indexed_geometry_consumer_wiring.md : WIRED the existing `exists_orbitG8Geometry_of_sourceNontrivialZero_right` producer through `orbitG8Geometry_of_indexed_raw_construction`. The explicit-index packaging is now a live consumer path; internal n selection, strict contraction, and semi-local positivity remain open.
