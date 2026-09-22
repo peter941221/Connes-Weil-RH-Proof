@@ -806,6 +806,164 @@ theorem riemannHypothesis_of_mass_scaled_prefix_and_seminorm_budget
     g C N delta hC hN hhead hprefix
   exact ⟨g, geometry, delta, S_max, hmargin, hS, hbudget⟩
 
+/-- The canonical harmonic budget seminorm threshold:
+    `S_budget = sqrt(delta / (2 * exp(L) * (H + 1)))`.
+    Choosing `S_max = S_budget` unconditionally ensures that the support overlap
+    budget condition `2 * exp(L) * S^2 * H ≤ delta` is satisfied. -/
+def harmonicBudgetSeminorm
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (delta : ℝ) : ℝ :=
+  Real.sqrt (delta / (2 * Real.exp (rawFactorSupportRadius geometry) *
+    (visibleHarmonicChebyshevSum geometry + 1)))
+
+/-- Nonnegativity of the harmonic budget seminorm. -/
+theorem harmonicBudgetSeminorm_nonneg
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (delta : ℝ) :
+    0 ≤ harmonicBudgetSeminorm geometry delta :=
+  Real.sqrt_nonneg _
+
+/-- The harmonic budget seminorm unconditionally satisfies the support overlap
+    budget inequality for any `delta ≥ 0`. -/
+theorem harmonicBudgetSeminorm_spec
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (delta : ℝ)
+    (hdelta : 0 ≤ delta) :
+    2 * Real.exp (rawFactorSupportRadius geometry) *
+        (harmonicBudgetSeminorm geometry delta) ^ 2 *
+        visibleHarmonicChebyshevSum geometry ≤ delta := by
+  let L := rawFactorSupportRadius geometry
+  let H := visibleHarmonicChebyshevSum geometry
+  have hexp_pos : 0 < Real.exp L := Real.exp_pos L
+  have hH_nonneg : 0 ≤ H := visibleHarmonicChebyshevSum_nonneg geometry
+  have hH1_pos : 0 < H + 1 := by linarith
+  have htwo_exp_pos : 0 < 2 * Real.exp L := by positivity
+  have htwo_exp_ne : 2 * Real.exp L ≠ 0 := htwo_exp_pos.ne'
+  have hdenom_pos : 0 < 2 * Real.exp L * (H + 1) := mul_pos htwo_exp_pos hH1_pos
+  have hfrac_nonneg : 0 ≤ delta / (2 * Real.exp L * (H + 1)) :=
+    div_nonneg hdelta hdenom_pos.le
+  have hsq : (harmonicBudgetSeminorm geometry delta) ^ 2 =
+      delta / (2 * Real.exp L * (H + 1)) := by
+    unfold harmonicBudgetSeminorm
+    exact Real.sq_sqrt hfrac_nonneg
+  rw [hsq]
+  have hcancel : 2 * Real.exp L * (delta / (2 * Real.exp L * (H + 1))) =
+      delta / (H + 1) := by
+    calc
+      2 * Real.exp L * (delta / (2 * Real.exp L * (H + 1))) =
+          (2 * Real.exp L * delta) / (2 * Real.exp L * (H + 1)) := by
+        rw [mul_div_assoc]
+      _ = delta / (H + 1) := by
+        rw [mul_div_mul_left _ _ htwo_exp_ne]
+  calc
+    2 * Real.exp L * (delta / (2 * Real.exp L * (H + 1))) * H =
+        (delta / (H + 1)) * H := by rw [hcancel]
+    _ = delta * (H / (H + 1)) := by ring
+    _ ≤ delta * 1 := by
+      apply mul_le_mul_of_nonneg_left _ hdelta
+      have hH_le : H ≤ 1 * (H + 1) := by linarith
+      exact (div_le_iff₀ hH1_pos).mpr hH_le
+    _ = delta := mul_one delta
+
+/-- Master theorem with canonical harmonic budget: bounding the raw factor
+    seminorm below the canonical budget `harmonicBudgetSeminorm geometry delta`
+    directly implies SourceRH. -/
+theorem sourceRH_of_harmonicBudgetSeminorm
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ delta : Real,
+              0 ≤ delta ∧
+              delta ≤ -archimedeanTerm g.convolutionSquare ∧
+              rawFactorSeminorm geometry ≤ harmonicBudgetSeminorm geometry delta) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_supportOverlap_seminorm_budget
+  intro rho hright
+  obtain ⟨g, geometry, delta, hdelta, hmargin, hS⟩ := hproducer rho hright
+  let S_max := harmonicBudgetSeminorm geometry delta
+  have hbudget := harmonicBudgetSeminorm_spec geometry delta hdelta
+  exact ⟨g, geometry, delta, S_max, hmargin, hS, hbudget⟩
+
+/-- Master theorem with canonical harmonic budget: bounding the raw factor
+    seminorm below the canonical budget `harmonicBudgetSeminorm geometry delta`
+    directly implies Mathlib canonical RiemannHypothesis. -/
+theorem riemannHypothesis_of_harmonicBudgetSeminorm
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ delta : Real,
+              0 ≤ delta ∧
+              delta ≤ -archimedeanTerm g.convolutionSquare ∧
+              rawFactorSeminorm geometry ≤ harmonicBudgetSeminorm geometry delta) :
+    _root_.RiemannHypothesis := by
+  apply riemannHypothesis_of_supportOverlap_seminorm_budget
+  intro rho hright
+  obtain ⟨g, geometry, delta, hdelta, hmargin, hS⟩ := hproducer rho hright
+  let S_max := harmonicBudgetSeminorm geometry delta
+  have hbudget := harmonicBudgetSeminorm_spec geometry delta hdelta
+  exact ⟨g, geometry, delta, S_max, hmargin, hS, hbudget⟩
+
+/-- Full canonical exit: combining the mass-scaled prefix bound with the
+    canonical harmonic budget seminorm directly implies SourceRH. -/
+theorem sourceRH_of_mass_scaled_prefix_and_harmonicBudget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ (C : Real) (N : Nat) (delta : Real),
+              0 ≤ C ∧ 0 < N ∧ 0 ≤ delta ∧
+              (∀ (n : Nat) {y : Real},
+                0 < y → y ≤ supportRadius g.convolutionSquare + 1 →
+                  ‖gammaRArchProfileTerm g.convolutionSquare n y‖ ≤
+                    C * (g.convolutionSquare.test 0).re * y *
+                      Real.exp (-(2 * (n : Real) * y))) ∧
+              (((((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) *
+                  g.convolutionSquare.test 0).re) +
+                (∑ n ∈ Finset.range N,
+                  gammaRArchProfileIntegral g.convolutionSquare n).re ≤
+                  -(gammaRArchProfileTailMassRate g C N + delta)) ∧
+              rawFactorSeminorm geometry ≤ harmonicBudgetSeminorm geometry delta) :
+    RHDefinitionBridge.standard.SourceRH := by
+  apply sourceRH_of_harmonicBudgetSeminorm
+  intro rho hright
+  obtain ⟨g, geometry, C, N, delta, hC, hN, hdelta, hhead, hprefix, hS⟩ :=
+    hproducer rho hright
+  have hmargin := delta_le_neg_archimedeanTerm_of_mass_scaled_prefix_bound
+    g C N delta hC hN hhead hprefix
+  exact ⟨g, geometry, delta, hdelta, hmargin, hS⟩
+
+/-- Full canonical exit: combining the mass-scaled prefix bound with the
+    canonical harmonic budget seminorm directly implies Mathlib canonical
+    RiemannHypothesis. -/
+theorem riemannHypothesis_of_mass_scaled_prefix_and_harmonicBudget
+    (hproducer : ∀ rho : sourceNontrivialZeroSet,
+      (1 / 2 : Real) < rho.1.re →
+        ∃ g : CompactLogTest,
+          ∃ geometry : OrbitG8Geometry rho g,
+            ∃ (C : Real) (N : Nat) (delta : Real),
+              0 ≤ C ∧ 0 < N ∧ 0 ≤ delta ∧
+              (∀ (n : Nat) {y : Real},
+                0 < y → y ≤ supportRadius g.convolutionSquare + 1 →
+                  ‖gammaRArchProfileTerm g.convolutionSquare n y‖ ≤
+                    C * (g.convolutionSquare.test 0).re * y *
+                      Real.exp (-(2 * (n : Real) * y))) ∧
+              (((((Real.log (4 * Real.pi) + Real.eulerMascheroniConstant : Real) : Complex) *
+                  g.convolutionSquare.test 0).re) +
+                (∑ n ∈ Finset.range N,
+                  gammaRArchProfileIntegral g.convolutionSquare n).re ≤
+                  -(gammaRArchProfileTailMassRate g C N + delta)) ∧
+              rawFactorSeminorm geometry ≤ harmonicBudgetSeminorm geometry delta) :
+    _root_.RiemannHypothesis := by
+  apply riemannHypothesis_of_harmonicBudgetSeminorm
+  intro rho hright
+  obtain ⟨g, geometry, C, N, delta, hC, hN, hdelta, hhead, hprefix, hS⟩ :=
+    hproducer rho hright
+  have hmargin := delta_le_neg_archimedeanTerm_of_mass_scaled_prefix_bound
+    g C N delta hC hN hhead hprefix
+  exact ⟨g, geometry, delta, hdelta, hmargin, hS⟩
+
 end
 end C1P2DirectSupportOverlapDecoupling
 end Source
