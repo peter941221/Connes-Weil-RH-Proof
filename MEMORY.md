@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-23 ConnesWeilRH/Dev/C1G8R0OrbitGeometry.lean + docs/proofs/1854_indexed_geometry_consumer_wiring.md : WIRED the existing `exists_orbitG8Geometry_of_sourceNontrivialZero_right` producer through `orbitG8Geometry_of_indexed_raw_construction`. The explicit-index packaging is now a live consumer path; internal n selection, strict contraction, and semi-local positivity remain open.
+
 2026-09-23 ConnesWeilRH/Dev/C1G8R0OrbitGeometry.lean + Audit + docs/proofs/1853_indexed_orbit_geometry_packaging.md : FORMALIZED `orbitG8Geometry_of_indexed_raw_construction`, an explicit-index constructor for the same-owner `OrbitG8Geometry` package. It preserves raw support/interpolation/tail/square-zero fields and derives the visible-prime cutoff from that support. This closes packaging, not raw producer existence, strict contraction, or semi-local positivity.
 
 2026-09-22 ConnesWeilRH/Dev/C1P2ConvolutionSeminormBound.lean + Audit + docs/proofs/1852_common_index_budget_and_tail.md : FORMALIZED `exists_nat_geometric_budget_and_quadratic_tail`, intersecting the eventual geometric harmonic-budget bound with the all-index quadratic-tail bound to obtain one shared n. This closes the pure common-index quantifier step; strict base contraction and detector-specific positivity remain open.

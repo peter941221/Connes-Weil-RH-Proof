@@ -144,3 +144,11 @@ orbit index explicitly when packaging same-owner raw construction data into
 that exact owner. This closes the geometry packaging boundary; the raw
 construction still has to supply the indexed data, and strict contraction and
 semi-local positivity remain open.
+
+## 9. Indexed packaging consumer wiring (record 1854)
+
+The existing raw OrbitG8 producer now routes its final package construction
+through the explicit-index theorem from record 1853. This confirms the
+indexed interface is live in the producer path; it does not yet replace the
+internal existential choice of n or prove the strict contraction and signed
+positivity obligations.

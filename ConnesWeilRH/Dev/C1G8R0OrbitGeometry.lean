@@ -257,15 +257,6 @@ theorem exists_orbitG8Geometry_of_sourceNontrivialZero_right
   obtain ⟨correction, _C, orbitIndex, hcorrectionSupport,
       hselectedSupport, htargetValues, hminimal, horbitSum, hsquareZeros,
       _hC, _hcenteredTail, hsquareTail⟩ := hconstruction R hR
-  have himLt : |rho.1.im| < (2 : Real) ^ (tailStart + 1) := by
-    have hpow : 0 < (2 : Real) ^ (tailStart + 1) := by positivity
-    have himNonneg : 0 ≤ |rho.1.im| := abs_nonneg _
-    nlinarith
-  have hrhoShell : dyadicShellIndex |rho.1.im| < tailStart + 1 := by
-    have hminimal := Nat.find_min'
-      (exists_lt_two_pow_succ |rho.1.im|) himLt
-    rw [← dyadicShellIndex] at hminimal
-    omega
   have hsquareZeros' :
       ∀ w : FiniteMellinNode
           (sourceNontrivialZerosInClosedBallFinset rho.1
@@ -289,36 +280,12 @@ theorem exists_orbitG8Geometry_of_sourceNontrivialZero_right
       linarith
   let g : CompactLogTest :=
     (selectedOwner base correction orbitIndex).sourceTest
-  have hgSupport : Function.support g.test ⊆
-      Set.Ioo (-((orbitIndex + 2 : Nat) : Real))
-        (((orbitIndex + 2 : Nat) : Real)) := hsupport
-  have hprimeCutoff :
-      ∀ q ∈ globalPrimeIndexSet g.convolutionSquare,
-        (q : Real) < Real.exp (2 * ((orbitIndex + 2 : Nat) : Real)) := by
-    intro q hq
-    exact pinned_visiblePrimeCutoff_of_support g orbitIndex hgSupport hq
-  refine ⟨g, ⟨?_⟩⟩
-  exact
-    { base := base
-      base_support := hbaseSupport
-      correction := correction
-      correction_support := hcorrectionSupport
-      orbitIndex := orbitIndex
-      selected_owner_test := rfl
-      tailThreshold := T
-      tailAccuracy := 1
-      tailStart := tailStart
-      threshold_le_dyadic := hT
-      zero_height_le_dyadic := hrhoHeight
-      zero_shell_before_tail := hrhoShell
-      tail_budget_below_multiplicity := by simpa using hsmall
-      raw_square_tail := hsquareTail
-      raw_target_values := htargetValues
-      minimal_interpolation := hminimal
-      centered_orbit_sum := horbitSum
-      square_zero_control := hsquareZeros'
-      support_bound := hgSupport
-      visible_prime_cutoff := hprimeCutoff }
+  refine ⟨g, ?_⟩
+  exact orbitG8Geometry_of_indexed_raw_construction
+    rho base correction orbitIndex T 1 tailStart
+    hbaseSupport hcorrectionSupport hsupport hT hrhoHeight
+    (by simpa using hsmall) hsquareTail htargetValues hminimal horbitSum
+    hsquareZeros'
 
 /-- The raw orbit geometry and the strict healthy-detector package can be
     attached to the same selected owner.  This removes the possible mismatch
