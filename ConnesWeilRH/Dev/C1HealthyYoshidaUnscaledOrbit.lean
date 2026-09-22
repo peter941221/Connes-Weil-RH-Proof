@@ -660,6 +660,195 @@ theorem exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_r
   exact ⟨correction, C, n, hcorrectionSupport, hselectedSupport, htargetValues,
     hminimal, horbitSum, hsquareZeros, hC, hcenteredTail, hsquareTail⟩
 
+/-! The correction is independent of the later orbit count.  The explicit
+tail condition is kept as a hypothesis on `n`, because the same count must
+also satisfy the producer's other budgets. -/
+theorem
+    exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets_all_indices
+    (rho : Complex)
+    (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho)
+    (hoff : rho.re ≠ 1 / 2)
+    (routeNodes : Finset Complex)
+    {baseLower baseUpper lower upper : Real}
+    (hbaseLower : baseLower < 0) (hbaseUpper : 0 < baseUpper)
+    (hlower : lower < 0) (hupper : 0 < upper)
+    (epsilon : Real) (hepsilon : 0 < epsilon) :
+    ∃ base : CompactLogTest, ∃ T : Real,
+      Function.support base.test ⊆ Set.Ioo baseLower baseUpper ∧
+      0 ≤ T ∧
+      ∀ R : Real, 0 ≤ R →
+        ∃ correction : CompactLogTest, ∃ C : Real,
+          Function.support correction.test ⊆ Set.Ioo lower upper ∧
+          0 ≤ C ∧
+          ∀ n : Nat,
+            (6 * Real.pi) ^ 2 * ((1 / 2 : Real) ^ (n + 1) * C) < epsilon →
+            Function.support (selectedOwner base correction n).sourceTest.test ⊆
+              Set.Ioo (((n + 1 : Nat) : Real) * baseLower + lower)
+                (((n + 1 : Nat) : Real) * baseUpper + upper) ∧
+            (∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho),
+              laplaceAt ((convolutionIterate base n).convolution correction) w.1 =
+                healthyUnscaledTargetValue rho w) ∧
+            HealthyMinimalLaplaceRealizes rho
+              (selectedOwner base correction n).sourceTest ∧
+            (∑ u ∈ centeredFunctionalEquationOrbit rho,
+              laplaceAt (selectedOwner base correction n).convolutionSquare u) =
+                -2 ∧
+            (∀ z : FiniteMellinNode
+                (sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes),
+              z.1 ∉ healthyUnscaledTargetNodes rho →
+                laplaceAt (selectedOwner base correction n).convolutionSquare
+                  (z.1 - 1 / 2) = 0) ∧
+            (∀ z : Complex, z.re ∈ Set.Icc (0 : Real) 1 →
+              T ≤ |z.im| → 1 ≤ |z.im| → 2 * |rho.im| ≤ |z.im| →
+                ‖z - rho‖ ^ 2 *
+                    ‖laplaceAt (selectedOwner base correction n).sourceTest
+                      (z - 1 / 2)‖ < epsilon) ∧
+            ∀ z : Complex, z.re ∈ Set.Icc (0 : Real) 1 →
+              T ≤ |z.im| → 1 ≤ |z.im| → 2 * |rho.im| ≤ |z.im| →
+                ‖z - rho‖ ^ 2 * ‖(1 - star z) - rho‖ ^ 2 *
+                    ‖laplaceAt
+                      (selectedOwner base correction n).convolutionSquare
+                      (z - 1 / 2)‖ < epsilon ^ 2 := by
+  have hrhoStrip : rho.re ∈ Set.Icc (0 : Real) 1 :=
+    ⟨(sourceNontrivialZero_zero_lt_re hrho).le,
+      (sourceNontrivialZero_re_lt_one hrho).le⟩
+  let baseValues :
+      FiniteMellinNode (healthyUnscaledTargetNodes rho) -> Complex :=
+    fun _ => 1
+  obtain ⟨base, baseC, hbaseSupport, hbaseValues, hbaseC, hbaseDecay⟩ :=
+    exists_residualWindow_correction_with_quadratic_decay
+      (healthyUnscaledTargetNodes rho) hbaseLower hbaseUpper baseValues
+  have hbaseTargets : ∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho),
+      laplaceAt base w.1 = 1 := by
+    intro w
+    simpa [baseValues] using hbaseValues w
+  obtain ⟨T, hT, hbase⟩ :=
+    exists_laplaceAt_vertical_half_contraction_of_quadratic_bound
+      base baseC hbaseC hbaseDecay
+  refine ⟨base, T, hbaseSupport, hT, ?_⟩
+  intro R hR
+  obtain ⟨correction, C, hcorrectionSupport, hC, halln⟩ :=
+    exists_nearbyZero_unscaled_targetValues_assembly_with_fixedCorrection
+      base hbaseSupport (healthyUnscaledTargetNodes rho) hbaseTargets
+      (healthyUnscaledTargetValue rho) rho hrhoStrip
+      (mem_healthyUnscaledTargetNodes_rho rho) T hbase routeNodes
+      hlower hupper R hR
+  refine ⟨correction, C, hcorrectionSupport, hC, ?_⟩
+  intro n hsmall
+  obtain ⟨hrawSupport, htargetValues, hrawZeros, htailBound⟩ := halln n
+  have htail :
+      ∀ z : Complex, z.re ∈ Set.Icc (0 : Real) 1 →
+        T ≤ |z.im| → 1 ≤ |z.im| → 2 * |rho.im| ≤ |z.im| →
+          ‖z - rho‖ ^ 2 *
+              ‖laplaceAt ((convolutionIterate base n).convolution correction) z‖ <
+            epsilon := by
+    intro z hz hheight hone hrhoHeight
+    exact (htailBound z hz hheight hone hrhoHeight).trans_lt hsmall
+  have hselectedSupport :
+      Function.support (selectedOwner base correction n).sourceTest.test ⊆
+        Set.Ioo (((n + 1 : Nat) : Real) * baseLower + lower)
+          (((n + 1 : Nat) : Real) * baseUpper + upper) := by
+    simpa only [selectedOwner_sourceTest] using
+      halfDensityShift_support_subset
+        ((convolutionIterate base n).convolution correction) hrawSupport
+  have hhalf :
+      laplaceAt ((convolutionIterate base n).convolution correction)
+        (1 / 2) = 0 := by
+    calc
+      laplaceAt ((convolutionIterate base n).convolution correction)
+          (1 / 2) = healthyUnscaledTargetValue rho
+            ⟨1 / 2, mem_healthyUnscaledTargetNodes_half rho⟩ :=
+          htargetValues ⟨1 / 2, mem_healthyUnscaledTargetNodes_half rho⟩
+      _ = 0 := healthyUnscaledTargetValue_half hrho hoff
+  have hone :
+      laplaceAt ((convolutionIterate base n).convolution correction) 1 = 0 := by
+    calc
+      laplaceAt ((convolutionIterate base n).convolution correction) 1 =
+          healthyUnscaledTargetValue rho
+            ⟨1, mem_healthyUnscaledTargetNodes_one rho⟩ :=
+          htargetValues ⟨1, mem_healthyUnscaledTargetNodes_one rho⟩
+      _ = 0 := healthyUnscaledTargetValue_one hrho hoff
+  have hthreeHalf :
+      laplaceAt ((convolutionIterate base n).convolution correction)
+        (3 / 2) = 0 := by
+    calc
+      laplaceAt ((convolutionIterate base n).convolution correction)
+          (3 / 2) = healthyUnscaledTargetValue rho
+            ⟨3 / 2, mem_healthyUnscaledTargetNodes_threeHalf rho⟩ :=
+          htargetValues ⟨3 / 2, mem_healthyUnscaledTargetNodes_threeHalf rho⟩
+      _ = 0 := healthyUnscaledTargetValue_threeHalf hrho
+  have hdetect :
+      laplaceAt ((convolutionIterate base n).convolution correction)
+        (rho + 1 / 2) ≠ 0 := by
+    rw [htargetValues
+      ⟨rho + 1 / 2, mem_healthyUnscaledTargetNodes_detector rho⟩]
+    exact healthyUnscaledTargetValue_detector_ne_zero rho hoff
+  have hminimal : HealthyMinimalLaplaceRealizes rho
+      (selectedOwner base correction n).sourceTest := by
+    change HealthyMinimalLaplaceRealizes rho
+      (halfDensityShift ((convolutionIterate base n).convolution correction))
+    refine ⟨?_, ?_, ?_, ?_⟩
+    · rw [laplaceAt_halfDensityShift]
+      simpa using hhalf
+    · rw [laplaceAt_halfDensityShift]
+      norm_num
+      simpa using hone
+    · rw [laplaceAt_halfDensityShift]
+      norm_num
+      simpa using hthreeHalf
+    · rw [laplaceAt_halfDensityShift]
+      simpa using hdetect
+  have hrawOrbit : ∀ w : FiniteMellinNode (sourceFunctionalEquationOrbit rho),
+      laplaceAt ((convolutionIterate base n).convolution correction) w.1 =
+        negativeSourceOrbitValue rho w := by
+    intro w
+    calc
+      laplaceAt ((convolutionIterate base n).convolution correction) w.1 =
+          healthyUnscaledTargetValue rho
+            ⟨w.1, Finset.mem_union_left _ w.2⟩ :=
+          htargetValues ⟨w.1, Finset.mem_union_left _ w.2⟩
+      _ = negativeSourceOrbitValue rho w :=
+          healthyUnscaledTargetValue_of_mem_orbit rho w.1 w.2
+  have hrawRho :
+      laplaceAt ((convolutionIterate base n).convolution correction) rho = 1 := by
+    calc
+      laplaceAt ((convolutionIterate base n).convolution correction) rho =
+          negativeSourceOrbitValue rho
+            ⟨rho, mem_sourceFunctionalEquationOrbit_rho rho⟩ :=
+          hrawOrbit ⟨rho, mem_sourceFunctionalEquationOrbit_rho rho⟩
+      _ = 1 := negativeSourceOrbitValue_rho rho
+  have hrawCompanion :
+      laplaceAt ((convolutionIterate base n).convolution correction)
+        (1 - star rho) = -1 := by
+    calc
+      laplaceAt ((convolutionIterate base n).convolution correction)
+          (1 - star rho) = negativeSourceOrbitValue rho
+            ⟨1 - star rho, mem_sourceFunctionalEquationOrbit_companion rho⟩ :=
+          hrawOrbit ⟨1 - star rho,
+            mem_sourceFunctionalEquationOrbit_companion rho⟩
+      _ = -1 := negativeSourceOrbitValue_companion rho hoff
+  have horbitSum :
+      (∑ u ∈ centeredFunctionalEquationOrbit rho,
+        laplaceAt (selectedOwner base correction n).convolutionSquare u) = -2 :=
+    selectedOwner_centeredOrbit_sum_eq_neg_two
+      base correction n rho hoff hrawRho hrawCompanion hrawOrbit
+  have hsquareZeros : ∀ z : FiniteMellinNode
+      (sourceNontrivialZerosInClosedBallFinset rho R ∪ routeNodes),
+      z.1 ∉ healthyUnscaledTargetNodes rho →
+        laplaceAt (selectedOwner base correction n).convolutionSquare
+          (z.1 - 1 / 2) = 0 := by
+    intro z hz
+    exact selectedOwner_laplaceAt_convolutionSquare_eq_zero_of_source_eq_zero
+      base correction n z.1 (hrawZeros z hz)
+  have hcenteredTail := selectedOwner_centered_source_distance_bound_lt
+    base correction n rho T epsilon htail
+  have hsquareTail := selectedOwner_convolutionSquare_tail_of_source_tail
+    base correction n rho T epsilon hepsilon htail
+  refine ⟨hselectedSupport, htargetValues, hminimal, horbitSum,
+    hsquareZeros, ?_, ?_⟩
+  · exact hcenteredTail
+  · exact hsquareTail
+
 /-- The compatibility projection of the raw-target construction keeps the
 previous finite-prefix and tail interface available to existing consumers. -/
 theorem exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner

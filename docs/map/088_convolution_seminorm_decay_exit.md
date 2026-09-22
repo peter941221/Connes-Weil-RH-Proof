@@ -116,3 +116,14 @@ the immediate quantifier mismatch at the assembly layer: a later producer may
 choose `n` after reading `C` from the correction. The theorem is FORMAL
 interface progress only. The orbit geometry constructor still must consume it,
 and the strict contraction and same-owner positivity obligations remain open.
+
+## 6. All-index healthy orbit assembly (record 1851)
+
+The theorem
+`exists_fixedWindows_nearbyZero_healthyUnscaledOrbit_selectedOwner_with_raw_targets_all_indices`
+now lifts the fixed-correction interface through the healthy selected-owner
+transport. After choosing the correction and its constant, every orbit count
+`n` satisfying the explicit quadratic-tail condition gets the same support,
+raw targets, minimal interpolation, centered orbit sum, square-zero control,
+and both tail certificates. This is FORMAL producer-interface progress; strict
+base contraction and the detector-specific signed budget remain open.
