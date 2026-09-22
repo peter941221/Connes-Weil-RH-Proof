@@ -253,6 +253,68 @@ theorem sparseWindowedMellinCorrection_weighted_budget_le_node_card
     _ ≤ (nodes.card : Real) * coeffBound * basisBound := by
       gcongr
 
+theorem exists_sparse_base_with_unit_targets_and_quadratic_decay
+    (nodes : Finset Complex) {lower upper : Real}
+    (hlower : lower < 0) (hupper : 0 < upper) :
+    ∃ c : WindowedPositiveIntervalCompactTest (Real.exp lower) (Real.exp upper) →₀ Complex,
+      c.support.card ≤ nodes.card ∧
+      ∃ base : CompactLogTest,
+        Function.support base.test ⊆ Set.Ioo lower upper ∧
+        (∀ z : FiniteMellinNode nodes, laplaceAt base z.1 = 1) ∧
+        ∃ C : Real, 0 ≤ C ∧
+          ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+            ‖t / (2 * Real.pi)‖ ^ 2 *
+                ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C := by
+  let a : Real := Real.exp lower
+  let b : Real := Real.exp upper
+  let ha : 0 < a := Real.exp_pos lower
+  let hb : 0 < b := Real.exp_pos upper
+  let ha_one : a < 1 := Real.exp_lt_one_iff.mpr hlower
+  let hone_b : 1 < b := Real.one_lt_exp_iff.mpr hupper
+  let values : FiniteMellinNode nodes → Complex := fun _ => 1
+  let c := sparseWindowedMellinCorrection nodes a b ha ha_one hone_b values
+  have hcard : c.support.card ≤ nodes.card := by
+    exact sparseWindowedMellinCorrection_support_card
+      nodes a b ha ha_one hone_b values
+  have hsource_support :
+      Function.support
+          (fun x : Real =>
+            normalizedCC20ConcreteTestAlgebra.legacy.encode
+              (windowedPositiveIntervalCompactTestCombination c) x) ⊆
+        Set.Ioo a b := by
+    exact windowedPositiveIntervalCompactTestCombination_support_subset c
+  let base : CompactLogTest :=
+    compactLogTestOfWindow
+      (windowedPositiveIntervalCompactTestCombination c) ha hb hsource_support
+  refine ⟨c, hcard, base, ?_, ?_, ?_⟩
+  · intro x hx
+    have hx' := compactLogTestOfWindow_support_subset
+      (windowedPositiveIntervalCompactTestCombination c) ha hb hsource_support hx
+    simpa [a, b] using hx'
+  · intro z
+    have hmap := sparseWindowedMellinCorrection_evaluation
+      nodes a b ha ha_one hone_b values
+    have hmap_z := congrArg (fun q => q z) hmap
+    change windowedMellinEvaluationMap nodes a b ha ha_one hone_b c z =
+      values z at hmap_z
+    rw [windowedMellinEvaluationMap_apply] at hmap_z
+    calc
+      laplaceAt base z.1 =
+          normalizedCC20TestSpace.mellinAt
+            (windowedPositiveIntervalCompactTestCombination c) z.1 := by
+        dsimp [base]
+        rw [laplaceAt_compactLogTestOfWindow_eq_mellin]
+      _ = c.sum (fun p coefficient =>
+          coefficient * windowedFiniteMellinVector nodes a b p z) :=
+        windowedFiniteMellinVector_combination nodes c z
+      _ = 1 := by simpa [values] using hmap_z
+  · obtain ⟨C, hC, hdecay⟩ :=
+      exists_uniform_laplaceAt_vertical_quadratic_decay
+        (windowedPositiveIntervalCompactTestCombination c) ha hb hsource_support
+    refine ⟨C, hC, ?_⟩
+    intro sigma hsigma t
+    exact hdecay sigma hsigma t
+
 theorem affineResidualCorrection_seminorm_le_rightInverse_budget
     (nodes : Finset Complex) {lower upper : Real}
     (hlower : lower < 0) (hupper : 0 < upper)

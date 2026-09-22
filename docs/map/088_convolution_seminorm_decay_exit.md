@@ -281,3 +281,16 @@ The actual coefficient and basis seminorm bounds for the selected owner are
 still absent. Consequently strict contraction, detector-specific signed
 semi-local positivity, and RH remain open. See proof record 1867 and the
 focused logs `sparse-owner-1867a.log` and `sparse-budget-1867b.log`.
+
+## 23. Sparse base producer package (record 1868)
+
+`exists_sparse_base_with_unit_targets_and_quadratic_decay` now converts the
+named sparse source correction into a producer-facing `CompactLogTest` base.
+The package carries source support-card, support window, unit Laplace targets,
+and the quadratic vertical tail together. It is an alternate package beside
+the affine right-inverse producer; no existing G8 API is changed yet.
+
+The remaining quantitative gate is still the actual coefficient/basis
+seminorm bound strong enough for strict contraction. Detector-specific signed
+semi-local positivity and RH remain open. Verification is in proof record 1868
+and `sparse-base-1868b.log`.
