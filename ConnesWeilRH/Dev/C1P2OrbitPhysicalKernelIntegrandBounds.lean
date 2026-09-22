@@ -982,6 +982,22 @@ theorem orbitFiniteComplexPhysicalKernelProfile_term_coefficient_norm_le
     simpa only [Complex.ofReal_re] using (show -Real.log (n : Real) / 2 ≤ 0 by linarith)
   nlinarith [mul_le_mul_of_nonneg_left hexp' hcoeff]
 
+theorem orbitFiniteComplexPhysicalKernelProfile_range_coefficient_norm_le
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    (∑ n ∈ orbitVisiblePrimeRange geometry,
+      ‖((2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) : Real) : Complex) *
+          Complex.exp (((-Real.log n / 2 : Real) : Complex))‖) ≤
+      ∑ n ∈ orbitVisiblePrimeRange geometry,
+        2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : Real))) := by
+  apply Finset.sum_le_sum
+  intro n hn
+  by_cases hnzero : n = 0
+  · subst n
+    simp
+  · exact orbitFiniteComplexPhysicalKernelProfile_term_coefficient_norm_le
+      geometry n (Nat.one_le_iff_ne_zero.mpr hnzero)
+
 theorem finitePrimeSum_le_intervalIntegral_common_factor_profile_norm
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
     (geometry : OrbitG8Geometry rho g) :

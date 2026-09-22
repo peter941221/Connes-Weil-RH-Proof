@@ -263,6 +263,13 @@ the repository's multiplicative notation), because the real exponential
 factor has modulus at most one for `n >= 1`. This is only a coefficient
 majorant; it does not alter the exact signed profile or prove the gate.
 
+The zero index can be removed without changing the owner: its von Mangoldt
+coefficient is zero. Consequently
+`orbitFiniteComplexPhysicalKernelProfile_range_coefficient_norm_le` lifts the
+positive-index coefficient bound to the complete actual visible-prime range.
+The result is a clean scalar majorant for the next comparison, while the
+phase-preserving signed certificate remains the only route to positivity.
+
 Using the raw-factor support, the same estimate is now localized to the exact
 finite window by
 `finitePrimeSum_le_intervalIntegral_common_factor_profile_norm`. This is the
