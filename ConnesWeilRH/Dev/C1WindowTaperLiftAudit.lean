@@ -22,6 +22,12 @@ open ConnesWeilRH.Source.C1WindowTaperLift
 #print axioms windowExpGram_energy
 #print axioms windowTaperComb_smul
 #print axioms windowExpGram_energy_smul
+#print axioms windowTaperGram_energy_smul
+#print axioms windowTaperGram_energy_continuous
+#print axioms windowTaperGram_energy_strict_pos
+#print axioms windowTaperGram_gap
+#print axioms windowTaperGram_solve_norm_le_of_gap
+#print axioms windowTaperCorrection_seminorm_zero_zero_le_of_gap
 #print axioms windowTaperComb_norm_bound
 #print axioms windowExpGram_energy_strict_pos
 #print axioms windowExpGram_energy_continuous

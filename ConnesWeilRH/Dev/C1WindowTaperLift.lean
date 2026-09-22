@@ -134,6 +134,248 @@ theorem windowExpGram_energy_smul {ι : Type*} [Fintype ι] (a b : ℝ)
     rw [intervalIntegral.integral_const_mul]
   rw [hpoint, hmul]
 
+/-! ### Tapered energy, strict positivity, and its quantitative gap -/
+
+/-- Homogeneity of the real tapered Gram energy under real scalars. -/
+theorem windowTaperGram_energy_smul {ι : Type*} [Fintype ι] (a b : ℝ)
+    (τ : ℝ → ℝ) (hτc : Continuous τ) (nodes : ι → ℂ) (r : ℝ) (v : ι → ℂ) :
+    (dotProduct (star (r • v))
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) (r • v))).re
+      = r * r * (dotProduct (star v)
+          (Matrix.mulVec
+            (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v)).re := by
+  classical
+  rw [windowTaperGram_quadratic_re a b τ hτc nodes (r • v),
+    windowTaperGram_quadratic_re a b τ hτc nodes v]
+  have hpoint : (fun x : ℝ =>
+      τ x * ‖windowTaperComb nodes (r • v) x‖ ^ 2) = fun x : ℝ =>
+        (r * r) * (τ x * ‖windowTaperComb nodes v x‖ ^ 2) := by
+    funext x
+    have hn2 : ‖(r : ℂ)‖ ^ 2 = r * r := by
+      rw [Complex.sq_norm, Complex.normSq_ofReal]
+    calc
+      τ x * ‖windowTaperComb nodes (r • v) x‖ ^ 2
+          = τ x * ‖(r : ℂ) * windowTaperComb nodes v x‖ ^ 2 := by
+              rw [windowTaperComb_smul]
+      _ = τ x * (‖(r : ℂ)‖ ^ 2 * ‖windowTaperComb nodes v x‖ ^ 2) := by
+            rw [norm_mul, mul_pow]
+      _ = (r * r) * (τ x * ‖windowTaperComb nodes v x‖ ^ 2) := by
+            rw [hn2]
+            ring
+  rw [hpoint, intervalIntegral.integral_const_mul]
+
+/-- The tapered Gram energy is continuous in the coefficient vector. -/
+theorem windowTaperGram_energy_continuous {ι : Type*} [Fintype ι]
+    (a b : ℝ) (τ : ℝ → ℝ) (hτc : Continuous τ) (nodes : ι → ℂ) :
+    Continuous fun v : ι → ℂ =>
+      (dotProduct (star v)
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v)).re := by
+  classical
+  have hmain : Continuous fun v : ι → ℂ =>
+      ∑ i : ι, star (v i) * ∑ j : ι,
+        windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes i j * v j := by
+    continuity
+  have hfold : (fun v : ι → ℂ =>
+      ∑ i : ι, star (v i) * ∑ j : ι,
+        windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes i j * v j)
+      = fun v : ι → ℂ =>
+          dotProduct (star v)
+            (Matrix.mulVec
+              (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v) := by
+    funext v
+    simp only [dotProduct, Matrix.mulVec, Pi.star_apply]
+  rw [hfold] at hmain
+  exact Complex.continuous_re.comp hmain
+
+/-- Strict positivity of the tapered Gram energy when the taper is nonnegative
+and equals one on a nonempty sub-window. -/
+theorem windowTaperGram_energy_strict_pos {ι : Type*} [Fintype ι]
+    {a b : ℝ} (hab : a < b) (τ : ℝ → ℝ) (hτc : Continuous τ)
+    (hτ0 : ∀ x, 0 ≤ τ x) {a' b' : ℝ} (ha'b' : a' < b')
+    (hsub : Set.Ioo a' b' ⊆ Set.Ioo a b)
+    (hτ1 : ∀ x ∈ Set.Ioo a' b', τ x = 1)
+    (nodes : ι → ℂ) (hne : Function.Injective nodes)
+    (v : ι → ℂ) (hv : v ≠ 0) :
+    0 < (dotProduct (star v)
+      (Matrix.mulVec
+        (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v)).re := by
+  classical
+  rw [windowTaperGram_quadratic_re a b τ hτc nodes v]
+  by_contra hneg
+  have hle : ∫ x : ℝ in a..b,
+      τ x * ‖windowTaperComb nodes v x‖ ^ 2 ∂volume ≤ 0 := by
+    linarith
+  have hzero : ∫ x : ℝ in a..b,
+      τ x * ‖windowTaperComb nodes v x‖ ^ 2 ∂volume = 0 :=
+    le_antisymm hle
+      (intervalIntegral.integral_nonneg hab.le fun x _ =>
+        mul_nonneg (hτ0 x) (sq_nonneg _))
+  have hWc : Continuous (fun x : ℝ =>
+      τ x * ‖windowTaperComb nodes v x‖ ^ 2) := by
+    refine hτc.mul ?_
+    show Continuous (fun x : ℝ =>
+      ‖∑ i : ι, v i * Complex.exp (star (nodes i) * (x : ℂ))‖ ^ 2)
+    continuity
+  have hpt : ∀ x ∈ Set.Ioo a b,
+      τ x * ‖windowTaperComb nodes v x‖ ^ 2 = 0 :=
+    continuous_nonneg_windowIntegral_zero hab hWc hzero
+      (fun x _ => mul_nonneg (hτ0 x) (sq_nonneg _))
+  have hsum : ∀ x ∈ Set.Ioo a' b',
+      ∑ i ∈ Finset.univ,
+        v i * Complex.exp (star (nodes i) * (x : ℂ)) = 0 := by
+    intro x hx
+    have h1 : τ x * ‖windowTaperComb nodes v x‖ ^ 2 = 0 :=
+      hpt x (hsub hx)
+    rw [hτ1 x hx, one_mul] at h1
+    have h2 : ‖windowTaperComb nodes v x‖ *
+        ‖windowTaperComb nodes v x‖ = 0 := by
+      rw [← pow_two]
+      exact h1
+    have h3 : windowTaperComb nodes v x = 0 :=
+      norm_eq_zero.mp (eq_zero_of_mul_self_eq_zero h2)
+    simpa [windowTaperComb] using h3
+  exact hv (funext fun i => finiteExp_windowComb_eq_zero Finset.univ ha'b'
+    (fun p => star (nodes p)) v
+    (fun i hi j hj hij hpq => hij (hne (star_injective hpq)))
+    hsum i (Finset.mem_univ i))
+
+/-- A quantitative spectral gap for the tapered Gram quadratic. -/
+theorem windowTaperGram_gap {ι : Type*} [Fintype ι] [Nonempty ι]
+    {a b : ℝ} (hab : a < b) (τ : ℝ → ℝ) (hτc : Continuous τ)
+    (hτ0 : ∀ x, 0 ≤ τ x) {a' b' : ℝ} (ha'b' : a' < b')
+    (hsub : Set.Ioo a' b' ⊆ Set.Ioo a b)
+    (hτ1 : ∀ x ∈ Set.Ioo a' b', τ x = 1)
+    (nodes : ι → ℂ) (hne : Function.Injective nodes) :
+    ∃ α : ℝ, 0 < α ∧ ∀ v : ι → ℂ, α * ‖v‖ ^ 2 ≤
+      (dotProduct (star v)
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v)).re := by
+  classical
+  have hcomp : IsCompact {x : ι → ℂ | ‖x‖ = 1} := by
+    have hset : Metric.sphere (0 : ι → ℂ) (1 : ℝ) =
+        {x : ι → ℂ | ‖x‖ = 1} := by
+      ext x
+      rw [Metric.mem_sphere, dist_eq_norm]
+      simp
+    rw [← hset]
+    exact isCompact_sphere (0 : ι → ℂ) 1
+  obtain ⟨v₀, hv₀m, hmin⟩ := hcomp.exists_isMinOn
+    ⟨fun _ => 1, by
+      rw [Set.mem_setOf_eq, Pi.norm_def]
+      have hf : (fun b : ι => ‖(1 : ℂ)‖₊) =
+          fun _ : ι => (1 : NNReal) := by
+        funext b
+        simp
+      rw [hf, Finset.sup_const Finset.univ_nonempty]
+      exact NNReal.coe_one⟩
+    (windowTaperGram_energy_continuous a b τ hτc nodes).continuousOn
+  have hmin' : ∀ w : ι → ℂ, ‖w‖ = 1 →
+      (dotProduct (star v₀)
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v₀)).re ≤
+      (dotProduct (star w)
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) w)).re :=
+    fun w hw => hmin
+      (show w ∈ {x : ι → ℂ | ‖x‖ = 1} from by
+        rw [Set.mem_setOf_eq]
+        exact hw)
+  set α := (dotProduct (star v₀)
+    (Matrix.mulVec
+      (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v₀)).re
+  have hα0 : 0 < α := windowTaperGram_energy_strict_pos hab τ hτc hτ0
+    ha'b' hsub hτ1 nodes hne v₀
+      (fun hz => by
+        rw [hz, Set.mem_setOf_eq, norm_zero] at hv₀m
+        exact absurd hv₀m.symm one_ne_zero)
+  refine ⟨α, hα0, ?_⟩
+  intro v
+  by_cases hv0 : v = 0
+  · have hE0 : (dotProduct (star (0 : ι → ℂ))
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) 0)).re = 0 := by
+      simp
+    rw [hv0, norm_zero, zero_pow (by norm_num : (2 : ℕ) ≠ 0), mul_zero, hE0]
+  · set w := (‖v‖ : ℝ)⁻¹ • v with hwdef
+    have hw1 : ‖w‖ = 1 := by
+      rw [hwdef, norm_smul, Real.norm_eq_abs, abs_inv,
+        abs_of_nonneg (norm_nonneg _)]
+      field_simp [norm_ne_zero_iff.mpr hv0]
+    have hvw : (‖v‖ : ℝ) • w = v := by
+      rw [hwdef, smul_smul, mul_inv_cancel₀ (norm_ne_zero_iff.mpr hv0), one_smul]
+    have hαw : α ≤ (dotProduct (star w)
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) w)).re := by
+      show (dotProduct (star v₀)
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v₀)).re ≤ _
+      exact hmin' w hw1
+    have hEv : (dotProduct (star v)
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v)).re =
+        ‖v‖ * ‖v‖ * (dotProduct (star w)
+          (Matrix.mulVec
+            (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) w)).re := by
+      have h := windowTaperGram_energy_smul a b τ hτc nodes ‖v‖ w
+      rw [hvw] at h
+      exact h
+    rw [hEv, ← pow_two]
+    nlinarith [hαw, norm_nonneg v]
+
+/-- A solved tapered system has an explicit coefficient budget once a tapered
+spectral gap is supplied.  The finite-dimensional pairing is bounded in the
+sup norm by `card ι`, so this theorem deliberately exposes that factor rather
+than hiding a sharper operator-norm estimate. -/
+theorem windowTaperGram_solve_norm_le_of_gap
+    {ι : Type*} [Fintype ι] {a b : ℝ} (τ : ℝ → ℝ)
+    (nodes : ι → ℂ) (α : ℝ) (hα : 0 < α)
+    (hgap : ∀ v : ι → ℂ, α * ‖v‖ ^ 2 ≤
+      (dotProduct (star v)
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v)).re)
+    (coeff y : ι → ℂ)
+    (hsolve : Matrix.mulVec
+      (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) coeff = y) :
+    α * ‖coeff‖ ≤ (Fintype.card ι : ℝ) * ‖y‖ := by
+  classical
+  have hgapc := hgap coeff
+  rw [hsolve] at hgapc
+  have hpair : (dotProduct (star coeff) y).re ≤
+      (Fintype.card ι : ℝ) * ‖coeff‖ * ‖y‖ := by
+    have hnorm : ‖dotProduct (star coeff) y‖ ≤
+        (Fintype.card ι : ℝ) * ‖coeff‖ * ‖y‖ := by
+      calc
+        ‖dotProduct (star coeff) y‖ =
+            ‖∑ i : ι, star (coeff i) * y i‖ := by rfl
+        _ ≤ ∑ i : ι, ‖star (coeff i) * y i‖ :=
+          norm_sum_le (Finset.univ : Finset ι)
+            (fun i => star (coeff i) * y i)
+        _ = ∑ i : ι, ‖coeff i‖ * ‖y i‖ := by
+          simp only [norm_mul, norm_star]
+        _ ≤ ∑ i : ι, ‖coeff‖ * ‖y‖ := by
+          apply Finset.sum_le_sum
+          intro i hi
+          have hci : ‖coeff i‖ ≤ ‖coeff‖ := by
+            rw [Pi.norm_def]
+            exact mod_cast Finset.le_sup
+              (f := fun j : ι => ‖coeff j‖₊) (Finset.mem_univ i)
+          have hyi : ‖y i‖ ≤ ‖y‖ := by
+            rw [Pi.norm_def]
+            exact mod_cast Finset.le_sup
+              (f := fun j : ι => ‖y j‖₊) (Finset.mem_univ i)
+          exact mul_le_mul hci hyi (norm_nonneg _) (norm_nonneg _)
+        _ = (Fintype.card ι : ℝ) * ‖coeff‖ * ‖y‖ := by
+          simp [Finset.sum_const, Finset.card_univ]
+          ring
+    exact (re_le_norm (dotProduct (star coeff) y)).trans hnorm
+  by_cases hc0 : coeff = 0
+  · rw [hc0, norm_zero, mul_zero]
+    exact mul_nonneg (Nat.cast_nonneg _) (norm_nonneg _)
+  · have hcpos : 0 < ‖coeff‖ := norm_pos_iff.mpr hc0
+    nlinarith [hgapc, hpair]
+
 /-! ### Uniform bound and strict positivity of the energy -/
 
 /-- The uniform bound of a representer combination: the sum of the exponent
@@ -479,6 +721,41 @@ theorem windowTaperCorrection_seminorm_zero_zero_le
         gcongr
         exact windowTaperComb_norm_bound a b nodes coeff x hxIcc
       _ = ‖coeff‖ * windowTaperBound a b nodes := by ring
+
+/-- Same-owner seminorm budget obtained by combining the tapered Gram gap with
+the explicit taper representer bound. -/
+theorem windowTaperCorrection_seminorm_zero_zero_le_of_gap
+    {ι : Type*} [Fintype ι] {a b : ℝ} (hab : a < b)
+    (nodes : ι → ℂ) (coeff y : ι → ℂ) (τ : ℝ → ℝ)
+    (hτc : HasCompactSupport τ) (hτs : ContDiff ℝ ∞ τ)
+    (hsupp : Function.support τ ⊆ Set.Ioo a b)
+    (hτ0 : ∀ x, 0 ≤ τ x) (hτ1 : ∀ x, τ x ≤ 1)
+    (α : ℝ) (hα : 0 < α)
+    (hgap : ∀ v : ι → ℂ, α * ‖v‖ ^ 2 ≤
+      (dotProduct (star v)
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v)).re)
+    (hsolve : Matrix.mulVec
+      (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) coeff = y) :
+    α * SchwartzMap.seminorm ℂ 0 0
+        (windowTaperCorrection nodes coeff τ hτc hτs).test ≤
+      (Fintype.card ι : ℝ) * ‖y‖ * windowTaperBound a b nodes := by
+  have hcoeff := windowTaperGram_solve_norm_le_of_gap τ nodes α hα hgap
+    coeff y hsolve
+  have hseminorm := windowTaperCorrection_seminorm_zero_zero_le
+    hab nodes coeff τ hτc hτs hsupp hτ0 hτ1
+  have hB : 0 ≤ windowTaperBound a b nodes := by
+    unfold windowTaperBound
+    positivity
+  calc
+    α * SchwartzMap.seminorm ℂ 0 0
+          (windowTaperCorrection nodes coeff τ hτc hτs).test
+        ≤ α * (‖coeff‖ * windowTaperBound a b nodes) := by
+          exact mul_le_mul_of_nonneg_left hseminorm hα.le
+    _ = (α * ‖coeff‖) * windowTaperBound a b nodes := by ring
+    _ ≤ ((Fintype.card ι : ℝ) * ‖y‖) * windowTaperBound a b nodes :=
+          mul_le_mul_of_nonneg_right hcoeff hB
+    _ = (Fintype.card ι : ℝ) * ‖y‖ * windowTaperBound a b nodes := by ring
 
 /-- A finite matrix's entrywise norm sum bounds its action on the sup norm. -/
 noncomputable def matrixEntryNormSum {ι κ : Type*} [Fintype ι] [Fintype κ]

@@ -331,3 +331,29 @@ Combined with the taper seminorm bridge, the remaining budget is an explicit
 finite inverse-matrix inequality.  The entry sum itself is not yet bounded
 below the strict-contraction threshold; detector-specific positivity and RH
 remain open.  See proof record 1876 and `taper-inverse-budget-1876b.log`.
+
+## 27. Taper Gram quantitative gap (record 1877)
+
+The taper owner now has the same quantitative gap shape as the untapered
+window owner.  `windowTaperGram_energy_strict_pos` proves strict positivity
+from the nonnegative taper and its flat sub-window, while
+`windowTaperGram_gap` applies continuity and compactness of the unit sphere
+to obtain an existential `alpha > 0` lower bound for every coefficient
+vector.  This is FORMAL and same-owner, with paired standard-axiom audits.
+It is not a numerical lower bound: the inverse coefficient budget and the
+detector-specific signed semi-local positivity remain open.  See proof record
+1877 and focused logs `taper-gap-20260923b.log` and
+`taper-gap-audit-20260923.log`.
+
+## 28. Taper gap coefficient budget (record 1878)
+
+The quantitative gap now feeds the actual taper owner.  The theorem
+`windowTaperGram_solve_norm_le_of_gap` bounds a solved coefficient vector by
+`card(ι) * ||target|| / alpha` in the current sup norm.  The same-owner
+corollary `windowTaperCorrection_seminorm_zero_zero_le_of_gap` propagates this
+to the zero-order seminorm as the scalar inequality
+`alpha * seminorm <= card(ι) * ||target|| * windowTaperBound`.  This is FORMAL
+and audited with standard axioms only.  The remaining task is numerical or
+analytic verification that this scalar lies below the strict contraction
+threshold; detector-specific signed semi-local positivity and RH remain open.
+See proof record 1878 and `taper-coeff-budget-20260923b.log`.
