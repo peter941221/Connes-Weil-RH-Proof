@@ -395,3 +395,15 @@ For route-alpha's four-node family, under the standard strip conditions
 paired-audited.  It still supplies no lower bound for `alpha`, no verified
 strict threshold, no detector-specific semi-local positivity, and no RH.
 See proof record 1883 and `realpart-routealpha-1883d.log`.
+
+## 32. Taper gap upper ceiling (record 1885)
+
+The taper branch now also proves an upper bound on any admissible gap:
+`windowTaperGram_gap_le_interval_length_of_zero_node` shows `alpha <= b - a`
+whenever the node family contains the zero node and the taper is bounded above
+by one.  The proof uses the zero-node unit coordinate, whose representer is
+the constant one, and the interval integral comparison.  Route-alpha always
+contains this node, so this is a genuine constraint on any future threshold
+supplier.  It is an upper ceiling only; no positive lower bound, strict
+contraction, detector-specific positivity, or RH conclusion follows.  See
+proof record 1885 and `taper-gap-upper-1885c.log`.

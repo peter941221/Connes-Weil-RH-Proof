@@ -403,3 +403,14 @@ height from this particular envelope and is a FORMAL input to the `_realPart`
 strict-contraction consumer.  It does not prove the Gram-gap lower bound,
 the threshold, the open gate sign, detector-specific semi-local positivity,
 or RH.  See proof record 1883 and `realpart-routealpha-1883d.log`.
+
+## Source-zero strip bridge (record 1884)
+
+The route-alpha real-part envelope is now connected directly to the actual
+`sourceNontrivialZero` owner.  The theorem
+`routeAlphaRealPartBound_le_four_exp_of_sourceNontrivialZero` derives the
+needed `0 <= Re rho <= 1` facts from the existing source-zero lemmas, yielding
+the same `4 * exp(max(|a|, |b|))` bound without caller-side strip premises.
+This is FORMAL and audited only; alpha, the strict threshold, the gate sign,
+detector-specific semi-local positivity, and RH remain open.  See proof record
+1884 and `route-alpha-strip-1884a.log`.

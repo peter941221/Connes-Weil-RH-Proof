@@ -172,6 +172,18 @@ theorem routeAlphaRealPartBound_le_four_exp
             (by exact_mod_cast routeAlphaIndex_card_le_four rho)
             (Real.exp_pos _).le
 
+/-- The same envelope bound with the strip hypotheses supplied by the actual
+source-zero owner. -/
+theorem routeAlphaRealPartBound_le_four_exp_of_sourceNontrivialZero
+    (rho : ℂ)
+    (hrho : RHDefinitionBridge.standard.sourceNontrivialZero rho)
+    (a b : ℝ) :
+    windowTaperRealPartBound a b (routeAlphaNodes rho) ≤
+      4 * Real.exp (max |a| |b|) := by
+  exact routeAlphaRealPartBound_le_four_exp rho a b
+    (sourceNontrivialZero_zero_lt_re hrho).le
+    (sourceNontrivialZero_re_lt_one hrho).le
+
 instance routeAlphaIndex_nonempty (rho : ℂ) :
     Nonempty (routeAlphaIndex rho) :=
   ⟨⟨(0 : ℂ), by simp [healthyDetectorNodeSet]⟩⟩

@@ -23,6 +23,7 @@ open ConnesWeilRH.Source.C1WindowTaperLift
 #print axioms windowTaperComb_smul
 #print axioms windowExpGram_energy_smul
 #print axioms windowTaperGram_energy_smul
+#print axioms windowTaperGram_gap_le_interval_length_of_zero_node
 #print axioms windowTaperGram_energy_continuous
 #print axioms windowTaperGram_energy_strict_pos
 #print axioms windowTaperGram_gap

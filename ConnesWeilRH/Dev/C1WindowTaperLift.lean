@@ -165,6 +165,44 @@ theorem windowTaperGram_energy_smul {ι : Type*} [Fintype ι] (a b : ℝ)
             ring
   rw [hpoint, intervalIntegral.integral_const_mul]
 
+/-- Any tapered Gram gap is bounded above by the interval length when one
+representer is the constant exponential at node zero. -/
+theorem windowTaperGram_gap_le_interval_length_of_zero_node
+    {ι : Type*} [Fintype ι] [Nonempty ι] [DecidableEq ι]
+    {a b : ℝ} (hab : a < b) (τ : ℝ → ℝ) (hτc : Continuous τ)
+    (hτ1 : ∀ x, τ x ≤ 1) (nodes : ι → ℂ) (i₀ : ι)
+    (hzero : nodes i₀ = 0) (α : ℝ)
+    (hgap : ∀ v : ι → ℂ, α * ‖v‖ ^ 2 ≤
+      (dotProduct (star v)
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v)).re) :
+    α ≤ b - a := by
+  let v : ι → ℂ := Pi.single i₀ 1
+  have hvnorm : ‖v‖ = 1 := by
+    simpa [v] using
+      (Pi.norm_single (G := fun _ : ι => ℂ) (i := i₀) (1 : ℂ))
+  have hvcomb : ∀ x : ℝ, windowTaperComb nodes v x = 1 := by
+    intro x
+    simp only [windowTaperComb, v]
+    rw [Finset.sum_eq_single i₀]
+    · simp [hzero]
+    · intro j _ hji
+      simp [Pi.single_eq_of_ne hji]
+    · intro hmem
+      exact (hmem (Finset.mem_univ _)).elim
+  have hgapv := hgap v
+  rw [hvnorm, one_pow, windowTaperGram_quadratic_re a b τ hτc nodes v] at hgapv
+  simp_rw [hvcomb] at hgapv
+  have hτint : IntervalIntegrable τ volume a b := hτc.intervalIntegrable a b
+  have hmono := intervalIntegral.integral_mono_on hab.le hτint
+    intervalIntegrable_const (fun x hx => hτ1 x)
+  rw [intervalIntegral.integral_const, smul_eq_mul] at hmono
+  have hmono' : (∫ x : ℝ in a..b, τ x) ≤ b - a := by
+    simpa using hmono
+  have hgapv' : α ≤ ∫ x : ℝ in a..b, τ x := by
+    simpa using hgapv
+  exact hgapv'.trans hmono'
+
 /-- The tapered Gram energy is continuous in the coefficient vector. -/
 theorem windowTaperGram_energy_continuous {ι : Type*} [Fintype ι]
     (a b : ℝ) (τ : ℝ → ℝ) (hτc : Continuous τ) (nodes : ι → ℂ) :
