@@ -12,6 +12,8 @@
 
 2026-09-23 ConnesWeilRH/Dev/C1P2BaseSeminormBound.lean + Audit + docs/proofs/1862_affine_unit_target_base.md + docs/map/088_convolution_seminorm_decay_exit.md : PACKAGED the explicit affine unit-target finite-node base with support, all Mellin target equations, and quadratic tail in one producer-facing theorem. Build `affine-base-1862b.log` clean, standard axioms, zero sorryAx; coefficient budget and detector-specific positivity remain open.
 
+2026-09-23 ConnesWeilRH/Dev/C1P2BaseSeminormBound.lean + Audit + docs/proofs/1862_affine_unit_target_base.md + docs/map/088_convolution_seminorm_decay_exit.md : PACKAGED the explicit affine unit-target finite-node base with support, all Mellin target equations, and quadratic tail in one producer-facing theorem. Build `affine-base-1862b.log` clean, standard axioms, zero sorryAx; coefficient budget and detector-specific positivity remain open.
+
 2026-09-23 docs/proofs/1856_base_seminorm_quantitative_boundary.md + docs/map/088_convolution_seminorm_decay_exit.md : AUDITED the strict-contraction input boundary. The current finite-window surjectivity and residual quadratic-decay APIs expose support/interpolation/C but no zero-order Schwartz seminorm upper bound. C must not be used as a seminorm substitute; the next brick requires an explicit quantitative base witness.
 
 2026-09-23 ConnesWeilRH/Dev/C1G8R0OrbitGeometry.lean + Audit + docs/proofs/1855_indexed_orbit_geometry_producer.md : FORMALIZED `exists_indexed_orbitG8Geometry_of_sourceNontrivialZero_right`. It fixes base/threshold/correction/C before n and realizes every n satisfying the explicit quadratic tail as a complete same-owner `OrbitG8Geometry`. Strict base contraction and detector-specific semi-local positivity remain open.

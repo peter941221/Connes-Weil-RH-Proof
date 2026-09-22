@@ -222,3 +222,10 @@ The finite-node base with unit Mellin targets is now packaged directly from
 the affine right inverse, with support and quadratic tail in one owner. This is
 the producer replacement point; its finite coefficient budget and the later
 same-owner signed positivity are still open.
+
+## 17. Explicit unit-target base package (record 1862)
+
+The finite-node base with unit Mellin targets is now packaged directly from
+the affine right inverse, with support and quadratic tail in one owner. This is
+the producer replacement point; its finite coefficient budget and the later
+same-owner signed positivity are still open.
