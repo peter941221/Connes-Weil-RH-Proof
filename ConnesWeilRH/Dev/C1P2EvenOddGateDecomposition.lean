@@ -1,6 +1,8 @@
 import ConnesWeilRH.Dev.C1P2BilateralProfile
 import ConnesWeilRH.Dev.C1HealthyDetectorArchRescue
 import ConnesWeilRH.Dev.C1OrbitWindowExitComposition
+import ConnesWeilRH.Dev.C1PsiLinearity
+import ConnesWeilRH.Dev.C1P2SpanProfileMatrix
 
 /-!
 # P2 even/odd gate decomposition
@@ -24,6 +26,8 @@ open C1OrbitWindowExitComposition
 open C1OrbitWindowSemiLocalGate
 open C1SameOwnerWeil
 open CCM25Concrete.CompactLogConvolution
+open C1PsiLinearity
+open C1P2SpanProfileMatrix
 
 noncomputable section
 
@@ -132,6 +136,54 @@ theorem finitePrimeSum_crossTest_eq_zero_of_even_odd
     finitePrimeSum (crossTest f g) = 0 := by
   exact finitePrimeSum_eq_zero_of_test_odd (crossTest f g)
     (test_neg_crossTest_of_even_odd f g hf hg)
+
+theorem ICgate_sumTest_add (F G : CompactLogTest) :
+    ICgate (sumTest F G) = ICgate F + ICgate G := by
+  have heq : sumTest F G = testAdd F G := by
+    apply CompactLogTest.ext
+    ext x
+    simp [sumTest_apply, testAdd_apply]
+  rw [heq]
+  unfold ICgate
+  rw [archimedeanTerm_testAdd F G
+      (Source.C1ArchimedeanIntegrabilityGeneric.integrableOn_archimedeanIntegrand F)
+      (Source.C1ArchimedeanIntegrabilityGeneric.integrableOn_archimedeanIntegrand G),
+    finitePrimeSum_testAdd]
+  ring
+
+theorem ICgate_pairTest_zero_of_even_odd
+    (f g : CompactLogTest)
+    (hf : ∀ x : ℝ, f.test (-x) = f.test x)
+    (hg : ∀ x : ℝ, g.test (-x) = -g.test x) :
+    ICgate (f.involution.convolution g) = 0 := by
+  have hodd := test_neg_crossTest_of_even_odd f g hf hg
+  have harch : archimedeanTerm (crossTest f g) = 0 :=
+    archimedeanTerm_eq_zero_of_test_odd (crossTest f g) hodd
+  have hprime : finitePrimeSum (crossTest f g) = 0 :=
+    finitePrimeSum_crossTest_eq_zero_of_even_odd f g hf hg
+  have hcross : ICgate (crossTest f g) = 0 := by
+    unfold ICgate
+    rw [harch, hprime]
+    ring
+  have hsum := ICgate_sumTest_add
+    (f.involution.convolution g) (g.involution.convolution f)
+  have hswap := ICgate_pairTest_swap f g
+  rw [show crossTest f g =
+      sumTest (f.involution.convolution g)
+        (g.involution.convolution f) by rfl, hsum, hswap] at hcross
+  linarith
+
+theorem twoSpan_discriminant_pos_of_even_odd_positive
+    (f g : CompactLogTest)
+    (hf : ∀ x : ℝ, f.test (-x) = f.test x)
+    (hg : ∀ x : ℝ, g.test (-x) = -g.test x)
+    (hfpos : 0 < ICgate f.convolutionSquare)
+    (hgpos : 0 < ICgate g.convolutionSquare) :
+    ICgate f.convolutionSquare * ICgate g.convolutionSquare >
+      ICgate (f.involution.convolution g) ^ 2 := by
+  have hcross := ICgate_pairTest_zero_of_even_odd f g hf hg
+  rw [hcross]
+  simpa using mul_pos hfpos hgpos
 
 theorem finitePrimeSum_convolutionSquare_sumTest_eq_add_of_even_odd
     (f g : CompactLogTest)

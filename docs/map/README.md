@@ -84,6 +84,14 @@ the complete C3' budget into the same-owner Archimedean determinant and the
 explicit square/pair credit-deficit terms. This removes the remaining
 algebraic ambiguity but proves no sign; the genuine estimate is still open.
 
+## C3' Round 2B route audit, 2026-09-22
+
+Record 1807 formally shows that an even/odd pair with positive diagonal gates
+has positive two-span discriminant because its cross gate vanishes. Thus the
+unconstrained two-test C3' estimate is not a valid universal producer shape.
+This is a route correction, not an RH result: the live C3' target now needs a
+detector-specific phase-lock or real-sector constraint.
+
 ## Orbit-sum pin realized, 2026-09-21
 
 [074](074_orbit_sum_pin_after_1799.md) records the orbit-sum pin (record

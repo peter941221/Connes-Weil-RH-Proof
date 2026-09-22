@@ -10,6 +10,9 @@ namespace C1P2EvenOddGateDecomposition
 #print axioms globalPrimeIndexSet_sumTest_subset_union
 #print axioms finitePrimeSum_sumTest_add
 #print axioms finitePrimeSum_crossTest_eq_zero_of_even_odd
+#print axioms ICgate_sumTest_add
+#print axioms ICgate_pairTest_zero_of_even_odd
+#print axioms twoSpan_discriminant_pos_of_even_odd_positive
 #print axioms finitePrimeSum_convolutionSquare_sumTest_eq_add_of_even_odd
 #print axioms ICgate_convolutionSquare_sumTest_eq_add_of_even_odd
 #print axioms qw_eq_neg_diagonal_gate_sum_of_even_odd_of_vanishes

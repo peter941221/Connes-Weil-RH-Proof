@@ -45,6 +45,16 @@ square credit-deficit terms, the pair credit-deficit term, and the residual
 prime determinant square. This is the exact estimate target for Round 2B; no
 term has been assigned a sign by this reduction.
 
+## Round 2B route audit (2026-09-22)
+
+The even/odd owner now proves `ICgate_pairTest_zero_of_even_odd`. Consequently,
+if both diagonal gates are positive, then
+`twoSpan_discriminant_pos_of_even_odd_positive` gives a strictly positive
+two-span discriminant. This formally rules out an unconditional signed
+estimate for arbitrary two-test owners. The selected detector must therefore
+carry an additional phase-lock or real-sector hypothesis before C3' can be a
+producer. The detector-specific signed estimate itself remains open.
+
 Evidence: `ConnesWeilRH/Dev/C1C3CarrierTransport.lean`, theorem
 `CarrierTwoSpanDeterminantCertificate.gate` (formal, project candidate
 owner); prior exact determinant split and phase readbacks are recorded in
