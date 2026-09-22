@@ -267,3 +267,17 @@ the selected basis seminorm bound, strict base contraction, and the
 detector-specific signed semi-local positivity remain open. Verification is
 recorded in proof record 1866 (`source-sparse-1866e.log`); the Audit uses only
 `[propext, Classical.choice, Quot.sound]` and has no `sorryAx`.
+
+## 22. Sparse owner and node-card budget consumer (record 1867)
+
+The source-indexed certificate is now packaged as the named owner
+`sparseWindowedMellinCorrection`, with support-card and evaluation readbacks.
+The new budget consumer
+`sparseWindowedMellinCorrection_weighted_budget_le_node_card` applies the
+uniform coefficient/basis estimate and replaces the support cardinality by
+`nodes.card`. This closes the source-owner-to-budget wiring.
+
+The actual coefficient and basis seminorm bounds for the selected owner are
+still absent. Consequently strict contraction, detector-specific signed
+semi-local positivity, and RH remain open. See proof record 1867 and the
+focused logs `sparse-owner-1867a.log` and `sparse-budget-1867b.log`.

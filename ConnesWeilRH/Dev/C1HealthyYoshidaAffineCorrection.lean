@@ -190,6 +190,39 @@ theorem exists_windowedMellin_source_sparse_coefficients
       _ = y z := by
         simpa only [Finsupp.sum_apply'] using congrArg (fun q => q z) hdsum
 
+/-! A named sparse source owner for later seminorm-budget consumers.  This
+selector is deliberately separate from the affine right inverse: it exposes
+the support bound needed by the quantitative route without changing the
+existing affine producer API. -/
+noncomputable def sparseWindowedMellinCorrection
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex) :
+    WindowedPositiveIntervalCompactTest a b →₀ Complex :=
+  Classical.choose
+    (exists_windowedMellin_source_sparse_coefficients
+      nodes a b ha ha_one hone_b y)
+
+theorem sparseWindowedMellinCorrection_support_card
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex) :
+    (sparseWindowedMellinCorrection nodes a b ha ha_one hone_b y).support.card ≤
+      nodes.card := by
+  exact (Classical.choose_spec
+    (exists_windowedMellin_source_sparse_coefficients
+      nodes a b ha ha_one hone_b y)).1
+
+theorem sparseWindowedMellinCorrection_evaluation
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex) :
+    windowedMellinEvaluationMap nodes a b ha ha_one hone_b
+        (sparseWindowedMellinCorrection nodes a b ha ha_one hone_b y) = y := by
+  exact (Classical.choose_spec
+    (exists_windowedMellin_source_sparse_coefficients
+      nodes a b ha ha_one hone_b y)).2
+
 /-- A linear right inverse of the finite-node evaluation map.  Its existence
 uses only surjectivity and the projectivity of finite function spaces over the
 field `Complex`; it does not use any sign conclusion. -/

@@ -211,6 +211,48 @@ theorem strict_base_contraction_of_uniform_coeff_basis_budget
   exact strict_base_contraction_of_coeff_weighted_budget
     ha hb c hfinite hbudget_half
 
+theorem sparseWindowedMellinCorrection_weighted_budget_le_node_card
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex)
+    {coeffBound basisBound : Real}
+    (hcoeff_nonneg : 0 ≤ coeffBound)
+    (hbasis_nonneg : 0 ≤ basisBound)
+    (hcoeff : ∀ p ∈
+        (sparseWindowedMellinCorrection nodes a b ha ha_one hone_b y).support,
+        ‖(sparseWindowedMellinCorrection nodes a b ha ha_one hone_b y) p‖ ≤
+          coeffBound)
+    (hbasis : ∀ p ∈
+        (sparseWindowedMellinCorrection nodes a b ha ha_one hone_b y).support,
+        SchwartzMap.seminorm Complex 0 0
+          (normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test) ≤
+            basisBound) :
+    (∑ p ∈
+        (sparseWindowedMellinCorrection nodes a b ha ha_one hone_b y).support,
+        ‖(sparseWindowedMellinCorrection nodes a b ha ha_one hone_b y) p‖ *
+          SchwartzMap.seminorm Complex 0 0
+            (normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test)) ≤
+      (nodes.card : Real) * coeffBound * basisBound := by
+  let c := sparseWindowedMellinCorrection nodes a b ha ha_one hone_b y
+  have hsum := source_combination_seminorm_zero_zero_le_card_mul_uniform_budget
+    c hcoeff_nonneg hbasis_nonneg hcoeff hbasis
+  have hcard : (c.support.card : Real) ≤ (nodes.card : Real) := by
+    exact_mod_cast sparseWindowedMellinCorrection_support_card
+      nodes a b ha ha_one hone_b y
+  have hfactor : 0 ≤ coeffBound * basisBound :=
+    mul_nonneg hcoeff_nonneg hbasis_nonneg
+  dsimp [c] at hsum hcard ⊢
+  calc
+    (∑ p ∈
+        (sparseWindowedMellinCorrection nodes a b ha ha_one hone_b y).support,
+        ‖(sparseWindowedMellinCorrection nodes a b ha ha_one hone_b y) p‖ *
+          SchwartzMap.seminorm Complex 0 0
+            (normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test)) ≤
+        ((sparseWindowedMellinCorrection nodes a b ha ha_one hone_b y).support.card : Real) *
+          coeffBound * basisBound := hsum
+    _ ≤ (nodes.card : Real) * coeffBound * basisBound := by
+      gcongr
+
 theorem affineResidualCorrection_seminorm_le_rightInverse_budget
     (nodes : Finset Complex) {lower upper : Real}
     (hlower : lower < 0) (hupper : 0 < upper)
