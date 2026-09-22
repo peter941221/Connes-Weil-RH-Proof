@@ -8,5 +8,6 @@ namespace ConnesWeilRH.Source.C1P2BaseSeminormBound
 #print axioms strict_base_contraction_of_coeff_weighted_budget
 #print axioms affineResidualCorrection_seminorm_le_rightInverse_budget
 #print axioms affineResidualCorrection_with_quadratic_decay
+#print axioms exists_affine_base_with_unit_targets_and_quadratic_decay
 
 end ConnesWeilRH.Source.C1P2BaseSeminormBound

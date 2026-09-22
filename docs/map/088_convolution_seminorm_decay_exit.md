@@ -215,3 +215,10 @@ The affine right-inverse correction now exports the same quadratic vertical-tail
 bound used by the existing producer. The explicit family can therefore replace
 the classical existential correction without losing the tail consumer. The
 finite coefficient/basis budget remains the quantitative gate.
+
+## 17. Explicit unit-target base package (record 1862)
+
+The finite-node base with unit Mellin targets is now packaged directly from
+the affine right inverse, with support and quadratic tail in one owner. This is
+the producer replacement point; its finite coefficient budget and the later
+same-owner signed positivity are still open.

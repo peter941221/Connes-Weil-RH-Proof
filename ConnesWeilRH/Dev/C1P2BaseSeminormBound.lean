@@ -26,6 +26,7 @@ open CC20YoshidaNearZeros
 open CC20YoshidaInterpolationNode
 open CC20YoshidaInterpolationNode.CC20YoshidaExpandedMomentNode
 open CCM25Concrete.SelectedYoshidaBridge
+open CCM25Concrete.CompactLogConvolution
 open C1HealthyYoshidaAffineCorrection
 
 noncomputable section
@@ -196,6 +197,24 @@ theorem affineResidualCorrection_with_quadratic_decay
   have h := hdecay sigma hsigma t
   simpa [affineResidualCorrection, a, b, ha, hb, ha_one, hone_b, coeffs, source]
     using h
+
+theorem exists_affine_base_with_unit_targets_and_quadratic_decay
+    (nodes : Finset Complex) {lower upper : Real}
+    (hlower : lower < 0) (hupper : 0 < upper) :
+    ∃ base : CompactLogTest,
+      Function.support base.test ⊆ Set.Ioo lower upper ∧
+      (∀ z : FiniteMellinNode nodes, laplaceAt base z.1 = 1) ∧
+      ∃ C : Real, 0 ≤ C ∧
+        ∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+          ‖t / (2 * Real.pi)‖ ^ 2 *
+              ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C := by
+  let values : FiniteMellinNode nodes → Complex := fun _ => 1
+  let base := affineResidualCorrection nodes hlower hupper values
+  refine ⟨base, ?_, ?_, ?_⟩
+  · exact affineResidualCorrection_support_subset nodes hlower hupper values
+  · intro z
+    exact affineResidualCorrection_laplaceAt nodes hlower hupper values z
+  · exact affineResidualCorrection_with_quadratic_decay nodes hlower hupper values
 
 end
 end C1P2BaseSeminormBound
