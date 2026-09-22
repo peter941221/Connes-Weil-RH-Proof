@@ -28,6 +28,8 @@ open C1SameOwnerWeil
 open CCM25Concrete.CompactLogConvolution
 open C1PsiLinearity
 open C1P2SpanProfileMatrix
+open C1GateMatrixRepresentation
+open Matrix
 
 noncomputable section
 
@@ -184,6 +186,40 @@ theorem twoSpan_discriminant_pos_of_even_odd_positive
   have hcross := ICgate_pairTest_zero_of_even_odd f g hf hg
   rw [hcross]
   simpa using mul_pos hfpos hgpos
+
+theorem twoSpan_discriminant_neg_of_even_odd_opposite_sign
+    (f g : CompactLogTest)
+    (hf : ∀ x : ℝ, f.test (-x) = f.test x)
+    (hg : ∀ x : ℝ, g.test (-x) = -g.test x)
+    (hfpos : 0 < ICgate f.convolutionSquare)
+    (hgneg : ICgate g.convolutionSquare < 0) :
+    ICgate f.convolutionSquare * ICgate g.convolutionSquare <
+      ICgate (f.involution.convolution g) ^ 2 := by
+  have hcross := ICgate_pairTest_zero_of_even_odd f g hf hg
+  rw [hcross]
+  simpa using mul_neg_of_pos_of_neg hfpos hgneg
+
+theorem exists_twoSpan_gate_qform_nonpos_of_even_odd_opposite_sign
+    (f g : CompactLogTest)
+    (hf : ∀ x : ℝ, f.test (-x) = f.test x)
+    (hg : ∀ x : ℝ, g.test (-x) = -g.test x)
+    (hfpos : 0 < ICgate f.convolutionSquare)
+    (hgneg : ICgate g.convolutionSquare < 0) :
+    ∃ lam : ℝ,
+      (![1, -lam] : Fin 2 → ℝ) ⬝ᵥ
+          (gateMatrix ![g, f] *ᵥ
+            (![1, -lam] : Fin 2 → ℝ)) ≤ 0 := by
+  apply exists_twoSpan_gate_qform_nonpos_of_discriminant g f hfpos
+  have hdisc := twoSpan_discriminant_neg_of_even_odd_opposite_sign
+    f g hf hg hfpos hgneg
+  have hcrossfg := ICgate_pairTest_zero_of_even_odd f g hf hg
+  have hcrossgf : ICgate (g.involution.convolution f) = 0 := by
+    rw [← ICgate_pairTest_swap f g]
+    exact hcrossfg
+  have hdisc0 := hdisc
+  rw [hcrossfg] at hdisc0
+  simp [hcrossfg, hcrossgf]
+  nlinarith [hdisc0]
 
 theorem finitePrimeSum_convolutionSquare_sumTest_eq_add_of_even_odd
     (f g : CompactLogTest)

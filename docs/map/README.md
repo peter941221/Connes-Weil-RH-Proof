@@ -92,6 +92,16 @@ unconstrained two-test C3' estimate is not a valid universal producer shape.
 This is a route correction, not an RH result: the live C3' target now needs a
 detector-specific phase-lock or real-sector constraint.
 
+## C3' Round 2C opposite-sign branch, 2026-09-22
+
+The same parity owner now formally proves the complementary branch: if the
+even diagonal gate is positive and the odd diagonal gate is negative, the
+cross gate is zero and the two-span discriminant is strictly negative. The
+generic quadratic consumer therefore produces a nonpositive two-span gate
+quadratic form. This is a genuine route condition, but the existing orbit
+detector does not yet prove the required opposite signs or that the resulting
+combination retains detection. The C3 sign and RH remain open.
+
 ## Orbit-sum pin realized, 2026-09-21
 
 [074](074_orbit_sum_pin_after_1799.md) records the orbit-sum pin (record

@@ -60,6 +60,18 @@ Evidence: `ConnesWeilRH/Dev/C1C3CarrierTransport.lean`, theorem
 owner); prior exact determinant split and phase readbacks are recorded in
 `docs/map/075_c3p_carrier_transport_after_1800.md`.
 
+## Round 2C opposite-sign branch (2026-09-22)
+
+The formal even/odd owner now also proves
+`twoSpan_discriminant_neg_of_even_odd_opposite_sign`: a positive even
+diagonal and a negative odd diagonal force a strictly negative determinant,
+because the cross gate is exactly zero. The theorem
+`exists_twoSpan_gate_qform_nonpos_of_even_odd_opposite_sign` then feeds the
+generic quadratic-form consumer and produces a nonpositive two-span form.
+This is formal route evidence, not a sign result for the selected orbit
+detector: opposite diagonal signs and preservation of the detector's zero and
+detection data are still unproved.
+
 Formal follow-up: `C1C3CarrierFourierShift.lean` proves the exact same-owner
 frequency transport
 `Fourier(carrierModulate gamma f, xi) = Fourier(f, xi + gamma/(2*pi))`,

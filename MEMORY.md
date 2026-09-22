@@ -1,5 +1,7 @@
 # MEMORY.MD
 
+2026-09-22 ConnesWeilRH/Dev/C1P2EvenOddGateDecomposition.lean + Audit + docs/map/README.md + docs/map/080_c3p_signed_certificate_owner.md + docs/proofs/1808_c3p_even_odd_opposite_sign_branch.md : formally added the opposite-sign even/odd C3 branch; zero cross gate plus positive/negative diagonals gives a strict negative discriminant and a nonpositive two-span quadratic form. Build 3807 jobs clean, zero error/sorryAx, standard axioms; selected-detector sign and detection preservation remain open.
+
 2026-09-22 ConnesWeilRH/Dev/C1P2EvenOddGateDecomposition.lean + Audit + docs/proofs/1807_c3p_even_odd_discriminant_route_audit.md : formally ruled out an unconstrained two-test C3 determinant estimate via even/odd cross cancellation and positive diagonal gates; selected-detector phase-lock remains open. Build 3807 jobs clean, zero error/sorryAx, standard axioms.
 
 2026-09-22 ConnesWeilRH/Dev/C1C3CarrierTransport.lean + Audit + docs/proofs/1805_c3p_round2a_signed_balance.md : proved the full same-owner C3 phase-budget credit-deficit expansion; 3785-job focused build clean, zero error/sorryAx, standard axioms. The actual signed estimate remains open.
