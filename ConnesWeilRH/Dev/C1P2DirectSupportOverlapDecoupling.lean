@@ -61,6 +61,41 @@ theorem orbitWeightedKernelIntegrand_eq_zero_of_lt_sub
   unfold orbitWeightedKernelIntegrand
   simp [raw, hzero]
 
+/-- For any prime power `n` with `log n ≥ 2L`, the two-point integrand vanishes
+    identically for all `t ∈ ℝ`. -/
+theorem orbitWeightedKernelIntegrand_eq_zero_of_ge_two_L
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : ℕ) (t : ℝ)
+    (hn : 2 * rawFactorSupportRadius geometry ≤ Real.log (n : ℝ)) :
+    orbitWeightedKernelIntegrand geometry (Real.log (n : ℝ)) t = 0 := by
+  let L := rawFactorSupportRadius geometry
+  by_cases ht : t ≤ Real.log (n : ℝ) - L
+  · exact orbitWeightedKernelIntegrand_eq_zero_of_lt_sub geometry (Real.log (n : ℝ)) t ht
+  · have htL : L < t := by linarith [ht, hn]
+    have hnot : t ∉ Set.Ioo (-L) L := by
+      intro hmem
+      linarith [hmem.2]
+    have hzero := orbitWeightedKernelIntegrand_eq_zero_of_not_mem_raw_support_window
+      geometry (Real.log (n : ℝ)) t
+    have hwindow : Set.Ioo (-((geometry.orbitIndex + 2 : Nat) : Real))
+        (((geometry.orbitIndex + 2 : Nat) : Real)) = Set.Ioo (-L) L := rfl
+    rw [hwindow] at hzero
+    exact hzero hnot
+
+/-- The physical kernel at `log n` vanishes identically for all `n` with `log n ≥ 2L`. -/
+theorem orbitPhysicalKernel_eq_zero_of_ge_two_L
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : ℕ)
+    (hn : 2 * rawFactorSupportRadius geometry ≤ Real.log (n : ℝ)) :
+    orbitPhysicalKernel geometry (Real.log (n : ℝ)) = 0 := by
+  rw [orbitPhysicalKernel_eq_integral_weightedKernel]
+  have heq : (fun t : ℝ => orbitWeightedKernelIntegrand geometry (Real.log (n : ℝ)) t) =
+      fun _ => 0 := by
+    funext t
+    exact orbitWeightedKernelIntegrand_eq_zero_of_ge_two_L geometry n t hn
+  rw [heq]
+  simp only [integral_zero]
+
 /-- The finite physical kernel integrand vanishes identically for all `t ≤ log 2 - L`,
     because every prime power satisfies `n ≥ 2`, hence `log n ≥ log 2`, which places
     `log n - t ≥ L` strictly outside the support `(-L, L)` of `orbitRawFactor`. -/

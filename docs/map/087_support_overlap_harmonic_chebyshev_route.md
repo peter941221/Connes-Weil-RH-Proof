@@ -51,6 +51,14 @@ The support-overlap harmonic Chebyshev route achieves a major asymptotic reducti
    ```
    The entire left interval `[-L, log 2 - L]` of length `log 2 ~ 0.693` vanishes completely because every visible prime has `n >= 2`, hence `log n >= log 2`.
 
+7. **Natural 2L Physical Kernel Truncation**:
+   Formally proved:
+   ```text
+   orbitWeightedKernelIntegrand geometry (log n) t = 0  for all n with log n >= 2L
+   orbitPhysicalKernel geometry (log n) = 0             for all n with log n >= 2L
+   ```
+   All primes with `n >= exp(2L)` contribute identically 0 to the physical kernel everywhere on `R`, establishing that the infinite Weil prime sum truncates naturally at `log n < 2L`.
+
 ## 2. Formal Exit Chain
 
 ```text

@@ -149,7 +149,29 @@ theorem riemannHypothesis_of_overlap_bounds
 
 ---
 
-## 6. Verification
+## 6. Natural 2L Kernel Truncation
+
+Since $\text{supp}(\phi) \subseteq (-L, L)$, for any prime power $n$ with $\log n \ge 2L$, the integration interval $[x - L, L] = [\log n - L, L]$ is empty because $\log n - L \ge 2L - L = L$. Thus the integrand vanishes identically everywhere on $\mathbb{R}$:
+
+```lean
+theorem orbitWeightedKernelIntegrand_eq_zero_of_ge_two_L
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : ℕ) (t : ℝ)
+    (hn : 2 * rawFactorSupportRadius geometry ≤ Real.log (n : ℝ)) :
+    orbitWeightedKernelIntegrand geometry (Real.log (n : ℝ)) t = 0
+
+theorem orbitPhysicalKernel_eq_zero_of_ge_two_L
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) (n : ℕ)
+    (hn : 2 * rawFactorSupportRadius geometry ≤ Real.log (n : ℝ)) :
+    orbitPhysicalKernel geometry (Real.log (n : ℝ)) = 0
+```
+
+This establishes that all prime powers $n \ge \exp(2L)$ contribute identically zero to the physical kernel, naturally truncating the infinite Weil arithmetic sum to the finite range $\log n < 2L$.
+
+---
+
+## 7. Verification
 
 - Module: `ConnesWeilRH/Dev/C1P2DirectSupportOverlapDecoupling.lean`
 - Audit: `ConnesWeilRH/Dev/C1P2DirectSupportOverlapDecouplingAudit.lean`
