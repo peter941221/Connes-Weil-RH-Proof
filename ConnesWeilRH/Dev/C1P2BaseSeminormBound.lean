@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 import ConnesWeilRH.Source.CC20YoshidaConvolution
 import ConnesWeilRH.Source.CC20YoshidaConstruction
+import ConnesWeilRH.Dev.C1HealthyYoshidaAffineCorrection
 
 /-!
 # Quantitative zero-order seminorm bound for finite-window bases
@@ -24,6 +25,7 @@ open CC20YoshidaNearZeros
 open CC20YoshidaInterpolationNode
 open CC20YoshidaInterpolationNode.CC20YoshidaExpandedMomentNode
 open CCM25Concrete.SelectedYoshidaBridge
+open C1HealthyYoshidaAffineCorrection
 
 noncomputable section
 
@@ -140,6 +142,28 @@ theorem strict_base_contraction_of_coeff_weighted_budget
         budget := by
     exact hscaled.trans_lt hbudget
   linarith
+
+theorem affineResidualCorrection_seminorm_le_rightInverse_budget
+    (nodes : Finset Complex) {lower upper : Real}
+    (hlower : lower < 0) (hupper : 0 < upper)
+    (y : FiniteMellinNode nodes → Complex) :
+    SchwartzMap.seminorm Complex 0 0
+        (affineResidualCorrection nodes hlower hupper y).test ≤
+      (∑ p ∈
+          (windowedMellinRightInverse nodes (Real.exp lower) (Real.exp upper)
+            (Real.exp_pos lower) (Real.exp_lt_one_iff.mpr hlower)
+            (Real.one_lt_exp_iff.mpr hupper) y).support,
+        ‖(windowedMellinRightInverse nodes (Real.exp lower) (Real.exp upper)
+            (Real.exp_pos lower) (Real.exp_lt_one_iff.mpr hlower)
+            (Real.one_lt_exp_iff.mpr hupper) y) p‖ *
+          SchwartzMap.seminorm Complex 0 0
+            (normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test)) := by
+  dsimp [affineResidualCorrection]
+  exact compactLogTestOfWindow_combination_seminorm_zero_zero_le_coeff_weighted_sum
+    (Real.exp_pos lower) (Real.exp_pos upper)
+    (windowedMellinRightInverse nodes (Real.exp lower) (Real.exp upper)
+      (Real.exp_pos lower) (Real.exp_lt_one_iff.mpr hlower)
+      (Real.one_lt_exp_iff.mpr hupper) y)
 
 end
 end C1P2BaseSeminormBound

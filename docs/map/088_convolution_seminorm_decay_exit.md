@@ -201,3 +201,10 @@ factor `q < 1`, while retaining the independent quadratic tail condition. The
 planned instantiation is the actual base-window factor from record 1858. This
 closes only the quantifier algebra; the finite coefficient budget remains the
 next quantitative obligation.
+
+## 15. Right-inverse budget socket (record 1860)
+
+The actual `affineResidualCorrection` now has a formal seminorm bound in
+terms of the finite support and coefficients of `windowedMellinRightInverse`.
+The remaining quantitative obligation is exactly the bound on that finite
+coefficient/basis sum; no hidden seminorm or tail constant is substituted.

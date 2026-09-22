@@ -6,6 +6,8 @@
 
 2026-09-23 ConnesWeilRH/Dev/C1P2ConvolutionSeminormBound.lean + Audit + docs/proofs/1859_windowed_common_index_budget.md + docs/map/088_convolution_seminorm_decay_exit.md : FORMALIZED the shared-index budget/tail theorem for an arbitrary contraction factor `q < 1`, intended for `q=(baseUpper-baseLower)*seminorm(base)`. Focused build `window-budget-1859.log` clean, standard axioms, zero sorryAx; coefficient budget and signed semi-local positivity remain open.
 
+2026-09-23 ConnesWeilRH/Dev/C1P2BaseSeminormBound.lean + Audit + docs/proofs/1860_right_inverse_seminorm_budget_socket.md + docs/map/088_convolution_seminorm_decay_exit.md : WIRED the actual `affineResidualCorrection` and `windowedMellinRightInverse` to the finite coefficient-weighted seminorm bound. Focused build `rightinverse-budget-1860.log` clean, standard axioms, zero sorryAx; the finite coefficient/basis budget itself remains open.
+
 2026-09-23 docs/proofs/1856_base_seminorm_quantitative_boundary.md + docs/map/088_convolution_seminorm_decay_exit.md : AUDITED the strict-contraction input boundary. The current finite-window surjectivity and residual quadratic-decay APIs expose support/interpolation/C but no zero-order Schwartz seminorm upper bound. C must not be used as a seminorm substitute; the next brick requires an explicit quantitative base witness.
 
 2026-09-23 ConnesWeilRH/Dev/C1G8R0OrbitGeometry.lean + Audit + docs/proofs/1855_indexed_orbit_geometry_producer.md : FORMALIZED `exists_indexed_orbitG8Geometry_of_sourceNontrivialZero_right`. It fixes base/threshold/correction/C before n and realizes every n satisfying the explicit quadratic tail as a complete same-owner `OrbitG8Geometry`. Strict base contraction and detector-specific semi-local positivity remain open.
