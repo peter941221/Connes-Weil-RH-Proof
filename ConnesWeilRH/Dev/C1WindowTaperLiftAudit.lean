@@ -28,6 +28,8 @@ open ConnesWeilRH.Source.C1WindowTaperLift
 #print axioms windowTaperGram_gap
 #print axioms windowTaperGram_solve_norm_le_of_gap
 #print axioms windowTaperCorrection_seminorm_zero_zero_le_of_gap
+#print axioms exists_windowTaperCorrection_seminorm_budget_of_flat_taper
+#print axioms strict_taper_correction_of_gap_budget
 #print axioms windowTaperComb_norm_bound
 #print axioms windowExpGram_energy_strict_pos
 #print axioms windowExpGram_energy_continuous

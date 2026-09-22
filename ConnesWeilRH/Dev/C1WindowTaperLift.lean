@@ -757,6 +757,69 @@ theorem windowTaperCorrection_seminorm_zero_zero_le_of_gap
           mul_le_mul_of_nonneg_right hcoeff hB
     _ = (Fintype.card ι : ℝ) * ‖y‖ * windowTaperBound a b nodes := by ring
 
+/-- Package the flat-taper hypotheses into the explicit inverse-solve owner and
+its gap-weighted seminorm budget. -/
+theorem exists_windowTaperCorrection_seminorm_budget_of_flat_taper
+    {ι : Type*} [Fintype ι] [Nonempty ι] [DecidableEq ι]
+    {a b : ℝ} (hab : a < b) (nodes : ι → ℂ)
+    (hne : Function.Injective nodes) (τ : ℝ → ℝ)
+    (hτc : HasCompactSupport τ) (hτs : ContDiff ℝ ∞ τ)
+    (hsupp : Function.support τ ⊆ Set.Ioo a b)
+    (hτ0 : ∀ x, 0 ≤ τ x) (hτle : ∀ x, τ x ≤ 1)
+    {a' b' : ℝ} (ha'b' : a' < b')
+    (hsub : Set.Ioo a' b' ⊆ Set.Ioo a b)
+    (hτ1 : ∀ x ∈ Set.Ioo a' b', τ x = 1) (y : ι → ℂ) :
+    ∃ α : ℝ, 0 < α ∧
+      α * SchwartzMap.seminorm ℂ 0 0
+          (windowTaperCorrection nodes
+            (Matrix.mulVec
+              (↑(windowTaperGramMatrix_isUnit_of_injective
+                hab τ hτs.continuous hτ0 ha'b' hsub hτ1 nodes hne).unit⁻¹ :
+                Matrix ι ι ℂ) y) τ hτc hτs).test ≤
+        (Fintype.card ι : ℝ) * ‖y‖ * windowTaperBound a b nodes := by
+  obtain ⟨α, hα, hgap⟩ := windowTaperGram_gap hab τ hτs.continuous hτ0
+    ha'b' hsub hτ1 nodes hne
+  let hT : IsUnit (windowTaperGramMatrix a b
+      (fun x => (τ x : ℂ)) nodes) :=
+    windowTaperGramMatrix_isUnit_of_injective hab τ hτs.continuous hτ0
+      ha'b' hsub hτ1 nodes hne
+  let coeff : ι → ℂ := Matrix.mulVec (↑hT.unit⁻¹ : Matrix ι ι ℂ) y
+  have hsolve : Matrix.mulVec
+      (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) coeff = y := by
+    dsimp [coeff, hT]
+    exact windowTaperGram_solve_mulVec hab τ hτs.continuous hτ0
+      ha'b' hsub hτ1 nodes hne y
+  refine ⟨α, hα, ?_⟩
+  exact windowTaperCorrection_seminorm_zero_zero_le_of_gap hab nodes coeff y τ
+    hτc hτs hsupp hτ0 hτle
+    α hα hgap hsolve
+
+/-- The explicit scalar threshold turns the gap-weighted taper budget into a
+strict base contraction. -/
+theorem strict_taper_correction_of_gap_budget
+    {ι : Type*} [Fintype ι] {a b : ℝ} (hab : a < b)
+    (nodes : ι → ℂ) (coeff y : ι → ℂ) (τ : ℝ → ℝ)
+    (hτc : HasCompactSupport τ) (hτs : ContDiff ℝ ∞ τ)
+    (hsupp : Function.support τ ⊆ Set.Ioo a b)
+    (hτ0 : ∀ x, 0 ≤ τ x) (hτ1 : ∀ x, τ x ≤ 1)
+    (α : ℝ) (hα : 0 < α)
+    (hgap : ∀ v : ι → ℂ, α * ‖v‖ ^ 2 ≤
+      (dotProduct (star v)
+        (Matrix.mulVec
+          (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) v)).re)
+    (hsolve : Matrix.mulVec
+      (windowTaperGramMatrix a b (fun x => (τ x : ℂ)) nodes) coeff = y)
+    (hbudget : 2 * ((Fintype.card ι : ℝ) * ‖y‖ *
+        windowTaperBound a b nodes) < α) :
+    2 * SchwartzMap.seminorm ℂ 0 0
+        (windowTaperCorrection nodes coeff τ hτc hτs).test < 1 := by
+  have hsem := windowTaperCorrection_seminorm_zero_zero_le_of_gap
+    hab nodes coeff y τ hτc hτs hsupp hτ0 hτ1 α hα hgap hsolve
+  have hnonneg : 0 ≤ SchwartzMap.seminorm ℂ 0 0
+      (windowTaperCorrection nodes coeff τ hτc hτs).test := by
+    positivity
+  nlinarith [hsem, hbudget, hα]
+
 /-- A finite matrix's entrywise norm sum bounds its action on the sup norm. -/
 noncomputable def matrixEntryNormSum {ι κ : Type*} [Fintype ι] [Fintype κ]
     (A : Matrix ι κ ℂ) : ℝ :=

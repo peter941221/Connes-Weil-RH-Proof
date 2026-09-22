@@ -357,3 +357,25 @@ and audited with standard axioms only.  The remaining task is numerical or
 analytic verification that this scalar lies below the strict contraction
 threshold; detector-specific signed semi-local positivity and RH remain open.
 See proof record 1878 and `taper-coeff-budget-20260923b.log`.
+
+## 29. Flat-taper budget package (record 1879)
+
+`exists_windowTaperCorrection_seminorm_budget_of_flat_taper` now packages the
+entire taper owner setup: flat-taper admissibility, Gram invertibility, exact
+inverse solve, and the gap-weighted seminorm bound.  The consumer receives an
+actual inverse-owner expression and an existential positive `alpha`, rather
+than separate matrix premises.  This is FORMAL and standard-axiom audited;
+it still supplies no numeric alpha, strict contraction, detector-specific
+semi-local positivity, or RH.  See proof record 1879 and
+`taper-package-20260923a.log`.
+
+## 30. Taper strict-contraction threshold (record 1880)
+
+The taper branch now has a direct strict-contraction consumer:
+`strict_taper_correction_of_gap_budget` turns the exact scalar condition
+`2 * card(ι) * ||target|| * windowTaperBound < alpha` into
+`2 * seminorm(0,0,taperCorrection) < 1` on the same owner.  This is FORMAL,
+paired-audited, and preserves the remaining obligation as an explicit
+threshold certificate.  No threshold supplier, detector-specific positivity,
+or RH conclusion has been added.  See proof record 1880 and
+`taper-threshold-20260923a.log`.
