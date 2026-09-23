@@ -44,6 +44,15 @@ condition:
   coefficient `lam > 0` carries both signs
   (`exists_pos_lambda_gate_and_prefix_of_annihilator_gate_neg`).
 
+* The vertex branch, selected by the record-1918 sign probe: for a positive
+  cross sum and a strictly negative gate determinant
+  `D * C - (B / 2) ^ 2 < 0` (equivalently a strictly positive discriminant),
+  the vertex coefficient `B / (2 * C)` is strictly positive and the span gate
+  is *strictly* negative there (`gate_quadratic_at_vertex`,
+  `exists_pos_lambda_quadratic_neg_of_det_neg`), with the same owner wires
+  (`exists_pos_lambda_orbitWindowSemiLocalGate_of_annihilator_det_neg`,
+  `exists_pos_lambda_gate_and_prefix_of_annihilator_det_neg`).
+
 No gate sign, no joint high-shell margin, and no RH statement is proved here.
 RH NOT claimed.
 -/
@@ -208,6 +217,31 @@ theorem exists_nonzero_lambda_quadratic_nonpos_iff {D B C : Real} (hC : 0 < C) :
       rw [hsqrt] at hsq
       nlinarith [mul_pos hC hgt]
 
+/-! ## The vertex branch -/
+
+/-- The parabola value at the vertex coefficient `B / (2 * C)` in the exact
+rational form `-(B ^ 2 - 4 * C * D) / (4 * C)`. -/
+theorem gate_quadratic_at_vertex {D B C : Real} (hC : 0 < C) :
+    D - (B / (2 * C)) * B + (B / (2 * C)) ^ 2 * C =
+      -(B ^ 2 - 4 * C * D) / (4 * C) := by
+  have h2C : (2 : Real) * C ≠ 0 := by positivity
+  field_simp
+  ring
+
+/-- The strict vertex witness: a positive cross sum, a positive pivot, and a
+strictly negative gate determinant `D * C - (B / 2) ^ 2 < 0` (equivalently a
+strictly positive discriminant) supply a strictly positive span coefficient
+whose span gate is strictly negative. This is the branch selected by the
+record-1918 sign probe on the committed detector class. -/
+theorem exists_pos_lambda_quadratic_neg_of_det_neg {D B C : Real} (hC : 0 < C)
+    (hB : 0 < B) (hdet : D * C - (B / 2) ^ 2 < 0) :
+    ∃ lam : Real, 0 < lam ∧ D - lam * B + lam ^ 2 * C < 0 := by
+  refine ⟨B / (2 * C), div_pos hB (by positivity), ?_⟩
+  have hdisc : 0 < B ^ 2 - 4 * C * D := by
+    nlinarith [hdet]
+  rw [gate_quadratic_at_vertex hC]
+  exact div_neg_of_neg_of_pos (by linarith) (by positivity)
+
 /-! ## The wire on the healthy detector owner -/
 
 /-- 103 Cut 2 wire: on a healthy detector, a strictly negative gate on the
@@ -250,6 +284,57 @@ theorem exists_pos_lambda_orbitWindowSemiLocalGate_of_annihilator_gate_neg
   rw [orbitWindowSemiLocalGate_iff, annihilator_span_gate_eq_parabola u g lam hw]
   exact hQ
 
+/-- 103 Cut 2 wire, vertex branch: on a healthy detector, a positive cross sum
+with a strictly negative gate determinant on the four-point annihilator
+supplies a strictly positive span coefficient whose span gate is strictly
+negative. Under the committed cross-term symmetry the determinant hypothesis
+reads `ICgate(u.square) * ICgate(g.square) - ICgate(u*⋆g) ^ 2 < 0`. -/
+theorem exists_pos_lambda_orbitWindowSemiLocalGate_of_annihilator_det_neg
+    {rho : Complex} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    {B : Real} (hsupport : Function.support g.test ⊆ Set.Ioo (-B) B)
+    (hcross : 0 < ICgate
+        ((fullFunctionalEquationOrbitAnnihilator g rho).involution.convolution g) +
+      ICgate (g.involution.convolution
+        (fullFunctionalEquationOrbitAnnihilator g rho)))
+    (hdet : ICgate
+        ((fullFunctionalEquationOrbitAnnihilator g rho).convolutionSquare) *
+        ICgate g.convolutionSquare -
+        ((ICgate ((fullFunctionalEquationOrbitAnnihilator g rho).involution.convolution g) +
+          ICgate (g.involution.convolution
+            (fullFunctionalEquationOrbitAnnihilator g rho))) / 2) ^ 2 < 0) :
+    ∃ lam : Real, 0 < lam ∧
+      orbitWindowSemiLocalGate
+        (annihilatorDetectorSpanVector
+          (fullFunctionalEquationOrbitAnnihilator g rho) g lam) := by
+  set u : CompactLogTest := fullFunctionalEquationOrbitAnnihilator g rho with hu
+  have hC : 0 < ICgate g.convolutionSquare := by
+    have h := pinned_orbit_positive_pivot hdata (0 : Real)
+    rwa [carrierModulate_neg_inv (0 : Real) g] at h
+  have hsupp_g : Function.support g.test ⊆ Set.Icc (-B) B :=
+    hsupport.trans Set.Ioo_subset_Icc_self
+  have hsupp_u : Function.support u.test ⊆ Set.Icc (-B) B := by
+    rw [hu]
+    exact fullFunctionalEquationOrbitAnnihilator_support_subset_Icc g rho hsupp_g
+  have hw : ∀ i, Function.support ((![u, g] : Fin 2 → CompactLogTest) i).test ⊆
+      Set.Ioo (-(B + 1)) (B + 1) := by
+    intro i
+    fin_cases i
+    · intro x hx
+      have hx' := hsupp_u hx
+      exact ⟨by linarith [hx'.1], by linarith [hx'.2]⟩
+    · intro x hx
+      have hx' := hsupp_g hx
+      exact ⟨by linarith [hx'.1], by linarith [hx'.2]⟩
+  obtain ⟨lam, hpos, hQ⟩ := exists_pos_lambda_quadratic_neg_of_det_neg
+    (D := ICgate u.convolutionSquare)
+    (B := ICgate (u.involution.convolution g) + ICgate (g.involution.convolution u))
+    (C := ICgate g.convolutionSquare) hC (by rw [hu]; exact hcross)
+      (by rw [hu]; exact hdet)
+  refine ⟨lam, hpos, ?_⟩
+  rw [orbitWindowSemiLocalGate_iff, annihilator_span_gate_eq_parabola u g lam hw]
+  exact hQ.le
+
 /-! ## Same-coefficient coordination with the spectral prefix -/
 
 /-- One strictly positive coefficient carries both Cut-2 signs on the same
@@ -283,6 +368,50 @@ theorem exists_pos_lambda_gate_and_prefix_of_annihilator_gate_neg
   obtain ⟨lam, hpos, hgate⟩ :=
     exists_pos_lambda_orbitWindowSemiLocalGate_of_annihilator_gate_neg
       hdata hsupport hdiag
+  exact ⟨lam, hpos, hgate,
+    finiteSpectralPrefix_re_le_neg_xiMultiplicity_mul_sq_of_fullOrbit_transport
+      g rho lam S hrho hoff htarget hzero⟩
+
+/-- One strictly positive coefficient carries both Cut-2 signs on the same
+`annihilatorDetectorSpanVector` owner in the vertex branch: the strictly
+negative span gate at the vertex and the nonpositive spectral prefix bound.
+The joint high-shell margin (the remaining Cut-1 acceptance) is not proved
+here. -/
+theorem exists_pos_lambda_gate_and_prefix_of_annihilator_det_neg
+    (g : CompactLogTest) (rho : sourceNontrivialZeroSet)
+    (S : Finset sourceNontrivialZeroSet) (hrho : rho ∈ S)
+    (hoff : rho.1.re ≠ 1 / 2)
+    (hdata : HealthyYoshidaDetectorData rho.1 g)
+    {B : Real} (hsupport : Function.support g.test ⊆ Set.Ioo (-B) B)
+    (htarget :
+      ∀ w : FiniteMellinNode (sourceFunctionalEquationOrbit rho.1),
+        laplaceAt g (w.1 - 1 / 2) = negativeSourceOrbitValue rho.1 w)
+    (hzero : ∀ z : sourceNontrivialZeroSet, z ∈ S →
+      z.1 ∉ sourceFunctionalEquationOrbit rho.1 →
+        laplaceAt g.convolutionSquare (z.1 - 1 / 2) = 0)
+    (hcross : 0 < ICgate
+        ((fullFunctionalEquationOrbitAnnihilator g rho.1).involution.convolution g) +
+      ICgate (g.involution.convolution
+        (fullFunctionalEquationOrbitAnnihilator g rho.1)))
+    (hdet : ICgate
+        ((fullFunctionalEquationOrbitAnnihilator g rho.1).convolutionSquare) *
+        ICgate g.convolutionSquare -
+        ((ICgate ((fullFunctionalEquationOrbitAnnihilator g rho.1).involution.convolution g) +
+          ICgate (g.involution.convolution
+            (fullFunctionalEquationOrbitAnnihilator g rho.1))) / 2) ^ 2 < 0) :
+    ∃ lam : Real, 0 < lam ∧
+      orbitWindowSemiLocalGate
+        (annihilatorDetectorSpanVector
+          (fullFunctionalEquationOrbitAnnihilator g rho.1) g lam) ∧
+      (∑ z ∈ S,
+        spectralTerm
+          (annihilatorDetectorSpanVector
+            (fullFunctionalEquationOrbitAnnihilator g rho.1) g lam).convolutionSquare
+          z).re ≤
+        -(xiMultiplicity rho : Real) * lam ^ 2 := by
+  obtain ⟨lam, hpos, hgate⟩ :=
+    exists_pos_lambda_orbitWindowSemiLocalGate_of_annihilator_det_neg
+      hdata hsupport hcross hdet
   exact ⟨lam, hpos, hgate,
     finiteSpectralPrefix_re_le_neg_xiMultiplicity_mul_sq_of_fullOrbit_transport
       g rho lam S hrho hoff htarget hzero⟩

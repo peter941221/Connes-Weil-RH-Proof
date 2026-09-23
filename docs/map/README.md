@@ -88,13 +88,19 @@ semi-local nonnegative gate for one and the same span. The finite-prefix
 margin and an explicit weighted high-shell bound are formal for the four-point
 annihilator span. The strict tail-to-`lambda^2` budget is open because the
 gate-selected `lambda` may depend on the convolution count. The proved gate
-applies to a different narrow-root span; the four-point span's own gate is now
-the exact parabola `D - lambda*B' + lambda^2*C` with a complete trichotomy and
-a strictly positive closed-form witness whenever `D < 0`, so its remaining
-obligation is the single strict sign of `D` (proof record 1917). For fixed
-base/correction owners, the decay constants and contraction threshold are now
-formally selected before `n` and `lambda` (proof record 1916); this does not
-close the joint margin.
+applies to a different narrow-root span; the four-point span's own gate is the
+exact parabola `D - lambda*B' + lambda^2*C` with a complete trichotomy
+(proof record 1917), and the sign probe of record 1918 selects its vertex
+branch on a committed-class family (`D > 0` and the cross-determinant
+`D*C - (B'/2)^2 < 0` in the certified engine pair), so its remaining
+obligation is that scored determinant inequality together with the positive
+cross sum, with the strict witness formal at `lambda = B'/(2*C)` (records
+1917/1918). For fixed base/correction owners, the decay constants and
+contraction threshold are formally selected before `n` and `lambda` (proof
+record 1916); this does not close the joint margin. On the probed family the
+vertex coefficient tracks `~0.5 * K^4` with the window factor `~7-10`, and the
+relative determinant margin is thin (`5e-5 .. 0.116`), so any estimate route
+to the determinant must be sharp (numeric branch discipline: law F79).
 
 ## Binding no-go results
 

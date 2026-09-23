@@ -10,6 +10,10 @@ namespace ConnesWeilRH.Source.C1FourPointSpanGateCertificate
 #check @exists_nonzero_lambda_quadratic_nonpos_iff
 #check @exists_pos_lambda_orbitWindowSemiLocalGate_of_annihilator_gate_neg
 #check @exists_pos_lambda_gate_and_prefix_of_annihilator_gate_neg
+#check @gate_quadratic_at_vertex
+#check @exists_pos_lambda_quadratic_neg_of_det_neg
+#check @exists_pos_lambda_orbitWindowSemiLocalGate_of_annihilator_det_neg
+#check @exists_pos_lambda_gate_and_prefix_of_annihilator_det_neg
 
 #print axioms annihilator_span_gate_eq_parabola
 #print axioms gate_quadratic_at_gatePlusRoot
@@ -18,5 +22,9 @@ namespace ConnesWeilRH.Source.C1FourPointSpanGateCertificate
 #print axioms exists_nonzero_lambda_quadratic_nonpos_iff
 #print axioms exists_pos_lambda_orbitWindowSemiLocalGate_of_annihilator_gate_neg
 #print axioms exists_pos_lambda_gate_and_prefix_of_annihilator_gate_neg
+#print axioms gate_quadratic_at_vertex
+#print axioms exists_pos_lambda_quadratic_neg_of_det_neg
+#print axioms exists_pos_lambda_orbitWindowSemiLocalGate_of_annihilator_det_neg
+#print axioms exists_pos_lambda_gate_and_prefix_of_annihilator_det_neg
 
 end ConnesWeilRH.Source.C1FourPointSpanGateCertificate
