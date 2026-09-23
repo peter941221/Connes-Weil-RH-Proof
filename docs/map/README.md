@@ -9,6 +9,21 @@ Map filenames use consecutive `001_`, `002_`, ... reading-order prefixes.
 Their document titles retain the original proof-record identifiers for source
 traceability.
 
+## Positive radial tail reduction, 2026-09-23
+
+[100](100_positive_radial_tail_decay.md) formally reformulates both wings of
+the Sonin projection decay strictly on the positive ray $(N, \infty)$ in
+`ConnesWeilRH.Dev.C1G8R3PositiveRadialTailDecay`:
+proves `normSq_sourceSoninCarrier_starProjection_le_of_symmetric_wings`
+(left Fourier, right radial), combines it with the Hardy translation identity
+to prove `normSq_sourceSoninCarrier_starProjection_le_of_positive_radial_tails`
+where both `k0` and `Ht k0` are evaluated on positive translations $t > N$ and $s > N$,
+proves `normSq_sourceSoninCarrier_starProjection_le_of_vanishing_right_tail`
+and master exits `sourceCompressedRoot_squareSum_of_positive_radial_tails`,
+`riemannHypothesis_of_right_positive_radial_tails_and_aggregateEq`, and
+`riemannHypothesis_of_right_vanishing_compact_and_hardy_tail_and_aggregateEq`
+to Mathlib's `_root_.RiemannHypothesis`.
+
 ## Translated kernel radial tail reduction, 2026-09-23
 
 [099](099_translated_kernel_decay.md) formally reduces both wings of the

@@ -1,0 +1,35 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: ConnesWeilRH contributors
+-/
+
+import ConnesWeilRH.Dev.C1G8R3PositiveRadialTailDecay
+
+/-!
+# Audit of Positive Radial Tail Reduction to Mathlib RiemannHypothesis
+
+Verifies standard axioms: `[propext, Classical.choice, Quot.sound]`, zero `sorryAx`.
+-/
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @normSq_sourceSoninCarrier_starProjection_le_of_symmetric_wings
+#check @normSq_sourceSoninCarrier_starProjection_le_of_positive_radial_tails
+#check @normSq_sourceSoninCarrier_starProjection_le_of_vanishing_right_tail
+#check @sourceCompressedRoot_squareSum_of_positive_radial_tails
+#check @sourceCompressedRoot_squareSum_of_vanishing_right_tail
+#check @riemannHypothesis_of_right_positive_radial_tails_and_aggregateEq
+#check @riemannHypothesis_of_right_vanishing_compact_and_hardy_tail_and_aggregateEq
+
+#print axioms normSq_sourceSoninCarrier_starProjection_le_of_symmetric_wings
+#print axioms normSq_sourceSoninCarrier_starProjection_le_of_positive_radial_tails
+#print axioms normSq_sourceSoninCarrier_starProjection_le_of_vanishing_right_tail
+#print axioms sourceCompressedRoot_squareSum_of_positive_radial_tails
+#print axioms sourceCompressedRoot_squareSum_of_vanishing_right_tail
+#print axioms riemannHypothesis_of_right_positive_radial_tails_and_aggregateEq
+#print axioms riemannHypothesis_of_right_vanishing_compact_and_hardy_tail_and_aggregateEq
+
+end Dev
+end ConnesWeilRH
