@@ -18,8 +18,9 @@ g rho`, and let `h(lambda) = annihilatorDetectorSpanVector u g lambda`.
 
 The consumer is the formal finite-prefix theorem in
 `C1FourPointSpectralPrefixTransport.lean`, followed by the spectral-tail
-consumer in `C1HealthyYoshidaSpectralNegativity.lean` and the same-test gate
-bridge in `C1PinnedOrbitExit.lean`. Both signs must be proved for this exact
+consumer in `C1HealthyYoshidaSpectralNegativity.lean` and the generic
+same-test gate-to-`qw` bridge in `C1OrbitWindowSemiLocalGate.lean`. Both signs
+must be proved for this exact
 `h(lambda)`, with its own support-derived visible-prime set. The gate theorem
 in [091] currently applies to `spanObj ![narrowArchRoot, g]`, which is a
 different test. It supplies no gate sign for `h(lambda)`.
@@ -142,8 +143,12 @@ Use [094] to bound the same `h(lambda)` finite prefix by
 `-xiMultiplicity(rho)*lambda^2`. Use Cut 1 to make its high-shell norm
 strictly smaller than that amount; this proves `qw(h(lambda)) < 0`. Use Cut 2
 and triple vanishing to prove `0 <= qw(h(lambda))`. Only then invoke the
-existing `SourceRH` and Mathlib RH bridge. No new conditional exit theorem is
-needed.
+existing `SourceRH` and Mathlib RH bridge. The
+`C1PinnedOrbitExit.false_of_healthyDetectorData_and_orbitWindowSemiLocalGate`
+consumer cannot be applied directly to `h(lambda)`, because healthy detector
+data has only been proved for `g`. The direct two-sign contradiction for `h`
+must be placed inside the hypothetical off-line-zero proof. No new
+conditional exit theorem is needed.
 
 The cuts are dependent: Cut 1 reduces the weighted-tail premise to the joint
 scalar margin but does not close RH; Cut 2 is the decisive sign problem. The construction

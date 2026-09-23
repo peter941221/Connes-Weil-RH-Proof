@@ -59,11 +59,12 @@ Audit prove:
 - `selectedOwner_fullOrbit_span_fourthOrderSpectralTail`, conditional only on
   the displayed explicit upper bound being below `epsilon^2`.
 
-The base quartic bound is already formal in `C1SpectralWeil`; the correction
-quadratic decay comes from the correction construction in
-`CC20YoshidaConvolution`. The leaf accepts both as explicit hypotheses for
-the same base and correction. The selected all-index existential API must
-preserve that quadratic witness when the final owner is chosen.
+The base quartic bound is already formal in `C1SpectralWeil`; every compact
+correction also has a quadratic strip bound there, and the correction
+construction in `CC20YoshidaConvolution` carries one explicitly. The leaf
+accepts both as hypotheses for the same base and correction. For a final
+selected owner, choose these constants after fixing the correction and before
+choosing `n`.
 
 ## Exact remaining margin
 
@@ -88,6 +89,12 @@ still open for `h_n(lambda_n)`: the formal narrow-root gate theorem concerns
 a different test. The shell-prefix conversion for the scaled `lambda^2`
 margin also remains to be assembled; existing full-sum consumers are stated
 with unit prefix margin.
+
+The generic gate-to-`qw` bridge is in `C1OrbitWindowSemiLocalGate`. The
+healthy-detector contradiction theorem in `C1PinnedOrbitExit` cannot be used
+directly on the transformed span because its healthy data belongs to `g_n`.
+The final proof must contradict the two signs of this exact transformed test
+inside the hypothetical off-line-zero argument.
 
 ## Verification
 
