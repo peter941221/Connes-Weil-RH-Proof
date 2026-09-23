@@ -627,22 +627,35 @@ noncomputable def narrowArchRoot : CompactLogTest :=
   C1LaneRD3Root.tripleVanishingRoot
     (Dev.M2Width.wideTest narrowArchBaseWidth narrowArchBaseWidth_pos)
 
-theorem narrowArchRoot_square_support :
-    Function.support narrowArchRoot.convolutionSquare.test ⊆
-      Ioo (-narrowArchRadius) narrowArchRadius := by
+theorem narrowArchRoot_support :
+    Function.support narrowArchRoot.test ⊆
+      Ioo (-(narrowArchRadius) / 2) (narrowArchRadius / 2) := by
   have hbase := wideTest_support_subset_Icc
     narrowArchBaseWidth narrowArchBaseWidth_pos
   have hroot := C1LaneRD3Root.tripleVanishingRoot_support_subset_Icc
     (Dev.M2Width.wideTest narrowArchBaseWidth narrowArchBaseWidth_pos) hbase
-  have hinput : Function.support narrowArchRoot.test ⊆
-      Ioo (-(narrowArchRadius) / 2) (narrowArchRadius / 2) := by
-    intro x hx
-    have hx' := hroot hx
-    rcases hx' with ⟨hxlow, hxhigh⟩
-    dsimp [narrowArchBaseWidth] at hxlow hxhigh
-    constructor <;> nlinarith [narrowArchRadius_pos]
-  exact CC20YoshidaConvolution.CompactLogTest.convolutionSquare_support_subset_symmetric
-    narrowArchRoot (a := narrowArchRadius) hinput
+  intro x hx
+  have hx' := hroot hx
+  rcases hx' with ⟨hxlow, hxhigh⟩
+  dsimp [narrowArchBaseWidth] at hxlow hxhigh
+  constructor <;> nlinarith [narrowArchRadius_pos]
+
+theorem narrowArchRoot_square_support :
+    Function.support narrowArchRoot.convolutionSquare.test ⊆
+      Ioo (-narrowArchRadius) narrowArchRadius :=
+  CC20YoshidaConvolution.CompactLogTest.convolutionSquare_support_subset_symmetric
+    narrowArchRoot (a := narrowArchRadius) narrowArchRoot_support
+
+theorem narrowArchRoot_support_subset_Ioo (B : Real) (hB : 1 ≤ B) :
+    Function.support narrowArchRoot.test ⊆ Ioo (-B) B := by
+  intro x hx
+  have hx' := narrowArchRoot_support hx
+  have hR : narrowArchRadius < 1 := narrowArchRadius_lt_one
+  have hRpos : 0 < narrowArchRadius := narrowArchRadius_pos
+  rcases hx' with ⟨hlow, hhigh⟩
+  constructor
+  · linarith
+  · linarith
 
 theorem narrowArchRoot_archimedeanTerm_nonpos :
     C1SameOwnerWeil.archimedeanTerm narrowArchRoot.convolutionSquare ≤ 0 := by

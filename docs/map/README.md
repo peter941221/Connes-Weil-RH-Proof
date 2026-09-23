@@ -9,6 +9,82 @@ Map filenames use consecutive `001_`, `002_`, ... reading-order prefixes.
 Their document titles retain the original proof-record identifiers for source
 traceability.
 
+## G8 master exit: operator trace & annular majorant, 2026-09-23
+
+[095](095_g8_master_exit_and_annular_majorant.md) formally connects the G8
+noncommutative operator trace framework and S3 annular wing majorants directly
+to Mathlib's canonical `_root_.RiemannHypothesis`:
+`sourceRH_of_right_g8SameOwnerReadbackData` and `riemannHypothesis_of_right_g8SameOwnerReadbackData`
+deduce RH from `G8SameOwnerReadbackData`;
+`riemannHypothesis_of_right_survivorCore_and_aggregateEq` reduces the premise to
+the S3 survivor core square-sum and the rho5 aggregate endpoint trace equality;
+`riemannHypothesis_of_right_annular_wing_majorant_and_aggregateEq` reduces S3
+directly to the two-sided outer wing majorant from the two-IBP / digamma page.
+
+## Two-point differential annihilation & spectral decomposition, 2026-09-23
+
+[094](094_two_point_differential_annihilation_and_spectral_decomposition.md)
+formally closes Stages 1 and 2 of the Two-Span Spectral Contradiction route:
+constructs the two-point differential operator `twoPointDerivativeAnnihilator`
+algebraically zeroing the off-line zero orbit points while strictly preserving
+the prime-free support window `(-log 2 / 2, log 2 / 2)` and triple vanishing
+(`twoPointDerivativeAnnihilator_vanishesOn_cc20Triple`,
+`twoPointDerivativeAnnihilator_finitePrimeSum_eq_zero`). For the span vector
+`v(lambda) = u_a - lambda * g`, `pairedProduct_annihilatorDetectorSpanVector_eq_neg_sq`
+proves the paired off-line zero orbit product is identically `-lambda^2 <= 0`.
+
+## Universal base contraction lower bound & direct absorption no-go, 2026-09-23
+
+[093](093_widened_base_and_direct_absorption_nogo.md) formally proves that the
+convolution contraction factor satisfies `(b - a) * seminorm(base) >= 1`
+identically for ANY bounded window `(a, b)` and ANY base with `laplaceAt base 0 = 1`
+(`supportLength_mul_seminorm_ge_one_of_laplaceAt_zero_eq_one`), refuting strict
+base contraction on arbitrary windows (`not_strict_base_contraction_of_arbitrary_window`).
+Together with the exponential support penalty divergence `exp(n W) / n -> +infinity`
+and the strict detector gate polarity `ICgate(g^2) > 0`, Scheme A.1 (direct margin
+absorption via geometric contraction) is formally demoted as a scoped no-go.
+
+## Mainline exit wiring closed to Mathlib RH, 2026-09-23
+
+[092](092_mainline_exit_wiring_closed.md) formally closes Step 3 of the
+phase-balanced finite-orbit exit:
+`laplaceAt_spanObj_two` and `vanishesOn_cc20Triple_spanObj_two` establish that
+bilateral Laplace transform and the triple critical vanishing set are strictly
+preserved under two-dimensional spans. Combining the Step 2 gate with this
+bridge unconditionally yields `0 <= qw(g_opt)` on the optimal two-span test
+(`pinned_twoSpan_optimal_qw_nonneg`). Master exits to Mathlib's canonical
+`_root_.RiemannHypothesis` are wired via `SourceRH`:
+`riemannHypothesis_of_orbitWindowSemiLocalGate`,
+`riemannHypothesis_of_right_orbitGeometry_orbitWindowSemiLocalGate`, and
+`riemannHypothesis_of_right_detector_specific_qw_nonneg`. Contradiction principle
+`false_of_healthyDetectorData_and_orbitWindowSemiLocalGate` proves that detector
+negativity and gate nonpositivity force `False` by `linarith`.
+
+## Two-span sign balancing closed on pinned orbit mainline, 2026-09-23
+
+[091](091_two_span_sign_balancing_closed.md) formally closes Step 2 of the
+phase-balanced finite-orbit exit:
+`carrierTwoSpanDeterminantCertificate_of_opposite_gates` establishes that the
+gate matrix determinant is unconditionally nonpositive (`det <= 0`) whenever
+`ICgate(u_gamma) <= 0` and `0 < ICgate(v_gamma)`, because `(cross)^2 >= 0` for
+every cross term. Pairing the carrier-demodulated narrow root `narrowArchRoot`
+with the pinned detector `g` discharges `CarrierTwoSpanDeterminantCertificate`
+and produces `orbitWindowSemiLocalGate <= 0` on their optimal combination
+(`orbitWindowSemiLocalGate_of_pinned_geometry_simplified`). The live producer
+target advances to Step 3: mainline exit wiring to Mathlib RH.
+
+## Finite index pinning and frozen visible prime domain, 2026-09-23
+
+[090](090_finite_index_pinning_and_frozen_prime_domain.md) formally closes
+Step 1 of the phase-balanced finite-orbit exit:
+`exists_pinnedOrbitG8Geometry_of_sourceNontrivialZero_right` anchors the orbit
+index at the minimal integer `n0 = minimalTailOrbitIndex C`, freezes the
+detector support in `(-(n0+2), n0+2)`, and rewrites `finitePrimeSum`
+identically as an explicit finite sum over
+`Finset.range (Nat.ceil (exp(2 * (n0 + 2))) + 1)`.  The live producer target
+advances directly to Step 2: two-span sign balancing on this frozen finite
+domain.
+
 ## Geometric base contraction no-go, 2026-09-23
 
 [089](089_base_contraction_zero_target_no_go.md) formally proves that the

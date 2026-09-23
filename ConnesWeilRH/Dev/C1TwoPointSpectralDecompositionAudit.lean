@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1TwoPointSpectralDecomposition
+
+namespace ConnesWeilRH.Source.C1TwoPointSpectralDecomposition
+
+#print axioms annihilatorDetectorSpanVector
+#print axioms laplaceAt_annihilatorDetectorSpanVector
+#print axioms laplaceAt_annihilatorDetectorSpanVector_at_rho_sub_half
+#print axioms laplaceAt_annihilatorDetectorSpanVector_at_one_sub_star_rho_sub_half
+#print axioms pairedProduct_annihilatorDetectorSpanVector_eq_neg_sq
+#print axioms annihilatorDetectorSpanVector_vanishesOn_cc20Triple
+#print axioms annihilatorDetectorSpanVector_support_subset_Ioo
+
+end ConnesWeilRH.Source.C1TwoPointSpectralDecomposition

@@ -13,6 +13,8 @@ namespace ConnesWeilRH.Source.C1LaneRNarrowArch
 #print axioms narrowArchRadius_log_inv
 #print axioms narrowArchRadius_budget
 #print axioms narrowArchBaseWidth_pos
+#print axioms narrowArchRoot_support
+#print axioms narrowArchRoot_support_subset_Ioo
 #print axioms narrowArchRoot_square_support
 #print axioms narrowArchRoot_square_support_subset_open_log_two
 #print axioms narrowArchRoot_archimedeanTerm_nonpos

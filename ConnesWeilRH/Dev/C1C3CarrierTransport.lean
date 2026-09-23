@@ -8,6 +8,8 @@ import ConnesWeilRH.Dev.C1SameOwnerWeil
 import ConnesWeilRH.Dev.C1P2BilateralProfile
 import ConnesWeilRH.Dev.C1OrbitWindowSemiLocalGate
 import ConnesWeilRH.Dev.C1P2SpanProfileMatrix
+import ConnesWeilRH.Dev.C1LaneRNarrowArch
+import ConnesWeilRH.Dev.C1HealthyYoshidaDetector
 
 /-!
 # C3' carrier transport: the prime-cell phase law
@@ -42,6 +44,8 @@ open ConnesWeilRH.Source.C1OrbitWindowSemiLocalGate
 open ConnesWeilRH.Source.C1SameOwnerWeil
 open ConnesWeilRH.Source.CC20YoshidaConvolution
 open ConnesWeilRH.Source.CCM25Concrete.CompactLogConvolution
+open ConnesWeilRH.Source.C1LaneRNarrowArch
+open ConnesWeilRH.Source.C1HealthyYoshidaDetector
 open Matrix
 
 /-- The carrier phase in the canonical single-cast form:
@@ -121,6 +125,11 @@ theorem carrierModulate_neg (γ : Real) (f : CompactLogTest) :
   apply CompactLogTest.ext
   ext x
   exact carrierModulate_neg_apply γ f x
+
+theorem carrierModulate_neg_inv (γ : Real) (f : CompactLogTest) :
+    carrierModulate γ (carrierModulate (-γ) f) = f := by
+  have h := carrierModulate_neg (-γ) f
+  rwa [neg_neg] at h
 
 theorem carrierModulate_surjective (γ : Real) (f : CompactLogTest) :
     ∃ u : CompactLogTest, carrierModulate γ u = f := by
@@ -1990,6 +1999,141 @@ theorem CarrierTwoSpanDeterminantCertificate.gate
     certificate.pivot_pos).mp
   exact (carrier_twoSpan_phase_budget_iff_optimal_nonpos γ u v
     certificate.pivot_pos).mpr certificate.phase_budget
+
+theorem narrowArchRoot_ICgate_nonpos :
+    ICgate narrowArchRoot.convolutionSquare ≤ 0 := by
+  unfold ICgate
+  have hprime := finitePrimeSum_eq_zero_of_support_subset_open_log_two
+    narrowArchRoot.convolutionSquare
+    narrowArchRoot_square_support_subset_open_log_two
+  rw [hprime, add_zero]
+  exact narrowArchRoot_archimedeanTerm_nonpos
+
+theorem pinned_orbit_positive_pivot
+    {rho : ℂ} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g) (γ : Real) :
+    0 < ICgate (carrierModulate γ (carrierModulate (-γ) g)).convolutionSquare := by
+  rw [carrierModulate_neg_inv γ g]
+  have hpos : 0 < - qw g := by
+    have h := hdata.weilSquareSumPositive
+    rwa [ConnesWeilRH.Source.C1.healthyWeilSquareReadoff] at h
+  have hqw : qw g < 0 := neg_pos.mp hpos
+  rw [← p2AggregateValue_eq_ICgate_convolutionSquare,
+    p2AggregateValue_eq_neg_qw_of_vanishes g hdata.vanishesOnF]
+  linarith
+
+/-- Unconditional two-span determinant certificate from opposite gate signs.
+    Because the square of any real cross term is non-negative, `gate(u) ≤ 0`
+    and `0 < gate(v)` algebraically force the determinant of the gate matrix
+    to be non-positive, discharging the phase budget unconditionally. -/
+theorem carrierTwoSpanDeterminantCertificate_of_opposite_gates
+    (γ : Real) (u v : CompactLogTest) (B : Real)
+    (hAu : Function.support (carrierModulate γ u).test ⊆ Set.Ioo (-B) B)
+    (hBv : Function.support (carrierModulate γ v).test ⊆ Set.Ioo (-B) B)
+    (hu : ICgate (carrierModulate γ u).convolutionSquare ≤ 0)
+    (hv : 0 < ICgate (carrierModulate γ v).convolutionSquare) :
+    CarrierTwoSpanDeterminantCertificate γ u v B := by
+  refine ⟨hAu, hBv, hv, ?_⟩
+  have hprod :
+      ICgate (carrierModulate γ u).convolutionSquare *
+        ICgate (carrierModulate γ v).convolutionSquare ≤ 0 :=
+    mul_nonpos_of_nonpos_of_nonneg hu (le_of_lt hv)
+  have hsq :
+      0 ≤
+        ICgate
+            ((carrierModulate γ u).involution.convolution
+              (carrierModulate γ v)) ^ 2 :=
+    sq_nonneg _
+  have hdet :
+      ICgate (carrierModulate γ u).convolutionSquare *
+          ICgate (carrierModulate γ v).convolutionSquare ≤
+        ICgate
+            ((carrierModulate γ u).involution.convolution
+              (carrierModulate γ v)) ^ 2 :=
+    le_trans hprod hsq
+  have hsub :
+      ICgate (carrierModulate γ u).convolutionSquare *
+          ICgate (carrierModulate γ v).convolutionSquare -
+        ICgate
+            ((carrierModulate γ u).involution.convolution
+              (carrierModulate γ v)) ^ 2 ≤ 0 :=
+    sub_nonpos.mpr hdet
+  rwa [carrier_twoSpan_determinant_split_phase] at hsub
+
+/-- Main Step 2 construction: given any healthy detector `g` with support in `Ioo (-B) B`
+    where `1 ≤ B`, and any carrier frequency `γ`, pairing the carrier-modulated
+    negative root `u = carrierModulate (-γ) narrowArchRoot` with
+    `v = carrierModulate (-γ) g` unconditionally supplies a
+    `CarrierTwoSpanDeterminantCertificate γ u v B`. -/
+theorem carrierTwoSpanDeterminantCertificate_of_pinned_geometry
+    {rho : ℂ} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    (B : Real) (hB : 1 ≤ B)
+    (hsupport : Function.support g.test ⊆ Set.Ioo (-B) B)
+    (γ : Real) :
+    CarrierTwoSpanDeterminantCertificate γ
+      (carrierModulate (-γ) narrowArchRoot)
+      (carrierModulate (-γ) g) B := by
+  have hu_mod : carrierModulate γ (carrierModulate (-γ) narrowArchRoot) = narrowArchRoot :=
+    carrierModulate_neg_inv γ narrowArchRoot
+  have hv_mod : carrierModulate γ (carrierModulate (-γ) g) = g :=
+    carrierModulate_neg_inv γ g
+  have hAu : Function.support (carrierModulate γ
+      (carrierModulate (-γ) narrowArchRoot)).test ⊆ Set.Ioo (-B) B := by
+    rw [hu_mod]
+    exact narrowArchRoot_support_subset_Ioo B hB
+  have hBv : Function.support (carrierModulate γ
+      (carrierModulate (-γ) g)).test ⊆ Set.Ioo (-B) B := by
+    rw [hv_mod]
+    exact hsupport
+  have hu_gate : ICgate (carrierModulate γ
+      (carrierModulate (-γ) narrowArchRoot)).convolutionSquare ≤ 0 := by
+    rw [hu_mod]
+    exact narrowArchRoot_ICgate_nonpos
+  have hv_gate : 0 < ICgate (carrierModulate γ (carrierModulate (-γ) g)).convolutionSquare :=
+    pinned_orbit_positive_pivot hdata γ
+  exact carrierTwoSpanDeterminantCertificate_of_opposite_gates γ
+    (carrierModulate (-γ) narrowArchRoot) (carrierModulate (-γ) g) B
+    hAu hBv hu_gate hv_gate
+
+/-- Master Step 2 Theorem: For any healthy detector `g` with support in `Ioo (-B) B`
+    (`1 ≤ B`) and any frequency `γ`, the optimal two-span combination between
+    the carrier-demodulated narrow root and `g` achieves
+    `orbitWindowSemiLocalGate ≤ 0`. -/
+theorem orbitWindowSemiLocalGate_of_pinned_geometry
+    {rho : ℂ} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    (B : Real) (hB : 1 ≤ B)
+    (hsupport : Function.support g.test ⊆ Set.Ioo (-B) B)
+    (γ : Real) :
+    orbitWindowSemiLocalGate
+      (spanObj
+        ![carrierModulate γ (carrierModulate (-γ) narrowArchRoot),
+          carrierModulate γ (carrierModulate (-γ) g)]
+        ![(1 : Real), -(
+          ICgate
+              ((carrierModulate γ (carrierModulate (-γ) narrowArchRoot)).involution.convolution
+                (carrierModulate γ (carrierModulate (-γ) g))) /
+            ICgate (carrierModulate γ (carrierModulate (-γ) g)).convolutionSquare)]) := by
+  have cert := carrierTwoSpanDeterminantCertificate_of_pinned_geometry hdata B hB hsupport γ
+  exact cert.gate
+
+/-- Master Step 2 Theorem (simplified basis): The optimal two-span combination between
+    `narrowArchRoot` and `g` satisfies `orbitWindowSemiLocalGate ≤ 0`. -/
+theorem orbitWindowSemiLocalGate_of_pinned_geometry_simplified
+    {rho : ℂ} {g : CompactLogTest}
+    (hdata : HealthyYoshidaDetectorData rho g)
+    (B : Real) (hB : 1 ≤ B)
+    (hsupport : Function.support g.test ⊆ Set.Ioo (-B) B)
+    (γ : Real) :
+    orbitWindowSemiLocalGate
+      (spanObj
+        ![narrowArchRoot, g]
+        ![(1 : Real), -(
+          ICgate (narrowArchRoot.involution.convolution g) /
+            ICgate g.convolutionSquare)]) := by
+  have hgate := orbitWindowSemiLocalGate_of_pinned_geometry hdata B hB hsupport γ
+  rwa [carrierModulate_neg_inv γ narrowArchRoot, carrierModulate_neg_inv γ g] at hgate
 
 end C1C3CarrierTransport
 end Dev

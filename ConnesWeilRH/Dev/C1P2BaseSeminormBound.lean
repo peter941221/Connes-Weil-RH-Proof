@@ -533,6 +533,92 @@ theorem not_strict_base_contraction_of_unit_zero_target_of_support_Ioo
     f hsupp hzero
   nlinarith
 
+/-- Universal lower bound on the convolution contraction factor for an arbitrary
+    bounded window `(a, b)`: any base test with unit Laplace target at zero
+    satisfies `(b - a) * seminorm(f) ≥ 1`. -/
+theorem supportLength_mul_seminorm_ge_one_of_laplaceAt_zero_eq_one
+    (f : CompactLogTest) {a b : Real} (hab : a < b)
+    (hsupp : Function.support f.test ⊆ Set.Ioo a b)
+    (hzero : laplaceAt f 0 = 1) :
+    1 ≤ (b - a) * SchwartzMap.seminorm Complex 0 0 f.test := by
+  have hL2 : compactLogL2sq f ≤
+      (b - a) * (SchwartzMap.seminorm Complex 0 0 f.test) ^ 2 := by
+    have hl2 : (∫ x : Real in a..b, ‖f.test x‖ ^ 2) =
+        compactLogL2sq f := by
+      unfold compactLogL2sq
+      rw [intervalIntegral.integral_of_le hab.le,
+        ← MeasureTheory.integral_indicator measurableSet_Ioc]
+      refine MeasureTheory.integral_congr_ae
+        (Filter.Eventually.of_forall (fun x => ?_))
+      by_cases hx : x ∈ Set.Ioc a b
+      · simp [hx]
+      · have hx' : x ∉ Set.Ioo a b := by
+          intro h
+          exact hx ⟨h.1, le_of_lt h.2⟩
+        rw [Set.indicator_of_notMem hx]
+        have hz : f.test x = 0 := by
+          by_contra hnz
+          exact hx' (hsupp hnz)
+        simp [hz]
+    rw [← hl2]
+    have hmono :
+        (∫ x : Real in a..b, ‖f.test x‖ ^ 2) ≤
+          ∫ x : Real in a..b,
+            (SchwartzMap.seminorm Complex 0 0 f.test) ^ 2 := by
+      apply intervalIntegral.integral_mono_on (μ := volume) hab.le
+      · have hcont : ContinuousOn
+            (fun x : Real => ‖f.test x‖ ^ 2) (Set.uIcc a b) :=
+            ((f.test.smooth ⊤).continuous.norm.continuousOn).pow 2
+        exact hcont.intervalIntegrable
+      · exact intervalIntegrable_const
+      · intro x hx
+        have hnorm := SchwartzMap.norm_le_seminorm Complex f.test x
+        nlinarith [norm_nonneg (f.test x)]
+    rw [intervalIntegral.integral_const, smul_eq_mul] at hmono
+    simpa [pow_two] using hmono
+  have hlap := laplaceAt_sq_le f hab hsupp (0 : Complex)
+  rw [hzero] at hlap
+  have hnonneg : 0 ≤ SchwartzMap.seminorm Complex 0 0 f.test := by
+    exact le_trans (norm_nonneg (f.test 0))
+      (SchwartzMap.norm_le_seminorm Complex f.test 0)
+  have hlen : 0 < b - a := sub_pos.mpr hab
+  have hinteg : (∫ x : Real in a..b, Real.exp (2 * (0 : Complex).re * x) ∂volume) = b - a := by
+    have he : (fun x : Real => Real.exp (2 * (0 : Complex).re * x)) = fun _ => (1 : Real) := by
+      funext x
+      simp
+    rw [he, intervalIntegral.integral_const, smul_eq_mul, mul_one]
+  rw [hinteg] at hlap
+  norm_num at hlap
+  have h_sq : 1 ≤ (b - a) ^ 2 * (SchwartzMap.seminorm Complex 0 0 f.test) ^ 2 := by
+    calc
+      1 ≤ (b - a) * compactLogL2sq f := hlap
+      _ ≤ (b - a) * ((b - a) * (SchwartzMap.seminorm Complex 0 0 f.test) ^ 2) :=
+        mul_le_mul_of_nonneg_left hL2 hlen.le
+      _ = (b - a) ^ 2 * (SchwartzMap.seminorm Complex 0 0 f.test) ^ 2 := by ring
+  have h_prod_sq : (b - a) ^ 2 * (SchwartzMap.seminorm Complex 0 0 f.test) ^ 2 =
+      ((b - a) * SchwartzMap.seminorm Complex 0 0 f.test) ^ 2 := by ring
+  rw [h_prod_sq] at h_sq
+  have hprod_nonneg : 0 ≤ (b - a) * SchwartzMap.seminorm Complex 0 0 f.test :=
+    mul_nonneg hlen.le hnonneg
+  by_contra hlt
+  push_neg at hlt
+  have h_lt_one : ((b - a) * SchwartzMap.seminorm Complex 0 0 f.test) ^ 2 < 1 := by
+    nlinarith [hprod_nonneg, hlt]
+  linarith [h_sq, h_lt_one]
+
+/-- Universal no-go for strict geometric base contraction on any bounded window:
+    the contraction factor `(b - a) * seminorm(f) < 1` is mathematically impossible
+    for any compactly supported base with unit Laplace target at zero. -/
+theorem not_strict_base_contraction_of_arbitrary_window
+    (f : CompactLogTest) {a b : Real} (hab : a < b)
+    (hsupp : Function.support f.test ⊆ Set.Ioo a b)
+    (hzero : laplaceAt f 0 = 1) :
+    ¬ (b - a) * SchwartzMap.seminorm Complex 0 0 f.test < 1 := by
+  intro hcontract
+  have hge := supportLength_mul_seminorm_ge_one_of_laplaceAt_zero_eq_one
+    f hab hsupp hzero
+  linarith
+
 end
 end C1P2BaseSeminormBound
 end Source

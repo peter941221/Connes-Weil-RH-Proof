@@ -105,6 +105,13 @@ namespace C1C3CarrierTransport
 #print axioms CarrierTwoSpanSignCertificate
 #print axioms CarrierTwoSpanSignCertificate.toDeterminantCertificate
 #print axioms CarrierTwoSpanSignCertificate.gate
+#print axioms carrierModulate_neg_inv
+#print axioms narrowArchRoot_ICgate_nonpos
+#print axioms pinned_orbit_positive_pivot
+#print axioms carrierTwoSpanDeterminantCertificate_of_opposite_gates
+#print axioms carrierTwoSpanDeterminantCertificate_of_pinned_geometry
+#print axioms orbitWindowSemiLocalGate_of_pinned_geometry
+#print axioms orbitWindowSemiLocalGate_of_pinned_geometry_simplified
 
 end C1C3CarrierTransport
 end Dev

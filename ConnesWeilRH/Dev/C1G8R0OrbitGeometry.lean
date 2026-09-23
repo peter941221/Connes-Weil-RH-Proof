@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 import ConnesWeilRH.Dev.C1P2DefectControl
 import ConnesWeilRH.Dev.C1P2BaseSeminormBound
+import Mathlib.Analysis.SpecificLimits.Basic
 
 /-!
 # G8 R0: raw orbit geometry for the selected healthy-owner chain
@@ -153,6 +154,84 @@ theorem finitePrimeSum_eq_sum_range_of_orbitG8Geometry
 /-! Package an already indexed raw construction.  The index is an input to
 this constructor; all interpolation and tail data therefore remain attached
 to the same selected owner. -/
+/-- Construct an exact OrbitG8Geometry instance directly from raw indexed data. -/
+noncomputable def rawOrbitG8GeometryOfIndexedConstruction
+    (rho : sourceNontrivialZeroSet)
+    (base correction : CompactLogTest) (orbitIndex : Nat)
+    (tailThreshold tailAccuracy : Real) (tailStart : Nat)
+    (hbaseSupport : Function.support base.test ⊆ Set.Ioo (-1 : Real) 1)
+    (hcorrectionSupport : Function.support correction.test ⊆
+      Set.Ioo (-1 : Real) 1)
+    (hselectedSupport : Function.support
+        (selectedOwner base correction orbitIndex).sourceTest.test ⊆
+      Set.Ioo (-((orbitIndex + 2 : Nat) : Real))
+        (((orbitIndex + 2 : Nat) : Real)))
+    (hthreshold : tailThreshold ≤ (2 : Real) ^ (tailStart + 1))
+    (hzeroHeight : 2 * |rho.1.im| ≤ (2 : Real) ^ (tailStart + 1))
+    (htailBudget :
+      4 * tailAccuracy ^ 2 * spectralMultiplicityConstant *
+          (3 / 4 : Real) ^ tailStart < (xiMultiplicity rho : Real))
+    (hrawSquareTail : FourthOrderSpectralTail
+      (selectedOwner base correction orbitIndex).convolutionSquare
+        rho.1 tailThreshold tailAccuracy)
+    (hrawTargetValues :
+      ∀ w : FiniteMellinNode (healthyUnscaledTargetNodes rho.1),
+        laplaceAt ((convolutionIterate base orbitIndex).convolution correction)
+          w.1 = healthyUnscaledTargetValue rho.1 w)
+    (hminimal : HealthyMinimalLaplaceRealizes rho.1
+      (selectedOwner base correction orbitIndex).sourceTest)
+    (horbitSum :
+      (∑ u ∈ centeredFunctionalEquationOrbit rho.1,
+        laplaceAt (selectedOwner base correction orbitIndex).convolutionSquare u)
+        = -2)
+    (hsquareZeros :
+      ∀ w : FiniteMellinNode
+          (sourceNontrivialZerosInClosedBallFinset rho.1
+              ((2 : Real) ^ (tailStart + 1) + 2 + dist (2 : Complex) rho.1) ∪
+            (∅ : Finset Complex)),
+        w.1 ∉ healthyUnscaledTargetNodes rho.1 →
+          laplaceAt (selectedOwner base correction orbitIndex).convolutionSquare
+            (w.1 - 1 / 2) = 0) :
+    OrbitG8Geometry rho
+      (selectedOwner base correction orbitIndex).sourceTest := by
+  have himLt : |rho.1.im| < (2 : Real) ^ (tailStart + 1) := by
+    have hpow : 0 < (2 : Real) ^ (tailStart + 1) := by positivity
+    have himNonneg : 0 ≤ |rho.1.im| := abs_nonneg _
+    nlinarith
+  have hrhoShell : dyadicShellIndex |rho.1.im| < tailStart + 1 := by
+    have hminimal := Nat.find_min'
+      (exists_lt_two_pow_succ |rho.1.im|) himLt
+    rw [← dyadicShellIndex] at hminimal
+    omega
+  let g : CompactLogTest :=
+    (selectedOwner base correction orbitIndex).sourceTest
+  have hprimeCutoff :
+      ∀ q ∈ globalPrimeIndexSet g.convolutionSquare,
+        (q : Real) < Real.exp (2 * ((orbitIndex + 2 : Nat) : Real)) := by
+    intro q hq
+    exact pinned_visiblePrimeCutoff_of_support g orbitIndex hselectedSupport hq
+  exact
+    { base := base
+      base_support := hbaseSupport
+      correction := correction
+      correction_support := hcorrectionSupport
+      orbitIndex := orbitIndex
+      selected_owner_test := rfl
+      tailThreshold := tailThreshold
+      tailAccuracy := tailAccuracy
+      tailStart := tailStart
+      threshold_le_dyadic := hthreshold
+      zero_height_le_dyadic := hzeroHeight
+      zero_shell_before_tail := hrhoShell
+      tail_budget_below_multiplicity := htailBudget
+      raw_square_tail := hrawSquareTail
+      raw_target_values := hrawTargetValues
+      minimal_interpolation := hminimal
+      centered_orbit_sum := horbitSum
+      square_zero_control := hsquareZeros
+      support_bound := hselectedSupport
+      visible_prime_cutoff := hprimeCutoff }
+
 theorem orbitG8Geometry_of_indexed_raw_construction
     (rho : sourceNontrivialZeroSet)
     (base correction : CompactLogTest) (orbitIndex : Nat)
@@ -191,45 +270,11 @@ theorem orbitG8Geometry_of_indexed_raw_construction
           laplaceAt (selectedOwner base correction orbitIndex).convolutionSquare
             (w.1 - 1 / 2) = 0) :
     Nonempty (OrbitG8Geometry rho
-      (selectedOwner base correction orbitIndex).sourceTest) := by
-  have himLt : |rho.1.im| < (2 : Real) ^ (tailStart + 1) := by
-    have hpow : 0 < (2 : Real) ^ (tailStart + 1) := by positivity
-    have himNonneg : 0 ≤ |rho.1.im| := abs_nonneg _
-    nlinarith
-  have hrhoShell : dyadicShellIndex |rho.1.im| < tailStart + 1 := by
-    have hminimal := Nat.find_min'
-      (exists_lt_two_pow_succ |rho.1.im|) himLt
-    rw [← dyadicShellIndex] at hminimal
-    omega
-  let g : CompactLogTest :=
-    (selectedOwner base correction orbitIndex).sourceTest
-  have hprimeCutoff :
-      ∀ q ∈ globalPrimeIndexSet g.convolutionSquare,
-        (q : Real) < Real.exp (2 * ((orbitIndex + 2 : Nat) : Real)) := by
-    intro q hq
-    exact pinned_visiblePrimeCutoff_of_support g orbitIndex hselectedSupport hq
-  refine ⟨?_⟩
-  exact
-    { base := base
-      base_support := hbaseSupport
-      correction := correction
-      correction_support := hcorrectionSupport
-      orbitIndex := orbitIndex
-      selected_owner_test := rfl
-      tailThreshold := tailThreshold
-      tailAccuracy := tailAccuracy
-      tailStart := tailStart
-      threshold_le_dyadic := hthreshold
-      zero_height_le_dyadic := hzeroHeight
-      zero_shell_before_tail := hrhoShell
-      tail_budget_below_multiplicity := htailBudget
-      raw_square_tail := hrawSquareTail
-      raw_target_values := hrawTargetValues
-      minimal_interpolation := hminimal
-      centered_orbit_sum := horbitSum
-      square_zero_control := hsquareZeros
-      support_bound := hselectedSupport
-      visible_prime_cutoff := hprimeCutoff }
+      (selectedOwner base correction orbitIndex).sourceTest) :=
+  ⟨rawOrbitG8GeometryOfIndexedConstruction rho base correction orbitIndex
+    tailThreshold tailAccuracy tailStart hbaseSupport hcorrectionSupport
+    hselectedSupport hthreshold hzeroHeight htailBudget hrawSquareTail
+    hrawTargetValues hminimal horbitSum hsquareZeros⟩
 
 /-- The pinned orbit construction exports the raw G8 geometry package.
 
@@ -304,7 +349,8 @@ theorem exists_indexed_orbitG8Geometry_of_sourceNontrivialZero_right
         0 ≤ C ∧
         ∀ orbitIndex : Nat,
           (6 * Real.pi) ^ 2 * ((1 / 2 : Real) ^ (orbitIndex + 1) * C) < 1 →
-          ∃ g : CompactLogTest, Nonempty (OrbitG8Geometry rho g) := by
+          ∃ g : CompactLogTest, ∃ geometry : OrbitG8Geometry rho g,
+            geometry.orbitIndex = orbitIndex := by
   obtain ⟨base, hbaseSupport, hbaseTargets, baseC, hbaseC, hbaseDecay⟩ :=
     exists_affine_base_with_unit_targets_and_quadratic_decay
       (healthyUnscaledTargetNodes rho.1)
@@ -360,12 +406,13 @@ theorem exists_indexed_orbitG8Geometry_of_sourceNontrivialZero_right
         rho.1 T 1 := htailSquare
   let g : CompactLogTest :=
     (selectedOwner base correction orbitIndex).sourceTest
-  refine ⟨g, ?_⟩
-  exact orbitG8Geometry_of_indexed_raw_construction
-    rho base correction orbitIndex T 1 tailStart
-    hbaseSupport hcorrectionSupport hsupport hTailThreshold hrhoHeight
-    (by simpa using hTailBudget) hsquareTail htargetValues hminimal horbitSum
-    hsquareZeros
+  let geometry : OrbitG8Geometry rho g :=
+    rawOrbitG8GeometryOfIndexedConstruction
+      rho base correction orbitIndex T 1 tailStart
+      hbaseSupport hcorrectionSupport hsupport hTailThreshold hrhoHeight
+      (by simpa using hTailBudget) hsquareTail htargetValues hminimal horbitSum
+      hsquareZeros
+  refine ⟨g, geometry, rfl⟩
 
 /-- The raw orbit geometry and the strict healthy-detector package can be
     attached to the same selected owner.  This removes the possible mismatch
@@ -398,6 +445,82 @@ theorem exists_healthyOrbitG8Geometry_of_sourceNontrivialZero_right
     exists_orbitG8Geometry_of_sourceNontrivialZero_right rho hoff hright
   refine ⟨g, geometry, ?_⟩
   exact healthyDetectorData_of_orbitG8Geometry geometry hoff hright
+
+/-- Existence of an index satisfying the fourth-order quadratic tail condition. -/
+theorem exists_nat_quadratic_tail_lt_one (C : Real) :
+    ∃ n : Nat, (6 * Real.pi) ^ 2 * ((1 / 2 : Real) ^ (n + 1) * C) < 1 := by
+  by_cases hC : C ≤ 0
+  · refine ⟨0, ?_⟩
+    have h1 : 0 ≤ (6 * Real.pi) ^ 2 := by positivity
+    have h2 : (1 / 2 : Real) ^ (0 + 1) * C ≤ 0 :=
+      mul_nonpos_of_nonneg_of_nonpos (by positivity) hC
+    have hprod_nonpos : (6 * Real.pi) ^ 2 * ((1 / 2 : Real) ^ (0 + 1) * C) ≤ 0 :=
+      mul_nonpos_of_nonneg_of_nonpos h1 h2
+    linarith
+  · push_neg at hC
+    have hpowHalf : Filter.Tendsto (fun n : ℕ => (1 / 2 : ℝ) ^ n)
+        Filter.atTop (nhds 0) :=
+      tendsto_pow_atTop_nhds_zero_of_lt_one (by norm_num) (by norm_num)
+    have htailLimit :
+        Filter.Tendsto
+          (fun n : ℕ => (6 * Real.pi) ^ 2 * ((1 / 2 : ℝ) ^ (n + 1) * C))
+          Filter.atTop (nhds 0) := by
+      have h := hpowHalf.mul_const ((6 * Real.pi) ^ 2 * ((1 / 2 : ℝ) * C))
+      simpa [pow_succ, mul_assoc, mul_left_comm, mul_comm] using h
+    have htailEventually := htailLimit.eventually_lt_const (by norm_num : (0 : ℝ) < 1)
+    obtain ⟨n, hnTail⟩ := htailEventually.exists
+    exact ⟨n, hnTail⟩
+
+/-- The minimal orbit index satisfying the quadratic tail budget. -/
+noncomputable def minimalTailOrbitIndex (C : Real) : Nat :=
+  Nat.find (exists_nat_quadratic_tail_lt_one C)
+
+/-- The minimal orbit index satisfies the quadratic tail condition. -/
+theorem minimalTailOrbitIndex_spec (C : Real) :
+    (6 * Real.pi) ^ 2 * ((1 / 2 : Real) ^ (minimalTailOrbitIndex C + 1) * C) < 1 :=
+  Nat.find_spec (exists_nat_quadratic_tail_lt_one C)
+
+/-- Master pinned theorem: for every hypothetical right-oriented off-line zero,
+there exists a canonical minimal orbit index `n0`, a test `g`, and its
+`OrbitG8Geometry` package such that:
+1. The orbit index is exactly `n0`, which is the minimal index satisfying the quadratic tail budget;
+2. `HealthyYoshidaDetectorData rho.1 g` holds;
+3. Support of `g` is strictly within `(- (n0 + 2), n0 + 2)`;
+4. Every visible prime power index satisfies `q < exp(2 * (n0 + 2))`;
+5. The full arithmetic `finitePrimeSum` is identically the explicit finite sum over
+   `Finset.range (Nat.ceil (exp(2 * (n0 + 2))) + 1)`. -/
+theorem exists_pinnedOrbitG8Geometry_of_sourceNontrivialZero_right
+    (rho : sourceNontrivialZeroSet)
+    (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re) :
+    ∃ n0 : Nat, ∃ g : CompactLogTest, ∃ geometry : OrbitG8Geometry rho g,
+      geometry.orbitIndex = n0 ∧
+      HealthyYoshidaDetectorData rho.1 g ∧
+      Function.support g.test ⊆ Set.Ioo (-((n0 + 2 : Nat) : Real)) (((n0 + 2 : Nat) : Real)) ∧
+      (∀ q ∈ globalPrimeIndexSet g.convolutionSquare, (q : Real) < Real.exp (2 * ((n0 + 2 : Nat) : Real))) ∧
+      finitePrimeSum g.convolutionSquare =
+        ∑ n ∈ Finset.range (Nat.ceil (Real.exp (2 * ((n0 + 2 : Nat) : Real))) + 1),
+          finitePrimeTerm g.convolutionSquare n := by
+  obtain ⟨base, T, hbaseSupport, hT, correction, C, hcorrectionSupport, hC, halln⟩ :=
+    exists_indexed_orbitG8Geometry_of_sourceNontrivialZero_right rho hoff hright
+  let n0 := minimalTailOrbitIndex C
+  have htail := minimalTailOrbitIndex_spec C
+  obtain ⟨g, geometry, hgeomIndex⟩ := halln n0 htail
+  have hhealth := healthyDetectorData_of_orbitG8Geometry geometry hoff hright
+  have hsupport : Function.support g.test ⊆
+      Set.Ioo (-((n0 + 2 : Nat) : Real)) (((n0 + 2 : Nat) : Real)) := by
+    rw [← hgeomIndex]
+    exact geometry.support_bound
+  have hcutoff : ∀ q ∈ globalPrimeIndexSet g.convolutionSquare,
+      (q : Real) < Real.exp (2 * ((n0 + 2 : Nat) : Real)) := by
+    rw [← hgeomIndex]
+    exact geometry.visible_prime_cutoff
+  have hprimeSum : finitePrimeSum g.convolutionSquare =
+      ∑ n ∈ Finset.range (Nat.ceil (Real.exp (2 * ((n0 + 2 : Nat) : Real))) + 1),
+        finitePrimeTerm g.convolutionSquare n := by
+    rw [← hgeomIndex]
+    exact finitePrimeSum_eq_sum_range_of_orbitG8Geometry geometry
+  refine ⟨n0, g, geometry, hgeomIndex, hhealth, hsupport, hcutoff, hprimeSum⟩
 
 end C1G8R0OrbitGeometry
 end Source
