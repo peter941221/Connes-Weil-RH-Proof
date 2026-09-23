@@ -411,6 +411,52 @@ theorem selectedOwner_fullOrbit_span_fourthOrderSpectralTail
     base correction rho lambda C4 C2 T n hC4 hC2 hbaseContract
     hbaseQuartic hcorrectionQuadratic z hz hTz hone).trans_lt hsmall
 
+/-- For fixed base and correction owners, choose the decay constants and the
+base contraction threshold before the convolution count and span coefficient.
+The resulting tail implication is uniform in both later choices. -/
+theorem exists_selectedOwner_fullOrbit_span_fourthOrderSpectralTail_constants
+    (base correction : CompactLogTest) (rho : Complex) :
+    ∃ C4 C2 T : Real,
+      0 ≤ C4 ∧ 0 ≤ C2 ∧ 0 ≤ T ∧
+      (∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+        ‖t / (2 * Real.pi)‖ ^ 4 *
+          ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C4) ∧
+      (∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real,
+        ‖t / (2 * Real.pi)‖ ^ 2 *
+          ‖laplaceAt correction
+            ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤ C2) ∧
+      (∀ sigma ∈ Set.Icc (0 : Real) 1, ∀ t : Real, T ≤ |t| →
+        ‖laplaceAt base ((sigma : Complex) + (t : Complex) * Complex.I)‖ ≤
+          1 / 2) ∧
+      ∀ (n : Nat) (lambda epsilon : Real),
+        (3 + ‖rho‖) ^ 4 *
+            ((3 + ‖rho‖) ^ 4 + |lambda|) ^ 2 *
+            (2 * Real.pi) ^ 12 *
+            ((1 / 2 : Real) ^ n * (C4 * C2)) ^ 2 < epsilon ^ 2 →
+        FourthOrderSpectralTail
+          (annihilatorDetectorSpanVector
+            (fullFunctionalEquationOrbitAnnihilator
+              (selectedOwner base correction n).sourceTest rho)
+            (selectedOwner base correction n).sourceTest lambda).convolutionSquare
+          rho T epsilon := by
+  obtain ⟨C4, hC4, hbaseQuartic⟩ :=
+    C1SpectralWeil.exists_uniform_compactLog_laplaceAt_vertical_quartic_decay base
+  obtain ⟨C2, hC2, hcorrectionQuadratic⟩ :=
+    C1SpectralWeil.exists_uniform_compactLog_laplaceAt_vertical_quadratic_decay
+      correction
+  obtain ⟨Cbase2, hbase2, hbaseQuadratic⟩ :=
+    C1SpectralWeil.exists_uniform_compactLog_laplaceAt_vertical_quadratic_decay
+      base
+  obtain ⟨T, hT, hbaseContract⟩ :=
+    exists_laplaceAt_vertical_half_contraction_of_quadratic_bound
+      base Cbase2 hbase2 hbaseQuadratic
+  refine ⟨C4, C2, T, hC4, hC2, hT, hbaseQuartic,
+    hcorrectionQuadratic, hbaseContract, ?_⟩
+  intro n lambda epsilon hsmall
+  exact selectedOwner_fullOrbit_span_fourthOrderSpectralTail
+    base correction rho lambda C4 C2 T epsilon n hC4 hC2 hbaseContract
+    hbaseQuartic hcorrectionQuadratic hsmall
+
 end
 end C1FourPointHighShellTail
 end Source

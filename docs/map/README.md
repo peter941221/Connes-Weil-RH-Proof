@@ -89,7 +89,9 @@ margin and an explicit weighted high-shell bound are formal for the four-point
 annihilator span. The strict tail-to-`lambda^2` budget is open because the
 gate-selected `lambda` may depend on the convolution count. The proved gate
 applies to a different narrow-root span; the four-point span's own gate sign
-remains open.
+remains open. For fixed base/correction owners, the decay constants and
+contraction threshold are now formally selected before `n` and `lambda`
+(proof record 1916); this does not close the joint margin.
 
 ## Binding no-go results
 

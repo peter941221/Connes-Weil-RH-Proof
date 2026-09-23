@@ -3,9 +3,10 @@
 Date: 2026-09-23.
 
 Status: Cut 1's raw sixth-order, selected-square twelfth-order, four-point
-multiplier, and weighted-distance bounds are FORMAL. Its joint strict margin
-is OPEN. Cuts 2 and 3 remain PROJECT CANDIDATES. No RH theorem or gate sign is
-claimed. Subordinate to [003](003_b1_b5_minimal_exit_route_selection.md),
+multiplier, weighted-distance bounds, and fixed-owner decay-constant
+quantifiers are FORMAL. Its joint strict margin is OPEN. Cuts 2 and 3 remain
+PROJECT CANDIDATES. No RH theorem or gate sign is claimed. Subordinate to
+[003](003_b1_b5_minimal_exit_route_selection.md),
 [091](091_two_span_sign_balancing_closed.md), and
 [094](094_two_point_differential_annihilation_and_spectral_decomposition.md).
 
@@ -36,8 +37,9 @@ healthy-owner objective.
 target:      ICgate(h(lambda).square) <= 0 and qw(h(lambda)) < 0
 known:       g has triple vanishing, selected orbit values, finite-prefix
              square zeros, compact support, and a fourth-order square tail;
-             its own gate is strictly positive
-remove:      first the weighted high-shell tail premise for h(lambda)
+             fixed base/correction owners admit decay constants chosen before
+             n and lambda; g's own gate is strictly positive
+remove:      first the joint high-shell margin for h(lambda_n)
 then remove: the gate sign premise for the same h(lambda)
 failure:     an exact obstruction to the proposed tail budget or to the
              same-span gate inequality on the selected construction
@@ -82,9 +84,13 @@ tail interface whenever that explicit bound is below `epsilon^2`. These
 statements are FORMAL; proof record 1915 names the focused build and audit.
 Choose the finite zero prefix and high-shell start before the correction.
 Increasing the shell start after interpolation would lose finite-prefix
-control. The correction's quadratic bound exists in its construction but
-must be carried through the chosen-owner quantifiers when the final
-certificate is assembled.
+control. Record 1916 formally completes the decay-constant quantifier
+handoff: for each fixed `base, correction`, one tuple `C4, C2, T` is chosen
+before `n` and `lambda`; the quartic base bound, quadratic correction bound,
+and base contraction then hold uniformly for every later `n, lambda`. This
+removes those analytic decay fields as independent assumptions from Cut 1.
+It does not prove the joint strict margin below or provide a lower bound on
+the gate-selected `lambda_n`.
 
 The remaining acceptance for this cut is a checked joint inequality on one
 selected `n, lambda_n`, including the existing shell multiplicity factor:
