@@ -9,6 +9,21 @@ Map filenames use consecutive `001_`, `002_`, ... reading-order prefixes.
 Their document titles retain the original proof-record identifiers for source
 traceability.
 
+## Compact support radial vanishing reduction, 2026-09-23
+
+[101](101_compact_support_radial_vanishing.md) formally proves that compact support
+vanishes identically under radial projection in
+`ConnesWeilRH.Dev.C1G8R3CompactSupportRadialVanishing`:
+proves `inner_eq_zero_of_ae_pointwise_zero`, `inner_eq_zero_of_disjoint_support`,
+and `mem_orthogonal_of_ae_eq_zero_on_Ici` showing that functions vanishing a.e. on
+$[\log \lambda, \infty)$ lie in $(P_{\mathcal{E}})^\perp$,
+proves `norm_starProjection_translation_eq_zero_of_support_le` showing that translating
+a carrier vector $k_0$ supported below $R$ by $t > R - \log \lambda$ shifts support
+completely outside $[\log \lambda, \infty)$ and forces $\|P_{\mathcal{E}} (T_t k_0)\| = 0$
+identically, completely discharging the right wing, and proves master exit
+`riemannHypothesis_of_right_compact_support_and_hardy_tail_and_aggregateEq`
+to Mathlib's `_root_.RiemannHypothesis`.
+
 ## Positive radial tail reduction, 2026-09-23
 
 [100](100_positive_radial_tail_decay.md) formally reformulates both wings of
