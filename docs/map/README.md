@@ -9,6 +9,21 @@ Map filenames use consecutive `001_`, `002_`, ... reading-order prefixes.
 Their document titles retain the original proof-record identifiers for source
 traceability.
 
+## Translated kernel radial tail reduction, 2026-09-23
+
+[099](099_translated_kernel_decay.md) formally reduces both wings of the
+Sonin projection decay to radial support projection tails in
+`ConnesWeilRH.Dev.C1G8R3TranslatedKernelDecay`:
+proves `sourceFourierSupportProjection_apply` and `norm_sourceFourierSupportProjection`
+via Hardy--Titchmarsh conjugation, proves isometric translation identities
+`sourceFourierSupportProjection_translation_norm_eq` and
+`sourceFourierSupportProjection_translation_normSq_eq`
+(`‖P_Q (T_t k0)‖^2 = ‖P_E (T_{-t} (Ht k0))‖^2`), unifies both wings via
+`normSq_sourceSoninCarrier_starProjection_le_of_translated_radial_tails`,
+and proves master exits `sourceCompressedRoot_squareSum_of_translated_radial_tails`
+and `riemannHypothesis_of_right_translated_radial_tails_and_aggregateEq`
+to Mathlib's `_root_.RiemannHypothesis` from radial tails of `k0` and `Ht k0`.
+
 ## Two-sided cosine rule and kernel projection decay, 2026-09-23
 
 [098](098_two_sided_cosine_rule_and_kernel_projection_decay.md) formally proves the
