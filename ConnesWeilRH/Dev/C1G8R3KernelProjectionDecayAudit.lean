@@ -1,0 +1,43 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: ConnesWeilRH contributors
+-/
+
+import ConnesWeilRH.Dev.C1G8R3KernelProjectionDecay
+
+/-!
+# Audit of Kernel Projection Decay & Two-Sided Cosine Rule to Mathlib RH
+
+Verifies standard axioms: `[propext, Classical.choice, Quot.sound]`, zero `sorryAx`.
+-/
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @sourceSoninCarrier_le_logRadialSupport
+#check @sourceSoninCarrier_le_fourierSupport
+#check @norm_sourceSoninCarrier_starProjection_le_logRadialSupport
+#check @norm_sourceSoninCarrier_starProjection_le_fourierSupport
+#check @normSq_sourceSoninCarrier_starProjection_le_logRadialSupport
+#check @normSq_sourceSoninCarrier_starProjection_le_fourierSupport
+#check @normSq_sourceSoninCarrier_starProjection_le_of_wings
+#check @rootConvolution_tsum_le_of_inner_kernel_projection_decay
+#check @sourceCompressedRoot_squareSum_of_kernel_projection_decay
+#check @sourceCompressedRoot_squareSum_of_kernel_wing_decay
+#check @riemannHypothesis_of_right_kernel_wing_decay_and_aggregateEq
+
+#print axioms sourceSoninCarrier_le_logRadialSupport
+#print axioms sourceSoninCarrier_le_fourierSupport
+#print axioms norm_sourceSoninCarrier_starProjection_le_logRadialSupport
+#print axioms norm_sourceSoninCarrier_starProjection_le_fourierSupport
+#print axioms normSq_sourceSoninCarrier_starProjection_le_logRadialSupport
+#print axioms normSq_sourceSoninCarrier_starProjection_le_fourierSupport
+#print axioms normSq_sourceSoninCarrier_starProjection_le_of_wings
+#print axioms rootConvolution_tsum_le_of_inner_kernel_projection_decay
+#print axioms sourceCompressedRoot_squareSum_of_kernel_projection_decay
+#print axioms sourceCompressedRoot_squareSum_of_kernel_wing_decay
+#print axioms riemannHypothesis_of_right_kernel_wing_decay_and_aggregateEq
+
+end Dev
+end ConnesWeilRH

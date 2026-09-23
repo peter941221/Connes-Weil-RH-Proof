@@ -9,6 +9,19 @@ Map filenames use consecutive `001_`, `002_`, ... reading-order prefixes.
 Their document titles retain the original proof-record identifiers for source
 traceability.
 
+## Two-sided cosine rule and kernel projection decay, 2026-09-23
+
+[098](098_two_sided_cosine_rule_and_kernel_projection_decay.md) formally proves the
+two-sided cosine rule reduction and kernel projection decay bridge in
+`ConnesWeilRH.Dev.C1G8R3KernelProjectionDecay`:
+proves `sourceSoninCarrier_le_logRadialSupport` and `sourceSoninCarrier_le_fourierSupport`,
+deducing `‖P_S w‖ ≤ ‖P_E w‖` and `‖P_S w‖ ≤ ‖P_Q w‖` via `norm_starProjection_le_of_submodule_le`,
+proves `normSq_sourceSoninCarrier_starProjection_le_of_wings` assembling radial decay on
+`t < -N` and Fourier decay on `N < t` into uniform projection decay `C / t^2` for `|t| > N`,
+applies Bessel's identity to deduce unwindowed root convolution decay, and proves
+master exits `sourceCompressedRoot_squareSum_of_kernel_wing_decay` and
+`riemannHypothesis_of_right_kernel_wing_decay_and_aggregateEq` to Mathlib's `_root_.RiemannHypothesis`.
+
 ## Annular kernel pointwise and integral bounds, 2026-09-23
 
 [097](097_annular_kernel_pointwise_and_integral_bounds.md) formally closes the bridge
