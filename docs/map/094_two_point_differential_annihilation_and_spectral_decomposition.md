@@ -53,6 +53,10 @@ obligation is the high-shell tail margin for this transported span, followed
 by compatibility with the semi-local nonnegative two-span gate. No gate sign,
 global tail bound, or RH conclusion is claimed here.
 
+The next campaign is specified in [103](103_four_point_same_span_three_cut_campaign.md).
+In particular, [091]'s nonnegative narrow-root span is not this four-point
+span; a same-span gate estimate is an independent open cut.
+
 The exact transform identity is also formal:
 `laplaceAt_fullFunctionalEquationOrbitAnnihilator` is the product of the four
 orbit-centered linear factors times `laplaceAt g`, and

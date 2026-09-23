@@ -80,11 +80,16 @@ sign do not close it.
 - [092](092_mainline_exit_wiring_closed.md): formal contradiction consumer.
 - [094](094_two_point_differential_annihilation_and_spectral_decomposition.md):
   current spectral-prefix transport.
+- [103](103_four_point_same_span_three_cut_campaign.md): three-cut work order
+  for the *same* four-point span, including the gate-owner mismatch.
 
-The current exact obligation is a strict negative full spectral value for the
-same span already carrying semi-local nonnegativity. The finite-prefix margin
-is formal. The explicit four-factor weighted high-shell tail and compatibility
-with the gate-selected span remain open.
+The current exact obligation is a strict negative full spectral value and a
+semi-local nonnegative gate for one and the same span. The finite-prefix
+margin and an explicit weighted high-shell bound are formal for the four-point
+annihilator span. The strict tail-to-`lambda^2` budget is open because the
+gate-selected `lambda` may depend on the convolution count. The proved gate
+applies to a different narrow-root span; the four-point span's own gate sign
+remains open.
 
 ## Binding no-go results
 

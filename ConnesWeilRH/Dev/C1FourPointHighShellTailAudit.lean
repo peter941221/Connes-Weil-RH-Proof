@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1FourPointHighShellTail
+
+namespace ConnesWeilRH.Source.C1FourPointHighShellTail
+
+#check @convolutionIterate_convolution_vertical_sextic_bound
+#check @selectedOwner_convolutionSquare_vertical_twelfth_bound
+#check @fullOrbit_span_multiplier_norm_le_height_pow_four
+#check @selectedOwner_fullOrbit_span_doubleDistance_bound
+#check @selectedOwner_fullOrbit_span_fourthOrderSpectralTail
+#print axioms convolutionIterate_convolution_vertical_sextic_bound
+#print axioms selectedOwner_convolutionSquare_vertical_twelfth_bound
+#print axioms fullOrbit_span_multiplier_norm_le_height_pow_four
+#print axioms selectedOwner_fullOrbit_span_doubleDistance_bound
+#print axioms selectedOwner_fullOrbit_span_fourthOrderSpectralTail
+
+end ConnesWeilRH.Source.C1FourPointHighShellTail
