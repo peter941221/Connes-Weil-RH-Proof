@@ -9,6 +9,18 @@ Map filenames use consecutive `001_`, `002_`, ... reading-order prefixes.
 Their document titles retain the original proof-record identifiers for source
 traceability.
 
+## Concrete annular wing majorant exit, 2026-09-23
+
+[096](096_concrete_wing_majorant_exit.md) formally instantiates the concrete
+annular wing majorant `concreteWingMajorant N C t = if N < |t| then C / t^2 else 0`
+in `ConnesWeilRH.Dev.C1G8R3ConcreteWingMajorant`:
+proves Borel measurability, nonnegativity, vanishing on `[-N, N]`, and finite
+integral bounds on `[N, ∞)` and `(-∞, -N]` bounded by `C / N`.
+Completely discharges the structural hypotheses of
+`sourceCompressedRoot_squareSum_of_annular_wing_majorant`, and formalizes
+`riemannHypothesis_of_right_concrete_wing_majorant_and_aggregateEq` connecting
+pointwise domination directly to Mathlib's `_root_.RiemannHypothesis`.
+
 ## G8 master exit: operator trace & annular majorant, 2026-09-23
 
 [095](095_g8_master_exit_and_annular_majorant.md) formally connects the G8
