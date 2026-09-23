@@ -180,6 +180,79 @@ abscissa-stable to a few percent, so on this family the Cut-1 coupling ratio
 left in the joint margin, which reduces to selecting `n` with every factor
 explicit.
 
+## Channel split of the determinant
+
+The gate entries are sums of an archimedean part (the committed sigma
+identity) and a finite-prime part, so the `2 x 2` determinant splits as
+
+```text
+det_full = det_arch + det_prime + det_cross,
+det_arch  = D_a*C_a - B_a^2,        det_prime = D_p*C_p - B_p^2,
+det_cross = D_a*C_p + C_a*D_p - 2*B_a*B_p
+```
+
+(the polarization of the determinant form). On the 18 probed cases **each of
+the three blocks is separately strictly negative**, so the indefiniteness is
+not an inter-channel cancellation accident: the archimedean channel alone is
+already reverse-Cauchy-Schwarz, and the arch share `det_arch/det_full` ranges
+over `0.237 .. 0.809`, the prime share from `0.7%` up to `51%` as the width
+grows. The arch block is built from the committed `sigma` symbol
+(`sigma(u) = log(pi) - Re psi(1/4 - i*u/2)`, sign flip theorem-grade at
+`u* = 6.289836`); the prime block is a finite explicit sum over the visible
+prime powers of the support. This split is the structural lead for the
+analytic route to the determinant inequality.
+
++----------------------+--------------+--------------+--------------+-----------+
+| case                 | det_full     | det_arch     | det_prime    | cross     |
++----------------------+--------------+--------------+--------------+-----------+
+| c=0.8 d=0.05 g=14.13 | -1.1138e+07  | -9.0051e+06  | -7.6494e+04  | -2.06e+06 |
+| c=0.8 d=0.05 g=21.02 | -9.7208e+06  | -7.5433e+06  | -2.5075e+05  | -1.93e+06 |
+| c=1.0 d=0.05 g=14.13 | -3.0533e+06  | -2.1781e+06  | -7.3827e+04  | -8.01e+05 |
+| c=1.0 d=0.05 g=21.02 | -3.3039e+06  | -1.7901e+06  | -4.2663e+05  | -1.09e+06 |
+| c=1.3 d=0.05 g=14.13 | -7.0280e+05  | -3.4867e+05  | -1.1241e+05  | -2.42e+05 |
+| c=1.3 d=0.05 g=21.02 | -9.6155e+05  | -2.2776e+05  | -4.8684e+05  | -2.47e+05 |
++----------------------+--------------+--------------+--------------+-----------+
+```
+
+(abscissa `d = 0.05` representative; the other abscissas shift every entry by
+less than `0.1%`. All four quantities are strictly negative in all 18 cases.)
+
+## Boundary scan (scouting extension)
+
+A width/height scan on the same family (`scripts/fourpoint_diagonal_sign_1918_boundary.py`,
+abscissa `0.05`, widths `1.3 .. 3.0`, heights `21.0220, 30.4249`, 10 cases,
+~2 minutes) keeps the vertex verdict on all 10 cases — the determinant sign
+does not flip in the tested window — while the relative margin decays from
+`4.96e-5` to `~1e-7` and the certified-pair sensitivity (which grows like the
+`1e-6` relative pair disagreement on the now `~1e12`-scale `D`) overtakes
+`|disc|` beyond width `~2.0`.
+
+```text
++--------+----------+-------------+------------+-------------+--------+
+| width  | height   | det         | margin_rel | disc        | cert   |
++--------+----------+-------------+------------+-------------+--------+
+| 1.3    | 21.0220  | -9.6155e+05 | 4.961e-05  | +3.846e+06  |  29.6x |
+| 1.3    | 30.4249  | -4.1802e+06 | 1.122e-05  | +1.672e+07  |   7.6x |
+| 1.6    | 21.0220  | -2.2353e+05 | 4.695e-06  | +8.941e+05  |   6.4x |
+| 1.6    | 30.4249  | -1.0424e+06 | 1.139e-06  | +4.170e+06  |   1.5x |
+| 2.0    | 21.0220  | -2.9648e+05 | 2.281e-06  | +1.186e+06  |   5.4x |
+| 2.0    | 30.4249  | -1.8917e+06 | 7.570e-07  | +7.567e+06  |   1.7x |
+| 2.4    | 21.0220  | -3.5062e+04 | 1.136e-07  | +1.402e+05  |   0.3x |
+| 2.4    | 30.4249  | -5.2996e+05 | 8.932e-08  | +2.120e+06  |   0.3x |
+| 3.0    | 21.0220  | -1.5260e+05 | 1.584e-07  | +6.104e+05  |   0.5x |
+| 3.0    | 30.4249  | -1.8976e+06 | 1.024e-07  | +7.590e+06  |   0.3x |
++--------+----------+-------------+------------+-------------+--------+
+```
+
+Reading: (i) the vertex branch is not a knife-edge of the height at fixed
+narrow width, but its margin decays steeply in width (roughly quartic or
+steeper) and in height (`~gamma^-8`); (ii) sign-level verdicts from this
+instrument are trustworthy only up to width `~2.0` at these heights — beyond
+that `cert < 10x` and even `cert < 1x`, an instrument-limit (F77-family)
+reading, not a mathematical sign flip. Any analytic route to the determinant
+must therefore be exact-ish or structural rather than lossy, which is what the
+channel split above provides.
+
 ## Verification
 
 ```text
@@ -187,6 +260,7 @@ lake build ConnesWeilRH.Dev.C1FourPointSpanGateCertificate
 lake build ConnesWeilRH.Dev.C1FourPointSpanGateCertificateAudit
 python3 scripts/fourpoint_diagonal_sign_1918.py
 python3 scripts/fourpoint_diagonal_sign_1918_certify.py
+python3 scripts/fourpoint_diagonal_sign_1918_boundary.py
 ```
 
 The owning build completed in 3809 jobs with zero `error:` lines and no
@@ -194,10 +268,12 @@ warnings in the two touched files; the paired audit prints exactly
 `[propext, Classical.choice, Quot.sound]` for all eleven public declarations
 (seven from record 1917, four new) with no `sorryAx`. The probe ran in 494 s
 under the resource-aware runner on a temporary WSL verification copy; the
-certified post-analysis reruns in seconds on the stored JSON. Artifacts:
+certified post-analysis reruns in seconds on the stored JSON; the boundary
+scan ran 10 cases in 128 s. Artifacts:
 `results/1918_fourpoint_diagonal_sign_certified.json` (raw per-case readings
-plus the certified classification), regenerateable byte-stably from the two
-scripts.
+plus the certified classification and the channel split) and
+`results/1918_fourpoint_diagonal_sign_boundary.json`, regenerateable from the
+three scripts.
 
 No gate sign on the selected owner, no joint margin, and no RH statement is
 proved here. RH NOT claimed.

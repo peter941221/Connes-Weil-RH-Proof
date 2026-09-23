@@ -62,6 +62,21 @@ def main():
                      "ddisc_cons": ddisc_cons, "robust_cert": rc,
                      "robust_cons": rcons, "margin_rel": margin,
                      "Q_vertex": qv}
+        # channel split of the 2x2 gate determinant det = D*C - B01^2:
+        # entries are archimedean (sigma-identity) + finite-prime sums, so
+        # det_full = det_arch + det_prime + cross with the (2,2)-polarization
+        # cross = D_a*C_p + C_a*D_p - 2*B_a*B_p.
+        D_a, C_a, B_a = c["D"]["arch_sigma"], c["C"]["arch_sigma"], \
+            c["B01"]["arch_sigma"]
+        D_p, C_p, B_p = c["D"]["prime_sum"], c["C"]["prime_sum"], \
+            c["B01"]["prime_sum"]
+        det_full = D * C - B01 * B01
+        det_arch = D_a * C_a - B_a * B_a
+        det_prime = D_p * C_p - B_p * B_p
+        det_cross = det_full - det_arch - det_prime
+        c["cert"]["det_split"] = {"full": det_full, "arch": det_arch,
+                                  "prime": det_prime, "cross": det_cross,
+                                  "arch_share": det_arch / det_full}
         rows.append((c["tag"], D, disc, margin, qv, c["lam_vertex"], rc, rcons))
 
     print("%-22s %12s %12s %10s %12s %11s %6s %6s" % (
@@ -86,6 +101,15 @@ def main():
     worst_cons = min((abs(c["disc"]) / c["cert"]["ddisc_cons"], c["tag"])
                      for c in cs)
     print("min |disc|/ddisc_cons over cases: %.1f (%s)" % worst_cons)
+    print("%-22s %12s %12s %12s %9s" % (
+        "case", "det_full", "det_arch", "det_prime", "cross"))
+    for c in cs:
+        s = c["cert"]["det_split"]
+        print("%-22s %12.4e %12.4e %12.4e %9.2e" % (
+            c["tag"], s["full"], s["arch"], s["prime"], s["cross"]))
+    neg = all(c["cert"]["det_split"][k] < 0
+              for c in cs for k in ("full", "arch", "prime", "cross"))
+    print("all four blocks strictly negative on all cases: %s" % neg)
     # normalize the shipped summary: drop the vacuous self-comparison key and
     # record the certified statistics alongside the probe's own summary.
     if isinstance(d.get("summary"), dict):

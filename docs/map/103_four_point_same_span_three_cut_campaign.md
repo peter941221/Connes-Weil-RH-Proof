@@ -197,6 +197,22 @@ robust; a deliberately pessimistic `1e-5` relative envelope on the shared
 inputs would not clear the 10x bar at the thinnest cases, so the margins are
 thin by construction and any analytic route to this determinant must be sharp.
 
+Two further probe readings sharpen the obligation. (i) The determinant splits
+into archimedean, finite-prime, and cross blocks (the polarization of the
+determinant form), and each of the three is separately strictly negative on
+all 18 cases (arch share `0.237 .. 0.809`; prime share `0.7% .. 51%` growing
+with width): the arch block lives on the committed `sigma` symbol with its
+theorem-grade sign flip at `u* = 6.289836`, the prime block is a finite
+explicit sum over the visible prime powers, so the analytic route can target
+one channel at a time instead of the full gate. (ii) A width/height boundary
+scan (widths `1.3 .. 3.0`, heights `21.02, 30.42`, abscissa `0.05`, 10 cases)
+keeps `det < 0` throughout — the sign is structurally robust on the scanned
+window — but the relative margin decays to `~1e-7` (roughly quartic or
+steeper in width, `~gamma^-8` in height) and the certified-pair sensitivity
+overtakes `|disc|` beyond width `~2.0` (instrument limit, F77 family). The
+determinant obligation is therefore robust in sign but numerically thin: any
+estimate route must be exact-ish or channel-structural.
+
 Formal wiring of this branch landed with the probe in the same module:
 `gate_quadratic_at_vertex` (the exact value above),
 `exists_pos_lambda_quadratic_neg_of_det_neg` (positive cross sum, positive
