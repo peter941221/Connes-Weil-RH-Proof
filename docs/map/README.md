@@ -9,6 +9,17 @@ Map filenames use consecutive `001_`, `002_`, ... reading-order prefixes.
 Their document titles retain the original proof-record identifiers for source
 traceability.
 
+## Hardy tail moment decay and Chebyshev reduction, 2026-09-23
+
+[102](102_hardy_tail_moment_decay.md) formally reduces the upper radial tail decay
+of the archimedean Hardy--Titchmarsh transform to a second moment bound in
+`ConnesWeilRH.Dev.C1G8R3HardyTailMomentDecay`:
+proves `inv_sq_le_inv_sq_of_pos_le`, `inv_sq_shift_log_le_inv_sq`, `div_sq_le_div_sq_of_pos_le`,
+and `div_sq_shift_log_le_div_sq` showing that $M / (s + \log \lambda)^2 \le M / s^2$ for
+$\lambda \ge 1$ and $s > 0$, proves pointwise Chebyshev bound `pointwise_normSq_le_sq_mul_div_sq`,
+and proves master exit `riemannHypothesis_of_right_compact_support_and_hardy_moment_and_aggregateEq`
+to Mathlib's `_root_.RiemannHypothesis`.
+
 ## Compact support radial vanishing reduction, 2026-09-23
 
 [101](101_compact_support_radial_vanishing.md) formally proves that compact support
