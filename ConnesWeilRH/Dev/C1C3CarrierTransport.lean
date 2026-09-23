@@ -1787,6 +1787,66 @@ theorem finitePrimeTerm_carrierPair_swap
   rw [h]
   simp [Complex.star_def]
 
+theorem carrierPairArchimedeanTermPhase_swap
+    (γ : Real) (u v : CompactLogTest) :
+    carrierPairArchimedeanTermPhase γ u v =
+      carrierPairArchimedeanTermPhase γ v u := by
+  calc
+    carrierPairArchimedeanTermPhase γ u v =
+        archimedeanTerm
+          ((carrierModulate γ u).involution.convolution
+            (carrierModulate γ v)) :=
+      (archimedeanTerm_carrierPair_eq_phaseTerm γ u v).symm
+    _ = archimedeanTerm
+          ((carrierModulate γ v).involution.convolution
+            (carrierModulate γ u)) :=
+      Source.C1P2SpanProfileMatrix.archimedeanTerm_pairTest_swap
+        (carrierModulate γ u) (carrierModulate γ v)
+    _ = carrierPairArchimedeanTermPhase γ v u :=
+      archimedeanTerm_carrierPair_eq_phaseTerm γ v u
+
+theorem carrierPairPrimePhaseSum_swap
+    (γ : Real) (u v : CompactLogTest) :
+    carrierPairPrimePhaseSum γ u v = carrierPairPrimePhaseSum γ v u := by
+  calc
+    carrierPairPrimePhaseSum γ u v =
+        finitePrimeSum
+          ((carrierModulate γ u).involution.convolution
+            (carrierModulate γ v)) := by
+      exact (finitePrimeSum_carrierPair_eq_phaseTerm_sum γ u v).symm
+    _ = finitePrimeSum
+          ((carrierModulate γ v).involution.convolution
+            (carrierModulate γ u)) := by
+      exact Source.C1P2SpanProfileMatrix.finitePrimeSum_pairTest_swap
+        (carrierModulate γ v) (carrierModulate γ u)
+    _ = carrierPairPrimePhaseSum γ v u :=
+      finitePrimeSum_carrierPair_eq_phaseTerm_sum γ v u
+
+theorem carrierArchimedeanDeterminantPhase_swap
+    (γ : Real) (u v : CompactLogTest) :
+    carrierArchimedeanDeterminantPhase γ u v =
+      carrierArchimedeanDeterminantPhase γ v u := by
+  unfold carrierArchimedeanDeterminantPhase
+  rw [carrierPairArchimedeanTermPhase_swap γ u v]
+  ring
+
+theorem carrierMixedDeterminantPhase_swap
+    (γ : Real) (u v : CompactLogTest) :
+    carrierMixedDeterminantPhase γ u v =
+      carrierMixedDeterminantPhase γ v u := by
+  unfold carrierMixedDeterminantPhase
+  rw [carrierPairArchimedeanTermPhase_swap γ u v,
+    carrierPairPrimePhaseSum_swap γ u v]
+  ring
+
+theorem carrierPrimeDeterminantPhase_swap
+    (γ : Real) (u v : CompactLogTest) :
+    carrierPrimeDeterminantPhase γ u v =
+      carrierPrimeDeterminantPhase γ v u := by
+  unfold carrierPrimeDeterminantPhase
+  rw [carrierPairPrimePhaseSum_swap γ u v]
+  ring
+
 /-- The remaining C3' producer input, with its carrier and visible owner
 bound together so an estimate cannot mix different phase channels. -/
 structure CarrierTwoSpanDeterminantCertificate

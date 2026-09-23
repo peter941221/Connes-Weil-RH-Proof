@@ -212,3 +212,10 @@ including the cross channel in the same explicit owner — first as a
 measurement (envelope q-form at fixed γ, λ free, interpolation-pinned
 envelopes), then as signed estimates with the two-IBP pairing tool; the
 σ-identity Lean brick is the parallel formalization entry.
+
+Formal follow-up (1895): the carrier pair and all three determinant consumers
+now have explicit exchange identities under `u <-> v`. The Archimedean pair
+phase, complete prime phase sum, and Archimedean, mixed, and prime determinant
+phases all read back identically after swapping the two carrier tests. This
+closes the remaining order-symmetry interface for later sign consumers; it
+does not provide any sign, margin, detector-specific estimate, or RH result.

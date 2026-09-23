@@ -95,6 +95,11 @@ namespace C1C3CarrierTransport
 #print axioms CarrierTwoSpanDeterminantCertificate
 #print axioms CarrierTwoSpanDeterminantCertificate.gate
 #print axioms finitePrimeTerm_carrierPair_swap
+#print axioms carrierPairArchimedeanTermPhase_swap
+#print axioms carrierPairPrimePhaseSum_swap
+#print axioms carrierArchimedeanDeterminantPhase_swap
+#print axioms carrierMixedDeterminantPhase_swap
+#print axioms carrierPrimeDeterminantPhase_swap
 
 end C1C3CarrierTransport
 end Dev
