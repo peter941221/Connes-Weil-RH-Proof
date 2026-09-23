@@ -10,7 +10,10 @@ exact span parabola, its complete trichotomy, the diagonal and vertex
 witnesses, and the same-owner wires are FORMAL in records 1917/1918; the sign
 probe of record 1918 selects the vertex branch on a committed-class family
 (`D > 0`, discriminant strictly positive in the certified engine pair, strict
-vertex witness at `lambda = B'/(2*C)` near `0.5 * K^4`). The determinant
+vertex witness at `lambda = B'/(2*C)` near `0.5 * K^4`), and record 1919
+reduces it to an exact signed-variance identity
+`det = A^2 * Var_nu(P)` on the explicit kernel measure `mu = K*W*dxi`
+(verified to floating-point precision; see the Cut 2 section). The determinant
 inequality on the selected owner is OPEN. Cut 3 remains a PROJECT CANDIDATE.
 No RH theorem and no gate sign on the selected owner is claimed. Subordinate
 to [003](003_b1_b5_minimal_exit_route_selection.md),
@@ -213,6 +216,34 @@ overtakes `|disc|` beyond width `~2.0` (instrument limit, F77 family). The
 determinant obligation is therefore robust in sign but numerically thin: any
 estimate route must be exact-ish or channel-structural.
 
+**Kernel form and the variance identity (record 1919).** The whole gate
+functional on the span is a single spectral pairing `ICgate(F) = integral
+K(xi)*Fhat(xi) dxi` with the explicit kernel `K(xi) = sigma(2*pi*xi) +
+2*sum_{visible n}(Lambda(n)/sqrt(n))*cos(2*pi*xi*log n)`, because both the
+committed archimedean sigma identity and the finite-prime sum are linear in
+`Fhat`; on the owner pair `uhat = P*ghat` with the real even quartic
+`P(omega) = (delta^2 + gamma^2 - omega^2)^2 + 4*delta^2*omega^2` (the orbit
+nodes `{+-delta +- i*gamma}`), so `D, B01, C` are the moments
+`integral K*P^2*W`, `integral K*P*W`, `integral K*W` of the single signed
+measure `mu = K*W*dxi`, `W = |ghat|^2 >= 0`. The determinant then has the
+exact signed-variance form `det = A^2 * Var_nu(P)`, `nu = mu/A`,
+`Var_nu(P) = (1+f)*Var_+ - f*Var_- - f*(1+f)*Delta^2` for the sign split of
+`mu` (`f` the negative mass ratio, `Delta` the mean gap), i.e.
+`det < 0 <=> f*Var_- + f*(1+f)*Delta^2 > (1+f)*Var_+` (sufficient:
+`f*Delta^2 > Var_+`), and in the moment form `det = A^2*[(m4 - m2^2) +
+2a*(m3 - m1*m2) + a^2*(m2 - m1^2)]` with `u = (2*pi*xi)^2`, `a =
+-2*(gamma^2 - delta^2)`. Probe: four certified cases x two channels, all
+identities verified to floating-point precision (P-form and moment-form
+residuals `<= 1.6e-11`; arch k-form vs the E3 engine `1.7e-10 .. 2.6e-8`),
+criterion holds 8/8 with `f*Delta^2/Var_+` in `0.19 .. 0.94` — the
+negative-spread term is essential; the arch channel alone holds via thin mass
+(`f ~ 2e-4 .. 1.8e-3`) with far-spread negative tail (`Var_- ~ 1e10`), the
+primes thicken the negative mass. The channel split of this record is linearity
+of the kernel map in `K`; the obligation is now a variance gap / five-moment
+bracket inequality on an explicit measure whose only owner-dependent input is
+the nonnegative density `W` (record 1919, artifact
+`results/1919_gate_kernel_form.json`).
+
 Formal wiring of this branch landed with the probe in the same module:
 `gate_quadratic_at_vertex` (the exact value above),
 `exists_pos_lambda_quadratic_neg_of_det_neg` (positive cross sum, positive
@@ -232,7 +263,9 @@ ICgate(u.square) * ICgate(g.square) - ((ICgate(u.involution.convolution g)
 
 together with the positive cross sum, on the selected healthy detector (under
 the cross-term symmetry this is exactly the probe's
-`D*C - B01^2 < 0`), and the Cut 1 joint margin at the pinned coefficient. The
+`D*C - B01^2 < 0`, and by record 1919 equivalently the variance-gap /
+moment-bracket inequality on `mu = K*W*dxi`), and the Cut 1 joint margin at
+the pinned coefficient. The
 `D < 0` diagonal signature and its wires remain formal as the fallback branch.
 The full gate of the annihilator must be estimated, including the exact finite
 visible-prime set of `h(lambda)`; the narrow-root negative diagonal in [091]
@@ -267,7 +300,10 @@ FORMAL in `C1FourPointHighShellTail.lean`. The span parabola, the trichotomy,
 the diagonal and vertex witnesses, and all four same-owner wires are FORMAL in
 `C1FourPointSpanGateCertificate.lean`; the branch selection on a
 committed-class family is NUMERIC in record 1918 (probe plus certified
-post-analysis, law F79); the joint margin and the cross-determinant inequality
-on the selected owner are PROJECT CANDIDATES until proved. This record changes
+post-analysis, law F79); the kernel form, the signed-variance identity, the
+variance-gap criterion, and the moment bracket are EXACT ALGEBRA plus NUMERIC
+verification in record 1919 (no Lean brick); the joint margin and the
+cross-determinant inequality on the selected owner are PROJECT CANDIDATES
+until proved. This record changes
 no binding route ruling and makes no RH claim. Preserve dated proof details and
 Lean/build/axiom evidence in `docs/proofs/` and `MEMORY.md` when a cut lands.

@@ -95,7 +95,15 @@ branch on a committed-class family (`D > 0` and the cross-determinant
 `D*C - (B'/2)^2 < 0` in the certified engine pair), so its remaining
 obligation is that scored determinant inequality together with the positive
 cross sum, with the strict witness formal at `lambda = B'/(2*C)` (records
-1917/1918). For fixed base/correction owners, the decay constants and
+1917/1918). Record 1919 rewrites that determinant exactly: the whole gate is a
+spectral pairing with the explicit kernel `K = sigma(2*pi*xi) +
+2*sum (Lambda(n)/sqrt n) cos(2*pi*xi*log n)`, so `D, B01, C` are moments of the
+single signed measure `mu = K*W*dxi` (`W = |ghat|^2 >= 0`), and
+`det = A^2 * Var_nu(P)` with the exact sign-split identity
+`Var_nu(P) = (1+f)*Var_+ - f*Var_- - f*(1+f)*Delta^2`; the obligation is the
+variance-gap (five-moment bracket) inequality, verified to floating-point
+precision on four cases with the negative-spread term essential (`f*Delta^2/Var_+`
+in `0.19 .. 0.94`). For fixed base/correction owners, the decay constants and
 contraction threshold are formally selected before `n` and `lambda` (proof
 record 1916); this does not close the joint margin. On the probed family the
 vertex coefficient tracks `~0.5 * K^4` with the window factor `~7-10`, and the
