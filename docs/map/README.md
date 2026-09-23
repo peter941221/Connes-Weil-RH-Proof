@@ -103,7 +103,13 @@ single signed measure `mu = K*W*dxi` (`W = |ghat|^2 >= 0`), and
 `Var_nu(P) = (1+f)*Var_+ - f*Var_- - f*(1+f)*Delta^2`; the obligation is the
 variance-gap (five-moment bracket) inequality, verified to floating-point
 precision on four cases with the negative-spread term essential (`f*Delta^2/Var_+`
-in `0.19 .. 0.94`). For fixed base/correction owners, the decay constants and
+in `0.19 .. 0.94`). Record 1920 (scouting) locates the negativity in the
+visible prime sum: `>= 99.7%` of the negative mass is prime-created inside the
+`sigma`-positive zone at `c >= 1.0`, the prime-only determinant block is
+strictly negative on 10/10 scanned widths (`R_prime` in `1.38 .. 2.06`) while
+the arch and cross blocks flip positive for wide owners, so the obligation
+splits into the robust prime-only sign plus a cross-domination inequality.
+For fixed base/correction owners, the decay constants and
 contraction threshold are formally selected before `n` and `lambda` (proof
 record 1916); this does not close the joint margin. On the probed family the
 vertex coefficient tracks `~0.5 * K^4` with the window factor `~7-10`, and the

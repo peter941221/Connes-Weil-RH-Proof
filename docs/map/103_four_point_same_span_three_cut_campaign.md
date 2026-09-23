@@ -13,7 +13,11 @@ probe of record 1918 selects the vertex branch on a committed-class family
 vertex witness at `lambda = B'/(2*C)` near `0.5 * K^4`), and record 1919
 reduces it to an exact signed-variance identity
 `det = A^2 * Var_nu(P)` on the explicit kernel measure `mu = K*W*dxi`
-(verified to floating-point precision; see the Cut 2 section). The determinant
+(verified to floating-point precision; see the Cut 2 section), and record
+1920 locates the negativity in the visible prime sum (share `>= 99.7%` of the
+negative mass at `c >= 1.0`; prime-only block strictly negative on 10/10
+scanned widths) with the arch/cross domination delicate for wide owners. The
+determinant
 inequality on the selected owner is OPEN. Cut 3 remains a PROJECT CANDIDATE.
 No RH theorem and no gate sign on the selected owner is claimed. Subordinate
 to [003](003_b1_b5_minimal_exit_route_selection.md),
@@ -243,6 +247,30 @@ of the kernel map in `K`; the obligation is now a variance gap / five-moment
 bracket inequality on an explicit measure whose only owner-dependent input is
 the nonnegative density `W` (record 1919, artifact
 `results/1919_gate_kernel_form.json`).
+
+**Negativity origin (record 1920, scouting).** Three probes fix where the
+determinant's negative mass lives and how the margin scales with the owner
+width. (i) The arch-channel criterion is a SPREAD criterion for `W`: it holds
+for bump widths `c <= 1.3` with `R` up to `5.0e3`, and fails for concentrated
+densities (narrow gauss, wide bump) where `f -> 0`. (ii) The full kernel's
+negative mass is created by the visible prime sum inside the `sigma`-positive
+central zone `|xi| < xi* = 1.0011` — share `>= 99.7%` at `c >= 1.0`, `100%` at
+`c >= 2.0` — and the prime-kernel amplitude `K_prime(0) = 2*sum
+Lambda(n)/sqrt n` crosses the sigma scale at `c ~ 1.0` and reaches `75.2` at
+`c = 3.0`. (iii) Block scan `c = 1.3 .. 3.0` x `gamma in {14.13, 21.02}`:
+`det_prime < 0` on 10/10 rows with criterion ratio `R_prime` in `1.38 ..
+2.06` at EVERY width, while `det_arch` flips positive between `c = 1.3` and
+`1.6` (`gamma = 21.02`) and `det_cross` follows the arch sign; the full
+determinant stays negative on 10/10 as a residual of large cancelling blocks
+(4% of the block scale at `c = 3.0, gamma = 21.02`), which is the mechanism
+behind the record-1918 boundary thinness. Route reading: the obligation
+splits into the robust prime-only sign `Q(K_prime) < 0` (an
+oscillation-versus-smooth-density statement for the explicit trig polynomial
+`K_prime` against `W`) plus the delicate cross-domination inequality
+`-Q(K_prime) > Q(sigma) + 2*B(sigma, K_prime)`; the arch-first plan is valid
+only for `c <= 1.3`, exactly the instrument-certified window of record 1918
+(min `|disc|/ddisc_cert = 30.4`). Artifacts
+`results/1920_gate_kernel_{stress,wide,origin}.json` (record 1920).
 
 Formal wiring of this branch landed with the probe in the same module:
 `gate_quadratic_at_vertex` (the exact value above),
