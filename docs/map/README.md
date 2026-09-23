@@ -9,6 +9,17 @@ Map filenames use consecutive `001_`, `002_`, ... reading-order prefixes.
 Their document titles retain the original proof-record identifiers for source
 traceability.
 
+## Annular kernel pointwise and integral bounds, 2026-09-23
+
+[097](097_annular_kernel_pointwise_and_integral_bounds.md) formally closes the bridge
+between operator-level annular kernel diagonal and the concrete wing majorant:
+proves total integral `∫⁻ t, ENNReal.ofReal (concreteWingMajorant N C t) ≤ 2 * C / N`
+via left/middle/right decomposition in `C1G8R3ConcreteWingMajorantIntegral`,
+proves annular indicator containment and pointwise majorization via countable a.e.
+interchange in `C1G8R3AnnularKernelPointwiseBound`, and establishes master exit
+`riemannHypothesis_of_right_rootConvolution_decay_and_aggregateEq` to Mathlib's
+`_root_.RiemannHypothesis` from unwindowed root convolution decay.
+
 ## Concrete annular wing majorant exit, 2026-09-23
 
 [096](096_concrete_wing_majorant_exit.md) formally instantiates the concrete

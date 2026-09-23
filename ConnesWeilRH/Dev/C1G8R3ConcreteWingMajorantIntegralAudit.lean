@@ -1,0 +1,29 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: ConnesWeilRH contributors
+-/
+
+import ConnesWeilRH.Dev.C1G8R3ConcreteWingMajorantIntegral
+
+namespace ConnesWeilRH
+namespace Dev
+
+#check @lintegral_Ioo_concreteWingMajorant_eq_zero
+#check @lintegral_concreteWingMajorant_eq_wings
+#check @lintegral_concreteWingMajorant_le
+#check @sourceCompressedRoot_squareSum_of_lintegral_concreteWingMajorant
+#check @lintegral_annular_output_le_of_ae_pointwise
+#check @sourceCompressedRoot_squareSum_of_ae_pointwise_concreteWingMajorant
+#check @riemannHypothesis_of_right_ae_pointwise_concrete_wing_majorant_and_aggregateEq
+
+#print axioms lintegral_Ioo_concreteWingMajorant_eq_zero
+#print axioms lintegral_concreteWingMajorant_eq_wings
+#print axioms lintegral_concreteWingMajorant_le
+#print axioms sourceCompressedRoot_squareSum_of_lintegral_concreteWingMajorant
+#print axioms lintegral_annular_output_le_of_ae_pointwise
+#print axioms sourceCompressedRoot_squareSum_of_ae_pointwise_concreteWingMajorant
+#print axioms riemannHypothesis_of_right_ae_pointwise_concrete_wing_majorant_and_aggregateEq
+
+end Dev
+end ConnesWeilRH
