@@ -1,558 +1,107 @@
-# 1088 - endpoint literature and C3 interface audit
+# 004 — Endpoint literature and C3 interface audit
 
-Date: 2026-09-01. Corrected after the claim-strength audit of record 1087.
+Status: binding companion to [003]. Compressed 2026-09-23; RH is not claimed.
 
-Status: binding companion to the route ruling in
-[`003`](003_b1_b5_minimal_exit_route_selection.md). This record classifies the
-ROOT endpoint and the detector-specific semi-local interface. It proves no new
-analytic sign and does not claim RH.
+## Evidence levels
 
-## 1. Evidence levels
+- `FORMAL`: checked in Lean on the named owner.
+- `LITERATURE-BACKED`: located in a primary source, but not yet transported to
+  the repository owner.
+- `PROJECT CANDIDATE`: internal derivation or proposed estimate.
 
-Every status below uses one of three labels:
+An external compact-window theorem cannot be promoted directly to `FORMAL` or
+to detector-specific positivity. Its hypotheses, normalization, support,
+kernel, and quantifiers must first be matched.
 
-```text
-FORMAL
-    Proved by a Lean declaration whose premises and axiom audit are named.
+## The two C3 branches
 
-LITERATURE-BACKED
-    Stated in a cited paper. The project still owes an exact convention bridge
-    and, where required, a Lean or independently checkable certificate.
-
-NUMERICAL
-    Observed in a finite computation. It may guide theorem design but cannot
-    close a route, retire a construction, or establish a continuum sign.
-```
-
-Record
-[`1087`](../proofs/1087_c3_root_window_spectral_verdict.md) is NUMERICAL. Its
-negative finite-matrix eigenvalues are not certified variational bounds: the
-moment constraints use floating-point quadrature and SVD, and the zero-extended
-sine profiles do not belong to the smooth `CompactLogTest` carrier. Even a
-certified exact finite subspace would give only a lower bound for the continuum
-supremum, not the upper bound needed for a no-go theorem. The scan does not
-change the binding route.
-
-## 2. C3 has two branches
-
-The active B5 argument starts by assuming a nontrivial zero off the critical
-line. The two required signs must concern the same healthy `CompactLogTest`:
+C3 is the missing nonnegative sign for the same detector already carrying
+strict spectral negativity.
 
 ```text
-assume an off-line zero rho
-          |
-          +--> detector branch
-          |      choose g with HealthyYoshidaDetectorData rho g
-          |      hence qw(g) = spectralWeilValue(F_g) < 0
-          |
-          +--> semi-local positivity branch
-                 prove 0 <= qw(g) for that same g
-                 and its finite visible prime-power set
-                            |
-                            v
-                       contradiction
-                            |
-                            v
-                         SourceRH
+C3-local:
+  prove the selected detector lies in the ROOT window
+  -> consume the fixed-window endpoint theorem
+
+C3-semi-local:
+  keep the detector's actual support-derived finite prime set
+  -> prove archimedeanTerm(square) + finitePrimeSum(square) <= 0
+  -> obtain qw(detector) >= 0
 ```
 
-The detector branch is FORMAL. The theorem
-[`exists_healthyDetectorData_of_sourceNontrivialZero_right`](../../ConnesWeilRH/Dev/C1HealthyYoshidaSpectralNegativity.lean#L511)
-constructs such a `g` for a right-hand representative of every hypothetical
-off-line zero. The construction uses a convolution orbit; its exported theorem
-does not bound the final support by the ROOT window or by `[-0.8,0.8]`.
+The first branch has no matching support theorem. The second branch is the
+active shape and is represented by [047], [075], [079]--[082].
 
-The semi-local positivity branch is OPEN. The exact minimal consumer is now
-formalized as
+## Formal route facts
 
-```lean
-(hsemiLocal : ∀ rho : sourceNontrivialZeroSet,
-  (1 / 2 : Real) < rho.1.re →
-    ∃ g : CompactLogTest,
-      HealthyYoshidaDetectorData rho.1 g ∧
-        0 ≤ C1SameOwnerWeil.qw g) →
-  RHDefinitionBridge.standard.SourceRH
-```
+The following boundary is checked in the project:
 
-by `healthy_sourceRH_of_right_detector_specific_qw_nonneg`. This is only the
-contradiction wiring. Record
-[`1099`](../proofs/1099_c3_exit_composition.md) removes the last quantifier
-slack on the formal side: its
-`sourceRH_of_orbitWindowSemiLocalGate` composes the record-1089 pinned
-object with the bridge `qw_nonneg_of_orbitWindowSemiLocalGate`, so the
-entire remaining C3 content is the single universal Prop
-`orbitWindowSemiLocalGate g` for every healthy orbit detector of every
-hypothetical right-hand off-line zero (FORMAL reduction; the gate's sign is
-the open part). No theorem currently proves the gate.
+- `HealthyYoshidaDetectorData` exists for every hypothetical right off-line
+  zero on the healthy `CompactLog` owner;
+- the same selected detector satisfies `qw(g) < 0`;
+- `healthy_sourceRH_of_right_detector_specific_qw_nonneg` needs only
+  `0 <= qw(g)` for that detector;
+- `orbitWindowSemiLocalGate` is an equivalent sign-facing consumer after the
+  triple-vanishing identity;
+- the support of the detector determines a finite visible-prime-power set;
+- the contradiction and `SourceRH`/Mathlib RH wiring are formal.
 
-## 3. Sign bookkeeping at ROOT and beyond
+Principal modules are `C1HealthyYoshidaDetector.lean`,
+`C1HealthyYoshidaSpectralNegativity.lean`, `C1SameOwnerWeil.lean`,
+`C1OrbitWindowSemiLocalGate.lean`, `C1MinimalWeilCriterion.lean`, and
+`C1WeilCriterionEquivalence.lean`, with paired audits.
 
-For every triple-vanishing healthy test, Lean proves
+## Sign bookkeeping
+
+For triple-vanishing tests, the semi-local gate is the exact owner of the
+desired sign. The prime term is finite because of compact support, but its
+index set changes with that support. Replacing it by a fixed truncation, a
+continuous density, or a larger unsigned majorant changes the mathematical
+problem unless a proved comparison restores the exact sign.
+
+The detector sign audit [047] gives the current physical-energy and prime
+discrepancy normal forms. Those identities expose candidate estimates; they
+do not prove the sign. The signed C3' owner [080] is the current formal socket.
+
+## ROOT endpoint interface
+
+The local endpoint package [001] may feed C3 only through one of these checked
+interfaces:
+
+1. a theorem proving the selected detector's support is inside the ROOT
+   window; or
+2. a semi-local theorem extending the endpoint estimate to the detector's
+   exact finite visible-prime set.
+
+Neither interface is currently supplied. `C1HealthyDetectorRootSupportExit`
+is a conditional consumer, not a support producer.
+
+## External-source rule
+
+When importing an endpoint result, record:
+
+- the source theorem and page/equation;
+- the exact function space and normalization;
+- whether support is open, closed, or almost-everywhere;
+- the operator/kernel owner and any regularization;
+- uniformity in scale and endpoint parameters;
+- the Lean declaration that will consume it.
+
+If any item differs, first prove an explicit transport theorem. Similar
+notation or a shared word such as "prolate", "trace", or "positivity" is not
+an interface.
+
+## Binding conclusion
+
+The shortest live route remains detector-specific semi-local positivity on
+the healthy owner. ROOT-window work is shared infrastructure, not the exit.
+The open theorem is still:
 
 ```text
-qw(g) = -archimedeanTerm(F_g) - finitePrimeSum(F_g),
-F_g = g.convolutionSquare.
+for every hypothetical off-line zero rho,
+for the detector g_rho already selected by the construction,
+prove qw(g_rho) >= 0.
 ```
 
-Evidence:
-[`qw_eq_neg_archimedeanTerm_sub_finitePrimeSum_of_vanishesOn_cc20Triple`](../../ConnesWeilRH/Dev/C1HealthyYoshidaDetector.lean#L114).
-
-At ROOT support, `finitePrimeSum(F_g)=0`, so
-
-```text
-qw(g) < 0  iff  archimedeanTerm(F_g) > 0,
-qw(g) >= 0 iff  archimedeanTerm(F_g) <= 0.
-```
-
-At a larger orbit window, visible prime powers generally remain. The
-corresponding conditions are
-
-```text
-qw(g) < 0
-  iff archimedeanTerm(F_g) + finitePrimeSum(F_g) > 0,
-
-qw(g) >= 0
-  iff archimedeanTerm(F_g) + finitePrimeSum(F_g) <= 0.
-```
-
-Therefore the orbit-window problem is not "the same archimedean gate at a
-larger radius." The arithmetic term is part of both signs. The existing
-`HealthyYoshidaDetectorData` already supplies the strict negative side; C3 owes
-the opposite semi-local inequality on the same object.
-
-## 4. Current brick status
-
-```text
-+------+-----------------------------------------+----------------------------------+
-| ID   | Obligation                              | Status                           |
-+------+-----------------------------------------+----------------------------------+
-| E1   | Paper-scale finite-section/Toeplitz      | OPEN in Lean;                    |
-|      | certificate near lambda > 1             | LITERATURE RECONSTRUCTION        |
-+------+-----------------------------------------+----------------------------------+
-| E2   | Prolate owner, Appendix-F tail, exact    | OPEN in Lean;                    |
-|      | Fact-1 bound, equation-(100) slope       | LITERATURE RECONSTRUCTION        |
-+------+-----------------------------------------+----------------------------------+
-| E3   | Theorem-7 same-owner ROOT trace identity | OPEN in Lean;                    |
-|      | and ROOT positivity                     | LITERATURE RECONSTRUCTION        |
-+------+-----------------------------------------+----------------------------------+
-| D1   | Right-oriented orbit detector with       | FORMAL                           |
-|      | qw(g) < 0                               |                                  |
-+------+-----------------------------------------+----------------------------------+
-| P1   | Finite visible-prime crossing and trace  | FORMAL readback infrastructure;  |
-|      | ownership                               | no sign                          |
-+------+-----------------------------------------+----------------------------------+
-| P2   | 0 <= qw(g) for the same orbit detector  | OPEN; formal remainder is        |
-|      |                                         | exactly `orbitWindowSemiLocal-   |
-|      |                                         | Gate` on healthy orbit detectors |
-|      |                                         | (record 1099, FORMAL reduction)  |
-+------+-----------------------------------------+----------------------------------+
-| Exit | D1 + P2 imply SourceRH                  | FORMAL implication               |
-+------+-----------------------------------------+----------------------------------+
-```
-
-The finite-prime infrastructure is substantial but not a positivity theorem.
-In particular:
-
-- [`ordinaryTraceAlong_selectedEulerLogBoundaryPairOperatorSum_eq_finitePrimeTerm_sum`](../../ConnesWeilRH/Dev/C1SelectedDetectorSemiLocalEulerBoundary.lean#L270)
-  reads a finite visible Euler boundary back to its prime-power sum.
-- [`ordinaryTraceAlong_projectionResponse_eq_visibleEulerSum_add_residual`](../../ConnesWeilRH/Dev/C1SelectedDetectorSemiLocalResidual.lean#L108)
-  retains an explicit residual.
-- [`selectedEulerBoundaryResidual_eq_prolate_sub_compression`](../../ConnesWeilRH/Dev/C1SelectedDetectorSemiLocalResidualDecomposition.lean#L117)
-  decomposes that residual into two geometric channels and asserts no sign.
-
-Thus P2, not the arithmetic coefficient bookkeeping, is the unresolved
-mathematical step.
-
-Current FORMAL status (records 1157--1159, 2026-09-06): the absolute-value
-`P2OneWindowBudgetWitness` family is refuted as a producer for the healthy
-detector branch, for arbitrary reference window.  Its gate consumer would
-force `qw(g) ≥ 0` while the detector data forces `qw(g) < 0`.  The remaining
-live target is instead the signed same-owner aggregate profile inequality
-`archimedeanTerm + Σ Λ(n)/√n·Re(profile(log n)) ≤ 0`, whose B5 exit is now
-formalized but whose detector-specific proof is still OPEN.
-
-Formal admission audit (record 1140, 2026-09-05):
-`C1T2Assembly.no_stageB_budget_of_qw_negative` proves that the existing
-one-window Stage-B interface cannot manufacture its defect budget from the
-already-formal detector negativity and a negative window certificate.  Since
-`qw(g) < 0` gives `gate(g.square) > 0`, the assumptions
-`gate(W.square) ≤ -mu`, `gate(defect) ≤ epsilon`, and `epsilon ≤ mu` are
-inconsistent.  The theorem is FORMAL and uses the same-owner Weil identity
-and exact defect identity only.  Consequently Stage-B remains an assembly
-interface; P2 still needs an independent detector-specific defect inequality
-controlling the archimedean integral and visible prime evaluations.
-
-P2 control primitives (record 1140, extended 2026-09-05) are now FORMAL in
-`C1P2DefectControl`: the exact finite visible-prime sum has a per-term norm
-envelope, that envelope reduces to `2 * A` under a uniform defect-test bound,
-and the singleton defect inherits `G + H` from detector/window square bounds.
-An independent archimedean norm bound is also packaged.  These are producer
-interfaces only; the true correction must still supply the concrete `A`, `G`,
-`H`, zero-point, and integral bounds.
-The combined finite-prime theorem
-`abs_finitePrimeSum_defect_le_of_uniformSquareBounds` exposes the resulting
-coefficient sum with `2 * (G + H)` directly to the Stage-B consumer.
-The generic theorem `compactLogTest_norm_le_zeroSeminorm` supplies a canonical
-uniform pointwise bound from the zero-order Schwartz seminorm, so the remaining
-correction estimate may focus on bounding those seminorms and the archimedean
-integral.
-The support bridge `index_lt_of_support_subset_Icc` and its set-inclusion
-companion now convert exported detector endpoints `[a,b]` into the explicit
-finite cutoff `ceil(exp(max(|a|,|b|))) + 1` for `globalPrimeIndexSet`.
-The convolution-square specialization symmetrizes the source interval and
-transfers the same cutoff to `globalPrimeIndexSet g.convolutionSquare`, keeping
-the finite visible-prime owner tied to the selected detector's support.
-The canonical zero-seminorm specialization removes auxiliary pointwise-bound
-hypotheses from the prime-side estimate and leaves only the two square
-seminorms as concrete correction data.
-The family theorem `defect_test_norm_le_of_uniformFamilyBounds` extends this to
-the actual finite Stage-B sum, with defect norm bounded by
-`G + Σ |λᵢ| Hᵢ` under per-window pointwise bounds.
-The combined consumer `abs_ICgate_defect_le_of_uniformFamilyBounds_and_arch`
-now turns this into an explicit full defect-gate budget once an independent
-archimedean bound is supplied; it assumes no gate sign or `qw` positivity.
-The corollary `ICgate_defect_le_of_uniformFamilyBounds_and_arch_budget` then
-matches the Stage-B field exactly whenever that explicit budget is at most
-`epsilon`.
-The same-owner definition `archimedeanIntegralNorm` packages the integral of
-the archimedean density norm, and `archimedeanIntegralNorm_nonneg` proves its
-nonnegativity.  The specialization
-`abs_archimedeanTerm_le_of_zeroSeminorm_and_integralNorm` now reduces the
-archimedean input to the detector's zero-order Schwartz seminorm plus this
-canonical integral norm; the remaining producer obligation is an actual bound
-on that integral, not a separately chosen representative.
-The bridge `archimedeanIntegralNorm_le_of_pointwiseEnvelope` now turns any
-integrable positive-half-line majorant into that canonical bound, reducing the
-remaining archimedean producer task to an explicit pointwise envelope and its
-ordinary real integral.
-The adapters `integrableOn_const_mul_exp_neg` and
-`integral_const_mul_exp_neg` certify the standard exponential envelope
-`C·exp(-y)` and evaluate its positive-half-line integral as `C`, so a concrete
-tail estimate can discharge this interface with one scalar constant.
-The composed bridge `archimedeanIntegralNorm_le_of_expNegEnvelope` turns the
-pointwise bound `‖archimedeanIntegrand F y‖ ≤ C·exp(-y)` directly into the
-scalar inequality `archimedeanIntegralNorm F ≤ C`.
-The consumers
-`abs_ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm` and
-`ICgate_defect_le_of_uniformFamilyBounds_and_integralNorm_budget` inline this
-canonical archimedean channel into the full Stage-B estimate, so no independent
-`harch` hypothesis is needed at the final interface.
-The support bridge
-`defect_globalPrimeIndexSet_subset_range_of_common_Ioo_support` propagates a
-common open support interval through the finite family defect and then exposes
-an explicit finite arithmetic cutoff for its visible-prime owner.
-The companion readbacks `index_le_exp_of_support_subset_Icc` and
-`index_lt_exp_of_support_subset_Ioo_symmetric` retain the real exponential
-bound before integer rounding; the convolution-square specialization gives
-the strict `n < exp (2r)` cutoff required by the pinned orbit contract.
-The final adapter `pinned_visiblePrimeCutoff_of_support` instantiates this
-bound at the contract's radius `n+2`, matching its exact strict inequality.
-The construction `exists_healthyDetectorData_with_pinned_support` now exports
-that radius and strict cutoff together with the formal healthy detector for
-every right-oriented off-line zero.  The pinned producer no longer owes these
-geometric fields; only the same-owner budget and certified window remain open.
-The finite-prime consumer
-`abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_commonSupport` enlarges
-the exact-set sum to that explicit range using nonnegativity of every norm
-envelope summand, making the cutoff directly usable in a numerical or analytic
-budget certificate without changing the owner.
-The coefficient readback
-`primeTermNormEnvelope_eq_realCoefficient_mul` is now FORMAL: the complex norm
-envelope is exactly the real `Λ(n) / √n` coefficient times the two test norms.
-Together with Mathlib's `vonMangoldt_le_log`, the theorem
-`vonMangoldt_sqrtWeight_le_log_of_one_le` gives `Λ(n) / √n ≤ log n` for
-`1 ≤ n`; `primeTermNormEnvelope_le_of_logBound` exposes this as a cutoff-local
-real budget adapter.
-The all-index form `primeCoefficientNorm_le_log_of_nat` also handles `n = 0`
-and matches the exact complex-norm summand used by the explicit range budget.
-The finite-set adapter `finitePrimeCoefficientSum_le_logSum` lifts this
-pointwise inequality to any explicit cutoff range with a nonnegative common
-test factor, leaving the producer with a real logarithmic finite sum.
-The follow-on adapter `finitePrimeLogSum_le_card_mul_log` compresses that
-finite sum to `N * log N` times the common factor whenever the cutoff `N` is
-positive, so a producer can export one scalar arithmetic budget rather than a
-second unevaluated finite sum.
-The defect-level corollary
-`abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_logRange` now combines
-the support-derived cutoff, family norm bounds, and this logarithmic adapter on
-one owner, so the finite-prime part of the canonical budget is an explicit
-real `Finset.range` sum.
-Its companion `abs_finitePrimeSum_defect_le_of_uniformFamilyBounds_and_logCard`
-compresses that same range to one scalar `N * log N` budget, with `N` the
-support-derived cutoff.
-The one-window consumers
-`stageBContraction_of_uniformSquareBounds_and_integralNorm_budget` and
-`orbitGate_of_uniformSquareBounds_and_integralNorm_budget` now feed that
-canonical budget into the actual `ICStageBContraction` and
-`orbitWindowSemiLocalGate` route interfaces.  They remain conditional on the
-explicit budget and certified-window sign; no positivity is manufactured.
-The consumer `ICgate_defect_le_of_uniformFamilyBounds_and_expNegEnvelope_logCard`
-now combines the exponential archimedean scalar, the support-derived
-`N·log N` prime bound, and the full scalar budget into the exact defect-gate
-inequality.  Its hypotheses are precisely the remaining analytic producer
-inputs for a pinned owner.
-The one-window specialization
-`orbitGate_of_uniformSquareBounds_and_expNegEnvelope_logCard` now wires that
-scalar defect estimate into the concrete Stage-B contraction and orbit-window
-gate, retaining both original and square support on the same detector/window
-owner.  This is a formal consumer bridge only; it supplies no envelope or
-budget by itself.
-`P2ScalarOneWindowBudgetWitness` packages those remaining envelope, support,
-certificate, margin and scalar-budget fields, with
-`sourceRH_of_healthyDetector_p2ScalarOneWindowBudgetWitness` providing the
-corresponding same-detector exit.  The producer obligation is therefore an
-explicit scalar witness on each pinned orbit owner.
-The pinned companion
-`sourceRH_of_pinnedOrbitDetector_p2ScalarOneWindowBudgetWitness` carries the
-existing `g,n` support and visible-prime certificate through that same exit,
-aligning the producer quantifier with the formal orbit construction.
-`P2OneWindowBudgetWitness` packs those inputs as a same-detector owner, and
-`sourceRH_of_healthyDetector_p2OneWindowBudgetWitness` composes the witness
-with the existing healthy-detector contradiction.  Thus the remaining P2
-producer obligation is now a single explicit witness for each right-oriented
-off-line zero.
-`P2CanonicalOneWindowBudgetWitness` removes the auxiliary pointwise constants
-from that contract: a checked constructor fills them from the two square
-owners' zero-order Schwartz seminorms.  Its gate and `SourceRH` consumers leave
-only the canonical scalar budget, support, window certificate, and margin for
-the analytic producer.
-`sourceRH_of_pinnedOrbitDetector_p2CanonicalOneWindowBudgetWitness` further
-binds that producer to the already-formal pinned orbit detector, retaining its
-explicit support interval and visible-prime cutoff on the same `g,n` owner.
-
-Producer-primitive re-point (records 1097/1097b/1098, 2026-09-02): the S2
-support chain's discharged primitive was re-adjudicated by the
-pre-registered fork.  The record-1096 primitive A-in-HS (equivalently
-`Tr K_S < inf`) is the raw-F1 quantity class that record 1063 falsified,
-and the certified deep-octave probe confirmed the raw trace keeps its
-power law (41.0499 at `xi_max = 204.8`, slope16x +0.335, no bend) while
-the law-16 weighted legs stay O(1).  The canonical S2 primitive set is
-therefore (a) `targetProlateDetectorAbsorbedFactorHS` (the absorbed
-factor in Hilbert-Schmidt; witness: committed `p_hs` 3.5661 -> 3.5356,
-O(1)) and (b) `targetProlateDetectorRootCommutatorTraceLegality`
-(commutator-remainder legality; witness: committed `l_tr1` 1.3462 ->
-1.2850, O(1)).  Record 1098
-(`C1ProlateRootCommutatorAbsorbedLegalityDischarge.lean`, FORMAL, no sign)
-wires the record-1095 consumer contract from (a)+(b); record 1096 is
-demoted to a valid-but-unschedulable implication.  The verdict evidence
-level is NUMERICAL (this record's section 1).
-
-## 5. The ROOT endpoint interface
-
-The current ROOT-local endpoint package is
-
-```lean
-structure CC20EndpointTraceCertificate (g : CompactLogTest) where
-  coefficient : Real
-  trace : Real
-  trace_nonnegative : 0 <= trace
-  endpoint_bound :
-    trace - cc20RankOneBadDirection coefficient g <=
-      cc20WInfinityLog g.convolutionSquare
-```
-
-For a triple-vanishing root-supported `g`, this certificate yields `0 <= qw g`.
-The rank-one term vanishes at the zero node, and the square is prime-free. See
-[`qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf`](../../ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L133).
-
-The helper
-[`zeroTraceCertificate_of_nonnegative_wInfinity`](../../ConnesWeilRH/Dev/C1CC20EndpointCertificateData.lean#L161)
-shows that a proof of scalar `cc20WInfinityLog >= 0` is enough to package the
-current interface once an exact in-band gamma datum is supplied. This reduces
-the amount of operator data needed for the ROOT interface; it does not extend
-the certificate to orbit support or account for visible primes.
-
-The root-window interpolation theorem is also narrower than a detector theorem.
-[`exists_pinnedHealthyDetector_rootWindow`](../../ConnesWeilRH/Dev/C1HealthyDetectorPinning.lean#L91)
-provides triple vanishing, nonzero detection, support, and an empty visible
-prime set. Its sign remains the separate premise
-`selectedDetectorArchimedeanGate`. Calling this object a "pinned detector" is
-repository terminology; it is not yet `HealthyYoshidaDetectorData`.
-
-## 6. External compact-window result
-
-[Marcus Chuk, arXiv:2608.24827](https://arxiv.org/abs/2608.24827), submitted
-2026-08-25, is an unreviewed preprint. Corollary 9 states
-
-```text
-Q(f) >= 8.9e-18 * ||f||_2^2
-```
-
-for every complex `f in L2(R)` supported in `[-0.8,0.8]`. In that paper `Q(f)`
-is the full Riemann-Weil quadratic form of the original test `f`; its geometric
-formula includes the pole, archimedean, and prime terms. It is not merely an
-archimedean form applied to an independently supplied square.
-
-The result is potentially relevant in two different ways:
-
-1. A ROOT-supported project test fits inside `[-0.8,0.8]`. After an exact
-   convention bridge, Corollary 9 could replace the E1--E3 ROOT positivity
-   producer.
-2. It would close P2 for the orbit detector only if the selected detector were
-   proved to have support inside `[-0.8,0.8]`. For the committed fixed-window
-   D1 orbit export this is IMPOSSIBLE, not merely unexported: the construction
-   of `C1HealthyYoshidaUnscaledOrbit.lean` exports the support bound
-   `Ioo (-(n+2)) (n+2)` (FORMAL, `n >= 0`), which always contains points of
-   `|u|` in `(0.8, 2]`. Record
-   [`1089`](../proofs/1089_orbit_certificate_extension_design.md) packages this
-   support bound, the visible prime-power readback `q < exp(2*(n+2))`, and the
-   orbit semi-local gate on one pinned object
-   (`C1OrbitWindowSemiLocalGate.lean`, FORMAL, no sign). Sub-0.8-window orbit
-   variants would face the record-1087 negative plateau (NUMERICAL,
-   extrapolated beyond the scanned radius - reconnaissance, not verdict).
-
-The required import bridges are:
-
-```text
-+----+-------------------------------------------+----------------------------+
-| ID | Required bridge                           | Status                     |
-+----+-------------------------------------------+----------------------------+
-| M1 | Identify the paper's f with the healthy   | OPEN                       |
-|    | CompactLog log-coordinate test            |                            |
-+----+-------------------------------------------+----------------------------+
-| M2 | Prove Q(f) = qw(g), including Fourier,     | OPEN                       |
-|    | Mellin, involution, scale, and sign        |                            |
-+----+-------------------------------------------+----------------------------+
-| M3 | Transfer the L2/support/admissibility      | OPEN                       |
-|    | hypotheses                                |                            |
-+----+-------------------------------------------+----------------------------+
-| M4 | Package ROOT scalar positivity into the    | FORMAL helper exists       |
-|    | current endpoint certificate              |                            |
-+----+-------------------------------------------+----------------------------+
-| M5 | Reproduce or formalize the interval        | OPEN                       |
-|    | certificate used by Corollary 9           |                            |
-+----+-------------------------------------------+----------------------------+
-| M6 | Bound the selected orbit detector inside   | OPEN; required only for    |
-|    | [-0.8,0.8]                                | direct use on P2           |
-+----+-------------------------------------------+----------------------------+
-```
-
-The preprint is therefore a plausible endpoint supplier, not a landed project
-theorem. M1--M5 would address the ROOT local base. P2 additionally needs M6 or
-a genuinely semi-local positivity theorem at the detector's actual support.
-
-Primary sources:
-
-- Connes--Consani, *Weil positivity and Trace formula, the archimedean place*:
-  <https://arxiv.org/html/2006.13771>
-- Chuk, *Weil positivity in compact windows: certified two-sided bounds and a
-  Landau--Widom decay law*: <https://arxiv.org/html/2608.24827>
-
-## 7. Binding conclusion
-
-C3 is not complete. The negative detector branch and the contradiction wiring
-are formal. The missing theorem is detector-specific semi-local nonnegativity
-for the same orbit-supported `CompactLogTest` and its finite visible prime
-powers.
-
-Record 1087 neither closes the ROOT alternative nor forces an orbit-window
-route change. The active route remains the healthy-`CompactLog`, B5-shaped
-route selected by record 003. New work must target P2 directly or prove a
-support-and-convention bridge that lets a valid compact-window theorem supply
-P2 for the selected detector.
-
-## 8. Addendum 2026-09-14: the wall anatomy after records 1402/1408/1411/1415
-
-The sections above predate the wall re-partition of record 1402 and the F2
-formal campaign (records 1412-1415). The unresolved face, in its current
-exact form, is the surviving gate
-
-    forall healthy-vanishing g,  0 <= C1SameOwnerWeil.qw g
-
-which is machine-equivalent to `SourceRH` (`weilCriterion_iff_sourceRH`,
-`ConnesWeilRH/Dev/C1WeilCriterionEquivalence.lean:136`): the wall IS the
-Riemann hypothesis in normal form. What any proof must overcome is now a
-finite, evidenced list:
-
-| # | obstacle | content | evidence |
-| :-- | :-- | :-- | :-- |
-| O1 | quantifier scale | no decomposition below full strength exists: pillar A (anchor sign) closed at MODEL, pillar B (universal endpoint certificates) is the gate itself. Record 1416 SHARPENED this: the gate's three-point Mellin vanishing hypothesis is vestigial in the equivalence, so the full-strength form is literally side-condition-free - `(forall g : CompactLogTest, 0 <= qw g) <-> SourceRH` - and every weakening attempt by shrinking the node set makes the obligation STRONGER, not easier | 1402 recon; 1415 campaign closure; 1416 `C1MinimalWeilCriterion.lean` (`weilGate_unconditional_iff_sourceRH`, `weilGate_iff_sourceRH_of_subset_triple`) |
-| O2 | radius gap | positivity certificates live at fixed windows (support <= 0.8 / <= log2/2); tower-forced counterexample owners have height-dominated support (R >= 2^(n0+1) + 2 + dist(2,rho)); the paper's own equivalence: positivity for every L <=> RH. Record 1416 gave this its TYPED form: the gap cannot be crossed by any scale transform of the test, because the only node the certificate chain reads is `half`, and `half` is the right image of the xi pole pair `+-1/2` - a property of xi, not of g. Dilation rigidity: `laplaceAt (D_lambda g) s = (1/lambda) * laplaceAt g (s/lambda)`, so preserving vanishing at `1/2` forces `lambda = 1` | 1408 verbatim premises (C1HealthyYoshidaSpectralNegativity.lean:535,543,568-571; C1HealthyDetectorRootSupportExit.lean:78-81); 1411 closure; 1416 `poleTerm_convolutionSquare_of_vanishesOn_cc20Triple` (C1HealthyYoshidaDetector.lean:102-110, reads `half` only) + `C1MinimalWeilCriterion` Part 4 |
-| O3 | content-fixed sign mechanism | the archimedean functional on solved interpolants measured 107/107 negative across both natural content classes; no taper lever (delta/R <= ~1e-12 on the (J1)-feasible region). Record 1417 gave this its TYPED form: `A(F) = (1/2pi) integral |g-hat|^2 Phi` with `Phi(r) = -Re psi(1/4 + i r/2) + C'` (Gamma-only, no zeros), while the prime measure `nu([0,u]) ~ 2 e^{u/2}` grows exponentially in the support radius - so the obligation is PHASE-level (an exponentially long oscillating sum) while every input the category owns (`Phi`, exponential type from support, `{log p}` independence + PNT) is DENSITY-level. Law F14's dead taper is the visible symptom: a taper moves mass at density level and cannot address a phase-level sum. Consequence: no theorem with hypotheses inside this category can conclude the gate; this is why 1342-1353 kept finding the same wall in different clothes | 1399/1401/1404 outcomes; law F14; 1417 sections 2-3 (`C1SameOwnerWeil.lean:48-52,60-64`; `SelectedWeilFormula.lean:102-104`), PAPER under law 65, `C'` unpinned |
-| O4 | citation leg | the formal identity `psi F = spectralWeilValue F` (arithmetic = our zero-spectral sum) is landed and unconditional for every test; the step "our spectral value = the paper's classical Q" is a definitions-citation claim, MODEL-verified PLUS_ONE cellwise, never a Lean Prop | 1415 recon (C1SpectralSummability.lean:372; C1XiCenterTwoArithmeticAssembly.lean:232,240); 1407/1410 cells |
-| O5 | blindness saturation | `psi` annihilates odd tests, splits sums, and is unconditionally reflection-invariant: the psi-side cannot see more than the even-real sector, so no richer sector decomposition of the test can change its value | 1412/1413/1414 leaves + audits |
-
-Attack classes spent on this face (each closed with a verdict, none
-silently): B0a no-fire probe (1343); the A-series literature screen - every
-candidate positivity theorem encountered was the same Weil-Bombieri wall in
-different clothes (1342-1353); Connes 9811068-era operator positivity and
-Maynard-Pratt (1355-1364, COLD); rung-3 measurement families (1397-1404);
-route-beta (1402-1404); the Chuk certificate species end-to-end
-(1405-1411); the F2 formal bridge campaign (1412-1415, product: 51
-declarations, all standard-axiom, none carrying a sign claim); the BONE-A
-scale-covariant producer screen (1416, SCREENED-DEAD at paper stage - see
-[`010`](010_bone_foundry.md) and proof record
-[`1416`](../proofs/1416_bone_foundry_bone_a_dead_minimal_weil_criterion.md),
-no Lean spent on the attack itself); and, in record 1417's pre-spend F8 sweep,
-three further candidates killed without work because the face had already
-buried them - one-sided archimedean positivity from the `Phi` symbol (cannot
-conclude: the prime term is not in it, and `qw = -A - prime` is committed),
-the Bohr-compactification geometric kernel (the object is already 263 (Z.30),
-and 263 section 8 disproves its total positivity by the explicit minor
-`det = -0.707084047558...`), and Beurling-Malliavin completeness (already
-1332's declared "correct literature frame").
-
-Record 1416 also produced the wall's minimal normal form
-(`ConnesWeilRH/Dev/C1MinimalWeilCriterion.lean`, 13 declarations, green on
-try2, all standard axioms, zero `sorryAx`). The committed gate carries a
-three-point Mellin vanishing hypothesis
-(`cc20TripleFiniteVanishingSet = {zero, half, one}`, `CC20RHExit.lean:21`);
-that hypothesis is vestigial in the equivalence, because the reverse leg
-`qw_nonneg_of_sourceRH` (`C1WeilCriterionEquivalence.lean:103-109`) takes no
-vanishing argument at all - it splits `qw` into on-line and off-line
-spectral mass, kills the off-line part under `SourceRH`, and keeps the
-on-line part nonnegative. The committed `iff` already discarded it (`fun
-hRH g _hg => ...`, `:140`) and the file header said so in prose (`:20-24`);
-what was missing was the statement. Since the gate family is monotone in
-the node set (`weilGate_of_subset`), every sub-triple `F` yields an
-`SourceRH`-equivalent gate, and the two extremes are now committed:
-
-```text
-  (forall g : CompactLogTest, 0 <= qw g)                          <-> SourceRH
-  (forall g, laplaceAt g (1/2) = 0 -> 0 <= qw g)                  <-> SourceRH
-  (forall g, vanishesOn {zero,half,one} g -> 0 <= qw g)           <-> SourceRH
-```
-
-Smaller `F` means MORE tests in scope, so this is a sharpening, not a
-shortcut: nothing here makes the wall easier, and the apparent
-"vanishing-set degree of freedom" is vacuous for the equivalence. Where the
-nodes are NOT vacuous is the certificate route: Part 4 of the same module
-restates `qw = -archimedean - finitePrime`, and its root-support
-specialization `qw = -archimedean`, from the singleton `{half}` hypothesis
-alone - which is the minimality witness that `zero` and `one` are never
-read by any certificate argument.
-
-Operational conclusion: no mechanical or measurement work remains that
-touches the gate. What could change the state is analytic content of
-strength comparable to RH itself (O2's propagation from fixed windows to
-all supports being the canonical form, and 1416 having shown that no scale
-transform of the test can supply it), supplied as an idea, at which point
-this register's formal surface - tower, B0b equivalence in its minimal
-side-condition-free form, dictionary identity, and psi-blindness bundle,
-all committed and standard-axiom - is in its strongest-ever state to receive
-and machine-check it.
-
-**Posture amendment, 2026-09-14 (record 1417).** The freeze recommended by
-records 1411 and 1415 is LIFTED for this face only, by owner decision, on the
-strength of O3's typed form above: because the obligation is phase-level and
-every in-category input is density-level, further bone generation inside
-`CompactLogTest` cannot reach it, so the attempt moves category. The
-substitute program is preregistered in
-[`011`](011_arakelov_bridge_program.md) with milestones A0-A4, prices fixed in
-advance, and a single deciding gate (A2, a one-symbol identity test) on all
-further spend. The lift is narrow and does not authorize numerical campaigns
-(1228's "equation-led generation rather than a numerical prototype" stands),
-does not touch the Lean mainline (no Lean spend is authorized before A3), and
-does not survive a failure of A2 - at which point the transport is registered
-closed and the freeze posture returns.
-
-**G8 qualification, 2026-09-14 (map 012).** This addendum's no-new-
-universal-in-category conclusion does not erase the selected B5 G8 branch.
-`C1G8AdjointShearGram` already gives positive trace-class cutoffs and a
-same-owner readback contract; `C1G8P3Contradiction` formally consumes that
-contract with healthy detector data on the identical owner. Map
-[`012`](012_g8_same_owner_readback_rh_reachability.md) audits the exact
-conditional RH exit and the remaining analytic theorem. It does not change
-the O3 verdict: the required readback must be proved from raw orbit geometry,
-not from a universal gate, a sign assumption, or the later healthy-detector
-contradiction.
+No stored conclusion, `SourceRH` premise, universal positivity premise, or
+RH-equivalent coverage socket may be used as analytic source data.

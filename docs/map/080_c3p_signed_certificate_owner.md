@@ -1,282 +1,83 @@
 # 080 — C3' signed certificate owner
 
-Status: formal owner socket, 2026-09-21.
+Status: active formal owner socket. The owner and consumers are complete; the
+detector-specific analytic sign is open.
 
-`C1C3CarrierTransport` now packages the selected carrier two-span producer
-input as `CarrierTwoSpanDeterminantCertificate`. The record binds the carrier
-frequency, the two compact-log tests, their common support radius, the
-positive BB pivot, and the exact signed budget
+## Exact owner
 
-`Archimedean determinant + mixed discrepancy + prime determinant <= 0`.
-
-The record's `gate` theorem feeds the existing orbit-window semi-local gate.
-This is formal algebra and consumer wiring, not a proof of the inequality.
-It prevents a future estimate from combining a phase term from one carrier,
-support owner, or visible-prime range with another. The next mathematical
-target is to construct this record for the detector selected by the healthy
-`CompactLog` B5 route. The remaining obligation is exactly its `phase_budget`;
-no pointwise sign of the three summands is assumed.
-
-## Round 1 closure (2026-09-22)
-
-Round 1 is complete at the formal owner-and-consumer boundary, not as the
-analytic sign proof. The committed `C1C3CarrierTransport` leaf now has one
-exact same-owner phase budget for the selected carrier pair:
+`C1C3CarrierTransport` packages a `CarrierTwoSpanDeterminantCertificate` on
+one carrier frequency, two `CompactLog` tests, one common support radius, one
+support-derived finite prime owner, and the aggregate budget
 
 ```text
 Archimedean determinant
-+ mixed Archimedean/prime discrepancy
-+ prime determinant
-<= 0
+  + mixed Archimedean/prime discrepancy
+  + prime determinant
+<= 0.
 ```
 
-The phase-cell readbacks, positive/negative decompositions, determinant split,
-optimal-coefficient consumer, and `CarrierTwoSpanDeterminantCertificate.gate`
-are formal interfaces. The paired Audit module is the axiom evidence for this
-boundary. Round 2 must prove the actual inequality; the existing sigma-tail
-results do not by themselves imply the detector-specific phase budget.
+Its `gate` theorem feeds `orbitWindowSemiLocalGate`. The direct consumers in
+[082] then produce the same-detector Weil nonnegativity and the formal
+contradiction to `SourceRH`.
 
-## Round 2A signed-balance reduction (2026-09-22)
+## Formal progress that must be preserved
 
-The formal leaf now proves `carrier_twoSpan_phase_budget_signed_balance`.
-Together with the existing prime credit-deficit expansion, this rewrites the
-complete budget on one owner as the Archimedean determinant plus the two
-square credit-deficit terms, the pair credit-deficit term, and the residual
-prime determinant square. This is the exact estimate target for Round 2B; no
-term has been assigned a sign by this reduction.
+- exact phase-cell, positive/negative, determinant, and optimal-coefficient
+  readbacks on the same owner;
+- opposite-gate determinant construction: one nonpositive diagonal and one
+  nonnegative diagonal force the aggregate determinant nonpositive, with no
+  cross-sign premise;
+- the selected healthy detector has a strictly positive gate orientation;
+- narrow prime-free roots and an odd parity component can supply a negative
+  diagonal under their stated support/nonvanishing hypotheses;
+- the odd component can be constructed for an off-line zero with the required
+  node vanishing and nonzero detection;
+- carrier Fourier/Laplace shifts and the complete GammaR/sigma owner are
+  formal;
+- the sigma profile is even, antitone for nonnegative height, and eventually
+  negative in an existential sense;
+- finite physical-node and aggregate-kernel consumers are formal through
+  [079] and [081].
 
-## Round 2B route audit (2026-09-22)
+These results solve algebra, ownership, and several component constructions.
+They do not prove the sign for the final selected span or detector.
 
-The even/odd owner now proves `ICgate_pairTest_zero_of_even_odd`. Consequently,
-if both diagonal gates are positive, then
-`twoSpan_discriminant_pos_of_even_odd_positive` gives a strictly positive
-two-span discriminant. This formally rules out an unconditional signed
-estimate for arbitrary two-test owners. The selected detector must therefore
-carry an additional phase-lock or real-sector hypothesis before C3' can be a
-producer. The detector-specific signed estimate itself remains open.
+## Current missing theorem
 
-Evidence: `ConnesWeilRH/Dev/C1C3CarrierTransport.lean`, theorem
-`CarrierTwoSpanDeterminantCertificate.gate` (formal, project candidate
-owner); prior exact determinant split and phase readbacks are recorded in
-`docs/map/075_c3p_carrier_transport_after_1800.md`.
+Construct, for every hypothetical off-line zero, one test on the selected
+healthy owner that simultaneously has:
 
-## Round 2C opposite-sign branch (2026-09-22)
+1. the already-required triple vanishing and off-line-zero detection;
+2. the exact support-derived finite visible-prime set;
+3. a semi-local gate value at most zero; and
+4. compatibility with the strict negative spectral contribution used in the
+   contradiction.
 
-The formal even/odd owner now also proves
-`twoSpan_discriminant_neg_of_even_odd_opposite_sign`: a positive even
-diagonal and a negative odd diagonal force a strictly negative determinant,
-because the cross gate is exactly zero. The theorem
-`exists_twoSpan_gate_qform_nonpos_of_even_odd_opposite_sign` then feeds the
-generic quadratic-form consumer and produces a nonpositive two-span form.
-This is formal route evidence, not a sign result for the selected orbit
-detector: opposite diagonal signs and preservation of the detector's zero and
-detection data are still unproved.
+In the direct C3' lane this means proving the displayed aggregate budget (or a
+stronger physical-kernel inequality) with an explicit margin. In the
+phase-balanced lane, [091] supplies item 3 and [094] reduces item 4 to a
+finite-prefix margin plus a weighted high-shell tail.
 
-## Round 2D detector gate orientation (2026-09-22)
+## What does not count as closure
 
-The declaration `ICgate_pos_of_healthyDetectorData` now reads the strict
-positive healthy local sum back through the triple-vanishing identity and
-proves `0 < ICgate g.convolutionSquare` for the actual detector owner. Thus
-the selected detector is on the positive-gate side of the parity split. A
-future negative component may still be useful, but it must be constructed
-with its own three-node vanishing and detection-preservation proof.
+- proving separate signs for the three determinant channels when only the
+  aggregate determinant is needed;
+- an existential negative sigma height without connecting it to the actual
+  zero and prime budget;
+- a negative auxiliary component without proving detection and tail behavior
+  for the final span;
+- a conditional structure whose final field is the desired budget;
+- a different finite prime owner or a demodulated surrogate not proved equal
+  to the selected detector.
 
-## Round 2E negative diagonal certificate (2026-09-22)
+## Evidence
 
-The new formal leaf `C1P2NegativeDiagonalCertificate` proves an actual
-owner-preserving negative complete gate for the narrow D3 root:
+Primary formal modules include `C1C3CarrierTransport.lean`,
+`C1HealthyDetectorEvenOddPair.lean`,
+`C1P2NegativeDiagonalCertificate.lean`,
+`C1P2OddNegativeDiagonalCertificate.lean`, `C1C3SigmaKernel.lean`, and paired
+audits. Proof records 1800, 1804, 1812--1826, 1873--1902 retain the detailed
+chronology and build evidence.
 
-`ICgate (tripleVanishingRoot h).convolutionSquare < 0`
-
-under the narrow support hypothesis and the exact nonzero Laplace-at-2
-hypothesis. The proof combines the strict negative Archimedean term from
-`C1LaneRStrictness` with the public support theorem from `C1LaneRD3Root`,
-which makes the finite visible-prime sum exactly zero. The paired audit is
-axiom-clean. This is formal route evidence, not yet the selected-orbit
-producer: the mixed gate, three-node/detection compatibility with the actual
-healthy detector, and the full detector-specific signed budget remain open.
-
-Evidence: `ConnesWeilRH/Dev/C1P2NegativeDiagonalCertificate.lean`, theorem
-`tripleVanishingRoot_ICgate_neg_of_narrow_base_of_laplaceAt_two_ne_zero`;
-build log `build-logs/1812_negative_diagonal_final.log` (formal, project
-candidate certificate).
-
-## Round 2F parity-compatible odd certificate (2026-09-22)
-
-The formal theorem `odd_ICgate_neg_of_narrow_budget` proves strict negativity
-of the complete gate for an explicitly odd `CompactLogTest` under a narrow
-support/mass/budget certificate. Unlike the D3-root certificate above, this
-socket carries the parity field consumed by the even/odd two-span route. Its
-prime term is zero by the same open log-2 support argument. Nodal vanishing,
-detection preservation, and the actual orbit detector's support/budget remain
-open, so this is a parity-compatible producer component rather than the C3'
-sign theorem.
-
-Evidence: `ConnesWeilRH/Dev/C1P2OddNegativeDiagonalCertificate.lean`, theorem
-`odd_ICgate_neg_of_narrow_budget`; build log
-`build-logs/1813_odd_negative.log` (formal, project candidate certificate).
-
-## Round 2G constructed odd component (2026-09-22)
-
-The public theorem `exists_pairNode_correction_of_offLineZero` exposes the
-exact seven-node residual owner. Consuming it with
-`oddPart_negative_gate_of_symmetric_node_data` yields
-`exists_odd_negative_diagonal_of_offLineZero`: for every right-oriented
-hypothetical off-line zero, there is an odd component with zero half/one
-nodes, nonzero detection at rho, and strict negative complete `ICgate`.
-This is a formal closure of the negative-component preservation sub-obligation
-for the parity branch. It does not prove the even companion's nonpositive
-gate, nor the selected healthy orbit detector's same-owner signed budget.
-
-Evidence: `ConnesWeilRH/Dev/C1HealthyDetectorEvenOddPair.lean` and
-`ConnesWeilRH/Dev/C1P2OddNegativeDiagonalCertificate.lean`; paired audits and
-build log `build-logs/1826_odd_component_audits.log` (formal, project
-candidate construction).
-
-Formal follow-up: `C1C3CarrierFourierShift.lean` proves the exact same-owner
-frequency transport
-`Fourier(carrierModulate gamma f, xi) = Fourier(f, xi + gamma/(2*pi))`,
-including the zero-frequency specialization. This is the algebraic front of
-the paper sigma-shift argument; it does not prove a sigma identity, a sign,
-or the phase budget.
-
-The same file also identifies this integral with the existing
-`C1XiArithmeticPrimePowerReadback.fourierLaplace` owner, so the shift is now
-usable by the vertical Gamma/Xi readback rather than being an isolated
-auxiliary transform.
-
-Further formal follow-up: `laplaceAt_carrierModulate_eq_shift` proves the
-same transport in the bilateral Laplace owner,
-`Laplace(carrierModulate gamma f, s) = Laplace(f, s - gamma*i)`. This is the
-coordinate identity needed before defining and estimating the sigma weight;
-the sigma identity and its negative sign remain open.
-
-The transport is now lifted further through the existing centered and
-symmetrized Xi weights. Thus a fixed C3 carrier frequency is represented in
-the same vertical-functional owner used by the Gamma readback; this remains
-an exact coordinate theorem, not an Archimedean sign theorem.
-
-The actual `gammaRIntegrand` now has the corresponding shifted centered-weight
-readback on this owner. The next missing step is therefore genuinely the
-GammaR kernel/sigma estimate, not carrier bookkeeping.
-
-Formal follow-up (record 1899):
-`archimedeanTerm_carrierSquare_eq_shiftedGammaR` now transports that pointwise
-identity through full-line integrability and the normalized center-two
-Gamma_R theorem, for the actual carrier square. The integral-level owner
-bridge is closed. This does not establish the paper Fourier-multiplier σ
-identity or its envelope-dependent remainder, and it supplies no selected-
-detector diagonal or prime-budget signs.
-
-`C1C3GammaRBound.lean` now proves an explicit norm upper bound for
-`logDeriv GammaR` on `Re(s) >= 1/2`, by transporting the existing digamma
-vertical-line estimate through the exact GammaR formula. This controls the
-kernel magnitude for the future remainder estimate; it is not a real-part
-sign theorem.
-
-Formal follow-up: `C1C3SigmaKernel.lean` defines the paper sigma profile on
-the same GammaR owner and proves its exact identity with minus twice the real
-part of `logDeriv GammaR` at `1/2 - xi*I`. This is formal route evidence for
-the coordinate identity only; sigma negativity and the full signed budget
-remain open.
-
-The same leaf now proves `c3Sigma xi - c3Sigma 0` as the real part of an
-explicit convergent reciprocal-difference series. This is the formal series
-owner for a future tail/sign certificate; it still supplies no numerical
-threshold and no aggregate C3 inequality.
-
-The series has also been reduced termwise to a nonnegative rational expression
-and summed through `Complex.re_tsum`, yielding the formal global bound
-`c3Sigma xi <= c3Sigma 0`. This establishes monotonicity away from the
-zero-height anchor in the required owner, but does not prove that the profile
-has crossed zero at any explicit height.
-
-For `xi != 0`, the same positive first term gives the strict inequality
-`c3Sigma xi < c3Sigma 0`. The remaining sign task is therefore an explicit
-lower bound on the accumulated reciprocal series strong enough to overcome
-the anchor value, followed by the detector-specific signed prime budget.
-
-The leaf now also proves the finite partial-sum form: for every natural `N`,
-`c3Sigma xi` is at most `c3Sigma 0` minus the first `N` explicit nonnegative
-rational terms. This is the formal finite-threshold socket for a future
-certified zero-crossing bound; it does not itself choose a numerical `N` or
-prove the C3 prime budget.
-
-Finally, the same series proof gives the exact symmetry
-`c3Sigma (-xi) = c3Sigma xi`. The remaining profile-sign work may therefore
-be restricted to nonnegative heights, while the detector-specific signed
-budget remains unchanged and open.
-
-The individual rational summands are now formally monotone in height: for
-`0 <= xi <= eta`, the eta summand is at least the xi summand. This supplies
-the comparison mechanism needed to propagate one certified negative sigma
-value to all higher nonnegative heights; the first certified negative point
-and the C3 signed budget are still open.
-
-The comparison has now been summed on the same convergent reciprocal-series
-owner, yielding the global theorem `c3Sigma_antitone_of_nonneg`: for
-`0 <= xi <= eta`, `c3Sigma eta <= c3Sigma xi`. Thus a future certified
-negative point propagates to every higher nonnegative height. This remains a
-formal propagation result only; it supplies neither the first negative point
-nor the detector-specific signed prime budget.
-
-The finite-sum certificate has now been combined with divergence of the
-harmonic series to prove `exists_c3Sigma_neg`: some real height has strictly
-negative sigma. The construction is exact and axiom-clean, with no numerical
-approximation. This closes only existential Archimedean sign; it does not give
-an explicit threshold for a hypothetical zero height, nor the same-owner
-detector-specific signed prime budget required by the B5 producer.
-
-Using evenness and global antitonicity, this is now packaged as
-`exists_c3Sigma_negative_tail`: there is a nonnegative threshold `T` such that
-every `xi >= T` has negative sigma. The threshold is still existential rather
-than a concrete certificate, so the hypothetical-zero height lower bound and
-the detector-specific signed prime budget remain the active producer gates.
-
-The anchor has now received an explicit rational ceiling:
-`c3Sigma_zero_lt_twelve`. Its proof uses the committed quarter-line digamma
-norm bound, the exact half-point digamma value, and Mathlib's rational bounds
-for log 2, pi, and the Euler constant. This makes the remaining threshold
-certificate purely a finite harmonic lower-bound problem; it does not yet
-close the hypothetical-zero height quantifier or the visible-prime budget.
-
-The finite arithmetic interface is now explicit in
-`c3Sigma_neg_of_harmonic_certificate`: any finite `K` whose reciprocal sum
-exceeds 24 gives a strict negative sigma at height `2*(K+1)`. The proof is
-parameterized and never unfolds the range, so a later `ceil(exp 25)` or other
-exact harmonic certificate can instantiate it without large-range recursion.
-
-That supplier is now instantiated formally by
-`c3Sigma_neg_at_exp_ceiling`: with `K = Nat.ceil (Real.exp 25)`, the harmonic
-lower bound gives a concrete exact negative height
-`2 * (Nat.ceil (exp 25) + 1)`. This closes the Archimedean sigma-sign
-certificate on its own owner.
-
-The monotonicity theorem now packages the usable conditional height gate:
-`c3Sigma_neg_of_height_above_exp_ceiling` proves negativity for every real
-height at least that exact threshold. This is intentionally conditional: the
-project has not proved that an arbitrary hypothetical off-line zero reaches
-this height, so the theorem is not presented as a universal zero-height lower
-bound. The detector-specific visible-prime signed budget remains open.
-
-Formal follow-up (record 1900): the exact reciprocal-series cancellation
-between two sigma heights yields
-`abs_c3Sigma_sub_le_of_height_lower`, with bound
-`2 * |xi - eta| / R` whenever both absolute half-heights are at least
-`R >= 1`. The telescoping quadratic-series estimate makes the inverse-height
-scale explicit. This is a high-tail modulus for the carrier remainder, but
-not yet its integral against the selected detector: the envelope first moment
-and complementary-frequency tail remain open.
-## Round 2G: even negative companion, 2026-09-22
-
-`C1P2EvenNegativeDiagonalCertificate.lean` now proves
-`exists_even_negative_diagonal_of_offLineZero`. Under the explicit narrow
-Archimedean budget, finite Mellin interpolation followed by even projection
-produces a compact-log component with the zero, half, and one nodes, positive
-square mass, and strict negative `ICgate`. The paired audit has only the
-three standard axioms and no `sorryAx`.
-
-This is construction-layer evidence only. The component is not the selected
-`HealthyYoshidaDetectorData` owner, and no support or visible-prime signed
-estimate transfers its negative gate to that owner. Actual C3' positivity
-and the detector-specific semi-local gate remain open.
+Classification: owner/readbacks/component theorems are `FORMAL`; the aggregate
+selected-detector sign and full spectral-tail compatibility are `OPEN`.

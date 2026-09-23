@@ -1,8 +1,9 @@
-# 092 — Mainline Exit Wiring Closed to Mathlib RH
+# 092 — Conditional mainline exit wiring to Mathlib RH
 
 Date: 2026-09-23.
 
-Status: Active binding route record; formal closure of Step 3.
+Status: formal closure of the conditional Step-3 wiring. This is not an
+unconditional RH proof; the producer obligation is tracked in [094].
 Upstream: [091](091_two_span_sign_balancing_closed.md), [090](090_finite_index_pinning_and_frozen_prime_domain.md), Record 1903.
 
 ## 1. Context & Route Progression
@@ -36,3 +37,11 @@ The finite-orbit mainline campaign was organized into three structured stages:
 - Files: `ConnesWeilRH/Dev/C1PinnedOrbitExit.lean` and `ConnesWeilRH/Dev/C1PinnedOrbitExitAudit.lean`.
 - Build Log: `build-logs/1903_exit_wiring.log`, exit code 0, 0 error lines, 0 `sorryAx`.
 - Axioms: `[propext, Classical.choice, Quot.sound]`.
+
+## Boundary
+
+Every theorem in this record is an exit or contradiction consumer. To invoke
+it in the RH argument, the same two-span test must also retain a strict
+negative spectral value. Record [094] has a finite-prefix margin for that
+task, but its explicit weighted high-shell tail and gate compatibility remain
+open.

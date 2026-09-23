@@ -3,7 +3,8 @@
 Date: 2026-09-23.
 
 Status: Active binding route record; formal closure of Step 2.
-Upstream: [090](090_finite_index_pinning_and_frozen_prime_domain.md), [080](080_two_span_c3_sign_balance.md), Record 1902.
+Upstream: [090](090_finite_index_pinning_and_frozen_prime_domain.md),
+[080](080_c3p_signed_certificate_owner.md), proof record 1902.
 
 ## 1. Context & Route Progression
 
@@ -76,3 +77,7 @@ Evidence: `ConnesWeilRH/Dev/C1C3CarrierTransport.lean` and `ConnesWeilRH/Dev/C1C
 With Step 1 (Pinning) and Step 2 (Two-Span Gate Balancing) fully closed:
 - Step 3 connects `orbitWindowSemiLocalGate` of the optimal two-span detector to the Mathlib RH contradiction:
   `orbitWindowSemiLocalGate -> qw >= 0 -> SourceRH -> not (off-line zero) -> RH`.
+
+Boundary: this closes the semi-local sign of the constructed span, not its
+strict spectral negativity. The same-span spectral contradiction and weighted
+high-shell tail are the open obligations in [094].

@@ -3,7 +3,7 @@
 Date: 2026-09-23.
 
 Status: Active binding route record; formal closure of Step 1.
-Upstream: [087](087_support_overlap_harmonic_chebyshev_route.md), [089](089_base_contraction_zero_target_no_go.md), Record 1901.
+Upstream: [089](089_base_contraction_zero_target_no_go.md), proof record 1901.
 
 ## 1. Context & Route Progression
 
