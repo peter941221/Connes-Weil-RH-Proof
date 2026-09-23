@@ -88,10 +88,13 @@ semi-local nonnegative gate for one and the same span. The finite-prefix
 margin and an explicit weighted high-shell bound are formal for the four-point
 annihilator span. The strict tail-to-`lambda^2` budget is open because the
 gate-selected `lambda` may depend on the convolution count. The proved gate
-applies to a different narrow-root span; the four-point span's own gate sign
-remains open. For fixed base/correction owners, the decay constants and
-contraction threshold are now formally selected before `n` and `lambda`
-(proof record 1916); this does not close the joint margin.
+applies to a different narrow-root span; the four-point span's own gate is now
+the exact parabola `D - lambda*B' + lambda^2*C` with a complete trichotomy and
+a strictly positive closed-form witness whenever `D < 0`, so its remaining
+obligation is the single strict sign of `D` (proof record 1917). For fixed
+base/correction owners, the decay constants and contraction threshold are now
+formally selected before `n` and `lambda` (proof record 1916); this does not
+close the joint margin.
 
 ## Binding no-go results
 

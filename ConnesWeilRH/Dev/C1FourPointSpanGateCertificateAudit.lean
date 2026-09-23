@@ -1,0 +1,22 @@
+import ConnesWeilRH.Dev.C1FourPointSpanGateCertificate
+
+namespace ConnesWeilRH.Source.C1FourPointSpanGateCertificate
+
+#check @annihilator_span_gate_eq_parabola
+#check @gatePlusRoot
+#check @gate_quadratic_at_gatePlusRoot
+#check @gatePlusRoot_pos_of_neg
+#check @exists_pos_lambda_quadratic_nonpos
+#check @exists_nonzero_lambda_quadratic_nonpos_iff
+#check @exists_pos_lambda_orbitWindowSemiLocalGate_of_annihilator_gate_neg
+#check @exists_pos_lambda_gate_and_prefix_of_annihilator_gate_neg
+
+#print axioms annihilator_span_gate_eq_parabola
+#print axioms gate_quadratic_at_gatePlusRoot
+#print axioms gatePlusRoot_pos_of_neg
+#print axioms exists_pos_lambda_quadratic_nonpos
+#print axioms exists_nonzero_lambda_quadratic_nonpos_iff
+#print axioms exists_pos_lambda_orbitWindowSemiLocalGate_of_annihilator_gate_neg
+#print axioms exists_pos_lambda_gate_and_prefix_of_annihilator_gate_neg
+
+end ConnesWeilRH.Source.C1FourPointSpanGateCertificate

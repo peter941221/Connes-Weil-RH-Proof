@@ -4,9 +4,12 @@ Date: 2026-09-23.
 
 Status: Cut 1's raw sixth-order, selected-square twelfth-order, four-point
 multiplier, weighted-distance bounds, and fixed-owner decay-constant
-quantifiers are FORMAL. Its joint strict margin is OPEN. Cuts 2 and 3 remain
-PROJECT CANDIDATES. No RH theorem or gate sign is claimed. Subordinate to
-[003](003_b1_b5_minimal_exit_route_selection.md),
+quantifiers are FORMAL. Its joint strict margin is OPEN. Cut 2 is reduced to a
+single strict scalar sign: the exact span parabola, its complete trichotomy,
+the strict positivity of the gate-selected coefficient, and the same-owner
+wires are FORMAL in record 1917; the diagonal sign itself is OPEN. Cut 3
+remains a PROJECT CANDIDATE. No RH theorem or gate sign is claimed.
+Subordinate to [003](003_b1_b5_minimal_exit_route_selection.md),
 [091](091_two_span_sign_balancing_closed.md), and
 [094](094_two_point_differential_annihilation_and_spectral_decomposition.md).
 
@@ -124,24 +127,50 @@ three-cut strategy without changing the route ruling.
 For real `lambda`, write the actual gate entries on `u` and `g` as
 
 ```text
-D = ICgate(u.square)
-B = ICgate(u.involution.convolution g)
-C = ICgate(g.square) > 0
-ICgate(h(lambda).square) = D - 2*lambda*B + lambda^2*C.
+D  = ICgate(u.square)
+B' = ICgate(u.involution.convolution g) + ICgate(g.involution.convolution u)
+C  = ICgate(g.square) > 0
+ICgate(h(lambda).square) = D - lambda*B' + lambda^2*C.
 ```
 
-The strict positive pivot `C` is formal for the selected detector. Neither
-the sign of `D` nor the needed relation between `D`, `B`, and `C` is known.
-One sufficient certificate is `B != 0` and `D*C - B^2 <= 0`, with
-`lambda = B/C`; another may use a different nonzero coefficient. A proof
-must estimate the full gate on `u`, including the exact finite visible-prime
-set of `h(lambda)`. The narrow-root negative diagonal in [091] does not
-transfer to `u` merely because both are auxiliary tests.
+Record 1917 proves this identity on the committed owners in
+`C1FourPointSpanGateCertificate.annihilator_span_gate_eq_parabola` with no
+cross-term symmetry assumed; the previous one-`B`, factor-`2` normalization is
+exactly the symmetry `ICgate(g.involution.convolution u) = ICgate
+(u.involution.convolution g)`, which is not needed. The strict positive pivot
+`C` is formal for the selected detector. The complete trichotomy
+`exists_nonzero_lambda_quadratic_nonpos_iff` replaces the sufficient
+certificate: a nonzero coefficient with nonpositive gate exists exactly when
+`D < 0`, or `D = 0` with nonvanishing cross sum, or `D > 0` with discriminant
+`B'^2 - 4*C*D >= 0`. The previous `B != 0` and `D*C - B^2 <= 0` certificate
+with `lambda = B/C` is the `D > 0` vertex case; its side condition is
+automatic there and genuinely needed only at `D = 0`. A strictly negative
+diagonal alone yields a strictly positive closed-form coefficient with no
+cross-term condition (`exists_pos_lambda_quadratic_nonpos`, witness
+`gatePlusRoot`), so the coefficient coupling with Cut 1 is pinned rather than
+free: `lambda = gatePlusRoot D B' C` is determined by the three gate values,
+and it is bounded below by `2*abs D / (sqrt (B'^2 - 4*C*D) + abs B')`
+(derived on paper, rig-verified in record 1917, not formalized). On a healthy
+detector the wire
+`exists_pos_lambda_orbitWindowSemiLocalGate_of_annihilator_gate_neg` turns
+`D < 0` into `orbitWindowSemiLocalGate (h(lambda))` at that positive
+`lambda`, and `exists_pos_lambda_gate_and_prefix_of_annihilator_gate_neg`
+carries the committed finite-prefix bound on the same owner and coefficient.
 
-Acceptance for this cut: a nonzero real `lambda` and a proved nonpositive
-gate for this exact `h(lambda)`, with no hypothesis equivalent to that sign.
-An exact counterexample to the proposed determinant certificate on the
-selected family would end this candidate and require a different span.
+Remaining acceptance for this cut: the single strict scalar sign
+
+```text
+ICgate((fullFunctionalEquationOrbitAnnihilator g rho).square) < 0
+```
+
+on the selected healthy detector, and the Cut 1 joint margin at the pinned
+coefficient. The full gate of the annihilator must be estimated, including
+the exact finite visible-prime set of `h(lambda)`; the narrow-root negative
+diagonal in [091] does not transfer to `u` merely because both are auxiliary
+tests. An exact counterexample to the diagonal sign would not by itself end
+this candidate — the trichotomy shows the gate witness can still fall back to
+the `D = 0` or discriminant branch — which is why the obligation is stated as
+this sign and not as the stronger determinant certificate.
 
 ## Cut 3: assemble one contradiction
 
@@ -168,7 +197,9 @@ quartic base decay and all-index contraction are FORMAL in
 `C1SpectralWeil.lean`, `CC20YoshidaConvolution.lean`, and
 `C1HealthyYoshidaUnscaledOrbit.lean`. The raw sixth-order, selected-square
 twelfth-order, polynomial-multiplier, and weighted transfer estimates are
-FORMAL in `C1FourPointHighShellTail.lean`; the joint margin and same-span
-gate are PROJECT CANDIDATES until proved. This record changes no
+FORMAL in `C1FourPointHighShellTail.lean`. The span parabola, the trichotomy,
+the positive-root witness and its wires are FORMAL in
+`C1FourPointSpanGateCertificate.lean`; the joint margin and the diagonal sign
+are PROJECT CANDIDATES until proved. This record changes no
 binding route ruling and makes no RH claim. Preserve dated proof details and
 Lean/build/axiom evidence in `docs/proofs/` and `MEMORY.md` when a cut lands.
