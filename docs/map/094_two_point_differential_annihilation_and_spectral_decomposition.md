@@ -2,7 +2,7 @@
 
 Date: 2026-09-23.
 
-Status: Active binding route record; formal closure of Stages 1 and 2 of the Two-Span Spectral Contradiction route.
+Status: Active binding route record; formal closure of Stages 1 and 2 plus the finite-prefix transport reduction of the Two-Span Spectral Contradiction route.
 Upstream: [093](093_widened_base_and_direct_absorption_nogo.md), [092](092_mainline_exit_wiring_closed.md), [091](091_two_span_sign_balancing_closed.md), Proof Record 1905.
 
 ## 1. Summary of Formal Achievements
@@ -29,9 +29,45 @@ algebraically forced to be negative ($-2 \lambda^2$) whenever $\lambda \ne 0$, w
 the narrow component $u_a$. This provides the exact spectral weapon needed to close the contradiction
 against the nonnegative Weil energy.
 
-## 3. Formal Evidence
+## 3. Same-owner four-point prefix transport (2026-09-23)
+
+The earlier two-point operator left the two conjugate orbit points outside its
+zero set. The live consumer now uses
+`fullFunctionalEquationOrbitAnnihilator`, a composition of two two-point
+annihilators on the same `CompactLogTest` owner. The formal declarations in
+`ConnesWeilRH.Dev.C1FourPointSpectralPrefixTransport` prove:
+
+1. support in the original interval and CC20 triple vanishing are preserved;
+2. every square zero of the original detector outside the four-point orbit is
+   preserved by the detector-annihilator span;
+3. every orbit term of the transported square is zero or a negative square;
+4. for a finite prefix containing `rho`, the existing non-orbit square-zero
+   certificate and centered negative-orbit values imply
+   `Re(prefix) <= -xiMultiplicity(rho) * lambda^2`.
+
+The raw negative-orbit values of the existing construction are now connected
+to the centered values of its actual half-density-shifted detector by
+`halfDensityShift_centered_negativeSourceOrbitValues`. This is a formal
+same-owner reduction, not a completed spectral contradiction: the remaining
+obligation is the high-shell tail margin for this transported span, followed
+by compatibility with the semi-local nonnegative two-span gate. No gate sign,
+global tail bound, or RH conclusion is claimed here.
+
+The exact transform identity is also formal:
+`laplaceAt_fullFunctionalEquationOrbitAnnihilator` is the product of the four
+orbit-centered linear factors times `laplaceAt g`, and
+`laplaceAt_fullOrbitSpanVector` subtracts the scalar `lambda` from that
+four-factor multiplier before multiplying by `laplaceAt g`. Thus the next tail
+certificate must explicitly control the resulting weighted square; the old
+unweighted fourth-order tail interface cannot be silently reused.
+
+## 4. Formal Evidence
 
 - Files: `ConnesWeilRH/Dev/C1TwoPointDifferentialAnnihilator.lean`,
-         `ConnesWeilRH/Dev/C1TwoPointSpectralDecomposition.lean`, and paired audits.
-- Build Logs: `build-logs/1905_spectral_annihilator.log` (3619 jobs) and `build-logs/1905_spectral_decomposition.log` (3807 jobs).
+         `ConnesWeilRH/Dev/C1TwoPointSpectralDecomposition.lean`,
+         `ConnesWeilRH/Dev/C1TwoPointSpectralPrefixTransport.lean`,
+         `ConnesWeilRH/Dev/C1FourPointSpectralPrefixTransport.lean`, and paired audits.
+- Build Logs: `build-logs/1905_spectral_annihilator.log` (3619 jobs),
+  `build-logs/1905_spectral_decomposition.log` (3807 jobs), and
+  `build-logs/20260923_four_point_prefix_transport_try13.log` (3808 jobs).
 - Exit: 0, 0 errors, 0 `sorryAx`, standard axioms `[propext, Classical.choice, Quot.sound]`.

@@ -1,6 +1,6 @@
 # RH Mainline Freeze
 
-Status: revised 2026-08-31 by route record 1076.
+Status: revised 2026-09-23 by route records 089--094 and the core-progress gate.
 
 ## Active Objective
 
@@ -29,16 +29,18 @@ equivalent no-off-line-zero premise.
 The repository does not contain an unconditional RH proof.  The ROOT-window
 base does not imply the detector-specific semi-local step.
 
-Producer-target state (2026-09-09, map record
-[`007`](docs/map/007_b5_quantifier_repair_and_target_ladder.md)): the B5
-producer obligation is the universal contracts L4 (projection-cutoff side,
-record 1225 re-point) and A4 (aggregate side, record 1226 re-point), each
-quantified over the healthy triple-vanishing class only.  Record 1225's
-positive-control instrument campaign is CLOSED (capture law: fixed-rank
-windows cannot certify exact trace capture from `n = 16` upward; no re-run
-authorized).  The remaining L4/A4 obligation is analytic construction
-(Fork B: counterterm inside the kernel, proved readback); numerical work
-for it requires a fresh preregistration and is not currently recommended.
+Producer-target state (2026-09-23, map records
+[`089`](docs/map/089_base_contraction_zero_target_no_go.md)--
+[`094`](docs/map/094_two_point_differential_annihilation_and_spectral_decomposition.md)):
+the actual orbit detector's support-derived visible-prime cutoff, finite owner,
+carrier reparameterization, phase readbacks, and the four-point same-owner
+finite-prefix transport are formal.  The geometric-contraction branch is a
+scoped no-go.  The live producer is either the actual same-owner signed
+physical-kernel/C3' budget, or the equivalent phase-balanced two-span
+contradiction: the optimal span already has semi-local nonnegativity, and must
+still be proved spectrally negative while retaining the selected off-line-zero
+contribution and controlling the explicit weighted high-shell tail.  Neither
+sign estimate is currently proved.
 
 ## Frozen Routes
 
@@ -77,16 +79,16 @@ New Lean or analytic work is allowed only when the proposed theorem names a
 direct consumer in the active healthy-owner chain.  The open consumers are:
 
 1. The paper-scale `gamma + alpha/beta + delta` ROOT-local certificate package.
-2. An explicit support radius and finite visible-prime set for the formal
-   compact-log orbit detector.
-3. Semi-local positive-trace/readback data per VANISHING test `g` on the
-   same healthy owner - the universal contracts L4/A4 of map record 007.
-   The detector-bundled conjunction form is refuted (record 1225 F1-F3) and
-   may not be named as a producer target; the record 1225 numerical scout
-   closed with its capture law (section 8), so L4 is attacked as a
-   construction, not a measurement.
-4. Maintenance of the formal detector-specific contradiction interface to
-   `SourceRH`.
+   It may advance only when the theorem names and discharges a premise of the
+   healthy detector-specific semi-local producer.
+2. The unconditional same-owner signed physical-kernel/C3' estimate for the
+   actual selected orbit detector and its already-formal finite visible-prime
+   owner.
+3. The phase-balanced two-span spectral contradiction of records 091--094:
+   construct one test that simultaneously has the proved semi-local
+   nonnegativity and a strict negative spectral value with an explicit margin.
+4. Maintenance of the already-formal contradiction interface to `SourceRH`
+   only when required by a producer change; new consumer-only exits are frozen.
 5. Read-only new-math idea generation under the record 1227 NM loop (map
    document 006): literature and corpus sweeps, paper-only shape screens
    against the committed corridor spec, and MODEL-labeled prototypes that
@@ -97,6 +99,30 @@ direct consumer in the active healthy-owner chain.  The open consumers are:
 Before editing, record which consumer is being advanced. A bound that ends at
 a physical trace, finite band, numerical scan, universal-B1 placeholder, or
 the normalized additive owner is not an RH step and must remain frozen.
+
+## Core-Progress Gate
+
+Until the actual selected-detector sign contradiction is proved or refuted,
+generic `MasterExit`, tail-reduction, coordinate-transport, symmetry, readback,
+and conditional-certificate expansion is frozen.  Such declarations are
+infrastructure, not RH-core progress, unless the same change discharges a named
+hypothesis of one of Allowed Work items 2 or 3.
+
+Every substantive campaign starts with a short same-owner assumption ledger:
+the exact target inequality, all current hypotheses, the hypothesis to be
+removed in that campaign, and a failure criterion.  It must finish with at
+least one of:
+
+1. an unconditional quantitative bound with an explicit margin on the actual
+   selected owner;
+2. a named reproducible counterexample or no-go ruling; or
+3. a strictly smaller quantitative obligation with at least one previous
+   premise proved rather than renamed or repackaged.
+
+Replacing one open estimate by an equivalent open estimate is not progress and
+does not authorize another interface round.  Numerical probes are permitted
+only to adjudicate a candidate sign, locate explicit constants, or generate an
+exact certificate that Lean can verify.
 
 The repository check is `scripts/check_rh_mainline_freeze.ps1`. It is read-only
 and fails closed on changes under frozen route namespaces. Use its archival

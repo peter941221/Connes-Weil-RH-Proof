@@ -116,7 +116,8 @@ directly to the two-sided outer wing majorant from the two-IBP / digamma page.
 ## Two-point differential annihilation & spectral decomposition, 2026-09-23
 
 [094](094_two_point_differential_annihilation_and_spectral_decomposition.md)
-formally closes Stages 1 and 2 of the Two-Span Spectral Contradiction route:
+formally closes Stages 1 and 2 and now adds the finite-prefix transport brick of
+the Two-Span Spectral Contradiction route:
 constructs the two-point differential operator `twoPointDerivativeAnnihilator`
 algebraically zeroing the off-line zero orbit points while strictly preserving
 the prime-free support window `(-log 2 / 2, log 2 / 2)` and triple vanishing
@@ -124,6 +125,12 @@ the prime-free support window `(-log 2 / 2, log 2 / 2)` and triple vanishing
 `twoPointDerivativeAnnihilator_finitePrimeSum_eq_zero`). For the span vector
 `v(lambda) = u_a - lambda * g`, `pairedProduct_annihilatorDetectorSpanVector_eq_neg_sq`
 proves the paired off-line zero orbit product is identically `-lambda^2 <= 0`.
+The same-owner `fullFunctionalEquationOrbitAnnihilator` composes two such
+annihilators to cover all four orbit points, preserves support and triple
+vanishing, and formally reduces a finite prefix to
+`Re(prefix) <= -xiMultiplicity(rho) * lambda^2` under the existing non-orbit
+square-zero certificate and centered raw orbit readback. The high-shell tail
+margin and the gate/C3' sign remain open.
 
 ## Universal base contraction lower bound & direct absorption no-go, 2026-09-23
 
