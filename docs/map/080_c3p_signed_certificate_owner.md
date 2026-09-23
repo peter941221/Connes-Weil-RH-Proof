@@ -160,6 +160,14 @@ The actual `gammaRIntegrand` now has the corresponding shifted centered-weight
 readback on this owner. The next missing step is therefore genuinely the
 GammaR kernel/sigma estimate, not carrier bookkeeping.
 
+Formal follow-up (record 1899):
+`archimedeanTerm_carrierSquare_eq_shiftedGammaR` now transports that pointwise
+identity through full-line integrability and the normalized center-two
+Gamma_R theorem, for the actual carrier square. The integral-level owner
+bridge is closed. This does not establish the paper Fourier-multiplier σ
+identity or its envelope-dependent remainder, and it supplies no selected-
+detector diagonal or prime-budget signs.
+
 `C1C3GammaRBound.lean` now proves an explicit norm upper bound for
 `logDeriv GammaR` on `Re(s) >= 1/2`, by transporting the existing digamma
 vertical-line estimate through the exact GammaR formula. This controls the
@@ -250,6 +258,15 @@ height at least that exact threshold. This is intentionally conditional: the
 project has not proved that an arbitrary hypothetical off-line zero reaches
 this height, so the theorem is not presented as a universal zero-height lower
 bound. The detector-specific visible-prime signed budget remains open.
+
+Formal follow-up (record 1900): the exact reciprocal-series cancellation
+between two sigma heights yields
+`abs_c3Sigma_sub_le_of_height_lower`, with bound
+`2 * |xi - eta| / R` whenever both absolute half-heights are at least
+`R >= 1`. The telescoping quadratic-series estimate makes the inverse-height
+scale explicit. This is a high-tail modulus for the carrier remainder, but
+not yet its integral against the selected detector: the envelope first moment
+and complementary-frequency tail remain open.
 ## Round 2G: even negative companion, 2026-09-22
 
 `C1P2EvenNegativeDiagonalCertificate.lean` now proves

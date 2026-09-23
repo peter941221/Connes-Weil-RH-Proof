@@ -234,3 +234,18 @@ formal. This exposes the exact remaining producer data at one carrier/envelope
 owner; it supplies none of those signs for the selected detector. The
 σ-shift remainder remains envelope-dependent, so its paper-level negative
 symbol does not currently imply these diagonal signs.
+
+Formal follow-up (1899): `archimedeanTerm_carrierSquare_eq_shiftedGammaR`
+reads the actual carrier-modulated convolution square through the complete
+center-two Gamma_R integral, with both centered Laplace weights shifted on the
+same owner. This closes the integral-level carrier/Gamma readback only; the
+paper Fourier-multiplier σ identity, envelope remainder estimate, and selected
+detector signed budget remain open.
+
+Formal follow-up (1900): the reciprocal-series difference now gives
+`abs_c3Sigma_sub_le_of_height_lower`: if both half-heights are at least
+`R >= 1`, then the sigma oscillation is at most
+`2 * |xi - eta| / R`. The proof controls each reciprocal difference and
+telescopes the quadratic majorant. This supplies a quantitative high-tail
+modulus, not the detector's integrated remainder: its same-owner Fourier
+first moment and the complementary tail still need control.

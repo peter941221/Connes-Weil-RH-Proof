@@ -1,6 +1,7 @@
 # 088: Convolution Seminorm Decay and Iterated Base Exit
 
-**Status**: Active binding route record.
+**Status**: Formal conditional exit; the current unit-target base producer is
+ruled out by the scoped no-go in [089](089_base_contraction_zero_target_no_go.md).
 **Date**: 2026-09-22.
 **Upstream**: `087`, Record 1839.
 **Exit**: `ConnesWeilRH.Dev.C1P2ConvolutionSeminormBound.riemannHypothesis_of_iteratedBase_decay_and_harmonicBudget`.
@@ -33,6 +34,11 @@ harmonicBudgetSeminorm geometry delta =
 ```
 
 produces the unified master exits:
+
+These exits remain valid conditional theorems, but they are not currently
+producible by the committed unit-target base owner: the zero node and support
+window force `seminorm(base) >= 1/2`, contradicting the required strict factor
+`2 * seminorm(base) < 1`.  See [089](089_base_contraction_zero_target_no_go.md).
 
 ```text
 riemannHypothesis_of_iteratedBase_decay_and_harmonicBudget :

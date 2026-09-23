@@ -9,6 +9,17 @@ Map filenames use consecutive `001_`, `002_`, ... reading-order prefixes.
 Their document titles retain the original proof-record identifiers for source
 traceability.
 
+## Geometric base contraction no-go, 2026-09-23
+
+[089](089_base_contraction_zero_target_no_go.md) formally proves that the
+current unit-target base owner cannot satisfy `2 * seminorm(base) < 1`:
+support in `(-1,1)` and `laplaceAt base 0 = 1` force `seminorm(base) >= 1/2`.
+The geometric-contraction exits in [088](088_convolution_seminorm_decay_exit.md)
+remain valid conditional interfaces but are demoted as producer targets.  The
+live producer is again the detector-specific signed physical-kernel budget and
+the C3' phase-locked certificate.  This is formal project evidence, not an RH
+result.
+
 ## Selected-detector sign audit, 2026-09-20
 
 [047](047_detector_sign_energy_and_discrepancy_audit.md) records the PAPER
@@ -153,6 +164,19 @@ semi-local gate. This is a conditional producer interface only. No selected
 detector sign supplier or RH result is added, and the envelope-dependent
 σ-shift remainder still prevents reading diagonal signs from the paper-level
 negative symbol.
+
+Formal record 1899 closes the integral-level carrier/Gamma_R readback for the
+actual carrier square: the shifted centered weights are integrable and read
+back to its complete archimedean term on the same owner. This is not the paper
+Fourier-multiplier σ identity or a remainder/sign estimate. The selected
+detector signed budget and C3' positivity remain open.
+
+Formal record 1900 proves a high-tail sigma modulus:
+`abs_c3Sigma_sub_le_of_height_lower` bounds a sigma difference by
+`2 * |xi - eta| / R` when both half-heights are at least `R >= 1`.
+This supplies the inverse-height oscillation scale, but the actual detector's
+integrated remainder still needs a same-owner Fourier first-moment bound and
+complementary-tail control. No signed prime budget or C3' positivity follows.
 
 ## Same-owner physical-kernel coboundary certificate, 2026-09-22
 

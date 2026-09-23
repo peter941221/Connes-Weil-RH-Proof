@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1C3SigmaShiftReadback
+
+namespace ConnesWeilRH
+namespace Dev
+namespace C1C3SigmaShiftReadback
+
+#print axioms carrierShiftedGammaRIntegrand
+#print axioms gammaRIntegrand_carrierModulate_eq_carrierShifted
+#print axioms integrable_carrierShiftedGammaRIntegrand
+#print axioms normalized_gammaR_carrierModulate_re_eq_archimedeanTerm
+#print axioms convolutionSquare_carrier_eq
+#print axioms archimedeanTerm_carrierSquare_eq_shiftedGammaR
+
+end C1C3SigmaShiftReadback
+end Dev
+end ConnesWeilRH

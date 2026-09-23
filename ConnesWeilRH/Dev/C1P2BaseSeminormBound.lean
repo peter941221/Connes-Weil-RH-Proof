@@ -6,6 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 import ConnesWeilRH.Source.CC20YoshidaConvolution
 import ConnesWeilRH.Source.CC20YoshidaConstruction
 import ConnesWeilRH.Dev.C1HealthyYoshidaAffineCorrection
+import ConnesWeilRH.Dev.C1CompactLogL2Export
 
 /-!
 # Quantitative zero-order seminorm bound for finite-window bases
@@ -28,6 +29,8 @@ open CC20YoshidaInterpolationNode.CC20YoshidaExpandedMomentNode
 open CCM25Concrete.SelectedYoshidaBridge
 open CCM25Concrete.CompactLogConvolution
 open C1HealthyYoshidaAffineCorrection
+open C1CompactLogL2Export
+open MeasureTheory
 
 noncomputable section
 
@@ -466,6 +469,69 @@ theorem exists_affine_base_with_unit_targets_and_quadratic_decay
   · intro z
     exact affineResidualCorrection_laplaceAt nodes hlower hupper values z
   · exact affineResidualCorrection_with_quadratic_decay nodes hlower hupper values
+
+/-! The zero Mellin target imposes a sharp lower bound on the zero-order
+seminorm.  In particular, a unit target on an interval of length two cannot
+coexist with the strict contraction threshold used by the geometric route. -/
+theorem seminorm_zero_zero_ge_half_of_laplaceAt_zero_eq_one_of_support_Ioo
+    (f : CompactLogTest)
+    (hsupp : Function.support f.test ⊆ Set.Ioo (-1 : Real) 1)
+    (hzero : laplaceAt f 0 = 1) :
+    (1 / 2 : Real) ≤ SchwartzMap.seminorm Complex 0 0 f.test := by
+  have hL2 : compactLogL2sq f ≤
+      (2 : Real) * (SchwartzMap.seminorm Complex 0 0 f.test) ^ 2 := by
+    have hl2 : (∫ x : Real in (-1 : Real)..1, ‖f.test x‖ ^ 2) =
+        compactLogL2sq f := by
+      unfold compactLogL2sq
+      rw [intervalIntegral.integral_of_le (by norm_num),
+        ← MeasureTheory.integral_indicator measurableSet_Ioc]
+      refine MeasureTheory.integral_congr_ae
+        (Filter.Eventually.of_forall (fun x => ?_))
+      by_cases hx : x ∈ Set.Ioc (-1 : Real) 1
+      · simp [hx]
+      · have hx' : x ∉ Set.Ioo (-1 : Real) 1 := by
+          intro h
+          exact hx ⟨h.1, le_of_lt h.2⟩
+        rw [Set.indicator_of_notMem hx]
+        have hz : f.test x = 0 := by
+          by_contra hnz
+          exact hx' (hsupp hnz)
+        simp [hz]
+    rw [← hl2]
+    have hmono :
+        (∫ x : Real in (-1 : Real)..1, ‖f.test x‖ ^ 2) ≤
+          ∫ x : Real in (-1 : Real)..1,
+            (SchwartzMap.seminorm Complex 0 0 f.test) ^ 2 := by
+      apply intervalIntegral.integral_mono_on (μ := volume) (by norm_num)
+      · have hcont : ContinuousOn
+            (fun x : Real => ‖f.test x‖ ^ 2) (Set.uIcc (-1 : Real) 1) :=
+            ((f.test.smooth ⊤).continuous.norm.continuousOn).pow 2
+        exact hcont.intervalIntegrable
+      · exact intervalIntegrable_const
+      · intro x hx
+        have hnorm := SchwartzMap.norm_le_seminorm Complex f.test x
+        nlinarith [norm_nonneg (f.test x)]
+    rw [intervalIntegral.integral_const, smul_eq_mul] at hmono
+    norm_num at hmono
+    simpa [pow_two] using hmono
+  have hlap := laplaceAt_sq_le f (a := (-1 : Real)) (b := 1)
+    (by norm_num) hsupp (0 : Complex)
+  rw [hzero] at hlap
+  have hnonneg : 0 ≤ SchwartzMap.seminorm Complex 0 0 f.test := by
+    exact le_trans (norm_nonneg (f.test 0))
+      (SchwartzMap.norm_le_seminorm Complex f.test 0)
+  norm_num at hlap
+  nlinarith [hL2]
+
+theorem not_strict_base_contraction_of_unit_zero_target_of_support_Ioo
+    (f : CompactLogTest)
+    (hsupp : Function.support f.test ⊆ Set.Ioo (-1 : Real) 1)
+    (hzero : laplaceAt f 0 = 1) :
+    ¬ 2 * SchwartzMap.seminorm Complex 0 0 f.test < 1 := by
+  intro hcontract
+  have hhalf := seminorm_zero_zero_ge_half_of_laplaceAt_zero_eq_one_of_support_Ioo
+    f hsupp hzero
+  nlinarith
 
 end
 end C1P2BaseSeminormBound
