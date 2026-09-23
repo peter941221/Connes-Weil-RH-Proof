@@ -219,3 +219,18 @@ phase, complete prime phase sum, and Archimedean, mixed, and prime determinant
 phases all read back identically after swapping the two carrier tests. This
 closes the remaining order-symmetry interface for later sign consumers; it
 does not provide any sign, margin, detector-specific estimate, or RH result.
+Formal follow-up (1896): the opposite-diagonal-sign determinant consumer now
+accepts either orientation of the diagonal sign pattern. In the reversed case,
+phase-swap symmetry transports the budget back to the original ordered pair,
+while the optimal q-form keeps its required positive pivot on the original
+second test. This is a more usable conditional B5 consumer, not a supplier of
+the actual detector's signs; the selected-owner phase budget remains open.
+
+Formal follow-up (1897): `CarrierTwoSpanSignCertificate` now packages the
+same-owner support bounds, positive pivot, either orientation of the four
+diagonal phase signs, and the directed cross-product sign. Its conversion to
+`CarrierTwoSpanDeterminantCertificate` and direct semi-local gate consumer are
+formal. This exposes the exact remaining producer data at one carrier/envelope
+owner; it supplies none of those signs for the selected detector. The
+σ-shift remainder remains envelope-dependent, so its paper-level negative
+symbol does not currently imply these diagonal signs.

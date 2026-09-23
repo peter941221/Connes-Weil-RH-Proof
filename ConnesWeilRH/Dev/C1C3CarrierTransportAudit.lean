@@ -100,6 +100,11 @@ namespace C1C3CarrierTransport
 #print axioms carrierArchimedeanDeterminantPhase_swap
 #print axioms carrierMixedDeterminantPhase_swap
 #print axioms carrierPrimeDeterminantPhase_swap
+#print axioms carrier_twoSpan_phase_budget_of_opposite_diagonal_signs_in_either_order
+#print axioms carrier_twoSpan_optimal_nonpos_of_opposite_diagonal_signs_in_either_order
+#print axioms CarrierTwoSpanSignCertificate
+#print axioms CarrierTwoSpanSignCertificate.toDeterminantCertificate
+#print axioms CarrierTwoSpanSignCertificate.gate
 
 end C1C3CarrierTransport
 end Dev

@@ -1847,6 +1847,72 @@ theorem carrierPrimeDeterminantPhase_swap
   rw [carrierPairPrimePhaseSum_swap γ u v]
   ring
 
+theorem carrier_twoSpan_phase_budget_of_opposite_diagonal_signs_in_either_order
+    (γ : Real) (u v : CompactLogTest)
+    (hsigns :
+      (carrierSquareArchimedeanTermPhase γ u ≤ 0 ∧
+        0 ≤ carrierSquareArchimedeanTermPhase γ v ∧
+        carrierSquarePrimePhaseSum γ u ≤ 0 ∧
+        0 ≤ carrierSquarePrimePhaseSum γ v) ∨
+      (carrierSquareArchimedeanTermPhase γ v ≤ 0 ∧
+        0 ≤ carrierSquareArchimedeanTermPhase γ u ∧
+        carrierSquarePrimePhaseSum γ v ≤ 0 ∧
+        0 ≤ carrierSquarePrimePhaseSum γ u))
+    (hcross : 0 ≤ carrierPairArchimedeanTermPhase γ u v *
+      carrierPairPrimePhaseSum γ u v) :
+    carrierArchimedeanDeterminantPhase γ u v +
+      carrierMixedDeterminantPhase γ u v +
+        carrierPrimeDeterminantPhase γ u v ≤ 0 := by
+  rcases hsigns with ⟨hAu, hAv, hPu, hPv⟩ | ⟨hAv, hAu, hPv, hPu⟩
+  · exact carrier_twoSpan_phase_budget_of_opposite_diagonal_signs
+      γ u v hAu hAv hPu hPv hcross
+  · have hcross' : 0 ≤ carrierPairArchimedeanTermPhase γ v u *
+        carrierPairPrimePhaseSum γ v u := by
+      rw [carrierPairArchimedeanTermPhase_swap γ v u,
+        carrierPairPrimePhaseSum_swap γ v u]
+      exact hcross
+    calc
+      carrierArchimedeanDeterminantPhase γ u v +
+          carrierMixedDeterminantPhase γ u v +
+            carrierPrimeDeterminantPhase γ u v =
+        carrierArchimedeanDeterminantPhase γ v u +
+          carrierMixedDeterminantPhase γ v u +
+            carrierPrimeDeterminantPhase γ v u := by
+              rw [carrierArchimedeanDeterminantPhase_swap γ u v,
+                carrierMixedDeterminantPhase_swap γ u v,
+                carrierPrimeDeterminantPhase_swap γ u v]
+      _ ≤ 0 := carrier_twoSpan_phase_budget_of_opposite_diagonal_signs
+        γ v u hAv hAu hPv hPu hcross'
+
+theorem carrier_twoSpan_optimal_nonpos_of_opposite_diagonal_signs_in_either_order
+    (γ : Real) (u v : CompactLogTest)
+    (hB : 0 < ICgate (carrierModulate γ v).convolutionSquare)
+    (hsigns :
+      (carrierSquareArchimedeanTermPhase γ u ≤ 0 ∧
+        0 ≤ carrierSquareArchimedeanTermPhase γ v ∧
+        carrierSquarePrimePhaseSum γ u ≤ 0 ∧
+        0 ≤ carrierSquarePrimePhaseSum γ v) ∨
+      (carrierSquareArchimedeanTermPhase γ v ≤ 0 ∧
+        0 ≤ carrierSquareArchimedeanTermPhase γ u ∧
+        carrierSquarePrimePhaseSum γ v ≤ 0 ∧
+        0 ≤ carrierSquarePrimePhaseSum γ u))
+    (hcross : 0 ≤ carrierPairArchimedeanTermPhase γ u v *
+      carrierPairPrimePhaseSum γ u v) :
+    ((![1, -(
+        ICgate
+            ((carrierModulate γ u).involution.convolution
+              (carrierModulate γ v)) /
+          ICgate (carrierModulate γ v).convolutionSquare)] : Fin 2 → Real) ⬝ᵥ
+        (gateMatrix ![carrierModulate γ u, carrierModulate γ v] *ᵥ
+          (![1, -(
+              ICgate
+                  ((carrierModulate γ u).involution.convolution
+                    (carrierModulate γ v)) /
+                ICgate (carrierModulate γ v).convolutionSquare)] : Fin 2 → Real)) ≤ 0) := by
+  apply (carrier_twoSpan_phase_budget_iff_optimal_nonpos γ u v hB).mpr
+  exact carrier_twoSpan_phase_budget_of_opposite_diagonal_signs_in_either_order
+    γ u v hsigns hcross
+
 /-- The remaining C3' producer input, with its carrier and visible owner
 bound together so an estimate cannot mix different phase channels. -/
 structure CarrierTwoSpanDeterminantCertificate
@@ -1855,9 +1921,58 @@ structure CarrierTwoSpanDeterminantCertificate
   support_v : Function.support (carrierModulate γ v).test ⊆ Set.Ioo (-B) B
   pivot_pos : 0 < ICgate (carrierModulate γ v).convolutionSquare
   phase_budget :
-    carrierArchimedeanDeterminantPhase γ u v +
-      carrierMixedDeterminantPhase γ u v +
-        carrierPrimeDeterminantPhase γ u v ≤ 0
+      carrierArchimedeanDeterminantPhase γ u v +
+        carrierMixedDeterminantPhase γ u v +
+          carrierPrimeDeterminantPhase γ u v ≤ 0
+
+/-- Same-owner sign data sufficient for the two-span B5 gate. The support,
+    positive pivot, diagonal phase signs, and directed cross-product sign all
+    refer to this one carrier frequency and this one envelope pair. -/
+structure CarrierTwoSpanSignCertificate
+    (γ : Real) (u v : CompactLogTest) (B : Real) where
+  support_u : Function.support (carrierModulate γ u).test ⊆ Set.Ioo (-B) B
+  support_v : Function.support (carrierModulate γ v).test ⊆ Set.Ioo (-B) B
+  pivot_pos : 0 < ICgate (carrierModulate γ v).convolutionSquare
+  diagonal_signs :
+    (carrierSquareArchimedeanTermPhase γ u ≤ 0 ∧
+      0 ≤ carrierSquareArchimedeanTermPhase γ v ∧
+      carrierSquarePrimePhaseSum γ u ≤ 0 ∧
+      0 ≤ carrierSquarePrimePhaseSum γ v) ∨
+    (carrierSquareArchimedeanTermPhase γ v ≤ 0 ∧
+      0 ≤ carrierSquareArchimedeanTermPhase γ u ∧
+      carrierSquarePrimePhaseSum γ v ≤ 0 ∧
+      0 ≤ carrierSquarePrimePhaseSum γ u)
+  directed_cross_nonneg :
+    0 ≤ carrierPairArchimedeanTermPhase γ u v *
+      carrierPairPrimePhaseSum γ u v
+
+theorem CarrierTwoSpanSignCertificate.toDeterminantCertificate
+    {γ : Real} {u v : CompactLogTest} {B : Real}
+    (certificate : CarrierTwoSpanSignCertificate γ u v B) :
+    CarrierTwoSpanDeterminantCertificate γ u v B := by
+  exact ⟨certificate.support_u, certificate.support_v,
+    certificate.pivot_pos,
+    carrier_twoSpan_phase_budget_of_opposite_diagonal_signs_in_either_order
+      γ u v certificate.diagonal_signs certificate.directed_cross_nonneg⟩
+
+theorem CarrierTwoSpanSignCertificate.gate
+    {γ : Real} {u v : CompactLogTest} {B : Real}
+    (certificate : CarrierTwoSpanSignCertificate γ u v B) :
+    orbitWindowSemiLocalGate
+        (spanObj ![carrierModulate γ u, carrierModulate γ v]
+          ![(1 : Real), -(
+            ICgate
+                ((carrierModulate γ u).involution.convolution
+                  (carrierModulate γ v)) /
+          ICgate (carrierModulate γ v).convolutionSquare)]) := by
+  apply orbitWindowSemiLocalGate_carrier_twoSpan_of_optimal_determinant
+    γ u v B certificate.support_u certificate.support_v certificate.pivot_pos
+  apply (carrier_twoSpan_signed_budget_iff_optimal_nonpos γ u v
+    certificate.pivot_pos).mp
+  apply (carrier_twoSpan_phase_budget_iff_optimal_nonpos γ u v
+    certificate.pivot_pos).mpr
+  exact carrier_twoSpan_phase_budget_of_opposite_diagonal_signs_in_either_order
+    γ u v certificate.diagonal_signs certificate.directed_cross_nonneg
 
 theorem CarrierTwoSpanDeterminantCertificate.gate
     {γ : Real} {u v : CompactLogTest} {B : Real}

@@ -144,6 +144,16 @@ budget. This closes the two artificial parity-component signs, but it does
 not transfer either component to the actual healthy orbit owner or prove its
 detector-specific finite visible-prime signed budget. Round 2 remains open.
 
+## C3' sign producer owner, 2026-09-23
+
+Formal record 1897 packages the either-order diagonal signs, directed
+cross-product sign, same-owner support, and positive pivot into
+`CarrierTwoSpanSignCertificate`; its consumer yields the detector-specific
+semi-local gate. This is a conditional producer interface only. No selected
+detector sign supplier or RH result is added, and the envelope-dependent
+σ-shift remainder still prevents reading diagonal signs from the paper-level
+negative symbol.
+
 ## Same-owner physical-kernel coboundary certificate, 2026-09-22
 
 [081](081_orbit_physical_kernel_coboundary_certificate.md) records the formal
