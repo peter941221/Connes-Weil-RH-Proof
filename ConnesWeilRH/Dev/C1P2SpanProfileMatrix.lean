@@ -82,6 +82,25 @@ theorem signedProfileTerm_twoSpan_eq_four_pair_profiles
   simp [Fin.sum_univ_two]
   ring
 
+theorem signedProfileTerm_twoSpan_eq_four_pair_physical_integrals
+    (A B : CompactLogTest) (lam : ℝ) (n : ℕ) :
+    signedProfileTerm (spanObj ![A, B] ![(1 : ℝ), -lam]) n =
+      ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+          (((∫ t : ℝ, star (A.test (-t)) * A.test (Real.log n - t)) +
+              ∫ t : ℝ, star (A.test (-t)) * A.test (-Real.log n - t))).re -
+      lam * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+          (((∫ t : ℝ, star (A.test (-t)) * B.test (Real.log n - t)) +
+              ∫ t : ℝ, star (A.test (-t)) * B.test (-Real.log n - t))).re) -
+      lam * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+          (((∫ t : ℝ, star (B.test (-t)) * A.test (Real.log n - t)) +
+              ∫ t : ℝ, star (B.test (-t)) * A.test (-Real.log n - t))).re) +
+      lam ^ 2 * (ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+          (((∫ t : ℝ, star (B.test (-t)) * B.test (Real.log n - t)) +
+              ∫ t : ℝ, star (B.test (-t)) * B.test (-Real.log n - t))).re) := by
+  rw [signedProfileTerm_spanObj_eq_pair_physical_integral_quadratic]
+  simp [Fin.sum_univ_two]
+  ring
+
 theorem bilateralProfile_pairTest_swap_re
     (f g : CompactLogTest) (y : ℝ) :
     (bilateralProfile (f.involution.convolution g) y).re =

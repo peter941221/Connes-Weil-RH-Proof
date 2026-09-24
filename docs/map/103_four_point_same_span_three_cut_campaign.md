@@ -366,6 +366,11 @@ physical integrals. This is FORMAL; the remaining producer obligation is now
 only the strict signed inequality for those four channels at the
 gate-selected coefficient.
 
+Record 1942 specializes that expansion to the two-span four-channel lambda
+quadratic, including the n=2 sample. The remaining strict obligation is now
+the signed inequality for this quadratic at the already formal vertex
+coefficient; no owner substitution remains.
+
 together with the positive cross sum, on the selected healthy detector (under
 the cross-term symmetry this is exactly the probe's
 `D*C - B01^2 < 0`, and by record 1919 equivalently the variance-gap /
