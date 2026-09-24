@@ -1,0 +1,213 @@
+{
+  "provenance": "1918 certified gate entries; vertex Q split by linear ICgate entries",
+  "summary": {
+    "case_count": 18,
+    "full_negative_count": 18,
+    "arch_positive_count": 0,
+    "prime_negative_count": 18,
+    "min_full_relative_margin": 4.955409041694362e-05,
+    "min_prime_over_positive_arch": null,
+    "min_Q_full": -43078245.05571008,
+    "max_Q_full": -987004.0192537308
+  },
+  "rows": [
+    {
+      "tag": "c=0.8 d=0.05 g=14.13",
+      "c": 0.8,
+      "gamma": 14.134725141734693,
+      "lambda_vertex": 40029.14329807729,
+      "Q_full": -43075004.96355748,
+      "Q_arch": -41910745.4520095,
+      "Q_prime": -1164259.5115479827,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.11602456316045527
+    },
+    {
+      "tag": "c=0.8 d=0.10 g=14.13",
+      "c": 0.8,
+      "gamma": 14.134725141734693,
+      "lambda_vertex": 40032.13389860224,
+      "Q_full": -43075282.65008217,
+      "Q_arch": -41911072.43957001,
+      "Q_prime": -1164210.2105121613,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.11600605226692302
+    },
+    {
+      "tag": "c=0.8 d=0.30 g=14.13",
+      "c": 0.8,
+      "gamma": 14.134725141734693,
+      "lambda_vertex": 40064.04063754961,
+      "Q_full": -43078245.05571008,
+      "Q_arch": -41914560.69974291,
+      "Q_prime": -1163684.355967164,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.11580885091880767
+    },
+    {
+      "tag": "c=0.8 d=0.05 g=21.02",
+      "c": 0.8,
+      "gamma": 21.022039638771556,
+      "lambda_vertex": 195617.86040966673,
+      "Q_full": -37592775.670734406,
+      "Q_arch": -34644214.77945995,
+      "Q_prime": -2948560.891274452,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.003813677252344416
+    },
+    {
+      "tag": "c=0.8 d=0.10 g=21.02",
+      "c": 0.8,
+      "gamma": 21.022039638771556,
+      "lambda_vertex": 195624.4830456295,
+      "Q_full": -37592837.70955467,
+      "Q_arch": -34644337.95058727,
+      "Q_prime": -2948499.7589673996,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.0038134243741942625
+    },
+    {
+      "tag": "c=0.8 d=0.30 g=21.02",
+      "c": 0.8,
+      "gamma": 21.022039638771556,
+      "lambda_vertex": 195695.13149589527,
+      "Q_full": -37593499.872592926,
+      "Q_arch": -34645652.168800354,
+      "Q_prime": -2947847.703792572,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.0038107283677684877
+    },
+    {
+      "tag": "c=1.0 d=0.05 g=14.13",
+      "c": 1.0,
+      "gamma": 14.134725141734693,
+      "lambda_vertex": 40024.32531611796,
+      "Q_full": -7447217.298495531,
+      "Q_arch": -7023489.408828139,
+      "Q_prime": -423727.8896673918,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.01146912064501143
+    },
+    {
+      "tag": "c=1.0 d=0.10 g=14.13",
+      "c": 1.0,
+      "gamma": 14.134725141734693,
+      "lambda_vertex": 40027.317429939765,
+      "Q_full": -7447263.467878103,
+      "Q_arch": -7023574.367770314,
+      "Q_prime": -423689.10010778904,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.011467458280154934
+    },
+    {
+      "tag": "c=1.0 d=0.30 g=14.13",
+      "c": 1.0,
+      "gamma": 14.134725141734693,
+      "lambda_vertex": 40059.24031070027,
+      "Q_full": -7447756.191944957,
+      "Q_arch": -7024480.726768076,
+      "Q_prime": -423275.46517688036,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.01144974590718183
+    },
+    {
+      "tag": "c=1.0 d=0.05 g=21.02",
+      "c": 1.0,
+      "gamma": 21.022039638771556,
+      "lambda_vertex": 195564.18606372527,
+      "Q_full": -8058659.1755485535,
+      "Q_arch": -5371739.122106552,
+      "Q_prime": -2686920.0534420013,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.0005142080903633651
+    },
+    {
+      "tag": "c=1.0 d=0.10 g=21.02",
+      "c": 1.0,
+      "gamma": 21.022039638771556,
+      "lambda_vertex": 195570.81021298323,
+      "Q_full": -8058575.292547226,
+      "Q_arch": -5371756.489089966,
+      "Q_prime": -2686818.80345726,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.0005141678849069281
+    },
+    {
+      "tag": "c=1.0 d=0.30 g=21.02",
+      "c": 1.0,
+      "gamma": 21.022039638771556,
+      "lambda_vertex": 195641.47480506104,
+      "Q_full": -8057680.790588379,
+      "Q_arch": -5371941.867265701,
+      "Q_prime": -2685738.9233226776,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.0005137392714300528
+    },
+    {
+      "tag": "c=1.3 d=0.05 g=14.13",
+      "c": 1.3,
+      "gamma": 14.134725141734693,
+      "lambda_vertex": 40018.85139273456,
+      "Q_full": -987004.0192537308,
+      "Q_arch": -683805.7279903889,
+      "Q_prime": -303198.2912633419,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.0008662643993913127
+    },
+    {
+      "tag": "c=1.3 d=0.10 g=14.13",
+      "c": 1.3,
+      "gamma": 14.134725141734693,
+      "lambda_vertex": 40021.8443897383,
+      "Q_full": -987012.2855482101,
+      "Q_arch": -683828.404493928,
+      "Q_prime": -303183.8810542822,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.0008661419867189284
+    },
+    {
+      "tag": "c=1.3 d=0.30 g=14.13",
+      "c": 1.3,
+      "gamma": 14.134725141734693,
+      "lambda_vertex": 40053.77669111046,
+      "Q_full": -987100.5347368717,
+      "Q_arch": -684070.3068501949,
+      "Q_prime": -303030.2278866768,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 0.0008648376902339689
+    },
+    {
+      "tag": "c=1.3 d=0.05 g=21.02",
+      "c": 1.3,
+      "gamma": 21.022039638771556,
+      "lambda_vertex": 195530.19881060682,
+      "Q_full": -1350388.3175468445,
+      "Q_arch": -117056.32479476929,
+      "Q_prime": -1233331.9927520752,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 4.960634909192728e-05
+    },
+    {
+      "tag": "c=1.3 d=0.10 g=21.02",
+      "c": 1.3,
+      "gamma": 21.022039638771556,
+      "lambda_vertex": 195536.82384304536,
+      "Q_full": -1350357.819229126,
+      "Q_arch": -117068.75807189941,
+      "Q_prime": -1233289.0611572266,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 4.960186720008552e-05
+    },
+    {
+      "tag": "c=1.3 d=0.30 g=21.02",
+      "c": 1.3,
+      "gamma": 21.022039638771556,
+      "lambda_vertex": 195607.497855737,
+      "Q_full": -1350032.5832633972,
+      "Q_arch": -117201.39890289307,
+      "Q_prime": -1232831.1843605042,
+      "prime_beats_positive_arch": null,
+      "relative_full_margin": 4.955409041694362e-05
+    }
+  ]
+}

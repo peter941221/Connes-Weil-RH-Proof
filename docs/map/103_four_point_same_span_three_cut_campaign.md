@@ -371,6 +371,39 @@ quadratic, including the n=2 sample. The remaining strict obligation is now
 the signed inequality for this quadratic at the already formal vertex
 coefficient; no owner substitution remains.
 
+Record 1945 tested the proposed shortcut of replacing the owner-specific
+vertex coefficient by `0.5 * (3 + ||rho||)^4` and nearby fixed multiples. On
+the 18 committed-class cases, the fixed coefficient was negative in only 6/18
+cases (0.9 and 1.1 multiples: 9/18 and 3/18); the vertex was negative in all
+18. This is a scoped numeric no-go for the simple fixed-coefficient shortcut,
+not an analytic counterexample. The coefficient therefore remains
+owner-specific, and the next quantitative target is the vertex determinant
+with the actual four-channel physical readback.
+
+Record 1946 evaluates the vertex gate after splitting the linear gate value
+into its Archimedean and finite-prime contributions. Both contributions are
+strictly negative on all 18 committed-class cases; the smallest full relative
+margin is about `4.96e-5`. This suggests the next proof target should be two
+owner-preserving signed channel estimates at the vertex, rather than a
+determinant-block estimate. It remains a numerical target: no channel sign is
+proved for the selected owner.
+
+Record 1947 audits the formal boundary. The current healthy-detector data
+provide support, vanishing, detection, and square positivity, but no
+owner-specific gate-entry bounds or Archimedean/finite-prime signed profile
+estimates. Support only gives a finite visible-prime range. Consequently the
+selected-owner channel signs cannot yet be proved from the existing premises;
+the next analytic brick must supply an actual-owner `L, eta` contract for the
+vertex gate, or a reproducible counterexample in that owner class.
+
+Record 1948 stress-tested the proposed separate channel signs on wider owners:
+the full vertex gate and prime channel stayed negative on 10/10 cases, but the
+Archimedean channel was negative only on 3/10 and became positive at wider
+support. Thus the separate `Q_arch < 0`, `Q_prime < 0` target is frozen as a
+scoped no-go unless a selected-owner width restriction is first proved. The
+live target is the summed signed inequality with exact prime/Archimedean
+cancellation retained.
+
 together with the positive cross sum, on the selected healthy detector (under
 the cross-term symmetry this is exactly the probe's
 `D*C - B01^2 < 0`, and by record 1919 equivalently the variance-gap /
