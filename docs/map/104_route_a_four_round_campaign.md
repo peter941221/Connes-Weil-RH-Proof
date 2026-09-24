@@ -156,6 +156,15 @@ derivative-cost bound whose minimizer controls the grouped residual from 1925.
 Until that bound exists, this is a formal selector core, not a signed-margin
 result.
 
+The first physical-cost estimate is now formal as well. The leaf
+`C1P2PhysicalDerivativeSeminormBound.lean` bounds the derivative seminorm of
+the actual finite-window source combination by the exact coefficient-weighted
+sum of the derivative seminorms of its supported source tests; see
+[1928](../proofs/1928_route_a_source_physical_derivative_budget.md). This
+strictly reduces the remaining obligation: transport this source bound through
+`compactLogTestOfWindow`, then minimize the resulting finite-basis weighted
+cost. The signed margin and parameter quantifiers remain open.
+
 ### Round 3 — parameter and margin closure (OPEN)
 
 Prove that the correction, finite zero prefix, orbit index, support radius,

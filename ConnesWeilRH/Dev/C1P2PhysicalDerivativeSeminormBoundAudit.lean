@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1P2PhysicalDerivativeSeminormBound
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1P2PhysicalDerivativeSeminormBoundAudit
+
+open C1P2PhysicalDerivativeSeminormBound
+
+#print axioms source_combination_derivative_seminorm_le_coeff_weighted_sum
+
+end C1P2PhysicalDerivativeSeminormBoundAudit
+end Source
+end ConnesWeilRH
