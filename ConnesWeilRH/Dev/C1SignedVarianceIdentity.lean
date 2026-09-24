@@ -212,6 +212,119 @@ theorem exists_pos_lambda_quadratic_neg_of_bipartite_variance_gap
     exact finite_signed_variance_bipartite_neg s₁ s₂ hdisj c p hgap
   exact exists_pos_lambda_quadratic_neg_of_det_neg hC hB hdet
 
+/-- Macro-atom variance bound: whenever internal oscillations on `s₁` and `s₂` are bounded
+by `M₁` and `M₂`, while pairwise differences across `s₁ × s₂` are bounded below by `G`,
+the aggregate oscillation condition implies strict negativity of the variance determinant. -/
+theorem finite_signed_variance_bipartite_bound_neg
+    {α : Type*} [DecidableEq α] (s₁ s₂ : Finset α) (hdisj : Disjoint s₁ s₂)
+    (c p : α → ℝ)
+    (hc₁ : ∀ i ∈ s₁, 0 ≤ c i)
+    (hc₂ : ∀ j ∈ s₂, c j ≤ 0)
+    (M₁ M₂ G : ℝ)
+    (hM₁ : ∀ i ∈ s₁, ∀ i' ∈ s₁, (p i - p i') ^ 2 ≤ M₁)
+    (hM₂ : ∀ j ∈ s₂, ∀ j' ∈ s₂, (p j - p j') ^ 2 ≤ M₂)
+    (hG : ∀ i ∈ s₁, ∀ j ∈ s₂, G ≤ (p i - p j) ^ 2)
+    (hdom :
+      (1 / 2 : ℝ) * M₁ * (∑ i ∈ s₁, c i) ^ 2 +
+      (1 / 2 : ℝ) * M₂ * (∑ j ∈ s₂, -c j) ^ 2 <
+      G * (∑ i ∈ s₁, c i) * (∑ j ∈ s₂, -c j)) :
+    (∑ i ∈ s₁ ∪ s₂, c i * p i ^ 2) * (∑ i ∈ s₁ ∪ s₂, c i) -
+        (∑ i ∈ s₁ ∪ s₂, c i * p i) ^ 2 < 0 := by
+  have hterm1 : ∀ i ∈ s₁, ∀ j ∈ s₁, c i * c j * (p i - p j) ^ 2 ≤ c i * c j * M₁ := by
+    intro i hi j hj
+    have hpos : 0 ≤ c i * c j := mul_nonneg (hc₁ i hi) (hc₁ j hj)
+    exact mul_le_mul_of_nonneg_left (hM₁ i hi j hj) hpos
+  have hsum1 : (∑ i ∈ s₁, ∑ j ∈ s₁, c i * c j * (p i - p j) ^ 2) ≤
+      M₁ * (∑ i ∈ s₁, c i) ^ 2 := by
+    calc
+      (∑ i ∈ s₁, ∑ j ∈ s₁, c i * c j * (p i - p j) ^ 2) ≤
+          ∑ i ∈ s₁, ∑ j ∈ s₁, c i * c j * M₁ :=
+        Finset.sum_le_sum fun i hi => Finset.sum_le_sum fun j hj => hterm1 i hi j hj
+      _ = (∑ i ∈ s₁, ∑ j ∈ s₁, c i * c j) * M₁ := by
+        simp_rw [← Finset.sum_mul]
+      _ = M₁ * (∑ i ∈ s₁, c i) ^ 2 := by
+        rw [← Finset.sum_mul_sum, pow_two]
+        ring
+  have hterm2 : ∀ i ∈ s₂, ∀ j ∈ s₂, c i * c j * (p i - p j) ^ 2 ≤ (-c i) * (-c j) * M₂ := by
+    intro i hi j hj
+    have hpos : 0 ≤ (-c i) * (-c j) :=
+      mul_nonneg (neg_nonneg.mpr (hc₂ i hi)) (neg_nonneg.mpr (hc₂ j hj))
+    have heq : c i * c j = (-c i) * (-c j) := by ring
+    rw [heq]
+    exact mul_le_mul_of_nonneg_left (hM₂ i hi j hj) hpos
+  have hsum2 : (∑ i ∈ s₂, ∑ j ∈ s₂, c i * c j * (p i - p j) ^ 2) ≤
+      M₂ * (∑ j ∈ s₂, -c j) ^ 2 := by
+    calc
+      (∑ i ∈ s₂, ∑ j ∈ s₂, c i * c j * (p i - p j) ^ 2) ≤
+          ∑ i ∈ s₂, ∑ j ∈ s₂, (-c i) * (-c j) * M₂ :=
+        Finset.sum_le_sum fun i hi => Finset.sum_le_sum fun j hj => hterm2 i hi j hj
+      _ = (∑ i ∈ s₂, ∑ j ∈ s₂, (-c i) * (-c j)) * M₂ := by
+        simp_rw [← Finset.sum_mul]
+      _ = M₂ * (∑ j ∈ s₂, -c j) ^ 2 := by
+        rw [← Finset.sum_mul_sum, pow_two]
+        ring
+  have hterm3 : ∀ i ∈ s₁, ∀ j ∈ s₂, c i * (-c j) * G ≤ c i * (-c j) * (p i - p j) ^ 2 := by
+    intro i hi j hj
+    have hpos : 0 ≤ c i * (-c j) :=
+      mul_nonneg (hc₁ i hi) (neg_nonneg.mpr (hc₂ j hj))
+    exact mul_le_mul_of_nonneg_left (hG i hi j hj) hpos
+  have hsum3 : G * (∑ i ∈ s₁, c i) * (∑ j ∈ s₂, -c j) ≤
+      ∑ i ∈ s₁, ∑ j ∈ s₂, c i * (-c j) * (p i - p j) ^ 2 := by
+    calc
+      G * (∑ i ∈ s₁, c i) * (∑ j ∈ s₂, -c j) =
+          (∑ i ∈ s₁, ∑ j ∈ s₂, c i * (-c j)) * G := by
+        rw [← Finset.sum_mul_sum]
+        ring
+      _ = ∑ i ∈ s₁, ∑ j ∈ s₂, c i * (-c j) * G := by
+        simp_rw [← Finset.sum_mul]
+      _ ≤ ∑ i ∈ s₁, ∑ j ∈ s₂, c i * (-c j) * (p i - p j) ^ 2 :=
+        Finset.sum_le_sum fun i hi => Finset.sum_le_sum fun j hj => hterm3 i hi j hj
+  have hgap :
+      (1 / 2 : ℝ) * (∑ i ∈ s₁, ∑ j ∈ s₁, c i * c j * (p i - p j) ^ 2) +
+      (1 / 2 : ℝ) * (∑ i ∈ s₂, ∑ j ∈ s₂, c i * c j * (p i - p j) ^ 2) <
+      ∑ i ∈ s₁, ∑ j ∈ s₂, c i * (-c j) * (p i - p j) ^ 2 := by
+    calc
+      (1 / 2 : ℝ) * (∑ i ∈ s₁, ∑ j ∈ s₁, c i * c j * (p i - p j) ^ 2) +
+      (1 / 2 : ℝ) * (∑ i ∈ s₂, ∑ j ∈ s₂, c i * c j * (p i - p j) ^ 2) ≤
+          (1 / 2 : ℝ) * (M₁ * (∑ i ∈ s₁, c i) ^ 2) +
+          (1 / 2 : ℝ) * (M₂ * (∑ j ∈ s₂, -c j) ^ 2) :=
+        add_le_add
+          (mul_le_mul_of_nonneg_left hsum1 (by norm_num))
+          (mul_le_mul_of_nonneg_left hsum2 (by norm_num))
+      _ = (1 / 2 : ℝ) * M₁ * (∑ i ∈ s₁, c i) ^ 2 +
+          (1 / 2 : ℝ) * M₂ * (∑ j ∈ s₂, -c j) ^ 2 := by ring
+      _ < G * (∑ i ∈ s₁, c i) * (∑ j ∈ s₂, -c j) := hdom
+      _ ≤ ∑ i ∈ s₁, ∑ j ∈ s₂, c i * (-c j) * (p i - p j) ^ 2 := hsum3
+  exact finite_signed_variance_bipartite_neg s₁ s₂ hdisj c p hgap
+
+/-- Master macro-atom gate certificate: bounds on positive/negative internal oscillations
+and cross separation yield a strictly positive coefficient with strictly negative span gate. -/
+theorem exists_pos_lambda_quadratic_neg_of_macro_atom_bounds
+    {α : Type*} [DecidableEq α] (s₁ s₂ : Finset α) (hdisj : Disjoint s₁ s₂)
+    (c p : α → ℝ)
+    (hc₁ : ∀ i ∈ s₁, 0 ≤ c i)
+    (hc₂ : ∀ j ∈ s₂, c j ≤ 0)
+    (M₁ M₂ G : ℝ)
+    (hM₁ : ∀ i ∈ s₁, ∀ i' ∈ s₁, (p i - p i') ^ 2 ≤ M₁)
+    (hM₂ : ∀ j ∈ s₂, ∀ j' ∈ s₂, (p j - p j') ^ 2 ≤ M₂)
+    (hG : ∀ i ∈ s₁, ∀ j ∈ s₂, G ≤ (p i - p j) ^ 2)
+    (hC : 0 < ∑ i ∈ s₁ ∪ s₂, c i)
+    (hB : 0 < 2 * ∑ i ∈ s₁ ∪ s₂, c i * p i)
+    (hdom :
+      (1 / 2 : ℝ) * M₁ * (∑ i ∈ s₁, c i) ^ 2 +
+      (1 / 2 : ℝ) * M₂ * (∑ j ∈ s₂, -c j) ^ 2 <
+      G * (∑ i ∈ s₁, c i) * (∑ j ∈ s₂, -c j)) :
+    ∃ lam : ℝ, 0 < lam ∧
+      (∑ i ∈ s₁ ∪ s₂, c i * p i ^ 2) - lam * (2 * ∑ i ∈ s₁ ∪ s₂, c i * p i) +
+        lam ^ 2 * (∑ i ∈ s₁ ∪ s₂, c i) < 0 := by
+  have hdet :
+      (∑ i ∈ s₁ ∪ s₂, c i * p i ^ 2) * (∑ i ∈ s₁ ∪ s₂, c i) -
+        ((2 * ∑ i ∈ s₁ ∪ s₂, c i * p i) / 2) ^ 2 < 0 := by
+    have hhalf : (2 * ∑ i ∈ s₁ ∪ s₂, c i * p i) / 2 = ∑ i ∈ s₁ ∪ s₂, c i * p i := by ring
+    rw [hhalf]
+    exact finite_signed_variance_bipartite_bound_neg s₁ s₂ hdisj c p hc₁ hc₂ M₁ M₂ G hM₁ hM₂ hG hdom
+  exact exists_pos_lambda_quadratic_neg_of_det_neg hC hB hdet
+
 end C1SignedVarianceIdentity
 end Source
 end ConnesWeilRH

@@ -13,6 +13,8 @@ open C1SignedVarianceIdentity
 #print axioms finite_signed_variance_bipartite_identity
 #print axioms finite_signed_variance_bipartite_neg
 #print axioms exists_pos_lambda_quadratic_neg_of_bipartite_variance_gap
+#print axioms finite_signed_variance_bipartite_bound_neg
+#print axioms exists_pos_lambda_quadratic_neg_of_macro_atom_bounds
 
 end C1SignedVarianceIdentityAudit
 end Source

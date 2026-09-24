@@ -452,6 +452,9 @@ negative mass, and unequal profile values imply a negative determinant.
 Record 1949 formally proves the general bipartite variance-gap decomposition
 and negativity criterion, wiring cross-gap domination directly to the
 strictly negative vertex span gate quadratic.
+Record 1950 establishes the macro-atom variance bound (`finite_signed_variance_bipartite_bound_neg`,
+`exists_pos_lambda_quadratic_neg_of_macro_atom_bounds`), reducing the gate determinant
+negativity to coarse-grained oscillation bounds and cross separation.
 Record 1944 formally aggregates the actual span owner's finite visible
 prime sum into the four same-owner physical channels, in both bilateral and
 direct-integral form. This removes the opaque finite-prime aggregate but does
