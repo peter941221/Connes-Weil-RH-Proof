@@ -129,9 +129,14 @@ jobs), with standard axioms only and no `sorryAx`; see
 
 The signed margin itself is still open. The remaining analytic target is now
 exactly `archimedeanTerm + integral(actualAggregate) <= -epsilon`, with no
-separate derivative-residual premise. The old API underdetermination is
-recorded for history in
-[1923](../proofs/1923_route_a_round2_current_api_underdetermination.md).
+separate derivative-residual premise. A final audit shows that the new
+derivative seminorm is finite but has no uniform bound tied to the interpolation
+data or to the Archimedean term. Together with the existing finite-node physical
+separation theorem, this gives the scoped stop result
+`NO-GO-A2-FINAL-SIGN-CURRENT-SELECTOR`: the current classical selector and its
+stored derivative cost do not determine the signed aggregate margin. This is a
+no-go for the current selector API, not for a new variational or
+sign-constrained selector. See [1926](../proofs/1926_route_a_final_sign_current_selector_no_go.md).
 
 ### Round 3 — parameter and margin closure (OPEN)
 
@@ -163,5 +168,5 @@ finite sum using the selected owner's exact visible set. Such a failure would
 stop this lane and be recorded as a named no-go; merely adding another wrapper
 would not count as progress.
 
-Evidence level: FORMAL for Round 1; PARTIAL FORMAL for Round 2; PROJECT
-CANDIDATE/OPEN for Rounds 3–4.
+Evidence level: FORMAL for Round 1; PARTIAL FORMAL plus scoped final-sign
+NO-GO for Round 2; PROJECT CANDIDATE/OPEN for Rounds 3–4.

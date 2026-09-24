@@ -69,7 +69,8 @@ Two equivalent attack lanes remain admissible:
 - [104](104_route_a_four_round_campaign.md): active four-round execution plan;
   Round 1 exact selected-owner finite-profile readback and Round 2's
   derivative-controlled selector / exact aggregate-residual reduction are
-  formal; the final signed margin remains open.
+  formal; the current selector has a scoped no-go for supplying the final
+  signed margin.
 
 This lane must prove an unconditional signed inequality on the actual selected
 detector and its actual finite visible-prime set. Channelwise absolute
