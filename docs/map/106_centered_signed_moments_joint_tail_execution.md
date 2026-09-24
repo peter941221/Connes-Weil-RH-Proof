@@ -406,3 +406,43 @@ Status: the seed derivative constant is now optimal for the committed budget
 shape, so this sub-chain is closed pending only the shifted-product recurrence
 constants and the node-product constants that multiply the base, the strip
 contraction, and the numeric `cardinalRaw` budget at a concrete node set.
+
+## 19. The derivative ladder for shifted products (1970)
+
+Section 18's status line named the shifted-product recurrence constants as the
+next obligation. Writing them down exposes why they cannot be a single number:
+the committed `shiftedProductL1Bound` feeds `derivativeL1 (shiftedProduct as f)`
+back into its own recursion, so the step for a suffix asks for the derivative
+budget of that suffix and never closes on the seed. The honest recursion needs
+one number per derivative order, and those numbers are the masses of the
+iterated derivatives of the seed:
+
+    derivOrderL1 m f = ∫ x, norm (iteratedDeriv m (f.test) x),
+
+which starts at `l1Mass` (`m = 0`) and meets the committed `derivativeL1` at
+`m = 1`. One shift raises the order — `iteratedDeriv m ((derivativeShift f a).test) x
+= iteratedDeriv (m + 1) (f.test) x + a * iteratedDeriv m (f.test) x`
+(`iteratedDeriv_derivativeShift_apply`) — hence
+`derivOrderL1 m (derivativeShift f a) <= derivOrderL1 (m + 1) f + norm a * derivOrderL1 m f`
+(`derivOrderL1_derivativeShift_le`), the committed shift step one order up. The
+ladder budget `L m` for `[]` and `L (m + 1) + norm a * L m` for `a :: as` is
+nonnegative for nonnegative `L` and majorizes every shifted product at every
+order (`derivOrderL1_shiftedProduct_le`), and its `m = 0` case is delivered both
+directly and through the committed consumer `l1Mass_shifted_product_le_of_budget`
+(`l1Mass_shiftedProduct_le_of_ladder`), whose step condition is the recursion
+itself. For a one-node list the budget is exactly the committed
+`l1Mass_derivativeShift_le`, so the ladder extends the committed interface
+rather than replacing it. The order-`m` form of the support-times-sup budget
+(`derivOrderL1_le_of_support_of_norm_le`) converts each ladder value into a
+`(2 * B) * M` pair, with the committed order-one form's `0 <= M` hypothesis
+dropped as redundant. Record: `docs/proofs/1970_derivative_ladder.md`; build log
+`build-logs/1970_derivative_ladder.log` (3641 jobs, zero errors, no warnings in
+the two new modules, all 13 declarations on the standard three axioms).
+
+Status: the shifted-product recurrence constants are now a named ladder — the
+masses `derivOrderL1 j smoothSeed` for `j <= m + |nodes|` at order `m`, each
+convertible to a `(2 * B) * M` pair — and no number is chosen yet. The open
+obligations are the numerical ladder values at a concrete node set, the
+node-product constants, the strip contraction, and then the numeric
+`cardinalRaw` budget, the correction quadratic margin, the signed determinant
+and the joint tail margin.

@@ -1,0 +1,19 @@
+import ConnesWeilRH.Dev.C1ExplicitDerivativeLadder
+
+namespace ConnesWeilRH.Source.C1ExplicitFiniteNodeCorrection
+
+#print axioms derivOrderL1_zero
+#print axioms derivOrderL1_one
+#print axioms derivOrderL1_nonneg
+#print axioms contDiff_iteratedDeriv
+#print axioms hasCompactSupport_iteratedDeriv
+#print axioms iteratedDeriv_integrable
+#print axioms iteratedDeriv_derivativeShift_apply
+#print axioms derivOrderL1_derivativeShift_le
+#print axioms ladderBound_nonneg
+#print axioms derivOrderL1_shiftedProduct_le
+#print axioms l1Mass_shiftedProduct_le_ladder
+#print axioms l1Mass_shiftedProduct_le_of_ladder
+#print axioms derivOrderL1_le_of_support_of_norm_le
+
+end ConnesWeilRH.Source.C1ExplicitFiniteNodeCorrection
