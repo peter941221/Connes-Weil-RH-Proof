@@ -359,3 +359,24 @@ Status: the sign side of section 2 is demonstrably reachable, the quantitative
 side (section 2 tail budget, `beta_s * L_n < multiplicity_rho * lambda_n^2`
 with `lambda_n ~ 2.3e+03..5.9e+03`) is untouched, and no gate sign, determinant
 sign or RH claim is made.
+
+## 17. Explicit seed derivative constant (1968)
+
+The last named blocker of the explicit-seed chain is now closed: the transition
+function has the exact derivative `uv (a^2 + b^2) / (u + v)^2` with a pointwise
+constant that is sharp (`norm (deriv smoothTransition x) <= 2`, attained at
+`x = 1/2`), the committed seed inherits `norm (deriv smoothSeedRaw x) <= 4`
+through the product rule (the true supremum is `2`: the two derivative factors
+have disjoint active windows, so the region split is the named sharpening), the
+complex and `CompactLogTest` wrappers carry the same constant, the derivative
+support stays in `[-2,2]`, and the committed
+`derivativeL1_le_of_support_of_norm_le` returns `derivativeL1 smoothSeed <= 16`.
+Record: `docs/proofs/1968_smooth_seed_derivative_value.md`; build log
+`build-logs/1968_smoothseed_derivative_value.log` (3645 jobs, zero errors, no
+warnings in the two new modules, all 14 declarations on the standard three
+axioms).
+
+Status: the base of the explicit-seed budget chain is CLOSED. The next
+obligations are the shifted-product recurrence constants and the node-product
+constants that multiply this base, the strip contraction, and then the numeric
+`cardinalRaw` budget at a concrete node set.

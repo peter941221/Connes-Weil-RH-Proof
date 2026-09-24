@@ -1,0 +1,20 @@
+import ConnesWeilRH.Dev.C1ExplicitSmoothSeedDerivativeValue
+
+namespace ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms cosh_sinh_bound
+#print axioms exp_pair_bound
+#print axioms pair_bound_of_shifted_one
+#print axioms hasDerivAt_expNegInvGlue
+#print axioms hasDerivAt_smoothTransition
+#print axioms deriv_smoothTransition
+#print axioms norm_deriv_smoothTransition_le_two
+#print axioms hasDerivAt_smoothSeedRaw
+#print axioms norm_deriv_smoothSeedRaw_le_four
+#print axioms norm_deriv_smoothSeedComplex_le_four
+#print axioms smoothSeed_test_deriv_eq
+#print axioms norm_deriv_smoothSeed_test_le_four
+#print axioms support_deriv_smoothSeed_test_subset
+#print axioms derivativeL1_smoothSeed_le_sixteen
+
+end ConnesWeilRH.Source.C1ExplicitSmoothSeed
