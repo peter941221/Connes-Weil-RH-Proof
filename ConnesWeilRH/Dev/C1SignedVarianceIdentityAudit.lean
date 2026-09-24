@@ -15,6 +15,9 @@ open C1SignedVarianceIdentity
 #print axioms exists_pos_lambda_quadratic_neg_of_bipartite_variance_gap
 #print axioms finite_signed_variance_bipartite_bound_neg
 #print axioms exists_pos_lambda_quadratic_neg_of_macro_atom_bounds
+#print axioms bipartite_variance_mean_gap_identity
+#print axioms exists_pos_lambda_quadratic_neg_of_mean_gap_condition
+#print axioms exists_pos_lambda_quadratic_neg_of_sufficient_mean_gap
 
 end C1SignedVarianceIdentityAudit
 end Source

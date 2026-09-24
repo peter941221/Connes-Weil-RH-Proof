@@ -455,6 +455,14 @@ strictly negative vertex span gate quadratic.
 Record 1950 establishes the macro-atom variance bound (`finite_signed_variance_bipartite_bound_neg`,
 `exists_pos_lambda_quadratic_neg_of_macro_atom_bounds`), reducing the gate determinant
 negativity to coarse-grained oscillation bounds and cross separation.
+Record 1952 formally proves the bipartite ANOVA mean gap identity
+(`bipartite_variance_mean_gap_identity`), decomposing the gate determinant into
+the strictly negative mean gap squared and weighted variance difference, reproducing
+the Record 1919 continuous identity. It formalizes master quadratic negativity
+certificates (`exists_pos_lambda_quadratic_neg_of_mean_gap_condition`,
+`exists_pos_lambda_quadratic_neg_of_sufficient_mean_gap`) and wires the condition
+directly to the healthy detector owner and spectral prefix bound
+(`exists_pos_lambda_gate_and_prefix_of_mean_gap_condition`).
 Record 1944 formally aggregates the actual span owner's finite visible
 prime sum into the four same-owner physical channels, in both bilateral and
 direct-integral form. This removes the opaque finite-prime aggregate but does

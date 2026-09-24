@@ -325,6 +325,61 @@ theorem exists_pos_lambda_quadratic_neg_of_macro_atom_bounds
     exact finite_signed_variance_bipartite_bound_neg s₁ s₂ hdisj c p hc₁ hc₂ M₁ M₂ G hM₁ hM₂ hG hdom
   exact exists_pos_lambda_quadratic_neg_of_det_neg hC hB hdet
 
+/-- Bipartite ANOVA mean gap identity:
+the signed variance determinant decomposes exactly into the mean gap squared
+and the weighted variance difference. -/
+theorem bipartite_variance_mean_gap_identity
+    (C₁ C₂ p₁_bar p₂_bar var₁ var₂ : ℝ) :
+    (C₁ * p₁_bar - C₂ * p₂_bar) ^ 2 -
+      (C₁ - C₂) * (C₁ * (var₁ + p₁_bar ^ 2) - C₂ * (var₂ + p₂_bar ^ 2)) =
+    C₁ * C₂ * (p₁_bar - p₂_bar) ^ 2 + (C₁ - C₂) * (C₂ * var₂ - C₁ * var₁) := by
+  ring
+
+/-- Master gate quadratic negativity from the bipartite mean gap condition:
+positive net mass, positive linear coefficient, and positive mean gap plus
+variance surplus yield a strictly positive coefficient with strictly negative gate. -/
+theorem exists_pos_lambda_quadratic_neg_of_mean_gap_condition
+    (C₁ C₂ p₁_bar p₂_bar var₁ var₂ : ℝ)
+    (hC : 0 < C₁ - C₂)
+    (hB : 0 < 2 * (C₁ * p₁_bar - C₂ * p₂_bar))
+    (hgap : 0 < C₁ * C₂ * (p₁_bar - p₂_bar) ^ 2 + (C₁ - C₂) * (C₂ * var₂ - C₁ * var₁)) :
+    ∃ lam : ℝ, 0 < lam ∧
+      (C₁ * (var₁ + p₁_bar ^ 2) - C₂ * (var₂ + p₂_bar ^ 2)) -
+        lam * (2 * (C₁ * p₁_bar - C₂ * p₂_bar)) +
+        lam ^ 2 * (C₁ - C₂) < 0 := by
+  have hdet :
+      (C₁ * (var₁ + p₁_bar ^ 2) - C₂ * (var₂ + p₂_bar ^ 2)) * (C₁ - C₂) -
+        ((2 * (C₁ * p₁_bar - C₂ * p₂_bar)) / 2) ^ 2 < 0 := by
+    have hhalf : (2 * (C₁ * p₁_bar - C₂ * p₂_bar)) / 2 = C₁ * p₁_bar - C₂ * p₂_bar := by ring
+    rw [hhalf]
+    have hid := bipartite_variance_mean_gap_identity C₁ C₂ p₁_bar p₂_bar var₁ var₂
+    linarith
+  exact exists_pos_lambda_quadratic_neg_of_det_neg hC hB hdet
+
+/-- Sufficient mean gap condition: when C₁ > C₂, the negative cluster variance
+term is nonpositive in det, so positive mean gap dominating positive cluster variance
+alone guarantees strict negativity. -/
+theorem exists_pos_lambda_quadratic_neg_of_sufficient_mean_gap
+    (C₁ C₂ p₁_bar p₂_bar var₁ var₂ : ℝ)
+    (hC : 0 < C₁ - C₂)
+    (hC₂ : 0 ≤ C₂)
+    (hB : 0 < 2 * (C₁ * p₁_bar - C₂ * p₂_bar))
+    (hvar₂ : 0 ≤ var₂)
+    (hsuff : (C₁ - C₂) * (C₁ * var₁) < C₁ * C₂ * (p₁_bar - p₂_bar) ^ 2) :
+    ∃ lam : ℝ, 0 < lam ∧
+      (C₁ * (var₁ + p₁_bar ^ 2) - C₂ * (var₂ + p₂_bar ^ 2)) -
+        lam * (2 * (C₁ * p₁_bar - C₂ * p₂_bar)) +
+        lam ^ 2 * (C₁ - C₂) < 0 := by
+  have hgap : 0 < C₁ * C₂ * (p₁_bar - p₂_bar) ^ 2 + (C₁ - C₂) * (C₂ * var₂ - C₁ * var₁) := by
+    have hsurplus : 0 ≤ (C₁ - C₂) * (C₂ * var₂) :=
+      mul_nonneg (le_of_lt hC) (mul_nonneg hC₂ hvar₂)
+    calc
+      0 < C₁ * C₂ * (p₁_bar - p₂_bar) ^ 2 - (C₁ - C₂) * (C₁ * var₁) := by linarith
+      _ ≤ C₁ * C₂ * (p₁_bar - p₂_bar) ^ 2 - (C₁ - C₂) * (C₁ * var₁) + (C₁ - C₂) * (C₂ * var₂) := by
+        linarith
+      _ = C₁ * C₂ * (p₁_bar - p₂_bar) ^ 2 + (C₁ - C₂) * (C₂ * var₂ - C₁ * var₁) := by ring
+  exact exists_pos_lambda_quadratic_neg_of_mean_gap_condition C₁ C₂ p₁_bar p₂_bar var₁ var₂ hC hB hgap
+
 end C1SignedVarianceIdentity
 end Source
 end ConnesWeilRH
