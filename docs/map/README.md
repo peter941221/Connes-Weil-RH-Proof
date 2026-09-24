@@ -79,6 +79,8 @@ sign do not close it.
 
 ### B. Phase-balanced two-span spectral contradiction
 
+Current execution priority is the same-span four-point subcampaign in [103](103_four_point_same_span_three_cut_campaign.md), because its parabola, prefix, and tail infrastructure are formal and its remaining gate obligation is an explicit aggregate determinant inequality. This is a priority choice, not a new binding route ruling.
+
 - [090](090_finite_index_pinning_and_frozen_prime_domain.md): finite owner and
   pinned orbit.
 - [091](091_two_span_sign_balancing_closed.md): semi-local nonnegative span.

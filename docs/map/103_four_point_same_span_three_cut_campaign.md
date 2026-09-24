@@ -140,6 +140,14 @@ acceptance reduces to an `n`-selection with every factor explicit on that
 family. This is probe evidence on a committed-class family, not a statement
 about the selected owner.
 
+## Current priority
+
+Record [1932](../proofs/1932_four_point_span_route_priority_and_first_attack.md)
+selects this same-span campaign as the primary attack. Route A remains a
+valid direct RH producer, but its negative gate on the actual healthy owner is
+already the contradiction theorem itself, not an independent preparatory
+witness step.
+
 ## Cut 2: prove the gate on the same span
 
 For real `lambda`, write the actual gate entries on `u` and `g` as
