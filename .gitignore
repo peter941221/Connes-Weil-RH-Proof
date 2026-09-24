@@ -7,6 +7,9 @@ plan/
 *.ilean
 *.trace
 *.log
+# local-only build evidence: the logs (matched above) plus scratch chunks,
+# probe files, and builder scripts that reference local absolute paths
+build-logs/
 __pycache__/
 *.py[cod]
 
