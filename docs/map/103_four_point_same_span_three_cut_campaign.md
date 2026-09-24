@@ -333,6 +333,10 @@ the n=2 contribution is `log(2)/sqrt(2)` times the real bilateral profile
 at `log(2)`, and is negative exactly when that owner-specific profile is
 negative. The next non-interface obligation is therefore a strict bound for
 this physical sample together with the erased owner-specific remainder.
+The physical readback is formal as well: the sample is exactly the real part
+of the selected owner's `orbitPhysicalKernel` at `log 2`, with a positive
+factor. The live analytic target is now an explicit physical-kernel sample
+plus its finite actual-owner remainder.
 
 together with the positive cross sum, on the selected healthy detector (under
 the cross-term symmetry this is exactly the probe's

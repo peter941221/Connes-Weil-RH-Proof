@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 import ConnesWeilRH.Dev.C1G8R0OrbitGeometry
 import ConnesWeilRH.Dev.C1P2BilateralProfile
+import ConnesWeilRH.Dev.C1P2OrbitPhysicalProfileReadback
 
 /-!
 # Owner-preserving prime-prefix reduction for the four-point gate
@@ -25,6 +26,7 @@ namespace C1FourPointPrimePrefixReduction
 
 open C1SameOwnerWeil
 open C1P2BilateralProfile
+open C1P2OrbitPhysicalProfileReadback
 open CC20YoshidaConvolution
 open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
@@ -115,6 +117,40 @@ theorem finitePrimeTerm_two_neg_iff_profile_at_log_two_neg
     exact (not_lt_of_ge (mul_nonneg (le_of_lt hcoef) hprofile)) hterm
   · intro hprofile
     exact mul_neg_of_pos_of_neg hcoef hprofile
+
+theorem finitePrimeTerm_two_eq_orbitPhysicalKernel_re
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    finitePrimeTerm g.convolutionSquare 2 =
+      ArithmeticFunction.vonMangoldt 2 * (1 / Real.sqrt (2 : Real)) *
+        (2 * (orbitPhysicalKernel geometry (Real.log 2)).re) := by
+  exact finitePrimeTerm_eq_orbitPhysicalKernel_re geometry 2
+
+theorem finitePrimeTerm_two_neg_iff_orbitPhysicalKernel_re_neg
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    finitePrimeTerm g.convolutionSquare 2 < 0 ↔
+      (orbitPhysicalKernel geometry (Real.log 2)).re < 0 := by
+  rw [finitePrimeTerm_two_eq_orbitPhysicalKernel_re geometry]
+  rw [ArithmeticFunction.vonMangoldt_apply_prime Nat.prime_two]
+  have hshape : Real.log 2 * (1 / Real.sqrt (2 : Real)) *
+      (2 * (orbitPhysicalKernel geometry (Real.log 2)).re) =
+      (Real.log 2 * (1 / Real.sqrt (2 : Real)) * 2) *
+        (orbitPhysicalKernel geometry (Real.log 2)).re := by ring
+  change (Real.log (2 : Real) * (1 / Real.sqrt (2 : Real)) *
+      (2 * (orbitPhysicalKernel geometry (Real.log (2 : Real))).re)) < 0 ↔
+    (orbitPhysicalKernel geometry (Real.log (2 : Real))).re < 0
+  rw [hshape]
+  have hcoef : 0 < Real.log 2 * (1 / Real.sqrt (2 : Real)) * 2 := by
+    positivity
+  constructor
+  · intro hterm
+    by_contra hnot
+    have hkernel : 0 ≤ (orbitPhysicalKernel geometry (Real.log 2)).re :=
+      le_of_not_gt hnot
+    exact (not_lt_of_ge (mul_nonneg (le_of_lt hcoef) hkernel)) hterm
+  · intro hkernel
+    exact mul_neg_of_pos_of_neg hcoef hkernel
 
 theorem finitePrimeSum_eq_two_term_add_orbit_range_remainder
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}

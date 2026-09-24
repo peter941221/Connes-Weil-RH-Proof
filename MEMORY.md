@@ -1004,3 +1004,4 @@ at the gate; law F30; P1/P2 two-brick program (both now paid).
 2026-09-24 C1FourPointPrimePrefixReduction : strengthened the split to the actual OrbitG8 finite range, so the algebraic n=2 prefix decomposition no longer assumes visibility; only a strict sign lower bound for that term needs visibility.
 2026-09-24 C1FourPointPrimePrefixReduction : formally removed the residual cutoff-bound premise too; every OrbitG8 range contains n=2, so the fixed-prefix plus actual-owner remainder identity is unconditional.
 2026-09-24 C1FourPointPrimePrefixReduction : reduced the fixed n=2 term exactly to `log(2)/sqrt(2)` times the actual owner's bilateral profile at `log(2)`; strict negativity is equivalent to that single physical sample being negative.
+2026-09-24 C1FourPointPrimePrefixReduction : added the same-owner physical readback; n=2 negativity is equivalent to `Re(orbitPhysicalKernel geometry (log 2)) < 0`, with no ambient-owner substitution.

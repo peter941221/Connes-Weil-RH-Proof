@@ -56,6 +56,12 @@ Because `log(2) / sqrt(2) > 0`, this term is strictly negative exactly when
 the actual owner's bilateral profile is strictly negative at `log 2`. This is
 the next concrete analytic target for the selected owner.
 
+The same equivalence is now read back through the actual physical kernel:
+the n=2 term is strictly negative exactly when the real part of
+`orbitPhysicalKernel geometry (log 2)` is strictly negative. This uses the
+committed same-owner convolution readback, so it introduces no replacement
+owner or ambient test.
+
 This record is a formal algebraic reduction, not a determinant sign proof and
 not an RH claim.
 
