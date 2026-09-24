@@ -347,6 +347,13 @@ quantitative reduction; the majorant may still be too loose and no gate sign
 is claimed. The final 1938 theorem sharpens it by subtracting the overlap
 majorant's own n=2 contribution, since that node is already retained exactly.
 
+Record 1939 now removes the absolute-value loss from the live formulation:
+the same actual-owner range is exactly n=2 plus an erased sum of positive
+physical integrals minus negative physical integrals. This is FORMAL and is
+the next producer-facing target. The overlap majorant remains only a guard;
+the strict proof must exploit the signed erased remainder, consistently with
+the scoped scalar-majorant no-go in map 093.
+
 together with the positive cross sum, on the selected healthy detector (under
 the cross-term symmetry this is exactly the probe's
 `D*C - B01^2 < 0`, and by record 1919 equivalently the variance-gap /

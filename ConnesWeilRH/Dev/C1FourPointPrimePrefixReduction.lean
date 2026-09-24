@@ -6,6 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 import ConnesWeilRH.Dev.C1G8R0OrbitGeometry
 import ConnesWeilRH.Dev.C1P2BilateralProfile
 import ConnesWeilRH.Dev.C1P2OrbitPhysicalProfileReadback
+import ConnesWeilRH.Dev.C1P2OrbitPhysicalKernelIntegrandBounds
 import ConnesWeilRH.Dev.C1P2DirectSupportOverlapDecoupling
 import ConnesWeilRH.Dev.C1P2DirectChebyshevDecoupling
 
@@ -29,6 +30,7 @@ namespace C1FourPointPrimePrefixReduction
 open C1SameOwnerWeil
 open C1P2BilateralProfile
 open C1P2OrbitPhysicalProfileReadback
+open C1P2OrbitPhysicalKernelIntegrandBounds
 open C1P2DirectSupportOverlapDecoupling
 open C1P2DirectChebyshevDecoupling
 open C1P2SignedBudget
@@ -283,6 +285,25 @@ theorem finitePrimeSum_le_two_prefix_plus_overlap_minus_two_majorant
           2 * Real.exp (rawFactorSupportRadius geometry) *
             (rawFactorSeminorm geometry) ^ 2 *
             (ArithmeticFunction.vonMangoldt 2 / (2 : Real)) := by ring
+
+theorem finitePrimeSum_eq_two_term_add_erased_signed_physical_remainder
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    finitePrimeSum g.convolutionSquare =
+      finitePrimeTerm g.convolutionSquare 2 +
+        ∑ k ∈ (Finset.range
+          (Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1)).erase 2,
+          ArithmeticFunction.vonMangoldt k * (1 / Real.sqrt (k : Real)) *
+            (2 * ((∫ t, orbitPositiveIntegrandMajorant geometry k t) -
+              ∫ t, orbitNegativeIntegrandMajorant geometry k t)) := by
+  rw [finitePrimeSum_eq_two_term_add_orbit_range_remainder_unconditional geometry]
+  apply congrArg (fun x => finitePrimeTerm g.convolutionSquare 2 + x)
+  apply Finset.sum_congr rfl
+  intro k hk
+  rw [finitePrimeTerm_eq_orbitPhysicalKernel_re geometry k]
+  have hnode := orbitPhysicalKernel_nodeTerm_eq_positive_sub_negative geometry k
+  rw [orbitPhysicalKernel_add_neg_re_eq_two_mul geometry (Real.log (k : Real))] at hnode
+  exact hnode
 
 end C1FourPointPrimePrefixReduction
 end Source
