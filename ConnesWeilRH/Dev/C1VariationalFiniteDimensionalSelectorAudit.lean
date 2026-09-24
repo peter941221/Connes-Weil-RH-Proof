@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1VariationalFiniteDimensionalSelector
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1VariationalFiniteDimensionalSelectorAudit
+
+open C1VariationalFiniteDimensionalSelector
+
+#print axioms exists_min_norm_preimage
+
+end C1VariationalFiniteDimensionalSelectorAudit
+end Source
+end ConnesWeilRH

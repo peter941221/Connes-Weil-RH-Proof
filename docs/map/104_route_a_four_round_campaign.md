@@ -138,6 +138,24 @@ stored derivative cost do not determine the signed aggregate margin. This is a
 no-go for the current selector API, not for a new variational or
 sign-constrained selector. See [1926](../proofs/1926_route_a_final_sign_current_selector_no_go.md).
 
+### Variational replacement — formal core, physical adaptation OPEN
+
+The next selector mechanism is now fixed precisely. The new leaf
+`C1VariationalFiniteDimensionalSelector.lean` proves that every affine fibre of
+a linear map from a finite-dimensional complex Hilbert space has a
+minimum-norm representative. This removes the arbitrary-representative choice
+from the finite Mellin interpolation stage and is audited with the standard
+axioms only; see [1927](../proofs/1927_variational_min_norm_affine_selector.md).
+
+The existing `windowedFiniteMellinVector_span_top` supplies the finite target
+span needed to instantiate this mechanism. It does not yet supply the physical
+source-basis quadratic form: the ordinary Hilbert norm is not being identified
+with the actual derivative seminorm. The live obligation is therefore smaller
+and explicit: extract a finite source basis and prove a positive quadratic
+derivative-cost bound whose minimizer controls the grouped residual from 1925.
+Until that bound exists, this is a formal selector core, not a signed-margin
+result.
+
 ### Round 3 — parameter and margin closure (OPEN)
 
 Prove that the correction, finite zero prefix, orbit index, support radius,
