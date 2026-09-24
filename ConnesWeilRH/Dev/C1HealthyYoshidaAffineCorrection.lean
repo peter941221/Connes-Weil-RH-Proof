@@ -1,5 +1,6 @@
 import ConnesWeilRH.Dev.C1HealthyYoshidaCorrectionFamily
 import ConnesWeilRH.Source.CC20YoshidaConstruction
+import ConnesWeilRH.Dev.C1VariationalFiniteDimensionalSelector
 
 /-!
 # C1HealthyYoshidaAffineCorrection - linear source-family layer
@@ -21,6 +22,7 @@ open CCM25Concrete.SelectedYoshidaBridge
 open CC20YoshidaNearZeros
 open CC20YoshidaInterpolationNode
 open CC20YoshidaInterpolationNode.CC20YoshidaExpandedMomentNode
+open C1VariationalFiniteDimensionalSelector
 
 noncomputable section
 
@@ -484,6 +486,36 @@ theorem sparseWindowedMellinCorrection_evaluation
   exact (Classical.choose_spec
     (exists_windowedMellin_source_sparse_coefficients
       nodes a b ha ha_one hone_b y)).2
+
+theorem exists_min_norm_on_sparse_source_support
+    (nodes : Finset Complex) (a b : Real)
+    (ha : 0 < a) (ha_one : a < 1) (hone_b : 1 < b)
+    (y : FiniteMellinNode nodes → Complex)
+    (c : WindowedPositiveIntervalCompactTest a b →₀ Complex)
+    (hc : windowedMellinEvaluationMap nodes a b ha ha_one hone_b c = y) :
+    ∃ d : EuclideanSpace Complex c.support,
+      (∑ v : c.support,
+        d v • windowedFiniteMellinVector nodes a b v.1) = y ∧
+      ∀ e : EuclideanSpace Complex c.support,
+        (∑ v : c.support,
+          e v • windowedFiniteMellinVector nodes a b v.1) = y →
+          ‖d‖ ≤ ‖e‖ := by
+  let c₀ : EuclideanSpace Complex c.support :=
+    WithLp.toLp 2 (fun v => c v.1)
+  have hc₀ :
+      (∑ v : c.support,
+        c₀ v • windowedFiniteMellinVector nodes a b v.1) = y := by
+    funext z
+    have hz := congrArg (fun q => q z) hc
+    change windowedMellinEvaluationMap nodes a b ha ha_one hone_b c z = y z at hz
+    rw [windowedMellinEvaluationMap_apply] at hz
+    have hz' :=
+      (Finset.sum_attach c.support
+        (fun x => c x * windowedFiniteMellinVector nodes a b x z)).trans hz
+    simpa [c₀, Finsupp.sum, smul_eq_mul] using hz'
+  exact exists_min_norm_euclidean_coefficient
+    (fun v : c.support => windowedFiniteMellinVector nodes a b v.1) y
+    ⟨c₀, hc₀⟩
 
 /-- A linear right inverse of the finite-node evaluation map.  Its existence
 uses only surjectivity and the projectivity of finite function spaces over the

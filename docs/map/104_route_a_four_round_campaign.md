@@ -171,9 +171,12 @@ The finite-basis minimization core is now formal in
 represented in `EuclideanSpace`, and every attainable Mellin target has a
 minimum-coefficient representative. See
 [1929](../proofs/1929_route_a_finite_basis_minimum_selector.md). The remaining
-source-specific instantiation must attach the existing sparse source support
-and derivative weights. The strict grouped-residual sign is still independent
-and open; no derivative upper bound is being treated as a sign proof.
+source-specific instantiation is now attached to the existing sparse source
+support by `exists_min_norm_on_sparse_source_support`; see
+[1930](../proofs/1930_route_a_sparse_support_selector_instantiation.md). The
+strict grouped-residual sign is still independent and open: minimum coefficient
+norm and derivative upper bounds do not imply a signed physical-kernel margin.
+No conditional sign statement is being promoted to a producer theorem.
 
 ### Round 3 — parameter and margin closure (OPEN)
 

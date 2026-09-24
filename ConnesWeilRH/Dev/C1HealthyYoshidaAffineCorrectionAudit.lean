@@ -23,6 +23,7 @@ open Source.C1HealthyYoshidaAffineCorrection
 #print axioms sparseWindowedMellinCorrection
 #print axioms sparseWindowedMellinCorrection_support_card
 #print axioms sparseWindowedMellinCorrection_evaluation
+#print axioms exists_min_norm_on_sparse_source_support
 #print axioms windowedMellinEvaluationMap_comp_rightInverse
 #print axioms affineResidualCorrection
 #print axioms affineResidualCorrection_support_subset
