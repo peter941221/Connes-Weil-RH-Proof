@@ -416,9 +416,11 @@ verification in record 1919; record 1943 now formally proves the finite
 signed-variance identity, but signed weights still give no automatic sign.
 Record 1943 also proves the strict two-atom certificate: positive mass,
 negative mass, and unequal profile values imply a negative determinant. The
-required same-owner physical grouping into those two channels is not yet
-proved. The actual-owner pairwise physical-kernel budget, joint margin, and
-cross-determinant inequality on the selected owner are PROJECT CANDIDATES
-until proved. This record changes
+Record 1944 now formally aggregates the actual span owner's finite visible
+prime sum into the four same-owner physical channels, in both bilateral and
+direct-integral form. This removes the opaque finite-prime aggregate but does
+not prove its signed margin. The actual-owner pairwise physical-kernel budget,
+joint margin, and cross-determinant inequality on the selected owner remain
+PROJECT CANDIDATES until proved. This record changes
 no binding route ruling and makes no RH claim. Preserve dated proof details and
 Lean/build/axiom evidence in `docs/proofs/` and `MEMORY.md` when a cut lands.

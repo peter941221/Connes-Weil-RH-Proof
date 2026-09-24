@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1FourPointAggregatePhysicalReadback
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1FourPointAggregatePhysicalReadbackAudit
+
+open C1FourPointAggregatePhysicalReadback
+
+#print axioms finitePrimeSum_twoSpan_eq_four_pair_profiles
+#print axioms finitePrimeSum_twoSpan_eq_four_pair_physical_integrals
+
+end C1FourPointAggregatePhysicalReadbackAudit
+end Source
+end ConnesWeilRH
