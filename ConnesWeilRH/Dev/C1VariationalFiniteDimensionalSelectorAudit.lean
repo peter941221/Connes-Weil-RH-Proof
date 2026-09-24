@@ -7,6 +7,7 @@ namespace C1VariationalFiniteDimensionalSelectorAudit
 open C1VariationalFiniteDimensionalSelector
 
 #print axioms exists_min_norm_preimage
+#print axioms exists_min_norm_euclidean_coefficient
 
 end C1VariationalFiniteDimensionalSelectorAudit
 end Source

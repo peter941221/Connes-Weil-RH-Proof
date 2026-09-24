@@ -1,4 +1,5 @@
 import Mathlib.Analysis.InnerProductSpace.Projection.Minimal
+import Mathlib.Analysis.InnerProductSpace.PiL2
 import Mathlib.LinearAlgebra.FiniteDimensional.Basic
 import Mathlib.Analysis.Normed.Module.FiniteDimension
 
@@ -52,6 +53,35 @@ theorem exists_min_norm_preimage
       _ ≤ ‖(-x) - (w - x)‖ := hle
       _ = ‖w‖ := by
         rw [show (-x) - (w - x) = -w by abel, norm_neg]
+
+theorem exists_min_norm_euclidean_coefficient
+    {ι F : Type*} [Fintype ι] [NormedAddCommGroup F] [NormedSpace ℂ F]
+    (vectors : ι → F) (y : F)
+    (hy : ∃ c : EuclideanSpace ℂ ι,
+      (∑ i, c i • vectors i) = y) :
+    ∃ c : EuclideanSpace ℂ ι,
+      (∑ i, c i • vectors i) = y ∧
+        ∀ d : EuclideanSpace ℂ ι,
+          (∑ i, d i • vectors i) = y → ‖c‖ ≤ ‖d‖ := by
+  let L : EuclideanSpace ℂ ι →ₗ[ℂ] F :=
+    { toFun := fun c => ∑ i, c i • vectors i
+      map_add' := by
+        intro c d
+        simp [add_smul, Finset.sum_add_distrib]
+      map_smul' := by
+        intro a c
+        simp [smul_smul, Finset.smul_sum] }
+  rcases hy with ⟨c₀, hc₀⟩
+  have hc₀L : L c₀ = y := by
+    simpa [L] using hc₀
+  rcases exists_min_norm_preimage L c₀ with ⟨c, hc, hmin⟩
+  refine ⟨c, ?_, ?_⟩
+  · exact hc.trans hc₀L
+  · intro d hd
+    apply hmin d
+    have hdL : L d = y := by
+      simpa [L] using hd
+    exact hdL.trans hc₀L.symm
 
 end
 end C1VariationalFiniteDimensionalSelector

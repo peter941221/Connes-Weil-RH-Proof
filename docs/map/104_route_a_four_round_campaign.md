@@ -166,6 +166,15 @@ weighted cost and prove its uniform signed margin. The transport itself uses
 the chain rule and the weighted source seminorm. The signed margin and
 parameter quantifiers remain open.
 
+The finite-basis minimization core is now formal in
+`C1VariationalFiniteDimensionalSelector.lean`: a finite source family is
+represented in `EuclideanSpace`, and every attainable Mellin target has a
+minimum-coefficient representative. See
+[1929](../proofs/1929_route_a_finite_basis_minimum_selector.md). The remaining
+source-specific instantiation must attach the existing sparse source support
+and derivative weights. The strict grouped-residual sign is still independent
+and open; no derivative upper bound is being treated as a sign proof.
+
 ### Round 3 — parameter and margin closure (OPEN)
 
 Prove that the correction, finite zero prefix, orbit index, support radius,
