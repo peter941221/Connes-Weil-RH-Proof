@@ -24,7 +24,9 @@ namespace C1FourPointPrimePrefixReduction
 
 open C1SameOwnerWeil
 open CC20YoshidaConvolution
+open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
+open C1G8R0OrbitGeometry
 open scoped BigOperators
 
 theorem finitePrimeSum_eq_term_add_erase_of_mem
@@ -61,6 +63,19 @@ theorem finitePrimeTerm_two_eq_zero_of_not_visible
     (h2 : 2 ∉ globalPrimeIndexSet F) :
     finitePrimeTerm F 2 = 0 :=
   finitePrimeTerm_eq_zero_of_not_mem_globalPrimeIndexSet F h2
+
+theorem finitePrimeSum_eq_two_term_add_orbit_range_remainder
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (hbound : 2 <
+      Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1) :
+    finitePrimeSum g.convolutionSquare =
+      finitePrimeTerm g.convolutionSquare 2 +
+        ∑ k ∈ (Finset.range
+          (Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1)).erase 2,
+          finitePrimeTerm g.convolutionSquare k := by
+  rw [finitePrimeSum_eq_sum_range_of_orbitG8Geometry geometry]
+  rw [← Finset.sum_erase_add _ _ (Finset.mem_range.mpr hbound), add_comm]
 
 end C1FourPointPrimePrefixReduction
 end Source

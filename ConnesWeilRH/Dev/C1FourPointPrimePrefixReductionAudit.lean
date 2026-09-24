@@ -10,6 +10,7 @@ open C1FourPointPrimePrefixReduction
 #print axioms finitePrimeTerm_eq_zero_of_not_mem_globalPrimeIndexSet
 #print axioms finitePrimeSum_eq_two_prefix_add_remainder
 #print axioms finitePrimeTerm_two_eq_zero_of_not_visible
+#print axioms finitePrimeSum_eq_two_term_add_orbit_range_remainder
 
 end C1FourPointPrimePrefixReductionAudit
 end Source

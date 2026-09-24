@@ -323,7 +323,10 @@ the `n = 2` term plus the erased actual-owner remainder; if not, that term is
 zero. The remaining sign proof must consequently either prove visibility of
 `2` for the selected owner or select a different owner-specific nonzero term.
 This is a strict refinement of the finite certificate obligation, not a gate
-sign result.
+sign result. The stronger range-level split in record 1937 removes even the
+visibility premise from the algebraic decomposition: `n = 2` is a fixed term,
+and non-visibility makes it zero automatically. Visibility is still needed
+only if a strict lower bound for that particular term is claimed.
 
 together with the positive cross sum, on the selected healthy detector (under
 the cross-term symmetry this is exactly the probe's

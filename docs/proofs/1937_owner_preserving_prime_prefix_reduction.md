@@ -33,6 +33,13 @@ The live obligation is therefore explicit and exhaustive:
 3. abandon the single-prefix certificate if neither can supply the strict
    determinant margin.
 
+The same leaf also proves a stronger owner-specific decomposition: after
+rewriting through the actual `OrbitG8Geometry` finite range, the range can be
+split at `n = 2` without assuming that `2` belongs to the visible set. The
+fixed term is then automatically zero in the non-visible case. This removes
+the visibility premise from the algebraic prefix split; only the eventual
+strict sign estimate remains.
+
 This record is a formal algebraic reduction, not a determinant sign proof and
 not an RH claim.
 
