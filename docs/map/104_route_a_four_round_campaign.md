@@ -186,6 +186,10 @@ equivalent to strict gate negativity. See [1931](../proofs/1931_route_a_fixed_ow
 This removes the duplicate residual formulation. The remaining producer input
 is an owner-specific strict gate certificate; no exact matrix witness for that
 actual owner is currently committed.
+The fixed-owner explicit-margin form is also formal: an `epsilon > 0` grouped
+residual margin exists exactly when that owner has `ICgate < 0`. This supplies
+the correct target for the next certificate but does not supply its numerical
+or analytic sign.
 
 ### Round 3 — parameter and margin closure (OPEN)
 

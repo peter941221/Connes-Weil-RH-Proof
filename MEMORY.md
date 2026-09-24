@@ -1,6 +1,7 @@
 # MEMORY.MD
 
 2026-09-24 ConnesWeilRH/Dev/C1RouteAFixedOwnerGroupedResidual.lean + Audit + docs/proofs/1931_route_a_fixed_owner_grouped_residual_gate_equivalence.md + docs/map/104_route_a_four_round_campaign.md : formally identified the full actual grouped coboundary residual with the same-owner `ICgate` for every `OrbitG8Geometry`; strict residual negativity is equivalent to strict gate negativity. Focused build 20260924_routeA_fixed_grouped_residual6 green (3794 jobs), standard axioms only, zero sorryAx. The remaining input is an owner-specific strict gate certificate, not another residual wrapper.
+2026-09-24 ConnesWeilRH/Dev/C1RouteAFixedOwnerGroupedResidual.lean + Audit : added the exact fixed-owner margin equivalence: an explicit epsilon > 0 grouped residual bound exists iff the same-owner ICgate is strictly negative, with epsilon = -ICgate/2 in the reverse direction. Focused build 20260924_routeA_fixed_grouped_residual7 green (3794 jobs), standard axioms only, zero sorryAx; no numerical gate sign claimed.
 
 2026-09-24 Route A Round 1 : C1RouteASelectedOwnerResidualReadback binds the exact gate/qw formulas to the parameterized selected owner and its support-derived visible-prime profile; focused build 3662 jobs green with standard axioms only and no sorryAx; signed residual margin remains open.
 

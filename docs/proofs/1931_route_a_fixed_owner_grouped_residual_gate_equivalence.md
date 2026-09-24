@@ -19,12 +19,18 @@ interval identity, and the existing `p2AggregateValue = ICgate` readback.
 It also proves that strict grouped-residual negativity for this fixed owner is
 equivalent to `ICgate g.convolutionSquare < 0`.
 
+The same leaf now proves the explicit-margin form: there exists an
+`epsilon > 0` with the grouped residual bounded above by `-epsilon` if and
+only if the same-owner gate is strictly negative.  The reverse direction uses
+the concrete choice `epsilon = -ICgate / 2`; this is an exact existence
+reduction, not a numerical margin claim.
+
 This removes the duplicate residual formulation. The finite visible-prime
 sum remains grouped throughout.
 
 ## Verification
 
-Focused build `20260924_routeA_fixed_grouped_residual6.log`: 3794 jobs,
+Focused build `20260924_routeA_fixed_grouped_residual7.log`: 3794 jobs,
 successful. The paired audit reports only `[propext, Classical.choice,
 Quot.sound]`; no `sorryAx` occurs.
 

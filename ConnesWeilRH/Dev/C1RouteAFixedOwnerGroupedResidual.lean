@@ -68,6 +68,24 @@ theorem strict_groupedResidual_iff_strict_ICgate
       ICgate g.convolutionSquare < 0 := by
   rw [archimedean_plus_actualResidual_eq_ICgate geometry]
 
+theorem exists_strict_groupedResidual_margin_iff_strict_ICgate
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    (∃ epsilon : Real, 0 < epsilon ∧
+      archimedeanTerm g.convolutionSquare +
+          ∫ t in (physicalKernelWindowLeft geometry)..
+            (physicalKernelWindowRight geometry),
+            orbitPhysicalKernelCoboundaryResidual geometry t ≤ -epsilon) ↔
+      ICgate g.convolutionSquare < 0 := by
+  rw [archimedean_plus_actualResidual_eq_ICgate geometry]
+  constructor
+  · rintro ⟨epsilon, hepsilon, hmargin⟩
+    linarith
+  · intro hgate
+    refine ⟨-ICgate g.convolutionSquare / 2, ?_, ?_⟩
+    · linarith
+    · linarith
+
 end
 end C1RouteAFixedOwnerGroupedResidual
 end Source
