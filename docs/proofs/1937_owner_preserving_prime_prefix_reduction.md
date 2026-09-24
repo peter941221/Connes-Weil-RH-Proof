@@ -40,6 +40,11 @@ fixed term is then automatically zero in the non-visible case. This removes
 the visibility premise from the algebraic prefix split; only the eventual
 strict sign estimate remains.
 
+Finally, the range lower bound itself is formal: every OrbitG8 cutoff is
+strictly larger than `2`, using `1 + x <= exp x` and the fact that the orbit
+index is a natural number. The range-level split is therefore unconditional
+for every actual OrbitG8 owner.
+
 This record is a formal algebraic reduction, not a determinant sign proof and
 not an RH claim.
 

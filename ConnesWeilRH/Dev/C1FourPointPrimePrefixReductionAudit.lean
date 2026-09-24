@@ -7,10 +7,12 @@ namespace C1FourPointPrimePrefixReductionAudit
 open C1FourPointPrimePrefixReduction
 
 #print axioms finitePrimeSum_eq_term_add_erase_of_mem
+#print axioms orbitG8_range_bound_two
 #print axioms finitePrimeTerm_eq_zero_of_not_mem_globalPrimeIndexSet
 #print axioms finitePrimeSum_eq_two_prefix_add_remainder
 #print axioms finitePrimeTerm_two_eq_zero_of_not_visible
 #print axioms finitePrimeSum_eq_two_term_add_orbit_range_remainder
+#print axioms finitePrimeSum_eq_two_term_add_orbit_range_remainder_unconditional
 
 end C1FourPointPrimePrefixReductionAudit
 end Source
