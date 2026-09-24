@@ -44,3 +44,18 @@ not change the map.
 
 Classification: route decision FORMAL/PROJECT PLAN; first determinant
 certificate OPEN. RH is not claimed.
+
+## First-strike audit
+
+The existing formal polarization reduces the cross-sum sign exactly to the
+ordering of two same-owner evaluations:
+
+```text
+2 * (B01 + B10) = Q(-1) - Q(1).
+```
+
+No current theorem orders `Q(-1)` and `Q(1)` for the actual four-point owner.
+Thus the first strike does not have a hidden algebraic shortcut: the minimum
+new analytic obligations are the sign of this polarized gap and the strict
+determinant bound. The carrier polarization theorem cannot be reused as a
+sign theorem; it is an identity only.
