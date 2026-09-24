@@ -314,6 +314,17 @@ ICgate(u.square) * ICgate(g.square) - ((ICgate(u.involution.convolution g)
   + ICgate(g.involution.convolution u)) / 2)^2 < 0
 ```
 
+The first-prefix proposal has an owner-specific guard. The formal cutoff for
+`OrbitG8Geometry` gives only a finite range containing the actual visible
+prime-power set; it does not imply that `n = 2` is visible. Record 1936's
+ambient visibility probe therefore cannot supply this premise. Record 1937
+formalizes the exact alternative: if `2` is visible, the finite prime sum is
+the `n = 2` term plus the erased actual-owner remainder; if not, that term is
+zero. The remaining sign proof must consequently either prove visibility of
+`2` for the selected owner or select a different owner-specific nonzero term.
+This is a strict refinement of the finite certificate obligation, not a gate
+sign result.
+
 together with the positive cross sum, on the selected healthy detector (under
 the cross-term symmetry this is exactly the probe's
 `D*C - B01^2 < 0`, and by record 1919 equivalently the variance-gap /

@@ -45,3 +45,21 @@ The result is stored in
 
 Classification: NUMERIC scouting toward an explicit finite certificate;
 unresolved and not promoted to a route conclusion. RH is not claimed.
+
+## Owner-visibility audit
+
+The actual `OrbitG8Geometry` cutoff theorem only places the selected owner's
+visible set inside a finite range. It does not prove that `n = 2` is visible:
+visibility additionally requires the owner-specific complex prime term at `2`
+to be nonzero. The ambient-bump visibility probe therefore cannot be
+transferred to the selected owner.
+
+`C1FourPointPrimePrefixReduction.lean` closes the exact algebra around this
+point. If `2` is visible, `finitePrimeSum` is exactly the `n = 2` term plus
+the sum over the erased actual visible set. If it is not visible, the real
+`n = 2` term is exactly zero. Thus the remaining mathematical choice is now
+explicit: prove visibility of `2` for the selected owner, or replace `2` by a
+provably nonzero owner-specific index and rerun the finite certificate.
+
+Classification: FORMAL exact reduction; the determinant sign and visibility
+claim remain open.
