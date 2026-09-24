@@ -72,6 +72,12 @@ proves that every positive tail budget can be met by a later convolution index
 conditional scalar `hsmall` premise from the tail interface. Uniformity in
 `rho` and the gate-selected coefficient remains open.
 
+The result is now uniform over bounded span coefficients: for fixed `rho`,
+`L >= 0`, and positive `epsilon`, one threshold `N` works for every `n >= N`
+and every `|lambda| <= L`. A future determinant proof therefore only needs to
+provide a coefficient bound; it no longer needs to coordinate an individual
+`lambda` with the convolution index at the tail stage.
+
 The exact Laplace identity in [094] multiplies `laplaceAt g` by a degree-four
 polynomial `P_rho(s) - lambda`. Its convolution square acquires the product of
 that factor at `s` and `-star s`, with degree eight growth on high vertical

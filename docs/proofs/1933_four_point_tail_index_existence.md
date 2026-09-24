@@ -33,3 +33,17 @@ Focused build `20260924_fourpoint_tail_exists2.log` completed successfully
 Quot.sound]`; no `sorryAx` occurs.
 
 Classification: FORMAL strict reduction; RH is not claimed.
+
+## Uniform coefficient-bound strengthening
+
+The same leaf now proves
+`exists_uniform_nat_selectedOwner_fullOrbit_span_fourthOrderSpectralTail`.
+If `|lambda| <= L`, with `L >= 0`, then one threshold `N` works for every
+`n >= N` and every such `lambda`, for fixed `rho` and positive `epsilon`.
+The proof bounds the coefficient factor by the endpoint `L` before applying
+geometric decay. This removes the possible circularity in which a gate-picked
+`lambda` would otherwise have to be fixed before choosing the convolution
+index.
+
+Focused build `20260924_fourpoint_tail_uniform5.log` completed successfully
+(3810 jobs); the audit remains standard-axiom-only with zero `sorryAx`.

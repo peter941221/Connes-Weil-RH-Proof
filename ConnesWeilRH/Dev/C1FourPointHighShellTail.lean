@@ -497,6 +497,79 @@ theorem exists_nat_selectedOwner_fullOrbit_span_fourthOrderSpectralTail
   apply htail n lambda epsilon
   simpa [A] using hn
 
+/-! Uniform version: once the span coefficient is restricted to a bounded
+interval, one convolution-index threshold works for every later index and
+every coefficient in that interval. -/
+theorem exists_uniform_nat_selectedOwner_fullOrbit_span_fourthOrderSpectralTail
+    (base correction : CompactLogTest) (rho : Complex) (L epsilon : Real)
+    (hL : 0 ≤ L) (hepsilon : 0 < epsilon) :
+    ∃ C4 C2 T : Real, ∃ N : Nat,
+      0 ≤ C4 ∧ 0 ≤ C2 ∧ 0 ≤ T ∧
+      ∀ n : Nat, N ≤ n → ∀ lambda : Real, |lambda| ≤ L →
+        FourthOrderSpectralTail
+          (annihilatorDetectorSpanVector
+            (fullFunctionalEquationOrbitAnnihilator
+              (selectedOwner base correction n).sourceTest rho)
+            (selectedOwner base correction n).sourceTest lambda).convolutionSquare
+          rho T epsilon := by
+  obtain ⟨C4, C2, T, hC4, hC2, hT, hbaseQuartic,
+      hcorrectionQuadratic, hbaseContract, htail⟩ :=
+    exists_selectedOwner_fullOrbit_span_fourthOrderSpectralTail_constants
+      base correction rho
+  let A : Real :=
+    (3 + ‖rho‖) ^ 4 *
+      ((3 + ‖rho‖) ^ 4 + L) ^ 2 *
+      (2 * Real.pi) ^ 12
+  have hpow : Filter.Tendsto (fun n : Nat => (1 / 2 : Real) ^ n)
+      Filter.atTop (nhds 0) :=
+    tendsto_pow_atTop_nhds_zero_of_lt_one (by norm_num) (by norm_num)
+  have hsq : Filter.Tendsto
+      (fun n : Nat => ((1 / 2 : Real) ^ n) * ((1 / 2 : Real) ^ n))
+      Filter.atTop (nhds 0) := by simpa using hpow.mul hpow
+  have hscaled : Filter.Tendsto
+      (fun n : Nat => A * (((1 / 2 : Real) ^ n * (C4 * C2)) ^ 2))
+      Filter.atTop (nhds 0) := by
+    have h := hsq.mul_const (A * (C4 * C2) ^ 2)
+    simpa [pow_two, mul_assoc, mul_left_comm, mul_comm] using h
+  obtain ⟨N, hN⟩ :=
+    Filter.eventually_atTop.mp
+      (hscaled.eventually_lt_const (sq_pos_of_pos hepsilon))
+  refine ⟨C4, C2, T, N, hC4, hC2, hT, ?_⟩
+  intro n hn lambda hlam
+  apply htail n lambda epsilon
+  have hbase := hN n hn
+  have hbaseCoeff : (3 + ‖rho‖) ^ 4 + |lambda| ≤
+      (3 + ‖rho‖) ^ 4 + L := by linarith
+  have hsqCoeff : ((3 + ‖rho‖) ^ 4 + |lambda|) ^ 2 ≤
+      ((3 + ‖rho‖) ^ 4 + L) ^ 2 := by
+    apply (sq_le_sq₀ (by positivity) (by positivity)).2
+    exact hbaseCoeff
+  have hfactor : 0 ≤
+      (3 + ‖rho‖) ^ 4 * (2 * Real.pi) ^ 12 := by positivity
+  have htailfactor : 0 ≤ ((1 / 2 : Real) ^ n * (C4 * C2)) ^ 2 := by positivity
+  have hbound :
+      (3 + ‖rho‖) ^ 4 *
+          ((3 + ‖rho‖) ^ 4 + |lambda|) ^ 2 *
+          (2 * Real.pi) ^ 12 *
+          ((1 / 2 : Real) ^ n * (C4 * C2)) ^ 2 ≤
+        A * (((1 / 2 : Real) ^ n * (C4 * C2)) ^ 2) := by
+    dsimp [A]
+    calc
+      (3 + ‖rho‖) ^ 4 *
+          ((3 + ‖rho‖) ^ 4 + |lambda|) ^ 2 *
+          (2 * Real.pi) ^ 12 *
+          ((1 / 2 : Real) ^ n * (C4 * C2)) ^ 2 =
+        ((3 + ‖rho‖) ^ 4 * (2 * Real.pi) ^ 12) *
+          (((3 + ‖rho‖) ^ 4 + |lambda|) ^ 2 *
+            ((1 / 2 : Real) ^ n * (C4 * C2)) ^ 2) := by ring
+      _ ≤ ((3 + ‖rho‖) ^ 4 * (2 * Real.pi) ^ 12) *
+          (((3 + ‖rho‖) ^ 4 + L) ^ 2 *
+            ((1 / 2 : Real) ^ n * (C4 * C2)) ^ 2) := by
+        exact mul_le_mul_of_nonneg_left
+          (mul_le_mul_of_nonneg_right hsqCoeff htailfactor) hfactor
+      _ = A * (((1 / 2 : Real) ^ n * (C4 * C2)) ^ 2) := by ring
+  exact lt_of_le_of_lt hbound hbase
+
 end
 end C1FourPointHighShellTail
 end Source
