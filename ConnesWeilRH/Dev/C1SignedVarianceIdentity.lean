@@ -375,10 +375,12 @@ theorem exists_pos_lambda_quadratic_neg_of_sufficient_mean_gap
       mul_nonneg (le_of_lt hC) (mul_nonneg hC₂ hvar₂)
     calc
       0 < C₁ * C₂ * (p₁_bar - p₂_bar) ^ 2 - (C₁ - C₂) * (C₁ * var₁) := by linarith
-      _ ≤ C₁ * C₂ * (p₁_bar - p₂_bar) ^ 2 - (C₁ - C₂) * (C₁ * var₁) + (C₁ - C₂) * (C₂ * var₂) := by
+      _ ≤ C₁ * C₂ * (p₁_bar - p₂_bar) ^ 2 - (C₁ - C₂) * (C₁ * var₁) +
+          (C₁ - C₂) * (C₂ * var₂) := by
         linarith
       _ = C₁ * C₂ * (p₁_bar - p₂_bar) ^ 2 + (C₁ - C₂) * (C₂ * var₂ - C₁ * var₁) := by ring
-  exact exists_pos_lambda_quadratic_neg_of_mean_gap_condition C₁ C₂ p₁_bar p₂_bar var₁ var₂ hC hB hgap
+  exact exists_pos_lambda_quadratic_neg_of_mean_gap_condition
+    C₁ C₂ p₁_bar p₂_bar var₁ var₂ hC hB hgap
 
 end C1SignedVarianceIdentity
 end Source

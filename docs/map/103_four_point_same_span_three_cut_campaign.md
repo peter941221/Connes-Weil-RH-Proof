@@ -463,6 +463,13 @@ certificates (`exists_pos_lambda_quadratic_neg_of_mean_gap_condition`,
 `exists_pos_lambda_quadratic_neg_of_sufficient_mean_gap`) and wires the condition
 directly to the healthy detector owner and spectral prefix bound
 (`exists_pos_lambda_gate_and_prefix_of_mean_gap_condition`).
+Record 1953 formally establishes the rational bipartite mean gap certificate structure
+(`BipartiteMeanGapCertificate`, `exists_pos_lambda_quadratic_neg_of_cert`), and
+certifies four unconditional negative quadratic span gate certificates
+(`exists_pos_lambda_quadratic_neg_c10_g14`, `exists_pos_lambda_quadratic_neg_c13_g14`,
+`exists_pos_lambda_quadratic_neg_c10_g21`, `exists_pos_lambda_quadratic_neg_c13_g21`)
+via pure `norm_num` rational arithmetic with zero preconditions, completing the
+unconditional elimination of the gate negativity sign premise for representative selected owners.
 Record 1944 formally aggregates the actual span owner's finite visible
 prime sum into the four same-owner physical channels, in both bilateral and
 direct-integral form. This removes the opaque finite-prime aggregate but does
