@@ -1,7 +1,6 @@
 # Connes-Weil RH Formalization
 
 <p align="center">
-  <a href="#status"><img alt="Research status: RH unproved" src="https://img.shields.io/badge/status-RH%20unproved-b42318?style=flat-square"></a>
   <a href="lean-toolchain"><img alt="Lean 4.30.0" src="https://img.shields.io/badge/Lean-4.30.0-5c7cfa?style=flat-square"></a>
   <a href="lakefile.toml"><img alt="Mathlib 4.30.0" src="https://img.shields.io/badge/Mathlib%204.30.0-0f766e?style=flat-square"></a>
 </p>
@@ -420,229 +419,64 @@ $$
 
 Evidence: [CC20YoshidaConstruction.lean#L2727](ConnesWeilRH/Source/CC20YoshidaConstruction.lean#L2727).
 
-## 4. Current progress: support ownership and route selection
+## 4. Current progress: selected-owner B5 route
 
-This section records the live healthy-`CompactLog` B5 mainline. RH is not
-claimed.
+This section records the current healthy-`CompactLog` B5 mainline. RH is not
+claimed. The formal consumer is:
 
-### The selected owner and its support boundary
+```text
+selected detector with qw < 0
+  -> same-owner semi-local proof of qw >= 0
+  -> SourceRH
+  -> Mathlib RiemannHypothesis.
+```
 
-The CC20 ROOT window is a shared local base:
+For a hypothetical right-hand off-line zero, Lean now constructs the selected
+healthy orbit detector, its support-derived finite visible-prime owner, triple
+vanishing, and strict spectral negativity. ROOT-window positivity remains only
+a shared local base: no theorem transfers it to this orbit-scale owner.
 
-<br>
+| Route | Current status |
+| :-- | :-- |
+| B1 universal positivity | Frozen; no density or partition lift is available |
+| B5 selected-owner positivity | Active mainline |
+| ROOT/CC20 endpoint package | Local infrastructure; endpoint certificate remains open |
+| Same-owner semi-local gate | The single RH-critical producer obligation |
 
-$$
-\mathrm{supp}(g)\subseteq
-\left[-\frac{\log 2}{2},\frac{\log 2}{2}\right].
-$$
+### Latest route progress
 
-<br>
+Route A now has an exact selected-owner expansion: the finite prime term is
+the actual support-derived visible profile, not an opaque input. Its paired
+Lean audit completed successfully with standard axioms and no `sorryAx`
+([proof record 1922](docs/proofs/1922_route_a_round1_selected_owner_readback.md)).
 
-For that support class, Lean proves that the genuine convolution square is
-prime-free:
+The next step added a physical-derivative-controlled correction and an exact
+coboundary reduction, while keeping the complete finite-prime aggregate
+grouped. The remaining signed inequality is now precisely
+`archimedeanTerm + integral(actualAggregate) <= -epsilon`. The current
+classical selector cannot provide a uniform bound tying its derivative cost to
+the interpolation data, so the final signed margin remains open; this is a
+scoped selector no-go, not a no-go for future variational selectors
+([records 1924-1926](docs/proofs/1924_route_a_physical_derivative_selector.md)).
 
-<br>
+The variational replacement has a formal minimum-norm finite-basis core and
+formal source derivative transport. Its remaining obligation is a
+source-specific weighted minimization with a uniform signed physical-kernel
+margin ([records 1927-1930](docs/proofs/1927_variational_min_norm_affine_selector.md)).
 
-$$
-\boxed{
-\begin{aligned}
-\mathrm{supp}(g)
-  &\subseteq\left[-\frac{\log 2}{2},\frac{\log 2}{2}\right]\\
-\Longrightarrow\quad
-\mathrm{supp}(F_g)
-  &\subseteq(-\log 2,\log 2)\\
-\Longrightarrow\quad
-\mathrm{finitePrimeSum}(F_g)&=0\\
-\Longrightarrow\quad
-q_w(g)&=-\mathrm{archimedeanTerm}(F_g).
-\end{aligned}
-}
-$$
+An alternative four-point same-owner span has formal finite-prefix and gate
+algebra. Its live analytic obligation is the strict scored cross-determinant
+inequality, equivalently an explicit signed-variance/five-moment inequality,
+together with the joint tail margin. The current evidence is numerical
+scouting only; the selected-owner gate is not proved
+([map record 103](docs/map/103_four_point_same_span_three_cut_campaign.md)).
 
-<br>
+Accordingly, the project has made formal and quantitative reductions, but the
+detector-specific positivity producer is still open. No current result claims
+the Riemann hypothesis.
 
-The formal consumer
-[qw_nonneg_of_cc20EndpointTraceCertificate_of_rootSupport_logTwoHalf](ConnesWeilRH/Dev/C1CC20ArchimedeanReadback.lean#L133)
-still requires a genuine `CC20EndpointTraceCertificate`. The paper-scale
-finite-section certificate, prolate/tail and Fact-1 inputs, and Theorem-7
-same-owner trace identity are all open literature-reconstruction obligations.
-Thus ROOT positivity is a local base, not an RH exit.
-
-For every hypothetical right-hand off-line zero, the formal D1 construction
-instead supplies a healthy orbit detector with strict negativity, an explicit
-orbit support window, and a finite visible-prime bound:
-
-<br>
-
-$$
-\boxed{
-\begin{aligned}
-\mathrm{supp}(g)&\subseteq \mathrm{Ioo}(-(n+2),n+2),\\
-q\in\mathrm{globalPrimeIndexSet}(F_g)
-  &\Longrightarrow (q:\mathbb{R})<\exp\bigl(2(n+2)\bigr),\\
-q_w(g)&<0.
-\end{aligned}
-}
-$$
-
-<br>
-
-No theorem places this detector in the ROOT window or in the external
-`[-0.8,0.8]` candidate window. At orbit scale the finite-prime term remains
-part of the same-object sign condition:
-
-<br>
-
-$$
-\boxed{
-0\le q_w(g)
-\Longleftrightarrow
-\mathrm{archimedeanTerm}(F_g)
-+\mathrm{finitePrimeSum}(F_g)\le 0.
-}
-$$
-
-<br>
-
-The formal remainder is exactly `orbitWindowSemiLocalGate` on every such
-healthy detector. The finite-prime trace readbacks and residual decompositions
-are formal infrastructure, not a proof of this sign.
-
-### Route decision and the one remaining mathematical exit
-
-The output audit has two RH-equivalent singleton cuts, but only one is active:
-
-| Route | Meaning | Status |
-| :-- | :-- | :-- |
-| B1 | Positivity for every compactly supported triple-vanishing test | Frozen universal campaign |
-| B5 | Positivity for the detector selected against each hypothetical zero | Active healthy-owner mainline |
-| ROOT | Prime-free local CC20 support class | Shared local base; endpoint positivity open |
-| P2 | Same-detector semi-local positivity at its orbit window | The single open C3 obligation |
-
-The D1 negativity and the minimal B5 implication to `SourceRH` are formal.
-Consequently the remaining chain is:
-
-<br>
-
-$$
-\boxed{
-\begin{aligned}
-\text{healthy orbit detector with }q_w(g)<0
-&\quad\text{[FORMAL]}\\
-\text{same-detector semi-local proof of }0\le q_w(g)
-&\quad\text{[OPEN: P2]}\\
-&\Longrightarrow\ \text{contradiction}\\
-\Longrightarrow\ \mathrm{SourceRH}
-\Longrightarrow\ \mathrm{RiemannHypothesis}.
-\end{aligned}
-}
-$$
-
-<br>
-
-The active producer obligation is universal: per VANISHING test `g` on the
-healthy `CompactLog` owner, construct a positive trace-class family at every
-cutoff whose same-owner trace readback converges to `q_w(g)` - the contracts
-L4 (projection-cutoff side, record 1225) and A4 (aggregate side, record
-1226). The earlier producer premise bundled a healthy-detector certificate
-with the contract for the SAME `g`; record 1225 proves that conjunction has
-no witness (detector data forces `q_w(g) < 0` while the contract forces
-`0 <= q_w(g)`), and record 1226 formally kills the signed-tail escape.
-[Map record 007](docs/map/007_b5_quantifier_repair_and_target_ladder.md) is
-the authoritative target ladder. The record 1225 positive-control numerical
-campaign is CLOSED with its capture law - a fixed-rank window cannot
-certify exact trace capture from `n = 16` upward on the control family
-(MODEL numbers) - so the remaining work is analytic construction (the
-counterterm inside the kernel, proved rather than measured), not
-re-measurement. The older ROOT/Hbox entrywise campaign remains suspended
-(record 1223).
-
-On the detector side of the B5 cut, the premise producer is now formal and
-hypothesis-free: under a hypothetical off-line zero ρ (Re ρ > 1/2),
-`exists_smallSupport_healthyDetectorData_unconditional`
-(ConnesWeilRH/Dev/C1SelectedSquareHeightTail.lean; records
-[1375](docs/proofs/1375_two_sided_tail_height_form_design.md) and
-[1376](docs/proofs/1376_n0p_closure_and_n1_recon.md)) constructs, from the
-zero alone, a healthy detector supported in a single `(n+1)`-window with
-kills at every source-orbit node. No rate on `N` or `n` is claimed; the
-strict spectral negativity at that detector - the vertical bridge and its
-norm coupling - remains the open analytic content of the N0'-N4 ledger
-(records 1372-1376).
-
-The 2026-09-13/14 wave closed three further faces. The rung-3 sign
-falsification campaign measured the archimedean functional
-[1397](docs/proofs/1397_rung3_archimedean_sign_recon.md) on solved
-owners across 107 cells in both natural content classes
-([1399](docs/proofs/1399_rung3_joint_witness_outcome_all_negative.md),
-[1401](docs/proofs/1401_rung3_lowheight_outcome_all_negative_first_zero.md),
-[1404](docs/proofs/1404_beta_anchor_outcome_all_negative_model_level_closure.md)):
-every value negative, the gate `0 <= q_w` surviving every probe aimed
-at it (numbers MODEL-level, non-falsifying by their own
-supremum-lower-bound law). The external positivity-certificates route
-([1405](docs/proofs/1405_chuk_pillarB_bridge_recon_and_cross_term_probe_prereg.md)
-through
-[1411](docs/proofs/1411_odd_sector_plus_one_and_route_radius_shrink_closed.md))
-was fully adjudicated: the functional `psi` is blind to the sector
-these certificates vary over, the register `psi` matches the classical
-explicit-formula value with sign `+` and factor `1` on measured cells,
-and certificate windows are disjoint from counterexample supports -
-so no fixed-window positivity theorem reaches the full-quantifier
-criterion. On the formal side, a three-leaf bridge campaign
-machine-checked the blindness structure end-to-end: odd tests
-annihilate
-([1412](docs/proofs/1412_psi_blindness_brick_odd_annihilation_machine_checked.md)),
-pointwise sums split
-([1413](docs/proofs/1413_psi_linearity_brick_psi_additivity_machine_checked.md)),
-and `psi` is unconditionally reflection-invariant
-([1414](docs/proofs/1414_psi_sector_split_brick_reflection_invariance_machine_checked.md));
-the arithmetic-versus-spectral identity its consumer statement needs
-proved already landed and audited
-([1415](docs/proofs/1415_brick4_phantom_dictionary_already_landed_campaign_closed.md)).
-All new declarations standard-axiom, none carrying a sign claim. With
-these closures the executable queue is empty on every face: what the
-open gate still requires is classical analytic content, not
-construction work. None of the above claims the Riemann hypothesis or
-alters the tower's single open obligation.
-
-Record [1416](docs/map/010_bone_foundry.md) then removed the residual
-slack from the *statement* of that obligation. The gate was committed
-with a three-point Mellin vanishing hypothesis on the test, but the
-reverse leg of the equivalence never reads it: it splits `q_w` into
-on-line and off-line spectral mass, the off-line part vanishing under
-`SourceRH` and the on-line part being nonnegative. So the criterion has
-a side-condition-free normal form, now machine-checked:
-
-<br>
-
-$$
-\boxed{
-\Bigl(\ \forall\, g \text{ compactly supported log test},\quad
-0 \le q_w(g)\ \Bigr)
-\ \Longleftrightarrow\
-\mathrm{SourceRH}
-}
-$$
-
-<br>
-
-The parameterized family `weilGate F` is monotone in the node set `F`
-in the strengthening direction - a smaller `F` admits more tests and so
-states more - and every sub-triple `F` is `SourceRH`-equivalent. The
-nodes are not vacuous on the certificate side, where exactly one of
-them is read: `half`, the right image of the `xi` pole pair `+-1/2`,
-which is fixed by `xi` rather than by the test. That is why no scale
-transform of a test can move the certificate window, and it is the
-typed form of the radius gap above
-(`C1MinimalWeilCriterion.lean`, 13 declarations, standard axioms).
-This sharpens the open problem; it does not advance it.
-
-The binding decision is [record 1076](docs/map/003_b1_b5_minimal_exit_route_selection.md);
-the endpoint, producer, and process status are maintained by
-[map 004](docs/map/004_endpoint_literature_interface_audit.md),
-[map 006](docs/map/006_new_math_creation_workflow.md),
-[map 007](docs/map/007_b5_quantifier_repair_and_target_ladder.md),
-[record 1223](docs/proofs/1223_1219_suspension_and_b5_reentry_plan.md), and
-[record 1225](docs/proofs/1225_b5_target_satisfiability_audit_and_positive_control_preregistration.md).
+The binding route ruling is [record 1076](docs/map/003_b1_b5_minimal_exit_route_selection.md);
+the active campaign is [Route A](docs/map/104_route_a_four_round_campaign.md).
 
 ## 5. Frozen and deferred routes
 
