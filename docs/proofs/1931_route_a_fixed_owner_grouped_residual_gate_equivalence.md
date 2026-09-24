@@ -37,6 +37,25 @@ Quot.sound]`; no `sorryAx` occurs.
 ## Remaining certificate input
 
 The reduction does not itself prove the strict sign. The next producer input
-must be an owner-specific certificate for `ICgate g.convolutionSquare < 0`.
-No committed exact matrix entries, interval witness, or analytic inequality
-currently supplies that sign for the actual healthy owner.
+would have to be an owner-specific certificate for
+`ICgate g.convolutionSquare < 0`.
+
+## Sign orientation for a real healthy owner
+
+The same leaf now records the opposite sign forced by the committed
+healthy-detector package. If `geometry : OrbitG8Geometry rho g` is attached
+to a hypothetical zero with `rho.re > 1/2` and `rho.re != 1/2`, then the
+healthy-detector theorem gives strict spectral negativity of the square. The
+center-2 bridge gives `qw g < 0`, while the P2 readback gives
+`ICgate g.convolutionSquare = -qw g`. Hence `0 < ICgate g.convolutionSquare`.
+
+This is an orientation correction, not a no-go for the RH route. A negative
+gate witness on the same real healthy owner would contradict the existing
+healthy-detector theorem and would therefore already be the central RH
+producer, not a preparatory fixed-owner construction. The requested negative
+witness cannot be manufactured from the current owner fields without solving
+that missing theorem.
+
+Focused build `20260924_routeA_fixed_grouped_residual9.log` completed
+successfully (3794 jobs). The paired audit prints only
+`[propext, Classical.choice, Quot.sound]`; no `sorryAx` occurs.

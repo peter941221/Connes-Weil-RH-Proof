@@ -16,6 +16,8 @@ open C1P2DirectCoboundaryResidualReduction
 open C1P2BilateralProfile
 open C1LocalConfigurationDomination
 open C1SameOwnerWeil
+open C1G8R0OrbitGeometry
+open C1HealthyYoshidaSpectralNegativity
 
 noncomputable section
 
@@ -85,6 +87,24 @@ theorem exists_strict_groupedResidual_margin_iff_strict_ICgate
     refine ⟨-ICgate g.convolutionSquare / 2, ?_, ?_⟩
     · linarith
     · linarith
+
+theorem ICgate_pos_of_healthyOrbitGeometry
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re) :
+    0 < ICgate g.convolutionSquare := by
+  have hdata := healthyDetectorData_of_orbitG8Geometry geometry hoff hright
+  have hnegativeSpectral :
+      C1SpectralWeil.spectralWeilValue g.convolutionSquare < 0 :=
+    (C1HealthyYoshidaDetector.weilSquareSumPositive_iff_spectralWeilValue_neg g).mp
+      hdata.weilSquareSumPositive
+  have hnegative : C1SameOwnerWeil.qw g < 0 := by
+    rw [C1CenterTwoCriterionBridge.qw_eq_spectralWeilValue_centerTwo]
+    exact hnegativeSpectral
+  rw [← p2AggregateValue_eq_ICgate_convolutionSquare,
+    p2AggregateValue_eq_neg_qw_of_vanishes g hdata.vanishesOnF]
+  linarith
 
 end
 end C1RouteAFixedOwnerGroupedResidual

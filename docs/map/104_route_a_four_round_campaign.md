@@ -191,12 +191,28 @@ residual margin exists exactly when that owner has `ICgate < 0`. This supplies
 the correct target for the next certificate but does not supply its numerical
 or analytic sign.
 
+The sign orientation is now also formal. Under the hypothetical off-line
+right-half-plane assumptions, the same actual healthy `OrbitG8Geometry`
+produces healthy detector data, hence `qw g < 0`; the P2 readback therefore
+forces `0 < ICgate g.convolutionSquare`. Thus an owner-specific negative gate
+witness is not an intermediate construction available from the current
+healthy-owner assumptions: it is precisely the contradiction-producing RH
+theorem. This is a sign-orientation correction, not a no-go for Route A.
+The audit/build is in record 1931 and
+`20260924_routeA_fixed_grouped_residual9.log`.
+
 ### Round 3 — parameter and margin closure (OPEN)
 
-Prove that the correction, finite zero prefix, orbit index, support radius,
-visible-prime cutoff, and `epsilon` satisfy the selected-owner quantifiers in
-the correct order for every hypothetical right off-line zero. Preserve triple
-vanishing and off-line detection.
+Round 3 may start only after the central sign producer is available in a
+parameterized form. Its exact entry target is an explicit uniform statement
+for every hypothetical right off-line zero: an actual owner geometry, all
+finite-prefix/support/visible-cutoff quantifiers in the correct order, and an
+`epsilon > 0` with grouped residual at most `-epsilon`. By the sign-orientation
+theorem above, this target is equivalent to producing a negative same-owner
+gate and therefore already contradicts the formal healthy-detector sign. It is
+not merely quantifier bookkeeping. Until that contradiction-producing analytic
+inequality is proved (or the owner/route is changed with a new B5 consumer),
+Round 3 is not yet entered.
 
 ### Round 4 — consumer assembly and audit (OPEN)
 

@@ -9,6 +9,7 @@ open C1RouteAFixedOwnerGroupedResidual
 #print axioms archimedean_plus_actualResidual_eq_ICgate
 #print axioms strict_groupedResidual_iff_strict_ICgate
 #print axioms exists_strict_groupedResidual_margin_iff_strict_ICgate
+#print axioms ICgate_pos_of_healthyOrbitGeometry
 
 end C1RouteAFixedOwnerGroupedResidualAudit
 end Source
