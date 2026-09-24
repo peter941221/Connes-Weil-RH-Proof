@@ -542,3 +542,80 @@ for the sup norms there. The open obligations are the numerical ladder values
 at a concrete node set, the node-product constants, the strip contraction, and
 then the numeric `cardinalRaw` budget, the correction quadratic margin, the
 signed determinant and the joint tail margin.
+
+## 22. The second rung of the seed ladder is eight (1973)
+
+Section 21 left the order-two value as the integral of `norm (T'')`. That
+integral is now evaluated. The committed derivative formula of the transition
+factors through the logistic pair and a gain,
+`deriv T x = T x * (1 - T x) * windowGain x` with
+`windowGain x = (x^-1)^2 + ((1 - x)^-1)^2`
+(`deriv_smoothTransition_eq_mul_windowGain`; the identity is universal in `x`
+because both sides die at the window's edges through the `inv_zero`
+conventions). The gain is even under `x -> 1 - x` (`windowGain_one_sub`), its
+named derivative `windowGainSlope x = -2 * (x^-1)^3 + 2 * ((1 - x)^-1)^3` is
+odd under the reflection (`windowGainSlope_one_sub`) and is produced from
+`hasDerivAt_inv` by the chain rule (`hasDerivAt_windowGain`). On the open
+window `1 - 2 T` is the logistic ratio in the exponential variable
+`w = (1 - 2 x) / (x * (1 - x))`,
+`1 - 2 T x = (exp w - 1) / (exp w + 1)`
+(`one_sub_two_mul_smoothTransition_eq`, through the addition formula for `exp`
+applied to `expNegInvGlue (1 - x) = exp w * expNegInvGlue x`), it is odd in `w`
+(`exp_neg_sub_one_div_exp_neg_add_one`), and it dominates the elementary ratio
+`v / (v + 2) <= (exp v - 1) / (exp v + 1)` for `v >= 0`
+(`self_div_add_two_le_exp_ratio`, whose content is exactly the convexity
+inequality `1 + v <= exp v`).
+
+Differentiating the factorization gives, on `(0, 1)`,
+`T'' x = T x * (1 - T x) * ((1 - 2 T x) * windowGain x ^ 2 + windowGainSlope x)`
+(`iteratedDeriv_two_smoothTransition_eq`), and the sign of that expression is
+decided by comparing the gain's relative slope against the logistic ratio at
+the standard point `x = (1 + s)/2`, `s = |2 x - 1|`: there
+`windowGain ((1 + s)/2) = 8 (1 + s^2) / (1 - s^2)^2` and
+`windowGainSlope ((1 + s)/2) = 32 s (s^2 + 3) / (1 - s^2)^3`
+(`windowGain_half_eq`, `windowGainSlope_half_eq`), so the relative slope is
+`s (s^2 + 3) (1 - s^2) / (2 (1 + s^2)^2)` times the squared gain
+(`windowGainSlope_div_sq_half_eq`), which sits strictly below the logistic
+ratio at `v = 4 s / (1 - s^2)` (`windowGain_ratio_lt_exp_ratio`). The
+polynomial core of that comparison is
+`4 (1 + s^2)^2 - (s^2 + 3) (1 - s^2) (1 + 2 s - s^2)
+= (13 s^2 - 6 s + 1) + s^3 (4 + 3 s + 2 s^2 - s^3) > 0` on `[0, 1]`, the two
+summands being `((13 s - 3)^2 + 4)/13` and a nonnegative factor; the logistic
+variable is `-v` at the standard point (`halfPoint_one_sub_two_div`) and `+v`
+at the reflected point (`reflectPoint_one_sub_two_div`). The conclusion is the
+sign of the second derivative, `0 <= T'' x` on `(0, 1/2]` and `T'' x <= 0` on
+`[1/2, 1)` (`iteratedDeriv_two_smoothTransition_nonneg`, `..._nonpos`, with the
+half point decided by the Fermat value), alongside the three vanishing values
+`T'' 0 = T'' 1 = T'' (1/2) = 0`
+(`iteratedDeriv_two_smoothTransition_zero`, `..._one`, `..._half`) read off
+`IsLocalMin.deriv_eq_zero` and `IsLocalMax.deriv_eq_zero` from the committed
+`0 <= deriv T`, `deriv T (1/2) = 2` and `norm (deriv T x) <= 2`.
+
+The fundamental theorem of calculus on the two halves then gives
+`Integral x in 0..1/2, T'' x = 2` and
+`Integral x in 1/2..1, T'' x = -2`
+(`integral_iteratedDeriv_two_smoothTransition_left`, `..._right`), the sign
+turns the absolute value into `T''` on the left half and `-T''` on the right
+half (`integral_abs_iteratedDeriv_two_smoothTransition_left`, `..._right`), and
+the absolute-value mass of the transition's second derivative is the exact
+number `Integral x, norm (T'' x) = 4`
+(`integral_abs_iteratedDeriv_two_smoothTransition`). With section 21's ladder
+identity the second rung is therefore
+
+    derivOrderL1 2 smoothSeed = 8
+
+(`derivOrderL1_smoothSeed_two`). Record:
+`docs/proofs/1973_seed_second_order_mass.md`; build log
+`build-logs/1973_seed_second_order_mass.log` (3651 jobs, zero errors, no
+warnings in the two new modules, all 27 declarations on the standard three
+axioms).
+
+Status: two rungs of the seed ladder are numbers, `derivOrderL1 1 smoothSeed =
+2` and `derivOrderL1 2 smoothSeed = 8`, and the order-`j >= 3` values stay the
+explicit integral `2 * Integral x, norm (iteratedDeriv j T x)`. The next rung
+`derivOrderL1 3 smoothSeed` needs the sign structure of `T'''`, which the
+convexity-plus-polynomial comparison above does not yet reach. The open
+obligations are otherwise unchanged: the node-product constants, the strip
+contraction, and then the numeric `cardinalRaw` budget, the correction
+quadratic margin, the signed determinant and the joint tail margin, with `C >
+0` still to come from a designed admissible base on the construction side.
