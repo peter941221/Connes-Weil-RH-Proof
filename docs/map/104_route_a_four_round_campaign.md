@@ -2,9 +2,10 @@
 
 Date: 2026-09-24.
 
-Status: active campaign. Round 1 is FORMAL. Round 2 is a scoped NO-GO for the
-current correction-selector API: its residual sign cannot be derived from the
-fields currently exposed. This is not a no-go for a strengthened selector.
+Status: active campaign. Round 1 is FORMAL. Round 2 now has a FORMAL
+physical-derivative-controlled selector, but its signed margin remains OPEN.
+The former current-API no-go has been removed by this new owner construction;
+the analytic sign obligation itself is not yet closed.
 This record is subordinate to [003](003_b1_b5_minimal_exit_route_selection.md),
 [080](080_c3p_signed_certificate_owner.md), [081](081_orbit_physical_kernel_coboundary_certificate.md),
 and [082](082_direct_semilocal_gate_assault.md). RH is not claimed.
@@ -53,7 +54,7 @@ obligation. The exact declarations are in
 errors, standard axioms only, no `sorryAx`). See proof record
 [1922](../proofs/1922_route_a_round1_selected_owner_readback.md).
 
-### Round 2 — signed residual budget (SCOPED NO-GO: current selector API)
+### Round 2 — physical-derivative-controlled selector and signed residual budget (PARTIAL FORMAL)
 
 For the same owner, expand the `081` coboundary residual and prove an explicit
 strict margin:
@@ -69,9 +70,9 @@ The finite sum must remain grouped inside the actual aggregate derivative.
 Primewise absolute majorants are not an admissible substitute because they can
 destroy the required cancellation.
 
-The round-2 audit found a named underdetermination in the current owner API.
-`ResidualCorrectionFamily` in
-`C1HealthyYoshidaCorrectionFamily.lean` exposes only:
+The first attempt exposed a named underdetermination in the old owner API.
+`ResidualCorrectionFamily` in `C1HealthyYoshidaCorrectionFamily.lean` exposes
+only:
 
 ```text
 support (value y) ⊆ (lower, upper)
@@ -96,9 +97,25 @@ support + finite Mellin interpolation do not expose the physical derivative
 data required to prove the signed residual budget.
 ```
 
-Scope: this rules out closing Round 2 by the current selector fields alone; it
-does not rule out a new correction selector with proved physical-kernel control.
-The evidence and dependency audit are recorded in
+That obstruction is now addressed at the owner level by
+`C1PhysicalDerivativeControlledCorrection.lean`. Its
+`SelectedPhysicalDerivativeCorrection` stores the same support and finite-node
+readback together with a nonnegative derivative seminorm and the pointwise
+bound
+
+```text
+||deriv correction.test x|| <= derivativeCost(y).
+```
+
+The selector is constructed from the existing finite-window interpolant and
+the derivative Schwartz operator, so this is a proved bound rather than a new
+residual-budget premise. The paired audit is green: build
+`20260924_physical_derivative_selector2.log`, 3662 jobs, zero errors, standard
+axioms only, no `sorryAx`. See [1924](../proofs/1924_route_a_physical_derivative_selector.md).
+
+The signed margin itself is still open: the new derivative cost has not yet
+been converted into a strict negative aggregate residual without destroying
+prime cancellation. The old API underdetermination is recorded for history in
 [1923](../proofs/1923_route_a_round2_current_api_underdetermination.md).
 
 ### Round 3 — parameter and margin closure (OPEN)
@@ -122,15 +139,14 @@ vanishing, strict spectral negativity, and the generic residual identity.
 Removed in this round: `finitePrimeSum` as an opaque selected-owner input; it
 is now exactly the finite weighted profile attached to the actual owner.
 
-Remaining after Round 2: a new owner/selector theorem must provide physical
-derivative control before a signed residual inequality can be attempted. The
-old residual-budget field is not accepted as progress.
+Remaining after Round 2: prove a strict signed residual inequality for the new
+owner, with the grouped finite aggregate intact. The old residual-budget field
+is not accepted as progress.
 
 Round 1 failure would be an owner mismatch or an inability to express the
 finite sum using the selected owner's exact visible set. Such a failure would
 stop this lane and be recorded as a named no-go; merely adding another wrapper
 would not count as progress.
 
-Evidence level: FORMAL for Round 1; SCOPED API NO-GO for Round 2; PROJECT
-CANDIDATE/OPEN for Rounds 3–4, which cannot start on the current owner without
-first removing this no-go.
+Evidence level: FORMAL for Round 1; PARTIAL FORMAL for Round 2; PROJECT
+CANDIDATE/OPEN for Rounds 3–4.

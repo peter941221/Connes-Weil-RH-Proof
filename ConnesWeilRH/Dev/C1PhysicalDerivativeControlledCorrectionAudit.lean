@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1PhysicalDerivativeControlledCorrection
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1PhysicalDerivativeControlledCorrectionAudit
+
+open C1PhysicalDerivativeControlledCorrection
+
+#print axioms selectedPhysicalDerivativeCorrection
+#print axioms selectedPhysicalDerivativeCorrection_support
+#print axioms selectedPhysicalDerivativeCorrection_laplaceAt
+#print axioms selectedPhysicalDerivativeCorrection_derivative_bound
+
+end C1PhysicalDerivativeControlledCorrectionAudit
+end Source
+end ConnesWeilRH
