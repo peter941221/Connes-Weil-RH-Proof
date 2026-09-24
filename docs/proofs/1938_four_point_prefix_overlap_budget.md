@@ -35,3 +35,19 @@ Focused build `20260924_prime_prefix_reduction20` completed successfully
 Quot.sound]`; no `sorryAx` occurs.
 
 Classification: FORMAL quantitative reduction.
+
+## Prefix sharpening
+
+The overlap majorant originally included the `n = 2` range contribution even
+though that node is retained exactly. Record 1938's final theorem removes this
+double payment:
+
+```text
+finitePrimeSum
+  <= n2PhysicalTerm + orbitSupportOverlapBound
+     - 2 * exp(rawFactorSupportRadius) * rawFactorSeminorm^2
+         * (vonMangoldt(2) / 2).
+```
+
+The subtraction is formal and uses only that every OrbitG8 cutoff contains
+`2`; it does not assume that the selected owner makes the n=2 term nonzero.

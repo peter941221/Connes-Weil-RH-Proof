@@ -344,7 +344,8 @@ support-overlap harmonic majorant on the erased owner range. Thus the next
 strict obligation is the scalar budget
 `archimedeanTerm + n2PhysicalTerm + overlapRemainder <= 0`. This is a genuine
 quantitative reduction; the majorant may still be too loose and no gate sign
-is claimed.
+is claimed. The final 1938 theorem sharpens it by subtracting the overlap
+majorant's own n=2 contribution, since that node is already retained exactly.
 
 together with the positive cross sum, on the selected healthy detector (under
 the cross-term symmetry this is exactly the probe's

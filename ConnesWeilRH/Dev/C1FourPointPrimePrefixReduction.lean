@@ -31,6 +31,7 @@ open C1P2BilateralProfile
 open C1P2OrbitPhysicalProfileReadback
 open C1P2DirectSupportOverlapDecoupling
 open C1P2DirectChebyshevDecoupling
+open C1P2SignedBudget
 open CC20YoshidaConvolution
 open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
@@ -234,6 +235,54 @@ theorem finitePrimeSum_le_two_prefix_plus_overlap_remainder
           2 * Real.exp (rawFactorSupportRadius geometry) *
             (rawFactorSeminorm geometry) ^ 2 *
             (ArithmeticFunction.vonMangoldt k / (k : Real)) := by ring
+
+theorem finitePrimeSum_le_two_prefix_plus_overlap_minus_two_majorant
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    finitePrimeSum g.convolutionSquare ≤
+      finitePrimeTerm g.convolutionSquare 2 +
+        orbitSupportOverlapBound geometry -
+          2 * Real.exp (rawFactorSupportRadius geometry) *
+            (rawFactorSeminorm geometry) ^ 2 *
+            (ArithmeticFunction.vonMangoldt 2 / (2 : Real)) := by
+  have hprefix := finitePrimeSum_le_two_prefix_plus_overlap_remainder geometry
+  let R : Finset Nat := Finset.range
+    (Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1)
+  let A : Real := 2 * Real.exp (rawFactorSupportRadius geometry) *
+    (rawFactorSeminorm geometry) ^ 2
+  let f : Nat → Real := fun k => ArithmeticFunction.vonMangoldt k / (k : Real)
+  have h2 : 2 ∈ R := by
+    dsimp [R]
+    exact Finset.mem_range.mpr (orbitG8_range_bound_two geometry)
+  have hsum :
+      (∑ k ∈ R.erase 2, A * f k) =
+        A * (∑ k ∈ R, f k) - A * f 2 := by
+    rw [← Finset.mul_sum]
+    rw [← Finset.sum_erase_add _ _ h2]
+    ring
+  have hrewrite :
+      orbitSupportOverlapBound geometry = A * (∑ k ∈ R, f k) := by
+    simp only [orbitSupportOverlapBound, visibleHarmonicChebyshevSum,
+      orbitVisiblePrimeRange, R, A, f]
+  have hprefix' :
+      finitePrimeSum g.convolutionSquare ≤
+        finitePrimeTerm g.convolutionSquare 2 +
+          (∑ k ∈ R.erase 2, A * f k) := by
+    simpa [R, A, f] using hprefix
+  rw [hsum, ← hrewrite] at hprefix'
+  calc
+    finitePrimeSum g.convolutionSquare ≤
+        finitePrimeTerm g.convolutionSquare 2 +
+          (orbitSupportOverlapBound geometry -
+            2 * Real.exp (rawFactorSupportRadius geometry) *
+              (rawFactorSeminorm geometry) ^ 2 *
+              (ArithmeticFunction.vonMangoldt 2 / (2 : Real))) := by
+      simpa [A, f] using hprefix'
+    _ = finitePrimeTerm g.convolutionSquare 2 +
+        orbitSupportOverlapBound geometry -
+          2 * Real.exp (rawFactorSupportRadius geometry) *
+            (rawFactorSeminorm geometry) ^ 2 *
+            (ArithmeticFunction.vonMangoldt 2 / (2 : Real)) := by ring
 
 end C1FourPointPrimePrefixReduction
 end Source
