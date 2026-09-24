@@ -23,6 +23,13 @@ first prefix determinant  = -3.0980e4
 full prime determinant    = -4.8684e5
 ```
 
+Adding the archimedean sigma kernel before forming the determinant preserves
+the sign already at that first prime-power prefix on the same rows. For the
+first representative row the full-kernel prefix is about `-7.03e5`, while the
+complete visible-kernel value is about `-7.03e5` as well. This points to a
+short finite certificate of the form “archimedean term plus the `n=2`
+prime-power term, with the remaining visible-prime tail bounded explicitly”.
+
 ## Meaning and boundary
 
 This is scouting evidence only; it is not an actual-owner proof and does not

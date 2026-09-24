@@ -45,8 +45,11 @@ def main():
         P = (delta * delta + gamma * gamma - om * om) ** 2 + 4 * delta * delta * om * om
         terms = rig.prime_powers_up_to(math.exp(2.0 * c))
         K = np.zeros_like(xi)
+        sigma = rig.sigma_vec(om)
         first_negative = None
+        first_full_negative = None
         dets = []
+        full_dets = []
         for j, (n, lam) in enumerate(terms, 1):
             K = K + 2.0 * lam / math.sqrt(n) * np.cos(2.0 * np.pi * xi * math.log(n))
             A = float(np.sum(K * W) * dxi)
@@ -54,12 +57,24 @@ def main():
             D = float(np.sum(K * P * P * W) * dxi)
             det = D * A - B * B
             dets.append(det)
+            Kfull = sigma + K
+            Af = float(np.sum(Kfull * W) * dxi)
+            Bf = float(np.sum(Kfull * P * W) * dxi)
+            Df = float(np.sum(Kfull * P * P * W) * dxi)
+            det_full_prefix = Df * Af - Bf * Bf
+            full_dets.append(det_full_prefix)
             if first_negative is None and det < 0:
                 first_negative = j
+            if first_full_negative is None and det_full_prefix < 0:
+                first_full_negative = j
         full = dets[-1] if dets else 0.0
+        full_total = full_dets[-1] if full_dets else 0.0
         rows.append({"tag": tag, "terms": len(terms), "first_negative_prefix": first_negative,
-                     "det_prefix": dets, "det_full": full})
-        print(f"{tag}: terms={len(terms)} first_negative={first_negative} full={full:.6e}", flush=True)
+                     "first_full_negative_prefix": first_full_negative,
+                     "det_prefix": dets, "det_full": full,
+                     "full_det_prefix": full_dets, "full_det": full_total})
+        print(f"{tag}: prime_first={first_negative} full_first={first_full_negative} "
+              f"prime_full={full:.6e} full_full={full_total:.6e}", flush=True)
     os.makedirs("results", exist_ok=True)
     with open("results/1936_fourpoint_prime_prefix_determinant.json", "w") as fh:
         json.dump(rows, fh, indent=1)
