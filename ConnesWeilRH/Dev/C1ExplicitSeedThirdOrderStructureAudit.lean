@@ -1,0 +1,56 @@
+import ConnesWeilRH.Dev.C1ExplicitSeedThirdOrderStructure
+
+/-!
+# Axiom footprint of the seed third-order structure brick
+
+Focused `#print axioms` for every declaration of
+`ConnesWeilRH.Dev.C1ExplicitSeedThirdOrderStructure`. All of them must depend on
+exactly `[propext, Classical.choice, Quot.sound]`, with no `sorryAx`.
+-/
+
+namespace ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+open MeasureTheory
+open CCM25Concrete.CompactLogConvolution
+open CC20YoshidaConvolution
+open CC20YoshidaConvolution.CompactLogTest
+open CC20YoshidaCriticalContraction
+open CC20YoshidaCriticalContraction.CompactLogTest
+open C1LaneRD3Root
+open ConnesWeilRH.Source.C1ExplicitSmoothSeed
+open ConnesWeilRH.Source.C1ExplicitFiniteNodeCorrection
+open Real
+open expNegInvGlue
+
+noncomputable section
+
+open scoped Topology
+
+#print axioms windowGainSecondSlope_one_sub
+#print axioms windowGainSecondSlope_pos
+#print axioms windowGainSecondSlope_half_eq
+#print axioms hasDerivAt_windowGainSlope
+#print axioms smoothTransition_one_sub
+#print axioms one_sub_two_mul_smoothTransition_one_sub
+#print axioms smoothTransition_half_eq
+#print axioms windowGain_half_point_eq
+#print axioms windowGainSlope_half_point_eq
+#print axioms iteratedDeriv_three_smoothTransition_eq_deriv_deriv
+#print axioms hasDerivAt_iteratedDeriv_two_smoothTransition
+#print axioms iteratedDeriv_three_smoothTransition_eq
+#print axioms iteratedDeriv_two_smoothTransition_one_sub
+#print axioms iteratedDeriv_three_smoothTransition_one_sub
+#print axioms iteratedDeriv_three_smoothTransition_half
+#print axioms isLocalMin_iteratedDeriv_two_smoothTransition
+#print axioms isLocalMax_iteratedDeriv_two_smoothTransition
+#print axioms iteratedDeriv_three_smoothTransition_zero
+#print axioms iteratedDeriv_three_smoothTransition_one
+#print axioms integral_iteratedDeriv_three_smoothTransition_left
+#print axioms norm_iteratedDeriv_three_one_sub
+#print axioms iteratedDeriv_two_le_integral_norm_iteratedDeriv_three
+#print axioms iteratedDeriv_two_le_integral_norm_iteratedDeriv_three_left
+#print axioms derivOrderL1_smoothSeed_three_ge
+
+end
+
+end ConnesWeilRH.Source.C1ExplicitSmoothSeed

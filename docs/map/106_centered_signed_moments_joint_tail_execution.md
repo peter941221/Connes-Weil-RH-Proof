@@ -610,12 +610,82 @@ identity the second rung is therefore
 warnings in the two new modules, all 27 declarations on the standard three
 axioms).
 
+## 23. The third rung of the seed ladder is not a number (1974)
+
+The second slope of the gain, `windowGainSecondSlope x = 6 * (x^-1)^4 +
+6 * ((1 - x)^-1)^4`, is produced from `hasDerivAt_windowGainSlope` by the chain
+rule on `hasDerivAt_inv` alone (`hasDerivAt_windowGainSlope`); it is even under
+the reflection (`windowGainSecondSlope_one_sub`), positive on the open window
+(`windowGainSecondSlope_pos`) and equal to `192` at the midpoint
+(`windowGainSecondSlope_half_eq`). The transition itself satisfies the exact
+reflection identity `smoothTransition (1 - x) = 1 - smoothTransition x`
+(`smoothTransition_one_sub`), so the logistic pair flips sign,
+`1 - 2 * T (1 - x) = -(1 - 2 * T x)`
+(`one_sub_two_mul_smoothTransition_one_sub`), with the midpoint values
+`T (1/2) = 1/2`, `windowGain (1/2) = 8`, `windowGainSlope (1/2) = 0`
+(`smoothTransition_half_eq`, `windowGain_half_point_eq`,
+`windowGainSlope_half_point_eq`). Differentiating the committed second-order
+closed form by the product rule (bridge
+`iteratedDeriv 3 T = deriv (iteratedDeriv 2 T)`,
+`iteratedDeriv_three_smoothTransition_eq_deriv_deriv`) gives, on `(0, 1)`,
+
+    T''' x = T x * (1 - T x) * ( ((1 - 2 T x)^2 - 2 T x (1 - T x)) * G x^3
+                                  + 3 * (1 - 2 T x) * G x * G' x + G'' x )
+
+(`hasDerivAt_iteratedDeriv_two_smoothTransition`,
+`iteratedDeriv_three_smoothTransition_eq`), with the bracket coefficient `3`
+and the normal form `(1 - 2 T)^2 - 2 T (1 - T) = (3 u^2 - 1)/2` in
+`u = 1 - 2 T`; the first hand pass had `2` in place of `3` and the probe's
+Richardson difference of `T''` at `x = 0.218` rejects it (`135.868` against
+`0.367`).
+
+Reflection transports the two closed forms to `T'' (1 - x) = -T'' x` and
+`T''' (1 - x) = T''' x` (`iteratedDeriv_two_smoothTransition_one_sub`,
+`iteratedDeriv_three_smoothTransition_one_sub`), the midpoint value is
+`T''' (1/2) = -16` (`iteratedDeriv_three_smoothTransition_half`), the committed
+sign lemmas of section 22 upgrade to genuine local extrema at the endpoints
+through `Ioo_mem_nhds` (`isLocalMin_iteratedDeriv_two_smoothTransition`,
+`isLocalMax_iteratedDeriv_two_smoothTransition`), Fermat's theorem gives
+`T''' 0 = T''' 1 = 0` (`iteratedDeriv_three_smoothTransition_zero`, `..._one`),
+and the fundamental theorem of calculus on the left half gives
+`Integral x in 0..1/2, T''' x = T'' (1/2) - T'' 0 = 0`
+(`integral_iteratedDeriv_three_smoothTransition_left`). That is the end of the
+order-two mechanism: the sign flip of `T'''` is interior.
+
+The bracket is a cancellation among three terms of different homogeneity, with
+the leading term's zero at `x = 0.350163715843` and the bracket's zero at
+`x* = 0.218255829186` (probe bisection; there the three cleared terms read
+`+1.841656e4`, `-2.373702e4`, `+5.320452e3`, summing to `2.8e-10`). Since
+`T''` rises from `0` to its peak `T'' x* = 9.841042301831` and returns to `0`
+at `1/2`, the total-variation identity
+`Integral x in 0..1/2, norm (T''' x) = 2 * T'' x*` holds (probe residual
+`5e-9`), reflection doubles it, and the third rung is the transcendental
+constant `derivOrderL1 3 smoothSeed = 8 * T'' x* = 78.728338...` (quadrature
+`78.72833839` against `8 * T'' x* = 78.72833841`). Without single-peakedness
+the certified half is the comparison chain
+`norm (T''' (1 - u)) = norm (T''' u)` on `[0, 1/2]`,
+`T'' x <= Integral y in 0..x, norm (T''' y)`, the same bound with the integral
+over the whole left half, and hence
+
+    4 * T'' x <= derivOrderL1 3 smoothSeed     for 0 < x < 1/2
+
+(`norm_iteratedDeriv_three_one_sub`,
+`iteratedDeriv_two_le_integral_norm_iteratedDeriv_three`, `..._left`,
+`derivOrderL1_smoothSeed_three_ge`), one point value certifying a lower bound.
+Record: `docs/proofs/1974_seed_third_order_structure.md`; build log
+`build-logs/1974_seed_third_order_structure.log` (3652 jobs, zero errors, no
+warnings in the two new modules, all 24 declarations on the standard three
+axioms); probe `scripts/seed_third_order_probe_1974.py`.
+
 Status: two rungs of the seed ladder are numbers, `derivOrderL1 1 smoothSeed =
-2` and `derivOrderL1 2 smoothSeed = 8`, and the order-`j >= 3` values stay the
-explicit integral `2 * Integral x, norm (iteratedDeriv j T x)`. The next rung
-`derivOrderL1 3 smoothSeed` needs the sign structure of `T'''`, which the
-convexity-plus-polynomial comparison above does not yet reach. The open
-obligations are otherwise unchanged: the node-product constants, the strip
-contraction, and then the numeric `cardinalRaw` budget, the correction
-quadratic margin, the signed determinant and the joint tail margin, with `C >
-0` still to come from a designed admissible base on the construction side.
+2` and `derivOrderL1 2 smoothSeed = 8`, and the third rung is the
+transcendental constant `8 * T'' x*` whose certified half is
+`4 * T'' x <= derivOrderL1 3 smoothSeed`. The next obligations are the open
+single-peakedness of `T''` on `(0, 1/2)` (equivalently the certified value
+`8 * T'' x*`) and a rational bracket on `x*`; the order-three comparison is
+between the logistic ratio and a degree-three rational function and has no
+polynomial reduction yet. The remaining open obligations are otherwise
+unchanged: the node-product constants, the strip contraction, and then the
+numeric `cardinalRaw` budget, the correction quadratic margin, the signed
+determinant and the joint tail margin, with `C > 0` still to come from a
+designed admissible base on the construction side.
