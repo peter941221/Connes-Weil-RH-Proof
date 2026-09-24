@@ -11,6 +11,10 @@ The formal declaration is
 `C1P2SpanProfileMatrix.lean`. It is an exact identity only; no coefficient
 sign is assumed.
 
+The formula is obtained by specializing the finite-span physical expansion,
+not by assigning an `OrbitG8Geometry` to the span. It therefore retains the
+correct four-point owner and its actual pair channels.
+
 Verification: `20260924_span_physical5.log`, 3789 jobs, zero errors; the
 paired audit reports only `[propext, Classical.choice, Quot.sound]` and no
 `sorryAx`.
