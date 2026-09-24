@@ -750,21 +750,80 @@ Record: `docs/proofs/1975_seed_third_order_comparison.md`; build log
 warnings in the two new modules, all 25 declarations on the standard three
 axioms); probe log `build-logs/1975_single_peakedness_probe.log`.
 
-Status: two rungs of the seed ladder are numbers, `derivOrderL1 1 smoothSeed =
-2` and `derivOrderL1 2 smoothSeed = 8`, and the third rung is the
-transcendental constant `8 * T'' x*` whose certified half is
-`4 * T'' x <= derivOrderL1 3 smoothSeed`. Single-peakedness of `T''` on
-`(0, 1/2)` is now exactly one explicit comparison -- the logistic curve
-`tanh (v/2)` against the positive root `thirdOrderThreshold s` of an explicit
-quadratic bracket, with iff sign theorems on both sides; the order-three
-comparison therefore HAS a polynomial reduction (superseding the "no polynomial
-reduction yet" line of the previous status), and the irreducible part is the
-root itself, which needs rational enclosures rather than algebra. The next
-obligation is the finite interval certificate of that single crossing (rational
-bounds on `Real.exp` and on the square root on a partition that is delicate
-only just past `s*`, where the comparison margin is `+1.07e-03`), which yields
-the certified value `8 * T'' x*` and then a rational bracket on `x*`. The
-remaining open obligations are otherwise
+## 25. The third rung is a certified rational bracket (1976)
+
+The interval certificate of §24's obligation landed. The brick is
+`ConnesWeilRH/Dev/C1ExplicitSeedThirdOrderIntervalCertificate.lean` (2175
+lines, 131 declarations, paired audit with 131 `#print axioms`), in four
+layers.
+
+The exp machinery: `expTaylor` is the order-20 truncation of `exp` at `0` and
+`expTail` the Lagrange tail `y^20/20! * 20/19`, giving the rational power
+enclosure `exp_bounds_pow`
+
+    (expTaylor (w/m) - expTail (w/m))^m <= Real.exp w
+      <= (expTaylor (w/m) + expTail (w/m))^m        for 0 <= w, 1 <= m, w <= m.
+
+Through the increasing ratio `x -> (x-1)/(x+1)` this transfers to the
+logistic variable `seedU s = tanh (seedV s / 2)`, `seedV s = 4 s/(1 - s^2)`:
+`seedU_mem_Icc` gives `seedULo s m <= seedU s <= seedUHi s m` for
+`0 <= s < 1`, `seedV s <= m`. The bracket enclosure `seedBracket_mem_Icc`
+then bounds the committed profile
+`seedBracket s = thirdOrderBracket s (seedU s)` by the explicit rationals
+`seedBracketLower a b uL uH` and `seedBracketUpper a b uL uH` on any window
+`[a, b]` inside `[0, 1]` with a rational sandwich `uL <= seedU <= uH`, using
+the monotone expansions of the three bracket coefficients.
+
+The partition: 37 rational pieces, `[0, 11/20]` in 22 negative pieces
+(`seedBracket_neg_L01` .. `L22`), the straddle `[11/20, 23/40]`, and
+`[23/40, 1)` in 15 positive pieces (`seedBracket_pos_R01` .. `R15`); each
+piece is a `norm_num` comparison on the explicit rational enclosure. On the
+straddle the derivative of the profile along the curve is bounded below by the
+explicit constant `seedHprimeLower`, whose two terms are `+1.869140038` and
+`+18.264149737`, so `seedBracket_strictMonoOn` holds there
+(`seedHprime_ge_lower` with `seedHprimeLower_pos`), and the interior zero is
+unique: `existsUnique_seedBracket_eq_zero`, straddled by
+`seedBracket (5634883/10^7) < 0 < seedBracket (1408721/2500000)`. The sign
+split extends to the whole half-line on each side
+(`seedBracket_neg_of_Icc_zero_s_d`, `seedBracket_pos_of_Ico_s_c_one`).
+
+The rung: the sign transfer
+`(1 - s^2)^6 * T'''((1-s)/2) = 64 * T x (1 - T x) * seedBracket s`
+(`iteratedDeriv_three_smoothTransition_eq_seedBracket`) gives
+`T''' > 0` on `x ∈ (0, x_c]` and `T''' < 0` on `x ∈ [x_d, 1/2)` with
+`x_c = 1091279/5000000`, `x_d = 4365117/20000000`. With `T''((1-s)/2)`
+bracketed by a Lipschitz evaluation (`iteratedDeriv_two_smoothTransition_mem_Icc`,
+via `ttwoMp`, `ttwoLower`, `ttwoUpper`) and the gap bounded by
+`iteratedDeriv_three_abs_le_gapBound` with
+`gapBound = 16 |gapHi| / (1 - s_c^2)^6`, the two proper integrals evaluate by
+FTC, and
+
+    derivOrderL1 3 smoothSeed
+      ∈ Set.Icc (787283384 / 10^7) (787283385 / 10^7)
+
+(`derivOrderL1_smoothSeed_three_mem_Icc`). The rig
+`scripts/seed_third_order_interval_certificate_1976.py` (exact rationals) puts
+the rung at `78.7283384146455 .. 78.7283384149908`, width `3.45e-10`, so the
+`1e-7` bracket is the certificate's chosen coarseness, not a limit of the
+method. A rational bracket on the crossing follows: `x* ∈ (x_d, x_c)`, i.e.
+`0.21825580 < x* < 0.21825585`. Record:
+`docs/proofs/1976_seed_third_order_interval_certificate.md`; build log
+`build-logs/1976_interval_certificate_build4.log` (3654 jobs, zero errors, no
+warnings in the two new modules, all 131 declarations on exactly
+`[propext, Classical.choice, Quot.sound]`).
+
+Status: three rungs of the seed ladder are under control: `derivOrderL1 1
+smoothSeed = 2`, `derivOrderL1 2 smoothSeed = 8` exactly, and the third rung
+is now a certified rational bracket
+`derivOrderL1 3 smoothSeed ∈ [787283384/10^7, 787283385/10^7]` around the
+transcendental `8 * T'' x*` (which still has no closed form, and whose exact
+value remains the model value only up to the certified bracket). The certified
+sign split of `T'''` around the crossing also yields the rational bracket
+`0.21825580 < x* < 0.21825585`, so the "single crossing" statement of §24 is
+certified, not merely probed. What remains on this lane is the higher rungs
+`j >= 4` (the same partition method applies at any order, at the cost of
+enclosing the corresponding higher-order profile) and the final assembly of
+the certified rungs into the committed consumer's budget. The remaining open obligations are otherwise
 unchanged: the node-product constants, the strip contraction, and then the
 numeric `cardinalRaw` budget, the correction quadratic margin, the signed
 determinant and the joint tail margin, with `C > 0` still to come from a
