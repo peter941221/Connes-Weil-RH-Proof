@@ -493,3 +493,52 @@ a numeric budget. The open obligations are the numerical ladder values at a
 concrete node set, the node-product constants, the strip contraction, and then
 the numeric `cardinalRaw` budget, the correction quadratic margin, the signed
 determinant and the joint tail margin.
+
+## 21. The seed ladder over the transition function (1972)
+
+Section 20's status line left the seed ladder as a bound with one unknown family
+per order, the sup norms of the seed's iterated derivatives. That family is the
+transition function's. The committed seed is the product of two translates of
+`Real.smoothTransition` (`T`), and each translate is constant on the side of the
+window where the other one acts: `T (x + 2) = 1` for `x >= -1` and
+`T (2 - x) = 1` for `x <= 1`. For every positive order only one term of the
+Leibniz sum is therefore alive at a time,
+`iteratedDeriv j smoothSeedRaw x = iteratedDeriv j T (x + 2) + (-1)^j *
+iteratedDeriv j T (2 - x)` (`iteratedDeriv_smoothSeedRaw_eq`), the two cases
+being `Filter.EventuallyEq.iteratedDeriv_eq` at the points where the seed is
+eventually one translate. The transition derivatives vanish at both ends
+(`iteratedDeriv_smoothTransition_eq_zero_of_lt_zero`, and `..._of_one_lt` for
+positive orders, where the positive-order hypothesis is genuine), so
+`support (iteratedDeriv j T) <= [0, 1]`, at every point at most one term of the
+split is nonzero, and the norms add (`norm_iteratedDeriv_smoothSeedRaw_eq`, and
+at the committed complex packaging `norm_iteratedDeriv_smoothSeed_test_eq`
+through `iteratedDeriv_smoothSeedComplex_eq`).
+
+Integrating the norm identity against Lebesgue measure — invariant under the
+shift by `2` and under the reflection — gives the ladder identity
+`derivOrderL1 j smoothSeed = 2 * Integral x, norm (iteratedDeriv j T x)` for
+`j >= 1` (`derivOrderL1_smoothSeed_eq`): the seed's ladder is the transition
+function's derivative mass doubled, one integral per order. Order one is then a
+number: the transition rises from `0` to `1`, so its derivative is nonnegative
+(`deriv_smoothTransition_nonneg`), supported in `[0, 1]`
+(`support_deriv_smoothTransition_subset`), and
+`Integral x, norm (deriv T x) = 1`
+(`integral_norm_deriv_smoothTransition_eq_one`), whence
+`derivativeL1 smoothSeed = 2` (`derivativeL1_smoothSeed_eq_two`) — section 18's
+committed bound `<= 8` is not sharp. The seed oracle carries the transition's
+sup norms with the factor `2` instead of section 20's `4`
+(`derivOrderL1_smoothSeed_le_two_mul`), and the first numerically bounded rung
+of the ladder is `l1Mass (shiftedProduct [a] smoothSeed) <= 2 + 4 * norm a`
+(`l1Mass_shiftedProduct_singleton_smoothSeed_le`). Record:
+`docs/proofs/1972_seed_transition_reduction.md`; build log
+`build-logs/1972_seed_transition_reduction.log` (3650 jobs, zero errors, no
+warnings in the two new modules, all 20 declarations on the standard three
+axioms).
+
+Status: the seed ladder is now one function and one integral per order, and its
+first rung is the exact number `2`; the order-`j >= 2` values stay the explicit
+integral `2 * Integral x, norm (iteratedDeriv j T x)`, and no number is chosen
+for the sup norms there. The open obligations are the numerical ladder values
+at a concrete node set, the node-product constants, the strip contraction, and
+then the numeric `cardinalRaw` budget, the correction quadratic margin, the
+signed determinant and the joint tail margin.

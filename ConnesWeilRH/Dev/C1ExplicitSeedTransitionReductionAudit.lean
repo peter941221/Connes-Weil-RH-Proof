@@ -1,0 +1,26 @@
+import ConnesWeilRH.Dev.C1ExplicitSeedTransitionReduction
+
+namespace ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms iteratedDeriv_smoothTransition_eq_zero_of_lt_zero
+#print axioms iteratedDeriv_smoothTransition_eq_zero_of_one_lt
+#print axioms support_iteratedDeriv_smoothTransition_subset
+#print axioms contDiff_one_iteratedDeriv_smoothTransition
+#print axioms contDiff_one_iteratedDeriv_smoothSeedRaw
+#print axioms differentiable_iteratedDeriv_smoothSeedRaw
+#print axioms deriv_ofReal_comp_of_differentiableAt
+#print axioms iteratedDeriv_smoothSeedComplex_eq
+#print axioms iteratedDeriv_smoothSeedRaw_eq
+#print axioms norm_iteratedDeriv_smoothSeedRaw_eq
+#print axioms norm_iteratedDeriv_smoothSeed_test_eq
+#print axioms integrable_norm_iteratedDeriv_smoothTransition_add
+#print axioms integrable_norm_iteratedDeriv_smoothTransition_sub
+#print axioms derivOrderL1_smoothSeed_eq
+#print axioms deriv_smoothTransition_nonneg
+#print axioms support_deriv_smoothTransition_subset
+#print axioms integral_norm_deriv_smoothTransition_eq_one
+#print axioms derivativeL1_smoothSeed_eq_two
+#print axioms derivOrderL1_smoothSeed_le_two_mul
+#print axioms l1Mass_shiftedProduct_singleton_smoothSeed_le
+
+end ConnesWeilRH.Source.C1ExplicitSmoothSeed
