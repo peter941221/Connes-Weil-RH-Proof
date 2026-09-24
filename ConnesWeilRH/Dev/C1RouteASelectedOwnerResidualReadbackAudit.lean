@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1RouteASelectedOwnerResidualReadback
+
+namespace ConnesWeilRH.Source.C1RouteASelectedOwnerResidualReadback
+
+#check @selectedOwner_gate_eq_archimedean_plus_visibleProfile
+#check @selectedOwner_gate_nonpos_iff_visibleProfile_budget
+#check @selectedOwner_qw_eq_neg_archimedean_sub_visibleProfile
+
+#print axioms selectedOwner_gate_eq_archimedean_plus_visibleProfile
+#print axioms selectedOwner_gate_nonpos_iff_visibleProfile_budget
+#print axioms selectedOwner_qw_eq_neg_archimedean_sub_visibleProfile
+
+end ConnesWeilRH.Source.C1RouteASelectedOwnerResidualReadback

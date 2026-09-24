@@ -66,6 +66,9 @@ Two equivalent attack lanes remain admissible:
   coboundary reduction.
 - [082](082_direct_semilocal_gate_assault.md): shortest formal consumer to
   `SourceRH`.
+- [104](104_route_a_four_round_campaign.md): active four-round execution plan;
+  Round 1 exact selected-owner finite-profile readback is formal, while the
+  signed residual margin remains open.
 
 This lane must prove an unconditional signed inequality on the actual selected
 detector and its actual finite visible-prime set. Channelwise absolute
