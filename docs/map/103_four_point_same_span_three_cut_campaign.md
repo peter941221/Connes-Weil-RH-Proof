@@ -354,6 +354,12 @@ the next producer-facing target. The overlap majorant remains only a guard;
 the strict proof must exploit the signed erased remainder, consistently with
 the scoped scalar-majorant no-go in map 093.
 
+Owner guard (record 1940): this 1939 decomposition is for the original
+`OrbitG8Geometry rho g` owner. It is not yet a certificate for the span owner
+`h(lambda) = u - lambda * g`; passing it across would be an owner substitution.
+The next core brick is therefore the exact signed physical-kernel expansion
+for that same span owner.
+
 together with the positive cross sum, on the selected healthy detector (under
 the cross-term symmetry this is exactly the probe's
 `D*C - B01^2 < 0`, and by record 1919 equivalently the variance-gap /
