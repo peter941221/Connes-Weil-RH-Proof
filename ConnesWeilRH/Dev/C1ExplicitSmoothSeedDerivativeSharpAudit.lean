@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1ExplicitSmoothSeedDerivativeSharp
+
+namespace ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms deriv_smoothTransition_eq_zero_of_one_le
+#print axioms norm_deriv_smoothSeedRaw_le_two
+#print axioms deriv_smoothTransition_half
+#print axioms deriv_smoothSeedRaw_neg_three_halves
+#print axioms deriv_smoothSeedRaw_three_halves
+#print axioms norm_deriv_smoothSeedRaw_neg_three_halves
+#print axioms norm_deriv_smoothSeedComplex_le_two
+#print axioms norm_deriv_smoothSeed_test_le_two
+#print axioms derivativeL1_smoothSeed_le_eight
+
+end ConnesWeilRH.Source.C1ExplicitSmoothSeed

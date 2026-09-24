@@ -380,3 +380,29 @@ Status: the base of the explicit-seed budget chain is CLOSED. The next
 obligations are the shifted-product recurrence constants and the node-product
 constants that multiply this base, the strip contraction, and then the numeric
 `cardinalRaw` budget at a concrete node set.
+
+## 18. Sharp seed derivative constant (1969)
+
+Section 17 named a sharpening and left it open: the seed bound `4` came from
+the product rule, and the true supremum is `2` because the two derivative
+factors of `smoothSeedRaw x = smoothTransition (x + 2) * smoothTransition (2 - x)`
+are active on the disjoint windows `(-2,-1)` and `(1,2)`, where the passive
+factor equals `1` and has zero derivative. That sharpening is now executed. The
+transition derivative vanishes on `[1, inf)` (`deriv_smoothTransition_eq_zero_of_one_le`),
+so for `x <= 1` the seed derivative is `T' (x + 2) * T (2 - x)` and for `1 <= x`
+it is `- T (x + 2) * T' (2 - x)`; with `0 <= T <= 1` and `|T'| <= 2` both
+regions give `norm (deriv smoothSeedRaw x) <= 2`. The bound is attained:
+`deriv smoothTransition (1/2) = 2`, `deriv smoothSeedRaw (-3/2) = 2` and
+`deriv smoothSeedRaw (3/2) = -2`, so `2` is the exact supremum and not merely an
+upper bound. The complex and `CompactLogTest` packaging carries `2`, and the
+budget consumer returns `derivativeL1 smoothSeed <= (2 * 2) * 2 = 8`, halving
+the `16` of section 17. The coarser statements of section 17 stay in place and
+remain true. Record: `docs/proofs/1969_sharp_smooth_seed_derivative_constant.md`;
+build log `build-logs/1969_sharp_seed_derivative.log` (3646 jobs, zero errors,
+no warnings in the two new modules, all 9 declarations on the standard three
+axioms).
+
+Status: the seed derivative constant is now optimal for the committed budget
+shape, so this sub-chain is closed pending only the shifted-product recurrence
+constants and the node-product constants that multiply the base, the strip
+contraction, and the numeric `cardinalRaw` budget at a concrete node set.
