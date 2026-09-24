@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1SignedVarianceIdentity
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1SignedVarianceIdentityAudit
+
+open C1SignedVarianceIdentity
+
+#print axioms finite_signed_variance_identity
+
+end C1SignedVarianceIdentityAudit
+end Source
+end ConnesWeilRH
