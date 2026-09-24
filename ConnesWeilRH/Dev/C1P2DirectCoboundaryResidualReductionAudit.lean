@@ -1,0 +1,15 @@
+import ConnesWeilRH.Dev.C1P2DirectCoboundaryResidualReduction
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1P2DirectCoboundaryResidualReductionAudit
+
+open C1P2DirectCoboundaryResidualReduction
+
+#print axioms orbitWeightedKernelIntegrandDerivative_continuous
+#print axioms orbitFinitePhysicalKernelIntegrandDerivative_continuous
+#print axioms intervalIntegral_orbitFinitePhysicalKernelIntegrand_eq_actualResidual
+
+end C1P2DirectCoboundaryResidualReductionAudit
+end Source
+end ConnesWeilRH

@@ -113,9 +113,24 @@ residual-budget premise. The paired audit is green: build
 `20260924_physical_derivative_selector2.log`, 3662 jobs, zero errors, standard
 axioms only, no `sorryAx`. See [1924](../proofs/1924_route_a_physical_derivative_selector.md).
 
-The signed margin itself is still open: the new derivative cost has not yet
-been converted into a strict negative aggregate residual without destroying
-prime cancellation. The old API underdetermination is recorded for history in
+The derivative residual has now also been eliminated exactly. The new leaf
+`C1P2DirectCoboundaryResidualReduction.lean` proves, for the actual residual
+and actual finite aggregate,
+
+```text
+integral(actualAggregate) = integral(actualResidual).
+```
+
+This uses the already proved zero boundary values of the coboundary and keeps
+the full visible-prime sum grouped. Build
+`20260924_direct_coboundary_reduction6.log` completed successfully (3791
+jobs), with standard axioms only and no `sorryAx`; see
+[1925](../proofs/1925_route_a_exact_aggregate_residual_reduction.md).
+
+The signed margin itself is still open. The remaining analytic target is now
+exactly `archimedeanTerm + integral(actualAggregate) <= -epsilon`, with no
+separate derivative-residual premise. The old API underdetermination is
+recorded for history in
 [1923](../proofs/1923_route_a_round2_current_api_underdetermination.md).
 
 ### Round 3 — parameter and margin closure (OPEN)
