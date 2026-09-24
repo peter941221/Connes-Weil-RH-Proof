@@ -77,6 +77,7 @@ The result is now uniform over bounded span coefficients: for fixed `rho`,
 and every `|lambda| <= L`. A future determinant proof therefore only needs to
 provide a coefficient bound; it no longer needs to coordinate an individual
 `lambda` with the convolution index at the tail stage.
+See proof record [1934](../proofs/1934_four_point_uniform_tail_coefficient_bound.md).
 
 The exact Laplace identity in [094] multiplies `laplaceAt g` by a degree-four
 polynomial `P_rho(s) - lambda`. Its convolution square acquires the product of
