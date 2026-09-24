@@ -109,6 +109,41 @@ theorem annihilator_span_gate_eq_parabola
   rw [← hsq u, ← hsq g]
   ring
 
+/-! ## Symmetric polarization of the same-owner parabola -/
+
+/-- The two symmetric evaluations of the same-owner span recover the sum of
+the directed cross gates.  This is the exact polarization identity for the
+unrestricted annihilator-detector pair; no cross-term symmetry is assumed. -/
+theorem annihilator_span_gate_polarization
+    (u g : CompactLogTest) (B : Real)
+    (hw : ∀ i, Function.support ((![u, g] : Fin 2 → CompactLogTest) i).test ⊆
+      Set.Ioo (-B) B) :
+    2 * (ICgate (u.involution.convolution g) +
+      ICgate (g.involution.convolution u)) =
+      ICgate ((annihilatorDetectorSpanVector u g (-1)).convolutionSquare) -
+        ICgate ((annihilatorDetectorSpanVector u g 1).convolutionSquare) := by
+  have hneg := annihilator_span_gate_eq_parabola u g (-1) hw
+  have hpos := annihilator_span_gate_eq_parabola u g 1 hw
+  rw [hneg, hpos]
+  ring
+
+/-- The vertex determinant can equivalently be read from the two symmetric
+same-owner gate evaluations.  This is useful when the archimedean and finite
+prime channels are estimated after the span has been formed. -/
+theorem annihilator_span_gate_det_eq_symmetric_gap
+    (u g : CompactLogTest) (B : Real)
+    (hw : ∀ i, Function.support ((![u, g] : Fin 2 → CompactLogTest) i).test ⊆
+      Set.Ioo (-B) B) :
+    ICgate u.convolutionSquare * ICgate g.convolutionSquare -
+        ((ICgate (u.involution.convolution g) +
+          ICgate (g.involution.convolution u)) / 2) ^ 2 =
+    ICgate u.convolutionSquare * ICgate g.convolutionSquare -
+        ((ICgate ((annihilatorDetectorSpanVector u g (-1)).convolutionSquare) -
+          ICgate ((annihilatorDetectorSpanVector u g 1).convolutionSquare)) / 4) ^ 2 := by
+  rw [← annihilator_span_gate_polarization u g B hw]
+  ring
+
+
 /-! ## The scalar reduction -/
 
 /-- The larger root of the span quadratic in the sign convention

@@ -3,6 +3,8 @@ import ConnesWeilRH.Dev.C1FourPointSpanGateCertificate
 namespace ConnesWeilRH.Source.C1FourPointSpanGateCertificate
 
 #check @annihilator_span_gate_eq_parabola
+#check @annihilator_span_gate_polarization
+#check @annihilator_span_gate_det_eq_symmetric_gap
 #check @gatePlusRoot
 #check @gate_quadratic_at_gatePlusRoot
 #check @gatePlusRoot_pos_of_neg
@@ -16,6 +18,8 @@ namespace ConnesWeilRH.Source.C1FourPointSpanGateCertificate
 #check @exists_pos_lambda_gate_and_prefix_of_annihilator_det_neg
 
 #print axioms annihilator_span_gate_eq_parabola
+#print axioms annihilator_span_gate_polarization
+#print axioms annihilator_span_gate_det_eq_symmetric_gap
 #print axioms gate_quadratic_at_gatePlusRoot
 #print axioms gatePlusRoot_pos_of_neg
 #print axioms exists_pos_lambda_quadratic_nonpos
