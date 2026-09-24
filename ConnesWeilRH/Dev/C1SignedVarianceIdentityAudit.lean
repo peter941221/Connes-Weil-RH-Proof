@@ -7,6 +7,8 @@ namespace C1SignedVarianceIdentityAudit
 open C1SignedVarianceIdentity
 
 #print axioms finite_signed_variance_identity
+#print axioms two_atom_signed_variance_identity
+#print axioms two_atom_signed_variance_neg
 
 end C1SignedVarianceIdentityAudit
 end Source

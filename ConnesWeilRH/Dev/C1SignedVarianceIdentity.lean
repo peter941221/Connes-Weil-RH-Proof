@@ -111,6 +111,23 @@ theorem finite_signed_variance_identity
   rw [hAorder, hcross, hneg]
   linarith [hdouble]
 
+theorem two_atom_signed_variance_identity
+    (c₀ c₁ p₀ p₁ : ℝ) :
+    (c₀ * p₀ ^ 2 + c₁ * p₁ ^ 2) * (c₀ + c₁) -
+        (c₀ * p₀ + c₁ * p₁) ^ 2 =
+      c₀ * c₁ * (p₀ - p₁) ^ 2 := by
+  ring
+
+theorem two_atom_signed_variance_neg
+    {c₀ c₁ p₀ p₁ : ℝ}
+    (hc₀ : 0 < c₀) (hc₁ : c₁ < 0) (hp : p₀ ≠ p₁) :
+    (c₀ * p₀ ^ 2 + c₁ * p₁ ^ 2) * (c₀ + c₁) -
+        (c₀ * p₀ + c₁ * p₁) ^ 2 < 0 := by
+  rw [two_atom_signed_variance_identity]
+  have hdiff : 0 < (p₀ - p₁) ^ 2 := sq_pos_of_ne_zero (sub_ne_zero.mpr hp)
+  have hcprod : c₀ * c₁ < 0 := mul_neg_of_pos_of_neg hc₀ hc₁
+  simpa [mul_assoc] using mul_neg_of_neg_of_pos hcprod hdiff
+
 end C1SignedVarianceIdentity
 end Source
 end ConnesWeilRH

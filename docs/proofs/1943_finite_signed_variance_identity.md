@@ -22,6 +22,11 @@ pairwise physical-kernel budget for the four-point span, with the finite
 visible-prime set and erased remainder retained. It does not prove the gate
 determinant is negative and does not advance an RH claim by itself.
 
+The same module also proves the two-atom specialization: positive mass,
+negative mass, and unequal profile values force a strictly negative
+determinant. This certificate is usable only after the same-owner physical
+kernel has been rigorously grouped into those two channels.
+
 ## Verification
 
 ```text
