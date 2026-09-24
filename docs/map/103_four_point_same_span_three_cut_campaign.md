@@ -448,8 +448,11 @@ variance-gap criterion, and the moment bracket are EXACT ALGEBRA plus NUMERIC
 verification in record 1919; record 1943 now formally proves the finite
 signed-variance identity, but signed weights still give no automatic sign.
 Record 1943 also proves the strict two-atom certificate: positive mass,
-negative mass, and unequal profile values imply a negative determinant. The
-Record 1944 now formally aggregates the actual span owner's finite visible
+negative mass, and unequal profile values imply a negative determinant.
+Record 1949 formally proves the general bipartite variance-gap decomposition
+and negativity criterion, wiring cross-gap domination directly to the
+strictly negative vertex span gate quadratic.
+Record 1944 formally aggregates the actual span owner's finite visible
 prime sum into the four same-owner physical channels, in both bilateral and
 direct-integral form. This removes the opaque finite-prime aggregate but does
 not prove its signed margin. The actual-owner pairwise physical-kernel budget,

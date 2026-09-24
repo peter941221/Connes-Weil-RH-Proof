@@ -9,6 +9,10 @@ open C1SignedVarianceIdentity
 #print axioms finite_signed_variance_identity
 #print axioms two_atom_signed_variance_identity
 #print axioms two_atom_signed_variance_neg
+#print axioms bipartite_double_sum_split
+#print axioms finite_signed_variance_bipartite_identity
+#print axioms finite_signed_variance_bipartite_neg
+#print axioms exists_pos_lambda_quadratic_neg_of_bipartite_variance_gap
 
 end C1SignedVarianceIdentityAudit
 end Source

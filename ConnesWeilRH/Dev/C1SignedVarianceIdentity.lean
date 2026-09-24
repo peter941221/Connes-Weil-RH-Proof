@@ -128,6 +128,90 @@ theorem two_atom_signed_variance_neg
   have hcprod : c₀ * c₁ < 0 := mul_neg_of_pos_of_neg hc₀ hc₁
   simpa [mul_assoc] using mul_neg_of_neg_of_pos hcprod hdiff
 
+theorem bipartite_double_sum_split
+    {α : Type*} [DecidableEq α] (s₁ s₂ : Finset α) (hdisj : Disjoint s₁ s₂)
+    (F : α → α → ℝ) (hsymm : ∀ i ∈ s₁, ∀ j ∈ s₂, F j i = F i j) :
+    ∑ i ∈ s₁ ∪ s₂, ∑ j ∈ s₁ ∪ s₂, F i j =
+      (∑ i ∈ s₁, ∑ j ∈ s₁, F i j) +
+      (∑ i ∈ s₂, ∑ j ∈ s₂, F i j) +
+      2 * ∑ i ∈ s₁, ∑ j ∈ s₂, F i j := by
+  have hinner : ∀ i, (∑ j ∈ s₁ ∪ s₂, F i j) = (∑ j ∈ s₁, F i j) + ∑ j ∈ s₂, F i j :=
+    fun i => Finset.sum_union hdisj
+  simp_rw [hinner]
+  rw [Finset.sum_union hdisj]
+  rw [Finset.sum_add_distrib, Finset.sum_add_distrib]
+  have hcross : (∑ i ∈ s₂, ∑ j ∈ s₁, F i j) = ∑ i ∈ s₁, ∑ j ∈ s₂, F i j := by
+    rw [Finset.sum_comm]
+    exact Finset.sum_congr rfl (fun j hj => Finset.sum_congr rfl (fun i hi => hsymm j hj i hi))
+  linarith [hcross]
+
+/-- The exact bipartite signed variance identity: for any disjoint partition `s₁ ∪ s₂`,
+the variance determinant decomposes into internal positive variances on `s₁` and `s₂`
+minus the positive-negative cross gap energy. -/
+theorem finite_signed_variance_bipartite_identity
+    {α : Type*} [DecidableEq α] (s₁ s₂ : Finset α) (hdisj : Disjoint s₁ s₂) (c p : α → ℝ) :
+    (∑ i ∈ s₁ ∪ s₂, c i * p i ^ 2) * (∑ i ∈ s₁ ∪ s₂, c i) -
+        (∑ i ∈ s₁ ∪ s₂, c i * p i) ^ 2 =
+      (1 / 2 : ℝ) * (∑ i ∈ s₁, ∑ j ∈ s₁, c i * c j * (p i - p j) ^ 2) +
+      (1 / 2 : ℝ) * (∑ i ∈ s₂, ∑ j ∈ s₂, c i * c j * (p i - p j) ^ 2) -
+      ∑ i ∈ s₁, ∑ j ∈ s₂, c i * (-c j) * (p i - p j) ^ 2 := by
+  have hsymm : ∀ i ∈ s₁, ∀ j ∈ s₂,
+      c j * c i * (p j - p i) ^ 2 = c i * c j * (p i - p j) ^ 2 := by
+    intro i _ j _
+    ring
+  have hsplit := bipartite_double_sum_split s₁ s₂ hdisj
+    (fun i j => c i * c j * (p i - p j) ^ 2) hsymm
+  have hvar := finite_signed_variance_identity (s₁ ∪ s₂) c p
+  rw [hvar, hsplit]
+  have hcross : (∑ i ∈ s₁, ∑ j ∈ s₂, c i * c j * (p i - p j) ^ 2) =
+      -∑ i ∈ s₁, ∑ j ∈ s₂, c i * (-c j) * (p i - p j) ^ 2 := by
+    rw [← Finset.sum_neg_distrib]
+    apply Finset.sum_congr rfl
+    intro i hi
+    rw [← Finset.sum_neg_distrib]
+    apply Finset.sum_congr rfl
+    intro j hj
+    ring
+  linarith [hcross]
+
+/-- Strict bipartite variance-gap negativity criterion: whenever the cross gap energy
+strictly dominates the internal positive variances, the variance determinant is
+strictly negative. -/
+theorem finite_signed_variance_bipartite_neg
+    {α : Type*} [DecidableEq α] (s₁ s₂ : Finset α) (hdisj : Disjoint s₁ s₂) (c p : α → ℝ)
+    (hgap :
+      (1 / 2 : ℝ) * (∑ i ∈ s₁, ∑ j ∈ s₁, c i * c j * (p i - p j) ^ 2) +
+      (1 / 2 : ℝ) * (∑ i ∈ s₂, ∑ j ∈ s₂, c i * c j * (p i - p j) ^ 2) <
+      ∑ i ∈ s₁, ∑ j ∈ s₂, c i * (-c j) * (p i - p j) ^ 2) :
+    (∑ i ∈ s₁ ∪ s₂, c i * p i ^ 2) * (∑ i ∈ s₁ ∪ s₂, c i) -
+        (∑ i ∈ s₁ ∪ s₂, c i * p i) ^ 2 < 0 := by
+  rw [finite_signed_variance_bipartite_identity s₁ s₂ hdisj c p]
+  linarith
+
+open C1FourPointSpanGateCertificate
+
+/-- Master variance-gap gate certificate: a positive total weight, a positive cross sum,
+and the bipartite variance-gap domination condition produce a strictly positive span coefficient
+with a strictly negative span gate quadratic. -/
+theorem exists_pos_lambda_quadratic_neg_of_bipartite_variance_gap
+    {α : Type*} [DecidableEq α] (s₁ s₂ : Finset α) (hdisj : Disjoint s₁ s₂) (c p : α → ℝ)
+    (hC : 0 < ∑ i ∈ s₁ ∪ s₂, c i)
+    (hB : 0 < 2 * ∑ i ∈ s₁ ∪ s₂, c i * p i)
+    (hgap :
+      (1 / 2 : ℝ) * (∑ i ∈ s₁, ∑ j ∈ s₁, c i * c j * (p i - p j) ^ 2) +
+      (1 / 2 : ℝ) * (∑ i ∈ s₂, ∑ j ∈ s₂, c i * c j * (p i - p j) ^ 2) <
+      ∑ i ∈ s₁, ∑ j ∈ s₂, c i * (-c j) * (p i - p j) ^ 2) :
+    ∃ lam : ℝ, 0 < lam ∧
+      (∑ i ∈ s₁ ∪ s₂, c i * p i ^ 2) - lam * (2 * ∑ i ∈ s₁ ∪ s₂, c i * p i) +
+        lam ^ 2 * (∑ i ∈ s₁ ∪ s₂, c i) < 0 := by
+  have hdet :
+      (∑ i ∈ s₁ ∪ s₂, c i * p i ^ 2) * (∑ i ∈ s₁ ∪ s₂, c i) -
+        ((2 * ∑ i ∈ s₁ ∪ s₂, c i * p i) / 2) ^ 2 < 0 := by
+    have hhalf : (2 * ∑ i ∈ s₁ ∪ s₂, c i * p i) / 2 = ∑ i ∈ s₁ ∪ s₂, c i * p i := by ring
+    rw [hhalf]
+    exact finite_signed_variance_bipartite_neg s₁ s₂ hdisj c p hgap
+  exact exists_pos_lambda_quadratic_neg_of_det_neg hC hB hdet
+
 end C1SignedVarianceIdentity
 end Source
 end ConnesWeilRH
