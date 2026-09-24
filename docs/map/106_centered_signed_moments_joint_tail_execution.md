@@ -677,14 +677,94 @@ Record: `docs/proofs/1974_seed_third_order_structure.md`; build log
 warnings in the two new modules, all 24 declarations on the standard three
 axioms); probe `scripts/seed_third_order_probe_1974.py`.
 
+## 24. The third-order sign comparison: one explicit one-variable inequality (1975)
+
+Record 1974 left the third rung at `8 * T'' x*` with single-peakedness of `T''`
+on `(0, 1/2)` open. In the half-width coordinate `s = 1 - 2 x` (so the left half
+is `0 < s < 1`) the committed third-order closed form clears to a quadratic in
+the logistic variable `u = 1 - 2 T x`:
+
+    (1 - s^2)^6 * T''' ((1 - s) / 2)
+      = 64 * (T x * (1 - T x)) * thirdOrderBracket s (1 - 2 T x)
+
+(`iteratedDeriv_three_smoothTransition_eq_bracket`), with
+
+    thirdOrderBracket s u = thirdOrderLeading s * u^2
+                            - thirdOrderMiddle s * u + thirdOrderConstant s,
+    thirdOrderLeading  s = 12 (1 + s^2)^3                     > 0,
+    thirdOrderMiddle   s = 12 s (1 + s^2) (3 + s^2) (1 - s^2) >= 0 on [0, 1],
+    thirdOrderConstant s = -1 + s^4 (3 s^4 + 8 s^2 - 42)      <= -1 < 0 on [0, 1]
+
+(`thirdOrderBracket_eq_quadratic`, `thirdOrderLeading_pos`,
+`thirdOrderMiddle_nonneg`, `thirdOrderConstant_neg`; the negativity of the
+constant coefficient is the whole arithmetic input, and the middle coefficient
+needs no sign). The clearing identity `bracket_clearing` multiplies the three
+bracket terms of the closed form by `(1 - s^2)^6` into `64 * thirdOrderBracket`,
+the degree-two first factor is normalized by the committed
+`logistic_degree_two_normal_form`
+
+    (1 - 2 t)^2 - 2 t (1 - t) = (3 (1 - 2 t)^2 - 1) / 2
+
+(prose only in record 1974), and the reflected gain evaluations come from the
+committed values at `(1 + s) / 2` through `windowGain_one_sub`,
+`windowGainSlope_one_sub`, `windowGainSecondSlope_one_sub`
+(`windowGain_reflect_eq`, `windowGainSlope_reflect_eq`,
+`windowGainSecondSlope_reflect_eq`), with the one missing standard-point
+evaluation
+`windowGainSecondSlope ((1 + s)/2) = 192 (1 + 6 s^2 + s^4)/(1 - s^2)^4`
+supplied by `windowGainSecondSlope_standard_eq` (record 1974 pinned `G''` only
+at `1/2`).
+
+The logistic input is the committed reflection route:
+`one_sub_two_mul_smoothTransition_reflect_eq` reads `u` as the logistic pair
+`(e^v - 1)/(e^v + 1)` at `v = 4 s/(1 - s^2)` and
+`one_sub_two_mul_smoothTransition_reflect_pos` gives `u > 0`. The quadratic sign
+rules `quadratic_pos_iff` and `quadratic_neg_iff` (for `a > 0 > c` and `u > 0`)
+rest on the division-free discriminant identity
+`4 a P u = (2 a u - b)^2 - (b^2 - 4 a c)` (`quadratic_discriminant_identity`)
+and on the local sign transfer `mul_neg_of_pos_left_iff` (the pinned Mathlib has
+`mul_pos_iff_of_pos_left` but no negative counterpart); they are stated as full
+iff's, so the sign of `T'''` is read off in both directions. The threshold
+
+    thirdOrderThreshold s
+      = (thirdOrderMiddle s + sqrt (beta s^2 - 4 * alpha s * gamma s))
+        / (2 * thirdOrderLeading s)
+
+is the positive root (`thirdOrderThreshold_pos`), and the two sign theorems read
+
+    0 < T''' ((1 - s)/2) <-> thirdOrderThreshold s < 1 - 2 T x,
+    T''' ((1 - s)/2) < 0 <-> 1 - 2 T x < thirdOrderThreshold s
+
+(`iteratedDeriv_three_smoothTransition_sign_iff`,
+`iteratedDeriv_three_smoothTransition_neg_iff`). Single-peakedness of `T''` on
+`(0, 1/2)` is therefore EXACTLY the single crossing of the logistic curve
+`tanh (v/2)` with the quadratic irrationality `thirdOrderThreshold s` on
+`(0, 1)`. The probe `scripts/seed_single_peakedness_probe_1975.py` locates the
+crossing at `s* = 0.563488341628`, i.e. `x* = 0.218255829186`, the same
+interior zero record 1974 found (factored `T'''` residual `-2.5e-13` there),
+with crossing value `0.929034992747`, exact rational discriminants
+`Delta (1/2) = 169275/256` and `Delta (1) = 12288`, and margins of the
+comparison `-0.2887` on the left against `+1.07e-03` just past the crossing.
+Record: `docs/proofs/1975_seed_third_order_comparison.md`; build log
+`build-logs/1975_seed_third_order_comparison.log` (3653 jobs, zero errors, no
+warnings in the two new modules, all 25 declarations on the standard three
+axioms); probe log `build-logs/1975_single_peakedness_probe.log`.
+
 Status: two rungs of the seed ladder are numbers, `derivOrderL1 1 smoothSeed =
 2` and `derivOrderL1 2 smoothSeed = 8`, and the third rung is the
 transcendental constant `8 * T'' x*` whose certified half is
-`4 * T'' x <= derivOrderL1 3 smoothSeed`. The next obligations are the open
-single-peakedness of `T''` on `(0, 1/2)` (equivalently the certified value
-`8 * T'' x*`) and a rational bracket on `x*`; the order-three comparison is
-between the logistic ratio and a degree-three rational function and has no
-polynomial reduction yet. The remaining open obligations are otherwise
+`4 * T'' x <= derivOrderL1 3 smoothSeed`. Single-peakedness of `T''` on
+`(0, 1/2)` is now exactly one explicit comparison -- the logistic curve
+`tanh (v/2)` against the positive root `thirdOrderThreshold s` of an explicit
+quadratic bracket, with iff sign theorems on both sides; the order-three
+comparison therefore HAS a polynomial reduction (superseding the "no polynomial
+reduction yet" line of the previous status), and the irreducible part is the
+root itself, which needs rational enclosures rather than algebra. The next
+obligation is the finite interval certificate of that single crossing (rational
+bounds on `Real.exp` and on the square root on a partition that is delicate
+only just past `s*`, where the comparison margin is `+1.07e-03`), which yields
+the certified value `8 * T'' x*` and then a rational bracket on `x*`. The
+remaining open obligations are otherwise
 unchanged: the node-product constants, the strip contraction, and then the
 numeric `cardinalRaw` budget, the correction quadratic margin, the signed
 determinant and the joint tail margin, with `C > 0` still to come from a
