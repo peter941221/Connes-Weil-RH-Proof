@@ -1,0 +1,16 @@
+import ConnesWeilRH.Dev.C1ExplicitDerivativeSupportStability
+
+namespace ConnesWeilRH.Source.C1ExplicitFiniteNodeCorrection
+
+#print axioms support_deriv_subset_closure_support
+#print axioms support_iteratedDeriv_subset_closure_support
+#print axioms support_iteratedDeriv_subset_Icc
+#print axioms derivOrderL1_le_of_supportRadius
+#print axioms support_smoothSeed_test_subset
+#print axioms derivOrderL1_smoothSeed_le
+#print axioms derivOrderL1_one_smoothSeed_le_eight
+#print axioms ladderBound_mono
+#print axioms l1Mass_shiftedProduct_smoothSeed_le
+#print axioms l1Mass_cardinalRaw_le_ladder
+
+end ConnesWeilRH.Source.C1ExplicitFiniteNodeCorrection

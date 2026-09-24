@@ -446,3 +446,50 @@ obligations are the numerical ladder values at a concrete node set, the
 node-product constants, the strip contraction, and then the numeric
 `cardinalRaw` budget, the correction quadratic margin, the signed determinant
 and the joint tail margin.
+
+## 20. One support radius for the whole ladder (1971)
+
+Section 19's status line left the ladder as a bound with, apparently, two inputs
+per order: a support radius and a sup norm of the `m`-th derivative. The radius
+was never a second unknown. The support of a derivative stays inside the closure
+of the support of the function, because a point outside that closure has an open
+neighbourhood on which the function vanishes identically; there the function is
+eventually `0`, so by `Filter.EventuallyEq.deriv_eq` and `deriv_const` its
+derivative vanishes at the point as well
+(`support_deriv_subset_closure_support`, for every `f : ℝ → ℂ`, no
+differentiability hypothesis needed). Iterating with `iteratedDeriv_succ`,
+`closure_mono` and `closure_closure` gives the same for every iterated
+derivative, and `closure_minimal` with `isClosed_Icc` puts every order inside
+one closed interval as soon as the hypothesis holds at the function itself:
+`support_iteratedDeriv_subset_Icc`. The committed seed satisfies it at the
+function level (`support_smoothSeed_test_subset`, support inside `[-2, 2]`), so
+the radius of the ladder is the single number `2` at every order, and
+`derivOrderL1_le_of_supportRadius` is the order-`m` support-times-sup budget
+with that slot discharged once and for all.
+
+The seed oracle is then `derivOrderL1 m smoothSeed <= 4 * M` for any real `M`
+bounding the `m`-th derivative (`derivOrderL1_smoothSeed_le`, the factor `4`
+being `2 * B` at `B = 2`), and its `m = 1` case with the committed sup bound `2`
+returns `derivativeL1 smoothSeed <= 8` — section 18's constant, recovered
+through the new route as a consistency check rather than as a new number. The
+ladder is monotone in its input family (`ladderBound_mono`, by induction on the
+node list with the order generalized), so the seed-level statement needs exactly
+one unknown per order: whenever `M j` bounds the `j`-th derivative of the
+committed seed, the shifted product obeys
+`l1Mass (shiftedProduct nodes smoothSeed) <= ladderBound (4 * M ·) nodes 0`
+(`l1Mass_shiftedProduct_smoothSeed_le`). The ladder also reaches the committed
+owner functional: the step condition of `l1Mass_cardinalRaw_le_of_budget` is
+the ladder recursion itself, so the committed consumer accepts the ladder of the
+exponentially weighted seed as its budget function
+(`l1Mass_cardinalRaw_le_ladder`), for every node set, seed and base point.
+Record: `docs/proofs/1971_support_stability_one_radius.md`; build log
+`build-logs/1971_support_stability.log` (3648 jobs, zero errors, no warnings in
+the two new modules, all 10 declarations on the standard three axioms).
+
+Status: the shifted-product budget for the committed seed is now a bound with
+one unknown family per order, the sup norms of the seed's iterated derivatives;
+no number is chosen for that family, so the ladder is still a reduction and not
+a numeric budget. The open obligations are the numerical ladder values at a
+concrete node set, the node-product constants, the strip contraction, and then
+the numeric `cardinalRaw` budget, the correction quadratic margin, the signed
+determinant and the joint tail margin.
