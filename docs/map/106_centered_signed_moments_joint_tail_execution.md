@@ -311,3 +311,51 @@ A generic checked theorem now converts a pointwise derivative bound into an L1 b
 ## 15. expNegInvGlue derivative constant (1967)
 
 The exact Mathlib formula for expNegInvGlue now yields a verified pointwise derivative bound norm(deriv expNegInvGlue x) <= 4. The proof uses only t >= 0 and t^2 exp(-t) <= 4, avoiding the false global version for negative t. Owning and paired audits pass. The derivative bound for the product smoothSeedRaw remains OPEN because the CompactLogTest wrapper and explicit chain-rule bridge still need to be proved.
+
+
+## 16. Committed owner density probe (1959)
+
+The Cut-2 gate entries of the committed `selectedOwner` shape are now measured
+(`docs/proofs/1959_fourpoint_owner_density_probe.md`, rig
+`scripts/fourpoint_owner_density_1959.py`, four result JSONs). Findings that
+change the execution picture:
+
+```text
+C>0 is not implied by the producer hypotheses.  On the committed owner shape
+the archimedean and prime channels cancel to 3..5 digits (|arch|/|residual| up
+to 7.2e+03 on C and 8e+04 on D), and C changes sign with the free window knob.
+Of 27 grid rows only 5 have C > 0; of 9 points of a local scale scan, 6.
+
+The section 2 endpoint pattern (C>0, b>0, det<0) IS realized on the committed
+owner shape, at two knob points: (delta=0.05, gamma_1, n=0) with (k=30,
+scale=0.90) giving C=+5.0545, b=+2.9649e+04, det=-1.2857e+09, lambda_n=5866.0,
+gate(h_n)=det/C=-2.5436e+08; and (k=40, scale=1.0) giving C=+9.8445e-01,
+b=+2.3050e+03, det=-1.2317e+07, lambda_n=2341.4, gate(h_n)=-1.2511e+07.
+In this regime D < 0, so det = C*D - b^2 < 0 is AUTOMATIC once C > 0: the
+binding obligations of section 2 are C > 0 and b > 0 only.
+
+The signs are a knife edge, not a mechanism: b changes sign between adjacent
+scan knots (scale 0.86: -4.5e+03; 0.88: -2.0e+04; 0.90: +2.96e+04; 0.92:
+-7.2e+03).  A Cut-2 witness (some nonzero lambda with Q(lambda) <= 0) exists
+on 36/36 measured rows, in three different sign regimes, but no monotone or
+Lipschitz mechanism for C > 0 or b > 0 is visible.  Any Lean proof of the
+endpoint must therefore come from the actual construction's analytic
+structure, not from sign bookkeeping.
+```
+
+Rigid byproducts usable in the mainline: `W(0) = 0` exactly for every
+admissible owner (raw node `1/2` has target value `0`
+`[C1HealthyYoshidaUnscaledOrbit.lean:33,43,567]` with `L_base(1/2) = 1`
+`[ibid.:544-547]` through the Hermitian pairing
+`[UnscaledYoshidaSelectedOwner.lean:153]`) — the density never carries mass at
+the origin; the density is confined to `|xi| <~ 4` (worst mass beyond 4 is
+6.6e-05), which bounds the visible prime book; the committed 1958 cardinal
+bump base is numerically unusable for a gate reading (99.9% of its mass
+beyond `|xi| > 4`, strip contraction fails on `t <= 150`), so the missing
+analytic object of this lane is a computable admissible base with a certified
+contraction constant.
+
+Status: the sign side of section 2 is demonstrably reachable, the quantitative
+side (section 2 tail budget, `beta_s * L_n < multiplicity_rho * lambda_n^2`
+with `lambda_n ~ 2.3e+03..5.9e+03`) is untouched, and no gate sign, determinant
+sign or RH claim is made.
