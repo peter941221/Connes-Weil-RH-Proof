@@ -65,6 +65,13 @@ for `h(lambda)`.
 
 ## Cut 1: pay for the four-point multiplier
 
+The high-shell index dependency is now existentially closed for fixed `rho`
+and fixed span coefficient: record [1933](../proofs/1933_four_point_tail_index_existence.md)
+proves that every positive tail budget can be met by a later convolution index
+`n`, using the existing geometric factor `(1/2)^n`. This removes the former
+conditional scalar `hsmall` premise from the tail interface. Uniformity in
+`rho` and the gate-selected coefficient remains open.
+
 The exact Laplace identity in [094] multiplies `laplaceAt g` by a degree-four
 polynomial `P_rho(s) - lambda`. Its convolution square acquires the product of
 that factor at `s` and `-star s`, with degree eight growth on high vertical

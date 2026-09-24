@@ -457,6 +457,46 @@ theorem exists_selectedOwner_fullOrbit_span_fourthOrderSpectralTail_constants
     base correction rho lambda C4 C2 T epsilon n hC4 hC2 hbaseContract
     hbaseQuartic hcorrectionQuadratic hsmall
 
+/-! The convolution index can be chosen after a fixed owner, coefficient, and
+positive tail budget have been fixed. This removes the former conditional
+`hsmall` premise from the producer-facing existence statement. -/
+theorem exists_nat_selectedOwner_fullOrbit_span_fourthOrderSpectralTail
+    (base correction : CompactLogTest) (rho lambda epsilon : Real)
+    (hepsilon : 0 < epsilon) :
+    ∃ C4 C2 T : Real, ∃ n : Nat,
+      0 ≤ C4 ∧ 0 ≤ C2 ∧ 0 ≤ T ∧
+      FourthOrderSpectralTail
+        (annihilatorDetectorSpanVector
+          (fullFunctionalEquationOrbitAnnihilator
+            (selectedOwner base correction n).sourceTest rho)
+          (selectedOwner base correction n).sourceTest lambda).convolutionSquare
+        rho T epsilon := by
+  obtain ⟨C4, C2, T, hC4, hC2, hT, hbaseQuartic,
+      hcorrectionQuadratic, hbaseContract, htail⟩ :=
+    exists_selectedOwner_fullOrbit_span_fourthOrderSpectralTail_constants
+      base correction rho
+  let A : Real :=
+    (3 + ‖rho‖) ^ 4 *
+      ((3 + ‖rho‖) ^ 4 + |lambda|) ^ 2 *
+      (2 * Real.pi) ^ 12
+  have hpow : Filter.Tendsto (fun n : Nat => (1 / 2 : Real) ^ n)
+      Filter.atTop (nhds 0) :=
+    tendsto_pow_atTop_nhds_zero_of_lt_one (by norm_num) (by norm_num)
+  have hsq : Filter.Tendsto
+      (fun n : Nat => ((1 / 2 : Real) ^ n) * ((1 / 2 : Real) ^ n))
+      Filter.atTop (nhds 0) :=
+    by simpa using hpow.mul hpow
+  have hscaled : Filter.Tendsto
+      (fun n : Nat => A * (((1 / 2 : Real) ^ n * (C4 * C2)) ^ 2))
+      Filter.atTop (nhds 0) := by
+    have h := hsq.mul_const (A * (C4 * C2) ^ 2)
+    simpa [pow_two, mul_assoc, mul_left_comm, mul_comm] using h
+  obtain ⟨n, hn⟩ :=
+    (hscaled.eventually_lt_const (sq_pos_of_pos hepsilon)).exists
+  refine ⟨C4, C2, T, n, hC4, hC2, hT, ?_⟩
+  apply htail n lambda epsilon
+  simpa [A] using hn
+
 end
 end C1FourPointHighShellTail
 end Source
