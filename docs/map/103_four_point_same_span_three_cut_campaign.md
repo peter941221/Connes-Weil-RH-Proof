@@ -480,6 +480,12 @@ the master exits from the non-existence of right off-line zeros directly to `Sou
 (`sourceRH_of_right_nontrivial_zeros_empty`) and Mathlib canonical `_root_.RiemannHypothesis`
 (`riemannHypothesis_of_right_nontrivial_zeros_empty`,
 `riemannHypothesis_of_four_point_span_contradiction_producer`).
+Record 1955 formally proves the algebraic expansion, difference identity, and universal
+parametric domination of the bipartite mean gap for the degree-four orbit polynomial
+(`C1ParametricMeanGapDomination.lean`), establishing that for all non-trivial zeros
+satisfying `gamma^2 - delta^2 >= 190`, the between-group shift gap exceeds 5700,
+strictly dominating internal positive variances and guaranteeing a strictly negative
+span gate quadratic.
 Record 1944 formally aggregates the actual span owner's finite visible
 prime sum into the four same-owner physical channels, in both bilateral and
 direct-integral form. This removes the opaque finite-prime aggregate but does
