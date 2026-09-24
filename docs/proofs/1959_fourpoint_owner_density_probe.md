@@ -208,6 +208,12 @@ reported order-1 route-A disagreement on the real owner (`C = +10.09` instead
 of `+5.05` on the scale-0.90 row); after the fix route A agrees with the
 certified pair to `<= 2e-2` on `C` and is still excluded (next paragraph).
 
+Recorded as law **F80** (dual-FFT phase convention): read the transform as
+`Re(fft(f) * dxi * exp(-2 pi i xi_0 x_k))` at the **actual** dual-grid
+frequency, and calibrate the sign on an **asymmetric** grid against an exact
+transform -- a symmetric grid hides the sign error, and the failure mode on
+real data is not a small error but an order-1 wrong entry.
+
 ### 2.2 Routes
 
 ```text
@@ -274,6 +280,12 @@ the certified routes differ by `5.4e-05` on `C`; the propagated bound
 The check does not re-derive the entries; it verifies that `C, b, D` are the
 moments of **one** grid measure, at the accuracy the certified pair's spread
 allows.
+
+Recorded as law **F81** (measure, not integrand): a variance or moment
+identity is homogeneous of degree 2 in the grid weights, so its inputs are the
+measure weights `K*W*dxi`, never the integrand `K*W`. The symptom of mixing
+them is a large "relative error" that scales like `1/dxi^2` -- a units error,
+not a numerical one.
 
 ## 3. The residual structure: the entries are a cancellation remainder
 
@@ -447,4 +459,6 @@ python3 scripts/fourpoint_owner_density_1959.py --cardinal      # limitation
 ```
 
 Runs in the WSL ext4 mirror; numpy/scipy only. The rig documents its sources,
-its levers (F1..F4) and its conventions in the file header.
+its levers (F1..F4, local to the rig header and distinct from the global law
+numbers **F80**/**F81** recorded in sections 2.1 and 2.4) and its conventions
+in the file header.
