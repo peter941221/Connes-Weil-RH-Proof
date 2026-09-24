@@ -1,0 +1,5 @@
+import ConnesWeilRH.Dev.C1ExplicitSmoothSeedDerivativeConstants
+namespace ConnesWeilRH.Source.C1ExplicitSmoothSeed
+#print axioms expNegInvGlue_sq_mul_exp_neg_le_four
+#print axioms norm_deriv_expNegInvGlue_le_four
+end ConnesWeilRH.Source.C1ExplicitSmoothSeed

@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1CompactSupportLaplaceBounds
+
+namespace ConnesWeilRH.Source.CC20YoshidaCriticalContraction.CompactLogTest
+
+#print axioms norm_laplaceAt_le_exp_mul_l1Mass
+
+end ConnesWeilRH.Source.CC20YoshidaCriticalContraction.CompactLogTest

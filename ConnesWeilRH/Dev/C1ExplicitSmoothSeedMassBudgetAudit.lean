@@ -1,0 +1,6 @@
+import ConnesWeilRH.Dev.C1ExplicitSmoothSeedMassBudget
+namespace ConnesWeilRH.Source.C1ExplicitSmoothSeed
+#print axioms smoothSeed_l1Mass_le_four
+#print axioms l1Mass_exponentialWeight_le_of_support
+#print axioms l1Mass_exponentialWeight_smoothSeed_le
+end ConnesWeilRH.Source.C1ExplicitSmoothSeed

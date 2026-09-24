@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1ExplicitSmoothSeedDerivativeBudget
+
+namespace ConnesWeilRH.Source.C1ExplicitFiniteNodeCorrection
+
+#print axioms derivativeL1_nonneg
+#print axioms derivativeL1_le_of_support_of_norm_le
+#print axioms l1Mass_derivativeShift_le
+#print axioms l1Mass_shiftedProduct_le
+#print axioms l1Mass_cardinalRaw_le
+#print axioms norm_nodeProduct_self_ge_pow
+#print axioms l1Mass_shiftedProduct_le_of_budget
+#print axioms l1Mass_cardinalRaw_le_of_budget
+
+end ConnesWeilRH.Source.C1ExplicitFiniteNodeCorrection

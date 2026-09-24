@@ -1,0 +1,21 @@
+import ConnesWeilRH.Dev.C1ExplicitFiniteNodeCorrection
+
+namespace ConnesWeilRH.Source.C1ExplicitFiniteNodeCorrection
+
+#print axioms explicitSeed_mass_ne_zero
+#print axioms explicitSeed_support
+#print axioms laplaceAt_shiftedProduct
+#print axioms shiftedProduct_support
+#print axioms laplaceAt_cardinalRaw
+#print axioms nodeProduct_self_ne_zero
+#print axioms correction_interpolates
+#print axioms explicitSeed_correction_interpolates
+#print axioms correction_support
+#print axioms explicitSeed_correction_support
+#print axioms norm_laplaceAt_correction_le
+#print axioms selectedOwner_laplaceAt_explicit_correction
+#print axioms norm_selectedOwner_laplaceAt_explicit_correction_le
+#print axioms selectedOwner_explicit_correction_target
+#print axioms selectedOwner_explicit_base_and_correction_target
+
+end ConnesWeilRH.Source.C1ExplicitFiniteNodeCorrection

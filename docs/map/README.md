@@ -89,6 +89,14 @@ Current execution priority is the same-span four-point subcampaign in [103](103_
   current spectral-prefix transport.
 - [103](103_four_point_same_span_three_cut_campaign.md): three-cut work order
   for the *same* four-point span, including the gate-owner mismatch.
+- [105](105_coarse_macro_atom_variance_domination.md): candidate coarse signed
+  moment estimates; record 1957 withdraws the proposed 30x automatic closure.
+  The actual-owner determinant and same-index relative-tail budget remain open.
+- [106](106_centered_signed_moments_joint_tail_execution.md): detailed execution
+  contract for complete centered signed moments and the same-index relative
+  tail; supersedes 105's work order. Record 1958 supplies explicit finite-node
+  interpolation and selected-owner transform bounds; the signed determinant
+  and joint margin remain OPEN.
 
 The current exact obligation is a strict negative full spectral value and a
 semi-local nonnegative gate for one and the same span. The finite-prefix

@@ -1,0 +1,11 @@
+import ConnesWeilRH.Dev.C1ExplicitSmoothSeed
+
+namespace ConnesWeilRH.Source.C1ExplicitSmoothSeed
+
+#print axioms smoothSeedRaw_contDiff
+#print axioms smoothSeedRaw_support_subset
+#print axioms smoothSeedRaw_eq_one_of_mem_Icc
+#print axioms smoothSeedComplex_hasCompactSupport
+#print axioms smoothSeed_laplaceAt_zero_ne_zero
+
+end ConnesWeilRH.Source.C1ExplicitSmoothSeed

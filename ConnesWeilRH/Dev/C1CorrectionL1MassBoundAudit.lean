@@ -1,0 +1,7 @@
+import ConnesWeilRH.Dev.C1CorrectionL1MassBound
+
+namespace ConnesWeilRH.Source.C1ExplicitFiniteNodeCorrection
+
+#print axioms l1Mass_correction_le
+
+end ConnesWeilRH.Source.C1ExplicitFiniteNodeCorrection

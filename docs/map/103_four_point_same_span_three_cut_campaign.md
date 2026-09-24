@@ -18,8 +18,9 @@ reduces it to an exact signed-variance identity
 negative mass at `c >= 1.0`; prime-only block strictly negative on 10/10
 scanned widths) with the arch/cross domination delicate for wide owners. The
 determinant
-inequality on the selected owner is OPEN in the general analytic class but certified
-on representative anchors (Record 1953). Cut 3 contradiction assembly and master
+inequality on the selected owner is OPEN. Record 1953 certifies four literal
+rational tuples, not their equality or enclosure relation to actual-owner
+integrals; see the source audit in record 1957. Cut 3 contradiction assembly and master
 exits to Mathlib `_root_.RiemannHypothesis` are FORMAL in Record 1954
 (`C1FourPointContradictionAssembly.lean`). No unconditional full-class RH theorem is claimed.
 Subordinate to [003](003_b1_b5_minimal_exit_route_selection.md),
@@ -160,6 +161,12 @@ family. This is probe evidence on a committed-class family, not a statement
 about the selected owner.
 
 ## Current priority
+
+The revised coarse-moment candidate is specified in
+[106](106_centered_signed_moments_joint_tail_execution.md): actual-owner
+centered moment enclosures and a relative tail budget at the same explicit
+vertex and convolution index. Its analytic producer remains OPEN; this
+execution contract changes no binding route ruling.
 
 Record [1932](../proofs/1932_four_point_span_route_priority_and_first_attack.md)
 selects this same-span campaign as the primary attack. Route A remains a
@@ -470,8 +477,8 @@ Record 1953 formally establishes the rational bipartite mean gap certificate str
 certifies four unconditional negative quadratic span gate certificates
 (`exists_pos_lambda_quadratic_neg_c10_g14`, `exists_pos_lambda_quadratic_neg_c13_g14`,
 `exists_pos_lambda_quadratic_neg_c10_g21`, `exists_pos_lambda_quadratic_neg_c13_g21`)
-via pure `norm_num` rational arithmetic with zero preconditions, completing the
-unconditional elimination of the gate negativity sign premise for representative selected owners.
+via pure `norm_num` rational arithmetic with zero preconditions on those literal
+tuples. Their certified relation to selected-owner gate moments remains OPEN.
 Record 1954 formally assembles the Cut 3 contradiction pipeline
 (`C1FourPointContradictionAssembly.lean`), formalizing the scaled prefix + tail negativity
 (`spectralWeilValue_neg_of_spectralHeightShellPrefix_and_fourthOrderTail_scaled`),
@@ -483,15 +490,20 @@ the master exits from the non-existence of right off-line zeros directly to `Sou
 Record 1955 formally proves the algebraic expansion, difference identity, and universal
 parametric domination of the bipartite mean gap for the degree-four orbit polynomial
 (`C1ParametricMeanGapDomination.lean`), establishing that for all non-trivial zeros
-satisfying `gamma^2 - delta^2 >= 190`, the between-group shift gap exceeds 5700,
-strictly dominating internal positive variances and guaranteeing a strictly negative
-span gate quadratic.
+satisfying `gamma^2 - delta^2 >= 190`, the two-point polynomial difference
+`P(0)-P(4)` is at least 5700. The weighted mean-gap and domination hypotheses
+remain inputs; no actual-owner variance domination follows without proving them.
 Record 1956 formally completes the master mainline assembly of the three cuts directly
 to Mathlib's canonical `_root_.RiemannHypothesis` (`C1FourPointMainlineRH.lean`),
 defining `FourPointSpanContradictionWitness`, proving `false_of_fourPointSpanContradictionWitness`,
 wiring the master mainline exit `riemannHypothesis_of_mainline_witness_producer`,
-and establishing the direct determinant exit `riemannHypothesis_of_gate_determinant_neg`
-and ANOVA mean gap exit `riemannHypothesis_of_bipartite_mean_gap_domination`.
+and establishing conditional exits `riemannHypothesis_of_gate_determinant_neg`
+and `riemannHypothesis_of_bipartite_mean_gap_domination`. Despite its name,
+the former takes an actual gate AND spectral-negativity producer. Record
+[1957](../proofs/1957_plan_b_same_owner_joint_margin_reaudit.md) audits these
+boundaries and specifies the shortest joint determinant / relative-tail target.
+The coarse moment method in map 105 remains a candidate, not an established
+30x domination theorem or a new binding route.
 Record 1944 formally aggregates the actual span owner's finite visible
 prime sum into the four same-owner physical channels, in both bilateral and
 direct-integral form. This removes the opaque finite-prime aggregate but does
