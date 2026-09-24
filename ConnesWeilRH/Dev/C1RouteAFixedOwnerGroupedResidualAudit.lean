@@ -1,0 +1,14 @@
+import ConnesWeilRH.Dev.C1RouteAFixedOwnerGroupedResidual
+
+namespace ConnesWeilRH
+namespace Source
+namespace C1RouteAFixedOwnerGroupedResidualAudit
+
+open C1RouteAFixedOwnerGroupedResidual
+
+#print axioms archimedean_plus_actualResidual_eq_ICgate
+#print axioms strict_groupedResidual_iff_strict_ICgate
+
+end C1RouteAFixedOwnerGroupedResidualAudit
+end Source
+end ConnesWeilRH

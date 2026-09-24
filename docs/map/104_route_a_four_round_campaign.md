@@ -178,6 +178,15 @@ strict grouped-residual sign is still independent and open: minimum coefficient
 norm and derivative upper bounds do not imply a signed physical-kernel margin.
 No conditional sign statement is being promoted to a producer theorem.
 
+The fixed-owner reduction is now formal in
+`C1RouteAFixedOwnerGroupedResidual.lean`: for every actual
+`OrbitG8Geometry`, the grouped coboundary residual plus the Archimedean term is
+exactly `ICgate g.convolutionSquare`, and strict residual negativity is
+equivalent to strict gate negativity. See [1931](../proofs/1931_route_a_fixed_owner_grouped_residual_gate_equivalence.md).
+This removes the duplicate residual formulation. The remaining producer input
+is an owner-specific strict gate certificate; no exact matrix witness for that
+actual owner is currently committed.
+
 ### Round 3 — parameter and margin closure (OPEN)
 
 Prove that the correction, finite zero prefix, orbit index, support radius,
