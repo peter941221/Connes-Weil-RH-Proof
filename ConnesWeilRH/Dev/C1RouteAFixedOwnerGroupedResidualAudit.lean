@@ -10,6 +10,7 @@ open C1RouteAFixedOwnerGroupedResidual
 #print axioms strict_groupedResidual_iff_strict_ICgate
 #print axioms exists_strict_groupedResidual_margin_iff_strict_ICgate
 #print axioms ICgate_pos_of_healthyOrbitGeometry
+#print axioms not_ICgate_nonpos_of_healthyOrbitGeometry
 
 end C1RouteAFixedOwnerGroupedResidualAudit
 end Source

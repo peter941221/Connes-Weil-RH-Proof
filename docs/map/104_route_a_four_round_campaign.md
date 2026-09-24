@@ -200,6 +200,10 @@ healthy-owner assumptions: it is precisely the contradiction-producing RH
 theorem. This is a sign-orientation correction, not a no-go for Route A.
 The audit/build is in record 1931 and
 `20260924_routeA_fixed_grouped_residual9.log`.
+The explicit parameterized no-go
+`not_ICgate_nonpos_of_healthyOrbitGeometry` is now audited in the same leaf:
+the proposed fixed-owner nonpositive witness cannot coexist with the healthy
+owner hypotheses. This is a no-go for that witness order, not for Route A.
 
 ### Round 3 — parameter and margin closure (OPEN)
 

@@ -106,6 +106,15 @@ theorem ICgate_pos_of_healthyOrbitGeometry
     p2AggregateValue_eq_neg_qw_of_vanishes g hdata.vanishesOnF]
   linarith
 
+theorem not_ICgate_nonpos_of_healthyOrbitGeometry
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g)
+    (hoff : rho.1.re ≠ 1 / 2)
+    (hright : (1 / 2 : Real) < rho.1.re) :
+    ¬ ICgate g.convolutionSquare ≤ 0 := by
+  have hpos := ICgate_pos_of_healthyOrbitGeometry geometry hoff hright
+  linarith
+
 end
 end C1RouteAFixedOwnerGroupedResidual
 end Source

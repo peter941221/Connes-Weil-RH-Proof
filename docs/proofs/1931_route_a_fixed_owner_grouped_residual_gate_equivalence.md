@@ -59,3 +59,10 @@ that missing theorem.
 Focused build `20260924_routeA_fixed_grouped_residual9.log` completed
 successfully (3794 jobs). The paired audit prints only
 `[propext, Classical.choice, Quot.sound]`; no `sorryAx` occurs.
+
+The orientation is now exposed as the explicit parameterized no-go theorem
+`not_ICgate_nonpos_of_healthyOrbitGeometry`: under the same hypotheses,
+`ICgate g.convolutionSquare <= 0` is impossible. This no-go is scoped to the
+actual healthy owner and does not reject Route A as a whole; it rejects the
+proposed order of attack in which that owner is first manufactured with a
+nonpositive gate.
