@@ -6,6 +6,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 import ConnesWeilRH.Dev.C1G8R0OrbitGeometry
 import ConnesWeilRH.Dev.C1P2BilateralProfile
 import ConnesWeilRH.Dev.C1P2OrbitPhysicalProfileReadback
+import ConnesWeilRH.Dev.C1P2DirectSupportOverlapDecoupling
+import ConnesWeilRH.Dev.C1P2DirectChebyshevDecoupling
 
 /-!
 # Owner-preserving prime-prefix reduction for the four-point gate
@@ -27,6 +29,8 @@ namespace C1FourPointPrimePrefixReduction
 open C1SameOwnerWeil
 open C1P2BilateralProfile
 open C1P2OrbitPhysicalProfileReadback
+open C1P2DirectSupportOverlapDecoupling
+open C1P2DirectChebyshevDecoupling
 open CC20YoshidaConvolution
 open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
@@ -175,6 +179,61 @@ theorem finitePrimeSum_eq_two_term_add_orbit_range_remainder_unconditional
           finitePrimeTerm g.convolutionSquare k :=
   finitePrimeSum_eq_two_term_add_orbit_range_remainder geometry
     (orbitG8_range_bound_two geometry)
+
+theorem finitePrimeSum_le_two_prefix_plus_overlap_remainder
+    {rho : sourceNontrivialZeroSet} {g : CompactLogTest}
+    (geometry : OrbitG8Geometry rho g) :
+    finitePrimeSum g.convolutionSquare ≤
+      finitePrimeTerm g.convolutionSquare 2 +
+        ∑ k ∈ (Finset.range
+          (Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1)).erase 2,
+          2 * Real.exp (rawFactorSupportRadius geometry) *
+            (rawFactorSeminorm geometry) ^ 2 *
+            (ArithmeticFunction.vonMangoldt k / (k : Real)) := by
+  rw [finitePrimeSum_eq_two_term_add_orbit_range_remainder_unconditional geometry]
+  have hsum :
+      (∑ k ∈ (Finset.range
+          (Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1)).erase 2,
+          finitePrimeTerm g.convolutionSquare k) ≤
+        ∑ k ∈ (Finset.range
+          (Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1)).erase 2,
+          2 * Real.exp (rawFactorSupportRadius geometry) *
+            (rawFactorSeminorm geometry) ^ 2 *
+            (ArithmeticFunction.vonMangoldt k / (k : Real)) := by
+    apply Finset.sum_le_sum
+    intro k hk
+    have hterm := orbitPhysicalKernel_nodeTerm_le_overlap geometry k
+    have heq : finitePrimeTerm g.convolutionSquare k =
+        ArithmeticFunction.vonMangoldt k * (1 / Real.sqrt (k : Real)) *
+          (orbitPhysicalKernel geometry (Real.log (k : Real)) +
+            orbitPhysicalKernel geometry (-Real.log (k : Real))).re := by
+      rw [finitePrimeTerm_eq_orbitPhysicalKernel_re geometry k]
+      rw [orbitPhysicalKernel_add_neg_re_eq_two_mul geometry (Real.log (k : Real))]
+    rw [heq]
+    exact hterm
+  calc
+    finitePrimeTerm g.convolutionSquare 2 +
+        ∑ k ∈ (Finset.range
+          (Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1)).erase 2,
+          finitePrimeTerm g.convolutionSquare k =
+      (∑ k ∈ (Finset.range
+          (Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1)).erase 2,
+          finitePrimeTerm g.convolutionSquare k) +
+        finitePrimeTerm g.convolutionSquare 2 := by ring
+    _ ≤
+      (∑ k ∈ (Finset.range
+          (Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1)).erase 2,
+          2 * Real.exp (rawFactorSupportRadius geometry) *
+            (rawFactorSeminorm geometry) ^ 2 *
+        (ArithmeticFunction.vonMangoldt k / (k : Real))) +
+        finitePrimeTerm g.convolutionSquare 2 :=
+      by linarith
+    _ = finitePrimeTerm g.convolutionSquare 2 +
+        ∑ k ∈ (Finset.range
+          (Nat.ceil (Real.exp (2 * ((geometry.orbitIndex + 2 : Nat) : Real))) + 1)).erase 2,
+          2 * Real.exp (rawFactorSupportRadius geometry) *
+            (rawFactorSeminorm geometry) ^ 2 *
+            (ArithmeticFunction.vonMangoldt k / (k : Real)) := by ring
 
 end C1FourPointPrimePrefixReduction
 end Source

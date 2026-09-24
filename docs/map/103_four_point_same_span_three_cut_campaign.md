@@ -338,6 +338,14 @@ of the selected owner's `orbitPhysicalKernel` at `log 2`, with a positive
 factor. The live analytic target is now an explicit physical-kernel sample
 plus its finite actual-owner remainder.
 
+Record 1938 removes the need to sign the remainder term-by-term: the actual
+finite prime sum is bounded above by the exact n=2 term plus the explicit
+support-overlap harmonic majorant on the erased owner range. Thus the next
+strict obligation is the scalar budget
+`archimedeanTerm + n2PhysicalTerm + overlapRemainder <= 0`. This is a genuine
+quantitative reduction; the majorant may still be too loose and no gate sign
+is claimed.
+
 together with the positive cross sum, on the selected healthy detector (under
 the cross-term symmetry this is exactly the probe's
 `D*C - B01^2 < 0`, and by record 1919 equivalently the variance-gap /
