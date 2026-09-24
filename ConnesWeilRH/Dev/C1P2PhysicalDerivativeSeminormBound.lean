@@ -87,6 +87,46 @@ theorem source_combination_derivative_seminorm_le_coeff_weighted_sum
             (normalizedCC20ConcreteTestAlgebra.legacy.encode p.1.test)) x)
         (norm_nonneg _)
 
+theorem compactLogTestOfWindow_derivative_seminorm_le_source_weighted_derivative
+    (g : normalizedCC20ConcreteTestAlgebra.Test)
+    {a b : Real} (ha : 0 < a) (hb : 0 < b)
+    (hsupport : Function.support
+        (fun x : Real =>
+          normalizedCC20ConcreteTestAlgebra.legacy.encode g x) ⊆
+      Set.Ioo a b) :
+    SchwartzMap.seminorm Complex 0 0
+        (SchwartzMap.derivCLM Complex Complex
+          (compactLogTestOfWindow g ha hb hsupport).test) ≤
+      SchwartzMap.seminorm Complex 1 0
+        (SchwartzMap.derivCLM Complex Complex
+          (normalizedCC20ConcreteTestAlgebra.legacy.encode g)) := by
+  apply SchwartzMap.seminorm_le_bound Complex 0 0 _ (by positivity)
+  intro u
+  simp only [pow_zero, one_mul, norm_iteratedFDeriv_zero,
+    SchwartzMap.derivCLM_apply]
+  change ‖deriv (fun v : Real =>
+    normalizedCC20ConcreteTestAlgebra.legacy.encode g (Real.exp v)) u‖ ≤ _
+  have htest :=
+    ((normalizedCC20ConcreteTestAlgebra.legacy.encode g).smooth ⊤).differentiable
+      (by simp) (Real.exp u)
+  have htest' := htest.hasDerivAt
+  have hderiv :=
+    (htest'.scomp u (Real.hasDerivAt_exp u)).deriv
+  have hderiv' :
+      deriv (fun v : Real =>
+        normalizedCC20ConcreteTestAlgebra.legacy.encode g (Real.exp v)) u =
+        Complex.exp (u : Complex) *
+          deriv (normalizedCC20ConcreteTestAlgebra.legacy.encode g) (Real.exp u) := by
+    simpa [Function.comp_def] using hderiv
+  rw [hderiv']
+  have hsource :=
+    SchwartzMap.norm_pow_mul_le_seminorm Complex
+      (SchwartzMap.derivCLM Complex Complex
+        (normalizedCC20ConcreteTestAlgebra.legacy.encode g)) 1
+      (Real.exp u)
+  simpa [SchwartzMap.derivCLM_apply, Real.norm_eq_abs,
+    abs_of_pos (Real.exp_pos u), pow_one, Complex.norm_real] using hsource
+
 end
 end C1P2PhysicalDerivativeSeminormBound
 end Source

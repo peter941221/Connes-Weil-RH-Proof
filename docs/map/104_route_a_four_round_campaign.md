@@ -153,17 +153,18 @@ source-basis quadratic form: the ordinary Hilbert norm is not being identified
 with the actual derivative seminorm. The live obligation is therefore smaller
 and explicit: extract a finite source basis and prove a positive quadratic
 derivative-cost bound whose minimizer controls the grouped residual from 1925.
-Until that bound exists, this is a formal selector core, not a signed-margin
-result.
+The source-to-`CompactLogTest` derivative transport is now formal; only the
+finite-basis minimization and its uniform margin remain in this obligation.
 
 The first physical-cost estimate is now formal as well. The leaf
 `C1P2PhysicalDerivativeSeminormBound.lean` bounds the derivative seminorm of
 the actual finite-window source combination by the exact coefficient-weighted
 sum of the derivative seminorms of its supported source tests; see
 [1928](../proofs/1928_route_a_source_physical_derivative_budget.md). This
-strictly reduces the remaining obligation: transport this source bound through
-`compactLogTestOfWindow`, then minimize the resulting finite-basis weighted
-cost. The signed margin and parameter quantifiers remain open.
+strictly reduces the remaining obligation: minimize the resulting finite-basis
+weighted cost and prove its uniform signed margin. The transport itself uses
+the chain rule and the weighted source seminorm. The signed margin and
+parameter quantifiers remain open.
 
 ### Round 3 — parameter and margin closure (OPEN)
 

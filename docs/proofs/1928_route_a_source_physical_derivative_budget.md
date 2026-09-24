@@ -18,6 +18,12 @@ gate sign, or use `qw >= 0`.
 The paired audit builds successfully with the standard axiom set
 `[propext, Classical.choice, Quot.sound]` and no `sorryAx`.
 
+The same leaf also proves the log-pullback transport: the first derivative
+seminorm of `compactLogTestOfWindow g` is bounded by the source derivative
+seminorm with one physical-coordinate weight. The weight is forced by the
+chain rule `d/du g(exp u) = exp(u) * g'(exp u)` and is discharged using the
+committed `norm_pow_mul_le_seminorm` theorem.
+
 ## Route-A impact
 
 This removes the previous opaque physical-derivative-budget premise for the
@@ -29,11 +35,11 @@ dominates the actual physical derivative.
 
 ## Remaining obligation
 
-The bound is presently on the positive-variable encoded source test. The next
-bridge must transport it through `compactLogTestOfWindow` to the selected
-`CompactLogTest` derivative cost, then prove an explicit finite-basis cost
-bound for the minimizer. Until that bridge and its margin are proved, Route A
-has not entered parameter/margin Round 3 and no RH conclusion follows.
+The remaining bridge is now only the finite-basis minimization and its
+parameter-uniform numerical margin. The source-to-`CompactLogTest` derivative
+transport itself is formal. Until the minimizer's explicit bound and its
+signed margin are proved, Route A has not entered parameter/margin Round 3 and
+no RH conclusion follows.
 
 Evidence level: FORMAL for the source derivative budget; PROJECT CANDIDATE for
 the CompactLog transport and signed margin.

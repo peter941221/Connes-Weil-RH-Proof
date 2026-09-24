@@ -7,6 +7,7 @@ namespace C1P2PhysicalDerivativeSeminormBoundAudit
 open C1P2PhysicalDerivativeSeminormBound
 
 #print axioms source_combination_derivative_seminorm_le_coeff_weighted_sum
+#print axioms compactLogTestOfWindow_derivative_seminorm_le_source_weighted_derivative
 
 end C1P2PhysicalDerivativeSeminormBoundAudit
 end Source
