@@ -328,6 +328,12 @@ visibility premise from the algebraic decomposition: `n = 2` is a fixed term,
 and non-visibility makes it zero automatically. Visibility is still needed
 only if a strict lower bound for that particular term is claimed.
 
+The exact coefficient reduction is now formal in record 1937:
+the n=2 contribution is `log(2)/sqrt(2)` times the real bilateral profile
+at `log(2)`, and is negative exactly when that owner-specific profile is
+negative. The next non-interface obligation is therefore a strict bound for
+this physical sample together with the erased owner-specific remainder.
+
 together with the positive cross sum, on the selected healthy detector (under
 the cross-term symmetry this is exactly the probe's
 `D*C - B01^2 < 0`, and by record 1919 equivalently the variance-gap /

@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 -/
 
 import ConnesWeilRH.Dev.C1G8R0OrbitGeometry
+import ConnesWeilRH.Dev.C1P2BilateralProfile
 
 /-!
 # Owner-preserving prime-prefix reduction for the four-point gate
@@ -23,6 +24,7 @@ namespace Source
 namespace C1FourPointPrimePrefixReduction
 
 open C1SameOwnerWeil
+open C1P2BilateralProfile
 open CC20YoshidaConvolution
 open CC20YoshidaNearZeros
 open CCM25Concrete.CompactLogConvolution
@@ -89,6 +91,30 @@ theorem finitePrimeTerm_two_eq_zero_of_not_visible
     (h2 : 2 ∉ globalPrimeIndexSet F) :
     finitePrimeTerm F 2 = 0 :=
   finitePrimeTerm_eq_zero_of_not_mem_globalPrimeIndexSet F h2
+
+theorem finitePrimeTerm_two_eq_log_two_profile
+    (F : CompactLogTest) :
+    finitePrimeTerm F 2 =
+      Real.log 2 * (1 / Real.sqrt (2 : Real)) *
+        (bilateralProfile F (Real.log 2)).re := by
+  rw [finitePrimeTerm_eq_realCoefficient_mul_bilateralProfile_re]
+  rw [ArithmeticFunction.vonMangoldt_apply_prime Nat.prime_two]
+  norm_num
+
+theorem finitePrimeTerm_two_neg_iff_profile_at_log_two_neg
+    (F : CompactLogTest) :
+    finitePrimeTerm F 2 < 0 ↔
+      (bilateralProfile F (Real.log 2)).re < 0 := by
+  rw [finitePrimeTerm_two_eq_log_two_profile]
+  have hcoef : 0 < Real.log 2 * (1 / Real.sqrt (2 : Real)) := by
+    exact mul_pos (Real.log_pos (by norm_num)) (by positivity)
+  constructor
+  · intro hterm
+    by_contra hnot
+    have hprofile : 0 ≤ (bilateralProfile F (Real.log 2)).re := le_of_not_gt hnot
+    exact (not_lt_of_ge (mul_nonneg (le_of_lt hcoef) hprofile)) hterm
+  · intro hprofile
+    exact mul_neg_of_pos_of_neg hcoef hprofile
 
 theorem finitePrimeSum_eq_two_term_add_orbit_range_remainder
     {rho : sourceNontrivialZeroSet} {g : CompactLogTest}

@@ -45,6 +45,17 @@ strictly larger than `2`, using `1 + x <= exp x` and the fact that the orbit
 index is a natural number. The range-level split is therefore unconditional
 for every actual OrbitG8 owner.
 
+The fixed prefix is now also exposed in the only sign-relevant coordinate:
+
+```text
+finitePrimeTerm F 2
+  = log(2) / sqrt(2) * Re(bilateralProfile F (log 2))
+```
+
+Because `log(2) / sqrt(2) > 0`, this term is strictly negative exactly when
+the actual owner's bilateral profile is strictly negative at `log 2`. This is
+the next concrete analytic target for the selected owner.
+
 This record is a formal algebraic reduction, not a determinant sign proof and
 not an RH claim.
 
