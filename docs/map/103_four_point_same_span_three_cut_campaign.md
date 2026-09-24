@@ -486,6 +486,12 @@ parametric domination of the bipartite mean gap for the degree-four orbit polyno
 satisfying `gamma^2 - delta^2 >= 190`, the between-group shift gap exceeds 5700,
 strictly dominating internal positive variances and guaranteeing a strictly negative
 span gate quadratic.
+Record 1956 formally completes the master mainline assembly of the three cuts directly
+to Mathlib's canonical `_root_.RiemannHypothesis` (`C1FourPointMainlineRH.lean`),
+defining `FourPointSpanContradictionWitness`, proving `false_of_fourPointSpanContradictionWitness`,
+wiring the master mainline exit `riemannHypothesis_of_mainline_witness_producer`,
+and establishing the direct determinant exit `riemannHypothesis_of_gate_determinant_neg`
+and ANOVA mean gap exit `riemannHypothesis_of_bipartite_mean_gap_domination`.
 Record 1944 formally aggregates the actual span owner's finite visible
 prime sum into the four same-owner physical channels, in both bilateral and
 direct-integral form. This removes the opaque finite-prime aggregate but does
