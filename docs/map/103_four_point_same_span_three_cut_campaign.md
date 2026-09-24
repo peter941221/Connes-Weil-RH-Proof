@@ -360,6 +360,12 @@ Owner guard (record 1940): this 1939 decomposition is for the original
 The next core brick is therefore the exact signed physical-kernel expansion
 for that same span owner.
 
+Record 1941 closes that algebraic owner gap: the signed profile of any finite
+span, hence of `h(lambda)`, is formally expanded into the four pairwise
+physical integrals. This is FORMAL; the remaining producer obligation is now
+only the strict signed inequality for those four channels at the
+gate-selected coefficient.
+
 together with the positive cross sum, on the selected healthy detector (under
 the cross-term symmetry this is exactly the probe's
 `D*C - B01^2 < 0`, and by record 1919 equivalently the variance-gap /

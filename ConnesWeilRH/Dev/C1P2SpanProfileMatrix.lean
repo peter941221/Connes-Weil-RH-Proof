@@ -31,6 +31,15 @@ open scoped BigOperators
 
 noncomputable section
 
+theorem bilateralProfile_pairTest_eq_physical_integral_sum
+    {k : ℕ} (w : Fin k → CompactLogTest) (i j : Fin k) (y : ℝ) :
+    bilateralProfile (pairTest w i j) y =
+      (∫ t : ℝ, star ((w i).test (-t)) * (w j).test (y - t)) +
+        ∫ t : ℝ, star ((w i).test (-t)) * (w j).test (-y - t) := by
+  unfold bilateralProfile pairTest
+  rw [CompactLogTest.convolution_apply, CompactLogTest.convolution_apply]
+  simp only [CompactLogTest.involution_apply]
+
 theorem signedProfileTerm_spanObj_eq_pair_profile_quadratic
     {k : ℕ} (w : Fin k → CompactLogTest) (y : Fin k → ℝ) (n : ℕ) :
     signedProfileTerm (spanObj w y) n =
@@ -43,6 +52,20 @@ theorem signedProfileTerm_spanObj_eq_pair_profile_quadratic
   rw [convolutionSquare_spanObj_apply, convolutionSquare_spanObj_apply]
   simp_rw [mul_add]
   simp_rw [Finset.sum_add_distrib]
+
+theorem signedProfileTerm_spanObj_eq_pair_physical_integral_quadratic
+    {k : ℕ} (w : Fin k → CompactLogTest) (y : Fin k → ℝ) (n : ℕ) :
+    signedProfileTerm (spanObj w y) n =
+      ArithmeticFunction.vonMangoldt n * (1 / Real.sqrt (n : ℝ)) *
+        (∑ i ∈ (Finset.univ : Finset (Fin k)),
+          ∑ j ∈ (Finset.univ : Finset (Fin k)),
+            ((y i * y j : ℝ) : ℂ) *
+              ((∫ t : ℝ, star ((w i).test (-t)) *
+                  (w j).test (Real.log n - t)) +
+                ∫ t : ℝ, star ((w i).test (-t)) *
+                  (w j).test (-Real.log n - t))).re := by
+  rw [signedProfileTerm_spanObj_eq_pair_profile_quadratic]
+  congr 1
 
 theorem signedProfileTerm_twoSpan_eq_four_pair_profiles
     (A B : CompactLogTest) (lam : ℝ) (n : ℕ) :
