@@ -1,0 +1,29 @@
+/-
+Copyright (c) 2026 ConnesWeilRH contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: ConnesWeilRH contributors
+-/
+
+import ConnesWeilRH.Dev.C1FourPointContradictionAssembly
+
+open ConnesWeilRH.Source.C1FourPointContradictionAssembly
+
+#check @spectralWeilValue_neg_of_spectralHeightShellPrefix_and_tail_scaled
+#check @spectralWeilValue_neg_of_spectralHeightShellPrefix_and_fourthOrderTail_scaled
+#check @qw_neg_of_spectralHeightShellPrefix_and_fourthOrderTail_scaled
+#check @annihilatorDetectorSpanVector_qw_nonneg_of_gate
+#check @false_of_qw_nonneg_and_neg
+#check @false_of_annihilatorDetectorSpanVector_gate_and_spectral_neg
+#check @sourceRH_of_right_nontrivial_zeros_empty
+#check @riemannHypothesis_of_right_nontrivial_zeros_empty
+#check @riemannHypothesis_of_four_point_span_contradiction_producer
+
+#print axioms spectralWeilValue_neg_of_spectralHeightShellPrefix_and_tail_scaled
+#print axioms spectralWeilValue_neg_of_spectralHeightShellPrefix_and_fourthOrderTail_scaled
+#print axioms qw_neg_of_spectralHeightShellPrefix_and_fourthOrderTail_scaled
+#print axioms annihilatorDetectorSpanVector_qw_nonneg_of_gate
+#print axioms false_of_qw_nonneg_and_neg
+#print axioms false_of_annihilatorDetectorSpanVector_gate_and_spectral_neg
+#print axioms sourceRH_of_right_nontrivial_zeros_empty
+#print axioms riemannHypothesis_of_right_nontrivial_zeros_empty
+#print axioms riemannHypothesis_of_four_point_span_contradiction_producer

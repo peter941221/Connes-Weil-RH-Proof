@@ -18,9 +18,11 @@ reduces it to an exact signed-variance identity
 negative mass at `c >= 1.0`; prime-only block strictly negative on 10/10
 scanned widths) with the arch/cross domination delicate for wide owners. The
 determinant
-inequality on the selected owner is OPEN. Cut 3 remains a PROJECT CANDIDATE.
-No RH theorem and no gate sign on the selected owner is claimed. Subordinate
-to [003](003_b1_b5_minimal_exit_route_selection.md),
+inequality on the selected owner is OPEN in the general analytic class but certified
+on representative anchors (Record 1953). Cut 3 contradiction assembly and master
+exits to Mathlib `_root_.RiemannHypothesis` are FORMAL in Record 1954
+(`C1FourPointContradictionAssembly.lean`). No unconditional full-class RH theorem is claimed.
+Subordinate to [003](003_b1_b5_minimal_exit_route_selection.md),
 [091](091_two_span_sign_balancing_closed.md), and
 [094](094_two_point_differential_annihilation_and_spectral_decomposition.md).
 
@@ -470,6 +472,14 @@ certifies four unconditional negative quadratic span gate certificates
 `exists_pos_lambda_quadratic_neg_c10_g21`, `exists_pos_lambda_quadratic_neg_c13_g21`)
 via pure `norm_num` rational arithmetic with zero preconditions, completing the
 unconditional elimination of the gate negativity sign premise for representative selected owners.
+Record 1954 formally assembles the Cut 3 contradiction pipeline
+(`C1FourPointContradictionAssembly.lean`), formalizing the scaled prefix + tail negativity
+(`spectralWeilValue_neg_of_spectralHeightShellPrefix_and_fourthOrderTail_scaled`),
+connecting the two-sign contradiction on the four-point span to `False`, and proving
+the master exits from the non-existence of right off-line zeros directly to `SourceRH`
+(`sourceRH_of_right_nontrivial_zeros_empty`) and Mathlib canonical `_root_.RiemannHypothesis`
+(`riemannHypothesis_of_right_nontrivial_zeros_empty`,
+`riemannHypothesis_of_four_point_span_contradiction_producer`).
 Record 1944 formally aggregates the actual span owner's finite visible
 prime sum into the four same-owner physical channels, in both bilateral and
 direct-integral form. This removes the opaque finite-prime aggregate but does
