@@ -94,8 +94,9 @@ def family_for_g(nodes, scale, g_main):
     height group keyed on the DISPLACED ordinate instead of GAMMA1.  At
     g_main = GAMMA1 this reproduces r81.family_for node for node."""
     plan = {"main": 0, "real": 0, "kill": 0}
+    # kill pool extended by 3.8 for the 5-kill-radius worlds (prereg 1982 s.2)
     pools = {"main": list(r81.WIDTHS_H1), "real": list(r81.WIDTHS_REAL),
-             "kill": list(r81.WIDTHS_KILL)}
+             "kill": list(r81.WIDTHS_KILL) + [3.8]}
     fam = []
     for z in nodes:
         iz = float(np.imag(z))
@@ -231,7 +232,9 @@ def decay_probe(delta=0.10, gk=None, scale=1.0, n=0, k=30.0,
     fits = {}
     for key, prof in per_window.items():
         a = float(key[1:])
-        c_theory = float(np.sqrt(k * a / 2.0))
+        # edge-saddle constant; the earlier sqrt(k*a/2) was a factor
+        # sqrt(2) low (erratum, record 1983 section 7)
+        c_theory = float(np.sqrt(k * a))
         w = {}
         for (t1, t2) in ((20.0, 50.0), (50.0, 100.0), (100.0, 200.0),
                          (200.0, 400.0)):

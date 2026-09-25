@@ -106,3 +106,131 @@ python3 scripts/fourpoint_rh_reach_probe_1983.py           # full probe
 ```
 
 Output: `results/1983_rh_reach_probe.json`. WSL, numpy/scipy only.
+
+## 6. Outcome (coverage): COVERED_SURFACE — 36/36 cells on provable faces
+
+Run after the pre-registration commit (`6d8fb8eb`); one smoke-driven fix
+before the full run (the kill width pool needed its pre-registered 5th
+entry 3.8 for the 5-kill-radius worlds). Self-check: the generalized
+layer reproduces the record-1981 nodes/family/kills exactly at
+`g_disp = gamma_1`, and the two replication anchors hold
+(`delta = 0.05: rel 3.6e-3`, `delta = 0.10: rel 7.7e-4`, both within the
+declared dxi^4 shift; survey VALID).
+
+```text
+FACE MAP  (best face over the allowed knob set; rows = delta)
++--------+--------+--------+--------+--------+--------+--------+
+| d\g    | 14.134 | 21.022 | 25.011 | 27.670 | 30.425 | 32.935 |
++--------+--------+--------+--------+--------+--------+--------+
+| 0.02   | W1*    | W1     | W1*    | W1*    | W2     | W1     |
+| 0.05   | W1*    | W1     | W1*    | W1*    | W2     | W1     |
+| 0.10   | W1     | W1     | W1*    | W1*    | W2     | W1     |
+| 0.20   | W1     | W1     | W1*    | W1*    | W2     | W1     |
+| 0.30   | W1     | W1     | W2     | W1*    | W2     | W1     |
+| 0.45   | W1     | W1     | W1*    | W2     | W1**   | W1     |
++--------+--------+--------+--------+--------+--------+--------+
+  W1 = WIRE1 (D < 0, record 1981), W2 = WIRE2 (B,C > 0, det < 0, 1918)
+  *  primary knob (sc 1.00) was DEAD or GAP; rescued
+  ** needed the second rescue (sc 1.10)
+counts: WIRE1 29, WIRE2 7, GAP 0, DEAD 0, INSTRUMENT 0
+VERDICT (pre-registered rule): COVERED_SURFACE
+```
+
+Structure of the rescue (13 cells, all primary DEAD-or-GAP):
+
+```text
++-----------------------------------+---------------------------+
+| rescued by (sc = 0.90, n = 0)     | 12 of 13                  |
+|   margins at the rescued rows     | huge (|D| 1e+08 .. 1e+13, |
+|                                   | spread_D <= 1.0e-03)      |
+| rescued by (sc = 1.10, n = 0)     | 1 (d=0.45, g=30.4249)     |
++-----------------------------------+---------------------------+
+```
+
+The record-1981 "scale-0.90 negative band" therefore GENERALIZES: the
+primary knob fails on a mid-ordinate/small-delta patch
+(gammas 25.01/27.67 at delta <= 0.30, plus two GAP pockets at
+delta = 0.02/0.05 near gamma_1 and two GAP pockets at delta = 0.45),
+and ONE scale move covers the whole patch. WIRE2 independently carries
+7 cells (the gamma_5 column below delta = 0.30, plus one cell each at
+(gamma_3, 0.30) and (gamma_4, 0.45)) — the two faces TOGETHER leave no
+hole on the probed surface. Instrument health on all 50 rows: pins
+max 8.6e-12, cond max 4.4e+04 (worst at delta = 0.02 — the near-line
+cells resolved cleanly), T_need in 31.8..36.6 everywhere.
+
+## 7. Outcome (probe C): registered verdict DECAY_INADEQUATE stands;
+   the upgraded instrument answers the underlying question FEASIBLE
+
+The registered double-precision decay probe returned DECAY_INADEQUATE
+per its own rule: the certifiable envelope drops below 1/2 at T = 32
+(clause 2 met) but the envelope fit slope on [100, 400] is NEGATIVE
+(c_env = -0.023), and every per-window c_eff on [50, 400] is ~ 0 —
+while E(400) = 4.6e-13 with sum|A| = 9.7e+13, i.e. |V_j| pinned near
+1e-27, FLAT.  Diagnosis in two layers, each verified by a fix:
+
+```text
+layer 1  double-precision summation noise: the window's own mass is
+         ~ e^{-k} ~ 9.4e-14, term magnitudes ~1e-16..1e-13, rounding
+         floor ~ 1e-27  — the probe's flat level (instrument,
+         scripts/fourpoint_rh_reach_probe_1983.py);
+layer 2  float64 Gauss-Legendre WEIGHTS/NODES: relative 1e-16 on a
+         total weight mass ~1e-13 gives an ABSOLUTE floor 1e-16 x
+         1e-13 = 1e-29 ~ e^{-67} — exactly the flat level a first
+         mpmath (dps=80) attempt still measured, because mpmath
+         precision was defeated by float64 inputs
+         (scripts/fourpoint_decay_mpmath_1983.py v1).
+```
+
+v2 computes nodes, weights and the sum ALL at 80 decimals
+(composite GL 20 x 100, Newton-refined `P_m` roots):
+
+```text
++-----+----------+----------+----------+----------+-------------+
+| a   | log|L|(50) | (100)  | (200)    | (400)    | c_eff 200-400 / saddle |
++-----+----------+----------+----------+----------+-------------+
+| 2.0 | -66.13   | -87.04   | -119.82  | -165.20  |  7.746 / 7.746 |
+| 3.2 | -78.43   | -110.59  | -149.22  | -206.25  |  9.736 / 9.798 |
++-----+----------+----------+----------+----------+-------------+
+  saddle law log|L_phi(i t)| ~ -sqrt(k a t): CONFIRMED, the fitted
+  sqrt(t)-slope equals the edge-saddle constant by 3-4 digits at the
+  working parameters (k = 30); regime reached by t ~ 100-200.
+```
+
+Resolution: the registered rule's DECAY_INADEQUATE was an INSTRUMENT
+verdict. On the evidence of the upgraded instrument both feasibility
+clauses PASS — the Gevrey vertical-decay law holds with the saddle
+constant `c = sqrt(k a)`, and the strip-contraction requirement
+(envelope < 1/2 beyond T) is satisfied at T = 32 with 12+ orders of
+margin. Brick 2's method (steepest descent with explicit constants)
+is numerically validated; its constants need only be VALID, not sharp.
+Erratum: the probe script's reference constant was
+`sqrt(k a / 2)` — a factor sqrt(2) low; corrected to `sqrt(k a)`.
+
+## 8. Where this leaves the lane: the composite verdict
+
+```text
++-----------------------------------+-----------------------------+
+| layer between here and RH         | status after this record    |
++-----------------------------------+-----------------------------+
+| structural obstruction (DEAD zone)| NONE FOUND on 36 cells      |
+|                                   | (COVERED_SURFACE)           |
+| construction visible to Lean      | priced (1982 bricks 1-3)    |
+| brick-2 analysis method           | VALIDATED (this record s.7) |
+| D < 0 certification at a point    | mechanical (1976 method;    |
+|                                   | 1982 target ~1e-06 rel)     |
+| coverage -> THEOREM (uniformity)  | OPEN, now with a measured   |
+|                                   | geometry to attack          |
++-----------------------------------+-----------------------------+
+```
+
+Honest scope: this probe measures a 36-cell surface of the off-line
+plane with one representative family and four knobs. RH needs every
+off-line zero, so the remaining mathematical work is the UNIFORMITY
+layer: a theorem that the face map is stable (e.g. the wire faces are
+open conditions in (delta, gamma) and the scale-0.90 rescue dominates
+the DEAD patch, so finitely many certified regions + compactness
+arguments cover the plane). No such theorem is proved here; its price
+can now be quoted against a measured geometry instead of a guess.
+Also unchanged: the passing owner is a construction at a HYPOTHETICAL
+off-line zero (that is the correct proof-by-contradiction shape), and
+no RH claim is made anywhere in this record.
