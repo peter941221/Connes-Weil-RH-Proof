@@ -192,6 +192,31 @@ point, not an all-owner theorem); no further determinant Lean work is
 started here, and the project priority returns to the map-043 O-programs
 (`O1`/`O2`/`O3`).
 
+**Route ruling revision (record
+[1981](../proofs/1981_diag_obligation_audit_and_offline_preregistration.md),
+2026-09-25).** The 1980 freeze was read off the wrong obligation. The wire
+audit (`C1FourPointSpanGateDiagOnly`, 3811 jobs, standard axioms) shows the
+healthy pivot `C > 0` entered the 1917 wire only to certify the closed-form
+witness `gatePlusRoot` (denominator `2 * C`); the prefix transport carries
+no sign hypothesis. The corrected binding Cut-2 obligation is the single
+sign `D < 0`, with the explicit witness
+`diagNegWitness D B C = min 1 (|D| / (2 * (|B| + |C| + 1)))` and the
+rewired, healthiness-free consumer
+`exists_pos_lambda_gate_and_prefix_of_annihilator_gate_neg'`. The
+pre-registered offline-owner run (the committed theorem requires
+`hoff : rho.re != 1/2`, so the decisive owner is off-line) returned
+**GO_CANDIDATE** at the registered point
+`rho = 1/2 + 0.10 + i*gamma_1` on the completed owner (`M = 12`):
+`D = -1.0737e+06` with certified spread `5.1e-05`, and the point also
+satisfies the legacy 1918 signs (`C = +1.42`, `det < 0`). Live program:
+(1) interval certification of `D` (and `C`) at that point by the 1976
+method; (2) seed-ladder rungs `4 <= j < 10`; (3) the Cut-1 joint margin
+(witness economics: `lam = 1` needs `M_n ~ 7.5e-13`, `n ~ 50`; the positive
+root `lam+ ~ 70` needs `M_n ~ 7.8e-09`, `n ~ 35-40`; existence of `n` is
+formal); (4) Cut 3 through the audited wire. Scope unchanged: one
+representative family at a hypothetical off-line zero; the off-line-to-RH
+transfer remains the standing Cut-3 question.
+
 ## Cut 2: prove the gate on the same span
 
 For real `lambda`, write the actual gate entries on `u` and `g` as

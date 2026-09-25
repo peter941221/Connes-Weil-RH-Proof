@@ -121,3 +121,79 @@ a route verdict off them** — a hypothesis that feeds only a witness
 construction can be removed by supplying a better witness, and a
 route-killing sign failure at such a hypothesis is not evidence about the
 route.
+
+## 5. Outcome (run executed after the pre-registration commit)
+
+Instrument health on every row: pins `max |L_base - 1| <= 5.3e-15`,
+`max |L_corr - y| <= 3.5e-12`, condition `2.5e+03 .. 1.3e+04`, `W(0) <=
+1.6e-35`, mass beyond `|xi| > 4 <= 7.2e-06`, certified spread on `D` between
+`1.7e-06` and `1.5e-03`, 1919 identity `<= 3.1e-06` relative on the
+registered rows (`<= 2.7e-04` at `n = 1`), strip contraction exists with
+`T_need = 31.83`. The kill set is the hypothetical-world prefix
+(`{rho} ∪ {gamma_2..gamma_5}`: the displaced on-line ordinate is NOT a node;
+verified `M = 12` on every row).
+
+Registered points (scale 1.00, `n = 0`):
+
+```text
++-------+-------------+-------------+--------------+-------------+----------+
+| delta | C           | b           | D            | spread_D    | verdict  |
++-------+-------------+-------------+--------------+-------------+----------+
+| 0.05  | +6.4296     | -6.7748e+04 | +1.0057e+06  | 2.4e-04     | FAIL     |
+| 0.10  | +1.4223     | -1.4272e+04 | -1.0737e+06  | 5.1e-05     | PASS     |
++-------+-------------+-------------+--------------+-------------+----------+
+```
+
+Verdict per the pre-registered rule: **GO_CANDIDATE** — at
+`rho = 1/2 + 0.10 + i*gamma_1` on the completed owner the single Cut-2
+obligation `D < 0` holds with a certified margin of about four digits, and
+the point additionally satisfies the legacy 1918 signs (`C = +1.42 > 0`,
+`det < 0`), i.e. it is an instance of BOTH the corrected obligation and the
+original map-106 section 2 endpoint geometry. Informational knobs: `D < 0`
+also at both `scale = 0.90` rows (huge margins, `-3.7e+08` / `-7.8e+07`),
+`D > 0` at scale 1.10 and `n = 1` — the sign is knot-stable in scale
+(0.90 negative band, 1.10 positive band) rather than fragile-at-every-knot;
+the corrected obligation needs exactly one admissible point.
+
+Witness economics at the registered point (reported per registration, at
+the conservative coefficient `lam = diagNegWitness = 1` and at the larger
+positive root `lam+ = (b + sqrt(b^2 - 4CD))/(2C) ~ 70`):
+
+```text
+lam = 1   : window factor ~ 7.5e+09, required M_n ~ 7.5e-13
+            (geometric decay (1/2)^n reaches this near n ~ 50;
+             existence of such n is FORMAL, record 1933/1935)
+lam+ ~ 70 : window factor ~ 4.3e+05, required M_n ~ 7.7e-09
+            (n ~ 35-40)
+```
+
+## 6. Route consequence
+
+The record-1980 freeze is LIFTED under the corrected obligation. The live
+program on the revived lane, in order:
+
+```text
+1  interval certification of D < 0 (and C > 0) on the completed owner at
+   the registered point (rho = 1/2 + 0.10 + i*gamma_1, N = 0) — the
+   record-1976 Taylor+Lagrange method, one brick family;
+2  seed-ladder rungs 4 <= j < M - 1 (= 10) feeding C_base4, C_corr2 —
+   bounded mechanical work, one rung per brick;
+3  the Cut-1 joint margin at the certified coefficient (the window-factor
+   numbers above are the budget the decay constants must meet);
+4  Cut 3 assembly through the audited, hypothesis-free wire
+   (exists_pos_lambda_gate_and_prefix_of_annihilator_gate_neg').
+```
+
+Scope honesty unchanged: the passing owner is a representative family at a
+hypothetical off-line zero; the de-Branges transfer from the off-line
+hypothetical zero to RH remains the standing Cut-3 question, untouched by
+this record.
+
+## 7. Reproduce
+
+```text
+python3 scripts/fourpoint_offline_owner_1981.py            # registered run
+python3 scripts/fourpoint_offline_owner_1981.py --quick    # coarse smoke
+```
+
+Output: `results/1981_offline_owner.json`. WSL, numpy/scipy only.
