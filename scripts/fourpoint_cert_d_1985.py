@@ -443,29 +443,42 @@ def main():
         % (mp.nstr(Dex - Delta, 12), mp.nstr(Dex + Delta, 12),
            mp.nstr(Delta, 4), mp.nstr(abs(Delta / Dex), 4)))
 
-    # float cross-check
-    float_d = None
+    # float cross-check: the canonical registered instrument is the record-
+    # 1981 offline owner run (the pipeline this rig replicates byte-equal);
+    # the record-1983 survey anchor is reported alongside.  The two float
+    # runs disagree at 7.7e-4 relative on this row (a float-level question,
+    # outside this certificate's scope); the gate anchors on 1981.
+    d1981 = d1983 = None
+    try:
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                               "..", "results", "1981_offline_owner.json"),
+                  encoding="utf-8") as fh:
+            rep = json.load(fh)
+        for c in rep.get("cases", []):
+            if (abs(float(c.get("delta", -1)) - 0.1) < 1e-9
+                    and abs(float(c.get("scale", -1)) - 1.0) < 1e-9
+                    and c.get("n") == 0 and c.get("M") == 12):
+                d1981 = float(c["D"])
+    except (OSError, KeyError, ValueError):
+        pass
     try:
         with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                "..", "results", "1983_rh_reach_probe.json"),
                   encoding="utf-8") as fh:
-            rep = json.load(fh)
-        for cell in rep.get("cells", []):
-            for row in cell.get("rows", []):
-                if (abs(float(row.get("delta", -1)) - 0.10) < 1e-9
-                        and abs(float(row.get("gamma", -1)) - GAMMA1) < 1e-6
-                        and abs(float(row.get("scale", -1)) - 1.0) < 1e-9
-                        and row.get("n") == 0 and row.get("M") == 12):
-                    if float_d is None or abs(float(row["D"])) < abs(float_d):
-                        float_d = float(row["D"])
+            rep3 = json.load(fh)
+        for a in rep3.get("replication_anchors", []):
+            if abs(float(a.get("delta", -1)) - 0.1) < 1e-9:
+                d1983 = float(a["D_survey"])
     except (OSError, KeyError, ValueError):
         pass
     route_ok = abs(D_ap8 - Dex) <= 100
-    float_ok = float_d is not None and abs(mpf(float_d) - Dex) <= 100
-    if float_d is not None:
-        log("float registered D = %.6e; rig-vs-float %s"
-            % (float_d,
-               mp.nstr(abs(mpf(float_d) - Dex) / abs(Dex), 4)))
+    float_ok = d1981 is not None and abs(mpf(d1981) - Dex) <= 100
+    if d1981 is not None:
+        log("float 1981 registered D = %.6f; rig-vs-1981 = %s (abs)"
+            % (d1981, mp.nstr(abs(mpf(d1981) - Dex), 6)))
+    if d1983 is not None:
+        log("float 1983 survey anchor D = %.6f; rig-vs-1983 = %s (abs)"
+            % (d1983, mp.nstr(abs(mpf(d1983) - Dex), 6)))
 
     checks = {
         "pins": mp.nstr(max(pins_b, pins_c), 3),
@@ -474,8 +487,10 @@ def main():
         "gap_shrink_84_to_42": mp.nstr(shrink, 4),
         "delta_rel": mp.nstr(abs(Delta / Dex), 4),
         "route_gap": mp.nstr(abs(D_ap8 - Dex), 6),
-        "float_gap": (mp.nstr(abs(mpf(float_d) - Dex), 6)
-                      if float_d is not None else None),
+        "float_1981_gap": (mp.nstr(abs(mpf(d1981) - Dex), 6)
+                           if d1981 is not None else None),
+        "float_1983_gap": (mp.nstr(abs(mpf(d1983) - Dex), 6)
+                           if d1983 is not None else None),
     }
     ok = (max(pins_b, pins_c) < mpf("1e-20") and quad_rel < mpf("1e-20")
           and pid < mpf("1e-20") and shrink >= 8
@@ -498,7 +513,10 @@ def main():
         "relative_halfwidth": mp.nstr(abs(Delta / Dex), 6),
         "cert_ok": bool(ok),
         "checks": checks,
-        "float_D": float_d,
+        "float_D_1981": d1981,
+        "float_D_1983_survey": d1983,
+        "n_primes": len(pset),
+        "support_radius": support_radius,
     }
     out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..",
                        "results", "1985_cert_d.json")
