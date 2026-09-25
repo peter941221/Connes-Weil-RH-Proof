@@ -174,6 +174,24 @@ valid direct RH producer, but its negative gate on the actual healthy owner is
 already the contradiction theorem itself, not an independent preparatory
 witness step.
 
+**Route ruling update (record
+[1980](../proofs/1980_four_point_face_census_and_preregistration.md), 2026-09-25).**
+The vertex-branch target of Cut 2 (`C > 0, b > 0, det < 0`) was a surrogate
+family reading (1918) that the committed-owner data never supported; the
+committed JSONs give `D < 0` on 30/36 rows (certified to `1e-13`), making the
+formal fallback face (`C > 0, D < 0`, witness `gatePlusRoot`, `b` not needed)
+the honest target. The pre-registered falsification run on the completed
+owner (`healthyCorrectionNodes rho_1 0 empty`, `M = 10` nodes, pins `1e-15`,
+certified spread `1e-8`) returned **PARK**: `C = -1.007020` (spread
+`1.0e-08`) at the registered point and `C` within `0.7 %` of `-1` on every
+informational knob — the healthiness pivot fails steadily, with a mechanism
+(the committed `W(0) = 0` plus the kill-set zeros move the density into the
+sigma-negative zone). Per the registered consequence, this lane is **frozen
+with a scoped no-go note** (one representative family at one registered
+point, not an all-owner theorem); no further determinant Lean work is
+started here, and the project priority returns to the map-043 O-programs
+(`O1`/`O2`/`O3`).
+
 ## Cut 2: prove the gate on the same span
 
 For real `lambda`, write the actual gate entries on `u` and `g` as

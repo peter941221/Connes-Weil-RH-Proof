@@ -1,10 +1,12 @@
-# 1980 — Face census on the committed owner data, and a pre-registered real-owner falsification run
+# 1980 — Face census on the committed owner data, pre-registered real-owner falsification run: PARK at the registered point
 
 Date: 2026-09-25.
 
-Status: PRE-REGISTRATION. This record is committed **before** the run it
-registers (commit history is the witness). It contains no new measurement and
-claims no gate sign, no determinant sign, and no RH.
+Status: RUN EXECUTED. Sections 1-4 are the pre-registration, committed
+**before** the run (commit history is the witness: pre-registration
+`09d1f539`, results in the same record's section 5, committed after).
+Section 5 reports the outcome. No gate sign is proved and no RH claim is
+made; the registered verdict at the registered point is **PARK**.
 
 ## 1. Result: the branch selection is refuted by the committed data
 
@@ -148,3 +150,78 @@ never re-audited when the instrument moved to the committed owner shape
 (record 1959). The rule this record adds to the lane discipline: **a branch
 selection is attached to the family it was measured on; when the family
 changes, the selection is re-audited before further work is planned on it.**
+
+## 5. Outcome (run executed after the pre-registration commit)
+
+Instrument health on every row: pins `max |L_base - 1| <= 2.2e-15`,
+`max |L_corr - y| <= 9.7e-15`, interpolation condition number
+`3.9e+02 .. 1.05e+03`, `W(0) <= 3.5e-40` (the committed double zero),
+mass beyond `|xi| > 4 <= 9.9e-07`, certified pair `A`/`Ap`/`B` relative
+spread `<= 3.6e-08` on `C` and `<= 1.0e-05` on `D`, 1919 variance identity
+`<= 6.6e-05` relative (coarse-grid level; refinement study of record 1959
+section 2.3 applies unchanged), strip contraction exists with
+`T_need ~= 31.8` (`= 2.26 gamma_1`).
+
+Registered point (window scale 1.00, convolution count `n = 0`):
+
+```text
+C  = -1.007020   (spread 1.0e-08)
+b  = +1.5366e+01 (spread 5.7e-06)
+D  = +7.5961e+04 (spread 8.1e-07)
+det = C*D - b^2 = -7.6730e+04
+```
+
+`C > 0` FAILS with a margin of thirteen certified digits. Verdict per the
+pre-registered rule: **PARK**.
+
+Informational knobs (no classification force, recorded as registered):
+
+```text
++-------+---+-------------+-------------+-------------+-------------+
+| scale | n | C           | b           | D           | det         |
++-------+---+-------------+-------------+-------------+-------------+
+| 0.90  | 0 | -0.998565   | -1.3473e+01 | +2.4067e+04 | -2.4214e+04 |
+| 1.10  | 0 | -0.997313   | +1.7298e+01 | -7.0033e+04 | +6.9546e+04 |
+| 1.00  | 1 | -1.000044   | +1.4232e-01 | -3.2292e+02 | +3.2291e+02 |
++-------+---+-------------+-------------+-------------+-------------+
+```
+
+`C` stays within `0.7 %` of `-1` on every knob — a flat, structural reading,
+in contrast with the design-family `C`, which flipped sign between adjacent
+knobs (record 1959 section 6). The default-point branch is `RAY`
+(`C < 0, D > 0, det < 0`): a Cut-2 witness exists by the trichotomy, but the
+committed consumer wiring requires the healthiness pivot `C > 0`
+(`pinned_orbit_positive_pivot`), so the witness cannot be carried into the
+prefix margin on this owner.
+
+Mechanism (reading, not theorem): the committed owner forces `W(0) = 0`
+exactly (the raw node `1/2` pins `L_base(1/2) = 1` and `L_corr(1/2) = 0`),
+and the `N = 0` kill set places correction zeros at
+`xi ~= -2.25, -3.34, -3.98, -4.41` while the surviving density peaks at
+`xi ~= -2.0` — entirely inside the sigma-negative zone `|xi| > 1.0011`
+(record 1920, probe A). With the `xi ~ 0` mass gone, the Archimedean
+channel integral sits on the negative part of the sigma symbol and the pivot
+reads `C ~ -1` steadily. The design family could place its mass closer to
+the origin (its knob-fragile `C` signs came from that freedom); the real
+owner cannot.
+
+Consequence, as registered: the four-point same-span lane is **frozen with a
+scoped no-go note**. Scope: this is a falsification at the registered point
+of ONE admissible representative family (Gevrey windows, distinct widths,
+`k = 30`) of the committed hypotheses at `rho = gamma_1`, `N = 0`,
+`routeNodes = empty` — not an all-owner theorem; the committed construction
+itself remains noncomputable and untouched. Per the registered consequence,
+no further determinant Lean work is started in this lane and the project's
+priority returns to the map-043 O-programs (`O1` FIO/shear position
+estimate, `O2` uniformity, `O3` kernel forcing), which do not pass through
+this gate.
+
+## 6. Reproduce
+
+```text
+python3 scripts/fourpoint_owner_completion_1980.py            # registered run
+python3 scripts/fourpoint_owner_completion_1980.py --quick    # coarse smoke
+```
+
+Runs in WSL on the current tree; numpy/scipy only. Output:
+`results/1980_owner_completion.json`.
