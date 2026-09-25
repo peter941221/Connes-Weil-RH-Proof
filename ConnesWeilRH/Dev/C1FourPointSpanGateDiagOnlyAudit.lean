@@ -1,0 +1,9 @@
+import ConnesWeilRH.Dev.C1FourPointSpanGateDiagOnly
+
+namespace ConnesWeilRH.Source.C1FourPointSpanGateDiagOnly
+
+#print axioms diagNegWitness_pos
+#print axioms exists_pos_lambda_quadratic_nonpos_of_diag_neg
+#print axioms exists_pos_lambda_gate_and_prefix_of_annihilator_gate_neg'
+
+end ConnesWeilRH.Source.C1FourPointSpanGateDiagOnly
