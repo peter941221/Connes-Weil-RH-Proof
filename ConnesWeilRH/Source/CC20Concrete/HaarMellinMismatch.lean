@@ -40,7 +40,7 @@ theorem exists_test_zero_on_cc20CompactInterval_nonzero_global_mellin_one :
     ∃ g : normalizedCC20TestSpace.Test,
       (∀ x : CC20CompactIntervalPoint, cc20CompactRestriction g x = 0) ∧
         normalizedCC20TestSpace.mellinAt g 1 ≠ 0 := by
-  obtain ⟨p, hsupp, hnonneg, him, hvalue⟩ :=
+  obtain ⟨p, hsupp, hnonneg, _hupper, _him, hvalue⟩ :=
     exists_positive_interval_compact_test_real_bump
       (a := (3 : ℝ)) (b := (4 : ℝ)) (t := (7 / 2 : ℝ))
       (by norm_num) (by norm_num) (by norm_num)

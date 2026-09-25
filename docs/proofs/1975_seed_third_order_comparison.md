@@ -158,7 +158,7 @@ logistic side enclosed by rational bounds on `Real.exp` (for instance
 bounds on the square root. The margins show this is feasible away from `s*`
 and delicate only in a narrow window just past `s*`, where the comparison is
 positive but small (`1.07e-03` on the grid). That certificate is exactly what
-turns the third rung from the transcendental constant `8 * T'' x*` into a
+turns the implicit expression `8 * T'' x*` for the third rung into a
 certified rational bracket `8 * T''` on either side of `x*`, and supplies the
 upper bound matching the committed
 `4 * T'' x <= derivOrderL1 3 smoothSeed`. A rational bracket on `x*` itself

@@ -1,0 +1,13 @@
+import ConnesWeilRH.Dev.C1ExplicitCardinalSeedBudget
+
+open ConnesWeilRH.Source.C1ExplicitFiniteNodeCorrection
+
+#print axioms derivativeShift_exponentialWeight
+#print axioms shiftedProduct_exponentialWeight
+#print axioms cardinalRaw_eq_weight_shifted_differences
+#print axioms l1Mass_cardinalRaw_le_seed_ladder
+#print axioms l1Mass_correction_le_seed_ladder
+#print axioms ladderBound_mono_on_needed_orders
+#print axioms l1Mass_shiftedProduct_three_smoothSeed_le
+#print axioms derivOrderL1_smoothSeed_le_budget
+#print axioms l1Mass_correction_smoothSeed_le_budget

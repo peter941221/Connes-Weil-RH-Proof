@@ -1,4 +1,4 @@
-# Record 1974: The third rung of the seed ladder is not a number
+# Record 1974: The third rung depends on an interior critical point
 
 Date: 2026-09-25
 
@@ -104,8 +104,8 @@ Date: 2026-09-25
    third-order analogue of the order-two boundary computation, and it is the
    last place where the third rung still behaves like a number.
 
-7. The third rung is not a number. The bracket of item 3 vanishes inside the
-   left half at the transcendental point
+7. The third rung requires an interior critical point. The bracket of item 3
+   numerically vanishes inside the left half at the implicitly defined point
 
        x* = 0.218255829186...
 
@@ -124,7 +124,7 @@ Date: 2026-09-25
    measured by the probe to a residual of `5e-9` at `19.6820845987` versus
    `2 * T'' x* = 19.6820846037`. By the reflection of item 4 the right half
    doubles the value, so the third rung of the seed ladder is the
-   transcendental constant
+   implicitly defined constant
 
        derivOrderL1 3 smoothSeed = 8 * T'' x* = 78.728338... ,
 
@@ -182,7 +182,7 @@ Date: 2026-09-25
   is a comparison between the logistic ratio and a degree-three rational
   function, not yet reduced to a polynomial.
 - A certified two-sided bracket on `x*` (a rational enclosure of the
-  transcendental zero) so the transcendental constant becomes a machine-checked
+  interior zero) so the implicitly defined constant becomes a machine-checked
   interval.
 - The node-product constants, the strip contraction, the numerical cardinalRaw
   budget at a concrete node set, the correction quadratic margin, the signed

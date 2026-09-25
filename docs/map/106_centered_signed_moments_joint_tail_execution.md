@@ -659,7 +659,7 @@ the leading term's zero at `x = 0.350163715843` and the bracket's zero at
 `T''` rises from `0` to its peak `T'' x* = 9.841042301831` and returns to `0`
 at `1/2`, the total-variation identity
 `Integral x in 0..1/2, norm (T''' x) = 2 * T'' x*` holds (probe residual
-`5e-9`), reflection doubles it, and the third rung is the transcendental
+`5e-9`), reflection doubles it, and the third rung has the implicit
 constant `derivOrderL1 3 smoothSeed = 8 * T'' x* = 78.728338...` (quadrature
 `78.72833839` against `8 * T'' x* = 78.72833841`). Without single-peakedness
 the certified half is the comparison chain
@@ -805,7 +805,7 @@ FTC, and
 `scripts/seed_third_order_interval_certificate_1976.py` (exact rationals) puts
 the rung at `78.7283384146455 .. 78.7283384149908`, width `3.45e-10`, so the
 `1e-7` bracket is the certificate's chosen coarseness, not a limit of the
-method. A rational bracket on the crossing follows: `x* ∈ (x_d, x_c)`, i.e.
+method. A rational bracket on the crossing follows: `x* ∈ (x_c, x_d)`, i.e.
 `0.21825580 < x* < 0.21825585`. Record:
 `docs/proofs/1976_seed_third_order_interval_certificate.md`; build log
 `build-logs/1976_interval_certificate_build4.log` (3654 jobs, zero errors, no
@@ -816,15 +816,47 @@ Status: three rungs of the seed ladder are under control: `derivOrderL1 1
 smoothSeed = 2`, `derivOrderL1 2 smoothSeed = 8` exactly, and the third rung
 is now a certified rational bracket
 `derivOrderL1 3 smoothSeed ∈ [787283384/10^7, 787283385/10^7]` around the
-transcendental `8 * T'' x*` (which still has no closed form, and whose exact
-value remains the model value only up to the certified bracket). The certified
+implicit peak expression `8 * T'' x*`. The interval is formal; no transcendence
+claim or standalone exact peak-value identity is proved here. The certified
 sign split of `T'''` around the crossing also yields the rational bracket
 `0.21825580 < x* < 0.21825585`, so the "single crossing" statement of §24 is
-certified, not merely probed. What remains on this lane is the higher rungs
-`j >= 4` (the same partition method applies at any order, at the cost of
-enclosing the corresponding higher-order profile) and the final assembly of
-the certified rungs into the committed consumer's budget. The remaining open obligations are otherwise
-unchanged: the node-product constants, the strip contraction, and then the
+certified, not merely probed. Record 1977 now consumes all certified low orders
+in the full correction L1 budget and eliminates the separate weighted-seed
+derivative oracle. For N actual nodes, only orders `4 <= j < N` remain as
+derivative inputs to that L1 bound; no higher-order sign-partition campaign is
+authorized merely by this index. The remaining open obligations are the
+full target/prefix instantiation, node-product constants, strip contraction, and
 numeric `cardinalRaw` budget, the correction quadratic margin, the signed
 determinant and the joint tail margin, with `C > 0` still to come from a
 designed admissible base on the construction side.
+
+## 26. The weighted seed oracle is removed from the correction budget (1977)
+
+FORMAL: `C1ExplicitCardinalSeedBudget.lean` proves equality of the original
+cardinal test with `exponentialWeight (shiftedProduct [t-z] seed) (-z)`.
+Support stability and the existing exponential mass inequality then give
+
+```text
+l1Mass(cardinalRaw nodes seed z)
+  <= exp(abs(Re z)*B) * ladderBound (derivOrderL1 · seed) [t-z] 0.
+```
+
+This bound is summed with the exact normalization coefficients in
+`l1Mass_correction_le_seed_ladder`. Its smoothSeed specialization
+`l1Mass_correction_smoothSeed_le_budget` uses the certified low orders
+`4, 2, 8, 78.7283385` as upper bounds at orders 0 through 3, leaving only
+`4 <= j < nodes.card` as derivative hypotheses. Thus the separate family of
+weighted derivative bounds and the low-order hypotheses are proved, not
+renamed. The same actual node differences and seed-mass denominator remain.
+The three-shift numerical bound is a small-list check, not a replacement for
+the complete healthy target/prefix nodes.
+
+Owner and consumer: the explicit `correction nodes seed y` used in the
+selectedOwner construction, through record 1961's correction L1 bound.
+This is a quantitative construction reduction, not determinant positivity or
+a signed gate result. No old classical-choice selector is identified with
+this explicit correction. The next work is full target/prefix instantiation
+and the required finite-order / separation / decay costs, followed by an
+actual-owner joint margin screen. The determinant and same-index tail are
+OPEN. No route ruling changes. Evidence and scope:
+[`1977`](../proofs/1977_cardinal_unweighted_seed_budget.md).

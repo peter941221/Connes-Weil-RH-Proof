@@ -1,4 +1,4 @@
-# Record 1976: The third rung is a certified rational bracket, not a transcendental constant
+# Record 1976: A certified rational bracket for the third rung
 
 Date: 2026-09-25
 
@@ -108,7 +108,7 @@ Date: 2026-09-25
    `_neg_of_Ico_x_d_half`, `_nonneg_of_Icc_zero_x_c`,
    `_nonpos_of_Icc_x_d_half`). This is the certified form of "the third
    derivative has exactly one sign change on the left half, at `x*` in
-   `(x_d, x_c)`".
+   `(x_c, x_d)`".
 
 7. The rung. `derivOrderL1 3 smoothSeed` is four times the absolute mass of
    `T'''` on `(0, 1/2)`. Splitting at the certified points and using the sign
@@ -137,7 +137,7 @@ Date: 2026-09-25
        derivOrderL1 3 smoothSeed ∈ Set.Icc (787283384 / 10^7) (787283385 / 10^7)
 
    (`derivOrderL1_smoothSeed_three_mem_Icc`): the third rung, previously the
-   transcendental constant `8 * T'' x*` with only the certified half
+   implicit expression `8 * T'' x*` with only the certified half
    `4 * T'' x <= derivOrderL1 3 smoothSeed` (1974), is now a certified
    rational bracket of width `1e-7`. The bracket contains the probe value
    `78.7283384146...` and hence also supplies the matching upper bound for
@@ -206,10 +206,13 @@ Date: 2026-09-25
 
 ## Still open
 
-The rung's exact value remains the transcendental `8 * T'' x*`; what is
-certified is a rational bracket, not a closed form. The brick certifies the
-sign of `T'''` on two half-lines and in a gap, which is all that the rung
-needs; it does not assert single-peakedness of `T''` (that remains equivalent
-to the crossing statement, now certified numerically to `1e-7`). Nothing here
-touches the higher rungs `j >= 4`, the transition bound, or the committed
-consumer chain of the explicit-seed budget, and nothing here asserts RH.
+The exported rung theorem certifies a rational interval, not a closed form or
+transcendence. No transcendence theorem for the critical point or the mass is
+proved in records 1974--1976. The strict monotonicity and unique-zero results,
+together with the outer sign regions, formally certify a single crossing of
+the bracket profile; this is stronger than a numerical root search. A separate
+Lean theorem stating single-peakedness of `T''`, or the exact peak-value
+identity `derivOrderL1 3 smoothSeed = 8 * T'' x*`, is not exported here. The mass
+bound uses the two sign-definite intervals and the bounded gap directly.
+Higher rungs `j >= 4`, the actual correction budget and the signed determinant /
+joint tail margin are not closed by this record. Nothing here asserts RH.
