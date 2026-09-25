@@ -555,3 +555,25 @@ joint margin, and cross-determinant inequality on the selected owner remain
 PROJECT CANDIDATES until proved. This record changes
 no binding route ruling and makes no RH claim. Preserve dated proof details and
 Lean/build/axiom evidence in `docs/proofs/` and `MEMORY.md` when a cut lands.
+
+Record [1983](../proofs/1983_rh_reachability_probe.md) (pre-registered in
+`6d8fb8eb`, run after) answers the RH-reachability question for this lane by
+measurement: on the 36-cell grid delta in {0.02, 0.05, 0.10, 0.20, 0.30, 0.45}
+x displaced ordinate in the six established ordinates, EVERY cell lands on a
+provable face — WIRE1 (D < 0) 29, WIRE2 (B, C > 0, det < 0) 7, GAP 0, DEAD 0,
+INSTRUMENT 0 → verdict COVERED_SURFACE, no structural obstruction to RH on
+the probed off-line surface. The primary knob fails on a mid-ordinate/small-
+delta patch (gammas 25.01/27.67 at delta <= 0.30 plus four GAP pockets) and
+the record-1981 scale-0.90 band rescues 12 of 13 such cells with |D| margins
+1e+08..1e+13; anchors replicate 1981 within the dxi^4 shift. The probe-C
+decay question resolved through a two-layer instrument floor (double-
+precision summation ~1e-27; float64 GL weights on a 1e-13 mass ~e^{-67},
+which defeated a naive dps=80 rerun) and an all-80-digit re-measurement:
+log|L_phi(i t)| ~ -sqrt(k a t) with the fitted sqrt(t)-slope equal to the
+edge-saddle constant 7.746/9.798 at a = 2.0/3.2 to 3-4 digits — brick 2's
+steepest-descent method VALIDATED, strip contraction met at T = 32 with 12+
+orders of margin (probe erratum: the saddle reference was sqrt(k a / 2), a
+factor sqrt(2) low). Remaining between here and RH: bricks 1-3 (priced,
+1982), pointwise D-certification (mechanical), and the UNIFORMITY layer —
+promoting measured face coverage to a theorem over the whole off-line plane
+— now open with a measured geometry to attack. No RH claim.
